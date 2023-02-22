@@ -23,7 +23,7 @@ import RestoreBackup from './restoreBackup/RestoreBackup'
 import OfferPublished from './search/OfferPublished'
 import Search from './search/Search'
 import SelectWallet from './selectWallet/SelectWallet'
-import SetRefundAddress from './selectWallet/SetRefundAddress'
+import SetRefundWallet from './selectWallet/SetRefundWallet'
 import FundEscrow from './sell/FundEscrow'
 import Sell from './sell/Sell'
 import SellPreferences from './sell/SellPreferences'
@@ -88,7 +88,7 @@ const sellFlow: ViewType[] = [
   { name: 'sellPreferences', component: SellPreferences, ...defaultConfig },
   { name: 'fundEscrow', component: FundEscrow, ...defaultConfig },
   { name: 'selectWallet', component: SelectWallet, ...defaultConfig },
-  { name: 'setRefundAddress', component: SetRefundAddress, ...defaultConfig },
+  { name: 'setRefundWallet', component: SetRefundWallet, ...defaultConfig },
 ]
 
 const search: ViewType[] = [

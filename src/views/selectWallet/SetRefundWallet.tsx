@@ -4,16 +4,16 @@ import { TouchableOpacity, View } from 'react-native'
 import { Icon, PrimaryButton, RadioButtons, Text } from '../../components'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { useSetRefundAddressSetup } from './hooks/useSetRefundAddressSetup'
+import { useSetRefundWalletSetup } from './hooks/useSetRefundWalletSetup'
 
 export default (): ReactElement => {
   const { wallets, peachWalletActive, setSelectedWallet, payoutAddress, goToSetRefundWallet, selectAndContinue }
-    = useSetRefundAddressSetup()
+    = useSetRefundWalletSetup()
 
   return (
     <View style={tw`justify-between h-full px-8 pb-7`}>
       <View style={tw`justify-center flex-shrink h-full`}>
-        <Text>{i18n('setRefundAddress.description')}</Text>
+        <Text>{i18n('setRefundWallet.description')}</Text>
         <RadioButtons
           style={tw`mt-8`}
           items={wallets}

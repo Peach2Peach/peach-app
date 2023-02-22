@@ -2,7 +2,7 @@ import { getContract, getSellOfferIdFromContract } from '../../../utils/contract
 
 export const getNavigationDestinationForContract = (contract: ContractSummary): [string, object | undefined] => {
   if (contract.tradeStatus === 'refundAddressRequired') {
-    return ['setRefundAddress', { offerId: getSellOfferIdFromContract(contract) }]
+    return ['setRefundWallet', { offerId: getSellOfferIdFromContract(contract) }]
   }
   if (contract.tradeStatus === 'rateUser') {
     const fullContract = getContract(contract.id)

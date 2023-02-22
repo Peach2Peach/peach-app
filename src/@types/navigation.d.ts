@@ -33,7 +33,7 @@ declare type RootStackParamList = {
   selectWallet: {
     type: 'refund' | 'payout'
   }
-  setRefundAddress: {
+  setRefundWallet: {
     offerId: string
   }
   offerPublished: { offerId: string }

@@ -5,8 +5,8 @@ import { getOffer, isSellOffer, saveOffer } from '../../../utils/offer'
 import { patchOffer } from '../../../utils/peachAPI'
 import { useWalletSetup } from './useWalletSetup'
 
-export const useSetRefundAddressSetup = () => {
-  const route = useRoute<'setRefundAddress'>()
+export const useSetRefundWalletSetup = () => {
+  const route = useRoute<'setRefundWallet'>()
   const navigation = useNavigation()
   const showErrorBanner = useShowErrorBanner()
   const { wallets, setSelectedWallet, payoutAddress, payoutAddressLabel, peachWalletActive } = useWalletSetup()
@@ -14,7 +14,7 @@ export const useSetRefundAddressSetup = () => {
   const { offerId } = route.params
 
   useHeaderSetup({
-    title: i18n('setRefundAddress.title'),
+    title: i18n('setRefundWallet.title'),
   })
 
   const goToSetRefundWallet = () => navigation.navigate('payoutAddress', { type: 'refund' })
@@ -23,7 +23,7 @@ export const useSetRefundAddressSetup = () => {
     if (!payoutAddress) return
     const [result, error] = await patchOffer({
       offerId,
-      refundAddress: payoutAddress,
+      refundWallet: payoutAddress,
     })
     if (error) showErrorBanner(error.error)
     if (result) {
