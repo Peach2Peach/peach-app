@@ -108,7 +108,6 @@ export class PeachWallet {
     walletStore.getState().setSynced(this.synced)
     walletStore.getState().setBalance(this.balance)
     walletStore.getState().setTransactions(this.transactions)
-    console.log(this.transactions.confirmed)
     ;[...this.transactions.confirmed, ...this.transactions.pending]
       .filter(({ txid }) => !walletStore.getState().txOfferMap[txid])
       .forEach(({ txid }) => {
