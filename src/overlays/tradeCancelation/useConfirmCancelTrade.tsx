@@ -6,7 +6,7 @@ import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
 import tw from '../../styles/tailwind'
 import { account } from '../../utils/account'
 import { checkRefundPSBT, signPSBT } from '../../utils/bitcoin'
-import { getSellOfferFromContract, saveContract } from '../../utils/contract'
+import { getPaymentExpectedBy, getSellOfferFromContract, isPaymentTimeExpired, saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { saveOffer } from '../../utils/offer'
 import { cancelContract, patchOffer } from '../../utils/peachAPI'
@@ -64,6 +64,13 @@ export const useConfirmCancelTrade = () => {
       const [result, err] = await cancelContract({
         contractId: contract.id,
       })
+
+      if (result && isPaymentTimeExpired(contract)) {
+        saveContract({
+          ...contract,
+          canceled: true,
+        })
+      }
 
       if (result?.psbt) {
         const sellOffer = getSellOfferFromContract(contract)
