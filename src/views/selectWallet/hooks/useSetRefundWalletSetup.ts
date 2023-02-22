@@ -34,6 +34,7 @@ export const useSetRefundWalletSetup = () => {
       const sellOffer = getOffer(offerId)
       if (sellOffer && isSellOffer(sellOffer)) saveOffer({
         ...sellOffer,
+        walletLabel: payoutAddressLabel,
         returnAddress: refundAddress,
       })
     }
