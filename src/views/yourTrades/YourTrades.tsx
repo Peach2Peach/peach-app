@@ -31,7 +31,7 @@ export default (): ReactElement => {
   }
 
   return (
-    <View style={tw`h-full px-8`}>
+    <View style={tw`h-full`}>
       <TabbedNavigation
         items={tabs}
         select={switchTab}
@@ -40,15 +40,15 @@ export default (): ReactElement => {
       />
       {allOpenOffers.length + pastOffers.length > 0 && (
         <SectionList
-          contentContainerStyle={[tw`py-10`, isLoading && tw`opacity-60`]}
+          contentContainerStyle={[tw`px-8 py-10 bg-transparent`, isLoading && tw`opacity-60`]}
           onRefresh={refetch}
           refreshing={false}
           showsVerticalScrollIndicator={false}
           sections={getCategories(getCurrentData())}
           renderSectionHeader={SectionHeader}
-          renderSectionFooter={() => <View style={tw`h-7`} />}
+          renderSectionFooter={() => <View style={tw`bg-transparent h-7`} />}
           renderItem={TradeItem}
-          ItemSeparatorComponent={() => <View style={tw`h-6`} />}
+          ItemSeparatorComponent={() => <View style={tw`h-6 bg-transparent`} />}
         />
       )}
       {isLoading && (
