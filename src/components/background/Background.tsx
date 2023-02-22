@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { View, StatusBar, ViewStyle } from 'react-native'
 import tw from '../../styles/tailwind'
 import { primaryGradient } from '../../utils/layout'
+import { isAndroid } from '../../utils/system'
 import { RadialGradient } from '../RadialGradient'
 
 export type BackgroundConfig = {
@@ -20,7 +21,7 @@ export const Background = ({ config = defaultConfig, children }: BackgroundProps
 
   useEffect(() => {
     StatusBar.setBarStyle(config.color === 'primaryGradient' ? 'light-content' : 'dark-content', true)
-    StatusBar.setBackgroundColor(
+    if (isAndroid()) StatusBar.setBackgroundColor(
       config.color === 'primaryGradient' ? primaryGradient[2].color : String(tw`text-primary-background`.color),
       true,
     )
