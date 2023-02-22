@@ -1,4 +1,1 @@
-import { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
-
-export const shouldGoToOfferPublished = (messageType: FirebaseMessagingTypes.RemoteMessage['messageType']) =>
-  messageType === 'offer.escrowFunded'
+export const shouldGoToOfferPublished = (messageType: PNData['type']) => messageType === 'offer.escrowFunded'
