@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useState } from 'react'
+import React, { ReactElement, useCallback, useEffect, useState } from 'react'
 import { BackHandler, View } from 'react-native'
 import shallow from 'zustand/shallow'
 import tw from '../../styles/tailwind'
@@ -10,6 +10,7 @@ import { BitcoinPriceStats, HorizontalLine } from '../../components'
 import { useSettingsStore } from '../../store/settingsStore'
 import { getDefaultSellOffer } from './helpers/getDefaultSellOffer'
 import Premium from './Premium'
+import { useFocusEffect } from '@react-navigation/native'
 
 export type SellViewProps = {
   offer: SellOfferDraft
@@ -56,18 +57,20 @@ export default (): ReactElement => {
   const currentScreen = screens[page]
   const CurrentView: Screen = currentScreen.view
 
-  useEffect(() => {
-    const listener = BackHandler.addEventListener('hardwareBackPress', () => {
-      if (page === 0) {
-        return false
+  useFocusEffect(
+    useCallback(() => {
+      const listener = BackHandler.addEventListener('hardwareBackPress', () => {
+        if (page === 0) {
+          return false
+        }
+        setPage(page - 1)
+        return true
+      })
+      return () => {
+        listener.remove()
       }
-      setPage(page - 1)
-      return true
-    })
-    return () => {
-      listener.remove()
-    }
-  }, [page])
+    }, [page]),
+  )
 
   const next = async () => {
     setPage(page + 1)
