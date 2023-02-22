@@ -171,7 +171,6 @@
   "offer.requiredAction.fundEscrow": "fund escrow",
   "offer.requiredAction.fundingAmountDifferent": "wrong amount funded",
   "offer.requiredAction.escrowWaitingForConfirmation": "transaction pending",
-  "offer.requiredAction.messageSigningRequired": "sign message",
   "offer.requiredAction.returnAddressRequired": "provide refund address",
   "offer.requiredAction.refundTxSignatureRequired": "refund escrow",
   "offer.requiredAction.provideReturnAddress": "provide refund address",
