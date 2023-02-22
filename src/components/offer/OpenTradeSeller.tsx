@@ -1,5 +1,5 @@
-import React, { ReactElement, useMemo } from 'react'
-import { View } from 'react-native'
+import React, { ReactElement, useEffect, useMemo, useRef } from 'react'
+import { ScrollView, View } from 'react-native'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { getPaymentDataByMethod } from '../../utils/offer'
@@ -15,6 +15,8 @@ import { PaymentMethod } from './PaymentMethod'
 import { TradeSummaryProps } from './TradeSummary'
 
 export const OpenTradeSeller = ({ contract }: TradeSummaryProps): ReactElement => {
+  let scroll = useRef<ScrollView>(null).current
+
   const storedPaymentData = useMemo(
     () =>
       contract.paymentData
@@ -24,11 +26,24 @@ export const OpenTradeSeller = ({ contract }: TradeSummaryProps): ReactElement =
   )
 
   const PaymentTo = !storedPaymentData && contract.paymentMethod ? paymentDetailTemplates[contract.paymentMethod] : null
+
+  useEffect(() => {
+    scroll?.flashScrollIndicators()
+  }, [scroll])
+
   return (
-    <View style={[tw`h-full`, tw.md`h-auto`]}>
-      <MatchCardCounterparty user={contract.buyer} />
-      <HorizontalLine style={tw`mt-7`} />
-      <PeachScrollView showsVerticalScrollIndicator={false}>
+    <View style={tw`max-h-full`}>
+      <View style={tw`px-7`}>
+        <MatchCardCounterparty user={contract.buyer} />
+        <HorizontalLine style={tw`mt-7`} />
+      </View>
+      <PeachScrollView
+        scrollRef={(ref) => (scroll = ref)}
+        style={tw`flex-shrink`}
+        contentContainerStyle={tw`px-7`}
+        showsVerticalScrollIndicator
+        persistentScrollbar
+      >
         <View style={tw`flex-row items-center justify-between mt-6`}>
           <Text style={tw`text-black-2`}>{i18n('contract.willPayYou')}</Text>
           <View style={tw`flex-row items-center`}>

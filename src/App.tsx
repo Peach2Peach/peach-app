@@ -38,8 +38,9 @@ import { Background } from './components/background/Background'
 import { APPVERSION, ISEMULATOR, TIMETORESTART } from './constants'
 import appStateEffect from './effects/appStateEffect'
 import { useUpdateTradingAmounts } from './hooks'
-import { useCheckTradeNotifications } from './hooks/useCheckTradeNotifications'
+import { useMessageHandler } from './hooks/notifications/useMessageHandler'
 import { useHandleNotifications } from './hooks/notifications/usePushHandleNotifications'
+import { useCheckTradeNotifications } from './hooks/useCheckTradeNotifications'
 import { getPeachInfo } from './init/getPeachInfo'
 import { getTrades } from './init/getTrades'
 import { initApp } from './init/initApp'
@@ -50,10 +51,10 @@ import { showAnalyticsPrompt } from './overlays/showAnalyticsPrompt'
 import { useBitcoinStore } from './store/bitcoinStore'
 import { useConfigStore } from './store/configStore'
 import { account, getAccount } from './utils/account'
+import { screenTransition } from './utils/layout/screenTransition'
 import { error, info } from './utils/log'
 import { marketPrices } from './utils/peachAPI/public/market'
-import { compatibilityCheck, linkToAppStore } from './utils/system'
-import { useMessageHandler } from './hooks/notifications/useMessageHandler'
+import { compatibilityCheck, isIOS, linkToAppStore } from './utils/system'
 
 enableScreens()
 
@@ -277,18 +278,24 @@ const App: React.FC = () => {
                               <Stack.Navigator
                                 detachInactiveScreens={true}
                                 screenOptions={{
-                                  gestureEnabled: false,
+                                  gestureEnabled: isIOS(),
                                   headerShown: false,
                                 }}
                               >
-                                {views.map(({ name, component, showHeader }) => (
+                                {views.map(({ name, component, showHeader, background, animationEnabled }) => (
                                   <Stack.Screen
                                     {...{ name, component }}
                                     key={name}
                                     options={{
-                                      animationEnabled: false,
+                                      headerMode: 'float',
                                       headerShown: showHeader,
+                                      animationEnabled: isIOS() && animationEnabled,
+                                      cardStyle: !background.color && tw`bg-primary-background`,
                                       header: () => <Header />,
+                                      transitionSpec: {
+                                        open: screenTransition,
+                                        close: screenTransition,
+                                      },
                                     }}
                                   />
                                 ))}

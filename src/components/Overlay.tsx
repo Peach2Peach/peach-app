@@ -43,6 +43,7 @@ export const Overlay = ({
   const closeOverlay = useMemo(() => () => updateOverlay({ visible: false }), [updateOverlay])
 
   useEffect(() => {
+    if (!content) return () => {}
     const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
       closeOverlay()
       return true
