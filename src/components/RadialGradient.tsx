@@ -2,14 +2,14 @@ import React from 'react'
 import { StyleProp, ViewStyle } from 'react-native'
 import Svg, { Defs, NumberProp, RadialGradient as SVGRadialGradient, Rect, Stop } from 'react-native-svg'
 
-export type ColorItem = {
+export type ColorStop = {
   offset: string
   color: string
   opacity: string
 }
 
 type Props = {
-  colorList: ColorItem[]
+  colorList: ColorStop[]
   x: NumberProp
   y: NumberProp
   rx: NumberProp

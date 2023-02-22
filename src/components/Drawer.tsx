@@ -59,6 +59,8 @@ export const Drawer = ({ title, content, show, previousDrawer, onClose }: Drawer
   }, [fadeAnim, onClose, updateDrawer])
 
   useEffect(() => {
+    if (!content) return () => {}
+
     const listener = BackHandler.addEventListener('hardwareBackPress', () => {
       if (previousDrawer) {
         updateDrawer({ show: false })
@@ -68,7 +70,6 @@ export const Drawer = ({ title, content, show, previousDrawer, onClose }: Drawer
         updateDrawer({ show: false })
         return true
       }
-      if (content) return true
       return false
     })
     return () => {

@@ -14,15 +14,9 @@ import { shouldGoToOfferPublished } from './shouldGoToOfferPublished'
 export type StackNavigation = StackNavigationProp<RootStackParamList, keyof RootStackParamList>
 export type Navigation = NavigationContainerRefWithCurrent<RootStackParamList> | StackNavigation
 
-export type PushNotification = {
-  offerId?: string
-  contractId?: string
-  isChat?: string
-}
-
 export const handlePushNotification = async (
   navigationRef: Navigation,
-  remoteMessage: FirebaseMessagingTypes.RemoteMessage & { data: PushNotification },
+  remoteMessage: FirebaseMessagingTypes.RemoteMessage & { data: PNData },
 ): Promise<boolean> => {
   if (shouldGoToContract(remoteMessage)) {
     const {
@@ -53,9 +47,9 @@ export const handlePushNotification = async (
     const {
       data: { offerId },
     } = remoteMessage
-    if (shouldGoToSearch(remoteMessage.messageType, !!(offer?.matches && offer.matches.length > 0))) {
+    if (shouldGoToSearch(remoteMessage.data.type, !!(offer?.matches && offer.matches.length > 0))) {
       navigationRef.navigate('search', { offerId })
-    } else if (shouldGoToOfferPublished(remoteMessage.messageType)) {
+    } else if (shouldGoToOfferPublished(remoteMessage.data.type)) {
       navigationRef.navigate('offerPublished', { offerId })
     } else {
       navigationRef.navigate('offer', { offerId })
