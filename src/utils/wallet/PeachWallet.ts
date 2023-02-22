@@ -144,7 +144,7 @@ export class PeachWallet {
     return this.transactions
   }
 
-  async getReceivingAddress (): Promise<string | null> {
+  async getReceivingAddress (): Promise<string> {
     info('PeachWallet - getReceivingAddress - start')
     if (!this.initialized) throw Error('WALLET_NOT_READY')
 

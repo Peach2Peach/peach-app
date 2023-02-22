@@ -3,6 +3,7 @@ import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import i18n from '../../../utils/i18n'
 import { getOffer, isSellOffer, saveOffer } from '../../../utils/offer'
 import { patchOffer } from '../../../utils/peachAPI'
+import { peachWallet } from '../../../utils/wallet/setWallet'
 import { useWalletSetup } from './useWalletSetup'
 
 export const useSetRefundWalletSetup = () => {
@@ -20,17 +21,20 @@ export const useSetRefundWalletSetup = () => {
   const goToSetRefundWallet = () => navigation.navigate('payoutAddress', { type: 'refund' })
 
   const selectAndContinue = async () => {
-    if (!payoutAddress) return
+    let refundAddress: string | undefined = payoutAddress
+    if (!refundAddress && peachWalletActive) refundAddress = await peachWallet.getReceivingAddress()
+    if (!refundAddress) return
+
     const [result, error] = await patchOffer({
       offerId,
-      refundWallet: payoutAddress,
+      refundAddress,
     })
     if (error) showErrorBanner(error.error)
     if (result) {
       const sellOffer = getOffer(offerId)
       if (sellOffer && isSellOffer(sellOffer)) saveOffer({
         ...sellOffer,
-        returnAddress: payoutAddress,
+        returnAddress: refundAddress,
       })
     }
     navigation.goBack()
