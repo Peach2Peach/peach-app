@@ -161,6 +161,12 @@ const useFakePNs = () => {
     },
     {
       data: {
+        type: 'contract.buyer.paymentTimerHasRunOut',
+        contractId,
+      },
+    },
+    {
+      data: {
         type: 'contract.seller.paymentTimerHasRunOut',
         contractId,
       },

@@ -70,14 +70,15 @@ export const useContractPopupEvents = () => {
       'contract.buyer.paymentTimerExtended': (contract: Contract) => showPaymentTimerExtended(contract, true),
     }),
     [
-      showCancelTradeRequestRejected,
-      showConfirmTradeCancelation,
       showDisputeRaisedNotice,
       showDisputeResults,
-      showPaymentTimerExtended,
+      showTradeCanceled,
+      showConfirmTradeCancelation,
+      showCancelTradeRequestRejected,
+      showPaymentTooLateOverlay,
       showPaymentTimerHasRunOut,
       showPaymentTimerSellerCanceled,
-      showTradeCanceled,
+      showPaymentTimerExtended,
     ],
   )
 
