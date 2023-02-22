@@ -189,10 +189,45 @@ const useFakePNs = () => {
         isChat: 'true',
       },
     },
-
     {
       data: {
         type: 'contract.disputeResolved',
+        contractId,
+      },
+      notification: {
+        bodyLocArgs: ['PC-123-456'],
+      },
+    },
+    {
+      data: {
+        type: 'contract.buyer.disputeWon',
+        contractId,
+      },
+      notification: {
+        bodyLocArgs: ['PC-123-456'],
+      },
+    },
+    {
+      data: {
+        type: 'contract.seller.disputeWon',
+        contractId,
+      },
+      notification: {
+        bodyLocArgs: ['PC-123-456'],
+      },
+    },
+    {
+      data: {
+        type: 'contract.buyer.disputeLost',
+        contractId,
+      },
+      notification: {
+        bodyLocArgs: ['PC-123-456'],
+      },
+    },
+    {
+      data: {
+        type: 'contract.seller.disputeLost',
         contractId,
       },
       notification: {

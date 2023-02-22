@@ -392,15 +392,18 @@ declare type NotificationType =
   | 'contract.buyer.paymentTimerSellerCanceled' // PN-B06
   | 'contract.buyer.paymentTimerExtended' // PN-B07
   | 'contract.seller.paymentTimerHasRunOut' // PN-S12
-  | 'contract.seller.inactiveBuyerCancel' // PN-S14
+  | 'contract.seller.canceledAfterEscrowExpiry' // PN-S14
   | 'contract.paymentMade' // PN-S11
   | 'contract.tradeCompleted' // PN-B09
   | 'contract.chat' // PN-A03
   | 'contract.buyer.disputeRaised' // PN-D01
   | 'contract.seller.disputeRaised' // PN-D01
-  | 'contract.disputeResolved' // PN-D02 PN-D03
+  | 'contract.disputeResolved' // PN-D04
+  | 'contract.buyer.disputeWon' // PN-D02
+  | 'contract.buyer.disputeLost' // PN-D03
+  | 'contract.seller.disputeWon' // PN-D02
+  | 'contract.seller.disputeLost' // PN-D03
   | 'contract.canceled' // PN-S13
-  | 'seller.canceledAfterEscrowExpiry' // PN-S14
   | 'contract.cancelationRequest' // PN-B08
   | 'contract.cancelationRequestAccepted' // PN-S15
   | 'contract.cancelationRequestRejected' // PN-S16
