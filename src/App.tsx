@@ -161,8 +161,9 @@ const App: React.FC = () => {
 
   setUnhandledPromiseRejectionTracker((id, err) => {
     error(err)
+    const msgKey = (err as Error).message === 'Network request failed' ? 'NETWORK_ERROR' : (err as Error).message
     updateMessage({
-      msgKey: (err as Error).message || 'GENERAL_ERROR',
+      msgKey: msgKey || 'GENERAL_ERROR',
       level: 'ERROR',
       action: {
         callback: () => navigationRef.navigate('contact'),
@@ -183,7 +184,18 @@ const App: React.FC = () => {
     }
 
     ;(async () => {
-      await initApp()
+      const statusResponse = await initApp()
+      if (!statusResponse || statusResponse.error) {
+        updateMessage({
+          msgKey: statusResponse?.error || 'NETWORK_ERROR',
+          level: 'ERROR',
+          action: {
+            callback: () => navigationRef.navigate('contact'),
+            label: i18n('contactUs'),
+            icon: 'mail',
+          },
+        })
+      }
       setCurrentPage(!!account?.publicKey ? 'home' : 'welcome')
       await initialNavigation(navigationRef, updateMessage)
       requestUserPermissions()

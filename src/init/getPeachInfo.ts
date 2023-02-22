@@ -13,7 +13,7 @@ export const getPeachInfo = async (account?: Account) => {
 
   if (!statusResponse || statusResponse.error) {
     error('Server not available', statusResponse)
-    throw new Error(statusResponse?.error || 'NETWORK_ERROR')
+    return statusResponse
   }
 
   const { setLatestAppVersion, setMinAppVersion, setPeachFee, setPeachPGPPublicKey } = configStore.getState()
@@ -35,4 +35,5 @@ export const getPeachInfo = async (account?: Account) => {
     setLatestAppVersion(peachInfoResponse.latestAppVersion)
     setMinAppVersion(peachInfoResponse.minAppVersion)
   }
+  return statusResponse
 }
