@@ -72,6 +72,11 @@ module.exports = {
           mild: '#93D6F5',
           background: '#D7F2FE',
         },
+        gradient: {
+          yellow:'#FFA24C',
+          orange:'#FF7A50',
+          red: '#FF4D42',
+        }
       },
       fontSize: {
         '6xl': '96px',

@@ -20,8 +20,8 @@ describe('handlePushNotification', () => {
 
   it('navigates to contract when shouldGoToContract is true', async () => {
     const remoteMessage = {
-      messageType: 'contract.paymentMade',
       data: {
+        type: 'contract.paymentMade',
         contractId: '1',
         sentTime: 1231006505000,
       },
@@ -41,8 +41,8 @@ describe('handlePushNotification', () => {
 
   it('navigates to contract when shouldGoToContract is true and no contract is locally defined', async () => {
     const remoteMessage = {
-      messageType: 'contract.paymentMade',
       data: {
+        type: 'contract.paymentMade',
         contractId: '1',
         sentTime: 1231006505000,
       },
@@ -59,8 +59,8 @@ describe('handlePushNotification', () => {
 
   it('navigates to contract and set payment made date to now if no sentTime is defined', async () => {
     const remoteMessage = {
-      messageType: 'contract.paymentMade',
       data: {
+        type: 'contract.paymentMade',
         contractId: '1',
       },
     } as FirebaseMessagingTypes.RemoteMessage & { data: any }
@@ -79,8 +79,8 @@ describe('handlePushNotification', () => {
 
   it('navigates to contract chat when shouldGoToContractChat is true', async () => {
     const remoteMessage = {
-      messageType: 'contract.chat',
       data: {
+        type: 'contract.chat',
         contractId: '1',
         isChat: 'true',
       },
@@ -93,8 +93,7 @@ describe('handlePushNotification', () => {
 
   it('navigates to yourTrades sell when shouldGoToYourTradesSell is true', async () => {
     const remoteMessage = {
-      messageType: 'offer.sellOfferExpired',
-      data: { offerId: sellOffer.id },
+      data: { offerId: sellOffer.id, type: 'offer.sellOfferExpired' },
     } as FirebaseMessagingTypes.RemoteMessage & {
       data: any
     }
@@ -106,8 +105,7 @@ describe('handlePushNotification', () => {
 
   it('navigates to sell when shouldGoToSell is true', async () => {
     const remoteMessage = {
-      messageType: 'offer.notFunded',
-      data: { offerId: sellOffer.id },
+      data: { offerId: sellOffer.id, type: 'offer.notFunded' },
     } as FirebaseMessagingTypes.RemoteMessage & {
       data: any
     }
@@ -126,8 +124,8 @@ describe('handlePushNotification', () => {
     ])
 
     const remoteMessage = {
-      messageType: 'offer.matchSeller',
       data: {
+        type: 'offer.matchSeller',
         offerId: sellOffer.id,
       },
     } as FirebaseMessagingTypes.RemoteMessage & { data: any }
@@ -140,8 +138,8 @@ describe('handlePushNotification', () => {
   it('navigates to offerPublished when shouldGoToOfferPublished is true and offerId is defined', async () => {
     ;(getOfferDetails as jest.Mock).mockResolvedValue([sellOffer, null])
     const remoteMessage = {
-      messageType: 'offer.escrowFunded',
       data: {
+        type: 'offer.escrowFunded',
         offerId: sellOffer.id,
       },
     } as FirebaseMessagingTypes.RemoteMessage & { data: any }
@@ -154,8 +152,8 @@ describe('handlePushNotification', () => {
   it('navigates to offer when offerId is defined', async () => {
     ;(getOfferDetails as jest.Mock).mockResolvedValue([sellOffer, null])
     const remoteMessage = {
-      messageType: 'offer.canceled',
       data: {
+        type: 'offer.canceled',
         offerId: sellOffer.id,
       },
     } as FirebaseMessagingTypes.RemoteMessage & { data: any }
@@ -168,8 +166,7 @@ describe('handlePushNotification', () => {
   it('should do nothing and return false in any other case', async () => {
     ;(getOfferDetails as jest.Mock).mockResolvedValue([sellOffer, null])
     const remoteMessage = {
-      messageType: 'unhandled.messageType',
-      data: {},
+      data: { type: 'unhandled.messageType' },
     } as FirebaseMessagingTypes.RemoteMessage & { data: any }
 
     const result = await handlePushNotification(navigationRef, remoteMessage)
