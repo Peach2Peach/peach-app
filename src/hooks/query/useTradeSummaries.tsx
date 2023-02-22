@@ -1,3 +1,4 @@
+import { useCallback } from 'react'
 import { useContractSummaries } from './useContractSummaries'
 import { useOfferSummaries } from './useOfferSummaries'
 
@@ -10,10 +11,11 @@ export const useTradeSummaries = () => {
     refetch: refetchContracts,
   } = useContractSummaries()
 
-  const refetch = () => {
+  const refetch = useCallback(() => {
     refetchOffers()
     refetchContracts()
-  }
+  }, [refetchContracts, refetchOffers])
+
   return {
     offers,
     contracts,
