@@ -19,7 +19,7 @@ const useFakePNs = () => {
   const buyOfferId = firstBuyOffer?.id || '1'
   const contractId = firstContract?.id || '1-2'
 
-  const fakeGlobalPNs = [
+  const fakeOfferPNs = [
     {
       data: {
         type: 'offer.escrowFunded',
@@ -86,6 +86,8 @@ const useFakePNs = () => {
         offerId: sellOfferId,
       },
     },
+  ]
+  const fakeContractPNs = [
     {
       data: {
         type: 'contract.contractCreated',
@@ -109,24 +111,6 @@ const useFakePNs = () => {
       },
       notification: {
         bodyLocArgs: ['PC-123-456', '200000'],
-      },
-    },
-    {
-      data: {
-        type: 'contract.cancelationRequestAccepted',
-        contractId,
-      },
-      notification: {
-        bodyLocArgs: ['PC-123-456'],
-      },
-    },
-    {
-      data: {
-        type: 'contract.cancelationRequestRejected',
-        contractId,
-      },
-      notification: {
-        bodyLocArgs: ['PC-123-456'],
       },
     },
     {
@@ -205,26 +189,7 @@ const useFakePNs = () => {
         isChat: 'true',
       },
     },
-  ]
-  const fakeContractPNs = [
-    {
-      data: {
-        type: 'contract.buyer.disputeRaised',
-        contractId,
-      },
-      notification: {
-        bodyLocArgs: ['PC-123-456', '200000'],
-      },
-    },
-    {
-      data: {
-        type: 'contract.seller.disputeRaised',
-        contractId,
-      },
-      notification: {
-        bodyLocArgs: ['PC-123-456', '200000'],
-      },
-    },
+
     {
       data: {
         type: 'contract.disputeResolved',
@@ -279,53 +244,26 @@ const useFakePNs = () => {
         bodyLocArgs: ['PC-123-456'],
       },
     },
-    {
-      data: {
-        type: 'contract.buyer.paymentTimerHasRunOut',
-        contractId,
-      },
-    },
-    {
-      data: {
-        type: 'contract.buyer.paymentTimerSellerCanceled',
-        contractId,
-      },
-    },
-    {
-      data: {
-        type: 'contract.buyer.paymentTimerExtended',
-        contractId,
-      },
-    },
-    {
-      data: {
-        type: 'contract.seller.paymentTimerHasRunOut',
-        contractId,
-      },
-    },
   ]
-  return { fakeGlobalPNs, fakeContractPNs }
+  return { fakeOfferPNs, fakeContractPNs }
 }
 
 export default () => {
   useHeaderSetup(useMemo(() => ({ title: 'test view - pns' }), []))
-  const firstContract = useMemo(() => account.contracts[0], [])
-  const contractId = firstContract?.id || '1-2'
   const messageHandler = useMessageHandler(() => 'testViewPNs')
-  const contractMessageHandler = useContractMessageHandler(contractId)
-  const { fakeGlobalPNs, fakeContractPNs } = useFakePNs()
+  const { fakeOfferPNs, fakeContractPNs } = useFakePNs()
   const tabs = [
-    { id: 'global', display: 'global' },
+    { id: 'offer', display: 'offer' },
     { id: 'contract', display: 'contract' },
   ]
   const [currentTab, setCurrentTab] = useState(tabs[0])
   return (
     <View style={tw`py-10`}>
       <TabbedNavigation style={tw`mb-4`} items={tabs} selected={currentTab} select={setCurrentTab} />
-      {currentTab.id === 'global' && (
+      {currentTab.id === 'offer' && (
         <FlatList
           contentContainerStyle={tw`px-6 `}
-          data={fakeGlobalPNs}
+          data={fakeOfferPNs}
           renderItem={({ item }) => (
             <PrimaryButton onPress={() => messageHandler(item as unknown as FirebaseMessagingTypes.RemoteMessage)}>
               {item.data.type}
@@ -339,9 +277,7 @@ export default () => {
           contentContainerStyle={tw`px-6 `}
           data={fakeContractPNs}
           renderItem={({ item }) => (
-            <PrimaryButton
-              onPress={() => contractMessageHandler(item as unknown as FirebaseMessagingTypes.RemoteMessage)}
-            >
+            <PrimaryButton onPress={() => messageHandler(item as unknown as FirebaseMessagingTypes.RemoteMessage)}>
               {item.data.type}
             </PrimaryButton>
           )}

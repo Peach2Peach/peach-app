@@ -1,15 +1,15 @@
 import { useMemo } from 'react'
-import { useConfirmEscrowOverlay } from '../../../overlays/useConfirmEscrowOverlay'
-import { useWronglyFundedOverlay } from '../../../overlays/useWronglyFundedOverlay'
-import { getOffer } from '../../../utils/offer'
+import { useConfirmEscrowOverlay } from '../../../../overlays/useConfirmEscrowOverlay'
+import { useWronglyFundedOverlay } from '../../../../overlays/useWronglyFundedOverlay'
+import { getOffer } from '../../../../utils/offer'
 
 type PNEventHandlers = Partial<Record<NotificationType, (data: PNData) => void>>
 
-export const usePopupEvents = () => {
+export const useOfferPopupEvents = () => {
   const confirmEscrowOverlay = useConfirmEscrowOverlay()
   const wronglyFundedOverlay = useWronglyFundedOverlay()
 
-  const popupEvents: PNEventHandlers = useMemo(
+  const offerPopupEvents: PNEventHandlers = useMemo(
     () => ({
       // PN-S07
       'offer.fundingAmountDifferent': ({ offerId }: PNData) => {
@@ -28,5 +28,5 @@ export const usePopupEvents = () => {
     }),
     [confirmEscrowOverlay, wronglyFundedOverlay],
   )
-  return popupEvents
+  return offerPopupEvents
 }

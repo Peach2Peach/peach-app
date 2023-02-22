@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { act, renderHook } from '@testing-library/react-hooks'
-import { usePopupEvents } from '../../../../../src/hooks/notifications/global/usePopupEvents'
+import { usePopupEvents } from '../../../../../src/hooks/notifications/eventHandler/usePopupEvents'
 import { getOffer } from '../../../../../src/utils/offer'
 
 const confirmEscrowOverlayMock = jest.fn()

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { act, renderHook } from '@testing-library/react-hooks'
-import { useContractPopupEvents } from '../../../../../src/hooks/notifications/contract/useContractPopupEvents'
+import { useContractPopupEvents } from '../../../../../src/hooks/notifications/eventHandler/contract/useContractPopupEvents'
 import Contract from '../../../../../src/views/contract/Contract'
 import { contract } from '../../../data/contractData'
 

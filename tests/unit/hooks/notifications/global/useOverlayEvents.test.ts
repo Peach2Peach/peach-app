@@ -1,6 +1,6 @@
 import { act, renderHook } from '@testing-library/react-hooks'
 import { useNavigation } from '../../../../../src/hooks'
-import { useOverlayEvents } from '../../../../../src/hooks/notifications/global/useOverlayEvents'
+import { useOverlayEvents } from '../../../../../src/hooks/notifications/eventHandler/useOverlayEvents'
 
 jest.mock('../../../../../src/hooks/useNavigation', () => ({
   useNavigation: jest.fn().mockReturnValue({
