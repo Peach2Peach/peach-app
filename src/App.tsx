@@ -275,6 +275,7 @@ const App: React.FC = () => {
                               <Stack.Navigator
                                 detachInactiveScreens={true}
                                 screenOptions={{
+                                  gestureEnabled: isIOS(),
                                   headerShown: false,
                                 }}
                               >
