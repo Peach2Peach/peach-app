@@ -6,11 +6,11 @@ import { enforceUsernameFormat } from './enforceUsernameFormat'
 
 const VERSION = '0.2.0'
 const formatters: Record<string, (value: string) => string> = {
-  phone: (value: string) => enforcePhoneFormat(value),
-  iban: (value: string) => enforceIBANFormat(value),
-  bic: (value: string) => enforceBICFormat(value),
-  userName: (value: string) => enforceUsernameFormat(value),
-  email: (value: string) => enforceEmailFormat(value),
+  phone: enforcePhoneFormat,
+  iban: enforceIBANFormat,
+  bic: enforceBICFormat,
+  userName: enforceUsernameFormat,
+  email: enforceEmailFormat,
 }
 
 export const enforceFormatOnPaymentData = (data: PaymentData) => {
