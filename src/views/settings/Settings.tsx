@@ -3,7 +3,7 @@ import { View } from 'react-native'
 
 import tw from '../../styles/tailwind'
 
-import { Headline, PeachScrollView } from '../../components'
+import { PeachScrollView, Text } from '../../components'
 import i18n from '../../utils/i18n'
 import { SettingsItem } from './components/SettingsItem'
 import { VersionInfo } from './components/VersionInfo'
@@ -17,9 +17,7 @@ export default (): ReactElement => {
       {settings.map(({ headline, items }) => (
         <View key={`settings-${headline}`} style={tw`mx-8`}>
           {headline && (
-            <Headline style={tw`mb-3 text-left lowercase h6 text-primary-main mt-9`}>
-              {i18n(`settings.${headline}`)}
-            </Headline>
+            <Text style={tw`mb-3 text-left lowercase h6 text-primary-main mt-9`}>{i18n(`settings.${headline}`)}</Text>
           )}
           {items.map((item, i) => (
             <SettingsItem key={`${headline}-${item.title}-${i}`} {...item} />

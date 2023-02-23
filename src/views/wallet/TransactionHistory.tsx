@@ -13,7 +13,7 @@ const Separator = () => <View style={tw`mt-4`} />
 
 export default () => {
   useHeaderSetup(useMemo(() => ({ title: i18n('wallet.transactionHistory') }), []))
-  const { transactions } = useTransactionHistorySetup()
+  const { transactions, refresh, loading } = useTransactionHistorySetup()
 
   if (transactions.length === 0) return (
     <View style={tw`items-center justify-center h-full`}>
@@ -22,5 +22,14 @@ export default () => {
       <Text style={tw`mt-8 subtitle-1 text-black-2`}>{i18n('wallet.transactionHistory.empty')}</Text>
     </View>
   )
-  return <FlatList style={tw`px-8 pt-12`} data={transactions} renderItem={ListItem} ItemSeparatorComponent={Separator} />
+  return (
+    <FlatList
+      contentContainerStyle={tw`px-8 py-12`}
+      data={transactions}
+      renderItem={ListItem}
+      ItemSeparatorComponent={Separator}
+      onRefresh={refresh}
+      refreshing={loading}
+    />
+  )
 }

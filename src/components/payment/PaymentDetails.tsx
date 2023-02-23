@@ -177,9 +177,9 @@ export default ({ setMeansOfPayment, editing, style, origin }: PaymentDetailsPro
                       </View>
                     ) : (
                       <View style={tw`flex flex-row justify-between`}>
-                        <Text style={tw`font-baloo text-red`}>{item.data.label}</Text>
+                        <Text style={tw`font-baloo text-error-main`}>{item.data.label}</Text>
                         <Pressable onPress={() => deletePaymentData(item.data)} style={tw`w-6 h-6`}>
-                          <Icon id="x" style={tw`w-6 h-6`} color={tw`text-peach-1`.color} />
+                          <Icon id="trash" style={tw`w-6 h-6`} color={tw`text-black-2`.color} />
                         </Pressable>
                       </View>
                     )}

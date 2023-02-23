@@ -3,10 +3,15 @@ import { useOfferDetails } from '../../../hooks/query/useOfferDetails'
 import { isBuyOffer } from '../../../utils/offer'
 
 export const useOfferPublishedSetup = () => {
-  const { offerId } = useRoute<'offerPublished'>().params
+  const { offerId, shouldGoBack } = useRoute<'offerPublished'>().params
   const { offer } = useOfferDetails(offerId)
   const navigation = useNavigation()
   const goBackHome = () => offer && navigation.replace(isBuyOffer(offer) ? 'buy' : 'sell')
+  const goBack = () => navigation.goBack()
 
-  return goBackHome
+  return {
+    shouldGoBack,
+    goBackHome,
+    goBack,
+  }
 }
