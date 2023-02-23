@@ -11,6 +11,7 @@ import { getTx } from '../../../utils/peachAPI'
 import { peachWallet } from '../../../utils/wallet/setWallet'
 import { useWalletState } from '../../../utils/wallet/walletStore'
 import { getTxSummary } from '../helpers/getTxSummary'
+import { useSyncWallet } from './useSyncWallet'
 
 export const useTransactionDetailsSetup = () => {
   const route = useRoute<'transactionDetails'>()
@@ -18,10 +19,7 @@ export const useTransactionDetailsSetup = () => {
   const walletStore = useWalletState()
   const [transaction, setTransaction] = useState<TransactionSummary>()
   const [receivingAddress, setReceivingAddress] = useState<string>()
-
-  const openInExplorer = () => {
-    if (transaction) showTransaction(transaction.id as string, NETWORK)
-  }
+  const { refresh, loading } = useSyncWallet()
 
   useHeaderSetup(
     useMemo(
@@ -31,6 +29,10 @@ export const useTransactionDetailsSetup = () => {
       [],
     ),
   )
+
+  const openInExplorer = () => {
+    if (transaction) showTransaction(transaction.id as string, NETWORK)
+  }
 
   useEffect(() => {
     ;(async () => {
@@ -55,5 +57,7 @@ export const useTransactionDetailsSetup = () => {
     transaction,
     receivingAddress,
     openInExplorer,
+    refresh,
+    loading,
   }
 }

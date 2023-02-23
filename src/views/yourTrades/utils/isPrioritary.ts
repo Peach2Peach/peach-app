@@ -3,9 +3,7 @@ const prioritaryStatus = [
   'fundingAmountDifferent',
   'confirmCancelation',
   'refundTxSignatureRequired',
-  'tradeCompleted',
-  'tradeCanceled',
-  'offerCanceled',
+  'refundOrReviveRequired',
 ]
 
 export const isPrioritary = (tradeStatus: TradeStatus) => prioritaryStatus.includes(tradeStatus)

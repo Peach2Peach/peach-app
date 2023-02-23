@@ -1,5 +1,5 @@
-import React, { ReactElement } from 'react'
-import { View } from 'react-native'
+import React, { ReactElement, useEffect, useRef } from 'react'
+import { ScrollView, View } from 'react-native'
 import { APPLINKS } from '../../constants'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
@@ -16,12 +16,25 @@ import { TradeSummaryProps } from './TradeSummary'
 export const OpenTradeBuyer = ({ contract }: TradeSummaryProps): ReactElement => {
   const PaymentTo = contract?.paymentMethod ? paymentDetailTemplates[contract.paymentMethod] : null
   const appLink = APPLINKS[contract.paymentMethod]
+  let scroll = useRef<ScrollView>(null).current
+
+  useEffect(() => {
+    scroll?.flashScrollIndicators()
+  }, [scroll])
 
   return (
-    <View style={[tw`h-full`, tw.md`h-auto`]}>
-      <MatchCardCounterparty user={contract.seller} />
-      <HorizontalLine style={tw`mt-7`} />
-      <PeachScrollView style={tw`flex-shrink`} showsVerticalScrollIndicator={false}>
+    <View style={tw`max-h-full`}>
+      <View style={tw`mx-7`}>
+        <MatchCardCounterparty user={contract.seller} />
+        <HorizontalLine style={tw`mt-7`} />
+      </View>
+      <PeachScrollView
+        scrollRef={(ref) => (scroll = ref)}
+        style={tw`flex-shrink`}
+        contentContainerStyle={tw`px-7`}
+        showsVerticalScrollIndicator
+        persistentScrollbar
+      >
         <View style={tw`flex-row items-center justify-between mt-6`}>
           <Text style={tw`text-black-2`}>{i18n('contract.youShouldPay')}</Text>
           <View style={tw`flex-row items-center`}>

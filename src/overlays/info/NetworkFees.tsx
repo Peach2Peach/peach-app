@@ -5,9 +5,9 @@ import tw from '../../styles/tailwind'
 import { Text } from '../../components'
 import i18n from '../../utils/i18n'
 
-export default (): ReactElement => (
+export const NetworkFees = (): ReactElement => (
   <View>
-    <Text style={tw`text-white-1`}>{i18n('help.networkFees.description.1')}</Text>
-    <Text style={tw`mt-2 text-white-1`}>{i18n('help.networkFees.description.2')}</Text>
+    <Text>{i18n('help.networkFees.description.1')}</Text>
+    <Text style={tw`mt-2`}>{i18n('help.networkFees.description.2')}</Text>
   </View>
 )

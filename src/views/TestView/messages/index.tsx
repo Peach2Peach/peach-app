@@ -25,6 +25,17 @@ export default () => {
       contentContainerStyle={tw`flex items-center w-full px-6 py-10`}
     >
       <PrimaryButton onPress={() => openMessage('SUCCESS')}>ok message</PrimaryButton>
+      <PrimaryButton
+        style={tw`mt-2`}
+        onPress={() =>
+          openMessage('APP', {
+            msgKey: 'notification.contract.buyer.disputeRaised',
+            bodyArgs: ['PC-123-456', '200000 sats'],
+          })
+        }
+      >
+        message with args
+      </PrimaryButton>
       <PrimaryButton style={tw`mt-2`} onPress={() => openMessage('ERROR')}>
         error message
       </PrimaryButton>
