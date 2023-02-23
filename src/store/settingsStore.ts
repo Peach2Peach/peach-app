@@ -9,6 +9,7 @@ type SettingsStore = Settings & {
   updateSettings: (settings: Settings) => void
   setAppVersion: (appVersion: string) => void
   setEnableAnalytics: (enableAnalytics: boolean) => void
+  setAnalyticsPopupSeen: (analyticsPopupSeen: boolean) => void
   setLocale: (locale: string) => void
   setMinBuyAmount: (minBuyAmount: number) => void
   setMaxBuyAmount: (maxBuyAmount: number) => void
@@ -42,6 +43,7 @@ export const settingsStore = createStore(
       updateSettings: (settings) => set({ ...settings }),
       setAppVersion: (appVersion) => set((state) => ({ ...state, appVersion })),
       setEnableAnalytics: (enableAnalytics) => set((state) => ({ ...state, enableAnalytics })),
+      setAnalyticsPopupSeen: (analyticsPopupSeen) => set((state) => ({ ...state, analyticsPopupSeen })),
       setLocale: (locale) => set((state) => ({ ...state, locale })),
       setMinBuyAmount: (minBuyAmount) => set((state) => ({ ...state, minBuyAmount })),
       setMaxBuyAmount: (maxBuyAmount) => set((state) => ({ ...state, maxBuyAmount })),

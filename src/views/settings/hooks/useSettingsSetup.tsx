@@ -7,7 +7,7 @@ import shallow from 'zustand/shallow'
 import { OverlayContext } from '../../../contexts/overlay'
 import { useHeaderSetup, useNavigation } from '../../../hooks'
 import { useSettingsStore } from '../../../store/settingsStore'
-import { account, updateSettings } from '../../../utils/account'
+import { account } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
 import { checkNotificationStatus, isProduction, toggleNotifications } from '../../../utils/system'
 import { NotificationPopup } from '../components/NotificationPopup'
@@ -25,14 +25,17 @@ export const useSettingsSetup = () => {
   const navigation = useNavigation()
   useHeaderSetup(headerConfig)
   const [, updateOverlay] = useContext(OverlayContext)
-
+  const [enableAnalytics, setEnableAnalytics] = useSettingsStore(
+    (state) => [state.enableAnalytics, state.setEnableAnalytics],
+    shallow,
+  )
   const [notificationsOn, setNotificationsOn] = useState(false)
   const [peachWalletActive, setPeachWalletActive] = useSettingsStore(
     (state) => [state.peachWalletActive, state.setPeachWalletActive],
     shallow,
   )
 
-  const [analyticsOn, setAnalyticsOn] = useState(account.settings.enableAnalytics)
+  const [analyticsOn, setAnalyticsOn] = useState(enableAnalytics)
 
   useFocusEffect(
     useCallback(() => {
@@ -53,11 +56,10 @@ export const useSettingsSetup = () => {
     setPeachWalletActive(!peachWalletActive)
   }
   const toggleAnalytics = () => {
-    setAnalyticsOn(!account.settings.enableAnalytics)
-    analytics().setAnalyticsCollectionEnabled(!account.settings.enableAnalytics)
-    updateSettings({
-      enableAnalytics: !account.settings.enableAnalytics,
-    })
+    setAnalyticsOn(!enableAnalytics)
+    analytics().setAnalyticsCollectionEnabled(!enableAnalytics)
+
+    setEnableAnalytics(!enableAnalytics)
   }
   const goToCurrencySettings = useCallback(() => navigation.navigate('currency'), [navigation])
 
