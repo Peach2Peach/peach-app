@@ -7,7 +7,7 @@ import { usePaymentTooLateOverlay } from '../../../overlays/usePaymentTooLateOve
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { shouldShowConfirmCancelTradeRequest } from '../../../utils/overlay'
-import { getPaymentExpectedBy } from '../helpers/getPaymentExpectedBy'
+import { getPaymentExpectedBy } from '../../../utils/contract/getPaymentExpectedBy'
 
 type ContractCTAProps = ComponentProps & {
   contract: Contract
