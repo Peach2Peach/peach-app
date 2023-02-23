@@ -68,6 +68,7 @@ declare type SummaryItemLevel = Level | 'WAITING'
 declare type MessageState = {
   level: Level
   msgKey?: string
+  bodyArgs?: string[]
   action?: Action
   onClose?: Function
   time?: number

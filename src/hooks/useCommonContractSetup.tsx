@@ -18,13 +18,13 @@ import { useContractDetails } from './query/useContractDetails'
 import { useOfferDetails } from './query/useOfferDetails'
 import { useShowErrorBanner } from './useShowErrorBanner'
 import { getPaymentExpectedBy } from '../views/contract/helpers/getPaymentExpectedBy'
+import { useHandleNotifications as useHandlePushNotifications } from './notifications/usePushHandleNotifications'
 
 export const useCommonContractSetup = (contractId: string) => {
   const ws = useContext(PeachWSContext)
   const [, updateOverlay] = useContext(OverlayContext)
   const showError = useShowErrorBanner()
   const handleContractOverlays = useHandleContractOverlays()
-
   const { contract, isLoading, refetch } = useContractDetails(contractId, 15 * 1000)
   const { offer } = useOfferDetails(contract ? getOfferIdFromContract(contract) : '')
   const [storedContract, setStoredContract] = useState(getContract(contractId))
@@ -39,6 +39,15 @@ export const useCommonContractSetup = (contractId: string) => {
       return updatedContract
     })
   }, [])
+
+  useHandlePushNotifications(
+    useCallback(
+      (message) => {
+        if (message.data?.contractId === contractId) refetch()
+      },
+      [contractId, refetch],
+    ),
+  )
 
   useFocusEffect(
     useCallback(() => {
@@ -69,6 +78,7 @@ export const useCommonContractSetup = (contractId: string) => {
       return unsubscribe
     }, [contractId, saveAndUpdate, storedContract, ws]),
   )
+
   useFocusEffect(
     useCallback(() => {
       setStoredContract(getContract(contractId))
