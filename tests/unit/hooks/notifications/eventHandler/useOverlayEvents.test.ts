@@ -24,4 +24,16 @@ describe('useOverlayEvents', () => {
 
     expect(useNavigation().navigate).toHaveBeenCalledWith('offerPublished', { offerId, shouldGoBack: true })
   })
+
+  it('should not navigate to offerPublished screen on "offer.escrowFunded" event if offerId is not provided', () => {
+    const { result } = renderHook(() => useOverlayEvents())
+
+    const data = {} as PNData
+    act(() => {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      result.current['offer.escrowFunded']!(data)
+    })
+
+    expect(useNavigation().navigate).not.toHaveBeenCalled()
+  })
 })
