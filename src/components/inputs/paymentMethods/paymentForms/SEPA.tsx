@@ -12,7 +12,7 @@ import Input from '../../Input'
 const beneficiaryRules = { required: true }
 const notRequired = { required: false }
 const ibanRules = { required: false, iban: true, isEUIBAN: true }
-const bicRules = { required: false, bic: true }
+const bicRules = { required: true, bic: true }
 
 export const SEPA = ({ forwardRef, data, currencies = [], onSubmit, setStepValid }: FormProps): ReactElement => {
   const [label, setLabel] = useState(data?.label || '')
@@ -106,7 +106,7 @@ export const SEPA = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
         onSubmit={() => $reference?.focus()}
         reference={(el: any) => ($bic = el)}
         value={bic}
-        required={false}
+        required={true}
         label={i18n('form.bic')}
         placeholder={i18n('form.bic.placeholder')}
         autoCorrect={false}

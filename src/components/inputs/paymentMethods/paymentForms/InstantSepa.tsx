@@ -12,7 +12,7 @@ import Input from '../../Input'
 const beneficiaryRules = { required: true }
 const notRequired = { required: false }
 const ibanRules = { required: false, iban: true, isEUIBAN: true }
-const bicRules = { required: false, bic: true }
+const bicRules = { required: true, bic: true }
 
 export const InstantSepa = ({ forwardRef, data, currencies = [], onSubmit, setStepValid }: FormProps): ReactElement => {
   const [label, setLabel] = useState(data?.label || '')
@@ -41,7 +41,7 @@ export const InstantSepa = ({ forwardRef, data, currencies = [], onSubmit, setSt
   const labelErrors = useMemo(() => getErrorsInField(label, labelRules), [label, labelRules])
 
   const buildPaymentData = (): PaymentData & SEPAData => ({
-    id: data?.id || `sepa-${new Date().getTime()}`,
+    id: data?.id || `instantSepa-${new Date().getTime()}`,
     label,
     type: 'instantSepa',
     beneficiary,
@@ -106,7 +106,7 @@ export const InstantSepa = ({ forwardRef, data, currencies = [], onSubmit, setSt
         onSubmit={() => $reference?.focus()}
         reference={(el: any) => ($bic = el)}
         value={bic}
-        required={false}
+        required={true}
         label={i18n('form.bic')}
         placeholder={i18n('form.bic.placeholder')}
         autoCorrect={false}
