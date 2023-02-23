@@ -9,16 +9,16 @@ import {
   getContract,
   getContractViewer,
   getOfferIdFromContract,
+  getPaymentExpectedBy,
   getRequiredAction,
   saveContract,
 } from '../utils/contract'
 import { saveOffer } from '../utils/offer'
 import { PeachWSContext } from '../utils/peachAPI/websocket'
+import { useHandleNotifications as useHandlePushNotifications } from './notifications/usePushHandleNotifications'
 import { useContractDetails } from './query/useContractDetails'
 import { useOfferDetails } from './query/useOfferDetails'
 import { useShowErrorBanner } from './useShowErrorBanner'
-import { getPaymentExpectedBy } from '../views/contract/helpers/getPaymentExpectedBy'
-import { useHandleNotifications as useHandlePushNotifications } from './notifications/usePushHandleNotifications'
 
 export const useCommonContractSetup = (contractId: string) => {
   const ws = useContext(PeachWSContext)
