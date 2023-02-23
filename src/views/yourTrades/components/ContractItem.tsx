@@ -47,6 +47,7 @@ export const ContractItem = ({ contract }: OfferItemProps): ReactElement => {
           icon={<Icon id={theme.icon} style={tw`w-4 h-4`} color={theme.color} />}
           theme="light"
           action={{
+            label: contract.unreadMessages > 0 ? i18n('yourTrades.newMessages') : undefined,
             callback: navigate,
           }}
         />
@@ -63,7 +64,7 @@ export const ContractItem = ({ contract }: OfferItemProps): ReactElement => {
           }}
         />
       )}
-      {contract.unreadMessages > 0 && !isPastOffer(contract.tradeStatus) && (
+      {contract.unreadMessages > 0 && (
         <View style={tw`absolute bottom-0 right-0 mb-0.5 py-2 px-3`}>
           <ChatMessages
             messages={contract.unreadMessages}
