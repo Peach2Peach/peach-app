@@ -1,13 +1,12 @@
 import { useQuery } from '@tanstack/react-query'
 import shallow from 'zustand/shallow'
 import { useTradeSummaryStore } from '../../store/tradeSummaryStore'
-import { error as logError } from '../../utils/log'
 import { getOfferSummaries } from '../../utils/peachAPI'
 
 const getOfferSummariesQuery = async () => {
   const [offers, error] = await getOfferSummaries({})
 
-  if (error) logError(new Error(error.error))
+  if (error) throw new Error(error.error)
   return offers || []
 }
 
