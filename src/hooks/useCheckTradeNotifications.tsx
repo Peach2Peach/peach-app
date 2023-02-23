@@ -15,6 +15,7 @@ export const statusWithRequiredAction: TradeStatus[] = [
   'dispute',
   'rateUser',
   'confirmCancelation',
+  'refundOrReviveRequired',
 ]
 export const statusWithRequiredActionForBuyer: TradeStatus[] = ['paymentRequired']
 export const statusWithRequiredActionForSeller: TradeStatus[] = ['confirmPaymentRequired']
