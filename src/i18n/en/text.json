@@ -440,6 +440,7 @@
   "paymentMethod.giftCard.amazon.UK": "Amazon Gift Card (UK)",
   "paymentMethod.giftCard.countrySelect.title": "select gift card country",
   "paymentMethod.revolut": "Revolut",
+  "paymentMethod.vipps": "Vipps",
   "paymentMethod.applePay": "Apple Pay",
   "paymentMethod.twint": "Twint",
   "paymentMethod.wise": "Wise",
