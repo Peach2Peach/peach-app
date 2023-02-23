@@ -22,7 +22,7 @@ export const ISEMULATOR = isEmulatorSync()
 
 export const UNIQUEID = sha256(getUniqueId())
 
-export let CURRENCIES: Currency[] = ['EUR', 'CHF', 'GBP', 'SEK']
+export let CURRENCIES: Currency[] = ['EUR', 'CHF', 'GBP', 'SEK', 'DKK', 'BGN', 'CZK', 'HUF', 'PLN', 'RON', 'ISK']
 
 export let COUNTRIES: PaymentMethodCountry[] = ['DE', 'FR', 'IT', 'ES', 'NL', 'UK', 'SE']
 
@@ -37,7 +37,7 @@ export let PAYMENTMETHODINFOS: PaymentMethodInfo[] = [
 
 export const PAYMENTCATEGORIES: PaymentCategories = {
   bankTransfer: ['sepa', 'instantSepa'],
-  onlineWallet: ['paypal', 'revolut', 'wise', 'twint', 'swish'],
+  onlineWallet: ['paypal', 'revolut', 'wise', 'twint', 'swish', 'vipps'],
   giftCard: ['giftCard.amazon'].concat(COUNTRIES.map((c) => `giftCard.amazon.${c}`)) as PaymentMethod[],
   localOption: ['mbWay', 'bizum', 'satispay'],
   cash: [],
