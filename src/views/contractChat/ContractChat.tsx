@@ -42,7 +42,7 @@ export default (): ReactElement => {
         />
       </View>
       {isChatActive(contract) ? (
-        <View style={tw`w-full bg-white-1`}>
+        <View style={tw`w-full`}>
           <MessageInput
             onChange={onChangeMessage}
             onSubmit={submit}

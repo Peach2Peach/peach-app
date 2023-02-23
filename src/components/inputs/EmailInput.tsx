@@ -1,4 +1,5 @@
 import React, { ReactElement } from 'react'
+import { enforceEmailFormat } from '../../utils/format'
 import Input, { InputProps } from './Input'
 
 export const EmailInput = ({ onChange, onSubmit, ...props }: InputProps): ReactElement => (
@@ -8,8 +9,8 @@ export const EmailInput = ({ onChange, onSubmit, ...props }: InputProps): ReactE
       keyboardType: 'email-address',
       autoCorrect: false,
       onChange,
-      onEndEditing: onChange ? (email: string) => onChange(email.toLowerCase()) : undefined,
-      onSubmit: onSubmit ? (email: string) => onSubmit(email.toLowerCase()) : undefined,
+      onEndEditing: onChange ? (email: string) => onChange(enforceEmailFormat(email)) : undefined,
+      onSubmit: onSubmit ? (email: string) => onSubmit(enforceEmailFormat(email)) : undefined,
     }}
   />
 )

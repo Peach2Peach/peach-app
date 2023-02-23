@@ -369,7 +369,7 @@ declare type FeeRecommendation = {
 declare type GetFeeEstimateResponse = FeeRecommendation
 declare type TradeSummary = (OfferSummary | ContractSummary) & {
   paymentMade?: Date
-  paymentConfirmed?: Date
+  unreadMessages?: number
 }
 
 declare type ReviveSellOfferResponseBody = {
@@ -377,3 +377,43 @@ declare type ReviveSellOfferResponseBody = {
 }
 
 declare type ExtendPaymentTimerResponseBody = APISuccess
+
+declare type NotificationType =
+  | 'offer.escrowFunded' // PN-S03
+  | 'offer.notFunded' // PN-S02
+  | 'offer.fundingAmountDifferent' // PN-S07
+  | 'offer.wrongFundingAmount' // PN-S08
+  | 'offer.sellOfferExpired' // PN-S06
+  | 'offer.matchBuyer' // PN-B02
+  | 'offer.matchSeller' // PN-S09
+  | 'contract.contractCreated' // PN-B03
+  | 'contract.buyer.paymentReminderSixHours' // PN-B04
+  | 'contract.buyer.paymentReminderOneHour' // PN-B05
+  | 'contract.buyer.paymentTimerHasRunOut' // PN-B12
+  | 'contract.buyer.paymentTimerSellerCanceled' // PN-B06
+  | 'contract.buyer.paymentTimerExtended' // PN-B07
+  | 'contract.seller.paymentTimerHasRunOut' // PN-S12
+  | 'contract.seller.canceledAfterEscrowExpiry' // PN-S14
+  | 'contract.paymentMade' // PN-S11
+  | 'contract.tradeCompleted' // PN-B09
+  | 'contract.chat' // PN-A03
+  | 'contract.buyer.disputeRaised' // PN-D01
+  | 'contract.seller.disputeRaised' // PN-D01
+  | 'contract.disputeResolved' // PN-D04
+  | 'contract.buyer.disputeWon' // PN-D02
+  | 'contract.buyer.disputeLost' // PN-D03
+  | 'contract.seller.disputeWon' // PN-D02
+  | 'contract.seller.disputeLost' // PN-D03
+  | 'contract.canceled' // PN-S13
+  | 'contract.cancelationRequest' // PN-B08
+  | 'contract.cancelationRequestAccepted' // PN-S15
+  | 'contract.cancelationRequestRejected' // PN-S16
+  | 'offer.buyOfferImminentExpiry' // PN-B10
+  | 'offer.buyOfferExpired' // PN-B11
+
+declare type PNData = {
+  offerId?: string
+  contractId?: string
+  isChat?: string
+  type?: NotificationType
+}

@@ -28,7 +28,7 @@ export const ChatButton = ({ contract, style }: ChatButtonProps): ReactElement =
       ]}
     >
       <Text style={tw`button-medium text-primary-background-light`}>{i18n('chat')}</Text>
-      <ChatMessages style={tw`w-4 h-4 ml-1 -mt-px`} textStyle={tw`text-[10px]`} messages={notifications} level="APP" />
+      <ChatMessages style={tw`w-4 h-4 ml-1 -mt-px`} textStyle={tw`text-[10px]`} messages={notifications} />
     </TouchableOpacity>
   )
 }
