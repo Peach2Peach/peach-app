@@ -39,6 +39,7 @@
     "@msml/react-native-notification-badge": "^0.1.4",
     "@react-native-clipboard/clipboard": "^1.11.1",
     "@react-native-community/cli-platform-android": "^7.0.1",
+    "@react-native-community/netinfo": "^9.3.7",
     "@react-native-firebase/analytics": "^14.12.0",
     "@react-native-firebase/app": "^14.12.0",
     "@react-native-firebase/crashlytics": "^14.12.0",
