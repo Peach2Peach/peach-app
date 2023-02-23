@@ -4,7 +4,6 @@ import alertOctagon from './alertOctagon.svg'
 import alertTriangle from './alertTriangle.svg'
 import alignJustify from './alignJustify.svg'
 import alignLeft from './alignLeft.svg'
-import arrowLeft from './arrowLeft.svg'
 import arrowLeftCircle from './arrowLeftCircle.svg'
 import arrowRightCircle from './arrowRightCircle.svg'
 import award from './award.svg'
@@ -107,7 +106,6 @@ import users from './users.svg'
 import userX from './userX.svg'
 import wallet from './wallet.svg'
 import watch from './watch.svg'
-import x from './x.svg'
 import xCircle from './xCircle.svg'
 import xSquare from './xSquare.svg'
 import yourTrades from './yourTrades.svg'
@@ -121,7 +119,6 @@ const Icons = {
   alertTriangle,
   alignJustify,
   alignLeft,
-  arrowLeft,
   arrowLeftCircle,
   arrowRightCircle,
   award,
@@ -226,7 +223,6 @@ const Icons = {
   userX,
   wallet,
   watch,
-  x,
   xCircle,
   xSquare,
   yourTrades,

@@ -15,7 +15,7 @@ export const specialTemplates: Partial<Record<PaymentMethod, SpecialTemplate>> =
     },
     button: {
       textColor: tw`text-[#FF9500]`,
-      bgColor: tw`bg-white-1`,
+      bgColor: tw`bg-primary-background-light`,
     },
   },
   'cash.belgianEmbassy': {

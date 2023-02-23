@@ -20,6 +20,8 @@ declare type AnyObject = {
   [key: string]: any
 }
 
+declare type TradeTab = 'buy' | 'sell' | 'history'
+
 type BitcoinNetwork = 'bitcoin' | 'testnet' | 'regtest'
 
 declare type PaymentCategory = 'bankTransfer' | 'onlineWallet' | 'giftCard' | 'localOption' | 'cryptoCurrency' | 'cash'
@@ -66,6 +68,7 @@ declare type SummaryItemLevel = Level | 'WAITING'
 declare type MessageState = {
   level: Level
   msgKey?: string
+  bodyArgs?: string[]
   action?: Action
   onClose?: Function
   time?: number

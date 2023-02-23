@@ -6,9 +6,12 @@ import { sort } from '../../../utils/array'
 import i18n from '../../../utils/i18n'
 import { useWalletState } from '../../../utils/wallet/walletStore'
 import { getTxSummary } from '../helpers/getTxSummary'
+import { useSyncWallet } from './useSyncWallet'
 
 export const useTransactionHistorySetup = () => {
   const walletStore = useWalletState()
+  const { refresh, loading } = useSyncWallet()
+  const [transactions, setTransactions] = useState<TransactionSummary[]>([])
 
   useHeaderSetup(
     useMemo(
@@ -19,8 +22,6 @@ export const useTransactionHistorySetup = () => {
     ),
   )
 
-  const [transactions, setTransactions] = useState<TransactionSummary[]>([])
-
   useFocusEffect(
     useCallback(() => {
       setTransactions(walletStore.getAllTransactions().map(getTxSummary)
@@ -30,5 +31,7 @@ export const useTransactionHistorySetup = () => {
   )
   return {
     transactions,
+    refresh,
+    loading,
   }
 }

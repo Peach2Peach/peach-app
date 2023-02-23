@@ -70,7 +70,7 @@ export const useSearchSetup = () => {
     }
   }, [error, navigation, offerId, updateMessage])
 
-  useRefetchOnNotification(refetch, offerId)
+  useRefetchOnNotification(refetch)
 
   return { offer, hasMatches: !!matches.length }
 }

@@ -7,6 +7,7 @@ import tw from '../../styles/tailwind'
 import { SectionHeader } from './components/SectionHeader'
 import { TradeItem } from './components/TradeItem'
 import { useYourTradesSetup } from './hooks/useYourTradesSetup'
+import { checkMessages } from './utils/checkMessages'
 import { getCategories } from './utils/getCategories'
 
 export default (): ReactElement => {
@@ -30,18 +31,24 @@ export default (): ReactElement => {
   }
 
   return (
-    <View style={tw`h-full px-8`}>
-      <TabbedNavigation items={tabs} select={switchTab} selected={currentTab} />
+    <View style={tw`h-full`}>
+      <TabbedNavigation
+        items={tabs}
+        select={switchTab}
+        selected={currentTab}
+        messages={checkMessages(openOffers, pastOffers)}
+      />
       {allOpenOffers.length + pastOffers.length > 0 && (
         <SectionList
-          contentContainerStyle={[tw`py-10`, isLoading && tw`opacity-60`]}
+          contentContainerStyle={[tw`px-8 py-10 bg-transparent`, isLoading && tw`opacity-60`]}
           onRefresh={refetch}
           refreshing={false}
           showsVerticalScrollIndicator={false}
           sections={getCategories(getCurrentData())}
           renderSectionHeader={SectionHeader}
+          renderSectionFooter={() => <View style={tw`bg-transparent h-7`} />}
           renderItem={TradeItem}
-          ItemSeparatorComponent={() => <View style={tw`h-6`} />}
+          ItemSeparatorComponent={() => <View onStartShouldSetResponder={() => true} style={tw`h-6`} />}
         />
       )}
       {isLoading && (

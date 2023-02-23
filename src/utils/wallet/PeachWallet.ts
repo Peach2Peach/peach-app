@@ -92,6 +92,7 @@ export class PeachWallet {
 
   async syncWallet () {
     info('PeachWallet - syncWallet - start')
+    this.synced = false
 
     const result = await BdkRn.syncWallet()
     if (!result.isErr()) {
