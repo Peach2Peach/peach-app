@@ -44,7 +44,7 @@ export const ADVCash = ({ forwardRef, data, currencies = [], onSubmit, setStepVa
     [data.id, label],
   )
   const emailRules = useMemo(() => ({ email: true, required: !wallet }), [wallet])
-  const walletRules = useMemo(() => ({ required: !email }), [email]) // TODO RULES
+  const walletRules = useMemo(() => ({ required: !email }), [email])
 
   const labelErrors = useMemo(() => getErrorsInField(label, labelRules), [label, labelRules])
   const emailErrors = useMemo(() => getErrorsInField(email, emailRules), [email, emailRules])
@@ -109,7 +109,6 @@ export const ADVCash = ({ forwardRef, data, currencies = [], onSubmit, setStepVa
       <TabbedNavigation items={tabs} selected={currentTab} select={setCurrentTab} />
       <View style={tw`mt-2`}>
         {currentTab.id === 'wallet' && (
-          // TODO : Wallet input
           <Input
             onChange={setWallet}
             onSubmit={$reference?.focus}
