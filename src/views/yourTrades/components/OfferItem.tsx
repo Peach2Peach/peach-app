@@ -22,6 +22,7 @@ export const OfferItem = ({ offer, style }: OfferItemProps): ReactElement => {
       style={style}
       title={i18n('trade') + ' ' + offerIdToHex(offer.id as Offer['id'])}
       amount={offer.amount}
+      theme="light"
       level={theme.level as SummaryItemLevel}
       icon={<Icon id={theme.icon as IconType} style={tw`w-4 h-4`} color={theme.color} />}
       date={new Date(offer.creationDate)}

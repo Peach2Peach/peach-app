@@ -45,6 +45,7 @@ export const ContractItem = ({ contract }: OfferItemProps): ReactElement => {
         <SummaryItem
           {...sharedProps}
           icon={<Icon id={theme.icon} style={tw`w-4 h-4`} color={theme.color} />}
+          theme="light"
           action={{
             callback: navigate,
           }}
