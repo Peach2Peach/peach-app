@@ -51,6 +51,7 @@ export const useStartRefundOverlay = () => {
         title: i18n('refund.title'),
         content: <Refund isPeachWallet={isPeachWallet} />,
         visible: true,
+        requireUserAction: true,
         action1: {
           label: i18n('close'),
           icon: 'xSquare',
@@ -83,7 +84,7 @@ export const useStartRefundOverlay = () => {
         peachWallet.syncWallet()
       }
     },
-    [closeOverlay, goToWallet, navigation, setOffer, showError, updateOverlay],
+    [closeOverlay, goToWallet, navigation, refetchTradeSummaries, setOffer, showError, updateOverlay],
   )
 
   const startRefund = useCallback(
