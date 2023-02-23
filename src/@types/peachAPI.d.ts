@@ -71,7 +71,20 @@ declare type TradingLimit = {
 
 declare type TradingPair = 'BTCEUR' | 'BTCCHF' | 'BTCGBP'
 
-declare type Currency = 'USD' | 'EUR' | 'CHF' | 'GBP' | 'SEK' | 'DKK' | 'BGN' | 'CZK' | 'HUF' | 'PLN' | 'RON' | 'ISK'
+declare type Currency =
+  | 'USD'
+  | 'EUR'
+  | 'CHF'
+  | 'GBP'
+  | 'SEK'
+  | 'DKK'
+  | 'BGN'
+  | 'CZK'
+  | 'HUF'
+  | 'PLN'
+  | 'RON'
+  | 'ISK'
+  | 'NOK'
 declare type Pricebook = {
   [key in Currency]?: number
 }
