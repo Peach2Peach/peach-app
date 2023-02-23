@@ -147,7 +147,7 @@ export default ({ setMeansOfPayment, editing, style, origin }: PaymentDetailsPro
               category,
               checkboxes: paymentData
                 .filter((item) => !item.hidden)
-                .filter((item) => !item.type.includes('cash'))
+                .filter((item) => !item.type.includes('cash.'))
                 .filter(belongsToCategory(category))
                 .filter((data) => getPaymentMethodInfo(data.type))
                 .sort((a, b) => (a.id > b.id ? 1 : -1))
