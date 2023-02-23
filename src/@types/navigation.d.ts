@@ -33,7 +33,7 @@ declare type RootStackParamList = {
   selectWallet: {
     type: 'refund' | 'payout'
   }
-  offerPublished: { offerId: string }
+  offerPublished: { offerId: string; shouldGoBack?: boolean }
   search: { offerId: string }
   contract: {
     contractId: Contract['id']
@@ -57,7 +57,7 @@ declare type RootStackParamList = {
   }
   yourTrades:
     | {
-        tab?: 'buy' | 'sell' | 'history'
+        tab?: TradeTab
       }
     | undefined
   offer: {
@@ -108,6 +108,7 @@ declare type RootStackParamList = {
   testViewPopups: undefined
   testViewMessages: undefined
   testViewComponents: undefined
+  testViewPNs: undefined
 }
 
 type KeysWithUndefined<T> = {

@@ -1,6 +1,7 @@
 export { useMarketPrices } from './query/useMarketPrices'
 export { useCancelOffer } from './useCancelOffer'
 export { useCurrentUser } from './useCurrentUser'
+export { useGetPNActionHandler } from './notifications/useGetPNActionHandler'
 export { useHeaderSetup } from './useHeaderSetup'
 export { useKeyboard } from './useKeyboard'
 export { useNavigation } from './useNavigation'

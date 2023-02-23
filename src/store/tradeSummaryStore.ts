@@ -12,9 +12,10 @@ type TradeSummaryStore = TradeSummaryState & {
   getLastModified: () => Date
   setOffers: (offers: OfferSummary[]) => void
   setOffer: (offerId: string, data: Partial<OfferSummary>) => void
-  setContract: (contractId: string, data: Partial<ContractSummary>) => void
-  setContracts: (contracts: ContractSummary[]) => void
   getOffer: (offerId: string) => OfferSummary | undefined
+  setContracts: (contracts: ContractSummary[]) => void
+  setContract: (contractId: string, data: Partial<ContractSummary>) => void
+  getContract: (contractId: string) => ContractSummary | undefined
 }
 
 const defaultState: TradeSummaryState = {
@@ -48,6 +49,8 @@ export const tradeSummaryStore = createStore(
 
         return set((state) => ({ ...state, offers }))
       },
+      getOffer: (offerId) => get().offers.find(({ id }) => id === offerId),
+      setContracts: (contracts) => set((state) => ({ ...state, contracts, lastModified: new Date() })),
       setContract: (contractId, data) => {
         let itemFound = false
         const contracts = get().contracts.map((contract) => {
@@ -66,8 +69,7 @@ export const tradeSummaryStore = createStore(
 
         return set((state) => ({ ...state, contracts }))
       },
-      getOffer: (offerId) => get().offers.find(({ id }) => id === offerId),
-      setContracts: (contracts) => set((state) => ({ ...state, contracts, lastModified: new Date() })),
+      getContract: (contractId) => get().contracts.find(({ id }) => id === contractId),
     }),
     {
       name: 'tradeSummary',

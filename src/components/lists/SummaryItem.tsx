@@ -13,7 +13,7 @@ type LevelColorMap = {
 const levelColorMap: LevelColorMap = {
   bg: {
     APP: tw`bg-primary-main`,
-    SUCCESS: tw`bg-success-main`,
+    SUCCESS: tw`bg-success-mild`,
     WARN: tw`bg-warning-main`,
     ERROR: tw`bg-error-main`,
     INFO: tw`bg-info-light`,
@@ -22,7 +22,7 @@ const levelColorMap: LevelColorMap = {
   },
   border: {
     APP: tw`border-primary-main`,
-    SUCCESS: tw`border-success-main`,
+    SUCCESS: tw`border-success-mild`,
     WARN: tw`border-warning-main`,
     ERROR: tw`border-error-main`,
     INFO: tw`border-info-light`,

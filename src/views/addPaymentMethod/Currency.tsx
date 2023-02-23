@@ -28,7 +28,7 @@ export default ({ currency = 'EUR', setCurrency, back, next }: CurrencySelectPro
       <View style={tw`flex justify-center flex-shrink h-full px-10`}>
         <RadioButtons items={currencies} selectedValue={currency} onChange={setCurrency} />
       </View>
-      <View style={tw`flex items-center w-full px-6 mt-4 bg-white-1`}>
+      <View style={tw`flex items-center w-full px-6 mt-4 bg-primary-background-light`}>
         <View style={tw`w-full h-8 -mt-8`}>
           <LinearGradient colorList={whiteGradient} angle={90} />
         </View>

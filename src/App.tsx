@@ -38,8 +38,9 @@ import { Background } from './components/background/Background'
 import { APPVERSION, ISEMULATOR, TIMETORESTART } from './constants'
 import appStateEffect from './effects/appStateEffect'
 import { useUpdateTradingAmounts } from './hooks'
+import { useMessageHandler } from './hooks/notifications/useMessageHandler'
+import { useHandleNotifications } from './hooks/notifications/usePushHandleNotifications'
 import { useCheckTradeNotifications } from './hooks/useCheckTradeNotifications'
-import { useHandleNotifications } from './hooks/useHandleNotifications'
 import { getPeachInfo } from './init/getPeachInfo'
 import { getTrades } from './init/getTrades'
 import { initApp } from './init/initApp'
@@ -75,7 +76,9 @@ type HandlerProps = {
   getCurrentPage: () => keyof RootStackParamList | undefined
 }
 const Handlers = ({ getCurrentPage }: HandlerProps): ReactElement => {
-  useHandleNotifications(getCurrentPage)
+  const messageHandler = useMessageHandler(getCurrentPage)
+
+  useHandleNotifications(messageHandler)
 
   return <></>
 }
