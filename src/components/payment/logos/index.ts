@@ -2,6 +2,7 @@ import amazon from './amazon.svg'
 import bitcoin from './bitcoin.svg'
 import bitcoinAmsterdam from './bitcoinAmsterdam.svg'
 import bizum from './bizum.svg'
+import fasterPayments from './fasterPayments.svg'
 import blik from './blik.svg'
 import mbWay from './mbWay.svg'
 import paypal from './paypal.svg'
@@ -20,6 +21,7 @@ const PaymentLogos = {
   amazon,
   bitcoin,
   bizum,
+  fasterPayments,
   blik,
   mbWay,
   paypal,
