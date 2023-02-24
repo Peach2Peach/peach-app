@@ -45,7 +45,7 @@ export const ADVCash = ({ forwardRef, data, currencies = [], onSubmit, setStepVa
     [data.id, label],
   )
   const emailRules = useMemo(() => ({ email: true, required: !wallet }), [wallet])
-  const walletRules = useMemo(() => ({ required: !email }), [email])
+  const walletRules = useMemo(() => ({ advcashWallet: true, required: !email }), [email])
 
   const labelErrors = useMemo(() => getErrorsInField(label, labelRules), [label, labelRules])
   const emailErrors = useMemo(() => getErrorsInField(email, emailRules), [email, emailRules])

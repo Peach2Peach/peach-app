@@ -28,4 +28,5 @@ export const getMessages = () => ({
   ukSortCode: i18n('form.invalid.error'),
   url: i18n('form.invalid.error'),
   userName: i18n('form.invalid.error'),
+  advcashWallet: i18n('form.wallet.error'),
 })
