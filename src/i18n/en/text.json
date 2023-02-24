@@ -440,6 +440,7 @@
   "paymentMethod.swish": "Swish",
   "paymentMethod.mbWay": "MB Way",
   "paymentMethod.bizum": "Bizum",
+  "paymentMethod.blik": "Blik",
   "paymentMethod.tether": "Tether",
   "paymentMethod.cash": "Cash",
   "paymentMethod.currency.select.title": "select $0 currencies",
