@@ -1,7 +1,9 @@
 import amazon from './amazon.svg'
+import advcash from './advcash.svg'
 import bitcoin from './bitcoin.svg'
 import bitcoinAmsterdam from './bitcoinAmsterdam.svg'
 import bizum from './bizum.svg'
+import fasterPayments from './fasterPayments.svg'
 import blik from './blik.svg'
 import mbWay from './mbWay.svg'
 import mobilePay from './mobilePay.svg'
@@ -11,6 +13,7 @@ import satispay from './satispay.svg'
 import sepa from './sepa.svg'
 import swish from './swish.svg'
 import twint from './twint.svg'
+import vipps from './vipps.svg'
 import wise from './wise.svg'
 
 const PaymentLogos = {
@@ -19,8 +22,10 @@ const PaymentLogos = {
   'cash.lugano': bitcoin,
   'giftCard.amazon': amazon,
   amazon,
+  advcash,
   bitcoin,
   bizum,
+  fasterPayments,
   blik,
   mbWay,
   mobilePay,
@@ -31,6 +36,7 @@ const PaymentLogos = {
   instantSepa: sepa,
   swish,
   twint,
+  vipps,
   wise,
 }
 
