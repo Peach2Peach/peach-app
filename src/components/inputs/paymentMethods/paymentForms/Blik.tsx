@@ -36,11 +36,11 @@ export const Blik = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
   const [displayErrors, setDisplayErrors] = useState(false)
 
   const buildPaymentData = (): PaymentData & BlikData => ({
-    id: data?.id || `vipps-${new Date().getTime()}`,
+    id: data?.id || `blik-${new Date().getTime()}`,
     label,
     type: 'blik',
-    phone,
     beneficiary,
+    phone,
     reference,
     currencies: selectedCurrencies,
   })
