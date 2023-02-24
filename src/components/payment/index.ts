@@ -1,3 +1,4 @@
+import { DetailVipps } from './detail/vipps'
 import { DetailFasterPayments } from './detail/fasterPayments'
 import { DetailInstantSepa } from './detail/instantSepa'
 import { ReactElement } from 'react'
@@ -36,6 +37,7 @@ export const paymentDetailTemplates: PaymentDetailTemplates = {
   satispay: GeneralPaymentDetails,
   mbWay: GeneralPaymentDetails,
   bizum: GeneralPaymentDetails,
+  vipps: DetailVipps,
   'giftCard.amazon': GeneralPaymentDetails,
 }
 
