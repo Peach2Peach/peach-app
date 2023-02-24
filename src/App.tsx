@@ -287,11 +287,10 @@ const App: React.FC = () => {
                                     {...{ name, component }}
                                     key={name}
                                     options={{
-                                      headerMode: 'float',
                                       headerShown: showHeader,
+                                      header: () => <Header />,
                                       animationEnabled: isIOS() && animationEnabled,
                                       cardStyle: !background.color && tw`bg-primary-background`,
-                                      header: () => <Header />,
                                       transitionSpec: {
                                         open: screenTransition,
                                         close: screenTransition,
