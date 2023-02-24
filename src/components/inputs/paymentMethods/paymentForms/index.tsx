@@ -13,6 +13,7 @@ import { Fade } from '../../../animation'
 import { PrimaryButton } from '../../../buttons'
 import PeachScrollView from '../../../PeachScrollView'
 import { Bizum } from './Bizum'
+import { FasterPayments } from './FasterPayments'
 import { GiftCardAmazon } from './giftCard.amazon'
 import { MBWay } from './MBWay'
 import { PayPal } from './PayPal'
@@ -43,6 +44,7 @@ export type PaymentMethodForms = {
 }
 export const PaymentMethodForms: PaymentMethodForms = {
   sepa: SEPA,
+  fasterPayments: FasterPayments,
   paypal: PayPal,
   revolut: Revolut,
   wise: Wise,

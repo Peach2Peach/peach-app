@@ -20,6 +20,12 @@ declare type SEPAData = {
   bic?: string
   reference?: string
 }
+declare type FasterPaymentsData = {
+  beneficiary: string
+  accountNumber: string
+  sortCode: string
+  reference?: string
+}
 declare type BizumData = {
   phone: string
   beneficiary: string
