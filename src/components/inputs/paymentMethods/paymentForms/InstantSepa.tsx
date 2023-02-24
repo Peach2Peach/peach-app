@@ -95,6 +95,7 @@ export const InstantSepa = ({ forwardRef, data, currencies = [], onSubmit, setSt
         onChange={setIBAN}
         onSubmit={() => $bic?.focus()}
         reference={(el: any) => ($iban = el)}
+        required={true}
         value={iban}
         label={i18n('form.iban')}
         placeholder={i18n('form.iban.placeholder')}

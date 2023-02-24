@@ -96,6 +96,7 @@ export const SEPA = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
         onSubmit={() => $bic?.focus()}
         reference={(el: any) => ($iban = el)}
         value={iban}
+        required={true}
         label={i18n('form.iban')}
         placeholder={i18n('form.iban.placeholder')}
         autoCorrect={false}
