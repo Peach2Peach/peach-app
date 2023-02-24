@@ -1,4 +1,3 @@
-import analytics from '@react-native-firebase/analytics'
 import React, { useCallback, useContext, useMemo, useState } from 'react'
 import { AppState } from 'react-native'
 
@@ -25,17 +24,11 @@ export const useSettingsSetup = () => {
   const navigation = useNavigation()
   useHeaderSetup(headerConfig)
   const [, updateOverlay] = useContext(OverlayContext)
-  const [enableAnalytics, setEnableAnalytics] = useSettingsStore(
-    (state) => [state.enableAnalytics, state.setEnableAnalytics],
-    shallow,
-  )
   const [notificationsOn, setNotificationsOn] = useState(false)
-  const [peachWalletActive, setPeachWalletActive] = useSettingsStore(
-    (state) => [state.peachWalletActive, state.setPeachWalletActive],
+  const [peachWalletActive, togglePeachWallet, enableAnalytics, toggleAnalytics] = useSettingsStore(
+    (state) => [state.peachWalletActive, state.togglePeachWallet, state.enableAnalytics, state.toggleAnalytics],
     shallow,
   )
-
-  const [analyticsOn, setAnalyticsOn] = useState(enableAnalytics)
 
   useFocusEffect(
     useCallback(() => {
@@ -52,15 +45,6 @@ export const useSettingsSetup = () => {
     }, []),
   )
 
-  const togglePeachWallet = () => {
-    setPeachWalletActive(!peachWalletActive)
-  }
-  const toggleAnalytics = () => {
-    setAnalyticsOn(!enableAnalytics)
-    analytics().setAnalyticsCollectionEnabled(!enableAnalytics)
-
-    setEnableAnalytics(!enableAnalytics)
-  }
   const goToCurrencySettings = useCallback(() => navigation.navigate('currency'), [navigation])
 
   const notificationClick = useCallback(() => {
@@ -109,8 +93,8 @@ export const useSettingsSetup = () => {
       {
         title: 'analytics',
         onPress: toggleAnalytics,
-        iconId: analyticsOn ? 'toggleRight' : 'toggleLeft',
-        enabled: analyticsOn,
+        iconId: enableAnalytics ? 'toggleRight' : 'toggleLeft',
+        enabled: enableAnalytics,
       },
       {
         title: 'notifications',
@@ -125,7 +109,7 @@ export const useSettingsSetup = () => {
       { title: 'payoutAddress' },
       { title: 'currency', onPress: goToCurrencySettings },
     ],
-    [togglePeachWallet, peachWalletActive, analyticsOn, notificationClick, goToCurrencySettings],
+    [toggleAnalytics, enableAnalytics, notificationClick, togglePeachWallet, peachWalletActive, goToCurrencySettings],
   )
 
   const settings = [
