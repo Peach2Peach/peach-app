@@ -21,7 +21,7 @@ const currencies = CURRENCIES.map((c) => ({
   value: c,
   display: i18n(`currency.${c}`),
 }))
-export default ({ currency = 'EUR', setCurrency, back, next }: CurrencySelectProps): ReactElement => {
+export default ({ currency = 'EUR', setCurrency, next }: CurrencySelectProps): ReactElement => {
   useHeaderSetup(useMemo(() => ({ title: i18n('paymentMethod.select') }), []))
   return (
     <View style={tw`flex h-full`}>
