@@ -56,9 +56,9 @@ export const FasterPayments = ({
   const labelErrors = useMemo(() => getErrorsInField(label, labelRules), [label, labelRules])
 
   const buildPaymentData = (): PaymentData & FasterPaymentsData => ({
-    id: data?.id || `sepa-${new Date().getTime()}`,
+    id: data?.id || `fasterPayments-${new Date().getTime()}`,
     label,
-    type: 'sepa',
+    type: 'fasterPayments',
     beneficiary,
     ukBankAccount,
     ukSortCode,
