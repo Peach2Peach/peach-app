@@ -1,4 +1,5 @@
 import amazon from './amazon.svg'
+import advcash from './advcash.svg'
 import bitcoin from './bitcoin.svg'
 import bitcoinAmsterdam from './bitcoinAmsterdam.svg'
 import bizum from './bizum.svg'
@@ -19,6 +20,7 @@ const PaymentLogos = {
   'cash.lugano': bitcoin,
   'giftCard.amazon': amazon,
   amazon,
+  advcash,
   bitcoin,
   bizum,
   fasterPayments,

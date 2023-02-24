@@ -24,6 +24,7 @@ import { InstantSepa } from './InstantSepa'
 import { Swish } from './Swish'
 import { Twint } from './Twint'
 import { Wise } from './Wise'
+import { ADVCash } from './ADVCash'
 import { Blik } from './Blik'
 const { LinearGradient } = require('react-native-gradients')
 
@@ -50,6 +51,7 @@ export const PaymentMethodForms: PaymentMethodForms = {
   instantSepa: InstantSepa,
   paypal: PayPal,
   revolut: Revolut,
+  advcash: ADVCash,
   blik: Blik,
   wise: Wise,
   twint: Twint,

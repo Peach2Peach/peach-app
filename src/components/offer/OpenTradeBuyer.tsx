@@ -44,7 +44,7 @@ export const OpenTradeBuyer = ({ contract }: TradeSummaryProps): ReactElement =>
         </View>
         <View style={tw`flex-row items-center justify-between mt-4`}>
           <Text style={tw`text-black-2`}>
-            {i18n(contract.paymentMethod.includes('cash') ? 'contract.summary.in' : 'contract.summary.via')}
+            {i18n(contract.paymentMethod.includes('cash.') ? 'contract.summary.in' : 'contract.summary.via')}
           </Text>
           <PaymentMethod paymentMethod={contract.paymentMethod} showLink={!!appLink} />
         </View>

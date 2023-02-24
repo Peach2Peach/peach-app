@@ -39,6 +39,10 @@ declare type RevolutData = {
   userName: string
   email: string
 }
+declare type ADVCashData = {
+  wallet: string
+  email: string
+}
 declare type SwishData = {
   phone: string
   beneficiary: string

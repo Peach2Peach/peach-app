@@ -37,7 +37,7 @@ export let PAYMENTMETHODINFOS: PaymentMethodInfo[] = [
 
 export const PAYMENTCATEGORIES: PaymentCategories = {
   bankTransfer: ['sepa', 'instantSepa', 'fasterPayments'],
-  onlineWallet: ['paypal', 'revolut', 'wise', 'twint', 'swish', 'blik'],
+  onlineWallet: ['paypal', 'revolut', 'wise', 'twint', 'swish', 'blik', 'advcash'],
   giftCard: ['giftCard.amazon'].concat(COUNTRIES.map((c) => `giftCard.amazon.${c}`)) as PaymentMethod[],
   localOption: ['mbWay', 'bizum', 'satispay'],
   cash: [],
