@@ -28,4 +28,6 @@ export const getMessages = () => ({
   ukSortCode: i18n('form.invalid.error'),
   url: i18n('form.invalid.error'),
   userName: i18n('form.invalid.error'),
+  sortCode: i18n('form.sortCode.error'),
+  accountNumberUK: i18n('form.accountNumber.error'),
 })

@@ -11,8 +11,8 @@ import { SortCodeInput } from '../../SortCodeInput'
 
 const beneficiaryRules = { required: true }
 const notRequired = { required: false }
-const accountNumberRules = { required: false, accountNumber: true, isEUACCOUNTNUMBER: true }
-const sortCodeRules = { required: false, bic: true }
+const accountNumberRules = { required: false, accountNumberUK: true }
+const sortCodeRules = { required: false, sortCode: true }
 
 export const FasterPayments = ({
   forwardRef,

@@ -89,6 +89,12 @@ export const rules = {
   isPhoneAllowed (_: boolean, value: string) {
     return isPhoneAllowed(value)
   },
+  sortCode (_: boolean, value: string) {
+    return /^(?:\d{2}(?:-?\d{2}){2}|\d{6})$/u.test(value)
+  },
+  accountNumberUK (_: boolean, value: string) {
+    return /^\d{6,10}$/u.test(value)
+  },
 }
 
 export type Rule = keyof typeof rules
