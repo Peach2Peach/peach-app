@@ -6,6 +6,7 @@ import bizum from './bizum.svg'
 import fasterPayments from './fasterPayments.svg'
 import blik from './blik.svg'
 import mbWay from './mbWay.svg'
+import mobilePay from './mobilePay.svg'
 import paypal from './paypal.svg'
 import revolut from './revolut.svg'
 import satispay from './satispay.svg'
@@ -27,6 +28,7 @@ const PaymentLogos = {
   fasterPayments,
   blik,
   mbWay,
+  mobilePay,
   paypal,
   revolut,
   satispay,
