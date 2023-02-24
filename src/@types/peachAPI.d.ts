@@ -98,6 +98,7 @@ declare type PaymentMethod =
   | 'sepa'
   | 'instantSepa'
   | 'paypal'
+  | 'fasterPayments'
   | 'revolut'
   | 'blik'
   | 'applePay'

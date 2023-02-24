@@ -24,8 +24,8 @@ export const getMessages = () => ({
   revtag: i18n('form.invalid.error'),
   signature: i18n('form.signature.error'),
   tetherAddress: i18n('form.address.error'),
-  ukBankAccount: i18n('form.invalid.error'),
-  ukSortCode: i18n('form.invalid.error'),
   url: i18n('form.invalid.error'),
   userName: i18n('form.invalid.error'),
+  ukSortCode: i18n('form.ukSortCode.error'),
+  ukBankAccount: i18n('form.ukBankAccount.error'),
 })

@@ -1,4 +1,5 @@
 import { NETWORK } from '@env'
+import NetInfo from '@react-native-community/netinfo'
 import BdkRn from 'bdk-rn'
 import { TransactionsResponse } from 'bdk-rn/lib/lib/interfaces'
 import { BIP32Interface } from 'bip32'
@@ -48,59 +49,76 @@ export class PeachWallet {
     this.synced = false
   }
 
-  async loadWallet (seedphrase?: string) {
-    const nodeURL = settingsStore.getState().nodeURL
-    info('PeachWallet - loadWallet - start')
-
-    let mnemonic = seedphrase
-    if (!mnemonic) {
-      info('PeachWallet - loadWallet - generateMnemonic')
-      const generateMnemonicResult = await BdkRn.generateMnemonic({
-        length: 12,
-        network: this.network,
+  static async checkConnection (callback: Function) {
+    const netInfo = await NetInfo.fetch()
+    if (netInfo.isInternetReachable) {
+      callback()
+    } else {
+      const unsubscribe = NetInfo.addEventListener((state) => {
+        if (!state.isInternetReachable) return
+        callback()
+        unsubscribe()
       })
-      if (generateMnemonicResult.isErr()) {
-        throw generateMnemonicResult.error
+    }
+  }
+
+  async loadWallet (seedphrase?: string) {
+    PeachWallet.checkConnection(async () => {
+      const nodeURL = settingsStore.getState().nodeURL
+      info('PeachWallet - loadWallet - start')
+
+      let mnemonic = seedphrase
+      if (!mnemonic) {
+        info('PeachWallet - loadWallet - generateMnemonic')
+        const generateMnemonicResult = await BdkRn.generateMnemonic({
+          length: 12,
+          network: this.network,
+        })
+        if (generateMnemonicResult.isErr()) {
+          throw generateMnemonicResult.error
+        }
+        mnemonic = generateMnemonicResult.value
       }
-      mnemonic = generateMnemonicResult.value
-    }
 
-    info('PeachWallet - loadWallet - createWallet')
-    const result = await BdkRn.createWallet({
-      mnemonic,
-      password: '',
-      network: this.network,
-      blockChainConfigUrl: nodeURL,
-      retry: '5',
-      timeOut: '5',
-      blockChainName: 'ESPLORA',
+      info('PeachWallet - loadWallet - createWallet')
+      const result = await BdkRn.createWallet({
+        mnemonic,
+        password: '',
+        network: this.network,
+        blockChainConfigUrl: nodeURL,
+        retry: '5',
+        timeOut: '5',
+        blockChainName: 'ESPLORA',
+      })
+      info('PeachWallet - loadWallet - createWallet')
+
+      if (result.isErr()) {
+        throw result.error
+      }
+
+      this.initialized = true
+      this.getBalance()
+      this.getTransactions()
+
+      this.syncWallet()
+
+      info('PeachWallet - loadWallet - loaded')
     })
-    info('PeachWallet - loadWallet - createWallet')
-
-    if (result.isErr()) {
-      throw result.error
-    }
-
-    this.initialized = true
-    this.getBalance()
-    this.getTransactions()
-
-    this.syncWallet()
-
-    info('PeachWallet - loadWallet - loaded')
   }
 
   async syncWallet () {
-    info('PeachWallet - syncWallet - start')
-    this.synced = false
+    PeachWallet.checkConnection(async () => {
+      info('PeachWallet - syncWallet - start')
+      this.synced = false
 
-    const result = await BdkRn.syncWallet()
-    if (!result.isErr()) {
-      this.getBalance()
-      this.getTransactions()
-      this.synced = true
-      info('PeachWallet - syncWallet - synced')
-    }
+      const result = await BdkRn.syncWallet()
+      if (!result.isErr()) {
+        this.getBalance()
+        this.getTransactions()
+        this.synced = true
+        info('PeachWallet - syncWallet - synced')
+      }
+    })
   }
 
   updateStore (): void {

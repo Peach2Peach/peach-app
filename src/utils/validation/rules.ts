@@ -62,8 +62,6 @@ export const rules = {
     return isEUIBAN(value)
   },
   bic: bicRegex,
-  ukSortCode: /^(?!(?:0{6}|00-00-00))(?:\d{6}|\d\d-\d\d-\d\d)$/u,
-  ukBankAccount: /^\d{8}$/u,
   userName (_: boolean, value: string) {
     return isUsername(value)
   },
@@ -88,6 +86,12 @@ export const rules = {
   },
   isPhoneAllowed (_: boolean, value: string) {
     return isPhoneAllowed(value)
+  },
+  ukSortCode (_: boolean, value: string) {
+    return /^\d{6}$/u.test(value)
+  },
+  ukBankAccount (_: boolean, value: string) {
+    return /^\d{6,10}$/u.test(value)
   },
 }
 

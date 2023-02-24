@@ -1,3 +1,4 @@
+import { DetailFasterPayments } from './detail/fasterPayments'
 import { DetailInstantSepa } from './detail/instantSepa'
 import { ReactElement } from 'react'
 import { COUNTRIES } from '../../constants'
@@ -22,6 +23,7 @@ export type PaymentDetailTemplates = {
 
 export const paymentDetailTemplates: PaymentDetailTemplates = {
   sepa: DetailSEPA,
+  fasterPayments: DetailFasterPayments,
   instantSepa: DetailInstantSepa,
   paypal: DetailPaypal,
   revolut: DetailRevolut,
