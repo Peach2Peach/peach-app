@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
+import React, { ReactElement, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
 import { TextInput, View } from 'react-native'
 import { FormProps } from '.'
 import { useValidatedState } from '../../../../hooks'
@@ -61,10 +61,10 @@ export const ADVCash = ({ forwardRef, data, currencies = [], onSubmit, setStepVa
     currencies: selectedCurrencies,
   })
 
-  const isFormValid = () => {
+  const isFormValid = useCallback(() => {
     setDisplayErrors(true)
     return [...labelErrors, ...emailErrors, ...walletErrors].length === 0
-  }
+  }, [emailErrors, labelErrors, walletErrors])
 
   const onCurrencyToggle = (currency: Currency) => {
     setSelectedCurrencies(toggleCurrency(currency))
