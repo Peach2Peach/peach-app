@@ -58,6 +58,7 @@ export const ADVCash = ({ forwardRef, data, currencies = [], onSubmit, setStepVa
     type: 'advcash',
     wallet,
     email,
+    reference,
     currencies: selectedCurrencies,
   })
 
