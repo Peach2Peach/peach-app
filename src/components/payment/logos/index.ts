@@ -3,6 +3,7 @@ import bitcoin from './bitcoin.svg'
 import bitcoinAmsterdam from './bitcoinAmsterdam.svg'
 import bizum from './bizum.svg'
 import mbWay from './mbWay.svg'
+import mobilePay from './mobilePay.svg'
 import paypal from './paypal.svg'
 import revolut from './revolut.svg'
 import satispay from './satispay.svg'
@@ -20,6 +21,7 @@ const PaymentLogos = {
   bitcoin,
   bizum,
   mbWay,
+  mobilePay,
   paypal,
   revolut,
   satispay,

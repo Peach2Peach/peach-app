@@ -99,10 +99,7 @@ export default (): ReactElement => {
       }
     }
 
-    if (
-      paymentMethodInfo?.currencies.length !== 1
-      || (PAYMENTCATEGORIES.localOption.includes(paymentMethod) && screens[page].id !== 'extraInfo')
-    ) return
+    if (PAYMENTCATEGORIES.localOption.includes(paymentMethod) && screens[page].id !== 'extraInfo') return
 
     goToPaymentDetails({ paymentMethod, currencies, country })
   }, [paymentMethod, page])

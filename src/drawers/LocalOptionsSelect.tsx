@@ -6,6 +6,7 @@ import i18n from '../utils/i18n'
 import satispay from '../components/payment/logos/satispay.svg'
 import mbWay from '../components/payment/logos/mbWay.svg'
 import bizum from '../components/payment/logos/bizum.svg'
+import mobilePay from '../components/payment/logos/mobilePay.svg'
 import { SvgProps } from 'react-native-svg'
 
 type OptionItem = {
@@ -22,6 +23,7 @@ const icons: Record<string, FC<SvgProps>> = {
   satispay,
   mbWay,
   bizum,
+  mobilePay,
 }
 
 export const LocalOptionsSelect = ({ local, onSelect }: LocalOptionsProps): ReactElement => (

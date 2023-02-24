@@ -11,6 +11,7 @@ import NL from './nl.svg'
 import PL from './pl.svg'
 import PT from './pt.svg'
 import SI from './si.svg'
+import FI from './fi.svg'
 
 const Flags = {
   BE,
@@ -19,6 +20,7 @@ const Flags = {
   DE,
   ES,
   FR,
+  FI,
   GB,
   GR,
   IT,

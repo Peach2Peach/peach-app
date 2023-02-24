@@ -93,6 +93,7 @@ declare type PaymentMethodCountry =
   | 'SI'
   | 'UK'
   | 'US'
+  | 'FI'
 declare type Location = 'amsterdam' | 'belgianEmbassy' | 'lugano'
 declare type PaymentMethod =
   | 'sepa'
@@ -105,6 +106,7 @@ declare type PaymentMethod =
   | 'swish'
   | 'mbWay'
   | 'bizum'
+  | 'mobilePay'
   | `cash.${string}`
   | 'giftCard.amazon'
   | `giftCard.amazon.${PaymentMethodCountry}`

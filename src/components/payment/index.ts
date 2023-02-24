@@ -29,6 +29,7 @@ export const paymentDetailTemplates: PaymentDetailTemplates = {
   satispay: GeneralPaymentDetails,
   mbWay: GeneralPaymentDetails,
   bizum: GeneralPaymentDetails,
+  mobilePay: GeneralPaymentDetails,
   'giftCard.amazon': GeneralPaymentDetails,
   cash: Cash,
 }

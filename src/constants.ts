@@ -24,7 +24,7 @@ export const UNIQUEID = sha256(getUniqueId())
 
 export let CURRENCIES: Currency[] = ['EUR', 'CHF', 'GBP', 'SEK']
 
-export let COUNTRIES: PaymentMethodCountry[] = ['DE', 'FR', 'IT', 'ES', 'NL', 'UK', 'SE']
+export let COUNTRIES: PaymentMethodCountry[] = ['DE', 'FR', 'IT', 'ES', 'NL', 'UK', 'SE', 'FI']
 
 export let PAYMENTMETHODS: PaymentMethod[] = ['sepa']
 export let PAYMENTMETHODINFOS: PaymentMethodInfo[] = [
@@ -37,9 +37,9 @@ export let PAYMENTMETHODINFOS: PaymentMethodInfo[] = [
 
 export const PAYMENTCATEGORIES: PaymentCategories = {
   bankTransfer: ['sepa'],
-  onlineWallet: ['paypal', 'revolut', 'wise', 'twint', 'swish'],
+  onlineWallet: ['paypal', 'revolut', 'wise', 'twint', 'swish', 'mobilePay'],
   giftCard: ['giftCard.amazon'].concat(COUNTRIES.map((c) => `giftCard.amazon.${c}`)) as PaymentMethod[],
-  localOption: ['mbWay', 'bizum', 'satispay'],
+  localOption: ['mbWay', 'bizum', 'satispay', 'mobilePay'],
   cash: [],
   cryptoCurrency: [],
 }
@@ -51,6 +51,7 @@ export const LOCALPAYMENTMETHODS: LocalPaymentMethods = {
     IT: ['satispay'],
     PT: ['mbWay'],
     ES: ['bizum'],
+    FI: ['mobilePay'],
   },
 }
 

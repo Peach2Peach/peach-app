@@ -24,6 +24,10 @@ declare type BizumData = {
   phone: string
   beneficiary: string
 }
+declare type MobilePayData = {
+  phone: string
+  beneficiary: string
+}
 declare type MBWayData = {
   phone: string
   beneficiary: string
