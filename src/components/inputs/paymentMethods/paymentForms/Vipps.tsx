@@ -39,9 +39,9 @@ export const Vipps = ({ forwardRef, data, currencies = [], onSubmit, setStepVali
     id: data?.id || `vipps-${new Date().getTime()}`,
     label,
     type: 'vipps',
+    beneficiary,
     phone,
     reference,
-    beneficiary,
     currencies: selectedCurrencies,
   })
 
