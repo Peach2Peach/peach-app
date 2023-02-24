@@ -1,4 +1,2 @@
-export const enforceSortCodeFormat = (sortCode: string) => {
-  const formatted = sortCode.toUpperCase().replace(/[^A-Z0-9]/gu, '')
-  return formatted
-}
+export const enforceSortCodeFormat = (text: string) => text.toUpperCase().split(' ')
+  .join('')

@@ -88,7 +88,7 @@ export const rules = {
     return isPhoneAllowed(value)
   },
   ukSortCode (_: boolean, value: string) {
-    return /^(?:\d{2}(?:-?\d{2}){2}|\d{6})$/u.test(value)
+    return /^\d{6})$/u.test(value)
   },
   ukBankAccount (_: boolean, value: string) {
     return /^\d{6,10}$/u.test(value)
