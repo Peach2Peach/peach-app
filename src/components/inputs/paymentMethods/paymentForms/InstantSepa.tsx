@@ -14,7 +14,7 @@ const notRequired = { required: false }
 const ibanRules = { required: true, iban: true, isEUIBAN: true }
 const bicRules = { required: true, bic: true }
 
-export const SEPA = ({ forwardRef, data, currencies = [], onSubmit, setStepValid }: FormProps): ReactElement => {
+export const InstantSepa = ({ forwardRef, data, currencies = [], onSubmit, setStepValid }: FormProps): ReactElement => {
   const [label, setLabel] = useState(data?.label || '')
   const [beneficiary, setBeneficiary, beneficiaryIsValid, beneficiaryErrors] = useValidatedState(
     data?.beneficiary || '',
@@ -44,9 +44,9 @@ export const SEPA = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
   const labelErrors = useMemo(() => getErrorsInField(label, labelRules), [label, labelRules])
 
   const buildPaymentData = (): PaymentData & SEPAData => ({
-    id: data?.id || `sepa-${new Date().getTime()}`,
+    id: data?.id || `instantSepa-${new Date().getTime()}`,
     label,
-    type: 'sepa',
+    type: 'instantSepa',
     beneficiary,
     iban,
     bic,
@@ -88,8 +88,8 @@ export const SEPA = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
         onChange={setBeneficiary}
         onSubmit={() => $iban?.focus()}
         reference={(el: any) => ($beneficiary = el)}
-        value={beneficiary}
         required={true}
+        value={beneficiary}
         label={i18n('form.beneficiary')}
         placeholder={i18n('form.beneficiary.placeholder')}
         autoCorrect={false}
@@ -99,8 +99,8 @@ export const SEPA = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
         onChange={setIBAN}
         onSubmit={() => $bic?.focus()}
         reference={(el: any) => ($iban = el)}
-        value={iban}
         required={true}
+        value={iban}
         label={i18n('form.iban')}
         placeholder={i18n('form.iban.placeholder')}
         autoCorrect={false}
