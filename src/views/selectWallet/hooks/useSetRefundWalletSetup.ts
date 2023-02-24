@@ -37,7 +37,7 @@ export const useSetRefundWalletSetup = () => {
       const sellOffer = getOffer(offerId)
       if (sellOffer && isSellOffer(sellOffer)) saveOffer({
         ...sellOffer,
-        walletLabel: payoutAddressLabel,
+        walletLabel: peachWalletActive ? i18n('peachWallet') : payoutAddressLabel,
         returnAddress: refundAddress,
       })
     }
