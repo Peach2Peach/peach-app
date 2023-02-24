@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
+import React, { ReactElement, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
 import { TextInput, View } from 'react-native'
 import { FormProps } from '.'
 import { useValidatedState } from '../../../../hooks'
@@ -26,10 +26,13 @@ export const MobilePay = ({ forwardRef, data, currencies = [], onSubmit, setStep
   let $beneficiary = useRef<TextInput>(null).current
   let $reference = useRef<TextInput>(null).current
 
-  const labelRules = {
-    required: true,
-    duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)!.id !== data.id,
-  }
+  const labelRules = useMemo(
+    () => ({
+      required: true,
+      duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)!.id !== data.id,
+    }),
+    [data.id, label],
+  )
 
   const labelErrors = useMemo(() => getErrorsInField(label, labelRules), [label, labelRules])
 
@@ -42,10 +45,10 @@ export const MobilePay = ({ forwardRef, data, currencies = [], onSubmit, setStep
     currencies: data?.currencies || currencies,
   })
 
-  const isFormValid = () => {
+  const isFormValid = useCallback(() => {
     setDisplayErrors(true)
     return phoneIsValid && labelErrors.length === 0
-  }
+  }, [labelErrors.length, phoneIsValid])
 
   const save = () => {
     if (!isFormValid()) return
