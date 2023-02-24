@@ -82,6 +82,7 @@ export const MobilePay = ({ forwardRef, data, currencies = [], onSubmit, setStep
           }}
           reference={(el: any) => ($phone = el)}
           value={phone}
+          required={true}
           label={i18n('form.phone')}
           placeholder={i18n('form.phone.placeholder')}
           autoCorrect={false}
