@@ -89,6 +89,7 @@ export const rules = {
   },
   advcashWallet (_: boolean, value: string) {
     return /^[uU][A-Za-z\d]{12}$/u.test(value.split(' ').join(''))
+  },
   ukSortCode (_: boolean, value: string) {
     return /^\d{6}$/u.test(value)
   },
