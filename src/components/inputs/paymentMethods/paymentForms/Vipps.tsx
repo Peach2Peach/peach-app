@@ -9,6 +9,7 @@ import Input from '../../Input'
 import { PhoneInput } from '../../PhoneInput'
 import { CurrencySelection, toggleCurrency } from './CurrencySelection'
 
+const beneficiaryRules = { required: false }
 const referenceRules = { required: false }
 const phoneRules = { phone: true, isPhoneAllowed: true, required: true }
 
@@ -17,7 +18,9 @@ export const Vipps = ({ forwardRef, data, currencies = [], onSubmit, setStepVali
   const [phone, setPhone] = useState(data?.phone || '')
   const [reference, setReference, , referenceError] = useValidatedState(data?.reference || '', referenceRules)
   const [selectedCurrencies, setSelectedCurrencies] = useState(data?.currencies || currencies)
+  const [beneficiary, setBeneficiary, , beneficiaryErrors] = useValidatedState(data?.beneficiary || '', beneficiaryRules)
 
+  let $phone = useRef<TextInput>(null).current
   let $reference = useRef<TextInput>(null).current
 
   const labelRules = useMemo(
@@ -37,6 +40,8 @@ export const Vipps = ({ forwardRef, data, currencies = [], onSubmit, setStepVali
     label,
     type: 'vipps',
     phone,
+    reference,
+    beneficiary,
     currencies: selectedCurrencies,
   })
 
@@ -75,8 +80,19 @@ export const Vipps = ({ forwardRef, data, currencies = [], onSubmit, setStepVali
           errorMessage={displayErrors ? labelErrors : undefined}
         />
       </View>
+      <Input
+        onChange={setBeneficiary}
+        onSubmit={() => $phone?.focus()}
+        value={beneficiary}
+        required={true}
+        label={i18n('form.beneficiary')}
+        placeholder={i18n('form.beneficiary.placeholder')}
+        autoCorrect={false}
+        errorMessage={displayErrors ? beneficiaryErrors : undefined}
+      />
       <PhoneInput
         onChange={setPhone}
+        reference={(el: any) => ($phone = el)}
         onSubmit={() => {
           $reference?.focus()
         }}

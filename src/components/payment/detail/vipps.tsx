@@ -6,7 +6,7 @@ import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { CopyAble } from '../../ui'
 
-const possibleFields = ['phone']
+const possibleFields = ['phone', 'beneficiary']
 export const DetailVipps = ({ paymentData, copyable, style }: PaymentTemplateProps): ReactElement => (
   <>
     <View style={[tw`flex-row justify-between`, style]}>
