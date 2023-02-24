@@ -1,5 +1,6 @@
 declare type Settings = {
   appVersion: string
+  analyticsPopupSeen?: boolean
   enableAnalytics?: boolean
   locale: string
   minBuyAmount: number

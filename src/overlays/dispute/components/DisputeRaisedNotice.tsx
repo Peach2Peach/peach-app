@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 import { View } from 'react-native'
-import { Input, Text } from '../../../components'
+import { Text } from '../../../components'
 import { EmailInput } from '../../../components/inputs/EmailInput'
 import tw from '../../../styles/tailwind'
 import { contractIdToHex } from '../../../utils/contract'
