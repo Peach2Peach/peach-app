@@ -20,7 +20,7 @@ describe('enforceWalletFormat', () => {
   })
 
   it('should format text correctly with a full input', () => {
-    const result = enforceWalletFormat('ABCDEFGH12345')
+    const result = enforceWalletFormat('ABCDEFGH12345÷¬∞¢#@')
     expect(result).toEqual('ABCDEFGH12345')
   })
 })
