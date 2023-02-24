@@ -100,6 +100,7 @@ declare type PaymentMethod =
   | 'advcash'
   | 'paypal'
   | 'revolut'
+  | 'blik'
   | 'applePay'
   | 'wise'
   | 'twint'

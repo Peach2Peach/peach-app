@@ -3,6 +3,7 @@ import advcash from './advcash.svg'
 import bitcoin from './bitcoin.svg'
 import bitcoinAmsterdam from './bitcoinAmsterdam.svg'
 import bizum from './bizum.svg'
+import blik from './blik.svg'
 import mbWay from './mbWay.svg'
 import paypal from './paypal.svg'
 import revolut from './revolut.svg'
@@ -21,6 +22,7 @@ const PaymentLogos = {
   advcash,
   bitcoin,
   bizum,
+  blik,
   mbWay,
   paypal,
   revolut,
