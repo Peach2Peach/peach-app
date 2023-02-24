@@ -8,7 +8,6 @@ type PNEventHandlers = Partial<Record<NotificationType, (contract: Contract) => 
 export const useContractPopupEvents = () => {
   const showConfirmTradeCancelation = useConfirmTradeCancelationOverlay()
   const showTradeCanceled = useTradeCanceledOverlay()
-
   const showPaymentTooLateOverlay = usePaymentTooLateOverlay()
 
   const contractPopupEvents: PNEventHandlers = useMemo(
