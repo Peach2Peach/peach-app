@@ -144,6 +144,7 @@
   "offer.requiredAction.escrowWaitingForConfirmation": "transaction pending",
   "offer.requiredAction.returnAddressRequired": "provide refund address",
   "offer.requiredAction.refundTxSignatureRequired": "refund escrow",
+  "offer.requiredAction.refundOrReviveRequired": "trade canceled",
   "offer.requiredAction.provideReturnAddress": "provide refund address",
   "offer.requiredAction.searchingForPeer": "looking for match",
   "offer.requiredAction.hasMatchesAvailable": "select match",
