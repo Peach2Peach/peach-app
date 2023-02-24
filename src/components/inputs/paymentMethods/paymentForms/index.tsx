@@ -19,6 +19,7 @@ import { PayPal } from './PayPal'
 import { Revolut } from './Revolut'
 import { Satispay } from './Satispay'
 import { SEPA } from './SEPA'
+import { InstantSepa } from './InstantSepa'
 import { Swish } from './Swish'
 import { Twint } from './Twint'
 import { Wise } from './Wise'
@@ -43,6 +44,7 @@ export type PaymentMethodForms = {
 }
 export const PaymentMethodForms: PaymentMethodForms = {
   sepa: SEPA,
+  instantSepa: InstantSepa,
   paypal: PayPal,
   revolut: Revolut,
   wise: Wise,
@@ -97,7 +99,7 @@ export const PaymentMethodForm = ({
     <View style={[tw`h-full`, style]}>
       <PeachScrollView
         contentContainerStyle={[
-          tw`items-center justify-center flex-1`,
+          tw`items-center justify-center flex-grow`,
           !specialTemplates[paymentMethod] ? tw`pt-4 pb-10` : {},
         ]}
       >
