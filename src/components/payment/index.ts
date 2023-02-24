@@ -1,4 +1,5 @@
 import { DetailVipps } from './detail/vipps'
+import { DetailFasterPayments } from './detail/fasterPayments'
 import { DetailInstantSepa } from './detail/instantSepa'
 import { ReactElement } from 'react'
 import { COUNTRIES } from '../../constants'
@@ -6,6 +7,7 @@ import GeneralPaymentDetails from './detail/generalPaymentDetails'
 import DetailPaypal from './detail/paypal'
 import DetailRevolut from './detail/revolut'
 import { DetailSEPA } from './detail/sepa'
+import DetailADVCash from './detail/advcash'
 import DetailBlik from './detail/blik'
 
 export type PaymentTemplateProps = ComponentProps & {
@@ -23,9 +25,11 @@ export type PaymentDetailTemplates = {
 
 export const paymentDetailTemplates: PaymentDetailTemplates = {
   sepa: DetailSEPA,
+  fasterPayments: DetailFasterPayments,
   instantSepa: DetailInstantSepa,
   paypal: DetailPaypal,
   revolut: DetailRevolut,
+  advcash: DetailADVCash,
   blik: DetailBlik,
   wise: GeneralPaymentDetails,
   twint: GeneralPaymentDetails,

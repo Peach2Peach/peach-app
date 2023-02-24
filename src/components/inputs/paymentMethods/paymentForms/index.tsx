@@ -13,6 +13,7 @@ import { Fade } from '../../../animation'
 import { PrimaryButton } from '../../../buttons'
 import PeachScrollView from '../../../PeachScrollView'
 import { Bizum } from './Bizum'
+import { FasterPayments } from './FasterPayments'
 import { GiftCardAmazon } from './giftCard.amazon'
 import { MBWay } from './MBWay'
 import { PayPal } from './PayPal'
@@ -24,6 +25,7 @@ import { Swish } from './Swish'
 import { Twint } from './Twint'
 import { Wise } from './Wise'
 import { Vipps } from './Vipps'
+import { ADVCash } from './ADVCash'
 import { Blik } from './Blik'
 const { LinearGradient } = require('react-native-gradients')
 
@@ -46,10 +48,12 @@ export type PaymentMethodForms = {
 }
 export const PaymentMethodForms: PaymentMethodForms = {
   sepa: SEPA,
+  fasterPayments: FasterPayments,
   instantSepa: InstantSepa,
   paypal: PayPal,
   revolut: Revolut,
   vipps: Vipps,
+  advcash: ADVCash,
   blik: Blik,
   wise: Wise,
   twint: Twint,

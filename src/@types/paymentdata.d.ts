@@ -20,6 +20,12 @@ declare type SEPAData = {
   bic?: string
   reference?: string
 }
+declare type FasterPaymentsData = {
+  beneficiary: string
+  ukBankAccount: string
+  ukSortCode: string
+  reference?: string
+}
 declare type BizumData = {
   phone: string
   beneficiary: string
@@ -36,6 +42,10 @@ declare type RevolutData = {
 declare type VippsData = {
   phone: string
   beneficiary?: string
+}
+declare type ADVCashData = {
+  wallet: string
+  email: string
 }
 declare type SwishData = {
   phone: string
