@@ -42,15 +42,14 @@
 "notification.body.contract.seller.disputeRaised" = "The buyer has started a dispute for trade %1$@ for %2$@ sats. Please check the app for more information.";
 "notification.title.contract.disputeResolved" = "Dispute";
 "notification.body.contract.disputeResolved" = "The dispute for trade %1$@ has been resolved. Please check the message from your mediator in the trade chat to see what’s next.";
-"notification.title.contract.buyer.disputeWon" = ""
-"notification.body.contract.buyer.disputeWon" = "We've ruled your in favor in the dispute for trade %1$@. Please check the message from your mediator in the trade chat to see what's next."
-"notification.title.contract.buyer.disputeLost" = ""
-"notification.body.contract.buyer.disputeLost" = "We've ruled in favor of the seller in the dispute for trade %1$@. Please check the message from your mediator in the trade chat to see what's next."
-"notification.title.contract.seller.disputeWon" = ""
-"notification.body.contract.seller.disputeWon" = "We've ruled your in favor in the dispute for trade %1$@. Please check the message from your mediator in the trade chat to see what's next."
-"notification.title.contract.seller.disputeLost" = ""
-"notification.body.contract.seller.disputeLost" = "We've ruled in favor of the buyer in the dispute for trade %1$@. Please check the message from your mediator in the trade chat to see what's next."
-
+"notification.title.contract.buyer.disputeWon" = "";
+"notification.body.contract.buyer.disputeWon" = "We've ruled your in favor in the dispute for trade %1$@. Please check the message from your mediator in the trade chat to see what's next.";
+"notification.title.contract.buyer.disputeLost" = "";
+"notification.body.contract.buyer.disputeLost" = "We've ruled in favor of the seller in the dispute for trade %1$@. Please check the message from your mediator in the trade chat to see what's next.";
+"notification.title.contract.seller.disputeWon" = "";
+"notification.body.contract.seller.disputeWon" = "We've ruled your in favor in the dispute for trade %1$@. Please check the message from your mediator in the trade chat to see what's next.";
+"notification.title.contract.seller.disputeLost" = "";
+"notification.body.contract.seller.disputeLost" = "We've ruled in favor of the buyer in the dispute for trade %1$@. Please check the message from your mediator in the trade chat to see what's next.";
 "notification.title.contract.canceled" = "Trade cancelation";
 "notification.body.contract.canceled" = "Your Buyer has canceled Trade %1$@.";
 "notification.title.contract.seller.canceledAfterEscrowExpiry" = "Trade cancelation";

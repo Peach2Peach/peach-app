@@ -1,6 +1,5 @@
 import { NETWORK } from '@env'
 import React, { ReactElement } from 'react'
-import { View } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import tw from '../../styles/tailwind'
 import { showAddress, showTransaction } from '../../utils/bitcoin'

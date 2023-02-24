@@ -3,7 +3,6 @@ import { View } from 'react-native'
 import { PriceFormat, Text } from '../../../components'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
-import { thousands } from '../../../utils/string'
 
 type Props = ComponentProps & {
   amount: number

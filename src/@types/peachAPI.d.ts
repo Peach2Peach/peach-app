@@ -188,6 +188,7 @@ declare type TradeStatus =
   | 'confirmCancelation'
   | 'tradeCompleted'
   | 'tradeCanceled'
+  | 'refundOrReviveRequired'
   | 'waiting'
 
 declare type OfferDraft = {

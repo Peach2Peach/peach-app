@@ -19,7 +19,7 @@ type CountrySelectProps = {
   next: () => void
 }
 
-export default ({ paymentMethod, currency, selected, setCountry, back, next }: CountrySelectProps): ReactElement => {
+export default ({ paymentMethod, currency, selected, setCountry, next }: CountrySelectProps): ReactElement => {
   const [paymentMethodInfo] = useState(() => getPaymentMethodInfo(paymentMethod))
   const [stepValid, setStepValid] = useState(false)
   const [selectedCountry, setSelectedCountry] = useState(selected)
