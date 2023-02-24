@@ -1,3 +1,4 @@
+import { DetailMobilePay } from './detail/mobilePay'
 import { DetailInstantSepa } from './detail/instantSepa'
 import { ReactElement } from 'react'
 import { COUNTRIES } from '../../constants'
@@ -32,7 +33,7 @@ export const paymentDetailTemplates: PaymentDetailTemplates = {
   satispay: GeneralPaymentDetails,
   mbWay: GeneralPaymentDetails,
   bizum: GeneralPaymentDetails,
-  mobilePay: GeneralPaymentDetails,
+  mobilePay: DetailMobilePay,
   'giftCard.amazon': GeneralPaymentDetails,
 }
 
