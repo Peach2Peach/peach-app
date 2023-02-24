@@ -6,7 +6,7 @@ import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { CopyAble } from '../../ui'
 
-const possibleFields: (keyof FasterPaymentsData)[] = ['beneficiary', 'accountNumber', 'sortCode']
+const possibleFields: (keyof FasterPaymentsData)[] = ['beneficiary', 'ukBankAccount', 'ukSortCode']
 
 export const DetailFasterPayments = ({ paymentData, copyable, style }: PaymentTemplateProps): ReactElement => (
   <View style={style}>

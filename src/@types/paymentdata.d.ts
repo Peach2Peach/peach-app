@@ -22,8 +22,8 @@ declare type SEPAData = {
 }
 declare type FasterPaymentsData = {
   beneficiary: string
-  accountNumber: string
-  sortCode: string
+  ukBankAccount: string
+  ukSortCode: string
   reference?: string
 }
 declare type BizumData = {

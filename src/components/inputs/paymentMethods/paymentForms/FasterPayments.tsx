@@ -5,14 +5,13 @@ import { useValidatedState } from '../../../../hooks'
 import { getPaymentDataByLabel } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
 import { getErrorsInField } from '../../../../utils/validation'
-import { IBANInput } from '../../IBANInput'
 import Input from '../../Input'
 import { SortCodeInput } from '../../SortCodeInput'
 
 const beneficiaryRules = { required: true }
 const notRequired = { required: false }
-const accountNumberRules = { required: false, accountNumberUK: true }
-const sortCodeRules = { required: false, sortCode: true }
+const ukBankAccountRules = { required: false, ukBankAccount: true }
+const ukSortCodeRules = { required: false, ukSortCode: true }
 
 export const FasterPayments = ({
   forwardRef,
@@ -26,11 +25,14 @@ export const FasterPayments = ({
     data?.beneficiary || '',
     beneficiaryRules,
   )
-  const [accountNumber, setAccountNumber, accountNumberIsValid, accountNumberErrors] = useValidatedState(
-    data?.accountNumber || '',
-    accountNumberRules,
+  const [ukBankAccount, setAccountNumber, ukBankAccountIsValid, ukBankAccountErrors] = useValidatedState(
+    data?.ukBankAccount || '',
+    ukBankAccountRules,
   )
-  const [sortCode, setSortCode, sortCodeIsValid, sortCodeErrors] = useValidatedState(data?.sortCode || '', sortCodeRules)
+  const [ukSortCode, setSortCode, ukSortCodeIsValid, ukSortCodeErrors] = useValidatedState(
+    data?.ukSortCode || '',
+    ukSortCodeRules,
+  )
   const [reference, setReference, referenceIsValid, referenceErrors] = useValidatedState(
     data?.reference || '',
     notRequired,
@@ -38,8 +40,8 @@ export const FasterPayments = ({
   const [displayErrors, setDisplayErrors] = useState(false)
 
   let $beneficiary = useRef<TextInput>(null).current
-  let $accountNumber = useRef<TextInput>(null).current
-  let $sortCode = useRef<TextInput>(null).current
+  let $ukBankAccount = useRef<TextInput>(null).current
+  let $ukSortCode = useRef<TextInput>(null).current
   let $reference = useRef<TextInput>(null).current
 
   const labelRules = {
@@ -54,15 +56,17 @@ export const FasterPayments = ({
     label,
     type: 'sepa',
     beneficiary,
-    accountNumber,
-    sortCode,
+    ukBankAccount,
+    ukSortCode,
     reference,
     currencies: data?.currencies || currencies,
   })
 
   const isFormValid = () => {
     setDisplayErrors(true)
-    return labelErrors.length === 0 && beneficiaryIsValid && accountNumberIsValid && sortCodeIsValid && referenceIsValid
+    return (
+      labelErrors.length === 0 && beneficiaryIsValid && ukBankAccountIsValid && ukSortCodeIsValid && referenceIsValid
+    )
   }
 
   const save = () => {
@@ -92,7 +96,7 @@ export const FasterPayments = ({
       />
       <Input
         onChange={setBeneficiary}
-        onSubmit={() => $accountNumber?.focus()}
+        onSubmit={() => $ukBankAccount?.focus()}
         reference={(el: any) => ($beneficiary = el)}
         value={beneficiary}
         label={i18n('form.beneficiary')}
@@ -100,26 +104,27 @@ export const FasterPayments = ({
         autoCorrect={false}
         errorMessage={displayErrors ? beneficiaryErrors : undefined}
       />
-      <IBANInput
+      <Input
         onChange={setAccountNumber}
-        onSubmit={() => $sortCode?.focus()}
-        reference={(el: any) => ($accountNumber = el)}
-        value={accountNumber}
-        label={i18n('form.accountNumber')}
-        placeholder={i18n('form.accountNumber.placeholder')}
+        onSubmit={() => $ukSortCode?.focus()}
+        reference={(el: any) => ($ukBankAccount = el)}
+        value={ukBankAccount}
+        label={i18n('form.ukBankAccount')}
+        placeholder={i18n('form.ukBankAccount.placeholder')}
         autoCorrect={false}
-        errorMessage={displayErrors ? accountNumberErrors : undefined}
+        required={true}
+        errorMessage={displayErrors ? ukBankAccountErrors : undefined}
       />
       <SortCodeInput
         onChange={setSortCode}
         onSubmit={() => $reference?.focus()}
-        reference={(el: any) => ($sortCode = el)}
-        value={sortCode}
+        reference={(el: any) => ($ukSortCode = el)}
+        value={ukSortCode}
         required={true}
-        label={i18n('form.sortCode')}
-        placeholder={i18n('form.sortCode.placeholder')}
+        label={i18n('form.ukSortCode')}
+        placeholder={i18n('form.ukSortCode.placeholder')}
         autoCorrect={false}
-        errorMessage={displayErrors ? sortCodeErrors : undefined}
+        errorMessage={displayErrors ? ukSortCodeErrors : undefined}
       />
       <Input
         onChange={setReference}
