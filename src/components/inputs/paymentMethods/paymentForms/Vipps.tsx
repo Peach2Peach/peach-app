@@ -84,7 +84,7 @@ export const Vipps = ({ forwardRef, data, currencies = [], onSubmit, setStepVali
         onChange={setBeneficiary}
         onSubmit={() => $phone?.focus()}
         value={beneficiary}
-        required={true}
+        required={false}
         label={i18n('form.beneficiary')}
         placeholder={i18n('form.beneficiary.placeholder')}
         autoCorrect={false}
