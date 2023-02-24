@@ -103,6 +103,7 @@ export const FasterPayments = ({
         onSubmit={() => $ukBankAccount?.focus()}
         reference={(el: any) => ($beneficiary = el)}
         value={beneficiary}
+        required={true}
         label={i18n('form.beneficiary')}
         placeholder={i18n('form.beneficiary.placeholder')}
         autoCorrect={false}
