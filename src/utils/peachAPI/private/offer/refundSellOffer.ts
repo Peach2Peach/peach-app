@@ -4,31 +4,28 @@ import fetch, { getAbortWithTimeout } from '../../../fetch'
 import { parseResponse } from '../../parseResponse'
 import { fetchAccessToken } from '../user'
 
-type PatchOfferProps = RequestProps & {
-  offerId: Offer['id']
-  refundAddress?: string
-  refundTx?: string
+type RefundSellOfferProps = RequestProps & {
+  offerId: string
+  tx: string
 }
 
-export const patchOffer = async ({
+export const refundSellOffer = async ({
   offerId,
-  refundAddress,
-  refundTx,
+  tx,
   timeout,
-}: PatchOfferProps): Promise<[APISuccess | null, APIError | null]> => {
-  const response = await fetch(`${API_URL}/v1/offer/${offerId}`, {
+}: RefundSellOfferProps): Promise<[RefundSellOfferResponse | null, APIError | null]> => {
+  const response = await fetch(`${API_URL}/v1/offer/${offerId}/refund`, {
     headers: {
       Authorization: await fetchAccessToken(),
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
-    method: 'PATCH',
+    method: 'POST',
     body: JSON.stringify({
-      refundAddress,
-      refundTx,
+      tx,
     }),
     signal: timeout ? getAbortWithTimeout(timeout).signal : undefined,
   })
 
-  return await parseResponse<APISuccess>(response, 'patchOffer')
+  return await parseResponse<RefundSellOfferResponse>(response, 'refundSellOffer')
 }

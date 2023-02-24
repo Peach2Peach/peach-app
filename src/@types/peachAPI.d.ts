@@ -198,6 +198,7 @@ declare type TradeStatus =
   | 'searchingForPeer'
   | 'hasMatchesAvailable'
   | 'offerCanceled'
+  | 'refundAddressRequired'
   | 'refundTxSignatureRequired'
   | 'paymentRequired'
   | 'confirmPaymentRequired'
@@ -437,3 +438,5 @@ declare type PNData = {
   isChat?: string
   type?: NotificationType
 }
+
+declare type RefundSellOfferResponse = APISuccess

@@ -1,4 +1,5 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useFocusEffect } from '@react-navigation/native'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { TabbedNavigationItem } from '../../../components/navigation/TabbedNavigation'
 
 import { useHeaderSetup, useRoute } from '../../../hooks'
@@ -7,7 +8,7 @@ import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { sortContractsByDate } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
 import { parseError } from '../../../utils/system'
-import { hasDoubleMatched, isOpenOffer, isPastOffer } from '../utils'
+import { isOpenOffer, isPastOffer } from '../utils'
 import { getTabById } from '../utils/getTabById'
 
 const tabs: TabbedNavigationItem[] = [
@@ -46,6 +47,8 @@ export const useYourTradesSetup = () => {
       [],
     ),
   )
+
+  useFocusEffect(useCallback(() => refetch(), [refetch]))
 
   useEffect(() => {
     if (tab) setCurrentTab(getTabById(tabs, tab) || tabs[0])
