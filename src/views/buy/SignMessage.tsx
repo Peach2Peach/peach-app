@@ -1,7 +1,7 @@
 import Clipboard from '@react-native-clipboard/clipboard'
 import React, { ReactElement, useState } from 'react'
-import { Pressable, View } from 'react-native'
-import { Icon, Input, PeachScrollView, PrimaryButton } from '../../components'
+import { View } from 'react-native'
+import { CopyAble, Input, PeachScrollView, PrimaryButton } from '../../components'
 import { Text } from '../../components/text'
 import { useKeyboard } from '../../hooks'
 import tw from '../../styles/tailwind'
@@ -10,21 +10,9 @@ import { useSignMessageSetup } from './hooks/useSignMessageSetup'
 
 export default (): ReactElement => {
   const { address, message, submit, signature, setSignature, signatureValid, signatureError } = useSignMessageSetup()
-  const [addressCopied, setAddressCopied] = useState(false)
-  const [messageCopied, setMessageCopied] = useState(false)
 
   const submitSignature = () => submit(signature)
 
-  const copyAddress = () => {
-    if (!address) return
-    Clipboard.setString(address)
-    setAddressCopied(true)
-  }
-  const copyMessage = () => {
-    if (!message) return
-    Clipboard.setString(message)
-    setMessageCopied(true)
-  }
   const pasteSignature = async () => {
     const clipboard = await Clipboard.getString()
     setSignature(clipboard)
@@ -45,10 +33,7 @@ export default (): ReactElement => {
             ]}
           >
             <Text style={tw`flex-1 input-text`}>{address}</Text>
-            <Pressable onPress={copyAddress} style={tw`items-center justify-center pl-1`}>
-              <Icon id={'copy'} style={tw`w-5 h-5`} color={tw`text-black-1`.color} />
-              {addressCopied && <Text style={tw`subtitle-2`}>{i18n('copied')}</Text>}
-            </Pressable>
+            <CopyAble value={address || ''} style={tw`w-5 h-5 ml-2`} color={tw`text-black-1`} />
           </View>
           <Text style={[tw`pl-2 input-label`]}>{i18n('buy.addressSigning.message')}</Text>
           <View
@@ -59,10 +44,7 @@ export default (): ReactElement => {
             ]}
           >
             <Text style={tw`flex-1 input-text`}>{message}</Text>
-            <Pressable onPress={copyMessage} style={tw`items-center justify-center pl-1`}>
-              <Icon id={'copy'} style={tw`w-5 h-5`} color={tw`text-black-1`.color} />
-              {messageCopied && <Text style={tw`subtitle-2`}>{i18n('copied')}</Text>}
-            </Pressable>
+            <CopyAble value={message || ''} style={tw`w-5 h-5 ml-2`} color={tw`text-black-1`} />
           </View>
           <Input
             {...{
