@@ -6,6 +6,7 @@ import GeneralPaymentDetails from './detail/generalPaymentDetails'
 import DetailPaypal from './detail/paypal'
 import DetailRevolut from './detail/revolut'
 import { DetailSEPA } from './detail/sepa'
+import DetailBlik from './detail/blik'
 
 export type PaymentTemplateProps = ComponentProps & {
   paymentData: PaymentData
@@ -25,6 +26,7 @@ export const paymentDetailTemplates: PaymentDetailTemplates = {
   instantSepa: DetailInstantSepa,
   paypal: DetailPaypal,
   revolut: DetailRevolut,
+  blik: DetailBlik,
   wise: GeneralPaymentDetails,
   twint: GeneralPaymentDetails,
   swish: GeneralPaymentDetails,

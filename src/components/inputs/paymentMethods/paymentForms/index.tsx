@@ -24,6 +24,7 @@ import { Swish } from './Swish'
 import { Twint } from './Twint'
 import { Wise } from './Wise'
 import { Vipps } from './Vipps'
+import { Blik } from './Blik'
 const { LinearGradient } = require('react-native-gradients')
 
 type FormRef = {
@@ -49,6 +50,7 @@ export const PaymentMethodForms: PaymentMethodForms = {
   paypal: PayPal,
   revolut: Revolut,
   vipps: Vipps,
+  blik: Blik,
   wise: Wise,
   twint: Twint,
   swish: Swish,

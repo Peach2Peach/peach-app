@@ -30,6 +30,7 @@ declare type Contract = {
   paymentDataEncrypted?: string
   paymentData?: PaymentData
   paymentDataSignature?: string
+  error?: 'DECRYPTION_ERROR'
 
   kycRequired: boolean
   kycType?: KYCType

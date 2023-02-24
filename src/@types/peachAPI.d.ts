@@ -113,6 +113,7 @@ declare type PaymentMethod =
   | 'paypal'
   | 'revolut'
   | 'vipps'
+  | 'blik'
   | 'applePay'
   | 'wise'
   | 'twint'
