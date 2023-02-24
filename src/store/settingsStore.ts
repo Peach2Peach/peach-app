@@ -1,3 +1,4 @@
+import analytics from '@react-native-firebase/analytics'
 import create, { createStore } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { updateSettings } from '../utils/account'
@@ -9,6 +10,8 @@ type SettingsStore = Settings & {
   updateSettings: (settings: Settings) => void
   setAppVersion: (appVersion: string) => void
   setEnableAnalytics: (enableAnalytics: boolean) => void
+  toggleAnalytics: () => void
+  setAnalyticsPopupSeen: (analyticsPopupSeen: boolean) => void
   setLocale: (locale: string) => void
   setMinBuyAmount: (minBuyAmount: number) => void
   setMaxBuyAmount: (maxBuyAmount: number) => void
@@ -29,6 +32,7 @@ type SettingsStore = Settings & {
   setLastBackupDate: (lastBackupDate: number) => void
   setShowBackupReminder: (showBackupReminder: boolean) => void
   setPeachWalletActive: (peachWalletActive: boolean) => void
+  togglePeachWallet: () => void
   setNodeURL: (url: string) => void
   setFeeRate: (feeRate: number | 'fastestFee' | 'halfHourFee' | 'hourFee' | 'economyFee') => void
 }
@@ -37,11 +41,16 @@ export const settingsStorage = createStorage('settings')
 
 export const settingsStore = createStore(
   persist<SettingsStore>(
-    (set) => ({
+    (set, get) => ({
       ...defaultSettings,
       updateSettings: (settings) => set({ ...settings }),
       setAppVersion: (appVersion) => set((state) => ({ ...state, appVersion })),
-      setEnableAnalytics: (enableAnalytics) => set((state) => ({ ...state, enableAnalytics })),
+      setEnableAnalytics: (enableAnalytics) => {
+        analytics().setAnalyticsCollectionEnabled(enableAnalytics)
+        set((state) => ({ ...state, enableAnalytics }))
+      },
+      toggleAnalytics: () => get().setEnableAnalytics(!get().enableAnalytics),
+      setAnalyticsPopupSeen: (analyticsPopupSeen) => set((state) => ({ ...state, analyticsPopupSeen })),
       setLocale: (locale) => set((state) => ({ ...state, locale })),
       setMinBuyAmount: (minBuyAmount) => set((state) => ({ ...state, minBuyAmount })),
       setMaxBuyAmount: (maxBuyAmount) => set((state) => ({ ...state, maxBuyAmount })),
@@ -62,6 +71,7 @@ export const settingsStore = createStore(
       setLastBackupDate: (lastBackupDate) => set((state) => ({ ...state, lastBackupDate })),
       setShowBackupReminder: (showBackupReminder) => set((state) => ({ ...state, showBackupReminder })),
       setPeachWalletActive: (peachWalletActive) => set((state) => ({ ...state, peachWalletActive })),
+      togglePeachWallet: () => get().setPeachWalletActive(!get().peachWalletActive),
       setNodeURL: (nodeURL) => set((state) => ({ ...state, nodeURL })),
       setFeeRate: (feeRate) => set((state) => ({ ...state, feeRate })),
     }),
