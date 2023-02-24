@@ -97,6 +97,7 @@ declare type PaymentMethodCountry =
 declare type Location = 'amsterdam' | 'belgianEmbassy' | 'lugano'
 declare type PaymentMethod =
   | 'sepa'
+  | 'instantSepa'
   | 'paypal'
   | 'revolut'
   | 'applePay'
