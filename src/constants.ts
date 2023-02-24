@@ -1,6 +1,7 @@
 import { getBuildNumber, getUniqueId, getVersion, isEmulatorSync } from 'react-native-device-info'
 import { unique } from './utils/array'
 import { sha256 } from './utils/crypto/sha256'
+import { getAllPaymentMethods } from './utils/paymentMethod'
 
 export const SATSINBTC = 100000000
 export const MSINADAY = 86400000
@@ -76,8 +77,12 @@ export const APPLINKS: Record<string, { appLink?: string; url: string; userLink?
 }
 
 export const setPaymentMethods = (paymentMethodInfos: PaymentMethodInfo[]) => {
+  const allPaymentMethods = getAllPaymentMethods(PAYMENTCATEGORIES)
   PAYMENTMETHODINFOS = paymentMethodInfos
-  CURRENCIES = paymentMethodInfos.reduce((arr, info) => arr.concat(info.currencies), [] as Currency[]).filter(unique())
+  CURRENCIES = paymentMethodInfos
+    .filter((info) => allPaymentMethods.includes(info.id))
+    .reduce((arr, info) => arr.concat(info.currencies), [] as Currency[])
+    .filter(unique())
   COUNTRIES = paymentMethodInfos
     .reduce((arr, info) => arr.concat(info.countries || []), [] as PaymentMethodCountry[])
     .filter(unique())
