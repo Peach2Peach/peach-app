@@ -43,10 +43,13 @@ export default (): ReactElement => {
     [setAmount],
   )
 
-  const setSelectedAmount = (value: number) => {
-    setSellAmount(value)
-    updateStore(value)
-  }
+  const setSelectedAmount = useCallback(
+    (value: number) => {
+      setSellAmount(value)
+      updateStore(value)
+    },
+    [setSellAmount, updateStore],
+  )
   const next = () => navigation.navigate('sellPreferences')
 
   return minTradingAmount === 0 ? (
