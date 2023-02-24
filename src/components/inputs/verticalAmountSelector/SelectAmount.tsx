@@ -87,7 +87,7 @@ export const SelectAmount = ({ min, max, value, onChange, style }: RangeAmountPr
                   style={[tw`w-full h-20 p-0 text-xl`, { opacity: 0.01 }]}
                   inputStyle={tw`h-20 p-0 text-3xl`}
                   keyboardType="number-pad"
-                  value={value.toString()}
+                  value={amount.toString()}
                   onChange={updateCustomAmount}
                   onFocus={clearCustomAmount}
                 />
