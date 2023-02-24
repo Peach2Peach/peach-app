@@ -77,12 +77,8 @@ export const APPLINKS: Record<string, { appLink?: string; url: string; userLink?
 }
 
 export const setPaymentMethods = (paymentMethodInfos: PaymentMethodInfo[]) => {
-  const allPaymentMethods = getAllPaymentMethods(PAYMENTCATEGORIES)
   PAYMENTMETHODINFOS = paymentMethodInfos
-  CURRENCIES = paymentMethodInfos
-    .filter((info) => allPaymentMethods.includes(info.id))
-    .reduce((arr, info) => arr.concat(info.currencies), [] as Currency[])
-    .filter(unique())
+  CURRENCIES = paymentMethodInfos.reduce((arr, info) => arr.concat(info.currencies), [] as Currency[]).filter(unique())
   COUNTRIES = paymentMethodInfos
     .reduce((arr, info) => arr.concat(info.countries || []), [] as PaymentMethodCountry[])
     .filter(unique())
