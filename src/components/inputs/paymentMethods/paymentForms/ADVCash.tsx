@@ -9,6 +9,7 @@ import { getErrorsInField } from '../../../../utils/validation'
 import { TabbedNavigation, TabbedNavigationItem } from '../../../navigation/TabbedNavigation'
 import { EmailInput } from '../../EmailInput'
 import Input from '../../Input'
+import { WalletInput } from '../../WalletInput'
 import { CurrencySelection, toggleCurrency } from './CurrencySelection'
 
 const tabs: TabbedNavigationItem[] = [
@@ -50,17 +51,6 @@ export const ADVCash = ({ forwardRef, data, currencies = [], onSubmit, setStepVa
   const emailErrors = useMemo(() => getErrorsInField(email, emailRules), [email, emailRules])
   const walletErrors = useMemo(() => getErrorsInField(wallet, walletRules), [wallet, walletRules])
   const [displayErrors, setDisplayErrors] = useState(false)
-
-  const handleWalletSubmit = (text: string) => {
-    // Remove any spaces from the entered text
-    const formattedText = text.replace(/\s/u, '')
-    // Add spaces at the appropriate positions
-    const formattedValue = formattedText
-      .toUpperCase()
-      .replace(/^([A-Z])/u, '$1 ') // Add space after first letter
-      .replace(/([A-Za-z\d]{4})?([A-Za-z\d]{4})/u, '$1 $2 ') // Add space after every 4 digits
-    setWallet(formattedValue)
-  }
 
   const buildPaymentData = (): PaymentData & ADVCashData => ({
     id: data?.id || `advcash-${new Date().getTime()}`,
@@ -109,12 +99,9 @@ export const ADVCash = ({ forwardRef, data, currencies = [], onSubmit, setStepVa
       <TabbedNavigation items={tabs} selected={currentTab} select={setCurrentTab} />
       <View style={tw`mt-2`}>
         {currentTab.id === 'wallet' && (
-          <Input
+          <WalletInput
             onChange={setWallet}
             onSubmit={$reference?.focus}
-            onBlur={() => {
-              handleWalletSubmit(wallet)
-            }}
             value={wallet}
             required={!anyFieldSet}
             placeholder={i18n('form.wallet.placeholder')}
