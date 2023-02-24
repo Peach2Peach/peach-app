@@ -17,12 +17,13 @@ type CurrencySelectProps = {
 }
 
 const stepValid = true
-const currencies = CURRENCIES.map((c) => ({
-  value: c,
-  display: i18n(`currency.${c}`),
-}))
+
 export default ({ currency = 'EUR', setCurrency, next }: CurrencySelectProps): ReactElement => {
   useHeaderSetup(useMemo(() => ({ title: i18n('paymentMethod.select') }), []))
+  const currencies = CURRENCIES.map((c) => ({
+    value: c,
+    display: i18n(`currency.${c}`),
+  }))
   return (
     <View style={tw`flex h-full`}>
       <PeachScrollView contentContainerStyle={tw`items-center justify-center flex-grow px-10 pb-10`}>

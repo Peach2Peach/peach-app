@@ -442,6 +442,7 @@
   "paymentMethod.mbWay": "MB Way",
   "paymentMethod.bizum": "Bizum",
   "paymentMethod.mobilePay": "Mobile Pay",
+  "paymentMethod.blik": "Blik",
   "paymentMethod.tether": "Tether",
   "paymentMethod.cash": "Cash",
   "paymentMethod.currency.select.title": "select $0 currencies",

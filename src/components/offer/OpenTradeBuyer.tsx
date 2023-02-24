@@ -59,7 +59,9 @@ export const OpenTradeBuyer = ({ contract }: TradeSummaryProps): ReactElement =>
             copyable
           />
         )}
-        {!contract.paymentData && <ErrorBox style={tw`mt-4`}>{i18n('contract.paymentData.decyptionFailed')}</ErrorBox>}
+        {!contract.paymentData && contract.error === 'DECRYPTION_ERROR' && (
+          <ErrorBox style={tw`mt-4`}>{i18n('contract.paymentData.decyptionFailed')}</ErrorBox>
+        )}
 
         <HorizontalLine style={tw`mt-6`} />
         <View style={tw`flex-row justify-center mt-6`}>

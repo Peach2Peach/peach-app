@@ -18,7 +18,7 @@ export const getTxSummary = (tx: ConfirmedTransaction | PendingTransaction) => {
     amount: sats,
     price,
     currency: bitcoinStore.getState().currency,
-    date: txIsConfirmed(tx) ? new Date(tx.block_timestamp * 1000) : new Date(),
+    date: txIsConfirmed(tx) ? new Date((tx.block_timestamp || tx.confirmation_time || Date.now()) * 1000) : new Date(),
     confirmed: txIsConfirmed(tx),
   }
 }

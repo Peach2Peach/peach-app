@@ -24,6 +24,7 @@ import { InstantSepa } from './InstantSepa'
 import { Swish } from './Swish'
 import { Twint } from './Twint'
 import { Wise } from './Wise'
+import { Blik } from './Blik'
 const { LinearGradient } = require('react-native-gradients')
 
 type FormRef = {
@@ -48,6 +49,7 @@ export const PaymentMethodForms: PaymentMethodForms = {
   instantSepa: InstantSepa,
   paypal: PayPal,
   revolut: Revolut,
+  blik: Blik,
   wise: Wise,
   twint: Twint,
   swish: Swish,
