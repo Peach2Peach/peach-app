@@ -110,7 +110,7 @@ export default ({ setMeansOfPayment, editing, style, origin }: PaymentDetailsPro
   }
 
   const editItem = (data: PaymentData) => {
-    if (data.type.includes('cash')) {
+    if (data.type.includes('cash.')) {
       navigation.push('meetupScreen', { eventId: data.id.replace('cash.', ''), deletable: true, origin })
     } else {
       navigation.push('paymentDetails', {
@@ -137,7 +137,7 @@ export default ({ setMeansOfPayment, editing, style, origin }: PaymentDetailsPro
   }, [paymentData])
 
   const remotePaymentDetails = () =>
-    paymentData.filter((item) => !item.type.includes('cash')).length === 0 ? (
+    paymentData.filter((item) => !item.type.includes('cash.')).length === 0 ? (
       <Text style={tw`text-center h6 text-black-3`}>{i18n('paymentMethod.empty')}</Text>
     ) : (
       <View style={tw`px-4`}>
@@ -193,7 +193,7 @@ export default ({ setMeansOfPayment, editing, style, origin }: PaymentDetailsPro
 
   const meetupPaymentDetails = () => (
     <>
-      {paymentData.filter((item) => item.type.includes('cash')).length !== 0 && (
+      {paymentData.filter((item) => item.type.includes('cash.')).length !== 0 && (
         <LinedText style={tw`pb-3`}>
           <Text style={tw`mr-1 h6 text-black-2`}>{i18n('paymentSection.meetups')}</Text>
           <Icon color={tw`text-black-2`.color} id={'users'} />
@@ -201,7 +201,7 @@ export default ({ setMeansOfPayment, editing, style, origin }: PaymentDetailsPro
       )}
       {paymentData
         .filter((item) => !item.hidden)
-        .filter((item) => item.type.includes('cash'))
+        .filter((item) => item.type.includes('cash.'))
         .map(mapPaymentDataToCheckboxes)
         .map((item, i) => (
           <View key={item.data.id} style={i > 0 ? tw`mt-4` : {}}>
