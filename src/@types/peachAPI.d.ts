@@ -71,7 +71,20 @@ declare type TradingLimit = {
 
 declare type TradingPair = 'BTCEUR' | 'BTCCHF' | 'BTCGBP'
 
-declare type Currency = 'USD' | 'EUR' | 'CHF' | 'GBP' | 'SEK'
+declare type Currency =
+  | 'USD'
+  | 'EUR'
+  | 'CHF'
+  | 'GBP'
+  | 'SEK'
+  | 'DKK'
+  | 'BGN'
+  | 'CZK'
+  | 'HUF'
+  | 'PLN'
+  | 'RON'
+  | 'ISK'
+  | 'NOK'
 declare type Pricebook = {
   [key in Currency]?: number
 }
@@ -101,6 +114,7 @@ declare type PaymentMethod =
   | 'paypal'
   | 'fasterPayments'
   | 'revolut'
+  | 'vipps'
   | 'blik'
   | 'applePay'
   | 'wise'
