@@ -72,6 +72,7 @@ export const useTradeCanceledOverlay = () => {
       const sellOffer = getSellOfferFromContract(contract)
       if (!sellOffer) return
 
+      navigation.navigate('yourTrades', { tab: 'history' })
       const expiry = getOfferExpiry(sellOffer)
       const refundAction = {
         label: i18n('contract.cancel.tradeCanceled.refund'),

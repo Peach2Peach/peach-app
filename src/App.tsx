@@ -1,5 +1,5 @@
 /* eslint-disable max-lines */
-import React, { ReactElement, useEffect, useReducer, useRef, useState } from 'react'
+import React, { ReactElement, useCallback, useEffect, useReducer, useRef, useState } from 'react'
 import { Animated, Dimensions, SafeAreaView, View } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
@@ -145,7 +145,7 @@ const App: React.FC = () => {
     shallow,
   )
   const [currentPage, setCurrentPage] = useState<keyof RootStackParamList>()
-  const getCurrentPage = () => currentPage
+  const getCurrentPage = useCallback(() => currentPage, [currentPage])
   const views = getViews(!!account?.publicKey)
   const showFooter = !!views.find((v) => v.name === currentPage)?.showFooter
   const backgroundConfig = views.find((v) => v.name === currentPage)?.background

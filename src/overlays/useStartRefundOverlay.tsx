@@ -3,6 +3,7 @@ import React, { useCallback, useContext } from 'react'
 import { Loading } from '../components'
 import { OverlayContext } from '../contexts/overlay'
 import { useNavigation } from '../hooks'
+import { useTradeSummaries } from '../hooks/query/useTradeSummaries'
 import { useShowErrorBanner } from '../hooks/useShowErrorBanner'
 import { useTradeSummaryStore } from '../store/tradeSummaryStore'
 import tw from '../styles/tailwind'
@@ -10,7 +11,7 @@ import { checkRefundPSBT, showTransaction, signPSBT } from '../utils/bitcoin'
 import i18n from '../utils/i18n'
 import { info } from '../utils/log'
 import { saveOffer } from '../utils/offer'
-import { cancelOffer, postTx } from '../utils/peachAPI'
+import { cancelOffer, refundSellOffer } from '../utils/peachAPI'
 import { peachWallet } from '../utils/wallet/setWallet'
 
 import Refund from './Refund'
@@ -19,7 +20,7 @@ export const useStartRefundOverlay = () => {
   const [, updateOverlay] = useContext(OverlayContext)
   const showError = useShowErrorBanner()
   const navigation = useNavigation()
-
+  const { refetch: refetchTradeSummaries } = useTradeSummaries()
   const closeOverlay = useCallback(() => updateOverlay({ visible: false }), [updateOverlay])
   const goToWallet = useCallback(
     (txId: string) => {
@@ -45,17 +46,12 @@ export const useStartRefundOverlay = () => {
 
       const address = psbt.txOutputs[0].address
       const isPeachWallet = address ? !!peachWallet.findKeyPairByAddress(address) : false
-      saveOffer({
-        ...sellOffer,
-        tx,
-        txId,
-        refunded: true,
-      })
-      setOffer(sellOffer.id, { txId })
+
       updateOverlay({
         title: i18n('refund.title'),
         content: <Refund isPeachWallet={isPeachWallet} />,
         visible: true,
+        requireUserAction: true,
         action1: {
           label: i18n('close'),
           icon: 'xSquare',
@@ -72,15 +68,23 @@ export const useStartRefundOverlay = () => {
         level: 'APP',
       })
 
-      const [, postTXError] = await postTx({ tx, timeout: 15 * 1000 })
+      const [, postTXError] = await refundSellOffer({ offerId: sellOffer.id, tx, timeout: 15 * 1000 })
       if (postTXError) {
         showError(postTXError.error)
         closeOverlay()
       } else {
+        saveOffer({
+          ...sellOffer,
+          tx,
+          txId,
+          refunded: true,
+        })
+        setOffer(sellOffer.id, { txId })
+        refetchTradeSummaries()
         peachWallet.syncWallet()
       }
     },
-    [closeOverlay, goToWallet, navigation, setOffer, showError, updateOverlay],
+    [closeOverlay, goToWallet, navigation, refetchTradeSummaries, setOffer, showError, updateOverlay],
   )
 
   const startRefund = useCallback(
