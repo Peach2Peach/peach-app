@@ -23,6 +23,7 @@ import RestoreBackup from './restoreBackup/RestoreBackup'
 import OfferPublished from './search/OfferPublished'
 import Search from './search/Search'
 import SelectWallet from './selectWallet/SelectWallet'
+import SetRefundWallet from './selectWallet/SetRefundWallet'
 import FundEscrow from './sell/FundEscrow'
 import Sell from './sell/Sell'
 import SellPreferences from './sell/SellPreferences'
@@ -99,6 +100,7 @@ const sellFlow: ViewType[] = [
   { name: 'sellPreferences', component: SellPreferences, ...defaultConfig },
   { name: 'fundEscrow', component: FundEscrow, ...defaultConfig },
   { name: 'selectWallet', component: SelectWallet, ...defaultConfig },
+  { name: 'setRefundWallet', component: SetRefundWallet, ...defaultConfig },
 ]
 
 const search: ViewType[] = [
@@ -145,14 +147,7 @@ const settings: ViewType[] = [
   { name: 'referrals', component: Referrals, ...defaultConfig },
   { name: 'backupTime', component: BackupTime, ...invertedThemeConfig, showFooter: true },
   { name: 'backups', component: Backups, ...defaultConfig },
-  {
-    name: 'backupCreated',
-    component: BackupCreated,
-    showHeader: false,
-    showFooter: false,
-    background: { color: 'primaryGradient' },
-    animationEnabled: false,
-  },
+  { name: 'backupCreated', component: BackupCreated, ...invertedThemeConfig },
   { name: 'payoutAddress', component: PayoutAddress, ...defaultConfig },
   { name: 'paymentMethods', component: PaymentMethods, ...defaultConfig },
   { name: 'peachFees', component: PeachFees, ...defaultConfig },

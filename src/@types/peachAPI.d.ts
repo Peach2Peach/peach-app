@@ -178,6 +178,7 @@ declare type TradeStatus =
   | 'searchingForPeer'
   | 'hasMatchesAvailable'
   | 'offerCanceled'
+  | 'refundAddressRequired'
   | 'refundTxSignatureRequired'
   | 'paymentRequired'
   | 'confirmPaymentRequired'
