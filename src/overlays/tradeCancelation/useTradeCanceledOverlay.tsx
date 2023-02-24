@@ -109,7 +109,7 @@ export const useTradeCanceledOverlay = () => {
         action2,
       })
     },
-    [confirmOverlay, republishOffer, startRefund, updateOverlay],
+    [confirmOverlay, navigation, republishOffer, startRefund, updateOverlay],
   )
 
   return showTradeCanceled
