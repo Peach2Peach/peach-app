@@ -9,16 +9,17 @@ import { saveMeetupEvents } from './saveMeetupEvents'
 /**
  * @description Method to initialize app by retrieving app session and user account
  */
-export const initApp = async (): Promise<void> => {
+export const initApp = async (): Promise<GetStatusResponse | undefined> => {
   events()
   await dataMigrationBeforeLoadingAccount()
 
   await loadAccount()
-  await getPeachInfo(account)
-  if (account?.publicKey) {
+  const statusResponse = await getPeachInfo(account)
+  if (!statusResponse?.error && account?.publicKey) {
     getTrades()
     userUpdate()
     await dataMigrationAfterLoadingAccount(account)
   }
-  saveMeetupEvents()
+  if (!statusResponse?.error) saveMeetupEvents()
+  return statusResponse
 }
