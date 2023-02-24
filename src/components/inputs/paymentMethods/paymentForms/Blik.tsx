@@ -9,6 +9,7 @@ import Input from '../../Input'
 import { PhoneInput } from '../../PhoneInput'
 import { CurrencySelection, toggleCurrency } from './CurrencySelection'
 
+const beneficiaryRules = { required: false }
 const referenceRules = { required: false }
 const phoneRules = { phone: true, isPhoneAllowed: true, required: true }
 
@@ -17,7 +18,9 @@ export const Blik = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
   const [phone, setPhone] = useState(data?.phone || '')
   const [reference, setReference, , referenceError] = useValidatedState(data?.reference || '', referenceRules)
   const [selectedCurrencies, setSelectedCurrencies] = useState(data?.currencies || currencies)
+  const [beneficiary, setBeneficiary, , beneficiaryErrors] = useValidatedState(data?.beneficiary || '', beneficiaryRules)
 
+  let $phone = useRef<TextInput>(null).current
   let $reference = useRef<TextInput>(null).current
 
   const labelRules = useMemo(
@@ -37,6 +40,8 @@ export const Blik = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
     label,
     type: 'blik',
     phone,
+    beneficiary,
+    reference,
     currencies: selectedCurrencies,
   })
 
@@ -75,11 +80,22 @@ export const Blik = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
           errorMessage={displayErrors ? labelErrors : undefined}
         />
       </View>
+      <Input
+        onChange={setBeneficiary}
+        onSubmit={() => $phone?.focus()}
+        value={beneficiary}
+        required={false}
+        label={i18n('form.beneficiary')}
+        placeholder={i18n('form.beneficiary.placeholder')}
+        autoCorrect={false}
+        errorMessage={displayErrors ? beneficiaryErrors : undefined}
+      />
       <PhoneInput
         onChange={setPhone}
         onSubmit={() => {
           $reference?.focus()
         }}
+        reference={(el: any) => ($phone = el)}
         value={phone}
         label={i18n('form.phone')}
         required={true}
