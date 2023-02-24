@@ -38,6 +38,8 @@ const tabs: TabbedNavigationItem[] = [
 
 const belongsToCategory = (category: PaymentCategory) => (data: PaymentData) =>
   PAYMENTCATEGORIES[category].includes(data.type)
+  && !(category === 'localOption' && data.type === 'mobilePay' && data.currencies[0] === 'DKK')
+  && !(category === 'onlineWallet' && data.type === 'mobilePay' && data.currencies[0] === 'EUR')
 
 const getSelectedPaymentDataIds = (preferredMoPs: Settings['preferredPaymentMethods']) =>
   (Object.keys(preferredMoPs) as PaymentMethod[]).reduce((arr: string[], type: PaymentMethod) => {
