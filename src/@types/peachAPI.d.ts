@@ -418,3 +418,5 @@ declare type PNData = {
   isChat?: string
   type?: NotificationType
 }
+
+declare type RefundSellOfferResponse = APISuccess
