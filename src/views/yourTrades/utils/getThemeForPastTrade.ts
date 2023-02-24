@@ -20,7 +20,7 @@ export const getThemeForPastTrade = (
     if (trade.tradeStatus === 'tradeCanceled') return {
       icon: 'xCircle',
       level,
-      color: tw`text-black-2`.color,
+      color: tw`text-black-5`.color,
     }
 
     if (trade.type === 'ask') return { icon: 'sell', level, color: tw`text-primary-main`.color }
@@ -30,6 +30,6 @@ export const getThemeForPastTrade = (
   return {
     icon: 'xCircle',
     level,
-    color: tw`text-black-2`.color,
+    color: tw`text-black-5`.color,
   }
 }
