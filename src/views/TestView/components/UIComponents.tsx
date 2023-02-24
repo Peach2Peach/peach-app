@@ -10,8 +10,8 @@ export const UIComponents = () => (
     <ErrorBox style={tw`w-64`}>in here goes an error message that can appear inside the ui</ErrorBox>
     <View style={tw`flex-row mt-4`}>
       <CopyAble value="something to copy" style={tw`mx-4`} />
-      <CopyAble value="something else to copy" style={tw`w-5 h-5 mx-4`} color={tw`text-black-2`.color} />
-      <CopyAble value="something else to copy" style={tw`w-6 h-6 mx-4`} color={tw`text-black-4`.color} />
+      <CopyAble value="something else to copy" style={tw`w-5 h-5 mx-4`} color={tw`text-black-2`} />
+      <CopyAble value="something else to copy" style={tw`w-6 h-6 mx-4`} color={tw`text-black-4`} />
     </View>
     <HorizontalLine style={tw`mt-4`} />
     <Progress
