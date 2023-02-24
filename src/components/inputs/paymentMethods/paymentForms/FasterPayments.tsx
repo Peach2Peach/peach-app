@@ -7,6 +7,7 @@ import i18n from '../../../../utils/i18n'
 import { getErrorsInField } from '../../../../utils/validation'
 import Input from '../../Input'
 import { SortCodeInput } from '../../SortCodeInput'
+import { UKBankNumberInput } from '../../UKBankNumberInput'
 
 const beneficiaryRules = { required: true }
 const notRequired = { required: false }
@@ -104,7 +105,7 @@ export const FasterPayments = ({
         autoCorrect={false}
         errorMessage={displayErrors ? beneficiaryErrors : undefined}
       />
-      <Input
+      <UKBankNumberInput
         onChange={setAccountNumber}
         onSubmit={() => $ukSortCode?.focus()}
         reference={(el: any) => ($ukBankAccount = el)}
