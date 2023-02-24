@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react'
-import { enforceUKBankNumberInputFormat } from '../../utils/format/enforceUKBankNumberInput'
+import { enforceUKBankNumberFormat } from '../../utils/format'
 import Input, { InputProps } from './Input'
 
 export const UKBankNumberInput = ({ onChange, onSubmit, ...props }: InputProps): ReactElement => (
@@ -7,8 +7,8 @@ export const UKBankNumberInput = ({ onChange, onSubmit, ...props }: InputProps):
     {...{
       ...props,
       onChange,
-      onEndEditing: onChange ? (sortCode: string) => onChange(enforceUKBankNumberInputFormat(sortCode)) : undefined,
-      onSubmit: onSubmit ? (sortCode: string) => onSubmit(enforceUKBankNumberInputFormat(sortCode)) : undefined,
+      onEndEditing: onChange ? (sortCode: string) => onChange(enforceUKBankNumberFormat(sortCode)) : undefined,
+      onSubmit: onSubmit ? (sortCode: string) => onSubmit(enforceUKBankNumberFormat(sortCode)) : undefined,
     }}
   />
 )

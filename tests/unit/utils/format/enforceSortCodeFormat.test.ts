@@ -7,12 +7,12 @@ describe('enforceSortCodeFormat', () => {
   })
 
   it('should remove spaces', () => {
-    const result = enforceSortCodeFormat('12 34 56')
-    expect(result).toBe('123456')
+    const result = enforceSortCodeFormat('12 34 56 78')
+    expect(result).toBe('12345678')
   })
 
-  it('should remove spaces and convert lowercase characters to uppercase', () => {
-    const result = enforceSortCodeFormat('ab cd ef')
-    expect(result).toBe('ABCDEF')
+  it('should remove non numerical characters', () => {
+    const result = enforceSortCodeFormat('ab cd ef|@#¢∞¬÷“')
+    expect(result).toBe('')
   })
 })
