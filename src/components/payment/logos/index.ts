@@ -24,6 +24,7 @@ const PaymentLogos = {
   revolut,
   satispay,
   sepa,
+  instantSepa: sepa,
   swish,
   twint,
   wise,
