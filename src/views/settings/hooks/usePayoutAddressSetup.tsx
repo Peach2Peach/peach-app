@@ -55,9 +55,11 @@ export const usePayoutAddressSetup = () => {
     address,
     setAddress,
     addressErrors,
+    addressValid,
     addressLabel,
     setAddressLabel,
     addressLabelErrors,
+    addressLabelValid,
     isUpdated,
     save,
   }
