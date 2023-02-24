@@ -47,7 +47,7 @@ import { initApp } from './init/initApp'
 import { initialNavigation } from './init/initialNavigation'
 import requestUserPermissions from './init/requestUserPermissions'
 import websocket from './init/websocket'
-import { showAnalyticsPrompt } from './overlays/showAnalyticsPrompt'
+import { useShowAnalyticsPrompt } from './overlays/useShowAnalyticsPrompt'
 import { useBitcoinStore } from './store/bitcoinStore'
 import { useConfigStore } from './store/configStore'
 import { account, getAccount } from './utils/account'
@@ -136,6 +136,7 @@ const App: React.FC = () => {
   ] = useReducer(setDrawer, getDrawer())
   const [overlayState, updateOverlay] = useOverlay()
   const [peachWS, updatePeachWS] = useReducer(setPeachWS, getWebSocket())
+  const showAnalyticsPrompt = useShowAnalyticsPrompt(updateOverlay)
   const { width } = Dimensions.get('window')
   const slideInAnim = useRef(new Animated.Value(-width)).current
   const navigationRef = useNavigationContainerRef() as NavigationContainerRefWithCurrent<RootStackParamList>
@@ -164,8 +165,9 @@ const App: React.FC = () => {
 
   setUnhandledPromiseRejectionTracker((id, err) => {
     error(err)
+    const msgKey = (err as Error).message === 'Network request failed' ? 'NETWORK_ERROR' : (err as Error).message
     updateMessage({
-      msgKey: (err as Error).message || 'GENERAL_ERROR',
+      msgKey: msgKey || 'GENERAL_ERROR',
       level: 'ERROR',
       action: {
         callback: () => navigationRef.navigate('contact'),
@@ -186,14 +188,23 @@ const App: React.FC = () => {
     }
 
     ;(async () => {
-      await initApp()
+      const statusResponse = await initApp()
+      if (!statusResponse || statusResponse.error) {
+        updateMessage({
+          msgKey: statusResponse?.error || 'NETWORK_ERROR',
+          level: 'ERROR',
+          action: {
+            callback: () => navigationRef.navigate('contact'),
+            label: i18n('contactUs'),
+            icon: 'mail',
+          },
+        })
+      }
       setCurrentPage(!!account?.publicKey ? 'home' : 'welcome')
       await initialNavigation(navigationRef, updateMessage)
       requestUserPermissions()
 
-      if (typeof account.settings.enableAnalytics === 'undefined') {
-        showAnalyticsPrompt(updateOverlay)
-      }
+      if (!account.settings.analyticsPopupSeen) showAnalyticsPrompt()
 
       if (!compatibilityCheck(APPVERSION, minAppVersion)) {
         updateMessage({
