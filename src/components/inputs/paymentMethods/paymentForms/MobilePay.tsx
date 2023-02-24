@@ -13,15 +13,18 @@ const phoneRules = {
   phone: true,
   isPhoneAllowed: true,
 }
+const notRequired = { required: false }
 
 export const MobilePay = ({ forwardRef, data, currencies = [], onSubmit, setStepValid }: FormProps): ReactElement => {
   const [label, setLabel] = useState(data?.label || '')
   const [phone, setPhone, phoneIsValid, phoneErrors] = useValidatedState(data?.phone || '', phoneRules)
   const [beneficiary, setBeneficiary] = useState(data?.beneficiary || '')
   const [displayErrors, setDisplayErrors] = useState(false)
+  const [reference, setReference, , referenceErrors] = useValidatedState(data?.reference || '', notRequired)
 
   let $phone = useRef<TextInput>(null).current
   let $beneficiary = useRef<TextInput>(null).current
+  let $reference = useRef<TextInput>(null).current
 
   const labelRules = {
     required: true,
@@ -88,7 +91,9 @@ export const MobilePay = ({ forwardRef, data, currencies = [], onSubmit, setStep
       <View style={tw`mt-1`}>
         <Input
           onChange={setBeneficiary}
-          onSubmit={save}
+          onSubmit={() => {
+            $reference?.focus()
+          }}
           reference={(el: any) => ($beneficiary = el)}
           value={beneficiary}
           required={false}
@@ -97,6 +102,17 @@ export const MobilePay = ({ forwardRef, data, currencies = [], onSubmit, setStep
           autoCorrect={false}
         />
       </View>
+      <Input
+        onChange={setReference}
+        onSubmit={save}
+        reference={(el: any) => ($reference = el)}
+        value={reference}
+        required={false}
+        label={i18n('form.reference')}
+        placeholder={i18n('form.reference.placeholder')}
+        autoCorrect={false}
+        errorMessage={displayErrors ? referenceErrors : undefined}
+      />
     </View>
   )
 }
