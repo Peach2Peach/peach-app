@@ -24,7 +24,7 @@ export const useYourTradesSetup = () => {
 
   const { offers, contracts, isLoading, error, refetch } = useTradeSummaries()
 
-  const filteredOffers = offers.filter(({ tradeStatus }) => !hasDoubleMatched(tradeStatus))
+  const filteredOffers = offers.filter(({ contractId }) => !contractId)
   const trades = [...filteredOffers, ...contracts].sort(sortContractsByDate).reverse()
 
   const allOpenOffers = trades.filter(({ tradeStatus }) => isOpenOffer(tradeStatus))

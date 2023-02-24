@@ -47,7 +47,7 @@ import { initApp } from './init/initApp'
 import { initialNavigation } from './init/initialNavigation'
 import requestUserPermissions from './init/requestUserPermissions'
 import websocket from './init/websocket'
-import { showAnalyticsPrompt } from './overlays/showAnalyticsPrompt'
+import { useShowAnalyticsPrompt } from './overlays/useShowAnalyticsPrompt'
 import { useBitcoinStore } from './store/bitcoinStore'
 import { useConfigStore } from './store/configStore'
 import { account, getAccount } from './utils/account'
@@ -136,6 +136,7 @@ const App: React.FC = () => {
   ] = useReducer(setDrawer, getDrawer())
   const [overlayState, updateOverlay] = useOverlay()
   const [peachWS, updatePeachWS] = useReducer(setPeachWS, getWebSocket())
+  const showAnalyticsPrompt = useShowAnalyticsPrompt(updateOverlay)
   const { width } = Dimensions.get('window')
   const slideInAnim = useRef(new Animated.Value(-width)).current
   const navigationRef = useNavigationContainerRef() as NavigationContainerRefWithCurrent<RootStackParamList>
@@ -203,9 +204,7 @@ const App: React.FC = () => {
       await initialNavigation(navigationRef, updateMessage)
       requestUserPermissions()
 
-      if (typeof account.settings.enableAnalytics === 'undefined') {
-        showAnalyticsPrompt(updateOverlay)
-      }
+      if (!account.settings.analyticsPopupSeen) showAnalyticsPrompt()
 
       if (!compatibilityCheck(APPVERSION, minAppVersion)) {
         updateMessage({
@@ -299,11 +298,10 @@ const App: React.FC = () => {
                                     {...{ name, component }}
                                     key={name}
                                     options={{
-                                      headerMode: 'float',
                                       headerShown: showHeader,
+                                      header: () => <Header />,
                                       animationEnabled: isIOS() && animationEnabled,
                                       cardStyle: !background.color && tw`bg-primary-background`,
-                                      header: () => <Header />,
                                       transitionSpec: {
                                         open: screenTransition,
                                         close: screenTransition,
