@@ -42,6 +42,7 @@ export const MobilePay = ({ forwardRef, data, currencies = [], onSubmit, setStep
     type: 'mobilePay',
     phone,
     beneficiary,
+    reference,
     currencies: data?.currencies || currencies,
   })
 
