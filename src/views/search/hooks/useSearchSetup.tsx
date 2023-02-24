@@ -31,7 +31,7 @@ export const useSearchSetup = () => {
   const headerIcons = useMemo(() => {
     if (!offer) return undefined
     const icons = [{ iconComponent: <Icon id="xCircle" color={tw`text-error-main`.color} />, onPress: cancelOffer }]
-    if (offer.matches.length > 0) {
+    if (offer.matches?.length > 0) {
       icons.push({ iconComponent: <HelpIcon />, onPress: isBuyOffer(offer) ? showMatchPopup : showAcceptMatchPopup })
     }
     return icons

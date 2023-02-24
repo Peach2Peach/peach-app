@@ -72,6 +72,7 @@ export default ({ offer, updateOffer, next }: SellViewProps): ReactElement => {
       ...offer,
       meansOfPayment,
       paymentData,
+      originalPaymentData: getSelectedPaymentDataIds().map(getPaymentData) as PaymentData[],
     })
     setMeansOfPaymentStore(meansOfPayment)
   }, [meansOfPayment, setMeansOfPaymentStore, updateOffer])
