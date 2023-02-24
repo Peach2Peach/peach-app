@@ -26,6 +26,7 @@ export const getMessages = () => ({
   tetherAddress: i18n('form.address.error'),
   url: i18n('form.invalid.error'),
   userName: i18n('form.invalid.error'),
+  advcashWallet: i18n('form.wallet.error'),
   ukSortCode: i18n('form.ukSortCode.error'),
   ukBankAccount: i18n('form.ukBankAccount.error'),
 })

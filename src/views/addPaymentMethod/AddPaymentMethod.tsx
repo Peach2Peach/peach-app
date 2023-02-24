@@ -100,7 +100,7 @@ export default (): ReactElement => {
     }
 
     if (
-      paymentMethodInfo?.currencies.length !== 1
+      (paymentMethodInfo?.currencies.length !== 1 && paymentMethod.includes('giftCard.amazon'))
       || (PAYMENTCATEGORIES.localOption.includes(paymentMethod) && screens[page].id !== 'extraInfo')
     ) return
 

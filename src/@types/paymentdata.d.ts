@@ -30,6 +30,10 @@ declare type BizumData = {
   phone: string
   beneficiary: string
 }
+declare type MobilePayData = {
+  phone: string
+  beneficiary: string
+}
 declare type MBWayData = {
   phone: string
   beneficiary: string
@@ -37,6 +41,14 @@ declare type MBWayData = {
 declare type RevolutData = {
   phone: string
   userName: string
+  email: string
+}
+declare type VippsData = {
+  phone: string
+  beneficiary?: string
+}
+declare type ADVCashData = {
+  wallet: string
   email: string
 }
 declare type SwishData = {

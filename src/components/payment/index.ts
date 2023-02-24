@@ -1,3 +1,5 @@
+import { DetailMobilePay } from './detail/mobilePay'
+import { DetailVipps } from './detail/vipps'
 import { DetailFasterPayments } from './detail/fasterPayments'
 import { DetailInstantSepa } from './detail/instantSepa'
 import { ReactElement } from 'react'
@@ -6,6 +8,7 @@ import GeneralPaymentDetails from './detail/generalPaymentDetails'
 import DetailPaypal from './detail/paypal'
 import DetailRevolut from './detail/revolut'
 import { DetailSEPA } from './detail/sepa'
+import DetailADVCash from './detail/advcash'
 import DetailBlik from './detail/blik'
 
 export type PaymentTemplateProps = ComponentProps & {
@@ -27,6 +30,7 @@ export const paymentDetailTemplates: PaymentDetailTemplates = {
   instantSepa: DetailInstantSepa,
   paypal: DetailPaypal,
   revolut: DetailRevolut,
+  advcash: DetailADVCash,
   blik: DetailBlik,
   wise: GeneralPaymentDetails,
   twint: GeneralPaymentDetails,
@@ -34,6 +38,8 @@ export const paymentDetailTemplates: PaymentDetailTemplates = {
   satispay: GeneralPaymentDetails,
   mbWay: GeneralPaymentDetails,
   bizum: GeneralPaymentDetails,
+  mobilePay: DetailMobilePay,
+  vipps: DetailVipps,
   'giftCard.amazon': GeneralPaymentDetails,
 }
 
