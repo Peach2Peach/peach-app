@@ -9,6 +9,7 @@ import satispay from './satispay.svg'
 import sepa from './sepa.svg'
 import swish from './swish.svg'
 import twint from './twint.svg'
+import vipps from './vipps.svg'
 import wise from './wise.svg'
 
 const PaymentLogos = {
@@ -27,6 +28,7 @@ const PaymentLogos = {
   instantSepa: sepa,
   swish,
   twint,
+  vipps,
   wise,
 }
 
