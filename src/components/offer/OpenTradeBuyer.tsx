@@ -44,7 +44,7 @@ export const OpenTradeBuyer = ({ contract }: TradeSummaryProps): ReactElement =>
         </View>
         <View style={tw`flex-row items-center justify-between mt-4`}>
           <Text style={tw`text-black-2`}>
-            {i18n(contract.paymentMethod.includes('cash') ? 'contract.summary.in' : 'contract.summary.via')}
+            {i18n(contract.paymentMethod.includes('cash.') ? 'contract.summary.in' : 'contract.summary.via')}
           </Text>
           <PaymentMethod paymentMethod={contract.paymentMethod} showLink={!!appLink} />
         </View>
@@ -59,7 +59,9 @@ export const OpenTradeBuyer = ({ contract }: TradeSummaryProps): ReactElement =>
             copyable
           />
         )}
-        {!contract.paymentData && <ErrorBox style={tw`mt-4`}>{i18n('contract.paymentData.decyptionFailed')}</ErrorBox>}
+        {!contract.paymentData && contract.error === 'DECRYPTION_ERROR' && (
+          <ErrorBox style={tw`mt-4`}>{i18n('contract.paymentData.decyptionFailed')}</ErrorBox>
+        )}
 
         <HorizontalLine style={tw`mt-6`} />
         <View style={tw`flex-row justify-center mt-6`}>

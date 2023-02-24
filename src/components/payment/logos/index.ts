@@ -1,7 +1,10 @@
 import amazon from './amazon.svg'
+import advcash from './advcash.svg'
 import bitcoin from './bitcoin.svg'
 import bitcoinAmsterdam from './bitcoinAmsterdam.svg'
 import bizum from './bizum.svg'
+import fasterPayments from './fasterPayments.svg'
+import blik from './blik.svg'
 import mbWay from './mbWay.svg'
 import paypal from './paypal.svg'
 import revolut from './revolut.svg'
@@ -17,13 +20,17 @@ const PaymentLogos = {
   'cash.lugano': bitcoin,
   'giftCard.amazon': amazon,
   amazon,
+  advcash,
   bitcoin,
   bizum,
+  fasterPayments,
+  blik,
   mbWay,
   paypal,
   revolut,
   satispay,
   sepa,
+  instantSepa: sepa,
   swish,
   twint,
   wise,
