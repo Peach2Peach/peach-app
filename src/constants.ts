@@ -1,6 +1,7 @@
 import { getBuildNumber, getUniqueId, getVersion, isEmulatorSync } from 'react-native-device-info'
 import { unique } from './utils/array'
 import { sha256 } from './utils/crypto/sha256'
+import { getAllPaymentMethods } from './utils/paymentMethod'
 
 export const SATSINBTC = 100000000
 export const MSINADAY = 86400000
