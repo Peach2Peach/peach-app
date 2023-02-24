@@ -10,7 +10,8 @@ export const useSetRefundWalletSetup = () => {
   const route = useRoute<'setRefundWallet'>()
   const navigation = useNavigation()
   const showErrorBanner = useShowErrorBanner()
-  const { wallets, setSelectedWallet, payoutAddress, payoutAddressLabel, peachWalletActive } = useWalletSetup()
+  const { wallets, setSelectedWallet, payoutAddress, payoutAddressLabel, peachWalletActive, setPeachWalletActive }
+    = useWalletSetup()
 
   const { offerId } = route.params
 
@@ -18,7 +19,10 @@ export const useSetRefundWalletSetup = () => {
     title: i18n('setRefundWallet.title'),
   })
 
-  const goToSetRefundWallet = () => navigation.navigate('payoutAddress', { type: 'refund' })
+  const goToSetRefundWallet = () => {
+    setPeachWalletActive(false)
+    navigation.navigate('payoutAddress', { type: 'refund' })
+  }
 
   const selectAndContinue = async () => {
     let refundAddress: string | undefined = payoutAddress
