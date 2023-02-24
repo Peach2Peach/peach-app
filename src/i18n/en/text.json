@@ -500,7 +500,7 @@
   "form.feeRate.error": "invalid fee rate",
   "form.iban": "IBAN",
   "form.wallet": "wallet #",
-  "form.wallet.placeholder": "U 0123 4567 8910",
+  "form.wallet.placeholder": "U012345678910",
   "form.wallet.error": "this is not a valid wallet",
   "form.iban.placeholder": "DE21 BTCD 1234 5678 9615",
   "form.iban.error": "this is not a valid iban",
