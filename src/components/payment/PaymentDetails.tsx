@@ -5,7 +5,7 @@ import { IconType } from '../../assets/icons'
 import { PAYMENTCATEGORIES } from '../../constants'
 import { useNavigation } from '../../hooks'
 import tw from '../../styles/tailwind'
-import { account, getPaymentData, removePaymentData, updateSettings } from '../../utils/account'
+import { account, getPaymentData, removePaymentData } from '../../utils/account'
 import { isDefined } from '../../utils/array/isDefined'
 import i18n from '../../utils/i18n'
 import { dataToMeansOfPayment, getPaymentMethodInfo, isValidPaymentData } from '../../utils/paymentMethod'
@@ -14,6 +14,7 @@ import LinedText from '../ui/LinedText'
 import { TabbedNavigation, TabbedNavigationItem } from '../navigation/TabbedNavigation'
 import { useFocusEffect } from '@react-navigation/native'
 import AddPaymentMethodButton from './AddPaymentMethodButton'
+import { useSettingsStore } from '../../store/settingsStore'
 
 const paymentCategoryIcons: Record<PaymentCategory, IconType | ''> = {
   bankTransfer: 'inbox',
@@ -37,6 +38,8 @@ const tabs: TabbedNavigationItem[] = [
 
 const belongsToCategory = (category: PaymentCategory) => (data: PaymentData) =>
   PAYMENTCATEGORIES[category].includes(data.type)
+  && !(category === 'localOption' && data.type === 'mobilePay' && data.currencies[0] === 'DKK')
+  && !(category === 'onlineWallet' && data.type === 'mobilePay' && data.currencies[0] === 'EUR')
 
 const getSelectedPaymentDataIds = (preferredMoPs: Settings['preferredPaymentMethods']) =>
   (Object.keys(preferredMoPs) as PaymentMethod[]).reduce((arr: string[], type: PaymentMethod) => {
@@ -70,6 +73,7 @@ export default ({ setMeansOfPayment, editing, style, origin }: PaymentDetailsPro
   const selectedPaymentData = getSelectedPaymentDataIds(account.settings.preferredPaymentMethods)
   const [currentTab, setCurrentTab] = useState(tabs[0])
   const [paymentData, setPaymentData] = useState(account.paymentData)
+  const setPreferredPaymentMethods = useSettingsStore((state) => state.setPreferredPaymentMethods)
 
   useFocusEffect(() => {
     setPaymentData(account.paymentData)
@@ -92,17 +96,13 @@ export default ({ setMeansOfPayment, editing, style, origin }: PaymentDetailsPro
     data,
   })
 
-  const setPreferredPaymentMethods = (ids: string[]) => {
-    updateSettings(
-      {
-        preferredPaymentMethods: (ids as PaymentData['id'][]).reduce((obj, id) => {
-          const method = paymentData.find((d) => d.id === id)?.type
-          if (method) obj[method] = id
-          return obj
-        }, {} as Settings['preferredPaymentMethods']),
-      },
-      true,
-    )
+  const setPaymentMethods = (ids: string[]) => {
+    const newPreferredPaymentMethods = (ids as PaymentData['id'][]).reduce((obj, id) => {
+      const method = paymentData.find((d) => d.id === id)?.type
+      if (method) obj[method] = id
+      return obj
+    }, {} as Settings['preferredPaymentMethods'])
+    setPreferredPaymentMethods(newPreferredPaymentMethods)
     update()
   }
 
@@ -112,7 +112,7 @@ export default ({ setMeansOfPayment, editing, style, origin }: PaymentDetailsPro
   }
 
   const editItem = (data: PaymentData) => {
-    if (data.type.includes('cash')) {
+    if (data.type.includes('cash.')) {
       navigation.push('meetupScreen', { eventId: data.id.replace('cash.', ''), deletable: true, origin })
     } else {
       navigation.push('paymentDetails', {
@@ -129,7 +129,7 @@ export default ({ setMeansOfPayment, editing, style, origin }: PaymentDetailsPro
     } else {
       newValues.push(value)
     }
-    setPreferredPaymentMethods(newValues)
+    setPaymentMethods(newValues)
   }
 
   const isSelected = (itm: CheckboxType) => selectedPaymentData.includes(itm.value as string)
@@ -139,7 +139,7 @@ export default ({ setMeansOfPayment, editing, style, origin }: PaymentDetailsPro
   }, [paymentData])
 
   const remotePaymentDetails = () =>
-    paymentData.filter((item) => !item.type.includes('cash')).length === 0 ? (
+    paymentData.filter((item) => !item.type.includes('cash.')).length === 0 ? (
       <Text style={tw`text-center h6 text-black-3`}>{i18n('paymentMethod.empty')}</Text>
     ) : (
       <View style={tw`px-4`}>
@@ -148,7 +148,8 @@ export default ({ setMeansOfPayment, editing, style, origin }: PaymentDetailsPro
             .map((category) => ({
               category,
               checkboxes: paymentData
-                .filter((item) => !item.type.includes('cash'))
+                .filter((item) => !item.hidden)
+                .filter((item) => !item.type.includes('cash.'))
                 .filter(belongsToCategory(category))
                 .filter((data) => getPaymentMethodInfo(data.type))
                 .sort((a, b) => (a.id > b.id ? 1 : -1))
@@ -178,9 +179,9 @@ export default ({ setMeansOfPayment, editing, style, origin }: PaymentDetailsPro
                       </View>
                     ) : (
                       <View style={tw`flex flex-row justify-between`}>
-                        <Text style={tw`font-baloo text-red`}>{item.data.label}</Text>
+                        <Text style={tw`font-baloo text-error-main`}>{item.data.label}</Text>
                         <Pressable onPress={() => deletePaymentData(item.data)} style={tw`w-6 h-6`}>
-                          <Icon id="x" style={tw`w-6 h-6`} color={tw`text-peach-1`.color} />
+                          <Icon id="trash" style={tw`w-6 h-6`} color={tw`text-black-2`.color} />
                         </Pressable>
                       </View>
                     )}
@@ -194,14 +195,15 @@ export default ({ setMeansOfPayment, editing, style, origin }: PaymentDetailsPro
 
   const meetupPaymentDetails = () => (
     <>
-      {paymentData.filter((item) => item.type.includes('cash')).length !== 0 && (
+      {paymentData.filter((item) => item.type.includes('cash.')).length !== 0 && (
         <LinedText style={tw`pb-3`}>
           <Text style={tw`mr-1 h6 text-black-2`}>{i18n('paymentSection.meetups')}</Text>
           <Icon color={tw`text-black-2`.color} id={'users'} />
         </LinedText>
       )}
       {paymentData
-        .filter((item) => item.type.includes('cash'))
+        .filter((item) => !item.hidden)
+        .filter((item) => item.type.includes('cash.'))
         .map(mapPaymentDataToCheckboxes)
         .map((item, i) => (
           <View key={item.data.id} style={i > 0 ? tw`mt-4` : {}}>
@@ -225,7 +227,7 @@ export default ({ setMeansOfPayment, editing, style, origin }: PaymentDetailsPro
         contentContainerStyle={tw`justify-center flex-grow px-6 pb-10 pt-7`}
       >
         {currentTab.id === 'remote' ? remotePaymentDetails() : meetupPaymentDetails()}
-        <HorizontalLine style={tw`w-auto m-5 bg-black-5`} />
+        <HorizontalLine style={tw`w-auto m-5`} />
         <AddPaymentMethodButton origin={origin} isCash={currentTab.id === 'meetups'} />
       </PeachScrollView>
     </View>

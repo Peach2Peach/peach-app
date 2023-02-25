@@ -31,7 +31,7 @@ export const useHandleContractOverlays = () => {
       if (shouldShowCancelTradeRequestConfirmed(contract, view)) return showTradeCanceled(contract, true)
       if (shouldShowCancelTradeRequestRejected(contract, view)) return showCancelTradeRequestRejected(contract)
       if (view === 'seller' && shouldShowPaymentTimerHasRunOut(contract)) {
-        return showPaymentTimerHasRunOut(contract, view, true)
+        return showPaymentTimerHasRunOut(contract, true)
       }
       return null
     },

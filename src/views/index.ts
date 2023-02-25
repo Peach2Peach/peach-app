@@ -23,6 +23,7 @@ import RestoreBackup from './restoreBackup/RestoreBackup'
 import OfferPublished from './search/OfferPublished'
 import Search from './search/Search'
 import SelectWallet from './selectWallet/SelectWallet'
+import SetRefundWallet from './selectWallet/SetRefundWallet'
 import FundEscrow from './sell/FundEscrow'
 import Sell from './sell/Sell'
 import SellPreferences from './sell/SellPreferences'
@@ -38,10 +39,10 @@ import PaymentMethods from './settings/PaymentMethods'
 import PayoutAddress from './settings/PayoutAddress'
 import MyProfile from './settings/profile/MyProfile'
 import Settings from './settings/Settings'
-import WalletSettings from './settings/WalletSettings'
 import TestViewButtons from './TestView/buttons'
 import TestViewComponents from './TestView/components'
 import TestViewMessages from './TestView/messages'
+import TestViewPNs from './TestView/pns'
 import TestViewPopups from './TestView/popups'
 import TestView from './TestView/TestView'
 import TradeComplete from './tradeComplete/TradeComplete'
@@ -57,11 +58,22 @@ type ViewType = {
   showHeader: boolean
   showFooter: boolean
   background: BackgroundConfig
+  animationEnabled: boolean
 }
 
-const onboardingConfig = { showHeader: true, showFooter: false, background: { color: 'primaryGradient' } } as const
-const defaultConfig = { showHeader: true, showFooter: true, background: { color: undefined } }
-const invertedThemeConfig = { showHeader: false, showFooter: false, background: { color: 'primaryGradient' } } as const
+const onboardingConfig = {
+  showHeader: true,
+  showFooter: false,
+  background: { color: 'primaryGradient' },
+  animationEnabled: false,
+} as const
+const defaultConfig = { showHeader: true, showFooter: true, background: { color: undefined }, animationEnabled: true }
+const invertedThemeConfig = {
+  showHeader: false,
+  showFooter: false,
+  background: { color: 'primaryGradient' },
+  animationEnabled: false,
+} as const
 
 const onboarding: ViewType[] = [
   { name: 'welcome', component: Welcome, ...onboardingConfig },
@@ -73,21 +85,22 @@ const onboarding: ViewType[] = [
 const home: ViewType[] = [{ name: 'home', component: Buy, ...defaultConfig }]
 
 const wallet: ViewType[] = [
-  { name: 'wallet', component: Wallet, ...defaultConfig },
+  { name: 'wallet', component: Wallet, ...defaultConfig, animationEnabled: false },
   { name: 'transactionHistory', component: TransactionHistory, ...defaultConfig },
   { name: 'transactionDetails', component: TransactionDetails, ...defaultConfig },
 ]
 const buyFlow: ViewType[] = [
-  { name: 'buy', component: Buy, ...defaultConfig },
+  { name: 'buy', component: Buy, ...defaultConfig, animationEnabled: false },
   { name: 'buyPreferences', component: BuyPreferences, ...defaultConfig },
   { name: 'signMessage', component: SignMessage, ...defaultConfig },
 ]
 
 const sellFlow: ViewType[] = [
-  { name: 'sell', component: Sell, ...defaultConfig },
+  { name: 'sell', component: Sell, ...defaultConfig, animationEnabled: false },
   { name: 'sellPreferences', component: SellPreferences, ...defaultConfig },
   { name: 'fundEscrow', component: FundEscrow, ...defaultConfig },
   { name: 'selectWallet', component: SelectWallet, ...defaultConfig },
+  { name: 'setRefundWallet', component: SetRefundWallet, ...defaultConfig },
 ]
 
 const search: ViewType[] = [
@@ -103,7 +116,7 @@ const trade: ViewType[] = [
 ]
 
 const tradeHistory: ViewType[] = [
-  { name: 'yourTrades', component: YourTrades, ...defaultConfig },
+  { name: 'yourTrades', component: YourTrades, ...defaultConfig, animationEnabled: false },
   { name: 'offer', component: OfferDetails, ...defaultConfig },
 ]
 
@@ -123,7 +136,7 @@ const contact = (hasAccount: boolean): ViewType[] =>
 const publicProfile: ViewType[] = [{ name: 'publicProfile', component: PublicProfile, ...defaultConfig }]
 
 const settings: ViewType[] = [
-  { name: 'settings', component: Settings, ...defaultConfig },
+  { name: 'settings', component: Settings, ...defaultConfig, animationEnabled: false },
   { name: 'aboutPeach', component: AboutPeach, ...defaultConfig },
   { name: 'myProfile', component: MyProfile, ...defaultConfig },
   { name: 'bitcoinProducts', component: BitcoinProducts, ...defaultConfig },
@@ -134,15 +147,8 @@ const settings: ViewType[] = [
   { name: 'referrals', component: Referrals, ...defaultConfig },
   { name: 'backupTime', component: BackupTime, ...invertedThemeConfig, showFooter: true },
   { name: 'backups', component: Backups, ...defaultConfig },
-  {
-    name: 'backupCreated',
-    component: BackupCreated,
-    showHeader: false,
-    showFooter: false,
-    background: { color: 'primaryGradient' },
-  },
+  { name: 'backupCreated', component: BackupCreated, ...invertedThemeConfig },
   { name: 'payoutAddress', component: PayoutAddress, ...defaultConfig },
-  { name: 'walletSettings', component: WalletSettings, ...defaultConfig },
   { name: 'paymentMethods', component: PaymentMethods, ...defaultConfig },
   { name: 'peachFees', component: PeachFees, ...defaultConfig },
   { name: 'networkFees', component: NetworkFees, ...defaultConfig },
@@ -155,6 +161,7 @@ const testViews: ViewType[] = [
   { name: 'testViewPopups', component: TestViewPopups, ...defaultConfig },
   { name: 'testViewMessages', component: TestViewMessages, ...defaultConfig },
   { name: 'testViewComponents', component: TestViewComponents, ...defaultConfig },
+  { name: 'testViewPNs', component: TestViewPNs, ...defaultConfig },
 ]
 
 export const getViews = (hasAccount: boolean): ViewType[] =>

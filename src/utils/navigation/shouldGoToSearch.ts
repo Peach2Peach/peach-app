@@ -1,9 +1,4 @@
-import { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
-
-export const shouldGoToSearch = (
-  messageType: FirebaseMessagingTypes.RemoteMessage['messageType'],
-  hasMatches: boolean,
-) =>
+export const shouldGoToSearch = (messageType: PNData['type'], hasMatches: boolean) =>
   messageType === 'offer.matchBuyer'
   || messageType === 'offer.matchSeller'
   || (messageType === 'offer.escrowFunded' && hasMatches)

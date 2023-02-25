@@ -23,7 +23,7 @@ export const TradingLimits = (props: ComponentProps) => {
       {limits.map(([amount, limit], index) => (
         <View style={tw`mb-4`} key={`myProfile-tradingLimits-${index}`}>
           <Progress
-            percent={amount / limit}
+            percent={amount / limit >= 0.03 ? amount / limit : 0}
             style={tw`h-[6px]`}
             backgroundStyle={tw`bg-primary-mild-1`}
             barStyle={tw`h-[10px] -mt-[2px] border-2 bg-primary-main border-primary-background`}

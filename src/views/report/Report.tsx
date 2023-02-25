@@ -11,9 +11,10 @@ import { useHeaderSetup, useNavigation, useRoute, useToggleBoolean, useValidated
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
 import { showReportSuccess } from '../../overlays/showReportSuccess'
 import { account } from '../../utils/account'
+import { sendErrors } from '../../utils/analytics'
 import i18n from '../../utils/i18n'
 import { sendReport } from '../../utils/peachAPI'
-import { sendErrors } from '../../utils/analytics/openCrashReportPrompt'
+import { EmailInput } from '../../components/inputs/EmailInput'
 
 const emailRules = { email: true, required: true }
 const required = { required: true }
@@ -46,13 +47,18 @@ export default (): ReactElement => {
     if (shareDeviceID) messageToSend += `\n\nDevice ID Hash: ${UNIQUEID}`
     messageToSend += `\n\nApp version: ${APPVERSION} (${BUILDNUMBER})`
 
+    if (shareLogs) {
+      sendErrors([new Error(`user shared app logs: ${topic} – ${messageToSend}`)])
+      messageToSend += '\n\nUser shared app logs, please check crashlytics'
+    }
+
     const [result, err] = await sendReport({
       email,
       reason: i18n(`contact.reason.${reason}`),
       topic,
       message: messageToSend,
     })
-    if (shareLogs) sendErrors([new Error(`user shared app logs: ${topic} – ${messageToSend}`)])
+
     if (result) {
       if (!!account?.publicKey) {
         navigation.navigate('settings')
@@ -69,12 +75,11 @@ export default (): ReactElement => {
   return (
     <PeachScrollView contentContainerStyle={tw`flex-grow`}>
       <View style={tw`justify-end h-full px-6 pt-6 pb-10`}>
-        <Input
+        <EmailInput
           onChange={setEmail}
           onSubmit={() => $topic?.focus()}
           value={email}
           placeholder={i18n('form.userEmail.placeholder')}
-          autoCorrect={false}
           errorMessage={emailErrors}
         />
         <Input

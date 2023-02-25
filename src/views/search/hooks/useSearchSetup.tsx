@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useMemo } from 'react'
 import shallow from 'zustand/shallow'
-import { Icon } from '../../../components'
+import { Icon, Text } from '../../../components'
 import { HelpIcon } from '../../../components/icons'
 import { useMatchStore } from '../../../components/matches/store'
 import { MessageContext } from '../../../contexts/message'
@@ -8,7 +8,8 @@ import { useCancelOffer, useHeaderSetup, useNavigation, useRoute } from '../../.
 import { useOfferDetails } from '../../../hooks/query/useOfferDetails'
 import { useShowHelp } from '../../../hooks/useShowHelp'
 import tw from '../../../styles/tailwind'
-import { isBuyOffer } from '../../../utils/offer'
+import i18n from '../../../utils/i18n'
+import { isBuyOffer, offerIdToHex } from '../../../utils/offer'
 import { parseError } from '../../../utils/system'
 import { shouldGoToContract } from '../shouldGoToContract'
 import { useOfferMatches } from './useOfferMatches'
@@ -36,7 +37,11 @@ export const useSearchSetup = () => {
     return icons
   }, [cancelOffer, offer, showAcceptMatchPopup, showMatchPopup])
   useHeaderSetup({
-    title: 'offer ' + offerId,
+    titleComponent: (
+      <Text style={tw`h6`}>
+        {i18n('offer')} {offerIdToHex(offerId)}
+      </Text>
+    ),
     hideGoBackButton: true,
     icons: headerIcons,
   })
@@ -65,7 +70,7 @@ export const useSearchSetup = () => {
     }
   }, [error, navigation, offerId, updateMessage])
 
-  useRefetchOnNotification(refetch, offerId)
+  useRefetchOnNotification(refetch)
 
   return { offer, hasMatches: !!matches.length }
 }

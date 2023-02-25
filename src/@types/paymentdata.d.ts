@@ -1,10 +1,12 @@
 declare type PaymentData = {
   [key: string]: any
   id: string
+  version?: string
   label: string
   type: PaymentMethod
   currencies: Currency[]
-  country?: Country
+  country?: PaymentMethodCountry
+  hidden?: boolean
 }
 
 declare type PaypalData = {
@@ -18,7 +20,17 @@ declare type SEPAData = {
   bic?: string
   reference?: string
 }
+declare type FasterPaymentsData = {
+  beneficiary: string
+  ukBankAccount: string
+  ukSortCode: string
+  reference?: string
+}
 declare type BizumData = {
+  phone: string
+  beneficiary: string
+}
+declare type MobilePayData = {
   phone: string
   beneficiary: string
 }
@@ -31,11 +43,23 @@ declare type RevolutData = {
   userName: string
   email: string
 }
+declare type VippsData = {
+  phone: string
+  beneficiary?: string
+}
+declare type ADVCashData = {
+  wallet: string
+  email: string
+}
 declare type SwishData = {
   phone: string
   beneficiary: string
 }
 declare type SatispayData = {
+  phone: string
+}
+declare type BlikData = {
+  beneficiary?: string
   phone: string
 }
 declare type TwintData = {
@@ -49,4 +73,6 @@ declare type WiseData = {
 declare type AmazonGiftCardData = {
   email: string
 }
-declare type CashData = {}
+declare type CashData = {
+  userId: string
+}

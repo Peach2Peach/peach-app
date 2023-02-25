@@ -1,28 +1,14 @@
-import React, { ReactElement, useMemo } from 'react'
-import { View, TouchableOpacity } from 'react-native'
+import React, { ReactElement } from 'react'
+import { TouchableOpacity, View } from 'react-native'
 
 import { Icon, PrimaryButton, RadioButtons, Text } from '../../components'
-import { useNavigation, useRoute } from '../../hooks'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { useSelectWalletSetup } from './hooks/useSelectWalletSetup'
 
 export default (): ReactElement => {
-  const route = useRoute<'selectWallet'>()
-  const { type } = route.params
-  const navigation = useNavigation()
-  const { peachWalletActive, setPeachWalletActive, payoutAddress, payoutAddressLabel } = useSelectWalletSetup()
-
-  const setSelectedWallet = (selected: string) => {
-    setPeachWalletActive(selected === 'peachWallet')
-  }
-  const goToSetRefundWallet = () => navigation.navigate('payoutAddress')
-
-  const wallets = useMemo(() => {
-    const wllts = [{ value: 'peachWallet', display: i18n('peachWallet') }]
-    if (payoutAddress) wllts.push({ value: 'externalWallet', display: payoutAddressLabel || i18n('externalWallet') })
-    return wllts
-  }, [payoutAddress, payoutAddressLabel])
+  const { type, wallets, peachWalletActive, setSelectedWallet, payoutAddress, goToSetRefundWallet, selectAndContinue }
+    = useSelectWalletSetup()
 
   return (
     <View style={tw`justify-between h-full px-8 pb-7`}>
@@ -47,8 +33,8 @@ export default (): ReactElement => {
           </TouchableOpacity>
         )}
       </View>
-      <PrimaryButton testID="select-refund-wallet-confirm" onPress={navigation.goBack}>
-        {i18n('continue')}
+      <PrimaryButton testID="select-refund-wallet-confirm" onPress={selectAndContinue} style={tw`self-center`} narrow>
+        {i18n('confirm')}
       </PrimaryButton>
     </View>
   )

@@ -62,21 +62,6 @@ describe('getNavigationDestinationForOffer', () => {
     expect(destination2).toBe('fundEscrow')
     expect(params2).toEqual({ offerId: offer.id })
   })
-  it('should navigate to message signing', () => {
-    const offer = {
-      id: '3',
-    } as BuyOffer
-    const offerSummary: Partial<OfferSummary> = {
-      id: '3',
-      tradeStatus: 'messageSigningRequired',
-    }
-
-    ;(<jest.Mock>getOffer).mockReturnValue(offer)
-    const [destination, params] = getNavigationDestinationForOffer(offerSummary as OfferSummary)
-
-    expect(destination).toBe('signMessage')
-    expect(params).toEqual({ offerId: offer.id })
-  })
   it('should navigate to yourTrades as fallback', () => {
     const offerSummary: Partial<OfferSummary> = {
       id: '3',

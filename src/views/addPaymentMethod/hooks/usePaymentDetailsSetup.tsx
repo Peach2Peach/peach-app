@@ -28,7 +28,7 @@ export const usePaymentDetailsSetup = () => {
 
   const headerIcons = useCallback(() => {
     const icons: HeaderConfig['icons'] = []
-    if (['revolut', 'wise', 'paypal'].includes(paymentMethod)) {
+    if (['revolut', 'wise', 'paypal', 'advcash'].includes(paymentMethod)) {
       icons[0] = { iconComponent: <HelpIcon />, onPress: showHelp }
     }
     if (data.id) {

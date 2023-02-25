@@ -2,9 +2,9 @@ import React, { ReactElement } from 'react'
 import { View } from 'react-native'
 import { Icon, Text, Timer } from '../../../components'
 import tw from '../../../styles/tailwind'
+import { getPaymentExpectedBy } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
 import { shouldShowConfirmCancelTradeRequest } from '../../../utils/overlay'
-import { getPaymentExpectedBy } from '../helpers/getPaymentExpectedBy'
 
 type ContractStatusInfoProps = {
   contract: Contract
@@ -14,7 +14,9 @@ type ContractStatusInfoProps = {
 export const ContractStatusInfo = ({ contract, requiredAction, view }: ContractStatusInfoProps): ReactElement => {
   if (contract.disputeActive) return (
     <View style={tw`flex-row items-center justify-center`}>
-      <Text style={tw`text-center button-medium`}>{i18n('contract.checkTheChat')}</Text>
+      <Text style={tw`text-center button-medium`}>
+        {i18n('contract.disputeActive') + ' - ' + i18n('contract.checkTheChat')}
+      </Text>
     </View>
   )
   if (shouldShowConfirmCancelTradeRequest(contract, view)) return (

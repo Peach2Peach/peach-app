@@ -6,6 +6,7 @@ import i18n from '../utils/i18n'
 import satispay from '../components/payment/logos/satispay.svg'
 import mbWay from '../components/payment/logos/mbWay.svg'
 import bizum from '../components/payment/logos/bizum.svg'
+import mobilePay from '../components/payment/logos/mobilePay.svg'
 import { SvgProps } from 'react-native-svg'
 
 type OptionItem = {
@@ -22,11 +23,12 @@ const icons: Record<string, FC<SvgProps>> = {
   satispay,
   mbWay,
   bizum,
+  mobilePay,
 }
 
 export const LocalOptionsSelect = ({ local, onSelect }: LocalOptionsProps): ReactElement => (
   <View>
-    {local.map((localOption: OptionItem, i) => {
+    {local.map((localOption: OptionItem) => {
       const SVG = icons[localOption.value]
       return (
         <Pressable key={localOption.value} onPress={() => onSelect(localOption.value)}>
@@ -36,7 +38,7 @@ export const LocalOptionsSelect = ({ local, onSelect }: LocalOptionsProps): Reac
               {i18n(`paymentMethod.${localOption.value}`).toLowerCase()}
             </Text>
           </View>
-          {i < local.length - 1 ? <HorizontalLine style={tw`my-6`} /> : null}
+          <HorizontalLine style={tw`my-6`} />
         </Pressable>
       )
     })}

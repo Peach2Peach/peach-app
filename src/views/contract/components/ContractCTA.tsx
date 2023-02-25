@@ -2,13 +2,12 @@ import React, { ReactElement } from 'react'
 import { PrimaryButton } from '../../../components'
 import { WarningButton } from '../../../components/buttons'
 import { SlideToUnlock } from '../../../components/inputs'
-import { useNavigation } from '../../../hooks'
 import { useConfirmTradeCancelationOverlay } from '../../../overlays/tradeCancelation/useConfirmTradeCancelationOverlay'
 import { usePaymentTooLateOverlay } from '../../../overlays/usePaymentTooLateOverlay'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { shouldShowConfirmCancelTradeRequest } from '../../../utils/overlay'
-import { getPaymentExpectedBy } from '../helpers/getPaymentExpectedBy'
+import { getPaymentExpectedBy } from '../../../utils/contract/getPaymentExpectedBy'
 
 type ContractCTAProps = ComponentProps & {
   contract: Contract
@@ -26,17 +25,11 @@ export default ({
   postConfirmPaymentBuyer,
   postConfirmPaymentSeller,
 }: ContractCTAProps): ReactElement => {
-  const navigation = useNavigation()
-  const goToChat = () => navigation.push('contractChat', { contractId: contract.id })
   const showPaymentTooLateOverlay = usePaymentTooLateOverlay()
   const showConfirmTradeCancelation = useConfirmTradeCancelationOverlay()
+  const CTADisabled = actionPending || contract.disputeActive
 
-  if (contract.disputeActive) return (
-    <WarningButton onPress={goToChat} iconId="alertOctagon">
-      {i18n('contract.disputeActive')}
-    </WarningButton>
-  )
-  if (shouldShowConfirmCancelTradeRequest(contract, view)) return (
+  if (!contract.disputeActive && shouldShowConfirmCancelTradeRequest(contract, view)) return (
     <WarningButton onPress={() => showConfirmTradeCancelation(contract)}>{i18n('contract.respond')}</WarningButton>
   )
   if (view === 'buyer' && requiredAction === 'confirmPayment') return (
@@ -52,11 +45,11 @@ export default ({
   )
   if (view === 'buyer' && requiredAction === 'sendPayment') {
     const paymentExpectedBy = getPaymentExpectedBy(contract)
-    if (Date.now() < paymentExpectedBy) {
+    if (contract.disputeActive || Date.now() < paymentExpectedBy) {
       return (
         <SlideToUnlock
           style={tw`w-[260px]`}
-          disabled={actionPending}
+          disabled={CTADisabled}
           onUnlock={postConfirmPaymentBuyer}
           label1={i18n('contract.payment.confirm')}
           label2={i18n('contract.payment.made')}
@@ -64,7 +57,7 @@ export default ({
       )
     }
     return (
-      <WarningButton onPress={showPaymentTooLateOverlay} iconId="alertOctagon">
+      <WarningButton onPress={showPaymentTooLateOverlay} iconId="alertOctagon" disabled={contract.disputeActive}>
         {i18n('contract.timer.paymentTimeExpired.button.buyer')}
       </WarningButton>
     )
@@ -72,7 +65,7 @@ export default ({
   if (view === 'seller' && requiredAction === 'confirmPayment') return (
     <SlideToUnlock
       style={tw`w-[260px]`}
-      disabled={actionPending}
+      disabled={CTADisabled}
       onUnlock={postConfirmPaymentSeller}
       label1={i18n('contract.payment.confirm')}
       label2={i18n('contract.payment.received')}

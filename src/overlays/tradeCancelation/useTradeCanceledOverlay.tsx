@@ -31,7 +31,7 @@ export const useTradeCanceledOverlay = () => {
   )
 
   const republishOffer = useCallback(
-    async (sellOffer: SellOffer) => {
+    async (sellOffer: SellOffer, contract: Contract) => {
       const [reviveSellOfferResult, err] = await reviveSellOffer({ offerId: sellOffer.id })
 
       if (!reviveSellOfferResult || err) {
@@ -51,17 +51,20 @@ export const useTradeCanceledOverlay = () => {
           icon: 'arrowRightCircle',
           callback: () => {
             navigation.replace('search', { offerId: reviveSellOfferResult.newOfferId })
-            closeOverlay()
+            confirmOverlay(contract)
           },
         },
         action2: {
           label: i18n('close'),
           icon: 'xSquare',
-          callback: closeOverlay,
+          callback: () => {
+            navigation.replace('contract', { contractId: contract.id })
+            confirmOverlay(contract)
+          },
         },
       })
     },
-    [closeOverlay, navigation, showError, updateOverlay],
+    [closeOverlay, confirmOverlay, navigation, showError, updateOverlay],
   )
 
   const showTradeCanceled = useCallback(
@@ -69,6 +72,7 @@ export const useTradeCanceledOverlay = () => {
       const sellOffer = getSellOfferFromContract(contract)
       if (!sellOffer) return
 
+      navigation.navigate('yourTrades', { tab: 'history' })
       const expiry = getOfferExpiry(sellOffer)
       const refundAction = {
         label: i18n('contract.cancel.tradeCanceled.refund'),
@@ -83,13 +87,15 @@ export const useTradeCanceledOverlay = () => {
         : {
           label: i18n('contract.cancel.tradeCanceled.republish'),
           icon: 'refreshCw',
-          callback: () => republishOffer(sellOffer),
+          callback: () => republishOffer(sellOffer, contract),
         }
       const action2 = expiry.isExpired ? undefined : refundAction
 
       updateOverlay({
         title: i18n(
-          mutualClose ? 'contract.cancel.buyerConfirmed.title' : `contract.cancel.${contract.canceledBy}.canceled.title`,
+          mutualClose
+            ? 'contract.cancel.buyerConfirmed.title'
+            : `contract.cancel.${contract.canceledBy || 'buyer'}.canceled.title`,
         ),
         content: mutualClose ? (
           <BuyerConfirmedCancelTrade contract={contract} />
@@ -103,7 +109,7 @@ export const useTradeCanceledOverlay = () => {
         action2,
       })
     },
-    [confirmOverlay, republishOffer, startRefund, updateOverlay],
+    [confirmOverlay, navigation, republishOffer, startRefund, updateOverlay],
   )
 
   return showTradeCanceled

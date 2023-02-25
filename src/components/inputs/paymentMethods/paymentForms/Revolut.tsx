@@ -7,12 +7,17 @@ import { getPaymentDataByLabel } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
 import { getErrorsInField } from '../../../../utils/validation'
 import { TabbedNavigation, TabbedNavigationItem } from '../../../navigation/TabbedNavigation'
+import { EmailInput } from '../../EmailInput'
 import Input from '../../Input'
 import { PhoneInput } from '../../PhoneInput'
 import { UsernameInput } from '../../UsernameInput'
 import { CurrencySelection, toggleCurrency } from './CurrencySelection'
 
 const tabs: TabbedNavigationItem[] = [
+  {
+    id: 'phone',
+    display: i18n('form.phone'),
+  },
   {
     id: 'email',
     display: i18n('form.email'),
@@ -21,12 +26,9 @@ const tabs: TabbedNavigationItem[] = [
     id: 'revtag',
     display: i18n('form.revtag'),
   },
-  {
-    id: 'phone',
-    display: i18n('form.phone'),
-  },
 ]
 const referenceRules = { required: false }
+const phoneRules = { phone: true, isPhoneAllowed: true, required: true }
 
 export const Revolut = ({ forwardRef, data, currencies = [], onSubmit, setStepValid }: FormProps): ReactElement => {
   const [label, setLabel] = useState(data?.label || '')
@@ -42,16 +44,18 @@ export const Revolut = ({ forwardRef, data, currencies = [], onSubmit, setStepVa
 
   let $reference = useRef<TextInput>(null).current
 
-  const labelRules = {
-    required: true,
-    duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)!.id !== data.id,
-  }
-  const phoneRules = { phone: true, required: !email && !userName }
-  const emailRules = { email: true, required: !phone && !userName }
-  const userNameRules = { revtag: true, required: !phone && !email }
+  const labelRules = useMemo(
+    () => ({
+      duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)!.id !== data.id,
+      required: true,
+    }),
+    [data.id, label],
+  )
+  const emailRules = useMemo(() => ({ email: true, required: !phone && !userName }), [phone, userName])
+  const userNameRules = useMemo(() => ({ revtag: true, required: !phone && !email }), [email, phone])
 
   const labelErrors = useMemo(() => getErrorsInField(label, labelRules), [label, labelRules])
-  const phoneErrors = useMemo(() => getErrorsInField(phone, phoneRules), [phone, phoneRules])
+  const phoneErrors = useMemo(() => getErrorsInField(phone, phoneRules), [phone])
   const emailErrors = useMemo(() => getErrorsInField(email, emailRules), [email, emailRules])
   const userNameErrors = useMemo(() => getErrorsInField(userName, userNameRules), [userName, userNameRules])
   const [displayErrors, setDisplayErrors] = useState(false)
@@ -62,6 +66,7 @@ export const Revolut = ({ forwardRef, data, currencies = [], onSubmit, setStepVa
     type: 'revolut',
     phone,
     userName,
+    reference,
     email,
     currencies: selectedCurrencies,
   })
@@ -103,14 +108,26 @@ export const Revolut = ({ forwardRef, data, currencies = [], onSubmit, setStepVa
       </View>
       <TabbedNavigation items={tabs} selected={currentTab} select={setCurrentTab} />
       <View style={tw`mt-2`}>
+        {currentTab.id === 'phone' && (
+          <PhoneInput
+            onChange={setPhone}
+            onSubmit={() => {
+              $reference?.focus()
+            }}
+            value={phone}
+            required={true}
+            placeholder={i18n('form.phone.placeholder')}
+            autoCorrect={false}
+            errorMessage={displayErrors ? phoneErrors : undefined}
+          />
+        )}
         {currentTab.id === 'email' && (
-          <Input
+          <EmailInput
             onChange={setEmail}
             onSubmit={$reference?.focus}
             value={email}
             required={!anyFieldSet}
             placeholder={i18n('form.email.placeholder')}
-            autoCorrect={false}
             errorMessage={displayErrors ? emailErrors : undefined}
           />
         )}
@@ -126,19 +143,6 @@ export const Revolut = ({ forwardRef, data, currencies = [], onSubmit, setStepVa
               autoCorrect: false,
               errorMessage: displayErrors ? userNameErrors : undefined,
             }}
-          />
-        )}
-        {currentTab.id === 'phone' && (
-          <PhoneInput
-            onChange={setPhone}
-            onSubmit={() => {
-              $reference?.focus()
-            }}
-            value={phone}
-            required={!anyFieldSet}
-            placeholder={i18n('form.phone.placeholder')}
-            autoCorrect={false}
-            errorMessage={displayErrors ? phoneErrors : undefined}
           />
         )}
       </View>

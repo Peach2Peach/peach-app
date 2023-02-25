@@ -1,2 +1,2 @@
-export { MenuItem } from './MenuItem'
-export { Navigation } from './Navigation'
+export { NewTabbedNavigation } from './NewTabbedNavigation'
+export { TabbedNavigation } from './TabbedNavigation'

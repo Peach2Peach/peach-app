@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useCallback, useMemo } from 'react'
 import { TouchableOpacity, View } from 'react-native'
 
 import tw from '../../styles/tailwind'
@@ -7,14 +7,14 @@ import i18n from '../../utils/i18n'
 import shallow from 'zustand/shallow'
 import { BitcoinPriceStats, HorizontalLine, Icon, PrimaryButton, Text } from '../../components'
 import { RangeAmount } from '../../components/inputs/verticalAmountSelector/RangeAmount'
-import { MAXTRADINGAMOUNT, MINTRADINGAMOUNT } from '../../constants'
 import { useNavigation, useValidatedState } from '../../hooks'
 import { useShowWarning } from '../../hooks/useShowWarning'
+import { useConfigStore } from '../../store/configStore'
 import { useSettingsStore } from '../../store/settingsStore'
 import { DailyTradingLimit } from '../settings/profile/DailyTradingLimit'
 import { useBuySetup } from './hooks/useBuySetup'
-
-const rangeRules = { min: MINTRADINGAMOUNT, max: MAXTRADINGAMOUNT, required: true }
+import { debounce } from '../../utils/performance'
+import LoadingScreen from '../loading/LoadingScreen'
 
 export default (): ReactElement => {
   const navigation = useNavigation()
@@ -22,27 +22,50 @@ export default (): ReactElement => {
 
   useBuySetup()
 
-  const [showBackupReminder, minAmount, setMinAmount, maxAmount, setMaxAmount] = useSettingsStore(
-    (state) => [state.showBackupReminder, state.minAmount, state.setMinAmount, state.maxAmount, state.setMaxAmount],
+  const [showBackupReminder, minBuyAmount, setMinBuyAmount, maxBuyAmount, setMaxBuyAmount] = useSettingsStore(
+    (state) => [
+      state.showBackupReminder,
+      state.minBuyAmount,
+      state.setMinBuyAmount,
+      state.maxBuyAmount,
+      state.setMaxBuyAmount,
+    ],
     shallow,
   )
-  const [currentMinAmount, setCurrentMinAmount, minAmountValid] = useValidatedState(minAmount, rangeRules)
-  const [currentMaxAmount, setCurrentMaxAmount, maxAmountValid] = useValidatedState(maxAmount, rangeRules)
+  const [minTradingAmount, maxTradingAmount] = useConfigStore(
+    (state) => [state.minTradingAmount, state.maxTradingAmount],
+    shallow,
+  )
+  const rangeRules = useMemo(
+    () => ({ min: minTradingAmount, max: maxTradingAmount, required: true }),
+    [minTradingAmount, maxTradingAmount],
+  )
+
+  const [currentMinAmount, setCurrentMinAmount, minAmountValid] = useValidatedState(minBuyAmount, rangeRules)
+  const [currentMaxAmount, setCurrentMaxAmount, maxAmountValid] = useValidatedState(maxBuyAmount, rangeRules)
+
+  const updateStore = useCallback(
+    debounce((min: number, max: number) => {
+      setMinBuyAmount(min)
+      setMaxBuyAmount(max)
+    }, 400),
+    [setMinBuyAmount, setMaxBuyAmount],
+  )
   const setSelectedRange = ([min, max]: [number, number]) => {
     setCurrentMinAmount(min)
     setCurrentMaxAmount(max)
+
+    updateStore(min, max)
   }
 
-  const next = () => {
-    setMinAmount(currentMinAmount)
-    setMaxAmount(currentMaxAmount)
-    navigation.navigate('buyPreferences', { amount: [minAmount, maxAmount] })
-  }
+  const next = () => navigation.navigate('buyPreferences')
 
-  return (
+  return currentMaxAmount === Infinity ? (
+    <LoadingScreen />
+  ) : (
     <View testID="view-buy" style={tw`flex h-full`}>
       <HorizontalLine style={tw`mx-8`} />
-      <View style={tw`mt-2 px-8`}>
+      <View style={tw`px-8 mt-2`}>
         <BitcoinPriceStats />
         <View style={tw`pt-4`}>
           <Text style={[tw`hidden h6`, tw.md`flex`]}>
@@ -51,10 +74,10 @@ export default (): ReactElement => {
           </Text>
         </View>
       </View>
-      <View style={tw`flex-grow items-center justify-center`}>
+      <View style={tw`items-center justify-center flex-grow`}>
         <RangeAmount
-          min={MINTRADINGAMOUNT}
-          max={MAXTRADINGAMOUNT}
+          min={minTradingAmount}
+          max={maxTradingAmount}
           value={[currentMinAmount, currentMaxAmount]}
           onChange={setSelectedRange}
         />
