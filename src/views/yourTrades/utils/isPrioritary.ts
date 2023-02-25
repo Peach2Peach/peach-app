@@ -2,6 +2,7 @@ const prioritaryStatus = [
   'dispute',
   'fundingAmountDifferent',
   'confirmCancelation',
+  'refundAddressRequired',
   'refundTxSignatureRequired',
   'refundOrReviveRequired',
 ]

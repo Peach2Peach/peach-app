@@ -1,12 +1,12 @@
+import { meetupEventsStorage } from './../../../src/store/meetupEventsStore'
 import { getEventName } from '../../../src/utils/events'
-import { sessionStorage } from '../../../src/utils/session'
 
 describe('getEventName', () => {
   const meetupEvents = [
     { id: '1', shortName: 'event 1' },
     { id: '2', shortName: 'event 2' },
   ]
-  sessionStorage.setMap('meetupEvents', meetupEvents)
+  meetupEventsStorage.setMap('meetupEvents', meetupEvents)
 
   it('should return the name of the event with the matching id', () => {
     expect(getEventName('1')).toEqual('event 1')

@@ -66,6 +66,7 @@ export const Revolut = ({ forwardRef, data, currencies = [], onSubmit, setStepVa
     type: 'revolut',
     phone,
     userName,
+    reference,
     email,
     currencies: selectedCurrencies,
   })

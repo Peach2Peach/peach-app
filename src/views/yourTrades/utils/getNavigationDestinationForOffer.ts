@@ -10,6 +10,9 @@ export const getNavigationDestinationForOffer = ({
   if (shouldGoToOfferSummary(tradeStatus)) {
     return ['offer', { offerId }]
   }
+  if (tradeStatus === 'refundAddressRequired') {
+    return ['setRefundWallet', { offerId }]
+  }
 
   if (tradeStatus === 'fundEscrow' || tradeStatus === 'escrowWaitingForConfirmation') {
     return ['fundEscrow', { offerId }]

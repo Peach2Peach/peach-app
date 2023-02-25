@@ -6,6 +6,7 @@ export const statusIcons: Record<TradeStatus, IconType> = {
   fundingAmountDifferent: 'uploadCloud',
   escrowWaitingForConfirmation: 'clock',
   hasMatchesAvailable: 'checkCircle',
+  refundAddressRequired: 'edit',
   refundTxSignatureRequired: 'alertOctagon',
   paymentRequired: 'dollarSign',
   confirmPaymentRequired: 'dollarSign',

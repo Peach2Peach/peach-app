@@ -1,6 +1,7 @@
 export { countrySupportsCurrency } from './countrySupportsCurrency'
 export { dataToMeansOfPayment } from './dataToMeansOfPayment'
 export { encryptPaymentData } from './encryptPaymentData'
+export { getAllPaymentMethods } from './getAllPaymentMethods'
 export { getApplicablePaymentCategories } from './getApplicablePaymentCategories'
 export { getCurrencies } from './getCurrencies'
 export { getMoPsInCommon } from './getMoPsInCommon'

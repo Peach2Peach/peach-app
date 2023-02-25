@@ -71,7 +71,20 @@ declare type TradingLimit = {
 
 declare type TradingPair = 'BTCEUR' | 'BTCCHF' | 'BTCGBP'
 
-declare type Currency = 'USD' | 'EUR' | 'CHF' | 'GBP' | 'SEK'
+declare type Currency =
+  | 'USD'
+  | 'EUR'
+  | 'CHF'
+  | 'GBP'
+  | 'SEK'
+  | 'DKK'
+  | 'BGN'
+  | 'CZK'
+  | 'HUF'
+  | 'PLN'
+  | 'RON'
+  | 'ISK'
+  | 'NOK'
 declare type Pricebook = {
   [key in Currency]?: number
 }
@@ -93,12 +106,17 @@ declare type PaymentMethodCountry =
   | 'SI'
   | 'UK'
   | 'US'
+  | 'FI'
 declare type Location = 'amsterdam' | 'belgianEmbassy' | 'lugano'
 declare type PaymentMethod =
   | 'sepa'
   | 'instantSepa'
+  | 'advcash'
   | 'paypal'
+  | 'fasterPayments'
   | 'revolut'
+  | 'vipps'
+  | 'blik'
   | 'applePay'
   | 'wise'
   | 'twint'
@@ -106,6 +124,7 @@ declare type PaymentMethod =
   | 'swish'
   | 'mbWay'
   | 'bizum'
+  | 'mobilePay'
   | `cash.${string}`
   | 'giftCard.amazon'
   | `giftCard.amazon.${PaymentMethodCountry}`
@@ -179,6 +198,7 @@ declare type TradeStatus =
   | 'searchingForPeer'
   | 'hasMatchesAvailable'
   | 'offerCanceled'
+  | 'refundAddressRequired'
   | 'refundTxSignatureRequired'
   | 'paymentRequired'
   | 'confirmPaymentRequired'
@@ -418,3 +438,5 @@ declare type PNData = {
   isChat?: string
   type?: NotificationType
 }
+
+declare type RefundSellOfferResponse = APISuccess

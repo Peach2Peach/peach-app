@@ -1,15 +1,14 @@
-import { useEffect, useMemo, useState } from 'react'
-import shallow from 'zustand/shallow'
+import { useFocusEffect } from '@react-navigation/native'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { TabbedNavigationItem } from '../../../components/navigation/TabbedNavigation'
 
 import { useHeaderSetup, useRoute } from '../../../hooks'
 import { useTradeSummaries } from '../../../hooks/query/useTradeSummaries'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
-import { useTradeSummaryStore } from '../../../store/tradeSummaryStore'
 import { sortContractsByDate } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
 import { parseError } from '../../../utils/system'
-import { hasDoubleMatched, isOpenOffer, isPastOffer } from '../utils'
+import { isOpenOffer, isPastOffer } from '../utils'
 import { getTabById } from '../utils/getTabById'
 
 const tabs: TabbedNavigationItem[] = [
@@ -22,13 +21,9 @@ export const useYourTradesSetup = () => {
   const route = useRoute<'yourTrades'>()
   const { tab = 'buy' } = route.params || {}
   const showErrorBanner = useShowErrorBanner()
-  const [offers, setOffers, contracts, setContracts] = useTradeSummaryStore(
-    (state) => [state.offers, state.setOffers, state.contracts, state.setContracts],
-    shallow,
-  )
   const [currentTab, setCurrentTab] = useState(getTabById(tabs, tab) || tabs[0])
 
-  const { offers: offersUpdate, contracts: contractsUpdate, isLoading, error, refetch } = useTradeSummaries()
+  const { offers, contracts, isLoading, error, refetch } = useTradeSummaries()
 
   const filteredOffers = offers.filter(({ contractId }) => !contractId)
   const trades = [...filteredOffers, ...contracts].sort(sortContractsByDate).reverse()
@@ -53,18 +48,17 @@ export const useYourTradesSetup = () => {
     ),
   )
 
+  useFocusEffect(useCallback(() => refetch(), [refetch]))
+
   useEffect(() => {
     if (tab) setCurrentTab(getTabById(tabs, tab) || tabs[0])
   }, [tab])
 
   useEffect(() => {
     if (isLoading) return
-    if (offersUpdate && contractsUpdate) {
-      setOffers(offersUpdate)
-      setContracts(contractsUpdate)
-    }
+
     if (error) showErrorBanner(parseError(error))
-  }, [isLoading, offersUpdate, contractsUpdate, error, showErrorBanner, setOffers, setContracts])
+  }, [isLoading, error, showErrorBanner])
 
   return {
     isLoading,

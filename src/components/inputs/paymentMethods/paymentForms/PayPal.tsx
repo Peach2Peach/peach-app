@@ -69,6 +69,7 @@ export const PayPal = ({ forwardRef, data, currencies = [], onSubmit, setStepVal
     phone,
     email,
     userName,
+    reference,
     currencies: selectedCurrencies,
   })
 
