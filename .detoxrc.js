@@ -15,7 +15,7 @@ module.exports = {
   apps: {
     'ios.debug': {
       type: 'ios.app',
-      binaryPath: 'ios/build/Build/Products/Debug-iphonesimulator/peach.app',
+      binaryPath: 'ios/build/Build/Products/Debug-iphonesimulator/Peach Bitcoin Testnet.app',
       build: 'xcodebuild -workspace ios/peach.xcworkspace -scheme peach -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build'
     },
     'android.debug': {
