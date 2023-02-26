@@ -6,17 +6,15 @@ import OfferDetails from './OfferDetails'
 
 import shallow from 'zustand/shallow'
 import { useSettingsStore } from '../../store/settingsStore'
-import { getDefaultBuyOffer } from './helpers/getDefaultBuyOffer'
+import { getBuyOfferDraft } from './helpers/getBuyOfferDraft'
 import Summary from './Summary'
 import { useFocusEffect } from '@react-navigation/native'
 
 export type BuyViewProps = {
-  offer: BuyOfferDraft
-  updateOffer: (data: BuyOfferDraft, shield?: boolean) => void
+  offerDraft: BuyOfferDraft
+  setOfferDraft: (data: BuyOfferDraft, shield?: boolean) => void
   next: () => void
 }
-
-type Screen = null | (({ offer, updateOffer }: BuyViewProps) => ReactElement)
 
 const screens = [
   {
@@ -40,12 +38,12 @@ export default (): ReactElement => {
     }),
     shallow,
   )
-  const [offer, setOffer] = useState<BuyOfferDraft>(getDefaultBuyOffer(partialSettings))
+  const [offerDraft, setOfferDraft] = useState(getBuyOfferDraft(partialSettings))
 
   const [page, setPage] = useState(0)
 
   const currentScreen = screens[page]
-  const CurrentView: Screen = currentScreen.view
+  const CurrentView = currentScreen.view
 
   useFocusEffect(
     useCallback(() => {
@@ -69,7 +67,7 @@ export default (): ReactElement => {
 
   return (
     <View testID="view-buy" style={tw`flex-1`}>
-      {!!CurrentView && <CurrentView updateOffer={setOffer} {...{ offer, next }} />}
+      {!!CurrentView && <CurrentView {...{ offerDraft, setOfferDraft, next }} />}
     </View>
   )
 }
