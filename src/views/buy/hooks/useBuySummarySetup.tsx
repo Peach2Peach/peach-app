@@ -8,7 +8,7 @@ import { useSettingsStore } from '../../../store/settingsStore'
 import { account, getMessageToSignForAddress, updateTradingLimit } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
 import { saveOffer } from '../../../utils/offer'
-import { getTradingLimit, postBuyOffer } from '../../../utils/peachAPI'
+import { getOfferDetails, getTradingLimit, postBuyOffer } from '../../../utils/peachAPI'
 import { isValidBitcoinSignature } from '../../../utils/validation'
 import { peachWallet } from '../../../utils/wallet/setWallet'
 
@@ -39,15 +39,20 @@ export const useBuySummarySetup = () => {
   const goToSetupPayoutWallet = () =>
     payoutAddress ? navigation.navigate('signMessage') : navigation.navigate('payoutAddress', { type: 'payout' })
 
-  const publishOffer = async (offer: BuyOfferDraft) => {
+  const publishOffer = async (offerDraft: BuyOfferDraft) => {
     setIsPublishing(true)
 
     await pgp() // make sure pgp has been sent
-    const [result, err] = await postBuyOffer(offer)
+    const [result, err] = await postBuyOffer(offerDraft)
 
     if (result) {
       getAndUpdateTradingLimit()
-      saveOffer({ ...offer, id: result.offerId } as BuyOffer)
+      const [offer] = await getOfferDetails({ offerId: result.offerId })
+      // Note that previously we always saved the offerDraft as if it were an offer,
+      // but now we only save it if the server returns it.
+      if (offer) {
+        saveOffer(offer)
+      }
       navigation.replace('offerPublished', { isSellOffer: false })
       return
     }
