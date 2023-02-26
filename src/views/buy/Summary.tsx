@@ -20,12 +20,12 @@ export default ({ offerDraft, setOfferDraft }: BuyViewProps): ReactElement => {
   const publishBuyOffer = () => publishOffer(offerDraft)
 
   useEffect(() => {
-    if (releaseAddress) setOfferDraft({
-      ...offerDraft,
+    if (releaseAddress) setOfferDraft((prev) => ({
+      ...prev,
       releaseAddress,
       message,
       messageSignature,
-    })
+    }))
   }, [releaseAddress, message, messageSignature, setOfferDraft])
 
   useEffect(() => {
