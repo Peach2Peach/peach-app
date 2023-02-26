@@ -129,7 +129,7 @@ export const useCommonContractSetup = (contractId: string) => {
   }, [storedContract, handleContractOverlays])
 
   useEffect(() => {
-    if (offer) saveOffer(offer, false)
+    if (offer) saveOffer(offer)
   }, [offer])
 
   return {

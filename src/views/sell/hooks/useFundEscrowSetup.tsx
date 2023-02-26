@@ -60,9 +60,9 @@ export const useFundEscrowSetup = () => {
     ),
   )
 
-  const saveAndUpdate = (offerData: SellOffer, shield = true) => {
+  const saveAndUpdate = (offerData: SellOffer) => {
     setSellOffer(offerData)
-    saveOffer(offerData, undefined, shield)
+    saveOffer(offerData)
   }
 
   const fundEscrowAddress = async () => {
