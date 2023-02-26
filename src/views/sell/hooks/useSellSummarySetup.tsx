@@ -55,7 +55,8 @@ export const useSellSummarySetup = () => {
       getAndUpdateTradingLimit()
       const [offer] = await getOfferDetails({ offerId: result.offerId })
       if (offer && isSellOffer(offer)) {
-        navigation.replace('fundEscrow', { offer: { ...offer, ...offerDraft } })
+        // using the actual offer here breaks the behavior. For some reason the funding status appears to be 'mempool'
+        navigation.replace('fundEscrow', { offer: { ...offerDraft, id: offer.id } })
       }
     } else if (err) {
       showErrorBanner(i18n(err.error || 'POST_OFFER_ERROR', ((err.details as string[]) || []).join(', ')))
