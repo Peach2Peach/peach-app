@@ -8,7 +8,8 @@ import { useSettingsStore } from '../../../store/settingsStore'
 import { updateTradingLimit } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
 import { info } from '../../../utils/log'
-import { getTradingLimit, postSellOffer } from '../../../utils/peachAPI'
+import { isSellOffer } from '../../../utils/offer'
+import { getOfferDetails, getTradingLimit, postSellOffer } from '../../../utils/peachAPI'
 import { peachWallet } from '../../../utils/wallet/setWallet'
 
 const getAndUpdateTradingLimit = () =>
@@ -34,28 +35,30 @@ export const useSellSummarySetup = () => {
 
   const goToSetupRefundWallet = () => navigation.navigate('payoutAddress', { type: 'refund' })
 
-  const publishOffer = async (offer: SellOfferDraft) => {
+  const publishOffer = async (offerDraft: SellOfferDraft) => {
     setIsPublishing(true)
-    info('Posting offer ', JSON.stringify(offer))
+    info('Posting offer ', JSON.stringify(offerDraft))
 
     await pgp() // make sure pgp has been sent
 
     const [result, err] = await postSellOffer({
-      type: offer.type,
-      amount: offer.amount,
-      premium: offer.premium,
-      meansOfPayment: offer.meansOfPayment,
-      paymentData: offer.paymentData,
-      returnAddress: offer.returnAddress,
+      type: offerDraft.type,
+      amount: offerDraft.amount,
+      premium: offerDraft.premium,
+      meansOfPayment: offerDraft.meansOfPayment,
+      paymentData: offerDraft.paymentData,
+      returnAddress: offerDraft.returnAddress,
     })
     if (result) {
       info('Posted offer', result)
 
       getAndUpdateTradingLimit()
-
-      navigation.replace('fundEscrow', { offer: { ...offer, id: result.offerId } as SellOffer })
+      const [offer] = await getOfferDetails({ offerId: result.offerId })
+      if (offer && isSellOffer(offer)) {
+        navigation.replace('fundEscrow', { offer })
+      }
     } else if (err) {
-      showErrorBanner(i18n(err?.error || 'POST_OFFER_ERROR', ((err?.details as string[]) || []).join(', ')))
+      showErrorBanner(i18n(err.error || 'POST_OFFER_ERROR', ((err.details as string[]) || []).join(', ')))
     }
     setIsPublishing(false)
   }
