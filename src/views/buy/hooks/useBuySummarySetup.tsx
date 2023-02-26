@@ -56,10 +56,8 @@ export const useBuySummarySetup = () => {
     showErrorBanner(err?.error || 'POST_OFFER_ERROR')
   }
 
-  useHeaderSetup(
-    useMemo(
-      () => ({
-        title: i18n('buy.summary.title'),
+  useHeaderSetup({
+    title: i18n('buy.summary.title'),
     icons: [{ iconComponent: <WalletIcon />, onPress: () => navigation.navigate('selectWallet', { type: 'payout' }) }],
   })
 
