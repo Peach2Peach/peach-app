@@ -127,7 +127,7 @@ export const useFundEscrowSetup = () => {
             if (hasMatches) {
               navigation.replace('search', { offerId: sellOffer.id })
             } else {
-              navigation.replace('offerPublished', { offerId: sellOffer.id })
+              navigation.replace('offerPublished', { isSellOffer: true })
             }
           })
         }

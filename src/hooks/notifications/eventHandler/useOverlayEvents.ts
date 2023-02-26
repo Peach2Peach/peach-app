@@ -10,7 +10,7 @@ export const useOverlayEvents = () => {
     () => ({
       // PN-S03
       'offer.escrowFunded': ({ offerId }: PNData) =>
-        offerId ? navigation.navigate('offerPublished', { offerId, shouldGoBack: true }) : null,
+        offerId ? navigation.navigate('offerPublished', { isSellOffer: true, shouldGoBack: true }) : null,
     }),
     [navigation],
   )

@@ -48,7 +48,7 @@ export const useBuySummarySetup = () => {
     if (result) {
       getAndUpdateTradingLimit()
       saveOffer({ ...offer, id: result.offerId } as BuyOffer)
-      navigation.replace('offerPublished', { offerId: result.offerId })
+      navigation.replace('offerPublished', { isSellOffer: false })
       return
     }
 
