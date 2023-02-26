@@ -19,6 +19,21 @@ const getAndUpdateTradingLimit = () =>
     }
   })
 
+const publishBuyOffer = async (offerDraft: BuyOfferDraft): Promise<[boolean, string | null]> => {
+  await pgp() // make sure pgp has been sent
+  const [result, err] = await postBuyOffer(offerDraft)
+
+  if (result) {
+    getAndUpdateTradingLimit()
+    const [offer] = await getOfferDetails({ offerId: result.offerId })
+    if (offer) {
+      saveOffer(offer)
+    }
+    return [true, null]
+  }
+  return [false, err?.error || 'POST_OFFER_ERROR']
+}
+
 export const useBuySummarySetup = () => {
   const navigation = useNavigation()
   const showErrorBanner = useShowErrorBanner()
@@ -41,24 +56,12 @@ export const useBuySummarySetup = () => {
 
   const publishOffer = async (offerDraft: BuyOfferDraft) => {
     setIsPublishing(true)
-
-    await pgp() // make sure pgp has been sent
-    const [result, err] = await postBuyOffer(offerDraft)
-
-    if (result) {
-      getAndUpdateTradingLimit()
-      const [offer] = await getOfferDetails({ offerId: result.offerId })
-      // Note that previously we always saved the offerDraft as if it were an offer,
-      // but now we only save it if the server returns it.
-      if (offer) {
-        saveOffer(offer)
-      }
-      navigation.replace('offerPublished', { isSellOffer: false })
-      return
-    }
-
+    const [isOfferPublished, errorMessage] = await publishBuyOffer(offerDraft)
     setIsPublishing(false)
-    showErrorBanner(err?.error || 'POST_OFFER_ERROR')
+
+    if (!isOfferPublished) {
+      showErrorBanner(errorMessage)
+    }
   }
 
   useHeaderSetup({
