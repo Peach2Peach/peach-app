@@ -60,16 +60,8 @@ export const useBuySummarySetup = () => {
     useMemo(
       () => ({
         title: i18n('buy.summary.title'),
-        icons: [
-          {
-            iconComponent: <WalletIcon />,
-            onPress: () => navigation.navigate('selectWallet', { type: 'payout' }),
-          },
-        ],
-      }),
-      [navigation],
-    ),
-  )
+    icons: [{ iconComponent: <WalletIcon />, onPress: () => navigation.navigate('selectWallet', { type: 'payout' }) }],
+  })
 
   useEffect(() => {
     setCanPublish(isValidBitcoinSignature(message, releaseAddress, messageSignature))
