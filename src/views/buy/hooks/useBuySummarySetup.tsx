@@ -3,36 +3,12 @@ import shallow from 'zustand/shallow'
 import { WalletIcon } from '../../../components/icons'
 import { useHeaderSetup, useNavigation } from '../../../hooks'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
-import pgp from '../../../init/pgp'
 import { useSettingsStore } from '../../../store/settingsStore'
-import { account, getMessageToSignForAddress, updateTradingLimit } from '../../../utils/account'
+import { account, getMessageToSignForAddress } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
-import { saveOffer } from '../../../utils/offer'
-import { getOfferDetails, getTradingLimit, postBuyOffer } from '../../../utils/peachAPI'
 import { isValidBitcoinSignature } from '../../../utils/validation'
 import { peachWallet } from '../../../utils/wallet/setWallet'
-
-const getAndUpdateTradingLimit = () =>
-  getTradingLimit({}).then(([tradingLimit]) => {
-    if (tradingLimit) {
-      updateTradingLimit(tradingLimit)
-    }
-  })
-
-const publishBuyOffer = async (offerDraft: BuyOfferDraft): Promise<[boolean, string | null]> => {
-  await pgp() // make sure pgp has been sent
-  const [result, err] = await postBuyOffer(offerDraft)
-
-  if (result) {
-    getAndUpdateTradingLimit()
-    const [offer] = await getOfferDetails({ offerId: result.offerId })
-    if (offer) {
-      saveOffer(offer)
-    }
-    return [true, null]
-  }
-  return [false, err?.error || 'POST_OFFER_ERROR']
-}
+import { publishBuyOffer } from '../helpers/publishBuyOffer'
 
 export const useBuySummarySetup = () => {
   const navigation = useNavigation()
