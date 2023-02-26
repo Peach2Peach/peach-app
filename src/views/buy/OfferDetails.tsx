@@ -16,9 +16,9 @@ import { hasMopsConfigured } from '../../utils/offer'
 import { hashPaymentData, isValidPaymentData } from '../../utils/paymentMethod'
 import { BuyViewProps } from './BuyPreferences'
 
-const validate = (offer: BuyOfferDraft) =>
-  !!offer.amount
-  && hasMopsConfigured(offer)
+const validate = (offerDraft: BuyOfferDraft) =>
+  !!offerDraft.amount
+  && hasMopsConfigured(offerDraft)
   && getSelectedPaymentDataIds().map(getPaymentData)
     .filter(isDefined)
     .every(isValidPaymentData)
