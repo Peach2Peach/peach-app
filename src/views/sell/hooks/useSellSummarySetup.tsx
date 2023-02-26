@@ -55,7 +55,7 @@ export const useSellSummarySetup = () => {
       getAndUpdateTradingLimit()
       const [offer] = await getOfferDetails({ offerId: result.offerId })
       if (offer && isSellOffer(offer)) {
-        navigation.replace('fundEscrow', { offer })
+        navigation.replace('fundEscrow', { offer: { ...offerDraft, ...offer } })
       }
     } else if (err) {
       showErrorBanner(i18n(err.error || 'POST_OFFER_ERROR', ((err.details as string[]) || []).join(', ')))
