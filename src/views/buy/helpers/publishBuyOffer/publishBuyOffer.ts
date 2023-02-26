@@ -11,7 +11,7 @@ export const publishBuyOffer = async (offerDraft: BuyOfferDraft): Promise<[boole
     getAndUpdateTradingLimit()
     const [offer] = await getOfferDetails({ offerId: result.offerId })
     if (offer) {
-      saveOffer({ ...offerDraft, ...offer })
+      saveOffer({ ...offer, ...offerDraft })
     }
     return [true, null]
   }
