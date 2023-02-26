@@ -60,12 +60,12 @@ export default ({ offerDraft, setOfferDraft, next }: BuyViewProps): ReactElement
         return obj
       }, {} as Offer['paymentData'])
 
-    setOfferDraft({
-      ...offerDraft,
+    setOfferDraft((prev) => ({
+      ...prev,
       meansOfPayment,
       paymentData,
       originalPaymentData: getSelectedPaymentDataIds().map(getPaymentData) as PaymentData[],
-    })
+    }))
     setMeansOfPaymentStore(meansOfPayment)
   }, [meansOfPayment, setMeansOfPaymentStore, setOfferDraft])
 

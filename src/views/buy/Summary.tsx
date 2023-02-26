@@ -29,10 +29,10 @@ export default ({ offerDraft, setOfferDraft }: BuyViewProps): ReactElement => {
   }, [releaseAddress, message, messageSignature, setOfferDraft])
 
   useEffect(() => {
-    if (walletLabel) setOfferDraft({
-      ...offerDraft,
+    if (walletLabel) setOfferDraft((prev) => ({
+      ...prev,
       walletLabel,
-    })
+    }))
   }, [walletLabel, setOfferDraft])
 
   return (
