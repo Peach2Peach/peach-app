@@ -15,7 +15,7 @@ import { validatePremiumStep } from './helpers/validatePremiumStep'
 import { useSellSetup } from './hooks/useSellSetup'
 import { SellViewProps } from './SellPreferences'
 
-export default ({ offer, updateOffer, next }: SellViewProps): ReactElement => {
+export default ({ offerDraft, setOfferDraft, next }: SellViewProps): ReactElement => {
   useSellSetup({ help: 'premium' })
   const [premiumStore, setPremiumStore] = useSettingsStore((state) => [state.premium, state.setPremium], shallow)
   const [premium, setPremium] = useState(premiumStore.toString())
@@ -23,7 +23,7 @@ export default ({ offer, updateOffer, next }: SellViewProps): ReactElement => {
 
   const { data: priceBook } = useMarketPrices()
   const { displayCurrency } = account.settings
-  const currentPrice = priceBook ? getOfferPrice(offer.amount, offer.premium, priceBook, displayCurrency) : 0
+  const currentPrice = priceBook ? getOfferPrice(offerDraft.amount, offerDraft.premium, priceBook, displayCurrency) : 0
 
   const updatePremium = (value: string | number) => {
     setPremium(parsePremiumToString(value))
@@ -31,13 +31,16 @@ export default ({ offer, updateOffer, next }: SellViewProps): ReactElement => {
   }
 
   useEffect(() => {
-    updateOffer({
-      ...offer,
+    setOfferDraft((prev) => ({
+      ...prev,
       premium: Number(premium),
-    })
-  }, [premium, updateOffer])
+    }))
+  }, [premium, setOfferDraft])
 
-  useEffect(() => setStepValid(validatePremiumStep(offer, priceBook, account.tradingLimit)), [priceBook, offer])
+  useEffect(
+    () => setStepValid(validatePremiumStep(offerDraft, priceBook, account.tradingLimit)),
+    [priceBook, offerDraft],
+  )
 
   return (
     <View style={tw`items-center flex-shrink h-full px-8 pb-7`}>
@@ -47,10 +50,10 @@ export default ({ offer, updateOffer, next }: SellViewProps): ReactElement => {
           <Text
             style={[
               tw`leading-2xl`,
-              premium === '0' ? {} : offer.premium > 0 ? tw`text-success-main` : tw`text-primary-main`,
+              premium === '0' ? {} : offerDraft.premium > 0 ? tw`text-success-main` : tw`text-primary-main`,
             ]}
           >
-            {i18n(offer.premium > 0 ? 'sell.premium' : 'sell.discount')}:
+            {i18n(offerDraft.premium > 0 ? 'sell.premium' : 'sell.discount')}:
           </Text>
           <View style={tw`h-10 ml-2`}>
             <Input

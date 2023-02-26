@@ -1,4 +1,4 @@
-type GetBuyOfferDraftArgs = {
+type GetBuyOfferDraftParams = {
   minBuyAmount: number
   maxBuyAmount: number
   meansOfPayment?: MeansOfPayment
@@ -9,7 +9,7 @@ export const getBuyOfferDraft = ({
   maxBuyAmount,
   meansOfPayment = {},
   kyc = false,
-}: GetBuyOfferDraftArgs): BuyOfferDraft => ({
+}: GetBuyOfferDraftParams): BuyOfferDraft => ({
   type: 'bid',
   creationDate: new Date(),
   lastModified: new Date(),
