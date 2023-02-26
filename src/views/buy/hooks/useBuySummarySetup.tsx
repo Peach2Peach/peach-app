@@ -37,6 +37,8 @@ export const useBuySummarySetup = () => {
 
     if (!isOfferPublished) {
       showErrorBanner(errorMessage)
+    } else {
+      navigation.replace('offerPublished', { isSellOffer: false })
     }
   }
 
