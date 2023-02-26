@@ -7,7 +7,7 @@ jest.mock('../../../../../utils/peachAPI', () => ({
 
 const updateTradingLimitMock = jest.fn()
 jest.mock('../../../../../utils/account', () => ({
-  updateTradingLimit: (...args) => updateTradingLimitMock(...args),
+  updateTradingLimit: (...args: any[]) => updateTradingLimitMock(...args),
 }))
 
 describe('getAndUpdateTradingLimit', () => {
