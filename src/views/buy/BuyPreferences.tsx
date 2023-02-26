@@ -12,7 +12,7 @@ import { useFocusEffect } from '@react-navigation/native'
 
 export type BuyViewProps = {
   offerDraft: BuyOfferDraft
-  setOfferDraft: (data: BuyOfferDraft, shield?: boolean) => void
+  setOfferDraft: React.Dispatch<React.SetStateAction<BuyOfferDraft>>
   next: () => void
 }
 
