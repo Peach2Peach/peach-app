@@ -106,7 +106,13 @@ export const Revolut = ({ forwardRef, data, currencies = [], onSubmit, setStepVa
           errorMessage={displayErrors ? labelErrors : undefined}
         />
       </View>
-      <TabbedNavigation items={tabs} selected={currentTab} select={setCurrentTab} />
+      <TabbedNavigation
+        items={tabs}
+        selected={currentTab}
+        select={setCurrentTab}
+        buttonStyle={tw`p-0`}
+        tabHasError={displayErrors && phoneErrors.length ? ['phone'] : []}
+      />
       <View style={tw`mt-2`}>
         {currentTab.id === 'phone' && (
           <PhoneInput
@@ -114,7 +120,9 @@ export const Revolut = ({ forwardRef, data, currencies = [], onSubmit, setStepVa
             onSubmit={() => {
               $reference?.focus()
             }}
+            enforceRequired
             value={phone}
+            label={i18n('form.phoneLong')}
             required={true}
             placeholder={i18n('form.phone.placeholder')}
             autoCorrect={false}
@@ -124,9 +132,10 @@ export const Revolut = ({ forwardRef, data, currencies = [], onSubmit, setStepVa
         {currentTab.id === 'email' && (
           <EmailInput
             onChange={setEmail}
-            onSubmit={$reference?.focus}
+            onSubmit={() => $reference?.focus()}
+            required={false}
             value={email}
-            required={!anyFieldSet}
+            label={i18n('form.emailLong')}
             placeholder={i18n('form.email.placeholder')}
             errorMessage={displayErrors ? emailErrors : undefined}
           />
@@ -138,7 +147,8 @@ export const Revolut = ({ forwardRef, data, currencies = [], onSubmit, setStepVa
               onChange: setUserName,
               onSubmit: $reference?.focus,
               value: userName,
-              required: !anyFieldSet,
+              required: false,
+              label: i18n('form.revtag'),
               placeholder: i18n('form.revtag.placeholder'),
               autoCorrect: false,
               errorMessage: displayErrors ? userNameErrors : undefined,
