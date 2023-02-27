@@ -40,8 +40,6 @@ export const Revolut = ({ forwardRef, data, currencies = [], onSubmit, setStepVa
 
   const [currentTab, setCurrentTab] = useState(tabs[0])
 
-  const anyFieldSet = !!(phone || userName || email)
-
   let $reference = useRef<TextInput>(null).current
 
   const labelRules = useMemo(
