@@ -8,20 +8,24 @@ import i18n from '../../../../utils/i18n'
 import { getErrorsInField } from '../../../../utils/validation'
 import Input from '../../Input'
 import { PhoneInput } from '../../PhoneInput'
+
 const phoneRules = {
   required: true,
   phone: true,
   isPhoneAllowed: true,
 }
+const referenceRules = { required: false }
 
 export const MBWay = ({ forwardRef, data, currencies = [], onSubmit, setStepValid }: FormProps): ReactElement => {
   const [label, setLabel] = useState(data?.label || '')
   const [phone, setPhone, phoneIsValid, phoneErrors] = useValidatedState(data?.phone || '', phoneRules)
   const [beneficiary, setBeneficiary] = useState(data?.beneficiary || '')
   const [displayErrors, setDisplayErrors] = useState(false)
+  const [reference, setReference, , referenceError] = useValidatedState(data?.reference || '', referenceRules)
 
   let $phone = useRef<TextInput>(null).current
   let $beneficiary = useRef<TextInput>(null).current
+  let $reference = useRef<TextInput>(null).current
 
   const labelRules = {
     required: true,
@@ -36,6 +40,7 @@ export const MBWay = ({ forwardRef, data, currencies = [], onSubmit, setStepVali
     type: 'mbWay',
     phone,
     beneficiary,
+    reference,
     currencies: data?.currencies || currencies,
   })
 
@@ -79,7 +84,7 @@ export const MBWay = ({ forwardRef, data, currencies = [], onSubmit, setStepVali
           }}
           reference={(el: any) => ($phone = el)}
           value={phone}
-          label={i18n('form.phone')}
+          label={i18n('form.phoneLong')}
           placeholder={i18n('form.phone.placeholder')}
           autoCorrect={false}
           errorMessage={displayErrors ? phoneErrors : undefined}
@@ -88,15 +93,28 @@ export const MBWay = ({ forwardRef, data, currencies = [], onSubmit, setStepVali
       <View style={tw`mt-1`}>
         <Input
           onChange={setBeneficiary}
-          onSubmit={save}
+          onSubmit={() => {
+            $reference?.focus()
+          }}
           reference={(el: any) => ($beneficiary = el)}
           value={beneficiary}
           required={false}
-          label={i18n('form.name')}
-          placeholder={i18n('form.name.placeholder')}
+          label={i18n('form.beneficiary')}
+          placeholder={i18n('form.beneficiary.placeholder')}
           autoCorrect={false}
         />
       </View>
+      <Input
+        onChange={setReference}
+        onSubmit={save}
+        reference={(el: any) => ($reference = el)}
+        value={reference}
+        required={false}
+        label={i18n('form.reference')}
+        placeholder={i18n('form.reference.placeholder')}
+        autoCorrect={false}
+        errorMessage={displayErrors ? referenceError : undefined}
+      />
     </View>
   )
 }
