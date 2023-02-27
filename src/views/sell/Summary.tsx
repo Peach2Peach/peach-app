@@ -1,6 +1,6 @@
 import React, { ReactElement, useEffect } from 'react'
 import { View } from 'react-native'
-import { PrimaryButton, SellOfferSummary } from '../../components'
+import { PeachScrollView, PrimaryButton, SellOfferSummary } from '../../components'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { useSellSummarySetup } from './hooks/useSellSummarySetup'
@@ -26,7 +26,7 @@ export default ({ offer, updateOffer }: SellViewProps): ReactElement => {
   }, [walletLabel, updateOffer])
 
   return (
-    <View style={tw`items-center flex-shrink h-full px-8 pb-7`}>
+    <PeachScrollView contentContainerStyle={tw`items-center flex-grow px-8 pb-7`}>
       <View style={tw`justify-center flex-grow`}>
         <SellOfferSummary offer={offer} />
       </View>
@@ -39,6 +39,6 @@ export default ({ offer, updateOffer }: SellViewProps): ReactElement => {
       >
         {i18n(canPublish ? 'offer.publish' : 'next')}
       </PrimaryButton>
-    </View>
+    </PeachScrollView>
   )
 }
