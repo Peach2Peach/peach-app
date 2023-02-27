@@ -1,6 +1,7 @@
 import React, { ReactElement, useEffect, useRef } from 'react'
 import { ScrollView, View } from 'react-native'
 import { APPLINKS } from '../../constants'
+import { useMeetupEventsStore } from '../../store/meetupEventsStore'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { ChatButton } from '../chat/ChatButton'
@@ -21,6 +22,8 @@ export const OpenTradeBuyer = ({ contract }: TradeSummaryProps): ReactElement =>
   useEffect(() => {
     scroll?.flashScrollIndicators()
   }, [scroll])
+
+  const getMeetupEvent = useMeetupEventsStore((state) => state.getMeetupEvent)
 
   return (
     <View style={tw`max-h-full`}>
@@ -43,12 +46,24 @@ export const OpenTradeBuyer = ({ contract }: TradeSummaryProps): ReactElement =>
           </View>
         </View>
         <View style={tw`flex-row items-center justify-between mt-4`}>
-          <Text style={tw`text-black-2`}>
-            {i18n(contract.paymentMethod.includes('cash.') ? 'contract.summary.in' : 'contract.summary.via')}
-          </Text>
-          <PaymentMethod paymentMethod={contract.paymentMethod} showLink={!!appLink} />
+          <Text style={tw`text-black-2`}>{i18n('contract.summary.via')}</Text>
+          <PaymentMethod
+            paymentMethod={contract.paymentMethod.includes('cash.') ? 'cash' : contract.paymentMethod}
+            showLink={!!appLink}
+          />
         </View>
-
+        {contract.paymentMethod.includes('cash.') && (
+          <View style={tw`flex-row items-start justify-between mt-4`}>
+            <Text style={tw`text-black-2`}>{i18n('contract.payment.to')}</Text>
+            <View style={tw`flex-row items-center`}>
+              <Text style={tw`ml-4 leading-normal text-right subtitle-1`}>
+                {getMeetupEvent(contract.paymentMethod.replace('cash.', ''))?.shortName
+                  + ` ${i18n('contract.summary.in')} `
+                  + getMeetupEvent(contract.paymentMethod.replace('cash.', ''))?.city}
+              </Text>
+            </View>
+          </View>
+        )}
         {!!contract.paymentData && !!PaymentTo && (
           <PaymentTo
             style={tw`mt-4`}
