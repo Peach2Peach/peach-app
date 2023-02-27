@@ -1,5 +1,6 @@
 import React, { ReactElement, useEffect, useMemo, useRef } from 'react'
 import { ScrollView, View } from 'react-native'
+import { useMeetupEventsStore } from '../../store/meetupEventsStore'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { getPaymentDataByMethod } from '../../utils/offer'
@@ -31,6 +32,8 @@ export const OpenTradeSeller = ({ contract }: TradeSummaryProps): ReactElement =
     scroll?.flashScrollIndicators()
   }, [scroll])
 
+  const getMeetupEvent = useMeetupEventsStore((state) => state.getMeetupEvent)
+
   return (
     <View style={tw`max-h-full`}>
       <View style={tw`px-7`}>
@@ -54,14 +57,23 @@ export const OpenTradeSeller = ({ contract }: TradeSummaryProps): ReactElement =
           <Text style={tw`text-black-2`}>
             {i18n(contract.paymentMethod.includes('cash.') ? 'contract.summary.in' : 'contract.summary.via')}
           </Text>
-          <PaymentMethod paymentMethod={contract.paymentMethod} showLink={false} />
+          <PaymentMethod
+            paymentMethod={contract.paymentMethod.includes('cash.') ? 'cash' : contract.paymentMethod}
+            showLink={false}
+          />
         </View>
 
         {storedPaymentData && (
-          <View style={tw`flex-row items-center justify-between mt-4`}>
+          <View style={tw`flex-row items-start justify-between mt-4`}>
             <Text style={tw`text-black-2`}>{i18n('contract.payment.to')}</Text>
             <View style={tw`flex-row items-center`}>
-              <Text style={tw`subtitle-1`}>{storedPaymentData.label}</Text>
+              <Text style={tw`ml-4 leading-normal subtitle-1`}>
+                {contract.paymentMethod.includes('cash.')
+                  ? storedPaymentData.label
+                    + ` ${i18n('contract.summary.in')} `
+                    + getMeetupEvent(storedPaymentData.id.replace('cash.', ''))?.city
+                  : storedPaymentData.label}
+              </Text>
             </View>
           </View>
         )}
