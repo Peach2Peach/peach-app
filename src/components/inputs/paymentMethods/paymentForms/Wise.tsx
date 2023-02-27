@@ -33,8 +33,8 @@ export const Wise = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
 
   const [currentTab, setCurrentTab] = useState(tabs[0])
 
-  let $email = useRef<TextInput>(null).current
-  let $phone = useRef<TextInput>(null).current
+  const $email = useRef<TextInput>(null).current
+  const $phone = useRef<TextInput>(null).current
   let $reference = useRef<TextInput>(null).current
 
   const anyFieldSet = !!(email || phone)
@@ -102,15 +102,24 @@ export const Wise = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
           errorMessage={displayErrors ? labelErrors : undefined}
         />
       </View>
-      <TabbedNavigation items={tabs} selected={currentTab} select={setCurrentTab} />
+      <TabbedNavigation
+        items={tabs}
+        selected={currentTab}
+        select={setCurrentTab}
+        buttonStyle={tw`p-0`}
+        tabHasError={displayErrors && phoneErrors.length ? ['phone'] : []}
+      />
       <View style={tw`mt-2`}>
         {currentTab.id === 'phone' && (
           <PhoneInput
             onChange={setPhone}
-            onSubmit={() => $reference?.focus()}
-            reference={(el: any) => ($phone = el)}
+            onSubmit={() => {
+              $reference?.focus()
+            }}
+            enforceRequired
             value={phone}
-            required={!email}
+            label={i18n('form.phoneLong')}
+            required={true}
             placeholder={i18n('form.phone.placeholder')}
             autoCorrect={false}
             errorMessage={displayErrors ? phoneErrors : undefined}
@@ -119,12 +128,10 @@ export const Wise = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
         {currentTab.id === 'email' && (
           <EmailInput
             onChange={setEmail}
-            onSubmit={() => {
-              $reference?.focus()
-            }}
-            reference={(el: any) => ($email = el)}
+            onSubmit={() => $reference?.focus()}
+            required={false}
             value={email}
-            required={!phone}
+            label={i18n('form.emailLong')}
             placeholder={i18n('form.email.placeholder')}
             errorMessage={displayErrors ? emailErrors : undefined}
           />
