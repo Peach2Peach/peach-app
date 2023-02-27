@@ -1,7 +1,7 @@
-import { getMatchPrice } from '../getMatchPrice'
+import { getMatchPrice } from '../../../../../src/components/matches/utils/getMatchPrice'
 
 const getPaymentMethodInfoMock = jest.fn()
-jest.mock('../../../../utils/paymentMethod', () => ({
+jest.mock('../../../../../src/utils/paymentMethod', () => ({
   getPaymentMethodInfo: (...args) => getPaymentMethodInfoMock(...args),
 }))
 
