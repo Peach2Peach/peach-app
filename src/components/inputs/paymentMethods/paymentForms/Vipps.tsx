@@ -20,7 +20,7 @@ export const Vipps = ({ forwardRef, data, currencies = [], onSubmit, setStepVali
   const [selectedCurrencies, setSelectedCurrencies] = useState(data?.currencies || currencies)
   const [beneficiary, setBeneficiary, , beneficiaryErrors] = useValidatedState(data?.beneficiary || '', beneficiaryRules)
 
-  let $phone = useRef<TextInput>(null).current
+  let $beneficiary = useRef<TextInput>(null).current
   let $reference = useRef<TextInput>(null).current
 
   const labelRules = useMemo(
@@ -82,9 +82,8 @@ export const Vipps = ({ forwardRef, data, currencies = [], onSubmit, setStepVali
       </View>
       <PhoneInput
         onChange={setPhone}
-        reference={(el: any) => ($phone = el)}
         onSubmit={() => {
-          $reference?.focus()
+          $beneficiary?.focus()
         }}
         value={phone}
         label={i18n('form.phone')}
@@ -95,7 +94,8 @@ export const Vipps = ({ forwardRef, data, currencies = [], onSubmit, setStepVali
       />
       <Input
         onChange={setBeneficiary}
-        onSubmit={() => $phone?.focus()}
+        onSubmit={() => $reference?.focus()}
+        reference={(el: any) => ($beneficiary = el)}
         value={beneficiary}
         required={false}
         label={i18n('form.beneficiary')}
