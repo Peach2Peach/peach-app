@@ -92,8 +92,8 @@ export const Bizum = ({ forwardRef, data, currencies = [], onSubmit, setStepVali
           reference={(el: any) => ($beneficiary = el)}
           value={beneficiary}
           required={false}
-          label={i18n('form.name')}
-          placeholder={i18n('form.name.placeholder')}
+          label={i18n('form.beneficiary')}
+          placeholder={i18n('form.beneficiary.placeholder')}
           autoCorrect={false}
         />
       </View>

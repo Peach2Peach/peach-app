@@ -537,8 +537,6 @@
   "form.address.placeholder": "address",
   "form.reference": "payment reference",
   "form.reference.placeholder": "don't mention bitcoin or peach!",
-  "form.name": "name",
-  "form.name.placeholder": "name",
   "form.paypal": "email or merchant id",
   "form.paypal.placeholder": "email or merchant id",
   "form.account.error": "account cannot be decrypted",
