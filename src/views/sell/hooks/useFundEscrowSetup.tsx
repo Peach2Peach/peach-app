@@ -14,7 +14,7 @@ import { info } from '../../../utils/log'
 import { saveOffer } from '../../../utils/offer'
 import { fundEscrow, generateBlock } from '../../../utils/peachAPI'
 import { useOfferMatches } from '../../search/hooks/useOfferMatches'
-import createEscrowEffect from '../effects/createEscrowEffect'
+import { createEscrow } from '../helpers/createEscrow'
 
 export const useFundEscrowSetup = () => {
   const route = useRoute<'fundEscrow'>()
@@ -32,9 +32,8 @@ export const useFundEscrowSetup = () => {
   const [showRegtestButton, setShowRegtestButton] = useState(
     NETWORK === 'regtest' && sellOffer.funding.status === 'NULL',
   )
-  const [escrow, setEscrow] = useState(sellOffer.escrow || '')
+
   const [fundingError, setFundingError] = useState<FundingError>('')
-  const [fundingStatus, setFundingStatus] = useState<FundingStatus>(sellOffer.funding)
   const fundingAmount = Math.round(sellOffer.amount)
   const cancelOffer = useCancelOffer(sellOffer)
   const { refetch } = useOfferMatches(sellOffer.id)
@@ -42,7 +41,7 @@ export const useFundEscrowSetup = () => {
   useHeaderSetup(
     useMemo(
       () =>
-        fundingStatus.status === 'MEMPOOL'
+        sellOffer.funding.status === 'MEMPOOL'
           ? {
             title: i18n('sell.funding.mempool.title'),
             hideGoBackButton: true,
@@ -56,7 +55,7 @@ export const useFundEscrowSetup = () => {
               { iconComponent: <HelpIcon />, onPress: showHelp },
             ],
           },
-      [fundingStatus, cancelOffer, showHelp, showMempoolHelp],
+      [sellOffer.funding, cancelOffer, showHelp, showMempoolHelp],
     ),
   )
 
@@ -66,7 +65,7 @@ export const useFundEscrowSetup = () => {
   }
 
   const fundEscrowAddress = async () => {
-    if (!sellOffer.id || NETWORK !== 'regtest' || fundingStatus.status !== 'NULL') return
+    if (!sellOffer.id || NETWORK !== 'regtest' || sellOffer.funding.status !== 'NULL') return
     const [fundEscrowResult] = await fundEscrow({ offerId: sellOffer.id })
     if (!fundEscrowResult) return
     const [generateBockResult] = await generateBlock({})
@@ -76,32 +75,26 @@ export const useFundEscrowSetup = () => {
   useFocusEffect(
     useCallback(() => {
       setSellOffer(route.params.offer)
-      setEscrow(route.params.offer.escrow || '')
       setUpdatePending(!route.params.offer.escrow)
-      setFundingStatus(route.params.offer.funding)
     }, [route]),
   )
 
-  useEffect(
-    !sellOffer.escrow
-      ? createEscrowEffect({
-        sellOffer,
-        onSuccess: (result) => {
-          info('Created escrow', result)
-          setEscrow(() => result.escrow)
-          setFundingStatus(() => result.funding)
-          setUpdatePending(false)
-          saveAndUpdate({
-            ...sellOffer,
-            escrow: result.escrow,
-            funding: result.funding,
-          })
-        },
-        onError: (err) => showError(err.error),
-      })
-      : () => {},
-    [sellOffer.id],
-  )
+  useEffect(() => {
+    if (!sellOffer.id || sellOffer.escrow) return
+    createEscrow(
+      sellOffer.id,
+      (result) => {
+        info('Created escrow', result)
+        setUpdatePending(false)
+        saveAndUpdate({
+          ...sellOffer,
+          escrow: result.escrow,
+          funding: result.funding,
+        })
+      },
+      (err) => showError(err.error),
+    )
+  }, [sellOffer, showError])
 
   useEffect(
     checkFundingStatusEffect({
@@ -114,7 +107,6 @@ export const useFundEscrowSetup = () => {
         }
 
         saveAndUpdate(updatedOffer)
-        setFundingStatus(() => result.funding)
         setFundingError(() => result.error || '')
 
         if (result.funding.status === 'CANCELED') return startRefund(sellOffer)
@@ -144,9 +136,9 @@ export const useFundEscrowSetup = () => {
     sellOffer,
     updatePending,
     showRegtestButton,
-    escrow,
+    escrow: sellOffer.escrow || '',
     fundingError,
-    fundingStatus,
+    fundingStatus: sellOffer.funding,
     fundingAmount,
     fundEscrowAddress,
     cancelOffer,
