@@ -1,6 +1,4 @@
-import { meetupEventsStorage } from '../../store/meetupEventsStore'
+import { meetupEventsStore } from '../../store/meetupEventsStore'
 
-export const getEventName = (eventId: string) => {
-  const meetups = (meetupEventsStorage.getMap('meetupEvents') as MeetupEvent[]) || []
-  return meetups.find(({ id }) => eventId === id)?.shortName || eventId
-}
+export const getEventName = (eventId: string) =>
+  meetupEventsStore.getState().getMeetupEvent(eventId)?.shortName || eventId
