@@ -65,7 +65,7 @@ export const OpenTradeSeller = ({ contract }: TradeSummaryProps): ReactElement =
           <View style={tw`flex-row items-start justify-between mt-4`}>
             <Text style={tw`text-black-2`}>{i18n('contract.payment.to')}</Text>
             <View style={tw`flex-row items-center`}>
-              <Text style={tw`ml-4 leading-normal subtitle-1`}>
+              <Text style={tw`ml-4 leading-normal text-right subtitle-1`}>
                 {contract.paymentMethod.includes('cash.')
                   ? storedPaymentData.label
                     + ` ${i18n('contract.summary.in')} `
