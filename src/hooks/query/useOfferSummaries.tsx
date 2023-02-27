@@ -10,7 +10,7 @@ const getOfferSummariesQuery = async () => {
   return offers || []
 }
 
-export const useOfferSummaries = (enabled?: boolean) => {
+export const useOfferSummaries = (enabled = true) => {
   const [offers, setOffers, getLastModified] = useTradeSummaryStore(
     (state) => [state.offers, state.setOffers, state.getLastModified],
     shallow,
