@@ -80,16 +80,6 @@ export const Vipps = ({ forwardRef, data, currencies = [], onSubmit, setStepVali
           errorMessage={displayErrors ? labelErrors : undefined}
         />
       </View>
-      <Input
-        onChange={setBeneficiary}
-        onSubmit={() => $phone?.focus()}
-        value={beneficiary}
-        required={false}
-        label={i18n('form.beneficiary')}
-        placeholder={i18n('form.beneficiary.placeholder')}
-        autoCorrect={false}
-        errorMessage={displayErrors ? beneficiaryErrors : undefined}
-      />
       <PhoneInput
         onChange={setPhone}
         reference={(el: any) => ($phone = el)}
@@ -102,6 +92,16 @@ export const Vipps = ({ forwardRef, data, currencies = [], onSubmit, setStepVali
         placeholder={i18n('form.phone.placeholder')}
         autoCorrect={false}
         errorMessage={displayErrors ? phoneErrors : undefined}
+      />
+      <Input
+        onChange={setBeneficiary}
+        onSubmit={() => $phone?.focus()}
+        value={beneficiary}
+        required={false}
+        label={i18n('form.beneficiary')}
+        placeholder={i18n('form.beneficiary.placeholder')}
+        autoCorrect={false}
+        errorMessage={displayErrors ? beneficiaryErrors : undefined}
       />
       <Input
         onChange={setReference}
