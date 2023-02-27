@@ -20,7 +20,9 @@ module.exports = {
     },
     'android.debug': {
       type: 'android.apk',
-      binaryPath: 'SPECIFY_PATH_TO_YOUR_APP_BINARY'
+      binaryPath: 'android/app/build/outputs/apk/qa/debug/app-qa-universal-debug.apk',
+      testBinaryPath: 'android/app/build/outputs/apk/androidTest/qa/debug/app-qa-debug-androidTest.apk',
+      build: 'cd android && ./gradlew assembleQaRelease assembleAndroidTest -DtestBuildType=debug',
     }
   },
   devices: {
@@ -30,12 +32,12 @@ module.exports = {
         type: 'iPhone 14'
       }
     },
-    'android.emulator': {
-      type: 'android.emulator',
+    'android.debug': {
+      type: 'android.attached',
       device: {
-        avdName: 'Pixel_3a_API_30_x86'
-      }
-    }
+        adbName: '.*',
+      },
+    },
   },
   configurations: {
     ios: {
@@ -43,7 +45,7 @@ module.exports = {
       app: 'ios.debug'
     },
     android: {
-      device: 'android.emulator',
+      device: 'android.debug',
       app: 'android.debug'
     }
   }
