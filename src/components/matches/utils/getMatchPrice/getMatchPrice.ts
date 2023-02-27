@@ -13,14 +13,5 @@ export const getMatchPrice = (
         ? Math.round(match.prices[selectedCurrency]!)
         : match.prices[selectedCurrency]!
 
-  console.log(
-    displayPrice,
-    match.matched,
-    match.matchedPrice,
-    paymentInfo?.rounded,
-    match.prices[selectedCurrency],
-    match.prices[selectedCurrency],
-  )
-
   return displayPrice
 }
