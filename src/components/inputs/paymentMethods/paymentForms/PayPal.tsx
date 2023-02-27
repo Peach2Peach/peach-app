@@ -139,7 +139,7 @@ export const PayPal = ({ forwardRef, data, currencies = [], onSubmit, setStepVal
           <EmailInput
             onChange={setEmail}
             onSubmit={() => $reference?.focus()}
-            required={true}
+            required={false}
             value={email}
             label={i18n('form.emailLong')}
             placeholder={i18n('form.email.placeholder')}
@@ -150,7 +150,7 @@ export const PayPal = ({ forwardRef, data, currencies = [], onSubmit, setStepVal
           <UsernameInput
             {...{
               maxLength: 21,
-              required: true,
+              required: false,
               onChange: setUserName,
               onSubmit: $reference?.focus,
               value: userName,
