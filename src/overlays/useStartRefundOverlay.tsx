@@ -20,7 +20,7 @@ export const useStartRefundOverlay = () => {
   const [, updateOverlay] = useContext(OverlayContext)
   const showError = useShowErrorBanner()
   const navigation = useNavigation()
-  const { refetch: refetchTradeSummaries } = useTradeSummaries()
+  const { refetch: refetchTradeSummaries } = useTradeSummaries(false)
   const closeOverlay = useCallback(() => updateOverlay({ visible: false }), [updateOverlay])
   const goToWallet = useCallback(
     (txId: string) => {

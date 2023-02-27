@@ -10,12 +10,13 @@ const getOfferSummariesQuery = async () => {
   return offers || []
 }
 
-export const useOfferSummaries = () => {
+export const useOfferSummaries = (enabled?: boolean) => {
   const [offers, setOffers, getLastModified] = useTradeSummaryStore(
     (state) => [state.offers, state.setOffers, state.getLastModified],
     shallow,
   )
   const { data, isLoading, error, refetch } = useQuery(['offerSummaries'], getOfferSummariesQuery, {
+    enabled,
     initialData: offers,
     initialDataUpdatedAt: getLastModified().getTime(),
     onSuccess: (result) => {
