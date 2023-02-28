@@ -8,6 +8,8 @@ import { hashPaymentData } from '../../utils/paymentMethod'
 import { ChatButton } from '../chat/ChatButton'
 import { MatchCardCounterparty } from '../matches/components/MatchCardCounterparty'
 import { paymentDetailTemplates } from '../payment'
+import CashDetails from '../payment/detail/cash'
+import { CashTradesDetails } from '../payment/detail/cashTrades'
 import PeachScrollView from '../PeachScrollView'
 import { PriceFormat, Text } from '../text'
 import { ErrorBox, HorizontalLine } from '../ui'
@@ -61,20 +63,17 @@ export const OpenTradeSeller = ({ contract }: TradeSummaryProps): ReactElement =
           />
         </View>
 
-        {storedPaymentData && (
-          <View style={tw`flex-row items-start justify-between mt-4`}>
-            <Text style={tw`text-black-2`}>{i18n('contract.payment.to')}</Text>
-            <View style={tw`flex-row items-center`}>
-              <Text style={tw`ml-4 leading-normal text-right subtitle-1`}>
-                {contract.paymentMethod.includes('cash.')
-                  ? storedPaymentData.label
-                    + ` ${i18n('contract.summary.in')} `
-                    + getMeetupEvent(storedPaymentData.id.replace('cash.', ''))?.city
-                  : storedPaymentData.label}
-              </Text>
+        {storedPaymentData
+          && (contract.paymentMethod.includes('cash.') ? (
+            <CashTradesDetails contract={contract} />
+          ) : (
+            <View style={tw`flex-row items-start justify-between mt-4`}>
+              <Text style={tw`text-black-2`}>{i18n('contract.payment.to')}</Text>
+              <View style={tw`flex-row items-center`}>
+                <Text style={tw`ml-4 leading-normal text-right subtitle-1`}>{storedPaymentData.label}</Text>
+              </View>
             </View>
-          </View>
-        )}
+          ))}
         {!!contract.paymentData && !!PaymentTo && (
           <PaymentTo style={tw`mt-4`} paymentData={contract.paymentData} country={contract.country} copyable={false} />
         )}
