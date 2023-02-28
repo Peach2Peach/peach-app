@@ -48,7 +48,11 @@ export const TabbedNavigation = ({
   return (
     <View style={[tw`flex flex-row justify-center`, style]}>
       {items.map((item) => (
-        <Pressable style={[tw`px-2`, buttonStyle]} key={item.id} onPress={() => select(item)}>
+        <Pressable
+          style={[tw`px-2`, buttonStyle, !!tabHasError.length && !tabHasError.includes(item.id) && tw`opacity-10`]}
+          key={item.id}
+          onPress={() => select(item)}
+        >
           <View style={tw`flex-row items-center`}>
             {tabHasError.includes(item.id) && item.id !== selected.id ? (
               <PulsingText
