@@ -27,8 +27,8 @@ export const DetailRevolut = ({
   }
 
   return (
-    <>
-      <View style={[tw`flex-row justify-between`, style]}>
+    <View style={style}>
+      <View style={tw`flex-row justify-between`}>
         <Text style={tw`text-black-2`}>{i18n('contract.payment.to')}</Text>
         <View>
           {possibleFields
@@ -54,7 +54,7 @@ export const DetailRevolut = ({
           )}
         </View>
       </View>
-    </>
+    </View>
   )
 }
 export default DetailRevolut

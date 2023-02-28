@@ -27,8 +27,8 @@ export const DetailPaypal = ({
   }
 
   return (
-    <>
-      <View style={[tw`flex-row justify-between`, style]}>
+    <View style={style}>
+      <View style={tw`flex-row justify-between`}>
         <Text style={tw`text-black-2`}>{i18n('contract.payment.to')}</Text>
         {possibleFields
           .filter((field) => paymentData[field])
@@ -52,7 +52,7 @@ export const DetailPaypal = ({
           )}
         </View>
       </View>
-    </>
+    </View>
   )
 }
 export default DetailPaypal

@@ -8,8 +8,8 @@ import { CopyAble } from '../../ui'
 
 const possibleFields = ['beneficiary', 'phone']
 export const DetailBlik = ({ paymentData, copyable, style }: PaymentTemplateProps): ReactElement => (
-  <>
-    <View style={[tw`flex-row justify-between`, style]}>
+  <View style={style}>
+    <View style={tw`flex-row justify-between`}>
       <Text style={tw`text-black-2`}>{i18n('contract.payment.to')}</Text>
       {possibleFields
         .filter((field) => paymentData[field])
@@ -29,6 +29,6 @@ export const DetailBlik = ({ paymentData, copyable, style }: PaymentTemplateProp
         {copyable && <CopyAble value={paymentData.reference} disabled={!paymentData.reference} style={tw`ml-2`} />}
       </View>
     </View>
-  </>
+  </View>
 )
 export default DetailBlik
