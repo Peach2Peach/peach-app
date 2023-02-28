@@ -32,7 +32,7 @@ export const useMeetupScreenSetup = () => {
   const addToPaymentMethods = async () => {
     const meetupInfo = getPaymentMethodInfo('cash.' + event.id)
     const meetup: PaymentData = {
-      id: 'cash.' + meetupInfo.id,
+      id: meetupInfo.id,
       label: event.shortName,
       userId: account.publicKey,
       type: meetupInfo.id,
