@@ -22,6 +22,7 @@ export const getPaymentDataByOfferAndMethod = (
 
   if (index === -1) {
     paymentDataHashes = account.legacyPaymentData.filter((data) => data.type === paymentMethod).map(hashPaymentData)
+    console.log(account.legacyPaymentData, hashedPaymentData, paymentDataHashes)
     index = paymentDataHashes.indexOf(hashedPaymentData)
   }
 
