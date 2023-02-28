@@ -8,7 +8,7 @@ import i18n from '../../utils/i18n'
 import { ChatButton } from '../chat/ChatButton'
 import { MatchCardCounterparty } from '../matches/components/MatchCardCounterparty'
 import { paymentDetailTemplates } from '../payment'
-import { CashTradesDetails } from '../payment/detail/cashTrades'
+import { CashTradeDetails } from '../payment/detail/cashTrades'
 import PeachScrollView from '../PeachScrollView'
 import { PriceFormat, Text } from '../text'
 import { CopyAble, ErrorBox, HorizontalLine } from '../ui'
@@ -54,7 +54,7 @@ export const OpenTradeBuyer = ({ contract }: TradeSummaryProps): ReactElement =>
             showLink={!!appLink}
           />
         </View>
-        {contract.paymentMethod.includes('cash.') && <CashTradesDetails contract={contract} />}
+        {contract.paymentMethod.includes('cash.') && <CashTradeDetails contract={contract} />}
         {!!contract.paymentData && !!PaymentTo && (
           <PaymentTo
             style={tw`mt-4`}

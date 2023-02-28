@@ -9,7 +9,7 @@ import { ChatButton } from '../chat/ChatButton'
 import { MatchCardCounterparty } from '../matches/components/MatchCardCounterparty'
 import { paymentDetailTemplates } from '../payment'
 import CashDetails from '../payment/detail/cash'
-import { CashTradesDetails } from '../payment/detail/cashTrades'
+import { CashTradeDetails } from '../payment/detail/cashTrades'
 import PeachScrollView from '../PeachScrollView'
 import { PriceFormat, Text } from '../text'
 import { ErrorBox, HorizontalLine } from '../ui'
@@ -65,7 +65,7 @@ export const OpenTradeSeller = ({ contract }: TradeSummaryProps): ReactElement =
 
         {storedPaymentData
           && (contract.paymentMethod.includes('cash.') ? (
-            <CashTradesDetails contract={contract} />
+            <CashTradeDetails contract={contract} />
           ) : (
             <View style={tw`flex-row items-start justify-between mt-4`}>
               <Text style={tw`text-black-2`}>{i18n('contract.payment.to')}</Text>
