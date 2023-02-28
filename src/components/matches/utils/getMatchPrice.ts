@@ -6,10 +6,12 @@ export const getMatchPrice = (
   selectedCurrency: Currency,
 ) => {
   const paymentInfo = selectedPaymentMethod ? getPaymentMethodInfo(selectedPaymentMethod) : undefined
+  const displayPrice
+    = match.matched && match.matchedPrice !== null
+      ? match.matchedPrice
+      : paymentInfo?.rounded
+        ? Math.round(match.prices[selectedCurrency]!)
+        : match.prices[selectedCurrency]!
 
-  return match.matched && match.matchedPrice
-    ? match.matchedPrice
-    : paymentInfo?.rounded
-      ? Math.round(match.prices[selectedCurrency]!)
-      : match.prices[selectedCurrency]!
+  return displayPrice
 }
