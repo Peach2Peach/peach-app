@@ -1,11 +1,14 @@
 import React, { ReactElement, useEffect, useRef } from 'react'
 import { ScrollView, View } from 'react-native'
 import { APPLINKS } from '../../constants'
+import { CashTrades } from '../../overlays/CashTrades'
+import { useMeetupEventsStore } from '../../store/meetupEventsStore'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { ChatButton } from '../chat/ChatButton'
 import { MatchCardCounterparty } from '../matches/components/MatchCardCounterparty'
 import { paymentDetailTemplates } from '../payment'
+import { CashTradeDetails } from '../payment/detail/cashTrades'
 import PeachScrollView from '../PeachScrollView'
 import { PriceFormat, Text } from '../text'
 import { CopyAble, ErrorBox, HorizontalLine } from '../ui'
@@ -21,6 +24,8 @@ export const OpenTradeBuyer = ({ contract }: TradeSummaryProps): ReactElement =>
   useEffect(() => {
     scroll?.flashScrollIndicators()
   }, [scroll])
+
+  const getMeetupEvent = useMeetupEventsStore((state) => state.getMeetupEvent)
 
   return (
     <View style={tw`max-h-full`}>
@@ -43,12 +48,13 @@ export const OpenTradeBuyer = ({ contract }: TradeSummaryProps): ReactElement =>
           </View>
         </View>
         <View style={tw`flex-row items-center justify-between mt-4`}>
-          <Text style={tw`text-black-2`}>
-            {i18n(contract.paymentMethod.includes('cash.') ? 'contract.summary.in' : 'contract.summary.via')}
-          </Text>
-          <PaymentMethod paymentMethod={contract.paymentMethod} showLink={!!appLink} />
+          <Text style={tw`text-black-2`}>{i18n('contract.summary.via')}</Text>
+          <PaymentMethod
+            paymentMethod={contract.paymentMethod.includes('cash.') ? 'cash' : contract.paymentMethod}
+            showLink={!!appLink}
+          />
         </View>
-
+        {contract.paymentMethod.includes('cash.') && <CashTradeDetails contract={contract} />}
         {!!contract.paymentData && !!PaymentTo && (
           <PaymentTo
             style={tw`mt-4`}
