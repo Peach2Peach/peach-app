@@ -114,7 +114,7 @@ const useFakePNs = () => {
     },
     {
       data: {
-        type: 'contract.seller.inactiveBuyerCancel',
+        type: 'contract.seller.canceledAfterEscrowExpiry',
         contractId,
       },
       notification: {
