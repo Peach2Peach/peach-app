@@ -1,0 +1,349 @@
+[
+  {
+    "id": "gb.edimburgh.bitcoin-walk",
+    "country": "GB",
+    "city": "Edimburgh",
+    "shortName": "Bitcoin Walk",
+    "longName": "Bitcoin Walk",
+    "url": "https://BitcoinWalk.org",
+    "address": "The Old Bank of England, 194 Fleet St, London EC4A 2LT",
+    "frequency": "Monthly",
+    "logo": "/v1/events/logo/bitcoinwalk.png"
+  },
+  {
+    "id": "fr.besancon.decouvre-btc-besancon",
+    "country": "FR",
+    "city": "Besançon",
+    "shortName": "Découvre BTC Besançon",
+    "longName": "Découvre Bitcoin Besançon",
+    "url": "https://bitcoin-meetup.gogocarto.fr/map#/fiche/Besancon/u/"
+  },
+  {
+    "url": "https://einundzwanzig.space/meetups/",
+    "country": "DE",
+    "city": "Ostwestfalen-Lippe",
+    "logo": "/v1/events/logo/owl.png",
+    "shortName": "Einundzwanzig OWL",
+    "longName": "Einundzwanzig OWL",
+    "id": "de.ostwestfalen-lippe.einundzwanzig-owl",
+    "address": "Brauhaus Joh. Albrecht, Bielefeld/Germany\nPaderborner Brauhaus, Paderborn/Germany"
+  },
+  {
+    "id": "de.bonn.einundzwanzig-bonn",
+    "country": "DE",
+    "city": "Bonn",
+    "shortName": "Einundzwanzig Bonn",
+    "longName": "Einundzwanzig Bonn",
+    "url": "https://einundzwanzig.space/meetups/",
+    "logo": "/v1/events/logo/bonn.jpeg"
+  },
+  {
+    "id": "fr.paris.decouvre-btc-paris-centre",
+    "country": "FR",
+    "city": "Paris",
+    "shortName": "Découvre BTC Paris-Centre",
+    "longName": "Découvre Bitcoin Paris-Centre",
+    "url": "https://t.me/ParisCentreBitcoinMeetup",
+    "logo": "/v1/events/logo/paris.png"
+  },
+  {
+    "id": "de.dresden.bitcoin-dresden",
+    "country": "DE",
+    "city": "Dresden",
+    "shortName": "Bitcoin Dresden",
+    "longName": "Bitcoin Dresden",
+    "url": "http://bitcoin-dresden.de/",
+    "frequency": "2nd Thursday of the month",
+    "logo": "/v1/events/logo/dresden.svg"
+  },
+  {
+    "id": "fr.dijon.decouvre-btc-dijon",
+    "country": "FR",
+    "city": "Dijon",
+    "shortName": "Découvre BTC Dijon",
+    "longName": "Découvre Bitcoin Dijon",
+    "url": "https://t.me/DijonBitcoinMeetup",
+    "logo": "/v1/events/logo/dijon.png"
+  },
+  {
+    "id": "fr.lille.decouvre-btc-lille",
+    "country": "FR",
+    "city": "Lille",
+    "shortName": "Découvre BTC Lille",
+    "longName": "Découvre Bitcoin Lille",
+    "url": "https://t.me/+eSVkmOVRqPo0ZTM0",
+    "logo": "/v1/events/logo/lille.png"
+  },
+  {
+    "id": "de.koln.einundzwanzig-koln",
+    "country": "DE",
+    "city": "Köln",
+    "shortName": "Einundzwanzig Köln",
+    "longName": "Einundzwanzig Köln",
+    "url": "https://einundzwanzig.space/meetups/",
+    "logo": "/v1/events/logo/cologne-koln.png"
+  },
+  {
+    "id": "fr.lyon.decouvre-btc-lyon",
+    "country": "FR",
+    "city": "Lyon",
+    "shortName": "Découvre BTC Lyon",
+    "longName": "Découvre Bitcoin Lyon",
+    "url": "https://t.me/bitcoinlyon",
+    "logo": "/v1/events/logo/lyon.png"
+  },
+  {
+    "id": "fr.rennes.breizh-bitcoin",
+    "country": "FR",
+    "city": "Rennes",
+    "shortName": "Breizh Bitcoin",
+    "longName": "Breizh Bitcoin",
+    "url": "https://twitter.com/BreizhBitcoin",
+    "frequency": "1st tuesday of the month",
+    "logo": "/v1/events/logo/breizh.png"
+  },
+  {
+    "id": "nl.amsterdam.bicoin-cards",
+    "country": "NL",
+    "city": "Amsterdam",
+    "shortName": "Bitcoin & Cards",
+    "longName": "Bitcoin & Cards",
+    "url": "https://twitter.com/BtcAndCards",
+    "frequency": "Weekly",
+    "logo": "/v1/events/logo/btc-and-cards.jpg"
+  },
+  {
+    "id": "fr.marseille.decouvre-btc-marseille",
+    "country": "FR",
+    "city": "Marseille",
+    "shortName": "Découvre BTC Marseille",
+    "longName": "Découvre Bitcoin Marseille",
+    "url": "https://t.me/+zNCVx_hFshE4MWY0"
+  },
+  {
+    "id": "de.frankfurt.einundzwanzig-frankfurt",
+    "country": "DE",
+    "city": "Frankfurt",
+    "shortName": "Einundzwanzig Frankfurt",
+    "longName": "Einundzwanzig Frankfurt",
+    "url": "https://einundzwanzig.space/meetups/",
+    "logo": "/v1/events/logo/frankfurt.png"
+  },
+  {
+    "id": "de.munchen.satoshis-lighthouse",
+    "country": "DE",
+    "city": "München",
+    "shortName": "Satoshi's Lighthouse",
+    "longName": "Satoshi's Lighthouse",
+    "url": "https://bitcoinlight.house",
+    "frequency": "Weekly",
+    "logo": "/v1/events/logo/satoshis-coffeshop.png"
+  },
+  {
+    "id": "pt.lisbon.lisbon-btc-maxis",
+    "country": "PT",
+    "city": "Lisbon",
+    "shortName": "Lisbon BTC Maxis",
+    "longName": "Lisbon Bitcoin Maximalists",
+    "url": "https://www.meetup.com/lisbon-bitcoin-maximalists/",
+    "address": "Carnalentejana Campo Pequeno",
+    "frequency": "Monthly"
+  },
+  {
+    "id": "gr.nicosia.nicosia-btc",
+    "country": "GR",
+    "city": "Nicosia",
+    "shortName": "Nicosia BTC",
+    "longName": "Nicosia Bitcoin",
+    "url": "https://www.meetup.com/nicosia-bitcoin/",
+    "frequency": "Bi-Monthly"
+  },
+  {
+    "id": "de.mannheim.einundzwanzig-mannheim",
+    "country": "DE",
+    "city": "Mannheim",
+    "shortName": "Einundzwanzig Mannheim",
+    "longName": "Einundzwanzig Mannheim",
+    "url": "https://t.me/Einundzwanzig_MANNHEIM",
+    "frequency": "Monthly",
+    "logo": "/v1/events/logo/mannheim.png"
+  },
+  {
+    "id": "fr.bordeux.decouvre-btc-bordeaux",
+    "country": "FR",
+    "city": "Bordeaux",
+    "shortName": "Découvre BTC Bordeaux",
+    "longName": "Découvre Bitcoin Bordeaux",
+    "url": "https://t.me/+aIjgpyYwt-83Y2U0",
+    "logo": "/v1/events/logo/bordeaux.png"
+  },
+  {
+    "id": "gr.athens.athens-btc-meetup",
+    "country": "GR",
+    "city": "Athens",
+    "shortName": "Athens BTC Meetup",
+    "longName": "Athens Bitcoin Meetup",
+    "url": "https://www.meetup.com/blockchaingreece-0/",
+    "frequency": "Bi-Monthly"
+  },
+  {
+    "url": "https://www.meetup.com/de-DE/einundzwanzig-nrw-bitcoin-meetups-in-deiner-stadt/",
+    "country": "DE",
+    "logo": "/v1/events/logo/dusseldorf.png",
+    "city": "Düsseldorf",
+    "shortName": "Einundzwanzig Düsseldorf",
+    "longName": "Einundzwanzig Düsseldorf",
+    "frequency": "Monthly",
+    "id": "de.dusseldorf.einundzwanzig-dusseldorf"
+  },
+  {
+    "url": "https://t.me/SatoshiSpritzBologna",
+    "country": "IT",
+    "city": "Bologna",
+    "shortName": "Sat. Spritz Bologna",
+    "longName": "Satoshi Spritz Bologna",
+    "frequency": "1st Friday of the month (official meetup) + other fridays in different locations",
+    "id": "it.bologna.sat-spritz-bologna",
+    "address": "Pastis in Via Belvedere 7C Bologna"
+  },
+  {
+    "id": "fr.montpellier.decouvre-btc-montpellier",
+    "country": "FR",
+    "city": "Montpellier",
+    "shortName": "Découvre BTC Montpellier",
+    "longName": "Découvre Bitcoin Montpellier",
+    "url": "https://t.me/+XlEaAZvtEApjYzg0",
+    "logo": "/v1/events/logo/montpellier.png"
+  },
+  {
+    "id": "be.antwerp.belgium-btc-embassy",
+    "country": "BE",
+    "city": "Antwerp",
+    "shortName": "Belgium BTC Embassy",
+    "longName": "Belgium Bitcoin Embassy",
+    "url": "https://belgianbitcoinembassy.org/",
+    "address": "Sint-Aldegondiskaai\n44, 2000 Antwerpen",
+    "frequency": "The 21st of each month",
+    "logo": "/v1/events/logo/bbe.png"
+  },
+  {
+    "id": "gb.london.london-btc-space",
+    "country": "GB",
+    "city": "London",
+    "shortName": "London BTC Space",
+    "longName": "London Bitcoin Space",
+    "url": "https://twitter.com/LDNBTCSPACE",
+    "address": "The Old Bank of England, 194 Fleet St, London EC4A 2LT",
+    "frequency": "Bi-Weekly",
+    "logo": "/v1/events/logo/ldn-btc-space.jpg"
+  },
+  {
+    "url": "https://einundzwanzig.space/meetups/",
+    "country": "DE",
+    "city": "Regensburg",
+    "shortName": "Einundzwanzig Regensburg",
+    "longName": "Einundzwanzig Regensburg",
+    "frequency": "1st Sunday of the month",
+    "id": "de.regensburg.einundzwanzig-regensburg",
+    "address": "Gasthaus Hubertushöhe\nWilhelm-Raabe-Straße 1\n93051 Regensburg, Germany\n\nhttps://goo.gl/maps/muehSzS9Qfnop6Z27",
+    "logo": "/v1/events/logo/regensburg.png"
+  },
+  {
+    "id": "de.saarland.einundzwanzig-saarland",
+    "country": "DE",
+    "city": "Saarland",
+    "shortName": "Einundzwanzig Saarland",
+    "longName": "Einundzwanzig Saarland",
+    "url": "https://einundzwanzig.saarland/",
+    "logo": "/v1/events/logo/saarland.png"
+  },
+  {
+    "id": "fr.toulouse.toulose-bitcoin",
+    "country": "FR",
+    "city": "Toulouse",
+    "shortName": "Toulouse Bitcoin",
+    "longName": "Toulouse Bitcoin",
+    "url": "https://www.meetup.com/fr-FR/toulouse-bitcoin-meetup/",
+    "logo": "/v1/events/logo/toulouse.png"
+  },
+  {
+    "id": "it.roma.sat-spritz-roma",
+    "country": "IT",
+    "city": "Roma",
+    "shortName": "Sat. Spritz Roma",
+    "longName": "Satoshi Spritz Roma",
+    "url": "https://t.me/SatoshiSpritzRoma",
+    "frequency": "Bi-Monthly",
+    "logo": "/v1/events/logo/roma.jpg"
+  },
+  {
+    "id": "si.ljublijana.ljublijana.btc",
+    "country": "SI",
+    "city": "Ljubljana",
+    "shortName": "Ljubliana BTC",
+    "longName": "Ljubliana Bitcoin",
+    "url": "https://t.me/+2xbb7IpoP0IyMDNk",
+    "frequency": "Monthly",
+    "logo": "/v1/events/logo/ljubljana.png"
+  },
+  {
+    "id": "ch.lausanne.lausanne-btc",
+    "country": "CH",
+    "city": "Lausanne",
+    "shortName": "Lausanne BTC",
+    "longName": "Lausanne Bitcoin",
+    "url": "bitcoinlausanne.ch",
+    "frequency": "1st Wednesday of the month",
+    "logo": "/v1/events/logo/laussane.png"
+  },
+  {
+    "id": "es.barcelona.barcelona-btc-only",
+    "country": "ES",
+    "city": "Barcelona",
+    "shortName": "Barcelona BTC Only",
+    "longName": "Barcelona Bitcoin Only",
+    "url": "https://bitcoinbarcelona.xyz",
+    "frequency": "Monthly",
+    "logo": "/v1/events/logo/bbo.png"
+  },
+  {
+    "id": "gr.athens.hellenic-btc",
+    "country": "GR",
+    "city": "Athens",
+    "shortName": "Hellenic BTC",
+    "longName": "Hellenic Bitcoin",
+    "url": "https://t.me/hellenicbitcoin",
+    "frequency": "Monthly",
+    "logo": "/v1/events/logo/hellenic-athens.png"
+  },
+  {
+    "id": "it.venice.bacari-bitcoin",
+    "country": "IT",
+    "city": "Venice",
+    "shortName": "Bacari & Bitcoin",
+    "longName": "Bacari & Bitcoin",
+    "url": "https://twitter.com/bitcoininvenice",
+    "logo": "/v1/events/logo/venice.png"
+  },
+  {
+    "url": "https://signal.group/#CjQKIOkx1dh5jAnRQ0lO8Ed0Nga55de6C3SBpKnTJveLbzY5EhAo4TuyV8Cff30gTYZMhuI6",
+    "country": "CH",
+    "city": "Neuchatel",
+    "shortName": "Beer 2 Beer",
+    "longName": "Beer 2 Beer",
+    "frequency": "Every Thursday at 19:30h",
+    "id": "ch.neuchatel.beer-2-beer",
+    "address": "B2Bitcoin, société coopérative\n2000 Neuchâtel",
+    "logo": "/v1/events/logo/neuchatel.png"
+  },
+  {
+    "id": "gb.leeds.leeds-btc-network",
+    "country": "GB",
+    "city": "Leeds",
+    "shortName": "Leeds BTC Network",
+    "longName": "Leeds Bitcoin Network",
+    "url": "https://twitter.com/leedsbtc",
+    "frequency": "Monthly",
+    "logo": "/v1/events/logo/leeds.png"
+  }
+]
