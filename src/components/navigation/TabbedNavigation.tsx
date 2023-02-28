@@ -4,6 +4,7 @@ import tw from '../../styles/tailwind'
 import { Text } from '../'
 import { ChatMessages } from '../../views/yourTrades/components/ChatMessages'
 import { isIOS } from '../../utils/system'
+import { PulsingText } from '../matches/components/selectors/PulsingText'
 
 export const themes = {
   default: {
@@ -30,6 +31,7 @@ type TabbedNavigationProps = ComponentProps & {
   buttonStyle?: ViewStyle
   theme?: 'default' | 'inverted'
   messages?: { buy: number; sell: number; history: number }
+  tabHasError?: string[]
 }
 
 export const TabbedNavigation = ({
@@ -40,16 +42,33 @@ export const TabbedNavigation = ({
   style,
   messages,
   buttonStyle,
+  tabHasError = [],
 }: TabbedNavigationProps) => {
   const colors = themes[theme]
   return (
     <View style={[tw`flex flex-row justify-center`, style]}>
       {items.map((item) => (
-        <Pressable style={[tw`px-2`, buttonStyle]} key={item.id} onPress={() => select(item)}>
+        <Pressable
+          style={[tw`px-2`, buttonStyle, !!tabHasError.length && !tabHasError.includes(item.id) && tw`opacity-10`]}
+          key={item.id}
+          onPress={() => select(item)}
+        >
           <View style={tw`flex-row items-center`}>
-            <Text style={[tw`px-4 py-2 input-label`, item.id === selected.id ? colors.textSelected : colors.text]}>
-              {item.display}
-            </Text>
+            {tabHasError.includes(item.id) && item.id !== selected.id ? (
+              <PulsingText showPulse style={[tw`px-4 py-2 input-label`]}>
+                {item.display}
+              </PulsingText>
+            ) : (
+              <Text
+                style={[
+                  tw`px-4 py-2 input-label`,
+                  item.id === selected.id ? colors.textSelected : colors.text,
+                  tabHasError.includes(item.id) && item.id !== selected.id && tw`text-error-main`,
+                ]}
+              >
+                {item.display}
+              </Text>
+            )}
             {!!messages && messages[item.id as TradeTab] > 0 && (
               <ChatMessages
                 style={tw`mb-1 -mt-px w-[18px] h-[18px]`}

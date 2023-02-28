@@ -5,9 +5,10 @@ import { Price } from '../Price'
 
 type PriceInfoProps = {
   match: Match
+  offer: BuyOffer
 }
 
-export const PriceInfo = ({ match }: PriceInfoProps) => (
+export const PriceInfo = ({ match, offer }: PriceInfoProps) => (
   <>
     <SatsFormat
       sats={match.amount}
@@ -16,6 +17,6 @@ export const PriceInfo = ({ match }: PriceInfoProps) => (
       style={tw`h5 leading-3xl`}
       bitcoinLogoStyle={tw`w-[18px] h-[18px] mr-2`}
     />
-    <Price match={match} />
+    <Price {...{ match, offer }} />
   </>
 )

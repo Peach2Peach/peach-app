@@ -26,11 +26,12 @@ export default ({ offer, updateOffer }: SellViewProps): ReactElement => {
   }, [walletLabel, updateOffer])
 
   return (
-    <PeachScrollView contentContainerStyle={tw`items-center flex-grow px-8 pb-7`}>
+    <PeachScrollView contentContainerStyle={tw`items-center justify-center flex-grow px-8 pb-7`}>
       <View style={tw`justify-center flex-grow`}>
         <SellOfferSummary offer={offer} />
       </View>
       <PrimaryButton
+        style={tw`self-center mt-4`}
         testID="navigation-next"
         narrow={!canPublish}
         onPress={canPublish ? publishSellOffer : goToSetupRefundWallet}

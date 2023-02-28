@@ -1,10 +1,11 @@
-import React, { ReactElement, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
+import React, { ReactElement, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
 import { TextInput, View } from 'react-native'
 import { FormProps } from '.'
 import { useValidatedState } from '../../../../hooks'
 import tw from '../../../../styles/tailwind'
 import { getPaymentDataByLabel } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
+import { info } from '../../../../utils/log'
 import { getErrorsInField } from '../../../../utils/validation'
 import { TabbedNavigation, TabbedNavigationItem } from '../../../navigation/TabbedNavigation'
 import { EmailInput } from '../../EmailInput'
@@ -73,9 +74,19 @@ export const PayPal = ({ forwardRef, data, currencies = [], onSubmit, setStepVal
     currencies: selectedCurrencies,
   })
 
-  const isFormValid = () => {
+  info(phoneErrors)
+
+  const isFormValid = useCallback(() => {
     setDisplayErrors(true)
     return [...labelErrors, ...phoneErrors, ...emailErrors, ...userNameErrors].length === 0
+  }, [emailErrors, labelErrors, phoneErrors, userNameErrors])
+
+  const getErrorTabs = () => {
+    const fields = []
+    if (phoneErrors.length > 0) fields.push('phone')
+    if (email && emailErrors.length > 0) fields.push('email')
+    if (userName && userNameErrors.length > 0) fields.push('userName')
+    return fields
   }
 
   const save = () => {
@@ -103,7 +114,13 @@ export const PayPal = ({ forwardRef, data, currencies = [], onSubmit, setStepVal
           errorMessage={displayErrors ? labelErrors : undefined}
         />
       </View>
-      <TabbedNavigation items={tabs} selected={currentTab} select={setCurrentTab} buttonStyle={tw`p-0`} />
+      <TabbedNavigation
+        items={tabs}
+        selected={currentTab}
+        select={setCurrentTab}
+        buttonStyle={tw`p-0`}
+        tabHasError={displayErrors ? getErrorTabs() : []}
+      />
       <View style={tw`mt-2`}>
         {currentTab.id === 'phone' && (
           <PhoneInput
@@ -111,7 +128,9 @@ export const PayPal = ({ forwardRef, data, currencies = [], onSubmit, setStepVal
             onSubmit={() => {
               $reference?.focus()
             }}
+            enforceRequired
             value={phone}
+            label={i18n('form.phoneLong')}
             required={true}
             placeholder={i18n('form.phone.placeholder')}
             autoCorrect={false}
@@ -122,8 +141,9 @@ export const PayPal = ({ forwardRef, data, currencies = [], onSubmit, setStepVal
           <EmailInput
             onChange={setEmail}
             onSubmit={() => $reference?.focus()}
-            required={true}
+            required={false}
             value={email}
+            label={i18n('form.emailLong')}
             placeholder={i18n('form.email.placeholder')}
             errorMessage={displayErrors ? emailErrors : undefined}
           />
@@ -132,11 +152,12 @@ export const PayPal = ({ forwardRef, data, currencies = [], onSubmit, setStepVal
           <UsernameInput
             {...{
               maxLength: 21,
-              required: true,
+              required: false,
               onChange: setUserName,
               onSubmit: $reference?.focus,
               value: userName,
               placeholder: i18n('form.userName.placeholder'),
+              label: i18n('form.userName'),
               autoCorrect: false,
               errorMessage: displayErrors ? userNameErrors : undefined,
             }}

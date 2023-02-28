@@ -75,7 +75,7 @@ export const Match = ({ match, offer }: MatchProps): ReactElement => {
 
             {isBuyOffer(offer) ? (
               <>
-                <PriceInfo match={match} />
+                <PriceInfo {...{ match, offer }} />
                 <HorizontalLine style={tw`my-4`} />
                 <PaymentMethodSelector matchId={match.offerId} disabled={currentOptionName === 'tradingLimitReached'} />
                 <HorizontalLine style={tw`my-4`} />
@@ -83,7 +83,7 @@ export const Match = ({ match, offer }: MatchProps): ReactElement => {
               </>
             ) : (
               <>
-                <Price match={match} />
+                <Price {...{ match, offer }} />
                 <HorizontalLine style={tw`my-4`} />
                 <MatchPaymentDetails match={match} style={tw`mb-2`} />
               </>

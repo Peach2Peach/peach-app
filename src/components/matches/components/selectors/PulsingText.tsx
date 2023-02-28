@@ -71,6 +71,6 @@ export const PulsingText = ({ children, style, showPulse }: Props) => {
   }, [color, fontSize, showPulse])
 
   return (
-    <Animated.Text style={[tw`body-m`, { fontSize, color: textColor, fontWeight }, style]}>{children}</Animated.Text>
+    <Animated.Text style={[tw`body-m`, style, { fontSize, color: textColor, fontWeight }]}>{children}</Animated.Text>
   )
 }
