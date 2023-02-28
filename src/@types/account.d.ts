@@ -43,6 +43,7 @@ declare type Identity = {
 declare type Account = Identity & {
   settings: Settings
   paymentData: PaymentData[]
+  legacyPaymentData: PaymentData[]
   tradingLimit: TradingLimit
   offers: (SellOffer | BuyOffer)[]
   contracts: Contract[]
