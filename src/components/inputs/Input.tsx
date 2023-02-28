@@ -66,6 +66,7 @@ export type InputProps = ComponentProps &
     onFocus?: Function
     onBlur?: Function
     reference?: Ref<TextInput>
+    enforceRequired?: boolean
   }
 
 /**
@@ -101,6 +102,7 @@ export const Input = ({
   autoCorrect = false,
   style,
   inputStyle,
+  enforceRequired = false,
   theme = 'default',
   reference,
   ...inputProps
@@ -147,7 +149,7 @@ export const Input = ({
         <Text style={[tw`pl-2 input-label`, colors.text]}>
           {label}
           <Text style={[tw`font-medium input-label`, colors.placeholder]}>
-            {!required ? ` (${i18n('form.optional')})` : ''}
+            {!required ? ` (${i18n('form.optional')})` : enforceRequired ? ` (${i18n('form.required')})` : ''}
           </Text>
         </Text>
       )}

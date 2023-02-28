@@ -126,6 +126,7 @@ declare type PaymentMethod =
   | 'bizum'
   | 'mobilePay'
   | `cash.${string}`
+  | 'cash'
   | 'giftCard.amazon'
   | `giftCard.amazon.${PaymentMethodCountry}`
 

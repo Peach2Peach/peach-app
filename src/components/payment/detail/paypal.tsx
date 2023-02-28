@@ -27,10 +27,9 @@ export const DetailPaypal = ({
   }
 
   return (
-    <View style={[tw`flex-row justify-between`, style]}>
-      <Text style={tw`text-black-2`}>{i18n('contract.payment.to')}</Text>
-
-      <View>
+    <View style={style}>
+      <View style={tw`flex-row justify-between`}>
+        <Text style={tw`text-black-2`}>{i18n('contract.payment.to')}</Text>
         {possibleFields
           .filter((field) => paymentData[field])
           .map((field, i) => (
@@ -43,6 +42,15 @@ export const DetailPaypal = ({
               </View>
             </View>
           ))}
+      </View>
+      <View style={[tw`flex-row justify-between mt-2`]}>
+        <Text style={tw`text-black-2`}>{i18n('contract.summary.reference')}</Text>
+        <View style={[tw`flex-row items-center justify-end`, !paymentData.reference && tw`opacity-50`]}>
+          <Text style={tw`subtitle-1`}>{paymentData.reference || i18n('none')}</Text>
+          {copyable && paymentData.reference && (
+            <CopyAble value={paymentData.reference} disabled={!paymentData.reference} style={tw`ml-2`} />
+          )}
+        </View>
       </View>
     </View>
   )
