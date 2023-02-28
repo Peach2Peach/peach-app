@@ -18,6 +18,8 @@ const updateLegacyPaymentData = async (paymentData: PaymentData[]) => {
 }
 
 export const enforcePaymentDataFormats = (paymentData: PaymentData[]) => {
+  console.log(account.legacyPaymentData)
+
   if (account.legacyPaymentData.length === 0) updateLegacyPaymentData(paymentData)
   const updatedPaymentData = paymentData.map(enforceFormatOnPaymentData)
   updatePaymentData(updatedPaymentData)
