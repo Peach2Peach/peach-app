@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
+import React, { ReactElement, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
 import { TextInput, View } from 'react-native'
 import { FormProps } from '.'
 import tw from '../../../../styles/tailwind'
@@ -49,7 +49,7 @@ export const Wise = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
   const emailRules = useMemo(() => ({ required: !phone, email: true }), [phone])
 
   const labelErrors = useMemo(() => getErrorsInField(label, labelRules), [label, labelRules])
-  const phoneErrors = useMemo(() => getErrorsInField(phone, phoneRules), [phone, phoneRules])
+  const phoneErrors = useMemo(() => getErrorsInField(phone, phoneRules), [phone])
   const emailErrors = useMemo(() => getErrorsInField(email, emailRules), [email, emailRules])
 
   const buildPaymentData = (): PaymentData & WiseData => ({
@@ -61,9 +61,16 @@ export const Wise = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
     currencies: selectedCurrencies,
   })
 
-  const isFormValid = () => {
+  const isFormValid = useCallback(() => {
     setDisplayErrors(true)
     return [...labelErrors, ...phoneErrors, ...emailErrors].length === 0
+  }, [emailErrors, labelErrors, phoneErrors])
+
+  const getErrorTabs = () => {
+    const fields = []
+    if (phoneErrors.length > 0) fields.push('phone')
+    if (email && emailErrors.length > 0) fields.push('email')
+    return fields
   }
 
   const onCurrencyToggle = (currency: Currency) => {
@@ -107,7 +114,7 @@ export const Wise = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
         selected={currentTab}
         select={setCurrentTab}
         buttonStyle={tw`p-0`}
-        tabHasError={displayErrors && phoneErrors.length ? ['phone'] : []}
+        tabHasError={displayErrors ? getErrorTabs() : []}
       />
       <View style={tw`mt-2`}>
         {currentTab.id === 'phone' && (

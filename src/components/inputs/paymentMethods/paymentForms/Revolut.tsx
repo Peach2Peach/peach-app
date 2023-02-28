@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
+import React, { ReactElement, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
 import { TextInput, View } from 'react-native'
 import { FormProps } from '.'
 import { useValidatedState } from '../../../../hooks'
@@ -69,9 +69,17 @@ export const Revolut = ({ forwardRef, data, currencies = [], onSubmit, setStepVa
     currencies: selectedCurrencies,
   })
 
-  const isFormValid = () => {
+  const isFormValid = useCallback(() => {
     setDisplayErrors(true)
     return [...labelErrors, ...phoneErrors, ...emailErrors, ...userNameErrors].length === 0
+  }, [emailErrors, labelErrors, phoneErrors, userNameErrors])
+
+  const getErrorTabs = () => {
+    const fields = []
+    if (phoneErrors.length > 0) fields.push('phone')
+    if (email && emailErrors.length > 0) fields.push('email')
+    if (userName && userNameErrors.length > 0) fields.push('revtag')
+    return fields
   }
 
   const onCurrencyToggle = (currency: Currency) => {
@@ -109,7 +117,7 @@ export const Revolut = ({ forwardRef, data, currencies = [], onSubmit, setStepVa
         selected={currentTab}
         select={setCurrentTab}
         buttonStyle={tw`p-0`}
-        tabHasError={displayErrors && phoneErrors.length ? ['phone'] : []}
+        tabHasError={displayErrors ? getErrorTabs() : []}
       />
       <View style={tw`mt-2`}>
         {currentTab.id === 'phone' && (
