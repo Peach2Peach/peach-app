@@ -67,6 +67,7 @@ export type InputProps = ComponentProps &
     onBlur?: Function
     reference?: Ref<TextInput>
     enforceRequired?: boolean
+    oneLineErrors?: boolean
   }
 
 /**
@@ -105,6 +106,7 @@ export const Input = ({
   enforceRequired = false,
   theme = 'default',
   reference,
+  oneLineErrors = false,
   ...inputProps
 }: InputProps): ReactElement => {
   const colors = useMemo(() => themes[theme], [theme])
@@ -161,7 +163,7 @@ export const Input = ({
           disabled ? colors.borderDisabled : colors.border,
           showError && colors.bgError,
           showError && colors.borderError,
-          showError && tw`border-2`,
+          showError && theme !== 'inverted' && tw`border-2`,
           style,
         ]}
       >
@@ -208,8 +210,9 @@ export const Input = ({
           ))}
         </View>
       </View>
-
-      <Text style={[tw`mt-1 ml-3 tooltip`, colors.error]}>{showError ? errorMessage[0] : ' '}</Text>
+      <Text numberOfLines={oneLineErrors ? 1 : undefined} style={[tw`mt-1 ml-3 tooltip`, colors.error]}>
+        {showError ? errorMessage[0] : ' '}
+      </Text>
     </View>
   )
 }
