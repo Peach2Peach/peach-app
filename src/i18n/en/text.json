@@ -602,7 +602,7 @@
   "notification.contract.buyer.paymentTimerExtended.text": "You didn't make the payment on time, but the seller has decided to give you 12 more hours to make the payment.",
   "notification.contract.buyer.paymentTimerHasRunOut.text": "You didn't indicate you made the payment, and the timer ran out!\n\nThe seller now needs to decide how to proceed - please chat with them to resolve the issue.",
   "notification.contract.seller.paymentTimerHasRunOut.text": "The payment for trade $0 wasn't made on time.",
-  "notification.contract.seller.inactiveBuyerCancel.text": "The buyer for trade $0 has canceled.",
+  "notification.contract.seller.canceledAfterEscrowExpiry.text": "The buyer for trade $0 has canceled. Please open the app to arrange your refund.",
   "notification.contract.paymentMade.text": "The buyer for trade $0 made the payment.\n\nPlease check if you received it and mark the payment as received as soon as possible.",
   "notification.contract.tradeCompleted.text": "Congratulations! The sats for trade $0 are in your wallet 🎉",
   "notification.contract.buyer.disputeRaised.text": "The seller has started a dispute for trade $0 for $1 sats.",
