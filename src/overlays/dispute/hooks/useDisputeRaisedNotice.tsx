@@ -108,6 +108,7 @@ export const useDisputeRaisedNotice = () => {
             icon: 'arrowRightCircle',
             callback: () => {
               submit(contract, contract.disputeReason ?? 'other')
+              navigation.replace('contract', { contractId: contract.id })
             },
           }
           : {
