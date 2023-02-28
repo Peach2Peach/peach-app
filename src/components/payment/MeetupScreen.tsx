@@ -27,7 +27,7 @@ export default (): ReactElement => {
           <View style={tw`flex-row mt-8`}>
             <Text style={tw`body-l`}>
               {i18n('meetup.date') + ': '}
-              <Text style={tw`font-bold body-l`}>{event.frequency}</Text>
+              <Text style={tw`h6`}>{event.frequency}</Text>
             </Text>
           </View>
         )}
