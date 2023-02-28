@@ -38,6 +38,7 @@ export const Swish = ({ forwardRef, data, currencies = [], onSubmit, setStepVali
     type: 'swish',
     phone,
     beneficiary,
+    reference,
     currencies: data?.currencies || currencies,
   })
 
