@@ -55,10 +55,7 @@ export const TabbedNavigation = ({
         >
           <View style={tw`flex-row items-center`}>
             {tabHasError.includes(item.id) && item.id !== selected.id ? (
-              <PulsingText
-                showPulse={tabHasError.includes(item.id) && item.id !== selected.id}
-                style={[tw`px-4 py-2 input-label`]}
-              >
+              <PulsingText showPulse style={[tw`px-4 py-2 input-label`]}>
                 {item.display}
               </PulsingText>
             ) : (
