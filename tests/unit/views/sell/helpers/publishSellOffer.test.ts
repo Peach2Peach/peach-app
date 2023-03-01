@@ -7,6 +7,7 @@ const getOfferDetailsMock = jest.fn().mockResolvedValue([undefined])
 const getAndUpdateTradingLimitMock = jest.fn().mockResolvedValue(undefined)
 const isSellOfferMock = jest.fn().mockReturnValue(true)
 const infoMock = jest.fn()
+const saveOfferMock = jest.fn()
 
 jest.mock('../../../../../src/init/pgp', () => ({
   __esModule: true,
@@ -28,6 +29,10 @@ jest.mock('../../../../../src/utils/offer', () => ({
 
 jest.mock('../../../../../src/views/buy/helpers/getAndUpdateTradingLimit', () => ({
   getAndUpdateTradingLimit: () => getAndUpdateTradingLimitMock(),
+}))
+
+jest.mock('../../../../../src/utils/offer', () => ({
+  saveOffer: (offer: any) => saveOfferMock(offer),
 }))
 
 // eslint-disable-next-line max-lines-per-function
@@ -90,6 +95,14 @@ describe('publishSellOffer', () => {
     await publishSellOffer(offerDraft)
 
     expect(getAndUpdateTradingLimitMock).toHaveBeenCalled()
+  })
+
+  it('should call saveOffer with offerDraft and result', async () => {
+    postSellOfferMock.mockResolvedValue([{ ...offerDraft, id: 'someOfferId' } as SellOffer, undefined])
+    // @ts-ignore
+    await publishSellOffer(offerDraft)
+
+    expect(saveOfferMock).toHaveBeenCalledWith({ ...offerDraft, id: 'someOfferId' })
   })
 
   it('should return offer', async () => {
