@@ -55,7 +55,6 @@ import { screenTransition } from './utils/layout/screenTransition'
 import { error, info } from './utils/log'
 import { marketPrices } from './utils/peachAPI/public/market'
 import { compatibilityCheck, isIOS, linkToAppStore } from './utils/system'
-import { getFirstScreen } from './utils/navigation'
 
 enableScreens()
 
@@ -141,16 +140,13 @@ const App: React.FC = () => {
   const { width } = Dimensions.get('window')
   const slideInAnim = useRef(new Animated.Value(-width)).current
   const navigationRef = useNavigationContainerRef() as NavigationContainerRefWithCurrent<RootStackParamList>
-  const [minAppVersion, latestAppVersion, hasSeenRedesignWelcome, setSeenRedesignWelcome] = useConfigStore(
-    (state) => [state.minAppVersion, state.latestAppVersion, state.hasSeenRedesignWelcome, state.setSeenRedesignWelcome],
+  const [minAppVersion, latestAppVersion] = useConfigStore(
+    (state) => [state.minAppVersion, state.latestAppVersion],
     shallow,
   )
   const [currentPage, setCurrentPage] = useState<keyof RootStackParamList>()
   const getCurrentPage = useCallback(() => currentPage, [currentPage])
-  const views = useMemo(
-    () => getViews(!!account?.publicKey, hasSeenRedesignWelcome),
-    [account?.publicKey, hasSeenRedesignWelcome],
-  )
+  const views = getViews(!!account?.publicKey)
   const showFooter = !!views.find((v) => v.name === currentPage)?.showFooter
   const backgroundConfig = views.find((v) => v.name === currentPage)?.background
 
@@ -203,8 +199,7 @@ const App: React.FC = () => {
           },
         })
       }
-      // setSeenRedesignWelcome(false)
-      setCurrentPage(getFirstScreen(hasSeenRedesignWelcome))
+      setCurrentPage(!!account?.publicKey ? 'home' : 'welcome')
       await initialNavigation(navigationRef, updateMessage)
       requestUserPermissions()
 

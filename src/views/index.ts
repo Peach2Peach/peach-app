@@ -81,11 +81,13 @@ const onboarding: ViewType[] = [
   { name: 'home', component: Welcome, ...onboardingConfig },
   { name: 'newUser', component: NewUser, ...onboardingConfig },
   { name: 'restoreBackup', component: RestoreBackup, ...onboardingConfig },
+  { name: 'redesignWelcome', component: RedesignWelcome, ...invertedThemeConfig },
 ]
 
-const redesignWelcome: ViewType[] = [{ name: 'redesignWelcome', component: RedesignWelcome, ...onboardingConfig }]
-
-const home: ViewType[] = [{ name: 'home', component: Buy, ...defaultConfig }]
+const home: ViewType[] = [
+  { name: 'home', component: Buy, ...defaultConfig },
+  { name: 'redesignWelcome', component: RedesignWelcome, ...invertedThemeConfig },
+]
 
 const wallet: ViewType[] = [
   { name: 'wallet', component: Wallet, ...defaultConfig, animationEnabled: false },
@@ -167,21 +169,19 @@ const testViews: ViewType[] = [
   { name: 'testViewPNs', component: TestViewPNs, ...defaultConfig },
 ]
 
-export const getViews = (hasAccount: boolean, hasSeenRedesignWelcome: boolean): ViewType[] =>
-  !hasSeenRedesignWelcome
-    ? [...redesignWelcome]
-    : hasAccount
-      ? [
-        ...home,
-        ...wallet,
-        ...buyFlow,
-        ...sellFlow,
-        ...search,
-        ...trade,
-        ...tradeHistory,
-        ...publicProfile,
-        ...contact(hasAccount),
-        ...settings,
-        ...testViews,
-      ]
-      : [...onboarding, ...contact(hasAccount)]
+export const getViews = (hasAccount: boolean): ViewType[] =>
+  hasAccount
+    ? [
+      ...home,
+      ...wallet,
+      ...buyFlow,
+      ...sellFlow,
+      ...search,
+      ...trade,
+      ...tradeHistory,
+      ...publicProfile,
+      ...contact(hasAccount),
+      ...settings,
+      ...testViews,
+    ]
+    : [...onboarding, ...contact(hasAccount)]

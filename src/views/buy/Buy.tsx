@@ -1,4 +1,4 @@
-import React, { ReactElement, useCallback, useMemo } from 'react'
+import React, { ReactElement, useCallback, useEffect, useMemo } from 'react'
 import { TouchableOpacity, View } from 'react-native'
 
 import tw from '../../styles/tailwind'
@@ -15,10 +15,12 @@ import { DailyTradingLimit } from '../settings/profile/DailyTradingLimit'
 import { useBuySetup } from './hooks/useBuySetup'
 import { debounce } from '../../utils/performance'
 import LoadingScreen from '../loading/LoadingScreen'
+import { useCheckShowRedesignWelcome } from '../../hooks/'
 
 export default (): ReactElement => {
   const navigation = useNavigation()
   const showBackupsWarning = useShowWarning('backups')
+  const checkShowRedesignWelcome = useCheckShowRedesignWelcome()
 
   useBuySetup()
 
@@ -43,6 +45,10 @@ export default (): ReactElement => {
 
   const [currentMinAmount, setCurrentMinAmount, minAmountValid] = useValidatedState(minBuyAmount, rangeRules)
   const [currentMaxAmount, setCurrentMaxAmount, maxAmountValid] = useValidatedState(maxBuyAmount, rangeRules)
+
+  useEffect(() => {
+    checkShowRedesignWelcome()
+  }, [])
 
   const updateStore = useCallback(
     debounce((min: number, max: number) => {

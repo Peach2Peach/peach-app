@@ -2,13 +2,14 @@ import React, { ReactElement, useMemo } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 import { PrimaryButton, Text } from '../../components'
-import { useHeaderSetup } from '../../hooks'
+import { useHeaderSetup, useNavigation } from '../../hooks'
 import i18n from '../../utils/i18n'
 import { useConfigStore } from '../../store/configStore'
 import shallow from 'zustand/shallow'
 
 export default (): ReactElement => {
   const [setSeenRedesignWelcome] = useConfigStore((state) => [state.setSeenRedesignWelcome], shallow)
+  const { goBack } = useNavigation()
   useHeaderSetup(
     useMemo(
       () => ({
@@ -29,8 +30,8 @@ export default (): ReactElement => {
         <PrimaryButton
           white
           onPress={() => {
-            // TODO : go welcome / home
             setSeenRedesignWelcome(true)
+            goBack()
           }}
           iconId="trendingUp"
         >
