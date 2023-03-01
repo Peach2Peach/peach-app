@@ -4,7 +4,7 @@ import shallow from 'zustand/shallow'
 
 export const useCheckShowRedesignWelcome = () => {
   const navigation = useNavigation()
-  const [hasSeenRedesignWelcome] = useConfigStore((state) => [state.hasSeenRedesignWelcome], shallow)
+  const hasSeenRedesignWelcome = useConfigStore((state) => state.hasSeenRedesignWelcome)
 
   const checkShowRedesignWelcome = () => !hasSeenRedesignWelcome && navigation.navigate('redesignWelcome')
   return checkShowRedesignWelcome
