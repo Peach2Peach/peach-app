@@ -6,7 +6,6 @@ import shallow from 'zustand/shallow'
 import { OverlayContext } from '../../../contexts/overlay'
 import { useHeaderSetup, useNavigation } from '../../../hooks'
 import { useSettingsStore } from '../../../store/settingsStore'
-import { account } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
 import { checkNotificationStatus, isProduction, toggleNotifications } from '../../../utils/system'
 import { NotificationPopup } from '../components/NotificationPopup'
@@ -25,8 +24,14 @@ export const useSettingsSetup = () => {
   useHeaderSetup(headerConfig)
   const [, updateOverlay] = useContext(OverlayContext)
   const [notificationsOn, setNotificationsOn] = useState(false)
-  const [peachWalletActive, togglePeachWallet, enableAnalytics, toggleAnalytics] = useSettingsStore(
-    (state) => [state.peachWalletActive, state.togglePeachWallet, state.enableAnalytics, state.toggleAnalytics],
+  const [peachWalletActive, togglePeachWallet, enableAnalytics, toggleAnalytics, showBackupReminder] = useSettingsStore(
+    (state) => [
+      state.peachWalletActive,
+      state.togglePeachWallet,
+      state.enableAnalytics,
+      state.toggleAnalytics,
+      state.showBackupReminder,
+    ],
     shallow,
   )
 
@@ -79,13 +84,13 @@ export const useSettingsSetup = () => {
       { title: 'referrals' },
       {
         title: 'backups',
-        iconId: account.settings.showBackupReminder ? 'alertTriangle' : undefined,
-        warning: !!account.settings.showBackupReminder,
+        iconId: showBackupReminder ? 'alertTriangle' : undefined,
+        warning: !!showBackupReminder,
       },
       { title: 'networkFees' },
       { title: 'paymentMethods' },
     ],
-    [],
+    [showBackupReminder],
   )
 
   const appSettings: SettingsItemProps[] = useMemo(
