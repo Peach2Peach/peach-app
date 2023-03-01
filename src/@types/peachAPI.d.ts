@@ -249,9 +249,7 @@ declare type Offer = OfferDraft & {
   tradeStatus: TradeStatus
 }
 
-declare type PostOfferResponse = {
-  offerId: string
-}
+declare type PostOfferResponseBody = BuyOffer | SellOffer
 declare type OfferType = 'ask' | 'bid'
 
 declare type CreateEscrowResponse = {
