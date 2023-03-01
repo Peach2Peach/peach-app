@@ -1,4 +1,4 @@
-type DefaultOfferProps = {
+type GetSellOfferDraftParams = {
   sellAmount: number
   premium: number
   meansOfPayment?: MeansOfPayment
@@ -7,14 +7,14 @@ type DefaultOfferProps = {
   kycType?: KYCType
 }
 
-export const getDefaultSellOffer = ({
+export const getSellOfferDraft = ({
   sellAmount,
   premium,
   meansOfPayment = {},
   payoutAddress = '',
   kyc = false,
   kycType = 'iban',
-}: DefaultOfferProps): SellOfferDraft => ({
+}: GetSellOfferDraftParams): SellOfferDraft => ({
   type: 'ask',
   creationDate: new Date(),
   lastModified: new Date(),

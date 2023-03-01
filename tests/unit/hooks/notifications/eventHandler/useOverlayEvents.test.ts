@@ -22,7 +22,7 @@ describe('useOverlayEvents', () => {
       result.current['offer.escrowFunded']!(data)
     })
 
-    expect(useNavigation().navigate).toHaveBeenCalledWith('offerPublished', { offerId, shouldGoBack: true })
+    expect(useNavigation().navigate).toHaveBeenCalledWith('offerPublished', { isSellOffer: true, shouldGoBack: true })
   })
 
   it('should not navigate to offerPublished screen on "offer.escrowFunded" event if offerId is not provided', () => {

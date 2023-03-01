@@ -7,7 +7,6 @@ import i18n from '../../../../utils/i18n'
 import { getErrorsInField } from '../../../../utils/validation'
 import Input from '../../Input'
 import { PhoneInput } from '../../PhoneInput'
-import { CurrencySelection, toggleCurrency } from './CurrencySelection'
 
 const beneficiaryRules = { required: false }
 const referenceRules = { required: false }
@@ -17,7 +16,6 @@ export const Blik = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
   const [label, setLabel] = useState(data?.label || '')
   const [phone, setPhone] = useState(data?.phone || '')
   const [reference, setReference, , referenceError] = useValidatedState(data?.reference || '', referenceRules)
-  const [selectedCurrencies, setSelectedCurrencies] = useState(data?.currencies || currencies)
   const [beneficiary, setBeneficiary, , beneficiaryErrors] = useValidatedState(data?.beneficiary || '', beneficiaryRules)
 
   let $phone = useRef<TextInput>(null).current
@@ -42,17 +40,13 @@ export const Blik = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
     beneficiary,
     phone,
     reference,
-    currencies: selectedCurrencies,
+    currencies: data?.currencies || currencies,
   })
 
   const isFormValid = useCallback(() => {
     setDisplayErrors(true)
     return [...labelErrors, ...phoneErrors].length === 0
   }, [labelErrors, phoneErrors])
-
-  const onCurrencyToggle = (currency: Currency) => {
-    setSelectedCurrencies(toggleCurrency(currency))
-  }
 
   const save = () => {
     if (!isFormValid()) return
@@ -114,7 +108,6 @@ export const Blik = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
         autoCorrect={false}
         errorMessage={displayErrors ? referenceError : undefined}
       />
-      <CurrencySelection paymentMethod="blik" selectedCurrencies={selectedCurrencies} onToggle={onCurrencyToggle} />
     </View>
   )
 }

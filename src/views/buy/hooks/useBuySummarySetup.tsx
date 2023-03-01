@@ -1,23 +1,14 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import shallow from 'zustand/shallow'
 import { WalletIcon } from '../../../components/icons'
 import { useHeaderSetup, useNavigation } from '../../../hooks'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
-import pgp from '../../../init/pgp'
 import { useSettingsStore } from '../../../store/settingsStore'
-import { account, getMessageToSignForAddress, updateTradingLimit } from '../../../utils/account'
+import { account, getMessageToSignForAddress } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
-import { saveOffer } from '../../../utils/offer'
-import { getTradingLimit, postBuyOffer } from '../../../utils/peachAPI'
 import { isValidBitcoinSignature } from '../../../utils/validation'
 import { peachWallet } from '../../../utils/wallet/setWallet'
-
-const getAndUpdateTradingLimit = () =>
-  getTradingLimit({}).then(([tradingLimit]) => {
-    if (tradingLimit) {
-      updateTradingLimit(tradingLimit)
-    }
-  })
+import { publishBuyOffer } from '../helpers/publishBuyOffer'
 
 export const useBuySummarySetup = () => {
   const navigation = useNavigation()
@@ -39,37 +30,22 @@ export const useBuySummarySetup = () => {
   const goToSetupPayoutWallet = () =>
     payoutAddress ? navigation.navigate('signMessage') : navigation.navigate('payoutAddress', { type: 'payout' })
 
-  const publishOffer = async (offer: BuyOfferDraft) => {
+  const publishOffer = async (offerDraft: BuyOfferDraft) => {
     setIsPublishing(true)
-
-    await pgp() // make sure pgp has been sent
-    const [result, err] = await postBuyOffer(offer)
-
-    if (result) {
-      getAndUpdateTradingLimit()
-      saveOffer({ ...offer, id: result.offerId } as BuyOffer)
-      navigation.replace('offerPublished', { offerId: result.offerId })
-      return
-    }
-
+    const { isOfferPublished, errorMessage } = await publishBuyOffer(offerDraft)
     setIsPublishing(false)
-    showErrorBanner(err?.error || 'POST_OFFER_ERROR')
+
+    if (!isOfferPublished) {
+      showErrorBanner(errorMessage)
+    } else {
+      navigation.replace('offerPublished', { isSellOffer: false })
+    }
   }
 
-  useHeaderSetup(
-    useMemo(
-      () => ({
-        title: i18n('buy.summary.title'),
-        icons: [
-          {
-            iconComponent: <WalletIcon />,
-            onPress: () => navigation.navigate('selectWallet', { type: 'payout' }),
-          },
-        ],
-      }),
-      [navigation],
-    ),
-  )
+  useHeaderSetup({
+    title: i18n('buy.summary.title'),
+    icons: [{ iconComponent: <WalletIcon />, onPress: () => navigation.navigate('selectWallet', { type: 'payout' }) }],
+  })
 
   useEffect(() => {
     setCanPublish(isValidBitcoinSignature(message, releaseAddress, messageSignature))

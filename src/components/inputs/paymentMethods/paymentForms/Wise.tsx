@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
+import React, { ReactElement, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
 import { TextInput, View } from 'react-native'
 import { FormProps } from '.'
 import tw from '../../../../styles/tailwind'
@@ -33,8 +33,8 @@ export const Wise = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
 
   const [currentTab, setCurrentTab] = useState(tabs[0])
 
-  let $email = useRef<TextInput>(null).current
-  let $phone = useRef<TextInput>(null).current
+  const $email = useRef<TextInput>(null).current
+  const $phone = useRef<TextInput>(null).current
   let $reference = useRef<TextInput>(null).current
 
   const anyFieldSet = !!(email || phone)
@@ -49,7 +49,7 @@ export const Wise = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
   const emailRules = useMemo(() => ({ required: !phone, email: true }), [phone])
 
   const labelErrors = useMemo(() => getErrorsInField(label, labelRules), [label, labelRules])
-  const phoneErrors = useMemo(() => getErrorsInField(phone, phoneRules), [phone, phoneRules])
+  const phoneErrors = useMemo(() => getErrorsInField(phone, phoneRules), [phone])
   const emailErrors = useMemo(() => getErrorsInField(email, emailRules), [email, emailRules])
 
   const buildPaymentData = (): PaymentData & WiseData => ({
@@ -61,9 +61,16 @@ export const Wise = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
     currencies: selectedCurrencies,
   })
 
-  const isFormValid = () => {
+  const isFormValid = useCallback(() => {
     setDisplayErrors(true)
     return [...labelErrors, ...phoneErrors, ...emailErrors].length === 0
+  }, [emailErrors, labelErrors, phoneErrors])
+
+  const getErrorTabs = () => {
+    const fields = []
+    if (phoneErrors.length > 0) fields.push('phone')
+    if (email && emailErrors.length > 0) fields.push('email')
+    return fields
   }
 
   const onCurrencyToggle = (currency: Currency) => {
@@ -102,15 +109,24 @@ export const Wise = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
           errorMessage={displayErrors ? labelErrors : undefined}
         />
       </View>
-      <TabbedNavigation items={tabs} selected={currentTab} select={setCurrentTab} />
+      <TabbedNavigation
+        items={tabs}
+        selected={currentTab}
+        select={setCurrentTab}
+        buttonStyle={tw`p-0`}
+        tabHasError={displayErrors ? getErrorTabs() : []}
+      />
       <View style={tw`mt-2`}>
         {currentTab.id === 'phone' && (
           <PhoneInput
             onChange={setPhone}
-            onSubmit={() => $reference?.focus()}
-            reference={(el: any) => ($phone = el)}
+            onSubmit={() => {
+              $reference?.focus()
+            }}
+            enforceRequired
             value={phone}
-            required={!email}
+            label={i18n('form.phoneLong')}
+            required={true}
             placeholder={i18n('form.phone.placeholder')}
             autoCorrect={false}
             errorMessage={displayErrors ? phoneErrors : undefined}
@@ -119,12 +135,10 @@ export const Wise = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
         {currentTab.id === 'email' && (
           <EmailInput
             onChange={setEmail}
-            onSubmit={() => {
-              $reference?.focus()
-            }}
-            reference={(el: any) => ($email = el)}
+            onSubmit={() => $reference?.focus()}
+            required={false}
             value={email}
-            required={!phone}
+            label={i18n('form.emailLong')}
             placeholder={i18n('form.email.placeholder')}
             errorMessage={displayErrors ? emailErrors : undefined}
           />

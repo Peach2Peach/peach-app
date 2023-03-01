@@ -31,7 +31,7 @@ const validate = (offer: SellOfferDraft) => {
   return paymentDataValid
 }
 
-export default ({ offer, updateOffer, next }: SellViewProps): ReactElement => {
+export default ({ offerDraft, setOfferDraft, next }: SellViewProps): ReactElement => {
   const [editing, setEditing] = useState(false)
   const [setMeansOfPaymentStore] = useSettingsStore((state) => [state.setMeansOfPayment], shallow)
   const [stepValid, setStepValid] = useState(false)
@@ -54,7 +54,7 @@ export default ({ offer, updateOffer, next }: SellViewProps): ReactElement => {
         : [{ iconComponent: <HelpIcon />, onPress: showHelp }],
   })
   const [meansOfPayment, setMeansOfPayment] = useState<MeansOfPayment>(
-    offer.meansOfPayment || account.settings.meansOfPayment,
+    offerDraft.meansOfPayment || account.settings.meansOfPayment,
   )
 
   useEffect(() => {
@@ -68,15 +68,16 @@ export default ({ offer, updateOffer, next }: SellViewProps): ReactElement => {
         }
         return obj
       }, {} as Offer['paymentData'])
-    updateOffer({
-      ...offer,
+    setOfferDraft((prev) => ({
+      ...prev,
       meansOfPayment,
+      originalPaymentData: getSelectedPaymentDataIds().map(getPaymentData) as PaymentData[],
       paymentData,
-    })
+    }))
     setMeansOfPaymentStore(meansOfPayment)
-  }, [meansOfPayment, setMeansOfPaymentStore, updateOffer])
+  }, [meansOfPayment, setMeansOfPaymentStore, setOfferDraft])
 
-  useEffect(() => setStepValid(validate(offer)), [offer])
+  useEffect(() => setStepValid(validate(offerDraft)), [offerDraft])
 
   return (
     <View style={tw`items-center flex-shrink h-full p-5 pb-7`}>

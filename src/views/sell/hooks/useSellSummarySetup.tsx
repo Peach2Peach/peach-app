@@ -3,20 +3,10 @@ import shallow from 'zustand/shallow'
 import { WalletIcon } from '../../../components/icons'
 import { useHeaderSetup, useNavigation } from '../../../hooks'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
-import pgp from '../../../init/pgp'
 import { useSettingsStore } from '../../../store/settingsStore'
-import { updateTradingLimit } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
-import { info } from '../../../utils/log'
-import { getTradingLimit, postSellOffer } from '../../../utils/peachAPI'
 import { peachWallet } from '../../../utils/wallet/setWallet'
-
-const getAndUpdateTradingLimit = () =>
-  getTradingLimit({}).then(([tradingLimit]) => {
-    if (tradingLimit) {
-      updateTradingLimit(tradingLimit)
-    }
-  })
+import { publishSellOffer } from '../helpers/publishSellOffer'
 
 export const useSellSummarySetup = () => {
   const navigation = useNavigation()
@@ -34,28 +24,13 @@ export const useSellSummarySetup = () => {
 
   const goToSetupRefundWallet = () => navigation.navigate('payoutAddress', { type: 'refund' })
 
-  const publishOffer = async (offer: SellOfferDraft) => {
+  const publishOffer = async (offerDraft: SellOfferDraft) => {
     setIsPublishing(true)
-    info('Posting offer ', JSON.stringify(offer))
-
-    await pgp() // make sure pgp has been sent
-
-    const [result, err] = await postSellOffer({
-      type: offer.type,
-      amount: offer.amount,
-      premium: offer.premium,
-      meansOfPayment: offer.meansOfPayment,
-      paymentData: offer.paymentData,
-      returnAddress: offer.returnAddress,
-    })
-    if (result) {
-      info('Posted offer', result)
-
-      getAndUpdateTradingLimit()
-
-      navigation.replace('fundEscrow', { offer: { ...offer, id: result.offerId } as SellOffer })
-    } else if (err) {
-      showErrorBanner(i18n(err?.error || 'POST_OFFER_ERROR', ((err?.details as string[]) || []).join(', ')))
+    const { isPublished, navigationParams, errorMessage } = await publishSellOffer(offerDraft)
+    if (isPublished && navigationParams) {
+      navigation.replace('fundEscrow', navigationParams)
+    } else if (errorMessage) {
+      showErrorBanner(errorMessage)
     }
     setIsPublishing(false)
   }

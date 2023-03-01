@@ -26,6 +26,7 @@ declare type Settings = {
   peachWalletActive: boolean
   nodeURL: string
   feeRate: number | 'fastestFee' | 'halfHourFee' | 'hourFee' | 'economyFee'
+  usedReferralCode: boolean
 }
 
 declare type PGPKeychain = {

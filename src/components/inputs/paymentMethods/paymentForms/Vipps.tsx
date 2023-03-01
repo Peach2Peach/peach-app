@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
+import React, { ReactElement, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
 import { TextInput, View } from 'react-native'
 import { FormProps } from '.'
 import { useValidatedState } from '../../../../hooks'
@@ -7,7 +7,6 @@ import i18n from '../../../../utils/i18n'
 import { getErrorsInField } from '../../../../utils/validation'
 import Input from '../../Input'
 import { PhoneInput } from '../../PhoneInput'
-import { CurrencySelection, toggleCurrency } from './CurrencySelection'
 
 const beneficiaryRules = { required: false }
 const referenceRules = { required: false }
@@ -17,10 +16,10 @@ export const Vipps = ({ forwardRef, data, currencies = [], onSubmit, setStepVali
   const [label, setLabel] = useState(data?.label || '')
   const [phone, setPhone] = useState(data?.phone || '')
   const [reference, setReference, , referenceError] = useValidatedState(data?.reference || '', referenceRules)
-  const [selectedCurrencies, setSelectedCurrencies] = useState(data?.currencies || currencies)
   const [beneficiary, setBeneficiary, , beneficiaryErrors] = useValidatedState(data?.beneficiary || '', beneficiaryRules)
 
   let $phone = useRef<TextInput>(null).current
+  let $beneficiary = useRef<TextInput>(null).current
   let $reference = useRef<TextInput>(null).current
 
   const labelRules = useMemo(
@@ -42,17 +41,13 @@ export const Vipps = ({ forwardRef, data, currencies = [], onSubmit, setStepVali
     beneficiary,
     phone,
     reference,
-    currencies: selectedCurrencies,
+    currencies: data?.currencies || currencies,
   })
 
-  const isFormValid = () => {
+  const isFormValid = useCallback(() => {
     setDisplayErrors(true)
     return [...labelErrors, ...phoneErrors].length === 0
-  }
-
-  const onCurrencyToggle = (currency: Currency) => {
-    setSelectedCurrencies(toggleCurrency(currency))
-  }
+  }, [labelErrors, phoneErrors])
 
   const save = () => {
     if (!isFormValid()) return
@@ -73,6 +68,9 @@ export const Vipps = ({ forwardRef, data, currencies = [], onSubmit, setStepVali
       <View>
         <Input
           onChange={setLabel}
+          onSubmit={() => {
+            $phone?.focus()
+          }}
           value={label}
           label={i18n('form.paymentMethodName')}
           placeholder={i18n('form.paymentMethodName.placeholder')}
@@ -80,21 +78,11 @@ export const Vipps = ({ forwardRef, data, currencies = [], onSubmit, setStepVali
           errorMessage={displayErrors ? labelErrors : undefined}
         />
       </View>
-      <Input
-        onChange={setBeneficiary}
-        onSubmit={() => $phone?.focus()}
-        value={beneficiary}
-        required={false}
-        label={i18n('form.beneficiary')}
-        placeholder={i18n('form.beneficiary.placeholder')}
-        autoCorrect={false}
-        errorMessage={displayErrors ? beneficiaryErrors : undefined}
-      />
       <PhoneInput
         onChange={setPhone}
         reference={(el: any) => ($phone = el)}
         onSubmit={() => {
-          $reference?.focus()
+          $beneficiary?.focus()
         }}
         value={phone}
         label={i18n('form.phone')}
@@ -102,6 +90,17 @@ export const Vipps = ({ forwardRef, data, currencies = [], onSubmit, setStepVali
         placeholder={i18n('form.phone.placeholder')}
         autoCorrect={false}
         errorMessage={displayErrors ? phoneErrors : undefined}
+      />
+      <Input
+        onChange={setBeneficiary}
+        onSubmit={() => $reference?.focus()}
+        reference={(el: any) => ($beneficiary = el)}
+        value={beneficiary}
+        required={false}
+        label={i18n('form.beneficiary')}
+        placeholder={i18n('form.beneficiary.placeholder')}
+        autoCorrect={false}
+        errorMessage={displayErrors ? beneficiaryErrors : undefined}
       />
       <Input
         onChange={setReference}
@@ -114,7 +113,6 @@ export const Vipps = ({ forwardRef, data, currencies = [], onSubmit, setStepVali
         autoCorrect={false}
         errorMessage={displayErrors ? referenceError : undefined}
       />
-      <CurrencySelection paymentMethod="vipps" selectedCurrencies={selectedCurrencies} onToggle={onCurrencyToggle} />
     </View>
   )
 }

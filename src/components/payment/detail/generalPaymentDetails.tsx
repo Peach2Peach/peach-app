@@ -42,6 +42,13 @@ export const GeneralPaymentData = ({
             ))}
         </View>
       </View>
+      <View style={[tw`flex-row justify-between mt-2`]}>
+        <Text style={tw`text-black-2`}>{i18n('contract.summary.reference')}</Text>
+        <View style={[tw`flex-row items-center justify-end`, !paymentData.reference && tw`opacity-50`]}>
+          <Text style={tw`subtitle-1`}>{paymentData.reference || i18n('none')}</Text>
+          {copyable && <CopyAble value={paymentData.reference} style={tw`ml-2`} />}
+        </View>
+      </View>
     </View>
   )
 }
