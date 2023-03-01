@@ -71,6 +71,7 @@ export default ({ offerDraft, setOfferDraft, next }: SellViewProps): ReactElemen
     setOfferDraft((prev) => ({
       ...prev,
       meansOfPayment,
+      originalPaymentData: getSelectedPaymentDataIds().map(getPaymentData) as PaymentData[],
       paymentData,
     }))
     setMeansOfPaymentStore(meansOfPayment)
