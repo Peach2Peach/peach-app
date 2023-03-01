@@ -63,7 +63,7 @@ export const OpenTradeSeller = ({ contract }: TradeSummaryProps): ReactElement =
           />
         </View>
 
-        {storedPaymentData
+        {!!storedPaymentData
           && (contract.paymentMethod.includes('cash.') ? (
             <CashTradeDetails contract={contract} />
           ) : (
