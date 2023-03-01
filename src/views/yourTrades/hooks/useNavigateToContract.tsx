@@ -8,8 +8,8 @@ export const useNavigateToContract = (contract: ContractSummary) => {
   const navigation = useNavigation()
   const startRefund = useStartRefundOverlay()
 
-  return () => {
-    const [screen, params] = getNavigationDestinationForContract(contract)
+  return async () => {
+    const [screen, params] = await getNavigationDestinationForContract(contract)
     if (shouldOpenOverlay(contract.tradeStatus)) {
       const sellOffer = getOffer(contract.offerId) as SellOffer
       if (sellOffer) startRefund(sellOffer)

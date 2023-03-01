@@ -1,11 +1,14 @@
-import { getContract, getSellOfferIdFromContract } from '../../../utils/contract'
+import { getSellOfferIdFromContract } from '../../../utils/contract'
+import { getContract } from '../../../utils/peachAPI'
 
-export const getNavigationDestinationForContract = (contract: ContractSummary): [string, object | undefined] => {
+export const getNavigationDestinationForContract = async (
+  contract: Contract | ContractSummary,
+): Promise<[keyof RootStackParamList, object | undefined]> => {
   if (contract.tradeStatus === 'refundAddressRequired') {
     return ['setRefundWallet', { offerId: getSellOfferIdFromContract(contract) }]
   }
   if (contract.tradeStatus === 'rateUser') {
-    const fullContract = getContract(contract.id)
+    const [fullContract] = await getContract({ contractId: contract.id })
     if (fullContract) return ['tradeComplete', { contract: fullContract }]
   }
 
