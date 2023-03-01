@@ -10,12 +10,13 @@ const getContractSummariesQuery = async () => {
   return contracts || []
 }
 
-export const useContractSummaries = () => {
+export const useContractSummaries = (enabled = true) => {
   const [contracts, setContracts, getLastModified] = useTradeSummaryStore(
     (state) => [state.contracts, state.setContracts, state.getLastModified],
     shallow,
   )
   const { data, isLoading, error, refetch } = useQuery(['contractSummaries'], getContractSummariesQuery, {
+    enabled,
     initialData: contracts,
     initialDataUpdatedAt: getLastModified().getTime(),
     onSuccess: (result) => {
