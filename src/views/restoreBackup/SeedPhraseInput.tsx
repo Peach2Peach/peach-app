@@ -27,7 +27,6 @@ export const SeedPhraseInput = ({ style, index, setWords }: Props): ReactElement
       placeholder={`${index + 1}.`}
       value={word}
       style={style}
-      oneLineErrors
     />
   )
 }

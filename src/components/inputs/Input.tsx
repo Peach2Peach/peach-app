@@ -67,7 +67,6 @@ export type InputProps = ComponentProps &
     onBlur?: Function
     reference?: Ref<TextInput>
     enforceRequired?: boolean
-    oneLineErrors?: boolean
   }
 
 /**
@@ -106,7 +105,6 @@ export const Input = ({
   enforceRequired = false,
   theme = 'default',
   reference,
-  oneLineErrors = false,
   ...inputProps
 }: InputProps): ReactElement => {
   const colors = useMemo(() => themes[theme], [theme])
@@ -209,9 +207,7 @@ export const Input = ({
           ))}
         </View>
       </View>
-      <Text numberOfLines={oneLineErrors ? 1 : undefined} style={[tw`mt-1 ml-3 tooltip`, colors.error]}>
-        {showError ? errorMessage[0] : ' '}
-      </Text>
+      <Text style={[tw`mt-1 ml-3 tooltip`, colors.error]}>{showError ? errorMessage[0] : ' '}</Text>
     </View>
   )
 }
