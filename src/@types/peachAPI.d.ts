@@ -441,3 +441,7 @@ declare type PNData = {
 }
 
 declare type RefundSellOfferResponse = APISuccess
+
+declare type CheckReferralCodeResponse = {
+  valid: boolean
+}

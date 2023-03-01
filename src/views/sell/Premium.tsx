@@ -2,7 +2,7 @@ import React, { ReactElement, useEffect, useState } from 'react'
 import { View } from 'react-native'
 import shallow from 'zustand/shallow'
 
-import { Input, PremiumSlider, PrimaryButton, Text } from '../../components'
+import { Input, PremiumSlider, PrimaryButton, SatsFormat, Text } from '../../components'
 import { useMarketPrices } from '../../hooks'
 import { useSettingsStore } from '../../store/settingsStore'
 import tw from '../../styles/tailwind'
@@ -43,6 +43,15 @@ export default ({ offer, updateOffer, next }: SellViewProps): ReactElement => {
     <View style={tw`items-center flex-shrink h-full px-8 pb-7`}>
       <View style={tw`justify-center flex-grow`}>
         <Text style={tw`text-center h5`}>{i18n('sell.premium.title')}</Text>
+        <View style={tw`flex-row justify-center w-full`}>
+          <Text style={tw`pr-2 subtitle-1`}>{i18n('search.sellOffer')}</Text>
+          <SatsFormat
+            sats={offer.amount}
+            bitcoinLogoStyle={tw`w-3 h-3 mr-1`}
+            style={tw`subtitle-1`}
+            satsStyle={tw`font-normal body-s`}
+          />
+        </View>
         <View style={tw`flex-row items-center justify-center mt-8`}>
           <Text
             style={[

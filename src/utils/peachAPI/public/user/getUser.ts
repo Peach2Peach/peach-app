@@ -1,7 +1,7 @@
 import { API_URL } from '@env'
-import { RequestProps } from '..'
-import fetch, { getAbortWithTimeout } from '../../fetch'
-import { parseResponse } from '../parseResponse'
+import { RequestProps } from '../..'
+import fetch, { getAbortWithTimeout } from '../../../fetch'
+import { parseResponse } from '../../parseResponse'
 
 type GetUserProps = RequestProps & {
   userId: User['id']
