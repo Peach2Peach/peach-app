@@ -16,7 +16,8 @@ export const useContractSetup = () => {
   const route = useRoute<'contract'>()
   const { contractId } = route.params
 
-  const { contract, saveAndUpdate, isLoading, view, requiredAction, newOfferId } = useCommonContractSetup(contractId)
+  const { contract, saveAndUpdate, isLoading, view, requiredAction, newOfferId, refetch }
+    = useCommonContractSetup(contractId)
   const navigation = useNavigation()
   const showError = useShowErrorBanner()
   const { showConfirmOverlay } = useConfirmCancelTrade()
@@ -49,13 +50,16 @@ export const useContractSetup = () => {
 
   useEffect(() => {
     if (!contract || !view || isLoading) return
-
     if (isTradeComplete(contract) && !contract.disputeWinner && !contract.canceled) {
       if ((view === 'buyer' && !contract.ratingSeller) || (view === 'seller' && !contract.ratingBuyer)) {
-        navigation.replace('tradeComplete', { contract })
+        refetch().then(({ data }) => {
+          if (data) {
+            navigation.replace('tradeComplete', { contract: data })
+          }
+        })
       }
     }
-  }, [contract, isLoading, navigation, view])
+  }, [contract, isLoading, navigation, refetch, view])
 
   const postConfirmPaymentBuyer = useCallback(async () => {
     const [, err] = await confirmPayment({ contractId })

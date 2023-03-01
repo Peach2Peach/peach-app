@@ -139,5 +139,6 @@ export const useCommonContractSetup = (contractId: string) => {
     isLoading,
     view,
     requiredAction,
+    refetch,
   }
 }
