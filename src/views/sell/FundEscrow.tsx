@@ -37,7 +37,7 @@ export default (): ReactElement => {
             style={tw`mt-4`}
             address={escrow}
             amount={sellOffer.amount / SATSINBTC}
-            label={i18n('settings.escrow.paymentRequest.label') + ' ' + offerIdToHex(sellOffer.id!)}
+            label={i18n('settings.escrow.paymentRequest.label') + ' ' + offerIdToHex(sellOffer.id)}
           />
         </View>
       </PeachScrollView>
