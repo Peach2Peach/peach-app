@@ -1,6 +1,6 @@
 import pgp from '../../../init/pgp'
 import { saveOffer } from '../../../utils/offer'
-import { getOfferDetails, postBuyOffer } from '../../../utils/peachAPI'
+import { postBuyOffer } from '../../../utils/peachAPI'
 import { getAndUpdateTradingLimit } from './getAndUpdateTradingLimit'
 
 export const publishBuyOffer = async (offerDraft: BuyOfferDraft): Promise<[boolean, string | null]> => {
@@ -9,10 +9,7 @@ export const publishBuyOffer = async (offerDraft: BuyOfferDraft): Promise<[boole
 
   if (result) {
     getAndUpdateTradingLimit()
-    const [offer] = await getOfferDetails({ offerId: result.offerId })
-    if (offer) {
-      saveOffer({ ...offer, ...offerDraft })
-    }
+    saveOffer({ ...offerDraft, ...result })
     return [true, null]
   }
   return [false, err?.error || 'POST_OFFER_ERROR']

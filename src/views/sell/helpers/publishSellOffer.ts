@@ -1,7 +1,6 @@
 import pgp from '../../../init/pgp'
 import i18n from '../../../utils/i18n'
-import { isSellOffer } from '../../../utils/offer'
-import { getOfferDetails, postSellOffer } from '../../../utils/peachAPI'
+import { postSellOffer } from '../../../utils/peachAPI'
 import { getAndUpdateTradingLimit } from '../../buy/helpers/getAndUpdateTradingLimit'
 import { info } from './../../../utils/log'
 export const publishSellOffer = async (
@@ -24,11 +23,7 @@ export const publishSellOffer = async (
     info('Posted offer', result)
 
     getAndUpdateTradingLimit()
-    const [offer] = await getOfferDetails({ offerId: result.offerId })
-    if (offer && isSellOffer(offer)) {
-      return [true, { offer }, null]
-    }
-    return [true, { offer: { ...offerDraft, id: result.offerId } }, null]
+    return [true, { offer: { ...offerDraft, ...result } }, null]
   }
   return [false, null, i18n(err?.error || 'POST_OFFER_ERROR', ((err?.details as string[]) || []).join(', '))]
 }
