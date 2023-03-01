@@ -16,14 +16,14 @@ import { hasMopsConfigured } from '../../utils/offer'
 import { hashPaymentData, isValidPaymentData } from '../../utils/paymentMethod'
 import { BuyViewProps } from './BuyPreferences'
 
-const validate = (offer: BuyOfferDraft) =>
-  !!offer.amount
-  && hasMopsConfigured(offer)
+const validate = (offerDraft: BuyOfferDraft) =>
+  !!offerDraft.amount
+  && hasMopsConfigured(offerDraft)
   && getSelectedPaymentDataIds().map(getPaymentData)
     .filter(isDefined)
     .every(isValidPaymentData)
 
-export default ({ offer, updateOffer, next }: BuyViewProps): ReactElement => {
+export default ({ offerDraft, setOfferDraft, next }: BuyViewProps): ReactElement => {
   const [editing, setEditing] = useState(false)
   const [stepValid, setStepValid] = useState(false)
   const [setMeansOfPaymentStore] = useSettingsStore((state) => [state.setMeansOfPayment], shallow)
@@ -45,7 +45,7 @@ export default ({ offer, updateOffer, next }: BuyViewProps): ReactElement => {
         : [{ iconComponent: <HelpIcon />, onPress: showHelp }],
   })
   const [meansOfPayment, setMeansOfPayment] = useState<MeansOfPayment>(
-    offer.meansOfPayment || account.settings.meansOfPayment,
+    offerDraft.meansOfPayment || account.settings.meansOfPayment,
   )
 
   useEffect(() => {
@@ -60,16 +60,16 @@ export default ({ offer, updateOffer, next }: BuyViewProps): ReactElement => {
         return obj
       }, {} as Offer['paymentData'])
 
-    updateOffer({
-      ...offer,
+    setOfferDraft((prev) => ({
+      ...prev,
       meansOfPayment,
       paymentData,
       originalPaymentData: getSelectedPaymentDataIds().map(getPaymentData) as PaymentData[],
-    })
+    }))
     setMeansOfPaymentStore(meansOfPayment)
-  }, [meansOfPayment, setMeansOfPaymentStore, updateOffer])
+  }, [meansOfPayment, setMeansOfPaymentStore, setOfferDraft])
 
-  useEffect(() => setStepValid(validate(offer)), [offer, setStepValid])
+  useEffect(() => setStepValid(validate(offerDraft)), [offerDraft, setStepValid])
 
   return (
     <View style={tw`items-center flex-shrink h-full p-5 pb-7`}>

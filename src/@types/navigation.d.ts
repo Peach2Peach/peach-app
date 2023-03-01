@@ -36,7 +36,7 @@ declare type RootStackParamList = {
   setRefundWallet: {
     offerId: string
   }
-  offerPublished: { offerId: string; shouldGoBack?: boolean }
+  offerPublished: { isSellOffer: boolean; shouldGoBack?: boolean }
   search: { offerId: string }
   contract: {
     contractId: Contract['id']

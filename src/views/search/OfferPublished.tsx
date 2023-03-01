@@ -8,7 +8,7 @@ import i18n from '../../utils/i18n'
 import { useOfferPublishedSetup } from './hooks/useOfferPublishedSetup'
 
 export default (): ReactElement => {
-  const { shouldGoBack, goBack, goBackHome } = useOfferPublishedSetup()
+  const { shouldGoBack, buttonAction } = useOfferPublishedSetup()
 
   return (
     <View style={tw`items-center justify-between h-full px-6 pb-7`}>
@@ -19,7 +19,7 @@ export default (): ReactElement => {
           <Text style={tw`flex-shrink body-l text-primary-background-light`}>{i18n('offer.published.description')}</Text>
         </View>
       </View>
-      <PrimaryButton white narrow onPress={shouldGoBack ? goBack : goBackHome}>
+      <PrimaryButton white narrow onPress={buttonAction}>
         {i18n(shouldGoBack ? 'close' : 'goBackHome')}
       </PrimaryButton>
     </View>

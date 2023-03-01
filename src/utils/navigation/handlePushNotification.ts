@@ -50,7 +50,7 @@ export const handlePushNotification = async (
     if (shouldGoToSearch(remoteMessage.data.type, !!(offer?.matches && offer.matches.length > 0))) {
       navigationRef.navigate('search', { offerId })
     } else if (shouldGoToOfferPublished(remoteMessage.data.type)) {
-      navigationRef.navigate('offerPublished', { offerId })
+      navigationRef.navigate('offerPublished', { isSellOffer: true })
     } else {
       navigationRef.navigate('offer', { offerId })
     }

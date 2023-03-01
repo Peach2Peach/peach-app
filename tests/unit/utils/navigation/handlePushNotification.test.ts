@@ -146,7 +146,7 @@ describe('handlePushNotification', () => {
 
     await handlePushNotification(navigationRef, remoteMessage)
 
-    expect(navigationRef.navigate).toHaveBeenCalledWith('offerPublished', { offerId: sellOffer.id })
+    expect(navigationRef.navigate).toHaveBeenCalledWith('offerPublished', { isSellOffer: true })
   })
 
   it('navigates to offer when offerId is defined', async () => {

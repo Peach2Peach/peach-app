@@ -6,7 +6,7 @@ import i18n from '../../utils/i18n'
 import { BuyViewProps } from './BuyPreferences'
 import { useBuySummarySetup } from './hooks/useBuySummarySetup'
 
-export default ({ offer, updateOffer }: BuyViewProps): ReactElement => {
+export default ({ offerDraft, setOfferDraft }: BuyViewProps): ReactElement => {
   const {
     releaseAddress,
     walletLabel,
@@ -17,28 +17,28 @@ export default ({ offer, updateOffer }: BuyViewProps): ReactElement => {
     isPublishing,
     goToSetupPayoutWallet,
   } = useBuySummarySetup()
-  const publishBuyOffer = () => publishOffer(offer)
+  const publishBuyOffer = () => publishOffer(offerDraft)
 
   useEffect(() => {
-    if (releaseAddress) updateOffer({
-      ...offer,
+    if (releaseAddress) setOfferDraft((prev) => ({
+      ...prev,
       releaseAddress,
       message,
       messageSignature,
-    })
-  }, [releaseAddress, message, messageSignature, updateOffer])
+    }))
+  }, [releaseAddress, message, messageSignature, setOfferDraft])
 
   useEffect(() => {
-    if (walletLabel) updateOffer({
-      ...offer,
+    if (walletLabel) setOfferDraft((prev) => ({
+      ...prev,
       walletLabel,
-    })
-  }, [walletLabel, updateOffer])
+    }))
+  }, [walletLabel, setOfferDraft])
 
   return (
     <PeachScrollView contentContainerStyle={tw`items-center justify-center flex-grow px-8 pb-7`}>
       <View style={tw`justify-center flex-grow`}>
-        <BuyOfferSummary offer={offer} />
+        <BuyOfferSummary offer={offerDraft} />
       </View>
       <PrimaryButton
         testID="navigation-next"
