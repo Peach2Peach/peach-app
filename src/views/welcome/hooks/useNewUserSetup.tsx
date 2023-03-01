@@ -1,25 +1,47 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
+import { MessageContext } from '../../../contexts/message'
 import { useNavigation, useValidatedState } from '../../../hooks'
+import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
+import { checkReferralCode as checkReferralCodeAPI } from '../../../utils/peachAPI'
 
 const referralCodeRules = { referralCode: true }
 
 export const useNewUserSetup = () => {
-  const navigation = useNavigation()
-  const [referralCode, setReferralCode, referralCodeIsValid, referralCodeErrors] = useValidatedState<string>(
-    '',
-    referralCodeRules,
-  )
-  const [displayErrors, setDisplayErrors] = useState(false)
+  const [, updateMessage] = useContext(MessageContext)
 
-  const validate = () => {
-    setDisplayErrors(true)
-    return referralCodeIsValid
+  const navigation = useNavigation()
+  const showError = useShowErrorBanner()
+  const [referralCode, setReferralCode, referralCodeIsValid] = useValidatedState<string>('', referralCodeRules)
+  const [willUseReferralCode, setWillUseReferralCode] = useState(false)
+
+  const updateReferralCode = (code: string) => {
+    if (referralCode !== code) setWillUseReferralCode(false)
+    setReferralCode(code)
+  }
+
+  const checkReferralCode = async (code: string) => {
+    setWillUseReferralCode(false)
+    const [result, error] = await checkReferralCodeAPI({ code })
+    if (!result || error) return showError(error?.error)
+    setWillUseReferralCode(result.valid)
+    return updateMessage({
+      msgKey: result.valid ? 'referrals.myFavoriteCode' : 'referrals.codeNotFound',
+      level: 'DEFAULT',
+    })
   }
 
   const goToNewUser = () => {
-    if (validate()) navigation.navigate('newUser', { referralCode })
+    navigation.navigate('newUser', { referralCode: willUseReferralCode ? referralCode : undefined })
   }
   const goToRestoreBackup = () => navigation.navigate('restoreBackup')
 
-  return { referralCode, setReferralCode, referralCodeErrors, displayErrors, goToNewUser, goToRestoreBackup }
+  return {
+    referralCode,
+    setReferralCode: updateReferralCode,
+    referralCodeIsValid,
+    checkReferralCode,
+    willUseReferralCode,
+    goToNewUser,
+    goToRestoreBackup,
+  }
 }
