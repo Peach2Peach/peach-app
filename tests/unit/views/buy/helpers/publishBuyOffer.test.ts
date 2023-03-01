@@ -1,26 +1,26 @@
-import { publishBuyOffer } from '../publishBuyOffer'
+import { publishBuyOffer } from '../../../../../src/views/buy/helpers/publishBuyOffer'
 
 const pgpMock = jest.fn().mockResolvedValue(undefined)
-jest.mock('../../../../../init/pgp', () => ({
+jest.mock('../../../../../src/init/pgp', () => ({
   __esModule: true,
   default: (...args: any[]) => pgpMock(...args),
 }))
 
 const saveOfferMock = jest.fn()
-jest.mock('../../../../../utils/offer', () => ({
+jest.mock('../../../../../src/utils/offer', () => ({
   saveOffer: (...args: any[]) => saveOfferMock(...args),
 }))
 
 const getOfferDetailsMock = jest.fn().mockResolvedValue([{ oldOfferId: '21' } as BuyOffer])
 // @ts-expect-error
 const postBuyOfferMock = jest.fn().mockResolvedValue([{ offerId: '21' } as BuyOffer])
-jest.mock('../../../../../utils/peachAPI', () => ({
+jest.mock('../../../../../src/utils/peachAPI', () => ({
   getOfferDetails: (...args: any[]) => getOfferDetailsMock(...args),
   postBuyOffer: (...args: any[]) => postBuyOfferMock(...args),
 }))
 
 const getAndUpdateTradingLimitMock = jest.fn()
-jest.mock('../../getAndUpdateTradingLimit', () => ({
+jest.mock('../../../../../src/views/buy/helpers/getAndUpdateTradingLimit', () => ({
   getAndUpdateTradingLimit: (...args: any[]) => getAndUpdateTradingLimitMock(...args),
 }))
 

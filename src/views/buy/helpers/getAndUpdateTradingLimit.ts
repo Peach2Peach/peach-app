@@ -1,5 +1,5 @@
-import { updateTradingLimit } from '../../../../utils/account'
-import { getTradingLimit } from '../../../../utils/peachAPI'
+import { updateTradingLimit } from '../../../utils/account'
+import { getTradingLimit } from '../../../utils/peachAPI'
 
 export const getAndUpdateTradingLimit = () =>
   getTradingLimit({}).then(([tradingLimit]) => {
