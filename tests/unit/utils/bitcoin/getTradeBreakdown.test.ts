@@ -1,10 +1,14 @@
 import { getTradeBreakdown } from '../../../../src/utils/bitcoin'
 
-const fromBase64Mock = jest.fn()
+const fromHexMock = jest.fn()
+const fromOutputScriptMock = jest.fn((script) => (script === 'peach' ? 'peach' : 'releaseAddress'))
 jest.mock('bitcoinjs-lib', () => ({
   ...jest.requireActual('bitcoinjs-lib'),
-  Psbt: {
-    fromBase64: () => fromBase64Mock(),
+  Transaction: {
+    fromHex: () => fromHexMock(),
+  },
+  address: {
+    fromOutputScript: (...args) => fromOutputScriptMock(...args),
   },
 }))
 
@@ -16,70 +20,54 @@ jest.mock('../../../../src/utils/wallet', () => ({
 describe('getTradeBreakdown', () => {
   const releaseTransaction = 'releaseTransaction'
   const releaseAddress = 'releaseAddress'
-  it('should return the correct breakdown', () => {
+  it('should handle no release output', () => {
     const inputAmount = 100
-    const psbt = {
-      txOutputs: [
-        {
-          address: 'address1',
-          value: 20,
-        },
-        {
-          address: releaseAddress,
-          value: 30,
-        },
-      ],
-    }
-    fromBase64Mock.mockReturnValue(psbt)
-    const breakdown = getTradeBreakdown(releaseTransaction, releaseAddress, inputAmount)
-    expect(breakdown).toEqual({
-      totalAmount: inputAmount,
-      peachFee: 20,
-      networkFee: 50,
-      amountReceived: 30,
-    })
-  })
-
-  it('should return 0 if the release address is not found', () => {
-    const inputAmount = 100
-    const psbt = {
-      txOutputs: [
-        {
-          address: 'address1',
-          value: 10,
-        },
-        {
-          address: 'address2',
-          value: 20,
-        },
-      ],
-    }
-    fromBase64Mock.mockReturnValue(psbt)
-    const breakdown = getTradeBreakdown(releaseTransaction, releaseAddress, inputAmount)
-    expect(breakdown).toEqual({
+    fromHexMock.mockReturnValue({ outs: [] })
+    expect(getTradeBreakdown(releaseTransaction, releaseAddress, inputAmount)).toEqual({
       totalAmount: 0,
       peachFee: 0,
       networkFee: 0,
       amountReceived: 0,
     })
   })
-  it('should handle the case where there is no peach fee', () => {
+
+  it('should handle no peach fee output', () => {
     const inputAmount = 100
-    const psbt = {
-      txOutputs: [
+    fromHexMock.mockReturnValue({
+      outs: [
         {
-          address: releaseAddress,
-          value: 30,
+          script: 'script',
+          value: 100,
         },
       ],
-    }
-    fromBase64Mock.mockReturnValue(psbt)
-    const breakdown = getTradeBreakdown(releaseTransaction, releaseAddress, inputAmount)
-    expect(breakdown).toEqual({
-      totalAmount: inputAmount,
+    })
+    expect(getTradeBreakdown(releaseTransaction, releaseAddress, inputAmount)).toEqual({
+      totalAmount: 100,
       peachFee: 0,
-      networkFee: 70,
-      amountReceived: 30,
+      networkFee: 0,
+      amountReceived: 100,
+    })
+  })
+
+  it('should return correct breakdown', () => {
+    const inputAmount = 120
+    fromHexMock.mockReturnValue({
+      outs: [
+        {
+          script: 'peach',
+          value: 10,
+        },
+        {
+          script: 'releaseAddress',
+          value: 100,
+        },
+      ],
+    })
+    expect(getTradeBreakdown(releaseTransaction, releaseAddress, inputAmount)).toEqual({
+      totalAmount: 120,
+      peachFee: 10,
+      networkFee: 10,
+      amountReceived: 100,
     })
   })
 })
