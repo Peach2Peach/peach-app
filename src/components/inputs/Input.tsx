@@ -161,6 +161,7 @@ export const Input = ({
           disabled ? colors.borderDisabled : colors.border,
           showError && colors.bgError,
           showError && colors.borderError,
+          showError ? tw`border-2` : tw`my-px`,
           style,
         ]}
       >
