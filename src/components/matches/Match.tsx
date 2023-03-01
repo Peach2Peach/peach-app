@@ -89,7 +89,7 @@ export const Match = ({ match, offer }: MatchProps): ReactElement => {
               </>
             )}
           </View>
-          {showMatchedCard && isBuyOffer(offer) && (
+          {isMatched && isBuyOffer(offer) && (
             <>
               <View
                 style={tw`absolute top-0 left-0 w-full h-full overflow-hidden opacity-75 rounded-t-xl`}
