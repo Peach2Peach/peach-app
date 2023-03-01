@@ -44,8 +44,13 @@ export default ({ offer, updateOffer, next }: SellViewProps): ReactElement => {
       <View style={tw`justify-center flex-grow`}>
         <Text style={tw`text-center h5`}>{i18n('sell.premium.title')}</Text>
         <View style={tw`flex-row justify-center w-full`}>
-          <Text style={tw`pr-2 leading-normal subtitle-1`}>{i18n('search.sellOffer')}</Text>
-          <SatsFormat sats={offer.amount} style={tw`leading-normal subtitle-1`} />
+          <Text style={tw`pr-2 subtitle-1`}>{i18n('search.sellOffer')}</Text>
+          <SatsFormat
+            sats={offer.amount}
+            bitcoinLogoStyle={tw`w-3 h-3 mr-1`}
+            style={tw`subtitle-1`}
+            satsStyle={tw`font-normal body-s`}
+          />
         </View>
         <View style={tw`flex-row items-center justify-center mt-8`}>
           <Text
