@@ -30,7 +30,7 @@ export const useWarningOverlay = (id: WarningType): WarningContentWithAction => 
   }
   const actions: Record<WarningType, Action> = {
     backups: {
-      icon: 'arrowLeftCircle',
+      icon: 'arrowRightCircle',
       label: i18n('warning.backup.action'),
       callback: () => {
         navigation.navigate('backups')
