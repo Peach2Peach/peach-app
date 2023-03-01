@@ -32,7 +32,7 @@ export const useBuySummarySetup = () => {
 
   const publishOffer = async (offerDraft: BuyOfferDraft) => {
     setIsPublishing(true)
-    const [isOfferPublished, errorMessage] = await publishBuyOffer(offerDraft)
+    const { isOfferPublished, errorMessage } = await publishBuyOffer(offerDraft)
     setIsPublishing(false)
 
     if (!isOfferPublished) {

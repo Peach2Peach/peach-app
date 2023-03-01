@@ -5,7 +5,7 @@ import { getAndUpdateTradingLimit } from '../../buy/helpers/getAndUpdateTradingL
 import { info } from './../../../utils/log'
 export const publishSellOffer = async (
   offerDraft: SellOfferDraft,
-): Promise<[boolean, { offer: SellOffer } | null, string | null]> => {
+): Promise<{ isPublished: boolean; navigationParams: { offer: SellOffer } | null; errorMessage: string | null }> => {
   info('Posting offer ', JSON.stringify(offerDraft))
 
   await pgp() // make sure pgp has been sent
@@ -23,7 +23,11 @@ export const publishSellOffer = async (
     info('Posted offer', result)
 
     getAndUpdateTradingLimit()
-    return [true, { offer: { ...offerDraft, ...result } }, null]
+    return { isPublished: true, navigationParams: { offer: { ...offerDraft, ...result } }, errorMessage: null }
   }
-  return [false, null, i18n(err?.error || 'POST_OFFER_ERROR', ((err?.details as string[]) || []).join(', '))]
+  return {
+    isPublished: false,
+    navigationParams: null,
+    errorMessage: i18n(err?.error || 'POST_OFFER_ERROR', ((err?.details as string[]) || []).join(', ')),
+  }
 }

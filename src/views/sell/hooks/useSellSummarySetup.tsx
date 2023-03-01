@@ -26,7 +26,7 @@ export const useSellSummarySetup = () => {
 
   const publishOffer = async (offerDraft: SellOfferDraft) => {
     setIsPublishing(true)
-    const [isPublished, navigationParams, errorMessage] = await publishSellOffer(offerDraft)
+    const { isPublished, navigationParams, errorMessage } = await publishSellOffer(offerDraft)
     if (isPublished && navigationParams) {
       navigation.replace('fundEscrow', navigationParams)
     } else if (errorMessage) {

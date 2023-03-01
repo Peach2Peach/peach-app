@@ -36,43 +36,29 @@ describe('publishBuyOffer', () => {
     await publishBuyOffer({} as BuyOfferDraft)
     expect(postBuyOfferMock).toHaveBeenCalled()
   })
-  it('should call getAndUpdateTradingLimit if there is no error', async () => {
+  it('should call getAndUpdateTradingLimit if there is a result', async () => {
     await publishBuyOffer({} as BuyOfferDraft)
     expect(getAndUpdateTradingLimitMock).toHaveBeenCalled()
   })
-  it('should call getOfferDetails with the id from the result', async () => {
-    await publishBuyOffer({} as BuyOfferDraft)
-    expect(getOfferDetailsMock).toHaveBeenCalledWith({ offerId: '21' })
-  })
-  it('should not call getOfferDetails if there is no result', async () => {
-    postBuyOfferMock.mockResolvedValueOnce([undefined, { error: 'error' }])
-    await publishBuyOffer({} as BuyOfferDraft)
-    expect(getOfferDetailsMock).not.toHaveBeenCalled()
-  })
-  it('should call saveOffer if the offer exists', async () => {
+  it('should call saveOffer if there is a result', async () => {
     await publishBuyOffer({} as BuyOfferDraft)
     expect(saveOfferMock).toHaveBeenCalled()
   })
-  it('should not call saveOffer if the offer doesn\'t exist', async () => {
-    getOfferDetailsMock.mockResolvedValueOnce([undefined])
-    await publishBuyOffer({} as BuyOfferDraft)
-    expect(saveOfferMock).not.toHaveBeenCalled()
-  })
-  it('should return [true, null] if postBuyOffer returns a result', async () => {
+  it('should return true if postBuyOffer returns a result', async () => {
     postBuyOfferMock.mockResolvedValueOnce([{} as BuyOffer])
-    const [result, err] = await publishBuyOffer({} as BuyOfferDraft)
+    const { isOfferPublished: result, errorMessage: err } = await publishBuyOffer({} as BuyOfferDraft)
     expect(result).toBe(true)
     expect(err).toBe(null)
   })
   it('should return the error if it exists and there is no result', async () => {
     postBuyOfferMock.mockResolvedValueOnce([undefined, { error: 'error' }])
-    const [result, err] = await publishBuyOffer({} as BuyOfferDraft)
+    const { isOfferPublished: result, errorMessage: err } = await publishBuyOffer({} as BuyOfferDraft)
     expect(result).toBe(false)
     expect(err).toBe('error')
   })
   it('should return POST_OFFER_ERROR if there is no error and no result', async () => {
     postBuyOfferMock.mockResolvedValueOnce([undefined])
-    const [result, err] = await publishBuyOffer({} as BuyOfferDraft)
+    const { isOfferPublished: result, errorMessage: err } = await publishBuyOffer({} as BuyOfferDraft)
     expect(result).toBe(false)
     expect(err).toBe('POST_OFFER_ERROR')
   })

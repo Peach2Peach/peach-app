@@ -69,7 +69,7 @@ describe('publishSellOffer', () => {
   test('if there is no result from postSellOffer it should return an errorMessage', async () => {
     postSellOfferMock.mockResolvedValue([undefined])
     // @ts-ignore
-    const [result, offer, error] = await publishSellOffer(offerDraft)
+    const { isPublished: result, navigationParams: offer, errorMessage: error } = await publishSellOffer(offerDraft)
 
     expect(result).toBeFalsy()
     expect(offer).toBeNull()
@@ -77,60 +77,28 @@ describe('publishSellOffer', () => {
   })
 
   it('should call info with "Posted offer" and result', async () => {
-    postSellOfferMock.mockResolvedValue([{ offerId: 'someOfferId' }, undefined])
-    getOfferDetailsMock.mockResolvedValue([{ ...offerDraft, id: 'someOfferId' }])
+    postSellOfferMock.mockResolvedValue([{ ...offerDraft, id: 'someOfferId' } as SellOffer, undefined])
     // @ts-ignore
     await publishSellOffer(offerDraft)
 
-    expect(infoMock).toHaveBeenCalledWith('Posted offer', { offerId: 'someOfferId' })
+    expect(infoMock).toHaveBeenCalledWith('Posted offer', { ...offerDraft, id: 'someOfferId' })
   })
 
   it('should call getAndUpdateTradingLimit', async () => {
-    postSellOfferMock.mockResolvedValue([{ offerId: 'someOfferId' }, undefined])
+    postSellOfferMock.mockResolvedValue([offerDraft as SellOffer, undefined])
     // @ts-ignore
     await publishSellOffer(offerDraft)
 
     expect(getAndUpdateTradingLimitMock).toHaveBeenCalled()
   })
 
-  it('should call getOfferDetails with offerId', async () => {
-    postSellOfferMock.mockResolvedValue([{ offerId: 'someOfferId' }, undefined])
+  it('should return offer', async () => {
+    postSellOfferMock.mockResolvedValue([{ ...offerDraft, id: 'someOfferId' } as SellOffer, undefined])
     // @ts-ignore
-    await publishSellOffer(offerDraft)
-
-    expect(getOfferDetailsMock).toHaveBeenCalledWith({ offerId: 'someOfferId' })
-  })
-
-  it('should return offer if it is a sell offer', async () => {
-    postSellOfferMock.mockResolvedValue([{ offerId: 'someOfferId' }, undefined])
-    getOfferDetailsMock.mockResolvedValue([{ ...offerDraft, id: 'someOfferId' }])
-    isSellOfferMock.mockReturnValue(true)
-    // @ts-ignore
-    const [result, offer, error] = await publishSellOffer(offerDraft)
+    const { isPublished: result, navigationParams: offer, errorMessage: error } = await publishSellOffer(offerDraft)
 
     expect(result).toBeTruthy()
     expect(offer).toEqual({ offer: { ...offerDraft, id: 'someOfferId' } })
     expect(error).toBeNull()
-  })
-
-  it('should return the offerdraft with an id as a default', async () => {
-    postSellOfferMock.mockResolvedValue([{ offerId: 'someOfferId' }, undefined])
-    getOfferDetailsMock.mockResolvedValue([undefined])
-    isSellOfferMock.mockReturnValue(true)
-    // @ts-ignore
-    const [result, offer, error] = await publishSellOffer(offerDraft)
-
-    expect(result).toBeTruthy()
-    expect(offer).toEqual({ offer: { ...offerDraft, id: 'someOfferId' } })
-    expect(error).toBeNull()
-
-    getOfferDetailsMock.mockResolvedValue([{ ...offerDraft, id: 'someOfferId' }])
-    isSellOfferMock.mockReturnValue(false)
-    // @ts-ignore
-    const [result2, offer2, error2] = await publishSellOffer(offerDraft)
-
-    expect(result2).toBeTruthy()
-    expect(offer2).toEqual({ offer: { ...offerDraft, id: 'someOfferId' } })
-    expect(error2).toBeNull()
   })
 })
