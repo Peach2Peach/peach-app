@@ -49,6 +49,7 @@ import TradeComplete from './tradeComplete/TradeComplete'
 import TransactionDetails from './wallet/TransactionDetails'
 import TransactionHistory from './wallet/TransactionHistory'
 import Wallet from './wallet/Wallet'
+import RedesignWelcome from './welcome/RedesignWelcome'
 import Welcome from './welcome/Welcome'
 import YourTrades from './yourTrades/YourTrades'
 
@@ -81,6 +82,8 @@ const onboarding: ViewType[] = [
   { name: 'newUser', component: NewUser, ...onboardingConfig },
   { name: 'restoreBackup', component: RestoreBackup, ...onboardingConfig },
 ]
+
+const redesignWelcome: ViewType[] = [{ name: 'redesignWelcome', component: RedesignWelcome, ...onboardingConfig }]
 
 const home: ViewType[] = [{ name: 'home', component: Buy, ...defaultConfig }]
 
@@ -164,19 +167,21 @@ const testViews: ViewType[] = [
   { name: 'testViewPNs', component: TestViewPNs, ...defaultConfig },
 ]
 
-export const getViews = (hasAccount: boolean): ViewType[] =>
-  hasAccount
-    ? [
-      ...home,
-      ...wallet,
-      ...buyFlow,
-      ...sellFlow,
-      ...search,
-      ...trade,
-      ...tradeHistory,
-      ...publicProfile,
-      ...contact(hasAccount),
-      ...settings,
-      ...testViews,
-    ]
-    : [...onboarding, ...contact(hasAccount)]
+export const getViews = (hasAccount: boolean, hasSeenRedesignWelcome: boolean): ViewType[] =>
+  !hasSeenRedesignWelcome
+    ? [...redesignWelcome]
+    : hasAccount
+      ? [
+        ...home,
+        ...wallet,
+        ...buyFlow,
+        ...sellFlow,
+        ...search,
+        ...trade,
+        ...tradeHistory,
+        ...publicProfile,
+        ...contact(hasAccount),
+        ...settings,
+        ...testViews,
+      ]
+      : [...onboarding, ...contact(hasAccount)]

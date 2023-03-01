@@ -1,5 +1,5 @@
 /* eslint-disable max-lines */
-import React, { ReactElement, useCallback, useEffect, useReducer, useRef, useState } from 'react'
+import React, { ReactElement, useCallback, useEffect, useMemo, useReducer, useRef, useState } from 'react'
 import { Animated, Dimensions, SafeAreaView, View } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
@@ -55,6 +55,7 @@ import { screenTransition } from './utils/layout/screenTransition'
 import { error, info } from './utils/log'
 import { marketPrices } from './utils/peachAPI/public/market'
 import { compatibilityCheck, isIOS, linkToAppStore } from './utils/system'
+import { getFirstScreen } from './utils/navigation'
 
 enableScreens()
 
@@ -140,13 +141,16 @@ const App: React.FC = () => {
   const { width } = Dimensions.get('window')
   const slideInAnim = useRef(new Animated.Value(-width)).current
   const navigationRef = useNavigationContainerRef() as NavigationContainerRefWithCurrent<RootStackParamList>
-  const [minAppVersion, latestAppVersion] = useConfigStore(
-    (state) => [state.minAppVersion, state.latestAppVersion],
+  const [minAppVersion, latestAppVersion, hasSeenRedesignWelcome, setSeenRedesignWelcome] = useConfigStore(
+    (state) => [state.minAppVersion, state.latestAppVersion, state.hasSeenRedesignWelcome, state.setSeenRedesignWelcome],
     shallow,
   )
   const [currentPage, setCurrentPage] = useState<keyof RootStackParamList>()
   const getCurrentPage = useCallback(() => currentPage, [currentPage])
-  const views = getViews(!!account?.publicKey)
+  const views = useMemo(
+    () => getViews(!!account?.publicKey, hasSeenRedesignWelcome),
+    [account?.publicKey, hasSeenRedesignWelcome],
+  )
   const showFooter = !!views.find((v) => v.name === currentPage)?.showFooter
   const backgroundConfig = views.find((v) => v.name === currentPage)?.background
 
@@ -162,7 +166,6 @@ const App: React.FC = () => {
       },
     })
   })
-
   setUnhandledPromiseRejectionTracker((id, err) => {
     error(err)
     const msgKey = (err as Error).message === 'Network request failed' ? 'NETWORK_ERROR' : (err as Error).message
@@ -200,7 +203,8 @@ const App: React.FC = () => {
           },
         })
       }
-      setCurrentPage(!!account?.publicKey ? 'home' : 'welcome')
+      // setSeenRedesignWelcome(false)
+      setCurrentPage(getFirstScreen(hasSeenRedesignWelcome))
       await initialNavigation(navigationRef, updateMessage)
       requestUserPermissions()
 
