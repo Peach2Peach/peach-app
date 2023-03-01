@@ -28,7 +28,7 @@ export const DetailADVCash = ({ paymentData, copyable, style }: PaymentTemplateP
       <Text style={tw`text-black-2`}>{i18n('contract.summary.reference')}</Text>
       <View style={[tw`flex-row items-center justify-end`, !paymentData.reference && tw`opacity-50`]}>
         <Text style={tw`subtitle-1`}>{paymentData.reference || i18n('none')}</Text>
-        {copyable && <CopyAble value={paymentData.reference} disabled={!paymentData.reference} style={tw`ml-2`} />}
+        {copyable && <CopyAble value={paymentData.reference} style={tw`ml-2`} />}
       </View>
     </View>
   </View>
