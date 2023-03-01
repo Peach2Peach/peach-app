@@ -38,7 +38,7 @@ export default (): ReactElement => {
 
   useEffect(() => {
     checkShowRedesignWelcome()
-  }, [])
+  }, [checkShowRedesignWelcome])
 
   return (
     <View style={tw`flex h-full`} testID="welcome">
