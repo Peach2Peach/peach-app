@@ -1,4 +1,4 @@
-import { getUserPrivate } from './../../../utils/peachAPI/private/user/getUserPrivate'
+import { getUserPrivate } from './../../../utils/peachAPI'
 import { settingsStore } from '../../../store/settingsStore'
 
 export const checkUsedReferralCode = async (publicKey: string) => {
