@@ -58,6 +58,45 @@ export const useConfirmCancelTrade = () => {
     [closeOverlay, navigation, showError, showLoading, updateOverlay],
   )
 
+  const cancelSellerSuccess = useCallback(
+    (contract: Contract) => {
+      navigation.replace('contract', { contractId: contract.id })
+      saveContract({
+        ...contract,
+        cancelConfirmationDismissed: false,
+        cancelationRequested: true,
+        cancelConfirmationPending: true,
+      })
+    },
+    [navigation],
+  )
+
+  const patchSellOfferWithRefundTx = useCallback(
+    async (contract: Contract, refundPSBT: string) => {
+      const sellOffer = getSellOfferFromContract(contract)
+      const { isValid, psbt, err: checkRefundPSBTError } = checkRefundPSBT(refundPSBT, sellOffer)
+      if (isValid && psbt) {
+        const signedPSBT = signPSBT(psbt, sellOffer, false)
+        const [patchOfferResult, patchOfferError] = await patchOffer({
+          offerId: sellOffer.id,
+          refundTx: signedPSBT.toBase64(),
+        })
+        if (patchOfferResult) {
+          saveOffer({
+            ...sellOffer,
+            refundTx: psbt.toBase64(),
+          })
+          cancelSellerSuccess(contract)
+        } else if (patchOfferError) {
+          showError(patchOfferError?.error)
+        }
+      } else if (checkRefundPSBTError) {
+        showError(checkRefundPSBTError)
+      }
+    },
+    [cancelSellerSuccess, showError],
+  )
+
   const cancelSeller = useCallback(
     async (contract: Contract) => {
       showLoading()
@@ -73,39 +112,18 @@ export const useConfirmCancelTrade = () => {
         })
       }
 
-      if (result?.psbt) {
-        const sellOffer = getSellOfferFromContract(contract)
-        const { isValid, psbt, err: checkRefundPSBTError } = checkRefundPSBT(result.psbt, sellOffer)
-        if (isValid && psbt) {
-          const signedPSBT = signPSBT(psbt, sellOffer, false)
-          const [patchOfferResult, patchOfferError] = await patchOffer({
-            offerId: sellOffer.id,
-            refundTx: signedPSBT.toBase64(),
-          })
-          if (patchOfferResult) {
-            navigation.replace('contract', { contractId: contract.id })
-            saveOffer({
-              ...sellOffer,
-              refundTx: psbt.toBase64(),
-            })
-            saveContract({
-              ...contract,
-              cancelConfirmationDismissed: false,
-              cancelationRequested: true,
-              cancelConfirmationPending: true,
-            })
-          } else if (patchOfferError) {
-            showError(patchOfferError?.error)
-          }
-        } else if (checkRefundPSBTError) {
-          showError(checkRefundPSBTError)
+      if (result?.success) {
+        if (result.psbt) {
+          await patchSellOfferWithRefundTx(contract, result.psbt)
+        } else {
+          cancelSellerSuccess(contract)
         }
       } else if (err) {
         showError(err?.error)
       }
       closeOverlay()
     },
-    [closeOverlay, navigation, showError, showLoading],
+    [showLoading, closeOverlay, patchSellOfferWithRefundTx, cancelSellerSuccess, showError],
   )
 
   const showConfirmOverlay = useCallback(
