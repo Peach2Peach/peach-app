@@ -26,12 +26,13 @@ export default (): ReactElement => {
       <View>
         <Text style={tw`text-center h4 text-primary-background-light`}>{i18n('welcome.letsGetStarted.title')}</Text>
         <Text style={tw`mt-4 text-center text-primary-background-light`}>{i18n('newUser.referralCode')}</Text>
-        <View style={tw`flex-row items-center`}>
+        <View style={tw`flex-row items-center justify-center`}>
           <View style={tw`h-14 mr-2`}>
             <Input
               testID="newUser-referralCode"
               style={tw`w-40 mt-2`}
               theme="inverted"
+              maxLength={16}
               placeholder={i18n('form.optional').toUpperCase()}
               onChange={setReferralCode}
               onSubmit={setReferralCode}
@@ -43,6 +44,7 @@ export default (): ReactElement => {
             white
             disabled={willUseReferralCode || !referralCode || !referralCodeIsValid}
             onPress={checkCode}
+            style={tw`w-20`}
           >
             {i18n(willUseReferralCode ? 'referrals.used' : 'referrals.use')}
           </PrimaryButton>
