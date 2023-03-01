@@ -25,6 +25,7 @@ type SettingsStore = Settings & {
   setPeachWalletActive: (peachWalletActive: boolean) => void
   togglePeachWallet: () => void
   setFeeRate: (feeRate: number | 'fastestFee' | 'halfHourFee' | 'hourFee' | 'economyFee') => void
+  setUsedReferralCode: (usedReferralCode: boolean) => void
 }
 
 export const settingsStorage = createStorage('settings')
@@ -55,6 +56,7 @@ export const settingsStore = createStore(
       setPeachWalletActive: (peachWalletActive) => set((state) => ({ ...state, peachWalletActive })),
       togglePeachWallet: () => get().setPeachWalletActive(!get().peachWalletActive),
       setFeeRate: (feeRate) => set((state) => ({ ...state, feeRate })),
+      setUsedReferralCode: (usedReferralCode) => set((state) => ({ ...state, usedReferralCode })),
     }),
     {
       name: 'settings',
