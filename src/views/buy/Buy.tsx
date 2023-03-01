@@ -48,7 +48,7 @@ export default (): ReactElement => {
 
   useEffect(() => {
     checkShowRedesignWelcome()
-  }, [])
+  }, [checkShowRedesignWelcome])
 
   const updateStore = useCallback(
     debounce((min: number, max: number) => {
