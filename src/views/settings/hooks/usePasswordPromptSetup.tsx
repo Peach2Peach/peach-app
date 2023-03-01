@@ -1,5 +1,5 @@
-import React, { useMemo, useRef, useState } from 'react'
-import { Keyboard, TextInput } from 'react-native'
+import React, { useMemo, useState } from 'react'
+import { Keyboard } from 'react-native'
 import shallow from 'zustand/shallow'
 
 import { HelpIcon } from '../../../components/icons'
@@ -14,8 +14,8 @@ const passwordRules = { required: true, password: true }
 export const usePasswordPromptSetup = (onSuccess: () => void) => {
   const navigation = useNavigation()
 
-  const [showBackupReminder, setShowBackupReminder, lastBackupDate, setLastBackupDate] = useSettingsStore(
-    (state) => [state.showBackupReminder, state.setShowBackupReminder, state.lastBackupDate, state.setLastBackupDate],
+  const [setShowBackupReminder, setLastBackupDate] = useSettingsStore(
+    (state) => [state.setShowBackupReminder, state.setLastBackupDate],
     shallow,
   )
   const showPopup = useShowHelp('yourPassword')
@@ -40,8 +40,6 @@ export const usePasswordPromptSetup = (onSuccess: () => void) => {
 
     Keyboard.dismiss()
 
-    const previousDate = lastBackupDate || Date.now()
-    const previousShowBackupReminder = showBackupReminder
     setIsBackingUp(true)
     setLastBackupDate(Date.now())
     setShowBackupReminder(false)
@@ -49,8 +47,6 @@ export const usePasswordPromptSetup = (onSuccess: () => void) => {
       password,
       onSuccess: () => {
         setIsBackingUp(false)
-        setLastBackupDate(Date.now())
-        setShowBackupReminder(false)
         onSuccess()
         navigation.navigate('backupCreated')
       },
