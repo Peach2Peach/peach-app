@@ -54,7 +54,7 @@ export const Message = ({ level, msgKey, bodyArgs = [], action, onClose, style }
     <View style={[tw`flex items-center justify-center px-4 pt-4 pb-2 m-6 rounded-2xl`, levelColorMap.bg[level], style]}>
       <View style={tw`p-2`}>
         <View style={tw`flex-row items-center justify-center`}>
-          {!!icon && <Icon id={icon} style={tw`w-5 h-5 mr-2 -mt-1`} color={levelColorMap.text[level].color} />}
+          {!!icon && <Icon id={icon} style={tw`w-5 h-5 mr-2`} color={levelColorMap.text[level].color} />}
           {!!title && <Text style={[tw`text-center h6`, levelColorMap.text[level]]}>{title}</Text>}
         </View>
         {!!message && (
