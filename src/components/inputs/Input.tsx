@@ -161,7 +161,7 @@ export const Input = ({
           disabled ? colors.borderDisabled : colors.border,
           showError && colors.bgError,
           showError && colors.borderError,
-          showError && tw`border-2`,
+          showError ? tw`border-2` : tw`my-px`,
           style,
         ]}
       >
@@ -208,7 +208,6 @@ export const Input = ({
           ))}
         </View>
       </View>
-
       <Text style={[tw`mt-1 ml-3 tooltip`, colors.error]}>{showError ? errorMessage[0] : ' '}</Text>
     </View>
   )

@@ -21,6 +21,7 @@ export const getMessages = () => ({
   phone: i18n('form.invalid.error'),
   referralCode: i18n('form.invalid.error'),
   required: i18n('form.required.error'),
+  requiredShort: i18n('form.required'),
   revtag: i18n('form.invalid.error'),
   signature: i18n('form.signature.error'),
   tetherAddress: i18n('form.address.error'),

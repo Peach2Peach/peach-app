@@ -16,7 +16,7 @@ import RestoreSuccess from './RestoreSuccess'
 import { SeedPhraseInput } from './SeedPhraseInput'
 
 export const bip39WordRules = {
-  required: true,
+  requiredShort: true,
   bip39Word: true,
 }
 const bip39Rules = {
