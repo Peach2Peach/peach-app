@@ -43,9 +43,9 @@ export default ({ offer, updateOffer, next }: SellViewProps): ReactElement => {
     <View style={tw`items-center flex-shrink h-full px-8 pb-7`}>
       <View style={tw`justify-center flex-grow`}>
         <Text style={tw`text-center h5`}>{i18n('sell.premium.title')}</Text>
-        <View style={tw`flex-row items-center justify-center w-full`}>
-          <Text style={tw`pr-2 subtitle-1`}>{i18n('search.sellOffer')}</Text>
-          <SatsFormat sats={offer.amount} style={tw`subtitle-1`} />
+        <View style={tw`flex-row justify-center w-full`}>
+          <Text style={tw`pr-2 leading-normal subtitle-1`}>{i18n('search.sellOffer')}</Text>
+          <SatsFormat sats={offer.amount} style={tw`leading-normal subtitle-1`} />
         </View>
         <View style={tw`flex-row items-center justify-center mt-8`}>
           <Text
