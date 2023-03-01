@@ -10,7 +10,7 @@ import LetsGetStarted from './LetsGetStarted'
 import PeachOfMind from './PeachOfMind'
 import PeerToPeer from './PeerToPeer'
 import PrivacyFirst from './PrivacyFirst'
-import { useWelcomeHeader } from './useWelcomeHeader'
+import { useWelcomeHeader } from './hooks/useWelcomeHeader'
 import { useKeyboard } from '../../hooks'
 import AWalletYouControl from './AWalletYouControl'
 

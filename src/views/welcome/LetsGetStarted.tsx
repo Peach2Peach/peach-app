@@ -1,34 +1,17 @@
-import React, { ReactElement, useContext, useState } from 'react'
+import React, { ReactElement } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import { Input, Text } from '../../components'
 import { PrimaryButton } from '../../components/buttons'
-import LanguageContext from '../../contexts/language'
-import { useKeyboard, useNavigation, useValidatedState } from '../../hooks'
+import { useKeyboard } from '../../hooks'
 import i18n from '../../utils/i18n'
-
-const referralCodeRules = { referralCode: true }
+import { useNewUserSetup } from './hooks/useNewUserSetup'
 
 export default (): ReactElement => {
-  useContext(LanguageContext)
-  const navigation = useNavigation()
+  const { referralCode, setReferralCode, referralCodeErrors, displayErrors, goToNewUser, goToRestoreBackup }
+    = useNewUserSetup()
   const keyboardOpen = useKeyboard()
-  const [referralCode, setReferralCode, referralCodeIsValid, referralCodeErrors] = useValidatedState<string>(
-    '',
-    referralCodeRules,
-  )
-  const [displayErrors, setDisplayErrors] = useState(false)
-
-  const validate = () => {
-    setDisplayErrors(true)
-    return referralCodeIsValid
-  }
-
-  const goToNewUser = () => {
-    if (validate()) navigation.navigate('newUser', { referralCode })
-  }
-  const goToRestoreBackup = () => navigation.navigate('restoreBackup')
 
   return (
     <View style={tw`flex flex-col items-center justify-between h-full`}>
