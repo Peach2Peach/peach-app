@@ -27,7 +27,7 @@ export const useFundEscrowSetup = () => {
   const showWronglyFundedOverlay = useWronglyFundedOverlay()
   const showEscrowConfirmOverlay = useConfirmEscrowOverlay()
 
-  const [sellOffer, setSellOffer] = useState<SellOffer>(route.params.offer)
+  const [sellOffer, setSellOffer] = useState(route.params.offer)
   const [updatePending, setUpdatePending] = useState(true)
   const [showRegtestButton, setShowRegtestButton] = useState(
     NETWORK === 'regtest' && sellOffer.funding.status === 'NULL',
@@ -107,7 +107,7 @@ export const useFundEscrowSetup = () => {
         }
 
         saveAndUpdate(updatedOffer)
-        setFundingError(() => result.error || '')
+        setFundingError(result.error || '')
 
         if (result.funding.status === 'CANCELED') return startRefund(sellOffer)
         if (result.funding.status === 'WRONG_FUNDING_AMOUNT') return showWronglyFundedOverlay(updatedOffer)
