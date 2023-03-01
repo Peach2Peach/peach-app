@@ -163,7 +163,6 @@ export const Input = ({
           disabled ? colors.borderDisabled : colors.border,
           showError && colors.bgError,
           showError && colors.borderError,
-          showError && theme !== 'inverted' && tw`border-2`,
           style,
         ]}
       >
