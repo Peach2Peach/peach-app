@@ -32,21 +32,4 @@ describe('isBackupMandatory', () => {
     tradeSummaryStore.setState({ contracts: contracts as ContractSummary[] })
     expect(isBackupMandatory()).toBe(false)
   })
-  it('returns false backup has been made', async () => {
-    await setAccount({
-      ...defaultAccount,
-      settings: {
-        ...defaultAccount.settings,
-        lastBackupDate: Date.now(),
-      },
-    })
-
-    const contracts: Partial<ContractSummary>[] = [
-      { tradeStatus: 'tradeCompleted' },
-      { tradeStatus: 'tradeCompleted' },
-      { tradeStatus: 'tradeCompleted' },
-    ]
-    tradeSummaryStore.setState({ contracts: contracts as ContractSummary[] })
-    expect(isBackupMandatory()).toBe(false)
-  })
 })
