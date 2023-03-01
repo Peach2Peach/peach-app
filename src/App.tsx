@@ -162,6 +162,7 @@ const App: React.FC = () => {
       },
     })
   })
+
   setUnhandledPromiseRejectionTracker((id, err) => {
     error(err)
     const msgKey = (err as Error).message === 'Network request failed' ? 'NETWORK_ERROR' : (err as Error).message
