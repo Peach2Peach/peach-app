@@ -1,6 +1,5 @@
 import React, { ReactElement, useEffect, useMemo, useRef } from 'react'
 import { ScrollView, View } from 'react-native'
-import { useMeetupEventsStore } from '../../store/meetupEventsStore'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { getPaymentDataByMethod } from '../../utils/offer'
@@ -8,7 +7,6 @@ import { hashPaymentData } from '../../utils/paymentMethod'
 import { ChatButton } from '../chat/ChatButton'
 import { MatchCardCounterparty } from '../matches/components/MatchCardCounterparty'
 import { paymentDetailTemplates } from '../payment'
-import CashDetails from '../payment/detail/cash'
 import { CashTradeDetails } from '../payment/detail/cashTrades'
 import PeachScrollView from '../PeachScrollView'
 import { PriceFormat, Text } from '../text'
@@ -33,8 +31,6 @@ export const OpenTradeSeller = ({ contract }: TradeSummaryProps): ReactElement =
   useEffect(() => {
     scroll?.flashScrollIndicators()
   }, [scroll])
-
-  const getMeetupEvent = useMeetupEventsStore((state) => state.getMeetupEvent)
 
   return (
     <View style={tw`max-h-full`}>

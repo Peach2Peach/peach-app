@@ -1,8 +1,6 @@
 import React, { ReactElement, useEffect, useRef } from 'react'
 import { ScrollView, View } from 'react-native'
 import { APPLINKS } from '../../constants'
-import { CashTrades } from '../../overlays/CashTrades'
-import { useMeetupEventsStore } from '../../store/meetupEventsStore'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { ChatButton } from '../chat/ChatButton'
@@ -24,8 +22,6 @@ export const OpenTradeBuyer = ({ contract }: TradeSummaryProps): ReactElement =>
   useEffect(() => {
     scroll?.flashScrollIndicators()
   }, [scroll])
-
-  const getMeetupEvent = useMeetupEventsStore((state) => state.getMeetupEvent)
 
   return (
     <View style={tw`max-h-full`}>
