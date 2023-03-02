@@ -14,12 +14,12 @@ import { DailyTradingLimit } from '../settings/profile/DailyTradingLimit'
 import { useSellSetup } from './hooks/useSellSetup'
 import { debounce } from '../../utils/performance'
 import LoadingScreen from '../loading/LoadingScreen'
-import { useShowCorrectBackupReminder } from '../../hooks/useShowCorrectBackupReminder'
+import { useShowBackupReminder } from '../../hooks/useShowBackupReminder'
 
 export default (): ReactElement => {
   const navigation = useNavigation()
 
-  const showCorrectBackupReminder = useShowCorrectBackupReminder()
+  const showCorrectBackupReminder = useShowBackupReminder()
 
   useSellSetup({ help: 'buyingAndSelling', hideGoBackButton: true })
 

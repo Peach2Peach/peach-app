@@ -15,12 +15,12 @@ import { useBuySetup } from './hooks/useBuySetup'
 import { debounce } from '../../utils/performance'
 import LoadingScreen from '../loading/LoadingScreen'
 import { useCheckShowRedesignWelcome } from '../../hooks/'
-import { useShowCorrectBackupReminder } from '../../hooks/useShowCorrectBackupReminder'
+import { useShowBackupReminder } from '../../hooks/useShowBackupReminder'
 
 export default (): ReactElement => {
   const navigation = useNavigation()
   const checkShowRedesignWelcome = useCheckShowRedesignWelcome()
-  const showCorrectBackupReminder = useShowCorrectBackupReminder()
+  const showCorrectBackupReminder = useShowBackupReminder()
 
   useBuySetup()
 
