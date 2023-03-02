@@ -48,7 +48,7 @@ export const Rate = ({ contract, view, saveAndUpdate, vote, style }: RateProps):
     }
     saveAndUpdate({
       ...contract,
-      [ratedUser]: true,
+      [ratedUser]: rating.rating,
     })
 
     if (showBackupReminder) {
