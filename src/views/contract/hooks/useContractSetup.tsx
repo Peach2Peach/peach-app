@@ -7,7 +7,7 @@ import { useCommonContractSetup } from '../../../hooks/useCommonContractSetup'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { useShowHelp } from '../../../hooks/useShowHelp'
 import { useConfirmCancelTrade } from '../../../overlays/tradeCancelation/useConfirmCancelTrade'
-import { canCancelContract, signReleaseTx } from '../../../utils/contract'
+import { canCancelContract, shouldRateCounterParty, signReleaseTx } from '../../../utils/contract'
 import { isTradeComplete } from '../../../utils/contract/status'
 import { confirmPayment, getContract, getOfferDetails } from '../../../utils/peachAPI'
 import { getNavigationDestinationForContract, getNavigationDestinationForOffer } from '../../yourTrades/utils'
@@ -51,15 +51,13 @@ export const useContractSetup = () => {
   useEffect(() => {
     if (!contract || !view || isLoading) return
     if (isTradeComplete(contract) && !contract.disputeWinner && !contract.canceled) {
-      if ((view === 'buyer' && !contract.ratingSeller) || (view === 'seller' && !contract.ratingBuyer)) {
+      if (shouldRateCounterParty(contract, view)) {
         refetch().then(({ data }) => {
-          if (data) {
-            navigation.replace('tradeComplete', { contract: data })
-          }
+          if (data && shouldRateCounterParty(data, view)) navigation.replace('tradeComplete', { contract: data })
         })
       }
     }
-  }, [contract, isLoading, refetch, view])
+  }, [contract, isLoading, navigation, refetch, view])
 
   const postConfirmPaymentBuyer = useCallback(async () => {
     const [, err] = await confirmPayment({ contractId })
