@@ -199,7 +199,7 @@ export class PeachWallet {
     return this.wallet.derivePath(this.derivationPath + `/0/${index}`)
   }
 
-  async preloadAddresses (): Promise<void> {
+  preloadAddresses (): void {
     this.addresses = walletStore.getState().addresses
   }
 
