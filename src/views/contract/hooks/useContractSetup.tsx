@@ -59,7 +59,7 @@ export const useContractSetup = () => {
         })
       }
     }
-  }, [contract, isLoading, navigation, refetch, view])
+  }, [contract, isLoading, refetch, view])
 
   const postConfirmPaymentBuyer = useCallback(async () => {
     const [, err] = await confirmPayment({ contractId })
