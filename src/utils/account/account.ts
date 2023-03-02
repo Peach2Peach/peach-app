@@ -19,6 +19,7 @@ export const defaultAccount: Account = {
   publicKey: '',
   settings: defaultSettings,
   paymentData: [],
+  legacyPaymentData: [],
   tradingLimit: defaultLimits,
   offers: [],
   contracts: [],
