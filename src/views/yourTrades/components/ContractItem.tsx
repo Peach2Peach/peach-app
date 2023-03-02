@@ -15,7 +15,7 @@ type OfferItemProps = { contract: ContractSummary }
 export const colors: Record<SummaryItemLevel, ViewStyle> = {
   APP: tw`text-primary-main`,
   SUCCESS: tw`text-success-main`,
-  WARN: tw`text-warning-dark-2`,
+  WARN: tw`text-black-1`,
   ERROR: tw`text-error-main`,
   INFO: tw`text-info-light`,
   DEFAULT: tw`text-black-2`,
