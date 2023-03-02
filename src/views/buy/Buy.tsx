@@ -8,7 +8,6 @@ import shallow from 'zustand/shallow'
 import { BitcoinPriceStats, HorizontalLine, Icon, PrimaryButton, Text } from '../../components'
 import { RangeAmount } from '../../components/inputs/verticalAmountSelector/RangeAmount'
 import { useNavigation, useValidatedState } from '../../hooks'
-import { useShowWarning } from '../../hooks/useShowWarning'
 import { useConfigStore } from '../../store/configStore'
 import { useSettingsStore } from '../../store/settingsStore'
 import { DailyTradingLimit } from '../settings/profile/DailyTradingLimit'
@@ -16,11 +15,12 @@ import { useBuySetup } from './hooks/useBuySetup'
 import { debounce } from '../../utils/performance'
 import LoadingScreen from '../loading/LoadingScreen'
 import { useCheckShowRedesignWelcome } from '../../hooks/'
+import { useShowBackupReminder } from '../../hooks/useShowBackupReminder'
 
 export default (): ReactElement => {
   const navigation = useNavigation()
-  const showBackupsWarning = useShowWarning('backups')
   const checkShowRedesignWelcome = useCheckShowRedesignWelcome()
+  const showCorrectBackupReminder = useShowBackupReminder()
 
   useBuySetup()
 
@@ -94,7 +94,7 @@ export default (): ReactElement => {
         </PrimaryButton>
         {showBackupReminder && (
           <View style={tw`justify-center`}>
-            <TouchableOpacity style={tw`absolute left-4`} onPress={showBackupsWarning}>
+            <TouchableOpacity style={tw`absolute left-4`} onPress={showCorrectBackupReminder}>
               <Icon id="alertTriangle" style={tw`w-8 h-8`} color={tw`text-warning-main`.color} />
             </TouchableOpacity>
           </View>
