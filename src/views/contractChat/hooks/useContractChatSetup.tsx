@@ -1,6 +1,4 @@
-import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react'
-import ContractChatTitle from '../../../components/titles/ContractChatTitle'
-
+import { useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import { useHeaderSetup, useRoute } from '../../../hooks'
 import { useChatMessages } from '../../../hooks/query/useChatMessages'
 import { useCommonContractSetup } from '../../../hooks/useCommonContractSetup'
@@ -9,7 +7,8 @@ import { useOpenDispute } from '../../../overlays/dispute/hooks/useOpenDispute'
 import { useConfirmCancelTrade } from '../../../overlays/tradeCancelation/useConfirmCancelTrade'
 import { account } from '../../../utils/account'
 import { deleteMessage, getChat, getUnsentMessages, saveChat } from '../../../utils/chat'
-import { getTradingPartner } from '../../../utils/contract'
+import { contractIdToHex, getTradingPartner } from '../../../utils/contract'
+import i18n from '../../../utils/i18n'
 import { error } from '../../../utils/log'
 import { PeachWSContext } from '../../../utils/peachAPI/websocket'
 import { decryptSymmetric, signAndEncryptSymmetric } from '../../../utils/pgp'
@@ -44,7 +43,7 @@ export const useContractChatSetup = () => {
   useHeaderSetup(
     useMemo(
       () => ({
-        titleComponent: <ContractChatTitle id={contractId} />,
+        title: i18n('contract.trade', contractIdToHex(contractId)),
         icons: contract
           ? getHeaderChatActions(contract, () => showConfirmOverlay(contract), openDisputeOverlay, view)
           : [],
