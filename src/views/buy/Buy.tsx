@@ -88,7 +88,7 @@ export default (): ReactElement => {
           onChange={setSelectedRange}
         />
       </View>
-      <View style={[tw`flex-row items-center justify-center mt-4 mb-1`, tw.md`mb-10`]}>
+      <View style={[tw`flex-row items-center justify-center mt-4 mb-1`, tw.md`mb-4`]}>
         <PrimaryButton disabled={!minAmountValid || !maxAmountValid} testID="navigation-next" onPress={next} narrow>
           {i18n('next')}
         </PrimaryButton>
