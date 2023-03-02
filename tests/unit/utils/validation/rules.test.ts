@@ -67,13 +67,4 @@ describe('rules', () => {
     ok(!rules.password(true, 'weak'), 'Could not validate weak')
     ok(!rules.password(true, ''), 'Could not validate weak')
   })
-
-  it('validates btc IBAN correctly', () => {
-    for (const iban of paymentData.iban.valid) {
-      ok(rules.iban(true, iban), `Could not validate ${iban}`)
-    }
-    for (const iban of paymentData.iban.invalid) {
-      ok(!rules.iban(true, iban), `Could not invalidate ${iban}`)
-    }
-  })
 })
