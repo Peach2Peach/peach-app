@@ -142,54 +142,52 @@ export default ({ setMeansOfPayment, editing, style, origin }: PaymentDetailsPro
     paymentData.filter((item) => !item.type.includes('cash.')).length === 0 ? (
       <Text style={tw`text-center h6 text-black-3`}>{i18n('paymentMethod.empty')}</Text>
     ) : (
-      <View style={tw`px-4`}>
-        <View testID={'checkboxes-buy-mops'}>
-          {(Object.keys(PAYMENTCATEGORIES) as PaymentCategory[])
-            .map((category) => ({
-              category,
-              checkboxes: paymentData
-                .filter((item) => !item.hidden)
-                .filter((item) => !item.type.includes('cash.'))
-                .filter(belongsToCategory(category))
-                .filter((data) => getPaymentMethodInfo(data.type))
-                .sort((a, b) => (a.id > b.id ? 1 : -1))
-                .map(mapPaymentDataToCheckboxes),
-            }))
-            .filter(({ checkboxes }) => checkboxes.length)
-            .map(({ category, checkboxes }, i) => (
-              <View key={category} style={i > 0 ? tw`mt-8` : {}}>
-                <LinedText style={tw`pb-3`}>
-                  <Text style={tw`mr-1 h6 text-black-2`}>{i18n(`paymentCategory.${category}`)}</Text>
-                  {paymentCategoryIcons[category] !== '' && (
-                    <Icon color={tw`text-black-2`.color} id={paymentCategoryIcons[category] as IconType} />
+      <View testID={'checkboxes-buy-mops'}>
+        {(Object.keys(PAYMENTCATEGORIES) as PaymentCategory[])
+          .map((category) => ({
+            category,
+            checkboxes: paymentData
+              .filter((item) => !item.hidden)
+              .filter((item) => !item.type.includes('cash.'))
+              .filter(belongsToCategory(category))
+              .filter((data) => getPaymentMethodInfo(data.type))
+              .sort((a, b) => (a.id > b.id ? 1 : -1))
+              .map(mapPaymentDataToCheckboxes),
+          }))
+          .filter(({ checkboxes }) => checkboxes.length)
+          .map(({ category, checkboxes }, i) => (
+            <View key={category} style={i > 0 ? tw`mt-8` : {}}>
+              <LinedText style={tw`pb-3`}>
+                <Text style={tw`mr-1 h6 text-black-2`}>{i18n(`paymentCategory.${category}`)}</Text>
+                {paymentCategoryIcons[category] !== '' && (
+                  <Icon color={tw`text-black-2`.color} id={paymentCategoryIcons[category] as IconType} />
+                )}
+              </LinedText>
+              {checkboxes.map((item, j) => (
+                <View key={item.data.id} style={j > 0 ? tw`mt-4` : {}}>
+                  {item.isValid ? (
+                    <View>
+                      <PaymentDetailsCheckbox
+                        testID={`buy-mops-checkbox-${item.value}`}
+                        onPress={() => (editing ? editItem(item.data) : select(item.value))}
+                        item={item}
+                        checked={isSelected(item)}
+                        editing={editing}
+                      />
+                      <PaymentDataKeyFacts style={tw`mt-1`} paymentData={item.data} />
+                    </View>
+                  ) : (
+                    <View style={tw`flex flex-row justify-between`}>
+                      <Text style={tw`font-baloo text-error-main`}>{item.data.label}</Text>
+                      <Pressable onPress={() => deletePaymentData(item.data)} style={tw`w-6 h-6`}>
+                        <Icon id="trash" style={tw`w-6 h-6`} color={tw`text-black-2`.color} />
+                      </Pressable>
+                    </View>
                   )}
-                </LinedText>
-                {checkboxes.map((item, j) => (
-                  <View key={item.data.id} style={j > 0 ? tw`mt-4` : {}}>
-                    {item.isValid ? (
-                      <View>
-                        <PaymentDetailsCheckbox
-                          testID={`buy-mops-checkbox-${item.value}`}
-                          onPress={() => (editing ? editItem(item.data) : select(item.value))}
-                          item={item}
-                          checked={isSelected(item)}
-                          editing={editing}
-                        />
-                        <PaymentDataKeyFacts style={tw`mt-1`} paymentData={item.data} />
-                      </View>
-                    ) : (
-                      <View style={tw`flex flex-row justify-between`}>
-                        <Text style={tw`font-baloo text-error-main`}>{item.data.label}</Text>
-                        <Pressable onPress={() => deletePaymentData(item.data)} style={tw`w-6 h-6`}>
-                          <Icon id="trash" style={tw`w-6 h-6`} color={tw`text-black-2`.color} />
-                        </Pressable>
-                      </View>
-                    )}
-                  </View>
-                ))}
-              </View>
-            ))}
-        </View>
+                </View>
+              ))}
+            </View>
+          ))}
       </View>
     )
 
