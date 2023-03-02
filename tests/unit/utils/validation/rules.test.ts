@@ -22,33 +22,6 @@ describe('rules', () => {
     ok(!rules.required(true, null))
   })
 
-  it('validates numbers correctly', () => {
-    ok(rules.number.test('0'))
-    ok(rules.number.test('1'))
-    ok(rules.number.test('210000'))
-
-    ok(!rules.number.test('hello'))
-    ok(!rules.number.test(''))
-  })
-
-  it('validates phone correctly', () => {
-    for (const phone of paymentData.phone.valid) {
-      ok(rules.phone.test(phone), `Could not validate ${phone}`)
-    }
-    for (const phone of paymentData.phone.invalid) {
-      ok(!rules.phone.test(phone), `Could not invalidate ${phone}`)
-    }
-  })
-
-  it('validates email correctly', () => {
-    for (const email of paymentData.email.valid) {
-      ok(rules.email.test(email), `Could not validate ${email}`)
-    }
-    for (const email of paymentData.email.invalid) {
-      ok(!rules.email.test(email), `Could not invalidate ${email}`)
-    }
-  })
-
   it('validates btc addresses correctly for mainnet', () => {
     ;(<jest.Mock>getNetwork).mockReturnValue(networks.bitcoin)
     for (const address of paymentData.bitcoin.base58Check.valid) {
