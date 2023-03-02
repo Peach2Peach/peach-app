@@ -66,6 +66,7 @@ export const useBuySummarySetup = () => {
   }, [payoutAddress, payoutAddressSignature, peachWalletActive])
 
   return {
+    peachWalletActive,
     releaseAddress,
     walletLabel,
     message,
