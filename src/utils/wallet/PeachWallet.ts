@@ -41,7 +41,7 @@ export class PeachWallet {
     this.wallet = wallet
     this.network = network
     this.gapLimit = walletStore.getState().gapLimit || gapLimit
-    this.addresses = walletStore.getState().addresses
+    this.addresses = []
     this.derivationPath = `m/84\'/${NETWORK === 'bitcoin' ? '0' : '1'}\'/0\'`
     this.balance = 0
     this.transactions = { confirmed: [], pending: [] }
@@ -97,6 +97,7 @@ export class PeachWallet {
       }
 
       this.initialized = true
+      this.preloadAddresses()
       this.getBalance()
       this.getTransactions()
 
@@ -198,28 +199,47 @@ export class PeachWallet {
     return this.wallet.derivePath(this.derivationPath + `/0/${index}`)
   }
 
+  preloadAddresses (): void {
+    this.addresses = walletStore.getState().addresses
+  }
+
+  getAddress (index: number): string | undefined {
+    info('PeachWallet - getAddress', index)
+
+    if (this.addresses[index]) return this.addresses[index]
+
+    const keyPair = this.getKeyPair(index)
+    const p2wpkh = payments.p2wpkh({
+      network: getNetwork(),
+      pubkey: keyPair.publicKey,
+    })
+
+    if (p2wpkh.address) this.addresses[index] = p2wpkh.address
+
+    return p2wpkh.address
+  }
+
   findKeyPairByAddress (address: string): BIP32Interface | null {
     info('PeachWallet - findKeyPairByAddress - start')
 
     const knownAddressIndex = this.addresses.findIndex((a) => a === address)
-    if (knownAddressIndex !== -1) return this.getKeyPair(knownAddressIndex)
+    if (knownAddressIndex !== -1) {
+      info('PeachWallet - address is already known', knownAddressIndex)
+      return this.getKeyPair(knownAddressIndex)
+    }
 
-    for (let i = 0; i <= this.gapLimit; i++) {
+    const limit = this.addresses.length + this.gapLimit
+    for (let i = this.addresses.length; i <= limit; i++) {
       info('PeachWallet - findKeyPairByAddress - scanning', i)
 
-      const keyPair = this.getKeyPair(i)
-      const p2wpkh = payments.p2wpkh({
-        network: getNetwork(),
-        pubkey: keyPair.publicKey,
-      })
-      if (p2wpkh.address) this.addresses.push(p2wpkh.address)
-      if (address === p2wpkh.address) {
-        this.updateStore()
-        return keyPair
+      const candidate = this.getAddress(i)
+      if (address === candidate) {
+        walletStore.getState().setAddresses(this.addresses)
+        return this.getKeyPair(i)
       }
     }
 
-    this.updateStore()
+    walletStore.getState().setAddresses(this.addresses)
     return null
   }
 
