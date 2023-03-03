@@ -3,7 +3,7 @@ import { DetailVipps } from './detail/vipps'
 import { DetailFasterPayments } from './detail/fasterPayments'
 import { DetailInstantSepa } from './detail/instantSepa'
 import { ReactElement } from 'react'
-import { COUNTRIES } from '../../constants'
+import { GIFTCARDCOUNTRIES } from '../../constants'
 import GeneralPaymentDetails from './detail/generalPaymentDetails'
 import DetailPaypal from './detail/paypal'
 import DetailRevolut from './detail/revolut'
@@ -43,4 +43,6 @@ export const paymentDetailTemplates: PaymentDetailTemplates = {
   'giftCard.amazon': GeneralPaymentDetails,
 }
 
-COUNTRIES.forEach((c) => (paymentDetailTemplates[('giftCard.amazon.' + c) as PaymentMethod] = GeneralPaymentDetails))
+GIFTCARDCOUNTRIES.forEach(
+  (c) => (paymentDetailTemplates[('giftCard.amazon.' + c) as PaymentMethod] = GeneralPaymentDetails),
+)

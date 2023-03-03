@@ -1,7 +1,6 @@
 import { getBuildNumber, getUniqueId, getVersion, isEmulatorSync } from 'react-native-device-info'
 import { unique } from './utils/array'
 import { sha256 } from './utils/crypto/sha256'
-import { getAllPaymentMethods } from './utils/paymentMethod'
 
 export const SATSINBTC = 100000000
 export const MSINADAY = 86400000
@@ -25,7 +24,8 @@ export const UNIQUEID = sha256(getUniqueId())
 
 export let CURRENCIES: Currency[] = ['EUR', 'CHF', 'GBP', 'SEK', 'DKK', 'BGN', 'CZK', 'HUF', 'PLN', 'RON', 'ISK', 'NOK']
 
-export let COUNTRIES: PaymentMethodCountry[] = ['DE', 'FR', 'IT', 'ES', 'NL', 'UK', 'SE', 'FI']
+export let GIFTCARDCOUNTRIES: PaymentMethodCountry[] = ['DE', 'FR', 'IT', 'ES', 'NL', 'UK', 'SE', 'FI']
+export let NATIONALTRANSFERCOUNTRIES: PaymentMethodCountry[] = ['BG', 'CZ', 'DK', 'HU', 'NO', 'PL', 'PO']
 
 export let PAYMENTMETHODS: PaymentMethod[] = ['sepa']
 export let PAYMENTMETHODINFOS: PaymentMethodInfo[] = [
@@ -37,9 +37,11 @@ export let PAYMENTMETHODINFOS: PaymentMethodInfo[] = [
 ]
 
 export const PAYMENTCATEGORIES: PaymentCategories = {
-  bankTransfer: ['sepa', 'instantSepa', 'fasterPayments'],
+  bankTransfer: ['sepa', 'instantSepa', 'fasterPayments'].concat(
+    NATIONALTRANSFERCOUNTRIES.map((c) => `nationalTransfer${c}`),
+  ) as PaymentMethod[],
   onlineWallet: ['paypal', 'revolut', 'wise', 'twint', 'swish', 'blik', 'advcash', 'vipps', 'mobilePay'],
-  giftCard: ['giftCard.amazon'].concat(COUNTRIES.map((c) => `giftCard.amazon.${c}`)) as PaymentMethod[],
+  giftCard: ['giftCard.amazon'].concat(GIFTCARDCOUNTRIES.map((c) => `giftCard.amazon.${c}`)) as PaymentMethod[],
   localOption: ['mbWay', 'bizum', 'satispay', 'mobilePay'],
   cash: [],
   cryptoCurrency: [],
@@ -79,7 +81,10 @@ export const APPLINKS: Record<string, { appLink?: string; url: string; userLink?
 export const setPaymentMethods = (paymentMethodInfos: PaymentMethodInfo[]) => {
   PAYMENTMETHODINFOS = paymentMethodInfos
   CURRENCIES = paymentMethodInfos.reduce((arr, info) => arr.concat(info.currencies), [] as Currency[]).filter(unique())
-  COUNTRIES = paymentMethodInfos
+  GIFTCARDCOUNTRIES = paymentMethodInfos
+    .reduce((arr, info) => arr.concat(info.countries || []), [] as PaymentMethodCountry[])
+    .filter(unique())
+  NATIONALTRANSFERCOUNTRIES = paymentMethodInfos
     .reduce((arr, info) => arr.concat(info.countries || []), [] as PaymentMethodCountry[])
     .filter(unique())
   PAYMENTMETHODS = paymentMethodInfos.map((method) => method.id)

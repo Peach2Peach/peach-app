@@ -107,6 +107,13 @@ declare type PaymentMethodCountry =
   | 'UK'
   | 'US'
   | 'FI'
+  | 'BG'
+  | 'CZ'
+  | 'DK'
+  | 'HU'
+  | 'NO'
+  | 'PL'
+  | 'PO'
 declare type Location = 'amsterdam' | 'belgianEmbassy' | 'lugano'
 declare type PaymentMethod =
   | 'sepa'
@@ -129,6 +136,7 @@ declare type PaymentMethod =
   | 'cash'
   | 'giftCard.amazon'
   | `giftCard.amazon.${PaymentMethodCountry}`
+  | `nationalTransfer${PaymentMethodCountry}`
 
 declare type MeetupEvent = {
   // BitcoinEvent in backend
