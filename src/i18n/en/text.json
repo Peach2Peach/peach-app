@@ -254,7 +254,7 @@
   "wallet.transactionHistory": "transaction history",
   "wallet.transactionHistory.empty": "nothing yet...",
   "wallet.trade": "trade $0",
-  "wallet.withdrawal": "transaction",
+  "wallet.withdrawal": "sent",
   "wallet.deposit": "deposit",
   "wallet.transactionDetails": "transaction details",
   "wallet.transaction.type": "type",
