@@ -29,7 +29,7 @@ export const deleteAccount = async () => {
     settingsStorage,
     notificationStorage,
   ].forEach((storage) => storage.clearStore())
-  ;[notificationStore, configStore, walletStore, settingsStore].map((store) => store.getState().reset())
+  ;[notificationStore, configStore, walletStore, settingsStore].forEach((store) => store.getState().reset())
 
   logoutUser({})
 
