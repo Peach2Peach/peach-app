@@ -174,7 +174,6 @@ export class PeachWallet {
       throw result.error
     }
 
-    this.gapLimit += 1
     this.updateStore()
 
     return result.value
@@ -199,8 +198,12 @@ export class PeachWallet {
     return this.wallet.derivePath(this.derivationPath + `/0/${index}`)
   }
 
-  preloadAddresses (): void {
+  async preloadAddresses (): Promise<void> {
     this.addresses = walletStore.getState().addresses
+    if (this.addresses.length === 0) {
+      const firstAddress = await this.getReceivingAddress()
+      if (firstAddress) this.addresses.push(firstAddress)
+    }
   }
 
   getAddress (index: number): string | undefined {
