@@ -26,7 +26,39 @@ jest.mock('../../../../src/store/settingsStore', () => ({
   },
   settingsStore: {
     getState: () => ({
+      reset: jest.fn(),
       updateSettings: jest.fn(),
+    }),
+  },
+}))
+
+jest.mock('../../../../src/components/footer/notificationsStore', () => ({
+  notificationStorage: {
+    clearStore: jest.fn(),
+  },
+  notificationStore: {
+    getState: () => ({
+      reset: jest.fn(),
+    }),
+  },
+}))
+jest.mock('../../../../src/store/configStore', () => ({
+  configStorage: {
+    clearStore: jest.fn(),
+  },
+  configStore: {
+    getState: () => ({
+      reset: jest.fn(),
+    }),
+  },
+}))
+jest.mock('../../../../src/utils/wallet/walletStore', () => ({
+  walletStorage: {
+    clearStore: jest.fn(),
+  },
+  walletStore: {
+    getState: () => ({
+      reset: jest.fn(),
     }),
   },
 }))

@@ -4,6 +4,7 @@ import { createStorage, toZustandStorage } from '../utils/storage'
 import { defaultConfig } from './defaults'
 
 type ConfigStore = Config & {
+  reset: () => void
   setPaymentMethods: (paymentMethods: PaymentMethodInfo[]) => void
   setPeachPGPPublicKey: (pgpPublicKey: string) => void
   setPeachFee: (fee: number) => void
@@ -20,6 +21,7 @@ export const configStore = createStore(
   persist<ConfigStore>(
     (set) => ({
       ...defaultConfig,
+      reset: () => set(() => defaultConfig),
       setPaymentMethods: (paymentMethods) => set((state) => ({ ...state, paymentMethods })),
       setPeachPGPPublicKey: (peachPGPPublicKey) => set((state) => ({ ...state, peachPGPPublicKey })),
       setPeachFee: (peachFee) => set((state) => ({ ...state, peachFee })),

@@ -14,6 +14,7 @@ export type WalletState = {
 }
 
 type WalletStore = WalletState & {
+  reset: () => void
   setSynced: (synced: boolean) => void
   setAddresses: (addresses: string[]) => void
   setGapLimit: (gapLimit: number) => void
@@ -38,6 +39,7 @@ export const walletStore = createStore(
   persist<WalletStore>(
     (set, get) => ({
       ...defaultState,
+      reset: () => set(() => defaultState),
       setSynced: (synced) => set((state) => ({ ...state, synced })),
       setAddresses: (addresses) => set((state) => ({ ...state, addresses })),
       setGapLimit: (gapLimit) => set((state) => ({ ...state, gapLimit })),
