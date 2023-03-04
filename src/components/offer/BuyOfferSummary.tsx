@@ -7,6 +7,7 @@ import { PaymentMethod } from '../matches/PaymentMethod'
 import { TabbedNavigation } from '../navigation/TabbedNavigation'
 import { SatsFormat, Text } from '../text'
 import { HorizontalLine } from '../ui'
+import { peachWallet } from '../../utils/wallet/setWallet'
 
 type BuyOfferSummaryProps = ComponentProps & {
   offer: BuyOffer | BuyOfferDraft
@@ -49,7 +50,12 @@ export const BuyOfferSummary = ({ offer, style }: BuyOfferSummaryProps): ReactEl
       </View>
       <HorizontalLine style={tw`w-64 my-4`} />
       <Text style={tw`self-center body-m text-black-2`}>{i18n('to')}</Text>
-      <Text style={tw`self-center subtitle-1`}>{offer.walletLabel || i18n('offer.summary.customPayoutAddress')}</Text>
+      <Text style={tw`self-center subtitle-1`}>
+        {offer.walletLabel
+          || (peachWallet.addresses.includes(offer.releaseAddress)
+            ? i18n('peachWallet')
+            : i18n('offer.summary.customPayoutAddress'))}
+      </Text>
     </View>
   )
 }
