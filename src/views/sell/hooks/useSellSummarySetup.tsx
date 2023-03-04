@@ -25,6 +25,7 @@ export const useSellSummarySetup = () => {
   const goToSetupRefundWallet = () => navigation.navigate('payoutAddress', { type: 'refund' })
 
   const publishOffer = async (offerDraft: SellOfferDraft) => {
+    if (isPublishing) return
     setIsPublishing(true)
     const { isPublished, navigationParams, errorMessage } = await publishSellOffer(offerDraft)
     if (isPublished && navigationParams) {
