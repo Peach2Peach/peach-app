@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement, useMemo, useState } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
@@ -16,6 +16,7 @@ type BuyOfferSummaryProps = ComponentProps & {
 export const BuyOfferSummary = ({ offer, style }: BuyOfferSummaryProps): ReactElement => {
   const currencies = getCurrencies(offer.meansOfPayment)
   const [selectedCurrency, setSelectedCurrency] = useState(currencies[0])
+  const isPeachWallet = useMemo(() => !!peachWallet.findKeyPairByAddress(offer.releaseAddress), [offer.releaseAddress])
 
   return (
     <View style={[tw`w-full border border-black-5 rounded-2xl p-7`, style]}>
@@ -51,10 +52,7 @@ export const BuyOfferSummary = ({ offer, style }: BuyOfferSummaryProps): ReactEl
       <HorizontalLine style={tw`w-64 my-4`} />
       <Text style={tw`self-center body-m text-black-2`}>{i18n('to')}</Text>
       <Text style={tw`self-center subtitle-1`}>
-        {offer.walletLabel
-          || (!!peachWallet.findKeyPairByAddress(offer.releaseAddress)
-            ? i18n('peachWallet')
-            : i18n('offer.summary.customPayoutAddress'))}
+        {offer.walletLabel || (isPeachWallet ? i18n('peachWallet') : i18n('offer.summary.customPayoutAddress'))}
       </Text>
     </View>
   )
