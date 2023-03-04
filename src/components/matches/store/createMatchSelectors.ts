@@ -1,5 +1,5 @@
-import { getAvailableCurrencies } from '../../../utils/match'
-import { hasMoPsInCommon, getMoPsInCommon, getPaymentMethods } from '../../../utils/paymentMethod'
+import { getAvailableCurrencies, getAvailableMethods } from '../../../utils/match'
+import { hasMoPsInCommon, getMoPsInCommon } from '../../../utils/paymentMethod'
 
 export type MatchSelectors = {
   [id: Match['offerId']]: {
@@ -20,7 +20,7 @@ export const createMatchSelectors = (matches: Match[], offerMeansOfPayment: Mean
       : match.meansOfPayment
 
     const availableCurrencies = getAvailableCurrencies(mopsInCommon, match.meansOfPayment)
-    const availablePaymentMethods = getPaymentMethods(mopsInCommon)
+    const availablePaymentMethods = getAvailableMethods(match.meansOfPayment, availableCurrencies[0], mopsInCommon)
 
     acc[match.offerId] = {
       selectedCurrency: availableCurrencies[0],
