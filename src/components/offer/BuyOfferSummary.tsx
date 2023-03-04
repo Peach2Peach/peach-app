@@ -8,6 +8,8 @@ import { TabbedNavigation } from '../navigation/TabbedNavigation'
 import { SatsFormat, Text } from '../text'
 import { HorizontalLine } from '../ui'
 import { peachWallet } from '../../utils/wallet/setWallet'
+import { useSettingsStore } from '../../store/settingsStore'
+import shallow from 'zustand/shallow'
 
 type BuyOfferSummaryProps = ComponentProps & {
   offer: BuyOffer | BuyOfferDraft
@@ -17,6 +19,22 @@ export const BuyOfferSummary = ({ offer, style }: BuyOfferSummaryProps): ReactEl
   const currencies = getCurrencies(offer.meansOfPayment)
   const [selectedCurrency, setSelectedCurrency] = useState(currencies[0])
   const isPeachWallet = useMemo(() => !!peachWallet.findKeyPairByAddress(offer.releaseAddress), [offer.releaseAddress])
+  const [payoutAddress, payoutAddressLabel] = useSettingsStore(
+    (state) => [state.payoutAddress, state.payoutAddressLabel],
+    shallow,
+  )
+  const walletLabel = useMemo(() => {
+    if (offer.walletLabel) {
+      return offer.walletLabel
+    }
+    if (isPeachWallet) {
+      return i18n('peachWallet')
+    }
+    if (payoutAddress === offer.releaseAddress) {
+      return payoutAddressLabel
+    }
+    return i18n('offer.summary.customPayoutAddress')
+  }, [isPeachWallet, offer.releaseAddress, offer.walletLabel, payoutAddress, payoutAddressLabel])
 
   return (
     <View style={[tw`w-full border border-black-5 rounded-2xl p-7`, style]}>
@@ -51,9 +69,7 @@ export const BuyOfferSummary = ({ offer, style }: BuyOfferSummaryProps): ReactEl
       </View>
       <HorizontalLine style={tw`w-64 my-4`} />
       <Text style={tw`self-center body-m text-black-2`}>{i18n('to')}</Text>
-      <Text style={tw`self-center subtitle-1`}>
-        {offer.walletLabel || (isPeachWallet ? i18n('peachWallet') : i18n('offer.summary.customPayoutAddress'))}
-      </Text>
+      <Text style={tw`self-center subtitle-1`}>{walletLabel}</Text>
     </View>
   )
 }
