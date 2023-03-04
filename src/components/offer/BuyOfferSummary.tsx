@@ -52,7 +52,7 @@ export const BuyOfferSummary = ({ offer, style }: BuyOfferSummaryProps): ReactEl
       <Text style={tw`self-center body-m text-black-2`}>{i18n('to')}</Text>
       <Text style={tw`self-center subtitle-1`}>
         {offer.walletLabel
-          || (peachWallet.addresses.includes(offer.releaseAddress)
+          || (!!peachWallet.findKeyPairByAddress(offer.releaseAddress)
             ? i18n('peachWallet')
             : i18n('offer.summary.customPayoutAddress'))}
       </Text>
