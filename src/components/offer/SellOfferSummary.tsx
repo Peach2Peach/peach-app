@@ -5,6 +5,7 @@ import tw from '../../styles/tailwind'
 import { showAddress } from '../../utils/bitcoin'
 import i18n from '../../utils/i18n'
 import { getCurrencies } from '../../utils/paymentMethod'
+import { peachWallet } from '../../utils/wallet/setWallet'
 import Icon from '../Icon'
 import { PaymentMethod } from '../matches/PaymentMethod'
 import { getPremiumColor } from '../matches/utils'
@@ -55,7 +56,12 @@ export const SellOfferSummary = ({ offer, style }: SellOfferSummaryProps): React
 
       <HorizontalLine style={tw`w-64 my-4`} />
       <Text style={tw`self-center body-m text-black-2`}>{i18n('offer.summary.refundWallet')}</Text>
-      <Text style={tw`self-center subtitle-1`}>{offer.walletLabel || i18n('offer.summary.customRefundAddress')}</Text>
+      <Text style={tw`self-center subtitle-1`}>
+        {offer.walletLabel
+          || (!!peachWallet.findKeyPairByAddress(offer.returnAddress)
+            ? i18n('peachWallet')
+            : i18n('offer.summary.customRefundAddress'))}
+      </Text>
 
       {isSellOfferWithDefinedEscrow(offer) && (
         <>
