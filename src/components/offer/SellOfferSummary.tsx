@@ -1,6 +1,8 @@
 import { NETWORK } from '@env'
 import React, { ReactElement, useMemo, useState } from 'react'
 import { TouchableOpacity, View } from 'react-native'
+import shallow from 'zustand/shallow'
+import { useSettingsStore } from '../../store/settingsStore'
 import tw from '../../styles/tailwind'
 import { showAddress } from '../../utils/bitcoin'
 import i18n from '../../utils/i18n'
@@ -24,6 +26,22 @@ export const SellOfferSummary = ({ offer, style }: SellOfferSummaryProps): React
   const currencies = getCurrencies(offer.meansOfPayment)
   const [selectedCurrency, setSelectedCurrency] = useState(currencies[0])
   const isPeachWallet = useMemo(() => !!peachWallet.findKeyPairByAddress(offer.returnAddress), [offer.returnAddress])
+  const [payoutAddress, payoutAddressLabel] = useSettingsStore(
+    (state) => [state.payoutAddress, state.payoutAddressLabel],
+    shallow,
+  )
+  const walletLabel = useMemo(() => {
+    if (offer.walletLabel) {
+      return offer.walletLabel
+    }
+    if (isPeachWallet) {
+      return i18n('peachWallet')
+    }
+    if (payoutAddress === offer.returnAddress) {
+      return payoutAddressLabel
+    }
+    return i18n('offer.summary.customRefundAddress')
+  }, [isPeachWallet, offer.returnAddress, offer.walletLabel, payoutAddress, payoutAddressLabel])
   return (
     <View style={[tw`border border-black-5 rounded-2xl p-7`, style]}>
       <Text style={tw`self-center body-m text-black-2`}>
@@ -57,9 +75,7 @@ export const SellOfferSummary = ({ offer, style }: SellOfferSummaryProps): React
 
       <HorizontalLine style={tw`w-64 my-4`} />
       <Text style={tw`self-center body-m text-black-2`}>{i18n('offer.summary.refundWallet')}</Text>
-      <Text style={tw`self-center subtitle-1`}>
-        {offer.walletLabel || (isPeachWallet ? i18n('peachWallet') : i18n('offer.summary.customRefundAddress'))}
-      </Text>
+      <Text style={tw`self-center subtitle-1`}>{walletLabel}</Text>
 
       {isSellOfferWithDefinedEscrow(offer) && (
         <>
