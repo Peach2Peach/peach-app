@@ -31,7 +31,7 @@ export const BuyOfferSummary = ({ offer, style }: BuyOfferSummaryProps): ReactEl
       return i18n('peachWallet')
     }
     if (payoutAddress === offer.releaseAddress) {
-      return payoutAddressLabel
+      return payoutAddressLabel || i18n('offer.summary.customPayoutAddress')
     }
     return i18n('offer.summary.customPayoutAddress')
   }, [isPeachWallet, offer.releaseAddress, offer.walletLabel, payoutAddress, payoutAddressLabel])
