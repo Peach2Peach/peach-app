@@ -62,4 +62,13 @@ allprojects {
         google()
         maven { url 'https://www.jitpack.io' }
     }
+    afterEvaluate {
+        if (it.hasProperty('android')){
+            android {
+                defaultConfig {
+                    minSdkVersion 26
+                }
+            }
+        }
+    }
 }
