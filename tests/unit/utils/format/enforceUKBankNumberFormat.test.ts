@@ -1,18 +1,18 @@
-import { enforceUKBankNumberFormat } from '../../../../src/utils/format/enforceUKBankNumberFormat'
+import { enforceBankNumberFormat } from '../../../../src/utils/format/enforceBankNumberFormat'
 
 describe('enforceUKBankNumberFormat', () => {
   it('should return empty string when input is empty string', () => {
-    const result = enforceUKBankNumberFormat('')
+    const result = enforceBankNumberFormat('')
     expect(result).toBe('')
   })
 
   it('should remove spaces', () => {
-    const result = enforceUKBankNumberFormat('12 34 56 78')
+    const result = enforceBankNumberFormat('12 34 56 78')
     expect(result).toBe('12345678')
   })
 
   it('should remove non numerical characters', () => {
-    const result = enforceUKBankNumberFormat('ab cd ef|@#¢∞¬÷“')
+    const result = enforceBankNumberFormat('ab cd ef|@#¢∞¬÷“')
     expect(result).toBe('')
   })
 })

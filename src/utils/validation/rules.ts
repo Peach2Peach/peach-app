@@ -99,6 +99,27 @@ export const rules = {
   ukBankAccount (_: boolean, value: string) {
     return /^\d{6,10}$/u.test(value)
   },
+  plBankAccount (_: boolean, value: string) {
+    return /^\d{26,28}$/u.test(value)
+  },
+  czBankAccount (_: boolean, value: string) {
+    return /^\d{10,14}$/u.test(value)
+  },
+  dkBankAccount (_: boolean, value: string) {
+    return /^\d{10}$/u.test(value)
+  },
+  huBankAccount (_: boolean, value: string) {
+    return /^\d{24}$/u.test(value)
+  },
+  noBankAccount (_: boolean, value: string) {
+    return /^\d{11}$/u.test(value)
+  },
+  bgBankAccount (_: boolean, value: string) {
+    return /^\d{11}$/u.test(value)
+  },
+  roBankAccount (_: boolean, value: string) {
+    return /^\d{11}$/u.test(value)
+  },
 }
 
 export type Rule = keyof typeof rules
