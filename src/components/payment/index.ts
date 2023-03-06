@@ -1,3 +1,5 @@
+import { DetailNationalTransfer } from './detail/nationalTransfer'
+import { NATIONALTRANSFERCOUNTRIES } from './../../constants'
 import { DetailMobilePay } from './detail/mobilePay'
 import { DetailVipps } from './detail/vipps'
 import { DetailFasterPayments } from './detail/fasterPayments'
@@ -45,4 +47,7 @@ export const paymentDetailTemplates: PaymentDetailTemplates = {
 
 GIFTCARDCOUNTRIES.forEach(
   (c) => (paymentDetailTemplates[('giftCard.amazon.' + c) as PaymentMethod] = GeneralPaymentDetails),
+)
+NATIONALTRANSFERCOUNTRIES.forEach(
+  (c) => (paymentDetailTemplates[('nationalTransfer' + c) as PaymentMethod] = DetailNationalTransfer),
 )

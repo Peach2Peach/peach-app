@@ -124,7 +124,7 @@ export const NationalTransfer = ({
         autoCorrect={false}
         errorMessage={displayErrors ? beneficiaryErrors : undefined}
       />
-      <TabbedNavigation items={tabs} selected={currentTab} select={setCurrentTab} buttonStyle={tw`p-0`} />
+      <TabbedNavigation items={tabs} selected={currentTab} select={setCurrentTab} buttonStyle={tw`p-0 mb-2`} />
       {currentTab.id === 'iban' ? (
         <IBANInput
           onChange={setIBAN}
@@ -132,7 +132,7 @@ export const NationalTransfer = ({
           reference={(el: any) => ($iban = el)}
           value={iban}
           required={true}
-          label={i18n('form.iban')}
+          label={i18n('form.ukBankAccount')}
           placeholder={i18n('form.iban.placeholder')}
           autoCorrect={false}
           errorMessage={displayErrors ? ibanErrors : undefined}
