@@ -24,8 +24,8 @@ export const getFinalScript = (
 
   const network = getNetwork()
   const decompiled = script.decompile(bitcoinScript)
-  const meaningFulSignatures = input.partialSig.every(
-    (sig) => bitcoinScript.toString('hex').indexOf(sig.pubkey.toString('hex')) !== -1,
+  const meaningFulSignatures = input.partialSig.every((sig) =>
+    bitcoinScript.toString('hex').includes(sig.pubkey.toString('hex')),
   )
   if (!decompiled) {
     throw new Error(`Can not finalize input #${inputIndex}`)

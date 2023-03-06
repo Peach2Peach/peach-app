@@ -1,8 +1,5 @@
-export { getOfferStatus } from './getOfferStatus'
-export { hasFundingTransactions } from './hasFundingTransactions'
 export { hasSeenAllMatches } from './hasSeenAllMatches'
 export { isEscrowRefunded } from './isEscrowRefunded'
-export { isEscrowReleased } from './isEscrowReleased'
 export { isEscrowWaitingForConfirmation } from './isEscrowWaitingForConfirmation'
 export { isFunded } from './isFunded'
 export { isFundingCanceled } from './isFundingCanceled'

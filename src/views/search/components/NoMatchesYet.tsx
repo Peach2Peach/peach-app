@@ -1,23 +1,18 @@
 import React from 'react'
 import { View } from 'react-native'
-import { BigTitle, Loading, Text } from '../../../components'
+import { BuyOfferSummary, SellOfferSummary, Text } from '../../../components'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
+import { isBuyOffer } from '../../../utils/offer'
 import { useOfferMatches } from '../hooks/useOfferMatches'
 
-export const NoMatchesYet = () => {
-  const { isLoading } = useOfferMatches()
+export const NoMatchesYet = ({ offer, style }: { offer: BuyOffer | SellOffer } & ComponentProps) => {
+  const { isLoading } = useOfferMatches(offer.id)
+  if (isLoading) return <></>
   return (
-    <>
-      <BigTitle title={i18n('search.searchingForAPeer')} />
-      {isLoading ? (
-        <View style={tw`h-12`}>
-          <Loading />
-          <Text style={tw`text-center`}>{i18n('loading')}</Text>
-        </View>
-      ) : (
-        <Text style={tw`text-center mt-3`}>{i18n('search.weWillNotifyYou')}</Text>
-      )}
-    </>
+    <View style={style}>
+      <Text style={tw`mb-8 text-center subtitle-1`}>{i18n('search.weWillNotifyYou')}</Text>
+      {isBuyOffer(offer) ? <BuyOfferSummary offer={offer} /> : <SellOfferSummary offer={offer} />}
+    </View>
   )
 }

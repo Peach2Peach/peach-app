@@ -23,7 +23,7 @@ export const invalidSEPADataCurrency: PaymentData = {
 export const validCashData: PaymentData = {
   id: 'cash-1669721660451',
   label: 'Cash EUR',
-  type: 'cash',
-  disclaimerAcknowledged: true,
+  type: 'cash.es.barcelonabitcoin',
   currencies: ['EUR'],
+  country: 'ES',
 }

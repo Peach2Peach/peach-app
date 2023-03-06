@@ -1,5 +1,5 @@
 import { info } from '../../log'
-import { contractStorage } from '../accountStorage'
+import { contractStorage } from '../contractStorage'
 
 export const storeContract = async (contract: Contract): Promise<void> => {
   info('storeContract - Storing contract')

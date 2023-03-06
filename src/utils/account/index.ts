@@ -5,10 +5,13 @@ export { createAccount } from './createAccount'
 export { decryptAccount } from './decryptAccount'
 export { deleteAccount } from './deleteAccount'
 export { getAccountBackup } from './getAccountBackup'
+export { getMessageToSignForAddress } from './getMessageToSignForAddress'
+export { getNewPreferredPaymentMethods } from './getNewPreferredPaymentMethods'
 export { getPaymentData } from './getPaymentData'
 export { getPaymentDataByLabel } from './getPaymentDataByLabel'
 export { getPaymentDataByType } from './getPaymentDataByType'
 export { getSelectedPaymentDataIds } from './getSelectedPaymentDataIds'
+export { isBackupMandatory } from './isBackupMandatory'
 export {
   loadAccount,
   loadChat,

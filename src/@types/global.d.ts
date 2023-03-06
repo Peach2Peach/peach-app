@@ -13,70 +13,16 @@ declare type ComponentProps = {
   forwardRef?: RefObject<unknown>
   children?: ReactNode
   style?: ViewStyle | ViewStyle[]
-}
-declare type PressableProps = {
-  onPress?: () => void
+  onLayout?: (event: LayoutChangeEvent) => void
 }
 
 declare type AnyObject = {
   [key: string]: any
 }
 
+declare type TradeTab = 'buy' | 'sell' | 'history'
+
 type BitcoinNetwork = 'bitcoin' | 'testnet' | 'regtest'
-
-declare type PaymentData = {
-  [key: string]: any
-  id: string
-  label: string
-  type: PaymentMethod
-  currencies: Currency[]
-  country?: Country
-}
-
-declare type PaypalData = {
-  phone: string
-  email: string
-  userName: string
-}
-declare type SEPAData = {
-  beneficiary: string
-  iban: string
-  bic?: string
-  address?: string
-  reference?: string
-}
-declare type BizumData = {
-  phone: string
-  beneficiary: string
-}
-declare type MBWayData = {
-  phone: string
-  beneficiary: string
-}
-declare type RevolutData = {
-  phone: string
-  userName: string
-  email: string
-}
-declare type SwishData = {
-  phone: string
-  beneficiary: string
-}
-declare type SatispayData = {
-  phone: string
-}
-declare type TwintData = {
-  phone: string
-  beneficiary: string
-}
-declare type WiseData = {
-  email: string
-  phone: string
-}
-declare type AmazonGiftCardData = {
-  email: string
-}
-declare type CashData = {}
 
 declare type PaymentCategory = 'bankTransfer' | 'onlineWallet' | 'giftCard' | 'localOption' | 'cryptoCurrency' | 'cash'
 declare type PaymentCategories = {
@@ -90,9 +36,11 @@ declare type Message = {
   roomId: string
   from: User['id']
   date: Date
-  message?: string | null
+  message: string
+  decrypted?: boolean
   readBy: string[]
   signature: string
+  failedToSend?: boolean
 }
 
 declare type Chat = {
@@ -100,32 +48,47 @@ declare type Chat = {
   lastSeen: Date
   messages: Message[]
   draftMessage: string
+  seenDisputeDisclaimer: boolean
 }
 
 declare type AppState = {
   notifications: number
 }
 
-declare type Level = 'OK' | 'ERROR' | 'WARN' | 'INFO' | 'DEBUG'
-declare type MessageState = {
-  template?: ReactNode
-  msgKey?: string
-  msg?: string
-  level: Level
-  close?: boolean
-  time?: number
+declare type Action = {
+  callback: () => void
+  label?: string
+  icon?: IconType
+  disabled?: boolean
 }
+
+declare type Level = 'APP' | 'ERROR' | 'WARN' | 'INFO' | 'DEFAULT' | 'SUCCESS'
+declare type SummaryItemLevel = Level | 'WAITING'
+
+declare type MessageState = {
+  level: Level
+  msgKey?: string
+  bodyArgs?: string[]
+  action?: Action
+  onClose?: Function
+  time?: number
+  keepAlive?: boolean
+}
+
 declare type OverlayState = {
-  content: ReactNode
-  showCloseIcon?: boolean
-  showCloseButton?: boolean
-  onClose?: () => void
-  help?: boolean
+  level?: Level
+  title?: string
+  content?: ReactNode
+  action1?: Action
+  action2?: Action
+  visible: boolean
+  requireUserAction?: boolean
 }
 declare type DrawerState = {
   title: string
   content: ReactNode | null
   show: boolean
+  previousDrawer: Partial<DrawerState>
   onClose: () => void
 }
 declare type BitcoinState = {
@@ -140,10 +103,21 @@ declare type PeachWallet = {
   mnemonic: string
 }
 
-declare type ContactReason = 'bug' | 'userProblem' | 'question' | 'other' | 'newMethod'
+declare type ContactReason = 'bug' | 'userProblem' | 'question' | 'sellMore' | 'other'
 
 declare type Expiry = {
   date: Date
   ttl: number
   isExpired: boolean
+}
+
+declare type Config = {
+  paymentMethods: PaymentMethodInfo[]
+  peachPGPPublicKey: string
+  peachFee: number
+  minAppVersion: string
+  latestAppVersion: string
+  minTradingAmount: number
+  hasSeenRedesignWelcome?: boolean
+  maxTradingAmount: number
 }

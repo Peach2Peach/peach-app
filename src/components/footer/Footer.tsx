@@ -1,66 +1,104 @@
 import React, { ReactElement, useContext, useEffect } from 'react'
 import { Pressable, View } from 'react-native'
 
-import { Text } from '..'
-import AppContext from '../../contexts/app'
-import { useKeyboard } from '../../hooks'
+import { Icon, Text } from '..'
+import { IconType } from '../../assets/icons'
+import { useKeyboard, useNavigation } from '../../hooks'
 import tw from '../../styles/tailwind'
 import { account } from '../../utils/account'
-import { getChatNotifications } from '../../utils/chat'
 import { getContract as getContractFromDevice, saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
-import { Navigation } from '../../utils/navigation'
-import { getRequiredActionCount } from '../../utils/offer'
 import { PeachWSContext } from '../../utils/peachAPI/websocket'
-import Icon from '../Icon'
-import { IconType } from '../icons'
-import { Bubble } from '../ui'
+
+import shallow from 'zustand/shallow'
+import PeachBorder from '../../assets/logo/peachBorder.svg'
+import PeachOrange from '../../assets/logo/peachOrange.svg'
+import { notificationStore } from './notificationsStore'
 
 type FooterProps = ComponentProps & {
   active: keyof RootStackParamList
-  setCurrentPage: React.Dispatch<React.SetStateAction<keyof RootStackParamList>>
-  navigation: Navigation
+  setCurrentPage: React.Dispatch<React.SetStateAction<keyof RootStackParamList | undefined>>
+  theme?: 'default' | 'inverted'
 }
 type FooterItemProps = ComponentProps & {
   id: IconType
   active: boolean
   onPress: () => void
+  theme?: 'default' | 'inverted'
   notifications?: number
 }
 
-const height = 52
-
 // eslint-disable-next-line max-len
 const isSettings
-  = /settings|contact|report|language|currency|backups|paymentMethods|deleteAccount|fees|socials|seedWords/u
+  = /settings|contact|report|language|currency|backup|paymentMethods|deleteAccount|fees|socials|seedWords/u
+const isWallet = /wallet|transactionHistory|transactionDetails/u
+
+const isBuy = /buy|buyPreferences|home/u
+
+const isSell = /sell|sellPreferences/u
+
+const themes = {
+  default: {
+    text: tw`text-black-5`,
+    textSelected: tw`text-black-1`,
+    textSelectedSettings: tw`text-primary-main`,
+    bg: tw`bg-primary-background`,
+  },
+  inverted: {
+    text: tw`text-primary-mild-2`,
+    textSelected: tw`text-primary-background-light`,
+    textSelectedSettings: tw`text-primary-background-light`,
+    bg: tw`bg-transparent`,
+  },
+}
 
 /**
  * @description Component to display the Footer Item
- * @param props Component properties
- * @param props.id item id
- * @param props.active active menu item
- * @param props.onPress on press handler
  * @example
  * <FooterItem id="sell" active={true} />
  */
-const FooterItem = ({ id, active, onPress, notifications = 0, style }: FooterItemProps): ReactElement => {
-  const color = active ? tw`text-peach-1` : tw`text-grey-2`
+const FooterItem = ({
+  id,
+  active,
+  onPress,
+  notifications = 0,
+  theme = 'default',
+  style,
+}: FooterItemProps): ReactElement => {
+  const colors = themes[theme || 'default']
+  const color = active ? (id === 'settings' ? colors.textSelectedSettings : colors.textSelected) : colors.text
   return (
     <Pressable testID={`footer-${id}`} onPress={onPress} style={[style, tw`flex-row justify-center`]}>
       <View>
-        <View style={[tw`flex items-center`, !active ? tw`opacity-30` : {}]}>
-          <Icon id={id} style={tw`w-7 h-7`} color={color.color as string} />
-          <Text style={[color, tw`font-baloo text-2xs leading-3 mt-1 text-center`]}>{i18n(id)}</Text>
+        <View style={tw`flex items-center`}>
+          {id === 'settings' && theme === 'default' ? (
+            active ? (
+              <PeachOrange style={tw`w-6 h-6`} />
+            ) : (
+              <PeachBorder style={tw`w-6 h-6`} />
+            )
+          ) : (
+            <Icon id={id} style={tw`w-6 h-6`} color={color.color} />
+          )}
+          <Text style={[color, tw`leading-relaxed text-center subtitle-1 text-3xs`]}>{i18n(`footer.${id}`)}</Text>
         </View>
-        {notifications ? (
-          <Bubble
-            color={tw`text-green`.color as string}
-            style={tw`absolute top-0 right-0 -m-2 w-4 flex justify-center items-center`}
+        {theme === 'default' && notifications ? (
+          <View
+            style={[
+              tw`absolute w-20px h-20px -top-2 left-1/2 bg-primary-main`,
+              tw`border-2 rounded-full border-primary-background`,
+            ]}
           >
-            <Text style={tw`text-xs font-baloo text-white-1 text-center mt-0.5`} ellipsizeMode="head" numberOfLines={1}>
-              {notifications}
+            <Text
+              numberOfLines={1}
+              style={[
+                tw`self-center body-s text-primary-background text-14px leading-20px`,
+                notifications > 9 && tw`text-12px leading-18px`,
+              ]}
+            >
+              {Math.min(99, notifications)}
             </Text>
-          </Bubble>
+          </View>
         ) : null}
       </View>
     </Pressable>
@@ -69,34 +107,33 @@ const FooterItem = ({ id, active, onPress, notifications = 0, style }: FooterIte
 
 /**
  * @description Component to display the Footer
- * @param props Component properties
- * @param props.active active menu item
  * @example
  * <Footer active={'home'} />
  */
-export const Footer = ({ active, style, setCurrentPage, navigation }: FooterProps): ReactElement => {
-  const [{ notifications }, updateAppContext] = useContext(AppContext)
+export const Footer = ({ active, style, setCurrentPage, theme = 'default' }: FooterProps): ReactElement => {
+  const navigation = useNavigation()
   const ws = useContext(PeachWSContext)
+  const colors = themes[theme || 'default']
+
+  const notifications = notificationStore((state) => state.notifications, shallow)
 
   const keyboardOpen = useKeyboard()
 
-  const navTo = (page: keyof RootStackParamList) => {
+  const navTo = (page: 'home' | 'buy' | 'sell' | 'wallet' | 'yourTrades' | 'settings') => {
     setCurrentPage(page)
-    navigation.navigate(page as string, {})
+    navigation.reset({
+      index: 0,
+      routes: [{ name: page }],
+    })
   }
   const navigate = {
     home: () => navTo('home'),
     buy: () => navTo('buy'),
     sell: () => navTo('sell'),
+    wallet: () => navTo('wallet'),
     yourTrades: () => navTo('yourTrades'),
     settings: () => navTo('settings'),
   }
-
-  useEffect(() => {
-    updateAppContext({
-      notifications: getChatNotifications() + getRequiredActionCount(),
-    })
-  }, [])
 
   useEffect(() => {
     const contractUpdateHandler = async (update: ContractUpdate) => {
@@ -107,9 +144,6 @@ export const Footer = ({ active, style, setCurrentPage, navigation }: FooterProp
         ...contract,
         [update.event]: new Date(update.data.date),
       })
-      updateAppContext({
-        notifications: getChatNotifications() + getRequiredActionCount(),
-      })
     }
     const messageHandler = async (message: Message) => {
       if (!message.message || !message.roomId || message.from === account.publicKey) return
@@ -119,9 +153,6 @@ export const Footer = ({ active, style, setCurrentPage, navigation }: FooterProp
       saveContract({
         ...contract,
         unreadMessages: contract.unreadMessages + 1,
-      })
-      updateAppContext({
-        notifications: getChatNotifications() + getRequiredActionCount(),
       })
     }
     const unsubscribe = () => {
@@ -135,27 +166,23 @@ export const Footer = ({ active, style, setCurrentPage, navigation }: FooterProp
     ws.on('message', messageHandler)
 
     return unsubscribe
-  }, [ws.connected])
+  }, [ws, ws.connected])
 
   return !keyboardOpen ? (
-    <View style={[tw`w-full flex-row items-start`, { height }, style]}>
-      <View style={tw`h-full flex-grow relative`}>
-        <View style={tw`w-full h-full flex-row items-center justify-between bg-white-2`}>
-          <FooterItem id="buy" style={tw`w-1/4`} active={active === 'buy' || active === 'home'} onPress={navigate.buy} />
-          <FooterItem id="sell" style={tw`w-1/4`} active={active === 'sell'} onPress={navigate.sell} />
+    <View style={[tw`flex-row items-start w-full`, style]}>
+      <View style={tw`relative flex-grow`}>
+        <View style={[tw`flex-row items-center justify-between px-5 py-4`, colors.bg]}>
+          <FooterItem theme={theme} id="buy" active={isBuy.test(active as string)} onPress={navigate.buy} />
+          <FooterItem theme={theme} id="sell" active={isSell.test(active as string)} onPress={navigate.sell} />
+          <FooterItem theme={theme} id="wallet" active={isWallet.test(active)} onPress={navigate.wallet} />
           <FooterItem
+            theme={theme}
             id="yourTrades"
-            style={tw`w-1/4`}
-            active={active === 'yourTrades' || /contract/u.test(active as string)}
+            active={active === 'yourTrades' || /contract/u.test(active)}
             onPress={navigate.yourTrades}
             notifications={notifications}
           />
-          <FooterItem
-            id="settings"
-            style={tw`w-1/4`}
-            active={isSettings.test(active as string)}
-            onPress={navigate.settings}
-          />
+          <FooterItem theme={theme} id="settings" active={isSettings.test(active)} onPress={navigate.settings} />
         </View>
       </View>
     </View>

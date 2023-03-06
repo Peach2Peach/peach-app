@@ -1,4 +1,4 @@
-import { SignAndEncryptResult, signAndEncryptSymmetric } from '../pgp'
+import { signAndEncryptSymmetric } from '../pgp'
 
 /**
  * @description Method to encrypt payment data and sign encrypted payment data with passphrase
@@ -8,7 +8,7 @@ import { SignAndEncryptResult, signAndEncryptSymmetric } from '../pgp'
  */
 export const encryptPaymentData = async (
   paymentData: PaymentData,
-  symmetricKey: string
+  symmetricKey: string,
 ): Promise<SignAndEncryptResult> => {
   const data = JSON.parse(JSON.stringify(paymentData))
 
@@ -17,8 +17,5 @@ export const encryptPaymentData = async (
   delete data.type
   delete data.currencies
 
-  return await signAndEncryptSymmetric(
-    JSON.stringify(data),
-    symmetricKey
-  )
+  return await signAndEncryptSymmetric(JSON.stringify(data), symmetricKey)
 }

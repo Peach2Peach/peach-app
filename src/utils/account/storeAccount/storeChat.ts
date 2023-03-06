@@ -1,5 +1,5 @@
 import { info } from '../../log'
-import { chatStorage } from '../accountStorage'
+import { chatStorage } from '../chatStorage'
 
 export const storeChat = (chat: Chat) => {
   info('storeChat - Storing chat')

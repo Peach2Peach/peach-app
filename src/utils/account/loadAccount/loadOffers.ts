@@ -1,5 +1,5 @@
 import { getIndexedMap } from '../../storage'
-import { offerStorage } from '../accountStorage'
+import { offerStorage } from '../offerStorage'
 
 export const loadOffers = async (): Promise<Account['offers']> => {
   const offers = await getIndexedMap(offerStorage)

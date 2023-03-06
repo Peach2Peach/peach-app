@@ -1,72 +1,78 @@
 import { NETWORK } from '@env'
 import React, { ReactElement, useState } from 'react'
-import { Pressable, View } from 'react-native'
+import { TouchableOpacity, View } from 'react-native'
 import tw from '../../styles/tailwind'
-import { showTransaction } from '../../utils/bitcoin'
+import { showAddress } from '../../utils/bitcoin'
 import i18n from '../../utils/i18n'
 import { getCurrencies } from '../../utils/paymentMethod'
-import Card from '../Card'
 import Icon from '../Icon'
-import { Selector } from '../inputs'
-import { Headline, SatsFormat, Text } from '../text'
+import { PaymentMethod } from '../matches/PaymentMethod'
+import { getPremiumColor } from '../matches/utils'
+import { TabbedNavigation } from '../navigation/TabbedNavigation'
+import { SatsFormat, Text } from '../text'
 import { HorizontalLine } from '../ui'
 
 type SellOfferSummaryProps = ComponentProps & {
-  offer: SellOffer
+  offer: SellOffer | SellOfferDraft
 }
+
+const isSellOfferWithDefinedEscrow = (offer: SellOffer | SellOfferDraft): offer is SellOffer & { escrow: string } =>
+  'escrow' in offer && !!offer.escrow
+
 export const SellOfferSummary = ({ offer, style }: SellOfferSummaryProps): ReactElement => {
-  const [currencies] = useState(() => getCurrencies(offer.meansOfPayment))
+  const currencies = getCurrencies(offer.meansOfPayment)
   const [selectedCurrency, setSelectedCurrency] = useState(currencies[0])
-  const [paymentMethods, setPaymentMethods] = useState(offer.meansOfPayment[selectedCurrency]!)
-
-  const setCurrency = (c: string) => {
-    setSelectedCurrency(c as Currency)
-    setPaymentMethods(offer.meansOfPayment[c as Currency]!)
-  }
-
   return (
-    <Card style={[tw`p-5`, style]}>
-      <Headline style={tw`text-grey-2 normal-case`}>{i18n('offer.summary.youAreSelling')}</Headline>
-      <Text style={tw`text-center`}>
-        <SatsFormat sats={offer.amount} color={tw`text-grey-2`} />
+    <View style={[tw`border border-black-5 rounded-2xl p-7`, style]}>
+      <Text style={tw`self-center body-m text-black-2`}>
+        {i18n(`offer.summary.${offer.tradeStatus !== 'offerCanceled' ? 'youAreSelling' : 'youWereSelling'}`)}
       </Text>
-      <HorizontalLine style={tw`mt-4`} />
-      <Headline style={tw`text-grey-2 normal-case mt-4`}>{i18n('offer.summary.for')}</Headline>
-      <Text style={tw`text-center`}>
-        {i18n(offer.premium > 0 ? 'offer.summary.premium' : 'offer.summary.discount', String(Math.abs(offer.premium)))}
+      <SatsFormat
+        sats={offer.amount}
+        containerStyle={tw`self-center`}
+        bitcoinLogoStyle={tw`w-4 h-4 mr-1`}
+        style={tw`font-semibold subtitle-1`}
+        satsStyle={tw`font-normal body-s`}
+      />
+      <HorizontalLine style={tw`w-64 my-4`} />
+      <Text style={tw`self-center body-m text-black-2`}>{i18n('offer.summary.withA')}</Text>
+      <Text style={[tw`text-center subtitle-1`, getPremiumColor(offer.premium, false)]}>
+        <Text style={tw`subtitle-1`}>{Math.abs(offer.premium)}% </Text>
+        {i18n(offer.premium > 0 ? 'offer.summary.premium' : 'offer.summary.discount')}
       </Text>
-      <HorizontalLine style={tw`mt-4`} />
-      <Headline style={tw`text-grey-2 normal-case mt-4`}>{i18n('offer.summary.in')}</Headline>
-      <Selector
-        style={tw`mt-2`}
-        selectedValue={selectedCurrency}
-        onChange={setCurrency}
-        items={getCurrencies(offer.meansOfPayment).map((c) => ({ value: c, display: c }))}
+      <HorizontalLine style={tw`w-64 my-4`} />
+      <Text style={tw`self-center body-m text-black-2`}>{i18n('offer.summary.withTheseMethods')}</Text>
+      <TabbedNavigation
+        items={currencies.map((currency) => ({ id: currency, display: currency.toLowerCase() }))}
+        selected={{ id: selectedCurrency, display: selectedCurrency }}
+        select={(c) => setSelectedCurrency(c.id as Currency)}
       />
-      <HorizontalLine style={tw`mt-4`} />
-      <Headline style={tw`text-grey-2 normal-case mt-4`}>{i18n('offer.summary.via')}</Headline>
-      <Selector
-        items={paymentMethods.map((p) => ({
-          value: p,
-          display: i18n(`paymentMethod.${p}`).toLowerCase(),
-        }))}
-        style={tw`mt-2`}
-      />
-      {offer.funding?.txIds?.length > 0 ? (
-        <View>
-          <HorizontalLine style={tw`mt-4`} />
-          <Headline style={tw`text-grey-2 normal-case mt-4`}>
-            {i18n(offer.txId ? 'offer.summary.refundTx' : 'offer.summary.escrow')}
-          </Headline>
-          <Pressable
-            style={tw`flex-row justify-center items-center`}
-            onPress={() => showTransaction(offer.txId || (offer.funding.txIds[0] as string), NETWORK)}
+      <View style={tw`flex-row flex-wrap items-center justify-center mt-3 mb-2`}>
+        {offer.meansOfPayment[selectedCurrency]?.map((p) => (
+          <PaymentMethod key={`sellOfferMethod-${p}`} paymentMethod={p} style={tw`m-1`} />
+        ))}
+      </View>
+
+      <HorizontalLine style={tw`w-64 my-4`} />
+      <Text style={tw`self-center body-m text-black-2`}>{i18n('offer.summary.refundWallet')}</Text>
+      <Text style={tw`self-center subtitle-1`}>{offer.walletLabel || i18n('offer.summary.customRefundAddress')}</Text>
+
+      {isSellOfferWithDefinedEscrow(offer) && (
+        <>
+          <HorizontalLine style={tw`w-64 my-4`} />
+          <TouchableOpacity
+            style={tw`flex-row items-end self-center`}
+            onPress={() => showAddress(offer.escrow, NETWORK)}
           >
-            <Text>{i18n('escrow.viewInExplorer')}</Text>
-            <Icon id="link" style={tw`w-3 h-3 ml-1`} color={tw`text-peach-1`.color as string} />
-          </Pressable>
-        </View>
-      ) : null}
-    </Card>
+            <Text style={tw`underline tooltip text-black-2`}>{i18n('escrow.viewInExplorer')}</Text>
+            <Icon
+              id="externalLink"
+              style={tw`w-[18px] h-[18px] ml-[2px] mb-[2px]`}
+              color={tw`text-primary-main`.color}
+            />
+          </TouchableOpacity>
+        </>
+      )}
+    </View>
   )
 }

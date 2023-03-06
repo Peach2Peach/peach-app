@@ -1,67 +1,73 @@
-import React, { ReactElement, useContext, useState } from 'react'
+import React, { ReactElement } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
-import LanguageContext from '../../contexts/language'
-import { Button, Input, PeachScrollView, Text } from '../../components'
+import { Input, Text } from '../../components'
+import { PrimaryButton } from '../../components/buttons'
+import { useKeyboard } from '../../hooks'
 import i18n from '../../utils/i18n'
-import { useNavigation, useValidatedState } from '../../hooks'
-
-const referralCodeRules = { referralCode: true }
+import { useNewUserSetup } from './hooks/useNewUserSetup'
 
 export default (): ReactElement => {
-  useContext(LanguageContext)
-  const navigation = useNavigation()
-
-  const [referralCode, setReferralCode, referralCodeIsValid, referralCodeErrors] = useValidatedState<string>(
-    '',
-    referralCodeRules,
-  )
-  const [displayErrors, setDisplayErrors] = useState(false)
-
-  const validate = () => {
-    setDisplayErrors(true)
-    return referralCodeIsValid
-  }
-
-  const goToNewUser = () => {
-    if (validate()) navigation.navigate('newUser', { referralCode })
-  }
-
+  const {
+    referralCode,
+    setReferralCode,
+    referralCodeIsValid,
+    checkReferralCode,
+    willUseReferralCode,
+    goToNewUser,
+    goToRestoreBackup,
+  } = useNewUserSetup()
+  const keyboardOpen = useKeyboard()
+  const checkCode = () => checkReferralCode(referralCode)
   return (
-    <PeachScrollView contentContainerStyle={tw`flex flex-col justify-between`}>
+    <View style={tw`flex flex-col items-center justify-between h-full`}>
+      <View>{/* dummy for layout */}</View>
       <View>
-        <Text style={tw`font-baloo text-center text-3xl leading-3xl text-peach-1`}>
-          {i18n('welcome.letsGetStarted.title')}
-        </Text>
-        <Text style={tw`mt-4 font-lato text-grey-3 text-center`}>{i18n('newUser.referralCode')}</Text>
-        <View style={tw`flex items-center`}>
-          <Input
-            testID="newUser-referralCode"
-            style={tw`w-40 mt-4`}
-            placeholder={i18n('form.optional')}
-            onChange={setReferralCode}
-            onSubmit={(val: string) => {
-              setReferralCode(val)
-            }}
-            value={referralCode}
-            autoCapitalize="characters"
-            isValid={referralCodeIsValid}
-            errorMessage={displayErrors ? referralCodeErrors : undefined}
-          />
+        <Text style={tw`text-center h4 text-primary-background-light`}>{i18n('welcome.letsGetStarted.title')}</Text>
+        <Text style={tw`mt-4 text-center text-primary-background-light`}>{i18n('newUser.referralCode')}</Text>
+        <View style={tw`flex-row items-center justify-center`}>
+          <View style={tw`h-14 mr-2`}>
+            <Input
+              testID="newUser-referralCode"
+              style={tw`w-40 mt-2`}
+              theme="inverted"
+              maxLength={16}
+              placeholder={i18n('form.optional').toUpperCase()}
+              onChange={setReferralCode}
+              onSubmit={setReferralCode}
+              value={referralCode}
+              autoCapitalize="characters"
+            />
+          </View>
+          <PrimaryButton
+            white
+            disabled={willUseReferralCode || !referralCode || !referralCodeIsValid}
+            onPress={checkCode}
+            style={tw`w-20`}
+          >
+            {i18n(willUseReferralCode ? 'referrals.used' : 'referrals.use')}
+          </PrimaryButton>
         </View>
       </View>
-      <View style={tw`flex items-center`}>
-        <Button style={tw`mt-4`} testID="welcome-newUser" onPress={goToNewUser} wide={false} title={i18n('newUser')} />
-        <Button
-          testID="welcome-restoreBackup"
-          style={tw`mt-2`}
-          onPress={() => navigation.navigate('restoreBackup', {})}
-          wide={false}
-          secondary={true}
-          title={i18n('restoreBackup')}
-        />
+      <View style={[tw`flex items-stretch mt-4`, keyboardOpen ? tw`mb-4` : {}]}>
+        <PrimaryButton testID="welcome-newUser" onPress={goToNewUser} white narrow iconId="plusCircle">
+          {i18n('newUser')}
+        </PrimaryButton>
+        {!keyboardOpen && (
+          <PrimaryButton
+            testID="welcome-restoreBackup"
+            onPress={goToRestoreBackup}
+            style={tw`mt-2`}
+            iconId="save"
+            white
+            border
+            narrow
+          >
+            {i18n('restore')}
+          </PrimaryButton>
+        )}
       </View>
-    </PeachScrollView>
+    </View>
   )
 }

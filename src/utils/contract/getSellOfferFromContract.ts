@@ -1,9 +1,5 @@
 import { getOffer } from '../offer'
+import { getSellOfferIdFromContract } from './getSellOfferIdFromContract'
 
-/**
- * @description Method to get sell offer of contract
- * @param contract the contract
- * @returns sell offer
- */
 export const getSellOfferFromContract = (contract: Contract): SellOffer =>
-  getOffer(contract.id.split('-')[0]) as SellOffer
+  getOffer(getSellOfferIdFromContract(contract)) as SellOffer

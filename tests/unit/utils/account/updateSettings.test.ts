@@ -36,15 +36,20 @@ describe('updateSettings', () => {
     updateSettings({ meansOfPayment })
     deepStrictEqual(account.settings, {
       appVersion: APPVERSION,
+      minBuyAmount: 0,
+      maxBuyAmount: Infinity,
+      sellAmount: 0,
+      premium: 1.5,
       displayCurrency: 'EUR',
       locale: 'en',
       meansOfPayment: {
         EUR: ['sepa', 'paypal'],
       },
-      preferredCurrencies: [],
       preferredPaymentMethods: {},
       showBackupReminder: true,
-      showDisputeDisclaimer: true,
+      peachWalletActive: true,
+      nodeURL: 'https://localhost:3000/',
+      feeRate: 'halfHourFee',
     })
   })
 })

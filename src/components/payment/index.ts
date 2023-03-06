@@ -1,17 +1,23 @@
+import { DetailMobilePay } from './detail/mobilePay'
+import { DetailVipps } from './detail/vipps'
+import { DetailFasterPayments } from './detail/fasterPayments'
+import { DetailInstantSepa } from './detail/instantSepa'
 import { ReactElement } from 'react'
-import GeneralPaymentDetails from './detail/generalPaymentDetails'
-import DetailSEPA from './detail/sepa'
-import DetailRevolut from './detail/revolut'
-import DetailWise from './detail/wise'
-import Cash from './detail/cash'
 import { COUNTRIES } from '../../constants'
+import GeneralPaymentDetails from './detail/generalPaymentDetails'
+import DetailPaypal from './detail/paypal'
+import DetailRevolut from './detail/revolut'
+import { DetailSEPA } from './detail/sepa'
+import DetailADVCash from './detail/advcash'
+import DetailBlik from './detail/blik'
 
-export type PaymentTemplateProps = {
+export type PaymentTemplateProps = ComponentProps & {
   paymentData: PaymentData
-  country?: Country
+  country?: PaymentMethodCountry
   appLink?: string
   fallbackUrl?: string
   userLink?: string
+  copyable?: boolean
 }
 
 export type PaymentDetailTemplates = {
@@ -20,18 +26,21 @@ export type PaymentDetailTemplates = {
 
 export const paymentDetailTemplates: PaymentDetailTemplates = {
   sepa: DetailSEPA,
-  paypal: GeneralPaymentDetails,
+  fasterPayments: DetailFasterPayments,
+  instantSepa: DetailInstantSepa,
+  paypal: DetailPaypal,
   revolut: DetailRevolut,
-  wise: DetailWise,
+  advcash: DetailADVCash,
+  blik: DetailBlik,
+  wise: GeneralPaymentDetails,
   twint: GeneralPaymentDetails,
   swish: GeneralPaymentDetails,
   satispay: GeneralPaymentDetails,
   mbWay: GeneralPaymentDetails,
   bizum: GeneralPaymentDetails,
+  mobilePay: DetailMobilePay,
+  vipps: DetailVipps,
   'giftCard.amazon': GeneralPaymentDetails,
-  cash: Cash,
-  'cash.amsterdam': Cash,
-  'cash.lugano': Cash,
 }
 
 COUNTRIES.forEach((c) => (paymentDetailTemplates[('giftCard.amazon.' + c) as PaymentMethod] = GeneralPaymentDetails))

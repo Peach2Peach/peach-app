@@ -55,17 +55,12 @@ export const MessageInput = ({
   }
   // TODO Attach files
   return (
-    <View
-      style={[
-        tw`rounded flex-row bg-chat-you-translucent items-center max-h-40 px-2 py-2`,
-        disabled ? tw`opacity-50` : {},
-      ]}
-    >
+    <View style={[tw`flex-row items-end px-2 rounded bg-info-background max-h-40`, disabled ? tw`opacity-50` : {}]}>
       <TextInput
         testID={testID}
-        style={tw`w-full flex-shrink font-lato leading-5 text-black-1 p-1`}
+        style={tw`flex-shrink w-full p-0 py-3 pl-1 leading-normal body-m text-black-1`}
         placeholder={placeholder}
-        placeholderTextColor={tw`text-black-1`.color as string}
+        placeholderTextColor={tw`text-info-mild`.color}
         allowFontScaling={false}
         removeClippedSubviews={false}
         returnKeyType={'send'}
@@ -80,8 +75,8 @@ export const MessageInput = ({
         onBlur={onBlurHandler}
         autoCapitalize="sentences"
       />
-      <Pressable onPress={() => (onSubmit && !disableSubmit ? onSubmit(value) : null)}>
-        <Icon id="send" style={tw`w-5 h-5 ml-2 flex-1`} color={tw`text-blue-1`.color as string} />
+      <Pressable style={tw`px-2 py-3`} onPress={() => (onSubmit && !disableSubmit ? onSubmit(value) : null)}>
+        <Icon id="arrowRightCircle" style={tw`w-6 h-6`} color={tw`text-info-light`.color} />
       </Pressable>
     </View>
   )

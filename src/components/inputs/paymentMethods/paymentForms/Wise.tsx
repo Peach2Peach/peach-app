@@ -1,13 +1,27 @@
-import React, { ReactElement, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
+import React, { ReactElement, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
 import { TextInput, View } from 'react-native'
 import { FormProps } from '.'
 import tw from '../../../../styles/tailwind'
 import { getPaymentDataByLabel } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
 import { getErrorsInField } from '../../../../utils/validation'
-import { HorizontalLine } from '../../../ui'
+import { TabbedNavigation, TabbedNavigationItem } from '../../../navigation/TabbedNavigation'
+import { EmailInput } from '../../EmailInput'
 import Input from '../../Input'
+import { PhoneInput } from '../../PhoneInput'
 import { CurrencySelection, toggleCurrency } from './CurrencySelection'
+
+const tabs: TabbedNavigationItem[] = [
+  {
+    id: 'phone',
+    display: i18n('form.phone'),
+  },
+  {
+    id: 'email',
+    display: i18n('form.email'),
+  },
+]
+const phoneRules = { required: true, phone: true, isPhoneAllowed: true }
 
 export const Wise = ({ forwardRef, data, currencies = [], onSubmit, setStepValid }: FormProps): ReactElement => {
   const [label, setLabel] = useState(data?.label || '')
@@ -17,21 +31,25 @@ export const Wise = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
   const [selectedCurrencies, setSelectedCurrencies] = useState(data?.currencies || currencies)
   const [displayErrors, setDisplayErrors] = useState(false)
 
-  let $email = useRef<TextInput>(null).current
-  let $phone = useRef<TextInput>(null).current
+  const [currentTab, setCurrentTab] = useState(tabs[0])
+
+  const $email = useRef<TextInput>(null).current
+  const $phone = useRef<TextInput>(null).current
   let $reference = useRef<TextInput>(null).current
 
   const anyFieldSet = !!(email || phone)
 
-  const labelRules = {
-    required: true,
-    duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)!.id !== data.id,
-  }
-  const phoneRules = { required: !email, phone: true }
-  const emailRules = { required: !phone, email: true }
+  const labelRules = useMemo(
+    () => ({
+      required: true,
+      duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)!.id !== data.id,
+    }),
+    [data.id, label],
+  )
+  const emailRules = useMemo(() => ({ required: !phone, email: true }), [phone])
 
   const labelErrors = useMemo(() => getErrorsInField(label, labelRules), [label, labelRules])
-  const phoneErrors = useMemo(() => getErrorsInField(phone, phoneRules), [phone, phoneRules])
+  const phoneErrors = useMemo(() => getErrorsInField(phone, phoneRules), [phone])
   const emailErrors = useMemo(() => getErrorsInField(email, emailRules), [email, emailRules])
 
   const buildPaymentData = (): PaymentData & WiseData => ({
@@ -43,9 +61,16 @@ export const Wise = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
     currencies: selectedCurrencies,
   })
 
-  const isFormValid = () => {
+  const isFormValid = useCallback(() => {
     setDisplayErrors(true)
     return [...labelErrors, ...phoneErrors, ...emailErrors].length === 0
+  }, [emailErrors, labelErrors, phoneErrors])
+
+  const getErrorTabs = () => {
+    const fields = []
+    if (phoneErrors.length > 0) fields.push('phone')
+    if (email && emailErrors.length > 0) fields.push('email')
+    return fields
   }
 
   const onCurrencyToggle = (currency: Currency) => {
@@ -71,51 +96,55 @@ export const Wise = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
       <View>
         <Input
           onChange={setLabel}
-          onSubmit={() => $email?.focus()}
+          onSubmit={() => {
+            if (currentTab.id === 'email') {
+              $email?.focus()
+            } else $phone?.focus()
+          }}
           value={label}
           required={!anyFieldSet}
           label={i18n('form.paymentMethodName')}
           placeholder={i18n('form.paymentMethodName.placeholder')}
-          isValid={labelErrors.length === 0}
           autoCorrect={false}
           errorMessage={displayErrors ? labelErrors : undefined}
         />
       </View>
-      <View style={tw`mt-6`}>
-        <Input
-          onChange={setEmail}
-          onSubmit={() => $phone?.focus()}
-          reference={(el: any) => ($email = el)}
-          value={email}
-          required={!phone}
-          label={i18n('form.email')}
-          placeholder={i18n('form.email.placeholder')}
-          isValid={emailErrors.length === 0}
-          autoCorrect={false}
-          errorMessage={displayErrors ? emailErrors : undefined}
-        />
+      <TabbedNavigation
+        items={tabs}
+        selected={currentTab}
+        select={setCurrentTab}
+        buttonStyle={tw`p-0`}
+        tabHasError={displayErrors ? getErrorTabs() : []}
+      />
+      <View style={tw`mt-2`}>
+        {currentTab.id === 'phone' && (
+          <PhoneInput
+            onChange={setPhone}
+            onSubmit={() => {
+              $reference?.focus()
+            }}
+            enforceRequired
+            value={phone}
+            label={i18n('form.phoneLong')}
+            required={true}
+            placeholder={i18n('form.phone.placeholder')}
+            autoCorrect={false}
+            errorMessage={displayErrors ? phoneErrors : undefined}
+          />
+        )}
+        {currentTab.id === 'email' && (
+          <EmailInput
+            onChange={setEmail}
+            onSubmit={() => $reference?.focus()}
+            required={false}
+            value={email}
+            label={i18n('form.emailLong')}
+            placeholder={i18n('form.email.placeholder')}
+            errorMessage={displayErrors ? emailErrors : undefined}
+          />
+        )}
       </View>
-      <View style={tw`mt-6`}>
-        <Input
-          onChange={(number: string) => {
-            setPhone((number.length && !/\+/gu.test(number) ? `+${number}` : number).replace(/[^0-9+]/gu, ''))
-          }}
-          onSubmit={() => {
-            setPhone((number: string) => (!/\+/gu.test(number) ? `+${number}` : number).replace(/[^0-9+]/gu, ''))
-            $reference?.focus()
-          }}
-          reference={(el: any) => ($phone = el)}
-          value={phone}
-          required={!email}
-          label={i18n('form.phone')}
-          placeholder={i18n('form.phone.placeholder')}
-          isValid={phoneErrors.length === 0}
-          autoCorrect={false}
-          errorMessage={displayErrors ? phoneErrors : undefined}
-        />
-      </View>
-      <HorizontalLine style={tw`mt-6`} />
-      <View style={tw`mt-6`}>
+      <View style={tw`mt-1`}>
         <Input
           onChange={setReference}
           onSubmit={save}
@@ -129,7 +158,7 @@ export const Wise = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
       </View>
       <CurrencySelection
         style={tw`mt-6`}
-        paymentMethod="paypal"
+        paymentMethod="wise"
         selectedCurrencies={selectedCurrencies}
         onToggle={onCurrencyToggle}
       />

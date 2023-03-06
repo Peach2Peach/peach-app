@@ -1,12 +1,13 @@
 import React, { ReactElement, useEffect, useRef, useState } from 'react'
 import { Animated, ViewProps } from 'react-native'
 
-type FadeProps = ViewProps & ComponentProps & {
-  show?: boolean,
-  duration?: number,
-  delay?: number,
-  displayNone?: boolean
-}
+type FadeProps = ViewProps &
+  ComponentProps & {
+    show?: boolean
+    duration?: number
+    delay?: number
+    displayNone?: boolean
+  }
 
 /**
  * @description Animated view to fade content in and out
@@ -24,7 +25,8 @@ export const Fade = ({
   children,
   style,
   show,
-  duration = 400, delay = 0,
+  duration = 400,
+  delay = 0,
   pointerEvents,
   displayNone = true,
 }: FadeProps): ReactElement => {
@@ -32,14 +34,12 @@ export const Fade = ({
   const [display, setDisplay] = useState(true)
 
   useEffect(() => {
-    Animated.timing(
-      fadeAnim, {
-        toValue: show ? 1 : 0,
-        duration,
-        delay,
-        useNativeDriver: true
-      }
-    ).start()
+    Animated.timing(fadeAnim, {
+      toValue: show ? 1 : 0,
+      duration,
+      delay,
+      useNativeDriver: true,
+    }).start()
   }, [show, delay, duration, fadeAnim])
 
   useEffect(() => {
@@ -48,12 +48,17 @@ export const Fade = ({
     })
   }, [])
 
-  return <Animated.View pointerEvents={pointerEvents} style={{
-    ...(display ? style : {}),
-    opacity: fadeAnim,
-  }}>
-    {display ? children : null}
-  </Animated.View>
+  return (
+    <Animated.View
+      pointerEvents={pointerEvents}
+      style={{
+        ...(display ? style : {}),
+        opacity: fadeAnim,
+      }}
+    >
+      {display ? children : null}
+    </Animated.View>
+  )
 }
 
 export default Fade

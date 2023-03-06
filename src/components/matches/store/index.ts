@@ -12,11 +12,12 @@ type MatchState = {
 
 export type MatchStore = MatchState & {
   setSelectedCurrency: (currency: Currency, matchId: Match['offerId']) => void
-  setSelectedPaymentMethod: (paymentMethod: PaymentMethod, matchId: Match['offerId']) => void
+  setSelectedPaymentMethod: (paymentMethod: PaymentMethod | undefined, matchId: Match['offerId']) => void
   setCurrentIndex: (newIndex: number) => void
   setAvailablePaymentMethods: (methods: PaymentMethod[], matchId: Match['offerId']) => void
   resetStore: () => void
   addMatchSelectors: (matches: Match[], offerMeansOfPayment: MeansOfPayment) => void
+  setShowPaymentMethodPulse: (matchId: Match['offerId'], show?: boolean) => void
 }
 
 const defaultState: MatchState = {
@@ -30,10 +31,13 @@ export const useMatchStore = create<MatchStore>()(
     ...defaultState,
     setSelectedCurrency: (currency, matchId) => {
       const currentMatch = get().matchSelectors[matchId]
+      const currentPaymentMethod = currentMatch.selectedPaymentMethod
       const newMethods = getAvailableMethods(currentMatch.meansOfPayment, currency, currentMatch.mopsInCommon)
       get().setAvailablePaymentMethods(newMethods, matchId)
-      if (!newMethods.includes(currentMatch.selectedCurrency)) {
+      if (newMethods.length === 1) {
         get().setSelectedPaymentMethod(newMethods[0], matchId)
+      } else if (currentPaymentMethod && !newMethods.includes(currentPaymentMethod)) {
+        get().setSelectedPaymentMethod(undefined, matchId)
       }
       return set((state) => {
         state.matchSelectors[matchId].selectedCurrency = currency
@@ -41,6 +45,7 @@ export const useMatchStore = create<MatchStore>()(
     },
     setSelectedPaymentMethod: (paymentMethod, matchId) =>
       set((state) => {
+        state.matchSelectors[matchId].showPaymentMethodPulse = false
         state.matchSelectors[matchId].selectedPaymentMethod = paymentMethod
       }),
     setCurrentIndex: (newIndex) =>
@@ -59,5 +64,9 @@ export const useMatchStore = create<MatchStore>()(
         matchSelectors: { ...newMatchSelectors, ...updatedMatchSelectors },
       }))
     },
+    setShowPaymentMethodPulse: (matchId, show = true) =>
+      set((state) => {
+        state.matchSelectors[matchId].showPaymentMethodPulse = show
+      }),
   })),
 )

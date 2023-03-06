@@ -1,35 +1,56 @@
 import { ReactElement } from 'react'
 
+import { BackgroundConfig } from '../components/background/Background'
+import MeetupScreen from '../components/payment/MeetupScreen'
 import AddPaymentMethod from './addPaymentMethod/AddPaymentMethod'
 import PaymentDetails from './addPaymentMethod/PaymentDetails'
+import BackupTime from './backupTime/BackupTime'
 import Buy from './buy/Buy'
 import BuyPreferences from './buy/BuyPreferences'
+import SignMessage from './buy/SignMessage'
 import Contact from './contact/Contact'
 import Contract from './contract/Contract'
+import PaymentMade from './contract/PaymentMade'
 import ContractChat from './contractChat/ContractChat'
-import Dispute from './dispute/Dispute'
+import DisputeForm from './dispute/DisputeForm'
+import DisputeReasonSelector from './dispute/DisputeReasonSelector'
 import NewUser from './newUser/NewUser'
-import Profile from './profile/Profile'
+import OfferDetails from './offerDetails/OfferDetails'
+import PublicProfile from './publicProfile/PublicProfile'
 import Referrals from './referrals/Referrals'
 import Report from './report/Report'
 import RestoreBackup from './restoreBackup/RestoreBackup'
+import OfferPublished from './search/OfferPublished'
 import Search from './search/Search'
+import SelectWallet from './selectWallet/SelectWallet'
+import SetRefundWallet from './selectWallet/SetRefundWallet'
 import FundEscrow from './sell/FundEscrow'
-import SetReturnAddress from './sell/SetReturnAddress'
 import Sell from './sell/Sell'
 import SellPreferences from './sell/SellPreferences'
+import AboutPeach from './settings/aboutPeach/AboutPeach'
+import BitcoinProducts from './settings/aboutPeach/BitcoinProducts'
+import PeachFees from './settings/aboutPeach/PeachFees'
+import Socials from './settings/aboutPeach/Socials'
 import Backups from './settings/Backups'
+import BackupCreated from './settings/components/backups/BackupCreated'
 import Currency from './settings/Currency'
-import Escrow from './settings/Escrow'
-import Fees from './settings/Fees'
-import Language from './settings/Language'
+import NetworkFees from './settings/NetworkFees'
 import PaymentMethods from './settings/PaymentMethods'
+import PayoutAddress from './settings/PayoutAddress'
+import MyProfile from './settings/profile/MyProfile'
 import Settings from './settings/Settings'
-import Socials from './settings/Socials'
-import SplashScreen from './splashScreen/SplashScreen'
+import TestViewButtons from './TestView/buttons'
+import TestViewComponents from './TestView/components'
+import TestViewMessages from './TestView/messages'
+import TestViewPNs from './TestView/pns'
+import TestViewPopups from './TestView/popups'
+import TestView from './TestView/TestView'
 import TradeComplete from './tradeComplete/TradeComplete'
+import TransactionDetails from './wallet/TransactionDetails'
+import TransactionHistory from './wallet/TransactionHistory'
+import Wallet from './wallet/Wallet'
+import RedesignWelcome from './welcome/RedesignWelcome'
 import Welcome from './welcome/Welcome'
-import Offer from './yourTrades/Offer'
 import YourTrades from './yourTrades/YourTrades'
 
 type ViewType = {
@@ -37,42 +58,130 @@ type ViewType = {
   component: (props: any) => ReactElement
   showHeader: boolean
   showFooter: boolean
+  background: BackgroundConfig
+  animationEnabled: boolean
 }
 
-export const views: ViewType[] = [
-  { name: 'splashScreen', component: SplashScreen, showHeader: false, showFooter: false },
-  { name: 'welcome', component: Welcome, showHeader: false, showFooter: false },
-  { name: 'newUser', component: NewUser, showHeader: false, showFooter: false },
-  { name: 'restoreBackup', component: RestoreBackup, showHeader: false, showFooter: false },
-  { name: 'home', component: Buy, showHeader: true, showFooter: true },
-  { name: 'buy', component: Buy, showHeader: true, showFooter: true },
-  { name: 'buyPreferences', component: BuyPreferences, showHeader: true, showFooter: false },
-  { name: 'sell', component: Sell, showHeader: true, showFooter: true },
-  { name: 'sellPreferences', component: SellPreferences, showHeader: true, showFooter: false },
-  { name: 'fundEscrow', component: FundEscrow, showHeader: true, showFooter: true },
-  { name: 'setReturnAddress', component: SetReturnAddress, showHeader: true, showFooter: true },
-  { name: 'addPaymentMethod', component: AddPaymentMethod, showHeader: true, showFooter: false },
-  { name: 'paymentDetails', component: PaymentDetails, showHeader: true, showFooter: false },
-  { name: 'search', component: Search, showHeader: true, showFooter: true },
-  { name: 'contract', component: Contract, showHeader: true, showFooter: true },
-  { name: 'contractChat', component: ContractChat, showHeader: false, showFooter: false },
-  { name: 'tradeComplete', component: TradeComplete, showHeader: true, showFooter: true },
-  { name: 'yourTrades', component: YourTrades, showHeader: true, showFooter: true },
-  { name: 'offer', component: Offer, showHeader: true, showFooter: true },
-  { name: 'profile', component: Profile, showHeader: true, showFooter: true },
-  { name: 'settings', component: Settings, showHeader: true, showFooter: true },
-  { name: 'language', component: Language, showHeader: true, showFooter: true },
-  { name: 'currency', component: Currency, showHeader: true, showFooter: true },
-  { name: 'referrals', component: Referrals, showHeader: true, showFooter: true },
-  { name: 'backups', component: Backups, showHeader: true, showFooter: true },
-  { name: 'escrow', component: Escrow, showHeader: true, showFooter: true },
-  { name: 'paymentMethods', component: PaymentMethods, showHeader: true, showFooter: true },
-  { name: 'fees', component: Fees, showHeader: true, showFooter: true },
-  { name: 'socials', component: Socials, showHeader: true, showFooter: true },
-  { name: 'contact', component: Contact, showHeader: true, showFooter: true },
-  { name: 'report', component: Report, showHeader: true, showFooter: true },
-  { name: 'reportFullScreen', component: Report, showHeader: false, showFooter: false },
-  { name: 'dispute', component: Dispute, showHeader: true, showFooter: true },
+const onboardingConfig = {
+  showHeader: true,
+  showFooter: false,
+  background: { color: 'primaryGradient' },
+  animationEnabled: false,
+} as const
+const defaultConfig = { showHeader: true, showFooter: true, background: { color: undefined }, animationEnabled: true }
+const invertedThemeConfig = {
+  showHeader: false,
+  showFooter: false,
+  background: { color: 'primaryGradient' },
+  animationEnabled: false,
+} as const
+
+const onboarding: ViewType[] = [
+  { name: 'welcome', component: Welcome, ...onboardingConfig },
+  { name: 'home', component: Welcome, ...onboardingConfig },
+  { name: 'newUser', component: NewUser, ...onboardingConfig },
+  { name: 'restoreBackup', component: RestoreBackup, ...onboardingConfig },
+  { name: 'redesignWelcome', component: RedesignWelcome, ...invertedThemeConfig },
 ]
 
-export default views
+const home: ViewType[] = [
+  { name: 'home', component: Buy, ...defaultConfig },
+  { name: 'redesignWelcome', component: RedesignWelcome, ...invertedThemeConfig },
+]
+
+const wallet: ViewType[] = [
+  { name: 'wallet', component: Wallet, ...defaultConfig, animationEnabled: false },
+  { name: 'transactionHistory', component: TransactionHistory, ...defaultConfig },
+  { name: 'transactionDetails', component: TransactionDetails, ...defaultConfig },
+]
+const buyFlow: ViewType[] = [
+  { name: 'buy', component: Buy, ...defaultConfig, animationEnabled: false },
+  { name: 'buyPreferences', component: BuyPreferences, ...defaultConfig },
+  { name: 'signMessage', component: SignMessage, ...defaultConfig },
+]
+
+const sellFlow: ViewType[] = [
+  { name: 'sell', component: Sell, ...defaultConfig, animationEnabled: false },
+  { name: 'sellPreferences', component: SellPreferences, ...defaultConfig },
+  { name: 'fundEscrow', component: FundEscrow, ...defaultConfig },
+  { name: 'selectWallet', component: SelectWallet, ...defaultConfig },
+  { name: 'setRefundWallet', component: SetRefundWallet, ...defaultConfig },
+]
+
+const search: ViewType[] = [
+  { name: 'offerPublished', component: OfferPublished, ...invertedThemeConfig },
+  { name: 'search', component: Search, ...defaultConfig },
+]
+
+const trade: ViewType[] = [
+  { name: 'contract', component: Contract, ...defaultConfig },
+  { name: 'contractChat', component: ContractChat, ...defaultConfig },
+  { name: 'paymentMade', component: PaymentMade, ...invertedThemeConfig },
+  { name: 'tradeComplete', component: TradeComplete, ...invertedThemeConfig },
+]
+
+const tradeHistory: ViewType[] = [
+  { name: 'yourTrades', component: YourTrades, ...defaultConfig, animationEnabled: false },
+  { name: 'offer', component: OfferDetails, ...defaultConfig },
+]
+
+const contact = (hasAccount: boolean): ViewType[] =>
+  hasAccount
+    ? [
+      { name: 'contact', component: Contact, ...defaultConfig, showFooter: hasAccount },
+      { name: 'report', component: Report, ...defaultConfig, showFooter: hasAccount },
+      { name: 'disputeReasonSelector', component: DisputeReasonSelector, ...defaultConfig },
+      { name: 'disputeForm', component: DisputeForm, ...defaultConfig },
+    ]
+    : [
+      { name: 'contact', component: Contact, ...defaultConfig, showFooter: false },
+      { name: 'report', component: Report, ...defaultConfig, showFooter: false },
+    ]
+
+const publicProfile: ViewType[] = [{ name: 'publicProfile', component: PublicProfile, ...defaultConfig }]
+
+const settings: ViewType[] = [
+  { name: 'settings', component: Settings, ...defaultConfig, animationEnabled: false },
+  { name: 'aboutPeach', component: AboutPeach, ...defaultConfig },
+  { name: 'myProfile', component: MyProfile, ...defaultConfig },
+  { name: 'bitcoinProducts', component: BitcoinProducts, ...defaultConfig },
+  { name: 'addPaymentMethod', component: AddPaymentMethod, ...defaultConfig },
+  { name: 'paymentDetails', component: PaymentDetails, ...defaultConfig },
+  { name: 'meetupScreen', component: MeetupScreen, ...defaultConfig },
+  { name: 'currency', component: Currency, ...defaultConfig },
+  { name: 'referrals', component: Referrals, ...defaultConfig },
+  { name: 'backupTime', component: BackupTime, ...invertedThemeConfig, showFooter: true },
+  { name: 'backups', component: Backups, ...defaultConfig },
+  { name: 'backupCreated', component: BackupCreated, ...invertedThemeConfig },
+  { name: 'payoutAddress', component: PayoutAddress, ...defaultConfig },
+  { name: 'paymentMethods', component: PaymentMethods, ...defaultConfig },
+  { name: 'peachFees', component: PeachFees, ...defaultConfig },
+  { name: 'networkFees', component: NetworkFees, ...defaultConfig },
+  { name: 'socials', component: Socials, ...defaultConfig },
+]
+
+const testViews: ViewType[] = [
+  { name: 'testView', component: TestView, ...defaultConfig },
+  { name: 'testViewButtons', component: TestViewButtons, ...defaultConfig },
+  { name: 'testViewPopups', component: TestViewPopups, ...defaultConfig },
+  { name: 'testViewMessages', component: TestViewMessages, ...defaultConfig },
+  { name: 'testViewComponents', component: TestViewComponents, ...defaultConfig },
+  { name: 'testViewPNs', component: TestViewPNs, ...defaultConfig },
+]
+
+export const getViews = (hasAccount: boolean): ViewType[] =>
+  hasAccount
+    ? [
+      ...home,
+      ...wallet,
+      ...buyFlow,
+      ...sellFlow,
+      ...search,
+      ...trade,
+      ...tradeHistory,
+      ...publicProfile,
+      ...contact(hasAccount),
+      ...settings,
+      ...testViews,
+    ]
+    : [...onboarding, ...contact(hasAccount)]

@@ -1,31 +1,28 @@
 import React, { ReactElement, useCallback, useEffect, useRef, useState } from 'react'
 import { ScrollView, View } from 'react-native'
-import { RouteProp, useFocusEffect } from '@react-navigation/native'
+import { useFocusEffect } from '@react-navigation/native'
 
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 
 import { CURRENCIES, PAYMENTCATEGORIES } from '../../constants'
 import { getPaymentDataByType } from '../../utils/account'
-import { StackNavigation } from '../../utils/navigation'
 import { countrySupportsCurrency, getPaymentMethodInfo, isLocalOption } from '../../utils/paymentMethod'
 import Currency from './Currency'
 import PaymentMethod from './PaymentMethod'
 import Countries from './Countries'
-
-type Props = {
-  route: RouteProp<{ params: RootStackParamList['addPaymentMethod'] }>
-  navigation: StackNavigation
-}
+import { useNavigation, useRoute } from '../../hooks'
 
 const screens = [{ id: 'currency' }, { id: 'paymentMethod' }, { id: 'extraInfo' }]
-const getPage = ({ currencies, paymentMethod }: Props['route']['params']) => {
+const getPage = ({ currencies, paymentMethod }: RootStackParamList['addPaymentMethod']) => {
   if (paymentMethod) return 2
   if (currencies?.length === 1) return 1
   return 0
 }
 
-export default ({ route, navigation }: Props): ReactElement => {
+export default (): ReactElement => {
+  const route = useRoute<'addPaymentMethod'>()
+  const navigation = useNavigation()
   const [page, setPage] = useState(getPage(route.params))
   const [currencies, setCurrencies] = useState<Currency[]>(route.params.currencies || [CURRENCIES[0]])
   const [country, setCountry] = useState(route.params.country)
@@ -44,15 +41,6 @@ export default ({ route, navigation }: Props): ReactElement => {
     navigation.push('paymentDetails', {
       paymentData: { type: data.paymentMethod, label, currencies: data.currencies, country: data.country },
       origin: route.params.origin,
-      originOnCancel: [
-        'addPaymentMethod',
-        {
-          currencies: data.currencies,
-          country: null,
-          paymentMethod: null,
-          origin: route.params.origin,
-        },
-      ],
     })
   }
 
@@ -102,6 +90,7 @@ export default ({ route, navigation }: Props): ReactElement => {
 
     if (!/giftCard/u.test(paymentMethod as string) && !isLocalOption(paymentMethod)) {
       goToPaymentDetails({ paymentMethod, currencies, country })
+      return
     } else if (paymentMethodInfo.countries) {
       const countries = paymentMethodInfo.countries.filter(countrySupportsCurrency(currencies[0]))
       if (countries.length === 1) {
@@ -112,15 +101,15 @@ export default ({ route, navigation }: Props): ReactElement => {
     }
 
     if (
-      paymentMethodInfo?.currencies.length !== 1
-      || (PAYMENTCATEGORIES.localOption.indexOf(paymentMethod) !== -1 && screens[page].id !== 'extraInfo')
+      (paymentMethodInfo?.currencies.length !== 1 && paymentMethod.includes('giftCard.amazon'))
+      || (PAYMENTCATEGORIES.localOption.includes(paymentMethod) && screens[page].id !== 'extraInfo')
     ) return
 
     goToPaymentDetails({ paymentMethod, currencies, country })
-  }, [paymentMethod, page])
+  }, [paymentMethod, page, goToPaymentDetails, currencies, country])
 
   return (
-    <View testID="view-buy" style={tw`h-full pt-7 pb-10`}>
+    <View testID="view-buy" style={tw`h-full pb-10 pt-7`}>
       {getScreen()}
     </View>
   )

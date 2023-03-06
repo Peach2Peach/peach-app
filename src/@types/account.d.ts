@@ -1,24 +1,32 @@
 declare type Settings = {
   appVersion: string
+  analyticsPopupSeen?: boolean
   enableAnalytics?: boolean
   locale: string
-  amount?: number
+  minBuyAmount: number
+  maxBuyAmount: number
+  sellAmount: number
   returnAddress?: string
+  payoutAddress?: string
+  payoutAddressLabel?: string
+  payoutAddressSignature?: string
   derivationPath?: string
-  hdStartIndex?: number
   displayCurrency: Currency
   country?: string
   meansOfPayment: MeansOfPayment
   preferredPaymentMethods: Partial<Record<PaymentMethod, PaymentData['id']>>
-  preferredCurrencies: Currency[]
-  premium?: number
+  premium: number
   kyc?: boolean
   kycType?: KYCType
   pgpPublished?: boolean
   fcmToken?: string
   lastBackupDate?: number
+  lastSeedBackupDate?: number
   showBackupReminder: boolean
-  showDisputeDisclaimer: boolean
+  peachWalletActive: boolean
+  nodeURL: string
+  feeRate: number | 'fastestFee' | 'halfHourFee' | 'hourFee' | 'economyFee'
+  usedReferralCode?: boolean
 }
 
 declare type PGPKeychain = {
@@ -36,6 +44,7 @@ declare type Identity = {
 declare type Account = Identity & {
   settings: Settings
   paymentData: PaymentData[]
+  legacyPaymentData: PaymentData[]
   tradingLimit: TradingLimit
   offers: (SellOffer | BuyOffer)[]
   contracts: Contract[]

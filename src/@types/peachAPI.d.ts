@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 declare type WSCallback = (message?: any) => void
 declare type PeachWS = {
   ws?: WebSocket
@@ -34,7 +35,7 @@ declare type APISuccess = {
 
 declare type APIError = {
   error: string
-  details?: string | string[]
+  details?: unknown
 }
 
 declare type User = {
@@ -64,23 +65,58 @@ declare type TradingLimit = {
   dailyAmount: number
   yearly: number
   yearlyAmount: number
+  monthlyAnonymous: number
+  monthlyAnonymousAmount: number
 }
 
 declare type TradingPair = 'BTCEUR' | 'BTCCHF' | 'BTCGBP'
 
-declare type Buckets = {
-  [key: string]: number
-}
-declare type Currency = 'USD' | 'EUR' | 'CHF' | 'GBP' | 'SEK'
+declare type Currency =
+  | 'USD'
+  | 'EUR'
+  | 'CHF'
+  | 'GBP'
+  | 'SEK'
+  | 'DKK'
+  | 'BGN'
+  | 'CZK'
+  | 'HUF'
+  | 'PLN'
+  | 'RON'
+  | 'ISK'
+  | 'NOK'
 declare type Pricebook = {
   [key in Currency]?: number
 }
-declare type Country = 'DE' | 'FR' | 'IT' | 'ES' | 'NL' | 'UK' | 'SE'
+declare type PaymentMethodCountry =
+  | 'BE'
+  | 'CA'
+  | 'CH'
+  | 'DE'
+  | 'DE'
+  | 'ES'
+  | 'FR'
+  | 'GB'
+  | 'GR'
+  | 'IT'
+  | 'NL'
+  | 'PL'
+  | 'PT'
+  | 'SE'
+  | 'SI'
+  | 'UK'
+  | 'US'
+  | 'FI'
 declare type Location = 'amsterdam' | 'belgianEmbassy' | 'lugano'
 declare type PaymentMethod =
   | 'sepa'
+  | 'instantSepa'
+  | 'advcash'
   | 'paypal'
+  | 'fasterPayments'
   | 'revolut'
+  | 'vipps'
+  | 'blik'
   | 'applePay'
   | 'wise'
   | 'twint'
@@ -88,16 +124,32 @@ declare type PaymentMethod =
   | 'swish'
   | 'mbWay'
   | 'bizum'
-  | 'giftCard.amazon'
-  | `giftCard.amazon.${Country}`
+  | 'mobilePay'
+  | `cash.${string}`
   | 'cash'
-  | `cash.${Location}`
+  | 'giftCard.amazon'
+  | `giftCard.amazon.${PaymentMethodCountry}`
+
+declare type MeetupEvent = {
+  // BitcoinEvent in backend
+  id: string
+  country: PaymentMethodCountry
+  city: string
+  shortName: string
+  longName: string
+  url?: string
+  address?: string
+  frequency?: string
+  logo?: string // path to the logo
+}
+declare type CountryEventsMap = Record<Country, MeetupEvent[]>
 
 declare type PaymentMethodInfo = {
   id: PaymentMethod
   currencies: Currency[]
-  countries?: Country[]
+  countries?: PaymentMethodCountry[]
   rounded?: boolean
+  anonymous: boolean
 }
 
 declare type KYCType = 'iban' | 'id'
@@ -123,8 +175,6 @@ declare type GetInfoResponse = {
   fees: {
     escrow: number
   }
-  buckets: number[]
-  deprecatedBuckets: number[]
   paymentMethods: PaymentMethodInfo[]
   latestAppVersion: string
   minAppVersion: string
@@ -142,44 +192,65 @@ declare type PeachPairInfo = {
 }
 declare type MeansOfPayment = Partial<Record<Currency, PaymentMethod[]>>
 
-declare type Offer = {
-  id: string
-  oldOfferId?: string
-  newOfferId?: string
+declare type TradeStatus =
+  | 'fundEscrow'
+  | 'escrowWaitingForConfirmation'
+  | 'fundingAmountDifferent'
+  | 'searchingForPeer'
+  | 'hasMatchesAvailable'
+  | 'offerCanceled'
+  | 'refundAddressRequired'
+  | 'refundTxSignatureRequired'
+  | 'paymentRequired'
+  | 'confirmPaymentRequired'
+  | 'dispute'
+  | 'rateUser'
+  | 'confirmCancelation'
+  | 'tradeCompleted'
+  | 'tradeCanceled'
+  | 'refundOrReviveRequired'
+  | 'waiting'
+
+declare type OfferDraft = {
   creationDate: Date
-  publishingDate?: Date
-  online: boolean
-  user?: User
-  publicKey?: string
+  lastModified?: Date
   type: 'bid' | 'ask'
-  amount: number
-  premium?: number
-  prices?: Pricebook
   meansOfPayment: MeansOfPayment
   paymentData: Partial<
     Record<
       PaymentMethod,
       {
         hash: string
-        country?: Country
+        country?: PaymentMethodCountry
       }
     >
   >
   originalPaymentData: PaymentData[]
   kyc: boolean
+  walletLabel?: string
   kycType?: KYCType
-  returnAddress?: string
-  escrow?: string
+  walletLabel?: string
+  tradeStatus?: TradeStatus
+}
+declare type Offer = OfferDraft & {
+  id: string
+  oldOfferId?: string
+  newOfferId?: string
+  publishingDate?: Date
+  online: boolean
+  user?: User
+  publicKey?: string
+  premium?: number
+  prices?: Pricebook
   refunded?: boolean
   funding?: FundingStatus
   matches: Offer['id'][]
   doubleMatched: boolean
   contractId?: string
+  tradeStatus: TradeStatus
 }
 
-declare type PostOfferResponse = {
-  offerId: string
-}
+declare type PostOfferResponseBody = BuyOffer | SellOffer
 declare type OfferType = 'ask' | 'bid'
 
 declare type CreateEscrowResponse = {
@@ -194,7 +265,7 @@ declare type FundingStatusResponse = {
   funding: FundingStatus
   error?: FundingError
   returnAddress: string
-  returnAddressRequired: boolean
+  userConfirmationRequired: boolean
 }
 
 declare type CancelOfferRequest = {
@@ -208,9 +279,15 @@ declare type CancelOfferResponse = {
   satsPerByte: number
 }
 
+declare type MatchUnavailableReasons = {
+  exceedsLimit: (keyof TradingLimit)[]
+}
+
 declare type Match = {
   user: User
   offerId: string
+  amount: number
+  escrow?: string
   prices: Pricebook
   matchedPrice: number | null
   premium: number
@@ -223,6 +300,7 @@ declare type Match = {
   symmetricKeyEncrypted: string
   symmetricKeySignature: string
   matched: boolean
+  unavailable: MatchUnavailableReasons
 }
 declare type GetMatchesResponse = {
   offerId: string
@@ -236,8 +314,43 @@ declare type MatchResponse = {
   contractId?: string
   refundTx?: string
 }
+
+declare type OfferSummary = {
+  id: string
+  type: 'bid' | 'ask'
+  creationDate: Date
+  lastModified: Date
+  amount: number | [number, number]
+  matches: string[]
+  prices: Pricebook
+  tradeStatus: TradeStatus
+  contractId?: string
+  txId?: string
+}
+declare type GetOffersResponse = (BuyOffer | SellOffer)[]
+declare type GetOfferSummariesResponse = OfferSummary[]
+
 declare type GetContractResponse = Contract
+
+declare type ContractSummary = {
+  id: string
+  offerId: string
+  type: 'bid' | 'ask'
+  creationDate: Date
+  lastModified: Date
+  paymentMade?: Date
+  paymentConfirmed?: Date
+  tradeStatus: TradeStatus
+  amount: number
+  price: number
+  currency: Currency
+  disputeWinner?: Contract['disputeWinner']
+  unreadMessages: number
+  releaseTxId?: string
+}
 declare type GetContractsResponse = Contract[]
+declare type GetContractSummariesResponse = ContractSummary[]
+
 declare type ConfirmPaymentResponse = {
   success: true
   txId?: string
@@ -262,4 +375,71 @@ declare type FundEscrowResponse = {
 
 declare type GenerateBlockResponse = {
   txId: string
+}
+
+declare type FeeRate = 'fastestFee' | 'halfHourFee' | 'hourFee' | 'economyFee' | 'custom'
+
+declare type FeeRecommendation = {
+  fastestFee: number
+  halfHourFee: number
+  hourFee: number
+  economyFee: number
+  minimumFee: number
+}
+declare type GetFeeEstimateResponse = FeeRecommendation
+declare type TradeSummary = (OfferSummary | ContractSummary) & {
+  paymentMade?: Date
+  unreadMessages?: number
+}
+
+declare type ReviveSellOfferResponseBody = {
+  newOfferId: Offer['id']
+}
+
+declare type ExtendPaymentTimerResponseBody = APISuccess
+
+declare type NotificationType =
+  | 'offer.escrowFunded' // PN-S03
+  | 'offer.notFunded' // PN-S02
+  | 'offer.fundingAmountDifferent' // PN-S07
+  | 'offer.wrongFundingAmount' // PN-S08
+  | 'offer.sellOfferExpired' // PN-S06
+  | 'offer.matchBuyer' // PN-B02
+  | 'offer.matchSeller' // PN-S09
+  | 'contract.contractCreated' // PN-B03
+  | 'contract.buyer.paymentReminderSixHours' // PN-B04
+  | 'contract.buyer.paymentReminderOneHour' // PN-B05
+  | 'contract.buyer.paymentTimerHasRunOut' // PN-B12
+  | 'contract.buyer.paymentTimerSellerCanceled' // PN-B06
+  | 'contract.buyer.paymentTimerExtended' // PN-B07
+  | 'contract.seller.paymentTimerHasRunOut' // PN-S12
+  | 'contract.seller.canceledAfterEscrowExpiry' // PN-S14
+  | 'contract.paymentMade' // PN-S11
+  | 'contract.tradeCompleted' // PN-B09
+  | 'contract.chat' // PN-A03
+  | 'contract.buyer.disputeRaised' // PN-D01
+  | 'contract.seller.disputeRaised' // PN-D01
+  | 'contract.disputeResolved' // PN-D04
+  | 'contract.buyer.disputeWon' // PN-D02
+  | 'contract.buyer.disputeLost' // PN-D03
+  | 'contract.seller.disputeWon' // PN-D02
+  | 'contract.seller.disputeLost' // PN-D03
+  | 'contract.canceled' // PN-S13
+  | 'contract.cancelationRequest' // PN-B08
+  | 'contract.cancelationRequestAccepted' // PN-S15
+  | 'contract.cancelationRequestRejected' // PN-S16
+  | 'offer.buyOfferImminentExpiry' // PN-B10
+  | 'offer.buyOfferExpired' // PN-B11
+
+declare type PNData = {
+  offerId?: string
+  contractId?: string
+  isChat?: string
+  type?: NotificationType
+}
+
+declare type RefundSellOfferResponse = APISuccess
+
+declare type CheckReferralCodeResponse = {
+  valid: boolean
 }

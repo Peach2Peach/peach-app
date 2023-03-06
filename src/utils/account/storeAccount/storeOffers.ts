@@ -1,5 +1,5 @@
 import { info } from '../../log'
-import { offerStorage } from '../accountStorage'
+import { offerStorage } from '../offerStorage'
 
 export const storeOffers = async (offers: Account['offers']) => {
   info('storeOffers - Storing offers', offers.length)

@@ -1,4 +1,4 @@
-import { isEmailRequired } from '../../views/dispute/Dispute'
+import { isEmailRequired } from '../../views/dispute/DisputeForm'
 import { contractIdToHex } from '../contract'
 import i18n from '../i18n'
 import { createSystemMessage } from './createSystemMessage'
@@ -16,7 +16,7 @@ export const initDisputeSystemMessages = (roomId: Chat['id'], contract: Contract
   if (contract.disputeDate && contract.disputeInitiator) {
     const initiator = i18n(contract.disputeInitiator === contract.seller.id ? 'seller' : 'buyer')
     const initiatorId = `Peach${contract.disputeInitiator.substring(0, 8)}`
-    const reason = i18n(`dispute.reason.${contract.disputeReason || 'disputeOther'}`)
+    const reason = i18n(`dispute.reason.${contract.disputeReason || 'other'}`)
     messages = messages.concat([
       createSystemMessage(
         roomId,

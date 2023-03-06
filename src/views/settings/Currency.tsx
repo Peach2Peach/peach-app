@@ -1,48 +1,29 @@
-import React, { ReactElement, useContext } from 'react'
+import React, { ReactElement } from 'react'
 import { View } from 'react-native'
 
 import tw from '../../styles/tailwind'
 
-import { Button, SelectorBig, Title } from '../../components'
+import { PrimaryButton, RadioButtons } from '../../components'
 import { CURRENCIES } from '../../constants'
-import BitcoinContext from '../../contexts/bitcoin'
-import LanguageContext from '../../contexts/language'
-import { updateSettings } from '../../utils/account'
 import i18n from '../../utils/i18n'
-import { StackNavigation } from '../../utils/navigation'
+import { useCurrencySetup } from './hooks/useCurrencySetup'
 
-type Props = {
-  navigation: StackNavigation;
-}
+export default (): ReactElement => {
+  const { currency, setCurrency, updateCurrency } = useCurrencySetup()
 
-export default ({ navigation }: Props): ReactElement => {
-  useContext(LanguageContext)
-  const [bitcoinContext, updateBitcoinContext] = useContext(BitcoinContext)
-  const { currency } = bitcoinContext
-
-  const setCurrency = (c: Currency) => {
-    updateSettings({ displayCurrency: c }, true)
-    updateBitcoinContext({ currency: c })
-  }
-
-  return <View style={tw`h-full flex items-stretch pt-6 px-6 pb-10`}>
-    <Title title={i18n('settings.title')} subtitle={i18n('settings.displayCurrency.subtitle')} />
-    <View style={tw`h-full flex-shrink mt-12`}>
-      <SelectorBig
-        style={tw`mt-2`}
-        selectedValue={currency}
-        items={CURRENCIES.map(c => ({ value: c, display: c }))}
-        onChange={c => setCurrency(c as Currency)}
-      />
+  return (
+    <View style={tw`flex h-full px-6 pt-6 pb-10 bg-primary-background`}>
+      <View style={tw`items-center justify-center h-full`}>
+        <RadioButtons
+          style={tw`mt-2`}
+          selectedValue={currency}
+          items={CURRENCIES.map((c) => ({ value: c, display: i18n(`currency.${c}`) }))}
+          onChange={setCurrency}
+        />
+      </View>
+      <PrimaryButton onPress={() => updateCurrency(currency)} style={tw`absolute bottom-0 self-center mb-6`}>
+        {i18n('confirm')}
+      </PrimaryButton>
     </View>
-    <View style={tw`flex items-center mt-16`}>
-      <Button
-        title={i18n('back')}
-        wide={false}
-        secondary={true}
-        onPress={navigation.goBack}
-      />
-    </View>
-  </View>
+  )
 }
-

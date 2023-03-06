@@ -1,34 +1,39 @@
 import analytics from '@react-native-firebase/analytics'
 
 import { defaultAccount, setAccount } from '.'
+import { notificationStorage, notificationStore } from '../../components/footer/notificationsStore'
+import { configStore } from '../../store/configStore'
+import { settingsStorage, settingsStore } from '../../store/settingsStore'
 import { info } from '../log'
 import { logoutUser } from '../peachAPI'
 import { deleteAccessToken } from '../peachAPI/accessToken'
 import { deletePeachAccount } from '../peachAPI/peachAccount'
 import { sessionStorage } from '../session'
-import { accountStorage, chatStorage, contractStorage, offerStorage } from './accountStorage'
+import { walletStorage, walletStore } from '../wallet/walletStore'
+import { accountStorage } from './accountStorage'
+import { chatStorage } from './chatStorage'
+import { contractStorage } from './contractStorage'
+import { offerStorage } from './offerStorage'
 
-interface DeleteAccountProps {
-  onSuccess?: Function
-}
-
-/**
- * @description Method to delete account
- * @param props.onSuccess callback on success
- * @param props.onError callback on error
- */
-export const deleteAccount = async ({ onSuccess }: DeleteAccountProps) => {
+export const deleteAccount = async () => {
   info('Deleting account')
 
   setAccount(defaultAccount, true)
-  ;[accountStorage, offerStorage, contractStorage, chatStorage, sessionStorage].forEach((storage) =>
-    storage.clearStore(),
-  )
+  ;[
+    accountStorage,
+    walletStorage,
+    offerStorage,
+    contractStorage,
+    chatStorage,
+    sessionStorage,
+    settingsStorage,
+    notificationStorage,
+  ].forEach((storage) => storage.clearStore())
+  ;[notificationStore, configStore, walletStore, settingsStore].forEach((store) => store.getState().reset())
 
   logoutUser({})
 
   deleteAccessToken()
   deletePeachAccount()
-  if (onSuccess) onSuccess()
   analytics().logEvent('account_deleted')
 }

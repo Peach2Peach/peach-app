@@ -1,5 +1,4 @@
 import { account } from '.'
-import { session } from '../session'
 import { getPaymentData } from './getPaymentData'
 import { getPaymentDataByType } from './getPaymentDataByType'
 import { storePaymentData } from './storeAccount'

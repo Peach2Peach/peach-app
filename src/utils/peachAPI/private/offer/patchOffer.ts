@@ -6,19 +6,13 @@ import { fetchAccessToken } from '../user'
 
 type PatchOfferProps = RequestProps & {
   offerId: Offer['id']
-  returnAddress?: string
+  refundAddress?: string
   refundTx?: string
 }
 
-/**
- * @description Method to post return address update
- * @param offerId offer id
- * @param returnAddress return address
- * @returns FundingStatus
- */
 export const patchOffer = async ({
   offerId,
-  returnAddress,
+  refundAddress,
   refundTx,
   timeout,
 }: PatchOfferProps): Promise<[APISuccess | null, APIError | null]> => {
@@ -30,7 +24,7 @@ export const patchOffer = async ({
     },
     method: 'PATCH',
     body: JSON.stringify({
-      returnAddress,
+      refundAddress,
       refundTx,
     }),
     signal: timeout ? getAbortWithTimeout(timeout).signal : undefined,

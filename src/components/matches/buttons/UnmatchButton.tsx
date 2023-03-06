@@ -1,16 +1,64 @@
-import React from 'react'
-import { Pressable, View } from 'react-native'
+import React, { useCallback, useContext } from 'react'
+import { OverlayContext } from '../../../contexts/overlay'
+import { useToggleBoolean } from '../../../hooks'
+import { useShowAppPopup } from '../../../hooks/useShowAppPopup'
+import { UnmatchPopup } from '../../../overlays/UnmatchPopup'
 import tw from '../../../styles/tailwind'
-import Icon from '../../Icon'
-import { useUnmatchOffer } from '../hooks'
 
-export const UnmatchButton = ({ match, offer }: { match: Match; offer: BuyOffer | SellOffer }) => {
+import i18n from '../../../utils/i18n'
+import { PrimaryButton } from '../../buttons'
+import { useUnmatchOffer } from '../hooks'
+import { UndoButton } from './UndoButton'
+
+type Props = {
+  match: Match
+  offer: BuyOffer | SellOffer
+  interruptMatching: () => void
+  showUnmatchedCard: () => void
+}
+
+export const UnmatchButton = ({ match, offer, interruptMatching, showUnmatchedCard }: Props) => {
+  const [, updateOverlay] = useContext(OverlayContext)
   const { mutate: unmatch } = useUnmatchOffer(offer, match.offerId)
-  return (
-    <Pressable onPress={() => unmatch()} style={tw`absolute top-0 right-0 z-10 p-2`}>
-      <View style={tw`bg-white-1 rounded-full p-0.5`}>
-        <Icon id="undo" style={tw`w-4 h-4`} color={tw`text-grey-2`.color as string} />
-      </View>
-    </Pressable>
+
+  const [showUnmatch, toggle] = useToggleBoolean(match.matched)
+
+  const showUnmatchPopup = useCallback(() => {
+    updateOverlay({
+      title: i18n('search.popups.unmatch.title'),
+      content: <UnmatchPopup />,
+      visible: true,
+      level: 'WARN',
+      action1: {
+        label: i18n('search.popups.unmatch.neverMind'),
+        icon: 'xSquare',
+        callback: () => updateOverlay({ visible: false }),
+      },
+      action2: {
+        label: i18n('search.popups.unmatch.confirm'),
+        icon: 'minusCircle',
+        callback: () => {
+          updateOverlay({ visible: false })
+          showUnmatchedCard()
+          unmatch()
+        },
+      },
+    })
+  }, [showUnmatchedCard, unmatch, updateOverlay])
+
+  const showMatchUndonePopup = useShowAppPopup('matchUndone')
+
+  const onUndoPress = () => {
+    showUnmatchedCard()
+    interruptMatching()
+    showMatchUndonePopup()
+  }
+
+  return showUnmatch ? (
+    <PrimaryButton onPress={showUnmatchPopup} iconId="minusCircle" textColor={tw`text-error-main`} white narrow>
+      {i18n('search.unmatch')}
+    </PrimaryButton>
+  ) : (
+    <UndoButton onPress={onUndoPress} onTimerFinished={toggle} />
   )
 }

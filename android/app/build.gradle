@@ -162,8 +162,8 @@ android {
         applicationId "com.peachbitcoin.peach"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 118
-        versionName "0.1.10"
+        versionCode 142
+        versionName "0.2.0"
         missingDimensionStrategy 'react-native-camera', 'general'
         multiDexEnabled true
         buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString()
@@ -329,6 +329,10 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:29.2.1')
     implementation 'com.google.firebase:firebase-messaging'
     implementation 'com.google.firebase:firebase-analytics'
+    implementation project(':react-native-splash-screen')
+
+    // For animated GIF support
+    implementation 'com.facebook.fresco:animated-gif:2.6.0'
 }
 
 if (isNewArchitectureEnabled()) {

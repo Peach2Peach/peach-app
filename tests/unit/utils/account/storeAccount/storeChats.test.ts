@@ -1,5 +1,5 @@
 import { defaultAccount, setAccount } from '../../../../../src/utils/account'
-import { chatStorage } from '../../../../../src/utils/account/accountStorage'
+import { chatStorage } from '../../../../../src/utils/account/chatStorage'
 import { storeChats } from '../../../../../src/utils/account/storeAccount'
 import * as accountData from '../../../data/accountData'
 import { resetStorage } from '../../../prepare'

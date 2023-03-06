@@ -42,7 +42,7 @@ Then edit the variables according to your setup
 `npm run ios`
 
 To choose speicifc target
-`npm run ios -- --simulator="iPhone SE (2nd generation)"`
+`npm run ios -- --simulator="iPhone SE (3rd generation)"`
 
 **Android**
 

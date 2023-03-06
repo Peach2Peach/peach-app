@@ -6,7 +6,7 @@ import { createRandomWallet, createWalletFromSeedPhrase, getMainAddress, getNetw
 export const createAccount = async (seedPhrase?: string): Promise<Account> => {
   info('Create account')
   const { wallet, mnemonic } = seedPhrase
-    ? await createWalletFromSeedPhrase(seedPhrase, getNetwork())
+    ? createWalletFromSeedPhrase(seedPhrase, getNetwork())
     : await createRandomWallet(getNetwork())
   const firstAddress = getMainAddress(wallet)
   const recipient = await OpenPGP.generate({})

@@ -1,28 +1,26 @@
-import { APPVERSION } from '../../constants'
-import { setDisplayCurrencyQuiet } from '../../contexts/bitcoin'
+import { defaultSettings } from '../../store/defaults'
+import { settingsStore } from '../../store/settingsStore'
 import { setLocaleQuiet } from '../i18n'
 import { setPeachAccount } from '../peachAPI/peachAccount'
 import { createRandomWallet, createWalletFromSeedPhrase, getMainAddress, getNetwork, setWallet } from '../wallet'
+import { PeachWallet } from '../wallet/PeachWallet'
+import { setPeachWallet } from '../wallet/setWallet'
+
+export const defaultLimits = {
+  daily: 1000,
+  dailyAmount: 0,
+  monthlyAnonymous: 1000,
+  monthlyAnonymousAmount: 0,
+  yearly: 100000,
+  yearlyAmount: 0,
+}
 
 export const defaultAccount: Account = {
   publicKey: '',
-  settings: {
-    appVersion: APPVERSION,
-    displayCurrency: 'EUR',
-    locale: 'en',
-    preferredCurrencies: [],
-    preferredPaymentMethods: {},
-    meansOfPayment: {},
-    showBackupReminder: true,
-    showDisputeDisclaimer: true,
-  },
+  settings: defaultSettings,
   paymentData: [],
-  tradingLimit: {
-    daily: 1000,
-    dailyAmount: 0,
-    yearly: 100000,
-    yearlyAmount: 0,
-  },
+  legacyPaymentData: [],
+  tradingLimit: defaultLimits,
   offers: [],
   contracts: [],
   chats: {},
@@ -52,14 +50,19 @@ export const setAccount = async (acc: Account, overwrite?: boolean) => {
       tradingLimit: defaultAccount.tradingLimit,
     }
 
-  setDisplayCurrencyQuiet(account.settings.displayCurrency || 'EUR')
+  settingsStore.getState().updateSettings(account.settings)
   setLocaleQuiet(account.settings.locale || 'en')
 
-  const { wallet } = account.mnemonic
-    ? createWalletFromSeedPhrase(account.mnemonic, getNetwork())
-    : await createRandomWallet(getNetwork())
-  setWallet(wallet)
+  if (account.mnemonic) {
+    const { wallet } = account.mnemonic
+      ? createWalletFromSeedPhrase(account.mnemonic, getNetwork())
+      : await createRandomWallet(getNetwork())
+    setWallet(wallet)
+    const firstAddress = getMainAddress(wallet)
+    setPeachAccount(firstAddress)
 
-  const firstAddress = getMainAddress(wallet)
-  setPeachAccount(firstAddress)
+    const peachWallet = new PeachWallet({ wallet })
+    peachWallet.loadWallet(account.mnemonic)
+    setPeachWallet(peachWallet)
+  }
 }

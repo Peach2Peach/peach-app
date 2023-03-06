@@ -1,15 +1,11 @@
+import { getSummaryFromContract } from './getSummaryFromContract'
+import { tradeSummaryStore } from './../../store/tradeSummaryStore'
 import { contractExists } from '.'
 import { account } from '../account'
 import { storeContract } from '../account/storeAccount'
 import { info } from '../log'
 
-/**
- * @description Method to add contract to contract list
- * @param contract the contract
- */
 export const saveContract = (contract: Contract, disableSave = false): void => {
-  if (typeof contract.creationDate === 'string') contract.creationDate = new Date(contract.creationDate)
-
   if (contractExists(contract.id)) {
     account.contracts = account.contracts.map((c) => {
       if (c.id !== contract.id) return c
@@ -19,7 +15,7 @@ export const saveContract = (contract: Contract, disableSave = false): void => {
         disputeResultAcknowledged: contract.disputeActive
           ? false
           : contract.disputeResultAcknowledged || c.disputeResultAcknowledged,
-        disputeAcknowledgedByCounterParty: contract.disputeActive
+        disputeAcknowledgedByCounterParty: !contract.disputeActive
           ? false
           : contract.disputeAcknowledgedByCounterParty || c.disputeAcknowledgedByCounterParty,
       }
@@ -32,14 +28,5 @@ export const saveContract = (contract: Contract, disableSave = false): void => {
     info('saveContract', contract.id)
     storeContract(contract)
   }
-}
-
-/**
- * @description Method to save multiple contracts
- * @param contracts the contracts
- */
-export const saveContracts = (contracts: Contract[]) => {
-  info('saveContracts', contracts.length)
-
-  contracts.map((contract) => saveContract(contract, true))
+  tradeSummaryStore.getState().setContract(contract.id, getSummaryFromContract(contract))
 }

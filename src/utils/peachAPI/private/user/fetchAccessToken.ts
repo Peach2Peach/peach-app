@@ -24,11 +24,14 @@ export const fetchAccessToken = async (): Promise<string> => {
   info('Starting authentication, waiting...')
 
   // eslint-disable-next-line require-atomic-updates
-  fetchingToken = new Promise(async (resolve) => {
-    const [result, err] = await auth({})
+  fetchingToken = new Promise(async (resolve, reject) => {
+    const [result, err] = await auth({ timeout: 2000 })
 
     if (!result || err) {
       error('peachAPI - fetchAccessToken', new Error(err?.error))
+      reject(err?.error || 'AUTHENTICATION_FAILURE')
+      fetchingToken = null
+
       throw Error(err?.error || 'AUTHENTICATION_FAILURE')
     }
     resolve(result)

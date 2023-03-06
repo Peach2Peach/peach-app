@@ -1,17 +1,14 @@
 {
   "font-baloo": {
+    "fontFamily": "Baloo2-Regular"
+  },
+  "font-baloo-semibold": {
+    "fontFamily": "Baloo2-SemiBold"
+  },
+  "font-baloo-bold": {
     "fontFamily": "Baloo2-Bold"
   },
-  "font-lato": {
-    "fontFamily": "Lato-Regular"
-  },
-  "font-lato-italic": {
-    "fontFamily": "Lato-Italic"
-  },
-  "font-lato-bold": {
-    "fontFamily": "Lato-Bold"
-  },
-  "font-mono": {
-    "fontFamily": "B612Mono-Regular"
+  "font-baloo-medium": {
+    "fontFamily": "Baloo2-Medium"
   }
 }

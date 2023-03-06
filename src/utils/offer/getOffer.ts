@@ -6,10 +6,10 @@ import { isSellOffer } from './isSellOffer'
  * @param id offer id
  * @returns offer
  */
-export const getOffer = (id: string): SellOffer | BuyOffer | null => {
+export const getOffer = (id: string): SellOffer | BuyOffer | undefined => {
   const offer = account.offers.find((c) => c.id === id)
 
-  if (!offer) return null
+  if (!offer) return undefined
 
   if (!offer.seenMatches) offer.seenMatches = []
 

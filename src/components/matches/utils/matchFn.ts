@@ -24,5 +24,5 @@ export const matchFn = async (
     return result
   }
   handleError(err, updateMessage)
-  throw new Error()
+  throw new Error('OFFER_TAKEN')
 }

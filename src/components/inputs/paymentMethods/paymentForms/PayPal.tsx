@@ -1,61 +1,96 @@
-import React, { ReactElement, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
+import React, { ReactElement, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
 import { TextInput, View } from 'react-native'
 import { FormProps } from '.'
+import { useValidatedState } from '../../../../hooks'
 import tw from '../../../../styles/tailwind'
 import { getPaymentDataByLabel } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
+import { info } from '../../../../utils/log'
 import { getErrorsInField } from '../../../../utils/validation'
+import { TabbedNavigation, TabbedNavigationItem } from '../../../navigation/TabbedNavigation'
+import { EmailInput } from '../../EmailInput'
 import Input from '../../Input'
+import { PhoneInput } from '../../PhoneInput'
+import { UsernameInput } from '../../UsernameInput'
 import { CurrencySelection, toggleCurrency } from './CurrencySelection'
+
+const tabs: TabbedNavigationItem[] = [
+  {
+    id: 'phone',
+    display: i18n('form.phone'),
+  },
+  {
+    id: 'email',
+    display: i18n('form.email'),
+  },
+  {
+    id: 'userName',
+    display: i18n('form.userName'),
+  },
+]
+const referenceRules = { required: false }
+const phoneRules = { required: true, phone: true, isPhoneAllowed: true }
 
 export const PayPal = ({ forwardRef, data, currencies = [], onSubmit, setStepValid }: FormProps): ReactElement => {
   const [label, setLabel] = useState(data?.label || '')
   const [phone, setPhone] = useState(data?.phone || '')
   const [email, setEmail] = useState(data?.email || '')
   const [userName, setUserName] = useState(data?.userName || '')
+  const [reference, setReference, , referenceError] = useValidatedState(data?.reference || '', referenceRules)
   const [selectedCurrencies, setSelectedCurrencies] = useState(data?.currencies || currencies)
   const [displayErrors, setDisplayErrors] = useState(false)
 
-  let $phone = useRef<TextInput>(null).current
-  let $email = useRef<TextInput>(null).current
-  let $userName = useRef<TextInput>(null).current
-  const anyFieldSet = !!(phone || userName || email)
+  let $reference = useRef<TextInput>(null).current
 
-  const labelRules = {
-    required: true,
-    duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)!.id !== data.id,
-  }
-  const phoneRules = { required: !email && !userName, phone: true }
-  const emailRules = { required: !phone && !userName, email: true }
-  const userNameRules = { required: !phone && !email, userName: true }
+  const labelRules = useMemo(
+    () => ({
+      required: true,
+      duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)!.id !== data.id,
+    }),
+    [data.id, label],
+  )
+  const emailRules = useMemo(() => ({ required: !phone && !userName, email: true }), [phone, userName])
+  const userNameRules = useMemo(() => ({ required: !phone && !email, paypalUserName: true }), [email, phone])
 
   const labelErrors = useMemo(() => getErrorsInField(label, labelRules), [label, labelRules])
-  const phoneErrors = useMemo(() => getErrorsInField(phone, phoneRules), [phone, phoneRules])
+  const phoneErrors = useMemo(() => getErrorsInField(phone, phoneRules), [phone])
   const emailErrors = useMemo(() => getErrorsInField(email, emailRules), [email, emailRules])
   const userNameErrors = useMemo(() => getErrorsInField(userName, userNameRules), [userName, userNameRules])
+
+  const [currentTab, setCurrentTab] = useState(tabs[0])
 
   const onCurrencyToggle = (currency: Currency) => {
     setSelectedCurrencies(toggleCurrency(currency))
   }
 
   const buildPaymentData = (): PaymentData & PaypalData => ({
-    id: data?.id || `paypal-${new Date().getTime()}`,
+    id: data?.id || `paypal-${Date.now()}`,
     label,
     type: 'paypal',
     phone,
     email,
     userName,
+    reference,
     currencies: selectedCurrencies,
   })
 
-  const isFormValid = () => {
+  info(phoneErrors)
+
+  const isFormValid = useCallback(() => {
     setDisplayErrors(true)
     return [...labelErrors, ...phoneErrors, ...emailErrors, ...userNameErrors].length === 0
+  }, [emailErrors, labelErrors, phoneErrors, userNameErrors])
+
+  const getErrorTabs = () => {
+    const fields = []
+    if (phoneErrors.length > 0) fields.push('phone')
+    if (email && emailErrors.length > 0) fields.push('email')
+    if (userName && userNameErrors.length > 0) fields.push('userName')
+    return fields
   }
 
   const save = () => {
     if (!isFormValid()) return
-
     onSubmit(buildPaymentData())
   }
 
@@ -72,67 +107,75 @@ export const PayPal = ({ forwardRef, data, currencies = [], onSubmit, setStepVal
       <View>
         <Input
           onChange={setLabel}
-          onSubmit={() => $phone?.focus()}
           value={label}
           label={i18n('form.paymentMethodName')}
           placeholder={i18n('form.paymentMethodName.placeholder')}
-          isValid={labelErrors.length === 0}
           autoCorrect={false}
           errorMessage={displayErrors ? labelErrors : undefined}
         />
       </View>
-      <View style={tw`mt-6`}>
-        <Input
-          onChange={(number: string) => {
-            setPhone((number.length && !/\+/gu.test(number) ? `+${number}` : number).replace(/[^0-9+]/gu, ''))
-          }}
-          onSubmit={() => {
-            setPhone((number: string) => (!/\+/gu.test(number) ? `+${number}` : number).replace(/[^0-9+]/gu, ''))
-            $email?.focus()
-          }}
-          reference={(el: any) => ($phone = el)}
-          value={phone}
-          required={!anyFieldSet}
-          label={i18n('form.phone')}
-          placeholder={i18n('form.phone.placeholder')}
-          isValid={phoneErrors.length === 0}
-          autoCorrect={false}
-          errorMessage={displayErrors ? phoneErrors : undefined}
-        />
+      <TabbedNavigation
+        items={tabs}
+        selected={currentTab}
+        select={setCurrentTab}
+        buttonStyle={tw`p-0`}
+        tabHasError={displayErrors ? getErrorTabs() : []}
+      />
+      <View style={tw`mt-2`}>
+        {currentTab.id === 'phone' && (
+          <PhoneInput
+            onChange={setPhone}
+            onSubmit={() => {
+              $reference?.focus()
+            }}
+            enforceRequired
+            value={phone}
+            label={i18n('form.phoneLong')}
+            required={true}
+            placeholder={i18n('form.phone.placeholder')}
+            autoCorrect={false}
+            errorMessage={displayErrors ? phoneErrors : undefined}
+          />
+        )}
+        {currentTab.id === 'email' && (
+          <EmailInput
+            onChange={setEmail}
+            onSubmit={() => $reference?.focus()}
+            required={false}
+            value={email}
+            label={i18n('form.emailLong')}
+            placeholder={i18n('form.email.placeholder')}
+            errorMessage={displayErrors ? emailErrors : undefined}
+          />
+        )}
+        {currentTab.id === 'userName' && (
+          <UsernameInput
+            {...{
+              maxLength: 21,
+              required: false,
+              onChange: setUserName,
+              onSubmit: $reference?.focus,
+              value: userName,
+              placeholder: i18n('form.userName.placeholder'),
+              label: i18n('form.userName'),
+              autoCorrect: false,
+              errorMessage: displayErrors ? userNameErrors : undefined,
+            }}
+          />
+        )}
       </View>
-      <View style={tw`mt-6`}>
-        <Input
-          onChange={setEmail}
-          onSubmit={() => $userName?.focus()}
-          reference={(el: any) => ($email = el)}
-          required={!anyFieldSet}
-          value={email}
-          label={i18n('form.email')}
-          placeholder={i18n('form.email.placeholder')}
-          isValid={emailErrors.length === 0}
-          autoCorrect={false}
-          errorMessage={displayErrors ? emailErrors : undefined}
-        />
-      </View>
-      <View style={tw`mt-6`}>
-        <Input
-          onChange={(usr: string) => {
-            setUserName(usr.length && !/@/gu.test(usr) ? `@${usr}` : usr)
-          }}
-          onSubmit={() => {
-            setUserName((usr: string) => (!/@/gu.test(usr) ? `@${usr}` : usr))
-            save()
-          }}
-          reference={(el: any) => ($userName = el)}
-          required={!anyFieldSet}
-          value={userName}
-          label={i18n('form.userName')}
-          placeholder={i18n('form.userName.placeholder')}
-          isValid={userNameErrors.length === 0}
-          autoCorrect={false}
-          errorMessage={displayErrors ? userNameErrors : undefined}
-        />
-      </View>
+
+      <Input
+        onChange={setReference}
+        onSubmit={save}
+        reference={(el: any) => ($reference = el)}
+        value={reference}
+        required={false}
+        label={i18n('form.reference')}
+        placeholder={i18n('form.reference.placeholder')}
+        autoCorrect={false}
+        errorMessage={displayErrors ? referenceError : undefined}
+      />
       <CurrencySelection paymentMethod="paypal" selectedCurrencies={selectedCurrencies} onToggle={onCurrencyToggle} />
     </View>
   )

@@ -7,22 +7,29 @@ import { getPaymentDataByLabel } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
 import { getErrorsInField } from '../../../../utils/validation'
 import Input from '../../Input'
+import { PhoneInput } from '../../PhoneInput'
 
-const phoneRules = { required: true, phone: true }
+const referenceRules = { required: false }
+const phoneRules = { required: true, phone: true, isPhoneAllowed: true }
 
 export const Twint = ({ forwardRef, data, currencies = [], onSubmit, setStepValid }: FormProps): ReactElement => {
   const [label, setLabel] = useState(data?.label || '')
   const [phone, setPhone, phoneIsValid, phoneErrors] = useValidatedState(data?.phone || '', phoneRules)
   const [beneficiary, setBeneficiary] = useState(data?.beneficiary || '')
+  const [reference, setReference, , referenceError] = useValidatedState(data?.reference || '', referenceRules)
   const [displayErrors, setDisplayErrors] = useState(false)
 
   let $phone = useRef<TextInput>(null).current
   let $beneficiary = useRef<TextInput>(null).current
+  let $reference = useRef<TextInput>(null).current
 
-  const labelRules = {
-    required: true,
-    duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)!.id !== data.id,
-  }
+  const labelRules = useMemo(
+    () => ({
+      required: true,
+      duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)!.id !== data.id,
+    }),
+    [data.id, label],
+  )
 
   const labelErrors = useMemo(() => getErrorsInField(label, labelRules), [label, labelRules])
 
@@ -32,6 +39,7 @@ export const Twint = ({ forwardRef, data, currencies = [], onSubmit, setStepVali
     type: 'twint',
     phone,
     beneficiary,
+    reference,
     currencies: data?.currencies || currencies,
   })
 
@@ -63,41 +71,49 @@ export const Twint = ({ forwardRef, data, currencies = [], onSubmit, setStepVali
           value={label}
           label={i18n('form.paymentMethodName')}
           placeholder={i18n('form.paymentMethodName.placeholder')}
-          isValid={labelErrors.length === 0}
           autoCorrect={false}
           errorMessage={displayErrors ? labelErrors : undefined}
         />
       </View>
-      <View style={tw`mt-6`}>
-        <Input
-          onChange={(number: string) => {
-            setPhone((number.length && !/\+/gu.test(number) ? `+${number}` : number).replace(/[^0-9+]/gu, ''))
-          }}
+      <View style={tw`mt-1`}>
+        <PhoneInput
+          onChange={setPhone}
           onSubmit={() => {
-            setPhone((number: string) => (!/\+/gu.test(number) ? `+${number}` : number).replace(/[^0-9+]/gu, ''))
             $beneficiary?.focus()
           }}
           reference={(el: any) => ($phone = el)}
           value={phone}
           label={i18n('form.phone')}
           placeholder={i18n('form.phone.placeholder')}
-          isValid={phoneIsValid}
           autoCorrect={false}
           errorMessage={displayErrors ? phoneErrors : undefined}
         />
       </View>
-      <View style={tw`mt-6`}>
+      <View style={tw`mt-1`}>
         <Input
           onChange={setBeneficiary}
-          onSubmit={save}
+          onSubmit={() => {
+            $reference?.focus()
+          }}
           reference={(el: any) => ($beneficiary = el)}
           value={beneficiary}
           required={false}
-          label={i18n('form.name')}
-          placeholder={i18n('form.name.placeholder')}
+          label={i18n('form.beneficiary')}
+          placeholder={i18n('form.beneficiary.placeholder')}
           autoCorrect={false}
         />
       </View>
+      <Input
+        onChange={setReference}
+        onSubmit={save}
+        reference={(el: any) => ($reference = el)}
+        value={reference}
+        required={false}
+        label={i18n('form.reference')}
+        placeholder={i18n('form.reference.placeholder')}
+        autoCorrect={false}
+        errorMessage={displayErrors ? referenceError : undefined}
+      />
     </View>
   )
 }

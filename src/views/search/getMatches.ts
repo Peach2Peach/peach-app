@@ -18,7 +18,7 @@ export const getMatchesFn = async ({ queryKey, pageParam = 0 }: { queryKey: [str
     return result
   } else if (err) {
     error('Error', err)
-    throw new Error(err.error)
+    throw err
   }
   throw new Error()
 }

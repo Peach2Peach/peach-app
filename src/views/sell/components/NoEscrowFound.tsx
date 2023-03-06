@@ -1,9 +1,12 @@
-
 import React, { ReactElement } from 'react'
+import { View } from 'react-native'
+
 import { Text } from '../../../components'
 import tw from '../../../styles/tailwind'
+import i18n from '../../../utils/i18n'
 
-// TODO: create escrow not found error message here
-export default (): ReactElement => <Text style={tw`text-center`}>
-  404 Escrow not found
-</Text>
+export default (): ReactElement => (
+  <View style={tw`justify-center h-full`}>
+    <Text style={tw`text-center subtitle-1`}>{i18n('escrowNotFound')}</Text>
+  </View>
+)

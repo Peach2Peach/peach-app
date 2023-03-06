@@ -1,18 +1,16 @@
 import 'react-native-url-polyfill/auto'
 
 type BitcoinRequest = {
-  address?: string,
-  amount?: number,
-  message?: string,
-  time?: number,
-  exp?: number,
+  address?: string
+  amount?: number
+  message?: string
+  time?: number
+  exp?: number
 }
-
 
 /**
  * @description Method to parse a bitcoin request string
  * @param request the bitcoin request
- * @param network name of the bitcoin network to check address for
  * @returns structured bitcoin request
  */
 export const parseBitcoinRequest = (request: string = 'bitcoin:'): BitcoinRequest => {

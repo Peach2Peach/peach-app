@@ -1,29 +1,51 @@
-import React, { ReactElement, useContext, useEffect, useState } from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
-import LanguageContext from '../../contexts/language'
-import { BuyViewProps } from './BuyPreferences'
-import { account, getPaymentData, getSelectedPaymentDataIds, updateSettings } from '../../utils/account'
+import shallow from 'zustand/shallow'
+import { Icon, PeachScrollView, PrimaryButton } from '../../components'
+import { EditIcon, HelpIcon } from '../../components/icons'
+import PaymentDetails from '../../components/payment/PaymentDetails'
+import { useHeaderSetup } from '../../hooks'
+import { useShowHelp } from '../../hooks/useShowHelp'
+import { useSettingsStore } from '../../store/settingsStore'
+import { account, getPaymentData, getSelectedPaymentDataIds } from '../../utils/account'
+import { isDefined } from '../../utils/array/isDefined'
 import i18n from '../../utils/i18n'
-import { Headline, Title } from '../../components'
 import { hasMopsConfigured } from '../../utils/offer'
 import { hashPaymentData, isValidPaymentData } from '../../utils/paymentMethod'
-import PaymentDetails from '../../components/payment/PaymentDetails'
-import AddPaymentMethodButton from '../../components/payment/AddPaymentMethodButton'
+import { BuyViewProps } from './BuyPreferences'
 
-const validate = (offer: BuyOffer) => {
-  const paymentDataValid = getSelectedPaymentDataIds()
-    .map(getPaymentData)
-    .filter((d) => d)
-    .every((d) => isValidPaymentData(d!))
-  return !!offer.amount && hasMopsConfigured(offer) && paymentDataValid
-}
+const validate = (offerDraft: BuyOfferDraft) =>
+  !!offerDraft.amount
+  && hasMopsConfigured(offerDraft)
+  && getSelectedPaymentDataIds().map(getPaymentData)
+    .filter(isDefined)
+    .every(isValidPaymentData)
 
-export default ({ offer, updateOffer, setStepValid, navigation }: BuyViewProps): ReactElement => {
-  useContext(LanguageContext)
+export default ({ offerDraft, setOfferDraft, next }: BuyViewProps): ReactElement => {
+  const [editing, setEditing] = useState(false)
+  const [stepValid, setStepValid] = useState(false)
+  const [setMeansOfPaymentStore] = useSettingsStore((state) => [state.setMeansOfPayment], shallow)
+  const showHelp = useShowHelp('paymentMethods')
+
+  useHeaderSetup({
+    title: i18n(editing ? 'paymentMethods.edit.title' : 'paymentMethods.title'),
+    icons:
+      account.paymentData.length !== 0
+        ? [
+          {
+            iconComponent: editing ? <Icon id="checkboxMark" /> : <EditIcon />,
+            onPress: () => {
+              setEditing(!editing)
+            },
+          },
+          { iconComponent: <HelpIcon />, onPress: showHelp },
+        ]
+        : [{ iconComponent: <HelpIcon />, onPress: showHelp }],
+  })
   const [meansOfPayment, setMeansOfPayment] = useState<MeansOfPayment>(
-    offer.meansOfPayment || account.settings.meansOfPayment,
+    offerDraft.meansOfPayment || account.settings.meansOfPayment,
   )
 
   useEffect(() => {
@@ -37,33 +59,32 @@ export default ({ offer, updateOffer, setStepValid, navigation }: BuyViewProps):
         }
         return obj
       }, {} as Offer['paymentData'])
-    updateOffer({
-      ...offer,
+
+    setOfferDraft((prev) => ({
+      ...prev,
       meansOfPayment,
       paymentData,
       originalPaymentData: getSelectedPaymentDataIds().map(getPaymentData) as PaymentData[],
-    })
-    updateSettings(
-      {
-        meansOfPayment,
-        kyc: offer.kyc,
-      },
-      true,
-    )
-  }, [meansOfPayment])
+    }))
+    setMeansOfPaymentStore(meansOfPayment)
+  }, [meansOfPayment, setMeansOfPaymentStore, setOfferDraft])
 
-  useEffect(() => setStepValid(validate(offer)), [offer])
+  useEffect(() => setStepValid(validate(offerDraft)), [offerDraft, setStepValid])
 
   return (
-    <View style={tw`mb-16 px-6`}>
-      <Title title={i18n('buy.title')} />
-      <Headline style={tw`mt-16 text-grey-1`}>{i18n('buy.meansOfPayment')}</Headline>
-      <PaymentDetails style={tw`mt-4`} paymentData={account.paymentData} setMeansOfPayment={setMeansOfPayment} />
-      <AddPaymentMethodButton
-        navigation={navigation}
-        origin={['buyPreferences', { amount: offer.amount }]}
-        style={tw`mt-4`}
-      />
+    <View style={tw`items-center flex-shrink h-full p-5 pb-7`}>
+      <PeachScrollView style={[tw`flex-shrink h-full mb-10`]}>
+        <PaymentDetails
+          style={tw`mt-4`}
+          paymentData={account.paymentData}
+          setMeansOfPayment={setMeansOfPayment}
+          editing={editing}
+          origin="buyPreferences"
+        />
+      </PeachScrollView>
+      <PrimaryButton testID="navigation-next" disabled={!stepValid} onPress={next} narrow>
+        {i18n('next')}
+      </PrimaryButton>
     </View>
   )
 }

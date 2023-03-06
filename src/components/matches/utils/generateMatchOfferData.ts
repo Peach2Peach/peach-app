@@ -1,4 +1,4 @@
-import { getPaymentDataByMethod, isBuyOffer } from '../../../utils/offer'
+import { getPaymentDataByOfferAndMethod, isBuyOffer } from '../../../utils/offer'
 import { MatchProps } from '../../../utils/peachAPI/private/offer/matchOffer'
 import { createEncryptedKey } from './createEncryptedKey'
 import { createEncryptedPaymentData } from './createEncryptedPaymentData'
@@ -36,7 +36,7 @@ export const generateMatchOfferData = async (
     ]
   }
 
-  const paymentDataForMethod = getPaymentDataByMethod(offer, selectedPaymentMethod, hashedPaymentData)
+  const paymentDataForMethod = getPaymentDataByOfferAndMethod(offer, selectedPaymentMethod, hashedPaymentData)
   if (!paymentDataForMethod) return [null, 'MISSING_PAYMENTDATA']
 
   const encryptedPaymentData = await createEncryptedPaymentData(match, paymentDataForMethod)

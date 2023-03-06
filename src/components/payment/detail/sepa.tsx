@@ -4,57 +4,33 @@ import { PaymentTemplateProps } from '..'
 import { Text } from '../..'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
-import { Headline } from '../../text'
-import { CopyAble, HorizontalLine } from '../../ui'
+import { CopyAble } from '../../ui'
 
-export const DetailSEPA = ({ paymentData }: PaymentTemplateProps): ReactElement => <View>
-  <View style={tw`z-10`}><CopyAble style={tw`absolute right-0 mt-2 ml-2`} value={paymentData.iban} /></View>
-  <Headline style={tw`text-grey-2 normal-case mt-4`}>
-    {i18n('contract.payment.to')}
-  </Headline>
-  <Text style={tw`text-center text-grey-2`}>{paymentData.iban}</Text>
+const possibleFields: (keyof SEPAData)[] = ['beneficiary', 'iban', 'bic']
 
-  {paymentData.bic
-    ? <View>
-      <HorizontalLine style={tw`mt-4`}/>
-      <View style={tw`z-10`}><CopyAble style={tw`absolute right-0 mt-2 ml-2`} value={paymentData.bic} /></View>
-      <Headline style={tw`text-grey-2 normal-case mt-4`}>
-        {i18n('form.bic')}
-      </Headline>
-      <Text style={tw`text-center text-grey-2`}>{paymentData.bic}</Text>
+export const DetailSEPA = ({ paymentData, copyable, style }: PaymentTemplateProps): ReactElement => (
+  <View style={style}>
+    <View style={tw`flex-row justify-between`}>
+      <Text style={tw`text-black-2`}>{i18n('contract.payment.to')}</Text>
+      <View>
+        {possibleFields
+          .filter((field) => paymentData[field])
+          .map((field, i) => (
+            <View key={'paymentDetails-' + field} style={i > 0 && tw`mt-2`}>
+              <View style={tw`flex-row items-center justify-end`}>
+                <Text style={tw`subtitle-1`}>{paymentData[field]}</Text>
+                {copyable && <CopyAble value={paymentData[field] as string} style={tw`ml-2`} />}
+              </View>
+            </View>
+          ))}
+      </View>
     </View>
-    : null
-  }
-
-  <HorizontalLine style={tw`mt-4`}/>
-  <View style={tw`z-10`}><CopyAble style={tw`absolute right-0 mt-2 ml-2`} value={paymentData.beneficiary} /></View>
-  <Headline style={tw`text-grey-2 normal-case mt-4`}>
-    {i18n('form.beneficiary')}
-  </Headline>
-  <Text style={tw`text-center text-grey-2`}>{paymentData.beneficiary}</Text>
-
-  {paymentData.address
-    ? <View>
-      <HorizontalLine style={tw`mt-4`}/>
-      <View style={tw`z-10`}><CopyAble style={tw`absolute right-0 mt-2 ml-2`} value={paymentData.address} /></View>
-      <Headline style={tw`text-grey-2 normal-case mt-4`}>
-        {i18n('form.address')}
-      </Headline>
-      <Text style={tw`text-center text-grey-2`}>{paymentData.address}</Text>
+    <View style={[tw`flex-row justify-between mt-2`]}>
+      <Text style={tw`text-black-2`}>{i18n('contract.summary.reference')}</Text>
+      <View style={[tw`flex-row items-center justify-end`, !paymentData.reference && tw`opacity-50`]}>
+        <Text style={tw`subtitle-1`}>{paymentData.reference || i18n('none')}</Text>
+        {copyable && <CopyAble value={paymentData.reference} style={tw`ml-2`} />}
+      </View>
     </View>
-    : null
-  }
-
-  {paymentData.reference
-    ? <View>
-      <HorizontalLine style={tw`mt-4`}/>
-      <View style={tw`z-10`}><CopyAble style={tw`absolute right-0 mt-2 ml-2`} value={paymentData.reference} /></View>
-      <Headline style={tw`text-grey-2 normal-case mt-4`}>
-        {i18n('form.reference')}
-      </Headline>
-      <Text style={tw`text-center text-grey-2`}>{paymentData.reference}</Text>
-    </View>
-    : null
-  }
-</View>
-export default DetailSEPA
+  </View>
+)

@@ -1,6 +1,6 @@
 import React, { ReactElement, useState } from 'react'
 import Clipboard from '@react-native-clipboard/clipboard'
-import { Pressable } from 'react-native'
+import { ColorValue, Pressable, TextStyle } from 'react-native'
 import { Fade } from '../animation'
 import { Text } from '../text'
 import i18n from '../../utils/i18n'
@@ -8,23 +8,29 @@ import tw from '../../styles/tailwind'
 import Icon from '../Icon'
 
 type CopyAbleProps = ComponentProps & {
-  value: string,
-  color?: string,
+  value?: string
+  color?: TextStyle
+  disabled?: boolean
 }
-export const CopyAble = ({ value, color, style }: CopyAbleProps): ReactElement => {
+export const CopyAble = ({ value, color, disabled, style }: CopyAbleProps): ReactElement => {
   const [showCopied, setShowCopied] = useState(false)
 
   const copy = () => {
+    if (!value) return
     Clipboard.setString(value)
     setShowCopied(true)
     setTimeout(() => setShowCopied(false), 500)
   }
-  return <Pressable onPress={copy} style={style}>
-    <Fade show={showCopied} duration={300} delay={0}>
-      <Text style={tw`font-baloo text-grey-1 text-sm uppercase absolute -top-6 w-20 left-1/2 -ml-10 text-center`}>
-        {i18n('copied')}
-      </Text>
-    </Fade>
-    <Icon id="copy" style={tw`w-7 h-7`} color={color || tw`text-grey-3`.color as string}/>
-  </Pressable>
+  return (
+    <Pressable
+      onPress={copy}
+      disabled={!value || disabled}
+      style={[tw`flex-row justify-center flex-shrink w-4 h-4`, style]}
+    >
+      <Icon id="copy" style={tw`w-full h-full`} color={color?.color || tw`text-primary-main`.color} />
+      <Fade show={showCopied} duration={300} delay={0} style={tw`absolute mt-1 top-full`}>
+        <Text style={[tw`tooltip`, color || tw`text-primary-main`]}>{i18n('copied')}</Text>
+      </Fade>
+    </Pressable>
+  )
 }

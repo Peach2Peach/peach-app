@@ -4,4 +4,4 @@
  * @param [selectedPaymentMethods] selected payment methods
  */
 export const paymentMethodSelected = (paymentMethod: PaymentMethod, selectedPaymentMethods: PaymentMethod[] = []) =>
-  selectedPaymentMethods.indexOf(paymentMethod) !== -1
+  selectedPaymentMethods.includes(paymentMethod)

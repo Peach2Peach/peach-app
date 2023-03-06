@@ -1,46 +1,42 @@
 declare type RootStackParamList = {
-  [key: string]: {}
-  home: {}
+  home: undefined
   newUser: {
     referralCode?: string
   }
-  login: {}
-  restoreBackup: {}
-  buy: {
-    amount: number
-    offer?: BuyOffer
-    page?: number
+  restoreBackup: undefined
+  wallet: undefined
+  transactionHistory: undefined
+  transactionDetails: {
+    txId: string
   }
-  buyPreferences: {
-    amount: number
-    offer?: BuyOffer
-    page?: number
-  }
-  sell: {
-    amount: number
-    offer?: SellOffer
-    page?: number
-  }
+  buy: undefined
+  sell: undefined
+  buyPreferences: undefined
+  sellPreferences: undefined
   addPaymentMethod: {
     currencies?: Currency[]
-    country?: Country
+    country?: PaymentMethodCountry
     paymentMethod?: PaymentMethod
-    origin: [keyof RootStackParamList, RootStackParamList[keyof RootStackParamList]]
+    origin: keyof RootStackParamList
   }
   paymentDetails: {
     paymentData: Partial<PaymentData> & {
       type: PaymentMethod
       currencies: Currency[]
     }
-    origin: [keyof RootStackParamList, RootStackParamList[keyof RootStackParamList]]
-    originOnCancel?: [keyof RootStackParamList, RootStackParamList[keyof RootStackParamList]]
+    origin: keyof RootStackParamList
   }
+  signMessage: undefined
   fundEscrow: {
     offer: SellOffer
   }
-  setReturnAddress: {
-    offer: SellOffer
+  selectWallet: {
+    type: 'refund' | 'payout'
   }
+  setRefundWallet: {
+    offerId: string
+  }
+  offerPublished: { isSellOffer: boolean; shouldGoBack?: boolean }
   search: { offerId: string }
   contract: {
     contractId: Contract['id']
@@ -49,36 +45,78 @@ declare type RootStackParamList = {
   contractChat: {
     contractId: Contract['id']
   }
-  dispute: {
+  paymentMade: {
     contractId: Contract['id']
+  }
+  disputeReasonSelector: {
+    contractId: Contract['id']
+  }
+  disputeForm: {
+    contractId: Contract['id']
+    reason: DisputeReason
   }
   tradeComplete: {
     contract: Contract
   }
-  yourTrades: {}
+  yourTrades:
+    | {
+        tab?: TradeTab
+      }
+    | undefined
   offer: {
     offerId: string
   }
-  settings: {}
-  contact: {}
+  settings: undefined
+  contact: undefined
   report: {
     reason: ContactReason
     topic?: string
     message?: string
     shareDeviceID?: boolean
   }
-  language: {}
-  currency: {}
-  profile: {
-    userId: User['id']
-    user?: User
+  language: undefined
+  currency: undefined
+  publicProfile: undefined
+  referrals: undefined
+  backupTime: {
+    view: 'buyer' | 'seller'
+    nextScreen?: keyof RootStackParamList
+    [key: string]: any
   }
-  referrals: {}
-  backups: {}
-  seedWords: {}
-  escrow: {}
-  paymentMethods: {}
-  deleteAccount: {}
-  fees: {}
-  socials: {}
+  backups: undefined
+  backupCreated: undefined
+  seedWords: undefined
+  payoutAddress:
+    | {
+        type: 'refund' | 'payout'
+      }
+    | undefined
+  paymentMethods: undefined
+  meetupScreen: {
+    eventId: string
+    deletable?: boolean
+    origin: keyof RootStackParamList
+  }
+  deleteAccount: undefined
+  peachFees: undefined
+  networkFees: undefined
+  aboutPeach: undefined
+  bitcoinProducts: undefined
+  socials: undefined
+  welcome: undefined
+  redesignWelcome: undefined
+  splashScreen: undefined
+  myProfile: undefined
+  testView: undefined
+  testViewButtons: undefined
+  testViewPopups: undefined
+  testViewMessages: undefined
+  testViewComponents: undefined
+  testViewPNs: undefined
 }
+
+type KeysWithUndefined<T> = {
+  [K in keyof T]: undefined extends T[K] ? K : never
+}[keyof T]
+
+declare type ScreenWithoutProps = KeysWithUndefined<RootStackParamList>

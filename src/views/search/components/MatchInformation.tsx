@@ -1,29 +1,39 @@
 import React from 'react'
 import { View } from 'react-native'
-import { Headline, SatsFormat, Text } from '../../../components'
-import { useOfferDetails } from '../../../hooks'
+import { SatsFormat, Text } from '../../../components'
+import { getPremiumColor } from '../../../components/matches/utils'
+import { useRoute } from '../../../hooks'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { useOfferMatches } from '../hooks/useOfferMatches'
 
-export const MatchInformation = ({ offerId }: { offerId: string }) => {
-  const { offer } = useOfferDetails(offerId)
-  const { allMatches: matches } = useOfferMatches()
-  if (!offer) return <></>
-  const { type, amount, premium } = offer
+export const MatchInformation = ({ offer }: { offer: SellOffer }) => {
+  const { offerId } = useRoute<'search'>().params
+  const { allMatches: matches } = useOfferMatches(offerId)
+  const { amount } = offer
+  const color = getPremiumColor(offer.premium || 0, false)
+
   return (
     <>
-      <Headline style={[tw`text-2xl text-center uppercase leading-2xl text-peach-1`, tw.md`text-3xl leading-3xl`]}>
-        {i18n(matches.length === 1 ? 'search.youGotAMatch' : 'search.youGotAMatches')}
-      </Headline>
-      <View>
-        <Text style={tw`-mt-1 text-center text-grey-2`}>
-          {i18n(`search.${type === 'bid' ? 'buyOffer' : 'sellOffer'}`)}{' '}
-          <SatsFormat sats={amount} color={tw`text-grey-2`} />
-        </Text>
-        {type !== 'bid' && (
-          <Text style={tw`text-center text-grey-2`}>
-            {i18n(premium > 0 ? 'search.atPremium' : 'search.atDiscount', String(Math.abs(premium)))}
+      <Text style={tw`text-center h4 text-primary-main`}>
+        {i18n(`search.youGot${matches.length === 1 ? 'AMatch' : 'Matches'}`)}
+      </Text>
+      <Text style={tw`mt-5 text-center body-l text-black-2`}>{i18n('search.sellOffer')}:</Text>
+      <View style={tw`flex-row items-center justify-center mb-10`}>
+        {typeof amount === 'number' && (
+          <SatsFormat
+            containerStyle={tw`items-center self-center mr-1`}
+            sats={amount}
+            style={tw`text-2xl leading-loose body-l`}
+            bitcoinLogoStyle={tw`w-[18px] h-[18px] mr-2`}
+            satsStyle={tw`subtitle-1`}
+          />
+        )}
+        {offer.premium !== undefined && (
+          <Text style={[tw`leading-loose body-l`, color]}>
+            {' '}
+            ({offer.premium > 0 ? '+' : ''}
+            {String(offer.premium)}%)
           </Text>
         )}
       </View>

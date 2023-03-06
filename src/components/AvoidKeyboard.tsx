@@ -1,5 +1,5 @@
 import React, { ReactElement, useEffect, useState } from 'react'
-import { AccessibilityInfo, Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback } from 'react-native'
+import { AccessibilityInfo, Keyboard, KeyboardAvoidingView, Pressable } from 'react-native'
 import { isIOS } from '../utils/system'
 
 type AvoidKeyboardProps = ComponentProps
@@ -34,7 +34,7 @@ export const AvoidKeyboard = ({ children }: AvoidKeyboardProps): ReactElement =>
         behavior: isIOS() ? 'padding' : undefined,
       }}
     >
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>{children}</TouchableWithoutFeedback>
+      <Pressable onPress={Keyboard.dismiss}>{children}</Pressable>
     </KeyboardAvoidingView>
   )
 }

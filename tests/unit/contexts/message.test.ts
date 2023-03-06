@@ -2,13 +2,13 @@ import { deepStrictEqual } from 'assert'
 import { getMessage, setMessage } from '../../../src/contexts/message'
 
 describe('getMessage & setMessage', () => {
-  const newMessage = {
-    msg: 'Test',
+  const newMessage: MessageState = {
+    msgKey: 'Test',
     level: 'OK' as Level,
   }
   it('sets message state', () => {
     setMessage({}, newMessage)
-    deepStrictEqual(getMessage().msg, newMessage.msg)
+    deepStrictEqual(getMessage().msgKey, newMessage.msgKey)
     deepStrictEqual(getMessage().level, newMessage.level)
   })
 })

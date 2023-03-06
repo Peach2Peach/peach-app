@@ -1,46 +1,55 @@
 import React, { ReactElement } from 'react'
 import { View } from 'react-native'
 import { PaymentTemplateProps } from '..'
-import { APPLINKS } from '../../../constants'
+import { Text } from '../..'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { openAppLink } from '../../../utils/web'
+import { CopyAble } from '../../ui'
 
-import { Headline, Text, TextLink } from '../../text'
-import { CopyAble, HorizontalLine } from '../../ui'
+const possibleFields = ['beneficiary', 'phone', 'userName', 'email', 'iban', 'bic', 'address']
 
-const possibleFields = [
-  'beneficiary',
-  'userName',
-  'email',
-  'phone',
-]
-
-export const GeneralPaymentDetails = ({
+export const GeneralPaymentData = ({
   paymentData,
   appLink,
   fallbackUrl,
+  copyable,
+  style,
 }: PaymentTemplateProps): ReactElement => {
-  const openApp = () => fallbackUrl ? openAppLink(fallbackUrl, appLink) : {}
-  const openUserLink = async () => openAppLink(`${APPLINKS.paypal!.userLink}${paymentData.userName.replace('@', '')}`)
+  const openApp = () => (fallbackUrl ? openAppLink(fallbackUrl, appLink) : {})
+  const onInfoPress = () => {
+    if (appLink || fallbackUrl) {
+      openApp()
+    }
+  }
 
-  return <View>
-    {possibleFields
-      .filter(field => paymentData[field])
-      .map((field, i) => <View key={field}>
-        {i > 0 ? <HorizontalLine style={tw`mt-4`} /> : null}
-        <View style={tw`z-10`}><CopyAble style={tw`absolute right-0 mt-2 ml-2`} value={paymentData[field]} /></View>
-        <Headline style={tw`text-grey-2 normal-case mt-4`}>
-          {i18n(i > 0 ? 'or' : 'contract.payment.to')}
-        </Headline>
-        {field === 'userName'
-          ? <TextLink style={tw`text-center text-grey-2`} onPress={openUserLink}>{paymentData[field]}</TextLink>
-          : appLink || fallbackUrl
-            ? <TextLink style={tw`text-center text-grey-2`} onPress={openApp}>{paymentData[field]}</TextLink>
-            : <Text style={tw`text-center text-grey-2`}>{paymentData[field]}</Text>
-        }
-      </View>)}
-  </View>
+  return (
+    <View style={style}>
+      <View style={tw`flex-row justify-between`}>
+        <Text style={tw`text-black-2`}>{i18n('contract.payment.to')}</Text>
+        <View>
+          {possibleFields
+            .filter((field) => paymentData[field])
+            .map((field, i) => (
+              <View key={'paymentDetails-' + field} style={i > 0 && tw`mt-2`}>
+                <View style={tw`flex-row items-center justify-end`}>
+                  <Text onPress={onInfoPress} style={tw`subtitle-1`}>
+                    {paymentData[field]}
+                  </Text>
+                  {copyable && <CopyAble value={paymentData[field]} style={tw`ml-2`} />}
+                </View>
+              </View>
+            ))}
+        </View>
+      </View>
+      <View style={[tw`flex-row justify-between mt-2`]}>
+        <Text style={tw`text-black-2`}>{i18n('contract.summary.reference')}</Text>
+        <View style={[tw`flex-row items-center justify-end`, !paymentData.reference && tw`opacity-50`]}>
+          <Text style={tw`subtitle-1`}>{paymentData.reference || i18n('none')}</Text>
+          {copyable && <CopyAble value={paymentData.reference} style={tw`ml-2`} />}
+        </View>
+      </View>
+    </View>
+  )
 }
-
-export default GeneralPaymentDetails
+export default GeneralPaymentData

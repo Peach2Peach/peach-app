@@ -1,4 +1,3 @@
-
 import { account, updateSettings } from '../utils/account'
 import { error, info } from '../utils/log'
 import { updateUser } from '../utils/peachAPI'
@@ -10,9 +9,12 @@ export default async () => {
 
       if (result) {
         info('Set PGP for user', account.publicKey)
-        updateSettings({
-          pgpPublished: true
-        }, true)
+        updateSettings(
+          {
+            pgpPublished: true,
+          },
+          true,
+        )
       } else {
         error('PGP could not be set', JSON.stringify(err))
       }

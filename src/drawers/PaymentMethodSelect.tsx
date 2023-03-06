@@ -1,47 +1,31 @@
-import React, { ReactElement, useEffect, useState } from 'react'
+import React, { ReactElement } from 'react'
 import { View } from 'react-native'
-import { HorizontalLine, Icon, PaymentLogo, Text } from '../components'
+import { HorizontalLine, PaymentLogo, Text } from '../components'
 import { PaymentLogoType } from '../components/payment/logos'
 import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
+import { sortAlphabetically } from '../utils/array/sortAlphabetically'
 
 type PaymentMethodSelectProps = {
   paymentMethods: PaymentMethod[]
-  showLogos?: boolean
   onSelect: (method: PaymentMethod) => void
 }
-export const PaymentMethodSelect = ({ paymentMethods, showLogos, onSelect }: PaymentMethodSelectProps): ReactElement => {
-  const [selected, setSelected] = useState<PaymentMethod>()
-
-  const select = (method: PaymentMethod) => {
-    setSelected(method)
-    onSelect(method)
-  }
-
-  useEffect(() => {
-    setSelected(undefined)
-  }, [])
-
-  return (
-    <View>
-      {paymentMethods.map((method, i) => (
+export const PaymentMethodSelect = ({ paymentMethods, onSelect }: PaymentMethodSelectProps): ReactElement => (
+  <View>
+    {paymentMethods
+      .sort((a, b) => sortAlphabetically(i18n(`paymentMethod.${a}`), i18n(`paymentMethod.${b}`)))
+      .map((method) => (
         <View key={method}>
           <View style={tw`flex flex-row items-center px-8`}>
-            {showLogos && (
-              <View style={tw`p-1 mr-4 border border-grey-3 rounded-lg`}>
-                <PaymentLogo id={method as PaymentLogoType} style={tw`w-6 h-6`} />
-              </View>
-            )}
-            <Text style={tw`font-baloo text-base uppercase w-full flex-shrink`} onPress={() => select(method)}>
+            <View style={tw`p-1 mr-4 border rounded-lg border-black-6`}>
+              <PaymentLogo id={method as PaymentLogoType} style={tw`w-6 h-6`} />
+            </View>
+            <Text style={tw`flex-shrink w-full subtitle-1`} onPress={() => onSelect(method)}>
               {i18n(`paymentMethod.${method}`)}
             </Text>
-            {method === selected ? (
-              <Icon id="check" style={tw`w-7 h-7`} color={tw`text-peach-1`.color as string} />
-            ) : null}
           </View>
-          {i < paymentMethods.length - 1 ? <HorizontalLine style={tw`my-6`} /> : null}
+          <HorizontalLine style={tw`my-6`} />
         </View>
       ))}
-    </View>
-  )
-}
+  </View>
+)

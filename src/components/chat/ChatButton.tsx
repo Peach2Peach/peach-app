@@ -1,43 +1,38 @@
 import { StackNavigationProp } from '@react-navigation/stack'
 import React, { ReactElement } from 'react'
-import { Pressable, View } from 'react-native'
-import { Icon } from '../../components'
+import { TouchableOpacity } from 'react-native'
+import { useNavigation } from '../../hooks'
 import tw from '../../styles/tailwind'
 import { getContractChatNotification } from '../../utils/chat'
+import i18n from '../../utils/i18n'
+import { ChatMessages } from '../../views/yourTrades/components/ChatMessages'
 import { Text } from '../text'
-import { Bubble } from '../ui'
 
 export type Navigation = StackNavigationProp<RootStackParamList, keyof RootStackParamList>
 
 type ChatButtonProps = ComponentProps & {
   contract: Contract
-  navigation: Navigation
 }
-export const ChatButton = ({ contract, navigation, style }: ChatButtonProps): ReactElement => {
+export const ChatButton = ({ contract, style }: ChatButtonProps): ReactElement => {
+  const navigation = useNavigation()
   const notifications = getContractChatNotification(contract)
   const goToChat = () => navigation.push('contractChat', { contractId: contract.id })
 
   return (
-    <View style={style}>
-      <Pressable
-        onPress={goToChat}
-        style={[
-          tw`w-10 h-10 flex justify-center items-center rounded`,
-          contract.disputeActive ? tw`bg-red` : tw`bg-peach-1`,
-        ]}
-      >
-        <Icon id="chat" style={tw`w-5 h-5`} color={tw`text-white-1`.color as string} />
-        {notifications > 0 ? (
-          <Bubble
-            color={tw`text-green`.color as string}
-            style={tw`absolute top-0 right-0 -m-2 w-4 flex justify-center items-center`}
-          >
-            <Text style={tw`text-xs font-baloo text-white-1 text-center`} ellipsizeMode="head" numberOfLines={1}>
-              {notifications}
-            </Text>
-          </Bubble>
-        ) : null}
-      </Pressable>
-    </View>
+    <TouchableOpacity
+      onPress={goToChat}
+      style={[
+        tw`flex-row items-center justify-center px-2 rounded-lg bg-primary-main`,
+        contract.disputeActive && tw`bg-warning-main`,
+        style,
+      ]}
+    >
+      <Text style={tw`button-medium text-primary-background-light`}>{i18n('chat')}</Text>
+      <ChatMessages
+        style={tw`w-4 h-4 ml-1 -mt-px`}
+        textStyle={[tw`text-[10px]`, contract.disputeActive && tw`text-black-1`]}
+        messages={notifications}
+      />
+    </TouchableOpacity>
   )
 }
