@@ -1,19 +1,16 @@
-<svg viewBox="0 0 32 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect width="32" height="24" rx="2.28571" fill="white"/>
-<mask id="mask0_1953_14409" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="32" height="24">
-<rect width="32" height="24" rx="2.28571" fill="white"/>
-</mask>
-<g mask="url(#mask0_1953_14409)">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M0 8H32V0H0V8Z" fill="#262626"/>
+<svg width="34" height="26" viewBox="0 0 34 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_1953_14409)">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M1 9H33V1H1V9Z" fill="black"/>
 <g filter="url(#filter0_d_1953_14409)">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M0 16H32V8H0V16Z" fill="#F01515"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M1 17H33V9H1V17Z" fill="#FF0000"/>
 </g>
 <g filter="url(#filter1_d_1953_14409)">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M0 24H32V16H0V24Z" fill="#FFD521"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M1 25H33V17H1V25Z" fill="#FFCC00"/>
 </g>
 </g>
+<rect x="0.5" y="0.5" width="33" height="25" rx="4.5" stroke="#BAADA7"/>
 <defs>
-<filter id="filter0_d_1953_14409" x="0" y="8" width="32" height="8" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<filter id="filter0_d_1953_14409" x="1" y="9" width="32" height="8" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
 <feFlood flood-opacity="0" result="BackgroundImageFix"/>
 <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
 <feOffset/>
@@ -21,7 +18,7 @@
 <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_1953_14409"/>
 <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_1953_14409" result="shape"/>
 </filter>
-<filter id="filter1_d_1953_14409" x="0" y="16" width="32" height="8" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<filter id="filter1_d_1953_14409" x="1" y="17" width="32" height="8" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
 <feFlood flood-opacity="0" result="BackgroundImageFix"/>
 <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
 <feOffset/>
@@ -29,5 +26,8 @@
 <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_1953_14409"/>
 <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_1953_14409" result="shape"/>
 </filter>
+<clipPath id="clip0_1953_14409">
+<rect x="1" y="1" width="32" height="24" rx="4" fill="white"/>
+</clipPath>
 </defs>
 </svg>

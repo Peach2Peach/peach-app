@@ -68,7 +68,7 @@ export const PaymentMethodForms: PaymentMethodForms = {
 }
 GIFTCARDCOUNTRIES.forEach((c) => (PaymentMethodForms[('giftCard.amazon.' + c) as PaymentMethod] = GiftCardAmazon))
 NATIONALTRANSFERCOUNTRIES.forEach(
-  (c) => (PaymentMethodForms[('nationaTransfer' + c) as PaymentMethod] = NationalTransfer),
+  (c) => (PaymentMethodForms[`nationalTransfer${c}` as PaymentMethod] = NationalTransfer),
 )
 
 export const PaymentMethodForm = ({

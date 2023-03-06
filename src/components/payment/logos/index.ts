@@ -15,6 +15,13 @@ import swish from './swish.svg'
 import twint from './twint.svg'
 import vipps from './vipps.svg'
 import wise from './wise.svg'
+import nationalTransferBG from '../../flags/bg.svg'
+import nationalTransferCZ from '../../flags/cz.svg'
+import nationalTransferDK from '../../flags/dk.svg'
+import nationalTransferHU from '../../flags/hu.svg'
+import nationalTransferNO from '../../flags/no.svg'
+import nationalTransferPL from '../../flags/pl.svg'
+import nationalTransferRO from '../../flags/ro.svg'
 
 const PaymentLogos = {
   'cash.amsterdam': bitcoinAmsterdam,
@@ -38,6 +45,13 @@ const PaymentLogos = {
   twint,
   vipps,
   wise,
+  nationalTransferBG,
+  nationalTransferCZ,
+  nationalTransferDK,
+  nationalTransferHU,
+  nationalTransferNO,
+  nationalTransferPL,
+  nationalTransferRO,
 }
 
 export type PaymentLogoType = keyof typeof PaymentLogos

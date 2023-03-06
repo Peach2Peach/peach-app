@@ -2,37 +2,59 @@ import React, { ReactElement, useCallback, useEffect, useImperativeHandle, useMe
 import { TextInput } from 'react-native'
 import { FormProps } from '.'
 import { useValidatedState } from '../../../../hooks'
+import tw from '../../../../styles/tailwind'
 import { getPaymentDataByLabel } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
 import { getErrorsInField } from '../../../../utils/validation'
+import { TabbedNavigation } from '../../../navigation'
+import { TabbedNavigationItem } from '../../../navigation/TabbedNavigation'
 import { BICInput } from '../../BICInput'
 import { IBANInput } from '../../IBANInput'
 import Input from '../../Input'
 
 const beneficiaryRules = { required: true }
 const notRequired = { required: false }
-const ibanRules = { required: true, iban: true, isEUIBAN: true }
-const bicRules = { required: true, bic: true }
+const tabs: TabbedNavigationItem[] = [
+  {
+    id: 'iban',
+    display: i18n('form.iban'),
+  },
+  {
+    id: 'account',
+    display: i18n('form.account'),
+  },
+]
 
+// eslint-disable-next-line max-statements
 export const NationalTransfer = ({
   forwardRef,
   data,
   currencies = [],
   onSubmit,
   setStepValid,
+  paymentMethod,
 }: FormProps): ReactElement => {
   const [label, setLabel] = useState(data?.label || '')
-  const [beneficiary, setBeneficiary, beneficiaryIsValid, beneficiaryErrors] = useValidatedState(
-    data?.beneficiary || '',
-    beneficiaryRules,
-  )
-  const [iban, setIBAN, ibanIsValid, ibanErrors] = useValidatedState(data?.iban || '', ibanRules)
-  const [bic, setBIC, bicIsValid, bicErrors] = useValidatedState(data?.bic || '', bicRules)
-  const [reference, setReference, referenceIsValid, referenceErrors] = useValidatedState(
-    data?.reference || '',
-    notRequired,
-  )
+  const [beneficiary, setBeneficiary, , beneficiaryErrors] = useValidatedState(data?.beneficiary || '', beneficiaryRules)
+
+  const [iban, setIBAN] = useState(data?.iban || '')
+  const [accountNumber, setAccountNumber] = useState(data?.accountNumber || '')
+  const [bic, setBIC] = useState(data?.bic || '')
+  const [reference, setReference, , referenceErrors] = useValidatedState(data?.reference || '', notRequired)
   const [displayErrors, setDisplayErrors] = useState(false)
+
+  const [currentTab, setCurrentTab] = useState(tabs[0])
+
+  const ibanRules = useMemo(() => ({ required: !accountNumber, iban: true, isEUIBAN: true }), [accountNumber])
+  const accountNumberRules = useMemo(() => ({ required: !iban }), [iban])
+  const bicRules = useMemo(() => ({ required: !accountNumber, bic: true }), [accountNumber])
+
+  const ibanErrors = useMemo(() => getErrorsInField(iban, ibanRules), [iban, ibanRules])
+  const bicErrors = useMemo(() => getErrorsInField(bic, bicRules), [bic, bicRules])
+  const accountNumberErrors = useMemo(
+    () => getErrorsInField(accountNumber, accountNumberRules),
+    [accountNumber, accountNumberRules],
+  )
 
   let $beneficiary = useRef<TextInput>(null).current
   let $iban = useRef<TextInput>(null).current
@@ -49,12 +71,13 @@ export const NationalTransfer = ({
 
   const labelErrors = useMemo(() => getErrorsInField(label, labelRules), [label, labelRules])
 
-  const buildPaymentData = (): PaymentData & SEPAData => ({
-    id: data?.id || `sepa-${new Date().getTime()}`,
+  const buildPaymentData = (): PaymentData & NationaTransferData => ({
+    id: data?.id || `${paymentMethod}-${new Date().getTime()}`,
     label,
-    type: 'sepa',
+    type: paymentMethod,
     beneficiary,
     iban,
+    accountNumber,
     bic,
     reference,
     currencies: data?.currencies || currencies,
@@ -62,8 +85,8 @@ export const NationalTransfer = ({
 
   const isFormValid = useCallback(() => {
     setDisplayErrors(true)
-    return labelErrors.length === 0 && beneficiaryIsValid && ibanIsValid && bicIsValid && referenceIsValid
-  }, [beneficiaryIsValid, bicIsValid, ibanIsValid, labelErrors.length, referenceIsValid])
+    return [...labelErrors, ...ibanErrors, ...accountNumberErrors, ...bicErrors].length === 0
+  }, [accountNumberErrors, bicErrors, ibanErrors, labelErrors])
 
   const save = () => {
     if (!isFormValid()) return
@@ -101,28 +124,45 @@ export const NationalTransfer = ({
         autoCorrect={false}
         errorMessage={displayErrors ? beneficiaryErrors : undefined}
       />
-      <IBANInput
-        onChange={setIBAN}
-        onSubmit={() => $bic?.focus()}
-        reference={(el: any) => ($iban = el)}
-        value={iban}
-        required={true}
-        label={i18n('form.iban')}
-        placeholder={i18n('form.iban.placeholder')}
-        autoCorrect={false}
-        errorMessage={displayErrors ? ibanErrors : undefined}
-      />
-      <BICInput
-        onChange={setBIC}
-        onSubmit={() => $reference?.focus()}
-        reference={(el: any) => ($bic = el)}
-        value={bic}
-        required={true}
-        label={i18n('form.bic')}
-        placeholder={i18n('form.bic.placeholder')}
-        autoCorrect={false}
-        errorMessage={displayErrors ? bicErrors : undefined}
-      />
+      <TabbedNavigation items={tabs} selected={currentTab} select={setCurrentTab} buttonStyle={tw`p-0`} />
+      {currentTab.id === 'iban' ? (
+        <IBANInput
+          onChange={setIBAN}
+          onSubmit={() => $bic?.focus()}
+          reference={(el: any) => ($iban = el)}
+          value={iban}
+          required={true}
+          label={i18n('form.iban')}
+          placeholder={i18n('form.iban.placeholder')}
+          autoCorrect={false}
+          errorMessage={displayErrors ? ibanErrors : undefined}
+        />
+      ) : (
+        <Input
+          onChange={setAccountNumber}
+          onSubmit={() => $reference?.focus()}
+          reference={(el: any) => ($iban = el)}
+          value={accountNumber}
+          required={true}
+          label={i18n('form.account.long')}
+          placeholder={i18n('form.account.placeholder')}
+          autoCorrect={false}
+          errorMessage={displayErrors ? accountNumberErrors : undefined}
+        />
+      )}
+      {currentTab.id === 'iban' && (
+        <BICInput
+          onChange={setBIC}
+          onSubmit={() => $reference?.focus()}
+          reference={(el: any) => ($bic = el)}
+          value={bic}
+          required={true}
+          label={i18n('form.bic')}
+          placeholder={i18n('form.bic.placeholder')}
+          autoCorrect={false}
+          errorMessage={displayErrors ? bicErrors : undefined}
+        />
+      )}
       <Input
         onChange={setReference}
         onSubmit={save}

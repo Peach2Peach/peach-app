@@ -80,5 +80,5 @@ declare type NationaTransferData = {
   beneficiary: string
   iban?: string
   accountNumber?: string
-  bic: string
+  bic?: string
 }

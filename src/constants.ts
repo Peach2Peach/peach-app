@@ -25,7 +25,7 @@ export const UNIQUEID = sha256(getUniqueId())
 export let CURRENCIES: Currency[] = ['EUR', 'CHF', 'GBP', 'SEK', 'DKK', 'BGN', 'CZK', 'HUF', 'PLN', 'RON', 'ISK', 'NOK']
 
 export let GIFTCARDCOUNTRIES: PaymentMethodCountry[] = ['DE', 'FR', 'IT', 'ES', 'NL', 'UK', 'SE', 'FI']
-export let NATIONALTRANSFERCOUNTRIES: PaymentMethodCountry[] = ['BG', 'CZ', 'DK', 'HU', 'NO', 'PL', 'PO']
+export const NATIONALTRANSFERCOUNTRIES: PaymentMethodCountry[] = ['BG', 'CZ', 'DK', 'HU', 'NO', 'PL', 'PO']
 
 export let PAYMENTMETHODS: PaymentMethod[] = ['sepa']
 export let PAYMENTMETHODINFOS: PaymentMethodInfo[] = [
@@ -82,9 +82,6 @@ export const setPaymentMethods = (paymentMethodInfos: PaymentMethodInfo[]) => {
   PAYMENTMETHODINFOS = paymentMethodInfos
   CURRENCIES = paymentMethodInfos.reduce((arr, info) => arr.concat(info.currencies), [] as Currency[]).filter(unique())
   GIFTCARDCOUNTRIES = paymentMethodInfos
-    .reduce((arr, info) => arr.concat(info.countries || []), [] as PaymentMethodCountry[])
-    .filter(unique())
-  NATIONALTRANSFERCOUNTRIES = paymentMethodInfos
     .reduce((arr, info) => arr.concat(info.countries || []), [] as PaymentMethodCountry[])
     .filter(unique())
   PAYMENTMETHODS = paymentMethodInfos.map((method) => method.id)
