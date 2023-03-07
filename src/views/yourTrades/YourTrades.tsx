@@ -51,7 +51,7 @@ export default (): ReactElement => {
           ItemSeparatorComponent={() => <View onStartShouldSetResponder={() => true} style={tw`h-6`} />}
         />
       ) : (
-        <TradePlaceholders tab={currentTab.id as 'sell' | 'buy' | 'history'} />
+        <TradePlaceholders tab={currentTab.id as TradeTab} />
       )}
       {isLoading && (
         <View style={tw`absolute inset-0 items-center justify-center`} pointerEvents="none">
