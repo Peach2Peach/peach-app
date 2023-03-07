@@ -116,7 +116,6 @@ export const NationalTransfer = ({
       />
       <Input
         onChange={setBeneficiary}
-        onSubmit={() => $iban?.focus()}
         reference={(el: any) => ($beneficiary = el)}
         value={beneficiary}
         required={true}
