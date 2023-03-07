@@ -5,9 +5,9 @@ export const textShadow = {
 }
 
 export const messageShadow = {
-  shadowColor: '#000',
+  shadowColor: '#2B191152',
   shadowOffset: { width: 0, height: 8 },
-  shadowOpacity: 0.5,
+  shadowOpacity: 0.32,
   shadowRadius: 8,
   elevation: 8,
 }
