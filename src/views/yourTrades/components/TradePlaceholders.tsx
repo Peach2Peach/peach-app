@@ -21,7 +21,7 @@ export const TradePlaceholders = ({ tab }: TradePlaceholdersProps): ReactElement
       <Text style={tw`h6 text-black-3`}>{i18n('yourTrades.empty')}</Text>
       {tab === 'buy' || tab === 'sell' ? (
         <>
-          <HorizontalLine style={tw`w-full my-4`} />
+          <HorizontalLine style={tw`w-full my-8 bg-black-6`} />
           <GoTradeButton />
         </>
       ) : null}
