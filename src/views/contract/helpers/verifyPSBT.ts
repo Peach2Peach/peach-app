@@ -2,6 +2,7 @@ import { Psbt } from 'bitcoinjs-lib'
 import { MAXMININGFEE } from '../../../constants'
 import { configStore } from '../../../store/configStore'
 import { txIdPartOfPSBT } from '../../../utils/bitcoin'
+import { ceil } from '../../../utils/math'
 
 /**
  * @description Method to verify that a psbt is indeed meant for the current contract
@@ -30,7 +31,7 @@ export const verifyPSBT = (psbt: Psbt, sellOffer: SellOffer, contract: Contract)
     const peachFeeOutput = psbt.txOutputs.find((output) => output.address !== contract.releaseAddress)
     if (
       !peachFeeOutput
-      || peachFeeOutput.value !== contract.amount * peachFee
+      || peachFeeOutput.value !== ceil(contract.amount * peachFee)
       || !buyerOutput
       || buyerOutput.value < contract.amount - peachFeeOutput.value - MAXMININGFEE
     ) {
