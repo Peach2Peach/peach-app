@@ -1,4 +1,4 @@
-import { isValidLength } from './isValidLength'
+import { isValidDigitLength } from './isValidDigitLength'
 import { validateMnemonic, wordlists } from 'bip39'
 import { address } from 'bitcoinjs-lib'
 import { getNetwork } from '../wallet'
@@ -107,25 +107,25 @@ export const rules = {
     return isUKBankAccount(value)
   },
   nationalTransferPL (_: boolean, value: string) {
-    return isValidLength(value, [26, 28])
+    return isValidDigitLength(value, [26, 28])
   },
   nationalTransferCZ (_: boolean, value: string) {
-    return isValidLength(value, [10, 14])
+    return isValidDigitLength(value, [10, 14])
   },
   nationalTransferDK (_: boolean, value: string) {
-    return isValidLength(value, 10)
+    return isValidDigitLength(value, 10)
   },
   nationalTransferHU (_: boolean, value: string) {
-    return isValidLength(value, 24)
+    return isValidDigitLength(value, 24)
   },
   nationalTransferNO (_: boolean, value: string) {
-    return isValidLength(value, 11)
+    return isValidDigitLength(value, 11)
   },
   nationalTransferBG (_: boolean, value: string) {
-    return isValidLength(value, 11)
+    return isValidDigitLength(value, 11)
   },
   nationalTransferRO (_: boolean, value: string) {
-    return isValidLength(value, 11)
+    return isValidDigitLength(value, 11)
   },
 }
 
