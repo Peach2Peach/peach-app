@@ -2,8 +2,8 @@ import { ColorStop } from '../../components/RadialGradient'
 import tw from '../../styles/tailwind'
 
 export const whiteGradient: ColorStop[] = [
-  { offset: '0%', color: '#FCFCFD', opacity: '1' },
-  { offset: '100%', color: '#FCFCFD', opacity: '0' },
+  { offset: '0%', color: String(tw`text-primary-background`.color), opacity: '1' },
+  { offset: '100%', color: String(tw`text-primary-background`.color), opacity: '0' },
 ]
 
 export const primaryGradient: ColorStop[] = [
