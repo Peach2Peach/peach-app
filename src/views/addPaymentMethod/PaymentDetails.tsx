@@ -6,11 +6,9 @@ import tw from '../../styles/tailwind'
 import { PaymentMethodForm } from '../../components/inputs/paymentMethods/paymentForms'
 import { specialTemplates } from './specialTemplates'
 import { usePaymentDetailsSetup } from './hooks/usePaymentDetailsSetup'
-import { info } from '../../utils/log'
 
 export default (): ReactElement => {
   const { paymentMethod, onSubmit, currencies, data } = usePaymentDetailsSetup()
-  info('method : ' + paymentMethod)
 
   return (
     <View style={[tw`flex h-full`, specialTemplates[paymentMethod]?.style]}>
