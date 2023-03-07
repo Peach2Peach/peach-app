@@ -50,9 +50,9 @@ export default (): ReactElement => {
           renderItem={TradeItem}
           ItemSeparatorComponent={() => <View onStartShouldSetResponder={() => true} style={tw`h-6`} />}
         />
-      ) : currentTab.id === 'buy' || currentTab.id === 'sell' ? (
-        <TradePlaceholders tab={currentTab.id} />
-      ) : null}
+      ) : (
+        <TradePlaceholders tab={currentTab.id as 'sell' | 'buy' | 'history'} />
+      )}
       {isLoading && (
         <View style={tw`absolute inset-0 items-center justify-center`} pointerEvents="none">
           <Loading />
