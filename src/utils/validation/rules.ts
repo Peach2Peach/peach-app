@@ -1,3 +1,4 @@
+import { isValidLength } from './isValidLength'
 import { validateMnemonic, wordlists } from 'bip39'
 import { address } from 'bitcoinjs-lib'
 import { getNetwork } from '../wallet'
@@ -105,26 +106,26 @@ export const rules = {
   ukBankAccount (_: boolean, value: string) {
     return isUKBankAccount(value)
   },
-  plBankAccount (_: boolean, value: string) {
-    return /^\d{26,28}$/u.test(value)
+  nationalTransferPL (_: boolean, value: string) {
+    return isValidLength(value, [26, 28])
   },
-  czBankAccount (_: boolean, value: string) {
-    return /^\d{10,14}$/u.test(value)
+  nationalTransferCZ (_: boolean, value: string) {
+    return isValidLength(value, [10, 14])
   },
-  dkBankAccount (_: boolean, value: string) {
-    return /^\d{10}$/u.test(value)
+  nationalTransferDK (_: boolean, value: string) {
+    return isValidLength(value, 10)
   },
-  huBankAccount (_: boolean, value: string) {
-    return /^\d{24}$/u.test(value)
+  nationalTransferHU (_: boolean, value: string) {
+    return isValidLength(value, 24)
   },
-  noBankAccount (_: boolean, value: string) {
-    return /^\d{11}$/u.test(value)
+  nationalTransferNO (_: boolean, value: string) {
+    return isValidLength(value, 11)
   },
-  bgBankAccount (_: boolean, value: string) {
-    return /^\d{11}$/u.test(value)
+  nationalTransferBG (_: boolean, value: string) {
+    return isValidLength(value, 11)
   },
-  roBankAccount (_: boolean, value: string) {
-    return /^\d{11}$/u.test(value)
+  nationalTransferRO (_: boolean, value: string) {
+    return isValidLength(value, 11)
   },
 }
 

@@ -5,7 +5,6 @@ import { useValidatedState } from '../../../../hooks'
 import tw from '../../../../styles/tailwind'
 import { getPaymentDataByLabel } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
-import { info } from '../../../../utils/log'
 import { getErrorsInField } from '../../../../utils/validation'
 import { TabbedNavigation } from '../../../navigation'
 import { TabbedNavigationItem } from '../../../navigation/TabbedNavigation'
@@ -47,16 +46,9 @@ export const NationalTransfer = ({
 
   const [currentTab, setCurrentTab] = useState(tabs[0])
 
-  const extractCountryCode = (): string => {
-    const codePattern = /nationalTransfer([A-Z]{2})/u
-    const foundCode = paymentMethod.match(codePattern)?.[1]
-    info('code :' + foundCode)
-    return `${foundCode?.toLocaleLowerCase()}BankAccount`
-  }
-
   const ibanRules = useMemo(() => ({ required: !accountNumber, iban: true, isEUIBAN: true }), [accountNumber])
   const accountNumberRules = useMemo(
-    () => ({ required: !iban, [extractCountryCode()]: true }),
+    () => ({ required: !iban, [paymentMethod]: true }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [iban],
   )
