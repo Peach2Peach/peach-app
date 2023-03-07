@@ -5,7 +5,7 @@ import { HorizontalLine, Icon, Text } from '../../../components'
 import i18n from '../../../utils/i18n'
 import tw from '../../../styles/tailwind'
 type TradePlaceholdersProps = ComponentProps & {
-  tab: 'sell' | 'buy' | 'history'
+  tab: TradeTab
 }
 export const TradePlaceholders = ({ tab }: TradePlaceholdersProps): ReactElement => {
   const navigation = useNavigation()
