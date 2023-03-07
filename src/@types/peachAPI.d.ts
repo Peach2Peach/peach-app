@@ -85,6 +85,7 @@ declare type Currency =
   | 'RON'
   | 'ISK'
   | 'NOK'
+  | 'RON'
 declare type Pricebook = {
   [key in Currency]?: number
 }
@@ -114,6 +115,7 @@ declare type PaymentMethodCountry =
   | 'NO'
   | 'PL'
   | 'PO'
+  | 'RO'
 declare type Location = 'amsterdam' | 'belgianEmbassy' | 'lugano'
 declare type PaymentMethod =
   | 'sepa'
