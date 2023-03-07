@@ -47,11 +47,7 @@ export const NationalTransfer = ({
   const [currentTab, setCurrentTab] = useState(tabs[0])
 
   const ibanRules = useMemo(() => ({ required: !accountNumber, iban: true, isEUIBAN: true }), [accountNumber])
-  const accountNumberRules = useMemo(
-    () => ({ required: !iban, [paymentMethod]: true }),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [iban],
-  )
+  const accountNumberRules = useMemo(() => ({ required: !iban, [paymentMethod]: true }), [iban, paymentMethod])
   const bicRules = useMemo(() => ({ required: !accountNumber, bic: true }), [accountNumber])
 
   const ibanErrors = useMemo(() => getErrorsInField(iban, ibanRules), [iban, ibanRules])
