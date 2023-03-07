@@ -546,6 +546,7 @@
   "form.ukSortCode.placeholder": "234012",
   "form.ukSortCode.error": "this is not a valid sort code",
   "form.iban.error": "this is not a valid iban",
+  "form.iban.long": "bank account number",
   "form.iban.nonEUError": "we only support EU-based accounts",
   "form.bic": "SWIFT/BIC",
   "form.bic.placeholder": "AB12CDEF",

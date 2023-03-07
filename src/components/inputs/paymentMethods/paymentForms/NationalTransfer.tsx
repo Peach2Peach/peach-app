@@ -58,7 +58,6 @@ export const NationalTransfer = ({
   )
 
   let $beneficiary = useRef<TextInput>(null).current
-  let $iban = useRef<TextInput>(null).current
   let $bic = useRef<TextInput>(null).current
   let $reference = useRef<TextInput>(null).current
 
@@ -129,10 +128,9 @@ export const NationalTransfer = ({
         <IBANInput
           onChange={setIBAN}
           onSubmit={() => $bic?.focus()}
-          reference={(el: any) => ($iban = el)}
           value={iban}
           required={true}
-          label={i18n('form.ukBankAccount')}
+          label={i18n('form.iban.long')}
           placeholder={i18n('form.iban.placeholder')}
           autoCorrect={false}
           errorMessage={displayErrors ? ibanErrors : undefined}
@@ -141,7 +139,6 @@ export const NationalTransfer = ({
         <BankNumberInput
           onChange={setAccountNumber}
           onSubmit={() => $reference?.focus()}
-          reference={(el: any) => ($iban = el)}
           value={accountNumber}
           required={true}
           label={i18n('form.account.long')}
