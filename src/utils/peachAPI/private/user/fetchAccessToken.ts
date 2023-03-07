@@ -28,11 +28,10 @@ export const fetchAccessToken = async (): Promise<string> => {
     const [result, err] = await auth({ timeout: 2000 })
 
     if (!result || err) {
-      error('peachAPI - fetchAccessToken', new Error(err?.error))
+      error('peachAPI - fetchAccessToken', err?.error)
       reject(err?.error || 'AUTHENTICATION_FAILURE')
       fetchingToken = null
-
-      throw Error(err?.error || 'AUTHENTICATION_FAILURE')
+      return
     }
     resolve(result)
     fetchingToken = null
