@@ -1,7 +1,6 @@
-import { useCallback, useContext, useState } from 'react'
+import { useCallback, useState } from 'react'
 import { Keyboard } from 'react-native'
 
-import { MessageContext } from '../../../contexts/message'
 import { useNavigation, useValidatedState } from '../../../hooks'
 import { deleteAccount, recoverAccount } from '../../../utils/account'
 import { decryptAccount } from '../../../utils/account/decryptAccount'
@@ -12,7 +11,6 @@ import { parseError } from '../../../utils/system'
 const passwordRules = { password: true, required: true }
 
 export const useRestoreFromFileSetup = () => {
-  const [, updateMessage] = useContext(MessageContext)
   const navigation = useNavigation()
 
   const [file, setFile] = useState({
@@ -25,20 +23,11 @@ export const useRestoreFromFileSetup = () => {
   const [loading, setLoading] = useState(false)
   const [restored, setRestored] = useState(false)
 
-  const onError = useCallback(
-    (err?: string) => {
-      const errorMsg = err || 'UNKNOWN_ERROR'
-      if (errorMsg !== 'WRONG_PASSWORD') setError(errorMsg)
-      if (errorMsg !== 'REGISTRATION_DENIED') {
-        updateMessage({
-          msgKey: errorMsg,
-          level: 'ERROR',
-        })
-      }
-      deleteAccount()
-    },
-    [updateMessage],
-  )
+  const onError = useCallback((err?: string) => {
+    const errorMsg = err || 'UNKNOWN_ERROR'
+    if (errorMsg !== 'WRONG_PASSWORD') setError(errorMsg)
+    deleteAccount()
+  }, [])
 
   const submit = async () => {
     Keyboard.dismiss()
