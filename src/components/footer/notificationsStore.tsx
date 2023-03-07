@@ -1,4 +1,4 @@
-import create, { createStore, useStore } from 'zustand'
+import { createStore, useStore } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { createStorage, toZustandStorage } from '../../utils/storage'
 
