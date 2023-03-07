@@ -6,6 +6,7 @@ import { IconType } from '../assets/icons'
 import { MessageContext } from '../contexts/message'
 import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
+import { messageShadow } from '../utils/layout/shadows'
 
 type LevelColorMap = {
   bg: Record<Level, ViewStyle>
@@ -54,7 +55,7 @@ export const Message = ({ level, msgKey, bodyArgs = [], action, onClose, style }
     <View
       style={[
         tw`flex items-center justify-center px-4 pt-4 pb-2 m-6 rounded-2xl`,
-        { elevation: 8 },
+        messageShadow,
         levelColorMap.bg[level],
         style,
       ]}
