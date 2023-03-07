@@ -7,7 +7,7 @@ export const SliderTrack = ({ style, children, onLayout }: ComponentProps) => (
     style={[
       tw`rounded-full w-[32px] bg-primary-background-dark `,
       tw`border border-primary-mild-1`,
-      { height: style.height + 10 },
+      { height: style.height + 12 },
     ]}
   >
     <View style={tw`h-full m-[5px]`} {...{ onLayout }}>
