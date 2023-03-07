@@ -1,7 +1,7 @@
 import React from 'react'
-import { KeyboardAvoidingView, RefreshControl, View } from 'react-native'
+import { RefreshControl, View } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-import { Icon, Loading, PeachScrollView, Text } from '../../components'
+import { AvoidKeyboard, Icon, Loading, PeachScrollView, Text } from '../../components'
 import { BitcoinAddressInput, SlideToUnlock } from '../../components/inputs'
 import { BigSatsFormat } from '../../components/text'
 import tw from '../../styles/tailwind'
@@ -17,7 +17,7 @@ export default () => {
     = useWalletSetup()
 
   return (
-    <KeyboardAvoidingView behavior="height" enabled>
+    <AvoidKeyboard iOSBehavior={'height'} androidBehavior={'height'}>
       <PeachScrollView
         style={tw`h-full`}
         contentContainerStyle={tw`h-full px-8`}
@@ -51,6 +51,6 @@ export default () => {
           />
         </View>
       </PeachScrollView>
-    </KeyboardAvoidingView>
+    </AvoidKeyboard>
   )
 }
