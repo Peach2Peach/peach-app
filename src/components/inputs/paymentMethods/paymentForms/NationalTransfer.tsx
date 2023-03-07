@@ -76,7 +76,7 @@ export const NationalTransfer = ({
 
   const labelErrors = useMemo(() => getErrorsInField(label, labelRules), [label, labelRules])
 
-  const buildPaymentData = (): PaymentData & NationaTransferData => ({
+  const buildPaymentData = (): PaymentData & NationalTransferData => ({
     id: data?.id || `${paymentMethod}-${new Date().getTime()}`,
     label,
     type: paymentMethod,

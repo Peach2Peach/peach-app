@@ -76,7 +76,7 @@ declare type AmazonGiftCardData = {
 declare type CashData = {
   userId: string
 }
-declare type NationaTransferData = {
+declare type NationalTransferData = {
   beneficiary: string
   iban?: string
   accountNumber?: string
