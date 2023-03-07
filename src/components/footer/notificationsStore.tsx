@@ -1,4 +1,4 @@
-import create from 'zustand'
+import create, { createStore, useStore } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { createStorage, toZustandStorage } from '../../utils/storage'
 
@@ -17,7 +17,7 @@ const defaultState: NotificationsConfig = {
 
 export const notificationStorage = createStorage('notifications')
 
-export const notificationStore = create(
+export const notificationStore = createStore(
   persist<NotificationsState>(
     (set) => ({
       ...defaultState,
@@ -31,3 +31,8 @@ export const notificationStore = create(
     },
   ),
 )
+
+export const useNotificationStore = <T, >(
+  selector: (state: NotificationsState) => T,
+  equalityFn?: ((a: T, b: T) => boolean) | undefined,
+) => useStore(notificationStore, selector, equalityFn)
