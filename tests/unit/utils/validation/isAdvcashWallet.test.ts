@@ -3,9 +3,11 @@ import { isAdvcashWallet } from '../../../../src/utils/validation'
 describe('isAdvcashWallet', () => {
   it('should return true for a valid AdvCash wallet address', () => {
     expect(isAdvcashWallet('u123456789012')).toBe(true)
+    expect(isAdvcashWallet('e123456789012')).toBe(true)
+    expect(isAdvcashWallet('g123456789012')).toBe(true)
   })
 
-  it('should return false for a wallet address that does not start with "u"', () => {
+  it('should return false for a wallet address that does not start with u/e/g', () => {
     expect(isAdvcashWallet('a123456789012')).toBe(false)
   })
 
