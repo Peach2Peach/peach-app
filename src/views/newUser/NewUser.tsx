@@ -18,25 +18,15 @@ export default (): ReactElement => {
   useHeaderSetup(headerConfig)
   const route = useRoute<'newUser'>()
   const navigation = useNavigation()
-  const [, updateMessage] = useContext(MessageContext)
 
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState('')
 
-  const onError = useCallback(
-    (err?: string) => {
-      const errorMsg = err || 'UNKNOWN_ERROR'
-      setError(errorMsg)
-      if (errorMsg !== 'REGISTRATION_DENIED') {
-        updateMessage({
-          msgKey: errorMsg,
-          level: 'ERROR',
-        })
-      }
-      deleteAccount()
-    },
-    [updateMessage],
-  )
+  const onError = useCallback((err?: string) => {
+    const errorMsg = err || 'UNKNOWN_ERROR'
+    setError(errorMsg)
+    deleteAccount()
+  }, [])
 
   const onSuccess = useCallback(async () => {
     const [result, authError] = await auth({})
