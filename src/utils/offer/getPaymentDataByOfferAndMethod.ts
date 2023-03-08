@@ -17,8 +17,13 @@ export const getPaymentDataByOfferAndMethod = (
     ? offer.originalPaymentData.filter((data) => data.type === paymentMethod)
     : account.paymentData.filter((data) => data.type === paymentMethod)
 
-  const paymentDataHashes = paymentData.map(hashPaymentData)
-  const index = paymentDataHashes.indexOf(hashedPaymentData)
+  let paymentDataHashes = paymentData.map(hashPaymentData)
+  let index = paymentDataHashes.indexOf(hashedPaymentData)
+
+  if (index === -1) {
+    paymentDataHashes = account.legacyPaymentData.filter((data) => data.type === paymentMethod).map(hashPaymentData)
+    index = paymentDataHashes.indexOf(hashedPaymentData)
+  }
 
   return paymentData[index]
 }

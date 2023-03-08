@@ -22,8 +22,8 @@ export default (): ReactElement => {
 
   return (
     <>
-      <PeachScrollView contentContainerStyle={tw`justify-center flex-grow px-8`}>
-        <View style={tw`flex-1 mt-3`}>
+      <PeachScrollView style={tw`flex-grow`} contentContainerStyle={tw`justify-center flex-grow px-8`}>
+        <View>
           <Text style={[tw`pl-2 input-label`]}>{i18n('buy.addressSigning.yourAddress')}</Text>
           <View
             style={[

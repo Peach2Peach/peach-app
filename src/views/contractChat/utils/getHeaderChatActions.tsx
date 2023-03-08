@@ -21,7 +21,7 @@ export const getHeaderChatActions = (
   const raiseDispute = canDispute ? showOpenDisputeOverlay : () => {}
 
   const icons: HeaderConfig['icons'] = []
-  if (!contract.paymentMade) {
+  if (!contract.paymentMade && !contract.canceled) {
     icons.push({
       iconComponent: <Icon style={!canCancel && tw`opacity-50`} id="xCircle" color={tw`text-error-main`.color} />,
       onPress: openCancelTrade,

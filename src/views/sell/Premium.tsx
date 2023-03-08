@@ -49,7 +49,7 @@ export default ({ offerDraft, setOfferDraft, next }: SellViewProps): ReactElemen
         <View style={tw`flex-row justify-center w-full`}>
           <Text style={tw`pr-2 subtitle-1`}>{i18n('search.sellOffer')}</Text>
           <SatsFormat
-            sats={offer.amount}
+            sats={offerDraft.amount}
             bitcoinLogoStyle={tw`w-3 h-3 mr-1`}
             style={tw`subtitle-1`}
             satsStyle={tw`font-normal body-s`}

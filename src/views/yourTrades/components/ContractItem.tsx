@@ -15,7 +15,7 @@ type OfferItemProps = { contract: ContractSummary }
 export const colors: Record<SummaryItemLevel, ViewStyle> = {
   APP: tw`text-primary-main`,
   SUCCESS: tw`text-success-main`,
-  WARN: tw`text-warning-dark-2`,
+  WARN: tw`text-black-1`,
   ERROR: tw`text-error-main`,
   INFO: tw`text-info-light`,
   DEFAULT: tw`text-black-2`,
@@ -48,14 +48,14 @@ export const ContractItem = ({ contract }: OfferItemProps): ReactElement => {
           theme="light"
           action={{
             label: contract.unreadMessages > 0 ? i18n('yourTrades.newMessages') : undefined,
-            callback: navigate,
+            callback: async () => await navigate(),
           }}
         />
       ) : (
         <SummaryItem
           {...sharedProps}
           action={{
-            callback: navigate,
+            callback: async () => await navigate(),
             label:
               status === 'waiting' || status === 'rateUser'
                 ? i18n(`offer.requiredAction.${status}.${counterparty}`)

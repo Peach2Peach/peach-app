@@ -1,13 +1,8 @@
 import React, { ReactElement } from 'react'
 import { View } from 'react-native'
-
 import { Text } from '../../../../components'
 import { PrimaryButton } from '../../../../components/buttons'
-import { HelpIcon } from '../../../../components/icons'
-import { useHeaderSetup } from '../../../../hooks'
-import { useShowHelp } from '../../../../hooks/useShowHelp'
 import tw from '../../../../styles/tailwind'
-import { account } from '../../../../utils/account'
 import { toShortDateFormat } from '../../../../utils/date'
 import i18n from '../../../../utils/i18n'
 import { useFileBackupOverviewSetup } from '../../hooks/useFileBackupOverviewSetup'

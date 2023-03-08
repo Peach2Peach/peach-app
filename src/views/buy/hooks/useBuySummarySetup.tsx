@@ -31,6 +31,7 @@ export const useBuySummarySetup = () => {
     payoutAddress ? navigation.navigate('signMessage') : navigation.navigate('payoutAddress', { type: 'payout' })
 
   const publishOffer = async (offerDraft: BuyOfferDraft) => {
+    if (isPublishing) return
     setIsPublishing(true)
     const { isOfferPublished, errorMessage } = await publishBuyOffer(offerDraft)
     setIsPublishing(false)
@@ -66,6 +67,7 @@ export const useBuySummarySetup = () => {
   }, [payoutAddress, payoutAddressSignature, peachWalletActive])
 
   return {
+    peachWalletActive,
     releaseAddress,
     walletLabel,
     message,

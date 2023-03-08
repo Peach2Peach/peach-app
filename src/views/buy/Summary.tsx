@@ -8,6 +8,7 @@ import { useBuySummarySetup } from './hooks/useBuySummarySetup'
 
 export default ({ offerDraft, setOfferDraft }: BuyViewProps): ReactElement => {
   const {
+    peachWalletActive,
     releaseAddress,
     walletLabel,
     message,
@@ -44,6 +45,7 @@ export default ({ offerDraft, setOfferDraft }: BuyViewProps): ReactElement => {
         testID="navigation-next"
         style={tw`self-center mt-4`}
         narrow={!canPublish}
+        disabled={peachWalletActive && !messageSignature}
         onPress={canPublish ? publishBuyOffer : goToSetupPayoutWallet}
         iconId={canPublish ? 'uploadCloud' : undefined}
         loading={isPublishing}
