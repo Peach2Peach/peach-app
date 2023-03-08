@@ -88,6 +88,7 @@ export const SlideToUnlock = ({
       onLayout={onLayout}
       style={[
         tw`w-full max-w-full overflow-hidden rounded-full bg-primary-background-dark`,
+        tw`border border-primary-mild-1`,
         disabled ? tw`opacity-50` : {},
         style,
       ]}
