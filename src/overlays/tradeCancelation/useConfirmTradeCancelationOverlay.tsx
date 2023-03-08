@@ -4,7 +4,7 @@ import { OverlayContext } from '../../contexts/overlay'
 import { useNavigation } from '../../hooks'
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
 import tw from '../../styles/tailwind'
-import { getOfferIdFromContract, saveContract } from '../../utils/contract'
+import { saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { confirmContractCancelation, rejectContractCancelation } from '../../utils/peachAPI'
 import { ConfirmCancelTradeRequest } from './ConfirmCancelTradeRequest'
@@ -43,7 +43,7 @@ export const useConfirmTradeCancelationOverlay = () => {
           cancelationRequested: false,
         })
         updateOverlay({ title: i18n('contract.cancel.success'), visible: true, level: 'APP' })
-        navigation.replace('offer', { offerId: getOfferIdFromContract(contract) })
+        navigation.replace('contract', { contractId: contract.id, contract })
       } else if (err) {
         showError(err.error)
       }

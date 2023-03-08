@@ -3,57 +3,53 @@ import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { getCurrencies } from '../../utils/paymentMethod'
-import Card from '../Card'
-import { Selector } from '../inputs'
-import { Headline, SatsFormat, Text } from '../text'
+import { PaymentMethod } from '../matches/PaymentMethod'
+import { TabbedNavigation } from '../navigation/TabbedNavigation'
+import { SatsFormat, Text } from '../text'
 import { HorizontalLine } from '../ui'
 
 type BuyOfferSummaryProps = ComponentProps & {
   offer: BuyOffer | BuyOfferDraft
 }
-export const BuyOfferSummary = ({ offer, style }: BuyOfferSummaryProps): ReactElement => {
-  const [currencies] = useState(() => getCurrencies(offer.meansOfPayment))
-  const [selectedCurrency, setSelectedCurrency] = useState(currencies[0])
-  const [paymentMethods, setPaymentMethods] = useState(offer.meansOfPayment[selectedCurrency]!)
 
-  const setCurrency = (c: string) => {
-    setSelectedCurrency(c as Currency)
-    setPaymentMethods(offer.meansOfPayment[c as Currency]!)
-  }
+export const BuyOfferSummary = ({ offer, style }: BuyOfferSummaryProps): ReactElement => {
+  const currencies = getCurrencies(offer.meansOfPayment)
+  const [selectedCurrency, setSelectedCurrency] = useState(currencies[0])
 
   return (
-    <Card style={[tw`px-5 pb-8 pt-7`, style]}>
-      <Headline style={tw`normal-case text-grey-2`}>{i18n('offer.summary.youAreBuying')}</Headline>
-      <Text style={tw`text-center`}>
-        <SatsFormat sats={offer.amount[0]} color={tw`text-grey-2`} />
-      </Text>
-      <Text style={tw`text-center`}>
-        <SatsFormat sats={offer.amount[1]} color={tw`text-grey-2`} />
-      </Text>
-      <HorizontalLine style={tw`mt-4`} />
-      <Headline style={tw`mt-4 normal-case text-grey-2`}>{i18n('offer.summary.in')}</Headline>
-      <Selector
-        style={tw`mt-2`}
-        selectedValue={selectedCurrency}
-        onChange={setCurrency}
-        items={getCurrencies(offer.meansOfPayment).map((c) => ({ value: c, display: c }))}
+    <View style={[tw`w-full border border-black-5 rounded-2xl p-7 bg-primary-background-light`, style]}>
+      <Text style={tw`self-center body-m text-black-2`}>{i18n('offer.summary.youAreBuying')}</Text>
+
+      <SatsFormat
+        sats={offer.amount[0]}
+        containerStyle={tw`self-center`}
+        style={tw`font-semibold subtitle-1`}
+        satsStyle={tw`font-normal body-s`}
       />
-      <HorizontalLine style={tw`mt-4`} />
-      <Headline style={tw`mt-4 normal-case text-grey-2`}>{i18n('offer.summary.via')}</Headline>
-      <Selector
-        items={paymentMethods.map((p) => ({
-          value: p,
-          display: i18n(`paymentMethod.${p}`).toLowerCase(),
-        }))}
-        style={tw`mt-2`}
+      <Text style={tw`self-center text-black-2`}>&</Text>
+      <SatsFormat
+        sats={offer.amount[1]}
+        containerStyle={tw`self-center`}
+        style={tw`font-semibold subtitle-1`}
+        satsStyle={tw`font-normal body-s`}
       />
-      {offer.walletLabel && (
-        <View>
-          <HorizontalLine style={tw`mt-4`} />
-          <Text style={tw`mt-4 text-center text-black-2`}>{i18n('to')}</Text>
-          <Text style={tw`text-center subtitle-1`}>{offer.walletLabel}</Text>
-        </View>
-      )}
-    </Card>
+
+      <HorizontalLine style={tw`w-64 my-4`} />
+
+      <Text style={tw`self-center body-m text-black-2`}>{i18n('offer.summary.withTheseMethods')}</Text>
+      <TabbedNavigation
+        items={currencies.map((currency) => ({ id: currency, display: currency.toLowerCase() }))}
+        selected={{ id: selectedCurrency, display: selectedCurrency }}
+        select={(c) => setSelectedCurrency(c.id as Currency)}
+      />
+      <View style={tw`flex-row flex-wrap items-center justify-center mt-3 mb-2`}>
+        {offer.meansOfPayment[selectedCurrency]?.map((p) => (
+          <PaymentMethod key={`buyOfferMethod-${p}`} paymentMethod={p} style={tw`m-1`} />
+        ))}
+      </View>
+      <HorizontalLine style={tw`w-64 my-4`} />
+      <Text style={tw`self-center body-m text-black-2`}>{i18n('to')}</Text>
+      <Text style={tw`self-center subtitle-1`}>{offer.walletLabel || i18n('offer.summary.customPayoutAddress')}</Text>
+    </View>
   )
 }

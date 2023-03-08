@@ -4,11 +4,11 @@ module.exports = {
   theme: {
     extend: {
       maxHeight: {
-        '0': '0',
-       '1/4': '25%',
-       '1/2': '50%',
-       '3/4': '75%',
-       'full': '100%',
+        0: '0',
+        '1/4': '25%',
+        '1/2': '50%',
+        '3/4': '75%',
+        full: '100%',
       },
       inset: {
         px: '1px',
@@ -28,31 +28,31 @@ module.exports = {
         },
         primary: {
           dark: {
-            1: '#C45104',
             2: '#963600',
+            1: '#C45104',
           },
           main: '#F56522',
           mild: {
-            1: '#FCCCB6',
             2: '#FFA171',
+            1: '#FCCCB6',
           },
-          background: '#FFF9F6',
           'background-dark': '#FEEDE5',
+          background: '#FFF9F6',
           'background-light': '#FFFCFA',
         },
         success: {
           dark: {
-            1: '#016736',
-            2: '#008847',
+            2: '#016736',
+            1: '#008847',
           },
-          main: '#008847',
+          main: '#05A85A',
           mild: '#88E2B7',
           background: '#C9FFE5',
         },
         warning: {
           dark: {
-            1: '#F19E12',
-            2: '#F3B71A',
+            2: '#F19E12',
+            1: '#F3B71A',
           },
           main: '#F5CE22',
           mild: '#DFD79A',
@@ -68,11 +68,15 @@ module.exports = {
         info: {
           dark: '#005E89',
           main: '#037DB5',
-          mild: '#BDD1DA',
           light: '#099DE2',
+          mild: '#93D6F5',
           background: '#D7F2FE',
-          'background-light': 'rgba(215, 242, 254, 0.1)',
         },
+        gradient: {
+          yellow:'#FFA24C',
+          orange:'#FF7A50',
+          red: '#FF4D42',
+        }
       },
       fontSize: {
         '6xl': '96px',
@@ -101,6 +105,7 @@ module.exports = {
         xs: '20px',
       },
       letterSpacing: {
+        superTightest: '-0.03em',
         tightest: '-0.016em',
         tighter: '-0.01em',
         tight: '0m',
@@ -165,6 +170,7 @@ module.exports = {
         overline: `font-baloo text-xs leading-xs tracking-normal`,
         'input-text': `font-baloo text-lg leading-relaxed tracking-normal`,
         tooltip: `font-baloo-medium text-xs leading-xs tracking-normal`,
+        notification: `font-baloo text-3xs font-semibold tracking-superTightest leading-sm text-center`,
       })
     }),
   ],

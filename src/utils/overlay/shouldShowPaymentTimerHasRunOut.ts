@@ -1,8 +1,7 @@
-import { getPaymentExpectedBy } from '../../views/contract/helpers/getPaymentExpectedBy'
+import { isPaymentTimeExpired } from '../contract'
 
 export const shouldShowPaymentTimerHasRunOut = (contract: Contract) => {
-  if (contract.canceled) return false
+  if (contract.paymentMade || contract.canceled || contract.disputeActive || contract.disputeWinner) return false
 
-  const paymentExpectedBy = getPaymentExpectedBy(contract)
-  return Date.now() > paymentExpectedBy
+  return isPaymentTimeExpired(contract)
 }

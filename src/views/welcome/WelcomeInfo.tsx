@@ -7,9 +7,10 @@ import i18n from '../../utils/i18n'
 import peachOfMind from '../../assets/onboarding/peach-of-mind.png'
 import peerToPeer from '../../assets/onboarding/peer-to-peer.png'
 import privacyFirst from '../../assets/onboarding/privacy-first.png'
+import aWalletYouControl from '../../assets/onboarding/a-wallet-you-control.png'
 
-const images = { peachOfMind, peerToPeer, privacyFirst }
-export default ({ name }: { name: 'peachOfMind' | 'peerToPeer' | 'privacyFirst' }) => {
+const images = { peachOfMind, peerToPeer, privacyFirst, aWalletYouControl }
+export default ({ name }: { name: 'peachOfMind' | 'peerToPeer' | 'privacyFirst' | 'aWalletYouControl' }) => {
   useContext(LanguageContext)
   const { width } = useWindowDimensions()
 

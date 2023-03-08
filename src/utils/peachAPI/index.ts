@@ -7,24 +7,24 @@ export { getStatus, getInfo } from './public/system'
 export { sendReport } from './public/contact'
 export { getFeeEstimate, getTx, postTx } from './public/bitcoin'
 export { marketPrice } from './public/market'
-export { getUser } from './public/user'
+export { checkReferralCode, getUser } from './public/user'
 export { auth, getUserPrivate, fetchAccessToken, updateUser, getTradingLimit, logoutUser } from './private/user'
 export {
+  cancelOffer,
+  confirmEscrow,
+  createEscrow,
+  getFundingStatus,
+  getMatches,
+  getOfferDetails,
   getOffers,
   getOfferSummaries,
+  matchOffer,
+  patchOffer,
   postBuyOffer,
   postSellOffer,
-  getOfferDetails,
-  signMessageToPublish,
-  patchOffer,
-  createEscrow,
-  confirmEscrow,
-  getFundingStatus,
-  cancelOffer,
-  getMatches,
-  matchOffer,
-  unmatchOffer,
+  refundSellOffer,
   reviveSellOffer,
+  unmatchOffer,
 } from './private/offer'
 export {
   cancelContract,

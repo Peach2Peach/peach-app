@@ -1,32 +1,57 @@
 import React, { ReactElement, useEffect } from 'react'
 import { View } from 'react-native'
+import { BuyOfferSummary, PeachScrollView, PrimaryButton } from '../../components'
 import tw from '../../styles/tailwind'
-import { useBuySummarySetup } from './hooks/useBuySummarySetup'
+import i18n from '../../utils/i18n'
 import { BuyViewProps } from './BuyPreferences'
-import { BuyOfferSummary } from '../../components'
+import { useBuySummarySetup } from './hooks/useBuySummarySetup'
 
-export default ({ offer, setStepValid, updateOffer }: BuyViewProps): ReactElement => {
-  const { releaseAddress, walletLabel } = useBuySummarySetup()
+export default ({ offerDraft, setOfferDraft }: BuyViewProps): ReactElement => {
+  const {
+    peachWalletActive,
+    releaseAddress,
+    walletLabel,
+    message,
+    messageSignature,
+    canPublish,
+    publishOffer,
+    isPublishing,
+    goToSetupPayoutWallet,
+  } = useBuySummarySetup()
+  const publishBuyOffer = () => publishOffer(offerDraft)
 
   useEffect(() => {
-    setStepValid(!!releaseAddress)
-
-    if (releaseAddress) updateOffer({
-      ...offer,
+    if (releaseAddress) setOfferDraft((prev) => ({
+      ...prev,
       releaseAddress,
-    })
-  }, [releaseAddress, setStepValid, updateOffer])
+      message,
+      messageSignature,
+    }))
+  }, [releaseAddress, message, messageSignature, setOfferDraft])
 
   useEffect(() => {
-    if (walletLabel) updateOffer({
-      ...offer,
+    if (walletLabel) setOfferDraft((prev) => ({
+      ...prev,
       walletLabel,
-    })
-  }, [walletLabel, updateOffer])
+    }))
+  }, [walletLabel, setOfferDraft])
 
   return (
-    <View style={tw`flex-col justify-center h-full px-8`}>
-      <BuyOfferSummary offer={offer} style={tw`flex-shrink-0`} />
-    </View>
+    <PeachScrollView contentContainerStyle={tw`items-center justify-center flex-grow px-8 pb-7`}>
+      <View style={tw`justify-center flex-grow`}>
+        <BuyOfferSummary offer={offerDraft} />
+      </View>
+      <PrimaryButton
+        testID="navigation-next"
+        style={tw`self-center mt-4`}
+        narrow={!canPublish}
+        disabled={peachWalletActive && !messageSignature}
+        onPress={canPublish ? publishBuyOffer : goToSetupPayoutWallet}
+        iconId={canPublish ? 'uploadCloud' : undefined}
+        loading={isPublishing}
+      >
+        {i18n(canPublish ? 'offer.publish' : 'next')}
+      </PrimaryButton>
+    </PeachScrollView>
   )
 }

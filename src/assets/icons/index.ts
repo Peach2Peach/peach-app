@@ -4,13 +4,13 @@ import alertOctagon from './alertOctagon.svg'
 import alertTriangle from './alertTriangle.svg'
 import alignJustify from './alignJustify.svg'
 import alignLeft from './alignLeft.svg'
-import arrowLeft from './arrowLeft.svg'
 import arrowLeftCircle from './arrowLeftCircle.svg'
 import arrowRightCircle from './arrowRightCircle.svg'
 import award from './award.svg'
 import bellSmall from './bellSmall.svg'
 import bitbox from './bitbox.svg'
 import bitcoin from './bitcoin.svg'
+import calendar from './calendar.svg'
 import camera from './camera.svg'
 import cameraOff from './cameraOff.svg'
 import chatDoubleCheck from './chatDoubleCheck.svg'
@@ -88,6 +88,7 @@ import skipForward from './skipForward.svg'
 import slash from './slash.svg'
 import sliderNext from './slider-next.svg'
 import sliderPrev from './slider-prev.svg'
+import smile from './smile.svg'
 import square from './square.svg'
 import star from './star.svg'
 import thumbsDown from './thumbsDown.svg'
@@ -106,7 +107,6 @@ import users from './users.svg'
 import userX from './userX.svg'
 import wallet from './wallet.svg'
 import watch from './watch.svg'
-import x from './x.svg'
 import xCircle from './xCircle.svg'
 import xSquare from './xSquare.svg'
 import yourTrades from './yourTrades.svg'
@@ -120,7 +120,6 @@ const Icons = {
   alertTriangle,
   alignJustify,
   alignLeft,
-  arrowLeft,
   arrowLeftCircle,
   arrowRightCircle,
   award,
@@ -128,6 +127,7 @@ const Icons = {
   bitcoin,
   bitbox,
   buy: download,
+  calendar,
   camera,
   cameraOff,
   chatDoubleCheck,
@@ -206,6 +206,7 @@ const Icons = {
   slash,
   sliderNext,
   sliderPrev,
+  smile,
   square,
   star,
   thumbsDown,
@@ -224,7 +225,6 @@ const Icons = {
   userX,
   wallet,
   watch,
-  x,
   xCircle,
   xSquare,
   yourTrades,

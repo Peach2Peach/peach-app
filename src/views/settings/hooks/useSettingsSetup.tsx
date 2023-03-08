@@ -1,4 +1,3 @@
-import analytics from '@react-native-firebase/analytics'
 import React, { useCallback, useContext, useMemo, useState } from 'react'
 import { AppState } from 'react-native'
 
@@ -7,7 +6,6 @@ import shallow from 'zustand/shallow'
 import { OverlayContext } from '../../../contexts/overlay'
 import { useHeaderSetup, useNavigation } from '../../../hooks'
 import { useSettingsStore } from '../../../store/settingsStore'
-import { account, updateSettings } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
 import { checkNotificationStatus, isProduction, toggleNotifications } from '../../../utils/system'
 import { NotificationPopup } from '../components/NotificationPopup'
@@ -25,14 +23,17 @@ export const useSettingsSetup = () => {
   const navigation = useNavigation()
   useHeaderSetup(headerConfig)
   const [, updateOverlay] = useContext(OverlayContext)
-
   const [notificationsOn, setNotificationsOn] = useState(false)
-  const [peachWalletActive, setPeachWalletActive] = useSettingsStore(
-    (state) => [state.peachWalletActive, state.setPeachWalletActive],
+  const [peachWalletActive, togglePeachWallet, enableAnalytics, toggleAnalytics, showBackupReminder] = useSettingsStore(
+    (state) => [
+      state.peachWalletActive,
+      state.togglePeachWallet,
+      state.enableAnalytics,
+      state.toggleAnalytics,
+      state.showBackupReminder,
+    ],
     shallow,
   )
-
-  const [analyticsOn, setAnalyticsOn] = useState(account.settings.enableAnalytics)
 
   useFocusEffect(
     useCallback(() => {
@@ -49,16 +50,6 @@ export const useSettingsSetup = () => {
     }, []),
   )
 
-  const togglePeachWallet = () => {
-    setPeachWalletActive(!peachWalletActive)
-  }
-  const toggleAnalytics = () => {
-    setAnalyticsOn(!account.settings.enableAnalytics)
-    analytics().setAnalyticsCollectionEnabled(!account.settings.enableAnalytics)
-    updateSettings({
-      enableAnalytics: !account.settings.enableAnalytics,
-    })
-  }
   const goToCurrencySettings = useCallback(() => navigation.navigate('currency'), [navigation])
 
   const notificationClick = useCallback(() => {
@@ -93,13 +84,13 @@ export const useSettingsSetup = () => {
       { title: 'referrals' },
       {
         title: 'backups',
-        iconId: account.settings.showBackupReminder ? 'alertTriangle' : undefined,
-        warning: !!account.settings.showBackupReminder,
+        iconId: showBackupReminder ? 'alertTriangle' : undefined,
+        warning: !!showBackupReminder,
       },
       { title: 'networkFees' },
       { title: 'paymentMethods' },
     ],
-    [],
+    [showBackupReminder],
   )
 
   const appSettings: SettingsItemProps[] = useMemo(
@@ -107,8 +98,8 @@ export const useSettingsSetup = () => {
       {
         title: 'analytics',
         onPress: toggleAnalytics,
-        iconId: analyticsOn ? 'toggleRight' : 'toggleLeft',
-        enabled: analyticsOn,
+        iconId: enableAnalytics ? 'toggleRight' : 'toggleLeft',
+        enabled: enableAnalytics,
       },
       {
         title: 'notifications',
@@ -120,10 +111,10 @@ export const useSettingsSetup = () => {
         iconId: peachWalletActive ? 'toggleRight' : 'toggleLeft',
         enabled: peachWalletActive,
       },
-      { title: peachWalletActive ? 'walletSettings' : 'payoutAddress' },
+      { title: 'payoutAddress' },
       { title: 'currency', onPress: goToCurrencySettings },
     ],
-    [togglePeachWallet, peachWalletActive, analyticsOn, notificationClick, goToCurrencySettings],
+    [toggleAnalytics, enableAnalytics, notificationClick, togglePeachWallet, peachWalletActive, goToCurrencySettings],
   )
 
   const settings = [

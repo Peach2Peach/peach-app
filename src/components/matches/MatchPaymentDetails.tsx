@@ -2,10 +2,9 @@ import React from 'react'
 import { View } from 'react-native'
 import shallow from 'zustand/shallow'
 import tw from '../../styles/tailwind'
-import { getEventName } from '../../utils/events'
 import i18n from '../../utils/i18n'
-import Icon from '../Icon'
 import { Text } from '../text'
+import { PaymentMethod } from './PaymentMethod'
 import { useMatchStore } from './store'
 
 export const MatchPaymentDetails = ({ match, style }: ComponentProps & { match: Match }) => {
@@ -16,22 +15,15 @@ export const MatchPaymentDetails = ({ match, style }: ComponentProps & { match: 
     ],
     shallow,
   )
-  const methodIsVerified = false
-  const paymentMethodName = selectedPaymentMethod?.includes('cash')
-    ? getEventName(selectedPaymentMethod.replace('cash.', ''))
-    : i18n(`paymentMethod.${selectedPaymentMethod}`)
   return (
     <View style={style}>
-      <View style={tw`flex-row justify-between my-4`}>
+      <View style={tw`flex-row justify-between`}>
         <Text style={tw`text-black-2`}>{i18n('match.selectedCurrency')}</Text>
         <Text style={tw`px-2 border rounded-lg border-black-1 button-medium`}>{selectedCurrency}</Text>
       </View>
-      <View style={tw`flex-row justify-between`}>
+      <View style={tw`flex-row justify-between mt-4`}>
         <Text style={tw`text-black-2`}>{i18n('match.selectedPaymentMethod')}</Text>
-        <View style={tw`flex-row items-center px-2 border rounded-lg border-black-1 button-medium`}>
-          <Text style={tw`button-medium`}>{paymentMethodName}</Text>
-          {methodIsVerified && <Icon id="userCheck" style={tw`w-3 h-3 ml-1`} color={tw`text-black-1`.color} />}
-        </View>
+        <PaymentMethod paymentMethod={selectedPaymentMethod} />
       </View>
     </View>
   )

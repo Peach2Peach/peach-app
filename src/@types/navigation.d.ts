@@ -11,11 +11,11 @@ declare type RootStackParamList = {
   }
   buy: undefined
   sell: undefined
-  buyPreferences: { amount: [number, number] }
-  sellPreferences: { amount: number }
+  buyPreferences: undefined
+  sellPreferences: undefined
   addPaymentMethod: {
     currencies?: Currency[]
-    country?: Country
+    country?: PaymentMethodCountry
     paymentMethod?: PaymentMethod
     origin: keyof RootStackParamList
   }
@@ -26,16 +26,17 @@ declare type RootStackParamList = {
     }
     origin: keyof RootStackParamList
   }
-  signMessage: {
-    offerId: string
-  }
+  signMessage: undefined
   fundEscrow: {
     offer: SellOffer
   }
   selectWallet: {
     type: 'refund' | 'payout'
   }
-  offerPublished: { offerId: string }
+  setRefundWallet: {
+    offerId: string
+  }
+  offerPublished: { isSellOffer: boolean; shouldGoBack?: boolean }
   search: { offerId: string }
   contract: {
     contractId: Contract['id']
@@ -59,7 +60,7 @@ declare type RootStackParamList = {
   }
   yourTrades:
     | {
-        tab?: 'buy' | 'sell' | 'history'
+        tab?: TradeTab
       }
     | undefined
   offer: {
@@ -85,8 +86,11 @@ declare type RootStackParamList = {
   backups: undefined
   backupCreated: undefined
   seedWords: undefined
-  payoutAddress: undefined
-  walletSettings: undefined
+  payoutAddress:
+    | {
+        type: 'refund' | 'payout'
+      }
+    | undefined
   paymentMethods: undefined
   meetupScreen: {
     eventId: string
@@ -100,6 +104,7 @@ declare type RootStackParamList = {
   bitcoinProducts: undefined
   socials: undefined
   welcome: undefined
+  redesignWelcome: undefined
   splashScreen: undefined
   myProfile: undefined
   testView: undefined
@@ -107,6 +112,7 @@ declare type RootStackParamList = {
   testViewPopups: undefined
   testViewMessages: undefined
   testViewComponents: undefined
+  testViewPNs: undefined
 }
 
 type KeysWithUndefined<T> = {

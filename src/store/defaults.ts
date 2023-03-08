@@ -1,18 +1,28 @@
 import { BLOCKEXPLORER } from '@env'
-import { APPVERSION, MAXTRADINGAMOUNT, MINTRADINGAMOUNT } from '../constants'
+import { APPVERSION } from '../constants'
+
+export const defaultConfig: Config = {
+  paymentMethods: [],
+  peachPGPPublicKey: '',
+  peachFee: 0.015,
+  minAppVersion: APPVERSION,
+  latestAppVersion: APPVERSION,
+  minTradingAmount: 0,
+  maxTradingAmount: Infinity,
+}
 
 export const defaultSettings: Settings = {
   appVersion: APPVERSION,
   displayCurrency: 'EUR',
   locale: 'en',
-  minAmount: MINTRADINGAMOUNT,
-  maxAmount: MAXTRADINGAMOUNT,
+  minBuyAmount: defaultConfig.minTradingAmount,
+  maxBuyAmount: defaultConfig.maxTradingAmount,
+  sellAmount: defaultConfig.minTradingAmount,
   preferredPaymentMethods: {},
   meansOfPayment: {},
+  premium: 1.5,
   showBackupReminder: true,
-  showDisputeDisclaimer: true,
   peachWalletActive: true,
   nodeURL: BLOCKEXPLORER,
-  customFeeRate: 1,
-  selectedFeeRate: 'halfHourFee',
+  feeRate: 'halfHourFee',
 }

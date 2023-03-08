@@ -1,3 +1,3 @@
-const statusThatLeadToOfferSummary = ['searchingForPeer', 'offerCanceled', 'tradeCompleted', 'tradeCanceled']
+const statusThatLeadToOfferSummary = ['offerCanceled']
 
 export const shouldGoToOfferSummary = (status: TradeStatus) => statusThatLeadToOfferSummary.includes(status)

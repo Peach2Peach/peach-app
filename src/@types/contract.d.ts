@@ -22,7 +22,7 @@ declare type Contract = {
 
   amount: number
   currency: Currency
-  country?: Country
+  country?: PaymentMethodCountry
 
   price: number
   premium: number
@@ -30,6 +30,7 @@ declare type Contract = {
   paymentDataEncrypted?: string
   paymentData?: PaymentData
   paymentDataSignature?: string
+  error?: 'DECRYPTION_ERROR'
 
   kycRequired: boolean
   kycType?: KYCType

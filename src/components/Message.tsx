@@ -6,6 +6,7 @@ import { IconType } from '../assets/icons'
 import { MessageContext } from '../contexts/message'
 import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
+import { messageShadow } from '../utils/layout/shadows'
 
 type LevelColorMap = {
   bg: Record<Level, ViewStyle>
@@ -15,7 +16,7 @@ const levelColorMap: LevelColorMap = {
   bg: {
     APP: tw`bg-primary-main`,
     SUCCESS: tw`bg-success-background`,
-    WARN: tw`bg-warning-mild`,
+    WARN: tw`bg-warning-background`,
     ERROR: tw`bg-error-main`,
     INFO: tw`bg-info-background`,
     DEFAULT: tw`bg-black-6`,
@@ -32,17 +33,17 @@ const levelColorMap: LevelColorMap = {
 
 type MessageProps = ComponentProps & MessageState
 
-export const Message = ({ level, msgKey, action, onClose, style }: MessageProps): ReactElement => {
+export const Message = ({ level, msgKey, bodyArgs = [], action, onClose, style }: MessageProps): ReactElement => {
   const [, updateMessage] = useContext(MessageContext)
   let icon: IconType | null = msgKey ? (i18n(`${msgKey}.icon`) as IconType) : null
   let title = msgKey ? i18n(`${msgKey}.title`) : ''
-  let message = msgKey ? i18n(`${msgKey}.text`) : ''
+  let message = msgKey ? i18n(`${msgKey}.text`, ...bodyArgs) : ''
 
   // fallbacks
   if (icon === `${msgKey}.icon`) icon = null
   if (title === `${msgKey}.title`) title = ''
   if (msgKey && message === `${msgKey}.text`) {
-    message = i18n(msgKey)
+    message = i18n(msgKey, ...bodyArgs)
   }
 
   const closeMessage = () => {
@@ -51,10 +52,17 @@ export const Message = ({ level, msgKey, action, onClose, style }: MessageProps)
   }
 
   return (
-    <View style={[tw`flex items-center justify-center m-6 px-4 pt-4 pb-2 rounded-2xl`, levelColorMap.bg[level], style]}>
+    <View
+      style={[
+        tw`flex items-center justify-center px-4 pt-4 pb-2 m-6 rounded-2xl`,
+        messageShadow,
+        levelColorMap.bg[level],
+        style,
+      ]}
+    >
       <View style={tw`p-2`}>
         <View style={tw`flex-row items-center justify-center`}>
-          {!!icon && <Icon id={icon} style={tw`w-5 h-5 mr-2 -mt-1`} color={levelColorMap.text[level].color} />}
+          {!!icon && <Icon id={icon} style={tw`w-5 h-5 mr-2`} color={levelColorMap.text[level].color} />}
           {!!title && <Text style={[tw`text-center h6`, levelColorMap.text[level]]}>{title}</Text>}
         </View>
         {!!message && (

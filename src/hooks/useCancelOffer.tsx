@@ -16,9 +16,6 @@ export const useCancelOffer = (offer: BuyOffer | SellOffer | null | undefined) =
   const [, updateOverlay] = useContext(OverlayContext)
 
   const closeOverlay = useCallback(() => updateOverlay({ visible: false }), [updateOverlay])
-  const navigateToOffer = useCallback(() => {
-    if (offer?.id) navigation.replace('offer', { offerId: offer.id })
-  }, [navigation, offer?.id])
 
   const showOfferCanceled = useShowAppPopup('offerCanceled')
   const startRefund = useStartRefundOverlay()
@@ -40,11 +37,11 @@ export const useCancelOffer = (offer: BuyOffer | SellOffer | null | undefined) =
 
     if (isBuyOffer(offer) || offer.funding.status === 'NULL' || offer.funding.txIds.length === 0) {
       showOfferCanceled()
-      navigateToOffer()
+      navigation.replace(isBuyOffer(offer) ? 'buy' : 'sell')
     } else {
       startRefund(offer)
     }
-  }, [navigateToOffer, offer, showError, showOfferCanceled, startRefund])
+  }, [navigation, offer, showError, showOfferCanceled, startRefund])
 
   const cancelOffer = useCallback(() => {
     if (!offer) return

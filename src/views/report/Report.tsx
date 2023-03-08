@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useMemo, useRef, useState } from 'react'
+import React, { ReactElement, useContext, useMemo, useRef } from 'react'
 import { Pressable, TextInput, View } from 'react-native'
 
 import tw from '../../styles/tailwind'
@@ -11,9 +11,10 @@ import { useHeaderSetup, useNavigation, useRoute, useToggleBoolean, useValidated
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
 import { showReportSuccess } from '../../overlays/showReportSuccess'
 import { account } from '../../utils/account'
+import { sendErrors } from '../../utils/analytics'
 import i18n from '../../utils/i18n'
 import { sendReport } from '../../utils/peachAPI'
-import { sendErrors } from '../../utils/analytics/openCrashReportPrompt'
+import { EmailInput } from '../../components/inputs/EmailInput'
 
 const emailRules = { email: true, required: true }
 const required = { required: true }
@@ -46,13 +47,18 @@ export default (): ReactElement => {
     if (shareDeviceID) messageToSend += `\n\nDevice ID Hash: ${UNIQUEID}`
     messageToSend += `\n\nApp version: ${APPVERSION} (${BUILDNUMBER})`
 
+    if (shareLogs) {
+      sendErrors([new Error(`user shared app logs: ${topic} – ${messageToSend}`)])
+      messageToSend += '\n\nUser shared app logs, please check crashlytics'
+    }
+
     const [result, err] = await sendReport({
       email,
       reason: i18n(`contact.reason.${reason}`),
       topic,
       message: messageToSend,
     })
-    if (shareLogs) sendErrors([new Error(`user shared app logs: ${topic} – ${messageToSend}`)])
+
     if (result) {
       if (!!account?.publicKey) {
         navigation.navigate('settings')
@@ -69,12 +75,11 @@ export default (): ReactElement => {
   return (
     <PeachScrollView contentContainerStyle={tw`flex-grow`}>
       <View style={tw`justify-end h-full px-6 pt-6 pb-10`}>
-        <Input
+        <EmailInput
           onChange={setEmail}
           onSubmit={() => $topic?.focus()}
           value={email}
           placeholder={i18n('form.userEmail.placeholder')}
-          autoCorrect={false}
           errorMessage={emailErrors}
         />
         <Input
@@ -96,16 +101,18 @@ export default (): ReactElement => {
           autoCorrect={false}
           errorMessage={messageErrors}
         />
-        <Pressable onPress={toggleDeviceIDSharing} style={tw`flex-row items-center pl-3`}>
-          <View style={tw`flex items-center justify-center w-5 h-5`}>
-            {shareDeviceID ? (
-              <Icon id="checkboxMark" style={tw`w-5 h-5`} color={tw`text-primary-main`.color} />
-            ) : (
-              <View style={tw`w-4 h-4 border-2 rounded-sm border-black-3`} />
-            )}
-          </View>
-          <Text style={tw`pl-2 subtitle-1`}>{i18n('form.includeDeviceIDHash')}</Text>
-        </Pressable>
+        {!account.publicKey && (
+          <Pressable onPress={toggleDeviceIDSharing} style={tw`flex-row items-center pl-3`}>
+            <View style={tw`flex items-center justify-center w-5 h-5`}>
+              {shareDeviceID ? (
+                <Icon id="checkboxMark" style={tw`w-5 h-5`} color={tw`text-primary-main`.color} />
+              ) : (
+                <View style={tw`w-4 h-4 border-2 rounded-sm border-black-3`} />
+              )}
+            </View>
+            <Text style={tw`pl-2 subtitle-1`}>{i18n('form.includeDeviceIDHash')}</Text>
+          </Pressable>
+        )}
         <Pressable onPress={toggleShareLogs} style={tw`flex-row items-center pl-3`}>
           <View style={tw`flex items-center justify-center w-5 h-5`}>
             {shareLogs ? (
@@ -118,7 +125,7 @@ export default (): ReactElement => {
         </Pressable>
 
         <PrimaryButton
-          style={tw`mt-10 self-center`}
+          style={tw`self-center mt-10`}
           onPress={submit}
           disabled={!(isEmailValid && isTopicValid && isMessageValid)}
           narrow

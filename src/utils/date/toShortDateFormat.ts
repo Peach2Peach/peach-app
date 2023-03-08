@@ -1,4 +1,4 @@
-import padString from '../string/padString'
+import { padString } from '../string/padString'
 
 /**
  * @description Format date as hh::mm
@@ -44,5 +44,3 @@ export const toShortDateFormat = (date: Date, showTime = false) =>
     }),
     date.getFullYear(),
   ].join('/') + (showTime ? ' ' + toTimeFormat(date) : '')
-
-export default toShortDateFormat

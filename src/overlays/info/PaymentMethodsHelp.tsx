@@ -5,6 +5,7 @@ import i18n from '../../utils/i18n'
 export const PaymentMethodsHelp = (): ReactElement => (
   <>
     <Text>{i18n('help.paymentMethods.description.1')}</Text>
+    <Text>{i18n('help.paymentMethods.description.2')}</Text>
     {/* <View style={tw`flex-row items-center mt-2`}>
       <View style={tw`flex-shrink`}>
         <Text>{i18n('help.paymentMethods.description.2')}</Text>

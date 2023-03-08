@@ -1,5 +1,5 @@
 import React, { ReactElement, useCallback, useEffect, useRef } from 'react'
-import { FlatList, Keyboard, ViewToken } from 'react-native'
+import { FlatList, Keyboard, View, ViewToken } from 'react-native'
 import tw from '../../../styles/tailwind'
 import { getChat } from '../../../utils/chat'
 import { ChatMessage } from './ChatMessage'
@@ -62,9 +62,9 @@ export default ({
         <ChatMessage chatMessages={visibleChatMessages} {...{ item, index, tradingPartner, online, resendMessage }} />
       )}
       initialNumToRender={PAGE_SIZE}
+      ListFooterComponent={<View style={tw`h-2`}></View>}
       onRefresh={fetchNextPage}
       refreshing={isLoading}
-      contentContainerStyle={tw`pb-5`}
     />
   )
 }

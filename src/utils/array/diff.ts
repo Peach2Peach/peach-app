@@ -5,5 +5,3 @@
  * @returns intersection of A and B
  */
 export const diff = <T>(a: T[], b: T[]): T[] => a.filter((val) => !b.includes(val))
-
-export default diff

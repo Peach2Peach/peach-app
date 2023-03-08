@@ -20,8 +20,9 @@ export const OfferItem = ({ offer, style }: OfferItemProps): ReactElement => {
   return isPastOffer(offer.tradeStatus) ? (
     <SummaryItem
       style={style}
-      title={i18n('trade') + ' ' + offerIdToHex(offer.id as Offer['id'])}
+      title={offerIdToHex(offer.id as Offer['id'])}
       amount={offer.amount}
+      theme="light"
       level={theme.level as SummaryItemLevel}
       icon={<Icon id={theme.icon as IconType} style={tw`w-4 h-4`} color={theme.color} />}
       date={new Date(offer.creationDate)}
@@ -31,7 +32,7 @@ export const OfferItem = ({ offer, style }: OfferItemProps): ReactElement => {
     />
   ) : (
     <SummaryItem
-      title={i18n('trade') + ' ' + offerIdToHex(offer.id as Offer['id'])}
+      title={offerIdToHex(offer.id as Offer['id'])}
       amount={offer.amount}
       level={getOfferLevel(offer)}
       date={new Date(offer.creationDate)}

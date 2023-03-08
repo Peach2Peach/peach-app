@@ -8,9 +8,9 @@ import { useOfferMatches } from '../../../views/search/hooks/useOfferMatches'
 import { useMatchStore } from '../store'
 
 export const useMatchesSetup = () => {
-  const { allMatches: matches, fetchNextPage, hasNextPage } = useOfferMatches()
   const { offerId } = useRoute<'search'>().params
   const { offer } = useOfferDetails(offerId)
+  const { allMatches: matches, fetchNextPage, hasNextPage } = useOfferMatches(offerId)
 
   const [currentIndex, setCurrentIndex] = useMatchStore((state) => [state.currentIndex, state.setCurrentIndex], shallow)
 

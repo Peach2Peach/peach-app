@@ -28,6 +28,7 @@ export const useNavigateToOffer = (offer: OfferSummary) => {
         return
       }
     }
+
     navigation.navigate(screen, params)
   }
 }

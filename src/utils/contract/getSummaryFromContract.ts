@@ -1,9 +1,23 @@
 import { account } from './../account/account'
-export const getSummaryFromContract = (contract: Contract): ContractSummary => ({
-  ...contract,
-  offerId: contract.id,
-  type: account.publicKey === contract.seller.id ? 'ask' : 'bid',
-  creationDate: new Date(contract.creationDate),
-  paymentMade: contract.paymentMade ? new Date(contract.paymentMade) : undefined,
-  lastModified: new Date(contract.lastModified),
-})
+import { getBuyOfferIdFromContract } from './getBuyOfferIdFromContract'
+import { getSellOfferIdFromContract } from './getSellOfferIdFromContract'
+
+export const getSummaryFromContract = (contract: Contract): ContractSummary => {
+  const type = account.publicKey === contract.seller.id ? 'ask' : 'bid'
+  return {
+    id: contract.id,
+    offerId: type === 'ask' ? getSellOfferIdFromContract(contract) : getBuyOfferIdFromContract(contract),
+    type,
+    creationDate: contract.creationDate,
+    lastModified: contract.lastModified,
+    paymentMade: contract.paymentMade || undefined,
+    paymentConfirmed: contract.paymentConfirmed || undefined,
+    tradeStatus: contract.tradeStatus,
+    amount: contract.amount,
+    price: contract.price,
+    currency: contract.currency,
+    disputeWinner: contract.disputeWinner,
+    unreadMessages: contract.unreadMessages,
+    releaseTxId: contract.releaseTxId,
+  }
+}

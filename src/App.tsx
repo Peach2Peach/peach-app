@@ -1,5 +1,5 @@
 /* eslint-disable max-lines */
-import React, { ReactElement, useEffect, useReducer, useRef, useState } from 'react'
+import React, { ReactElement, useCallback, useEffect, useReducer, useRef, useState } from 'react'
 import { Animated, Dimensions, SafeAreaView, View } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
@@ -9,7 +9,7 @@ import {
   NavigationContainer,
   NavigationContainerRefWithCurrent,
   NavigationState,
-  useNavigationContainerRef
+  useNavigationContainerRef,
 } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import RNRestart from 'react-native-restart'
@@ -35,22 +35,26 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { setUnhandledPromiseRejectionTracker } from 'react-native-promise-rejection-utils'
 import shallow from 'zustand/shallow'
 import { Background } from './components/background/Background'
-import { APPVERSION, ISEMULATOR, LATESTAPPVERSION, MINAPPVERSION, TIMETORESTART } from './constants'
+import { APPVERSION, ISEMULATOR, TIMETORESTART } from './constants'
 import appStateEffect from './effects/appStateEffect'
+import { useUpdateTradingAmounts } from './hooks'
+import { useMessageHandler } from './hooks/notifications/useMessageHandler'
+import { useHandleNotifications } from './hooks/notifications/usePushHandleNotifications'
 import { useCheckTradeNotifications } from './hooks/useCheckTradeNotifications'
-import { useHandleNotifications } from './hooks/useHandleNotifications'
 import { getPeachInfo } from './init/getPeachInfo'
 import { getTrades } from './init/getTrades'
 import { initApp } from './init/initApp'
 import { initialNavigation } from './init/initialNavigation'
+import requestUserPermissions from './init/requestUserPermissions'
 import websocket from './init/websocket'
-import { showAnalyticsPrompt } from './overlays/showAnalyticsPrompt'
+import { useShowAnalyticsPrompt } from './overlays/useShowAnalyticsPrompt'
 import { useBitcoinStore } from './store/bitcoinStore'
+import { useConfigStore } from './store/configStore'
 import { account, getAccount } from './utils/account'
+import { screenTransition } from './utils/layout/screenTransition'
 import { error, info } from './utils/log'
 import { marketPrices } from './utils/peachAPI/public/market'
-import { compatibilityCheck, linkToAppStore } from './utils/system'
-import requestUserPermissions from './init/requestUserPermissions'
+import { compatibilityCheck, isIOS, linkToAppStore } from './utils/system'
 
 enableScreens()
 
@@ -72,12 +76,15 @@ type HandlerProps = {
   getCurrentPage: () => keyof RootStackParamList | undefined
 }
 const Handlers = ({ getCurrentPage }: HandlerProps): ReactElement => {
-  useHandleNotifications(getCurrentPage)
+  const messageHandler = useMessageHandler(getCurrentPage)
+
+  useHandleNotifications(messageHandler)
 
   return <></>
 }
 const usePartialAppSetup = () => {
   const [active, setActive] = useState(true)
+  const updateTradingAmounts = useUpdateTradingAmounts()
   const [setPrices, setCurrency] = useBitcoinStore((state) => [state.setPrices, state.setCurrency], shallow)
   useCheckTradeNotifications()
 
@@ -108,6 +115,7 @@ const usePartialAppSetup = () => {
     const checkingFunction = async () => {
       const [prices] = await marketPrices({ timeout: checkingInterval })
       if (prices) setPrices(prices)
+      if (prices?.CHF) updateTradingAmounts(prices.CHF)
     }
     const interval = setInterval(checkingFunction, checkingInterval)
     setCurrency(account.settings.displayCurrency)
@@ -116,7 +124,7 @@ const usePartialAppSetup = () => {
     return () => {
       clearInterval(interval)
     }
-  }, [active, setCurrency, setPrices])
+  }, [active, setCurrency, setPrices, updateTradingAmounts])
 }
 
 // eslint-disable-next-line max-statements
@@ -128,12 +136,16 @@ const App: React.FC = () => {
   ] = useReducer(setDrawer, getDrawer())
   const [overlayState, updateOverlay] = useOverlay()
   const [peachWS, updatePeachWS] = useReducer(setPeachWS, getWebSocket())
+  const showAnalyticsPrompt = useShowAnalyticsPrompt(updateOverlay)
   const { width } = Dimensions.get('window')
   const slideInAnim = useRef(new Animated.Value(-width)).current
   const navigationRef = useNavigationContainerRef() as NavigationContainerRefWithCurrent<RootStackParamList>
-
+  const [minAppVersion, latestAppVersion] = useConfigStore(
+    (state) => [state.minAppVersion, state.latestAppVersion],
+    shallow,
+  )
   const [currentPage, setCurrentPage] = useState<keyof RootStackParamList>()
-  const getCurrentPage = () => currentPage
+  const getCurrentPage = useCallback(() => currentPage, [currentPage])
   const views = getViews(!!account?.publicKey)
   const showFooter = !!views.find((v) => v.name === currentPage)?.showFooter
   const backgroundConfig = views.find((v) => v.name === currentPage)?.background
@@ -153,8 +165,9 @@ const App: React.FC = () => {
 
   setUnhandledPromiseRejectionTracker((id, err) => {
     error(err)
+    const msgKey = (err as Error).message === 'Network request failed' ? 'NETWORK_ERROR' : (err as Error).message
     updateMessage({
-      msgKey: (err as Error).message || 'GENERAL_ERROR',
+      msgKey: msgKey || 'GENERAL_ERROR',
       level: 'ERROR',
       action: {
         callback: () => navigationRef.navigate('contact'),
@@ -175,16 +188,25 @@ const App: React.FC = () => {
     }
 
     ;(async () => {
-      await initApp()
+      const statusResponse = await initApp()
+      if (!statusResponse || statusResponse.error) {
+        updateMessage({
+          msgKey: statusResponse?.error || 'NETWORK_ERROR',
+          level: 'ERROR',
+          action: {
+            callback: () => navigationRef.navigate('contact'),
+            label: i18n('contactUs'),
+            icon: 'mail',
+          },
+        })
+      }
       setCurrentPage(!!account?.publicKey ? 'home' : 'welcome')
       await initialNavigation(navigationRef, updateMessage)
       requestUserPermissions()
 
-      if (typeof account.settings.enableAnalytics === 'undefined') {
-        showAnalyticsPrompt(updateOverlay)
-      }
+      if (!account.settings.analyticsPopupSeen) showAnalyticsPrompt()
 
-      if (!compatibilityCheck(APPVERSION, MINAPPVERSION)) {
+      if (!compatibilityCheck(APPVERSION, minAppVersion)) {
         updateMessage({
           msgKey: 'CRITICAL_UPDATE_AVAILABLE',
           level: 'ERROR',
@@ -195,7 +217,7 @@ const App: React.FC = () => {
             icon: 'download',
           },
         })
-      } else if (!compatibilityCheck(APPVERSION, LATESTAPPVERSION)) {
+      } else if (!compatibilityCheck(APPVERSION, latestAppVersion)) {
         updateMessage({
           msgKey: 'UPDATE_AVAILABLE',
           level: 'WARN',
@@ -267,18 +289,23 @@ const App: React.FC = () => {
                               <Stack.Navigator
                                 detachInactiveScreens={true}
                                 screenOptions={{
-                                  gestureEnabled: false,
+                                  gestureEnabled: isIOS(),
                                   headerShown: false,
                                 }}
                               >
-                                {views.map(({ name, component, showHeader }) => (
+                                {views.map(({ name, component, showHeader, background, animationEnabled }) => (
                                   <Stack.Screen
                                     {...{ name, component }}
                                     key={name}
                                     options={{
-                                      animationEnabled: false,
                                       headerShown: showHeader,
                                       header: () => <Header />,
+                                      animationEnabled: isIOS() && animationEnabled,
+                                      cardStyle: !background.color && tw`bg-primary-background`,
+                                      transitionSpec: {
+                                        open: screenTransition,
+                                        close: screenTransition,
+                                      },
                                     }}
                                   />
                                 ))}

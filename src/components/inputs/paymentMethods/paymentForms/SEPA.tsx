@@ -1,16 +1,18 @@
-import React, { ReactElement, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
+import React, { ReactElement, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
 import { TextInput } from 'react-native'
 import { FormProps } from '.'
 import { useValidatedState } from '../../../../hooks'
 import { getPaymentDataByLabel } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
 import { getErrorsInField } from '../../../../utils/validation'
+import { BICInput } from '../../BICInput'
+import { IBANInput } from '../../IBANInput'
 import Input from '../../Input'
 
 const beneficiaryRules = { required: true }
 const notRequired = { required: false }
-const ibanRules = { required: false, iban: true }
-const bicRules = { required: false, bic: true }
+const ibanRules = { required: true, iban: true, isEUIBAN: true }
+const bicRules = { required: true, bic: true }
 
 export const SEPA = ({ forwardRef, data, currencies = [], onSubmit, setStepValid }: FormProps): ReactElement => {
   const [label, setLabel] = useState(data?.label || '')
@@ -31,10 +33,13 @@ export const SEPA = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
   let $bic = useRef<TextInput>(null).current
   let $reference = useRef<TextInput>(null).current
 
-  const labelRules = {
-    required: true,
-    duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)!.id !== data.id,
-  }
+  const labelRules = useMemo(
+    () => ({
+      required: true,
+      duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)!.id !== data.id,
+    }),
+    [data.id, label],
+  )
 
   const labelErrors = useMemo(() => getErrorsInField(label, labelRules), [label, labelRules])
 
@@ -49,10 +54,10 @@ export const SEPA = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
     currencies: data?.currencies || currencies,
   })
 
-  const isFormValid = () => {
+  const isFormValid = useCallback(() => {
     setDisplayErrors(true)
     return labelErrors.length === 0 && beneficiaryIsValid && ibanIsValid && bicIsValid && referenceIsValid
-  }
+  }, [beneficiaryIsValid, bicIsValid, ibanIsValid, labelErrors.length, referenceIsValid])
 
   const save = () => {
     if (!isFormValid()) return
@@ -84,27 +89,29 @@ export const SEPA = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
         onSubmit={() => $iban?.focus()}
         reference={(el: any) => ($beneficiary = el)}
         value={beneficiary}
+        required={true}
         label={i18n('form.beneficiary')}
         placeholder={i18n('form.beneficiary.placeholder')}
         autoCorrect={false}
         errorMessage={displayErrors ? beneficiaryErrors : undefined}
       />
-      <Input
+      <IBANInput
         onChange={setIBAN}
         onSubmit={() => $bic?.focus()}
         reference={(el: any) => ($iban = el)}
         value={iban}
+        required={true}
         label={i18n('form.iban')}
         placeholder={i18n('form.iban.placeholder')}
         autoCorrect={false}
         errorMessage={displayErrors ? ibanErrors : undefined}
       />
-      <Input
+      <BICInput
         onChange={setBIC}
         onSubmit={() => $reference?.focus()}
         reference={(el: any) => ($bic = el)}
         value={bic}
-        required={false}
+        required={true}
         label={i18n('form.bic')}
         placeholder={i18n('form.bic.placeholder')}
         autoCorrect={false}

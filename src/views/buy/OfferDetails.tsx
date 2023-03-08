@@ -2,44 +2,50 @@ import React, { ReactElement, useEffect, useState } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
-import { Icon } from '../../components'
-import { HeaderConfig } from '../../components/header/store'
+import shallow from 'zustand/shallow'
+import { Icon, PeachScrollView, PrimaryButton } from '../../components'
 import { EditIcon, HelpIcon } from '../../components/icons'
 import PaymentDetails from '../../components/payment/PaymentDetails'
 import { useHeaderSetup } from '../../hooks'
-import { account, getPaymentData, getSelectedPaymentDataIds, updateSettings } from '../../utils/account'
+import { useShowHelp } from '../../hooks/useShowHelp'
+import { useSettingsStore } from '../../store/settingsStore'
+import { account, getPaymentData, getSelectedPaymentDataIds } from '../../utils/account'
 import { isDefined } from '../../utils/array/isDefined'
 import i18n from '../../utils/i18n'
 import { hasMopsConfigured } from '../../utils/offer'
 import { hashPaymentData, isValidPaymentData } from '../../utils/paymentMethod'
 import { BuyViewProps } from './BuyPreferences'
-import { useShowHelp } from '../../hooks/useShowHelp'
 
-const validate = (offer: BuyOfferDraft) =>
-  !!offer.amount
-  && hasMopsConfigured(offer)
+const validate = (offerDraft: BuyOfferDraft) =>
+  !!offerDraft.amount
+  && hasMopsConfigured(offerDraft)
   && getSelectedPaymentDataIds().map(getPaymentData)
     .filter(isDefined)
     .every(isValidPaymentData)
 
-export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElement => {
+export default ({ offerDraft, setOfferDraft, next }: BuyViewProps): ReactElement => {
   const [editing, setEditing] = useState(false)
+  const [stepValid, setStepValid] = useState(false)
+  const [setMeansOfPaymentStore] = useSettingsStore((state) => [state.setMeansOfPayment], shallow)
   const showHelp = useShowHelp('paymentMethods')
 
-  const headerIcons = [
-    account.paymentData.length !== 0 && {
-      iconComponent: editing ? <Icon id="checkboxMark" /> : <EditIcon />,
-      onPress: () => {
-        setEditing(!editing)
-      },
-    },
-    { iconComponent: <HelpIcon />, onPress: showHelp },
-  ]
-  const headerConfig = { title: i18n('form.paymentMethod'), icons: headerIcons } as HeaderConfig
-
-  useHeaderSetup(headerConfig)
+  useHeaderSetup({
+    title: i18n(editing ? 'paymentMethods.edit.title' : 'paymentMethods.title'),
+    icons:
+      account.paymentData.length !== 0
+        ? [
+          {
+            iconComponent: editing ? <Icon id="checkboxMark" /> : <EditIcon />,
+            onPress: () => {
+              setEditing(!editing)
+            },
+          },
+          { iconComponent: <HelpIcon />, onPress: showHelp },
+        ]
+        : [{ iconComponent: <HelpIcon />, onPress: showHelp }],
+  })
   const [meansOfPayment, setMeansOfPayment] = useState<MeansOfPayment>(
-    offer.meansOfPayment || account.settings.meansOfPayment,
+    offerDraft.meansOfPayment || account.settings.meansOfPayment,
   )
 
   useEffect(() => {
@@ -54,33 +60,31 @@ export default ({ offer, updateOffer, setStepValid }: BuyViewProps): ReactElemen
         return obj
       }, {} as Offer['paymentData'])
 
-    updateOffer({
-      ...offer,
+    setOfferDraft((prev) => ({
+      ...prev,
       meansOfPayment,
       paymentData,
       originalPaymentData: getSelectedPaymentDataIds().map(getPaymentData) as PaymentData[],
-    })
-    updateSettings(
-      {
-        meansOfPayment,
-        kyc: offer.kyc,
-      },
-      true,
-    )
-  }, [meansOfPayment, updateOffer])
+    }))
+    setMeansOfPaymentStore(meansOfPayment)
+  }, [meansOfPayment, setMeansOfPaymentStore, setOfferDraft])
 
-  validate(offer)
-  useEffect(() => setStepValid(validate(offer)), [offer, setStepValid])
+  useEffect(() => setStepValid(validate(offerDraft)), [offerDraft, setStepValid])
 
   return (
-    <View>
-      <PaymentDetails
-        style={tw`mt-4`}
-        paymentData={account.paymentData}
-        setMeansOfPayment={setMeansOfPayment}
-        editing={editing}
-        origin="buyPreferences"
-      />
+    <View style={tw`items-center flex-shrink h-full p-5 pb-7`}>
+      <PeachScrollView style={[tw`flex-shrink h-full mb-10`]}>
+        <PaymentDetails
+          style={tw`mt-4`}
+          paymentData={account.paymentData}
+          setMeansOfPayment={setMeansOfPayment}
+          editing={editing}
+          origin="buyPreferences"
+        />
+      </PeachScrollView>
+      <PrimaryButton testID="navigation-next" disabled={!stepValid} onPress={next} narrow>
+        {i18n('next')}
+      </PrimaryButton>
     </View>
   )
 }

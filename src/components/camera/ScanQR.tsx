@@ -1,54 +1,53 @@
 import React, { ReactElement } from 'react'
-import { Dimensions, Modal, View } from 'react-native'
+import { Modal, TouchableOpacity, View } from 'react-native'
 
 import { BarCodeReadEvent } from 'react-native-camera'
 
 import QRCodeScanner from 'react-native-qrcode-scanner'
-import { PrimaryButton, Text } from '..'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import Svg, { Defs, Mask, Rect } from 'react-native-svg'
+import { Icon, Text } from '..'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import FocusView from './focusView.svg'
 interface ScanQRProps {
   onSuccess(e: BarCodeReadEvent): void
   onCancel(): void
 }
 
 export const ScanQR = ({ onSuccess, onCancel }: ScanQRProps): ReactElement => {
-  const windowDimensions = Dimensions.get('window')
-  const viewSize = windowDimensions.width * 0.75
+  const CircleMask = () => (
+    <Svg style={tw`w-full h-full`}>
+      <Defs>
+        <Mask id="mask" x="0" y="0" height="100%" width="100%">
+          <Rect height="100%" width="100%" fill="#fff" />
+          <Rect x={'10%'} y={'30%'} rx={20} width={'80%'} height={'40%'} fill={'black'} />
+        </Mask>
+      </Defs>
+      <Rect height="100%" width="100%" fill="rgba(0, 0, 0, 0.6)" mask="url(#mask)" fill-opacity="0" />
+    </Svg>
+  )
+
   return (
     <Modal animationType="fade" transparent={false} visible={true} onRequestClose={onCancel}>
       <View style={tw`w-full h-full bg-black-1`}>
         <QRCodeScanner
-          cameraStyle={tw`z-0 w-full h-full`}
+          cameraStyle={tw`w-full h-full`}
           onRead={onSuccess}
           vibrate
           showMarker
           customMarker={
             <View style={tw`flex flex-col w-full h-full`}>
-              <View style={tw`flex flex-col justify-end flex-shrink h-full pb-2 bg-peach-translucent`}>
-                <View>
-                  <Text style={tw`m-auto text-xl uppercase text-white-2 font-baloo leading-xl`}>
-                    {i18n('scanBTCAddress')}
-                  </Text>
-                </View>
+              <View style={tw`absolute top-0 left-0 w-full h-full`}>
+                <CircleMask />
               </View>
-              <View style={tw`flex-row flex-shrink-0 w-full`}>
-                <View
-                  style={[{ width: Math.round((windowDimensions.width - viewSize) / 2) }, tw`bg-peach-translucent`]}
-                />
-                <View style={{ width: viewSize, height: viewSize }}>
-                  <FocusView />
-                </View>
-                <View
-                  style={[{ width: Math.round((windowDimensions.width - viewSize) / 2) }, tw`bg-peach-translucent`]}
-                />
-              </View>
-              <View style={tw`flex-row flex-shrink h-full bg-peach-translucent`}>
-                <PrimaryButton onPress={onCancel} style={tw`m-auto`}>
-                  {i18n('cancel')}
-                </PrimaryButton>
-              </View>
+              <SafeAreaView style={[tw`flex-row items-center w-full px-8 py-2`]}>
+                <TouchableOpacity style={tw`w-6 h-6 mr-1 -ml-3`} onPress={onCancel}>
+                  <Icon id="chevronLeft" color={tw`text-primary-mild-1`.color} />
+                </TouchableOpacity>
+                <Text style={[tw`lowercase h6`, tw`text-primary-background-light`]} numberOfLines={1}>
+                  {i18n('scanBTCAddress')}
+                </Text>
+              </SafeAreaView>
             </View>
           }
         />

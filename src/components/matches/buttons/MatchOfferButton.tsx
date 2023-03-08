@@ -1,81 +1,31 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 import { TouchableOpacity } from 'react-native'
 import shallow from 'zustand/shallow'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
-import { useOfferMatches } from '../../../views/search/hooks/useOfferMatches'
 import Icon from '../../Icon'
 import { Text } from '../../text'
 import { useMatchStore } from '../store'
-import { isLimitReached } from '../../../utils/match'
-
-const options = {
-  missingSelection: {
-    iconId: 'plusSquare',
-    backgroundColor: tw`bg-primary-mild-1`,
-    text: 'search.matchButton.matchOffer',
-  },
-  tradingLimitReached: {
-    iconId: 'pauseCircle',
-    backgroundColor: tw`bg-primary-mild-1`,
-    text: 'search.matchButton.tradingLimitReached',
-  },
-  matchOffer: { iconId: 'plusSquare', backgroundColor: tw`bg-primary-main`, text: 'search.matchButton.matchOffer' },
-  acceptMatch: { iconId: 'checkSquare', backgroundColor: tw`bg-primary-main`, text: 'search.matchButton.acceptMatch' },
-  offerMatched: {
-    iconId: 'checkSquare',
-    backgroundColor: tw`bg-primary-main`,
-    text: 'search.matchButton.offerMatched',
-  },
-} as const
+import { options } from './options'
 
 type Props = {
   matchId: string
   matchOffer: () => void
-  pretendIsMatched: boolean
-  isBuyOffer: boolean
+  optionName: keyof typeof options
 }
 
-export const MatchOfferButton = ({ matchId, matchOffer, pretendIsMatched, isBuyOffer }: Props) => {
-  const { allMatches: matches } = useOfferMatches()
-  const [currentIndex, selectedPaymentMethod, selectedCurrency, setShowCurrencyPulse, setShowPaymentMethodPulse]
-    = useMatchStore(
-      (state) => [
-        state.currentIndex,
-        state.matchSelectors[matchId]?.selectedPaymentMethod,
-        state.matchSelectors[matchId]?.selectedCurrency,
-        state.setShowCurrencyPulse,
-        state.setShowPaymentMethodPulse,
-      ],
-      shallow,
-    )
-  const currentMatch = matches[currentIndex]
-
-  const tradingLimitReached = isLimitReached(currentMatch?.unavailable.exceedsLimit || [], selectedPaymentMethod)
-
-  const missingSelection = !selectedPaymentMethod || !selectedCurrency
-  const isMatched = currentMatch?.matched || pretendIsMatched
-
-  const currentOptionName = useMemo(
-    () =>
-      isMatched
-        ? 'offerMatched'
-        : tradingLimitReached
-          ? 'tradingLimitReached'
-          : missingSelection
-            ? 'missingSelection'
-            : isBuyOffer
-              ? 'matchOffer'
-              : 'acceptMatch',
-    [isBuyOffer, isMatched, missingSelection, tradingLimitReached],
+export const MatchOfferButton = ({ matchId, matchOffer, optionName }: Props) => {
+  const [selectedPaymentMethod, setShowPaymentMethodPulse] = useMatchStore(
+    (state) => [state.matchSelectors[matchId]?.selectedPaymentMethod, state.setShowPaymentMethodPulse],
+    shallow,
   )
-  const currentOption = options[currentOptionName]
+
+  const currentOption = options[optionName]
 
   const onPress = () => {
-    if (['matchOffer', 'acceptMatch'].includes(currentOptionName)) {
+    if (['matchOffer', 'acceptMatch'].includes(optionName)) {
       matchOffer()
-    } else if (currentOptionName === 'missingSelection') {
-      setShowCurrencyPulse(matchId, !selectedCurrency)
+    } else if (optionName === 'missingSelection') {
       setShowPaymentMethodPulse(matchId, !selectedPaymentMethod)
     }
   }
@@ -84,6 +34,7 @@ export const MatchOfferButton = ({ matchId, matchOffer, pretendIsMatched, isBuyO
     <TouchableOpacity
       style={[tw`flex-row items-center justify-center py-2 rounded-b-xl`, currentOption.backgroundColor]}
       onPress={onPress}
+      disabled={optionName === 'offerMatched'}
     >
       <Text style={tw`button-large text-primary-background-light`}>{i18n(currentOption.text)}</Text>
       <Icon id={currentOption.iconId} color={tw`text-primary-background-light`.color} style={tw`w-6 h-6 ml-[10px]`} />

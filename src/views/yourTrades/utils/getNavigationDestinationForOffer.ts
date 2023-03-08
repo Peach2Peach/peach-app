@@ -1,18 +1,19 @@
-import { settingsStore } from '../../../store/settingsStore'
 import { shouldGoToOfferSummary } from '.'
 
 export const getNavigationDestinationForOffer = ({
   tradeStatus,
   id: offerId,
-}: OfferSummary): [string, object | undefined] => {
+}: {
+  tradeStatus: OfferSummary['tradeStatus']
+  id: OfferSummary['id']
+}): [string, object | undefined] => {
   if (shouldGoToOfferSummary(tradeStatus)) {
     return ['offer', { offerId }]
   }
-
-  if (tradeStatus === 'messageSigningRequired') {
-    settingsStore.getState().setPeachWalletActive(false)
-    return ['signMessage', { offerId }]
+  if (tradeStatus === 'refundAddressRequired') {
+    return ['setRefundWallet', { offerId }]
   }
+
   if (tradeStatus === 'fundEscrow' || tradeStatus === 'escrowWaitingForConfirmation') {
     return ['fundEscrow', { offerId }]
   }

@@ -19,6 +19,7 @@ export const defaultAccount: Account = {
   publicKey: '',
   settings: defaultSettings,
   paymentData: [],
+  legacyPaymentData: [],
   tradingLimit: defaultLimits,
   offers: [],
   contracts: [],
@@ -52,14 +53,16 @@ export const setAccount = async (acc: Account, overwrite?: boolean) => {
   settingsStore.getState().updateSettings(account.settings)
   setLocaleQuiet(account.settings.locale || 'en')
 
-  const { wallet } = account.mnemonic
-    ? createWalletFromSeedPhrase(account.mnemonic, getNetwork())
-    : await createRandomWallet(getNetwork())
-  setWallet(wallet)
-  const firstAddress = getMainAddress(wallet)
-  setPeachAccount(firstAddress)
+  if (account.mnemonic) {
+    const { wallet } = account.mnemonic
+      ? createWalletFromSeedPhrase(account.mnemonic, getNetwork())
+      : await createRandomWallet(getNetwork())
+    setWallet(wallet)
+    const firstAddress = getMainAddress(wallet)
+    setPeachAccount(firstAddress)
 
-  const peachWallet = new PeachWallet({ wallet })
-  peachWallet.loadWallet(account.mnemonic)
-  setPeachWallet(peachWallet)
+    const peachWallet = new PeachWallet({ wallet })
+    peachWallet.loadWallet(account.mnemonic)
+    setPeachWallet(peachWallet)
+  }
 }

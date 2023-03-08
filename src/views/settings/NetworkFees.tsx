@@ -6,12 +6,12 @@ import tw from '../../styles/tailwind'
 import { HorizontalLine, PeachScrollView, PrimaryButton, RadioButtons, Text } from '../../components'
 import { MessageContext } from '../../contexts/message'
 import { useValidatedState } from '../../hooks'
-import { account, updateSettings } from '../../utils/account'
 import i18n from '../../utils/i18n'
 import { updateUser } from '../../utils/peachAPI'
 import CustomFeeItem from './components/networkFees/CustomFeeItem'
 import EstimatedFeeItem from './components/networkFees/EstimatedFeeItem'
 import { useNetworkFeesSetup } from './hooks/useNetworkFeesSetup'
+import { useSettingsStore } from '../../store/settingsStore'
 
 const customFeeRules = {
   required: true,
@@ -24,32 +24,34 @@ export default (): ReactElement => {
   const [, updateMessage] = useContext(MessageContext)
   const { estimatedFees } = useNetworkFeesSetup()
 
-  const [selectedFeeRate, setSelectedFeeRate] = useState<FeeRate>(account.settings.selectedFeeRate || 'halfHourFee')
+  const { setFeeRate, feeRate } = useSettingsStore()
+
+  const [selectedFeeRate, setSelectedFeeRate] = useState<FeeRate | number>(
+    !!feeRate ? (typeof feeRate === 'number' ? 'custom' : feeRate) : 'halfHourFee',
+  )
   const [customFeeRate, setCustomFeeRate, isValid] = useValidatedState<string>(
-    (account.settings.customFeeRate || '1').toString(),
+    typeof feeRate === 'number' ? feeRate.toString() : '1',
     customFeeRules,
   )
   const [feeRateSet, setFeeRateSet] = useState(true)
 
-  const options = estimatedFeeRates.map((feeRate) => ({
-    value: feeRate,
+  const options = estimatedFeeRates.map((rate) => ({
+    value: rate,
     display:
-      feeRate === 'custom' ? (
+      rate === 'custom' ? (
         <CustomFeeItem {...{ customFeeRate, setCustomFeeRate, disabled: selectedFeeRate !== 'custom' }} />
       ) : (
-        <EstimatedFeeItem {...{ feeRate, estimatedFees: estimatedFees[feeRate] }} />
+        <EstimatedFeeItem {...{ feeRate: rate, estimatedFees: estimatedFees[rate] }} />
       ),
   }))
 
   const submit = async () => {
+    const finalFeeRate = selectedFeeRate !== 'custom' ? selectedFeeRate : Number(customFeeRate)
     const [result, err] = await updateUser({
-      feeRate: selectedFeeRate !== 'custom' ? selectedFeeRate : Number(customFeeRate),
+      feeRate: finalFeeRate,
     })
     if (result) {
-      updateSettings({
-        selectedFeeRate,
-        customFeeRate: Number(customFeeRate),
-      })
+      setFeeRate(finalFeeRate)
       setFeeRateSet(true)
     } else if (err) {
       updateMessage({
@@ -64,10 +66,8 @@ export default (): ReactElement => {
   }, [selectedFeeRate, setCustomFeeRate])
 
   useEffect(() => {
-    setFeeRateSet(
-      account.settings.selectedFeeRate === selectedFeeRate && account.settings.customFeeRate === Number(customFeeRate),
-    )
-  }, [customFeeRate, selectedFeeRate, setCustomFeeRate])
+    setFeeRateSet(feeRate === selectedFeeRate && feeRate === Number(customFeeRate))
+  }, [customFeeRate, feeRate, selectedFeeRate, setCustomFeeRate])
 
   return (
     <View style={tw`flex-1`}>
@@ -79,7 +79,7 @@ export default (): ReactElement => {
             onChange: setSelectedFeeRate,
           }}
         />
-        <HorizontalLine style={tw`mt-8 bg-black-5`} />
+        <HorizontalLine style={tw`mt-8`} />
         <Text style={tw`mt-4 text-center text-black-2`}>{i18n('settings.networkFees.averageFees')}</Text>
         <Text style={tw`text-center subtitle-1`}>
           {i18n('settings.networkFees.xSatsPerByte', estimatedFees.economyFee.toString())}

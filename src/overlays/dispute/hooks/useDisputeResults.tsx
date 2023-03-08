@@ -87,6 +87,7 @@ export const useDisputeResults = () => {
           callback: () => {
             saveAcknowledgeMent()
             closeOverlay()
+            navigation.replace('contract', { contractId: contract.id })
           },
         },
         action1: {

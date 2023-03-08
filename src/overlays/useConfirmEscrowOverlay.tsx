@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useCallback, useContext } from 'react'
 import { OverlayContext } from '../contexts/overlay'
 import { useNavigation } from '../hooks'
 import { useShowErrorBanner } from '../hooks/useShowErrorBanner'
@@ -14,37 +14,40 @@ export const useConfirmEscrowOverlay = () => {
   const [, updateOverlay] = useContext(OverlayContext)
   const showError = useShowErrorBanner()
   const showStartRefundOverlay = useStartRefundOverlay()
-  const closeOverlay = () => updateOverlay({ visible: false })
-  return (sellOffer: SellOffer) =>
-    updateOverlay({
-      title: i18n('warning.fundingAmountDifferent.title'),
-      content: (
-        <FundingAmountDifferent amount={sellOffer.amount} actualAmount={sellOffer.funding.amounts.reduce(sum, 0)} />
-      ),
-      visible: true,
-      level: 'WARN',
-      action1: {
-        label: i18n('warning.fundingAmountDifferent.action.1'),
-        icon: 'arrowRightCircle',
-        callback: async () => {
-          const [confirmEscrowResult, confirmEscrowErr] = await confirmEscrow({ offerId: sellOffer.id })
-          closeOverlay()
+  const showConfirmEscrowOverlay = useCallback(
+    (sellOffer: SellOffer) =>
+      updateOverlay({
+        title: i18n('warning.fundingAmountDifferent.title'),
+        content: (
+          <FundingAmountDifferent amount={sellOffer.amount} actualAmount={sellOffer.funding.amounts.reduce(sum, 0)} />
+        ),
+        visible: true,
+        level: 'WARN',
+        action1: {
+          label: i18n('warning.fundingAmountDifferent.action.1'),
+          icon: 'arrowRightCircle',
+          callback: async () => {
+            const [confirmEscrowResult, confirmEscrowErr] = await confirmEscrow({ offerId: sellOffer.id })
+            updateOverlay({ visible: false })
 
-          if (!confirmEscrowResult || confirmEscrowErr) {
-            showError(confirmEscrowErr?.error)
-            return
-          }
-          if (sellOffer.funding.status === 'FUNDED') {
-            navigation.replace('offer', { offerId: sellOffer.id })
-          } else {
-            navigation.replace('fundEscrow', { offer: sellOffer })
-          }
+            if (!confirmEscrowResult || confirmEscrowErr) {
+              showError(confirmEscrowErr?.error)
+              return
+            }
+            if (sellOffer.funding.status === 'FUNDED') {
+              navigation.replace('search', { offerId: sellOffer.id })
+            } else {
+              navigation.replace('fundEscrow', { offer: sellOffer })
+            }
+          },
         },
-      },
-      action2: {
-        label: i18n('warning.fundingAmountDifferent.action.2'),
-        icon: 'rotateCounterClockwise',
-        callback: () => showStartRefundOverlay(sellOffer),
-      },
-    })
+        action2: {
+          label: i18n('warning.fundingAmountDifferent.action.2'),
+          icon: 'rotateCounterClockwise',
+          callback: () => showStartRefundOverlay(sellOffer),
+        },
+      }),
+    [navigation, showError, showStartRefundOverlay, updateOverlay],
+  )
+  return showConfirmEscrowOverlay
 }

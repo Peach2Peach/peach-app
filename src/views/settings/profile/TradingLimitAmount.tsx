@@ -1,14 +1,13 @@
 import React from 'react'
 import { View } from 'react-native'
-import { Text } from '../../../components'
+import { PriceFormat, Text } from '../../../components'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
-import { thousands } from '../../../utils/string'
 
 type Props = ComponentProps & {
   amount: number
   limit: number
-  displayCurrency: string
+  displayCurrency: Currency
   type: 'daily' | 'monthly' | 'yearly'
 }
 export const TradingLimitAmount = ({ amount, limit, displayCurrency, style, type }: Props) => (
@@ -16,13 +15,9 @@ export const TradingLimitAmount = ({ amount, limit, displayCurrency, style, type
     <Text style={tw`tooltip text-black-2`}>
       {i18n(`profile.tradingLimits.${type}`)}
       {'  '}
-      <Text style={tw`font-bold tooltip text-primary-main`}>
-        {i18n(`currency.format.${displayCurrency}`, thousands(amount))}
-      </Text>
+      <PriceFormat style={tw`font-bold tooltip text-primary-main`} currency={displayCurrency} amount={amount} round />
       <Text style={tw`font-bold tooltip text-black-2`}> / </Text>
-      <Text style={tw`font-bold tooltip text-primary-mild-1`}>
-        {i18n(`currency.format.${displayCurrency}`, thousands(limit))}
-      </Text>
+      <PriceFormat style={tw`font-bold tooltip text-primary-mild-1`} currency={displayCurrency} amount={limit} round />
     </Text>
   </View>
 )

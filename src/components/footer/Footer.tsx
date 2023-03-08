@@ -85,11 +85,19 @@ const FooterItem = ({
         {theme === 'default' && notifications ? (
           <View
             style={[
-              tw`absolute w-5 h-5 -top-2 left-1/2 mt-.5 bg-primary-main items-center justify-center`,
+              tw`absolute w-20px h-20px -top-2 left-1/2 bg-primary-main`,
               tw`border-2 rounded-full border-primary-background`,
             ]}
           >
-            <Text style={tw`body-s text-primary-background`}>{Math.min(99, notifications)}</Text>
+            <Text
+              numberOfLines={1}
+              style={[
+                tw`self-center body-s text-primary-background text-14px leading-20px`,
+                notifications > 9 && tw`text-12px leading-18px`,
+              ]}
+            >
+              {Math.min(99, notifications)}
+            </Text>
           </View>
         ) : null}
       </View>

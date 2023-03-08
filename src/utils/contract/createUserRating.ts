@@ -3,12 +3,6 @@ import { account } from '../account'
 import { getPeachAccount } from '../peachAPI/peachAccount'
 import { getMainAddress, getWallet } from '../wallet'
 
-/**
- * @description Method to create rating object for given user
- * @param userId id of user to rate
- * @param rating the rating
- * @returns User Rating
- */
 export const createUserRating = (userId: User['id'], rating: Rating['rating']): Rating => {
   const keyPair = getPeachAccount() || getMainAddress(getWallet())
   const signature = keyPair.sign(crypto.sha256(Buffer.from(userId))).toString('hex')

@@ -51,6 +51,7 @@ export const SelectAmount = ({ min, max, value, onChange, style }: RangeAmountPr
     [max],
   )
 
+  const clearCustomAmount = () => setAmount(0)
   const updateCustomAmount = (val: string) => {
     const num = Number(val)
     if (isNaN(num)) {
@@ -64,6 +65,10 @@ export const SelectAmount = ({ min, max, value, onChange, style }: RangeAmountPr
   useEffect(() => {
     onChange(amount)
   }, [onChange, amount])
+
+  useEffect(() => {
+    pan.extractOffset()
+  }, [pan])
 
   return (
     <View style={[tw`items-end w-[210px] pr-5`, style]}>
@@ -79,9 +84,12 @@ export const SelectAmount = ({ min, max, value, onChange, style }: RangeAmountPr
             <ToolTip style={tw`absolute right-8 w-[175px]`}>
               <View style={tw`absolute top-0 left-0 right-0 z-10`}>
                 <Input
-                  style={tw`w-full h-10 opacity-0`}
+                  style={[tw`w-full h-20 p-0 text-xl`, { opacity: 0.01 }]}
+                  inputStyle={tw`h-20 p-0 text-3xl`}
                   keyboardType="number-pad"
-                  {...{ value: value.toString(), onChange: updateCustomAmount }}
+                  value={amount.toString()}
+                  onChange={updateCustomAmount}
+                  onFocus={clearCustomAmount}
                 />
               </View>
               <View style={tw`p-1 border rounded-lg border-black-4`}>

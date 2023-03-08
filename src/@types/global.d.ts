@@ -20,60 +20,9 @@ declare type AnyObject = {
   [key: string]: any
 }
 
+declare type TradeTab = 'buy' | 'sell' | 'history'
+
 type BitcoinNetwork = 'bitcoin' | 'testnet' | 'regtest'
-
-declare type PaymentData = {
-  [key: string]: any
-  id: string
-  label: string
-  type: PaymentMethod
-  currencies: Currency[]
-  country?: Country
-}
-
-declare type PaypalData = {
-  phone: string
-  email: string
-  userName: string
-}
-declare type SEPAData = {
-  beneficiary: string
-  iban: string
-  bic?: string
-  reference?: string
-}
-declare type BizumData = {
-  phone: string
-  beneficiary: string
-}
-declare type MBWayData = {
-  phone: string
-  beneficiary: string
-}
-declare type RevolutData = {
-  phone: string
-  userName: string
-  email: string
-}
-declare type SwishData = {
-  phone: string
-  beneficiary: string
-}
-declare type SatispayData = {
-  phone: string
-}
-declare type TwintData = {
-  phone: string
-  beneficiary: string
-}
-declare type WiseData = {
-  email: string
-  phone: string
-}
-declare type AmazonGiftCardData = {
-  email: string
-}
-declare type CashData = {}
 
 declare type PaymentCategory = 'bankTransfer' | 'onlineWallet' | 'giftCard' | 'localOption' | 'cryptoCurrency' | 'cash'
 declare type PaymentCategories = {
@@ -99,6 +48,7 @@ declare type Chat = {
   lastSeen: Date
   messages: Message[]
   draftMessage: string
+  seenDisputeDisclaimer: boolean
 }
 
 declare type AppState = {
@@ -118,6 +68,7 @@ declare type SummaryItemLevel = Level | 'WAITING'
 declare type MessageState = {
   level: Level
   msgKey?: string
+  bodyArgs?: string[]
   action?: Action
   onClose?: Function
   time?: number
@@ -158,4 +109,15 @@ declare type Expiry = {
   date: Date
   ttl: number
   isExpired: boolean
+}
+
+declare type Config = {
+  paymentMethods: PaymentMethodInfo[]
+  peachPGPPublicKey: string
+  peachFee: number
+  minAppVersion: string
+  latestAppVersion: string
+  minTradingAmount: number
+  hasSeenRedesignWelcome?: boolean
+  maxTradingAmount: number
 }

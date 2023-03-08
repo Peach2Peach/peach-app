@@ -1,7 +1,7 @@
 import React from 'react'
-import { View } from 'react-native'
+import { RefreshControl, View } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-import { Card, HorizontalLine, Icon, Loading, Text } from '../../components'
+import { Card, HorizontalLine, Icon, Loading, PeachScrollView, Text } from '../../components'
 import { ShortBitcoinAddress } from '../../components/bitcoin'
 import { MediumSatsFormat } from '../../components/text'
 import tw from '../../styles/tailwind'
@@ -12,10 +12,14 @@ import { getTxDetailsTitle } from './helpers/getTxDetailsTitle'
 import { useTransactionDetailsSetup } from './hooks/useTransactionDetailsSetup'
 
 export default () => {
-  const { transaction, receivingAddress, openInExplorer } = useTransactionDetailsSetup()
+  const { transaction, receivingAddress, openInExplorer, refresh, loading } = useTransactionDetailsSetup()
 
   return (
-    <View style={tw`flex justify-center h-full px-8`}>
+    <PeachScrollView
+      style={tw`h-full`}
+      contentContainerStyle={tw`justify-center flex-grow px-8`}
+      refreshControl={<RefreshControl refreshing={loading} onRefresh={refresh} />}
+    >
       {!transaction ? (
         <Loading style={tw`self-center`} />
       ) : (
@@ -25,29 +29,29 @@ export default () => {
             {iconMap[transaction.type]}
             <Text style={tw`ml-2 text-center subtitle-1`}>{getTxDetailsTitle(transaction)}</Text>
           </View>
-          <HorizontalLine style={tw`my-4 bg-black-5`} />
+          <HorizontalLine style={tw`my-4`} />
           <Text style={tw`text-center text-black-2`}>{i18n('date')}</Text>
           <Text style={tw`text-center subtitle-1`}>
             {transaction.confirmed ? toDateFormat(transaction.date) : i18n('wallet.transaction.pending')}
           </Text>
-          <HorizontalLine style={tw`my-4 bg-black-5`} />
+          <HorizontalLine style={tw`my-4`} />
           <Text style={tw`text-center text-black-2`}>{i18n('to')}</Text>
           <ShortBitcoinAddress
             style={tw`text-center subtitle-1`}
             {...{ address: receivingAddress || '' }}
           ></ShortBitcoinAddress>
-          <HorizontalLine style={tw`my-4 bg-black-5`} />
+          <HorizontalLine style={tw`my-4`} />
           <Text style={tw`text-center text-black-2`}>{i18n('amount')}</Text>
           <View style={tw`flex flex-row justify-center`}>
             <MediumSatsFormat {...{ sats: transaction.amount }} />
           </View>
-          <HorizontalLine style={tw`my-4 bg-black-5`} />
+          <HorizontalLine style={tw`my-4`} />
           <TouchableOpacity style={tw`flex-row items-center justify-center`} onPress={openInExplorer}>
             <Text style={tw`underline text-black-2`}>{i18n('transaction.viewInExplorer')}</Text>
             <Icon id="externalLink" style={tw`w-3 h-3 ml-1`} color={tw`text-primary-main`.color} />
           </TouchableOpacity>
         </Card>
       )}
-    </View>
+    </PeachScrollView>
   )
 }

@@ -1,4 +1,4 @@
-import { getSummaryFromOffer } from './../contract/getSummaryFromOffer'
+import { getSummaryFromOffer } from './getSummaryFromOffer'
 import { tradeSummaryStore } from '../../store/tradeSummaryStore'
 import { account } from '../account'
 import { storeOffer } from '../account/storeAccount'
@@ -48,15 +48,4 @@ export const saveOffer = (offer: SellOffer | BuyOffer, disableSave = false, shie
     info('saveOffer', offer.id)
   }
   tradeSummaryStore.getState().setOffer(offer.id, getSummaryFromOffer(offer))
-}
-
-/**
- * @description Method to add offers to offer list
- * @param offers the offers
- * @param shield if true, don't overwrite sensitive data (returnAddress, releaseAddress, etc...)
- */
-export const saveOffers = (offers: (SellOffer | BuyOffer)[], shield = true): void => {
-  info('saveOffers', offers.length)
-
-  offers.map((offer) => saveOffer(offer, true, shield))
 }

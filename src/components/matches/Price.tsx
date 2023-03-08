@@ -1,37 +1,31 @@
 import React from 'react'
-import { TextStyle } from 'react-native'
 import tw from '../../styles/tailwind'
-import i18n from '../../utils/i18n'
-import { Text } from '../text'
+import { getAvailableCurrencies } from '../../utils/match'
+import { hasMoPsInCommon, getMoPsInCommon } from '../../utils/paymentMethod'
+import { PriceFormat, Text } from '../text'
 import { useMatchStore } from './store'
-import { getDisplayPrice } from './utils'
+import { getMatchPrice } from './utils'
 
 type Props = ComponentProps & {
   match: Match
-  fontStyle: TextStyle
-  isBuyOffer: boolean
+  offer: BuyOffer | SellOffer
 }
 
-export const Price = ({ match, fontStyle, isBuyOffer, style }: Props) => {
-  const selectedCurrency = useMatchStore(
-    (state) =>
-      state.matchSelectors[match.offerId]?.selectedCurrency
-      || state.matchSelectors[match.offerId]?.availableCurrencies[0],
-  )
+export const Price = ({ match, offer, style }: Props) => {
+  const mopsInCommon = hasMoPsInCommon(offer.meansOfPayment, match.meansOfPayment)
+    ? getMoPsInCommon(offer.meansOfPayment, match.meansOfPayment)
+    : match.meansOfPayment
+  const selectedCurrency
+    = useMatchStore(
+      (state) =>
+        state.matchSelectors[match.offerId]?.selectedCurrency
+        || state.matchSelectors[match.offerId]?.availableCurrencies[0],
+    ) || getAvailableCurrencies(mopsInCommon, match.meansOfPayment)[0]
   const selectedPaymentMethod = useMatchStore((state) => state.matchSelectors[match.offerId]?.selectedPaymentMethod)
-  const displayPrice = getDisplayPrice(match, selectedPaymentMethod, selectedCurrency)
-
-  const colors = [tw`text-success-main`, tw`text-black-4`, tw`text-primary-main`]
-
-  const colorIndex = match.premium < 0 ? 0 : match.premium === 0 ? 1 : 2
-  const color = isBuyOffer ? colors[colorIndex] : colors[Math.abs(colorIndex - 2)]
+  const displayPrice = getMatchPrice(match, selectedPaymentMethod, selectedCurrency)
   return (
-    <Text style={[tw`self-center mb-2`, fontStyle, style]}>
-      {i18n(`currency.format.${selectedCurrency}`, displayPrice)}{' '}
-      <Text style={[fontStyle, color]}>
-        ({match.premium > 0 ? '+' : ''}
-        {String(match.premium)}%)
-      </Text>
+    <Text style={[tw`self-center body-l`, style]}>
+      <PriceFormat style={tw`body-l`} currency={selectedCurrency} amount={displayPrice} />
     </Text>
   )
 }

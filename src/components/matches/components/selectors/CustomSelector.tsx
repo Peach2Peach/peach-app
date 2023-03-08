@@ -1,7 +1,6 @@
 import React, { ReactElement, ReactNode } from 'react'
 import { View, TouchableOpacity } from 'react-native'
 import tw from '../../../../styles/tailwind'
-import PeachScrollView from '../../../PeachScrollView'
 
 type Item<T> = {
   value: T
@@ -21,30 +20,20 @@ export const CustomSelector = <T, >({
   style,
   disabled = false,
 }: SelectorProps<T>): ReactElement => (
-    <View style={[tw`flex-col items-center w-full`, style]}>
-      <PeachScrollView
-        showsHorizontalScrollIndicator={false}
-        disable={items.length === 1}
-        scrollEventThrottle={128}
-        style={tw`max-w-full`}
-        horizontal
-      >
-        <View style={tw`flex-row`}>
-          {items.map(({ value, display }, i) => (
-            <TouchableOpacity
-              onPress={() => onChange(value)}
-              disabled={disabled}
-              key={'selector-item-' + value + '-' + i}
-              style={[
-                tw`flex-row items-center px-2 border rounded-lg border-black-3`,
-                value === selectedValue && tw`bg-primary-main border-primary-main`,
-                i > 0 && tw`ml-1`,
-              ]}
-            >
-              {display}
-            </TouchableOpacity>
-          ))}
-        </View>
-      </PeachScrollView>
+    <View style={[tw`flex-row flex-wrap justify-center`, style]}>
+      {items.map(({ value, display }, i) => (
+        <TouchableOpacity
+          onPress={() => onChange(value)}
+          disabled={disabled}
+          key={'selector-item-' + value + '-' + i}
+          style={[
+            tw`flex-row items-center px-2 border rounded-lg border-black-3`,
+            value === selectedValue && tw`bg-primary-main border-primary-main`,
+            tw`m-1`,
+          ]}
+        >
+          {display}
+        </TouchableOpacity>
+      ))}
     </View>
   )

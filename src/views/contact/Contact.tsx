@@ -15,7 +15,7 @@ const contactReasons = ['bug', 'userProblem', 'sellMore', 'other'] as ContactRea
 type ContactButtonProps = { name: ContactReason; setReason: Function }
 
 const ContactButton = ({ name, setReason }: ContactButtonProps) => (
-  <OptionButton onPress={() => setReason(name)} style={tw`mt-2`} wide>
+  <OptionButton onPress={() => setReason(name)} style={tw`w-full mb-4`} wide>
     {i18n(`contact.reason.${name}`)}
   </OptionButton>
 )
@@ -33,23 +33,27 @@ export default (): ReactElement => {
   const openDiscord = () => Linking.openURL('https://discord.gg/skP9zqTB')
 
   return (
-    <PeachScrollView contentContainerStyle={tw`items-center justify-center flex-grow py-6`}>
-      <LinedText style={tw`mb-3`}>
-        <Text style={tw`body-m text-black-2`}>{i18n('report.mailUs')}</Text>
-      </LinedText>
-      {(account?.publicKey ? contactReasons : contactReasonsNoAccount).map((name) => (
-        <ContactButton {...{ name, setReason, key: `contact-button-${name}` }} />
-      ))}
-      <View style={tw`mt-10`}>
+    <PeachScrollView contentContainerStyle={tw`justify-center flex-grow`}>
+      <View style={tw`items-center p-10`}>
+        <LinedText style={tw`mb-3`}>
+          <Text style={tw`body-m text-black-2`}>{i18n('report.mailUs')}</Text>
+        </LinedText>
+        <View style={tw`w-full px-2 mt-3 mb-6`}>
+          {(account?.publicKey ? contactReasons : contactReasonsNoAccount).map((name) => (
+            <ContactButton {...{ name, setReason, key: `contact-button-${name}` }} />
+          ))}
+        </View>
         <LinedText style={tw`my-3`}>
           <Text style={tw`body-m text-black-2`}>{i18n('report.communityHelp')}</Text>
         </LinedText>
-        <OptionButton onPress={openTelegram} style={tw`mt-2`} wide>
-          {i18n('telegram')}
-        </OptionButton>
-        <OptionButton onPress={openDiscord} style={tw`mt-2`} wide>
-          {i18n('discord')}
-        </OptionButton>
+        <View style={tw`items-center w-full px-2 mt-3`}>
+          <OptionButton onPress={openTelegram} style={tw`w-full mb-4`} wide>
+            {i18n('telegram')}
+          </OptionButton>
+          <OptionButton onPress={openDiscord} style={tw`w-full mb-4`} wide>
+            {i18n('discord')}
+          </OptionButton>
+        </View>
       </View>
     </PeachScrollView>
   )

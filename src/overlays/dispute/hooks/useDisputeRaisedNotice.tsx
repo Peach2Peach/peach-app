@@ -35,7 +35,7 @@ export const useDisputeRaisedNotice = () => {
   )
 
   const submit = useCallback(
-    async (contract: Contract, reason: DisputeReason) => {
+    async (contract: Contract, reason: DisputeReason, navigateChat?: boolean) => {
       if (isEmailRequired(reason) && !isEmailValid) return
 
       updateOverlay({
@@ -55,6 +55,7 @@ export const useDisputeRaisedNotice = () => {
         email,
       })
       if (result) {
+        if (navigateChat) goToChat(contract.id)
         const updatedContract = {
           ...contract,
           disputeDate: new Date(),
@@ -73,9 +74,14 @@ export const useDisputeRaisedNotice = () => {
       } else if (err) {
         showError(err.error)
       }
+      if (navigateChat) {
+        navigation.replace('contractChat', { contractId: contract.id })
+      } else {
+        navigation.replace('contract', { contractId: contract.id })
+      }
       closeOverlay()
     },
-    [closeOverlay, email, isEmailValid, showError, updateOverlay],
+    [closeOverlay, email, goToChat, isEmailValid, navigation, showError, updateOverlay],
   )
 
   const showDisputeRaisedNotice = useCallback(
@@ -108,19 +114,19 @@ export const useDisputeRaisedNotice = () => {
             icon: 'arrowRightCircle',
             callback: () => {
               submit(contract, contract.disputeReason ?? 'other')
+              navigation.replace('contract', { contractId: contract.id })
             },
           }
           : {
             label: i18n('goToChat'),
             icon: 'messageCircle',
-            callback: () => {
-              submit(contract, contract.disputeReason ?? 'other')
-              goToChat(contract.id)
+            callback: async () => {
+              await submit(contract, contract.disputeReason ?? 'other', true)
             },
           },
       })
     },
-    [email, emailErrors, goToChat, setEmail, submit, updateOverlay],
+    [email, emailErrors, setEmail, submit, updateOverlay],
   )
 
   return showDisputeRaisedNotice

@@ -1,6 +1,7 @@
 import { API_URL } from '@env'
 import React, { ReactElement } from 'react'
-import { Image, Pressable, Text, View } from 'react-native'
+import { Image, Pressable, View } from 'react-native'
+import { Text } from '../../components'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { PrimaryButton } from '../buttons'
@@ -18,16 +19,19 @@ export default (): ReactElement => {
   return (
     <>
       <PeachScrollView contentContainerStyle={tw`p-8 pb-20`}>
-        {event.logo !== undefined && (
-          <Image source={{ uri: API_URL + event.logo }} style={tw`w-full h-40 mb-5`} resizeMode={'contain'} />
+        {!!event.logo && (
+          <Image source={{ uri: API_URL + event.logo }} style={tw`w-full mb-5 h-30`} resizeMode={'contain'} />
         )}
-        <Text style={tw`body-l text-black-1`}>{i18n('meetup.description', event.name)}</Text>
-
-        <Text style={tw`mt-8 body-l text-black-1`}>{i18n('meetup.address')}</Text>
-        <Text style={tw`body-l text-black-1`}>
-          {!!event.address ? event.address : i18n('address.changingLocations')}
-        </Text>
-
+        <Text style={tw`body-l text-black-1`}>{i18n('meetup.description', event.longName)}</Text>
+        {!!event.frequency && (
+          <View style={tw`flex-row mt-8`}>
+            <Text style={tw`body-l`}>
+              {i18n('meetup.date') + ': '}
+              <Text style={tw`h6`}>{event.frequency}</Text>
+            </Text>
+          </View>
+        )}
+        {!!event.address && <Text style={tw`mt-4 body-l text-black-1`}>{event.address}</Text>}
         <View style={tw`mt-8`}>
           {!!event.address && (
             <Pressable

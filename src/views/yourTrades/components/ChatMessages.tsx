@@ -1,22 +1,29 @@
 import React, { ReactElement } from 'react'
-import { View } from 'react-native'
+import { ColorValue, View, ViewStyle } from 'react-native'
 import { Icon, Text } from '../../../components'
 import tw from '../../../styles/tailwind'
-import { colors } from './ContractItem'
 
-type ChatMessagesProps = {
+type ChatMessagesProps = ComponentProps & {
   messages: number
-  level: SummaryItemLevel
+  iconColor?: ColorValue
+  iconStyle?: ViewStyle
+  textStyle?: ViewStyle | ViewStyle[]
 }
-export const ChatMessages = ({ messages, level }: ChatMessagesProps): ReactElement => (
-  <View>
+export const ChatMessages = ({ messages, iconColor, textStyle, style }: ChatMessagesProps): ReactElement => (
+  <View style={[tw`items-center justify-center w-20px h-20px`, style]}>
     <Icon
       id={messages > 0 ? 'messageFull' : 'messageCircle'}
-      style={tw`w-6 h-6`}
-      color={tw`text-primary-background-light`.color}
+      style={tw`w-full h-full`}
+      color={iconColor ?? tw`text-primary-background-light`.color}
     />
     {messages > 0 && (
-      <Text style={[tw`absolute bottom-0 right-0 w-6 font-bold text-center body-s`, colors[level]]}>{messages}</Text>
+      <Text
+        numberOfLines={1}
+        ellipsizeMode="clip"
+        style={[tw`absolute font-bold text-center body-s text-14px text-primary-main pb-2px`, textStyle]}
+      >
+        {messages}
+      </Text>
     )}
   </View>
 )

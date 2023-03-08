@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react'
 import { View } from 'react-native'
-import { Input, Text } from '../../../components'
+import { Text } from '../../../components'
+import { EmailInput } from '../../../components/inputs/EmailInput'
 import tw from '../../../styles/tailwind'
 import { contractIdToHex } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
@@ -48,7 +49,7 @@ export default ({
 
     {isEmailRequired(disputeReason) && (
       <View style={tw`mt-4`}>
-        <Input
+        <EmailInput
           style={tw`bg-warning-background`}
           onChange={setEmail}
           onSubmit={() => {
@@ -56,7 +57,6 @@ export default ({
           }}
           value={email}
           placeholder={i18n('form.email.placeholder')}
-          autoCorrect={false}
           errorMessage={emailErrors}
         />
       </View>

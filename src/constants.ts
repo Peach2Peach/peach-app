@@ -1,15 +1,10 @@
 import { getBuildNumber, getUniqueId, getVersion, isEmulatorSync } from 'react-native-device-info'
 import { unique } from './utils/array'
 import { sha256 } from './utils/crypto/sha256'
+import { getAllPaymentMethods } from './utils/paymentMethod'
 
 export const SATSINBTC = 100000000
 export const MSINADAY = 86400000
-
-export let PEACHPGPPUBLICKEY = ''
-export const setPeachPGPPublicKey = (pgpPublicKey: string) => (PEACHPGPPUBLICKEY = pgpPublicKey)
-
-export let PEACHFEE = 0.015
-export const setPeachFee = (fee: number) => (PEACHFEE = fee)
 
 export const MAXMININGFEE = 20000
 
@@ -28,15 +23,9 @@ export const ISEMULATOR = isEmulatorSync()
 
 export const UNIQUEID = sha256(getUniqueId())
 
-export let MINAPPVERSION = APPVERSION
-export const setMinAppVersion = (ver: string) => (MINAPPVERSION = ver)
+export let CURRENCIES: Currency[] = ['EUR', 'CHF', 'GBP', 'SEK', 'DKK', 'BGN', 'CZK', 'HUF', 'PLN', 'RON', 'ISK', 'NOK']
 
-export let LATESTAPPVERSION = APPVERSION
-export const setLatestAppVersion = (ver: string) => (LATESTAPPVERSION = ver)
-
-export let CURRENCIES: Currency[] = ['EUR', 'CHF', 'GBP', 'SEK']
-
-export let COUNTRIES: Country[] = ['DE', 'FR', 'IT', 'ES', 'NL', 'UK', 'SE']
+export let COUNTRIES: PaymentMethodCountry[] = ['DE', 'FR', 'IT', 'ES', 'NL', 'UK', 'SE', 'FI']
 
 export let PAYMENTMETHODS: PaymentMethod[] = ['sepa']
 export let PAYMENTMETHODINFOS: PaymentMethodInfo[] = [
@@ -48,10 +37,10 @@ export let PAYMENTMETHODINFOS: PaymentMethodInfo[] = [
 ]
 
 export const PAYMENTCATEGORIES: PaymentCategories = {
-  bankTransfer: ['sepa'],
-  onlineWallet: ['paypal', 'revolut', 'wise', 'twint', 'swish'],
+  bankTransfer: ['sepa', 'instantSepa', 'fasterPayments'],
+  onlineWallet: ['paypal', 'revolut', 'wise', 'twint', 'swish', 'blik', 'advcash', 'vipps', 'mobilePay'],
   giftCard: ['giftCard.amazon'].concat(COUNTRIES.map((c) => `giftCard.amazon.${c}`)) as PaymentMethod[],
-  localOption: ['mbWay', 'bizum', 'satispay'],
+  localOption: ['mbWay', 'bizum', 'satispay', 'mobilePay'],
   cash: [],
   cryptoCurrency: [],
 }
@@ -63,6 +52,7 @@ export const LOCALPAYMENTMETHODS: LocalPaymentMethods = {
     IT: ['satispay'],
     PT: ['mbWay'],
     ES: ['bizum'],
+    FI: ['mobilePay'],
   },
 }
 
@@ -90,7 +80,7 @@ export const setPaymentMethods = (paymentMethodInfos: PaymentMethodInfo[]) => {
   PAYMENTMETHODINFOS = paymentMethodInfos
   CURRENCIES = paymentMethodInfos.reduce((arr, info) => arr.concat(info.currencies), [] as Currency[]).filter(unique())
   COUNTRIES = paymentMethodInfos
-    .reduce((arr, info) => arr.concat(info.countries || []), [] as Country[])
+    .reduce((arr, info) => arr.concat(info.countries || []), [] as PaymentMethodCountry[])
     .filter(unique())
   PAYMENTMETHODS = paymentMethodInfos.map((method) => method.id)
   PAYMENTCATEGORIES.cash = [
@@ -98,14 +88,3 @@ export const setPaymentMethods = (paymentMethodInfos: PaymentMethodInfo[]) => {
     ...paymentMethodInfos.map(({ id }) => id).filter((id) => id.includes('cash.')),
   ]
 }
-
-export let MINTRADINGAMOUNT = 200000
-export let MAXTRADINGAMOUNT = 5000000
-export const setMinTradingAmount = (amount: number) => (MINTRADINGAMOUNT = amount)
-export const setMaxTradingAmount = (amount: number) => (MAXTRADINGAMOUNT = amount)
-
-// Reputation
-export const GOLDMEDAL = 0.9
-export const SILVERMEDAL = 0.7
-
-export const MEDALS = ['fastTrader', 'superTrader', 'ambassador']

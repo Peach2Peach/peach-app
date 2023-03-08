@@ -7,9 +7,10 @@ import { OverlayContext } from '../../../contexts/overlay'
 import { useNavigation } from '../../../hooks'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { TradeBreakdown } from '../../../overlays/TradeBreakdown'
+import { useSettingsStore } from '../../../store/settingsStore'
 import tw from '../../../styles/tailwind'
 import { showAddress, showTransaction } from '../../../utils/bitcoin'
-import { createUserRating, getOfferIdFromContract } from '../../../utils/contract'
+import { createUserRating } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
 import { rateUser } from '../../../utils/peachAPI'
 
@@ -24,6 +25,7 @@ export const Rate = ({ contract, view, saveAndUpdate, vote, style }: RateProps):
   const navigation = useNavigation()
   const [, updateOverlay] = useContext(OverlayContext)
   const showError = useShowErrorBanner()
+  const showBackupReminder = useSettingsStore((state) => state.showBackupReminder)
 
   const rate = async () => {
     if (!view || !vote) return
@@ -46,13 +48,19 @@ export const Rate = ({ contract, view, saveAndUpdate, vote, style }: RateProps):
     }
     saveAndUpdate({
       ...contract,
-      [ratedUser]: true,
+      [ratedUser]: rating.rating,
     })
 
-    if (rating.rating === 1) {
-      navigation.replace('backupTime', { view, nextScreen: 'offer', offerId: getOfferIdFromContract(contract) })
+    if (showBackupReminder) {
+      if (rating.rating === 1) {
+        navigation.replace('backupTime', { view, nextScreen: 'contract', contractId: contract.id })
+      } else {
+        navigation.replace('backupTime', { view, nextScreen: 'yourTrades' })
+      }
+    } else if (rating.rating === 1) {
+      navigation.replace('contract', { contractId: contract.id })
     } else {
-      navigation.replace('backupTime', { view, nextScreen: 'yourTrades' })
+      navigation.replace('yourTrades')
     }
   }
   const viewInExplorer = () =>

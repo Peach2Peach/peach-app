@@ -7,8 +7,7 @@ import { usePaymentTooLateOverlay } from '../../../overlays/usePaymentTooLateOve
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { shouldShowConfirmCancelTradeRequest } from '../../../utils/overlay'
-import { getPaymentExpectedBy } from '../helpers/getPaymentExpectedBy'
-import { getTimerStart } from '../helpers/getTimerStart'
+import { getPaymentExpectedBy } from '../../../utils/contract/getPaymentExpectedBy'
 
 type ContractCTAProps = ComponentProps & {
   contract: Contract
@@ -28,7 +27,9 @@ export default ({
 }: ContractCTAProps): ReactElement => {
   const showPaymentTooLateOverlay = usePaymentTooLateOverlay()
   const showConfirmTradeCancelation = useConfirmTradeCancelationOverlay()
-  if (shouldShowConfirmCancelTradeRequest(contract, view)) return (
+  const CTADisabled = actionPending || contract.disputeActive
+
+  if (!contract.disputeActive && shouldShowConfirmCancelTradeRequest(contract, view)) return (
     <WarningButton onPress={() => showConfirmTradeCancelation(contract)}>{i18n('contract.respond')}</WarningButton>
   )
   if (view === 'buyer' && requiredAction === 'confirmPayment') return (
@@ -44,11 +45,11 @@ export default ({
   )
   if (view === 'buyer' && requiredAction === 'sendPayment') {
     const paymentExpectedBy = getPaymentExpectedBy(contract)
-    if (Date.now() < paymentExpectedBy) {
+    if (contract.disputeActive || Date.now() < paymentExpectedBy) {
       return (
         <SlideToUnlock
           style={tw`w-[260px]`}
-          disabled={actionPending}
+          disabled={CTADisabled}
           onUnlock={postConfirmPaymentBuyer}
           label1={i18n('contract.payment.confirm')}
           label2={i18n('contract.payment.made')}
@@ -56,7 +57,7 @@ export default ({
       )
     }
     return (
-      <WarningButton onPress={showPaymentTooLateOverlay} iconId="alertOctagon">
+      <WarningButton onPress={showPaymentTooLateOverlay} iconId="alertOctagon" disabled={contract.disputeActive}>
         {i18n('contract.timer.paymentTimeExpired.button.buyer')}
       </WarningButton>
     )
@@ -64,7 +65,7 @@ export default ({
   if (view === 'seller' && requiredAction === 'confirmPayment') return (
     <SlideToUnlock
       style={tw`w-[260px]`}
-      disabled={actionPending}
+      disabled={CTADisabled}
       onUnlock={postConfirmPaymentSeller}
       label1={i18n('contract.payment.confirm')}
       label2={i18n('contract.payment.received')}

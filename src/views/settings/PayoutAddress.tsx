@@ -8,12 +8,25 @@ import i18n from '../../utils/i18n'
 import { usePayoutAddressSetup } from './hooks/usePayoutAddressSetup'
 
 export default (): ReactElement => {
-  const { address, setAddress, addressErrors, addressLabel, setAddressLabel, addressLabelErrors, isUpdated, save }
-    = usePayoutAddressSetup()
+  const {
+    type,
+    address,
+    setAddress,
+    addressErrors,
+    addressValid,
+    addressLabel,
+    setAddressLabel,
+    addressLabelErrors,
+    addressLabelValid,
+    isUpdated,
+    save,
+  } = usePayoutAddressSetup()
   return (
     <View style={tw`items-center justify-between h-full`}>
       <PeachScrollView style={tw`flex-shrink w-full h-full`} contentContainerStyle={tw`justify-center h-full p-8`}>
-        <Text style={tw`text-center h6`}>{i18n('settings.payoutAddress.title')}</Text>
+        <Text style={tw`text-center h6`}>
+          {i18n(type === 'refund' ? 'settings.refundAddress.title' : 'settings.payoutAddress.title')}
+        </Text>
         <Input
           style={tw`mt-4`}
           value={addressLabel}
@@ -29,8 +42,13 @@ export default (): ReactElement => {
           </View>
         )}
       </PeachScrollView>
-      <PrimaryButton narrow style={tw`absolute mt-16 bottom-6`} onPress={save} disabled={isUpdated}>
-        {i18n('settings.payoutAddress.confirm')}
+      <PrimaryButton
+        narrow
+        style={tw`absolute mt-16 bottom-6`}
+        onPress={save}
+        disabled={!address || !addressLabel || !addressValid || !addressLabelValid || isUpdated}
+      >
+        {i18n(type === 'refund' ? 'settings.refundAddress.confirm' : 'settings.payoutAddress.confirm')}
       </PrimaryButton>
     </View>
   )

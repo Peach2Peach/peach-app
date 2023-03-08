@@ -393,6 +393,8 @@ PODS:
   - react-native-mmkv-storage (0.8.0):
     - MMKV (= 1.2.13)
     - React-Core
+  - react-native-netinfo (9.3.7):
+    - React-Core
   - react-native-notification-badge (0.1.4):
     - React-Core
   - react-native-randombytes (3.6.1):
@@ -590,6 +592,7 @@ DEPENDENCIES:
   - react-native-document-picker (from `../node_modules/react-native-document-picker`)
   - react-native-fast-openpgp (from `../node_modules/react-native-fast-openpgp`)
   - react-native-mmkv-storage (from `../node_modules/react-native-mmkv-storage`)
+  - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
   - "react-native-notification-badge (from `../node_modules/@msml/react-native-notification-badge`)"
   - react-native-randombytes (from `../node_modules/react-native-randombytes`)
   - react-native-restart (from `../node_modules/react-native-restart`)
@@ -708,6 +711,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-fast-openpgp"
   react-native-mmkv-storage:
     :path: "../node_modules/react-native-mmkv-storage"
+  react-native-netinfo:
+    :path: "../node_modules/@react-native-community/netinfo"
   react-native-notification-badge:
     :path: "../node_modules/@msml/react-native-notification-badge"
   react-native-randombytes:
@@ -829,6 +834,7 @@ SPEC CHECKSUMS:
   react-native-document-picker: f5ec1a712ca2a975c233117f044817bb8393cad4
   react-native-fast-openpgp: 6889a104cc1eeef546a9723b468041d3ecc6e6bb
   react-native-mmkv-storage: 8ba3c0216a6df283ece11205b442a3e435aec4e5
+  react-native-netinfo: 2517ad504b3d303e90d7a431b0fcaef76d207983
   react-native-notification-badge: af03126a841319da4c18c80fd148146f55466a57
   react-native-randombytes: 421f1c7d48c0af8dbcd471b0324393ebf8fe7846
   react-native-restart: 45c8dca02491980f2958595333cbccd6877cb57e

@@ -6,7 +6,7 @@ import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
 import tw from '../../styles/tailwind'
 import { account } from '../../utils/account'
 import { checkRefundPSBT, signPSBT } from '../../utils/bitcoin'
-import { getBuyOfferIdFromContract, getSellOfferFromContract, saveContract } from '../../utils/contract'
+import { getSellOfferFromContract, isPaymentTimeExpired, saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { saveOffer } from '../../utils/offer'
 import { cancelContract, patchOffer } from '../../utils/peachAPI'
@@ -48,7 +48,7 @@ export const useConfirmCancelTrade = () => {
           canceled: true,
           cancelConfirmationDismissed: false,
         })
-        navigation.replace('offer', { offerId: getBuyOfferIdFromContract(contract) })
+        navigation.replace('contract', { contractId: contract.id, contract })
         updateOverlay({ title: i18n('contract.cancel.success'), visible: true, level: 'APP' })
       } else if (err) {
         closeOverlay()
@@ -58,6 +58,45 @@ export const useConfirmCancelTrade = () => {
     [closeOverlay, navigation, showError, showLoading, updateOverlay],
   )
 
+  const cancelSellerSuccess = useCallback(
+    (contract: Contract) => {
+      navigation.replace('contract', { contractId: contract.id })
+      saveContract({
+        ...contract,
+        cancelConfirmationDismissed: false,
+        cancelationRequested: true,
+        cancelConfirmationPending: true,
+      })
+    },
+    [navigation],
+  )
+
+  const patchSellOfferWithRefundTx = useCallback(
+    async (contract: Contract, refundPSBT: string) => {
+      const sellOffer = getSellOfferFromContract(contract)
+      const { isValid, psbt, err: checkRefundPSBTError } = checkRefundPSBT(refundPSBT, sellOffer)
+      if (isValid && psbt) {
+        const signedPSBT = signPSBT(psbt, sellOffer, false)
+        const [patchOfferResult, patchOfferError] = await patchOffer({
+          offerId: sellOffer.id,
+          refundTx: signedPSBT.toBase64(),
+        })
+        if (patchOfferResult) {
+          saveOffer({
+            ...sellOffer,
+            refundTx: psbt.toBase64(),
+          })
+          cancelSellerSuccess(contract)
+        } else if (patchOfferError) {
+          showError(patchOfferError?.error)
+        }
+      } else if (checkRefundPSBTError) {
+        showError(checkRefundPSBTError)
+      }
+    },
+    [cancelSellerSuccess, showError],
+  )
+
   const cancelSeller = useCallback(
     async (contract: Contract) => {
       showLoading()
@@ -65,39 +104,26 @@ export const useConfirmCancelTrade = () => {
         contractId: contract.id,
       })
 
-      if (result?.psbt) {
-        const sellOffer = getSellOfferFromContract(contract)
-        const { isValid, psbt, err: checkRefundPSBTError } = checkRefundPSBT(result.psbt, sellOffer)
-        if (isValid && psbt) {
-          const signedPSBT = signPSBT(psbt, sellOffer, false)
-          const [patchOfferResult, patchOfferError] = await patchOffer({
-            offerId: sellOffer.id,
-            refundTx: signedPSBT.toBase64(),
-          })
-          if (patchOfferResult) {
-            navigation.replace('contract', { contractId: contract.id })
-            saveOffer({
-              ...sellOffer,
-              refundTx: psbt.toBase64(),
-            })
-            saveContract({
-              ...contract,
-              cancelConfirmationDismissed: false,
-              cancelationRequested: true,
-              cancelConfirmationPending: true,
-            })
-          } else if (patchOfferError) {
-            showError(patchOfferError?.error)
-          }
-        } else if (checkRefundPSBTError) {
-          showError(checkRefundPSBTError)
+      if (result && isPaymentTimeExpired(contract)) {
+        saveContract({
+          ...contract,
+          cancelConfirmationDismissed: false,
+          canceled: true,
+        })
+      }
+
+      if (result?.success) {
+        if (result.psbt) {
+          await patchSellOfferWithRefundTx(contract, result.psbt)
+        } else {
+          cancelSellerSuccess(contract)
         }
       } else if (err) {
         showError(err?.error)
       }
       closeOverlay()
     },
-    [closeOverlay, navigation, showError, showLoading],
+    [showLoading, closeOverlay, patchSellOfferWithRefundTx, cancelSellerSuccess, showError],
   )
 
   const showConfirmOverlay = useCallback(
@@ -124,5 +150,5 @@ export const useConfirmCancelTrade = () => {
     [updateOverlay, cancelSeller, cancelBuyer, closeOverlay],
   )
 
-  return { showConfirmOverlay, cancelSeller, cancelBuyer }
+  return { showConfirmOverlay, cancelSeller }
 }

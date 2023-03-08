@@ -50,7 +50,7 @@ const themes = {
 
 type IconActionPair = [IconType, () => void]
 export type InputProps = ComponentProps &
-  Omit<TextInputProps, 'onChange' | 'onSubmit' | 'onFocus' | 'onBlur'> & {
+  Omit<TextInputProps, 'onChange' | 'onEndEditing' | 'onSubmit' | 'onFocus' | 'onBlur'> & {
     theme?: 'default' | 'inverted'
     label?: string
     icons?: IconActionPair[]
@@ -59,13 +59,14 @@ export type InputProps = ComponentProps &
     required?: boolean
     disabled?: boolean
     disableSubmit?: boolean
-    disableOnEndEditing?: boolean
     errorMessage?: string[]
     onChange?: Function
+    onEndEditing?: Function
     onSubmit?: Function
     onFocus?: Function
     onBlur?: Function
     reference?: Ref<TextInput>
+    enforceRequired?: boolean
   }
 
 /**
@@ -87,20 +88,21 @@ export const Input = ({
   iconColor,
   required = true,
   multiline = false,
-  autoCorrect = false,
   disabled = false,
   disableSubmit = false,
-  disableOnEndEditing = false,
   errorMessage = [],
   onChange,
   onSubmit,
   onFocus,
   onBlur,
+  onEndEditing,
   onPressIn,
   secureTextEntry,
   autoCapitalize,
+  autoCorrect = false,
   style,
   inputStyle,
+  enforceRequired = false,
   theme = 'default',
   reference,
   ...inputProps
@@ -122,6 +124,12 @@ export const Input = ({
   const onChangeText = (val: string) => {
     if (onChange) onChange(val)
   }
+  const onEndEditingHandler = onEndEditing
+    ? (e: NativeSyntheticEvent<TextInputEndEditingEventData>) => {
+      onEndEditing(e.nativeEvent.text?.trim())
+      setTouched(true)
+    }
+    : () => null
   const onSubmitEditing
     = onSubmit && !disableSubmit
       ? (e: NativeSyntheticEvent<TextInputSubmitEditingEventData>) => {
@@ -129,48 +137,42 @@ export const Input = ({
         setTouched(true)
       }
       : () => null
-  const onEndEditing
-    = onChange && !disableOnEndEditing
-      ? (e: NativeSyntheticEvent<TextInputEndEditingEventData>) => {
-        onChange(e.nativeEvent.text?.trim())
-      }
-      : () => null
   const onFocusHandler = () => (onFocus ? onFocus() : null)
   const onBlurHandler = () => {
     if (onChange && value) onChange(value.trim())
-    if (onBlur) onBlur()
+    if (onBlur) onBlur(value)
   }
 
   return (
     <View>
-      {label ? (
-        <Text style={[tw`input-label`, colors.text]}>
+      {!!label && (
+        <Text style={[tw`pl-2 input-label`, colors.text]}>
           {label}
           <Text style={[tw`font-medium input-label`, colors.placeholder]}>
-            {!required ? ` (${i18n('form.optional')})` : ''}
+            {!required ? ` (${i18n('form.optional')})` : enforceRequired ? ` (${i18n('form.required')})` : ''}
           </Text>
         </Text>
-      ) : null}
+      )}
       <View
         style={[
           tw`flex flex-row items-center justify-between w-full px-3`,
           tw`overflow-hidden border rounded-xl`,
           disabled ? colors.bgDisabled : colors.bg,
           disabled ? colors.borderDisabled : colors.border,
-          showError ? colors.bgError : {},
-          showError ? colors.borderError : {},
-          showError ? tw`border-2` : {},
-          style ? style : {},
+          showError && colors.bgError,
+          showError && colors.borderError,
+          showError ? tw`border-2` : tw`my-px`,
+          style,
         ]}
       >
         <TextInput
           style={[
             tw`flex-shrink w-full h-10 py-0 input-text`,
             value ? colors.text : colors.placeholder,
-            showError ? colors.textError : {},
-            !showError ? tw`border border-transparent` : {},
-            multiline ? tw`h-full pt-2` : {},
-            inputStyle ? inputStyle : {},
+            showError && colors.textError,
+            !showError && tw`border border-transparent`,
+            multiline && tw`flex justify-start h-full pt-2`,
+            !!inputStyle && inputStyle,
           ]}
           {...{
             value,
@@ -180,16 +182,17 @@ export const Input = ({
             removeClippedSubviews: false,
             editable: !disabled,
             onChangeText,
+            multiline,
             textAlignVertical: multiline ? 'top' : 'center',
-            onEndEditing,
+            onEndEditing: onEndEditingHandler,
             onSubmitEditing,
             blurOnSubmit: false,
             onFocus: onFocusHandler,
             onBlur: onBlurHandler,
             onPressIn,
             secureTextEntry: secureTextEntry && !showSecret,
-            autoCorrect,
             autoCapitalize: autoCapitalize || 'none',
+            autoCorrect,
             ...inputProps,
           }}
         />
@@ -205,7 +208,6 @@ export const Input = ({
           ))}
         </View>
       </View>
-
       <Text style={[tw`mt-1 ml-3 tooltip`, colors.error]}>{showError ? errorMessage[0] : ' '}</Text>
     </View>
   )

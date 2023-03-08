@@ -1,16 +1,15 @@
 import React from 'react'
 import tw from '../../../styles/tailwind'
 import { SatsFormat } from '../../text'
-import { HorizontalLine } from '../../ui'
 import { Price } from '../Price'
 
 type PriceInfoProps = {
   match: Match
+  offer: BuyOffer
 }
 
-export const PriceInfo = ({ match }: PriceInfoProps) => (
+export const PriceInfo = ({ match, offer }: PriceInfoProps) => (
   <>
-    <HorizontalLine style={tw`mb-2 bg-black-5`} />
     <SatsFormat
       sats={match.amount}
       containerStyle={tw`self-center justify-center`}
@@ -18,6 +17,6 @@ export const PriceInfo = ({ match }: PriceInfoProps) => (
       style={tw`h5 leading-3xl`}
       bitcoinLogoStyle={tw`w-[18px] h-[18px] mr-2`}
     />
-    <Price match={match} fontStyle={tw`subtitle-1`} isBuyOffer />
+    <Price {...{ match, offer }} />
   </>
 )

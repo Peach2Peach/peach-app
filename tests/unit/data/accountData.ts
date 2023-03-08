@@ -2,27 +2,29 @@ import * as chatData from './chatData'
 import { contract } from './contractData'
 import { buyOffer, sellOffer } from './offerData'
 
+const appVersion = '0.2.0'
 export const recoveredAccount: Account = {
   settings: {
     enableAnalytics: false,
     locale: 'en',
     displayCurrency: 'EUR',
-    minAmount: 200000,
-    maxAmount: 5000000,
-    appVersion: '0.1.0',
+    minBuyAmount: 200000,
+    maxBuyAmount: 5000000,
+    sellAmount: 200000,
+    premium: 1.5,
+    appVersion,
     meansOfPayment: {
       EUR: ['sepa'],
       CHF: ['sepa'],
     },
     preferredPaymentMethods: {},
     showBackupReminder: false,
-    showDisputeDisclaimer: true,
     peachWalletActive: true,
     nodeURL: 'https://localhost:3000/',
-    customFeeRate: 1,
-    selectedFeeRate: 'halfHourFee',
+    feeRate: 'halfHourFee',
   },
   paymentData: [],
+  legacyPaymentData: [],
   offers: [],
   contracts: [],
   chats: {},
@@ -47,27 +49,27 @@ export const recoveredAccount: Account = {
 
 export const account1: Account = {
   settings: {
-    appVersion: '0.1.0',
+    appVersion,
     enableAnalytics: false,
     locale: 'en',
-    minAmount: 200000,
-    maxAmount: 5000000,
+    minBuyAmount: 200000,
+    maxBuyAmount: 5000000,
+    sellAmount: 200000,
+    premium: 1.5,
     displayCurrency: 'EUR',
     meansOfPayment: {
       EUR: ['sepa'],
       CHF: ['sepa'],
     },
     preferredPaymentMethods: {},
-    kyc: false,
     showBackupReminder: true,
-    showDisputeDisclaimer: true,
     peachWalletActive: true,
     nodeURL: 'https://localhost:3000/',
 
-    customFeeRate: 1,
-    selectedFeeRate: 'halfHourFee',
+    feeRate: 'halfHourFee',
   },
   paymentData: [],
+  legacyPaymentData: [],
   tradingLimit: {
     daily: 1000,
     dailyAmount: 0,
@@ -92,27 +94,27 @@ export const account1: Account = {
 
 export const seller: Account = {
   settings: {
-    appVersion: '0.1.0',
+    appVersion,
     enableAnalytics: false,
     locale: 'en',
-    minAmount: 200000,
-    maxAmount: 5000000,
+    minBuyAmount: 200000,
+    maxBuyAmount: 5000000,
+    sellAmount: 200000,
+    premium: 1.5,
     displayCurrency: 'EUR',
     meansOfPayment: {
       EUR: ['sepa'],
       CHF: ['sepa'],
     },
     preferredPaymentMethods: {},
-    kyc: false,
     showBackupReminder: true,
-    showDisputeDisclaimer: true,
     peachWalletActive: true,
     nodeURL: 'https://localhost:3000/',
 
-    customFeeRate: 1,
-    selectedFeeRate: 'halfHourFee',
+    feeRate: 'halfHourFee',
   },
   paymentData: [],
+  legacyPaymentData: [],
   tradingLimit: {
     daily: 1000,
     dailyAmount: 0,
@@ -137,27 +139,27 @@ export const seller: Account = {
 
 export const buyer: Account = {
   settings: {
-    appVersion: '0.1.0',
+    appVersion,
     enableAnalytics: false,
     locale: 'en',
-    minAmount: 200000,
-    maxAmount: 5000000,
+    minBuyAmount: 200000,
+    maxBuyAmount: 5000000,
+    sellAmount: 200000,
+    premium: 1.5,
     displayCurrency: 'EUR',
     meansOfPayment: {
       EUR: ['sepa'],
       CHF: ['sepa'],
     },
     preferredPaymentMethods: {},
-    kyc: false,
     showBackupReminder: true,
-    showDisputeDisclaimer: true,
     peachWalletActive: true,
     nodeURL: 'https://localhost:3000/',
 
-    customFeeRate: 1,
-    selectedFeeRate: 'halfHourFee',
+    feeRate: 'halfHourFee',
   },
   paymentData: [],
+  legacyPaymentData: [],
   tradingLimit: {
     daily: 1000,
     dailyAmount: 0,
@@ -184,27 +186,26 @@ export const buyer: Account = {
 
 export const userWithNoTrades: Account = {
   settings: {
-    appVersion: '0.1.0',
+    appVersion,
     enableAnalytics: false,
     locale: 'en',
-    minAmount: 200000,
-    maxAmount: 5000000,
+    minBuyAmount: 200000,
+    maxBuyAmount: 5000000,
+    sellAmount: 200000,
+    premium: 1.5,
     displayCurrency: 'EUR',
     meansOfPayment: {
       EUR: ['sepa'],
       CHF: ['sepa'],
     },
     preferredPaymentMethods: {},
-    kyc: false,
     showBackupReminder: true,
-    showDisputeDisclaimer: true,
     peachWalletActive: true,
     nodeURL: 'https://localhost:3000/',
-
-    customFeeRate: 1,
-    selectedFeeRate: 'halfHourFee',
+    feeRate: 'halfHourFee',
   },
   paymentData: [],
+  legacyPaymentData: [],
   tradingLimit: {
     daily: 1000,
     dailyAmount: 0,

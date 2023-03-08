@@ -1,105 +1,32 @@
-import { useCallback, useContext, useState } from 'react'
+import React, { useEffect } from 'react'
+import { Text } from '../../components'
 
-import { useFocusEffect } from '@react-navigation/native'
-import { MessageContext } from '../../contexts/message'
-import getContractEffect from '../../effects/getContractEffect'
-import getOfferDetailsEffect from '../../effects/getOfferDetailsEffect'
-import { useNavigation, useRoute } from '../../hooks'
-import { useConfirmEscrowOverlay } from '../../overlays/useConfirmEscrowOverlay'
-import { useHandleContractOverlays } from '../../overlays/useHandleContractOverlays'
-import { getContract } from '../../utils/contract'
+import { useHeaderSetup, useRoute } from '../../hooks'
+import { useOfferDetails } from '../../hooks/query/useOfferDetails'
+import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
+import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { error, info } from '../../utils/log'
-import { getOffer, isSellOffer, saveOffer } from '../../utils/offer'
+import { offerIdToHex } from '../../utils/offer'
 
 export const useOfferDetailsSetup = () => {
-  const route = useRoute<'offer'>()
-  const offerId = route.params.offerId
-  const navigation = useNavigation()
-  const showEscrowConfirmOverlay = useConfirmEscrowOverlay()
-  const handleContractOverlays = useHandleContractOverlays()
-  const [, updateMessage] = useContext(MessageContext)
-  const [offer, setOffer] = useState(() => getOffer(offerId))
-  const view = !!offer && isSellOffer(offer) ? 'seller' : 'buyer'
-  const [contract, setContract] = useState(() => (offer?.contractId ? getContract(offer.contractId) : null))
-  const [contractId, setContractId] = useState(offer?.contractId)
+  const { offerId } = useRoute<'offer'>().params
+  const { offer, error } = useOfferDetails(offerId)
 
-  const saveAndUpdate = (offerData: BuyOffer | SellOffer) => {
-    saveOffer(offerData)
-    setOffer(offerData)
-  }
+  const showErrorBanner = useShowErrorBanner()
 
-  useFocusEffect(
-    useCallback(
-      getOfferDetailsEffect({
-        offerId,
-        interval: 30 * 1000,
-        onSuccess: (result) => {
-          const updatedOffer = {
-            ...(offer || {}),
-            ...result,
-          }
-          saveAndUpdate(updatedOffer)
+  useEffect(() => {
+    if (error) {
+      showErrorBanner(error?.error)
+    }
+  }, [error, offerId, showErrorBanner])
 
-          if (result.online && result.matches.length && !result.contractId) {
-            info('useOfferDetailsSetup - getOfferDetailsEffect', `navigate to search ${updatedOffer.id}`)
-            navigation.replace('search', { offerId: updatedOffer.id })
-          } else if (isSellOffer(updatedOffer) && result.tradeStatus === 'fundingAmountDifferent') {
-            showEscrowConfirmOverlay(updatedOffer)
-          }
-          if (result.contractId) setContractId(result.contractId)
-        },
-        onError: (err) => {
-          error('Could not fetch offer information for offer', offerId)
-          updateMessage({
-            msgKey: err.error || 'GENERAL_ERROR',
-            level: 'ERROR',
-            action: {
-              callback: () => navigation.navigate('contact'),
-              label: i18n('contactUs'),
-              icon: 'mail',
-            },
-          })
-        },
-      }),
-      [offerId],
+  useHeaderSetup({
+    titleComponent: (
+      <Text style={tw`h6`}>
+        {i18n('offer')} {offerIdToHex(offerId)}
+      </Text>
     ),
-  )
+  })
 
-  useFocusEffect(
-    useCallback(
-      getContractEffect({
-        contractId,
-        onSuccess: async (result) => {
-          const c = {
-            ...getContract(result.id),
-            ...result,
-          }
-          setContract(c)
-
-          if (!result.paymentMade && !result.canceled) {
-            info('useOfferDetailsSetup - getContractEffect', `navigate to contract ${result.id}`)
-            navigation.replace('contract', { contractId: result.id })
-          }
-          handleContractOverlays(c, view)
-        },
-        onError: (err) =>
-          updateMessage({
-            msgKey: err.error || 'GENERAL_ERROR',
-            level: 'ERROR',
-            action: {
-              callback: () => navigation.navigate('contact'),
-              label: i18n('contactUs'),
-              icon: 'mail',
-            },
-          }),
-      }),
-      [contractId],
-    ),
-  )
-
-  return {
-    offer,
-    contract,
-  }
+  return offer
 }

@@ -1,5 +1,5 @@
 import React, { ReactElement, useEffect, useState } from 'react'
-import { AccessibilityInfo, Keyboard, KeyboardAvoidingView, Pressable, TouchableWithoutFeedback } from 'react-native'
+import { AccessibilityInfo, Keyboard, KeyboardAvoidingView, Pressable } from 'react-native'
 import { isIOS } from '../utils/system'
 
 type AvoidKeyboardProps = ComponentProps
