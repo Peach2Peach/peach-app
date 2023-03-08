@@ -257,6 +257,7 @@ const useFakePNs = () => {
         contractId,
       },
       notification: {
+        titleLocArgs: ['PC-123-456'],
         bodyLocArgs: ['PC-123-456'],
       },
     },
