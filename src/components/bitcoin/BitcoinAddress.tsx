@@ -35,10 +35,10 @@ export const BitcoinAddress = ({
             {i18n('copied')}
           </Text>
         </Fade>
-        <QRCode size={width} value={urn.toString()} />
+        <QRCode size={width} value={urn.toString()} backgroundColor={String(tw`text-primary-background`.color)} />
       </Pressable>
-      <View style={tw`w-full flex-row items-stretch mt-4`}>
-        <View style={tw`w-full flex-shrink px-3 py-2 border border-black-4 rounded-xl mr-2 justify-center items-center`}>
+      <View style={tw`flex-row items-stretch w-full mt-4`}>
+        <View style={tw`items-center justify-center flex-shrink w-full px-3 py-2 mr-2 border border-black-4 rounded-xl`}>
           <Fade style={tw`absolute`} show={!showAddressCopied} duration={200} delay={0}>
             <Text style={tw`text-black-3`}>
               {addressParts.one}
@@ -48,7 +48,7 @@ export const BitcoinAddress = ({
             </Text>
           </Fade>
           <Fade style={tw`absolute`} show={showAddressCopied} duration={200} delay={0}>
-            <Text style={tw`subtitle-1 text-center`}>{i18n('copied')}</Text>
+            <Text style={tw`text-center subtitle-1`}>{i18n('copied')}</Text>
           </Fade>
         </View>
         <View>
