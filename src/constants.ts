@@ -1,7 +1,6 @@
 import { getBuildNumber, getUniqueId, getVersion, isEmulatorSync } from 'react-native-device-info'
 import { unique } from './utils/array'
 import { sha256 } from './utils/crypto/sha256'
-import { getAllPaymentMethods } from './utils/paymentMethod'
 
 export const SATSINBTC = 100000000
 export const MSINADAY = 86400000
@@ -25,7 +24,29 @@ export const UNIQUEID = sha256(getUniqueId())
 
 export let CURRENCIES: Currency[] = ['EUR', 'CHF', 'GBP', 'SEK', 'DKK', 'BGN', 'CZK', 'HUF', 'PLN', 'RON', 'ISK', 'NOK']
 
-export let COUNTRIES: PaymentMethodCountry[] = ['DE', 'FR', 'IT', 'ES', 'NL', 'UK', 'SE', 'FI']
+export let COUNTRIES: PaymentMethodCountry[] = [
+  'BE',
+  'BG',
+  'CA',
+  'CH',
+  'CY',
+  'CZ',
+  'DE',
+  'DK',
+  'ES',
+  'FR',
+  'FI',
+  'GB',
+  'GR',
+  'IT',
+  'NL',
+  'PL',
+  'PT',
+  'RO',
+  'SE',
+  'SI',
+  'US',
+]
 
 export let PAYMENTMETHODS: PaymentMethod[] = ['sepa']
 export let PAYMENTMETHODINFOS: PaymentMethodInfo[] = [
