@@ -1,10 +1,7 @@
 import React, { ReactElement } from 'react'
-import { Modal, TouchableOpacity, View } from 'react-native'
-
+import { Modal, TouchableOpacity, View, SafeAreaView } from 'react-native'
 import { BarCodeReadEvent } from 'react-native-camera'
-
 import QRCodeScanner from 'react-native-qrcode-scanner'
-import { SafeAreaView } from 'react-native-safe-area-context'
 import Svg, { Defs, Mask, Rect } from 'react-native-svg'
 import { Icon, Text } from '..'
 import tw from '../../styles/tailwind'
@@ -40,13 +37,13 @@ export const ScanQR = ({ onSuccess, onCancel }: ScanQRProps): ReactElement => {
               <View style={tw`absolute top-0 left-0 w-full h-full`}>
                 <CircleMask />
               </View>
-              <SafeAreaView style={[tw`flex-row items-center w-full px-8 py-2`]}>
-                <TouchableOpacity style={tw`w-6 h-6 mr-1 -ml-3`} onPress={onCancel}>
-                  <Icon id="chevronLeft" color={tw`text-primary-mild-1`.color} />
+              <SafeAreaView style={tw`py-2 ml-3 `}>
+                <TouchableOpacity style={tw`flex-row items-center`} onPress={onCancel}>
+                  <Icon id="chevronLeft" color={tw`text-primary-mild-1`.color} style={tw`w-6 h-6 mr-1`} />
+                  <Text style={[tw`lowercase h6`, tw`text-primary-background-light`]} numberOfLines={1}>
+                    {i18n('scanBTCAddress')}
+                  </Text>
                 </TouchableOpacity>
-                <Text style={[tw`lowercase h6`, tw`text-primary-background-light`]} numberOfLines={1}>
-                  {i18n('scanBTCAddress')}
-                </Text>
               </SafeAreaView>
             </View>
           }
