@@ -54,14 +54,11 @@ describe('New user', () => {
 
   it('allows to skip screens', async () => {
     await device.reloadReactNative()
-    // await element(by.id('overlay-action1')).tap()
     await element(by.id('welcome-skipFoward')).tap()
     await expect(element(by.id('welcome-newUser'))).toBeVisible()
   })
 
   it('should redirect to buy screen after user creation', async () => {
-    // await element(by.id('overlay-action1')).tap()
-    // await element(by.id('welcome-skipFoward')).tap()
     await element(by.id('welcome-newUser')).tap()
     await waitFor(element(by.id('view-buy'))).toBeVisible()
     await expect(element(by.id('view-buy'))).toBeVisible()
