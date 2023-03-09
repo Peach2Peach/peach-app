@@ -28,7 +28,7 @@
     "bump:version": "react-native-version --never-amend",
     "test": "jest ./tests/unit",
     "test:coverage": "jest --coverage ./tests/unit",
-    "test:ci": "jest --ci --forceExit --detectOpenHandles ./tests/unit",
+    "test:ci": "jest --ci --forceExit ./tests/unit",
     "test:e2e:android:build": "detox build --configuration android",
     "test:e2e:android": "detox test --configuration android --config ./tests/e2e/jest.config.js --loglevel trace --record-logs all",
     "test:e2e:ios:build": "detox build --configuration ios",
