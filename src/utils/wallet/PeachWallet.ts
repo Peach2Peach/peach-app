@@ -25,6 +25,8 @@ export class PeachWallet {
 
   derivationPath: string
 
+  descriptorPath: string
+
   balance: number
 
   transactions: TransactionsResponse
@@ -37,12 +39,13 @@ export class PeachWallet {
 
   addresses: string[]
 
-  constructor ({ wallet, network = NETWORK, gapLimit = 50 }: PeachWalletProps) {
+  constructor ({ wallet, network = NETWORK, gapLimit = 25 }: PeachWalletProps) {
     this.wallet = wallet
     this.network = network
-    this.gapLimit = walletStore.getState().gapLimit || gapLimit
-    this.addresses = walletStore.getState().addresses
+    this.gapLimit = gapLimit
+    this.addresses = []
     this.derivationPath = `m/84\'/${NETWORK === 'bitcoin' ? '0' : '1'}\'/0\'`
+    this.descriptorPath = `/84\'/${NETWORK === 'bitcoin' ? '0' : '1'}\'/0\'/0/*`
     this.balance = 0
     this.transactions = { confirmed: [], pending: [] }
     this.initialized = false
@@ -60,6 +63,21 @@ export class PeachWallet {
         unsubscribe()
       })
     }
+  }
+
+  async getDescriptor (mnemonic: string): Promise<string> {
+    const result = await BdkRn.createDescriptor({
+      type: 'wpkh',
+      mnemonic,
+      password: '',
+      path: this.descriptorPath,
+      network: this.network,
+    })
+    if (result.isErr()) {
+      throw result.error
+    }
+
+    return result.value
   }
 
   async loadWallet (seedphrase?: string) {
@@ -81,9 +99,10 @@ export class PeachWallet {
       }
 
       info('PeachWallet - loadWallet - createWallet')
+
+      const descriptor = await this.getDescriptor(mnemonic)
       const result = await BdkRn.createWallet({
-        mnemonic,
-        password: '',
+        descriptor,
         network: this.network,
         blockChainConfigUrl: nodeURL,
         retry: '5',
@@ -97,6 +116,7 @@ export class PeachWallet {
       }
 
       this.initialized = true
+      this.preloadAddresses()
       this.getBalance()
       this.getTransactions()
 
@@ -123,7 +143,6 @@ export class PeachWallet {
 
   updateStore (): void {
     walletStore.getState().setAddresses(this.addresses)
-    walletStore.getState().setGapLimit(this.gapLimit)
     walletStore.getState().setSynced(this.synced)
     walletStore.getState().setBalance(this.balance)
     walletStore.getState().setTransactions(this.transactions)
@@ -173,7 +192,6 @@ export class PeachWallet {
       throw result.error
     }
 
-    this.gapLimit += 1
     this.updateStore()
 
     return result.value
@@ -198,28 +216,41 @@ export class PeachWallet {
     return this.wallet.derivePath(this.derivationPath + `/0/${index}`)
   }
 
+  preloadAddresses (): void {
+    this.addresses = walletStore.getState().addresses
+  }
+
+  getAddress (index: number): string | undefined {
+    info('PeachWallet - getAddress', index)
+
+    if (this.addresses[index]) return this.addresses[index]
+
+    const keyPair = this.getKeyPair(index)
+    const p2wpkh = payments.p2wpkh({
+      network: getNetwork(),
+      pubkey: keyPair.publicKey,
+    })
+
+    if (p2wpkh.address) this.addresses[index] = p2wpkh.address
+
+    return p2wpkh.address
+  }
+
   findKeyPairByAddress (address: string): BIP32Interface | null {
     info('PeachWallet - findKeyPairByAddress - start')
 
-    const knownAddressIndex = this.addresses.findIndex((a) => a === address)
-    if (knownAddressIndex !== -1) return this.getKeyPair(knownAddressIndex)
-
-    for (let i = 0; i <= this.gapLimit; i++) {
+    const limit = this.addresses.length + this.gapLimit
+    for (let i = 0; i <= limit; i++) {
       info('PeachWallet - findKeyPairByAddress - scanning', i)
 
-      const keyPair = this.getKeyPair(i)
-      const p2wpkh = payments.p2wpkh({
-        network: getNetwork(),
-        pubkey: keyPair.publicKey,
-      })
-      if (p2wpkh.address) this.addresses.push(p2wpkh.address)
-      if (address === p2wpkh.address) {
-        this.updateStore()
-        return keyPair
+      const candidate = this.getAddress(i)
+      if (address === candidate) {
+        walletStore.getState().setAddresses(this.addresses)
+        return this.getKeyPair(i)
       }
     }
 
-    this.updateStore()
+    walletStore.getState().setAddresses(this.addresses)
     return null
   }
 

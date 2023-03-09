@@ -7,6 +7,7 @@ declare type PaymentData = {
   currencies: Currency[]
   country?: PaymentMethodCountry
   hidden?: boolean
+  reference?: string
 }
 
 declare type PaypalData = {
@@ -18,13 +19,11 @@ declare type SEPAData = {
   beneficiary: string
   iban: string
   bic?: string
-  reference?: string
 }
 declare type FasterPaymentsData = {
   beneficiary: string
   ukBankAccount: string
   ukSortCode: string
-  reference?: string
 }
 declare type BizumData = {
   phone: string
@@ -56,6 +55,7 @@ declare type SwishData = {
   beneficiary: string
 }
 declare type SatispayData = {
+  beneficiary?: string
   phone: string
 }
 declare type BlikData = {

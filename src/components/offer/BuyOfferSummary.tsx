@@ -17,7 +17,7 @@ export const BuyOfferSummary = ({ offer, style }: BuyOfferSummaryProps): ReactEl
   const [selectedCurrency, setSelectedCurrency] = useState(currencies[0])
 
   return (
-    <View style={[tw`w-full border border-black-5 rounded-2xl p-7`, style]}>
+    <View style={[tw`w-full border border-black-5 rounded-2xl p-7 bg-primary-background-light`, style]}>
       <Text style={tw`self-center body-m text-black-2`}>{i18n('offer.summary.youAreBuying')}</Text>
 
       <SatsFormat

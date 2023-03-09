@@ -7,7 +7,7 @@ import { useCommonContractSetup } from '../../../hooks/useCommonContractSetup'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { useShowHelp } from '../../../hooks/useShowHelp'
 import { useConfirmCancelTrade } from '../../../overlays/tradeCancelation/useConfirmCancelTrade'
-import { canCancelContract, signReleaseTx } from '../../../utils/contract'
+import { canCancelContract, shouldRateCounterParty, signReleaseTx } from '../../../utils/contract'
 import { isTradeComplete } from '../../../utils/contract/status'
 import { confirmPayment, getContract, getOfferDetails } from '../../../utils/peachAPI'
 import { getNavigationDestinationForContract, getNavigationDestinationForOffer } from '../../yourTrades/utils'
@@ -16,7 +16,8 @@ export const useContractSetup = () => {
   const route = useRoute<'contract'>()
   const { contractId } = route.params
 
-  const { contract, saveAndUpdate, isLoading, view, requiredAction, newOfferId } = useCommonContractSetup(contractId)
+  const { contract, saveAndUpdate, isLoading, view, requiredAction, newOfferId, refetch }
+    = useCommonContractSetup(contractId)
   const navigation = useNavigation()
   const showError = useShowErrorBanner()
   const { showConfirmOverlay } = useConfirmCancelTrade()
@@ -49,13 +50,14 @@ export const useContractSetup = () => {
 
   useEffect(() => {
     if (!contract || !view || isLoading) return
-
     if (isTradeComplete(contract) && !contract.disputeWinner && !contract.canceled) {
-      if ((view === 'buyer' && !contract.ratingSeller) || (view === 'seller' && !contract.ratingBuyer)) {
-        navigation.replace('tradeComplete', { contract })
+      if (shouldRateCounterParty(contract, view)) {
+        refetch().then(({ data }) => {
+          if (data && shouldRateCounterParty(data, view)) navigation.replace('tradeComplete', { contract: data })
+        })
       }
     }
-  }, [contract, isLoading, navigation, view])
+  }, [contract, isLoading, navigation, refetch, view])
 
   const postConfirmPaymentBuyer = useCallback(async () => {
     const [, err] = await confirmPayment({ contractId })
@@ -100,12 +102,14 @@ export const useContractSetup = () => {
 
   const goToNewOffer = useCallback(async () => {
     if (!newOfferId) return
-    const newOffer = await getOfferDetails({ offerId: newOfferId })
-    if (newOffer[0]?.contractId) {
-      const newContract = await getContract({ contractId: newOffer[0].contractId })
-      navigation.replace(...getNavigationDestinationForContract(newContract[0]))
+    const [newOffer] = await getOfferDetails({ offerId: newOfferId })
+    if (newOffer?.contractId) {
+      const [newContract] = await getContract({ contractId: newOffer.contractId })
+      if (newContract === null) return
+      const [screen, params] = await getNavigationDestinationForContract(newContract)
+      navigation.replace(screen, params)
     } else {
-      navigation.replace(...getNavigationDestinationForOffer(newOffer[0]))
+      navigation.replace(...getNavigationDestinationForOffer(newOffer))
     }
   }, [newOfferId, navigation])
 

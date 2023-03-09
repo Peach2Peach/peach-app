@@ -38,7 +38,7 @@ export const useShowDisputeDisclaimer = () => {
             updateOverlay({ visible: false })
           },
           label: i18n('close'),
-          icon: 'info',
+          icon: 'xSquare',
         },
         action2: {
           callback: goToHelp,

@@ -7,6 +7,7 @@ import { hashPaymentData } from '../../utils/paymentMethod'
 import { ChatButton } from '../chat/ChatButton'
 import { MatchCardCounterparty } from '../matches/components/MatchCardCounterparty'
 import { paymentDetailTemplates } from '../payment'
+import { CashTradeDetails } from '../payment/detail/cashTrades'
 import PeachScrollView from '../PeachScrollView'
 import { PriceFormat, Text } from '../text'
 import { ErrorBox, HorizontalLine } from '../ui'
@@ -51,20 +52,24 @@ export const OpenTradeSeller = ({ contract }: TradeSummaryProps): ReactElement =
           </View>
         </View>
         <View style={tw`flex-row items-center justify-between mt-4`}>
-          <Text style={tw`text-black-2`}>
-            {i18n(contract.paymentMethod.includes('cash.') ? 'contract.summary.in' : 'contract.summary.via')}
-          </Text>
-          <PaymentMethod paymentMethod={contract.paymentMethod} showLink={false} />
+          <Text style={tw`text-black-2`}>{i18n('contract.summary.via')}</Text>
+          <PaymentMethod
+            paymentMethod={contract.paymentMethod.includes('cash.') ? 'cash' : contract.paymentMethod}
+            showLink={false}
+          />
         </View>
 
-        {storedPaymentData && (
-          <View style={tw`flex-row items-center justify-between mt-4`}>
-            <Text style={tw`text-black-2`}>{i18n('contract.payment.to')}</Text>
-            <View style={tw`flex-row items-center`}>
-              <Text style={tw`subtitle-1`}>{storedPaymentData.label}</Text>
+        {!!storedPaymentData
+          && (contract.paymentMethod.includes('cash.') ? (
+            <CashTradeDetails contract={contract} />
+          ) : (
+            <View style={tw`flex-row items-start justify-between mt-4`}>
+              <Text style={tw`text-black-2`}>{i18n('contract.payment.to')}</Text>
+              <View style={tw`flex-row items-center`}>
+                <Text style={tw`ml-4 leading-normal text-right subtitle-1`}>{storedPaymentData.label}</Text>
+              </View>
             </View>
-          </View>
-        )}
+          ))}
         {!!contract.paymentData && !!PaymentTo && (
           <PaymentTo style={tw`mt-4`} paymentData={contract.paymentData} country={contract.country} copyable={false} />
         )}

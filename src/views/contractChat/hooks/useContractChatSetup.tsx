@@ -1,6 +1,5 @@
 import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react'
-import ContractChatTitle from '../../../components/titles/ContractChatTitle'
-
+import ContractTitle from '../../../components/titles/ContractTitle'
 import { useHeaderSetup, useRoute } from '../../../hooks'
 import { useChatMessages } from '../../../hooks/query/useChatMessages'
 import { useCommonContractSetup } from '../../../hooks/useCommonContractSetup'
@@ -44,7 +43,7 @@ export const useContractChatSetup = () => {
   useHeaderSetup(
     useMemo(
       () => ({
-        titleComponent: <ContractChatTitle id={contractId} />,
+        titleComponent: <ContractTitle id={contractId} />,
         icons: contract
           ? getHeaderChatActions(contract, () => showConfirmOverlay(contract), openDisputeOverlay, view)
           : [],

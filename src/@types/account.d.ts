@@ -26,6 +26,7 @@ declare type Settings = {
   peachWalletActive: boolean
   nodeURL: string
   feeRate: number | 'fastestFee' | 'halfHourFee' | 'hourFee' | 'economyFee'
+  usedReferralCode?: boolean
 }
 
 declare type PGPKeychain = {
@@ -43,6 +44,7 @@ declare type Identity = {
 declare type Account = Identity & {
   settings: Settings
   paymentData: PaymentData[]
+  legacyPaymentData: PaymentData[]
   tradingLimit: TradingLimit
   offers: (SellOffer | BuyOffer)[]
   contracts: Contract[]

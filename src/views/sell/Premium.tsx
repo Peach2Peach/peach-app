@@ -2,7 +2,7 @@ import React, { ReactElement, useEffect, useState } from 'react'
 import { View } from 'react-native'
 import shallow from 'zustand/shallow'
 
-import { Input, PremiumSlider, PrimaryButton, Text } from '../../components'
+import { Input, PremiumSlider, PrimaryButton, SatsFormat, Text } from '../../components'
 import { useMarketPrices } from '../../hooks'
 import { useSettingsStore } from '../../store/settingsStore'
 import tw from '../../styles/tailwind'
@@ -15,7 +15,7 @@ import { validatePremiumStep } from './helpers/validatePremiumStep'
 import { useSellSetup } from './hooks/useSellSetup'
 import { SellViewProps } from './SellPreferences'
 
-export default ({ offer, updateOffer, next }: SellViewProps): ReactElement => {
+export default ({ offerDraft, setOfferDraft, next }: SellViewProps): ReactElement => {
   useSellSetup({ help: 'premium' })
   const [premiumStore, setPremiumStore] = useSettingsStore((state) => [state.premium, state.setPremium], shallow)
   const [premium, setPremium] = useState(premiumStore.toString())
@@ -23,7 +23,7 @@ export default ({ offer, updateOffer, next }: SellViewProps): ReactElement => {
 
   const { data: priceBook } = useMarketPrices()
   const { displayCurrency } = account.settings
-  const currentPrice = priceBook ? getOfferPrice(offer.amount, offer.premium, priceBook, displayCurrency) : 0
+  const currentPrice = priceBook ? getOfferPrice(offerDraft.amount, offerDraft.premium, priceBook, displayCurrency) : 0
 
   const updatePremium = (value: string | number) => {
     setPremium(parsePremiumToString(value))
@@ -31,26 +31,38 @@ export default ({ offer, updateOffer, next }: SellViewProps): ReactElement => {
   }
 
   useEffect(() => {
-    updateOffer({
-      ...offer,
+    setOfferDraft((prev) => ({
+      ...prev,
       premium: Number(premium),
-    })
-  }, [premium, updateOffer])
+    }))
+  }, [premium, setOfferDraft])
 
-  useEffect(() => setStepValid(validatePremiumStep(offer, priceBook, account.tradingLimit)), [priceBook, offer])
+  useEffect(
+    () => setStepValid(validatePremiumStep(offerDraft, priceBook, account.tradingLimit)),
+    [priceBook, offerDraft],
+  )
 
   return (
     <View style={tw`items-center flex-shrink h-full px-8 pb-7`}>
       <View style={tw`justify-center flex-grow`}>
         <Text style={tw`text-center h5`}>{i18n('sell.premium.title')}</Text>
+        <View style={tw`flex-row justify-center w-full`}>
+          <Text style={tw`pr-2 subtitle-1`}>{i18n('search.sellOffer')}</Text>
+          <SatsFormat
+            sats={offerDraft.amount}
+            bitcoinLogoStyle={tw`w-3 h-3 mr-1`}
+            style={tw`subtitle-1`}
+            satsStyle={tw`font-normal body-s`}
+          />
+        </View>
         <View style={tw`flex-row items-center justify-center mt-8`}>
           <Text
             style={[
               tw`leading-2xl`,
-              premium === '0' ? {} : offer.premium > 0 ? tw`text-success-main` : tw`text-primary-main`,
+              premium === '0' ? {} : offerDraft.premium > 0 ? tw`text-success-main` : tw`text-primary-main`,
             ]}
           >
-            {i18n(offer.premium > 0 ? 'sell.premium' : 'sell.discount')}:
+            {i18n(offerDraft.premium > 0 ? 'sell.premium' : 'sell.discount')}:
           </Text>
           <View style={tw`h-10 ml-2`}>
             <Input

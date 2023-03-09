@@ -1,9 +1,9 @@
 import React, { useMemo } from 'react'
-import { Icon } from '../../components'
-import { useHeaderSetup, useNavigation } from '../../hooks'
-import tw from '../../styles/tailwind'
-import i18n from '../../utils/i18n'
-import { goToHomepage } from '../../utils/web'
+import { Icon } from '../../../components'
+import { useHeaderSetup, useNavigation } from '../../../hooks'
+import tw from '../../../styles/tailwind'
+import i18n from '../../../utils/i18n'
+import { goToHomepage } from '../../../utils/web'
 
 const iconColor = tw`text-primary-background-light`.color
 export const useWelcomeHeader = () => {

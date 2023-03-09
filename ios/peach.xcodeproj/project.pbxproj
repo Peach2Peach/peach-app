@@ -26,9 +26,9 @@
 		675F68012850FEE7009208C5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 675F68002850FEE7009208C5 /* GoogleService-Info.plist */; };
 		6769491227F72D6900C73BEF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6769491127F72D6900C73BEF /* GoogleService-Info.plist */; };
 		6775E9BD288B0A0400A9A0DB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 672B1300288AF7240089147A /* Localizable.strings */; };
-		677AFAFF299192DD0039BB33 /* Baloo2-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E933C379E4634FC3B74EC880 /* Baloo2-Medium.ttf */; };
-		677AFB00299192DD0039BB33 /* Baloo2-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D93F5B2771A4DC39AE22AC6 /* Baloo2-Regular.ttf */; };
-		677AFB01299192DD0039BB33 /* Baloo2-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CBF9B8092F4B48B49CF6FE55 /* Baloo2-SemiBold.ttf */; };
+		679FE63929B1F73D0013638A /* Baloo2-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E933C379E4634FC3B74EC880 /* Baloo2-Medium.ttf */; };
+		679FE63A29B1F73D0013638A /* Baloo2-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D93F5B2771A4DC39AE22AC6 /* Baloo2-Regular.ttf */; };
+		679FE63B29B1F73D0013638A /* Baloo2-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CBF9B8092F4B48B49CF6FE55 /* Baloo2-SemiBold.ttf */; };
 		7CC2629E48F44EFC87CEBE24 /* Baloo2-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D93F5B2771A4DC39AE22AC6 /* Baloo2-Regular.ttf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		959CDDDDE2CAB1D9FFE0C664 /* libPods-peach-peach testnet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FD873DAF80B6CA39E8616CA9 /* libPods-peach-peach testnet.a */; };
@@ -412,15 +412,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				679FE63929B1F73D0013638A /* Baloo2-Medium.ttf in Resources */,
+				679FE63A29B1F73D0013638A /* Baloo2-Regular.ttf in Resources */,
+				679FE63B29B1F73D0013638A /* Baloo2-SemiBold.ttf in Resources */,
 				672B1302288AF7240089147A /* Localizable.strings in Resources */,
 				671A56352850E9AE0058434C /* Images.xcassets in Resources */,
 				671A56362850E9AE0058434C /* assets in Resources */,
 				671A56342850E9AE0058434C /* LaunchScreen.storyboard in Resources */,
 				675F68012850FEE7009208C5 /* GoogleService-Info.plist in Resources */,
 				671A56392850E9AE0058434C /* Baloo2-Bold.ttf in Resources */,
-				677AFAFF299192DD0039BB33 /* Baloo2-Medium.ttf in Resources */,
-				677AFB00299192DD0039BB33 /* Baloo2-Regular.ttf in Resources */,
-				677AFB01299192DD0039BB33 /* Baloo2-SemiBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

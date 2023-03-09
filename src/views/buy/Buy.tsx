@@ -1,4 +1,4 @@
-import React, { ReactElement, useCallback, useMemo } from 'react'
+import React, { ReactElement, useCallback, useEffect, useMemo } from 'react'
 import { TouchableOpacity, View } from 'react-native'
 
 import tw from '../../styles/tailwind'
@@ -8,17 +8,19 @@ import shallow from 'zustand/shallow'
 import { BitcoinPriceStats, HorizontalLine, Icon, PrimaryButton, Text } from '../../components'
 import { RangeAmount } from '../../components/inputs/verticalAmountSelector/RangeAmount'
 import { useNavigation, useValidatedState } from '../../hooks'
-import { useShowWarning } from '../../hooks/useShowWarning'
 import { useConfigStore } from '../../store/configStore'
 import { useSettingsStore } from '../../store/settingsStore'
 import { DailyTradingLimit } from '../settings/profile/DailyTradingLimit'
 import { useBuySetup } from './hooks/useBuySetup'
 import { debounce } from '../../utils/performance'
 import LoadingScreen from '../loading/LoadingScreen'
+import { useCheckShowRedesignWelcome } from '../../hooks/'
+import { useShowBackupReminder } from '../../hooks/useShowBackupReminder'
 
 export default (): ReactElement => {
   const navigation = useNavigation()
-  const showBackupsWarning = useShowWarning('backups')
+  const checkShowRedesignWelcome = useCheckShowRedesignWelcome()
+  const showCorrectBackupReminder = useShowBackupReminder()
 
   useBuySetup()
 
@@ -43,6 +45,10 @@ export default (): ReactElement => {
 
   const [currentMinAmount, setCurrentMinAmount, minAmountValid] = useValidatedState(minBuyAmount, rangeRules)
   const [currentMaxAmount, setCurrentMaxAmount, maxAmountValid] = useValidatedState(maxBuyAmount, rangeRules)
+
+  useEffect(() => {
+    checkShowRedesignWelcome()
+  }, [checkShowRedesignWelcome])
 
   const updateStore = useCallback(
     debounce((min: number, max: number) => {
@@ -82,13 +88,13 @@ export default (): ReactElement => {
           onChange={setSelectedRange}
         />
       </View>
-      <View style={[tw`flex-row items-center justify-center mt-4 mb-1`, tw.md`mb-10`]}>
+      <View style={[tw`flex-row items-center justify-center mt-4 mb-1`, tw.md`mb-4`]}>
         <PrimaryButton disabled={!minAmountValid || !maxAmountValid} testID="navigation-next" onPress={next} narrow>
           {i18n('next')}
         </PrimaryButton>
         {showBackupReminder && (
           <View style={tw`justify-center`}>
-            <TouchableOpacity style={tw`absolute left-4`} onPress={showBackupsWarning}>
+            <TouchableOpacity style={tw`absolute left-4`} onPress={showCorrectBackupReminder}>
               <Icon id="alertTriangle" style={tw`w-8 h-8`} color={tw`text-warning-main`.color} />
             </TouchableOpacity>
           </View>

@@ -51,7 +51,7 @@ export default ({ paymentMethod, currency, selected, setCountry, next }: Country
           onChange={(cs) => setSelectedCountry(cs as PaymentMethodCountry)}
         />
       </View>
-      <View style={tw`flex items-center w-full px-6 mt-4 bg-primary-background-light`}>
+      <View style={tw`flex items-center w-full px-6 mt-4`}>
         <View style={tw`w-full h-8 -mt-8`}>
           <LinearGradient colorList={whiteGradient} angle={90} />
         </View>

@@ -20,7 +20,7 @@ export default (): ReactElement => {
   const [vote, setVote] = useState<'positive' | 'negative'>()
 
   const saveAndUpdate = (contractData: Contract) => {
-    setContract(() => contractData)
+    setContract(contractData)
     saveContract(contractData)
   }
 

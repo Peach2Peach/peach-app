@@ -1,36 +1,37 @@
 import React, { ReactElement, useEffect } from 'react'
 import { View } from 'react-native'
-import { PrimaryButton, SellOfferSummary } from '../../components'
+import { PeachScrollView, PrimaryButton, SellOfferSummary } from '../../components'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { useSellSummarySetup } from './hooks/useSellSummarySetup'
 import { SellViewProps } from './SellPreferences'
 
-export default ({ offer, updateOffer }: SellViewProps): ReactElement => {
+export default ({ offerDraft, setOfferDraft }: SellViewProps): ReactElement => {
   const { returnAddress, walletLabel, goToSetupRefundWallet, canPublish, publishOffer, isPublishing }
     = useSellSummarySetup()
-  const publishSellOffer = () => publishOffer(offer)
+  const publishSellOffer = () => publishOffer(offerDraft)
 
   useEffect(() => {
-    if (returnAddress) updateOffer({
-      ...offer,
+    if (returnAddress) setOfferDraft((prev) => ({
+      ...prev,
       returnAddress,
-    })
-  }, [returnAddress, updateOffer])
+    }))
+  }, [returnAddress, setOfferDraft])
 
   useEffect(() => {
-    if (walletLabel) updateOffer({
-      ...offer,
+    if (walletLabel) setOfferDraft((prev) => ({
+      ...prev,
       walletLabel,
-    })
-  }, [walletLabel, updateOffer])
+    }))
+  }, [walletLabel, setOfferDraft])
 
   return (
-    <View style={tw`items-center flex-shrink h-full px-8 pb-7`}>
+    <PeachScrollView contentContainerStyle={tw`items-center justify-center flex-grow px-8 pb-7`}>
       <View style={tw`justify-center flex-grow`}>
-        <SellOfferSummary offer={offer} />
+        <SellOfferSummary offer={offerDraft} />
       </View>
       <PrimaryButton
+        style={tw`self-center mt-4`}
         testID="navigation-next"
         narrow={!canPublish}
         onPress={canPublish ? publishSellOffer : goToSetupRefundWallet}
@@ -39,6 +40,6 @@ export default ({ offer, updateOffer }: SellViewProps): ReactElement => {
       >
         {i18n(canPublish ? 'offer.publish' : 'next')}
       </PrimaryButton>
-    </View>
+    </PeachScrollView>
   )
 }

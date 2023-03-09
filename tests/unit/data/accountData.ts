@@ -24,6 +24,7 @@ export const recoveredAccount: Account = {
     feeRate: 'halfHourFee',
   },
   paymentData: [],
+  legacyPaymentData: [],
   offers: [],
   contracts: [],
   chats: {},
@@ -68,6 +69,7 @@ export const account1: Account = {
     feeRate: 'halfHourFee',
   },
   paymentData: [],
+  legacyPaymentData: [],
   tradingLimit: {
     daily: 1000,
     dailyAmount: 0,
@@ -112,6 +114,7 @@ export const seller: Account = {
     feeRate: 'halfHourFee',
   },
   paymentData: [],
+  legacyPaymentData: [],
   tradingLimit: {
     daily: 1000,
     dailyAmount: 0,
@@ -156,6 +159,7 @@ export const buyer: Account = {
     feeRate: 'halfHourFee',
   },
   paymentData: [],
+  legacyPaymentData: [],
   tradingLimit: {
     daily: 1000,
     dailyAmount: 0,
@@ -201,6 +205,7 @@ export const userWithNoTrades: Account = {
     feeRate: 'halfHourFee',
   },
   paymentData: [],
+  legacyPaymentData: [],
   tradingLimit: {
     daily: 1000,
     dailyAmount: 0,

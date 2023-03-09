@@ -4,6 +4,7 @@ import { createStorage, toZustandStorage } from '../utils/storage'
 import { defaultConfig } from './defaults'
 
 type ConfigStore = Config & {
+  reset: () => void
   setPaymentMethods: (paymentMethods: PaymentMethodInfo[]) => void
   setPeachPGPPublicKey: (pgpPublicKey: string) => void
   setPeachFee: (fee: number) => void
@@ -11,6 +12,7 @@ type ConfigStore = Config & {
   setLatestAppVersion: (ver: string) => void
   setMinTradingAmount: (amount: number) => void
   setMaxTradingAmount: (amount: number) => void
+  setSeenRedesignWelcome: (hasSeenRedesignWelcome: boolean) => void
 }
 
 export const configStorage = createStorage('config')
@@ -19,6 +21,7 @@ export const configStore = createStore(
   persist<ConfigStore>(
     (set) => ({
       ...defaultConfig,
+      reset: () => set(() => defaultConfig),
       setPaymentMethods: (paymentMethods) => set((state) => ({ ...state, paymentMethods })),
       setPeachPGPPublicKey: (peachPGPPublicKey) => set((state) => ({ ...state, peachPGPPublicKey })),
       setPeachFee: (peachFee) => set((state) => ({ ...state, peachFee })),
@@ -26,6 +29,7 @@ export const configStore = createStore(
       setLatestAppVersion: (latestAppVersion) => set((state) => ({ ...state, latestAppVersion })),
       setMinTradingAmount: (minTradingAmount) => set((state) => ({ ...state, minTradingAmount })),
       setMaxTradingAmount: (maxTradingAmount) => set((state) => ({ ...state, maxTradingAmount })),
+      setSeenRedesignWelcome: (hasSeenRedesignWelcome) => set((state) => ({ ...state, hasSeenRedesignWelcome })),
     }),
     {
       name: 'config',

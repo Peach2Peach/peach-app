@@ -8,17 +8,15 @@ import Summary from './Summary'
 
 import { BitcoinPriceStats, HorizontalLine } from '../../components'
 import { useSettingsStore } from '../../store/settingsStore'
-import { getDefaultSellOffer } from './helpers/getDefaultSellOffer'
+import { getSellOfferDraft } from './helpers/getSellOfferDraft'
 import Premium from './Premium'
 import { useFocusEffect } from '@react-navigation/native'
 
 export type SellViewProps = {
-  offer: SellOfferDraft
-  updateOffer: (offer: SellOfferDraft) => void
+  offerDraft: SellOfferDraft
+  setOfferDraft: React.Dispatch<React.SetStateAction<SellOfferDraft>>
   next: () => void
 }
-
-type Screen = null | (({ offer, updateOffer }: SellViewProps) => ReactElement)
 
 const screens = [
   {
@@ -51,11 +49,11 @@ export default (): ReactElement => {
     shallow,
   )
 
-  const [offer, setOffer] = useState(getDefaultSellOffer(partialSettings))
+  const [offerDraft, setOfferDraft] = useState(getSellOfferDraft(partialSettings))
   const [page, setPage] = useState(0)
 
   const currentScreen = screens[page]
-  const CurrentView: Screen = currentScreen.view
+  const CurrentView = currentScreen.view
 
   useFocusEffect(
     useCallback(() => {
@@ -84,7 +82,7 @@ export default (): ReactElement => {
           <BitcoinPriceStats />
         </View>
       )}
-      {!!CurrentView && <CurrentView updateOffer={setOffer} {...{ offer, next }} />}
+      {!!CurrentView && <CurrentView {...{ offerDraft, setOfferDraft, next }} />}
     </View>
   )
 }

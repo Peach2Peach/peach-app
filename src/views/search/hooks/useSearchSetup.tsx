@@ -42,7 +42,6 @@ export const useSearchSetup = () => {
         {i18n('offer')} {offerIdToHex(offerId)}
       </Text>
     ),
-    hideGoBackButton: true,
     icons: headerIcons,
   })
 

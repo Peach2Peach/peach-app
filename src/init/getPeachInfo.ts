@@ -2,7 +2,7 @@ import { PAYMENTCATEGORIES, setPaymentMethods } from '../constants'
 import { configStore } from '../store/configStore'
 import { defaultAccount, updateTradingLimit } from '../utils/account'
 import { error } from '../utils/log'
-import { getAllPaymentMethods } from '../utils/paymentMethod'
+import { shouldUsePaymentMethod } from '../utils/paymentMethod'
 import { getInfo, getTradingLimit } from '../utils/peachAPI'
 import { calculateClientServerTimeDifference } from './calculateClientServerTimeDifference'
 
@@ -10,8 +10,6 @@ import { calculateClientServerTimeDifference } from './calculateClientServerTime
  * @description Method to fetch peach info and user trading limit and store values in constants
  */
 export const getPeachInfo = async (account?: Account) => {
-  const allPaymentMethods = getAllPaymentMethods(PAYMENTCATEGORIES)
-
   const {
     paymentMethods,
     setPaymentMethods: setPaymentMethodsStore,
@@ -25,7 +23,7 @@ export const getPeachInfo = async (account?: Account) => {
 
   if (!statusResponse || statusResponse.error) {
     error('Server not available', statusResponse)
-    setPaymentMethods(paymentMethods.filter((info) => allPaymentMethods.includes(info.id)))
+    setPaymentMethods(paymentMethods.filter(shouldUsePaymentMethod(PAYMENTCATEGORIES)))
 
     return statusResponse
   }
@@ -43,14 +41,14 @@ export const getPeachInfo = async (account?: Account) => {
   }
   if (peachInfoResponse) {
     setPeachPGPPublicKey(peachInfoResponse.peach.pgpPublicKey)
-    setPaymentMethodsStore(peachInfoResponse.paymentMethods.filter((info) => allPaymentMethods.includes(info.id)))
+    setPaymentMethodsStore(peachInfoResponse.paymentMethods.filter(shouldUsePaymentMethod(PAYMENTCATEGORIES)))
     setPeachFee(peachInfoResponse.fees.escrow)
     setLatestAppVersion(peachInfoResponse.latestAppVersion)
     setMinAppVersion(peachInfoResponse.minAppVersion)
   }
 
   setPaymentMethods(
-    (peachInfoResponse?.paymentMethods || paymentMethods).filter((info) => allPaymentMethods.includes(info.id)),
+    (peachInfoResponse?.paymentMethods || paymentMethods).filter(shouldUsePaymentMethod(PAYMENTCATEGORIES)),
   )
   return statusResponse
 }

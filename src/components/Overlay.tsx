@@ -63,7 +63,7 @@ export const Overlay = ({
           onPress={!requireUserAction ? closeOverlay : null}
         ></Pressable>
         <View style={tw`items-center w-full p-6`}>
-          <View testID="overlay" style={[tw`m-10`, levelColorMap.bg1[level], tw`w-full shadow rounded-2xl`]}>
+          <View testID="overlay" style={[tw`m-10`, levelColorMap.bg1[level], tw`w-full rounded-2xl`]}>
             <View style={[tw`p-4`, levelColorMap.bg2[level], tw`rounded-t-2xl`]}>
               {!!title && <Text style={tw`mb-1 h5 text-black-1`}>{title.toLocaleLowerCase()}</Text>}
               {content}
