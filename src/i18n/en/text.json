@@ -709,7 +709,7 @@
   "UNAUTHORIZED.text": "You don't have permission to view this content.",
   "UNAVAILABLE_FOR_LEGAL_REASONS.icon": "flag",
   "UNAVAILABLE_FOR_LEGAL_REASONS.title": "not available",
-  "UNAVAILABLE_FOR_LEGAL_REASONS.text": "Due to regulatory reasons, we're not available in your country.",
+  "UNAVAILABLE_FOR_LEGAL_REASONS.text": "Due to regulatory reasons, we're not available in your country.\n\nYou can still access the wallet, and finish up any trades you have open.",
   "NAVIGATION_INIT_ERROR": "Failed to initialize navigation",
   "NAVIGATION_INIT_ERROR.icon": "map",
   "NAVIGATION_INIT_ERROR.title": "where are we?",
