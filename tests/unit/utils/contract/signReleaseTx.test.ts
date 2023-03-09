@@ -98,9 +98,9 @@ describe('signReleaseTx', () => {
 
     expect(error).toBe(null)
     expect(tx).toEqual('transactionAsHex')
-    expect(psbt.signInput).toBeCalled()
-    expect(finalizeInputMock).toBeCalled()
-    expect(psbt.extractTransaction).toBeCalled()
-    expect(psbt.extractTransaction().toHex).toBeCalled()
+    expect(psbt.signInput).toHaveBeenCalled()
+    expect(finalizeInputMock).toHaveBeenCalled()
+    expect(psbt.extractTransaction).toHaveBeenCalled()
+    expect(psbt.extractTransaction().toHex).toHaveBeenCalled()
   })
 })
