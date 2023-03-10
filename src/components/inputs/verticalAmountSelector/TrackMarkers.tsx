@@ -4,7 +4,7 @@ import tw from '../../../styles/tailwind'
 import { Text } from '../../text'
 import { useKnobHeight } from './hooks/useKnobHeight'
 
-type TrackMarkersProps = {
+export type TrackMarkersProps = {
   trackHeight: number
   labels?: Record<string, string>
 }
@@ -21,7 +21,7 @@ export const TrackMarkers = ({ trackHeight, labels }: TrackMarkersProps) => {
           ]}
         >
           {!!labels && !!labels[i] && (
-            <Text style={tw`absolute w-20 subtitle-2 text-black-2 left-full ml-5`}>{labels[i]}</Text>
+            <Text style={tw`absolute w-20 ml-5 subtitle-2 text-black-2 left-full`}>{labels[i]}</Text>
           )}
         </View>
       ))}
