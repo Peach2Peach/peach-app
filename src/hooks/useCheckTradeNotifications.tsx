@@ -27,7 +27,7 @@ const hasRequiredAction = (offer: OfferSummary | ContractSummary) =>
 
 export const useCheckTradeNotifications = () => {
   const [offers, contracts] = useTradeSummaryStore((state) => [state.offers, state.contracts], shallow)
-  const setNotifications = useNotificationStore((state) => state.setNotifications, shallow)
+  const setNotifications = useNotificationStore((state) => state.setNotifications)
 
   useEffect(() => {
     const offersWithAction = offers
