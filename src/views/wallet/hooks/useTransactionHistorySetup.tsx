@@ -9,7 +9,7 @@ import { getTxSummary } from '../helpers/getTxSummary'
 import { useSyncWallet } from './useSyncWallet'
 
 export const useTransactionHistorySetup = () => {
-  const walletStore = useWalletState()
+  const walletStore = useWalletState((state) => state)
   const { refresh, loading } = useSyncWallet()
   const [transactions, setTransactions] = useState<TransactionSummary[]>([])
 
