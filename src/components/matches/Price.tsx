@@ -1,4 +1,5 @@
 import React from 'react'
+import { ViewProps } from 'react-native'
 import tw from '../../styles/tailwind'
 import { getAvailableCurrencies } from '../../utils/match'
 import { hasMoPsInCommon, getMoPsInCommon } from '../../utils/paymentMethod'
@@ -9,9 +10,10 @@ import { getMatchPrice } from './utils'
 type Props = ComponentProps & {
   match: Match
   offer: BuyOffer | SellOffer
+  textStyle?: ViewProps | ViewProps[]
 }
 
-export const Price = ({ match, offer, style }: Props) => {
+export const Price = ({ match, offer, style, textStyle }: Props) => {
   const mopsInCommon = hasMoPsInCommon(offer.meansOfPayment, match.meansOfPayment)
     ? getMoPsInCommon(offer.meansOfPayment, match.meansOfPayment)
     : match.meansOfPayment
@@ -25,7 +27,7 @@ export const Price = ({ match, offer, style }: Props) => {
   const displayPrice = getMatchPrice(match, selectedPaymentMethod, selectedCurrency)
   return (
     <Text style={[tw`self-center body-l`, style]}>
-      <PriceFormat style={tw`body-l`} currency={selectedCurrency} amount={displayPrice} />
+      <PriceFormat style={[tw`body-l`, textStyle]} currency={selectedCurrency} amount={displayPrice} />
     </Text>
   )
 }
