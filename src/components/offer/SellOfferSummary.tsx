@@ -7,13 +7,13 @@ import tw from '../../styles/tailwind'
 import { showAddress } from '../../utils/bitcoin'
 import i18n from '../../utils/i18n'
 import { getCurrencies } from '../../utils/paymentMethod'
-import { peachWallet } from '../../utils/wallet/setWallet'
 import Icon from '../Icon'
 import { PaymentMethod } from '../matches/PaymentMethod'
 import { getPremiumColor } from '../matches/utils'
 import { TabbedNavigation } from '../navigation/TabbedNavigation'
 import { SatsFormat, Text } from '../text'
 import { HorizontalLine } from '../ui'
+import { getSummaryWalletLabel } from '../../utils/offer'
 
 type SellOfferSummaryProps = ComponentProps & {
   offer: SellOffer | SellOfferDraft
@@ -25,23 +25,20 @@ const isSellOfferWithDefinedEscrow = (offer: SellOffer | SellOfferDraft): offer 
 export const SellOfferSummary = ({ offer, style }: SellOfferSummaryProps): ReactElement => {
   const currencies = getCurrencies(offer.meansOfPayment)
   const [selectedCurrency, setSelectedCurrency] = useState(currencies[0])
-  const isPeachWallet = useMemo(() => !!peachWallet.findKeyPairByAddress(offer.returnAddress), [offer.returnAddress])
   const [payoutAddress, payoutAddressLabel] = useSettingsStore(
     (state) => [state.payoutAddress, state.payoutAddressLabel],
     shallow,
   )
-  const walletLabel = useMemo(() => {
-    if (offer.walletLabel) {
-      return offer.walletLabel
-    }
-    if (isPeachWallet) {
-      return i18n('peachWallet')
-    }
-    if (payoutAddress === offer.returnAddress) {
-      return payoutAddressLabel || i18n('offer.summary.customRefundAddress')
-    }
-    return i18n('offer.summary.customRefundAddress')
-  }, [isPeachWallet, offer.returnAddress, offer.walletLabel, payoutAddress, payoutAddressLabel])
+  const walletLabel = useMemo(
+    () =>
+      getSummaryWalletLabel({
+        offerWalletLabel: offer.walletLabel,
+        address: offer.returnAddress,
+        customPayoutAddress: payoutAddress,
+        customPayoutAddressLabel: payoutAddressLabel,
+      }) || i18n('offer.summary.customRefundAddress'),
+    [offer.returnAddress, offer.walletLabel, payoutAddress, payoutAddressLabel],
+  )
   return (
     <View style={[tw`border border-black-5 rounded-2xl p-7`, style]}>
       <Text style={tw`self-center body-m text-black-2`}>
