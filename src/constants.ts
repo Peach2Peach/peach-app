@@ -25,7 +25,32 @@ export const UNIQUEID = sha256(getUniqueId())
 export let CURRENCIES: Currency[] = ['EUR', 'CHF', 'GBP', 'SEK', 'DKK', 'BGN', 'CZK', 'HUF', 'PLN', 'RON', 'ISK', 'NOK']
 
 export let GIFTCARDCOUNTRIES: PaymentMethodCountry[] = ['DE', 'FR', 'IT', 'ES', 'NL', 'UK', 'SE', 'FI']
-export const NATIONALTRANSFERCOUNTRIES: PaymentMethodCountry[] = ['BG', 'CZ', 'DK', 'HU', 'NO', 'PL', 'PO', 'RO']
+export const NATIONALTRANSFERCOUNTRIES: PaymentMethodCountry[] = [
+  'BE',
+  'BG',
+  'CA',
+  'CH',
+  'CY',
+  'CZ',
+  'DE',
+  'DK',
+  'ES',
+  'FI',
+  'FR',
+  'GB',
+  'GR',
+  'HU',
+  'IT',
+  'NL',
+  'NO',
+  'PL',
+  'PO',
+  'PT',
+  'RO',
+  'SE',
+  'SI',
+  'US',
+]
 
 export let PAYMENTMETHODS: PaymentMethod[] = ['sepa']
 export let PAYMENTMETHODINFOS: PaymentMethodInfo[] = [

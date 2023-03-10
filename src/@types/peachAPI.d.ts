@@ -91,10 +91,13 @@ declare type Pricebook = {
 }
 declare type PaymentMethodCountry =
   | 'BE'
+  | 'BG'
   | 'CA'
   | 'CH'
+  | 'CY'
+  | 'CZ'
   | 'DE'
-  | 'DE'
+  | 'DK'
   | 'ES'
   | 'FR'
   | 'GB'
@@ -105,6 +108,7 @@ declare type PaymentMethodCountry =
   | 'PT'
   | 'SE'
   | 'SI'
+  | 'RO'
   | 'UK'
   | 'US'
   | 'FI'

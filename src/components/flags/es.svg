@@ -1,14 +1,14 @@
-<svg width="34" height="26" viewBox="0 0 34 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 34 26" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g clip-path="url(#clip0_1007_5232)">
 <path fill-rule="evenodd" clip-rule="evenodd" d="M1 25H33V19H1V25Z" fill="#AD1519"/>
 <path fill-rule="evenodd" clip-rule="evenodd" d="M1 19H33V7H1V19Z" fill="#FABD00"/>
 <path fill-rule="evenodd" clip-rule="evenodd" d="M1 7H33V1H1V7Z" fill="#AD1519"/>
-<path d="M7.5 11C7.5 10.7239 7.72386 10.5 8 10.5C8.27614 10.5 8.5 10.7239 8.5 11V16.5H7.5V11Z" fill="#AD1519"/>
-<path d="M12.5 11C12.5 10.7239 12.7239 10.5 13 10.5C13.2761 10.5 13.5 10.7239 13.5 11V16.5H12.5V11Z" fill="#AD1519"/>
-<path d="M9 10.78C9 10.0731 9.57308 9.5 10.28 9.5H10.72C11.4269 9.5 12 10.0731 12 10.78C12 10.9567 11.8567 11.1 11.68 11.1H9.32C9.14327 11.1 9 10.9567 9 10.78Z" fill="#AD1519"/>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M9 12.2333C9 11.9388 9.23878 11.7 9.53333 11.7H11.4667C11.7612 11.7 12 11.9388 12 12.2333V15C12 15.8284 11.3284 16.5 10.5 16.5C9.67157 16.5 9 15.8284 9 15V12.2333Z" fill="#AD1519"/>
+<path d="M7.5 11C7.5 10.7239 7.72386 10.5 8 10.5V10.5C8.27614 10.5 8.5 10.7239 8.5 11V16.5H7.5V11Z" fill="#AD1519"/>
+<path d="M12.5 11C12.5 10.7239 12.7239 10.5 13 10.5V10.5C13.2761 10.5 13.5 10.7239 13.5 11V16.5H12.5V11Z" fill="#AD1519"/>
+<path d="M9 10.78C9 10.0731 9.57308 9.5 10.28 9.5H10.72C11.4269 9.5 12 10.0731 12 10.78V10.78C12 10.9567 11.8567 11.1 11.68 11.1H9.32C9.14327 11.1 9 10.9567 9 10.78V10.78Z" fill="#AD1519"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M9 12.2333C9 11.9388 9.23878 11.7 9.53333 11.7H11.4667C11.7612 11.7 12 11.9388 12 12.2333V15C12 15.8284 11.3284 16.5 10.5 16.5V16.5C9.67157 16.5 9 15.8284 9 15V12.2333Z" fill="#AD1519"/>
 </g>
-<rect x="0.5" y="0.5" width="33" height="25" rx="4.5" stroke="#BAADA7"/>
+<rect x="0.75" y="0.75" width="32.5" height="24.5" rx="4.25" stroke="#2B1911" stroke-width="0.5"/>
 <defs>
 <clipPath id="clip0_1007_5232">
 <rect x="1" y="1" width="32" height="24" rx="4" fill="white"/>
