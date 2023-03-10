@@ -29,7 +29,7 @@ export default ({ currency = 'EUR', setCurrency, next }: CurrencySelectProps): R
       <PeachScrollView contentContainerStyle={tw`items-center justify-center flex-grow px-10 pb-10`}>
         <RadioButtons items={currencies} selectedValue={currency} onChange={setCurrency} />
       </PeachScrollView>
-      <View style={tw`flex items-center w-full px-6 mt-4 bg-primary-background-light`}>
+      <View style={tw`flex items-center w-full px-6 mt-4 bg-primary-background`}>
         <View style={tw`w-full h-8 -mt-8`}>
           <LinearGradient colorList={whiteGradient} angle={90} />
         </View>

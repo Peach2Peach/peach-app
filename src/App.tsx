@@ -54,7 +54,7 @@ import { account, getAccount } from './utils/account'
 import { screenTransition } from './utils/layout/screenTransition'
 import { error, info } from './utils/log'
 import { marketPrices } from './utils/peachAPI/public/market'
-import { compatibilityCheck, isIOS, linkToAppStore } from './utils/system'
+import { compatibilityCheck, isIOS, isNetworkError, linkToAppStore, parseError } from './utils/system'
 
 enableScreens()
 
@@ -165,7 +165,8 @@ const App: React.FC = () => {
 
   setUnhandledPromiseRejectionTracker((id, err) => {
     error(err)
-    const msgKey = (err as Error).message === 'Network request failed' ? 'NETWORK_ERROR' : (err as Error).message
+    const errorMessage = parseError(err)
+    const msgKey = isNetworkError(errorMessage) ? 'NETWORK_ERROR' : errorMessage
     updateMessage({
       msgKey: msgKey || 'GENERAL_ERROR',
       level: 'ERROR',

@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { Platform } from 'react-native'
 import DocumentPicker from 'react-native-document-picker'
 import { readFileInChunks } from '../../utils/file'
@@ -16,39 +16,6 @@ export type FileData = {
  * - file cannot be read / timed out
  * - user cancels file selection
  */
-const selectFile = (): Promise<FileData> =>
-  new Promise(async (resolve) => {
-    try {
-      const file = await DocumentPicker.pickSingle()
-      try {
-        if (!file.uri) {
-          throw Error('File could not be read')
-        }
-
-        const uri = Platform.select({
-          android: file.uri,
-          ios: decodeURIComponent(file.uri)?.replace?.('file://', ''),
-        }) as string
-
-        const content = await readFileInChunks(uri)
-        resolve({
-          name: file.name || '',
-          content,
-        })
-      } catch (e) {
-        error('File could not be read', e)
-        resolve({
-          name: '',
-          content: '',
-        })
-      }
-    } catch (err: any) {
-      if (!DocumentPicker.isCancel(err)) {
-        // User cancelled the picker, exit any dialogs or menus and move on
-        throw err
-      }
-    }
-  })
 
 type FileInputProps = InputProps & {
   fileName?: string
@@ -62,7 +29,49 @@ export const FileInput = ({
   errorMessage = [],
   onChange,
 }: FileInputProps): ReactElement => {
-  const onPress = async () => (onChange ? onChange(await selectFile()) : null)
+  const [loading, setLoading] = useState(false)
+  const selectFile = (): Promise<FileData> =>
+    new Promise(async (resolve) => {
+      setLoading(true)
+      try {
+        const file = await DocumentPicker.pickSingle()
+        try {
+          if (!file.uri) {
+            throw Error('File could not be read')
+          }
+
+          const uri = Platform.select({
+            android: file.uri,
+            ios: decodeURIComponent(file.uri)?.replace?.('file://', ''),
+          }) as string
+
+          const content = await readFileInChunks(uri)
+          resolve({
+            name: file.name || '',
+            content,
+          })
+          setLoading(false)
+        } catch (e) {
+          setLoading(false)
+          error('File could not be read', e)
+          resolve({
+            name: '',
+            content: '',
+          })
+        }
+      } catch (err: any) {
+        setLoading(false)
+        if (!DocumentPicker.isCancel(err)) {
+          // User cancelled the picker, exit any dialogs or menus and move on
+          throw err
+        }
+      }
+    })
+
+  const onPress = async () => {
+    if (loading || !onChange) return
+    onChange(await selectFile())
+  }
 
   return (
     <Input
