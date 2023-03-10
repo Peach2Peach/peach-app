@@ -139,7 +139,7 @@ const App: React.FC = () => {
   const showAnalyticsPrompt = useShowAnalyticsPrompt(updateOverlay)
   const { width } = Dimensions.get('window')
   const slideInAnim = useRef(new Animated.Value(-width)).current
-  const navigationRef = useNavigationContainerRef() as NavigationContainerRefWithCurrent<RootStackParamList>
+  const navigationRef = useNavigationContainerRef()
   const [minAppVersion, latestAppVersion] = useConfigStore(
     (state) => [state.minAppVersion, state.latestAppVersion],
     shallow,
@@ -153,7 +153,7 @@ const App: React.FC = () => {
   ErrorUtils.setGlobalHandler((err: Error) => {
     error(err)
     updateMessage({
-      msgKey: (err as Error).message || 'GENERAL_ERROR',
+      msgKey: err.message || 'GENERAL_ERROR',
       level: 'ERROR',
       action: {
         callback: () => navigationRef.navigate('contact'),

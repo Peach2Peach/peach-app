@@ -1,4 +1,4 @@
-import create, { createStore } from 'zustand'
+import { createStore, useStore } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { createStorage, toZustandStorage } from '../utils/storage'
 
@@ -34,4 +34,7 @@ export const meetupEventsStore = createStore(
   ),
 )
 
-export const useMeetupEventsStore = create(meetupEventsStore)
+export const useMeetupEventsStore = <T>(
+  selector: (state: MeetupEventsStore) => T,
+  equalityFn?: ((a: T, b: T) => boolean) | undefined,
+) => useStore(meetupEventsStore, selector, equalityFn)

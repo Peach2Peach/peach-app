@@ -13,7 +13,7 @@ import { PeachWSContext } from '../../utils/peachAPI/websocket'
 import shallow from 'zustand/shallow'
 import PeachBorder from '../../assets/logo/peachBorder.svg'
 import PeachOrange from '../../assets/logo/peachOrange.svg'
-import { notificationStore } from './notificationsStore'
+import { useNotificationStore } from './notificationsStore'
 
 type FooterProps = ComponentProps & {
   active: keyof RootStackParamList
@@ -115,7 +115,7 @@ export const Footer = ({ active, style, setCurrentPage, theme = 'default' }: Foo
   const ws = useContext(PeachWSContext)
   const colors = themes[theme || 'default']
 
-  const notifications = notificationStore((state) => state.notifications, shallow)
+  const notifications = useNotificationStore((state) => state.notifications)
 
   const keyboardOpen = useKeyboard()
 
