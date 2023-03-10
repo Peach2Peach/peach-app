@@ -6,7 +6,7 @@ import { getTranslateX } from '../../../utils/layout'
 import { round } from '../../../utils/math'
 import Icon from '../../Icon'
 import { SliderLabel } from './SliderLabel'
-import { SliderMarkers } from './SliderTracks'
+import { SliderMarkers } from './SliderMarkers'
 
 type PremiumSliderProps = ComponentProps & {
   value: number
@@ -86,7 +86,7 @@ export const PremiumSlider = ({ value, onChange, style }: PremiumSliderProps): R
     <View style={style} {...panResponder.panHandlers} {...{ onStartShouldSetResponder }}>
       <View
         style={[
-          tw`w-full h-8 max-w-full`,
+          tw`w-full h-8`,
           tw`border p-0.5 rounded-full bg-primary-background-dark border-primary-mild-1`,
           tw`justify-center`,
         ]}
@@ -96,7 +96,7 @@ export const PremiumSlider = ({ value, onChange, style }: PremiumSliderProps): R
           <Animated.View
             style={[
               { width: KNOBWIDTH },
-              tw`z-10 flex items-center rounded-full bg-primary-main`,
+              tw`z-10 flex items-center justify-center h-full rounded-full bg-primary-main`,
               getTranslateX(pan, [0, trackWidth]),
             ]}
           >

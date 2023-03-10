@@ -82,7 +82,7 @@ export default ({ offerDraft, setOfferDraft, next }: SellViewProps): ReactElemen
             </Text>
           )}
         </View>
-        <PremiumSlider style={tw`mt-6`} value={Number(premium)} onChange={updatePremium} />
+        <PremiumSlider style={tw`px-4 mt-6`} value={Number(premium)} onChange={updatePremium} />
       </View>
       <PrimaryButton testID="navigation-next" disabled={!stepValid} narrow onPress={next}>
         {i18n('next')}
