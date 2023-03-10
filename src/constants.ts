@@ -4,6 +4,7 @@ import { sha256 } from './utils/crypto/sha256'
 
 export const SATSINBTC = 100000000
 export const MSINADAY = 86400000
+export const MSINANHOUR = 3600000
 
 export const MAXMININGFEE = 20000
 
