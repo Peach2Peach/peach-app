@@ -18,7 +18,7 @@ export const CurrencyItem = ({ label, isSelected, onPress, style }: ItemProps): 
     <Pressable
       onPress={onPress}
       style={[
-        tw`flex-row items-center justify-center flex-shrink my-1 border rounded-lg border-black-3`,
+        tw`flex-row items-center justify-center flex-shrink border rounded-lg border-black-3`,
         bgColor,
         borderColor,
         style,

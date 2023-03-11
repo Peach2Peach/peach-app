@@ -38,7 +38,7 @@ export const CurrencySelection = ({
         {paymentMethodInfo.currencies.map((currency, i) => (
           <CurrencyItem
             key={currency}
-            style={[i > 0 ? tw`ml-2` : {}]}
+            style={tw`my-1 mr-2`}
             label={currency}
             isSelected={selectedCurrencies.includes(currency)}
             onPress={() =>
