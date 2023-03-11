@@ -685,7 +685,7 @@
   "RETURN_ADDRESS_MISMATCH.title": "return address invalid",
   "RETURN_ADDRESS_MISMATCH.text": "The output of your transaction is invalid. Please contact Peach support.",
   "FEES_TOO_HIGH.text": "The chosen network fees of $0 sats / vB are too high. Please choose a lower amount to be able to transact.",
-  "INSUFFICIENT_FUNDS.text": "You need at least $0 sats but have only $1 available",
+  "INSUFFICIENT_FUNDS.text": "You need at least $0 sats but have only $1 available (after transaction fees).",
   "NO_EMULATOR": "You are not allowed to run this app in an emulator.",
   "NO_EMULATOR.icon": "cpu",
   "NO_EMULATOR.title": "return address invalid",
