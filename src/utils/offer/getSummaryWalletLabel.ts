@@ -3,7 +3,7 @@ import { peachWallet } from '../wallet/setWallet'
 
 type Params = {
   offerWalletLabel: string | undefined
-  address: string
+  address?: string
   customPayoutAddress: string | undefined
   customPayoutAddressLabel: string | undefined
 }

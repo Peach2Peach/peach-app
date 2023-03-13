@@ -1,3 +1,4 @@
+/* eslint-disable max-lines-per-function */
 import i18n from '../../../../src/utils/i18n'
 import { getSummaryWalletLabel } from '../../../../src/utils/offer'
 
@@ -68,6 +69,20 @@ describe('getSummaryWalletLabel', () => {
     const result = getSummaryWalletLabel({
       offerWalletLabel,
       address,
+      customPayoutAddress,
+      customPayoutAddressLabel,
+    })
+
+    expect(result).toEqual(undefined)
+  })
+  it('should return undefined if no address is passed', () => {
+    const offerWalletLabel = undefined
+    const customPayoutAddress = 'customPayoutAddress'
+    const customPayoutAddressLabel = 'customPayoutAddressLabel'
+
+    const result = getSummaryWalletLabel({
+      offerWalletLabel,
+      address: undefined,
       customPayoutAddress,
       customPayoutAddressLabel,
     })
