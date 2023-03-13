@@ -25,8 +25,6 @@ export const BuyOfferSummary = ({ offer, style }: BuyOfferSummaryProps): ReactEl
   const [walletLabel, setWalletLabel] = useState(i18n('loading'))
 
   useEffect(() => {
-    ;(async () => {
-  useEffect(() => {
     setWalletLabel(
       getSummaryWalletLabel({
         offerWalletLabel: offer.walletLabel,
