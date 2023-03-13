@@ -15,10 +15,10 @@ export const DetailInstantSepa = ({ paymentData, copyable, style }: PaymentTempl
       <View>
         {possibleFields
           .filter((field) => paymentData[field])
-          .map((field, i) => (
-            <View key={'paymentDetails-' + field} style={i > 0 && tw`mt-2`}>
+          .map((field) => (
+            <View key={'paymentDetails-' + field}>
               <View style={tw`flex-row items-center justify-end`}>
-                <Text style={tw`subtitle-1`}>{paymentData[field]}</Text>
+                <Text style={tw`leading-normal subtitle-1`}>{paymentData[field]}</Text>
                 {copyable && <CopyAble value={paymentData[field] as string} style={tw`ml-2`} />}
               </View>
             </View>

@@ -30,9 +30,9 @@ export const GeneralPaymentData = ({
         <View>
           {possibleFields
             .filter((field) => paymentData[field])
-            .map((field, i) => (
-              <View key={'paymentDetails-' + field} style={i > 0 && tw`mt-2`}>
-                <View style={tw`flex-row items-center justify-end`}>
+            .map((field) => (
+              <View key={'paymentDetails-' + field}>
+                <View style={tw`flex-row items-center justify-end leading-normal`}>
                   <Text onPress={onInfoPress} style={tw`subtitle-1`}>
                     {paymentData[field]}
                   </Text>
