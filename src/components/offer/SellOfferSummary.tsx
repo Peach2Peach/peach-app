@@ -29,7 +29,7 @@ export const SellOfferSummary = ({ offer, style }: SellOfferSummaryProps): React
     (state) => [state.payoutAddress, state.payoutAddressLabel],
     shallow,
   )
-  const [walletLabel, setWalletLabel] = useState(i18n('loading'))
+  const [walletLabel, setWalletLabel] = useState(offer.walletLabel || i18n('loading'))
 
   useEffect(() => {
     setWalletLabel(
