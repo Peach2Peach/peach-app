@@ -17,6 +17,6 @@ describe('backupAccount', () => {
 
   it('opens share dialog', async () => {
     await backupAccount({ password: 'password', onSuccess: () => {}, onCancel: () => {}, onError: () => {} })
-    expect(openSpy).toBeCalled()
+    expect(openSpy).toHaveBeenCalled()
   })
 })

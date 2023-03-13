@@ -12,7 +12,7 @@ import renderer from 'react-test-renderer'
 jest.useFakeTimers()
 
 describe('App', () => {
-  it('renders correctly', () => {
+  it('renders correctly', async () => {
     renderer.create(<App />)
   })
 })
