@@ -22,7 +22,7 @@ const bitcoinAddressRules = { required: false, bitcoinAddress: true }
 export const useWalletSetup = () => {
   const [, updateOverlay] = useContext(OverlayContext)
   const showErrorBanner = useShowErrorBanner()
-  const walletStore = useWalletState()
+  const walletStore = useWalletState((state) => state)
   const showHelp = useShowHelp('withdrawingFunds')
   const navigation = useNavigation()
   const { refresh, loading } = useSyncWallet()
