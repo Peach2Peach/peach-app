@@ -36,7 +36,7 @@ export const DetailRevolut = ({
             .map((field) => (
               <View key={'paymentDetails-' + field}>
                 <View style={tw`flex-row items-center justify-end`}>
-                  <Text onPress={() => onInfoPress(field)} style={tw`leading-normal subtitle-1`}>
+                  <Text onPress={() => onInfoPress(field)} style={tw`subtitle-1`}>
                     {paymentData[field]}
                   </Text>
                   {copyable && <CopyAble value={paymentData[field]} style={tw`ml-2`} />}
