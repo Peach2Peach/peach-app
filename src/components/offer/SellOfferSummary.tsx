@@ -33,15 +33,15 @@ export const SellOfferSummary = ({ offer, style }: SellOfferSummaryProps): React
 
   useEffect(() => {
     ;(async () => {
-      setWalletLabel(
-        getSummaryWalletLabel({
-          offerWalletLabel: offer.walletLabel,
-          address: offer.returnAddress,
-          customPayoutAddress: payoutAddress,
-          customPayoutAddressLabel: payoutAddressLabel,
-        }) || i18n('offer.summary.customPayoutAddress'),
-      )
-    })()
+  useEffect(() => {
+    setWalletLabel(
+      getSummaryWalletLabel({
+        offerWalletLabel: offer.walletLabel,
+        address: offer.returnAddress,
+        customPayoutAddress: payoutAddress,
+        customPayoutAddressLabel: payoutAddressLabel,
+      }) || i18n('offer.summary.customPayoutAddress'),
+    )
   }, [offer.returnAddress, offer.walletLabel, payoutAddress, payoutAddressLabel])
 
   return (
