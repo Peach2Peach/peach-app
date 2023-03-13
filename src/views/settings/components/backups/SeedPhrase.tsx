@@ -1,13 +1,14 @@
 import React, { ReactElement, useCallback, useState } from 'react'
 import { View } from 'react-native'
+import shallow from 'zustand/shallow'
 
 import { PeachScrollView } from '../../../../components'
 import { PrimaryButton } from '../../../../components/buttons'
 import { HelpIcon } from '../../../../components/icons'
 import { useHeaderSetup, useToggleBoolean } from '../../../../hooks'
 import { useShowHelp } from '../../../../hooks/useShowHelp'
+import { useSettingsStore } from '../../../../store/settingsStore'
 import tw from '../../../../styles/tailwind'
-import { updateSettings } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
 import { KeepPhraseSecure } from './KeepPhraseSecure'
 import { LastSeedBackup } from './LastSeedBackup'
@@ -25,6 +26,11 @@ const screens = [
 export default ({ style }: ComponentProps): ReactElement => {
   const showSeedPhrasePopup = useShowHelp('seedPhrase')
 
+  const [setShowBackupReminder, setLastBackupDate] = useSettingsStore(
+    (state) => [state.setShowBackupReminder, state.setLastBackupDate],
+    shallow,
+  )
+
   useHeaderSetup({
     title: i18n('settings.backups.walletBackup'),
     icons: [{ iconComponent: <HelpIcon />, onPress: showSeedPhrasePopup }],
@@ -33,12 +39,13 @@ export default ({ style }: ComponentProps): ReactElement => {
   const [currentScreenIndex, setCurrentScreenIndex] = useState(0)
   const showNextScreen = useCallback(() => {
     if (screens[currentScreenIndex].id === 'keepPhraseSecure') {
-      updateSettings({ lastSeedBackupDate: new Date().getTime() }, true)
+      setLastBackupDate(Date.now())
+      setShowBackupReminder(false)
     }
     if (currentScreenIndex < screens.length - 1) {
       setCurrentScreenIndex((prev) => prev + 1)
     }
-  }, [currentScreenIndex])
+  }, [currentScreenIndex, setLastBackupDate, setShowBackupReminder])
 
   const goBackToStart = useCallback(() => {
     setCurrentScreenIndex(0)
