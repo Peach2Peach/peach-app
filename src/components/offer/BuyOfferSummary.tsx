@@ -26,15 +26,15 @@ export const BuyOfferSummary = ({ offer, style }: BuyOfferSummaryProps): ReactEl
 
   useEffect(() => {
     ;(async () => {
-      setWalletLabel(
-        getSummaryWalletLabel({
-          offerWalletLabel: offer.walletLabel,
-          address: offer.releaseAddress,
-          customPayoutAddress: payoutAddress,
-          customPayoutAddressLabel: payoutAddressLabel,
-        }) || i18n('offer.summary.customPayoutAddress'),
-      )
-    })()
+  useEffect(() => {
+    setWalletLabel(
+      getSummaryWalletLabel({
+        offerWalletLabel: offer.walletLabel,
+        address: offer.releaseAddress,
+        customPayoutAddress: payoutAddress,
+        customPayoutAddressLabel: payoutAddressLabel,
+      }) || i18n('offer.summary.customPayoutAddress'),
+    )
   }, [offer.releaseAddress, offer.walletLabel, payoutAddress, payoutAddressLabel])
 
   return (
