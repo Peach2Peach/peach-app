@@ -1,5 +1,5 @@
 import { strictEqual } from 'assert'
-import { interpolate } from '../../../../src/utils/math'
+import { interpolate } from '.'
 
 describe('interpolate', () => {
   it('interpolates a number to a new range', () => {

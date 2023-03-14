@@ -1,6 +1,6 @@
 import { strictEqual } from 'assert'
-import { SATSINBTC } from '../../../../src/constants'
-import { ceil } from '../../../../src/utils/math'
+import { SATSINBTC } from '../../constants'
+import { ceil } from '.'
 
 describe('ceil', () => {
   it('ceils values to integers', () => {

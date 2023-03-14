@@ -1,5 +1,5 @@
 import { strictEqual } from 'assert'
-import { sum } from '../../../../src/utils/math'
+import { sum } from '.'
 
 describe('sum', () => {
   it('sums two numbers', () => {

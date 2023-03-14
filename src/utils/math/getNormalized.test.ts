@@ -1,4 +1,4 @@
-import { getNormalized } from '../../../../src/utils/math'
+import { getNormalized } from '.'
 
 describe('getNormalized', () => {
   it('should return 0 if val is negative', () => {

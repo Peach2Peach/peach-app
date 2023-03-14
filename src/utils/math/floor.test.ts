@@ -1,5 +1,5 @@
 import { strictEqual } from 'assert'
-import { floor } from '../../../../src/utils/math'
+import { floor } from '.'
 
 describe('floor', () => {
   it('floors values to integers', () => {

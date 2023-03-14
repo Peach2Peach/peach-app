@@ -1,5 +1,5 @@
 import { strictEqual } from 'assert'
-import { round } from '../../../../src/utils/math'
+import { round } from '.'
 
 describe('round', () => {
   it('rounds values to integers', () => {
