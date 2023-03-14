@@ -1,6 +1,6 @@
-import en from '../i18n/en/text.json'
-import de from '../i18n/de/text.json'
-import de_CH from '../i18n/de-CH/text.json'
+import en from '../../i18n/en/text.json'
+import de from '../../i18n/de/text.json'
+import de_CH from '../../i18n/de-CH/text.json'
 import { ReducerState } from 'react'
 interface Properties {
   [key: string]: string

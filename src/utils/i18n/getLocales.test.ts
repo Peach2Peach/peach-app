@@ -1,5 +1,5 @@
 import { ok } from 'assert'
-import i18n from '../../../../src/utils/i18n'
+import i18n from '../i18n'
 
 describe('getLocales', () => {
   it('returns all registered locales', () => {

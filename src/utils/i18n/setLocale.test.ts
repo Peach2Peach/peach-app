@@ -1,15 +1,15 @@
 import { strictEqual } from 'assert'
-import i18n from '../../../../src/utils/i18n'
+import i18n, { locale } from '../i18n'
 
-describe('getLocale', () => {
+describe('setLocale', () => {
   it('sets and returns the current locale', () => {
-    strictEqual('en', i18n.getLocale())
+    strictEqual('en', locale)
     i18n.setLocale(null, { locale: 'de' })
-    strictEqual('de', i18n.getLocale())
+    strictEqual('de', locale)
   })
 
   it('falls back to en locale if locale is not registered', () => {
     i18n.setLocale(null, { locale: 'ufo' })
-    strictEqual('en', i18n.getLocale())
+    strictEqual('en', locale)
   })
 })
