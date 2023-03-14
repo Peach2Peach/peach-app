@@ -34,7 +34,7 @@ export const DetailPaypal = ({
           {possibleFields
             .filter((field) => paymentData[field])
             .map((field, i) => (
-              <View key={'paymentDetails-' + field} style={i > 0 && tw`mt-2`}>
+              <View key={'paymentDetails-' + field} style={i > 0 && tw`mt-[2px]`}>
                 <View style={tw`flex-row items-center justify-end`}>
                   <Text onPress={() => onInfoPress(field)} style={tw`subtitle-1`}>
                     {paymentData[field]}

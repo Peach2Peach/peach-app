@@ -10,6 +10,7 @@ import { tradeSummaryStore } from '../../store/tradeSummaryStore'
 import { getBuyOfferIdFromContract } from '../contract'
 import { error, info } from '../log'
 import { getNetwork } from './getNetwork'
+import { PeachWalletErrorHandlers } from './PeachWalletErrorHandlers'
 import { walletStore } from './walletStore'
 
 type PeachWalletProps = {
@@ -18,7 +19,7 @@ type PeachWalletProps = {
   gapLimit?: number
 }
 
-export class PeachWallet {
+export class PeachWallet extends PeachWalletErrorHandlers {
   initialized: boolean
 
   synced: boolean
@@ -40,6 +41,7 @@ export class PeachWallet {
   addresses: string[]
 
   constructor ({ wallet, network = NETWORK, gapLimit = 25 }: PeachWalletProps) {
+    super()
     this.wallet = wallet
     this.network = network
     this.gapLimit = gapLimit
@@ -203,7 +205,7 @@ export class PeachWallet {
     const broadcastTxResult = await BdkRn.drainWallet({ address, feeRate })
 
     if (broadcastTxResult.isErr()) {
-      throw broadcastTxResult.error
+      throw PeachWallet.handleBroadcastError(broadcastTxResult, feeRate)
     }
 
     this.syncWallet()
