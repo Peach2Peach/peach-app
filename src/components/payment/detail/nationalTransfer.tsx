@@ -16,24 +16,23 @@ const names: Record<string, string> = {
   'reference': 'contract.summary.reference',
 }
 
-export const DetailNationalTransfer = ({ paymentData, copyable, style }: PaymentTemplateProps): ReactElement => {
-  const InfoBlock = ({ field, name }: {field: string, name: string}) => <View
-    style={[tw`flex-row mt-[2px] flex-wrap justify-between`]}>
-    <Text style={tw`text-black-2`}>{i18n(name)}</Text>
-    <View key={'paymentDetails-' + field}>
-      <View style={tw`flex-row items-center justify-end`}>
-        <Text style={tw`subtitle-1`}>{paymentData[field]}</Text>
+const InfoBlock = ({ field, name, paymentData, copyable }:
+  {field: string, name: string, paymentData: PaymentData, copyable?: boolean}) =>
+  <View style={[tw`flex-row mt-[2px]`]}>
+    <Text style={tw`text-black-2 w-25`}>{i18n(name)}</Text>
+    <View key={'paymentDetails-' + field} style={tw`flex-1`}>
+      <View style={tw`flex-row items-center`}>
+        <Text style={tw`flex-wrap subtitle-1`}>{paymentData[field]}</Text>
         {copyable && <CopyAble value={paymentData[field]} style={tw`w-4 h-4 ml-2`} />}
       </View>
     </View>
   </View>
 
-
-  return <View style={style}>
+export const DetailNationalTransfer = ({ paymentData, copyable, style }: PaymentTemplateProps): ReactElement =>
+  <View style={style}>
     {possibleFields
       .filter((field) => paymentData[field])
       .map((field) => possibleFields.includes('beneficiary')
-          && <InfoBlock field={field} name={names[field]}/>)}
+          && <InfoBlock field={field} name={names[field]} copyable={copyable} paymentData={paymentData}/>)}
   </View>
-}
 export default DetailNationalTransfer
