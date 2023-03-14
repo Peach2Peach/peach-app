@@ -1,5 +1,5 @@
 import { deepStrictEqual } from 'assert'
-import { getAllPaymentMethods } from '../../../../src/utils/paymentMethod'
+import { getAllPaymentMethods } from '.'
 
 describe('getAllPaymentMethods', () => {
   const paymentCategories: PaymentCategories = {

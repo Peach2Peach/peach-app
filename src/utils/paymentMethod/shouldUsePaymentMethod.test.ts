@@ -1,4 +1,4 @@
-import { shouldUsePaymentMethod } from '../../../../src/utils/paymentMethod'
+import { shouldUsePaymentMethod } from '.'
 
 describe('shouldUsePaymentMethod', () => {
   const paymentCategories: PaymentCategories = {

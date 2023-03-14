@@ -1,6 +1,11 @@
 import { ok } from 'assert'
-import { somePaymentDataExists } from '../../../../src/utils/paymentMethod'
-import { invalidSEPADataCurrency, missingSEPAData, validCashData, validSEPAData } from '../../data/paymentData'
+import { somePaymentDataExists } from '.'
+import {
+  invalidSEPADataCurrency,
+  missingSEPAData,
+  validCashData,
+  validSEPAData,
+} from '../../../tests/unit/data/paymentData'
 
 describe('somePaymentDataExists', () => {
   it('checks if payment method is allowed for a given rcurrency', () => {

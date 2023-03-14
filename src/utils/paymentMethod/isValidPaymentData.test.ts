@@ -1,6 +1,11 @@
 import { ok } from 'assert'
-import { isValidPaymentData } from '../../../../src/utils/paymentMethod'
-import { invalidSEPADataCurrency, missingSEPAData, validCashData, validSEPAData } from '../../data/paymentData'
+import { isValidPaymentData } from '.'
+import {
+  invalidSEPADataCurrency,
+  missingSEPAData,
+  validCashData,
+  validSEPAData,
+} from '../../../tests/unit/data/paymentData'
 
 describe('isValidPaymentData', () => {
   it('checks if at least non metadata payment data exists', () => {

@@ -1,12 +1,12 @@
-import { hasMoPsInCommon } from '../../../../src/utils/paymentMethod'
+import { hasMoPsInCommon } from '.'
 
 describe('hasMoPsInCommon', () => {
   test('should return true if both means of payment have common values', () => {
-    const mopsA = {
+    const mopsA: MeansOfPayment = {
       CHF: ['twint'],
       EUR: ['sepa', 'paypal'],
     }
-    const mopsB = {
+    const mopsB: MeansOfPayment = {
       CHF: ['twint'],
       EUR: ['sepa', 'paypal'],
     }
@@ -15,11 +15,11 @@ describe('hasMoPsInCommon', () => {
   })
 
   test('should return false if both means of payment have no common values', () => {
-    const mopsA = {
+    const mopsA: MeansOfPayment = {
       CHF: ['twint'],
       EUR: ['sepa', 'paypal'],
     }
-    const mopsB = {
+    const mopsB: MeansOfPayment = {
       CHF: ['wise'],
       EUR: ['revolut'],
     }

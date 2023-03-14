@@ -1,6 +1,6 @@
 import { deepStrictEqual } from 'assert'
-import { getPaymentMethods } from '../../../../src/utils/paymentMethod'
-import { mopsA, mopsB, mopsC, mopsD } from '../../data/meansOfPaymentData'
+import { getPaymentMethods } from '.'
+import { mopsA, mopsB, mopsC, mopsD } from '../../../tests/unit/data/meansOfPaymentData'
 
 describe('getPaymentMethods', () => {
   it('gets all payment methods defined in means of payment', () => {

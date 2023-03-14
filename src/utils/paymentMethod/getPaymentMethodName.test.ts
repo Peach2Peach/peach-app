@@ -1,8 +1,8 @@
-import { getEventName } from '../../../../src/utils/events'
-import { getPaymentMethodName } from '../../../../src/utils/paymentMethod'
-import { sessionStorage } from '../../../../src/utils/session'
+import { getEventName } from '../events'
+import { getPaymentMethodName } from '.'
+import { sessionStorage } from '../session'
 
-jest.mock('../../../../src/utils/events', () => ({
+jest.mock('../events', () => ({
   getEventName: jest.fn(),
 }))
 

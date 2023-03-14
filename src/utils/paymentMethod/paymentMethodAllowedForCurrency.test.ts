@@ -1,5 +1,5 @@
 import { ok } from 'assert'
-import { paymentMethodAllowedForCurrency } from '../../../../src/utils/paymentMethod'
+import { paymentMethodAllowedForCurrency } from '.'
 
 describe('paymentMethodAllowedForCurrency', () => {
   it('checks if payment method is allowed for a given rcurrency', () => {
