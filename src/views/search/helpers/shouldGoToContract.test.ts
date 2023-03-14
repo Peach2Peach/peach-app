@@ -1,4 +1,4 @@
-import { shouldGoToContract } from '../../../../src/views/search/shouldGoToContract'
+import { shouldGoToContract } from './shouldGoToContract'
 
 describe('shouldGoToContract', () => {
   it('should return true if the error has a contractId in the details', () => {
