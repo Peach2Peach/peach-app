@@ -1,17 +1,7 @@
-import { DetailNationalTransfer } from './detail/nationalTransfer'
 import { NATIONALTRANSFERCOUNTRIES } from './../../constants'
-import { DetailMobilePay } from './detail/mobilePay'
-import { DetailVipps } from './detail/vipps'
-import { DetailFasterPayments } from './detail/fasterPayments'
-import { DetailInstantSepa } from './detail/instantSepa'
 import { ReactElement } from 'react'
 import { GIFTCARDCOUNTRIES } from '../../constants'
 import GeneralPaymentDetails from './detail/generalPaymentDetails'
-import DetailPaypal from './detail/paypal'
-import DetailRevolut from './detail/revolut'
-import { DetailSEPA } from './detail/sepa'
-import DetailADVCash from './detail/advcash'
-import DetailBlik from './detail/blik'
 
 export type PaymentTemplateProps = ComponentProps & {
   paymentData: PaymentData
@@ -27,27 +17,44 @@ export type PaymentDetailTemplates = {
 }
 
 export const paymentDetailTemplates: PaymentDetailTemplates = {
-  sepa: DetailSEPA,
-  fasterPayments: DetailFasterPayments,
-  instantSepa: DetailInstantSepa,
-  paypal: DetailPaypal,
-  revolut: DetailRevolut,
-  advcash: DetailADVCash,
-  blik: DetailBlik,
+  sepa: GeneralPaymentDetails,
+  fasterPayments: GeneralPaymentDetails,
+  instantSepa: GeneralPaymentDetails,
+  paypal: GeneralPaymentDetails,
+  revolut: GeneralPaymentDetails,
+  advcash: GeneralPaymentDetails,
+  blik: GeneralPaymentDetails,
   wise: GeneralPaymentDetails,
   twint: GeneralPaymentDetails,
   swish: GeneralPaymentDetails,
   satispay: GeneralPaymentDetails,
   mbWay: GeneralPaymentDetails,
   bizum: GeneralPaymentDetails,
-  mobilePay: DetailMobilePay,
-  vipps: DetailVipps,
+  mobilePay: GeneralPaymentDetails,
+  vipps: GeneralPaymentDetails,
   'giftCard.amazon': GeneralPaymentDetails,
 }
-
+export const possiblePaymentFields: Partial<Record<PaymentMethod, string[]>> = {
+  sepa: ['beneficiary', 'iban', 'bic'],
+  fasterPayments: ['beneficiary', 'ukBankAccount', 'ukSortCode'],
+  instantSepa: ['beneficiary', 'iban', 'bic'],
+  paypal: ['phone', 'userName', 'email'],
+  revolut: ['phone', 'userName', 'email'],
+  advcash: ['wallet', 'email'],
+  blik: ['beneficiary', 'phone'],
+  wise: ['beneficiary', 'phone', 'userName', 'email', 'iban', 'bic', 'address'],
+  twint: ['beneficiary', 'phone', 'userName', 'email', 'iban', 'bic', 'address'],
+  swish: ['beneficiary', 'phone', 'userName', 'email', 'iban', 'bic', 'address'],
+  satispay: ['beneficiary', 'phone', 'userName', 'email', 'iban', 'bic', 'address'],
+  mbWay: ['beneficiary', 'phone', 'userName', 'email', 'iban', 'bic', 'address'],
+  bizum: ['beneficiary', 'phone', 'userName', 'email', 'iban', 'bic', 'address'],
+  mobilePay: ['beneficiary', 'phone'],
+  vipps: ['beneficiary', 'phone'],
+  'giftCard.amazon': ['beneficiary', 'phone', 'userName', 'email', 'iban', 'bic', 'address'],
+}
 GIFTCARDCOUNTRIES.forEach(
   (c) => (paymentDetailTemplates[('giftCard.amazon.' + c) as PaymentMethod] = GeneralPaymentDetails),
 )
 NATIONALTRANSFERCOUNTRIES.forEach(
-  (c) => (paymentDetailTemplates[('nationalTransfer' + c) as PaymentMethod] = DetailNationalTransfer),
+  (c) => (paymentDetailTemplates[('nationalTransfer' + c) as PaymentMethod] = GeneralPaymentDetails),
 )
