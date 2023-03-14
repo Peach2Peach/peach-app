@@ -1,4 +1,4 @@
-import { sleep } from '../../../../src/utils/performance'
+import { sleep } from '.'
 
 describe('sleep function', () => {
   it('should wait for the specified amount of time', async () => {
