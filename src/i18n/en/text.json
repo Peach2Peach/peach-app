@@ -579,7 +579,7 @@
   "refund.text.peachWallet": "The escrow has been refunded to your Peach wallet",
   "contract.subtitle": "accepted offer for",
   "contract.willPayYou": "will pay you",
-  "contract.youShouldPay": "you should pay",
+  "contract.amount": "amount",
   "contract.payment.to": "to",
   "contract.payment.at": "at",
   "contract.payment.notYetSent": "payment not yet sent",
