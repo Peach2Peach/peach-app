@@ -2,6 +2,7 @@ import React from 'react'
 import { useConfigStore } from '../../../store/configStore'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
+import { round } from '../../../utils/math'
 import { SatsFormat, Text } from '../../text'
 import { Price } from '../Price'
 
@@ -12,6 +13,7 @@ type PriceInfoProps = {
 
 export const PriceInfo = ({ match, offer }: PriceInfoProps) => {
   const peachFee = useConfigStore((state) => state.peachFee)
+  const premiumWithFeeIncluded = match.premium + round(Math.ceil(match.amount * peachFee) / match.amount, 2) * 100
   return (
     <>
       <SatsFormat
@@ -25,9 +27,12 @@ export const PriceInfo = ({ match, offer }: PriceInfoProps) => {
         <Price {...{ match, offer }} textStyle={tw`subtitle-1`} />
         <Text style={tw`text-black-2`}>
           {' '}
-          {match.premium === 0
+          {premiumWithFeeIncluded === 0
             ? i18n('match.atMarketPrice')
-            : i18n(match.premium > 0 ? 'match.premium' : 'match.discount', String(Math.abs(match.premium)))}
+            : i18n(
+              premiumWithFeeIncluded > 0 ? 'match.premium' : 'match.discount',
+              String(Math.abs(premiumWithFeeIncluded)),
+            )}
         </Text>
       </Text>
     </>
