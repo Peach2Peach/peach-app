@@ -1,6 +1,6 @@
 import { ok } from 'assert'
-import { isFundingCanceled } from '../../../../../src/utils/offer/status'
-import { sellOffer } from '../../../data/offerData'
+import { isFundingCanceled } from '.'
+import { sellOffer } from '../../../../tests/unit/data/offerData'
 
 describe('isFundingCanceled', () => {
   it('should check if escrow is canceled', () => {

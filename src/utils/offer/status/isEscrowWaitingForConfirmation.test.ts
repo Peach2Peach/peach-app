@@ -1,6 +1,6 @@
 import { ok } from 'assert'
-import { isEscrowWaitingForConfirmation } from '../../../../../src/utils/offer/status'
-import { sellOffer } from '../../../data/offerData'
+import { isEscrowWaitingForConfirmation } from '.'
+import { sellOffer } from '../../../../tests/unit/data/offerData'
 
 describe('isEscrowWaitingForConfirmation', () => {
   it('should check if escrow is waiting to be confirmed', () => {

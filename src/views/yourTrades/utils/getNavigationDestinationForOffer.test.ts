@@ -1,12 +1,12 @@
-import { getOffer } from '../../../../src/utils/offer'
-import { getNavigationDestinationForOffer } from '../../../../src/views/yourTrades/utils'
+import { getOffer } from '../../../utils/offer'
+import { getNavigationDestinationForOffer } from '.'
 
-jest.mock('../../../../src/utils/offer', () => ({
+jest.mock('../../../utils/offer', () => ({
   getOffer: jest.fn(),
 }))
 
 const shouldGoToOfferSummaryMock = jest.fn(() => false)
-jest.mock('../../../../src/views/yourTrades/utils/shouldGoToOfferSummary', () => ({
+jest.mock('../../../views/yourTrades/utils/shouldGoToOfferSummary', () => ({
   shouldGoToOfferSummary: () => shouldGoToOfferSummaryMock(),
 }))
 

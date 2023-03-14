@@ -1,6 +1,6 @@
 import { ok } from 'assert'
-import { isWronglyFunded } from '../../../../../src/utils/offer/status'
-import { sellOffer } from '../../../data/offerData'
+import { isWronglyFunded } from '.'
+import { sellOffer } from '../../../../tests/unit/data/offerData'
 
 describe('isWronglyFunded', () => {
   it('should check offer has been wrongly funded', () => {

@@ -1,6 +1,6 @@
 import { ok } from 'assert'
-import { isOfferCanceled } from '../../../../../src/utils/offer/status'
-import { buyOffer, sellOffer } from '../../../data/offerData'
+import { isOfferCanceled } from '.'
+import { buyOffer, sellOffer } from '../../../../tests/unit/data/offerData'
 
 describe('isOfferCanceled', () => {
   it('should check if offer is canceled', () => {

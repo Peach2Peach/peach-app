@@ -1,6 +1,6 @@
 import { ok } from 'assert'
-import { isFunded } from '../../../../../src/utils/offer/status'
-import { sellOffer } from '../../../data/offerData'
+import { isFunded } from '.'
+import { sellOffer } from '../../../../tests/unit/data/offerData'
 
 describe('isFunded', () => {
   it('should check if escrow is funded', () => {

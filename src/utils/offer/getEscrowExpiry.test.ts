@@ -1,21 +1,21 @@
 import { deepStrictEqual } from 'assert'
-import { getOfferExpiry } from '../../../../src/utils/offer'
-import * as offerData from '../../data/offerData'
+import { getEscrowExpiry } from '.'
+import * as offerData from '../../../tests/unit/data/offerData'
 
-describe('getOfferExpiry', () => {
+describe('getEscrowExpiry', () => {
   it('should return the offer expiry', async () => {
     const now = new Date()
     const expectedExpiry = new Date()
-    expectedExpiry.setMilliseconds(+161100000)
+    expectedExpiry.setMilliseconds(+322200000)
 
-    const offerExpiry = await getOfferExpiry({
+    const offerExpiry = await getEscrowExpiry({
       ...offerData.sellOffer,
       publishingDate: now,
     })
 
     deepStrictEqual(offerExpiry, {
       date: expectedExpiry,
-      ttl: 161100000,
+      ttl: 322200000,
       isExpired: false,
     })
   })
@@ -23,9 +23,9 @@ describe('getOfferExpiry', () => {
     const tenDaysAgo = new Date()
     tenDaysAgo.setDate(-10)
     const expectedExpiry = new Date(tenDaysAgo)
-    expectedExpiry.setMilliseconds(+161100000)
+    expectedExpiry.setMilliseconds(+322200000)
 
-    const offerExpiry = await getOfferExpiry({
+    const offerExpiry = await getEscrowExpiry({
       ...offerData.sellOffer,
       creationDate: tenDaysAgo,
       publishingDate: tenDaysAgo,
@@ -33,7 +33,7 @@ describe('getOfferExpiry', () => {
 
     deepStrictEqual(offerExpiry, {
       date: expectedExpiry,
-      ttl: 161100000,
+      ttl: 322200000,
       isExpired: true,
     })
   })

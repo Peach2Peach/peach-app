@@ -1,6 +1,6 @@
 import { ok } from 'assert'
-import { hasSeenAllMatches } from '../../../../../src/utils/offer/status'
-import { sellOffer } from '../../../data/offerData'
+import { hasSeenAllMatches } from '.'
+import { sellOffer } from '../../../../tests/unit/data/offerData'
 
 describe('hasSeenAllMatches', () => {
   it('should check if offer has seen all matches', () => {

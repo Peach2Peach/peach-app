@@ -1,6 +1,6 @@
 import { ok } from 'assert'
-import { requiresDisputeResultAcknowledgement } from '../../../../../src/utils/offer/status'
-import { contract } from '../../../data/contractData'
+import { requiresDisputeResultAcknowledgement } from '.'
+import { contract } from '../../../../tests/unit/data/contractData'
 
 describe('requiresDisputeResultAcknowledgement', () => {
   it('should check if dispute result has been acknowledged', () => {

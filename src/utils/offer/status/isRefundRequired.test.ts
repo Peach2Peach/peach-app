@@ -1,7 +1,7 @@
 import { ok } from 'assert'
-import { isRefundRequired } from '../../../../../src/utils/offer/status'
-import { contract } from '../../../data/contractData'
-import { buyOffer, sellOffer } from '../../../data/offerData'
+import { isRefundRequired } from '.'
+import { contract } from '../../../../tests/unit/data/contractData'
+import { buyOffer, sellOffer } from '../../../../tests/unit/data/offerData'
 
 // eslint-disable-next-line max-lines-per-function
 describe('isRefundRequired', () => {

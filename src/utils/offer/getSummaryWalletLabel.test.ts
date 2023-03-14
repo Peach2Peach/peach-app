@@ -1,9 +1,9 @@
 /* eslint-disable max-lines-per-function */
-import i18n from '../../../../src/utils/i18n'
-import { getSummaryWalletLabel } from '../../../../src/utils/offer'
+import i18n from '../i18n'
+import { getSummaryWalletLabel } from '.'
 
 const findKeyPairByAddressMock = jest.fn().mockReturnValue(false)
-jest.mock('../../../../src/utils/wallet/setWallet', () => ({
+jest.mock('../wallet/setWallet', () => ({
   peachWallet: {
     findKeyPairByAddress: (address: string) => findKeyPairByAddressMock(address),
   },
