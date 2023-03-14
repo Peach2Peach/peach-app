@@ -15,8 +15,8 @@ export const DetailMobilePay = ({ paymentData, copyable, style }: PaymentTemplat
       <View>
         {possibleFields
           .filter((field) => paymentData[field])
-          .map((field) => (
-            <View key={'paymentDetails-' + field}>
+          .map((field, i) => (
+            <View key={'paymentDetails-' + field} style={i > 0 && tw`mt-[2px]`}>
               <View style={tw`flex-row items-center justify-end`}>
                 <Text style={tw`subtitle-1`}>{paymentData[field]}</Text>
                 {copyable && <CopyAble value={paymentData[field] as string} style={tw`ml-2`} />}
