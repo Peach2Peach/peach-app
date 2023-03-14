@@ -1,4 +1,4 @@
-import { error } from '../../../../src/utils/log'
+import { error } from './error'
 
 describe('error', () => {
   const errorSpy = jest.spyOn(console, 'error')

@@ -1,4 +1,4 @@
-import { log } from '../../../../src/utils/log'
+import { log } from './log'
 
 describe('log', () => {
   const logSpy = jest.spyOn(console, 'log')
