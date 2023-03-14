@@ -3,7 +3,7 @@
     <string name="notification.title.offer.escrowFunded">Escrow funded</string>
     <string name="notification.body.offer.escrowFunded">The escrow has been funded and your offer is published.</string>
     <string name="notification.title.offer.fundingAmountDifferent">Different amount funded</string>
-    <string name="notification.body.offer.fundingAmountDifferent">Escrow has been funded with a different amount. Continue with your offer or get refunded!</string>
+    <string name="notification.body.offer.fundingAmountDifferent">The escrow has been funded with a different amount. Continue with your offer or get refunded!</string>
     <string name="notification.title.offer.wrongFundingAmount">Escrow not funded</string>
     <string name="notification.body.offer.wrongFundingAmount">The amount you sent to the escrow is outside the trading limits. You\'ll be refunded, please re-create your offer.</string>
     <string name="notification.title.offer.notFunded">Offer canceled</string>
