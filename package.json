@@ -98,9 +98,9 @@
     "react-native-web": "0.17.0",
     "react-native-webview": "^11.26.1",
     "react-scripts": "5.0.0",
-    "readable-stream": "^3.6.0",
+    "readable-stream": "^1.0.33",
     "rn-nodeify": "^10.3.0",
-    "stream-browserify": "^3.0.0",
+    "stream-browserify": "^1.0.0",
     "tiny-secp256k1": "^1.1.6",
     "twrnc": "^3.4.1",
     "typescript": "^4.9.3",
@@ -169,5 +169,16 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "browser": {
+    "crypto": "react-native-crypto",
+    "path": "path-browserify",
+    "fs": "react-native-level-fs",
+    "_stream_transform": "readable-stream/transform",
+    "_stream_readable": "readable-stream/readable",
+    "_stream_writable": "readable-stream/writable",
+    "_stream_duplex": "readable-stream/duplex",
+    "_stream_passthrough": "readable-stream/passthrough",
+    "stream": "stream-browserify"
   }
 }
