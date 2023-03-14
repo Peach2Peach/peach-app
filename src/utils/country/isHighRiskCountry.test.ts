@@ -1,6 +1,6 @@
-import { isHighRiskCountry } from '../../../../src/utils/country'
+import { isHighRiskCountry } from '.'
 
-jest.mock('../../../../src/utils/country/countryMap', () => ({
+jest.mock('./countryMap', () => ({
   countryMap: {
     CH: {
       highRisk: false,

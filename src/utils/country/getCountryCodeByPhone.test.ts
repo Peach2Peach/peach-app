@@ -1,6 +1,6 @@
-import { getCountryCodeByPhone } from '../../../../src/utils/country'
+import { getCountryCodeByPhone } from '.'
 
-jest.mock('../../../../src/utils/country/countryMap', () => ({
+jest.mock('./countryMap', () => ({
   countryMap: {
     CH: {
       dialCode: '+41',
