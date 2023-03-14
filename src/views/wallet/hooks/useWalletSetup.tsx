@@ -12,9 +12,12 @@ import tw from '../../../styles/tailwind'
 import { account } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
 import { getFeeEstimate } from '../../../utils/peachAPI'
+import { parseError } from '../../../utils/system'
 import { isNumber } from '../../../utils/validation'
 import { peachWallet } from '../../../utils/wallet/setWallet'
+import { InsufficientFundsError } from '../../../utils/wallet/types'
 import { useWalletState } from '../../../utils/wallet/walletStore'
+import { parseBroadcastError } from '../helpers/parseBroadcastError'
 import { useSyncWallet } from './useSyncWallet'
 
 const bitcoinAddressRules = { required: false, bitcoinAddress: true }
@@ -22,7 +25,7 @@ const bitcoinAddressRules = { required: false, bitcoinAddress: true }
 export const useWalletSetup = () => {
   const [, updateOverlay] = useContext(OverlayContext)
   const showErrorBanner = useShowErrorBanner()
-  const walletStore = useWalletState()
+  const walletStore = useWalletState((state) => state)
   const showHelp = useShowHelp('withdrawingFunds')
   const navigation = useNavigation()
   const { refresh, loading } = useSyncWallet()
@@ -51,8 +54,15 @@ export const useWalletSetup = () => {
       return
     }
 
-    const txId = await peachWallet.withdrawAll(address, feeRate)
-    if (txId) setAddress('')
+    try {
+      const txId = await peachWallet.withdrawAll(address, feeRate)
+      if (txId) setAddress('')
+    } catch (e) {
+      const [err, cause] = e as [Error, string | InsufficientFundsError]
+      const error = parseError(err)
+      const bodyArgs = parseBroadcastError(err, cause)
+      showErrorBanner(error, bodyArgs)
+    }
   }
 
   const openWithdrawalConfirmation = () =>

@@ -10,10 +10,11 @@ export const useShowErrorBanner = () => {
   const [, updateMessage] = useContext(MessageContext)
 
   const showErrorBanner = useCallback(
-    (err?: Error | string | null) => {
+    (err?: Error | string | null, bodyArgs?: string[]) => {
       error('Error', err)
       updateMessage({
         msgKey: err ? parseError(err) : 'GENERAL_ERROR',
+        bodyArgs,
         level: 'ERROR',
         action: {
           callback: () => navigation.navigate('contact'),

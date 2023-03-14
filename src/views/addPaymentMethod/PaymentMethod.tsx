@@ -92,6 +92,7 @@ export default ({ currency, paymentMethod, setPaymentMethod, next }: PaymentCate
     const applicablePaymentMethods = PAYMENTCATEGORIES[category]
       .filter((method) => paymentMethodAllowedForCurrency(method, currency))
       .filter((method) => category !== 'giftCard' || method.split('.').pop()?.length !== 2)
+      .filter((method) => !(category === 'onlineWallet' && method === 'mobilePay' && currency === 'EUR'))
 
     return updateDrawer({
       title: i18n(`paymentCategory.${category}`),

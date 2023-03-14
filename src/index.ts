@@ -4,7 +4,7 @@ import { AppRegistry, LogBox } from 'react-native'
 import shallow from 'zustand/shallow'
 import App from './App'
 import { name as appName } from './app.json'
-import { notificationStore } from './components/footer/notificationsStore'
+import { useNotificationStore } from './components/footer/notificationsStore'
 import { error, info } from './utils/log'
 import { updateUser } from './utils/peachAPI'
 import { isIOS, isProduction, parseError } from './utils/system'
@@ -28,7 +28,7 @@ LogBox.ignoreAllLogs(isProduction())
 
 try {
   messaging().setBackgroundMessageHandler(async (remoteMessage) => {
-    const [notifications, setNotifications] = notificationStore(
+    const [notifications, setNotifications] = useNotificationStore(
       (state) => [state.notifications, state.setNotifications],
       shallow,
     )

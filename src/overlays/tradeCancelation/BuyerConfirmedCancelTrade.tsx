@@ -1,12 +1,20 @@
 import React, { ReactElement } from 'react'
+import { View } from 'react-native'
 import { Text } from '../../components'
-import { contractIdToHex } from '../../utils/contract'
+import { getSellOfferFromContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
-import { thousands } from '../../utils/string'
+import { getEscrowExpiry } from '../../utils/offer'
 
 type BuyerConfirmedCancelTradeProps = {
   contract: Contract
 }
-export const BuyerConfirmedCancelTrade = ({ contract }: BuyerConfirmedCancelTradeProps): ReactElement => (
-  <Text>{i18n('contract.cancel.buyer.canceled.text', contractIdToHex(contract.id), thousands(contract.amount))}</Text>
-)
+export const BuyerConfirmedCancelTrade = ({ contract }: BuyerConfirmedCancelTradeProps): ReactElement => {
+  const sellOffer = getSellOfferFromContract(contract)
+  const expiry = getEscrowExpiry(sellOffer)
+  return (
+    <View>
+      <Text>{i18n('contract.cancel.buyer.canceled.text.1')}</Text>
+      {!expiry.isExpired && <Text>{i18n('contract.cancel.buyer.canceled.text.2')}</Text>}
+    </View>
+  )
+}

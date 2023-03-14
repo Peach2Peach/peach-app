@@ -34,11 +34,11 @@ export const CurrencySelection = ({
       <View style={tw`flex-row items-center`}>
         <Text style={tw`input-label`}>{i18n('form.additionalCurrencies')}</Text>
       </View>
-      <View style={tw`flex-row mt-1`}>
+      <View style={tw`flex-row flex-wrap`}>
         {paymentMethodInfo.currencies.map((currency, i) => (
           <CurrencyItem
             key={currency}
-            style={[i > 0 ? tw`ml-2` : {}]}
+            style={tw`my-1 mr-2`}
             label={currency}
             isSelected={selectedCurrencies.includes(currency)}
             onPress={() =>
