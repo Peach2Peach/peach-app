@@ -1,12 +1,12 @@
 /* eslint-disable max-lines-per-function */
 import { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
-import { getContract } from '../../../../src/utils/contract'
-import { handlePushNotification } from '../../../../src/utils/navigation'
-import { getOfferDetails } from '../../../../src/utils/peachAPI'
-import { contract } from '../../data/contractData'
-import { sellOffer } from '../../data/offerData'
+import { getContract } from '../contract'
+import { handlePushNotification } from '.'
+import { getOfferDetails } from '../peachAPI'
+import { contract } from '../../../tests/unit/data/contractData'
+import { sellOffer } from '../../../tests/unit/data/offerData'
 
-jest.mock('../../../../src/utils/contract', () => ({
+jest.mock('../contract', () => ({
   getContract: jest.fn(),
 }))
 describe('handlePushNotification', () => {

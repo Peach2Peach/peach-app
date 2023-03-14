@@ -1,4 +1,4 @@
-import { shouldGoToYourTradesSell } from '../../../../src/utils/navigation/shouldGoToYourTradesSell'
+import { shouldGoToYourTradesSell } from './shouldGoToYourTradesSell'
 
 describe('shouldGoToYourTradesSell', () => {
   it('should return false if offerId is not defined', () => {

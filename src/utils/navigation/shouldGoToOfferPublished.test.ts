@@ -1,4 +1,4 @@
-import { shouldGoToOfferPublished } from '../../../../src/utils/navigation/shouldGoToOfferPublished'
+import { shouldGoToOfferPublished } from './shouldGoToOfferPublished'
 
 describe('shouldGoToOfferPublished', () => {
   it('should return true if messageType is offer.escrowFunded', () => {

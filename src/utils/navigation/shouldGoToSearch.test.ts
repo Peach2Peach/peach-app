@@ -1,4 +1,4 @@
-import { shouldGoToSearch } from '../../../../src/utils/navigation/shouldGoToSearch'
+import { shouldGoToSearch } from './shouldGoToSearch'
 
 describe('shouldGoToSearch', () => {
   it('should return true if messageType is offer.matchBuyer', () => {

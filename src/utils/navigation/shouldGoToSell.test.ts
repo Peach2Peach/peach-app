@@ -1,4 +1,4 @@
-import { shouldGoToSell } from '../../../../src/utils/navigation/shouldGoToSell'
+import { shouldGoToSell } from './shouldGoToSell'
 
 describe('shouldGoToSell', () => {
   it('should return true if messageType is offer.notFunded and offerId is defined', () => {

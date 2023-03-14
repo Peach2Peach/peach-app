@@ -1,4 +1,4 @@
-import { shouldGoToContract } from '../../../../src/utils/navigation/shouldGoToContract'
+import { shouldGoToContract } from './shouldGoToContract'
 
 describe('shouldGoToContract', () => {
   it('should return true if contractId is present and isChat is false', () => {
