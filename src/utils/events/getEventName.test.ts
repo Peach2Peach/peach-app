@@ -1,5 +1,5 @@
-import { meetupEventsStore } from '../../../../src/store/meetupEventsStore'
-import { getEventName } from '../../../../src/utils/events'
+import { meetupEventsStore } from '../../store/meetupEventsStore'
+import { getEventName } from '.'
 
 describe('getEventName', () => {
   meetupEventsStore.getState().meetupEvents = [

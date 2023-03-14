@@ -1,4 +1,4 @@
-import { structureEventsByCountry } from '../../../../src/utils/events'
+import { structureEventsByCountry } from '.'
 
 describe('structureEventsByCountry', () => {
   it('correctly structures events by country', () => {
