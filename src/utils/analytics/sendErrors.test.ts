@@ -1,9 +1,9 @@
 import { isAirplaneModeSync } from 'react-native-device-info'
-import { sendErrors } from '../../../../src/utils/analytics'
-import { appendFile } from '../../../../src/utils/file'
-import { recordErrorMock } from '../../prepare'
+import { sendErrors } from '.'
+import { appendFile } from '../file'
+import { recordErrorMock } from '../../../tests/unit/prepare'
 
-jest.mock('../../../../src/utils/file', () => ({
+jest.mock('../file', () => ({
   appendFile: jest.fn(),
 }))
 

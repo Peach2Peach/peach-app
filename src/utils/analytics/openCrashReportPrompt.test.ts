@@ -1,7 +1,7 @@
 import { Alert, Linking } from 'react-native'
-import { openCrashReportPrompt } from '../../../../src/utils/analytics'
-import { deleteUnsentReports } from '../../../../src/utils/analytics/deleteUnsentReports'
-import { sendErrors } from '../../../../src/utils/analytics/sendErrors'
+import { openCrashReportPrompt } from '.'
+import { deleteUnsentReports } from './deleteUnsentReports'
+import { sendErrors } from './sendErrors'
 
 jest.mock('react-native', () => ({
   Alert: {
@@ -11,11 +11,11 @@ jest.mock('react-native', () => ({
     openURL: jest.fn(),
   },
 }))
-jest.mock('../../../../src/utils/analytics/deleteUnsentReports', () => ({
-  ...jest.requireActual('../../../../src/utils/analytics/deleteUnsentReports'),
+jest.mock('./deleteUnsentReports', () => ({
+  ...jest.requireActual('./deleteUnsentReports'),
   deleteUnsentReports: jest.fn(),
 }))
-jest.mock('../../../../src/utils/analytics/sendErrors', () => ({
+jest.mock('./sendErrors', () => ({
   sendErrors: jest.fn(),
 }))
 
