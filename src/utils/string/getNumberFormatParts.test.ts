@@ -1,5 +1,5 @@
 /* eslint-disable no-loss-of-precision */
-import { getNumberFormatParts } from '../../../../src/utils/string'
+import { getNumberFormatParts } from '.'
 
 describe('getNumberFormatParts', () => {
   it('should convert numbers to number string parts with precision of 8 decimals after the comma', () => {

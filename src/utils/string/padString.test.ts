@@ -1,5 +1,5 @@
 import { strictEqual } from 'assert'
-import { padString } from '../../../../src/utils/string'
+import { padString } from '.'
 
 describe('padString', () => {
   it('pads string to a specific length', () => {

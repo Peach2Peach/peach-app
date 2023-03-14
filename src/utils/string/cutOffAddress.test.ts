@@ -1,4 +1,4 @@
-import { cutOffAddress } from '../../../../src/utils/string/cutOffAddress'
+import { cutOffAddress } from './cutOffAddress'
 
 describe('cutOffAddress', () => {
   it('should return the same address if it is shorter than 15 characters', () => {

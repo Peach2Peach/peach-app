@@ -1,5 +1,5 @@
 import { strictEqual } from 'assert'
-import { thousands } from '../../../../src/utils/string'
+import { thousands } from '.'
 
 describe('thousands', () => {
   it('groups a number into thousands', () => {

@@ -1,4 +1,4 @@
-import { priceFormat } from '../../../../src/utils/string'
+import { priceFormat } from '.'
 
 describe('priceFormat', () => {
   it('formats the amount correctly', () => {

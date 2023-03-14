@@ -1,5 +1,5 @@
 import { strictEqual } from 'assert'
-import { msToTimer } from '../../../../src/utils/string'
+import { msToTimer } from '.'
 
 describe('msToTimer', () => {
   it('turns ms to a human readable format', () => {

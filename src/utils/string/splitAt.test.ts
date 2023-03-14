@@ -1,5 +1,5 @@
 import { deepStrictEqual } from 'assert'
-import { splitAt } from '../../../../src/utils/string'
+import { splitAt } from '.'
 
 describe('splitAt', () => {
   it('splits a string into two at a given index', () => {
