@@ -1,8 +1,8 @@
 import { ok } from 'assert'
-import { getOS } from '../../../../src/utils/system/getOS'
-import { isAndroid } from '../../../../src/utils/system/isAndroid'
+import { getOS } from './getOS'
+import { isAndroid } from './isAndroid'
 
-jest.mock('../../../../src/utils/system/getOS', () => ({
+jest.mock('./getOS', () => ({
   getOS: jest.fn(),
 }))
 

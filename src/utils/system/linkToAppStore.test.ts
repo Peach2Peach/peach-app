@@ -1,11 +1,11 @@
-import { linkToAppStore } from '../../../../src/utils/system/linkToAppStore'
-import { linkToAppStoreAndroid } from '../../../../src/utils/system/linkToAppStoreAndroid'
-import { linkToAppStoreIOS } from '../../../../src/utils/system/linkToAppStoreIOS'
-import { isIOS } from '../../../../src/utils/system/isIOS'
+import { linkToAppStore } from './linkToAppStore'
+import { linkToAppStoreAndroid } from './linkToAppStoreAndroid'
+import { linkToAppStoreIOS } from './linkToAppStoreIOS'
+import { isIOS } from './isIOS'
 
-jest.mock('../../../../src/utils/system/linkToAppStoreAndroid')
-jest.mock('../../../../src/utils/system/linkToAppStoreIOS')
-jest.mock('../../../../src/utils/system/isIOS')
+jest.mock('./linkToAppStoreAndroid')
+jest.mock('./linkToAppStoreIOS')
+jest.mock('./isIOS')
 
 describe('linkToAppStore', () => {
   afterEach(() => {

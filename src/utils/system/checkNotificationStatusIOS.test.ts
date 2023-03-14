@@ -1,6 +1,6 @@
 import messaging from '@react-native-firebase/messaging'
-import { checkNotificationStatusIOS } from '../../../../src/utils/system/checkNotificationStatusIOS'
-import { hasPermissionMock } from '../../prepare'
+import { checkNotificationStatusIOS } from './checkNotificationStatusIOS'
+import { hasPermissionMock } from '../../../tests/unit/prepare'
 
 describe('checkNotificationStatusIOS', () => {
   afterEach(() => {

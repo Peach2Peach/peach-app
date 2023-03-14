@@ -1,5 +1,5 @@
 import { ok } from 'assert'
-import { isProduction } from '../../../../src/utils/system/isProduction'
+import { isProduction } from './isProduction'
 
 describe('isProduction', () => {
   it('checks whether app is running on android', () => {

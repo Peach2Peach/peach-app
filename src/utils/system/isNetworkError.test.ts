@@ -1,4 +1,4 @@
-import { isNetworkError } from '../../../../src/utils/system/isNetworkError'
+import { isNetworkError } from './isNetworkError'
 
 describe('isNetworkError', () => {
   it('checks whether an error is a network error', () => {

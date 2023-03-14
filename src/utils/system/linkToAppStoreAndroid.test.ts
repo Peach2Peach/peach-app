@@ -1,6 +1,6 @@
 import { Linking } from 'react-native'
 import { getInstallerPackageNameSync } from 'react-native-device-info'
-import { linkToAppStoreAndroid } from '../../../../src/utils/system'
+import { linkToAppStoreAndroid } from '.'
 
 jest.mock('react-native-device-info', () => ({
   getBundleId: jest.fn().mockReturnValue('com.example.bundleId'),

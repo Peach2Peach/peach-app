@@ -1,4 +1,4 @@
-import { dateTimeReviver } from '../../../../src/utils/system'
+import { dateTimeReviver } from '.'
 
 describe('dateTimeReviver', () => {
   it('returns null if passed null', () => {

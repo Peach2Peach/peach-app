@@ -1,4 +1,4 @@
-import { toggleNotificationsAndroid } from '../../../../src/utils/system/toggleNotificationsAndroid'
+import { toggleNotificationsAndroid } from './toggleNotificationsAndroid'
 import { Linking } from 'react-native'
 
 jest.mock('react-native', () => ({

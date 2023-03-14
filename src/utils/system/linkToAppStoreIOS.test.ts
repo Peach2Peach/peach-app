@@ -1,5 +1,5 @@
 import { Linking } from 'react-native'
-import { linkToAppStoreIOS } from '../../../../src/utils/system'
+import { linkToAppStoreIOS } from '.'
 
 describe('linkToAppStoreIOS', () => {
   afterEach(() => {

@@ -1,11 +1,11 @@
-import { toggleNotifications } from '../../../../src/utils/system/toggleNotifications'
-import { toggleNotificationsAndroid } from '../../../../src/utils/system/toggleNotificationsAndroid'
-import { toggleNotificationsIOS } from '../../../../src/utils/system/toggleNotificationsIOS'
-import { isIOS } from '../../../../src/utils/system/isIOS'
+import { toggleNotifications } from './toggleNotifications'
+import { toggleNotificationsAndroid } from './toggleNotificationsAndroid'
+import { toggleNotificationsIOS } from './toggleNotificationsIOS'
+import { isIOS } from './isIOS'
 
-jest.mock('../../../../src/utils/system/toggleNotificationsAndroid')
-jest.mock('../../../../src/utils/system/toggleNotificationsIOS')
-jest.mock('../../../../src/utils/system/isIOS')
+jest.mock('./toggleNotificationsAndroid')
+jest.mock('./toggleNotificationsIOS')
+jest.mock('./isIOS')
 
 describe('toggleNotifications', () => {
   afterEach(() => {

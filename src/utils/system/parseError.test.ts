@@ -1,5 +1,5 @@
 import { deepEqual } from 'assert'
-import { parseError } from '../../../../src/utils/system'
+import { parseError } from '.'
 
 describe('parseError', () => {
   it('should parse an error', () => {

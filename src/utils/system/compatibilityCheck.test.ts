@@ -1,5 +1,5 @@
 import { ok } from 'assert'
-import { compatibilityCheck } from '../../../../src/utils/system'
+import { compatibilityCheck } from '.'
 
 describe('compatibilityCheck', () => {
   it('checks whether current version is compatible with minimum version', () => {

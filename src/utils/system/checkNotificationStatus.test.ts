@@ -1,11 +1,11 @@
-import { checkNotificationStatus } from '../../../../src/utils/system/checkNotificationStatus'
-import { checkNotificationStatusAndroid } from '../../../../src/utils/system/checkNotificationStatusAndroid'
-import { checkNotificationStatusIOS } from '../../../../src/utils/system/checkNotificationStatusIOS'
-import { isIOS } from '../../../../src/utils/system/isIOS'
+import { checkNotificationStatus } from './checkNotificationStatus'
+import { checkNotificationStatusAndroid } from './checkNotificationStatusAndroid'
+import { checkNotificationStatusIOS } from './checkNotificationStatusIOS'
+import { isIOS } from './isIOS'
 
-jest.mock('../../../../src/utils/system/checkNotificationStatusAndroid')
-jest.mock('../../../../src/utils/system/checkNotificationStatusIOS')
-jest.mock('../../../../src/utils/system/isIOS')
+jest.mock('./checkNotificationStatusAndroid')
+jest.mock('./checkNotificationStatusIOS')
+jest.mock('./isIOS')
 
 describe('checkNotificationStatus', () => {
   afterEach(() => {

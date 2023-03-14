@@ -1,5 +1,5 @@
 import { checkNotifications } from 'react-native-permissions'
-import { checkNotificationStatusAndroid } from '../../../../src/utils/system/checkNotificationStatusAndroid'
+import { checkNotificationStatusAndroid } from './checkNotificationStatusAndroid'
 
 jest.mock('@react-native-firebase/messaging')
 jest.mock('react-native-permissions', () => ({
