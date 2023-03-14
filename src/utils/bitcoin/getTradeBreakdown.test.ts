@@ -1,4 +1,4 @@
-import { getTradeBreakdown } from '../../../../src/utils/bitcoin'
+import { getTradeBreakdown } from '.'
 
 const fromHexMock = jest.fn()
 const fromOutputScriptMock = jest.fn((script) => (script === 'peach' ? 'peach' : 'releaseAddress'))
@@ -8,12 +8,12 @@ jest.mock('bitcoinjs-lib', () => ({
     fromHex: () => fromHexMock(),
   },
   address: {
-    fromOutputScript: (...args) => fromOutputScriptMock(...args),
+    fromOutputScript: (...args: any[]) => fromOutputScriptMock(...args),
   },
 }))
 
 const getNetworkMock = jest.fn().mockReturnValue('regtest')
-jest.mock('../../../../src/utils/wallet', () => ({
+jest.mock('../wallet', () => ({
   getNetwork: () => getNetworkMock(),
 }))
 

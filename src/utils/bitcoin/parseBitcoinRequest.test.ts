@@ -1,7 +1,7 @@
 /* eslint-disable max-lines-per-function */
 /* eslint-disable max-len */
 import { deepStrictEqual } from 'assert'
-import { parseBitcoinRequest } from '../../../../src/utils/bitcoin'
+import { parseBitcoinRequest } from '.'
 
 describe('parseBitcoinRequest', () => {
   it('parses valid bitcoin requests', () => {
