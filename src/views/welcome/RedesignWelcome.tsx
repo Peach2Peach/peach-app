@@ -38,6 +38,7 @@ export default (): ReactElement => {
       </View>
       <View style={[tw`flex items-center w-full pt-4 mb-8`]}>
         <PrimaryButton
+          testID="redesignWelcome-close"
           white
           onPress={() => {
             setSeenRedesignWelcome(true)

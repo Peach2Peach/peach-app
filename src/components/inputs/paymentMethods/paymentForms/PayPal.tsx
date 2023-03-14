@@ -5,7 +5,6 @@ import { useValidatedState } from '../../../../hooks'
 import tw from '../../../../styles/tailwind'
 import { getPaymentDataByLabel } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
-import { info } from '../../../../utils/log'
 import { getErrorsInField } from '../../../../utils/validation'
 import { TabbedNavigation, TabbedNavigationItem } from '../../../navigation/TabbedNavigation'
 import { EmailInput } from '../../EmailInput'
@@ -29,8 +28,8 @@ const tabs: TabbedNavigationItem[] = [
   },
 ]
 const referenceRules = { required: false }
-const phoneRules = { required: true, phone: true, isPhoneAllowed: true }
 
+// eslint-disable-next-line max-statements
 export const PayPal = ({ forwardRef, data, currencies = [], onSubmit, setStepValid }: FormProps): ReactElement => {
   const [label, setLabel] = useState(data?.label || '')
   const [phone, setPhone] = useState(data?.phone || '')
@@ -51,9 +50,13 @@ export const PayPal = ({ forwardRef, data, currencies = [], onSubmit, setStepVal
   )
   const emailRules = useMemo(() => ({ required: !phone && !userName, email: true }), [phone, userName])
   const userNameRules = useMemo(() => ({ required: !phone && !email, paypalUserName: true }), [email, phone])
+  const phoneRules = useMemo(
+    () => ({ phone: true, isPhoneAllowed: true, required: !userName && !email }),
+    [email, userName],
+  )
 
   const labelErrors = useMemo(() => getErrorsInField(label, labelRules), [label, labelRules])
-  const phoneErrors = useMemo(() => getErrorsInField(phone, phoneRules), [phone])
+  const phoneErrors = useMemo(() => getErrorsInField(phone, phoneRules), [phone, phoneRules])
   const emailErrors = useMemo(() => getErrorsInField(email, emailRules), [email, emailRules])
   const userNameErrors = useMemo(() => getErrorsInField(userName, userNameRules), [userName, userNameRules])
 
@@ -74,8 +77,6 @@ export const PayPal = ({ forwardRef, data, currencies = [], onSubmit, setStepVal
     currencies: selectedCurrencies,
   })
 
-  info(phoneErrors)
-
   const isFormValid = useCallback(() => {
     setDisplayErrors(true)
     return [...labelErrors, ...phoneErrors, ...emailErrors, ...userNameErrors].length === 0
@@ -83,7 +84,7 @@ export const PayPal = ({ forwardRef, data, currencies = [], onSubmit, setStepVal
 
   const getErrorTabs = () => {
     const fields = []
-    if (phoneErrors.length > 0) fields.push('phone')
+    if (phone && phoneErrors.length > 0) fields.push('phone')
     if (email && emailErrors.length > 0) fields.push('email')
     if (userName && userNameErrors.length > 0) fields.push('userName')
     return fields
@@ -128,10 +129,8 @@ export const PayPal = ({ forwardRef, data, currencies = [], onSubmit, setStepVal
             onSubmit={() => {
               $reference?.focus()
             }}
-            enforceRequired
             value={phone}
             label={i18n('form.phoneLong')}
-            required={true}
             placeholder={i18n('form.phone.placeholder')}
             autoCorrect={false}
             errorMessage={displayErrors ? phoneErrors : undefined}
@@ -141,7 +140,6 @@ export const PayPal = ({ forwardRef, data, currencies = [], onSubmit, setStepVal
           <EmailInput
             onChange={setEmail}
             onSubmit={() => $reference?.focus()}
-            required={false}
             value={email}
             label={i18n('form.emailLong')}
             placeholder={i18n('form.email.placeholder')}
@@ -152,7 +150,6 @@ export const PayPal = ({ forwardRef, data, currencies = [], onSubmit, setStepVal
           <UsernameInput
             {...{
               maxLength: 21,
-              required: false,
               onChange: setUserName,
               onSubmit: $reference?.focus,
               value: userName,

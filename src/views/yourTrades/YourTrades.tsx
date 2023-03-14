@@ -6,13 +6,13 @@ import { TabbedNavigation, TabbedNavigationItem } from '../../components/navigat
 import tw from '../../styles/tailwind'
 import { SectionHeader } from './components/SectionHeader'
 import { TradeItem } from './components/TradeItem'
+import { TradePlaceholders } from './components/TradePlaceholders'
 import { useYourTradesSetup } from './hooks/useYourTradesSetup'
 import { checkMessages } from './utils/checkMessages'
 import { getCategories } from './utils/getCategories'
 
 export default (): ReactElement => {
-  const { allOpenOffers, openOffers, pastOffers, isLoading, refetch, tabs, currentTab, setCurrentTab }
-    = useYourTradesSetup()
+  const { openOffers, pastOffers, isLoading, refetch, tabs, currentTab, setCurrentTab } = useYourTradesSetup()
 
   const switchTab = (t: TabbedNavigationItem) => {
     setCurrentTab(t)
@@ -38,7 +38,7 @@ export default (): ReactElement => {
         selected={currentTab}
         messages={checkMessages(openOffers, pastOffers)}
       />
-      {allOpenOffers.length + pastOffers.length > 0 && (
+      {getCurrentData().length > 0 ? (
         <SectionList
           contentContainerStyle={[tw`px-8 py-10 bg-transparent`, isLoading && tw`opacity-60`]}
           onRefresh={refetch}
@@ -50,6 +50,8 @@ export default (): ReactElement => {
           renderItem={TradeItem}
           ItemSeparatorComponent={() => <View onStartShouldSetResponder={() => true} style={tw`h-6`} />}
         />
+      ) : (
+        <TradePlaceholders tab={currentTab.id as TradeTab} />
       )}
       {isLoading && (
         <View style={tw`absolute inset-0 items-center justify-center`} pointerEvents="none">

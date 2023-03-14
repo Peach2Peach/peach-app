@@ -16,7 +16,7 @@ import { useSyncWallet } from './useSyncWallet'
 export const useTransactionDetailsSetup = () => {
   const route = useRoute<'transactionDetails'>()
   const [currency, satsPerUnit] = useBitcoinStore((state) => [state.currency, state.satsPerUnit], shallow)
-  const walletStore = useWalletState()
+  const walletStore = useWalletState((state) => state)
   const [transaction, setTransaction] = useState<TransactionSummary>()
   const [receivingAddress, setReceivingAddress] = useState<string>()
   const { refresh, loading } = useSyncWallet()
