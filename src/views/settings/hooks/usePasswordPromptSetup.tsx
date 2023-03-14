@@ -14,8 +14,8 @@ const passwordRules = { required: true, password: true }
 export const usePasswordPromptSetup = (onSuccess: () => void) => {
   const navigation = useNavigation()
 
-  const [setShowBackupReminder, setLastBackupDate] = useSettingsStore(
-    (state) => [state.setShowBackupReminder, state.setLastBackupDate],
+  const [setShowBackupReminder, setLastFileBackupDate] = useSettingsStore(
+    (state) => [state.setShowBackupReminder, state.setLastFileBackupDate],
     shallow,
   )
   const showPopup = useShowHelp('yourPassword')
@@ -41,7 +41,7 @@ export const usePasswordPromptSetup = (onSuccess: () => void) => {
     Keyboard.dismiss()
 
     setIsBackingUp(true)
-    setLastBackupDate(Date.now())
+    setLastFileBackupDate(Date.now())
     setShowBackupReminder(false)
     backupAccount({
       password,

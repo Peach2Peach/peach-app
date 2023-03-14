@@ -20,7 +20,8 @@ declare type Settings = {
   kycType?: KYCType
   pgpPublished?: boolean
   fcmToken?: string
-  lastBackupDate?: number
+  lastFileBackupDate?: number
+  lastSeedBackupDate?: number
   lastSeedBackupDate?: number
   showBackupReminder: boolean
   peachWalletActive: boolean

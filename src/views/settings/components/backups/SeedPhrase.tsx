@@ -26,8 +26,8 @@ const screens = [
 export default ({ style }: ComponentProps): ReactElement => {
   const showSeedPhrasePopup = useShowHelp('seedPhrase')
 
-  const [setShowBackupReminder, setLastBackupDate] = useSettingsStore(
-    (state) => [state.setShowBackupReminder, state.setLastBackupDate],
+  const [setShowBackupReminder, setLastSeedBackupDate] = useSettingsStore(
+    (state) => [state.setShowBackupReminder, state.setLastSeedBackupDate],
     shallow,
   )
 
@@ -39,13 +39,13 @@ export default ({ style }: ComponentProps): ReactElement => {
   const [currentScreenIndex, setCurrentScreenIndex] = useState(0)
   const showNextScreen = useCallback(() => {
     if (screens[currentScreenIndex].id === 'keepPhraseSecure') {
-      setLastBackupDate(Date.now())
+      setLastSeedBackupDate(Date.now())
       setShowBackupReminder(false)
     }
     if (currentScreenIndex < screens.length - 1) {
       setCurrentScreenIndex((prev) => prev + 1)
     }
-  }, [currentScreenIndex, setLastBackupDate, setShowBackupReminder])
+  }, [currentScreenIndex, setLastSeedBackupDate, setShowBackupReminder])
 
   const goBackToStart = useCallback(() => {
     setCurrentScreenIndex(0)

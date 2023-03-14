@@ -7,9 +7,11 @@ export const useBackupTimeSetup = () => {
   const navigation = useNavigation()
   const route = useRoute<'backupTime'>()
   const { nextScreen, view, ...params } = route.params
-  const lastBackupDate = useSettingsStore((state) => state.lastBackupDate)
+  const lastFileBackupDate = useSettingsStore((state) => state.lastFileBackupDate)
+  const lastSeedBackupDate = useSettingsStore((state) => state.lastSeedBackupDate)
 
-  const isMandatory = useMemo(() => !lastBackupDate && isBackupMandatory(), [lastBackupDate])
+  const isMandatory = useMemo(() => !lastFileBackupDate && !lastSeedBackupDate && isBackupMandatory()
+    , [lastFileBackupDate, lastSeedBackupDate])
   const goToBackups = () => navigation.replace('backups')
   const skip = () => (nextScreen ? navigation.replace(nextScreen, params) : navigation.replace('home'))
 

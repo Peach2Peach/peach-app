@@ -10,7 +10,8 @@ import BuyTitleComponent from '../components/BuyTitleComponent'
 export const useBuySetup = () => {
   const navigation = useNavigation()
   const showHelp = useShowHelp('buyingAndSelling')
-  const lastBackupDate = useSettingsStore((state) => state.lastBackupDate)
+  const lastFileBackupDate = useSettingsStore((state) => state.lastFileBackupDate)
+  const lastSeedBackupDate = useSettingsStore((state) => state.lastSeedBackupDate)
 
   useHeaderSetup(
     useMemo(
@@ -24,6 +25,8 @@ export const useBuySetup = () => {
   )
 
   useEffect(() => {
-    if (!lastBackupDate && isBackupMandatory()) navigation.replace('backupTime', { view: 'buyer' })
-  }, [navigation, lastBackupDate])
+    if (!lastSeedBackupDate && !lastFileBackupDate && isBackupMandatory()) {
+      navigation.replace('backupTime', { view: 'buyer' })
+    }
+  }, [navigation, lastSeedBackupDate, lastFileBackupDate])
 }

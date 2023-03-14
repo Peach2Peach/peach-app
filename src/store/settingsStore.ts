@@ -21,7 +21,8 @@ type SettingsStore = Settings & {
   setMeansOfPayment: (meansOfPayment: MeansOfPayment) => void
   setPreferredPaymentMethods: (preferredPaymentMethods: Settings['preferredPaymentMethods']) => void
   setPremium: (premium: number) => void
-  setLastBackupDate: (lastBackupDate: number) => void
+  setLastSeedBackupDate: (lastSeedBackupDate: number) => void
+  setLastFileBackupDate: (lastFileBackupDate: number) => void
   setShowBackupReminder: (showBackupReminder: boolean) => void
   setPeachWalletActive: (peachWalletActive: boolean) => void
   togglePeachWallet: () => void
@@ -53,7 +54,8 @@ export const settingsStore = createStore(
       setMeansOfPayment: (meansOfPayment) => set((state) => ({ ...state, meansOfPayment })),
       setPreferredPaymentMethods: (preferredPaymentMethods) => set((state) => ({ ...state, preferredPaymentMethods })),
       setPremium: (premium) => set((state) => ({ ...state, premium })),
-      setLastBackupDate: (lastBackupDate) => set((state) => ({ ...state, lastBackupDate })),
+      setLastFileBackupDate: (lastFileBackupDate) => set((state) => ({ ...state, lastFileBackupDate })),
+      setLastSeedBackupDate: (lastSeedBackupDate) => set((state) => ({ ...state, lastSeedBackupDate })),
       setShowBackupReminder: (showBackupReminder) => set((state) => ({ ...state, showBackupReminder })),
       setPeachWalletActive: (peachWalletActive) => set((state) => ({ ...state, peachWalletActive })),
       togglePeachWallet: () => get().setPeachWalletActive(!get().peachWalletActive),
