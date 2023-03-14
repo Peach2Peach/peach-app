@@ -26,7 +26,7 @@ export const PaymentMethod = ({ paymentMethod, showLink, style }: PaymentMethodP
         style,
       ]}
     >
-      <Text style={[tw`button-medium`, showLink && tw`text-primary-background-light`]}>{name}</Text>
+      <Text style={[tw`flex-wrap button-medium`, showLink && tw`text-primary-background-light`]}>{name}</Text>
       {!!url && showLink && (
         <Icon id="externalLink" style={tw`w-3 h-3 ml-1`} color={tw`text-primary-background-light`.color} />
       )}
