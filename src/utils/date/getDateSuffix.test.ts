@@ -1,4 +1,4 @@
-import { getDateSuffix } from '../../../../src/utils/date'
+import { getDateSuffix } from '.'
 
 describe('getDateSuffix', () => {
   it('should return the correct suffix for a given date', () => {

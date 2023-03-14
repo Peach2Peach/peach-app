@@ -1,4 +1,4 @@
-import { getDateToDisplay } from '../../../../src/utils/date/getDateToDisplay'
+import { getDateToDisplay } from './getDateToDisplay'
 
 jest.spyOn(global.Date, 'now').mockImplementation(() => new Date('03 Jan 2009').getTime())
 const date1 = new Date('01 Jan 2009')
