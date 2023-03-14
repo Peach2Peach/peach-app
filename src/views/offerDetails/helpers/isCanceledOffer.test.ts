@@ -1,4 +1,4 @@
-import { isCanceledOffer } from '../../../../../src/views/offerDetails/helpers/isCanceledOffer'
+import { isCanceledOffer } from './isCanceledOffer'
 
 describe('isCanceledOffer', () => {
   it('should return true if tradeStatus is offerCanceled', () => {
