@@ -761,7 +761,7 @@
   "chat.you": "you",
   "chat.tradePartner": "trade partner",
   "chat.systemMessage": "Peach system message",
-  "chat.mediator": "Peach Mediator",
+  "chat.mediator": "peach mediator",
   "chat.decyptionFailed": "could not decrypt message...",
   "chat.failedToSend": "could not send message.",
   "chat.systemMessage.disputeStarted": "A dispute has been started by the $0 $1 for the following reason: '$2'",

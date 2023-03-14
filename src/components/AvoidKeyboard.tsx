@@ -2,7 +2,10 @@ import React, { ReactElement, useEffect, useState } from 'react'
 import { AccessibilityInfo, Keyboard, KeyboardAvoidingView, Pressable } from 'react-native'
 import { isIOS } from '../utils/system'
 
-type AvoidKeyboardProps = ComponentProps
+type AvoidKeyboardProps = ComponentProps & {
+  iOSBehavior?: 'padding' | 'height' | 'position'
+  androidBehavior?: 'padding' | 'height' | 'position'
+}
 
 /**
  * @description Component to avoid keyboard overlapping
@@ -13,7 +16,7 @@ type AvoidKeyboardProps = ComponentProps
  *    <Text>Your content</Text>
  * </AvoidKeyboard>
  */
-export const AvoidKeyboard = ({ children }: AvoidKeyboardProps): ReactElement => {
+export const AvoidKeyboard = ({ children, iOSBehavior, androidBehavior }: AvoidKeyboardProps): ReactElement => {
   const [enabled, setEnabled] = useState(true)
   useEffect(() => {
     ;(async () => {
@@ -31,7 +34,7 @@ export const AvoidKeyboard = ({ children }: AvoidKeyboardProps): ReactElement =>
     <KeyboardAvoidingView
       {...{
         enabled,
-        behavior: isIOS() ? 'padding' : undefined,
+        behavior: isIOS() ? iOSBehavior ?? 'padding' : androidBehavior ?? undefined,
       }}
     >
       <Pressable onPress={Keyboard.dismiss}>{children}</Pressable>
