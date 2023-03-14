@@ -1,8 +1,8 @@
-import { checkUsedReferralCode } from '../../../../../src/init/dataMigration/afterLoadingAccount/checkUsedReferralCode'
-import { settingsStore } from '../../../../../src/store/settingsStore'
-import { getUserPrivate } from '../../../../../src/utils/peachAPI'
+import { checkUsedReferralCode } from './checkUsedReferralCode'
+import { settingsStore } from '../../../store/settingsStore'
+import { getUserPrivate } from '../../../utils/peachAPI'
 
-jest.mock('../../../../../src/utils/peachAPI', () => ({
+jest.mock('../../../utils/peachAPI', () => ({
   getUserPrivate: jest.fn(),
 }))
 

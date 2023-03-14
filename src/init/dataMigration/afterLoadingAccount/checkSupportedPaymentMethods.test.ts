@@ -1,9 +1,8 @@
-// eslint-disable-next-line max-len
-import { checkSupportedPaymentMethods } from '../../../../../src/init/dataMigration/afterLoadingAccount/checkSupportedPaymentMethods'
-import { settingsStore } from '../../../../../src/store/settingsStore'
-import { updatePaymentData } from '../../../../../src/utils/account/updatePaymentData'
+import { checkSupportedPaymentMethods } from './checkSupportedPaymentMethods'
+import { settingsStore } from '../../../store/settingsStore'
+import { updatePaymentData } from '../../../utils/account/updatePaymentData'
 
-jest.mock('../../../../../src/utils/account/updatePaymentData', () => ({
+jest.mock('../../../utils/account/updatePaymentData', () => ({
   updatePaymentData: jest.fn(),
 }))
 

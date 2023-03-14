@@ -5,6 +5,6 @@ import { enforcePaymentDataFormats } from './afterLoadingAccount/enforcePaymentD
 
 export const dataMigrationAfterLoadingAccount = async (account: Account) => {
   checkSupportedPaymentMethods(account.paymentData, PAYMENTMETHODINFOS)
-  enforcePaymentDataFormats(account.paymentData)
+  enforcePaymentDataFormats(account, account.paymentData)
   checkUsedReferralCode(account.publicKey)
 }

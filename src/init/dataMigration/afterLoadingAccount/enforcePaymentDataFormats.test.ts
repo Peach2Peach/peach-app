@@ -1,8 +1,8 @@
-// eslint-disable-next-line max-len
-import { enforcePaymentDataFormats } from '../../../../../src/init/dataMigration/afterLoadingAccount/enforcePaymentDataFormats'
-import { updatePaymentData } from '../../../../../src/utils/account'
+import { account1 } from '../../../../tests/unit/data/accountData'
+import { updatePaymentData } from '../../../utils/account'
+import { enforcePaymentDataFormats } from './enforcePaymentDataFormats'
 
-jest.mock('../../../../../src/utils/account/updatePaymentData', () => ({
+jest.mock('../../../utils/account', () => ({
   updatePaymentData: jest.fn(),
 }))
 
@@ -48,7 +48,7 @@ const expectedPaymentData: PaymentData[] = [
 
 describe('enforcePaymentDataFormats', () => {
   it('updates payment data by enforcing format', () => {
-    enforcePaymentDataFormats(legacyPaymentData)
+    enforcePaymentDataFormats(account1, legacyPaymentData)
     expect(updatePaymentData).toHaveBeenCalledWith(expectedPaymentData)
   })
 })

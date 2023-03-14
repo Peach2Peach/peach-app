@@ -1,17 +1,17 @@
-import { dataMigrationAfterLoadingAccount } from '../../../../src/init/dataMigration'
-import { PAYMENTMETHODINFOS } from '../../../../src/constants'
+import { dataMigrationAfterLoadingAccount } from '.'
+import { PAYMENTMETHODINFOS } from '../../constants'
 
 const checkSupportedPaymentMethodsMock = jest.fn()
 const enforcePaymentDataFormatsMock = jest.fn()
 const checkUsedReferralCodeMock = jest.fn()
-jest.mock('../../../../src/init/dataMigration/afterLoadingAccount/checkSupportedPaymentMethods', () => ({
-  checkSupportedPaymentMethods: (...args) => checkSupportedPaymentMethodsMock(...args),
+jest.mock('./afterLoadingAccount/checkSupportedPaymentMethods', () => ({
+  checkSupportedPaymentMethods: (...args: any[]) => checkSupportedPaymentMethodsMock(...args),
 }))
-jest.mock('../../../../src/init/dataMigration/afterLoadingAccount/enforcePaymentDataFormats', () => ({
-  enforcePaymentDataFormats: (...args) => enforcePaymentDataFormatsMock(...args),
+jest.mock('./afterLoadingAccount/enforcePaymentDataFormats', () => ({
+  enforcePaymentDataFormats: (...args: any[]) => enforcePaymentDataFormatsMock(...args),
 }))
-jest.mock('../../../../src/init/dataMigration/afterLoadingAccount/checkUsedReferralCode', () => ({
-  checkUsedReferralCode: (...args) => checkUsedReferralCodeMock(...args),
+jest.mock('./afterLoadingAccount/checkUsedReferralCode', () => ({
+  checkUsedReferralCode: (...args: any[]) => checkUsedReferralCodeMock(...args),
 }))
 
 describe('dataMigrationAfterLoadingAccount', () => {
@@ -31,7 +31,7 @@ describe('dataMigrationAfterLoadingAccount', () => {
 
   it('should call enforcePaymentDataFormats', async () => {
     await dataMigrationAfterLoadingAccount(account)
-    expect(enforcePaymentDataFormatsMock).toHaveBeenCalledWith(account.paymentData)
+    expect(enforcePaymentDataFormatsMock).toHaveBeenCalledWith(account, account.paymentData)
   })
 
   it('should call checkUsedReferralCode', async () => {
