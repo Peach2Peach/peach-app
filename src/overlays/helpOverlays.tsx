@@ -5,6 +5,7 @@ import { CashTrades } from './CashTrades'
 import { FileBackupPopup } from './FileBackupPopup'
 import { AddressSigning } from './info/AddressSigning'
 import { BuyingAndSelling } from './info/BuyingAndSelling'
+import { BuyingBitcoin } from './info/BuyingBitcoin'
 import { ConfirmPayment } from './info/ConfirmPayment'
 import { CurrenciesHelp } from './info/CurrenciesHelp'
 import { Escrow } from './info/Escrow'
@@ -25,6 +26,7 @@ export const helpOverlays = {
   addressSigning: { title: i18n('help.addressSigning.title'), content: AddressSigning },
   acceptMatch: { title: i18n('search.popups.acceptMatch.title'), content: AcceptMatchPopup },
   buyingAndSelling: { title: i18n('help.buyingAndSelling.title'), content: BuyingAndSelling },
+  buyingBitcoin: { title: i18n('help.buyingBitcoin.title'), content: BuyingBitcoin },
   cashTrades: { title: i18n('tradingCash'), content: CashTrades },
   confirmPayment: { title: i18n('help.confirmPayment.title'), content: ConfirmPayment },
   currencies: { title: i18n('help.currency.title'), content: CurrenciesHelp },

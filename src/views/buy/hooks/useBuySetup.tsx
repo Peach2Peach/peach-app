@@ -9,7 +9,7 @@ import BuyTitleComponent from '../components/BuyTitleComponent'
 
 export const useBuySetup = () => {
   const navigation = useNavigation()
-  const showHelp = useShowHelp('buyingAndSelling')
+  const showHelp = useShowHelp('buyingBitcoin')
   const lastBackupDate = useSettingsStore((state) => state.lastBackupDate)
 
   useHeaderSetup(
