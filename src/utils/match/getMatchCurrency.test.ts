@@ -1,12 +1,12 @@
-import { getMatchCurrency } from '../../../../src/utils/match'
+import { getMatchCurrency } from '.'
 
 describe('getMatchCurrency', () => {
   test('should return the first currency of the common means of payment if there are common values', () => {
-    const offerMeansOfPayment = {
+    const offerMeansOfPayment: MeansOfPayment = {
       EUR: ['sepa', 'paypal'],
       CHF: ['twint'],
     }
-    const matchMeansOfPayment = {
+    const matchMeansOfPayment: MeansOfPayment = {
       EUR: ['sepa', 'paypal'],
       CHF: ['twint'],
     }
@@ -15,11 +15,11 @@ describe('getMatchCurrency', () => {
   })
 
   test('should return the first currency of match means of payment if there are no common values', () => {
-    const offerMeansOfPayment = {
+    const offerMeansOfPayment: MeansOfPayment = {
       EUR: ['sepa', 'paypal'],
       CHF: ['twint'],
     }
-    const matchMeansOfPayment = {
+    const matchMeansOfPayment: MeansOfPayment = {
       EUR: ['wise'],
       GBP: ['fasterPayments'],
     }

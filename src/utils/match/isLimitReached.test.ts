@@ -1,5 +1,5 @@
-import { ANONYMOUS_PAYMENTCATEGORIES } from '../../../../src/constants'
-import { isLimitReached } from '../../../../src/utils/match'
+import { ANONYMOUS_PAYMENTCATEGORIES } from '../../constants'
+import { isLimitReached } from '.'
 
 describe('isLimitReached', () => {
   it('should return true if all limits are exceeded', () => {

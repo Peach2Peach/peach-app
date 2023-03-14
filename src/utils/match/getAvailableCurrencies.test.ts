@@ -1,4 +1,4 @@
-import { getAvailableCurrencies } from '../../../../src/utils/match'
+import { getAvailableCurrencies } from '.'
 
 // eslint-disable-next-line max-lines-per-function
 describe('getAvailableCurrencies', () => {
