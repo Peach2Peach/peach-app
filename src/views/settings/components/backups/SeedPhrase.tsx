@@ -1,58 +1,24 @@
-import React, { ReactElement, useCallback, useState } from 'react'
+import React, { ReactElement } from 'react'
 import { View } from 'react-native'
-import shallow from 'zustand/shallow'
 
 import { PeachScrollView } from '../../../../components'
 import { PrimaryButton } from '../../../../components/buttons'
-import { HelpIcon } from '../../../../components/icons'
-import { useHeaderSetup, useToggleBoolean } from '../../../../hooks'
-import { useShowHelp } from '../../../../hooks/useShowHelp'
-import { useSettingsStore } from '../../../../store/settingsStore'
 import tw from '../../../../styles/tailwind'
 import i18n from '../../../../utils/i18n'
-import { KeepPhraseSecure } from './KeepPhraseSecure'
-import { LastSeedBackup } from './LastSeedBackup'
+import { screens, useSeedBackupSetup } from '../../hooks/useSeedBackupSetup'
 import { ReadAndUnderstood } from './ReadAndUnderstood'
-import { SecurityInfo } from './SecurityInfo'
-import { TwelveWords } from './TwelveWords'
-
-const screens = [
-  { id: 'securityInfo', view: SecurityInfo },
-  { id: 'twelveWords', view: TwelveWords },
-  { id: 'keepPhraseSecure', view: KeepPhraseSecure, buttonText: 'finish' },
-  { id: 'lastSeedBackup', view: LastSeedBackup },
-]
 
 export default ({ style }: ComponentProps): ReactElement => {
-  const showSeedPhrasePopup = useShowHelp('seedPhrase')
-
-  const [setShowBackupReminder, setLastSeedBackupDate] = useSettingsStore(
-    (state) => [state.setShowBackupReminder, state.setLastSeedBackupDate],
-    shallow,
-  )
-
-  useHeaderSetup({
-    title: i18n('settings.backups.walletBackup'),
-    icons: [{ iconComponent: <HelpIcon />, onPress: showSeedPhrasePopup }],
-  })
-  const [checked, onPress] = useToggleBoolean()
-  const [currentScreenIndex, setCurrentScreenIndex] = useState(0)
-  const showNextScreen = useCallback(() => {
-    if (screens[currentScreenIndex].id === 'keepPhraseSecure') {
-      setLastSeedBackupDate(Date.now())
-      setShowBackupReminder(false)
-    }
-    if (currentScreenIndex < screens.length - 1) {
-      setCurrentScreenIndex((prev) => prev + 1)
-    }
-  }, [currentScreenIndex, setLastSeedBackupDate, setShowBackupReminder])
-
-  const goBackToStart = useCallback(() => {
-    setCurrentScreenIndex(0)
-    onPress()
-  }, [onPress])
+  const {
+    checked,
+    onPress,
+    showNextScreen,
+    currentScreenIndex,
+    goBackToStart,
+  } = useSeedBackupSetup()
 
   const CurrentView = screens[currentScreenIndex].view
+
   return (
     <View style={[tw`h-full`, style]}>
       <PeachScrollView style={tw`mr-10 ml-13`}>
