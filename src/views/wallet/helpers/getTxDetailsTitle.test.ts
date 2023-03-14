@@ -1,9 +1,9 @@
-import i18n from '../../../../../src/utils/i18n'
-import { getTxSummaryTitle } from '../../../../../src/views/wallet/helpers/getTxSummaryTitle'
+import i18n from '../../../utils/i18n'
+import { getTxDetailsTitle } from './getTxDetailsTitle'
 
-jest.mock('../../../../../src/utils/i18n')
+jest.mock('../../../utils/i18n')
 
-describe('getTxSummaryTitle', () => {
+describe('getTxDetailsTitle', () => {
   beforeAll(() => {
     ;(<jest.Mock>(<unknown>i18n)).mockImplementation((key: string) => key)
   })
@@ -16,9 +16,9 @@ describe('getTxSummaryTitle', () => {
       type: 'TRADE',
       offerId: '16',
     }
-    const result = getTxSummaryTitle(tx as TransactionSummary)
-    expect(i18n).toHaveBeenCalledWith('wallet.trade', 'P10')
-    expect(result).toEqual('wallet.trade')
+    const result = getTxDetailsTitle(tx as TransactionSummary)
+    expect(i18n).toHaveBeenCalledWith('wallet.stackedSats', 'P10')
+    expect(result).toEqual('wallet.stackedSats')
   })
 
   it('returns the correct string for a refund with an offer ID', () => {
@@ -26,7 +26,7 @@ describe('getTxSummaryTitle', () => {
       type: 'REFUND',
       offerId: '16',
     }
-    const result = getTxSummaryTitle(tx as TransactionSummary)
+    const result = getTxDetailsTitle(tx as TransactionSummary)
     expect(i18n).toHaveBeenCalledWith('wallet.refund', 'P10')
     expect(result).toEqual('wallet.refund')
   })
@@ -35,7 +35,7 @@ describe('getTxSummaryTitle', () => {
     const tx: Partial<TransactionSummary> = {
       type: 'WITHDRAWAL',
     }
-    const result = getTxSummaryTitle(tx as TransactionSummary)
+    const result = getTxDetailsTitle(tx as TransactionSummary)
     expect(i18n).toHaveBeenCalledWith('wallet.withdrawal')
     expect(result).toEqual('wallet.withdrawal')
   })
@@ -44,7 +44,7 @@ describe('getTxSummaryTitle', () => {
     const tx: Partial<TransactionSummary> = {
       type: 'DEPOSIT',
     }
-    const result = getTxSummaryTitle(tx as TransactionSummary)
+    const result = getTxDetailsTitle(tx as TransactionSummary)
     expect(i18n).toHaveBeenCalledWith('wallet.deposit')
     expect(result).toEqual('wallet.deposit')
   })

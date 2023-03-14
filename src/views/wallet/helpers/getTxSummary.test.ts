@@ -1,29 +1,29 @@
 import { ConfirmedTransaction } from 'bdk-rn/lib/lib/interfaces'
-import { bitcoinStore } from '../../../../../src/store/bitcoinStore'
-import { tradeSummaryStore } from '../../../../../src/store/tradeSummaryStore'
-import { txIsConfirmed } from '../../../../../src/utils/transaction'
-import { walletStore } from '../../../../../src/utils/wallet/walletStore'
-import { getTxSummary } from '../../../../../src/views/wallet/helpers/getTxSummary'
+import { bitcoinStore } from '../../../store/bitcoinStore'
+import { tradeSummaryStore } from '../../../store/tradeSummaryStore'
+import { txIsConfirmed } from '../../../utils/transaction'
+import { walletStore } from '../../../utils/wallet/walletStore'
+import { getTxSummary } from './getTxSummary'
 
-jest.mock('../../../../../src/utils/offer', () => ({
+jest.mock('../../../utils/offer', () => ({
   getOffer: jest.fn(),
 }))
-jest.mock('../../../../../src/utils/transaction', () => ({
-  ...jest.requireActual('../../../../../src/utils/transaction'),
+jest.mock('../../../utils/transaction', () => ({
+  ...jest.requireActual('../../../utils/transaction'),
   txIsConfirmed: jest.fn(),
 }))
 
-jest.mock('../../../../../src/store/bitcoinStore', () => ({
+jest.mock('../../../store/bitcoinStore', () => ({
   bitcoinStore: {
     getState: jest.fn(),
   },
 }))
-jest.mock('../../../../../src/utils/wallet/walletStore', () => ({
+jest.mock('../../../utils/wallet/walletStore', () => ({
   walletStore: {
     getState: jest.fn(),
   },
 }))
-jest.mock('../../../../../src/store/tradeSummaryStore', () => ({
+jest.mock('../../../store/tradeSummaryStore', () => ({
   tradeSummaryStore: {
     getState: jest.fn(),
   },

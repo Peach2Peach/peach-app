@@ -1,4 +1,4 @@
-import { validatePremiumStep } from '../../../../../../../src/views/sell/helpers/validatePremiumStep'
+import { validatePremiumStep } from './validatePremiumStep'
 
 describe('validatePremiumStep', () => {
   const tradingLimit: Partial<TradingLimit> = { daily: 20 }

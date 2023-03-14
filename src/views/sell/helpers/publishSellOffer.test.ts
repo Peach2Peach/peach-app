@@ -1,5 +1,5 @@
-import i18n from '../../../../../src/utils/i18n'
-import { publishSellOffer } from '../../../../../src/views/sell/helpers/publishSellOffer'
+import i18n from '../../../utils/i18n'
+import { publishSellOffer } from './publishSellOffer'
 
 const pgpMock = jest.fn().mockResolvedValue(undefined)
 const postSellOfferMock = jest.fn().mockResolvedValue([undefined, undefined])
@@ -9,29 +9,29 @@ const isSellOfferMock = jest.fn().mockReturnValue(true)
 const infoMock = jest.fn()
 const saveOfferMock = jest.fn()
 
-jest.mock('../../../../../src/init/pgp', () => ({
+jest.mock('../../../init/pgp', () => ({
   __esModule: true,
   default: () => pgpMock(),
 }))
 
-jest.mock('../../../../../src/utils/log', () => ({
+jest.mock('../../../utils/log', () => ({
   info: (msg: string, result: any) => infoMock(msg, result),
 }))
 
-jest.mock('../../../../../src/utils/peachAPI', () => ({
+jest.mock('../../../utils/peachAPI', () => ({
   postSellOffer: (offerDraft: any) => postSellOfferMock(offerDraft),
   getOfferDetails: (offerId: any) => getOfferDetailsMock(offerId),
 }))
 
-jest.mock('../../../../../src/utils/offer', () => ({
+jest.mock('../../../utils/offer', () => ({
   isSellOffer: (offer: any) => isSellOfferMock(offer),
 }))
 
-jest.mock('../../../../../src/views/buy/helpers/getAndUpdateTradingLimit', () => ({
+jest.mock('../../../views/buy/helpers/getAndUpdateTradingLimit', () => ({
   getAndUpdateTradingLimit: () => getAndUpdateTradingLimitMock(),
 }))
 
-jest.mock('../../../../../src/utils/offer', () => ({
+jest.mock('../../../utils/offer', () => ({
   saveOffer: (offer: any) => saveOfferMock(offer),
 }))
 

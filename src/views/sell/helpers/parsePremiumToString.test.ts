@@ -1,4 +1,4 @@
-import { parsePremiumToString } from '../../../../../../../src/views/sell/helpers/parsePremiumToString'
+import { parsePremiumToString } from './parsePremiumToString'
 
 describe('parsePremiumToString', () => {
   test('returns an empty string if no premium is provided', () => {
