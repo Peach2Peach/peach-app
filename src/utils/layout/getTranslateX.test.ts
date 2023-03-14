@@ -1,5 +1,5 @@
 import { Animated } from 'react-native'
-import { getTranslateX } from '../../../../src/utils/layout'
+import { getTranslateX } from '.'
 
 describe('getTranslateX', () => {
   it('ensures interpolated value is within range', () => {
