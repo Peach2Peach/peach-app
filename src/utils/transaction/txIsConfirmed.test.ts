@@ -1,5 +1,5 @@
 import { ConfirmedTransaction, PendingTransaction } from 'bdk-rn/lib/lib/interfaces'
-import { txIsConfirmed } from '../../../../src/utils/transaction'
+import { txIsConfirmed } from '.'
 
 describe('txIsConfirmed', () => {
   it('should return true for a ConfirmedTransaction', () => {

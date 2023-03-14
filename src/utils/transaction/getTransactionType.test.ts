@@ -1,5 +1,5 @@
 import { ConfirmedTransaction, PendingTransaction } from 'bdk-rn/lib/lib/interfaces'
-import { getTransactionType } from '../../../../src/utils/transaction'
+import { getTransactionType } from '.'
 
 describe('getTransactionType', () => {
   it('should return TRADE for a ConfirmedTransaction with a BuyOffer', () => {
