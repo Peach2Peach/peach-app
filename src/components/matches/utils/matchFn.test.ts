@@ -1,5 +1,5 @@
-import { matchFn } from '../../../../../src/components/matches/utils'
-import * as offerData from '../../../data/offerData'
+import { matchFn } from '.'
+import * as offerData from '../../../../tests/unit/data/offerData'
 
 const selectedCurrency: Currency = 'EUR'
 const selectedPaymentMethod: PaymentMethod = 'sepa'
@@ -22,11 +22,11 @@ const defaultOfferData = {
 }
 
 const generateMatchOfferDataMock = jest.fn(() => [defaultOfferData, undefined])
-jest.mock('../../../../../src/components/matches/utils/generateMatchOfferData', () => ({
+jest.mock('./generateMatchOfferData', () => ({
   generateMatchOfferData: () => generateMatchOfferDataMock(),
 }))
 const matchOfferMock = jest.fn(() => [offer.paymentData[selectedPaymentMethod], undefined])
-jest.mock('../../../../../src/utils/peachAPI/private/offer/matchOffer', () => ({
+jest.mock('../../../utils/peachAPI', () => ({
   matchOffer: () => matchOfferMock(),
 }))
 
