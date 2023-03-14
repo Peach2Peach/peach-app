@@ -1,4 +1,4 @@
-import { enforcePhoneFormat } from '../../../../src/utils/format/enforcePhoneFormat'
+import { enforcePhoneFormat } from './enforcePhoneFormat'
 
 describe('enforcePhoneFormat', () => {
   it('should return the same string if it starts with a + and only contains numbers and +', () => {

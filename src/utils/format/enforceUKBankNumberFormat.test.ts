@@ -1,4 +1,4 @@
-import { enforceUKBankNumberFormat } from '../../../../src/utils/format/enforceUKBankNumberFormat'
+import { enforceUKBankNumberFormat } from './enforceUKBankNumberFormat'
 
 describe('enforceUKBankNumberFormat', () => {
   it('should return empty string when input is empty string', () => {

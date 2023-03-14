@@ -1,4 +1,4 @@
-import { enforceBICFormat } from '../../../../src/utils/format'
+import { enforceBICFormat } from '.'
 
 describe('enforceBICFormat', () => {
   it('should format a BIC string correctly', () => {

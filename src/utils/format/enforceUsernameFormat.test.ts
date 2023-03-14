@@ -1,4 +1,4 @@
-import { enforceUsernameFormat } from '../../../../src/utils/format'
+import { enforceUsernameFormat } from '.'
 
 describe('enforceUsernameFormat', () => {
   it('should enforce the username format correctly', () => {

@@ -1,4 +1,4 @@
-import { enforceSortCodeFormat } from '../../../../src/utils/format/enforceSortCodeFormat'
+import { enforceSortCodeFormat } from './enforceSortCodeFormat'
 
 describe('enforceSortCodeFormat', () => {
   it('should return empty string when input is empty string', () => {

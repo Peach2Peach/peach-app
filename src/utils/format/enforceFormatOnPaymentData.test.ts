@@ -1,5 +1,5 @@
 /* eslint-disable max-lines-per-function */
-import { enforceFormatOnPaymentData } from '../../../../src/utils/format'
+import { enforceFormatOnPaymentData } from '.'
 
 describe('enforceFormatOnPaymentData', () => {
   it('should enforce format on sepa data correctly', () => {

@@ -1,4 +1,4 @@
-import { enforceEmailFormat } from '../../../../src/utils/format'
+import { enforceEmailFormat } from '.'
 
 describe('enforceEmailFormat', () => {
   it('should format an email correctly', () => {

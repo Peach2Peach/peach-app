@@ -1,4 +1,4 @@
-import { enforceWalletFormat } from '../../../../src/utils/format/enforceWalletFormat'
+import { enforceWalletFormat } from './enforceWalletFormat'
 
 describe('enforceWalletFormat', () => {
   it('should format text correctly with lowercase input', () => {

@@ -1,4 +1,4 @@
-import { enforceIBANFormat } from '../../../../src/utils/format/enforceIBANFormat'
+import { enforceIBANFormat } from './enforceIBANFormat'
 
 describe('enforceIBANFormat', () => {
   it('formats an IBAN correctly', () => {
