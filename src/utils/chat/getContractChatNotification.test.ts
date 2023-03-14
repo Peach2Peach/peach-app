@@ -1,6 +1,6 @@
 import { strictEqual } from 'assert'
-import { getContractChatNotification } from '../../../../src/utils/chat'
-import * as contractData from '../../data/contractData'
+import { getContractChatNotification } from '.'
+import * as contractData from '../../../tests/unit/data/contractData'
 
 describe('getContractChatNotification', () => {
   it('get unread notifiactions', () => {

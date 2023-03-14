@@ -1,8 +1,8 @@
 import { deepStrictEqual, ok, strictEqual } from 'assert'
-import { account, defaultAccount, setAccount } from '../../../../src/utils/account'
-import { getChat, saveChat } from '../../../../src/utils/chat'
-import * as chatData from '../../data/chatData'
-import { resetStorage } from '../../prepare'
+import { account, defaultAccount, setAccount } from '../account'
+import { getChat, saveChat } from '.'
+import * as chatData from '../../../tests/unit/data/chatData'
+import { resetStorage } from '../../../tests/unit/prepare'
 
 describe('getChat', () => {
   beforeEach(async () => {

@@ -1,8 +1,8 @@
 import { deepStrictEqual } from 'assert'
-import { defaultAccount, setAccount } from '../../../../src/utils/account'
-import { getUnsentMessages, saveChat } from '../../../../src/utils/chat'
-import * as chatData from '../../data/chatData'
-import { resetStorage } from '../../prepare'
+import { defaultAccount, setAccount } from '../account'
+import { getUnsentMessages, saveChat } from '.'
+import * as chatData from '../../../tests/unit/data/chatData'
+import { resetStorage } from '../../../tests/unit/prepare'
 
 describe('getUnsentMessages', () => {
   beforeEach(async () => {

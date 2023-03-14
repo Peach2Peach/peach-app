@@ -1,11 +1,8 @@
-import { setAccount } from '../../../../src/utils/account'
-import * as accountData from '../../data/accountData'
-import * as contractData from '../../data/contractData'
-import { resetStorage } from '../../prepare'
-import {
-  initDisputeSystemMessages,
-  endDisputeSystemMessages,
-} from '../../../../src/utils/chat/createDisputeSystemMessages'
+import { setAccount } from '../account'
+import * as accountData from '../../../tests/unit/data/accountData'
+import * as contractData from '../../../tests/unit/data/contractData'
+import { resetStorage } from '../../../tests/unit/prepare'
+import { initDisputeSystemMessages, endDisputeSystemMessages } from './createDisputeSystemMessages'
 
 describe.skip('createDisputeSystemMessages', () => {
   beforeEach(async () => {

@@ -1,8 +1,8 @@
 import { deepStrictEqual } from 'assert'
-import { setAccount } from '../../../../src/utils/account'
-import { createSystemMessage } from '../../../../src/utils/chat'
-import * as accountData from '../../data/accountData'
-import { resetStorage } from '../../prepare'
+import { setAccount } from '../account'
+import { createSystemMessage } from '.'
+import * as accountData from '../../../tests/unit/data/accountData'
+import { resetStorage } from '../../../tests/unit/prepare'
 
 describe('createSystemMessage', () => {
   beforeEach(async () => {
