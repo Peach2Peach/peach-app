@@ -1,5 +1,5 @@
 import analytics from '@react-native-firebase/analytics'
-import create, { createStore } from 'zustand'
+import { createStore, useStore } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { updateSettings } from '../utils/account'
 import { createStorage, toZustandStorage } from '../utils/storage'
@@ -81,4 +81,7 @@ settingsStore.subscribe((state) => {
   updateSettings(cleanState, true)
 })
 
-export const useSettingsStore = create(settingsStore)
+export const useSettingsStore = <T>(
+  selector: (state: SettingsStore) => T,
+  equalityFn?: ((a: T, b: T) => boolean) | undefined,
+) => useStore(settingsStore, selector, equalityFn)
