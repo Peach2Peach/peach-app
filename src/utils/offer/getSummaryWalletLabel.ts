@@ -3,7 +3,7 @@ import { peachWallet } from '../wallet/setWallet'
 
 type Params = {
   offerWalletLabel: string | undefined
-  address: string
+  address?: string
   customPayoutAddress: string | undefined
   customPayoutAddressLabel: string | undefined
 }
@@ -14,14 +14,17 @@ export const getSummaryWalletLabel = ({
   customPayoutAddress,
   customPayoutAddressLabel,
 }: Params) => {
+  if (!address) return undefined
+
   if (offerWalletLabel) {
     return offerWalletLabel
-  }
-  if (!!peachWallet.findKeyPairByAddress(address)) {
-    return i18n('peachWallet')
   }
   if (customPayoutAddress === address) {
     return customPayoutAddressLabel
   }
+  if (!!peachWallet.findKeyPairByAddress(address)) {
+    return i18n('peachWallet')
+  }
+
   return undefined
 }
