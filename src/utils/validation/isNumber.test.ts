@@ -1,4 +1,4 @@
-import { isNumber } from '../../../../src/utils/validation'
+import { isNumber } from '.'
 
 describe('isNumber', () => {
   it('validates numbers', () => {

@@ -1,5 +1,5 @@
-import { isIBAN } from '../../../../src/utils/validation'
-import paymentData from '../../data/paymentData.json'
+import { isIBAN } from '.'
+import paymentData from '../../../tests/unit/data/paymentData.json'
 
 describe('isIBAN', () => {
   it('should return true for valid IBANs', () => {

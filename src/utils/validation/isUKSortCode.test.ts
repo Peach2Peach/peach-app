@@ -1,4 +1,4 @@
-import { isUKSortCode } from '../../../../src/utils/validation'
+import { isUKSortCode } from '.'
 
 describe('isUKSortCode', () => {
   it('should return true for a valid UK sort code', () => {

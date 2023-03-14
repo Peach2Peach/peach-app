@@ -1,10 +1,10 @@
 import { networks } from 'bitcoinjs-lib'
-import i18n from '../../../../src/utils/i18n'
-import { getErrorsInField, rules } from '../../../../src/utils/validation'
-import { getNetwork } from '../../../../src/utils/wallet'
-import paymentData from '../../data/paymentData.json'
+import i18n from '../i18n'
+import { getErrorsInField, rules } from '.'
+import { getNetwork } from '../wallet'
+import paymentData from '../../../tests/unit/data/paymentData.json'
 
-jest.mock('../../../../src/utils/wallet', () => ({
+jest.mock('../wallet', () => ({
   getNetwork: jest.fn(),
 }))
 

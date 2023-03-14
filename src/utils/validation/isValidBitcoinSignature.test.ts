@@ -1,4 +1,4 @@
-import { isValidBitcoinSignature } from '../../../../src/utils/validation'
+import { isValidBitcoinSignature } from '.'
 
 describe('isValidBitcoinSignature', () => {
   it('validates a bitcoin signature', () => {

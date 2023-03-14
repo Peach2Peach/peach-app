@@ -1,4 +1,4 @@
-import { isPhone } from '../../../../src/utils/validation'
+import { isPhone } from '.'
 
 describe('isPhone', () => {
   it('should return true for a valid phone number', () => {

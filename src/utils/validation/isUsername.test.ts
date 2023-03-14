@@ -1,4 +1,4 @@
-import { isUsername } from '../../../../src/utils/validation'
+import { isUsername } from '.'
 
 describe('isUsername', () => {
   test('Returns true for a valid username starting with "@" and containing only lowercase letters and numbers', () => {

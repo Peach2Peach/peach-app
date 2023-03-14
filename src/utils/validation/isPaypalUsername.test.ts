@@ -1,4 +1,4 @@
-import { isPaypalUsername } from '../../../../src/utils/validation'
+import { isPaypalUsername } from '.'
 
 describe('isPaypalUsername', () => {
   it('should return true for a valid paypal username', () => {

@@ -1,4 +1,4 @@
-import { isDateString } from '../../../../src/utils/validation'
+import { isDateString } from '.'
 
 describe('isDateString', () => {
   it('should return true for a valid date string', () => {

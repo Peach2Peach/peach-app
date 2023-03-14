@@ -1,4 +1,4 @@
-import { isURL } from '../../../../src/utils/validation'
+import { isURL } from '.'
 
 describe('isURL', () => {
   it('should return true for a valid URL', () => {

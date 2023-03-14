@@ -1,6 +1,6 @@
-import { isPhoneAllowed } from '../../../../src/utils/validation'
+import { isPhoneAllowed } from '.'
 
-jest.mock('../../../../src/utils/country/countryMap', () => ({
+jest.mock('../country/countryMap', () => ({
   countryMap: {
     CH: {
       dialCode: '+41',

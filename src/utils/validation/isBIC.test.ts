@@ -1,4 +1,4 @@
-import { isBIC } from '../../../../src/utils/validation'
+import { isBIC } from '.'
 
 describe('isBIC', () => {
   it('should return true for a valid BIC', () => {

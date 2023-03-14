@@ -1,4 +1,4 @@
-import { isEUIBAN } from '../../../../src/utils/validation/isEUIBAN'
+import { isEUIBAN } from './isEUIBAN'
 
 describe('isEUIBAN', () => {
   test('returns true for a valid EU IBAN', () => {

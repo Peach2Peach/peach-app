@@ -1,6 +1,6 @@
 import { ok } from 'assert'
-import i18n from '../../../../src/utils/i18n'
-import { getMessages } from '../../../../src/utils/validation'
+import i18n from '../i18n'
+import { getMessages } from '.'
 
 describe('getMessages', () => {
   afterEach(() => {

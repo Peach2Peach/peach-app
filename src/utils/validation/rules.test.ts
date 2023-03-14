@@ -1,11 +1,11 @@
 /* eslint-disable max-lines-per-function */
 import { ok } from 'assert'
 import { networks } from 'bitcoinjs-lib'
-import { rules } from '../../../../src/utils/validation'
-import { getNetwork } from '../../../../src/utils/wallet'
-import paymentData from '../../data/paymentData.json'
+import { rules } from '.'
+import { getNetwork } from '../wallet'
+import paymentData from '../../../tests/unit/data/paymentData.json'
 
-jest.mock('../../../../src/utils/wallet', () => ({
+jest.mock('../wallet', () => ({
   getNetwork: jest.fn(),
 }))
 

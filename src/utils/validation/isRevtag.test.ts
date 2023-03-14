@@ -1,4 +1,4 @@
-import { isRevtag } from '../../../../src/utils/validation'
+import { isRevtag } from '.'
 
 describe('isRevtag', () => {
   it('should return true for a valid revtag', () => {

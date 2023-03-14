@@ -1,4 +1,4 @@
-import { isUKBankAccount } from '../../../../src/utils/validation'
+import { isUKBankAccount } from '.'
 
 describe('isUKBankAccount', () => {
   it('should return true for a valid UK bank account number', () => {

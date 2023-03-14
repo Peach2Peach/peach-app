@@ -1,4 +1,4 @@
-import { isTaproot } from '../../../../src/utils/validation/isTaproot'
+import { isTaproot } from './isTaproot'
 
 describe('isTaproot', () => {
   it('should return true if address is taproot address', () => {
