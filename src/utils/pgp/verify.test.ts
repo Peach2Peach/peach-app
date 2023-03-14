@@ -1,5 +1,5 @@
 import OpenPGP from 'react-native-fast-openpgp'
-import { verify } from '../../../../src/utils/pgp'
+import { verify } from '.'
 
 jest.mock('react-native-fast-openpgp', () => ({
   verify: jest.fn(),

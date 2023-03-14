@@ -1,7 +1,7 @@
 import OpenPGP from 'react-native-fast-openpgp'
-import { defaultAccount, setAccount } from '../../../../src/utils/account'
-import { decryptSymmetric } from '../../../../src/utils/pgp'
-import { resetStorage } from '../../prepare'
+import { defaultAccount, setAccount } from '../account'
+import { decryptSymmetric } from '.'
+import { resetStorage } from '../../../tests/unit/prepare'
 
 jest.mock('react-native-fast-openpgp', () => ({
   decryptSymmetric: jest.fn(),
