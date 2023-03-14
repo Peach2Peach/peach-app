@@ -122,7 +122,7 @@ export const ChatMessage = ({
         <View style={[tw`px-3 py-2 mt-2 rounded-2xl`, bgColor]}>
           <Text style={tw`flex-shrink-0`}>{message.message || i18n('chat.decyptionFailed')}</Text>
           <Text style={tw`pt-1 ml-auto leading-5 text-right`}>
-            <Text style={tw`subtitle-2 text-black-3`}>{toTimeFormat(message.date)}</Text>
+            <Text style={tw`subtitle-2 leading-xs text-black-3`}>{toTimeFormat(message.date)}</Text>
             {meta.isYou && (
               <View style={tw`pl-1`}>
                 <Icon id={statusIcon} style={tw`relative w-4 h-4 -bottom-1`} color={statusIconColor} />
