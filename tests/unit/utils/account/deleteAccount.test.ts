@@ -81,7 +81,6 @@ describe('deleteAccount', () => {
     expect(chatStorage.clearStore).toHaveBeenCalled()
     expect(sessionStorage.clearStore).toHaveBeenCalled()
     expect(settingsStorage.clearStore).toHaveBeenCalled()
-    expect(logoutUser).toHaveBeenCalled()
     expect(deleteAccessToken).toHaveBeenCalled()
     expect(deletePeachAccount).toHaveBeenCalled()
 

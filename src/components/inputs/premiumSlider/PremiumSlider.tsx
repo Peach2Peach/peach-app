@@ -1,11 +1,12 @@
 import React, { ReactElement, useEffect, useMemo, useRef, useState } from 'react'
 import { Animated, LayoutChangeEvent, PanResponder, View } from 'react-native'
-import tw from '../../styles/tailwind'
-import i18n from '../../utils/i18n'
-import { getTranslateX } from '../../utils/layout'
-import { round } from '../../utils/math'
-import Icon from '../Icon'
+import tw from '../../../styles/tailwind'
+import i18n from '../../../utils/i18n'
+import { getTranslateX } from '../../../utils/layout'
+import { round } from '../../../utils/math'
+import Icon from '../../Icon'
 import { SliderLabel } from './SliderLabel'
+import { SliderMarkers } from './SliderMarkers'
 
 type PremiumSliderProps = ComponentProps & {
   value: number
@@ -24,13 +25,13 @@ export const PremiumSlider = ({ value, onChange, style }: PremiumSliderProps): R
   const [premium, setPremium] = useState(value)
   const [trackWidth, setTrackWidth] = useState(260)
   const labelPosition = useMemo(
-    () => ({
-      minus21: -trackWidth / 2,
-      minus10: round((11 / DELTA) * trackWidth) - trackWidth / 2,
-      zero: 0,
-      plus10: round((31 / DELTA) * trackWidth) - trackWidth / 2,
-      plus21: trackWidth - trackWidth / 2,
-    }),
+    () => [
+      -trackWidth / 2,
+      round((11 / DELTA) * trackWidth) - trackWidth / 2,
+      0,
+      round((31 / DELTA) * trackWidth) - trackWidth / 2,
+      trackWidth - trackWidth / 2,
+    ],
     [trackWidth],
   )
 
@@ -83,25 +84,32 @@ export const PremiumSlider = ({ value, onChange, style }: PremiumSliderProps): R
 
   return (
     <View style={style} {...panResponder.panHandlers} {...{ onStartShouldSetResponder }}>
-      <View style={[tw`w-full max-w-full border p-0.5 rounded-full bg-primary-background-dark border-primary-mild-1`]}>
+      <View
+        style={[
+          tw`w-full h-8`,
+          tw`border p-0.5 rounded-full bg-primary-background-dark border-primary-mild-1`,
+          tw`justify-center`,
+        ]}
+      >
+        <SliderMarkers positions={labelPosition} />
         <View {...{ onLayout }}>
           <Animated.View
             style={[
               { width: KNOBWIDTH },
-              tw`z-10 flex items-center rounded-full bg-primary-main`,
+              tw`z-10 flex items-center justify-center h-full rounded-full bg-primary-main`,
               getTranslateX(pan, [0, trackWidth]),
             ]}
           >
-            <Icon id="chevronsDown" style={tw`w-4 h-4`} color={tw`text-primary-background-light`.color} />
+            <Icon id="chevronsDown" style={tw`w-4`} color={tw`text-primary-background-light`.color} />
           </Animated.View>
         </View>
       </View>
       <View style={tw`w-full h-10 mt-1`}>
-        <SliderLabel position={labelPosition.minus21}>{MIN}%</SliderLabel>
-        <SliderLabel position={labelPosition.minus10}>{round(MIN / 2, -1)}%</SliderLabel>
-        <SliderLabel position={labelPosition.zero}>{i18n('sell.premium.marketPrice')}</SliderLabel>
-        <SliderLabel position={labelPosition.plus10}>{round(MAX / 2, -1)}%</SliderLabel>
-        <SliderLabel position={labelPosition.plus21}>+{MAX}%</SliderLabel>
+        <SliderLabel position={labelPosition[0]}>{MIN}%</SliderLabel>
+        <SliderLabel position={labelPosition[1]}>{round(MIN / 2, -1)}%</SliderLabel>
+        <SliderLabel position={labelPosition[2]}>{i18n('sell.premium.marketPrice')}</SliderLabel>
+        <SliderLabel position={labelPosition[3]}>+{round(MAX / 2, -1)}%</SliderLabel>
+        <SliderLabel position={labelPosition[4]}>+{MAX}%</SliderLabel>
       </View>
     </View>
   )

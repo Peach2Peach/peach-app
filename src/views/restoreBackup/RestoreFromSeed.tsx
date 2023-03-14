@@ -1,92 +1,19 @@
-import React, { ReactElement, useCallback, useContext, useMemo, useState } from 'react'
-import { Keyboard, View } from 'react-native'
+import React, { ReactElement } from 'react'
+import { View } from 'react-native'
 import { Fade, PeachScrollView, Text } from '../../components'
 import { PrimaryButton } from '../../components/buttons'
-import { MessageContext } from '../../contexts/message'
-import { useKeyboard, useNavigation, useValidatedState } from '../../hooks'
+import { useKeyboard } from '../../hooks'
 import tw from '../../styles/tailwind'
-import { createAccount, deleteAccount, recoverAccount } from '../../utils/account'
-import { storeAccount } from '../../utils/account/storeAccount'
 import i18n from '../../utils/i18n'
-import { auth } from '../../utils/peachAPI'
-import { parseError } from '../../utils/system'
+import { useRestoreFromSeedSetup } from './hooks/useRestoreFromSeedSetup'
 import RestoreBackupError from './RestoreBackupError'
 import RestoreBackupLoading from './RestoreBackupLoading'
 import RestoreSuccess from './RestoreSuccess'
 import { SeedPhraseInput } from './SeedPhraseInput'
 
-export const bip39WordRules = {
-  requiredShort: true,
-  bip39Word: true,
-}
-const bip39Rules = {
-  required: true,
-  bip39: true,
-}
-
 export default ({ style }: ComponentProps): ReactElement => {
-  const [, updateMessage] = useContext(MessageContext)
+  const { restored, error, loading, setWords, allWordsAreSet, isMnemonicValid, submit } = useRestoreFromSeedSetup()
   const keyboardOpen = useKeyboard()
-  const navigation = useNavigation()
-
-  const [words, setWords] = useState<string[]>(new Array(12).fill(''))
-  const [mnemonic, setMnemonic, isMnemonicValid] = useValidatedState<string>('', bip39Rules)
-  const allWordsAreSet = useMemo(() => {
-    const allSet = words.every((word) => !!word)
-    if (allSet) {
-      setMnemonic(words.join(' '))
-    }
-    return allSet
-  }, [setMnemonic, words])
-
-  const [error, setError] = useState('')
-  const [loading, setLoading] = useState(false)
-  const [restored, setRestored] = useState(false)
-
-  const onError = useCallback(
-    (err?: string) => {
-      const errorMsg = err || 'UNKNOWN_ERROR'
-      setError(errorMsg)
-      if (errorMsg !== 'REGISTRATION_DENIED') {
-        updateMessage({
-          msgKey: errorMsg,
-          level: 'ERROR',
-        })
-      }
-      deleteAccount()
-    },
-    [updateMessage],
-  )
-
-  const submit = async () => {
-    Keyboard.dismiss()
-    setLoading(true)
-
-    if (!isMnemonicValid) return
-
-    const recoveredAccount = await createAccount(mnemonic)
-
-    const [, authError] = await auth({})
-    if (authError) {
-      onError(authError.error)
-      setLoading(false)
-      return
-    }
-    const [success, recoverAccountErr] = await recoverAccount(recoveredAccount)
-
-    if (success) {
-      await storeAccount(recoveredAccount)
-      setRestored(true)
-      setLoading(false)
-
-      setTimeout(() => {
-        navigation.replace('home')
-      }, 1500)
-    } else {
-      setLoading(false)
-      onError(parseError(recoverAccountErr))
-    }
-  }
 
   if (loading) return <RestoreBackupLoading />
   if (error) return <RestoreBackupError err={error} />

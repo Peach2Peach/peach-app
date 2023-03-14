@@ -7,6 +7,8 @@ buildscript {
         minSdkVersion = 26
         compileSdkVersion = 31
         targetSdkVersion = 31
+        kotlinVersion = '1.7.20'
+
         if (System.properties['os.arch'] == "aarch64") {
             // For M1 Users we need to use the NDK 24 which added support for aarch64
             ndkVersion = "24.0.8215888"
@@ -25,6 +27,7 @@ buildscript {
         classpath("de.undercouch:gradle-download-task:4.1.2")
         classpath 'com.google.gms:google-services:4.3.10'
         classpath 'com.google.firebase:firebase-crashlytics-gradle:2.8.1'
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -46,6 +49,9 @@ allprojects {
             // Android JSC is installed from npm
             url("$rootDir/../node_modules/jsc-android/dist")
         }
+        maven {
+            url("$rootDir/../node_modules/detox/Detox-android")
+        }
         mavenCentral {
             // We don't want to fetch react-native from Maven Central as there are
             // older versions over there.
@@ -55,5 +61,14 @@ allprojects {
         }
         google()
         maven { url 'https://www.jitpack.io' }
+    }
+    afterEvaluate {
+        if (it.hasProperty('android')){
+            android {
+                defaultConfig {
+                    minSdkVersion 26
+                }
+            }
+        }
     }
 }

@@ -5,7 +5,6 @@ import { notificationStorage, notificationStore } from '../../components/footer/
 import { configStore } from '../../store/configStore'
 import { settingsStorage, settingsStore } from '../../store/settingsStore'
 import { info } from '../log'
-import { logoutUser } from '../peachAPI'
 import { deleteAccessToken } from '../peachAPI/accessToken'
 import { deletePeachAccount } from '../peachAPI/peachAccount'
 import { sessionStorage } from '../session'
@@ -30,8 +29,6 @@ export const deleteAccount = async () => {
     notificationStorage,
   ].forEach((storage) => storage.clearStore())
   ;[notificationStore, configStore, walletStore, settingsStore].forEach((store) => store.getState().reset())
-
-  logoutUser({})
 
   deleteAccessToken()
   deletePeachAccount()

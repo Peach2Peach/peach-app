@@ -1,7 +1,7 @@
 import NotificationBadge from '@msml/react-native-notification-badge'
 import { useEffect } from 'react'
 import shallow from 'zustand/shallow'
-import { notificationStore } from '../components/footer/notificationsStore'
+import { useNotificationStore } from '../components/footer/notificationsStore'
 import { useTradeSummaryStore } from '../store/tradeSummaryStore'
 import { info } from '../utils/log'
 import { isIOS } from '../utils/system'
@@ -27,7 +27,7 @@ const hasRequiredAction = (offer: OfferSummary | ContractSummary) =>
 
 export const useCheckTradeNotifications = () => {
   const [offers, contracts] = useTradeSummaryStore((state) => [state.offers, state.contracts], shallow)
-  const setNotifications = notificationStore((state) => state.setNotifications, shallow)
+  const setNotifications = useNotificationStore((state) => state.setNotifications)
 
   useEffect(() => {
     const offersWithAction = offers
