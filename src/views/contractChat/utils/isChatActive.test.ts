@@ -1,5 +1,5 @@
-import { isChatActive } from '../../views/contractChat/utils/isChatActive'
-import { contract } from '../../../tests/unit/data/contractData'
+import { isChatActive } from './isChatActive'
+import { contract } from '../../../../tests/unit/data/contractData'
 
 // eslint-disable-next-line max-lines-per-function
 describe('isChatActive', () => {
