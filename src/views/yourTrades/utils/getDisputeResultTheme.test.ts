@@ -1,5 +1,5 @@
-import tw from '../../../../src/styles/tailwind'
-import { getDisputeResultTheme } from '../../../../src/views/yourTrades/utils'
+import tw from '../../../styles/tailwind'
+import { getDisputeResultTheme } from '.'
 
 describe('getDisputeResultTheme', () => {
   const wonAsBuyer = {

@@ -1,4 +1,4 @@
-import { getCompletedTrades } from '../../../../src/utils/tradeSummary'
+import { getCompletedTrades } from '.'
 
 describe('getCompletedTrades', () => {
   const contracts: Partial<ContractSummary>[] = [

@@ -1,18 +1,17 @@
-import tw from '../../../../src/styles/tailwind'
-import { getThemeForPastTrade } from '../../../../src/views/yourTrades/utils'
-
+import tw from '../../../styles/tailwind'
+import { getThemeForPastTrade } from '.'
 
 // eslint-disable-next-line max-lines-per-function
 describe('getThemeForPastTrade', () => {
   // dispute outcomes are tested in getDisputeResultTheme.test.ts
-  const completedTradeSeller : Partial<ContractSummary> = {
+  const completedTradeSeller: Partial<ContractSummary> = {
     id: '1',
     type: 'ask',
     tradeStatus: 'tradeCompleted',
     price: 1,
     currency: 'EUR',
   }
-  const completedTradeBuyer : Partial<ContractSummary> = {
+  const completedTradeBuyer: Partial<ContractSummary> = {
     id: '1',
     type: 'bid',
     tradeStatus: 'tradeCompleted',
@@ -20,7 +19,7 @@ describe('getThemeForPastTrade', () => {
     currency: 'EUR',
   }
 
-  const canceledTrade : Partial<ContractSummary> = {
+  const canceledTrade: Partial<ContractSummary> = {
     id: '2',
     tradeStatus: 'tradeCanceled',
     price: 1,
