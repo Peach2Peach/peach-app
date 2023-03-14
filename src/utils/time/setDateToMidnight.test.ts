@@ -1,4 +1,4 @@
-import { setDateToMidnight } from '../../../../src/utils/time'
+import { setDateToMidnight } from '.'
 
 describe('setDateToMidnight', () => {
   it('should set the hours, minutes, seconds, and milliseconds of the date to 0', () => {
