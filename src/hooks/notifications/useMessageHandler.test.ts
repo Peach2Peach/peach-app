@@ -1,9 +1,9 @@
 import { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
 import { act, renderHook } from '@testing-library/react-hooks'
-import { useMessageHandler } from '../../../../src/hooks/notifications/useMessageHandler'
-import { getContract } from '../../../../src/utils/contract'
-import { getContract as getContractAPI } from '../../../../src/utils/peachAPI'
-import { contract } from '../../data/contractData'
+import { useMessageHandler } from './useMessageHandler'
+import { getContract } from '../../utils/contract'
+import { getContract as getContractAPI } from '../../utils/peachAPI'
+import { contract } from '../../../tests/unit/data/contractData'
 
 const updateMessageMock = jest.fn()
 jest.mock('react', () => ({
@@ -12,30 +12,31 @@ jest.mock('react', () => ({
 }))
 const overlayEventHanderMock = jest.fn()
 const overlayEvents = { overlayEvent: overlayEventHanderMock }
-jest.mock('../../../../src/hooks/notifications/eventHandler/useOverlayEvents', () => ({
+jest.mock('./eventHandler/useOverlayEvents', () => ({
   useOverlayEvents: () => overlayEvents,
 }))
 
 const offerPopupEventHandlerMock = jest.fn()
 const offerPopupEvents = { offerPopupEvent: offerPopupEventHandlerMock }
-jest.mock('../../../../src/hooks/notifications/eventHandler/offer/useOfferPopupEvents', () => ({
+jest.mock('./eventHandler/offer/useOfferPopupEvents', () => ({
   useOfferPopupEvents: () => offerPopupEvents,
 }))
 const contractPopupEventHandlerMock = jest.fn()
 const contractPopupEvents = { contractPopupEvent: contractPopupEventHandlerMock }
-jest.mock('../../../../src/hooks/notifications/eventHandler/contract/useContractPopupEvents', () => ({
+jest.mock('./eventHandler/contract/useContractPopupEvents', () => ({
   useContractPopupEvents: () => contractPopupEvents,
 }))
-jest.mock('../../../../src/utils/contract', () => ({
+
+jest.mock('../../utils/contract', () => ({
   getContract: jest.fn(),
 }))
-jest.mock('../../../../src/utils/peachAPI', () => ({
+jest.mock('../../utils/peachAPI', () => ({
   getContract: jest.fn(),
 }))
 
 const stateUpdateEventHandlerMock = jest.fn()
 const stateUpdateEvents = { stateUpdateEvent: stateUpdateEventHandlerMock }
-jest.mock('../../../../src/hooks/notifications/eventHandler/useStateUpdateEvents', () => ({
+jest.mock('./eventHandler/useStateUpdateEvents', () => ({
   useStateUpdateEvents: () => stateUpdateEvents,
 }))
 
@@ -45,7 +46,7 @@ const actionMock = {
   callback: jest.fn(),
 }
 const getPNActionHandlerMock = jest.fn().mockReturnValue(actionMock)
-jest.mock('../../../../src/hooks/notifications/useGetPNActionHandler', () => ({
+jest.mock('./useGetPNActionHandler', () => ({
   useGetPNActionHandler: () => getPNActionHandlerMock,
 }))
 

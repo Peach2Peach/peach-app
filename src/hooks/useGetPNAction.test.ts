@@ -1,7 +1,7 @@
 import { act, renderHook } from '@testing-library/react-hooks'
-import { useGetPNActionHandler, useNavigation } from '../../../../src/hooks'
+import { useGetPNActionHandler, useNavigation } from '.'
 
-jest.mock('../../../../src/hooks/useNavigation', () => ({
+jest.mock('./useNavigation', () => ({
   useNavigation: jest.fn().mockReturnValue({
     navigate: jest.fn(),
   }),

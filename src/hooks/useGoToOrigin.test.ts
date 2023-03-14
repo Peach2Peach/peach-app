@@ -1,8 +1,8 @@
 import { act, renderHook } from '@testing-library/react-hooks'
-import { useGoToOrigin } from '../../../src/hooks/useGoToOrigin'
-import { useNavigation } from '../../../src/hooks/useNavigation'
+import { useGoToOrigin } from './useGoToOrigin'
+import { useNavigation } from './useNavigation'
 
-jest.mock('../../../src/hooks/useNavigation', () => ({
+jest.mock('./useNavigation', () => ({
   useNavigation: jest.fn().mockReturnValue({
     getState: jest.fn().mockReturnValue({
       routes: [{ name: 'buy' }, { name: 'buyPreferences' }, { name: 'paymentDetails' }],

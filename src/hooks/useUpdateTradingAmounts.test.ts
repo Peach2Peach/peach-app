@@ -1,18 +1,18 @@
 import { renderHook } from '@testing-library/react-hooks'
 import { act } from 'react-test-renderer'
-import { useUpdateTradingAmounts } from '../../../src/hooks'
-import { useConfigStore } from '../../../src/store/configStore'
-import { useSettingsStore } from '../../../src/store/settingsStore'
-import { getTradingAmountLimits } from '../../../src/utils/market'
+import { useUpdateTradingAmounts } from '.'
+import { useConfigStore } from '../store/configStore'
+import { useSettingsStore } from '../store/settingsStore'
+import { getTradingAmountLimits } from '../utils/market'
 
-jest.mock('../../../src/utils/market', () => ({
+jest.mock('../utils/market', () => ({
   getTradingAmountLimits: jest.fn().mockReturnValue([10, 100]),
 }))
 
 describe('useUpdateTradingAmounts', () => {
   it('updates the min and max trading amounts correctly', async () => {
     const { result: updateTradingAmounts } = renderHook(() => useUpdateTradingAmounts())
-    const { result: configStoreResult } = renderHook(() => useConfigStore())
+    const { result: configStoreResult } = renderHook(() => useConfigStore((state) => state))
 
     act(() => {
       configStoreResult.current.setMinTradingAmount(5)
@@ -29,7 +29,7 @@ describe('useUpdateTradingAmounts', () => {
   })
   it('updates selected amounts if they fall out of range', async () => {
     const { result: updateTradingAmounts } = renderHook(() => useUpdateTradingAmounts())
-    const { result: settingsStoreResult } = renderHook(() => useSettingsStore())
+    const { result: settingsStoreResult } = renderHook(() => useSettingsStore((state) => state))
 
     act(() => {
       settingsStoreResult.current.setSellAmount(5)
@@ -49,7 +49,7 @@ describe('useUpdateTradingAmounts', () => {
 
   it('does not update selected amounts if they do not fall out of range', async () => {
     const { result: updateTradingAmounts } = renderHook(() => useUpdateTradingAmounts())
-    const { result: settingsStoreResult } = renderHook(() => useSettingsStore())
+    const { result: settingsStoreResult } = renderHook(() => useSettingsStore((state) => state))
 
     act(() => {
       settingsStoreResult.current.setSellAmount(20)

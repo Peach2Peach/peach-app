@@ -1,19 +1,18 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { act, renderHook } from '@testing-library/react-hooks'
-// eslint-disable-next-line max-len
-import { useContractPopupEvents } from '../../../../../../src/hooks/notifications/eventHandler/contract/useContractPopupEvents'
-import { contract } from '../../../../data/contractData'
+import { useContractPopupEvents } from './useContractPopupEvents'
+import { contract } from '../../../../../tests/unit/data/contractData'
 
 const showConfirmTradeCancelationMock = jest.fn()
-jest.mock('../../../../../../src/overlays/tradeCancelation', () => ({
+jest.mock('../../../../overlays/tradeCancelation', () => ({
   useConfirmTradeCancelationOverlay: () => showConfirmTradeCancelationMock,
 }))
 const showTradeCanceledMock = jest.fn()
-jest.mock('../../../../../../src/overlays/tradeCancelation/useTradeCanceledOverlay', () => ({
+jest.mock('../../../../overlays/tradeCancelation/useTradeCanceledOverlay', () => ({
   useTradeCanceledOverlay: () => showTradeCanceledMock,
 }))
 const showPaymentTooLateOverlayMock = jest.fn()
-jest.mock('../../../../../../src/overlays/usePaymentTooLateOverlay', () => ({
+jest.mock('../../../../overlays/usePaymentTooLateOverlay', () => ({
   usePaymentTooLateOverlay: () => showPaymentTooLateOverlayMock,
 }))
 

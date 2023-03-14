@@ -1,17 +1,17 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { act, renderHook } from '@testing-library/react-hooks'
-import { useOfferPopupEvents } from '../../../../../../src/hooks/notifications/eventHandler/offer/useOfferPopupEvents'
-import { getOffer } from '../../../../../../src/utils/offer'
+import { useOfferPopupEvents } from './useOfferPopupEvents'
+import { getOffer } from '../../../../utils/offer'
 
 const confirmEscrowOverlayMock = jest.fn()
-jest.mock('../../../../../../src/overlays/useConfirmEscrowOverlay', () => ({
+jest.mock('../../../../overlays/useConfirmEscrowOverlay', () => ({
   useConfirmEscrowOverlay: () => confirmEscrowOverlayMock,
 }))
 const wronglyFundedOverlayMock = jest.fn()
-jest.mock('../../../../../../src/overlays/useWronglyFundedOverlay', () => ({
+jest.mock('../../../../overlays/useWronglyFundedOverlay', () => ({
   useWronglyFundedOverlay: () => wronglyFundedOverlayMock,
 }))
-jest.mock('../../../../../../src/utils/offer', () => ({
+jest.mock('../../../../utils/offer', () => ({
   getOffer: jest.fn(),
 }))
 
