@@ -1,4 +1,4 @@
-import { isRejectedPromise } from '../../../../src/utils/promise/isRejectedPromise'
+import { isRejectedPromise } from './isRejectedPromise'
 
 describe('isRejectedPromise', () => {
   const rejected = () => new Promise((resolve, reject) => reject(new Error('0')))
