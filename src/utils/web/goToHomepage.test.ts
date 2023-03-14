@@ -1,5 +1,5 @@
 import { Linking } from 'react-native'
-import { goToHomepage } from '../../../../src/utils/web'
+import { goToHomepage } from '.'
 
 describe('goToHomepage', () => {
   it('should call Linking.openURL with the correct URL', async () => {
