@@ -52,7 +52,6 @@ export const OpenTradeBuyer = ({ contract }: TradeSummaryProps): ReactElement =>
         {contract.paymentMethod.includes('cash.') && <CashTradeDetails contract={contract} />}
         {!!contract.paymentData && !!PaymentTo && (
           <PaymentTo
-            style={tw`mt-[2px]`}
             paymentData={contract.paymentData}
             country={contract.country}
             appLink={appLink?.appLink}

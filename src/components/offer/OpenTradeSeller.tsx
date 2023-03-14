@@ -61,16 +61,15 @@ export const OpenTradeSeller = ({ contract }: TradeSummaryProps): ReactElement =
           && (contract.paymentMethod.includes('cash.') ? (
             <CashTradeDetails contract={contract} />
           ) : (
-            <View style={tw`flex-row items-start justify-between mt-[2px]`}>
-              <Text style={tw`text-black-2`}>{i18n('contract.payment.to')}</Text>
+            <View style={tw`flex-row items-start mt-[2px]`}>
+              <Text style={tw`text-black-2 w-25`}>{i18n('contract.payment.to')}</Text>
               <View style={tw`flex-row items-center`}>
-                <Text style={tw`ml-4 leading-normal text-right subtitle-1`}>{storedPaymentData.label}</Text>
+                <Text style={tw`leading-normal text-right subtitle-1`}>{storedPaymentData.label}</Text>
               </View>
             </View>
           ))}
         {!!contract.paymentData && !!PaymentTo && (
           <PaymentTo
-            style={tw`mt-[2px]`}
             paymentData={contract.paymentData}
             country={contract.country}
             copyable={false} />
