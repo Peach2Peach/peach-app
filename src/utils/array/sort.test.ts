@@ -1,5 +1,5 @@
 import { deepStrictEqual } from 'assert'
-import { sort } from '../../../../src/utils/array'
+import { sort } from '.'
 
 describe('sort', () => {
   it('sorts items in an array', () => {

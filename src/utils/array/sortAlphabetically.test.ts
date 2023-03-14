@@ -1,4 +1,4 @@
-import { sortAlphabetically } from '../../../../src/utils/array/sortAlphabetically'
+import { sortAlphabetically } from './sortAlphabetically'
 
 describe('sortAlphabetically', () => {
   it('should return -1 if the second string is greater than the first string', () => {
