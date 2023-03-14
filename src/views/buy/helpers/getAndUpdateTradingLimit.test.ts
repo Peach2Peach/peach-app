@@ -1,12 +1,12 @@
-import { getAndUpdateTradingLimit } from '../../../../../src/views/buy/helpers/getAndUpdateTradingLimit'
+import { getAndUpdateTradingLimit } from './getAndUpdateTradingLimit'
 
 const getTradingLimitMock = jest.fn().mockResolvedValue(['tradingLimit'])
-jest.mock('../../../../../src/utils/peachAPI', () => ({
+jest.mock('../../../utils/peachAPI', () => ({
   getTradingLimit: () => getTradingLimitMock(),
 }))
 
 const updateTradingLimitMock = jest.fn()
-jest.mock('../../../../../src/utils/account', () => ({
+jest.mock('../../../utils/account', () => ({
   updateTradingLimit: (...args: any[]) => updateTradingLimitMock(...args),
 }))
 

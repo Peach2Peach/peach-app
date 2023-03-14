@@ -1,4 +1,4 @@
-import { getBuyOfferDraft } from '../../../../../src/views/buy/helpers/getBuyOfferDraft'
+import { getBuyOfferDraft } from './getBuyOfferDraft'
 
 describe('getBuyOfferDraft', () => {
   it('should return a BuyOfferDraft', () => {
