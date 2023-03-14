@@ -1,4 +1,4 @@
-import { isError } from '../../../../../src/views/yourTrades/utils'
+import { isError } from '.'
 
 describe('isError', () => {
   it('should return true for error status', () => {

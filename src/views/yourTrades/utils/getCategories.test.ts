@@ -1,4 +1,4 @@
-import { getCategories } from '../../../../src/views/yourTrades/utils/getCategories'
+import { getCategories } from './getCategories'
 
 describe('getCategories', () => {
   it('returns the correct categories with non-empty data', () => {

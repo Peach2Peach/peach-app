@@ -1,4 +1,4 @@
-import { checkMessages } from '../../../../../src/views/yourTrades/utils/checkMessages'
+import { checkMessages } from './checkMessages'
 
 const contractSummary = {
   price: 1,

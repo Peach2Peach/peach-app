@@ -1,4 +1,4 @@
-import { shouldGoToOfferSummary } from '../../../../../src/views/yourTrades/utils'
+import { shouldGoToOfferSummary } from '.'
 
 describe('shouldGoToOfferSummary', () => {
   it('should return true for offerCanceled', () => {
