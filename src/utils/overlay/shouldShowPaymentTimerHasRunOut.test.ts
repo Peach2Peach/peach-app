@@ -1,4 +1,4 @@
-import { shouldShowPaymentTimerHasRunOut } from '../../../../src/utils/overlay'
+import { shouldShowPaymentTimerHasRunOut } from '.'
 
 // eslint-disable-next-line max-lines-per-function
 describe('shouldShowPaymentTimerHasRunOut', () => {

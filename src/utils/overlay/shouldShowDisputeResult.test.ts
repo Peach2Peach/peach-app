@@ -1,4 +1,4 @@
-import { shouldShowDisputeResult } from '../../../../src/utils/overlay'
+import { shouldShowDisputeResult } from '.'
 
 describe('shouldShowDisputeResult', () => {
   it('returns true if dispute result is in', () => {

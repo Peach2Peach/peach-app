@@ -1,4 +1,4 @@
-import { shouldShowYouGotADispute } from '../../../../src/utils/overlay'
+import { shouldShowYouGotADispute } from '.'
 
 describe('shouldShowYouGotADispute', () => {
   it('returns true if user got a dispute', () => {

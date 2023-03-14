@@ -1,4 +1,4 @@
-import { shouldShowCancelTradeRequestRejected } from '../../../../src/utils/overlay'
+import { shouldShowCancelTradeRequestRejected } from '.'
 
 // eslint-disable-next-line max-lines-per-function
 describe('shouldShowCancelTradeRequestRejected', () => {

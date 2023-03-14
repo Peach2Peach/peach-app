@@ -1,4 +1,4 @@
-import { shouldShowTradeCanceled } from '../../../../src/utils/overlay'
+import { shouldShowTradeCanceled } from '.'
 
 describe('shouldShowTradeCanceled', () => {
   it('returns true if buyer canceled trade', () => {

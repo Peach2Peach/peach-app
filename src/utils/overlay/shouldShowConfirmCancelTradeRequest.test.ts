@@ -1,4 +1,4 @@
-import { shouldShowConfirmCancelTradeRequest } from '../../../../src/utils/overlay'
+import { shouldShowConfirmCancelTradeRequest } from '.'
 
 describe('shouldShowConfirmCancelTradeRequest', () => {
   it('returns true if contract cancelation has been confirmed', () => {
