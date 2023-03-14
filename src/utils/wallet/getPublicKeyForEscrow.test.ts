@@ -1,5 +1,5 @@
 import { strictEqual } from 'assert'
-import { createWalletFromSeedPhrase, getNetwork, getPublicKeyForEscrow } from '../../../../src/utils/wallet'
+import { createWalletFromSeedPhrase, getNetwork, getPublicKeyForEscrow } from '.'
 
 describe('getPublicKeyForEscrow', () => {
   it('returns wallet for escrow depending on offer id', () => {

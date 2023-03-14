@@ -1,5 +1,5 @@
 import { deepStrictEqual } from 'assert'
-import { createWalletFromSeedPhrase, getNetwork, getWallet, setWallet } from '../../../../src/utils/wallet'
+import { createWalletFromSeedPhrase, getNetwork, getWallet, setWallet } from '.'
 
 describe('setWallet', () => {
   it('returns wallet for escrow depending on offer id', () => {

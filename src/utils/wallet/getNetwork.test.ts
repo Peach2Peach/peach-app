@@ -1,6 +1,6 @@
 import { deepStrictEqual } from 'assert'
 import { networks } from 'bitcoinjs-lib'
-import { getNetwork } from '../../../../src/utils/wallet'
+import { getNetwork } from '.'
 
 describe('getNetwork', () => {
   it('returns network provided in .env', () => {

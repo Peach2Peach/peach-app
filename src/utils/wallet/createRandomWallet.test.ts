@@ -1,6 +1,6 @@
 import { deepStrictEqual, ok } from 'assert'
 import { networks } from 'bitcoinjs-lib'
-import { createRandomWallet, getNetwork } from '../../../../src/utils/wallet'
+import { createRandomWallet, getNetwork } from '.'
 
 describe('createRandomWallet', () => {
   it('creates a random new wallet', async () => {
