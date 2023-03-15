@@ -22,7 +22,6 @@ declare type Settings = {
   fcmToken?: string
   lastFileBackupDate?: number
   lastSeedBackupDate?: number
-  lastSeedBackupDate?: number
   showBackupReminder: boolean
   peachWalletActive: boolean
   nodeURL: string
