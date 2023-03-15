@@ -5,8 +5,19 @@ import { PeachScrollView } from '../../../../components'
 import { PrimaryButton } from '../../../../components/buttons'
 import tw from '../../../../styles/tailwind'
 import i18n from '../../../../utils/i18n'
-import { screens, useSeedBackupSetup } from '../../hooks/useSeedBackupSetup'
+import { useSeedBackupSetup } from '../../hooks/useSeedBackupSetup'
+import { KeepPhraseSecure } from './KeepPhraseSecure'
+import { LastSeedBackup } from './LastSeedBackup'
 import { ReadAndUnderstood } from './ReadAndUnderstood'
+import { SecurityInfo } from './SecurityInfo'
+import { TwelveWords } from './TwelveWords'
+
+export const screens = [
+  { id: 'securityInfo', view: SecurityInfo },
+  { id: 'twelveWords', view: TwelveWords },
+  { id: 'keepPhraseSecure', view: KeepPhraseSecure, buttonText: 'finish' },
+  { id: 'lastSeedBackup', view: LastSeedBackup },
+]
 
 export default ({ style }: ComponentProps): ReactElement => {
   const {

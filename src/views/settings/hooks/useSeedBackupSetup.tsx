@@ -6,18 +6,8 @@ import { useHeaderSetup, useToggleBoolean } from '../../../hooks'
 import { useShowHelp } from '../../../hooks/useShowHelp'
 import { useSettingsStore } from '../../../store/settingsStore'
 import i18n from '../../../utils/i18n'
-import { KeepPhraseSecure } from '../components/backups/KeepPhraseSecure'
-import { LastSeedBackup } from '../components/backups/LastSeedBackup'
-import { SecurityInfo } from '../components/backups/SecurityInfo'
-import { TwelveWords } from '../components/backups/TwelveWords'
+import { screens } from '../components/backups/SeedPhrase'
 
-
-export const screens = [
-  { id: 'securityInfo', view: SecurityInfo },
-  { id: 'twelveWords', view: TwelveWords },
-  { id: 'keepPhraseSecure', view: KeepPhraseSecure, buttonText: 'finish' },
-  { id: 'lastSeedBackup', view: LastSeedBackup },
-]
 export const useSeedBackupSetup = () => {
   const showSeedPhrasePopup = useShowHelp('seedPhrase')
 
