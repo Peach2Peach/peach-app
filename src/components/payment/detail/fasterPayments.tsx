@@ -16,7 +16,7 @@ export const DetailFasterPayments = ({ paymentData, copyable, style }: PaymentTe
         {possibleFields
           .filter((field) => paymentData[field])
           .map((field, i) => (
-            <View key={'paymentDetails-' + field} style={i > 0 && tw`mt-2`}>
+            <View key={'paymentDetails-' + field} style={i > 0 && tw`mt-[2px]`}>
               <View style={tw`flex-row items-center justify-end`}>
                 <Text style={tw`subtitle-1`}>{paymentData[field]}</Text>
                 {copyable && <CopyAble value={paymentData[field] as string} style={tw`ml-2`} />}

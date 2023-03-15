@@ -70,4 +70,17 @@ describe('getTradeBreakdown', () => {
       amountReceived: 100,
     })
   })
+
+  it('should handle error', () => {
+    const inputAmount = 120
+    fromHexMock.mockImplementation(() => {
+      throw new Error('error')
+    })
+    expect(getTradeBreakdown(releaseTransaction, releaseAddress, inputAmount)).toEqual({
+      totalAmount: 0,
+      peachFee: 0,
+      networkFee: 0,
+      amountReceived: 0,
+    })
+  })
 })

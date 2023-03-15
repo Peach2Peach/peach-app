@@ -24,7 +24,7 @@ export const useDisputeResults = () => {
         saveContract({
           ...contract,
           disputeResultAcknowledged: true,
-          cancelConfirmationDismissed: true,
+          cancelConfirmationDismissed: view === 'buyer',
           disputeResolvedDate: new Date(),
         })
       }
