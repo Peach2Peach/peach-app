@@ -1,6 +1,6 @@
 import React from 'react'
 import { View } from 'react-native'
-import { SatsFormat, Text } from '../components'
+import { HorizontalLine, SatsFormat, Text } from '../components'
 import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
 import { getTradeBreakdown } from '../utils/bitcoin'
@@ -21,7 +21,7 @@ export const TradeBreakdown = ({ releaseTransaction, releaseAddress, amount }: P
   return (
     <View>
       <View style={tw`flex-row items-center justify-between mt-3`}>
-        <Text style={tw`subtitle-1 text-black-2`}>{i18n('tradeComplete.popup.tradeBreakdown.escrow')}</Text>
+        <Text style={tw`subtitle-1 text-black-2`}>{i18n('tradeComplete.popup.tradeBreakdown.sellerAmount')}</Text>
         <SatsFormat
           containerStyle={tw`items-start justify-between h-5 w-45`}
           bitcoinLogoStyle={tw`w-[18px] h-[18px] mr-2`}
@@ -40,6 +40,18 @@ export const TradeBreakdown = ({ releaseTransaction, releaseAddress, amount }: P
           sats={peachFee}
         />
       </View>
+      <HorizontalLine style={tw`self-end my-4 bg-black-2 w-45`} />
+
+      <View style={tw`flex-row items-center justify-between`}>
+        <Text style={tw`subtitle-1 text-black-2`}>{i18n('tradeComplete.popup.tradeBreakdown.tradeAmount')}</Text>
+        <SatsFormat
+          containerStyle={tw`items-start justify-between h-5 w-45`}
+          bitcoinLogoStyle={tw`w-[18px] h-[18px] mr-2`}
+          style={tw`font-normal leading-tight body-l`}
+          satsStyle={tw`font-normal body-s`}
+          sats={totalAmount - peachFee}
+        />
+      </View>
       <View style={tw`flex-row items-center justify-between mt-3`}>
         <Text style={tw`subtitle-1 text-black-2`}>{i18n('tradeComplete.popup.tradeBreakdown.networkFees')}</Text>
         <SatsFormat
@@ -50,10 +62,7 @@ export const TradeBreakdown = ({ releaseTransaction, releaseAddress, amount }: P
           sats={networkFee}
         />
       </View>
-      <View style={tw`flex-row items-end self-end py-4 pr-3`}>
-        <View style={tw`border-t w-[118px] h-0 mr-2`} />
-        <View style={tw`border w-[10px]`} />
-      </View>
+      <HorizontalLine style={tw`self-end my-4 bg-black-2 w-45`} />
       <View style={tw`flex-row items-center justify-between`}>
         <Text style={tw`subtitle-1 text-black-2`}>{i18n('tradeComplete.popup.tradeBreakdown.youGet')}</Text>
         <SatsFormat
