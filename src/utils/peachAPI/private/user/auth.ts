@@ -9,7 +9,7 @@ import { getAuthenticationChallenge } from '../../getAuthenticationChallenge'
 import { getResponseError } from '../../getResponseError'
 import { getPeachAccount } from '../../peachAccount'
 
-const tokenNotFoundError = {
+const tokenNotFoundError: APIError = {
   error: 'Token not found',
 }
 
@@ -66,7 +66,7 @@ export const auth = async ({ timeout }: AuthProps): Promise<[AccessToken | null,
     }
 
     error('peachAPI - auth - FAILED', tokenNotFoundError)
-    return [null, tokenNotFoundError as APIError]
+    return [null, tokenNotFoundError]
   } catch (e) {
     error('peachAPI - auth', e)
     return [null, { error: 'INTERNAL_SERVER_ERROR' }]

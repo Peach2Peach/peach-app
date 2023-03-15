@@ -5,6 +5,7 @@ import { Text } from '../../../../components'
 import { OverlayContext } from '../../../../contexts/overlay'
 import { deleteAccount } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
+import { logoutUser } from '../../../../utils/peachAPI'
 
 const DeleteAccountPopup = ({ title }: { title: 'popup' | 'forRealsies' | 'success' }) => (
   <Text>{i18n(`settings.deleteAccount.${title}`)}</Text>
@@ -34,6 +35,7 @@ export const useDeleteAccountPopups = () => {
 
   const deleteAccountClicked = async () => {
     await deleteAccount()
+    logoutUser({})
     CommonActions.reset({
       index: 0,
       routes: [{ name: 'welcome' }],

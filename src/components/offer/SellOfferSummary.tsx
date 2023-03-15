@@ -1,5 +1,5 @@
 import { NETWORK } from '@env'
-import React, { ReactElement, useMemo, useState } from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 import { TouchableOpacity, View } from 'react-native'
 import shallow from 'zustand/shallow'
 import { useSettingsStore } from '../../store/settingsStore'
@@ -29,16 +29,19 @@ export const SellOfferSummary = ({ offer, style }: SellOfferSummaryProps): React
     (state) => [state.payoutAddress, state.payoutAddressLabel],
     shallow,
   )
-  const walletLabel = useMemo(
-    () =>
+  const [walletLabel, setWalletLabel] = useState(i18n('loading'))
+
+  useEffect(() => {
+    setWalletLabel(
       getSummaryWalletLabel({
         offerWalletLabel: offer.walletLabel,
         address: offer.returnAddress,
         customPayoutAddress: payoutAddress,
         customPayoutAddressLabel: payoutAddressLabel,
-      }) || i18n('offer.summary.customRefundAddress'),
-    [offer.returnAddress, offer.walletLabel, payoutAddress, payoutAddressLabel],
-  )
+      }) || i18n('offer.summary.customPayoutAddress'),
+    )
+  }, [offer.returnAddress, offer.walletLabel, payoutAddress, payoutAddressLabel])
+
   return (
     <View style={[tw`border border-black-5 rounded-2xl p-7 bg-primary-background-light`, style]}>
       <Text style={tw`self-center body-m text-black-2`}>

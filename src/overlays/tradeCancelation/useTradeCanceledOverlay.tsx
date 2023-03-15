@@ -1,6 +1,6 @@
 import React, { useCallback, useContext } from 'react'
 import { OverlayContext } from '../../contexts/overlay'
-import { ContractCanceled } from './ContractCanceled'
+import { ContractCanceledToSeller } from './ContractCanceledToSeller'
 import { BuyerConfirmedCancelTrade } from './BuyerConfirmedCancelTrade'
 import { useStartRefundOverlay } from '../useStartRefundOverlay'
 import { getSellOfferFromContract, saveContract } from '../../utils/contract'
@@ -100,7 +100,7 @@ export const useTradeCanceledOverlay = () => {
         content: mutualClose ? (
           <BuyerConfirmedCancelTrade contract={contract} />
         ) : (
-          <ContractCanceled contract={contract} />
+          <ContractCanceledToSeller contract={contract} />
         ),
         visible: true,
         level: 'WARN',
