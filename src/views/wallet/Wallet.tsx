@@ -1,7 +1,7 @@
 import React from 'react'
 import { RefreshControl, View } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-import { AvoidKeyboard, Icon, PeachScrollView, Text } from '../../components'
+import { AvoidKeyboard, Icon, Loading, PeachScrollView, Text } from '../../components'
 import { BitcoinAddressInput, SlideToUnlock } from '../../components/inputs'
 import { BigSatsFormat } from '../../components/text'
 import tw from '../../styles/tailwind'
@@ -14,10 +14,19 @@ import { WalletLoading } from './WalletLoading'
 const openWalletApp = () => openInWallet('bitcoin:')
 
 export default () => {
-  const { walletStore, refresh, loading, onChange, isValid, address, addressErrors, openWithdrawalConfirmation }
-    = useWalletSetup()
+  const {
+    walletStore,
+    refresh,
+    refreshing,
+    onChange,
+    isValid,
+    address,
+    addressErrors,
+    openWithdrawalConfirmation,
+    walletLoading,
+  } = useWalletSetup()
 
-  if (loading) return <WalletLoading />
+  if (walletLoading) return <WalletLoading />
 
   return (
     <AvoidKeyboard iOSBehavior={'height'} androidBehavior={'height'}>
@@ -29,7 +38,8 @@ export default () => {
         <View style={tw`flex flex-col justify-between h-full`}>
           <View style={tw`flex flex-col items-center justify-center flex-shrink h-full`}>
             <Text style={tw`mb-4 button-medium`}>{i18n('wallet.totalBalance')}:</Text>
-            <BigSatsFormat sats={walletStore.balance} />
+            <BigSatsFormat style={refreshing ? tw`opacity-60` : {}} sats={walletStore.balance} />
+            {refreshing && <Loading style={tw`absolute`} />}
             <Text style={tw`mt-16 button-medium`}>{i18n('wallet.withdrawTo')}:</Text>
             <BitcoinAddressInput
               style={tw`mt-4`}

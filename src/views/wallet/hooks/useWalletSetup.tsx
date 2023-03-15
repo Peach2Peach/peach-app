@@ -1,5 +1,5 @@
 import { useFocusEffect } from '@react-navigation/native'
-import React, { useCallback, useContext, useMemo } from 'react'
+import React, { useCallback, useContext, useMemo, useState } from 'react'
 import { Icon } from '../../../components'
 import { HelpIcon } from '../../../components/icons'
 import { OverlayContext } from '../../../contexts/overlay'
@@ -28,7 +28,8 @@ export const useWalletSetup = () => {
   const walletStore = useWalletState((state) => state)
   const showHelp = useShowHelp('withdrawingFunds')
   const navigation = useNavigation()
-  const { refresh, loading } = useSyncWallet()
+  const { refresh, refreshing } = useSyncWallet()
+  const [walletLoading, setWalletLoading] = useState(false)
 
   const closeOverlay = useMemo(() => () => updateOverlay({ visible: false }), [updateOverlay])
 
@@ -104,20 +105,27 @@ export const useWalletSetup = () => {
     ),
   )
 
+  const syncWalletOnLoad = async () => {
+    setWalletLoading(true)
+    await peachWallet.syncWallet()
+    setWalletLoading(false)
+  }
+
   useFocusEffect(
     useCallback(() => {
-      peachWallet.syncWallet()
+      syncWalletOnLoad()
     }, []),
   )
 
   return {
     walletStore,
     refresh,
-    loading,
+    refreshing,
     onChange,
     isValid,
     address,
     addressErrors,
     openWithdrawalConfirmation,
+    walletLoading,
   }
 }
