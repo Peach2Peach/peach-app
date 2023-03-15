@@ -21,6 +21,7 @@ declare type Settings = {
   pgpPublished?: boolean
   fcmToken?: string
   lastFileBackupDate?: number
+  lastBackupDate?: number
   lastSeedBackupDate?: number
   showBackupReminder: boolean
   peachWalletActive: boolean

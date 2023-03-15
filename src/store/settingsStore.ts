@@ -23,6 +23,7 @@ type SettingsStore = Settings & {
   setPremium: (premium: number) => void
   setLastSeedBackupDate: (lastSeedBackupDate: number) => void
   setLastFileBackupDate: (lastFileBackupDate: number) => void
+  setLastBackupDate: (lastBackupDate: number) => void
   setShowBackupReminder: (showBackupReminder: boolean) => void
   setPeachWalletActive: (peachWalletActive: boolean) => void
   togglePeachWallet: () => void
@@ -56,6 +57,7 @@ export const settingsStore = createStore(
       setPremium: (premium) => set((state) => ({ ...state, premium })),
       setLastFileBackupDate: (lastFileBackupDate) => set((state) => ({ ...state, lastFileBackupDate })),
       setLastSeedBackupDate: (lastSeedBackupDate) => set((state) => ({ ...state, lastSeedBackupDate })),
+      setLastBackupDate: (lastBackupDate) => set((state) => ({ ...state, lastBackupDate })),
       setShowBackupReminder: (showBackupReminder) => set((state) => ({ ...state, showBackupReminder })),
       setPeachWalletActive: (peachWalletActive) => set((state) => ({ ...state, peachWalletActive })),
       togglePeachWallet: () => get().setPeachWalletActive(!get().peachWalletActive),
