@@ -1,4 +1,4 @@
-import { settingsStore } from '../../../store/settingsStore'
+import { settingsStore } from '../../store/settingsStore'
 import { checkBackupUpdate } from './checkBackupUpdate'
 
 describe('checkBackupUpdate function', () => {

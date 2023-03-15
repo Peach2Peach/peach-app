@@ -1,5 +1,5 @@
 import { accountStorage } from '../../utils/account/accountStorage'
-import { checkBackupUpdate } from './afterLoadingAccount/checkBackupUpdate'
+import { checkBackupUpdate } from './checkBackupUpdate'
 import { migrateAccountToSecureStorage } from './migrateAccountToSecureStorage'
 
 export const dataMigrationBeforeLoadingAccount = async () => {
