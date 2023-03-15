@@ -1,10 +1,12 @@
 import React, { ReactElement } from 'react'
 import { View } from 'react-native'
+const { LinearGradient } = require('react-native-gradients')
 
 import { PeachScrollView } from '../../../../components'
 import { PrimaryButton } from '../../../../components/buttons'
 import tw from '../../../../styles/tailwind'
 import i18n from '../../../../utils/i18n'
+import { whiteGradient } from '../../../../utils/layout'
 import { useSeedBackupSetup } from '../../hooks/useSeedBackupSetup'
 import { KeepPhraseSecure } from './KeepPhraseSecure'
 import { LastSeedBackup } from './LastSeedBackup'
@@ -13,10 +15,10 @@ import { SecurityInfo } from './SecurityInfo'
 import { TwelveWords } from './TwelveWords'
 
 export const screens = [
+  { id: 'lastSeedBackup', view: LastSeedBackup },
   { id: 'securityInfo', view: SecurityInfo },
   { id: 'twelveWords', view: TwelveWords },
   { id: 'keepPhraseSecure', view: KeepPhraseSecure, buttonText: 'finish' },
-  { id: 'lastSeedBackup', view: LastSeedBackup },
 ]
 
 export default ({ style }: ComponentProps): ReactElement => {
@@ -32,15 +34,21 @@ export default ({ style }: ComponentProps): ReactElement => {
 
   return (
     <View style={[tw`h-full`, style]}>
-      <PeachScrollView style={tw`mr-10 ml-13`}>
-        <CurrentView {...{ goBackToStart }} />
+      <PeachScrollView contentContainerStyle={tw`items-center justify-center flex-grow`}>
+        {<CurrentView {...{ goBackToStart }}/>}
       </PeachScrollView>
-      {currentScreenIndex === 0 && <ReadAndUnderstood style={tw`self-center`} checkBoxProps={{ checked, onPress }} />}
-      {currentScreenIndex !== screens.length - 1 && (
-        <PrimaryButton narrow onPress={showNextScreen} style={tw`self-center mt-10 mb-6`} disabled={!checked}>
-          {i18n(screens[currentScreenIndex].buttonText || 'next')}
-        </PrimaryButton>
-      )}
+      <View>
+        <View style={tw`w-full h-8 -mt-8`}>
+          <LinearGradient colorList={whiteGradient} angle={90} />
+        </View>
+        {currentScreenIndex === 1
+          && <ReadAndUnderstood style={tw`self-center mb-10`} checkBoxProps={{ checked, onPress }}/>}
+        {currentScreenIndex !== 0 && (
+          <PrimaryButton narrow onPress={showNextScreen} style={tw`self-center mb-6`} disabled={!checked}>
+            {i18n(screens[currentScreenIndex].buttonText || 'next')}
+          </PrimaryButton>
+        )}
+      </View>
     </View>
   )
 }

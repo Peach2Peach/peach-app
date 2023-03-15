@@ -11,8 +11,8 @@ import { screens } from '../components/backups/SeedPhrase'
 export const useSeedBackupSetup = () => {
   const showSeedPhrasePopup = useShowHelp('seedPhrase')
 
-  const [setShowBackupReminder, setLastSeedBackupDate] = useSettingsStore(
-    (state) => [state.setShowBackupReminder, state.setLastSeedBackupDate],
+  const [setShowBackupReminder, setLastSeedBackupDate, lastSeedBackupDate] = useSettingsStore(
+    (state) => [state.setShowBackupReminder, state.setLastSeedBackupDate, state.lastSeedBackupDate],
     shallow,
   )
 
@@ -21,7 +21,7 @@ export const useSeedBackupSetup = () => {
     icons: [{ iconComponent: <HelpIcon />, onPress: showSeedPhrasePopup }],
   })
   const [checked, onPress] = useToggleBoolean()
-  const [currentScreenIndex, setCurrentScreenIndex] = useState(0)
+  const [currentScreenIndex, setCurrentScreenIndex] = useState(lastSeedBackupDate ? 0 : 1)
   const showNextScreen = useCallback(() => {
     if (screens[currentScreenIndex].id === 'keepPhraseSecure') {
       setLastSeedBackupDate(Date.now())
@@ -29,11 +29,14 @@ export const useSeedBackupSetup = () => {
     }
     if (currentScreenIndex < screens.length - 1) {
       setCurrentScreenIndex((prev) => prev + 1)
+    } else {
+      setCurrentScreenIndex(0)
     }
+
   }, [currentScreenIndex, setLastSeedBackupDate, setShowBackupReminder])
 
   const goBackToStart = useCallback(() => {
-    setCurrentScreenIndex(0)
+    setCurrentScreenIndex(1)
     onPress()
   }, [onPress])
 
@@ -43,5 +46,6 @@ export const useSeedBackupSetup = () => {
     showNextScreen,
     currentScreenIndex,
     goBackToStart,
+    lastSeedBackupDate,
   }
 }
