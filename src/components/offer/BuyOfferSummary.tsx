@@ -1,4 +1,4 @@
-import React, { ReactElement, useMemo, useState } from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
@@ -22,16 +22,18 @@ export const BuyOfferSummary = ({ offer, style }: BuyOfferSummaryProps): ReactEl
     (state) => [state.payoutAddress, state.payoutAddressLabel],
     shallow,
   )
-  const walletLabel = useMemo(
-    () =>
+  const [walletLabel, setWalletLabel] = useState(i18n('loading'))
+
+  useEffect(() => {
+    setWalletLabel(
       getSummaryWalletLabel({
         offerWalletLabel: offer.walletLabel,
         address: offer.releaseAddress,
         customPayoutAddress: payoutAddress,
         customPayoutAddressLabel: payoutAddressLabel,
       }) || i18n('offer.summary.customPayoutAddress'),
-    [offer.releaseAddress, offer.walletLabel, payoutAddress, payoutAddressLabel],
-  )
+    )
+  }, [offer.releaseAddress, offer.walletLabel, payoutAddress, payoutAddressLabel])
 
   return (
     <View style={[tw`w-full border border-black-5 rounded-2xl p-7 bg-primary-background-light`, style]}>

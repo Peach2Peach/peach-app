@@ -11,7 +11,7 @@ import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { isBuyOffer, offerIdToHex } from '../../../utils/offer'
 import { parseError } from '../../../utils/system'
-import { shouldGoToContract } from '../shouldGoToContract'
+import { shouldGoToContract } from '../helpers/shouldGoToContract'
 import { useOfferMatches } from './useOfferMatches'
 import useRefetchOnNotification from './useRefetchOnNotification'
 
