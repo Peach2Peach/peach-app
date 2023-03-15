@@ -110,7 +110,7 @@ export const ChatMessage = ({
   return (
     <>
       {isChangeDate && (
-        <LinedText style={tw`px-6 py-2`}>
+        <LinedText style={tw`px-6 pt-2`}>
           <Text style={tw`body-m text-black-2`}>{toDateFormat(message.date)}</Text>
         </LinedText>
       )}
