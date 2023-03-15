@@ -599,7 +599,7 @@
   "tradeComplete.title.seller.default": "trade complete,\ncash in the pocket!",
   "tradeComplete.popup.tradeBreakdown.title": "trade breakdown",
   "tradeComplete.popup.tradeBreakdown.escrow": "escrow total",
-  "tradeComplete.popup.tradeBreakdown.peachFees": "Peach fees",
+  "tradeComplete.popup.tradeBreakdown.peachFees": "peach fees",
   "tradeComplete.popup.tradeBreakdown.networkFees": "network fees",
   "tradeComplete.popup.tradeBreakdown.youGet": "you get",
   "tradeComplete.popup.tradeBreakdown.explorer": "view in explorer",
