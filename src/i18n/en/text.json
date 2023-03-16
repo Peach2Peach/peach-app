@@ -701,7 +701,7 @@
   "INSUFFICIENT_FUNDS.text": "You need at least $0 sats but have only $1 available (after transaction fees).",
   "NO_EMULATOR": "You are not allowed to run this app in an emulator.",
   "NO_EMULATOR.icon": "cpu",
-  "NO_EMULATOR.title": "return address invalid",
+  "NO_EMULATOR.title": "no emulating!",
   "NO_EMULATOR.text": "You are not allowed to run this app in an emulator due to risk of abuse.",
   "TRADING_LIMIT_REACHED": "Your trading limit has been reached.",
   "DAILY_TRADING_LIMIT_REACHED.icon": "trendingUp",
