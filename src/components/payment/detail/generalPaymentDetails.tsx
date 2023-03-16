@@ -8,26 +8,39 @@ import { openAppLink } from '../../../utils/web'
 import { CopyAble } from '../../ui'
 
 export const names: Record<string, string> = {
-  'beneficiary': 'contract.payment.to',
-  'iban': 'form.iban',
-  'bic': 'form.bic',
-  'accountNumber': 'form.account',
-  'reference': 'contract.summary.reference',
+  beneficiary: 'contract.payment.to',
+  iban: 'form.iban',
+  bic: 'form.bic',
+  accountNumber: 'form.account',
+  reference: 'contract.summary.reference',
 }
 
-export const InfoBlock = ({ value, name, copyable, onInfoPress }:
-  {value: string, name?: string, copyable?: boolean, onInfoPress?: () => void}) =>
+export const InfoBlock = ({
+  value,
+  name,
+  copyable,
+  onInfoPress,
+}: {
+  value: string
+  name?: string
+  copyable?: boolean
+  onInfoPress?: () => void
+}) => (
   <View style={[tw`flex-row mt-[2px]`]}>
-    {!!name && <Text style={tw`text-black-2 w-25`}>{i18n(name)}</Text>}
+    <View style={tw`w-25`}>{!!name && <Text style={tw`text-black-2`}>{i18n(name)}</Text>}</View>
     <View key={'paymentDetails-' + name} style={tw`flex-1`}>
       <View style={tw`flex-row items-center`}>
-        <Text onPress={!!onInfoPress ? onInfoPress : undefined} style={tw`flex-wrap subtitle-1`}>{value}</Text>
+        <Text onPress={!!onInfoPress ? onInfoPress : undefined} style={tw`flex-wrap subtitle-1`}>
+          {value}
+        </Text>
         {copyable && <CopyAble value={value} style={tw`w-4 h-4 ml-2`} />}
       </View>
     </View>
   </View>
+)
 
 export const GeneralPaymentData = ({
+  paymentMethod,
   paymentData,
   appLink,
   fallbackUrl,
@@ -42,16 +55,24 @@ export const GeneralPaymentData = ({
     }
   }
 
-  const possibleFields = possiblePaymentFields[paymentData.type]
+  const possibleFields = possiblePaymentFields[paymentMethod]
 
   return (
     <View style={style}>
-      {!!possibleFields && possibleFields
-        .filter((field) => paymentData[field])
-        .map((field) => (
-          <InfoBlock value={paymentData[field]} copyable={copyable} name={names[field]} onInfoPress={onInfoPress}/>
-        ))}
-      <View style={[tw`flex-row mt-[2px]`]}>
+      {!!possibleFields
+        && possibleFields
+          .filter((field) => paymentData[field])
+          .map((field, i) => (
+            <InfoBlock
+              value={paymentData[field]}
+              copyable={copyable}
+              name={
+                names[field] ?? (!possibleFields.includes('beneficiary') && i === 0) ? 'contract.payment.to' : undefined
+              }
+              onInfoPress={onInfoPress}
+            />
+          ))}
+      <View style={[tw`flex-row mt-[2px] items-center`]}>
         <Text style={tw`text-black-2 w-25`}>{i18n('contract.summary.reference')}</Text>
         <View style={[tw`flex-row items-center`, !paymentData.reference && tw`opacity-50`]}>
           <Text style={tw`subtitle-1`}>{paymentData.reference || i18n('none')}</Text>

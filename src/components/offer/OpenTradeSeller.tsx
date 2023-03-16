@@ -70,9 +70,11 @@ export const OpenTradeSeller = ({ contract }: TradeSummaryProps): ReactElement =
           ))}
         {!!contract.paymentData && !!PaymentTo && (
           <PaymentTo
+            paymentMethod={contract.paymentMethod}
             paymentData={contract.paymentData}
             country={contract.country}
-            copyable={false} />
+            copyable={false}
+          />
         )}
         {!contract.paymentData && contract.error === 'DECRYPTION_ERROR' && (
           <ErrorBox style={tw`mt-[2px]`}>{i18n('contract.paymentData.decyptionFailed')}</ErrorBox>

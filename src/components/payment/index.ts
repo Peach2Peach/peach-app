@@ -4,6 +4,7 @@ import { GIFTCARDCOUNTRIES } from '../../constants'
 import GeneralPaymentDetails from './detail/generalPaymentDetails'
 
 export type PaymentTemplateProps = ComponentProps & {
+  paymentMethod: PaymentMethod
   paymentData: PaymentData
   country?: PaymentMethodCountry
   appLink?: string

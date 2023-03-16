@@ -53,6 +53,7 @@ export const OpenTradeBuyer = ({ contract }: TradeSummaryProps): ReactElement =>
         {!!contract.paymentData && !!PaymentTo && (
           <PaymentTo
             paymentData={contract.paymentData}
+            paymentMethod={contract.paymentMethod}
             country={contract.country}
             appLink={appLink?.appLink}
             fallbackUrl={appLink?.url}
