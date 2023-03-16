@@ -14,17 +14,12 @@ describe('isPaymentRequired', () => {
       isPaymentRequired({
         ...contract,
         paymentMade: null,
-        kycRequired: true,
-        kycConfirmed: true,
       }),
     )
     ok(
       !isPaymentRequired({
         ...contract,
         paymentMade: null,
-        kycRequired: true,
-        kycConfirmed: false,
-        kycResponseDate: null,
       }),
     )
     ok(

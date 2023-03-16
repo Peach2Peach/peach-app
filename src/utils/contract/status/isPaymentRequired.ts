@@ -1,3 +1,1 @@
-import { isKYCRequired } from './isKYCRequired'
-
-export const isPaymentRequired = (contract: Contract) => !isKYCRequired(contract) && contract.paymentMade === null
+export const isPaymentRequired = (contract: Contract) => && contract.paymentMade === null
