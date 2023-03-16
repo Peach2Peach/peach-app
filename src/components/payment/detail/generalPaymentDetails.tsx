@@ -30,7 +30,7 @@ export const InfoBlock = ({
     <View style={tw`w-25`}>{!!name && <Text style={tw`text-black-2`}>{i18n(name)}</Text>}</View>
     <View key={'paymentDetails-' + name} style={tw`flex-1`}>
       <View style={tw`flex-row items-center`}>
-        <Text onPress={!!onInfoPress ? onInfoPress : undefined} style={tw`flex-wrap subtitle-1`}>
+        <Text onPress={!!onInfoPress ? onInfoPress : undefined} style={tw`flex-wrap subtitle-1 leading-base`}>
           {value}
         </Text>
         {copyable && <CopyAble value={value} style={tw`w-4 h-4 ml-2`} />}
@@ -75,7 +75,7 @@ export const GeneralPaymentData = ({
       <View style={[tw`flex-row mt-[2px] items-center`]}>
         <Text style={tw`text-black-2 w-25`}>{i18n('contract.summary.reference')}</Text>
         <View style={[tw`flex-row items-center`, !paymentData.reference && tw`opacity-50`]}>
-          <Text style={tw`subtitle-1`}>{paymentData.reference || i18n('none')}</Text>
+          <Text style={tw`subtitle-1 leading-base`}>{paymentData.reference || i18n('none')}</Text>
           {copyable && <CopyAble value={paymentData.reference} style={tw`ml-2`} />}
         </View>
       </View>
