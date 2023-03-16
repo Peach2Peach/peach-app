@@ -534,6 +534,7 @@
   "form.iban": "IBAN",
   "form.iban.placeholder": "DE21 BTCD 1234 5678 9615",
   "form.iban.error": "this is not a valid IBAN",
+  "form.instantSepa.checkbox": "my bank supports instant payments",
   "form.wallet": "wallet #",
   "form.wallet.placeholder": "U012345678910",
   "form.wallet.error": "this is not a valid wallet",
