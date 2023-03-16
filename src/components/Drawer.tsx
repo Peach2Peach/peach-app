@@ -75,7 +75,7 @@ export const Drawer = ({ title, content, show, previousDrawer, onClose }: Drawer
     return () => {
       listener.remove()
     }
-  }, [content, updateDrawer])
+  }, [content, previousDrawer, updateDrawer])
 
   const closeDrawer = () => {
     updateDrawer({ show: false })

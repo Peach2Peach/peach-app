@@ -6,11 +6,13 @@ import i18n from '../utils/i18n'
 export const useShowWarning = (id: WarningType) => {
   const [, updateOverlay] = useContext(OverlayContext)
   const warningOverlay = useWarningOverlay(id)
-  const closeOverlay = () => {
+
+  const closeOverlay = useCallback(() => {
     updateOverlay({
       visible: false,
     })
-  }
+  }, [updateOverlay])
+
   const showWarning = useCallback(() => {
     const Content = warningOverlay.content
 
@@ -26,7 +28,7 @@ export const useShowWarning = (id: WarningType) => {
       action1: warningOverlay.action,
       level: 'WARN',
     })
-  }, [warningOverlay])
+  }, [closeOverlay, updateOverlay, warningOverlay.action, warningOverlay.content, warningOverlay.title])
 
   return showWarning
 }

@@ -4,13 +4,7 @@ import { Animated, Dimensions, SafeAreaView, View } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
 import analytics from '@react-native-firebase/analytics'
-import {
-  DefaultTheme,
-  NavigationContainer,
-  NavigationContainerRefWithCurrent,
-  NavigationState,
-  useNavigationContainerRef,
-} from '@react-navigation/native'
+import { DefaultTheme, NavigationContainer, NavigationState, useNavigationContainerRef } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import RNRestart from 'react-native-restart'
 import { enableScreens } from 'react-native-screens'

@@ -18,6 +18,8 @@ export const getTradingLimit = (currency?: Currency): TradingLimit => {
     dailyAmount: Math.round(tradingLimit.dailyAmount * exchangeRate * 100) / 100,
     yearly: Math.round(tradingLimit.yearly * exchangeRate),
     yearlyAmount: Math.round(tradingLimit.yearlyAmount * exchangeRate * 100) / 100,
+    monthlyAnonymous: Math.round(tradingLimit.monthlyAnonymous * exchangeRate),
+    monthlyAnonymousAmount: Math.round(tradingLimit.monthlyAnonymousAmount * exchangeRate * 100) / 100,
   }
 }
 
@@ -31,6 +33,8 @@ export const updateTradingLimit = async (tradingLimit: TradingLimit, save = true
     dailyAmount: tradingLimit.dailyAmount || 0,
     yearly: tradingLimit.yearly || Infinity,
     yearlyAmount: tradingLimit.yearlyAmount || 0,
+    monthlyAnonymous: tradingLimit.monthlyAnonymous || Infinity,
+    monthlyAnonymousAmount: tradingLimit.monthlyAnonymousAmount || 0,
   }
   if (save && account.publicKey) await storeTradingLimit(account.tradingLimit)
 }

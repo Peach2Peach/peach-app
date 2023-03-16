@@ -35,7 +35,7 @@ export const CurrencySelection = ({
         <Text style={tw`input-label`}>{i18n('form.additionalCurrencies')}</Text>
       </View>
       <View style={tw`flex-row flex-wrap`}>
-        {paymentMethodInfo.currencies.map((currency, i) => (
+        {paymentMethodInfo.currencies.map((currency) => (
           <CurrencyItem
             key={currency}
             style={tw`my-1 mr-2`}

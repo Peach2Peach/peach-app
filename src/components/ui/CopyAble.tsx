@@ -1,6 +1,6 @@
 import React, { ReactElement, useState } from 'react'
 import Clipboard from '@react-native-clipboard/clipboard'
-import { ColorValue, Pressable, TextStyle } from 'react-native'
+import { Pressable, TextStyle } from 'react-native'
 import { Fade } from '../animation'
 import { Text } from '../text'
 import i18n from '../../utils/i18n'
