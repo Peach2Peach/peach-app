@@ -85,6 +85,7 @@ declare type Currency =
   | 'RON'
   | 'ISK'
   | 'NOK'
+  | 'RON'
 declare type Pricebook = {
   [key in Currency]?: number
 }
@@ -111,6 +112,14 @@ declare type PaymentMethodCountry =
   | 'UK'
   | 'US'
   | 'FI'
+  | 'BG'
+  | 'CZ'
+  | 'DK'
+  | 'HU'
+  | 'NO'
+  | 'PL'
+  | 'PO'
+  | 'RO'
 declare type Location = 'amsterdam' | 'belgianEmbassy' | 'lugano'
 declare type PaymentMethod =
   | 'sepa'
@@ -133,6 +142,7 @@ declare type PaymentMethod =
   | 'cash'
   | 'giftCard.amazon'
   | `giftCard.amazon.${PaymentMethodCountry}`
+  | `nationalTransfer${PaymentMethodCountry}`
 
 declare type MeetupEvent = {
   // BitcoinEvent in backend
