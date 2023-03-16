@@ -269,7 +269,7 @@ module.exports = {
       },
     },
     {
-      files: ['src/utils/log.ts'],
+      files: ['src/utils/log/*.ts'],
       rules: {
         'no-console': 'off',
       },

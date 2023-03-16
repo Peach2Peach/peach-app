@@ -1,4 +1,4 @@
-import { account, updatePaymentData } from '../../../utils/account'
+import { updatePaymentData } from '../../../utils/account'
 import { accountStorage } from '../../../utils/account/accountStorage'
 import { enforceFormatOnPaymentData } from '../../../utils/format'
 import { info } from '../../../utils/log'
@@ -12,13 +12,13 @@ const storeLegacyPaymentData = async (paymentData: Account['paymentData']) => {
 
   accountStorage.setArray('legacyPaymentData', paymentData)
 }
-const updateLegacyPaymentData = async (paymentData: PaymentData[]) => {
+const updateLegacyPaymentData = async (account: Account, paymentData: PaymentData[]) => {
   account.legacyPaymentData = paymentData
   await storeLegacyPaymentData(account.legacyPaymentData)
 }
 
-export const enforcePaymentDataFormats = (paymentData: PaymentData[]) => {
-  if (account.legacyPaymentData.length === 0) updateLegacyPaymentData(paymentData)
+export const enforcePaymentDataFormats = (account: Account, paymentData: PaymentData[]) => {
+  if (account.legacyPaymentData.length === 0) updateLegacyPaymentData(account, paymentData)
   const updatedPaymentData = paymentData.map(enforceFormatOnPaymentData)
   updatePaymentData(updatedPaymentData)
 }
