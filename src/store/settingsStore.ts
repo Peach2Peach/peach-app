@@ -23,7 +23,6 @@ type SettingsStore = Settings & {
   setPremium: (premium: number) => void
   setLastSeedBackupDate: (lastSeedBackupDate: number) => void
   setLastFileBackupDate: (lastFileBackupDate: number) => void
-  setLastBackupDate: (lastBackupDate: number) => void
   setShowBackupReminder: (showBackupReminder: boolean) => void
   setPeachWalletActive: (peachWalletActive: boolean) => void
   togglePeachWallet: () => void
