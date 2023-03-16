@@ -4,7 +4,10 @@ import { checkBackupUpdate } from './checkBackupUpdate'
 describe('checkBackupUpdate function', () => {
 
   beforeEach(() => {
-    settingsStore.getState().setLastBackupDate(undefined)
+    settingsStore.setState({
+      // @ts-expect-error
+      lastBackupDate: undefined,
+    })
   })
   afterEach(() => {
     jest.resetAllMocks()
