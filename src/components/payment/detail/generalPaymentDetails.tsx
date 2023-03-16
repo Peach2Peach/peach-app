@@ -61,14 +61,12 @@ export const GeneralPaymentData = ({
     <View style={style}>
       {!!possibleFields
         && possibleFields
-          .filter((field) => paymentData[field])
+          .filter((field) => !!paymentData[field])
           .map((field, i) => (
             <InfoBlock
               value={paymentData[field]}
               copyable={copyable}
-              name={
-                names[field] ?? (!possibleFields.includes('beneficiary') && i === 0) ? 'contract.payment.to' : undefined
-              }
+              name={!paymentData.beneficiary && i === 0 ? 'contract.payment.to' : names[field]}
               onInfoPress={onInfoPress}
             />
           ))}

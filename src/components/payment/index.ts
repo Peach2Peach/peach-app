@@ -43,7 +43,7 @@ export const possiblePaymentFields: Partial<Record<PaymentMethod, string[]>> = {
   revolut: ['phone', 'userName', 'email'],
   advcash: ['wallet', 'email'],
   blik: ['beneficiary', 'phone'],
-  wise: ['beneficiary', 'phone', 'userName', 'email', 'iban', 'bic', 'address'],
+  wise: ['beneficiary', 'phone', 'email'],
   twint: ['beneficiary', 'phone', 'userName', 'email', 'iban', 'bic', 'address'],
   swish: ['beneficiary', 'phone', 'userName', 'email', 'iban', 'bic', 'address'],
   satispay: ['beneficiary', 'phone', 'userName', 'email', 'iban', 'bic', 'address'],
