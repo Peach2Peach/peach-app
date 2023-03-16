@@ -1,20 +1,22 @@
 import React, { ReactElement } from 'react'
 import { TouchableOpacity } from 'react-native'
-import { Icon } from '..'
+import { Icon, Text } from '..'
 import { FillProps } from 'react-native-svg'
 import tw from '../../styles/tailwind'
 
 type Props = ComponentProps & {
   checked: boolean
   onPress: () => void
+  text?: string
   iconProps?: ComponentProps & { color: FillProps['fill'] }
 }
-export const Checkbox = ({ checked, iconProps, ...wrapperProps }: Props): ReactElement => (
-  <TouchableOpacity {...wrapperProps}>
+export const Checkbox = ({ checked, children, iconProps, style, text, ...wrapperProps }: Props): ReactElement => (
+  <TouchableOpacity {...wrapperProps} style={[style, tw`flex-row items-center`]}>
     <Icon
       id={checked ? 'checkboxMark' : 'square'}
       {...iconProps}
       color={checked ? tw`text-primary-main`.color : tw`text-black-3`.color}
     />
+    {!!text ? <Text style={tw`pl-2 subtitle-1`}>{text}</Text> : children}
   </TouchableOpacity>
 )
