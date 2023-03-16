@@ -28,13 +28,15 @@ export const InfoBlock = ({
 }) => (
   <View style={[tw`flex-row mt-[2px]`]}>
     <View style={tw`w-25`}>{!!name && <Text style={tw`text-black-2`}>{i18n(name)}</Text>}</View>
-    <View key={'paymentDetails-' + name} style={tw`flex-1`}>
-      <View style={tw`flex-row items-center`}>
-        <Text onPress={!!onInfoPress ? onInfoPress : undefined} style={tw`flex-wrap subtitle-1 leading-base`}>
-          {value}
-        </Text>
-        {copyable && <CopyAble value={value} style={tw`w-4 h-4 ml-2`} />}
-      </View>
+    <View key={'paymentDetails-' + name} style={tw`flex-row items-center flex-1`}>
+      <Text onPress={!!onInfoPress ? onInfoPress : undefined} style={tw`flex-wrap subtitle-1 leading-base`}>
+        {value}
+      </Text>
+      {copyable && (
+        <View style={tw`w-6 h-4 ml-2`}>
+          <CopyAble value={value} />
+        </View>
+      )}
     </View>
   </View>
 )
