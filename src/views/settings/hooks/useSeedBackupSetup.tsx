@@ -1,4 +1,3 @@
-
 import React, { useState, useCallback } from 'react'
 import shallow from 'zustand/shallow'
 import { HelpIcon } from '../../../components/icons'
@@ -20,7 +19,7 @@ export const useSeedBackupSetup = () => {
     title: i18n('settings.backups.walletBackup'),
     icons: [{ iconComponent: <HelpIcon />, onPress: showSeedPhrasePopup }],
   })
-  const [checked, onPress] = useToggleBoolean()
+  const [checked, onPress] = useToggleBoolean(false)
   const [currentScreenIndex, setCurrentScreenIndex] = useState(lastSeedBackupDate ? 0 : 1)
   const showNextScreen = useCallback(() => {
     if (screens[currentScreenIndex].id === 'keepPhraseSecure') {
@@ -31,14 +30,13 @@ export const useSeedBackupSetup = () => {
       setCurrentScreenIndex((prev) => prev + 1)
     } else {
       setCurrentScreenIndex(0)
+      onPress()
     }
-
-  }, [currentScreenIndex, setLastSeedBackupDate, setShowBackupReminder])
+  }, [currentScreenIndex, onPress, setLastSeedBackupDate, setShowBackupReminder])
 
   const goBackToStart = useCallback(() => {
     setCurrentScreenIndex(1)
-    onPress()
-  }, [onPress])
+  }, [])
 
   return {
     checked,
