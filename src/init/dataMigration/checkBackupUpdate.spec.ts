@@ -2,7 +2,6 @@ import { settingsStore } from '../../store/settingsStore'
 import { checkBackupUpdate } from './checkBackupUpdate'
 
 describe('checkBackupUpdate function', () => {
-
   beforeEach(() => {
     settingsStore.setState({
       // @ts-expect-error
@@ -28,7 +27,7 @@ describe('checkBackupUpdate function', () => {
     settingsStore.setState({
       // @ts-expect-error
       lastBackupDate: lastBackup,
-    })```
+    })
     // Arrange
     const setLastFileBackupDateSpy = jest.spyOn(settingsStore.getState(), 'setLastFileBackupDate')
 
