@@ -63,8 +63,8 @@ export const OpenTradeSeller = ({ contract }: TradeSummaryProps): ReactElement =
           ) : (
             <View style={tw`flex-row items-start mt-[2px]`}>
               <Text style={tw`text-black-2 w-25`}>{i18n('contract.payment.to')}</Text>
-              <View style={tw`flex-row items-center`}>
-                <Text style={tw`leading-normal text-right subtitle-1`}>{storedPaymentData.label}</Text>
+              <View style={tw`flex-row items-center flex-1`}>
+                <Text style={tw`flex-wrap leading-normal subtitle-1`}>{storedPaymentData.label}</Text>
               </View>
             </View>
           ))}
