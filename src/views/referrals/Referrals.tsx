@@ -7,10 +7,27 @@ import i18n from '../../utils/i18n'
 import { thousands } from '../../utils/string'
 import LoadingScreen from '../loading/LoadingScreen'
 import { useReferralsSetup } from './hooks/useReferralsSetup'
+import { RadioButtonItem } from '../../components/inputs/RadioButtons'
+import { isRewardAvailable } from './helpers/isRewardAvailable'
+import { RewardItem } from './components/RewardItem'
 
 export default (): ReactElement => {
-  const { user, pointsBalance, BARLIMIT, availableRewards, selectedReward, setSelectedReward, rewards, redeemReward }
-    = useReferralsSetup()
+  const {
+    user,
+    pointsBalance,
+    REWARDINFO,
+    BARLIMIT,
+    availableRewards,
+    selectedReward,
+    setSelectedReward,
+    redeemReward,
+  } = useReferralsSetup()
+
+  const rewards: RadioButtonItem<RewardType>[] = REWARDINFO.map((reward) => ({
+    value: reward.id,
+    disabled: isRewardAvailable(reward, pointsBalance),
+    display: <RewardItem reward={reward} />,
+  }))
 
   if (!user) return <LoadingScreen />
   return (
