@@ -12,16 +12,8 @@ import { isRewardAvailable } from './helpers/isRewardAvailable'
 import { RewardItem } from './components/RewardItem'
 
 export default (): ReactElement => {
-  const {
-    user,
-    pointsBalance,
-    REWARDINFO,
-    BARLIMIT,
-    availableRewards,
-    selectedReward,
-    setSelectedReward,
-    redeemReward,
-  } = useReferralsSetup()
+  const { user, pointsBalance, REWARDINFO, BARLIMIT, availableRewards, selectedReward, setSelectedReward }
+    = useReferralsSetup()
 
   const rewards: RadioButtonItem<RewardType>[] = REWARDINFO.map((reward) => ({
     value: reward.id,
@@ -52,7 +44,7 @@ export default (): ReactElement => {
         </Text>
         <RadioButtons selectedValue={selectedReward} items={rewards} onChange={setSelectedReward} />
         <View style={tw`flex items-center mt-5 mb-10`}>
-          <PrimaryButton wide disabled={selectedReward !== null} onPress={redeemReward} iconId={'gift'}>
+          <PrimaryButton wide disabled={selectedReward !== null} iconId={'gift'}>
             {i18n('referrals.reward.select')}
           </PrimaryButton>
           <Text style={tw`text-center body-m text-black-2`}>{i18n('referrals.reward.comingSoon')}</Text>

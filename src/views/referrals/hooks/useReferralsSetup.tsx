@@ -35,19 +35,6 @@ export const useReferralsSetup = () => {
   const [selectedReward, setSelectedReward] = useState<RewardType>()
 
   const availableRewards = REWARDINFO.filter((reward) => isRewardAvailable(reward, pointsBalance)).length
-
-  const redeemReward = () => {
-    // TO BE IMPLEMENTED IN 0.2.1
-    switch (selectedReward) {
-    case 'customReferralCode':
-      break
-    case 'noPeachFees':
-      break
-    default:
-      break
-    }
-  }
-
   return {
     user,
     pointsBalance,
@@ -56,6 +43,5 @@ export const useReferralsSetup = () => {
     availableRewards,
     selectedReward,
     setSelectedReward,
-    redeemReward,
   }
 }
