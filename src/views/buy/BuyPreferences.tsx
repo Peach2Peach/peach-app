@@ -34,7 +34,6 @@ export default (): ReactElement => {
       minBuyAmount: state.minBuyAmount,
       maxBuyAmount: state.maxBuyAmount,
       meansOfPayment: state.meansOfPayment,
-      kyc: state.kyc,
     }),
     shallow,
   )
