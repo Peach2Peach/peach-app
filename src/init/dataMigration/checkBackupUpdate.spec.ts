@@ -25,7 +25,10 @@ describe('checkBackupUpdate function', () => {
 
   test('sets lastFileBackupDate to lastBackupDate if lastBackupDate is defined', () => {
     const lastBackup = 1678887045258
-    settingsStore.getState().setLastBackupDate(lastBackup)
+    settingsStore.setState({
+      // @ts-expect-error
+      lastBackupDate: lastBackup,
+    })```
     // Arrange
     const setLastFileBackupDateSpy = jest.spyOn(settingsStore.getState(), 'setLastFileBackupDate')
 
