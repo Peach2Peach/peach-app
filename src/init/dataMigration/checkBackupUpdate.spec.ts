@@ -15,10 +15,8 @@ describe('checkBackupUpdate function', () => {
   test('does nothing if lastBackupDate is undefined', () => {
     const setLastFileBackupDateSpy = jest.spyOn(settingsStore.getState(), 'setLastFileBackupDate')
 
-    // Act
     checkBackupUpdate()
 
-    // Assert
     expect(setLastFileBackupDateSpy).not.toHaveBeenCalled()
   })
 
@@ -28,13 +26,10 @@ describe('checkBackupUpdate function', () => {
       // @ts-expect-error
       lastBackupDate: lastBackup,
     })
-    // Arrange
     const setLastFileBackupDateSpy = jest.spyOn(settingsStore.getState(), 'setLastFileBackupDate')
 
-    // Act
     checkBackupUpdate()
 
-    // Assert
     expect(setLastFileBackupDateSpy).toHaveBeenCalledWith(lastBackup)
   })
 })
