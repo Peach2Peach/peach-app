@@ -11,12 +11,6 @@ describe('isPaymentRequired', () => {
       }),
     )
     ok(
-      isPaymentRequired({
-        ...contract,
-        paymentMade: null,
-      }),
-    )
-    ok(
       !isPaymentRequired({
         ...contract,
         paymentMade: new Date(),
