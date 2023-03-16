@@ -1,91 +1,19 @@
-import React, { ReactElement, useCallback, useMemo, useState } from 'react'
+import React, { ReactElement } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
-import { useFocusEffect } from '@react-navigation/native'
-import { CopyAble, Loading, PeachScrollView, PrimaryButton, Progress, RadioButtons, Text } from '../../components'
-import { HelpIcon } from '../../components/icons'
-import { RadioButtonItem } from '../../components/inputs/RadioButtons'
-import { useHeaderSetup } from '../../hooks'
-import { useShowHelp } from '../../hooks/useShowHelp'
-import { account } from '../../utils/account'
+import { CopyAble, PeachScrollView, PrimaryButton, Progress, RadioButtons, Text } from '../../components'
 import i18n from '../../utils/i18n'
-import { getUserPrivate } from '../../utils/peachAPI'
 import { thousands } from '../../utils/string'
-
-type Reward = '' | 'customReferralCode' | 'noPeachFees' | 'sats'
+import LoadingScreen from '../loading/LoadingScreen'
+import { useReferralsSetup } from './hooks/useReferralsSetup'
 
 export default (): ReactElement => {
-  const showHelp = useShowHelp('referrals')
-  useHeaderSetup(
-    useMemo(
-      () => ({
-        title: i18n('settings.referrals'),
-        icons: [
-          {
-            iconComponent: <HelpIcon />,
-            onPress: showHelp,
-          },
-        ],
-      }),
-      [showHelp],
-    ),
-  )
-  const [user, setUser] = useState<User>()
-  const pointsBalance = user?.bonusPoints || 0
-  const [selectedReward, setSelectedReward] = useState<Reward>('')
+  const { user, pointsBalance, BARLIMIT, availableRewards, selectedReward, setSelectedReward, rewards, redeemReward }
+    = useReferralsSetup()
 
-  const rewards: RadioButtonItem<Reward>[] = [
-    ['customReferralCode', 100, '100'],
-    ['noPeachFees', 200, '200'],
-    ['sats', 300, '> 300'],
-  ].map(
-    ([reward, pointsRequired, cost]) =>
-      ({
-        value: reward,
-        disabled: pointsRequired > pointsBalance || reward === 'sats',
-        display: (
-          <View style={tw`flex-row items-center justify-between py-1`}>
-            <Text style={tw`subtitle-1`}>{i18n(`referrals.reward.${reward}`)}</Text>
-            <Text style={tw`mr-2 body-m text-black-2`}>({cost})</Text>
-          </View>
-        ),
-      } as RadioButtonItem<Reward>),
-  )
-  const availableRewards = rewards.filter((reward) => !reward.disabled).length
-
-  const redeemReward = () => {
-    // TO BE IMPLEMENTED IN 0.2.1
-    switch (selectedReward) {
-    case 'customReferralCode':
-      break
-    case 'noPeachFees':
-      break
-    default:
-      break
-    }
-  }
-
-  useFocusEffect(
-    useCallback(() => {
-      ;(async () => {
-        const [response] = await getUserPrivate({ userId: account.publicKey })
-
-        if (response) {
-          setUser(response)
-        }
-        // TODO add error handling if request failed
-      })()
-    }, []),
-  )
-
-  const BARLIMIT = 400
-
-  return !user ? (
-    <View style={tw`absolute items-center justify-center w-full h-full`}>
-      <Loading />
-    </View>
-  ) : (
+  if (!user) return <LoadingScreen />
+  return (
     <View style={tw`flex h-full px-7 `}>
       <Progress
         style={tw`h-3 rounded`}
