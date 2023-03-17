@@ -14,7 +14,7 @@ type RatingProps = ComponentProps & {
 
 export const Rating = ({ rating, style, isNewUser }: RatingProps) =>
   isNewUser ? (
-    <Text style={tw`subtitle-2 text-black-2`}>{i18n('newUser')}</Text>
+    <Text style={tw`flex-1 text-right subtitle-2 text-black-2`}>{i18n('newUser')}</Text>
   ) : (
     <View style={[tw`flex-row items-center`, style]}>
       <View style={tw`flex-row`}>
