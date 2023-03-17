@@ -1,13 +1,10 @@
-import React, { ReactElement, useContext, useRef, useState } from 'react'
+import React, { ReactElement, useRef, useState } from 'react'
 import { View } from 'react-native'
 import { GIFTCARDCOUNTRIES, NATIONALTRANSFERCOUNTRIES } from '../../../../constants'
-import { OverlayContext } from '../../../../contexts/overlay'
 import { useKeyboard } from '../../../../hooks'
-import PaymentMethodEdit from '../../../../overlays/info/PaymentMethodEdit'
 import tw from '../../../../styles/tailwind'
 import i18n from '../../../../utils/i18n'
 import { whiteGradient } from '../../../../utils/layout'
-import { paymentDataChanged } from '../../../../utils/paymentMethod'
 import { specialTemplates } from '../../../../views/addPaymentMethod/specialTemplates'
 import { Fade } from '../../../animation'
 import { PrimaryButton } from '../../../buttons'
@@ -78,8 +75,6 @@ export const PaymentMethodForm = ({
   onSubmit,
   style,
 }: PaymentMethodFormProps): ReactElement => {
-  const [, updateOverlay] = useContext(OverlayContext)
-
   const keyboardOpen = useKeyboard()
   const [stepValid, setStepValid] = useState(false)
 
@@ -88,25 +83,7 @@ export const PaymentMethodForm = ({
 
   const submit = (newPaymentData: PaymentData) => {
     if (!$formRef || !stepValid) return
-
-    if (data.id && paymentDataChanged(data as PaymentData, newPaymentData)) {
-      updateOverlay({
-        title: i18n('help.paymentMethodEdit.title'),
-        content: <PaymentMethodEdit />,
-        visible: true,
-        level: 'WARN',
-        action2: {
-          callback: () => {
-            onSubmit(newPaymentData)
-            updateOverlay({ visible: false })
-          },
-          icon: 'edit3',
-          label: i18n('help.paymentMethodEdit.editMethod'),
-        },
-      })
-    } else {
-      onSubmit(newPaymentData)
-    }
+    onSubmit(newPaymentData)
   }
 
   return (
