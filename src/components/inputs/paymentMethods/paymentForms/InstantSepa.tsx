@@ -4,7 +4,6 @@ import { FormProps } from '.'
 import { useToggleBoolean, useValidatedState } from '../../../../hooks'
 import { getPaymentDataByLabel } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
-import { info } from '../../../../utils/log'
 import { getErrorsInField } from '../../../../utils/validation'
 import { BICInput } from '../../BICInput'
 import { Checkbox } from '../../Checkbox'
@@ -75,10 +74,6 @@ export const InstantSepa = ({ forwardRef, data, currencies = [], onSubmit, setSt
   useEffect(() => {
     setStepValid(isFormValid())
   }, [isFormValid, setStepValid])
-
-  useEffect(() => {
-    info(checked)
-  }, [checked])
 
   return (
     <>
