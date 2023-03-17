@@ -86,22 +86,25 @@ export const useWalletSetup = () => {
 
   useHeaderSetup(
     useMemo(
-      () => ({
-        title: i18n('wallet.title'),
-        hideGoBackButton: true,
-        icons: [
-          {
-            iconComponent: <Icon id="yourTrades" color={tw`text-black-2`.color} />,
-            onPress: () => navigation.navigate('transactionHistory'),
+      () =>
+        walletLoading
+          ? {}
+          : {
+            title: i18n('wallet.title'),
+            hideGoBackButton: true,
+            icons: [
+              {
+                iconComponent: <Icon id="yourTrades" color={tw`text-black-2`.color} />,
+                onPress: () => navigation.navigate('transactionHistory'),
+              },
+              {
+                iconComponent: <Icon id="bitcoin" color={tw`text-bitcoin`.color} />,
+                onPress: () => navigation.navigate('networkFees'),
+              },
+              { iconComponent: <HelpIcon />, onPress: showHelp },
+            ],
           },
-          {
-            iconComponent: <Icon id="bitcoin" color={tw`text-bitcoin`.color} />,
-            onPress: () => navigation.navigate('networkFees'),
-          },
-          { iconComponent: <HelpIcon />, onPress: showHelp },
-        ],
-      }),
-      [],
+      [navigation, showHelp, walletLoading],
     ),
   )
 
