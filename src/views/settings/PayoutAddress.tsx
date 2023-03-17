@@ -6,6 +6,7 @@ import { Icon, PeachScrollView, PrimaryButton, Text } from '../../components'
 import { BitcoinAddressInput, Input } from '../../components/inputs'
 import i18n from '../../utils/i18n'
 import { usePayoutAddressSetup } from './hooks/usePayoutAddressSetup'
+import { OpenWallet } from '../../components/bitcoin'
 
 export default (): ReactElement => {
   const {
@@ -21,6 +22,7 @@ export default (): ReactElement => {
     isUpdated,
     save,
   } = usePayoutAddressSetup()
+
   return (
     <View style={tw`items-center justify-between h-full`}>
       <PeachScrollView style={tw`flex-shrink w-full h-full`} contentContainerStyle={tw`justify-center h-full p-8`}>
@@ -35,6 +37,7 @@ export default (): ReactElement => {
           errorMessage={addressLabelErrors}
         />
         <BitcoinAddressInput onChange={setAddress} value={address} errorMessage={addressErrors} />
+        <OpenWallet address={address} />
         {isUpdated && (
           <View style={tw`flex-row justify-center w-full h-0`}>
             <Text style={tw`h-6 uppercase button-medium`}>{i18n('settings.payoutAddress.success')}</Text>
