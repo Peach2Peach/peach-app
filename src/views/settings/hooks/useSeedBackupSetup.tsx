@@ -19,7 +19,7 @@ export const useSeedBackupSetup = () => {
     title: i18n('settings.backups.walletBackup'),
     icons: [{ iconComponent: <HelpIcon />, onPress: showSeedPhrasePopup }],
   })
-  const [checked, onPress] = useToggleBoolean(false)
+  const [checked, onPress] = useToggleBoolean()
   const [currentScreenIndex, setCurrentScreenIndex] = useState(lastSeedBackupDate ? 0 : 1)
   const showNextScreen = useCallback(() => {
     if (screens[currentScreenIndex].id === 'keepPhraseSecure') {
