@@ -114,7 +114,7 @@
   "warning.fundingAmountDifferent.description.1": "You funded the escrow with:",
   "warning.fundingAmountDifferent.description.2": "The escrow was made for:",
   "warning.fundingAmountDifferent.description.3": "Do you want to sell $0 sats, or should we refund the escrow to you (minus transaction fees)?",
-  "warning.wrongFundingAmount.description": "This exceeds the 2 500 000 sat limit per sell offer, you will be refunded.",
+  "warning.wrongFundingAmount.description": "This exceeds the $0 sat limit per sell offer, you will be refunded.",
   "warning.fundingAmountDifferent.action.1": "yes, continue",
   "warning.fundingAmountDifferent.action.2": "no, refund me",
   "sell.title": "sell bitcoin",
