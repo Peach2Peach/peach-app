@@ -14,7 +14,7 @@ export const Badges = ({ user }: { user: User }) => {
   return (
     <TouchableOpacity style={tw`flex-row flex-wrap items-center justify-center`} onPress={openPeachBadgesPopup}>
       {badges.map(([iconId, badgeName]) => (
-        <View key={`profileOverviewIcon-${iconId}`} style={tw`flex-row items-center mr-2`}>
+        <View key={`profileOverviewIcon-${iconId}`} style={tw`flex-row items-center mx-1`}>
           <View
             style={[
               unlockedBadges.includes(badgeName) ? tw`bg-primary-main` : tw`bg-primary-mild-1`,
