@@ -1,32 +1,65 @@
 /* eslint-disable max-lines-per-function */
 import { act, renderHook } from '@testing-library/react-hooks'
-import { useRoute } from '../../../hooks'
+import { useNavigation, useRoute } from '../../../hooks'
+import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
+import { showReportSuccess } from '../../../overlays/showReportSuccess'
 import { defaultAccount, setAccount } from '../../../utils/account'
+import i18n from '../../../utils/i18n'
+import { submitReport } from '../helpers/submitReport'
 import { useReportSetup } from './useReportSetup'
 
 jest.mock('../../../hooks/useRoute', () => ({
   useRoute: jest.fn(),
 }))
 jest.mock('../../../hooks/useNavigation', () => ({
-  useNavigation: jest.fn().mockReturnValue({
-    navigate: jest.fn(),
-  }),
+  useNavigation: jest.fn(),
 }))
 jest.mock('../../../hooks/useHeaderSetup', () => ({
   useHeaderSetup: jest.fn(),
 }))
 
+jest.mock('../helpers/submitReport', () => ({
+  submitReport: jest.fn(),
+}))
+
+jest.mock('../../../overlays/showReportSuccess', () => ({
+  showReportSuccess: jest.fn(),
+}))
+jest.mock('../../../hooks/useShowErrorBanner', () => ({
+  useShowErrorBanner: jest.fn(),
+}))
+
 describe('useReportSetup', () => {
-  beforeAll(async () => {
+  const email = 'test@email.com'
+  const topic = 'testTopic'
+  const message = 'testMessage'
+
+  const fillAllFields = async (current: ReturnType<typeof useReportSetup>) =>
+    await act(async () => {
+      current.setEmail(email)
+      current.setTopic(topic)
+      current.setMessage(message)
+    })
+
+  const actSubmit = async (current: ReturnType<typeof useReportSetup>) =>
+    act(async () => {
+      await current.submit()
+    })
+
+  beforeEach(async () => {
     ;(useRoute as jest.Mock).mockReturnValue({
       params: {
         reason: 'testReason',
       },
     })
+    ;(useNavigation as jest.Mock).mockReturnValue({
+      navigate: jest.fn(),
+    })
+
     await setAccount(defaultAccount)
   })
   afterEach(() => {
-    jest.restoreAllMocks()
+    jest.resetAllMocks()
   })
   it('returns default values correctly', () => {
     const { result } = renderHook(useReportSetup)
@@ -53,7 +86,7 @@ describe('useReportSetup', () => {
   })
 
   it('respects route params', () => {
-    ;(useRoute as jest.Mock).mockReturnValue({
+    ;(useRoute as jest.Mock).mockReturnValueOnce({
       params: {
         reason: 'testReason',
         topic: 'testTopic',
@@ -75,7 +108,6 @@ describe('useReportSetup', () => {
 
   it('sets email', () => {
     const { result } = renderHook(useReportSetup)
-    const email = 'test@email.com'
 
     act(() => {
       result.current.setEmail(email)
@@ -87,7 +119,6 @@ describe('useReportSetup', () => {
   })
   it('sets topic', () => {
     const { result } = renderHook(useReportSetup)
-    const topic = 'topic'
 
     act(() => {
       result.current.setTopic(topic)
@@ -100,7 +131,6 @@ describe('useReportSetup', () => {
 
   it('sets message', () => {
     const { result } = renderHook(useReportSetup)
-    const message = 'message'
 
     act(() => {
       result.current.setMessage(message)
@@ -129,5 +159,77 @@ describe('useReportSetup', () => {
       result.current.toggleShareLogs()
     })
     expect(result.current.shareLogs).toBeTruthy()
+  })
+
+  it('ensure all fields are valid before submitting report', async () => {
+    ;(submitReport as jest.Mock).mockResolvedValueOnce(['success', null])
+    const { result } = renderHook(useReportSetup)
+
+    await actSubmit(result.current)
+    expect(submitReport).not.toHaveBeenCalled()
+
+    act(() => {
+      result.current.setEmail(email)
+    })
+    await actSubmit(result.current)
+    expect(submitReport).not.toHaveBeenCalled()
+
+    act(() => {
+      result.current.setTopic(topic)
+    })
+    await actSubmit(result.current)
+    expect(submitReport).not.toHaveBeenCalled()
+
+    act(() => {
+      result.current.setMessage(message)
+    })
+    await actSubmit(result.current)
+    expect(submitReport).toHaveBeenCalled()
+  })
+
+  it('submits report navigates to welcome on success for not logged in user', async () => {
+    ;(submitReport as jest.Mock).mockResolvedValueOnce(['success', null])
+    const { result } = renderHook(useReportSetup)
+
+    await fillAllFields(result.current)
+    await actSubmit(result.current)
+
+    expect(submitReport).toHaveBeenCalledWith({
+      email,
+      reason: i18n('contact.reason.testReason'),
+      topic,
+      message,
+      shareDeviceID: false,
+      shareLogs: false,
+    })
+    expect(useNavigation().navigate).toHaveBeenCalledWith('welcome')
+    expect(showReportSuccess).toHaveBeenCalled()
+  })
+  it('submits report navigates to settings on success for logged in user', async () => {
+    ;(submitReport as jest.Mock).mockResolvedValueOnce(['success', null])
+    await setAccount({ ...defaultAccount, publicKey: 'somepublickey' })
+
+    const { result } = renderHook(useReportSetup)
+
+    await fillAllFields(result.current)
+    await actSubmit(result.current)
+
+    expect(submitReport).toHaveBeenCalled()
+    expect(useNavigation().navigate).toHaveBeenCalledWith('settings')
+    expect(showReportSuccess).toHaveBeenCalled()
+  })
+  it('shows error banner if report could not be submitted', async () => {
+    ;(submitReport as jest.Mock).mockResolvedValueOnce([null, 'error'])
+    ;(useShowErrorBanner as jest.Mock).mockReturnValue(jest.fn())
+    await setAccount({ ...defaultAccount, publicKey: 'somepublickey' })
+
+    const { result } = renderHook(useReportSetup)
+
+    await fillAllFields(result.current)
+    await actSubmit(result.current)
+
+    expect(useNavigation().navigate).not.toHaveBeenCalledWith()
+    expect(showReportSuccess).not.toHaveBeenCalled()
+    expect(useShowErrorBanner()).toHaveBeenCalled()
   })
 })

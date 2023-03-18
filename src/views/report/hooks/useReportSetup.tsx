@@ -1,14 +1,12 @@
 import { useContext, useMemo } from 'react'
 
-import { APPVERSION, BUILDNUMBER, UNIQUEID } from '../../../constants'
 import { OverlayContext } from '../../../contexts/overlay'
 import { useHeaderSetup, useNavigation, useRoute, useToggleBoolean, useValidatedState } from '../../../hooks'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { showReportSuccess } from '../../../overlays/showReportSuccess'
 import { account } from '../../../utils/account'
-import { sendErrors } from '../../../utils/analytics'
 import i18n from '../../../utils/i18n'
-import { sendReport } from '../../../utils/peachAPI'
+import { submitReport } from '../helpers/submitReport'
 
 const emailRules = { email: true, required: true }
 const required = { required: true }
@@ -33,20 +31,13 @@ export const useReportSetup = () => {
     const isFormValid = isEmailValid && isTopicValid && isMessageValid
     if (!isFormValid) return
 
-    let messageToSend = message
-    if (shareDeviceID) messageToSend += `\n\nDevice ID Hash: ${UNIQUEID}`
-    messageToSend += `\n\nApp version: ${APPVERSION} (${BUILDNUMBER})`
-
-    if (shareLogs) {
-      sendErrors([new Error(`user shared app logs: ${topic} – ${messageToSend}`)])
-      messageToSend += '\n\nUser shared app logs, please check crashlytics'
-    }
-
-    const [result, err] = await sendReport({
+    const [result, err] = await submitReport({
       email,
       reason: i18n(`contact.reason.${reason}`),
       topic,
-      message: messageToSend,
+      message,
+      shareDeviceID,
+      shareLogs,
     })
 
     if (result) {
