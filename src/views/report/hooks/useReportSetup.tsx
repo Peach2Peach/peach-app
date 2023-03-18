@@ -18,7 +18,7 @@ export const useReportSetup = () => {
   const navigation = useNavigation()
   const [, updateOverlay] = useContext(OverlayContext)
 
-  const [email, setEmail, isEmailValid, emailErrors] = useValidatedState('', emailRules)
+  const [email, setEmail, isEmailValid, emailErrors] = useValidatedState<string>('', emailRules)
   const [topic, setTopic, isTopicValid, topicErrors] = useValidatedState(route.params.topic || '', required)
   const [message, setMessage, isMessageValid, messageErrors] = useValidatedState(route.params.message || '', required)
   const [shareDeviceID, toggleDeviceIDSharing] = useToggleBoolean(route.params.shareDeviceID || false)
@@ -63,6 +63,7 @@ export const useReportSetup = () => {
   }
 
   return {
+    reason,
     email,
     setEmail,
     isEmailValid,
