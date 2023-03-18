@@ -1,7 +1,6 @@
 import { useContext, useMemo } from 'react'
 
 import { APPVERSION, BUILDNUMBER, UNIQUEID } from '../../../constants'
-import LanguageContext from '../../../contexts/language'
 import { OverlayContext } from '../../../contexts/overlay'
 import { useHeaderSetup, useNavigation, useRoute, useToggleBoolean, useValidatedState } from '../../../hooks'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
@@ -17,7 +16,6 @@ const required = { required: true }
 export const useReportSetup = () => {
   const route = useRoute<'report'>()
   const navigation = useNavigation()
-  useContext(LanguageContext)
   const [, updateOverlay] = useContext(OverlayContext)
 
   const [email, setEmail, isEmailValid, emailErrors] = useValidatedState('', emailRules)
