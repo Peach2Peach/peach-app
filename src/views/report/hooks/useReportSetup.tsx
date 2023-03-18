@@ -76,10 +76,10 @@ export const useReportSetup = () => {
     isMessageValid,
     messageErrors,
     account,
-    toggleDeviceIDSharing,
     shareDeviceID,
-    toggleShareLogs,
+    toggleDeviceIDSharing,
     shareLogs,
+    toggleShareLogs,
     submit,
   }
 }
