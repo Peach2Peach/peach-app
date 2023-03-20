@@ -1,6 +1,6 @@
 /* eslint-disable max-lines-per-function */
 import { act, renderHook } from '@testing-library/react-hooks'
-import { useNavigation, useRoute } from '../../../hooks'
+import { useHeaderSetup, useNavigation, useRoute } from '../../../hooks'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { showReportSuccess } from '../../../overlays/showReportSuccess'
 import { defaultAccount, setAccount } from '../../../utils/account'
@@ -104,6 +104,13 @@ describe('useReportSetup', () => {
     expect(result.current.isMessageValid).toBeTruthy()
     expect(result.current.messageErrors).toHaveLength(0)
     expect(result.current.shareDeviceID).toBeTruthy()
+  })
+
+  it('sets up the header correctly', () => {
+    renderHook(useReportSetup)
+    expect(useHeaderSetup).toHaveBeenCalledWith({
+      title: i18n('contact.title'),
+    })
   })
 
   it('sets email', () => {
