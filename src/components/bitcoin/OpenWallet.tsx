@@ -6,14 +6,12 @@ import { Icon, Text } from '..'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { openInWallet } from '../../utils/bitcoin'
-import { info } from '../../utils/log'
 
-type OpenWalletProps = ComponentProps & {
+type OpenWalletProps = {
   address?: string
 }
 
 export const OpenWallet = ({ address }: OpenWalletProps): ReactElement => {
-  info(`bitcoin:${address}`)
   const openWalletApp = () => openInWallet(`bitcoin:${address ?? ''}`)
 
   return (
