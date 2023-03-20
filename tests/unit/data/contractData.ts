@@ -51,8 +51,6 @@ export const contract: Contract = {
   currency: 'EUR',
   disputeActive: false,
   id: '14-15',
-  kycRequired: false,
-  kycConfirmed: false,
   paymentConfirmed: null,
   paymentMade: null,
   paymentMethod: 'sepa',

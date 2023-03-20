@@ -837,7 +837,7 @@ SPEC CHECKSUMS:
   React-logger: 98f663b292a60967ebbc6d803ae96c1381183b6d
   react-native-camera: 3eae183c1d111103963f3dd913b65d01aef8110f
   react-native-document-picker: f5ec1a712ca2a975c233117f044817bb8393cad4
-  react-native-fast-openpgp: 6889a104cc1eeef546a9723b468041d3ecc6e6bb
+  react-native-fast-openpgp: 92933fcdaa35c3486d112a6e01779e6c817b6b2f
   react-native-mmkv-storage: 8ba3c0216a6df283ece11205b442a3e435aec4e5
   react-native-netinfo: 2517ad504b3d303e90d7a431b0fcaef76d207983
   react-native-notification-badge: af03126a841319da4c18c80fd148146f55466a57
@@ -879,4 +879,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 090b32cc12b0b74f3d8f0607591d7ff75af7fe14
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.12.0

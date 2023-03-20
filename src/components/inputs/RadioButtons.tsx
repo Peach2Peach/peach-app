@@ -43,7 +43,6 @@ type RadioButtonsProps<T> = ComponentProps & {
 }
 
 /**
- * @description Component to display radio buttons
  * @example
  * <RadioButtons
     items={[
@@ -56,8 +55,8 @@ type RadioButtonsProps<T> = ComponentProps & {
         display: <Text>{i18n('no')}</Text>
       }
     ]}
-    selectedValue={kyc}
-    onChange={(value) => setKYC(value as boolean)}/>
+    selectedValue={handsome}
+    onChange={(value) => setHandsome(value as boolean)}/>
  */
 export const RadioButtons = <T, >({ items, selectedValue, onChange, style }: RadioButtonsProps<T>): ReactElement => (
   <View style={style}>
