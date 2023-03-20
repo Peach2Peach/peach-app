@@ -64,7 +64,16 @@ export const settingsStore = createStore(
     }),
     {
       name: 'settings',
-      version: 0,
+      version: 1,
+      migrate: (persistedState: SettingsStore, version: number): SettingsStore | Promise<SettingsStore> => {
+        if (version === 0) {
+          // if the stored value is in version 0, we rename the field to the new name
+          persistedState.lastFileBackupDate = persistedState.lastBackupDate
+          delete persistedState.lastBackupDate
+        }
+
+        return persistedState
+      },
       getStorage: () => toZustandStorage(settingsStorage),
     },
   ),

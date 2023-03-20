@@ -25,6 +25,7 @@ declare type Settings = {
   nodeURL: string
   feeRate: number | 'fastestFee' | 'halfHourFee' | 'hourFee' | 'economyFee'
   usedReferralCode?: boolean
+  lastBackupDate?: number
 }
 
 declare type PGPKeychain = {
