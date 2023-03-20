@@ -21,4 +21,3 @@ export const OpenWallet = ({ address }: OpenWalletProps): ReactElement => {
     </TouchableOpacity>
   )
 }
-export default OpenWallet
