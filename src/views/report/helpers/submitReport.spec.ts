@@ -30,11 +30,11 @@ describe('submitReport', () => {
     })
     expect(result).toEqual(['success', null])
   })
-  it('does not send error report if logs are not inteneded to be shared', async () => {
+  it('does not send error report if logs are not intended to be shared', async () => {
     await submitReport({ email, reason, topic, message, shareDeviceID: false, shareLogs: false })
     expect(sendErrors).not.toHaveBeenCalled()
   })
-  it('does  send error report if logs are  inteneded to be shared', async () => {
+  it('does  send error report if logs are  intended to be shared', async () => {
     await submitReport({ email, reason, topic, message, shareDeviceID: false, shareLogs: true })
     expect(sendErrors).toHaveBeenCalledWith([new Error(`user shared app logs: ${topic} - reportMessage`)])
   })
