@@ -16,7 +16,7 @@
     "start:testnet": "NODE_ENV=development react-native start --port=8081",
     "start:mainnet": "NODE_ENV=production react-native start --port=8081",
     "cache:clear": "react-native start --reset-cache",
-    "postinstall": "rn-nodeify --install crypto --hack & node ./devUtils/android-release-fix.js",
+    "postinstall": "rn-nodeify --install buffer,stream,util,crypto --hack & node ./devUtils/android-release-fix.js",
     "podinstall": "cd ios && pod install",
     "build:web": "cp -r ./assets ./public/assets/ && react-scripts build",
     "build:android:testnet": "react-native bundle --reset-cache --platform android --dev true --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res && cd android && ./gradlew assembleQaRelease",
@@ -62,7 +62,7 @@
     "events": "^3.3.0",
     "iban": "^0.0.14",
     "lottie-react-native": "^5.1.4",
-    "path-browserify": "^0.0.0",
+    "path-browserify": "^1.0.1",
     "process": "^0.11.10",
     "react": "17.0.2",
     "react-dom": "17.0.2",
@@ -107,6 +107,17 @@
     "util": "^0.10.4",
     "varuint-bitcoin": "^1.1.2",
     "zustand": "^4.1.5"
+  },
+  "react-native": {
+    "crypto": "react-native-crypto",
+    "path": "path-browserify",
+    "fs": "react-native-level-fs",
+    "_stream_transform": "readable-stream/transform",
+    "_stream_readable": "readable-stream/readable",
+    "_stream_writable": "readable-stream/writable",
+    "_stream_duplex": "readable-stream/duplex",
+    "_stream_passthrough": "readable-stream/passthrough",
+    "stream": "stream-browserify"
   },
   "devDependencies": {
     "@babel/core": "^7.17.9",
@@ -159,10 +170,15 @@
       "last 1 safari version"
     ]
   },
-  "react-native": {
-    "crypto": "react-native-crypto"
-  },
   "browser": {
-    "crypto": "react-native-crypto"
+    "crypto": "react-native-crypto",
+    "path": "path-browserify",
+    "fs": "react-native-level-fs",
+    "_stream_transform": "readable-stream/transform",
+    "_stream_readable": "readable-stream/readable",
+    "_stream_writable": "readable-stream/writable",
+    "_stream_duplex": "readable-stream/duplex",
+    "_stream_passthrough": "readable-stream/passthrough",
+    "stream": "stream-browserify"
   }
 }
