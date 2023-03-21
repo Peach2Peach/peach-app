@@ -4,6 +4,7 @@ import { HelpIcon } from '../../../components/icons'
 import { useHeaderSetup } from '../../../hooks'
 import { useUserPrivate } from '../../../hooks/query/useUserPrivate'
 import { useShowHelp } from '../../../hooks/useShowHelp'
+import { useSetCustomReferralCodeOverlay } from '../../../overlays/useSetCustomReferralCodeOverlay'
 import { account } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
 import { isRewardAvailable } from '../helpers/isRewardAvailable'
@@ -16,6 +17,8 @@ const REWARDINFO: Reward[] = [
 ]
 export const useReferralsSetup = () => {
   const showHelp = useShowHelp('referrals')
+  const setCustomReferralCodeOverlay = useSetCustomReferralCodeOverlay()
+
   useHeaderSetup(
     useMemo(
       () => ({
@@ -35,6 +38,17 @@ export const useReferralsSetup = () => {
   const [selectedReward, setSelectedReward] = useState<RewardType>()
 
   const availableRewards = REWARDINFO.filter((reward) => isRewardAvailable(reward, pointsBalance)).length
+
+  const redeem = async () => {
+    switch (selectedReward) {
+    case 'customReferralCode':
+      setCustomReferralCodeOverlay()
+      break
+    default:
+      break
+    }
+  }
+
   return {
     user,
     pointsBalance,
@@ -43,5 +57,6 @@ export const useReferralsSetup = () => {
     availableRewards,
     selectedReward,
     setSelectedReward,
+    redeem,
   }
 }
