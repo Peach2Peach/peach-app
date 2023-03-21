@@ -83,10 +83,11 @@ jest.mock('@react-native-firebase/messaging', () => {
 })
 
 export const deleteUnsentReportsMock = jest.fn()
+export const logMock = jest.fn()
 export const recordErrorMock = jest.fn()
 jest.mock('@react-native-firebase/crashlytics', () => () => ({
   deleteUnsentReports: deleteUnsentReportsMock,
-  log: jest.fn(),
+  log: logMock,
   recordError: recordErrorMock,
 }))
 

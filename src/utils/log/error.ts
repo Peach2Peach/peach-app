@@ -3,12 +3,13 @@ import { openCrashReportPrompt } from '../analytics'
 import { isNetworkError, isProduction } from '../system'
 
 export const error = (...args: any[]) => {
-  console.error([new Date(), 'ERROR', ...args].join(' - '))
-  if (isProduction()) crashlytics().log([new Date(), 'ERROR', ...args].join(' - '))
-
+  const message = [new Date(), 'ERROR', ...args].join(' - ')
   if (isProduction()) {
+    crashlytics().log(message)
     const errors = args.filter((arg) => arg instanceof Error).filter((arg) => !isNetworkError(arg.message))
 
     if (errors.length) openCrashReportPrompt(errors)
+  } else {
+    console.error(message)
   }
 }
