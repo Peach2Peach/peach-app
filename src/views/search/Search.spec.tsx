@@ -9,7 +9,7 @@ jest.mock('./hooks/useSearchSetup', () => ({
     offer: {},
   }),
 }))
-jest.mock('../../components/Matches', () => ({
+jest.mock('../../components/matches', () => ({
   Matches: () => <></>,
 }))
 
