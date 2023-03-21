@@ -1,2 +1,4 @@
+const unavailable = ['noPeachFees', 'sats']
+
 export const isRewardAvailable = (reward: Reward, balance: number) =>
-  reward.requiredPoints <= balance && reward.id !== 'sats'
+  reward.requiredPoints <= balance && !unavailable.includes(reward.id)
