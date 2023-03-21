@@ -17,7 +17,7 @@ export default (): ReactElement => {
 
   const rewards: RadioButtonItem<RewardType>[] = REWARDINFO.map((reward) => ({
     value: reward.id,
-    disabled: isRewardAvailable(reward, pointsBalance),
+    disabled: !isRewardAvailable(reward, pointsBalance),
     display: <RewardItem reward={reward} />,
   }))
 
