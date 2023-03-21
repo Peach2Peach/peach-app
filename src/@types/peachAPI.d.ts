@@ -457,3 +457,5 @@ declare type RefundSellOfferResponse = APISuccess
 declare type CheckReferralCodeResponse = {
   valid: boolean
 }
+
+declare type RedeemReferralCodeResponseBody = APISuccess & { bonusPoints: User['bonusPoints'] }
