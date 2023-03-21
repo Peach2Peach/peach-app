@@ -17,6 +17,7 @@ export const SetCustomReferralCode = ({ referralCode, setReferralCode, referralC
       placeholder={i18n('form.referral.placeholder')}
       value={referralCode}
       onChange={setReferralCode}
+      autoCapitalize="characters"
       errorMessage={referralCodeErrors}
     />
   </View>
