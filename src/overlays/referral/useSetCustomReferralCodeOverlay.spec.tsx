@@ -9,9 +9,7 @@ import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
 import { SetCustomReferralCodeSuccess } from './SetCustomReferralCodeSucess'
 
 jest.mock('../../hooks/useNavigation', () => ({
-  useNavigation: jest.fn().mockReturnValue({
-    replace: jest.fn(),
-  }),
+  useNavigation: jest.fn(),
 }))
 jest.mock('../../contexts/overlay', () => ({
   useOverlayContext: jest.fn(),
@@ -27,6 +25,9 @@ describe('useSetCustomReferralCodeOverlay', () => {
   const updateOverlayMock = jest.fn()
   beforeEach(() => {
     ;(useOverlayContext as jest.Mock).mockReturnValue([{}, updateOverlayMock])
+    ;(useNavigation as jest.Mock).mockReturnValue({
+      replace: jest.fn(),
+    })
   })
   afterEach(() => {
     jest.resetAllMocks()
