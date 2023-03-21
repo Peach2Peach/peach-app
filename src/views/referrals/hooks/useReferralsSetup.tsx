@@ -4,7 +4,7 @@ import { HelpIcon } from '../../../components/icons'
 import { useHeaderSetup } from '../../../hooks'
 import { useUserPrivate } from '../../../hooks/query/useUserPrivate'
 import { useShowHelp } from '../../../hooks/useShowHelp'
-import { useSetCustomReferralCodeOverlay } from '../../../overlays/useSetCustomReferralCodeOverlay'
+import { useSetCustomReferralCodeOverlay } from '../../../overlays/referral/useSetCustomReferralCodeOverlay'
 import { account } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
 import { isRewardAvailable } from '../helpers/isRewardAvailable'
@@ -17,7 +17,7 @@ const REWARDINFO: Reward[] = [
 ]
 export const useReferralsSetup = () => {
   const showHelp = useShowHelp('referrals')
-  const setCustomReferralCodeOverlay = useSetCustomReferralCodeOverlay()
+  const { setCustomReferralCodeOverlay } = useSetCustomReferralCodeOverlay()
 
   useHeaderSetup(
     useMemo(

@@ -2,7 +2,7 @@
 import { act, renderHook } from '@testing-library/react-hooks'
 import { defaultPrivateUser } from '../../../../tests/unit/data/userData'
 import { useUserPrivate } from '../../../hooks/query/useUserPrivate'
-import { useSetCustomReferralCodeOverlay } from '../../../overlays/useSetCustomReferralCodeOverlay'
+import { useSetCustomReferralCodeOverlay } from '../../../overlays/referral/useSetCustomReferralCodeOverlay'
 import { useReferralsSetup } from './useReferralsSetup'
 
 jest.mock('../../../hooks/useNavigation', () => ({
@@ -17,12 +17,16 @@ jest.mock('../../../hooks/useHeaderSetup', () => ({
 jest.mock('../../../hooks/query/useUserPrivate', () => ({
   useUserPrivate: jest.fn(),
 }))
-jest.mock('../../../overlays/useSetCustomReferralCodeOverlay', () => ({
+jest.mock('../../../overlays/referral/useSetCustomReferralCodeOverlay', () => ({
   useSetCustomReferralCodeOverlay: jest.fn(),
 }))
 
 describe('useReferralsSetup', () => {
+  const setCustomReferralCodeOverlayMock = jest.fn()
   beforeEach(() => {
+    ;(useSetCustomReferralCodeOverlay as jest.Mock).mockReturnValue({
+      setCustomReferralCodeOverlay: setCustomReferralCodeOverlayMock,
+    })
     ;(useUserPrivate as jest.Mock).mockReturnValue({
       user: defaultPrivateUser,
     })
@@ -84,8 +88,6 @@ describe('useReferralsSetup', () => {
     expect(result.current.selectedReward).toEqual('customReferralCode')
   })
   it('lets does not let user start redemption of an unavailable reward', () => {
-    ;(useSetCustomReferralCodeOverlay as jest.Mock).mockReturnValue(jest.fn())
-
     const { result } = renderHook(useReferralsSetup)
 
     act(() => {
@@ -93,18 +95,16 @@ describe('useReferralsSetup', () => {
       result.current.redeem()
     })
 
-    expect(useSetCustomReferralCodeOverlay()).not.toHaveBeenCalled()
+    expect(setCustomReferralCodeOverlayMock).not.toHaveBeenCalled()
 
     act(() => {
       result.current.setSelectedReward('sats')
       result.current.redeem()
     })
 
-    expect(useSetCustomReferralCodeOverlay()).not.toHaveBeenCalled()
+    expect(setCustomReferralCodeOverlayMock).not.toHaveBeenCalled()
   })
   it('lets user start redemption of a reward', () => {
-    ;(useSetCustomReferralCodeOverlay as jest.Mock).mockReturnValue(jest.fn())
-
     const { result } = renderHook(useReferralsSetup)
 
     act(() => {
@@ -114,6 +114,6 @@ describe('useReferralsSetup', () => {
       result.current.redeem()
     })
 
-    expect(useSetCustomReferralCodeOverlay()).toHaveBeenCalled()
+    expect(setCustomReferralCodeOverlayMock).toHaveBeenCalled()
   })
 })
