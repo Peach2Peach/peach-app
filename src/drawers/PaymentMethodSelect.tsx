@@ -17,7 +17,7 @@ export const PaymentMethodSelect = ({ paymentMethods, onSelect }: PaymentMethodS
       .map((method) => (
         <View key={method}>
           <View style={tw`flex flex-row items-center px-8`}>
-            <View style={tw`p-1 mr-4 border rounded-lg border-black-6`}>
+            <View style={[tw`mr-4`, !method.includes('nationalTransfer') && tw`p-1 border rounded-lg border-black-6`]}>
               <PaymentLogo id={method as PaymentLogoType} style={tw`w-6 h-6`} />
             </View>
             <Text style={tw`flex-shrink w-full subtitle-1`} onPress={() => onSelect(method)}>

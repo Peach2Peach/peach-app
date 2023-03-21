@@ -17,7 +17,6 @@ export type MatchProps = RequestProps & {
 }
 
 /**
- * TODO: for KYC, send encrypted (using seller PGP key) KYC data
  * @description Method to match an offer
  * @returns MatchResponse
  */

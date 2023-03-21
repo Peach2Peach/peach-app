@@ -1,6 +1,6 @@
 import React, { ReactElement, useContext, useRef, useState } from 'react'
 import { View } from 'react-native'
-import { COUNTRIES } from '../../../../constants'
+import { GIFTCARDCOUNTRIES, NATIONALTRANSFERCOUNTRIES } from '../../../../constants'
 import { OverlayContext } from '../../../../contexts/overlay'
 import { useKeyboard } from '../../../../hooks'
 import PaymentMethodEdit from '../../../../overlays/info/PaymentMethodEdit'
@@ -28,6 +28,7 @@ import { Wise } from './Wise'
 import { Vipps } from './Vipps'
 import { ADVCash } from './ADVCash'
 import { Blik } from './Blik'
+import { NationalTransfer } from './NationalTransfer'
 const { LinearGradient } = require('react-native-gradients')
 
 type FormRef = {
@@ -65,7 +66,10 @@ export const PaymentMethodForms: PaymentMethodForms = {
   mobilePay: MobilePay,
   'giftCard.amazon': GiftCardAmazon,
 }
-COUNTRIES.forEach((c) => (PaymentMethodForms[('giftCard.amazon.' + c) as PaymentMethod] = GiftCardAmazon))
+GIFTCARDCOUNTRIES.forEach((c) => (PaymentMethodForms[('giftCard.amazon.' + c) as PaymentMethod] = GiftCardAmazon))
+NATIONALTRANSFERCOUNTRIES.forEach(
+  (c) => (PaymentMethodForms[`nationalTransfer${c}` as PaymentMethod] = NationalTransfer),
+)
 
 export const PaymentMethodForm = ({
   paymentMethod,
