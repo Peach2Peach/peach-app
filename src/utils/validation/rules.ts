@@ -17,6 +17,7 @@ import { isUKSortCode } from './isUKSortCode'
 import { isURL } from './isURL'
 import { isUsername } from './isUsername'
 import { isValidBitcoinSignature } from './isValidBitcoinSignature'
+import { isReferralCode } from './isReferralCode'
 
 export const rules = {
   required (required: boolean, value: string | number | null) {
@@ -62,7 +63,10 @@ export const rules = {
     return value && value.length > 7
   },
   referralCode (_: boolean, value: string) {
-    return !value || value.length === 0 || /^[A-Z0-9]{4,16}$/u.test(value)
+    return isReferralCode(value)
+  },
+  referralCodeTaken (isTaken: boolean) {
+    return !isTaken
   },
   iban (_: boolean, value: string) {
     return isIBAN(value)
