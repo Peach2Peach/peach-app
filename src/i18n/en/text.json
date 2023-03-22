@@ -444,6 +444,7 @@
   "paymentMethod.advcash": "ADV Cash",
   "paymentMethod.satispay": "Satispay",
   "paymentMethod.skrill": "Skrill",
+  "paymentMethod.n26": "N26",
   "paymentMethod.neteller": "Neteller",
   "paymentMethod.paysera": "Paysera",
   "paymentMethod.straksbetaling": "Straksbetaling",

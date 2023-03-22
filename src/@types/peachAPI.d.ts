@@ -154,6 +154,7 @@ declare type PaymentMethod =
   | 'keksPay'
   | 'straksbetaling'
   | 'friends24'
+  | 'n26'
   | `cash.${string}`
   | 'cash'
   | 'giftCard.amazon'
