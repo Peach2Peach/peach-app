@@ -149,6 +149,7 @@ declare type PaymentMethod =
   | 'skrill'
   | 'neteller'
   | 'paysera'
+  | 'straksbetaling'
   | `cash.${string}`
   | 'cash'
   | 'giftCard.amazon'

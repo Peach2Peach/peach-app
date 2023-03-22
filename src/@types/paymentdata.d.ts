@@ -98,3 +98,7 @@ declare type PayseraData = {
   phone: string
   beneficiary?: string
 }
+declare type StraksbetalingData = {
+  beneficiary: string
+  accountNumber: string
+}
