@@ -5,6 +5,8 @@ import { create } from 'react-test-renderer'
 import { CopyAble, CopyRef } from './CopyAble'
 import { Pressable, View } from 'react-native'
 
+jest.useFakeTimers()
+
 jest.mock('@react-native-clipboard/clipboard', () => ({
   setString: jest.fn(),
 }))
