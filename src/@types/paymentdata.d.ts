@@ -94,3 +94,7 @@ declare type NetellerData = {
   email: string
   beneficiary?: string
 }
+declare type PayseraData = {
+  phone: string
+  beneficiary?: string
+}
