@@ -1,5 +1,5 @@
 import { deepStrictEqual } from 'assert'
-import { diff } from '.'
+import { diff } from './diff'
 
 describe('diff', () => {
   it('filters all items from array A that also exist in array B', () => {
