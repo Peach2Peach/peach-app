@@ -91,7 +91,7 @@ export default (): ReactElement => {
     if (!/giftCard/u.test(paymentMethod as string) && !isLocalOption(paymentMethod)) {
       goToPaymentDetails({ paymentMethod, currencies, country })
       return
-    } else if (paymentMethodInfo.countries) {
+    } else if (!!paymentMethodInfo.countries) {
       const countries = paymentMethodInfo.countries.filter(countrySupportsCurrency(currencies[0]))
       if (countries.length === 1) {
         setCountry(countries[0])
