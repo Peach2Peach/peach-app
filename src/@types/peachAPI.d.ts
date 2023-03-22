@@ -155,6 +155,7 @@ declare type PaymentMethod =
   | 'straksbetaling'
   | 'friends24'
   | 'n26'
+  | 'paylib'
   | `cash.${string}`
   | 'cash'
   | 'giftCard.amazon'

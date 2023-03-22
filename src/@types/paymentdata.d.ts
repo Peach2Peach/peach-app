@@ -114,3 +114,7 @@ declare type N26Data = {
   beneficiary?: string
   phone: string
 }
+declare type PaylibData = {
+  beneficiary?: string
+  phone: string
+}
