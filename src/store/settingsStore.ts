@@ -2,6 +2,7 @@ import analytics from '@react-native-firebase/analytics'
 import { createStore, useStore } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { updateSettings } from '../utils/account'
+import { info } from '../utils/log'
 import { createStorage, toZustandStorage } from '../utils/storage'
 import { defaultSettings } from './defaults'
 
@@ -65,14 +66,16 @@ export const settingsStore = createStore(
     {
       name: 'settings',
       version: 1,
-      migrate: (persistedState: SettingsStore, version: number): SettingsStore | Promise<SettingsStore> => {
+      migrate: (persistedState: unknown, version: number): SettingsStore | Promise<SettingsStore> => {
+        const migratedState = persistedState as SettingsStore
         if (version === 0) {
+          info('settingsStore - migrating from version 0')
           // if the stored value is in version 0, we rename the field to the new name
-          persistedState.lastFileBackupDate = persistedState.lastBackupDate
-          delete persistedState.lastBackupDate
+          migratedState.lastFileBackupDate = migratedState.lastBackupDate
+          delete migratedState.lastBackupDate
         }
 
-        return persistedState
+        return migratedState
       },
       getStorage: () => toZustandStorage(settingsStorage),
     },
