@@ -78,6 +78,7 @@ export const PAYMENTCATEGORIES: PaymentCategories = {
     'mobilePay',
     'skrill',
     'neteller',
+    'paysera',
   ],
   giftCard: ['giftCard.amazon'].concat(GIFTCARDCOUNTRIES.map((c) => `giftCard.amazon.${c}`)) as PaymentMethod[],
   localOption: ['mbWay', 'bizum', 'satispay', 'mobilePay'],

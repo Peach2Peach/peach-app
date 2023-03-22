@@ -444,6 +444,7 @@
   "paymentMethod.satispay": "Satispay",
   "paymentMethod.skrill": "Skrill",
   "paymentMethod.neteller": "Neteller",
+  "paymentMethod.paysera": "Paysera",
   "paymentMethod.giftCard": "online gift card",
   "paymentMethod.giftCard.amazon": "Amazon Gift Card",
   "paymentMethod.giftCard.amazon.DE": "Amazon Gift Card (DE)",

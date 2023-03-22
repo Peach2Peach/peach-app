@@ -35,6 +35,7 @@ export const paymentDetailTemplates: PaymentDetailTemplates = {
   vipps: GeneralPaymentDetails,
   skrill: GeneralPaymentDetails,
   neteller: GeneralPaymentDetails,
+  paysera: GeneralPaymentDetails,
   'giftCard.amazon': GeneralPaymentDetails,
 }
 export const possiblePaymentFields: Partial<Record<PaymentMethod, string[]>> = {
@@ -55,6 +56,7 @@ export const possiblePaymentFields: Partial<Record<PaymentMethod, string[]>> = {
   vipps: ['beneficiary', 'phone'],
   skrill: ['beneficiary', 'email'],
   neteller: ['beneficiary', 'email'],
+  paysera: ['beneficiary', 'phone'],
 }
 GIFTCARDCOUNTRIES.forEach((c) => {
   const id: PaymentMethod = `giftCard.amazon.${c}`
