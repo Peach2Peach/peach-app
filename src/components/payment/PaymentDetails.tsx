@@ -1,4 +1,4 @@
-import React, { ReactElement, useCallback, useEffect, useState } from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 import { Pressable, View } from 'react-native'
 import { HorizontalLine, Icon, PeachScrollView, Text } from '..'
 import { IconType } from '../../assets/icons'
@@ -79,7 +79,7 @@ export default ({ setMeansOfPayment, editing, style, origin }: PaymentDetailsPro
     setPaymentData(account.paymentData)
   })
 
-  const update = useCallback(() => {
+  const update = () => {
     setMeansOfPayment(
       getSelectedPaymentDataIds(account.settings.preferredPaymentMethods)
         .map(getPaymentData)
@@ -87,7 +87,7 @@ export default ({ setMeansOfPayment, editing, style, origin }: PaymentDetailsPro
         .filter((data) => getPaymentMethodInfo(data.type))
         .reduce((mop, data) => dataToMeansOfPayment(mop, data), {}),
     )
-  }, [setMeansOfPayment])
+  }
 
   const mapPaymentDataToCheckboxes = (data: PaymentData) => ({
     value: data.id,
@@ -136,7 +136,7 @@ export default ({ setMeansOfPayment, editing, style, origin }: PaymentDetailsPro
 
   useEffect(() => {
     update()
-  }, [paymentData, update])
+  }, [paymentData])
 
   const remotePaymentDetails = () =>
     paymentData.filter((item) => !item.type.includes('cash.')).length === 0 ? (

@@ -31,7 +31,7 @@ export default ({ paymentMethod, currency, selected, setCountry, next }: Country
   useEffect(() => {
     setStepValid(!!selectedCountry)
     if (selectedCountry) setCountry(selectedCountry)
-  }, [selectedCountry, setCountry])
+  }, [selectedCountry])
 
   useHeaderSetup(
     useMemo(

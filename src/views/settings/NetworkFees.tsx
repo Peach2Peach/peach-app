@@ -64,7 +64,7 @@ export default (): ReactElement => {
 
   useEffect(() => {
     if (!customFeeRate || isNaN(Number(customFeeRate)) || customFeeRate === '0') setCustomFeeRate('1')
-  }, [customFeeRate, selectedFeeRate, setCustomFeeRate])
+  }, [selectedFeeRate, setCustomFeeRate])
 
   useEffect(() => {
     setFeeRateSet(feeRate === selectedFeeRate && feeRate === Number(customFeeRate))
