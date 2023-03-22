@@ -30,7 +30,7 @@ export const UserId = ({ id, showInfo = false, style }: { id: string; showInfo?:
         {showInfo ? (
           <Icon id="info" color={tw`text-primary-main`.color} style={tw`w-[14px] h-[14px]`} />
         ) : (
-          <CopyAble value={peachId} copied={copied} textRight />
+          <CopyAble value={peachId} copied={copied} textPosition="top" />
         )}
       </TouchableOpacity>
     </>

@@ -7,15 +7,28 @@ import i18n from '../../utils/i18n'
 import tw from '../../styles/tailwind'
 import Icon from '../Icon'
 
+const textPositions = {
+  left: tw`absolute mr-3 right-full`,
+  top: tw`absolute mb-1 bottom-full`,
+  right: tw`absolute ml-3 left-full`,
+  bottom: tw`absolute mt-1 top-full`,
+}
 type CopyAbleProps = ComponentProps & {
   value?: string
   color?: TextStyle
   disabled?: boolean
   copied?: boolean
-  textRight?: boolean
+  textPosition?: keyof typeof textPositions
 }
 
-export const CopyAble = ({ value, color, disabled, copied, style, textRight }: CopyAbleProps): ReactElement => {
+export const CopyAble = ({
+  value,
+  color,
+  disabled,
+  copied,
+  style,
+  textPosition = 'bottom',
+}: CopyAbleProps): ReactElement => {
   const [showCopied, setShowCopied] = useState(copied || false)
 
   const copy = useCallback(() => {
@@ -37,16 +50,9 @@ export const CopyAble = ({ value, color, disabled, copied, style, textRight }: C
       style={[tw`flex-row items-center justify-center flex-shrink w-4 h-4`, style]}
     >
       <Icon id="copy" style={tw`w-full h-full`} color={color?.color || tw`text-primary-main`.color} />
-      {showCopied && (
-        <Fade
-          show={showCopied}
-          duration={300}
-          delay={0}
-          style={textRight ? tw`absolute ml-3 left-full` : tw`absolute mt-1 top-full`}
-        >
-          <Text style={[tw`tooltip`, color || tw`text-primary-main`]}>{i18n('copied')}</Text>
-        </Fade>
-      )}
+      <Fade show={copied || showCopied} duration={300} delay={0} style={textPositions[textPosition]}>
+        <Text style={[tw`tooltip`, color || tw`text-primary-main`]}>{i18n('copied')}</Text>
+      </Fade>
     </Pressable>
   )
 }
