@@ -33,6 +33,7 @@ export const paymentDetailTemplates: PaymentDetailTemplates = {
   bizum: GeneralPaymentDetails,
   mobilePay: GeneralPaymentDetails,
   vipps: GeneralPaymentDetails,
+  keksPay: GeneralPaymentDetails,
   'giftCard.amazon': GeneralPaymentDetails,
 }
 export const possiblePaymentFields: Partial<Record<PaymentMethod, string[]>> = {
@@ -50,6 +51,7 @@ export const possiblePaymentFields: Partial<Record<PaymentMethod, string[]>> = {
   mbWay: ['beneficiary', 'phone', 'userName', 'email', 'iban', 'bic', 'address'],
   bizum: ['beneficiary', 'phone', 'userName', 'email', 'iban', 'bic', 'address'],
   mobilePay: ['beneficiary', 'phone'],
+  keksPay: ['beneficiary', 'phone'],
   vipps: ['beneficiary', 'phone'],
   skrill: ['beneficiary', 'email'],
   neteller: ['beneficiary', 'email'],

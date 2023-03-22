@@ -128,6 +128,8 @@ declare type PaymentMethodCountry =
   | 'PL'
   | 'PO'
   | 'RO'
+  | 'HR'
+
 declare type Location = 'amsterdam' | 'belgianEmbassy' | 'lugano'
 declare type PaymentMethod =
   | 'sepa'
@@ -149,6 +151,7 @@ declare type PaymentMethod =
   | 'skrill'
   | 'neteller'
   | 'paysera'
+  | 'keksPay'
   | 'straksbetaling'
   | `cash.${string}`
   | 'cash'

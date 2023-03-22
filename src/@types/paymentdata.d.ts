@@ -102,3 +102,7 @@ declare type StraksbetalingData = {
   beneficiary: string
   accountNumber: string
 }
+declare type KEKSPayData = {
+  beneficiary?: string
+  phone: string
+}
