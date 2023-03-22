@@ -38,6 +38,7 @@ import { Friends24 } from './Friends24'
 import { N26 } from './N26'
 import { Paylib } from './Paylib'
 import { Lydia } from './Lydia'
+import { Verse } from './Verse'
 const { LinearGradient } = require('react-native-gradients')
 
 type FormRef = {
@@ -82,6 +83,7 @@ export const PaymentMethodForms: PaymentMethodForms = {
   n26: N26,
   paylib: Paylib,
   lydia: Lydia,
+  verse: Verse,
   'giftCard.amazon': GiftCardAmazon,
 }
 GIFTCARDCOUNTRIES.forEach((c) => (PaymentMethodForms[('giftCard.amazon.' + c) as PaymentMethod] = GiftCardAmazon))

@@ -122,3 +122,7 @@ declare type LydiaData = {
   beneficiary?: string
   phone: string
 }
+declare type VerseData = {
+  beneficiary?: string
+  phone: string
+}

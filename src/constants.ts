@@ -94,7 +94,7 @@ export const LOCALPAYMENTMETHODS: LocalPaymentMethods = {
   EUR: {
     IT: ['satispay'],
     PT: ['mbWay'],
-    ES: ['bizum'],
+    ES: ['bizum', 'verse'],
     FI: ['mobilePay'],
     HR: ['keksPay'],
     FR: ['paylib', 'lydia', 'satispay'],
