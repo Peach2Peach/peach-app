@@ -38,6 +38,7 @@ export const paymentDetailTemplates: PaymentDetailTemplates = {
   neteller: GeneralPaymentDetails,
   paysera: GeneralPaymentDetails,
   straksbetaling: GeneralPaymentDetails,
+  friends24: GeneralPaymentDetails,
   'giftCard.amazon': GeneralPaymentDetails,
 }
 export const possiblePaymentFields: Partial<Record<PaymentMethod, string[]>> = {
