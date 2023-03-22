@@ -22,27 +22,22 @@ export const screens = [
 ]
 
 export default ({ style }: ComponentProps): ReactElement => {
-  const {
-    checked,
-    onPress,
-    showNextScreen,
-    currentScreenIndex,
-    goBackToStart,
-  } = useSeedBackupSetup()
+  const { checked, toggleChecked, showNextScreen, currentScreenIndex, goBackToStart } = useSeedBackupSetup()
 
   const CurrentView = screens[currentScreenIndex].view
 
   return (
     <View style={[tw`h-full`, style]}>
       <PeachScrollView contentContainerStyle={tw`items-center justify-center flex-grow`}>
-        {<CurrentView {...{ goBackToStart }}/>}
+        {<CurrentView {...{ goBackToStart }} />}
       </PeachScrollView>
       <View>
         <View style={tw`w-full h-8 -mt-8`}>
           <LinearGradient colorList={whiteGradient} angle={90} />
         </View>
-        {currentScreenIndex === 1
-          && <ReadAndUnderstood style={tw`self-center mb-10`} checkBoxProps={{ checked, onPress }}/>}
+        {currentScreenIndex === 1 && (
+          <ReadAndUnderstood style={tw`self-center mb-10`} checkBoxProps={{ checked, onPress: toggleChecked }} />
+        )}
         {currentScreenIndex !== 0 && (
           <PrimaryButton narrow onPress={showNextScreen} style={tw`self-center mb-6`} disabled={!checked}>
             {i18n(screens[currentScreenIndex].buttonText || 'next')}

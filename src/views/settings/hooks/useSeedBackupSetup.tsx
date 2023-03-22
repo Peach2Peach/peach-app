@@ -19,10 +19,11 @@ export const useSeedBackupSetup = () => {
     title: i18n('settings.backups.walletBackup'),
     icons: [{ iconComponent: <HelpIcon />, onPress: showSeedPhrasePopup }],
   })
-  const [checked, onPress] = useToggleBoolean()
+  const [checked, toggleChecked] = useToggleBoolean()
   const [currentScreenIndex, setCurrentScreenIndex] = useState(lastSeedBackupDate ? 0 : 1)
+  const getCurrentScreen = () => screens[currentScreenIndex]
   const showNextScreen = useCallback(() => {
-    if (screens[currentScreenIndex].id === 'keepPhraseSecure') {
+    if (getCurrentScreen().id === 'keepPhraseSecure') {
       setLastSeedBackupDate(Date.now())
       setShowBackupReminder(false)
     }
@@ -30,9 +31,9 @@ export const useSeedBackupSetup = () => {
       setCurrentScreenIndex((prev) => prev + 1)
     } else {
       setCurrentScreenIndex(0)
-      onPress()
+      toggleChecked()
     }
-  }, [currentScreenIndex, onPress, setLastSeedBackupDate, setShowBackupReminder])
+  }, [currentScreenIndex, toggleChecked, setLastSeedBackupDate, setShowBackupReminder])
 
   const goBackToStart = useCallback(() => {
     setCurrentScreenIndex(1)
@@ -40,9 +41,10 @@ export const useSeedBackupSetup = () => {
 
   return {
     checked,
-    onPress,
+    toggleChecked,
     showNextScreen,
     currentScreenIndex,
+    getCurrentScreen,
     goBackToStart,
     lastSeedBackupDate,
   }
