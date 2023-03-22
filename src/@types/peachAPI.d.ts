@@ -146,6 +146,7 @@ declare type PaymentMethod =
   | 'mbWay'
   | 'bizum'
   | 'mobilePay'
+  | 'skrill'
   | `cash.${string}`
   | 'cash'
   | 'giftCard.amazon'

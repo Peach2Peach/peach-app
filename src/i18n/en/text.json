@@ -442,6 +442,7 @@
   "paymentMethod.paypal": "PayPal",
   "paymentMethod.advcash": "ADV Cash",
   "paymentMethod.satispay": "Satispay",
+  "paymentMethod.skrill": "Skrill",
   "paymentMethod.giftCard": "online gift card",
   "paymentMethod.giftCard.amazon": "Amazon Gift Card",
   "paymentMethod.giftCard.amazon.DE": "Amazon Gift Card (DE)",
