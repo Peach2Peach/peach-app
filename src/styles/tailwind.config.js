@@ -23,8 +23,8 @@ module.exports = {
           2: '#7D675E',
           3: '#9F8C82',
           4: '#BAADA7',
-          5: '#D4CECB',
-          6: '#ECECEC',
+          5: '#EAE3DF',
+          6: '#F4EEEB',
         },
         primary: {
           dark: {
