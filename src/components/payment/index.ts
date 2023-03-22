@@ -34,6 +34,10 @@ export const paymentDetailTemplates: PaymentDetailTemplates = {
   mobilePay: GeneralPaymentDetails,
   vipps: GeneralPaymentDetails,
   keksPay: GeneralPaymentDetails,
+  skrill: GeneralPaymentDetails,
+  neteller: GeneralPaymentDetails,
+  paysera: GeneralPaymentDetails,
+  straksbetaling: GeneralPaymentDetails,
   'giftCard.amazon': GeneralPaymentDetails,
 }
 export const possiblePaymentFields: Partial<Record<PaymentMethod, string[]>> = {
