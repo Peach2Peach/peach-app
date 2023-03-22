@@ -30,6 +30,7 @@ import { ADVCash } from './ADVCash'
 import { Blik } from './Blik'
 import { NationalTransfer } from './NationalTransfer'
 import { Skrill } from './Skrill'
+import { Neteller } from './Neteller'
 const { LinearGradient } = require('react-native-gradients')
 
 type FormRef = {
@@ -66,6 +67,7 @@ export const PaymentMethodForms: PaymentMethodForms = {
   bizum: Bizum,
   mobilePay: MobilePay,
   skrill: Skrill,
+  neteller: Neteller,
   'giftCard.amazon': GiftCardAmazon,
 }
 GIFTCARDCOUNTRIES.forEach((c) => (PaymentMethodForms[('giftCard.amazon.' + c) as PaymentMethod] = GiftCardAmazon))

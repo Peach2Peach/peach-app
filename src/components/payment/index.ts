@@ -52,6 +52,7 @@ export const possiblePaymentFields: Partial<Record<PaymentMethod, string[]>> = {
   mobilePay: ['beneficiary', 'phone'],
   vipps: ['beneficiary', 'phone'],
   skrill: ['beneficiary', 'email'],
+  neteller: ['beneficiary', 'email'],
 }
 GIFTCARDCOUNTRIES.forEach((c) => {
   const id: PaymentMethod = `giftCard.amazon.${c}`
