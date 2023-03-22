@@ -38,6 +38,8 @@ declare type APIError = {
   details?: unknown
 }
 
+declare type FeeRate = 'fastestFee' | 'halfHourFee' | 'hourFee' | 'economyFee' | 'custom'
+
 declare type User = {
   id: string
   creationDate: Date
@@ -58,6 +60,12 @@ declare type User = {
   }
   pgpPublicKey: string
   pgpPublicKeyProof: string
+}
+
+declare type UserPrivate = User & {
+  feeRate: FeeRate
+  historyRating: number
+  recentRating: number
 }
 
 declare type TradingLimit = {
@@ -138,6 +146,9 @@ declare type PaymentMethod =
   | 'mbWay'
   | 'bizum'
   | 'mobilePay'
+  | 'skrill'
+  | 'neteller'
+  | 'paysera'
   | `cash.${string}`
   | 'cash'
   | 'giftCard.amazon'
@@ -386,8 +397,6 @@ declare type FundEscrowResponse = {
 declare type GenerateBlockResponse = {
   txId: string
 }
-
-declare type FeeRate = 'fastestFee' | 'halfHourFee' | 'hourFee' | 'economyFee' | 'custom'
 
 declare type FeeRecommendation = {
   fastestFee: number
