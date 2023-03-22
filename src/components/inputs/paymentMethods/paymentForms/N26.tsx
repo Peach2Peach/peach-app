@@ -37,7 +37,7 @@ export const N26 = ({ forwardRef, data, currencies = [], onSubmit, setStepValid 
 
   const labelErrors = useMemo(() => getErrorsInField(label, labelRules), [label, labelRules])
 
-  const buildPaymentData = (): PaymentData & KEKSPayData => ({
+  const buildPaymentData = (): PaymentData & N26Data => ({
     id: data?.id || `n26-${new Date().getTime()}`,
     label,
     type: 'n26',
