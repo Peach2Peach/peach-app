@@ -9,6 +9,7 @@ import { specialTemplates } from '../../../../views/addPaymentMethod/specialTemp
 import { Fade } from '../../../animation'
 import { PrimaryButton } from '../../../buttons'
 import PeachScrollView from '../../../PeachScrollView'
+import { usePaymentMethodFormSetup } from './hooks/usePaymentMethodFormSetup'
 const { LinearGradient } = require('react-native-gradients')
 
 type FormRef = {
@@ -31,16 +32,11 @@ export const PaymentMethodForm = ({
   onSubmit,
   style,
 }: PaymentMethodFormProps): ReactElement => {
+  const { submit, stepValid, setStepValid } = usePaymentMethodFormSetup(onSubmit)
   const keyboardOpen = useKeyboard()
-  const [stepValid, setStepValid] = useState(false)
 
   const Form = PaymentMethodForms[paymentMethod]!
   let $formRef = useRef<FormRef>(null).current
-
-  const submit = (newPaymentData: PaymentData) => {
-    if (!$formRef || !stepValid) return
-    onSubmit(newPaymentData)
-  }
 
   return (
     <View style={[tw`h-full`, style]}>
