@@ -122,6 +122,7 @@ export const Wise = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
               $reference?.focus()
             }}
             value={phone}
+            required={!email}
             label={i18n('form.phoneLong')}
             placeholder={i18n('form.phone.placeholder')}
             autoCorrect={false}
@@ -133,6 +134,7 @@ export const Wise = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
             onChange={setEmail}
             onSubmit={() => $reference?.focus()}
             value={email}
+            required={!phone}
             label={i18n('form.emailLong')}
             placeholder={i18n('form.email.placeholder')}
             errorMessage={displayErrors ? emailErrors : undefined}
@@ -145,6 +147,7 @@ export const Wise = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
           onSubmit={save}
           reference={(el: any) => ($reference = el)}
           value={reference}
+          required={false}
           label={i18n('form.reference')}
           placeholder={i18n('form.reference.placeholder')}
           autoCorrect={false}
