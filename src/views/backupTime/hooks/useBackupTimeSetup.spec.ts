@@ -10,12 +10,14 @@ jest.mock('../../../utils/account')
 
 describe('useBackupTimeSetup', () => {
   beforeEach(() => {
+    ;(useSettingsStore as jest.Mock).mockReturnValue([null, null])
+  })
+  afterEach(() => {
     jest.resetAllMocks()
   })
 
   it('should set isMandatory to true if all params are true', () => {
     ;(useRoute as jest.Mock).mockReturnValue({ params: {} })
-    ;(useSettingsStore as jest.Mock).mockReturnValue({})
     ;(isBackupMandatory as jest.Mock).mockReturnValue(true)
     const { result } = renderHook(() => useBackupTimeSetup())
 
@@ -24,7 +26,7 @@ describe('useBackupTimeSetup', () => {
 
   it('should set isMandatory to false when lastFileBackupDate and lastSeedBackupDate are not null', () => {
     ;(useRoute as jest.Mock).mockReturnValue({ params: {} })
-    ;(useSettingsStore as jest.Mock).mockReturnValue({ lastFileBackupDate: new Date(), lastSeedBackupDate: new Date() })
+    ;(useSettingsStore as jest.Mock).mockReturnValue([new Date(), new Date()])
     ;(isBackupMandatory as jest.Mock).mockReturnValue(true)
     const { result } = renderHook(() => useBackupTimeSetup())
 
