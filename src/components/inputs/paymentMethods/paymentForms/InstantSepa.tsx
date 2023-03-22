@@ -17,7 +17,7 @@ const bicRules = { required: true, bic: true }
 
 export const InstantSepa = ({ forwardRef, data, currencies = [], onSubmit, setStepValid }: FormProps): ReactElement => {
   const [label, setLabel] = useState(data?.label || '')
-  const [checked, toggleChecked] = useToggleBoolean()
+  const [checked, toggleChecked] = useToggleBoolean(!!data.id)
   const [beneficiary, setBeneficiary, beneficiaryIsValid, beneficiaryErrors] = useValidatedState(
     data?.beneficiary || '',
     beneficiaryRules,
