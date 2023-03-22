@@ -1,22 +1,27 @@
 import { renderHook, act } from '@testing-library/react-hooks'
 import { useSyncWallet } from './useSyncWallet'
-
-jest.mock('../../../utils/wallet/setWallet', () => ({
-  peachWallet: {
-    synced: true,
-    syncWallet: jest.fn(() => Promise.resolve()),
-  },
-}))
+import { setPeachWallet } from '../../../utils/wallet/setWallet'
+import { PeachWallet } from '../../../utils/wallet/PeachWallet'
+import { BIP32Interface } from 'bip32'
 
 describe('useSyncWallet', () => {
+  const wallet = {} as unknown as BIP32Interface
+  afterEach(() => {
+    jest.resetAllMocks()
+  })
   it('should initialize with refreshing set to false if wallet is synced', () => {
+    const fakeWallet = new PeachWallet({ wallet })
+    fakeWallet.synced = true
+    setPeachWallet(fakeWallet)
     const { result } = renderHook(() => useSyncWallet())
 
     expect(result.current.refreshing).toBe(false)
   })
 
   it('should initialize with refreshing set to true if wallet is not synced', () => {
-    jest.spyOn(require('../../../utils/wallet/setWallet'), 'peachWallet', 'get').mockReturnValue({ synced: false })
+    const fakeWallet = new PeachWallet({ wallet })
+    fakeWallet.synced = false
+    setPeachWallet(fakeWallet)
 
     const { result } = renderHook(() => useSyncWallet())
 
@@ -24,16 +29,23 @@ describe('useSyncWallet', () => {
   })
 
   it('should call peachWallet.syncWallet on refresh', async () => {
+    const fakeWallet = new PeachWallet({ wallet })
+    fakeWallet.synced = true
+    fakeWallet.syncWallet = jest.fn()
+    setPeachWallet(fakeWallet)
     const { result } = renderHook(() => useSyncWallet())
 
     await act(async () => {
       await result.current.refresh()
     })
 
-    expect(require('../../../utils/wallet/setWallet').peachWallet.syncWallet).toHaveBeenCalled()
+    expect(fakeWallet.syncWallet).toHaveBeenCalled()
   })
 
   it('should set refreshing to false after refresh', async () => {
+    const fakeWallet = new PeachWallet({ wallet })
+    fakeWallet.synced = true
+    setPeachWallet(fakeWallet)
     const { result } = renderHook(() => useSyncWallet())
 
     await act(async () => {
@@ -44,14 +56,16 @@ describe('useSyncWallet', () => {
   })
 
   it('should not call peachWallet.syncWallet if already refreshing', async () => {
+    const fakeWallet = new PeachWallet({ wallet })
+    fakeWallet.synced = false
+    fakeWallet.syncWallet = jest.fn()
+    setPeachWallet(fakeWallet)
     const { result } = renderHook(() => useSyncWallet())
-
-    result.current.refreshing = true
 
     await act(async () => {
       await result.current.refresh()
     })
 
-    expect(require('../../../utils/wallet/setWallet').peachWallet.syncWallet).not.toHaveBeenCalled()
+    expect(fakeWallet.syncWallet).not.toHaveBeenCalled()
   })
 })
