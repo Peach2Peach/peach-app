@@ -45,4 +45,10 @@ describe('groupChars', () => {
     expect(groupChars('1234567890', 0)).toEqual('1234567890')
     expect(groupChars('!@#$%^&*()', 0)).toEqual('!@#$%^&*()')
   })
+
+  it('should group characters in with specified delimter', () => {
+    expect(groupChars('1234567890', 2, '-')).toEqual('12-34-56-78-90')
+    expect(groupChars('1234567890', 3, '.')).toEqual('1.234.567.890')
+    expect(groupChars('1234567890', 4, '_')).toEqual('12_3456_7890')
+  })
 })

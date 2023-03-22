@@ -18,6 +18,9 @@ import { Swish } from './Swish'
 import { Twint } from './Twint'
 import { Vipps } from './Vipps'
 import { Wise } from './Wise'
+import { Skrill } from './Skrill'
+import { Neteller } from './Neteller'
+import { Paysera } from './Paysera'
 export { PaymentMethodForm } from './PaymentMethodForm'
 
 type PaymentMethodFormType = (props: FormProps) => ReactElement
@@ -41,6 +44,9 @@ export const PaymentMethodForms: PaymentMethodForms = {
   mbWay: MBWay,
   bizum: Bizum,
   mobilePay: MobilePay,
+  skrill: Skrill,
+  neteller: Neteller,
+  paysera: Paysera,
   'giftCard.amazon': GiftCardAmazon,
 }
 GIFTCARDCOUNTRIES.forEach((c) => (PaymentMethodForms[('giftCard.amazon.' + c) as PaymentMethod] = GiftCardAmazon))
