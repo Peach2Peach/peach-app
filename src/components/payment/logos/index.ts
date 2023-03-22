@@ -15,6 +15,9 @@ import swish from './swish.svg'
 import twint from './twint.svg'
 import vipps from './vipps.svg'
 import wise from './wise.svg'
+import skrill from './skrill.svg'
+import neteller from './neteller.svg'
+import paysera from './paysera.svg'
 import nationalTransferBG from '../../flags/bg.svg'
 import nationalTransferCZ from '../../flags/cz.svg'
 import nationalTransferDK from '../../flags/dk.svg'
@@ -45,6 +48,9 @@ const PaymentLogos = {
   twint,
   vipps,
   wise,
+  skrill,
+  neteller,
+  paysera,
   nationalTransferBG,
   nationalTransferCZ,
   nationalTransferDK,
