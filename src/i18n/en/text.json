@@ -478,6 +478,7 @@
   "paymentMethod.mobilePay": "Mobile Pay",
   "paymentMethod.keksPay": "KEKS Pay",
   "paymentMethod.paylib": "Paylib",
+  "paymentMethod.lydia": "Lydia",
   "paymentMethod.blik": "Blik",
   "paymentMethod.tether": "Tether",
   "paymentMethod.cash": "Cash",
