@@ -86,3 +86,7 @@ declare type NationalTransferData = {
   accountNumber?: string
   bic?: string
 }
+declare type SkrillData = {
+  email: string
+  beneficiary?: string
+}

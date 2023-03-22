@@ -66,7 +66,7 @@ export const PAYMENTCATEGORIES: PaymentCategories = {
   bankTransfer: ['sepa', 'instantSepa', 'fasterPayments'].concat(
     NATIONALTRANSFERCOUNTRIES.map((c) => `nationalTransfer${c}`),
   ) as PaymentMethod[],
-  onlineWallet: ['paypal', 'revolut', 'wise', 'twint', 'swish', 'blik', 'advcash', 'vipps', 'mobilePay'],
+  onlineWallet: ['paypal', 'revolut', 'wise', 'twint', 'swish', 'blik', 'advcash', 'vipps', 'mobilePay', 'skrill'],
   giftCard: ['giftCard.amazon'].concat(GIFTCARDCOUNTRIES.map((c) => `giftCard.amazon.${c}`)) as PaymentMethod[],
   localOption: ['mbWay', 'bizum', 'satispay', 'mobilePay'],
   cash: [],

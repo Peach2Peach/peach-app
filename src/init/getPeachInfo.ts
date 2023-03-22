@@ -1,3 +1,4 @@
+import { info } from './../utils/log/info'
 import { PAYMENTCATEGORIES, setPaymentMethods } from '../constants'
 import { configStore } from '../store/configStore'
 import { defaultAccount, updateTradingLimit } from '../utils/account'
@@ -48,6 +49,7 @@ export const getPeachInfo = async (account?: Account) => {
     setPaymentMethods(paymentMethods.filter(shouldUsePaymentMethod(PAYMENTCATEGORIES)))
   } else if (peachInfoResponse.value[0]) {
     storePeachInfo(peachInfoResponse.value[0])
+    info('payment methods -> ' + JSON.stringify(peachInfoResponse.value[0]))
   }
 
   if (isRejectedPromise(tradingLimitResponse)) {
