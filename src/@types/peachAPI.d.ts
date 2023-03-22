@@ -153,6 +153,7 @@ declare type PaymentMethod =
   | 'paysera'
   | 'keksPay'
   | 'straksbetaling'
+  | 'friends24'
   | `cash.${string}`
   | 'cash'
   | 'giftCard.amazon'

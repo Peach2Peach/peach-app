@@ -57,6 +57,7 @@ export const possiblePaymentFields: Partial<Record<PaymentMethod, string[]>> = {
   neteller: ['beneficiary', 'email'],
   paysera: ['beneficiary', 'phone'],
   straksbetaling: ['beneficiary', 'accountNumber'],
+  friends24: ['beneficiary', 'phone'],
 }
 GIFTCARDCOUNTRIES.forEach((c) => {
   const id: PaymentMethod = `giftCard.amazon.${c}`

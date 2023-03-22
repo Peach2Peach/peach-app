@@ -106,3 +106,7 @@ declare type KEKSPayData = {
   beneficiary?: string
   phone: string
 }
+declare type Friends24Data = {
+  beneficiary?: string
+  phone: string
+}
