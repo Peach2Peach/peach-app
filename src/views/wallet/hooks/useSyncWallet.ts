@@ -7,8 +7,7 @@ export const useSyncWallet = () => {
   const refresh = async () => {
     if (refreshing) return
     setRefreshing(true)
-    await peachWallet.syncWallet()
-    setRefreshing(false)
+    await peachWallet.syncWallet(() => setRefreshing(false))
   }
 
   return { refresh, refreshing }

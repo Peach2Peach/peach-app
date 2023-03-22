@@ -13,7 +13,7 @@ const Separator = () => <View style={tw`mt-4`} />
 
 export default () => {
   useHeaderSetup(useMemo(() => ({ title: i18n('wallet.transactionHistory') }), []))
-  const { transactions, refresh, loading } = useTransactionHistorySetup()
+  const { transactions, refresh, refreshing } = useTransactionHistorySetup()
 
   if (transactions.length === 0) return (
     <View style={tw`items-center justify-center h-full`}>
@@ -29,7 +29,7 @@ export default () => {
       renderItem={ListItem}
       ItemSeparatorComponent={Separator}
       onRefresh={refresh}
-      refreshing={loading}
+      refreshing={refreshing}
     />
   )
 }
