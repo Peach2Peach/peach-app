@@ -83,7 +83,7 @@ export const PAYMENTCATEGORIES: PaymentCategories = {
     'n26',
   ],
   giftCard: ['giftCard.amazon'].concat(GIFTCARDCOUNTRIES.map((c) => `giftCard.amazon.${c}`)) as PaymentMethod[],
-  localOption: ['mbWay', 'bizum', 'satispay', 'mobilePay', 'keksPay', 'paylib', 'lydia', 'verse'],
+  localOption: ['mbWay', 'bizum', 'satispay', 'mobilePay', 'keksPay', 'paylib', 'lydia', 'verse', 'iris'],
   cash: [],
   cryptoCurrency: [],
 }
@@ -99,6 +99,7 @@ export const LOCALPAYMENTMETHODS: LocalPaymentMethods = {
     HR: ['keksPay'],
     FR: ['paylib', 'lydia', 'satispay'],
     DE: ['satispay'],
+    GR: ['iris'],
   },
 }
 

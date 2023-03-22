@@ -43,6 +43,7 @@ export const paymentDetailTemplates: PaymentDetailTemplates = {
   paylib: GeneralPaymentDetails,
   lydia: GeneralPaymentDetails,
   verse: GeneralPaymentDetails,
+  iris: GeneralPaymentDetails,
   'giftCard.amazon': GeneralPaymentDetails,
 }
 export const possiblePaymentFields: Partial<Record<PaymentMethod, string[]>> = {
@@ -71,6 +72,7 @@ export const possiblePaymentFields: Partial<Record<PaymentMethod, string[]>> = {
   paylib: ['beneficiary', 'phone'],
   lydia: ['beneficiary', 'phone'],
   verse: ['beneficiary', 'phone'],
+  iris: ['beneficiary', 'phone'],
 }
 GIFTCARDCOUNTRIES.forEach((c) => {
   const id: PaymentMethod = `giftCard.amazon.${c}`

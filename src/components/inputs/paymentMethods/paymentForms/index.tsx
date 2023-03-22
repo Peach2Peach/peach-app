@@ -39,6 +39,7 @@ import { N26 } from './N26'
 import { Paylib } from './Paylib'
 import { Lydia } from './Lydia'
 import { Verse } from './Verse'
+import { Iris } from './Iris'
 const { LinearGradient } = require('react-native-gradients')
 
 type FormRef = {
@@ -83,6 +84,7 @@ export const PaymentMethodForms: PaymentMethodForms = {
   n26: N26,
   paylib: Paylib,
   lydia: Lydia,
+  iris: Iris,
   verse: Verse,
   'giftCard.amazon': GiftCardAmazon,
 }
