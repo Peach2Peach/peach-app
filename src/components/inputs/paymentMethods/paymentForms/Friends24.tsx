@@ -37,7 +37,7 @@ export const Friends24 = ({ forwardRef, data, currencies = [], onSubmit, setStep
 
   const labelErrors = useMemo(() => getErrorsInField(label, labelRules), [label, labelRules])
 
-  const buildPaymentData = (): PaymentData & KEKSPayData => ({
+  const buildPaymentData = (): PaymentData & Friends24Data => ({
     id: data?.id || `friends24-${new Date().getTime()}`,
     label,
     type: 'friends24',
