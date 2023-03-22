@@ -1,6 +1,6 @@
 import React, { ReactElement, useRef, useState } from 'react'
 import { View } from 'react-native'
-import { GIFTCARDCOUNTRIES, NATIONALTRANSFERCOUNTRIES } from '../../../../constants'
+import { PaymentMethodForms } from '.'
 import { useKeyboard } from '../../../../hooks'
 import tw from '../../../../styles/tailwind'
 import i18n from '../../../../utils/i18n'
@@ -9,23 +9,6 @@ import { specialTemplates } from '../../../../views/addPaymentMethod/specialTemp
 import { Fade } from '../../../animation'
 import { PrimaryButton } from '../../../buttons'
 import PeachScrollView from '../../../PeachScrollView'
-import { Bizum } from './Bizum'
-import { FasterPayments } from './FasterPayments'
-import { GiftCardAmazon } from './giftCard.amazon'
-import { MBWay } from './MBWay'
-import { MobilePay } from './MobilePay'
-import { PayPal } from './PayPal'
-import { Revolut } from './Revolut'
-import { Satispay } from './Satispay'
-import { SEPA } from './SEPA'
-import { InstantSepa } from './InstantSepa'
-import { Swish } from './Swish'
-import { Twint } from './Twint'
-import { Wise } from './Wise'
-import { Vipps } from './Vipps'
-import { ADVCash } from './ADVCash'
-import { Blik } from './Blik'
-import { NationalTransfer } from './NationalTransfer'
 const { LinearGradient } = require('react-native-gradients')
 
 type FormRef = {
@@ -40,33 +23,6 @@ export type PaymentMethodFormProps = ComponentProps & {
   onDelete?: () => void
 }
 export type FormProps = PaymentMethodFormProps & { setStepValid: React.Dispatch<React.SetStateAction<boolean>> }
-
-type PaymentMethodFormType = (props: FormProps) => ReactElement
-export type PaymentMethodForms = {
-  [key in PaymentMethod]?: PaymentMethodFormType
-}
-export const PaymentMethodForms: PaymentMethodForms = {
-  sepa: SEPA,
-  fasterPayments: FasterPayments,
-  instantSepa: InstantSepa,
-  paypal: PayPal,
-  revolut: Revolut,
-  vipps: Vipps,
-  advcash: ADVCash,
-  blik: Blik,
-  wise: Wise,
-  twint: Twint,
-  swish: Swish,
-  satispay: Satispay,
-  mbWay: MBWay,
-  bizum: Bizum,
-  mobilePay: MobilePay,
-  'giftCard.amazon': GiftCardAmazon,
-}
-GIFTCARDCOUNTRIES.forEach((c) => (PaymentMethodForms[('giftCard.amazon.' + c) as PaymentMethod] = GiftCardAmazon))
-NATIONALTRANSFERCOUNTRIES.forEach(
-  (c) => (PaymentMethodForms[`nationalTransfer${c}` as PaymentMethod] = NationalTransfer),
-)
 
 export const PaymentMethodForm = ({
   paymentMethod,
