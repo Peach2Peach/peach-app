@@ -16,6 +16,7 @@ export const UserId = ({ id, showInfo = false, style }: { id: string; showInfo?:
   return (
     <>
       <TouchableOpacity
+        testID="user-id"
         onPress={buttonAction}
         style={[
           tw`flex-row items-center px-[6px] border border-primary-mild-1 bg-primary-background-dark rounded-lg`,
