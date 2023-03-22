@@ -10,7 +10,7 @@ import { useSyncWallet } from './useSyncWallet'
 
 export const useTransactionHistorySetup = () => {
   const walletStore = useWalletState((state) => state)
-  const { refresh, refreshing } = useSyncWallet()
+  const { refresh, isRefreshing } = useSyncWallet()
   const [transactions, setTransactions] = useState<TransactionSummary[]>([])
 
   useHeaderSetup(
@@ -32,6 +32,6 @@ export const useTransactionHistorySetup = () => {
   return {
     transactions,
     refresh,
-    refreshing,
+    isRefreshing,
   }
 }

@@ -28,7 +28,7 @@ export const useWalletSetup = () => {
   const walletStore = useWalletState((state) => state)
   const showHelp = useShowHelp('withdrawingFunds')
   const navigation = useNavigation()
-  const { refresh, refreshing } = useSyncWallet()
+  const { refresh, isRefreshing } = useSyncWallet()
   const [walletLoading, setWalletLoading] = useState(false)
 
   const closeOverlay = useMemo(() => () => updateOverlay({ visible: false }), [updateOverlay])
@@ -122,7 +122,7 @@ export const useWalletSetup = () => {
   return {
     walletStore,
     refresh,
-    refreshing,
+    isRefreshing,
     onChange,
     isValid,
     address,

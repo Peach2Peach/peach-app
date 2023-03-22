@@ -17,7 +17,7 @@ export default () => {
   const {
     walletStore,
     refresh,
-    refreshing,
+    isRefreshing,
     onChange,
     isValid,
     address,
@@ -38,8 +38,8 @@ export default () => {
         <View style={tw`flex flex-col justify-between h-full`}>
           <View style={tw`flex flex-col items-center justify-center flex-shrink h-full`}>
             <Text style={tw`mb-4 button-medium`}>{i18n('wallet.totalBalance')}:</Text>
-            <BigSatsFormat style={refreshing ? tw`opacity-60` : {}} sats={walletStore.balance} />
-            {refreshing && <Loading style={tw`absolute`} />}
+            <BigSatsFormat style={isRefreshing ? tw`opacity-60` : {}} sats={walletStore.balance} />
+            {isRefreshing && <Loading style={tw`absolute`} />}
             <Text style={tw`mt-16 button-medium`}>{i18n('wallet.withdrawTo')}:</Text>
             <BitcoinAddressInput
               style={tw`mt-4`}

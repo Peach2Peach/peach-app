@@ -15,7 +15,7 @@ describe('useSyncWallet', () => {
     setPeachWallet(fakeWallet)
     const { result } = renderHook(() => useSyncWallet())
 
-    expect(result.current.refreshing).toBe(false)
+    expect(result.current.isRefreshing).toBe(false)
   })
 
   it('should initialize with refreshing set to true if wallet is not synced', () => {
@@ -25,7 +25,7 @@ describe('useSyncWallet', () => {
 
     const { result } = renderHook(() => useSyncWallet())
 
-    expect(result.current.refreshing).toBe(true)
+    expect(result.current.isRefreshing).toBe(true)
   })
 
   it('should call peachWallet.syncWallet on refresh', async () => {
@@ -52,7 +52,7 @@ describe('useSyncWallet', () => {
       await result.current.refresh()
     })
 
-    expect(result.current.refreshing).toBe(false)
+    expect(result.current.isRefreshing).toBe(false)
   })
 
   it('should not call peachWallet.syncWallet if already refreshing', async () => {
