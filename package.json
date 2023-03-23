@@ -1,6 +1,6 @@
 {
   "name": "peach",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Peach Application",
   "author": "Peach2Peach",
   "private": true,
@@ -27,7 +27,6 @@
     "build:ios:mainnet": "react-native bundle  --reset-cache --platform ios --entry-file index.js --dev false --bundle-output ios/main.jsbundle --assets-dest ios",
     "bump:version": "react-native-version --never-amend",
     "test": "jest ./src",
-    "test:coverage": "jest --coverage ./src",
     "test:ci": "jest --ci --forceExit ./src",
     "test:e2e:android:build": "detox build --configuration android",
     "test:e2e:android": "detox test --configuration android --config ./tests/e2e/jest.config.js --loglevel trace --record-logs all",

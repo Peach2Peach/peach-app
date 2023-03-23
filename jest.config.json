@@ -7,6 +7,16 @@
     "js",
     "jsx"
   ],
+  "collectCoverage": true,
+  "coverageReporters": ["lcov"],
+  "coverageThreshold": {
+    "global": {
+      "statements": 55.5,
+      "branches": 16.4,
+      "functions": 33,
+      "lines": 58.3
+    }
+  },
   "transform": {
     "\\.(js|jsx)$": "<rootDir>/node_modules/babel-jest",
     "^.+\\.(t|j)sx?$": "@swc/jest"

@@ -227,6 +227,8 @@ declare type TradeStatus =
   | 'escrowWaitingForConfirmation'
   | 'fundingAmountDifferent'
   | 'searchingForPeer'
+  | 'offerHidden'
+  | 'offerHiddenWithMatchesAvailable'
   | 'hasMatchesAvailable'
   | 'offerCanceled'
   | 'refundAddressRequired'
