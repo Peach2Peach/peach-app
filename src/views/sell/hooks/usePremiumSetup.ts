@@ -6,7 +6,7 @@ import { account } from '../../../utils/account'
 import { getOfferPrice } from '../../../utils/offer'
 import { parsePremiumToString } from '../helpers/parsePremiumToString'
 import { validatePremiumStep } from '../helpers/validatePremiumStep'
-import { useSellSetup } from '../hooks/useSellSetup'
+import { useSellSetup } from './useSellSetup'
 
 export const usePremiumSetup = (offerDraft: SellOfferDraft, setOfferDraft: Dispatch<SetStateAction<SellOfferDraft>>) => {
   useSellSetup({ help: 'premium' })
