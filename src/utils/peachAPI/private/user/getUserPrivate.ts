@@ -13,7 +13,7 @@ type GetUserPrivateProps = RequestProps & { userId: User['id'] }
 export const getUserPrivate = async ({
   userId,
   timeout,
-}: GetUserPrivateProps): Promise<[User | null, APIError | null]> => {
+}: GetUserPrivateProps): Promise<[UserPrivate | null, APIError | null]> => {
   const response = await fetch(`${API_URL}/v1/user/${userId}`, {
     headers: {
       Authorization: await fetchAccessToken(),
