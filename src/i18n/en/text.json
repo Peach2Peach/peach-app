@@ -444,6 +444,7 @@
   "paymentMethod.neteller": "Neteller",
   "paymentMethod.paysera": "Paysera",
   "paymentMethod.straksbetaling": "Straksbetaling",
+  "paymentMethod.friends24": "Friends 24",
   "paymentMethod.giftCard": "online gift card",
   "paymentMethod.giftCard.amazon": "Amazon Gift Card",
   "paymentMethod.giftCard.amazon.DE": "Amazon Gift Card (DE)",

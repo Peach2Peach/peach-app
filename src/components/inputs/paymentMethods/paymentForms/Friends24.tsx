@@ -1,6 +1,5 @@
 import React, { ReactElement, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
 import { TextInput, View } from 'react-native'
-import { FormProps } from './PaymentMethodForm'
 import { useValidatedState } from '../../../../hooks'
 import tw from '../../../../styles/tailwind'
 import { getPaymentDataByLabel } from '../../../../utils/account'
@@ -8,6 +7,7 @@ import i18n from '../../../../utils/i18n'
 import { getErrorsInField } from '../../../../utils/validation'
 import Input from '../../Input'
 import { PhoneInput } from '../../PhoneInput'
+import { FormProps } from './PaymentMethodForm'
 
 const phoneRules = {
   required: true,
@@ -16,7 +16,7 @@ const phoneRules = {
 }
 const referenceRules = { required: false }
 
-export const KEKSPay = ({ forwardRef, data, currencies = [], onSubmit, setStepValid }: FormProps): ReactElement => {
+export const Friends24 = ({ forwardRef, data, currencies = [], onSubmit, setStepValid }: FormProps): ReactElement => {
   const [label, setLabel] = useState(data?.label || '')
   const [phone, setPhone, phoneIsValid, phoneErrors] = useValidatedState(data?.phone || '', phoneRules)
   const [beneficiary, setBeneficiary] = useState(data?.beneficiary || '')
@@ -37,10 +37,10 @@ export const KEKSPay = ({ forwardRef, data, currencies = [], onSubmit, setStepVa
 
   const labelErrors = useMemo(() => getErrorsInField(label, labelRules), [label, labelRules])
 
-  const buildPaymentData = (): PaymentData & KEKSPayData => ({
-    id: data?.id || `keksPay-${new Date().getTime()}`,
+  const buildPaymentData = (): PaymentData & Friends24Data => ({
+    id: data?.id || `friends24-${new Date().getTime()}`,
     label,
-    type: 'keksPay',
+    type: 'friends24',
     phone,
     beneficiary,
     reference,
