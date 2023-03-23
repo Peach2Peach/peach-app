@@ -4,7 +4,6 @@ import { publishSellOffer } from './publishSellOffer'
 const pgpMock = jest.fn().mockResolvedValue(undefined)
 const postSellOfferMock = jest.fn().mockResolvedValue([undefined, undefined])
 const getOfferDetailsMock = jest.fn().mockResolvedValue([undefined])
-const getAndUpdateTradingLimitMock = jest.fn().mockResolvedValue(undefined)
 const isSellOfferMock = jest.fn().mockReturnValue(true)
 const infoMock = jest.fn()
 const saveOfferMock = jest.fn()
@@ -25,10 +24,6 @@ jest.mock('../../../utils/peachAPI', () => ({
 
 jest.mock('../../../utils/offer', () => ({
   isSellOffer: (offer: any) => isSellOfferMock(offer),
-}))
-
-jest.mock('../../../views/buy/helpers/getAndUpdateTradingLimit', () => ({
-  getAndUpdateTradingLimit: () => getAndUpdateTradingLimitMock(),
 }))
 
 jest.mock('../../../utils/offer', () => ({
@@ -87,14 +82,6 @@ describe('publishSellOffer', () => {
     await publishSellOffer(offerDraft)
 
     expect(infoMock).toHaveBeenCalledWith('Posted offer', { ...offerDraft, id: 'someOfferId' })
-  })
-
-  it('should call getAndUpdateTradingLimit', async () => {
-    postSellOfferMock.mockResolvedValue([offerDraft as SellOffer, undefined])
-    // @ts-ignore
-    await publishSellOffer(offerDraft)
-
-    expect(getAndUpdateTradingLimitMock).toHaveBeenCalled()
   })
 
   it('should call saveOffer with offerDraft and result', async () => {

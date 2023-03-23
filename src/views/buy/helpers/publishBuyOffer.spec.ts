@@ -19,11 +19,6 @@ jest.mock('../../../utils/peachAPI', () => ({
   postBuyOffer: (...args: any[]) => postBuyOfferMock(...args),
 }))
 
-const getAndUpdateTradingLimitMock = jest.fn()
-jest.mock('../../../views/buy/helpers/getAndUpdateTradingLimit', () => ({
-  getAndUpdateTradingLimit: (...args: any[]) => getAndUpdateTradingLimitMock(...args),
-}))
-
 describe('publishBuyOffer', () => {
   beforeEach(() => {
     jest.clearAllMocks()
@@ -35,10 +30,6 @@ describe('publishBuyOffer', () => {
   it('should call postBuyOffer', async () => {
     await publishBuyOffer({} as BuyOfferDraft)
     expect(postBuyOfferMock).toHaveBeenCalled()
-  })
-  it('should call getAndUpdateTradingLimit if there is a result', async () => {
-    await publishBuyOffer({} as BuyOfferDraft)
-    expect(getAndUpdateTradingLimitMock).toHaveBeenCalled()
   })
   it('should call saveOffer if there is a result', async () => {
     await publishBuyOffer({} as BuyOfferDraft)

@@ -5,8 +5,7 @@ import userUpdate from '../../init/userUpdate'
 import { saveContract } from '../contract'
 import { error, info } from '../log'
 import { saveOffer } from '../offer'
-import { getContracts, getOffers, getTradingLimit } from '../peachAPI'
-import { updateTradingLimit } from './tradingLimit'
+import { getContracts, getOffers } from '../peachAPI'
 
 export const recoverAccount = async (account: Account): Promise<[Account | null, Error | null]> => {
   info('Recovering account')
@@ -17,11 +16,11 @@ export const recoverAccount = async (account: Account): Promise<[Account | null,
       pgpPublished: false,
     })
     info('Get offers')
-    const [
-      [getOffersResult, getOffersErr],
-      [getContractsResult, getContractsErr],
-      [getTradingLimitResult, getTradingLimitErr],
-    ] = await Promise.all([getOffers({}), getContracts({}), getTradingLimit({}), userUpdate()])
+    const [[getOffersResult, getOffersErr], [getContractsResult, getContractsErr]] = await Promise.all([
+      getOffers({}),
+      getContracts({}),
+      userUpdate(),
+    ])
 
     if (getOffersResult?.length) {
       info(`Got ${getOffersResult.length} offers`)
@@ -34,12 +33,6 @@ export const recoverAccount = async (account: Account): Promise<[Account | null,
       getContractsResult.map((offer) => saveContract(offer, true))
     } else if (getContractsErr) {
       error('Error', getContractsErr)
-    }
-    if (getTradingLimitResult) {
-      info('Got tradinglimit')
-      updateTradingLimit(getTradingLimitResult)
-    } else if (getTradingLimitErr) {
-      error('Error', getTradingLimitErr)
     }
 
     analytics().logEvent('account_restored')
