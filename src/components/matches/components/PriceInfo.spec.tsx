@@ -44,4 +44,16 @@ describe('PriceInfo', () => {
 
     expect(textElement.props.children).toStrictEqual(expectedText)
   })
+  it('should show text at market price', () => {
+    const amount = 100000
+    const matchMock = { amount, premium: 0 } as Match
+    const offerMock = {} as BuyOffer
+
+    const testInstance = create(<PriceInfo match={matchMock} offer={offerMock} />).root
+
+    const textElement = testInstance.findByProps({ testID: 'premiumText' })
+    const expectedText = [' ', i18n('match.atMarketPrice')]
+
+    expect(textElement.props.children).toStrictEqual(expectedText)
+  })
 })
