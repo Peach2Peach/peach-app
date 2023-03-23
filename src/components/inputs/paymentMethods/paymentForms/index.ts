@@ -21,6 +21,8 @@ import { Wise } from './Wise'
 import { Skrill } from './Skrill'
 import { Neteller } from './Neteller'
 import { Paysera } from './Paysera'
+import { Straksbetaling } from './Straksbetaling'
+import { KEKSPay } from './KEKSPay'
 export { PaymentMethodForm } from './PaymentMethodForm'
 
 type PaymentMethodFormType = (props: FormProps) => ReactElement
@@ -47,6 +49,8 @@ export const PaymentMethodForms: PaymentMethodForms = {
   skrill: Skrill,
   neteller: Neteller,
   paysera: Paysera,
+  straksbetaling: Straksbetaling,
+  keksPay: KEKSPay,
   'giftCard.amazon': GiftCardAmazon,
 }
 GIFTCARDCOUNTRIES.forEach((c) => (PaymentMethodForms[('giftCard.amazon.' + c) as PaymentMethod] = GiftCardAmazon))
