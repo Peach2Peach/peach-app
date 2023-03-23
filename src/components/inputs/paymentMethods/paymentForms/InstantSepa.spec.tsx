@@ -6,7 +6,6 @@ import { InstantSepa } from './InstantSepa'
 describe('InstantSepa', () => {
   it('should render correctly', () => {
     const renderer = ShallowRenderer.createRenderer()
-    // mock props
     const props = {
       paymentMethod: 'instantSepa' as const,
       forwardRef: {},
