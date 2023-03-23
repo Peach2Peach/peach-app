@@ -63,7 +63,7 @@ export let PAYMENTMETHODINFOS: PaymentMethodInfo[] = [
 ]
 
 export const PAYMENTCATEGORIES: PaymentCategories = {
-  bankTransfer: ['sepa', 'instantSepa', 'fasterPayments'].concat(
+  bankTransfer: ['sepa', 'instantSepa', 'fasterPayments', 'straksbetaling'].concat(
     NATIONALTRANSFERCOUNTRIES.map((c) => `nationalTransfer${c}`),
   ) as PaymentMethod[],
   onlineWallet: [
