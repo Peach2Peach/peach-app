@@ -33,9 +33,13 @@ export const paymentDetailTemplates: PaymentDetailTemplates = {
   bizum: GeneralPaymentDetails,
   mobilePay: GeneralPaymentDetails,
   vipps: GeneralPaymentDetails,
+  keksPay: GeneralPaymentDetails,
+  n26: GeneralPaymentDetails,
   skrill: GeneralPaymentDetails,
   neteller: GeneralPaymentDetails,
   paysera: GeneralPaymentDetails,
+  straksbetaling: GeneralPaymentDetails,
+  friends24: GeneralPaymentDetails,
   'giftCard.amazon': GeneralPaymentDetails,
 }
 export const possiblePaymentFields: Partial<Record<PaymentMethod, string[]>> = {
@@ -53,10 +57,14 @@ export const possiblePaymentFields: Partial<Record<PaymentMethod, string[]>> = {
   mbWay: ['beneficiary', 'phone', 'userName', 'email', 'iban', 'bic', 'address'],
   bizum: ['beneficiary', 'phone', 'userName', 'email', 'iban', 'bic', 'address'],
   mobilePay: ['beneficiary', 'phone'],
+  keksPay: ['beneficiary', 'phone'],
   vipps: ['beneficiary', 'phone'],
   skrill: ['beneficiary', 'email'],
   neteller: ['beneficiary', 'email'],
   paysera: ['beneficiary', 'phone'],
+  straksbetaling: ['beneficiary', 'accountNumber'],
+  friends24: ['beneficiary', 'phone'],
+  n26: ['beneficiary', 'phone'],
 }
 GIFTCARDCOUNTRIES.forEach((c) => {
   const id: PaymentMethod = `giftCard.amazon.${c}`

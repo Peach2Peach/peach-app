@@ -1,6 +1,5 @@
 import React, { ReactElement, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
 import { TextInput, View } from 'react-native'
-import { FormProps } from './PaymentMethodForm'
 import { useValidatedState } from '../../../../hooks'
 import tw from '../../../../styles/tailwind'
 import { getPaymentDataByLabel } from '../../../../utils/account'
@@ -8,19 +7,21 @@ import i18n from '../../../../utils/i18n'
 import { getErrorsInField } from '../../../../utils/validation'
 import Input from '../../Input'
 import { PhoneInput } from '../../PhoneInput'
+import { FormProps } from './PaymentMethodForm'
+
 const phoneRules = {
   required: true,
   phone: true,
   isPhoneAllowed: true,
 }
-const notRequired = { required: false }
+const referenceRules = { required: false }
 
-export const MobilePay = ({ forwardRef, data, currencies = [], onSubmit, setStepValid }: FormProps): ReactElement => {
+export const Friends24 = ({ forwardRef, data, currencies = [], onSubmit, setStepValid }: FormProps): ReactElement => {
   const [label, setLabel] = useState(data?.label || '')
   const [phone, setPhone, phoneIsValid, phoneErrors] = useValidatedState(data?.phone || '', phoneRules)
   const [beneficiary, setBeneficiary] = useState(data?.beneficiary || '')
   const [displayErrors, setDisplayErrors] = useState(false)
-  const [reference, setReference, , referenceErrors] = useValidatedState(data?.reference || '', notRequired)
+  const [reference, setReference, , referenceError] = useValidatedState(data?.reference || '', referenceRules)
 
   let $phone = useRef<TextInput>(null).current
   let $beneficiary = useRef<TextInput>(null).current
@@ -36,10 +37,10 @@ export const MobilePay = ({ forwardRef, data, currencies = [], onSubmit, setStep
 
   const labelErrors = useMemo(() => getErrorsInField(label, labelRules), [label, labelRules])
 
-  const buildPaymentData = (): PaymentData & MobilePayData => ({
-    id: data?.id || `mobilePay-${new Date().getTime()}`,
+  const buildPaymentData = (): PaymentData & Friends24Data => ({
+    id: data?.id || `friends24-${new Date().getTime()}`,
     label,
-    type: 'mobilePay',
+    type: 'friends24',
     phone,
     beneficiary,
     reference,
@@ -86,8 +87,7 @@ export const MobilePay = ({ forwardRef, data, currencies = [], onSubmit, setStep
           }}
           reference={(el: any) => ($phone = el)}
           value={phone}
-          required={true}
-          label={i18n('form.phone')}
+          label={i18n('form.phoneLong')}
           placeholder={i18n('form.phone.placeholder')}
           autoCorrect={false}
           errorMessage={displayErrors ? phoneErrors : undefined}
@@ -116,7 +116,7 @@ export const MobilePay = ({ forwardRef, data, currencies = [], onSubmit, setStep
         label={i18n('form.reference')}
         placeholder={i18n('form.reference.placeholder')}
         autoCorrect={false}
-        errorMessage={displayErrors ? referenceErrors : undefined}
+        errorMessage={displayErrors ? referenceError : undefined}
       />
     </View>
   )

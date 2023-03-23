@@ -1,12 +1,12 @@
 // eslint-disable-next-line max-len
 import { getNavigationDestinationForContract } from './getNavigationDestinationForContract'
 
-jest.mock('../../../utils/contract', () => ({
+jest.mock('../../../../utils/contract', () => ({
   getOfferIdFromContract: () => '1',
 }))
 
 const getContractMock = jest.fn()
-jest.mock('../../../utils/peachAPI', () => ({
+jest.mock('../../../../utils/peachAPI', () => ({
   getContract: () => getContractMock(),
 }))
 
