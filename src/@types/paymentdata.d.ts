@@ -110,3 +110,7 @@ declare type Friends24Data = {
   beneficiary?: string
   phone: string
 }
+declare type N26Data = {
+  beneficiary?: string
+  phone: string
+}

@@ -80,6 +80,7 @@ export const PAYMENTCATEGORIES: PaymentCategories = {
     'neteller',
     'paysera',
     'friends24',
+    'n26',
   ],
   giftCard: ['giftCard.amazon'].concat(GIFTCARDCOUNTRIES.map((c) => `giftCard.amazon.${c}`)) as PaymentMethod[],
   localOption: ['mbWay', 'bizum', 'satispay', 'mobilePay', 'keksPay'],
