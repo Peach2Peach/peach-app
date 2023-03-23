@@ -12,6 +12,7 @@ import CustomFeeItem from './components/networkFees/CustomFeeItem'
 import EstimatedFeeItem from './components/networkFees/EstimatedFeeItem'
 import { useNetworkFeesSetup } from './hooks/useNetworkFeesSetup'
 import { useSettingsStore } from '../../store/settingsStore'
+import shallow from 'zustand/shallow'
 
 const customFeeRules = {
   required: true,
@@ -24,7 +25,7 @@ export default (): ReactElement => {
   const [, updateMessage] = useContext(MessageContext)
   const { estimatedFees } = useNetworkFeesSetup()
 
-  const { setFeeRate, feeRate } = useSettingsStore()
+  const [feeRate, setFeeRate] = useSettingsStore((state) => [state.feeRate, state.setFeeRate], shallow)
 
   const [selectedFeeRate, setSelectedFeeRate] = useState<FeeRate | number>(
     !!feeRate ? (typeof feeRate === 'number' ? 'custom' : feeRate) : 'halfHourFee',

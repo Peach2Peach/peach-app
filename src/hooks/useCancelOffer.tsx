@@ -2,10 +2,8 @@ import React, { useCallback, useContext } from 'react'
 import { OverlayContext } from '../contexts/overlay'
 import { CancelOffer } from '../overlays/CancelOffer'
 import { useStartRefundOverlay } from '../overlays/useStartRefundOverlay'
-import { updateTradingLimit } from '../utils/account'
 import i18n from '../utils/i18n'
 import { cancelAndSaveOffer, isBuyOffer } from '../utils/offer'
-import { getTradingLimit } from '../utils/peachAPI'
 import { useNavigation } from './useNavigation'
 import { useShowAppPopup } from './useShowAppPopup'
 import { useShowErrorBanner } from './useShowErrorBanner'
@@ -28,12 +26,6 @@ export const useCancelOffer = (offer: BuyOffer | SellOffer | null | undefined) =
       showError(cancelError?.error)
       return
     }
-
-    getTradingLimit({}).then(([tradingLimit]) => {
-      if (tradingLimit) {
-        updateTradingLimit(tradingLimit)
-      }
-    })
 
     if (isBuyOffer(offer) || offer.funding.status === 'NULL' || offer.funding.txIds.length === 0) {
       showOfferCanceled()
