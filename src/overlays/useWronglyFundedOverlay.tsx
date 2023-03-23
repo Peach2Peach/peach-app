@@ -1,5 +1,6 @@
 import React, { useCallback, useContext } from 'react'
 import { OverlayContext } from '../contexts/overlay'
+import { useConfigStore } from '../store/configStore'
 
 import i18n from '../utils/i18n'
 import { sum } from '../utils/math'
@@ -9,12 +10,18 @@ import { WrongFundingAmount } from './warning/WrongFundingAmount'
 export const useWronglyFundedOverlay = () => {
   const [, updateOverlay] = useContext(OverlayContext)
   const showStartRefundOverlay = useStartRefundOverlay()
+  const maxTradingAmount = useConfigStore((state) => state.maxTradingAmount)
+
   const wronglyFundedOverlay = useCallback(
     (sellOffer: SellOffer) =>
       updateOverlay({
         title: i18n('warning.fundingAmountDifferent.title'),
         content: (
-          <WrongFundingAmount amount={sellOffer.amount} actualAmount={sellOffer.funding.amounts.reduce(sum, 0)} />
+          <WrongFundingAmount
+            amount={sellOffer.amount}
+            actualAmount={sellOffer.funding.amounts.reduce(sum, 0)}
+            maxAmount={maxTradingAmount}
+          />
         ),
         visible: true,
         level: 'WARN',
@@ -24,7 +31,7 @@ export const useWronglyFundedOverlay = () => {
           callback: () => showStartRefundOverlay(sellOffer),
         },
       }),
-    [showStartRefundOverlay, updateOverlay],
+    [maxTradingAmount, showStartRefundOverlay, updateOverlay],
   )
   return wronglyFundedOverlay
 }
