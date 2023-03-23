@@ -4,20 +4,18 @@ import fetch, { getAbortWithTimeout } from '../../../fetch'
 import { parseResponse } from '../../parseResponse'
 import { getPublicHeaders } from '../getPublicHeaders'
 
-type GetUserProps = RequestProps & {
-  userId: User['id']
-}
+type GetStatusProps = RequestProps
 
 /**
- * @description Method get user information
- * @returns User
+ * @description Method get system status information
+ * @returns GetStatusResponse
  */
-export const getUser = async ({ userId, timeout }: GetUserProps): Promise<[User | null, APIError | null]> => {
-  const response = await fetch(`${API_URL}/v1/user/${userId}`, {
+export const getStatus = async ({ timeout }: GetStatusProps): Promise<[GetStatusResponse | null, APIError | null]> => {
+  const response = await fetch(`${API_URL}/v1/system/status`, {
     headers: getPublicHeaders(),
     method: 'GET',
     signal: timeout ? getAbortWithTimeout(timeout).signal : undefined,
   })
 
-  return await parseResponse<User>(response, 'getUser')
+  return await parseResponse<GetStatusResponse>(response, 'getStatus')
 }
