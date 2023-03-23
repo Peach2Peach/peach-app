@@ -126,7 +126,7 @@ export const useDisputeRaisedNotice = () => {
           },
       })
     },
-    [email, emailErrors, setEmail, submit, updateOverlay],
+    [email, emailErrors, navigation, setEmail, submit, updateOverlay],
   )
 
   return showDisputeRaisedNotice

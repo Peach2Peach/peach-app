@@ -100,7 +100,7 @@ export const useWalletSetup = () => {
           { iconComponent: <HelpIcon />, onPress: showHelp },
         ],
       }),
-      [],
+      [navigation, showHelp],
     ),
   )
 

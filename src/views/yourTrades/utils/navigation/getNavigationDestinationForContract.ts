@@ -1,5 +1,5 @@
-import { getSellOfferIdFromContract } from '../../../utils/contract'
-import { getContract } from '../../../utils/peachAPI'
+import { getSellOfferIdFromContract } from '../../../../utils/contract'
+import { getContract } from '../../../../utils/peachAPI'
 
 export const getNavigationDestinationForContract = async (
   contract: Contract | ContractSummary,

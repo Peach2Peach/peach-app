@@ -6,10 +6,9 @@ import tw from '../../styles/tailwind'
 import { TouchableOpacity, View } from 'react-native'
 import { Icon, Text } from '../../components'
 import { useRoute } from '../../hooks'
-import { account, updateTradingLimit } from '../../utils/account'
+import { account } from '../../utils/account'
 import { getContractViewer, saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
-import { getTradingLimit } from '../../utils/peachAPI'
 import { Rate } from './components/Rate'
 
 export default (): ReactElement => {
@@ -29,13 +28,6 @@ export default (): ReactElement => {
   }, [route])
 
   useEffect(() => {
-    ;(async () => {
-      const [tradingLimit] = await getTradingLimit({})
-
-      if (tradingLimit) {
-        updateTradingLimit(tradingLimit)
-      }
-    })()
     analytics().logEvent('trade_completed', {
       amount: contract.amount,
       value: contract.price,
