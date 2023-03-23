@@ -1,5 +1,5 @@
-import React, { useCallback, useContext } from 'react'
-import { OverlayContext } from '../contexts/overlay'
+import React, { useCallback } from 'react'
+import { useOverlayContext } from '../contexts/overlay'
 import { useConfigStore } from '../store/configStore'
 
 import i18n from '../utils/i18n'
@@ -8,7 +8,7 @@ import { useStartRefundOverlay } from './useStartRefundOverlay'
 import { WrongFundingAmount } from './warning/WrongFundingAmount'
 
 export const useWronglyFundedOverlay = () => {
-  const [, updateOverlay] = useContext(OverlayContext)
+  const [, updateOverlay] = useOverlayContext()
   const showStartRefundOverlay = useStartRefundOverlay()
   const maxTradingAmount = useConfigStore((state) => state.maxTradingAmount)
 
