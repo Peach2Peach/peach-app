@@ -126,3 +126,7 @@ declare type VerseData = {
   beneficiary?: string
   phone: string
 }
+declare type IrisData = {
+  beneficiary?: string
+  phone: string
+}

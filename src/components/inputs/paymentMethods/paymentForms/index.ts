@@ -28,6 +28,7 @@ import { N26 } from './N26'
 import { Paylib } from './Paylib'
 import { Lydia } from './Lydia'
 import { Verse } from './Verse'
+import { Iris } from './Iris'
 export { PaymentMethodForm } from './PaymentMethodForm'
 
 type PaymentMethodFormType = (props: FormProps) => ReactElement
@@ -61,6 +62,7 @@ export const PaymentMethodForms: PaymentMethodForms = {
   paylib: Paylib,
   lydia: Lydia,
   verse: Verse,
+  iris: Iris,
   'giftCard.amazon': GiftCardAmazon,
 }
 GIFTCARDCOUNTRIES.forEach((c) => (PaymentMethodForms[('giftCard.amazon.' + c) as PaymentMethod] = GiftCardAmazon))

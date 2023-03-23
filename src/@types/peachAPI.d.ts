@@ -158,6 +158,7 @@ declare type PaymentMethod =
   | 'paylib'
   | 'lydia'
   | 'verse'
+  | 'iris'
   | `cash.${string}`
   | 'cash'
   | 'giftCard.amazon'

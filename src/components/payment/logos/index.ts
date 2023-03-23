@@ -25,6 +25,7 @@ import n26 from './n26.svg'
 import paylib from './paylib.svg'
 import lydia from './lydia.svg'
 import verse from './verse.svg'
+import iris from './iris.svg'
 import nationalTransferBG from '../../flags/bg.svg'
 import nationalTransferCZ from '../../flags/cz.svg'
 import nationalTransferDK from '../../flags/dk.svg'
@@ -65,6 +66,7 @@ const PaymentLogos = {
   paylib,
   lydia,
   verse,
+  iris,
   nationalTransferBG,
   nationalTransferCZ,
   nationalTransferDK,
