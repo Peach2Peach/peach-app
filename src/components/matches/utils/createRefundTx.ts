@@ -7,7 +7,7 @@ export const createRefundTx = async (offer: SellOffer, refundTx: string): Promis
   if (isValid && psbt) {
     const signedPSBT = signPSBT(psbt, offer, false)
     const [patchOfferResult] = await patchOffer({
-      offerId: offer.id!,
+      offerId: offer.id,
       refundTx: signedPSBT.toBase64(),
     })
     if (patchOfferResult) currentRefundTx = psbt.toBase64()

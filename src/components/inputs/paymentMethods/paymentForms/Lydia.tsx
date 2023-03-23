@@ -1,6 +1,5 @@
 import React, { ReactElement, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
 import { TextInput, View } from 'react-native'
-import { FormProps } from '.'
 import { useValidatedState } from '../../../../hooks'
 import tw from '../../../../styles/tailwind'
 import { getPaymentDataByLabel } from '../../../../utils/account'
@@ -8,6 +7,7 @@ import i18n from '../../../../utils/i18n'
 import { getErrorsInField } from '../../../../utils/validation'
 import Input from '../../Input'
 import { PhoneInput } from '../../PhoneInput'
+import { FormProps } from './PaymentMethodForm'
 
 const phoneRules = {
   required: true,

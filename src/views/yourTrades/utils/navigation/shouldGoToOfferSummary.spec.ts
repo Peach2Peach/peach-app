@@ -1,4 +1,4 @@
-import { shouldGoToOfferSummary } from '.'
+import { shouldGoToOfferSummary } from './shouldGoToOfferSummary'
 
 describe('shouldGoToOfferSummary', () => {
   it('should return true for offerCanceled', () => {

@@ -1,4 +1,6 @@
-import { shouldGoToOfferSummary } from '.'
+import { shouldGoToFundEscrow } from './shouldGoToFundEscrow'
+import { shouldGoToOfferSummary } from './shouldGoToOfferSummary'
+import { shouldGoToSearch } from './shouldGoToSearch'
 
 export const getNavigationDestinationForOffer = ({
   tradeStatus,
@@ -14,10 +16,10 @@ export const getNavigationDestinationForOffer = ({
     return ['setRefundWallet', { offerId }]
   }
 
-  if (tradeStatus === 'fundEscrow' || tradeStatus === 'escrowWaitingForConfirmation') {
+  if (shouldGoToFundEscrow(tradeStatus)) {
     return ['fundEscrow', { offerId }]
   }
-  if (/searchingForPeer|hasMatchesAvailable/u.test(tradeStatus)) {
+  if (shouldGoToSearch(tradeStatus)) {
     return ['search', { offerId }]
   }
 
