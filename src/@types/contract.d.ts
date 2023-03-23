@@ -1,4 +1,4 @@
-declare type ContractAction = 'none' | 'kycResponse' | 'sendPayment' | 'confirmPayment'
+declare type ContractAction = 'none' | 'sendPayment' | 'confirmPayment'
 
 declare type DisputeReason =
   | 'noPayment.buyer'
@@ -32,11 +32,6 @@ declare type Contract = {
   paymentDataSignature?: string
   error?: 'DECRYPTION_ERROR'
 
-  kycRequired: boolean
-  kycType?: KYCType
-
-  kycConfirmed: boolean
-  kycResponseDate?: Date | null
   paymentMade: Date | null
   paymentConfirmed: Date | null
   paymentExpectedBy?: Date

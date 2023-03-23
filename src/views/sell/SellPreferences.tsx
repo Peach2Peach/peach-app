@@ -43,8 +43,6 @@ export default (): ReactElement => {
       premium: state.premium,
       meansOfPayment: state.meansOfPayment,
       payoutAddress: state.payoutAddress,
-      kyc: state.kyc,
-      kycType: state.kycType,
     }),
     shallow,
   )

@@ -1,8 +1,5 @@
 /* eslint-disable max-len */
 /* eslint-disable max-lines */
-// TODO add KYC offer types
-// TODO add matches offer types
-// TODO add offline offers
 
 export const buyOffer: BuyOffer = {
   creationDate: new Date('2022-03-08T11:41:07.245Z'),
@@ -20,8 +17,7 @@ export const buyOffer: BuyOffer = {
     },
   },
   originalPaymentData: [],
-  kyc: false,
-  amount: 250000,
+  amount: [50000, 250000],
   matches: [],
   matched: [],
   seenMatches: [],
@@ -51,7 +47,6 @@ export const sellOffer: SellOffer = {
     amounts: [],
     expiry: 537,
   },
-  kyc: false,
   amount: 250000,
   premium: 1.5,
   matches: [],
@@ -76,7 +71,6 @@ export const buyOfferUnpublished: BuyOffer = {
     },
   },
   originalPaymentData: [],
-  kyc: false,
   amount: 250000,
   matches: [],
   matched: [],
@@ -123,7 +117,6 @@ export const matchOffer: Match = {
   },
   selectedCurrency: 'EUR',
   selectedPaymentMethod: 'sepa',
-  kyc: false,
   symmetricKeyEncrypted: 'TODO add symmetric key encrypted',
   symmetricKeySignature: 'TODO add symmetric key signature',
   matched: true,
