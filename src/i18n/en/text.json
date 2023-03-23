@@ -476,6 +476,7 @@
   "paymentMethod.keksPay": "KEKS Pay",
   "paymentMethod.paylib": "Paylib",
   "paymentMethod.lydia": "Lydia",
+  "paymentMethod.verse": "Verse",
   "paymentMethod.blik": "Blik",
   "paymentMethod.tether": "Tether",
   "paymentMethod.cash": "Cash",
