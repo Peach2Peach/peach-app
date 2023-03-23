@@ -97,7 +97,8 @@ export const LOCALPAYMENTMETHODS: LocalPaymentMethods = {
     ES: ['bizum'],
     FI: ['mobilePay'],
     HR: ['keksPay'],
-    FR: ['paylib', 'lydia'],
+    FR: ['paylib', 'lydia', 'satispay'],
+    DE: ['satispay'],
   },
 }
 
