@@ -4,7 +4,7 @@ export const statusIcons: Record<TradeStatus, IconType> = {
   fundEscrow: 'downloadCloud',
   searchingForPeer: 'search',
   offerHidden: 'eyeOff',
-  offerHiddenWithMatchesAvailable: 'eyeOff',
+  offerHiddenWithMatchesAvailable: 'checkCircle',
   fundingAmountDifferent: 'uploadCloud',
   escrowWaitingForConfirmation: 'clock',
   hasMatchesAvailable: 'checkCircle',
