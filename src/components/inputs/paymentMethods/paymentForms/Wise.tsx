@@ -1,6 +1,6 @@
 import React, { ReactElement, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
 import { TextInput, View } from 'react-native'
-import { FormProps } from '.'
+import { FormProps } from './PaymentMethodForm'
 import tw from '../../../../styles/tailwind'
 import { getPaymentDataByLabel } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
@@ -21,7 +21,6 @@ const tabs: TabbedNavigationItem[] = [
     display: i18n('form.email'),
   },
 ]
-const phoneRules = { required: true, phone: true, isPhoneAllowed: true }
 
 export const Wise = ({ forwardRef, data, currencies = [], onSubmit, setStepValid }: FormProps): ReactElement => {
   const [label, setLabel] = useState(data?.label || '')
@@ -37,8 +36,6 @@ export const Wise = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
   const $phone = useRef<TextInput>(null).current
   let $reference = useRef<TextInput>(null).current
 
-  const anyFieldSet = !!(email || phone)
-
   const labelRules = useMemo(
     () => ({
       required: true,
@@ -46,10 +43,11 @@ export const Wise = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
     }),
     [data.id, label],
   )
+  const phoneRules = useMemo(() => ({ required: !email, phone: true, isPhoneAllowed: true }), [email])
   const emailRules = useMemo(() => ({ required: !phone, email: true }), [phone])
 
   const labelErrors = useMemo(() => getErrorsInField(label, labelRules), [label, labelRules])
-  const phoneErrors = useMemo(() => getErrorsInField(phone, phoneRules), [phone])
+  const phoneErrors = useMemo(() => getErrorsInField(phone, phoneRules), [phone, phoneRules])
   const emailErrors = useMemo(() => getErrorsInField(email, emailRules), [email, emailRules])
 
   const buildPaymentData = (): PaymentData & WiseData => ({
@@ -68,7 +66,7 @@ export const Wise = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
 
   const getErrorTabs = () => {
     const fields = []
-    if (phoneErrors.length > 0) fields.push('phone')
+    if (phone && phoneErrors.length > 0) fields.push('phone')
     if (email && emailErrors.length > 0) fields.push('email')
     return fields
   }
@@ -102,7 +100,7 @@ export const Wise = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
             } else $phone?.focus()
           }}
           value={label}
-          required={!anyFieldSet}
+          required={true}
           label={i18n('form.paymentMethodName')}
           placeholder={i18n('form.paymentMethodName.placeholder')}
           autoCorrect={false}
@@ -123,10 +121,9 @@ export const Wise = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
             onSubmit={() => {
               $reference?.focus()
             }}
-            enforceRequired
             value={phone}
+            required={!email}
             label={i18n('form.phoneLong')}
-            required={true}
             placeholder={i18n('form.phone.placeholder')}
             autoCorrect={false}
             errorMessage={displayErrors ? phoneErrors : undefined}
@@ -136,8 +133,8 @@ export const Wise = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
           <EmailInput
             onChange={setEmail}
             onSubmit={() => $reference?.focus()}
-            required={false}
             value={email}
+            required={!phone}
             label={i18n('form.emailLong')}
             placeholder={i18n('form.email.placeholder')}
             errorMessage={displayErrors ? emailErrors : undefined}
