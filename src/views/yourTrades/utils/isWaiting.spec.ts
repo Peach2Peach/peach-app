@@ -1,7 +1,7 @@
 import { isWaiting } from './isWaiting'
 
 describe('isWaiting', () => {
-  it('should return true status that should show as waiting', () => {
+  it('should return true for status that should show as waiting', () => {
     expect(isWaiting('ask', 'escrowWaitingForConfirmation')).toBe(true)
     expect(isWaiting('ask', 'searchingForPeer')).toBe(true)
     expect(isWaiting('ask', 'offerHidden')).toBe(true)
@@ -9,7 +9,7 @@ describe('isWaiting', () => {
     expect(isWaiting('ask', 'paymentRequired')).toBe(true)
     expect(isWaiting('bid', 'confirmPaymentRequired')).toBe(true)
   })
-  it('should return true status that should not show as waiting', () => {
+  it('should return true for status that should not show as waiting', () => {
     expect(isWaiting('ask', 'offerCanceled')).toBe(false)
     expect(isWaiting('ask', 'confirmCancelation')).toBe(false)
     expect(isWaiting('ask', 'dispute')).toBe(false)
