@@ -128,6 +128,8 @@ declare type PaymentMethodCountry =
   | 'PL'
   | 'PO'
   | 'RO'
+  | 'HR'
+
 declare type Location = 'amsterdam' | 'belgianEmbassy' | 'lugano'
 declare type PaymentMethod =
   | 'sepa'
@@ -149,6 +151,10 @@ declare type PaymentMethod =
   | 'skrill'
   | 'neteller'
   | 'paysera'
+  | 'keksPay'
+  | 'straksbetaling'
+  | 'friends24'
+  | 'n26'
   | `cash.${string}`
   | 'cash'
   | 'giftCard.amazon'
@@ -221,6 +227,8 @@ declare type TradeStatus =
   | 'escrowWaitingForConfirmation'
   | 'fundingAmountDifferent'
   | 'searchingForPeer'
+  | 'offerHidden'
+  | 'offerHiddenWithMatchesAvailable'
   | 'hasMatchesAvailable'
   | 'offerCanceled'
   | 'refundAddressRequired'

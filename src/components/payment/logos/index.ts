@@ -18,6 +18,10 @@ import wise from './wise.svg'
 import skrill from './skrill.svg'
 import neteller from './neteller.svg'
 import paysera from './paysera.svg'
+import straksbetaling from './straksbetaling.svg'
+import keksPay from './keksPay.svg'
+import friends24 from './friends24.svg'
+import n26 from './n26.svg'
 import nationalTransferBG from '../../flags/bg.svg'
 import nationalTransferCZ from '../../flags/cz.svg'
 import nationalTransferDK from '../../flags/dk.svg'
@@ -51,6 +55,10 @@ const PaymentLogos = {
   skrill,
   neteller,
   paysera,
+  straksbetaling,
+  keksPay,
+  friends24,
+  n26,
   nationalTransferBG,
   nationalTransferCZ,
   nationalTransferDK,
