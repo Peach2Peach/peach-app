@@ -44,7 +44,7 @@ import websocket from './init/websocket'
 import { useShowAnalyticsPrompt } from './overlays/useShowAnalyticsPrompt'
 import { useBitcoinStore } from './store/bitcoinStore'
 import { useConfigStore } from './store/configStore'
-import { account, getAccount } from './utils/account'
+import { account } from './utils/account'
 import { screenTransition } from './utils/layout/screenTransition'
 import { error, info } from './utils/log'
 import { marketPrices } from './utils/peachAPI/public/market'
@@ -87,7 +87,7 @@ const usePartialAppSetup = () => {
       callback: (isActive) => {
         setActive(isActive)
         if (isActive) {
-          getPeachInfo(getAccount())
+          getPeachInfo()
           if (account?.publicKey) {
             getTrades()
           }

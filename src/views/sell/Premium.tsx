@@ -3,7 +3,7 @@ import { View } from 'react-native'
 import shallow from 'zustand/shallow'
 
 import { Input, PremiumSlider, PrimaryButton, SatsFormat, Text } from '../../components'
-import { useMarketPrices } from '../../hooks'
+import { useMarketPrices, useTradingLimits } from '../../hooks'
 import { useSettingsStore } from '../../store/settingsStore'
 import tw from '../../styles/tailwind'
 import { account } from '../../utils/account'
@@ -22,6 +22,7 @@ export default ({ offerDraft, setOfferDraft, next }: SellViewProps): ReactElemen
   const [stepValid, setStepValid] = useState(false)
 
   const { data: priceBook } = useMarketPrices()
+  const { limits } = useTradingLimits()
   const { displayCurrency } = account.settings
   const currentPrice = priceBook ? getOfferPrice(offerDraft.amount, offerDraft.premium, priceBook, displayCurrency) : 0
 
@@ -37,10 +38,7 @@ export default ({ offerDraft, setOfferDraft, next }: SellViewProps): ReactElemen
     }))
   }, [premium, setOfferDraft])
 
-  useEffect(
-    () => setStepValid(validatePremiumStep(offerDraft, priceBook, account.tradingLimit)),
-    [priceBook, offerDraft],
-  )
+  useEffect(() => setStepValid(validatePremiumStep(offerDraft, priceBook, limits)), [priceBook, offerDraft, limits])
 
   return (
     <View style={tw`items-center flex-shrink h-full pb-7`}>

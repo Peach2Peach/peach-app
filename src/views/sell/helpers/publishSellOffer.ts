@@ -2,7 +2,6 @@ import pgp from '../../../init/pgp'
 import i18n from '../../../utils/i18n'
 import { saveOffer } from '../../../utils/offer'
 import { postSellOffer } from '../../../utils/peachAPI'
-import { getAndUpdateTradingLimit } from '../../buy/helpers/getAndUpdateTradingLimit'
 import { info } from './../../../utils/log'
 export const publishSellOffer = async (
   offerDraft: SellOfferDraft,
@@ -23,7 +22,6 @@ export const publishSellOffer = async (
   if (result) {
     info('Posted offer', result)
 
-    getAndUpdateTradingLimit()
     saveOffer({ ...offerDraft, ...result })
     return { isPublished: true, navigationParams: { offer: { ...offerDraft, ...result } }, errorMessage: null }
   }
