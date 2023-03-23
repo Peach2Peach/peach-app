@@ -9,7 +9,7 @@ describe('isWaiting', () => {
     expect(isWaiting('ask', 'paymentRequired')).toBe(true)
     expect(isWaiting('bid', 'confirmPaymentRequired')).toBe(true)
   })
-  it('should return true for status that should not show as waiting', () => {
+  it('should return false for status that should not show as waiting', () => {
     expect(isWaiting('ask', 'offerCanceled')).toBe(false)
     expect(isWaiting('ask', 'confirmCancelation')).toBe(false)
     expect(isWaiting('ask', 'dispute')).toBe(false)
