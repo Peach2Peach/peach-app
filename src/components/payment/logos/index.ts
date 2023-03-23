@@ -22,6 +22,7 @@ import straksbetaling from './straksbetaling.svg'
 import keksPay from './keksPay.svg'
 import friends24 from './friends24.svg'
 import n26 from './n26.svg'
+import paylib from './paylib.svg'
 import nationalTransferBG from '../../flags/bg.svg'
 import nationalTransferCZ from '../../flags/cz.svg'
 import nationalTransferDK from '../../flags/dk.svg'
@@ -59,6 +60,7 @@ const PaymentLogos = {
   keksPay,
   friends24,
   n26,
+  paylib,
   nationalTransferBG,
   nationalTransferCZ,
   nationalTransferDK,

@@ -474,6 +474,7 @@
   "paymentMethod.bizum": "Bizum",
   "paymentMethod.mobilePay": "Mobile Pay",
   "paymentMethod.keksPay": "KEKS Pay",
+  "paymentMethod.paylib": "Paylib",
   "paymentMethod.blik": "Blik",
   "paymentMethod.tether": "Tether",
   "paymentMethod.cash": "Cash",
