@@ -3,8 +3,6 @@ type GetSellOfferDraftParams = {
   premium: number
   meansOfPayment?: MeansOfPayment
   payoutAddress?: string
-  kyc?: boolean
-  kycType?: KYCType
 }
 
 export const getSellOfferDraft = ({
@@ -12,8 +10,6 @@ export const getSellOfferDraft = ({
   premium,
   meansOfPayment = {},
   payoutAddress = '',
-  kyc = false,
-  kycType = 'iban',
 }: GetSellOfferDraftParams): SellOfferDraft => ({
   type: 'ask',
   creationDate: new Date(),
@@ -32,6 +28,4 @@ export const getSellOfferDraft = ({
   },
   amount: sellAmount,
   returnAddress: payoutAddress,
-  kyc,
-  kycType,
 })

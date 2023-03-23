@@ -1,5 +1,3 @@
-export { isKYCConfirmationRequired } from './isKYCConfirmationRequired'
-export { isKYCRequired } from './isKYCRequired'
 export { isPaymentConfirmationRequired } from './isPaymentConfirmationRequired'
 export { isPaymentRequired } from './isPaymentRequired'
 export { isPaymentTimeExpired } from '../isPaymentTimeExpired'

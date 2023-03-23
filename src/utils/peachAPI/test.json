@@ -19,7 +19,6 @@
                 "hash": "64b147d0a63350aa0dc596c51d33f8f0ce6a36793e02fb104f272068137760de"
             }
         },
-        "kyc": false,
         "matches": [
             "215"
         ],
@@ -46,7 +45,6 @@
             "userRating": 0,
             "bonusPoints": 0,
             "uniqueId": "",
-            "kyc": false,
             "id": "037e9fbb38c4844dac1f21419dcadc85126a951c1519a5b4df024f8aef381210da",
             "feeRate": 0
         },
@@ -79,7 +77,6 @@
             ]
         },
         "premium": 1.5,
-        "kyc": false,
         "funding": {
             "status": "FUNDED",
             "confirmations": 1,
@@ -118,7 +115,6 @@
             "userRating": 0,
             "bonusPoints": 0,
             "uniqueId": "",
-            "kyc": false,
             "id": "037e9fbb38c4844dac1f21419dcadc85126a951c1519a5b4df024f8aef381210da",
             "feeRate": 0
         },
