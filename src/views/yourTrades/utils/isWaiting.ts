@@ -1,4 +1,5 @@
+const waitingStatus = ['escrowWaitingForConfirmation', 'searchingForPeer', 'offerHidden']
 export const isWaiting = (type: Offer['type'], tradeStatus: TradeStatus) =>
-  /escrowWaitingForConfirmation|searchingForPeer/u.test(tradeStatus)
+  waitingStatus.includes(tradeStatus)
   || (tradeStatus === 'paymentRequired' && type === 'ask')
   || (tradeStatus === 'confirmPaymentRequired' && type === 'bid')

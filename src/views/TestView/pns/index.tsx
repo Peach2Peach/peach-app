@@ -31,7 +31,7 @@ const useFakePNs = () => {
         offerId: sellOfferId,
       },
       notification: {
-        bodyLocArgs: ['P123', '7'],
+        bodyLocArgs: ['P-123', '7'],
       },
     },
     {
@@ -52,7 +52,16 @@ const useFakePNs = () => {
         offerId: sellOfferId,
       },
       notification: {
-        bodyLocArgs: ['P123', '14'],
+        bodyLocArgs: ['P-123', '14'],
+      },
+    },
+    {
+      data: {
+        type: 'offer.outsideRange',
+        offerId: sellOfferId,
+      },
+      notification: {
+        bodyLocArgs: ['P-123'],
       },
     },
     {
@@ -61,7 +70,7 @@ const useFakePNs = () => {
         offerId: buyOfferId,
       },
       notification: {
-        bodyLocArgs: ['P123'],
+        bodyLocArgs: ['P-123'],
       },
     },
     {
@@ -70,7 +79,7 @@ const useFakePNs = () => {
         offerId: buyOfferId,
       },
       notification: {
-        bodyLocArgs: ['P123', '30'],
+        bodyLocArgs: ['P-123', '30'],
       },
     },
     {
