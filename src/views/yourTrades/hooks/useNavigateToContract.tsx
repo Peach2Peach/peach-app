@@ -1,7 +1,7 @@
 import { useNavigation } from '../../../hooks'
 import { useStartRefundOverlay } from '../../../overlays/useStartRefundOverlay'
 import { getOffer } from '../../../utils/offer'
-import { getNavigationDestinationForContract } from '../utils/getNavigationDestinationForContract'
+import { getNavigationDestinationForContract } from '../utils/navigation/getNavigationDestinationForContract'
 import { shouldOpenOverlay } from '../utils/shouldOpenOverlay'
 
 export const useNavigateToContract = (contract: ContractSummary) => {
