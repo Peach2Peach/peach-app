@@ -1,4 +1,4 @@
-import { createContext, Dispatch, ReducerState, useReducer } from 'react'
+import { createContext, Dispatch, ReducerState, useContext, useReducer } from 'react'
 
 export const defaultOverlay: OverlayState = {
   content: undefined,
@@ -20,3 +20,4 @@ const setOverlay = (state: ReducerState<any>, newState: OverlayState): OverlaySt
 })
 
 export const useOverlay = () => useReducer(setOverlay, defaultOverlay)
+export const useOverlayContext = () => useContext(OverlayContext)
