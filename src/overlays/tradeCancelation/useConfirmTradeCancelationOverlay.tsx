@@ -58,12 +58,12 @@ export const useConfirmTradeCancelationOverlay = () => {
       const [result, err] = await rejectContractCancelation({ contractId: contract.id })
 
       if (result) {
-        saveContract({
+        const updatedContract = {
           ...contract,
           cancelationRequested: false,
-        })
-        closeOverlay()
-        navigation.navigate('contract', { contractId: contract.id })
+        }
+        saveContract(updatedContract)
+        navigation.replace('contract', { contractId: contract.id, contract: updatedContract })
       } else if (err) {
         showError(err.error)
       }
