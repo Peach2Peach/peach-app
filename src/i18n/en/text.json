@@ -153,7 +153,7 @@
   "offer.requiredAction.provideReturnAddress": "provide refund address",
   "offer.requiredAction.searchingForPeer": "looking for match",
   "offer.requiredAction.offerHidden": "offer hidden",
-  "offer.requiredAction.offerHiddenWithMatchesAvailable": "offer hidden",
+  "offer.requiredAction.offerHiddenWithMatchesAvailable": "select match",
   "offer.requiredAction.hasMatchesAvailable": "select match",
   "offer.requiredAction.paymentRequired": "make payment",
   "offer.requiredAction.confirmPaymentRequired": "confirm payment",
