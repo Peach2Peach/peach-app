@@ -19,6 +19,10 @@ describe('UserId', () => {
   afterEach(() => {
     jest.restoreAllMocks()
   })
+  it('should set showInfo to false by default', () => {
+    const testInstance = create(<UserId id={id} />).root
+    expect(testInstance.props.showInfo).toBeFalsy()
+  })
   it('should go to user profile if showInfo is true', () => {
     ;(usePublicProfileNavigation as jest.Mock).mockReturnValue(jest.fn())
     const showInfo = true
