@@ -4,24 +4,7 @@ import { error } from '../utils/log'
 import { shouldUsePaymentMethod } from '../utils/paymentMethod'
 import { getInfo } from '../utils/peachAPI'
 import { calculateClientServerTimeDifference } from './calculateClientServerTimeDifference'
-
-const storePeachInfo = (peachInfo: GetInfoResponse) => {
-  const {
-    setPaymentMethods: setPaymentMethodsStore,
-    setLatestAppVersion,
-    setMinAppVersion,
-    setPeachFee,
-    setPeachPGPPublicKey,
-  } = configStore.getState()
-
-  const paymentMethods = peachInfo.paymentMethods.filter(shouldUsePaymentMethod(PAYMENTCATEGORIES))
-  setPeachPGPPublicKey(peachInfo.peach.pgpPublicKey)
-  setPaymentMethodsStore(paymentMethods)
-  setPaymentMethods(paymentMethods)
-  setPeachFee(peachInfo.fees.escrow)
-  setLatestAppVersion(peachInfo.latestAppVersion)
-  setMinAppVersion(peachInfo.minAppVersion)
-}
+import { storePeachInfo } from './storePeachInfo'
 
 export const getPeachInfo = async () => {
   const { paymentMethods } = configStore.getState()
