@@ -118,3 +118,7 @@ declare type PaylibData = {
   beneficiary?: string
   phone: string
 }
+declare type LydiaData = {
+  beneficiary?: string
+  phone: string
+}

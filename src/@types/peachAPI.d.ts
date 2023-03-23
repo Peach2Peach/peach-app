@@ -156,6 +156,7 @@ declare type PaymentMethod =
   | 'friends24'
   | 'n26'
   | 'paylib'
+  | 'lydia'
   | `cash.${string}`
   | 'cash'
   | 'giftCard.amazon'
