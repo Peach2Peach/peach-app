@@ -15,7 +15,7 @@ export const useContactSetup = () => {
   useHeaderSetup(useMemo(() => ({ title: i18n('contact.title') }), []))
 
   const setReason = (reason: ContactReason) => {
-    navigation.navigate('report', { reason })
+    navigation.navigate('report', { reason, shareDeviceID: reason === 'accountLost' })
   }
 
   const openTelegram = () => Linking.openURL(TELEGRAM)

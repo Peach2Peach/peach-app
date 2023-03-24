@@ -58,7 +58,16 @@ describe('useContactSetup', () => {
     act(() => {
       result.current.setReason(reason)
     })
-    expect(navigationNavigateMock).toHaveBeenCalledWith('report', { reason })
+    expect(navigationNavigateMock).toHaveBeenCalledWith('report', { reason, shareDeviceID: false })
+  })
+  it('choosing a lostAccount reason navigates to report with checkbox prechecked', () => {
+    const reason = 'accountLost'
+    const { result } = renderHook(useContactSetup)
+
+    act(() => {
+      result.current.setReason(reason)
+    })
+    expect(navigationNavigateMock).toHaveBeenCalledWith('report', { reason, shareDeviceID: true })
   })
   it('links to telegram', () => {
     const { result } = renderHook(useContactSetup)
