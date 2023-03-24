@@ -1,12 +1,7 @@
-import { getCloudflareToken } from '../cloudflareToken'
+import { getPublicHeaders } from '../public/getPublicHeaders'
 import { fetchAccessToken } from './user'
 
-type CloudflareHeaders = {
-  'cf-turnstile-response': string
-}
-export const getPrivateHeaders = async (): Promise<RequestInit['headers'] & CloudflareHeaders> => ({
+export const getPrivateHeaders = async (): Promise<RequestInit['headers']> => ({
+  ...getPublicHeaders(),
   Authorization: await fetchAccessToken(),
-  Accept: 'application/json',
-  'Content-Type': 'application/json',
-  'cf-turnstile-response': getCloudflareToken(),
 })
