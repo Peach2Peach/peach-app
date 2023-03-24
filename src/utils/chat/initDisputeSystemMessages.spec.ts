@@ -100,4 +100,18 @@ describe('initDisputeSystemMessages', () => {
       provideMoreInformationMessage,
     ])
   })
+  it('does not create a system message if dispute has no date, initiator or reason', () => {
+    const contract: Partial<Contract> = {
+      id: '123-456',
+      disputeDate: new Date('2020-01-01'),
+      disputeInitiator: 'initiator',
+      seller: {
+        id: 'sellerId',
+      } as User,
+      disputeReason: 'other',
+    }
+    expect(initDisputeSystemMessages(roomId, { ...(contract as Contract), disputeDate: null })).toEqual([])
+    expect(initDisputeSystemMessages(roomId, { ...(contract as Contract), disputeInitiator: undefined })).toEqual([])
+    expect(initDisputeSystemMessages(roomId, { ...(contract as Contract), disputeReason: undefined })).toEqual([])
+  })
 })
