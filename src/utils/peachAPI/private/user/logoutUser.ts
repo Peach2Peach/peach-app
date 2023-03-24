@@ -3,7 +3,7 @@ import { RequestProps } from '../..'
 import fetch, { getAbortWithTimeout } from '../../../fetch'
 import { parseResponse } from '../../parseResponse'
 import { getPeachAccount } from '../../peachAccount'
-import { fetchAccessToken } from './fetchAccessToken'
+import { getPrivateHeaders } from '../getPrivateHeaders'
 
 type LogoutUserProps = RequestProps
 
@@ -16,11 +16,7 @@ export const logoutUser = async ({ timeout }: LogoutUserProps): Promise<[APISucc
   if (!peachAccount) return [null, { error: 'UNAUTHORIZED' }]
 
   const response = await fetch(`${API_URL}/v1/user/logout`, {
-    headers: {
-      Authorization: await fetchAccessToken(),
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
+    headers: await getPrivateHeaders(),
     method: 'PATCH',
     signal: timeout ? getAbortWithTimeout(timeout).signal : undefined,
   })

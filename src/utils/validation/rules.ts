@@ -110,6 +110,9 @@ export const rules = {
   ukBankAccount (_: boolean, value: string) {
     return isUKBankAccount(value)
   },
+  straksbetaling (_: boolean, value: string) {
+    return isValidDigitLength(value, 11)
+  },
   nationalTransferPL (_: boolean, value: string) {
     return isValidDigitLength(value, [26, 28])
   },

@@ -31,6 +31,7 @@ export const getMessages = () => ({
   advcashWallet: i18n('form.wallet.error'),
   ukSortCode: i18n('form.ukSortCode.error'),
   ukBankAccount: i18n('form.ukBankAccount.error'),
+  straksbetaling: i18n('form.account.errors'),
   nationalTransferPL: i18n('form.account.errors'),
   nationalTransferCZ: i18n('form.account.errors'),
   nationalTransferDK: i18n('form.account.errors'),

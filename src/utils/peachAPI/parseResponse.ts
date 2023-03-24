@@ -1,5 +1,5 @@
 import { error } from '../log'
-import { dateTimeReviver } from '../system'
+import { dateTimeReviver, parseError } from '../system'
 import { getResponseError } from './getResponseError'
 
 /**
@@ -29,6 +29,11 @@ export const parseResponse = async <T>(response: Response, caller: string): Prom
     }
     return [data, null]
   } catch (e) {
+    const parsedError = parseError(e)
+    if (parsedError.includes('JSON Parse error')) {
+      error(`peachAPI - ${caller}`, parsedError)
+      return [null, { error: 'INTERNAL_SERVER_ERROR' }]
+    }
     error(`peachAPI - ${caller}`, e)
 
     return [null, { error: 'INTERNAL_SERVER_ERROR' }]
