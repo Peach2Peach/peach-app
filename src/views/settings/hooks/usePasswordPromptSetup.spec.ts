@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-hooks'
+import { act, renderHook } from '@testing-library/react-hooks'
 import { Keyboard } from 'react-native'
 import { usePasswordPromptSetup } from './usePasswordPromptSetup'
 
@@ -47,20 +47,27 @@ describe('usePasswordPromptSetup', () => {
   })
   it('should set the password', () => {
     const { result } = renderHook(usePasswordPromptSetup)
-    result.current.setPassword(password)
+    act(() => {
+      result.current.setPassword(password)
+    })
     expect(result.current.password).toBe(password)
   })
 
   it('should set the password repeat', () => {
     const { result } = renderHook(usePasswordPromptSetup)
-    result.current.setPasswordRepeat(passwordRepeat)
+    act(() => {
+      result.current.setPasswordRepeat(passwordRepeat)
+    })
     expect(result.current.passwordRepeat).toBe(passwordRepeat)
   })
 
   it('should validate the passwords', () => {
     const { result } = renderHook(usePasswordPromptSetup)
-    result.current.setPassword(password)
-    result.current.setPasswordRepeat(passwordRepeat)
+    act(() => {
+      result.current.setPassword(password)
+      result.current.setPasswordRepeat(passwordRepeat)
+    })
+
     expect(result.current.validate()).toBeTruthy()
   })
 })
@@ -73,16 +80,24 @@ describe('startAccountBackup', () => {
   it('should not start backup when passwords are not valid', () => {
     const keyboardSpy = jest.spyOn(Keyboard, 'dismiss')
     const { result } = renderHook(usePasswordPromptSetup)
-    result.current.startAccountBackup()
+    act(() => {
+      result.current.startAccountBackup()
+    })
+
     expect(keyboardSpy).not.toHaveBeenCalled()
   })
   it('should dismiss keyboard when passwords are valid', () => {
     jest.clearAllMocks()
     const keyboardSpy = jest.spyOn(Keyboard, 'dismiss')
     const { result } = renderHook(usePasswordPromptSetup)
-    result.current.setPassword(password)
-    result.current.setPasswordRepeat(passwordRepeat)
-    result.current.startAccountBackup()
+    act(() => {
+      result.current.setPassword(password)
+      result.current.setPasswordRepeat(passwordRepeat)
+    })
+    act(() => {
+      result.current.startAccountBackup()
+    })
+
     expect(keyboardSpy).toHaveBeenCalled()
   })
 
@@ -90,25 +105,39 @@ describe('startAccountBackup', () => {
     const now = new Date('2021-01-01')
     jest.spyOn(Date, 'now').mockImplementationOnce(() => now.getTime())
     const { result } = renderHook(usePasswordPromptSetup)
-    result.current.setPassword(password)
-    result.current.setPasswordRepeat(passwordRepeat)
-    result.current.startAccountBackup()
+    act(() => {
+      result.current.setPassword(password)
+      result.current.setPasswordRepeat(passwordRepeat)
+    })
+    act(() => {
+      result.current.startAccountBackup()
+    })
+
     expect(setLastFileBackupDateMock).toHaveBeenCalledWith(now.getTime())
   })
 
   it('should set the show backup reminder to false', () => {
     const { result } = renderHook(usePasswordPromptSetup)
-    result.current.setPassword(password)
-    result.current.setPasswordRepeat(passwordRepeat)
-    result.current.startAccountBackup()
+    act(() => {
+      result.current.setPassword(password)
+      result.current.setPasswordRepeat(passwordRepeat)
+    })
+    act(() => {
+      result.current.startAccountBackup()
+    })
+
     expect(setShowBackupReminderMock).toHaveBeenCalledWith(false)
   })
 
   it('should call backupAccount with the password', () => {
     const { result } = renderHook(usePasswordPromptSetup)
-    result.current.setPassword(password)
-    result.current.setPasswordRepeat(passwordRepeat)
-    result.current.startAccountBackup()
+    act(() => {
+      result.current.setPassword(password)
+      result.current.setPasswordRepeat(passwordRepeat)
+    })
+    act(() => {
+      result.current.startAccountBackup()
+    })
 
     expect(backupAccountMock).toHaveBeenCalled()
     expect(backupAccountMock).toHaveBeenCalledWith(expect.objectContaining({ password }))
@@ -118,9 +147,14 @@ describe('startAccountBackup', () => {
     const onSuccessMock = jest.fn()
     backupAccountMock.mockImplementationOnce(({ onSuccess }) => onSuccess())
     const { result } = renderHook(() => usePasswordPromptSetup(onSuccessMock))
-    result.current.setPassword(password)
-    result.current.setPasswordRepeat(passwordRepeat)
-    result.current.startAccountBackup()
+    act(() => {
+      result.current.setPassword(password)
+      result.current.setPasswordRepeat(passwordRepeat)
+    })
+    act(() => {
+      result.current.startAccountBackup()
+    })
+
     expect(onSuccessMock).toHaveBeenCalled()
     expect(mockNavigate).toHaveBeenCalledWith('backupCreated')
   })
@@ -129,9 +163,14 @@ describe('startAccountBackup', () => {
     const onSuccessMock = jest.fn()
     backupAccountMock.mockImplementationOnce(({ onError }) => onError())
     const { result } = renderHook(() => usePasswordPromptSetup(onSuccessMock))
-    result.current.setPassword(password)
-    result.current.setPasswordRepeat(passwordRepeat)
-    result.current.startAccountBackup()
+    act(() => {
+      result.current.setPassword(password)
+      result.current.setPasswordRepeat(passwordRepeat)
+    })
+    act(() => {
+      result.current.startAccountBackup()
+    })
+
     expect(onSuccessMock).not.toHaveBeenCalled()
     expect(mockNavigate).not.toHaveBeenCalledWith('backupCreated')
   })
@@ -140,9 +179,14 @@ describe('startAccountBackup', () => {
     const onSuccessMock = jest.fn()
     backupAccountMock.mockImplementationOnce(({ onCancel }) => onCancel())
     const { result } = renderHook(() => usePasswordPromptSetup(onSuccessMock))
-    result.current.setPassword(password)
-    result.current.setPasswordRepeat(passwordRepeat)
-    result.current.startAccountBackup()
+    act(() => {
+      result.current.setPassword(password)
+      result.current.setPasswordRepeat(passwordRepeat)
+    })
+    act(() => {
+      result.current.startAccountBackup()
+    })
+
     expect(onSuccessMock).not.toHaveBeenCalled()
     expect(mockNavigate).not.toHaveBeenCalledWith('backupCreated')
   })
