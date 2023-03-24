@@ -13,6 +13,7 @@ export const statusIcons: Record<TradeStatus, IconType> = {
   paymentRequired: 'dollarSign',
   confirmPaymentRequired: 'dollarSign',
   dispute: 'alertOctagon',
+  releaseEscrow: 'upload',
   rateUser: 'heart',
   confirmCancelation: 'xCircle',
   waiting: 'dollarSign',

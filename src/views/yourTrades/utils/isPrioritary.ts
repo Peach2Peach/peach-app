@@ -1,5 +1,6 @@
-const prioritaryStatus = [
+const prioritaryStatus: TradeStatus[] = [
   'dispute',
+  'releaseEscrow',
   'fundingAmountDifferent',
   'confirmCancelation',
   'refundAddressRequired',

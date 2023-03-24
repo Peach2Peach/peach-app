@@ -5,7 +5,7 @@ import { RequestProps } from '../..'
 import fetch, { getAbortWithTimeout } from '../../../fetch'
 import { parseResponse } from '../../parseResponse'
 import { getPeachAccount } from '../../peachAccount'
-import { fetchAccessToken } from './fetchAccessToken'
+import { getPrivateHeaders } from '../getPrivateHeaders'
 
 type PGPPayload = {
   publicKey: string
@@ -56,11 +56,7 @@ export const updateUser = async ({
   if (!peachAccount) return [null, { error: 'UNAUTHORIZED' }]
 
   const response = await fetch(`${API_URL}/v1/user`, {
-    headers: {
-      Authorization: await fetchAccessToken(),
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
+    headers: await getPrivateHeaders(),
     method: 'PATCH',
     body: JSON.stringify({
       ...(await getPGPUpdatePayload(pgp)),

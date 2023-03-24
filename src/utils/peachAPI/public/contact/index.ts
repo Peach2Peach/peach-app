@@ -1,0 +1,1 @@
+export { sendReport } from './sendReport'

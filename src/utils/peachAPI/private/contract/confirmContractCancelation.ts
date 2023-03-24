@@ -2,7 +2,7 @@ import { API_URL } from '@env'
 import { RequestProps } from '../..'
 import fetch, { getAbortWithTimeout } from '../../../fetch'
 import { parseResponse } from '../../parseResponse'
-import { fetchAccessToken } from '../user'
+import { getPrivateHeaders } from '../getPrivateHeaders'
 
 type ConfirmContractCancelationProps = RequestProps & {
   contractId: Contract['id']
@@ -18,11 +18,7 @@ export const confirmContractCancelation = async ({
   timeout,
 }: ConfirmContractCancelationProps): Promise<[APISuccess | null, APIError | null]> => {
   const response = await fetch(`${API_URL}/v1/contract/${contractId}/cancel/confirm`, {
-    headers: {
-      Authorization: await fetchAccessToken(),
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
+    headers: await getPrivateHeaders(),
     method: 'POST',
     signal: timeout ? getAbortWithTimeout(timeout).signal : undefined,
   })
