@@ -11,13 +11,15 @@ const showHelpMock = jest.fn()
 const useShowHelpMock = jest.fn((...args) => showHelpMock)
 jest.mock('../../../hooks', () => ({
   useNavigation: () => useNavigationMock(),
-  useHeaderSetup: (...args) => useHeaderSetupMock(...args),
-  useShowHelp: (...args) => useShowHelpMock(...args),
+  useHeaderSetup: (...args: any) => useHeaderSetupMock(...args),
+  useShowHelp: (...args: any) => useShowHelpMock(...args),
 }))
 
-const useSettingsStoreMock = jest.fn((selector) => selector({ lastBackupDate: null }))
+const useSettingsStoreMock = jest.fn((selector, compareFn) =>
+  selector({ lastFileBackupDate: null, lastSeedBackupDate: null }),
+)
 jest.mock('../../../store/settingsStore', () => ({
-  useSettingsStore: (selector) => useSettingsStoreMock(selector),
+  useSettingsStore: (selector: any, compareFn: any) => useSettingsStoreMock(selector, compareFn),
 }))
 
 const mockIsBackupMandatory = jest.fn().mockReturnValue(false)
@@ -41,7 +43,7 @@ describe('useBuySetup', () => {
     expect(args.icons[0].onPress).toBe(showHelpMock)
   })
 
-  it('should replace screen with backupTime if lastBackupDate is null and isBackupMandatory is true', () => {
+  it('should replace screen with backupTime if backupDates are null and isBackupMandatory is true', () => {
     mockIsBackupMandatory.mockReturnValue(true)
 
     renderHook(useBuySetup)
@@ -49,8 +51,24 @@ describe('useBuySetup', () => {
     expect(navigationReplaceMock).toHaveBeenCalledWith('backupTime', { view: 'buyer' })
   })
 
-  it('should not replace screen with backupTime if lastBackupDate is not null', () => {
-    useSettingsStoreMock.mockImplementationOnce((selector) => selector({ lastBackupDate: '2021-01-01' }))
+  it('should not replace screen with backupTime if any backupDate is not null or backup isn\'t mandatory', () => {
+    useSettingsStoreMock.mockImplementationOnce((selector) =>
+      selector({ lastFileBackupDate: '2021-01-01', lastSeedBackupDate: null }),
+    )
+
+    renderHook(useBuySetup)
+
+    expect(navigationReplaceMock).not.toHaveBeenCalled()
+
+    useSettingsStoreMock.mockImplementationOnce((selector) =>
+      selector({ lastFileBackupDate: null, lastSeedBackupDate: '2021-01-01' }),
+    )
+
+    renderHook(useBuySetup)
+
+    expect(navigationReplaceMock).not.toHaveBeenCalled()
+
+    mockIsBackupMandatory.mockReturnValue(false)
 
     renderHook(useBuySetup)
 

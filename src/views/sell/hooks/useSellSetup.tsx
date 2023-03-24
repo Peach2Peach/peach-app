@@ -15,7 +15,8 @@ type UseSellSetupProps = {
 export const useSellSetup = ({ help, hideGoBackButton }: UseSellSetupProps) => {
   const navigation = useNavigation()
   const showHelp = useShowHelp(help)
-  const lastBackupDate = useSettingsStore((state) => state.lastBackupDate)
+  const lastFileBackupDate = useSettingsStore((state) => state.lastFileBackupDate)
+  const lastSeedBackupDate = useSettingsStore((state) => state.lastSeedBackupDate)
 
   useHeaderSetup(
     useMemo(
@@ -29,6 +30,8 @@ export const useSellSetup = ({ help, hideGoBackButton }: UseSellSetupProps) => {
   )
 
   useEffect(() => {
-    if (!lastBackupDate && isBackupMandatory()) navigation.replace('backupTime', { view: 'seller' })
-  }, [navigation, lastBackupDate])
+    if (!lastSeedBackupDate && !lastFileBackupDate && isBackupMandatory()) {
+      navigation.replace('backupTime', { view: 'seller' })
+    }
+  }, [navigation, lastSeedBackupDate, lastFileBackupDate])
 }

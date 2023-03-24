@@ -4,7 +4,6 @@ import { View } from 'react-native'
 import { Icon, Text } from '../../../../components'
 import tw from '../../../../styles/tailwind'
 import i18n from '../../../../utils/i18n'
-
 const items = [
   { id: 'edit', text: 'writeItDown', color: tw`text-success-main`.color },
   { id: 'cameraOff', text: 'noPictures', color: tw`text-error-main`.color },
@@ -12,7 +11,7 @@ const items = [
 ] as const
 
 export const SecurityInfo = (): ReactElement => (
-  <View style={tw`w-full`}>
+  <View style={tw`h-full px-6`}>
     <Text style={tw`text-center subtitle-1`}>{i18n('settings.backups.seedPhrase.toRestore')}</Text>
     <Text style={tw`h6 text-center mt-[45px]`}>{i18n('settings.backups.seedPhrase.keepSecure')}</Text>
     {items.map(({ id, text, color }) => (

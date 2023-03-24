@@ -1,12 +1,7 @@
 {
   "rootDir": "./",
   "preset": "react-native",
-  "moduleFileExtensions": [
-    "ts",
-    "tsx",
-    "js",
-    "jsx"
-  ],
+  "moduleFileExtensions": ["ts", "tsx", "js", "jsx"],
   "collectCoverage": true,
   "coverageReporters": ["lcov"],
   "coverageThreshold": {
@@ -24,10 +19,7 @@
   "transformIgnorePatterns": [
     "node_modules/(?!(@react-native|react-native|@react-native-community|react-native-webview|react-native-canvas|react-native-form-validator|react-native-qrcode-scanner|react-native-permissions|react-native-shadow-2|react-native-qrcode-svg|bdk-rn)/)"
   ],
-  "setupFiles": [
-    "./tests/unit/prepare.ts",
-    "./node_modules/react-native-gesture-handler/jestSetup.js"
-  ],
+  "setupFiles": ["./tests/unit/prepare.ts", "./node_modules/react-native-gesture-handler/jestSetup.js"],
   "moduleNameMapper": {
     "\\.(ttf|woff|woff2|eot|otf)$": "jest-transform-stub",
     "\\.(jpg|jpeg|png|gif|webp|svg|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",

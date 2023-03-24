@@ -18,13 +18,14 @@ declare type Settings = {
   premium: number
   pgpPublished?: boolean
   fcmToken?: string
-  lastBackupDate?: number
+  lastFileBackupDate?: number
   lastSeedBackupDate?: number
   showBackupReminder: boolean
   peachWalletActive: boolean
   nodeURL: string
   feeRate: number | 'fastestFee' | 'halfHourFee' | 'hourFee' | 'economyFee'
   usedReferralCode?: boolean
+  lastBackupDate?: number
 }
 
 declare type PGPKeychain = {

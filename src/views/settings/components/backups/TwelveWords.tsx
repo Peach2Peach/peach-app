@@ -9,8 +9,8 @@ import { Word } from './Word'
 
 export const TwelveWords = (): ReactElement => (
   <>
-    <Text style={tw`self-center mt-6 subtitle-1`}>{i18n('settings.backups.seedPhrase.yourSeedPhrase')}</Text>
-    <View style={tw`flex-row flex-shrink h-full mt-4`}>
+    <Text style={tw`self-center subtitle-1`}>{i18n('settings.backups.seedPhrase.yourSeedPhrase')}</Text>
+    <View style={tw`flex-row mt-4 px-13`}>
       <View style={tw`w-1/2 pr-2`}>
         {account.mnemonic
           ?.split(' ')

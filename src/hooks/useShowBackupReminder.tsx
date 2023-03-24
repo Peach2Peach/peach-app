@@ -4,7 +4,7 @@ import { useShowWarning } from './useShowWarning'
 export const useShowBackupReminder = () => {
   const showFirstBackupWarning = useShowWarning('firstBackup')
   const showPaymentBackupWarning = useShowWarning('paymentBackup')
-  const lastBackupDate = useSettingsStore((state) => state.lastBackupDate)
+  const lastFileBackupDate = useSettingsStore((state) => state.lastFileBackupDate)
 
-  return !!lastBackupDate ? showPaymentBackupWarning : showFirstBackupWarning
+  return !!lastFileBackupDate ? showPaymentBackupWarning : showFirstBackupWarning
 }

@@ -11,7 +11,7 @@ import i18n from '../../../../utils/i18n'
 type Props = { goBackToStart: () => void }
 
 export const LastSeedBackup = ({ goBackToStart }: Props): ReactElement => (
-  <View style={tw`items-center mt-44`}>
+  <View style={tw`items-center`}>
     <Text style={tw`h6`}>{i18n('settings.backups.seedPhrase.lastBackup')}</Text>
     {!!account.settings.lastSeedBackupDate && (
       <Text style={tw`mt-2`}>{toShortDateFormat(new Date(account.settings.lastSeedBackupDate), true)}</Text>
