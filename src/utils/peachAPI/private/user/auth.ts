@@ -8,6 +8,7 @@ import { setAccessToken } from '../../accessToken'
 import { getAuthenticationChallenge } from '../../getAuthenticationChallenge'
 import { getResponseError } from '../../getResponseError'
 import { getPeachAccount } from '../../peachAccount'
+import { getPublicHeaders } from '../../public/getPublicHeaders'
 
 const tokenNotFoundError: APIError = {
   error: 'Token not found',
@@ -37,10 +38,7 @@ export const auth = async ({ timeout }: AuthProps): Promise<[AccessToken | null,
 
   try {
     const response = await fetch(`${API_URL}/v1/user/auth/`, {
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
+      headers: getPublicHeaders(),
       method: 'POST',
       body: JSON.stringify({
         publicKey: peachAccount.publicKey.toString('hex'),
