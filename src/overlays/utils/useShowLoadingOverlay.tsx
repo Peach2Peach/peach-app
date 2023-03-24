@@ -1,11 +1,11 @@
-import React, { useCallback, useContext } from 'react'
+import React, { useCallback } from 'react'
 import { Loading } from '../../components'
-import { OverlayContext } from '../../contexts/overlay'
+import { useOverlayContext } from '../../contexts/overlay'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 
 export const useShowLoadingOverlay = () => {
-  const [, updateOverlay] = useContext(OverlayContext)
+  const [, updateOverlay] = useOverlayContext()
 
   const showLoadingOverlay = useCallback(
     (title: string) =>
