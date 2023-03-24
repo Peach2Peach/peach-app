@@ -8,7 +8,15 @@ export { sendReport } from './public/contact'
 export { getFeeEstimate, getTx, postTx } from './public/bitcoin'
 export { marketPrice } from './public/market'
 export { checkReferralCode, getUser } from './public/user'
-export { auth, getUserPrivate, fetchAccessToken, updateUser, getTradingLimit, logoutUser } from './private/user'
+export {
+  auth,
+  getUserPrivate,
+  fetchAccessToken,
+  updateUser,
+  getTradingLimit,
+  logoutUser,
+  redeemReferralCode,
+} from './private/user'
 export {
   cancelOffer,
   confirmEscrow,

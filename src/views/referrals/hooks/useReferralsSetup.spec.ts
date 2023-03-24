@@ -1,6 +1,8 @@
+/* eslint-disable max-lines-per-function */
 import { act, renderHook } from '@testing-library/react-hooks'
 import { defaultPrivateUser } from '../../../../tests/unit/data/userData'
 import { useUserPrivate } from '../../../hooks/query/useUserPrivate'
+import { useSetCustomReferralCodeOverlay } from '../../../overlays/referral/useSetCustomReferralCodeOverlay'
 import { useReferralsSetup } from './useReferralsSetup'
 
 jest.mock('../../../hooks/useNavigation', () => ({
@@ -15,15 +17,24 @@ jest.mock('../../../hooks/useHeaderSetup', () => ({
 jest.mock('../../../hooks/query/useUserPrivate', () => ({
   useUserPrivate: jest.fn(),
 }))
+jest.mock('../../../overlays/referral/useSetCustomReferralCodeOverlay', () => ({
+  useSetCustomReferralCodeOverlay: jest.fn(),
+}))
 
 describe('useReferralsSetup', () => {
+  const setCustomReferralCodeOverlayMock = jest.fn()
+  beforeEach(() => {
+    ;(useSetCustomReferralCodeOverlay as jest.Mock).mockReturnValue({
+      setCustomReferralCodeOverlay: setCustomReferralCodeOverlayMock,
+    })
+    ;(useUserPrivate as jest.Mock).mockReturnValue({
+      user: defaultPrivateUser,
+    })
+  })
   afterEach(() => {
     jest.resetAllMocks()
   })
   it('returns default correct values', () => {
-    ;(useUserPrivate as jest.Mock).mockReturnValueOnce({
-      user: defaultPrivateUser,
-    })
     const { result } = renderHook(useReferralsSetup)
 
     expect(result.current.user).toEqual(defaultPrivateUser)
@@ -34,11 +45,12 @@ describe('useReferralsSetup', () => {
     expect(result.current.availableRewards).toEqual(0)
     expect(result.current.selectedReward).toBeUndefined()
     expect(result.current.setSelectedReward).toBeDefined()
+    expect(result.current.redeem).toBeDefined()
   })
 
   it('returns correct bonus points and available rewards', () => {
     const bonusPoints = 400
-    ;(useUserPrivate as jest.Mock).mockReturnValueOnce({
+    ;(useUserPrivate as jest.Mock).mockReturnValue({
       user: {
         ...defaultPrivateUser,
         bonusPoints,
@@ -47,10 +59,10 @@ describe('useReferralsSetup', () => {
     const { result } = renderHook(useReferralsSetup)
 
     expect(result.current.pointsBalance).toEqual(bonusPoints)
-    expect(result.current.availableRewards).toEqual(2)
+    expect(result.current.availableRewards).toEqual(1)
   })
   it('returns 0 bonus points balance if user data cannot be fetched', () => {
-    ;(useUserPrivate as jest.Mock).mockReturnValueOnce({
+    ;(useUserPrivate as jest.Mock).mockReturnValue({
       user: undefined,
     })
     const { result } = renderHook(useReferralsSetup)
@@ -74,5 +86,34 @@ describe('useReferralsSetup', () => {
       result.current.setSelectedReward('customReferralCode')
     })
     expect(result.current.selectedReward).toEqual('customReferralCode')
+  })
+  it('lets does not let user start redemption of an unavailable reward', () => {
+    const { result } = renderHook(useReferralsSetup)
+
+    act(() => {
+      result.current.setSelectedReward('noPeachFees')
+      result.current.redeem()
+    })
+
+    expect(setCustomReferralCodeOverlayMock).not.toHaveBeenCalled()
+
+    act(() => {
+      result.current.setSelectedReward('sats')
+      result.current.redeem()
+    })
+
+    expect(setCustomReferralCodeOverlayMock).not.toHaveBeenCalled()
+  })
+  it('lets user start redemption of a reward', () => {
+    const { result } = renderHook(useReferralsSetup)
+
+    act(() => {
+      result.current.setSelectedReward('customReferralCode')
+    })
+    act(() => {
+      result.current.redeem()
+    })
+
+    expect(setCustomReferralCodeOverlayMock).toHaveBeenCalled()
   })
 })
