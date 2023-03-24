@@ -98,3 +98,35 @@ declare type PayseraData = {
   phone: string
   beneficiary?: string
 }
+declare type StraksbetalingData = {
+  beneficiary: string
+  accountNumber: string
+}
+declare type KEKSPayData = {
+  beneficiary?: string
+  phone: string
+}
+declare type Friends24Data = {
+  beneficiary?: string
+  phone: string
+}
+declare type N26Data = {
+  beneficiary?: string
+  phone: string
+}
+declare type PaylibData = {
+  beneficiary?: string
+  phone: string
+}
+declare type LydiaData = {
+  beneficiary?: string
+  phone: string
+}
+declare type VerseData = {
+  beneficiary?: string
+  phone: string
+}
+declare type IrisData = {
+  beneficiary?: string
+  phone: string
+}

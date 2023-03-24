@@ -1,0 +1,230 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Wallet should render correctly 1`] = `
+<AvoidKeyboard
+  androidBehavior="height"
+  iOSBehavior="height"
+>
+  <PeachScrollView
+    contentContainerStyle={
+      Object {
+        "height": "100%",
+        "paddingLeft": 32,
+        "paddingRight": 32,
+      }
+    }
+    refreshControl={
+      <RefreshControlMock
+        onRefresh={[MockFunction]}
+        refreshing={false}
+      />
+    }
+    style={
+      Object {
+        "height": "100%",
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "display": "flex",
+          "flexDirection": "column",
+          "height": "100%",
+          "justifyContent": "space-between",
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "display": "flex",
+            "flexDirection": "column",
+            "flexShrink": 1,
+            "height": "100%",
+            "justifyContent": "center",
+          }
+        }
+      >
+        <PeachText
+          style={
+            Object {
+              "fontFamily": "Baloo2-SemiBold",
+              "fontSize": 14,
+              "letterSpacing": 0.5,
+              "lineHeight": 24,
+              "marginBottom": 16,
+              "textTransform": "uppercase",
+            }
+          }
+        >
+          total balance
+          :
+        </PeachText>
+        <BigSatsFormat
+          sats={21}
+          style={Object {}}
+        />
+        <PeachText
+          style={
+            Object {
+              "fontFamily": "Baloo2-SemiBold",
+              "fontSize": 14,
+              "letterSpacing": 0.5,
+              "lineHeight": 24,
+              "marginTop": 64,
+              "textTransform": "uppercase",
+            }
+          }
+        >
+          send to
+          :
+        </PeachText>
+        <BitcoinAddressInput
+          errorMessage=""
+          isValid={true}
+          onChange={[MockFunction]}
+          style={
+            Object {
+              "marginTop": 16,
+            }
+          }
+          value="address"
+        />
+        <OpenWallet />
+      </View>
+      <SlideToUnlock
+        disabled={false}
+        label1="send all"
+        onUnlock={[MockFunction]}
+        style={
+          Object {
+            "marginBottom": 24,
+          }
+        }
+      />
+    </View>
+  </PeachScrollView>
+</AvoidKeyboard>
+`;
+
+exports[`Wallet should render correctly when loading 1`] = `
+<AvoidKeyboard
+  androidBehavior="height"
+  iOSBehavior="height"
+>
+  <PeachScrollView
+    contentContainerStyle={
+      Object {
+        "height": "100%",
+        "paddingLeft": 32,
+        "paddingRight": 32,
+      }
+    }
+    refreshControl={
+      <RefreshControlMock
+        onRefresh={[MockFunction]}
+        refreshing={false}
+      />
+    }
+    style={
+      Object {
+        "height": "100%",
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "display": "flex",
+          "flexDirection": "column",
+          "height": "100%",
+          "justifyContent": "space-between",
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "display": "flex",
+            "flexDirection": "column",
+            "flexShrink": 1,
+            "height": "100%",
+            "justifyContent": "center",
+          }
+        }
+      >
+        <PeachText
+          style={
+            Object {
+              "fontFamily": "Baloo2-SemiBold",
+              "fontSize": 14,
+              "letterSpacing": 0.5,
+              "lineHeight": 24,
+              "marginBottom": 16,
+              "textTransform": "uppercase",
+            }
+          }
+        >
+          total balance
+          :
+        </PeachText>
+        <BigSatsFormat
+          sats={21}
+          style={
+            Object {
+              "opacity": 0.6,
+            }
+          }
+        />
+        <Loading
+          style={
+            Object {
+              "position": "absolute",
+            }
+          }
+        />
+        <PeachText
+          style={
+            Object {
+              "fontFamily": "Baloo2-SemiBold",
+              "fontSize": 14,
+              "letterSpacing": 0.5,
+              "lineHeight": 24,
+              "marginTop": 64,
+              "textTransform": "uppercase",
+            }
+          }
+        >
+          send to
+          :
+        </PeachText>
+        <BitcoinAddressInput
+          errorMessage=""
+          isValid={true}
+          onChange={[MockFunction]}
+          style={
+            Object {
+              "marginTop": 16,
+            }
+          }
+          value="address"
+        />
+        <OpenWallet />
+      </View>
+      <SlideToUnlock
+        disabled={false}
+        label1="send all"
+        onUnlock={[MockFunction]}
+        style={
+          Object {
+            "marginBottom": 24,
+          }
+        }
+      />
+    </View>
+  </PeachScrollView>
+</AvoidKeyboard>
+`;

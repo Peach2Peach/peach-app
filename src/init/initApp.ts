@@ -14,7 +14,7 @@ export const initApp = async (): Promise<GetStatusResponse | undefined> => {
   await dataMigrationBeforeLoadingAccount()
 
   await loadAccount()
-  const statusResponse = await getPeachInfo(account)
+  const statusResponse = await getPeachInfo()
   if (!statusResponse?.error && account?.publicKey) {
     getTrades()
     userUpdate()
