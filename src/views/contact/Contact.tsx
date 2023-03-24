@@ -3,16 +3,12 @@ import { Text, View } from 'react-native'
 import { OptionButton, PeachScrollView } from '../../components'
 import LinedText from '../../components/ui/LinedText'
 import tw from '../../styles/tailwind'
-import { account } from '../../utils/account'
 import i18n from '../../utils/i18n'
 import { ContactButton } from './components/ContactButton'
 import { useContactSetup } from './hooks/useContactSetup'
 
-const contactReasonsNoAccount = ['bug', 'accountLost', 'question', 'sellMore', 'other'] as ContactReason[]
-const contactReasons = ['bug', 'userProblem', 'sellMore', 'other'] as ContactReason[]
-
 export default (): ReactElement => {
-  const { setReason, openTelegram, openDiscord } = useContactSetup()
+  const { contactReasons, setReason, openTelegram, openDiscord } = useContactSetup()
 
   return (
     <PeachScrollView contentContainerStyle={tw`justify-center flex-grow`}>
@@ -21,7 +17,7 @@ export default (): ReactElement => {
           <Text style={tw`body-m text-black-2`}>{i18n('report.mailUs')}</Text>
         </LinedText>
         <View style={tw`w-full px-2 mt-3 mb-6`}>
-          {(account?.publicKey ? contactReasons : contactReasonsNoAccount).map((reason) => (
+          {contactReasons.map((reason) => (
             <ContactButton {...{ reason, setReason, key: `contact-button-${reason}` }} />
           ))}
         </View>
