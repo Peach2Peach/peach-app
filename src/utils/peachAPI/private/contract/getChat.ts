@@ -2,7 +2,7 @@ import { API_URL } from '@env'
 import { RequestProps } from '../..'
 import fetch, { getAbortWithTimeout } from '../../../fetch'
 import { parseResponse } from '../../parseResponse'
-import { fetchAccessToken } from '../user'
+import { getPrivateHeaders } from '../getPrivateHeaders'
 
 type GetChatProps = RequestProps & {
   contractId: Contract['id']
@@ -21,11 +21,7 @@ export const getChat = async ({
   timeout,
 }: GetChatProps): Promise<[GetChatResponse | null, APIError | null]> => {
   const response = await fetch(`${API_URL}/v1/contract/${contractId}/chat?page=${page}`, {
-    headers: {
-      Authorization: await fetchAccessToken(),
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
+    headers: await getPrivateHeaders(),
     method: 'GET',
     signal: timeout ? getAbortWithTimeout(timeout).signal : undefined,
   })

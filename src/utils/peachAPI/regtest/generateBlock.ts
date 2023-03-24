@@ -2,6 +2,7 @@ import { API_URL } from '@env'
 import { RequestProps } from '..'
 import fetch, { getAbortWithTimeout } from '../../fetch'
 import { parseResponse } from '../parseResponse'
+import { getPublicHeaders } from '../public/getPublicHeaders'
 
 type GenerateBlockProps = RequestProps
 
@@ -14,10 +15,7 @@ export const generateBlock = async ({
   timeout,
 }: GenerateBlockProps): Promise<[GenerateBlockResponse | null, APIError | null]> => {
   const response = await fetch(`${API_URL}/v1/regtest/generateBlock`, {
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
+    headers: getPublicHeaders(),
     method: 'GET',
     signal: timeout ? getAbortWithTimeout(timeout).signal : undefined,
   })

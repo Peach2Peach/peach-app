@@ -1,7 +1,8 @@
 import { API_URL } from '@env'
-import { RequestProps } from '..'
-import fetch, { getAbortWithTimeout } from '../../fetch'
-import { parseResponse } from '../parseResponse'
+import { RequestProps } from '../..'
+import fetch, { getAbortWithTimeout } from '../../../fetch'
+import { parseResponse } from '../../parseResponse'
+import { getPublicHeaders } from '../getPublicHeaders'
 
 type SendReportProps = RequestProps & {
   email: string
@@ -22,10 +23,7 @@ export const sendReport = async ({
   timeout,
 }: SendReportProps): Promise<[APISuccess | null, APIError | null]> => {
   const response = await fetch(`${API_URL}/v1/contact/report`, {
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
+    headers: getPublicHeaders(),
     method: 'POST',
     body: JSON.stringify({
       email,

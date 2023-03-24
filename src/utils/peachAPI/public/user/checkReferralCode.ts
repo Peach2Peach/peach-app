@@ -2,6 +2,7 @@ import { API_URL } from '@env'
 import { RequestProps } from '../..'
 import fetch, { getAbortWithTimeout } from '../../../fetch'
 import { parseResponse } from '../../parseResponse'
+import { getPublicHeaders } from '../getPublicHeaders'
 
 type CheckReferralCodeProps = RequestProps & {
   code: string
@@ -12,10 +13,7 @@ export const checkReferralCode = async ({
   timeout,
 }: CheckReferralCodeProps): Promise<[CheckReferralCodeResponse | null, APIError | null]> => {
   const response = await fetch(`${API_URL}/v1/user/referral?code=${code}`, {
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
+    headers: getPublicHeaders(),
     method: 'GET',
     signal: timeout ? getAbortWithTimeout(timeout).signal : undefined,
   })
