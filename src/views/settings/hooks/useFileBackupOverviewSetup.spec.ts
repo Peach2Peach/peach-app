@@ -1,5 +1,6 @@
+import { HelpIcon } from './../../../components/icons/HelpIcon'
 import { renderHook } from '@testing-library/react-hooks'
-import { useSettingsStore } from '../../../store/settingsStore'
+import i18n from '../../../utils/i18n'
 import { useFileBackupOverviewSetup } from './useFileBackupOverviewSetup'
 
 jest.mock('@react-navigation/native', () => ({
@@ -10,20 +11,32 @@ jest.mock('../../../hooks/useNavigation', () => ({
     navigate: jest.fn(),
   }),
 }))
-jest.mock('../../../store/settingsStore')
+
+const useSettingsStoreMock = jest.fn((selector, compareFn) => selector({ lastFileBackupDate: 'correctDateFromStore' }))
+jest.mock('../../../store/settingsStore', () => ({
+  useSettingsStore: (selector: any, compareFn: any) => useSettingsStoreMock(selector, compareFn),
+}))
+
+const useHeaderSetupMock = jest.fn()
+jest.mock('../../../hooks/useHeaderSetup', () => ({
+  useHeaderSetup: (...args: any) => useHeaderSetupMock(...args),
+}))
+
+const showHelpMock = jest.fn()
+jest.mock('../../../hooks/useShowHelp', () => ({
+  useShowHelp: () => showHelpMock,
+}))
 
 describe('useFileBackupOverviewSetup', () => {
-  const now = new Date('2020-01-01')
-
-  beforeEach(() => {
-    jest.useFakeTimers().setSystemTime(now)
-    ;(useSettingsStore as jest.Mock).mockReturnValue(now.getTime())
-  })
-  afterEach(() => {
-    jest.resetAllMocks()
-  })
+  const { result } = renderHook(useFileBackupOverviewSetup)
   it('returns default correct values', () => {
-    const { result } = renderHook(useFileBackupOverviewSetup)
-    expect(result.current.lastFileBackupDate).toBe(now.getTime())
+    expect(result.current.lastFileBackupDate).toBe('correctDateFromStore')
+  })
+  it('sets up the header correctly', () => {
+    expect(useHeaderSetupMock).toHaveBeenCalled()
+    const args = useHeaderSetupMock.mock.calls[0][0]
+    expect(args.title).toBe(i18n('settings.backups.fileBackup.title'))
+    expect(args.icons[0].iconComponent).toMatchInlineSnapshot('<HelpIcon />')
+    expect(args.icons[0].onPress).toBe(showHelpMock)
   })
 })
