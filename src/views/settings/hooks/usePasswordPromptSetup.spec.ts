@@ -1,4 +1,4 @@
-import { act, renderHook } from '@testing-library/react-hooks'
+import { renderHook } from '@testing-library/react-hooks'
 import { Keyboard } from 'react-native'
 import { usePasswordPromptSetup } from './usePasswordPromptSetup'
 
@@ -87,13 +87,13 @@ describe('startAccountBackup', () => {
   })
 
   it('should set the last file backup date to now', () => {
-    const now = new Date('2021-01-01T10:20:30Z')
-    jest.spyOn(Date, 'now').mockImplementationOnce(() => now)
+    const now = new Date('2021-01-01')
+    jest.spyOn(Date, 'now').mockImplementationOnce(() => now.getTime())
     const { result } = renderHook(usePasswordPromptSetup)
     result.current.setPassword(password)
     result.current.setPasswordRepeat(passwordRepeat)
     result.current.startAccountBackup()
-    expect(setLastFileBackupDateMock).toHaveBeenCalledWith(now)
+    expect(setLastFileBackupDateMock).toHaveBeenCalledWith(now.getTime())
   })
 
   it('should set the show backup reminder to false', () => {
