@@ -1,51 +1,60 @@
 import { renderHook } from '@testing-library/react-hooks'
-import { useNavigation, useRoute } from '../../../hooks'
-import { useSettingsStore } from '../../../store/settingsStore'
-import { isBackupMandatory } from '../../../utils/account'
 import { useBackupTimeSetup } from './useBackupTimeSetup'
 
-jest.mock('../../../hooks')
-jest.mock('../../../store/settingsStore')
-jest.mock('../../../utils/account')
+const useRouteMock = jest.fn(() => ({ params: {} }))
+const replaceMock = jest.fn()
+const useNavigationMock = jest.fn(() => ({ replace: replaceMock }))
+jest.mock('../../../hooks', () => ({
+  useNavigation: () => useNavigationMock(),
+  useRoute: () => useRouteMock(),
+}))
+
+const useSettingsStoreMock = jest.fn((selector, compareFn) =>
+  selector({ lastFileBackupDate: null, lastSeedBackupDate: null }),
+)
+jest.mock('../../../store/settingsStore', () => ({
+  useSettingsStore: (selector: any, compareFn: any) => useSettingsStoreMock(selector, compareFn),
+}))
+
+const isBackupMandatoryMock = jest.fn(() => true)
+jest.mock('../../../utils/account', () => ({
+  isBackupMandatory: () => isBackupMandatoryMock(),
+}))
 
 describe('useBackupTimeSetup', () => {
   beforeEach(() => {
-    ;(useSettingsStore as jest.Mock).mockReturnValue([null, null])
-  })
-  afterEach(() => {
-    jest.resetAllMocks()
+    jest.clearAllMocks()
   })
 
-  it('should set isMandatory to true if all params are true', () => {
-    ;(useRoute as jest.Mock).mockReturnValue({ params: {} })
-    ;(isBackupMandatory as jest.Mock).mockReturnValue(true)
-    const { result } = renderHook(() => useBackupTimeSetup())
+  it('isMandatory should be true when there are no dates and isBackupMandatory returns false', () => {
+    const { result } = renderHook(useBackupTimeSetup)
 
     expect(result.current.isMandatory).toBe(true)
   })
 
-  it('should set isMandatory to false when lastFileBackupDate and lastSeedBackupDate are not null', () => {
-    ;(useRoute as jest.Mock).mockReturnValue({ params: {} })
-    ;(useSettingsStore as jest.Mock).mockReturnValue([new Date(), new Date()])
-    ;(isBackupMandatory as jest.Mock).mockReturnValue(true)
-    const { result } = renderHook(() => useBackupTimeSetup())
+  it('isMandatory should be false when lastFileBackupDate is truthy', () => {
+    useSettingsStoreMock.mockReturnValueOnce(['someDate', null])
+    const { result } = renderHook(useBackupTimeSetup)
 
     expect(result.current.isMandatory).toBe(false)
   })
 
-  it('should set isMandatory to false when isBackupMandatory returns false', () => {
-    ;(useRoute as jest.Mock).mockReturnValue({ params: {} })
-    ;(isBackupMandatory as jest.Mock).mockReturnValue(false)
-    const { result } = renderHook(() => useBackupTimeSetup())
+  it('isMandatory should be false when lastSeedBackupDate is truthy', () => {
+    useSettingsStoreMock.mockReturnValueOnce([null, 'someDate'])
+    const { result } = renderHook(useBackupTimeSetup)
+
+    expect(result.current.isMandatory).toBe(false)
+  })
+
+  it('isMandatory should be false when isBackupMandatory is false', () => {
+    isBackupMandatoryMock.mockReturnValueOnce(false)
+    const { result } = renderHook(useBackupTimeSetup)
 
     expect(result.current.isMandatory).toBe(false)
   })
 
   it('should navigate to backups screen when goToBackups is called', () => {
-    ;(useRoute as jest.Mock).mockReturnValue({ params: {} })
-    const replaceMock = jest.fn()
-    ;(useNavigation as jest.Mock).mockReturnValue({ replace: replaceMock })
-    const { result } = renderHook(() => useBackupTimeSetup())
+    const { result } = renderHook(useBackupTimeSetup)
 
     result.current.goToBackups()
 
@@ -53,10 +62,8 @@ describe('useBackupTimeSetup', () => {
   })
 
   it('should navigate to nextScreen when skip is called with nextScreen provided', () => {
-    const replaceMock = jest.fn()
-    ;(useNavigation as jest.Mock).mockReturnValue({ replace: replaceMock })
-    ;(useRoute as jest.Mock).mockReturnValue({ params: { nextScreen: 'someScreen' } })
-    const { result } = renderHook(() => useBackupTimeSetup())
+    useRouteMock.mockReturnValueOnce({ params: { nextScreen: 'someScreen' } })
+    const { result } = renderHook(useBackupTimeSetup)
 
     result.current.skip()
 
@@ -64,10 +71,7 @@ describe('useBackupTimeSetup', () => {
   })
 
   it('should navigate to home screen when skip is called without nextScreen provided', () => {
-    const replaceMock = jest.fn()
-    ;(useNavigation as jest.Mock).mockReturnValue({ replace: replaceMock })
-    ;(useRoute as jest.Mock).mockReturnValue({ params: {} })
-    const { result } = renderHook(() => useBackupTimeSetup())
+    const { result } = renderHook(useBackupTimeSetup)
 
     result.current.skip()
 
