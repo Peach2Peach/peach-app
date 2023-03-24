@@ -4,13 +4,7 @@ import { Animated, Dimensions, SafeAreaView, View } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
 import analytics from '@react-native-firebase/analytics'
-import {
-  DefaultTheme,
-  NavigationContainer,
-  NavigationContainerRefWithCurrent,
-  NavigationState,
-  useNavigationContainerRef,
-} from '@react-navigation/native'
+import { DefaultTheme, NavigationContainer, NavigationState, useNavigationContainerRef } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import RNRestart from 'react-native-restart'
 import { enableScreens } from 'react-native-screens'
@@ -50,7 +44,7 @@ import websocket from './init/websocket'
 import { useShowAnalyticsPrompt } from './overlays/useShowAnalyticsPrompt'
 import { useBitcoinStore } from './store/bitcoinStore'
 import { useConfigStore } from './store/configStore'
-import { account, getAccount } from './utils/account'
+import { account } from './utils/account'
 import { screenTransition } from './utils/layout/screenTransition'
 import { error, info } from './utils/log'
 import { marketPrices } from './utils/peachAPI/public/market'
@@ -93,7 +87,7 @@ const usePartialAppSetup = () => {
       callback: (isActive) => {
         setActive(isActive)
         if (isActive) {
-          getPeachInfo(getAccount())
+          getPeachInfo()
           if (account?.publicKey) {
             getTrades()
           }

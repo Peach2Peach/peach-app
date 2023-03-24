@@ -1,13 +1,13 @@
 import React, { ReactElement, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
 import { TextInput } from 'react-native'
-import { FormProps } from '.'
+import { FormProps } from './PaymentMethodForm'
 import { useValidatedState } from '../../../../hooks'
 import { getPaymentDataByLabel } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
 import { getErrorsInField } from '../../../../utils/validation'
 import Input from '../../Input'
 import { SortCodeInput } from '../../SortCodeInput'
-import { UKBankNumberInput } from '../../UKBankNumberInput'
+import { BankNumberInput } from '../../BankNumberInput'
 
 const beneficiaryRules = { required: true }
 const notRequired = { required: false }
@@ -109,7 +109,7 @@ export const FasterPayments = ({
         autoCorrect={false}
         errorMessage={displayErrors ? beneficiaryErrors : undefined}
       />
-      <UKBankNumberInput
+      <BankNumberInput
         onChange={setAccountNumber}
         onSubmit={() => $ukSortCode?.focus()}
         reference={(el: any) => ($ukBankAccount = el)}

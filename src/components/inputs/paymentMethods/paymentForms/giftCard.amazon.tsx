@@ -9,7 +9,7 @@ import React, {
   useState,
 } from 'react'
 import { TextInput } from 'react-native'
-import { FormProps } from '.'
+import { FormProps } from './PaymentMethodForm'
 import { OverlayContext } from '../../../../contexts/overlay'
 import { useValidatedState } from '../../../../hooks'
 import { getPaymentDataByLabel } from '../../../../utils/account'

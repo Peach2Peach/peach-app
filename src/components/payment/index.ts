@@ -1,17 +1,10 @@
-import { DetailMobilePay } from './detail/mobilePay'
-import { DetailVipps } from './detail/vipps'
-import { DetailFasterPayments } from './detail/fasterPayments'
-import { DetailInstantSepa } from './detail/instantSepa'
+import { NATIONALTRANSFERCOUNTRIES } from './../../constants'
 import { ReactElement } from 'react'
-import { COUNTRIES } from '../../constants'
+import { GIFTCARDCOUNTRIES } from '../../constants'
 import GeneralPaymentDetails from './detail/generalPaymentDetails'
-import DetailPaypal from './detail/paypal'
-import DetailRevolut from './detail/revolut'
-import { DetailSEPA } from './detail/sepa'
-import DetailADVCash from './detail/advcash'
-import DetailBlik from './detail/blik'
 
 export type PaymentTemplateProps = ComponentProps & {
+  paymentMethod: PaymentMethod
   paymentData: PaymentData
   country?: PaymentMethodCountry
   appLink?: string
@@ -25,22 +18,69 @@ export type PaymentDetailTemplates = {
 }
 
 export const paymentDetailTemplates: PaymentDetailTemplates = {
-  sepa: DetailSEPA,
-  fasterPayments: DetailFasterPayments,
-  instantSepa: DetailInstantSepa,
-  paypal: DetailPaypal,
-  revolut: DetailRevolut,
-  advcash: DetailADVCash,
-  blik: DetailBlik,
+  sepa: GeneralPaymentDetails,
+  fasterPayments: GeneralPaymentDetails,
+  instantSepa: GeneralPaymentDetails,
+  paypal: GeneralPaymentDetails,
+  revolut: GeneralPaymentDetails,
+  advcash: GeneralPaymentDetails,
+  blik: GeneralPaymentDetails,
   wise: GeneralPaymentDetails,
   twint: GeneralPaymentDetails,
   swish: GeneralPaymentDetails,
   satispay: GeneralPaymentDetails,
   mbWay: GeneralPaymentDetails,
   bizum: GeneralPaymentDetails,
-  mobilePay: DetailMobilePay,
-  vipps: DetailVipps,
+  mobilePay: GeneralPaymentDetails,
+  vipps: GeneralPaymentDetails,
+  keksPay: GeneralPaymentDetails,
+  n26: GeneralPaymentDetails,
+  skrill: GeneralPaymentDetails,
+  neteller: GeneralPaymentDetails,
+  paysera: GeneralPaymentDetails,
+  straksbetaling: GeneralPaymentDetails,
+  friends24: GeneralPaymentDetails,
+  paylib: GeneralPaymentDetails,
+  lydia: GeneralPaymentDetails,
+  verse: GeneralPaymentDetails,
+  iris: GeneralPaymentDetails,
   'giftCard.amazon': GeneralPaymentDetails,
 }
-
-COUNTRIES.forEach((c) => (paymentDetailTemplates[('giftCard.amazon.' + c) as PaymentMethod] = GeneralPaymentDetails))
+export const possiblePaymentFields: Partial<Record<PaymentMethod, string[]>> = {
+  sepa: ['beneficiary', 'iban', 'bic'],
+  fasterPayments: ['beneficiary', 'ukBankAccount', 'ukSortCode'],
+  instantSepa: ['beneficiary', 'iban', 'bic'],
+  paypal: ['phone', 'userName', 'email'],
+  revolut: ['phone', 'userName', 'email'],
+  advcash: ['wallet', 'email'],
+  blik: ['beneficiary', 'phone'],
+  wise: ['beneficiary', 'phone', 'email'],
+  twint: ['beneficiary', 'phone', 'userName', 'email', 'iban', 'bic', 'address'],
+  swish: ['beneficiary', 'phone', 'userName', 'email', 'iban', 'bic', 'address'],
+  satispay: ['beneficiary', 'phone', 'userName', 'email', 'iban', 'bic', 'address'],
+  mbWay: ['beneficiary', 'phone', 'userName', 'email', 'iban', 'bic', 'address'],
+  bizum: ['beneficiary', 'phone', 'userName', 'email', 'iban', 'bic', 'address'],
+  mobilePay: ['beneficiary', 'phone'],
+  keksPay: ['beneficiary', 'phone'],
+  vipps: ['beneficiary', 'phone'],
+  skrill: ['beneficiary', 'email'],
+  neteller: ['beneficiary', 'email'],
+  paysera: ['beneficiary', 'phone'],
+  straksbetaling: ['beneficiary', 'accountNumber'],
+  friends24: ['beneficiary', 'phone'],
+  n26: ['beneficiary', 'phone'],
+  paylib: ['beneficiary', 'phone'],
+  lydia: ['beneficiary', 'phone'],
+  verse: ['beneficiary', 'phone'],
+  iris: ['beneficiary', 'phone'],
+}
+GIFTCARDCOUNTRIES.forEach((c) => {
+  const id: PaymentMethod = `giftCard.amazon.${c}`
+  paymentDetailTemplates[id] = GeneralPaymentDetails
+  possiblePaymentFields[id] = ['beneficiary', 'email']
+})
+NATIONALTRANSFERCOUNTRIES.forEach((c) => {
+  const id: PaymentMethod = `nationalTransfer${c}`
+  paymentDetailTemplates[id] = GeneralPaymentDetails
+  possiblePaymentFields[id] = ['beneficiary', 'iban', 'accountNumber', 'bic', 'address']
+})

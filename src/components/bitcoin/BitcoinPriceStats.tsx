@@ -23,7 +23,7 @@ export const BitcoinPriceStats = () => {
         <PriceFormat style={tw`body-l text-primary-main`} currency={currency} amount={price} round />
       </View>
       <View>
-        <Text style={tw`text-right subtitle-1`}>1 {currency}</Text>
+        <Text style={tw`text-right subtitle-1`}>{currency === 'CHF' ? `${currency} 1` : `1 ${currency}`}</Text>
         <Text style={tw`text-right body-l text-primary-main`}>
           {i18n('currency.format.sats', thousands(round(satsPerUnit)))}
         </Text>

@@ -1,17 +1,14 @@
 import React from 'react'
 import { RefreshControl, View } from 'react-native'
-import { TouchableOpacity } from 'react-native-gesture-handler'
-import { AvoidKeyboard, Icon, Loading, PeachScrollView, Text } from '../../components'
+import { AvoidKeyboard, Loading, PeachScrollView, Text } from '../../components'
+import { OpenWallet } from '../../components/bitcoin'
 import { BitcoinAddressInput, SlideToUnlock } from '../../components/inputs'
 import { BigSatsFormat } from '../../components/text'
 import tw from '../../styles/tailwind'
-import { openInWallet } from '../../utils/bitcoin'
 import i18n from '../../utils/i18n'
 import { peachWallet } from '../../utils/wallet/setWallet'
 import { useWalletSetup } from './hooks/useWalletSetup'
 import { WalletLoading } from './WalletLoading'
-
-const openWalletApp = () => openInWallet('bitcoin:')
 
 export default () => {
   const {
@@ -50,10 +47,7 @@ export default () => {
                 errorMessage: addressErrors,
               }}
             />
-            <TouchableOpacity style={tw`flex-row items-center justify-center`} onPress={openWalletApp}>
-              <Text style={tw`underline uppercase body-s text-black-2`}>{i18n('wallet.openWalletApp')}</Text>
-              <Icon id="externalLink" style={tw`w-4 h-4 ml-1 -mt-1`} color={tw`text-primary-main`.color} />
-            </TouchableOpacity>
+            <OpenWallet />
           </View>
           <SlideToUnlock
             style={tw`mb-6`}
