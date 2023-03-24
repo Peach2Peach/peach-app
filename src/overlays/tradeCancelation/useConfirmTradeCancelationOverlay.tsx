@@ -1,12 +1,12 @@
-import React, { useCallback, useContext } from 'react'
-import { OverlayContext } from '../../contexts/overlay'
+import React, { useCallback } from 'react'
+import { useOverlayContext } from '../../contexts/overlay'
 import i18n from '../../utils/i18n'
 import { ConfirmCancelTradeRequest } from './ConfirmCancelTradeRequest'
-import { useCancelTradeSetup } from './utils/useTradeCancelationSetup'
+import { useTradeCancelationSetup } from './utils/useTradeCancelationSetup'
 
 export const useConfirmTradeCancelationOverlay = () => {
-  const [, updateOverlay] = useContext(OverlayContext)
-  const { cancelTrade, continueTrade } = useCancelTradeSetup()
+  const [, updateOverlay] = useOverlayContext()
+  const { cancelTrade, continueTrade } = useTradeCancelationSetup()
 
   const showConfirmTradeCancelation = useCallback(
     (contract: Contract) => {
