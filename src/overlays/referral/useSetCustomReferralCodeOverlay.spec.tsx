@@ -7,6 +7,7 @@ import { redeemReferralCode } from '../../utils/peachAPI'
 import { useNavigation } from '../../hooks/useNavigation'
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
 import { SetCustomReferralCodeSuccess } from './SetCustomReferralCodeSucess'
+import i18n from '../../utils/i18n'
 
 jest.mock('../../hooks/useNavigation', () => ({
   useNavigation: jest.fn(),
@@ -23,14 +24,12 @@ jest.mock('../../hooks/useShowErrorBanner', () => ({
 
 describe('useSetCustomReferralCodeOverlay', () => {
   const updateOverlayMock = jest.fn()
-  beforeEach(() => {
-    ;(useOverlayContext as jest.Mock).mockReturnValue([{}, updateOverlayMock])
-    ;(useNavigation as jest.Mock).mockReturnValue({
-      replace: jest.fn(),
-    })
+  ;(useOverlayContext as jest.Mock).mockReturnValue([{}, updateOverlayMock])
+  ;(useNavigation as jest.Mock).mockReturnValue({
+    replace: jest.fn(),
   })
   afterEach(() => {
-    jest.resetAllMocks()
+    jest.clearAllMocks()
   })
   it('returns function to start setCustomReferralCodeOverlay', () => {
     const { result } = renderHook(useSetCustomReferralCodeOverlay)
@@ -54,19 +53,19 @@ describe('useSetCustomReferralCodeOverlay', () => {
 
     expect(updateOverlayMock).toHaveBeenCalledWith(
       expect.objectContaining({
-        title: expect.any(String),
+        title: i18n('settings.referrals.customReferralCode.popup.title'),
         content: <SetCustomReferralCode {...{ referralCode: '', setReferralCode, referralCodeErrors }} />,
         level: 'APP',
         visible: true,
         action1: expect.objectContaining({
-          label: expect.any(String),
-          icon: expect.any(String),
+          label: i18n('settings.referrals.customReferralCode.popup.redeem'),
+          icon: 'checkSquare',
           callback: submitCustomReferralCode,
           disabled: true,
         }),
         action2: expect.objectContaining({
-          label: expect.any(String),
-          icon: expect.any(String),
+          label: i18n('close'),
+          icon: 'xSquare',
           callback: closeOverlay,
         }),
       }),
@@ -109,7 +108,7 @@ describe('useSetCustomReferralCodeOverlay', () => {
 
     expect(redeemReferralCode).toHaveBeenCalledWith({ code: 'HODL' })
     expect(updateOverlayMock).toHaveBeenCalledWith({
-      title: expect.any(String),
+      title: i18n('settings.referrals.customReferralCode.popup.title'),
       content: <SetCustomReferralCodeSuccess {...{ referralCode: 'HODL' }} />,
       level: 'APP',
       visible: true,
