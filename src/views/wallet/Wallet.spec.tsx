@@ -19,7 +19,7 @@ describe('Wallet', () => {
       balance: 21,
     },
     refresh: jest.fn(),
-    loading: false,
+    isRefreshing: false,
     onChange: jest.fn(),
     isValid: true,
     address: 'address',
@@ -39,7 +39,7 @@ describe('Wallet', () => {
   it('should render correctly when loading', () => {
     useWalletSetupMock.mockReturnValueOnce({
       ...defaultReturnValue,
-      loading: true,
+      isRefreshing: true,
     })
     renderer.render(<Wallet />)
 
