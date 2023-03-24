@@ -42,30 +42,3 @@ export const initDisputeSystemMessages = (roomId: Chat['id'], contract: Contract
 
   return messages
 }
-
-export const endDisputeSystemMessages = (roomId: Chat['id'], contract: Contract): Message[] => {
-  const messages: Message[] = []
-
-  if (contract.disputeResolvedDate && contract.disputeInitiator) {
-    if (contract.disputeWinner) {
-      const initiator = i18n(contract.disputeWinner)
-      const initiatorId = `Peach${contract.disputeInitiator.substring(0, 8)}`
-      messages.push(
-        createSystemMessage(
-          roomId,
-          contract.disputeResolvedDate,
-          i18n('chat.systemMessage.disputeResolved', initiator, initiatorId),
-        ),
-      )
-      messages.push(
-        createSystemMessage(roomId, contract.disputeResolvedDate, i18n('chat.systemMessage.noLongerMediated')),
-      )
-    } else {
-      messages.push(
-        createSystemMessage(roomId, contract.disputeResolvedDate, i18n('chat.systemMessage.disputeResolved.nonDispute')),
-      )
-    }
-  }
-
-  return messages
-}

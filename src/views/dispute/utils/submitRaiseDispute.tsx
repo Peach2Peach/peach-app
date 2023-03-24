@@ -1,7 +1,7 @@
 import { configStore } from '../../../store/configStore'
 import { account } from '../../../utils/account'
 import { getChat, saveChat } from '../../../utils/chat'
-import { initDisputeSystemMessages } from '../../../utils/chat/createDisputeSystemMessages'
+import { initDisputeSystemMessages } from '../../../utils/chat/initDisputeSystemMessages'
 import { error } from '../../../utils/log'
 import { raiseDispute } from '../../../utils/peachAPI'
 import { signAndEncrypt } from '../../../utils/pgp'
