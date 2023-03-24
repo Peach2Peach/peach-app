@@ -1,5 +1,5 @@
-import { useCallback, useContext } from 'react'
-import { OverlayContext } from '../../../contexts/overlay'
+import { useCallback } from 'react'
+import { useOverlayContext } from '../../../contexts/overlay'
 import { useNavigation } from '../../../hooks'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { saveContract } from '../../../utils/contract'
@@ -7,8 +7,8 @@ import i18n from '../../../utils/i18n'
 import { confirmContractCancelation, rejectContractCancelation } from '../../../utils/peachAPI'
 import { useShowLoadingOverlay } from '../../utils/useShowLoadingOverlay'
 
-export const useCancelTradeSetup = () => {
-  const [, updateOverlay] = useContext(OverlayContext)
+export const useTradeCancelationSetup = () => {
+  const [, updateOverlay] = useOverlayContext()
   const showError = useShowErrorBanner()
   const navigation = useNavigation()
   const showLoadingOverlay = useShowLoadingOverlay()
@@ -21,13 +21,14 @@ export const useCancelTradeSetup = () => {
       const [result, err] = await confirmContractCancelation({ contractId: contract.id })
 
       if (result) {
-        saveContract({
+        const updatedContract = {
           ...contract,
           canceled: true,
           cancelationRequested: false,
-        })
+        }
+        saveContract(updatedContract)
         updateOverlay({ title: i18n('contract.cancel.success'), visible: true, level: 'APP' })
-        navigation.replace('contract', { contractId: contract.id, contract })
+        navigation.replace('contract', { contractId: contract.id, contract: updatedContract })
       } else if (err) {
         showError(err.error)
       }
