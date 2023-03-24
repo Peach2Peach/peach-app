@@ -20,7 +20,7 @@ export const PriceInfo = ({ match, offer }: PriceInfoProps) => (
     />
     <Text style={tw`text-center`}>
       <Price {...{ match, offer }} textStyle={tw`subtitle-1`} />
-      <Text style={tw`text-black-2`}>
+      <Text style={tw`text-black-2`} testID={'premiumText'}>
         {' '}
         {match.premium === 0
           ? i18n('match.atMarketPrice')

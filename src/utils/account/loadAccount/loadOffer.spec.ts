@@ -17,7 +17,7 @@ describe('loadOffer', () => {
     await storeOffers(accountData.buyer.offers)
 
     const buyOffer = accountData.buyer.offers[0]
-    const loadedOffer = await loadOffer(buyOffer.id!)
+    const loadedOffer = await loadOffer(buyOffer.id)
     expect(offerStorage.getMap).toHaveBeenCalledWith(buyOffer.id)
     deepStrictEqual(loadedOffer, accountData.buyer.offers[0])
   })

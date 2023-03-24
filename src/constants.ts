@@ -63,7 +63,7 @@ export let PAYMENTMETHODINFOS: PaymentMethodInfo[] = [
 ]
 
 export const PAYMENTCATEGORIES: PaymentCategories = {
-  bankTransfer: ['sepa', 'instantSepa', 'fasterPayments'].concat(
+  bankTransfer: ['sepa', 'instantSepa', 'fasterPayments', 'straksbetaling'].concat(
     NATIONALTRANSFERCOUNTRIES.map((c) => `nationalTransfer${c}`),
   ) as PaymentMethod[],
   onlineWallet: [
@@ -79,9 +79,11 @@ export const PAYMENTCATEGORIES: PaymentCategories = {
     'skrill',
     'neteller',
     'paysera',
+    'friends24',
+    'n26',
   ],
   giftCard: ['giftCard.amazon'].concat(GIFTCARDCOUNTRIES.map((c) => `giftCard.amazon.${c}`)) as PaymentMethod[],
-  localOption: ['mbWay', 'bizum', 'satispay', 'mobilePay'],
+  localOption: ['mbWay', 'bizum', 'satispay', 'mobilePay', 'keksPay', 'paylib', 'lydia', 'verse', 'iris'],
   cash: [],
   cryptoCurrency: [],
 }
@@ -92,8 +94,12 @@ export const LOCALPAYMENTMETHODS: LocalPaymentMethods = {
   EUR: {
     IT: ['satispay'],
     PT: ['mbWay'],
-    ES: ['bizum'],
+    ES: ['bizum', 'verse'],
     FI: ['mobilePay'],
+    HR: ['keksPay'],
+    FR: ['paylib', 'lydia', 'satispay'],
+    DE: ['satispay'],
+    GR: ['iris'],
   },
 }
 
