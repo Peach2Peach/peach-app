@@ -21,8 +21,8 @@ export default (): ReactElement => {
           <Text style={tw`body-m text-black-2`}>{i18n('report.mailUs')}</Text>
         </LinedText>
         <View style={tw`w-full px-2 mt-3 mb-6`}>
-          {(account?.publicKey ? contactReasons : contactReasonsNoAccount).map((name) => (
-            <ContactButton {...{ name, setReason, key: `contact-button-${name}` }} />
+          {(account?.publicKey ? contactReasons : contactReasonsNoAccount).map((reason) => (
+            <ContactButton {...{ reason, setReason, key: `contact-button-${reason}` }} />
           ))}
         </View>
         <LinedText style={tw`my-3`}>
