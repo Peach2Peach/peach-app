@@ -240,6 +240,7 @@ declare type TradeStatus =
   | 'paymentRequired'
   | 'confirmPaymentRequired'
   | 'dispute'
+  | 'releaseEscrow'
   | 'rateUser'
   | 'confirmCancelation'
   | 'tradeCompleted'
