@@ -163,6 +163,7 @@
   "offer.requiredAction.rateUser.seller": "rate seller",
   "offer.requiredAction.confirmCancelation": "seller wants to cancel",
   "offer.requiredAction.dispute": "dispute started",
+  "offer.requiredAction.releaseEscrow": "release escrow",
   "offer.requiredAction.waiting.seller": "waiting for seller",
   "offer.requiredAction.waiting.buyer": "waiting for payment",
   "offer.requiredAction.waiting": "waiting for $0",
