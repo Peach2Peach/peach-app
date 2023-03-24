@@ -33,7 +33,6 @@ jest.mock('react-native-screens', () => ({
 }))
 
 jest.mock('react-native-fast-openpgp', () => ({
-  ...jest.requireActual('react-native-fast-openpgp'),
   generate: () => accountData.account1.pgp,
 }))
 
