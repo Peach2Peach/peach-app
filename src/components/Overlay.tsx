@@ -72,7 +72,7 @@ export const Overlay = ({
               {!!action2 && (
                 <Pressable
                   testID="overlay-action2"
-                  style={tw`py-2`}
+                  style={[tw`py-2`, action2.disabled && tw`opacity-70`]}
                   onPress={!action2.disabled ? action2.callback : null}
                 >
                   <View style={[tw`flex flex-row items-center flex-shrink`, action2?.disabled && tw`opacity-50`]}>
@@ -84,7 +84,7 @@ export const Overlay = ({
               {
                 <Pressable
                   testID="overlay-action1"
-                  style={tw`py-2`}
+                  style={[tw`py-2`, action1?.disabled && tw`opacity-70`]}
                   onPress={action1 ? (!action1.disabled ? action1.callback : null) : closeOverlay}
                 >
                   <View style={[tw`flex flex-row items-center flex-shrink`, action1?.disabled && tw`opacity-50`]}>
