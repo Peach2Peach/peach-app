@@ -1,15 +1,14 @@
 import React, { useEffect, useMemo } from 'react'
 import { HelpIcon } from '../../../components/icons'
 
-import { useHeaderSetup, useNavigation } from '../../../hooks'
-import { useShowHelp } from '../../../hooks/useShowHelp'
+import { useHeaderSetup, useNavigation, useShowHelp } from '../../../hooks'
 import { useSettingsStore } from '../../../store/settingsStore'
 import { isBackupMandatory } from '../../../utils/account'
-import BuyTitleComponent from '../components/BuyTitleComponent'
+import { BuyTitleComponent } from '../components/BuyTitleComponent'
 
 export const useBuySetup = () => {
   const navigation = useNavigation()
-  const showHelp = useShowHelp('buyingAndSelling')
+  const showHelp = useShowHelp('buyingBitcoin')
   const lastBackupDate = useSettingsStore((state) => state.lastBackupDate)
 
   useHeaderSetup(

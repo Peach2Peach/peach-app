@@ -31,18 +31,21 @@ export default (): ReactElement => {
   const { id } = screens[page]
   const scroll = useRef<ScrollView>(null)
 
-  const goToPaymentDetails = (data: Partial<PaymentData>) => {
-    if (!data.paymentMethod || !data.currencies) return
-    const methodType = data.country ? (`${data.paymentMethod}.${data.country}` as PaymentMethod) : data.paymentMethod
-    const existingPaymentMethodsOfType: number = getPaymentDataByType(methodType).length
-    let label = i18n(`paymentMethod.${methodType}`)
-    if (existingPaymentMethodsOfType > 0) label += ' #' + (existingPaymentMethodsOfType + 1)
+  const goToPaymentDetails = useCallback(
+    (data: Partial<PaymentData>) => {
+      if (!data.paymentMethod || !data.currencies) return
+      const methodType = data.country ? (`${data.paymentMethod}.${data.country}` as PaymentMethod) : data.paymentMethod
+      const existingPaymentMethodsOfType: number = getPaymentDataByType(methodType).length
+      let label = i18n(`paymentMethod.${methodType}`)
+      if (existingPaymentMethodsOfType > 0) label += ' #' + (existingPaymentMethodsOfType + 1)
 
-    navigation.push('paymentDetails', {
-      paymentData: { type: data.paymentMethod, label, currencies: data.currencies, country: data.country },
-      origin: route.params.origin,
-    })
-  }
+      navigation.push('paymentDetails', {
+        paymentData: { type: data.paymentMethod, label, currencies: data.currencies, country: data.country },
+        origin: route.params.origin,
+      })
+    },
+    [navigation, route.params.origin],
+  )
 
   const next = () => {
     if (page >= screens.length - 1) {
@@ -91,7 +94,7 @@ export default (): ReactElement => {
     if (!/giftCard/u.test(paymentMethod as string) && !isLocalOption(paymentMethod)) {
       goToPaymentDetails({ paymentMethod, currencies, country })
       return
-    } else if (paymentMethodInfo.countries) {
+    } else if (!!paymentMethodInfo.countries) {
       const countries = paymentMethodInfo.countries.filter(countrySupportsCurrency(currencies[0]))
       if (countries.length === 1) {
         setCountry(countries[0])
