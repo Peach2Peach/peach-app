@@ -1,4 +1,6 @@
+const openActionStatus = ['fundEscrow', 'hasMatchesAvailable', 'offerHiddenWithMatchesAvailable', 'rateUser']
+
 export const isOpenAction = (type: Offer['type'], tradeStatus: TradeStatus) =>
-  /fundEscrow|hasMatchesAvailable|offerHiddenWithMatchesAvailable|rateUser/u.test(tradeStatus)
+  openActionStatus.includes(tradeStatus)
   || (tradeStatus === 'confirmPaymentRequired' && type === 'ask')
   || (tradeStatus === 'paymentRequired' && type === 'bid')
