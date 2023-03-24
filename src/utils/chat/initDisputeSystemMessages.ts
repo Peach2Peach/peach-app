@@ -1,5 +1,5 @@
-import { isEmailRequired } from '../../views/dispute/DisputeForm'
 import { contractIdToHex } from '../contract'
+import { isEmailRequiredForDispute } from '../dispute'
 import i18n from '../i18n'
 import { createSystemMessage } from './createSystemMessage'
 
@@ -11,23 +11,23 @@ import { createSystemMessage } from './createSystemMessage'
  * @returns Messages
  */
 export const initDisputeSystemMessages = (roomId: Chat['id'], contract: Contract): Message[] => {
-  let messages: Message[] = []
+  const messages: Message[] = []
 
-  if (contract.disputeDate && contract.disputeInitiator) {
+  if (contract.disputeDate && contract.disputeInitiator && contract.disputeReason) {
     const initiator = i18n(contract.disputeInitiator === contract.seller.id ? 'seller' : 'buyer')
     const initiatorId = `Peach${contract.disputeInitiator.substring(0, 8)}`
     const reason = i18n(`dispute.reason.${contract.disputeReason || 'other'}`)
-    messages = messages.concat([
+    messages.push(
       createSystemMessage(
         roomId,
         contract.disputeDate,
         i18n('chat.systemMessage.disputeStarted', initiator, initiatorId, reason),
       ),
-      createSystemMessage(roomId, contract.disputeDate, i18n('chat.systemMessage.mediatorWillJoinSoon')),
-    ])
+    )
+    messages.push(createSystemMessage(roomId, contract.disputeDate, i18n('chat.systemMessage.mediatorWillJoinSoon')))
 
-    if (isEmailRequired(contract.disputeReason!)) {
-      messages = messages.concat([
+    if (isEmailRequiredForDispute(contract.disputeReason)) {
+      messages.push(
         createSystemMessage(
           roomId,
           contract.disputeDate,
@@ -36,7 +36,7 @@ export const initDisputeSystemMessages = (roomId: Chat['id'], contract: Contract
             i18n('chat.systemMessage.provideMoreInformation.2', contractIdToHex(contract.id)),
           ].join('\n\n'),
         ),
-      ])
+      )
     }
   }
 
