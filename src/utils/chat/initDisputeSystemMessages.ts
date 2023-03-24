@@ -16,7 +16,7 @@ export const initDisputeSystemMessages = (roomId: Chat['id'], contract: Contract
   if (contract.disputeDate && contract.disputeInitiator && contract.disputeReason) {
     const initiator = i18n(contract.disputeInitiator === contract.seller.id ? 'seller' : 'buyer')
     const initiatorId = `Peach${contract.disputeInitiator.substring(0, 8)}`
-    const reason = i18n(`dispute.reason.${contract.disputeReason || 'other'}`)
+    const reason = i18n(`dispute.reason.${contract.disputeReason}`)
     messages.push(
       createSystemMessage(
         roomId,
