@@ -1,11 +1,12 @@
 import React, { ReactElement, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
 import { TextInput } from 'react-native'
 import { FormProps } from './PaymentMethodForm'
-import { useValidatedState } from '../../../../hooks'
+import { useToggleBoolean, useValidatedState } from '../../../../hooks'
 import { getPaymentDataByLabel } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
 import { getErrorsInField } from '../../../../utils/validation'
 import { BICInput } from '../../BICInput'
+import { Checkbox } from '../../Checkbox'
 import { IBANInput } from '../../IBANInput'
 import Input from '../../Input'
 
@@ -16,6 +17,7 @@ const bicRules = { required: true, bic: true }
 
 export const InstantSepa = ({ forwardRef, data, currencies = [], onSubmit, setStepValid }: FormProps): ReactElement => {
   const [label, setLabel] = useState(data?.label || '')
+  const [checked, toggleChecked] = useToggleBoolean(!!data.id)
   const [beneficiary, setBeneficiary, beneficiaryIsValid, beneficiaryErrors] = useValidatedState(
     data?.beneficiary || '',
     beneficiaryRules,
@@ -56,8 +58,8 @@ export const InstantSepa = ({ forwardRef, data, currencies = [], onSubmit, setSt
 
   const isFormValid = useCallback(() => {
     setDisplayErrors(true)
-    return labelErrors.length === 0 && beneficiaryIsValid && ibanIsValid && bicIsValid && referenceIsValid
-  }, [beneficiaryIsValid, bicIsValid, ibanIsValid, labelErrors.length, referenceIsValid])
+    return labelErrors.length === 0 && beneficiaryIsValid && ibanIsValid && bicIsValid && referenceIsValid && checked
+  }, [beneficiaryIsValid, bicIsValid, checked, ibanIsValid, labelErrors.length, referenceIsValid])
 
   const save = () => {
     if (!isFormValid()) return
@@ -128,6 +130,7 @@ export const InstantSepa = ({ forwardRef, data, currencies = [], onSubmit, setSt
         autoCorrect={false}
         errorMessage={displayErrors ? referenceErrors : undefined}
       />
+      <Checkbox checked={checked} onPress={toggleChecked} text={i18n('form.instantSepa.checkbox')} />
     </>
   )
 }
