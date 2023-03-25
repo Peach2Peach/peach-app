@@ -8,27 +8,32 @@ import i18n from '../../../../utils/i18n'
 import { getErrorsInField } from '../../../../utils/validation'
 import Input from '../../Input'
 import { PhoneInput } from '../../PhoneInput'
-import { CurrencySelection, toggleCurrency } from './CurrencySelection'
 
-const referenceRules = { required: false }
 const phoneRules = { required: true, phone: true, isPhoneAllowed: true }
+const referenceRules = { required: false }
+// const beneficiaryRules = { required: false } and associated useValidatedState for vipps and blik and satispay
+// vipps and blik didin't use validated state for phone
+// blik was label => beneficiary => phone => reference
 
-export const Paysera = ({ forwardRef, data, currencies = [], onSubmit, setStepValid }: FormProps): ReactElement => {
+type OnlineWalletData = MBWayData | BizumData
+
+export const OnlineWallet = ({
+  forwardRef,
+  data,
+  currencies = [],
+  onSubmit,
+  setStepValid,
+  name,
+}: FormProps & { name: PaymentMethod }): ReactElement => {
   const [label, setLabel] = useState(data?.label || '')
   const [phone, setPhone, phoneIsValid, phoneErrors] = useValidatedState(data?.phone || '', phoneRules)
   const [beneficiary, setBeneficiary] = useState(data?.beneficiary || '')
   const [reference, setReference, , referenceError] = useValidatedState(data?.reference || '', referenceRules)
   const [displayErrors, setDisplayErrors] = useState(false)
-  // is this used anywhere whatsoever?
-  const [selectedCurrencies, setSelectedCurrencies] = useState(data?.currencies || currencies)
 
   let $phone = useRef<TextInput>(null).current
-  let $beneficiary = useRef<TextInput>(null).current
+  let $beneficiary = useRef<TextInput>(null).current // not used in blik
   let $reference = useRef<TextInput>(null).current
-
-  const onCurrencyToggle = (currency: Currency) => {
-    setSelectedCurrencies(toggleCurrency(currency))
-  }
 
   const labelRules = useMemo(
     () => ({
@@ -40,10 +45,10 @@ export const Paysera = ({ forwardRef, data, currencies = [], onSubmit, setStepVa
 
   const labelErrors = useMemo(() => getErrorsInField(label, labelRules), [label, labelRules])
 
-  const buildPaymentData = (): PaymentData & PayseraData => ({
-    id: data?.id || `paysera-${new Date().getTime()}`,
+  const buildPaymentData = (): PaymentData & OnlineWalletData => ({
+    id: data?.id || `${name}-${new Date().getTime()}`,
     label,
-    type: 'paysera',
+    type: name,
     phone,
     beneficiary,
     reference,
@@ -71,7 +76,11 @@ export const Paysera = ({ forwardRef, data, currencies = [], onSubmit, setStepVa
 
   return (
     <View>
+      {' '}
+      {/** no view for swish*/}
       <View>
+        {' '}
+        {/** no view for swish*/}
         <Input
           onChange={setLabel}
           onSubmit={() => $phone?.focus()}
@@ -83,6 +92,8 @@ export const Paysera = ({ forwardRef, data, currencies = [], onSubmit, setStepVa
         />
       </View>
       <View style={tw`mt-1`}>
+        {' '}
+        {/** no view for vipps and blik and swish and satispay */}
         <PhoneInput
           onChange={setPhone}
           onSubmit={() => {
@@ -90,13 +101,15 @@ export const Paysera = ({ forwardRef, data, currencies = [], onSubmit, setStepVa
           }}
           reference={(el: any) => ($phone = el)}
           value={phone}
-          label={i18n('form.phone')}
+          // required={true} for mobilePay and vipps and blik
+          label={i18n('form.phoneLong')} // form.phone for mobilePay and vipps and blik and twint and swish and satispay
           placeholder={i18n('form.phone.placeholder')}
           autoCorrect={false}
           errorMessage={displayErrors ? phoneErrors : undefined}
         />
       </View>
       <View style={tw`mt-1`}>
+        {/** no view for vipps and blik and swish and satispay */}
         <Input
           onChange={setBeneficiary}
           onSubmit={() => {
@@ -108,6 +121,7 @@ export const Paysera = ({ forwardRef, data, currencies = [], onSubmit, setStepVa
           label={i18n('form.beneficiary')}
           placeholder={i18n('form.beneficiary.placeholder')}
           autoCorrect={false}
+          // errorMessage={displayErrors ? beneficiaryError : undefined} for some
         />
       </View>
       <Input
@@ -121,7 +135,6 @@ export const Paysera = ({ forwardRef, data, currencies = [], onSubmit, setStepVa
         autoCorrect={false}
         errorMessage={displayErrors ? referenceError : undefined}
       />
-      <CurrencySelection paymentMethod="paysera" selectedCurrencies={selectedCurrencies} onToggle={onCurrencyToggle} />
     </View>
   )
 }
