@@ -76,10 +76,8 @@ export const OnlineWallet = ({
 
   return (
     <View>
-      {' '}
       {/** no view for swish*/}
       <View>
-        {' '}
         {/** no view for swish*/}
         <Input
           onChange={setLabel}
@@ -92,7 +90,6 @@ export const OnlineWallet = ({
         />
       </View>
       <View style={tw`mt-1`}>
-        {' '}
         {/** no view for vipps and blik and swish and satispay */}
         <PhoneInput
           onChange={setPhone}
