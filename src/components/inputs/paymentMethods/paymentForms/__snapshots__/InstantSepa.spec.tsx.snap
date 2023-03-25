@@ -1,59 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`InstantSepa should render correctly 1`] = `
-<React.Fragment>
-  <Input
-    autoCorrect={false}
-    label="payment method label"
-    onChange={[Function]}
-    onSubmit={[Function]}
-    placeholder="payment method label"
-    value=""
-  />
-  <Input
-    autoCorrect={false}
-    label="account holder name"
-    onChange={[Function]}
-    onSubmit={[Function]}
-    placeholder="Satoshi Nakamoto"
-    reference={[Function]}
-    required={true}
-    value=""
-  />
-  <IBANInput
-    autoCorrect={false}
-    label="IBAN"
-    onChange={[Function]}
-    onSubmit={[Function]}
-    placeholder="AB12 CDEF 3456 7890 1234"
-    reference={[Function]}
-    required={true}
-    value=""
-  />
-  <BICInput
-    autoCorrect={false}
-    label="SWIFT/BIC"
-    onChange={[Function]}
-    onSubmit={[Function]}
-    placeholder="AB12CDEF"
-    reference={[Function]}
-    required={true}
-    value=""
-  />
-  <Input
-    autoCorrect={false}
-    label="payment reference"
-    onChange={[Function]}
-    onSubmit={[Function]}
-    placeholder="don't mention bitcoin or Peach!"
-    reference={[Function]}
-    required={false}
-    value=""
-  />
-  <Checkbox
-    checked={false}
-    onPress={[Function]}
-    text="my bank supports instant payments"
-  />
-</React.Fragment>
+<Template1
+  currencies={Array []}
+  data={Object {}}
+  forwardRef={Object {}}
+  name="instantSepa"
+  onSubmit={[Function]}
+  paymentMethod="instantSepa"
+  setStepValid={[Function]}
+/>
 `;
