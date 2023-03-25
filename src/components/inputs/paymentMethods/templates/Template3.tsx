@@ -25,7 +25,7 @@ export const Template3 = ({
   const [displayErrors, setDisplayErrors] = useState(false)
 
   let $phone = useRef<TextInput>(null).current
-  let $beneficiary = useRef<TextInput>(null).current // not used in blik
+  let $beneficiary = useRef<TextInput>(null).current
   let $reference = useRef<TextInput>(null).current
 
   const labelRules = useMemo(
