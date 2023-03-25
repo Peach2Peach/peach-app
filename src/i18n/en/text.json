@@ -1060,6 +1060,7 @@
   "contact.reason.bug": "I found a bug",
   "contact.reason.userProblem": "a user is misbehaving",
   "contact.reason.question": "I have a question",
+  "contact.reason.accountLost": "I lost my account",
   "contact.reason.sellMore": "I want to sell more",
   "contact.reason.other": "something else",
   "report.title": "report issue",

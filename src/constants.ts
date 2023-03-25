@@ -135,3 +135,9 @@ export const setPaymentMethods = (paymentMethodInfos: PaymentMethodInfo[]) => {
     ...paymentMethodInfos.map(({ id }) => id).filter((id) => id.includes('cash.')),
   ]
 }
+
+export const TWITTER = 'https://twitter.com/peachbitcoin'
+export const INSTAGRAM = 'https://www.instagram.com/peachbitcoin'
+export const TELEGRAM = 'https://t.me/+3KpdrMw25xBhNGJk'
+export const DISCORD = 'https://discord.gg/skP9zqTB'
+export const TWITCH = 'https://www.twitch.tv/peachbitcoin'

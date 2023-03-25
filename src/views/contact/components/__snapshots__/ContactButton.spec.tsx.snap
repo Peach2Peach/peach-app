@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ContactButton should render correctly 1`] = `
+<OptionButton
+  onPress={[Function]}
+  style={
+    Object {
+      "marginBottom": 16,
+      "width": "100%",
+    }
+  }
+  wide={true}
+>
+  I found a bug
+</OptionButton>
+`;

@@ -1,0 +1,124 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Contact should render correctly 1`] = `
+<PeachScrollView
+  contentContainerStyle={
+    Object {
+      "flexGrow": 1,
+      "justifyContent": "center",
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "paddingBottom": 40,
+        "paddingLeft": 40,
+        "paddingRight": 40,
+        "paddingTop": 40,
+      }
+    }
+  >
+    <LinedText
+      style={
+        Object {
+          "marginBottom": 12,
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "color": "#7D675E",
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 24,
+          }
+        }
+      >
+        mail us
+      </Text>
+    </LinedText>
+    <View
+      style={
+        Object {
+          "marginBottom": 24,
+          "marginTop": 12,
+          "paddingLeft": 8,
+          "paddingRight": 8,
+          "width": "100%",
+        }
+      }
+    >
+      <ContactButton
+        reason="bug"
+        setReason={[MockFunction]}
+      />
+      <ContactButton
+        reason="question"
+        setReason={[MockFunction]}
+      />
+    </View>
+    <LinedText
+      style={
+        Object {
+          "marginBottom": 12,
+          "marginTop": 12,
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "color": "#7D675E",
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 24,
+          }
+        }
+      >
+        community help
+      </Text>
+    </LinedText>
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "marginTop": 12,
+          "paddingLeft": 8,
+          "paddingRight": 8,
+          "width": "100%",
+        }
+      }
+    >
+      <OptionButton
+        onPress={[MockFunction]}
+        style={
+          Object {
+            "marginBottom": 16,
+            "width": "100%",
+          }
+        }
+        wide={true}
+      >
+        Telegram
+      </OptionButton>
+      <OptionButton
+        onPress={[MockFunction]}
+        style={
+          Object {
+            "marginBottom": 16,
+            "width": "100%",
+          }
+        }
+        wide={true}
+      >
+        Discord
+      </OptionButton>
+    </View>
+  </View>
+</PeachScrollView>
+`;
