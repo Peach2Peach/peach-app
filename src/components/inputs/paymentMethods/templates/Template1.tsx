@@ -52,7 +52,7 @@ export const Template1 = ({
 
   const labelErrors = useMemo(() => getErrorsInField(label, labelRules), [label, labelRules])
 
-  const buildPaymentData = (): PaymentData & SEPAData => ({
+  const buildPaymentData = () => ({
     id: data?.id || `${name}-${new Date().getTime()}`,
     label,
     type: name,

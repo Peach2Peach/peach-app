@@ -46,7 +46,7 @@ export const Template4 = ({
 
   const labelErrors = useMemo(() => getErrorsInField(label, labelRules), [label, labelRules])
 
-  const buildPaymentData = (): PaymentData & SkrillData => ({
+  const buildPaymentData = () => ({
     id: data?.id || `${name}-${new Date().getTime()}`,
     label,
     type: ['skrill', 'neteller'].includes(name) ? name : ((name + '.' + data?.country) as PaymentMethod),
