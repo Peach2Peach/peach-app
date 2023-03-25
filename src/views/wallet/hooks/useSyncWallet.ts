@@ -2,14 +2,13 @@ import { useState } from 'react'
 import { peachWallet } from '../../../utils/wallet/setWallet'
 
 export const useSyncWallet = () => {
-  const [loading, setLoading] = useState(!peachWallet.synced)
+  const [isRefreshing, setIsRefreshing] = useState(false)
 
-  const refresh = async () => {
-    if (loading) return
-    setLoading(true)
-    await peachWallet.syncWallet()
-    setLoading(false)
+  const refresh = () => {
+    if (isRefreshing) return
+    setIsRefreshing(true)
+    peachWallet.syncWallet(() => setIsRefreshing(false))
   }
 
-  return { refresh, loading }
+  return { refresh, isRefreshing }
 }

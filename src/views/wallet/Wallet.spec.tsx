@@ -19,7 +19,8 @@ describe('Wallet', () => {
       balance: 21,
     },
     refresh: jest.fn(),
-    loading: false,
+    walletLoading: false,
+    isRefreshing: false,
     onChange: jest.fn(),
     isValid: true,
     address: 'address',
@@ -36,10 +37,21 @@ describe('Wallet', () => {
     expect(renderOutput).toMatchSnapshot()
   })
 
+  it('should render correctly when refreshing', () => {
+    useWalletSetupMock.mockReturnValueOnce({
+      ...defaultReturnValue,
+      isRefreshing: true,
+    })
+    renderer.render(<Wallet />)
+
+    const renderOutput = renderer.getRenderOutput()
+    expect(renderOutput).toMatchSnapshot()
+  })
+
   it('should render correctly when loading', () => {
     useWalletSetupMock.mockReturnValueOnce({
       ...defaultReturnValue,
-      loading: true,
+      walletLoading: true,
     })
     renderer.render(<Wallet />)
 

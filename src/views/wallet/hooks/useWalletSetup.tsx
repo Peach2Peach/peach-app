@@ -1,5 +1,5 @@
 import { useFocusEffect } from '@react-navigation/native'
-import React, { useCallback, useContext, useMemo } from 'react'
+import React, { useCallback, useContext, useMemo, useState } from 'react'
 import { Icon } from '../../../components'
 import { HelpIcon } from '../../../components/icons'
 import { OverlayContext } from '../../../contexts/overlay'
@@ -28,7 +28,8 @@ export const useWalletSetup = () => {
   const walletStore = useWalletState((state) => state)
   const showHelp = useShowHelp('withdrawingFunds')
   const navigation = useNavigation()
-  const { refresh, loading } = useSyncWallet()
+  const { refresh, isRefreshing } = useSyncWallet()
+  const [walletLoading, setWalletLoading] = useState(false)
 
   const closeOverlay = useMemo(() => () => updateOverlay({ visible: false }), [updateOverlay])
 
@@ -85,39 +86,48 @@ export const useWalletSetup = () => {
 
   useHeaderSetup(
     useMemo(
-      () => ({
-        title: i18n('wallet.title'),
-        hideGoBackButton: true,
-        icons: [
-          {
-            iconComponent: <Icon id="yourTrades" color={tw`text-black-2`.color} />,
-            onPress: () => navigation.navigate('transactionHistory'),
+      () =>
+        walletLoading
+          ? {}
+          : {
+            title: i18n('wallet.title'),
+            hideGoBackButton: true,
+            icons: [
+              {
+                iconComponent: <Icon id="yourTrades" color={tw`text-black-2`.color} />,
+                onPress: () => navigation.navigate('transactionHistory'),
+              },
+              {
+                iconComponent: <Icon id="bitcoin" color={tw`text-bitcoin`.color} />,
+                onPress: () => navigation.navigate('networkFees'),
+              },
+              { iconComponent: <HelpIcon />, onPress: showHelp },
+            ],
           },
-          {
-            iconComponent: <Icon id="bitcoin" color={tw`text-bitcoin`.color} />,
-            onPress: () => navigation.navigate('networkFees'),
-          },
-          { iconComponent: <HelpIcon />, onPress: showHelp },
-        ],
-      }),
-      [navigation, showHelp],
+      [navigation, showHelp, walletLoading],
     ),
   )
 
+  const syncWalletOnLoad = async () => {
+    setWalletLoading(peachWallet.allTransactions.length === 0)
+    await peachWallet.syncWallet(() => setWalletLoading(false))
+  }
+
   useFocusEffect(
     useCallback(() => {
-      peachWallet.syncWallet()
+      syncWalletOnLoad()
     }, []),
   )
 
   return {
     walletStore,
     refresh,
-    loading,
+    isRefreshing,
     onChange,
     isValid,
     address,
     addressErrors,
     openWithdrawalConfirmation,
+    walletLoading,
   }
 }

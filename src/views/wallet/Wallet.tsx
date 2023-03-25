@@ -8,10 +8,22 @@ import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { peachWallet } from '../../utils/wallet/setWallet'
 import { useWalletSetup } from './hooks/useWalletSetup'
+import { WalletLoading } from './WalletLoading'
 
 export default () => {
-  const { walletStore, refresh, loading, onChange, isValid, address, addressErrors, openWithdrawalConfirmation }
-    = useWalletSetup()
+  const {
+    walletStore,
+    refresh,
+    isRefreshing,
+    onChange,
+    isValid,
+    address,
+    addressErrors,
+    openWithdrawalConfirmation,
+    walletLoading,
+  } = useWalletSetup()
+
+  if (walletLoading) return <WalletLoading />
 
   return (
     <AvoidKeyboard iOSBehavior={'height'} androidBehavior={'height'}>
@@ -23,8 +35,8 @@ export default () => {
         <View style={tw`flex flex-col justify-between h-full`}>
           <View style={tw`flex flex-col items-center justify-center flex-shrink h-full`}>
             <Text style={tw`mb-4 button-medium`}>{i18n('wallet.totalBalance')}:</Text>
-            <BigSatsFormat style={loading ? tw`opacity-60` : {}} sats={walletStore.balance} />
-            {loading && <Loading style={tw`absolute`} />}
+            <BigSatsFormat style={isRefreshing ? tw`opacity-60` : {}} sats={walletStore.balance} />
+            {isRefreshing && <Loading style={tw`absolute`} />}
             <Text style={tw`mt-16 button-medium`}>{i18n('wallet.withdrawTo')}:</Text>
             <BitcoinAddressInput
               style={tw`mt-4`}

@@ -19,7 +19,7 @@ export const useTransactionDetailsSetup = () => {
   const walletStore = useWalletState((state) => state)
   const [transaction, setTransaction] = useState<TransactionSummary>()
   const [receivingAddress, setReceivingAddress] = useState<string>()
-  const { refresh, loading } = useSyncWallet()
+  const { refresh, isRefreshing } = useSyncWallet()
 
   useHeaderSetup(
     useMemo(
@@ -58,6 +58,6 @@ export const useTransactionDetailsSetup = () => {
     receivingAddress,
     openInExplorer,
     refresh,
-    loading,
+    isRefreshing,
   }
 }
