@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TradeBreakdownSats renders correctly 1`] = `
+<SatsFormat
+  bitcoinLogoStyle={
+    Object {
+      "height": 18,
+      "marginRight": 8,
+      "width": 18,
+    }
+  }
+  containerStyle={
+    Object {
+      "alignItems": "flex-start",
+      "height": 20,
+      "justifyContent": "space-between",
+      "width": 180,
+    }
+  }
+  sats={210000}
+  satsStyle={
+    Object {
+      "fontFamily": "Baloo2-Regular",
+      "fontSize": 14,
+      "fontWeight": "normal",
+      "letterSpacing": 0.14,
+      "lineHeight": 20,
+    }
+  }
+  style={
+    Object {
+      "fontFamily": "Baloo2-Regular",
+      "fontSize": 20,
+      "fontWeight": "normal",
+      "letterSpacing": 0.2,
+      "lineHeight": 25,
+    }
+  }
+/>
+`;
