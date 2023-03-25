@@ -1,6 +1,7 @@
-import React, { ReactElement, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
 import { TextInput, View } from 'react-native'
 import { FormProps } from './PaymentMethodForm'
+import { useValidatedState } from '../../../../hooks'
 import tw from '../../../../styles/tailwind'
 import { getPaymentDataByLabel } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
@@ -9,31 +10,45 @@ import { TabbedNavigation, TabbedNavigationItem } from '../../../navigation/Tabb
 import { EmailInput } from '../../EmailInput'
 import Input from '../../Input'
 import { PhoneInput } from '../../PhoneInput'
+import { UsernameInput } from '../../UsernameInput'
 import { CurrencySelection, toggleCurrency } from './CurrencySelection'
 
-const tabs: TabbedNavigationItem[] = [
-  {
-    id: 'phone',
-    display: i18n('form.phone'),
-  },
-  {
-    id: 'email',
-    display: i18n('form.email'),
-  },
-]
+const referenceRules = { required: false }
 
-export const Wise = ({ forwardRef, data, currencies = [], onSubmit, setStepValid }: FormProps): ReactElement => {
+// eslint-disable-next-line max-statements
+export const PayPalOrRevolut = ({
+  forwardRef,
+  data,
+  currencies = [],
+  onSubmit,
+  setStepValid,
+  name,
+}: FormProps & { name: 'paypal' | 'revolut' }) => {
+  const tabs: TabbedNavigationItem[] = useMemo(
+    () => [
+      {
+        id: 'phone',
+        display: i18n('form.phone'),
+      },
+      {
+        id: 'email',
+        display: i18n('form.email'),
+      },
+      {
+        id: name === 'paypal' ? 'userName' : 'revtag',
+        display: name === 'paypal' ? i18n('form.userName') : i18n('form.revtag'),
+      },
+    ],
+    [name],
+  )
   const [label, setLabel] = useState(data?.label || '')
-  const [email, setEmail] = useState(data?.email || '')
   const [phone, setPhone] = useState(data?.phone || '')
-  const [reference, setReference] = useState(data?.reference || '')
+  const [email, setEmail] = useState(data?.email || '')
+  const [userName, setUserName] = useState(data?.userName || '')
+  const [reference, setReference, , referenceError] = useValidatedState(data?.reference || '', referenceRules)
   const [selectedCurrencies, setSelectedCurrencies] = useState(data?.currencies || currencies)
   const [displayErrors, setDisplayErrors] = useState(false)
 
-  const [currentTab, setCurrentTab] = useState(tabs[0])
-
-  const $email = useRef<TextInput>(null).current
-  const $phone = useRef<TextInput>(null).current
   let $reference = useRef<TextInput>(null).current
 
   const labelRules = useMemo(
@@ -43,42 +58,53 @@ export const Wise = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
     }),
     [data.id, label],
   )
-  const phoneRules = useMemo(() => ({ required: !email, phone: true, isPhoneAllowed: true }), [email])
-  const emailRules = useMemo(() => ({ required: !phone, email: true }), [phone])
+  const emailRules = useMemo(() => ({ required: !phone && !userName, email: true }), [phone, userName])
+  const userNameRules = useMemo(
+    () => ({ required: !phone && !email, paypalUserName: name === 'paypal', revtag: name === 'revolut' }),
+    [email, name, phone],
+  )
+  const phoneRules = useMemo(
+    () => ({ phone: true, isPhoneAllowed: true, required: !userName && !email }),
+    [email, userName],
+  )
 
   const labelErrors = useMemo(() => getErrorsInField(label, labelRules), [label, labelRules])
   const phoneErrors = useMemo(() => getErrorsInField(phone, phoneRules), [phone, phoneRules])
   const emailErrors = useMemo(() => getErrorsInField(email, emailRules), [email, emailRules])
+  const userNameErrors = useMemo(() => getErrorsInField(userName, userNameRules), [userName, userNameRules])
 
-  const buildPaymentData = (): PaymentData & WiseData => ({
-    id: data?.id || `wise-${new Date().getTime()}`,
-    label,
-    type: 'wise',
-    email,
-    phone,
-    // this is missing the reference field
-    currencies: selectedCurrencies,
-  })
-
-  const isFormValid = useCallback(() => {
-    setDisplayErrors(true)
-    return [...labelErrors, ...phoneErrors, ...emailErrors].length === 0
-  }, [emailErrors, labelErrors, phoneErrors])
-
-  const getErrorTabs = () => {
-    const fields = []
-    if (phone && phoneErrors.length > 0) fields.push('phone')
-    if (email && emailErrors.length > 0) fields.push('email')
-    return fields
-  }
+  const [currentTab, setCurrentTab] = useState(tabs[0])
 
   const onCurrencyToggle = (currency: Currency) => {
     setSelectedCurrencies(toggleCurrency(currency))
   }
 
+  const buildPaymentData = (): PaymentData & PaypalData => ({
+    id: data?.id || `${name}-${Date.now()}`,
+    label,
+    type: name,
+    phone,
+    email,
+    userName,
+    reference,
+    currencies: selectedCurrencies,
+  })
+
+  const isFormValid = useCallback(() => {
+    setDisplayErrors(true)
+    return [...labelErrors, ...phoneErrors, ...emailErrors, ...userNameErrors].length === 0
+  }, [emailErrors, labelErrors, phoneErrors, userNameErrors])
+
+  const getErrorTabs = () => {
+    const fields = []
+    if (phone && phoneErrors.length > 0) fields.push('phone')
+    if (email && emailErrors.length > 0) fields.push('email')
+    if (userName && userNameErrors.length > 0) fields.push(name === 'paypal' ? 'userName' : 'revtag')
+    return fields
+  }
+
   const save = () => {
     if (!isFormValid()) return
-
     onSubmit(buildPaymentData())
   }
 
@@ -95,13 +121,7 @@ export const Wise = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
       <View>
         <Input
           onChange={setLabel}
-          onSubmit={() => {
-            if (currentTab.id === 'email') {
-              $email?.focus()
-            } else $phone?.focus()
-          }}
           value={label}
-          required={true}
           label={i18n('form.paymentMethodName')}
           placeholder={i18n('form.paymentMethodName.placeholder')}
           autoCorrect={false}
@@ -123,7 +143,6 @@ export const Wise = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
               $reference?.focus()
             }}
             value={phone}
-            required={!email}
             label={i18n('form.phoneLong')}
             placeholder={i18n('form.phone.placeholder')}
             autoCorrect={false}
@@ -135,31 +154,39 @@ export const Wise = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
             onChange={setEmail}
             onSubmit={() => $reference?.focus()}
             value={email}
-            required={!phone}
             label={i18n('form.emailLong')}
             placeholder={i18n('form.email.placeholder')}
             errorMessage={displayErrors ? emailErrors : undefined}
           />
         )}
+        {['userName', 'revtag'].includes(currentTab.id) && (
+          <UsernameInput
+            {...{
+              maxLength: name === 'paypal' ? 21 : 17,
+              onChange: setUserName,
+              onSubmit: $reference?.focus,
+              value: userName,
+              label: name === 'paypal' ? i18n('form.userName') : i18n('form.revtag'),
+              placeholder: name === 'paypal' ? i18n('form.userName.placeholder') : i18n('form.revtag.placeholder'),
+              autoCorrect: false,
+              errorMessage: displayErrors ? userNameErrors : undefined,
+            }}
+          />
+        )}
       </View>
-      <View style={tw`mt-1`}>
-        <Input
-          onChange={setReference}
-          onSubmit={save}
-          reference={(el: any) => ($reference = el)}
-          value={reference}
-          required={false}
-          label={i18n('form.reference')}
-          placeholder={i18n('form.reference.placeholder')}
-          autoCorrect={false}
-        />
-      </View>
-      <CurrencySelection
-        style={tw`mt-6`}
-        paymentMethod="wise"
-        selectedCurrencies={selectedCurrencies}
-        onToggle={onCurrencyToggle}
+
+      <Input
+        onChange={setReference}
+        onSubmit={save}
+        reference={(el: any) => ($reference = el)}
+        value={reference}
+        required={false}
+        label={i18n('form.reference')}
+        placeholder={i18n('form.reference.placeholder')}
+        autoCorrect={false}
+        errorMessage={displayErrors ? referenceError : undefined}
       />
+      <CurrencySelection paymentMethod={name} selectedCurrencies={selectedCurrencies} onToggle={onCurrencyToggle} />
     </View>
   )
 }
