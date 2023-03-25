@@ -1,5 +1,5 @@
 import React from 'react'
-import { OnlineWallet } from './OnlineWallet'
+import { Template3 } from '../templates'
 import { FormProps } from './PaymentMethodForm'
 
-export const Lydia = (formProps: FormProps) => <OnlineWallet {...formProps} name="lydia" />
+export const Lydia = (formProps: FormProps) => <Template3 {...formProps} name="lydia" />

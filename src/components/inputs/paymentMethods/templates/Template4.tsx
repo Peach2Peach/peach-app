@@ -1,6 +1,6 @@
 import React, { useCallback, useContext, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
 import { TextInput } from 'react-native'
-import { FormProps } from './PaymentMethodForm'
+import { FormProps } from '../paymentForms/PaymentMethodForm'
 import { OverlayContext } from '../../../../contexts/overlay'
 import { useValidatedState } from '../../../../hooks'
 import { getPaymentDataByLabel } from '../../../../utils/account'
@@ -8,7 +8,7 @@ import i18n from '../../../../utils/i18n'
 import { getErrorsInField } from '../../../../utils/validation'
 import { EmailInput } from '../../EmailInput'
 import Input from '../../Input'
-import { CurrencySelection, toggleCurrency } from './CurrencySelection'
+import { CurrencySelection, toggleCurrency } from '../paymentForms/CurrencySelection'
 
 const emailRules = {
   required: true,
@@ -16,7 +16,7 @@ const emailRules = {
 }
 const referenceRules = { required: false }
 
-export const PaymentMethodForm4 = ({
+export const Template4 = ({
   forwardRef,
   data,
   currencies = [],

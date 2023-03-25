@@ -1,5 +1,5 @@
 import React from 'react'
 import { FormProps } from './PaymentMethodForm'
-import { OnlineWallet } from './OnlineWallet'
+import { Template3 } from '../templates'
 
-export const Iris = (formProps: FormProps) => <OnlineWallet {...formProps} name="iris" />
+export const Iris = (formProps: FormProps) => <Template3 {...formProps} name="iris" />

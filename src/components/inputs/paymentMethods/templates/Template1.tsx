@@ -1,6 +1,6 @@
 import React, { ReactElement, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
 import { TextInput } from 'react-native'
-import { FormProps } from './PaymentMethodForm'
+import { FormProps } from '../paymentForms/PaymentMethodForm'
 import { useToggleBoolean, useValidatedState } from '../../../../hooks'
 import { getPaymentDataByLabel } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
@@ -15,7 +15,7 @@ const notRequired = { required: false }
 const ibanRules = { required: true, iban: true, isEUIBAN: true }
 const bicRules = { required: true, bic: true }
 
-export const PaymentMethodForm1 = ({
+export const Template1 = ({
   forwardRef,
   data,
   currencies = [],

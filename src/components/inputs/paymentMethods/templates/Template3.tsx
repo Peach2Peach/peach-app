@@ -1,6 +1,6 @@
 import React, { ReactElement, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
 import { TextInput, View } from 'react-native'
-import { FormProps } from './PaymentMethodForm'
+import { FormProps } from '../paymentForms/PaymentMethodForm'
 import { useValidatedState } from '../../../../hooks'
 import tw from '../../../../styles/tailwind'
 import { getPaymentDataByLabel } from '../../../../utils/account'
@@ -17,7 +17,7 @@ const referenceRules = { required: false }
 
 type OnlineWalletData = MBWayData | BizumData
 
-export const OnlineWallet = ({
+export const Template3 = ({
   forwardRef,
   data,
   currencies = [],

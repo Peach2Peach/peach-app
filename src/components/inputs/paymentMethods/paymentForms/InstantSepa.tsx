@@ -1,5 +1,5 @@
 import React from 'react'
 import { FormProps } from './PaymentMethodForm'
-import { PaymentMethodForm1 } from './PaymentMethodForm1'
+import { Template1 } from '../templates'
 
-export const InstantSepa = (formProps: FormProps) => <PaymentMethodForm1 {...formProps} name="instantSepa" />
+export const InstantSepa = (formProps: FormProps) => <Template1 {...formProps} name="instantSepa" />

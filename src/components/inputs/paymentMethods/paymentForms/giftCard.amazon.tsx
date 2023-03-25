@@ -1,5 +1,5 @@
 import React from 'react'
 import { FormProps } from './PaymentMethodForm'
-import { PaymentMethodForm4 } from './PaymentMethodForm4'
+import { Template4 } from '../templates'
 
-export const GiftCardAmazon = (formProps: FormProps) => <PaymentMethodForm4 {...formProps} name="giftCard.amazon" />
+export const GiftCardAmazon = (formProps: FormProps) => <Template4 {...formProps} name="giftCard.amazon" />
