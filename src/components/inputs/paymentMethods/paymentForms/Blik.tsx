@@ -1,5 +1,5 @@
-import React, { ReactElement } from 'react'
+import React from 'react'
 import { FormProps } from './PaymentMethodForm'
 import { Template3 } from '../templates'
 
-export const Blik = (formProps: FormProps): ReactElement => <Template3 {...formProps} name="blik" />
+export const Blik = (formProps: FormProps) => <Template3 {...formProps} name="blik" />
