@@ -16,14 +16,14 @@ const emailRules = {
 }
 const referenceRules = { required: false }
 
-export const SkrillOrNeteller = ({
+export const PaymentMethodForm4 = ({
   forwardRef,
   data,
   currencies = [],
   onSubmit,
   setStepValid,
   name,
-}: FormProps & { name: 'skrill' | 'neteller' }) => {
+}: FormProps & { name: 'skrill' | 'neteller' | 'giftCard.amazon' }) => {
   useContext(OverlayContext)
   const [label, setLabel] = useState(data?.label || '')
   const [email, setEmail, emailIsValid, emailErrors] = useValidatedState(data?.email || '', emailRules)
@@ -49,7 +49,7 @@ export const SkrillOrNeteller = ({
   const buildPaymentData = (): PaymentData & SkrillData => ({
     id: data?.id || `${name}-${new Date().getTime()}`,
     label,
-    type: name,
+    type: ['skrill', 'neteller'].includes(name) ? name : ((name + '.' + data?.country) as PaymentMethod),
     email,
     beneficiary,
     reference,
@@ -126,7 +126,9 @@ export const SkrillOrNeteller = ({
         placeholder={i18n('form.beneficiary.placeholder')}
         autoCorrect={false}
       />
-      <CurrencySelection paymentMethod={name} selectedCurrencies={selectedCurrencies} onToggle={onCurrencyToggle} />
+      {['skrill', 'neteller'].includes(name) && (
+        <CurrencySelection paymentMethod={name} selectedCurrencies={selectedCurrencies} onToggle={onCurrencyToggle} />
+      )}
     </>
   )
 }
