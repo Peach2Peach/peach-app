@@ -1,0 +1,161 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TradeBreakdown should render correctly 1`] = `
+<View>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "marginTop": 12,
+      }
+    }
+  >
+    <PeachText
+      style={
+        Object {
+          "color": "#7D675E",
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 16,
+          "letterSpacing": 0.16,
+          "lineHeight": 28,
+        }
+      }
+    >
+      seller amount
+    </PeachText>
+    <TradeBreakdownSats
+      amount={210000}
+    />
+  </View>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "marginTop": 12,
+      }
+    }
+  >
+    <PeachText
+      style={
+        Object {
+          "color": "#7D675E",
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 16,
+          "letterSpacing": 0.16,
+          "lineHeight": 28,
+        }
+      }
+    >
+      peach fees
+    </PeachText>
+    <TradeBreakdownSats
+      amount={21000}
+    />
+  </View>
+  <HorizontalLine
+    style={
+      Object {
+        "alignSelf": "flex-end",
+        "backgroundColor": "#7D675E",
+        "marginBottom": 16,
+        "marginTop": 16,
+        "width": 180,
+      }
+    }
+  />
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+      }
+    }
+  >
+    <PeachText
+      style={
+        Object {
+          "color": "#7D675E",
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 16,
+          "letterSpacing": 0.16,
+          "lineHeight": 28,
+        }
+      }
+    >
+      trade amount
+    </PeachText>
+    <TradeBreakdownSats
+      amount={189000}
+    />
+  </View>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "marginTop": 12,
+      }
+    }
+  >
+    <PeachText
+      style={
+        Object {
+          "color": "#7D675E",
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 16,
+          "letterSpacing": 0.16,
+          "lineHeight": 28,
+        }
+      }
+    >
+      network fees
+    </PeachText>
+    <TradeBreakdownSats
+      amount={1000}
+    />
+  </View>
+  <HorizontalLine
+    style={
+      Object {
+        "alignSelf": "flex-end",
+        "backgroundColor": "#7D675E",
+        "marginBottom": 16,
+        "marginTop": 16,
+        "width": 180,
+      }
+    }
+  />
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+      }
+    }
+  >
+    <PeachText
+      style={
+        Object {
+          "color": "#7D675E",
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 16,
+          "letterSpacing": 0.16,
+          "lineHeight": 28,
+        }
+      }
+    >
+      you get
+    </PeachText>
+    <TradeBreakdownSats
+      amount={188000}
+    />
+  </View>
+</View>
+`;
