@@ -6,8 +6,8 @@ import { useHeaderSetup, useNavigation } from '../../../hooks'
 import { account } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
 
-export const contactReasonsNoAccount = ['bug', 'accountLost', 'question', 'sellMore', 'other'] as ContactReason[]
-export const contactReasonsWithAccount = ['bug', 'userProblem', 'sellMore', 'other'] as ContactReason[]
+export const contactReasonsNoAccount: ContactReason[] = ['bug', 'accountLost', 'question', 'sellMore', 'other']
+export const contactReasonsWithAccount: ContactReason[] = ['bug', 'userProblem', 'sellMore', 'other']
 
 export const useContactSetup = () => {
   const navigation = useNavigation()
