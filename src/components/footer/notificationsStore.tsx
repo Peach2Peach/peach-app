@@ -1,5 +1,5 @@
 import { createStore, useStore } from 'zustand'
-import { persist } from 'zustand/middleware'
+import { createJSONStorage, persist } from 'zustand/middleware'
 import { createStorage, toZustandStorage } from '../../utils/storage'
 
 export type NotificationsConfig = {
@@ -27,12 +27,12 @@ export const notificationStore = createStore(
     {
       name: 'notifications',
       version: 0,
-      getStorage: () => toZustandStorage(notificationStorage),
-    },
-  ),
+      storage: createJSONStorage(() => toZustandStorage(notificationStorage)),
+    }
+  )
 )
 
-export const useNotificationStore = <T, >(
+export const useNotificationStore = <T,>(
   selector: (state: NotificationsState) => T,
-  equalityFn?: ((a: T, b: T) => boolean) | undefined,
+  equalityFn?: ((a: T, b: T) => boolean) | undefined
 ) => useStore(notificationStore, selector, equalityFn)
