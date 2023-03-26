@@ -159,7 +159,7 @@ PODS:
   - hermes-engine/Pre-built (0.71.4)
   - libevent (2.1.12)
   - lottie-ios (3.4.4)
-  - lottie-react-native (5.1.4):
+  - lottie-react-native (5.1.5):
     - lottie-ios (~> 3.4.0)
     - React-Core
   - MMKV (1.2.13):
@@ -542,7 +542,7 @@ PODS:
     - React-jsi (= 0.71.4)
     - React-logger (= 0.71.4)
     - React-perflogger (= 0.71.4)
-  - RNCClipboard (1.11.1):
+  - RNCClipboard (1.11.2):
     - React-Core
   - RNCMaskedView (0.1.11):
     - React
@@ -892,7 +892,7 @@ SPEC CHECKSUMS:
   hermes-engine: a1f157c49ea579c28b0296bda8530e980c45bdb3
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
   lottie-ios: 8f97d3271e155c2d688875c29cd3c74908aef5f8
-  lottie-react-native: b702fab740cdb952a8e2354713d3beda63ff97b0
+  lottie-react-native: 3e722c63015fdb9c27638b0a77969fc412067c18
   MMKV: aac95d817a100479445633f2b3ed8961b4ac5043
   MMKVCore: ddf41b9d9262f058419f9ba7598719af56c02cd3
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
@@ -937,7 +937,7 @@ SPEC CHECKSUMS:
   React-RCTVibration: ad17efcfb2fa8f6bfd8ac0cf48d96668b8b28e0b
   React-runtimeexecutor: 8fa50b38df6b992c76537993a2b0553d3b088004
   ReactCommon: b49a4b00ca6d181ff74b17c12b2d59ac4add0bde
-  RNCClipboard: 2834e1c4af68697089cdd455ee4a4cdd198fa7dd
+  RNCClipboard: 3f0451a8100393908bea5c5c5b16f96d45f30bfc
   RNCMaskedView: 0e1bc4bfa8365eba5fbbb71e07fbdc0555249489
   RNDeviceInfo: aad3c663b25752a52bf8fce93f2354001dd185aa
   RNFBAnalytics: c5740a00a436398796639189f82b58b1ebe4c705
