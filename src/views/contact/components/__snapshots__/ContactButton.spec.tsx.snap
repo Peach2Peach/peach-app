@@ -4,7 +4,7 @@ exports[`ContactButton should render correctly 1`] = `
 <OptionButton
   onPress={[Function]}
   style={
-    Object {
+    {
       "marginBottom": 16,
       "width": "100%",
     }

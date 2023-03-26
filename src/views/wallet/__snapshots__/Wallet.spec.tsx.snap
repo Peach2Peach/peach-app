@@ -7,7 +7,7 @@ exports[`Wallet should render correctly 1`] = `
 >
   <PeachScrollView
     contentContainerStyle={
-      Object {
+      {
         "height": "100%",
         "paddingLeft": 32,
         "paddingRight": 32,
@@ -20,14 +20,14 @@ exports[`Wallet should render correctly 1`] = `
       />
     }
     style={
-      Object {
+      {
         "height": "100%",
       }
     }
   >
     <View
       style={
-        Object {
+        {
           "display": "flex",
           "flexDirection": "column",
           "height": "100%",
@@ -37,7 +37,7 @@ exports[`Wallet should render correctly 1`] = `
     >
       <View
         style={
-          Object {
+          {
             "alignItems": "center",
             "display": "flex",
             "flexDirection": "column",
@@ -49,7 +49,7 @@ exports[`Wallet should render correctly 1`] = `
       >
         <PeachText
           style={
-            Object {
+            {
               "fontFamily": "Baloo2-SemiBold",
               "fontSize": 14,
               "letterSpacing": 0.5,
@@ -64,11 +64,11 @@ exports[`Wallet should render correctly 1`] = `
         </PeachText>
         <BigSatsFormat
           sats={21}
-          style={Object {}}
+          style={{}}
         />
         <PeachText
           style={
-            Object {
+            {
               "fontFamily": "Baloo2-SemiBold",
               "fontSize": 14,
               "letterSpacing": 0.5,
@@ -86,7 +86,7 @@ exports[`Wallet should render correctly 1`] = `
           isValid={true}
           onChange={[MockFunction]}
           style={
-            Object {
+            {
               "marginTop": 16,
             }
           }
@@ -99,7 +99,7 @@ exports[`Wallet should render correctly 1`] = `
         label1="send all"
         onUnlock={[MockFunction]}
         style={
-          Object {
+          {
             "marginBottom": 24,
           }
         }
@@ -118,7 +118,7 @@ exports[`Wallet should render correctly when refreshing 1`] = `
 >
   <PeachScrollView
     contentContainerStyle={
-      Object {
+      {
         "height": "100%",
         "paddingLeft": 32,
         "paddingRight": 32,
@@ -131,14 +131,14 @@ exports[`Wallet should render correctly when refreshing 1`] = `
       />
     }
     style={
-      Object {
+      {
         "height": "100%",
       }
     }
   >
     <View
       style={
-        Object {
+        {
           "display": "flex",
           "flexDirection": "column",
           "height": "100%",
@@ -148,7 +148,7 @@ exports[`Wallet should render correctly when refreshing 1`] = `
     >
       <View
         style={
-          Object {
+          {
             "alignItems": "center",
             "display": "flex",
             "flexDirection": "column",
@@ -160,7 +160,7 @@ exports[`Wallet should render correctly when refreshing 1`] = `
       >
         <PeachText
           style={
-            Object {
+            {
               "fontFamily": "Baloo2-SemiBold",
               "fontSize": 14,
               "letterSpacing": 0.5,
@@ -176,21 +176,21 @@ exports[`Wallet should render correctly when refreshing 1`] = `
         <BigSatsFormat
           sats={21}
           style={
-            Object {
+            {
               "opacity": 0.6,
             }
           }
         />
         <Loading
           style={
-            Object {
+            {
               "position": "absolute",
             }
           }
         />
         <PeachText
           style={
-            Object {
+            {
               "fontFamily": "Baloo2-SemiBold",
               "fontSize": 14,
               "letterSpacing": 0.5,
@@ -208,7 +208,7 @@ exports[`Wallet should render correctly when refreshing 1`] = `
           isValid={true}
           onChange={[MockFunction]}
           style={
-            Object {
+            {
               "marginTop": 16,
             }
           }
@@ -221,7 +221,7 @@ exports[`Wallet should render correctly when refreshing 1`] = `
         label1="send all"
         onUnlock={[MockFunction]}
         style={
-          Object {
+          {
             "marginBottom": 24,
           }
         }
