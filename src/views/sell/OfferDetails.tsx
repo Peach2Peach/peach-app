@@ -2,7 +2,7 @@ import { ReactElement, useEffect, useState } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
-import shallow from 'zustand/shallow'
+import { shallow } from 'zustand/shallow'
 import { Icon, PeachScrollView, PrimaryButton } from '../../components'
 import { EditIcon, HelpIcon } from '../../components/icons'
 import PaymentDetails from '../../components/payment/PaymentDetails'
@@ -25,9 +25,7 @@ const validate = (offer: SellOfferDraft) => {
   const selectedPaymentMethods = Object.keys(offer.paymentData)
   if (selectedPaymentMethods.length === 0) return false
 
-  const paymentDataValid = getSelectedPaymentDataIds().map(getPaymentData)
-    .filter(isDefined)
-    .every(isValidPaymentData)
+  const paymentDataValid = getSelectedPaymentDataIds().map(getPaymentData).filter(isDefined).every(isValidPaymentData)
   return paymentDataValid
 }
 
@@ -43,18 +41,18 @@ export default ({ offerDraft, setOfferDraft, next }: SellViewProps): ReactElemen
     icons:
       account.paymentData.length !== 0
         ? [
-          {
-            iconComponent: editing ? <Icon id="checkboxMark" /> : <EditIcon />,
-            onPress: () => {
-              setEditing(!editing)
+            {
+              iconComponent: editing ? <Icon id="checkboxMark" /> : <EditIcon />,
+              onPress: () => {
+                setEditing(!editing)
+              },
             },
-          },
-          { iconComponent: <HelpIcon />, onPress: showHelp },
-        ]
+            { iconComponent: <HelpIcon />, onPress: showHelp },
+          ]
         : [{ iconComponent: <HelpIcon />, onPress: showHelp }],
   })
   const [meansOfPayment, setMeansOfPayment] = useState<MeansOfPayment>(
-    offerDraft.meansOfPayment || account.settings.meansOfPayment,
+    offerDraft.meansOfPayment || account.settings.meansOfPayment
   )
 
   useEffect(() => {

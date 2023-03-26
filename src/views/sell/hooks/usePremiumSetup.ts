@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
-import shallow from 'zustand/shallow'
+import { shallow } from 'zustand/shallow'
 import { useMarketPrices, useTradingLimits } from '../../../hooks'
 import { useSettingsStore } from '../../../store/settingsStore'
 import { account } from '../../../utils/account'

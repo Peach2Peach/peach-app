@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 
-import shallow from 'zustand/shallow'
+import { shallow } from 'zustand/shallow'
 import { HelpIcon } from '../../../components/icons'
 import { useHeaderSetup, useNavigation, useRoute, useValidatedState } from '../../../hooks'
 import { useShowHelp } from '../../../hooks/useShowHelp'
@@ -19,12 +19,12 @@ export const usePayoutAddressSetup = () => {
   const navigation = useNavigation()
   const [payoutAddress, setPayoutAddress, payoutAddressLabel, setPayoutAddressLabel] = useSettingsStore(
     (state) => [state.payoutAddress, state.setPayoutAddress, state.payoutAddressLabel, state.setPayoutAddressLabel],
-    shallow,
+    shallow
   )
   const [address, setAddress, addressValid, addressErrors] = useValidatedState(payoutAddress || '', addressRules)
   const [addressLabel, setAddressLabel, addressLabelValid, addressLabelErrors] = useValidatedState(
     payoutAddressLabel || '',
-    labelRules,
+    labelRules
   )
   const isUpdated = address === payoutAddress && addressLabel === payoutAddressLabel
   const showHelp = useShowHelp('payoutAddress')
@@ -35,8 +35,8 @@ export const usePayoutAddressSetup = () => {
         title: i18n(title[type || 'payout']),
         icons: [{ iconComponent: <HelpIcon />, onPress: showHelp }],
       }),
-      [showHelp, type],
-    ),
+      [showHelp, type]
+    )
   )
 
   const save = () => {

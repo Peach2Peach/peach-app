@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import shallow from 'zustand/shallow'
+import { shallow } from 'zustand/shallow'
 import { useTradeSummaryStore } from '../../store/tradeSummaryStore'
 import { getContractSummaries } from '../../utils/peachAPI'
 
@@ -13,7 +13,7 @@ const getContractSummariesQuery = async () => {
 export const useContractSummaries = (enabled = true) => {
   const [contracts, setContracts, getLastModified] = useTradeSummaryStore(
     (state) => [state.contracts, state.setContracts, state.getLastModified],
-    shallow,
+    shallow
   )
   const { data, isLoading, error, refetch } = useQuery(['contractSummaries'], getContractSummariesQuery, {
     enabled,

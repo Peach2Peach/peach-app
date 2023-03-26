@@ -2,7 +2,7 @@ import { ReactElement, useEffect, useState } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
-import shallow from 'zustand/shallow'
+import { shallow } from 'zustand/shallow'
 import { Icon, PeachScrollView, PrimaryButton } from '../../components'
 import { EditIcon, HelpIcon } from '../../components/icons'
 import PaymentDetails from '../../components/payment/PaymentDetails'
@@ -17,11 +17,9 @@ import { hashPaymentData, isValidPaymentData } from '../../utils/paymentMethod'
 import { BuyViewProps } from './BuyPreferences'
 
 const validate = (offerDraft: BuyOfferDraft) =>
-  !!offerDraft.amount
-  && hasMopsConfigured(offerDraft)
-  && getSelectedPaymentDataIds().map(getPaymentData)
-    .filter(isDefined)
-    .every(isValidPaymentData)
+  !!offerDraft.amount &&
+  hasMopsConfigured(offerDraft) &&
+  getSelectedPaymentDataIds().map(getPaymentData).filter(isDefined).every(isValidPaymentData)
 
 export default ({ offerDraft, setOfferDraft, next }: BuyViewProps): ReactElement => {
   const [editing, setEditing] = useState(false)
@@ -34,18 +32,18 @@ export default ({ offerDraft, setOfferDraft, next }: BuyViewProps): ReactElement
     icons:
       account.paymentData.length !== 0
         ? [
-          {
-            iconComponent: editing ? <Icon id="checkboxMark" /> : <EditIcon />,
-            onPress: () => {
-              setEditing(!editing)
+            {
+              iconComponent: editing ? <Icon id="checkboxMark" /> : <EditIcon />,
+              onPress: () => {
+                setEditing(!editing)
+              },
             },
-          },
-          { iconComponent: <HelpIcon />, onPress: showHelp },
-        ]
+            { iconComponent: <HelpIcon />, onPress: showHelp },
+          ]
         : [{ iconComponent: <HelpIcon />, onPress: showHelp }],
   })
   const [meansOfPayment, setMeansOfPayment] = useState<MeansOfPayment>(
-    offerDraft.meansOfPayment || account.settings.meansOfPayment,
+    offerDraft.meansOfPayment || account.settings.meansOfPayment
   )
 
   useEffect(() => {

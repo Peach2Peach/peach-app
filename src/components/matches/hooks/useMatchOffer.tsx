@@ -4,7 +4,7 @@ import { MessageContext } from '../../../contexts/message'
 import { useNavigation } from '../../../hooks'
 import { error, info } from '../../../utils/log'
 
-import shallow from 'zustand/shallow'
+import { shallow } from 'zustand/shallow'
 import { isSellOffer, saveOffer } from '../../../utils/offer'
 import { parseError } from '../../../utils/system'
 import { useMatchStore } from '../store'
@@ -25,7 +25,7 @@ export const useMatchOffer = (offer: BuyOffer | SellOffer, match: Match) => {
       selectedPaymentMethod: state.matchSelectors[match.offerId]?.selectedPaymentMethod,
       currentPage: state.currentPage,
     }),
-    shallow,
+    shallow
   )
 
   return useMutation({
@@ -33,7 +33,7 @@ export const useMatchOffer = (offer: BuyOffer | SellOffer, match: Match) => {
       await queryClient.cancelQueries(['matches', offer.id])
       const previousData = queryClient.getQueryData<GetMatchesResponse>(['matches', offer.id])
       queryClient.setQueryData(['matches', offer.id], (oldQueryData: InfiniteData<GetMatchesResponse> | undefined) =>
-        updateMatchedStatus(true, oldQueryData, matchingOfferId, offer, currentPage),
+        updateMatchedStatus(true, oldQueryData, matchingOfferId, offer, currentPage)
       )
 
       return { previousData }
@@ -47,11 +47,12 @@ export const useMatchOffer = (offer: BuyOffer | SellOffer, match: Match) => {
       } else if (errorMsg === 'OFFER_TAKEN') {
         showPopup()
       } else {
-        if (errorMsg === 'MISSING_VALUES') error(
-          'Match data missing values.',
-          `selectedCurrency: ${selectedCurrency}`,
-          `selectedPaymentMethod: ${selectedPaymentMethod}`,
-        )
+        if (errorMsg === 'MISSING_VALUES')
+          error(
+            'Match data missing values.',
+            `selectedCurrency: ${selectedCurrency}`,
+            `selectedPaymentMethod: ${selectedPaymentMethod}`
+          )
         handleError({ error: errorMsg }, updateMessage)
       }
       queryClient.setQueryData(['matches', offer.id], context?.previousData)
