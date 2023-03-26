@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-hooks'
+import { renderHook } from '@testing-library/react-native'
 import { act } from 'react-test-renderer'
 import { account1 } from '../../../../tests/unit/data/accountData'
 import { DISCORD, TELEGRAM } from '../../../constants'

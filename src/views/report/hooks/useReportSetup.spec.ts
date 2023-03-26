@@ -1,5 +1,5 @@
 /* eslint-disable max-lines-per-function */
-import { act, renderHook } from '@testing-library/react-hooks'
+import { act, renderHook } from '@testing-library/react-native'
 import { useHeaderSetup, useNavigation, useRoute } from '../../../hooks'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { showReportSuccess } from '../../../overlays/showReportSuccess'

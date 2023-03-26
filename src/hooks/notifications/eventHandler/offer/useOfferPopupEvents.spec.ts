@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { act, renderHook } from '@testing-library/react-hooks'
+import { act, renderHook } from '@testing-library/react-native'
 import { useOfferPopupEvents } from './useOfferPopupEvents'
 import { getOffer } from '../../../../utils/offer'
 

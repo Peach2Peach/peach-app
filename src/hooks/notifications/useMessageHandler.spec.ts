@@ -1,5 +1,5 @@
 import { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
-import { act, renderHook } from '@testing-library/react-hooks'
+import { act, renderHook } from '@testing-library/react-native'
 import { useMessageHandler } from './useMessageHandler'
 import { getContract } from '../../utils/contract'
 import { getContract as getContractAPI } from '../../utils/peachAPI'
