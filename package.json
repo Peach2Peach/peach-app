@@ -57,7 +57,7 @@
     "bitcoinjs-lib": "^6.1.0",
     "bitcoinjs-message": "^2.2.0",
     "buffer": "^6.0.3",
-    "ecpair": "^2.0.1",
+    "ecpair": "^2.1.0",
     "events": "^3.3.0",
     "iban": "^0.0.14",
     "lottie-react-native": "^5.1.5",
