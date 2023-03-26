@@ -59,6 +59,8 @@ abstract_target 'peach' do
 
   pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
 
+  pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec', :modular_headers => false
+
   target 'peach mainnet' do
     inherit! :complete
     # Pods for testnet
