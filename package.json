@@ -71,7 +71,7 @@
     "react-native-crypto-js": "^1.0.0",
     "react-native-device-info": "^8.7.1",
     "react-native-document-picker": "^8.1.2",
-    "react-native-dotenv": "^3.3.1",
+    "react-native-dotenv": "^3.4.8",
     "react-native-fast-openpgp": "^2.5.1",
     "react-native-fs": "^2.20.0",
     "react-native-gesture-handler": "^2.9.0",
