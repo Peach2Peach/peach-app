@@ -98,7 +98,7 @@
     "react-native-web": "^0.18.12",
     "react-native-webview": "^11.26.1",
     "react-scripts": "5.0.0",
-    "readable-stream": "^1.0.33",
+    "readable-stream": "^3.6.2",
     "rn-nodeify": "^10.3.0",
     "stream-browserify": "^1.0.0",
     "tiny-secp256k1": "^1.1.6",
