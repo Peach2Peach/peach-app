@@ -13,7 +13,7 @@ import { isIOS, isProduction, parseError } from './utils/system'
 LogBox.ignoreLogs([
   'Non-serializable values were found in the navigation state',
   // eslint-disable-next-line max-len
-  "[react-native-gesture-handler] Seems like you're using an old API with gesture components, check out new Gestures system!",
+  '[react-native-gesture-handler] Seems like you\'re using an old API with gesture components, check out new Gestures system!',
   /ViewPropTypes will be removed from React Native./u,
   /RCTBridge required dispatch_sync/u,
   /Can't perform a React state update on an unmounted component/u,
@@ -30,7 +30,7 @@ try {
   messaging().setBackgroundMessageHandler(async (remoteMessage) => {
     const [notifications, setNotifications] = useNotificationStore(
       (state) => [state.notifications, state.setNotifications],
-      shallow
+      shallow,
     )
     const notifs = notifications + 1
 

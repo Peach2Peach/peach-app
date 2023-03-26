@@ -4,8 +4,8 @@ import { useSettingsStore } from '../../../store/settingsStore'
 import i18n from '../../../utils/i18n'
 
 export const useWalletSetup = () => {
-  const [peachWalletActive, setPeachWalletActive, payoutAddress, payoutAddressLabel, payoutAddressSignature] =
-    useSettingsStore(
+  const [peachWalletActive, setPeachWalletActive, payoutAddress, payoutAddressLabel, payoutAddressSignature]
+    = useSettingsStore(
       (state) => [
         state.peachWalletActive,
         state.setPeachWalletActive,

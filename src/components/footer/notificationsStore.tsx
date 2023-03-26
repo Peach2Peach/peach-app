@@ -28,11 +28,11 @@ export const notificationStore = createStore(
       name: 'notifications',
       version: 0,
       storage: createJSONStorage(() => toZustandStorage(notificationStorage)),
-    }
-  )
+    },
+  ),
 )
 
-export const useNotificationStore = <T,>(
+export const useNotificationStore = <T, >(
   selector: (state: NotificationsState) => T,
-  equalityFn?: ((a: T, b: T) => boolean) | undefined
+  equalityFn?: ((a: T, b: T) => boolean) | undefined,
 ) => useStore(notificationStore, selector, equalityFn)

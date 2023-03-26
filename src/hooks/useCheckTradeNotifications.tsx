@@ -21,9 +21,9 @@ export const statusWithRequiredActionForBuyer: TradeStatus[] = ['paymentRequired
 export const statusWithRequiredActionForSeller: TradeStatus[] = ['confirmPaymentRequired']
 
 const hasRequiredAction = (offer: OfferSummary | ContractSummary) =>
-  statusWithRequiredAction.includes(offer.tradeStatus) ||
-  (offer.type === 'bid' && statusWithRequiredActionForBuyer.includes(offer.tradeStatus)) ||
-  (offer.type === 'ask' && statusWithRequiredActionForSeller.includes(offer.tradeStatus))
+  statusWithRequiredAction.includes(offer.tradeStatus)
+  || (offer.type === 'bid' && statusWithRequiredActionForBuyer.includes(offer.tradeStatus))
+  || (offer.type === 'ask' && statusWithRequiredActionForSeller.includes(offer.tradeStatus))
 
 export const useCheckTradeNotifications = () => {
   const [offers, contracts] = useTradeSummaryStore((state) => [state.offers, state.contracts], shallow)
@@ -34,7 +34,7 @@ export const useCheckTradeNotifications = () => {
       .filter(({ contractId }) => !contractId)
       .filter((offer) => hasRequiredAction(offer)).length
     const contractsWithAction = contracts.filter(
-      (contract) => hasRequiredAction(contract) || contract.unreadMessages > 0
+      (contract) => hasRequiredAction(contract) || contract.unreadMessages > 0,
     ).length
     const notifications = offersWithAction + contractsWithAction
 

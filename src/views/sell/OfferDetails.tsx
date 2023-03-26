@@ -25,7 +25,9 @@ const validate = (offer: SellOfferDraft) => {
   const selectedPaymentMethods = Object.keys(offer.paymentData)
   if (selectedPaymentMethods.length === 0) return false
 
-  const paymentDataValid = getSelectedPaymentDataIds().map(getPaymentData).filter(isDefined).every(isValidPaymentData)
+  const paymentDataValid = getSelectedPaymentDataIds().map(getPaymentData)
+    .filter(isDefined)
+    .every(isValidPaymentData)
   return paymentDataValid
 }
 
@@ -41,18 +43,18 @@ export default ({ offerDraft, setOfferDraft, next }: SellViewProps): ReactElemen
     icons:
       account.paymentData.length !== 0
         ? [
-            {
-              iconComponent: editing ? <Icon id="checkboxMark" /> : <EditIcon />,
-              onPress: () => {
-                setEditing(!editing)
-              },
+          {
+            iconComponent: editing ? <Icon id="checkboxMark" /> : <EditIcon />,
+            onPress: () => {
+              setEditing(!editing)
             },
-            { iconComponent: <HelpIcon />, onPress: showHelp },
-          ]
+          },
+          { iconComponent: <HelpIcon />, onPress: showHelp },
+        ]
         : [{ iconComponent: <HelpIcon />, onPress: showHelp }],
   })
   const [meansOfPayment, setMeansOfPayment] = useState<MeansOfPayment>(
-    offerDraft.meansOfPayment || account.settings.meansOfPayment
+    offerDraft.meansOfPayment || account.settings.meansOfPayment,
   )
 
   useEffect(() => {
