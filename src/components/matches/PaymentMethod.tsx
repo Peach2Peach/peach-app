@@ -1,5 +1,4 @@
-import { useMemo } from 'react';
-import * as React from 'react';
+import { useMemo } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 import { getPaymentMethodName } from '../../utils/paymentMethod'
@@ -9,7 +8,7 @@ import { Text } from '../text'
 type Props = {
   paymentMethod?: PaymentMethod
   isVerified?: boolean
-} & React.ComponentProps<typeof View>
+} & ComponentProps
 
 export const PaymentMethod = ({ paymentMethod, isVerified = false, style }: Props) => {
   const name = useMemo(() => (paymentMethod ? getPaymentMethodName(paymentMethod) : paymentMethod), [paymentMethod])

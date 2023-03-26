@@ -1,5 +1,4 @@
-import { useEffect, useRef } from 'react';
-import * as React from 'react';
+import { useEffect, useRef, ReactNode } from 'react'
 import { Animated, StyleProp, TextStyle } from 'react-native'
 import tw from '../../../../styles/tailwind'
 
@@ -43,7 +42,7 @@ const resetAnimation = (color: Animated.Value, fontSize: Animated.Value) => {
   ]).start()
 }
 type Props = {
-  children: React.ReactNode
+  children: ReactNode
   style?: StyleProp<TextStyle>
   showPulse: boolean
 }

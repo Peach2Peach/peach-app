@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { ReactNode } from 'react'
 import { StyleProp, TextStyle, TouchableOpacity, TouchableOpacityProps, ViewStyle } from 'react-native'
 import tw from '../../styles/tailwind'
 import { Loading } from '../animation'
@@ -10,7 +10,7 @@ export type ButtonProps = {
   wide?: true
   narrow?: boolean
   option?: boolean
-  children?: React.ReactNode
+  children?: ReactNode
   noBackground?: true
   iconId?: IconType
   color?: ViewStyle | undefined

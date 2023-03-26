@@ -1,5 +1,4 @@
-import { ReactElement, useContext, useEffect, useState } from 'react';
-import * as React from 'react';
+import { ReactElement, useContext, useEffect, useState, Dispatch, SetStateAction } from 'react'
 import { View } from 'react-native'
 import { DrawerContext } from '../../contexts/drawer'
 
@@ -20,7 +19,7 @@ const { LinearGradient } = require('react-native-gradients')
 type PaymentCategorySelectProps = {
   currency: Currency
   paymentMethod?: PaymentMethod
-  setPaymentMethod: React.Dispatch<React.SetStateAction<PaymentMethod | undefined>>
+  setPaymentMethod: Dispatch<SetStateAction<PaymentMethod | undefined>>
   next: () => void
 }
 

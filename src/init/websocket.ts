@@ -1,4 +1,4 @@
-import { EffectCallback } from 'react'
+import { EffectCallback, Dispatch } from 'react'
 import { account } from '../utils/account'
 import { info } from '../utils/log'
 import { createWebsocket } from '../utils/peachAPI/websocket'
@@ -8,7 +8,7 @@ import { createWebsocket } from '../utils/peachAPI/websocket'
  * @param updatePeachWS update function
  */
 const initWebSocket
-  = (updatePeachWS: Function, updateMessage: React.Dispatch<MessageState>): EffectCallback =>
+  = (updatePeachWS: Function, updateMessage: Dispatch<MessageState>): EffectCallback =>
     () => {
       if (!account.publicKey) {
         setTimeout(() => {

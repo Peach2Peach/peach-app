@@ -1,5 +1,4 @@
-import { ReactElement, useEffect, useMemo, useState } from 'react';
-import * as React from 'react';
+import { ReactElement, useEffect, useMemo, useState, Dispatch, SetStateAction } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
@@ -15,7 +14,7 @@ type CountrySelectProps = {
   paymentMethod: PaymentMethod
   currency: Currency
   selected?: Country
-  setCountry: React.Dispatch<React.SetStateAction<PaymentMethodCountry | undefined>>
+  setCountry: Dispatch<SetStateAction<PaymentMethodCountry | undefined>>
   back: () => void
   next: () => void
 }

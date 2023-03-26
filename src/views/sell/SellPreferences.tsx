@@ -1,5 +1,4 @@
-import { ReactElement, useCallback, useState } from 'react';
-import * as React from 'react';
+import { ReactElement, useCallback, useState, Dispatch, SetStateAction } from 'react'
 import { BackHandler, View } from 'react-native'
 import shallow from 'zustand/shallow'
 import tw from '../../styles/tailwind'
@@ -15,7 +14,7 @@ import { useFocusEffect } from '@react-navigation/native'
 
 export type SellViewProps = {
   offerDraft: SellOfferDraft
-  setOfferDraft: React.Dispatch<React.SetStateAction<SellOfferDraft>>
+  setOfferDraft: Dispatch<SetStateAction<SellOfferDraft>>
   next: () => void
 }
 

@@ -1,7 +1,6 @@
 /* eslint-disable max-lines */
 import { ReactElement, useCallback, useEffect, useReducer, useRef, useState } from 'react';
 
-import * as React from 'react';
 import { Animated, Dimensions, SafeAreaView, View } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
@@ -124,7 +123,7 @@ const usePartialAppSetup = () => {
 }
 
 // eslint-disable-next-line max-statements
-const App: React.FC = () => {
+const App = () => {
   const [messageState, updateMessage] = useReducer(setMessage, getMessage())
   const [
     { title: drawerTitle, content: drawerContent, show: showDrawer, previousDrawer, onClose: onCloseDrawer },
