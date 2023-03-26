@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import { ReactElement } from 'react';
 import { ColorValue, View, ViewStyle } from 'react-native'
 import { Icon, Text } from '../../../components'
 import tw from '../../../styles/tailwind'

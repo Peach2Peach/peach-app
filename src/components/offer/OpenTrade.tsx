@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import { ReactElement } from 'react';
 import { TradeSummaryProps } from './TradeSummary'
 import { OpenTradeSeller } from './OpenTradeSeller'
 import { OpenTradeBuyer } from './OpenTradeBuyer'

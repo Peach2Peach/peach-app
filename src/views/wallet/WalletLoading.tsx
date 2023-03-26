@@ -1,4 +1,3 @@
-import React from 'react'
 import { Image, View } from 'react-native'
 import bitcoinAnimation from '../../assets/animated/bitcoin.gif'
 import { Text } from '../../components'

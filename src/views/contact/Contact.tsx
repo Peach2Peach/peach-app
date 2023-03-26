@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import { ReactElement } from 'react';
 import { Text, View } from 'react-native'
 import { OptionButton, PeachScrollView } from '../../components'
 import LinedText from '../../components/ui/LinedText'

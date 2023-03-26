@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react';
 import { HelpIcon } from '../../../components/icons'
 import getFeeEstimateEffect from '../../../effects/getFeeEstimateEffect'
 

@@ -1,4 +1,4 @@
-import React, { ReactElement, ReactNode } from 'react'
+import { ReactElement, ReactNode } from 'react';
 import { View, TouchableOpacity } from 'react-native'
 import tw from '../../../../styles/tailwind'
 

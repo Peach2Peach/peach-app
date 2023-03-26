@@ -1,4 +1,5 @@
-import React, { useCallback } from 'react'
+import { useCallback } from 'react';
+import * as React from 'react';
 import shallow from 'zustand/shallow'
 import { useSettingsStore } from '../store/settingsStore'
 import i18n from '../utils/i18n'

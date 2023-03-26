@@ -1,4 +1,5 @@
-import React, { ReactElement, useEffect, useState } from 'react'
+import { ReactElement, useEffect, useState } from 'react';
+import * as React from 'react';
 import { Pressable, View } from 'react-native'
 import { HorizontalLine, Icon, PeachScrollView, Text } from '..'
 import { IconType } from '../../assets/icons'

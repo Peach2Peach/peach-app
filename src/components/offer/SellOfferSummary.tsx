@@ -1,5 +1,5 @@
 import { NETWORK } from '@env'
-import React, { ReactElement, useEffect, useState } from 'react'
+import { ReactElement, useEffect, useState } from 'react';
 import { TouchableOpacity, View } from 'react-native'
 import shallow from 'zustand/shallow'
 import { useSettingsStore } from '../../store/settingsStore'

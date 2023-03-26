@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import { ReactElement } from 'react';
 import { ColorValue, TouchableOpacity, View, ViewStyle } from 'react-native'
 import { Icon, Text } from '../../../components'
 import { IconType } from '../../../assets/icons'

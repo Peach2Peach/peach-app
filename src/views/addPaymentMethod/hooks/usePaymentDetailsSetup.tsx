@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react'
+import { useCallback, useMemo } from 'react';
 
 import i18n from '../../../utils/i18n'
 

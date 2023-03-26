@@ -1,4 +1,3 @@
-import React from 'react'
 import { TouchableOpacity } from 'react-native'
 import { create } from 'react-test-renderer'
 import { openInWallet } from '../../utils/bitcoin'

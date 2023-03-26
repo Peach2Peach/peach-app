@@ -1,4 +1,4 @@
-import React, { ReactElement, useMemo } from 'react'
+import { ReactElement, useMemo } from 'react';
 import { View, ViewStyle } from 'react-native'
 import { Icon } from '../../../components'
 import { SummaryItem } from '../../../components/lists/SummaryItem'

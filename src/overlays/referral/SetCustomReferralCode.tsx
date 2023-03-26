@@ -1,4 +1,4 @@
-import React, { Dispatch, ReactElement, SetStateAction } from 'react'
+import { Dispatch, ReactElement, SetStateAction } from 'react';
 import { View } from 'react-native'
 import { Input, Text } from '../../components'
 import tw from '../../styles/tailwind'

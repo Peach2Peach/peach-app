@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import { ReactElement } from 'react';
 import { Text } from '.'
 import { priceFormat } from '../../utils/string'
 

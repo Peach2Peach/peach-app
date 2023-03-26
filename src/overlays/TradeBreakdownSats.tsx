@@ -1,4 +1,3 @@
-import React from 'react'
 import { SatsFormat } from '../components'
 import tw from '../styles/tailwind'
 

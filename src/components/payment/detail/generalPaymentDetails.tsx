@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import { ReactElement } from 'react';
 import { View } from 'react-native'
 import { PaymentTemplateProps, possiblePaymentFields } from '..'
 import { Text } from '../..'

@@ -1,4 +1,4 @@
-import React, { ReactElement, useRef } from 'react'
+import { ReactElement, useRef } from 'react';
 import { TextInput, View } from 'react-native'
 
 import { Input, PeachScrollView, Text } from '../../../../components'

@@ -1,4 +1,3 @@
-import React from 'react'
 import { ViewProps } from 'react-native'
 import tw from '../../styles/tailwind'
 import { getAvailableCurrencies } from '../../utils/match'

@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import { ReactElement } from 'react';
 import { View } from 'react-native'
 import { BitcoinAddress, Loading, PeachScrollView, PrimaryButton, Text } from '../../components'
 import { SATSINBTC } from '../../constants'

@@ -1,4 +1,5 @@
-import React, { ReactElement, useContext, useEffect } from 'react'
+import { ReactElement, useContext, useEffect } from 'react';
+import * as React from 'react';
 import { Pressable, View } from 'react-native'
 
 import { Icon, Text } from '..'
@@ -187,7 +188,7 @@ export const Footer = ({ active, style, setCurrentPage, theme = 'default' }: Foo
     </View>
   ) : (
     <View />
-  )
+  );
 }
 
 export default Footer

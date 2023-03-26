@@ -1,4 +1,3 @@
-import React from 'react'
 import { TouchableOpacity } from 'react-native'
 import shallow from 'zustand/shallow'
 import tw from '../../../styles/tailwind'

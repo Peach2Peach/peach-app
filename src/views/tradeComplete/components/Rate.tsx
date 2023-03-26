@@ -1,5 +1,5 @@
 import { NETWORK } from '@env'
-import React, { ReactElement, useContext } from 'react'
+import { ReactElement, useContext } from 'react';
 import { View } from 'react-native'
 
 import { PrimaryButton } from '../../../components'

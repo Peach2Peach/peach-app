@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useEffect, useRef, useState } from 'react'
+import { ReactElement, useContext, useEffect, useRef, useState } from 'react';
 import { Animated, BackHandler, Dimensions, Easing, GestureResponderEvent, Pressable, View } from 'react-native'
 import { HorizontalLine, Icon, PeachScrollView, Text } from '.'
 

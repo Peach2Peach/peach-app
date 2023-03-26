@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react'
+import { useMemo, useState } from 'react';
 import { Keyboard } from 'react-native'
 import shallow from 'zustand/shallow'
 

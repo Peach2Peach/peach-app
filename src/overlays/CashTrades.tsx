@@ -1,5 +1,3 @@
-import React from 'react'
-
 import { Text } from '../components'
 import { BulletPoint } from '../components/text'
 import tw from '../styles/tailwind'

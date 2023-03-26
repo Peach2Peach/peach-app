@@ -1,5 +1,3 @@
-import React from 'react'
-
 import { HelpIcon } from '../../../components/icons'
 import { useHeaderSetup } from '../../../hooks'
 import { useShowHelp } from '../../../hooks/useShowHelp'

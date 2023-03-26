@@ -1,4 +1,4 @@
-import React, {
+import {
   ReactElement,
   useCallback,
   useContext,
@@ -7,7 +7,7 @@ import React, {
   useMemo,
   useRef,
   useState,
-} from 'react'
+} from 'react';
 import { TextInput } from 'react-native'
 import { FormProps } from './PaymentMethodForm'
 import { OverlayContext } from '../../../../contexts/overlay'

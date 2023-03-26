@@ -1,4 +1,3 @@
-import React from 'react'
 import { ContractItem } from '../components/ContractItem'
 import { OfferItem } from '../components/OfferItem'
 import { isContractSummary } from '../utils'

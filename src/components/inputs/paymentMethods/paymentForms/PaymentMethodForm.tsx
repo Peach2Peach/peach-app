@@ -1,4 +1,5 @@
-import React, { ReactElement, useRef } from 'react'
+import { ReactElement, useRef } from 'react';
+import * as React from 'react';
 import { View } from 'react-native'
 import { PaymentMethodForms } from '.'
 import { useKeyboard } from '../../../../hooks'

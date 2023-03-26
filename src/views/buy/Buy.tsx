@@ -1,4 +1,4 @@
-import React, { ReactElement, useCallback, useEffect, useMemo } from 'react'
+import { ReactElement, useCallback, useEffect, useMemo } from 'react';
 import { TouchableOpacity, View } from 'react-native'
 
 import tw from '../../styles/tailwind'

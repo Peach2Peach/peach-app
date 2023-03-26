@@ -1,4 +1,5 @@
-import React, { ReactElement, useContext, useEffect, useState } from 'react'
+import { ReactElement, useContext, useEffect, useState } from 'react';
+import * as React from 'react';
 import { View } from 'react-native'
 import { DrawerContext } from '../../contexts/drawer'
 

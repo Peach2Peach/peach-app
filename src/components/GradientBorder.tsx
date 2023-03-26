@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react';
 import { ImageStyle, StyleProp, TextStyle, View, ViewStyle } from 'react-native'
 import tw from '../styles/tailwind'
 import { ColorItem, RadialGradient } from './RadialGradient'

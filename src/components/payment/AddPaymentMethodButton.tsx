@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext } from 'react'
+import { ReactElement, useContext } from 'react';
 import { Pressable, View } from 'react-native'
 import { Icon, Text } from '../'
 import { DrawerContext } from '../../contexts/drawer'

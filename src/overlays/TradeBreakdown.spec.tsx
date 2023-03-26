@@ -1,4 +1,3 @@
-import React from 'react'
 import { createRenderer } from 'react-test-renderer/shallow'
 import { HorizontalLine } from '../components'
 import i18n from '../utils/i18n'

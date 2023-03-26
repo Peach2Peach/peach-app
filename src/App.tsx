@@ -1,5 +1,7 @@
 /* eslint-disable max-lines */
-import React, { ReactElement, useCallback, useEffect, useReducer, useRef, useState } from 'react'
+import { ReactElement, useCallback, useEffect, useReducer, useRef, useState } from 'react';
+
+import * as React from 'react';
 import { Animated, Dimensions, SafeAreaView, View } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 

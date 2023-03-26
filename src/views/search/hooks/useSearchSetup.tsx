@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo } from 'react'
+import { useContext, useEffect, useMemo } from 'react';
 import shallow from 'zustand/shallow'
 import { Icon, Text } from '../../../components'
 import { HelpIcon } from '../../../components/icons'

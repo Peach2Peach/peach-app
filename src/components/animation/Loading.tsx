@@ -1,4 +1,3 @@
-import React from 'react'
 import Lottie from 'lottie-react-native'
 import tw from '../../styles/tailwind'
 import { ColorValue } from 'react-native'

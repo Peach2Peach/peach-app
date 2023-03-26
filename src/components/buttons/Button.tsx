@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react';
 import { StyleProp, TextStyle, TouchableOpacity, TouchableOpacityProps, ViewStyle } from 'react-native'
 import tw from '../../styles/tailwind'
 import { Loading } from '../animation'

@@ -1,5 +1,5 @@
 import { API_URL } from '@env'
-import React, { ReactElement } from 'react'
+import { ReactElement } from 'react';
 import { Image, Pressable, View } from 'react-native'
 import { Text } from '../../components'
 import tw from '../../styles/tailwind'

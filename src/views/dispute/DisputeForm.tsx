@@ -1,4 +1,4 @@
-import React, { ReactElement, useMemo, useRef, useState } from 'react'
+import { ReactElement, useMemo, useRef, useState } from 'react';
 import { Keyboard, TextInput, View } from 'react-native'
 import tw from '../../styles/tailwind'
 

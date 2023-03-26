@@ -1,4 +1,4 @@
-import React, { ReactElement, useMemo, useState } from 'react'
+import { ReactElement, useMemo, useState } from 'react';
 import PaymentDetails from '../../components/payment/PaymentDetails'
 import { useHeaderSetup } from '../../hooks'
 import { account } from '../../utils/account'

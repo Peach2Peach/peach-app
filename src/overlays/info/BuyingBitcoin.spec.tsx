@@ -1,4 +1,3 @@
-import React from 'react'
 import { create } from 'react-test-renderer'
 import { Text } from '../../components'
 import i18n from '../../utils/i18n'

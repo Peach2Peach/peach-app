@@ -1,4 +1,4 @@
-import React, { Dispatch, ReactElement, SetStateAction, useCallback } from 'react'
+import { Dispatch, ReactElement, SetStateAction, useCallback } from 'react';
 import { Input } from '../../components'
 import { useValidatedState } from '../../hooks'
 import { bip39WordRules } from './hooks/useRestoreFromSeedSetup'

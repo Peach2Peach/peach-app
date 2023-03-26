@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect } from 'react'
+import { ReactElement, useEffect } from 'react';
 import { View } from 'react-native'
 import { BuyOfferSummary, PeachScrollView, PrimaryButton } from '../../components'
 import tw from '../../styles/tailwind'

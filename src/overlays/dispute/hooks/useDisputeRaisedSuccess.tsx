@@ -1,4 +1,4 @@
-import React, { useCallback, useContext } from 'react'
+import { useCallback, useContext } from 'react';
 import { OverlayContext } from '../../../contexts/overlay'
 import i18n from '../../../utils/i18n'
 import DisputeRaisedSuccess from '../components/DisputeRaisedSuccess'

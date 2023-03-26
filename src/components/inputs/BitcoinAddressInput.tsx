@@ -1,5 +1,5 @@
 import Clipboard from '@react-native-clipboard/clipboard'
-import React, { ReactElement, useState } from 'react'
+import { ReactElement, useState } from 'react';
 import { BarCodeReadEvent } from 'react-native-camera'
 import { parseBitcoinRequest } from '../../utils/bitcoin'
 import i18n from '../../utils/i18n'

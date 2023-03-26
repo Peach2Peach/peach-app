@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import { ReactElement } from 'react';
 
 import { Checkbox } from '../../../../components'
 import i18n from '../../../../utils/i18n'

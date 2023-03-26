@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import { ReactElement } from 'react';
 import { useMeetupEventsStore } from '../../../store/meetupEventsStore'
 import i18n from '../../../utils/i18n'
 import { InfoBlock } from './generalPaymentDetails'

@@ -1,4 +1,3 @@
-import React from 'react'
 import { View } from 'react-native'
 import { create } from 'react-test-renderer'
 import i18n from '../../../utils/i18n'
