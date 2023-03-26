@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import { ReactElement } from 'react'
 import { View } from 'react-native'
 import { SatsFormat, Text } from '../../components'
 import tw from '../../styles/tailwind'

@@ -1,4 +1,4 @@
-import { useCallback, useContext } from 'react';
+import { useCallback, useContext } from 'react'
 import { OverlayContext } from '../../contexts/overlay'
 import { ContractCanceledToSeller } from './ContractCanceledToSeller'
 import { BuyerConfirmedCancelTrade } from './BuyerConfirmedCancelTrade'

@@ -1,4 +1,4 @@
-import { ReactElement, useMemo, useState } from 'react';
+import { ReactElement, useMemo, useState } from 'react'
 import { View } from 'react-native'
 import { HorizontalLine } from '..'
 

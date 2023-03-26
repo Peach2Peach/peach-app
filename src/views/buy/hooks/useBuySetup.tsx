@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo } from 'react'
 import shallow from 'zustand/shallow'
 import { HelpIcon } from '../../../components/icons'
 

@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import { ReactElement } from 'react'
 import { Modal, TouchableOpacity, View, SafeAreaView } from 'react-native'
 import { BarCodeReadEvent } from 'react-native-camera'
 import QRCodeScanner from 'react-native-qrcode-scanner'

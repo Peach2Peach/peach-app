@@ -1,4 +1,4 @@
-import { ReactElement, useEffect, useRef } from 'react';
+import { ReactElement, useEffect, useRef } from 'react'
 import { ScrollView, View } from 'react-native'
 import { APPLINKS } from '../../constants'
 import tw from '../../styles/tailwind'

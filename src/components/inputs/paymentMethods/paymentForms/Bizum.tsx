@@ -1,12 +1,4 @@
-import {
-  ReactElement,
-  useCallback,
-  useEffect,
-  useImperativeHandle,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import { ReactElement, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
 import { TextInput, View } from 'react-native'
 import { FormProps } from './PaymentMethodForm'
 import { useValidatedState } from '../../../../hooks'

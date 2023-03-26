@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect } from 'react'
 import { Text } from '../../components'
 
 import { useHeaderSetup, useRoute } from '../../hooks'

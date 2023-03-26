@@ -1,4 +1,4 @@
-import { ReactElement, useMemo } from 'react';
+import { ReactElement, useMemo } from 'react'
 import { View, Image } from 'react-native'
 import tw from '../../styles/tailwind'
 import { PrimaryButton, Text } from '../../components'

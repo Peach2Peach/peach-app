@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef } from 'react'
 import { TouchableOpacity } from 'react-native'
 
 import { CopyAble, Icon, Text } from '../../../../../components'

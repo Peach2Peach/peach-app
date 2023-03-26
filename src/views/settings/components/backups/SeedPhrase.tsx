@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import { ReactElement } from 'react'
 import { View } from 'react-native'
 const { LinearGradient } = require('react-native-gradients')
 

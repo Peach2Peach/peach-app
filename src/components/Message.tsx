@@ -1,4 +1,4 @@
-import { ReactElement, useContext } from 'react';
+import { ReactElement, useContext } from 'react'
 import { TextProps, TextStyle, TouchableOpacity, View, ViewStyle } from 'react-native'
 
 import { Icon, Text } from '.'

@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import { ReactElement } from 'react'
 import { Icon } from '../../../components'
 import tw from '../../../styles/tailwind'
 

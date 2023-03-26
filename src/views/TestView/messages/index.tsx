@@ -1,4 +1,4 @@
-import { useContext, useMemo } from 'react';
+import { useContext, useMemo } from 'react'
 import { PeachScrollView, PrimaryButton } from '../../../components'
 import { MessageContext } from '../../../contexts/message'
 import { useHeaderSetup } from '../../../hooks'

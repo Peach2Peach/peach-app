@@ -1,4 +1,4 @@
-import { useCallback, useContext } from 'react';
+import { useCallback, useContext } from 'react'
 import { Keyboard } from 'react-native'
 import { Loading } from '../../../components'
 import { OverlayContext } from '../../../contexts/overlay'

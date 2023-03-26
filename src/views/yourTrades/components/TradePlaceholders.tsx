@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import { ReactElement } from 'react'
 import { TouchableOpacity, View } from 'react-native'
 import { useNavigation } from '../../../hooks'
 import { HorizontalLine, Icon, Text } from '../../../components'

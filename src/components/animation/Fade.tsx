@@ -1,4 +1,4 @@
-import { ReactElement, useEffect, useRef, useState } from 'react';
+import { ReactElement, useEffect, useRef, useState } from 'react'
 import { Animated, ViewProps } from 'react-native'
 
 type FadeProps = ViewProps &

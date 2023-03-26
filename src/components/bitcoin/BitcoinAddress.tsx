@@ -1,4 +1,4 @@
-import { ReactElement, useState } from 'react';
+import { ReactElement, useState } from 'react'
 import 'react-native-url-polyfill/auto'
 
 import { LayoutChangeEvent, Pressable, View } from 'react-native'

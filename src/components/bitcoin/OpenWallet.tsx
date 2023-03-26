@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import { ReactElement } from 'react'
 import 'react-native-url-polyfill/auto'
 
 import { TouchableOpacity } from 'react-native'

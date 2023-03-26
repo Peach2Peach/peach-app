@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import { ReactElement } from 'react'
 import { TouchableOpacity } from 'react-native'
 import { Icon, Text } from '..'
 import { FillProps } from 'react-native-svg'

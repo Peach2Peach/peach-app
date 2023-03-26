@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo } from 'react'
 import { FlatList, Image, ListRenderItem, View } from 'react-native'
 import loadingAnimation from '../../assets/animated/logo-rotate.gif'
 import { Text } from '../../components'

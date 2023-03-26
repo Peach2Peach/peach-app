@@ -1,5 +1,5 @@
 import analytics from '@react-native-firebase/analytics'
-import { ReactElement, useEffect, useState } from 'react';
+import { ReactElement, useEffect, useState } from 'react'
 
 import tw from '../../styles/tailwind'
 

@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import { ReactElement } from 'react'
 import { SectionList, View } from 'react-native'
 import { Loading } from '../../components'
 

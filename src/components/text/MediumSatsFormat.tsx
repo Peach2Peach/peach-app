@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import { ReactElement } from 'react'
 import { TextStyle, View } from 'react-native'
 import { Text } from '.'
 import { SATSINBTC } from '../../constants'

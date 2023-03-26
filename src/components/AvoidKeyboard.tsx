@@ -1,4 +1,4 @@
-import { ReactElement, useEffect, useState } from 'react';
+import { ReactElement, useEffect, useState } from 'react'
 import { AccessibilityInfo, Keyboard, KeyboardAvoidingView, Pressable } from 'react-native'
 import { isIOS } from '../utils/system'
 

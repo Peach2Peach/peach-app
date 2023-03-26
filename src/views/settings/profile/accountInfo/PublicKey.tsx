@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from 'react'
 import Clipboard from '@react-native-clipboard/clipboard'
 import { TouchableOpacity, View } from 'react-native'
 import { Icon, Text } from '../../../../components'

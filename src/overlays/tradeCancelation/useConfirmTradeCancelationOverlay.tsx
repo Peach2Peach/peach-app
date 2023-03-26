@@ -1,4 +1,4 @@
-import { useCallback, useContext } from 'react';
+import { useCallback, useContext } from 'react'
 import { Loading } from '../../components'
 import { OverlayContext } from '../../contexts/overlay'
 import { useNavigation } from '../../hooks'

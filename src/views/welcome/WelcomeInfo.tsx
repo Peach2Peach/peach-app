@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext } from 'react'
 import { Image, useWindowDimensions, View } from 'react-native'
 import { Text } from '../../components'
 import LanguageContext from '../../contexts/language'

@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import { ReactElement } from 'react'
 import { PriceFormat } from '../text'
 import { SATSINBTC } from '../../constants'
 import { useMarketPrices } from '../../hooks'

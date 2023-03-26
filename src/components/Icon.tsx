@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import { ReactElement } from 'react'
 import { FillProps } from 'react-native-svg'
 import { Text } from '.'
 import tw from '../styles/tailwind'

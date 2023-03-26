@@ -1,4 +1,4 @@
-import { ReactElement, useMemo } from 'react';
+import { ReactElement, useMemo } from 'react'
 import { IconType } from '../../../assets/icons'
 import { Icon } from '../../../components'
 import { SummaryItem } from '../../../components/lists/SummaryItem'

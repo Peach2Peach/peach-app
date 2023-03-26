@@ -1,5 +1,5 @@
 import Clipboard from '@react-native-clipboard/clipboard'
-import { ReactElement, useCallback, useImperativeHandle, useState } from 'react';
+import { ReactElement, useCallback, useImperativeHandle, useState } from 'react'
 import { Pressable, TextStyle } from 'react-native'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'

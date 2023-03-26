@@ -1,5 +1,5 @@
 import { useFocusEffect } from '@react-navigation/native'
-import { useCallback, useContext, useMemo, useState } from 'react';
+import { useCallback, useContext, useMemo, useState } from 'react'
 import { Icon } from '../../../components'
 import { HelpIcon } from '../../../components/icons'
 import { OverlayContext } from '../../../contexts/overlay'

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react'
 
 import { CancelIcon, HelpIcon } from '../../../components/icons'
 import ContractTitle from '../../../components/titles/ContractTitle'

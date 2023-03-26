@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import { ReactElement } from 'react'
 
 import CreateAccountError from './CreateAccountError'
 import CreateAccountLoading from './CreateAccountLoading'

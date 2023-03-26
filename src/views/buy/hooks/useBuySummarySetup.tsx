@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react'
 import shallow from 'zustand/shallow'
 import { WalletIcon } from '../../../components/icons'
 import { useHeaderSetup, useNavigation } from '../../../hooks'

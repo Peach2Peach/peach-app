@@ -1,4 +1,4 @@
-import { ReactElement, useCallback, useEffect, useRef, useState } from 'react';
+import { ReactElement, useCallback, useEffect, useRef, useState } from 'react'
 import { ScrollView, View } from 'react-native'
 import { useFocusEffect } from '@react-navigation/native'
 
@@ -75,7 +75,7 @@ export default (): ReactElement => {
       <Countries selected={country} {...{ paymentMethod, setCountry, ...commonProps }} />
     ) : (
       <View />
-    );
+    )
   }
 
   const initView = () => {

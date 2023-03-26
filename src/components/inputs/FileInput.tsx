@@ -1,4 +1,4 @@
-import { ReactElement, useState } from 'react';
+import { ReactElement, useState } from 'react'
 import { Platform } from 'react-native'
 import DocumentPicker from 'react-native-document-picker'
 import { readFileInChunks } from '../../utils/file'
