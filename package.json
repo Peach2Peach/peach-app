@@ -51,7 +51,7 @@
     "@types/react-native-snap-carousel": "^3.8.5",
     "assert": "^2.0.0",
     "bdk-rn": "github:Peach2Peach/bdk-rn#feature/add-drainwallet-method",
-    "bip174": "^2.0.1",
+    "bip174": "^2.1.0",
     "bip32": "^3.0.1",
     "bip39": "^3.0.4",
     "bitcoinjs-lib": "^6.0.2",
