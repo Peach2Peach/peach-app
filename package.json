@@ -78,7 +78,7 @@
     "react-native-gradients": "^1.2.0",
     "react-native-keychain": "^8.1.1",
     "react-native-level-fs": "^3.0.1",
-    "react-native-mmkv-storage": "^0.8.0",
+    "react-native-mmkv-storage": "^0.9.1",
     "react-native-parsed-text": "^0.0.22",
     "react-native-permissions": "^3.3.1",
     "react-native-promise-rejection-utils": "^0.0.1",
