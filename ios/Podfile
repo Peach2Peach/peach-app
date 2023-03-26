@@ -57,10 +57,6 @@ abstract_target 'peach' do
 
   pod 'react-native-camera', :path => '../node_modules/react-native-camera'
 
-  pod 'RNPermissions', :path => '../node_modules/react-native-permissions'
-
-  pod 'Permission-Camera', :path => "../node_modules/react-native-permissions/ios/Camera"
-
   pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
 
   target 'peach mainnet' do

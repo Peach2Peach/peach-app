@@ -179,8 +179,6 @@ PODS:
   - nanopb/decode (2.30909.0)
   - nanopb/encode (2.30909.0)
   - OpenSSL-Universal (1.1.1100)
-  - Permission-Camera (3.3.1):
-    - RNPermissions
   - PromisesObjC (2.2.0)
   - PromisesSwift (2.2.0):
     - PromisesObjC (= 2.2.0)
@@ -443,11 +441,11 @@ PODS:
     - React-Core
   - react-native-camera/RN (4.2.1):
     - React-Core
-  - react-native-document-picker (8.1.2):
+  - react-native-document-picker (8.2.0):
     - React-Core
-  - react-native-fast-openpgp (2.5.1):
+  - react-native-fast-openpgp (2.6.0):
     - React-Core
-  - react-native-mmkv-storage (0.8.0):
+  - react-native-mmkv-storage (0.9.1):
     - MMKV (= 1.2.13)
     - React-Core
   - react-native-netinfo (9.3.7):
@@ -581,7 +579,7 @@ PODS:
     - React-Core
   - RNKeychain (8.1.1):
     - React-Core
-  - RNPermissions (3.3.1):
+  - RNPermissions (3.8.0):
     - React-Core
   - RNReanimated (3.0.2):
     - DoubleConversion
@@ -654,7 +652,6 @@ DEPENDENCIES:
   - libevent (~> 2.1.12)
   - lottie-react-native (from `../node_modules/lottie-react-native`)
   - OpenSSL-Universal (= 1.1.1100)
-  - Permission-Camera (from `../node_modules/react-native-permissions/ios/Camera`)
   - RCT-Folly (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCTRequired (from `../node_modules/react-native/Libraries/RCTRequired`)
   - RCTTypeSafety (from `../node_modules/react-native/Libraries/TypeSafety`)
@@ -765,8 +762,6 @@ EXTERNAL SOURCES:
     :podspec: "../node_modules/react-native/sdks/hermes-engine/hermes-engine.podspec"
   lottie-react-native:
     :path: "../node_modules/lottie-react-native"
-  Permission-Camera:
-    :path: "../node_modules/react-native-permissions/ios/Camera"
   RCT-Folly:
     :podspec: "../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec"
   RCTRequired:
@@ -914,7 +909,6 @@ SPEC CHECKSUMS:
   MMKVCore: ddf41b9d9262f058419f9ba7598719af56c02cd3
   nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
   OpenSSL-Universal: ebc357f1e6bc71fa463ccb2fe676756aff50e88c
-  Permission-Camera: bae27a8503530770c35aadfecbb97ec71823382a
   PromisesObjC: 09985d6d70fbe7878040aa746d78236e6946d2ef
   PromisesSwift: cf9eb58666a43bbe007302226e510b16c1e10959
   RCT-Folly: 424b8c9a7a0b9ab2886ffe9c3b041ef628fd4fb1
@@ -932,9 +926,9 @@ SPEC CHECKSUMS:
   React-jsinspector: 1f51e775819199d3fe9410e69ee8d4c4161c7b06
   React-logger: 0d58569ec51d30d1792c5e86a8e3b78d24b582c6
   react-native-camera: 3eae183c1d111103963f3dd913b65d01aef8110f
-  react-native-document-picker: f5ec1a712ca2a975c233117f044817bb8393cad4
-  react-native-fast-openpgp: 50505664a126c26b8369c8f4919612589b2200db
-  react-native-mmkv-storage: 8ba3c0216a6df283ece11205b442a3e435aec4e5
+  react-native-document-picker: 495c444c0c773c6e83a5d91165890ecb1c0a399a
+  react-native-fast-openpgp: fb284303005e8ba22387f86fcd580fbdb204c728
+  react-native-mmkv-storage: cfb6854594cfdc5f7383a9e464bb025417d1721c
   react-native-netinfo: 2517ad504b3d303e90d7a431b0fcaef76d207983
   react-native-notification-badge: 7d458ff810ed02431eb46de253ecfc6a81148ba1
   react-native-randombytes: 421f1c7d48c0af8dbcd471b0324393ebf8fe7846
@@ -965,7 +959,7 @@ SPEC CHECKSUMS:
   RNFS: 4ac0f0ea233904cb798630b3c077808c06931688
   RNGestureHandler: 071d7a9ad81e8b83fe7663b303d132406a7d8f39
   RNKeychain: ff836453cba46938e0e9e4c22e43d43fa2c90333
-  RNPermissions: 34d678157c800b25b22a488e4d8babb57456e796
+  RNPermissions: 9c20349713ff2e275a35f906d921b9d815de116a
   RNReanimated: f0dd6b881808e635ef0673f89642937d6c141314
   RNScreens: 218801c16a2782546d30bd2026bb625c0302d70f
   RNShare: be91a5c149585affb02c25b351bd07ba927c7006
@@ -974,6 +968,6 @@ SPEC CHECKSUMS:
   Yoga: 79dd7410de6f8ad73a77c868d3d368843f0c93e0
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: b55c0fedd504f41804859e4ceef2528701c91fc7
+PODFILE CHECKSUM: b2ed8891d777fb1ae0420fa898b3bf9bf9be7372
 
 COCOAPODS: 1.12.0

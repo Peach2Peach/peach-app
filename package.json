@@ -80,7 +80,7 @@
     "react-native-level-fs": "^3.0.1",
     "react-native-mmkv-storage": "^0.9.1",
     "react-native-parsed-text": "^0.0.22",
-    "react-native-permissions": "^3.3.1",
+    "react-native-permissions": "^3.8.0",
     "react-native-promise-rejection-utils": "^0.0.1",
     "react-native-qrcode-scanner": "^1.5.5",
     "react-native-qrcode-svg": "^6.1.2",
@@ -182,5 +182,9 @@
     "_stream_duplex": "readable-stream/duplex",
     "_stream_passthrough": "readable-stream/passthrough",
     "stream": "stream-browserify"
-  }
+  },
+  "reactNativePermissionsIOS": [
+    "Camera",
+    "Notifications"
+  ]
 }
