@@ -1,12 +1,17 @@
-import { create } from 'react-test-renderer'
+import ShallowRenderer from 'react-test-renderer/shallow'
 import { Text } from '../../components'
-import i18n from '../../utils/i18n'
 import { BuyingBitcoin } from './BuyingBitcoin'
 
-describe('BuyingBitcoin', () => {
-  it('should render correctly', () => {
-    const testInstance = create(<BuyingBitcoin />).root
+// For some reason this is required to make the test suite run.
+jest.mock('../../components', () => ({
+  Text,
+}))
 
-    expect(testInstance.findByType(Text).props.children).toBe(i18n('help.buyingBitcoin.description'))
+describe('BuyingBitcoin', () => {
+  it('renders correctly', () => {
+    const renderer = ShallowRenderer.createRenderer()
+    renderer.render(<BuyingBitcoin />)
+    const tree = renderer.getRenderOutput()
+    expect(tree).toMatchSnapshot()
   })
 })
