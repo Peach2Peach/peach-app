@@ -4,21 +4,21 @@ exports[`PriceInfo should render correctly 1`] = `
 <React.Fragment>
   <SatsFormat
     bitcoinLogoStyle={
-      Object {
+      {
         "height": 18,
         "marginRight": 8,
         "width": 18,
       }
     }
     containerStyle={
-      Object {
+      {
         "alignSelf": "center",
         "justifyContent": "center",
       }
     }
     sats={210000}
     satsStyle={
-      Object {
+      {
         "fontFamily": "Baloo2-SemiBold",
         "fontSize": 16,
         "letterSpacing": 0.16,
@@ -26,7 +26,7 @@ exports[`PriceInfo should render correctly 1`] = `
       }
     }
     style={
-      Object {
+      {
         "fontFamily": "Baloo2-Bold",
         "fontSize": 24,
         "letterSpacing": 0.24,
@@ -36,21 +36,21 @@ exports[`PriceInfo should render correctly 1`] = `
   />
   <PeachText
     style={
-      Object {
+      {
         "textAlign": "center",
       }
     }
   >
     <Price
       match={
-        Object {
+        {
           "amount": 210000,
           "premium": 7,
         }
       }
-      offer={Object {}}
+      offer={{}}
       textStyle={
-        Object {
+        {
           "fontFamily": "Baloo2-SemiBold",
           "fontSize": 16,
           "letterSpacing": 0.16,
