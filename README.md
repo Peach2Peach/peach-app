@@ -44,6 +44,9 @@ Then edit the variables according to your setup
 To choose speicifc target
 `npm run ios -- --simulator="iPhone SE (3rd generation)"`
 
+Troubles with M1/M2 chips, run:
+`arch -x86_64 npm run ios`
+
 **Android**
 
 `npm run android`

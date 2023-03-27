@@ -915,7 +915,7 @@ SPEC CHECKSUMS:
   React-logger: 0d58569ec51d30d1792c5e86a8e3b78d24b582c6
   react-native-camera: 3eae183c1d111103963f3dd913b65d01aef8110f
   react-native-document-picker: f5ec1a712ca2a975c233117f044817bb8393cad4
-  react-native-fast-openpgp: 50505664a126c26b8369c8f4919612589b2200db
+  react-native-fast-openpgp: 6889a104cc1eeef546a9723b468041d3ecc6e6bb
   react-native-mmkv-storage: 8ba3c0216a6df283ece11205b442a3e435aec4e5
   react-native-netinfo: 2517ad504b3d303e90d7a431b0fcaef76d207983
   react-native-notification-badge: af03126a841319da4c18c80fd148146f55466a57
