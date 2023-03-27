@@ -1,7 +1,6 @@
 import pgp from '../../../init/pgp'
 import { saveOffer } from '../../../utils/offer'
 import { postBuyOffer } from '../../../utils/peachAPI'
-import { getAndUpdateTradingLimit } from './getAndUpdateTradingLimit'
 
 export const publishBuyOffer = async (
   offerDraft: BuyOfferDraft,
@@ -10,7 +9,6 @@ export const publishBuyOffer = async (
   const [result, err] = await postBuyOffer(offerDraft)
 
   if (result) {
-    getAndUpdateTradingLimit()
     saveOffer({ ...offerDraft, ...result })
     return { isOfferPublished: true, errorMessage: null }
   }

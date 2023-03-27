@@ -2,7 +2,6 @@ declare type SellOfferDraft = OfferDraft & {
   type: 'ask'
   amount: number
   premium: number
-  kycType?: KYCType
   returnAddress: string
   funding: FundingStatus
 }

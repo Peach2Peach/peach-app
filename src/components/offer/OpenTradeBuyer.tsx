@@ -36,25 +36,24 @@ export const OpenTradeBuyer = ({ contract }: TradeSummaryProps): ReactElement =>
         showsVerticalScrollIndicator
         persistentScrollbar
       >
-        <View style={tw`flex-row items-center justify-between mt-6`}>
-          <Text style={tw`text-black-2`}>{i18n('contract.youShouldPay')}</Text>
-          <View style={tw`flex-row items-center`}>
-            <PriceFormat style={tw`subtitle-1`} amount={contract.price} currency={contract.currency} />
-            <CopyAble value={contract.price.toFixed(2)} style={tw`ml-2`} />
-          </View>
-        </View>
-        <View style={tw`flex-row items-center justify-between mt-4`}>
-          <Text style={tw`text-black-2`}>{i18n('contract.summary.via')}</Text>
+        <View style={tw`items-start mt-6`}>
           <PaymentMethod
             paymentMethod={contract.paymentMethod.includes('cash.') ? 'cash' : contract.paymentMethod}
             showLink={!!appLink}
           />
         </View>
+        <View style={tw`flex-row items-center mt-2`}>
+          <Text style={tw`text-black-2 w-25`}>{i18n('amount')}</Text>
+          <View style={tw`flex-row items-center`}>
+            <PriceFormat style={tw`subtitle-1`} amount={contract.price} currency={contract.currency} />
+            <CopyAble value={contract.price.toFixed(2)} style={tw`ml-2`} />
+          </View>
+        </View>
         {contract.paymentMethod.includes('cash.') && <CashTradeDetails contract={contract} />}
         {!!contract.paymentData && !!PaymentTo && (
           <PaymentTo
-            style={tw`mt-4`}
             paymentData={contract.paymentData}
+            paymentMethod={contract.paymentMethod}
             country={contract.country}
             appLink={appLink?.appLink}
             fallbackUrl={appLink?.url}
@@ -62,7 +61,7 @@ export const OpenTradeBuyer = ({ contract }: TradeSummaryProps): ReactElement =>
           />
         )}
         {!contract.paymentData && contract.error === 'DECRYPTION_ERROR' && (
-          <ErrorBox style={tw`mt-4`}>{i18n('contract.paymentData.decyptionFailed')}</ErrorBox>
+          <ErrorBox style={tw`mt-[2px]`}>{i18n('contract.paymentData.decyptionFailed')}</ErrorBox>
         )}
 
         <HorizontalLine style={tw`mt-6`} />

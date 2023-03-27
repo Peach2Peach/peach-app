@@ -7,12 +7,22 @@
     "js",
     "jsx"
   ],
+  "collectCoverage": true,
+  "coverageReporters": ["lcov"],
+  "coverageThreshold": {
+    "global": {
+      "statements": 55.5,
+      "branches": 16.4,
+      "functions": 33,
+      "lines": 58
+    }
+  },
   "transform": {
     "\\.(js|jsx)$": "<rootDir>/node_modules/babel-jest",
     "^.+\\.(t|j)sx?$": "@swc/jest"
   },
   "transformIgnorePatterns": [
-    "node_modules/(?!(@react-native|react-native|@react-native-community|react-native-webview|react-native-canvas|react-native-form-validator|react-native-qrcode-scanner|react-native-permissions|react-native-shadow-2|react-native-qrcode-svg|bdk-rn)/)"
+    "node_modules/(?!(@react-native|react-native|@react-native-community|react-native-webview|react-native-canvas|react-native-form-validator|react-native-qrcode-scanner|react-native-permissions|react-native-shadow-2|react-native-qrcode-svg|bdk-rn|react-native-parsed-text)/)"
   ],
   "setupFiles": [
     "./tests/unit/prepare.ts",

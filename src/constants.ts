@@ -25,7 +25,8 @@ export const UNIQUEID = sha256(getUniqueId())
 
 export let CURRENCIES: Currency[] = ['EUR', 'CHF', 'GBP', 'SEK', 'DKK', 'BGN', 'CZK', 'HUF', 'PLN', 'RON', 'ISK', 'NOK']
 
-export let COUNTRIES: PaymentMethodCountry[] = [
+export let GIFTCARDCOUNTRIES: PaymentMethodCountry[] = ['DE', 'FR', 'IT', 'ES', 'NL', 'UK', 'SE', 'FI']
+export const NATIONALTRANSFERCOUNTRIES: PaymentMethodCountry[] = [
   'BE',
   'BG',
   'CA',
@@ -35,13 +36,16 @@ export let COUNTRIES: PaymentMethodCountry[] = [
   'DE',
   'DK',
   'ES',
-  'FR',
   'FI',
+  'FR',
   'GB',
   'GR',
+  'HU',
   'IT',
   'NL',
+  'NO',
   'PL',
+  'PO',
   'PT',
   'RO',
   'SE',
@@ -59,10 +63,27 @@ export let PAYMENTMETHODINFOS: PaymentMethodInfo[] = [
 ]
 
 export const PAYMENTCATEGORIES: PaymentCategories = {
-  bankTransfer: ['sepa', 'instantSepa', 'fasterPayments'],
-  onlineWallet: ['paypal', 'revolut', 'wise', 'twint', 'swish', 'blik', 'advcash', 'vipps', 'mobilePay'],
-  giftCard: ['giftCard.amazon'].concat(COUNTRIES.map((c) => `giftCard.amazon.${c}`)) as PaymentMethod[],
-  localOption: ['mbWay', 'bizum', 'satispay', 'mobilePay'],
+  bankTransfer: ['sepa', 'instantSepa', 'fasterPayments', 'straksbetaling'].concat(
+    NATIONALTRANSFERCOUNTRIES.map((c) => `nationalTransfer${c}`),
+  ) as PaymentMethod[],
+  onlineWallet: [
+    'paypal',
+    'revolut',
+    'wise',
+    'twint',
+    'swish',
+    'blik',
+    'advcash',
+    'vipps',
+    'mobilePay',
+    'skrill',
+    'neteller',
+    'paysera',
+    'friends24',
+    'n26',
+  ],
+  giftCard: ['giftCard.amazon'].concat(GIFTCARDCOUNTRIES.map((c) => `giftCard.amazon.${c}`)) as PaymentMethod[],
+  localOption: ['mbWay', 'bizum', 'satispay', 'mobilePay', 'keksPay', 'paylib', 'lydia', 'verse', 'iris'],
   cash: [],
   cryptoCurrency: [],
 }
@@ -73,8 +94,12 @@ export const LOCALPAYMENTMETHODS: LocalPaymentMethods = {
   EUR: {
     IT: ['satispay'],
     PT: ['mbWay'],
-    ES: ['bizum'],
+    ES: ['bizum', 'verse'],
     FI: ['mobilePay'],
+    HR: ['keksPay'],
+    FR: ['paylib', 'lydia', 'satispay'],
+    DE: ['satispay'],
+    GR: ['iris'],
   },
 }
 
@@ -101,7 +126,7 @@ export const APPLINKS: Record<string, { appLink?: string; url: string; userLink?
 export const setPaymentMethods = (paymentMethodInfos: PaymentMethodInfo[]) => {
   PAYMENTMETHODINFOS = paymentMethodInfos
   CURRENCIES = paymentMethodInfos.reduce((arr, info) => arr.concat(info.currencies), [] as Currency[]).filter(unique())
-  COUNTRIES = paymentMethodInfos
+  GIFTCARDCOUNTRIES = paymentMethodInfos
     .reduce((arr, info) => arr.concat(info.countries || []), [] as PaymentMethodCountry[])
     .filter(unique())
   PAYMENTMETHODS = paymentMethodInfos.map((method) => method.id)

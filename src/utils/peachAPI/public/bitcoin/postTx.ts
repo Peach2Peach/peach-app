@@ -2,6 +2,7 @@ import { API_URL } from '@env'
 import { RequestProps } from '../..'
 import fetch, { getAbortWithTimeout } from '../../../fetch'
 import { parseResponse } from '../../parseResponse'
+import { getPublicHeaders } from '../getPublicHeaders'
 
 type PostTxProps = RequestProps & {
   tx: string
@@ -13,10 +14,7 @@ export const postTx = async ({
   abortSignal,
 }: PostTxProps): Promise<[PostTxResponse | null, APIError | null]> => {
   const response = await fetch(`${API_URL}/v1/tx`, {
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
+    headers: getPublicHeaders(),
     method: 'POST',
     body: JSON.stringify({
       tx,

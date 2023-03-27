@@ -110,19 +110,19 @@ export const ChatMessage = ({
   return (
     <>
       {isChangeDate && (
-        <LinedText style={tw`px-6 py-2`}>
+        <LinedText style={tw`px-6 pt-7 mb-5`}>
           <Text style={tw`body-m text-black-2`}>{toDateFormat(message.date)}</Text>
         </LinedText>
       )}
       <View
         onStartShouldSetResponder={() => true}
-        style={[tw`w-10/12 px-3 bg-transparent`, meta.isYou ? tw`self-end` : {}]}
+        style={[tw`w-10/12 px-4 bg-transparent`, meta.isYou ? tw`self-end` : {}]}
       >
         {meta.showName && !meta.isYou ? <Text style={[tw`px-1 mt-4 -mb-2 subtitle-2`, text]}>{meta.name}</Text> : null}
-        <View style={[tw`px-3 py-2 mt-2 rounded-lg`, bgColor]}>
+        <View style={[tw`px-3 py-2 mt-2 rounded-2xl`, bgColor]}>
           <Text style={tw`flex-shrink-0`}>{message.message || i18n('chat.decyptionFailed')}</Text>
           <Text style={tw`pt-1 ml-auto leading-5 text-right`}>
-            <Text style={tw`body-s text-black-3`}>{toTimeFormat(message.date)}</Text>
+            <Text style={tw`subtitle-2 leading-xs text-black-3`}>{toTimeFormat(message.date)}</Text>
             {meta.isYou && (
               <View style={tw`pl-1`}>
                 <Icon id={statusIcon} style={tw`relative w-4 h-4 -bottom-1`} color={statusIconColor} />
@@ -135,8 +135,8 @@ export const ChatMessage = ({
             onPress={() => resendMessage(message)}
             style={tw`flex-row justify-end items-center mt-1 pr-3 mr-0.5`}
           >
-            <Text style={tw`text-error-main mr-1`}>
-              {i18n('chat.failedToSend')} <Text style={tw`text-error-main underline`}>{i18n('retry')}</Text>
+            <Text style={tw`mr-1 text-error-main`}>
+              {i18n('chat.failedToSend')} <Text style={tw`underline text-error-main`}>{i18n('retry')}</Text>
             </Text>
             <Icon id="refreshCcw" style={tw`w-3 h-3`} color={tw`text-error-main`.color} />
           </TouchableOpacity>

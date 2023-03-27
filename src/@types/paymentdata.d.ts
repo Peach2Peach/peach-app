@@ -42,6 +42,10 @@ declare type RevolutData = {
   userName: string
   email: string
 }
+declare type WiseData = {
+  phone: string
+  email: string
+}
 declare type VippsData = {
   phone: string
   beneficiary?: string
@@ -75,4 +79,54 @@ declare type AmazonGiftCardData = {
 }
 declare type CashData = {
   userId: string
+}
+declare type NationalTransferData = {
+  beneficiary: string
+  iban?: string
+  accountNumber?: string
+  bic?: string
+}
+declare type SkrillData = {
+  email: string
+  beneficiary?: string
+}
+declare type NetellerData = {
+  email: string
+  beneficiary?: string
+}
+declare type PayseraData = {
+  phone: string
+  beneficiary?: string
+}
+declare type StraksbetalingData = {
+  beneficiary: string
+  accountNumber: string
+}
+declare type KEKSPayData = {
+  beneficiary?: string
+  phone: string
+}
+declare type Friends24Data = {
+  beneficiary?: string
+  phone: string
+}
+declare type N26Data = {
+  beneficiary?: string
+  phone: string
+}
+declare type PaylibData = {
+  beneficiary?: string
+  phone: string
+}
+declare type LydiaData = {
+  beneficiary?: string
+  phone: string
+}
+declare type VerseData = {
+  beneficiary?: string
+  phone: string
+}
+declare type IrisData = {
+  beneficiary?: string
+  phone: string
 }

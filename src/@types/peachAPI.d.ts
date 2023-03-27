@@ -38,6 +38,8 @@ declare type APIError = {
   details?: unknown
 }
 
+declare type FeeRate = 'fastestFee' | 'halfHourFee' | 'hourFee' | 'economyFee' | 'custom'
+
 declare type User = {
   id: string
   creationDate: Date
@@ -58,6 +60,12 @@ declare type User = {
   }
   pgpPublicKey: string
   pgpPublicKeyProof: string
+}
+
+declare type UserPrivate = User & {
+  feeRate: FeeRate
+  historyRating: number
+  recentRating: number
 }
 
 declare type TradingLimit = {
@@ -85,6 +93,7 @@ declare type Currency =
   | 'RON'
   | 'ISK'
   | 'NOK'
+  | 'RON'
 declare type Pricebook = {
   [key in Currency]?: number
 }
@@ -111,6 +120,16 @@ declare type PaymentMethodCountry =
   | 'UK'
   | 'US'
   | 'FI'
+  | 'BG'
+  | 'CZ'
+  | 'DK'
+  | 'HU'
+  | 'NO'
+  | 'PL'
+  | 'PO'
+  | 'RO'
+  | 'HR'
+
 declare type Location = 'amsterdam' | 'belgianEmbassy' | 'lugano'
 declare type PaymentMethod =
   | 'sepa'
@@ -129,10 +148,22 @@ declare type PaymentMethod =
   | 'mbWay'
   | 'bizum'
   | 'mobilePay'
+  | 'skrill'
+  | 'neteller'
+  | 'paysera'
+  | 'keksPay'
+  | 'straksbetaling'
+  | 'friends24'
+  | 'n26'
+  | 'paylib'
+  | 'lydia'
+  | 'verse'
+  | 'iris'
   | `cash.${string}`
   | 'cash'
   | 'giftCard.amazon'
   | `giftCard.amazon.${PaymentMethodCountry}`
+  | `nationalTransfer${PaymentMethodCountry}`
 
 declare type MeetupEvent = {
   // BitcoinEvent in backend
@@ -156,7 +187,6 @@ declare type PaymentMethodInfo = {
   anonymous: boolean
 }
 
-declare type KYCType = 'iban' | 'id'
 declare type FundingStatus = {
   status: 'NULL' | 'MEMPOOL' | 'FUNDED' | 'WRONG_FUNDING_AMOUNT' | 'CANCELED'
   confirmations?: number
@@ -201,6 +231,8 @@ declare type TradeStatus =
   | 'escrowWaitingForConfirmation'
   | 'fundingAmountDifferent'
   | 'searchingForPeer'
+  | 'offerHidden'
+  | 'offerHiddenWithMatchesAvailable'
   | 'hasMatchesAvailable'
   | 'offerCanceled'
   | 'refundAddressRequired'
@@ -208,6 +240,7 @@ declare type TradeStatus =
   | 'paymentRequired'
   | 'confirmPaymentRequired'
   | 'dispute'
+  | 'releaseEscrow'
   | 'rateUser'
   | 'confirmCancelation'
   | 'tradeCompleted'
@@ -230,9 +263,6 @@ declare type OfferDraft = {
     >
   >
   originalPaymentData: PaymentData[]
-  kyc: boolean
-  walletLabel?: string
-  kycType?: KYCType
   walletLabel?: string
   tradeStatus?: TradeStatus
 }
@@ -299,8 +329,6 @@ declare type Match = {
   paymentData: Offer['paymentData']
   selectedCurrency?: Currency
   selectedPaymentMethod?: PaymentMethod
-  kyc: boolean
-  kycType?: KYCType
   symmetricKeyEncrypted: string
   symmetricKeySignature: string
   matched: boolean
@@ -381,8 +409,6 @@ declare type GenerateBlockResponse = {
   txId: string
 }
 
-declare type FeeRate = 'fastestFee' | 'halfHourFee' | 'hourFee' | 'economyFee' | 'custom'
-
 declare type FeeRecommendation = {
   fastestFee: number
   halfHourFee: number
@@ -447,3 +473,5 @@ declare type RefundSellOfferResponse = APISuccess
 declare type CheckReferralCodeResponse = {
   valid: boolean
 }
+
+declare type RedeemReferralCodeResponseBody = APISuccess & { bonusPoints: User['bonusPoints'] }

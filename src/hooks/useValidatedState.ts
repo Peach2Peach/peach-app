@@ -9,12 +9,13 @@ import { Rule } from '../utils/validation/rules'
  * @returns an array containing, in that order, the value & setValue, wether the value is valid and its error messages
  *
  * @example
- * const [value, setValue, isValueValid, valueErrors] = useValidatedState('defaultValue', { required: true })
+ * const [value, setValue, isValueValid, valueErrors, pristine] = useValidatedState('defaultValue', { required: true })
  */
 export const useValidatedState = <S extends string | number>(
   input: S,
   rulesToCheck: Partial<Record<Rule, any>>,
-): [S, React.Dispatch<React.SetStateAction<S>>, boolean, string[] | undefined] => {
+): [S, React.Dispatch<React.SetStateAction<S>>, boolean, string[] | undefined, boolean] => {
+  const [pristine, setPristine] = useState(true)
   const [value, setValue] = useState<S>(input)
   const [isValid, setIsValid] = useState(false)
   const [errorMessage, setErrorMessage] = useState<string[]>()
@@ -22,7 +23,8 @@ export const useValidatedState = <S extends string | number>(
     const errors = getErrorsInField(value, rulesToCheck)
     setIsValid(errors.length === 0)
     setErrorMessage(errors)
+    if (value) setPristine(false)
   }, [value, rulesToCheck])
 
-  return [value, setValue, isValid, errorMessage]
+  return [value, setValue, isValid, errorMessage, pristine]
 }

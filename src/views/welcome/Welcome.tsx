@@ -50,6 +50,7 @@ export default (): ReactElement => {
           style={tw`h-2`}
         />
         <Pressable
+          testID="welcome-skipFoward"
           onPress={goToEnd}
           style={[tw`flex flex-row items-center justify-end h-8`, endReached() ? tw`opacity-0` : {}]}
         >
@@ -71,8 +72,12 @@ export default (): ReactElement => {
             inactiveSlideShift={0}
             onBeforeSnapToItem={setPage}
             shouldOptimizeUpdates={true}
-            renderItem={({ item: Item }) => (
-              <View onStartShouldSetResponder={onStartShouldSetResponder} style={tw`h-full px-6`}>
+            renderItem={({ item: Item, index }) => (
+              <View
+                testID={'welcome-screen-' + index}
+                onStartShouldSetResponder={onStartShouldSetResponder}
+                style={tw`h-full px-6`}
+              >
                 <Item />
               </View>
             )}

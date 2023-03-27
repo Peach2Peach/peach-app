@@ -16,8 +16,6 @@ declare type Settings = {
   meansOfPayment: MeansOfPayment
   preferredPaymentMethods: Partial<Record<PaymentMethod, PaymentData['id']>>
   premium: number
-  kyc?: boolean
-  kycType?: KYCType
   pgpPublished?: boolean
   fcmToken?: string
   lastBackupDate?: number

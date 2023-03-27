@@ -10,7 +10,6 @@ import { getContract as getContractFromDevice, saveContract } from '../../utils/
 import i18n from '../../utils/i18n'
 import { PeachWSContext } from '../../utils/peachAPI/websocket'
 
-import shallow from 'zustand/shallow'
 import PeachBorder from '../../assets/logo/peachBorder.svg'
 import PeachOrange from '../../assets/logo/peachOrange.svg'
 import { useNotificationStore } from './notificationsStore'
@@ -39,7 +38,7 @@ const isSell = /sell|sellPreferences/u
 
 const themes = {
   default: {
-    text: tw`text-black-5`,
+    text: tw`text-black-2`,
     textSelected: tw`text-black-1`,
     textSelectedSettings: tw`text-primary-main`,
     bg: tw`bg-primary-background`,

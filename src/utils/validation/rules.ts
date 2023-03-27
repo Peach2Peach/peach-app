@@ -1,3 +1,4 @@
+import { isValidDigitLength } from './isValidDigitLength'
 import { validateMnemonic, wordlists } from 'bip39'
 import { address } from 'bitcoinjs-lib'
 import { getNetwork } from '../wallet'
@@ -16,6 +17,7 @@ import { isUKSortCode } from './isUKSortCode'
 import { isURL } from './isURL'
 import { isUsername } from './isUsername'
 import { isValidBitcoinSignature } from './isValidBitcoinSignature'
+import { isReferralCode } from './isReferralCode'
 
 export const rules = {
   required (required: boolean, value: string | number | null) {
@@ -61,7 +63,10 @@ export const rules = {
     return value && value.length > 7
   },
   referralCode (_: boolean, value: string) {
-    return !value || value.length === 0 || /^[A-Z0-9]{4,16}$/u.test(value)
+    return isReferralCode(value)
+  },
+  referralCodeTaken (isTaken: boolean) {
+    return !isTaken
   },
   iban (_: boolean, value: string) {
     return isIBAN(value)
@@ -104,6 +109,30 @@ export const rules = {
   },
   ukBankAccount (_: boolean, value: string) {
     return isUKBankAccount(value)
+  },
+  straksbetaling (_: boolean, value: string) {
+    return isValidDigitLength(value, 11)
+  },
+  nationalTransferPL (_: boolean, value: string) {
+    return isValidDigitLength(value, [26, 28])
+  },
+  nationalTransferCZ (_: boolean, value: string) {
+    return isValidDigitLength(value, [10, 14])
+  },
+  nationalTransferDK (_: boolean, value: string) {
+    return isValidDigitLength(value, 10)
+  },
+  nationalTransferHU (_: boolean, value: string) {
+    return isValidDigitLength(value, 24)
+  },
+  nationalTransferNO (_: boolean, value: string) {
+    return isValidDigitLength(value, 11)
+  },
+  nationalTransferBG (_: boolean, value: string) {
+    return isValidDigitLength(value, 11)
+  },
+  nationalTransferRO (_: boolean, value: string) {
+    return isValidDigitLength(value, 11)
   },
 }
 

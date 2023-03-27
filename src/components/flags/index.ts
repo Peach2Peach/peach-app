@@ -20,6 +20,7 @@ import RO from './ro.svg'
 import SE from './se.svg'
 import SI from './si.svg'
 import US from './us.svg'
+import HR from './hr.svg'
 
 const Flags = {
   BE,
@@ -44,6 +45,7 @@ const Flags = {
   SE,
   SI,
   US,
+  HR,
 }
 
 export type FlagType = keyof typeof Flags

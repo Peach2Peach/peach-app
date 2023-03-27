@@ -1,1 +1,0 @@
-export { isRejectedPromise } from './isRejectedPromise'

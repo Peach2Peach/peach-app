@@ -23,8 +23,8 @@ export const getThemeForPastTrade = (
       color: tw`text-black-5`.color,
     }
 
-    if (trade.type === 'ask') return { icon: 'sell', level, color: tw`text-primary-main`.color }
-    if (trade.type === 'bid') return { icon: 'buy', level, color: tw`text-success-main`.color }
+    if (trade.type === 'ask') return { icon: 'sell', level, color: tw`text-primary-mild-2`.color }
+    if (trade.type === 'bid') return { icon: 'buy', level, color: tw`text-success-mild`.color }
   }
 
   return {

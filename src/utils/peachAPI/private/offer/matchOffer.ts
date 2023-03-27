@@ -2,7 +2,7 @@ import { API_URL } from '@env'
 import { RequestProps } from '../..'
 import fetch, { getAbortWithTimeout } from '../../../fetch'
 import { parseResponse } from '../../parseResponse'
-import { fetchAccessToken } from '../user'
+import { getPrivateHeaders } from '../getPrivateHeaders'
 
 export type MatchProps = RequestProps & {
   offerId: string
@@ -17,7 +17,6 @@ export type MatchProps = RequestProps & {
 }
 
 /**
- * TODO: for KYC, send encrypted (using seller PGP key) KYC data
  * @description Method to match an offer
  * @returns MatchResponse
  */
@@ -34,11 +33,7 @@ export const matchOffer = async ({
   timeout,
 }: MatchProps): Promise<[MatchResponse | null, APIError | null]> => {
   const response = await fetch(`${API_URL}/v1/offer/${offerId}/match`, {
-    headers: {
-      Authorization: await fetchAccessToken(),
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
+    headers: await getPrivateHeaders(),
     body: JSON.stringify({
       matchingOfferId,
       currency,
