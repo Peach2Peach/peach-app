@@ -11,8 +11,8 @@ import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
 import { useDisputeRaisedSuccess } from '../../overlays/dispute/hooks/useDisputeRaisedSuccess'
 import { account } from '../../utils/account'
 import { EmailInput } from '../../components/inputs/EmailInput'
+import { isEmailRequiredForDispute } from '../../utils/dispute'
 
-export const isEmailRequired = (reason: DisputeReason | '') => /noPayment.buyer|noPayment.seller/u.test(reason)
 const required = { required: true }
 
 export default (): ReactElement => {
@@ -23,7 +23,10 @@ export default (): ReactElement => {
   const contractId = route.params.contractId
   const contract = getContract(contractId)
 
-  const emailRules = useMemo(() => ({ email: isEmailRequired(reason), required: isEmailRequired(reason) }), [reason])
+  const emailRules = useMemo(
+    () => ({ email: isEmailRequiredForDispute(reason), required: isEmailRequiredForDispute(reason) }),
+    [reason],
+  )
   const [email, setEmail, emailIsValid, emailErrors] = useValidatedState('', emailRules)
   const [message, setMessage, messageIsValid, messageErrors] = useValidatedState('', required)
   const [loading, setLoading] = useState(false)
