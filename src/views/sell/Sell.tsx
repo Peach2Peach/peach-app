@@ -25,15 +25,15 @@ export default (): ReactElement => {
 
   const [showBackupReminder, sellAmount, setSellAmount] = useSettingsStore(
     (state) => [state.showBackupReminder, state.sellAmount, state.setSellAmount],
-    shallow
+    shallow,
   )
   const [minTradingAmount, maxTradingAmount] = useConfigStore(
     (state) => [state.minTradingAmount, state.maxTradingAmount],
-    shallow
+    shallow,
   )
   const rangeRules = useMemo(
     () => ({ min: minTradingAmount, max: maxTradingAmount, required: true }),
-    [minTradingAmount, maxTradingAmount]
+    [minTradingAmount, maxTradingAmount],
   )
   const [amount, setAmount, amountValid] = useValidatedState(sellAmount, rangeRules)
 
@@ -41,7 +41,7 @@ export default (): ReactElement => {
     debounce((value: number) => {
       setAmount(value)
     }, 400),
-    [setAmount]
+    [setAmount],
   )
 
   const setSelectedAmount = useCallback(
@@ -49,7 +49,7 @@ export default (): ReactElement => {
       setSellAmount(value)
       updateStore(value)
     },
-    [setSellAmount, updateStore]
+    [setSellAmount, updateStore],
   )
   const next = () => navigation.navigate('sellPreferences')
 

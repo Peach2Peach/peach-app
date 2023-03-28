@@ -10,12 +10,12 @@ try {
   const dataFix = fs.readFileSync(`${curDir}/android-gradle-fix`, 'utf8')
   const data = fs.readFileSync(file, 'utf8')
 
-  const doLast = 'doLast \{'
-  if (data.indexOf(doLast) !== -1) {
+  const androidGradleFix = 'android-gradle-fix'
+  if (data.indexOf(androidGradleFix) !== -1) {
     throw 'Already fixed.'
   }
 
-  const result = data.replace(/\/\/ Set up inputs and outputs so gradle can cache the result/gu, dataFix)
+  const result = data.replace(/(\/\/ Set up inputs and outputs so gradle can cache the result)/gu, '$1\n' + dataFix)
   fs.writeFileSync(file, result, 'utf8')
   console.log('Android Gradle Fixed!')
 } catch (error) {

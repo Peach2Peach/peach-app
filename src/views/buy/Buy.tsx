@@ -32,15 +32,15 @@ export default (): ReactElement => {
       state.maxBuyAmount,
       state.setMaxBuyAmount,
     ],
-    shallow
+    shallow,
   )
   const [minTradingAmount, maxTradingAmount] = useConfigStore(
     (state) => [state.minTradingAmount, state.maxTradingAmount],
-    shallow
+    shallow,
   )
   const rangeRules = useMemo(
     () => ({ min: minTradingAmount, max: maxTradingAmount, required: true }),
-    [minTradingAmount, maxTradingAmount]
+    [minTradingAmount, maxTradingAmount],
   )
 
   const [currentMinAmount, setCurrentMinAmount, minAmountValid] = useValidatedState(minBuyAmount, rangeRules)
@@ -55,7 +55,7 @@ export default (): ReactElement => {
       setMinBuyAmount(min)
       setMaxBuyAmount(max)
     }, 400),
-    [setMinBuyAmount, setMaxBuyAmount]
+    [setMinBuyAmount, setMaxBuyAmount],
   )
   const setSelectedRange = ([min, max]: [number, number]) => {
     setCurrentMinAmount(min)
