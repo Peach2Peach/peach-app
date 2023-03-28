@@ -134,8 +134,8 @@
     "@types/react-native-canvas": "^0.1.9",
     "@types/react-native-dotenv": "^0.2.0",
     "@types/react-test-renderer": "^18.0.0",
-    "@typescript-eslint/eslint-plugin": "^5.18.0",
-    "@typescript-eslint/parser": "^5.56.0",
+    "@typescript-eslint/eslint-plugin": "^5.57.0",
+    "@typescript-eslint/parser": "^5.57.0",
     "babel-jest": "^29.5.0",
     "detox": "^20.6.0",
     "eslint": "^8.36.0",
@@ -151,9 +151,7 @@
     "metro-react-native-babel-preset": "^0.76.0",
     "react-native-svg-transformer": "^1.0.0",
     "react-native-version": "^4.0.0",
-    "react-test-renderer": "18.2.0",
-    "tailwind-rn": "^3.0.1",
-    "tailwindcss": "^2.2.7"
+    "react-test-renderer": "18.2.0"
   },
   "rnpm": {
     "assets": [
