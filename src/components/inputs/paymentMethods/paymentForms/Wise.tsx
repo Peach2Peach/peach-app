@@ -56,7 +56,7 @@ export const Wise = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
     type: 'wise',
     email,
     phone,
-    // this is missing the reference field
+    reference,
     currencies: selectedCurrencies,
   })
 
