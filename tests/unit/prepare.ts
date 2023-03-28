@@ -100,6 +100,7 @@ jest.mock('@react-native-firebase/analytics', () => () => ({
 jest.mock('react-native-device-info', () => ({
   getBuildNumber: jest.fn(),
   getUniqueId: () => 'UNIQUE-DEVICE-ID',
+  getUniqueIdSync: () => 'UNIQUE-DEVICE-ID',
   getVersion: () => '0.2.0',
   isAirplaneModeSync: jest.fn(),
   isEmulatorSync: () => true,
