@@ -22,7 +22,6 @@ export const setClientServerTimeDifference = (diff: number) => (CLIENTSERVERTIME
 export const ISEMULATOR = isEmulatorSync()
 
 export const UNIQUEID = sha256(getUniqueIdSync())
-console.log('UNIQUEID', UNIQUEID)
 
 export let CURRENCIES: Currency[] = ['EUR', 'CHF', 'GBP', 'SEK', 'DKK', 'BGN', 'CZK', 'HUF', 'PLN', 'RON', 'ISK', 'NOK']
 
