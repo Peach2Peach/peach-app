@@ -491,7 +491,7 @@ PODS:
     - React-Core
   - RNCMaskedView (0.1.11):
     - React
-  - RNDeviceInfo (8.7.1):
+  - RNDeviceInfo (10.4.0):
     - React-Core
   - RNFBAnalytics (17.4.0):
     - Firebase/AnalyticsWithoutAdIdSupport (= 10.7.0)
@@ -550,7 +550,7 @@ PODS:
     - React-RCTImage
   - RNShare (8.2.1):
     - React-Core
-  - RNSVG (12.5.1):
+  - RNSVG (13.8.0):
     - React-Core
   - Yoga (1.14.0)
 
@@ -838,7 +838,7 @@ SPEC CHECKSUMS:
   ReactCommon: b49a4b00ca6d181ff74b17c12b2d59ac4add0bde
   RNCClipboard: 3f0451a8100393908bea5c5c5b16f96d45f30bfc
   RNCMaskedView: 0e1bc4bfa8365eba5fbbb71e07fbdc0555249489
-  RNDeviceInfo: aad3c663b25752a52bf8fce93f2354001dd185aa
+  RNDeviceInfo: 749f2e049dcd79e2e44f134f66b73a06951b5066
   RNFBAnalytics: 324c312acc86bf759a8d64671dcce9a75f9c7bfa
   RNFBApp: 525cc4317f7955eda6bac09fac3acf7ee06afa0b
   RNFBCrashlytics: f24159efca2309fef256332e47d58b4af7a3fd41
@@ -850,7 +850,7 @@ SPEC CHECKSUMS:
   RNReanimated: f0dd6b881808e635ef0673f89642937d6c141314
   RNScreens: 218801c16a2782546d30bd2026bb625c0302d70f
   RNShare: eaee3dd5a06dad397c7d3b14762007035c5de405
-  RNSVG: d7d7bc8229af3842c9cfc3a723c815a52cdd1105
+  RNSVG: c1e76b81c76cdcd34b4e1188852892dc280eb902
   Yoga: 79dd7410de6f8ad73a77c868d3d368843f0c93e0
 
 PODFILE CHECKSUM: 21d8602ab40b64c120982e5c7ebf72e5ada845ee
