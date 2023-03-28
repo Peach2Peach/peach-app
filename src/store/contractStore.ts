@@ -3,12 +3,13 @@ import { createJSONStorage, persist } from 'zustand/middleware'
 import { updateArrayItem } from '../utils/array/updateArrayItem'
 import { createStorage, toZustandStorage } from '../utils/storage'
 
-const id = 'contracts'
+const storeId = 'contract-store'
 
-const contractStorage = createStorage(id)
+const contractStorage = createStorage(storeId)
 
 type ContractState = {
   contracts: Contract[]
+  migrated: boolean
 }
 export type ContractStore = ContractState & {
   contracts: Contract[]
@@ -20,6 +21,7 @@ export type ContractStore = ContractState & {
 
 const defaultContractStore: ContractState = {
   contracts: [],
+  migrated: false,
 }
 
 export const contractStore = createStore(
@@ -30,9 +32,10 @@ export const contractStore = createStore(
       getContract: (contractId) => get().contracts.find(({ id }) => id === contractId),
       getContracts: () => get().contracts,
       setContract: (contractId, data) => set(() => ({ contracts: updateArrayItem(get().contracts, contractId, data) })),
+      setMigrated: () => set(() => ({ migrated: true })),
     }),
     {
-      name: id,
+      name: storeId,
       version: 0,
       storage: createJSONStorage(() => toZustandStorage(contractStorage)),
     },
