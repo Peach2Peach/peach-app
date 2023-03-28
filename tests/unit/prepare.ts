@@ -111,6 +111,9 @@ jest.mock('react-native-webview')
 jest.mock('react-native-permissions', () => ({
   checkNotifications: jest.fn(),
 }))
+jest.mock('../../src/components/camera/CustomQRCodeScanner', ()=> ({
+  CustomQRCodeScanner: () => null,
+}))
 jest.mock('react-native-promise-rejection-utils', () => ({
   setUnhandledPromiseRejectionTracker: jest.fn(),
 }))
