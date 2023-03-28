@@ -19,7 +19,6 @@ export const Paysera = ({ forwardRef, data, currencies = [], onSubmit, setStepVa
   const [beneficiary, setBeneficiary] = useState(data?.beneficiary || '')
   const [reference, setReference, , referenceError] = useValidatedState(data?.reference || '', referenceRules)
   const [displayErrors, setDisplayErrors] = useState(false)
-  // is this used anywhere whatsoever?
   const [selectedCurrencies, setSelectedCurrencies] = useState(data?.currencies || currencies)
 
   let $phone = useRef<TextInput>(null).current
