@@ -1,4 +1,4 @@
-import { getBuildNumber, getUniqueId, getVersion, isEmulatorSync } from 'react-native-device-info'
+import { getBuildNumber, getUniqueIdSync, getVersion, isEmulatorSync } from 'react-native-device-info'
 import { unique } from './utils/array'
 import { sha256 } from './utils/crypto/sha256'
 
@@ -21,7 +21,8 @@ export const setClientServerTimeDifference = (diff: number) => (CLIENTSERVERTIME
 
 export const ISEMULATOR = isEmulatorSync()
 
-export const UNIQUEID = sha256(getUniqueId())
+export const UNIQUEID = sha256(getUniqueIdSync())
+console.log('UNIQUEID', UNIQUEID)
 
 export let CURRENCIES: Currency[] = ['EUR', 'CHF', 'GBP', 'SEK', 'DKK', 'BGN', 'CZK', 'HUF', 'PLN', 'RON', 'ISK', 'NOK']
 
