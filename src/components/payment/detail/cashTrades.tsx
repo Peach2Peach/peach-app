@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import { ReactElement } from 'react'
 import { useMeetupEventsStore } from '../../../store/meetupEventsStore'
 import i18n from '../../../utils/i18n'
 import { InfoBlock } from './generalPaymentDetails'
@@ -15,6 +15,7 @@ export const CashTradeDetails = ({ contract }: CashTradesDetailsProps): ReactEle
     <InfoBlock
       value={meetupEvent?.shortName + ` ${i18n('contract.summary.in')} ` + meetupEvent?.city}
       name={'contract.payment.to'}
-      copyable={false} />
+      copyable={false}
+    />
   )
 }

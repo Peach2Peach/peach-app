@@ -1,4 +1,4 @@
-import React, { ReactElement, useMemo } from 'react'
+import { ReactElement, useMemo } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 

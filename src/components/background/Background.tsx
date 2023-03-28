@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { View, StatusBar, ViewStyle } from 'react-native'
 import tw from '../../styles/tailwind'
 import { primaryGradient } from '../../utils/layout'

@@ -1,5 +1,4 @@
 import { TouchableOpacity, View, ViewStyle } from 'react-native'
-import React from 'react'
 import { Icon, Text } from '../../../components'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'

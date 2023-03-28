@@ -1,4 +1,4 @@
-import React, { ReactElement, useMemo } from 'react'
+import { ReactElement, useMemo } from 'react'
 import { Pressable } from 'react-native'
 import { APPLINKS } from '../../constants'
 import tw from '../../styles/tailwind'

@@ -3,7 +3,7 @@
 exports[`PayoutAddress should render correctly 1`] = `
 <View
   style={
-    Object {
+    {
       "alignItems": "center",
       "height": "100%",
       "justifyContent": "space-between",
@@ -12,7 +12,7 @@ exports[`PayoutAddress should render correctly 1`] = `
 >
   <PeachScrollView
     contentContainerStyle={
-      Object {
+      {
         "height": "100%",
         "justifyContent": "center",
         "paddingBottom": 32,
@@ -22,7 +22,7 @@ exports[`PayoutAddress should render correctly 1`] = `
       }
     }
     style={
-      Object {
+      {
         "flexShrink": 1,
         "height": "100%",
         "width": "100%",
@@ -31,7 +31,7 @@ exports[`PayoutAddress should render correctly 1`] = `
   >
     <PeachText
       style={
-        Object {
+        {
           "fontFamily": "Baloo2-Bold",
           "fontSize": 20,
           "letterSpacing": 0.2,
@@ -47,7 +47,7 @@ exports[`PayoutAddress should render correctly 1`] = `
       onChange={[MockFunction]}
       placeholder="address label"
       style={
-        Object {
+        {
           "marginTop": 16,
         }
       }
@@ -61,7 +61,7 @@ exports[`PayoutAddress should render correctly 1`] = `
     <OpenWallet
       address="address"
       style={
-        Object {
+        {
           "height": 24,
         }
       }
@@ -72,7 +72,7 @@ exports[`PayoutAddress should render correctly 1`] = `
     narrow={true}
     onPress={[MockFunction]}
     style={
-      Object {
+      {
         "bottom": 24,
         "marginTop": 64,
         "position": "absolute",
@@ -87,7 +87,7 @@ exports[`PayoutAddress should render correctly 1`] = `
 exports[`PayoutAddress should render correctly when isUpdated is true 1`] = `
 <View
   style={
-    Object {
+    {
       "alignItems": "center",
       "height": "100%",
       "justifyContent": "space-between",
@@ -96,7 +96,7 @@ exports[`PayoutAddress should render correctly when isUpdated is true 1`] = `
 >
   <PeachScrollView
     contentContainerStyle={
-      Object {
+      {
         "height": "100%",
         "justifyContent": "center",
         "paddingBottom": 32,
@@ -106,7 +106,7 @@ exports[`PayoutAddress should render correctly when isUpdated is true 1`] = `
       }
     }
     style={
-      Object {
+      {
         "flexShrink": 1,
         "height": "100%",
         "width": "100%",
@@ -115,7 +115,7 @@ exports[`PayoutAddress should render correctly when isUpdated is true 1`] = `
   >
     <PeachText
       style={
-        Object {
+        {
           "fontFamily": "Baloo2-Bold",
           "fontSize": 20,
           "letterSpacing": 0.2,
@@ -131,7 +131,7 @@ exports[`PayoutAddress should render correctly when isUpdated is true 1`] = `
       onChange={[MockFunction]}
       placeholder="address label"
       style={
-        Object {
+        {
           "marginTop": 16,
         }
       }
@@ -144,7 +144,7 @@ exports[`PayoutAddress should render correctly when isUpdated is true 1`] = `
     />
     <View
       style={
-        Object {
+        {
           "flexDirection": "row",
           "height": 24,
           "justifyContent": "center",
@@ -154,7 +154,7 @@ exports[`PayoutAddress should render correctly when isUpdated is true 1`] = `
     >
       <PeachText
         style={
-          Object {
+          {
             "fontFamily": "Baloo2-SemiBold",
             "fontSize": 14,
             "letterSpacing": 0.5,
@@ -169,7 +169,7 @@ exports[`PayoutAddress should render correctly when isUpdated is true 1`] = `
         color="#05A85A"
         id="check"
         style={
-          Object {
+          {
             "height": 20,
             "marginLeft": 4,
             "width": 20,
@@ -183,7 +183,7 @@ exports[`PayoutAddress should render correctly when isUpdated is true 1`] = `
     narrow={true}
     onPress={[MockFunction]}
     style={
-      Object {
+      {
         "bottom": 24,
         "marginTop": 64,
         "position": "absolute",
@@ -198,7 +198,7 @@ exports[`PayoutAddress should render correctly when isUpdated is true 1`] = `
 exports[`PayoutAddress should render correctly when type is refund 1`] = `
 <View
   style={
-    Object {
+    {
       "alignItems": "center",
       "height": "100%",
       "justifyContent": "space-between",
@@ -207,7 +207,7 @@ exports[`PayoutAddress should render correctly when type is refund 1`] = `
 >
   <PeachScrollView
     contentContainerStyle={
-      Object {
+      {
         "height": "100%",
         "justifyContent": "center",
         "paddingBottom": 32,
@@ -217,7 +217,7 @@ exports[`PayoutAddress should render correctly when type is refund 1`] = `
       }
     }
     style={
-      Object {
+      {
         "flexShrink": 1,
         "height": "100%",
         "width": "100%",
@@ -226,7 +226,7 @@ exports[`PayoutAddress should render correctly when type is refund 1`] = `
   >
     <PeachText
       style={
-        Object {
+        {
           "fontFamily": "Baloo2-Bold",
           "fontSize": 20,
           "letterSpacing": 0.2,
@@ -242,7 +242,7 @@ exports[`PayoutAddress should render correctly when type is refund 1`] = `
       onChange={[MockFunction]}
       placeholder="address label"
       style={
-        Object {
+        {
           "marginTop": 16,
         }
       }
@@ -256,7 +256,7 @@ exports[`PayoutAddress should render correctly when type is refund 1`] = `
     <OpenWallet
       address="address"
       style={
-        Object {
+        {
           "height": 24,
         }
       }
@@ -267,7 +267,7 @@ exports[`PayoutAddress should render correctly when type is refund 1`] = `
     narrow={true}
     onPress={[MockFunction]}
     style={
-      Object {
+      {
         "bottom": 24,
         "marginTop": 64,
         "position": "absolute",

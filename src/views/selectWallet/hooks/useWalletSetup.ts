@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import shallow from 'zustand/shallow'
+import { shallow } from 'zustand/shallow'
 import { useSettingsStore } from '../../../store/settingsStore'
 import i18n from '../../../utils/i18n'
 
@@ -13,7 +13,7 @@ export const useWalletSetup = () => {
         state.payoutAddressLabel,
         state.payoutAddressSignature,
       ],
-      shallow,
+      shallow
     )
 
   const wallets = useMemo(() => {

@@ -1,5 +1,4 @@
 import { NETWORK } from '@env'
-import React from 'react'
 import { TouchableOpacity } from 'react-native'
 import { Icon, Text } from '../..'
 import tw from '../../../styles/tailwind'

@@ -1,10 +1,9 @@
-
-import React, { ReactElement } from 'react'
+import { ReactElement } from 'react'
 import { Text } from '.'
 import Flags, { FlagType } from './flags'
 
 type FlagProps = ComponentProps & {
-  id: FlagType,
+  id: FlagType
 }
 
 /**
@@ -18,9 +17,7 @@ type FlagProps = ComponentProps & {
 export const Flag = ({ id, style }: FlagProps): ReactElement => {
   const SVG = Flags[id]
 
-  return SVG
-    ? <SVG style={style}/>
-    : <Text>❌</Text>
+  return SVG ? <SVG style={style} /> : <Text>❌</Text>
 }
 
 export default Flag

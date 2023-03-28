@@ -1,10 +1,9 @@
-import React from 'react'
 import { View } from 'react-native'
 
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 
-import shallow from 'zustand/shallow'
+import { shallow } from 'zustand/shallow'
 import { PriceFormat, Text } from '../.'
 import { useBitcoinStore } from '../../store/bitcoinStore'
 import { round } from '../../utils/math'
@@ -13,7 +12,7 @@ import { thousands } from '../../utils/string'
 export const BitcoinPriceStats = () => {
   const [currency, satsPerUnit, price] = useBitcoinStore(
     (state) => [state.currency, state.satsPerUnit, state.price],
-    shallow,
+    shallow
   )
 
   return (

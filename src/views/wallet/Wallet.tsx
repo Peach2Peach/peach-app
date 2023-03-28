@@ -1,4 +1,3 @@
-import React from 'react'
 import { RefreshControl, View } from 'react-native'
 import { AvoidKeyboard, Loading, PeachScrollView, Text } from '../../components'
 import { OpenWallet } from '../../components/bitcoin'

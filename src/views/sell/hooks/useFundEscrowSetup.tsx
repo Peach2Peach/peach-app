@@ -1,6 +1,6 @@
 import { NETWORK } from '@env'
 import { useFocusEffect } from '@react-navigation/native'
-import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { CancelIcon, HelpIcon } from '../../../components/icons'
 import checkFundingStatusEffect from '../../../effects/checkFundingStatusEffect'
 import { useCancelOffer, useHeaderSetup, useNavigation, useRoute } from '../../../hooks'

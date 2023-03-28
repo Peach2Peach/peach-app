@@ -1,10 +1,10 @@
-import React, { ReactElement, useCallback, useState } from 'react'
+import { ReactElement, useCallback, useState, Dispatch, SetStateAction } from 'react'
 import { BackHandler, View } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import OfferDetails from './OfferDetails'
 
-import shallow from 'zustand/shallow'
+import { shallow } from 'zustand/shallow'
 import { useSettingsStore } from '../../store/settingsStore'
 import { getBuyOfferDraft } from './helpers/getBuyOfferDraft'
 import Summary from './Summary'
@@ -12,7 +12,7 @@ import { useFocusEffect } from '@react-navigation/native'
 
 export type BuyViewProps = {
   offerDraft: BuyOfferDraft
-  setOfferDraft: React.Dispatch<React.SetStateAction<BuyOfferDraft>>
+  setOfferDraft: Dispatch<SetStateAction<BuyOfferDraft>>
   next: () => void
 }
 
@@ -35,7 +35,7 @@ export default (): ReactElement => {
       maxBuyAmount: state.maxBuyAmount,
       meansOfPayment: state.meansOfPayment,
     }),
-    shallow,
+    shallow
   )
   const [offerDraft, setOfferDraft] = useState(getBuyOfferDraft(partialSettings))
 
@@ -56,7 +56,7 @@ export default (): ReactElement => {
       return () => {
         listener.remove()
       }
-    }, [page]),
+    }, [page])
   )
 
   const next = () => {

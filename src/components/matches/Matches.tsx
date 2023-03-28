@@ -1,4 +1,3 @@
-import React from 'react'
 import { useWindowDimensions } from 'react-native'
 import Carousel from 'react-native-snap-carousel'
 import { useRoute } from '../../hooks'

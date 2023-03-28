@@ -1,4 +1,4 @@
-import React, { ReactElement, Ref, useEffect, useMemo, useState } from 'react'
+import { ReactElement, Ref, useEffect, useMemo, useState } from 'react'
 import {
   NativeSyntheticEvent,
   Pressable,

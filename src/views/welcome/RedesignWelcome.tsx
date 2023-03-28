@@ -1,11 +1,11 @@
-import React, { ReactElement, useMemo } from 'react'
+import { ReactElement, useMemo } from 'react'
 import { View, Image } from 'react-native'
 import tw from '../../styles/tailwind'
 import { PrimaryButton, Text } from '../../components'
 import { useHeaderSetup, useNavigation } from '../../hooks'
 import i18n from '../../utils/i18n'
 import { useConfigStore } from '../../store/configStore'
-import shallow from 'zustand/shallow'
+import { shallow } from 'zustand/shallow'
 import bitcoinAnimation from '../../assets/animated/bitcoin.gif'
 import { useSettingsStore } from '../../store/settingsStore'
 
@@ -19,8 +19,8 @@ export default (): ReactElement => {
         hideGoBackButton: true,
         theme: 'inverted',
       }),
-      [],
-    ),
+      []
+    )
   )
   return (
     <View testID="redesignWelcome" style={tw`flex-1`}>

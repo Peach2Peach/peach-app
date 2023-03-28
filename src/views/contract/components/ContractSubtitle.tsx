@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import { ReactElement } from 'react'
 import { TouchableOpacity, View } from 'react-native'
 import { Icon, SatsFormat, Text } from '../../../components'
 import { getPremiumColor } from '../../../components/matches/utils'

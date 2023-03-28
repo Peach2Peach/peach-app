@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import { ReactElement } from 'react'
 import { View } from 'react-native'
 
 import { Input, PremiumSlider, PrimaryButton, SatsFormat, Text } from '../../components'

@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useMemo } from 'react'
-import shallow from 'zustand/shallow'
+import { useContext, useEffect, useMemo } from 'react'
+import { shallow } from 'zustand/shallow'
 import { Icon, Text } from '../../../components'
 import { HelpIcon } from '../../../components/icons'
 import { useMatchStore } from '../../../components/matches/store'
@@ -53,7 +53,7 @@ export const useSearchSetup = () => {
     () => () => {
       resetStore()
     },
-    [resetStore],
+    [resetStore]
   )
 
   useEffect(() => {

@@ -1,5 +1,5 @@
 import { createStore, useStore } from 'zustand'
-import { persist } from 'zustand/middleware'
+import { createJSONStorage, persist } from 'zustand/middleware'
 import { createStorage, toZustandStorage } from '../../utils/storage'
 
 export type NotificationsConfig = {
@@ -27,7 +27,7 @@ export const notificationStore = createStore(
     {
       name: 'notifications',
       version: 0,
-      getStorage: () => toZustandStorage(notificationStorage),
+      storage: createJSONStorage(() => toZustandStorage(notificationStorage)),
     },
   ),
 )

@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
 import { Icon } from '../../../components'
 import { useHeaderSetup, useNavigation } from '../../../hooks'
 import tw from '../../../styles/tailwind'

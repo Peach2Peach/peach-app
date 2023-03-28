@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import { OverlayContext } from '../../../contexts/overlay'
 import { useNavigation } from '../../../hooks'
 import DeletePaymentMethodConfirm from '../../../overlays/info/DeletePaymentMethodConfirm'

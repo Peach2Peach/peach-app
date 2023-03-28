@@ -1,5 +1,5 @@
 import { CommonActions } from '@react-navigation/native'
-import React, { useCallback, useContext } from 'react'
+import { useCallback, useContext } from 'react'
 
 import { Text } from '../../../../components'
 import { OverlayContext } from '../../../../contexts/overlay'

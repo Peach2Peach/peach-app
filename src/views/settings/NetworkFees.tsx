@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useEffect, useState } from 'react'
+import { ReactElement, useContext, useEffect, useState } from 'react'
 import { View } from 'react-native'
 
 import tw from '../../styles/tailwind'
@@ -12,7 +12,7 @@ import CustomFeeItem from './components/networkFees/CustomFeeItem'
 import EstimatedFeeItem from './components/networkFees/EstimatedFeeItem'
 import { useNetworkFeesSetup } from './hooks/useNetworkFeesSetup'
 import { useSettingsStore } from '../../store/settingsStore'
-import shallow from 'zustand/shallow'
+import { shallow } from 'zustand/shallow'
 
 const customFeeRules = {
   required: true,
@@ -28,11 +28,11 @@ export default (): ReactElement => {
   const [feeRate, setFeeRate] = useSettingsStore((state) => [state.feeRate, state.setFeeRate], shallow)
 
   const [selectedFeeRate, setSelectedFeeRate] = useState<FeeRate | number>(
-    !!feeRate ? (typeof feeRate === 'number' ? 'custom' : feeRate) : 'halfHourFee',
+    !!feeRate ? (typeof feeRate === 'number' ? 'custom' : feeRate) : 'halfHourFee'
   )
   const [customFeeRate, setCustomFeeRate, isValid] = useValidatedState<string>(
     typeof feeRate === 'number' ? feeRate.toString() : '1',
-    customFeeRules,
+    customFeeRules
   )
   const [feeRateSet, setFeeRateSet] = useState(true)
 

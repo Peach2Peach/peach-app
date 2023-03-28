@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import shallow from 'zustand/shallow'
+import { shallow } from 'zustand/shallow'
 import { useTradeSummaryStore } from '../../../store/tradeSummaryStore'
 
 type PNEventHandlers = Partial<Record<NotificationType, (data: PNData) => void>>
@@ -7,7 +7,7 @@ type PNEventHandlers = Partial<Record<NotificationType, (data: PNData) => void>>
 export const useStateUpdateEvents = () => {
   const [getContractSummary, setContract] = useTradeSummaryStore(
     (state) => [state.getContract, state.setContract],
-    shallow,
+    shallow
   )
   const stateUpdateEvents: PNEventHandlers = useMemo(
     () => ({
@@ -19,7 +19,7 @@ export const useStateUpdateEvents = () => {
         setContract(contractId, { unreadMessages: contract.unreadMessages + 1 })
       },
     }),
-    [getContractSummary, setContract],
+    [getContractSummary, setContract]
   )
   return stateUpdateEvents
 }

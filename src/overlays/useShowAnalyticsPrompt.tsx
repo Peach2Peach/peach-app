@@ -1,13 +1,13 @@
-import React, { useCallback } from 'react'
-import shallow from 'zustand/shallow'
+import { useCallback, Dispatch } from 'react'
+import { shallow } from 'zustand/shallow'
 import { useSettingsStore } from '../store/settingsStore'
 import i18n from '../utils/i18n'
 import { AnalyticsPrompt } from './AnalyticsPrompt'
 
-export const useShowAnalyticsPrompt = (updateOverlay: React.Dispatch<OverlayState>) => {
+export const useShowAnalyticsPrompt = (updateOverlay: Dispatch<OverlayState>) => {
   const [setAnalyticsPopupSeen, setEnableAnalytics] = useSettingsStore(
     (state) => [state.setAnalyticsPopupSeen, state.setEnableAnalytics],
-    shallow,
+    shallow
   )
 
   const accept = useCallback(() => {

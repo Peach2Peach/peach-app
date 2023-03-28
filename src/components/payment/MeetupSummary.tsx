@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import { ReactElement } from 'react'
 import { Text, Pressable } from 'react-native'
 import tw from '../../styles/tailwind'
 import { HorizontalLine } from '../ui'

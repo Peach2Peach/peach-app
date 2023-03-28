@@ -1,4 +1,3 @@
-import React from 'react'
 import tw from '../../../styles/tailwind'
 import { SatsFormat, Text } from '../../text'
 import { Price } from '../Price'

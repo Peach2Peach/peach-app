@@ -6,19 +6,26 @@ module.exports = (api) => {
 
   console.log('dotenv path: ', process.env.NODE_ENV, path)
   return {
-    presets: ['module:metro-react-native-babel-preset'],
+    presets: [['module:metro-react-native-babel-preset', { useTransformReactJSXExperimmental: true }]],
     plugins: [
       [
-        'module:react-native-dotenv', {
+        '@babel/plugin-transform-react-jsx',
+        {
+          runtime: 'automatic',
+        },
+      ],
+      [
+        'module:react-native-dotenv',
+        {
           envName: 'BUNDLE',
           moduleName: '@env',
           path,
           blocklist: null,
           allowlist: null,
           safe: false,
-          allowUndefined: false
-        }
-      ]
-    ]
+          allowUndefined: false,
+        },
+      ],
+    ],
   }
 }

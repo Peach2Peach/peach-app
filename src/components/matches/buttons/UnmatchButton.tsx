@@ -1,4 +1,4 @@
-import React, { useCallback, useContext } from 'react'
+import { useCallback, useContext } from 'react'
 import { OverlayContext } from '../../../contexts/overlay'
 import { useToggleBoolean } from '../../../hooks'
 import { useShowAppPopup } from '../../../hooks/useShowAppPopup'

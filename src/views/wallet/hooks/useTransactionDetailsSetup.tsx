@@ -1,6 +1,6 @@
 import { NETWORK } from '@env'
 import { useEffect, useMemo, useState } from 'react'
-import shallow from 'zustand/shallow'
+import { shallow } from 'zustand/shallow'
 
 import { useHeaderSetup, useRoute } from '../../../hooks'
 import { useBitcoinStore } from '../../../store/bitcoinStore'
@@ -26,8 +26,8 @@ export const useTransactionDetailsSetup = () => {
       () => ({
         title: i18n('wallet.transactionDetails'),
       }),
-      [],
-    ),
+      []
+    )
   )
 
   const openInExplorer = () => {

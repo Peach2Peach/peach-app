@@ -3,7 +3,7 @@
 exports[`PremiumText should render correctly at market price 1`] = `
 <PeachText
   style={
-    Object {
+    {
       "color": "#7D675E",
     }
   }
@@ -16,7 +16,7 @@ exports[`PremiumText should render correctly at market price 1`] = `
 exports[`PremiumText should render correctly with discount 1`] = `
 <PeachText
   style={
-    Object {
+    {
       "color": "#7D675E",
     }
   }
@@ -29,7 +29,7 @@ exports[`PremiumText should render correctly with discount 1`] = `
 exports[`PremiumText should render correctly with premium 1`] = `
 <PeachText
   style={
-    Object {
+    {
       "color": "#7D675E",
     }
   }

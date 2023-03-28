@@ -1,4 +1,3 @@
-import React from 'react'
 import { Icon } from '../../../components'
 import tw from '../../../styles/tailwind'
 import { HeaderConfig } from '../../../components/header/store'

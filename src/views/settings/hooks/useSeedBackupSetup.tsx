@@ -1,5 +1,5 @@
-import React, { useState, useCallback } from 'react'
-import shallow from 'zustand/shallow'
+import { useState, useCallback } from 'react'
+import { shallow } from 'zustand/shallow'
 import { HelpIcon } from '../../../components/icons'
 import { useHeaderSetup, useToggleBoolean } from '../../../hooks'
 import { useShowHelp } from '../../../hooks/useShowHelp'
@@ -12,7 +12,7 @@ export const useSeedBackupSetup = () => {
 
   const [setShowBackupReminder, setLastSeedBackupDate, lastSeedBackupDate] = useSettingsStore(
     (state) => [state.setShowBackupReminder, state.setLastSeedBackupDate, state.lastSeedBackupDate],
-    shallow,
+    shallow
   )
 
   useHeaderSetup({

@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import shallow from 'zustand/shallow'
+import { shallow } from 'zustand/shallow'
 
 import { useHeaderSetup, useNavigation } from '../../../hooks'
 import { useBitcoinStore } from '../../../store/bitcoinStore'
@@ -11,7 +11,7 @@ export const useCurrencySetup = () => {
   const setBitcoinCurrency = useBitcoinStore((state) => state.setCurrency)
   const [displayCurrency, setDisplayCurrency] = useSettingsStore(
     (state) => [state.displayCurrency, state.setDisplayCurrency],
-    shallow,
+    shallow
   )
   const [currency, setCurrency] = useState(displayCurrency)
 

@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import { ReactElement } from 'react'
 import { enforceEmailFormat } from '../../utils/format'
 import Input, { InputProps } from './Input'
 

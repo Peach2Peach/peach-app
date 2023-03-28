@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import { ReactElement } from 'react'
 import { Pressable, View } from 'react-native'
 import { Flag, HorizontalLine, Text } from '../components'
 import { FlagType } from '../components/flags'

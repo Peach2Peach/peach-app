@@ -1,7 +1,7 @@
 import NotificationBadge from '@msml/react-native-notification-badge'
 import messaging from '@react-native-firebase/messaging'
 import { AppRegistry, LogBox } from 'react-native'
-import shallow from 'zustand/shallow'
+import { shallow } from 'zustand/shallow'
 import App from './App'
 import { name as appName } from './app.json'
 import { useNotificationStore } from './components/footer/notificationsStore'

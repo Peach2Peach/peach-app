@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 import { HelpIcon } from '../../../components/icons'
 
 import { useHeaderSetup, useNavigation } from '../../../hooks'
