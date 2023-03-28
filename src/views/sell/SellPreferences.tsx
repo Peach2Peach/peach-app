@@ -1,6 +1,6 @@
 import { ReactElement, useCallback, useState, Dispatch, SetStateAction } from 'react'
 import { BackHandler, View } from 'react-native'
-import shallow from 'zustand/shallow'
+import { shallow } from 'zustand/shallow'
 import tw from '../../styles/tailwind'
 
 import OfferDetails from './OfferDetails'
@@ -44,7 +44,7 @@ export default (): ReactElement => {
       meansOfPayment: state.meansOfPayment,
       payoutAddress: state.payoutAddress,
     }),
-    shallow,
+    shallow
   )
 
   const [offerDraft, setOfferDraft] = useState(getSellOfferDraft(partialSettings))
@@ -65,7 +65,7 @@ export default (): ReactElement => {
       return () => {
         listener.remove()
       }
-    }, [page]),
+    }, [page])
   )
 
   const next = async () => {

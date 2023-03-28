@@ -1,5 +1,5 @@
 import { useEffect, useMemo } from 'react'
-import shallow from 'zustand/shallow'
+import { shallow } from 'zustand/shallow'
 import { HelpIcon } from '../../../components/icons'
 
 import { useHeaderSetup, useNavigation, useShowHelp } from '../../../hooks'
@@ -12,7 +12,7 @@ export const useBuySetup = () => {
   const showHelp = useShowHelp('buyingBitcoin')
   const [lastFileBackupDate, lastSeedBackupDate] = useSettingsStore(
     (state) => [state.lastFileBackupDate, state.lastSeedBackupDate],
-    shallow,
+    shallow
   )
 
   useHeaderSetup(
@@ -22,8 +22,8 @@ export const useBuySetup = () => {
         hideGoBackButton: true,
         icons: [{ iconComponent: <HelpIcon />, onPress: showHelp }],
       }),
-      [showHelp],
-    ),
+      [showHelp]
+    )
   )
 
   useEffect(() => {

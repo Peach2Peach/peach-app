@@ -1,5 +1,5 @@
 import { createStore, useStore } from 'zustand'
-import { persist } from 'zustand/middleware'
+import { createJSONStorage, persist } from 'zustand/middleware'
 import { createStorage, toZustandStorage } from '../utils/storage'
 
 export type MeetupEventsState = {
@@ -29,12 +29,12 @@ export const meetupEventsStore = createStore(
     {
       name: 'meetupEvents',
       version: 0,
-      getStorage: () => toZustandStorage(meetupEventsStorage),
-    },
-  ),
+      storage: createJSONStorage(() => toZustandStorage(meetupEventsStorage)),
+    }
+  )
 )
 
 export const useMeetupEventsStore = <T>(
   selector: (state: MeetupEventsStore) => T,
-  equalityFn?: ((a: T, b: T) => boolean) | undefined,
+  equalityFn?: ((a: T, b: T) => boolean) | undefined
 ) => useStore(meetupEventsStore, selector, equalityFn)

@@ -1,5 +1,5 @@
 import { TouchableOpacity } from 'react-native'
-import shallow from 'zustand/shallow'
+import { shallow } from 'zustand/shallow'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import Icon from '../../Icon'
@@ -16,7 +16,7 @@ type Props = {
 export const MatchOfferButton = ({ matchId, matchOffer, optionName }: Props) => {
   const [selectedPaymentMethod, setShowPaymentMethodPulse] = useMatchStore(
     (state) => [state.matchSelectors[matchId]?.selectedPaymentMethod, state.setShowPaymentMethodPulse],
-    shallow,
+    shallow
   )
 
   const currentOption = options[optionName]

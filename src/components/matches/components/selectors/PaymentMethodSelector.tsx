@@ -1,5 +1,5 @@
 import { View } from 'react-native'
-import shallow from 'zustand/shallow'
+import { shallow } from 'zustand/shallow'
 import tw from '../../../../styles/tailwind'
 import i18n from '../../../../utils/i18n'
 import { NewTabbedNavigation } from '../../../navigation/NewTabbedNavigation'

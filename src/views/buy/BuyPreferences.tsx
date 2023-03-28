@@ -4,7 +4,7 @@ import tw from '../../styles/tailwind'
 
 import OfferDetails from './OfferDetails'
 
-import shallow from 'zustand/shallow'
+import { shallow } from 'zustand/shallow'
 import { useSettingsStore } from '../../store/settingsStore'
 import { getBuyOfferDraft } from './helpers/getBuyOfferDraft'
 import Summary from './Summary'
@@ -35,7 +35,7 @@ export default (): ReactElement => {
       maxBuyAmount: state.maxBuyAmount,
       meansOfPayment: state.meansOfPayment,
     }),
-    shallow,
+    shallow
   )
   const [offerDraft, setOfferDraft] = useState(getBuyOfferDraft(partialSettings))
 
@@ -56,7 +56,7 @@ export default (): ReactElement => {
       return () => {
         listener.remove()
       }
-    }, [page]),
+    }, [page])
   )
 
   const next = () => {

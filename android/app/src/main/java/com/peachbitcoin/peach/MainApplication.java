@@ -10,11 +10,9 @@ import com.swmansion.rnscreens.RNScreensPackage;
 import com.rnfs.RNFSPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
-import com.facebook.react.config.defaults.DefaultNewArchitectureEntryPoint;
+import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint;
 import com.facebook.react.defaults.DefaultReactNativeHost;
 import com.facebook.soloader.SoLoader;
-import com.peachbitcoin.peach.newarchitecture.MainApplicationReactNativeHost;
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 public class MainApplication extends Application implements ReactApplication {
@@ -50,9 +48,6 @@ public class MainApplication extends Application implements ReactApplication {
           return BuildConfig.IS_HERMES_ENABLED;
         }
       };
-
-  private final ReactNativeHost mNewArchitectureNativeHost =
-      new MainApplicationReactNativeHost(this);
 
   @Override
   public ReactNativeHost getReactNativeHost() {

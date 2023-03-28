@@ -1,6 +1,6 @@
 import analytics from '@react-native-firebase/analytics'
 import { createStore, useStore } from 'zustand'
-import { persist } from 'zustand/middleware'
+import { createJSONStorage, persist } from 'zustand/middleware'
 import { updateSettings } from '../utils/account'
 import { info } from '../utils/log'
 import { createStorage, toZustandStorage } from '../utils/storage'
@@ -77,9 +77,9 @@ export const settingsStore = createStore(
 
         return migratedState
       },
-      getStorage: () => toZustandStorage(settingsStorage),
-    },
-  ),
+      storage: createJSONStorage(() => toZustandStorage(settingsStorage)),
+    }
+  )
 )
 
 settingsStore.subscribe((state) => {
@@ -90,12 +90,12 @@ settingsStore.subscribe((state) => {
         ...obj,
         [key]: state[key],
       }),
-      {} as Settings,
+      {} as Settings
     )
   updateSettings(cleanState, true)
 })
 
 export const useSettingsStore = <T>(
   selector: (state: SettingsStore) => T,
-  equalityFn?: ((a: T, b: T) => boolean) | undefined,
+  equalityFn?: ((a: T, b: T) => boolean) | undefined
 ) => useStore(settingsStore, selector, equalityFn)

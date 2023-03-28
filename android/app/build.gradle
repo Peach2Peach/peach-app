@@ -114,7 +114,7 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.rndiffapp"
+    namespace "com.peachbitcoin.peach"
     defaultConfig {
         applicationId "com.peachbitcoin.peach"
         minSdkVersion rootProject.ext.minSdkVersion

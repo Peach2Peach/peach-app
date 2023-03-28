@@ -4,7 +4,7 @@ import { MessageContext } from '../../../contexts/message'
 import { useNavigation } from '../../../hooks'
 import { error, info } from '../../../utils/log'
 
-import shallow from 'zustand/shallow'
+import { shallow } from 'zustand/shallow'
 import { isSellOffer, saveOffer } from '../../../utils/offer'
 import { parseError } from '../../../utils/system'
 import { useMatchStore } from '../store'

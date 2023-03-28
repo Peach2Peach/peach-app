@@ -1,6 +1,6 @@
 import NotificationBadge from '@msml/react-native-notification-badge'
 import { useEffect } from 'react'
-import shallow from 'zustand/shallow'
+import { shallow } from 'zustand/shallow'
 import { useNotificationStore } from '../components/footer/notificationsStore'
 import { useTradeSummaryStore } from '../store/tradeSummaryStore'
 import { info } from '../utils/log'
