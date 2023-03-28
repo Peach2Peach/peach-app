@@ -4,7 +4,7 @@ import { TouchableOpacity, View } from 'react-native'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 
-import shallow from 'zustand/shallow'
+import { shallow } from 'zustand/shallow'
 import { BitcoinPriceStats, HorizontalLine, Icon, PrimaryButton, Text } from '../../components'
 import { RangeAmount } from '../../components/inputs/verticalAmountSelector/RangeAmount'
 import { useNavigation, useValidatedState } from '../../hooks'
@@ -32,15 +32,15 @@ export default (): ReactElement => {
       state.maxBuyAmount,
       state.setMaxBuyAmount,
     ],
-    shallow,
+    shallow
   )
   const [minTradingAmount, maxTradingAmount] = useConfigStore(
     (state) => [state.minTradingAmount, state.maxTradingAmount],
-    shallow,
+    shallow
   )
   const rangeRules = useMemo(
     () => ({ min: minTradingAmount, max: maxTradingAmount, required: true }),
-    [minTradingAmount, maxTradingAmount],
+    [minTradingAmount, maxTradingAmount]
   )
 
   const [currentMinAmount, setCurrentMinAmount, minAmountValid] = useValidatedState(minBuyAmount, rangeRules)
@@ -55,7 +55,7 @@ export default (): ReactElement => {
       setMinBuyAmount(min)
       setMaxBuyAmount(max)
     }, 400),
-    [setMinBuyAmount, setMaxBuyAmount],
+    [setMinBuyAmount, setMaxBuyAmount]
   )
   const setSelectedRange = ([min, max]: [number, number]) => {
     setCurrentMinAmount(min)

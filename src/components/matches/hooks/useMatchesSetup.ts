@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import shallow from 'zustand/shallow'
+import { shallow } from 'zustand/shallow'
 import { useRoute } from '../../../hooks'
 import { useOfferDetails } from '../../../hooks/query/useOfferDetails'
 import { unique } from '../../../utils/array'

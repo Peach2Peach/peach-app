@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import shallow from 'zustand/shallow'
+import { shallow } from 'zustand/shallow'
 import { WalletIcon } from '../../../components/icons'
 import { useHeaderSetup, useNavigation } from '../../../hooks'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
@@ -14,7 +14,7 @@ export const useSellSummarySetup = () => {
 
   const [peachWalletActive, payoutAddress, payoutAddressLabel] = useSettingsStore(
     (state) => [state.peachWalletActive, state.payoutAddress, state.payoutAddressLabel],
-    shallow,
+    shallow
   )
   const [returnAddress, setReturnAddress] = useState('')
   const [isPublishing, setIsPublishing] = useState(false)
@@ -46,8 +46,8 @@ export const useSellSummarySetup = () => {
           },
         ],
       }),
-      [navigation],
-    ),
+      [navigation]
+    )
   )
 
   useEffect(() => {
