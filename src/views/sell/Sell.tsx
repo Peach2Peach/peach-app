@@ -12,9 +12,9 @@ import { useConfigStore } from '../../store/configStore'
 import { useSettingsStore } from '../../store/settingsStore'
 import { DailyTradingLimit } from '../settings/profile/DailyTradingLimit'
 import { useSellSetup } from './hooks/useSellSetup'
-import { debounce } from '../../utils/performance'
 import LoadingScreen from '../loading/LoadingScreen'
 import { useShowBackupReminder } from '../../hooks/useShowBackupReminder'
+import { useDebounce } from '../../hooks/useDebounce'
 
 export default (): ReactElement => {
   const navigation = useNavigation()
@@ -37,19 +37,13 @@ export default (): ReactElement => {
   )
   const [amount, setAmount, amountValid] = useValidatedState(sellAmount, rangeRules)
 
-  const updateStore = useCallback(
-    debounce((value: number) => {
-      setAmount(value)
-    }, 400),
-    [setAmount],
-  )
+  useDebounce(amount, setSellAmount, 400)
 
   const setSelectedAmount = useCallback(
     (value: number) => {
-      setSellAmount(value)
-      updateStore(value)
+      setAmount(value)
     },
-    [setSellAmount, updateStore],
+    [setAmount],
   )
   const next = () => navigation.navigate('sellPreferences')
 
