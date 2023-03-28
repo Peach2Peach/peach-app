@@ -46,7 +46,7 @@ export const Paysera = ({ forwardRef, data, currencies = [], onSubmit, setStepVa
     phone,
     beneficiary,
     reference,
-    currencies: data?.currencies || currencies,
+    currencies: selectedCurrencies,
   })
 
   const isFormValid = useCallback(() => {

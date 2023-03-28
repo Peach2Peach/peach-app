@@ -54,7 +54,7 @@ export const Template4 = ({
     email,
     beneficiary,
     reference,
-    currencies: data?.currencies || currencies,
+    currencies: selectedCurrencies,
     country: data?.country,
   })
 
