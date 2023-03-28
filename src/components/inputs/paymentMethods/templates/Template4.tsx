@@ -9,6 +9,7 @@ import { getErrorsInField } from '../../../../utils/validation'
 import { EmailInput } from '../../EmailInput'
 import Input from '../../Input'
 import { CurrencySelection, toggleCurrency } from '../paymentForms/CurrencySelection'
+import { hasMultipleAvailableCurrencies } from './utils/hasMultipleAvailableCurrencies'
 
 const emailRules = {
   required: true,
@@ -126,7 +127,7 @@ export const Template4 = ({
         placeholder={i18n('form.beneficiary.placeholder')}
         autoCorrect={false}
       />
-      {['skrill', 'neteller'].includes(name) && (
+      {hasMultipleAvailableCurrencies(name) && (
         <CurrencySelection paymentMethod={name} selectedCurrencies={selectedCurrencies} onToggle={onCurrencyToggle} />
       )}
     </>
