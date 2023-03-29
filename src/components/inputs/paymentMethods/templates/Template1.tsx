@@ -9,6 +9,8 @@ import { BICInput } from '../../BICInput'
 import { IBANInput } from '../../IBANInput'
 import Input from '../../Input'
 import { Checkbox } from '../../Checkbox'
+import { hasMultipleAvailableCurrencies } from './utils/hasMultipleAvailableCurrencies'
+import { CurrencySelection, toggleCurrency } from '../paymentForms/CurrencySelection'
 
 const beneficiaryRules = { required: true }
 const notRequired = { required: false }
@@ -36,6 +38,7 @@ export const Template1 = ({
     notRequired,
   )
   const [displayErrors, setDisplayErrors] = useState(false)
+  const [selectedCurrencies, setSelectedCurrencies] = useState(data?.currencies || currencies)
 
   let $beneficiary = useRef<TextInput>(null).current
   let $iban = useRef<TextInput>(null).current
@@ -60,8 +63,12 @@ export const Template1 = ({
     iban,
     bic,
     reference,
-    currencies: data?.currencies || currencies,
+    currencies: selectedCurrencies,
   })
+
+  const onCurrencyToggle = (currency: Currency) => {
+    setSelectedCurrencies(toggleCurrency(currency))
+  }
 
   const isFormValid = useCallback(() => {
     setDisplayErrors(true)
@@ -146,6 +153,9 @@ export const Template1 = ({
       />
       {name === 'instantSepa' && (
         <Checkbox checked={checked} onPress={toggleChecked} text={i18n('form.instantSepa.checkbox')} />
+      )}
+      {hasMultipleAvailableCurrencies(name) && (
+        <CurrencySelection paymentMethod={name} selectedCurrencies={selectedCurrencies} onToggle={onCurrencyToggle} />
       )}
     </>
   )

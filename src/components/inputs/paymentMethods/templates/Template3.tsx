@@ -7,6 +7,8 @@ import i18n from '../../../../utils/i18n'
 import { getErrorsInField } from '../../../../utils/validation'
 import Input from '../../Input'
 import { PhoneInput } from '../../PhoneInput'
+import { hasMultipleAvailableCurrencies } from './utils/hasMultipleAvailableCurrencies'
+import { CurrencySelection, toggleCurrency } from '../paymentForms/CurrencySelection'
 
 const phoneRules = { required: true, phone: true, isPhoneAllowed: true }
 
@@ -23,6 +25,7 @@ export const Template3 = ({
   const [beneficiary, setBeneficiary] = useState(data?.beneficiary || '')
   const [reference, setReference] = useState(data?.reference || '')
   const [displayErrors, setDisplayErrors] = useState(false)
+  const [selectedCurrencies, setSelectedCurrencies] = useState(data?.currencies || currencies)
 
   let $phone = useRef<TextInput>(null).current
   let $beneficiary = useRef<TextInput>(null).current
@@ -45,8 +48,12 @@ export const Template3 = ({
     phone,
     beneficiary,
     reference,
-    currencies: data?.currencies || currencies,
+    currencies: selectedCurrencies,
   })
+
+  const onCurrencyToggle = (currency: Currency) => {
+    setSelectedCurrencies(toggleCurrency(currency))
+  }
 
   const isFormValid = useCallback(() => {
     setDisplayErrors(true)
@@ -112,6 +119,9 @@ export const Template3 = ({
         placeholder={i18n('form.reference.placeholder')}
         autoCorrect={false}
       />
+      {hasMultipleAvailableCurrencies(name) && (
+        <CurrencySelection paymentMethod={name} selectedCurrencies={selectedCurrencies} onToggle={onCurrencyToggle} />
+      )}
     </>
   )
 }
