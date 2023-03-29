@@ -15,7 +15,7 @@ import { useTradeCanceledOverlay } from './tradeCancelation/useTradeCanceledOver
 import { useBuyerRejectedCancelTradeOverlay } from './tradeCancelation/useBuyerRejectedCancelTradeOverlay'
 
 export const useHandleContractOverlays = () => {
-  const showDisputeRaisedNotice = useDisputeRaisedNotice()
+  const { showDisputeRaisedNotice } = useDisputeRaisedNotice()
   const showDisputeResults = useDisputeResults()
   const showTradeCanceled = useTradeCanceledOverlay()
   const showCancelTradeRequestRejected = useBuyerRejectedCancelTradeOverlay()
