@@ -30,7 +30,7 @@ export const useMatchOffer = (offer: BuyOffer | SellOffer, match: Match) => {
 
   return useMutation({
     onMutate: async () => {
-      await queryClient.cancelQueries(['matches', offer.id])
+      await queryClient.cancelQueries({ queryKey: ['matches', offer.id] })
       const previousData = queryClient.getQueryData<GetMatchesResponse>(['matches', offer.id])
       queryClient.setQueryData(['matches', offer.id], (oldQueryData: InfiniteData<GetMatchesResponse> | undefined) =>
         updateMatchedStatus(true, oldQueryData, matchingOfferId, offer, currentPage),
@@ -72,7 +72,7 @@ export const useMatchOffer = (offer: BuyOffer | SellOffer, match: Match) => {
       }
     },
     onSettled: () => {
-      queryClient.invalidateQueries(['matches', offer.id])
+      queryClient.invalidateQueries({ queryKey: ['matches', offer.id] })
     },
   })
 }
