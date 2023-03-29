@@ -1,4 +1,3 @@
-import React from 'react'
 import { RefreshControl, View } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { Card, HorizontalLine, Icon, Loading, PeachScrollView, Text } from '../../components'

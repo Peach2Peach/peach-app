@@ -1,4 +1,3 @@
-import React from 'react'
 import { SummaryItem } from '../../../components/lists/SummaryItem'
 import { useNavigation } from '../../../hooks'
 import { getTxSummaryTitle } from '../helpers/getTxSummaryTitle'

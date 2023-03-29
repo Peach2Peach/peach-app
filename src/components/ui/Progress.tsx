@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useRef } from 'react'
+import { ReactElement, useEffect, useRef } from 'react'
 import { Animated, View, ViewStyle } from 'react-native'
 import tw from '../../styles/tailwind'
 

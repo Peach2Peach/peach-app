@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import { ReactElement } from 'react'
 import ParsedText, { ParsedTextProps } from 'react-native-parsed-text'
 
 import tw from '../../styles/tailwind'

@@ -1,4 +1,3 @@
-import React from 'react'
 import { FormProps } from './PaymentMethodForm'
 import { Template4 } from '../templates'
 

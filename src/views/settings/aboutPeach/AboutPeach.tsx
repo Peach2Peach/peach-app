@@ -1,4 +1,4 @@
-import React, { ReactElement, useCallback } from 'react'
+import { ReactElement, useCallback } from 'react'
 import { Linking, ViewStyle } from 'react-native'
 import { IconType } from '../../../assets/icons'
 import { PeachScrollView } from '../../../components'

@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useEffect } from 'react'
+import { ReactElement, useContext, useEffect, Dispatch, SetStateAction } from 'react'
 import { Pressable, View } from 'react-native'
 
 import { Icon, Text } from '..'
@@ -16,7 +16,7 @@ import { useNotificationStore } from './notificationsStore'
 
 type FooterProps = ComponentProps & {
   active: keyof RootStackParamList
-  setCurrentPage: React.Dispatch<React.SetStateAction<keyof RootStackParamList | undefined>>
+  setCurrentPage: Dispatch<SetStateAction<keyof RootStackParamList | undefined>>
   theme?: 'default' | 'inverted'
 }
 type FooterItemProps = ComponentProps & {

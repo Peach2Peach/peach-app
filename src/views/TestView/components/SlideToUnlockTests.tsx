@@ -1,4 +1,3 @@
-import React from 'react'
 import { Alert, View } from 'react-native'
 import { Text } from '../../../components'
 import { SlideToUnlock } from '../../../components/inputs'

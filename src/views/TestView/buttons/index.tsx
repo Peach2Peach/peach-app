@@ -1,4 +1,3 @@
-import React from 'react'
 import { PeachScrollView } from '../../../components'
 import { useHeaderSetup } from '../../../hooks'
 import tw from '../../../styles/tailwind'

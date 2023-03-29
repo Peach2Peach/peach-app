@@ -14,7 +14,7 @@
   },
   "transform": {
     "\\.(js|jsx)$": "<rootDir>/node_modules/babel-jest",
-    "^.+\\.(t|j)sx?$": "@swc/jest"
+    "^.+\\.(t|j)sx?$": ["@swc/jest", { "jsc": { "transform": { "react": { "runtime": "automatic" } } } }]
   },
   "transformIgnorePatterns": [
     "node_modules/(?!(@react-native|react-native|@react-native-community|react-native-webview|react-native-canvas|react-native-form-validator|react-native-qrcode-scanner|react-native-permissions|react-native-shadow-2|react-native-qrcode-svg|bdk-rn|react-native-parsed-text)/)"

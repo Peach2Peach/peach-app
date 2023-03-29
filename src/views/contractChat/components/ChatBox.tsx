@@ -1,4 +1,4 @@
-import React, { ReactElement, useCallback, useEffect, useRef } from 'react'
+import { ReactElement, useCallback, useEffect, useRef } from 'react'
 import { FlatList, Keyboard, View, ViewToken } from 'react-native'
 import tw from '../../../styles/tailwind'
 import { getChat } from '../../../utils/chat'

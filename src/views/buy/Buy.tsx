@@ -1,10 +1,10 @@
-import React, { ReactElement, useCallback, useEffect, useMemo } from 'react'
+import { ReactElement, useCallback, useEffect, useMemo } from 'react'
 import { TouchableOpacity, View } from 'react-native'
 
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 
-import shallow from 'zustand/shallow'
+import { shallow } from 'zustand/shallow'
 import { BitcoinPriceStats, HorizontalLine, Icon, PrimaryButton, Text } from '../../components'
 import { RangeAmount } from '../../components/inputs/verticalAmountSelector/RangeAmount'
 import { useNavigation, useValidatedState } from '../../hooks'
@@ -12,10 +12,10 @@ import { useConfigStore } from '../../store/configStore'
 import { useSettingsStore } from '../../store/settingsStore'
 import { DailyTradingLimit } from '../settings/profile/DailyTradingLimit'
 import { useBuySetup } from './hooks/useBuySetup'
-import { debounce } from '../../utils/performance'
 import LoadingScreen from '../loading/LoadingScreen'
 import { useCheckShowRedesignWelcome } from '../../hooks/'
 import { useShowBackupReminder } from '../../hooks/useShowBackupReminder'
+import { useDebounce } from '../../hooks/useDebounce'
 
 export default (): ReactElement => {
   const navigation = useNavigation()
@@ -50,19 +50,16 @@ export default (): ReactElement => {
     checkShowRedesignWelcome()
   }, [checkShowRedesignWelcome])
 
-  const updateStore = useCallback(
-    debounce((min: number, max: number) => {
-      setMinBuyAmount(min)
-      setMaxBuyAmount(max)
-    }, 400),
-    [setMinBuyAmount, setMaxBuyAmount],
-  )
-  const setSelectedRange = ([min, max]: [number, number]) => {
-    setCurrentMinAmount(min)
-    setCurrentMaxAmount(max)
+  useDebounce(currentMinAmount, setMinBuyAmount, 400)
+  useDebounce(currentMaxAmount, setMaxBuyAmount, 400)
 
-    updateStore(min, max)
-  }
+  const setSelectedRange = useCallback(
+    ([min, max]: [number, number]) => {
+      setCurrentMinAmount(min)
+      setCurrentMaxAmount(max)
+    },
+    [setCurrentMaxAmount, setCurrentMinAmount],
+  )
 
   const next = () => navigation.navigate('buyPreferences')
 

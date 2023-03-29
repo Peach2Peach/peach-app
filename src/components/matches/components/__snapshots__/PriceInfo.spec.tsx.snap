@@ -1,0 +1,66 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PriceInfo should render correctly 1`] = `
+<React.Fragment>
+  <SatsFormat
+    bitcoinLogoStyle={
+      {
+        "height": 18,
+        "marginRight": 8,
+        "width": 18,
+      }
+    }
+    containerStyle={
+      {
+        "alignSelf": "center",
+        "justifyContent": "center",
+      }
+    }
+    sats={210000}
+    satsStyle={
+      {
+        "fontFamily": "Baloo2-SemiBold",
+        "fontSize": 16,
+        "letterSpacing": 0.16,
+        "lineHeight": 28,
+      }
+    }
+    style={
+      {
+        "fontFamily": "Baloo2-Bold",
+        "fontSize": 24,
+        "letterSpacing": 0.24,
+        "lineHeight": 42,
+      }
+    }
+  />
+  <PeachText
+    style={
+      {
+        "textAlign": "center",
+      }
+    }
+  >
+    <Price
+      match={
+        {
+          "amount": 210000,
+          "premium": 7,
+        }
+      }
+      offer={{}}
+      textStyle={
+        {
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 16,
+          "letterSpacing": 0.16,
+          "lineHeight": 28,
+        }
+      }
+    />
+    <PremiumText
+      premium={7}
+    />
+  </PeachText>
+</React.Fragment>
+`;

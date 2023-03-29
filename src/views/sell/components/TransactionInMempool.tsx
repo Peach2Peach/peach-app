@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react'
+import { ReactElement, useState } from 'react'
 import { Image, LayoutChangeEvent, View } from 'react-native'
 import txInMempool from '../../../assets/escrow/tx-in-mempool.png'
 import { Text } from '../../../components'

@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import { ReactElement, Dispatch } from 'react'
 import { View } from 'react-native'
 
 import { Input, Text } from '../../../../components'
@@ -7,7 +7,7 @@ import i18n from '../../../../utils/i18n'
 
 type CustomFeeItemProps = {
   customFeeRate: string
-  setCustomFeeRate: React.Dispatch<string>
+  setCustomFeeRate: Dispatch<string>
   disabled?: boolean
 }
 

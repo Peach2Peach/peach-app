@@ -1,4 +1,3 @@
-import React from 'react'
 import { PrimaryButton } from '../../../components'
 import { useNavigation } from '../../../hooks'
 import tw from '../../../styles/tailwind'

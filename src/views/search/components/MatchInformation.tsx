@@ -1,4 +1,3 @@
-import React from 'react'
 import { View } from 'react-native'
 import { SatsFormat, Text } from '../../../components'
 import { getPremiumColor } from '../../../components/matches/utils'

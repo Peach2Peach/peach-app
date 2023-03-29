@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useState } from 'react'
+import { ReactElement, useEffect, useState } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
@@ -8,7 +8,7 @@ import { TabbedNavigation } from '../navigation/TabbedNavigation'
 import { SatsFormat, Text } from '../text'
 import { HorizontalLine } from '../ui'
 import { useSettingsStore } from '../../store/settingsStore'
-import shallow from 'zustand/shallow'
+import { shallow } from 'zustand/shallow'
 import { getSummaryWalletLabel } from '../../utils/offer'
 
 type BuyOfferSummaryProps = ComponentProps & {
@@ -20,7 +20,7 @@ export const BuyOfferSummary = ({ offer, style }: BuyOfferSummaryProps): ReactEl
   const [selectedCurrency, setSelectedCurrency] = useState(currencies[0])
   const [payoutAddress, payoutAddressLabel] = useSettingsStore(
     (state) => [state.payoutAddress, state.payoutAddressLabel],
-    shallow,
+    shallow
   )
   const [walletLabel, setWalletLabel] = useState(i18n('loading'))
 
@@ -31,7 +31,7 @@ export const BuyOfferSummary = ({ offer, style }: BuyOfferSummaryProps): ReactEl
         address: offer.releaseAddress,
         customPayoutAddress: payoutAddress,
         customPayoutAddressLabel: payoutAddressLabel,
-      }) || i18n('offer.summary.customPayoutAddress'),
+      }) || i18n('offer.summary.customPayoutAddress')
     )
   }, [offer.releaseAddress, offer.walletLabel, payoutAddress, payoutAddressLabel])
 

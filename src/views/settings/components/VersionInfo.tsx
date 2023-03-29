@@ -1,4 +1,3 @@
-import React from 'react'
 import { Text } from '../../../components'
 import { APPVERSION, BUILDNUMBER } from '../../../constants'
 import tw from '../../../styles/tailwind'

@@ -1,5 +1,5 @@
 import { createStore, useStore } from 'zustand'
-import { persist } from 'zustand/middleware'
+import { createJSONStorage, persist } from 'zustand/middleware'
 import { createStorage, toZustandStorage } from '../utils/storage'
 import { defaultConfig } from './defaults'
 
@@ -34,12 +34,12 @@ export const configStore = createStore(
     {
       name: 'config',
       version: 0,
-      getStorage: () => toZustandStorage(configStorage),
-    },
-  ),
+      storage: createJSONStorage(() => toZustandStorage(configStorage)),
+    }
+  )
 )
 
 export const useConfigStore = <T>(
   selector: (state: ConfigStore) => T,
-  equalityFn?: ((a: T, b: T) => boolean) | undefined,
+  equalityFn?: ((a: T, b: T) => boolean) | undefined
 ) => useStore(configStore, selector, equalityFn)

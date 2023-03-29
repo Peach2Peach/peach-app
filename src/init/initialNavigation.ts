@@ -1,3 +1,4 @@
+import { Dispatch } from 'react'
 import messaging, { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
 import { NavigationContainerRefWithCurrent } from '@react-navigation/native'
 import SplashScreen from 'react-native-splash-screen'
@@ -12,7 +13,7 @@ import { parseError } from '../utils/system'
  */
 const waitForNavigation = async (
   navigationRef: NavigationContainerRefWithCurrent<RootStackParamList>,
-  updateMessage: React.Dispatch<MessageState>,
+  updateMessage: Dispatch<MessageState>,
 ) => {
   let waitForNavCounter = 100
   while (!navigationRef.isReady()) {
@@ -39,7 +40,7 @@ const dataIsDefined = (
  */
 export const initialNavigation = async (
   navigationRef: NavigationContainerRefWithCurrent<RootStackParamList>,
-  updateMessage: React.Dispatch<MessageState>,
+  updateMessage: Dispatch<MessageState>,
 ) => {
   await waitForNavigation(navigationRef, updateMessage)
 

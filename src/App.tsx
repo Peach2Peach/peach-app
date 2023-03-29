@@ -1,5 +1,6 @@
 /* eslint-disable max-lines */
-import React, { ReactElement, useCallback, useEffect, useReducer, useRef, useState } from 'react'
+import { ReactElement, useCallback, useEffect, useReducer, useRef, useState } from 'react'
+
 import { Animated, Dimensions, SafeAreaView, View } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
@@ -27,7 +28,7 @@ import Overlay from './components/Overlay'
 import { DEV } from '@env'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { setUnhandledPromiseRejectionTracker } from 'react-native-promise-rejection-utils'
-import shallow from 'zustand/shallow'
+import { shallow } from 'zustand/shallow'
 import { Background } from './components/background/Background'
 import { APPVERSION, ISEMULATOR, TIMETORESTART } from './constants'
 import appStateEffect from './effects/appStateEffect'
@@ -122,7 +123,7 @@ const usePartialAppSetup = () => {
 }
 
 // eslint-disable-next-line max-statements
-const App: React.FC = () => {
+const App = () => {
   const [messageState, updateMessage] = useReducer(setMessage, getMessage())
   const [
     { title: drawerTitle, content: drawerContent, show: showDrawer, previousDrawer, onClose: onCloseDrawer },

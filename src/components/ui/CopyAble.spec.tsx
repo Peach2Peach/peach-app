@@ -1,4 +1,3 @@
-import React from 'react'
 import Clipboard from '@react-native-clipboard/clipboard'
 
 import { create } from 'react-test-renderer'
