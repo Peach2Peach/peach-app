@@ -2,9 +2,9 @@
 
 exports[`InstantSepa should render correctly 1`] = `
 <Template1
-  currencies={Array []}
-  data={Object {}}
-  forwardRef={Object {}}
+  currencies={[]}
+  data={{}}
+  forwardRef={{}}
   name="instantSepa"
   onSubmit={[Function]}
   paymentMethod="instantSepa"
