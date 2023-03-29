@@ -9,6 +9,7 @@ jest.mock('../../src/utils/peachAPI', () => ({
 jest.mock('../../src/utils/wallet/PeachWallet', () => ({
   ...jest.requireActual('../../src/utils/__mocks__/wallet/PeachWallet'),
 }))
+jest.mock('../../src/utils/log')
 
 export let fakeFiles: Record<string, string> = {}
 export const resetFakeFiles = () => (fakeFiles = {})
