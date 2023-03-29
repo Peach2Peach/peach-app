@@ -13,8 +13,6 @@ export default async (referralCode?: string) => {
 
     let fcmToken = account.settings.fcmToken
     try {
-      // const apnsToken = await messaging().getAPNSToken()
-      // if (apnsToken) await messaging().setAPNSToken(apnsToken)
       fcmToken = await messaging().getToken()
     } catch (e) {
       error('messaging().getToken - Push notifications not supported', parseError(e))
