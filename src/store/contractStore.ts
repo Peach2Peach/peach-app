@@ -1,26 +1,25 @@
 import { createStore, useStore } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
-import { updateArrayItem } from '../utils/array/updateArrayItem'
 import { createStorage, toZustandStorage } from '../utils/storage'
 
-const storeId = 'contract-store'
+const storeId = 'contractStore'
 
 const contractStorage = createStorage(storeId)
 
 type ContractState = {
-  contracts: Contract[]
+  contracts: Record<string, LocalContract>
   migrated: boolean
 }
 export type ContractStore = ContractState & {
-  contracts: Contract[]
   reset: () => void
-  getContract: (contractId: string) => Contract | undefined
-  getContracts: () => Contract[]
-  setContract: (contractId: string, data: Partial<Contract>) => void
+  getContract: (contractId: string) => LocalContract | undefined
+  getContracts: () => Record<string, LocalContract>
+  setContract: (contract: LocalContract) => void
+  updateContract: (contractId: string, data: Partial<LocalContract>) => void
 }
 
 const defaultContractStore: ContractState = {
-  contracts: [],
+  contracts: {},
   migrated: false,
 }
 
@@ -29,9 +28,24 @@ export const contractStore = createStore(
     (set, get) => ({
       ...defaultContractStore,
       reset: () => set(defaultContractStore),
-      getContract: (contractId) => get().contracts.find(({ id }) => id === contractId),
+      getContract: (contractId) => get().contracts[contractId],
       getContracts: () => get().contracts,
-      setContract: (contractId, data) => set(() => ({ contracts: updateArrayItem(get().contracts, contractId, data) })),
+      setContract: (contract) =>
+        set(() => ({
+          contracts: {
+            ...get().contracts,
+            [contract.id]: contract,
+          },
+        })),
+      updateContract: (contractId, data) => {
+        const contract = get().getContract(contractId)
+
+        if (!contract) return
+        get().setContract({
+          ...contract,
+          ...data,
+        })
+      },
       setMigrated: () => set(() => ({ migrated: true })),
     }),
     {

@@ -5,8 +5,8 @@ import { contractStorage } from '../../../utils/account/contractStorage'
 export const migrateContractsToStore = async () => {
   if (contractStore.getState().migrated) return
   const contracts = await loadContracts()
+  contracts.forEach(contractStore.getState().setContract)
   contractStore.setState({
-    contracts,
     migrated: true,
   })
   contractStorage.clearStore()

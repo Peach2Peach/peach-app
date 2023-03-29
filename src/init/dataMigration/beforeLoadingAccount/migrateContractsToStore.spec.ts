@@ -1,9 +1,9 @@
-import { account1 } from '../../../../tests/unit/data/accountData'
+import { contract } from '../../../../tests/unit/data/contractData'
 import { contractStore } from '../../../store/contractStore'
 import { contractStorage } from '../../../utils/account/contractStorage'
 import { migrateContractsToStore } from './migrateContractsToStore'
 
-const loadContractsMock = jest.fn().mockResolvedValue(account1.contracts)
+const loadContractsMock = jest.fn()
 jest.mock('../../../utils/account/loadAccount/loadContracts', () => ({
   loadContracts: () => loadContractsMock(),
 }))
@@ -14,13 +14,16 @@ describe('migrateContractsToStore', () => {
     jest.clearAllMocks()
   })
   it('migrates all contracts to contract store', async () => {
+    loadContractsMock.mockResolvedValueOnce([contract])
     await migrateContractsToStore()
 
-    expect(contractStore.getState().getContracts()).toEqual(account1.contracts)
+    expect(contractStore.getState().getContracts()).toEqual({
+      [contract.id]: contract,
+    })
     expect(contractStorage.clearStore).toHaveBeenCalled()
   })
   it('performs migration only once', async () => {
-    loadContractsMock.mockResolvedValueOnce(account1.contracts)
+    loadContractsMock.mockResolvedValueOnce([contract])
     await migrateContractsToStore()
     await migrateContractsToStore()
 
