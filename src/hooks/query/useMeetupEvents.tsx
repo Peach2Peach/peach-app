@@ -15,9 +15,11 @@ const getMeetupEventsQuery = async () => {
 export const useMeetupEvents = () => {
   const [meetupEvents, setMeetupEvents, getLastModified] = useMeetupEventsStore(
     (state) => [state.meetupEvents, state.setMeetupEvents, state.getLastModified],
-    shallow
+    shallow,
   )
-  const { data, isLoading, error } = useQuery(['meetupEvents'], getMeetupEventsQuery, {
+  const { data, isLoading, error } = useQuery({
+    queryKey: ['meetupEvents'],
+    queryFn: getMeetupEventsQuery,
     initialData: meetupEvents.length ? meetupEvents : undefined,
     initialDataUpdatedAt: getLastModified().getTime(),
     staleTime: MSINANHOUR,
