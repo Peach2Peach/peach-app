@@ -2,7 +2,7 @@ import analytics from '@react-native-firebase/analytics'
 
 import { updateSettings } from '.'
 import userUpdate from '../../init/userUpdate'
-import { saveContract } from '../contract'
+import { contractStore } from '../../store/contractStore'
 import { error, info } from '../log'
 import { saveOffer } from '../offer'
 import { getContracts, getOffers } from '../peachAPI'
@@ -30,7 +30,7 @@ export const recoverAccount = async (account: Account): Promise<[Account | null,
     }
     if (getContractsResult?.length) {
       info(`Got ${getContractsResult.length} Contracts`)
-      getContractsResult.map((offer) => saveContract(offer, true))
+      getContractsResult.forEach(contractStore.getState().setContract)
     } else if (getContractsErr) {
       error('Error', getContractsErr)
     }

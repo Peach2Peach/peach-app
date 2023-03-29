@@ -26,7 +26,6 @@ export const recoveredAccount: Account = {
   paymentData: [],
   legacyPaymentData: [],
   offers: [],
-  contracts: [],
   chats: {},
   tradingLimit: {
     daily: 1000,
@@ -79,7 +78,6 @@ export const account1: Account = {
     yearlyAmount: 0,
   },
   offers: [buyOffer, sellOffer],
-  contracts: [contract],
   chats: {},
   pgp: {
     privateKey:
@@ -124,7 +122,6 @@ export const seller: Account = {
     yearlyAmount: 0,
   },
   offers: [buyOffer, sellOffer],
-  contracts: [],
   chats: {},
   pgp: {
     privateKey:
@@ -169,7 +166,6 @@ export const buyer: Account = {
     yearlyAmount: 0,
   },
   offers: [buyOffer, sellOffer],
-  contracts: [],
   chats: {
     [chatData.chat1.id]: chatData.chat1,
   },
@@ -215,7 +211,6 @@ export const userWithNoTrades: Account = {
     yearlyAmount: 0,
   },
   offers: [],
-  contracts: [],
   chats: {},
   pgp: {
     privateKey:

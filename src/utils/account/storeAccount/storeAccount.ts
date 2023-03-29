@@ -4,7 +4,6 @@ import { storeSettings } from './storeSettings'
 import { storeTradingLimit } from './storeTradingLimit'
 import { storePaymentData } from './storePaymentData'
 import { storeOffers } from './storeOffers'
-import { storeContracts } from './storeContracts'
 import { storeChats } from './storeChats'
 
 /**
@@ -21,7 +20,6 @@ export const storeAccount = async (acc: Account): Promise<void> => {
     storeTradingLimit(acc.tradingLimit),
     storePaymentData(acc.paymentData),
     storeOffers(acc.offers),
-    storeContracts(acc.contracts),
     storeChats(acc.chats),
   ])
 }

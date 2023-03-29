@@ -22,7 +22,6 @@ export const defaultAccount: Account = {
   legacyPaymentData: [],
   tradingLimit: defaultLimits,
   offers: [],
-  contracts: [],
   chats: {},
   pgp: {
     privateKey: '',

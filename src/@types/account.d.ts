@@ -46,7 +46,6 @@ declare type Account = Identity & {
   legacyPaymentData: PaymentData[]
   tradingLimit: TradingLimit
   offers: (SellOffer | BuyOffer)[]
-  contracts: Contract[]
   chats: {
     [key: string]: Chat
   }
