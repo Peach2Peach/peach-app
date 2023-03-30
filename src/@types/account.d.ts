@@ -50,3 +50,7 @@ declare type Account = Identity & {
     [key: string]: Chat
   }
 }
+
+declare type AccountBackup = Account & {
+  settings: Settings
+}
