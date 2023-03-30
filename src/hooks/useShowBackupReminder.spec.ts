@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-hooks'
+import { renderHook } from '@testing-library/react-native'
 import { useShowBackupReminder } from './useShowBackupReminder'
 
 const useSettingsStoreMock = jest.fn((selector) => selector({ lastFileBackupDate: null }))
