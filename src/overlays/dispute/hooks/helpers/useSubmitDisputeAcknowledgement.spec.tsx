@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-hooks'
+import { renderHook } from '@testing-library/react-native'
 import { Keyboard } from 'react-native'
 import { contract } from '../../../../../tests/unit/data/contractData'
 import { Loading } from '../../../../components'

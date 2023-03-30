@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-hooks'
+import { renderHook } from '@testing-library/react-native'
 import { contract } from '../../../../tests/unit/data/contractData'
 import i18n from '../../../utils/i18n'
 import DisputeRaisedNotice from '../components/DisputeRaisedNotice'

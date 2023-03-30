@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-hooks'
+import { renderHook, waitFor } from '@testing-library/react-native'
 import { contract } from '../../../tests/unit/data/contractData'
 import { queryClientWrapper } from '../../../tests/unit/helpers/queryClientWrapper'
 import { useContractDetails } from './useContractDetails'
@@ -21,7 +21,7 @@ describe('useContractDetails', () => {
     jest.clearAllMocks()
   })
   it('fetches contract details from API', async () => {
-    const { result, waitFor } = renderHook((id) => useContractDetails(id), {
+    const { result } = renderHook((id) => useContractDetails(id), {
       wrapper: queryClientWrapper,
       initialProps: contract.id,
     })
@@ -39,7 +39,7 @@ describe('useContractDetails', () => {
   it('returns local contract first if given', async () => {
     const localContract = { ...contract, symmetricKey: 'local' }
     getStoredContractMock.mockReturnValueOnce(localContract)
-    const { result, waitFor } = renderHook((id) => useContractDetails(id), {
+    const { result } = renderHook((id) => useContractDetails(id), {
       wrapper: queryClientWrapper,
       initialProps: contract.id,
     })
@@ -55,7 +55,7 @@ describe('useContractDetails', () => {
     const localContract = { ...contract, symmetricKey: 'local' }
     getContractMock.mockResolvedValueOnce([null])
     getStoredContractMock.mockReturnValueOnce(localContract)
-    const { result, waitFor } = renderHook((id) => useContractDetails(id), {
+    const { result } = renderHook((id) => useContractDetails(id), {
       wrapper: queryClientWrapper,
       initialProps: contract.id,
     })
