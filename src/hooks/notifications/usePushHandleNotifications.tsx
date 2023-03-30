@@ -1,7 +1,7 @@
 import messaging, { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
 import { useEffect } from 'react'
 import { error, info } from '../../utils/log'
-import { parseError } from '../../utils/system'
+import { parseError } from '../../utils/result'
 
 export const useHandleNotifications = (messageHandler: (message: FirebaseMessagingTypes.RemoteMessage) => any) => {
   useEffect(() => {

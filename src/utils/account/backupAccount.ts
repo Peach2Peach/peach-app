@@ -3,7 +3,7 @@ import RNFS from 'react-native-fs'
 import Share from 'react-native-share'
 import { writeFile } from '../file'
 import { error, info } from '../log'
-import { parseError } from '../system'
+import { parseError } from '../result'
 import { account } from './account'
 import { getAccountBackup } from './getAccountBackup'
 
