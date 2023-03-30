@@ -23,6 +23,7 @@ export const defaultSettings: Settings = {
   premium: 1.5,
   showBackupReminder: true,
   peachWalletActive: true,
+  enableAnalytics: false,
   nodeURL: BLOCKEXPLORER,
   feeRate: 'halfHourFee',
 }
