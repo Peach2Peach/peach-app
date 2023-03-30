@@ -15,7 +15,7 @@ import { CurrencySelection, toggleCurrency } from './CurrencySelection'
 
 const referenceRules = { required: false }
 
-// eslint-disable-next-line max-statements
+// eslint-disable-next-line max-statements, complexity
 export const PayPalOrRevolut = ({
   forwardRef,
   data,
@@ -146,6 +146,7 @@ export const PayPalOrRevolut = ({
             label={i18n('form.phoneLong')}
             placeholder={i18n('form.phone.placeholder')}
             autoCorrect={false}
+            required={!email && !userName}
             errorMessage={displayErrors ? phoneErrors : undefined}
           />
         )}
@@ -156,6 +157,7 @@ export const PayPalOrRevolut = ({
             value={email}
             label={i18n('form.emailLong')}
             placeholder={i18n('form.email.placeholder')}
+            required={!phone && !userName}
             errorMessage={displayErrors ? emailErrors : undefined}
           />
         )}
@@ -169,6 +171,7 @@ export const PayPalOrRevolut = ({
               label: name === 'paypal' ? i18n('form.userName') : i18n('form.revtag'),
               placeholder: name === 'paypal' ? i18n('form.userName.placeholder') : i18n('form.revtag.placeholder'),
               autoCorrect: false,
+              required: !phone && !email,
               errorMessage: displayErrors ? userNameErrors : undefined,
             }}
           />
