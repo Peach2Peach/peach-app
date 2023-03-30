@@ -22,7 +22,9 @@ export const useOfferDetails = (id: string) => {
     data,
     isLoading,
     error: offerDetailsError,
-  } = useQuery(['offer', id], getOfferQuery, {
+  } = useQuery({
+    queryKey: ['offer', id],
+    queryFn: getOfferQuery,
     initialData: initialOffer,
     initialDataUpdatedAt: initialOffer?.lastModified?.getTime(),
     enabled: !!id,
