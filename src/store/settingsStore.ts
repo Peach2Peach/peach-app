@@ -4,11 +4,13 @@ import { createJSONStorage, persist } from 'zustand/middleware'
 import { info } from '../utils/log'
 import { createStorage, toZustandStorage } from '../utils/storage'
 import { defaultSettings } from './defaults'
+import { getPureSettingsState } from './helpers/getPureSettingsState'
 
-type SettingsStore = Settings & {
+export type SettingsStore = Settings & {
   migrated?: boolean
   reset: () => void
   updateSettings: (settings: Settings) => void
+  getPureState: () => Settings
   setMigrated: () => void
   setEnableAnalytics: (enableAnalytics: boolean) => void
   toggleAnalytics: () => void
@@ -42,6 +44,7 @@ export const settingsStore = createStore(
       ...defaultSettings,
       reset: () => set({ ...defaultSettings, migrated: false }),
       setMigrated: () => set({ migrated: true }),
+      getPureState: () => getPureSettingsState(get()),
       updateSettings: (settings) => set({ ...settings }),
       setEnableAnalytics: (enableAnalytics) => {
         analytics().setAnalyticsCollectionEnabled(enableAnalytics)
