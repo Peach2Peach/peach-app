@@ -14,10 +14,12 @@ export const removePaymentData = async (id: PaymentData['id']) => {
 
   account.paymentData = account.paymentData.filter((data) => data.id !== id)
 
-  if (account.settings.preferredPaymentMethods[dataToBeRemoved.type]) {
+  const preferredPaymentMethods = settingsStore.getState().preferredPaymentMethods
+
+  if (preferredPaymentMethods[dataToBeRemoved.type]) {
     const nextInLine = getPaymentDataByType(dataToBeRemoved.type).shift()
     settingsStore.getState().setPreferredPaymentMethods({
-      ...account.settings.preferredPaymentMethods,
+      ...preferredPaymentMethods,
       [dataToBeRemoved.type]: nextInLine?.id || '',
     })
   }

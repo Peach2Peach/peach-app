@@ -1,4 +1,4 @@
-import { ReactElement, useEffect, useState, Dispatch, SetStateAction } from 'react'
+import { ReactElement, useEffect, useState, Dispatch, SetStateAction, useCallback } from 'react'
 import { Pressable, View } from 'react-native'
 import { HorizontalLine, Icon, PeachScrollView, Text } from '..'
 import { IconType } from '../../assets/icons'
@@ -66,14 +66,15 @@ const PaymentDataKeyFacts = ({ paymentData, style }: PaymentDataKeyFactsProps) =
 
 type PaymentDetailsProps = ComponentProps & {
   paymentData: PaymentData[]
-  setMeansOfPayment: Dispatch<SetStateAction<Offer['meansOfPayment']>> | (() => void)
+  setMeansOfPayment: Dispatch<SetStateAction<Offer['meansOfPayment']>> | ((meansOfPayment: MeansOfPayment) => void)
   editing: boolean
   origin: keyof RootStackParamList
 }
 export default ({ setMeansOfPayment, editing, style, origin }: PaymentDetailsProps): ReactElement => {
   const [, setRandom] = useState(0)
   const navigation = useNavigation()
-  const selectedPaymentData = getSelectedPaymentDataIds(account.settings.preferredPaymentMethods)
+  const preferredPaymentMethods = useSettingsStore((state) => state.preferredPaymentMethods)
+  const selectedPaymentData = getSelectedPaymentDataIds(preferredPaymentMethods)
   const [currentTab, setCurrentTab] = useState(tabs[0])
   const [paymentData, setPaymentData] = useState(account.paymentData)
   const setPreferredPaymentMethods = useSettingsStore((state) => state.setPreferredPaymentMethods)
@@ -82,15 +83,15 @@ export default ({ setMeansOfPayment, editing, style, origin }: PaymentDetailsPro
     setPaymentData(account.paymentData)
   })
 
-  const update = () => {
+  const update = useCallback(() => {
     setMeansOfPayment(
-      getSelectedPaymentDataIds(account.settings.preferredPaymentMethods)
+      getSelectedPaymentDataIds(preferredPaymentMethods)
         .map(getPaymentData)
         .filter(isDefined)
         .filter((data) => getPaymentMethodInfo(data.type))
         .reduce((mop, data) => dataToMeansOfPayment(mop, data), {}),
     )
-  }
+  }, [preferredPaymentMethods, setMeansOfPayment])
 
   const mapPaymentDataToCheckboxes = (data: PaymentData) => ({
     value: data.id,
@@ -139,7 +140,7 @@ export default ({ setMeansOfPayment, editing, style, origin }: PaymentDetailsPro
 
   useEffect(() => {
     update()
-  }, [paymentData])
+  }, [paymentData, update])
 
   const remotePaymentDetails = () =>
     paymentData.filter((item) => !item.type.includes('cash.')).length === 0 ? (

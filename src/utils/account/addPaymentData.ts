@@ -21,9 +21,10 @@ export const addPaymentData = async (data: PaymentData, save = true) => {
   }
 
   // if preferred payment method doesn't exist for this type, set it
-  if (!account.settings.preferredPaymentMethods[data.type]) {
+  const preferredPaymentMethods = settingsStore.getState().preferredPaymentMethods
+  if (!preferredPaymentMethods[data.type]) {
     settingsStore.getState().setPreferredPaymentMethods({
-      ...account.settings.preferredPaymentMethods,
+      ...preferredPaymentMethods,
       [data.type]: data.id,
     })
   }
