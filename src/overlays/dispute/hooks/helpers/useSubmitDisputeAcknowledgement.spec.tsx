@@ -2,6 +2,7 @@ import { renderHook } from '@testing-library/react-native'
 import { Keyboard } from 'react-native'
 import { contract } from '../../../../../tests/unit/data/contractData'
 import { Loading } from '../../../../components'
+import tw from '../../../../styles/tailwind'
 import { defaultAccount, setAccount } from '../../../../utils/account/account'
 import i18n from '../../../../utils/i18n'
 import { useSubmitDisputeAcknowledgement } from './useSubmitDisputeAcknowledgement'
@@ -75,14 +76,7 @@ describe('useSubmitDisputeAcknowledgement', () => {
         icon: 'clock',
         label: i18n('loading'),
       },
-      content: (
-        <Loading
-          color="#2B1911"
-          style={{
-            alignSelf: 'center',
-          }}
-        />
-      ),
+      content: <Loading color={tw`text-black-1`.color} style={tw`self-center`} />,
       level: 'WARN',
       requireUserAction: true,
       title: i18n('dispute.opened'),
