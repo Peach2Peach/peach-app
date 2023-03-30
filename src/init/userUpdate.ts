@@ -9,18 +9,19 @@ import { parseError } from '../utils/system'
 export default async (referralCode?: string) => {
   if (!account) return
 
+  const settings = settingsStore.getState()
   try {
     const payload: UpdateUserProps = {}
 
-    let fcmToken = account.settings.fcmToken
+    let fcmToken = settings.fcmToken
     try {
       fcmToken = await messaging().getToken()
     } catch (e) {
       error('messaging().getToken - Push notifications not supported', parseError(e))
     }
 
-    if (account.pgp.publicKey && !account.settings.pgpPublished) payload.pgp = account.pgp
-    if (account.settings.fcmToken !== fcmToken) payload.fcmToken = fcmToken
+    if (account.pgp.publicKey && !settings.pgpPublished) payload.pgp = account.pgp
+    if (settings.fcmToken !== fcmToken) payload.fcmToken = fcmToken
     if (referralCode) payload.referralCode = referralCode
 
     if (Object.keys(payload).length) {
@@ -29,7 +30,7 @@ export default async (referralCode?: string) => {
       if (result) {
         info('Updated user information', 'fcmToken', !!payload.fcmToken, 'pgp', !!payload.pgp)
 
-        settingsStore.getState().setPGPPublished(account.settings.pgpPublished || !!payload.pgp)
+        settingsStore.getState().setPGPPublished(settings.pgpPublished || !!payload.pgp)
         if (fcmToken) settingsStore.getState().setFCMToken(fcmToken)
       } else {
         error('User information could not be set', JSON.stringify(err))

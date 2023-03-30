@@ -5,7 +5,7 @@ import { updateUser } from '../utils/peachAPI'
 
 export default async () => {
   try {
-    if (account.pgp.publicKey && !account.settings.pgpPublished) {
+    if (account.pgp.publicKey && !settingsStore.getState().pgpPublished) {
       const [result, err] = await updateUser({ pgp: account.pgp })
 
       if (result) {
