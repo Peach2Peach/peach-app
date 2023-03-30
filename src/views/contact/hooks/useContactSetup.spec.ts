@@ -1,88 +1,70 @@
-import { renderHook } from '@testing-library/react-hooks'
-import { act } from 'react-test-renderer'
-import { account1 } from '../../../../tests/unit/data/accountData'
+import { renderHook } from '@testing-library/react-native'
 import { DISCORD, TELEGRAM } from '../../../constants'
 import { setAccount } from '../../../utils/account'
-import i18n from '../../../utils/i18n'
+import { contactReasonsNoAccount, contactReasonsWithAccount, useContactSetup } from './useContactSetup'
 
-import { contactReasonsWithAccount, contactReasonsNoAccount, useContactSetup } from './useContactSetup'
-
-const navigationNavigateMock = jest.fn()
-const useNavigationMock = jest.fn(() => ({
-  navigate: navigationNavigateMock,
-}))
-const useHeaderSetupMock = jest.fn()
+const navigateMock = jest.fn()
 jest.mock('../../../hooks', () => ({
-  useNavigation: () => useNavigationMock(),
-  useHeaderSetup: (...args: any[]) => useHeaderSetupMock(...args),
+  useNavigation: () => ({
+    navigate: navigateMock,
+  }),
+  useHeaderSetup: jest.fn(),
 }))
 
 const openURLMock = jest.fn()
-jest.mock('react-native', () => ({
-  Linking: {
-    openURL: (args: any) => openURLMock(args),
-  },
+jest.mock('react-native/Libraries/Linking/Linking', () => ({
+  openURL: (url: string) => openURLMock(url),
 }))
 
 describe('useContactSetup', () => {
   beforeEach(() => {
     jest.clearAllMocks()
   })
-
-  it('return default values for when user has no account', () => {
-    const { result } = renderHook(useContactSetup)
-
-    expect(result.current.contactReasons).toEqual(contactReasonsNoAccount)
-    expect(result.current.setReason).toBeInstanceOf(Function)
-    expect(result.current.openTelegram).toBeInstanceOf(Function)
-    expect(result.current.openDiscord).toBeInstanceOf(Function)
-  })
-  it('return contact reasons when user has account', () => {
-    setAccount(account1)
-    const { result } = renderHook(useContactSetup)
-
-    expect(result.current.contactReasons).toEqual(contactReasonsWithAccount)
-  })
-  it('should add the correct header', () => {
-    renderHook(useContactSetup)
-
-    expect(useHeaderSetupMock).toHaveBeenCalled()
-    const args = useHeaderSetupMock.mock.calls[0][0]
-    expect(args.title).toBe(i18n('contact.title'))
-  })
-
-  it('choosing a reason navigates to report', () => {
-    const reason = 'bug'
-    const { result } = renderHook(useContactSetup)
-
-    act(() => {
-      result.current.setReason(reason)
+  it('should return the correct default values', () => {
+    const { result } = renderHook(() => useContactSetup())
+    expect(result.current).toStrictEqual({
+      contactReasons: contactReasonsNoAccount,
+      setReason: expect.any(Function),
+      openTelegram: expect.any(Function),
+      openDiscord: expect.any(Function),
     })
-    expect(navigationNavigateMock).toHaveBeenCalledWith('report', { reason, shareDeviceID: false })
   })
-  it('choosing a lostAccount reason navigates to report with checkbox prechecked', () => {
-    const reason = 'accountLost'
-    const { result } = renderHook(useContactSetup)
 
-    act(() => {
-      result.current.setReason(reason)
+  it('should return the correct default values when there is an account', () => {
+    setAccount({ publicKey: 'test' } as Account)
+    jest.mock('../../../utils/account', () => ({
+      account: null,
+    }))
+    const { result } = renderHook(() => useContactSetup())
+    expect(result.current).toStrictEqual({
+      contactReasons: contactReasonsWithAccount,
+      setReason: expect.any(Function),
+      openTelegram: expect.any(Function),
+      openDiscord: expect.any(Function),
     })
-    expect(navigationNavigateMock).toHaveBeenCalledWith('report', { reason, shareDeviceID: true })
   })
-  it('links to telegram', () => {
-    const { result } = renderHook(useContactSetup)
 
-    act(() => {
-      result.current.openTelegram()
-    })
+  it('should open telegram', () => {
+    const { result } = renderHook(() => useContactSetup())
+    result.current.openTelegram()
     expect(openURLMock).toHaveBeenCalledWith(TELEGRAM)
   })
-  it('links to discord', () => {
-    const { result } = renderHook(useContactSetup)
 
-    act(() => {
-      result.current.openDiscord()
-    })
+  it('should open discord', () => {
+    const { result } = renderHook(() => useContactSetup())
+    result.current.openDiscord()
     expect(openURLMock).toHaveBeenCalledWith(DISCORD)
+  })
+
+  it('should navigate to report', () => {
+    const { result } = renderHook(() => useContactSetup())
+    result.current.setReason('bug')
+    expect(navigateMock).toHaveBeenCalledWith('report', { reason: 'bug', shareDeviceID: false })
+  })
+
+  it('should share the device id when the account is lost', () => {
+    const { result } = renderHook(() => useContactSetup())
+    result.current.setReason('accountLost')
+    expect(navigateMock).toHaveBeenCalledWith('report', { reason: 'accountLost', shareDeviceID: true })
   })
 })

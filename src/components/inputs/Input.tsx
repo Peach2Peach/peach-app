@@ -1,5 +1,6 @@
 import { ReactElement, Ref, useEffect, useMemo, useState } from 'react'
 import {
+  ColorValue,
   NativeSyntheticEvent,
   Pressable,
   TextInput,
@@ -9,7 +10,7 @@ import {
   View,
   ViewStyle,
 } from 'react-native'
-import { Color } from 'react-native-svg'
+
 
 import { Text } from '..'
 import { IconType } from '../../assets/icons'
@@ -54,7 +55,7 @@ export type InputProps = ComponentProps &
     theme?: 'default' | 'inverted'
     label?: string
     icons?: IconActionPair[]
-    iconColor?: Color
+    iconColor?: ColorValue
     inputStyle?: ViewStyle | ViewStyle[]
     required?: boolean
     disabled?: boolean

@@ -101,6 +101,7 @@ jest.mock('@react-native-firebase/analytics', () => () => ({
 jest.mock('react-native-device-info', () => ({
   getBuildNumber: jest.fn(),
   getUniqueId: () => 'UNIQUE-DEVICE-ID',
+  getUniqueIdSync: () => 'UNIQUE-DEVICE-ID',
   getVersion: () => '0.2.0',
   isAirplaneModeSync: jest.fn(),
   isEmulatorSync: () => true,
@@ -111,7 +112,9 @@ jest.mock('react-native-webview')
 jest.mock('react-native-permissions', () => ({
   checkNotifications: jest.fn(),
 }))
-jest.mock('react-native-qrcode-scanner', () => jest.fn())
+jest.mock('../../src/components/camera/CustomQRCodeScanner', () => ({
+  CustomQRCodeScanner: () => null,
+}))
 jest.mock('react-native-promise-rejection-utils', () => ({
   setUnhandledPromiseRejectionTracker: jest.fn(),
 }))

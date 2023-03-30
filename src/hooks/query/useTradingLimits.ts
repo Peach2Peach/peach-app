@@ -12,7 +12,7 @@ const tradingLimitQuery = async () => {
   return result
 }
 export const useTradingLimits = () => {
-  const { data: limits } = useQuery(['tradingLimits'], tradingLimitQuery)
+  const { data: limits } = useQuery({ queryKey: ['tradingLimits'], queryFn: tradingLimitQuery })
   const { data: marketPrices } = useMarketPrices()
 
   const { displayCurrency } = account.settings

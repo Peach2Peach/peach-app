@@ -1,4 +1,4 @@
-import { act, renderHook } from '@testing-library/react-hooks'
+import { act, renderHook } from '@testing-library/react-native'
 import { Keyboard } from 'react-native'
 import { usePasswordPromptSetup } from './usePasswordPromptSetup'
 

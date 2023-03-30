@@ -1,5 +1,5 @@
 import { HelpIcon } from './../../../components/icons/HelpIcon'
-import { renderHook } from '@testing-library/react-hooks'
+import { renderHook } from '@testing-library/react-native'
 import i18n from '../../../utils/i18n'
 import { useFileBackupOverviewSetup } from './useFileBackupOverviewSetup'
 

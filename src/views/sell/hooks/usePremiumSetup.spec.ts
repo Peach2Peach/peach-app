@@ -1,4 +1,4 @@
-import { act, renderHook } from '@testing-library/react-hooks'
+import { act, renderHook } from '@testing-library/react-native'
 import { usePremiumSetup } from './usePremiumSetup'
 import { getSellOfferDraft } from '../helpers/getSellOfferDraft'
 import { account1 } from '../../../../tests/unit/data/accountData'
