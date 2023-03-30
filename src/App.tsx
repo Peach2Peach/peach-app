@@ -50,6 +50,7 @@ import { screenTransition } from './utils/layout/screenTransition'
 import { error, info } from './utils/log'
 import { marketPrices } from './utils/peachAPI/public/market'
 import { compatibilityCheck, isIOS, isNetworkError, linkToAppStore, parseError } from './utils/system'
+import { useSettingsStore } from './store/settingsStore'
 
 enableScreens()
 
@@ -80,6 +81,7 @@ const Handlers = ({ getCurrentPage }: HandlerProps): ReactElement => {
 const usePartialAppSetup = () => {
   const [active, setActive] = useState(true)
   const updateTradingAmounts = useUpdateTradingAmounts()
+  const displayCurrency = useSettingsStore((state) => state.displayCurrency)
   const [setPrices, setCurrency] = useBitcoinStore((state) => [state.setPrices, state.setCurrency], shallow)
   useCheckTradeNotifications()
 
@@ -113,13 +115,13 @@ const usePartialAppSetup = () => {
       if (prices?.CHF) updateTradingAmounts(prices.CHF)
     }
     const interval = setInterval(checkingFunction, checkingInterval)
-    setCurrency(account.settings.displayCurrency)
+    setCurrency(displayCurrency)
     checkingFunction()
 
     return () => {
       clearInterval(interval)
     }
-  }, [active, setCurrency, setPrices, updateTradingAmounts])
+  }, [active, displayCurrency, setCurrency, setPrices, updateTradingAmounts])
 }
 
 // eslint-disable-next-line max-statements
@@ -135,6 +137,7 @@ const App = () => {
   const { width } = Dimensions.get('window')
   const slideInAnim = useRef(new Animated.Value(-width)).current
   const navigationRef = useNavigationContainerRef()
+  const analyticsPopupSeen = useSettingsStore((state) => state.analyticsPopupSeen)
   const [minAppVersion, latestAppVersion] = useConfigStore(
     (state) => [state.minAppVersion, state.latestAppVersion],
     shallow,
@@ -200,7 +203,7 @@ const App = () => {
       await initialNavigation(navigationRef, updateMessage)
       requestUserPermissions()
 
-      if (!account.settings.analyticsPopupSeen) showAnalyticsPrompt()
+      if (!analyticsPopupSeen) showAnalyticsPrompt()
 
       if (!compatibilityCheck(APPVERSION, minAppVersion)) {
         updateMessage({
