@@ -56,6 +56,7 @@ export const Wise = ({ forwardRef, data, currencies = [], onSubmit, setStepValid
     type: 'wise',
     email,
     phone,
+    reference,
     currencies: selectedCurrencies,
   })
 
