@@ -17,8 +17,6 @@ export const useContractDetails = (id: string, refetchInterval?: number) => {
     queryKey: ['contract', id],
     queryFn: getContractQuery,
     initialData: initialContract,
-    initialDataUpdatedAt: initialContract?.lastModified?.getTime(),
-    staleTime: 0,
     refetchInterval,
     enabled: isFocused,
   })
