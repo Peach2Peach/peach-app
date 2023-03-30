@@ -1,4 +1,4 @@
-import { act, renderHook } from '@testing-library/react-hooks'
+import { act, renderHook } from '@testing-library/react-native'
 import { useGoToOrigin } from './useGoToOrigin'
 import { useNavigation } from './useNavigation'
 

@@ -104,9 +104,9 @@ PODS:
     - hermes-engine/Pre-built (= 0.71.4)
   - hermes-engine/Pre-built (0.71.4)
   - libevent (2.1.12)
-  - lottie-ios (3.4.4)
-  - lottie-react-native (5.1.5):
-    - lottie-ios (~> 3.4.0)
+  - lottie-ios (3.5.0)
+  - lottie-react-native (6.0.0-rc.3):
+    - lottie-ios (~> 3.5.0)
     - React-Core
   - MMKV (1.2.13):
     - MMKVCore (~> 1.2.13)
@@ -116,8 +116,6 @@ PODS:
     - nanopb/encode (= 2.30909.0)
   - nanopb/decode (2.30909.0)
   - nanopb/encode (2.30909.0)
-  - Permission-Camera (3.3.1):
-    - RNPermissions
   - PromisesObjC (2.2.0)
   - PromisesSwift (2.2.0):
     - PromisesObjC (= 2.2.0)
@@ -380,20 +378,20 @@ PODS:
     - React-Core
   - react-native-camera/RN (4.2.1):
     - React-Core
-  - react-native-document-picker (8.1.2):
+  - react-native-document-picker (8.2.0):
     - React-Core
-  - react-native-fast-openpgp (2.5.1):
+  - react-native-fast-openpgp (2.6.0):
     - React-Core
   - react-native-mmkv-storage (0.9.1):
     - MMKV (= 1.2.13)
     - React-Core
   - react-native-netinfo (9.3.7):
     - React-Core
-  - react-native-notification-badge (0.1.4):
+  - react-native-notification-badge (0.1.6):
     - React-Core
   - react-native-randombytes (3.6.1):
     - React-Core
-  - react-native-restart (0.0.24):
+  - react-native-restart (0.0.27):
     - React-Core
   - react-native-safe-area-context (4.5.0):
     - RCT-Folly
@@ -493,7 +491,7 @@ PODS:
     - React-Core
   - RNCMaskedView (0.1.11):
     - React
-  - RNDeviceInfo (8.7.1):
+  - RNDeviceInfo (10.4.0):
     - React-Core
   - RNFBAnalytics (17.4.0):
     - Firebase/AnalyticsWithoutAdIdSupport (= 10.7.0)
@@ -518,7 +516,7 @@ PODS:
     - React-Core
   - RNKeychain (8.1.1):
     - React-Core
-  - RNPermissions (3.3.1):
+  - RNPermissions (3.8.0):
     - React-Core
   - RNReanimated (3.0.2):
     - DoubleConversion
@@ -550,9 +548,9 @@ PODS:
   - RNScreens (3.20.0):
     - React-Core
     - React-RCTImage
-  - RNShare (7.9.0):
+  - RNShare (8.2.1):
     - React-Core
-  - RNSVG (12.5.1):
+  - RNSVG (13.8.0):
     - React-Core
   - Yoga (1.14.0)
 
@@ -566,7 +564,6 @@ DEPENDENCIES:
   - hermes-engine (from `../node_modules/react-native/sdks/hermes-engine/hermes-engine.podspec`)
   - libevent (~> 2.1.12)
   - lottie-react-native (from `../node_modules/lottie-react-native`)
-  - Permission-Camera (from `../node_modules/react-native-permissions/ios/Camera`)
   - RCT-Folly (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCTRequired (from `../node_modules/react-native/Libraries/RCTRequired`)
   - RCTTypeSafety (from `../node_modules/react-native/Libraries/TypeSafety`)
@@ -663,8 +660,6 @@ EXTERNAL SOURCES:
     :podspec: "../node_modules/react-native/sdks/hermes-engine/hermes-engine.podspec"
   lottie-react-native:
     :path: "../node_modules/lottie-react-native"
-  Permission-Camera:
-    :path: "../node_modules/react-native-permissions/ios/Camera"
   RCT-Folly:
     :podspec: "../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec"
   RCTRequired:
@@ -796,12 +791,11 @@ SPEC CHECKSUMS:
   GoogleUtilities: c2bdc4cf2ce786c4d2e6b3bcfd599a25ca78f06f
   hermes-engine: a1f157c49ea579c28b0296bda8530e980c45bdb3
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
-  lottie-ios: 8f97d3271e155c2d688875c29cd3c74908aef5f8
-  lottie-react-native: 3e722c63015fdb9c27638b0a77969fc412067c18
+  lottie-ios: c55158d67d0629a260625cc2ded2052b829e3c3e
+  lottie-react-native: 4b07ce6d17647dd24641ae5cd7ae614034318456
   MMKV: aac95d817a100479445633f2b3ed8961b4ac5043
   MMKVCore: ddf41b9d9262f058419f9ba7598719af56c02cd3
   nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
-  Permission-Camera: bae27a8503530770c35aadfecbb97ec71823382a
   PromisesObjC: 09985d6d70fbe7878040aa746d78236e6946d2ef
   PromisesSwift: cf9eb58666a43bbe007302226e510b16c1e10959
   RCT-Folly: 424b8c9a7a0b9ab2886ffe9c3b041ef628fd4fb1
@@ -819,13 +813,13 @@ SPEC CHECKSUMS:
   React-jsinspector: 1f51e775819199d3fe9410e69ee8d4c4161c7b06
   React-logger: 0d58569ec51d30d1792c5e86a8e3b78d24b582c6
   react-native-camera: 3eae183c1d111103963f3dd913b65d01aef8110f
-  react-native-document-picker: f5ec1a712ca2a975c233117f044817bb8393cad4
-  react-native-fast-openpgp: 6889a104cc1eeef546a9723b468041d3ecc6e6bb
+  react-native-document-picker: 495c444c0c773c6e83a5d91165890ecb1c0a399a
+  react-native-fast-openpgp: fb284303005e8ba22387f86fcd580fbdb204c728
   react-native-mmkv-storage: cfb6854594cfdc5f7383a9e464bb025417d1721c
   react-native-netinfo: 2517ad504b3d303e90d7a431b0fcaef76d207983
-  react-native-notification-badge: af03126a841319da4c18c80fd148146f55466a57
+  react-native-notification-badge: 7d458ff810ed02431eb46de253ecfc6a81148ba1
   react-native-randombytes: 421f1c7d48c0af8dbcd471b0324393ebf8fe7846
-  react-native-restart: 45c8dca02491980f2958595333cbccd6877cb57e
+  react-native-restart: 7595693413fe3ca15893702f2c8306c62a708162
   react-native-safe-area-context: 39c2d8be3328df5d437ac1700f4f3a4f75716acc
   react-native-splash-screen: 4312f786b13a81b5169ef346d76d33bc0c6dc457
   react-native-webview: 9f111dfbcfc826084d6c507f569e5e03342ee1c1
@@ -844,7 +838,7 @@ SPEC CHECKSUMS:
   ReactCommon: b49a4b00ca6d181ff74b17c12b2d59ac4add0bde
   RNCClipboard: 3f0451a8100393908bea5c5c5b16f96d45f30bfc
   RNCMaskedView: 0e1bc4bfa8365eba5fbbb71e07fbdc0555249489
-  RNDeviceInfo: aad3c663b25752a52bf8fce93f2354001dd185aa
+  RNDeviceInfo: 749f2e049dcd79e2e44f134f66b73a06951b5066
   RNFBAnalytics: 324c312acc86bf759a8d64671dcce9a75f9c7bfa
   RNFBApp: 525cc4317f7955eda6bac09fac3acf7ee06afa0b
   RNFBCrashlytics: f24159efca2309fef256332e47d58b4af7a3fd41
@@ -852,13 +846,13 @@ SPEC CHECKSUMS:
   RNFS: 4ac0f0ea233904cb798630b3c077808c06931688
   RNGestureHandler: 071d7a9ad81e8b83fe7663b303d132406a7d8f39
   RNKeychain: ff836453cba46938e0e9e4c22e43d43fa2c90333
-  RNPermissions: 34d678157c800b25b22a488e4d8babb57456e796
+  RNPermissions: 9c20349713ff2e275a35f906d921b9d815de116a
   RNReanimated: f0dd6b881808e635ef0673f89642937d6c141314
   RNScreens: 218801c16a2782546d30bd2026bb625c0302d70f
-  RNShare: be91a5c149585affb02c25b351bd07ba927c7006
-  RNSVG: d7d7bc8229af3842c9cfc3a723c815a52cdd1105
+  RNShare: eaee3dd5a06dad397c7d3b14762007035c5de405
+  RNSVG: c1e76b81c76cdcd34b4e1188852892dc280eb902
   Yoga: 79dd7410de6f8ad73a77c868d3d368843f0c93e0
 
-PODFILE CHECKSUM: 05aab427ebd7500072ec5376ea7206cd4f55eb00
+PODFILE CHECKSUM: 21d8602ab40b64c120982e5c7ebf72e5ada845ee
 
 COCOAPODS: 1.12.0

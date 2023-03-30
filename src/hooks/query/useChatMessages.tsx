@@ -44,13 +44,11 @@ const getDecryptedChat
     }
 
 export const useChatMessages = (id: string, symmetricKey?: string) => {
-  const { data, isLoading, error, fetchNextPage, hasNextPage, refetch } = useInfiniteQuery(
-    ['contract-chat', id],
-    symmetricKey ? getDecryptedChat(symmetricKey) : () => [],
-    {
-      keepPreviousData: true,
-    },
-  )
+  const { data, isLoading, error, fetchNextPage, hasNextPage, refetch } = useInfiniteQuery({
+    queryKey: ['contract-chat', id],
+    queryFn: symmetricKey ? getDecryptedChat(symmetricKey) : () => [],
+    keepPreviousData: true,
+  })
 
   const messages = useMemo(() => (data?.pages || []).flat(), [data?.pages])
 
