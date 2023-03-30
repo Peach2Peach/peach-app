@@ -6,8 +6,10 @@ import { createStorage, toZustandStorage } from '../utils/storage'
 import { defaultSettings } from './defaults'
 
 type SettingsStore = Settings & {
+  migrated?: boolean
   reset: () => void
   updateSettings: (settings: Settings) => void
+  setMigrated: () => void
   setEnableAnalytics: (enableAnalytics: boolean) => void
   toggleAnalytics: () => void
   setAnalyticsPopupSeen: (analyticsPopupSeen: boolean) => void
@@ -38,7 +40,8 @@ export const settingsStore = createStore(
   persist<SettingsStore>(
     (set, get) => ({
       ...defaultSettings,
-      reset: () => set(() => defaultSettings),
+      reset: () => set({ ...defaultSettings, migrated: false }),
+      setMigrated: () => set({ migrated: true }),
       updateSettings: (settings) => set({ ...settings }),
       setEnableAnalytics: (enableAnalytics) => {
         analytics().setAnalyticsCollectionEnabled(enableAnalytics)
