@@ -1,7 +1,6 @@
 import analytics from '@react-native-firebase/analytics'
 import { createStore, useStore } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
-import { updateSettings } from '../utils/account'
 import { info } from '../utils/log'
 import { createStorage, toZustandStorage } from '../utils/storage'
 import { defaultSettings } from './defaults'
@@ -29,6 +28,8 @@ type SettingsStore = Settings & {
   togglePeachWallet: () => void
   setFeeRate: (feeRate: number | 'fastestFee' | 'halfHourFee' | 'hourFee' | 'economyFee') => void
   setUsedReferralCode: (usedReferralCode: boolean) => void
+  setPGPPublished: (pgpPublished: boolean) => void
+  setFCMToken: (fcmToken: string) => void
 }
 
 export const settingsStorage = createStorage('settings')
@@ -62,6 +63,8 @@ export const settingsStore = createStore(
       togglePeachWallet: () => get().setPeachWalletActive(!get().peachWalletActive),
       setFeeRate: (feeRate) => set((state) => ({ ...state, feeRate })),
       setUsedReferralCode: (usedReferralCode) => set((state) => ({ ...state, usedReferralCode })),
+      setPGPPublished: (pgpPublished) => set((state) => ({ ...state, pgpPublished })),
+      setFCMToken: (fcmToken) => set((state) => ({ ...state, fcmToken })),
     }),
     {
       name: 'settings',
@@ -78,24 +81,11 @@ export const settingsStore = createStore(
         return migratedState
       },
       storage: createJSONStorage(() => toZustandStorage(settingsStorage)),
-    }
-  )
+    },
+  ),
 )
-
-settingsStore.subscribe((state) => {
-  const cleanState = (Object.keys(state) as (keyof Settings)[])
-    .filter((key) => typeof state[key] !== 'function')
-    .reduce(
-      (obj: Settings, key) => ({
-        ...obj,
-        [key]: state[key],
-      }),
-      {} as Settings
-    )
-  updateSettings(cleanState, true)
-})
 
 export const useSettingsStore = <T>(
   selector: (state: SettingsStore) => T,
-  equalityFn?: ((a: T, b: T) => boolean) | undefined
+  equalityFn?: ((a: T, b: T) => boolean) | undefined,
 ) => useStore(settingsStore, selector, equalityFn)

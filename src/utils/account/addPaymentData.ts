@@ -2,7 +2,6 @@ import { account } from '.'
 import { settingsStore } from '../../store/settingsStore'
 import { getPaymentData } from './getPaymentData'
 import { storePaymentData } from './storeAccount'
-import { updateSettings } from './updateSettings'
 
 /**
  * @description Method to add account payment data
@@ -23,15 +22,10 @@ export const addPaymentData = async (data: PaymentData, save = true) => {
 
   // if preferred payment method doesn't exist for this type, set it
   if (!account.settings.preferredPaymentMethods[data.type]) {
-    updateSettings(
-      {
-        preferredPaymentMethods: {
-          ...account.settings.preferredPaymentMethods,
-          [data.type]: data.id,
-        },
-      },
-      true,
-    )
+    settingsStore.getState().setPreferredPaymentMethods({
+      ...account.settings.preferredPaymentMethods,
+      [data.type]: data.id,
+    })
   }
 
   settingsStore.getState().setShowBackupReminder(true)

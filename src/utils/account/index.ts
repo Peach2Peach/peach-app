@@ -40,4 +40,3 @@ export {
 } from './storeAccount'
 export { getTradingLimit, updateTradingLimit } from './tradingLimit'
 export { updatePaymentData } from './updatePaymentData'
-export { updateSettings } from './updateSettings'
