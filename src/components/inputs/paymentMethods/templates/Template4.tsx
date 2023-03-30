@@ -95,7 +95,7 @@ export const Template4 = ({
       <EmailInput
         onChange={setEmail}
         onSubmit={() => {
-          $reference?.focus()
+          $beneficiary?.focus()
         }}
         reference={(el: any) => ($email = el)}
         required={true}
@@ -105,10 +105,20 @@ export const Template4 = ({
         errorMessage={displayErrors ? emailErrors : undefined}
       />
       <Input
-        onChange={setReference}
+        onChange={setBeneficiary}
         onSubmit={() => {
-          $beneficiary?.focus()
+          $reference?.focus()
         }}
+        reference={(el: any) => ($beneficiary = el)}
+        value={beneficiary}
+        required={false}
+        label={i18n('form.beneficiary')}
+        placeholder={i18n('form.beneficiary.placeholder')}
+        autoCorrect={false}
+      />
+      <Input
+        onChange={setReference}
+        onSubmit={save}
         reference={(el: any) => ($reference = el)}
         value={reference}
         required={false}
@@ -117,17 +127,8 @@ export const Template4 = ({
         autoCorrect={false}
         errorMessage={displayErrors ? referenceError : undefined}
       />
-      <Input
-        onChange={setBeneficiary}
-        onSubmit={save}
-        reference={(el: any) => ($beneficiary = el)}
-        value={beneficiary}
-        required={false}
-        label={i18n('form.beneficiary')}
-        placeholder={i18n('form.beneficiary.placeholder')}
-        autoCorrect={false}
-      />
-      {hasMultipleAvailableCurrencies(name) && (
+
+      {name !== 'giftCard.amazon' && hasMultipleAvailableCurrencies(name) && (
         <CurrencySelection paymentMethod={name} selectedCurrencies={selectedCurrencies} onToggle={onCurrencyToggle} />
       )}
     </>
