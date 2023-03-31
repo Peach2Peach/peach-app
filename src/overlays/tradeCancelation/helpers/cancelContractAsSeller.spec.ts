@@ -74,7 +74,7 @@ describe('cancelContractAsSeller', () => {
     })
   })
   it('also handles patchSellOfferWithRefundTx error case', async () => {
-    patchSellOfferWithRefundTxMock.mockResolvedValueOnce(getResult({ sellOffer }, apiError))
+    patchSellOfferWithRefundTxMock.mockResolvedValueOnce(getResult({ sellOffer }, apiError.error))
     cancelContractMock.mockResolvedValueOnce([cancelContractSuccessWithPSBT, null])
 
     const result = await cancelContractAsSeller(contract)
