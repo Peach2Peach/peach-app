@@ -21,6 +21,18 @@ export const useRateSetup = ({ contract, view, vote, saveAndUpdate }: Props) => 
   const showError = useShowErrorBanner()
   const showBackupReminder = useSettingsStore((state) => state.showBackupReminder)
 
+  const navigateAfterRating = (rating: 1 | -1) => {
+    if (showBackupReminder) {
+      if (rating === 1) {
+        return navigation.replace('backupTime', { view, nextScreen: 'contract', contractId: contract.id })
+      }
+      return navigation.replace('backupTime', { view, nextScreen: 'yourTrades' })
+    } else if (rating === 1) {
+      return navigation.replace('contract', { contractId: contract.id })
+    }
+    return navigation.replace('yourTrades')
+  }
+
   const rate = async () => {
     if (!vote) return
 
@@ -45,17 +57,7 @@ export const useRateSetup = ({ contract, view, vote, saveAndUpdate }: Props) => 
       [ratedUser]: rating.rating,
     })
 
-    if (showBackupReminder) {
-      if (rating.rating === 1) {
-        navigation.replace('backupTime', { view, nextScreen: 'contract', contractId: contract.id })
-      } else {
-        navigation.replace('backupTime', { view, nextScreen: 'yourTrades' })
-      }
-    } else if (rating.rating === 1) {
-      navigation.replace('contract', { contractId: contract.id })
-    } else {
-      navigation.replace('yourTrades')
-    }
+    navigateAfterRating(rating.rating)
   }
   const viewInExplorer = () =>
     contract.releaseTxId ? showTransaction(contract.releaseTxId, NETWORK) : showAddress(contract.escrow, NETWORK)
