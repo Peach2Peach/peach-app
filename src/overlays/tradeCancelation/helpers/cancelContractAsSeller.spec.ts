@@ -80,6 +80,7 @@ describe('cancelContractAsSeller', () => {
     const result = await cancelContractAsSeller(contract)
     expect(cancelContractMock).toHaveBeenCalledWith({ contractId: contract.id })
     expect(result.isError()).toBeTruthy()
+    expect(result.getError()).toBe(apiError.error)
     expect(result.getValue()).toEqual({
       contract: { ...contract, canceled: true },
       sellOffer,

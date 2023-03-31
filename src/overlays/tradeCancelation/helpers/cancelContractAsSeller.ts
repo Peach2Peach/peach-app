@@ -1,8 +1,13 @@
 import { isPaymentTimeExpired } from '../../../utils/contract'
 import { cancelContract } from '../../../utils/peachAPI'
 import { getResult } from '../../../utils/result'
+import { Result } from '../../../utils/result/types'
 import { patchSellOfferWithRefundTx } from './patchSellOfferWithRefundTx'
 
+type UpdateResult = {
+  contract: Contract
+  sellOffer?: SellOffer
+}
 const getContractUpdatedBasedOnExpiry = (contract: Contract) =>
   isPaymentTimeExpired(contract)
     ? {
@@ -12,10 +17,10 @@ const getContractUpdatedBasedOnExpiry = (contract: Contract) =>
     }
     : contract
 
-export const cancelContractAsSeller = async (contract: Contract) => {
+export const cancelContractAsSeller = async (contract: Contract): Promise<Result<UpdateResult, string>> => {
   const [result, err] = await cancelContract({ contractId: contract.id })
 
-  if (!result?.success || err) return getResult({ contract, sellOffer: undefined }, err)
+  if (!result?.success || err) return getResult({ contract, sellOffer: undefined }, err?.error)
 
   const updatedContract = getContractUpdatedBasedOnExpiry(contract)
   if (!result.psbt) return getResult({

@@ -2,13 +2,21 @@ import { checkRefundPSBT, signPSBT } from '../../../utils/bitcoin'
 import { getSellOfferFromContract } from '../../../utils/contract'
 import { patchOffer } from '../../../utils/peachAPI'
 import { getResult } from '../../../utils/result'
+import { Result } from '../../../utils/result/types'
 
-export const patchSellOfferWithRefundTx = async (contract: Contract, refundPSBT: string) => {
+type UpdateResult = {
+  sellOffer: SellOffer
+}
+
+export const patchSellOfferWithRefundTx = async (
+  contract: Contract,
+  refundPSBT: string,
+): Promise<Result<UpdateResult, string>> => {
   const sellOffer = getSellOfferFromContract(contract)
   const { isValid, psbt, err: checkRefundPSBTError } = checkRefundPSBT(refundPSBT, sellOffer)
 
   if (checkRefundPSBTError) return getResult({ sellOffer }, checkRefundPSBTError)
-  if (!isValid || !psbt) return getResult({ sellOffer }, new Error('UNKNOWN_ERROR'))
+  if (!isValid || !psbt) return getResult({ sellOffer }, 'UNKNOWN_ERROR')
 
   const signedPSBT = signPSBT(psbt, sellOffer, false)
   const [patchOfferResult, patchOfferError] = await patchOffer({

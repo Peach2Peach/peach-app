@@ -40,7 +40,7 @@ export const useConfirmCancelTrade = () => {
 
       if (result.isError() || !result.isOk()) {
         closeOverlay()
-        showError(result.isError() ? result.getError().error : undefined)
+        showError(result.isError() ? result.getError() : undefined)
         return
       }
       saveContract(result.getValue().contract)
@@ -56,7 +56,7 @@ export const useConfirmCancelTrade = () => {
       const result = await cancelContractAsSeller(contract)
 
       if (result.isError() || !result.isOk()) {
-        showError(result.isError() ? result.getError().error : undefined)
+        showError(result.isError() ? result.getError() : undefined)
         closeOverlay()
         return
       }
