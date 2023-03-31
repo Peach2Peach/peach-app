@@ -211,6 +211,7 @@
   "contract.cancel.seller.canceled.text.2": "You can choose to be refunded, or to re-publish your offer.",
   "contract.cancel.buyer.canceled.title": "your buyer canceled",
   "contract.cancel.buyer.canceled.text.1": "The buyer has decided to cancel the trade, reducing their reputation.",
+  "contract.cancel.buyer.canceled.text.2": "You can choose to have your sats refunded, or to re-publish this offer.",
   "contract.cancel.mediator.canceled.title": "trade canceled",
   "contract.cancel.mediator.canceled.text.1": "The dispute mediator has decided to cancel the trade.",
   "contract.cancel.mediator.canceled.text.2": "You can choose to be refunded, or to re-publish your offer.",
