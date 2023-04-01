@@ -1,11 +1,11 @@
-import { ReactElement, useState } from 'react'
+import { useState } from 'react'
 import { Image, LayoutChangeEvent, View } from 'react-native'
 import txInMempool from '../../../assets/escrow/tx-in-mempool.png'
 import { Text } from '../../../components'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 
-export default (): ReactElement => {
+export const TransactionInMempool = () => {
   const [width, setWidth] = useState(300)
 
   const onLayout = (e: LayoutChangeEvent) => setWidth(e.nativeEvent.layout.width)
