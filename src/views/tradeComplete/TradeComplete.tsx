@@ -11,7 +11,7 @@ import { getContractViewer, saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { Rate } from './components/Rate'
 
-export default (): ReactElement => {
+const useTradeCompleteSetup = () => {
   const route = useRoute<'tradeComplete'>()
   const [contract, setContract] = useState<Contract>(route.params.contract)
   const view = getContractViewer(route.params.contract, account)
@@ -36,6 +36,11 @@ export default (): ReactElement => {
     })
   }, [])
 
+  return { contract, view, vote, setVote, saveAndUpdate }
+}
+
+export default (): ReactElement => {
+  const { contract, view, vote, setVote, saveAndUpdate } = useTradeCompleteSetup()
   return (
     <View style={tw`items-center justify-between h-full px-8 pt-5 pb-10`}>
       <View style={tw`items-center`}>
