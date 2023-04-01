@@ -1,0 +1,51 @@
+import { account1 } from '../../../../tests/unit/data/accountData'
+import { contract } from '../../../../tests/unit/data/contractData'
+import { setAccount } from '../../../utils/account'
+import { messageHandler } from './messageHandler'
+
+const getContractMock = jest.fn().mockReturnValue(contract)
+jest.mock('../../../utils/contract/getContract', () => ({
+  getContract: () => getContractMock(),
+}))
+const saveContractMock = jest.fn()
+jest.mock('../../../utils/contract/saveContract', () => ({
+  saveContract: (...args: any[]) => saveContractMock(...args),
+}))
+
+describe('messageHandler', () => {
+  const now = new Date()
+  const message: Message = {
+    roomId: contract.id,
+    from: contract.buyer.id,
+    date: now,
+    message: 'message',
+    readBy: [],
+    signature: 'signature',
+  }
+  afterEach(() => {
+    jest.clearAllMocks()
+  })
+
+  it('does nothing if message is missing important data', async () => {
+    await messageHandler({ ...message, message: '' })
+    await messageHandler({ ...message, roomId: '' })
+    expect(saveContractMock).not.toHaveBeenCalled()
+  })
+  it('does nothing if message is from sending user', async () => {
+    await setAccount(account1)
+    await messageHandler({ ...message, from: account1.publicKey })
+    expect(saveContractMock).not.toHaveBeenCalled()
+  })
+  it('does nothing if contract cannot be found', async () => {
+    getContractMock.mockReturnValueOnce(undefined)
+    await messageHandler(message)
+    expect(saveContractMock).not.toHaveBeenCalled()
+  })
+  it('adds +1 to unread messages', async () => {
+    await messageHandler(message)
+    expect(saveContractMock).toHaveBeenCalledWith({
+      ...contract,
+      unreadMessages: contract.unreadMessages + 1,
+    })
+  })
+})
