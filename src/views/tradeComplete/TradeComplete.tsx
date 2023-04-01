@@ -1,43 +1,12 @@
-import analytics from '@react-native-firebase/analytics'
-import { ReactElement, useEffect, useState } from 'react'
+import { ReactElement } from 'react'
 
 import tw from '../../styles/tailwind'
 
 import { TouchableOpacity, View } from 'react-native'
 import { Icon, Text } from '../../components'
-import { useRoute } from '../../hooks'
-import { account } from '../../utils/account'
-import { getContractViewer, saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { Rate } from './components/Rate'
-
-const useTradeCompleteSetup = () => {
-  const route = useRoute<'tradeComplete'>()
-  const [contract, setContract] = useState<Contract>(route.params.contract)
-  const view = getContractViewer(route.params.contract, account)
-
-  const [vote, setVote] = useState<'positive' | 'negative'>()
-
-  const saveAndUpdate = (contractData: Contract) => {
-    setContract(contractData)
-    saveContract(contractData)
-  }
-
-  useEffect(() => {
-    setContract(() => route.params.contract)
-  }, [route])
-
-  useEffect(() => {
-    analytics().logEvent('trade_completed', {
-      amount: contract.amount,
-      value: contract.price,
-      currency: contract.currency,
-      payment_method: contract.paymentMethod,
-    })
-  }, [])
-
-  return { contract, view, vote, setVote, saveAndUpdate }
-}
+import { useTradeCompleteSetup } from './useTradeCompleteSetup'
 
 export default (): ReactElement => {
   const { contract, view, vote, setVote, saveAndUpdate } = useTradeCompleteSetup()
