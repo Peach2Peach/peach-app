@@ -6,6 +6,7 @@ import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { openAppLink } from '../../../utils/web'
 import { CopyAble } from '../../ui'
+import { InfoBlock } from './InfoBlock'
 
 export const names: Record<string, string> = {
   beneficiary: 'contract.payment.to',
@@ -14,32 +15,6 @@ export const names: Record<string, string> = {
   accountNumber: 'form.account',
   reference: 'contract.summary.reference',
 }
-
-export const InfoBlock = ({
-  value,
-  name,
-  copyable,
-  onInfoPress,
-}: {
-  value: string
-  name?: string
-  copyable?: boolean
-  onInfoPress?: () => void
-}) => (
-  <View style={[tw`flex-row mt-[2px]`]}>
-    <View style={tw`w-25`}>{!!name && <Text style={tw`text-black-2`}>{i18n(name)}</Text>}</View>
-    <View key={'paymentDetails-' + name} style={tw`flex-row items-center flex-1`}>
-      <Text onPress={!!onInfoPress ? onInfoPress : undefined} style={tw`flex-wrap subtitle-1 leading-base`}>
-        {value}
-      </Text>
-      {copyable && (
-        <View style={tw`w-6 h-4 ml-2`}>
-          <CopyAble value={value} />
-        </View>
-      )}
-    </View>
-  </View>
-)
 
 export const GeneralPaymentData = ({
   paymentMethod,
@@ -66,6 +41,8 @@ export const GeneralPaymentData = ({
           .filter((field) => !!paymentData[field])
           .map((field, i) => (
             <InfoBlock
+              key={`info-${field}`}
+              style={tw`mt-[2px]`}
               value={paymentData[field]}
               copyable={copyable}
               name={!paymentData.beneficiary && i === 0 ? 'contract.payment.to' : names[field]}
