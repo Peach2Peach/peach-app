@@ -1,15 +1,11 @@
 import { CommonActions } from '@react-navigation/native'
 import { useCallback, useContext } from 'react'
 
-import { Text } from '../../../../components'
 import { OverlayContext } from '../../../../contexts/overlay'
 import { deleteAccount } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
 import { logoutUser } from '../../../../utils/peachAPI'
-
-const DeleteAccountPopup = ({ title }: { title: 'popup' | 'forRealsies' | 'success' }) => (
-  <Text>{i18n(`settings.deleteAccount.${title}`)}</Text>
-)
+import { DeleteAccountPopup } from './DeleteAccountPopup'
 
 export const useDeleteAccountPopups = () => {
   const [, updateOverlay] = useContext(OverlayContext)
