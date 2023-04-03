@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`InfoBlock should renders a default InfoBlock 1`] = `
+exports[`InfoBlock should render a default InfoBlock 1`] = `
 <View
   style={
     [
@@ -46,7 +46,7 @@ exports[`InfoBlock should renders a default InfoBlock 1`] = `
 </View>
 `;
 
-exports[`InfoBlock should renders a full InfoBlock with style 1`] = `
+exports[`InfoBlock should render a full InfoBlock with style 1`] = `
 <View
   style={
     [

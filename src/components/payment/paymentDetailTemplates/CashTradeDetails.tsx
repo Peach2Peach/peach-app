@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
 import { useMeetupEventsStore } from '../../../store/meetupEventsStore'
 import i18n from '../../../utils/i18n'
-import { InfoBlock } from './generalPaymentDetails'
+import { InfoBlock } from './InfoBlock'
 
 declare type CashTradesDetailsProps = {
   contract: Contract

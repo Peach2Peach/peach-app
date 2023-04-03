@@ -1,12 +1,13 @@
 import { ReactElement } from 'react'
 import { View } from 'react-native'
-import { PaymentTemplateProps, possiblePaymentFields } from '..'
 import tw from '../../../styles/tailwind'
 import { openAppLink } from '../../../utils/web'
+import { PaymentTemplateProps } from '.'
+import { paymentFields } from '../paymentFields'
 import { InfoBlock } from './InfoBlock'
 import { PaymentReference } from './PaymentReference'
 
-export const names: Record<string, string> = {
+const names: Record<string, string> = {
   beneficiary: 'contract.payment.to',
   iban: 'form.iban',
   bic: 'form.bic',
@@ -14,7 +15,7 @@ export const names: Record<string, string> = {
   reference: 'contract.summary.reference',
 }
 
-export const GeneralPaymentData = ({
+export const GeneralPaymentDetails = ({
   paymentMethod,
   paymentData,
   appLink,
@@ -25,12 +26,11 @@ export const GeneralPaymentData = ({
   const openApp = () => (fallbackUrl ? openAppLink(fallbackUrl, appLink) : {})
 
   const onInfoPress = () => {
-    if (appLink || fallbackUrl) {
-      openApp()
-    }
+    if (!appLink && !fallbackUrl) return
+    openApp()
   }
 
-  const possibleFields = possiblePaymentFields[paymentMethod]
+  const possibleFields = paymentFields[paymentMethod]
 
   return (
     <View style={style}>
@@ -51,4 +51,3 @@ export const GeneralPaymentData = ({
     </View>
   )
 }
-export default GeneralPaymentData
