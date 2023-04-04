@@ -1,12 +1,12 @@
-import { Dispatch } from 'react'
 import messaging, { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
 import { NavigationContainerRefWithCurrent } from '@react-navigation/native'
+import { Dispatch } from 'react'
 import SplashScreen from 'react-native-splash-screen'
 import { account } from '../utils/account'
 import { error, info } from '../utils/log'
 import { handlePushNotification } from '../utils/navigation'
 import { sleep } from '../utils/performance'
-import { parseError } from '../utils/system'
+import { parseError } from '../utils/result'
 
 /**
  * @description Method to wait up to 10 seconds for navigation to initialise.

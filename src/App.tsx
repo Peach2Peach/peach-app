@@ -49,7 +49,8 @@ import { account } from './utils/account'
 import { screenTransition } from './utils/layout/screenTransition'
 import { error, info } from './utils/log'
 import { marketPrices } from './utils/peachAPI/public/market'
-import { compatibilityCheck, isIOS, isNetworkError, linkToAppStore, parseError } from './utils/system'
+import { compatibilityCheck, isIOS, isNetworkError, linkToAppStore } from './utils/system'
+import { parseError } from './utils/result'
 import { useSettingsStore } from './store/settingsStore'
 
 enableScreens()
