@@ -12,7 +12,7 @@ jest.mock('../../../hooks/useNavigation', () => ({
 }))
 
 const walletStore = {}
-const walletStateMock = jest.fn((selector) => selector(walletStore))
+const walletStateMock = jest.fn((selector, compareFn) => selector(walletStore))
 jest.mock('../../../utils/wallet/walletStore', () => ({
   useWalletState: (selector: any, compareFn: any) => walletStateMock(selector, compareFn),
 }))
