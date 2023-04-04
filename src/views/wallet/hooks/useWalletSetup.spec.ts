@@ -1,6 +1,5 @@
 import { act, renderHook } from '@testing-library/react-native'
 import { settingsStore } from '../../../store/settingsStore'
-import { peachWallet } from '../../../utils/wallet/setWallet'
 import { useWalletSetup } from './useWalletSetup'
 
 jest.mock('@react-navigation/native', () => ({
