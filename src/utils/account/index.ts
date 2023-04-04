@@ -20,7 +20,6 @@ export {
   loadIdentity,
   loadOffers,
   loadPaymentData,
-  loadSettings,
   loadTradingLimit,
 } from './loadAccount'
 export { recoverAccount } from './recoverAccount'
@@ -35,9 +34,7 @@ export {
   storeOffer,
   storeOffers,
   storePaymentData,
-  storeSettings,
   storeTradingLimit,
 } from './storeAccount'
 export { getTradingLimit, updateTradingLimit } from './tradingLimit'
 export { updatePaymentData } from './updatePaymentData'
-export { updateSettings } from './updateSettings'

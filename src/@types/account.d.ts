@@ -41,7 +41,6 @@ declare type Identity = {
 }
 
 declare type Account = Identity & {
-  settings: Settings
   paymentData: PaymentData[]
   legacyPaymentData: PaymentData[]
   tradingLimit: TradingLimit
@@ -50,4 +49,8 @@ declare type Account = Identity & {
   chats: {
     [key: string]: Chat
   }
+}
+
+declare type AccountBackup = Account & {
+  settings: Settings
 }
