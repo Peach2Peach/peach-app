@@ -66,7 +66,7 @@ const PaymentDataKeyFacts = ({ paymentData, style }: PaymentDataKeyFactsProps) =
 
 type PaymentDetailsProps = ComponentProps & {
   paymentData: PaymentData[]
-  setMeansOfPayment: Dispatch<SetStateAction<Offer['meansOfPayment']>> | ((meansOfPayment: MeansOfPayment) => void)
+  setMeansOfPayment?: Dispatch<SetStateAction<Offer['meansOfPayment']>> | ((meansOfPayment: MeansOfPayment) => void)
   editing: boolean
   origin: keyof RootStackParamList
 }
@@ -84,13 +84,15 @@ export default ({ setMeansOfPayment, editing, style, origin }: PaymentDetailsPro
   })
 
   const update = useCallback(() => {
-    setMeansOfPayment(
-      getSelectedPaymentDataIds(preferredPaymentMethods)
-        .map(getPaymentData)
-        .filter(isDefined)
-        .filter((data) => getPaymentMethodInfo(data.type))
-        .reduce((mop, data) => dataToMeansOfPayment(mop, data), {}),
-    )
+    if (isDefined(setMeansOfPayment)) {
+      setMeansOfPayment(
+        getSelectedPaymentDataIds(preferredPaymentMethods)
+          .map(getPaymentData)
+          .filter(isDefined)
+          .filter((data) => getPaymentMethodInfo(data.type))
+          .reduce((mop, data) => dataToMeansOfPayment(mop, data), {}),
+      )
+    }
   }, [preferredPaymentMethods, setMeansOfPayment])
 
   const mapPaymentDataToCheckboxes = (data: PaymentData) => ({
