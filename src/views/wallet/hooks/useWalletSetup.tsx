@@ -8,8 +8,8 @@ import { useHeaderSetup, useNavigation, useValidatedState } from '../../../hooks
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { useShowHelp } from '../../../hooks/useShowHelp'
 import { WithdrawalConfirmation } from '../../../overlays/WithdrawalConfirmation'
+import { useSettingsStore } from '../../../store/settingsStore'
 import tw from '../../../styles/tailwind'
-import { account } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
 import { getFeeEstimate } from '../../../utils/peachAPI'
 import { parseError } from '../../../utils/result'
@@ -25,6 +25,7 @@ const bitcoinAddressRules = { required: false, bitcoinAddress: true }
 export const useWalletSetup = () => {
   const [, updateOverlay] = useContext(OverlayContext)
   const showErrorBanner = useShowErrorBanner()
+  const feeRate = useSettingsStore((state) => state.feeRate)
   const walletStore = useWalletState((state) => state)
   const showHelp = useShowHelp('withdrawingFunds')
   const navigation = useNavigation()
@@ -44,19 +45,19 @@ export const useWalletSetup = () => {
 
   const confirmWithdrawal = async () => {
     closeOverlay()
-    let feeRate = account.settings.feeRate
+    let finalFeeRate = feeRate
     if (feeRate && !isNumber(feeRate)) {
       const [estimatedFees] = await getFeeEstimate({})
-      if (estimatedFees) feeRate = estimatedFees[feeRate]
+      if (estimatedFees) finalFeeRate = estimatedFees[feeRate]
     }
 
-    if (!isNumber(feeRate)) {
+    if (!isNumber(finalFeeRate)) {
       showErrorBanner()
       return
     }
 
     try {
-      const txId = await peachWallet.withdrawAll(address, feeRate)
+      const txId = await peachWallet.withdrawAll(address, finalFeeRate)
       if (txId) setAddress('')
     } catch (e) {
       const [err, cause] = e as [Error, string | InsufficientFundsError]
@@ -126,8 +127,10 @@ export const useWalletSetup = () => {
     onChange,
     isValid,
     address,
+    setAddress,
     addressErrors,
     openWithdrawalConfirmation,
+    confirmWithdrawal,
     walletLoading,
   }
 }
