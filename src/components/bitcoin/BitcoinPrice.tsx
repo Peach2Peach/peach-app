@@ -16,5 +16,3 @@ export const BitcoinPrice = ({ sats, style }: PriceFormatProps): ReactElement =>
   const price = (marketPrice / SATSINBTC) * sats
   return <PriceFormat amount={price} currency={displayCurrency} style={style} />
 }
-
-export default BitcoinPrice
