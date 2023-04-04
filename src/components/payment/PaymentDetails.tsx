@@ -101,7 +101,7 @@ export default ({ setMeansOfPayment, editing, style, origin }: PaymentDetailsPro
   })
 
   const setPaymentMethods = (ids: string[]) => {
-    const newPreferredPaymentMethods = (ids as PaymentData['id'][]).reduce((obj, id) => {
+    const newPreferredPaymentMethods = ids.reduce((obj, id) => {
       const method = paymentData.find((d) => d.id === id)?.type
       if (method) obj[method] = id
       return obj
