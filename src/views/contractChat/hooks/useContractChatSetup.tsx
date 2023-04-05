@@ -36,7 +36,7 @@ export const useContractChatSetup = () => {
   const showDisclaimer = useShowDisputeDisclaimer()
   const openDisputeOverlay = useOpenDispute(contractId)
   const tradingPartner = contract ? getTradingPartner(contract, account) : null
-  const [chat, setChat] = useState<Chat>(getChat(contractId))
+  const [chat, setChat] = useState(getChat(contractId))
   const [newMessage, setNewMessage] = useState(chat.draftMessage)
   const [disableSend, setDisableSend] = useState(false)
 
