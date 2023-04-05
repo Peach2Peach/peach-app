@@ -1,4 +1,3 @@
-/* eslint-disable max-lines */
 import { ReactElement } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
@@ -10,7 +9,6 @@ import ChatBox from './components/ChatBox'
 import { useContractChatSetup } from './hooks/useContractChatSetup'
 import { isChatActive } from './utils/isChatActive'
 
-// eslint-disable-next-line max-statements, max-lines-per-function
 export default (): ReactElement => {
   const {
     contract,
