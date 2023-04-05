@@ -20,12 +20,10 @@ type ChatBoxProps = ComponentProps & {
 export default ({
   chat,
   setAndSaveChat,
-  resendMessage,
-  tradingPartner,
   page,
   fetchNextPage,
   isLoading,
-  online,
+  ...chatMessageProps
 }: ChatBoxProps): ReactElement => {
   const scroll = useRef<FlatList<Message>>(null)
   const visibleChatMessages = chat.messages.slice(-(page + 1) * PAGE_SIZE)
@@ -59,7 +57,7 @@ export default ({
         item.date.getTime() + item.signature.substring(0, 16) + item.signature.substring(128, 128 + 32)
       }
       renderItem={({ item, index }) => (
-        <ChatMessage chatMessages={visibleChatMessages} {...{ item, index, tradingPartner, online, resendMessage }} />
+        <ChatMessage chatMessages={visibleChatMessages} {...{ item, index, ...chatMessageProps }} />
       )}
       initialNumToRender={PAGE_SIZE}
       ListFooterComponent={<View style={tw`h-2`}></View>}
