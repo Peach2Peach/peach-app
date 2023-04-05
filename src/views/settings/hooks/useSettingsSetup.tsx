@@ -32,7 +32,7 @@ export const useSettingsSetup = () => {
       state.toggleAnalytics,
       state.showBackupReminder,
     ],
-    shallow
+    shallow,
   )
 
   useFocusEffect(
@@ -47,7 +47,7 @@ export const useSettingsSetup = () => {
       return () => {
         eventListener.remove()
       }
-    }, [])
+    }, []),
   )
 
   const goToCurrencySettings = useCallback(() => navigation.navigate('currency'), [navigation])
@@ -90,7 +90,7 @@ export const useSettingsSetup = () => {
       { title: 'networkFees' },
       { title: 'paymentMethods' },
     ],
-    [showBackupReminder]
+    [showBackupReminder],
   )
 
   const appSettings: SettingsItemProps[] = useMemo(
@@ -114,7 +114,7 @@ export const useSettingsSetup = () => {
       { title: 'payoutAddress' },
       { title: 'currency', onPress: goToCurrencySettings },
     ],
-    [toggleAnalytics, enableAnalytics, notificationClick, togglePeachWallet, peachWalletActive, goToCurrencySettings]
+    [toggleAnalytics, enableAnalytics, notificationClick, togglePeachWallet, peachWalletActive, goToCurrencySettings],
   )
 
   const settings = [

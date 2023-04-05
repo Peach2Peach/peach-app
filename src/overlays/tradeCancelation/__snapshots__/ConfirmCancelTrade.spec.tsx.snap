@@ -1,0 +1,108 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ConfirmCancelTrade should render correctly for buyer 1`] = `
+<React.Fragment>
+  <PeachText
+    style={
+      {
+        "fontFamily": "Baloo2-Regular",
+        "fontSize": 16,
+        "letterSpacing": 0.16,
+        "lineHeight": 24,
+      }
+    }
+  >
+    Are you sure?
+  </PeachText>
+  <PeachText
+    style={
+      {
+        "fontFamily": "Baloo2-Regular",
+        "fontSize": 16,
+        "letterSpacing": 0.16,
+        "lineHeight": 24,
+        "marginTop": 12,
+      }
+    }
+  >
+    The seller has already matched you back, so canceling now will impact your reputation in a major way.
+  </PeachText>
+</React.Fragment>
+`;
+
+exports[`ConfirmCancelTrade should render correctly for buyer with cash trade 1`] = `
+<React.Fragment>
+  <PeachText
+    style={
+      {
+        "fontFamily": "Baloo2-Regular",
+        "fontSize": 16,
+        "letterSpacing": 0.16,
+        "lineHeight": 24,
+      }
+    }
+  >
+    Are you sure?
+  </PeachText>
+  <PeachText
+    style={
+      {
+        "fontFamily": "Baloo2-Regular",
+        "fontSize": 16,
+        "letterSpacing": 0.16,
+        "lineHeight": 24,
+        "marginTop": 12,
+      }
+    }
+  >
+    The seller has already matched you back, so canceling now will impact your reputation in a major way.
+  </PeachText>
+</React.Fragment>
+`;
+
+exports[`ConfirmCancelTrade should render correctly for seller 1`] = `
+<React.Fragment>
+  <PeachText
+    style={
+      {
+        "fontFamily": "Baloo2-Regular",
+        "fontSize": 16,
+        "letterSpacing": 0.16,
+        "lineHeight": 24,
+      }
+    }
+  >
+    Are you sure?
+  </PeachText>
+  <PeachText
+    style={
+      {
+        "fontFamily": "Baloo2-Regular",
+        "fontSize": 16,
+        "letterSpacing": 0.16,
+        "lineHeight": 24,
+        "marginTop": 12,
+      }
+    }
+  >
+    The buyer needs to agree to cancel the trade, since they might have already made the payment.
+  </PeachText>
+</React.Fragment>
+`;
+
+exports[`ConfirmCancelTrade should render correctly for seller with cash trade 1`] = `
+<React.Fragment>
+  <PeachText
+    style={
+      {
+        "fontFamily": "Baloo2-Regular",
+        "fontSize": 16,
+        "letterSpacing": 0.16,
+        "lineHeight": 24,
+      }
+    }
+  >
+    Are you sure?
+  </PeachText>
+</React.Fragment>
+`;

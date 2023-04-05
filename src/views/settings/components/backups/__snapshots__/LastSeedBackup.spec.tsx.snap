@@ -1,0 +1,80 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LastSeedBackup should render correctly 1`] = `
+<View
+  style={
+    {
+      "alignItems": "center",
+    }
+  }
+>
+  <PeachText
+    style={
+      {
+        "fontFamily": "Baloo2-Bold",
+        "fontSize": 20,
+        "letterSpacing": 0.2,
+        "lineHeight": 32,
+      }
+    }
+  >
+    last seed backup made:
+  </PeachText>
+  <PrimaryButton
+    iconId="rotateCounterClockwise"
+    onPress={[MockFunction]}
+    style={
+      {
+        "marginTop": 40,
+      }
+    }
+    wide={true}
+  >
+    check seed words
+  </PrimaryButton>
+</View>
+`;
+
+exports[`LastSeedBackup should render correctly with seedbackup date 1`] = `
+<View
+  style={
+    {
+      "alignItems": "center",
+    }
+  }
+>
+  <PeachText
+    style={
+      {
+        "fontFamily": "Baloo2-Bold",
+        "fontSize": 20,
+        "letterSpacing": 0.2,
+        "lineHeight": 32,
+      }
+    }
+  >
+    last seed backup made:
+  </PeachText>
+  <PeachText
+    style={
+      {
+        "marginTop": 8,
+      }
+    }
+  >
+    01/09/2022 00:00
+  </PeachText>
+  <PrimaryButton
+    iconId="rotateCounterClockwise"
+    onPress={[MockFunction]}
+    style={
+      {
+        "marginTop": 40,
+      }
+    }
+    wide={true}
+  >
+    check seed words
+  </PrimaryButton>
+</View>
+`;

@@ -13,16 +13,39 @@ export const defaultConfig: Config = {
 
 export const defaultSettings: Settings = {
   appVersion: APPVERSION,
-  displayCurrency: 'EUR',
+
+  enableAnalytics: false,
+  analyticsPopupSeen: undefined,
+
+  lastBackupDate: undefined,
+  lastFileBackupDate: undefined,
+  lastSeedBackupDate: undefined,
+  showBackupReminder: true,
+
+  country: undefined,
   locale: 'en',
+  displayCurrency: 'EUR',
+
+  meansOfPayment: {},
+  preferredPaymentMethods: {},
+
+  premium: 1.5,
+
   minBuyAmount: defaultConfig.minTradingAmount,
   maxBuyAmount: defaultConfig.maxTradingAmount,
   sellAmount: defaultConfig.minTradingAmount,
-  preferredPaymentMethods: {},
-  meansOfPayment: {},
-  premium: 1.5,
-  showBackupReminder: true,
-  peachWalletActive: true,
+
   nodeURL: BLOCKEXPLORER,
+
+  returnAddress: undefined,
+  payoutAddress: undefined,
+  payoutAddressLabel: undefined,
+  payoutAddressSignature: undefined,
+  peachWalletActive: true,
+  derivationPath: undefined,
   feeRate: 'halfHourFee',
+
+  pgpPublished: undefined,
+  fcmToken: undefined,
+  usedReferralCode: undefined,
 }
