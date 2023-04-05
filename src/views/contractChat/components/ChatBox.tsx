@@ -6,7 +6,7 @@ import { ChatMessage } from './ChatMessage'
 
 const PAGE_SIZE = 21
 
-type ChatBoxProps = ComponentProps & {
+type ChatBoxProps = {
   chat: Chat
   setAndSaveChat: (id: string, c: Partial<Chat>, save?: boolean) => void
   resendMessage: (message: Message) => void
