@@ -1,4 +1,3 @@
-import { useIsFocused } from '@react-navigation/native'
 import { useInfiniteQuery } from '@tanstack/react-query'
 import { useMemo } from 'react'
 import { getChat } from '../../utils/peachAPI'
@@ -45,13 +44,10 @@ const getDecryptedChat
     }
 
 export const useChatMessages = (id: string, symmetricKey?: string) => {
-  const isFocused = useIsFocused()
   const { data, isLoading, error, fetchNextPage, hasNextPage, refetch } = useInfiniteQuery({
     queryKey: ['contract-chat', id],
     queryFn: symmetricKey ? getDecryptedChat(symmetricKey) : () => [],
     keepPreviousData: true,
-    enabled: !!symmetricKey && isFocused,
-    refetchInterval: 1000,
   })
 
   const messages = useMemo(() => (data?.pages || []).flat(), [data?.pages])
