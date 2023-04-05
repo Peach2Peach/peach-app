@@ -29,15 +29,18 @@ export default ({
   const visibleChatMessages = chat.messages.slice(-(page + 1) * PAGE_SIZE)
 
   useEffect(() => {
+    if (visibleChatMessages.length === 0) return
     setTimeout(() => scroll.current?.scrollToEnd({ animated: false }), 300)
-  }, [])
+  }, [visibleChatMessages.length])
 
   useEffect(() => {
     Keyboard.addListener('keyboardDidShow', () => () => scroll.current?.scrollToEnd({ animated: false }))
   }, [])
 
   const onContentSizeChange = () =>
-    page === 0 ? setTimeout(() => scroll.current?.scrollToEnd({ animated: false }), 50) : () => {}
+    page === 0 && visibleChatMessages.length > 0
+      ? setTimeout(() => scroll.current?.scrollToEnd({ animated: false }), 50)
+      : () => {}
 
   const onViewableItemsChanged = useCallback(({ viewableItems }: { viewableItems: Array<ViewToken> }) => {
     const lastItem = viewableItems.pop()?.item as Message
