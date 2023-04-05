@@ -1,5 +1,5 @@
 import RNFS from 'react-native-fs'
-import { appendFile } from './appendFile'
+import { appendFile } from '.'
 
 const appendFileMock = jest.fn()
 const writeFileMock = jest.fn()

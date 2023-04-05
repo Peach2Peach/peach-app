@@ -1,4 +1,4 @@
-import { writeFile } from './writeFile'
+import { writeFile } from '.'
 
 const writeFileMock = jest.fn().mockResolvedValue(true)
 jest.mock('react-native-fs', () => ({

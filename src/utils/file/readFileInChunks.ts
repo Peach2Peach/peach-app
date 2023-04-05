@@ -1,4 +1,4 @@
-import { readChunkOfFile } from './readChunkOfFile'
+import { readChunkOfFile } from '.'
 
 const CHUNKSIZE = 1048576
 

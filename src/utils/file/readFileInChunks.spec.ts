@@ -1,4 +1,4 @@
-import { readFileInChunks } from './readFileInChunks'
+import { readFileInChunks } from '.'
 
 jest.mock('react-native-fs', () => ({
   read: jest.fn().mockResolvedValueOnce('this is a ')

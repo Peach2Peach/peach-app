@@ -1,4 +1,4 @@
-import { deleteFile } from './deleteFile'
+import { deleteFile } from '.'
 
 jest.mock('react-native-fs', () => ({
   DocumentDirectoryPath: 'DDirPath/',

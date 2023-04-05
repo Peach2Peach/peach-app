@@ -1,4 +1,4 @@
-import { exists } from './exists'
+import { exists } from '.'
 
 jest.mock('react-native-fs', () => ({
   DocumentDirectoryPath: 'DDirPath/',

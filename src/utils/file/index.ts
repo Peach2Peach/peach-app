@@ -1,6 +1,7 @@
 export { appendFile } from './appendFile'
 export { deleteFile } from './deleteFile'
 export { exists } from './exists'
+export { readChunkOfFile } from './readChunkOfFile'
 export { readFile } from './readFile'
 export { readFileInChunks } from './readFileInChunks'
 export { writeFile } from './writeFile'

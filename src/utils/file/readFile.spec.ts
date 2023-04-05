@@ -1,4 +1,4 @@
-import { readFile } from './readFile'
+import { readFile } from '.'
 
 const mockReadFile = jest.fn()
 jest.mock('react-native-fs', () => ({
