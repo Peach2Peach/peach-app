@@ -7,11 +7,6 @@ jest.mock('../../src/utils/wallet/PeachWallet', () => ({
 }))
 jest.mock('../../src/utils/log')
 
-jest.mock('react-native-screens', () => ({
-  ...jest.requireActual('react-native-screens'),
-  enableScreens: jest.fn(),
-}))
-
 jest.mock('react-native-share', () => ({
   open: jest.fn(),
 }))
