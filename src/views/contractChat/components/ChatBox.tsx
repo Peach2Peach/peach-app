@@ -64,6 +64,7 @@ export default ({
       )}
       initialNumToRender={PAGE_SIZE}
       ListFooterComponent={<View style={tw`h-2`}></View>}
+      removeClippedSubviews={false}
       onRefresh={fetchNextPage}
       refreshing={isLoading}
     />
