@@ -1,6 +1,6 @@
 import * as accountData from './data/accountData'
 
-export const resetMocks = (...mocks: any) => mocks.forEach((mock: jest.Mock) => (<jest.Mock>mock).mockReset())
+export const resetMocks = (...mocks: any) => mocks.forEach((mock: jest.Mock) => mock.mockReset())
 
 jest.mock('../../src/utils/peachAPI', () => ({
   ...jest.requireActual('../../src/utils/peachAPI'),
