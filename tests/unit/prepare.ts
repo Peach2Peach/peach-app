@@ -11,10 +11,6 @@ jest.mock('react-native-share', () => ({
   open: jest.fn(),
 }))
 
-jest.mock('react-native-splash-screen', () => ({
-  hide: jest.fn(),
-}))
-
 jest.mock('react-native-randombytes', () => ({
   randomBytes: jest.fn((size, callback) => {
     let uint8 = new Uint8Array(size)
