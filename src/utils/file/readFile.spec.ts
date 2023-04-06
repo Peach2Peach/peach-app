@@ -1,15 +1,6 @@
 import { readFile } from '.'
 import RNFS from 'react-native-fs'
-
-const mockDecrypt = jest.fn()
-jest.mock('react-native-crypto-js', () => ({
-  AES: {
-    decrypt: () => mockDecrypt(),
-  },
-  enc: {
-    Utf8: 'utf8',
-  },
-}))
+import CryptoJS from 'react-native-crypto-js'
 
 describe('readFile', () => {
   it('should handle readFile error', async () => {
@@ -22,7 +13,7 @@ describe('readFile', () => {
 
   it('should handle decrypt error', async () => {
     RNFS.writeFile(RNFS.DocumentDirectoryPath + 'test.txt', 'encryptedtest', 'utf8')
-    mockDecrypt.mockImplementationOnce(() => {
+    CryptoJS.AES.decrypt.mockImplementationOnce(() => {
       throw new Error('test')
     })
     const path = 'test.txt'
@@ -44,7 +35,6 @@ describe('readFile', () => {
   it('should decrypt the file content', async () => {
     RNFS.writeFile(RNFS.DocumentDirectoryPath + 'test.txt', 'encryptedtest', 'utf8')
 
-    mockDecrypt.mockReturnValueOnce({ toString: () => 'decryptedtest' })
     const path = 'test.txt'
     const password = 'test'
 

@@ -1,16 +1,10 @@
 import { writeFile } from '.'
 import RNFS from 'react-native-fs'
-
-const mockEncrypt = jest.fn(() => ({ toString: () => 'encrypted' }))
-jest.mock('react-native-crypto-js', () => ({
-  AES: {
-    encrypt: () => mockEncrypt(),
-  },
-}))
+import CryptoJS from 'react-native-crypto-js'
 
 describe('writeFile', () => {
   it('should handle encrypt error', async () => {
-    mockEncrypt.mockImplementationOnce(() => {
+    CryptoJS.AES.encrypt.mockImplementationOnce(() => {
       throw new Error('test')
     })
     const path = 'test.txt'

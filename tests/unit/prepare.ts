@@ -7,28 +7,6 @@ jest.mock('../../src/utils/wallet/PeachWallet', () => ({
 }))
 jest.mock('../../src/utils/log')
 
-jest.mock('react-native-share', () => ({
-  open: jest.fn(),
-}))
-
-jest.mock('react-native-randombytes', () => ({
-  randomBytes: jest.fn((size, callback) => {
-    let uint8 = new Uint8Array(size)
-    uint8 = uint8.map(() => Math.floor(Math.random() * 90) + 10)
-    callback(null, uint8)
-  }),
-}))
-
-jest.mock('react-native-crypto-js', () => ({
-  AES: {
-    encrypt: (str: string) => str,
-    decrypt: (str: string) => str,
-  },
-  enc: {
-    Utf8: 'utf-8',
-  },
-}))
-
 export const requestPermissionMock = jest.fn()
 export const hasPermissionMock = jest.fn()
 jest.mock('@react-native-firebase/messaging', () => {
