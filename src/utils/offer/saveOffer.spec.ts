@@ -2,14 +2,7 @@ import { deepStrictEqual, strictEqual } from 'assert'
 import { account, defaultAccount, setAccount } from '../account'
 
 import { saveOffer } from '.'
-import * as accountData from '../../../tests/unit/data/accountData'
 import * as offerData from '../../../tests/unit/data/offerData'
-
-jest.mock('react-native-fs', () => ({
-  readFile: async (): Promise<string> => JSON.stringify(accountData.account1),
-  writeFile: async (): Promise<void> => {},
-  unlink: async (): Promise<void> => {},
-}))
 
 describe('saveOffer', () => {
   beforeAll(async () => {

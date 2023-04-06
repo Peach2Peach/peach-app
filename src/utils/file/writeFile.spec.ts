@@ -1,10 +1,5 @@
 import { writeFile } from '.'
-
-const writeFileMock = jest.fn().mockResolvedValue(true)
-jest.mock('react-native-fs', () => ({
-  DocumentDirectoryPath: 'DDirPath/',
-  writeFile: (...args: any) => writeFileMock(...args),
-}))
+import RNFS from 'react-native-fs'
 
 const mockEncrypt = jest.fn(() => ({ toString: () => 'encrypted' }))
 jest.mock('react-native-crypto-js', () => ({
@@ -27,7 +22,7 @@ describe('writeFile', () => {
   })
 
   it('should handle write error', async () => {
-    writeFileMock.mockRejectedValueOnce(new Error('test'))
+    jest.spyOn(RNFS, 'writeFile').mockRejectedValueOnce(new Error('test'))
     const path = 'test.txt'
     const content = 'test'
     const password = 'test'

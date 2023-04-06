@@ -11,23 +11,6 @@ jest.mock('../../src/utils/wallet/PeachWallet', () => ({
 }))
 jest.mock('../../src/utils/log')
 
-export let fakeFiles: Record<string, string> = {}
-export const resetFakeFiles = () => (fakeFiles = {})
-
-jest.mock('react-native-fs', () => ({
-  exists: async (path: string): Promise<boolean> => !!fakeFiles[path],
-  readFile: async (path: string): Promise<string> => fakeFiles[path],
-  writeFile: async (path: string, data: string): Promise<void> => {
-    fakeFiles[path] = data
-  },
-  unlink: async (path: string): Promise<void> => {
-    delete fakeFiles[path]
-  },
-  mkdir: async (): Promise<void> => {},
-  readDir: async (): Promise<string[]> => [],
-  DocumentDirectoryPath: '',
-}))
-
 jest.mock('react-native-screens', () => ({
   ...jest.requireActual('react-native-screens'),
   enableScreens: jest.fn(),
