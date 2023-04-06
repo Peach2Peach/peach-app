@@ -1,5 +1,3 @@
-import * as accountData from './data/accountData'
-
 jest.mock('../../src/utils/peachAPI', () => ({
   ...jest.requireActual('../../src/utils/peachAPI'),
   ...jest.requireActual('../../src/utils/__mocks__/peachAPI'),
@@ -12,10 +10,6 @@ jest.mock('../../src/utils/log')
 jest.mock('react-native-screens', () => ({
   ...jest.requireActual('react-native-screens'),
   enableScreens: jest.fn(),
-}))
-
-jest.mock('react-native-fast-openpgp', () => ({
-  generate: () => accountData.account1.pgp,
 }))
 
 jest.mock('react-native-share', () => ({

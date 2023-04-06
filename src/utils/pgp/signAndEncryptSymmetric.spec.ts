@@ -3,11 +3,6 @@ import { account, defaultAccount, setAccount } from '../account'
 import { signAndEncryptSymmetric } from '.'
 import { resetStorage } from '../../../tests/unit/prepare'
 
-jest.mock('react-native-fast-openpgp', () => ({
-  sign: jest.fn(),
-  encryptSymmetric: jest.fn(),
-}))
-
 describe('signAndEncryptSymmetric', () => {
   beforeEach(async () => {
     resetStorage()
@@ -24,8 +19,8 @@ describe('signAndEncryptSymmetric', () => {
   })
 
   it('signs and encrypts the message', async () => {
-    ;(<jest.Mock>OpenPGP.sign).mockResolvedValueOnce('signature')
-    ;(<jest.Mock>OpenPGP.encryptSymmetric).mockResolvedValueOnce('encrypted')
+    jest.spyOn(OpenPGP, 'sign').mockResolvedValueOnce('signature')
+    jest.spyOn(OpenPGP, 'encryptSymmetric').mockResolvedValueOnce('encrypted')
 
     const result = await signAndEncryptSymmetric('message', 'password')
     expect(OpenPGP.sign).toHaveBeenCalledWith('message', account.pgp.publicKey, account.pgp.privateKey, '')

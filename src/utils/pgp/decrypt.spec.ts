@@ -3,10 +3,6 @@ import { account, defaultAccount, setAccount } from '../account'
 import { decrypt } from './decrypt'
 import { resetStorage } from '../../../tests/unit/prepare'
 
-jest.mock('react-native-fast-openpgp', () => ({
-  decrypt: jest.fn(),
-}))
-
 describe('decrypt', () => {
   beforeEach(async () => {
     resetStorage()
