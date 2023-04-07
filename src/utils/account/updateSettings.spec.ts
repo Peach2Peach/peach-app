@@ -1,14 +1,12 @@
 import { deepStrictEqual } from 'assert'
 import { APPVERSION } from '../../constants'
 import { account, defaultAccount, setAccount, updateSettings } from '.'
-import { resetStorage } from '../../../tests/unit/prepare'
 
 describe('updateSettings', () => {
   beforeAll(async () => {
     await setAccount(defaultAccount)
   })
   afterEach(() => {
-    resetStorage()
     jest.clearAllMocks()
   })
 

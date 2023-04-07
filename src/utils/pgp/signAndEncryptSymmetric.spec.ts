@@ -1,11 +1,9 @@
 import OpenPGP from 'react-native-fast-openpgp'
 import { account, defaultAccount, setAccount } from '../account'
 import { signAndEncryptSymmetric } from '.'
-import { resetStorage } from '../../../tests/unit/prepare'
 
 describe('signAndEncryptSymmetric', () => {
   beforeEach(async () => {
-    resetStorage()
     await setAccount({
       ...defaultAccount,
       pgp: {

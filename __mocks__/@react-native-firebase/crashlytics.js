@@ -1,5 +1,8 @@
+const deleteUnsentReportsMock = jest.fn()
+const logMock = jest.fn()
+const recordErrorMock = jest.fn()
 export default () => ({
-  deleteUnsentReports: jest.fn(),
-  log: jest.fn(),
-  recordError: jest.fn(),
+  deleteUnsentReports: deleteUnsentReportsMock,
+  log: logMock,
+  recordError: recordErrorMock,
 })

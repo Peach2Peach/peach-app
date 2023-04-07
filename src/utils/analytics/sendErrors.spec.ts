@@ -1,4 +1,3 @@
-import { isAirplaneModeSync } from 'react-native-device-info'
 import { sendErrors } from '.'
 import { appendFile } from '../file'
 import crashlytics from '@react-native-firebase/crashlytics'
@@ -11,8 +10,9 @@ describe('sendErrors function', () => {
   afterEach(() => {
     jest.resetAllMocks()
   })
+  const isAirplaneModeSync = jest.spyOn(require('react-native-device-info'), 'isAirplaneModeSync')
   it('should append the error messages to a file when airplane mode is enabled', async () => {
-    ;(isAirplaneModeSync as jest.Mock).mockReturnValue(true)
+    isAirplaneModeSync.mockReturnValueOnce(true)
     const errors = [new Error('error 1'), new Error('error 2')]
 
     await sendErrors(errors)
@@ -22,7 +22,7 @@ describe('sendErrors function', () => {
   })
 
   it('should send crash reports to Crashlytics when airplane mode is not enabled', async () => {
-    ;(isAirplaneModeSync as jest.Mock).mockReturnValue(false)
+    isAirplaneModeSync.mockReturnValueOnce(false)
     const errors = [new Error('error 1'), new Error('error 2')]
 
     await sendErrors(errors)

@@ -3,14 +3,10 @@ import { defaultAccount, setAccount, storeIdentity } from '..'
 import { accountStorage } from '../accountStorage'
 import { loadIdentity } from '.'
 import * as accountData from '../../../../tests/unit/data/accountData'
-import { resetStorage } from '../../../../tests/unit/prepare'
 
 describe('loadIdentity', () => {
   beforeEach(async () => {
     await setAccount(defaultAccount, true)
-  })
-  afterEach(() => {
-    resetStorage()
   })
 
   it('loads identity', async () => {

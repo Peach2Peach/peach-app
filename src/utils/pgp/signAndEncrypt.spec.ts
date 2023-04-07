@@ -1,11 +1,9 @@
 import OpenPGP from 'react-native-fast-openpgp'
 import { account, defaultAccount, setAccount } from '../account'
 import { signAndEncrypt } from '.'
-import { resetStorage } from '../../../tests/unit/prepare'
 
 describe('signAndEncrypt', () => {
   beforeEach(async () => {
-    resetStorage()
     await setAccount({
       ...defaultAccount,
       pgp: {
@@ -13,9 +11,6 @@ describe('signAndEncrypt', () => {
         privateKey: 'privateKey',
       },
     })
-  })
-  afterEach(() => {
-    jest.resetAllMocks()
   })
 
   it('signs and encrypts the message', async () => {
