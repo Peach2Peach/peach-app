@@ -7,25 +7,6 @@ jest.mock('../../src/utils/wallet/PeachWallet', () => ({
 }))
 jest.mock('../../src/utils/log')
 
-export const requestPermissionMock = jest.fn()
-export const hasPermissionMock = jest.fn()
-jest.mock('@react-native-firebase/messaging', () => {
-  const messaging = () => ({
-    requestPermission: requestPermissionMock,
-    hasPermission: hasPermissionMock,
-    onMessage: jest.fn(),
-    onNotificationOpenedApp: jest.fn(),
-  })
-
-  messaging.AuthorizationStatus = {
-    NOT_DETERMINED: -1,
-    AUTHORIZED: 1,
-    DENIED: 0,
-    PROVISIONAL: 2,
-  }
-  return messaging
-})
-
 export const deleteUnsentReportsMock = jest.fn()
 export const logMock = jest.fn()
 export const recordErrorMock = jest.fn()
