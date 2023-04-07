@@ -7,15 +7,6 @@ jest.mock('../../src/utils/wallet/PeachWallet', () => ({
 }))
 jest.mock('../../src/utils/log')
 
-export const deleteUnsentReportsMock = jest.fn()
-export const logMock = jest.fn()
-export const recordErrorMock = jest.fn()
-jest.mock('@react-native-firebase/crashlytics', () => () => ({
-  deleteUnsentReports: deleteUnsentReportsMock,
-  log: logMock,
-  recordError: recordErrorMock,
-}))
-
 jest.mock('react-native-device-info', () => ({
   getBuildNumber: jest.fn(),
   getUniqueId: () => 'UNIQUE-DEVICE-ID',
