@@ -16,13 +16,6 @@ jest.mock('@react-native-firebase/crashlytics', () => () => ({
   recordError: recordErrorMock,
 }))
 
-jest.mock('@react-native-firebase/analytics', () => () => ({
-  logAppOpen: jest.fn(),
-  logScreenView: jest.fn(),
-  setAnalyticsCollectionEnabled: jest.fn(),
-  logEvent: jest.fn(),
-}))
-
 jest.mock('react-native-device-info', () => ({
   getBuildNumber: jest.fn(),
   getUniqueId: () => 'UNIQUE-DEVICE-ID',
