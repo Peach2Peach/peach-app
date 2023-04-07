@@ -15,7 +15,7 @@ export const ContractCanceledToSeller = ({ contract }: ContractCanceledToSellerP
   return (
     <View>
       <Text>{i18n(`contract.cancel.${contract.canceledBy || 'buyer'}.canceled.text.1`)}</Text>
-      {!expiry.isExpired && <Text>{i18n(`contract.cancel.${contract.canceledBy || 'buyer'}.canceled.text.2`)}</Text>}
+      {!expiry.isExpired && <Text>{i18n('contract.cancel.canceled.youCanChooseToBeRefunded')}</Text>}
     </View>
   )
 }
