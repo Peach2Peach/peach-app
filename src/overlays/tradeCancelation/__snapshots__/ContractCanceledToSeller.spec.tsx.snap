@@ -6,7 +6,7 @@ exports[`ContractCanceledToSeller should render correctly for seller when buyer 
     The buyer has decided to cancel the trade, reducing their reputation.
   </PeachText>
   <PeachText>
-    You can choose to have your sats refunded, or to re-publish this offer.
+    You can choose to be refunded, or to re-publish your offer.
   </PeachText>
 </View>
 `;
