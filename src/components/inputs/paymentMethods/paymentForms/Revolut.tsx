@@ -1,4 +1,4 @@
+import { Template6 } from '../templates'
 import { FormProps } from './PaymentMethodForm'
-import { PayPalOrRevolut } from './PayPalOrRevolut'
 
-export const Revolut = (formProps: FormProps) => <PayPalOrRevolut {...formProps} name="revolut" />
+export const Revolut = (formProps: FormProps) => <Template6 {...formProps} name="revolut" />

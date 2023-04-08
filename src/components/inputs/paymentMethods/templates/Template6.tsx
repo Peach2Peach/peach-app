@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
 import { TextInput, View } from 'react-native'
-import { FormProps } from './PaymentMethodForm'
+import { FormProps } from '../paymentForms/PaymentMethodForm'
 import { useValidatedState } from '../../../../hooks'
 import tw from '../../../../styles/tailwind'
 import { getPaymentDataByLabel } from '../../../../utils/account'
@@ -11,21 +11,21 @@ import { EmailInput } from '../../EmailInput'
 import Input from '../../Input'
 import { PhoneInput } from '../../PhoneInput'
 import { UsernameInput } from '../../UsernameInput'
-import { CurrencySelection, toggleCurrency } from './CurrencySelection'
+import { CurrencySelection, toggleCurrency } from '../paymentForms/CurrencySelection'
 
 const referenceRules = { required: false }
 
 // eslint-disable-next-line max-statements, complexity
-export const PayPalOrRevolut = ({
+export const Template6 = ({
   forwardRef,
   data,
   currencies = [],
   onSubmit,
   setStepValid,
   name,
-}: FormProps & { name: 'paypal' | 'revolut' }) => {
-  const tabs: TabbedNavigationItem[] = useMemo(
-    () => [
+}: FormProps & { name: 'paypal' | 'revolut' | 'wise' | 'n26' }) => {
+  const tabs: TabbedNavigationItem[] = useMemo(() => {
+    const tabItems = [
       {
         id: 'phone',
         display: i18n('form.phone'),
@@ -34,13 +34,20 @@ export const PayPalOrRevolut = ({
         id: 'email',
         display: i18n('form.email'),
       },
-      {
-        id: name === 'paypal' ? 'userName' : 'revtag',
-        display: name === 'paypal' ? i18n('form.userName') : i18n('form.revtag'),
-      },
-    ],
-    [name],
-  )
+    ]
+    if (name === 'paypal') {
+      tabItems.push({
+        id: 'userName',
+        display: i18n('form.userName'),
+      })
+    } else if (name === 'revolut') {
+      tabItems.push({
+        id: 'revtag',
+        display: i18n('form.revtag'),
+      })
+    }
+    return tabItems
+  }, [name])
   const [label, setLabel] = useState(data?.label || '')
   const [phone, setPhone] = useState(data?.phone || '')
   const [email, setEmail] = useState(data?.email || '')
@@ -59,10 +66,7 @@ export const PayPalOrRevolut = ({
     [data.id, label],
   )
   const emailRules = useMemo(() => ({ required: !phone && !userName, email: true }), [phone, userName])
-  const userNameRules = useMemo(
-    () => ({ required: !phone && !email, paypalUserName: name === 'paypal', revtag: name === 'revolut' }),
-    [email, name, phone],
-  )
+  const userNameRules = useMemo(() => ({ required: name !== 'wise' && 'paypal', revtag: name === 'revolut' }), [name])
   const phoneRules = useMemo(
     () => ({ phone: true, isPhoneAllowed: true, required: !userName && !email }),
     [email, userName],
@@ -92,6 +96,7 @@ export const PayPalOrRevolut = ({
 
   const isFormValid = useCallback(() => {
     setDisplayErrors(true)
+
     return [...labelErrors, ...phoneErrors, ...emailErrors, ...userNameErrors].length === 0
   }, [emailErrors, labelErrors, phoneErrors, userNameErrors])
 
