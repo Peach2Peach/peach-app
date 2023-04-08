@@ -1,32 +1,18 @@
-import { ReactElement, useState } from 'react'
+import { useState } from 'react'
 import { View } from 'react-native'
-import tw from '../../../../styles/tailwind'
-import i18n from '../../../../utils/i18n'
-import { getPaymentMethodInfo } from '../../../../utils/paymentMethod'
-import { Text } from '../../../text'
-import { CurrencyItem } from '../../CurrencyItem'
+import tw from '../../../../../styles/tailwind'
+import i18n from '../../../../../utils/i18n'
+import { getPaymentMethodInfo } from '../../../../../utils/paymentMethod'
+import { Text } from '../../../../text'
+import { CurrencyItem } from '../../../CurrencyItem'
 
-export const toggleCurrency = (currency: Currency) => (currencies: Currency[]) => {
-  if (!currencies.includes(currency)) {
-    currencies.push(currency)
-  } else {
-    currencies = currencies.filter((c) => c !== currency)
-  }
-  return [...currencies]
-}
-
-type CurrencySelectionProps = ComponentProps & {
+type Props = ComponentProps & {
   paymentMethod: PaymentMethod
   selectedCurrencies: Currency[]
   onToggle: (currencies: Currency) => void
 }
 
-export const CurrencySelection = ({
-  paymentMethod,
-  selectedCurrencies,
-  onToggle,
-  style,
-}: CurrencySelectionProps): ReactElement => {
+export const CurrencySelection = ({ paymentMethod, selectedCurrencies, onToggle, style }: Props) => {
   const [paymentMethodInfo] = useState(getPaymentMethodInfo(paymentMethod))
 
   return (

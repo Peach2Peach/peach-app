@@ -10,7 +10,8 @@ import { TabbedNavigation, TabbedNavigationItem } from '../../../navigation/Tabb
 import { EmailInput } from '../../EmailInput'
 import Input from '../../Input'
 import { WalletInput } from '../../WalletInput'
-import { CurrencySelection, toggleCurrency } from '../paymentForms/CurrencySelection'
+import { CurrencySelection } from '../paymentForms/components'
+import { toggleCurrency } from '../paymentForms/utils'
 
 const tabs: TabbedNavigationItem[] = [
   {

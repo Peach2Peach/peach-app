@@ -10,7 +10,8 @@ import { IBANInput } from '../../IBANInput'
 import Input from '../../Input'
 import { Checkbox } from '../../Checkbox'
 import { hasMultipleAvailableCurrencies } from './utils/hasMultipleAvailableCurrencies'
-import { CurrencySelection, toggleCurrency } from '../paymentForms/CurrencySelection'
+import { CurrencySelection } from '../paymentForms/components'
+import { toggleCurrency } from '../paymentForms/utils'
 
 const beneficiaryRules = { required: true }
 const notRequired = { required: false }

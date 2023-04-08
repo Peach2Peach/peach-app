@@ -8,7 +8,8 @@ import i18n from '../../../../utils/i18n'
 import { getErrorsInField } from '../../../../utils/validation'
 import { EmailInput } from '../../EmailInput'
 import Input from '../../Input'
-import { CurrencySelection, toggleCurrency } from '../paymentForms/CurrencySelection'
+import { CurrencySelection } from '../paymentForms/components'
+import { toggleCurrency } from '../paymentForms/utils'
 import { hasMultipleAvailableCurrencies } from './utils/hasMultipleAvailableCurrencies'
 
 const emailRules = {

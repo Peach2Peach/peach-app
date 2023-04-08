@@ -8,7 +8,8 @@ import i18n from '../../../../utils/i18n'
 import { getErrorsInField } from '../../../../utils/validation'
 import Input from '../../Input'
 import { PhoneInput } from '../../PhoneInput'
-import { CurrencySelection, toggleCurrency } from '../paymentForms/CurrencySelection'
+import { CurrencySelection } from '../paymentForms/components'
+import { toggleCurrency } from '../paymentForms/utils'
 
 const referenceRules = { required: false }
 const phoneRules = { required: true, phone: true, isPhoneAllowed: true }

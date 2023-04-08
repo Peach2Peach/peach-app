@@ -8,7 +8,8 @@ import { getErrorsInField } from '../../../../utils/validation'
 import Input from '../../Input'
 import { PhoneInput } from '../../PhoneInput'
 import { hasMultipleAvailableCurrencies } from './utils/hasMultipleAvailableCurrencies'
-import { CurrencySelection, toggleCurrency } from '../paymentForms/CurrencySelection'
+import { CurrencySelection } from '../paymentForms/components'
+import { toggleCurrency } from '../paymentForms/utils'
 
 const phoneRules = { required: true, phone: true, isPhoneAllowed: true }
 
