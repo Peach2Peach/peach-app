@@ -1,4 +1,3 @@
-import { ReactElement } from 'react'
 import { View } from 'react-native'
 
 import tw from '../../styles/tailwind'
@@ -7,13 +6,13 @@ import { PaymentMethodForm } from '../../components/inputs/paymentMethods/paymen
 import { specialTemplates } from './specialTemplates'
 import { usePaymentDetailsSetup } from './hooks/usePaymentDetailsSetup'
 
-export default (): ReactElement => {
-  const { paymentMethod, onSubmit, currencies, data } = usePaymentDetailsSetup()
+export default () => {
+  const formProps = usePaymentDetailsSetup()
 
   return (
-    <View style={[tw`flex h-full`, specialTemplates[paymentMethod]?.style]}>
-      <View style={[!specialTemplates[paymentMethod] ? tw`px-6` : {}]}>
-        <PaymentMethodForm {...{ paymentMethod, onSubmit, currencies, data }} />
+    <View style={[tw`flex h-full`, specialTemplates[formProps.paymentMethod]?.style]}>
+      <View style={!specialTemplates[formProps.paymentMethod] && tw`px-6`}>
+        <PaymentMethodForm {...formProps} />
       </View>
     </View>
   )
