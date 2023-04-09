@@ -1,4 +1,4 @@
-import { ReactElement, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
 import { TextInput } from 'react-native'
 import { FormProps } from '../paymentForms/PaymentMethodForm'
 import { useValidatedState } from '../../../../hooks'
@@ -14,14 +14,7 @@ const notRequired = { required: false }
 const ukBankAccountRules = { required: false, ukBankAccount: true }
 const ukSortCodeRules = { required: false, ukSortCode: true }
 
-export const Template5 = ({
-  forwardRef,
-  data,
-  currencies = [],
-  onSubmit,
-  setStepValid,
-  name,
-}: FormProps & { name: 'fasterPayments' }): ReactElement => {
+export const Template5 = ({ forwardRef, data, currencies = [], onSubmit, setStepValid, paymentMethod }: FormProps) => {
   const [label, setLabel] = useState(data?.label || '')
   const [beneficiary, setBeneficiary, beneficiaryIsValid, beneficiaryErrors] = useValidatedState(
     data?.beneficiary || '',
@@ -57,9 +50,9 @@ export const Template5 = ({
   const labelErrors = useMemo(() => getErrorsInField(label, labelRules), [label, labelRules])
 
   const buildPaymentData = (): PaymentData & FasterPaymentsData => ({
-    id: data?.id || `${name}-${new Date().getTime()}`,
+    id: data?.id || `${paymentMethod}-${new Date().getTime()}`,
     label,
-    type: name,
+    type: paymentMethod,
     beneficiary,
     ukBankAccount,
     ukSortCode,

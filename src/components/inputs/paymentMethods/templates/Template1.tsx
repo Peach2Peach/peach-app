@@ -1,4 +1,4 @@
-import { ReactElement, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
 import { TextInput } from 'react-native'
 import { FormProps } from '../paymentForms/PaymentMethodForm'
 import { useToggleBoolean, useValidatedState } from '../../../../hooks'
@@ -18,14 +18,7 @@ const notRequired = { required: false }
 const ibanRules = { required: true, iban: true, isEUIBAN: true }
 const bicRules = { required: true, bic: true }
 
-export const Template1 = ({
-  forwardRef,
-  data,
-  currencies = [],
-  onSubmit,
-  setStepValid,
-  name,
-}: FormProps & { name: 'sepa' | 'instantSepa' }): ReactElement => {
+export const Template1 = ({ forwardRef, data, currencies = [], onSubmit, setStepValid, paymentMethod }: FormProps) => {
   const [label, setLabel] = useState(data?.label || '')
   const [checked, toggleChecked] = useToggleBoolean(!!data.id)
   const [beneficiary, setBeneficiary, beneficiaryIsValid, beneficiaryErrors] = useValidatedState(
@@ -57,9 +50,9 @@ export const Template1 = ({
   const labelErrors = useMemo(() => getErrorsInField(label, labelRules), [label, labelRules])
 
   const buildPaymentData = () => ({
-    id: data?.id || `${name}-${new Date().getTime()}`,
+    id: data?.id || `${paymentMethod}-${new Date().getTime()}`,
     label,
-    type: name,
+    type: paymentMethod,
     beneficiary,
     iban,
     bic,
@@ -79,9 +72,9 @@ export const Template1 = ({
       && ibanIsValid
       && bicIsValid
       && referenceIsValid
-      && (checked || name !== 'instantSepa')
+      && (checked || paymentMethod !== 'instantSepa')
     )
-  }, [beneficiaryIsValid, bicIsValid, checked, ibanIsValid, labelErrors.length, name, referenceIsValid])
+  }, [beneficiaryIsValid, bicIsValid, checked, ibanIsValid, labelErrors.length, paymentMethod, referenceIsValid])
 
   const save = () => {
     if (!isFormValid()) return
@@ -152,11 +145,15 @@ export const Template1 = ({
         autoCorrect={false}
         errorMessage={displayErrors ? referenceErrors : undefined}
       />
-      {name === 'instantSepa' && (
+      {paymentMethod === 'instantSepa' && (
         <Checkbox checked={checked} onPress={toggleChecked} text={i18n('form.instantSepa.checkbox')} />
       )}
-      {hasMultipleAvailableCurrencies(name) && (
-        <CurrencySelection paymentMethod={name} selectedCurrencies={selectedCurrencies} onToggle={onCurrencyToggle} />
+      {hasMultipleAvailableCurrencies(paymentMethod) && (
+        <CurrencySelection
+          paymentMethod={paymentMethod}
+          selectedCurrencies={selectedCurrencies}
+          onToggle={onCurrencyToggle}
+        />
       )}
     </>
   )

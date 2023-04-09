@@ -1,4 +1,4 @@
-import { ReactElement, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
 import { TextInput, View } from 'react-native'
 import { FormProps } from '../paymentForms/PaymentMethodForm'
 import { useValidatedState } from '../../../../hooks'
@@ -25,14 +25,7 @@ const tabs: TabbedNavigationItem[] = [
 ]
 const referenceRules = { required: false }
 
-export const Template2 = ({
-  forwardRef,
-  data,
-  currencies = [],
-  onSubmit,
-  setStepValid,
-  name,
-}: FormProps & { name: 'advcash' }): ReactElement => {
+export const Template2 = ({ forwardRef, data, currencies = [], onSubmit, setStepValid, paymentMethod }: FormProps) => {
   const [label, setLabel] = useState(data?.label || '')
   const [email, setEmail] = useState(data?.email || '')
   const [wallet, setWallet] = useState(data?.wallet || '')
@@ -61,9 +54,9 @@ export const Template2 = ({
   const [displayErrors, setDisplayErrors] = useState(false)
 
   const buildPaymentData = (): PaymentData & ADVCashData => ({
-    id: data?.id || `${name}-${new Date().getTime()}`,
+    id: data?.id || `${paymentMethod}-${new Date().getTime()}`,
     label,
-    type: name,
+    type: paymentMethod,
     wallet,
     email,
     reference,
@@ -139,7 +132,11 @@ export const Template2 = ({
         autoCorrect={false}
         errorMessage={displayErrors ? referenceError : undefined}
       />
-      <CurrencySelection paymentMethod={name} selectedCurrencies={selectedCurrencies} onToggle={onCurrencyToggle} />
+      <CurrencySelection
+        paymentMethod={paymentMethod}
+        selectedCurrencies={selectedCurrencies}
+        onToggle={onCurrencyToggle}
+      />
     </View>
   )
 }

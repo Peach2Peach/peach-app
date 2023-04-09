@@ -1,4 +1,4 @@
-import { ReactElement, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
 import { TextInput } from 'react-native'
 import { FormProps } from '../paymentForms/PaymentMethodForm'
 import { useValidatedState } from '../../../../hooks'
@@ -27,14 +27,7 @@ const tabs: TabbedNavigationItem[] = [
 ]
 
 // eslint-disable-next-line max-statements
-export const Template9 = ({
-  forwardRef,
-  data,
-  currencies = [],
-  onSubmit,
-  setStepValid,
-  paymentMethod,
-}: FormProps): ReactElement => {
+export const Template9 = ({ forwardRef, data, currencies = [], onSubmit, setStepValid, paymentMethod }: FormProps) => {
   const [label, setLabel] = useState(data?.label || '')
   const [beneficiary, setBeneficiary, , beneficiaryErrors] = useValidatedState(data?.beneficiary || '', beneficiaryRules)
 

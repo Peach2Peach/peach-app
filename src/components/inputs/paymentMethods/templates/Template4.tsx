@@ -18,14 +18,7 @@ const emailRules = {
 }
 const referenceRules = { required: false }
 
-export const Template4 = ({
-  forwardRef,
-  data,
-  currencies = [],
-  onSubmit,
-  setStepValid,
-  name,
-}: FormProps & { name: 'skrill' | 'neteller' | 'giftCard.amazon' }) => {
+export const Template4 = ({ forwardRef, data, currencies = [], onSubmit, setStepValid, paymentMethod }: FormProps) => {
   useContext(OverlayContext)
   const [label, setLabel] = useState(data?.label || '')
   const [email, setEmail, emailIsValid, emailErrors] = useValidatedState(data?.email || '', emailRules)
@@ -49,9 +42,11 @@ export const Template4 = ({
   const labelErrors = useMemo(() => getErrorsInField(label, labelRules), [label, labelRules])
 
   const buildPaymentData = () => ({
-    id: data?.id || `${name}-${new Date().getTime()}`,
+    id: data?.id || `${paymentMethod}-${new Date().getTime()}`,
     label,
-    type: ['skrill', 'neteller'].includes(name) ? name : ((name + '.' + data?.country) as PaymentMethod),
+    type: ['skrill', 'neteller'].includes(paymentMethod)
+      ? paymentMethod
+      : ((paymentMethod + '.' + data?.country) as PaymentMethod),
     email,
     beneficiary,
     reference,
@@ -129,8 +124,12 @@ export const Template4 = ({
         errorMessage={displayErrors ? referenceError : undefined}
       />
 
-      {name !== 'giftCard.amazon' && hasMultipleAvailableCurrencies(name) && (
-        <CurrencySelection paymentMethod={name} selectedCurrencies={selectedCurrencies} onToggle={onCurrencyToggle} />
+      {paymentMethod !== 'giftCard.amazon' && hasMultipleAvailableCurrencies(paymentMethod) && (
+        <CurrencySelection
+          paymentMethod={paymentMethod}
+          selectedCurrencies={selectedCurrencies}
+          onToggle={onCurrencyToggle}
+        />
       )}
     </>
   )

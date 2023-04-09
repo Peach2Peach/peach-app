@@ -17,14 +17,7 @@ import { toggleCurrency } from '../paymentForms/utils'
 const referenceRules = { required: false }
 
 // eslint-disable-next-line max-statements, complexity
-export const Template6 = ({
-  forwardRef,
-  data,
-  currencies = [],
-  onSubmit,
-  setStepValid,
-  name,
-}: FormProps & { name: 'paypal' | 'revolut' | 'wise' | 'n26' }) => {
+export const Template6 = ({ forwardRef, data, currencies = [], onSubmit, setStepValid, paymentMethod }: FormProps) => {
   const tabs: TabbedNavigationItem[] = useMemo(() => {
     const tabItems = [
       {
@@ -36,19 +29,19 @@ export const Template6 = ({
         display: i18n('form.email'),
       },
     ]
-    if (name === 'paypal') {
+    if (paymentMethod === 'paypal') {
       tabItems.push({
         id: 'userName',
         display: i18n('form.userName'),
       })
-    } else if (name === 'revolut') {
+    } else if (paymentMethod === 'revolut') {
       tabItems.push({
         id: 'revtag',
         display: i18n('form.revtag'),
       })
     }
     return tabItems
-  }, [name])
+  }, [paymentMethod])
   const [label, setLabel] = useState(data?.label || '')
   const [phone, setPhone] = useState(data?.phone || '')
   const [email, setEmail] = useState(data?.email || '')
@@ -67,7 +60,10 @@ export const Template6 = ({
     [data.id, label],
   )
   const emailRules = useMemo(() => ({ required: !phone && !userName, email: true }), [phone, userName])
-  const userNameRules = useMemo(() => ({ required: name !== 'wise' && 'paypal', revtag: name === 'revolut' }), [name])
+  const userNameRules = useMemo(
+    () => ({ required: paymentMethod !== 'wise' && 'paypal', revtag: paymentMethod === 'revolut' }),
+    [paymentMethod],
+  )
   const phoneRules = useMemo(
     () => ({ phone: true, isPhoneAllowed: true, required: !userName && !email }),
     [email, userName],
@@ -85,9 +81,9 @@ export const Template6 = ({
   }
 
   const buildPaymentData = (): PaymentData & PaypalData => ({
-    id: data?.id || `${name}-${Date.now()}`,
+    id: data?.id || `${paymentMethod}-${Date.now()}`,
     label,
-    type: name,
+    type: paymentMethod,
     phone,
     email,
     userName,
@@ -105,7 +101,7 @@ export const Template6 = ({
     const fields = []
     if (phone && phoneErrors.length > 0) fields.push('phone')
     if (email && emailErrors.length > 0) fields.push('email')
-    if (userName && userNameErrors.length > 0) fields.push(name === 'paypal' ? 'userName' : 'revtag')
+    if (userName && userNameErrors.length > 0) fields.push(paymentMethod === 'paypal' ? 'userName' : 'revtag')
     return fields
   }
 
@@ -170,12 +166,13 @@ export const Template6 = ({
         {['userName', 'revtag'].includes(currentTab.id) && (
           <UsernameInput
             {...{
-              maxLength: name === 'paypal' ? 21 : 17,
+              maxLength: paymentMethod === 'paypal' ? 21 : 17,
               onChange: setUserName,
               onSubmit: $reference?.focus,
               value: userName,
-              label: name === 'paypal' ? i18n('form.userName') : i18n('form.revtag'),
-              placeholder: name === 'paypal' ? i18n('form.userName.placeholder') : i18n('form.revtag.placeholder'),
+              label: paymentMethod === 'paypal' ? i18n('form.userName') : i18n('form.revtag'),
+              placeholder:
+                paymentMethod === 'paypal' ? i18n('form.userName.placeholder') : i18n('form.revtag.placeholder'),
               autoCorrect: false,
               required: !phone && !email,
               errorMessage: displayErrors ? userNameErrors : undefined,
@@ -195,7 +192,11 @@ export const Template6 = ({
         autoCorrect={false}
         errorMessage={displayErrors ? referenceError : undefined}
       />
-      <CurrencySelection paymentMethod={name} selectedCurrencies={selectedCurrencies} onToggle={onCurrencyToggle} />
+      <CurrencySelection
+        paymentMethod={paymentMethod}
+        selectedCurrencies={selectedCurrencies}
+        onToggle={onCurrencyToggle}
+      />
     </View>
   )
 }

@@ -1,4 +1,4 @@
-import { ReactElement, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
 import { TextInput } from 'react-native'
 import { FormProps } from '../paymentForms/PaymentMethodForm'
 import { useValidatedState } from '../../../../hooks'
@@ -11,15 +11,7 @@ import Input from '../../Input'
 const beneficiaryRules = { required: true }
 const notRequired = { required: false }
 
-export const Template7 = ({
-  forwardRef,
-  data,
-  currencies = [],
-  onSubmit,
-  setStepValid,
-  paymentMethod,
-  name,
-}: FormProps & { name: 'straksbetaling' }): ReactElement => {
+export const Template7 = ({ forwardRef, data, currencies = [], onSubmit, setStepValid, paymentMethod }: FormProps) => {
   const [label, setLabel] = useState(data?.label || '')
   const [beneficiary, setBeneficiary, isValidBeneficiary, beneficiaryErrors] = useValidatedState(
     data?.beneficiary || '',
@@ -49,9 +41,9 @@ export const Template7 = ({
   const labelErrors = useMemo(() => getErrorsInField(label, labelRules), [label, labelRules])
 
   const buildPaymentData = (): PaymentData & StraksbetalingData => ({
-    id: data?.id || `${name}-${new Date().getTime()}`,
+    id: data?.id || `${paymentMethod}-${new Date().getTime()}`,
     label,
-    type: name,
+    type: paymentMethod,
     beneficiary,
     accountNumber,
     reference,

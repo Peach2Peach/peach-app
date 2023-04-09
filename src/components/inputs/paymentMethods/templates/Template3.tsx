@@ -1,4 +1,4 @@
-import { ReactElement, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
 import { TextInput } from 'react-native'
 import { FormProps } from '../paymentForms/PaymentMethodForm'
 import { useValidatedState } from '../../../../hooks'
@@ -13,14 +13,7 @@ import { toggleCurrency } from '../paymentForms/utils'
 
 const phoneRules = { required: true, phone: true, isPhoneAllowed: true }
 
-export const Template3 = ({
-  forwardRef,
-  data,
-  currencies = [],
-  onSubmit,
-  setStepValid,
-  name,
-}: FormProps & { name: PaymentMethod }): ReactElement => {
+export const Template3 = ({ forwardRef, data, currencies = [], onSubmit, setStepValid, paymentMethod }: FormProps) => {
   const [label, setLabel] = useState(data?.label || '')
   const [phone, setPhone, phoneIsValid, phoneErrors] = useValidatedState(data?.phone || '', phoneRules)
   const [beneficiary, setBeneficiary] = useState(data?.beneficiary || '')
@@ -43,9 +36,9 @@ export const Template3 = ({
   const labelErrors = useMemo(() => getErrorsInField(label, labelRules), [label, labelRules])
 
   const buildPaymentData = () => ({
-    id: data?.id || `${name}-${new Date().getTime()}`,
+    id: data?.id || `${paymentMethod}-${new Date().getTime()}`,
     label,
-    type: name,
+    type: paymentMethod,
     phone,
     beneficiary,
     reference,
@@ -120,8 +113,12 @@ export const Template3 = ({
         placeholder={i18n('form.reference.placeholder')}
         autoCorrect={false}
       />
-      {hasMultipleAvailableCurrencies(name) && (
-        <CurrencySelection paymentMethod={name} selectedCurrencies={selectedCurrencies} onToggle={onCurrencyToggle} />
+      {hasMultipleAvailableCurrencies(paymentMethod) && (
+        <CurrencySelection
+          paymentMethod={paymentMethod}
+          selectedCurrencies={selectedCurrencies}
+          onToggle={onCurrencyToggle}
+        />
       )}
     </>
   )
