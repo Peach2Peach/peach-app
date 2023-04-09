@@ -26,7 +26,7 @@ const tabs: TabbedNavigationItem[] = [
 ]
 const referenceRules = { required: false }
 
-export const Template2 = ({ data, currencies = [], onSubmit, setStepValid, paymentMethod, setFormData }: FormProps) => {
+const useTemplate2Setup = ({ data, currencies = [], onSubmit, setStepValid, paymentMethod, setFormData }: FormProps) => {
   const [label, setLabel] = useState(data?.label || '')
   const [email, setEmail] = useState(data?.email || '')
   const [wallet, setWallet] = useState(data?.wallet || '')
@@ -36,8 +36,6 @@ export const Template2 = ({ data, currencies = [], onSubmit, setStepValid, payme
   const [currentTab, setCurrentTab] = useState(tabs[0])
 
   const anyFieldSet = !!email || !!wallet
-
-  let $reference = useRef<TextInput>(null).current
 
   const labelRules = useMemo(
     () => ({
@@ -86,6 +84,54 @@ export const Template2 = ({ data, currencies = [], onSubmit, setStepValid, payme
     setStepValid(isFormValid())
     setFormData(buildPaymentData())
   }, [buildPaymentData, isFormValid, setFormData, setStepValid])
+
+  return {
+    anyFieldSet,
+    currentTab,
+    displayErrors,
+    email,
+    emailErrors,
+    label,
+    labelErrors,
+    onCurrencyToggle,
+    reference,
+    referenceError,
+    save,
+    setCurrentTab,
+    setEmail,
+    setLabel,
+    setReference,
+    setWallet,
+    selectedCurrencies,
+    wallet,
+    walletErrors,
+  }
+}
+
+export const Template2 = ({ data, currencies = [], onSubmit, setStepValid, paymentMethod, setFormData }: FormProps) => {
+  const {
+    anyFieldSet,
+    currentTab,
+    displayErrors,
+    email,
+    emailErrors,
+    label,
+    labelErrors,
+    onCurrencyToggle,
+    reference,
+    referenceError,
+    save,
+    setCurrentTab,
+    setEmail,
+    setLabel,
+    setReference,
+    setWallet,
+    selectedCurrencies,
+    wallet,
+    walletErrors,
+  } = useTemplate2Setup({ data, currencies, onSubmit, setStepValid, paymentMethod, setFormData })
+
+  let $reference = useRef<TextInput>(null).current
 
   return (
     <View>
