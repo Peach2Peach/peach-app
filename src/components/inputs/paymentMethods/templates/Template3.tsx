@@ -11,6 +11,7 @@ import { hasMultipleAvailableCurrencies } from './utils/hasMultipleAvailableCurr
 import { CurrencySelection } from '../paymentForms/components'
 import { toggleCurrency } from '../paymentForms/utils'
 import { LabelInput } from '../../LabelInput'
+import { ReferenceInput } from '../../ReferenceInput'
 
 const phoneRules = { required: true, phone: true, isPhoneAllowed: true }
 
@@ -101,15 +102,11 @@ export const Template3 = ({ data, currencies = [], onSubmit, setStepValid, payme
         placeholder={i18n('form.beneficiary.placeholder')}
         autoCorrect={false}
       />
-      <Input
+      <ReferenceInput
         onChange={setReference}
         onSubmit={save}
         reference={(el: any) => ($reference = el)}
         value={reference}
-        required={false}
-        label={i18n('form.reference')}
-        placeholder={i18n('form.reference.placeholder')}
-        autoCorrect={false}
       />
       {hasMultipleAvailableCurrencies(paymentMethod) && (
         <CurrencySelection

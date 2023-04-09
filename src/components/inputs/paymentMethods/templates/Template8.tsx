@@ -11,6 +11,7 @@ import { PhoneInput } from '../../PhoneInput'
 import { CurrencySelection } from '../paymentForms/components'
 import { toggleCurrency } from '../paymentForms/utils'
 import { LabelInput } from '../../LabelInput'
+import { ReferenceInput } from '../../ReferenceInput'
 
 const referenceRules = { required: false }
 const phoneRules = { required: true, phone: true, isPhoneAllowed: true }
@@ -72,14 +73,12 @@ export const Template8 = ({ data, currencies = [], onSubmit, setStepValid, payme
 
   return (
     <View>
-      <View>
-        <LabelInput
-          onChange={setLabel}
-          onSubmit={() => $phone?.focus()}
-          value={label}
-          errorMessage={displayErrors ? labelErrors : undefined}
-        />
-      </View>
+      <LabelInput
+        onChange={setLabel}
+        onSubmit={() => $phone?.focus()}
+        value={label}
+        errorMessage={displayErrors ? labelErrors : undefined}
+      />
       <View style={tw`mt-1`}>
         <PhoneInput
           onChange={setPhone}
@@ -108,15 +107,11 @@ export const Template8 = ({ data, currencies = [], onSubmit, setStepValid, payme
           autoCorrect={false}
         />
       </View>
-      <Input
+      <ReferenceInput
         onChange={setReference}
         onSubmit={save}
         reference={(el: any) => ($reference = el)}
         value={reference}
-        required={false}
-        label={i18n('form.reference')}
-        placeholder={i18n('form.reference.placeholder')}
-        autoCorrect={false}
         errorMessage={displayErrors ? referenceError : undefined}
       />
       <CurrencySelection

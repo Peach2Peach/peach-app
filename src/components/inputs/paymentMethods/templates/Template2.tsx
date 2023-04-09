@@ -8,11 +8,11 @@ import i18n from '../../../../utils/i18n'
 import { getErrorsInField } from '../../../../utils/validation'
 import { TabbedNavigation, TabbedNavigationItem } from '../../../navigation/TabbedNavigation'
 import { EmailInput } from '../../EmailInput'
-import Input from '../../Input'
 import { WalletInput } from '../../WalletInput'
 import { CurrencySelection } from '../paymentForms/components'
 import { toggleCurrency } from '../paymentForms/utils'
 import { LabelInput } from '../../LabelInput'
+import { ReferenceInput } from '../../ReferenceInput'
 
 const tabs: TabbedNavigationItem[] = [
   {
@@ -113,15 +113,11 @@ export const Template2 = ({ data, currencies = [], onSubmit, setStepValid, payme
           />
         )}
       </View>
-      <Input
+      <ReferenceInput
         onChange={setReference}
         onSubmit={save}
         reference={(el: any) => ($reference = el)}
         value={reference}
-        required={false}
-        label={i18n('form.reference')}
-        placeholder={i18n('form.reference.placeholder')}
-        autoCorrect={false}
         errorMessage={displayErrors ? referenceError : undefined}
       />
       <CurrencySelection

@@ -9,6 +9,7 @@ import Input from '../../Input'
 import { SortCodeInput } from '../../SortCodeInput'
 import { BankNumberInput } from '../../BankNumberInput'
 import { LabelInput } from '../../LabelInput'
+import { ReferenceInput } from '../../ReferenceInput'
 
 const beneficiaryRules = { required: true }
 const notRequired = { required: false }
@@ -123,15 +124,11 @@ export const Template5 = ({ data, currencies = [], onSubmit, setStepValid, payme
         autoCorrect={false}
         errorMessage={displayErrors ? ukSortCodeErrors : undefined}
       />
-      <Input
+      <ReferenceInput
         onChange={setReference}
         onSubmit={save}
         reference={(el: any) => ($reference = el)}
         value={reference}
-        required={false}
-        label={i18n('form.reference')}
-        placeholder={i18n('form.reference.placeholder')}
-        autoCorrect={false}
         errorMessage={displayErrors ? referenceErrors : undefined}
       />
     </>
