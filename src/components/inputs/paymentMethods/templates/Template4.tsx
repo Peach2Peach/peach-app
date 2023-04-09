@@ -95,7 +95,6 @@ export const Template4 = ({ data, currencies = [], onSubmit, setStepValid, payme
         required={true}
         value={email}
         label={i18n('form.emailLong')}
-        placeholder={i18n('form.email.placeholder')}
         errorMessage={displayErrors ? emailErrors : undefined}
       />
       <Input

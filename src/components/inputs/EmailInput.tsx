@@ -1,10 +1,12 @@
 import { ReactElement } from 'react'
 import { enforceEmailFormat } from '../../utils/format'
+import i18n from '../../utils/i18n'
 import Input, { InputProps } from './Input'
 
 export const EmailInput = ({ onChange, onSubmit, ...props }: InputProps): ReactElement => (
   <Input
     {...{
+      placeholder: i18n('form.email.placeholder'),
       ...props,
       keyboardType: 'email-address',
       autoCorrect: false,

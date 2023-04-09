@@ -150,7 +150,6 @@ export const Template6 = ({ data, currencies = [], onSubmit, setStepValid, payme
             onSubmit={() => $reference?.focus()}
             value={email}
             label={i18n('form.emailLong')}
-            placeholder={i18n('form.email.placeholder')}
             required={!phone && !userName}
             errorMessage={displayErrors ? emailErrors : undefined}
           />
