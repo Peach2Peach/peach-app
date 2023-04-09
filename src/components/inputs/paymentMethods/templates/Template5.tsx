@@ -112,10 +112,6 @@ export const Template5 = ({ data, currencies = [], onSubmit, setStepValid, payme
         onSubmit={() => $reference?.focus()}
         reference={(el: any) => ($ukSortCode = el)}
         value={ukSortCode}
-        required={true}
-        label={i18n('form.ukSortCode')}
-        placeholder={i18n('form.ukSortCode.placeholder')}
-        autoCorrect={false}
         errorMessage={displayErrors ? ukSortCodeErrors : undefined}
       />
       <ReferenceInput
