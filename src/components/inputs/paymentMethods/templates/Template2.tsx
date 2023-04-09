@@ -98,7 +98,6 @@ export const Template2 = ({ data, currencies = [], onSubmit, setStepValid, payme
             onSubmit={$reference?.focus}
             value={wallet}
             required={!anyFieldSet}
-            placeholder={i18n('form.wallet.placeholder')}
             errorMessage={displayErrors ? walletErrors : undefined}
           />
         )}
