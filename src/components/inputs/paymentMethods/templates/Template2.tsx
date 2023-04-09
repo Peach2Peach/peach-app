@@ -12,6 +12,7 @@ import Input from '../../Input'
 import { WalletInput } from '../../WalletInput'
 import { CurrencySelection } from '../paymentForms/components'
 import { toggleCurrency } from '../paymentForms/utils'
+import { LabelInput } from '../../LabelInput'
 
 const tabs: TabbedNavigationItem[] = [
   {
@@ -89,14 +90,7 @@ export const Template2 = ({ data, currencies = [], onSubmit, setStepValid, payme
   return (
     <View>
       <View>
-        <Input
-          onChange={setLabel}
-          value={label}
-          label={i18n('form.paymentMethodName')}
-          placeholder={i18n('form.paymentMethodName.placeholder')}
-          autoCorrect={false}
-          errorMessage={displayErrors ? labelErrors : undefined}
-        />
+        <LabelInput onChange={setLabel} value={label} errorMessage={displayErrors ? labelErrors : undefined} />
       </View>
       <TabbedNavigation items={tabs} selected={currentTab} select={setCurrentTab} />
       <View style={tw`mt-2`}>

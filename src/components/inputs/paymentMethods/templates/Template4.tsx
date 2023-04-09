@@ -11,6 +11,7 @@ import Input from '../../Input'
 import { CurrencySelection } from '../paymentForms/components'
 import { toggleCurrency } from '../paymentForms/utils'
 import { hasMultipleAvailableCurrencies } from './utils/hasMultipleAvailableCurrencies'
+import { LabelInput } from '../../LabelInput'
 
 const emailRules = {
   required: true,
@@ -78,13 +79,10 @@ export const Template4 = ({ data, currencies = [], onSubmit, setStepValid, payme
 
   return (
     <>
-      <Input
+      <LabelInput
         onChange={setLabel}
         onSubmit={() => $email?.focus()}
         value={label}
-        label={i18n('form.paymentMethodName')}
-        placeholder={i18n('form.paymentMethodName.placeholder')}
-        autoCorrect={false}
         errorMessage={displayErrors ? labelErrors : undefined}
       />
       <EmailInput

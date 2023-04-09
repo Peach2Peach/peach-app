@@ -8,6 +8,7 @@ import { getErrorsInField } from '../../../../utils/validation'
 import Input from '../../Input'
 import { SortCodeInput } from '../../SortCodeInput'
 import { BankNumberInput } from '../../BankNumberInput'
+import { LabelInput } from '../../LabelInput'
 
 const beneficiaryRules = { required: true }
 const notRequired = { required: false }
@@ -83,13 +84,10 @@ export const Template5 = ({ data, currencies = [], onSubmit, setStepValid, payme
 
   return (
     <>
-      <Input
+      <LabelInput
         onChange={setLabel}
         onSubmit={() => $beneficiary?.focus()}
         value={label}
-        label={i18n('form.paymentMethodName')}
-        placeholder={i18n('form.paymentMethodName.placeholder')}
-        autoCorrect={false}
         errorMessage={displayErrors ? labelErrors : undefined}
       />
       <Input

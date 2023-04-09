@@ -12,6 +12,7 @@ import { BankNumberInput } from '../../BankNumberInput'
 import { BICInput } from '../../BICInput'
 import { IBANInput } from '../../IBANInput'
 import Input from '../../Input'
+import { LabelInput } from '../../LabelInput'
 
 const beneficiaryRules = { required: true }
 const notRequired = { required: false }
@@ -97,13 +98,10 @@ export const Template9 = ({ data, currencies = [], onSubmit, setStepValid, payme
 
   return (
     <>
-      <Input
+      <LabelInput
         onChange={setLabel}
         onSubmit={() => $beneficiary?.focus()}
         value={label}
-        label={i18n('form.paymentMethodName')}
-        placeholder={i18n('form.paymentMethodName.placeholder')}
-        autoCorrect={false}
         errorMessage={displayErrors ? labelErrors : undefined}
       />
       <Input

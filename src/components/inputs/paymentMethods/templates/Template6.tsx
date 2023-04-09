@@ -13,6 +13,7 @@ import { PhoneInput } from '../../PhoneInput'
 import { UsernameInput } from '../../UsernameInput'
 import { CurrencySelection } from '../paymentForms/components'
 import { toggleCurrency } from '../paymentForms/utils'
+import { LabelInput } from '../../LabelInput'
 
 const referenceRules = { required: false }
 
@@ -121,14 +122,7 @@ export const Template6 = ({ data, currencies = [], onSubmit, setStepValid, payme
   return (
     <View>
       <View>
-        <Input
-          onChange={setLabel}
-          value={label}
-          label={i18n('form.paymentMethodName')}
-          placeholder={i18n('form.paymentMethodName.placeholder')}
-          autoCorrect={false}
-          errorMessage={displayErrors ? labelErrors : undefined}
-        />
+        <LabelInput onChange={setLabel} value={label} errorMessage={displayErrors ? labelErrors : undefined} />
       </View>
       <TabbedNavigation
         items={tabs}

@@ -10,6 +10,7 @@ import Input from '../../Input'
 import { PhoneInput } from '../../PhoneInput'
 import { CurrencySelection } from '../paymentForms/components'
 import { toggleCurrency } from '../paymentForms/utils'
+import { LabelInput } from '../../LabelInput'
 
 const referenceRules = { required: false }
 const phoneRules = { required: true, phone: true, isPhoneAllowed: true }
@@ -72,13 +73,10 @@ export const Template8 = ({ data, currencies = [], onSubmit, setStepValid, payme
   return (
     <View>
       <View>
-        <Input
+        <LabelInput
           onChange={setLabel}
           onSubmit={() => $phone?.focus()}
           value={label}
-          label={i18n('form.paymentMethodName')}
-          placeholder={i18n('form.paymentMethodName.placeholder')}
-          autoCorrect={false}
           errorMessage={displayErrors ? labelErrors : undefined}
         />
       </View>
