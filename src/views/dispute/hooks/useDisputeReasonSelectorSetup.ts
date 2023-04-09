@@ -5,16 +5,14 @@ import { account } from '../../../utils/account'
 import { contractIdToHex, getContract, getContractViewer } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
 import { submitRaiseDispute } from '../utils/submitRaiseDispute'
-
-export const disputeReasonsBuyer: DisputeReason[] = ['noPayment.buyer', 'unresponsive.buyer', 'abusive', 'other']
-export const disputeReasonsSeller: DisputeReason[] = ['noPayment.seller', 'unresponsive.seller', 'abusive', 'other']
+import { disputeReasons } from './disputeReasons'
 
 export const useDisputeReasonSelectorSetup = () => {
   const route = useRoute<'disputeReasonSelector'>()
   const contract = getContract(route.params.contractId)
 
   const view = contract ? getContractViewer(contract, account) : ''
-  const availableReasons = view === 'seller' ? disputeReasonsSeller : disputeReasonsBuyer
+  const availableReasons = view === 'seller' ? disputeReasons.seller : disputeReasons.buyer
 
   const navigation = useNavigation()
   const showErrorBanner = useShowErrorBanner()

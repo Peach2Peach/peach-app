@@ -3,11 +3,8 @@ import { account1 } from '../../../../tests/unit/data/accountData'
 import { contract } from '../../../../tests/unit/data/contractData'
 import { setAccount } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
-import {
-  disputeReasonsBuyer,
-  disputeReasonsSeller,
-  useDisputeReasonSelectorSetup,
-} from './useDisputeReasonSelectorSetup'
+import { disputeReasons } from './disputeReasons'
+import { useDisputeReasonSelectorSetup } from './useDisputeReasonSelectorSetup'
 
 const useRouteMock = jest.fn().mockReturnValue({
   params: {
@@ -67,14 +64,14 @@ describe('useDisputeReasonSelectorSetup', () => {
     await setAccount({ ...account1, publicKey: contract.seller.id })
     const { result } = renderHook(useDisputeReasonSelectorSetup)
 
-    expect(result.current.availableReasons).toEqual(disputeReasonsSeller)
+    expect(result.current.availableReasons).toEqual(disputeReasons.seller)
     expect(result.current.setReason).toBeInstanceOf(Function)
   })
   it('returns default values correctly for buyer', async () => {
     await setAccount({ ...account1, publicKey: contract.buyer.id })
     const { result } = renderHook(useDisputeReasonSelectorSetup)
 
-    expect(result.current.availableReasons).toEqual(disputeReasonsBuyer)
+    expect(result.current.availableReasons).toEqual(disputeReasons.buyer)
   })
   it('respects route params', () => {
     useRouteMock.mockReturnValueOnce({
