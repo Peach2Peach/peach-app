@@ -16,12 +16,11 @@ type FormRef = {
   save: () => void
 }
 
-export type PaymentMethodFormProps = ComponentProps & {
+type PaymentMethodFormProps = ComponentProps & {
   paymentMethod: PaymentMethod
   data: Partial<PaymentData>
   currencies?: Currency[]
   onSubmit: (data: PaymentData) => void
-  onDelete?: () => void
 }
 export type FormProps = PaymentMethodFormProps & { setStepValid: Dispatch<SetStateAction<boolean>> }
 
