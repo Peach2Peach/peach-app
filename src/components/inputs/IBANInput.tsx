@@ -8,6 +8,7 @@ export const IBANInput = ({ onChange, onSubmit, ...props }: InputProps): ReactEl
     {...{
       autoCorrect: false,
       placeholder: i18n('form.iban.placeholder'),
+      required: true,
       ...props,
       onChange,
       onEndEditing: onChange ? (iban: string) => onChange(enforceIBANFormat(iban)) : undefined,

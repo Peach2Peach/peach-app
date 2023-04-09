@@ -163,7 +163,6 @@ export const Template1 = ({ data, currencies = [], onSubmit, setStepValid, payme
         {...ibanInputProps}
         onSubmit={() => $bic?.focus()}
         reference={(el: any) => ($iban = el)}
-        required={true}
         label={i18n('form.iban')}
       />
       <BICInput

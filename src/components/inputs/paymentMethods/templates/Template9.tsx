@@ -122,7 +122,6 @@ export const Template9 = ({ data, currencies = [], onSubmit, setStepValid, payme
           onChange={setIBAN}
           onSubmit={() => $bic?.focus()}
           value={iban}
-          required={true}
           label={i18n('form.iban.long')}
           errorMessage={displayErrors ? ibanErrors : undefined}
         />
