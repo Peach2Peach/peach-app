@@ -86,89 +86,66 @@ const useTemplate2Setup = ({ data, currencies = [], onSubmit, setStepValid, paym
   }, [buildPaymentData, isFormValid, setFormData, setStepValid])
 
   return {
-    anyFieldSet,
     currentTab,
-    displayErrors,
-    email,
-    emailErrors,
-    label,
-    labelErrors,
-    onCurrencyToggle,
-    reference,
-    referenceError,
-    save,
-    setCurrentTab,
-    setEmail,
-    setLabel,
-    setReference,
-    setWallet,
-    selectedCurrencies,
-    wallet,
-    walletErrors,
+    labelInputProps: {
+      onChange: setLabel,
+      value: label,
+      errorMessage: displayErrors ? labelErrors : undefined,
+    },
+    tabbedNavigationProps: {
+      items: tabs,
+      selected: currentTab,
+      select: setCurrentTab,
+    },
+    walletInputProps: {
+      onChange: setWallet,
+      value: wallet,
+      errorMessage: displayErrors ? walletErrors : undefined,
+      required: !anyFieldSet,
+    },
+    emailInputProps: {
+      onChange: setEmail,
+      value: email,
+      errorMessage: displayErrors ? emailErrors : undefined,
+      required: !anyFieldSet,
+    },
+    referenceInputProps: {
+      onChange: setReference,
+      value: reference,
+      errorMessage: displayErrors ? referenceError : undefined,
+      onSubmit: save,
+    },
+    currencySelectionProps: {
+      paymentMethod,
+      selectedCurrencies,
+      onToggle: onCurrencyToggle,
+    },
   }
 }
 
 export const Template2 = ({ data, currencies = [], onSubmit, setStepValid, paymentMethod, setFormData }: FormProps) => {
   const {
-    anyFieldSet,
     currentTab,
-    displayErrors,
-    email,
-    emailErrors,
-    label,
-    labelErrors,
-    onCurrencyToggle,
-    reference,
-    referenceError,
-    save,
-    setCurrentTab,
-    setEmail,
-    setLabel,
-    setReference,
-    setWallet,
-    selectedCurrencies,
-    wallet,
-    walletErrors,
+    labelInputProps,
+    tabbedNavigationProps,
+    walletInputProps,
+    emailInputProps,
+    referenceInputProps,
+    currencySelectionProps,
   } = useTemplate2Setup({ data, currencies, onSubmit, setStepValid, paymentMethod, setFormData })
 
   let $reference = useRef<TextInput>(null).current
 
   return (
     <View>
-      <LabelInput onChange={setLabel} value={label} errorMessage={displayErrors ? labelErrors : undefined} />
-      <TabbedNavigation items={tabs} selected={currentTab} select={setCurrentTab} />
+      <LabelInput {...labelInputProps} />
+      <TabbedNavigation {...tabbedNavigationProps} />
       <View style={tw`mt-2`}>
-        {currentTab.id === 'wallet' && (
-          <WalletInput
-            onChange={setWallet}
-            onSubmit={$reference?.focus}
-            value={wallet}
-            required={!anyFieldSet}
-            errorMessage={displayErrors ? walletErrors : undefined}
-          />
-        )}
-        {currentTab.id === 'email' && (
-          <EmailInput
-            onChange={setEmail}
-            onSubmit={$reference?.focus}
-            value={email}
-            required={!anyFieldSet}
-            errorMessage={displayErrors ? emailErrors : undefined}
-          />
-        )}
+        {currentTab.id === 'wallet' && <WalletInput {...walletInputProps} onSubmit={$reference?.focus} />}
+        {currentTab.id === 'email' && <EmailInput {...emailInputProps} onSubmit={$reference?.focus} />}
       </View>
-      <ReferenceInput
-        onChange={setReference}
-        onSubmit={save}
-        reference={(el: any) => ($reference = el)}
-        value={reference}
-        errorMessage={displayErrors ? referenceError : undefined}
-      />
-      <CurrencySelection
-        paymentMethod={paymentMethod}
-        selectedCurrencies={selectedCurrencies}
-        onToggle={onCurrencyToggle}
-      />
+      <ReferenceInput {...referenceInputProps} reference={(el: any) => ($reference = el)} />
+      <CurrencySelection {...currencySelectionProps} />
     </View>
   )
 }
