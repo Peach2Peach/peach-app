@@ -87,9 +87,6 @@ export const Template8 = ({ data, currencies = [], onSubmit, setStepValid, payme
           }}
           reference={(el: any) => ($phone = el)}
           value={phone}
-          label={i18n('form.phone')}
-          placeholder={i18n('form.phone.placeholder')}
-          autoCorrect={false}
           errorMessage={displayErrors ? phoneErrors : undefined}
         />
       </View>

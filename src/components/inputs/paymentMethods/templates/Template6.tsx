@@ -137,9 +137,6 @@ export const Template6 = ({ data, currencies = [], onSubmit, setStepValid, payme
               $reference?.focus()
             }}
             value={phone}
-            label={i18n('form.phoneLong')}
-            placeholder={i18n('form.phone.placeholder')}
-            autoCorrect={false}
             required={!email && !userName}
             errorMessage={displayErrors ? phoneErrors : undefined}
           />
