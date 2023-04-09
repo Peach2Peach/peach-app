@@ -1,9 +1,8 @@
 import { useCallback, useContext } from 'react'
-import { Loading } from '../../components'
 import { OverlayContext } from '../../contexts/overlay'
 import { useNavigation } from '../../hooks'
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
-import tw from '../../styles/tailwind'
+import { useShowLoadingOverlay } from '../../hooks/useShowLoadingOverlay'
 import { saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { confirmContractCancelation, rejectContractCancelation } from '../../utils/peachAPI'
@@ -15,25 +14,14 @@ export const useConfirmTradeCancelationOverlay = () => {
   const navigation = useNavigation()
 
   const closeOverlay = useCallback(() => updateOverlay({ visible: false }), [updateOverlay])
-  const showLoadingOverlay = useCallback(
-    () =>
-      updateOverlay({
-        title: i18n('contract.cancel.sellerWantsToCancel.title'),
-        content: <Loading style={tw`self-center`} color={tw`text-black-1`.color} />,
-        visible: true,
-        level: 'WARN',
-        requireUserAction: true,
-        action1: {
-          label: i18n('loading'),
-          icon: 'clock',
-          callback: () => {},
-        },
-      }),
-    [updateOverlay],
-  )
+  const showLoadingOverlay = useShowLoadingOverlay()
+
   const cancelTrade = useCallback(
     async (contract: Contract) => {
-      showLoadingOverlay()
+      showLoadingOverlay({
+        title: i18n('contract.cancel.sellerWantsToCancel.title'),
+        level: 'WARN',
+      })
       const [result, err] = await confirmContractCancelation({ contractId: contract.id })
 
       if (result) {

@@ -1,9 +1,8 @@
 import { useCallback, useContext } from 'react'
-import { Loading } from '../../components'
 import { OverlayContext } from '../../contexts/overlay'
 import { useNavigation } from '../../hooks'
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
-import tw from '../../styles/tailwind'
+import { useShowLoadingOverlay } from '../../hooks/useShowLoadingOverlay'
 import { account } from '../../utils/account'
 import { checkRefundPSBT, signPSBT } from '../../utils/bitcoin'
 import { getSellOfferFromContract, isPaymentTimeExpired, saveContract } from '../../utils/contract'
@@ -20,24 +19,13 @@ export const useConfirmCancelTrade = () => {
   const navigation = useNavigation()
   const showError = useShowErrorBanner()
   const closeOverlay = useCallback(() => updateOverlay({ visible: false }), [updateOverlay])
-  const showLoading = useCallback(
-    () =>
-      updateOverlay({
-        title: i18n('contract.cancel.title'),
-        level: 'ERROR',
-        content: <Loading style={tw`self-center`} color={tw`text-primary-main`.color} />,
-        visible: true,
-        action1: {
-          label: i18n('loading'),
-          icon: 'clock',
-          callback: () => {},
-        },
-      }),
-    [updateOverlay],
-  )
+  const showLoadingOverlay = useShowLoadingOverlay()
   const cancelBuyer = useCallback(
     async (contract: Contract) => {
-      showLoading()
+      showLoadingOverlay({
+        title: i18n('contract.cancel.title'),
+        level: 'ERROR',
+      })
       const [result, err] = await cancelContract({
         contractId: contract.id,
       })
@@ -55,7 +43,7 @@ export const useConfirmCancelTrade = () => {
         showError(err.error)
       }
     },
-    [closeOverlay, navigation, showError, showLoading, updateOverlay],
+    [closeOverlay, navigation, showError, showLoadingOverlay, updateOverlay],
   )
 
   const cancelSellerSuccess = useCallback(
@@ -99,7 +87,10 @@ export const useConfirmCancelTrade = () => {
 
   const cancelSeller = useCallback(
     async (contract: Contract) => {
-      showLoading()
+      showLoadingOverlay({
+        title: i18n('contract.cancel.title'),
+        level: 'ERROR',
+      })
       const [result, err] = await cancelContract({
         contractId: contract.id,
       })
@@ -123,7 +114,7 @@ export const useConfirmCancelTrade = () => {
       }
       closeOverlay()
     },
-    [showLoading, closeOverlay, patchSellOfferWithRefundTx, cancelSellerSuccess, showError],
+    [showLoadingOverlay, closeOverlay, patchSellOfferWithRefundTx, cancelSellerSuccess, showError],
   )
 
   const showConfirmOverlay = useCallback(
