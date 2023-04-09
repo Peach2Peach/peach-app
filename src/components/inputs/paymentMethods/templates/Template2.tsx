@@ -89,9 +89,7 @@ export const Template2 = ({ data, currencies = [], onSubmit, setStepValid, payme
 
   return (
     <View>
-      <View>
-        <LabelInput onChange={setLabel} value={label} errorMessage={displayErrors ? labelErrors : undefined} />
-      </View>
+      <LabelInput onChange={setLabel} value={label} errorMessage={displayErrors ? labelErrors : undefined} />
       <TabbedNavigation items={tabs} selected={currentTab} select={setCurrentTab} />
       <View style={tw`mt-2`}>
         {currentTab.id === 'wallet' && (
