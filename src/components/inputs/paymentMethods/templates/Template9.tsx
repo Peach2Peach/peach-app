@@ -124,7 +124,6 @@ export const Template9 = ({ data, currencies = [], onSubmit, setStepValid, payme
           value={iban}
           required={true}
           label={i18n('form.iban.long')}
-          autoCorrect={false}
           errorMessage={displayErrors ? ibanErrors : undefined}
         />
       ) : (
