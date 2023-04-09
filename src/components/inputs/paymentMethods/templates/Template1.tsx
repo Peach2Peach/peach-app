@@ -34,11 +34,6 @@ const useTemplate1Setup = ({ data, currencies = [], onSubmit, setStepValid, paym
   const [displayErrors, setDisplayErrors] = useState(false)
   const [selectedCurrencies, setSelectedCurrencies] = useState(data?.currencies || currencies)
 
-  const $beneficiary = useRef<TextInput>(null).current
-  const $iban = useRef<TextInput>(null).current
-  const $bic = useRef<TextInput>(null).current
-  const $reference = useRef<TextInput>(null).current
-
   const labelRules = useMemo(
     () => ({
       required: true,
@@ -91,31 +86,41 @@ const useTemplate1Setup = ({ data, currencies = [], onSubmit, setStepValid, paym
   }, [buildPaymentData, isFormValid, setFormData, setStepValid])
 
   return {
-    label,
-    setLabel,
-    checked,
-    toggleChecked,
-    beneficiary,
-    setBeneficiary,
-    iban,
-    setIBAN,
-    bic,
-    setBIC,
-    reference,
-    setReference,
-    displayErrors,
-    selectedCurrencies,
-    onCurrencyToggle,
+    labelInputProps: {
+      value: label,
+      onChange: setLabel,
+      errorMessage: displayErrors ? labelErrors : undefined,
+    },
+    beneficiaryInputProps: {
+      value: beneficiary,
+      onChange: setBeneficiary,
+      errorMessage: displayErrors ? beneficiaryErrors : undefined,
+    },
+    ibanInputProps: {
+      value: iban,
+      onChange: setIBAN,
+      errorMessage: displayErrors ? ibanErrors : undefined,
+    },
+    bicInputProps: {
+      value: bic,
+      onChange: setBIC,
+      errorMessage: displayErrors ? bicErrors : undefined,
+    },
+    referenceInputProps: {
+      value: reference,
+      onChange: setReference,
+      errorMessage: displayErrors ? referenceErrors : undefined,
+    },
+    checkboxProps: {
+      checked,
+      onPress: toggleChecked,
+    },
+    currencySelectionProps: {
+      paymentMethod,
+      onToggle: onCurrencyToggle,
+      selectedCurrencies,
+    },
     save,
-    $beneficiary,
-    $iban,
-    $bic,
-    $reference,
-    labelErrors,
-    beneficiaryErrors,
-    ibanErrors,
-    bicErrors,
-    referenceErrors,
   }
 }
 
@@ -126,93 +131,63 @@ export const Template1 = ({ data, currencies = [], onSubmit, setStepValid, payme
   let $reference = useRef<TextInput>(null).current
 
   const {
-    label,
-    setLabel,
-    checked,
-    toggleChecked,
-    beneficiary,
-    setBeneficiary,
-    iban,
-    setIBAN,
-    bic,
-    setBIC,
-    reference,
-    setReference,
-    displayErrors,
-    selectedCurrencies,
-    onCurrencyToggle,
+    labelInputProps,
+    beneficiaryInputProps,
+    ibanInputProps,
+    bicInputProps,
+    referenceInputProps,
+    checkboxProps,
+    currencySelectionProps,
     save,
-    labelErrors,
-    beneficiaryErrors,
-    ibanErrors,
-    bicErrors,
-    referenceErrors,
   } = useTemplate1Setup({ data, paymentMethod, onSubmit, setStepValid, currencies, setFormData })
+
   return (
     <>
       <Input
-        onChange={setLabel}
+        {...labelInputProps}
         onSubmit={() => $beneficiary?.focus()}
-        value={label}
         label={i18n('form.paymentMethodName')}
         placeholder={i18n('form.paymentMethodName.placeholder')}
         autoCorrect={false}
-        errorMessage={displayErrors ? labelErrors : undefined}
       />
       <Input
-        onChange={setBeneficiary}
+        {...beneficiaryInputProps}
         onSubmit={() => $iban?.focus()}
         reference={(el: any) => ($beneficiary = el)}
-        value={beneficiary}
         required={true}
         label={i18n('form.beneficiary')}
         placeholder={i18n('form.beneficiary.placeholder')}
         autoCorrect={false}
-        errorMessage={displayErrors ? beneficiaryErrors : undefined}
       />
       <IBANInput
-        onChange={setIBAN}
+        {...ibanInputProps}
         onSubmit={() => $bic?.focus()}
         reference={(el: any) => ($iban = el)}
-        value={iban}
         required={true}
         label={i18n('form.iban')}
         placeholder={i18n('form.iban.placeholder')}
         autoCorrect={false}
-        errorMessage={displayErrors ? ibanErrors : undefined}
       />
       <BICInput
-        onChange={setBIC}
+        {...bicInputProps}
         onSubmit={() => $reference?.focus()}
         reference={(el: any) => ($bic = el)}
-        value={bic}
         required={true}
         label={i18n('form.bic')}
         placeholder={i18n('form.bic.placeholder')}
         autoCorrect={false}
-        errorMessage={displayErrors ? bicErrors : undefined}
       />
       <Input
-        onChange={setReference}
+        {...referenceInputProps}
         onSubmit={save}
         reference={(el: any) => ($reference = el)}
-        value={reference}
         required={false}
         label={i18n('form.reference')}
         placeholder={i18n('form.reference.placeholder')}
         autoCorrect={false}
-        errorMessage={displayErrors ? referenceErrors : undefined}
       />
-      {paymentMethod === 'instantSepa' && (
-        <Checkbox checked={checked} onPress={toggleChecked} text={i18n('form.instantSepa.checkbox')} />
-      )}
-      {hasMultipleAvailableCurrencies(paymentMethod) && (
-        <CurrencySelection
-          paymentMethod={paymentMethod}
-          selectedCurrencies={selectedCurrencies}
-          onToggle={onCurrencyToggle}
-        />
-      )}
+      {paymentMethod === 'instantSepa' && <Checkbox {...checkboxProps} text={i18n('form.instantSepa.checkbox')} />}
+      {hasMultipleAvailableCurrencies(paymentMethod) && <CurrencySelection {...currencySelectionProps} />}
     </>
   )
 }
