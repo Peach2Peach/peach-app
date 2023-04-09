@@ -143,10 +143,6 @@ export const Template9 = ({ data, currencies = [], onSubmit, setStepValid, payme
           onSubmit={() => $reference?.focus()}
           reference={(el: any) => ($bic = el)}
           value={bic}
-          required={true}
-          label={i18n('form.bic')}
-          placeholder={i18n('form.bic.placeholder')}
-          autoCorrect={false}
           errorMessage={displayErrors ? bicErrors : undefined}
         />
       )}

@@ -165,15 +165,7 @@ export const Template1 = ({ data, currencies = [], onSubmit, setStepValid, payme
         reference={(el: any) => ($iban = el)}
         label={i18n('form.iban')}
       />
-      <BICInput
-        {...bicInputProps}
-        onSubmit={() => $reference?.focus()}
-        reference={(el: any) => ($bic = el)}
-        required={true}
-        label={i18n('form.bic')}
-        placeholder={i18n('form.bic.placeholder')}
-        autoCorrect={false}
-      />
+      <BICInput {...bicInputProps} onSubmit={() => $reference?.focus()} reference={(el: any) => ($bic = el)} />
       <Input
         {...referenceInputProps}
         onSubmit={save}
