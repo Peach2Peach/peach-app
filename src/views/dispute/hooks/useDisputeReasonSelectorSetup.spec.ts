@@ -51,6 +51,13 @@ jest.mock('../../../hooks/useShowErrorBanner', () => ({
       (...args: any[]) =>
         showErrorBannerMock(...args),
 }))
+const showDisputeRaisedOverlayMock = jest.fn()
+jest.mock('../../../overlays/dispute/hooks/useDisputeRaisedSuccess', () => ({
+  useDisputeRaisedSuccess:
+    () =>
+      (...args: any[]) =>
+        showDisputeRaisedOverlayMock(...args),
+}))
 
 describe('useDisputeReasonSelectorSetup', () => {
   afterEach(() => {
@@ -69,7 +76,6 @@ describe('useDisputeReasonSelectorSetup', () => {
 
     expect(result.current.availableReasons).toEqual(disputeReasonsBuyer)
   })
-
   it('respects route params', () => {
     useRouteMock.mockReturnValueOnce({
       params: {
@@ -79,7 +85,6 @@ describe('useDisputeReasonSelectorSetup', () => {
     renderHook(useDisputeReasonSelectorSetup)
     expect(getContractMock).toHaveBeenCalledWith(contract.id)
   })
-
   it('sets up the header correctly', () => {
     renderHook(useDisputeReasonSelectorSetup)
     expect(useHeaderSetupMock).toHaveBeenCalledWith({
@@ -98,18 +103,21 @@ describe('useDisputeReasonSelectorSetup', () => {
     const { result } = renderHook(useDisputeReasonSelectorSetup)
     await result.current.setReason(reason)
     expect(navigateMock).toHaveBeenCalledWith('disputeForm', { contractId: contract.id, reason })
+    expect(showDisputeRaisedOverlayMock).not.toHaveBeenCalled()
   })
   it('sets reason and navigate to dispute form if reason is noPayment.seller', async () => {
     const reason = 'noPayment.seller'
     const { result } = renderHook(useDisputeReasonSelectorSetup)
     await result.current.setReason(reason)
     expect(navigateMock).toHaveBeenCalledWith('disputeForm', { contractId: contract.id, reason })
+    expect(showDisputeRaisedOverlayMock).not.toHaveBeenCalled()
   })
   it('sets reason and submits dispute request if reason is any other', async () => {
     const reason = 'abusive'
     const { result } = renderHook(useDisputeReasonSelectorSetup)
     await result.current.setReason(reason)
     expect(submitRaiseDisputeMock).toHaveBeenCalledWith(contract, reason)
+    expect(showDisputeRaisedOverlayMock).toHaveBeenCalled()
   })
   it('shows error banner if dispute request fails', async () => {
     submitRaiseDisputeMock.mockResolvedValueOnce([null, apiError])
@@ -117,5 +125,6 @@ describe('useDisputeReasonSelectorSetup', () => {
     const { result } = renderHook(useDisputeReasonSelectorSetup)
     await result.current.setReason(reason)
     expect(showErrorBannerMock).toHaveBeenCalledWith(apiError.error)
+    expect(showDisputeRaisedOverlayMock).not.toHaveBeenCalled()
   })
 })

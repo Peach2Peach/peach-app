@@ -19,27 +19,30 @@ export const useDisputeReasonSelectorSetup = () => {
   const navigation = useNavigation()
   const showErrorBanner = useShowErrorBanner()
 
-  const disputeRaisedOverlay = useDisputeRaisedSuccess()
+  const showDisputeRaisedOverlay = useDisputeRaisedSuccess()
 
   useHeaderSetup({
     title: i18n('dispute.disputeForTrade', !!contract ? contractIdToHex(contract.id) : ''),
   })
 
+  const setAndSubmit = async (reason: DisputeReason) => {
+    const [success, error] = await submitRaiseDispute(contract, reason)
+    if (!success || error) {
+      showErrorBanner(error?.error)
+      return
+    }
+    if (view) showDisputeRaisedOverlay(view)
+    navigation.goBack()
+  }
+
   const setReason = async (reason: DisputeReason) => {
     if (!contract) return
     if (reason === 'noPayment.buyer' || reason === 'noPayment.seller') {
       navigation.navigate('disputeForm', { contractId: contract.id, reason })
-    } else {
-      const [success, error] = await submitRaiseDispute(contract, reason)
-      if (success) {
-        if (view) {
-          disputeRaisedOverlay(view)
-        }
-        navigation.goBack()
-      } else {
-        showErrorBanner(error?.error)
-      }
+      return
     }
+
+    await setAndSubmit(reason)
   }
 
   return { availableReasons, setReason }
