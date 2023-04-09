@@ -3,7 +3,6 @@ import { TextInput } from 'react-native'
 import { FormProps } from '../paymentForms/PaymentMethodForm'
 import { useValidatedState } from '../../../../hooks'
 import { getPaymentDataByLabel } from '../../../../utils/account'
-import i18n from '../../../../utils/i18n'
 import { getErrorsInField } from '../../../../utils/validation'
 import { BankNumberInput } from '../../BankNumberInput'
 import { LabelInput } from '../../LabelInput'
@@ -89,10 +88,6 @@ export const Template7 = ({ data, currencies = [], onSubmit, setStepValid, payme
         onChange={setAccountNumber}
         onSubmit={() => $reference?.focus()}
         value={accountNumber}
-        required={true}
-        label={i18n('form.account.long')}
-        placeholder={i18n('form.account.placeholder')}
-        autoCorrect={false}
         errorMessage={displayErrors ? accountNumberErrors : undefined}
       />
       <ReferenceInput

@@ -125,10 +125,6 @@ export const Template9 = ({ data, currencies = [], onSubmit, setStepValid, payme
           onChange={setAccountNumber}
           onSubmit={() => $reference?.focus()}
           value={accountNumber}
-          required={true}
-          label={i18n('form.account.long')}
-          placeholder={i18n('form.account.placeholder')}
-          autoCorrect={false}
           errorMessage={displayErrors ? accountNumberErrors : undefined}
         />
       )}

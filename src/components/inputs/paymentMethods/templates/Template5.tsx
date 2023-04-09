@@ -105,8 +105,6 @@ export const Template5 = ({ data, currencies = [], onSubmit, setStepValid, payme
         value={ukBankAccount}
         label={i18n('form.ukBankAccount')}
         placeholder={i18n('form.ukBankAccount.placeholder')}
-        autoCorrect={false}
-        required={true}
         errorMessage={displayErrors ? ukBankAccountErrors : undefined}
       />
       <SortCodeInput
