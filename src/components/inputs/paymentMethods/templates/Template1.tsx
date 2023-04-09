@@ -18,7 +18,7 @@ const notRequired = { required: false }
 const ibanRules = { required: true, iban: true, isEUIBAN: true }
 const bicRules = { required: true, bic: true }
 
-export const Template1 = ({ data, currencies = [], onSubmit, setStepValid, paymentMethod, setFormData }: FormProps) => {
+const useTemplate1Setup = ({ data, currencies = [], onSubmit, setStepValid, paymentMethod, setFormData }: FormProps) => {
   const [label, setLabel] = useState(data?.label || '')
   const [checked, toggleChecked] = useToggleBoolean(!!data.id)
   const [beneficiary, setBeneficiary, beneficiaryIsValid, beneficiaryErrors] = useValidatedState(
@@ -34,10 +34,10 @@ export const Template1 = ({ data, currencies = [], onSubmit, setStepValid, payme
   const [displayErrors, setDisplayErrors] = useState(false)
   const [selectedCurrencies, setSelectedCurrencies] = useState(data?.currencies || currencies)
 
-  let $beneficiary = useRef<TextInput>(null).current
-  let $iban = useRef<TextInput>(null).current
-  let $bic = useRef<TextInput>(null).current
-  let $reference = useRef<TextInput>(null).current
+  const $beneficiary = useRef<TextInput>(null).current
+  const $iban = useRef<TextInput>(null).current
+  const $bic = useRef<TextInput>(null).current
+  const $reference = useRef<TextInput>(null).current
 
   const labelRules = useMemo(
     () => ({
@@ -90,6 +90,64 @@ export const Template1 = ({ data, currencies = [], onSubmit, setStepValid, payme
     setFormData(buildPaymentData())
   }, [buildPaymentData, isFormValid, setFormData, setStepValid])
 
+  return {
+    label,
+    setLabel,
+    checked,
+    toggleChecked,
+    beneficiary,
+    setBeneficiary,
+    iban,
+    setIBAN,
+    bic,
+    setBIC,
+    reference,
+    setReference,
+    displayErrors,
+    selectedCurrencies,
+    onCurrencyToggle,
+    save,
+    $beneficiary,
+    $iban,
+    $bic,
+    $reference,
+    labelErrors,
+    beneficiaryErrors,
+    ibanErrors,
+    bicErrors,
+    referenceErrors,
+  }
+}
+
+export const Template1 = ({ data, currencies = [], onSubmit, setStepValid, paymentMethod, setFormData }: FormProps) => {
+  let $beneficiary = useRef<TextInput>(null).current
+  let $iban = useRef<TextInput>(null).current
+  let $bic = useRef<TextInput>(null).current
+  let $reference = useRef<TextInput>(null).current
+
+  const {
+    label,
+    setLabel,
+    checked,
+    toggleChecked,
+    beneficiary,
+    setBeneficiary,
+    iban,
+    setIBAN,
+    bic,
+    setBIC,
+    reference,
+    setReference,
+    displayErrors,
+    selectedCurrencies,
+    onCurrencyToggle,
+    save,
+    labelErrors,
+    beneficiaryErrors,
+    ibanErrors,
+    bicErrors,
+    referenceErrors,
+  } = useTemplate1Setup({ data, paymentMethod, onSubmit, setStepValid, currencies, setFormData })
   return (
     <>
       <Input
