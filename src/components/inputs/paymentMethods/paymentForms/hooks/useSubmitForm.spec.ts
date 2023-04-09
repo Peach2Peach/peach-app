@@ -1,5 +1,5 @@
 import { act, renderHook } from '@testing-library/react-native'
-import { usePaymentMethodFormSetup } from './usePaymentMethodFormSetup'
+import { useSubmitForm } from './useSubmitForm'
 
 describe('usePaymentMethodFormSetup', () => {
   const paymentData: PaymentData = {
@@ -14,14 +14,14 @@ describe('usePaymentMethodFormSetup', () => {
     jest.resetAllMocks()
   })
   it('returns default correct values', () => {
-    const { result } = renderHook(() => usePaymentMethodFormSetup(onSubmitMock))
-    expect(result.current.submit).toBeInstanceOf(Function)
+    const { result } = renderHook(() => useSubmitForm(onSubmitMock))
+    expect(result.current.submitForm).toBeInstanceOf(Function)
     expect(result.current.stepValid).toBeFalsy()
     expect(result.current.setStepValid).toBeInstanceOf(Function)
   })
 
   it('sets step valid', () => {
-    const { result } = renderHook(() => usePaymentMethodFormSetup(onSubmitMock))
+    const { result } = renderHook(() => useSubmitForm(onSubmitMock))
 
     expect(result.current.stepValid).toBeFalsy()
     act(() => {
@@ -30,21 +30,22 @@ describe('usePaymentMethodFormSetup', () => {
     expect(result.current.stepValid).toBeTruthy()
   })
   it('does not submit if step is not valid', () => {
-    const { result } = renderHook(() => usePaymentMethodFormSetup(onSubmitMock))
+    const { result } = renderHook(() => useSubmitForm(onSubmitMock))
 
     act(() => {
-      result.current.submit(paymentData)
+      result.current.submitForm()
     })
     expect(onSubmitMock).not.toHaveBeenCalled()
   })
   it('does submit if step is valid', () => {
-    const { result } = renderHook(() => usePaymentMethodFormSetup(onSubmitMock))
+    const { result } = renderHook(() => useSubmitForm(onSubmitMock))
 
     act(() => {
+      result.current.setFormData(paymentData)
       result.current.setStepValid(true)
     })
     act(() => {
-      result.current.submit(paymentData)
+      result.current.submitForm()
     })
     expect(onSubmitMock).toHaveBeenCalledWith(paymentData)
   })

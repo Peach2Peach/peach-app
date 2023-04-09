@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { TextInput } from 'react-native'
 import { FormProps } from '../paymentForms/PaymentMethodForm'
 import { useValidatedState } from '../../../../hooks'
@@ -14,7 +14,7 @@ const notRequired = { required: false }
 const ukBankAccountRules = { required: false, ukBankAccount: true }
 const ukSortCodeRules = { required: false, ukSortCode: true }
 
-export const Template5 = ({ forwardRef, data, currencies = [], onSubmit, setStepValid, paymentMethod }: FormProps) => {
+export const Template5 = ({ data, currencies = [], onSubmit, setStepValid, paymentMethod, setFormData }: FormProps) => {
   const [label, setLabel] = useState(data?.label || '')
   const [beneficiary, setBeneficiary, beneficiaryIsValid, beneficiaryErrors] = useValidatedState(
     data?.beneficiary || '',
@@ -49,16 +49,19 @@ export const Template5 = ({ forwardRef, data, currencies = [], onSubmit, setStep
 
   const labelErrors = useMemo(() => getErrorsInField(label, labelRules), [label, labelRules])
 
-  const buildPaymentData = (): PaymentData & FasterPaymentsData => ({
-    id: data?.id || `${paymentMethod}-${new Date().getTime()}`,
-    label,
-    type: paymentMethod,
-    beneficiary,
-    ukBankAccount,
-    ukSortCode,
-    reference,
-    currencies: data?.currencies || currencies,
-  })
+  const buildPaymentData = useCallback(
+    (): PaymentData & FasterPaymentsData => ({
+      id: data?.id || `${paymentMethod}-${new Date().getTime()}`,
+      label,
+      type: paymentMethod,
+      beneficiary,
+      ukBankAccount,
+      ukSortCode,
+      reference,
+      currencies: data?.currencies || currencies,
+    }),
+    [beneficiary, currencies, data?.currencies, data?.id, label, paymentMethod, reference, ukBankAccount, ukSortCode],
+  )
 
   const isFormValid = useCallback(() => {
     setDisplayErrors(true)
@@ -73,13 +76,10 @@ export const Template5 = ({ forwardRef, data, currencies = [], onSubmit, setStep
     onSubmit(buildPaymentData())
   }
 
-  useImperativeHandle(forwardRef, () => ({
-    save,
-  }))
-
   useEffect(() => {
     setStepValid(isFormValid())
-  }, [isFormValid, setStepValid])
+    setFormData(buildPaymentData())
+  }, [buildPaymentData, isFormValid, setFormData, setStepValid])
 
   return (
     <>

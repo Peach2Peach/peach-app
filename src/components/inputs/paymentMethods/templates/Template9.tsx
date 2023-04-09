@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { TextInput } from 'react-native'
 import { FormProps } from '../paymentForms/PaymentMethodForm'
 import { useValidatedState } from '../../../../hooks'
@@ -27,7 +27,7 @@ const tabs: TabbedNavigationItem[] = [
 ]
 
 // eslint-disable-next-line max-statements
-export const Template9 = ({ forwardRef, data, currencies = [], onSubmit, setStepValid, paymentMethod }: FormProps) => {
+export const Template9 = ({ data, currencies = [], onSubmit, setStepValid, paymentMethod, setFormData }: FormProps) => {
   const [label, setLabel] = useState(data?.label || '')
   const [beneficiary, setBeneficiary, , beneficiaryErrors] = useValidatedState(data?.beneficiary || '', beneficiaryRules)
 
@@ -64,17 +64,20 @@ export const Template9 = ({ forwardRef, data, currencies = [], onSubmit, setStep
 
   const labelErrors = useMemo(() => getErrorsInField(label, labelRules), [label, labelRules])
 
-  const buildPaymentData = (): PaymentData & NationalTransferData => ({
-    id: data?.id || `${paymentMethod}-${new Date().getTime()}`,
-    label,
-    type: paymentMethod,
-    beneficiary,
-    iban,
-    accountNumber,
-    bic,
-    reference,
-    currencies: data?.currencies || currencies,
-  })
+  const buildPaymentData = useCallback(
+    (): PaymentData & NationalTransferData => ({
+      id: data?.id || `${paymentMethod}-${new Date().getTime()}`,
+      label,
+      type: paymentMethod,
+      beneficiary,
+      iban,
+      accountNumber,
+      bic,
+      reference,
+      currencies: data?.currencies || currencies,
+    }),
+    [data?.id, data?.currencies, paymentMethod, label, beneficiary, iban, accountNumber, bic, reference, currencies],
+  )
 
   const isFormValid = useCallback(() => {
     setDisplayErrors(true)
@@ -87,13 +90,10 @@ export const Template9 = ({ forwardRef, data, currencies = [], onSubmit, setStep
     onSubmit(buildPaymentData())
   }
 
-  useImperativeHandle(forwardRef, () => ({
-    save,
-  }))
-
   useEffect(() => {
     setStepValid(isFormValid())
-  }, [isFormValid, setStepValid])
+    setFormData(buildPaymentData())
+  }, [buildPaymentData, isFormValid, setFormData, setStepValid])
 
   return (
     <>

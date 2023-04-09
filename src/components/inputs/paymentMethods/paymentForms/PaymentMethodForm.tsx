@@ -1,4 +1,4 @@
-import { ReactElement, useRef, Dispatch, SetStateAction } from 'react'
+import { Dispatch, SetStateAction } from 'react'
 import { View } from 'react-native'
 import { PaymentMethodForms } from '.'
 import { useKeyboard } from '../../../../hooks'
@@ -9,12 +9,8 @@ import { specialTemplates } from '../../../../views/addPaymentMethod/specialTemp
 import { Fade } from '../../../animation'
 import { PrimaryButton } from '../../../buttons'
 import PeachScrollView from '../../../PeachScrollView'
-import { usePaymentMethodFormSetup } from './hooks/usePaymentMethodFormSetup'
+import { useSubmitForm } from './hooks/useSubmitForm'
 const { LinearGradient } = require('react-native-gradients')
-
-type FormRef = {
-  save: () => void
-}
 
 type PaymentMethodFormProps = ComponentProps & {
   paymentMethod: PaymentMethod
@@ -22,43 +18,35 @@ type PaymentMethodFormProps = ComponentProps & {
   currencies?: Currency[]
   onSubmit: (data: PaymentData) => void
 }
-export type FormProps = PaymentMethodFormProps & { setStepValid: Dispatch<SetStateAction<boolean>> }
+export type FormProps = PaymentMethodFormProps & {
+  setStepValid: Dispatch<SetStateAction<boolean>>
+  setFormData: Dispatch<SetStateAction<PaymentData | undefined>>
+}
 
-export const PaymentMethodForm = ({
-  paymentMethod,
-  data,
-  currencies = [],
-  onSubmit,
-  style,
-}: PaymentMethodFormProps): ReactElement => {
-  const { submit, stepValid, setStepValid } = usePaymentMethodFormSetup(onSubmit)
+export const PaymentMethodForm = ({ paymentMethod, data, currencies = [], onSubmit, style }: PaymentMethodFormProps) => {
+  const { stepValid, setStepValid, setFormData, submitForm } = useSubmitForm<PaymentData>(onSubmit)
   const keyboardOpen = useKeyboard()
 
-  const Form = PaymentMethodForms[paymentMethod]!
-  let $formRef = useRef<FormRef>(null).current
+  const Form = PaymentMethodForms[paymentMethod]
 
   return (
     <View style={[tw`h-full`, style]}>
       <PeachScrollView
         contentContainerStyle={[
           tw`items-center justify-center flex-grow`,
-          !specialTemplates[paymentMethod] ? tw`pt-4 pb-10` : {},
+          !specialTemplates[paymentMethod] && tw`pt-4 pb-10`,
         ]}
       >
-        <Form
-          forwardRef={(r: FormRef) => ($formRef = r)}
-          onSubmit={submit}
-          {...{ paymentMethod, data, currencies, setStepValid }}
-        />
+        {!!Form && <Form onSubmit={submitForm} {...{ paymentMethod, data, currencies, setStepValid, setFormData }} />}
       </PeachScrollView>
-      <Fade show={!keyboardOpen} style={tw`items-center w-full mb-10 `}>
+      <Fade show={!keyboardOpen} style={tw`items-center w-full mb-10`}>
         {!specialTemplates[paymentMethod] && (
           <View style={tw`w-full h-10 -mt-10`}>
             <LinearGradient colorList={whiteGradient} angle={90} />
           </View>
         )}
-        <View style={tw`items-center flex-grow `}>
-          <PrimaryButton testID="navigation-next" disabled={!stepValid} onPress={() => $formRef?.save()} narrow>
+        <View style={tw`items-center flex-grow`}>
+          <PrimaryButton testID="navigation-next" disabled={!stepValid} onPress={submitForm} narrow>
             {i18n('confirm')}
           </PrimaryButton>
         </View>

@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
+import { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { TextInput } from 'react-native'
 import { FormProps } from '../paymentForms/PaymentMethodForm'
 import { OverlayContext } from '../../../../contexts/overlay'
@@ -18,7 +18,7 @@ const emailRules = {
 }
 const referenceRules = { required: false }
 
-export const Template4 = ({ forwardRef, data, currencies = [], onSubmit, setStepValid, paymentMethod }: FormProps) => {
+export const Template4 = ({ data, currencies = [], onSubmit, setStepValid, paymentMethod, setFormData }: FormProps) => {
   useContext(OverlayContext)
   const [label, setLabel] = useState(data?.label || '')
   const [email, setEmail, emailIsValid, emailErrors] = useValidatedState(data?.email || '', emailRules)
@@ -41,18 +41,20 @@ export const Template4 = ({ forwardRef, data, currencies = [], onSubmit, setStep
 
   const labelErrors = useMemo(() => getErrorsInField(label, labelRules), [label, labelRules])
 
-  const buildPaymentData = () => ({
-    id: data?.id || `${paymentMethod}-${new Date().getTime()}`,
-    label,
-    type: ['skrill', 'neteller'].includes(paymentMethod)
-      ? paymentMethod
-      : ((paymentMethod + '.' + data?.country) as PaymentMethod),
-    email,
-    beneficiary,
-    reference,
-    currencies: selectedCurrencies,
-    country: data?.country,
-  })
+  const buildPaymentData = useCallback(
+    () => ({
+      id: data?.id || `${paymentMethod}-${new Date().getTime()}`,
+      label,
+      type:
+        paymentMethod !== 'giftCard.amazon' ? paymentMethod : ((paymentMethod + '.' + data?.country) as PaymentMethod),
+      email,
+      beneficiary,
+      reference,
+      currencies: selectedCurrencies,
+      country: data?.country,
+    }),
+    [data?.country, data?.id, beneficiary, email, label, paymentMethod, reference, selectedCurrencies],
+  )
 
   const onCurrencyToggle = (currency: Currency) => {
     setSelectedCurrencies(toggleCurrency(currency))
@@ -69,13 +71,10 @@ export const Template4 = ({ forwardRef, data, currencies = [], onSubmit, setStep
     onSubmit(buildPaymentData())
   }
 
-  useImperativeHandle(forwardRef, () => ({
-    save,
-  }))
-
   useEffect(() => {
     setStepValid(isFormValid())
-  }, [isFormValid, setStepValid])
+    setFormData(buildPaymentData())
+  }, [isFormValid, setStepValid, buildPaymentData, setFormData])
 
   return (
     <>

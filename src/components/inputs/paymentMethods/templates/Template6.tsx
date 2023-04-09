@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { TextInput, View } from 'react-native'
 import { FormProps } from '../paymentForms/PaymentMethodForm'
 import { useValidatedState } from '../../../../hooks'
@@ -17,7 +17,7 @@ import { toggleCurrency } from '../paymentForms/utils'
 const referenceRules = { required: false }
 
 // eslint-disable-next-line max-statements, complexity
-export const Template6 = ({ forwardRef, data, currencies = [], onSubmit, setStepValid, paymentMethod }: FormProps) => {
+export const Template6 = ({ data, currencies = [], onSubmit, setStepValid, paymentMethod, setFormData }: FormProps) => {
   const tabs: TabbedNavigationItem[] = useMemo(() => {
     const tabItems = [
       {
@@ -80,16 +80,19 @@ export const Template6 = ({ forwardRef, data, currencies = [], onSubmit, setStep
     setSelectedCurrencies(toggleCurrency(currency))
   }
 
-  const buildPaymentData = (): PaymentData & PaypalData => ({
-    id: data?.id || `${paymentMethod}-${Date.now()}`,
-    label,
-    type: paymentMethod,
-    phone,
-    email,
-    userName,
-    reference,
-    currencies: selectedCurrencies,
-  })
+  const buildPaymentData = useCallback(
+    (): PaymentData & PaypalData => ({
+      id: data?.id || `${paymentMethod}-${Date.now()}`,
+      label,
+      type: paymentMethod,
+      phone,
+      email,
+      userName,
+      reference,
+      currencies: selectedCurrencies,
+    }),
+    [data?.id, email, label, paymentMethod, phone, reference, selectedCurrencies, userName],
+  )
 
   const isFormValid = useCallback(() => {
     setDisplayErrors(true)
@@ -110,13 +113,10 @@ export const Template6 = ({ forwardRef, data, currencies = [], onSubmit, setStep
     onSubmit(buildPaymentData())
   }
 
-  useImperativeHandle(forwardRef, () => ({
-    save,
-  }))
-
   useEffect(() => {
     setStepValid(isFormValid())
-  }, [isFormValid, setStepValid])
+    setFormData(buildPaymentData())
+  }, [buildPaymentData, isFormValid, setFormData, setStepValid])
 
   return (
     <View>

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { TextInput } from 'react-native'
 import { FormProps } from '../paymentForms/PaymentMethodForm'
 import { useValidatedState } from '../../../../hooks'
@@ -13,7 +13,7 @@ import { toggleCurrency } from '../paymentForms/utils'
 
 const phoneRules = { required: true, phone: true, isPhoneAllowed: true }
 
-export const Template3 = ({ forwardRef, data, currencies = [], onSubmit, setStepValid, paymentMethod }: FormProps) => {
+export const Template3 = ({ data, currencies = [], onSubmit, setStepValid, paymentMethod, setFormData }: FormProps) => {
   const [label, setLabel] = useState(data?.label || '')
   const [phone, setPhone, phoneIsValid, phoneErrors] = useValidatedState(data?.phone || '', phoneRules)
   const [beneficiary, setBeneficiary] = useState(data?.beneficiary || '')
@@ -35,15 +35,18 @@ export const Template3 = ({ forwardRef, data, currencies = [], onSubmit, setStep
 
   const labelErrors = useMemo(() => getErrorsInField(label, labelRules), [label, labelRules])
 
-  const buildPaymentData = () => ({
-    id: data?.id || `${paymentMethod}-${new Date().getTime()}`,
-    label,
-    type: paymentMethod,
-    phone,
-    beneficiary,
-    reference,
-    currencies: selectedCurrencies,
-  })
+  const buildPaymentData = useCallback(
+    () => ({
+      id: data?.id || `${paymentMethod}-${new Date().getTime()}`,
+      label,
+      type: paymentMethod,
+      phone,
+      beneficiary,
+      reference,
+      currencies: selectedCurrencies,
+    }),
+    [beneficiary, data?.id, label, paymentMethod, phone, reference, selectedCurrencies],
+  )
 
   const onCurrencyToggle = (currency: Currency) => {
     setSelectedCurrencies(toggleCurrency(currency))
@@ -60,13 +63,10 @@ export const Template3 = ({ forwardRef, data, currencies = [], onSubmit, setStep
     onSubmit(buildPaymentData())
   }
 
-  useImperativeHandle(forwardRef, () => ({
-    save,
-  }))
-
   useEffect(() => {
     setStepValid(isFormValid())
-  }, [isFormValid, setStepValid])
+    setFormData(buildPaymentData())
+  }, [buildPaymentData, isFormValid, setFormData, setStepValid])
 
   return (
     <>
