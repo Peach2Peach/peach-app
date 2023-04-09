@@ -11,9 +11,9 @@ import { TabbedNavigationItem } from '../../../navigation/TabbedNavigation'
 import { BankNumberInput } from '../../BankNumberInput'
 import { BICInput } from '../../BICInput'
 import { IBANInput } from '../../IBANInput'
-import Input from '../../Input'
 import { LabelInput } from '../../LabelInput'
 import { ReferenceInput } from '../../ReferenceInput'
+import { BeneficiaryInput } from '../../BeneficiaryInput'
 
 const beneficiaryRules = { required: true }
 const notRequired = { required: false }
@@ -105,14 +105,10 @@ export const Template9 = ({ data, currencies = [], onSubmit, setStepValid, payme
         value={label}
         errorMessage={displayErrors ? labelErrors : undefined}
       />
-      <Input
+      <BeneficiaryInput
         onChange={setBeneficiary}
         reference={(el: any) => ($beneficiary = el)}
         value={beneficiary}
-        required={true}
-        label={i18n('form.beneficiary')}
-        placeholder={i18n('form.beneficiary.placeholder')}
-        autoCorrect={false}
         errorMessage={displayErrors ? beneficiaryErrors : undefined}
       />
       <TabbedNavigation items={tabs} selected={currentTab} select={setCurrentTab} buttonStyle={tw`p-0 mb-2`} />

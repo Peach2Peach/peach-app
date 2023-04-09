@@ -6,9 +6,9 @@ import { getPaymentDataByLabel } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
 import { getErrorsInField } from '../../../../utils/validation'
 import { BankNumberInput } from '../../BankNumberInput'
-import Input from '../../Input'
 import { LabelInput } from '../../LabelInput'
 import { ReferenceInput } from '../../ReferenceInput'
+import { BeneficiaryInput } from '../../BeneficiaryInput'
 
 const beneficiaryRules = { required: true }
 const notRequired = { required: false }
@@ -79,14 +79,10 @@ export const Template7 = ({ data, currencies = [], onSubmit, setStepValid, payme
         value={label}
         errorMessage={displayErrors ? labelErrors : undefined}
       />
-      <Input
+      <BeneficiaryInput
         onChange={setBeneficiary}
         reference={(el: any) => ($beneficiary = el)}
         value={beneficiary}
-        required={true}
-        label={i18n('form.beneficiary')}
-        placeholder={i18n('form.beneficiary.placeholder')}
-        autoCorrect={false}
         errorMessage={displayErrors ? beneficiaryErrors : undefined}
       />
       <BankNumberInput

@@ -5,11 +5,11 @@ import { useValidatedState } from '../../../../hooks'
 import { getPaymentDataByLabel } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
 import { getErrorsInField } from '../../../../utils/validation'
-import Input from '../../Input'
 import { SortCodeInput } from '../../SortCodeInput'
 import { BankNumberInput } from '../../BankNumberInput'
 import { LabelInput } from '../../LabelInput'
 import { ReferenceInput } from '../../ReferenceInput'
+import { BeneficiaryInput } from '../../BeneficiaryInput'
 
 const beneficiaryRules = { required: true }
 const notRequired = { required: false }
@@ -91,15 +91,11 @@ export const Template5 = ({ data, currencies = [], onSubmit, setStepValid, payme
         value={label}
         errorMessage={displayErrors ? labelErrors : undefined}
       />
-      <Input
+      <BeneficiaryInput
         onChange={setBeneficiary}
         onSubmit={() => $ukBankAccount?.focus()}
         reference={(el: any) => ($beneficiary = el)}
         value={beneficiary}
-        required={true}
-        label={i18n('form.beneficiary')}
-        placeholder={i18n('form.beneficiary.placeholder')}
-        autoCorrect={false}
         errorMessage={displayErrors ? beneficiaryErrors : undefined}
       />
       <BankNumberInput

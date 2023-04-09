@@ -5,13 +5,13 @@ import { useValidatedState } from '../../../../hooks'
 import { getPaymentDataByLabel } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
 import { getErrorsInField } from '../../../../utils/validation'
-import Input from '../../Input'
 import { PhoneInput } from '../../PhoneInput'
 import { hasMultipleAvailableCurrencies } from './utils/hasMultipleAvailableCurrencies'
 import { CurrencySelection } from '../paymentForms/components'
 import { toggleCurrency } from '../paymentForms/utils'
 import { LabelInput } from '../../LabelInput'
 import { ReferenceInput } from '../../ReferenceInput'
+import { BeneficiaryInput } from '../../BeneficiaryInput'
 
 const phoneRules = { required: true, phone: true, isPhoneAllowed: true }
 
@@ -90,7 +90,7 @@ export const Template3 = ({ data, currencies = [], onSubmit, setStepValid, payme
         autoCorrect={false}
         errorMessage={displayErrors ? phoneErrors : undefined}
       />
-      <Input
+      <BeneficiaryInput
         onChange={setBeneficiary}
         onSubmit={() => {
           $reference?.focus()
@@ -98,9 +98,6 @@ export const Template3 = ({ data, currencies = [], onSubmit, setStepValid, payme
         reference={(el: any) => ($beneficiary = el)}
         value={beneficiary}
         required={false}
-        label={i18n('form.beneficiary')}
-        placeholder={i18n('form.beneficiary.placeholder')}
-        autoCorrect={false}
       />
       <ReferenceInput
         onChange={setReference}

@@ -7,12 +7,12 @@ import { getPaymentDataByLabel } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
 import { getErrorsInField } from '../../../../utils/validation'
 import { EmailInput } from '../../EmailInput'
-import Input from '../../Input'
 import { CurrencySelection } from '../paymentForms/components'
 import { toggleCurrency } from '../paymentForms/utils'
 import { hasMultipleAvailableCurrencies } from './utils/hasMultipleAvailableCurrencies'
 import { LabelInput } from '../../LabelInput'
 import { ReferenceInput } from '../../ReferenceInput'
+import { BeneficiaryInput } from '../../BeneficiaryInput'
 
 const emailRules = {
   required: true,
@@ -97,7 +97,7 @@ export const Template4 = ({ data, currencies = [], onSubmit, setStepValid, payme
         label={i18n('form.emailLong')}
         errorMessage={displayErrors ? emailErrors : undefined}
       />
-      <Input
+      <BeneficiaryInput
         onChange={setBeneficiary}
         onSubmit={() => {
           $reference?.focus()
@@ -105,9 +105,6 @@ export const Template4 = ({ data, currencies = [], onSubmit, setStepValid, payme
         reference={(el: any) => ($beneficiary = el)}
         value={beneficiary}
         required={false}
-        label={i18n('form.beneficiary')}
-        placeholder={i18n('form.beneficiary.placeholder')}
-        autoCorrect={false}
       />
       <ReferenceInput
         onChange={setReference}

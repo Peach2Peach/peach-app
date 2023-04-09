@@ -6,12 +6,12 @@ import tw from '../../../../styles/tailwind'
 import { getPaymentDataByLabel } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
 import { getErrorsInField } from '../../../../utils/validation'
-import Input from '../../Input'
 import { PhoneInput } from '../../PhoneInput'
 import { CurrencySelection } from '../paymentForms/components'
 import { toggleCurrency } from '../paymentForms/utils'
 import { LabelInput } from '../../LabelInput'
 import { ReferenceInput } from '../../ReferenceInput'
+import { BeneficiaryInput } from '../../BeneficiaryInput'
 
 const referenceRules = { required: false }
 const phoneRules = { required: true, phone: true, isPhoneAllowed: true }
@@ -94,7 +94,7 @@ export const Template8 = ({ data, currencies = [], onSubmit, setStepValid, payme
         />
       </View>
       <View style={tw`mt-1`}>
-        <Input
+        <BeneficiaryInput
           onChange={setBeneficiary}
           onSubmit={() => {
             $reference?.focus()
@@ -102,9 +102,6 @@ export const Template8 = ({ data, currencies = [], onSubmit, setStepValid, payme
           reference={(el: any) => ($beneficiary = el)}
           value={beneficiary}
           required={false}
-          label={i18n('form.beneficiary')}
-          placeholder={i18n('form.beneficiary.placeholder')}
-          autoCorrect={false}
         />
       </View>
       <ReferenceInput
