@@ -5,9 +5,7 @@ import { useToggleBoolean, useValidatedState } from '../../../../hooks'
 import { getPaymentDataByLabel } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
 import { getErrorsInField } from '../../../../utils/validation'
-import { BICInput } from '../../BICInput'
-import { IBANInput } from '../../IBANInput'
-import Input from '../../Input'
+import { BICInput, IBANInput, Input, ReferenceInput } from '../../index'
 import { Checkbox } from '../../Checkbox'
 import { hasMultipleAvailableCurrencies } from './utils/hasMultipleAvailableCurrencies'
 import { CurrencySelection } from '../paymentForms/components'
@@ -166,15 +164,7 @@ export const Template1 = ({ data, currencies = [], onSubmit, setStepValid, payme
         label={i18n('form.iban')}
       />
       <BICInput {...bicInputProps} onSubmit={() => $reference?.focus()} reference={(el: any) => ($bic = el)} />
-      <Input
-        {...referenceInputProps}
-        onSubmit={save}
-        reference={(el: any) => ($reference = el)}
-        required={false}
-        label={i18n('form.reference')}
-        placeholder={i18n('form.reference.placeholder')}
-        autoCorrect={false}
-      />
+      <ReferenceInput {...referenceInputProps} onSubmit={save} reference={(el: any) => ($reference = el)} />
       {paymentMethod === 'instantSepa' && <Checkbox {...checkboxProps} text={i18n('form.instantSepa.checkbox')} />}
       {hasMultipleAvailableCurrencies(paymentMethod) && <CurrencySelection {...currencySelectionProps} />}
     </>
