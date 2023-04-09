@@ -5,7 +5,7 @@ import { useToggleBoolean, useValidatedState } from '../../../../hooks'
 import { getPaymentDataByLabel } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
 import { getErrorsInField } from '../../../../utils/validation'
-import { BICInput, IBANInput, Input, ReferenceInput } from '../../index'
+import { BICInput, IBANInput, Input, ReferenceInput, BeneficiaryInput } from '../../index'
 import { Checkbox } from '../../Checkbox'
 import { hasMultipleAvailableCurrencies } from './utils/hasMultipleAvailableCurrencies'
 import { CurrencySelection } from '../paymentForms/components'
@@ -148,14 +148,10 @@ export const Template1 = ({ data, currencies = [], onSubmit, setStepValid, payme
         placeholder={i18n('form.paymentMethodName.placeholder')}
         autoCorrect={false}
       />
-      <Input
+      <BeneficiaryInput
         {...beneficiaryInputProps}
         onSubmit={() => $iban?.focus()}
         reference={(el: any) => ($beneficiary = el)}
-        required={true}
-        label={i18n('form.beneficiary')}
-        placeholder={i18n('form.beneficiary.placeholder')}
-        autoCorrect={false}
       />
       <IBANInput
         {...ibanInputProps}
