@@ -1,13 +1,13 @@
 import { GIFTCARDCOUNTRIES, NATIONALTRANSFERCOUNTRIES } from '../../../../constants'
 import {
   Template1,
+  Template2,
+  Template3,
+  Template4,
   Template5,
   Template6,
-  Template3,
-  Template2,
-  Template4,
-  Template8,
   Template7,
+  Template8,
   Template9,
 } from '../templates'
 import { GiftCardAmazon } from './GiftCardAmazon'
