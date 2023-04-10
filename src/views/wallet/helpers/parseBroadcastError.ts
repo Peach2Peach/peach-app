@@ -1,4 +1,4 @@
-import { parseError } from '../../../utils/system'
+import { parseError } from '../../../utils/result'
 import { InsufficientFundsError } from '../../../utils/wallet/types'
 
 const isInsufficientFundsError = (cause: any): cause is InsufficientFundsError => cause && 'needed' in cause

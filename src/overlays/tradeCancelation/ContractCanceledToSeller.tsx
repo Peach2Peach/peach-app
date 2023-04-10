@@ -11,10 +11,11 @@ type ContractCanceledToSellerProps = {
 export const ContractCanceledToSeller = ({ contract }: ContractCanceledToSellerProps): ReactElement => {
   const sellOffer = getSellOfferFromContract(contract)
   const expiry = getEscrowExpiry(sellOffer)
+
   return (
     <View>
       <Text>{i18n(`contract.cancel.${contract.canceledBy || 'buyer'}.canceled.text.1`)}</Text>
-      {!expiry.isExpired && <Text>{i18n(`contract.cancel.${contract.canceledBy || 'buyer'}.canceled.text.2`)}</Text>}
+      {!expiry.isExpired && <Text>{i18n('contract.cancel.canceled.youCanChooseToBeRefunded')}</Text>}
     </View>
   )
 }

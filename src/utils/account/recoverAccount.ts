@@ -1,7 +1,7 @@
 import analytics from '@react-native-firebase/analytics'
 
-import { updateSettings } from '.'
 import userUpdate from '../../init/userUpdate'
+import { settingsStore } from '../../store/settingsStore'
 import { saveContract } from '../contract'
 import { error, info } from '../log'
 import { saveOffer } from '../offer'
@@ -11,10 +11,8 @@ export const recoverAccount = async (account: Account): Promise<[Account | null,
   info('Recovering account')
 
   try {
-    updateSettings({
-      fcmToken: '',
-      pgpPublished: false,
-    })
+    settingsStore.getState().setFCMToken('')
+    settingsStore.getState().setPGPPublished(false)
     info('Get offers')
     const [[getOffersResult, getOffersErr], [getContractsResult, getContractsErr]] = await Promise.all([
       getOffers({}),

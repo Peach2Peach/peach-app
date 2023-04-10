@@ -1,8 +1,8 @@
 import { account } from '.'
+import { settingsStore } from '../../store/settingsStore'
 import { getPaymentData } from './getPaymentData'
 import { getPaymentDataByType } from './getPaymentDataByType'
 import { storePaymentData } from './storeAccount'
-import { updateSettings } from './updateSettings'
 
 /**
  * @description Method to remove payment data
@@ -14,17 +14,14 @@ export const removePaymentData = async (id: PaymentData['id']) => {
 
   account.paymentData = account.paymentData.filter((data) => data.id !== id)
 
-  if (account.settings.preferredPaymentMethods[dataToBeRemoved.type]) {
+  const preferredPaymentMethods = settingsStore.getState().preferredPaymentMethods
+
+  if (preferredPaymentMethods[dataToBeRemoved.type]) {
     const nextInLine = getPaymentDataByType(dataToBeRemoved.type).shift()
-    updateSettings(
-      {
-        preferredPaymentMethods: {
-          ...account.settings.preferredPaymentMethods,
-          [dataToBeRemoved.type]: nextInLine?.id || '',
-        },
-      },
-      true,
-    )
+    settingsStore.getState().setPreferredPaymentMethods({
+      ...preferredPaymentMethods,
+      [dataToBeRemoved.type]: nextInLine?.id || '',
+    })
   }
 
   await storePaymentData(account.paymentData)

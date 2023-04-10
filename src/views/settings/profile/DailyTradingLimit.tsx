@@ -2,15 +2,15 @@ import { View } from 'react-native'
 
 import { Progress } from '../../../components'
 import tw from '../../../styles/tailwind'
-import { account } from '../../../utils/account'
 import { useTradingLimits } from '../../../hooks'
 import { TradingLimitAmount } from './TradingLimitAmount'
+import { useSettingsStore } from '../../../store/settingsStore'
 
 export const DailyTradingLimit = (props: ComponentProps) => {
   const {
     limits: { dailyAmount: amount, daily: limit },
   } = useTradingLimits()
-  const { displayCurrency } = account.settings
+  const displayCurrency = useSettingsStore((state) => state.displayCurrency)
 
   return (
     <View {...props}>

@@ -7,7 +7,7 @@ import { AnalyticsPrompt } from './AnalyticsPrompt'
 export const useShowAnalyticsPrompt = (updateOverlay: Dispatch<OverlayState>) => {
   const [setAnalyticsPopupSeen, setEnableAnalytics] = useSettingsStore(
     (state) => [state.setAnalyticsPopupSeen, state.setEnableAnalytics],
-    shallow
+    shallow,
   )
 
   const accept = useCallback(() => {
