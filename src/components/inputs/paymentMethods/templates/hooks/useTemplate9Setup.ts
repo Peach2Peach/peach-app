@@ -62,7 +62,7 @@ export const useTemplate9Setup = ({
 
   const buildPaymentData = useCallback(
     (): PaymentData & NationalTransferData => ({
-      id: data?.id || `${paymentMethod}-${new Date().getTime()}`,
+      id: data?.id || `${paymentMethod}-${Date.now()}`,
       label,
       type: paymentMethod,
       beneficiary,
