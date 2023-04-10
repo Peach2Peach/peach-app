@@ -1,0 +1,153 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Footer should not render a Footer with keyboard open 1`] = `<View />`;
+
+exports[`Footer should render a Footer 1`] = `
+<View
+  style={
+    [
+      {
+        "alignItems": "flex-start",
+        "flexDirection": "row",
+        "width": "100%",
+      },
+      undefined,
+    ]
+  }
+>
+  <View
+    style={
+      {
+        "flexGrow": 1,
+        "position": "relative",
+      }
+    }
+  >
+    <View
+      style={
+        [
+          {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+            "paddingBottom": 16,
+            "paddingLeft": 20,
+            "paddingRight": 20,
+            "paddingTop": 16,
+          },
+          {
+            "backgroundColor": "#FFF9F6",
+          },
+        ]
+      }
+    >
+      <FooterItem
+        active={true}
+        id="buy"
+        onPress={[MockFunction]}
+        theme="default"
+      />
+      <FooterItem
+        active={false}
+        id="sell"
+        onPress={[MockFunction]}
+        theme="default"
+      />
+      <FooterItem
+        active={false}
+        id="wallet"
+        onPress={[MockFunction]}
+        theme="default"
+      />
+      <FooterItem
+        active={false}
+        id="yourTrades"
+        notifications={9}
+        onPress={[MockFunction]}
+        theme="default"
+      />
+      <FooterItem
+        active={false}
+        id="settings"
+        onPress={[MockFunction]}
+        theme="default"
+      />
+    </View>
+  </View>
+</View>
+`;
+
+exports[`Footer should render a Footer with inverted theme 1`] = `
+<View
+  style={
+    [
+      {
+        "alignItems": "flex-start",
+        "flexDirection": "row",
+        "width": "100%",
+      },
+      undefined,
+    ]
+  }
+>
+  <View
+    style={
+      {
+        "flexGrow": 1,
+        "position": "relative",
+      }
+    }
+  >
+    <View
+      style={
+        [
+          {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+            "paddingBottom": 16,
+            "paddingLeft": 20,
+            "paddingRight": 20,
+            "paddingTop": 16,
+          },
+          {
+            "backgroundColor": "transparent",
+          },
+        ]
+      }
+    >
+      <FooterItem
+        active={true}
+        id="buy"
+        onPress={[MockFunction]}
+        theme="inverted"
+      />
+      <FooterItem
+        active={false}
+        id="sell"
+        onPress={[MockFunction]}
+        theme="inverted"
+      />
+      <FooterItem
+        active={false}
+        id="wallet"
+        onPress={[MockFunction]}
+        theme="inverted"
+      />
+      <FooterItem
+        active={false}
+        id="yourTrades"
+        notifications={9}
+        onPress={[MockFunction]}
+        theme="inverted"
+      />
+      <FooterItem
+        active={false}
+        id="settings"
+        onPress={[MockFunction]}
+        theme="inverted"
+      />
+    </View>
+  </View>
+</View>
+`;
