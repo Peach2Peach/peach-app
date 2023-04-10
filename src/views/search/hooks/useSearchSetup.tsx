@@ -10,7 +10,7 @@ import { useShowHelp } from '../../../hooks/useShowHelp'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { isBuyOffer, offerIdToHex } from '../../../utils/offer'
-import { parseError } from '../../../utils/system'
+import { parseError } from '../../../utils/result'
 import { shouldGoToContract } from '../helpers/shouldGoToContract'
 import { useOfferMatches } from './useOfferMatches'
 import useRefetchOnNotification from './useRefetchOnNotification'
@@ -53,7 +53,7 @@ export const useSearchSetup = () => {
     () => () => {
       resetStore()
     },
-    [resetStore]
+    [resetStore],
   )
 
   useEffect(() => {

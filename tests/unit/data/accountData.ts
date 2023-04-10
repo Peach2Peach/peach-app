@@ -2,27 +2,7 @@ import * as chatData from './chatData'
 import { contract } from './contractData'
 import { buyOffer, sellOffer } from './offerData'
 
-const appVersion = '0.2.0'
 export const recoveredAccount: Account = {
-  settings: {
-    enableAnalytics: false,
-    locale: 'en',
-    displayCurrency: 'EUR',
-    minBuyAmount: 200000,
-    maxBuyAmount: 5000000,
-    sellAmount: 200000,
-    premium: 1.5,
-    appVersion,
-    meansOfPayment: {
-      EUR: ['sepa'],
-      CHF: ['sepa'],
-    },
-    preferredPaymentMethods: {},
-    showBackupReminder: false,
-    peachWalletActive: true,
-    nodeURL: 'https://localhost:3000/',
-    feeRate: 'halfHourFee',
-  },
   paymentData: [],
   legacyPaymentData: [],
   offers: [],
@@ -48,26 +28,6 @@ export const recoveredAccount: Account = {
 }
 
 export const account1: Account = {
-  settings: {
-    appVersion,
-    enableAnalytics: false,
-    locale: 'en',
-    minBuyAmount: 200000,
-    maxBuyAmount: 5000000,
-    sellAmount: 200000,
-    premium: 1.5,
-    displayCurrency: 'EUR',
-    meansOfPayment: {
-      EUR: ['sepa'],
-      CHF: ['sepa'],
-    },
-    preferredPaymentMethods: {},
-    showBackupReminder: true,
-    peachWalletActive: true,
-    nodeURL: 'https://localhost:3000/',
-
-    feeRate: 'halfHourFee',
-  },
   paymentData: [],
   legacyPaymentData: [],
   tradingLimit: {
@@ -93,26 +53,6 @@ export const account1: Account = {
 }
 
 export const seller: Account = {
-  settings: {
-    appVersion,
-    enableAnalytics: false,
-    locale: 'en',
-    minBuyAmount: 200000,
-    maxBuyAmount: 5000000,
-    sellAmount: 200000,
-    premium: 1.5,
-    displayCurrency: 'EUR',
-    meansOfPayment: {
-      EUR: ['sepa'],
-      CHF: ['sepa'],
-    },
-    preferredPaymentMethods: {},
-    showBackupReminder: true,
-    peachWalletActive: true,
-    nodeURL: 'https://localhost:3000/',
-
-    feeRate: 'halfHourFee',
-  },
   paymentData: [],
   legacyPaymentData: [],
   tradingLimit: {
@@ -138,26 +78,6 @@ export const seller: Account = {
 }
 
 export const buyer: Account = {
-  settings: {
-    appVersion,
-    enableAnalytics: false,
-    locale: 'en',
-    minBuyAmount: 200000,
-    maxBuyAmount: 5000000,
-    sellAmount: 200000,
-    premium: 1.5,
-    displayCurrency: 'EUR',
-    meansOfPayment: {
-      EUR: ['sepa'],
-      CHF: ['sepa'],
-    },
-    preferredPaymentMethods: {},
-    showBackupReminder: true,
-    peachWalletActive: true,
-    nodeURL: 'https://localhost:3000/',
-
-    feeRate: 'halfHourFee',
-  },
   paymentData: [],
   legacyPaymentData: [],
   tradingLimit: {
@@ -185,25 +105,6 @@ export const buyer: Account = {
 }
 
 export const userWithNoTrades: Account = {
-  settings: {
-    appVersion,
-    enableAnalytics: false,
-    locale: 'en',
-    minBuyAmount: 200000,
-    maxBuyAmount: 5000000,
-    sellAmount: 200000,
-    premium: 1.5,
-    displayCurrency: 'EUR',
-    meansOfPayment: {
-      EUR: ['sepa'],
-      CHF: ['sepa'],
-    },
-    preferredPaymentMethods: {},
-    showBackupReminder: true,
-    peachWalletActive: true,
-    nodeURL: 'https://localhost:3000/',
-    feeRate: 'halfHourFee',
-  },
   paymentData: [],
   legacyPaymentData: [],
   tradingLimit: {

@@ -7,8 +7,8 @@ import i18n from '../../utils/i18n'
 import { offerIdToHex } from '../../utils/offer'
 import { DailyTradingLimit } from '../settings/profile/DailyTradingLimit'
 import { FundingSatsFormat } from './components/FundingSatsFormat'
-import NoEscrowFound from './components/NoEscrowFound'
-import TransactionInMempool from './components/TransactionInMempool'
+import { NoEscrowFound } from './components/NoEscrowFound'
+import { TransactionInMempool } from './components/TransactionInMempool'
 import { useFundEscrowSetup } from './hooks/useFundEscrowSetup'
 
 export default (): ReactElement => {

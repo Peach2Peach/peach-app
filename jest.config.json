@@ -24,5 +24,6 @@
     "\\.(ttf|woff|woff2|eot|otf)$": "jest-transform-stub",
     "\\.(jpg|jpeg|png|gif|webp|svg|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
     "^@env(.*)$": "<rootDir>/.env.dist$1"
-  }
+  },
+  "coveragePathIgnorePatterns": ["/node_modules/", "src/views/TestView"]
 }

@@ -6,7 +6,7 @@ import { account, createAccount, deleteAccount } from '../../../utils/account'
 import { storeAccount } from '../../../utils/account/storeAccount'
 import i18n from '../../../utils/i18n'
 import { auth } from '../../../utils/peachAPI'
-import { parseError } from '../../../utils/system'
+import { parseError } from '../../../utils/result'
 
 const headerConfig = { title: i18n('welcome.welcomeToPeach.title'), hideGoBackButton: true, theme: 'inverted' as const }
 

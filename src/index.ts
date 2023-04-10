@@ -7,7 +7,8 @@ import { name as appName } from './app.json'
 import { useNotificationStore } from './components/footer/notificationsStore'
 import { error, info } from './utils/log'
 import { updateUser } from './utils/peachAPI'
-import { isIOS, isProduction, parseError } from './utils/system'
+import { parseError } from './utils/result'
+import { isIOS, isProduction } from './utils/system'
 
 // TODO check if these messages have a fix
 LogBox.ignoreLogs([
