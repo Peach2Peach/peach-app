@@ -79,7 +79,7 @@ export const useTemplate6Setup = ({
   }
 
   const buildPaymentData = useCallback(
-    (): PaymentData & PaypalData => ({
+    () => ({
       id: data?.id || `${paymentMethod}-${Date.now()}`,
       label,
       type: paymentMethod,

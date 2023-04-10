@@ -61,7 +61,7 @@ export const useTemplate9Setup = ({
   const labelErrors = useMemo(() => getErrorsInField(label, labelRules), [label, labelRules])
 
   const buildPaymentData = useCallback(
-    (): PaymentData & NationalTransferData => ({
+    () => ({
       id: data?.id || `${paymentMethod}-${Date.now()}`,
       label,
       type: paymentMethod,

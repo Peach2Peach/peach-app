@@ -36,7 +36,7 @@ export const useTemplate3Setup = ({
 
   const buildPaymentData = useCallback(
     () => ({
-      id: data?.id || `${paymentMethod}-${new Date().getTime()}`,
+      id: data?.id || `${paymentMethod}-${Date.now()}`,
       label,
       type: paymentMethod,
       phone,

@@ -48,8 +48,8 @@ export const useTemplate5Setup = ({
   const labelErrors = useMemo(() => getErrorsInField(label, labelRules), [label, labelRules])
 
   const buildPaymentData = useCallback(
-    (): PaymentData & FasterPaymentsData => ({
-      id: data?.id || `${paymentMethod}-${new Date().getTime()}`,
+    () => ({
+      id: data?.id || `${paymentMethod}-${Date.now()}`,
       label,
       type: paymentMethod,
       beneficiary,

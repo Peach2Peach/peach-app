@@ -53,8 +53,8 @@ export const useTemplate2Setup = ({
   const [displayErrors, setDisplayErrors] = useState(false)
 
   const buildPaymentData = useCallback(
-    (): PaymentData & ADVCashData => ({
-      id: data?.id || `${paymentMethod}-${new Date().getTime()}`,
+    () => ({
+      id: data?.id || `${paymentMethod}-${Date.now()}`,
       label,
       type: paymentMethod,
       wallet,

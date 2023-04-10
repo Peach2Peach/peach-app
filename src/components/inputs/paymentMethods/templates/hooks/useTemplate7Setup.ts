@@ -41,7 +41,7 @@ export const useTemplate7Setup = ({
   const labelErrors = useMemo(() => getErrorsInField(label, labelRules), [label, labelRules])
 
   const buildPaymentData = useCallback(
-    (): PaymentData & StraksbetalingData => ({
+    () => ({
       id: data?.id || `${paymentMethod}-${Date.now()}`,
       label,
       type: paymentMethod,

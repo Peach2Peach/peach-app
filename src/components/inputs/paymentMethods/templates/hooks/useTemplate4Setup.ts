@@ -40,7 +40,7 @@ export const useTemplate4Setup = ({
 
   const buildPaymentData = useCallback(
     () => ({
-      id: data?.id || `${paymentMethod}-${new Date().getTime()}`,
+      id: data?.id || `${paymentMethod}-${Date.now()}`,
       label,
       type:
         paymentMethod !== 'giftCard.amazon' ? paymentMethod : ((paymentMethod + '.' + data?.country) as PaymentMethod),
