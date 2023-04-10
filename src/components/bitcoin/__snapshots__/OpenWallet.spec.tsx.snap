@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OpenWallet should render correctly 1`] = `
+<TouchableOpacity
+  onPress={[Function]}
+  style={
+    [
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "justifyContent": "center",
+      },
+      undefined,
+    ]
+  }
+>
+  <PeachText
+    style={
+      {
+        "color": "#7D675E",
+        "fontFamily": "Baloo2-Regular",
+        "fontSize": 14,
+        "fontWeight": "600",
+        "letterSpacing": 0.14,
+        "lineHeight": 20,
+        "textDecorationLine": "underline",
+        "textTransform": "uppercase",
+      }
+    }
+  >
+    open wallet app
+  </PeachText>
+  <Icon
+    color="#F56522"
+    id="externalLink"
+    style={
+      {
+        "height": 16,
+        "marginLeft": 4,
+        "marginTop": -4,
+        "width": 16,
+      }
+    }
+  />
+</TouchableOpacity>
+`;
