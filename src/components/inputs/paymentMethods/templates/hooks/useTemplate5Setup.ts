@@ -1,19 +1,16 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { FormProps } from '../../paymentForms/PaymentMethodForm'
-import { useToggleBoolean, useValidatedState } from '../../../../../hooks'
+import { useValidatedState } from '../../../../../hooks'
 import { getPaymentDataByLabel } from '../../../../../utils/account'
-import { getErrorsInField } from '../../../../../utils/validation'
-import { toggleCurrency } from '../../paymentForms/utils'
 import i18n from '../../../../../utils/i18n'
-import { hasMultipleAvailableCurrencies } from '../utils/hasMultipleAvailableCurrencies'
+import { getErrorsInField } from '../../../../../utils/validation'
 
 const beneficiaryRules = { required: true }
 const notRequired = { required: false }
-const ibanRules = { required: true, iban: true, isEUIBAN: true }
-const bicRules = { required: true, bic: true }
-
+const ukBankAccountRules = { required: false, ukBankAccount: true }
+const ukSortCodeRules = { required: false, ukSortCode: true }
 // eslint-disable-next-line max-lines-per-function
-export const useTemplate1Setup = ({
+export const useTemplate5Setup = ({
   data,
   currencies = [],
   onSubmit,
@@ -22,19 +19,23 @@ export const useTemplate1Setup = ({
   setFormData,
 }: FormProps) => {
   const [label, setLabel] = useState(data?.label || '')
-  const [checked, toggleChecked] = useToggleBoolean(!!data.id)
   const [beneficiary, setBeneficiary, beneficiaryIsValid, beneficiaryErrors] = useValidatedState(
     data?.beneficiary || '',
     beneficiaryRules,
   )
-  const [iban, setIBAN, ibanIsValid, ibanErrors] = useValidatedState(data?.iban || '', ibanRules)
-  const [bic, setBIC, bicIsValid, bicErrors] = useValidatedState(data?.bic || '', bicRules)
+  const [ukBankAccount, setAccountNumber, ukBankAccountIsValid, ukBankAccountErrors] = useValidatedState(
+    data?.ukBankAccount || '',
+    ukBankAccountRules,
+  )
+  const [ukSortCode, setSortCode, ukSortCodeIsValid, ukSortCodeErrors] = useValidatedState(
+    data?.ukSortCode || '',
+    ukSortCodeRules,
+  )
   const [reference, setReference, referenceIsValid, referenceErrors] = useValidatedState(
     data?.reference || '',
     notRequired,
   )
   const [displayErrors, setDisplayErrors] = useState(false)
-  const [selectedCurrencies, setSelectedCurrencies] = useState(data?.currencies || currencies)
 
   const labelRules = useMemo(
     () => ({
@@ -47,34 +48,25 @@ export const useTemplate1Setup = ({
   const labelErrors = useMemo(() => getErrorsInField(label, labelRules), [label, labelRules])
 
   const buildPaymentData = useCallback(
-    () => ({
+    (): PaymentData & FasterPaymentsData => ({
       id: data?.id || `${paymentMethod}-${new Date().getTime()}`,
       label,
       type: paymentMethod,
       beneficiary,
-      iban,
-      bic,
+      ukBankAccount,
+      ukSortCode,
       reference,
-      currencies: selectedCurrencies,
+      currencies: data?.currencies || currencies,
     }),
-    [bic, data?.id, iban, label, paymentMethod, reference, selectedCurrencies, beneficiary],
+    [beneficiary, currencies, data?.currencies, data?.id, label, paymentMethod, reference, ukBankAccount, ukSortCode],
   )
-
-  const onCurrencyToggle = (currency: Currency) => {
-    setSelectedCurrencies(toggleCurrency(currency))
-  }
 
   const isFormValid = useCallback(() => {
     setDisplayErrors(true)
     return (
-      labelErrors.length === 0
-      && beneficiaryIsValid
-      && ibanIsValid
-      && bicIsValid
-      && referenceIsValid
-      && (checked || paymentMethod !== 'instantSepa')
+      labelErrors.length === 0 && beneficiaryIsValid && ukBankAccountIsValid && ukSortCodeIsValid && referenceIsValid
     )
-  }, [beneficiaryIsValid, bicIsValid, checked, ibanIsValid, labelErrors.length, paymentMethod, referenceIsValid])
+  }, [beneficiaryIsValid, labelErrors.length, referenceIsValid, ukBankAccountIsValid, ukSortCodeIsValid])
 
   const save = () => {
     if (!isFormValid()) return
@@ -89,43 +81,32 @@ export const useTemplate1Setup = ({
 
   return {
     labelInputProps: {
-      value: label,
       onChange: setLabel,
+      value: label,
       errorMessage: displayErrors ? labelErrors : undefined,
     },
     beneficiaryInputProps: {
-      value: beneficiary,
       onChange: setBeneficiary,
+      value: beneficiary,
       errorMessage: displayErrors ? beneficiaryErrors : undefined,
     },
-    ibanInputProps: {
-      value: iban,
-      onChange: setIBAN,
-      label: i18n('form.iban'),
-      errorMessage: displayErrors ? ibanErrors : undefined,
+    ukBankAccountInputProps: {
+      onChange: setAccountNumber,
+      value: ukBankAccount,
+      errorMessage: displayErrors ? ukBankAccountErrors : undefined,
+      label: i18n('form.ukBankAccount'),
+      placeholder: i18n('form.ukBankAccount.placeholder'),
     },
-    bicInputProps: {
-      value: bic,
-      onChange: setBIC,
-      errorMessage: displayErrors ? bicErrors : undefined,
+    ukSortCodeInputProps: {
+      onChange: setSortCode,
+      value: ukSortCode,
+      errorMessage: displayErrors ? ukSortCodeErrors : undefined,
     },
     referenceInputProps: {
-      value: reference,
       onChange: setReference,
-      onSubmit: save,
+      value: reference,
       errorMessage: displayErrors ? referenceErrors : undefined,
+      onSubmit: save,
     },
-    checkboxProps: {
-      checked,
-      onPress: toggleChecked,
-      text: i18n('form.instantSepa.checkbox'),
-    },
-    currencySelectionProps: {
-      paymentMethod,
-      onToggle: onCurrencyToggle,
-      selectedCurrencies,
-    },
-    shouldShowCheckbox: paymentMethod === 'instantSepa',
-    shouldShowCurrencySelection: hasMultipleAvailableCurrencies(paymentMethod),
   }
 }

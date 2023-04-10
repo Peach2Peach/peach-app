@@ -18,8 +18,12 @@ type PaymentMethodFormProps = ComponentProps & {
   currencies?: Currency[]
   onSubmit: (data: PaymentData) => void
 }
-export type FormProps = PaymentMethodFormProps & {
+export type FormProps = {
+  data: Partial<PaymentData>
+  currencies: Currency[]
+  onSubmit: (data: PaymentData) => void
   setStepValid: Dispatch<SetStateAction<boolean>>
+  paymentMethod: PaymentMethod
   setFormData: Dispatch<SetStateAction<PaymentData | undefined>>
 }
 

@@ -1,19 +1,15 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { FormProps } from '../../paymentForms/PaymentMethodForm'
-import { useToggleBoolean, useValidatedState } from '../../../../../hooks'
+import { useValidatedState } from '../../../../../hooks'
 import { getPaymentDataByLabel } from '../../../../../utils/account'
 import { getErrorsInField } from '../../../../../utils/validation'
-import { toggleCurrency } from '../../paymentForms/utils'
-import i18n from '../../../../../utils/i18n'
 import { hasMultipleAvailableCurrencies } from '../utils/hasMultipleAvailableCurrencies'
+import { toggleCurrency } from '../../paymentForms/utils'
 
-const beneficiaryRules = { required: true }
-const notRequired = { required: false }
-const ibanRules = { required: true, iban: true, isEUIBAN: true }
-const bicRules = { required: true, bic: true }
+const phoneRules = { required: true, phone: true, isPhoneAllowed: true }
 
 // eslint-disable-next-line max-lines-per-function
-export const useTemplate1Setup = ({
+export const useTemplate3Setup = ({
   data,
   currencies = [],
   onSubmit,
@@ -22,17 +18,9 @@ export const useTemplate1Setup = ({
   setFormData,
 }: FormProps) => {
   const [label, setLabel] = useState(data?.label || '')
-  const [checked, toggleChecked] = useToggleBoolean(!!data.id)
-  const [beneficiary, setBeneficiary, beneficiaryIsValid, beneficiaryErrors] = useValidatedState(
-    data?.beneficiary || '',
-    beneficiaryRules,
-  )
-  const [iban, setIBAN, ibanIsValid, ibanErrors] = useValidatedState(data?.iban || '', ibanRules)
-  const [bic, setBIC, bicIsValid, bicErrors] = useValidatedState(data?.bic || '', bicRules)
-  const [reference, setReference, referenceIsValid, referenceErrors] = useValidatedState(
-    data?.reference || '',
-    notRequired,
-  )
+  const [phone, setPhone, phoneIsValid, phoneErrors] = useValidatedState(data?.phone || '', phoneRules)
+  const [beneficiary, setBeneficiary] = useState(data?.beneficiary || '')
+  const [reference, setReference] = useState(data?.reference || '')
   const [displayErrors, setDisplayErrors] = useState(false)
   const [selectedCurrencies, setSelectedCurrencies] = useState(data?.currencies || currencies)
 
@@ -51,13 +39,12 @@ export const useTemplate1Setup = ({
       id: data?.id || `${paymentMethod}-${new Date().getTime()}`,
       label,
       type: paymentMethod,
+      phone,
       beneficiary,
-      iban,
-      bic,
       reference,
       currencies: selectedCurrencies,
     }),
-    [bic, data?.id, iban, label, paymentMethod, reference, selectedCurrencies, beneficiary],
+    [beneficiary, data?.id, label, paymentMethod, phone, reference, selectedCurrencies],
   )
 
   const onCurrencyToggle = (currency: Currency) => {
@@ -66,15 +53,8 @@ export const useTemplate1Setup = ({
 
   const isFormValid = useCallback(() => {
     setDisplayErrors(true)
-    return (
-      labelErrors.length === 0
-      && beneficiaryIsValid
-      && ibanIsValid
-      && bicIsValid
-      && referenceIsValid
-      && (checked || paymentMethod !== 'instantSepa')
-    )
-  }, [beneficiaryIsValid, bicIsValid, checked, ibanIsValid, labelErrors.length, paymentMethod, referenceIsValid])
+    return phoneIsValid && labelErrors.length === 0
+  }, [labelErrors.length, phoneIsValid])
 
   const save = () => {
     if (!isFormValid()) return
@@ -89,43 +69,30 @@ export const useTemplate1Setup = ({
 
   return {
     labelInputProps: {
-      value: label,
       onChange: setLabel,
+      value: label,
       errorMessage: displayErrors ? labelErrors : undefined,
     },
+    phoneInputProps: {
+      onChange: setPhone,
+      value: phone,
+      errorMessage: displayErrors ? phoneErrors : undefined,
+    },
     beneficiaryInputProps: {
-      value: beneficiary,
       onChange: setBeneficiary,
-      errorMessage: displayErrors ? beneficiaryErrors : undefined,
-    },
-    ibanInputProps: {
-      value: iban,
-      onChange: setIBAN,
-      label: i18n('form.iban'),
-      errorMessage: displayErrors ? ibanErrors : undefined,
-    },
-    bicInputProps: {
-      value: bic,
-      onChange: setBIC,
-      errorMessage: displayErrors ? bicErrors : undefined,
+      value: beneficiary,
+      required: false,
     },
     referenceInputProps: {
-      value: reference,
       onChange: setReference,
+      value: reference,
       onSubmit: save,
-      errorMessage: displayErrors ? referenceErrors : undefined,
-    },
-    checkboxProps: {
-      checked,
-      onPress: toggleChecked,
-      text: i18n('form.instantSepa.checkbox'),
     },
     currencySelectionProps: {
       paymentMethod,
-      onToggle: onCurrencyToggle,
       selectedCurrencies,
+      onToggle: onCurrencyToggle,
     },
-    shouldShowCheckbox: paymentMethod === 'instantSepa',
     shouldShowCurrencySelection: hasMultipleAvailableCurrencies(paymentMethod),
   }
 }

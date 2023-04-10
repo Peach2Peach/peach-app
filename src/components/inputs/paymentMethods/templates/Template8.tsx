@@ -1,118 +1,34 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useRef } from 'react'
 import { TextInput, View } from 'react-native'
 import { FormProps } from '../paymentForms/PaymentMethodForm'
-import { useValidatedState } from '../../../../hooks'
 import tw from '../../../../styles/tailwind'
-import { getPaymentDataByLabel } from '../../../../utils/account'
-import i18n from '../../../../utils/i18n'
-import { getErrorsInField } from '../../../../utils/validation'
-import { PhoneInput } from '../../PhoneInput'
+import { PhoneInput, LabelInput, ReferenceInput, BeneficiaryInput } from '../../index'
 import { CurrencySelection } from '../paymentForms/components'
-import { toggleCurrency } from '../paymentForms/utils'
-import { LabelInput } from '../../LabelInput'
-import { ReferenceInput } from '../../ReferenceInput'
-import { BeneficiaryInput } from '../../BeneficiaryInput'
+import { useTemplate8Setup } from './hooks'
 
-const referenceRules = { required: false }
-const phoneRules = { required: true, phone: true, isPhoneAllowed: true }
-
-export const Template8 = ({ data, currencies = [], onSubmit, setStepValid, paymentMethod, setFormData }: FormProps) => {
-  const [label, setLabel] = useState(data?.label || '')
-  const [phone, setPhone, phoneIsValid, phoneErrors] = useValidatedState(data?.phone || '', phoneRules)
-  const [beneficiary, setBeneficiary] = useState(data?.beneficiary || '')
-  const [reference, setReference, , referenceError] = useValidatedState(data?.reference || '', referenceRules)
-  const [displayErrors, setDisplayErrors] = useState(false)
-  const [selectedCurrencies, setSelectedCurrencies] = useState(data?.currencies || currencies)
-
+export const Template8 = (props: FormProps) => {
   let $phone = useRef<TextInput>(null).current
   let $beneficiary = useRef<TextInput>(null).current
   let $reference = useRef<TextInput>(null).current
 
-  const onCurrencyToggle = (currency: Currency) => {
-    setSelectedCurrencies(toggleCurrency(currency))
-  }
-
-  const labelRules = useMemo(
-    () => ({
-      required: true,
-      duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)!.id !== data.id,
-    }),
-    [data.id, label],
-  )
-
-  const labelErrors = useMemo(() => getErrorsInField(label, labelRules), [label, labelRules])
-
-  const buildPaymentData = useCallback(
-    (): PaymentData & PayseraData => ({
-      id: data?.id || `${paymentMethod}-${new Date().getTime()}`,
-      label,
-      type: paymentMethod,
-      phone,
-      beneficiary,
-      reference,
-      currencies: selectedCurrencies,
-    }),
-    [beneficiary, data?.id, label, paymentMethod, phone, reference, selectedCurrencies],
-  )
-
-  const isFormValid = useCallback(() => {
-    setDisplayErrors(true)
-    return phoneIsValid && labelErrors.length === 0
-  }, [labelErrors.length, phoneIsValid])
-
-  const save = () => {
-    if (!isFormValid()) return
-
-    onSubmit(buildPaymentData())
-  }
-
-  useEffect(() => {
-    setStepValid(isFormValid())
-    setFormData(buildPaymentData())
-  }, [buildPaymentData, isFormValid, setFormData, setStepValid])
+  const { labelInputProps, phoneInputProps, beneficiaryInputProps, referenceInputProps, currencySelectionProps }
+    = useTemplate8Setup(props)
 
   return (
     <View>
-      <LabelInput
-        onChange={setLabel}
-        onSubmit={() => $phone?.focus()}
-        value={label}
-        errorMessage={displayErrors ? labelErrors : undefined}
-      />
+      <LabelInput {...labelInputProps} onSubmit={() => $phone?.focus()} />
       <View style={tw`mt-1`}>
-        <PhoneInput
-          onChange={setPhone}
-          onSubmit={() => {
-            $beneficiary?.focus()
-          }}
-          reference={(el: any) => ($phone = el)}
-          value={phone}
-          errorMessage={displayErrors ? phoneErrors : undefined}
-        />
+        <PhoneInput {...phoneInputProps} onSubmit={() => $beneficiary?.focus()} reference={(el: any) => ($phone = el)} />
       </View>
       <View style={tw`mt-1`}>
         <BeneficiaryInput
-          onChange={setBeneficiary}
-          onSubmit={() => {
-            $reference?.focus()
-          }}
+          {...beneficiaryInputProps}
+          onSubmit={() => $reference?.focus()}
           reference={(el: any) => ($beneficiary = el)}
-          value={beneficiary}
-          required={false}
         />
       </View>
-      <ReferenceInput
-        onChange={setReference}
-        onSubmit={save}
-        reference={(el: any) => ($reference = el)}
-        value={reference}
-        errorMessage={displayErrors ? referenceError : undefined}
-      />
-      <CurrencySelection
-        paymentMethod={paymentMethod}
-        selectedCurrencies={selectedCurrencies}
-        onToggle={onCurrencyToggle}
-      />
+      <ReferenceInput {...referenceInputProps} reference={(el: any) => ($reference = el)} />
+      <CurrencySelection {...currencySelectionProps} />
     </View>
   )
 }
