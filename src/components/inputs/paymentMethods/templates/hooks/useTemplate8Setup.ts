@@ -39,7 +39,7 @@ export const useTemplate8Setup = ({
 
   const buildPaymentData = useCallback(
     (): PaymentData & PayseraData => ({
-      id: data?.id || `${paymentMethod}-${new Date().getTime()}`,
+      id: data?.id || `${paymentMethod}-${Date.now()}`,
       label,
       type: paymentMethod,
       phone,
