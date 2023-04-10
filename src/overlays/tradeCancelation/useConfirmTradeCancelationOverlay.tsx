@@ -1,5 +1,5 @@
-import { useCallback, useContext } from 'react'
-import { OverlayContext } from '../../contexts/overlay'
+import { useCallback } from 'react'
+import { useOverlayContext } from '../../contexts/overlay'
 import { useNavigation } from '../../hooks'
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
 import { useShowLoadingOverlay } from '../../hooks/useShowLoadingOverlay'
@@ -9,7 +9,7 @@ import { confirmContractCancelation, rejectContractCancelation } from '../../uti
 import { ConfirmCancelTradeRequest } from './ConfirmCancelTradeRequest'
 
 export const useConfirmTradeCancelationOverlay = () => {
-  const [, updateOverlay] = useContext(OverlayContext)
+  const [, updateOverlay] = useOverlayContext()
   const showError = useShowErrorBanner()
   const navigation = useNavigation()
 
@@ -25,13 +25,15 @@ export const useConfirmTradeCancelationOverlay = () => {
       const [result, err] = await confirmContractCancelation({ contractId: contract.id })
 
       if (result) {
-        saveContract({
+        const updatedContract = {
           ...contract,
           canceled: true,
           cancelationRequested: false,
-        })
+        }
+        saveContract(updatedContract)
         updateOverlay({ title: i18n('contract.cancel.success'), visible: true, level: 'APP' })
-        navigation.replace('contract', { contractId: contract.id, contract })
+        navigation.replace('contract', { contractId: contract.id, contract: updatedContract })
+        return
       } else if (err) {
         showError(err.error)
       }
@@ -42,16 +44,20 @@ export const useConfirmTradeCancelationOverlay = () => {
 
   const continueTrade = useCallback(
     async (contract: Contract) => {
-      showLoadingOverlay()
+      showLoadingOverlay({
+        title: i18n('contract.cancel.sellerWantsToCancel.title'),
+        level: 'WARN',
+      })
       const [result, err] = await rejectContractCancelation({ contractId: contract.id })
 
       if (result) {
-        saveContract({
+        const updatedContract = {
           ...contract,
           cancelationRequested: false,
-        })
+        }
+        saveContract(updatedContract)
         closeOverlay()
-        navigation.navigate('contract', { contractId: contract.id })
+        navigation.replace('contract', { contractId: contract.id, contract: updatedContract })
       } else if (err) {
         showError(err.error)
       }
@@ -62,6 +68,8 @@ export const useConfirmTradeCancelationOverlay = () => {
 
   const showConfirmTradeCancelation = useCallback(
     (contract: Contract) => {
+      const cancelTradeCallback = () => cancelTrade(contract)
+      const continueTradeCallback = () => continueTrade(contract)
       updateOverlay({
         title: i18n('contract.cancel.sellerWantsToCancel.title'),
         content: <ConfirmCancelTradeRequest contract={contract} />,
@@ -70,17 +78,19 @@ export const useConfirmTradeCancelationOverlay = () => {
         action2: {
           label: i18n('contract.cancel.sellerWantsToCancel.cancel'),
           icon: 'xCircle',
-          callback: () => cancelTrade(contract),
+          callback: cancelTradeCallback,
         },
         action1: {
           label: i18n('contract.cancel.sellerWantsToCancel.continue'),
           icon: 'arrowRightCircle',
-          callback: () => continueTrade(contract),
+          callback: continueTradeCallback,
         },
       })
+
+      return { cancelTradeCallback, continueTradeCallback }
     },
     [cancelTrade, continueTrade, updateOverlay],
   )
 
-  return showConfirmTradeCancelation
+  return { showConfirmTradeCancelation, cancelTrade, continueTrade }
 }

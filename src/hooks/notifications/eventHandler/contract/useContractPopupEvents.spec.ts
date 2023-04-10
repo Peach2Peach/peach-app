@@ -4,8 +4,10 @@ import { useContractPopupEvents } from './useContractPopupEvents'
 import { contract } from '../../../../../tests/unit/data/contractData'
 
 const showConfirmTradeCancelationMock = jest.fn()
-jest.mock('../../../../overlays/tradeCancelation', () => ({
-  useConfirmTradeCancelationOverlay: () => showConfirmTradeCancelationMock,
+jest.mock('../../../../overlays/tradeCancelation/useConfirmTradeCancelationOverlay', () => ({
+  useConfirmTradeCancelationOverlay: () => ({
+    showConfirmTradeCancelation: showConfirmTradeCancelationMock,
+  }),
 }))
 const showTradeCanceledMock = jest.fn()
 jest.mock('../../../../overlays/tradeCancelation/useTradeCanceledOverlay', () => ({
