@@ -12,7 +12,7 @@ import { getTradingPartner } from '../../../utils/contract'
 import { error } from '../../../utils/log'
 import { PeachWSContext } from '../../../utils/peachAPI/websocket'
 import { decryptSymmetric, signAndEncryptSymmetric } from '../../../utils/pgp'
-import { parseError } from '../../../utils/system'
+import { parseError } from '../../../utils/result'
 import { getHeaderChatActions } from '../utils/getHeaderChatActions'
 import { useShowDisputeDisclaimer } from '../utils/useShowDisputeDisclaimer'
 
@@ -36,7 +36,7 @@ export const useContractChatSetup = () => {
   const showDisclaimer = useShowDisputeDisclaimer()
   const openDisputeOverlay = useOpenDispute(contractId)
   const tradingPartner = contract ? getTradingPartner(contract, account) : null
-  const [chat, setChat] = useState<Chat>(getChat(contractId))
+  const [chat, setChat] = useState(getChat(contractId))
   const [newMessage, setNewMessage] = useState(chat.draftMessage)
   const [disableSend, setDisableSend] = useState(false)
 

@@ -1,5 +1,6 @@
 import { error } from '../log'
-import { dateTimeReviver, parseError } from '../system'
+import { parseError } from '../result'
+import { dateTimeReviver } from '../system'
 import { getResponseError } from './getResponseError'
 
 /**

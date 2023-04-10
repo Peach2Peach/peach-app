@@ -1,16 +1,17 @@
 import { act, renderHook } from '@testing-library/react-native'
-import { usePremiumSetup } from './usePremiumSetup'
-import { getSellOfferDraft } from '../helpers/getSellOfferDraft'
-import { account1 } from '../../../../tests/unit/data/accountData'
+import { settings1 } from '../../../../tests/unit/data/settingsData'
 import { defaultLimits } from '../../../utils/account/account'
+import { getSellOfferDraft } from '../helpers/getSellOfferDraft'
+import { usePremiumSetup } from './usePremiumSetup'
 
 const setPremiumMock = jest.fn()
 const premium = 1.5
 const state = {
   premium: 1.5,
   setPremium: setPremiumMock,
+  displayCurrency: 'EUR',
 }
-const useSettingsStoreMock = jest.fn().mockImplementation((selector, _compareFn) => selector(state))
+const useSettingsStoreMock = jest.fn().mockImplementation((selector) => selector(state))
 jest.mock('../../../store/settingsStore', () => ({
   useSettingsStore: (selector: any, compareFn: any) => useSettingsStoreMock(selector, compareFn),
 }))
@@ -57,7 +58,7 @@ describe('usePremiumSetup', () => {
     expect(result.current.premium).toBe(premium.toString())
     expect(result.current.updatePremium).toBeInstanceOf(Function)
     expect(result.current.currentPrice).toBe(20.3)
-    expect(result.current.displayCurrency).toBe(account1.settings.displayCurrency)
+    expect(result.current.displayCurrency).toBe(settings1.displayCurrency)
     expect(result.current.stepValid).toBeTruthy()
   })
   it('calls useSellSetup with correct params', () => {
