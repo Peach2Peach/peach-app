@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GeneralPaymentDetails should render sepa data 1`] = `
+<View>
+  <InfoBlock
+    name="contract.payment.to"
+    onInfoPress={[Function]}
+    style={
+      {
+        "marginTop": 2,
+      }
+    }
+    value="Hal Finney"
+  />
+  <InfoBlock
+    name="form.iban"
+    onInfoPress={[Function]}
+    style={
+      {
+        "marginTop": 2,
+      }
+    }
+    value="IE29 AIBK 9311 5212 3456 78"
+  />
+  <InfoBlock
+    name="form.bic"
+    onInfoPress={[Function]}
+    style={
+      {
+        "marginTop": 2,
+      }
+    }
+    value="AAAABBCC"
+  />
+  <PaymentReference
+    style={
+      {
+        "marginTop": 2,
+      }
+    }
+  />
+</View>
+`;

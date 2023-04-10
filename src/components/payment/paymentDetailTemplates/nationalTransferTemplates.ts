@@ -1,7 +1,6 @@
 import { ReactElement } from 'react'
-import { PaymentTemplateProps } from '.'
 import { NATIONALTRANSFERCOUNTRIES } from '../../../constants'
-import { GeneralPaymentDetails } from './GeneralPaymentDetails'
+import { GeneralPaymentDetails, PaymentTemplateProps } from './GeneralPaymentDetails'
 
 export const nationalTransferTemplates = NATIONALTRANSFERCOUNTRIES.reduce((obj, c) => {
   const id: PaymentMethod = `nationalTransfer${c}`

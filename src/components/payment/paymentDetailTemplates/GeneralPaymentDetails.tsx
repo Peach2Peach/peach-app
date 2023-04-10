@@ -2,11 +2,19 @@ import { ReactElement } from 'react'
 import { View } from 'react-native'
 import tw from '../../../styles/tailwind'
 import { openAppLink } from '../../../utils/web'
-import { PaymentTemplateProps } from '.'
 import { paymentFields } from '../paymentFields'
 import { InfoBlock } from './InfoBlock'
 import { PaymentReference } from './PaymentReference'
 
+export type PaymentTemplateProps = ComponentProps & {
+  paymentMethod: PaymentMethod
+  paymentData: PaymentData
+  country?: PaymentMethodCountry
+  appLink?: string
+  fallbackUrl?: string
+  userLink?: string
+  copyable?: boolean
+}
 const names: Record<string, string> = {
   beneficiary: 'contract.payment.to',
   iban: 'form.iban',
