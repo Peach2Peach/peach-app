@@ -3,8 +3,6 @@ import { buyOffer, sellOffer } from '../../../../tests/unit/data/offerData'
 import { queryClientWrapper } from '../../../../tests/unit/helpers/queryClientWrapper'
 import { useOfferMatches } from './useOfferMatches'
 
-jest.useFakeTimers()
-
 const getMatchesMock = jest.fn((...args) => Promise.resolve([{ matches: ['match'], remainingMatches: 0 }, null]))
 const getOfferDetailsMock = jest.fn().mockResolvedValue([buyOffer, null])
 jest.mock('../../../utils/peachAPI', () => ({
