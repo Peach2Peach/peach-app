@@ -1,4 +1,3 @@
-import { defaultSettings } from '../../store/defaults'
 import { settingsStore } from '../../store/settingsStore'
 import { setLocaleQuiet } from '../i18n'
 import { setPeachAccount } from '../peachAPI/peachAccount'
@@ -17,7 +16,6 @@ export const defaultLimits = {
 
 export const defaultAccount: Account = {
   publicKey: '',
-  settings: defaultSettings,
   paymentData: [],
   legacyPaymentData: [],
   tradingLimit: defaultLimits,
@@ -43,15 +41,10 @@ export const setAccount = async (acc: Account, overwrite?: boolean) => {
     : {
       ...defaultAccount,
       ...acc,
-      settings: {
-        ...defaultAccount.settings,
-        ...acc.settings,
-      },
       tradingLimit: defaultAccount.tradingLimit,
     }
 
-  settingsStore.getState().updateSettings(account.settings)
-  setLocaleQuiet(account.settings.locale || 'en')
+  setLocaleQuiet(settingsStore.getState().locale || 'en')
 
   if (account.mnemonic) {
     const { wallet } = account.mnemonic

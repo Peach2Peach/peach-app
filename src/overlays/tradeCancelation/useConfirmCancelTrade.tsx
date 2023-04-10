@@ -1,22 +1,19 @@
-import { useCallback, useContext } from 'react'
+import { useCallback } from 'react'
 import { Loading } from '../../components'
-import { OverlayContext } from '../../contexts/overlay'
+import { useOverlayContext } from '../../contexts/overlay'
 import { useNavigation } from '../../hooks'
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
 import tw from '../../styles/tailwind'
 import { account } from '../../utils/account'
-import { checkRefundPSBT, signPSBT } from '../../utils/bitcoin'
-import { getSellOfferFromContract, isPaymentTimeExpired, saveContract } from '../../utils/contract'
+import { saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { saveOffer } from '../../utils/offer'
-import { cancelContract, patchOffer } from '../../utils/peachAPI'
 import { ConfirmCancelTrade } from './ConfirmCancelTrade'
+import { cancelContractAsBuyer } from './helpers/cancelContractAsBuyer'
+import { cancelContractAsSeller } from './helpers/cancelContractAsSeller'
 
-/**
- * @description Overlay the seller sees when requesting cancelation
- */
 export const useConfirmCancelTrade = () => {
-  const [, updateOverlay] = useContext(OverlayContext)
+  const [, updateOverlay] = useOverlayContext()
   const navigation = useNavigation()
   const showError = useShowErrorBanner()
   const closeOverlay = useCallback(() => updateOverlay({ visible: false }), [updateOverlay])
@@ -27,6 +24,7 @@ export const useConfirmCancelTrade = () => {
         level: 'ERROR',
         content: <Loading style={tw`self-center`} color={tw`text-primary-main`.color} />,
         visible: true,
+        requireUserAction: true,
         action1: {
           label: i18n('loading'),
           icon: 'clock',
@@ -38,107 +36,53 @@ export const useConfirmCancelTrade = () => {
   const cancelBuyer = useCallback(
     async (contract: Contract) => {
       showLoading()
-      const [result, err] = await cancelContract({
-        contractId: contract.id,
-      })
+      const result = await cancelContractAsBuyer(contract)
 
-      if (result) {
-        saveContract({
-          ...contract,
-          canceled: true,
-          cancelConfirmationDismissed: false,
-        })
-        navigation.replace('contract', { contractId: contract.id, contract })
-        updateOverlay({ title: i18n('contract.cancel.success'), visible: true, level: 'APP' })
-      } else if (err) {
+      if (result.isError() || !result.isOk()) {
         closeOverlay()
-        showError(err.error)
+        showError(result.isError() ? result.getError() : undefined)
+        return
       }
+      saveContract(result.getValue().contract)
+      navigation.replace('contract', { contractId: contract.id })
+      updateOverlay({ title: i18n('contract.cancel.success'), visible: true, level: 'APP' })
     },
     [closeOverlay, navigation, showError, showLoading, updateOverlay],
-  )
-
-  const cancelSellerSuccess = useCallback(
-    (contract: Contract) => {
-      navigation.replace('contract', { contractId: contract.id })
-      saveContract({
-        ...contract,
-        cancelConfirmationDismissed: false,
-        cancelationRequested: true,
-        cancelConfirmationPending: true,
-      })
-    },
-    [navigation],
-  )
-
-  const patchSellOfferWithRefundTx = useCallback(
-    async (contract: Contract, refundPSBT: string) => {
-      const sellOffer = getSellOfferFromContract(contract)
-      const { isValid, psbt, err: checkRefundPSBTError } = checkRefundPSBT(refundPSBT, sellOffer)
-      if (isValid && psbt) {
-        const signedPSBT = signPSBT(psbt, sellOffer, false)
-        const [patchOfferResult, patchOfferError] = await patchOffer({
-          offerId: sellOffer.id,
-          refundTx: signedPSBT.toBase64(),
-        })
-        if (patchOfferResult) {
-          saveOffer({
-            ...sellOffer,
-            refundTx: psbt.toBase64(),
-          })
-          cancelSellerSuccess(contract)
-        } else if (patchOfferError) {
-          showError(patchOfferError?.error)
-        }
-      } else if (checkRefundPSBTError) {
-        showError(checkRefundPSBTError)
-      }
-    },
-    [cancelSellerSuccess, showError],
   )
 
   const cancelSeller = useCallback(
     async (contract: Contract) => {
       showLoading()
-      const [result, err] = await cancelContract({
-        contractId: contract.id,
-      })
+      const result = await cancelContractAsSeller(contract)
 
-      if (result && isPaymentTimeExpired(contract)) {
-        saveContract({
-          ...contract,
-          cancelConfirmationDismissed: false,
-          canceled: true,
-        })
+      if (result.isError() || !result.isOk()) {
+        showError(result.isError() ? result.getError() : undefined)
+        closeOverlay()
+        return
       }
 
-      if (result?.success) {
-        if (result.psbt) {
-          await patchSellOfferWithRefundTx(contract, result.psbt)
-        } else {
-          cancelSellerSuccess(contract)
-        }
-      } else if (err) {
-        showError(err?.error)
-      }
+      const { contract: contractUpdate, sellOffer } = result.getValue()
+      saveContract(contractUpdate)
+      if (sellOffer) saveOffer(sellOffer)
+      navigation.replace('contract', { contractId: contract.id })
       closeOverlay()
     },
-    [showLoading, closeOverlay, patchSellOfferWithRefundTx, cancelSellerSuccess, showError],
+    [showLoading, navigation, closeOverlay, showError],
   )
 
   const showConfirmOverlay = useCallback(
     (contract: Contract) => {
       const view = account.publicKey === contract?.seller.id ? 'seller' : 'buyer'
-
+      const cancelAction = () => (view === 'seller' ? cancelSeller(contract) : cancelBuyer(contract))
       updateOverlay({
         title: i18n('contract.cancel.title'),
         level: 'ERROR',
-        content: <ConfirmCancelTrade view={view} />,
+        content: <ConfirmCancelTrade {...{ contract, view }} />,
         visible: true,
         action1: {
           label: i18n('contract.cancel.title'),
           icon: 'xCircle',
-          callback: () => (view === 'seller' ? cancelSeller(contract) : cancelBuyer(contract)),
+          callback: cancelAction,
         },
         action2: {
           label: i18n('contract.cancel.confirm.back'),
@@ -146,9 +90,13 @@ export const useConfirmCancelTrade = () => {
           callback: closeOverlay,
         },
       })
+
+      return {
+        cancelAction,
+      }
     },
     [updateOverlay, cancelSeller, cancelBuyer, closeOverlay],
   )
 
-  return { showConfirmOverlay, cancelSeller }
+  return { showConfirmOverlay, cancelSeller, cancelBuyer, showLoading, closeOverlay }
 }

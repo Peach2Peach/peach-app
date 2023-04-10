@@ -7,7 +7,7 @@ import { useTradeSummaries } from '../../../hooks/query/useTradeSummaries'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { sortContractsByDate } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
-import { parseError } from '../../../utils/system'
+import { parseError } from '../../../utils/result'
 import { isOpenOffer, isPastOffer } from '../utils'
 import { getTabById } from '../utils/getTabById'
 

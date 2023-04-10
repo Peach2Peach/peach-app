@@ -1,6 +1,5 @@
 import { info } from '../../log'
 import { storeIdentity } from './storeIdentity'
-import { storeSettings } from './storeSettings'
 import { storeTradingLimit } from './storeTradingLimit'
 import { storePaymentData } from './storePaymentData'
 import { storeOffers } from './storeOffers'
@@ -17,7 +16,6 @@ export const storeAccount = async (acc: Account): Promise<void> => {
 
   await Promise.all([
     storeIdentity(acc),
-    storeSettings(acc.settings),
     storeTradingLimit(acc.tradingLimit),
     storePaymentData(acc.paymentData),
     storeOffers(acc.offers),
