@@ -1,8 +1,5 @@
-import { accountStorage } from '../../utils/account/accountStorage'
-import { migrateAccountToSecureStorage } from './migrateAccountToSecureStorage'
+import { migrateSettingsToStore } from './beforeLoadingAccount/migrateSettingsToStore'
 
 export const dataMigrationBeforeLoadingAccount = async () => {
-  if (!accountStorage.getString('publicKey')) {
-    await migrateAccountToSecureStorage()
-  }
+  migrateSettingsToStore()
 }

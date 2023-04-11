@@ -1,4 +1,4 @@
-import { getBuildNumber, getUniqueId, getVersion, isEmulatorSync } from 'react-native-device-info'
+import { getBuildNumber, getUniqueIdSync, getVersion, isEmulatorSync } from 'react-native-device-info'
 import { unique } from './utils/array'
 import { sha256 } from './utils/crypto/sha256'
 
@@ -21,7 +21,7 @@ export const setClientServerTimeDifference = (diff: number) => (CLIENTSERVERTIME
 
 export const ISEMULATOR = isEmulatorSync()
 
-export const UNIQUEID = sha256(getUniqueId())
+export const UNIQUEID = sha256(getUniqueIdSync())
 
 export let CURRENCIES: Currency[] = ['EUR', 'CHF', 'GBP', 'SEK', 'DKK', 'BGN', 'CZK', 'HUF', 'PLN', 'RON', 'ISK', 'NOK']
 
@@ -135,3 +135,9 @@ export const setPaymentMethods = (paymentMethodInfos: PaymentMethodInfo[]) => {
     ...paymentMethodInfos.map(({ id }) => id).filter((id) => id.includes('cash.')),
   ]
 }
+
+export const TWITTER = 'https://twitter.com/peachbitcoin'
+export const INSTAGRAM = 'https://www.instagram.com/peachbitcoin'
+export const TELEGRAM = 'https://t.me/+3KpdrMw25xBhNGJk'
+export const DISCORD = 'https://discord.gg/skP9zqTB'
+export const TWITCH = 'https://www.twitch.tv/peachbitcoin'

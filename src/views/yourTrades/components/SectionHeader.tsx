@@ -1,4 +1,3 @@
-import React from 'react'
 import { SectionListData, Text } from 'react-native'
 import LinedText from '../../../components/ui/LinedText'
 import tw from '../../../styles/tailwind'

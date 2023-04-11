@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import { ReactElement } from 'react'
 import { enforceWalletFormat } from '../../utils/format/enforceWalletFormat'
 import Input, { InputProps } from './Input'
 

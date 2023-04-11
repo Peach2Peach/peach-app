@@ -1,12 +1,12 @@
-import React, { ReactElement } from 'react'
+import { ReactElement } from 'react'
 import { View } from 'react-native'
 import { Text } from '../../../components'
 import { EmailInput } from '../../../components/inputs/EmailInput'
 import tw from '../../../styles/tailwind'
 import { contractIdToHex } from '../../../utils/contract'
+import { isEmailRequiredForDispute } from '../../../utils/dispute'
 import i18n from '../../../utils/i18n'
 import { thousands } from '../../../utils/string'
-import { isEmailRequired } from '../../../views/dispute/DisputeForm'
 
 declare type DisputeRaisedNoticeProps = {
   contract: Contract
@@ -29,7 +29,7 @@ export default ({
 }: DisputeRaisedNoticeProps): ReactElement => (
   <>
     <Text>
-      {isEmailRequired(disputeReason)
+      {isEmailRequiredForDispute(disputeReason)
         ? i18n(
           `dispute.opened.counterparty.text.1.withEmail.${view}`,
           contractIdToHex(contract.id),
@@ -42,12 +42,12 @@ export default ({
         )}
     </Text>
     <Text style={tw`mt-3`}>
-      {isEmailRequired(disputeReason)
+      {isEmailRequiredForDispute(disputeReason)
         ? i18n('dispute.opened.counterparty.text.2.withEmail')
         : i18n('dispute.opened.counterparty.text.2.withoutEmail')}
     </Text>
 
-    {isEmailRequired(disputeReason) && (
+    {isEmailRequiredForDispute(disputeReason) && (
       <View style={tw`mt-4`}>
         <EmailInput
           style={tw`bg-warning-background`}

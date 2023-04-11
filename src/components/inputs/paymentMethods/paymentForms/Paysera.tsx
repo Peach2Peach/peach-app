@@ -1,4 +1,4 @@
-import React, { ReactElement, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
+import { ReactElement, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
 import { TextInput, View } from 'react-native'
 import { FormProps } from './PaymentMethodForm'
 import { useValidatedState } from '../../../../hooks'
@@ -46,7 +46,7 @@ export const Paysera = ({ forwardRef, data, currencies = [], onSubmit, setStepVa
     phone,
     beneficiary,
     reference,
-    currencies: data?.currencies || currencies,
+    currencies: selectedCurrencies,
   })
 
   const isFormValid = useCallback(() => {

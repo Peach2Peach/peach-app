@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import shallow from 'zustand/shallow'
+import { shallow } from 'zustand/shallow'
 import { MSINANHOUR } from '../../constants'
 import { useMeetupEventsStore } from '../../store/meetupEventsStore'
 import { getMeetupEvents } from '../../utils/peachAPI/public/meetupEvents'
@@ -17,7 +17,9 @@ export const useMeetupEvents = () => {
     (state) => [state.meetupEvents, state.setMeetupEvents, state.getLastModified],
     shallow,
   )
-  const { data, isLoading, error } = useQuery(['meetupEvents'], getMeetupEventsQuery, {
+  const { data, isLoading, error } = useQuery({
+    queryKey: ['meetupEvents'],
+    queryFn: getMeetupEventsQuery,
     initialData: meetupEvents.length ? meetupEvents : undefined,
     initialDataUpdatedAt: getLastModified().getTime(),
     staleTime: MSINANHOUR,

@@ -1,5 +1,6 @@
 /* eslint-disable max-lines */
-import React, { ReactElement, useCallback, useEffect, useReducer, useRef, useState } from 'react'
+import { ReactElement, useCallback, useEffect, useReducer, useRef, useState } from 'react'
+
 import { Animated, Dimensions, SafeAreaView, View } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
@@ -17,7 +18,7 @@ import { getViews } from './views'
 import { DrawerContext, getDrawer, setDrawer } from './contexts/drawer'
 import LanguageContext from './contexts/language'
 import { getMessage, MessageContext, setMessage, showMessageEffect } from './contexts/message'
-import { defaultOverlay, OverlayContext, useOverlay } from './contexts/overlay'
+import { defaultOverlay, OverlayContext, useOverlay, useOverlayContext } from './contexts/overlay'
 import { getWebSocket, PeachWSContext, setPeachWS } from './utils/peachAPI/websocket'
 
 import Drawer from './components/Drawer'
@@ -27,7 +28,7 @@ import Overlay from './components/Overlay'
 import { DEV } from '@env'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { setUnhandledPromiseRejectionTracker } from 'react-native-promise-rejection-utils'
-import shallow from 'zustand/shallow'
+import { shallow } from 'zustand/shallow'
 import { Background } from './components/background/Background'
 import { APPVERSION, ISEMULATOR, TIMETORESTART } from './constants'
 import appStateEffect from './effects/appStateEffect'
@@ -48,7 +49,9 @@ import { account } from './utils/account'
 import { screenTransition } from './utils/layout/screenTransition'
 import { error, info } from './utils/log'
 import { marketPrices } from './utils/peachAPI/public/market'
-import { compatibilityCheck, isIOS, isNetworkError, linkToAppStore, parseError } from './utils/system'
+import { compatibilityCheck, isIOS, isNetworkError, linkToAppStore } from './utils/system'
+import { parseError } from './utils/result'
+import { useSettingsStore } from './store/settingsStore'
 
 enableScreens()
 
@@ -71,6 +74,13 @@ type HandlerProps = {
 }
 const Handlers = ({ getCurrentPage }: HandlerProps): ReactElement => {
   const messageHandler = useMessageHandler(getCurrentPage)
+  const [, updateOverlay] = useOverlayContext()
+  const showAnalyticsPrompt = useShowAnalyticsPrompt(updateOverlay)
+  const analyticsPopupSeen = useSettingsStore((state) => state.analyticsPopupSeen)
+
+  useEffect(() => {
+    if (!analyticsPopupSeen) showAnalyticsPrompt()
+  }, [analyticsPopupSeen, showAnalyticsPrompt])
 
   useHandleNotifications(messageHandler)
 
@@ -79,6 +89,7 @@ const Handlers = ({ getCurrentPage }: HandlerProps): ReactElement => {
 const usePartialAppSetup = () => {
   const [active, setActive] = useState(true)
   const updateTradingAmounts = useUpdateTradingAmounts()
+  const displayCurrency = useSettingsStore((state) => state.displayCurrency)
   const [setPrices, setCurrency] = useBitcoinStore((state) => [state.setPrices, state.setCurrency], shallow)
   useCheckTradeNotifications()
 
@@ -112,17 +123,17 @@ const usePartialAppSetup = () => {
       if (prices?.CHF) updateTradingAmounts(prices.CHF)
     }
     const interval = setInterval(checkingFunction, checkingInterval)
-    setCurrency(account.settings.displayCurrency)
+    setCurrency(displayCurrency)
     checkingFunction()
 
     return () => {
       clearInterval(interval)
     }
-  }, [active, setCurrency, setPrices, updateTradingAmounts])
+  }, [active, displayCurrency, setCurrency, setPrices, updateTradingAmounts])
 }
 
 // eslint-disable-next-line max-statements
-const App: React.FC = () => {
+const App = () => {
   const [messageState, updateMessage] = useReducer(setMessage, getMessage())
   const [
     { title: drawerTitle, content: drawerContent, show: showDrawer, previousDrawer, onClose: onCloseDrawer },
@@ -130,10 +141,10 @@ const App: React.FC = () => {
   ] = useReducer(setDrawer, getDrawer())
   const [overlayState, updateOverlay] = useOverlay()
   const [peachWS, updatePeachWS] = useReducer(setPeachWS, getWebSocket())
-  const showAnalyticsPrompt = useShowAnalyticsPrompt(updateOverlay)
   const { width } = Dimensions.get('window')
   const slideInAnim = useRef(new Animated.Value(-width)).current
   const navigationRef = useNavigationContainerRef()
+
   const [minAppVersion, latestAppVersion] = useConfigStore(
     (state) => [state.minAppVersion, state.latestAppVersion],
     shallow,
@@ -198,8 +209,6 @@ const App: React.FC = () => {
       setCurrentPage(!!account?.publicKey ? 'home' : 'welcome')
       await initialNavigation(navigationRef, updateMessage)
       requestUserPermissions()
-
-      if (!account.settings.analyticsPopupSeen) showAnalyticsPrompt()
 
       if (!compatibilityCheck(APPVERSION, minAppVersion)) {
         updateMessage({

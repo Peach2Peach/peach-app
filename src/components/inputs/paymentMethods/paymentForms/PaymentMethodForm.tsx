@@ -1,4 +1,4 @@
-import React, { ReactElement, useRef } from 'react'
+import { ReactElement, useRef, Dispatch, SetStateAction } from 'react'
 import { View } from 'react-native'
 import { PaymentMethodForms } from '.'
 import { useKeyboard } from '../../../../hooks'
@@ -23,7 +23,7 @@ export type PaymentMethodFormProps = ComponentProps & {
   onSubmit: (data: PaymentData) => void
   onDelete?: () => void
 }
-export type FormProps = PaymentMethodFormProps & { setStepValid: React.Dispatch<React.SetStateAction<boolean>> }
+export type FormProps = PaymentMethodFormProps & { setStepValid: Dispatch<SetStateAction<boolean>> }
 
 export const PaymentMethodForm = ({
   paymentMethod,

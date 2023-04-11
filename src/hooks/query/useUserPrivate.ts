@@ -9,7 +9,7 @@ const getUserQuery = async ({ queryKey }: { queryKey: [string, string] }) => {
 }
 
 export const useUserPrivate = (id: string) => {
-  const { data, isLoading, error } = useQuery(['user', id], getUserQuery)
+  const { data, isLoading, error } = useQuery({ queryKey: ['user', id], queryFn: getUserQuery })
 
   return { user: data, isLoading, error }
 }

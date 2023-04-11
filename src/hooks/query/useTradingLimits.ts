@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { useMarketPrices } from '..'
-import { account } from '../../utils/account'
+import { useSettingsStore } from '../../store/settingsStore'
 import { defaultLimits } from '../../utils/account/account'
 import { getTradingLimit } from '../../utils/peachAPI'
 
@@ -12,10 +12,10 @@ const tradingLimitQuery = async () => {
   return result
 }
 export const useTradingLimits = () => {
-  const { data: limits } = useQuery(['tradingLimits'], tradingLimitQuery)
+  const { data: limits } = useQuery({ queryKey: ['tradingLimits'], queryFn: tradingLimitQuery })
   const { data: marketPrices } = useMarketPrices()
+  const displayCurrency = useSettingsStore((state) => state.displayCurrency)
 
-  const { displayCurrency } = account.settings
   const displayPrice = marketPrices && marketPrices[displayCurrency]
   const exchangeRate = displayPrice && marketPrices.CHF ? displayPrice / marketPrices.CHF : 1
 

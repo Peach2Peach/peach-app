@@ -1,7 +1,7 @@
-import React, { ReactElement } from 'react'
+import { ReactElement } from 'react'
 import { Modal, TouchableOpacity, View, SafeAreaView } from 'react-native'
 import { BarCodeReadEvent } from 'react-native-camera'
-import QRCodeScanner from 'react-native-qrcode-scanner'
+import QRCodeScanner from './CustomQRCodeScanner'
 import Svg, { Defs, Mask, Rect } from 'react-native-svg'
 import { Icon, Text } from '..'
 import tw from '../../styles/tailwind'
@@ -30,8 +30,6 @@ export const ScanQR = ({ onSuccess, onCancel }: ScanQRProps): ReactElement => {
         <QRCodeScanner
           cameraStyle={tw`w-full h-full`}
           onRead={onSuccess}
-          vibrate
-          showMarker
           customMarker={
             <View style={tw`flex flex-col w-full h-full`}>
               <View style={tw`absolute top-0 left-0 w-full h-full`}>

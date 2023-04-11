@@ -1,13 +1,4 @@
 declare type ContractAction = 'none' | 'sendPayment' | 'confirmPayment'
-
-declare type DisputeReason =
-  | 'noPayment.buyer'
-  | 'noPayment.seller'
-  | 'unresponsive.buyer'
-  | 'unresponsive.seller'
-  | 'abusive'
-  | 'other'
-
 declare type PaymentReminder = 'fourHours' | 'oneHour' | 'final'
 
 declare type Contract = {
@@ -52,7 +43,8 @@ declare type Contract = {
   disputeClaim?: string
   disputeReason?: DisputeReason
   disputeAcknowledgedByCounterParty?: boolean
-  disputeWinner?: 'seller' | 'buyer'
+  disputeWinner?: DisputeWinner
+  disputeOutcome?: DisputeOutcome
   disputeResolvedDate?: Date | null
 
   cancelationRequested: boolean

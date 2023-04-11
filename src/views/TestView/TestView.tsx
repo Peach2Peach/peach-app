@@ -1,4 +1,3 @@
-import React from 'react'
 import { OptionButton, PeachScrollView } from '../../components'
 import { useHeaderSetup, useNavigation } from '../../hooks'
 import tw from '../../styles/tailwind'

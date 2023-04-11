@@ -1,5 +1,5 @@
-import { info, error } from './log'
-import { parseError } from './system'
+import { error, info } from './log'
+import { parseError } from './result'
 
 export const getAbortWithTimeout = (timeout?: number) => {
   const controller = new AbortController()

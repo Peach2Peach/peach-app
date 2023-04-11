@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useEffect, useMemo } from 'react'
+import { ReactElement, useContext, useEffect, useMemo } from 'react'
 import { BackHandler, Modal, Pressable, View, ViewStyle } from 'react-native'
 import { Text } from '.'
 import { OverlayContext } from '../contexts/overlay'

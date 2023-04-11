@@ -1,18 +1,19 @@
 import messaging, { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
 import { NavigationContainerRefWithCurrent } from '@react-navigation/native'
+import { Dispatch } from 'react'
 import SplashScreen from 'react-native-splash-screen'
 import { account } from '../utils/account'
 import { error, info } from '../utils/log'
 import { handlePushNotification } from '../utils/navigation'
 import { sleep } from '../utils/performance'
-import { parseError } from '../utils/system'
+import { parseError } from '../utils/result'
 
 /**
  * @description Method to wait up to 10 seconds for navigation to initialise.
  */
 const waitForNavigation = async (
   navigationRef: NavigationContainerRefWithCurrent<RootStackParamList>,
-  updateMessage: React.Dispatch<MessageState>,
+  updateMessage: Dispatch<MessageState>,
 ) => {
   let waitForNavCounter = 100
   while (!navigationRef.isReady()) {
@@ -39,7 +40,7 @@ const dataIsDefined = (
  */
 export const initialNavigation = async (
   navigationRef: NavigationContainerRefWithCurrent<RootStackParamList>,
-  updateMessage: React.Dispatch<MessageState>,
+  updateMessage: Dispatch<MessageState>,
 ) => {
   await waitForNavigation(navigationRef, updateMessage)
 

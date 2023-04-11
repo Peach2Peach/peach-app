@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { act, renderHook } from '@testing-library/react-hooks'
+import { act, renderHook } from '@testing-library/react-native'
 import { useStateUpdateEvents } from './useStateUpdateEvents'
 import { useTradeSummaryStore } from '../../../store/tradeSummaryStore'
 

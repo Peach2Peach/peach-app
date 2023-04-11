@@ -1,5 +1,3 @@
-import React from 'react'
-
 import { HelpIcon } from '../../../components/icons'
 import { useHeaderSetup } from '../../../hooks'
 import { useShowHelp } from '../../../hooks/useShowHelp'
@@ -7,7 +5,7 @@ import { useSettingsStore } from '../../../store/settingsStore'
 import i18n from '../../../utils/i18n'
 
 export const useFileBackupOverviewSetup = () => {
-  const lastBackupDate = useSettingsStore((state) => state.lastBackupDate)
+  const lastFileBackupDate = useSettingsStore((state) => state.lastFileBackupDate)
 
   const showPopup = useShowHelp('fileBackup')
   useHeaderSetup({
@@ -16,6 +14,6 @@ export const useFileBackupOverviewSetup = () => {
   })
 
   return {
-    lastBackupDate,
+    lastFileBackupDate,
   }
 }

@@ -1,6 +1,4 @@
-import { act, renderHook } from '@testing-library/react-hooks'
-import React from 'react'
-import { useConfigStore } from '../store/configStore'
+import { act, renderHook } from '@testing-library/react-native'
 import { useWronglyFundedOverlay } from './useWronglyFundedOverlay'
 import { WrongFundingAmount } from './warning/WrongFundingAmount'
 

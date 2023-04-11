@@ -1,6 +1,5 @@
-import React from 'react'
 import { View } from 'react-native'
-import shallow from 'zustand/shallow'
+import { shallow } from 'zustand/shallow'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { Text } from '../text'
@@ -13,7 +12,7 @@ export const MatchPaymentDetails = ({ match, style }: ComponentProps & { match: 
       state.matchSelectors[match.offerId]?.selectedCurrency,
       state.matchSelectors[match.offerId]?.selectedPaymentMethod,
     ],
-    shallow,
+    shallow
   )
   return (
     <View style={style}>

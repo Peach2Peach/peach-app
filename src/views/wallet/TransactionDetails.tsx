@@ -1,4 +1,3 @@
-import React from 'react'
 import { RefreshControl, View } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { Card, HorizontalLine, Icon, Loading, PeachScrollView, Text } from '../../components'
@@ -12,13 +11,13 @@ import { getTxDetailsTitle } from './helpers/getTxDetailsTitle'
 import { useTransactionDetailsSetup } from './hooks/useTransactionDetailsSetup'
 
 export default () => {
-  const { transaction, receivingAddress, openInExplorer, refresh, loading } = useTransactionDetailsSetup()
+  const { transaction, receivingAddress, openInExplorer, refresh, isRefreshing } = useTransactionDetailsSetup()
 
   return (
     <PeachScrollView
       style={tw`h-full`}
       contentContainerStyle={tw`justify-center flex-grow px-8`}
-      refreshControl={<RefreshControl refreshing={loading} onRefresh={refresh} />}
+      refreshControl={<RefreshControl refreshing={isRefreshing} onRefresh={refresh} />}
     >
       {!transaction ? (
         <Loading style={tw`self-center`} />

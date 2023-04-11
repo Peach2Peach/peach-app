@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import { ReactElement } from 'react'
 import { ColorValue, TouchableOpacity, View, ViewStyle } from 'react-native'
 import { Icon, Text } from '../../../components'
 import { IconType } from '../../../assets/icons'
@@ -91,12 +91,11 @@ type ChatMessageProps = {
 export const ChatMessage = ({
   chatMessages,
   tradingPartner,
-  item,
+  item: message,
   index,
   online,
   resendMessage,
 }: ChatMessageProps): ReactElement => {
-  const message = item
   const meta = getMessageMeta({
     message,
     previous: chatMessages[index - 1],
@@ -110,17 +109,16 @@ export const ChatMessage = ({
   return (
     <>
       {isChangeDate && (
-        <LinedText style={tw`px-6 pt-7 mb-5`}>
+        <LinedText style={tw`px-6 mb-5 pt-7`}>
           <Text style={tw`body-m text-black-2`}>{toDateFormat(message.date)}</Text>
         </LinedText>
       )}
-      <View
-        onStartShouldSetResponder={() => true}
-        style={[tw`w-10/12 px-4 bg-transparent`, meta.isYou ? tw`self-end` : {}]}
-      >
-        {meta.showName && !meta.isYou ? <Text style={[tw`px-1 mt-4 -mb-2 subtitle-2`, text]}>{meta.name}</Text> : null}
+      <View onStartShouldSetResponder={() => true} style={[tw`w-10/12 px-4 bg-transparent`, meta.isYou && tw`self-end`]}>
+        {meta.showName && !meta.isYou && <Text style={[tw`px-1 mt-4 -mb-2 subtitle-2`, text]}>{meta.name}</Text>}
         <View style={[tw`px-3 py-2 mt-2 rounded-2xl`, bgColor]}>
-          <Text style={tw`flex-shrink-0`}>{message.message || i18n('chat.decyptionFailed')}</Text>
+          <Text style={tw`flex-shrink-0`} selectable>
+            {message.message || i18n('chat.decyptionFailed')}
+          </Text>
           <Text style={tw`pt-1 ml-auto leading-5 text-right`}>
             <Text style={tw`subtitle-2 leading-xs text-black-3`}>{toTimeFormat(message.date)}</Text>
             {meta.isYou && (

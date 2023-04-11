@@ -1,11 +1,10 @@
-import React from 'react'
 import { View } from 'react-native'
 
 import tw from '../../../styles/tailwind'
-import { account } from '../../../utils/account'
 import { useTradingLimits } from '../../../hooks'
 import { Progress } from '../../../components'
 import { TradingLimitAmount } from './TradingLimitAmount'
+import { useSettingsStore } from '../../../store/settingsStore'
 
 export const TradingLimits = (props: ComponentProps) => {
   const {
@@ -16,7 +15,7 @@ export const TradingLimits = (props: ComponentProps) => {
     [monthlyAnonymousAmount, monthlyAnonymous],
     [yearlyAmount, yearly],
   ]
-  const { displayCurrency } = account.settings
+  const displayCurrency = useSettingsStore((state) => state.displayCurrency)
 
   return (
     <View {...props}>

@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import { ReactElement } from 'react'
 import { View } from 'react-native'
 import { Icon, Text, Timer } from '../../../components'
 import tw from '../../../styles/tailwind'

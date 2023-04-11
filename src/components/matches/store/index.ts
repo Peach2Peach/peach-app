@@ -1,4 +1,4 @@
-import create from 'zustand'
+import { create } from 'zustand'
 import { immer } from 'zustand/middleware/immer'
 import { getAvailableMethods } from '../../../utils/match'
 import { createMatchSelectors, MatchSelectors } from './createMatchSelectors'
@@ -68,5 +68,5 @@ export const useMatchStore = create<MatchStore>()(
       set((state) => {
         state.matchSelectors[matchId].showPaymentMethodPulse = show
       }),
-  })),
+  }))
 )

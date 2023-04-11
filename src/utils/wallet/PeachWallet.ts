@@ -1,7 +1,7 @@
 import { NETWORK } from '@env'
 import NetInfo from '@react-native-community/netinfo'
 import BdkRn from 'bdk-rn'
-import { TransactionsResponse } from 'bdk-rn/lib/lib/interfaces'
+import { ConfirmedTransaction, PendingTransaction, TransactionsResponse } from 'bdk-rn/lib/lib/interfaces'
 import { BIP32Interface } from 'bip32'
 import { payments } from 'bitcoinjs-lib'
 import { sign } from 'bitcoinjs-message'
@@ -128,7 +128,7 @@ export class PeachWallet extends PeachWalletErrorHandlers {
     })
   }
 
-  async syncWallet () {
+  async syncWallet (callback?: (result: Awaited<ReturnType<typeof BdkRn.syncWallet>>) => void) {
     PeachWallet.checkConnection(async () => {
       info('PeachWallet - syncWallet - start')
       this.synced = false
@@ -140,6 +140,7 @@ export class PeachWallet extends PeachWalletErrorHandlers {
         this.synced = true
         info('PeachWallet - syncWallet - synced')
       }
+      if (callback) callback(result)
     })
   }
 
@@ -266,5 +267,9 @@ export class PeachWallet extends PeachWalletErrorHandlers {
     info('PeachWallet - signMessage - end')
 
     return signature.toString('base64')
+  }
+
+  public get allTransactions (): (ConfirmedTransaction | PendingTransaction)[] {
+    return [...this.transactions.confirmed, ...this.transactions.pending]
   }
 }

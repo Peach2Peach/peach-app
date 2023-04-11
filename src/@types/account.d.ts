@@ -18,13 +18,14 @@ declare type Settings = {
   premium: number
   pgpPublished?: boolean
   fcmToken?: string
-  lastBackupDate?: number
+  lastFileBackupDate?: number
   lastSeedBackupDate?: number
   showBackupReminder: boolean
   peachWalletActive: boolean
   nodeURL: string
   feeRate: number | 'fastestFee' | 'halfHourFee' | 'hourFee' | 'economyFee'
   usedReferralCode?: boolean
+  lastBackupDate?: number
 }
 
 declare type PGPKeychain = {
@@ -40,7 +41,6 @@ declare type Identity = {
 }
 
 declare type Account = Identity & {
-  settings: Settings
   paymentData: PaymentData[]
   legacyPaymentData: PaymentData[]
   tradingLimit: TradingLimit
@@ -49,4 +49,8 @@ declare type Account = Identity & {
   chats: {
     [key: string]: Chat
   }
+}
+
+declare type AccountBackup = Account & {
+  settings: Settings
 }

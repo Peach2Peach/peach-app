@@ -1,4 +1,4 @@
-import React, { ReactElement, useMemo } from 'react'
+import { ReactElement, useMemo } from 'react'
 import { Linking, View } from 'react-native'
 
 import tw from '../../../styles/tailwind'
@@ -6,14 +6,16 @@ import tw from '../../../styles/tailwind'
 import { OptionButton } from '../../../components'
 import { useHeaderSetup } from '../../../hooks'
 import i18n from '../../../utils/i18n'
+import { DISCORD, INSTAGRAM, TELEGRAM, TWITCH, TWITTER } from '../../../constants'
 
 const socials = [
-  { name: 'twitter', url: 'https://twitter.com/peachbitcoin' },
-  { name: 'instagram', url: 'https://www.instagram.com/peachbitcoin' },
-  { name: 'telegram', url: 'https://t.me/+3KpdrMw25xBhNGJk' },
-  { name: 'discord', url: 'https://discord.gg/skP9zqTB' },
-  { name: 'twitch', url: 'https://www.twitch.tv/peachbitcoin' },
+  { name: 'twitter', url: TWITTER },
+  { name: 'instagram', url: INSTAGRAM },
+  { name: 'telegram', url: TELEGRAM },
+  { name: 'discord', url: DISCORD },
+  { name: 'twitch', url: TWITCH },
 ]
+
 export default (): ReactElement => {
   useHeaderSetup(useMemo(() => ({ title: i18n('settings.socials.subtitle') }), []))
 

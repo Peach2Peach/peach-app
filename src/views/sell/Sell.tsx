@@ -1,10 +1,10 @@
-import React, { ReactElement, useCallback, useMemo } from 'react'
+import { ReactElement, useCallback, useMemo } from 'react'
 import { TouchableOpacity, View } from 'react-native'
 
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 
-import shallow from 'zustand/shallow'
+import { shallow } from 'zustand/shallow'
 import { BitcoinPriceStats, HorizontalLine, Icon, PrimaryButton, Text } from '../../components'
 import { SelectAmount } from '../../components/inputs/verticalAmountSelector/SelectAmount'
 import { useNavigation, useValidatedState } from '../../hooks'
@@ -12,9 +12,9 @@ import { useConfigStore } from '../../store/configStore'
 import { useSettingsStore } from '../../store/settingsStore'
 import { DailyTradingLimit } from '../settings/profile/DailyTradingLimit'
 import { useSellSetup } from './hooks/useSellSetup'
-import { debounce } from '../../utils/performance'
 import LoadingScreen from '../loading/LoadingScreen'
 import { useShowBackupReminder } from '../../hooks/useShowBackupReminder'
+import { useDebounce } from '../../hooks/useDebounce'
 
 export default (): ReactElement => {
   const navigation = useNavigation()
@@ -37,19 +37,13 @@ export default (): ReactElement => {
   )
   const [amount, setAmount, amountValid] = useValidatedState(sellAmount, rangeRules)
 
-  const updateStore = useCallback(
-    debounce((value: number) => {
-      setAmount(value)
-    }, 400),
-    [setAmount],
-  )
+  useDebounce(amount, setSellAmount, 400)
 
   const setSelectedAmount = useCallback(
     (value: number) => {
-      setSellAmount(value)
-      updateStore(value)
+      setAmount(value)
     },
-    [setSellAmount, updateStore],
+    [setAmount],
   )
   const next = () => navigation.navigate('sellPreferences')
 

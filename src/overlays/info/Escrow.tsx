@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import { ReactElement } from 'react'
 import { Linking } from 'react-native'
 
 import { Text } from '../../components'

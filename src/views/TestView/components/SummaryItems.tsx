@@ -1,4 +1,3 @@
-import React from 'react'
 import { Alert, View } from 'react-native'
 import { Icon, Text } from '../../../components'
 import { SummaryItem } from '../../../components/lists/SummaryItem'

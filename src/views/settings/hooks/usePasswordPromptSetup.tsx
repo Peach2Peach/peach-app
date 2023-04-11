@@ -1,6 +1,6 @@
-import React, { useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { Keyboard } from 'react-native'
-import shallow from 'zustand/shallow'
+import { shallow } from 'zustand/shallow'
 
 import { HelpIcon } from '../../../components/icons'
 import { useHeaderSetup, useNavigation, useValidatedState } from '../../../hooks'
@@ -14,9 +14,9 @@ const passwordRules = { required: true, password: true }
 export const usePasswordPromptSetup = (onSuccess: () => void) => {
   const navigation = useNavigation()
 
-  const [setShowBackupReminder, setLastBackupDate] = useSettingsStore(
-    (state) => [state.setShowBackupReminder, state.setLastBackupDate],
-    shallow,
+  const [setShowBackupReminder, setLastFileBackupDate] = useSettingsStore(
+    (state) => [state.setShowBackupReminder, state.setLastFileBackupDate],
+    shallow
   )
   const showPopup = useShowHelp('yourPassword')
   useHeaderSetup({
@@ -27,7 +27,7 @@ export const usePasswordPromptSetup = (onSuccess: () => void) => {
   const [password, setPassword, passwordIsValid, passwordError] = useValidatedState<string>('', passwordRules)
   const [passwordRepeat, setPasswordRepeat, passwordRepeatIsValid, passwordRepeatError] = useValidatedState<string>(
     '',
-    passwordRules,
+    passwordRules
   )
 
   const [isBackingUp, setIsBackingUp] = useState(false)
@@ -41,7 +41,7 @@ export const usePasswordPromptSetup = (onSuccess: () => void) => {
     Keyboard.dismiss()
 
     setIsBackingUp(true)
-    setLastBackupDate(Date.now())
+    setLastFileBackupDate(Date.now())
     setShowBackupReminder(false)
     backupAccount({
       password,

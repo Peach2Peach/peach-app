@@ -1,5 +1,5 @@
 /* eslint-disable max-lines-per-function */
-import { act, renderHook } from '@testing-library/react-hooks'
+import { act, renderHook } from '@testing-library/react-native'
 import { defaultPrivateUser } from '../../../../tests/unit/data/userData'
 import { useUserPrivate } from '../../../hooks/query/useUserPrivate'
 import { useSetCustomReferralCodeOverlay } from '../../../overlays/referral/useSetCustomReferralCodeOverlay'

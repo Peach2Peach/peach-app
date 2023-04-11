@@ -1,4 +1,3 @@
-import React from 'react'
 import { StyleProp, ViewStyle } from 'react-native'
 import Svg, { Defs, NumberProp, RadialGradient as SVGRadialGradient, Rect, Stop } from 'react-native-svg'
 

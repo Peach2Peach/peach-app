@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import { ReactElement } from 'react'
 import { View } from 'react-native'
 import { PaymentTemplateProps, possiblePaymentFields } from '..'
 import { Text } from '../..'
@@ -68,6 +68,7 @@ export const GeneralPaymentData = ({
             <InfoBlock
               value={paymentData[field]}
               copyable={copyable}
+              key={field + i}
               name={!paymentData.beneficiary && i === 0 ? 'contract.payment.to' : names[field]}
               onInfoPress={onInfoPress}
             />

@@ -1,10 +1,10 @@
-import React from 'react'
+import { ReactNode } from 'react'
 import { ImageStyle, StyleProp, TextStyle, View, ViewStyle } from 'react-native'
 import tw from '../styles/tailwind'
 import { ColorItem, RadialGradient } from './RadialGradient'
 
 type Props = {
-  children: React.ReactNode
+  children: ReactNode
   gradientBorderWidths: [number, number, number, number]
   defaultBorderWidths: [number, number, number, number]
   gradient: ColorItem[]

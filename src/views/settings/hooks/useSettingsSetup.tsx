@@ -1,8 +1,8 @@
-import React, { useCallback, useContext, useMemo, useState } from 'react'
+import { useCallback, useContext, useMemo, useState } from 'react'
 import { AppState } from 'react-native'
 
 import { useFocusEffect } from '@react-navigation/native'
-import shallow from 'zustand/shallow'
+import { shallow } from 'zustand/shallow'
 import { OverlayContext } from '../../../contexts/overlay'
 import { useHeaderSetup, useNavigation } from '../../../hooks'
 import { useSettingsStore } from '../../../store/settingsStore'

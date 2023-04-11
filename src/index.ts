@@ -1,13 +1,14 @@
 import NotificationBadge from '@msml/react-native-notification-badge'
 import messaging from '@react-native-firebase/messaging'
 import { AppRegistry, LogBox } from 'react-native'
-import shallow from 'zustand/shallow'
+import { shallow } from 'zustand/shallow'
 import App from './App'
 import { name as appName } from './app.json'
 import { useNotificationStore } from './components/footer/notificationsStore'
 import { error, info } from './utils/log'
 import { updateUser } from './utils/peachAPI'
-import { isIOS, isProduction, parseError } from './utils/system'
+import { parseError } from './utils/result'
+import { isIOS, isProduction } from './utils/system'
 
 // TODO check if these messages have a fix
 LogBox.ignoreLogs([

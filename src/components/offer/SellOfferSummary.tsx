@@ -1,7 +1,7 @@
 import { NETWORK } from '@env'
-import React, { ReactElement, useEffect, useState } from 'react'
+import { ReactElement, useEffect, useState } from 'react'
 import { TouchableOpacity, View } from 'react-native'
-import shallow from 'zustand/shallow'
+import { shallow } from 'zustand/shallow'
 import { useSettingsStore } from '../../store/settingsStore'
 import tw from '../../styles/tailwind'
 import { showAddress } from '../../utils/bitcoin'
@@ -27,7 +27,7 @@ export const SellOfferSummary = ({ offer, style }: SellOfferSummaryProps): React
   const [selectedCurrency, setSelectedCurrency] = useState(currencies[0])
   const [payoutAddress, payoutAddressLabel] = useSettingsStore(
     (state) => [state.payoutAddress, state.payoutAddressLabel],
-    shallow,
+    shallow
   )
   const [walletLabel, setWalletLabel] = useState(i18n('loading'))
 
@@ -38,7 +38,7 @@ export const SellOfferSummary = ({ offer, style }: SellOfferSummaryProps): React
         address: offer.returnAddress,
         customPayoutAddress: payoutAddress,
         customPayoutAddressLabel: payoutAddressLabel,
-      }) || i18n('offer.summary.customPayoutAddress'),
+      }) || i18n('offer.summary.customPayoutAddress')
     )
   }, [offer.returnAddress, offer.walletLabel, payoutAddress, payoutAddressLabel])
 
