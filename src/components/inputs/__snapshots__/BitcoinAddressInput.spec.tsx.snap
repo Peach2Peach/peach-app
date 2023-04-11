@@ -229,44 +229,11 @@ exports[`BitcoinAddressInput renders correctly 1`] = `
 `;
 
 exports[`BitcoinAddressInput shows QR scanner when camera icon is pressed 1`] = `
-[
-  <Text
-    allowFontScaling={false}
-    onPress={[Function]}
-    style={
-      [
-        {
-          "color": "#2B1911",
-          "fontFamily": "Baloo2-Regular",
-          "fontSize": 16,
-          "letterSpacing": 0.16,
-          "lineHeight": 24,
-        },
-        undefined,
-      ]
-    }
-  >
-    onSuccessQRScanner
-  </Text>,
-  <Text
-    allowFontScaling={false}
-    onPress={[Function]}
-    style={
-      [
-        {
-          "color": "#2B1911",
-          "fontFamily": "Baloo2-Regular",
-          "fontSize": 16,
-          "letterSpacing": 0.16,
-          "lineHeight": 24,
-        },
-        undefined,
-      ]
-    }
-  >
-    onCancelQRScanner
-  </Text>,
-]
+<ScanQR
+  onCancel={[Function]}
+  onSuccess={[Function]}
+  testID="qr-code-scanner"
+/>
 `;
 
 exports[`BitcoinAddressInput shows full address when focused 1`] = `

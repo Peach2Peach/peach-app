@@ -4,15 +4,7 @@ import i18n from '../../utils/i18n'
 import Clipboard from '@react-native-clipboard/clipboard'
 import { Text } from '../text'
 
-jest.mock('../camera/ScanQR', () => {
-  const ScanQR = ({ onSuccess, onCancel }: { onSuccess: () => void; onCancel: () => void }) => (
-    <>
-      <Text onPress={onSuccess}>onSuccessQRScanner</Text>
-      <Text onPress={onCancel}>onCancelQRScanner</Text>
-    </>
-  )
-  return ScanQR
-})
+jest.mock('../camera/ScanQR', () => 'ScanQR')
 jest.mock('../Icon', () => {
   const Icon = ({ id, ...rest }: { id: string }) => <Text {...rest}>{id}</Text>
 
@@ -71,30 +63,30 @@ describe('BitcoinAddressInput', () => {
     expect(toJSON()).toMatchSnapshot()
   })
   it('closes QR scanner when onCancel event is triggered', () => {
-    const { getByText, toJSON } = render(<BitcoinAddressInput value={fullAddress} />)
+    const { getByText, toJSON, getByTestId } = render(<BitcoinAddressInput value={fullAddress} />)
     const cameraIcon = getByText('camera')
     const { toJSON: toJSON2 } = render(<BitcoinAddressInput value={fullAddress} />)
 
     fireEvent.press(cameraIcon)
-    fireEvent.press(getByText('onCancelQRScanner'))
+    fireEvent(getByTestId('qr-code-scanner'), 'onCancel')
     expect(JSON.stringify(toJSON())).toBe(JSON.stringify(toJSON2()))
   })
   it('sets address when QR scanner is successful', () => {
     const onChangeMock = jest.fn()
-    const { getByText } = render(<BitcoinAddressInput value={fullAddress} onChange={onChangeMock} />)
+    const { getByText, getByTestId } = render(<BitcoinAddressInput value={fullAddress} onChange={onChangeMock} />)
     const cameraIcon = getByText('camera')
 
     fireEvent.press(cameraIcon)
-    fireEvent.press(getByText('onSuccessQRScanner'), { data: fullAddress })
+    fireEvent(getByTestId('qr-code-scanner'), 'onSuccess', { data: fullAddress })
     expect(onChangeMock).toHaveBeenCalledWith(fullAddress)
   })
   it('sets address when QR scanner is successful and it is not a valid bitcoin address', () => {
     const onChangeMock = jest.fn()
-    const { getByText } = render(<BitcoinAddressInput value={fullAddress} onChange={onChangeMock} />)
+    const { getByText, getByTestId } = render(<BitcoinAddressInput value={fullAddress} onChange={onChangeMock} />)
     const cameraIcon = getByText('camera')
 
     fireEvent.press(cameraIcon)
-    fireEvent.press(getByText('onSuccessQRScanner'), { data: 'https://peachbitcoin.com' })
+    fireEvent(getByTestId('qr-code-scanner'), 'onSuccess', { data: 'https://peachbitcoin.com' })
     expect(onChangeMock).toHaveBeenCalledWith('https://peachbitcoin.com')
   })
 })

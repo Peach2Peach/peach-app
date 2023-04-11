@@ -41,6 +41,6 @@ export const BitcoinAddressInput = ({ value, onChange, ...props }: InputProps & 
       }}
     />
   ) : (
-    <ScanQR onSuccess={onQRScanSuccess} onCancel={closeQR} />
+    <ScanQR onSuccess={onQRScanSuccess} onCancel={closeQR} testID={'qr-code-scanner'} />
   )
 }
