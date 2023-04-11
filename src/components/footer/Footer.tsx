@@ -22,7 +22,7 @@ const isSell = /sell|sellPreferences/u
 export const Footer = ({ active, style, setCurrentPage, theme = 'default' }: Props) => {
   const { navigate, notifications } = useFooterSetup({ setCurrentPage })
   const keyboardOpen = useKeyboard()
-  const colors = footerThemes[theme || 'default']
+  const colors = footerThemes[theme]
 
   if (keyboardOpen) return <View />
 
