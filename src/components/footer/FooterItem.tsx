@@ -18,7 +18,7 @@ type Props = {
 }
 
 export const FooterItem = ({ id, active, onPress, notifications = 0, theme = 'default' }: Props): ReactElement => {
-  const colors = footerThemes[theme || 'default']
+  const colors = footerThemes[theme]
   const color = active ? (id === 'settings' ? colors.textSelectedSettings : colors.textSelected) : colors.text
   return (
     <Pressable testID={`footer-${id}`} onPress={onPress} style={tw`flex-row justify-center`}>
