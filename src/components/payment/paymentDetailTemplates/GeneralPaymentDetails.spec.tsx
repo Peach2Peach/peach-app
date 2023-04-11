@@ -1,7 +1,12 @@
 import { createRenderer } from 'react-test-renderer/shallow'
 import { GeneralPaymentDetails } from './GeneralPaymentDetails'
+import { act, fireEvent, render } from '@testing-library/react-native'
+import { Linking } from 'react-native'
 
 describe('GeneralPaymentDetails', () => {
+  beforeEach(() => {
+    jest.clearAllMocks()
+  })
   it('should render sepa data', () => {
     const paymentData: SEPAData & Partial<PaymentData> = {
       beneficiary: 'Hal Finney',
@@ -98,5 +103,90 @@ describe('GeneralPaymentDetails', () => {
 
     const result = renderer.getRenderOutput()
     expect(result).toMatchSnapshot()
+  })
+
+  it('should open app link when there is a fallback url and an app link', async () => {
+    const paymentData: FasterPaymentsData & Partial<PaymentData> = {
+      beneficiary: 'Satoshi',
+      ukBankAccount: 'ukBankAccount',
+      ukSortCode: 'ukSortCode',
+    }
+    const { getByText } = render(
+      <GeneralPaymentDetails
+        paymentMethod="fasterPayments"
+        paymentData={paymentData as PaymentData}
+        fallbackUrl={'https://www.google.com'}
+        appLink={'https://www.peachbitcoin.com'}
+      />,
+    )
+
+    const link = getByText('Satoshi')
+    await act(async () => {
+      fireEvent.press(link)
+    })
+
+    expect(Linking.openURL).toHaveBeenCalledWith('https://www.peachbitcoin.com')
+  })
+
+  it('should not open app link when there is no fallback url and no app link', async () => {
+    const paymentData: FasterPaymentsData & Partial<PaymentData> = {
+      beneficiary: 'Satoshi',
+      ukBankAccount: 'ukBankAccount',
+      ukSortCode: 'ukSortCode',
+    }
+    const { getByText } = render(
+      <GeneralPaymentDetails paymentMethod="fasterPayments" paymentData={paymentData as PaymentData} />,
+    )
+
+    const link = getByText('Satoshi')
+    await act(async () => {
+      fireEvent.press(link)
+    })
+
+    expect(Linking.openURL).not.toHaveBeenCalled()
+  })
+
+  it('should open fallback url when there is no app link', async () => {
+    const paymentData: FasterPaymentsData & Partial<PaymentData> = {
+      beneficiary: 'Satoshi',
+      ukBankAccount: 'ukBankAccount',
+      ukSortCode: 'ukSortCode',
+    }
+    const { getByText } = render(
+      <GeneralPaymentDetails
+        paymentMethod="fasterPayments"
+        paymentData={paymentData as PaymentData}
+        fallbackUrl={'https://www.google.com'}
+      />,
+    )
+
+    const link = getByText('Satoshi')
+    await act(async () => {
+      fireEvent.press(link)
+    })
+
+    expect(Linking.openURL).toHaveBeenCalledWith('https://www.google.com')
+  })
+
+  it('should not open app link when there is no fallback url', async () => {
+    const paymentData: FasterPaymentsData & Partial<PaymentData> = {
+      beneficiary: 'Satoshi',
+      ukBankAccount: 'ukBankAccount',
+      ukSortCode: 'ukSortCode',
+    }
+    const { getByText } = render(
+      <GeneralPaymentDetails
+        paymentMethod="fasterPayments"
+        paymentData={paymentData as PaymentData}
+        appLink={'https://www.peachbitcoin.com'}
+      />,
+    )
+
+    const link = getByText('Satoshi')
+    await act(async () => {
+      fireEvent.press(link)
+    })
+
+    expect(Linking.openURL).not.toHaveBeenCalled()
   })
 })
