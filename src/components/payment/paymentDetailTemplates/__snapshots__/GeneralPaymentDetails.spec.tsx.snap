@@ -1,0 +1,263 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GeneralPaymentDetails should render Amazon Gift Card data 1`] = `
+<View>
+  <InfoBlock
+    name="contract.payment.to"
+    onInfoPress={[Function]}
+    style={
+      {
+        "marginTop": 2,
+      }
+    }
+    value="jeffb@amazon.com"
+  />
+  <PaymentReference
+    style={
+      {
+        "marginTop": 2,
+      }
+    }
+  />
+</View>
+`;
+
+exports[`GeneralPaymentDetails should render Faster Payments data 1`] = `
+<View>
+  <InfoBlock
+    name="contract.payment.to"
+    onInfoPress={[Function]}
+    style={
+      {
+        "marginTop": 2,
+      }
+    }
+    value="Lao-tzu"
+  />
+  <InfoBlock
+    onInfoPress={[Function]}
+    style={
+      {
+        "marginTop": 2,
+      }
+    }
+    value="ukBankAccount"
+  />
+  <InfoBlock
+    onInfoPress={[Function]}
+    style={
+      {
+        "marginTop": 2,
+      }
+    }
+    value="ukSortCode"
+  />
+  <PaymentReference
+    style={
+      {
+        "marginTop": 2,
+      }
+    }
+  />
+</View>
+`;
+
+exports[`GeneralPaymentDetails should render National Transfer data 1`] = `
+<View>
+  <InfoBlock
+    name="contract.payment.to"
+    onInfoPress={[Function]}
+    style={
+      {
+        "marginTop": 2,
+      }
+    }
+    value="Lao-tzu"
+  />
+  <InfoBlock
+    name="form.account"
+    onInfoPress={[Function]}
+    style={
+      {
+        "marginTop": 2,
+      }
+    }
+    value="AIBK 9311 5212 3456 78"
+  />
+  <InfoBlock
+    name="form.bic"
+    onInfoPress={[Function]}
+    style={
+      {
+        "marginTop": 2,
+      }
+    }
+    value="AAAABBCC"
+  />
+  <PaymentReference
+    style={
+      {
+        "marginTop": 2,
+      }
+    }
+  />
+</View>
+`;
+
+exports[`GeneralPaymentDetails should render payment data with reference 1`] = `
+<View>
+  <InfoBlock
+    name="contract.payment.to"
+    onInfoPress={[Function]}
+    style={
+      {
+        "marginTop": 2,
+      }
+    }
+    value="Hal Finney"
+  />
+  <InfoBlock
+    name="form.iban"
+    onInfoPress={[Function]}
+    style={
+      {
+        "marginTop": 2,
+      }
+    }
+    value="IE29 AIBK 9311 5212 3456 78"
+  />
+  <InfoBlock
+    name="form.bic"
+    onInfoPress={[Function]}
+    style={
+      {
+        "marginTop": 2,
+      }
+    }
+    value="AAAABBCC"
+  />
+  <PaymentReference
+    reference="Do not mention peach or bitcoin"
+    style={
+      {
+        "marginTop": 2,
+      }
+    }
+  />
+</View>
+`;
+
+exports[`GeneralPaymentDetails should render paypal data 1`] = `
+<View>
+  <InfoBlock
+    onInfoPress={[Function]}
+    style={
+      {
+        "marginTop": 2,
+      }
+    }
+    value="laotzu@tao.com"
+  />
+  <PaymentReference
+    style={
+      {
+        "marginTop": 2,
+      }
+    }
+  />
+</View>
+`;
+
+exports[`GeneralPaymentDetails should render revolut data 1`] = `
+<View>
+  <InfoBlock
+    onInfoPress={[Function]}
+    style={
+      {
+        "marginTop": 2,
+      }
+    }
+    value="@laotzu"
+  />
+  <PaymentReference
+    style={
+      {
+        "marginTop": 2,
+      }
+    }
+  />
+</View>
+`;
+
+exports[`GeneralPaymentDetails should render sepa data 1`] = `
+<View>
+  <InfoBlock
+    name="contract.payment.to"
+    onInfoPress={[Function]}
+    style={
+      {
+        "marginTop": 2,
+      }
+    }
+    value="Hal Finney"
+  />
+  <InfoBlock
+    name="form.iban"
+    onInfoPress={[Function]}
+    style={
+      {
+        "marginTop": 2,
+      }
+    }
+    value="IE29 AIBK 9311 5212 3456 78"
+  />
+  <InfoBlock
+    name="form.bic"
+    onInfoPress={[Function]}
+    style={
+      {
+        "marginTop": 2,
+      }
+    }
+    value="AAAABBCC"
+  />
+  <PaymentReference
+    style={
+      {
+        "marginTop": 2,
+      }
+    }
+  />
+</View>
+`;
+
+exports[`GeneralPaymentDetails should render template 3 data 1`] = `
+<View>
+  <InfoBlock
+    name="contract.payment.to"
+    onInfoPress={[Function]}
+    style={
+      {
+        "marginTop": 2,
+      }
+    }
+    value="Lao-tzu"
+  />
+  <InfoBlock
+    onInfoPress={[Function]}
+    style={
+      {
+        "marginTop": 2,
+      }
+    }
+    value="+4209485798"
+  />
+  <PaymentReference
+    style={
+      {
+        "marginTop": 2,
+      }
+    }
+  />
+</View>
+`;

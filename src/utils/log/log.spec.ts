@@ -1,4 +1,4 @@
-import { logMock } from '../../../tests/unit/prepare'
+import crashlytics from '@react-native-firebase/crashlytics'
 import { isProduction } from '../system'
 import { log } from './log'
 
@@ -17,12 +17,12 @@ describe('log', () => {
 
     log('Test')
     expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('LOG - Test'))
-    expect(logMock).not.toHaveBeenCalled()
+    expect(crashlytics().log).not.toHaveBeenCalled()
   })
   it('is logging log to crashlytics for prod environment', () => {
     ;(isProduction as jest.Mock).mockReturnValueOnce(true)
     log('Test')
-    expect(logMock).toHaveBeenCalledWith(expect.stringContaining('LOG - Test'))
+    expect(crashlytics().log).toHaveBeenCalledWith(expect.stringContaining('LOG - Test'))
     expect(logSpy).not.toHaveBeenCalled()
   })
 })
