@@ -2,11 +2,9 @@ import { deepStrictEqual, strictEqual } from 'assert'
 import { account, defaultAccount, setAccount } from '../account'
 import { saveChat } from '.'
 import * as chatData from '../../../tests/unit/data/chatData'
-import { resetStorage } from '../../../tests/unit/prepare'
 
 describe('saveChat', () => {
   beforeEach(async () => {
-    resetStorage()
     await setAccount(defaultAccount)
   })
   afterEach(() => {

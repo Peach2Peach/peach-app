@@ -7,10 +7,6 @@ import { Fade } from '../animation'
 
 jest.useFakeTimers()
 
-jest.mock('@react-native-clipboard/clipboard', () => ({
-  setString: jest.fn(),
-}))
-
 jest.mock('../animation/Fade', () => ({
   Fade: (_props: { show: boolean }) => <View />,
 }))

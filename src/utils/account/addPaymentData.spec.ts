@@ -1,15 +1,10 @@
 import { account, addPaymentData, defaultAccount, setAccount } from '.'
 import * as accountData from '../../../tests/unit/data/accountData'
-import { resetStorage } from '../../../tests/unit/prepare'
 import { settingsStore } from '../../store/settingsStore'
 
 describe('addPaymentData', () => {
   beforeAll(async () => {
     await setAccount(defaultAccount)
-  })
-  afterEach(() => {
-    resetStorage()
-    jest.clearAllMocks()
   })
 
   it('adds new payment data to account', () => {

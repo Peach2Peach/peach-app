@@ -1,23 +1,10 @@
 import { readFile } from '.'
-
-const mockReadFile = jest.fn()
-jest.mock('react-native-fs', () => ({
-  DocumentDirectoryPath: 'DDirPath/',
-  readFile: () => mockReadFile(),
-}))
-const mockDecrypt = jest.fn()
-jest.mock('react-native-crypto-js', () => ({
-  AES: {
-    decrypt: () => mockDecrypt(),
-  },
-  enc: {
-    Utf8: 'utf8',
-  },
-}))
+import RNFS from 'react-native-fs'
+import CryptoJS from 'react-native-crypto-js'
 
 describe('readFile', () => {
   it('should handle readFile error', async () => {
-    mockReadFile.mockRejectedValueOnce(new Error('test'))
+    jest.spyOn(RNFS, 'readFile').mockRejectedValueOnce(new Error('test'))
     const path = 'test.txt'
 
     const result = await readFile(path)
@@ -25,8 +12,8 @@ describe('readFile', () => {
   })
 
   it('should handle decrypt error', async () => {
-    mockReadFile.mockResolvedValueOnce('encryptedtest')
-    mockDecrypt.mockImplementationOnce(() => {
+    RNFS.writeFile(RNFS.DocumentDirectoryPath + 'test.txt', 'encryptedtest', 'utf8')
+    CryptoJS.AES.decrypt.mockImplementationOnce(() => {
       throw new Error('test')
     })
     const path = 'test.txt'
@@ -37,7 +24,8 @@ describe('readFile', () => {
   })
 
   it('should return the file content', async () => {
-    mockReadFile.mockResolvedValueOnce('test')
+    RNFS.writeFile(RNFS.DocumentDirectoryPath + 'test.txt', 'test', 'utf8')
+
     const path = 'test.txt'
 
     const result = await readFile(path)
@@ -45,8 +33,8 @@ describe('readFile', () => {
   })
 
   it('should decrypt the file content', async () => {
-    mockReadFile.mockResolvedValueOnce('encryptedtest')
-    mockDecrypt.mockReturnValueOnce({ toString: () => 'decryptedtest' })
+    RNFS.writeFile(RNFS.DocumentDirectoryPath + 'test.txt', 'encryptedtest', 'utf8')
+
     const path = 'test.txt'
     const password = 'test'
 
