@@ -13,7 +13,7 @@ type Props = ComponentProps & {
 }
 
 export const Rate = ({ contract, view, saveAndUpdate, vote, style }: Props): ReactElement => {
-  const { rate, showTradeBreakdown } = useRateSetup({ contract, view, saveAndUpdate, vote, style })
+  const { rate, showTradeBreakdown } = useRateSetup({ contract, view, saveAndUpdate, vote })
 
   return (
     <View style={style}>
