@@ -1,7 +1,6 @@
 import messaging from '@react-native-firebase/messaging'
 import { Linking } from 'react-native'
 import { toggleNotificationsIOS } from '.'
-import { hasPermissionMock, requestPermissionMock } from '../../../tests/unit/prepare'
 
 jest.mock('react-native', () => ({
   Linking: {
@@ -10,14 +9,12 @@ jest.mock('react-native', () => ({
 }))
 
 describe('toggleNotificationsIOS', () => {
-  afterEach(() => {
-    jest.resetAllMocks()
-  })
-
+  const hasPermissionMock = jest.spyOn(messaging(), 'hasPermission')
   it('requests permission when notification authorization is not determined', async () => {
     hasPermissionMock.mockResolvedValueOnce(messaging.AuthorizationStatus.NOT_DETERMINED)
+    const requestPermission = jest.spyOn(messaging(), 'requestPermission')
     await toggleNotificationsIOS()
-    expect(requestPermissionMock).toHaveBeenCalledWith({
+    expect(requestPermission).toHaveBeenCalledWith({
       alert: true,
       badge: false,
       sound: true,
