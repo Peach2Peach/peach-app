@@ -88,5 +88,3 @@ export const FileInput = ({
     />
   )
 }
-
-export default FileInput
