@@ -1,5 +1,7 @@
 import { createRenderer } from 'react-test-renderer/shallow'
 import { BICInput } from './BICInput'
+import { act, fireEvent, render } from '@testing-library/react-native'
+import i18n from '../../utils/i18n'
 
 describe('BICInput', () => {
   const renderer = createRenderer()
@@ -14,5 +16,23 @@ describe('BICInput', () => {
   it('is neither optional nor required when specified', () => {
     renderer.render(<BICInput required={undefined} />)
     expect(renderer.getRenderOutput()).toMatchSnapshot()
+  })
+  it('should enforce BIC format on submit', () => {
+    const onSubmitMock = jest.fn()
+    const { getByPlaceholderText } = render(<BICInput onSubmit={onSubmitMock} />)
+    const input = getByPlaceholderText(i18n('form.bic.placeholder'))
+    act(() => {
+      fireEvent(input, 'onSubmit', 'deutdeff500')
+    })
+    expect(onSubmitMock).toHaveBeenLastCalledWith('DEUT DE FF 500')
+  })
+  it('should enforce BIC format on end editing', () => {
+    const onChangeMock = jest.fn()
+    const { getByPlaceholderText } = render(<BICInput onChange={onChangeMock} />)
+    const input = getByPlaceholderText(i18n('form.bic.placeholder'))
+    act(() => {
+      fireEvent(input, 'onEndEditing', { nativeEvent: { text: 'deutdeff500' } })
+    })
+    expect(onChangeMock).toHaveBeenLastCalledWith('DEUT DE FF 500')
   })
 })
