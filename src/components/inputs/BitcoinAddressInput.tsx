@@ -1,5 +1,5 @@
 import Clipboard from '@react-native-clipboard/clipboard'
-import { ReactElement, useState } from 'react'
+import { useState } from 'react'
 import { BarCodeReadEvent } from 'react-native-camera'
 import { parseBitcoinRequest } from '../../utils/bitcoin'
 import i18n from '../../utils/i18n'
@@ -7,7 +7,7 @@ import { cutOffAddress } from '../../utils/string'
 import ScanQR from '../camera/ScanQR'
 import Input, { InputProps } from './Input'
 
-export const BitcoinAddressInput = ({ value, onChange, ...props }: InputProps): ReactElement => {
+export const BitcoinAddressInput = ({ value, onChange, ...props }: InputProps & { value: string }) => {
   const [showQRScanner, setShowQRScanner] = useState(false)
   const [isFocused, setFocused] = useState(false)
   const pasteAddress = async () => {
@@ -36,7 +36,7 @@ export const BitcoinAddressInput = ({ value, onChange, ...props }: InputProps): 
         onChange,
         onFocus: () => setFocused(true),
         onBlur: () => setFocused(false),
-        value: isFocused ? value : cutOffAddress(value || ''),
+        value: isFocused ? value : cutOffAddress(value),
         ...props,
       }}
     />
