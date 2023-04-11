@@ -1,7 +1,5 @@
 import { SlideToUnlock } from './SlideToUnlock'
-import { render, fireEvent } from '@testing-library/react-native'
 import { createRenderer } from 'react-test-renderer/shallow'
-import tw from '../../styles/tailwind'
 
 describe('SlideToUnlock', () => {
   const renderer = createRenderer()
