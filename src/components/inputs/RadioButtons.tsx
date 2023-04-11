@@ -69,5 +69,3 @@ export const RadioButtons = <T, >({ items, selectedValue, onChange, style }: Rad
     ))}
   </View>
 )
-
-export default RadioButtons
