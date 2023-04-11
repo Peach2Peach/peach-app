@@ -1,8 +1,8 @@
 import { ReactElement } from 'react'
 import { View } from 'react-native'
+import { TradeSummary } from '../../components/offer'
 import tw from '../../styles/tailwind'
 
-import { TradeSummary } from '../../components'
 import LoadingScreen from '../loading/LoadingScreen'
 import ContractCTA from './components/ContractCTA'
 import { ContractStatusInfo } from './components/ContractStatusInfo'

@@ -1,4 +1,4 @@
-import { Dispatch, ReactElement, SetStateAction } from 'react'
+import { Dispatch, SetStateAction } from 'react'
 import { View } from 'react-native'
 import { useKeyboard } from '../../hooks'
 import tw from '../../styles/tailwind'
@@ -19,10 +19,10 @@ const isWallet = /wallet|transactionHistory|transactionDetails/u
 const isBuy = /buy|buyPreferences|home/u
 const isSell = /sell|sellPreferences/u
 
-export const Footer = ({ active, style, setCurrentPage, theme = 'default' }: Props): ReactElement => {
+export const Footer = ({ active, style, setCurrentPage, theme = 'default' }: Props) => {
   const { navigate, notifications } = useFooterSetup({ setCurrentPage })
   const keyboardOpen = useKeyboard()
-  const colors = footerThemes[theme || 'default']
+  const colors = footerThemes[theme]
 
   if (keyboardOpen) return <View />
 
@@ -46,5 +46,3 @@ export const Footer = ({ active, style, setCurrentPage, theme = 'default' }: Pro
     </View>
   )
 }
-
-export default Footer
