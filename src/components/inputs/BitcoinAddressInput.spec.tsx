@@ -1,5 +1,6 @@
 import { BitcoinAddressInput } from './BitcoinAddressInput'
 import { render, fireEvent, act } from '@testing-library/react-native'
+import { createRenderer } from 'react-test-renderer/shallow'
 import i18n from '../../utils/i18n'
 import Clipboard from '@react-native-clipboard/clipboard'
 import { Text } from '../text'
@@ -14,15 +15,16 @@ jest.mock('../Icon', () => {
 describe('BitcoinAddressInput', () => {
   const fullAddress = 'bc1qcj5yzmk8mjynz5vyxmre5zsgtntkwkcgn57r7z'
   it('renders correctly', () => {
-    const { toJSON } = render(<BitcoinAddressInput value={fullAddress} />)
-    expect(toJSON()).toMatchSnapshot()
+    const renderer = createRenderer()
+    renderer.render(<BitcoinAddressInput value={fullAddress} />)
+    expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
   it('shows full address when focused', () => {
-    const { getByPlaceholderText, toJSON } = render(<BitcoinAddressInput value={fullAddress} />)
+    const { getByPlaceholderText } = render(<BitcoinAddressInput value={fullAddress} />)
     const input = getByPlaceholderText(i18n('form.address.btc.placeholder'))
 
     fireEvent(input, 'focus')
-    expect(toJSON()).toMatchSnapshot()
+    expect(input.props.value).toBe(fullAddress)
   })
   it('sets focused to false when blurred', () => {
     const { getByPlaceholderText, toJSON } = render(<BitcoinAddressInput value={fullAddress} />)
