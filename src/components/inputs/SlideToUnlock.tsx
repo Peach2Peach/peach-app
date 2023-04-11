@@ -13,6 +13,7 @@ type SlideToUnlockProps = ComponentProps & {
 }
 
 const onStartShouldSetResponder = () => true
+const trackWidth = 260
 const knobWidth = tw`w-18`.width as number
 const padding = tw`w-1`.width as number
 
@@ -47,12 +48,10 @@ export const SlideToUnlock = ({
   onUnlock,
   style,
 }: SlideToUnlockProps): ReactElement => {
-  const [trackWidth, setTrackWidth] = useState(260)
   const [widthToSlide, setWidthToSlide] = useState(trackWidth - knobWidth - padding)
 
   const onLayout = (event: LayoutChangeEvent) => {
     const width = Math.round(event.nativeEvent.layout.width)
-    setTrackWidth(width)
     setWidthToSlide(width - knobWidth - padding)
   }
 
@@ -63,11 +62,11 @@ export const SlideToUnlock = ({
         onMoveShouldSetPanResponder: () => true,
         onPanResponderMove: (e, gestureState) => {
           if (disabled) return
-          const x = gestureState.dx as number
+          const x = gestureState.dx
           pan.setValue(getNormalized(x, widthToSlide))
         },
         onPanResponderRelease: (e, gestureState) => {
-          const x = gestureState.dx as number
+          const x = gestureState.dx
           const normalizedVal = getNormalized(x, widthToSlide)
           if (normalizedVal === 1 && !disabled) onUnlock()
           Animated.timing(pan, {
@@ -89,7 +88,7 @@ export const SlideToUnlock = ({
       style={[
         tw`w-full max-w-full overflow-hidden rounded-full bg-primary-background-dark`,
         tw`border border-primary-mild-1`,
-        disabled ? tw`opacity-50` : {},
+        !!disabled && tw`opacity-50`,
         style,
       ]}
     >
