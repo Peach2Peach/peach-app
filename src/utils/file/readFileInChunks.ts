@@ -1,8 +1,6 @@
-import RNFS from 'react-native-fs'
+import { readChunkOfFile } from '.'
 
 const CHUNKSIZE = 1048576
-const readChunkOfFile = async (uri: string, chunksize: number, index: number): Promise<string> =>
-  await RNFS.read(uri, chunksize, index, 'utf8')
 
 /**
  * @description This method is more leightweight on memory when reading bigger files

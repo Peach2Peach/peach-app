@@ -1,0 +1,12 @@
+import { readFileInChunks } from '.'
+import RNFS from 'react-native-fs'
+
+describe('readFileInChunks', () => {
+  it('should return the file content', async () => {
+    const uri = RNFS.DocumentDirectoryPath + 'test.txt'
+    RNFS.writeFile(uri, 'this is a really big file', 'utf8')
+
+    const result = await readFileInChunks(uri)
+    expect(result).toBe('this is a really big file')
+  })
+})

@@ -1,13 +1,6 @@
 import { account, defaultAccount, setAccount } from '../account'
 import { saveContract } from '.'
-import * as accountData from '../../../tests/unit/data/accountData'
 import * as contractData from '../../../tests/unit/data/contractData'
-
-jest.mock('react-native-fs', () => ({
-  readFile: async (): Promise<string> => JSON.stringify(accountData.account1),
-  writeFile: async (): Promise<void> => {},
-  unlink: async (): Promise<void> => {},
-}))
 
 // eslint-disable-next-line max-lines-per-function
 describe('saveContract', () => {

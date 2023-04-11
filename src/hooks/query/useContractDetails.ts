@@ -7,7 +7,11 @@ const getContractQuery = async ({ queryKey }: { queryKey: [string, string] }) =>
   const [, contractId] = queryKey
   const [contract] = await getContract({ contractId })
 
-  return contract ?? undefined
+  if (!contract) {
+    throw new Error('Contract not found')
+  }
+
+  return contract
 }
 
 export const useContractDetails = (id: string, refetchInterval?: number) => {

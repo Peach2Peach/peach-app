@@ -1,12 +1,8 @@
 import messaging from '@react-native-firebase/messaging'
 import { checkNotificationStatusIOS } from './checkNotificationStatusIOS'
-import { hasPermissionMock } from '../../../tests/unit/prepare'
 
 describe('checkNotificationStatusIOS', () => {
-  afterEach(() => {
-    jest.resetAllMocks()
-  })
-
+  const hasPermissionMock = jest.spyOn(messaging(), 'hasPermission')
   it('returns true if notifications are enabled', async () => {
     hasPermissionMock.mockResolvedValue(messaging.AuthorizationStatus.AUTHORIZED)
 

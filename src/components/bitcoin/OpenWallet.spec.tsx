@@ -1,5 +1,6 @@
 import { TouchableOpacity } from 'react-native'
 import { create } from 'react-test-renderer'
+import { createRenderer } from 'react-test-renderer/shallow'
 import { openInWallet } from '../../utils/bitcoin'
 import { OpenWallet } from './OpenWallet'
 
@@ -21,5 +22,12 @@ describe('OpenWallet', () => {
     // @ts-ignore
     testInstance.findByType(TouchableOpacity).props.onPress()
     expect(openInWallet).toHaveBeenCalledWith('bitcoin:')
+  })
+
+  it('should render correctly', () => {
+    const renderer = createRenderer()
+    renderer.render(<OpenWallet />)
+
+    expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
 })

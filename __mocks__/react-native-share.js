@@ -1,1 +1,3 @@
-jest.mock('react-native-share', () => ({}))
+export default {
+  open: jest.fn(),
+}
