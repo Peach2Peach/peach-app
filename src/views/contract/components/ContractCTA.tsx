@@ -50,7 +50,7 @@ export const ContractCTA = ({
           style={tw`w-[260px]`}
           disabled={CTADisabled}
           onUnlock={postConfirmPaymentBuyer}
-          label1={i18n('contract.payment.confirm')}
+          label1={i18n('contract.payment.buyer.confirm')}
           label2={i18n('contract.payment.made')}
         />
       )
