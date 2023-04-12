@@ -4,7 +4,7 @@ import { TradeSummary } from '../../components/offer'
 import tw from '../../styles/tailwind'
 
 import LoadingScreen from '../loading/LoadingScreen'
-import ContractCTA from './components/ContractCTA'
+import { ContractCTA } from './components/ContractCTA'
 import { ContractStatusInfo } from './components/ContractStatusInfo'
 import { ContractSubtitle } from './components/ContractSubtitle'
 import { useContractSetup } from './hooks/useContractSetup'
