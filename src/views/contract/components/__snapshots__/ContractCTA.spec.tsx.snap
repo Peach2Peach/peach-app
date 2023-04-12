@@ -3,7 +3,7 @@
 exports[`ContractCTA should render the payment confirm slider correctly for the buyer 1`] = `
 <SlideToUnlock
   disabled={true}
-  label1="confirm payment"
+  label1="I made the payment"
   label2="payment made"
   onUnlock={[MockFunction]}
   style={
