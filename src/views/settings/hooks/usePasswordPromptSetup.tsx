@@ -16,7 +16,7 @@ export const usePasswordPromptSetup = (onSuccess: () => void) => {
 
   const [setShowBackupReminder, setLastFileBackupDate] = useSettingsStore(
     (state) => [state.setShowBackupReminder, state.setLastFileBackupDate],
-    shallow
+    shallow,
   )
   const showPopup = useShowHelp('yourPassword')
   useHeaderSetup({
@@ -27,7 +27,7 @@ export const usePasswordPromptSetup = (onSuccess: () => void) => {
   const [password, setPassword, passwordIsValid, passwordError] = useValidatedState<string>('', passwordRules)
   const [passwordRepeat, setPasswordRepeat, passwordRepeatIsValid, passwordRepeatError] = useValidatedState<string>(
     '',
-    passwordRules
+    passwordRules,
   )
 
   const [isBackingUp, setIsBackingUp] = useState(false)

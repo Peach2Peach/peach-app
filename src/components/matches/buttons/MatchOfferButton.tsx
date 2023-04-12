@@ -16,7 +16,7 @@ type Props = {
 export const MatchOfferButton = ({ matchId, matchOffer, optionName }: Props) => {
   const [selectedPaymentMethod, setShowPaymentMethodPulse] = useMatchStore(
     (state) => [state.matchSelectors[matchId]?.selectedPaymentMethod, state.setShowPaymentMethodPulse],
-    shallow
+    shallow,
   )
 
   const currentOption = options[optionName]

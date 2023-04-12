@@ -12,7 +12,7 @@ export const MatchPaymentDetails = ({ match, style }: ComponentProps & { match: 
       state.matchSelectors[match.offerId]?.selectedCurrency,
       state.matchSelectors[match.offerId]?.selectedPaymentMethod,
     ],
-    shallow
+    shallow,
   )
   return (
     <View style={style}>

@@ -35,11 +35,11 @@ export const configStore = createStore(
       name: 'config',
       version: 0,
       storage: createJSONStorage(() => toZustandStorage(configStorage)),
-    }
-  )
+    },
+  ),
 )
 
 export const useConfigStore = <T>(
   selector: (state: ConfigStore) => T,
-  equalityFn?: ((a: T, b: T) => boolean) | undefined
+  equalityFn?: ((a: T, b: T) => boolean) | undefined,
 ) => useStore(configStore, selector, equalityFn)

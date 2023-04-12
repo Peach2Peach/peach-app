@@ -9,7 +9,7 @@ jest.mock('../../../hooks', () => ({
   useRoute: () => useRouteMock(),
 }))
 
-const useSettingsStoreMock = jest.fn((selector, compareFn) =>
+const useSettingsStoreMock = jest.fn((selector, _compareFn) =>
   selector({ lastFileBackupDate: null, lastSeedBackupDate: null }),
 )
 jest.mock('../../../store/settingsStore', () => ({
