@@ -1,4 +1,3 @@
-import { ReactElement } from 'react'
 import { PrimaryButton } from '../../../components'
 import { WarningButton } from '../../../components/buttons'
 import { SlideToUnlock } from '../../../components/inputs'
@@ -17,14 +16,14 @@ type ContractCTAProps = ComponentProps & {
   postConfirmPaymentBuyer: () => void
   postConfirmPaymentSeller: () => void
 }
-export default ({
+export const ContractCTA = ({
   contract,
   view,
   requiredAction,
   actionPending,
   postConfirmPaymentBuyer,
   postConfirmPaymentSeller,
-}: ContractCTAProps): ReactElement => {
+}: ContractCTAProps) => {
   const showPaymentTooLateOverlay = usePaymentTooLateOverlay()
   const showConfirmTradeCancelation = useConfirmTradeCancelationOverlay()
   const CTADisabled = actionPending || contract.disputeActive
@@ -51,7 +50,7 @@ export default ({
           style={tw`w-[260px]`}
           disabled={CTADisabled}
           onUnlock={postConfirmPaymentBuyer}
-          label1={i18n('contract.payment.confirm')}
+          label1={i18n('contract.payment.buyer.confirm')}
           label2={i18n('contract.payment.made')}
         />
       )

@@ -593,6 +593,7 @@
   "contract.payment.to": "to",
   "contract.payment.at": "at",
   "contract.payment.notYetSent": "payment not yet sent",
+  "contract.payment.buyer.confirm": "I made the payment",
   "contract.payment.confirm": "confirm payment",
   "contract.payment.made": "payment made",
   "contract.payment.sent": "payment sent",
