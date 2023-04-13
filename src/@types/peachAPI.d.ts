@@ -338,6 +338,9 @@ declare type GetMatchesResponse = {
   offerId: string
   matches: Match[]
   totalMatches: number
+  nextPage: number
+
+  /** @deprecated */
   remainingMatches: number
 }
 declare type MatchResponse = {

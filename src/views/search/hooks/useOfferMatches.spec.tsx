@@ -4,7 +4,9 @@ import { queryClientWrapper } from '../../../../tests/unit/helpers/queryClientWr
 import { useMatchStore } from '../../../components/matches/store'
 import { useOfferMatches } from './useOfferMatches'
 
-const getMatchesMock = jest.fn((...args) => Promise.resolve([{ matches: ['match'], remainingMatches: 0 }, null]))
+const getMatchesMock = jest
+  .fn()
+  .mockImplementation((...args) => Promise.resolve([{ matches: ['match'], nextPage: undefined }, null]))
 const getOfferDetailsMock = jest.fn().mockResolvedValue([buyOffer, null])
 jest.mock('../../../utils/peachAPI', () => ({
   getOfferDetails: () => getOfferDetailsMock(),
@@ -53,12 +55,12 @@ describe('useOfferMatches', () => {
     const secondPage = ['match10']
     getMatchesMock.mockImplementation(({ page }: { page: number }) => {
       if (page === 0) {
-        return Promise.resolve([{ matches: firstPage, remainingMatches: 1 }, null])
+        return Promise.resolve([{ matches: firstPage, nextPage: 1 }, null])
       }
       if (page === 1) {
-        return Promise.resolve([{ matches: secondPage, remainingMatches: 0 }, null])
+        return Promise.resolve([{ matches: secondPage, nextPage: undefined }, null])
       }
-      return Promise.resolve([{ matches: [], remainingMatches: 0 }, null])
+      return Promise.resolve([{ matches: [], nextPage: undefined }, null])
     })
 
     const { result } = renderHook(useOfferMatches, {
