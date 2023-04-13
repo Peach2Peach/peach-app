@@ -66,13 +66,11 @@ describe('useOfferMatches', () => {
       wrapper: queryClientWrapper,
     })
 
-    // initial render
     await waitFor(() => {
       expect(result.current.isSuccess).toBe(true)
     })
     expect(result.current.allMatches).toEqual(firstPage)
 
-    // fetch next page
     expect(result.current.hasNextPage).toBe(true)
     await act(async () => {
       await result.current.fetchNextPage()
@@ -81,19 +79,40 @@ describe('useOfferMatches', () => {
     await waitFor(() => {
       expect(result.current.allMatches).toEqual([...firstPage, ...secondPage])
     })
+  })
+  it('should not remove matches when the user stays on the second page for 15 seconds', async () => {
+    const firstPage = Array(10)
+      .fill('match')
+      .map((match, index) => `${match}${index}`)
+    const secondPage = ['match10']
 
-    // refetch after 15 seconds
+    const { result } = renderHook(useOfferMatches, {
+      initialProps: 'newOfferId',
+      wrapper: queryClientWrapper,
+    })
+
+    await waitFor(() => {
+      expect(result.current.isSuccess).toBe(true)
+    })
+
+    await act(async () => {
+      await result.current.fetchNextPage()
+    })
+
+    await waitFor(() => {
+      expect(result.current.allMatches).toEqual([...firstPage, ...secondPage])
+    })
+
     act(() => {
       useMatchStore.setState({ currentPage: 1 })
     })
-    jest.advanceTimersByTime(1000 * 15)
-
     await waitFor(() => {
-      expect(result.current.data?.pageParams).toStrictEqual([undefined, 2])
+      jest.advanceTimersByTime(1000 * 15)
     })
 
-    expect(result.current.allMatches).toEqual(firstPage)
+    expect(result.current.allMatches).toEqual([...firstPage, ...secondPage])
   })
+
   it('should return matches for a funded sell offer', async () => {
     getMatchesMock.mockImplementation((...args) => Promise.resolve([{ matches: ['match'], remainingMatches: 0 }, null]))
     getOfferDetailsMock.mockResolvedValueOnce([
