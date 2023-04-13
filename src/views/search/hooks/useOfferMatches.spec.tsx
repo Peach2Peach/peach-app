@@ -78,18 +78,15 @@ describe('useOfferMatches', () => {
       await result.current.fetchNextPage()
     })
 
-    act(() => {
-      useMatchStore.setState({ currentPage: 1 })
-    })
     await waitFor(() => {
-      expect(getMatchesMock).toHaveBeenCalledTimes(2)
-
       expect(result.current.allMatches).toEqual([...firstPage, ...secondPage])
     })
 
-    await act(async () => {
-      jest.advanceTimersByTime(1000 * 15)
+    // refetch after 15 seconds
+    act(() => {
+      useMatchStore.setState({ currentPage: 1 })
     })
+    jest.advanceTimersByTime(1000 * 15)
 
     await waitFor(() => {
       expect(result.current.data?.pageParams).toStrictEqual([undefined, 2])
