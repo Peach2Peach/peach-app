@@ -30,21 +30,39 @@ describe('useOfferMatches', () => {
     expect(result.current.allMatches).toEqual(['match'])
   })
   it('should not remove matches when the user gets to the next page', async () => {
+    getMatchesMock.mockImplementation(
+      ({ offerId, page, size, timeout }: { offerId: string; page: number; size: number; timeout: number }) => {
+        if (page === 0) {
+          return Promise.resolve([
+            {
+              offerId,
+              matches: Array(size)
+                .fill('match')
+                .map((match, index) => `${match}${index}`),
+              totalMatches: 11,
+              remainingMatches: 1,
+            },
+            null,
+          ])
+        }
+        if (page === 1) {
+          return Promise.resolve([
+            {
+              offerId,
+              matches: ['match10'],
+              totalMatches: 11,
+              remainingMatches: 0,
+            },
+            null,
+          ])
+        }
+        return Promise.resolve([{ offerId, matches: [], totalMatches: 11, remainingMatches: 0 }, null])
+      },
+    )
     const firstPage = Array(10)
       .fill('match')
       .map((match, index) => `${match}${index}`)
     const secondPage = ['match10']
-    getMatchesMock.mockImplementationOnce(() =>
-      Promise.resolve([
-        {
-          offerId: 'offerId',
-          matches: firstPage,
-          totalMatches: 11,
-          remainingMatches: 1,
-        },
-        null,
-      ]),
-    )
     const { result } = renderHook(useOfferMatches, {
       initialProps: 'newOfferId',
       wrapper: queryClientWrapper,
@@ -55,17 +73,6 @@ describe('useOfferMatches', () => {
     })
     expect(result.current.allMatches).toEqual(firstPage)
 
-    getMatchesMock.mockImplementationOnce(() =>
-      Promise.resolve([
-        {
-          offerId: 'newOfferId',
-          matches: secondPage,
-          totalMatches: 11,
-          remainingMatches: 0,
-        },
-        null,
-      ]),
-    )
     expect(result.current.hasNextPage).toBe(true)
     await act(async () => {
       await result.current.fetchNextPage()
@@ -76,6 +83,7 @@ describe('useOfferMatches', () => {
     })
   })
   it('should return matches for a funded sell offer', async () => {
+    getMatchesMock.mockImplementation((...args) => Promise.resolve([{ matches: ['match'], remainingMatches: 0 }, null]))
     getOfferDetailsMock.mockResolvedValueOnce([
       {
         ...sellOffer,
