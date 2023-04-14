@@ -15,7 +15,7 @@ export const useOfferMatches = (offerId: string) => {
     queryFn: getMatchesFn,
     refetchInterval: FIFTEEN_SECONDS,
     enabled:
-      isFocused && !!offer?.id && !offer.doubleMatched && (offer.type !== 'ask' || offer.funding?.status === 'FUNDED'),
+      isFocused && !!offer?.id && !offer.doubleMatched,
     getNextPageParam: (lastPage) => lastPage?.nextPage,
     keepPreviousData: true,
   })

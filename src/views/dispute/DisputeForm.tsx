@@ -1,65 +1,16 @@
-import { ReactElement, useMemo, useRef, useState } from 'react'
-import { Keyboard, TextInput, View } from 'react-native'
+import { ReactElement, useRef } from 'react'
+import { TextInput, View } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import { Input, PeachScrollView, PrimaryButton } from '../../components'
-import { getContract, getContractViewer, getOfferHexIdFromContract } from '../../utils/contract'
-import i18n from '../../utils/i18n'
-import { useHeaderSetup, useNavigation, useRoute, useValidatedState } from '../../hooks'
-import { submitRaiseDispute } from './utils/submitRaiseDispute'
-import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
-import { useDisputeRaisedSuccess } from '../../overlays/dispute/hooks/useDisputeRaisedSuccess'
-import { account } from '../../utils/account'
 import { EmailInput } from '../../components/inputs/EmailInput'
-import { isEmailRequiredForDispute } from '../../utils/dispute'
-
-const required = { required: true }
+import i18n from '../../utils/i18n'
+import { useDisputeFormSetup } from './hooks/useDisputeFormSetup'
 
 export default (): ReactElement => {
-  const route = useRoute<'disputeForm'>()
-  const navigation = useNavigation()
-
-  const reason = route.params.reason
-  const contractId = route.params.contractId
-  const contract = getContract(contractId)
-
-  const emailRules = useMemo(
-    () => ({ email: isEmailRequiredForDispute(reason), required: isEmailRequiredForDispute(reason) }),
-    [reason],
-  )
-  const [email, setEmail, emailIsValid, emailErrors] = useValidatedState('', emailRules)
-  const [message, setMessage, messageIsValid, messageErrors] = useValidatedState('', required)
-  const [loading, setLoading] = useState(false)
+  const { email, setEmail, emailErrors, reason, message, setMessage, messageErrors, isFormValid, submit, loading }
+    = useDisputeFormSetup()
   let $message = useRef<TextInput>(null).current
-
-  const disputeRaisedOverlay = useDisputeRaisedSuccess()
-
-  const showError = useShowErrorBanner()
-
-  useHeaderSetup(
-    useMemo(
-      () => ({
-        title: i18n('dispute.disputeForTrade', !!contract ? getOfferHexIdFromContract(contract) : ''),
-      }),
-      [contract],
-    ),
-  )
-
-  const submit = async () => {
-    Keyboard.dismiss()
-
-    if (!contract?.symmetricKey || !emailIsValid || !messageIsValid || !reason || !message) return
-
-    setLoading(true)
-    const disputeRaised = await submitRaiseDispute(contract, reason, email, message)
-    if (disputeRaised) {
-      navigation.navigate('contractChat', { contractId })
-      disputeRaisedOverlay(getContractViewer(contract, account))
-    } else {
-      showError()
-    }
-    setLoading(false)
-  }
 
   return (
     <PeachScrollView contentContainerStyle={tw`items-center justify-center flex-grow`}>
@@ -86,7 +37,7 @@ export default (): ReactElement => {
       <PrimaryButton
         onPress={submit}
         loading={loading}
-        disabled={loading || !emailIsValid || !messageIsValid}
+        disabled={loading || !isFormValid}
         style={tw`absolute self-center bottom-8`}
         narrow
       >
