@@ -6,9 +6,10 @@ import Svg, { Defs, Mask, Rect } from 'react-native-svg'
 import { Icon, Text } from '..'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-interface ScanQRProps {
+type ScanQRProps = {
   onSuccess(e: BarCodeReadEvent): void
   onCancel(): void
+  testID?: string
 }
 
 export const ScanQR = ({ onSuccess, onCancel }: ScanQRProps): ReactElement => {
