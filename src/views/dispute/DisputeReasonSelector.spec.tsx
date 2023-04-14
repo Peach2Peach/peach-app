@@ -4,11 +4,11 @@ import { disputeReasons } from './hooks/disputeReasons'
 
 const setReasonMock = jest.fn()
 const useDisputeReasonSelectorSetupMock = jest.fn().mockReturnValue({
-  availableReasons: disputeReasons.buyer,
-  setReason: setReasonMock,
-})
 jest.mock('./hooks/useDisputeReasonSelectorSetup', () => ({
-  useDisputeReasonSelectorSetup: () => useDisputeReasonSelectorSetupMock(),
+  useDisputeReasonSelectorSetup: jest.fn().mockReturnValue({
+    availableReasons: disputeReasons.buyer,
+    setReason: jest.fn(),
+  }),
 }))
 describe('DisputeReasonSelector', () => {
   it('should render correctly', () => {
