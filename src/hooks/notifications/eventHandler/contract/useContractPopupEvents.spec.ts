@@ -9,7 +9,9 @@ jest.mock('../../../../overlays/tradeCancelation', () => ({
 }))
 const showTradeCanceledMock = jest.fn()
 jest.mock('../../../../overlays/tradeCancelation/useTradeCanceledOverlay', () => ({
-  useTradeCanceledOverlay: () => showTradeCanceledMock,
+  useTradeCanceledOverlay: () => ({
+    showTradeCanceled: showTradeCanceledMock,
+  }),
 }))
 const showPaymentTooLateOverlayMock = jest.fn()
 jest.mock('../../../../overlays/usePaymentTooLateOverlay', () => ({
