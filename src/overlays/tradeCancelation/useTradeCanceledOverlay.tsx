@@ -1,20 +1,20 @@
-import { useCallback, useContext } from 'react'
-import { OverlayContext } from '../../contexts/overlay'
-import { ContractCanceledToSeller } from './ContractCanceledToSeller'
-import { BuyerConfirmedCancelTrade } from './BuyerConfirmedCancelTrade'
-import { useStartRefundOverlay } from '../useStartRefundOverlay'
+import { useCallback } from 'react'
+import { useOverlayContext } from '../../contexts/overlay'
+import { useNavigation } from '../../hooks'
+import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
 import { getSellOfferFromContract, saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { getOfferExpiry } from '../../utils/offer'
 import { reviveSellOffer } from '../../utils/peachAPI'
-import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
-import { useNavigation } from '../../hooks'
+import { useStartRefundOverlay } from '../useStartRefundOverlay'
+import { BuyerConfirmedCancelTrade } from './BuyerConfirmedCancelTrade'
+import { ContractCanceledToSeller } from './ContractCanceledToSeller'
 import { OfferRepublished } from './OfferRepublished'
 
 export const useTradeCanceledOverlay = () => {
-  const [, updateOverlay] = useContext(OverlayContext)
+  const [, updateOverlay] = useOverlayContext()
   const startRefund = useStartRefundOverlay()
-  const showError = useShowErrorBanner()
+  const showErrorBanner = useShowErrorBanner()
   const navigation = useNavigation()
 
   const closeOverlay = useCallback(() => updateOverlay({ visible: false }), [updateOverlay])
@@ -34,10 +34,19 @@ export const useTradeCanceledOverlay = () => {
     async (sellOffer: SellOffer, contract: Contract) => {
       const [reviveSellOfferResult, err] = await reviveSellOffer({ offerId: sellOffer.id })
 
+      const closeAction = () => {
+        navigation.replace('contract', { contractId: contract.id })
+        confirmOverlay(contract)
+      }
+      const goToOfferAction = () => {
+        if (!reviveSellOfferResult) return
+        navigation.replace('search', { offerId: reviveSellOfferResult.newOfferId })
+        confirmOverlay(contract)
+      }
       if (!reviveSellOfferResult || err) {
-        showError(err?.error)
+        showErrorBanner(err?.error)
         closeOverlay()
-        return
+        return { closeAction, goToOfferAction }
       }
 
       updateOverlay({
@@ -49,47 +58,48 @@ export const useTradeCanceledOverlay = () => {
         action1: {
           label: i18n('goToOffer'),
           icon: 'arrowRightCircle',
-          callback: () => {
-            navigation.replace('search', { offerId: reviveSellOfferResult.newOfferId })
-            confirmOverlay(contract)
-          },
+          callback: goToOfferAction,
         },
         action2: {
           label: i18n('close'),
           icon: 'xSquare',
-          callback: () => {
-            navigation.replace('contract', { contractId: contract.id })
-            confirmOverlay(contract)
-          },
+          callback: closeAction,
         },
       })
+
+      return { closeAction, goToOfferAction }
     },
-    [closeOverlay, confirmOverlay, navigation, showError, updateOverlay],
+    [closeOverlay, confirmOverlay, navigation, showErrorBanner, updateOverlay],
   )
 
   const showTradeCanceled = useCallback(
     (contract: Contract, mutualClose: boolean) => {
       const sellOffer = getSellOfferFromContract(contract)
-      if (!sellOffer) return
+
+      const refundAction = () => {
+        confirmOverlay(contract)
+        startRefund(sellOffer)
+      }
+      const republishAction = () => republishOffer(sellOffer, contract)
+
+      if (!sellOffer) return { refundAction, republishAction }
 
       navigation.navigate('yourTrades', { tab: 'history' })
       const expiry = getOfferExpiry(sellOffer)
-      const refundAction = {
+
+      const refundActionObject = {
         label: i18n('contract.cancel.tradeCanceled.refund'),
         icon: 'download',
-        callback: () => {
-          confirmOverlay(contract)
-          startRefund(sellOffer)
-        },
+        callback: refundAction,
       }
       const action1 = expiry.isExpired
-        ? refundAction
+        ? refundActionObject
         : {
           label: i18n('contract.cancel.tradeCanceled.republish'),
           icon: 'refreshCw',
-          callback: () => republishOffer(sellOffer, contract),
+          callback: republishAction,
         }
-      const action2 = expiry.isExpired ? undefined : refundAction
+      const action2 = expiry.isExpired ? undefined : refundActionObject
 
       updateOverlay({
         title: i18n(
@@ -108,6 +118,8 @@ export const useTradeCanceledOverlay = () => {
         action1,
         action2,
       })
+
+      return { republishAction, refundAction }
     },
     [confirmOverlay, navigation, republishOffer, startRefund, updateOverlay],
   )
