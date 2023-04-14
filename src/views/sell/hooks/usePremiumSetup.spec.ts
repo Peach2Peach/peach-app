@@ -50,7 +50,7 @@ describe('usePremiumSetup', () => {
     jest.clearAllMocks()
   })
 
-  beforeAll(() => {
+  beforeEach(() => {
     settingsStore.setState((def) => ({ ...def, ...state }))
   })
 
@@ -104,20 +104,12 @@ describe('usePremiumSetup', () => {
       updatePremium('0.')
     })
 
-    const {
-      result: {
-        current: { premium: currentPremium, updatePremium: updatePremiumAgain },
-      },
-    } = renderHook(() => usePremiumSetup(sellOfferDraft, setOfferDraftMock))
-    expect(currentPremium).toBe(premium.toString())
+    expect(settingsStore.getState().premium).toBe(1.5)
 
     act(() => {
-      updatePremiumAgain('.')
+      updatePremium('.')
     })
 
-    const {
-      result: { current },
-    } = renderHook(() => usePremiumSetup(sellOfferDraft, setOfferDraftMock))
-    expect(current.premium).toBe(premium.toString())
+    expect(settingsStore.getState().premium).toBe(1.5)
   })
 })
