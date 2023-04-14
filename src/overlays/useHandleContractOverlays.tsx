@@ -18,7 +18,7 @@ export const useHandleContractOverlays = () => {
   const { showDisputeRaisedNotice } = useDisputeRaisedNotice()
   const showDisputeResults = useDisputeResults()
   const showTradeCanceled = useTradeCanceledOverlay()
-  const showCancelTradeRequestRejected = useBuyerRejectedCancelTradeOverlay()
+  const { showCancelTradeRequestRejected } = useBuyerRejectedCancelTradeOverlay()
 
   const showPaymentTimerHasRunOut = useShowPaymentTimerHasRunOut()
 

@@ -1,12 +1,12 @@
-import { useCallback, useContext } from 'react'
-import { OverlayContext } from '../../contexts/overlay'
+import { useCallback } from 'react'
+import { useOverlayContext } from '../../contexts/overlay'
 import { useNavigation } from '../../hooks'
 import { saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { BuyerRejectedCancelTrade } from './BuyerRejectedCancelTrade'
 
 export const useBuyerRejectedCancelTradeOverlay = () => {
-  const [, updateOverlay] = useContext(OverlayContext)
+  const [, updateOverlay] = useOverlayContext()
   const navigation = useNavigation()
 
   const confirmOverlay = useCallback(
@@ -24,6 +24,8 @@ export const useBuyerRejectedCancelTradeOverlay = () => {
 
   const showCancelTradeRequestRejected = useCallback(
     (contract: Contract) => {
+      const closeAction = () => confirmOverlay(contract)
+
       updateOverlay({
         title: i18n('contract.cancel.buyerRejected.title'),
         content: <BuyerRejectedCancelTrade contract={contract} />,
@@ -33,11 +35,13 @@ export const useBuyerRejectedCancelTradeOverlay = () => {
         action1: {
           label: i18n('close'),
           icon: 'xSquare',
-          callback: () => confirmOverlay(contract),
+          callback: closeAction,
         },
       })
+
+      return { closeAction }
     },
     [confirmOverlay, updateOverlay],
   )
-  return showCancelTradeRequestRejected
+  return { showCancelTradeRequestRejected, confirmOverlay }
 }
