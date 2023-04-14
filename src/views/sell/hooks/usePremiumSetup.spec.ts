@@ -1,4 +1,4 @@
-import { act, renderHook } from '@testing-library/react-native'
+import { act, renderHook, waitFor } from '@testing-library/react-native'
 import { settings1 } from '../../../../tests/unit/data/settingsData'
 import { SettingsStore, settingsStore } from '../../../store/settingsStore'
 import { defaultLimits } from '../../../utils/account/account'
@@ -93,7 +93,22 @@ describe('usePremiumSetup', () => {
     expect(result.current.premium).toBe('0')
   })
 
-  it('should not update the premium if the value is not a number', async () => {
+  it('should update the premium in the store', async () => {
+    const {
+      result: {
+        current: { updatePremium },
+      },
+    } = renderHook(() => usePremiumSetup(sellOfferDraft, setOfferDraftMock))
+
+    act(() => {
+      updatePremium('1')
+    })
+    await waitFor(() => {
+      expect(settingsStore.getState().premium).toBe(1)
+    })
+  })
+
+  it('should not update the premium in the store if the value is not a number', async () => {
     const {
       result: {
         current: { updatePremium },
@@ -103,10 +118,11 @@ describe('usePremiumSetup', () => {
     act(() => {
       updatePremium('0.')
     })
+    await waitFor(() => {
+      expect(settingsStore.getState().premium).toBe(1.5)
+    })
 
-    expect(settingsStore.getState().premium).toBe(1.5)
-
-    act(() => {
+    await act(() => {
       updatePremium('.')
     })
 
