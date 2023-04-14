@@ -21,7 +21,13 @@ export const usePremiumSetup = (offerDraft: SellOfferDraft, setOfferDraft: Dispa
   const currentPrice = priceBook ? getOfferPrice(offerDraft.amount, offerDraft.premium, priceBook, displayCurrency) : 0
 
   const updatePremium = (value: string | number) => {
-    setPremium(parsePremiumToString(value))
+    let valueWithTwoDecimals = value.toString()
+    if (value.toString().includes('.')) {
+      const [integer, decimal] = value.toString().split('.')
+      valueWithTwoDecimals = `${integer}.${decimal.slice(0, 2)}`
+    }
+
+    setPremium(parsePremiumToString(valueWithTwoDecimals))
     setPremiumStore(Number(premium))
   }
 
