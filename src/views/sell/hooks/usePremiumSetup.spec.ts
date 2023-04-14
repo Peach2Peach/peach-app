@@ -91,5 +91,15 @@ describe('usePremiumSetup', () => {
       result.current.updatePremium(10.123)
     })
     expect(result.current.premium).toBe('10.12')
+
+    act(() => {
+      result.current.updatePremium('10.1')
+    })
+    expect(result.current.premium).toBe('10.1')
+
+    act(() => {
+      result.current.updatePremium('10.10')
+    })
+    expect(result.current.premium).toBe('10.10')
   })
 })
