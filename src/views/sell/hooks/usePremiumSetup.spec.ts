@@ -83,4 +83,11 @@ describe('usePremiumSetup', () => {
 
     expect(result.current.currentPrice).toBe(0)
   })
+
+  it('should handle the premium being NaN', () => {
+    useSettingsStoreMock.mockImplementation((selector) => selector({ ...state, premium: NaN }))
+    const { result } = renderHook(() => usePremiumSetup(sellOfferDraft, setOfferDraftMock))
+
+    expect(result.current.premium).toBe('0')
+  })
 })
