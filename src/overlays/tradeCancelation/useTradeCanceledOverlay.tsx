@@ -112,5 +112,5 @@ export const useTradeCanceledOverlay = () => {
     [confirmOverlay, navigation, republishOffer, startRefund, updateOverlay],
   )
 
-  return showTradeCanceled
+  return { showTradeCanceled, republishOffer, confirmOverlay }
 }
