@@ -125,6 +125,12 @@ describe('useTradeCanceledOverlay', () => {
     expect(updateOverlayMock).toHaveBeenCalledWith({ visible: false })
     expect(showErrorBannerMock).toHaveBeenCalledWith(apiError.error)
   })
+  it('shows navigates to trade overview history tab when showing trade canceled overlay', () => {
+    getSellOfferFromContractMock.mockReturnValueOnce(sellOffer)
+    const { result } = renderHook(useTradeCanceledOverlay)
+    result.current.showTradeCanceled(contract, false)
+    expect(navigateMock).toHaveBeenCalledWith('yourTrades', { tab: 'history' })
+  })
   it('shows trade canceled overlay for non mutual cancel and non expired sell offer', () => {
     const nonExpiredSellOffer = { ...sellOffer, publishingDate: now }
     getSellOfferFromContractMock.mockReturnValueOnce(nonExpiredSellOffer)
