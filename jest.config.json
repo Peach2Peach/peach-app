@@ -17,12 +17,12 @@
     "^.+\\.(t|j)sx?$": ["@swc/jest", { "jsc": { "transform": { "react": { "runtime": "automatic" } } } }]
   },
   "transformIgnorePatterns": [
-    "node_modules/(?!(@react-native|react-native|@react-native-community|react-native-webview|react-native-canvas|react-native-form-validator|react-native-permissions|react-native-shadow-2|react-native-qrcode-svg|bdk-rn|react-native-parsed-text)/)"
+    "node_modules/(?!(@react-native|react-native|@react-native-community|react-native-webview|react-native-canvas|react-native-form-validator|react-native-permissions|react-native-shadow-2|react-native-qrcode-svg|bdk-rn|react-native-parsed-text|react-native-snap-carousel|react-native-url-polyfill|react-native-camera)/)"
   ],
   "setupFiles": ["./tests/unit/prepare.ts", "./node_modules/react-native-gesture-handler/jestSetup.js"],
   "moduleNameMapper": {
     "\\.(ttf|woff|woff2|eot|otf)$": "jest-transform-stub",
     "\\.(jpg|jpeg|png|gif|webp|svg|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
-    "^@env(.*)$": "<rootDir>/.env.dist$1"
+    "coveragePathIgnorePatterns": ["/node_modules/", "src/views/TestView"]
   }
 }

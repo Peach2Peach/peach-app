@@ -38,7 +38,6 @@ import cryptotag from './cryptotag.svg'
 import dollarSign from './dollarSign.svg'
 import dollarSignCircleInverted from './dollarSignCircleInverted.svg'
 import download from './download.svg'
-import downloadCloud from './downloadCloud.svg'
 import edit from './edit.svg'
 import edit3 from './edit3.svg'
 import externalLink from './externalLink.svg'
@@ -155,7 +154,6 @@ const Icons = {
   dollarSign,
   dollarSignCircleInverted,
   download,
-  downloadCloud,
   edit,
   edit3,
   externalLink,

@@ -12,7 +12,7 @@ import { thousands } from '../../utils/string'
 export const BitcoinPriceStats = () => {
   const [currency, satsPerUnit, price] = useBitcoinStore(
     (state) => [state.currency, state.satsPerUnit, state.price],
-    shallow
+    shallow,
   )
 
   return (

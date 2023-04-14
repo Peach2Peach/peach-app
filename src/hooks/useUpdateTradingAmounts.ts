@@ -14,11 +14,11 @@ export const useUpdateTradingAmounts = () => {
       state.maxBuyAmount,
       state.setMaxBuyAmount,
     ],
-    shallow
+    shallow,
   )
   const [setMinTradingAmount, setMaxTradingAmount] = useConfigStore(
     (state) => [state.setMinTradingAmount, state.setMaxTradingAmount],
-    shallow
+    shallow,
   )
 
   const updateTradingAmounts = useCallback(
@@ -39,7 +39,7 @@ export const useUpdateTradingAmounts = () => {
       setMinBuyAmount,
       setMinTradingAmount,
       setSellAmount,
-    ]
+    ],
   )
 
   return updateTradingAmounts

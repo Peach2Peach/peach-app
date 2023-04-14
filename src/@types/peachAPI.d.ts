@@ -131,6 +131,9 @@ declare type PaymentMethodCountry =
   | 'HR'
 
 declare type Location = 'amsterdam' | 'belgianEmbassy' | 'lugano'
+
+declare type AmazonGiftCard = `giftCard.amazon.${PaymentMethodCountry}`
+declare type NationalTransfer = `nationalTransfer${PaymentMethodCountry}`
 declare type PaymentMethod =
   | 'sepa'
   | 'instantSepa'
@@ -140,7 +143,6 @@ declare type PaymentMethod =
   | 'revolut'
   | 'vipps'
   | 'blik'
-  | 'applePay'
   | 'wise'
   | 'twint'
   | 'satispay'
@@ -161,9 +163,8 @@ declare type PaymentMethod =
   | 'iris'
   | `cash.${string}`
   | 'cash'
-  | 'giftCard.amazon'
-  | `giftCard.amazon.${PaymentMethodCountry}`
-  | `nationalTransfer${PaymentMethodCountry}`
+  | AmazonGiftCard
+  | NationalTransfer
 
 declare type MeetupEvent = {
   // BitcoinEvent in backend
@@ -338,6 +339,9 @@ declare type GetMatchesResponse = {
   offerId: string
   matches: Match[]
   totalMatches: number
+  nextPage: number
+
+  /** @deprecated */
   remainingMatches: number
 }
 declare type MatchResponse = {

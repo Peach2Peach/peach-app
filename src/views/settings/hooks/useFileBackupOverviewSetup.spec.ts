@@ -1,4 +1,3 @@
-import { HelpIcon } from './../../../components/icons/HelpIcon'
 import { renderHook } from '@testing-library/react-native'
 import i18n from '../../../utils/i18n'
 import { useFileBackupOverviewSetup } from './useFileBackupOverviewSetup'
@@ -12,7 +11,7 @@ jest.mock('../../../hooks/useNavigation', () => ({
   }),
 }))
 
-const useSettingsStoreMock = jest.fn((selector, compareFn) => selector({ lastFileBackupDate: 'correctDateFromStore' }))
+const useSettingsStoreMock = jest.fn((selector, _compareFn) => selector({ lastFileBackupDate: 'correctDateFromStore' }))
 jest.mock('../../../store/settingsStore', () => ({
   useSettingsStore: (selector: any, compareFn: any) => useSettingsStoreMock(selector, compareFn),
 }))

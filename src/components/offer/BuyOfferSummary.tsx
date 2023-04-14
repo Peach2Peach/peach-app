@@ -20,7 +20,7 @@ export const BuyOfferSummary = ({ offer, style }: BuyOfferSummaryProps): ReactEl
   const [selectedCurrency, setSelectedCurrency] = useState(currencies[0])
   const [payoutAddress, payoutAddressLabel] = useSettingsStore(
     (state) => [state.payoutAddress, state.payoutAddressLabel],
-    shallow
+    shallow,
   )
   const [walletLabel, setWalletLabel] = useState(i18n('loading'))
 
@@ -31,7 +31,7 @@ export const BuyOfferSummary = ({ offer, style }: BuyOfferSummaryProps): ReactEl
         address: offer.releaseAddress,
         customPayoutAddress: payoutAddress,
         customPayoutAddressLabel: payoutAddressLabel,
-      }) || i18n('offer.summary.customPayoutAddress')
+      }) || i18n('offer.summary.customPayoutAddress'),
     )
   }, [offer.releaseAddress, offer.walletLabel, payoutAddress, payoutAddressLabel])
 

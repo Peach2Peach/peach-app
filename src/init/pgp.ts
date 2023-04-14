@@ -1,20 +1,16 @@
-import { account, updateSettings } from '../utils/account'
+import { settingsStore } from '../store/settingsStore'
+import { account } from '../utils/account'
 import { error, info } from '../utils/log'
 import { updateUser } from '../utils/peachAPI'
 
 export default async () => {
   try {
-    if (account.pgp.publicKey && !account.settings.pgpPublished) {
+    if (account.pgp.publicKey && !settingsStore.getState().pgpPublished) {
       const [result, err] = await updateUser({ pgp: account.pgp })
 
       if (result) {
         info('Set PGP for user', account.publicKey)
-        updateSettings(
-          {
-            pgpPublished: true,
-          },
-          true,
-        )
+        settingsStore.getState().setPGPPublished(true)
       } else {
         error('PGP could not be set', JSON.stringify(err))
       }

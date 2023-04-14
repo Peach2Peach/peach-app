@@ -66,4 +66,22 @@ describe('useContractDetails', () => {
     await waitFor(() => expect(result.current.isFetching).toBe(false))
     expect(result.current.contract).toEqual(localContract)
   })
+  it('returns error if server did not return result and no local contract exists', async () => {
+    const localContract = undefined
+    getStoredContractMock.mockReturnValueOnce(localContract)
+    getContractMock.mockResolvedValueOnce([null])
+    const { result } = renderHook((id) => useContractDetails(id), {
+      wrapper: queryClientWrapper,
+      initialProps: contract.id,
+    })
+
+    expect(result.current.contract).toBeUndefined()
+    expect(result.current.isLoading).toBeTruthy()
+
+    await waitFor(() => expect(result.current.isLoading).toBe(false))
+
+    expect(result.current.contract).toBeUndefined()
+    expect(result.current.isLoading).toBeFalsy()
+    expect(result.current.error).toBeTruthy()
+  })
 })
