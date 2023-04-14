@@ -83,4 +83,13 @@ describe('usePremiumSetup', () => {
 
     expect(result.current.currentPrice).toBe(0)
   })
+
+  it('doesn\'t allow more than 2 decimals', () => {
+    const { result } = renderHook(() => usePremiumSetup(sellOfferDraft, setOfferDraftMock))
+
+    act(() => {
+      result.current.updatePremium(10.123)
+    })
+    expect(result.current.premium).toBe('10.12')
+  })
 })
