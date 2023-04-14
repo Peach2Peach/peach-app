@@ -24,8 +24,6 @@ export const useBuyerRejectedCancelTradeOverlay = () => {
 
   const showCancelTradeRequestRejected = useCallback(
     (contract: Contract) => {
-      const closeAction = () => confirmOverlay(contract)
-
       updateOverlay({
         title: i18n('contract.cancel.buyerRejected.title'),
         content: <BuyerRejectedCancelTrade contract={contract} />,
@@ -35,13 +33,11 @@ export const useBuyerRejectedCancelTradeOverlay = () => {
         action1: {
           label: i18n('close'),
           icon: 'xSquare',
-          callback: closeAction,
+          callback: () => confirmOverlay(contract),
         },
       })
-
-      return { closeAction }
     },
     [confirmOverlay, updateOverlay],
   )
-  return { showCancelTradeRequestRejected, confirmOverlay }
+  return showCancelTradeRequestRejected
 }
