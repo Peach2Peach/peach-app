@@ -1,5 +1,6 @@
 import { act, renderHook } from '@testing-library/react-native'
 import { settings1 } from '../../../../tests/unit/data/settingsData'
+import { SettingsStore, settingsStore } from '../../../store/settingsStore'
 import { defaultLimits } from '../../../utils/account/account'
 import { getSellOfferDraft } from '../helpers/getSellOfferDraft'
 import { usePremiumSetup } from './usePremiumSetup'
@@ -10,11 +11,7 @@ const state = {
   premium: 1.5,
   setPremium: setPremiumMock,
   displayCurrency: 'EUR',
-}
-const useSettingsStoreMock = jest.fn().mockImplementation((selector) => selector(state))
-jest.mock('../../../store/settingsStore', () => ({
-  useSettingsStore: (selector: any, compareFn: any) => useSettingsStoreMock(selector, compareFn),
-}))
+} satisfies Partial<SettingsStore>
 const useMarketPricesMock = jest.fn().mockReturnValue({
   data: {
     EUR: 20000,
@@ -44,12 +41,17 @@ jest.mock('./useSellSetup', () => ({
   useSellSetup: (...args: any) => useSellSetupMock(...args),
 }))
 
+// eslint-disable-next-line max-lines-per-function
 describe('usePremiumSetup', () => {
   const sellAmount = 100000
   const sellOfferDraft = getSellOfferDraft({ sellAmount, premium })
   const setOfferDraftMock = jest.fn((fn) => fn())
   beforeEach(() => {
     jest.clearAllMocks()
+  })
+
+  beforeAll(() => {
+    settingsStore.setState((def) => ({ ...def, ...state }))
   })
 
   it('returns default values correctly', () => {
@@ -85,9 +87,37 @@ describe('usePremiumSetup', () => {
   })
 
   it('should handle the premium being NaN', () => {
-    useSettingsStoreMock.mockImplementation((selector) => selector({ ...state, premium: NaN }))
+    settingsStore.setState((def) => ({ ...def, premium: NaN }))
     const { result } = renderHook(() => usePremiumSetup(sellOfferDraft, setOfferDraftMock))
 
     expect(result.current.premium).toBe('0')
+  })
+
+  it('should not update the premium if the value is not a number', async () => {
+    const {
+      result: {
+        current: { updatePremium },
+      },
+    } = renderHook(() => usePremiumSetup(sellOfferDraft, setOfferDraftMock))
+
+    act(() => {
+      updatePremium('0.')
+    })
+
+    const {
+      result: {
+        current: { premium: currentPremium, updatePremium: updatePremiumAgain },
+      },
+    } = renderHook(() => usePremiumSetup(sellOfferDraft, setOfferDraftMock))
+    expect(currentPremium).toBe(premium.toString())
+
+    act(() => {
+      updatePremiumAgain('.')
+    })
+
+    const {
+      result: { current },
+    } = renderHook(() => usePremiumSetup(sellOfferDraft, setOfferDraftMock))
+    expect(current.premium).toBe(premium.toString())
   })
 })
