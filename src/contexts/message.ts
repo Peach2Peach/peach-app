@@ -1,4 +1,4 @@
-import { createContext, Dispatch, ReactNode, ReducerState } from 'react'
+import { createContext, Dispatch, ReactNode, ReducerState, useContext } from 'react'
 import { Animated } from 'react-native'
 
 const state: MessageState = {
@@ -10,6 +10,7 @@ const state: MessageState = {
 const dispatch: Dispatch<MessageState> = () => {}
 
 export const MessageContext = createContext([state, dispatch] as const)
+export const useMessageContex = () => useContext(MessageContext)
 
 /**
  * @description Method to get message
