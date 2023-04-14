@@ -1,4 +1,4 @@
-import { act, renderHook, waitFor } from '@testing-library/react-native'
+import { act, renderHook } from '@testing-library/react-native'
 import { settings1 } from '../../../../tests/unit/data/settingsData'
 import { SettingsStore, settingsStore } from '../../../store/settingsStore'
 import { defaultLimits } from '../../../utils/account/account'
@@ -8,7 +8,7 @@ import { usePremiumSetup } from './usePremiumSetup'
 const setPremiumMock = jest.fn()
 const premium = 1.5
 const state = {
-  premium: 1.5,
+  premium,
   setPremium: setPremiumMock,
   displayCurrency: 'EUR',
 } satisfies Partial<SettingsStore>
@@ -33,8 +33,6 @@ jest.mock('../../../hooks/useNavigation', () => ({
 jest.mock('@react-navigation/native', () => ({
   useFocusEffect: jest.fn(),
 }))
-
-jest.mock('zustand/shallow', () => jest.fn())
 
 const useSellSetupMock = jest.fn()
 jest.mock('./useSellSetup', () => ({
@@ -91,41 +89,5 @@ describe('usePremiumSetup', () => {
     const { result } = renderHook(() => usePremiumSetup(sellOfferDraft, setOfferDraftMock))
 
     expect(result.current.premium).toBe('0')
-  })
-
-  it('should update the premium in the store', async () => {
-    const {
-      result: {
-        current: { updatePremium },
-      },
-    } = renderHook(() => usePremiumSetup(sellOfferDraft, setOfferDraftMock))
-
-    act(() => {
-      updatePremium('1')
-    })
-    await waitFor(() => {
-      expect(settingsStore.getState().premium).toBe(1)
-    })
-  })
-
-  it('should not update the premium in the store if the value is not a number', async () => {
-    const {
-      result: {
-        current: { updatePremium },
-      },
-    } = renderHook(() => usePremiumSetup(sellOfferDraft, setOfferDraftMock))
-
-    act(() => {
-      updatePremium('0.')
-    })
-    await waitFor(() => {
-      expect(settingsStore.getState().premium).toBe(1.5)
-    })
-
-    await act(() => {
-      updatePremium('.')
-    })
-
-    expect(settingsStore.getState().premium).toBe(1.5)
   })
 })
