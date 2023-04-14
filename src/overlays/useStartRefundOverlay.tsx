@@ -91,7 +91,6 @@ export const useStartRefundOverlay = () => {
     async (sellOffer: SellOffer) => {
       showLoadingOverlay({
         title: i18n('refund.loading.title'),
-        level: 'APP',
       })
 
       const [cancelResult, cancelError] = await cancelOffer({ offerId: sellOffer.id, timeout: 15 * 1000 })
