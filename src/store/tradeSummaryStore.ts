@@ -82,7 +82,7 @@ export const tradeSummaryStore = createStore(
             ...offer,
             creationDate: new Date(offer.creationDate),
             lastModified: new Date(offer.lastModified),
-          }))
+          })),
         )
         state.setContracts(
           state.contracts.map((contract) => ({
@@ -91,14 +91,14 @@ export const tradeSummaryStore = createStore(
             lastModified: new Date(contract.lastModified),
             paymentMade: contract.paymentMade ? new Date(contract.paymentMade) : undefined,
             paymentConfirmed: contract.paymentConfirmed ? new Date(contract.paymentConfirmed) : undefined,
-          }))
+          })),
         )
       },
-    }
-  )
+    },
+  ),
 )
 
 export const useTradeSummaryStore = <T>(
   selector: (state: TradeSummaryStore) => T,
-  equalityFn?: ((a: T, b: T) => boolean) | undefined
+  equalityFn?: ((a: T, b: T) => boolean) | undefined,
 ) => useStore(tradeSummaryStore, selector, equalityFn)

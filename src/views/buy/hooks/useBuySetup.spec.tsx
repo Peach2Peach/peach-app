@@ -8,14 +8,14 @@ const useNavigationMock = jest.fn(() => ({
 }))
 const useHeaderSetupMock = jest.fn()
 const showHelpMock = jest.fn()
-const useShowHelpMock = jest.fn((...args) => showHelpMock)
+const useShowHelpMock = jest.fn((..._args) => showHelpMock)
 jest.mock('../../../hooks', () => ({
   useNavigation: () => useNavigationMock(),
   useHeaderSetup: (...args: any) => useHeaderSetupMock(...args),
   useShowHelp: (...args: any) => useShowHelpMock(...args),
 }))
 
-const useSettingsStoreMock = jest.fn((selector, compareFn) =>
+const useSettingsStoreMock = jest.fn((selector, _compareFn) =>
   selector({ lastFileBackupDate: null, lastSeedBackupDate: null }),
 )
 jest.mock('../../../store/settingsStore', () => ({

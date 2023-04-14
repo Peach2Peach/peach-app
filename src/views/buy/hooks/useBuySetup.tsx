@@ -12,7 +12,7 @@ export const useBuySetup = () => {
   const showHelp = useShowHelp('buyingBitcoin')
   const [lastFileBackupDate, lastSeedBackupDate] = useSettingsStore(
     (state) => [state.lastFileBackupDate, state.lastSeedBackupDate],
-    shallow
+    shallow,
   )
 
   useHeaderSetup(
@@ -22,8 +22,8 @@ export const useBuySetup = () => {
         hideGoBackButton: true,
         icons: [{ iconComponent: <HelpIcon />, onPress: showHelp }],
       }),
-      [showHelp]
-    )
+      [showHelp],
+    ),
   )
 
   useEffect(() => {

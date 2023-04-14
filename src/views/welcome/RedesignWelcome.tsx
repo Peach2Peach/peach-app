@@ -19,8 +19,8 @@ export default (): ReactElement => {
         hideGoBackButton: true,
         theme: 'inverted',
       }),
-      []
-    )
+      [],
+    ),
   )
   return (
     <View testID="redesignWelcome" style={tw`flex-1`}>

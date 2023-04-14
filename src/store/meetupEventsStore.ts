@@ -30,11 +30,11 @@ export const meetupEventsStore = createStore(
       name: 'meetupEvents',
       version: 0,
       storage: createJSONStorage(() => toZustandStorage(meetupEventsStorage)),
-    }
-  )
+    },
+  ),
 )
 
 export const useMeetupEventsStore = <T>(
   selector: (state: MeetupEventsStore) => T,
-  equalityFn?: ((a: T, b: T) => boolean) | undefined
+  equalityFn?: ((a: T, b: T) => boolean) | undefined,
 ) => useStore(meetupEventsStore, selector, equalityFn)
