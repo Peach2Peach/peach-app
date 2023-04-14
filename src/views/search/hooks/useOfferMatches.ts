@@ -1,6 +1,5 @@
 import { useMemo } from 'react'
 import { useInfiniteQuery } from '@tanstack/react-query'
-import { useMatchStore } from '../../../components/matches/store'
 import { getMatchesFn } from '../getMatches'
 import { useOfferDetails } from '../../../hooks/query/useOfferDetails'
 import { useIsFocused } from '@react-navigation/native'
@@ -9,15 +8,15 @@ const FIFTEEN_SECONDS = 15 * 1000
 
 export const useOfferMatches = (offerId: string) => {
   const { offer } = useOfferDetails(offerId)
-  const currentPage = useMatchStore((state) => state.currentPage)
   const isFocused = useIsFocused()
 
   const queryData = useInfiniteQuery<GetMatchesResponse, APIError, GetMatchesResponse, [string, string]>({
     queryKey: ['matches', offerId],
     queryFn: getMatchesFn,
     refetchInterval: FIFTEEN_SECONDS,
-    enabled: isFocused && !!offer?.id && !offer.doubleMatched,
-    getNextPageParam: (lastPage) => (lastPage?.remainingMatches > 0 ? currentPage + 1 : undefined),
+    enabled:
+      isFocused && !!offer?.id && !offer.doubleMatched,
+    getNextPageParam: (lastPage) => lastPage?.nextPage,
     keepPreviousData: true,
   })
 
