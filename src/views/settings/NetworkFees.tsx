@@ -30,8 +30,8 @@ export default (): ReactElement => {
   const [selectedFeeRate, setSelectedFeeRate] = useState<FeeRate | number>(
     !!feeRate ? (typeof feeRate === 'number' ? 'custom' : feeRate) : 'halfHourFee',
   )
-  const [customFeeRate, setCustomFeeRate, isValid] = useValidatedState<string>(
-    typeof feeRate === 'number' ? feeRate.toString() : '1',
+  const [customFeeRate, setCustomFeeRate, isValid] = useValidatedState(
+    typeof feeRate === 'number' ? feeRate.toString() : undefined,
     customFeeRules,
   )
   const [feeRateSet, setFeeRateSet] = useState(true)
@@ -63,8 +63,8 @@ export default (): ReactElement => {
   }
 
   useEffect(() => {
-    if (!customFeeRate || isNaN(Number(customFeeRate)) || customFeeRate === '0') setCustomFeeRate('1')
-  }, [selectedFeeRate, setCustomFeeRate])
+    if (!customFeeRate || isNaN(Number(customFeeRate)) || customFeeRate === '0') setCustomFeeRate(undefined)
+  }, [customFeeRate, selectedFeeRate, setCustomFeeRate])
 
   useEffect(() => {
     setFeeRateSet(feeRate === selectedFeeRate && feeRate === Number(customFeeRate))
