@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RadioButtons renders correctly 1`] = `
+<View>
+  <View
+    style={
+      [
+        {
+          "alignItems": "center",
+          "flexDirection": "row",
+        },
+        {},
+      ]
+    }
+  >
+    <Memo(Pressable)
+      onPress={[Function]}
+      style={
+        {
+          "width": "100%",
+        }
+      }
+    >
+      <RadioButtonItem
+        display="EUR"
+        selected={true}
+      />
+    </Memo(Pressable)>
+  </View>
+  <View
+    style={
+      [
+        {
+          "alignItems": "center",
+          "flexDirection": "row",
+        },
+        {
+          "marginTop": 8,
+        },
+      ]
+    }
+  >
+    <Memo(Pressable)
+      onPress={[Function]}
+      style={
+        {
+          "width": "100%",
+        }
+      }
+    >
+      <RadioButtonItem
+        display="GBP"
+        selected={false}
+      />
+    </Memo(Pressable)>
+  </View>
+</View>
+`;

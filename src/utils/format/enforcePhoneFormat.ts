@@ -1,2 +1,7 @@
-export const enforcePhoneFormat = (number: string) =>
-  number.length && !/^\+/gu.test(number) ? `+${number}` : number.replace(/[^0-9+]/gu, '')
+export const enforcePhoneFormat = (number: string) => {
+  let formattedNumber = number.replace(/[^0-9+]/gu, '')
+  if (formattedNumber.length && !/^\+/gu.test(formattedNumber)) {
+    formattedNumber = `+${formattedNumber}`
+  }
+  return formattedNumber
+}

@@ -1,10 +1,12 @@
 import { ReactElement } from 'react'
 import { enforceWalletFormat } from '../../utils/format/enforceWalletFormat'
+import i18n from '../../utils/i18n'
 import Input, { InputProps } from './Input'
 
 export const WalletInput = ({ onChange, onSubmit, ...props }: InputProps): ReactElement => (
   <Input
     {...{
+      placeholder: i18n('form.wallet.placeholder'),
       ...props,
       onChange,
       onEndEditing: onChange ? (wallet: string) => onChange(enforceWalletFormat(wallet)) : undefined,
