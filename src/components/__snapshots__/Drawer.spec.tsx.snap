@@ -1,0 +1,297 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Drawer renders correctly 1`] = `
+<View
+  style={
+    [
+      {
+        "display": "flex",
+        "height": "100%",
+        "left": 0,
+        "position": "absolute",
+        "top": 0,
+        "width": "100%",
+        "zIndex": 20,
+      },
+      {
+        "display": "none",
+      },
+    ]
+  }
+>
+  <ForwardRef(AnimatedComponentWrapper)
+    style={
+      [
+        {
+          "backgroundColor": "#2B1911",
+          "flexGrow": 1,
+          "width": "100%",
+        },
+        {
+          "height": 1334,
+          "opacity": 0,
+        },
+      ]
+    }
+  >
+    <Memo(Pressable)
+      onPress={[Function]}
+      style={
+        {
+          "height": "100%",
+          "left": 0,
+          "position": "absolute",
+          "top": 0,
+          "width": "100%",
+        }
+      }
+    />
+  </ForwardRef(AnimatedComponentWrapper)>
+  <ForwardRef(AnimatedComponentWrapper)
+    style={
+      {
+        "backgroundColor": "#FFFCFA",
+        "borderTopLeftRadius": 24,
+        "borderTopRightRadius": 24,
+        "flexShrink": 0,
+        "marginTop": -28,
+        "maxHeight": "75%",
+        "width": "100%",
+      }
+    }
+    testID="drawer"
+  >
+    <View
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      style={
+        {
+          "paddingBottom": 24,
+          "paddingTop": 24,
+        }
+      }
+    >
+      <PeachText
+        style={
+          {
+            "fontFamily": "Baloo2-Bold",
+            "fontSize": 16,
+            "letterSpacing": 1.6,
+            "lineHeight": 26,
+            "textAlign": "center",
+            "textTransform": "uppercase",
+          }
+        }
+      >
+        testTitle
+      </PeachText>
+      <Memo(Pressable)
+        onPress={[Function]}
+        style={
+          {
+            "paddingBottom": 12,
+            "paddingLeft": 12,
+            "paddingRight": 12,
+            "paddingTop": 12,
+            "position": "absolute",
+            "right": 16,
+            "top": 12,
+          }
+        }
+      >
+        <Icon
+          color="#BAADA7"
+          id="xSquare"
+          style={
+            {
+              "height": 24,
+              "width": 24,
+            }
+          }
+        />
+      </Memo(Pressable)>
+    </View>
+    <HorizontalLine />
+    <PeachScrollView
+      contentContainerStyle={
+        {
+          "paddingBottom": 24,
+          "paddingLeft": 16,
+          "paddingRight": 16,
+          "paddingTop": 24,
+        }
+      }
+      style={
+        {
+          "flexShrink": 1,
+        }
+      }
+    >
+      <Text>
+        Drawer content
+      </Text>
+    </PeachScrollView>
+  </ForwardRef(AnimatedComponentWrapper)>
+</View>
+`;
+
+exports[`Drawer renders correctly with previous drawer 1`] = `
+<View
+  style={
+    [
+      {
+        "display": "flex",
+        "height": "100%",
+        "left": 0,
+        "position": "absolute",
+        "top": 0,
+        "width": "100%",
+        "zIndex": 20,
+      },
+      {
+        "display": "none",
+      },
+    ]
+  }
+>
+  <ForwardRef(AnimatedComponentWrapper)
+    style={
+      [
+        {
+          "backgroundColor": "#2B1911",
+          "flexGrow": 1,
+          "width": "100%",
+        },
+        {
+          "height": 1334,
+          "opacity": 0,
+        },
+      ]
+    }
+  >
+    <Memo(Pressable)
+      onPress={[Function]}
+      style={
+        {
+          "height": "100%",
+          "left": 0,
+          "position": "absolute",
+          "top": 0,
+          "width": "100%",
+        }
+      }
+    />
+  </ForwardRef(AnimatedComponentWrapper)>
+  <ForwardRef(AnimatedComponentWrapper)
+    style={
+      {
+        "backgroundColor": "#FFFCFA",
+        "borderTopLeftRadius": 24,
+        "borderTopRightRadius": 24,
+        "flexShrink": 0,
+        "marginTop": -28,
+        "maxHeight": "75%",
+        "width": "100%",
+      }
+    }
+    testID="drawer"
+  >
+    <View
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      style={
+        {
+          "paddingBottom": 24,
+          "paddingTop": 24,
+        }
+      }
+    >
+      <Memo(Pressable)
+        onPress={[Function]}
+        style={
+          {
+            "left": 16,
+            "paddingBottom": 12,
+            "paddingLeft": 12,
+            "paddingRight": 12,
+            "paddingTop": 12,
+            "position": "absolute",
+            "top": 12,
+            "zIndex": 10,
+          }
+        }
+      >
+        <Icon
+          color="#BAADA7"
+          id="chevronLeft"
+          style={
+            {
+              "height": 24,
+              "width": 24,
+            }
+          }
+        />
+      </Memo(Pressable)>
+      <PeachText
+        style={
+          {
+            "fontFamily": "Baloo2-Bold",
+            "fontSize": 16,
+            "letterSpacing": 1.6,
+            "lineHeight": 26,
+            "textAlign": "center",
+            "textTransform": "uppercase",
+          }
+        }
+      >
+        testTitle
+      </PeachText>
+      <Memo(Pressable)
+        onPress={[Function]}
+        style={
+          {
+            "paddingBottom": 12,
+            "paddingLeft": 12,
+            "paddingRight": 12,
+            "paddingTop": 12,
+            "position": "absolute",
+            "right": 16,
+            "top": 12,
+          }
+        }
+      >
+        <Icon
+          color="#BAADA7"
+          id="xSquare"
+          style={
+            {
+              "height": 24,
+              "width": 24,
+            }
+          }
+        />
+      </Memo(Pressable)>
+    </View>
+    <HorizontalLine />
+    <PeachScrollView
+      contentContainerStyle={
+        {
+          "paddingBottom": 24,
+          "paddingLeft": 16,
+          "paddingRight": 16,
+          "paddingTop": 24,
+        }
+      }
+      style={
+        {
+          "flexShrink": 1,
+        }
+      }
+    >
+      <Text>
+        Drawer content
+      </Text>
+    </PeachScrollView>
+  </ForwardRef(AnimatedComponentWrapper)>
+</View>
+`;
