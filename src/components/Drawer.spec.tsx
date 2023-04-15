@@ -79,7 +79,6 @@ describe('Drawer', () => {
   it('should not close the drawer on hardware back press if there is no content', () => {
     drawerState = {
       ...drawerState,
-      // @ts-expect-error
       content: null,
     }
     render(<Drawer {...drawerState} />, { wrapper })
