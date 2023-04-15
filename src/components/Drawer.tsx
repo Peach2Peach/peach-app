@@ -118,5 +118,3 @@ export const Drawer = ({ title, content, show, previousDrawer, onClose }: Drawer
     </View>
   )
 }
-
-export default Drawer

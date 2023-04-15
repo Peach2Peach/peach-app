@@ -10,7 +10,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import RNRestart from 'react-native-restart'
 import { enableScreens } from 'react-native-screens'
 
-import { AvoidKeyboard, Footer, Header } from './components'
+import { AvoidKeyboard, Footer, Header, Drawer } from './components'
 import tw from './styles/tailwind'
 import i18n from './utils/i18n'
 import { getViews } from './views'
@@ -21,7 +21,6 @@ import { getMessage, MessageContext, setMessage, showMessageEffect } from './con
 import { defaultOverlay, OverlayContext, useOverlay, useOverlayContext } from './contexts/overlay'
 import { getWebSocket, PeachWSContext, setPeachWS } from './utils/peachAPI/websocket'
 
-import Drawer from './components/Drawer'
 import Message from './components/Message'
 import Overlay from './components/Overlay'
 
