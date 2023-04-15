@@ -1,4 +1,4 @@
-import { ReactElement, useContext, useEffect, useRef, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import { Animated, BackHandler, Dimensions, Easing, GestureResponderEvent, Pressable, View } from 'react-native'
 import { HorizontalLine, Icon, PeachScrollView, Text } from '.'
 
@@ -21,7 +21,7 @@ let touchY = 0
  * @example
  * <Drawer title="Title" content={<Text>Drawer content</Text>} />
  */
-export const Drawer = ({ title, content, show, previousDrawer, onClose }: DrawerState): ReactElement => {
+export const Drawer = ({ title, content, show, previousDrawer, onClose }: DrawerState) => {
   const [, updateDrawer] = useContext(DrawerContext)
   const [{ height }] = useState(() => Dimensions.get('window'))
   const slideAnim = useRef(new Animated.Value(height)).current
