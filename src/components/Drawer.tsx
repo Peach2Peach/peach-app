@@ -91,7 +91,7 @@ export const Drawer = ({ title, content, show, previousDrawer, onClose }: Drawer
   const registerTouchMove = (e: GestureResponderEvent) => (touchY - e.nativeEvent.pageY < -20 ? closeDrawer() : null)
 
   return (
-    <View style={[tw`absolute top-0 left-0 z-20 flex w-full h-full`, !display ? tw`hidden` : {}]}>
+    <View style={[tw`absolute top-0 left-0 z-20 flex w-full h-full`, !display && tw`hidden`]}>
       <Animated.View style={[tw`flex-grow w-full bg-black-1`, { opacity: fadeAnim, height: slideAnim }]}>
         <Pressable onPress={closeDrawer} style={tw`absolute top-0 left-0 w-full h-full`} />
       </Animated.View>
