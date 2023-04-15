@@ -54,11 +54,8 @@ export const Drawer = ({ title, content, show, previousDrawer, onClose }: Drawer
     if (!content) return () => {}
 
     const listener = BackHandler.addEventListener('hardwareBackPress', () => {
-      if (previousDrawer) {
-        updateDrawer({ show: false })
-        return true
-      }
-      return false
+      updateDrawer({ show: false })
+      return true
     })
     return () => {
       listener.remove()
