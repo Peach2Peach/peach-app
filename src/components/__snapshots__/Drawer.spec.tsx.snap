@@ -98,6 +98,7 @@ exports[`Drawer renders correctly 1`] = `
             "top": 12,
           }
         }
+        testID="closeButton"
       >
         <Icon
           color="#BAADA7"
@@ -220,6 +221,7 @@ exports[`Drawer renders correctly with previous drawer 1`] = `
             "zIndex": 10,
           }
         }
+        testID="backButton"
       >
         <Icon
           color="#BAADA7"
@@ -259,6 +261,7 @@ exports[`Drawer renders correctly with previous drawer 1`] = `
             "top": 12,
           }
         }
+        testID="closeButton"
       >
         <Icon
           color="#BAADA7"

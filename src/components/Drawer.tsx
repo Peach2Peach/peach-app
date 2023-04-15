@@ -58,10 +58,6 @@ export const Drawer = ({ title, content, show, previousDrawer, onClose }: Drawer
         updateDrawer({ show: false })
         return true
       }
-      if (content) {
-        updateDrawer({ show: false })
-        return true
-      }
       return false
     })
     return () => {
@@ -93,12 +89,12 @@ export const Drawer = ({ title, content, show, previousDrawer, onClose }: Drawer
       >
         <View style={tw`py-6`} onTouchStart={registerTouchStart} onTouchMove={registerTouchMove}>
           {Object.keys(previousDrawer).length !== 0 && (
-            <Pressable onPress={goBack} style={tw`absolute z-10 p-3 left-4 top-3`}>
+            <Pressable testID="backButton" onPress={goBack} style={tw`absolute z-10 p-3 left-4 top-3`}>
               <Icon id="chevronLeft" style={tw`w-6 h-6`} color={tw`text-black-4`.color} />
             </Pressable>
           )}
           <Text style={tw`text-center drawer-title`}>{title}</Text>
-          <Pressable onPress={closeDrawer} style={tw`absolute p-3 right-4 top-3`}>
+          <Pressable testID="closeButton" onPress={closeDrawer} style={tw`absolute p-3 right-4 top-3`}>
             <Icon id="xSquare" style={tw`w-6 h-6`} color={tw`text-black-4`.color} />
           </Pressable>
         </View>
