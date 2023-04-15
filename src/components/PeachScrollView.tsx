@@ -19,7 +19,6 @@ export const PeachScrollView = ({
   style,
   showsHorizontalScrollIndicator = false,
   showsVerticalScrollIndicator = false,
-  persistentScrollbar,
   ...scrollViewProps
 }: PeachScrollViewProps): ReactElement => {
   const onStartShouldSetResponder = () => !disable
@@ -32,14 +31,8 @@ export const PeachScrollView = ({
   return !disable ? (
     <ScrollView
       ref={$scroll}
-      {...{
-        style,
-        showsHorizontalScrollIndicator,
-        showsVerticalScrollIndicator,
-        persistentScrollbar,
-        indicatorStyle: 'black',
-        ...scrollViewProps,
-      }}
+      {...{ style, showsHorizontalScrollIndicator, showsVerticalScrollIndicator, ...scrollViewProps }}
+      indicatorStyle="black"
       onLayout={onContainerLayout}
     >
       <View {...{ onStartShouldSetResponder }} style={tw`bg-transparent`} onLayout={onContentLayout}>
