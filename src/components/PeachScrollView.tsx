@@ -10,15 +10,6 @@ type PeachScrollViewProps = ComponentProps &
     onContentLayout?: (e: LayoutChangeEvent) => void
   }
 
-/**
- * @description Component to add scroll functionality withing AvoidKeyboard
- * @param props Component properties
- * @param props.children child elements
- * @example
- * <ScrollView>
- *    <Text>Your content</Text>
- * </ScrollView>
- */
 export const PeachScrollView = ({
   children,
   scrollRef,
