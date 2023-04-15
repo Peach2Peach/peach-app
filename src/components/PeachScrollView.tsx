@@ -21,7 +21,6 @@ export const PeachScrollView = ({
   showsVerticalScrollIndicator = false,
   ...scrollViewProps
 }: PeachScrollViewProps): ReactElement => {
-  const onStartShouldSetResponder = () => !disable
   const $scroll = useRef<ScrollView>(null)
 
   useEffect(() => {
@@ -35,7 +34,7 @@ export const PeachScrollView = ({
       indicatorStyle="black"
       onLayout={onContainerLayout}
     >
-      <View {...{ onStartShouldSetResponder }} style={tw`bg-transparent`} onLayout={onContentLayout}>
+      <View onStartShouldSetResponder={() => true} style={tw`bg-transparent`} onLayout={onContentLayout}>
         {children}
       </View>
     </ScrollView>
