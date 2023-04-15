@@ -50,5 +50,3 @@ export const PeachScrollView = ({
     <View style={style}>{children}</View>
   )
 }
-
-export default PeachScrollView

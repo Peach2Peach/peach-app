@@ -6,7 +6,7 @@ import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { PrimaryButton } from '../buttons'
 import Icon from '../Icon'
-import PeachScrollView from '../PeachScrollView'
+import { PeachScrollView } from '../PeachScrollView'
 import { useMeetupScreenSetup } from './hooks/useMeetupScreenSetup'
 
 /**

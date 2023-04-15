@@ -8,7 +8,7 @@ import { whiteGradient } from '../../../../utils/layout'
 import { specialTemplates } from '../../../../views/addPaymentMethod/specialTemplates'
 import { Fade } from '../../../animation'
 import { PrimaryButton } from '../../../buttons'
-import PeachScrollView from '../../../PeachScrollView'
+import { PeachScrollView } from '../../../PeachScrollView'
 import { useSubmitForm } from './hooks/useSubmitForm'
 const { LinearGradient } = require('react-native-gradients')
 
