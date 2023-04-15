@@ -13,14 +13,6 @@ const animConfig = {
 }
 let touchY = 0
 
-/**
- * @description Component to display the Drawer
- * @param props Component properties
- * @param props.title the drawer title
- * @param props.content the drawer content
- * @example
- * <Drawer title="Title" content={<Text>Drawer content</Text>} />
- */
 export const Drawer = ({ title, content, show, previousDrawer, onClose }: DrawerState) => {
   const [, updateDrawer] = useContext(DrawerContext)
   const [{ height }] = useState(() => Dimensions.get('window'))
