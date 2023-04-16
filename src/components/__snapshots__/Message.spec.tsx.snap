@@ -1,0 +1,813 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Message renders correctly 1`] = `
+<View
+  style={
+    [
+      {
+        "alignItems": "center",
+        "borderRadius": 16,
+        "display": "flex",
+        "justifyContent": "center",
+        "marginBottom": 24,
+        "marginLeft": 24,
+        "marginRight": 24,
+        "marginTop": 24,
+        "paddingBottom": 8,
+        "paddingLeft": 16,
+        "paddingRight": 16,
+        "paddingTop": 16,
+      },
+      {
+        "elevation": 8,
+        "shadowColor": "#2B191152",
+        "shadowOffset": {
+          "height": 8,
+          "width": 0,
+        },
+        "shadowOpacity": 0.32,
+        "shadowRadius": 8,
+      },
+      {
+        "backgroundColor": "#F56522",
+      },
+      {},
+    ]
+  }
+>
+  <View
+    style={
+      {
+        "paddingBottom": 8,
+        "paddingLeft": 8,
+        "paddingRight": 8,
+        "paddingTop": 8,
+      }
+    }
+  >
+    <View
+      style={
+        {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "justifyContent": "center",
+        }
+      }
+    >
+      <Icon
+        color="#FFF9F6"
+        id="translatedtestMsgKey.icon"
+        style={
+          {
+            "height": 20,
+            "marginRight": 8,
+            "width": 20,
+          }
+        }
+      />
+      <PeachText
+        style={
+          [
+            {
+              "fontFamily": "Baloo2-Bold",
+              "fontSize": 20,
+              "letterSpacing": 0.2,
+              "lineHeight": 32,
+              "textAlign": "center",
+            },
+            {
+              "color": "#FFF9F6",
+            },
+          ]
+        }
+      >
+        translatedtestMsgKey.title
+      </PeachText>
+    </View>
+    <PeachText
+      style={
+        [
+          {
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 24,
+            "textAlign": "center",
+          },
+          {
+            "color": "#FFF9F6",
+          },
+          {
+            "marginTop": 4,
+          },
+        ]
+      }
+    >
+      translatedtestMsgKey.text
+    </PeachText>
+  </View>
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "display": "flex",
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "marginTop": 4,
+        "width": "100%",
+      }
+    }
+  >
+    <TouchableOpacity
+      onPress={[MockFunction]}
+      style={
+        {
+          "alignItems": "center",
+          "display": "flex",
+          "flexDirection": "row",
+        }
+      }
+    >
+      <PeachText
+        style={
+          [
+            {
+              "fontFamily": "Baloo2-SemiBold",
+              "fontSize": 14,
+              "letterSpacing": 0.14,
+              "lineHeight": 22.75,
+            },
+            {
+              "color": "#FFF9F6",
+            },
+          ]
+        }
+      >
+         
+        testLabel
+      </PeachText>
+    </TouchableOpacity>
+    <TouchableOpacity
+      onPress={[Function]}
+      style={
+        {
+          "alignItems": "center",
+          "display": "flex",
+          "flexDirection": "row",
+          "textAlign": "right",
+        }
+      }
+    >
+      <PeachText
+        style={
+          [
+            {
+              "fontFamily": "Baloo2-SemiBold",
+              "fontSize": 14,
+              "letterSpacing": 0.14,
+              "lineHeight": 22.75,
+            },
+            {
+              "color": "#FFF9F6",
+            },
+          ]
+        }
+      >
+        translatedclose
+         
+      </PeachText>
+      <Icon
+        color="#FFF9F6"
+        id="xSquare"
+        style={
+          {
+            "height": 16,
+            "width": 16,
+          }
+        }
+      />
+    </TouchableOpacity>
+  </View>
+</View>
+`;
+
+exports[`Message renders correctly with no action 1`] = `
+<View
+  style={
+    [
+      {
+        "alignItems": "center",
+        "borderRadius": 16,
+        "display": "flex",
+        "justifyContent": "center",
+        "marginBottom": 24,
+        "marginLeft": 24,
+        "marginRight": 24,
+        "marginTop": 24,
+        "paddingBottom": 8,
+        "paddingLeft": 16,
+        "paddingRight": 16,
+        "paddingTop": 16,
+      },
+      {
+        "elevation": 8,
+        "shadowColor": "#2B191152",
+        "shadowOffset": {
+          "height": 8,
+          "width": 0,
+        },
+        "shadowOpacity": 0.32,
+        "shadowRadius": 8,
+      },
+      {
+        "backgroundColor": "#F56522",
+      },
+      {},
+    ]
+  }
+>
+  <View
+    style={
+      {
+        "paddingBottom": 8,
+        "paddingLeft": 8,
+        "paddingRight": 8,
+        "paddingTop": 8,
+      }
+    }
+  >
+    <View
+      style={
+        {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "justifyContent": "center",
+        }
+      }
+    >
+      <Icon
+        color="#FFF9F6"
+        id="translatedtestMsgKey.icon"
+        style={
+          {
+            "height": 20,
+            "marginRight": 8,
+            "width": 20,
+          }
+        }
+      />
+      <PeachText
+        style={
+          [
+            {
+              "fontFamily": "Baloo2-Bold",
+              "fontSize": 20,
+              "letterSpacing": 0.2,
+              "lineHeight": 32,
+              "textAlign": "center",
+            },
+            {
+              "color": "#FFF9F6",
+            },
+          ]
+        }
+      >
+        translatedtestMsgKey.title
+      </PeachText>
+    </View>
+    <PeachText
+      style={
+        [
+          {
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 24,
+            "textAlign": "center",
+          },
+          {
+            "color": "#FFF9F6",
+          },
+          {
+            "marginTop": 4,
+          },
+        ]
+      }
+    >
+      translatedtestMsgKey.text
+    </PeachText>
+  </View>
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "display": "flex",
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "marginTop": 4,
+        "width": "100%",
+      }
+    }
+  >
+    <View />
+    <TouchableOpacity
+      onPress={[Function]}
+      style={
+        {
+          "alignItems": "center",
+          "display": "flex",
+          "flexDirection": "row",
+          "textAlign": "right",
+        }
+      }
+    >
+      <PeachText
+        style={
+          [
+            {
+              "fontFamily": "Baloo2-SemiBold",
+              "fontSize": 14,
+              "letterSpacing": 0.14,
+              "lineHeight": 22.75,
+            },
+            {
+              "color": "#FFF9F6",
+            },
+          ]
+        }
+      >
+        translatedclose
+         
+      </PeachText>
+      <Icon
+        color="#FFF9F6"
+        id="xSquare"
+        style={
+          {
+            "height": 16,
+            "width": 16,
+          }
+        }
+      />
+    </TouchableOpacity>
+  </View>
+</View>
+`;
+
+exports[`Message should use default values for missing keys 1`] = `
+<View
+  style={
+    [
+      {
+        "alignItems": "center",
+        "borderRadius": 16,
+        "display": "flex",
+        "justifyContent": "center",
+        "marginBottom": 24,
+        "marginLeft": 24,
+        "marginRight": 24,
+        "marginTop": 24,
+        "paddingBottom": 8,
+        "paddingLeft": 16,
+        "paddingRight": 16,
+        "paddingTop": 16,
+      },
+      {
+        "elevation": 8,
+        "shadowColor": "#2B191152",
+        "shadowOffset": {
+          "height": 8,
+          "width": 0,
+        },
+        "shadowOpacity": 0.32,
+        "shadowRadius": 8,
+      },
+      {
+        "backgroundColor": "#F56522",
+      },
+      {},
+    ]
+  }
+>
+  <View
+    style={
+      {
+        "paddingBottom": 8,
+        "paddingLeft": 8,
+        "paddingRight": 8,
+        "paddingTop": 8,
+      }
+    }
+  >
+    <View
+      style={
+        {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "justifyContent": "center",
+        }
+      }
+    />
+    <PeachText
+      style={
+        [
+          {
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 24,
+            "textAlign": "center",
+          },
+          {
+            "color": "#FFF9F6",
+          },
+          false,
+        ]
+      }
+    >
+      testMsgKey
+    </PeachText>
+  </View>
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "display": "flex",
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "marginTop": 4,
+        "width": "100%",
+      }
+    }
+  >
+    <TouchableOpacity
+      onPress={[MockFunction]}
+      style={
+        {
+          "alignItems": "center",
+          "display": "flex",
+          "flexDirection": "row",
+        }
+      }
+    >
+      <PeachText
+        style={
+          [
+            {
+              "fontFamily": "Baloo2-SemiBold",
+              "fontSize": 14,
+              "letterSpacing": 0.14,
+              "lineHeight": 22.75,
+            },
+            {
+              "color": "#FFF9F6",
+            },
+          ]
+        }
+      >
+         
+        testLabel
+      </PeachText>
+    </TouchableOpacity>
+    <TouchableOpacity
+      onPress={[Function]}
+      style={
+        {
+          "alignItems": "center",
+          "display": "flex",
+          "flexDirection": "row",
+          "textAlign": "right",
+        }
+      }
+    >
+      <PeachText
+        style={
+          [
+            {
+              "fontFamily": "Baloo2-SemiBold",
+              "fontSize": 14,
+              "letterSpacing": 0.14,
+              "lineHeight": 22.75,
+            },
+            {
+              "color": "#FFF9F6",
+            },
+          ]
+        }
+      >
+        close
+         
+      </PeachText>
+      <Icon
+        color="#FFF9F6"
+        id="xSquare"
+        style={
+          {
+            "height": 16,
+            "width": 16,
+          }
+        }
+      />
+    </TouchableOpacity>
+  </View>
+</View>
+`;
+
+exports[`Message should use default values for missing translations 1`] = `
+<View
+  style={
+    [
+      {
+        "alignItems": "center",
+        "borderRadius": 16,
+        "display": "flex",
+        "justifyContent": "center",
+        "marginBottom": 24,
+        "marginLeft": 24,
+        "marginRight": 24,
+        "marginTop": 24,
+        "paddingBottom": 8,
+        "paddingLeft": 16,
+        "paddingRight": 16,
+        "paddingTop": 16,
+      },
+      {
+        "elevation": 8,
+        "shadowColor": "#2B191152",
+        "shadowOffset": {
+          "height": 8,
+          "width": 0,
+        },
+        "shadowOpacity": 0.32,
+        "shadowRadius": 8,
+      },
+      {
+        "backgroundColor": "#F56522",
+      },
+      {},
+    ]
+  }
+>
+  <View
+    style={
+      {
+        "paddingBottom": 8,
+        "paddingLeft": 8,
+        "paddingRight": 8,
+        "paddingTop": 8,
+      }
+    }
+  >
+    <View
+      style={
+        {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "justifyContent": "center",
+        }
+      }
+    />
+    <PeachText
+      style={
+        [
+          {
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 24,
+            "textAlign": "center",
+          },
+          {
+            "color": "#FFF9F6",
+          },
+          false,
+        ]
+      }
+    >
+      testMsgKey
+    </PeachText>
+  </View>
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "display": "flex",
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "marginTop": 4,
+        "width": "100%",
+      }
+    }
+  >
+    <TouchableOpacity
+      onPress={[MockFunction]}
+      style={
+        {
+          "alignItems": "center",
+          "display": "flex",
+          "flexDirection": "row",
+        }
+      }
+    >
+      <PeachText
+        style={
+          [
+            {
+              "fontFamily": "Baloo2-SemiBold",
+              "fontSize": 14,
+              "letterSpacing": 0.14,
+              "lineHeight": 22.75,
+            },
+            {
+              "color": "#FFF9F6",
+            },
+          ]
+        }
+      >
+         
+        testLabel
+      </PeachText>
+    </TouchableOpacity>
+    <TouchableOpacity
+      onPress={[Function]}
+      style={
+        {
+          "alignItems": "center",
+          "display": "flex",
+          "flexDirection": "row",
+          "textAlign": "right",
+        }
+      }
+    >
+      <PeachText
+        style={
+          [
+            {
+              "fontFamily": "Baloo2-SemiBold",
+              "fontSize": 14,
+              "letterSpacing": 0.14,
+              "lineHeight": 22.75,
+            },
+            {
+              "color": "#FFF9F6",
+            },
+          ]
+        }
+      >
+        close
+         
+      </PeachText>
+      <Icon
+        color="#FFF9F6"
+        id="xSquare"
+        style={
+          {
+            "height": 16,
+            "width": 16,
+          }
+        }
+      />
+    </TouchableOpacity>
+  </View>
+</View>
+`;
+
+exports[`Message should use fallback values for missing props 1`] = `
+<View
+  style={
+    [
+      {
+        "alignItems": "center",
+        "borderRadius": 16,
+        "display": "flex",
+        "justifyContent": "center",
+        "marginBottom": 24,
+        "marginLeft": 24,
+        "marginRight": 24,
+        "marginTop": 24,
+        "paddingBottom": 8,
+        "paddingLeft": 16,
+        "paddingRight": 16,
+        "paddingTop": 16,
+      },
+      {
+        "elevation": 8,
+        "shadowColor": "#2B191152",
+        "shadowOffset": {
+          "height": 8,
+          "width": 0,
+        },
+        "shadowOpacity": 0.32,
+        "shadowRadius": 8,
+      },
+      {
+        "backgroundColor": "#F56522",
+      },
+      {},
+    ]
+  }
+>
+  <View
+    style={
+      {
+        "paddingBottom": 8,
+        "paddingLeft": 8,
+        "paddingRight": 8,
+        "paddingTop": 8,
+      }
+    }
+  >
+    <View
+      style={
+        {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "justifyContent": "center",
+        }
+      }
+    />
+  </View>
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "display": "flex",
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "marginTop": 4,
+        "width": "100%",
+      }
+    }
+  >
+    <TouchableOpacity
+      onPress={[MockFunction]}
+      style={
+        {
+          "alignItems": "center",
+          "display": "flex",
+          "flexDirection": "row",
+        }
+      }
+    >
+      <PeachText
+        style={
+          [
+            {
+              "fontFamily": "Baloo2-SemiBold",
+              "fontSize": 14,
+              "letterSpacing": 0.14,
+              "lineHeight": 22.75,
+            },
+            {
+              "color": "#FFF9F6",
+            },
+          ]
+        }
+      >
+         
+        testLabel
+      </PeachText>
+    </TouchableOpacity>
+    <TouchableOpacity
+      onPress={[Function]}
+      style={
+        {
+          "alignItems": "center",
+          "display": "flex",
+          "flexDirection": "row",
+          "textAlign": "right",
+        }
+      }
+    >
+      <PeachText
+        style={
+          [
+            {
+              "fontFamily": "Baloo2-SemiBold",
+              "fontSize": 14,
+              "letterSpacing": 0.14,
+              "lineHeight": 22.75,
+            },
+            {
+              "color": "#FFF9F6",
+            },
+          ]
+        }
+      >
+        close
+         
+      </PeachText>
+      <Icon
+        color="#FFF9F6"
+        id="xSquare"
+        style={
+          {
+            "height": 16,
+            "width": 16,
+          }
+        }
+      />
+    </TouchableOpacity>
+  </View>
+</View>
+`;
