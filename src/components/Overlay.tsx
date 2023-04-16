@@ -102,5 +102,3 @@ export const Overlay = ({
     </Modal>
   )
 }
-
-export default Overlay
