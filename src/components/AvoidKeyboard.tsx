@@ -7,15 +7,6 @@ type AvoidKeyboardProps = ComponentProps & {
   androidBehavior?: 'padding' | 'height' | 'position'
 }
 
-/**
- * @description Component to avoid keyboard overlapping
- * @param props Component properties
- * @param props.children child elements
- * @example
- * <AvoidKeyboard>
- *    <Text>Your content</Text>
- * </AvoidKeyboard>
- */
 export const AvoidKeyboard = ({ children, iOSBehavior, androidBehavior }: AvoidKeyboardProps): ReactElement => {
   const [enabled, setEnabled] = useState(true)
   useEffect(() => {
