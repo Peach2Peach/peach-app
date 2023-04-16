@@ -86,5 +86,3 @@ export const Message = ({ level, msgKey, bodyArgs = [], action, onClose, style }
     </View>
   )
 }
-
-export default Message

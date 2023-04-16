@@ -18,3 +18,4 @@ export { BigSatsFormat, MediumSatsFormat, ParsedPeachText, PriceFormat, SatsForm
 export type { FileData } from './types'
 export { CopyAble, HorizontalLine, Progress } from './ui'
 export { Drawer } from './Drawer'
+export { Message } from './Message'
