@@ -1,5 +1,5 @@
 import { EffectCallback } from 'react'
-import { getAbortWithTimeout } from '../utils/fetch'
+import { getAbortWithTimeout } from '../utils/getAbortWithTimeout'
 import { error } from '../utils/log'
 import { getFeeEstimate } from '../utils/peachAPI'
 
