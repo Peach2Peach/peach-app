@@ -32,5 +32,3 @@ export const AvoidKeyboard = ({ children, iOSBehavior, androidBehavior }: AvoidK
     </KeyboardAvoidingView>
   )
 }
-
-export default AvoidKeyboard
