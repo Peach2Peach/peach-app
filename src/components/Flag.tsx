@@ -19,5 +19,3 @@ export const Flag = ({ id, style }: FlagProps): ReactElement => {
 
   return SVG ? <SVG style={style} /> : <Text>❌</Text>
 }
-
-export default Flag
