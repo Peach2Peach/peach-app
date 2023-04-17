@@ -1,6 +1,6 @@
 import { NETWORK } from '@env'
-import { useCallback, useContext } from 'react'
-import { OverlayContext } from '../contexts/overlay'
+import { useCallback } from 'react'
+import { useOverlayContext } from '../contexts/overlay'
 import { useNavigation } from '../hooks'
 import { useTradeSummaries } from '../hooks/query/useTradeSummaries'
 import { useShowErrorBanner } from '../hooks/useShowErrorBanner'
@@ -16,7 +16,7 @@ import { peachWallet } from '../utils/wallet/setWallet'
 import Refund from './Refund'
 
 export const useStartRefundOverlay = () => {
-  const [, updateOverlay] = useContext(OverlayContext)
+  const [, updateOverlay] = useOverlayContext()
   const showError = useShowErrorBanner()
   const navigation = useNavigation()
   const { refetch: refetchTradeSummaries } = useTradeSummaries(false)
