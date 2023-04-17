@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import { OverlayContext } from '../../../contexts/overlay'
 import { useNavigation } from '../../../hooks'
-import DeletePaymentMethodConfirm from '../../../overlays/info/DeletePaymentMethodConfirm'
+import { DeletePaymentMethodConfirm } from '../../../overlays/info/DeletePaymentMethodConfirm'
 import { removePaymentData } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
 
