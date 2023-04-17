@@ -10,7 +10,7 @@ const state: MessageState = {
 const dispatch: Dispatch<MessageState> = () => {}
 
 export const MessageContext = createContext([state, dispatch] as const)
-export const useMessageContex = () => useContext(MessageContext)
+export const useMessageContext = () => useContext(MessageContext)
 
 /**
  * @description Method to get message

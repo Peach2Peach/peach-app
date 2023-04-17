@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { shallow } from 'zustand/shallow'
 import { HelpIcon } from '../../../components/icons'
-import { useMessageContex } from '../../../contexts/message'
+import { useMessageContext } from '../../../contexts/message'
 import { useHeaderSetup, useValidatedState } from '../../../hooks'
 import { useFeeEstimate } from '../../../hooks/query/useFeeEstimate'
 import { useShowHelp } from '../../../hooks/useShowHelp'
@@ -14,7 +14,7 @@ const customFeeRules = {
   feeRate: true,
 }
 export const useNetworkFeesSetup = () => {
-  const [, updateMessage] = useMessageContex()
+  const [, updateMessage] = useMessageContext()
   const showHelp = useShowHelp('networkFees')
   const { estimatedFees } = useFeeEstimate()
 
