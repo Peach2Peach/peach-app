@@ -16,7 +16,7 @@ jest.mock('../../../hooks/useNavigation', () => ({
 
 const updateMessageMock = jest.fn()
 jest.mock('../../../contexts/message', () => ({
-  useMessageContex: () => [, updateMessageMock],
+  useMessageContext: () => [, updateMessageMock],
 }))
 
 const useHeaderSetupMock = jest.fn()
