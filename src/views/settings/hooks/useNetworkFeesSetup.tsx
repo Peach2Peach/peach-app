@@ -1,13 +1,13 @@
 import { useEffect, useMemo, useState } from 'react'
+import { shallow } from 'zustand/shallow'
 import { HelpIcon } from '../../../components/icons'
 import { useMessageContex } from '../../../contexts/message'
-import getFeeEstimateEffect from '../../../effects/getFeeEstimateEffect'
 import { useHeaderSetup, useValidatedState } from '../../../hooks'
+import { useFeeEstimate } from '../../../hooks/query/useFeeEstimate'
 import { useShowHelp } from '../../../hooks/useShowHelp'
-import i18n from '../../../utils/i18n'
 import { useSettingsStore } from '../../../store/settingsStore'
+import i18n from '../../../utils/i18n'
 import { updateUser } from '../../../utils/peachAPI'
-import { shallow } from 'zustand/shallow'
 
 const customFeeRules = {
   required: true,
@@ -15,22 +15,15 @@ const customFeeRules = {
 }
 export const useNetworkFeesSetup = () => {
   const [, updateMessage] = useMessageContex()
-
   const showHelp = useShowHelp('networkFees')
-  const [estimatedFees, setEstimatedFees] = useState<FeeRecommendation>({
-    fastestFee: 1,
-    halfHourFee: 1,
-    hourFee: 1,
-    economyFee: 1,
-    minimumFee: 1,
-  })
+  const { estimatedFees } = useFeeEstimate()
 
   const [feeRate, setFeeRate] = useSettingsStore((state) => [state.feeRate, state.setFeeRate], shallow)
 
   const [selectedFeeRate, setSelectedFeeRate] = useState<FeeRate | number>(
-    !!feeRate ? (typeof feeRate === 'number' ? 'custom' : feeRate) : 'halfHourFee',
+    typeof feeRate === 'number' ? 'custom' : feeRate,
   )
-  const [customFeeRate, setCustomFeeRate, isValid] = useValidatedState(
+  const [customFeeRate, setCustomFeeRate, isValidCustomFeeRate] = useValidatedState(
     typeof feeRate === 'number' ? feeRate.toString() : undefined,
     customFeeRules,
   )
@@ -67,22 +60,16 @@ export const useNetworkFeesSetup = () => {
     ),
   )
 
-  useEffect(
-    getFeeEstimateEffect({
-      interval: 60 * 1000,
-      onSuccess: (result) => {
-        setEstimatedFees(result)
-      },
-    }),
-    [],
-  )
-
   useEffect(() => {
     if (!customFeeRate || isNaN(Number(customFeeRate)) || customFeeRate === '0') setCustomFeeRate(undefined)
   }, [customFeeRate, selectedFeeRate, setCustomFeeRate])
 
   useEffect(() => {
-    setFeeRateSet(feeRate === selectedFeeRate && feeRate === Number(customFeeRate))
+    if (selectedFeeRate === 'custom') {
+      setFeeRateSet(feeRate === Number(customFeeRate))
+    } else {
+      setFeeRateSet(feeRate === selectedFeeRate)
+    }
   }, [customFeeRate, feeRate, selectedFeeRate, setCustomFeeRate])
 
   return {
@@ -92,7 +79,7 @@ export const useNetworkFeesSetup = () => {
     customFeeRate,
     setCustomFeeRate,
     submit,
-    isValid,
+    isValid: selectedFeeRate !== 'custom' || isValidCustomFeeRate,
     feeRateSet,
   }
 }
