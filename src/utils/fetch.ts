@@ -1,13 +1,6 @@
 import { error, info } from './log'
 import { parseError } from './result'
 
-export const getAbortWithTimeout = (timeout?: number) => {
-  const controller = new AbortController()
-  if (timeout) setTimeout(() => controller.abort(), timeout)
-
-  return controller
-}
-
 export default (url: RequestInfo, init?: RequestInit): Promise<Response> =>
   new Promise((resolve) =>
     fetch(url, init)
