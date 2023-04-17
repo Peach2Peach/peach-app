@@ -18,18 +18,22 @@ describe('useBuyerRejectedCancelTradeOverlay', () => {
   afterEach(() => {
     jest.clearAllMocks()
   })
-  let state = { ...defaultOverlay }
-  const updateOverlay = jest.fn((newState) => (state = newState))
+  let overlayState = { ...defaultOverlay }
+  const updateOverlay = jest.fn((newState) => (overlayState = newState))
 
   const { result } = renderHook(useBuyerRejectedCancelTradeOverlay, {
     wrapper: ({ children }) => (
-      <OverlayContext.Provider value={[state, updateOverlay]}>{children}</OverlayContext.Provider>
+      <OverlayContext.Provider value={[overlayState, updateOverlay]}>{children}</OverlayContext.Provider>
     ),
+  })
+  afterEach(() => {
+    jest.clearAllMocks()
+    overlayState = { ...defaultOverlay }
   })
   it('should show the overlay', () => {
     const showCancelTradeRequestRejected = result.current
     act(() => showCancelTradeRequestRejected(contract))
-    expect(state).toStrictEqual({
+    expect(overlayState).toStrictEqual({
       title: i18n('contract.cancel.buyerRejected.title'),
       content: <BuyerRejectedCancelTrade contract={contract} />,
       visible: true,
@@ -43,8 +47,12 @@ describe('useBuyerRejectedCancelTradeOverlay', () => {
     })
   })
   it('should hide the overlay, navigate to contract screen and save contract when action is called', () => {
-    act(() => state.action1?.callback())
-    expect(state).toStrictEqual({
+    const showCancelTradeRequestRejected = result.current
+    act(() => {
+      showCancelTradeRequestRejected(contract)
+      overlayState.action1?.callback()
+    })
+    expect(overlayState).toStrictEqual({
       visible: false,
     })
     expect(replaceMock).toHaveBeenCalledWith('contract', { contractId: contract.id })
