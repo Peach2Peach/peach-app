@@ -3,8 +3,8 @@ import { shallow } from 'zustand/shallow'
 import { useMarketPrices, useTradingLimits } from '../../../hooks'
 import { useSettingsStore } from '../../../store/settingsStore'
 import { getOfferPrice } from '../../../utils/offer'
-import { parsePremiumToString } from '../helpers/parsePremiumToString'
 import { validatePremiumStep } from '../helpers/validatePremiumStep'
+import { enforcePremiumFormat } from '../helpers/enforcePremiumFormat'
 import { useSellSetup } from './useSellSetup'
 
 export const usePremiumSetup = (offerDraft: SellOfferDraft, setOfferDraft: Dispatch<SetStateAction<SellOfferDraft>>) => {
@@ -21,8 +21,9 @@ export const usePremiumSetup = (offerDraft: SellOfferDraft, setOfferDraft: Dispa
   const currentPrice = priceBook ? getOfferPrice(offerDraft.amount, offerDraft.premium, priceBook, displayCurrency) : 0
 
   const updatePremium = (value: string | number) => {
-    setPremium(parsePremiumToString(value))
-    setPremiumStore(Number(premium))
+    const newPremium = enforcePremiumFormat(value)
+    setPremium(newPremium)
+    setPremiumStore(Number(newPremium))
   }
 
   useEffect(() => {
