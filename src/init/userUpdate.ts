@@ -6,7 +6,7 @@ import { updateUser } from '../utils/peachAPI'
 import { UpdateUserProps } from '../utils/peachAPI/private/user/updateUser'
 import { parseError } from '../utils/result'
 
-export default async (referralCode?: string) => {
+export const userUpdate = async (referralCode?: string) => {
   if (!account) return
 
   const settings = settingsStore.getState()
