@@ -1,9 +1,8 @@
 import { useCallback, useContext } from 'react'
-import { Loading } from '../../../components'
 import { OverlayContext } from '../../../contexts/overlay'
 import { useNavigation } from '../../../hooks'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
-import tw from '../../../styles/tailwind'
+import { useShowLoadingOverlay } from '../../../hooks/useShowLoadingOverlay'
 import { getChat, saveChat } from '../../../utils/chat'
 import { endDisputeSystemMessages } from '../../../utils/chat/endDisputeSystemMessages'
 import { contractIdToHex, saveContract, signReleaseTx } from '../../../utils/contract'
@@ -19,7 +18,7 @@ export const useDisputeResults = () => {
   const [, updateOverlay] = useContext(OverlayContext)
 
   const showError = useShowErrorBanner()
-
+  const showLoadingOverlay = useShowLoadingOverlay()
   const showDisputeResults = useCallback(
     (contract: Contract, view: ContractViewer) => {
       const saveAcknowledgeMent = () => {
@@ -41,17 +40,9 @@ export const useDisputeResults = () => {
       }
 
       const release = async () => {
-        updateOverlay({
+        showLoadingOverlay({
           title: i18n('dispute.lost'),
-          content: <Loading style={tw`self-center`} color={tw`text-black-1`.color} />,
           level: 'WARN',
-          visible: true,
-          requireUserAction: true,
-          action1: {
-            label: i18n('loading'),
-            icon: 'clock',
-            callback: () => {},
-          },
         })
         const [tx, errorMsg] = signReleaseTx(contract)
         if (!tx) {
@@ -164,7 +155,7 @@ export const useDisputeResults = () => {
             },
       })
     },
-    [navigation, showError, updateOverlay],
+    [navigation, showError, showLoadingOverlay, updateOverlay],
   )
 
   return showDisputeResults

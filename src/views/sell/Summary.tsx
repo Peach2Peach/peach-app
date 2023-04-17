@@ -1,6 +1,7 @@
 import { ReactElement, useEffect } from 'react'
 import { View } from 'react-native'
-import { PeachScrollView, PrimaryButton, SellOfferSummary } from '../../components'
+import { PeachScrollView, PrimaryButton } from '../../components'
+import { SellOfferSummary } from '../../components/offer'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { useSellSummarySetup } from './hooks/useSellSummarySetup'

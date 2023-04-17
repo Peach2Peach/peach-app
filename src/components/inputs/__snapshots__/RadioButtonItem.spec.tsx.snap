@@ -1,0 +1,209 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RadioButtonItem renders correctly when disabled 1`] = `
+<View
+  style={
+    [
+      {
+        "alignItems": "center",
+        "backgroundColor": "#FEEDE5",
+        "borderRadius": 12,
+        "borderWidth": 2,
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "paddingBottom": 8,
+        "paddingLeft": 16,
+        "paddingRight": 16,
+        "paddingTop": 8,
+        "width": "100%",
+      },
+      {
+        "opacity": 0.5,
+      },
+      {
+        "borderColor": "transparent",
+      },
+    ]
+  }
+>
+  <PeachText
+    style={
+      {
+        "flexBasis": "0%",
+        "flexGrow": 1,
+        "flexShrink": 1,
+        "fontFamily": "Baloo2-SemiBold",
+        "fontSize": 16,
+        "letterSpacing": 0.16,
+        "lineHeight": 28,
+      }
+    }
+  >
+    EUR
+  </PeachText>
+  <Icon
+    color="#9F8C82"
+    id="minusCircle"
+    style={
+      {
+        "height": 20,
+        "width": 20,
+      }
+    }
+  />
+</View>
+`;
+
+exports[`RadioButtonItem renders correctly when display is not a string 1`] = `
+<View
+  style={
+    [
+      {
+        "alignItems": "center",
+        "backgroundColor": "#FEEDE5",
+        "borderRadius": 12,
+        "borderWidth": 2,
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "paddingBottom": 8,
+        "paddingLeft": 16,
+        "paddingRight": 16,
+        "paddingTop": 8,
+        "width": "100%",
+      },
+      undefined,
+      {
+        "borderColor": "transparent",
+      },
+    ]
+  }
+>
+  <View
+    style={
+      {
+        "flexBasis": "0%",
+        "flexGrow": 1,
+        "flexShrink": 1,
+      }
+    }
+  >
+    <PeachText>
+      GBP
+    </PeachText>
+  </View>
+  <Icon
+    color="#9F8C82"
+    id="circle"
+    style={
+      {
+        "height": 20,
+        "width": 20,
+      }
+    }
+  />
+</View>
+`;
+
+exports[`RadioButtonItem renders correctly when not selected 1`] = `
+<View
+  style={
+    [
+      {
+        "alignItems": "center",
+        "backgroundColor": "#FEEDE5",
+        "borderRadius": 12,
+        "borderWidth": 2,
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "paddingBottom": 8,
+        "paddingLeft": 16,
+        "paddingRight": 16,
+        "paddingTop": 8,
+        "width": "100%",
+      },
+      undefined,
+      {
+        "borderColor": "transparent",
+      },
+    ]
+  }
+>
+  <PeachText
+    style={
+      {
+        "flexBasis": "0%",
+        "flexGrow": 1,
+        "flexShrink": 1,
+        "fontFamily": "Baloo2-SemiBold",
+        "fontSize": 16,
+        "letterSpacing": 0.16,
+        "lineHeight": 28,
+      }
+    }
+  >
+    EUR
+  </PeachText>
+  <Icon
+    color="#9F8C82"
+    id="circle"
+    style={
+      {
+        "height": 20,
+        "width": 20,
+      }
+    }
+  />
+</View>
+`;
+
+exports[`RadioButtonItem renders correctly when selected 1`] = `
+<View
+  style={
+    [
+      {
+        "alignItems": "center",
+        "backgroundColor": "#FEEDE5",
+        "borderRadius": 12,
+        "borderWidth": 2,
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "paddingBottom": 8,
+        "paddingLeft": 16,
+        "paddingRight": 16,
+        "paddingTop": 8,
+        "width": "100%",
+      },
+      undefined,
+      {
+        "borderColor": "#F56522",
+      },
+    ]
+  }
+>
+  <PeachText
+    style={
+      {
+        "flexBasis": "0%",
+        "flexGrow": 1,
+        "flexShrink": 1,
+        "fontFamily": "Baloo2-SemiBold",
+        "fontSize": 16,
+        "letterSpacing": 0.16,
+        "lineHeight": 28,
+      }
+    }
+  >
+    EUR
+  </PeachText>
+  <Icon
+    color="#F56522"
+    id="radioSelected"
+    style={
+      {
+        "height": 20,
+        "width": 20,
+      }
+    }
+  />
+</View>
+`;

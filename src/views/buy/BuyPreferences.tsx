@@ -35,7 +35,7 @@ export default (): ReactElement => {
       maxBuyAmount: state.maxBuyAmount,
       meansOfPayment: state.meansOfPayment,
     }),
-    shallow
+    shallow,
   )
   const [offerDraft, setOfferDraft] = useState(getBuyOfferDraft(partialSettings))
 
@@ -56,7 +56,7 @@ export default (): ReactElement => {
       return () => {
         listener.remove()
       }
-    }, [page])
+    }, [page]),
   )
 
   const next = () => {

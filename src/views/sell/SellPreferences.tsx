@@ -44,7 +44,7 @@ export default (): ReactElement => {
       meansOfPayment: state.meansOfPayment,
       payoutAddress: state.payoutAddress,
     }),
-    shallow
+    shallow,
   )
 
   const [offerDraft, setOfferDraft] = useState(getSellOfferDraft(partialSettings))
@@ -65,7 +65,7 @@ export default (): ReactElement => {
       return () => {
         listener.remove()
       }
-    }, [page])
+    }, [page]),
   )
 
   const next = async () => {

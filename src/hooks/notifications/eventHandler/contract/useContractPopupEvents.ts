@@ -6,7 +6,7 @@ import { usePaymentTooLateOverlay } from '../../../../overlays/usePaymentTooLate
 type PNEventHandlers = Partial<Record<NotificationType, (contract: Contract) => void>>
 
 export const useContractPopupEvents = () => {
-  const showConfirmTradeCancelation = useConfirmTradeCancelationOverlay()
+  const { showConfirmTradeCancelation } = useConfirmTradeCancelationOverlay()
   const { showTradeCanceled } = useTradeCanceledOverlay()
   const showPaymentTooLateOverlay = usePaymentTooLateOverlay()
 

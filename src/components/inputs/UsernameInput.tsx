@@ -1,8 +1,7 @@
-import { ReactElement } from 'react'
 import { enforceUsernameFormat } from '../../utils/format'
 import Input, { InputProps } from './Input'
 
-export const UsernameInput = ({ onChange, onSubmit, ...props }: InputProps): ReactElement => (
+export const UsernameInput = ({ onChange, onSubmit, ...props }: InputProps) => (
   <Input
     {...{
       ...props,

@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FileInput renders correctly 1`] = `
+<Input
+  disabled={true}
+  errorMessage={[]}
+  icons={
+    [
+      [
+        "clipboard",
+        [Function],
+      ],
+    ]
+  }
+  onPressIn={[Function]}
+  theme="default"
+/>
+`;

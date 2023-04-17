@@ -13,7 +13,7 @@ jest.mock('../../../hooks/useHeaderSetup', () => ({
 }))
 
 const showHelpMock = jest.fn()
-const useShowHelpMock = jest.fn((...args) => showHelpMock)
+const useShowHelpMock = jest.fn((..._args) => showHelpMock)
 jest.mock('../../../hooks/useShowHelp', () => ({
   useShowHelp: (...args: any) => useShowHelpMock(...args),
 }))

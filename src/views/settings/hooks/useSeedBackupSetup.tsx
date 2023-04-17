@@ -12,7 +12,7 @@ export const useSeedBackupSetup = () => {
 
   const [setShowBackupReminder, setLastSeedBackupDate, lastSeedBackupDate] = useSettingsStore(
     (state) => [state.setShowBackupReminder, state.setLastSeedBackupDate, state.lastSeedBackupDate],
-    shallow
+    shallow,
   )
 
   useHeaderSetup({
