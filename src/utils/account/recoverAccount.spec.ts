@@ -19,8 +19,6 @@ jest.mock('../peachAPI', () => ({
 }))
 
 describe('recoverAccount', () => {
-  const logEventMock = jest.spyOn(analytics(), 'logEvent')
-
   afterEach(() => {
     jest.clearAllMocks()
   })
@@ -54,7 +52,7 @@ describe('recoverAccount', () => {
   })
   it('logs event account_restored', async () => {
     await recoverAccount(account1)
-    expect(logEventMock).toHaveBeenCalledWith('account_restored')
+    expect(analytics().logEvent).toHaveBeenCalledWith('account_restored')
   })
   it('handles api errors for offers', async () => {
     getOffersMock.mockReturnValueOnce([null, apiError])
