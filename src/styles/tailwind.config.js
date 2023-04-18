@@ -153,7 +153,7 @@ module.exports = {
         h4: 'font-baloo-bold text-3xl leading-3xl tracking-normal',
         h5: 'font-baloo-bold text-2xl leading-2xl tracking-normal',
         h6: 'font-baloo-bold text-xl leading-2xl tracking-normal',
-        h7: 'font-baloo-bold text-base leading-lg tracking-normal lowercase',
+        h7: 'font-baloo-bold text-base leading-lg tracking-normal',
         'drawer-title': 'font-baloo-bold text-base leading-relaxed tracking-widest uppercase',
         'subtitle-1': 'font-baloo-semibold text-base leading-xl tracking-normal',
         'subtitle-2': 'font-baloo-semibold text-xs leading-sm tracking-normal',
