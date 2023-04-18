@@ -1,7 +1,6 @@
 import { useContractHeaderSetup } from './useContractHeaderSetup'
 import { renderHook } from '@testing-library/react-native'
 import { useHeaderState } from '../../../components/header/store'
-import { DisputeContractTitle } from '../../../components/titles/DisputeContractTitle'
 import { NavigationContext } from '@react-navigation/native'
 
 const navContext = {
@@ -26,7 +25,7 @@ describe('useContractHeaderSetup', () => {
       { wrapper: navigationWrapper },
     )
 
-    expect(useHeaderState.getState().titleComponent).toEqual(<DisputeContractTitle id="123" />)
+    expect(useHeaderState.getState().titleComponent).toMatchSnapshot()
     expect(useHeaderState.getState().icons).toEqual([])
     expect(useHeaderState.getState().hideGoBackButton).toEqual(false)
   })

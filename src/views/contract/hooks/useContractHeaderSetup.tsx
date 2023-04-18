@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
 import { CancelIcon, HelpIcon } from '../../../components/icons'
 import ContractTitle from '../../../components/titles/ContractTitle'
+import { DisputeContractTitle } from '../../../components/titles/DisputeContractTitle'
 import { useHeaderSetup } from '../../../hooks'
 import { useShowHelp } from '../../../hooks/useShowHelp'
 import { useConfirmCancelTrade } from '../../../overlays/tradeCancelation/useConfirmCancelTrade'
@@ -36,6 +37,12 @@ export const useContractHeaderSetup = ({
         iconComponent: <HelpIcon />,
         onPress: showConfirmPaymentHelp,
       })
+      if (contract?.disputeActive) {
+        return {
+          titleComponent: <DisputeContractTitle id={contractId} />,
+          icons,
+        }
+      }
       return {
         titleComponent: <ContractTitle id={contractId} />,
         icons,
