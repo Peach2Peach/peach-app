@@ -1,9 +1,10 @@
 import { settingsStore } from '../../store/settingsStore'
 import { setLocaleQuiet } from '../i18n'
 import { setPeachAccount } from '../peachAPI/peachAccount'
-import { createRandomWallet, createWalletFromSeedPhrase, getMainAddress, getNetwork, setWallet } from '../wallet'
+import { createWalletFromSeedPhrase, getNetwork, setWallet } from '../wallet'
 import { PeachWallet } from '../wallet/PeachWallet'
 import { setPeachWallet } from '../wallet/setWallet'
+import { createPeachAccount } from './createPeachAccount'
 
 export const defaultLimits = {
   daily: 1000,
@@ -47,12 +48,9 @@ export const setAccount = async (acc: Account, overwrite?: boolean) => {
   setLocaleQuiet(settingsStore.getState().locale || 'en')
 
   if (account.mnemonic) {
-    const { wallet } = account.mnemonic
-      ? createWalletFromSeedPhrase(account.mnemonic, getNetwork())
-      : await createRandomWallet(getNetwork())
+    const { wallet } = createWalletFromSeedPhrase(account.mnemonic, getNetwork())
     setWallet(wallet)
-    const firstAddress = getMainAddress(wallet)
-    setPeachAccount(firstAddress)
+    setPeachAccount(createPeachAccount(account.mnemonic))
 
     const peachWallet = new PeachWallet({ wallet })
     peachWallet.loadWallet(account.mnemonic)
