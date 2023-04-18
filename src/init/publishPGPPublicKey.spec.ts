@@ -1,23 +1,23 @@
 import { account1 } from '../../tests/unit/data/accountData'
 import { settingsStore } from '../store/settingsStore'
 import { defaultAccount, setAccount } from '../utils/account'
-import pgp from './pgp'
+import { publishPGPPublicKey } from './publishPGPPublicKey'
 
 const updateUserMock = jest.fn().mockResolvedValue([{ success: true }, null])
 jest.mock('../utils/peachAPI', () => ({
   updateUser: (...args: any[]) => updateUserMock(...args),
 }))
-describe('pgp', () => {
+describe('publishPGPPublicKey', () => {
   afterEach(async () => {
     jest.clearAllMocks()
     await setAccount(defaultAccount)
   })
 
-  it('does not send pgp key to server if there is it already has been sent', async () => {
+  it('does not send pgp key to server if there is no data to be sent', async () => {
     settingsStore.setState({
       pgpPublished: true,
     })
-    await pgp()
+    await publishPGPPublicKey()
     expect(updateUserMock).not.toHaveBeenCalled()
   })
   it('does send pgp key to server if there is data to send and has not been sent yet', async () => {
@@ -25,7 +25,7 @@ describe('pgp', () => {
     settingsStore.setState({
       pgpPublished: false,
     })
-    await pgp()
+    await publishPGPPublicKey()
     expect(updateUserMock).toHaveBeenCalledWith({
       pgp: account1.pgp,
     })
