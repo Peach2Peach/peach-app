@@ -1,8 +1,6 @@
 import { renderHook } from '@testing-library/react-native'
 import { Keyboard } from 'react-native'
 import { contract } from '../../../../../tests/unit/data/contractData'
-import { Loading } from '../../../../components'
-import tw from '../../../../styles/tailwind'
 import { defaultAccount, setAccount } from '../../../../utils/account/account'
 import i18n from '../../../../utils/i18n'
 import { useSubmitDisputeAcknowledgement } from './useSubmitDisputeAcknowledgement'
@@ -31,6 +29,11 @@ const showErrorBannerMock = jest.fn()
 const useShowErrorBannerMock = jest.fn().mockReturnValue(showErrorBannerMock)
 jest.mock('../../../../hooks/useShowErrorBanner', () => ({
   useShowErrorBanner: () => useShowErrorBannerMock(),
+}))
+const showLoadingOverlayMock = jest.fn()
+const useShowLoadingOverlayMock = jest.fn().mockReturnValue(showLoadingOverlayMock)
+jest.mock('../../../../hooks/useShowLoadingOverlay', () => ({
+  useShowLoadingOverlay: () => useShowLoadingOverlayMock(),
 }))
 
 const acknowledgeDisputeMock = jest.fn().mockResolvedValue([{ success: true }, null])
@@ -62,7 +65,7 @@ describe('useSubmitDisputeAcknowledgement', () => {
     const { result } = renderHook(() => useSubmitDisputeAcknowledgement())
     result.current(noPaymentContract, disputeReason, '')
 
-    expect(updateOverlayMock).not.toHaveBeenCalled()
+    expect(showLoadingOverlayMock).not.toHaveBeenCalled()
     expect(acknowledgeDisputeMock).not.toHaveBeenCalled()
   })
 
@@ -70,17 +73,9 @@ describe('useSubmitDisputeAcknowledgement', () => {
     const { result } = renderHook(() => useSubmitDisputeAcknowledgement())
     result.current(contract, 'other', 'seller')
 
-    expect(updateOverlayMock).toHaveBeenCalledWith({
-      action1: {
-        callback: expect.any(Function),
-        icon: 'clock',
-        label: i18n('loading'),
-      },
-      content: <Loading color={tw`text-black-1`.color} style={tw`self-center`} />,
+    expect(showLoadingOverlayMock).toHaveBeenCalledWith({
       level: 'WARN',
-      requireUserAction: true,
       title: i18n('dispute.opened'),
-      visible: true,
     })
   })
 

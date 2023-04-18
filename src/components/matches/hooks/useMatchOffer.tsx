@@ -42,7 +42,7 @@ export const useMatchOffer = (offer: BuyOffer | SellOffer, match: Match) => {
       const errorMsg = parseError(err)
 
       if (errorMsg === 'MISSING_PAYMENTDATA') {
-        handleMissingPaymentData(offer, selectedCurrency!, selectedPaymentMethod!, updateMessage, navigation)
+        handleMissingPaymentData(offer, selectedCurrency, selectedPaymentMethod!, updateMessage, navigation)
       } else if (errorMsg === 'OFFER_TAKEN') {
         showPopup()
       } else {

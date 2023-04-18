@@ -13,7 +13,7 @@ export const usePremiumSetup = (offerDraft: SellOfferDraft, setOfferDraft: Dispa
     (state) => [state.premium, state.setPremium, state.displayCurrency],
     shallow,
   )
-  const [premium, setPremium] = useState(premiumStore.toString())
+  const [premium, setPremium] = useState(!isNaN(premiumStore) ? premiumStore.toString() : '0')
   const [stepValid, setStepValid] = useState(false)
 
   const { data: priceBook } = useMarketPrices()

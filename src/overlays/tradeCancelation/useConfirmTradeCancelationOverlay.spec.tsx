@@ -1,0 +1,155 @@
+import { renderHook } from '@testing-library/react-native'
+import { contract } from '../../../tests/unit/data/contractData'
+import i18n from '../../utils/i18n'
+import { ConfirmCancelTradeRequest } from './ConfirmCancelTradeRequest'
+import { useConfirmTradeCancelationOverlay } from './useConfirmTradeCancelationOverlay'
+
+const updateOverlayMock = jest.fn()
+const useOverlayContextMock = jest.fn().mockReturnValue([, updateOverlayMock])
+jest.mock('../../contexts/overlay', () => ({
+  useOverlayContext: (...args: any[]) => useOverlayContextMock(...args),
+}))
+const replaceMock = jest.fn()
+jest.mock('../../hooks/useNavigation', () => ({
+  useNavigation: jest.fn().mockReturnValue({
+    replace: (...args: any[]) => replaceMock(...args),
+  }),
+}))
+const showErrorBannerMock = jest.fn()
+const useShowErrorBannerMock = jest.fn().mockReturnValue(showErrorBannerMock)
+jest.mock('../../hooks/useShowErrorBanner', () => ({
+  useShowErrorBanner: () => useShowErrorBannerMock(),
+}))
+const showLoadingOverlayMock = jest.fn()
+const useShowLoadingOverlayMock = jest.fn().mockReturnValue(showLoadingOverlayMock)
+jest.mock('../../hooks/useShowLoadingOverlay', () => ({
+  useShowLoadingOverlay: () => useShowLoadingOverlayMock(),
+}))
+
+const apiSuccess = { success: true }
+const apiError = { error: 'UNAUTHORIZED' }
+const confirmContractCancelationMock = jest.fn().mockResolvedValue([apiSuccess, null])
+const rejectContractCancelationMock = jest.fn().mockResolvedValue([apiSuccess, null])
+jest.mock('../../utils/peachAPI', () => ({
+  confirmContractCancelation: (...args: any[]) => confirmContractCancelationMock(...args),
+  rejectContractCancelation: (...args: any[]) => rejectContractCancelationMock(...args),
+}))
+
+const saveContractMock = jest.fn()
+jest.mock('../../utils/contract', () => ({
+  saveContract: (...args: any[]) => saveContractMock(...args),
+}))
+
+describe('useConfirmTradeCancelationOverlay', () => {
+  afterEach(() => {
+    jest.clearAllMocks()
+  })
+  it('returns default values correctly', () => {
+    const { result } = renderHook(useConfirmTradeCancelationOverlay)
+
+    expect(result.current.showConfirmTradeCancelation).toBeInstanceOf(Function)
+    expect(result.current.cancelTrade).toBeInstanceOf(Function)
+    expect(result.current.continueTrade).toBeInstanceOf(Function)
+  })
+  it('opens ConfirmCancelTradeRequest popup', () => {
+    const { result } = renderHook(useConfirmTradeCancelationOverlay)
+    const disputeOverlayActions = result.current.showConfirmTradeCancelation(contract)
+
+    expect(updateOverlayMock).toHaveBeenCalledWith({
+      action2: {
+        label: i18n('contract.cancel.sellerWantsToCancel.cancel'),
+        icon: 'xCircle',
+        callback: disputeOverlayActions.cancelTradeCallback,
+      },
+      action1: {
+        label: i18n('contract.cancel.sellerWantsToCancel.continue'),
+        icon: 'arrowRightCircle',
+        callback: disputeOverlayActions.continueTradeCallback,
+      },
+      title: i18n('contract.cancel.sellerWantsToCancel.title'),
+      content: <ConfirmCancelTradeRequest contract={contract} />,
+      visible: true,
+      level: 'WARN',
+    })
+  })
+  it('ConfirmCancelTradeRequest popup actions call respective functions', () => {
+    const { result } = renderHook(useConfirmTradeCancelationOverlay)
+    const disputeOverlayActions = result.current.showConfirmTradeCancelation(contract)
+
+    disputeOverlayActions.cancelTradeCallback()
+    expect(confirmContractCancelationMock).toHaveBeenCalledWith({ contractId: contract.id })
+    disputeOverlayActions.continueTradeCallback()
+    expect(rejectContractCancelationMock).toHaveBeenCalledWith({ contractId: contract.id })
+  })
+  it('cancels trade', async () => {
+    const expectedContractUpdate = {
+      ...contract,
+      canceled: true,
+      cancelationRequested: false,
+    }
+    const { result } = renderHook(useConfirmTradeCancelationOverlay)
+
+    await result.current.cancelTrade(contract)
+
+    expect(showLoadingOverlayMock).toHaveBeenCalledWith({
+      title: i18n('contract.cancel.sellerWantsToCancel.title'),
+      level: 'WARN',
+    })
+
+    expect(confirmContractCancelationMock).toHaveBeenCalledWith({ contractId: contract.id })
+    expect(saveContractMock).toHaveBeenCalledWith(expectedContractUpdate)
+
+    expect(updateOverlayMock).toHaveBeenCalledWith({
+      title: i18n('contract.cancel.success'),
+      visible: true,
+      level: 'APP',
+    })
+    expect(replaceMock).toHaveBeenCalledWith('contract', { contractId: contract.id, contract: expectedContractUpdate })
+  })
+  it('handles cancel trade errors', async () => {
+    confirmContractCancelationMock.mockResolvedValueOnce([null, apiError])
+    const { result } = renderHook(useConfirmTradeCancelationOverlay)
+
+    await result.current.cancelTrade(contract)
+
+    expect(saveContractMock).not.toHaveBeenCalled()
+
+    expect(updateOverlayMock).toHaveBeenCalledWith({ visible: false })
+    expect(replaceMock).not.toHaveBeenCalled()
+    expect(showErrorBannerMock).toHaveBeenCalledWith(apiError.error)
+  })
+  it('continues trade', async () => {
+    const expectedContractUpdate = {
+      ...contract,
+      cancelationRequested: false,
+    }
+    const { result } = renderHook(useConfirmTradeCancelationOverlay)
+
+    await result.current.continueTrade(contract)
+
+    expect(showLoadingOverlayMock).toHaveBeenCalledWith({
+      title: i18n('contract.cancel.sellerWantsToCancel.title'),
+      level: 'WARN',
+    })
+
+    expect(rejectContractCancelationMock).toHaveBeenCalledWith({ contractId: contract.id })
+    expect(saveContractMock).toHaveBeenCalledWith(expectedContractUpdate)
+    expect(updateOverlayMock).toHaveBeenCalledWith({ visible: false })
+    expect(replaceMock).toHaveBeenCalledWith('contract', {
+      contractId: contract.id,
+      contract: expectedContractUpdate,
+    })
+  })
+  it('handles continue trade errors', async () => {
+    rejectContractCancelationMock.mockResolvedValueOnce([null, apiError])
+    const { result } = renderHook(useConfirmTradeCancelationOverlay)
+
+    await result.current.continueTrade(contract)
+
+    expect(saveContractMock).not.toHaveBeenCalled()
+
+    expect(updateOverlayMock).toHaveBeenCalledWith({ visible: false })
+    expect(replaceMock).not.toHaveBeenCalled()
+    expect(showErrorBannerMock).toHaveBeenCalledWith(apiError.error)
+  })
+})

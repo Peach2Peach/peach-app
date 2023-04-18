@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BitcoinAddressInput renders correctly 1`] = `
+<Input
+  icons={
+    [
+      [
+        "clipboard",
+        [Function],
+      ],
+      [
+        "camera",
+        [Function],
+      ],
+    ]
+  }
+  onBlur={[Function]}
+  onFocus={[Function]}
+  placeholder="bc1q ..."
+  value="bc1qcj5y ... n57r7z"
+/>
+`;
+
+exports[`BitcoinAddressInput shows QR scanner when camera icon is pressed 1`] = `
+<ScanQR
+  onCancel={[Function]}
+  onSuccess={[Function]}
+  testID="qr-code-scanner"
+/>
+`;

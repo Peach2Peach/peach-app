@@ -10,27 +10,23 @@ import { createStackNavigator } from '@react-navigation/stack'
 import RNRestart from 'react-native-restart'
 import { enableScreens } from 'react-native-screens'
 
-import { AvoidKeyboard, Footer, Header } from './components'
+import { AvoidKeyboard, Footer, Header, Drawer, Message, Overlay } from './components'
 import tw from './styles/tailwind'
 import i18n from './utils/i18n'
 import { getViews } from './views'
 
 import { DrawerContext, getDrawer, setDrawer } from './contexts/drawer'
 import LanguageContext from './contexts/language'
-import { getMessage, MessageContext, setMessage, showMessageEffect } from './contexts/message'
-import { defaultOverlay, OverlayContext, useOverlay, useOverlayContext } from './contexts/overlay'
-import { getWebSocket, PeachWSContext, setPeachWS } from './utils/peachAPI/websocket'
-
-import Drawer from './components/Drawer'
-import Message from './components/Message'
-import Overlay from './components/Overlay'
+import { MessageContext, getMessage, setMessage, showMessageEffect } from './contexts/message'
+import { OverlayContext, defaultOverlay, useOverlay, useOverlayContext } from './contexts/overlay'
+import { PeachWSContext, getWebSocket, setPeachWS } from './utils/peachAPI/websocket'
 
 import { DEV } from '@env'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { setUnhandledPromiseRejectionTracker } from 'react-native-promise-rejection-utils'
 import { shallow } from 'zustand/shallow'
 import { Background } from './components/background/Background'
-import { APPVERSION, ISEMULATOR, TIMETORESTART } from './constants'
+import { ISEMULATOR, TIMETORESTART } from './constants'
 import appStateEffect from './effects/appStateEffect'
 import { useUpdateTradingAmounts } from './hooks'
 import { useMessageHandler } from './hooks/notifications/useMessageHandler'
@@ -44,14 +40,14 @@ import requestUserPermissions from './init/requestUserPermissions'
 import websocket from './init/websocket'
 import { useShowAnalyticsPrompt } from './overlays/useShowAnalyticsPrompt'
 import { useBitcoinStore } from './store/bitcoinStore'
-import { useConfigStore } from './store/configStore'
+import { useSettingsStore } from './store/settingsStore'
 import { account } from './utils/account'
 import { screenTransition } from './utils/layout/screenTransition'
 import { error, info } from './utils/log'
 import { marketPrices } from './utils/peachAPI/public/market'
-import { compatibilityCheck, isIOS, isNetworkError, linkToAppStore } from './utils/system'
 import { parseError } from './utils/result'
-import { useSettingsStore } from './store/settingsStore'
+import { isIOS, isNetworkError } from './utils/system'
+import { useShowUpdateAvailable } from './hooks/useShowUpdateAvailable'
 
 enableScreens()
 
@@ -77,6 +73,8 @@ const Handlers = ({ getCurrentPage }: HandlerProps): ReactElement => {
   const [, updateOverlay] = useOverlayContext()
   const showAnalyticsPrompt = useShowAnalyticsPrompt(updateOverlay)
   const analyticsPopupSeen = useSettingsStore((state) => state.analyticsPopupSeen)
+
+  useShowUpdateAvailable()
 
   useEffect(() => {
     if (!analyticsPopupSeen) showAnalyticsPrompt()
@@ -145,10 +143,6 @@ const App = () => {
   const slideInAnim = useRef(new Animated.Value(-width)).current
   const navigationRef = useNavigationContainerRef()
 
-  const [minAppVersion, latestAppVersion] = useConfigStore(
-    (state) => [state.minAppVersion, state.latestAppVersion],
-    shallow,
-  )
   const [currentPage, setCurrentPage] = useState<keyof RootStackParamList>()
   const getCurrentPage = useCallback(() => currentPage, [currentPage])
   const views = getViews(!!account?.publicKey)
@@ -209,30 +203,6 @@ const App = () => {
       setCurrentPage(!!account?.publicKey ? 'home' : 'welcome')
       await initialNavigation(navigationRef, updateMessage)
       requestUserPermissions()
-
-      if (!compatibilityCheck(APPVERSION, minAppVersion)) {
-        updateMessage({
-          msgKey: 'CRITICAL_UPDATE_AVAILABLE',
-          level: 'ERROR',
-          keepAlive: true,
-          action: {
-            callback: linkToAppStore,
-            label: i18n('download'),
-            icon: 'download',
-          },
-        })
-      } else if (!compatibilityCheck(APPVERSION, latestAppVersion)) {
-        updateMessage({
-          msgKey: 'UPDATE_AVAILABLE',
-          level: 'WARN',
-          keepAlive: true,
-          action: {
-            callback: linkToAppStore,
-            label: i18n('download'),
-            icon: 'download',
-          },
-        })
-      }
     })()
   }, [])
 

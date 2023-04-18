@@ -56,7 +56,6 @@ export default ({
             submit(contract, contract.disputeReason)
           }}
           value={email}
-          placeholder={i18n('form.email.placeholder')}
           errorMessage={emailErrors}
         />
       </View>

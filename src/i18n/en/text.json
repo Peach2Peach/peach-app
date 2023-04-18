@@ -401,6 +401,8 @@
   "country.GR": "Greece",
   "country.CY": "Cyprus",
   "country.HR": "Croatia",
+  "country.AD": "Andorra",
+  "country.BG": "Bulgaria",
   "country.select": "select country",
   "meetup.select": "select meetup",
   "paymentSection.remote": "remote",

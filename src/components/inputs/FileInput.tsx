@@ -75,18 +75,11 @@ export const FileInput = ({
 
   return (
     <Input
-      {...{
-        style,
-        theme,
-        value: fileName,
-        placeholder,
-        disabled: true,
-        onPressIn: onPress,
-        icons: [['clipboard', onPress]],
-        errorMessage,
-      }}
+      value={fileName}
+      onPressIn={onPress}
+      icons={[['clipboard', onPress]]}
+      disabled
+      {...{ style, theme, placeholder, errorMessage }}
     />
   )
 }
-
-export default FileInput

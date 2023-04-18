@@ -1,9 +1,8 @@
 import { useCallback } from 'react'
 import { Keyboard } from 'react-native'
-import { Loading } from '../../../../components/animation'
 import { useOverlayContext } from '../../../../contexts/overlay'
 import { useShowErrorBanner } from '../../../../hooks/useShowErrorBanner'
-import tw from '../../../../styles/tailwind'
+import { useShowLoadingOverlay } from '../../../../hooks/useShowLoadingOverlay'
 import { account } from '../../../../utils/account'
 import { getChat, saveChat } from '../../../../utils/chat'
 import { initDisputeSystemMessages } from '../../../../utils/chat/initDisputeSystemMessages'
@@ -17,6 +16,7 @@ export const useSubmitDisputeAcknowledgement = () => {
   const [, updateOverlay] = useOverlayContext()
   const showError = useShowErrorBanner()
 
+  const showLoadingOverlay = useShowLoadingOverlay()
   const closeOverlay = useCallback(() => {
     updateOverlay({ visible: false })
   }, [updateOverlay])
@@ -25,17 +25,9 @@ export const useSubmitDisputeAcknowledgement = () => {
     async (contract: Contract, reason: DisputeReason, email: string) => {
       if (isEmailRequiredForDispute(reason) && !isEmail(email)) return
 
-      updateOverlay({
+      showLoadingOverlay({
         title: i18n('dispute.opened'),
-        content: <Loading style={tw`self-center`} color={tw`text-black-1`.color} />,
         level: 'WARN',
-        visible: true,
-        requireUserAction: true,
-        action1: {
-          label: i18n('loading'),
-          icon: 'clock',
-          callback: () => {},
-        },
       })
       const [result, err] = await acknowledgeDispute({
         contractId: contract.id,
@@ -62,7 +54,7 @@ export const useSubmitDisputeAcknowledgement = () => {
       }
       closeOverlay()
     },
-    [closeOverlay, showError, updateOverlay],
+    [closeOverlay, showError, showLoadingOverlay],
   )
 
   return submitDisputeAcknowledgement

@@ -1,5 +1,5 @@
 import { ReactElement, useContext } from 'react'
-import { TextProps, TextStyle, TouchableOpacity, View, ViewStyle } from 'react-native'
+import { TextStyle, TouchableOpacity, View, ViewStyle } from 'react-native'
 
 import { Icon, Text } from '.'
 import { IconType } from '../assets/icons'
@@ -66,12 +66,12 @@ export const Message = ({ level, msgKey, bodyArgs = [], action, onClose, style }
           {!!title && <Text style={[tw`text-center h6`, levelColorMap.text[level]]}>{title}</Text>}
         </View>
         {!!message && (
-          <Text style={[tw`text-center body-m`, levelColorMap.text[level], title ? tw`mt-1` : {}]}>{message}</Text>
+          <Text style={[tw`text-center body-m`, levelColorMap.text[level], !!title && tw`mt-1`]}>{message}</Text>
         )}
       </View>
       <View style={tw`flex flex-row items-center justify-between w-full mt-1`}>
         {!!action ? (
-          <TouchableOpacity onPress={action.callback as TextProps['onPress']} style={tw`flex flex-row items-center`}>
+          <TouchableOpacity onPress={action.callback} style={tw`flex flex-row items-center`}>
             {!!action.icon && <Icon id={action.icon} style={tw`w-4 h-4`} color={levelColorMap.text[level].color} />}
             <Text style={[tw`leading-relaxed subtitle-2`, levelColorMap.text[level]]}> {action.label}</Text>
           </TouchableOpacity>
@@ -86,5 +86,3 @@ export const Message = ({ level, msgKey, bodyArgs = [], action, onClose, style }
     </View>
   )
 }
-
-export default Message

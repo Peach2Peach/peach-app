@@ -1,7 +1,7 @@
 import { account1 } from '../../tests/unit/data/accountData'
 import { settingsStore } from '../store/settingsStore'
 import { defaultAccount, setAccount } from '../utils/account'
-import userUpdate from './userUpdate'
+import { userUpdate } from './userUpdate'
 
 const getTokenMock = jest.fn()
 jest.mock('@react-native-firebase/messaging', () => () => ({
