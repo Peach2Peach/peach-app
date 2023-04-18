@@ -5,6 +5,7 @@ import { APPVERSION } from '../constants'
 import { configStore, useConfigStore } from '../store/configStore'
 import { useShowUpdateAvailable } from './useShowUpdateAvailable'
 import { MessageContext, defaultMessageState } from '../contexts/message'
+import { linkToAppStore } from '../utils/system'
 
 describe('useShowUpdateAvailable', () => {
   const definitelyHigherVersion = '99.99.99'
@@ -33,7 +34,7 @@ describe('useShowUpdateAvailable', () => {
 
     expect(messageState).toEqual({
       action: {
-        callback: expect.any(Function),
+        callback: linkToAppStore,
         icon: 'download',
         label: 'download',
       },
@@ -49,7 +50,7 @@ describe('useShowUpdateAvailable', () => {
 
     expect(messageState).toEqual({
       action: {
-        callback: expect.any(Function),
+        callback: linkToAppStore,
         icon: 'download',
         label: 'download',
       },
@@ -66,7 +67,7 @@ describe('useShowUpdateAvailable', () => {
 
     expect(messageState).toEqual({
       action: {
-        callback: expect.any(Function),
+        callback: linkToAppStore,
         icon: 'download',
         label: 'download',
       },
