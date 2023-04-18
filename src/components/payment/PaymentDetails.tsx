@@ -15,6 +15,7 @@ import { TabbedNavigation, TabbedNavigationItem } from '../navigation/TabbedNavi
 import { useFocusEffect } from '@react-navigation/native'
 import AddPaymentMethodButton from './AddPaymentMethodButton'
 import { useSettingsStore } from '../../store/settingsStore'
+import { isCashTrade } from '../../utils/paymentMethod/isCashTrade'
 
 const paymentCategoryIcons: Record<PaymentCategory, IconType | ''> = {
   bankTransfer: 'inbox',
@@ -118,7 +119,7 @@ export default ({ setMeansOfPayment, editing, style, origin }: PaymentDetailsPro
   }
 
   const editItem = (data: PaymentData) => {
-    if (data.type.includes('cash.')) {
+    if (isCashTrade(data.type)) {
       navigation.push('meetupScreen', { eventId: data.id.replace('cash.', ''), deletable: true, origin })
     } else {
       navigation.push('paymentDetails', {
@@ -145,7 +146,7 @@ export default ({ setMeansOfPayment, editing, style, origin }: PaymentDetailsPro
   }, [paymentData, update])
 
   const remotePaymentDetails = () =>
-    paymentData.filter((item) => !item.type.includes('cash.')).length === 0 ? (
+    paymentData.filter((item) => !isCashTrade(item.type)).length === 0 ? (
       <Text style={tw`text-center h6 text-black-3`}>{i18n('paymentMethod.empty')}</Text>
     ) : (
       <View testID={'checkboxes-buy-mops'}>
@@ -154,7 +155,7 @@ export default ({ setMeansOfPayment, editing, style, origin }: PaymentDetailsPro
             category,
             checkboxes: paymentData
               .filter((item) => !item.hidden)
-              .filter((item) => !item.type.includes('cash.'))
+              .filter((item) => !isCashTrade(item.type))
               .filter(belongsToCategory(category))
               .filter((data) => getPaymentMethodInfo(data.type))
               .sort((a, b) => (a.id > b.id ? 1 : -1))
@@ -199,7 +200,7 @@ export default ({ setMeansOfPayment, editing, style, origin }: PaymentDetailsPro
 
   const meetupPaymentDetails = () => (
     <>
-      {paymentData.filter((item) => item.type.includes('cash.')).length !== 0 && (
+      {paymentData.filter((item) => isCashTrade(item.type)).length !== 0 && (
         <LinedText style={tw`pb-3`}>
           <Text style={tw`mr-1 h6 text-black-2`}>{i18n('paymentSection.meetups')}</Text>
           <Icon color={tw`text-black-2`.color} id={'users'} />
@@ -207,7 +208,7 @@ export default ({ setMeansOfPayment, editing, style, origin }: PaymentDetailsPro
       )}
       {paymentData
         .filter((item) => !item.hidden)
-        .filter((item) => item.type.includes('cash.'))
+        .filter((item) => isCashTrade(item.type))
         .map(mapPaymentDataToCheckboxes)
         .map((item, i) => (
           <View key={item.data.id} style={i > 0 ? tw`mt-4` : {}}>
