@@ -1,15 +1,17 @@
-import { createContext, Dispatch, ReactNode, ReducerState } from 'react'
+import { createContext, Dispatch, ReactNode, ReducerState, useContext } from 'react'
 import { Animated } from 'react-native'
 
-const state: MessageState = {
+export const defaultMessageState: MessageState = {
   level: 'DEFAULT',
   keepAlive: false,
   time: 0,
 }
+const state: MessageState = { ...defaultMessageState }
 
 const dispatch: Dispatch<MessageState> = () => {}
 
 export const MessageContext = createContext([state, dispatch] as const)
+export const useMessageContext = () => useContext(MessageContext)
 
 /**
  * @description Method to get message
