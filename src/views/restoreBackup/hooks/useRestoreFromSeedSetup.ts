@@ -3,10 +3,10 @@ import { Keyboard } from 'react-native'
 import { MessageContext } from '../../../contexts/message'
 import { useNavigation, useValidatedState } from '../../../hooks'
 import { createAccount, deleteAccount, recoverAccount } from '../../../utils/account'
-import { createPeachAccount } from '../../../utils/account/createPeachAccount'
 import { storeAccount } from '../../../utils/account/storeAccount'
 import { auth } from '../../../utils/peachAPI'
 import { setPeachAccount } from '../../../utils/peachAPI/peachAccount'
+import { createPeachAccount } from '../../../utils/account/createPeachAccount'
 
 export const bip39WordRules = {
   requiredShort: true,
@@ -50,12 +50,7 @@ export const useRestoreFromSeedSetup = () => {
     [updateMessage],
   )
 
-  const submit = async () => {
-    Keyboard.dismiss()
-    setLoading(true)
-
-    if (!isMnemonicValid) return
-
+  const createAndRecover = async () => {
     const recoveredAccount = await createAccount(mnemonic)
     setPeachAccount(createPeachAccount(mnemonic))
 
@@ -74,6 +69,16 @@ export const useRestoreFromSeedSetup = () => {
     setTimeout(() => {
       navigation.replace('home')
     }, 1500)
+  }
+
+  const submit = async () => {
+    Keyboard.dismiss()
+    setLoading(true)
+
+    if (!isMnemonicValid) return
+
+    // creation a new account is render blocking, to show loading, we call it within a timeout
+    setTimeout(createAndRecover)
   }
   return { restored, error, loading, setWords, allWordsAreSet, isMnemonicValid, submit }
 }

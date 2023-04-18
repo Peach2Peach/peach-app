@@ -31,10 +31,7 @@ export const useRestoreFromFileSetup = () => {
     deleteAccount()
   }
 
-  const submit = async () => {
-    Keyboard.dismiss()
-    setLoading(true)
-
+  const decryptAndRecover = async () => {
     const [recoveredAccount, err] = await decryptAccount({
       encryptedAccount: file.content,
       password,
@@ -50,8 +47,8 @@ export const useRestoreFromFileSetup = () => {
 
     const [, authErr] = await auth({})
     if (authErr) {
-      onError(authErr.error)
       setLoading(false)
+      onError(authErr.error)
       return
     }
     const updatedAccount = await recoverAccount(recoveredAccount)
@@ -63,6 +60,14 @@ export const useRestoreFromFileSetup = () => {
     setTimeout(() => {
       navigation.replace('home')
     }, 1500)
+  }
+
+  const submit = async () => {
+    Keyboard.dismiss()
+    setLoading(true)
+
+    // decrypting is render blocking, to show loading, we call it within a timeout
+    setTimeout(decryptAndRecover)
   }
 
   return { restored, error, loading, file, setFile, password, setPassword, passwordError, submit }
