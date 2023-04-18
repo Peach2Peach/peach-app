@@ -1,3 +1,5 @@
+import { MSINANHOUR } from '../../../src/constants'
+
 export const contract: Contract = {
   amount: 250000,
   buyer: {
@@ -52,6 +54,7 @@ export const contract: Contract = {
   disputeActive: false,
   id: '14-15',
   paymentConfirmed: null,
+  paymentExpectedBy: new Date(Date.now() + MSINANHOUR * 12),
   paymentMade: null,
   paymentMethod: 'sepa',
   price: 89.04,

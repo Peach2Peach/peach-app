@@ -23,7 +23,7 @@ jest.mock('./patchSellOfferWithRefundTx', () => ({
 describe('cancelContractAsSeller', () => {
   const yesterday = new Date(Date.now() - MSINADAY)
   const tomorrow = new Date(Date.now() + MSINADAY)
-
+  const expiredContract = { ...contract, paymentExpectedBy: yesterday }
   afterEach(() => {
     jest.clearAllMocks()
   })
@@ -37,7 +37,6 @@ describe('cancelContractAsSeller', () => {
     })
   })
   it('calls cancelContract with expired payment timer and returns contract update', async () => {
-    const expiredContract = { ...contract, paymentExpectedBy: yesterday }
     const result = await cancelContractAsSeller(expiredContract)
     expect(cancelContractMock).toHaveBeenCalledWith({ contractId: contract.id })
     expect(result.isOk()).toBeTruthy()
@@ -46,7 +45,7 @@ describe('cancelContractAsSeller', () => {
     })
   })
   it('calls cancelContract', async () => {
-    const result = await cancelContractAsSeller(contract)
+    const result = await cancelContractAsSeller(expiredContract)
     expect(cancelContractMock).toHaveBeenCalledWith({ contractId: contract.id })
     expect(result.isOk()).toBeTruthy()
     expect(result.getValue()).toEqual({
@@ -62,7 +61,7 @@ describe('cancelContractAsSeller', () => {
   it('also calls patchSellOfferWithRefundTx if result returned psbt and returns updates', async () => {
     cancelContractMock.mockResolvedValueOnce([cancelContractSuccessWithPSBT, null])
 
-    const result = await cancelContractAsSeller(contract)
+    const result = await cancelContractAsSeller(expiredContract)
     expect(cancelContractMock).toHaveBeenCalledWith({ contractId: contract.id })
     expect(result.isOk()).toBeTruthy()
     expect(result.getValue()).toEqual({
@@ -77,7 +76,7 @@ describe('cancelContractAsSeller', () => {
     patchSellOfferWithRefundTxMock.mockResolvedValueOnce(getResult({ sellOffer }, apiError.error))
     cancelContractMock.mockResolvedValueOnce([cancelContractSuccessWithPSBT, null])
 
-    const result = await cancelContractAsSeller(contract)
+    const result = await cancelContractAsSeller(expiredContract)
     expect(cancelContractMock).toHaveBeenCalledWith({ contractId: contract.id })
     expect(result.isError()).toBeTruthy()
     expect(result.getError()).toBe(apiError.error)
