@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 
 import { useHeaderSetup, useNavigation, useRoute } from '../../../hooks'
 import { userUpdate } from '../../../init/userUpdate'
-import { account, createAccount, deleteAccount, setAccount } from '../../../utils/account'
+import { account, createAccount, deleteAccount, updateAccount } from '../../../utils/account'
 import { storeAccount } from '../../../utils/account/storeAccount'
 import i18n from '../../../utils/i18n'
 import { auth } from '../../../utils/peachAPI'
@@ -43,7 +43,7 @@ export const useNewUserSetup = () => {
     // creating an account is CPU intensive and causing iOS to show a black bg upon hiding keyboard
     setTimeout(async () => {
       try {
-        await setAccount(await createAccount(), true)
+        await updateAccount(await createAccount(), true)
         onSuccess()
       } catch (e) {
         onError(parseError(e))

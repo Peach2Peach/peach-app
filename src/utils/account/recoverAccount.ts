@@ -5,7 +5,7 @@ import { saveContract } from '../contract'
 import { error, info } from '../log'
 import { saveOffer } from '../offer'
 import { getContracts, getOffers } from '../peachAPI'
-import { setAccount } from './account'
+import { updateAccount } from './updateAccount'
 
 export const recoverAccount = async (account: Account): Promise<Account> => {
   info('Recovering account')
@@ -13,7 +13,7 @@ export const recoverAccount = async (account: Account): Promise<Account> => {
   settingsStore.getState().setFCMToken('')
   settingsStore.getState().setPGPPublished(false)
 
-  await setAccount(account, true)
+  await updateAccount(account, true)
 
   info('Get offers')
   const [[getOffersResult, getOffersErr], [getContractsResult, getContractsErr]] = await Promise.all([

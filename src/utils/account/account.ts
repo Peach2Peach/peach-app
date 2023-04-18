@@ -30,30 +30,5 @@ export const defaultAccount: Account = {
 }
 
 export let account = defaultAccount
-
+export const setAccount = (acc: Account) => (account = acc)
 export const getAccount = () => account
-
-/**
- * @description Method to set account for app session
- */
-export const setAccount = async (acc: Account, overwrite?: boolean) => {
-  account = overwrite
-    ? acc
-    : {
-      ...defaultAccount,
-      ...acc,
-      tradingLimit: defaultAccount.tradingLimit,
-    }
-
-  setLocaleQuiet(settingsStore.getState().locale || 'en')
-
-  if (account.mnemonic) {
-    const { wallet } = createWalletFromSeedPhrase(account.mnemonic, getNetwork())
-    setWallet(wallet)
-    setPeachAccount(createPeachAccount(account.mnemonic))
-
-    const peachWallet = new PeachWallet({ wallet })
-    peachWallet.loadWallet(account.mnemonic)
-    setPeachWallet(peachWallet)
-  }
-}

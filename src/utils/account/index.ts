@@ -1,4 +1,5 @@
 export { account, defaultAccount, getAccount, setAccount } from './account'
+export { updateAccount } from './updateAccount'
 export { addPaymentData } from './addPaymentData'
 export { backupAccount } from './backupAccount'
 export { createAccount } from './createAccount'
