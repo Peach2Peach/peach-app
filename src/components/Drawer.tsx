@@ -1,4 +1,4 @@
-import { ReactElement, useContext, useEffect, useRef, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import { Animated, BackHandler, Dimensions, Easing, GestureResponderEvent, Pressable, View } from 'react-native'
 import { HorizontalLine, Icon, PeachScrollView, Text } from '.'
 
@@ -13,15 +13,7 @@ const animConfig = {
 }
 let touchY = 0
 
-/**
- * @description Component to display the Drawer
- * @param props Component properties
- * @param props.title the drawer title
- * @param props.content the drawer content
- * @example
- * <Drawer title="Title" content={<Text>Drawer content</Text>} />
- */
-export const Drawer = ({ title, content, show, previousDrawer, onClose }: DrawerState): ReactElement => {
+export const Drawer = ({ title, content, show, previousDrawer, onClose }: DrawerState) => {
   const [, updateDrawer] = useContext(DrawerContext)
   const [{ height }] = useState(() => Dimensions.get('window'))
   const slideAnim = useRef(new Animated.Value(height)).current
@@ -62,15 +54,8 @@ export const Drawer = ({ title, content, show, previousDrawer, onClose }: Drawer
     if (!content) return () => {}
 
     const listener = BackHandler.addEventListener('hardwareBackPress', () => {
-      if (previousDrawer) {
-        updateDrawer({ show: false })
-        return true
-      }
-      if (content) {
-        updateDrawer({ show: false })
-        return true
-      }
-      return false
+      updateDrawer({ show: false })
+      return true
     })
     return () => {
       listener.remove()
@@ -91,7 +76,7 @@ export const Drawer = ({ title, content, show, previousDrawer, onClose }: Drawer
   const registerTouchMove = (e: GestureResponderEvent) => (touchY - e.nativeEvent.pageY < -20 ? closeDrawer() : null)
 
   return (
-    <View style={[tw`absolute top-0 left-0 z-20 flex w-full h-full`, !display ? tw`hidden` : {}]}>
+    <View style={[tw`absolute top-0 left-0 z-20 flex w-full h-full`, !display && tw`hidden`]}>
       <Animated.View style={[tw`flex-grow w-full bg-black-1`, { opacity: fadeAnim, height: slideAnim }]}>
         <Pressable onPress={closeDrawer} style={tw`absolute top-0 left-0 w-full h-full`} />
       </Animated.View>
@@ -101,12 +86,12 @@ export const Drawer = ({ title, content, show, previousDrawer, onClose }: Drawer
       >
         <View style={tw`py-6`} onTouchStart={registerTouchStart} onTouchMove={registerTouchMove}>
           {Object.keys(previousDrawer).length !== 0 && (
-            <Pressable onPress={goBack} style={tw`absolute z-10 p-3 left-4 top-3`}>
+            <Pressable testID="backButton" onPress={goBack} style={tw`absolute z-10 p-3 left-4 top-3`}>
               <Icon id="chevronLeft" style={tw`w-6 h-6`} color={tw`text-black-4`.color} />
             </Pressable>
           )}
           <Text style={tw`text-center drawer-title`}>{title}</Text>
-          <Pressable onPress={closeDrawer} style={tw`absolute p-3 right-4 top-3`}>
+          <Pressable testID="closeButton" onPress={closeDrawer} style={tw`absolute p-3 right-4 top-3`}>
             <Icon id="xSquare" style={tw`w-6 h-6`} color={tw`text-black-4`.color} />
           </Pressable>
         </View>
@@ -118,5 +103,3 @@ export const Drawer = ({ title, content, show, previousDrawer, onClose }: Drawer
     </View>
   )
 }
-
-export default Drawer

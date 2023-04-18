@@ -1,13 +1,13 @@
 import { ReactNode } from 'react'
 import { ImageStyle, StyleProp, TextStyle, View, ViewStyle } from 'react-native'
 import tw from '../styles/tailwind'
-import { ColorItem, RadialGradient } from './RadialGradient'
+import { ColorStop, RadialGradient } from './RadialGradient'
 
 type Props = {
   children: ReactNode
   gradientBorderWidths: [number, number, number, number]
   defaultBorderWidths: [number, number, number, number]
-  gradient: ColorItem[]
+  gradient: ColorStop[]
   containerStyle?: StyleProp<ViewStyle>
   style?: StyleProp<ViewStyle>
   showBorder?: boolean
