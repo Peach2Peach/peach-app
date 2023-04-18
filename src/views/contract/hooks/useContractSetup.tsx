@@ -12,19 +12,20 @@ import { isTradeComplete } from '../../../utils/contract/status'
 import { confirmPayment, getContract, getOfferDetails } from '../../../utils/peachAPI'
 import { getNavigationDestinationForContract, getNavigationDestinationForOffer } from '../../yourTrades/utils'
 
-export const useContractSetup = () => {
-  const route = useRoute<'contract'>()
-  const { contractId } = route.params
-
-  const { contract, saveAndUpdate, isLoading, view, requiredAction, newOfferId, refetch }
-    = useCommonContractSetup(contractId)
-  const navigation = useNavigation()
-  const showError = useShowErrorBanner()
+const useContractHeaderSetup = ({
+  contract,
+  view,
+  requiredAction,
+  contractId,
+}: {
+  contract: Contract | undefined
+  view: ContractViewer | undefined
+  requiredAction: ContractAction
+  contractId: string
+}) => {
   const { showConfirmOverlay } = useConfirmCancelTrade()
   const showMakePaymentHelp = useShowHelp('makePayment')
   const showConfirmPaymentHelp = useShowHelp('confirmPayment')
-
-  const [actionPending, setActionPending] = useState(false)
 
   useHeaderSetup(
     useMemo(() => {
@@ -47,6 +48,25 @@ export const useContractSetup = () => {
       }
     }, [showConfirmOverlay, contract, requiredAction, contractId, showConfirmPaymentHelp, showMakePaymentHelp, view]),
   )
+}
+
+export const useContractSetup = () => {
+  const route = useRoute<'contract'>()
+  const { contractId } = route.params
+
+  const { contract, saveAndUpdate, isLoading, view, requiredAction, newOfferId, refetch }
+    = useCommonContractSetup(contractId)
+  const navigation = useNavigation()
+  const showError = useShowErrorBanner()
+
+  const [actionPending, setActionPending] = useState(false)
+
+  useContractHeaderSetup({
+    contract,
+    view,
+    requiredAction,
+    contractId,
+  })
 
   useEffect(() => {
     if (!contract || !view || isLoading) return
