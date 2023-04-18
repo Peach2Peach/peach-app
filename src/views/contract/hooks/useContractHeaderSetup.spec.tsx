@@ -18,38 +18,7 @@ describe('useContractHeaderSetup', () => {
     renderHook(
       () =>
         useContractHeaderSetup({
-          contract: {
-            id: '1',
-            status: 'tradeInDispute',
-            buyer: {
-              id: '1',
-              name: 'John',
-              avatar: 'https://example.com/avatar.png',
-            },
-            seller: {
-              id: '2',
-              name: 'Jane',
-              avatar: 'https://example.com/avatar.png',
-            },
-            items: [
-              {
-                id: '1',
-                name: 'Item 1',
-                price: 100,
-                quantity: 1,
-                image: 'https://example.com/image.png',
-              },
-            ],
-            payment: {
-              id: '1',
-              status: 'pending',
-              amount: 100,
-              currency: 'USD',
-              method: 'bankTransfer',
-              createdAt: '2021-01-01T00:00:00Z',
-            },
-            createdAt: '2021-01-01T00:00:00Z',
-          },
+          contract: { disputeActive: true },
           view: 'buyer',
           requiredAction: 'none',
           contractId: '123',
