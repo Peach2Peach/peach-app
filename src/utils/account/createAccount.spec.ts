@@ -1,21 +1,19 @@
-import { notStrictEqual, ok } from 'assert'
-import { account, createAccount, defaultAccount, setAccount } from '.'
+import { createAccount } from '.'
 
 describe('createAccount', () => {
-  beforeEach(async () => {
-    await setAccount(defaultAccount)
+  it('creates a new account', async () => {
+    const newAccount = await createAccount()
+
+    expect(newAccount.publicKey.length).toBeGreaterThan(0)
+    expect(newAccount.privKey?.length).toBeGreaterThan(0)
+    expect(newAccount.mnemonic?.length).toBeGreaterThan(0)
   })
-
   it('creates a new account each time', async () => {
-    ok(await createAccount())
-    const firstPublicKey = JSON.parse(JSON.stringify(account.publicKey))
+    const newAccount1 = await createAccount()
+    const newAccount2 = await createAccount()
 
-    ok(account.publicKey)
-    ok(account.privKey)
-    ok(account.mnemonic)
-
-    ok(await createAccount())
-
-    notStrictEqual(firstPublicKey, account.publicKey)
+    expect(newAccount1.publicKey).not.toBe(newAccount2.publicKey)
+    expect(newAccount1.privKey).not.toBe(newAccount2.privKey)
+    expect(newAccount1.mnemonic).not.toBe(newAccount2.mnemonic)
   })
 })

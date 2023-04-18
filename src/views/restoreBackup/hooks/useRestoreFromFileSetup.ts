@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import { useState } from 'react'
 import { Keyboard } from 'react-native'
 
 import { useNavigation, useValidatedState } from '../../../hooks'
@@ -7,6 +7,8 @@ import { decryptAccount } from '../../../utils/account/decryptAccount'
 import { storeAccount } from '../../../utils/account/storeAccount'
 import { auth } from '../../../utils/peachAPI'
 import { parseError } from '../../../utils/result'
+import { setPeachAccount } from '../../../utils/peachAPI/peachAccount'
+import { createPeachAccount } from '../../../utils/account/createPeachAccount'
 
 const passwordRules = { password: true, required: true }
 
@@ -23,11 +25,11 @@ export const useRestoreFromFileSetup = () => {
   const [loading, setLoading] = useState(false)
   const [restored, setRestored] = useState(false)
 
-  const onError = useCallback((err?: string) => {
+  const onError = (err?: string) => {
     const errorMsg = err || 'UNKNOWN_ERROR'
     if (errorMsg !== 'WRONG_PASSWORD') setError(errorMsg)
     deleteAccount()
-  }, [])
+  }
 
   const submit = async () => {
     Keyboard.dismiss()
@@ -38,11 +40,13 @@ export const useRestoreFromFileSetup = () => {
       password,
     })
 
-    if (!recoveredAccount) {
+    if (!recoveredAccount || !recoveredAccount.mnemonic) {
       setLoading(false)
       onError(parseError(err))
       return
     }
+
+    setPeachAccount(createPeachAccount(recoveredAccount.mnemonic))
 
     const [, authErr] = await auth({})
     if (authErr) {

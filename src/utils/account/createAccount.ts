@@ -1,5 +1,5 @@
 import OpenPGP from 'react-native-fast-openpgp'
-import { defaultAccount, setAccount } from '.'
+import { defaultAccount } from '.'
 import { info } from '../log'
 import { createRandomWallet, createWalletFromSeedPhrase, getMainAddress, getNetwork } from '../wallet'
 
@@ -21,8 +21,6 @@ export const createAccount = async (seedPhrase?: string): Promise<Account> => {
       publicKey: recipient.publicKey,
     },
   }
-
-  await setAccount(newAccount, true)
 
   return newAccount
 }
