@@ -18,7 +18,6 @@ exports[`DisputeContractTitle should render correctly 1`] = `
         "fontSize": 16,
         "letterSpacing": 0.16,
         "lineHeight": 26,
-        "textTransform": "lowercase",
       },
     ]
   }
