@@ -1,9 +1,8 @@
 import { useCallback, useContext } from 'react'
-import { Loading } from '../../components'
 import { OverlayContext } from '../../contexts/overlay'
 import { useNavigation } from '../../hooks'
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
-import tw from '../../styles/tailwind'
+import { useShowLoadingOverlay } from '../../hooks/useShowLoadingOverlay'
 import i18n from '../../utils/i18n'
 import { extendPaymentTimer } from '../../utils/peachAPI'
 import { useConfirmCancelTrade } from '../tradeCancelation/useConfirmCancelTrade'
@@ -15,6 +14,7 @@ export const useShowPaymentTimerHasRunOut = () => {
   const { cancelSeller } = useConfirmCancelTrade()
   const showError = useShowErrorBanner()
 
+  const showLoadingOverlay = useShowLoadingOverlay()
   const closeOverlay = useCallback(() => updateOverlay({ visible: false }), [updateOverlay])
 
   const showPaymentTimerHasRunOutForSeller = useCallback(
@@ -41,17 +41,9 @@ export const useShowPaymentTimerHasRunOut = () => {
         label: i18n('contract.seller.paymentTimerHasRunOut.extraTime'),
         icon: 'clock',
         callback: async () => {
-          updateOverlay({
+          showLoadingOverlay({
             title: i18n('contract.buyer.paymentTimerHasRunOut.title'),
-            content: <Loading style={tw`self-center`} color={tw`text-black-1`.color} />,
             level: 'WARN',
-            visible: true,
-            requireUserAction: true,
-            action1: {
-              label: i18n('loading'),
-              icon: 'clock',
-              callback: () => {},
-            },
           })
 
           const [result, err] = await extendPaymentTimer({ contractId: contract.id })
@@ -70,7 +62,7 @@ export const useShowPaymentTimerHasRunOut = () => {
         action2: inTrade ? cancelTrade : closeAction,
       })
     },
-    [cancelSeller, closeOverlay, navigation, showError, updateOverlay],
+    [cancelSeller, closeOverlay, navigation, showError, showLoadingOverlay, updateOverlay],
   )
 
   const showPaymentTimerHasRunOut = useCallback(

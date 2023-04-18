@@ -1,6 +1,11 @@
+const logAppOpenMock = jest.fn()
+const logScreenViewMock = jest.fn()
+const setAnalyticsCollectionEnabledMock = jest.fn()
+const logEventMock = jest.fn()
+
 export default () => ({
-  logAppOpen: jest.fn(),
-  logScreenView: jest.fn(),
-  setAnalyticsCollectionEnabled: jest.fn(),
-  logEvent: jest.fn(),
+  logAppOpen: logAppOpenMock,
+  logScreenView: logScreenViewMock,
+  setAnalyticsCollectionEnabled: setAnalyticsCollectionEnabledMock,
+  logEvent: logEventMock,
 })

@@ -26,7 +26,7 @@ export default ({
   postConfirmPaymentSeller,
 }: ContractCTAProps): ReactElement => {
   const showPaymentTooLateOverlay = usePaymentTooLateOverlay()
-  const showConfirmTradeCancelation = useConfirmTradeCancelationOverlay()
+  const { showConfirmTradeCancelation } = useConfirmTradeCancelationOverlay()
   const CTADisabled = actionPending || contract.disputeActive
 
   if (!contract.disputeActive && shouldShowConfirmCancelTradeRequest(contract, view)) return (

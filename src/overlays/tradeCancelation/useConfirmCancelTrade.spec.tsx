@@ -26,6 +26,12 @@ jest.mock('../../contexts/overlay', () => ({
   useOverlayContext: () => useOverlayContextMock(),
 }))
 
+const showLoadingOverlayMock = jest.fn()
+const useShowLoadingOverlayMock = jest.fn().mockReturnValue(showLoadingOverlayMock)
+jest.mock('../../hooks/useShowLoadingOverlay', () => ({
+  useShowLoadingOverlay: () => useShowLoadingOverlayMock(),
+}))
+
 const saveContractMock = jest.fn()
 jest.mock('../../utils/contract/saveContract', () => ({
   saveContract: (...args: any[]) => saveContractMock(...args),
@@ -71,24 +77,16 @@ describe('useConfirmCancelTrade', () => {
       showConfirmOverlay: expect.any(Function),
       cancelSeller: expect.any(Function),
       cancelBuyer: expect.any(Function),
-      showLoading: expect.any(Function),
+      showLoadingOverlay: expect.any(Function),
       closeOverlay: expect.any(Function),
     })
   })
   it('should update popups when canceling a contract as seller', async () => {
     const { result } = renderHook(useConfirmCancelTrade)
     const cancelSellerPromise = result.current.cancelSeller(contract)
-    expect(updateOverlayMock).toHaveBeenCalledWith({
-      action1: {
-        callback: expect.any(Function),
-        icon: 'clock',
-        label: i18n('loading'),
-      },
-      content: <Loading color={tw`text-primary-main`.color} style={tw`self-center`} />,
-      level: 'ERROR',
-      requireUserAction: true,
+    expect(showLoadingOverlayMock).toHaveBeenCalledWith({
       title: i18n('contract.cancel.title'),
-      visible: true,
+      level: 'ERROR',
     })
 
     updateOverlayMock.mockClear()

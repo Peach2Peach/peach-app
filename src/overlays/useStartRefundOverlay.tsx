@@ -1,12 +1,11 @@
 import { NETWORK } from '@env'
-import { useCallback, useContext } from 'react'
-import { Loading } from '../components'
-import { OverlayContext } from '../contexts/overlay'
+import { useCallback } from 'react'
+import { useOverlayContext } from '../contexts/overlay'
 import { useNavigation } from '../hooks'
 import { useTradeSummaries } from '../hooks/query/useTradeSummaries'
 import { useShowErrorBanner } from '../hooks/useShowErrorBanner'
+import { useShowLoadingOverlay } from '../hooks/useShowLoadingOverlay'
 import { useTradeSummaryStore } from '../store/tradeSummaryStore'
-import tw from '../styles/tailwind'
 import { checkRefundPSBT, showTransaction, signPSBT } from '../utils/bitcoin'
 import i18n from '../utils/i18n'
 import { info } from '../utils/log'
@@ -17,7 +16,7 @@ import { peachWallet } from '../utils/wallet/setWallet'
 import Refund from './Refund'
 
 export const useStartRefundOverlay = () => {
-  const [, updateOverlay] = useContext(OverlayContext)
+  const [, updateOverlay] = useOverlayContext()
   const showError = useShowErrorBanner()
   const navigation = useNavigation()
   const { refetch: refetchTradeSummaries } = useTradeSummaries(false)
@@ -86,20 +85,12 @@ export const useStartRefundOverlay = () => {
     },
     [closeOverlay, goToWallet, navigation, refetchTradeSummaries, setOffer, showError, updateOverlay],
   )
+  const showLoadingOverlay = useShowLoadingOverlay()
 
   const startRefund = useCallback(
     async (sellOffer: SellOffer) => {
-      updateOverlay({
+      showLoadingOverlay({
         title: i18n('refund.loading.title'),
-        content: <Loading style={tw`self-center`} color={tw`text-primary-main`.color} />,
-        level: 'APP',
-        visible: true,
-        requireUserAction: true,
-        action1: {
-          label: i18n('loading'),
-          icon: 'clock',
-          callback: () => {},
-        },
       })
 
       const [cancelResult, cancelError] = await cancelOffer({ offerId: sellOffer.id, timeout: 15 * 1000 })
@@ -111,7 +102,7 @@ export const useStartRefundOverlay = () => {
         closeOverlay()
       }
     },
-    [closeOverlay, refund, showError, updateOverlay],
+    [closeOverlay, refund, showError, showLoadingOverlay],
   )
 
   return startRefund
