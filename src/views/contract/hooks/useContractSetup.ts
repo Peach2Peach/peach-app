@@ -9,6 +9,7 @@ import { confirmPayment, getContract, getOfferDetails } from '../../../utils/pea
 import { getNavigationDestinationForContract, getNavigationDestinationForOffer } from '../../yourTrades/utils'
 import { useContractHeaderSetup } from './useContractHeaderSetup'
 
+// eslint-disable-next-line max-lines-per-function
 export const useContractSetup = () => {
   const route = useRoute<'contract'>()
   const { contractId } = route.params
