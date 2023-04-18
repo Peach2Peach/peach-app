@@ -42,7 +42,7 @@ export const settingsStore = createStore(
   persist<SettingsStore>(
     (set, get) => ({
       ...defaultSettings,
-      reset: () => set({ ...defaultSettings, migrated: false }),
+      reset: () => set({ ...defaultSettings, migrated: false, analyticsPopupSeen: true }),
       setMigrated: () => set({ migrated: true }),
       getPureState: () => getPureSettingsState(get()),
       updateSettings: (settings) => set({ ...settings }),
