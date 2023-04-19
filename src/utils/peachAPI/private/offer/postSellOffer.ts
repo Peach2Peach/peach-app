@@ -25,7 +25,7 @@ export const postSellOffer = async ({
   timeout,
   premium = 0,
   ...requestBody
-}: PostOfferProps): Promise<[PostOfferResponse | null, APIError | null]> => {
+}: PostOfferProps): Promise<[PostOfferResponseBody | null, APIError | null]> => {
   const response = await fetch(`${API_URL}/v1/offer`, {
     headers: await getPrivateHeaders(),
     method: 'POST',
@@ -33,5 +33,5 @@ export const postSellOffer = async ({
     signal: timeout ? getAbortWithTimeout(timeout).signal : undefined,
   })
 
-  return await parseResponse<PostOfferResponse>(response, 'postOffer')
+  return await parseResponse<PostOfferResponseBody>(response, 'postOffer')
 }
