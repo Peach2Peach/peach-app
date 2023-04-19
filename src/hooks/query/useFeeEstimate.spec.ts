@@ -1,5 +1,5 @@
 import { renderHook, waitFor } from '@testing-library/react-native'
-import { queryClientWrapper } from '../../../tests/unit/helpers/queryClientWrapper'
+import { QueryClientWrapper } from '../../../tests/unit/helpers/queryClientWrapper'
 import { placeholderFees, useFeeEstimate } from './useFeeEstimate'
 import { estimatedFees } from '../../../tests/unit/data/bitcoinNetworkData'
 
@@ -18,7 +18,7 @@ describe('useFeeEstimate', () => {
 
   it('fetches fee estimates from API', async () => {
     const { result } = renderHook(useFeeEstimate, {
-      wrapper: queryClientWrapper,
+      wrapper: QueryClientWrapper,
     })
     expect(result.current).toEqual({
       estimatedFees: placeholderFees,
@@ -35,7 +35,7 @@ describe('useFeeEstimate', () => {
   it('returns error if server did not return result', async () => {
     getFeeEstimateMock.mockResolvedValueOnce([null, apiError])
     const { result } = renderHook(useFeeEstimate, {
-      wrapper: queryClientWrapper,
+      wrapper: QueryClientWrapper,
     })
     expect(result.current).toEqual({
       estimatedFees: placeholderFees,
