@@ -16,7 +16,6 @@ export default (): ReactElement => {
   const { offerId, escrow, createEscrowError, fundingStatus, fundingAmount } = useFundEscrowSetup()
   const { showRegtestButton, fundEscrowAddress } = useAutoFundOffer({ offerId, fundingStatus })
 
-  console.log(createEscrowError)
   if (createEscrowError) return <NoEscrowFound />
   if (!escrow) return (
     <View style={tw`items-center justify-center h-full`}>
