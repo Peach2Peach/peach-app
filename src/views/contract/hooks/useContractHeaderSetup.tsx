@@ -40,7 +40,7 @@ export const useContractHeaderSetup = ({
       if (contract?.disputeActive) {
         return {
           titleComponent: <DisputeContractTitle id={contractId} />,
-          icons,
+          icons: [],
         }
       }
       return {
