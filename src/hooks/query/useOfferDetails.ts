@@ -3,17 +3,19 @@ import { error } from '../../utils/log'
 import { getOffer, saveOffer } from '../../utils/offer'
 import { getOfferDetails } from '../../utils/peachAPI'
 
-export const getOfferQuery = async ({ queryKey }: { queryKey: [string, string] }) => {
+const getOfferQuery = async ({ queryKey }: { queryKey: [string, string] }) => {
   const [, offerId] = queryKey
-  if (!offerId) return undefined
-
   const [offer, err] = await getOfferDetails({ offerId })
+
   if (err) {
     error('Could not fetch offer information for offer', offerId, err.error)
     throw new Error(err.error)
   }
-  if (offer) saveOffer(offer)
-  return offer
+  if (offer) {
+    saveOffer(offer)
+    return offer
+  }
+  return undefined
 }
 
 export const useOfferDetails = (id: string) => {
@@ -21,6 +23,7 @@ export const useOfferDetails = (id: string) => {
   const {
     data,
     isLoading,
+    isFetching,
     error: offerDetailsError,
   } = useQuery({
     queryKey: ['offer', id],
@@ -30,5 +33,5 @@ export const useOfferDetails = (id: string) => {
     enabled: !!id,
   })
 
-  return { offer: data, isLoading, error: offerDetailsError }
+  return { offer: data, isLoading, isFetching, error: offerDetailsError }
 }
