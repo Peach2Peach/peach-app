@@ -1,6 +1,6 @@
 import { renderHook, waitFor } from '@testing-library/react-native'
 import { contract } from '../../../tests/unit/data/contractData'
-import { QueryClientWrapper } from '../../../tests/unit/helpers/queryClientWrapper'
+import { QueryClientWrapper } from '../../../tests/unit/helpers/QueryClientWrapper'
 import { useContractDetails } from './useContractDetails'
 
 const getStoredContractMock = jest.fn()

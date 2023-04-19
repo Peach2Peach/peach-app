@@ -1,6 +1,6 @@
 import { renderHook } from '@testing-library/react-native'
 import { useNavigateToOffer } from './useNavigateToOffer'
-import { QueryClientWrapper } from '../../../../tests/unit/helpers/queryClientWrapper'
+import { QueryClientWrapper } from '../../../../tests/unit/helpers/QueryClientWrapper'
 import { sellOffer } from '../../../../tests/unit/data/offerData'
 
 const navigateMock = jest.fn()

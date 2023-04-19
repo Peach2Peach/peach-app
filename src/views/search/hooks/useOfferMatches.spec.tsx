@@ -1,6 +1,6 @@
 import { act, renderHook, waitFor } from '@testing-library/react-native'
 import { buyOffer, sellOffer } from '../../../../tests/unit/data/offerData'
-import { QueryClientWrapper } from '../../../../tests/unit/helpers/queryClientWrapper'
+import { QueryClientWrapper } from '../../../../tests/unit/helpers/QueryClientWrapper'
 import { useMatchStore } from '../../../components/matches/store'
 import { useOfferMatches } from './useOfferMatches'
 

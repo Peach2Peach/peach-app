@@ -1,7 +1,7 @@
 /* eslint-disable max-lines-per-function */
 import { renderHook, waitFor } from '@testing-library/react-native'
 import { sellOffer } from '../../../tests/unit/data/offerData'
-import { QueryClientWrapper } from '../../../tests/unit/helpers/queryClientWrapper'
+import { QueryClientWrapper } from '../../../tests/unit/helpers/QueryClientWrapper'
 import { useOfferDetails } from './useOfferDetails'
 
 const apiError = { error: 'UNAUTHORIZED' }

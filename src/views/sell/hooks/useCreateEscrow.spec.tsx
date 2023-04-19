@@ -2,7 +2,7 @@ import { renderHook, waitFor } from '@testing-library/react-native'
 import { useCreateEscrow } from './useCreateEscrow'
 import { sellOffer } from '../../../../tests/unit/data/offerData'
 import { getDefaultFundingStatus } from '../../../utils/offer'
-import { QueryClientWrapper } from '../../../../tests/unit/helpers/queryClientWrapper'
+import { QueryClientWrapper } from '../../../../tests/unit/helpers/QueryClientWrapper'
 import { setAccount } from '../../../utils/account'
 import { account1 } from '../../../../tests/unit/data/accountData'
 
