@@ -26,7 +26,7 @@ export default (): ReactElement => {
   return (
     <View style={tw`justify-between flex-shrink h-full px-8 pb-6`}>
       <View style={tw`justify-center flex-shrink h-full`}>
-        <ContractSubtitle {...{ contract, view, hasNewOffer, goToNewOffer }} />
+        {/* <ContractSubtitle {...{ contract, view, hasNewOffer, goToNewOffer }} /> */}
         <TradeSummary style={tw`flex-shrink max-h-full mt-6`} {...{ contract, view }} />
       </View>
       <View style={tw`flex items-center w-full mt-12`}>
