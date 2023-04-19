@@ -33,6 +33,13 @@ describe('useOfferMatches', () => {
     })
     expect(result.current.allMatches).toEqual(['match'])
   })
+  it('should return make a request if not enabled', async () => {
+    renderHook(() => useOfferMatches('offerId', false), {
+      wrapper: QueryClientWrapper,
+    })
+
+    expect(getMatchesMock).not.toHaveBeenCalled()
+  })
   it('should refetch after 15 seconds', async () => {
     const { result } = renderHook(useOfferMatches, {
       initialProps: 'offerId',

@@ -21,13 +21,6 @@ export const useNavigateToOffer = (offer: OfferSummary) => {
       }
       return
     }
-    if (screen === 'fundEscrow') {
-      const [sellOffer] = await getOfferDetails({ offerId: offer.id })
-      if (sellOffer && isSellOffer(sellOffer)) {
-        navigation.navigate(screen, { offer: sellOffer })
-        return
-      }
-    }
 
     navigation.navigate(screen, params)
   }

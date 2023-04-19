@@ -28,7 +28,7 @@ declare type RootStackParamList = {
   }
   signMessage: undefined
   fundEscrow: {
-    offer: SellOffer
+    offerId: string
   }
   selectWallet: {
     type: 'refund' | 'payout'

@@ -1,9 +1,8 @@
 /* eslint-disable max-lines-per-function */
 import { renderHook, waitFor } from '@testing-library/react-native'
-import { contract } from '../../../tests/unit/data/contractData'
+import { sellOffer } from '../../../tests/unit/data/offerData'
 import { QueryClientWrapper } from '../../../tests/unit/helpers/queryClientWrapper'
 import { useOfferDetails } from './useOfferDetails'
-import { sellOffer } from '../../../tests/unit/data/offerData'
 
 const apiError = { error: 'UNAUTHORIZED' }
 const getStoredOfferMock = jest.fn()
@@ -24,7 +23,7 @@ describe('useOfferDetails', () => {
   it('fetches offer details from API', async () => {
     const { result } = renderHook(useOfferDetails, {
       wrapper: QueryClientWrapper,
-      initialProps: contract.id,
+      initialProps: sellOffer.id,
     })
 
     expect(result.current).toEqual({
@@ -84,7 +83,7 @@ describe('useOfferDetails', () => {
     getOfferDetailsMock.mockResolvedValueOnce([null, apiError])
     const { result } = renderHook(useOfferDetails, {
       wrapper: QueryClientWrapper,
-      initialProps: contract.id,
+      initialProps: sellOffer.id,
     })
 
     expect(result.current).toEqual({

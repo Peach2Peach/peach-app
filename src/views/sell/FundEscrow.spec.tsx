@@ -1,60 +1,42 @@
 import FundEscrow from './FundEscrow'
 import { createRenderer } from 'react-test-renderer/shallow'
 
-const useMockFundEscrowSetup = jest.fn()
+const useFundEscrowSetupMock = jest.fn()
 jest.mock('./hooks/useFundEscrowSetup', () => ({
-  useFundEscrowSetup: () => useMockFundEscrowSetup(),
+  useFundEscrowSetup: () => useFundEscrowSetupMock(),
+}))
+const useAutoFundOfferSetupMock = jest.fn().mockReturnValue({
+  showRegtestButton: false,
+  fundEscrowAddress: jest.fn(),
+})
+jest.mock('./hooks/regtest/useAutoFundOffer', () => ({
+  useAutoFundOffer: () => useAutoFundOfferSetupMock(),
 }))
 
 describe('FundEscrow', () => {
   const defaultReturnValue = {
-    sellOffer: {
-      id: '123',
-      amount: 100000,
-    },
-    updatePending: false,
-    showRegtestButton: false,
+    offerId: '123',
     escrow: '123',
     fundingStatus: {
-      status: 'FUNDED',
+      status: 'NULL',
     },
     fundingAmount: 100000,
-    fundEscrowAddress: jest.fn(),
+    createEscrowError: null,
   }
   const renderer = createRenderer()
 
+  afterEach(() => {
+    jest.clearAllMocks()
+  })
   it('should render the FundEscrow view', () => {
-    useMockFundEscrowSetup.mockReturnValueOnce(defaultReturnValue)
+    useFundEscrowSetupMock.mockReturnValueOnce(defaultReturnValue)
     renderer.render(<FundEscrow />)
     const result = renderer.getRenderOutput()
     expect(result).toMatchSnapshot()
   })
 
-  it('should show Loading, while an update is pending', () => {
-    useMockFundEscrowSetup.mockReturnValueOnce({
-      ...defaultReturnValue,
-      updatePending: true,
-    })
-    renderer.render(<FundEscrow />)
-    const result = renderer.getRenderOutput()
-    expect(result).toMatchSnapshot()
-  })
-
-  it('should show NoEscrowFound, if no sellOffer.id is present', () => {
-    useMockFundEscrowSetup.mockReturnValueOnce({
-      ...defaultReturnValue,
-      sellOffer: {
-        ...defaultReturnValue.sellOffer,
-        id: '',
-      },
-    })
-    renderer.render(<FundEscrow />)
-    const result = renderer.getRenderOutput()
-    expect(result).toMatchSnapshot()
-  })
-
-  it('should show NoEscrowFound, if no escrow is present', () => {
-    useMockFundEscrowSetup.mockReturnValueOnce({
+  it('should show Loading, while escrow cration is pending', () => {
+    useFundEscrowSetupMock.mockReturnValueOnce({
       ...defaultReturnValue,
       escrow: '',
     })
@@ -63,10 +45,11 @@ describe('FundEscrow', () => {
     expect(result).toMatchSnapshot()
   })
 
-  it('should show NoEscrowFound, if no fundingStatus is present', () => {
-    useMockFundEscrowSetup.mockReturnValueOnce({
+  it('should show NoEscrowFound, if no there is an error while creating escrow', () => {
+    useFundEscrowSetupMock.mockReturnValueOnce({
       ...defaultReturnValue,
-      fundingStatus: null,
+      escrow: '',
+      createEscrowError: new Error('UNAUTHORIZED'),
     })
     renderer.render(<FundEscrow />)
     const result = renderer.getRenderOutput()
@@ -74,7 +57,7 @@ describe('FundEscrow', () => {
   })
 
   it('should show TransactionInMempool, if fundingStatus is MEMPOOL', () => {
-    useMockFundEscrowSetup.mockReturnValueOnce({
+    useFundEscrowSetupMock.mockReturnValueOnce({
       ...defaultReturnValue,
       fundingStatus: {
         status: 'MEMPOOL',

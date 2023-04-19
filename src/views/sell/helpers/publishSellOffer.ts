@@ -5,7 +5,7 @@ import { postSellOffer } from '../../../utils/peachAPI'
 import { info } from './../../../utils/log'
 export const publishSellOffer = async (
   offerDraft: SellOfferDraft,
-): Promise<{ isPublished: boolean; navigationParams: { offer: SellOffer } | null; errorMessage: string | null }> => {
+): Promise<{ isPublished: boolean; navigationParams: { offerId: string } | null; errorMessage: string | null }> => {
   info('Posting offer ', JSON.stringify(offerDraft))
 
   await pgp() // make sure pgp has been sent
@@ -23,7 +23,7 @@ export const publishSellOffer = async (
     info('Posted offer', result)
 
     saveOffer({ ...offerDraft, ...result })
-    return { isPublished: true, navigationParams: { offer: { ...offerDraft, ...result } }, errorMessage: null }
+    return { isPublished: true, navigationParams: { offerId: result.id }, errorMessage: null }
   }
   return {
     isPublished: false,
