@@ -1,0 +1,176 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TradeAmount renders correctly 1`] = `
+<View
+  style={
+    {
+      "alignItems": "center",
+      "flexDirection": "row",
+      "marginTop": 8,
+    }
+  }
+>
+  <PeachText
+    style={
+      [
+        {
+          "color": "#7D675E",
+          "width": 100,
+        },
+        false,
+      ]
+    }
+  >
+    amount
+  </PeachText>
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+      }
+    }
+  >
+    <PriceFormat
+      amount={1}
+      currency="EUR"
+      style={
+        [
+          {
+            "fontFamily": "Baloo2-SemiBold",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 28,
+          },
+          false,
+        ]
+      }
+    />
+  </View>
+</View>
+`;
+
+exports[`TradeAmount renders correctly for the buyer 1`] = `
+<View
+  style={
+    {
+      "alignItems": "center",
+      "flexDirection": "row",
+      "marginTop": 8,
+    }
+  }
+>
+  <PeachText
+    style={
+      [
+        {
+          "color": "#7D675E",
+          "width": 100,
+        },
+        false,
+      ]
+    }
+  >
+    amount
+  </PeachText>
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+      }
+    }
+  >
+    <PriceFormat
+      amount={1}
+      currency="EUR"
+      style={
+        [
+          {
+            "fontFamily": "Baloo2-SemiBold",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 28,
+          },
+          false,
+        ]
+      }
+    />
+    <CopyAble
+      style={
+        {
+          "marginLeft": 8,
+        }
+      }
+      value="1.00"
+    />
+  </View>
+</View>
+`;
+
+exports[`TradeAmount renders correctly when there is a dispute 1`] = `
+<View
+  style={
+    {
+      "alignItems": "center",
+      "flexDirection": "row",
+      "marginTop": 8,
+    }
+  }
+>
+  <PeachText
+    style={
+      [
+        {
+          "color": "#7D675E",
+          "width": 100,
+        },
+        {
+          "color": "#FE5A48",
+        },
+      ]
+    }
+  >
+    amount
+  </PeachText>
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+      }
+    }
+  >
+    <PriceFormat
+      amount={1}
+      currency="EUR"
+      style={
+        [
+          {
+            "fontFamily": "Baloo2-SemiBold",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 28,
+          },
+          {
+            "color": "#B01807",
+          },
+        ]
+      }
+    />
+    <CopyAble
+      color={
+        {
+          "color": "#DF321F",
+        }
+      }
+      style={
+        {
+          "marginLeft": 8,
+        }
+      }
+      value="1.00"
+    />
+  </View>
+</View>
+`;
