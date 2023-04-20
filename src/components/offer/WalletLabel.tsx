@@ -14,14 +14,14 @@ export const WalletLabel = ({ label, address, style }: Props) => {
     (state) => [state.payoutAddress, state.payoutAddressLabel],
     shallow,
   )
-  const [walletLabel, setWalletLabel] = useState(label || i18n('loading'))
+  const [fallbackLabel, setFallbackLabel] = useState(i18n('loading'))
 
   useEffect(() => {
     if (label) return
 
     // this operation can be expensive, hence we delay execution
     setTimeout(() => {
-      setWalletLabel(
+      setFallbackLabel(
         getSummaryWalletLabel({
           address,
           customPayoutAddress: payoutAddress,
@@ -31,5 +31,5 @@ export const WalletLabel = ({ label, address, style }: Props) => {
     })
   }, [address, label, payoutAddress, payoutAddressLabel])
 
-  return <Text style={style}>{walletLabel}</Text>
+  return <Text style={style}>{label || fallbackLabel}</Text>
 }
