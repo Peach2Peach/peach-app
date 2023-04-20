@@ -1,4 +1,4 @@
-import { ReactElement, useEffect, useState } from 'react'
+import { ReactElement, useState } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
@@ -7,9 +7,7 @@ import { PaymentMethod } from '../matches/PaymentMethod'
 import { TabbedNavigation } from '../navigation/TabbedNavigation'
 import { SatsFormat, Text } from '../text'
 import { HorizontalLine } from '../ui'
-import { useSettingsStore } from '../../store/settingsStore'
-import { shallow } from 'zustand/shallow'
-import { getSummaryWalletLabel } from '../../utils/offer'
+import { WalletLabel } from './WalletLabel'
 
 type BuyOfferSummaryProps = ComponentProps & {
   offer: BuyOffer | BuyOfferDraft
@@ -18,22 +16,6 @@ type BuyOfferSummaryProps = ComponentProps & {
 export const BuyOfferSummary = ({ offer, style }: BuyOfferSummaryProps): ReactElement => {
   const currencies = getCurrencies(offer.meansOfPayment)
   const [selectedCurrency, setSelectedCurrency] = useState(currencies[0])
-  const [payoutAddress, payoutAddressLabel] = useSettingsStore(
-    (state) => [state.payoutAddress, state.payoutAddressLabel],
-    shallow,
-  )
-  const [walletLabel, setWalletLabel] = useState(i18n('loading'))
-
-  useEffect(() => {
-    setWalletLabel(
-      getSummaryWalletLabel({
-        offerWalletLabel: offer.walletLabel,
-        address: offer.releaseAddress,
-        customPayoutAddress: payoutAddress,
-        customPayoutAddressLabel: payoutAddressLabel,
-      }) || i18n('offer.summary.customPayoutAddress'),
-    )
-  }, [offer.releaseAddress, offer.walletLabel, payoutAddress, payoutAddressLabel])
 
   return (
     <View style={[tw`w-full border border-black-5 rounded-2xl p-7 bg-primary-background-light`, style]}>
@@ -68,7 +50,7 @@ export const BuyOfferSummary = ({ offer, style }: BuyOfferSummaryProps): ReactEl
       </View>
       <HorizontalLine style={tw`w-64 my-4`} />
       <Text style={tw`self-center body-m text-black-2`}>{i18n('to')}</Text>
-      <Text style={tw`self-center subtitle-1`}>{walletLabel}</Text>
+      <WalletLabel label={offer.walletLabel} address={offer.releaseAddress} style={tw`self-center subtitle-1`} />
     </View>
   )
 }
