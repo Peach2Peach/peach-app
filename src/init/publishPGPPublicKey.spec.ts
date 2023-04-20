@@ -30,4 +30,28 @@ describe('publishPGPPublicKey', () => {
       pgp: account1.pgp,
     })
   })
+  it('should handle updateUser errors', async () => {
+    await setAccount(account1)
+    settingsStore.setState({
+      pgpPublished: false,
+    })
+    updateUserMock.mockResolvedValue([null, { error: 'error' }])
+    await publishPGPPublicKey()
+    expect(updateUserMock).toHaveBeenCalledWith({
+      pgp: account1.pgp,
+    })
+    expect(settingsStore.getState().pgpPublished).toBe(false)
+  })
+  it('should catch errors', async () => {
+    await setAccount(account1)
+    settingsStore.setState({
+      pgpPublished: false,
+    })
+    updateUserMock.mockRejectedValue(new Error('error'))
+    await publishPGPPublicKey()
+    expect(updateUserMock).toHaveBeenCalledWith({
+      pgp: account1.pgp,
+    })
+    expect(settingsStore.getState().pgpPublished).toBe(false)
+  })
 })
