@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CashTradeDetails renders correctly 1`] = `
+<InfoBlock
+  copyable={false}
+  disputeActive={false}
+  name="contract.payment.to"
+  value="undefined in undefined"
+/>
+`;
