@@ -1,0 +1,94 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TradeStatus renders correctly 1`] = `
+<View
+  style={
+    [
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+      },
+      undefined,
+    ]
+  }
+>
+  <PeachText
+    style={
+      [
+        {
+          "color": "#7D675E",
+          "marginRight": 4,
+        },
+        false,
+      ]
+    }
+  >
+    payment details
+  </PeachText>
+  <HorizontalLine
+    style={
+      [
+        {
+          "flexGrow": 1,
+          "marginLeft": 4,
+        },
+        false,
+      ]
+    }
+  />
+</View>
+`;
+
+exports[`TradeStatus renders correctly when there is a dispute 1`] = `
+<View
+  style={
+    [
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+      },
+      undefined,
+    ]
+  }
+>
+  <Icon
+    color="#DF321F"
+    id="alertOctagon"
+    style={
+      {
+        "height": 16,
+        "marginRight": 4,
+        "width": 16,
+      }
+    }
+  />
+  <PeachText
+    style={
+      [
+        {
+          "color": "#7D675E",
+          "marginRight": 4,
+        },
+        {
+          "color": "#DF321F",
+        },
+      ]
+    }
+  >
+    trade in dispute!
+  </PeachText>
+  <HorizontalLine
+    style={
+      [
+        {
+          "flexGrow": 1,
+          "marginLeft": 4,
+        },
+        {
+          "backgroundColor": "#FFD1CA",
+        },
+      ]
+    }
+  />
+</View>
+`;
