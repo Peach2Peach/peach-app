@@ -839,6 +839,8 @@
   "dispute.opened.counterparty.text.2.withEmail": "Please enter your email address so we can contact you for more information.",
   "dispute.chat": "dispute chat",
   "trade.chat": "trade chat",
+  "trade.disputeActive": "trade in dispute!",
+  "trade.paymentDetails": "payment details",
   "dispute.opened": "dispute opened",
   "dispute.raised.text.buyer": "The seller and the mediator have been notified. Keep an eye on the chat!",
   "dispute.raised.text.seller": "The buyer and the mediator have been notified. Keep an eye on the chat!",
