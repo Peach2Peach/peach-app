@@ -8,13 +8,12 @@ const isSellOfferMock = jest.fn().mockReturnValue(true)
 const infoMock = jest.fn()
 const saveOfferMock = jest.fn()
 
-jest.mock('../../../init/pgp', () => ({
-  __esModule: true,
-  default: () => pgpMock(),
+jest.mock('../../../init/publishPGPPublicKey', () => ({
+  publishPGPPublicKey: () => pgpMock(),
 }))
 
 jest.mock('../../../utils/log', () => ({
-  info: (msg: string, result: any) => infoMock(msg, result),
+  info: (...args: any[]) => infoMock(...args),
 }))
 
 jest.mock('../../../utils/peachAPI', () => ({
@@ -45,18 +44,11 @@ describe('publishSellOffer', () => {
     jest.clearAllMocks()
   })
 
-  it('should call info with "Posting offer " and offerDraft', async () => {
+  it('should call info with "Posting offer"', async () => {
     // @ts-ignore
     await publishSellOffer(offerDraft)
 
-    expect(infoMock).toHaveBeenCalledWith('Posting offer ', JSON.stringify(offerDraft))
-  })
-
-  it('should call pgp', async () => {
-    // @ts-ignore
-    await publishSellOffer(offerDraft)
-
-    expect(pgpMock).toHaveBeenCalled()
+    expect(infoMock).toHaveBeenCalledWith('Posting sell offer')
   })
 
   it('should call postSellOffer with offerDraft', async () => {
@@ -99,6 +91,19 @@ describe('publishSellOffer', () => {
 
     expect(result).toBeTruthy()
     expect(offer).toEqual({ offerId: 'someOfferId' })
+    expect(error).toBeNull()
+  })
+
+  it('should send pgp keys and retry posting buy offer if first error is PGP_MISSING', async () => {
+    postSellOfferMock.mockResolvedValueOnce([undefined, { error: 'PGP_MISSING' }])
+    postSellOfferMock.mockResolvedValueOnce([{ ...offerDraft, id: 'someOfferId' } as SellOffer, undefined])
+
+    // @ts-ignore
+    const { isPublished: result, navigationParams: offer, errorMessage: error } = await publishSellOffer(offerDraft)
+
+    expect(pgpMock).toHaveBeenCalled()
+    expect(result).toBeTruthy()
+    expect(offer).toEqual({ offer: { ...offerDraft, id: 'someOfferId' } })
     expect(error).toBeNull()
   })
 })

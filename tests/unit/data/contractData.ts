@@ -52,6 +52,7 @@ export const contract: Contract = {
   disputeActive: false,
   id: '14-15',
   paymentConfirmed: null,
+  paymentExpectedBy: new Date('2022-03-08T23:41:07.245Z'),
   paymentMade: null,
   paymentMethod: 'sepa',
   price: 89.04,

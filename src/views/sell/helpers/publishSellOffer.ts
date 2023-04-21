@@ -1,23 +1,30 @@
-import pgp from '../../../init/pgp'
+import { publishPGPPublicKey } from '../../../init/publishPGPPublicKey'
 import i18n from '../../../utils/i18n'
 import { saveOffer } from '../../../utils/offer'
 import { postSellOffer } from '../../../utils/peachAPI'
 import { info } from './../../../utils/log'
+
 export const publishSellOffer = async (
   offerDraft: SellOfferDraft,
 ): Promise<{ isPublished: boolean; navigationParams: { offerId: string } | null; errorMessage: string | null }> => {
-  info('Posting offer ', JSON.stringify(offerDraft))
+  info('Posting sell offer')
 
-  await pgp() // make sure pgp has been sent
-
-  const [result, err] = await postSellOffer({
+  const payload = {
     type: offerDraft.type,
     amount: offerDraft.amount,
     premium: offerDraft.premium,
     meansOfPayment: offerDraft.meansOfPayment,
     paymentData: offerDraft.paymentData,
     returnAddress: offerDraft.returnAddress,
-  })
+  }
+
+  let [result, err] = await postSellOffer(payload)
+  if (err?.error === 'PGP_MISSING') {
+    await publishPGPPublicKey()
+    const response = await postSellOffer(payload)
+    result = response[0]
+    err = response[1]
+  }
 
   if (result) {
     info('Posted offer', result)

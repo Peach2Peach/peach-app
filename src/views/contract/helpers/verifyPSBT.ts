@@ -1,16 +1,8 @@
 import { Psbt } from 'bitcoinjs-lib'
-import { MAXMININGFEE } from '../../../constants'
 import { configStore } from '../../../store/configStore'
 import { txIdPartOfPSBT } from '../../../utils/bitcoin'
-import { ceil } from '../../../utils/math'
+import { releaseTransactionHasValidOutputs } from './releaseTransactionHasValidOutputs'
 
-/**
- * @description Method to verify that a psbt is indeed meant for the current contract
- * @param psbt partially signed bitcoin transaction
- * @param sellOffer sell offer
- * @param contract contract
- * @returns error message id or null if all valid
- */
 export const verifyPSBT = (psbt: Psbt, sellOffer: SellOffer, contract: Contract): string | null => {
   if (!sellOffer || !sellOffer.funding?.txIds) return 'MISSING_DATA'
 
@@ -24,21 +16,7 @@ export const verifyPSBT = (psbt: Psbt, sellOffer: SellOffer, contract: Contract)
   }
 
   const { peachFee } = configStore.getState()
+  if (!releaseTransactionHasValidOutputs(psbt, contract, peachFee)) return 'INVALID_OUTPUT'
 
-  // make sure buyer receives agreed amount minus fees
-  const buyerOutput = psbt.txOutputs.find((output) => output.address === contract.releaseAddress)
-  if (peachFee > 0) {
-    const peachFeeOutput = psbt.txOutputs.find((output) => output.address !== contract.releaseAddress)
-    if (
-      !peachFeeOutput
-      || peachFeeOutput.value !== ceil(contract.amount * peachFee)
-      || !buyerOutput
-      || buyerOutput.value < contract.amount - peachFeeOutput.value - MAXMININGFEE
-    ) {
-      return 'INVALID_OUTPUT'
-    }
-  } else if (!buyerOutput || buyerOutput.value < contract.amount - MAXMININGFEE) {
-    return 'INVALID_OUTPUT'
-  }
   return ''
 }

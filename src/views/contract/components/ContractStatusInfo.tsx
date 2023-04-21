@@ -5,6 +5,7 @@ import tw from '../../../styles/tailwind'
 import { getPaymentExpectedBy } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
 import { shouldShowConfirmCancelTradeRequest } from '../../../utils/overlay'
+import { isCashTrade } from '../../../utils/paymentMethod/isCashTrade'
 
 type ContractStatusInfoProps = {
   contract: Contract
@@ -33,7 +34,7 @@ export const ContractStatusInfo = ({ contract, requiredAction, view }: ContractS
       <Icon id="xCircle" style={tw`w-5 h-5 ml-1 -mt-0.5`} color={tw`text-black-3`.color} />
     </View>
   )
-  if (requiredAction === 'sendPayment') {
+  if (requiredAction === 'sendPayment' && !isCashTrade(contract.paymentMethod)) {
     const paymentExpectedBy = getPaymentExpectedBy(contract)
     if (Date.now() < paymentExpectedBy) {
       return <Timer text={i18n(`contract.timer.${requiredAction}.${view}`)} end={paymentExpectedBy} />
