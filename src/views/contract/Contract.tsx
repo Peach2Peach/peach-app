@@ -14,11 +14,14 @@ export default () => {
   if (!contract || !view || isLoading) return <LoadingScreen />
 
   return (
-    <PeachScrollView contentContainerStyle={tw`px-6 pt-5 h-full`}>
+    <PeachScrollView contentContainerStyle={tw`h-full px-6 pt-5`}>
       <View style={tw`h-full`}>
-        <MatchCardCounterparty user={contract.seller} isDispute={contract.disputeActive} />
+        <MatchCardCounterparty
+          user={view === 'buyer' ? contract.seller : contract.buyer}
+          isDispute={contract.disputeActive}
+        />
         <TradeSummary {...{ contract, view }} />
-        <View style={tw`items-center w-full flex-grow justify-end mb-2`}>
+        <View style={tw`items-center justify-end flex-grow w-full mb-2`}>
           <ContractCTA
             {...{ contract, view, requiredAction, actionPending, postConfirmPaymentBuyer, postConfirmPaymentSeller }}
           />
