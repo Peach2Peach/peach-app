@@ -33,7 +33,7 @@ describe('useOfferMatches', () => {
     })
     expect(result.current.allMatches).toEqual(['match'])
   })
-  it('should return make a request if not enabled', async () => {
+  it('should not make a request if not enabled', () => {
     renderHook(() => useOfferMatches('offerId', false), {
       wrapper: QueryClientWrapper,
     })
