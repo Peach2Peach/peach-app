@@ -32,7 +32,7 @@ describe('WalletLabel', () => {
     settingsStore.getState().setPayoutAddress(address)
     settingsStore.getState().setPayoutAddressLabel(addressLabel)
     const { toJSON, rerender, getByText } = render(<WalletLabel {...{ address }} />)
-    rerender(<WalletLabel {...{ address }} />)
+    const { toJSON, getByText } = render(<WalletLabel {...{ address }} />)
     await waitFor(() => expect(getByText(addressLabel)).toBeDefined())
     expect(toJSON()).toMatchSnapshot()
   })
