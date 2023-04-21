@@ -14,6 +14,7 @@ import { ErrorBox, HorizontalLine } from '../ui'
 import { Escrow } from './Escrow'
 import { PaymentMethod } from './PaymentMethod'
 import { TradeSummaryProps } from './TradeSummary'
+import { isCashTrade } from '../../utils/paymentMethod/isCashTrade'
 
 export const OpenTradeSeller = ({ contract }: TradeSummaryProps): ReactElement => {
   let scroll = useRef<ScrollView>(null).current
@@ -47,7 +48,7 @@ export const OpenTradeSeller = ({ contract }: TradeSummaryProps): ReactElement =
       >
         <View style={tw`items-start mt-6`}>
           <PaymentMethod
-            paymentMethod={contract.paymentMethod.includes('cash.') ? 'cash' : contract.paymentMethod}
+            paymentMethod={isCashTrade(contract.paymentMethod) ? 'cash' : contract.paymentMethod}
             showLink={false}
           />
         </View>
@@ -58,7 +59,7 @@ export const OpenTradeSeller = ({ contract }: TradeSummaryProps): ReactElement =
           </View>
         </View>
         {!!storedPaymentData
-          && (contract.paymentMethod.includes('cash.') ? (
+          && (isCashTrade(contract.paymentMethod) ? (
             <CashTradeDetails contract={contract} />
           ) : (
             <View style={tw`flex-row items-start mt-[2px]`}>
