@@ -11,11 +11,11 @@ const getOfferQuery = async ({ queryKey }: { queryKey: [string, string] }) => {
     error('Could not fetch offer information for offer', offerId, err.error)
     throw new Error(err.error)
   }
-  if (offer) {
-    saveOffer(offer)
-    return offer
+  if (!offer) {
+    throw new Error('NOT_FOUND')
   }
-  return undefined
+  saveOffer(offer)
+  return offer
 }
 
 export const useOfferDetails = (id: string) => {

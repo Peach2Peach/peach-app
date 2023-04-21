@@ -103,7 +103,7 @@ describe('useOfferDetails', () => {
     })
   })
   it('returns correct error if no local contract exists and server did not return result or error', async () => {
-    const expectedError = new Error('undefined')
+    const expectedError = new Error('NOT_FOUND')
     getStoredOfferMock.mockReturnValueOnce(undefined)
     getOfferDetailsMock.mockResolvedValueOnce([null])
     const { result } = renderHook(useOfferDetails, {
