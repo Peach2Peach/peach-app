@@ -7,9 +7,9 @@ export type TradeSummaryProps = {
   view: ContractViewer | undefined
 }
 
-export const TradeSummary = ({ contract, view }: TradeSummaryProps) =>
-  !isTradeComplete(contract) && !isTradeCanceled(contract) ? (
-    <OpenTrade {...{ contract, view }} />
+export const TradeSummary = (props: TradeSummaryProps) =>
+  !isTradeComplete(props.contract) && !isTradeCanceled(props.contract) ? (
+    <OpenTrade {...props} />
   ) : (
-    <ClosedTrade {...{ contract, view }} />
+    <ClosedTrade {...props} />
   )
