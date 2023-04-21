@@ -1,11 +1,3 @@
-import { settingsStore } from '../../store/settingsStore'
-import { setLocaleQuiet } from '../i18n'
-import { setPeachAccount } from '../peachAPI/peachAccount'
-import { createWalletFromSeedPhrase, getNetwork, setWallet } from '../wallet'
-import { PeachWallet } from '../wallet/PeachWallet'
-import { setPeachWallet } from '../wallet/setWallet'
-import { createPeachAccount } from './createPeachAccount'
-
 export const defaultLimits = {
   daily: 1000,
   dailyAmount: 0,
