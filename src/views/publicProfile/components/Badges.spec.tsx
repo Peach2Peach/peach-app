@@ -16,4 +16,13 @@ describe('Badges', () => {
     const { toJSON } = render(<NewBadges user={{ medals: [] } as unknown as User} />, { wrapper: navigationWrapper })
     expect(toJSON()).toMatchSnapshot()
   })
+  it('should render correctly with unlocked badges', () => {
+    const { toJSON } = render(
+      <NewBadges user={{ medals: ['ambassador', 'superTrader', 'fastTrader'] } as unknown as User} />,
+      {
+        wrapper: navigationWrapper,
+      },
+    )
+    expect(toJSON()).toMatchSnapshot()
+  })
 })
