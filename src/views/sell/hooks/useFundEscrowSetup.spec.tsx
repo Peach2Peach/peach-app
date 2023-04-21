@@ -9,7 +9,7 @@ import i18n from '../../../utils/i18n'
 import { defaultFundingStatus } from '../../../utils/offer/constants'
 import { useFundEscrowSetup } from './useFundEscrowSetup'
 
-jest.useFakeTimers({ advanceTimers: true })
+jest.useFakeTimers()
 
 const apiError = { error: 'UNAUTHORIZED' }
 const useRouteMock = jest.fn().mockReturnValue({
