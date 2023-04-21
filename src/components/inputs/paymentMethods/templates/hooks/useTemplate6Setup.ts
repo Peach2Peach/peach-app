@@ -8,7 +8,7 @@ import { getErrorsInField } from '../../../../../utils/validation'
 import { TabbedNavigationItem } from '../../../../navigation/TabbedNavigation'
 import { toggleCurrency } from '../../paymentForms/utils'
 
-const referenceRules = { required: false }
+const referenceRules = { required: false, isValidPaymentReference: true }
 // eslint-disable-next-line max-lines-per-function, max-statements
 export const useTemplate6Setup = ({
   data,
@@ -46,7 +46,10 @@ export const useTemplate6Setup = ({
   const [phone, setPhone] = useState(data?.phone || '')
   const [email, setEmail] = useState(data?.email || '')
   const [userName, setUserName] = useState(data?.userName || '')
-  const [reference, setReference, , referenceError] = useValidatedState(data?.reference || '', referenceRules)
+  const [reference, setReference, referenceIsValid, referenceError] = useValidatedState(
+    data?.reference || '',
+    referenceRules,
+  )
   const [selectedCurrencies, setSelectedCurrencies] = useState(data?.currencies || currencies)
   const [displayErrors, setDisplayErrors] = useState(false)
 
@@ -95,8 +98,8 @@ export const useTemplate6Setup = ({
   const isFormValid = useCallback(() => {
     setDisplayErrors(true)
 
-    return [...labelErrors, ...phoneErrors, ...emailErrors, ...userNameErrors].length === 0
-  }, [emailErrors, labelErrors, phoneErrors, userNameErrors])
+    return [...labelErrors, ...phoneErrors, ...emailErrors, ...userNameErrors].length === 0 && referenceIsValid
+  }, [emailErrors, labelErrors, phoneErrors, referenceIsValid, userNameErrors])
 
   const getErrorTabs = () => {
     const fields = []

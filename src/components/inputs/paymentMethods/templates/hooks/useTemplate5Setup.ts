@@ -6,7 +6,7 @@ import i18n from '../../../../../utils/i18n'
 import { getErrorsInField } from '../../../../../utils/validation'
 
 const beneficiaryRules = { required: true }
-const notRequired = { required: false }
+const referenceRules = { required: false, isValidPaymentReference: true }
 const ukBankAccountRules = { required: false, ukBankAccount: true }
 const ukSortCodeRules = { required: false, ukSortCode: true }
 // eslint-disable-next-line max-lines-per-function
@@ -33,7 +33,7 @@ export const useTemplate5Setup = ({
   )
   const [reference, setReference, referenceIsValid, referenceErrors] = useValidatedState(
     data?.reference || '',
-    notRequired,
+    referenceRules,
   )
   const [displayErrors, setDisplayErrors] = useState(false)
 
