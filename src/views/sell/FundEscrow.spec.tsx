@@ -35,7 +35,7 @@ describe('FundEscrow', () => {
     expect(result).toMatchSnapshot()
   })
 
-  it('should show Loading, while escrow cration is pending', () => {
+  it('should show Loading, while escrow creation is pending', () => {
     useFundEscrowSetupMock.mockReturnValueOnce({
       ...defaultReturnValue,
       escrow: '',

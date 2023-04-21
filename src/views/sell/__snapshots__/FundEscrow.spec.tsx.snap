@@ -108,7 +108,7 @@ exports[`FundEscrow should render the FundEscrow view 1`] = `
 </View>
 `;
 
-exports[`FundEscrow should show Loading, while escrow cration is pending 1`] = `
+exports[`FundEscrow should show Loading, while escrow creation is pending 1`] = `
 <View
   style={
     {
