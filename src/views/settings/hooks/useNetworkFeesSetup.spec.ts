@@ -101,7 +101,9 @@ describe('useNetworkFeesSetup', () => {
   })
   it('submits fee preferences', async () => {
     const { result } = renderHook(useNetworkFeesSetup)
-    await result.current.submit()
+    await act(async () => {
+      await result.current.submit()
+    })
     expect(updateUserMock).toHaveBeenCalledWith({
       feeRate: 'halfHourFee',
     })
@@ -110,7 +112,9 @@ describe('useNetworkFeesSetup', () => {
     act(() => {
       result.current.setSelectedFeeRate('fastestFee')
     })
-    await result.current.submit()
+    await act(async () => {
+      await result.current.submit()
+    })
     expect(updateUserMock).toHaveBeenCalledWith({
       feeRate: 'fastestFee',
     })
@@ -123,7 +127,9 @@ describe('useNetworkFeesSetup', () => {
       result.current.setSelectedFeeRate('custom')
       result.current.setCustomFeeRate('4')
     })
-    await result.current.submit()
+    await act(async () => {
+      await result.current.submit()
+    })
     expect(updateUserMock).toHaveBeenCalledWith({
       feeRate: 4,
     })
