@@ -14,13 +14,6 @@ type PostOfferProps = RequestProps & {
   returnAddress: string
 }
 
-/**
- * @description Method to post offer
- * @param type ask or bid
- * @param premium Premium in % (default: 0)
- * @param meansOfPayment mapping of currency and payment methods
- * @returns PostOfferResponse
- */
 export const postSellOffer = async ({
   timeout,
   premium = 0,
