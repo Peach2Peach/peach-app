@@ -23,17 +23,17 @@ export const PaymentMethod = ({ paymentMethod, showLink, isDispute, style }: Pro
       onPress={openLink}
       style={[
         tw`flex-row items-center px-2 rounded-lg`,
-        tw`border border-black-1`,
+        tw`border border-primary-main`,
         isDispute && tw`border-error-light`,
         style,
       ]}
     >
-      <Text style={[tw`flex-wrap button-medium`, isDispute && tw`text-error-light`]}>{name}</Text>
+      <Text style={[tw`flex-wrap button-medium`, isDispute ? tw`text-error-light` : tw`text-primary-main`]}>{name}</Text>
       {!!url && showLink && (
         <Icon
           id="externalLink"
           style={tw`w-3 h-3 ml-1`}
-          color={isDispute ? tw`text-error-light`.color : tw`text-primary-background-light`.color}
+          color={isDispute ? tw`text-error-light`.color : tw`text-primary-main`.color}
         />
       )}
     </Pressable>

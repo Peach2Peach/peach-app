@@ -13,7 +13,7 @@ exports[`PaymentMethod renders correctly 1`] = `
         "paddingRight": 8,
       },
       {
-        "borderColor": "#2B1911",
+        "borderColor": "#F56522",
         "borderWidth": 1,
       },
       false,
@@ -32,7 +32,9 @@ exports[`PaymentMethod renders correctly 1`] = `
           "lineHeight": 24,
           "textTransform": "uppercase",
         },
-        false,
+        {
+          "color": "#F56522",
+        },
       ]
     }
   >
@@ -54,7 +56,7 @@ exports[`PaymentMethod renders correctly when there is a dispute 1`] = `
         "paddingRight": 8,
       },
       {
-        "borderColor": "#2B1911",
+        "borderColor": "#F56522",
         "borderWidth": 1,
       },
       {
@@ -110,7 +112,7 @@ exports[`PaymentMethod renders correctly when there is a link 1`] = `
         "paddingRight": 8,
       },
       {
-        "borderColor": "#2B1911",
+        "borderColor": "#F56522",
         "borderWidth": 1,
       },
       false,
@@ -129,14 +131,16 @@ exports[`PaymentMethod renders correctly when there is a link 1`] = `
           "lineHeight": 24,
           "textTransform": "uppercase",
         },
-        false,
+        {
+          "color": "#F56522",
+        },
       ]
     }
   >
     Revolut
   </PeachText>
   <Icon
-    color="#FFFCFA"
+    color="#F56522"
     id="externalLink"
     style={
       {
