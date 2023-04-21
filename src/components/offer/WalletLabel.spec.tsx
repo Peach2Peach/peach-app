@@ -47,7 +47,7 @@ describe('WalletLabel', () => {
   it('should render correctly if address is unknown', async () => {
     const address = 'unknownAddress'
     const { toJSON, rerender, getByText } = render(<WalletLabel {...{ address }} />)
-    rerender(<WalletLabel {...{ address }} />)
+    const { toJSON, getByText } = render(<WalletLabel {...{ address }} />)
     await waitFor(() => expect(getByText(i18n('offer.summary.customPayoutAddress'))).toBeDefined())
     expect(toJSON()).toMatchSnapshot()
   })
