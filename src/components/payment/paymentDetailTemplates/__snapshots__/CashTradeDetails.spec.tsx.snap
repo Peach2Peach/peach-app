@@ -5,6 +5,6 @@ exports[`CashTradeDetails renders correctly 1`] = `
   copyable={false}
   disputeActive={false}
   name="contract.payment.to"
-  value="undefined in undefined"
+  value="shortName in city"
 />
 `;
