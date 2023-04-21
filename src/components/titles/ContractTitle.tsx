@@ -1,14 +1,12 @@
 import { Text } from '..'
 import tw from '../../styles/tailwind'
 import { contractIdToHex } from '../../utils/contract'
-import i18n from '../../utils/i18n'
 
-type ContractTitleProps = {
+type Props = {
   id: string
 }
-export const ContractTitle = ({ id }: ContractTitleProps) => (
+export const ContractTitle = ({ id }: Props) => (
   <Text style={tw`h6`} numberOfLines={1}>
-    {i18n('contract.trade', contractIdToHex(id))}
+    {contractIdToHex(id)}
   </Text>
 )
-export default ContractTitle

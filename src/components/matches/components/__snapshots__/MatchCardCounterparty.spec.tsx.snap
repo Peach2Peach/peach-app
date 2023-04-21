@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MatchCardCounterparty renders correctly 1`] = `
+<View>
+  <View
+    style={
+      {
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+      }
+    }
+  >
+    <UserId
+      id="123"
+      isDispute={false}
+      showInfo={true}
+    />
+    <Rating
+      isNewUser={false}
+      rating={1}
+    />
+  </View>
+  <NewBadges
+    isDispute={false}
+    user={
+      {
+        "id": "123",
+        "rating": 1,
+        "trades": 21,
+      }
+    }
+  />
+</View>
+`;
