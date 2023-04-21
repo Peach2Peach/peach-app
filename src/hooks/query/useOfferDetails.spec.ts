@@ -102,4 +102,29 @@ describe('useOfferDetails', () => {
       error: new Error(apiError.error),
     })
   })
+  it('returns correct error if no local contract exists and server did not return result', async () => {
+    const expectedError = new Error('undefined')
+    getStoredOfferMock.mockReturnValueOnce(undefined)
+    getOfferDetailsMock.mockResolvedValueOnce([null])
+    const { result } = renderHook(useOfferDetails, {
+      wrapper: QueryClientWrapper,
+      initialProps: sellOffer.id,
+    })
+
+    expect(result.current).toEqual({
+      offer: undefined,
+      isLoading: true,
+      isFetching: true,
+      error: null,
+    })
+
+    await waitFor(() => expect(result.current.isLoading).toBe(false))
+
+    expect(result.current).toEqual({
+      offer: undefined,
+      isLoading: false,
+      isFetching: false,
+      error: expectedError,
+    })
+  })
 })
