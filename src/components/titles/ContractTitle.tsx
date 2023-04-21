@@ -6,7 +6,7 @@ type Props = {
   id: string
 }
 export const ContractTitle = ({ id }: Props) => (
-  <Text style={tw`h7`} numberOfLines={1}>
+  <Text style={tw`h6`} numberOfLines={1}>
     {contractIdToHex(id)}
   </Text>
 )
