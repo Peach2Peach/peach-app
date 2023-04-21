@@ -41,6 +41,45 @@ describe('releaseTransactionHasValidOutputs', () => {
     // @ts-expect-error
     expect(releaseTransactionHasValidOutputs(mockPsbt, mockContract, 0.02)).toBeFalsy()
   })
+  it('should return false if buyer output is missing', () => {
+    const mockPsbt = {
+      txOutputs: [
+        {
+          address: 'peachAddress',
+          value: 20000,
+        },
+      ],
+    }
+    const mockContract = {
+      releaseAddress: 'releaseAddress',
+      amount: 1000000,
+    }
+
+    // @ts-expect-error
+    expect(releaseTransactionHasValidOutputs(mockPsbt, mockContract, 0.02)).toBeFalsy()
+  })
+
+  it('should return false if buyer output does not match release address', () => {
+    const mockPsbt = {
+      txOutputs: [
+        {
+          address: 'anotherReleaseAddress',
+          value: 980000,
+        },
+        {
+          address: 'peachAddress',
+          value: 20000,
+        },
+      ],
+    }
+    const mockContract = {
+      releaseAddress: 'releaseAddress',
+      amount: 1000000,
+    }
+
+    // @ts-expect-error
+    expect(releaseTransactionHasValidOutputs(mockPsbt, mockContract, 0.02)).toBeFalsy()
+  })
 
   it('should return false if buyer output is wrong', () => {
     const mockPsbt = {
