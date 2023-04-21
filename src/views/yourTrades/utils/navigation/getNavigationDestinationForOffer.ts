@@ -2,13 +2,17 @@ import { shouldGoToFundEscrow } from './shouldGoToFundEscrow'
 import { shouldGoToOfferSummary } from './shouldGoToOfferSummary'
 import { shouldGoToSearch } from './shouldGoToSearch'
 
+type Destination =
+  | ['offer' | 'setRefundWallet' | 'fundEscrow' | 'search', { offerId: string }]
+  | ['yourTrades', undefined]
+
 export const getNavigationDestinationForOffer = ({
   tradeStatus,
   id: offerId,
 }: {
   tradeStatus: OfferSummary['tradeStatus']
   id: OfferSummary['id']
-}): [string, object | undefined] => {
+}): Destination => {
   if (shouldGoToOfferSummary(tradeStatus)) {
     return ['offer', { offerId }]
   }

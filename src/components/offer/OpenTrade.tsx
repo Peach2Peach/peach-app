@@ -13,6 +13,7 @@ import { TradeStatus } from './TradeStatus'
 import { TradeAmount } from './TradeAmount'
 import { TradeStuffSeparator } from './TradeStuffSeparator'
 import { TradeStuff } from './TradeStuff'
+import { isCashTrade } from '../../utils/paymentMethod/isCashTrade'
 
 export const OpenTrade = ({ contract, view }: TradeSummaryProps) => {
   const storedPaymentData = useMemo(
@@ -32,11 +33,11 @@ export const OpenTrade = ({ contract, view }: TradeSummaryProps) => {
     <View>
       <TradeStatus style={tw`mt-4`} {...contract} />
       <TradeAmount {...contract} isBuyer={view === 'buyer'} />
-      {contract.paymentMethod.includes('cash.') && view === 'buyer' && <CashTradeDetails {...contract} />}
+      {isCashTrade(contract.paymentMethod) && view === 'buyer' && <CashTradeDetails {...contract} />}
       {!!contract.paymentData && !!PaymentTo && <PaymentTo {...contract} copyable={view === 'buyer'} />}
       {view === 'seller'
         && !!storedPaymentData
-        && (contract.paymentMethod.includes('cash.') ? (
+        && (isCashTrade(contract.paymentMethod) ? (
           <CashTradeDetails {...contract} />
         ) : (
           <View style={tw`flex-row items-start mt-[2px]`}>

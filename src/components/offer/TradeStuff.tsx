@@ -4,6 +4,7 @@ import tw from '../../styles/tailwind'
 import { ChatButton } from '../chat/ChatButton'
 import { Escrow } from './Escrow'
 import { PaymentMethod } from './PaymentMethod'
+import { isCashTrade } from '../../utils/paymentMethod/isCashTrade'
 
 export const TradeStuff = ({ contract, style }: { contract: Contract } & ComponentProps) => {
   const appLink = APPLINKS[contract.paymentMethod]
@@ -13,7 +14,7 @@ export const TradeStuff = ({ contract, style }: { contract: Contract } & Compone
       {(!!contract.escrow || !!contract.releaseTxId) && <Escrow contract={contract} />}
       {!!appLink && (
         <PaymentMethod
-          paymentMethod={contract.paymentMethod.includes('cash.') ? 'cash' : contract.paymentMethod}
+          paymentMethod={isCashTrade(contract.paymentMethod) ? 'cash' : contract.paymentMethod}
           isDispute={contract.disputeActive}
           showLink
         />

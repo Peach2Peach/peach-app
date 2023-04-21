@@ -14,18 +14,11 @@ type PostOfferProps = RequestProps & {
   returnAddress: string
 }
 
-/**
- * @description Method to post offer
- * @param type ask or bid
- * @param premium Premium in % (default: 0)
- * @param meansOfPayment mapping of currency and payment methods
- * @returns PostOfferResponse
- */
 export const postSellOffer = async ({
   timeout,
   premium = 0,
   ...requestBody
-}: PostOfferProps): Promise<[PostOfferResponse | null, APIError | null]> => {
+}: PostOfferProps): Promise<[PostOfferResponseBody | null, APIError | null]> => {
   const response = await fetch(`${API_URL}/v1/offer`, {
     headers: await getPrivateHeaders(),
     method: 'POST',
@@ -33,5 +26,5 @@ export const postSellOffer = async ({
     signal: timeout ? getAbortWithTimeout(timeout).signal : undefined,
   })
 
-  return await parseResponse<PostOfferResponse>(response, 'postOffer')
+  return await parseResponse<PostOfferResponseBody>(response, 'postOffer')
 }

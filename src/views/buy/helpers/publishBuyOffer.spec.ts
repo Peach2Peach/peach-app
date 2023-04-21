@@ -1,9 +1,8 @@
 import { publishBuyOffer } from './publishBuyOffer'
 
 const pgpMock = jest.fn().mockResolvedValue(undefined)
-jest.mock('../../../init/pgp', () => ({
-  __esModule: true,
-  default: (...args: any[]) => pgpMock(...args),
+jest.mock('../../../init/publishPGPPublicKey', () => ({
+  publishPGPPublicKey: () => pgpMock(),
 }))
 
 const saveOfferMock = jest.fn()
@@ -23,10 +22,7 @@ describe('publishBuyOffer', () => {
   beforeEach(() => {
     jest.clearAllMocks()
   })
-  it('should call pgp', async () => {
-    await publishBuyOffer({} as BuyOfferDraft)
-    expect(pgpMock).toHaveBeenCalled()
-  })
+
   it('should call postBuyOffer', async () => {
     await publishBuyOffer({} as BuyOfferDraft)
     expect(postBuyOfferMock).toHaveBeenCalled()
@@ -52,5 +48,12 @@ describe('publishBuyOffer', () => {
     const { isOfferPublished: result, errorMessage: err } = await publishBuyOffer({} as BuyOfferDraft)
     expect(result).toBe(false)
     expect(err).toBe('POST_OFFER_ERROR')
+  })
+  it('should send pgp keys and retry posting buy offer if first error is PGP_MISSING', async () => {
+    postBuyOfferMock.mockResolvedValueOnce([undefined, { error: 'PGP_MISSING' }])
+    const { isOfferPublished: result, errorMessage: err } = await publishBuyOffer({} as BuyOfferDraft)
+    expect(pgpMock).toHaveBeenCalled()
+    expect(result).toBe(true)
+    expect(err).toBe(null)
   })
 })
