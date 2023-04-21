@@ -102,7 +102,7 @@ describe('useOfferDetails', () => {
       error: new Error(apiError.error),
     })
   })
-  it('returns correct error if no local contract exists and server did not return result', async () => {
+  it('returns correct error if no local contract exists and server did not return result or error', async () => {
     const expectedError = new Error('undefined')
     getStoredOfferMock.mockReturnValueOnce(undefined)
     getOfferDetailsMock.mockResolvedValueOnce([null])
