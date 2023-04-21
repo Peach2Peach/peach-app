@@ -573,6 +573,7 @@
   "form.address.placeholder": "address",
   "form.reference": "payment reference",
   "form.reference.placeholder": "don't mention bitcoin or Peach!",
+  "form.reference.error": "don't mention bitcoin or peach",
   "form.referral.placeholder": "creative thing here",
   "form.referral.alreadyTaken": "that one's already taken...",
   "form.paypal": "email or merchant id",
