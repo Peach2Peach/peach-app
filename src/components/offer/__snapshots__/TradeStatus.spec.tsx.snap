@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TradeStatus renders correctly 1`] = `
+<TradeSeparator
+  disputeActive={false}
+  iconId="alertOctagon"
+  text="payment details"
+/>
+`;
+
+exports[`TradeStatus renders correctly when there is a dispute 1`] = `
+<TradeSeparator
+  disputeActive={true}
+  iconId="alertOctagon"
+  text="trade in dispute!"
+/>
+`;

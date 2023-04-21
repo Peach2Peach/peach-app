@@ -1,17 +1,15 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
-import { CancelIcon, HelpIcon } from '../../../components/icons'
-import ContractTitle from '../../../components/titles/ContractTitle'
-import { useHeaderSetup, useNavigation, useRoute } from '../../../hooks'
+import { useNavigation, useRoute } from '../../../hooks'
 import { useCommonContractSetup } from '../../../hooks/useCommonContractSetup'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
-import { useShowHelp } from '../../../hooks/useShowHelp'
-import { useConfirmCancelTrade } from '../../../overlays/tradeCancelation/useConfirmCancelTrade'
-import { canCancelContract, shouldRateCounterParty, signReleaseTx } from '../../../utils/contract'
+import { shouldRateCounterParty, signReleaseTx } from '../../../utils/contract'
 import { isTradeComplete } from '../../../utils/contract/status'
 import { confirmPayment, getContract, getOfferDetails } from '../../../utils/peachAPI'
 import { getNavigationDestinationForContract, getNavigationDestinationForOffer } from '../../yourTrades/utils'
+import { useContractHeaderSetup } from './useContractHeaderSetup'
 
+// eslint-disable-next-line max-lines-per-function
 export const useContractSetup = () => {
   const route = useRoute<'contract'>()
   const { contractId } = route.params
@@ -20,33 +18,15 @@ export const useContractSetup = () => {
     = useCommonContractSetup(contractId)
   const navigation = useNavigation()
   const showError = useShowErrorBanner()
-  const { showConfirmOverlay } = useConfirmCancelTrade()
-  const showMakePaymentHelp = useShowHelp('makePayment')
-  const showConfirmPaymentHelp = useShowHelp('confirmPayment')
 
   const [actionPending, setActionPending] = useState(false)
 
-  useHeaderSetup(
-    useMemo(() => {
-      const icons = []
-      if (contract && canCancelContract(contract)) icons.push({
-        iconComponent: <CancelIcon />,
-        onPress: () => showConfirmOverlay(contract),
-      })
-      if (view === 'buyer' && requiredAction === 'sendPayment') icons.push({
-        iconComponent: <HelpIcon />,
-        onPress: showMakePaymentHelp,
-      })
-      if (view === 'seller' && requiredAction === 'confirmPayment') icons.push({
-        iconComponent: <HelpIcon />,
-        onPress: showConfirmPaymentHelp,
-      })
-      return {
-        titleComponent: <ContractTitle id={contractId} />,
-        icons,
-      }
-    }, [showConfirmOverlay, contract, requiredAction, contractId, showConfirmPaymentHelp, showMakePaymentHelp, view]),
-  )
+  useContractHeaderSetup({
+    contract,
+    view,
+    requiredAction,
+    contractId,
+  })
 
   useEffect(() => {
     if (!contract || !view || isLoading) return
