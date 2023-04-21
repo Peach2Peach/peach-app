@@ -1,4 +1,3 @@
-import { getDefaultFundingStatus } from '../../../utils/offer'
 import { defaultFundingStatus } from '../../../utils/offer/constants'
 
 type GetSellOfferDraftParams = {

@@ -2,7 +2,6 @@
 import { renderHook, waitFor } from '@testing-library/react-native'
 import { useHandleFundingStatus } from './useHandleFundingStatus'
 import { sellOffer } from '../../../../tests/unit/data/offerData'
-import { getDefaultFundingStatus } from '../../../utils/offer'
 import { account, setAccount } from '../../../utils/account'
 import { account1 } from '../../../../tests/unit/data/accountData'
 import { defaultFundingStatus } from '../../../utils/offer/constants'
