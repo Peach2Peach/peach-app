@@ -22,20 +22,23 @@ exports[`Contract should render a default Contract 1`] = `
       isDispute={false}
       user={
         {
-          "username": "username",
+          "username": "sellerUsername",
         }
       }
     />
     <TradeSummary
       contract={
         {
+          "buyer": {
+            "username": "buyerUsername",
+          },
           "disputeActive": false,
           "seller": {
-            "username": "username",
+            "username": "sellerUsername",
           },
         }
       }
-      view="view"
+      view="buyer"
     />
     <View
       style={
@@ -52,16 +55,93 @@ exports[`Contract should render a default Contract 1`] = `
         actionPending={false}
         contract={
           {
+            "buyer": {
+              "username": "buyerUsername",
+            },
             "disputeActive": false,
             "seller": {
-              "username": "username",
+              "username": "sellerUsername",
             },
           }
         }
         postConfirmPaymentBuyer={[MockFunction]}
         postConfirmPaymentSeller={[MockFunction]}
         requiredAction="requiredAction"
-        view="view"
+        view="buyer"
+      />
+    </View>
+  </View>
+</PeachScrollView>
+`;
+
+exports[`Contract should show the buyers profile overview if the viewer is the seller 1`] = `
+<PeachScrollView
+  contentContainerStyle={
+    {
+      "height": "100%",
+      "paddingLeft": 24,
+      "paddingRight": 24,
+      "paddingTop": 20,
+    }
+  }
+>
+  <View
+    style={
+      {
+        "height": "100%",
+      }
+    }
+  >
+    <MatchCardCounterparty
+      isDispute={false}
+      user={
+        {
+          "username": "buyerUsername",
+        }
+      }
+    />
+    <TradeSummary
+      contract={
+        {
+          "buyer": {
+            "username": "buyerUsername",
+          },
+          "disputeActive": false,
+          "seller": {
+            "username": "sellerUsername",
+          },
+        }
+      }
+      view="seller"
+    />
+    <View
+      style={
+        {
+          "alignItems": "center",
+          "flexGrow": 1,
+          "justifyContent": "flex-end",
+          "marginBottom": 8,
+          "width": "100%",
+        }
+      }
+    >
+      <ContractCTA
+        actionPending={false}
+        contract={
+          {
+            "buyer": {
+              "username": "buyerUsername",
+            },
+            "disputeActive": false,
+            "seller": {
+              "username": "sellerUsername",
+            },
+          }
+        }
+        postConfirmPaymentBuyer={[MockFunction]}
+        postConfirmPaymentSeller={[MockFunction]}
+        requiredAction="requiredAction"
+        view="seller"
       />
     </View>
   </View>
