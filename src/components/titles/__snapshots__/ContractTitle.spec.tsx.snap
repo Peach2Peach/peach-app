@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ContractTitle should render correctly 1`] = `
+<Text
+  allowFontScaling={false}
+  numberOfLines={1}
+  style={
+    [
+      {
+        "color": "#2B1911",
+        "fontFamily": "Baloo2-Regular",
+        "fontSize": 16,
+        "letterSpacing": 0.16,
+        "lineHeight": 24,
+      },
+      {
+        "fontFamily": "Baloo2-Bold",
+        "fontSize": 20,
+        "letterSpacing": 0.2,
+        "lineHeight": 32,
+      },
+    ]
+  }
+>
+  PC-7B-1C8
+</Text>
+`;
