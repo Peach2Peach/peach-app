@@ -38,10 +38,9 @@ describe('WalletLabel', () => {
   it('should render correctly if address is peach wallet address', async () => {
     const address = 'peachAddress'
     findKeyPairByAddressMock.mockReturnValueOnce(true)
-    const { toJSON, rerender, getByText } = render(<WalletLabel {...{ address }} />)
-    rerender(<WalletLabel {...{ address }} />)
     const { toJSON, getByText } = render(<WalletLabel {...{ address }} />)
     await waitFor(() => expect(getByText(i18n('peachWallet'))).toBeDefined())
+    expect(toJSON()).toMatchSnapshot()
   })
   it('should render correctly if address is unknown', async () => {
     const address = 'unknownAddress'
