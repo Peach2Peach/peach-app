@@ -63,7 +63,6 @@ export const useTemplate6Setup = ({
   const emailRules = useMemo(() => ({ required: !phone && !userName, email: true }), [phone, userName])
   const userNameRules = useMemo(
     () => ({
-      userName: paymentMethod === 'wise',
       paypalUserName: paymentMethod === 'paypal',
       revtag: paymentMethod === 'revolut',
       required: !phone && !email,
