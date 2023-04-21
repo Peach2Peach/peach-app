@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`DisputeContractTitle should render correctly 1`] = `
+exports[`ContractTitle should render correctly 1`] = `
 <Text
   allowFontScaling={false}
   numberOfLines={1}
