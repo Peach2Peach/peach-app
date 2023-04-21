@@ -14,6 +14,8 @@ declare type Contract = {
   amount: number
   currency: Currency
   country?: PaymentMethodCountry
+  buyerFee: number
+  sellerFee: number
 
   price: number
   premium: number
