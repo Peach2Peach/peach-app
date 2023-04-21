@@ -1,5 +1,5 @@
 import analytics from '@react-native-firebase/analytics'
-import { recoverAccount, setAccount } from '.'
+import { recoverAccount } from '.'
 import { recoveredAccount } from '../../../tests/unit/data/accountData'
 import { contract } from '../../../tests/unit/data/contractData'
 import { buyOffer, sellOffer } from '../../../tests/unit/data/offerData'
