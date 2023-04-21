@@ -17,7 +17,7 @@ describe('getTxSummaryTitle', () => {
       offerId: '16',
     }
     const result = getTxSummaryTitle(tx as TransactionSummary)
-    expect(i18n).toHaveBeenCalledWith('wallet.trade', 'P-10')
+    expect(i18n).toHaveBeenCalledWith('wallet.trade', 'P‑10')
     expect(result).toEqual('wallet.trade')
   })
 
@@ -27,7 +27,7 @@ describe('getTxSummaryTitle', () => {
       offerId: '16',
     }
     const result = getTxSummaryTitle(tx as TransactionSummary)
-    expect(i18n).toHaveBeenCalledWith('wallet.refund', 'P-10')
+    expect(i18n).toHaveBeenCalledWith('wallet.refund', 'P‑10')
     expect(result).toEqual('wallet.refund')
   })
 
