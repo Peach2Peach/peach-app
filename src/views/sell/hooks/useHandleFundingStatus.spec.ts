@@ -5,6 +5,7 @@ import { sellOffer } from '../../../../tests/unit/data/offerData'
 import { getDefaultFundingStatus } from '../../../utils/offer'
 import { account, setAccount } from '../../../utils/account'
 import { account1 } from '../../../../tests/unit/data/accountData'
+import { defaultFundingStatus } from '../../../utils/offer/constants'
 
 const replaceMock = jest.fn()
 jest.mock('../../../hooks/useNavigation', () => ({
@@ -81,7 +82,7 @@ jest.mock('../../../overlays/useConfirmEscrowOverlay', () => ({
 }))
 
 describe('useHandleFundingStatus', () => {
-  const fundingStatusFunded: FundingStatus = { ...getDefaultFundingStatus(), status: 'FUNDED' }
+  const fundingStatusFunded: FundingStatus = { ...defaultFundingStatus, status: 'FUNDED' }
   const fundedProps = {
     offerId: sellOffer.id,
     sellOffer,
@@ -100,7 +101,7 @@ describe('useHandleFundingStatus', () => {
     const initialProps = {
       offerId: sellOffer.id,
       sellOffer: undefined,
-      fundingStatus: getDefaultFundingStatus(),
+      fundingStatus: defaultFundingStatus,
       userConfirmationRequired: false,
     }
     renderHook(useHandleFundingStatus, { initialProps })
@@ -111,7 +112,7 @@ describe('useHandleFundingStatus', () => {
     expect(account.offers).toEqual([])
   })
   it('should save offer when funding status updates', async () => {
-    const fundingStatus = getDefaultFundingStatus()
+    const fundingStatus = defaultFundingStatus
     const initialProps = {
       offerId: sellOffer.id,
       sellOffer,
@@ -122,7 +123,7 @@ describe('useHandleFundingStatus', () => {
     expect(account.offers[0]).toEqual({ ...sellOffer, funding: fundingStatus })
   })
   it('should handle funding status when it is CANCELED', async () => {
-    const fundingStatus: FundingStatus = { ...getDefaultFundingStatus(), status: 'CANCELED' }
+    const fundingStatus: FundingStatus = { ...defaultFundingStatus, status: 'CANCELED' }
     const initialProps = {
       offerId: sellOffer.id,
       sellOffer,
@@ -133,7 +134,7 @@ describe('useHandleFundingStatus', () => {
     expect(startRefundOverlayMock).toHaveBeenCalledWith(sellOffer)
   })
   it('should handle funding status when it is WRONG_FUNDING_AMOUNT', async () => {
-    const fundingStatus: FundingStatus = { ...getDefaultFundingStatus(), status: 'WRONG_FUNDING_AMOUNT' }
+    const fundingStatus: FundingStatus = { ...defaultFundingStatus, status: 'WRONG_FUNDING_AMOUNT' }
     const initialProps = {
       offerId: sellOffer.id,
       sellOffer,
@@ -144,7 +145,7 @@ describe('useHandleFundingStatus', () => {
     expect(wronglyFundedOverlayMock).toHaveBeenCalledWith({ ...sellOffer, funding: fundingStatus })
   })
   it('should show EscrowConfirmOverlay when user confirmation is required', async () => {
-    const fundingStatus: FundingStatus = { ...getDefaultFundingStatus(), status: 'MEMPOOL' }
+    const fundingStatus: FundingStatus = { ...defaultFundingStatus, status: 'MEMPOOL' }
     const initialProps = {
       offerId: sellOffer.id,
       sellOffer,

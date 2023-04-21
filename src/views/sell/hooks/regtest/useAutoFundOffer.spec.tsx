@@ -2,6 +2,7 @@ import { act, renderHook } from '@testing-library/react-native'
 import { useAutoFundOffer } from './useAutoFundOffer'
 import { sellOffer } from '../../../../../tests/unit/data/offerData'
 import { getDefaultFundingStatus } from '../../../../utils/offer'
+import { defaultFundingStatus } from '../../../../utils/offer/constants'
 
 const apiSuccess = { success: true }
 const fundEscrowMock = jest.fn().mockResolvedValue([apiSuccess])
@@ -18,7 +19,7 @@ describe('useAutoFundOffer', () => {
 
   it('should return default values', () => {
     const { result } = renderHook(useAutoFundOffer, {
-      initialProps: { offerId: sellOffer.id, fundingStatus: getDefaultFundingStatus() },
+      initialProps: { offerId: sellOffer.id, fundingStatus: defaultFundingStatus },
     })
 
     expect(result.current).toEqual({
@@ -30,7 +31,7 @@ describe('useAutoFundOffer', () => {
     fundEscrowMock.mockResolvedValueOnce([null])
 
     const { result } = renderHook(useAutoFundOffer, {
-      initialProps: { offerId: sellOffer.id, fundingStatus: getDefaultFundingStatus() },
+      initialProps: { offerId: sellOffer.id, fundingStatus: defaultFundingStatus },
     })
     await act(result.current.fundEscrowAddress)
 
@@ -38,7 +39,7 @@ describe('useAutoFundOffer', () => {
   })
   it('does not request to mine a block if offer could not be funded', async () => {
     const { result } = renderHook(useAutoFundOffer, {
-      initialProps: { offerId: sellOffer.id, fundingStatus: getDefaultFundingStatus() },
+      initialProps: { offerId: sellOffer.id, fundingStatus: defaultFundingStatus },
     })
     await act(result.current.fundEscrowAddress)
 
@@ -48,7 +49,7 @@ describe('useAutoFundOffer', () => {
   })
   it('does nothing if offer is already funded', async () => {
     const { result } = renderHook(useAutoFundOffer, {
-      initialProps: { offerId: sellOffer.id, fundingStatus: { ...getDefaultFundingStatus(), status: 'MEMPOOL' } },
+      initialProps: { offerId: sellOffer.id, fundingStatus: { ...defaultFundingStatus, status: 'MEMPOOL' } },
     })
     await act(result.current.fundEscrowAddress)
 

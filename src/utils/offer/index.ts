@@ -1,5 +1,4 @@
 export { cancelAndSaveOffer } from './cancelAndSaveOffer'
-export { getDefaultFundingStatus } from './getDefaultFundingStatus'
 export { getEscrowExpiry } from './getEscrowExpiry'
 export { getOffer } from './getOffer'
 export { getOfferExpiry } from './getOfferExpiry'

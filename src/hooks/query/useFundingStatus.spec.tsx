@@ -2,17 +2,17 @@
 import { renderHook, waitFor } from '@testing-library/react-native'
 import { sellOffer } from '../../../tests/unit/data/offerData'
 import { QueryClientWrapper } from '../../../tests/unit/helpers/QueryClientWrapper'
-import { getDefaultFundingStatus } from '../../utils/offer'
+import { defaultFundingStatus } from '../../utils/offer/constants'
 import { useFundingStatus } from './useFundingStatus'
 
 const apiError = { error: 'UNAUTHORIZED' }
-const defaultFundingStatus = { funding: getDefaultFundingStatus(), userConfirmationRequired: false }
+const defaultFundingStatusResponse = { funding: defaultFundingStatus, userConfirmationRequired: false }
 const inMempool = {
-  funding: { ...defaultFundingStatus, status: 'MEMPOOL' },
+  funding: { ...defaultFundingStatusResponse, status: 'MEMPOOL' },
   userConfirmationRequired: true,
 }
 
-const getFundingStatusMock = jest.fn().mockResolvedValue([defaultFundingStatus])
+const getFundingStatusMock = jest.fn().mockResolvedValue([defaultFundingStatusResponse])
 jest.mock('../../utils/peachAPI', () => ({
   getFundingStatus: () => getFundingStatusMock(),
 }))
@@ -30,7 +30,7 @@ describe('useFundingStatus', () => {
     })
 
     expect(result.current).toEqual({
-      fundingStatus: getDefaultFundingStatus(),
+      fundingStatus: defaultFundingStatus,
       userConfirmationRequired: false,
       isLoading: true,
       error: null,
@@ -54,7 +54,7 @@ describe('useFundingStatus', () => {
     })
 
     expect(result.current).toEqual({
-      fundingStatus: getDefaultFundingStatus(),
+      fundingStatus: defaultFundingStatus,
       userConfirmationRequired: false,
       isLoading: true,
       error: null,
@@ -63,7 +63,7 @@ describe('useFundingStatus', () => {
     await waitFor(() => expect(result.current.isLoading).toBe(false))
 
     expect(result.current).toEqual({
-      fundingStatus: getDefaultFundingStatus(),
+      fundingStatus: defaultFundingStatus,
       userConfirmationRequired: false,
       isLoading: false,
       error: new Error(apiError.error),

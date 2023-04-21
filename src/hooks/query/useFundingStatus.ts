@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { error } from '../../utils/log'
+import { defaultFundingStatus } from '../../utils/offer/constants'
 import { getFundingStatus } from '../../utils/peachAPI'
-import { getDefaultFundingStatus } from '../../utils/offer'
 
 const TWENTYSECONDS = 20 * 1000
 
@@ -28,7 +28,7 @@ export const useFundingStatus = (id: string, enabled = true) => {
     refetchInterval: TWENTYSECONDS,
   })
 
-  const fundingStatus = data?.funding || getDefaultFundingStatus()
+  const fundingStatus = data?.funding || defaultFundingStatus
   const userConfirmationRequired = data?.userConfirmationRequired || false
 
   return {

@@ -6,7 +6,7 @@ import { QueryClientWrapper } from '../../../../tests/unit/helpers/QueryClientWr
 import { useHeaderState } from '../../../components/header/store'
 import { setAccount } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
-import { getDefaultFundingStatus } from '../../../utils/offer'
+import { defaultFundingStatus } from '../../../utils/offer/constants'
 import { useFundEscrowSetup } from './useFundEscrowSetup'
 
 jest.useFakeTimers({ advanceTimers: true })
@@ -32,7 +32,7 @@ jest.mock('../../../hooks/useShowErrorBanner', () => ({
 }))
 
 const useFundingStatusMock = jest.fn().mockReturnValue({
-  fundingStatus: getDefaultFundingStatus(),
+  fundingStatus: defaultFundingStatus,
   userConfirmationRequired: false,
   isLoading: false,
 })
@@ -89,7 +89,7 @@ describe('useFundEscrowSetup', () => {
       offerId: sellOffer.id,
       escrow: undefined,
       createEscrowError: null,
-      fundingStatus: getDefaultFundingStatus(),
+      fundingStatus: defaultFundingStatus,
       fundingAmount: sellOffer.amount,
       cancelOffer: expect.any(Function),
     })
@@ -136,7 +136,7 @@ describe('useFundEscrowSetup', () => {
   })
   it('should show error banner if there is an error with the funding status', () => {
     useFundingStatusMock.mockReturnValueOnce({
-      fundingStatus: getDefaultFundingStatus(),
+      fundingStatus: defaultFundingStatus,
       userConfirmationRequired: false,
       isLoading: false,
       error: new Error(apiError.error),
@@ -153,7 +153,7 @@ describe('useFundEscrowSetup', () => {
       offerId: sellOffer.id,
       escrow: undefined,
       createEscrowError: null,
-      fundingStatus: getDefaultFundingStatus(),
+      fundingStatus: defaultFundingStatus,
       fundingAmount: 0,
       cancelOffer: expect.any(Function),
     })
@@ -165,7 +165,7 @@ describe('useFundEscrowSetup', () => {
       offerId: sellOffer.id,
       escrow: undefined,
       createEscrowError: null,
-      fundingStatus: getDefaultFundingStatus(),
+      fundingStatus: defaultFundingStatus,
       fundingAmount: sellOffer.amount,
       cancelOffer: expect.any(Function),
     })

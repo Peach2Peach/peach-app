@@ -1,10 +1,10 @@
 import { renderHook, waitFor } from '@testing-library/react-native'
-import { useCreateEscrow } from './useCreateEscrow'
+import { account1 } from '../../../../tests/unit/data/accountData'
 import { sellOffer } from '../../../../tests/unit/data/offerData'
-import { getDefaultFundingStatus } from '../../../utils/offer'
 import { QueryClientWrapper } from '../../../../tests/unit/helpers/QueryClientWrapper'
 import { setAccount } from '../../../utils/account'
-import { account1 } from '../../../../tests/unit/data/accountData'
+import { defaultFundingStatus } from '../../../utils/offer/constants'
+import { useCreateEscrow } from './useCreateEscrow'
 
 jest.useFakeTimers()
 
@@ -13,7 +13,7 @@ const createEscrowMock = jest.fn().mockResolvedValue([
   {
     offerId: sellOffer.id,
     escrow: 'escrow',
-    funding: getDefaultFundingStatus(),
+    funding: defaultFundingStatus,
   },
 ])
 jest.mock('../../../utils/peachAPI', () => ({
