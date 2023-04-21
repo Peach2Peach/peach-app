@@ -90,4 +90,11 @@ describe('usePremiumSetup', () => {
 
     expect(result.current.premium).toBe('0')
   })
+  it('should handle the premium being null', () => {
+    // @ts-ignore
+    settingsStore.setState((def) => ({ ...def, premium: null }))
+    const { result } = renderHook(() => usePremiumSetup(sellOfferDraft, setOfferDraftMock))
+
+    expect(result.current.premium).toBe('0')
+  })
 })
