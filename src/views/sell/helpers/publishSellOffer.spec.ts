@@ -90,7 +90,7 @@ describe('publishSellOffer', () => {
     const { isPublished: result, navigationParams: offer, errorMessage: error } = await publishSellOffer(offerDraft)
 
     expect(result).toBeTruthy()
-    expect(offer).toEqual({ offer: { ...offerDraft, id: 'someOfferId' } })
+    expect(offer).toEqual({ offerId: 'someOfferId' })
     expect(error).toBeNull()
   })
 
@@ -103,7 +103,7 @@ describe('publishSellOffer', () => {
 
     expect(pgpMock).toHaveBeenCalled()
     expect(result).toBeTruthy()
-    expect(offer).toEqual({ offer: { ...offerDraft, id: 'someOfferId' } })
+    expect(offer).toEqual({ offerId: 'someOfferId' })
     expect(error).toBeNull()
   })
 })

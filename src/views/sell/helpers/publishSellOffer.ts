@@ -6,7 +6,7 @@ import { info } from './../../../utils/log'
 
 export const publishSellOffer = async (
   offerDraft: SellOfferDraft,
-): Promise<{ isPublished: boolean; navigationParams: { offer: SellOffer } | null; errorMessage: string | null }> => {
+): Promise<{ isPublished: boolean; navigationParams: { offerId: string } | null; errorMessage: string | null }> => {
   info('Posting sell offer')
 
   const payload = {
@@ -30,7 +30,7 @@ export const publishSellOffer = async (
     info('Posted offer', result)
 
     saveOffer({ ...offerDraft, ...result })
-    return { isPublished: true, navigationParams: { offer: { ...offerDraft, ...result } }, errorMessage: null }
+    return { isPublished: true, navigationParams: { offerId: result.id }, errorMessage: null }
   }
   return {
     isPublished: false,
