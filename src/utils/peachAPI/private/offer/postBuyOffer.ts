@@ -13,18 +13,10 @@ type PostOfferProps = RequestProps & {
   releaseAddress: string
 }
 
-/**
- * @description Method to post offer
- * @param type ask or bid
- * @param amount Amount in sats (250k 500k 1M 2M 5M)
- * @param meansOfPayment mapping of currency and payment methods
- * @param releaseAddress Bitcoin address to send sats to
- * @returns PostOfferResponse
- */
 export const postBuyOffer = async ({
   timeout,
   ...requestBody
-}: PostOfferProps): Promise<[PostOfferResponse | null, APIError | null]> => {
+}: PostOfferProps): Promise<[PostOfferResponseBody | null, APIError | null]> => {
   const response = await fetch(`${API_URL}/v1/offer`, {
     headers: await getPrivateHeaders(),
     method: 'POST',
@@ -32,5 +24,5 @@ export const postBuyOffer = async ({
     signal: timeout ? getAbortWithTimeout(timeout).signal : undefined,
   })
 
-  return await parseResponse<PostOfferResponse>(response, 'postOffer')
+  return await parseResponse<PostOfferResponseBody>(response, 'postOffer')
 }

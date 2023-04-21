@@ -37,7 +37,7 @@ export const useConfirmEscrowOverlay = () => {
             if (sellOffer.funding.status === 'FUNDED') {
               navigation.replace('search', { offerId: sellOffer.id })
             } else {
-              navigation.replace('fundEscrow', { offer: sellOffer })
+              navigation.replace('fundEscrow', { offerId: sellOffer.id })
             }
           },
         },

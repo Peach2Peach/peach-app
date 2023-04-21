@@ -30,7 +30,10 @@ export const useTemplate2Setup = ({
   const [label, setLabel] = useState(data?.label || '')
   const [email, setEmail] = useState(data?.email || '')
   const [wallet, setWallet] = useState(data?.wallet || '')
-  const [reference, setReference, , referenceError] = useValidatedState(data?.reference || '', referenceRules)
+  const [reference, setReference, referenceIsValid, referenceError] = useValidatedState(
+    data?.reference || '',
+    referenceRules,
+  )
   const [selectedCurrencies, setSelectedCurrencies] = useState(data?.currencies || currencies)
 
   const [currentTab, setCurrentTab] = useState(tabs[0])
@@ -67,8 +70,8 @@ export const useTemplate2Setup = ({
 
   const isFormValid = useCallback(() => {
     setDisplayErrors(true)
-    return [...labelErrors, ...emailErrors, ...walletErrors].length === 0
-  }, [emailErrors, labelErrors, walletErrors])
+    return [...labelErrors, ...emailErrors, ...walletErrors].length === 0 && referenceIsValid
+  }, [emailErrors, labelErrors, walletErrors, referenceIsValid])
 
   const onCurrencyToggle = (currency: Currency) => {
     setSelectedCurrencies(toggleCurrency(currency))

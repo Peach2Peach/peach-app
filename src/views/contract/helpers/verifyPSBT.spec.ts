@@ -203,4 +203,31 @@ describe('verifyPSBT', () => {
     // @ts-expect-error
     expect(verifyPSBT(mockPsbt, mockSellOffer, mockContract)).toBe('')
   })
+
+  it('should handle 0 peachFees for buyer set on contract', () => {
+    configStore.setState((state) => ({ ...state, peachFee: 0.02 }))
+    const mockPsbt = {
+      txOutputs: [
+        {
+          address: 'releaseAddress',
+          value: 980000,
+        },
+      ],
+    }
+    const mockSellOffer = {
+      funding: {
+        txIds: ['someId'],
+      },
+    }
+    const mockContract = {
+      releaseAddress: 'releaseAddress',
+      amount: 1000000,
+      buyerFee: 0,
+    }
+
+    txIdPartOfPSBTMock.mockReturnValue(true)
+
+    // @ts-expect-error
+    expect(verifyPSBT(mockPsbt, mockSellOffer, mockContract)).toBe('')
+  })
 })

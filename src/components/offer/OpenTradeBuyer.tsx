@@ -13,6 +13,7 @@ import { CopyAble, ErrorBox, HorizontalLine } from '../ui'
 import { Escrow } from './Escrow'
 import { PaymentMethod } from './PaymentMethod'
 import { TradeSummaryProps } from './TradeSummary'
+import { isCashTrade } from '../../utils/paymentMethod/isCashTrade'
 
 export const OpenTradeBuyer = ({ contract }: TradeSummaryProps): ReactElement => {
   const PaymentTo = contract?.paymentMethod ? paymentDetailTemplates[contract.paymentMethod] : null
@@ -38,7 +39,7 @@ export const OpenTradeBuyer = ({ contract }: TradeSummaryProps): ReactElement =>
       >
         <View style={tw`items-start mt-6`}>
           <PaymentMethod
-            paymentMethod={contract.paymentMethod.includes('cash.') ? 'cash' : contract.paymentMethod}
+            paymentMethod={isCashTrade(contract.paymentMethod) ? 'cash' : contract.paymentMethod}
             showLink={!!appLink}
           />
         </View>
@@ -49,7 +50,7 @@ export const OpenTradeBuyer = ({ contract }: TradeSummaryProps): ReactElement =>
             <CopyAble value={contract.price.toFixed(2)} style={tw`ml-2`} />
           </View>
         </View>
-        {contract.paymentMethod.includes('cash.') && <CashTradeDetails contract={contract} />}
+        {isCashTrade(contract.paymentMethod) && <CashTradeDetails contract={contract} />}
         {!!contract.paymentData && !!PaymentTo && (
           <PaymentTo
             paymentData={contract.paymentData}
