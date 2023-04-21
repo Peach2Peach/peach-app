@@ -1,5 +1,3 @@
-import { MSINANHOUR } from '../../../src/constants'
-
 export const contract: Contract = {
   amount: 250000,
   buyer: {
