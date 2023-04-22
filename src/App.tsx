@@ -27,7 +27,7 @@ import { setUnhandledPromiseRejectionTracker } from 'react-native-promise-reject
 import { shallow } from 'zustand/shallow'
 import { Background } from './components/background/Background'
 import { ISEMULATOR, TIMETORESTART } from './constants'
-import appStateEffect from './effects/appStateEffect'
+import appStateEffect from './effects/useAppStateEffect'
 import { useUpdateTradingAmounts } from './hooks'
 import { useMessageHandler } from './hooks/notifications/useMessageHandler'
 import { useHandleNotifications } from './hooks/notifications/usePushHandleNotifications'
