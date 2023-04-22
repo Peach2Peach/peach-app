@@ -23,7 +23,7 @@ type WalletStore = WalletState & {
   updateTxOfferMap: (txid: string, offerId: string) => void
 }
 
-const defaultState: WalletState = {
+export const defaultWalletState: WalletState = {
   synced: false,
   addresses: [],
   balance: 0,
@@ -35,8 +35,8 @@ export const walletStorage = createStorage('wallet')
 export const walletStore = createStore(
   persist<WalletStore>(
     (set, get) => ({
-      ...defaultState,
-      reset: () => set(() => defaultState),
+      ...defaultWalletState,
+      reset: () => set(() => defaultWalletState),
       setSynced: (synced) => set((state) => ({ ...state, synced })),
       setAddresses: (addresses) => set((state) => ({ ...state, addresses })),
       setBalance: (balance) => set((state) => ({ ...state, balance })),

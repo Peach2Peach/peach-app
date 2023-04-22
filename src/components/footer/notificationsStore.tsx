@@ -11,7 +11,7 @@ type NotificationsState = NotificationsConfig & {
   setNotifications: (notifications: number) => void
 }
 
-const defaultState: NotificationsConfig = {
+export const defaultNotificationState: NotificationsConfig = {
   notifications: 0,
 }
 
@@ -20,8 +20,8 @@ export const notificationStorage = createStorage('notifications')
 export const notificationStore = createStore(
   persist<NotificationsState>(
     (set) => ({
-      ...defaultState,
-      reset: () => set(() => defaultState),
+      ...defaultNotificationState,
+      reset: () => set(() => defaultNotificationState),
       setNotifications: (notifications) => set((state) => ({ ...state, notifications })),
     }),
     {
