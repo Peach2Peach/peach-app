@@ -54,15 +54,10 @@ export const useMeetupScreenSetup = () => {
     return icns
   }, [deletable, deletePaymentMethod, showHelp])
 
-  useHeaderSetup(
-    useMemo(
-      () => ({
-        title: event.shortName,
-        icons,
-      }),
-      [event.shortName, icons],
-    ),
-  )
+  useHeaderSetup({
+    title: event.shortName,
+    icons,
+  })
 
   return { event, openLink, deletable, addToPaymentMethods }
 }
