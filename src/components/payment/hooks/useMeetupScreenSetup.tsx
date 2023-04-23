@@ -48,7 +48,7 @@ export const useMeetupScreenSetup = () => {
     if (deletable) {
       icns[1] = {
         iconComponent: <DeleteIcon />,
-        onPress: () => deletePaymentMethod(),
+        onPress: deletePaymentMethod,
       }
     }
     return icns
