@@ -1,8 +1,8 @@
 import tw from '../../../styles/tailwind'
-import { getThemeForPastTrade } from '.'
+import { getThemeForTradeItem } from '.'
 
 // eslint-disable-next-line max-lines-per-function
-describe('getThemeForPastTrade', () => {
+describe('getThemeForTradeItem', () => {
   // dispute outcomes are tested in getDisputeResultTheme.test.ts
   const completedTradeSeller: Partial<ContractSummary> = {
     id: '1',
@@ -27,7 +27,7 @@ describe('getThemeForPastTrade', () => {
   }
 
   it('returns the correct theme for a canceled contract', () => {
-    const theme = getThemeForPastTrade(canceledTrade as ContractSummary)
+    const theme = getThemeForTradeItem(canceledTrade as ContractSummary)
     expect(theme).toEqual({
       icon: 'xCircle',
       level: 'DEFAULT',
@@ -36,12 +36,12 @@ describe('getThemeForPastTrade', () => {
   })
 
   it('returns the correct theme for a completed trade as buyer', () => {
-    const theme = getThemeForPastTrade(completedTradeBuyer as ContractSummary)
+    const theme = getThemeForTradeItem(completedTradeBuyer as ContractSummary)
     expect(theme).toEqual({ icon: 'buy', level: 'SUCCESS', color: tw`text-success-mild`.color })
   })
 
   it('returns the correct theme for a completed trade as seller', () => {
-    const theme = getThemeForPastTrade(completedTradeSeller as ContractSummary)
+    const theme = getThemeForTradeItem(completedTradeSeller as ContractSummary)
     expect(theme).toEqual({ icon: 'sell', level: 'APP', color: tw`text-primary-mild-2`.color })
   })
 })
