@@ -1,7 +1,7 @@
 /* eslint-disable max-lines-per-function */
 import { renderHook, waitFor } from '@testing-library/react-native'
 import { sellOffer } from '../../../tests/unit/data/offerData'
-import { QueryClientWrapper } from '../../../tests/unit/helpers/QueryClientWrapper'
+import { queryClient, QueryClientWrapper } from '../../../tests/unit/helpers/QueryClientWrapper'
 import { defaultFundingStatus } from '../../utils/offer/constants'
 import { useFundingStatus } from './useFundingStatus'
 
@@ -20,6 +20,7 @@ jest.mock('../../utils/peachAPI', () => ({
 describe('useFundingStatus', () => {
   afterEach(() => {
     jest.clearAllMocks()
+    queryClient.clear()
   })
   it('fetches funding status from API', async () => {
     getFundingStatusMock.mockResolvedValueOnce([inMempool])
