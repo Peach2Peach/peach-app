@@ -10,8 +10,6 @@ export const decryptSymmetricKey = async (
   try {
     symmetricKey = await decrypt(symmetricKeyEncrypted)
     if (!(await verify(symmetricKeySignature, symmetricKey, pgpPublicKey))) {
-      // TODO at this point we should probably cancel the offer/contract?
-      // problem how can buyer app proof that the symmetric is indeed wrong?
       error('INVALID_SIGNATURE')
       return [symmetricKey, 'INVALID_SIGNATURE']
     }

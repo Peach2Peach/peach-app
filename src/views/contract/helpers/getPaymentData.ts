@@ -16,14 +16,11 @@ export const getPaymentData = async (contract: Contract): Promise<[PaymentData |
   }
   try {
     if (!(await verify(contract.paymentDataSignature, decryptedPaymentDataString, contract.seller.pgpPublicKey))) {
-      // TODO at this point we should probably cancel the order?
-      // problem how can buyer app proof that the payment data is indeed wrong?
       return [decryptedPaymentData, new Error('INVALID_SIGNATURE')]
     }
   } catch (err) {
     return [decryptedPaymentData, new Error('INVALID_SIGNATURE')]
   }
 
-  // TODO check payment data hash with actual data
   return [decryptedPaymentData, null]
 }
