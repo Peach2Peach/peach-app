@@ -2,7 +2,6 @@ import { isPrioritary } from './isPrioritary'
 
 describe('isPrioritary', () => {
   it('should return true for status is prioritary', () => {
-    expect(isPrioritary('dispute')).toBe(true)
     expect(isPrioritary('releaseEscrow')).toBe(true)
     expect(isPrioritary('fundingAmountDifferent')).toBe(true)
     expect(isPrioritary('confirmCancelation')).toBe(true)
@@ -11,6 +10,7 @@ describe('isPrioritary', () => {
     expect(isPrioritary('refundOrReviveRequired')).toBe(true)
   })
   it('should return false for status is not prioritary', () => {
+    expect(isPrioritary('dispute')).toBe(false)
     expect(isPrioritary('offerCanceled')).toBe(false)
     expect(isPrioritary('paymentRequired')).toBe(false)
     expect(isPrioritary('confirmPaymentRequired')).toBe(false)
