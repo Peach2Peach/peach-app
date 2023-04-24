@@ -198,7 +198,7 @@ module.exports = {
     'no-useless-return': 'error',
     'no-var': 'error',
     'no-void': 'error',
-    'no-warning-comments': 'off',
+    'no-warning-comments': ['error', { terms: ['todo', 'fixme'], location: 'anywhere' }],
     'no-whitespace-before-property': 'error',
     'nonblock-statement-body-position': 'error',
     'object-curly-newline': 'off',

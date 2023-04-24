@@ -16,7 +16,6 @@ export const getHeaderChatActions = (
   const canDispute = canOpenDispute(contract, view)
 
   const openCancelTrade = canCancel ? showCancelOverlay : () => {}
-  // const extendTime = () => alert('todo extend time')
   const raiseDispute = canDispute ? showOpenDisputeOverlay : () => {}
 
   const icons: HeaderConfig['icons'] = []
