@@ -2,10 +2,9 @@ import { useMemo, useState } from 'react'
 
 import { HelpIcon } from '../../../components/icons'
 import { useHeaderSetup } from '../../../hooks'
-import { useUserPrivate } from '../../../hooks/query/useUserPrivate'
+import { useSelfUser } from '../../../hooks/query/useSelfUser'
 import { useShowHelp } from '../../../hooks/useShowHelp'
 import { useSetCustomReferralCodeOverlay } from '../../../overlays/referral/useSetCustomReferralCodeOverlay'
-import { account } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
 import { isRewardAvailable } from '../helpers/isRewardAvailable'
 
@@ -33,7 +32,7 @@ export const useReferralsSetup = () => {
       [showHelp],
     ),
   )
-  const { user } = useUserPrivate(account.publicKey)
+  const { user } = useSelfUser()
   const pointsBalance = user?.bonusPoints || 0
   const [selectedReward, setSelectedReward] = useState<RewardType>()
 
