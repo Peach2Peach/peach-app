@@ -5,9 +5,9 @@ import { getAbortWithTimeout } from '../../../getAbortWithTimeout'
 import { parseResponse } from '../../parseResponse'
 import { getPrivateHeaders } from '../getPrivateHeaders'
 
-type GetUserPrivateProps = RequestProps
+type Props = RequestProps
 
-export const getSelfUser = async ({ timeout }: GetUserPrivateProps): Promise<[UserPrivate | null, APIError | null]> => {
+export const getSelfUser = async ({ timeout }: Props): Promise<[UserPrivate | null, APIError | null]> => {
   const response = await fetch(`${API_URL}/v1/user/me`, {
     headers: await getPrivateHeaders(),
     method: 'GET',
