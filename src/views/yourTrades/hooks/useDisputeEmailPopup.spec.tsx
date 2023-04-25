@@ -47,6 +47,7 @@ describe('useDisputeEmailPopup', () => {
       id: contract.id,
       hasSeenDisputeEmailPopup: false,
     })
+    queryClient.clear()
   })
 
   it('should show the dispute email popup', async () => {
