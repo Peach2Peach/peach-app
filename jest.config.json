@@ -3,13 +3,13 @@
   "preset": "react-native",
   "moduleFileExtensions": ["ts", "tsx", "js", "jsx"],
   "collectCoverage": true,
-  "coverageReporters": ["lcov"],
+  "coverageReporters": ["lcov", "text-summary"],
   "coverageThreshold": {
     "global": {
-      "statements": 69.66,
-      "branches": 46.95,
-      "functions": 49.01,
-      "lines": 72.13
+      "statements": 73.47,
+      "branches": 50.08,
+      "functions": 59.56,
+      "lines": 75.01
     }
   },
   "transform": {
