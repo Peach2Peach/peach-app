@@ -6,10 +6,10 @@
   "coverageReporters": ["lcov"],
   "coverageThreshold": {
     "global": {
-      "statements": 55.5,
-      "branches": 16.4,
-      "functions": 33,
-      "lines": 58
+      "statements": 69.66,
+      "branches": 46.95,
+      "functions": 49.01,
+      "lines": 72.13
     }
   },
   "transform": {
