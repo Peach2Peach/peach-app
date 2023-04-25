@@ -3,7 +3,7 @@ import { Keyboard, TextInput, View } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import { Input, PeachScrollView, PrimaryButton } from '../../components'
-import { getContract, getContractViewer, getOfferHexIdFromContract } from '../../utils/contract'
+import { getContractViewer, getOfferHexIdFromContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { useHeaderSetup, useNavigation, useRoute, useValidatedState } from '../../hooks'
 import { submitRaiseDispute } from './utils/submitRaiseDispute'
@@ -11,6 +11,7 @@ import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
 import { useDisputeRaisedSuccess } from '../../overlays/dispute/hooks/useDisputeRaisedSuccess'
 import { account } from '../../utils/account'
 import { EmailInput } from '../../components/inputs/EmailInput'
+import { useContractStore } from '../../store/contractStore'
 
 export const isEmailRequired = (reason: DisputeReason | '') => /noPayment.buyer|noPayment.seller/u.test(reason)
 const required = { required: true }
@@ -18,10 +19,9 @@ const required = { required: true }
 export default (): ReactElement => {
   const route = useRoute<'disputeForm'>()
   const navigation = useNavigation()
-
+  const contract = useContractStore((state) => state.getContract(route.params.contractId))
   const reason = route.params.reason
   const contractId = route.params.contractId
-  const contract = getContract(contractId)
 
   const emailRules = useMemo(() => ({ email: isEmailRequired(reason), required: isEmailRequired(reason) }), [reason])
   const [email, setEmail, emailIsValid, emailErrors] = useValidatedState('', emailRules)

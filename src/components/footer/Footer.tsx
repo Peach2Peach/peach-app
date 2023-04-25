@@ -1,4 +1,4 @@
-import { ReactElement, useContext, useEffect, Dispatch, SetStateAction } from 'react'
+import { Dispatch, ReactElement, SetStateAction, useContext, useEffect } from 'react'
 import { Pressable, View } from 'react-native'
 
 import { Icon, Text } from '..'
@@ -6,13 +6,14 @@ import { IconType } from '../../assets/icons'
 import { useKeyboard, useNavigation } from '../../hooks'
 import tw from '../../styles/tailwind'
 import { account } from '../../utils/account'
-import { getContract as getContractFromDevice, saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { PeachWSContext } from '../../utils/peachAPI/websocket'
 
 import PeachBorder from '../../assets/logo/peachBorder.svg'
 import PeachOrange from '../../assets/logo/peachOrange.svg'
+import { useContractStore } from '../../store/contractStore'
 import { useNotificationStore } from './notificationsStore'
+import { shallow } from 'zustand/shallow'
 
 type FooterProps = ComponentProps & {
   active: keyof RootStackParamList
@@ -115,7 +116,7 @@ export const Footer = ({ active, style, setCurrentPage, theme = 'default' }: Foo
   const colors = themes[theme || 'default']
 
   const notifications = useNotificationStore((state) => state.notifications)
-
+  const [getContract, updateContract] = useContractStore((state) => [state.getContract, state.updateContract], shallow)
   const keyboardOpen = useKeyboard()
 
   const navTo = (page: 'home' | 'buy' | 'sell' | 'wallet' | 'yourTrades' | 'settings') => {
@@ -136,21 +137,16 @@ export const Footer = ({ active, style, setCurrentPage, theme = 'default' }: Foo
 
   useEffect(() => {
     const contractUpdateHandler = async (update: ContractUpdate) => {
-      const contract = getContractFromDevice(update.contractId)
-
-      if (!contract) return
-      saveContract({
-        ...contract,
+      updateContract(update.contractId, {
         [update.event]: new Date(update.data.date),
       })
     }
     const messageHandler = async (message: Message) => {
       if (!message.message || !message.roomId || message.from === account.publicKey) return
-      const contract = getContractFromDevice(message.roomId.replace('contract-', ''))
+      const contract = getContract(message.roomId.replace('contract-', ''))
       if (!contract) return
 
-      saveContract({
-        ...contract,
+      updateContract(contract.id, {
         unreadMessages: contract.unreadMessages + 1,
       })
     }
@@ -165,7 +161,7 @@ export const Footer = ({ active, style, setCurrentPage, theme = 'default' }: Foo
     ws.on('message', messageHandler)
 
     return unsubscribe
-  }, [ws, ws.connected])
+  }, [getContract, updateContract, ws, ws.connected])
 
   return !keyboardOpen ? (
     <View style={[tw`flex-row items-start w-full`, style]}>

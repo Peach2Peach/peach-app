@@ -1,2 +1,2 @@
-export const shouldShowDisputeResult = (contract: Contract) =>
+export const shouldShowDisputeResult = (contract: LocalContract) =>
   !contract.disputeActive && !!contract.disputeResolvedDate && !contract.disputeResultAcknowledged

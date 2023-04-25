@@ -8,11 +8,12 @@ import { useStateUpdateEvents } from './eventHandler/useStateUpdateEvents'
 import { useOfferPopupEvents } from './eventHandler/offer/useOfferPopupEvents'
 import { getContract as getContractAPI } from '../../utils/peachAPI'
 import { useContractPopupEvents } from './eventHandler/contract/useContractPopupEvents'
-import { getContract } from '../../utils/contract'
+import { useContractStore } from '../../store/contractStore'
 
 export const useMessageHandler = (getCurrentPage: () => keyof RootStackParamList | undefined) => {
   const [, updateMessage] = useContext(MessageContext)
   const getPNActionHandler = useGetPNActionHandler()
+  const getContract = useContractStore((state) => state.getContract)
   const overlayEvents = useOverlayEvents()
   const offerPopupEvents = useOfferPopupEvents()
   const contractPopupEvents = useContractPopupEvents()
@@ -52,6 +53,7 @@ export const useMessageHandler = (getCurrentPage: () => keyof RootStackParamList
     },
     [
       contractPopupEvents,
+      getContract,
       getCurrentPage,
       getPNActionHandler,
       offerPopupEvents,

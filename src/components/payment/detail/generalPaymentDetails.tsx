@@ -66,6 +66,7 @@ export const GeneralPaymentData = ({
           .filter((field) => !!paymentData[field])
           .map((field, i) => (
             <InfoBlock
+              key={'info-' + field}
               value={paymentData[field]}
               copyable={copyable}
               name={!paymentData.beneficiary && i === 0 ? 'contract.payment.to' : names[field]}

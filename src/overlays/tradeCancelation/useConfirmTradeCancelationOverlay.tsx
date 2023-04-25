@@ -3,14 +3,15 @@ import { Loading } from '../../components'
 import { OverlayContext } from '../../contexts/overlay'
 import { useNavigation } from '../../hooks'
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
+import { useContractStore } from '../../store/contractStore'
 import tw from '../../styles/tailwind'
-import { saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { confirmContractCancelation, rejectContractCancelation } from '../../utils/peachAPI'
 import { ConfirmCancelTradeRequest } from './ConfirmCancelTradeRequest'
 
 export const useConfirmTradeCancelationOverlay = () => {
   const [, updateOverlay] = useContext(OverlayContext)
+  const updateContract = useContractStore((state) => state.updateContract)
   const showError = useShowErrorBanner()
   const navigation = useNavigation()
 
@@ -37,8 +38,7 @@ export const useConfirmTradeCancelationOverlay = () => {
       const [result, err] = await confirmContractCancelation({ contractId: contract.id })
 
       if (result) {
-        saveContract({
-          ...contract,
+        updateContract(contract.id, {
           canceled: true,
           cancelationRequested: false,
         })
@@ -49,7 +49,7 @@ export const useConfirmTradeCancelationOverlay = () => {
       }
       closeOverlay()
     },
-    [closeOverlay, navigation, showError, showLoadingOverlay, updateOverlay],
+    [closeOverlay, navigation, showError, showLoadingOverlay, updateContract, updateOverlay],
   )
 
   const continueTrade = useCallback(
@@ -58,8 +58,7 @@ export const useConfirmTradeCancelationOverlay = () => {
       const [result, err] = await rejectContractCancelation({ contractId: contract.id })
 
       if (result) {
-        saveContract({
-          ...contract,
+        updateContract(contract.id, {
           cancelationRequested: false,
         })
         closeOverlay()
@@ -69,7 +68,7 @@ export const useConfirmTradeCancelationOverlay = () => {
       }
       closeOverlay()
     },
-    [closeOverlay, navigation, showError, showLoadingOverlay],
+    [closeOverlay, navigation, showError, showLoadingOverlay, updateContract],
   )
 
   const showConfirmTradeCancelation = useCallback(

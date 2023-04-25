@@ -4,18 +4,19 @@ import tw from '../../styles/tailwind'
 
 import { OptionButton, PeachScrollView, Text } from '../../components'
 import { account } from '../../utils/account'
-import { getContract, getContractViewer, getOfferHexIdFromContract } from '../../utils/contract'
+import { getContractViewer, getOfferHexIdFromContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { useRoute, useNavigation, useHeaderSetup } from '../../hooks'
 import { submitRaiseDispute } from './utils/submitRaiseDispute'
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
 import { useDisputeRaisedSuccess } from '../../overlays/dispute/hooks/useDisputeRaisedSuccess'
+import { useContractStore } from '../../store/contractStore'
 const disputeReasonsBuyer: DisputeReason[] = ['noPayment.buyer', 'unresponsive.buyer', 'abusive', 'other']
 const disputeReasonsSeller: DisputeReason[] = ['noPayment.seller', 'unresponsive.seller', 'abusive', 'other']
 
 export default (): ReactElement => {
   const route = useRoute<'disputeReasonSelector'>()
-  const contract = getContract(route.params.contractId)
+  const contract = useContractStore((state) => state.getContract(route.params.contractId))
 
   const view = contract ? getContractViewer(contract, account) : ''
   const availableReasons = view === 'seller' ? disputeReasonsSeller : disputeReasonsBuyer

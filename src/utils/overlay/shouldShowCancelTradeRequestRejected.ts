@@ -1,4 +1,4 @@
-export const shouldShowCancelTradeRequestRejected = (contract: Contract, view: ContractViewer) =>
+export const shouldShowCancelTradeRequestRejected = (contract: LocalContract, view: ContractViewer) =>
   !contract.canceled
   && view === 'seller'
   && !contract.paymentConfirmed

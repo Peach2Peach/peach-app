@@ -7,25 +7,17 @@ import { TouchableOpacity, View } from 'react-native'
 import { Icon, Text } from '../../components'
 import { useRoute } from '../../hooks'
 import { account } from '../../utils/account'
-import { getContractViewer, saveContract } from '../../utils/contract'
+import { getContractViewer } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { Rate } from './components/Rate'
+import { useContractStore } from '../../store/contractStore'
 
 export default (): ReactElement => {
   const route = useRoute<'tradeComplete'>()
-  const [contract, setContract] = useState<Contract>(route.params.contract)
+  const contract = useContractStore((state) => state.contracts[route.params.contract.id])
   const view = getContractViewer(route.params.contract, account)
 
   const [vote, setVote] = useState<'positive' | 'negative'>()
-
-  const saveAndUpdate = (contractData: Contract) => {
-    setContract(contractData)
-    saveContract(contractData)
-  }
-
-  useEffect(() => {
-    setContract(() => route.params.contract)
-  }, [route])
 
   useEffect(() => {
     analytics().logEvent('trade_completed', {
@@ -76,7 +68,7 @@ export default (): ReactElement => {
           />
         </TouchableOpacity>
       </View>
-      <Rate {...{ contract, view, vote, saveAndUpdate }} style={tw`self-stretch px-11`} />
+      <Rate {...{ contract, view, vote }} style={tw`self-stretch px-11`} />
     </View>
   )
 }

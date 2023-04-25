@@ -3,8 +3,9 @@ import { Loading } from '../../../components'
 import { OverlayContext } from '../../../contexts/overlay'
 import { useNavigation } from '../../../hooks'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
+import { useContractStore } from '../../../store/contractStore'
 import tw from '../../../styles/tailwind'
-import { contractIdToHex, saveContract, signReleaseTx } from '../../../utils/contract'
+import { contractIdToHex, signReleaseTx } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
 import { confirmPayment } from '../../../utils/peachAPI'
 import { DisputeLostBuyer } from '../components/DisputeLostBuyer'
@@ -15,17 +16,16 @@ import NonDispute from '../components/NonDispute'
 export const useDisputeResults = () => {
   const navigation = useNavigation()
   const [, updateOverlay] = useContext(OverlayContext)
-
+  const updateContract = useContractStore((state) => state.updateContract)
   const showError = useShowErrorBanner()
 
   const showDisputeResults = useCallback(
     (contract: Contract, view: ContractViewer) => {
       const saveAcknowledgeMent = () => {
-        saveContract({
-          ...contract,
+        updateContract(contract.id, {
+          disputeResolvedDate: new Date(),
           disputeResultAcknowledged: true,
           cancelConfirmationDismissed: view === 'buyer',
-          disputeResolvedDate: new Date(),
         })
       }
       const closeOverlay = () => {
@@ -63,13 +63,12 @@ export const useDisputeResults = () => {
           return showError(err.error)
         }
 
-        saveContract({
-          ...contract,
+        updateContract(contract.id, {
           paymentConfirmed: new Date(),
-          cancelConfirmationDismissed: true,
           releaseTxId: result?.txId || '',
-          disputeResultAcknowledged: true,
           disputeResolvedDate: new Date(),
+          cancelConfirmationDismissed: true,
+          disputeResultAcknowledged: true,
         })
         return closeOverlay()
       }

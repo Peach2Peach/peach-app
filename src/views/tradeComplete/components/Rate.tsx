@@ -7,6 +7,7 @@ import { OverlayContext } from '../../../contexts/overlay'
 import { useNavigation } from '../../../hooks'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { TradeBreakdown } from '../../../overlays/TradeBreakdown'
+import { useContractStore } from '../../../store/contractStore'
 import { useSettingsStore } from '../../../store/settingsStore'
 import tw from '../../../styles/tailwind'
 import { showAddress, showTransaction } from '../../../utils/bitcoin'
@@ -18,11 +19,11 @@ type RateProps = ComponentProps & {
   contract: Contract
   view: ContractViewer
   vote: 'positive' | 'negative' | undefined
-  saveAndUpdate: (contract: Contract) => void
 }
 
-export const Rate = ({ contract, view, saveAndUpdate, vote, style }: RateProps): ReactElement => {
+export const Rate = ({ contract, view, vote, style }: RateProps): ReactElement => {
   const navigation = useNavigation()
+  const updateContract = useContractStore((state) => state.updateContract)
   const [, updateOverlay] = useContext(OverlayContext)
   const showError = useShowErrorBanner()
   const showBackupReminder = useSettingsStore((state) => state.showBackupReminder)
@@ -46,8 +47,7 @@ export const Rate = ({ contract, view, saveAndUpdate, vote, style }: RateProps):
       showError(err.error)
       return
     }
-    saveAndUpdate({
-      ...contract,
+    updateContract(contract.id, {
       [ratedUser]: rating.rating,
     })
 

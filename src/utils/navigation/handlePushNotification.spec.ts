@@ -1,20 +1,18 @@
 /* eslint-disable max-lines-per-function */
 import { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
-import { getContract } from '../contract'
 import { handlePushNotification } from '.'
 import { getOfferDetails } from '../peachAPI'
 import { contract } from '../../../tests/unit/data/contractData'
 import { sellOffer } from '../../../tests/unit/data/offerData'
+import { contractStore } from '../../store/contractStore'
 
-jest.mock('../contract', () => ({
-  getContract: jest.fn(),
-}))
 describe('handlePushNotification', () => {
   const navigationRef: any = {
     navigate: jest.fn(),
   }
 
   afterEach(() => {
+    contractStore.getState().reset()
     jest.resetAllMocks()
   })
 
@@ -22,12 +20,12 @@ describe('handlePushNotification', () => {
     const remoteMessage = {
       data: {
         type: 'contract.paymentMade',
-        contractId: '1',
+        contractId: contract.id,
         sentTime: 1231006505000,
       },
     } as FirebaseMessagingTypes.RemoteMessage & { data: any }
 
-    ;(getContract as jest.Mock).mockReturnValue(contract)
+    contractStore.getState().setContract(contract)
     await handlePushNotification(navigationRef, remoteMessage)
 
     expect(navigationRef.navigate).toHaveBeenCalledWith('contract', {
@@ -35,7 +33,7 @@ describe('handlePushNotification', () => {
         ...contract,
         paymentMade: new Date(1231006505000),
       },
-      contractId: '1',
+      contractId: contract.id,
     })
   })
 
@@ -43,17 +41,16 @@ describe('handlePushNotification', () => {
     const remoteMessage = {
       data: {
         type: 'contract.paymentMade',
-        contractId: '1',
+        contractId: contract.id,
         sentTime: 1231006505000,
       },
     } as FirebaseMessagingTypes.RemoteMessage & { data: any }
 
-    ;(getContract as jest.Mock).mockReturnValue(null)
     await handlePushNotification(navigationRef, remoteMessage)
 
     expect(navigationRef.navigate).toHaveBeenCalledWith('contract', {
       contract: undefined,
-      contractId: '1',
+      contractId: contract.id,
     })
   })
 
@@ -61,11 +58,11 @@ describe('handlePushNotification', () => {
     const remoteMessage = {
       data: {
         type: 'contract.paymentMade',
-        contractId: '1',
+        contractId: contract.id,
       },
     } as FirebaseMessagingTypes.RemoteMessage & { data: any }
 
-    ;(getContract as jest.Mock).mockReturnValue(contract)
+    contractStore.getState().setContract(contract)
     await handlePushNotification(navigationRef, remoteMessage)
 
     expect(navigationRef.navigate).toHaveBeenCalledWith('contract', {
@@ -73,7 +70,7 @@ describe('handlePushNotification', () => {
         ...contract,
         paymentMade: expect.any(Date),
       },
-      contractId: '1',
+      contractId: contract.id,
     })
   })
 
@@ -81,14 +78,14 @@ describe('handlePushNotification', () => {
     const remoteMessage = {
       data: {
         type: 'contract.chat',
-        contractId: '1',
+        contractId: contract.id,
         isChat: 'true',
       },
     } as FirebaseMessagingTypes.RemoteMessage & { data: any }
 
     await handlePushNotification(navigationRef, remoteMessage)
 
-    expect(navigationRef.navigate).toHaveBeenCalledWith('contractChat', { contractId: '1' })
+    expect(navigationRef.navigate).toHaveBeenCalledWith('contractChat', { contractId: contract.id })
   })
 
   it('navigates to yourTrades sell when shouldGoToYourTradesSell is true', async () => {

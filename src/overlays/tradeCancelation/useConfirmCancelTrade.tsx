@@ -3,10 +3,11 @@ import { Loading } from '../../components'
 import { OverlayContext } from '../../contexts/overlay'
 import { useNavigation } from '../../hooks'
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
+import { useContractStore } from '../../store/contractStore'
 import tw from '../../styles/tailwind'
 import { account } from '../../utils/account'
 import { checkRefundPSBT, signPSBT } from '../../utils/bitcoin'
-import { getSellOfferFromContract, isPaymentTimeExpired, saveContract } from '../../utils/contract'
+import { getSellOfferFromContract, isPaymentTimeExpired } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { saveOffer } from '../../utils/offer'
 import { cancelContract, patchOffer } from '../../utils/peachAPI'
@@ -18,6 +19,8 @@ import { ConfirmCancelTrade } from './ConfirmCancelTrade'
 export const useConfirmCancelTrade = () => {
   const [, updateOverlay] = useContext(OverlayContext)
   const navigation = useNavigation()
+  const updateContract = useContractStore((state) => state.updateContract)
+
   const showError = useShowErrorBanner()
   const closeOverlay = useCallback(() => updateOverlay({ visible: false }), [updateOverlay])
   const showLoading = useCallback(
@@ -43,8 +46,7 @@ export const useConfirmCancelTrade = () => {
       })
 
       if (result) {
-        saveContract({
-          ...contract,
+        updateContract(contract.id, {
           canceled: true,
           cancelConfirmationDismissed: false,
         })
@@ -55,20 +57,19 @@ export const useConfirmCancelTrade = () => {
         showError(err.error)
       }
     },
-    [closeOverlay, navigation, showError, showLoading, updateOverlay],
+    [closeOverlay, navigation, showError, showLoading, updateContract, updateOverlay],
   )
 
   const cancelSellerSuccess = useCallback(
     (contract: Contract) => {
       navigation.replace('contract', { contractId: contract.id })
-      saveContract({
-        ...contract,
-        cancelConfirmationDismissed: false,
+      updateContract(contract.id, {
         cancelationRequested: true,
+        cancelConfirmationDismissed: false,
         cancelConfirmationPending: true,
       })
     },
-    [navigation],
+    [navigation, updateContract],
   )
 
   const patchSellOfferWithRefundTx = useCallback(
@@ -105,10 +106,9 @@ export const useConfirmCancelTrade = () => {
       })
 
       if (result && isPaymentTimeExpired(contract)) {
-        saveContract({
-          ...contract,
-          cancelConfirmationDismissed: false,
+        updateContract(contract.id, {
           canceled: true,
+          cancelConfirmationDismissed: false,
         })
       }
 
@@ -123,7 +123,7 @@ export const useConfirmCancelTrade = () => {
       }
       closeOverlay()
     },
-    [showLoading, closeOverlay, patchSellOfferWithRefundTx, cancelSellerSuccess, showError],
+    [showLoading, closeOverlay, updateContract, patchSellOfferWithRefundTx, cancelSellerSuccess, showError],
   )
 
   const showConfirmOverlay = useCallback(

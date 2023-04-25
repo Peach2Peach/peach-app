@@ -70,7 +70,10 @@ export const contract: Contract = {
 
   messages: 0,
   unreadMessages: 0,
+}
 
+export const localContract: LocalContract = {
+  ...contract,
   disputeResultAcknowledged: false,
   cancelConfirmationPending: false,
   cancelConfirmationDismissed: false,

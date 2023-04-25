@@ -1,9 +1,8 @@
 import { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
 import { act, renderHook } from '@testing-library/react-hooks'
 import { useMessageHandler } from './useMessageHandler'
-import { getContract } from '../../utils/contract'
-import { getContract as getContractAPI } from '../../utils/peachAPI'
 import { contract } from '../../../tests/unit/data/contractData'
+import { contractStore } from '../../store/contractStore'
 
 const updateMessageMock = jest.fn()
 jest.mock('react', () => ({
@@ -27,11 +26,9 @@ jest.mock('./eventHandler/contract/useContractPopupEvents', () => ({
   useContractPopupEvents: () => contractPopupEvents,
 }))
 
-jest.mock('../../utils/contract', () => ({
-  getContract: jest.fn(),
-}))
+const getContractMock = jest.fn()
 jest.mock('../../utils/peachAPI', () => ({
-  getContract: jest.fn(),
+  getContract: () => getContractMock(),
 }))
 
 const stateUpdateEventHandlerMock = jest.fn()
@@ -55,8 +52,9 @@ describe('useMessageHandler', () => {
   const mockGetCurrentPage = () => 'home' as keyof RootStackParamList
 
   beforeEach(() => {
-    ;(getContract as jest.Mock).mockReturnValue(contract)
-    ;(getContractAPI as jest.Mock).mockResolvedValue([contract])
+    contractStore.getState().reset()
+    contractStore.getState().setContract(contract)
+    getContractMock.mockResolvedValue([contract])
   })
   afterEach(() => {
     jest.resetAllMocks()
@@ -70,6 +68,7 @@ describe('useMessageHandler', () => {
       notification: {
         bodyLocArgs: ['arg1', 'arg2'],
       },
+      fcmOptions: {},
     } as FirebaseMessagingTypes.RemoteMessage
     const { result: onMessageHandler } = renderHook(() => useMessageHandler(mockGetCurrentPage))
     await act(async () => {
@@ -92,6 +91,7 @@ describe('useMessageHandler', () => {
       notification: {
         bodyLocArgs: ['arg1', 'arg2'],
       },
+      fcmOptions: {},
     } as FirebaseMessagingTypes.RemoteMessage
     const { result: onMessageHandler } = renderHook(() => useMessageHandler(mockGetCurrentPage))
     await act(async () => {
@@ -109,6 +109,7 @@ describe('useMessageHandler', () => {
       notification: {
         bodyLocArgs: ['arg1', 'arg2'],
       },
+      fcmOptions: {},
     } as FirebaseMessagingTypes.RemoteMessage
     const { result: onMessageHandler } = renderHook(() => useMessageHandler(mockGetCurrentPage))
     await act(async () => {
@@ -127,6 +128,7 @@ describe('useMessageHandler', () => {
       notification: {
         bodyLocArgs: ['arg1', 'arg2'],
       },
+      fcmOptions: {},
     } as FirebaseMessagingTypes.RemoteMessage
     const { result: onMessageHandler } = renderHook(() => useMessageHandler(mockGetCurrentPage))
     await act(async () => {
@@ -143,6 +145,7 @@ describe('useMessageHandler', () => {
       notification: {
         bodyLocArgs: ['arg1', 'arg2'],
       },
+      fcmOptions: {},
     } as FirebaseMessagingTypes.RemoteMessage
     const { result: onMessageHandler } = renderHook(() => useMessageHandler(mockGetCurrentPage))
     await act(async () => {
@@ -161,9 +164,10 @@ describe('useMessageHandler', () => {
       notification: {
         bodyLocArgs: ['arg1', 'arg2'],
       },
+      fcmOptions: {},
     } as FirebaseMessagingTypes.RemoteMessage
-    ;(getContract as jest.Mock).mockReturnValue(undefined)
-    ;(getContractAPI as jest.Mock).mockResolvedValue([null])
+    contractStore.getState().reset()
+    getContractMock.mockResolvedValue([null])
     const { result: onMessageHandler } = renderHook(() => useMessageHandler(mockGetCurrentPage))
     await act(async () => {
       await onMessageHandler.current(mockRemoteMessage)
@@ -180,6 +184,7 @@ describe('useMessageHandler', () => {
       notification: {
         bodyLocArgs: ['arg1', 'arg2'],
       },
+      fcmOptions: {},
     } as FirebaseMessagingTypes.RemoteMessage
     const { result: onMessageHandler } = renderHook(() => useMessageHandler(mockGetCurrentPage))
     await act(async () => {
@@ -195,6 +200,7 @@ describe('useMessageHandler', () => {
       notification: {
         bodyLocArgs: ['arg1', 'arg2'],
       },
+      fcmOptions: {},
     } as FirebaseMessagingTypes.RemoteMessage
     const { result: onMessageHandler } = renderHook(() => useMessageHandler(mockGetCurrentPage))
     await act(async () => {

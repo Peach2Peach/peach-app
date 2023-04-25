@@ -109,7 +109,7 @@ export const useContractSetup = () => {
       const [screen, params] = await getNavigationDestinationForContract(newContract)
       navigation.replace(screen, params)
     } else {
-      navigation.replace(...getNavigationDestinationForOffer(newOffer))
+      navigation.replace(...getNavigationDestinationForOffer(newOffer?.tradeStatus))
     }
   }, [newOfferId, navigation])
 

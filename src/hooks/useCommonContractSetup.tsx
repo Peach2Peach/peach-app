@@ -6,12 +6,10 @@ import { useHandleContractOverlays } from '../overlays/useHandleContractOverlays
 import { account } from '../utils/account'
 import {
   decryptContractData,
-  getContract,
   getContractViewer,
   getOfferIdFromContract,
   getPaymentExpectedBy,
   getRequiredAction,
-  saveContract,
 } from '../utils/contract'
 import { saveOffer } from '../utils/offer'
 import { PeachWSContext } from '../utils/peachAPI/websocket'
@@ -19,6 +17,8 @@ import { useHandleNotifications as useHandlePushNotifications } from './notifica
 import { useContractDetails } from './query/useContractDetails'
 import { useOfferDetails } from './query/useOfferDetails'
 import { useShowErrorBanner } from './useShowErrorBanner'
+import { useContractStore } from '../store/contractStore'
+import { shallow } from 'zustand/shallow'
 
 export const useCommonContractSetup = (contractId: string) => {
   const ws = useContext(PeachWSContext)
@@ -27,18 +27,22 @@ export const useCommonContractSetup = (contractId: string) => {
   const handleContractOverlays = useHandleContractOverlays()
   const { contract, isLoading, refetch } = useContractDetails(contractId, 15 * 1000)
   const { offer } = useOfferDetails(contract ? getOfferIdFromContract(contract) : '')
-  const [storedContract, setStoredContract] = useState(getContract(contractId))
+  const storedContract = useContractStore((state) => state.contracts[contractId])
+  const [setContract, updateContract] = useContractStore((state) => [state.setContract, state.updateContract], shallow)
   const view = contract ? getContractViewer(contract, account) : undefined
-  const requiredAction = storedContract ? getRequiredAction(storedContract) : 'none'
+  const requiredAction = contract ? getRequiredAction(contract) : 'none'
   const [decryptionError, setDecryptionError] = useState(false)
 
-  const saveAndUpdate = useCallback((contractData: Partial<Contract>) => {
-    setStoredContract((prev) => {
-      const updatedContract = prev ? { ...prev, ...contractData } : (contractData as Contract)
-      if (updatedContract.id) saveContract(updatedContract)
-      return updatedContract
-    })
-  }, [])
+  const saveAndUpdate = useCallback(
+    (contractData: Partial<Contract>) => {
+      if (storedContract) {
+        updateContract(contractId, contractData)
+      } else if (contractData.id) {
+        setContract(contractData as Required<Contract>)
+      }
+    },
+    [contractId, setContract, storedContract, updateContract],
+  )
 
   useHandlePushNotifications(
     useCallback(
@@ -79,12 +83,6 @@ export const useCommonContractSetup = (contractId: string) => {
     }, [contractId, saveAndUpdate, storedContract, ws]),
   )
 
-  useFocusEffect(
-    useCallback(() => {
-      setStoredContract(getContract(contractId))
-    }, [contractId]),
-  )
-
   useEffect(() => {
     if (!contract) return
     if (storedContract?.symmetricKey && storedContract?.paymentData) {
@@ -95,7 +93,7 @@ export const useCommonContractSetup = (contractId: string) => {
     ;(async () => {
       const { symmetricKey, paymentData } = await decryptContractData(contract)
       if (!symmetricKey || !paymentData) {
-        saveAndUpdate({ ...contract, error: 'DECRYPTION_ERROR' })
+        updateContract(contract.id, { error: 'DECRYPTION_ERROR' })
 
         return setDecryptionError(true)
       }
@@ -109,6 +107,7 @@ export const useCommonContractSetup = (contractId: string) => {
     showError,
     storedContract?.paymentData,
     storedContract?.symmetricKey,
+    updateContract,
     updateOverlay,
   ])
 

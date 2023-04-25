@@ -1,8 +1,8 @@
 import { getIndexedMap } from '../../storage'
 import { contractStorage } from '../contractStorage'
 
-export const loadContracts = async (): Promise<Account['contracts']> => {
+export const loadContracts = async (): Promise<Contract[]> => {
   const contracts = await getIndexedMap(contractStorage)
 
-  return Object.values(contracts) as Account['contracts']
+  return Object.values(contracts) as Contract[]
 }

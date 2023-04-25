@@ -1,18 +1,20 @@
 import { useCallback, useContext } from 'react'
 import { OverlayContext } from '../../contexts/overlay'
-import { ContractCanceledToSeller } from './ContractCanceledToSeller'
-import { BuyerConfirmedCancelTrade } from './BuyerConfirmedCancelTrade'
-import { useStartRefundOverlay } from '../useStartRefundOverlay'
-import { getSellOfferFromContract, saveContract } from '../../utils/contract'
+import { useNavigation } from '../../hooks'
+import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
+import { useContractStore } from '../../store/contractStore'
+import { getSellOfferFromContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { getOfferExpiry } from '../../utils/offer'
 import { reviveSellOffer } from '../../utils/peachAPI'
-import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
-import { useNavigation } from '../../hooks'
+import { useStartRefundOverlay } from '../useStartRefundOverlay'
+import { BuyerConfirmedCancelTrade } from './BuyerConfirmedCancelTrade'
+import { ContractCanceledToSeller } from './ContractCanceledToSeller'
 import { OfferRepublished } from './OfferRepublished'
 
 export const useTradeCanceledOverlay = () => {
   const [, updateOverlay] = useContext(OverlayContext)
+  const updateContract = useContractStore((state) => state.updateContract)
   const startRefund = useStartRefundOverlay()
   const showError = useShowErrorBanner()
   const navigation = useNavigation()
@@ -21,13 +23,12 @@ export const useTradeCanceledOverlay = () => {
   const confirmOverlay = useCallback(
     (contract: Contract) => {
       closeOverlay()
-      saveContract({
-        ...contract,
+      updateContract(contract.id, {
         cancelConfirmationDismissed: true,
         cancelConfirmationPending: false,
       })
     },
-    [closeOverlay],
+    [closeOverlay, updateContract],
   )
 
   const republishOffer = useCallback(
