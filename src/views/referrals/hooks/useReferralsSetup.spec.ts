@@ -1,7 +1,7 @@
 /* eslint-disable max-lines-per-function */
 import { act, renderHook } from '@testing-library/react-native'
 import { defaultPrivateUser } from '../../../../tests/unit/data/userData'
-import { useUserPrivate } from '../../../hooks/query/useUserPrivate'
+import { useSelfUser } from '../../../hooks/query/useSelfUser'
 import { useSetCustomReferralCodeOverlay } from '../../../overlays/referral/useSetCustomReferralCodeOverlay'
 import { useReferralsSetup } from './useReferralsSetup'
 
@@ -14,8 +14,8 @@ jest.mock('../../../hooks/useHeaderSetup', () => ({
   useHeaderSetup: jest.fn(),
 }))
 
-jest.mock('../../../hooks/query/useUserPrivate', () => ({
-  useUserPrivate: jest.fn(),
+jest.mock('../../../hooks/query/useSelfUser', () => ({
+  useSelfUser: jest.fn(),
 }))
 jest.mock('../../../overlays/referral/useSetCustomReferralCodeOverlay', () => ({
   useSetCustomReferralCodeOverlay: jest.fn(),
@@ -27,7 +27,7 @@ describe('useReferralsSetup', () => {
     ;(useSetCustomReferralCodeOverlay as jest.Mock).mockReturnValue({
       setCustomReferralCodeOverlay: setCustomReferralCodeOverlayMock,
     })
-    ;(useUserPrivate as jest.Mock).mockReturnValue({
+    ;(useSelfUser as jest.Mock).mockReturnValue({
       user: defaultPrivateUser,
     })
   })
@@ -50,7 +50,7 @@ describe('useReferralsSetup', () => {
 
   it('returns correct bonus points and available rewards', () => {
     const bonusPoints = 400
-    ;(useUserPrivate as jest.Mock).mockReturnValue({
+    ;(useSelfUser as jest.Mock).mockReturnValue({
       user: {
         ...defaultPrivateUser,
         bonusPoints,
@@ -62,7 +62,7 @@ describe('useReferralsSetup', () => {
     expect(result.current.availableRewards).toEqual(1)
   })
   it('returns 0 bonus points balance if user data cannot be fetched', () => {
-    ;(useUserPrivate as jest.Mock).mockReturnValue({
+    ;(useSelfUser as jest.Mock).mockReturnValue({
       user: undefined,
     })
     const { result } = renderHook(useReferralsSetup)
@@ -72,7 +72,7 @@ describe('useReferralsSetup', () => {
   })
   it('lets user select a reward', () => {
     const bonusPoints = 400
-    ;(useUserPrivate as jest.Mock).mockReturnValue({
+    ;(useSelfUser as jest.Mock).mockReturnValue({
       user: {
         ...defaultPrivateUser,
         bonusPoints,
