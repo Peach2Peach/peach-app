@@ -1,7 +1,7 @@
 export { Fade, Loading } from './animation'
 export { AvoidKeyboard } from './AvoidKeyboard'
 export { BitcoinAddress, BitcoinPriceStats } from './bitcoin'
-export { InfoButton, OptionButton, PrimaryButton } from './buttons'
+export { OptionButton, PrimaryButton } from './buttons'
 export { ScanQR } from './camera/ScanQR'
 export { Card } from './Card'
 export { ConditionalWrapper } from './ConditionalWrapper'
