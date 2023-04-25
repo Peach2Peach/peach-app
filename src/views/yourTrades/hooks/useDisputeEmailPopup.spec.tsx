@@ -52,11 +52,8 @@ describe('useDisputeEmailPopup', () => {
   it('should show the dispute email popup', async () => {
     getContractMock.mockResolvedValueOnce([{ ...contract, disputeActive: true }, null])
     const { result } = renderHook(() => useDisputeEmailPopup(contract.id), { wrapper: TestWrapper })
-    await act(async () => {
-      await result.current()
-    })
     await waitFor(() => {
-      expect(queryClient.isFetching()).toBe(0)
+      expect(queryClient.getQueryState(['contract', contract.id])?.status).toBe('success')
     })
     await act(async () => {
       await result.current()
@@ -96,11 +93,8 @@ describe('useDisputeEmailPopup', () => {
       hasSeenDisputeEmailPopup: true,
     })
     const { result } = renderHook(() => useDisputeEmailPopup(contract.id), { wrapper: TestWrapper })
-    await act(async () => {
-      await result.current()
-    })
     await waitFor(() => {
-      expect(queryClient.isFetching()).toBe(0)
+      expect(queryClient.getQueryState(['contract', contract.id])?.status).toBe('success')
     })
     await act(async () => {
       await result.current()
