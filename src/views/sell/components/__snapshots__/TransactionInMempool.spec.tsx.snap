@@ -1,0 +1,127 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TransactionInMempool shoud render correctly with different width 1`] = `
+<View
+  style={
+    {
+      "height": "100%",
+      "justifyContent": "space-between",
+    }
+  }
+>
+  <View
+    style={
+      {
+        "flexShrink": 1,
+        "height": "100%",
+        "justifyContent": "center",
+        "paddingLeft": 32,
+        "paddingRight": 32,
+      }
+    }
+  >
+    <Text
+      allowFontScaling={false}
+      style={
+        [
+          {
+            "color": "#2B1911",
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 24,
+          },
+          undefined,
+        ]
+      }
+    >
+      Your bitcoin transaction is pending...
+
+You can go do something else, we'll automatically publish your offer as soon as it's finished!
+    </Text>
+    <View
+      onLayout={[Function]}
+      style={
+        {
+          "marginTop": 12,
+        }
+      }
+      testID="image-container"
+    >
+      <Image
+        resizeMode="contain"
+        source="test-file-stub"
+        style={
+          {
+            "height": 70,
+            "width": 100,
+          }
+        }
+      />
+    </View>
+  </View>
+</View>
+`;
+
+exports[`TransactionInMempool should render correctly 1`] = `
+<View
+  style={
+    {
+      "height": "100%",
+      "justifyContent": "space-between",
+    }
+  }
+>
+  <View
+    style={
+      {
+        "flexShrink": 1,
+        "height": "100%",
+        "justifyContent": "center",
+        "paddingLeft": 32,
+        "paddingRight": 32,
+      }
+    }
+  >
+    <Text
+      allowFontScaling={false}
+      style={
+        [
+          {
+            "color": "#2B1911",
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 24,
+          },
+          undefined,
+        ]
+      }
+    >
+      Your bitcoin transaction is pending...
+
+You can go do something else, we'll automatically publish your offer as soon as it's finished!
+    </Text>
+    <View
+      onLayout={[Function]}
+      style={
+        {
+          "marginTop": 12,
+        }
+      }
+      testID="image-container"
+    >
+      <Image
+        resizeMode="contain"
+        source="test-file-stub"
+        style={
+          {
+            "height": 210,
+            "width": 300,
+          }
+        }
+      />
+    </View>
+  </View>
+</View>
+`;
