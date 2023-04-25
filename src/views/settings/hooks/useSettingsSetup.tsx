@@ -96,26 +96,28 @@ export const useSettingsSetup = () => {
 
   const appSettings: SettingsItemProps[] = useMemo(
     () =>
-      [
-        {
-          title: 'analytics',
-          onPress: toggleAnalytics,
-          iconId: enableAnalytics ? 'toggleRight' : 'toggleLeft',
-          enabled: enableAnalytics,
-        },
-        {
-          title: 'notifications',
-          onPress: notificationClick,
-        },
-        {
-          title: 'peachWallet',
-          onPress: togglePeachWallet,
-          iconId: peachWalletActive ? 'toggleRight' : 'toggleLeft',
-          enabled: peachWalletActive,
-        },
-        !peachWalletActive ? { title: 'payoutAddress' } : undefined,
-        { title: 'currency', onPress: goToCurrencySettings },
-      ].filter(isDefined) as SettingsItemProps[],
+      (
+        [
+          {
+            title: 'analytics',
+            onPress: toggleAnalytics,
+            iconId: enableAnalytics ? 'toggleRight' : 'toggleLeft',
+            enabled: enableAnalytics,
+          },
+          {
+            title: 'notifications',
+            onPress: notificationClick,
+          },
+          {
+            title: 'peachWallet',
+            onPress: togglePeachWallet,
+            iconId: peachWalletActive ? 'toggleRight' : 'toggleLeft',
+            enabled: peachWalletActive,
+          },
+          !peachWalletActive ? { title: 'payoutAddress' } : undefined,
+          { title: 'currency', onPress: goToCurrencySettings },
+        ] satisfies (SettingsItemProps | undefined)[]
+      ).filter(isDefined),
     [toggleAnalytics, enableAnalytics, notificationClick, togglePeachWallet, peachWalletActive, goToCurrencySettings],
   )
 
