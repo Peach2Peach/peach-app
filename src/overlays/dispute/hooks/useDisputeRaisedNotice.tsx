@@ -34,11 +34,7 @@ export const useDisputeRaisedNotice = () => {
         content: (
           <DisputeRaisedNotice
             submit={submitDisputeAcknowledgement}
-            contract={contract}
-            view={view}
-            email={email}
-            setEmail={setEmail}
-            emailErrors={emailErrors}
+            {...{ contract, view, email, setEmail, emailErrors }}
             disputeReason={contract.disputeReason ?? 'other'}
           />
         ),
