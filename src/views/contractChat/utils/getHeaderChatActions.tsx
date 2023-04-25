@@ -26,7 +26,7 @@ export const getHeaderChatActions = (
     })
   }
   icons.push({
-    iconComponent: <Icon style={!canDispute && tw`opacity-50`} id="alertOctagon" color={tw`text-warning-main`.color} />,
+    iconComponent: <Icon style={!canDispute && tw`opacity-50`} id="alertOctagon" color={tw`text-error-main`.color} />,
     onPress: raiseDispute,
   })
   return icons

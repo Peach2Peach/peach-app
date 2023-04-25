@@ -6,7 +6,7 @@ import { getOfferLevel } from './getOfferLevel'
 import { isContractSummary } from './isContractSummary'
 import { isPastOffer } from './isPastOffer'
 
-export const getThemeForPastTrade = (
+export const getThemeForTradeItem = (
   trade: ContractSummary | OfferSummary,
 ): { icon: IconType; level: SummaryItemLevel; color: ColorValue | undefined } => {
   const level = getOfferLevel(trade)
