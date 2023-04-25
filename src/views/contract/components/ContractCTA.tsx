@@ -1,4 +1,3 @@
-import { ReactElement } from 'react'
 import { PrimaryButton } from '../../../components'
 import { WarningButton } from '../../../components/buttons'
 import { SlideToUnlock } from '../../../components/inputs'
@@ -9,7 +8,7 @@ import i18n from '../../../utils/i18n'
 import { shouldShowConfirmCancelTradeRequest } from '../../../utils/overlay'
 import { getPaymentExpectedBy } from '../../../utils/contract/getPaymentExpectedBy'
 
-type ContractCTAProps = ComponentProps & {
+type Props = {
   contract: Contract
   view: ContractViewer
   requiredAction: ContractAction
@@ -17,19 +16,18 @@ type ContractCTAProps = ComponentProps & {
   postConfirmPaymentBuyer: () => void
   postConfirmPaymentSeller: () => void
 }
-export default ({
+export const ContractCTA = ({
   contract,
   view,
   requiredAction,
   actionPending,
   postConfirmPaymentBuyer,
   postConfirmPaymentSeller,
-}: ContractCTAProps): ReactElement => {
+}: Props) => {
   const showPaymentTooLateOverlay = usePaymentTooLateOverlay()
   const { showConfirmTradeCancelation } = useConfirmTradeCancelationOverlay()
-  const CTADisabled = actionPending || contract.disputeActive
 
-  if (!contract.disputeActive && shouldShowConfirmCancelTradeRequest(contract, view)) return (
+  if (shouldShowConfirmCancelTradeRequest(contract, view)) return (
     <WarningButton onPress={() => showConfirmTradeCancelation(contract)}>{i18n('contract.respond')}</WarningButton>
   )
   if (view === 'buyer' && requiredAction === 'confirmPayment') return (
@@ -48,10 +46,10 @@ export default ({
     if (contract.disputeActive || Date.now() < paymentExpectedBy) {
       return (
         <SlideToUnlock
-          style={tw`w-[260px]`}
-          disabled={CTADisabled}
+          style={tw`w-[263px]`}
+          disabled={actionPending}
           onUnlock={postConfirmPaymentBuyer}
-          label1={i18n('contract.payment.confirm')}
+          label1={i18n('contract.payment.buyer.confirm')}
           label2={i18n('contract.payment.made')}
         />
       )
@@ -64,8 +62,8 @@ export default ({
   }
   if (view === 'seller' && requiredAction === 'confirmPayment') return (
     <SlideToUnlock
-      style={tw`w-[260px]`}
-      disabled={CTADisabled}
+      style={tw`w-[263px]`}
+      disabled={actionPending}
       onUnlock={postConfirmPaymentSeller}
       label1={i18n('contract.payment.confirm')}
       label2={i18n('contract.payment.received')}

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`PaymentReference should render a full PaymentReference with style 1`] = `
+exports[`PaymentReference should render a full PaymentReference with disputeActive 1`] = `
 <View
   style={
     [
@@ -8,18 +8,21 @@ exports[`PaymentReference should render a full PaymentReference with style 1`] =
         "alignItems": "center",
         "flexDirection": "row",
       },
-      {
-        "marginTop": 2,
-      },
+      undefined,
     ]
   }
 >
   <PeachText
     style={
-      {
-        "color": "#7D675E",
-        "width": 100,
-      }
+      [
+        {
+          "color": "#7D675E",
+          "width": 100,
+        },
+        {
+          "color": "#FE5A48",
+        },
+      ]
     }
   >
     reference
@@ -37,12 +40,87 @@ exports[`PaymentReference should render a full PaymentReference with style 1`] =
   >
     <PeachText
       style={
+        [
+          {
+            "fontFamily": "Baloo2-SemiBold",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 24,
+          },
+          {
+            "color": "#B01807",
+          },
+        ]
+      }
+    >
+      reference
+    </PeachText>
+    <CopyAble
+      color={
         {
-          "fontFamily": "Baloo2-SemiBold",
-          "fontSize": 16,
-          "letterSpacing": 0.16,
-          "lineHeight": 24,
+          "color": "#DF321F",
         }
+      }
+      style={
+        {
+          "marginLeft": 8,
+        }
+      }
+      value="reference"
+    />
+  </View>
+</View>
+`;
+
+exports[`PaymentReference should render a full PaymentReference with style 1`] = `
+<View
+  style={
+    [
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+      },
+      {
+        "marginTop": 2,
+      },
+    ]
+  }
+>
+  <PeachText
+    style={
+      [
+        {
+          "color": "#7D675E",
+          "width": 100,
+        },
+        undefined,
+      ]
+    }
+  >
+    reference
+  </PeachText>
+  <View
+    style={
+      [
+        {
+          "alignItems": "center",
+          "flexDirection": "row",
+        },
+        false,
+      ]
+    }
+  >
+    <PeachText
+      style={
+        [
+          {
+            "fontFamily": "Baloo2-SemiBold",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 24,
+          },
+          false,
+        ]
       }
     >
       reference
@@ -73,10 +151,13 @@ exports[`PaymentReference should render an empty PaymentReference 1`] = `
 >
   <PeachText
     style={
-      {
-        "color": "#7D675E",
-        "width": 100,
-      }
+      [
+        {
+          "color": "#7D675E",
+          "width": 100,
+        },
+        undefined,
+      ]
     }
   >
     reference
@@ -96,12 +177,15 @@ exports[`PaymentReference should render an empty PaymentReference 1`] = `
   >
     <PeachText
       style={
-        {
-          "fontFamily": "Baloo2-SemiBold",
-          "fontSize": 16,
-          "letterSpacing": 0.16,
-          "lineHeight": 24,
-        }
+        [
+          {
+            "fontFamily": "Baloo2-SemiBold",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 24,
+          },
+          false,
+        ]
       }
     >
       none

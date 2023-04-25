@@ -1,7 +1,8 @@
 import { getAllPaymentMethods } from './getAllPaymentMethods'
+import { isCashTrade } from './isCashTrade'
 
 export const shouldUsePaymentMethod = (paymentCategories: PaymentCategories) => {
   const allPaymentMethods = getAllPaymentMethods(paymentCategories)
 
-  return (info: PaymentMethodInfo) => info.id.startsWith('cash.') || allPaymentMethods.includes(info.id)
+  return (info: PaymentMethodInfo) => isCashTrade(info.id) || allPaymentMethods.includes(info.id)
 }

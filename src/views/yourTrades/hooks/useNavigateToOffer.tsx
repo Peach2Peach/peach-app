@@ -12,7 +12,7 @@ export const useNavigateToOffer = (offer: OfferSummary) => {
   const showConfirmEscrowOverlay = useConfirmEscrowOverlay()
 
   return async () => {
-    const [screen, params] = getNavigationDestinationForOffer(offer)
+    const destination = getNavigationDestinationForOffer(offer)
     if (shouldOpenOverlay(offer.tradeStatus)) {
       const [sellOffer] = await getOfferDetails({ offerId: offer.id })
       if (sellOffer && isSellOffer(sellOffer)) {
@@ -21,14 +21,7 @@ export const useNavigateToOffer = (offer: OfferSummary) => {
       }
       return
     }
-    if (screen === 'fundEscrow') {
-      const [sellOffer] = await getOfferDetails({ offerId: offer.id })
-      if (sellOffer && isSellOffer(sellOffer)) {
-        navigation.navigate(screen, { offer: sellOffer })
-        return
-      }
-    }
 
-    navigation.navigate(screen, params)
+    navigation.navigate(...destination)
   }
 }

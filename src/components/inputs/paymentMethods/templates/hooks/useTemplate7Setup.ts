@@ -5,7 +5,8 @@ import { getPaymentDataByLabel } from '../../../../../utils/account'
 import { getErrorsInField } from '../../../../../utils/validation'
 
 const beneficiaryRules = { required: true }
-const notRequired = { required: false }
+const referenceRules = { required: false, isValidPaymentReference: true }
+
 // eslint-disable-next-line max-lines-per-function
 export const useTemplate7Setup = ({
   data,
@@ -21,7 +22,10 @@ export const useTemplate7Setup = ({
     beneficiaryRules,
   )
   const [accountNumber, setAccountNumber] = useState(data?.accountNumber || '')
-  const [reference, setReference, , referenceErrors] = useValidatedState(data?.reference || '', notRequired)
+  const [reference, setReference, referenceIsValid, referenceErrors] = useValidatedState(
+    data?.reference || '',
+    referenceRules,
+  )
   const [displayErrors, setDisplayErrors] = useState(false)
 
   const accountNumberRules = useMemo(() => ({ required: true, [paymentMethod]: true }), [paymentMethod])
@@ -33,7 +37,7 @@ export const useTemplate7Setup = ({
   const labelRules = useMemo(
     () => ({
       required: true,
-      duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)!.id !== data.id,
+      duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)?.id !== data.id,
     }),
     [data.id, label],
   )
@@ -55,8 +59,8 @@ export const useTemplate7Setup = ({
 
   const isFormValid = useCallback(() => {
     setDisplayErrors(true)
-    return [...labelErrors, ...accountNumberErrors].length === 0 && isValidBeneficiary
-  }, [accountNumberErrors, isValidBeneficiary, labelErrors])
+    return [...labelErrors, ...accountNumberErrors].length === 0 && isValidBeneficiary && referenceIsValid
+  }, [accountNumberErrors, isValidBeneficiary, referenceIsValid, labelErrors])
 
   const save = () => {
     if (!isFormValid()) return

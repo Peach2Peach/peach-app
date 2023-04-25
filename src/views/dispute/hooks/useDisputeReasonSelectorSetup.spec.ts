@@ -85,7 +85,7 @@ describe('useDisputeReasonSelectorSetup', () => {
   it('sets up the header correctly', () => {
     renderHook(useDisputeReasonSelectorSetup)
     expect(useHeaderSetupMock).toHaveBeenCalledWith({
-      title: i18n('dispute.disputeForTrade', 'PC-E-F'),
+      title: i18n('dispute.disputeForTrade', 'PC‑E‑F'),
     })
   })
   it('does not set reason if no contract could be fetched', async () => {

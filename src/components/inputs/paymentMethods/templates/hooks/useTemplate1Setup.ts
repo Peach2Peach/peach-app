@@ -8,7 +8,7 @@ import i18n from '../../../../../utils/i18n'
 import { hasMultipleAvailableCurrencies } from '../utils/hasMultipleAvailableCurrencies'
 
 const beneficiaryRules = { required: true }
-const notRequired = { required: false }
+const referenceRules = { required: false, isValidPaymentReference: true }
 const ibanRules = { required: true, iban: true, isEUIBAN: true }
 const bicRules = { required: true, bic: true }
 
@@ -31,7 +31,7 @@ export const useTemplate1Setup = ({
   const [bic, setBIC, bicIsValid, bicErrors] = useValidatedState(data?.bic || '', bicRules)
   const [reference, setReference, referenceIsValid, referenceErrors] = useValidatedState(
     data?.reference || '',
-    notRequired,
+    referenceRules,
   )
   const [displayErrors, setDisplayErrors] = useState(false)
   const [selectedCurrencies, setSelectedCurrencies] = useState(data?.currencies || currencies)
@@ -39,7 +39,7 @@ export const useTemplate1Setup = ({
   const labelRules = useMemo(
     () => ({
       required: true,
-      duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)!.id !== data.id,
+      duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)?.id !== data.id,
     }),
     [data.id, label],
   )

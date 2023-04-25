@@ -11,7 +11,7 @@ import { Rule, rules } from './rules'
  * @example
  * getErrorsInField(bitcoinAddress, rulesToCheck: { bitcoinAddress: true, required: true })
  */
-export const getErrorsInField = (value: string | number, rulesToCheck: Partial<Record<Rule, any>>) =>
+export const getErrorsInField = (value: string | number | undefined, rulesToCheck: Partial<Record<Rule, any>>) =>
   !value && rulesToCheck.required === false
     ? []
     : [

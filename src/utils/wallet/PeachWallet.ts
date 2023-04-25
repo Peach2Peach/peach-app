@@ -83,6 +83,8 @@ export class PeachWallet extends PeachWalletErrorHandlers {
   }
 
   async loadWallet (seedphrase?: string) {
+    this.loadFromStorage()
+
     PeachWallet.checkConnection(async () => {
       const nodeURL = settingsStore.getState().nodeURL
       info('PeachWallet - loadWallet - start')
@@ -118,7 +120,6 @@ export class PeachWallet extends PeachWalletErrorHandlers {
       }
 
       this.initialized = true
-      this.preloadAddresses()
       this.getBalance()
       this.getTransactions()
 
@@ -145,9 +146,7 @@ export class PeachWallet extends PeachWalletErrorHandlers {
   }
 
   updateStore (): void {
-    walletStore.getState().setAddresses(this.addresses)
     walletStore.getState().setSynced(this.synced)
-    walletStore.getState().setBalance(this.balance)
     walletStore.getState().setTransactions(this.transactions)
     ;[...this.transactions.confirmed, ...this.transactions.pending]
       .filter(({ txid }) => !walletStore.getState().txOfferMap[txid])
@@ -168,8 +167,7 @@ export class PeachWallet extends PeachWalletErrorHandlers {
       return this.balance
     }
     this.balance = Number(result.value)
-    this.updateStore()
-
+    walletStore.getState().setBalance(this.balance)
     return this.balance
   }
 
@@ -219,8 +217,19 @@ export class PeachWallet extends PeachWalletErrorHandlers {
     return this.wallet.derivePath(this.derivationPath + `/0/${index}`)
   }
 
-  preloadAddresses (): void {
+  loadWalletStore (): void {
     this.addresses = walletStore.getState().addresses
+    this.balance = walletStore.getState().balance
+  }
+
+  loadFromStorage (): void {
+    if (walletStore.persist.hasHydrated()) {
+      this.loadWalletStore()
+    } else {
+      walletStore.persist.onFinishHydration(() => {
+        this.loadWalletStore()
+      })
+    }
   }
 
   getAddress (index: number): string | undefined {

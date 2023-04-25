@@ -3,10 +3,10 @@ import { Keyboard } from 'react-native'
 import { MessageContext } from '../../../contexts/message'
 import { useNavigation, useValidatedState } from '../../../hooks'
 import { createAccount, deleteAccount, recoverAccount } from '../../../utils/account'
+import { createPeachAccount } from '../../../utils/account/createPeachAccount'
 import { storeAccount } from '../../../utils/account/storeAccount'
 import { auth } from '../../../utils/peachAPI'
 import { setPeachAccount } from '../../../utils/peachAPI/peachAccount'
-import { createPeachAccount } from '../../../utils/account/createPeachAccount'
 
 export const bip39WordRules = {
   requiredShort: true,

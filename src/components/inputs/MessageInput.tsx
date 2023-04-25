@@ -34,7 +34,6 @@ export const MessageInput = ({
     if (onBlur) onBlur()
   }
   const onSubmitHandler = () => (onSubmit && !disableSubmit ? onSubmit(value) : null)
-  // TODO Attach files
   return (
     <View style={[tw`flex-row items-end px-2 rounded bg-info-background max-h-40`, disabled && tw`opacity-50`]}>
       <TextInput

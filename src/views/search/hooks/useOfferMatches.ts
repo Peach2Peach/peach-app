@@ -6,7 +6,7 @@ import { useIsFocused } from '@react-navigation/native'
 
 const FIFTEEN_SECONDS = 15 * 1000
 
-export const useOfferMatches = (offerId: string) => {
+export const useOfferMatches = (offerId: string, enabled = true) => {
   const { offer } = useOfferDetails(offerId)
   const isFocused = useIsFocused()
 
@@ -14,8 +14,7 @@ export const useOfferMatches = (offerId: string) => {
     queryKey: ['matches', offerId],
     queryFn: getMatchesFn,
     refetchInterval: FIFTEEN_SECONDS,
-    enabled:
-      isFocused && !!offer?.id && !offer.doubleMatched,
+    enabled: enabled && isFocused && !!offer?.id && !offer.doubleMatched,
     getNextPageParam: (lastPage) => lastPage?.nextPage,
     keepPreviousData: true,
   })

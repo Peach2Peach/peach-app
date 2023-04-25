@@ -18,6 +18,7 @@ import { isURL } from './isURL'
 import { isUsername } from './isUsername'
 import { isValidBitcoinSignature } from './isValidBitcoinSignature'
 import { isReferralCode } from './isReferralCode'
+import { isValidPaymentReference } from './isValidPaymentReference'
 
 export const rules = {
   required (required: boolean, value: string | number | null) {
@@ -133,6 +134,9 @@ export const rules = {
   },
   nationalTransferRO (_: boolean, value: string) {
     return isValidDigitLength(value, 11)
+  },
+  isValidPaymentReference (_: boolean, value: string) {
+    return isValidPaymentReference(value)
   },
 }
 

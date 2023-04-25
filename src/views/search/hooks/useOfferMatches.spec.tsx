@@ -1,12 +1,12 @@
 import { act, renderHook, waitFor } from '@testing-library/react-native'
 import { buyOffer, sellOffer } from '../../../../tests/unit/data/offerData'
-import { queryClientWrapper } from '../../../../tests/unit/helpers/queryClientWrapper'
+import { QueryClientWrapper } from '../../../../tests/unit/helpers/QueryClientWrapper'
 import { useMatchStore } from '../../../components/matches/store'
 import { useOfferMatches } from './useOfferMatches'
 
 const getMatchesMock = jest
   .fn()
-  .mockImplementation((...args) => Promise.resolve([{ matches: ['match'], nextPage: undefined }, null]))
+  .mockImplementation((..._args) => Promise.resolve([{ matches: ['match'], nextPage: undefined }, null]))
 const getOfferDetailsMock = jest.fn().mockResolvedValue([buyOffer, null])
 jest.mock('../../../utils/peachAPI', () => ({
   getOfferDetails: () => getOfferDetailsMock(),
@@ -26,17 +26,24 @@ describe('useOfferMatches', () => {
   it('should return the matches for an offer', async () => {
     const { result } = renderHook(useOfferMatches, {
       initialProps: 'offerId',
-      wrapper: queryClientWrapper,
+      wrapper: QueryClientWrapper,
     })
     await waitFor(() => {
       expect(result.current.isSuccess).toBe(true)
     })
     expect(result.current.allMatches).toEqual(['match'])
   })
+  it('should not make a request if not enabled', () => {
+    renderHook(() => useOfferMatches('offerId', false), {
+      wrapper: QueryClientWrapper,
+    })
+
+    expect(getMatchesMock).not.toHaveBeenCalled()
+  })
   it('should refetch after 15 seconds', async () => {
     const { result } = renderHook(useOfferMatches, {
       initialProps: 'offerId',
-      wrapper: queryClientWrapper,
+      wrapper: QueryClientWrapper,
     })
     await waitFor(() => {
       expect(result.current.isSuccess).toBe(true)
@@ -65,7 +72,7 @@ describe('useOfferMatches', () => {
 
     const { result } = renderHook(useOfferMatches, {
       initialProps: 'newOfferId',
-      wrapper: queryClientWrapper,
+      wrapper: QueryClientWrapper,
     })
 
     await waitFor(() => {
@@ -90,7 +97,7 @@ describe('useOfferMatches', () => {
 
     const { result } = renderHook(useOfferMatches, {
       initialProps: 'newOfferId',
-      wrapper: queryClientWrapper,
+      wrapper: QueryClientWrapper,
     })
 
     await waitFor(() => {
@@ -116,7 +123,7 @@ describe('useOfferMatches', () => {
   })
 
   it('should return matches for a funded sell offer', async () => {
-    getMatchesMock.mockImplementation((...args) => Promise.resolve([{ matches: ['match'], remainingMatches: 0 }, null]))
+    getMatchesMock.mockImplementation((..._args) => Promise.resolve([{ matches: ['match'], remainingMatches: 0 }, null]))
     getOfferDetailsMock.mockResolvedValueOnce([
       {
         ...sellOffer,
@@ -126,7 +133,7 @@ describe('useOfferMatches', () => {
     ])
     const { result } = renderHook(useOfferMatches, {
       initialProps: 'thirdOfferId',
-      wrapper: queryClientWrapper,
+      wrapper: QueryClientWrapper,
     })
     await waitFor(() => {
       expect(result.current.isSuccess).toBe(true)

@@ -1,47 +1,40 @@
-import { NETWORK } from '@env'
-import { useFocusEffect } from '@react-navigation/native'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo } from 'react'
 import { CancelIcon, HelpIcon } from '../../../components/icons'
-import checkFundingStatusEffect from '../../../effects/checkFundingStatusEffect'
-import { useCancelOffer, useHeaderSetup, useNavigation, useRoute } from '../../../hooks'
+import { useCancelOffer, useHeaderSetup, useRoute } from '../../../hooks'
+import { useFundingStatus } from '../../../hooks/query/useFundingStatus'
+import { useOfferDetails } from '../../../hooks/query/useOfferDetails'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { useShowHelp } from '../../../hooks/useShowHelp'
-import { useConfirmEscrowOverlay } from '../../../overlays/useConfirmEscrowOverlay'
-import { useStartRefundOverlay } from '../../../overlays/useStartRefundOverlay'
-import { useWronglyFundedOverlay } from '../../../overlays/useWronglyFundedOverlay'
 import i18n from '../../../utils/i18n'
-import { info } from '../../../utils/log'
-import { saveOffer } from '../../../utils/offer'
-import { fundEscrow, generateBlock } from '../../../utils/peachAPI'
-import { useOfferMatches } from '../../search/hooks/useOfferMatches'
-import { createEscrow } from '../helpers/createEscrow'
+import { isSellOffer } from '../../../utils/offer'
+import { parseError } from '../../../utils/result'
+import { shouldGetFundingStatus } from '../helpers/shouldGetFundingStatus'
+import { useCreateEscrow } from './useCreateEscrow'
+import { useHandleFundingStatus } from './useHandleFundingStatus'
 
 export const useFundEscrowSetup = () => {
   const route = useRoute<'fundEscrow'>()
-  const navigation = useNavigation()
+  const { offerId } = route.params
 
-  const startRefund = useStartRefundOverlay()
   const showHelp = useShowHelp('escrow')
   const showMempoolHelp = useShowHelp('mempool')
-  const showError = useShowErrorBanner()
-  const showWronglyFundedOverlay = useWronglyFundedOverlay()
-  const showEscrowConfirmOverlay = useConfirmEscrowOverlay()
+  const showErrorBanner = useShowErrorBanner()
 
-  const [sellOffer, setSellOffer] = useState(route.params.offer)
-  const [updatePending, setUpdatePending] = useState(true)
-  const [showRegtestButton, setShowRegtestButton] = useState(
-    NETWORK === 'regtest' && sellOffer.funding.status === 'NULL',
-  )
-
-  const [fundingError, setFundingError] = useState<FundingError>('')
-  const fundingAmount = Math.round(sellOffer.amount)
+  const { offer } = useOfferDetails(route.params.offerId)
+  const sellOffer = offer && isSellOffer(offer) ? offer : undefined
+  const canFetchFundingStatus = !sellOffer || shouldGetFundingStatus(sellOffer)
+  const {
+    fundingStatus,
+    userConfirmationRequired,
+    error: fundingStatusError,
+  } = useFundingStatus(offerId, canFetchFundingStatus)
+  const fundingAmount = sellOffer ? sellOffer.amount : 0
   const cancelOffer = useCancelOffer(sellOffer)
-  const { refetch } = useOfferMatches(sellOffer.id)
 
   useHeaderSetup(
     useMemo(
       () =>
-        sellOffer.funding.status === 'MEMPOOL'
+        fundingStatus.status === 'MEMPOOL'
           ? {
             title: i18n('sell.funding.mempool.title'),
             hideGoBackButton: true,
@@ -55,92 +48,37 @@ export const useFundEscrowSetup = () => {
               { iconComponent: <HelpIcon />, onPress: showHelp },
             ],
           },
-      [sellOffer.funding, cancelOffer, showHelp, showMempoolHelp],
+      [fundingStatus, cancelOffer, showHelp, showMempoolHelp],
     ),
   )
 
-  const saveAndUpdate = (offerData: SellOffer) => {
-    setSellOffer(offerData)
-    saveOffer(offerData)
-  }
+  useHandleFundingStatus({
+    offerId,
+    sellOffer,
+    fundingStatus,
+    userConfirmationRequired,
+  })
 
-  const fundEscrowAddress = async () => {
-    if (!sellOffer.id || NETWORK !== 'regtest' || sellOffer.funding.status !== 'NULL') return
-    const [fundEscrowResult] = await fundEscrow({ offerId: sellOffer.id })
-    if (!fundEscrowResult) return
-    const [generateBockResult] = await generateBlock({})
-    if (generateBockResult) setShowRegtestButton(false)
-  }
-
-  useFocusEffect(
-    useCallback(() => {
-      setSellOffer(route.params.offer)
-      setUpdatePending(!route.params.offer.escrow)
-    }, [route]),
-  )
+  const { mutate: createEscrow, error: createEscrowError } = useCreateEscrow({
+    offerId,
+  })
 
   useEffect(() => {
-    if (!sellOffer.id || sellOffer.escrow) return
-    createEscrow(
-      sellOffer.id,
-      (result) => {
-        info('Created escrow', result)
-        setUpdatePending(false)
-        saveAndUpdate({
-          ...sellOffer,
-          escrow: result.escrow,
-          funding: result.funding,
-        })
-      },
-      (err) => showError(err.error),
-    )
-  }, [sellOffer, showError])
+    if (!sellOffer || sellOffer.escrow) return
+    createEscrow()
+  }, [sellOffer, createEscrow])
 
-  useEffect(
-    checkFundingStatusEffect({
-      sellOffer,
-      onSuccess: (result) => {
-        info('Checked funding status', result)
-        const updatedOffer = {
-          ...sellOffer,
-          funding: result.funding,
-        }
-
-        saveAndUpdate(updatedOffer)
-        setFundingError(result.error || '')
-
-        if (result.funding.status === 'CANCELED') return startRefund(sellOffer)
-        if (result.funding.status === 'WRONG_FUNDING_AMOUNT') return showWronglyFundedOverlay(updatedOffer)
-        if (result.userConfirmationRequired) return showEscrowConfirmOverlay(updatedOffer)
-        if (result.funding.status === 'FUNDED') {
-          refetch().then(({ data }) => {
-            const allMatches = (data?.pages || []).flatMap((page) => page.matches)
-            const hasMatches = allMatches.length > 0
-            if (hasMatches) {
-              navigation.replace('search', { offerId: sellOffer.id })
-            } else {
-              navigation.replace('offerPublished', { isSellOffer: true })
-            }
-          })
-        }
-        return undefined
-      },
-      onError: (err) => {
-        showError(err.error)
-      },
-    }),
-    [sellOffer.id, sellOffer.escrow],
-  )
+  useEffect(() => {
+    if (!fundingStatusError) return
+    showErrorBanner(parseError(fundingStatusError))
+  }, [fundingStatusError, showErrorBanner])
 
   return {
-    sellOffer,
-    updatePending,
-    showRegtestButton,
-    escrow: sellOffer.escrow || '',
-    fundingError,
-    fundingStatus: sellOffer.funding,
+    offerId,
+    escrow: sellOffer?.escrow,
+    createEscrowError,
+    fundingStatus,
     fundingAmount,
-    fundEscrowAddress,
     cancelOffer,
   }
 }

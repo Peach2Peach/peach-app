@@ -8,7 +8,8 @@ import { getErrorsInField } from '../../../../../utils/validation'
 import { TabbedNavigationItem } from '../../../../navigation/TabbedNavigation'
 
 const beneficiaryRules = { required: true }
-const notRequired = { required: false }
+const referenceRules = { required: false, isValidPaymentReference: true }
+
 const tabs: TabbedNavigationItem[] = [
   {
     id: 'iban',
@@ -34,7 +35,10 @@ export const useTemplate9Setup = ({
   const [iban, setIBAN] = useState(data?.iban || '')
   const [accountNumber, setAccountNumber] = useState(data?.accountNumber || '')
   const [bic, setBIC] = useState(data?.bic || '')
-  const [reference, setReference, , referenceErrors] = useValidatedState(data?.reference || '', notRequired)
+  const [reference, setReference, referenceIsValid, referenceErrors] = useValidatedState(
+    data?.reference || '',
+    referenceRules,
+  )
   const [displayErrors, setDisplayErrors] = useState(false)
 
   const [currentTab, setCurrentTab] = useState(tabs[0])
@@ -53,7 +57,7 @@ export const useTemplate9Setup = ({
   const labelRules = useMemo(
     () => ({
       required: true,
-      duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)!.id !== data.id,
+      duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)?.id !== data.id,
     }),
     [data.id, label],
   )
@@ -77,8 +81,8 @@ export const useTemplate9Setup = ({
 
   const isFormValid = useCallback(() => {
     setDisplayErrors(true)
-    return [...labelErrors, ...ibanErrors, ...accountNumberErrors, ...bicErrors].length === 0
-  }, [accountNumberErrors, bicErrors, ibanErrors, labelErrors])
+    return [...labelErrors, ...ibanErrors, ...accountNumberErrors, ...bicErrors].length === 0 && referenceIsValid
+  }, [accountNumberErrors, bicErrors, ibanErrors, labelErrors, referenceIsValid])
 
   const save = () => {
     if (!isFormValid()) return

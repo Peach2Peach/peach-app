@@ -1,3 +1,5 @@
+import { defaultFundingStatus } from '../../../utils/offer/constants'
+
 type GetSellOfferDraftParams = {
   sellAmount: number
   premium: number
@@ -19,13 +21,7 @@ export const getSellOfferDraft = ({
   meansOfPayment,
   paymentData: {},
   originalPaymentData: [],
-  funding: {
-    status: 'NULL',
-    txIds: [],
-    vouts: [],
-    amounts: [],
-    expiry: 537,
-  },
+  funding: defaultFundingStatus,
   amount: sellAmount,
   returnAddress: payoutAddress,
 })
