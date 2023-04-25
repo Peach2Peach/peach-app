@@ -82,7 +82,9 @@ export const useTradeCanceledOverlay = () => {
       }
       const republishAction = () => republishOffer(sellOffer, contract)
 
-      if (!sellOffer) return { refundAction, republishAction }
+      if (!sellOffer || sellOffer.refunded || sellOffer.released || sellOffer.newOfferId) {
+        return { refundAction, republishAction }
+      }
 
       navigation.navigate('yourTrades', { tab: 'history' })
       const expiry = getOfferExpiry(sellOffer)
