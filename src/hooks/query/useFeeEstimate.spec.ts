@@ -1,5 +1,5 @@
 import { renderHook, waitFor } from '@testing-library/react-native'
-import { QueryClientWrapper } from '../../../tests/unit/helpers/QueryClientWrapper'
+import { queryClient, QueryClientWrapper } from '../../../tests/unit/helpers/QueryClientWrapper'
 import { placeholderFees, useFeeEstimate } from './useFeeEstimate'
 import { estimatedFees } from '../../../tests/unit/data/bitcoinNetworkData'
 
@@ -14,6 +14,7 @@ jest.mock('../../utils/peachAPI', () => ({
 describe('useFeeEstimate', () => {
   afterEach(() => {
     jest.clearAllMocks()
+    queryClient.clear()
   })
 
   it('fetches fee estimates from API', async () => {

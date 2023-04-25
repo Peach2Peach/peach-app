@@ -1,7 +1,7 @@
 /* eslint-disable max-lines-per-function */
 import { renderHook, waitFor } from '@testing-library/react-native'
 import { sellOffer } from '../../../tests/unit/data/offerData'
-import { QueryClientWrapper } from '../../../tests/unit/helpers/QueryClientWrapper'
+import { queryClient, QueryClientWrapper } from '../../../tests/unit/helpers/QueryClientWrapper'
 import { useOfferDetails } from './useOfferDetails'
 
 const apiError = { error: 'UNAUTHORIZED' }
@@ -19,6 +19,7 @@ describe('useOfferDetails', () => {
 
   afterEach(() => {
     jest.clearAllMocks()
+    queryClient.clear()
   })
   it('fetches offer details from API', async () => {
     const { result } = renderHook(useOfferDetails, {

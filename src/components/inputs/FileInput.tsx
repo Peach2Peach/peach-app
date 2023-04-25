@@ -10,13 +10,6 @@ export type FileData = {
   content: string | object | null
 }
 
-/**
- * @description Prompts file select dialogue and reads content from file
- * TODO add visible error handling
- * - file cannot be read / timed out
- * - user cancels file selection
- */
-
 type FileInputProps = InputProps & {
   fileName?: string
 }

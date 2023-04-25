@@ -42,7 +42,7 @@ export const useTemplate2Setup = ({
 
   const labelRules = useMemo(
     () => ({
-      duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)!.id !== data.id,
+      duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)?.id !== data.id,
       required: true,
     }),
     [data.id, label],

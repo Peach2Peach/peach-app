@@ -1,8 +1,8 @@
 import tw from '../../../styles/tailwind'
 
-export const getBadgeColor = (unlockedBadges: string[], badgeName: string, isDispute = false) => {
+export const getBadgeColor = (isUnlocked = false, isDispute = false) => {
   if (!isDispute) {
-    return unlockedBadges.includes(badgeName) ? tw`bg-primary-main` : tw`bg-primary-mild-1`
+    return isUnlocked ? tw`bg-primary-main` : tw`bg-primary-mild-1`
   }
-  return unlockedBadges.includes(badgeName) ? tw`bg-error-mild` : tw`bg-error-light`
+  return isUnlocked ? tw`bg-error-mild` : tw`bg-error-light`
 }

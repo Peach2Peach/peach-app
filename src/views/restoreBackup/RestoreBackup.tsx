@@ -4,7 +4,7 @@ import { View } from 'react-native'
 import { TabbedNavigation, TabbedNavigationItem } from '../../components/navigation/TabbedNavigation'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { useBackupHeader } from './useBackupHeader'
+import { useBackupHeader } from './hooks/useBackupHeader'
 import RestoreFromFile from './RestoreFromFile'
 import RestoreFromSeed from './RestoreFromSeed'
 
@@ -23,13 +23,13 @@ const tabs: TabbedNavigationItem[] = [
 export default (): ReactElement => {
   useBackupHeader()
   const [currentTab, setCurrentTab] = useState(tabs[0])
-  const CurrentView = currentTab.view!
+  const CurrentView = currentTab.view
 
   return (
     <View style={tw`h-full`}>
       <View style={tw`flex flex-col h-full pt-5`}>
         <TabbedNavigation theme="inverted" items={tabs} selected={currentTab} select={setCurrentTab} />
-        <CurrentView style={tw`flex-shrink h-full`} />
+        {!!CurrentView && <CurrentView style={tw`flex-shrink h-full`} />}
       </View>
     </View>
   )

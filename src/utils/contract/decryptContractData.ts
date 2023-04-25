@@ -28,7 +28,6 @@ export const decryptContractData = async (contract: Contract) => {
 
   if (paymentData) {
     info('Payment data decryption, success')
-    // TODO if err is yielded consider open a dispute directly
   } else {
     error(getPaymentDataError)
   }
