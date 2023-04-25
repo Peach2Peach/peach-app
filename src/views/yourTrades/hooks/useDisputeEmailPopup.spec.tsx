@@ -3,7 +3,7 @@ import { act, renderHook, waitFor } from '@testing-library/react-native'
 import { NavigationContext } from '@react-navigation/native'
 import { contract } from '../../../../tests/unit/data/contractData'
 import { defaultOverlay, OverlayContext } from '../../../contexts/overlay'
-import { QueryClientWrapper } from '../../../../tests/unit/helpers/QueryClientWrapper'
+import { queryClient, QueryClientWrapper } from '../../../../tests/unit/helpers/QueryClientWrapper'
 import { useLocalContractStore } from '../../../store/useLocalContractStore'
 import DisputeRaisedNotice from '../../../overlays/dispute/components/DisputeRaisedNotice'
 import i18n from '../../../utils/i18n'
@@ -53,13 +53,13 @@ describe('useDisputeEmailPopup', () => {
     getContractMock.mockResolvedValueOnce([{ ...contract, disputeActive: true }, null])
     const { result } = renderHook(() => useDisputeEmailPopup(contract.id), { wrapper: TestWrapper })
     await act(async () => {
-      await result.current.showDisputeEmailPopup()
+      await result.current()
     })
     await waitFor(() => {
-      expect(result.current.isSuccess).toBeTruthy()
+      expect(queryClient.isFetching()).toBe(0)
     })
     await act(async () => {
-      await result.current.showDisputeEmailPopup()
+      await result.current()
     })
 
     expect(overlay).toStrictEqual({
@@ -97,13 +97,13 @@ describe('useDisputeEmailPopup', () => {
     })
     const { result } = renderHook(() => useDisputeEmailPopup(contract.id), { wrapper: TestWrapper })
     await act(async () => {
-      await result.current.showDisputeEmailPopup()
+      await result.current()
     })
     await waitFor(() => {
-      expect(result.current.isSuccess).toBeTruthy()
+      expect(queryClient.isFetching()).toBe(0)
     })
     await act(async () => {
-      await result.current.showDisputeEmailPopup()
+      await result.current()
     })
 
     expect(overlay).toStrictEqual(defaultOverlay)

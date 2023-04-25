@@ -10,7 +10,7 @@ export const useDisputeEmailPopup = (contractId: string) => {
     (state) => [!!state.contracts[contractId]?.hasSeenDisputeEmailPopup, state.setHasSeenDisputeEmailPopup],
     shallow,
   )
-  const { contract, isSuccess } = useContractDetails(contractId)
+  const { contract } = useContractDetails(contractId)
   const { showDisputeRaisedNotice } = useDisputeRaisedNotice()
 
   const showDisputeEmailPopup = () => {
@@ -19,5 +19,5 @@ export const useDisputeEmailPopup = (contractId: string) => {
     showDisputeRaisedNotice(contract, getContractViewer(contract, account))
   }
 
-  return { showDisputeEmailPopup, isSuccess }
+  return showDisputeEmailPopup
 }
