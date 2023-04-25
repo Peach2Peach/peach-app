@@ -16,7 +16,7 @@ export const useDisputeRaisedNotice = () => {
 
   const showDisputeRaisedNotice = useCallback(
     (contract: Contract, view: ContractViewer) => {
-      const submitAndClose = async () => {
+      const submit = async () => {
         await submitDisputeAcknowledgement({
           contractId: contract.id,
           disputeReason: contract.disputeReason || 'other',
@@ -24,19 +24,11 @@ export const useDisputeRaisedNotice = () => {
         })
       }
       const submitAndGoToChat = async () => {
-        await submitDisputeAcknowledgement({
-          contractId: contract.id,
-          disputeReason: contract.disputeReason || 'other',
-          email,
-        })
+        await submit()
         navigation.replace('contractChat', { contractId: contract.id })
       }
       const submitAndGoToContract = async () => {
-        await submitDisputeAcknowledgement({
-          contractId: contract.id,
-          disputeReason: contract.disputeReason || 'other',
-          email,
-        })
+        await submit()
         navigation.replace('contract', { contractId: contract.id })
       }
 
@@ -55,7 +47,7 @@ export const useDisputeRaisedNotice = () => {
           ? {
             label: i18n('close'),
             icon: 'xSquare',
-            callback: submitAndClose,
+            callback: submit,
           }
           : undefined,
         action1: isEmailRequiredForDispute(contract.disputeReason ?? 'other')
@@ -72,7 +64,7 @@ export const useDisputeRaisedNotice = () => {
       })
 
       return {
-        submitAndClose,
+        submitAndClose: submit,
         submitAndGoToChat,
         submitAndGoToContract,
       }
