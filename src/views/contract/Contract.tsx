@@ -23,9 +23,7 @@ export default () => {
         />
         <TradeSummary {...{ contract, view }} />
         <View style={tw`items-center justify-end flex-grow w-full mb-2`}>
-          {(!!contract.isEmailRequired || true) && (
-            <ProvideEmailButton {...{ contract, view }} style={tw`self-center mb-4`} />
-          )}
+          {!!contract.isEmailRequired && <ProvideEmailButton {...{ contract, view }} style={tw`self-center mb-4`} />}
           <ContractCTA
             {...{ contract, view, requiredAction, actionPending, postConfirmPaymentBuyer, postConfirmPaymentSeller }}
           />
