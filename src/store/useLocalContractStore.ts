@@ -15,6 +15,7 @@ export type LocalContractStore = LocalContractState & {
   setContract: (contract: LocalContract) => void
   updateContract: (contractId: string, data: Partial<LocalContract>) => void
   setHasSeenDisputeEmailPopup: (contractId: string, hasSeenPopup?: boolean) => void
+  migrateContracts: (contracts: Contract[]) => void
   setMigrated: () => void
 }
 
@@ -47,6 +48,18 @@ export const useLocalContractStore = create<LocalContractStore>()(
       setHasSeenDisputeEmailPopup: (contractId: string, hasSeenPopup = true) => {
         get().updateContract(contractId, {
           hasSeenDisputeEmailPopup: hasSeenPopup,
+        })
+      },
+      migrateContracts: (contracts: Contract[]) => {
+        contracts.forEach((contract) => {
+          get().setContract({
+            id: contract.id,
+            hasSeenDisputeEmailPopup: false,
+            error: undefined,
+            disputeResultAcknowledged: false,
+            cancelConfirmationPending: false,
+            cancelConfirmationDismissed: false,
+          })
         })
       },
       setMigrated: () => set(() => ({ migrated: true })),
