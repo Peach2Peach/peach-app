@@ -52,7 +52,7 @@ describe('useSubmitDisputeAcknowledgement', () => {
   })
 
   it('returns interface', () => {
-    const { result } = renderHook(() => useSubmitDisputeAcknowledgement())
+    const { result } = renderHook(useSubmitDisputeAcknowledgement)
     expect(result.current).toBeInstanceOf(Function)
   })
 
@@ -62,7 +62,7 @@ describe('useSubmitDisputeAcknowledgement', () => {
       ...contract,
       disputeReason,
     }
-    const { result } = renderHook(() => useSubmitDisputeAcknowledgement())
+    const { result } = renderHook(useSubmitDisputeAcknowledgement)
     result.current(noPaymentContract, disputeReason, '')
 
     expect(showLoadingOverlayMock).not.toHaveBeenCalled()
@@ -70,7 +70,7 @@ describe('useSubmitDisputeAcknowledgement', () => {
   })
 
   it('opens popup with loading animation', async () => {
-    const { result } = renderHook(() => useSubmitDisputeAcknowledgement())
+    const { result } = renderHook(useSubmitDisputeAcknowledgement)
     result.current(contract, 'other', 'seller')
 
     expect(showLoadingOverlayMock).toHaveBeenCalledWith({
@@ -81,7 +81,7 @@ describe('useSubmitDisputeAcknowledgement', () => {
 
   it('saves contract for seller update when successful', async () => {
     await setAccount({ ...defaultAccount, publicKey: contract.seller.id })
-    const { result } = renderHook(() => useSubmitDisputeAcknowledgement())
+    const { result } = renderHook(useSubmitDisputeAcknowledgement)
     await result.current(contract, 'other', 'seller')
     expect(saveContractMock).toHaveBeenCalledWith({
       ...contract,
@@ -92,7 +92,7 @@ describe('useSubmitDisputeAcknowledgement', () => {
   })
   it('saves contract for buyer update when successful', async () => {
     await setAccount({ ...defaultAccount, publicKey: contract.buyer.id })
-    const { result } = renderHook(() => useSubmitDisputeAcknowledgement())
+    const { result } = renderHook(useSubmitDisputeAcknowledgement)
     await result.current(contract, 'other', 'buyer')
     expect(saveContractMock).toHaveBeenCalledWith({
       ...contract,
@@ -102,7 +102,7 @@ describe('useSubmitDisputeAcknowledgement', () => {
     })
   })
   it('closes popup when successful', async () => {
-    const { result } = renderHook(() => useSubmitDisputeAcknowledgement())
+    const { result } = renderHook(useSubmitDisputeAcknowledgement)
     await result.current(contract, 'other', 'seller')
 
     expect(updateOverlayMock).toHaveBeenCalledWith({
@@ -116,7 +116,7 @@ describe('useSubmitDisputeAcknowledgement', () => {
       ...contract,
       disputeReason,
     }
-    const { result } = renderHook(() => useSubmitDisputeAcknowledgement())
+    const { result } = renderHook(useSubmitDisputeAcknowledgement)
     await result.current(noPaymentContract, disputeReason, 'satoshi@bitcoin.org')
 
     expect(keyboardSpy).toHaveBeenCalled()
@@ -129,7 +129,7 @@ describe('useSubmitDisputeAcknowledgement', () => {
       ...contract,
       disputeReason,
     }
-    const { result } = renderHook(() => useSubmitDisputeAcknowledgement())
+    const { result } = renderHook(useSubmitDisputeAcknowledgement)
     await result.current(noPaymentContract, disputeReason, 'satoshi@bitcoin.org')
     expect(showErrorBannerMock).toHaveBeenCalledWith(error)
   })
