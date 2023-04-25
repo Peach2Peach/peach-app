@@ -233,7 +233,7 @@
   "sell.escrow.sendSats.1": "send",
   "sell.escrow.sendSats.2": "to:",
   "sell.escrow.fundToContinue": "fund to continue",
-  "sell.funding.mempool.title": "transaction in mempool",
+  "sell.funding.mempool.title": "transaction pending",
   "sell.funding.mempool.description": "Your bitcoin transaction is pending...\n\nYou can go do something else, we'll automatically publish your offer as soon as it's finished!",
   "settings.escrow.paymentRequest.label": "Peach Escrow - offer",
   "escrow.viewInExplorer": "view escrow in explorer",
