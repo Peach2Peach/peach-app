@@ -4,6 +4,7 @@ import { defaultOverlay, OverlayContext } from '../../../contexts/overlay'
 import { NavigationContext } from '@react-navigation/native'
 import { contract } from '../../../../tests/unit/data/contractData'
 import DisputeRaisedNotice from '../../../overlays/dispute/components/DisputeRaisedNotice'
+import { QueryClientWrapper } from '../../../../tests/unit/helpers/QueryClientWrapper'
 
 let overlay = defaultOverlay
 const updateOverlay = jest.fn((newOverlay) => (overlay = newOverlay))
@@ -18,9 +19,11 @@ const NavigationWrapper = ({ children }: { children: JSX.Element }) => (
 
 describe('ProvideEmailButton', () => {
   const TestWrapper = ({ children }: { children: JSX.Element }) => (
-    <NavigationWrapper>
-      <OverlayWrapper>{children}</OverlayWrapper>
-    </NavigationWrapper>
+    <QueryClientWrapper>
+      <NavigationWrapper>
+        <OverlayWrapper>{children}</OverlayWrapper>
+      </NavigationWrapper>
+    </QueryClientWrapper>
   )
 
   beforeEach(() => {
