@@ -47,6 +47,7 @@ declare type Contract = {
   disputeWinner?: DisputeWinner
   disputeOutcome?: DisputeOutcome
   disputeResolvedDate?: Date | null
+  isEmailRequired?: boolean
 
   cancelationRequested: boolean
   canceled: boolean
