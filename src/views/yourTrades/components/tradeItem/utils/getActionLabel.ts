@@ -1,7 +1,9 @@
 import i18n from '../../../../../utils/i18n'
 import { isContractSummary, isPastOffer } from '../../../utils'
 
-export const getActionLabel = (tradeSummary: TradeSummary, status: TradeStatus) => {
+type PartialTradeSummary = Pick<TradeSummary, 'tradeStatus' | 'unreadMessages' | 'type'> & Partial<TradeSummary>
+
+export const getActionLabel = (tradeSummary: PartialTradeSummary, status: TradeStatus) => {
   const { tradeStatus } = tradeSummary
 
   if (isContractSummary(tradeSummary)) {
