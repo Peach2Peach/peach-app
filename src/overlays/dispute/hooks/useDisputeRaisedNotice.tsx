@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
-import { useOverlayContext } from '../../../contexts/overlay'
 import { useNavigation, useValidatedState } from '../../../hooks'
+import { usePopupStore } from '../../../store/usePopupStore'
 import { isEmailRequiredForDispute } from '../../../utils/dispute'
 import i18n from '../../../utils/i18n'
 import DisputeRaisedNotice from '../components/DisputeRaisedNotice'
@@ -10,7 +10,7 @@ const emailRules = { required: true, email: true }
 
 export const useDisputeRaisedNotice = () => {
   const navigation = useNavigation()
-  const [, updateOverlay] = useOverlayContext()
+  const setPopup = usePopupStore((state) => state.setPopup)
   const [email, setEmail, , emailErrors] = useValidatedState<string>('', emailRules)
   const submitDisputeAcknowledgement = useSubmitDisputeAcknowledgement()
 
@@ -32,7 +32,7 @@ export const useDisputeRaisedNotice = () => {
         navigation.replace('contract', { contractId: contract.id })
       }
 
-      updateOverlay({
+      setPopup({
         title: i18n('dispute.opened'),
         level: 'WARN',
         content: (
@@ -69,7 +69,7 @@ export const useDisputeRaisedNotice = () => {
         submitAndGoToContract,
       }
     },
-    [email, emailErrors, navigation, setEmail, submitDisputeAcknowledgement, updateOverlay],
+    [email, emailErrors, navigation, setEmail, setPopup, submitDisputeAcknowledgement],
   )
 
   return {
