@@ -24,7 +24,7 @@ type PopupStore = PopupState & {
     title?: string
     action1?: Action
     action2?: Action
-    level: Level
+    level?: Level
   }) => void
   closePopup: () => void
 }
