@@ -58,10 +58,14 @@ export const useLocalContractStore = create<LocalContractStore>()(
           get().setContract({
             id: contract.id,
             hasSeenDisputeEmailPopup: true,
-            error: undefined,
-            disputeResultAcknowledged: false,
-            cancelConfirmationPending: false,
-            cancelConfirmationDismissed: false,
+            // @ts-ignore
+            error: contract.error,
+            // @ts-ignore
+            disputeResultAcknowledged: contract.disputeResultAcknowledged,
+            // @ts-ignore
+            cancelConfirmationPending: contract.cancelConfirmationPending,
+            // @ts-ignore
+            cancelConfirmationDismissed: contract.cancelConfirmationDismissed,
           })
         })
       },
