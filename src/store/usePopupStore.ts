@@ -19,7 +19,13 @@ export const defaultPopupState: PopupState = {
   level: 'DEFAULT',
 }
 type PopupStore = PopupState & {
-  showPopup: (params?: { content?: ReactElement; title?: string; action1?: Action; action2?: Action }) => void
+  showPopup: (params?: {
+    content?: ReactElement
+    title?: string
+    action1?: Action
+    action2?: Action
+    level: Level
+  }) => void
   closePopup: () => void
 }
 
@@ -30,7 +36,15 @@ export const usePopupStore = create<PopupStore>((set, get) => ({
     const newTitle = params ? params?.title : get().title
     const newAction1 = params ? params?.action1 : get().action1
     const newAction2 = params ? params?.action2 : get().action2
-    set({ visible: true, content: newContent, title: newTitle, action1: newAction1, action2: newAction2 })
+    const newLevel = params ? params?.level : get().level
+    set({
+      visible: true,
+      content: newContent,
+      title: newTitle,
+      action1: newAction1,
+      action2: newAction2,
+      level: newLevel,
+    })
   },
   closePopup: () => {
     set({ visible: false })

@@ -82,4 +82,8 @@ describe('usePopupStore', () => {
     expect(Object.hasOwn(usePopupStore.getState(), 'level')).toBe(true)
     expect(usePopupStore.getState().level).toBe('DEFAULT')
   })
+  it('should update the level of a popup when passed to showPopup', () => {
+    usePopupStore.getState().showPopup({ level: 'SUCCESS' })
+    expect(usePopupStore.getState().level).toBe('SUCCESS')
+  })
 })
