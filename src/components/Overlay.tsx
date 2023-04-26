@@ -12,11 +12,11 @@ export const Overlay = ({
   requireUserAction,
 }: OverlayState): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
-  const closeOverlay = useMemo(() => () => updateOverlay({ visible: false }), [updateOverlay])
+  const closePopup = useMemo(() => () => updateOverlay({ visible: false }), [updateOverlay])
 
   return (
     <PopupContent
-      {...{ visible, title, content, action1, action2, closeOverlay, level, requireUserAction }}
+      {...{ visible, title, content, action1, action2, closePopup, level, requireUserAction }}
     ></PopupContent>
   )
 }

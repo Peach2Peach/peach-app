@@ -33,7 +33,7 @@ type Props = {
   content?: ReactElement
   action1?: Action
   action2?: Action
-  closeOverlay: () => void
+  closePopup: () => void
   level?: Level
   requireUserAction?: boolean
 }
@@ -43,23 +43,23 @@ export const PopupContent = ({
   content,
   action1,
   action2,
-  closeOverlay,
+  closePopup,
   level = 'DEFAULT',
   requireUserAction,
 }: Props) => {
   const actionColor = level === 'WARN' ? tw`text-black-1` : tw`text-primary-background-light`
-  const onBackgroundPress = !requireUserAction ? closeOverlay : null
+  const onBackgroundPress = !requireUserAction ? closePopup : null
 
   useEffect(() => {
     if (!content) return () => {}
     const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
-      closeOverlay()
+      closePopup()
       return true
     })
     return () => {
       backHandler.remove()
     }
-  }, [closeOverlay, content])
+  }, [closePopup, content])
 
   return (
     <Modal transparent={true} visible={visible}>
@@ -92,7 +92,7 @@ export const PopupContent = ({
                 <Pressable
                   testID="overlay-action1"
                   style={[tw`py-2`, action1?.disabled && tw`opacity-70`]}
-                  onPress={action1 ? (!action1.disabled ? action1.callback : null) : closeOverlay}
+                  onPress={action1 ? (!action1.disabled ? action1.callback : null) : closePopup}
                 >
                   <View style={[tw`flex flex-row items-center flex-shrink`, action1?.disabled && tw`opacity-50`]}>
                     <Text style={[tw`text-base leading-relaxed subtitle-1`, actionColor]}>
