@@ -30,38 +30,27 @@ const levelColorMap: LevelColorMap = {
   },
 }
 
-export const Overlay = ({
-  title,
-  content,
-  action1,
-  action2,
-  level = 'DEFAULT',
-  visible,
-  requireUserAction,
-}: OverlayState): ReactElement => {
-  const [, updateOverlay] = useContext(OverlayContext)
-  const closeOverlay = useMemo(() => () => updateOverlay({ visible: false }), [updateOverlay])
+type Props = {
+  visible: boolean
+  title?: string
+  content: ReactElement
+  action1?: Action
+  action2?: Action
+  closeOverlay?: () => void
+  level?: Level
+  requireUserAction?: boolean
+}
 
-  useEffect(() => {
-    if (!content) return () => {}
-    const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
-      closeOverlay()
-      return true
-    })
-    return () => {
-      backHandler.remove()
-    }
-  }, [closeOverlay, content])
-
+const PopupContent = ({ visible, title, content, action1, action2, closeOverlay, level, requireUserAction }: Props) => {
   const actionColor = level === 'WARN' ? tw`text-black-1` : tw`text-primary-background-light`
-
+  const onBackgroundPress = !requireUserAction ? closeOverlay : null
   return (
     <Modal transparent={true} visible={visible}>
       <View style={tw`items-center justify-center flex-1`}>
         <Pressable
           testID="overlay-background"
           style={tw`absolute top-0 left-0 w-full h-full bg-black-1 opacity-40`}
-          onPress={!requireUserAction ? closeOverlay : null}
+          onPress={onBackgroundPress}
         ></Pressable>
         <View style={tw`items-center w-full p-6`}>
           <View testID="overlay" style={[tw`m-10`, levelColorMap.bg1[level], tw`w-full rounded-2xl`]}>
@@ -101,5 +90,35 @@ export const Overlay = ({
         </View>
       </View>
     </Modal>
+  )
+}
+
+export const Overlay = ({
+  title,
+  content,
+  action1,
+  action2,
+  level = 'DEFAULT',
+  visible,
+  requireUserAction,
+}: OverlayState): ReactElement => {
+  const [, updateOverlay] = useContext(OverlayContext)
+  const closeOverlay = useMemo(() => () => updateOverlay({ visible: false }), [updateOverlay])
+
+  useEffect(() => {
+    if (!content) return () => {}
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+      closeOverlay()
+      return true
+    })
+    return () => {
+      backHandler.remove()
+    }
+  }, [closeOverlay, content])
+
+  return (
+    <PopupContent
+      {...{ visible, title, content, action1, action2, closeOverlay, level, requireUserAction }}
+    ></PopupContent>
   )
 }
