@@ -23,7 +23,6 @@ declare type Contract = {
   paymentDataEncrypted?: string
   paymentData?: PaymentData
   paymentDataSignature?: string
-  error?: 'DECRYPTION_ERROR'
 
   paymentMade: Date | null
   paymentConfirmed: Date | null
@@ -48,6 +47,7 @@ declare type Contract = {
   disputeWinner?: DisputeWinner
   disputeOutcome?: DisputeOutcome
   disputeResolvedDate?: Date | null
+  isEmailRequired: boolean
 
   cancelationRequested: boolean
   canceled: boolean
@@ -57,11 +57,15 @@ declare type Contract = {
 
   messages: number
   unreadMessages: number
+}
 
-  // app specific
+declare type LocalContract = {
+  id: string
   disputeResultAcknowledged?: boolean
   cancelConfirmationPending?: boolean
   cancelConfirmationDismissed?: boolean
+  error?: 'DECRYPTION_ERROR'
+  hasSeenDisputeEmailPopup?: boolean
 }
 
 declare type ContractViewer = 'buyer' | 'seller'
