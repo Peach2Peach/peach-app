@@ -86,4 +86,9 @@ describe('usePopupStore', () => {
     usePopupStore.getState().showPopup({ level: 'SUCCESS' })
     expect(usePopupStore.getState().level).toBe('SUCCESS')
   })
+  it('should not overwrite existing level when no level is passed to showPopup', () => {
+    usePopupStore.getState().showPopup({ level: 'SUCCESS' })
+    usePopupStore.getState().showPopup()
+    expect(usePopupStore.getState().level).toBe('SUCCESS')
+  })
 })
