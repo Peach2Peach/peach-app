@@ -12,6 +12,10 @@ describe('migrateContractsToStore', () => {
     },
     {
       ...contract,
+      error: 'DECRYPTION_ERROR',
+      disputeResultAcknowledged: true,
+      cancelConfirmationPending: true,
+      cancelConfirmationDismissed: true,
       id: 'id2',
     },
   ]
@@ -40,10 +44,10 @@ describe('migrateContractsToStore', () => {
       id2: {
         id: 'id2',
         hasSeenDisputeEmailPopup: true,
-        error: undefined,
-        disputeResultAcknowledged: false,
-        cancelConfirmationPending: false,
-        cancelConfirmationDismissed: false,
+        error: 'DECRYPTION_ERROR',
+        disputeResultAcknowledged: true,
+        cancelConfirmationPending: true,
+        cancelConfirmationDismissed: true,
       },
     })
 
