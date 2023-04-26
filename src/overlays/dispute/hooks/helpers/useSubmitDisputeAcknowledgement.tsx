@@ -39,10 +39,7 @@ export const useSubmitDisputeAcknowledgement = () => {
     onMutate: async ({ contractId, disputeReason, email }) => {
       await queryClient.cancelQueries({ queryKey: ['contract', contractId] })
       const previousContract = queryClient.getQueryData<Contract>(['contract', contractId])
-      if (isEmailRequiredForDispute(disputeReason) && !isEmail(email)) {
-        queryClient.setQueryData(['contract', contractId], previousContract)
-        return { previousContract }
-      }
+      if (isEmailRequiredForDispute(disputeReason) && !isEmail(email)) return { previousContract }
       showLoadingOverlay({
         title: i18n('dispute.opened'),
         level: 'WARN',

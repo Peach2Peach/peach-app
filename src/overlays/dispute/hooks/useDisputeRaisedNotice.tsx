@@ -27,10 +27,6 @@ export const useDisputeRaisedNotice = () => {
         await submit()
         navigation.replace('contractChat', { contractId: contract.id })
       }
-      const submitAndGoToContract = async () => {
-        await submit()
-        navigation.replace('contract', { contractId: contract.id })
-      }
 
       const action2 = !isEmailRequiredForDispute(contract.disputeReason ?? 'other')
         ? {
@@ -44,7 +40,7 @@ export const useDisputeRaisedNotice = () => {
         ? {
           label: i18n('send'),
           icon: 'arrowRightCircle',
-          callback: submitAndGoToContract,
+          callback: submit,
         }
         : {
           label: i18n('goToChat'),
@@ -69,7 +65,6 @@ export const useDisputeRaisedNotice = () => {
       return {
         submitAndClose: submit,
         submitAndGoToChat,
-        submitAndGoToContract,
       }
     },
     [email, navigation, setEmail, setPopup, submitDisputeAcknowledgement],

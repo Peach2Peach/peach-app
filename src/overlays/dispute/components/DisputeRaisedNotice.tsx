@@ -33,17 +33,12 @@ export default ({ contract, view, disputeReason, email, setEmail }: DisputeRaise
   }
 
   const submitAndGoToChat = async () => {
-    await onSubmit()
+    onSubmit()
     navigation.replace('contractChat', { contractId: contract.id })
-  }
-  const submitAndGoToContract = async () => {
-    await onSubmit()
-    navigation.replace('contract', { contractId: contract.id })
   }
   const onChange = (value: string) => {
     setEmailValue(value)
     setEmail(value)
-    // update the actions in the popup
     const action2 = (
       !isEmailRequiredForDispute(contract.disputeReason ?? 'other')
         ? {
@@ -59,7 +54,7 @@ export default ({ contract, view, disputeReason, email, setEmail }: DisputeRaise
         ? {
           label: i18n('send'),
           icon: 'arrowRightCircle',
-          callback: submitAndGoToContract,
+          callback: onSubmit,
         }
         : {
           label: i18n('goToChat'),
