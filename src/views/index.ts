@@ -20,6 +20,7 @@ import PublicProfile from './publicProfile/PublicProfile'
 import Referrals from './referrals/Referrals'
 import Report from './report/Report'
 import RestoreBackup from './restoreBackup/RestoreBackup'
+import RestoreReputation from './restoreBackup/RestoreReputation'
 import OfferPublished from './search/OfferPublished'
 import Search from './search/Search'
 import SelectWallet from './selectWallet/SelectWallet'
@@ -81,6 +82,7 @@ const onboarding: ViewType[] = [
   { name: 'home', component: Welcome, ...onboardingConfig },
   { name: 'newUser', component: NewUser, ...onboardingConfig },
   { name: 'restoreBackup', component: RestoreBackup, ...onboardingConfig },
+  { name: 'restoreReputation', component: RestoreReputation, ...onboardingConfig },
   { name: 'redesignWelcome', component: RedesignWelcome, ...invertedThemeConfig },
 ]
 

@@ -3,7 +3,8 @@ declare type RootStackParamList = {
   newUser: {
     referralCode?: string
   }
-  restoreBackup: undefined
+  restoreBackup: { tab: string } | undefined
+  restoreReputation: undefined
   wallet: undefined
   transactionHistory: undefined
   transactionDetails: {

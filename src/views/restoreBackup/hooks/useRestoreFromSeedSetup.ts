@@ -2,10 +2,9 @@ import { useCallback, useContext, useMemo, useState } from 'react'
 import { Keyboard } from 'react-native'
 import { MessageContext } from '../../../contexts/message'
 import { useNavigation, useValidatedState } from '../../../hooks'
-import { createAccount, deleteAccount, recoverAccount } from '../../../utils/account'
+import { createAccount, deleteAccount, recoverAccount, setAccount } from '../../../utils/account'
 import { storeAccount } from '../../../utils/account/storeAccount'
 import { auth } from '../../../utils/peachAPI'
-import { parseError } from '../../../utils/result'
 
 export const bip39WordRules = {
   requiredShort: true,
@@ -56,6 +55,7 @@ export const useRestoreFromSeedSetup = () => {
     if (!isMnemonicValid) return
 
     const recoveredAccount = await createAccount(mnemonic)
+    await setAccount(recoveredAccount, true)
 
     const [, authError] = await auth({})
     if (authError) {
