@@ -1,5 +1,4 @@
-import { ReactElement, useMemo } from 'react'
-import { IconType } from '../../../assets/icons'
+import { useMemo } from 'react'
 import { Icon } from '../../../components'
 import { SummaryItem } from '../../../components/lists/SummaryItem'
 import tw from '../../../styles/tailwind'
@@ -8,38 +7,32 @@ import { offerIdToHex } from '../../../utils/offer'
 import { useNavigateToOffer } from '../hooks/useNavigateToOffer'
 import { getOfferLevel, getThemeForTradeItem, isPastOffer, statusIcons } from '../utils'
 
-type OfferItemProps = ComponentProps & {
-  offer: OfferSummary
-  extended?: boolean
+type Props = {
+  offerSummary: OfferSummary
 }
 
-export const OfferItem = ({ offer, style }: OfferItemProps): ReactElement => {
-  const navigateToOffer = useNavigateToOffer(offer)
-  const theme = useMemo(() => getThemeForTradeItem(offer), [offer])
+export const OfferItem = ({ offerSummary }: Props) => {
+  const navigateToOffer = useNavigateToOffer(offerSummary)
+  const theme = useMemo(() => getThemeForTradeItem(offerSummary), [offerSummary])
 
-  return isPastOffer(offer.tradeStatus) ? (
+  return (
     <SummaryItem
-      style={style}
-      title={offerIdToHex(offer.id)}
-      amount={offer.amount}
-      theme="light"
-      level={theme.level as SummaryItemLevel}
-      icon={<Icon id={theme.icon as IconType} style={tw`w-4 h-4`} color={theme.color} />}
-      date={new Date(offer.creationDate)}
+      title={offerIdToHex(offerSummary.id)}
+      amount={offerSummary.amount}
+      level={isPastOffer(offerSummary.tradeStatus) ? theme.level : getOfferLevel(offerSummary)}
+      date={new Date(offerSummary.creationDate)}
+      theme={isPastOffer(offerSummary.tradeStatus) ? 'light' : undefined}
+      icon={
+        isPastOffer(offerSummary.tradeStatus) ? (
+          <Icon id={theme.icon} style={tw`w-4 h-4`} color={theme.color} />
+        ) : undefined
+      }
       action={{
         callback: navigateToOffer,
-      }}
-    />
-  ) : (
-    <SummaryItem
-      title={offerIdToHex(offer.id)}
-      amount={offer.amount}
-      level={getOfferLevel(offer)}
-      date={new Date(offer.creationDate)}
-      action={{
-        callback: navigateToOffer,
-        label: i18n(`offer.requiredAction.${offer.tradeStatus}`),
-        icon: statusIcons[offer.tradeStatus],
+        label: isPastOffer(offerSummary.tradeStatus)
+          ? undefined
+          : i18n(`offer.requiredAction.${offerSummary.tradeStatus}`),
+        icon: isPastOffer(offerSummary.tradeStatus) ? undefined : statusIcons[offerSummary.tradeStatus],
       }}
     />
   )
