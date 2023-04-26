@@ -35,11 +35,10 @@ export const useSubmitDisputeAcknowledgement = () => {
   const queryClient = useQueryClient()
   const showError = useShowErrorBanner()
   const showLoadingOverlay = useShowLoadingOverlay()
-  const { mutate: submitDisputeAcknowledgement } = useMutation({
-    onMutate: async ({ contractId, disputeReason, email }) => {
+  const { mutate: submitAcknowledgementMutation } = useMutation({
+    onMutate: async ({ contractId }) => {
       await queryClient.cancelQueries({ queryKey: ['contract', contractId] })
       const previousContract = queryClient.getQueryData<Contract>(['contract', contractId])
-      if (isEmailRequiredForDispute(disputeReason) && !isEmail(email)) return { previousContract }
       showLoadingOverlay({
         title: i18n('dispute.opened'),
         level: 'WARN',
@@ -90,6 +89,19 @@ export const useSubmitDisputeAcknowledgement = () => {
       queryClient.invalidateQueries(['contract', contractId])
     },
   })
+
+  const submitDisputeAcknowledgement = ({
+    contractId,
+    email,
+    disputeReason,
+  }: {
+    contractId: string
+    email: string
+    disputeReason: DisputeReason
+  }) => {
+    if (isEmailRequiredForDispute(disputeReason) && !isEmail(email)) return
+    submitAcknowledgementMutation({ contractId, email, disputeReason })
+  }
 
   return submitDisputeAcknowledgement
 }
