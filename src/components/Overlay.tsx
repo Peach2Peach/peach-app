@@ -1,5 +1,4 @@
-import { ReactElement, useContext, useEffect, useMemo } from 'react'
-import { BackHandler } from 'react-native'
+import { ReactElement, useContext, useMemo } from 'react'
 import { OverlayContext } from '../contexts/overlay'
 import { PopupContent } from './PopupContent'
 
@@ -14,17 +13,6 @@ export const Overlay = ({
 }: OverlayState): ReactElement => {
   const [, updateOverlay] = useContext(OverlayContext)
   const closeOverlay = useMemo(() => () => updateOverlay({ visible: false }), [updateOverlay])
-
-  useEffect(() => {
-    if (!content) return () => {}
-    const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
-      closeOverlay()
-      return true
-    })
-    return () => {
-      backHandler.remove()
-    }
-  }, [closeOverlay, content])
 
   return (
     <PopupContent

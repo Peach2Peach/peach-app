@@ -1,5 +1,5 @@
-import { ReactElement } from 'react'
-import { Modal, Pressable, View, ViewStyle } from 'react-native'
+import { ReactElement, useEffect } from 'react'
+import { BackHandler, Modal, Pressable, View, ViewStyle } from 'react-native'
 import { Text } from '.'
 import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
@@ -33,7 +33,7 @@ type Props = {
   content?: ReactElement
   action1?: Action
   action2?: Action
-  closeOverlay?: () => void
+  closeOverlay: () => void
   level?: Level
   requireUserAction?: boolean
 }
@@ -49,6 +49,18 @@ export const PopupContent = ({
 }: Props) => {
   const actionColor = level === 'WARN' ? tw`text-black-1` : tw`text-primary-background-light`
   const onBackgroundPress = !requireUserAction ? closeOverlay : null
+
+  useEffect(() => {
+    if (!content) return () => {}
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+      closeOverlay()
+      return true
+    })
+    return () => {
+      backHandler.remove()
+    }
+  }, [closeOverlay, content])
+
   return (
     <Modal transparent={true} visible={visible}>
       <View style={tw`items-center justify-center flex-1`}>
