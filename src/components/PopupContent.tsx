@@ -30,7 +30,7 @@ const levelColorMap: LevelColorMap = {
 type Props = {
   visible: boolean
   title?: string
-  content: ReactElement
+  content?: ReactElement
   action1?: Action
   action2?: Action
   closeOverlay?: () => void
