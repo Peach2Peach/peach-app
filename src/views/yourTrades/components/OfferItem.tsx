@@ -13,27 +13,28 @@ type Props = {
 
 export const OfferItem = ({ offerSummary }: Props) => {
   const navigateToOffer = useNavigateToOffer(offerSummary)
-  const theme = useMemo(() => getThemeForTradeItem(offerSummary), [offerSummary])
+  const tradeTheme = useMemo(() => getThemeForTradeItem(offerSummary), [offerSummary])
+  const isHistoryItem = isPastOffer(offerSummary.tradeStatus)
+
+  const level = isHistoryItem ? tradeTheme.level : getOfferLevel(offerSummary)
+  const theme = isHistoryItem ? 'light' : undefined
+  const icon = isHistoryItem ? <Icon id={tradeTheme.icon} style={tw`w-4 h-4`} color={tradeTheme.color} /> : undefined
+  const action = {
+    callback: navigateToOffer,
+    label: isHistoryItem ? undefined : i18n(`offer.requiredAction.${offerSummary.tradeStatus}`),
+
+    icon: isHistoryItem ? undefined : statusIcons[offerSummary.tradeStatus],
+  }
 
   return (
     <SummaryItem
       title={offerIdToHex(offerSummary.id)}
       amount={offerSummary.amount}
-      level={isPastOffer(offerSummary.tradeStatus) ? theme.level : getOfferLevel(offerSummary)}
+      level={level}
       date={new Date(offerSummary.creationDate)}
-      theme={isPastOffer(offerSummary.tradeStatus) ? 'light' : undefined}
-      icon={
-        isPastOffer(offerSummary.tradeStatus) ? (
-          <Icon id={theme.icon} style={tw`w-4 h-4`} color={theme.color} />
-        ) : undefined
-      }
-      action={{
-        callback: navigateToOffer,
-        label: isPastOffer(offerSummary.tradeStatus)
-          ? undefined
-          : i18n(`offer.requiredAction.${offerSummary.tradeStatus}`),
-        icon: isPastOffer(offerSummary.tradeStatus) ? undefined : statusIcons[offerSummary.tradeStatus],
-      }}
+      theme={theme}
+      icon={icon}
+      action={action}
     />
   )
 }
