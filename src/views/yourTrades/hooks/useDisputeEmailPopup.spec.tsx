@@ -7,9 +7,11 @@ import { useLocalContractStore } from '../../../store/useLocalContractStore'
 import DisputeRaisedNotice from '../../../overlays/dispute/components/DisputeRaisedNotice'
 import i18n from '../../../utils/i18n'
 import { defaultPopupState, usePopupStore } from '../../../store/usePopupStore'
+import { account1 } from '../../../../tests/unit/data/accountData'
+import { setAccount } from '../../../utils/account'
 
 const navigateMock = jest.fn()
-const NavigationWrapper = ({ children }) => (
+const NavigationWrapper = ({ children }: ComponentProps) => (
   <NavigationContext.Provider
     value={{ navigate: navigateMock, isFocused: () => true, addListener: jest.fn(() => jest.fn()) }}
   >
@@ -17,19 +19,21 @@ const NavigationWrapper = ({ children }) => (
   </NavigationContext.Provider>
 )
 
-const getContractMock = jest.fn(() => Promise.resolve([contract, null]))
+const getContractMock = jest.fn().mockResolvedValue([contract, null])
 jest.mock('../../../utils/peachAPI', () => ({
   getContract: (..._args: unknown[]) => getContractMock(),
 }))
 
 describe('useDisputeEmailPopup', () => {
-  const TestWrapper = ({ children }) => (
+  const TestWrapper = ({ children }: ComponentProps) => (
     <QueryClientWrapper>
       <NavigationWrapper>{children}</NavigationWrapper>
     </QueryClientWrapper>
   )
 
-  beforeEach(() => {
+  beforeEach(async () => {
+    await setAccount({ ...account1, contracts: [] }, true)
+
     jest.clearAllMocks()
     useLocalContractStore.getState().setContract({
       id: contract.id,
@@ -40,7 +44,8 @@ describe('useDisputeEmailPopup', () => {
   })
 
   it('should show the dispute email popup', async () => {
-    getContractMock.mockResolvedValueOnce([{ ...contract, disputeActive: true }, null])
+    const contractDisputeInitiatedByCP = { ...contract, disputeInitiator: 'someOtherAccount', disputeActive: true }
+    getContractMock.mockResolvedValueOnce([contractDisputeInitiatedByCP, null])
     const { result } = renderHook(() => useDisputeEmailPopup(contract.id), { wrapper: TestWrapper })
     await waitFor(() => {
       expect(queryClient.getQueryState(['contract', contract.id])?.status).toBe('success')
@@ -53,10 +58,11 @@ describe('useDisputeEmailPopup', () => {
       expect.objectContaining({
         title: i18n('dispute.opened'),
         level: 'WARN',
+        closePopup: expect.any(Function),
         content: (
           <DisputeRaisedNotice
-            view="buyer"
-            contract={{ ...contract, disputeActive: true }}
+            view="seller"
+            contract={contractDisputeInitiatedByCP}
             email=""
             setEmail={expect.any(Function)}
             disputeReason={'other'}
@@ -92,6 +98,22 @@ describe('useDisputeEmailPopup', () => {
       id: contract.id,
       hasSeenDisputeEmailPopup: true,
     })
+    const { result } = renderHook(() => useDisputeEmailPopup(contract.id), { wrapper: TestWrapper })
+    await waitFor(() => {
+      expect(queryClient.getQueryState(['contract', contract.id])?.status).toBe('success')
+    })
+    await act(async () => {
+      await result.current()
+    })
+
+    expect(usePopupStore.getState()).toStrictEqual(expect.objectContaining(defaultPopupState))
+  })
+  it('should not show the dispute email popup if the user initiated the dispute', async () => {
+    useLocalContractStore.getState().setContract({
+      id: contract.id,
+      hasSeenDisputeEmailPopup: false,
+    })
+    getContractMock.mockResolvedValueOnce([{ ...contract, disputeActive: true, disputeInitiator: account1.publicKey }])
     const { result } = renderHook(() => useDisputeEmailPopup(contract.id), { wrapper: TestWrapper })
     await waitFor(() => {
       expect(queryClient.getQueryState(['contract', contract.id])?.status).toBe('success')

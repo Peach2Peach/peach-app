@@ -14,7 +14,7 @@ export const useDisputeEmailPopup = (contractId: string) => {
   const { showDisputeRaisedNotice } = useDisputeRaisedNotice()
 
   const showDisputeEmailPopup = () => {
-    if (hasSeenEmailPopup || !contract?.disputeActive || account.publicKey === contract.disputeInitiator) return
+    if (hasSeenEmailPopup || !contract?.disputeActive || account.publicKey === contract?.disputeInitiator) return
     setHasSeenEmailPopup(contractId)
     showDisputeRaisedNotice(contract, getContractViewer(contract, account))
   }
