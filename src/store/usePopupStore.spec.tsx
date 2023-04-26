@@ -92,6 +92,11 @@ describe('usePopupStore', () => {
     usePopupStore.getState().setPopup()
     expect(usePopupStore.getState().visible).toBe(true)
   })
+  it('should not overwrite existing state even if some other params are passed', () => {
+    usePopupStore.getState().setPopup({ visible: false, title: 'Test' })
+    usePopupStore.getState().updatePopup({ visible: true })
+    expect(usePopupStore.getState().title).toBe('Test')
+  })
 })
 
 describe('usePopupStore - default state', () => {

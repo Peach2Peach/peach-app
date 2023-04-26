@@ -1,5 +1,6 @@
 import { ReactElement } from 'react'
 import { create } from 'zustand'
+import { isDefined } from '../utils/array/isDefined'
 
 type PopupState = {
   visible: boolean
@@ -47,12 +48,12 @@ export const usePopupStore = create<PopupStore>((set, get) => ({
     set({ visible: false })
   },
   updatePopup: (params) => {
-    const newVisible = params ? params?.visible : get().visible
-    const newContent = params ? params?.content : get().content
-    const newTitle = params ? params?.title : get().title
-    const newAction1 = params ? params?.action1 : get().action1
-    const newAction2 = params ? params?.action2 : get().action2
-    const newLevel = params ? params?.level : get().level
+    const newVisible = isDefined(params) && Object.hasOwn(params, 'visible') ? params?.visible : get().visible
+    const newContent = isDefined(params) && Object.hasOwn(params, 'content') ? params?.content : get().content
+    const newTitle = isDefined(params) && Object.hasOwn(params, 'title') ? params?.title : get().title
+    const newAction1 = isDefined(params) && Object.hasOwn(params, 'action1') ? params?.action1 : get().action1
+    const newAction2 = isDefined(params) && Object.hasOwn(params, 'action2') ? params?.action2 : get().action2
+    const newLevel = isDefined(params) && Object.hasOwn(params, 'level') ? params?.level : get().level
     set({
       visible: newVisible,
       content: newContent,
