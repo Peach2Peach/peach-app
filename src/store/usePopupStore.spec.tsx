@@ -7,7 +7,7 @@ describe('usePopupStore', () => {
   })
 
   it('should set visible to true', () => {
-    usePopupStore.getState().setPopup()
+    usePopupStore.getState().showPopup()
     expect(usePopupStore.getState().visible).toBe(true)
   })
   it('should set visible to false', () => {
