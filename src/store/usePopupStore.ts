@@ -19,22 +19,9 @@ export const defaultPopupState: PopupState = {
   level: 'DEFAULT',
 }
 type PopupStore = PopupState & {
-  showPopup: (params?: {
-    content?: ReactElement
-    title?: string
-    action1?: Action
-    action2?: Action
-    level?: Level
-  }) => void
+  showPopup: (params?: Omit<Partial<PopupState>, 'visible'>) => void
   closePopup: () => void
-  updatePopup: (params?: {
-    visible?: boolean
-    content?: ReactElement
-    title?: string
-    action1?: Action
-    action2?: Action
-    level?: Level
-  }) => void
+  updatePopup: (params?: Partial<PopupState>) => void
 }
 
 export const usePopupStore = create<PopupStore>((set, get) => ({
@@ -58,13 +45,14 @@ export const usePopupStore = create<PopupStore>((set, get) => ({
     set({ visible: false })
   },
   updatePopup: (params) => {
+    const newVisible = params ? params?.visible : get().visible
     const newContent = params ? params?.content : get().content
     const newTitle = params ? params?.title : get().title
     const newAction1 = params ? params?.action1 : get().action1
     const newAction2 = params ? params?.action2 : get().action2
     const newLevel = params ? params?.level : get().level
     set({
-      visible: true,
+      visible: newVisible,
       content: newContent,
       title: newTitle,
       action1: newAction1,
