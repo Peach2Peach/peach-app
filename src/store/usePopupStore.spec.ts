@@ -11,4 +11,8 @@ describe('usePopupStore', () => {
     expect(Object.getOwnPropertyNames(usePopupStore.getState())).toContain('content')
     expect(usePopupStore.getState().content).toBeUndefined()
   })
+  it('should set visible to true', () => {
+    usePopupStore.getState().showPopup()
+    expect(usePopupStore.getState().visible).toBe(true)
+  })
 })
