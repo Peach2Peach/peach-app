@@ -21,7 +21,7 @@ export const defaultPopupState: PopupState = {
   requireUserAction: false,
 }
 type PopupStore = PopupState & {
-  setPopup: (params?: Omit<Partial<PopupState>, 'visible'>) => void
+  setPopup: (params?: Partial<PopupState>) => void
   closePopup: () => void
   updatePopup: (params?: Partial<PopupState>) => void
 }
@@ -30,7 +30,7 @@ export const usePopupStore = create<PopupStore>((set, get) => ({
   ...defaultPopupState,
   setPopup: (params) => {
     set({
-      visible: true,
+      visible: params?.visible !== undefined ? params.visible : true,
       content: params?.content,
       title: params?.title || defaultPopupState.title,
       action1: params?.action1,

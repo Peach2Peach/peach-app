@@ -83,6 +83,15 @@ describe('usePopupStore', () => {
     usePopupStore.getState().setPopup()
     expect(usePopupStore.getState().requireUserAction).toBe(false)
   })
+  it('should set visible to false if specified in the params passed to setPopup', () => {
+    usePopupStore.getState().setPopup({ visible: false })
+    expect(usePopupStore.getState().visible).toBe(false)
+  })
+  it('should set visible to true if nothing is specified in the params passed to setPopup', () => {
+    usePopupStore.getState().setPopup({ visible: false })
+    usePopupStore.getState().setPopup()
+    expect(usePopupStore.getState().visible).toBe(true)
+  })
 })
 
 describe('usePopupStore - default state', () => {
