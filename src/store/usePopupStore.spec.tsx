@@ -1,7 +1,11 @@
 import { Text } from 'react-native'
-import { usePopupStore } from './usePopupStore'
+import { defaultPopupState, usePopupStore } from './usePopupStore'
 
 describe('usePopupStore', () => {
+  afterEach(() => {
+    usePopupStore.setState(defaultPopupState)
+  })
+
   it('should be defined', () => {
     expect(usePopupStore).toBeDefined()
   })
@@ -31,9 +35,9 @@ describe('usePopupStore', () => {
     usePopupStore.getState().showPopup()
     expect(usePopupStore.getState().content).toStrictEqual(<Content />)
   })
-  it('should have a title property that is undefined by default', () => {
+  it('should have a title property that is an empty string by default', () => {
     expect(Object.hasOwn(usePopupStore.getState(), 'title')).toBe(true)
-    expect(usePopupStore.getState().title).toBeUndefined()
+    expect(usePopupStore.getState().title).toBe('')
   })
   it('should update the title of a popup when passed to showPopup', () => {
     usePopupStore.getState().showPopup({ title: 'Test' })

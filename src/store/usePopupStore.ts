@@ -4,15 +4,15 @@ import { create } from 'zustand'
 type PopupState = {
   visible: boolean
   content: ReactElement | undefined
-  title: string | undefined
+  title: string
   action1: Action | undefined
   action2: Action | undefined
 }
 
-const defaultPopupState: PopupState = {
+export const defaultPopupState: PopupState = {
   visible: false,
   content: undefined,
-  title: undefined,
+  title: '',
   action1: undefined,
   action2: undefined,
 }
