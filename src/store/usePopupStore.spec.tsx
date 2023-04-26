@@ -35,4 +35,8 @@ describe('usePopupStore', () => {
     expect(Object.hasOwn(usePopupStore.getState(), 'title')).toBe(true)
     expect(usePopupStore.getState().title).toBeUndefined()
   })
+  it('should update the title of a popup when passed to showPopup', () => {
+    usePopupStore.getState().showPopup({ title: 'Test' })
+    expect(usePopupStore.getState().title).toBe('Test')
+  })
 })

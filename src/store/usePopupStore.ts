@@ -4,7 +4,7 @@ import { create } from 'zustand'
 type PopupState = {
   visible: boolean
   content: ReactElement | undefined
-  title: undefined
+  title: string | undefined
 }
 
 const defaultPopupState: PopupState = {
@@ -13,15 +13,16 @@ const defaultPopupState: PopupState = {
   title: undefined,
 }
 type PopupStore = PopupState & {
-  showPopup: (params?: { content?: ReactElement }) => void
+  showPopup: (params?: { content?: ReactElement; title?: string }) => void
   closePopup: () => void
 }
 
 export const usePopupStore = create<PopupStore>((set, get) => ({
   ...defaultPopupState,
-  showPopup: (params?: { content?: ReactElement }) => {
+  showPopup: (params) => {
     const newContent = params ? params?.content : get().content
-    set({ visible: true, content: newContent })
+    const newTitle = params ? params?.title : get().title
+    set({ visible: true, content: newContent, title: newTitle })
   },
   closePopup: () => {
     set({ visible: false })
