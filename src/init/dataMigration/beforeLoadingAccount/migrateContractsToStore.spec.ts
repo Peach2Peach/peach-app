@@ -31,7 +31,7 @@ describe('migrateContractsToStore', () => {
     expect(useLocalContractStore.getState().contracts).toStrictEqual({
       id: {
         id: 'id',
-        hasSeenDisputeEmailPopup: false,
+        hasSeenDisputeEmailPopup: true,
         error: undefined,
         disputeResultAcknowledged: false,
         cancelConfirmationPending: false,
@@ -39,7 +39,7 @@ describe('migrateContractsToStore', () => {
       },
       id2: {
         id: 'id2',
-        hasSeenDisputeEmailPopup: false,
+        hasSeenDisputeEmailPopup: true,
         error: undefined,
         disputeResultAcknowledged: false,
         cancelConfirmationPending: false,

@@ -45,7 +45,7 @@ describe('useDisputeRaisedNotice', () => {
     expect(usePopupStore.getState()).toStrictEqual(
       expect.objectContaining({
         action1: {
-          callback: disputeOverlayActions.submitAndGoToContract,
+          callback: disputeOverlayActions.submitAndClose,
           icon: 'arrowRightCircle',
           label: i18n('send'),
         },
@@ -131,17 +131,5 @@ describe('useDisputeRaisedNotice', () => {
       email: '',
     })
     expect(replaceMock).toHaveBeenCalledWith('contractChat', { contractId: contract.id })
-  })
-  it('overlay action submits acknowledgement and goes to contract', async () => {
-    const { result } = renderHook(useDisputeRaisedNotice)
-    const disputeOverlayActions = result.current.showDisputeRaisedNotice(contract, 'seller')
-
-    await disputeOverlayActions.submitAndGoToContract()
-    expect(submitDisputeAcknowledgementMock).toHaveBeenCalledWith({
-      contractId: contract.id,
-      disputeReason: 'other',
-      email: '',
-    })
-    expect(replaceMock).toHaveBeenCalledWith('contract', { contractId: contract.id })
   })
 })
