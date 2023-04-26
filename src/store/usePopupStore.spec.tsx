@@ -59,4 +59,8 @@ describe('usePopupStore', () => {
     usePopupStore.getState().showPopup()
     expect(usePopupStore.getState().action1).toStrictEqual(action)
   })
+  it('should have an action2 property that is undefined by default', () => {
+    expect(Object.hasOwn(usePopupStore.getState(), 'action2')).toBe(true)
+    expect(usePopupStore.getState().action2).toBeUndefined()
+  })
 })

@@ -6,6 +6,7 @@ type PopupState = {
   content: ReactElement | undefined
   title: string | undefined
   action1: Action | undefined
+  action2: Action | undefined
 }
 
 const defaultPopupState: PopupState = {
@@ -13,6 +14,7 @@ const defaultPopupState: PopupState = {
   content: undefined,
   title: undefined,
   action1: undefined,
+  action2: undefined,
 }
 type PopupStore = PopupState & {
   showPopup: (params?: { content?: ReactElement; title?: string; action1?: Action }) => void
