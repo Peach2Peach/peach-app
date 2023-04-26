@@ -98,4 +98,9 @@ describe('usePopupStore', () => {
     usePopupStore.getState().updatePopup({ visible: true })
     expect(usePopupStore.getState().visible).toBe(true)
   })
+  it('should not overwrite existing popup state when no params are passed to updatePopup', () => {
+    usePopupStore.getState().updatePopup({ visible: true })
+    usePopupStore.getState().updatePopup()
+    expect(usePopupStore.getState().visible).toBe(true)
+  })
 })
