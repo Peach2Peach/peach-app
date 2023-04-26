@@ -48,4 +48,15 @@ describe('usePopupStore', () => {
     expect(Object.hasOwn(usePopupStore.getState(), 'action1')).toBe(true)
     expect(usePopupStore.getState().action1).toBeUndefined()
   })
+  it('should update the action1 of a popup when passed to showPopup', () => {
+    const action = { label: 'Test', callback: () => {} }
+    usePopupStore.getState().showPopup({ action1: action })
+    expect(usePopupStore.getState().action1).toStrictEqual(action)
+  })
+  it('should not overwrite existing action1 when no action1 is passed to showPopup', () => {
+    const action = { label: 'Test', callback: () => {} }
+    usePopupStore.getState().showPopup({ action1: action })
+    usePopupStore.getState().showPopup()
+    expect(usePopupStore.getState().action1).toStrictEqual(action)
+  })
 })
