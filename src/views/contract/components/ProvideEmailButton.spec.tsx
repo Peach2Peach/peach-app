@@ -30,13 +30,21 @@ describe('ProvideEmailButton', () => {
         level: 'WARN',
         content: (
           <DisputeRaisedNotice
-            submit={expect.any(Function)}
             contract={contract}
             view={'buyer'}
             email={''}
             setEmail={expect.any(Function)}
-            emailErrors={['this field is required', 'email is not valid']}
             disputeReason={'other'}
+            action1={{
+              callback: expect.any(Function),
+              icon: 'messageCircle',
+              label: 'go to chat',
+            }}
+            action2={{
+              callback: expect.any(Function),
+              icon: 'xSquare',
+              label: 'close',
+            }}
           />
         ),
         visible: true,

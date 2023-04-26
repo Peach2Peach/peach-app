@@ -32,35 +32,38 @@ export const useDisputeRaisedNotice = () => {
         navigation.replace('contract', { contractId: contract.id })
       }
 
+      const action2 = !isEmailRequiredForDispute(contract.disputeReason ?? 'other')
+        ? {
+          label: i18n('close'),
+          icon: 'xSquare',
+          callback: submit,
+        }
+        : undefined
+
+      const action1 = isEmailRequiredForDispute(contract.disputeReason ?? 'other')
+        ? {
+          label: i18n('send'),
+          icon: 'arrowRightCircle',
+          callback: submitAndGoToContract,
+        }
+        : {
+          label: i18n('goToChat'),
+          icon: 'messageCircle',
+          callback: submitAndGoToChat,
+        }
+
       setPopup({
         title: i18n('dispute.opened'),
         level: 'WARN',
         content: (
           <DisputeRaisedNotice
-            submit={submitDisputeAcknowledgement}
-            {...{ contract, view, email, setEmail, emailErrors }}
+            {...{ contract, view, email, setEmail, action1, action2 }}
             disputeReason={contract.disputeReason ?? 'other'}
           />
         ),
         visible: true,
-        action2: !isEmailRequiredForDispute(contract.disputeReason ?? 'other')
-          ? {
-            label: i18n('close'),
-            icon: 'xSquare',
-            callback: submit,
-          }
-          : undefined,
-        action1: isEmailRequiredForDispute(contract.disputeReason ?? 'other')
-          ? {
-            label: i18n('send'),
-            icon: 'arrowRightCircle',
-            callback: submitAndGoToContract,
-          }
-          : {
-            label: i18n('goToChat'),
-            icon: 'messageCircle',
-            callback: submitAndGoToChat,
-          },
+        action2,
+        action1,
       })
 
       return {
@@ -69,7 +72,7 @@ export const useDisputeRaisedNotice = () => {
         submitAndGoToContract,
       }
     },
-    [email, emailErrors, navigation, setEmail, setPopup, submitDisputeAcknowledgement],
+    [email, navigation, setEmail, setPopup, submitDisputeAcknowledgement],
   )
 
   return {

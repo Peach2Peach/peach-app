@@ -54,10 +54,14 @@ describe('useDisputeRaisedNotice', () => {
             contract={noPaymentContract}
             disputeReason={disputeReason}
             email={result.current.email}
-            emailErrors={result.current.emailErrors}
             setEmail={result.current.setEmail}
-            submit={submitDisputeAcknowledgementMock}
             view="seller"
+            action1={{
+              callback: expect.any(Function),
+              icon: 'arrowRightCircle',
+              label: 'send',
+            }}
+            action2={undefined}
           />
         ),
         level: 'WARN',
@@ -87,10 +91,18 @@ describe('useDisputeRaisedNotice', () => {
             contract={contract}
             disputeReason="other"
             email={result.current.email}
-            emailErrors={result.current.emailErrors}
             setEmail={result.current.setEmail}
-            submit={submitDisputeAcknowledgementMock}
             view="seller"
+            action1={{
+              callback: expect.any(Function),
+              icon: 'messageCircle',
+              label: 'go to chat',
+            }}
+            action2={{
+              callback: expect.any(Function),
+              icon: 'xSquare',
+              label: 'close',
+            }}
           />
         ),
         level: 'WARN',

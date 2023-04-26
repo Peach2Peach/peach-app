@@ -1,41 +1,76 @@
-import { UseMutateFunction } from '@tanstack/react-query'
-import { useState } from 'react'
 import { View } from 'react-native'
 import { Text } from '../../../components'
 import { EmailInput } from '../../../components/inputs/EmailInput'
+import { useNavigation, useValidatedState } from '../../../hooks'
+import { usePopupStore } from '../../../store/usePopupStore'
 import tw from '../../../styles/tailwind'
 import { contractIdToHex } from '../../../utils/contract'
 import { isEmailRequiredForDispute } from '../../../utils/dispute'
 import i18n from '../../../utils/i18n'
 import { thousands } from '../../../utils/string'
+import { useSubmitDisputeAcknowledgement } from '../hooks/helpers/useSubmitDisputeAcknowledgement'
 
 declare type DisputeRaisedNoticeProps = {
   contract: Contract
   view: ContractViewer
   disputeReason: DisputeReason
-  submit: UseMutateFunction<
-    APISuccess,
-    Error,
-    {
-      email: string
-      disputeReason: DisputeReason
-      contractId: string
-    },
-    {
-      previousContract: Contract | undefined
-    }
-  >
   email: string
   setEmail: Function
-  emailErrors: string[] | undefined
+  action1: Action
+  action2?: Action
 }
+const emailRules = { required: true, email: true }
 
-export default ({ contract, view, disputeReason, submit, email, setEmail, emailErrors }: DisputeRaisedNoticeProps) => {
-  const [emailValue, setEmailValue] = useState<string>(email)
+export default ({ contract, view, disputeReason, email, setEmail }: DisputeRaisedNoticeProps) => {
+  const [emailValue, setEmailValue, , emailErrors] = useValidatedState<string>(email, emailRules)
+  const navigation = useNavigation()
+  const submitDisputeAcknowledgement = useSubmitDisputeAcknowledgement()
 
+  const updatePopup = usePopupStore((state) => state.updatePopup)
+
+  const onSubmit = () => {
+    submitDisputeAcknowledgement({ contractId: contract.id, disputeReason, email: emailValue })
+  }
+
+  const submitAndGoToChat = async () => {
+    await onSubmit()
+    navigation.replace('contractChat', { contractId: contract.id })
+  }
+  const submitAndGoToContract = async () => {
+    await onSubmit()
+    navigation.replace('contract', { contractId: contract.id })
+  }
   const onChange = (value: string) => {
     setEmailValue(value)
     setEmail(value)
+    // update the actions in the popup
+    const action2 = (
+      !isEmailRequiredForDispute(contract.disputeReason ?? 'other')
+        ? {
+          label: i18n('close'),
+          icon: 'xSquare',
+          callback: onSubmit,
+        }
+        : undefined
+    ) satisfies Action | undefined
+
+    const action1 = (
+      isEmailRequiredForDispute(contract.disputeReason ?? 'other')
+        ? {
+          label: i18n('send'),
+          icon: 'arrowRightCircle',
+          callback: submitAndGoToContract,
+        }
+        : {
+          label: i18n('goToChat'),
+          icon: 'messageCircle',
+          callback: submitAndGoToChat,
+        }
+    ) satisfies Action
+    updatePopup({
+      action1,
+      action2,
+    })
   }
 
   return (
@@ -64,9 +99,7 @@ export default ({ contract, view, disputeReason, submit, email, setEmail, emailE
           <EmailInput
             style={tw`bg-warning-background`}
             onChange={onChange}
-            onSubmit={() => {
-              submit({ contractId: contract.id, disputeReason, email: emailValue })
-            }}
+            onSubmit={onSubmit}
             value={emailValue}
             errorMessage={emailErrors}
           />

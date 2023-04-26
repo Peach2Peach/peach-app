@@ -3,6 +3,7 @@ import { Keyboard } from 'react-native'
 import { useOverlayContext } from '../../../../contexts/overlay'
 import { useShowErrorBanner } from '../../../../hooks/useShowErrorBanner'
 import { useShowLoadingOverlay } from '../../../../hooks/useShowLoadingOverlay'
+import { usePopupStore } from '../../../../store/usePopupStore'
 import { account } from '../../../../utils/account'
 import { getChat, saveChat } from '../../../../utils/chat'
 import { initDisputeSystemMessages } from '../../../../utils/chat/initDisputeSystemMessages'
@@ -29,7 +30,9 @@ const acknowledgeDisputeMutation = async (contractId: string, email: string, dis
 }
 
 export const useSubmitDisputeAcknowledgement = () => {
+  // TODO: remove update overlay here
   const [, updateOverlay] = useOverlayContext()
+  const closePopup = usePopupStore((state) => state.closePopup)
   const queryClient = useQueryClient()
   const showError = useShowErrorBanner()
   const showLoadingOverlay = useShowLoadingOverlay()
@@ -84,6 +87,7 @@ export const useSubmitDisputeAcknowledgement = () => {
     },
     onSettled: (_data, _error, { contractId }) => {
       updateOverlay({ visible: false })
+      closePopup()
       queryClient.invalidateQueries(['contract', contractId])
     },
   })
