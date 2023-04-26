@@ -103,4 +103,8 @@ describe('usePopupStore', () => {
     usePopupStore.getState().updatePopup()
     expect(usePopupStore.getState().visible).toBe(true)
   })
+  it('should have a requireUserAction property that is false by default', () => {
+    expect(Object.hasOwn(usePopupStore.getState(), 'requireUserAction')).toBe(true)
+    expect(usePopupStore.getState().requireUserAction).toBe(false)
+  })
 })

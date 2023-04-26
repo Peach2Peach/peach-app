@@ -8,6 +8,7 @@ type PopupState = {
   action1: Action | undefined
   action2: Action | undefined
   level: Level
+  requireUserAction: boolean
 }
 
 export const defaultPopupState: PopupState = {
@@ -17,6 +18,7 @@ export const defaultPopupState: PopupState = {
   action1: undefined,
   action2: undefined,
   level: 'DEFAULT',
+  requireUserAction: false,
 }
 type PopupStore = PopupState & {
   setPopup: (params?: Omit<Partial<PopupState>, 'visible'>) => void
