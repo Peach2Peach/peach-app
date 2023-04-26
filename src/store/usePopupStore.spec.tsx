@@ -29,11 +29,11 @@ describe('usePopupStore', () => {
     usePopupStore.getState().setPopup({ content: <Content /> })
     expect(usePopupStore.getState().content).toStrictEqual(<Content />)
   })
-  it('should not overwrite existing content when no content is passed to setPopup', () => {
+  it('should overwrite existing content when no content is passed to setPopup', () => {
     const Content = () => <Text>Test</Text>
     usePopupStore.getState().setPopup({ content: <Content /> })
     usePopupStore.getState().setPopup()
-    expect(usePopupStore.getState().content).toStrictEqual(<Content />)
+    expect(usePopupStore.getState().content).toStrictEqual(undefined)
   })
   it('should have a title property that is an empty string by default', () => {
     expect(Object.hasOwn(usePopupStore.getState(), 'title')).toBe(true)
@@ -43,10 +43,10 @@ describe('usePopupStore', () => {
     usePopupStore.getState().setPopup({ title: 'Test' })
     expect(usePopupStore.getState().title).toBe('Test')
   })
-  it('should not overwrite existing title when no title is passed to setPopup', () => {
+  it('should overwrite existing title when no title is passed to setPopup', () => {
     usePopupStore.getState().setPopup({ title: 'Test' })
     usePopupStore.getState().setPopup()
-    expect(usePopupStore.getState().title).toBe('Test')
+    expect(usePopupStore.getState().title).toBe('')
   })
   it('should have an action1 property that is undefined by default', () => {
     expect(Object.hasOwn(usePopupStore.getState(), 'action1')).toBe(true)
@@ -57,11 +57,11 @@ describe('usePopupStore', () => {
     usePopupStore.getState().setPopup({ action1: action })
     expect(usePopupStore.getState().action1).toStrictEqual(action)
   })
-  it('should not overwrite existing action1 when no action1 is passed to setPopup', () => {
+  it('should overwrite existing action1 when no action1 is passed to setPopup', () => {
     const action = { label: 'Test', callback: () => {} }
     usePopupStore.getState().setPopup({ action1: action })
     usePopupStore.getState().setPopup()
-    expect(usePopupStore.getState().action1).toStrictEqual(action)
+    expect(usePopupStore.getState().action1).toStrictEqual(undefined)
   })
   it('should have an action2 property that is undefined by default', () => {
     expect(Object.hasOwn(usePopupStore.getState(), 'action2')).toBe(true)
@@ -72,11 +72,11 @@ describe('usePopupStore', () => {
     usePopupStore.getState().setPopup({ action2: action })
     expect(usePopupStore.getState().action2).toStrictEqual(action)
   })
-  it('should not overwrite existing action2 when no action2 is passed to setPopup', () => {
+  it('should overwrite existing action2 when no action2 is passed to setPopup', () => {
     const action = { label: 'Test', callback: () => {} }
     usePopupStore.getState().setPopup({ action2: action })
     usePopupStore.getState().setPopup()
-    expect(usePopupStore.getState().action2).toStrictEqual(action)
+    expect(usePopupStore.getState().action2).toStrictEqual(undefined)
   })
   it('should have a level property that is "DEFAULT" by default', () => {
     expect(Object.hasOwn(usePopupStore.getState(), 'level')).toBe(true)
@@ -86,10 +86,10 @@ describe('usePopupStore', () => {
     usePopupStore.getState().setPopup({ level: 'SUCCESS' })
     expect(usePopupStore.getState().level).toBe('SUCCESS')
   })
-  it('should not overwrite existing level when no level is passed to setPopup', () => {
+  it('should overwrite existing level when no level is passed to setPopup', () => {
     usePopupStore.getState().setPopup({ level: 'SUCCESS' })
     usePopupStore.getState().setPopup()
-    expect(usePopupStore.getState().level).toBe('SUCCESS')
+    expect(usePopupStore.getState().level).toBe('DEFAULT')
   })
   it('should have an updatePopup function', () => {
     expect(usePopupStore.getState().updatePopup).toBeDefined()
