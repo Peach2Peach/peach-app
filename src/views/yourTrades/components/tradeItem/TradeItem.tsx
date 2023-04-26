@@ -1,9 +1,9 @@
 import { useMemo } from 'react'
-import { Icon } from '../../../components'
-import tw from '../../../styles/tailwind'
-import { ContractItem } from '../components/ContractItem'
-import { OfferItem } from '../components/OfferItem'
-import { getThemeForTradeItem, isContractSummary, isPastOffer } from '../utils'
+import { Icon } from '../../../../components'
+import tw from '../../../../styles/tailwind'
+import { ContractItem } from './ContractItem'
+import { OfferItem } from './OfferItem'
+import { getThemeForTradeItem, isContractSummary, isPastOffer } from '../../utils'
 
 type TradeItemProps = {
   item: TradeSummary

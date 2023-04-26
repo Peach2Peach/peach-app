@@ -1,13 +1,14 @@
 import { View, ViewStyle } from 'react-native'
-import { SummaryItem } from '../../../components/lists/SummaryItem'
-import tw from '../../../styles/tailwind'
-import { contractIdToHex } from '../../../utils/contract'
-import i18n from '../../../utils/i18n'
-import { isIOS } from '../../../utils/system'
-import { useNavigateToContract } from '../hooks/useNavigateToContract'
-import { isPastOffer, statusIcons } from '../utils'
-import { TradeTheme } from '../utils/getThemeForTradeItem'
-import { ChatMessages } from './ChatMessages'
+import { SummaryItem } from '../../../../components/lists/SummaryItem'
+import tw from '../../../../styles/tailwind'
+import { contractIdToHex } from '../../../../utils/contract'
+import i18n from '../../../../utils/i18n'
+import { isIOS } from '../../../../utils/system'
+import { useNavigateToContract } from '../../hooks/useNavigateToContract'
+import { isPastOffer, statusIcons } from '../../utils'
+import { TradeTheme } from '../../utils/getThemeForTradeItem'
+import { ChatMessages } from '../ChatMessages'
+import { getLevel } from './utils/getLevel'
 
 export const colors: Record<SummaryItemLevel, ViewStyle> = {
   APP: tw`text-primary-main`,
@@ -51,7 +52,7 @@ export const ContractItem = ({ contractSummary, tradeTheme, icon }: Props) => {
       <SummaryItem
         title={contractIdToHex(id)}
         {...{ amount, currency, price, icon, theme, action }}
-        level={tradeTheme.level}
+        level={getLevel(tradeTheme)}
         date={new Date(paymentMade || creationDate)}
       />
 

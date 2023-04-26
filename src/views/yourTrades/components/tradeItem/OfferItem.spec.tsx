@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react-native'
 import { NavigationContainer } from '@react-navigation/native'
-import { QueryClientWrapper } from '../../../../tests/unit/helpers/QueryClientWrapper'
+import { QueryClientWrapper } from '../../../../../tests/unit/helpers/QueryClientWrapper'
 import { TradeItem } from './TradeItem'
 
 const TestWrapper = ({ children }: { children: React.ReactNode }) => (

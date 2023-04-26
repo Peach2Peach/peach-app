@@ -1,9 +1,9 @@
 import { ContractItem } from './ContractItem'
 import { render } from '@testing-library/react-native'
 import { NavigationContainer } from '@react-navigation/native'
-import { QueryClientWrapper } from '../../../../tests/unit/helpers/QueryClientWrapper'
-import { setAccount } from '../../../utils/account'
-import { account1 } from '../../../../tests/unit/data/accountData'
+import { QueryClientWrapper } from '../../../../../tests/unit/helpers/QueryClientWrapper'
+import { setAccount } from '../../../../utils/account'
+import { account1 } from '../../../../../tests/unit/data/accountData'
 import { TradeItem } from './TradeItem'
 
 const TestWrapper = ({ children }: { children: React.ReactNode }) => (
