@@ -919,87 +919,80 @@ exports[`ContractItem should render correctly with unread messages 1`] = `
   </View>
   <View
     style={
-      {
-        "bottom": 0,
-        "marginBottom": 2,
-        "paddingBottom": 8,
-        "paddingLeft": 12,
-        "paddingRight": 12,
-        "paddingTop": 8,
-        "position": "absolute",
-        "right": 0,
-      }
+      [
+        {
+          "alignItems": "center",
+          "height": 20,
+          "justifyContent": "center",
+          "width": 20,
+        },
+        {
+          "bottom": 0,
+          "marginBottom": 10,
+          "marginLeft": 12,
+          "marginRight": 12,
+          "marginTop": 10,
+          "position": "absolute",
+          "right": 0,
+        },
+      ]
     }
   >
-    <View
+    <test-file-stub
+      fill="#FFFCFA"
       style={
         [
           {
-            "alignItems": "center",
-            "height": 20,
-            "justifyContent": "center",
-            "width": 20,
+            "height": 24,
+            "width": 24,
           },
-          undefined,
+          {
+            "height": "100%",
+            "width": "100%",
+          },
         ]
       }
-    >
-      <test-file-stub
-        fill="#FFFCFA"
-        style={
+    />
+    <Text
+      allowFontScaling={false}
+      ellipsizeMode="clip"
+      numberOfLines={1}
+      style={
+        [
+          {
+            "color": "#2B1911",
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 24,
+          },
           [
             {
-              "height": 24,
-              "width": 24,
-            },
-            {
-              "height": "100%",
-              "width": "100%",
-            },
-          ]
-        }
-      />
-      <Text
-        allowFontScaling={false}
-        ellipsizeMode="clip"
-        numberOfLines={1}
-        style={
-          [
-            {
-              "color": "#2B1911",
+              "color": "#F56522",
               "fontFamily": "Baloo2-Regular",
-              "fontSize": 16,
-              "letterSpacing": 0.16,
-              "lineHeight": 24,
+              "fontSize": 14,
+              "fontWeight": "bold",
+              "letterSpacing": 0.14,
+              "lineHeight": 20,
+              "paddingBottom": 2,
+              "position": "absolute",
+              "textAlign": "center",
             },
             [
               {
                 "color": "#F56522",
-                "fontFamily": "Baloo2-Regular",
-                "fontSize": 14,
-                "fontWeight": "bold",
-                "letterSpacing": 0.14,
-                "lineHeight": 20,
-                "paddingBottom": 2,
-                "position": "absolute",
-                "textAlign": "center",
               },
-              [
-                {
-                  "color": "#F56522",
-                },
-                {
-                  "paddingLeft": 2,
-                  "paddingTop": 4,
-                },
-              ],
+              {
+                "paddingLeft": 2,
+                "paddingTop": 4,
+              },
             ],
-          ]
-        }
-      >
-        1
-      </Text>
-    </View>
+          ],
+        ]
+      }
+    >
+      1
+    </Text>
   </View>
 </View>
 `;
