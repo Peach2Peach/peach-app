@@ -1,7 +1,7 @@
-import { OfferItem } from './OfferItem'
 import { render } from '@testing-library/react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import { QueryClientWrapper } from '../../../../tests/unit/helpers/QueryClientWrapper'
+import { TradeItem } from './TradeItem'
 
 const TestWrapper = ({ children }: { children: React.ReactNode }) => (
   <QueryClientWrapper>
@@ -24,11 +24,11 @@ describe('OfferItem', () => {
   }
 
   it('should render correctly', () => {
-    const { toJSON } = render(<OfferItem offerSummary={defaultOffer} />, { wrapper: TestWrapper })
+    const { toJSON } = render(<TradeItem item={defaultOffer} />, { wrapper: TestWrapper })
     expect(toJSON()).toMatchSnapshot()
   })
   it('should render correctly if it\'s a past offer', () => {
-    const { toJSON } = render(<OfferItem offerSummary={{ ...defaultOffer, tradeStatus: 'tradeCompleted' }} />, {
+    const { toJSON } = render(<TradeItem item={{ ...defaultOffer, tradeStatus: 'tradeCompleted' }} />, {
       wrapper: TestWrapper,
     })
     expect(toJSON()).toMatchSnapshot()

@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import { QueryClientWrapper } from '../../../../tests/unit/helpers/QueryClientWrapper'
 import { setAccount } from '../../../utils/account'
 import { account1 } from '../../../../tests/unit/data/accountData'
+import { TradeItem } from './TradeItem'
 
 const TestWrapper = ({ children }: { children: React.ReactNode }) => (
   <QueryClientWrapper>
@@ -32,15 +33,17 @@ describe('ContractItem', () => {
   })
 
   it('should render correctly', () => {
-    const { toJSON } = render(<ContractItem contract={contract} />, { wrapper: TestWrapper })
+    const { toJSON } = render(<TradeItem item={contract} />, { wrapper: TestWrapper })
     expect(toJSON()).toMatchSnapshot()
   })
   it('should render correctly with unread messages', () => {
-    const { toJSON } = render(<ContractItem contract={{ ...contract, unreadMessages: 1 }} />, { wrapper: TestWrapper })
+    const { toJSON } = render(<TradeItem item={{ ...contract, unreadMessages: 1 }} />, {
+      wrapper: TestWrapper,
+    })
     expect(toJSON()).toMatchSnapshot()
   })
   it('should render correctly with past contract', () => {
-    const { toJSON } = render(<ContractItem contract={{ ...contract, tradeStatus: 'tradeCompleted' }} />, {
+    const { toJSON } = render(<TradeItem item={{ ...contract, tradeStatus: 'tradeCompleted' }} />, {
       wrapper: TestWrapper,
     })
     expect(toJSON()).toMatchSnapshot()

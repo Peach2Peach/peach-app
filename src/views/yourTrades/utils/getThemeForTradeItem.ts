@@ -5,9 +5,13 @@ import { getDisputeResultTheme } from './getDisputeResultTheme'
 import { getOfferLevel } from './getOfferLevel'
 import { isContractSummary } from './isContractSummary'
 
-export const getThemeForTradeItem = (
-  trade: ContractSummary | OfferSummary,
-): { icon: IconType; level: SummaryItemLevel; color: ColorValue | undefined } => {
+export type TradeTheme = {
+  icon: IconType
+  level: SummaryItemLevel
+  color: ColorValue | undefined
+}
+
+export const getThemeForTradeItem = (trade: ContractSummary | OfferSummary): TradeTheme => {
   const level = getOfferLevel(trade)
 
   if (isContractSummary(trade)) {
