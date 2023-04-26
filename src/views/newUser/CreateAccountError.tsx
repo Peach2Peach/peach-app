@@ -6,7 +6,7 @@ import { PrimaryButton } from '../../components/buttons'
 import { useNavigation } from '../../hooks'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { useCreateAccountErrorHeader } from './useCreateAccountErrorHeader'
+import { useCreateAccountErrorHeader } from './hooks/useCreateAccountErrorHeader'
 
 type CreateAccountErrorProps = {
   err: string

@@ -1,4 +1,5 @@
 export { createRandomWallet } from './createRandomWallet'
+export { createWalletFromPrivateKey } from './createWalletFromPrivateKey'
 export { createWalletFromSeedPhrase } from './createWalletFromSeedPhrase'
 export { getEscrowWallet } from './getEscrowWallet'
 export { getFinalScript } from './getFinalScript'

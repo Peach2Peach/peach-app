@@ -21,8 +21,5 @@ export const createAccount = async (seedPhrase?: string): Promise<Account> => {
       publicKey: recipient.publicKey,
     },
   }
-
-  await setAccount(newAccount, true)
-
   return newAccount
 }
