@@ -5,7 +5,11 @@ type PopupStore = {
   content: undefined
 }
 
-export const usePopupStore = create<PopupStore>(() => ({
+const defaultPopupState = {
   visible: false,
   content: undefined,
+}
+
+export const usePopupStore = create<PopupStore>(() => ({
+  ...defaultPopupState,
 }))
