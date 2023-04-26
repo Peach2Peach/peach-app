@@ -68,4 +68,10 @@ describe('usePopupStore', () => {
     usePopupStore.getState().showPopup({ action2: action })
     expect(usePopupStore.getState().action2).toStrictEqual(action)
   })
+  it('should not overwrite existing action2 when no action2 is passed to showPopup', () => {
+    const action = { label: 'Test', callback: () => {} }
+    usePopupStore.getState().showPopup({ action2: action })
+    usePopupStore.getState().showPopup()
+    expect(usePopupStore.getState().action2).toStrictEqual(action)
+  })
 })
