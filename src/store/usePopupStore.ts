@@ -19,14 +19,14 @@ export const defaultPopupState: PopupState = {
   level: 'DEFAULT',
 }
 type PopupStore = PopupState & {
-  showPopup: (params?: Omit<Partial<PopupState>, 'visible'>) => void
+  setPopup: (params?: Omit<Partial<PopupState>, 'visible'>) => void
   closePopup: () => void
   updatePopup: (params?: Partial<PopupState>) => void
 }
 
 export const usePopupStore = create<PopupStore>((set, get) => ({
   ...defaultPopupState,
-  showPopup: (params) => {
+  setPopup: (params) => {
     const newContent = params ? params?.content : get().content
     const newTitle = params ? params?.title : get().title
     const newAction1 = params ? params?.action1 : get().action1
