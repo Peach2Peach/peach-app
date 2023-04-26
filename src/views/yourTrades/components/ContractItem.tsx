@@ -26,17 +26,7 @@ type Props = {
 }
 
 export const ContractItem = ({ contractSummary, tradeTheme, icon }: Props) => {
-  const {
-    currency,
-    price,
-    amount,
-    tradeStatus,
-    unreadMessages = 3,
-    type,
-    paymentMade,
-    creationDate,
-    id,
-  } = contractSummary
+  const { currency, price, amount, tradeStatus, unreadMessages, type, paymentMade, creationDate, id } = contractSummary
   const navigateToContract = useNavigateToContract(contractSummary)
   const status = tradeTheme.level === 'WAITING' ? 'waiting' : tradeStatus
   const counterparty = type === 'bid' ? 'seller' : 'buyer'
