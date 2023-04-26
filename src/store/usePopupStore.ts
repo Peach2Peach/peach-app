@@ -1,15 +1,17 @@
 import { create } from 'zustand'
 
-type PopupStore = {
+type PopupState = {
   visible: boolean
   content: undefined
-  showPopup: () => void
-  closePopup: () => void
 }
 
-const defaultPopupState = {
+const defaultPopupState: PopupState = {
   visible: false,
   content: undefined,
+}
+type PopupStore = PopupState & {
+  showPopup: () => void
+  closePopup: () => void
 }
 
 export const usePopupStore = create<PopupStore>((set) => ({
