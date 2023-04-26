@@ -31,7 +31,7 @@ describe('useDisputeRaisedNotice', () => {
   })
 
   it('returns interface', () => {
-    const { result } = renderHook(() => useDisputeRaisedNotice())
+    const { result } = renderHook(useDisputeRaisedNotice)
     expect(result.current.showDisputeRaisedNotice).toBeInstanceOf(Function)
     expect(result.current.email).toBe('')
     expect(result.current.setEmail).toBeInstanceOf(Function)
@@ -44,7 +44,7 @@ describe('useDisputeRaisedNotice', () => {
       ...contract,
       disputeReason,
     }
-    const { result } = renderHook(() => useDisputeRaisedNotice())
+    const { result } = renderHook(useDisputeRaisedNotice)
     const disputeOverlayActions = result.current.showDisputeRaisedNotice(noPaymentContract, 'seller')
 
     expect(updateOverlayMock).toHaveBeenCalledWith({
@@ -70,7 +70,7 @@ describe('useDisputeRaisedNotice', () => {
     })
   })
   it('opens dispute raised popup for seller without email required', () => {
-    const { result } = renderHook(() => useDisputeRaisedNotice())
+    const { result } = renderHook(useDisputeRaisedNotice)
     const disputeOverlayActions = result.current.showDisputeRaisedNotice(contract, 'seller')
 
     expect(updateOverlayMock).toHaveBeenCalledWith({
@@ -101,7 +101,7 @@ describe('useDisputeRaisedNotice', () => {
     })
   })
   it('overlay action submits acknowledgement', async () => {
-    const { result } = renderHook(() => useDisputeRaisedNotice())
+    const { result } = renderHook(useDisputeRaisedNotice)
     const disputeOverlayActions = result.current.showDisputeRaisedNotice(contract, 'seller')
     await disputeOverlayActions.submitAndClose()
     expect(submitDisputeAcknowledgementMock).toHaveBeenCalledWith({
@@ -111,7 +111,7 @@ describe('useDisputeRaisedNotice', () => {
     })
   })
   it('overlay action submits acknowledgement and goes to chat', async () => {
-    const { result } = renderHook(() => useDisputeRaisedNotice())
+    const { result } = renderHook(useDisputeRaisedNotice)
     const disputeOverlayActions = result.current.showDisputeRaisedNotice(contract, 'seller')
     await disputeOverlayActions.submitAndGoToChat()
     expect(submitDisputeAcknowledgementMock).toHaveBeenCalledWith({
@@ -122,7 +122,7 @@ describe('useDisputeRaisedNotice', () => {
     expect(replaceMock).toHaveBeenCalledWith('contractChat', { contractId: contract.id })
   })
   it('overlay action submits acknowledgement and goes to contract', async () => {
-    const { result } = renderHook(() => useDisputeRaisedNotice())
+    const { result } = renderHook(useDisputeRaisedNotice)
     const disputeOverlayActions = result.current.showDisputeRaisedNotice(contract, 'seller')
 
     await disputeOverlayActions.submitAndGoToContract()
