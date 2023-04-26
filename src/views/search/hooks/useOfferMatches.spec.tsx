@@ -6,7 +6,7 @@ import { useOfferMatches } from './useOfferMatches'
 
 const getMatchesMock = jest
   .fn()
-  .mockImplementation((...args) => Promise.resolve([{ matches: ['match'], nextPage: undefined }, null]))
+  .mockImplementation((..._args) => Promise.resolve([{ matches: ['match'], nextPage: undefined }, null]))
 const getOfferDetailsMock = jest.fn().mockResolvedValue([buyOffer, null])
 jest.mock('../../../utils/peachAPI', () => ({
   getOfferDetails: () => getOfferDetailsMock(),
@@ -123,7 +123,7 @@ describe('useOfferMatches', () => {
   })
 
   it('should return matches for a funded sell offer', async () => {
-    getMatchesMock.mockImplementation((...args) => Promise.resolve([{ matches: ['match'], remainingMatches: 0 }, null]))
+    getMatchesMock.mockImplementation((..._args) => Promise.resolve([{ matches: ['match'], remainingMatches: 0 }, null]))
     getOfferDetailsMock.mockResolvedValueOnce([
       {
         ...sellOffer,

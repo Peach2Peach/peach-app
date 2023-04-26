@@ -6,7 +6,7 @@ import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { offerIdToHex } from '../../../utils/offer'
 import { useNavigateToOffer } from '../hooks/useNavigateToOffer'
-import { getOfferLevel, getThemeForPastTrade, isPastOffer, statusIcons } from '../utils'
+import { getOfferLevel, getThemeForTradeItem, isPastOffer, statusIcons } from '../utils'
 
 type OfferItemProps = ComponentProps & {
   offer: OfferSummary
@@ -15,12 +15,12 @@ type OfferItemProps = ComponentProps & {
 
 export const OfferItem = ({ offer, style }: OfferItemProps): ReactElement => {
   const navigateToOffer = useNavigateToOffer(offer)
-  const theme = useMemo(() => getThemeForPastTrade(offer), [offer])
+  const theme = useMemo(() => getThemeForTradeItem(offer), [offer])
 
   return isPastOffer(offer.tradeStatus) ? (
     <SummaryItem
       style={style}
-      title={offerIdToHex(offer.id as Offer['id'])}
+      title={offerIdToHex(offer.id)}
       amount={offer.amount}
       theme="light"
       level={theme.level as SummaryItemLevel}
@@ -32,7 +32,7 @@ export const OfferItem = ({ offer, style }: OfferItemProps): ReactElement => {
     />
   ) : (
     <SummaryItem
-      title={offerIdToHex(offer.id as Offer['id'])}
+      title={offerIdToHex(offer.id)}
       amount={offer.amount}
       level={getOfferLevel(offer)}
       date={new Date(offer.creationDate)}

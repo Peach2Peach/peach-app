@@ -76,7 +76,7 @@ exports[`FundEscrow should render the FundEscrow view 1`] = `
       <BitcoinAddress
         address="123"
         amount={0.001}
-        label="Peach Escrow - offer P-7B"
+        label="Peach Escrow - offer P‑7B"
         style={
           {
             "marginTop": 16,

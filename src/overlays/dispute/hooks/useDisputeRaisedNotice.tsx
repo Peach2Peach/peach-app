@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
-import { useOverlayContext } from '../../../contexts/overlay'
 import { useNavigation, useValidatedState } from '../../../hooks'
+import { usePopupStore } from '../../../store/usePopupStore'
 import { isEmailRequiredForDispute } from '../../../utils/dispute'
 import i18n from '../../../utils/i18n'
 import DisputeRaisedNotice from '../components/DisputeRaisedNotice'
@@ -10,66 +10,64 @@ const emailRules = { required: true, email: true }
 
 export const useDisputeRaisedNotice = () => {
   const navigation = useNavigation()
-  const [, updateOverlay] = useOverlayContext()
+  const setPopup = usePopupStore((state) => state.setPopup)
   const [email, setEmail, , emailErrors] = useValidatedState<string>('', emailRules)
   const submitDisputeAcknowledgement = useSubmitDisputeAcknowledgement()
 
   const showDisputeRaisedNotice = useCallback(
     (contract: Contract, view: ContractViewer) => {
-      const submitAndClose = async () => {
-        await submitDisputeAcknowledgement(contract, contract.disputeReason || 'other', email)
+      const submit = async () => {
+        await submitDisputeAcknowledgement({
+          contractId: contract.id,
+          disputeReason: contract.disputeReason || 'other',
+          email,
+        })
       }
       const submitAndGoToChat = async () => {
-        await submitDisputeAcknowledgement(contract, contract.disputeReason || 'other', email)
+        await submit()
         navigation.replace('contractChat', { contractId: contract.id })
       }
-      const submitAndGoToContract = async () => {
-        await submitDisputeAcknowledgement(contract, contract.disputeReason || 'other', email)
-        navigation.replace('contract', { contractId: contract.id })
-      }
 
-      updateOverlay({
+      const action2 = !isEmailRequiredForDispute(contract.disputeReason ?? 'other')
+        ? {
+          label: i18n('close'),
+          icon: 'xSquare',
+          callback: submit,
+        }
+        : undefined
+
+      const action1 = isEmailRequiredForDispute(contract.disputeReason ?? 'other')
+        ? {
+          label: i18n('send'),
+          icon: 'arrowRightCircle',
+          callback: submit,
+        }
+        : {
+          label: i18n('goToChat'),
+          icon: 'messageCircle',
+          callback: submitAndGoToChat,
+        }
+
+      setPopup({
         title: i18n('dispute.opened'),
         level: 'WARN',
         content: (
           <DisputeRaisedNotice
-            submit={submitDisputeAcknowledgement}
-            contract={contract}
-            view={view}
-            email={email}
-            setEmail={setEmail}
-            emailErrors={emailErrors}
+            {...{ contract, view, email, setEmail, action1, action2 }}
             disputeReason={contract.disputeReason ?? 'other'}
           />
         ),
         visible: true,
-        action2: !isEmailRequiredForDispute(contract.disputeReason ?? 'other')
-          ? {
-            label: i18n('close'),
-            icon: 'xSquare',
-            callback: submitAndClose,
-          }
-          : undefined,
-        action1: isEmailRequiredForDispute(contract.disputeReason ?? 'other')
-          ? {
-            label: i18n('send'),
-            icon: 'arrowRightCircle',
-            callback: submitAndGoToContract,
-          }
-          : {
-            label: i18n('goToChat'),
-            icon: 'messageCircle',
-            callback: submitAndGoToChat,
-          },
+        action2,
+        action1,
       })
 
       return {
-        submitAndClose,
+        submitAndClose: submit,
         submitAndGoToChat,
-        submitAndGoToContract,
       }
     },
-    [email, emailErrors, navigation, setEmail, submitDisputeAcknowledgement, updateOverlay],
+    [email, navigation, setEmail, setPopup, submitDisputeAcknowledgement],
   )
 
   return {

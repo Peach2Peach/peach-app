@@ -1,5 +1,6 @@
 import { getCategories } from './getCategories'
 
+// eslint-disable-next-line max-lines-per-function
 describe('getCategories', () => {
   it('returns the correct categories with non-empty data', () => {
     const trades: Partial<TradeSummary>[] = [
@@ -57,6 +58,18 @@ describe('getCategories', () => {
       {
         title: 'waiting',
         data: [{ type: 'bid', tradeStatus: 'searchingForPeer', unreadMessages: 2 }],
+      },
+    ])
+  })
+
+  it('should return data for trades that have an error status', () => {
+    const trades = [{ type: 'ask', tradeStatus: 'dispute', unreadMessages: 0 }]
+
+    const result = getCategories(trades as TradeSummary[])
+    expect(result).toEqual([
+      {
+        title: 'priority',
+        data: [{ type: 'ask', tradeStatus: 'dispute', unreadMessages: 0 }],
       },
     ])
   })

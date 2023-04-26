@@ -18,7 +18,7 @@ describe('initDisputeSystemMessages', () => {
     from: 'system',
     message: [
       i18n('chat.systemMessage.provideMoreInformation.1'),
-      i18n('chat.systemMessage.provideMoreInformation.2', 'PC-7B-1C8'),
+      i18n('chat.systemMessage.provideMoreInformation.2', 'PC‑7B‑1C8'),
     ].join('\n\n'),
     readBy: [''],
     roomId,

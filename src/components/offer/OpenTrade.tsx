@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useRef } from 'react'
-import { ScrollView, View } from 'react-native'
+import { useMemo } from 'react'
+import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { getPaymentDataByMethod } from '../../utils/offer'

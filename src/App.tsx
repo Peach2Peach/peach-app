@@ -10,7 +10,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import RNRestart from 'react-native-restart'
 import { enableScreens } from 'react-native-screens'
 
-import { AvoidKeyboard, Footer, Header, Drawer, Message, Overlay } from './components'
+import { AvoidKeyboard, Footer, Header, Drawer, Message, Overlay, Popup } from './components'
 import tw from './styles/tailwind'
 import i18n from './utils/i18n'
 import { getViews } from './views'
@@ -27,7 +27,7 @@ import { setUnhandledPromiseRejectionTracker } from 'react-native-promise-reject
 import { shallow } from 'zustand/shallow'
 import { Background } from './components/background/Background'
 import { ISEMULATOR, TIMETORESTART } from './constants'
-import appStateEffect from './effects/appStateEffect'
+import { useAppStateEffect } from './effects/useAppStateEffect'
 import { useUpdateTradingAmounts } from './hooks'
 import { useMessageHandler } from './hooks/notifications/useMessageHandler'
 import { useHandleNotifications } from './hooks/notifications/usePushHandleNotifications'
@@ -91,25 +91,22 @@ const usePartialAppSetup = () => {
   const [setPrices, setCurrency] = useBitcoinStore((state) => [state.setPrices, state.setCurrency], shallow)
   useCheckTradeNotifications()
 
-  useEffect(
-    appStateEffect({
-      callback: (isActive) => {
-        setActive(isActive)
-        if (isActive) {
-          getPeachInfo()
-          if (account?.publicKey) {
-            getTrades()
-          }
-          analytics().logAppOpen()
+  const appStateCallback = useCallback((isActive: boolean) => {
+    setActive(isActive)
+    if (isActive) {
+      getPeachInfo()
+      if (account?.publicKey) {
+        getTrades()
+      }
+      analytics().logAppOpen()
 
-          clearTimeout(goHomeTimeout)
-        } else {
-          goHomeTimeout = setTimeout(() => RNRestart.Restart(), TIMETORESTART)
-        }
-      },
-    }),
-    [],
-  )
+      clearTimeout(goHomeTimeout)
+    } else {
+      goHomeTimeout = setTimeout(() => RNRestart.Restart(), TIMETORESTART)
+    }
+  }, [])
+
+  useAppStateEffect(appStateCallback)
 
   useEffect(() => {
     if (!active) return () => {}
@@ -252,6 +249,7 @@ const App = () => {
                           previousDrawer={previousDrawer}
                         />
                         <Overlay {...overlayState} />
+                        <Popup />
                         <SafeAreaView>
                           <View style={tw`flex-col h-full`}>
                             {!!messageState.msgKey && (

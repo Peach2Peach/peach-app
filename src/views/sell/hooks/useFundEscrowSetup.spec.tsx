@@ -2,7 +2,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import { renderHook, waitFor } from '@testing-library/react-native'
 import { account1 } from '../../../../tests/unit/data/accountData'
 import { sellOffer } from '../../../../tests/unit/data/offerData'
-import { QueryClientWrapper } from '../../../../tests/unit/helpers/QueryClientWrapper'
+import { queryClient, QueryClientWrapper } from '../../../../tests/unit/helpers/QueryClientWrapper'
 import { useHeaderState } from '../../../components/header/store'
 import { setAccount } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
@@ -80,6 +80,7 @@ describe('useFundEscrowSetup', () => {
   })
   afterEach(async () => {
     jest.clearAllMocks()
+    queryClient.clear()
   })
 
   it('should return default values', () => {
