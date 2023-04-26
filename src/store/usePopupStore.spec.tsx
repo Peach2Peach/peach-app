@@ -91,4 +91,7 @@ describe('usePopupStore', () => {
     usePopupStore.getState().showPopup()
     expect(usePopupStore.getState().level).toBe('SUCCESS')
   })
+  it('should have an updatePopup function', () => {
+    expect(usePopupStore.getState().updatePopup).toBeDefined()
+  })
 })

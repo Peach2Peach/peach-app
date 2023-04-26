@@ -49,4 +49,5 @@ export const usePopupStore = create<PopupStore>((set, get) => ({
   closePopup: () => {
     set({ visible: false })
   },
+  updatePopup: () => {},
 }))
