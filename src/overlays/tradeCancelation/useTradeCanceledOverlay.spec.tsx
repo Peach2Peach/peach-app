@@ -234,4 +234,22 @@ describe('useTradeCanceledOverlay', () => {
     result.current.showTradeCanceled(contract, true)
     expect(updateOverlayMock).not.toHaveBeenCalled()
   })
+  it('does not show trade cancel overlay if sell offer has already been refunded', () => {
+    getSellOfferFromContractMock.mockReturnValueOnce({ ...sellOffer, refunded: true })
+    const { result } = renderHook(useTradeCanceledOverlay)
+    result.current.showTradeCanceled(contract, true)
+    expect(updateOverlayMock).not.toHaveBeenCalled()
+  })
+  it('does not show trade cancel overlay if escrow has already been released', () => {
+    getSellOfferFromContractMock.mockReturnValueOnce({ ...sellOffer, released: true })
+    const { result } = renderHook(useTradeCanceledOverlay)
+    result.current.showTradeCanceled(contract, true)
+    expect(updateOverlayMock).not.toHaveBeenCalled()
+  })
+  it('does not show trade cancel overlay if sell offer has already been re-published', () => {
+    getSellOfferFromContractMock.mockReturnValueOnce({ ...sellOffer, newOfferId: '4' })
+    const { result } = renderHook(useTradeCanceledOverlay)
+    result.current.showTradeCanceled(contract, true)
+    expect(updateOverlayMock).not.toHaveBeenCalled()
+  })
 })
