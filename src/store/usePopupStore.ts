@@ -36,6 +36,7 @@ export const usePopupStore = create<PopupStore>((set, get) => ({
       action1: params?.action1,
       action2: params?.action2,
       level: params?.level || defaultPopupState.level,
+      requireUserAction: params?.requireUserAction || defaultPopupState.requireUserAction,
     })
   },
   closePopup: () => {

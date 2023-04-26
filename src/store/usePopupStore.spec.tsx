@@ -1,6 +1,7 @@
 import { Text } from 'react-native'
 import { defaultPopupState, usePopupStore } from './usePopupStore'
 
+// eslint-disable-next-line max-statements
 describe('usePopupStore', () => {
   afterEach(() => {
     usePopupStore.setState(defaultPopupState)
@@ -105,6 +106,15 @@ describe('usePopupStore', () => {
   })
   it('should have a requireUserAction property that is false by default', () => {
     expect(Object.hasOwn(usePopupStore.getState(), 'requireUserAction')).toBe(true)
+    expect(usePopupStore.getState().requireUserAction).toBe(false)
+  })
+  it('should update the requireUserAction of a popup when passed to setPopup', () => {
+    usePopupStore.getState().setPopup({ requireUserAction: true })
+    expect(usePopupStore.getState().requireUserAction).toBe(true)
+  })
+  it('should overwrite existing requireUserAction when no requireUserAction is passed to setPopup', () => {
+    usePopupStore.getState().setPopup({ requireUserAction: true })
+    usePopupStore.getState().setPopup()
     expect(usePopupStore.getState().requireUserAction).toBe(false)
   })
 })
