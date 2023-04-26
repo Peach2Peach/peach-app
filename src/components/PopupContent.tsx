@@ -44,7 +44,7 @@ export const PopupContent = ({
   action1,
   action2,
   closeOverlay,
-  level,
+  level = 'DEFAULT',
   requireUserAction,
 }: Props) => {
   const actionColor = level === 'WARN' ? tw`text-black-1` : tw`text-primary-background-light`
