@@ -26,7 +26,8 @@ type Props = {
 }
 
 export const ContractItem = ({ contractSummary, tradeTheme, icon }: Props) => {
-  const { currency, price, amount, tradeStatus, unreadMessages, type, paymentMade, creationDate, id } = contractSummary
+  const { currency, price, amount, tradeStatus, type, paymentMade, creationDate, id } = contractSummary
+  const unreadMessages = 3
   const navigateToContract = useNavigateToContract(contractSummary)
   const status = tradeTheme.level === 'WAITING' ? 'waiting' : tradeStatus
   const counterparty = type === 'bid' ? 'seller' : 'buyer'
@@ -56,12 +57,11 @@ export const ContractItem = ({ contractSummary, tradeTheme, icon }: Props) => {
       />
 
       {unreadMessages > 0 && (
-        <View style={tw`absolute bottom-0 right-0 mb-0.5 py-2 px-3`}>
-          <ChatMessages
-            messages={unreadMessages}
-            textStyle={[colors[tradeTheme.level], isIOS() ? tw`pt-1 pl-2px` : tw`pl-2px`]}
-          />
-        </View>
+        <ChatMessages
+          style={tw`absolute bottom-0 right-0 my-2.5 mx-3`}
+          messages={unreadMessages}
+          textStyle={[colors[tradeTheme.level], isIOS() ? tw`pt-1 pl-2px` : tw`pl-2px`]}
+        />
       )}
     </View>
   )
