@@ -24,9 +24,10 @@ type Props = {
   contractSummary: ContractSummary
   tradeTheme: TradeTheme
   icon: JSX.Element | undefined
+  theme: 'light' | undefined
 }
 
-export const ContractItem = ({ contractSummary, tradeTheme, icon }: Props) => {
+export const ContractItem = ({ contractSummary, tradeTheme, icon, theme }: Props) => {
   const { currency, price, amount, tradeStatus, type, paymentMade, creationDate, id, unreadMessages } = contractSummary
   const navigateToContract = useNavigateToContract(contractSummary)
   const status = tradeTheme.level === 'WAITING' ? 'waiting' : tradeStatus
@@ -41,7 +42,6 @@ export const ContractItem = ({ contractSummary, tradeTheme, icon }: Props) => {
       : i18n(`offer.requiredAction.${status}`)
   }
 
-  const theme = isPastOffer(tradeStatus) ? 'light' : undefined
   const action = {
     callback: navigateToContract,
     label: getActionLabel(),

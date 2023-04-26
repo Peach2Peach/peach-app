@@ -13,10 +13,11 @@ export const TradeItem = ({ item }: TradeItemProps) => {
   const icon = isPastOffer(item.tradeStatus) ? (
     <Icon id={tradeTheme.icon} style={tw`w-4 h-4`} color={tradeTheme.color} />
   ) : undefined
+  const theme = isPastOffer(item.tradeStatus) ? 'light' : undefined
 
   return isContractSummary(item) ? (
-    <ContractItem key={item.id} contractSummary={item} {...{ tradeTheme, icon }} />
+    <ContractItem key={item.id} contractSummary={item} {...{ tradeTheme, icon, theme }} />
   ) : (
-    <OfferItem key={item.id} offerSummary={item} {...{ tradeTheme, icon }} />
+    <OfferItem key={item.id} offerSummary={item} {...{ tradeTheme, icon, theme }} />
   )
 }

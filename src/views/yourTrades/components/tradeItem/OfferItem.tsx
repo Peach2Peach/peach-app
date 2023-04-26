@@ -10,15 +10,15 @@ type Props = {
   offerSummary: OfferSummary
   tradeTheme: TradeTheme
   icon: JSX.Element | undefined
+  theme: 'light' | undefined
 }
 
-export const OfferItem = ({ offerSummary, tradeTheme, icon }: Props) => {
+export const OfferItem = ({ offerSummary, tradeTheme, icon, theme }: Props) => {
   const { tradeStatus, amount, creationDate, id } = offerSummary
   const navigateToOffer = useNavigateToOffer(offerSummary)
   const isHistoryItem = isPastOffer(tradeStatus)
 
   const level = getLevel(tradeTheme, offerSummary, isHistoryItem)
-  const theme = isHistoryItem ? 'light' : undefined
   const action = {
     callback: navigateToOffer,
     label: isHistoryItem ? undefined : i18n(`offer.requiredAction.${tradeStatus}`),
