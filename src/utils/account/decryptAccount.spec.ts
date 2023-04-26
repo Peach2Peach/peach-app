@@ -1,13 +1,9 @@
 import { deepStrictEqual, ok } from 'assert'
-import { decryptAccount, setAccount } from '.'
-import * as accountData from '../../../tests/unit/data/accountData'
 import CryptoJS from 'react-native-crypto-js'
+import { decryptAccount } from '.'
+import * as accountData from '../../../tests/unit/data/accountData'
 
 describe('decryptAccount', () => {
-  beforeAll(async () => {
-    await setAccount(accountData.account1)
-  })
-
   it('would decrypt recovery account', async () => {
     CryptoJS.AES.decrypt = jest.fn().mockImplementationOnce((data) => data)
     const [recoveredAccount, err] = await decryptAccount({

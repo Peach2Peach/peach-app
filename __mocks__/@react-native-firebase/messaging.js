@@ -6,6 +6,7 @@ const messaging = jest.fn(() => ({
   hasPermission: hasPermissionMock,
   onMessage: jest.fn(),
   onNotificationOpenedApp: jest.fn(),
+  getToken: jest.fn(() => 'testMessagingToken'),
 }))
 
 messaging.AuthorizationStatus = {

@@ -1,6 +1,6 @@
 import analytics from '@react-native-firebase/analytics'
 
-import { defaultAccount, setAccount } from '.'
+import { defaultAccount } from '.'
 import { notificationStorage, notificationStore } from '../../components/footer/notificationsStore'
 import { configStore } from '../../store/configStore'
 import { settingsStorage, settingsStore } from '../../store/settingsStore'
@@ -13,11 +13,12 @@ import { accountStorage } from './accountStorage'
 import { chatStorage } from './chatStorage'
 import { contractStorage } from './contractStorage'
 import { offerStorage } from './offerStorage'
+import { updateAccount } from './updateAccount'
 
 export const deleteAccount = async () => {
   info('Deleting account')
 
-  setAccount(defaultAccount, true)
+  updateAccount(defaultAccount, true)
   ;[
     accountStorage,
     walletStorage,

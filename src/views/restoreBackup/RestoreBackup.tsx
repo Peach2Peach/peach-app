@@ -4,7 +4,7 @@ import { View } from 'react-native'
 import { TabbedNavigation, TabbedNavigationItem } from '../../components/navigation/TabbedNavigation'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { useBackupHeader } from './useBackupHeader'
+import { useBackupHeader } from './hooks/useBackupHeader'
 import RestoreFromFile from './RestoreFromFile'
 import RestoreFromSeed from './RestoreFromSeed'
 

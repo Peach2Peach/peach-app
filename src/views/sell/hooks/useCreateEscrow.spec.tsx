@@ -2,7 +2,7 @@ import { renderHook, waitFor } from '@testing-library/react-native'
 import { account1 } from '../../../../tests/unit/data/accountData'
 import { sellOffer } from '../../../../tests/unit/data/offerData'
 import { QueryClientWrapper } from '../../../../tests/unit/helpers/QueryClientWrapper'
-import { setAccount } from '../../../utils/account'
+import { updateAccount } from '../../../utils/account'
 import { defaultFundingStatus } from '../../../utils/offer/constants'
 import { useCreateEscrow } from './useCreateEscrow'
 
@@ -30,7 +30,7 @@ jest.mock('../../../hooks/useShowErrorBanner', () => ({
 
 describe('useCreateEscrow', () => {
   beforeEach(async () => {
-    await setAccount(account1)
+    await updateAccount(account1, true)
   })
   afterEach(() => {
     jest.clearAllMocks()

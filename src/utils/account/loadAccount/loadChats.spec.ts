@@ -5,7 +5,7 @@ import * as accountData from '../../../../tests/unit/data/accountData'
 
 describe('loadChats', () => {
   beforeEach(async () => {
-    await setAccount(defaultAccount, true)
+    await setAccount(defaultAccount)
   })
   it('loads all chats', async () => {
     await storeChats(accountData.buyer.chats)
