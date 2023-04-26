@@ -39,4 +39,13 @@ describe('usePopupStore', () => {
     usePopupStore.getState().showPopup({ title: 'Test' })
     expect(usePopupStore.getState().title).toBe('Test')
   })
+  it('should not overwrite existing title when no title is passed to showPopup', () => {
+    usePopupStore.getState().showPopup({ title: 'Test' })
+    usePopupStore.getState().showPopup()
+    expect(usePopupStore.getState().title).toBe('Test')
+  })
+  it('should have an action1 property that is undefined by default', () => {
+    expect(Object.hasOwn(usePopupStore.getState(), 'action1')).toBe(true)
+    expect(usePopupStore.getState().action1).toBeUndefined()
+  })
 })
