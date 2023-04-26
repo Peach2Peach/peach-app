@@ -2,15 +2,13 @@ import { View, ViewStyle } from 'react-native'
 import { SummaryItem } from '../../../../components/lists/SummaryItem'
 import tw from '../../../../styles/tailwind'
 import { contractIdToHex } from '../../../../utils/contract'
-import i18n from '../../../../utils/i18n'
 import { isIOS } from '../../../../utils/system'
 import { useNavigateToContract } from '../../hooks/useNavigateToContract'
-import { isPastOffer, statusIcons } from '../../utils'
 import { TradeTheme } from '../../utils/getThemeForTradeItem'
 import { ChatMessages } from '../ChatMessages'
-import { getLevel } from './utils/getLevel'
+import { getAction, getLevel } from './utils'
 
-export const colors: Record<SummaryItemLevel, ViewStyle> = {
+const colors: Record<SummaryItemLevel, ViewStyle> = {
   APP: tw`text-primary-main`,
   SUCCESS: tw`text-success-main`,
   WARN: tw`text-black-1`,
@@ -28,32 +26,18 @@ type Props = {
 }
 
 export const ContractItem = ({ contractSummary, tradeTheme, icon, theme }: Props) => {
-  const { currency, price, amount, tradeStatus, type, paymentMade, creationDate, id, unreadMessages } = contractSummary
+  const { tradeStatus, paymentMade, creationDate, id, unreadMessages } = contractSummary
   const navigateToContract = useNavigateToContract(contractSummary)
   const status = tradeTheme.level === 'WAITING' ? 'waiting' : tradeStatus
-  const counterparty = type === 'bid' ? 'seller' : 'buyer'
 
-  const getActionLabel = () => {
-    if (isPastOffer(tradeStatus)) {
-      return unreadMessages > 0 ? i18n('yourTrades.newMessages') : undefined
-    }
-    return status === 'waiting' || status === 'rateUser'
-      ? i18n(`offer.requiredAction.${status}.${counterparty}`)
-      : i18n(`offer.requiredAction.${status}`)
-  }
-
-  const action = {
-    callback: navigateToContract,
-    label: getActionLabel(),
-    icon: isPastOffer(tradeStatus) ? undefined : statusIcons[status],
-  }
   return (
     <View>
       <SummaryItem
         title={contractIdToHex(id)}
-        {...{ amount, currency, price, icon, theme, action }}
         level={getLevel(tradeTheme)}
         date={new Date(paymentMade || creationDate)}
+        action={getAction(contractSummary, navigateToContract, status)}
+        {...{ ...contractSummary, icon, theme }}
       />
 
       {unreadMessages > 0 && (

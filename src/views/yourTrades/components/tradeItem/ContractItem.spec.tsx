@@ -1,4 +1,3 @@
-import { ContractItem } from './ContractItem'
 import { render } from '@testing-library/react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import { QueryClientWrapper } from '../../../../../tests/unit/helpers/QueryClientWrapper'
