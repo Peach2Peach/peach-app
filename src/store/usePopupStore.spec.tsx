@@ -9,7 +9,7 @@ describe('usePopupStore', () => {
     expect(usePopupStore.getState().visible).toBe(false)
   })
   it('should have a content property that is undefined by default', () => {
-    expect(Object.getOwnPropertyNames(usePopupStore.getState())).toContain('content')
+    expect(Object.hasOwn(usePopupStore.getState(), 'content')).toBe(true)
     expect(usePopupStore.getState().content).toBeUndefined()
   })
   it('should set visible to true', () => {
@@ -30,5 +30,9 @@ describe('usePopupStore', () => {
     usePopupStore.getState().showPopup({ content: <Content /> })
     usePopupStore.getState().showPopup()
     expect(usePopupStore.getState().content).toStrictEqual(<Content />)
+  })
+  it('should have a title property that is undefined by default', () => {
+    expect(Object.hasOwn(usePopupStore.getState(), 'title')).toBe(true)
+    expect(usePopupStore.getState().title).toBeUndefined()
   })
 })
