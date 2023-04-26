@@ -1,54 +1,54 @@
 import { API_URL } from '@env'
-import { crypto } from 'bitcoinjs-lib'
 import { RequestProps } from '../..'
 import { UNIQUEID } from '../../../../constants'
 import fetch from '../../../fetch'
 import { getAbortWithTimeout } from '../../../getAbortWithTimeout'
 import { error, info } from '../../../log'
 import { setAccessToken } from '../../accessToken'
-import { getAuthenticationChallenge } from '../../getAuthenticationChallenge'
 import { getResponseError } from '../../getResponseError'
-import { getPeachAccount } from '../../peachAccount'
 import { getPublicHeaders } from '../../public/getPublicHeaders'
-import { handleMissingPeachAccount } from './handleMissingPeachAccount'
 import { TOKENNOTFOUNDERROR } from './constants'
 
-type Props = RequestProps
+type Props = RequestProps & {
+  publicKey: string
+  message: string
+  signature: string
+}
 
-export const auth = async ({ timeout }: Props): Promise<[AccessToken | null, APIError | null]> => {
-  const peachAccount = getPeachAccount()
-  const message = getAuthenticationChallenge()
-
-  if (!peachAccount) return handleMissingPeachAccount()
-
+export const register = async ({
+  publicKey,
+  message,
+  signature,
+  timeout,
+}: Props): Promise<[RegisterResponseBody | null, APIError | null]> => {
   try {
-    const response = await fetch(`${API_URL}/v1/user/auth/`, {
+    const response = await fetch(`${API_URL}/v1/user/register/`, {
       headers: getPublicHeaders(),
       method: 'POST',
       body: JSON.stringify({
-        publicKey: peachAccount.publicKey.toString('hex'),
+        publicKey,
         uniqueId: UNIQUEID,
         message,
-        signature: peachAccount.sign(crypto.sha256(Buffer.from(message))).toString('hex'),
+        signature,
       }),
       signal: timeout ? getAbortWithTimeout(timeout).signal : undefined,
     })
     const responseError = getResponseError(response)
     if (responseError) return [null, { error: responseError }]
 
-    const result = response?.json ? ((await response.json()) as AccessToken | APIError) : null
+    const result = response?.json ? ((await response.json()) as RegisterResponseBody | APIError) : null
 
     if (result && 'accessToken' in result) {
       setAccessToken(result)
-      info('peachAPI - auth - SUCCESS', peachAccount.publicKey.toString('hex'), result)
+      info('peachAPI - register - SUCCESS', publicKey, result)
       return [result, null]
     } else if (result) {
       const errorMessage = (result as APIError).error
-      error('peachAPI - auth - FAILED', errorMessage)
+      error('peachAPI - register - FAILED', errorMessage)
       return [null, result as APIError]
     }
 
-    error('peachAPI - auth - FAILED', TOKENNOTFOUNDERROR)
+    error('peachAPI - register - FAILED', TOKENNOTFOUNDERROR)
     return [null, TOKENNOTFOUNDERROR]
   } catch (e) {
     error('peachAPI - auth', e)
