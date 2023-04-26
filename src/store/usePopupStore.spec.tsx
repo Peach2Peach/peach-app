@@ -25,4 +25,10 @@ describe('usePopupStore', () => {
     usePopupStore.getState().showPopup({ content: <Content /> })
     expect(usePopupStore.getState().content).toStrictEqual(<Content />)
   })
+  it('should not overwrite existing content when no content is passed to showPopup', () => {
+    const Content = () => <Text>Test</Text>
+    usePopupStore.getState().showPopup({ content: <Content /> })
+    usePopupStore.getState().showPopup()
+    expect(usePopupStore.getState().content).toStrictEqual(<Content />)
+  })
 })

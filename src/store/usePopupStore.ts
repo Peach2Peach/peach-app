@@ -15,10 +15,11 @@ type PopupStore = PopupState & {
   closePopup: () => void
 }
 
-export const usePopupStore = create<PopupStore>((set) => ({
+export const usePopupStore = create<PopupStore>((set, get) => ({
   ...defaultPopupState,
   showPopup: (params?: { content?: ReactElement }) => {
-    set({ visible: true, content: params?.content })
+    const newContent = params ? params?.content : get().content
+    set({ visible: true, content: newContent })
   },
   closePopup: () => {
     set({ visible: false })
