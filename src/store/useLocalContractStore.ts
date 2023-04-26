@@ -38,12 +38,15 @@ export const useLocalContractStore = create<LocalContractStore>()(
         })),
       updateContract: (contractId, data) => {
         const contract = get().contracts[contractId]
-
-        if (!contract) return
-        get().setContract({
-          ...contract,
-          ...data,
-        })
+        set((state) => ({
+          contracts: {
+            ...state.contracts,
+            [contractId]: {
+              ...contract,
+              ...data,
+            },
+          },
+        }))
       },
       setHasSeenDisputeEmailPopup: (contractId: string, hasSeenPopup = true) => {
         get().updateContract(contractId, {
@@ -54,7 +57,7 @@ export const useLocalContractStore = create<LocalContractStore>()(
         contracts.forEach((contract) => {
           get().setContract({
             id: contract.id,
-            hasSeenDisputeEmailPopup: false,
+            hasSeenDisputeEmailPopup: true,
             error: undefined,
             disputeResultAcknowledged: false,
             cancelConfirmationPending: false,

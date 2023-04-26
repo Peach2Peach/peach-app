@@ -37,11 +37,13 @@ describe('useLocalContractStore', () => {
       hasSeenDisputeEmailPopup: true,
     })
   })
-  it('does not set a partial contract if it does not exists', () => {
+  it('creates a new partial contract if it doesn\'t exist', () => {
     useLocalContractStore.getState().updateContract(contract.id, {
       hasSeenDisputeEmailPopup: true,
     })
-    expect(useLocalContractStore.getState().contracts[contract.id]).toBeUndefined()
+    expect(useLocalContractStore.getState().contracts[contract.id]).toStrictEqual({
+      hasSeenDisputeEmailPopup: true,
+    })
   })
 
   it('sets the migrated flag', () => {
