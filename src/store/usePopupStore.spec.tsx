@@ -1,3 +1,4 @@
+import { Text } from 'react-native'
 import { usePopupStore } from './usePopupStore'
 
 describe('usePopupStore', () => {
@@ -18,5 +19,10 @@ describe('usePopupStore', () => {
   it('should set visible to false', () => {
     usePopupStore.getState().closePopup()
     expect(usePopupStore.getState().visible).toBe(false)
+  })
+  it('should update the content of a popup when passed to showPopup', () => {
+    const Content = () => <Text>Test</Text>
+    usePopupStore.getState().showPopup({ content: <Content /> })
+    expect(usePopupStore.getState().content).toStrictEqual(<Content />)
   })
 })
