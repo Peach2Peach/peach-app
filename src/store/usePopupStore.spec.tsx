@@ -78,4 +78,8 @@ describe('usePopupStore', () => {
     usePopupStore.getState().showPopup()
     expect(usePopupStore.getState().action2).toStrictEqual(action)
   })
+  it('should have a level property that is "DEFAULT" by default', () => {
+    expect(Object.hasOwn(usePopupStore.getState(), 'level')).toBe(true)
+    expect(usePopupStore.getState().level).toBe('DEFAULT')
+  })
 })

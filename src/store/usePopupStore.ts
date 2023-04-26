@@ -7,6 +7,7 @@ type PopupState = {
   title: string
   action1: Action | undefined
   action2: Action | undefined
+  level: Level
 }
 
 export const defaultPopupState: PopupState = {
@@ -15,6 +16,7 @@ export const defaultPopupState: PopupState = {
   title: '',
   action1: undefined,
   action2: undefined,
+  level: 'DEFAULT',
 }
 type PopupStore = PopupState & {
   showPopup: (params?: { content?: ReactElement; title?: string; action1?: Action; action2?: Action }) => void
