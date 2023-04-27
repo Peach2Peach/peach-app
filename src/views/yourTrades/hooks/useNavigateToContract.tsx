@@ -3,14 +3,12 @@ import { useStartRefundOverlay } from '../../../overlays/useStartRefundOverlay'
 import { getOffer } from '../../../utils/offer'
 import { getNavigationDestinationForContract } from '../utils/navigation/getNavigationDestinationForContract'
 import { shouldOpenOverlay } from '../utils/shouldOpenOverlay'
-import { useDisputeEmailPopup } from './useDisputeEmailPopup'
-import { useDisputeWonPopup } from '../../../overlays/dispute/hooks/useDisputeWonPopup'
+import { useNavigateToContractPopups } from './useNavigateToContractPopups'
 
 export const useNavigateToContract = (contractSummary: ContractSummary) => {
   const navigation = useNavigation()
   const startRefund = useStartRefundOverlay()
-  const showDisputeEmailPopup = useDisputeEmailPopup(contractSummary.id)
-  const showDisputeWonPopup = useDisputeWonPopup(contractSummary.id)
+  const showContractPopup = useNavigateToContractPopups(contractSummary.id)
 
   const navigateToContract = async () => {
     const [screen, params] = await getNavigationDestinationForContract(contractSummary)
@@ -21,8 +19,7 @@ export const useNavigateToContract = (contractSummary: ContractSummary) => {
     }
 
     navigation.navigate(screen, params)
-    showDisputeEmailPopup()
-    showDisputeWonPopup()
+    showContractPopup()
   }
 
   return navigateToContract
