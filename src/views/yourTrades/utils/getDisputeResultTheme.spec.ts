@@ -24,9 +24,9 @@ describe('getDisputeResultTheme', () => {
   it('returns the correct theme for a contract summary where you won the dispute as buyer', () => {
     const theme = getDisputeResultTheme(wonAsBuyer)
     expect(theme).toEqual({
-      icon: 'buy',
+      icon: 'alertOctagon',
       level: 'SUCCESS',
-      color: tw`text-success-main`.color,
+      color: '#05A85A',
     })
   })
 
@@ -35,7 +35,7 @@ describe('getDisputeResultTheme', () => {
     expect(theme).toEqual({
       icon: 'alertOctagon',
       level: 'SUCCESS',
-      color: tw`text-primary-main`.color,
+      color: '#05A85A',
     })
   })
   it('returns the correct theme for a lost dispute as a seller', () => {
@@ -43,7 +43,7 @@ describe('getDisputeResultTheme', () => {
     expect(themeSeller).toEqual({
       icon: 'alertOctagon',
       level: 'ERROR',
-      color: tw`text-warning-main`.color,
+      color: '#DF321F',
     })
   })
   it('returns the correct theme for a lost dispute as a buyer', () => {
@@ -51,7 +51,7 @@ describe('getDisputeResultTheme', () => {
     expect(themeBuyer).toEqual({
       icon: 'alertOctagon',
       level: 'ERROR',
-      color: tw`text-warning-main`.color,
+      color: '#DF321F',
     })
   })
 })
