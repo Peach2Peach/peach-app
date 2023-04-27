@@ -98,11 +98,6 @@ exports[`ClosedTrade should render the won dispute as seller status correctly 1`
     text="dispute resolved"
     tradeStatus="refundOrReviveRequired"
   />,
-  <CompletedTradeDetails
-    disputeWinner="seller"
-    isBuyer={false}
-    tradeStatus="refundOrReviveRequired"
-  />,
   <TradeStuffSeparator
     disputeWinner="seller"
     style={

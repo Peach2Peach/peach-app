@@ -18,10 +18,16 @@ export const ClosedTrade = ({ contract, view }: TradeSummaryProps) => (
       iconColor={getTradeSeparatorIconColor(contract.tradeStatus)}
       text={getTradeSeparatorText(contract.tradeStatus)}
     />
-    {contract.tradeStatus === 'tradeCanceled' ? (
-      <CanceledTradeDetails {...contract} style={tw`self-center`} />
+    {contract.tradeStatus === 'refundOrReviveRequired' ? (
+      <></>
     ) : (
-      <CompletedTradeDetails {...contract} isBuyer={view === 'buyer'} />
+      <>
+        {contract.tradeStatus === 'tradeCanceled' ? (
+          <CanceledTradeDetails {...contract} style={tw`self-center`} />
+        ) : (
+          <CompletedTradeDetails {...contract} isBuyer={view === 'buyer'} />
+        )}
+      </>
     )}
 
     <TradeStuffSeparator {...contract} style={tw`mt-4`} />
