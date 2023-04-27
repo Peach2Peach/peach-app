@@ -79,7 +79,7 @@ exports[`ClosedTrade should render the won dispute as seller status correctly 1`
         "marginTop": 16,
       }
     }
-    text="trade completed"
+    text="dispute resolved"
     tradeStatus="refundOrReviveRequired"
   />
   <CompletedTradeDetails

@@ -173,6 +173,7 @@
   "contract.tradeCompleted": "trade completed",
   "contract.tradeCanceled": "trade canceled",
   "contract.goToNewOffer": "go to new offer",
+  "contract.disputeResolved": "dispute resolved",
   "contract.summary.youHaveSold": "you've sold",
   "contract.summary.youHaveBought": "you've bought",
   "contract.summary.youAreSelling": "you're selling",
