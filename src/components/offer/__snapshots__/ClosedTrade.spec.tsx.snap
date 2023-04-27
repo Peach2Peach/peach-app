@@ -1,0 +1,104 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ClosedTrade should render a canceled trade correctly 1`] = `
+<React.Fragment>
+  <TradeSeparator
+    iconId="xCircle"
+    style={
+      {
+        "marginTop": 16,
+      }
+    }
+    text="trade canceled"
+    tradeStatus="tradeCanceled"
+  />
+  <CanceledTradeDetails
+    style={
+      {
+        "alignSelf": "center",
+      }
+    }
+    tradeStatus="tradeCanceled"
+  />
+  <TradeStuff
+    contract={
+      {
+        "tradeStatus": "tradeCanceled",
+      }
+    }
+    style={
+      {
+        "justifyContent": "flex-start",
+        "marginTop": 16,
+      }
+    }
+  />
+</React.Fragment>
+`;
+
+exports[`ClosedTrade should render a completed trade correctly 1`] = `
+<React.Fragment>
+  <TradeSeparator
+    iconId="calendar"
+    style={
+      {
+        "marginTop": 16,
+      }
+    }
+    text="trade completed"
+    tradeStatus="tradeCompleted"
+  />
+  <CompletedTradeDetails
+    isBuyer={false}
+    tradeStatus="tradeCompleted"
+  />
+  <TradeStuff
+    contract={
+      {
+        "tradeStatus": "tradeCompleted",
+      }
+    }
+    style={
+      {
+        "justifyContent": "flex-start",
+        "marginTop": 16,
+      }
+    }
+  />
+</React.Fragment>
+`;
+
+exports[`ClosedTrade should render the won dispute as seller status correctly 1`] = `
+<React.Fragment>
+  <TradeSeparator
+    disputeWinner="seller"
+    iconId="calendar"
+    style={
+      {
+        "marginTop": 16,
+      }
+    }
+    text="trade completed"
+    tradeStatus="refundOrReviveRequired"
+  />
+  <CompletedTradeDetails
+    disputeWinner="seller"
+    isBuyer={false}
+    tradeStatus="refundOrReviveRequired"
+  />
+  <TradeStuff
+    contract={
+      {
+        "disputeWinner": "seller",
+        "tradeStatus": "refundOrReviveRequired",
+      }
+    }
+    style={
+      {
+        "justifyContent": "flex-start",
+        "marginTop": 16,
+      }
+    }
+  />
+</React.Fragment>
+`;
