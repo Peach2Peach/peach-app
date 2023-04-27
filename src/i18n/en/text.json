@@ -158,7 +158,7 @@
   "offer.requiredAction.offerHiddenWithMatchesAvailable": "select match",
   "offer.requiredAction.hasMatchesAvailable": "select match",
   "offer.requiredAction.paymentRequired": "make payment",
-  "offer.requiredAction.confirmPaymentRequired": "confirm payment",
+  "offer.requiredAction.confirmPaymentRequired": "dispute won: awaiting payout",
   "offer.requiredAction.rateUser.buyer": "rate buyer",
   "offer.requiredAction.rateUser.seller": "rate seller",
   "offer.requiredAction.confirmCancelation": "seller wants to cancel",
