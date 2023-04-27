@@ -151,7 +151,7 @@
   "offer.requiredAction.escrowWaitingForConfirmation": "transaction pending",
   "offer.requiredAction.refundAddressRequired": "provide refund address",
   "offer.requiredAction.refundTxSignatureRequired": "dispute won: resolve now",
-  "offer.requiredAction.refundOrReviveRequired": "trade canceled",
+  "offer.requiredAction.refundOrReviveRequired": "dispute won: resolve now",
   "offer.requiredAction.provideReturnAddress": "provide refund address",
   "offer.requiredAction.searchingForPeer": "looking for match",
   "offer.requiredAction.offerHidden": "offer hidden",
