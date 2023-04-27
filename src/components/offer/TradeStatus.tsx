@@ -8,7 +8,7 @@ export type Props = ComponentProps & {
 export const TradeStatus = ({ style, disputeActive }: Props) => (
   <TradeSeparator
     {...{ style, disputeActive }}
-    iconId={'alertOctagon'}
+    iconId={disputeActive ? 'alertOctagon' : undefined}
     text={i18n(disputeActive ? 'trade.disputeActive' : 'trade.paymentDetails')}
   />
 )

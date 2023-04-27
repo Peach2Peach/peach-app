@@ -2,6 +2,7 @@ import tw from '../../styles/tailwind'
 import { CanceledTradeDetails } from './CanceledTradeDetails'
 import { CompletedTradeDetails } from './CompletedTradeDetails'
 import { getTradeSeparatorIcon } from './getTradeSeparatorIcon'
+import { getTradeSeparatorIconColor } from './getTradeSeparatorIconColor'
 import { getTradeSeparatorText } from './getTradeSeparatorText'
 import { TradeSeparator } from './TradeSeparator'
 import { TradeStuff } from './TradeStuff'
@@ -13,6 +14,7 @@ export const ClosedTrade = ({ contract, view }: TradeSummaryProps) => (
       style={tw`mt-4`}
       {...contract}
       iconId={getTradeSeparatorIcon(contract.tradeStatus)}
+      iconColor={getTradeSeparatorIconColor(contract.tradeStatus)}
       text={getTradeSeparatorText(contract.tradeStatus)}
     />
     {contract.tradeStatus === 'tradeCanceled' ? (

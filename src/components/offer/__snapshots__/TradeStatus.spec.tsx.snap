@@ -3,7 +3,6 @@
 exports[`TradeStatus renders correctly 1`] = `
 <TradeSeparator
   disputeActive={false}
-  iconId="alertOctagon"
   text="payment details"
 />
 `;
