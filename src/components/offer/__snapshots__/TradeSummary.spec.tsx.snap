@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TradeSummary should render closed trade correctly 1`] = `
+<ClosedTrade
+  contract={
+    {
+      "canceled": true,
+      "paymentConfirmed": null,
+    }
+  }
+/>
+`;
+
+exports[`TradeSummary should render open trade correctly 1`] = `
+<OpenTrade
+  contract={
+    {
+      "canceled": false,
+      "paymentConfirmed": null,
+    }
+  }
+/>
+`;
+
+exports[`TradeSummary should render won dispute with outstanding action as seller correctly 1`] = `
+<ClosedTrade
+  contract={
+    {
+      "canceled": true,
+      "paymentConfirmed": null,
+      "tradeStatus": "refundOrReviveRequired",
+    }
+  }
+  view="seller"
+/>
+`;

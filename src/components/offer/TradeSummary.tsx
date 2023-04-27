@@ -1,5 +1,5 @@
-import { isTradeCanceled, isTradeComplete } from '../../utils/contract/status'
 import { ClosedTrade } from './ClosedTrade'
+import { shouldShowOpenTrade } from './shouldShowOpenTrade'
 import { OpenTrade } from './OpenTrade'
 
 export type TradeSummaryProps = {
@@ -8,8 +8,4 @@ export type TradeSummaryProps = {
 }
 
 export const TradeSummary = (props: TradeSummaryProps) =>
-  !isTradeComplete(props.contract) && !isTradeCanceled(props.contract) ? (
-    <OpenTrade {...props} />
-  ) : (
-    <ClosedTrade {...props} />
-  )
+  shouldShowOpenTrade(props.contract) ? <OpenTrade {...props} /> : <ClosedTrade {...props} />
