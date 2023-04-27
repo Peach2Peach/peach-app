@@ -11,6 +11,7 @@ const defaultReturnValue = {
     },
     disputeActive: false,
   },
+  isEmailRequired: false,
   isLoading: false,
   view: 'buyer',
   requiredAction: 'requiredAction',
@@ -45,6 +46,19 @@ describe('Contract', () => {
     useContractSetupMock.mockReturnValueOnce({
       ...defaultReturnValue,
       view: 'seller',
+    })
+    renderer.render(<Contract />)
+    const result = renderer.getRenderOutput()
+    expect(result).toMatchSnapshot()
+  })
+  it('should show the provide email button when the contract requires an email', () => {
+    useContractSetupMock.mockReturnValueOnce({
+      ...defaultReturnValue,
+      contract: {
+        ...defaultReturnValue.contract,
+        // @ts-ignore
+        isEmailRequired: true,
+      },
     })
     renderer.render(<Contract />)
     const result = renderer.getRenderOutput()

@@ -2,9 +2,9 @@ import { NavigationContainer } from '@react-navigation/native'
 import { renderHook, waitFor } from '@testing-library/react-native'
 import { account1 } from '../../../../tests/unit/data/accountData'
 import { sellOffer } from '../../../../tests/unit/data/offerData'
-import { QueryClientWrapper } from '../../../../tests/unit/helpers/QueryClientWrapper'
+import { QueryClientWrapper, queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
 import { useHeaderState } from '../../../components/header/store'
-import { setAccount } from '../../../utils/account'
+import { setAccount, updateAccount } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
 import { defaultFundingStatus } from '../../../utils/offer/constants'
 import { useFundEscrowSetup } from './useFundEscrowSetup'
@@ -76,10 +76,11 @@ describe('useFundEscrowSetup', () => {
   beforeEach(async () => {
     useHeaderState.setState({ title: '', icons: [] })
 
-    await setAccount(account1)
+    await updateAccount(account1, true)
   })
   afterEach(async () => {
     jest.clearAllMocks()
+    queryClient.clear()
   })
 
   it('should return default values', () => {
@@ -163,7 +164,7 @@ describe('useFundEscrowSetup', () => {
     const { result } = renderHook(useFundEscrowSetup, { wrapper })
     expect(result.current).toEqual({
       offerId: sellOffer.id,
-      escrow: undefined,
+      escrow: 'escrow',
       createEscrowError: null,
       fundingStatus: defaultFundingStatus,
       fundingAmount: sellOffer.amount,

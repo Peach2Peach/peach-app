@@ -8,11 +8,6 @@ type BitcoinRequest = {
   exp?: number
 }
 
-/**
- * @description Method to parse a bitcoin request string
- * @param request the bitcoin request
- * @returns structured bitcoin request
- */
 export const parseBitcoinRequest = (request: string = 'bitcoin:'): BitcoinRequest => {
   let urn: URL
   const parsedRequest: BitcoinRequest = {}
@@ -23,9 +18,14 @@ export const parseBitcoinRequest = (request: string = 'bitcoin:'): BitcoinReques
     urn = new URL('bitcoin:')
   }
   const isLightning = /^ln/u.exec(request)
-  const address = /^(?:bc1|tb1|bcrt1|[123])[a-zA-HJ-NP-Z0-9]{25,62}/u.exec(String(request.split(':').pop()))
+  const address = /^(?:bc1|tb1|bcrt1|BC1|TB1|BCRT1|[123])[a-zA-HJ-NP-Z0-9]{25,62}/u.exec(
+    String(request.split(':').pop()),
+  )
 
-  if (address && !isLightning) parsedRequest.address = address[0]
+  if (address && !isLightning) {
+    parsedRequest.address = address[0]
+    if (/BC1|TB1|BCRT1/u.test(parsedRequest.address)) parsedRequest.address = parsedRequest.address.toLocaleLowerCase()
+  }
   if (urn.searchParams.get('amount')) parsedRequest.amount = Number(urn.searchParams.get('amount'))
   if (urn.searchParams.get('message')) parsedRequest.message = urn.searchParams.get('message') || ''
   if (urn.searchParams.get('time')) parsedRequest.time = Number(urn.searchParams.get('time'))

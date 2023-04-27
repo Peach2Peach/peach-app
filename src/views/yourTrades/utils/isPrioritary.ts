@@ -1,5 +1,4 @@
 const prioritaryStatus: TradeStatus[] = [
-  'dispute',
   'releaseEscrow',
   'fundingAmountDifferent',
   'confirmCancelation',

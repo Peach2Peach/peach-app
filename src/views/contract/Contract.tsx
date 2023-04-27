@@ -7,6 +7,7 @@ import tw from '../../styles/tailwind'
 import LoadingScreen from '../loading/LoadingScreen'
 import { ContractCTA } from './components/ContractCTA'
 import { useContractSetup } from './hooks/useContractSetup'
+import { ProvideEmailButton } from './components/ProvideEmailButton'
 
 export default () => {
   const { contract, isLoading, view, requiredAction, actionPending, postConfirmPaymentBuyer, postConfirmPaymentSeller }
@@ -22,6 +23,7 @@ export default () => {
         />
         <TradeSummary {...{ contract, view }} />
         <View style={tw`items-center justify-end flex-grow w-full mb-2`}>
+          {!!contract.isEmailRequired && <ProvideEmailButton {...{ contract, view }} style={tw`self-center mb-4`} />}
           <ContractCTA
             {...{ contract, view, requiredAction, actionPending, postConfirmPaymentBuyer, postConfirmPaymentSeller }}
           />

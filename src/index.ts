@@ -10,7 +10,6 @@ import { updateUser } from './utils/peachAPI'
 import { parseError } from './utils/result'
 import { isIOS, isProduction } from './utils/system'
 
-// TODO check if these messages have a fix
 LogBox.ignoreLogs([
   'Non-serializable values were found in the navigation state',
   // eslint-disable-next-line max-len

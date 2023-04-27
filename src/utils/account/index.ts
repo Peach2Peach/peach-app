@@ -1,7 +1,9 @@
 export { account, defaultAccount, getAccount, setAccount } from './account'
+export { updateAccount } from './updateAccount'
 export { addPaymentData } from './addPaymentData'
 export { backupAccount } from './backupAccount'
 export { createAccount } from './createAccount'
+export { createPeachAccount } from './createPeachAccount'
 export { decryptAccount } from './decryptAccount'
 export { deleteAccount } from './deleteAccount'
 export { getAccountBackup } from './getAccountBackup'
@@ -36,5 +38,4 @@ export {
   storePaymentData,
   storeTradingLimit,
 } from './storeAccount'
-export { getTradingLimit, updateTradingLimit } from './tradingLimit'
 export { updatePaymentData } from './updatePaymentData'

@@ -10,6 +10,8 @@ jest.mock('../../utils/wallet/setWallet', () => ({
   },
 }))
 
+jest.useFakeTimers()
+
 describe('WalletLabel', () => {
   afterEach(() => {
     jest.clearAllMocks()

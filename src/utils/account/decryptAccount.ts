@@ -1,8 +1,6 @@
-import { setAccount } from '.'
 import { settingsStore } from '../../store/settingsStore'
 import { decrypt } from '../crypto'
 import { info } from '../log'
-import { account } from './account'
 
 interface DecryptAccountProps {
   encryptedAccount: string
@@ -18,8 +16,7 @@ export const decryptAccount = async ({
   try {
     const accountBackup = JSON.parse(decrypt(encryptedAccount, password)) as AccountBackup
     settingsStore.getState().updateSettings(accountBackup.settings)
-    await setAccount(accountBackup)
-    return [account, null]
+    return [accountBackup, null]
   } catch (e) {
     return [null, 'WRONG_PASSWORD']
   }

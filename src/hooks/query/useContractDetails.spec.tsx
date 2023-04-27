@@ -1,6 +1,6 @@
 import { renderHook, waitFor } from '@testing-library/react-native'
 import { contract } from '../../../tests/unit/data/contractData'
-import { QueryClientWrapper } from '../../../tests/unit/helpers/QueryClientWrapper'
+import { queryClient, QueryClientWrapper } from '../../../tests/unit/helpers/QueryClientWrapper'
 import { useContractDetails } from './useContractDetails'
 
 const getStoredContractMock = jest.fn()
@@ -19,6 +19,7 @@ jest.mock('@react-navigation/native', () => ({
 describe('useContractDetails', () => {
   afterEach(() => {
     jest.clearAllMocks()
+    queryClient.clear()
   })
   it('fetches contract details from API', async () => {
     const { result } = renderHook((id) => useContractDetails(id), {

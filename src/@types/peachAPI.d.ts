@@ -198,8 +198,8 @@ declare type FundingStatus = {
 }
 
 declare type GetStatusResponse = {
-  error: null // TODO there will be error codes
-  status: 'online' // TODO there will be other stati
+  error: null
+  status: 'online'
   serverTime: number
 }
 

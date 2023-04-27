@@ -48,21 +48,16 @@ export const useMeetupScreenSetup = () => {
     if (deletable) {
       icns[1] = {
         iconComponent: <DeleteIcon />,
-        onPress: () => deletePaymentMethod(),
+        onPress: deletePaymentMethod,
       }
     }
     return icns
   }, [deletable, deletePaymentMethod, showHelp])
 
-  useHeaderSetup(
-    useMemo(
-      () => ({
-        title: event.shortName,
-        icons,
-      }),
-      [event.shortName, icons],
-    ),
-  )
+  useHeaderSetup({
+    title: event.shortName,
+    icons,
+  })
 
   return { event, openLink, deletable, addToPaymentMethods }
 }

@@ -2,13 +2,13 @@ import { useCallback, useEffect, useState } from 'react'
 
 import { useNavigation, useRoute } from '../../../hooks'
 import { userUpdate } from '../../../init/userUpdate'
-import { account, createAccount, deleteAccount, setAccount } from '../../../utils/account'
+import { account, createAccount, deleteAccount, updateAccount } from '../../../utils/account'
 import { storeAccount } from '../../../utils/account/storeAccount'
+import { signMessageWithPrivateKey } from '../../../utils/crypto/signMessageWithPrivateKey'
 import { register } from '../../../utils/peachAPI'
+import { getAuthenticationChallenge } from '../../../utils/peachAPI/getAuthenticationChallenge'
 import { parseError } from '../../../utils/result'
 import { useNewUserHeader } from './useNewUserHeader'
-import { getAuthenticationChallenge } from '../../../utils/peachAPI/getAuthenticationChallenge'
-import { signMessageWithPrivateKey } from '../../../utils/crypto/signMessageWithPrivateKey'
 
 // eslint-disable-next-line max-lines-per-function
 export const useNewUserSetup = () => {
@@ -33,7 +33,7 @@ export const useNewUserSetup = () => {
       onError('ACCOUNT_NOT_SET')
       return
     }
-    await setAccount(newAccount, true)
+    await updateAccount(newAccount, true)
 
     storeAccount(account)
     setSuccess(true)
