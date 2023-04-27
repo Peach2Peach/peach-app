@@ -1,4 +1,3 @@
-import tw from '../../../styles/tailwind'
 import { getDisputeResultTheme } from '.'
 
 describe('getDisputeResultTheme', () => {
