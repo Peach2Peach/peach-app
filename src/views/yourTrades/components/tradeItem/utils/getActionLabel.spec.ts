@@ -48,7 +48,7 @@ describe('getActionLabel', () => {
   it('should return correct label for a contract summary that is not waiting or rateUser', () => {
     const status = 'confirmPaymentRequired'
     const result = getActionLabel({ ...pastContractSummary, tradeStatus: 'confirmPaymentRequired' }, status)
-    expect(result).toEqual('confirm payment')
+    expect(result).toEqual('dispute won: awaiting payout')
   })
   it('should return the correct label for past offer summaries', () => {
     const status = 'waiting'
