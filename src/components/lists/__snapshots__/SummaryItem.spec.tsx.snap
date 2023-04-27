@@ -106,7 +106,7 @@ exports[`SummaryItem should render correctly for a lost dispute as a seller 1`] 
   >
     <Icon
       color="#FFFCFA"
-      id="upload"
+      id="alertOctagon"
       style={
         {
           "marginRight": 4,

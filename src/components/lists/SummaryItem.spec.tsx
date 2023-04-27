@@ -10,7 +10,7 @@ describe('SummaryItem', () => {
       date: new Date('2009-01-09'),
       action: {
         label: 'release escrow',
-        icon: 'upload',
+        icon: 'alertOctagon',
         callback: () => {},
       },
       icon: undefined,
