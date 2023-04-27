@@ -188,7 +188,7 @@ exports[`ClosedTrade should render the won dispute as seller status correctly 1`
       ]
     }
   >
-    You won the dispute! The buyer's reputation has been impacted. You can now either re-publish the offer or get refunded.
+    You won the dispute! The buyer's reputation has been impacted. You can now either re-publish the offer or get refunded.
   </Text>,
   <TradeStuffSeparator
     disputeWinner="seller"
