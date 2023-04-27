@@ -6,10 +6,7 @@ import i18n from '../../utils/i18n'
 import { MenuItem } from './components/MenuItem'
 import { useCreateAccountErrorHeader } from './hooks/useCreateAccountErrorHeader'
 
-type Props = {
-  iDontHaveABackup: () => void
-}
-export const UserExistsForDevice = ({ iDontHaveABackup }: Props) => {
+export const UserExistsForDevice = () => {
   useCreateAccountErrorHeader()
   const navigation = useNavigation()
   const goToRestoreFromFile = () => navigation.navigate('restoreBackup', { tab: 'fileBackup' })

@@ -4,11 +4,13 @@ import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { useRestoreReputationSetup } from './hooks/useRestoreReputationSetup'
 import { ReputationRestored } from './ReputationRestored'
+import { RestoreReputationLoading } from './RestoreReputationLoading'
 
 export default () => {
-  const { restoreReputation, isRestored } = useRestoreReputationSetup()
+  const { restoreReputation, isLoading, isRestored } = useRestoreReputationSetup()
 
   if (isRestored) return <ReputationRestored />
+  if (isLoading) return <RestoreReputationLoading />
 
   return (
     <View style={tw`flex justify-between h-full px-8`}>

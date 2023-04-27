@@ -1,5 +1,4 @@
 export { account, defaultAccount, getAccount, setAccount } from './account'
-export { updateAccount } from './updateAccount'
 export { addPaymentData } from './addPaymentData'
 export { backupAccount } from './backupAccount'
 export { createAccount } from './createAccount'
@@ -26,6 +25,7 @@ export {
 } from './loadAccount'
 export { recoverAccount } from './recoverAccount'
 export { removePaymentData } from './removePaymentData'
+export { signMessageWithAccount } from './signMessageWithAccount'
 export {
   storeAccount,
   storeChat,
@@ -38,4 +38,5 @@ export {
   storePaymentData,
   storeTradingLimit,
 } from './storeAccount'
+export { updateAccount } from './updateAccount'
 export { updatePaymentData } from './updatePaymentData'

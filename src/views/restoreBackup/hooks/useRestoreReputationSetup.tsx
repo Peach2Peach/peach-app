@@ -1,14 +1,17 @@
 import { useMemo, useState } from 'react'
 import { Icon } from '../../../components'
 import { useHeaderSetup, useNavigation } from '../../../hooks'
+import { useTemporaryAccount } from '../../../hooks/useTemporaryAccount'
 import tw from '../../../styles/tailwind'
+import { storeAccount, updateAccount } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
 import { goToHomepage } from '../../../utils/web'
-import { account, storeAccount } from '../../../utils/account'
 
 export const useRestoreReputationSetup = () => {
   const navigation = useNavigation()
   const [isRestored, setIsRestored] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const { temporaryAccount } = useTemporaryAccount()
 
   const headerIcons = useMemo(
     () => [
@@ -34,13 +37,19 @@ export const useRestoreReputationSetup = () => {
   useHeaderSetup(headerConfig)
 
   const restoreReputation = async () => {
-    storeAccount(account)
-    setIsRestored(true)
+    if (!temporaryAccount) return
+    setIsLoading(true)
+    // prevent render blocking
+    setTimeout(async () => {
+      await updateAccount(temporaryAccount, true)
+      storeAccount(temporaryAccount)
+      setIsRestored(true)
 
-    setTimeout(() => {
-      navigation.replace('home')
-    }, 1500)
+      setTimeout(() => {
+        navigation.replace('home')
+      }, 1500)
+    })
   }
 
-  return { restoreReputation, isRestored }
+  return { restoreReputation, isLoading, isRestored }
 }

@@ -2,13 +2,13 @@ import { useCallback, useEffect, useState } from 'react'
 
 import { useNavigation, useRoute } from '../../../hooks'
 import { userUpdate } from '../../../init/userUpdate'
-import { account, createAccount, deleteAccount, updateAccount } from '../../../utils/account'
+import { createAccount, deleteAccount, signMessageWithAccount, updateAccount } from '../../../utils/account'
 import { storeAccount } from '../../../utils/account/storeAccount'
-import { signMessageWithPrivateKey } from '../../../utils/crypto/signMessageWithPrivateKey'
 import { register } from '../../../utils/peachAPI'
 import { getAuthenticationChallenge } from '../../../utils/peachAPI/getAuthenticationChallenge'
 import { parseError } from '../../../utils/result'
 import { useNewUserHeader } from './useNewUserHeader'
+import { useTemporaryAccount } from '../../../hooks/useTemporaryAccount'
 
 // eslint-disable-next-line max-lines-per-function
 export const useNewUserSetup = () => {
@@ -16,7 +16,7 @@ export const useNewUserSetup = () => {
   const navigation = useNavigation()
 
   const [success, setSuccess] = useState(false)
-  const [newAccount, setNewAccount] = useState<Account>()
+  const { setTemporaryAccount } = useTemporaryAccount()
   const [userExistsForDevice, setUserExistsForDevice] = useState(false)
   const [error, setError] = useState('')
 
@@ -28,49 +28,51 @@ export const useNewUserSetup = () => {
     deleteAccount()
   }, [])
 
-  const finishRegistration = useCallback(async () => {
-    if (!newAccount) {
-      onError('ACCOUNT_NOT_SET')
-      return
-    }
-    await updateAccount(newAccount, true)
+  const finishRegistration = useCallback(
+    async (account: Account) => {
+      await updateAccount(account, true)
 
-    storeAccount(account)
-    setSuccess(true)
+      storeAccount(account)
+      setSuccess(true)
 
-    setTimeout(() => {
-      navigation.replace('home')
-    }, 1500)
-  }, [navigation, newAccount, onError])
+      setTimeout(() => {
+        navigation.replace('home')
+      }, 1500)
+    },
+    [navigation],
+  )
 
-  const onSuccess = useCallback(async () => {
-    const message = getAuthenticationChallenge()
-    const signature = signMessageWithPrivateKey(message, account.privKey!)
-    const [result, authError] = await register({
-      publicKey: account.publicKey,
-      message,
-      signature,
-    })
-    if (!result || authError) {
-      onError(authError?.error)
-      return
-    }
+  const onSuccess = useCallback(
+    async (account: Account) => {
+      const message = getAuthenticationChallenge()
 
-    await userUpdate(route.params.referralCode)
+      const [result, authError] = await register({
+        publicKey: account.publicKey,
+        message,
+        signature: signMessageWithAccount(message, account),
+      })
+      if (!result || authError) {
+        onError(authError?.error)
+        return
+      }
 
-    if (result.restored) {
-      setUserExistsForDevice(true)
-      return
-    }
-    await finishRegistration()
-  }, [route.params.referralCode, finishRegistration, onError])
+      await userUpdate(route.params.referralCode)
+
+      if (result.restored) {
+        setTemporaryAccount(account)
+        setUserExistsForDevice(true)
+        return
+      }
+      await finishRegistration(account)
+    },
+    [route.params.referralCode, finishRegistration, onError, setTemporaryAccount],
+  )
 
   useEffect(() => {
     // creating an account is CPU intensive and causing iOS to show a black bg upon hiding keyboard
     setTimeout(async () => {
       try {
-        setNewAccount(await createAccount())
-        onSuccess()
+        onSuccess(await createAccount())
       } catch (e) {
         onError(parseError(e))
       }
