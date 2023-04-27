@@ -98,6 +98,98 @@ exports[`ClosedTrade should render the won dispute as seller status correctly 1`
     text="dispute resolved"
     tradeStatus="refundOrReviveRequired"
   />,
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "marginBottom": 8,
+        "marginTop": 8,
+      }
+    }
+  >
+    <Text
+      allowFontScaling={false}
+      style={
+        [
+          {
+            "color": "#2B1911",
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 24,
+          },
+          {
+            "color": "#9F8C82",
+            "width": 72,
+          },
+        ]
+      }
+    >
+      status
+    </Text>
+    <Text
+      allowFontScaling={false}
+      style={
+        [
+          {
+            "color": "#2B1911",
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 24,
+          },
+          {
+            "fontFamily": "Baloo2-SemiBold",
+            "fontSize": 14,
+            "letterSpacing": 0.14,
+            "lineHeight": 22,
+            "marginLeft": 8,
+            "marginRight": 8,
+          },
+        ]
+      }
+    >
+      dispute won
+    </Text>
+    <test-file-stub
+      fill="#05A85A"
+      style={
+        [
+          {
+            "height": 24,
+            "width": 24,
+          },
+          {
+            "height": 16,
+            "width": 16,
+          },
+        ]
+      }
+    />
+  </View>,
+  <Text
+    allowFontScaling={false}
+    style={
+      [
+        {
+          "color": "#2B1911",
+          "fontFamily": "Baloo2-Regular",
+          "fontSize": 16,
+          "letterSpacing": 0.16,
+          "lineHeight": 24,
+        },
+        {
+          "fontFamily": "Baloo2-Regular",
+          "fontSize": 14,
+          "letterSpacing": 0.14,
+          "lineHeight": 20,
+        },
+      ]
+    }
+  >
+    You won the dispute! The buyer's reputation has been impacted. You can now either re-publish the offer or get refunded.
+  </Text>,
   <TradeStuffSeparator
     disputeWinner="seller"
     style={
