@@ -1,28 +1,43 @@
 import { ClosedTrade } from './ClosedTrade'
-import { createRenderer } from 'react-test-renderer/shallow'
+import { render } from '@testing-library/react-native'
+
+jest.mock('./TradeSeparator', () => ({
+  TradeSeparator: 'TradeSeparator',
+}))
+jest.mock('./CanceledTradeDetails', () => ({
+  CanceledTradeDetails: 'CanceledTradeDetails',
+}))
+jest.mock('./CompletedTradeDetails', () => ({
+  CompletedTradeDetails: 'CompletedTradeDetails',
+}))
+jest.mock('./TradeStuffSeparator', () => ({
+  TradeStuffSeparator: 'TradeStuffSeparator',
+}))
+jest.mock('./TradeStuff', () => ({
+  TradeStuff: 'TradeStuff',
+}))
 
 describe('ClosedTrade', () => {
-  const renderer = createRenderer()
   it('should render the won dispute as seller status correctly', () => {
     const contract = {
       disputeWinner: 'seller',
       tradeStatus: 'refundOrReviveRequired',
     }
-    renderer.render(<ClosedTrade contract={contract as Contract} view="seller" />)
-    expect(renderer.getRenderOutput()).toMatchSnapshot()
+    const { toJSON } = render(<ClosedTrade contract={contract as Contract} view="seller" />)
+    expect(toJSON()).toMatchSnapshot()
   })
   it('should render a canceled trade correctly', () => {
     const contract = {
       tradeStatus: 'tradeCanceled',
     }
-    renderer.render(<ClosedTrade contract={contract as Contract} view="seller" />)
-    expect(renderer.getRenderOutput()).toMatchSnapshot()
+    const { toJSON } = render(<ClosedTrade contract={contract as Contract} view="seller" />)
+    expect(toJSON()).toMatchSnapshot()
   })
   it('should render a completed trade correctly', () => {
     const contract = {
       tradeStatus: 'tradeCompleted',
     }
-    renderer.render(<ClosedTrade contract={contract as Contract} view="seller" />)
-    expect(renderer.getRenderOutput()).toMatchSnapshot()
+    const { toJSON } = render(<ClosedTrade contract={contract as Contract} view="seller" />)
+    expect(toJSON()).toMatchSnapshot()
   })
 })

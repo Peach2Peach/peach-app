@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ClosedTrade should render a canceled trade correctly 1`] = `
-<React.Fragment>
+[
   <TradeSeparator
     iconId="xCircle"
     style={
@@ -11,7 +11,7 @@ exports[`ClosedTrade should render a canceled trade correctly 1`] = `
     }
     text="trade canceled"
     tradeStatus="tradeCanceled"
-  />
+  />,
   <CanceledTradeDetails
     style={
       {
@@ -19,7 +19,7 @@ exports[`ClosedTrade should render a canceled trade correctly 1`] = `
       }
     }
     tradeStatus="tradeCanceled"
-  />
+  />,
   <TradeStuffSeparator
     style={
       {
@@ -27,7 +27,7 @@ exports[`ClosedTrade should render a canceled trade correctly 1`] = `
       }
     }
     tradeStatus="tradeCanceled"
-  />
+  />,
   <TradeStuff
     contract={
       {
@@ -40,12 +40,12 @@ exports[`ClosedTrade should render a canceled trade correctly 1`] = `
         "marginTop": 6,
       }
     }
-  />
-</React.Fragment>
+  />,
+]
 `;
 
 exports[`ClosedTrade should render a completed trade correctly 1`] = `
-<React.Fragment>
+[
   <TradeSeparator
     iconId="calendar"
     style={
@@ -55,11 +55,11 @@ exports[`ClosedTrade should render a completed trade correctly 1`] = `
     }
     text="trade completed"
     tradeStatus="tradeCompleted"
-  />
+  />,
   <CompletedTradeDetails
     isBuyer={false}
     tradeStatus="tradeCompleted"
-  />
+  />,
   <TradeStuffSeparator
     style={
       {
@@ -67,7 +67,7 @@ exports[`ClosedTrade should render a completed trade correctly 1`] = `
       }
     }
     tradeStatus="tradeCompleted"
-  />
+  />,
   <TradeStuff
     contract={
       {
@@ -80,12 +80,12 @@ exports[`ClosedTrade should render a completed trade correctly 1`] = `
         "marginTop": 6,
       }
     }
-  />
-</React.Fragment>
+  />,
+]
 `;
 
 exports[`ClosedTrade should render the won dispute as seller status correctly 1`] = `
-<React.Fragment>
+[
   <TradeSeparator
     disputeWinner="seller"
     iconColor="#7D675E"
@@ -97,12 +97,12 @@ exports[`ClosedTrade should render the won dispute as seller status correctly 1`
     }
     text="dispute resolved"
     tradeStatus="refundOrReviveRequired"
-  />
+  />,
   <CompletedTradeDetails
     disputeWinner="seller"
     isBuyer={false}
     tradeStatus="refundOrReviveRequired"
-  />
+  />,
   <TradeStuffSeparator
     disputeWinner="seller"
     style={
@@ -111,7 +111,7 @@ exports[`ClosedTrade should render the won dispute as seller status correctly 1`
       }
     }
     tradeStatus="refundOrReviveRequired"
-  />
+  />,
   <TradeStuff
     contract={
       {
@@ -125,6 +125,6 @@ exports[`ClosedTrade should render the won dispute as seller status correctly 1`
         "marginTop": 6,
       }
     }
-  />
-</React.Fragment>
+  />,
+]
 `;
