@@ -1,0 +1,36 @@
+import { render } from '@testing-library/react-native'
+import { NavigationWrapper } from '../../../tests/unit/helpers/NavigationWrapper'
+import RestoreReputation from './RestoreReputation'
+import { createRenderer } from 'react-test-renderer/shallow'
+
+const restoreReputationMock = jest.fn()
+const useRestoreReputationSetupMock = jest.fn().mockReturnValue({
+  restoreReputation: restoreReputationMock,
+  isLoading: false,
+  isRestored: false,
+})
+jest.mock('./hooks/useRestoreReputationSetup', () => ({
+  useRestoreReputationSetup: () => useRestoreReputationSetupMock(),
+}))
+describe('RestoreReputation', () => {
+  const shallowRenderer = createRenderer()
+
+  it('should render correctly', () => {
+    shallowRenderer.render(<RestoreReputation />, { wrapper: NavigationWrapper })
+    expect(shallowRenderer.getRenderOutput()).toMatchSnapshot()
+  })
+  it('should render Loading if isLoading is true', () => {
+    useRestoreReputationSetupMock.mockReturnValueOnce({
+      isLoading: true,
+    })
+    shallowRenderer.render(<RestoreReputation />, { wrapper: NavigationWrapper })
+    expect(shallowRenderer.getRenderOutput()).toMatchSnapshot()
+  })
+  it('should render ReputationRestored if isRestored is true', () => {
+    useRestoreReputationSetupMock.mockReturnValueOnce({
+      isRestored: true,
+    })
+    shallowRenderer.render(<RestoreReputation />, { wrapper: NavigationWrapper })
+    expect(shallowRenderer.getRenderOutput()).toMatchSnapshot()
+  })
+})
