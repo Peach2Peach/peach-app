@@ -13,13 +13,20 @@ const getTradeSeparatorIcon = (tradeStatus: TradeStatus) => {
   return 'calendar'
 }
 
+const getTradeSeparatorText = (tradeStatus: TradeStatus) => {
+  if (tradeStatus === 'tradeCanceled') {
+    return i18n('contract.tradeCanceled')
+  }
+  return i18n('contract.tradeCompleted')
+}
+
 export const ClosedTrade = ({ contract, view }: TradeSummaryProps) => (
   <>
     <TradeSeparator
       style={tw`mt-4`}
       {...contract}
       iconId={getTradeSeparatorIcon(contract.tradeStatus)}
-      text={i18n(contract.tradeStatus === 'tradeCanceled' ? 'contract.tradeCanceled' : 'contract.tradeCompleted')}
+      text={getTradeSeparatorText(contract.tradeStatus)}
     />
     {contract.tradeStatus === 'tradeCanceled' ? (
       <CanceledTradeDetails {...contract} style={tw`self-center`} />
