@@ -17,6 +17,6 @@ export const getDisputeResultTheme = (
   return {
     icon: 'alertOctagon',
     level: 'ERROR',
-    color: tw`text-warning-main`.color,
+    color: tw`text-error-main`.color,
   }
 }

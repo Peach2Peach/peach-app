@@ -44,4 +44,11 @@ describe('getThemeForTradeItem', () => {
     const theme = getThemeForTradeItem(completedTradeSeller as ContractSummary)
     expect(theme).toEqual({ icon: 'sell', level: 'APP', color: tw`text-primary-mild-2`.color })
   })
+  it('returns the correct theme for a lost dispute as buyer', () => {
+    const theme = getThemeForTradeItem({
+      ...completedTradeBuyer,
+      disputeWinner: 'seller',
+    } as ContractSummary)
+    expect(theme).toEqual({ icon: 'alertOctagon', level: 'ERROR', color: '#DF321F' })
+  })
 })
