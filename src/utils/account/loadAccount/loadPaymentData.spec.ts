@@ -2,14 +2,10 @@ import { deepStrictEqual } from 'assert'
 import { defaultAccount, setAccount, storeAccount } from '..'
 import { loadPaymentData } from '.'
 import * as accountData from '../../../../tests/unit/data/accountData'
-import { resetStorage } from '../../../../tests/unit/prepare'
 
 describe('loadPaymentData', () => {
   beforeEach(async () => {
     await setAccount(defaultAccount, true)
-  })
-  afterEach(() => {
-    resetStorage()
   })
 
   it('loads payment data', async () => {

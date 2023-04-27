@@ -26,8 +26,8 @@ export const useTransactionDetailsSetup = () => {
       () => ({
         title: i18n('wallet.transactionDetails'),
       }),
-      []
-    )
+      [],
+    ),
   )
 
   const openInExplorer = () => {

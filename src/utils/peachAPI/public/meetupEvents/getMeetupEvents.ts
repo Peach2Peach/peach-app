@@ -1,6 +1,6 @@
 import { API_URL } from '@env'
 import { RequestProps } from '../..'
-import { getAbortWithTimeout } from '../../../fetch'
+import { getAbortWithTimeout } from '../../../getAbortWithTimeout'
 import { parseResponse } from '../../parseResponse'
 import { getPublicHeaders } from '../getPublicHeaders'
 

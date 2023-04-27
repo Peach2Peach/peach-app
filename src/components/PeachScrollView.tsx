@@ -10,15 +10,6 @@ type PeachScrollViewProps = ComponentProps &
     onContentLayout?: (e: LayoutChangeEvent) => void
   }
 
-/**
- * @description Component to add scroll functionality withing AvoidKeyboard
- * @param props Component properties
- * @param props.children child elements
- * @example
- * <ScrollView>
- *    <Text>Your content</Text>
- * </ScrollView>
- */
 export const PeachScrollView = ({
   children,
   scrollRef,
@@ -28,10 +19,8 @@ export const PeachScrollView = ({
   style,
   showsHorizontalScrollIndicator = false,
   showsVerticalScrollIndicator = false,
-  persistentScrollbar,
   ...scrollViewProps
 }: PeachScrollViewProps): ReactElement => {
-  const onStartShouldSetResponder = () => !disable
   const $scroll = useRef<ScrollView>(null)
 
   useEffect(() => {
@@ -41,17 +30,11 @@ export const PeachScrollView = ({
   return !disable ? (
     <ScrollView
       ref={$scroll}
-      {...{
-        style,
-        showsHorizontalScrollIndicator,
-        showsVerticalScrollIndicator,
-        persistentScrollbar,
-        indicatorStyle: 'black',
-        ...scrollViewProps,
-      }}
+      {...{ style, showsHorizontalScrollIndicator, showsVerticalScrollIndicator, ...scrollViewProps }}
+      indicatorStyle="black"
       onLayout={onContainerLayout}
     >
-      <View {...{ onStartShouldSetResponder }} style={tw`bg-transparent`} onLayout={onContentLayout}>
+      <View onStartShouldSetResponder={() => true} style={tw`bg-transparent`} onLayout={onContentLayout}>
         {children}
       </View>
     </ScrollView>
@@ -59,5 +42,3 @@ export const PeachScrollView = ({
     <View style={style}>{children}</View>
   )
 }
-
-export default PeachScrollView

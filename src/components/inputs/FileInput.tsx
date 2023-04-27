@@ -10,13 +10,6 @@ export type FileData = {
   content: string | object | null
 }
 
-/**
- * @description Prompts file select dialogue and reads content from file
- * TODO add visible error handling
- * - file cannot be read / timed out
- * - user cancels file selection
- */
-
 type FileInputProps = InputProps & {
   fileName?: string
 }
@@ -75,18 +68,11 @@ export const FileInput = ({
 
   return (
     <Input
-      {...{
-        style,
-        theme,
-        value: fileName,
-        placeholder,
-        disabled: true,
-        onPressIn: onPress,
-        icons: [['clipboard', onPress]],
-        errorMessage,
-      }}
+      value={fileName}
+      onPressIn={onPress}
+      icons={[['clipboard', onPress]]}
+      disabled
+      {...{ style, theme, placeholder, errorMessage }}
     />
   )
 }
-
-export default FileInput

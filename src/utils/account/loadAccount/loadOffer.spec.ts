@@ -3,14 +3,10 @@ import { defaultAccount, setAccount, storeOffers } from '..'
 import { offerStorage } from '../offerStorage'
 import { loadOffer } from '.'
 import * as accountData from '../../../../tests/unit/data/accountData'
-import { resetStorage } from '../../../../tests/unit/prepare'
 
 describe('loadOffer', () => {
   beforeEach(async () => {
     await setAccount(defaultAccount, true)
-  })
-  afterEach(() => {
-    resetStorage()
   })
 
   it('loads offer', async () => {

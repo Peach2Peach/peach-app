@@ -16,14 +16,14 @@ export const useBuySummarySetup = () => {
 
   const [peachWalletActive, payoutAddress, payoutAddressLabel, payoutAddressSignature] = useSettingsStore(
     (state) => [state.peachWalletActive, state.payoutAddress, state.payoutAddressLabel, state.payoutAddressSignature],
-    shallow
+    shallow,
   )
   const [releaseAddress, setReleaseAddress] = useState('')
   const [message, setMessage] = useState('')
   const [canPublish, setCanPublish] = useState(false)
   const [isPublishing, setIsPublishing] = useState(false)
   const [messageSignature, setMessageSignature] = useState(
-    !peachWalletActive && payoutAddressSignature ? payoutAddressSignature : ''
+    !peachWalletActive && payoutAddressSignature ? payoutAddressSignature : '',
   )
   const walletLabel = peachWalletActive ? i18n('peachWallet') : payoutAddressLabel
 
@@ -61,7 +61,7 @@ export const useBuySummarySetup = () => {
       setReleaseAddress(address)
       setMessage(messageToSign)
       setMessageSignature(
-        peachWalletActive ? peachWallet.signMessage(messageToSign, address) : payoutAddressSignature || ''
+        peachWalletActive ? peachWallet.signMessage(messageToSign, address) : payoutAddressSignature || '',
       )
     })()
   }, [payoutAddress, payoutAddressSignature, peachWalletActive])

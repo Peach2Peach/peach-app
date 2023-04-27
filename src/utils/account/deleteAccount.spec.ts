@@ -9,7 +9,6 @@ import { deleteAccessToken } from '../peachAPI/accessToken'
 import { deletePeachAccount } from '../peachAPI/peachAccount'
 import { sessionStorage } from '../session'
 import * as accountData from '../../../tests/unit/data/accountData'
-import { resetStorage } from '../../../tests/unit/prepare'
 
 jest.mock('../peachAPI/accessToken', () => ({
   ...jest.requireActual('../peachAPI/accessToken'),
@@ -65,10 +64,6 @@ jest.mock('../wallet/walletStore', () => ({
 describe('deleteAccount', () => {
   beforeAll(async () => {
     await setAccount(accountData.account1)
-  })
-  afterEach(() => {
-    resetStorage()
-    jest.clearAllMocks()
   })
 
   it('would delete account file', async () => {

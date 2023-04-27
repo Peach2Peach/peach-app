@@ -1,0 +1,70 @@
+import { createRenderer } from 'react-test-renderer/shallow'
+import { RadioButtons } from './RadioButtons'
+import { fireEvent, render } from '@testing-library/react-native'
+
+describe('RadioButtons', () => {
+  const renderer = createRenderer()
+  it('renders correctly', () => {
+    renderer.render(
+      <RadioButtons
+        items={[
+          {
+            value: 'EUR',
+            display: 'EUR',
+          },
+          {
+            value: 'GBP',
+            display: 'GBP',
+          },
+        ]}
+        selectedValue={'EUR'}
+        onChange={jest.fn()}
+      />,
+    )
+    const result = renderer.getRenderOutput()
+    expect(result).toMatchSnapshot()
+  })
+  it('should call onChange when a radio button is pressed', () => {
+    const onChange = jest.fn()
+    const { getByText } = render(
+      <RadioButtons
+        items={[
+          {
+            value: 'EUR',
+            display: 'EUR',
+          },
+          {
+            value: 'GBP',
+            display: 'GBP',
+          },
+        ]}
+        selectedValue={'EUR'}
+        onChange={onChange}
+      />,
+    )
+    fireEvent.press(getByText('GBP'))
+    expect(onChange).toHaveBeenCalledWith('GBP')
+  })
+  it('should not call onChange when a disabled radio button is pressed', () => {
+    const onChange = jest.fn()
+    const { getByText } = render(
+      <RadioButtons
+        items={[
+          {
+            value: 'EUR',
+            display: 'EUR',
+          },
+          {
+            value: 'GBP',
+            display: 'GBP',
+            disabled: true,
+          },
+        ]}
+        selectedValue={'EUR'}
+        onChange={onChange}
+      />,
+    )
+    fireEvent.press(getByText('GBP'))
+    expect(onChange).not.toHaveBeenCalled()
+  })
+})

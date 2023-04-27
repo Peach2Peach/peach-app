@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 
 import { useHeaderSetup, useNavigation, useRoute } from '../../../hooks'
-import userUpdate from '../../../init/userUpdate'
+import { userUpdate } from '../../../init/userUpdate'
 import { account, createAccount, deleteAccount } from '../../../utils/account'
 import { storeAccount } from '../../../utils/account/storeAccount'
 import i18n from '../../../utils/i18n'

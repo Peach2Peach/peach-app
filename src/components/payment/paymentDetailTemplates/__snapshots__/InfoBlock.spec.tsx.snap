@@ -1,0 +1,207 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InfoBlock should render a default InfoBlock 1`] = `
+<View
+  style={
+    [
+      {
+        "flexDirection": "row",
+      },
+      undefined,
+    ]
+  }
+>
+  <View
+    style={
+      {
+        "width": 100,
+      }
+    }
+  />
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "flexBasis": "0%",
+        "flexDirection": "row",
+        "flexGrow": 1,
+        "flexShrink": 1,
+      }
+    }
+  >
+    <PeachText
+      style={
+        [
+          {
+            "flexWrap": "wrap",
+            "fontFamily": "Baloo2-SemiBold",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 24,
+          },
+          false,
+        ]
+      }
+    >
+      value
+    </PeachText>
+  </View>
+</View>
+`;
+
+exports[`InfoBlock should render a full InfoBlock with style 1`] = `
+<View
+  style={
+    [
+      {
+        "flexDirection": "row",
+      },
+      {
+        "marginTop": 2,
+      },
+    ]
+  }
+>
+  <View
+    style={
+      {
+        "width": 100,
+      }
+    }
+  >
+    <PeachText
+      style={
+        {
+          "color": "#7D675E",
+        }
+      }
+    >
+      name
+    </PeachText>
+  </View>
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "flexBasis": "0%",
+        "flexDirection": "row",
+        "flexGrow": 1,
+        "flexShrink": 1,
+      }
+    }
+  >
+    <PeachText
+      onPress={[MockFunction]}
+      style={
+        [
+          {
+            "flexWrap": "wrap",
+            "fontFamily": "Baloo2-SemiBold",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 24,
+          },
+          false,
+        ]
+      }
+    >
+      value
+    </PeachText>
+    <View
+      style={
+        {
+          "height": 16,
+          "marginLeft": 8,
+          "width": 24,
+        }
+      }
+    >
+      <CopyAble
+        value="value"
+      />
+    </View>
+  </View>
+</View>
+`;
+
+exports[`InfoBlock should render correctly with disputeActive 1`] = `
+<View
+  style={
+    [
+      {
+        "flexDirection": "row",
+      },
+      {
+        "marginTop": 2,
+      },
+    ]
+  }
+>
+  <View
+    style={
+      {
+        "width": 100,
+      }
+    }
+  >
+    <PeachText
+      style={
+        {
+          "color": "#FE5A48",
+        }
+      }
+    >
+      name
+    </PeachText>
+  </View>
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "flexBasis": "0%",
+        "flexDirection": "row",
+        "flexGrow": 1,
+        "flexShrink": 1,
+      }
+    }
+  >
+    <PeachText
+      onPress={[MockFunction]}
+      style={
+        [
+          {
+            "flexWrap": "wrap",
+            "fontFamily": "Baloo2-SemiBold",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 24,
+          },
+          {
+            "color": "#B01807",
+          },
+        ]
+      }
+    >
+      value
+    </PeachText>
+    <View
+      style={
+        {
+          "height": 16,
+          "marginLeft": 8,
+          "width": 24,
+        }
+      }
+    >
+      <CopyAble
+        color={
+          {
+            "color": "#DF321F",
+          }
+        }
+        value="value"
+      />
+    </View>
+  </View>
+</View>
+`;

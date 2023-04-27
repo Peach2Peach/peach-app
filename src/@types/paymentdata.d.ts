@@ -11,9 +11,9 @@ declare type PaymentData = {
 }
 
 declare type PaypalData = {
-  phone: string
-  email: string
-  userName: string
+  phone?: string
+  email?: string
+  userName?: string
 }
 declare type SEPAData = {
   beneficiary: string
@@ -38,9 +38,9 @@ declare type MBWayData = {
   beneficiary: string
 }
 declare type RevolutData = {
-  phone: string
-  userName: string
-  email: string
+  phone?: string
+  userName?: string
+  email?: string
 }
 declare type WiseData = {
   phone: string

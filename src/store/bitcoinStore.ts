@@ -44,11 +44,11 @@ export const bitcoinStore = createStore(
       name: 'bitcoin',
       version: 0,
       storage: createJSONStorage(() => toZustandStorage(bitcoinStorage)),
-    }
-  )
+    },
+  ),
 )
 
 export const useBitcoinStore = <T>(
   selector: (state: BitcoinStore) => T,
-  equalityFn?: ((a: T, b: T) => boolean) | undefined
+  equalityFn?: ((a: T, b: T) => boolean) | undefined,
 ) => useStore(bitcoinStore, selector, equalityFn)

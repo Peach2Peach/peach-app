@@ -1,4 +1,9 @@
 export { Template1 } from './Template1'
-
+export { Template2 } from './Template2'
 export { Template3 } from './Template3'
 export { Template4 } from './Template4'
+export { Template5 } from './Template5'
+export { Template6 } from './Template6'
+export { Template7 } from './Template7'
+export { Template8 } from './Template8'
+export { Template9 } from './Template9'

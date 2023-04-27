@@ -10,6 +10,7 @@ import i18n from '../../../utils/i18n'
 import { checkNotificationStatus, isProduction, toggleNotifications } from '../../../utils/system'
 import { NotificationPopup } from '../components/NotificationPopup'
 import { SettingsItemProps } from '../components/SettingsItem'
+import { isDefined } from '../../../utils/array/isDefined'
 
 const headerConfig = { title: i18n('settings.title'), hideGoBackButton: true }
 
@@ -94,26 +95,29 @@ export const useSettingsSetup = () => {
   )
 
   const appSettings: SettingsItemProps[] = useMemo(
-    () => [
-      {
-        title: 'analytics',
-        onPress: toggleAnalytics,
-        iconId: enableAnalytics ? 'toggleRight' : 'toggleLeft',
-        enabled: enableAnalytics,
-      },
-      {
-        title: 'notifications',
-        onPress: notificationClick,
-      },
-      {
-        title: 'peachWallet',
-        onPress: togglePeachWallet,
-        iconId: peachWalletActive ? 'toggleRight' : 'toggleLeft',
-        enabled: peachWalletActive,
-      },
-      { title: 'payoutAddress' },
-      { title: 'currency', onPress: goToCurrencySettings },
-    ],
+    () =>
+      (
+        [
+          {
+            title: 'analytics',
+            onPress: toggleAnalytics,
+            iconId: enableAnalytics ? 'toggleRight' : 'toggleLeft',
+            enabled: enableAnalytics,
+          },
+          {
+            title: 'notifications',
+            onPress: notificationClick,
+          },
+          {
+            title: 'peachWallet',
+            onPress: togglePeachWallet,
+            iconId: peachWalletActive ? 'toggleRight' : 'toggleLeft',
+            enabled: peachWalletActive,
+          },
+          !peachWalletActive ? { title: 'payoutAddress' } : undefined,
+          { title: 'currency', onPress: goToCurrencySettings },
+        ] satisfies (SettingsItemProps | undefined)[]
+      ).filter(isDefined),
     [toggleAnalytics, enableAnalytics, notificationClick, togglePeachWallet, peachWalletActive, goToCurrencySettings],
   )
 

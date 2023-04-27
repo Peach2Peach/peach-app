@@ -1,4 +1,4 @@
-import { createContext, ReducerState } from 'react'
+import { createContext, ReducerState, useContext } from 'react'
 import { API_URL } from '@env'
 import { info } from '../log'
 import { authWS } from './private/user'
@@ -105,6 +105,7 @@ export const createWebsocket = (oldPeachWS?: PeachWS): PeachWS => {
 export const getWebSocket = () => peachWS
 
 export const PeachWSContext = createContext(peachWS)
+export const useWebsocketContext = () => useContext(PeachWSContext)
 
 /**
  * @description Method to set new peach websocket

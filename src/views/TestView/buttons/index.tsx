@@ -1,7 +1,6 @@
 import { PeachScrollView } from '../../../components'
 import { useHeaderSetup } from '../../../hooks'
 import tw from '../../../styles/tailwind'
-import { InfoButtons } from './InfoButtons'
 import { OptionButtons } from './OptionButtons'
 import { PrimaryButtons } from './PrimaryButtons'
 import { WarningButtons } from './WarningButtons'
@@ -16,7 +15,6 @@ export default () => {
       contentContainerStyle={tw`flex items-center w-full px-6 py-10`}
     >
       <PrimaryButtons />
-      <InfoButtons />
       <WarningButtons />
       <OptionButtons />
     </PeachScrollView>

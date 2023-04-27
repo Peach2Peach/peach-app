@@ -1,0 +1,226 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GeneralPaymentDetails should render Amazon Gift Card data 1`] = `
+<View
+  style={
+    [
+      undefined,
+      {
+        "gap": 8,
+        "marginTop": 4,
+      },
+    ]
+  }
+>
+  <InfoBlock
+    disputeActive={false}
+    name="contract.payment.to"
+    value="jeffb@amazon.com"
+  />
+  <PaymentReference
+    disputeActive={false}
+  />
+</View>
+`;
+
+exports[`GeneralPaymentDetails should render Faster Payments data 1`] = `
+<View
+  style={
+    [
+      undefined,
+      {
+        "gap": 8,
+        "marginTop": 4,
+      },
+    ]
+  }
+>
+  <InfoBlock
+    disputeActive={false}
+    name="contract.payment.to"
+    value="Lao-tzu"
+  />
+  <InfoBlock
+    disputeActive={false}
+    value="ukBankAccount"
+  />
+  <InfoBlock
+    disputeActive={false}
+    value="ukSortCode"
+  />
+  <PaymentReference
+    disputeActive={false}
+  />
+</View>
+`;
+
+exports[`GeneralPaymentDetails should render National Transfer data 1`] = `
+<View
+  style={
+    [
+      undefined,
+      {
+        "gap": 8,
+        "marginTop": 4,
+      },
+    ]
+  }
+>
+  <InfoBlock
+    disputeActive={false}
+    name="contract.payment.to"
+    value="Lao-tzu"
+  />
+  <InfoBlock
+    disputeActive={false}
+    name="form.account"
+    value="AIBK 9311 5212 3456 78"
+  />
+  <InfoBlock
+    disputeActive={false}
+    name="form.bic"
+    value="AAAABBCC"
+  />
+  <PaymentReference
+    disputeActive={false}
+  />
+</View>
+`;
+
+exports[`GeneralPaymentDetails should render payment data with reference 1`] = `
+<View
+  style={
+    [
+      undefined,
+      {
+        "gap": 8,
+        "marginTop": 4,
+      },
+    ]
+  }
+>
+  <InfoBlock
+    disputeActive={false}
+    name="contract.payment.to"
+    value="Hal Finney"
+  />
+  <InfoBlock
+    disputeActive={false}
+    name="form.iban"
+    value="IE29 AIBK 9311 5212 3456 78"
+  />
+  <InfoBlock
+    disputeActive={false}
+    name="form.bic"
+    value="AAAABBCC"
+  />
+  <PaymentReference
+    disputeActive={false}
+    reference="Do not mention peach or bitcoin"
+  />
+</View>
+`;
+
+exports[`GeneralPaymentDetails should render paypal data 1`] = `
+<View
+  style={
+    [
+      undefined,
+      {
+        "gap": 8,
+        "marginTop": 4,
+      },
+    ]
+  }
+>
+  <InfoBlock
+    disputeActive={false}
+    value="laotzu@tao.com"
+  />
+  <PaymentReference
+    disputeActive={false}
+  />
+</View>
+`;
+
+exports[`GeneralPaymentDetails should render revolut data 1`] = `
+<View
+  style={
+    [
+      undefined,
+      {
+        "gap": 8,
+        "marginTop": 4,
+      },
+    ]
+  }
+>
+  <InfoBlock
+    disputeActive={false}
+    value="@laotzu"
+  />
+  <PaymentReference
+    disputeActive={false}
+  />
+</View>
+`;
+
+exports[`GeneralPaymentDetails should render sepa data 1`] = `
+<View
+  style={
+    [
+      undefined,
+      {
+        "gap": 8,
+        "marginTop": 4,
+      },
+    ]
+  }
+>
+  <InfoBlock
+    disputeActive={false}
+    name="contract.payment.to"
+    value="Hal Finney"
+  />
+  <InfoBlock
+    disputeActive={false}
+    name="form.iban"
+    value="IE29 AIBK 9311 5212 3456 78"
+  />
+  <InfoBlock
+    disputeActive={false}
+    name="form.bic"
+    value="AAAABBCC"
+  />
+  <PaymentReference
+    disputeActive={false}
+  />
+</View>
+`;
+
+exports[`GeneralPaymentDetails should render template 3 data 1`] = `
+<View
+  style={
+    [
+      undefined,
+      {
+        "gap": 8,
+        "marginTop": 4,
+      },
+    ]
+  }
+>
+  <InfoBlock
+    disputeActive={false}
+    name="contract.payment.to"
+    value="Lao-tzu"
+  />
+  <InfoBlock
+    disputeActive={false}
+    value="+4209485798"
+  />
+  <PaymentReference
+    disputeActive={false}
+  />
+</View>
+`;

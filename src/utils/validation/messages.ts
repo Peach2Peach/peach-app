@@ -39,4 +39,5 @@ export const getMessages = () => ({
   nationalTransferNO: i18n('form.account.errors'),
   nationalTransferBG: i18n('form.account.errors'),
   nationalTransferRO: i18n('form.account.errors'),
+  isValidPaymentReference: i18n('form.reference.error'),
 })

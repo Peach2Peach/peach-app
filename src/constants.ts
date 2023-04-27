@@ -1,6 +1,7 @@
 import { getBuildNumber, getUniqueIdSync, getVersion, isEmulatorSync } from 'react-native-device-info'
 import { unique } from './utils/array'
 import { sha256 } from './utils/crypto/sha256'
+import { isCashTrade } from './utils/paymentMethod/isCashTrade'
 
 export const SATSINBTC = 100000000
 export const MSINADAY = 86400000
@@ -130,10 +131,7 @@ export const setPaymentMethods = (paymentMethodInfos: PaymentMethodInfo[]) => {
     .reduce((arr, info) => arr.concat(info.countries || []), [] as PaymentMethodCountry[])
     .filter(unique())
   PAYMENTMETHODS = paymentMethodInfos.map((method) => method.id)
-  PAYMENTCATEGORIES.cash = [
-    ...PAYMENTCATEGORIES.cash,
-    ...paymentMethodInfos.map(({ id }) => id).filter((id) => id.includes('cash.')),
-  ]
+  PAYMENTCATEGORIES.cash = [...PAYMENTCATEGORIES.cash, ...paymentMethodInfos.map(({ id }) => id).filter(isCashTrade)]
 }
 
 export const TWITTER = 'https://twitter.com/peachbitcoin'

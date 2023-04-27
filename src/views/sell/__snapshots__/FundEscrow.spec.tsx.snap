@@ -76,7 +76,7 @@ exports[`FundEscrow should render the FundEscrow view 1`] = `
       <BitcoinAddress
         address="123"
         amount={0.001}
-        label="Peach Escrow - offer P-7B"
+        label="Peach Escrow - offer P‑7B"
         style={
           {
             "marginTop": 16,
@@ -108,7 +108,7 @@ exports[`FundEscrow should render the FundEscrow view 1`] = `
 </View>
 `;
 
-exports[`FundEscrow should show Loading, while an update is pending 1`] = `
+exports[`FundEscrow should show Loading, while escrow creation is pending 1`] = `
 <View
   style={
     {
@@ -137,10 +137,6 @@ one sec...
 </View>
 `;
 
-exports[`FundEscrow should show NoEscrowFound, if no escrow is present 1`] = `<NoEscrowFound />`;
-
-exports[`FundEscrow should show NoEscrowFound, if no fundingStatus is present 1`] = `<NoEscrowFound />`;
-
-exports[`FundEscrow should show NoEscrowFound, if no sellOffer.id is present 1`] = `<NoEscrowFound />`;
+exports[`FundEscrow should show NoEscrowFound, if no there is an error while creating escrow 1`] = `<NoEscrowFound />`;
 
 exports[`FundEscrow should show TransactionInMempool, if fundingStatus is MEMPOOL 1`] = `<TransactionInMempool />`;

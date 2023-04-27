@@ -11,7 +11,7 @@ export const useCurrencySetup = () => {
   const setBitcoinCurrency = useBitcoinStore((state) => state.setCurrency)
   const [displayCurrency, setDisplayCurrency] = useSettingsStore(
     (state) => [state.displayCurrency, state.setDisplayCurrency],
-    shallow
+    shallow,
   )
   const [currency, setCurrency] = useState(displayCurrency)
 

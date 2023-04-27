@@ -1,4 +1,5 @@
 interface Global {
+  WebSocket: any
   ErrorUtils: {
     setGlobalHandler: any
     reportFatalError: any

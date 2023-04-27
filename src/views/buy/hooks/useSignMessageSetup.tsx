@@ -11,7 +11,7 @@ export const useSignMessageSetup = () => {
   const navigation = useNavigation()
   const [address, setPayoutAddressSignature] = useSettingsStore(
     (state) => [state.payoutAddress, state.setPayoutAddressSignature],
-    shallow
+    shallow,
   )
   const message = address ? getMessageToSignForAddress(account.publicKey, address) : undefined
   const signatureRules = useMemo(
@@ -19,7 +19,7 @@ export const useSignMessageSetup = () => {
       signature: [address, message],
       required: true,
     }),
-    [address, message]
+    [address, message],
   )
   const [signature, setSignature, signatureValid, signatureError] = useValidatedState<string>('', signatureRules)
   const showHelp = useShowHelp('addressSigning')
@@ -29,8 +29,8 @@ export const useSignMessageSetup = () => {
         title: i18n('buy.addressSigning.title'),
         icons: [{ iconComponent: <HelpIcon />, onPress: showHelp }],
       }),
-      [showHelp]
-    )
+      [showHelp],
+    ),
   )
 
   const submit = (sig: string) => {

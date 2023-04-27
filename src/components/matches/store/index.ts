@@ -68,5 +68,5 @@ export const useMatchStore = create<MatchStore>()(
       set((state) => {
         state.matchSelectors[matchId].showPaymentMethodPulse = show
       }),
-  }))
+  })),
 )

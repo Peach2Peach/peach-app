@@ -1,5 +1,6 @@
 import { View } from 'react-native'
-import { BuyOfferSummary, SellOfferSummary, Text } from '../../../components'
+import { Text } from '../../../components'
+import { BuyOfferSummary, SellOfferSummary } from '../../../components/offer'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { isBuyOffer } from '../../../utils/offer'

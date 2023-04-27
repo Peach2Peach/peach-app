@@ -3,16 +3,11 @@ import { defaultAccount, setAccount, storeContracts } from '..'
 import { contractStorage } from '../contractStorage'
 import { loadContract } from '.'
 import * as accountData from '../../../../tests/unit/data/accountData'
-import { resetStorage } from '../../../../tests/unit/prepare'
 
 describe('loadContract', () => {
   beforeEach(async () => {
     await setAccount(defaultAccount, true)
   })
-  afterEach(() => {
-    resetStorage()
-  })
-
   it('loads contracts', async () => {
     await storeContracts(accountData.account1.contracts)
 

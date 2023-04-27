@@ -1,0 +1,96 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TradeStuff doesn't show the escrow when the releaseTxId and the escrow are not set 1`] = `
+<View
+  style={
+    [
+      {
+        "flexDirection": "row",
+        "gap": 8,
+      },
+      undefined,
+    ]
+  }
+>
+  <ChatButton
+    contract={
+      {
+        "disputeActive": false,
+        "escrow": "",
+        "paymentMethod": "sepa",
+        "releaseTxId": undefined,
+      }
+    }
+  />
+</View>
+`;
+
+exports[`TradeStuff renders correctly 1`] = `
+<View
+  style={
+    [
+      {
+        "flexDirection": "row",
+        "gap": 8,
+      },
+      undefined,
+    ]
+  }
+>
+  <Escrow
+    contract={
+      {
+        "disputeActive": false,
+        "escrow": "0x123",
+        "paymentMethod": "sepa",
+        "releaseTxId": "0x123",
+      }
+    }
+  />
+  <ChatButton
+    contract={
+      {
+        "disputeActive": false,
+        "escrow": "0x123",
+        "paymentMethod": "sepa",
+        "releaseTxId": "0x123",
+      }
+    }
+  />
+</View>
+`;
+
+exports[`TradeStuff renders correctly when the paymentmethod includes cash 1`] = `
+<View
+  style={
+    [
+      {
+        "flexDirection": "row",
+        "gap": 8,
+      },
+      undefined,
+    ]
+  }
+>
+  <Escrow
+    contract={
+      {
+        "disputeActive": false,
+        "escrow": "0x123",
+        "paymentMethod": "cash.DE",
+        "releaseTxId": "0x123",
+      }
+    }
+  />
+  <ChatButton
+    contract={
+      {
+        "disputeActive": false,
+        "escrow": "0x123",
+        "paymentMethod": "cash.DE",
+        "releaseTxId": "0x123",
+      }
+    }
+  />
+</View>
+`;

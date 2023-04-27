@@ -1,6 +1,6 @@
 import { dataMigrationAfterLoadingAccount, dataMigrationBeforeLoadingAccount } from '../init/dataMigration'
 import events from '../init/events'
-import userUpdate from '../init/userUpdate'
+import { userUpdate } from '../init/userUpdate'
 import { account, loadAccount } from '../utils/account'
 import { getPeachInfo } from './getPeachInfo'
 import { getTrades } from './getTrades'

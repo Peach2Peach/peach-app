@@ -3,16 +3,11 @@ import { defaultAccount, setAccount, storeChats } from '..'
 import { chatStorage } from '../chatStorage'
 import { loadChat } from '.'
 import * as accountData from '../../../../tests/unit/data/accountData'
-import { resetStorage } from '../../../../tests/unit/prepare'
 
 describe('loadChat', () => {
   beforeEach(async () => {
     await setAccount(defaultAccount, true)
   })
-  afterEach(() => {
-    resetStorage()
-  })
-
   it('loads chat', async () => {
     await storeChats(accountData.buyer.chats)
 

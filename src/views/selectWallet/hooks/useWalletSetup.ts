@@ -13,7 +13,7 @@ export const useWalletSetup = () => {
         state.payoutAddressLabel,
         state.payoutAddressSignature,
       ],
-      shallow
+      shallow,
     )
 
   const wallets = useMemo(() => {

@@ -59,11 +59,11 @@ export const walletStore = createStore(
       name: 'wallet',
       version: 0,
       storage: createJSONStorage(() => toZustandStorage(walletStorage)),
-    }
-  )
+    },
+  ),
 )
 
 export const useWalletState = <T>(
   selector: (state: WalletStore) => T,
-  equalityFn?: ((a: T, b: T) => boolean) | undefined
+  equalityFn?: ((a: T, b: T) => boolean) | undefined,
 ) => useStore(walletStore, selector, equalityFn)

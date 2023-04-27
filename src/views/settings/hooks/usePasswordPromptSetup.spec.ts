@@ -14,7 +14,7 @@ jest.mock('../../../hooks/useNavigation', () => ({
 
 const setShowBackupReminderMock = jest.fn()
 const setLastFileBackupDateMock = jest.fn()
-const useSettingsStoreMock = jest.fn((selector, compareFn) =>
+const useSettingsStoreMock = jest.fn((selector, _compareFn) =>
   selector({ setShowBackupReminder: setShowBackupReminderMock, setLastFileBackupDate: setLastFileBackupDateMock }),
 )
 jest.mock('../../../store/settingsStore', () => ({

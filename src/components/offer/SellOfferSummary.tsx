@@ -1,8 +1,6 @@
 import { NETWORK } from '@env'
-import { ReactElement, useEffect, useState } from 'react'
+import { ReactElement, useState } from 'react'
 import { TouchableOpacity, View } from 'react-native'
-import { shallow } from 'zustand/shallow'
-import { useSettingsStore } from '../../store/settingsStore'
 import tw from '../../styles/tailwind'
 import { showAddress } from '../../utils/bitcoin'
 import i18n from '../../utils/i18n'
@@ -13,7 +11,7 @@ import { getPremiumColor } from '../matches/utils'
 import { TabbedNavigation } from '../navigation/TabbedNavigation'
 import { SatsFormat, Text } from '../text'
 import { HorizontalLine } from '../ui'
-import { getSummaryWalletLabel } from '../../utils/offer'
+import { WalletLabel } from './WalletLabel'
 
 type SellOfferSummaryProps = ComponentProps & {
   offer: SellOffer | SellOfferDraft
@@ -25,22 +23,6 @@ const isSellOfferWithDefinedEscrow = (offer: SellOffer | SellOfferDraft): offer 
 export const SellOfferSummary = ({ offer, style }: SellOfferSummaryProps): ReactElement => {
   const currencies = getCurrencies(offer.meansOfPayment)
   const [selectedCurrency, setSelectedCurrency] = useState(currencies[0])
-  const [payoutAddress, payoutAddressLabel] = useSettingsStore(
-    (state) => [state.payoutAddress, state.payoutAddressLabel],
-    shallow
-  )
-  const [walletLabel, setWalletLabel] = useState(i18n('loading'))
-
-  useEffect(() => {
-    setWalletLabel(
-      getSummaryWalletLabel({
-        offerWalletLabel: offer.walletLabel,
-        address: offer.returnAddress,
-        customPayoutAddress: payoutAddress,
-        customPayoutAddressLabel: payoutAddressLabel,
-      }) || i18n('offer.summary.customPayoutAddress')
-    )
-  }, [offer.returnAddress, offer.walletLabel, payoutAddress, payoutAddressLabel])
 
   return (
     <View style={[tw`border border-black-5 rounded-2xl p-7 bg-primary-background-light`, style]}>
@@ -75,7 +57,7 @@ export const SellOfferSummary = ({ offer, style }: SellOfferSummaryProps): React
 
       <HorizontalLine style={tw`w-64 my-4`} />
       <Text style={tw`self-center body-m text-black-2`}>{i18n('offer.summary.refundWallet')}</Text>
-      <Text style={tw`self-center subtitle-1`}>{walletLabel}</Text>
+      <WalletLabel label={offer.walletLabel} address={offer.returnAddress} style={tw`self-center subtitle-1`} />
 
       {isSellOfferWithDefinedEscrow(offer) && (
         <>

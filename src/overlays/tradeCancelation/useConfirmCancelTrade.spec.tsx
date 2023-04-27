@@ -2,8 +2,6 @@ import { renderHook } from '@testing-library/react-native'
 import { account1 } from '../../../tests/unit/data/accountData'
 import { contract } from '../../../tests/unit/data/contractData'
 import { sellOffer } from '../../../tests/unit/data/offerData'
-import { Loading } from '../../components'
-import tw from '../../styles/tailwind'
 import { setAccount } from '../../utils/account'
 import i18n from '../../utils/i18n'
 import { getResult } from '../../utils/result'
@@ -24,6 +22,12 @@ const updateOverlayMock = jest.fn()
 const useOverlayContextMock = jest.fn().mockReturnValue([, updateOverlayMock])
 jest.mock('../../contexts/overlay', () => ({
   useOverlayContext: () => useOverlayContextMock(),
+}))
+
+const showLoadingOverlayMock = jest.fn()
+const useShowLoadingOverlayMock = jest.fn().mockReturnValue(showLoadingOverlayMock)
+jest.mock('../../hooks/useShowLoadingOverlay', () => ({
+  useShowLoadingOverlay: () => useShowLoadingOverlayMock(),
 }))
 
 const saveContractMock = jest.fn()
@@ -71,24 +75,16 @@ describe('useConfirmCancelTrade', () => {
       showConfirmOverlay: expect.any(Function),
       cancelSeller: expect.any(Function),
       cancelBuyer: expect.any(Function),
-      showLoading: expect.any(Function),
+      showLoadingOverlay: expect.any(Function),
       closeOverlay: expect.any(Function),
     })
   })
   it('should update popups when canceling a contract as seller', async () => {
     const { result } = renderHook(useConfirmCancelTrade)
     const cancelSellerPromise = result.current.cancelSeller(contract)
-    expect(updateOverlayMock).toHaveBeenCalledWith({
-      action1: {
-        callback: expect.any(Function),
-        icon: 'clock',
-        label: i18n('loading'),
-      },
-      content: <Loading color={tw`text-primary-main`.color} style={tw`self-center`} />,
-      level: 'ERROR',
-      requireUserAction: true,
+    expect(showLoadingOverlayMock).toHaveBeenCalledWith({
       title: i18n('contract.cancel.title'),
-      visible: true,
+      level: 'ERROR',
     })
 
     updateOverlayMock.mockClear()

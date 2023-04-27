@@ -1,4 +1,4 @@
-import { ReactElement, useMemo } from 'react'
+import { useMemo } from 'react'
 import { Pressable } from 'react-native'
 import { APPLINKS } from '../../constants'
 import tw from '../../styles/tailwind'
@@ -7,12 +7,13 @@ import { openAppLink } from '../../utils/web'
 import Icon from '../Icon'
 import { Text } from '../text'
 
-type PaymentMethodProps = ComponentProps & {
+type Props = ComponentProps & {
   paymentMethod: PaymentMethod
   showLink: boolean
+  isDispute: boolean
 }
 
-export const PaymentMethod = ({ paymentMethod, showLink, style }: PaymentMethodProps): ReactElement => {
+export const PaymentMethod = ({ paymentMethod, showLink, isDispute, style }: Props) => {
   const url = APPLINKS[paymentMethod]?.url
   const appLink = APPLINKS[paymentMethod]?.appLink
   const openLink = () => (showLink && url ? openAppLink(url, appLink) : null)
@@ -22,13 +23,18 @@ export const PaymentMethod = ({ paymentMethod, showLink, style }: PaymentMethodP
       onPress={openLink}
       style={[
         tw`flex-row items-center px-2 rounded-lg`,
-        showLink ? tw`bg-primary-main` : tw`border border-black-1`,
+        tw`border border-primary-main`,
+        isDispute && tw`border-error-light`,
         style,
       ]}
     >
-      <Text style={[tw`flex-wrap button-medium`, showLink && tw`text-primary-background-light`]}>{name}</Text>
+      <Text style={[tw`flex-wrap button-medium`, isDispute ? tw`text-error-light` : tw`text-primary-main`]}>{name}</Text>
       {!!url && showLink && (
-        <Icon id="externalLink" style={tw`w-3 h-3 ml-1`} color={tw`text-primary-background-light`.color} />
+        <Icon
+          id="externalLink"
+          style={tw`w-3 h-3 ml-1`}
+          color={isDispute ? tw`text-error-light`.color : tw`text-primary-main`.color}
+        />
       )}
     </Pressable>
   )

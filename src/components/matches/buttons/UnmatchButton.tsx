@@ -11,7 +11,7 @@ import { useUnmatchOffer } from '../hooks'
 import { UndoButton } from './UndoButton'
 
 type Props = {
-  match: Match
+  match: Pick<Match, 'matched' | 'offerId'>
   offer: BuyOffer | SellOffer
   interruptMatching: () => void
   showUnmatchedCard: () => void

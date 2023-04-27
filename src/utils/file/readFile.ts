@@ -8,7 +8,7 @@ export const readFile = async (path: string, password?: string): Promise<string>
   let content = ''
 
   try {
-    content = (await RNFS.readFile(RNFS.DocumentDirectoryPath + path, 'utf8')) as string
+    content = await RNFS.readFile(RNFS.DocumentDirectoryPath + path, 'utf8')
   } catch (e) {
     error('File could not be read', e)
     return content

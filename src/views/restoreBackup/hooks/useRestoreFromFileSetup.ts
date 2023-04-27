@@ -50,20 +50,15 @@ export const useRestoreFromFileSetup = () => {
       setLoading(false)
       return
     }
-    const [success, recoverAccountErr] = await recoverAccount(recoveredAccount)
+    const updatedAccount = await recoverAccount(recoveredAccount)
 
-    if (success) {
-      await storeAccount(recoveredAccount)
-      setRestored(true)
-      setLoading(false)
+    await storeAccount(updatedAccount)
+    setRestored(true)
+    setLoading(false)
 
-      setTimeout(() => {
-        navigation.replace('home')
-      }, 1500)
-    } else {
-      setLoading(false)
-      onError(parseError(recoverAccountErr))
-    }
+    setTimeout(() => {
+      navigation.replace('home')
+    }, 1500)
   }
 
   return { restored, error, loading, file, setFile, password, setPassword, passwordError, submit }

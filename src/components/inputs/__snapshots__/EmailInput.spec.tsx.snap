@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EmailInput renders correctly 1`] = `
+<Input
+  autoCorrect={false}
+  keyboardType="email-address"
+  placeholder="example@provider.com"
+/>
+`;

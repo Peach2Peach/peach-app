@@ -131,6 +131,10 @@ declare type PaymentMethodCountry =
   | 'HR'
 
 declare type Location = 'amsterdam' | 'belgianEmbassy' | 'lugano'
+
+declare type CashTrade = 'cash' | `cash.${string}`
+declare type AmazonGiftCard = `giftCard.amazon.${PaymentMethodCountry}`
+declare type NationalTransfer = `nationalTransfer${PaymentMethodCountry}`
 declare type PaymentMethod =
   | 'sepa'
   | 'instantSepa'
@@ -140,7 +144,6 @@ declare type PaymentMethod =
   | 'revolut'
   | 'vipps'
   | 'blik'
-  | 'applePay'
   | 'wise'
   | 'twint'
   | 'satispay'
@@ -159,11 +162,9 @@ declare type PaymentMethod =
   | 'lydia'
   | 'verse'
   | 'iris'
-  | `cash.${string}`
-  | 'cash'
-  | 'giftCard.amazon'
-  | `giftCard.amazon.${PaymentMethodCountry}`
-  | `nationalTransfer${PaymentMethodCountry}`
+  | CashTrade
+  | AmazonGiftCard
+  | NationalTransfer
 
 declare type MeetupEvent = {
   // BitcoinEvent in backend
@@ -197,8 +198,8 @@ declare type FundingStatus = {
 }
 
 declare type GetStatusResponse = {
-  error: null // TODO there will be error codes
-  status: 'online' // TODO there will be other stati
+  error: null
+  status: 'online'
   serverTime: number
 }
 
@@ -338,6 +339,9 @@ declare type GetMatchesResponse = {
   offerId: string
   matches: Match[]
   totalMatches: number
+  nextPage: number
+
+  /** @deprecated */
   remainingMatches: number
 }
 declare type MatchResponse = {

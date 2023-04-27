@@ -7,7 +7,7 @@ import { contractIdToHex } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
 import { isIOS } from '../../../utils/system'
 import { useNavigateToContract } from '../hooks/useNavigateToContract'
-import { getThemeForPastTrade, isPastOffer, statusIcons } from '../utils'
+import { getThemeForTradeItem, isPastOffer, statusIcons } from '../utils'
 import { ChatMessages } from './ChatMessages'
 
 type OfferItemProps = { contract: ContractSummary }
@@ -26,7 +26,7 @@ export const ContractItem = ({ contract }: OfferItemProps): ReactElement => {
   const currency = contract.currency
   const price = contract.price
   const navigate = useNavigateToContract(contract)
-  const theme = useMemo(() => getThemeForPastTrade(contract), [contract])
+  const theme = useMemo(() => getThemeForTradeItem(contract), [contract])
   const status = theme.level === 'WAITING' ? 'waiting' : contract.tradeStatus
   const counterparty = contract.type === 'bid' ? 'seller' : 'buyer'
 

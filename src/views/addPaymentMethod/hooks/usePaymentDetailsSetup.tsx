@@ -34,10 +34,7 @@ export const usePaymentDetailsSetup = () => {
     if (data.id) {
       icons[1] = {
         iconComponent: <DeleteIcon />,
-        onPress: () => {
-          if (!data?.id) return
-          deletePaymentMethod()
-        },
+        onPress: deletePaymentMethod,
       }
     }
     info('icons' + icons)
