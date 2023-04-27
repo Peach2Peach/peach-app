@@ -57,6 +57,7 @@ export const useNewUserSetup = () => {
         message,
         signature: signMessageWithAccount(message, account),
       })
+
       if (!result || authError) {
         onError(authError?.error)
         return
@@ -78,7 +79,7 @@ export const useNewUserSetup = () => {
     // creating an account is CPU intensive and causing iOS to show a black bg upon hiding keyboard
     setTimeout(async () => {
       try {
-        onSuccess(await createAccount())
+        await onSuccess(await createAccount())
       } catch (e) {
         onError(parseError(e))
       }
