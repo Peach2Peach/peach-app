@@ -4,7 +4,7 @@ import tw from '../../../styles/tailwind'
 import { wonDisputeForTrade } from './wonDisputeForTrade'
 
 export const getDisputeResultTheme = (
-  trade: ContractSummary,
+  trade: Pick<ContractSummary, 'disputeWinner' | 'type'>,
 ): {
   icon: IconType
   level: SummaryItemLevel
