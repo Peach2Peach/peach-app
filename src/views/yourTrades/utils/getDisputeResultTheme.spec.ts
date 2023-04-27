@@ -5,24 +5,24 @@ describe('getDisputeResultTheme', () => {
   const wonAsBuyer = {
     type: 'bid',
     disputeWinner: 'buyer',
-  }
+  } as const
   const wonAsSeller = {
     type: 'ask',
     disputeWinner: 'seller',
-  }
+  } as const
 
   const lostAsBuyer = {
     type: 'bid',
     disputeWinner: 'seller',
-  }
+  } as const
 
   const lostAsSeller = {
     type: 'ask',
     disputeWinner: 'buyer',
-  }
+  } as const
 
   it('returns the correct theme for a contract summary where you won the dispute as buyer', () => {
-    const theme = getDisputeResultTheme(wonAsBuyer as ContractSummary)
+    const theme = getDisputeResultTheme(wonAsBuyer)
     expect(theme).toEqual({
       icon: 'buy',
       level: 'SUCCESS',
@@ -31,7 +31,7 @@ describe('getDisputeResultTheme', () => {
   })
 
   it('returns the correct theme for a contract summary where you won the dispute as seller', () => {
-    const theme = getDisputeResultTheme(wonAsSeller as ContractSummary)
+    const theme = getDisputeResultTheme(wonAsSeller)
     expect(theme).toEqual({
       icon: 'sell',
       level: 'APP',
