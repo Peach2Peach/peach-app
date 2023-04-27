@@ -43,7 +43,6 @@ describe('getAction - disputes', () => {
     expect(action.label).toBe('dispute won: resolve now')
     expect(action.icon).toBe('alertOctagon')
   })
-  it('should return the correct action for a lost dispute as a buyer', () => {})
   it('should return the correct action for a won dispute as a buyer', () => {
     const tradeSummary = {
       amount: 40000,
