@@ -20,6 +20,14 @@ exports[`ClosedTrade should render a canceled trade correctly 1`] = `
     }
     tradeStatus="tradeCanceled"
   />
+  <TradeStuffSeparator
+    style={
+      {
+        "marginTop": 16,
+      }
+    }
+    tradeStatus="tradeCanceled"
+  />
   <TradeStuff
     contract={
       {
@@ -29,7 +37,7 @@ exports[`ClosedTrade should render a canceled trade correctly 1`] = `
     style={
       {
         "justifyContent": "flex-start",
-        "marginTop": 16,
+        "marginTop": 6,
       }
     }
   />
@@ -52,6 +60,14 @@ exports[`ClosedTrade should render a completed trade correctly 1`] = `
     isBuyer={false}
     tradeStatus="tradeCompleted"
   />
+  <TradeStuffSeparator
+    style={
+      {
+        "marginTop": 16,
+      }
+    }
+    tradeStatus="tradeCompleted"
+  />
   <TradeStuff
     contract={
       {
@@ -61,7 +77,7 @@ exports[`ClosedTrade should render a completed trade correctly 1`] = `
     style={
       {
         "justifyContent": "flex-start",
-        "marginTop": 16,
+        "marginTop": 6,
       }
     }
   />
@@ -87,6 +103,15 @@ exports[`ClosedTrade should render the won dispute as seller status correctly 1`
     isBuyer={false}
     tradeStatus="refundOrReviveRequired"
   />
+  <TradeStuffSeparator
+    disputeWinner="seller"
+    style={
+      {
+        "marginTop": 16,
+      }
+    }
+    tradeStatus="refundOrReviveRequired"
+  />
   <TradeStuff
     contract={
       {
@@ -97,7 +122,7 @@ exports[`ClosedTrade should render the won dispute as seller status correctly 1`
     style={
       {
         "justifyContent": "flex-start",
-        "marginTop": 16,
+        "marginTop": 6,
       }
     }
   />
