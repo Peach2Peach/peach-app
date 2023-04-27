@@ -13,6 +13,10 @@ const TestWrapper = ({ children }: { children: React.ReactNode }) => (
 
 jest.useFakeTimers()
 
+jest.mock('../../../../components/lists/SummaryItem', () => ({
+  SummaryItem: 'SummaryItem',
+}))
+
 describe('ContractItem', () => {
   const contract: ContractSummary = {
     id: 'contractId',
