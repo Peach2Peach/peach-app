@@ -72,7 +72,8 @@ exports[`ClosedTrade should render the won dispute as seller status correctly 1`
 <React.Fragment>
   <TradeSeparator
     disputeWinner="seller"
-    iconId="calendar"
+    iconColor="#7D675E"
+    iconId="alertOctagon"
     style={
       {
         "marginTop": 16,
