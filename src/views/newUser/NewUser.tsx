@@ -9,7 +9,7 @@ import { UserExistsForDevice } from './UserExistsForDevice'
 export default (): ReactElement => {
   const { success, error, userExistsForDevice } = useNewUserSetup()
   if (success) return <CreateAccountSuccess />
-  if (userExistsForDevice) return <UserExistsForDevice iDontHaveABackup={() => setShowRestoreReputationNotice(true)} />
+  if (userExistsForDevice) return <UserExistsForDevice />
   if (error) return <CreateAccountError err={error} />
 
   return <CreateAccountLoading />

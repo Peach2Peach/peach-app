@@ -1,13 +1,15 @@
-import { ReactElement } from 'react'
 import { View } from 'react-native'
 import { Loading, Text } from '../../components'
-
-import { useHeaderSetup } from '../../hooks'
+import { useOnboardingHeader } from '../../hooks/headers/useOnboardingHeader'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 
 export const RestoreReputationLoading = () => {
-  useHeaderSetup({ title: i18n('restoreBackup.restoreReputation'), hideGoBackButton: true, theme: 'inverted' as const })
+  useOnboardingHeader({
+    title: i18n('restoreBackup.title'),
+    icons: [],
+    hideGoBackButton: true,
+  })
 
   return (
     <View style={tw`flex items-center justify-center h-full`}>
