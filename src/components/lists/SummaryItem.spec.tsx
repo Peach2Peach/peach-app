@@ -60,4 +60,23 @@ describe('SummaryItem', () => {
     renderer.render(<SummaryItem {...props} />)
     expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
+  it('should render correctly for a won dispute as a seller with light theme', () => {
+    const props = {
+      title: 'PC‑149‑14A',
+      level: 'SUCCESS',
+      date: new Date('2023-04-26'),
+      action: {
+        label: 'refund escrow',
+        icon: 'alertOctagon',
+        callback: () => {},
+      },
+      icon: undefined,
+      theme: 'light',
+      amount: 50000,
+      currency: 'EUR',
+      price: 12.64,
+    } as const
+    renderer.render(<SummaryItem {...props} />)
+    expect(renderer.getRenderOutput()).toMatchSnapshot()
+  })
 })

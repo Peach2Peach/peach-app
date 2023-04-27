@@ -52,7 +52,7 @@ const themes: Record<string, ThemeConfig> = {
     },
     border: {
       APP: tw`border-primary-mild-2`,
-      SUCCESS: tw`border-success-mild`,
+      SUCCESS: tw`border-success-main`,
       WARN: tw`border-warning-main`,
       ERROR: tw`border-error-main`,
       INFO: tw`border-info-light`,
