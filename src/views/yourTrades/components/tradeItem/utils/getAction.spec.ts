@@ -44,7 +44,7 @@ describe('getAction - disputes', () => {
     expect(action.label).toBe('dispute won: resolve now')
     expect(action.icon).toBe('alertOctagon')
   })
-  it('should return the correct action for a won dispute as a seller', () => {
+  it('should return the correct action for a won dispute as a seller with refundOrReviveRequired', () => {
     const tradeSummary = {
       amount: 50000,
       creationDate: new Date('2023-04-24T23:13:32.074Z'),
