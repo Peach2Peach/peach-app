@@ -12,7 +12,7 @@ export const getDisputeResultTheme = (
 } => {
   if (wonDisputeForTrade(trade)) {
     if (trade.type === 'bid') return { icon: 'buy', level: 'SUCCESS', color: tw`text-success-main`.color }
-    return { icon: 'sell', level: 'APP', color: tw`text-primary-main`.color }
+    return { icon: 'alertOctagon', level: 'SUCCESS', color: tw`text-primary-main`.color }
   }
   return {
     icon: 'alertOctagon',

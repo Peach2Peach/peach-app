@@ -33,8 +33,8 @@ describe('getDisputeResultTheme', () => {
   it('returns the correct theme for a contract summary where you won the dispute as seller', () => {
     const theme = getDisputeResultTheme(wonAsSeller)
     expect(theme).toEqual({
-      icon: 'sell',
-      level: 'APP',
+      icon: 'alertOctagon',
+      level: 'SUCCESS',
       color: tw`text-primary-main`.color,
     })
   })
