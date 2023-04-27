@@ -19,8 +19,8 @@ export const useOnboardingHeader = (config: HeaderConfig) => {
     },
   ]
   useHeaderSetup({
-    icons: headerIcons,
     theme: 'inverted',
     ...config,
+    icons: config.icons || headerIcons,
   })
 }
