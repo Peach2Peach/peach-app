@@ -1,8 +1,8 @@
-import { isError } from '@tanstack/react-query'
 import { isPastOffer } from './isPastOffer'
 import { isOpenAction } from './isOpenAction'
 import { isPrioritary } from './isPrioritary'
 import { isWaiting } from './isWaiting'
+import { isError } from './isError'
 
 export const getCategories = (trades: TradeSummary[]) =>
   [

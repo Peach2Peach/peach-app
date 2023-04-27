@@ -10,7 +10,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import RNRestart from 'react-native-restart'
 import { enableScreens } from 'react-native-screens'
 
-import { AvoidKeyboard, Footer, Header, Drawer, Message, Overlay } from './components'
+import { AvoidKeyboard, Footer, Header, Drawer, Message, Overlay, Popup } from './components'
 import tw from './styles/tailwind'
 import i18n from './utils/i18n'
 import { getViews } from './views'
@@ -249,6 +249,7 @@ const App = () => {
                           previousDrawer={previousDrawer}
                         />
                         <Overlay {...overlayState} />
+                        <Popup />
                         <SafeAreaView>
                           <View style={tw`flex-col h-full`}>
                             {!!messageState.msgKey && (

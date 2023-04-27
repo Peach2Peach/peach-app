@@ -3,6 +3,7 @@ import { isError } from '.'
 describe('isError', () => {
   it('should return true for error status', () => {
     expect(isError('refundAddressRequired')).toBe(true)
+    expect(isError('dispute')).toBe(true)
   })
   it('should return false for other statuses', () => {
     expect(isError('fundEscrow')).toBe(false)
