@@ -8,6 +8,7 @@ import LoadingScreen from '../loading/LoadingScreen'
 import { ContractCTA } from './components/ContractCTA'
 import { useContractSetup } from './hooks/useContractSetup'
 import { ProvideEmailButton } from './components/ProvideEmailButton'
+import { ResolveDisputeSliders } from './ResolveDisputeSliders'
 
 export default () => {
   const { contract, isLoading, view, requiredAction, actionPending, postConfirmPaymentBuyer, postConfirmPaymentSeller }
@@ -27,6 +28,7 @@ export default () => {
           <ContractCTA
             {...{ contract, view, requiredAction, actionPending, postConfirmPaymentBuyer, postConfirmPaymentSeller }}
           />
+          {contract.tradeStatus === 'refundOrReviveRequired' && <ResolveDisputeSliders {...{ contract }} />}
         </View>
       </View>
     </PeachScrollView>
