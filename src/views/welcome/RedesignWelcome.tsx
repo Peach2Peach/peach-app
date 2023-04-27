@@ -1,27 +1,25 @@
-import { ReactElement, useMemo } from 'react'
-import { View, Image } from 'react-native'
-import tw from '../../styles/tailwind'
-import { PrimaryButton, Text } from '../../components'
-import { useHeaderSetup, useNavigation } from '../../hooks'
-import i18n from '../../utils/i18n'
-import { useConfigStore } from '../../store/configStore'
+import { ReactElement } from 'react'
+import { Image, View } from 'react-native'
 import { shallow } from 'zustand/shallow'
 import bitcoinAnimation from '../../assets/animated/bitcoin.gif'
+import { PrimaryButton, Text } from '../../components'
+import { useNavigation } from '../../hooks'
+import { useOnboardingHeader } from '../../hooks/headers/useOnboardingHeader'
+import { useConfigStore } from '../../store/configStore'
 import { useSettingsStore } from '../../store/settingsStore'
+import tw from '../../styles/tailwind'
+import i18n from '../../utils/i18n'
 
 export default (): ReactElement => {
   const [setSeenRedesignWelcome] = useConfigStore((state) => [state.setSeenRedesignWelcome], shallow)
   const [usedReferralCode] = useSettingsStore((state) => [state.usedReferralCode], shallow)
   const { goBack } = useNavigation()
-  useHeaderSetup(
-    useMemo(
-      () => ({
-        hideGoBackButton: true,
-        theme: 'inverted',
-      }),
-      [],
-    ),
-  )
+
+  useOnboardingHeader({
+    icons: [],
+    hideGoBackButton: true,
+  })
+
   return (
     <View testID="redesignWelcome" style={tw`flex-1`}>
       <View style={tw`items-center justify-center flex-grow`}>

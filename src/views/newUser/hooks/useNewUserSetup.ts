@@ -1,26 +1,32 @@
 import { useCallback, useEffect, useState } from 'react'
 
 import { useNavigation, useRoute } from '../../../hooks'
+import { useOnboardingHeader } from '../../../hooks/headers/useOnboardingHeader'
+import { useTemporaryAccount } from '../../../hooks/useTemporaryAccount'
 import { userUpdate } from '../../../init/userUpdate'
 import { createAccount, deleteAccount, signMessageWithAccount, updateAccount } from '../../../utils/account'
 import { storeAccount } from '../../../utils/account/storeAccount'
+import i18n from '../../../utils/i18n'
 import { register } from '../../../utils/peachAPI'
 import { getAuthenticationChallenge } from '../../../utils/peachAPI/getAuthenticationChallenge'
 import { parseError } from '../../../utils/result'
-import { useNewUserHeader } from './useNewUserHeader'
-import { useTemporaryAccount } from '../../../hooks/useTemporaryAccount'
 
 // eslint-disable-next-line max-lines-per-function
 export const useNewUserSetup = () => {
   const route = useRoute<'newUser'>()
   const navigation = useNavigation()
 
+  const [isLoading, setIsloading] = useState(true)
   const [success, setSuccess] = useState(false)
   const { setTemporaryAccount } = useTemporaryAccount()
   const [userExistsForDevice, setUserExistsForDevice] = useState(false)
   const [error, setError] = useState('')
 
-  useNewUserHeader({ hideUserActions: !userExistsForDevice && !error })
+  useOnboardingHeader({
+    title: i18n('welcome.welcomeToPeach.title'),
+    hideGoBackButton: !success || userExistsForDevice || !!error,
+    icons: !isLoading ? [] : undefined,
+  })
 
   const onError = useCallback((err?: string) => {
     const errorMsg = err || 'UNKNOWN_ERROR'
@@ -76,6 +82,7 @@ export const useNewUserSetup = () => {
       } catch (e) {
         onError(parseError(e))
       }
+      setIsloading(false)
     })
   }, [onError, onSuccess])
 
