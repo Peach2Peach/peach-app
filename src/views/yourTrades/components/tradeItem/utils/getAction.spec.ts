@@ -19,7 +19,7 @@ describe('getAction - disputes', () => {
       unreadMessages: 0,
     } as const
     const action = getAction(tradeSummary, () => {}, 'releaseEscrow')
-    expect(action.label).toBe('release escrow')
+    expect(action.label).toBe('dispute lost: release escrow')
     expect(action.icon).toBe('alertOctagon')
   })
 })
