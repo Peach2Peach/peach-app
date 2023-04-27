@@ -14,7 +14,7 @@ const themes: Record<string, ThemeConfig> = {
   default: {
     bg: {
       APP: tw`bg-primary-main`,
-      SUCCESS: tw`bg-success-mild`,
+      SUCCESS: tw`bg-success-main`,
       WARN: tw`bg-warning-main`,
       ERROR: tw`bg-error-main`,
       INFO: tw`bg-info-light`,
@@ -23,7 +23,7 @@ const themes: Record<string, ThemeConfig> = {
     },
     border: {
       APP: tw`border-primary-main`,
-      SUCCESS: tw`border-success-mild`,
+      SUCCESS: tw`border-success-main`,
       WARN: tw`border-warning-main`,
       ERROR: tw`border-error-main`,
       INFO: tw`border-info-light`,
@@ -32,7 +32,7 @@ const themes: Record<string, ThemeConfig> = {
     },
     text: {
       APP: tw`text-primary-background-light`,
-      SUCCESS: tw`text-black-1`,
+      SUCCESS: tw`text-black-6`,
       WARN: tw`text-black-1`,
       ERROR: tw`text-primary-background-light`,
       INFO: tw`text-primary-background-light`,

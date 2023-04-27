@@ -1,0 +1,400 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SummaryItem should render correctly for a lost dispute as a seller 1`] = `
+<TouchableOpacity
+  onPress={[Function]}
+  style={
+    [
+      {
+        "backgroundColor": "#FFFCFA",
+        "borderRadius": 12,
+        "width": "100%",
+      },
+      {
+        "borderWidth": 1,
+      },
+      {
+        "borderColor": "#DF321F",
+      },
+      undefined,
+    ]
+  }
+>
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "borderRadius": 12,
+        "display": "flex",
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "paddingBottom": 12,
+        "paddingLeft": 16,
+        "paddingRight": 16,
+        "paddingTop": 12,
+      }
+    }
+  >
+    <View>
+      <PeachText
+        style={
+          {
+            "fontFamily": "Baloo2-SemiBold",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 28,
+          }
+        }
+      >
+        PC‑14F‑152
+      </PeachText>
+      <View
+        style={
+          {
+            "alignItems": "center",
+            "display": "flex",
+            "flexDirection": "row",
+          }
+        }
+      >
+        <PeachText
+          style={
+            {
+              "color": "#7D675E",
+              "fontSize": 14,
+            }
+          }
+        >
+          jan 9th, 2009
+        </PeachText>
+      </View>
+    </View>
+    <View>
+      <SatsFormat
+        sats={40000}
+      />
+      <PriceFormat
+        amount={10.9}
+        currency="EUR"
+        style={
+          {
+            "color": "#7D675E",
+            "textAlign": "right",
+          }
+        }
+      />
+    </View>
+  </View>
+  <View
+    style={
+      [
+        {
+          "alignItems": "center",
+          "borderBottomLeftRadius": 8,
+          "borderBottomRightRadius": 8,
+          "display": "flex",
+          "flexDirection": "row",
+          "justifyContent": "center",
+          "paddingBottom": 8,
+          "paddingTop": 8,
+        },
+        {
+          "backgroundColor": "#DF321F",
+        },
+      ]
+    }
+  >
+    <Icon
+      color="#FFFCFA"
+      id="upload"
+      style={
+        {
+          "marginRight": 4,
+          "marginTop": -2,
+          "width": 16,
+        }
+      }
+    />
+    <PeachText
+      style={
+        [
+          {
+            "fontWeight": "600",
+          },
+          {
+            "color": "#FFFCFA",
+          },
+        ]
+      }
+    >
+      release escrow
+    </PeachText>
+  </View>
+</TouchableOpacity>
+`;
+
+exports[`SummaryItem should render correctly for a started dispute 1`] = `
+<TouchableOpacity
+  onPress={[Function]}
+  style={
+    [
+      {
+        "backgroundColor": "#FFFCFA",
+        "borderRadius": 12,
+        "width": "100%",
+      },
+      {
+        "borderWidth": 1,
+      },
+      {
+        "borderColor": "#DF321F",
+      },
+      undefined,
+    ]
+  }
+>
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "borderRadius": 12,
+        "display": "flex",
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "paddingBottom": 12,
+        "paddingLeft": 16,
+        "paddingRight": 16,
+        "paddingTop": 12,
+      }
+    }
+  >
+    <View>
+      <PeachText
+        style={
+          {
+            "fontFamily": "Baloo2-SemiBold",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 28,
+          }
+        }
+      >
+        PC‑147‑148
+      </PeachText>
+      <View
+        style={
+          {
+            "alignItems": "center",
+            "display": "flex",
+            "flexDirection": "row",
+          }
+        }
+      >
+        <PeachText
+          style={
+            {
+              "color": "#7D675E",
+              "fontSize": 14,
+            }
+          }
+        >
+          apr 21st, 2023
+        </PeachText>
+      </View>
+    </View>
+    <View>
+      <SatsFormat
+        sats={50000}
+      />
+      <PriceFormat
+        amount={12.94}
+        currency="EUR"
+        style={
+          {
+            "color": "#7D675E",
+            "textAlign": "right",
+          }
+        }
+      />
+    </View>
+  </View>
+  <View
+    style={
+      [
+        {
+          "alignItems": "center",
+          "borderBottomLeftRadius": 8,
+          "borderBottomRightRadius": 8,
+          "display": "flex",
+          "flexDirection": "row",
+          "justifyContent": "center",
+          "paddingBottom": 8,
+          "paddingTop": 8,
+        },
+        {
+          "backgroundColor": "#DF321F",
+        },
+      ]
+    }
+  >
+    <Icon
+      color="#FFFCFA"
+      id="alertOctagon"
+      style={
+        {
+          "marginRight": 4,
+          "marginTop": -2,
+          "width": 16,
+        }
+      }
+    />
+    <PeachText
+      style={
+        [
+          {
+            "fontWeight": "600",
+          },
+          {
+            "color": "#FFFCFA",
+          },
+        ]
+      }
+    >
+      dispute started
+    </PeachText>
+  </View>
+</TouchableOpacity>
+`;
+
+exports[`SummaryItem should render correctly for a won dispute as a seller 1`] = `
+<TouchableOpacity
+  onPress={[Function]}
+  style={
+    [
+      {
+        "backgroundColor": "#FFFCFA",
+        "borderRadius": 12,
+        "width": "100%",
+      },
+      {
+        "borderWidth": 1,
+      },
+      {
+        "borderColor": "#05A85A",
+      },
+      undefined,
+    ]
+  }
+>
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "borderRadius": 12,
+        "display": "flex",
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "paddingBottom": 12,
+        "paddingLeft": 16,
+        "paddingRight": 16,
+        "paddingTop": 12,
+      }
+    }
+  >
+    <View>
+      <PeachText
+        style={
+          {
+            "fontFamily": "Baloo2-SemiBold",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 28,
+          }
+        }
+      >
+        PC‑149‑14A
+      </PeachText>
+      <View
+        style={
+          {
+            "alignItems": "center",
+            "display": "flex",
+            "flexDirection": "row",
+          }
+        }
+      >
+        <PeachText
+          style={
+            {
+              "color": "#7D675E",
+              "fontSize": 14,
+            }
+          }
+        >
+          yesterday
+        </PeachText>
+      </View>
+    </View>
+    <View>
+      <SatsFormat
+        sats={50000}
+      />
+      <PriceFormat
+        amount={12.64}
+        currency="EUR"
+        style={
+          {
+            "color": "#7D675E",
+            "textAlign": "right",
+          }
+        }
+      />
+    </View>
+  </View>
+  <View
+    style={
+      [
+        {
+          "alignItems": "center",
+          "borderBottomLeftRadius": 8,
+          "borderBottomRightRadius": 8,
+          "display": "flex",
+          "flexDirection": "row",
+          "justifyContent": "center",
+          "paddingBottom": 8,
+          "paddingTop": 8,
+        },
+        {
+          "backgroundColor": "#05A85A",
+        },
+      ]
+    }
+  >
+    <Icon
+      color="#F4EEEB"
+      id="alertOctagon"
+      style={
+        {
+          "marginRight": 4,
+          "marginTop": -2,
+          "width": 16,
+        }
+      }
+    />
+    <PeachText
+      style={
+        [
+          {
+            "fontWeight": "600",
+          },
+          {
+            "color": "#F4EEEB",
+          },
+        ]
+      }
+    >
+      refund escrow
+    </PeachText>
+  </View>
+</TouchableOpacity>
+`;
