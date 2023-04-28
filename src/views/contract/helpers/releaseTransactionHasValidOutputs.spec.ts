@@ -161,7 +161,7 @@ describe('releaseTransactionHasValidOutputs', () => {
     // @ts-expect-error
     expect(releaseTransactionHasValidOutputs(mockPsbt, mockContract, 0.02)).toBeTruthy()
   })
-  it('should return true for a big contract', () => {
+  it('should return true for a contract with a large amount', () => {
     const mockPsbt = {
       txOutputs: [
         { value: 2959428, address: 'bcrt1q7h4um5ujy2ctc50ecdtymvd3ypgz5exnlk42sa' },
