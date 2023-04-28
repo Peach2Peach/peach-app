@@ -30,7 +30,6 @@ export const OpenTrade = ({ contract, view }: TradeSummaryProps) => {
       ? paymentDetailTemplates[contract.paymentMethod]
       : null
 
-  console.log('Trade status', contract.tradeStatus)
   return (
     <View>
       <TradeStatus style={tw`mt-4`} {...contract} />
