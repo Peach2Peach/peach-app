@@ -20,7 +20,7 @@ export const ClosedTrade = ({ contract, view }: TradeSummaryProps) => (
       text={getTradeSeparatorText(contract.tradeStatus)}
     />
     {contract.tradeStatus === 'refundOrReviveRequired' ? (
-      <DisputeStatus />
+      <DisputeStatus winner="seller" />
     ) : (
       <>
         {contract.tradeStatus === 'tradeCanceled' ? (

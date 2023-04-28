@@ -14,6 +14,7 @@ import { TradeAmount } from './TradeAmount'
 import { TradeStuffSeparator } from './TradeStuffSeparator'
 import { TradeStuff } from './TradeStuff'
 import { isCashTrade } from '../../utils/paymentMethod/isCashTrade'
+import { DisputeStatus } from './DisputeStatus'
 
 export const OpenTrade = ({ contract, view }: TradeSummaryProps) => {
   const storedPaymentData = useMemo(
@@ -29,30 +30,37 @@ export const OpenTrade = ({ contract, view }: TradeSummaryProps) => {
       ? paymentDetailTemplates[contract.paymentMethod]
       : null
 
+  console.log('Trade status', contract.tradeStatus)
   return (
     <View>
       <TradeStatus style={tw`mt-4`} {...contract} />
-      <TradeAmount {...contract} isBuyer={view === 'buyer'} />
-      {isCashTrade(contract.paymentMethod) && view === 'buyer' && <CashTradeDetails {...contract} />}
-      {!!contract.paymentData && !!PaymentTo && <PaymentTo {...contract} copyable={view === 'buyer'} />}
-      {view === 'seller'
-        && !!storedPaymentData
-        && (isCashTrade(contract.paymentMethod) ? (
-          <CashTradeDetails {...contract} />
-        ) : (
-          <View style={tw`flex-row items-start mt-[2px]`}>
-            <Text style={[tw`text-black-2 w-25`, contract.disputeActive && tw`text-error-light`]}>
-              {i18n('contract.payment.to')}
-            </Text>
-            <View style={tw`flex-row items-center flex-1`}>
-              <Text style={[tw`flex-wrap leading-normal subtitle-1`, contract.disputeActive && tw`text-error-dark`]}>
-                {storedPaymentData.label}
-              </Text>
-            </View>
-          </View>
-        ))}
-      {!contract.paymentData && contract.error === 'DECRYPTION_ERROR' && (
-        <ErrorBox style={tw`mt-[2px]`}>{i18n('contract.paymentData.decyptionFailed')}</ErrorBox>
+      {contract.tradeStatus === 'confirmPaymentRequired' ? (
+        <DisputeStatus winner={'buyer'} />
+      ) : (
+        <>
+          <TradeAmount {...contract} isBuyer={view === 'buyer'} />
+          {isCashTrade(contract.paymentMethod) && view === 'buyer' && <CashTradeDetails {...contract} />}
+          {!!contract.paymentData && !!PaymentTo && <PaymentTo {...contract} copyable={view === 'buyer'} />}
+          {view === 'seller'
+            && !!storedPaymentData
+            && (isCashTrade(contract.paymentMethod) ? (
+              <CashTradeDetails {...contract} />
+            ) : (
+              <View style={tw`flex-row items-start mt-[2px]`}>
+                <Text style={[tw`text-black-2 w-25`, contract.disputeActive && tw`text-error-light`]}>
+                  {i18n('contract.payment.to')}
+                </Text>
+                <View style={tw`flex-row items-center flex-1`}>
+                  <Text style={[tw`flex-wrap leading-normal subtitle-1`, contract.disputeActive && tw`text-error-dark`]}>
+                    {storedPaymentData.label}
+                  </Text>
+                </View>
+              </View>
+            ))}
+          {!contract.paymentData && contract.error === 'DECRYPTION_ERROR' && (
+            <ErrorBox style={tw`mt-[2px]`}>{i18n('contract.paymentData.decyptionFailed')}</ErrorBox>
+          )}
+        </>
       )}
 
       <TradeStuffSeparator {...contract} style={tw`mt-4`} />
