@@ -16,6 +16,9 @@ import { TradeStuff } from './TradeStuff'
 import { isCashTrade } from '../../utils/paymentMethod/isCashTrade'
 import { DisputeStatus } from './DisputeStatus'
 
+const shouldShowDisputeStatus = (contract: Contract): contract is Contract & { disputeWinner: 'buyer' | 'seller' } =>
+  ['confirmPaymentRequired', 'releaseEscrow'].includes(contract.tradeStatus) && !!contract.disputeWinner
+
 export const OpenTrade = ({ contract, view }: TradeSummaryProps) => {
   const storedPaymentData = useMemo(
     () =>
@@ -29,12 +32,11 @@ export const OpenTrade = ({ contract, view }: TradeSummaryProps) => {
     = (!storedPaymentData || view === 'buyer') && contract.paymentMethod
       ? paymentDetailTemplates[contract.paymentMethod]
       : null
-
   return (
     <View>
       <TradeStatus style={tw`mt-4`} {...contract} />
-      {contract.tradeStatus === 'confirmPaymentRequired' ? (
-        <DisputeStatus winner={'buyer'} />
+      {shouldShowDisputeStatus(contract) ? (
+        <DisputeStatus winner={contract.disputeWinner} view={view} />
       ) : (
         <>
           <TradeAmount {...contract} isBuyer={view === 'buyer'} />

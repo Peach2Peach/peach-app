@@ -4,7 +4,7 @@ import { OpenTrade } from './OpenTrade'
 
 export type TradeSummaryProps = {
   contract: Contract
-  view: ContractViewer | undefined
+  view: ContractViewer
 }
 
 export const TradeSummary = (props: TradeSummaryProps) =>

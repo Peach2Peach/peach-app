@@ -715,3 +715,82 @@ exports[`OpenTrade should show the label of the stored payment data when the vie
   />
 </View>
 `;
+
+exports[`OpenTrade show the dispute lost status to the seller 1`] = `
+<View>
+  <TradeStatus
+    currency="EUR"
+    disputeActive={false}
+    disputeWinner="buyer"
+    escrow="123"
+    paymentData={
+      {
+        "bic": "DEUTDEFF",
+        "iban": "DE1234567890",
+        "name": "John Doe",
+        "reference": "1234567890",
+      }
+    }
+    paymentMethod="sepa"
+    price={21}
+    style={
+      {
+        "marginTop": 16,
+      }
+    }
+    tradeStatus="releaseEscrow"
+  />
+  <DisputeStatus
+    view="seller"
+    winner="buyer"
+  />
+  <TradeStuffSeparator
+    currency="EUR"
+    disputeActive={false}
+    disputeWinner="buyer"
+    escrow="123"
+    paymentData={
+      {
+        "bic": "DEUTDEFF",
+        "iban": "DE1234567890",
+        "name": "John Doe",
+        "reference": "1234567890",
+      }
+    }
+    paymentMethod="sepa"
+    price={21}
+    style={
+      {
+        "marginTop": 16,
+      }
+    }
+    tradeStatus="releaseEscrow"
+  />
+  <TradeStuff
+    contract={
+      {
+        "currency": "EUR",
+        "disputeActive": false,
+        "disputeWinner": "buyer",
+        "escrow": "123",
+        "paymentData": {
+          "bic": "DEUTDEFF",
+          "iban": "DE1234567890",
+          "name": "John Doe",
+          "reference": "1234567890",
+        },
+        "paymentMethod": "sepa",
+        "price": 21,
+        "releaseTxId": undefined,
+        "tradeStatus": "releaseEscrow",
+      }
+    }
+    style={
+      {
+        "justifyContent": "flex-start",
+        "marginTop": 6,
+      }
+    }
+  />
+</View>
+`;
