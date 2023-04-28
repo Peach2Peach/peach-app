@@ -1,4 +1,3 @@
-import { ReactElement } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
@@ -10,7 +9,7 @@ import RestoreBackupError from './RestoreBackupError'
 import { RestoreBackupLoading } from './RestoreBackupLoading'
 import RestoreSuccess from './RestoreSuccess'
 
-export default ({ style }: ComponentProps): ReactElement => {
+export const RestoreFromFile = ({ style }: ComponentProps) => {
   const { restored, error, loading, file, setFile, password, setPassword, passwordError, submit }
     = useRestoreFromFileSetup()
 
