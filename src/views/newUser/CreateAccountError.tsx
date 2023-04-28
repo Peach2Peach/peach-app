@@ -12,7 +12,7 @@ type CreateAccountErrorProps = {
   err: string
 }
 
-export default ({ err }: CreateAccountErrorProps): ReactElement => {
+export const CreateAccountError = ({ err }: CreateAccountErrorProps) => {
   useCreateAccountErrorHeader()
   const navigation = useNavigation()
   const goToContact = () => navigation.navigate('contact')

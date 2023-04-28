@@ -1,12 +1,10 @@
-import { ReactElement } from 'react'
-
-import CreateAccountError from './CreateAccountError'
-import CreateAccountLoading from './CreateAccountLoading'
-import CreateAccountSuccess from './CreateAccountSuccess'
-import { useNewUserSetup } from './hooks/useNewUserSetup'
+import { CreateAccountError } from './CreateAccountError'
+import { CreateAccountLoading } from './CreateAccountLoading'
+import { CreateAccountSuccess } from './CreateAccountSuccess'
 import { UserExistsForDevice } from './UserExistsForDevice'
+import { useNewUserSetup } from './hooks/useNewUserSetup'
 
-export default (): ReactElement => {
+export default () => {
   const { success, error, userExistsForDevice } = useNewUserSetup()
   if (success) return <CreateAccountSuccess />
   if (userExistsForDevice) return <UserExistsForDevice />
