@@ -331,7 +331,7 @@ exports[`SummaryItem should render correctly for a won dispute as a seller 1`] =
             }
           }
         >
-          yesterday
+          apr 26th, 2023
         </PeachText>
       </View>
     </View>
@@ -464,7 +464,7 @@ exports[`SummaryItem should render correctly for a won dispute as a seller with 
             }
           }
         >
-          yesterday
+          apr 26th, 2023
         </PeachText>
       </View>
     </View>

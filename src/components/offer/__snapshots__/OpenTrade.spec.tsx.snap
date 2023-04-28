@@ -22,38 +22,40 @@ exports[`OpenTrade renders correctly 1`] = `
       }
     }
   />
-  <TradeAmount
-    currency="EUR"
-    disputeActive={false}
-    escrow="123"
-    isBuyer={true}
-    paymentData={
-      {
-        "bic": "DEUTDEFF",
-        "iban": "DE1234567890",
-        "name": "John Doe",
-        "reference": "1234567890",
+  <React.Fragment>
+    <TradeAmount
+      currency="EUR"
+      disputeActive={false}
+      escrow="123"
+      isBuyer={true}
+      paymentData={
+        {
+          "bic": "DEUTDEFF",
+          "iban": "DE1234567890",
+          "name": "John Doe",
+          "reference": "1234567890",
+        }
       }
-    }
-    paymentMethod="sepa"
-    price={21}
-  />
-  <GeneralPaymentDetails
-    copyable={true}
-    currency="EUR"
-    disputeActive={false}
-    escrow="123"
-    paymentData={
-      {
-        "bic": "DEUTDEFF",
-        "iban": "DE1234567890",
-        "name": "John Doe",
-        "reference": "1234567890",
+      paymentMethod="sepa"
+      price={21}
+    />
+    <GeneralPaymentDetails
+      copyable={true}
+      currency="EUR"
+      disputeActive={false}
+      escrow="123"
+      paymentData={
+        {
+          "bic": "DEUTDEFF",
+          "iban": "DE1234567890",
+          "name": "John Doe",
+          "reference": "1234567890",
+        }
       }
-    }
-    paymentMethod="sepa"
-    price={21}
-  />
+      paymentMethod="sepa"
+      price={21}
+    />
+  </React.Fragment>
   <TradeStuffSeparator
     currency="EUR"
     disputeActive={false}
@@ -123,54 +125,29 @@ exports[`OpenTrade should display the label correctly when there is a dispute 1`
       }
     }
   />
-  <TradeAmount
-    currency="EUR"
-    disputeActive={true}
-    escrow="123"
-    isBuyer={false}
-    paymentData={
-      {
-        "bic": "DEUTDEFF",
-        "iban": "DE1234567890",
-        "name": "John Doe",
-        "reference": "1234567890",
+  <React.Fragment>
+    <TradeAmount
+      currency="EUR"
+      disputeActive={true}
+      escrow="123"
+      isBuyer={false}
+      paymentData={
+        {
+          "bic": "DEUTDEFF",
+          "iban": "DE1234567890",
+          "name": "John Doe",
+          "reference": "1234567890",
+        }
       }
-    }
-    paymentMethod="sepa"
-    price={21}
-  />
-  <View
-    style={
-      {
-        "alignItems": "flex-start",
-        "flexDirection": "row",
-        "marginTop": 2,
-      }
-    }
-  >
-    <PeachText
-      style={
-        [
-          {
-            "color": "#7D675E",
-            "width": 100,
-          },
-          {
-            "color": "#FE5A48",
-          },
-        ]
-      }
-    >
-      to
-    </PeachText>
+      paymentMethod="sepa"
+      price={21}
+    />
     <View
       style={
         {
-          "alignItems": "center",
-          "flexBasis": "0%",
+          "alignItems": "flex-start",
           "flexDirection": "row",
-          "flexGrow": 1,
-          "flexShrink": 1,
+          "marginTop": 2,
         }
       }
     >
@@ -178,22 +155,49 @@ exports[`OpenTrade should display the label correctly when there is a dispute 1`
         style={
           [
             {
-              "flexWrap": "wrap",
-              "fontFamily": "Baloo2-SemiBold",
-              "fontSize": 16,
-              "letterSpacing": 0.16,
-              "lineHeight": 24,
+              "color": "#7D675E",
+              "width": 100,
             },
             {
-              "color": "#B01807",
+              "color": "#FE5A48",
             },
           ]
         }
       >
-        DE1234567890
+        to
       </PeachText>
+      <View
+        style={
+          {
+            "alignItems": "center",
+            "flexBasis": "0%",
+            "flexDirection": "row",
+            "flexGrow": 1,
+            "flexShrink": 1,
+          }
+        }
+      >
+        <PeachText
+          style={
+            [
+              {
+                "flexWrap": "wrap",
+                "fontFamily": "Baloo2-SemiBold",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
+                "lineHeight": 24,
+              },
+              {
+                "color": "#B01807",
+              },
+            ]
+          }
+        >
+          DE1234567890
+        </PeachText>
+      </View>
     </View>
-  </View>
+  </React.Fragment>
   <TradeStuffSeparator
     currency="EUR"
     disputeActive={true}
@@ -255,14 +259,16 @@ exports[`OpenTrade should not show the label if there is not paymentData on the 
       }
     }
   />
-  <TradeAmount
-    currency="EUR"
-    disputeActive={false}
-    escrow="123"
-    isBuyer={false}
-    paymentMethod="sepa"
-    price={21}
-  />
+  <React.Fragment>
+    <TradeAmount
+      currency="EUR"
+      disputeActive={false}
+      escrow="123"
+      isBuyer={false}
+      paymentMethod="sepa"
+      price={21}
+    />
+  </React.Fragment>
   <TradeStuffSeparator
     currency="EUR"
     disputeActive={false}
@@ -319,37 +325,39 @@ exports[`OpenTrade should show the CashTradeDetails when the payment method is c
       }
     }
   />
-  <TradeAmount
-    currency="EUR"
-    disputeActive={false}
-    escrow="123"
-    isBuyer={true}
-    paymentData={
-      {
-        "bic": "DEUTDEFF",
-        "iban": "DE1234567890",
-        "name": "John Doe",
-        "reference": "1234567890",
+  <React.Fragment>
+    <TradeAmount
+      currency="EUR"
+      disputeActive={false}
+      escrow="123"
+      isBuyer={true}
+      paymentData={
+        {
+          "bic": "DEUTDEFF",
+          "iban": "DE1234567890",
+          "name": "John Doe",
+          "reference": "1234567890",
+        }
       }
-    }
-    paymentMethod="cash.de"
-    price={21}
-  />
-  <CashTradeDetails
-    currency="EUR"
-    disputeActive={false}
-    escrow="123"
-    paymentData={
-      {
-        "bic": "DEUTDEFF",
-        "iban": "DE1234567890",
-        "name": "John Doe",
-        "reference": "1234567890",
+      paymentMethod="cash.de"
+      price={21}
+    />
+    <CashTradeDetails
+      currency="EUR"
+      disputeActive={false}
+      escrow="123"
+      paymentData={
+        {
+          "bic": "DEUTDEFF",
+          "iban": "DE1234567890",
+          "name": "John Doe",
+          "reference": "1234567890",
+        }
       }
-    }
-    paymentMethod="cash.de"
-    price={21}
-  />
+      paymentMethod="cash.de"
+      price={21}
+    />
+  </React.Fragment>
   <TradeStuffSeparator
     currency="EUR"
     disputeActive={false}
@@ -419,37 +427,39 @@ exports[`OpenTrade should show the CashTradeDetails when the view is seller and 
       }
     }
   />
-  <TradeAmount
-    currency="EUR"
-    disputeActive={false}
-    escrow="123"
-    isBuyer={false}
-    paymentData={
-      {
-        "bic": "DEUTDEFF",
-        "iban": "DE1234567890",
-        "name": "John Doe",
-        "reference": "1234567890",
+  <React.Fragment>
+    <TradeAmount
+      currency="EUR"
+      disputeActive={false}
+      escrow="123"
+      isBuyer={false}
+      paymentData={
+        {
+          "bic": "DEUTDEFF",
+          "iban": "DE1234567890",
+          "name": "John Doe",
+          "reference": "1234567890",
+        }
       }
-    }
-    paymentMethod="cash.de"
-    price={21}
-  />
-  <CashTradeDetails
-    currency="EUR"
-    disputeActive={false}
-    escrow="123"
-    paymentData={
-      {
-        "bic": "DEUTDEFF",
-        "iban": "DE1234567890",
-        "name": "John Doe",
-        "reference": "1234567890",
+      paymentMethod="cash.de"
+      price={21}
+    />
+    <CashTradeDetails
+      currency="EUR"
+      disputeActive={false}
+      escrow="123"
+      paymentData={
+        {
+          "bic": "DEUTDEFF",
+          "iban": "DE1234567890",
+          "name": "John Doe",
+          "reference": "1234567890",
+        }
       }
-    }
-    paymentMethod="cash.de"
-    price={21}
-  />
+      paymentMethod="cash.de"
+      price={21}
+    />
+  </React.Fragment>
   <TradeStuffSeparator
     currency="EUR"
     disputeActive={false}
@@ -512,24 +522,26 @@ exports[`OpenTrade should show the ErrorBox when the paymentData could not be de
       }
     }
   />
-  <TradeAmount
-    currency="EUR"
-    disputeActive={false}
-    error="DECRYPTION_ERROR"
-    escrow="123"
-    isBuyer={false}
-    paymentMethod="sepa"
-    price={21}
-  />
-  <ErrorBox
-    style={
-      {
-        "marginTop": 2,
+  <React.Fragment>
+    <TradeAmount
+      currency="EUR"
+      disputeActive={false}
+      error="DECRYPTION_ERROR"
+      escrow="123"
+      isBuyer={false}
+      paymentMethod="sepa"
+      price={21}
+    />
+    <ErrorBox
+      style={
+        {
+          "marginTop": 2,
+        }
       }
-    }
-  >
-    could not decrypt payment data, ask for details in the chat if needed
-  </ErrorBox>
+    >
+      could not decrypt payment data, ask for details in the chat if needed
+    </ErrorBox>
+  </React.Fragment>
   <TradeStuffSeparator
     currency="EUR"
     disputeActive={false}
@@ -588,52 +600,29 @@ exports[`OpenTrade should show the label of the stored payment data when the vie
       }
     }
   />
-  <TradeAmount
-    currency="EUR"
-    disputeActive={false}
-    escrow="123"
-    isBuyer={false}
-    paymentData={
-      {
-        "bic": "DEUTDEFF",
-        "iban": "DE1234567890",
-        "name": "John Doe",
-        "reference": "1234567890",
+  <React.Fragment>
+    <TradeAmount
+      currency="EUR"
+      disputeActive={false}
+      escrow="123"
+      isBuyer={false}
+      paymentData={
+        {
+          "bic": "DEUTDEFF",
+          "iban": "DE1234567890",
+          "name": "John Doe",
+          "reference": "1234567890",
+        }
       }
-    }
-    paymentMethod="sepa"
-    price={21}
-  />
-  <View
-    style={
-      {
-        "alignItems": "flex-start",
-        "flexDirection": "row",
-        "marginTop": 2,
-      }
-    }
-  >
-    <PeachText
-      style={
-        [
-          {
-            "color": "#7D675E",
-            "width": 100,
-          },
-          false,
-        ]
-      }
-    >
-      to
-    </PeachText>
+      paymentMethod="sepa"
+      price={21}
+    />
     <View
       style={
         {
-          "alignItems": "center",
-          "flexBasis": "0%",
+          "alignItems": "flex-start",
           "flexDirection": "row",
-          "flexGrow": 1,
-          "flexShrink": 1,
+          "marginTop": 2,
         }
       }
     >
@@ -641,20 +630,45 @@ exports[`OpenTrade should show the label of the stored payment data when the vie
         style={
           [
             {
-              "flexWrap": "wrap",
-              "fontFamily": "Baloo2-SemiBold",
-              "fontSize": 16,
-              "letterSpacing": 0.16,
-              "lineHeight": 24,
+              "color": "#7D675E",
+              "width": 100,
             },
             false,
           ]
         }
       >
-        DE1234567890
+        to
       </PeachText>
+      <View
+        style={
+          {
+            "alignItems": "center",
+            "flexBasis": "0%",
+            "flexDirection": "row",
+            "flexGrow": 1,
+            "flexShrink": 1,
+          }
+        }
+      >
+        <PeachText
+          style={
+            [
+              {
+                "flexWrap": "wrap",
+                "fontFamily": "Baloo2-SemiBold",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
+                "lineHeight": 24,
+              },
+              false,
+            ]
+          }
+        >
+          DE1234567890
+        </PeachText>
+      </View>
     </View>
-  </View>
+  </React.Fragment>
   <TradeStuffSeparator
     currency="EUR"
     disputeActive={false}
