@@ -12,13 +12,15 @@ export const releaseTransactionHasValidOutputs = (psbt: Psbt, contract: Contract
 
   if (!buyerOutput) return false
 
-  if (
-    buyerFee > 0
-    && (!peachFeeOutput
+  if (buyerFee > 0) {
+    if (
+      !peachFeeOutput
       || peachFeeOutput.value !== ceil(contract.amount * buyerFee)
-      || buyerOutput.value < contract.amount - peachFeeOutput.value - MAXMININGFEE)
-  ) {
-    return false
+      || buyerOutput.value < contract.amount - peachFeeOutput.value - MAXMININGFEE
+    ) {
+      return false
+    }
+    return true
   }
 
   if (buyerOutput.value < contract.amount - MAXMININGFEE) return false
