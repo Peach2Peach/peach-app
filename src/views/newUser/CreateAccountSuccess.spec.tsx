@@ -3,7 +3,7 @@ import { CreateAccountSuccess } from './CreateAccountSuccess'
 
 describe('CreateAccountSuccess', () => {
   const shallowRenderer = createRenderer()
-  it('should render correctly while loading', () => {
+  it('should render correctly', () => {
     shallowRenderer.render(<CreateAccountSuccess />)
     expect(shallowRenderer.getRenderOutput()).toMatchSnapshot()
   })

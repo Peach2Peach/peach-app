@@ -3,7 +3,7 @@ import { NavigationWrapper, navigateMock } from '../../../tests/unit/helpers/Nav
 import { CreateAccountError } from './CreateAccountError'
 
 describe('CreateAccountError', () => {
-  it('should render correctly while loading', () => {
+  it('should render correctly', () => {
     const { toJSON } = render(<CreateAccountError err="UNKNOWN_ERROR" />, { wrapper: NavigationWrapper })
     expect(toJSON()).toMatchSnapshot()
   })
