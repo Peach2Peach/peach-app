@@ -161,4 +161,22 @@ describe('releaseTransactionHasValidOutputs', () => {
     // @ts-expect-error
     expect(releaseTransactionHasValidOutputs(mockPsbt, mockContract, 0.02)).toBeTruthy()
   })
+  it('should return true for a big contract', () => {
+    const mockPsbt = {
+      txOutputs: [
+        { value: 2959428, address: 'bcrt1q7h4um5ujy2ctc50ecdtymvd3ypgz5exnlk42sa' },
+        {
+          value: 60400,
+          address: 'bcrt1qxuquzxkx7lm4w9ged0qt7706zp88g5dgetwlc3',
+        },
+      ],
+    }
+    const mockContract = {
+      releaseAddress: 'bcrt1q7h4um5ujy2ctc50ecdtymvd3ypgz5exnlk42sa',
+      amount: 3020000,
+    }
+
+    // @ts-expect-error
+    expect(releaseTransactionHasValidOutputs(mockPsbt, mockContract, 0.02)).toBeTruthy()
+  })
 })
