@@ -7,8 +7,8 @@ describe('TradeSummary', () => {
   it('should render open trade correctly', () => {
     const props = {
       contract: { paymentConfirmed: null, canceled: false } as Contract,
-      view: undefined,
-    }
+      view: 'buyer',
+    } as const
     renderer.render(<TradeSummary {...props} />)
     const result = renderer.getRenderOutput()
     expect(result).toMatchSnapshot()
@@ -16,8 +16,8 @@ describe('TradeSummary', () => {
   it('should render closed trade correctly', () => {
     const props = {
       contract: { paymentConfirmed: null, canceled: true } as Contract,
-      view: undefined,
-    }
+      view: 'buyer',
+    } as const
     renderer.render(<TradeSummary {...props} />)
     const result = renderer.getRenderOutput()
     expect(result).toMatchSnapshot()

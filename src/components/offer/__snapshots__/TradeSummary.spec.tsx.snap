@@ -8,6 +8,7 @@ exports[`TradeSummary should render closed trade correctly 1`] = `
       "paymentConfirmed": null,
     }
   }
+  view="buyer"
 />
 `;
 
@@ -19,6 +20,7 @@ exports[`TradeSummary should render open trade correctly 1`] = `
       "paymentConfirmed": null,
     }
   }
+  view="buyer"
 />
 `;
 
