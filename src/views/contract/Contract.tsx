@@ -9,10 +9,12 @@ import { ContractCTA } from './components/ContractCTA'
 import { useContractSetup } from './hooks/useContractSetup'
 import { ProvideEmailButton } from './components/ProvideEmailButton'
 import { ResolveDisputeSliders } from './ResolveDisputeSliders'
+import { ReleaseEscrowSlider } from './ReleaseEscrowSlider'
 
 export default () => {
   const { contract, isLoading, view, requiredAction, actionPending, postConfirmPaymentBuyer, postConfirmPaymentSeller }
     = useContractSetup()
+
   if (!contract || !view || isLoading) return <LoadingScreen />
 
   return (
@@ -29,6 +31,7 @@ export default () => {
             {...{ contract, view, requiredAction, actionPending, postConfirmPaymentBuyer, postConfirmPaymentSeller }}
           />
           {contract.tradeStatus === 'refundOrReviveRequired' && <ResolveDisputeSliders {...{ contract }} />}
+          {contract.tradeStatus === 'releaseEscrow' && <ReleaseEscrowSlider {...{ contract }} />}
         </View>
       </View>
     </PeachScrollView>

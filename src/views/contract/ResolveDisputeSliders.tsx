@@ -7,11 +7,7 @@ export const ResolveDisputeSliders = ({ contract }: { contract: Contract }) => {
   const { republishOffer, startRefund } = useResolveDisputeActions()
   return (
     <>
-      <SlideToUnlock
-        style={tw`w-[263px] mb-12px`}
-        onUnlock={() => republishOffer(contract)}
-        label1={'re-publish offer'}
-      />
+      <SlideToUnlock style={tw`w-[263px] mb-3`} onUnlock={() => republishOffer(contract)} label1={'re-publish offer'} />
       <SlideToUnlock
         style={tw`w-[263px]`}
         onUnlock={() => startRefund(getSellOfferFromContract(contract))}
