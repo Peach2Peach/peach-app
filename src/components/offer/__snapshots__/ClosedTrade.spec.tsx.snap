@@ -84,6 +84,47 @@ exports[`ClosedTrade should render a completed trade correctly 1`] = `
 ]
 `;
 
+exports[`ClosedTrade should render the refundOrReviveRequired status correctly when there is no disputeWinner 1`] = `
+[
+  <TradeSeparator
+    iconColor="#7D675E"
+    iconId="alertOctagon"
+    style={
+      {
+        "marginTop": 16,
+      }
+    }
+    text="dispute resolved"
+    tradeStatus="refundOrReviveRequired"
+  />,
+  <CompletedTradeDetails
+    isBuyer={false}
+    tradeStatus="refundOrReviveRequired"
+  />,
+  <TradeStuffSeparator
+    style={
+      {
+        "marginTop": 16,
+      }
+    }
+    tradeStatus="refundOrReviveRequired"
+  />,
+  <TradeStuff
+    contract={
+      {
+        "tradeStatus": "refundOrReviveRequired",
+      }
+    }
+    style={
+      {
+        "justifyContent": "flex-start",
+        "marginTop": 6,
+      }
+    }
+  />,
+]
+`;
+
 exports[`ClosedTrade should render the won dispute as seller status correctly 1`] = `
 [
   <TradeSeparator
