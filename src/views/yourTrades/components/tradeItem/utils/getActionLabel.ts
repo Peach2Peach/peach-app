@@ -7,12 +7,16 @@ export const getActionLabel = (tradeSummary: PartialTradeSummary, status: TradeS
   const { tradeStatus } = tradeSummary
 
   if (isContractSummary(tradeSummary)) {
-    const { unreadMessages, type } = tradeSummary
+    const { unreadMessages, type, disputeWinner } = tradeSummary
     const counterparty = type === 'bid' ? 'seller' : 'buyer'
 
     if (isPastOffer(tradeStatus)) {
       return unreadMessages > 0 ? i18n('yourTrades.newMessages') : undefined
     }
+    if (disputeWinner) {
+      return i18n(`offer.requiredAction.${status}.dispute`)
+    }
+
     return status === 'waiting' || status === 'rateUser'
       ? i18n(`offer.requiredAction.${status}.${counterparty}`)
       : i18n(`offer.requiredAction.${status}`)
