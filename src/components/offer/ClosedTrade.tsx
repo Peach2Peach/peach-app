@@ -5,6 +5,7 @@ import { DisputeStatus } from './DisputeStatus'
 import { getTradeSeparatorIcon } from './getTradeSeparatorIcon'
 import { getTradeSeparatorIconColor } from './getTradeSeparatorIconColor'
 import { getTradeSeparatorText } from './getTradeSeparatorText'
+import { shouldShowDisputeStatus } from './shouldShowDisputeStatus'
 import { TradeSeparator } from './TradeSeparator'
 import { TradeStuff } from './TradeStuff'
 import { TradeStuffSeparator } from './TradeStuffSeparator'
@@ -19,7 +20,7 @@ export const ClosedTrade = ({ contract, view }: TradeSummaryProps) => (
       iconColor={getTradeSeparatorIconColor(contract.tradeStatus)}
       text={getTradeSeparatorText(contract.tradeStatus)}
     />
-    {contract.tradeStatus === 'refundOrReviveRequired' && !!contract.disputeWinner ? (
+    {shouldShowDisputeStatus(contract) ? (
       <DisputeStatus winner="seller" />
     ) : (
       <>
