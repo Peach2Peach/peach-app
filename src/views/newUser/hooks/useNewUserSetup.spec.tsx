@@ -21,6 +21,7 @@ import { getPeachAccount } from '../../../utils/peachAPI/peachAccount'
 import { sessionStorage } from '../../../utils/session'
 import { defaultWalletState, walletStorage, walletStore } from '../../../utils/wallet/walletStore'
 import { useNewUserSetup } from './useNewUserSetup'
+import { useTemporaryAccount } from '../../../hooks/useTemporaryAccount'
 
 const useRouteMock = jest.fn(() => ({
   params: {
@@ -70,7 +71,7 @@ describe('useNewUserSetup', () => {
   })
   it('should return default values', async () => {
     const { result } = renderHook(useNewUserSetup, { wrapper: NavigationWrapper })
-    expect(result.current).toStrictEqual({ success: false, error: '', isLoading: true, userExistsForDevice: false })
+    expect(result.current).toStrictEqual({ success: false, error: '', userExistsForDevice: false })
   })
   it('should create an account', async () => {
     renderHook(useNewUserSetup, { wrapper: NavigationWrapper })
@@ -234,5 +235,26 @@ describe('useNewUserSetup', () => {
       error: 'UNKNOWN_ERROR',
       userExistsForDevice: false,
     })
+  })
+  it('should handle existing user by setting temporary account', async () => {
+    registerMock.mockReturnValue([
+      {
+        expiry: new Date().getTime() + 1000 * 60 * 60,
+        accessToken: 'token',
+        restored: true,
+      },
+      null,
+    ])
+    const { result } = renderHook(useNewUserSetup, { wrapper: NavigationWrapper })
+    await forProcessToFinish()
+
+    expect(result.current).toStrictEqual({
+      success: false,
+      error: '',
+      userExistsForDevice: true,
+    })
+
+    const { result: temporaryAccount } = renderHook(() => useTemporaryAccount())
+    expect(temporaryAccount.current.temporaryAccount).toBeDefined()
   })
 })

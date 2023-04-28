@@ -7,7 +7,7 @@ import { PrimaryButton } from '../../components/buttons'
 import i18n from '../../utils/i18n'
 import { useRestoreFromFileSetup } from './hooks/useRestoreFromFileSetup'
 import RestoreBackupError from './RestoreBackupError'
-import RestoreBackupLoading from './RestoreBackupLoading'
+import { RestoreBackupLoading } from './RestoreBackupLoading'
 import RestoreSuccess from './RestoreSuccess'
 
 export default ({ style }: ComponentProps): ReactElement => {

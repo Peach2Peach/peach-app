@@ -7,7 +7,7 @@ import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { useRestoreFromSeedSetup } from './hooks/useRestoreFromSeedSetup'
 import RestoreBackupError from './RestoreBackupError'
-import RestoreBackupLoading from './RestoreBackupLoading'
+import { RestoreBackupLoading } from './RestoreBackupLoading'
 import RestoreSuccess from './RestoreSuccess'
 import { SeedPhraseInput } from './SeedPhraseInput'
 

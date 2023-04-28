@@ -1,11 +1,10 @@
-import { ReactElement } from 'react'
 import { View } from 'react-native'
 import { Loading, Text } from '../../components'
 import { useOnboardingHeader } from '../../hooks/headers/useOnboardingHeader'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 
-export default (): ReactElement => {
+export const RestoreBackupLoading = () => {
   useOnboardingHeader({
     title: i18n('restoreBackup.title'),
     icons: [],
