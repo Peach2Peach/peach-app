@@ -2,14 +2,9 @@
 import { act, renderHook } from '@testing-library/react-native'
 import { defaultPrivateUser } from '../../../../tests/unit/data/userData'
 import { useSelfUser } from '../../../hooks/query/useSelfUser'
-import { useSetCustomReferralCodeOverlay } from '../../../overlays/referral/useSetCustomReferralCodeOverlay'
 import { useReferralsSetup } from './useReferralsSetup'
+import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
 
-jest.mock('../../../hooks/useNavigation', () => ({
-  useNavigation: jest.fn().mockReturnValue({
-    navigate: jest.fn(),
-  }),
-}))
 jest.mock('../../../hooks/useHeaderSetup', () => ({
   useHeaderSetup: jest.fn(),
 }))
@@ -17,25 +12,31 @@ jest.mock('../../../hooks/useHeaderSetup', () => ({
 jest.mock('../../../hooks/query/useSelfUser', () => ({
   useSelfUser: jest.fn(),
 }))
+
+const setCustomReferralCodeOverlayMock = jest.fn()
+const useSetCustomReferralCodeOverlayMock = jest.fn().mockReturnValue({
+  setCustomReferralCodeOverlay: setCustomReferralCodeOverlayMock,
+})
 jest.mock('../../../overlays/referral/useSetCustomReferralCodeOverlay', () => ({
-  useSetCustomReferralCodeOverlay: jest.fn(),
+  useSetCustomReferralCodeOverlay: () => useSetCustomReferralCodeOverlayMock(),
+}))
+const redeemNoPeachFeesReward = jest.fn()
+const useRedeemNoPeachFeesRewardMock = jest.fn().mockReturnValue(redeemNoPeachFeesReward)
+jest.mock('../../../overlays/referral/useRedeemNoPeachFeesReward', () => ({
+  useRedeemNoPeachFeesReward: () => useRedeemNoPeachFeesRewardMock(),
 }))
 
 describe('useReferralsSetup', () => {
-  const setCustomReferralCodeOverlayMock = jest.fn()
   beforeEach(() => {
-    ;(useSetCustomReferralCodeOverlay as jest.Mock).mockReturnValue({
-      setCustomReferralCodeOverlay: setCustomReferralCodeOverlayMock,
-    })
     ;(useSelfUser as jest.Mock).mockReturnValue({
       user: defaultPrivateUser,
     })
   })
   afterEach(() => {
-    jest.resetAllMocks()
+    jest.clearAllMocks()
   })
   it('returns default correct values', () => {
-    const { result } = renderHook(useReferralsSetup)
+    const { result } = renderHook(useReferralsSetup, { wrapper: NavigationWrapper })
 
     expect(result.current.user).toEqual(defaultPrivateUser)
     expect(result.current.BARLIMIT).toBeGreaterThan(0)
@@ -56,16 +57,16 @@ describe('useReferralsSetup', () => {
         bonusPoints,
       },
     })
-    const { result } = renderHook(useReferralsSetup)
+    const { result } = renderHook(useReferralsSetup, { wrapper: NavigationWrapper })
 
     expect(result.current.pointsBalance).toEqual(bonusPoints)
-    expect(result.current.availableRewards).toEqual(1)
+    expect(result.current.availableRewards).toEqual(2)
   })
   it('returns 0 bonus points balance if user data cannot be fetched', () => {
     ;(useSelfUser as jest.Mock).mockReturnValue({
       user: undefined,
     })
-    const { result } = renderHook(useReferralsSetup)
+    const { result } = renderHook(useReferralsSetup, { wrapper: NavigationWrapper })
 
     expect(result.current.pointsBalance).toEqual(0)
     expect(result.current.availableRewards).toEqual(0)
@@ -78,7 +79,7 @@ describe('useReferralsSetup', () => {
         bonusPoints,
       },
     })
-    const { result } = renderHook(useReferralsSetup)
+    const { result } = renderHook(useReferralsSetup, { wrapper: NavigationWrapper })
 
     expect(result.current.selectedReward).toBeUndefined()
 
@@ -87,15 +88,8 @@ describe('useReferralsSetup', () => {
     })
     expect(result.current.selectedReward).toEqual('customReferralCode')
   })
-  it('lets does not let user start redemption of an unavailable reward', () => {
-    const { result } = renderHook(useReferralsSetup)
-
-    act(() => {
-      result.current.setSelectedReward('noPeachFees')
-      result.current.redeem()
-    })
-
-    expect(setCustomReferralCodeOverlayMock).not.toHaveBeenCalled()
+  it('does not let user start redemption of an unavailable reward', () => {
+    const { result } = renderHook(useReferralsSetup, { wrapper: NavigationWrapper })
 
     act(() => {
       result.current.setSelectedReward('sats')
@@ -104,8 +98,8 @@ describe('useReferralsSetup', () => {
 
     expect(setCustomReferralCodeOverlayMock).not.toHaveBeenCalled()
   })
-  it('lets user start redemption of a reward', () => {
-    const { result } = renderHook(useReferralsSetup)
+  it('lets user start redemption of a custom referral code', () => {
+    const { result } = renderHook(useReferralsSetup, { wrapper: NavigationWrapper })
 
     act(() => {
       result.current.setSelectedReward('customReferralCode')
@@ -115,5 +109,18 @@ describe('useReferralsSetup', () => {
     })
 
     expect(setCustomReferralCodeOverlayMock).toHaveBeenCalled()
+  })
+  it('lets user start redemption of a no peach fees', () => {
+    const { result } = renderHook(useReferralsSetup, { wrapper: NavigationWrapper })
+
+    act(() => {
+      result.current.setSelectedReward('noPeachFees')
+    })
+
+    act(() => {
+      result.current.redeem()
+    })
+
+    expect(redeemNoPeachFeesReward).toHaveBeenCalled()
   })
 })

@@ -7,6 +7,7 @@ import { useShowHelp } from '../../../hooks/useShowHelp'
 import { useSetCustomReferralCodeOverlay } from '../../../overlays/referral/useSetCustomReferralCodeOverlay'
 import i18n from '../../../utils/i18n'
 import { isRewardAvailable } from '../helpers/isRewardAvailable'
+import { useRedeemNoPeachFeesReward } from '../../../overlays/referral/useRedeemNoPeachFeesReward'
 
 const BARLIMIT = 400
 const REWARDINFO: Reward[] = [
@@ -17,6 +18,7 @@ const REWARDINFO: Reward[] = [
 export const useReferralsSetup = () => {
   const showHelp = useShowHelp('referrals')
   const { setCustomReferralCodeOverlay } = useSetCustomReferralCodeOverlay()
+  const redeemNoPeachFeesReward = useRedeemNoPeachFeesReward()
 
   useHeaderSetup(
     useMemo(
@@ -42,6 +44,9 @@ export const useReferralsSetup = () => {
     switch (selectedReward) {
     case 'customReferralCode':
       setCustomReferralCodeOverlay()
+      break
+    case 'noPeachFees':
+      redeemNoPeachFeesReward()
       break
     default:
       break
