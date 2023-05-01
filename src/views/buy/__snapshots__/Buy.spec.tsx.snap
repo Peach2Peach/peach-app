@@ -2482,14 +2482,14 @@ exports[`Buy should render correctly with free trades 1`] = `
                     "strokeWidth",
                   ]
                 }
-                r="12.5"
+                r="13"
                 stroke={
                   {
                     "payload": 4294897125,
                     "type": 0,
                   }
                 }
-                strokeWidth="7"
+                strokeWidth="6"
               />
               <RNSVGCircle
                 cx="50%"
@@ -2509,7 +2509,7 @@ exports[`Buy should render correctly with free trades 1`] = `
                     "strokeDashoffset",
                   ]
                 }
-                r="12.5"
+                r="13"
                 stroke={
                   {
                     "payload": 4294272290,
@@ -2518,12 +2518,12 @@ exports[`Buy should render correctly with free trades 1`] = `
                 }
                 strokeDasharray={
                   [
-                    "78.53981633974483",
-                    "78.53981633974483",
+                    "81.68140899333463",
+                    "81.68140899333463",
                   ]
                 }
-                strokeDashoffset={78.53981633974483}
-                strokeWidth="7"
+                strokeDashoffset={81.68140899333463}
+                strokeWidth="6"
               />
             </RNSVGGroup>
           </RNSVGGroup>

@@ -49,15 +49,17 @@ describe('useBuySetup', () => {
     const { result } = renderHook(useBuySetup, { wrapper })
     expect(result.current).toEqual({
       freeTrades: 0,
-      maxFreeTrades: 5,
+      maxFreeTrades: 0,
     })
   })
 
   it('should free trades from user', async () => {
     const freeTrades = 5
-    getSelfUserMock.mockResolvedValueOnce([{ ...defaultSelfUser, freeTrades }, null])
+    const maxFreeTrades = 5
+    getSelfUserMock.mockResolvedValueOnce([{ ...defaultSelfUser, freeTrades, maxFreeTrades }, null])
     const { result } = renderHook(useBuySetup, { wrapper })
     await waitFor(() => expect(result.current.freeTrades).toEqual(freeTrades))
+    expect(result.current.freeTrades).toEqual(maxFreeTrades)
   })
 
   it('should add the correct header', () => {
