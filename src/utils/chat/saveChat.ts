@@ -3,12 +3,6 @@ import { storeChat } from '../account/storeAccount'
 import { unique } from '../array'
 import { getChat } from './getChat'
 
-/**
- * @description Method to add contract to contract list
- * @param id chat room id
- * @param contract the contract
- * @param [save] if true save account
- */
 export const saveChat = (id: string, chat: Partial<Chat>, save = true): Chat => {
   if (!account.chats[id]) {
     account.chats[id] = {
@@ -16,7 +10,6 @@ export const saveChat = (id: string, chat: Partial<Chat>, save = true): Chat => 
       messages: [],
       id,
       draftMessage: '',
-      seenDisputeDisclaimer: false,
       ...chat,
     }
   }

@@ -6,6 +6,7 @@ import { useCommonContractSetup } from '../../../hooks/useCommonContractSetup'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { useOpenDispute } from '../../../overlays/dispute/hooks/useOpenDispute'
 import { useConfirmCancelTrade } from '../../../overlays/tradeCancelation/useConfirmCancelTrade'
+import { useConfigStore } from '../../../store/configStore'
 import { account } from '../../../utils/account'
 import { deleteMessage, getChat, getUnsentMessages, saveChat } from '../../../utils/chat'
 import { getTradingPartner } from '../../../utils/contract'
@@ -14,7 +15,7 @@ import { PeachWSContext } from '../../../utils/peachAPI/websocket'
 import { decryptSymmetric, signAndEncryptSymmetric } from '../../../utils/pgp'
 import { parseError } from '../../../utils/result'
 import { getHeaderChatActions } from '../utils/getHeaderChatActions'
-import { useShowDisputeDisclaimer } from '../utils/useShowDisputeDisclaimer'
+import { useShowDisputeDisclaimer } from './useShowDisputeDisclaimer'
 
 // eslint-disable-next-line max-statements
 export const useContractChatSetup = () => {
@@ -39,6 +40,7 @@ export const useContractChatSetup = () => {
   const [chat, setChat] = useState(getChat(contractId))
   const [newMessage, setNewMessage] = useState(chat.draftMessage)
   const [disableSend, setDisableSend] = useState(false)
+  const seenDisputeDisclaimer = useConfigStore((state) => state.seenDisputeDisclaimer)
 
   useHeaderSetup(
     useMemo(
@@ -182,10 +184,10 @@ export const useContractChatSetup = () => {
   }, [messagesError, showError])
 
   useEffect(() => {
-    if (contract && !contract.disputeActive && !chat.seenDisputeDisclaimer) {
-      showDisputeDisclaimer(chat, setAndSaveChat)
+    if (contract && !contract.disputeActive && !seenDisputeDisclaimer) {
+      showDisputeDisclaimer()
     }
-  }, [chat, contract, showDisputeDisclaimer])
+  }, [chat, contract, seenDisputeDisclaimer, showDisputeDisclaimer])
 
   return {
     contract,

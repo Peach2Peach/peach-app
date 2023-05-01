@@ -4,10 +4,10 @@ import { account1 } from '../../../../tests/unit/data/accountData'
 import { chat1 } from '../../../../tests/unit/data/chatData'
 import { contract } from '../../../../tests/unit/data/contractData'
 import { QueryClientWrapper } from '../../../../tests/unit/helpers/QueryClientWrapper'
+import { configStore } from '../../../store/configStore'
 import { setAccount } from '../../../utils/account'
 import { useContractChatSetup } from './useContractChatSetup'
-import { saveChat } from '../../../utils/chat'
-import { saveContract } from '../../../utils/contract'
+import { act } from 'react-test-renderer'
 
 const useRouteMock = jest.fn(() => ({
   params: {
@@ -26,9 +26,14 @@ jest.mock('../../../hooks/useNavigation', () => ({
   useNavigation: () => useNavigationMock(),
 }))
 
-const getContractMock = jest.fn().mockResolvedValue([contract])
+const getChatMock = jest.fn().mockResolvedValue([chat1])
 jest.mock('../../../utils/peachAPI', () => ({
-  getContract: () => getContractMock(),
+  getChat: () => getChatMock(),
+}))
+
+const useCommonContractSetupMock = jest.fn().mockReturnValue({ contract })
+jest.mock('../../../hooks/useCommonContractSetup', () => ({
+  useCommonContractSetup: () => useCommonContractSetupMock(),
 }))
 
 const showDisputeDisclaimerMock = jest.fn()
@@ -46,7 +51,7 @@ jest.mock('@react-navigation/native', () => ({
 
 const NavigationWrapper = ({ children }: any) => (
   // @ts-ignore
-  <NavigationContext.Provider>
+  <NavigationContext.Provider value={{}}>
     <QueryClientWrapper>{children}</QueryClientWrapper>
   </NavigationContext.Provider>
 )
@@ -63,23 +68,23 @@ describe('useContractChatSetup', () => {
     })
   })
   afterEach(() => {
+    act(() => {
+      configStore.getState().reset()
+    })
     jest.clearAllMocks()
   })
-  it('open dispute disclaimer if not seen before', async () => {
+  it('open dispute disclaimer if not seen before', () => {
     renderHook(useContractChatSetup, { wrapper: NavigationWrapper })
     expect(showDisputeDisclaimerMock).toHaveBeenCalled()
   })
-  it('should not open dispute disclaimer if has been seen before', async () => {
-    saveChat(contract.id, {
-      seenDisputeDisclaimer: true,
-    })
+  it('should not open dispute disclaimer if has been seen before', () => {
+    configStore.getState().setSeenDisputeDisclaimer(true)
     renderHook(useContractChatSetup, { wrapper: NavigationWrapper })
     expect(showDisputeDisclaimerMock).not.toHaveBeenCalled()
   })
-  it('should not open dispute disclaimer if dispute is active', async () => {
+  it('should not open dispute disclaimer if dispute is active', () => {
     const contractWithDispute = { ...contract, disputeActive: true }
-    saveContract(contractWithDispute)
-    getContractMock.mockResolvedValueOnce([contractWithDispute])
+    useCommonContractSetupMock.mockReturnValue({ contract: contractWithDispute })
     renderHook(useContractChatSetup, { wrapper: NavigationWrapper })
     expect(showDisputeDisclaimerMock).not.toHaveBeenCalled()
   })
