@@ -1,4 +1,4 @@
-export const defaultPrivateUser: UserPrivate = {
+export const defaultSelfUser: SelfUser = {
   bonusPoints: 0,
   creationDate: new Date('2023-03-01T13:39:55.942Z'),
   disputes: { lost: 0, opened: 0, won: 0 },

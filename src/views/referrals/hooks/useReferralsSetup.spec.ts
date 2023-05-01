@@ -1,6 +1,6 @@
 /* eslint-disable max-lines-per-function */
 import { act, renderHook } from '@testing-library/react-native'
-import { defaultPrivateUser } from '../../../../tests/unit/data/userData'
+import { defaultSelfUser } from '../../../../tests/unit/data/userData'
 import { useSelfUser } from '../../../hooks/query/useSelfUser'
 import { useReferralsSetup } from './useReferralsSetup'
 import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
@@ -29,7 +29,7 @@ jest.mock('../../../overlays/referral/useRedeemNoPeachFeesReward', () => ({
 describe('useReferralsSetup', () => {
   beforeEach(() => {
     ;(useSelfUser as jest.Mock).mockReturnValue({
-      user: defaultPrivateUser,
+      user: defaultSelfUser,
     })
   })
   afterEach(() => {
@@ -38,11 +38,11 @@ describe('useReferralsSetup', () => {
   it('returns default correct values', () => {
     const { result } = renderHook(useReferralsSetup, { wrapper: NavigationWrapper })
 
-    expect(result.current.user).toEqual(defaultPrivateUser)
+    expect(result.current.user).toEqual(defaultSelfUser)
     expect(result.current.BARLIMIT).toBeGreaterThan(0)
     expect(result.current.REWARDINFO[0]).toHaveProperty('id')
     expect(result.current.REWARDINFO[0]).toHaveProperty('requiredPoints')
-    expect(result.current.pointsBalance).toEqual(defaultPrivateUser.bonusPoints)
+    expect(result.current.pointsBalance).toEqual(defaultSelfUser.bonusPoints)
     expect(result.current.availableRewards).toEqual(0)
     expect(result.current.selectedReward).toBeUndefined()
     expect(result.current.setSelectedReward).toBeDefined()
@@ -53,7 +53,7 @@ describe('useReferralsSetup', () => {
     const bonusPoints = 400
     ;(useSelfUser as jest.Mock).mockReturnValue({
       user: {
-        ...defaultPrivateUser,
+        ...defaultSelfUser,
         bonusPoints,
       },
     })
@@ -75,7 +75,7 @@ describe('useReferralsSetup', () => {
     const bonusPoints = 400
     ;(useSelfUser as jest.Mock).mockReturnValue({
       user: {
-        ...defaultPrivateUser,
+        ...defaultSelfUser,
         bonusPoints,
       },
     })
