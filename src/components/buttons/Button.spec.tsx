@@ -1,18 +1,7 @@
 import { createRenderer } from 'react-test-renderer/shallow'
 import { Button } from './Button'
 import tw from '../../styles/tailwind'
-
-type Dimension = {
-  width: number
-  height: number
-}
-
-const mockDimensions = ({ width, height }: Dimension) => {
-  jest.resetModules()
-  jest.doMock('react-native/Libraries/Utilities/Dimensions', () => ({
-    get: jest.fn().mockReturnValue({ width, height }),
-  }))
-}
+import { mockDimensions } from '../../../tests/unit/helpers/mockDimensions'
 
 describe('Button', () => {
   const shallowRenderer = createRenderer()
