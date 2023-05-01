@@ -980,6 +980,7 @@
   "settings.referrals.noPeachFees.popup.text": "Look, we like money. But we like you even more <3\n\nBy activating this powerup, you don't pay any Peach fees your next five trades.\n\nThe bigger those trades, the more you save!",
   "settings.referrals.noPeachFees.popup.redeem": "activate",
   "settings.referrals.noPeachFees.popup.success": "You successfully activated this powerup. Let's get trading!",
+  "settings.referrals.noPeachFees.freeTrades": "free trades:",
   "settings.backups": "backups",
   "settings.backups.walletBackup": "wallet backup",
   "settings.backups.subtitle": "backups",

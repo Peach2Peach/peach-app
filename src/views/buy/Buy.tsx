@@ -16,13 +16,14 @@ import LoadingScreen from '../loading/LoadingScreen'
 import { useCheckShowRedesignWelcome } from '../../hooks/'
 import { useShowBackupReminder } from '../../hooks/useShowBackupReminder'
 import { useDebounce } from '../../hooks/useDebounce'
+import { ProgressDonut } from '../../components/ui'
 
 export default (): ReactElement => {
   const navigation = useNavigation()
   const checkShowRedesignWelcome = useCheckShowRedesignWelcome()
   const showCorrectBackupReminder = useShowBackupReminder()
 
-  useBuySetup()
+  const { freeTrades } = useBuySetup()
 
   const [showBackupReminder, minBuyAmount, setMinBuyAmount, maxBuyAmount, setMaxBuyAmount] = useSettingsStore(
     (state) => [
@@ -86,6 +87,14 @@ export default (): ReactElement => {
         />
       </View>
       <View style={[tw`flex-row items-center justify-center mt-4 mb-1`, tw.md`mb-4`]}>
+        {freeTrades > 0 && (
+          <ProgressDonut
+            style={tw`absolute left-5 bottom-0`}
+            title={i18n('settings.referrals.noPeachFees.freeTrades')}
+            value={freeTrades}
+            max={10}
+          />
+        )}
         <PrimaryButton disabled={!minAmountValid || !maxAmountValid} testID="navigation-next" onPress={next} narrow>
           {i18n('next')}
         </PrimaryButton>
