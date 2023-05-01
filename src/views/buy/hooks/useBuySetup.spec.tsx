@@ -1,6 +1,8 @@
-import { renderHook } from '@testing-library/react-native'
+import { renderHook, waitFor } from '@testing-library/react-native'
 import { useBuySetup } from './useBuySetup'
 import { NavigationWrapper, replaceMock } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { defaultSelfUser } from '../../../../tests/unit/data/userData'
+import { QueryClientWrapper } from '../../../../tests/unit/helpers/QueryClientWrapper'
 
 const useHeaderSetupMock = jest.fn()
 jest.mock('../../../hooks/useHeaderSetup', () => ({
@@ -25,13 +27,40 @@ jest.mock('../../../utils/account', () => ({
   isBackupMandatory: () => mockIsBackupMandatory(),
 }))
 
+const getSelfUserMock = jest.fn().mockResolvedValue([defaultSelfUser, null])
+jest.mock('../../../utils/peachAPI', () => ({
+  getSelfUser: () => getSelfUserMock(),
+}))
+
+const wrapper = ({ children }: ComponentProps) => (
+  <NavigationWrapper>
+    <QueryClientWrapper>{children}</QueryClientWrapper>
+  </NavigationWrapper>
+)
+
+jest.useFakeTimers()
+
 describe('useBuySetup', () => {
   beforeEach(() => {
     jest.clearAllMocks()
   })
 
+  it('should return default values', () => {
+    const { result } = renderHook(useBuySetup, { wrapper })
+    expect(result.current).toEqual({
+      freeTrades: 0,
+    })
+  })
+
+  it('should free trades from user', async () => {
+    const freeTrades = 5
+    getSelfUserMock.mockResolvedValueOnce([{ ...defaultSelfUser, freeTrades }, null])
+    const { result } = renderHook(useBuySetup, { wrapper })
+    await waitFor(() => expect(result.current.freeTrades).toEqual(freeTrades))
+  })
+
   it('should add the correct header', () => {
-    renderHook(useBuySetup, { wrapper: NavigationWrapper })
+    renderHook(useBuySetup, { wrapper })
 
     expect(useHeaderSetupMock).toHaveBeenCalled()
     const args = useHeaderSetupMock.mock.calls[0][0]
@@ -44,7 +73,7 @@ describe('useBuySetup', () => {
   it('should replace screen with backupTime if backupDates are null and isBackupMandatory is true', () => {
     mockIsBackupMandatory.mockReturnValue(true)
 
-    renderHook(useBuySetup, { wrapper: NavigationWrapper })
+    renderHook(useBuySetup, { wrapper })
 
     expect(replaceMock).toHaveBeenCalledWith('backupTime', { view: 'buyer' })
   })
@@ -54,7 +83,7 @@ describe('useBuySetup', () => {
       selector({ lastFileBackupDate: '2021-01-01', lastSeedBackupDate: null }),
     )
 
-    renderHook(useBuySetup, { wrapper: NavigationWrapper })
+    renderHook(useBuySetup, { wrapper })
 
     expect(replaceMock).not.toHaveBeenCalled()
 
@@ -62,13 +91,13 @@ describe('useBuySetup', () => {
       selector({ lastFileBackupDate: null, lastSeedBackupDate: '2021-01-01' }),
     )
 
-    renderHook(useBuySetup, { wrapper: NavigationWrapper })
+    renderHook(useBuySetup, { wrapper })
 
     expect(replaceMock).not.toHaveBeenCalled()
 
     mockIsBackupMandatory.mockReturnValue(false)
 
-    renderHook(useBuySetup, { wrapper: NavigationWrapper })
+    renderHook(useBuySetup, { wrapper })
 
     expect(replaceMock).not.toHaveBeenCalled()
   })
