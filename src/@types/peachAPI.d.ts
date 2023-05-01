@@ -65,6 +65,7 @@ declare type User = {
 declare type SelfUser = User & {
   feeRate: FeeRate
   freeTrades: number
+  maxFreeTrades: number
   historyRating: number
   recentRating: number
 }
