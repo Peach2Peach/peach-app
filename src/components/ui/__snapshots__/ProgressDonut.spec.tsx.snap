@@ -13,12 +13,15 @@ exports[`ProgressDonut should render correctly 1`] = `
 >
   <PeachText
     style={
-      {
-        "color": "#F56522",
-        "fontSize": 14,
-        "fontWeight": "bold",
-        "textAlign": "center",
-      }
+      [
+        {
+          "color": "#F56522",
+          "fontSize": 12,
+          "fontWeight": "bold",
+          "textAlign": "center",
+        },
+        {},
+      ]
     }
   >
     Donut Test
@@ -84,8 +87,10 @@ exports[`ProgressDonut should render correctly 1`] = `
         style={
           [
             {
+              "fontSize": 12,
               "fontWeight": "bold",
             },
+            {},
             undefined,
           ]
         }
@@ -110,12 +115,15 @@ exports[`ProgressDonut should render correctly for iOS 1`] = `
 >
   <PeachText
     style={
-      {
-        "color": "#F56522",
-        "fontSize": 14,
-        "fontWeight": "bold",
-        "textAlign": "center",
-      }
+      [
+        {
+          "color": "#F56522",
+          "fontSize": 12,
+          "fontWeight": "bold",
+          "textAlign": "center",
+        },
+        {},
+      ]
     }
   >
     Donut Test
@@ -181,8 +189,10 @@ exports[`ProgressDonut should render correctly for iOS 1`] = `
         style={
           [
             {
+              "fontSize": 12,
               "fontWeight": "bold",
             },
+            {},
             {
               "marginTop": 2,
             },
@@ -209,12 +219,17 @@ exports[`ProgressDonut should render correctly for medium viewports 1`] = `
 >
   <PeachText
     style={
-      {
-        "color": "#F56522",
-        "fontSize": 14,
-        "fontWeight": "bold",
-        "textAlign": "center",
-      }
+      [
+        {
+          "color": "#F56522",
+          "fontSize": 12,
+          "fontWeight": "bold",
+          "textAlign": "center",
+        },
+        {
+          "fontSize": 14,
+        },
+      ]
     }
   >
     Donut Test
@@ -283,7 +298,11 @@ exports[`ProgressDonut should render correctly for medium viewports 1`] = `
         style={
           [
             {
+              "fontSize": 12,
               "fontWeight": "bold",
+            },
+            {
+              "fontSize": 16,
             },
             {
               "marginTop": 2,
@@ -311,12 +330,15 @@ exports[`ProgressDonut should render correctly when empty 1`] = `
 >
   <PeachText
     style={
-      {
-        "color": "#F56522",
-        "fontSize": 14,
-        "fontWeight": "bold",
-        "textAlign": "center",
-      }
+      [
+        {
+          "color": "#F56522",
+          "fontSize": 12,
+          "fontWeight": "bold",
+          "textAlign": "center",
+        },
+        {},
+      ]
     }
   >
     Donut Test
@@ -382,8 +404,10 @@ exports[`ProgressDonut should render correctly when empty 1`] = `
         style={
           [
             {
+              "fontSize": 12,
               "fontWeight": "bold",
             },
+            {},
             undefined,
           ]
         }
@@ -408,12 +432,15 @@ exports[`ProgressDonut should render correctly when full 1`] = `
 >
   <PeachText
     style={
-      {
-        "color": "#F56522",
-        "fontSize": 14,
-        "fontWeight": "bold",
-        "textAlign": "center",
-      }
+      [
+        {
+          "color": "#F56522",
+          "fontSize": 12,
+          "fontWeight": "bold",
+          "textAlign": "center",
+        },
+        {},
+      ]
     }
   >
     Donut Test
@@ -479,8 +506,10 @@ exports[`ProgressDonut should render correctly when full 1`] = `
         style={
           [
             {
+              "fontSize": 12,
               "fontWeight": "bold",
             },
+            {},
             undefined,
           ]
         }

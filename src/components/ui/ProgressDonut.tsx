@@ -29,7 +29,7 @@ export const ProgressDonut = ({ title, max, value, style }: Props) => {
 
   return (
     <View style={[tw`items-center`, style]}>
-      <Text style={tw`text-primary-main font-bold text-xs text-center`}>{title}</Text>
+      <Text style={[tw`text-primary-main font-bold text-3xs text-center`, tw.md`text-xs`]}>{title}</Text>
       <View style={[tw`w-8 h-8`, tw.md`w-10 h-10`]}>
         <Svg style={tw`w-full h-full`} viewBox="0 0 32 32">
           <G rotation={-90} originX="16" originY="16">
@@ -54,7 +54,7 @@ export const ProgressDonut = ({ title, max, value, style }: Props) => {
           </G>
         </Svg>
         <View style={tw`absolute w-full h-full justify-center items-center`}>
-          <Text style={[tw`font-bold`, isIOS() && tw`mt-0.5`]}>{value}</Text>
+          <Text style={[tw`font-bold text-3xs`, tw.md`text-base`, isIOS() && tw`mt-0.5`]}>{value}</Text>
         </View>
       </View>
     </View>
