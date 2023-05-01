@@ -4,7 +4,7 @@ import { QueryClientWrapper } from '../../../tests/unit/helpers/QueryClientWrapp
 import { settingsStore } from '../../store/settingsStore'
 import Buy from './Buy'
 
-const useBuySetupMock = jest.fn().mockResolvedValue({ freeTrades: 0 })
+const useBuySetupMock = jest.fn().mockResolvedValue({ freeTrades: 0, maxFreeTrades: 5 })
 jest.mock('./hooks/useBuySetup', () => ({
   useBuySetup: () => useBuySetupMock(),
 }))
@@ -36,7 +36,7 @@ describe('Buy', () => {
   })
   it('should render correctly with free trades', () => {
     const freeTrades = 5
-    useBuySetupMock.mockReturnValue({ freeTrades })
+    useBuySetupMock.mockReturnValue({ freeTrades, maxFreeTrades: 5 })
     const { toJSON } = render(<Buy />, { wrapper })
     expect(toJSON()).toMatchSnapshot()
   })

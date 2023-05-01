@@ -49,6 +49,7 @@ describe('useBuySetup', () => {
     const { result } = renderHook(useBuySetup, { wrapper })
     expect(result.current).toEqual({
       freeTrades: 0,
+      maxFreeTrades: 5,
     })
   })
 

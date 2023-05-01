@@ -12,6 +12,7 @@ export const useBuySetup = () => {
   const navigation = useNavigation()
   const { user } = useSelfUser()
   const freeTrades = user?.freeTrades || 0
+  const maxFreeTrades = 5
   const showHelp = useShowHelp('buyingBitcoin')
   const [lastFileBackupDate, lastSeedBackupDate] = useSettingsStore(
     (state) => [state.lastFileBackupDate, state.lastSeedBackupDate],
@@ -35,5 +36,5 @@ export const useBuySetup = () => {
     }
   }, [navigation, lastSeedBackupDate, lastFileBackupDate])
 
-  return { freeTrades }
+  return { freeTrades, maxFreeTrades }
 }

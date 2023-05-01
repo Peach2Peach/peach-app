@@ -23,7 +23,7 @@ export default (): ReactElement => {
   const checkShowRedesignWelcome = useCheckShowRedesignWelcome()
   const showCorrectBackupReminder = useShowBackupReminder()
 
-  const { freeTrades } = useBuySetup()
+  const { freeTrades, maxFreeTrades } = useBuySetup()
 
   const [showBackupReminder, minBuyAmount, setMinBuyAmount, maxBuyAmount, setMaxBuyAmount] = useSettingsStore(
     (state) => [
@@ -92,7 +92,7 @@ export default (): ReactElement => {
             style={tw`absolute left-5 bottom-0`}
             title={i18n('settings.referrals.noPeachFees.freeTrades')}
             value={freeTrades}
-            max={10}
+            max={maxFreeTrades}
           />
         )}
         <PrimaryButton disabled={!minAmountValid || !maxAmountValid} testID="navigation-next" onPress={next} narrow>
