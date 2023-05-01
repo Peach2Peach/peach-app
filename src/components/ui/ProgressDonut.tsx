@@ -16,7 +16,7 @@ export const ProgressDonut = ({ title, max, value, style }: Props) => {
   const strokeWidth = 7
   const radius = (32 - strokeWidth) / 2
   const circleCircumference = 2 * Math.PI * radius
-  const strokeDashOffsetAnim = useRef(new Animated.Value(circleCircumference - circleCircumference * percent)).current
+  const strokeDashOffsetAnim = useRef(new Animated.Value(circleCircumference)).current
   const AnimatedCircle = Animated.createAnimatedComponent(Circle)
 
   useEffect(() => {
