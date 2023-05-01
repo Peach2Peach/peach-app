@@ -33,7 +33,7 @@ export const useContractChatSetup = () => {
   } = useChatMessages(contractId, contract?.symmetricKey)
   const showError = useShowErrorBanner()
   const { showConfirmOverlay } = useConfirmCancelTrade()
-  const showDisclaimer = useShowDisputeDisclaimer()
+  const showDisputeDisclaimer = useShowDisputeDisclaimer()
   const openDisputeOverlay = useOpenDispute(contractId)
   const tradingPartner = contract ? getTradingPartner(contract, account) : null
   const [chat, setChat] = useState(getChat(contractId))
@@ -183,9 +183,9 @@ export const useContractChatSetup = () => {
 
   useEffect(() => {
     if (contract && !contract.disputeActive && !chat.seenDisputeDisclaimer) {
-      showDisclaimer(chat, setAndSaveChat)
+      showDisputeDisclaimer(chat, setAndSaveChat)
     }
-  }, [chat, contract, showDisclaimer])
+  }, [chat, contract, showDisputeDisclaimer])
 
   return {
     contract,

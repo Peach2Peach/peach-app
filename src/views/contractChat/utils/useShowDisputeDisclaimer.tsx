@@ -9,7 +9,7 @@ export const useShowDisputeDisclaimer = () => {
   const navigation = useNavigation()
   const [, updateOverlay] = useContext(OverlayContext)
 
-  const showDisclaimer = useCallback(
+  const showDisputeDisclaimer = useCallback(
     async (chat: Chat, setAndSaveChat: Function) => {
       const goToHelp = () => {
         updateOverlay({
@@ -49,5 +49,5 @@ export const useShowDisputeDisclaimer = () => {
     },
     [navigation, updateOverlay],
   )
-  return showDisclaimer
+  return showDisputeDisclaimer
 }
