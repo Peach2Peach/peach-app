@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NoPeachFeesSuccess should render correctly 1`] = `
+<PeachText>
+  You successfully activated this powerup. Let's get trading!
+</PeachText>
+`;
