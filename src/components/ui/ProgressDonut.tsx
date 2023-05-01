@@ -13,7 +13,7 @@ type Props = ComponentProps & {
 export const ProgressDonut = ({ title, max, value, style }: Props) => {
   const percent = value / max
 
-  const strokeWidth = 7
+  const strokeWidth = 6
   const radius = (32 - strokeWidth) / 2
   const circleCircumference = 2 * Math.PI * radius
   const strokeDashOffsetAnim = useRef(new Animated.Value(circleCircumference)).current

@@ -56,19 +56,19 @@ exports[`ProgressDonut should render correctly 1`] = `
           cx="50%"
           cy="50%"
           fill="transparent"
-          r={12.5}
+          r={13}
           stroke="#FEEDE5"
-          strokeWidth={7}
+          strokeWidth={6}
         />
         <ForwardRef(AnimatedComponentWrapper)
           cx="50%"
           cy="50%"
           fill="transparent"
-          r={12.5}
+          r={13}
           stroke="#F56522"
-          strokeDasharray={78.53981633974483}
-          strokeDashoffset={62.83185307179586}
-          strokeWidth={7}
+          strokeDasharray={81.68140899333463}
+          strokeDashoffset={81.68140899333463}
+          strokeWidth={6}
         />
       </G>
     </Svg>
@@ -158,19 +158,19 @@ exports[`ProgressDonut should render correctly for iOS 1`] = `
           cx="50%"
           cy="50%"
           fill="transparent"
-          r={12.5}
+          r={13}
           stroke="#FEEDE5"
-          strokeWidth={7}
+          strokeWidth={6}
         />
         <ForwardRef(AnimatedComponentWrapper)
           cx="50%"
           cy="50%"
           fill="transparent"
-          r={12.5}
+          r={13}
           stroke="#F56522"
-          strokeDasharray={78.53981633974483}
-          strokeDashoffset={62.83185307179586}
-          strokeWidth={7}
+          strokeDasharray={81.68140899333463}
+          strokeDashoffset={81.68140899333463}
+          strokeWidth={6}
         />
       </G>
     </Svg>
@@ -267,19 +267,19 @@ exports[`ProgressDonut should render correctly for medium viewports 1`] = `
           cx="50%"
           cy="50%"
           fill="transparent"
-          r={12.5}
+          r={13}
           stroke="#FEEDE5"
-          strokeWidth={7}
+          strokeWidth={6}
         />
         <ForwardRef(AnimatedComponentWrapper)
           cx="50%"
           cy="50%"
           fill="transparent"
-          r={12.5}
+          r={13}
           stroke="#F56522"
-          strokeDasharray={78.53981633974483}
-          strokeDashoffset={62.83185307179586}
-          strokeWidth={7}
+          strokeDasharray={81.68140899333463}
+          strokeDashoffset={81.68140899333463}
+          strokeWidth={6}
         />
       </G>
     </Svg>
@@ -373,19 +373,19 @@ exports[`ProgressDonut should render correctly when empty 1`] = `
           cx="50%"
           cy="50%"
           fill="transparent"
-          r={12.5}
+          r={13}
           stroke="#FEEDE5"
-          strokeWidth={7}
+          strokeWidth={6}
         />
         <ForwardRef(AnimatedComponentWrapper)
           cx="50%"
           cy="50%"
           fill="transparent"
-          r={12.5}
+          r={13}
           stroke="#F56522"
-          strokeDasharray={78.53981633974483}
-          strokeDashoffset={62.83185307179586}
-          strokeWidth={7}
+          strokeDasharray={81.68140899333463}
+          strokeDashoffset={81.68140899333463}
+          strokeWidth={6}
         />
       </G>
     </Svg>
@@ -475,19 +475,19 @@ exports[`ProgressDonut should render correctly when full 1`] = `
           cx="50%"
           cy="50%"
           fill="transparent"
-          r={12.5}
+          r={13}
           stroke="#FEEDE5"
-          strokeWidth={7}
+          strokeWidth={6}
         />
         <ForwardRef(AnimatedComponentWrapper)
           cx="50%"
           cy="50%"
           fill="transparent"
-          r={12.5}
+          r={13}
           stroke="#F56522"
-          strokeDasharray={78.53981633974483}
-          strokeDashoffset={62.83185307179586}
-          strokeWidth={7}
+          strokeDasharray={81.68140899333463}
+          strokeDashoffset={81.68140899333463}
+          strokeWidth={6}
         />
       </G>
     </Svg>
