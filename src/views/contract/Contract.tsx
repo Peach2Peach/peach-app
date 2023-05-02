@@ -5,11 +5,8 @@ import { TradeSummary } from '../../components/offer'
 import tw from '../../styles/tailwind'
 
 import LoadingScreen from '../loading/LoadingScreen'
-import { ContractCTA } from './components/ContractCTA'
 import { useContractSetup } from './hooks/useContractSetup'
-import { ProvideEmailButton } from './components/ProvideEmailButton'
-import { ResolveDisputeSliders } from './ResolveDisputeSliders'
-import { ReleaseEscrowSlider } from './ReleaseEscrowSlider'
+import { ContractActions } from './ContractActions'
 
 export default () => {
   const { contract, isLoading, view, requiredAction, actionPending, postConfirmPaymentBuyer, postConfirmPaymentSeller }
@@ -26,12 +23,16 @@ export default () => {
         />
         <TradeSummary {...{ contract, view }} />
         <View style={tw`items-center justify-end flex-grow w-full mb-2`}>
-          {!!contract.isEmailRequired && <ProvideEmailButton {...{ contract, view }} style={tw`self-center mb-4`} />}
-          <ContractCTA
-            {...{ contract, view, requiredAction, actionPending, postConfirmPaymentBuyer, postConfirmPaymentSeller }}
+          <ContractActions
+            {...{
+              contract,
+              view,
+              requiredAction,
+              actionPending,
+              postConfirmPaymentBuyer,
+              postConfirmPaymentSeller,
+            }}
           />
-          {contract.tradeStatus === 'refundOrReviveRequired' && <ResolveDisputeSliders {...{ contract }} />}
-          {contract.tradeStatus === 'releaseEscrow' && <ReleaseEscrowSlider {...{ contract }} />}
         </View>
       </View>
     </PeachScrollView>
