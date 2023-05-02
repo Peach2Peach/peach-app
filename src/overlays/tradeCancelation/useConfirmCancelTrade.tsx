@@ -67,7 +67,6 @@ export const useConfirmCancelTrade = () => {
       const cancelAction = () => (view === 'seller' ? cancelSeller(contract) : cancelBuyer(contract))
       updateOverlay({
         title: i18n('contract.cancel.title'),
-        level: 'ERROR',
         content: <ConfirmCancelTrade {...{ contract, view }} />,
         visible: true,
         action1: {

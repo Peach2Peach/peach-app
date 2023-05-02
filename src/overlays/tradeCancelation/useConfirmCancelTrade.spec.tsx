@@ -2,6 +2,7 @@ import { renderHook } from '@testing-library/react-native'
 import { account1 } from '../../../tests/unit/data/accountData'
 import { contract } from '../../../tests/unit/data/contractData'
 import { sellOffer } from '../../../tests/unit/data/offerData'
+import { defaultOverlay, OverlayContext } from '../../contexts/overlay'
 import { setAccount } from '../../utils/account'
 import i18n from '../../utils/i18n'
 import { getResult } from '../../utils/result'
@@ -18,11 +19,13 @@ jest.mock('../../hooks/useNavigation', () => ({
   }),
 }))
 
-const updateOverlayMock = jest.fn()
-const useOverlayContextMock = jest.fn().mockReturnValue([, updateOverlayMock])
-jest.mock('../../contexts/overlay', () => ({
-  useOverlayContext: () => useOverlayContextMock(),
-}))
+let overlay = defaultOverlay
+const updateOverlayMock = jest.fn().mockImplementation((newOverlay: OverlayState) => {
+  overlay = newOverlay
+})
+const OverlayWrapper = ({ children }: { children: React.ReactNode }) => (
+  <OverlayContext.Provider value={[overlay, updateOverlayMock]}>{children}</OverlayContext.Provider>
+)
 
 const showLoadingOverlayMock = jest.fn()
 const useShowLoadingOverlayMock = jest.fn().mockReturnValue(showLoadingOverlayMock)
@@ -68,9 +71,10 @@ jest.mock('./helpers/cancelContractAsBuyer', () => ({
 describe('useConfirmCancelTrade', () => {
   afterEach(() => {
     jest.clearAllMocks()
+    overlay = defaultOverlay
   })
   it('should return the correct default values', () => {
-    const { result } = renderHook(useConfirmCancelTrade)
+    const { result } = renderHook(useConfirmCancelTrade, { wrapper: OverlayWrapper })
     expect(result.current).toStrictEqual({
       showConfirmOverlay: expect.any(Function),
       cancelSeller: expect.any(Function),
@@ -80,7 +84,7 @@ describe('useConfirmCancelTrade', () => {
     })
   })
   it('should update popups when canceling a contract as seller', async () => {
-    const { result } = renderHook(useConfirmCancelTrade)
+    const { result } = renderHook(useConfirmCancelTrade, { wrapper: OverlayWrapper })
     const cancelSellerPromise = result.current.cancelSeller(contract)
     expect(showLoadingOverlayMock).toHaveBeenCalledWith({
       title: i18n('contract.cancel.title'),
@@ -93,43 +97,43 @@ describe('useConfirmCancelTrade', () => {
   })
 
   it('should cancel a contract as seller', async () => {
-    const { result } = renderHook(useConfirmCancelTrade)
+    const { result } = renderHook(useConfirmCancelTrade, { wrapper: OverlayWrapper })
     await result.current.cancelSeller(contract)
     expect(cancelContractAsSellerMock).toHaveBeenCalledWith(contract)
     expect(replaceMock).toHaveBeenCalledWith('contract', { contractId: contract.id })
   })
   it('should handle error case when canceling a contract as seller', async () => {
     cancelContractAsSellerMock.mockResolvedValueOnce(getResult({ contract }, apiError))
-    const { result } = renderHook(useConfirmCancelTrade)
+    const { result } = renderHook(useConfirmCancelTrade, { wrapper: OverlayWrapper })
     await result.current.cancelSeller(contract)
   })
   it('should optimistically update contract and offer after cancelation as seller', async () => {
-    const { result } = renderHook(useConfirmCancelTrade)
+    const { result } = renderHook(useConfirmCancelTrade, { wrapper: OverlayWrapper })
     await result.current.cancelSeller(contract)
 
     expect(saveContractMock).toHaveBeenCalledWith(contractUpdate)
     expect(saveOfferMock).toHaveBeenCalledWith(sellOfferUpdate)
   })
   it('should cancel a contract as buyer', async () => {
-    const { result } = renderHook(useConfirmCancelTrade)
+    const { result } = renderHook(useConfirmCancelTrade, { wrapper: OverlayWrapper })
     await result.current.cancelBuyer(contract)
     expect(cancelContractAsBuyerMock).toHaveBeenCalledWith(contract)
     expect(replaceMock).toHaveBeenCalledWith('contract', { contractId: contract.id })
   })
   it('should handle error case when canceling a contract as buyer', async () => {
     cancelContractAsBuyerMock.mockResolvedValueOnce(getResult({ contract }, apiError))
-    const { result } = renderHook(useConfirmCancelTrade)
+    const { result } = renderHook(useConfirmCancelTrade, { wrapper: OverlayWrapper })
     await result.current.cancelBuyer(contract)
   })
   it('should optimistically update contract and offer after cancelation as buyer', async () => {
-    const { result } = renderHook(useConfirmCancelTrade)
+    const { result } = renderHook(useConfirmCancelTrade, { wrapper: OverlayWrapper })
     await result.current.cancelBuyer(contract)
 
     expect(saveContractMock).toHaveBeenCalledWith(contractUpdate)
   })
   it('should show confirm cancelation overlay for buyer', async () => {
     await setAccount({ ...account1, publicKey: contract.buyer.id })
-    const { result } = renderHook(useConfirmCancelTrade)
+    const { result } = renderHook(useConfirmCancelTrade, { wrapper: OverlayWrapper })
     const { cancelAction } = result.current.showConfirmOverlay(contract)
 
     expect(updateOverlayMock).toHaveBeenCalledWith({
@@ -144,7 +148,6 @@ describe('useConfirmCancelTrade', () => {
         label: i18n('contract.cancel.confirm.back'),
       },
       content: <ConfirmCancelTrade {...{ contract, view: 'buyer' }} />,
-      level: 'ERROR',
       title: i18n('contract.cancel.title'),
       visible: true,
     })
@@ -154,7 +157,7 @@ describe('useConfirmCancelTrade', () => {
   })
   it('should show confirm cancelation overlay for seller', async () => {
     await setAccount({ ...account1, publicKey: contract.seller.id })
-    const { result } = renderHook(useConfirmCancelTrade)
+    const { result } = renderHook(useConfirmCancelTrade, { wrapper: OverlayWrapper })
     const { cancelAction } = result.current.showConfirmOverlay(contract)
 
     expect(updateOverlayMock).toHaveBeenCalledWith({
@@ -175,5 +178,11 @@ describe('useConfirmCancelTrade', () => {
     })
     await cancelAction()
     expect(cancelContractAsSellerMock).toHaveBeenCalledWith(contract)
+  })
+  it('confirmOverlay should be gray', () => {
+    const { result } = renderHook(useConfirmCancelTrade, { wrapper: OverlayWrapper })
+    result.current.showConfirmOverlay(contract)
+
+    expect(overlay.level).toBe(undefined)
   })
 })
