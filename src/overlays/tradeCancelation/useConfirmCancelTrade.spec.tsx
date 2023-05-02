@@ -120,7 +120,7 @@ describe('useConfirmCancelTrade', () => {
     expect(saveContractMock).toHaveBeenCalledWith(contractUpdate)
   })
   it('should show confirm cancelation overlay for buyer', async () => {
-    await setAccount({ ...account1, publicKey: contract.buyer.id })
+    setAccount({ ...account1, publicKey: contract.buyer.id })
     const { result } = renderHook(useConfirmCancelTrade, { wrapper: OverlayWrapper })
     const { cancelAction } = result.current.showConfirmOverlay(contract)
 
@@ -144,7 +144,7 @@ describe('useConfirmCancelTrade', () => {
     expect(cancelContractAsBuyerMock).toHaveBeenCalledWith(contract)
   })
   it('should show confirm cancelation overlay for seller', async () => {
-    await setAccount({ ...account1, publicKey: contract.seller.id })
+    setAccount({ ...account1, publicKey: contract.seller.id })
     const { result } = renderHook(useConfirmCancelTrade, { wrapper: OverlayWrapper })
     const { cancelAction } = result.current.showConfirmOverlay(contract)
 
@@ -193,22 +193,22 @@ describe('useConfirmCancelTrade', () => {
     })
   })
   it('should show the correct confirmation overlay for canceled trade as buyer', async () => {
-    await setAccount({ ...account1, publicKey: contract.buyer.id })
+    setAccount({ ...account1, publicKey: contract.buyer.id })
 
     const { result } = renderHook(useConfirmCancelTrade, { wrapper: OverlayWrapper })
     result.current.showConfirmOverlay(contract)
-    await overlay.action1?.callback()
+    overlay.action1?.callback()
     expect(overlay).toStrictEqual({
       title: 'trade canceled!',
       visible: true,
     })
   })
   it('should show the correct confirmation overlay for canceled trade as seller', async () => {
-    await setAccount({ ...account1, publicKey: contract.seller.id })
+    setAccount({ ...account1, publicKey: contract.seller.id })
 
     const { result } = renderHook(useConfirmCancelTrade, { wrapper: OverlayWrapper })
     result.current.showConfirmOverlay(contract)
-    await overlay.action1?.callback()
+    overlay.action1?.callback()
     expect(overlay).toStrictEqual({
       title: 'request sent',
       content: <RequestSent />,
@@ -216,11 +216,11 @@ describe('useConfirmCancelTrade', () => {
     })
   })
   it('should show the correct confirmation overlay for canceled cash trade as seller', async () => {
-    await setAccount({ ...account1, publicKey: contract.seller.id })
+    setAccount({ ...account1, publicKey: contract.seller.id })
 
     const { result } = renderHook(useConfirmCancelTrade, { wrapper: OverlayWrapper })
     result.current.showConfirmOverlay({ ...contract, paymentMethod: 'cash' })
-    await overlay.action1?.callback()
+    overlay.action1?.callback()
     expect(overlay).toStrictEqual({
       title: 'trade canceled!',
       content: undefined,
