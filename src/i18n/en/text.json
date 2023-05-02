@@ -188,6 +188,7 @@
   "contract.summary.location": "location agreed in chat",
   "contract.summary.reference": "reference",
   "contract.cancel.title": "cancel trade",
+  "contract.cancel.cash.title": "cancel cash trade",
   "contract.cancel.text": "Are you sure?",
   "contract.cancel.seller": "The buyer needs to agree to cancel the trade, since they might have already made the payment.",
   "contract.cancel.buyer": "The seller has already matched you back, so canceling now will impact your reputation in a major way.",

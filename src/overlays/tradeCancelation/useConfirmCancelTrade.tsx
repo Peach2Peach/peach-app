@@ -7,6 +7,7 @@ import { account } from '../../utils/account'
 import { saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { saveOffer } from '../../utils/offer'
+import { isCashTrade } from '../../utils/paymentMethod/isCashTrade'
 import { ConfirmCancelTrade } from './ConfirmCancelTrade'
 import { cancelContractAsBuyer } from './helpers/cancelContractAsBuyer'
 import { cancelContractAsSeller } from './helpers/cancelContractAsSeller'
@@ -65,8 +66,9 @@ export const useConfirmCancelTrade = () => {
     (contract: Contract) => {
       const view = account.publicKey === contract?.seller.id ? 'seller' : 'buyer'
       const cancelAction = () => (view === 'seller' ? cancelSeller(contract) : cancelBuyer(contract))
+      const title = i18n(isCashTrade(contract.paymentMethod) ? 'contract.cancel.cash.title' : 'contract.cancel.title')
       updateOverlay({
-        title: i18n('contract.cancel.title'),
+        title,
         content: <ConfirmCancelTrade {...{ contract, view }} />,
         visible: true,
         action1: {

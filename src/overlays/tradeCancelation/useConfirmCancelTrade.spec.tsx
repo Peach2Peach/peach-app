@@ -185,4 +185,24 @@ describe('useConfirmCancelTrade', () => {
 
     expect(overlay.level).toBe(undefined)
   })
+  it('should show the correct overlay for cash trades of the seller', () => {
+    const { result } = renderHook(useConfirmCancelTrade, { wrapper: OverlayWrapper })
+    result.current.showConfirmOverlay({ ...contract, paymentMethod: 'cash' })
+
+    expect(overlay).toStrictEqual({
+      action1: {
+        callback: expect.any(Function),
+        icon: 'xCircle',
+        label: 'cancel trade',
+      },
+      action2: {
+        callback: expect.any(Function),
+        icon: 'arrowLeftCircle',
+        label: 'never mind',
+      },
+      title: 'cancel cash trade',
+      content: <ConfirmCancelTrade view="seller" contract={{ ...contract, paymentMethod: 'cash' }} />,
+      visible: true,
+    })
+  })
 })
