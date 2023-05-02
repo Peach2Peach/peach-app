@@ -2,7 +2,6 @@ import { useCallback } from 'react'
 import { useOverlayContext } from '../../contexts/overlay'
 import { useNavigation } from '../../hooks'
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
-import { useShowLoadingOverlay } from '../../hooks/useShowLoadingOverlay'
 import { account } from '../../utils/account'
 import { saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
@@ -11,45 +10,42 @@ import { isCashTrade } from '../../utils/paymentMethod/isCashTrade'
 import { ConfirmCancelTrade } from './ConfirmCancelTrade'
 import { cancelContractAsBuyer } from './helpers/cancelContractAsBuyer'
 import { cancelContractAsSeller } from './helpers/cancelContractAsSeller'
+import { RequestSent } from './RequestSent'
 
 export const useConfirmCancelTrade = () => {
   const [, updateOverlay] = useOverlayContext()
   const navigation = useNavigation()
   const showError = useShowErrorBanner()
   const closeOverlay = useCallback(() => updateOverlay({ visible: false }), [updateOverlay])
-  const showLoadingOverlay = useShowLoadingOverlay()
 
   const cancelBuyer = useCallback(
     async (contract: Contract) => {
-      showLoadingOverlay({
-        title: i18n('contract.cancel.title'),
-        level: 'ERROR',
-      })
+      updateOverlay({ title: i18n('contract.cancel.success'), visible: true })
       const result = await cancelContractAsBuyer(contract)
 
       if (result.isError() || !result.isOk()) {
-        closeOverlay()
         showError(result.isError() ? result.getError() : undefined)
         return
       }
       saveContract(result.getValue().contract)
       navigation.replace('contract', { contractId: contract.id })
-      updateOverlay({ title: i18n('contract.cancel.success'), visible: true, level: 'APP' })
     },
-    [closeOverlay, navigation, showError, showLoadingOverlay, updateOverlay],
+    [navigation, showError, updateOverlay],
   )
 
   const cancelSeller = useCallback(
     async (contract: Contract) => {
-      showLoadingOverlay({
-        title: i18n('contract.cancel.title'),
-        level: 'ERROR',
+      const isCash = isCashTrade(contract.paymentMethod)
+      updateOverlay({
+        title: i18n(isCash ? 'contract.cancel.success' : 'contract.cancel.requestSent'),
+        visible: true,
+        content: isCash ? undefined : <RequestSent />,
       })
+
       const result = await cancelContractAsSeller(contract)
 
       if (result.isError() || !result.isOk()) {
         showError(result.isError() ? result.getError() : undefined)
-        closeOverlay()
         return
       }
 
@@ -57,9 +53,8 @@ export const useConfirmCancelTrade = () => {
       saveContract(contractUpdate)
       if (sellOffer) saveOffer(sellOffer)
       navigation.replace('contract', { contractId: contract.id })
-      closeOverlay()
     },
-    [showLoadingOverlay, navigation, closeOverlay, showError],
+    [updateOverlay, navigation, showError],
   )
 
   const showConfirmOverlay = useCallback(
@@ -90,5 +85,5 @@ export const useConfirmCancelTrade = () => {
     [updateOverlay, cancelSeller, cancelBuyer, closeOverlay],
   )
 
-  return { showConfirmOverlay, cancelSeller, cancelBuyer, showLoadingOverlay, closeOverlay }
+  return { showConfirmOverlay, cancelSeller, cancelBuyer, closeOverlay }
 }
