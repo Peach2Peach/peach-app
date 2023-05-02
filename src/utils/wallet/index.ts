@@ -1,6 +1,7 @@
 export { createRandomWallet } from './createRandomWallet'
 export { createWalletFromSeedPhrase } from './createWalletFromSeedPhrase'
 export { getEscrowWallet } from './getEscrowWallet'
+export { getEscrowWalletForOffer } from './getEscrowWalletForOffer'
 export { getFinalScript } from './getFinalScript'
 export { getNetwork } from './getNetwork'
 export { getPublicKeyForEscrow } from './getPublicKeyForEscrow'

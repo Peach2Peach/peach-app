@@ -3,11 +3,12 @@ import { useCallback, useEffect, useState } from 'react'
 import { useNavigation, useRoute } from '../../../hooks'
 import { useCommonContractSetup } from '../../../hooks/useCommonContractSetup'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
-import { shouldRateCounterParty, signReleaseTx } from '../../../utils/contract'
+import { getSellOfferFromContract, shouldRateCounterParty, verifyAndSignReleaseTx } from '../../../utils/contract'
 import { isTradeComplete } from '../../../utils/contract/status'
 import { confirmPayment, getContract, getOfferDetails } from '../../../utils/peachAPI'
 import { getNavigationDestinationForContract, getNavigationDestinationForOffer } from '../../yourTrades/utils'
 import { useContractHeaderSetup } from './useContractHeaderSetup'
+import { getEscrowWalletForOffer } from '../../../utils/wallet'
 
 // eslint-disable-next-line max-lines-per-function
 export const useContractSetup = () => {
@@ -57,7 +58,8 @@ export const useContractSetup = () => {
     if (!contract) return
     setActionPending(true)
 
-    const [tx, errorMsg] = signReleaseTx(contract)
+    const sellOffer = getSellOfferFromContract(contract)
+    const [tx, errorMsg] = verifyAndSignReleaseTx(contract, sellOffer, getEscrowWalletForOffer(sellOffer))
 
     if (!tx) {
       setActionPending(false)
