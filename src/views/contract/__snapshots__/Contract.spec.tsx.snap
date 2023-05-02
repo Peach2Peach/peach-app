@@ -51,7 +51,7 @@ exports[`Contract should render a default Contract 1`] = `
         }
       }
     >
-      <ContractCTA
+      <ContractActions
         actionPending={false}
         contract={
           {
@@ -125,7 +125,7 @@ exports[`Contract should show the buyers profile overview if the viewer is the s
         }
       }
     >
-      <ContractCTA
+      <ContractActions
         actionPending={false}
         contract={
           {
@@ -200,7 +200,7 @@ exports[`Contract should show the dispute sliders when the contract is in the re
         }
       }
     >
-      <ContractCTA
+      <ContractActions
         actionPending={false}
         contract={
           {
@@ -218,20 +218,6 @@ exports[`Contract should show the dispute sliders when the contract is in the re
         postConfirmPaymentSeller={[MockFunction]}
         requiredAction="requiredAction"
         view="buyer"
-      />
-      <ResolveDisputeSliders
-        contract={
-          {
-            "buyer": {
-              "username": "buyerUsername",
-            },
-            "disputeActive": false,
-            "seller": {
-              "username": "sellerUsername",
-            },
-            "tradeStatus": "refundOrReviveRequired",
-          }
-        }
       />
     </View>
   </View>
@@ -292,28 +278,7 @@ exports[`Contract should show the provide email button when the contract require
         }
       }
     >
-      <ProvideEmailButton
-        contract={
-          {
-            "buyer": {
-              "username": "buyerUsername",
-            },
-            "disputeActive": false,
-            "isEmailRequired": true,
-            "seller": {
-              "username": "sellerUsername",
-            },
-          }
-        }
-        style={
-          {
-            "alignSelf": "center",
-            "marginBottom": 16,
-          }
-        }
-        view="buyer"
-      />
-      <ContractCTA
+      <ContractActions
         actionPending={false}
         contract={
           {
