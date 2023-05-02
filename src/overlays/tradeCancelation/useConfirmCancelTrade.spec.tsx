@@ -172,7 +172,6 @@ describe('useConfirmCancelTrade', () => {
         label: i18n('contract.cancel.confirm.back'),
       },
       content: <ConfirmCancelTrade {...{ contract, view: 'seller' }} />,
-      level: 'ERROR',
       title: i18n('contract.cancel.title'),
       visible: true,
     })
