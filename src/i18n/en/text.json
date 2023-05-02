@@ -190,7 +190,6 @@
   "contract.cancel.title": "cancel trade",
   "contract.cancel.cash.title": "cancel cash trade",
   "contract.cancel.cash.text": "Are you sure? This will not affect your reputation.",
-  "contract.cancel.text": "Are you sure?",
   "contract.cancel.seller": "Are you sure? Canceling a trade will negatively impact your reputation.\n\nThe buyer also needs to agree to cancel the trade, since they might have already made the payment.",
   "contract.cancel.buyer": "Are you sure?\n\nThe seller has already matched you back, so canceling now will impact your reputation in a major way.",
   "contract.cancel.seller.text.refundEscrow": "If the Buyer agrees to cancel this trade, we'll refund you the escrow.",
