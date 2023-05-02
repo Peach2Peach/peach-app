@@ -630,7 +630,7 @@
   "notification.offer.notFunded.tile": "Offer canceled",
   "notification.offer.notFunded.text": "You haven't funded your escrow in $1 days 😞. We are deleting this offer",
   "notification.offer.sellOfferExpired.title": "No match",
-  "notification.offer.sellOfferExpired.text": "Your sell offer has been closed after not receiving a match for $1 days.",
+  "notification.offer.sellOfferExpired.text": "We've canceled your sell offer, since you haven't matched anyone after $1 days.",
   "notification.offer.matchBuyer.title": "Matches are waiting for you.",
   "notification.offer.matchBuyer.text": "You've got new matches, don't leave them hanging!",
   "notification.offer.matchSeller.title": "Matches are waiting for you!",
