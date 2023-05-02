@@ -666,8 +666,6 @@
   "notification.offer.outsideRange.icon": "trendingUp",
   "notification.offer.outsideRange.title": "Bitcoin pumped",
   "notification.offer.outsideRange.text": "Offer $0 is now outside of the trading range and will not be shown to buyers.\n\nYou can choose to cancel the offer and make a new one, or leave it as is.",
-  "notification.offer.buyOfferImminentExpiry.title": "Offer hasn't received a match for 23 days.",
-  "notification.offer.buyOfferImminentExpiry.text": "Your buy offer $0 still hasn't received a match - it will be removed in a week.",
   "notification.offer.buyOfferExpired.title": "Offer hasn't received a match for $0 days.",
   "notification.offer.buyOfferExpired.text": "Your buy offer $0 hasn't received a match after $1 days and has been removed.",
   "NETWORK_ERROR.icon": "noNetwork",
