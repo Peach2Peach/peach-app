@@ -8,6 +8,8 @@ export const useOverlayEvents = () => {
 
   const overlayEvents: PNEventHandlers = useMemo(
     () => ({
+      // PN-U01
+      'user.badge.unlocked': ({ badges }: PNData) => navigation.navigate('newBadge', { badges }),
       // PN-S03
       'offer.escrowFunded': ({ offerId }: PNData) =>
         offerId ? navigation.navigate('offerPublished', { isSellOffer: true, shouldGoBack: true }) : null,
