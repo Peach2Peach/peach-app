@@ -1,5 +1,83 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Contract should not show the dispute sliders when there is no dispute winner 1`] = `
+<PeachScrollView
+  contentContainerStyle={
+    {
+      "height": "100%",
+      "paddingLeft": 24,
+      "paddingRight": 24,
+      "paddingTop": 20,
+    }
+  }
+>
+  <View
+    style={
+      {
+        "height": "100%",
+      }
+    }
+  >
+    <MatchCardCounterparty
+      isDispute={false}
+      user={
+        {
+          "username": "sellerUsername",
+        }
+      }
+    />
+    <TradeSummary
+      contract={
+        {
+          "buyer": {
+            "username": "buyerUsername",
+          },
+          "disputeActive": false,
+          "disputeWinner": undefined,
+          "seller": {
+            "username": "sellerUsername",
+          },
+          "tradeStatus": "refundOrReviveRequired",
+        }
+      }
+      view="buyer"
+    />
+    <View
+      style={
+        {
+          "alignItems": "center",
+          "flexGrow": 1,
+          "justifyContent": "flex-end",
+          "marginBottom": 8,
+          "width": "100%",
+        }
+      }
+    >
+      <ContractActions
+        actionPending={false}
+        contract={
+          {
+            "buyer": {
+              "username": "buyerUsername",
+            },
+            "disputeActive": false,
+            "disputeWinner": undefined,
+            "seller": {
+              "username": "sellerUsername",
+            },
+            "tradeStatus": "refundOrReviveRequired",
+          }
+        }
+        postConfirmPaymentBuyer={[MockFunction]}
+        postConfirmPaymentSeller={[MockFunction]}
+        requiredAction="requiredAction"
+        view="buyer"
+      />
+    </View>
+  </View>
+</PeachScrollView>
+`;
+
 exports[`Contract should render a default Contract 1`] = `
 <PeachScrollView
   contentContainerStyle={
@@ -148,7 +226,7 @@ exports[`Contract should show the buyers profile overview if the viewer is the s
 </PeachScrollView>
 `;
 
-exports[`Contract should show the dispute sliders when the contract is in the refundOrReviveRequired state 1`] = `
+exports[`Contract should show the dispute sliders when the contract is in the refundOrReviveRequired state and there is a dispute winner 1`] = `
 <PeachScrollView
   contentContainerStyle={
     {
@@ -181,6 +259,7 @@ exports[`Contract should show the dispute sliders when the contract is in the re
             "username": "buyerUsername",
           },
           "disputeActive": false,
+          "disputeWinner": "seller",
           "seller": {
             "username": "sellerUsername",
           },
@@ -208,6 +287,7 @@ exports[`Contract should show the dispute sliders when the contract is in the re
               "username": "buyerUsername",
             },
             "disputeActive": false,
+            "disputeWinner": "seller",
             "seller": {
               "username": "sellerUsername",
             },

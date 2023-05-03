@@ -16,7 +16,9 @@ export const ContractActions = ({ contract, view, ...contractCTAProps }: Props) 
   <>
     {!!contract.isEmailRequired && <ProvideEmailButton {...{ contract, view }} style={tw`self-center mb-4`} />}
     <ContractCTA {...{ contract, view, ...contractCTAProps }} />
-    {contract.tradeStatus === 'refundOrReviveRequired' && <ResolveDisputeSliders {...{ contract }} />}
-    {contract.tradeStatus === 'releaseEscrow' && <ReleaseEscrowSlider {...{ contract }} />}
+    {contract.tradeStatus === 'refundOrReviveRequired' && !!contract.disputeWinner && (
+      <ResolveDisputeSliders {...{ contract }} />
+    )}
+    {contract.tradeStatus === 'releaseEscrow' && !!contract.disputeWinner && <ReleaseEscrowSlider {...{ contract }} />}
   </>
 )
