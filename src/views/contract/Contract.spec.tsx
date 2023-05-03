@@ -64,7 +64,7 @@ describe('Contract', () => {
     const result = renderer.getRenderOutput()
     expect(result).toMatchSnapshot()
   })
-  it('should show the dispute sliders when the contract is in the refundOrReviveRequired state and there is a dispute winner', () => {
+  it('should show the dispute sliders when the contract is in the refundOrReviveRequired state', () => {
     useContractSetupMock.mockReturnValueOnce({
       ...defaultReturnValue,
       contract: {

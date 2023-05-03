@@ -26,9 +26,24 @@ describe('ClosedTrade', () => {
     const { toJSON } = render(<ClosedTrade contract={contract as Contract} view="seller" />)
     expect(toJSON()).toMatchSnapshot()
   })
+  it('should render the won dispute as seller status correctly when only refund is possible', () => {
+    const contract = {
+      disputeWinner: 'seller',
+      tradeStatus: 'refundTxSignatureRequired',
+    }
+    const { toJSON } = render(<ClosedTrade contract={contract as Contract} view="seller" />)
+    expect(toJSON()).toMatchSnapshot()
+  })
   it('should render the refundOrReviveRequired status correctly when there is no disputeWinner', () => {
     const contract = {
       tradeStatus: 'refundOrReviveRequired',
+    }
+    const { toJSON } = render(<ClosedTrade contract={contract as Contract} view="seller" />)
+    expect(toJSON()).toMatchSnapshot()
+  })
+  it('should render the refundEscrow status correctly when there is no disputeWinner', () => {
+    const contract = {
+      tradeStatus: 'refundTxSignatureRequired',
     }
     const { toJSON } = render(<ClosedTrade contract={contract as Contract} view="seller" />)
     expect(toJSON()).toMatchSnapshot()
