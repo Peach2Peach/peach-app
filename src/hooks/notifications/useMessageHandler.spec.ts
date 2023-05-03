@@ -70,6 +70,7 @@ describe('useMessageHandler', () => {
       notification: {
         bodyLocArgs: ['arg1', 'arg2'],
       },
+      fcmOptions: {},
     } as FirebaseMessagingTypes.RemoteMessage
     const { result: onMessageHandler } = renderHook(() => useMessageHandler(mockGetCurrentPage))
     await act(async () => {
@@ -92,6 +93,7 @@ describe('useMessageHandler', () => {
       notification: {
         bodyLocArgs: ['arg1', 'arg2'],
       },
+      fcmOptions: {},
     } as FirebaseMessagingTypes.RemoteMessage
     const { result: onMessageHandler } = renderHook(() => useMessageHandler(mockGetCurrentPage))
     await act(async () => {
@@ -109,13 +111,14 @@ describe('useMessageHandler', () => {
       notification: {
         bodyLocArgs: ['arg1', 'arg2'],
       },
+      fcmOptions: {},
     } as FirebaseMessagingTypes.RemoteMessage
     const { result: onMessageHandler } = renderHook(() => useMessageHandler(mockGetCurrentPage))
     await act(async () => {
       await onMessageHandler.current(mockRemoteMessage)
     })
 
-    expect(offerPopupEventHandlerMock).toHaveBeenCalledWith(mockRemoteMessage.data)
+    expect(offerPopupEventHandlerMock).toHaveBeenCalledWith(mockRemoteMessage.data, mockRemoteMessage.notification)
   })
 
   it('should call popup event when type is found in contractPopupEvents', async () => {
@@ -127,6 +130,7 @@ describe('useMessageHandler', () => {
       notification: {
         bodyLocArgs: ['arg1', 'arg2'],
       },
+      fcmOptions: {},
     } as FirebaseMessagingTypes.RemoteMessage
     const { result: onMessageHandler } = renderHook(() => useMessageHandler(mockGetCurrentPage))
     await act(async () => {
@@ -143,6 +147,7 @@ describe('useMessageHandler', () => {
       notification: {
         bodyLocArgs: ['arg1', 'arg2'],
       },
+      fcmOptions: {},
     } as FirebaseMessagingTypes.RemoteMessage
     const { result: onMessageHandler } = renderHook(() => useMessageHandler(mockGetCurrentPage))
     await act(async () => {
@@ -161,6 +166,7 @@ describe('useMessageHandler', () => {
       notification: {
         bodyLocArgs: ['arg1', 'arg2'],
       },
+      fcmOptions: {},
     } as FirebaseMessagingTypes.RemoteMessage
     ;(getContract as jest.Mock).mockReturnValue(undefined)
     ;(getContractAPI as jest.Mock).mockResolvedValue([null])
@@ -180,6 +186,7 @@ describe('useMessageHandler', () => {
       notification: {
         bodyLocArgs: ['arg1', 'arg2'],
       },
+      fcmOptions: {},
     } as FirebaseMessagingTypes.RemoteMessage
     const { result: onMessageHandler } = renderHook(() => useMessageHandler(mockGetCurrentPage))
     await act(async () => {
@@ -214,6 +221,7 @@ describe('useMessageHandler', () => {
       notification: {
         bodyLocArgs: ['arg1', 'arg2'],
       },
+      fcmOptions: {},
     } as FirebaseMessagingTypes.RemoteMessage
     const { result: onMessageHandler } = renderHook(() => useMessageHandler(mockGetCurrentPage))
     await act(async () => {

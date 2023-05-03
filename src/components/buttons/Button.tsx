@@ -32,7 +32,8 @@ export const Button = (props: ButtonProps) => {
       style={[
         color,
         width,
-        tw`flex-row items-center justify-center h-10 px-4`,
+        tw`flex-row items-center justify-center h-8 px-4`,
+        tw.md`h-10`,
         borderRadius,
         borderColor && [tw`border-2`, borderColor],
         pressableProps.style,
