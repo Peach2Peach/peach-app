@@ -12,6 +12,9 @@ import { cancelContractAsBuyer } from './helpers/cancelContractAsBuyer'
 import { cancelContractAsSeller } from './helpers/cancelContractAsSeller'
 import { RequestSent } from './RequestSent'
 
+const getSellerCanceledTitle = (paymentMethod: PaymentMethod) =>
+  i18n(isCashTrade(paymentMethod) ? 'contract.cancel.tradeCanceled' : 'contract.cancel.requestSent')
+
 export const useConfirmCancelTrade = () => {
   const [, updateOverlay] = useOverlayContext()
   const navigation = useNavigation()
@@ -37,7 +40,7 @@ export const useConfirmCancelTrade = () => {
     async (contract: Contract) => {
       const isCash = isCashTrade(contract.paymentMethod)
       updateOverlay({
-        title: i18n(isCash ? 'contract.cancel.tradeCanceled' : 'contract.cancel.requestSent'),
+        title: getSellerCanceledTitle(contract.paymentMethod),
         visible: true,
         content: isCash ? undefined : <RequestSent />,
       })
