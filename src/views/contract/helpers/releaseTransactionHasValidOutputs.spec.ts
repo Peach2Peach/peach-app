@@ -121,6 +121,32 @@ describe('releaseTransactionHasValidOutputs', () => {
     expect(releaseTransactionHasValidOutputs(mockPsbt, mockContract, 0)).toBeFalsy()
   })
 
+  it('should return false if there are more than 3 outputs', () => {
+    const mockPsbt = {
+      txOutputs: [
+        {
+          address: 'releaseAddress',
+          value: 960000,
+        },
+        {
+          address: 'peachAddress',
+          value: 20000,
+        },
+        {
+          address: 'thirdAddress',
+          value: 20000,
+        },
+      ],
+    }
+    const mockContract = {
+      releaseAddress: 'releaseAddress',
+      amount: 1000000,
+    }
+
+    // @ts-expect-error
+    expect(releaseTransactionHasValidOutputs(mockPsbt, mockContract, 0.02)).toBeFalsy()
+  })
+
   it('should return true for valid PSBTs', () => {
     const mockPsbt = {
       txOutputs: [
