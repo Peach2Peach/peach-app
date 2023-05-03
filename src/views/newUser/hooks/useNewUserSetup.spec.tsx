@@ -53,7 +53,7 @@ jest.mock('../../../init/userUpdate', () => ({
 jest.mock('../../../utils/peachAPI', () => ({
   register: (...args: any[]) => registerMock(...args),
 }))
-jest.useFakeTimers({ now: new Date(2023, 0, 0) })
+jest.useFakeTimers({ now: new Date('2022-12-30T23:00:00.000Z') })
 
 describe('useNewUserSetup', () => {
   const forProcessToFinish = async () => {
