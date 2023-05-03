@@ -3,7 +3,7 @@ import i18n from '../../utils/i18n'
 import { useNavigation } from '../useNavigation'
 
 const offerSummaryEvents = ['offer.notFunded', 'offer.sellOfferExpired', 'offer.buyOfferExpired']
-const searchEvents = ['offer.matchBuyer', 'offer.matchSeller', 'offer.buyOfferImminentExpiry']
+const searchEvents = ['offer.matchBuyer', 'offer.matchSeller']
 
 export const useGetPNActionHandler = () => {
   const navigation = useNavigation()
