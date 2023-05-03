@@ -18,6 +18,14 @@ export const handlePushNotification = async (
   navigationRef: Navigation,
   remoteMessage: FirebaseMessagingTypes.RemoteMessage & { data: PNData },
 ): Promise<boolean> => {
+  if (isDefined(remoteMessage.data.badges)) {
+    navigationRef.navigate('newBadge', {
+      badges: remoteMessage.data.badges,
+    })
+
+    return true
+  }
+
   if (shouldGoToContract(remoteMessage)) {
     const {
       data: { contractId, sentTime },
