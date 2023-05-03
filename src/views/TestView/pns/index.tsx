@@ -66,15 +66,6 @@ const useFakePNs = () => {
     },
     {
       data: {
-        type: 'offer.buyOfferImminentExpiry',
-        offerId: buyOfferId,
-      },
-      notification: {
-        bodyLocArgs: ['P-123'],
-      },
-    },
-    {
-      data: {
         type: 'offer.buyOfferExpired',
         offerId: buyOfferId,
       },
