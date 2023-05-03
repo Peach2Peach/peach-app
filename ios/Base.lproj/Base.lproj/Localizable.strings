@@ -10,7 +10,7 @@
 "notification.body.offer.sellOfferExpired" = "We've canceled your sell offer, since you haven't matched anyone after %2$@ days.";
 "notification.title.offer.outsideRange" = "Bitcoin pumped";
 "notification.body.offer.outsideRange" = "Offer %1$@ is now outside of the trading range and will not be shown to buyers. You can choose to cancel the offer and make a new one, or leave it as is.";
-"notification.title.offer.buyOfferExpired" = "Offer hasn't received a match for %2$@ days.";
+"notification.title.offer.buyOfferExpired" = "Buy offer removed";
 "notification.body.offer.buyOfferExpired" = "Your buy offer %1$@ hasn't received a match after %2$@ days and has been removed.";
 "notification.title.offer.matchBuyer" = "Matches are waiting for you.";
 "notification.body.offer.matchBuyer" = "You've got new matches, don't leave them hanging!";

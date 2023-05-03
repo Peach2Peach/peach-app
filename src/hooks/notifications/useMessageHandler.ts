@@ -30,7 +30,7 @@ export const useMessageHandler = (getCurrentPage: () => keyof RootStackParamList
       if (overlayEvents[type]) {
         overlayEvents[type]?.(data)
       } else if (offerPopupEvents[type]) {
-        offerPopupEvents[type]?.(data)
+        offerPopupEvents[type]?.(data, remoteMessage.notification)
       } else if (contractPopupEvents[type]) {
         const { contractId } = data
         if (!contractId) return

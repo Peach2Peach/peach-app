@@ -11,6 +11,10 @@ const wronglyFundedOverlayMock = jest.fn()
 jest.mock('../../../../overlays/useWronglyFundedOverlay', () => ({
   useWronglyFundedOverlay: () => wronglyFundedOverlayMock,
 }))
+const buyOfferExpiredOverlayMock = jest.fn()
+jest.mock('../../../../overlays/useBuyOfferExpiredOverlay', () => ({
+  useBuyOfferExpiredOverlay: () => buyOfferExpiredOverlayMock,
+}))
 jest.mock('../../../../utils/offer', () => ({
   getOffer: jest.fn(),
 }))
@@ -41,6 +45,15 @@ describe('useOfferPopupEvents', () => {
       result.current['offer.wrongFundingAmount']!(eventData)
     })
     expect(wronglyFundedOverlayMock).toHaveBeenCalledWith(sellOffer)
+  })
+  test('should show buy offer expired overlay on offer.buyOfferExpired', () => {
+    const { result } = renderHook(() => useOfferPopupEvents())
+
+    const eventData = { offerId: '1' } as PNData
+    act(() => {
+      result.current['offer.buyOfferExpired']!(eventData, { bodyLocArgs: ['P-1', '30'] })
+    })
+    expect(buyOfferExpiredOverlayMock).toHaveBeenCalledWith('P-1', '30')
   })
 
   test('should not call overlay functions when offerId is null', () => {

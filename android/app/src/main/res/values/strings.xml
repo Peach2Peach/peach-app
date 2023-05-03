@@ -12,7 +12,7 @@
     <string name="notification.body.offer.sellOfferExpired">We've canceled your sell offer, since you haven't matched anyone after %2$s days.</string>
     <string name="notification.title.offer.outsideRange">Bitcoin pumped</string>
     <string name="notification.body.offer.outsideRange">Offer %1$s is now outside of the trading range and will not be shown to buyers. You can choose to cancel the offer and make a new one, or leave it as is.</string>
-    <string name="notification.title.offer.buyOfferExpired">Offer hasn\'t received a match for %2$s days.</string>
+    <string name="notification.title.offer.buyOfferExpired">Buy offer removed</string>
     <string name="notification.body.offer.buyOfferExpired">Your buy offer %1$s hasn\'t received a match after %2$s days and has been removed.</string>
     <string name="notification.title.offer.matchBuyer">Matches are waiting for you.</string>
     <string name="notification.body.offer.matchBuyer">You\'ve got new matches, don\'t leave them hanging!</string>
