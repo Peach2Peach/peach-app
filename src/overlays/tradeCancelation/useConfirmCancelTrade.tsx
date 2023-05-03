@@ -20,7 +20,7 @@ export const useConfirmCancelTrade = () => {
 
   const cancelBuyer = useCallback(
     async (contract: Contract) => {
-      updateOverlay({ title: i18n('contract.cancel.success'), visible: true })
+      updateOverlay({ title: i18n('contract.cancel.tradeCanceled'), visible: true })
       const result = await cancelContractAsBuyer(contract)
 
       if (result.isError() || !result.isOk()) {
@@ -37,7 +37,7 @@ export const useConfirmCancelTrade = () => {
     async (contract: Contract) => {
       const isCash = isCashTrade(contract.paymentMethod)
       updateOverlay({
-        title: i18n(isCash ? 'contract.cancel.success' : 'contract.cancel.requestSent'),
+        title: i18n(isCash ? 'contract.cancel.tradeCanceled' : 'contract.cancel.requestSent'),
         visible: true,
         content: isCash ? undefined : <RequestSent />,
       })

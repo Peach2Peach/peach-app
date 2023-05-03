@@ -223,6 +223,7 @@
   "contract.cancel.offerRepublished.text": "Your offer has been re-published. We're looking for a new match!",
   "contract.cancel.confirm": "confirm cancel",
   "contract.cancel.success": "trade canceled!",
+  "contract.cancel.tradeCanceled": "trade canceled",
   "contract.cancel.requestSent": "request sent",
   "contract.cancel.requestSent.text": "The buyer has been notified that you want to cancel the trade.",
   "contract.seller.paymentTimerHasRunOut.title": "not paid in time",

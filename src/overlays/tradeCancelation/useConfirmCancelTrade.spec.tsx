@@ -199,7 +199,7 @@ describe('useConfirmCancelTrade', () => {
     result.current.showConfirmOverlay(contract)
     overlay.action1?.callback()
     expect(overlay).toStrictEqual({
-      title: 'trade canceled!',
+      title: 'trade canceled',
       visible: true,
     })
   })
@@ -215,14 +215,26 @@ describe('useConfirmCancelTrade', () => {
       visible: true,
     })
   })
-  it('should show the correct confirmation overlay for canceled cash trade as seller', async () => {
+  it('shows the correct confirmation overlay for canceled cash trade as seller with republish available', async () => {
     setAccount({ ...account1, publicKey: contract.seller.id })
 
     const { result } = renderHook(useConfirmCancelTrade, { wrapper: OverlayWrapper })
     result.current.showConfirmOverlay({ ...contract, paymentMethod: 'cash' })
     overlay.action1?.callback()
     expect(overlay).toStrictEqual({
-      title: 'trade canceled!',
+      title: 'trade canceled',
+      content: undefined,
+      visible: true,
+    })
+  })
+  it('shows the correct confirmation overlay for canceled cash trade as seller with republish unavailable', async () => {
+    setAccount({ ...account1, publicKey: contract.seller.id })
+
+    const { result } = renderHook(useConfirmCancelTrade, { wrapper: OverlayWrapper })
+    result.current.showConfirmOverlay({ ...contract, paymentMethod: 'cash' })
+    overlay.action1?.callback()
+    expect(overlay).toStrictEqual({
+      title: 'trade canceled',
       content: undefined,
       visible: true,
     })
