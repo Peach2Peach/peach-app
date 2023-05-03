@@ -1,11 +1,9 @@
 import { useCallback, useContext } from 'react'
-import { Text } from '../../../components/text'
 import { OverlayContext } from '../../../contexts/overlay'
 import { useNavigation } from '../../../hooks'
-import tw from '../../../styles/tailwind'
-import i18n from '../../../utils/i18n'
-import { useConfigStore } from '../../../store/configStore'
 import { DisputeDisclaimer } from '../../../overlays/info/DisputeDisclaimer'
+import { useConfigStore } from '../../../store/configStore'
+import i18n from '../../../utils/i18n'
 
 export const useShowDisputeDisclaimer = () => {
   const navigation = useNavigation()

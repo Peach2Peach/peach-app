@@ -38,7 +38,7 @@ jest.mock('../../../hooks/useCommonContractSetup', () => ({
 
 const showDisputeDisclaimerMock = jest.fn()
 const useShowDisputeDisclaimerMock = jest.fn().mockReturnValue(showDisputeDisclaimerMock)
-jest.mock('../utils/useShowDisputeDisclaimer', () => ({
+jest.mock('./useShowDisputeDisclaimer', () => ({
   useShowDisputeDisclaimer: () => useShowDisputeDisclaimerMock(),
 }))
 const useIsFocusedMock = jest.fn().mockReturnValue(true)
