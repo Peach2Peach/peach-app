@@ -663,7 +663,6 @@
   "notification.contract.cancelationRequestAccepted.text": "The buyer for trade $0 has agreed to cancel.\n\nYou can choose to keep your offer open to look for a new match, or you can be refunded.",
   "notification.contract.cancelationRequestRejected.title": "Trade not canceled",
   "notification.contract.cancelationRequestRejected.text": "The buyer for trade $0 has not agreed to cancel.\n\nThe trade will continue as normal.",
-  "notification.offer.outsideRange.icon": "trendingUp",
   "notification.offer.outsideRange.title": "bitcoin pumped!",
   "notification.offer.outsideRange.text": "Offer $0 is now outside of the trading range and will not be shown to buyers.\n\nYou can choose to cancel the offer and make a new one, or leave it as is.",
   "notification.offer.buyOfferExpired.title": "Buy offer removed",
