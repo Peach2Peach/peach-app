@@ -8,12 +8,10 @@ import i18n from '../../utils/i18n'
 import { saveOffer } from '../../utils/offer'
 import { isCashTrade } from '../../utils/paymentMethod/isCashTrade'
 import { ConfirmCancelTrade } from './ConfirmCancelTrade'
+import { getSellerCanceledTitle } from './getSellerCanceledTitle'
 import { cancelContractAsBuyer } from './helpers/cancelContractAsBuyer'
 import { cancelContractAsSeller } from './helpers/cancelContractAsSeller'
 import { RequestSent } from './RequestSent'
-
-const getSellerCanceledTitle = (paymentMethod: PaymentMethod) =>
-  i18n(isCashTrade(paymentMethod) ? 'contract.cancel.tradeCanceled' : 'contract.cancel.requestSent')
 
 export const useConfirmCancelTrade = () => {
   const [, updateOverlay] = useOverlayContext()
