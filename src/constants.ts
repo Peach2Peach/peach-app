@@ -7,8 +7,6 @@ export const SATSINBTC = 100000000
 export const MSINADAY = 86400000
 export const MSINANHOUR = 3600000
 
-export const MAXMININGFEE = 20000
-
 // time go automatically restart app when calling app from background after this time has passed
 export const TIMETORESTART = 1000 * 60 * 5
 
