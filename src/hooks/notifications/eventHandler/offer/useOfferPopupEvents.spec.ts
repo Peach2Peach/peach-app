@@ -1,7 +1,11 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { act, renderHook } from '@testing-library/react-native'
 import { useOfferPopupEvents } from './useOfferPopupEvents'
-import { getOffer } from '../../../../utils/offer'
+
+const getOfferMock = jest.fn()
+jest.mock('../../../../utils/offer/getOffer', () => ({
+  getOffer: () => getOfferMock(),
+}))
 
 const confirmEscrowOverlayMock = jest.fn()
 jest.mock('../../../../overlays/useConfirmEscrowOverlay', () => ({
@@ -19,20 +23,17 @@ const buyOfferExpiredOverlayMock = jest.fn()
 jest.mock('../../../../overlays/useBuyOfferExpiredOverlay', () => ({
   useBuyOfferExpiredOverlay: () => buyOfferExpiredOverlayMock,
 }))
-jest.mock('../../../../utils/offer', () => ({
-  getOffer: jest.fn(),
-}))
 
 describe('useOfferPopupEvents', () => {
   const offerId = '123'
   afterEach(() => {
-    jest.resetAllMocks()
+    jest.clearAllMocks()
   })
 
   it('should show confirm escrow overlay on offer.fundingAmountDifferent', () => {
     const { result } = renderHook(() => useOfferPopupEvents())
-    const sellOffer = { id: '123' }
-    ;(getOffer as jest.Mock).mockReturnValue(sellOffer)
+    const sellOffer = { id: offerId }
+    getOfferMock.mockReturnValueOnce(sellOffer)
     const eventData = { offerId: sellOffer.id } as PNData
     act(() => {
       result.current['offer.fundingAmountDifferent']!(eventData)
@@ -43,8 +44,8 @@ describe('useOfferPopupEvents', () => {
   it('should show wrongly funded overlay on offer.wrongFundingAmount', () => {
     const { result } = renderHook(() => useOfferPopupEvents())
 
-    const sellOffer = { id: '123' }
-    ;(getOffer as jest.Mock).mockReturnValue(sellOffer)
+    const sellOffer = { id: offerId }
+    getOfferMock.mockReturnValueOnce(sellOffer)
     const eventData = { offerId: sellOffer.id } as PNData
     act(() => {
       result.current['offer.wrongFundingAmount']!(eventData)
