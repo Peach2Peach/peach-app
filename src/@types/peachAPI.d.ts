@@ -433,6 +433,7 @@ declare type ReviveSellOfferResponseBody = {
 declare type ExtendPaymentTimerResponseBody = APISuccess
 
 declare type NotificationType =
+  | 'user.badge.unlocked' // PN-U01
   | 'offer.escrowFunded' // PN-S03
   | 'offer.notFunded' // PN-S02
   | 'offer.fundingAmountDifferent' // PN-S07
@@ -465,10 +466,11 @@ declare type NotificationType =
   | 'offer.buyOfferExpired' // PN-B14
 
 declare type PNData = {
+  type?: NotificationType
+  badges?: string
   offerId?: string
   contractId?: string
   isChat?: string
-  type?: NotificationType
 }
 
 declare type PNNotification = {
