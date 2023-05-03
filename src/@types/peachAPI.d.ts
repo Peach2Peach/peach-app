@@ -462,7 +462,6 @@ declare type NotificationType =
   | 'contract.cancelationRequest' // PN-B08
   | 'contract.cancelationRequestAccepted' // PN-S15
   | 'contract.cancelationRequestRejected' // PN-S16
-  | 'offer.buyOfferImminentExpiry' // PN-B10
   | 'offer.buyOfferExpired' // PN-B14
 
 declare type PNData = {
