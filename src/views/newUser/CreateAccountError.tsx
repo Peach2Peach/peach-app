@@ -1,4 +1,3 @@
-import { ReactElement } from 'react'
 import { View } from 'react-native'
 import { Icon, Text } from '../../components'
 import { PrimaryButton } from '../../components/buttons'
