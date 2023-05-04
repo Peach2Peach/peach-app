@@ -29,7 +29,7 @@ export const Footer = ({ active, style, setCurrentPage, theme = 'default' }: Pro
   return (
     <View style={[tw`flex-row items-start w-full`, style]}>
       <View style={tw`relative flex-grow`}>
-        <View style={[tw`flex-row items-center justify-between px-5 py-4`, colors.bg]}>
+        <View style={[tw`flex-row items-center justify-between px-2 py-4`, colors.bg]}>
           <FooterItem theme={theme} id="buy" active={isBuy.test(active as string)} onPress={navigate.buy} />
           <FooterItem theme={theme} id="sell" active={isSell.test(active as string)} onPress={navigate.sell} />
           <FooterItem theme={theme} id="wallet" active={isWallet.test(active)} onPress={navigate.wallet} />
