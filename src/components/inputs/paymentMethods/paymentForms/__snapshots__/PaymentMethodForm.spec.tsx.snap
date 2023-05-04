@@ -15,7 +15,6 @@ exports[`PaymentMethodForm should render correctly 1`] = `
     contentContainerStyle={
       [
         {
-          "alignItems": "center",
           "flexGrow": 1,
           "justifyContent": "center",
         },
