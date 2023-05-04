@@ -1,3 +1,4 @@
+import { ReactElement } from 'react'
 import { Linking, TouchableOpacity, View } from 'react-native'
 import { Icon } from '../../../components/Icon'
 import { PeachText } from '../../../components/text/Text'
@@ -5,7 +6,7 @@ import { useHeaderSetup } from '../../../hooks/useHeaderSetup'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 
-export default () => {
+export default (): ReactElement => {
   useHeaderSetup({ title: i18n('settings.bitcoinProducts') })
 
   const goToShiftCrypto = () => Linking.openURL('https://shiftcrypto.ch/bitbox02/?ref=DLX6l9ccCc')

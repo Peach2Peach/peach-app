@@ -51,6 +51,7 @@ export const useSettingsSetup = () => {
     }, []),
   )
 
+  const goToLanguageSettings = useCallback(() => navigation.navigate('language'), [navigation])
   const goToCurrencySettings = useCallback(() => navigation.navigate('currency'), [navigation])
 
   const notificationClick = useCallback(() => {
@@ -115,10 +116,19 @@ export const useSettingsSetup = () => {
             enabled: peachWalletActive,
           },
           !peachWalletActive ? { title: 'payoutAddress' } : undefined,
+          { title: 'language', onPress: goToLanguageSettings },
           { title: 'currency', onPress: goToCurrencySettings },
         ] satisfies (SettingsItemProps | undefined)[]
       ).filter(isDefined),
-    [toggleAnalytics, enableAnalytics, notificationClick, togglePeachWallet, peachWalletActive, goToCurrencySettings],
+    [
+      toggleAnalytics,
+      enableAnalytics,
+      notificationClick,
+      togglePeachWallet,
+      peachWalletActive,
+      goToLanguageSettings,
+      goToCurrencySettings,
+    ],
   )
 
   const settings = [

@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction, useEffect } from 'react'
 import { useNavigation } from '../../../hooks'
+import { useLanguageContext } from '../../../utils/i18n'
 import { useWebsocketContext } from '../../../utils/peachAPI/websocket'
 import { contractUpdateHandler } from '../eventHandlers/contractUpdateHandler'
 import { messageHandler } from '../eventHandlers/messageHandler'
@@ -10,6 +11,7 @@ export type Props = ComponentProps & {
   setCurrentPage: Dispatch<SetStateAction<keyof RootStackParamList | undefined>>
 }
 export const useFooterSetup = ({ setCurrentPage }: Props) => {
+  useLanguageContext()
   const navigation = useNavigation()
   const ws = useWebsocketContext()
 

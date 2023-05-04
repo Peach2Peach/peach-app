@@ -54,6 +54,7 @@ import RedesignWelcome from './welcome/RedesignWelcome'
 import Welcome from './welcome/Welcome'
 import YourTrades from './yourTrades/YourTrades'
 import NewBadge from './overlays/NewBadge'
+import Language from './settings/Language'
 
 type ViewType = {
   name: keyof RootStackParamList
@@ -154,6 +155,7 @@ const settings: ViewType[] = [
   { name: 'paymentDetails', component: PaymentDetails, ...defaultConfig },
   { name: 'meetupScreen', component: MeetupScreen, ...defaultConfig },
   { name: 'currency', component: Currency, ...defaultConfig },
+  { name: 'language', component: Language, ...defaultConfig },
   { name: 'referrals', component: Referrals, ...defaultConfig },
   { name: 'backupTime', component: BackupTime, ...invertedThemeConfig, showFooter: true },
   { name: 'backups', component: Backups, ...defaultConfig },

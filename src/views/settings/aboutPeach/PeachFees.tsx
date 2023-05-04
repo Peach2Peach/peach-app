@@ -1,17 +1,13 @@
-import { ReactElement, useContext, useMemo } from 'react'
+import { ReactElement, useMemo } from 'react'
 import { View } from 'react-native'
-
-import tw from '../../../styles/tailwind'
-
 import { Text } from '../../../components'
-import LanguageContext from '../../../contexts/language'
-import i18n from '../../../utils/i18n'
-import { useHeaderSetup } from '../../../hooks'
 import { BulletPoint } from '../../../components/text'
+import { useHeaderSetup } from '../../../hooks'
 import { useConfigStore } from '../../../store/configStore'
+import tw from '../../../styles/tailwind'
+import i18n from '../../../utils/i18n'
 
 export default (): ReactElement => {
-  useContext(LanguageContext)
   useHeaderSetup(useMemo(() => ({ title: i18n('settings.peachFees') }), []))
   const peachFee = useConfigStore((state) => state.peachFee)
 
