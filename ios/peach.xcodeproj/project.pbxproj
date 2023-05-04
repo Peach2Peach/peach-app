@@ -82,6 +82,7 @@
 		67A9CC6529E4306400F514FA /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		67AC8BE429E431100014F1AF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		67D10E1E282BFAD400DA4D19 /* peachDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = peachDebug.entitlements; path = peach/peachDebug.entitlements; sourceTree = "<group>"; };
+		67F84F052A03E9BA00E7B546 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6E52FFA7E58BEB2744769222 /* Pods-peach mainnet-peach testnet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-peach mainnet-peach testnet.release.xcconfig"; path = "Target Support Files/Pods-peach mainnet-peach testnet/Pods-peach mainnet-peach testnet.release.xcconfig"; sourceTree = "<group>"; };
 		7478E35D78E4DB8ED51A163F /* Pods-peach mainnet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-peach mainnet.release.xcconfig"; path = "Target Support Files/Pods-peach mainnet/Pods-peach mainnet.release.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = peach/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -176,7 +177,7 @@
 		6099E5A24FA44EE9A47A52D0 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				67E19EB42835220500717E17 /* Base.lproj */,
+				672B1300288AF7240089147A /* Localizable.strings */,
 				AC1C747BD272456AAD6F3045 /* Baloo2-Bold.ttf */,
 				E933C379E4634FC3B74EC880 /* Baloo2-Medium.ttf */,
 				3D93F5B2771A4DC39AE22AC6 /* Baloo2-Regular.ttf */,
@@ -221,14 +222,6 @@
 				6769491127F72D6900C73BEF /* GoogleService-Info.plist */,
 			);
 			path = PeachDevelopment;
-			sourceTree = "<group>";
-		};
-		67E19EB42835220500717E17 /* Base.lproj */ = {
-			isa = PBXGroup;
-			children = (
-				672B1300288AF7240089147A /* Localizable.strings */,
-			);
-			path = Base.lproj;
 			sourceTree = "<group>";
 		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
@@ -385,6 +378,7 @@
 			knownRegions = (
 				en,
 				Base,
+				es,
 			);
 			mainGroup = 83CBB9F61A601CBA00E9B192;
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
@@ -765,6 +759,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				672B1301288AF7240089147A /* Base */,
+				67F84F052A03E9BA00E7B546 /* es */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
