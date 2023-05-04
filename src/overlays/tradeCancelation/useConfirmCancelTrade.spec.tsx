@@ -4,11 +4,16 @@ import { contract } from '../../../tests/unit/data/contractData'
 import { sellOffer } from '../../../tests/unit/data/offerData'
 import { defaultOverlay, OverlayContext } from '../../contexts/overlay'
 import { setAccount } from '../../utils/account'
+import { getSellOfferIdFromContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { getResult } from '../../utils/result'
+import { PeachWallet } from '../../utils/wallet/PeachWallet'
+import { setPeachWallet } from '../../utils/wallet/setWallet'
 import { ConfirmCancelTrade } from './ConfirmCancelTrade'
-import { RequestSent } from './RequestSent'
+import { SellerCanceledContent } from './SellerCanceledContent'
 import { useConfirmCancelTrade } from './useConfirmCancelTrade'
+
+jest.mock('../../utils/wallet/__mocks__/PeachWallet')
 
 const apiError = { error: 'UNAUTHORIZED' }
 const navigateMock = jest.fn()
@@ -68,8 +73,11 @@ const cancelContractAsBuyerMock = jest.fn().mockResolvedValue(
 jest.mock('./helpers/cancelContractAsBuyer', () => ({
   cancelContractAsBuyer: (...args: any[]) => cancelContractAsBuyerMock(...args),
 }))
-
 describe('useConfirmCancelTrade', () => {
+  beforeAll(() => {
+    setAccount({ ...account1, offers: [{ ...sellOffer, id: getSellOfferIdFromContract(contract) }] })
+    setPeachWallet(new PeachWallet())
+  })
   afterEach(() => {
     jest.clearAllMocks()
     overlay = defaultOverlay
@@ -122,11 +130,11 @@ describe('useConfirmCancelTrade', () => {
   it('should show confirm cancelation overlay for buyer', async () => {
     setAccount({ ...account1, publicKey: contract.buyer.id })
     const { result } = renderHook(useConfirmCancelTrade, { wrapper: OverlayWrapper })
-    const { cancelAction } = result.current.showConfirmOverlay(contract)
+    result.current.showConfirmOverlay(contract)
 
-    expect(updateOverlayMock).toHaveBeenCalledWith({
+    expect(overlay).toStrictEqual({
       action1: {
-        callback: cancelAction,
+        callback: expect.any(Function),
         icon: 'xCircle',
         label: i18n('contract.cancel.title'),
       },
@@ -140,17 +148,21 @@ describe('useConfirmCancelTrade', () => {
       visible: true,
     })
 
-    await cancelAction()
+    await overlay.action1?.callback()
     expect(cancelContractAsBuyerMock).toHaveBeenCalledWith(contract)
   })
   it('should show confirm cancelation overlay for seller', async () => {
-    setAccount({ ...account1, publicKey: contract.seller.id })
+    setAccount({
+      ...account1,
+      offers: [{ ...sellOffer, id: getSellOfferIdFromContract(contract) }],
+      publicKey: contract.seller.id,
+    })
     const { result } = renderHook(useConfirmCancelTrade, { wrapper: OverlayWrapper })
-    const { cancelAction } = result.current.showConfirmOverlay(contract)
+    result.current.showConfirmOverlay(contract)
 
-    expect(updateOverlayMock).toHaveBeenCalledWith({
+    expect(overlay).toStrictEqual({
       action1: {
-        callback: cancelAction,
+        callback: expect.any(Function),
         icon: 'xCircle',
         label: i18n('contract.cancel.title'),
       },
@@ -163,7 +175,7 @@ describe('useConfirmCancelTrade', () => {
       title: i18n('contract.cancel.title'),
       visible: true,
     })
-    await cancelAction()
+    await overlay.action1?.callback()
     expect(cancelContractAsSellerMock).toHaveBeenCalledWith(contract)
   })
   it('confirmOverlay should be gray', () => {
@@ -204,38 +216,59 @@ describe('useConfirmCancelTrade', () => {
     })
   })
   it('should show the correct confirmation overlay for canceled trade as seller', async () => {
-    setAccount({ ...account1, publicKey: contract.seller.id })
+    setAccount({
+      ...account1,
+      offers: [{ ...sellOffer, id: getSellOfferIdFromContract(contract) }],
+      publicKey: contract.seller.id,
+    })
 
     const { result } = renderHook(useConfirmCancelTrade, { wrapper: OverlayWrapper })
     result.current.showConfirmOverlay(contract)
     overlay.action1?.callback()
     expect(overlay).toStrictEqual({
       title: 'request sent',
-      content: <RequestSent />,
+      content: (
+        <SellerCanceledContent
+          isCash={false}
+          canRepublish={false}
+          tradeID={contract.id}
+          walletName={'custom payout address'}
+        />
+      ),
       visible: true,
     })
   })
   it('shows the correct confirmation overlay for canceled cash trade as seller with republish available', async () => {
-    setAccount({ ...account1, publicKey: contract.seller.id })
+    setAccount({
+      ...account1,
+      offers: [{ ...sellOffer, id: getSellOfferIdFromContract(contract), publishingDate: new Date() }],
+      publicKey: contract.seller.id,
+    })
 
     const { result } = renderHook(useConfirmCancelTrade, { wrapper: OverlayWrapper })
     result.current.showConfirmOverlay({ ...contract, paymentMethod: 'cash' })
     overlay.action1?.callback()
     expect(overlay).toStrictEqual({
       title: 'trade canceled',
-      content: undefined,
+      content: <SellerCanceledContent isCash canRepublish tradeID={contract.id} walletName={'custom payout address'} />,
       visible: true,
     })
   })
   it('shows the correct confirmation overlay for canceled cash trade as seller with republish unavailable', async () => {
-    setAccount({ ...account1, publicKey: contract.seller.id })
+    setAccount({
+      ...account1,
+      offers: [{ ...sellOffer, id: getSellOfferIdFromContract(contract), publishingDate: new Date(0) }],
+      publicKey: contract.seller.id,
+    })
 
     const { result } = renderHook(useConfirmCancelTrade, { wrapper: OverlayWrapper })
     result.current.showConfirmOverlay({ ...contract, paymentMethod: 'cash' })
     overlay.action1?.callback()
     expect(overlay).toStrictEqual({
       title: 'trade canceled',
-      content: undefined,
+      content: (
+        <SellerCanceledContent isCash canRepublish={false} tradeID={contract.id} walletName={'custom payout address'} />
+      ),
       visible: true,
     })
   })

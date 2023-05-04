@@ -1,23 +1,30 @@
 import { useCallback } from 'react'
+import { shallow } from 'zustand/shallow'
 import { useOverlayContext } from '../../contexts/overlay'
 import { useNavigation } from '../../hooks'
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
+import { useSettingsStore } from '../../store/settingsStore'
 import { account } from '../../utils/account'
-import { saveContract } from '../../utils/contract'
+import { getSellOfferFromContract, saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
-import { saveOffer } from '../../utils/offer'
+import { getOfferExpiry, saveOffer } from '../../utils/offer'
 import { isCashTrade } from '../../utils/paymentMethod/isCashTrade'
 import { ConfirmCancelTrade } from './ConfirmCancelTrade'
 import { getSellerCanceledTitle } from './getSellerCanceledTitle'
+import { getWalletLabelFromContract } from '../../utils/contract/getWalletLabelFromContract'
 import { cancelContractAsBuyer } from './helpers/cancelContractAsBuyer'
 import { cancelContractAsSeller } from './helpers/cancelContractAsSeller'
-import { RequestSent } from './RequestSent'
+import { SellerCanceledContent } from './SellerCanceledContent'
 
 export const useConfirmCancelTrade = () => {
   const [, updateOverlay] = useOverlayContext()
   const navigation = useNavigation()
   const showError = useShowErrorBanner()
   const closeOverlay = useCallback(() => updateOverlay({ visible: false }), [updateOverlay])
+  const [customPayoutAddress, customPayoutAddressLabel] = useSettingsStore(
+    (state) => [state.payoutAddress, state.payoutAddressLabel],
+    shallow,
+  )
 
   const cancelBuyer = useCallback(
     async (contract: Contract) => {
@@ -37,10 +44,12 @@ export const useConfirmCancelTrade = () => {
   const cancelSeller = useCallback(
     async (contract: Contract) => {
       const isCash = isCashTrade(contract.paymentMethod)
+      const canRepublish = !getOfferExpiry(getSellOfferFromContract(contract)).isExpired
+      const walletName = getWalletLabelFromContract(contract, customPayoutAddress, customPayoutAddressLabel)
       updateOverlay({
         title: getSellerCanceledTitle(contract.paymentMethod),
         visible: true,
-        content: isCash ? undefined : <RequestSent />,
+        content: <SellerCanceledContent {...{ isCash, canRepublish, tradeID: contract.id, walletName }} />,
       })
 
       const result = await cancelContractAsSeller(contract)
@@ -55,7 +64,7 @@ export const useConfirmCancelTrade = () => {
       if (sellOffer) saveOffer(sellOffer)
       navigation.replace('contract', { contractId: contract.id })
     },
-    [updateOverlay, navigation, showError],
+    [customPayoutAddress, customPayoutAddressLabel, updateOverlay, navigation, showError],
   )
 
   const showConfirmOverlay = useCallback(
@@ -78,10 +87,6 @@ export const useConfirmCancelTrade = () => {
           callback: closeOverlay,
         },
       })
-
-      return {
-        cancelAction,
-      }
     },
     [updateOverlay, cancelSeller, cancelBuyer, closeOverlay],
   )
