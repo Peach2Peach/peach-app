@@ -20,7 +20,9 @@ export const TrackMarkers = ({ trackHeight, labels }: TrackMarkersProps) => {
           ]}
         >
           {!!labels && !!labels[i] && (
-            <Text style={tw`absolute w-20 ml-5 subtitle-2 text-black-2 left-full`}>{labels[i]}</Text>
+            <Text numberOfLines={1} style={tw`absolute w-20 ml-5 subtitle-2 text-black-2 left-full`}>
+              {labels[i]}
+            </Text>
           )}
         </View>
       ))}

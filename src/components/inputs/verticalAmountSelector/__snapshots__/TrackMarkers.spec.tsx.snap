@@ -1,0 +1,162 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TrackMarkers should render correctly 1`] = `
+<View
+  style={
+    {
+      "position": "absolute",
+      "top": 0,
+      "width": "100%",
+    }
+  }
+>
+  <View
+    style={
+      [
+        {
+          "backgroundColor": "#FCCCB6",
+          "borderRadius": 9999,
+          "height": 2,
+          "justifyContent": "center",
+          "left": 8,
+          "position": "absolute",
+          "right": 8,
+        },
+        {
+          "top": 16,
+        },
+      ]
+    }
+  >
+    <PeachText
+      numberOfLines={1}
+      style={
+        {
+          "color": "#7D675E",
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 14,
+          "left": "100%",
+          "letterSpacing": 0.14,
+          "lineHeight": 22,
+          "marginLeft": 20,
+          "position": "absolute",
+          "width": 80,
+        }
+      }
+    >
+      Have
+    </PeachText>
+  </View>
+  <View
+    style={
+      [
+        {
+          "backgroundColor": "#FCCCB6",
+          "borderRadius": 9999,
+          "height": 2,
+          "justifyContent": "center",
+          "left": 8,
+          "position": "absolute",
+          "right": 8,
+        },
+        {
+          "top": 47,
+        },
+      ]
+    }
+  >
+    <PeachText
+      numberOfLines={1}
+      style={
+        {
+          "color": "#7D675E",
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 14,
+          "left": "100%",
+          "letterSpacing": 0.14,
+          "lineHeight": 22,
+          "marginLeft": 20,
+          "position": "absolute",
+          "width": 80,
+        }
+      }
+    >
+      fun
+    </PeachText>
+  </View>
+  <View
+    style={
+      [
+        {
+          "backgroundColor": "#FCCCB6",
+          "borderRadius": 9999,
+          "height": 2,
+          "justifyContent": "center",
+          "left": 8,
+          "position": "absolute",
+          "right": 8,
+        },
+        {
+          "top": 78,
+        },
+      ]
+    }
+  >
+    <PeachText
+      numberOfLines={1}
+      style={
+        {
+          "color": "#7D675E",
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 14,
+          "left": "100%",
+          "letterSpacing": 0.14,
+          "lineHeight": 22,
+          "marginLeft": 20,
+          "position": "absolute",
+          "width": 80,
+        }
+      }
+    >
+      staying
+    </PeachText>
+  </View>
+  <View
+    style={
+      [
+        {
+          "backgroundColor": "#FCCCB6",
+          "borderRadius": 9999,
+          "height": 2,
+          "justifyContent": "center",
+          "left": 8,
+          "position": "absolute",
+          "right": 8,
+        },
+        {
+          "top": 109,
+        },
+      ]
+    }
+  >
+    <PeachText
+      numberOfLines={1}
+      style={
+        {
+          "color": "#7D675E",
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 14,
+          "left": "100%",
+          "letterSpacing": 0.14,
+          "lineHeight": 22,
+          "marginLeft": 20,
+          "position": "absolute",
+          "width": 80,
+        }
+      }
+    >
+      poor
+    </PeachText>
+  </View>
+</View>
+`;
