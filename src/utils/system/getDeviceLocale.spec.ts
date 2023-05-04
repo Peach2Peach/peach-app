@@ -18,6 +18,10 @@ jest.mock('./isIOS', () => ({
   isIOS: () => isIOSMock(),
 }))
 
+jest.mock('./getDeviceLocale', () => ({
+  ...jest.requireActual('./getDeviceLocale'),
+}))
+
 describe('getDeviceLocale', () => {
   it('checks whether app is running on android', () => {
     isIOSMock.mockReturnValue(false)

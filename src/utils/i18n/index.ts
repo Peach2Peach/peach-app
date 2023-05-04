@@ -17,7 +17,7 @@ type LanguageState = {
   locale: Locale
 }
 const languageState: LanguageState = {
-  locale: getDeviceLocale() || 'en',
+  locale: 'en',
 }
 export const locales = ['en', 'es']
 export const setLocaleQuiet = (lcl: Locale) => (languageState.locale = lcl)

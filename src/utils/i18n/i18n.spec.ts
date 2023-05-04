@@ -1,10 +1,6 @@
 import { strictEqual } from 'assert'
 import i18n from '../i18n'
 
-jest.mock('../system/getDeviceLocale', () => ({
-  getDeviceLocale: () => 'en',
-}))
-
 describe('i18n', () => {
   it('returns the localized text for the right locale', () => {
     i18n.setLocale(null, { locale: 'en' })
