@@ -1,15 +1,13 @@
-import { ReactElement, useContext, useMemo } from 'react'
+import { ReactElement, useMemo } from 'react'
 import { Linking, View } from 'react-native'
 
 import tw from '../../../styles/tailwind'
 
 import { PrimaryButton, Text } from '../../../components'
-import LanguageContext from '../../../contexts/language'
-import i18n from '../../../utils/i18n'
 import { useHeaderSetup } from '../../../hooks'
+import i18n from '../../../utils/i18n'
 
 export default (): ReactElement => {
-  useContext(LanguageContext)
   useHeaderSetup(useMemo(() => ({ title: i18n('settings.bitcoinProducts') }), []))
 
   const goToCryptoTag = () => Linking.openURL('https://cryptotag.io/')

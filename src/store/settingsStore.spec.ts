@@ -6,4 +6,9 @@ describe('settingsStore', () => {
     settingsStore.getState().reset()
     expect(settingsStore.getState().analyticsPopupSeen).toBeTruthy()
   })
+  it('should keep locale  state when resetting', () => {
+    settingsStore.getState().setLocale('es')
+    settingsStore.getState().reset()
+    expect(settingsStore.getState().locale).toBe('es')
+  })
 })

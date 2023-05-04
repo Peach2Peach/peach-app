@@ -12,11 +12,10 @@ import { enableScreens } from 'react-native-screens'
 
 import { AvoidKeyboard, Footer, Header, Drawer, Message, Overlay, Popup } from './components'
 import tw from './styles/tailwind'
-import i18n from './utils/i18n'
+import i18n, { LanguageContext } from './utils/i18n'
 import { getViews } from './views'
 
 import { DrawerContext, getDrawer, setDrawer } from './contexts/drawer'
-import LanguageContext from './contexts/language'
 import { MessageContext, getMessage, setMessage, showMessageEffect } from './contexts/message'
 import { OverlayContext, defaultOverlay, useOverlay, useOverlayContext } from './contexts/overlay'
 import { PeachWSContext, getWebSocket, setPeachWS } from './utils/peachAPI/websocket'
@@ -130,6 +129,7 @@ const usePartialAppSetup = () => {
 // eslint-disable-next-line max-statements
 const App = () => {
   const [messageState, updateMessage] = useReducer(setMessage, getMessage())
+  const [languageState, updateLanguage] = useReducer(i18n.setLocale, i18n.getState())
   const [
     { title: drawerTitle, content: drawerContent, show: showDrawer, previousDrawer, onClose: onCloseDrawer },
     updateDrawer,
@@ -228,7 +228,7 @@ const App = () => {
     <GestureHandlerRootView>
       <AvoidKeyboard>
         <QueryClientProvider client={queryClient}>
-          <LanguageContext.Provider value={{ locale: i18n.getLocale() }}>
+          <LanguageContext.Provider value={[languageState, updateLanguage]}>
             <PeachWSContext.Provider value={peachWS}>
               <MessageContext.Provider value={[messageState, updateMessage]}>
                 <DrawerContext.Provider
