@@ -226,6 +226,7 @@
   "contract.cancel.tradeCanceled": "trade canceled",
   "contract.cancel.requestSent": "request sent",
   "contract.cancel.requestSent.text": "The buyer has been notified that you want to cancel the trade.",
+  "contract.cancel.cash.tradeCanceled.text": "Trade $0 has been canceled.\n\nThe escrow will be refunded to your $1 wallet.",
   "contract.seller.paymentTimerHasRunOut.title": "not paid in time",
   "contract.seller.paymentTimerHasRunOut.text": "Your buyer didn't pay in time. That means that you can either cancel the trade without a reputation penalty, or you can give them more time.",
   "contract.seller.paymentTimerHasRunOut.extraTime": "12h extra",
