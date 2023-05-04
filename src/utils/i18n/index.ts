@@ -3,6 +3,7 @@ import de_CH from '../../i18n/de-CH/text.json'
 import de from '../../i18n/de/text.json'
 import en from '../../i18n/en/text.json'
 import es from '../../i18n/es/text.json'
+import { getDeviceLocale } from '../system'
 
 const localeMapping: Record<string, Record<string, string>> = {
   en,
@@ -16,11 +17,10 @@ type LanguageState = {
   locale: Locale
 }
 const languageState: LanguageState = {
-  locale: 'en',
+  locale: getDeviceLocale() || 'en',
 }
 export const locales = ['en', 'es']
-export let locale: Locale = 'en'
-export const setLocaleQuiet = (lcl: Locale) => (locale = lcl)
+export const setLocaleQuiet = (lcl: Locale) => (languageState.locale = lcl)
 
 /**
  * @description Method to get localized string based on current locale
@@ -35,7 +35,8 @@ export const setLocaleQuiet = (lcl: Locale) => (locale = lcl)
  * @returns localized text or id if no text could be found
  */
 export const i18n = (id: string, ...args: string[]): string => {
-  let text = localeMapping[locale][id]
+  const locale = languageState.locale.replace('_', '-')
+  let text = localeMapping[locale]?.[id]
 
   if (!text && locale.includes('-')) {
     const language = locale.split('-')[0]
@@ -54,7 +55,7 @@ export const i18n = (id: string, ...args: string[]): string => {
 }
 
 i18n.getState = (): LanguageState => languageState
-i18n.getLocale = (): string => locale
+i18n.getLocale = (): string => languageState.locale
 i18n.getLocales = (): string[] => locales
 
 /**
@@ -64,7 +65,7 @@ i18n.getLocales = (): string[] => locales
 i18n.setLocale = (prev: ReducerState<any>, newState: LanguageState): LanguageState => {
   if (!localeMapping[newState.locale]) newState.locale = 'en'
 
-  locale = newState.locale
+  languageState.locale = newState.locale
   return newState
 }
 const dispatch: Dispatch<LanguageState> = () => {}
