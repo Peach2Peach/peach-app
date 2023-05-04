@@ -26,7 +26,7 @@ export const WalletLabel = ({ label, address, style }: Props) => {
           address,
           customPayoutAddress: payoutAddress,
           customPayoutAddressLabel: payoutAddressLabel,
-        }) || i18n('offer.summary.customPayoutAddress'),
+        }),
       )
     })
   }, [address, label, payoutAddress, payoutAddressLabel])

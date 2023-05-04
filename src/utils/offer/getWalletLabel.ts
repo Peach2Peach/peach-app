@@ -8,14 +8,14 @@ type Params = {
 }
 
 export const getWalletLabel = ({ address, customPayoutAddress, customPayoutAddressLabel }: Params) => {
-  if (!address) return undefined
+  if (!address) return i18n('offer.summary.customPayoutAddress')
 
   if (customPayoutAddress === address) {
-    return customPayoutAddressLabel
+    return customPayoutAddressLabel || i18n('offer.summary.customPayoutAddress')
   }
   if (!!peachWallet.findKeyPairByAddress(address)) {
     return i18n('peachWallet')
   }
 
-  return undefined
+  return i18n('offer.summary.customPayoutAddress')
 }
