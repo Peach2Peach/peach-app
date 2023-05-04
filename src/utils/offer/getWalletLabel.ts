@@ -7,7 +7,7 @@ type Params = {
   customPayoutAddressLabel: string | undefined
 }
 
-export const getSummaryWalletLabel = ({ address, customPayoutAddress, customPayoutAddressLabel }: Params) => {
+export const getWalletLabel = ({ address, customPayoutAddress, customPayoutAddressLabel }: Params) => {
   if (!address) return undefined
 
   if (customPayoutAddress === address) {

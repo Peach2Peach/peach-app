@@ -1,6 +1,6 @@
 /* eslint-disable max-lines-per-function */
 import i18n from '../i18n'
-import { getSummaryWalletLabel } from '.'
+import { getWalletLabel } from '.'
 
 const findKeyPairByAddressMock = jest.fn().mockReturnValue(false)
 jest.mock('../wallet/setWallet', () => ({
@@ -9,7 +9,7 @@ jest.mock('../wallet/setWallet', () => ({
   },
 }))
 
-describe('getSummaryWalletLabel', () => {
+describe('getWalletLabel', () => {
   afterEach(() => {
     jest.resetAllMocks()
   })
@@ -19,7 +19,7 @@ describe('getSummaryWalletLabel', () => {
     const customPayoutAddress = 'customPayoutAddress'
     const customPayoutAddressLabel = 'customPayoutAddressLabel'
 
-    const result = getSummaryWalletLabel({
+    const result = getWalletLabel({
       address,
       customPayoutAddress,
       customPayoutAddressLabel,
@@ -35,7 +35,7 @@ describe('getSummaryWalletLabel', () => {
 
     findKeyPairByAddressMock.mockReturnValueOnce(true)
 
-    const result = getSummaryWalletLabel({
+    const result = getWalletLabel({
       address,
       customPayoutAddress,
       customPayoutAddressLabel,
@@ -51,7 +51,7 @@ describe('getSummaryWalletLabel', () => {
 
     findKeyPairByAddressMock.mockReturnValueOnce(true)
 
-    const result = getSummaryWalletLabel({
+    const result = getWalletLabel({
       address,
       customPayoutAddress,
       customPayoutAddressLabel,
@@ -65,7 +65,7 @@ describe('getSummaryWalletLabel', () => {
     const customPayoutAddress = 'customPayoutAddress'
     const customPayoutAddressLabel = 'customPayoutAddressLabel'
 
-    const result = getSummaryWalletLabel({
+    const result = getWalletLabel({
       address,
       customPayoutAddress,
       customPayoutAddressLabel,
@@ -77,7 +77,7 @@ describe('getSummaryWalletLabel', () => {
     const customPayoutAddress = 'customPayoutAddress'
     const customPayoutAddressLabel = 'customPayoutAddressLabel'
 
-    const result = getSummaryWalletLabel({
+    const result = getWalletLabel({
       address: undefined,
       customPayoutAddress,
       customPayoutAddressLabel,
