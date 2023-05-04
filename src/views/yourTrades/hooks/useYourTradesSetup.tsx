@@ -9,13 +9,12 @@ import { parseError } from '../../../utils/result'
 import { isOpenOffer, isPastOffer } from '../utils'
 import { getTabById } from '../utils/getTabById'
 
-const tabs: TabbedNavigationItem[] = [
-  { id: 'buy', display: i18n('yourTrades.buy') },
-  { id: 'sell', display: i18n('yourTrades.sell') },
-  { id: 'history', display: i18n('yourTrades.history') },
-]
-
 export const useYourTradesSetup = () => {
+  const tabs: TabbedNavigationItem[] = [
+    { id: 'buy', display: i18n('yourTrades.buy') },
+    { id: 'sell', display: i18n('yourTrades.sell') },
+    { id: 'history', display: i18n('yourTrades.history') },
+  ]
   const route = useRoute<'yourTrades'>()
   const { tab = 'buy' } = route.params || {}
   const showErrorBanner = useShowErrorBanner()

@@ -6,11 +6,9 @@ import i18n from '../../utils/i18n'
 import { AccountInfo } from '../settings/profile/accountInfo/AccountInfo'
 import { ProfileOverview } from './components'
 
-const headerConfig = { title: i18n('profile.user.title') }
-
 export default () => {
   const { user, isLoading } = useCurrentUser()
-  useHeaderSetup(headerConfig)
+  useHeaderSetup({ title: i18n('profile.user.title') })
   if (isLoading || !user) return <></>
 
   return (
