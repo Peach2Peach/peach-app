@@ -6,6 +6,12 @@ import { PaymentTimerHasRunOut } from './PaymentTimerHasRunOut'
 import { contract } from '../../../tests/unit/data/contractData'
 import { NavigationContext } from '@react-navigation/native'
 import { defaultMessageState, MessageContext } from '../../contexts/message'
+import { setAccount } from '../../utils/account'
+import { setPeachWallet } from '../../utils/wallet/setWallet'
+import { account1 } from '../../../tests/unit/data/accountData'
+import { sellOffer } from '../../../tests/unit/data/offerData'
+import { getSellOfferIdFromContract } from '../../utils/contract'
+import { PeachWallet } from '../../utils/wallet/PeachWallet'
 
 let overlay = defaultOverlay
 const updateOverlay = jest.fn((newOverlay) => {
@@ -39,6 +45,7 @@ jest.mock('../../utils/peachAPI', () => ({
   cancelContract: (args: unknown) => mockCancelContract(args),
   extendPaymentTimer: (args: unknown) => mockExtendPaymentTimer(args),
 }))
+jest.mock('../../utils/wallet/PeachWallet')
 
 describe('useShowPaymentTimerHasRunOut', () => {
   it('should show the payment timer has run out overlay if inTrade is false', () => {
@@ -133,6 +140,9 @@ describe('useShowPaymentTimerHasRunOut', () => {
     })
   })
   it('should cancel the trade when the cancel trade action is called', async () => {
+    setAccount({ ...account1, offers: [{ ...sellOffer, id: getSellOfferIdFromContract(contract) }] })
+    // @ts-ignore
+    setPeachWallet(new PeachWallet())
     const { result } = renderHook(useShowPaymentTimerHasRunOut, {
       wrapper: ({ children }) => (
         <NavigationWrapper>
