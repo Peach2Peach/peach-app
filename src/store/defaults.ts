@@ -25,7 +25,7 @@ export const defaultSettings: Settings = {
   showBackupReminder: true,
 
   country: undefined,
-  locale: i18n.getLocale(),
+  locale: undefined,
   displayCurrency: 'EUR',
 
   meansOfPayment: {},

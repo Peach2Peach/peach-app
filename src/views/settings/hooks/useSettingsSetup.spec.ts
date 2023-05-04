@@ -38,6 +38,7 @@ describe('useSettingsSetup', () => {
           { enabled: false, iconId: 'toggleLeft', onPress: expect.any(Function), title: 'analytics' },
           { onPress: expect.any(Function), title: 'notifications' },
           { enabled: true, iconId: 'toggleRight', onPress: expect.any(Function), title: 'peachWallet' },
+          { onPress: expect.any(Function), title: 'language' },
           { onPress: expect.any(Function), title: 'currency' },
         ],
       },
@@ -51,6 +52,7 @@ describe('useSettingsSetup', () => {
       { onPress: expect.any(Function), title: 'notifications' },
       { enabled: false, iconId: 'toggleLeft', onPress: expect.any(Function), title: 'peachWallet' },
       { title: 'payoutAddress' },
+      { onPress: expect.any(Function), title: 'language' },
       { onPress: expect.any(Function), title: 'currency' },
     ])
   })
@@ -61,6 +63,7 @@ describe('useSettingsSetup', () => {
       { enabled: true, iconId: 'toggleRight', onPress: expect.any(Function), title: 'analytics' },
       { onPress: expect.any(Function), title: 'notifications' },
       { enabled: true, iconId: 'toggleRight', onPress: expect.any(Function), title: 'peachWallet' },
+      { onPress: expect.any(Function), title: 'language' },
       { onPress: expect.any(Function), title: 'currency' },
     ])
   })
