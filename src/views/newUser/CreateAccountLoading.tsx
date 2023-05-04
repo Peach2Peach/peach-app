@@ -6,9 +6,8 @@ import { useHeaderSetup } from '../../hooks'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 
-const headerConfig = { title: i18n('welcome.welcomeToPeach.title'), hideGoBackButton: true, theme: 'inverted' as const }
 export default (): ReactElement => {
-  useHeaderSetup(headerConfig)
+  useHeaderSetup({ title: i18n('welcome.welcomeToPeach.title'), hideGoBackButton: true, theme: 'inverted' })
 
   return (
     <View style={tw`flex items-center justify-center h-full`}>

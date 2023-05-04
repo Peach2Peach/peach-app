@@ -17,8 +17,6 @@ import { SliderKnob } from './SliderKnob'
 import { SliderTrack } from './SliderTrack'
 import { TrackMarkers } from './TrackMarkers'
 
-const labels = { 0: i18n('custom'), 1: i18n('max'), 9: i18n('min') }
-
 type RangeAmountProps = ComponentProps & {
   min: number
   max: number
@@ -27,6 +25,7 @@ type RangeAmountProps = ComponentProps & {
 }
 
 export const SelectAmount = ({ min, max, value, onChange, style }: RangeAmountProps): ReactElement => {
+  const labels = { 0: i18n('custom'), 1: i18n('max'), 9: i18n('min') }
   const knobHeight = useKnobHeight()
   const trackHeight = knobHeight * 10
 

@@ -26,17 +26,6 @@ const paymentCategoryIcons: Record<PaymentCategory, IconType | ''> = {
   cryptoCurrency: '',
 }
 
-const tabs: TabbedNavigationItem[] = [
-  {
-    id: 'remote',
-    display: i18n('paymentSection.remote'),
-  },
-  {
-    id: 'meetups',
-    display: i18n('paymentSection.meetups'),
-  },
-]
-
 const belongsToCategory = (category: PaymentCategory) => (data: PaymentData) =>
   PAYMENTCATEGORIES[category].includes(data.type)
   && !(category === 'localOption' && data.type === 'mobilePay' && data.currencies[0] === 'DKK')
@@ -72,6 +61,10 @@ type PaymentDetailsProps = ComponentProps & {
   origin: keyof RootStackParamList
 }
 export default ({ setMeansOfPayment, editing, style, origin }: PaymentDetailsProps): ReactElement => {
+  const tabs: TabbedNavigationItem[] = [
+    { id: 'remote', display: i18n('paymentSection.remote') },
+    { id: 'meetups', display: i18n('paymentSection.meetups') },
+  ]
   const [, setRandom] = useState(0)
   const navigation = useNavigation()
   const preferredPaymentMethods = useSettingsStore((state) => state.preferredPaymentMethods)

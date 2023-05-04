@@ -8,10 +8,8 @@ import i18n from '../../../utils/i18n'
 import { auth } from '../../../utils/peachAPI'
 import { parseError } from '../../../utils/result'
 
-const headerConfig = { title: i18n('welcome.welcomeToPeach.title'), hideGoBackButton: true, theme: 'inverted' as const }
-
 export const useNewUserSetup = () => {
-  useHeaderSetup(headerConfig)
+  useHeaderSetup({ title: i18n('welcome.welcomeToPeach.title'), hideGoBackButton: true, theme: 'inverted' })
   const route = useRoute<'newUser'>()
   const navigation = useNavigation()
 
