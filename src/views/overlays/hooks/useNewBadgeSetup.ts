@@ -11,7 +11,7 @@ export const useNewBadgeSetup = () => {
 
   const close = () => {
     if (remainingBadges.length > 0) {
-      navigation.replace('newBadge', { badges: remainingBadges.join(',') })
+      navigation.setParams({ badges: remainingBadges.join(',') })
     } else {
       navigation.goBack()
     }
