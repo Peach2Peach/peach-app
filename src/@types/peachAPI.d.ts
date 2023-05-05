@@ -62,8 +62,10 @@ declare type User = {
   pgpPublicKeyProof: string
 }
 
-declare type UserPrivate = User & {
+declare type SelfUser = User & {
   feeRate: FeeRate
+  freeTrades: number
+  maxFreeTrades: number
   historyRating: number
   recentRating: number
 }
