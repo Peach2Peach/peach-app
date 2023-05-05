@@ -19,10 +19,16 @@ describe('useBitcoinPrices', () => {
     })
 
     expect(result.current).toEqual({
+      displayCurrency: 'EUR',
       displayPrice: 20000,
       prices: {
         EUR: 20000,
         CHF: 21000,
+      },
+      fullDisplayPrice: 20000,
+      fullPrices: {
+        CHF: 21000,
+        EUR: 20000,
       },
     })
   })
@@ -32,10 +38,16 @@ describe('useBitcoinPrices', () => {
     })
 
     expect(result.current).toEqual({
+      displayCurrency: 'EUR',
       displayPrice: 267.48,
       prices: {
         EUR: 267.48,
         CHF: 280.86,
+      },
+      fullDisplayPrice: 20000,
+      fullPrices: {
+        CHF: 21000,
+        EUR: 20000,
       },
     })
   })
@@ -45,6 +57,7 @@ describe('useBitcoinPrices', () => {
       initialProps: { sats: 1337420 },
     })
 
+    expect(result.current.displayCurrency).toBe('CHF')
     expect(result.current.displayPrice).toBe(280.86)
   })
 })
