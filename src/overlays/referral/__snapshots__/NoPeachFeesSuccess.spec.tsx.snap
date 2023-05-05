@@ -2,6 +2,6 @@
 
 exports[`NoPeachFeesSuccess should render correctly 1`] = `
 <PeachText>
-  You successfully activated this powerup. Let's get trading!
+  The free trading powerup is active. Let's get to it!
 </PeachText>
 `;
