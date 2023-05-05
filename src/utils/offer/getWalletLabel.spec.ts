@@ -1,6 +1,6 @@
 /* eslint-disable max-lines-per-function */
 import i18n from '../i18n'
-import { getSummaryWalletLabel } from '.'
+import { getWalletLabel } from '.'
 
 const findKeyPairByAddressMock = jest.fn().mockReturnValue(false)
 jest.mock('../wallet/setWallet', () => ({
@@ -9,7 +9,7 @@ jest.mock('../wallet/setWallet', () => ({
   },
 }))
 
-describe('getSummaryWalletLabel', () => {
+describe('getWalletLabel', () => {
   afterEach(() => {
     jest.resetAllMocks()
   })
@@ -19,7 +19,7 @@ describe('getSummaryWalletLabel', () => {
     const customPayoutAddress = 'customPayoutAddress'
     const customPayoutAddressLabel = 'customPayoutAddressLabel'
 
-    const result = getSummaryWalletLabel({
+    const result = getWalletLabel({
       address,
       customPayoutAddress,
       customPayoutAddressLabel,
@@ -35,7 +35,7 @@ describe('getSummaryWalletLabel', () => {
 
     findKeyPairByAddressMock.mockReturnValueOnce(true)
 
-    const result = getSummaryWalletLabel({
+    const result = getWalletLabel({
       address,
       customPayoutAddress,
       customPayoutAddressLabel,
@@ -51,7 +51,7 @@ describe('getSummaryWalletLabel', () => {
 
     findKeyPairByAddressMock.mockReturnValueOnce(true)
 
-    const result = getSummaryWalletLabel({
+    const result = getWalletLabel({
       address,
       customPayoutAddress,
       customPayoutAddressLabel,
@@ -60,29 +60,41 @@ describe('getSummaryWalletLabel', () => {
     expect(result).toEqual(customPayoutAddressLabel)
   })
 
-  it('should return undefined if address is not peachWallet or customPayoutAddress', () => {
+  it('should return "custom payout address" if address is not peachWallet or customPayoutAddress', () => {
     const address = 'address'
     const customPayoutAddress = 'customPayoutAddress'
     const customPayoutAddressLabel = 'customPayoutAddressLabel'
 
-    const result = getSummaryWalletLabel({
+    const result = getWalletLabel({
       address,
       customPayoutAddress,
       customPayoutAddressLabel,
     })
 
-    expect(result).toEqual(undefined)
+    expect(result).toEqual('custom payout address')
   })
-  it('should return undefined if no address is passed', () => {
+  it('should return "custom payout address" if no address is passed', () => {
     const customPayoutAddress = 'customPayoutAddress'
     const customPayoutAddressLabel = 'customPayoutAddressLabel'
 
-    const result = getSummaryWalletLabel({
+    const result = getWalletLabel({
       address: undefined,
       customPayoutAddress,
       customPayoutAddressLabel,
     })
 
-    expect(result).toEqual(undefined)
+    expect(result).toEqual('custom payout address')
+  })
+  it('returns "custom payout address" if no customPayoutAddressLabel but the address is the customPayoutAddress', () => {
+    const address = 'customPayoutAddress'
+    const customPayoutAddress = 'customPayoutAddress'
+
+    const result = getWalletLabel({
+      address,
+      customPayoutAddress,
+      customPayoutAddressLabel: undefined,
+    })
+
+    expect(result).toEqual('custom payout address')
   })
 })
