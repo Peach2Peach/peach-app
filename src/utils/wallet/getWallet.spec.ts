@@ -1,13 +1,13 @@
 import { deepStrictEqual } from 'assert'
-import { createWalletFromSeedPhrase, getNetwork, getWallet, setWallet } from '.'
+import { getWallet, setWallet } from '.'
+import { createTestWallet } from '../../../tests/unit/helpers/createTestWallet'
 
 describe('setWallet', () => {
   it('returns wallet for escrow depending on offer id', () => {
-    const network = getNetwork()
-    const mnemonic = 'mom mom mom mom mom mom mom mom mom mom mom mom mom mom mom mom'
-    const recoveredWallet = createWalletFromSeedPhrase(mnemonic, network)
-    setWallet(recoveredWallet.wallet)
+    const recoveredWallet = createTestWallet()
 
-    deepStrictEqual(getWallet(), recoveredWallet.wallet)
+    setWallet(recoveredWallet)
+
+    deepStrictEqual(getWallet(), recoveredWallet)
   })
 })

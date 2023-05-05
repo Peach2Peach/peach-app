@@ -3,6 +3,8 @@ import { contract } from '../../../../tests/unit/data/contractData'
 import { sellOffer } from '../../../../tests/unit/data/offerData'
 
 import { patchSellOfferWithRefundTx } from './patchSellOfferWithRefundTx'
+import { setWallet } from '../../../utils/wallet'
+import { createTestWallet } from '../../../../tests/unit/helpers/createTestWallet'
 
 const apiSuccess = { success: true }
 const apiError = { error: 'UNAUTHORIZED' }
@@ -22,7 +24,9 @@ jest.mock('../../../utils/bitcoin/checkRefundPSBT', () => ({
 describe('patchSellOfferWithRefundTx', () => {
   const refundPSBT = 'refundPSBT'
   const refundTx = 'cHNidP8BAAoCAAAAAAAAAAAAAAAA'
-
+  beforeEach(() => {
+    setWallet(createTestWallet())
+  })
   afterEach(() => {
     jest.clearAllMocks()
   })

@@ -1,6 +1,8 @@
-import { createWalletFromSeedPhrase, getMainAddress, getNetwork } from '../wallet'
+import { NETWORK } from '@env'
+import { createWalletFromSeedPhrase, getNetwork } from '../wallet'
+import { getMainAccount } from './getMainAccount'
 
 export const createPeachAccount = (mnemonic: string) => {
   const { wallet } = createWalletFromSeedPhrase(mnemonic, getNetwork())
-  return getMainAddress(wallet)
+  return getMainAccount(wallet, NETWORK)
 }
