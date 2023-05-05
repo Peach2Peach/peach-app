@@ -6,7 +6,7 @@ import i18n from '../../utils/i18n'
 
 export const RestoreBackupLoading = () => {
   useOnboardingHeader({
-    title: i18n('restoreBackup.restoreReputation'),
+    title: i18n('restoreBackup.title'),
     icons: [],
     hideGoBackButton: true,
   })

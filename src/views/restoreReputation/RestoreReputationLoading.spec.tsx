@@ -13,7 +13,7 @@ describe('RestoreReputationLoading', () => {
   })
   it('should set header correctly', () => {
     render(<RestoreReputationLoading />, { wrapper: NavigationWrapper })
-    expect(useHeaderState.getState().title).toBe('restore backup')
+    expect(useHeaderState.getState().title).toBe('restore reputation')
     expect(useHeaderState.getState().icons).toHaveLength(0)
     expect(useHeaderState.getState().hideGoBackButton).toBeTruthy()
   })
