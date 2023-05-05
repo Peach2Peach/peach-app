@@ -3,6 +3,7 @@ import { NavigationContext } from '@react-navigation/native'
 export const navigateMock = jest.fn()
 export const replaceMock = jest.fn()
 export const pushMock = jest.fn()
+export const setParamsMock = jest.fn()
 export const goBackMock = jest.fn()
 export const isFocusedMock = jest.fn().mockReturnValue(true)
 export const unsubScribeMock = jest.fn()
@@ -15,6 +16,7 @@ export const NavigationWrapper = ({ children }: any) => (
       // @ts-ignore
       replace: replaceMock,
       push: pushMock,
+      setParams: setParamsMock,
       goBack: goBackMock,
       isFocused: isFocusedMock,
       addListener: addListenerMock,
