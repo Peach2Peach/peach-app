@@ -1,5 +1,5 @@
-import { useKnobHeight } from './useKnobHeight'
 import { renderHook } from '@testing-library/react-native'
+import { useKnobHeight } from './useKnobHeight'
 
 describe('useKnobHeight', () => {
   it('should return 30', () => {

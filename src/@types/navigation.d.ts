@@ -3,6 +3,9 @@ declare type RootStackParamList = {
   newUser: {
     referralCode?: string
   }
+  newBadge: {
+    badges: string
+  }
   restoreBackup: undefined
   wallet: undefined
   transactionHistory: undefined

@@ -6,9 +6,13 @@ import { useHeaderSetup, useNavigation, useShowHelp } from '../../../hooks'
 import { useSettingsStore } from '../../../store/settingsStore'
 import { isBackupMandatory } from '../../../utils/account'
 import { BuyTitleComponent } from '../components/BuyTitleComponent'
+import { useSelfUser } from '../../../hooks/query/useSelfUser'
 
 export const useBuySetup = () => {
   const navigation = useNavigation()
+  const { user } = useSelfUser()
+  const freeTrades = user?.freeTrades || 0
+  const maxFreeTrades = user?.maxFreeTrades || 0
   const showHelp = useShowHelp('buyingBitcoin')
   const [lastFileBackupDate, lastSeedBackupDate] = useSettingsStore(
     (state) => [state.lastFileBackupDate, state.lastSeedBackupDate],
@@ -31,4 +35,6 @@ export const useBuySetup = () => {
       navigation.replace('backupTime', { view: 'buyer' })
     }
   }, [navigation, lastSeedBackupDate, lastFileBackupDate])
+
+  return { freeTrades, maxFreeTrades }
 }

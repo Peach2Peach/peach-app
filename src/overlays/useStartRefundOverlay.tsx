@@ -6,13 +6,13 @@ import { useTradeSummaries } from '../hooks/query/useTradeSummaries'
 import { useShowErrorBanner } from '../hooks/useShowErrorBanner'
 import { useShowLoadingOverlay } from '../hooks/useShowLoadingOverlay'
 import { useTradeSummaryStore } from '../store/tradeSummaryStore'
-import { checkRefundPSBT, showTransaction, signPSBT } from '../utils/bitcoin'
+import { checkRefundPSBT, showTransaction, signAndFinalizePSBT } from '../utils/bitcoin'
 import i18n from '../utils/i18n'
 import { info } from '../utils/log'
 import { saveOffer } from '../utils/offer'
 import { cancelOffer, refundSellOffer } from '../utils/peachAPI'
+import { getEscrowWalletForOffer } from '../utils/wallet'
 import { peachWallet } from '../utils/wallet/setWallet'
-
 import Refund from './Refund'
 
 export const useStartRefundOverlay = () => {
@@ -40,7 +40,7 @@ export const useStartRefundOverlay = () => {
         closeOverlay()
         return
       }
-      const signedTx = signPSBT(psbt, sellOffer).extractTransaction()
+      const signedTx = signAndFinalizePSBT(psbt, getEscrowWalletForOffer(sellOffer)).extractTransaction()
       const [tx, txId] = [signedTx.toHex(), signedTx.getId()]
 
       const address = psbt.txOutputs[0].address
