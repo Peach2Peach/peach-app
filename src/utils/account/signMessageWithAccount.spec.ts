@@ -3,7 +3,7 @@ import { signMessageWithAccount } from './signMessageWithAccount'
 
 describe('signMessageWithAccount', () => {
   const message = 'message'
-  it('sets an account, sets wallet and peachAccount', async () => {
+  it('signs a message', async () => {
     const signature = signMessageWithAccount(message, account1)
     expect(signature).toBe(
       // eslint-disable-next-line max-len
