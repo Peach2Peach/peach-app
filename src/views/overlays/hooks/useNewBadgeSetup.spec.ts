@@ -1,6 +1,11 @@
 import { renderHook } from '@testing-library/react-native'
+import {
+  NavigationWrapper,
+  goBackMock,
+  replaceMock,
+  setParamsMock,
+} from '../../../../tests/unit/helpers/NavigationWrapper'
 import { useNewBadgeSetup } from './useNewBadgeSetup'
-import { NavigationWrapper, goBackMock, replaceMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 
 const useRouteMock = jest.fn().mockReturnValue({
   params: {
@@ -37,6 +42,6 @@ describe('useNewBadgeSetup', () => {
     })
     const { result } = renderHook(useNewBadgeSetup, { wrapper: NavigationWrapper })
     result.current.close()
-    expect(replaceMock).toHaveBeenCalledWith('newBadge', { badges: 'superTrader' })
+    expect(setParamsMock).toHaveBeenCalledWith('newBadge', { badges: 'superTrader' })
   })
 })
