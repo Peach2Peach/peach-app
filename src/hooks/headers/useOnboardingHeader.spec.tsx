@@ -1,18 +1,11 @@
-import { NavigationContainer } from '@react-navigation/native'
 import { renderHook } from '@testing-library/react-native'
-import { useOnboardingHeader } from './useOnboardingHeader'
-import { useHeaderState } from '../../components/header/store'
+import { NavigationWrapper, navigateMock } from '../../../tests/unit/helpers/NavigationWrapper'
 import { Icon } from '../../components'
+import { useHeaderState } from '../../components/header/store'
 import { goToHomepage } from '../../utils/web'
+import { useOnboardingHeader } from './useOnboardingHeader'
 
-const navigateMock = jest.fn()
-jest.mock('../useNavigation', () => ({
-  useNavigation: jest.fn(() => ({
-    navigate: (...args: any[]) => navigateMock(...args),
-  })),
-}))
-
-const wrapper = ({ children }: ComponentProps) => <NavigationContainer>{children}</NavigationContainer>
+const wrapper = NavigationWrapper
 
 describe('useOnboardingHeader', () => {
   it('should set up the header correctly', () => {
