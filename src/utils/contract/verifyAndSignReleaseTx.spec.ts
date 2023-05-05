@@ -1,5 +1,4 @@
 import { Psbt } from 'bitcoinjs-lib'
-import { constructPSBT } from '../../../tests/unit/helpers/constructPSBT'
 import { createTestWallet } from '../../../tests/unit/helpers/createTestWallet'
 import { verifyPSBT } from '../../views/contract/helpers/verifyPSBT'
 import { getEscrowWalletForOffer, setWallet } from '../wallet'
