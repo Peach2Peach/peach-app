@@ -1,6 +1,5 @@
 import { BLOCKEXPLORER } from '@env'
 import { APPVERSION } from '../constants'
-import i18n from '../utils/i18n'
 
 export const defaultConfig: Config = {
   paymentMethods: [],
