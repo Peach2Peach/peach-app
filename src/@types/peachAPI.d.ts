@@ -441,6 +441,7 @@ declare type NotificationType =
   | 'offer.sellOfferExpired' // PN-S06
   | 'offer.matchBuyer' // PN-B02
   | 'offer.matchSeller' // PN-S09
+  | 'offer.outsideRange' // PN-S10
   | 'contract.contractCreated' // PN-B03
   | 'contract.buyer.paymentReminderSixHours' // PN-B04
   | 'contract.buyer.paymentReminderOneHour' // PN-B05

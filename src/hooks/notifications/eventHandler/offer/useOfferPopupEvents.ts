@@ -3,12 +3,14 @@ import { useConfirmEscrowOverlay } from '../../../../overlays/useConfirmEscrowOv
 import { useWronglyFundedOverlay } from '../../../../overlays/useWronglyFundedOverlay'
 import { getOffer } from '../../../../utils/offer'
 import { useBuyOfferExpiredOverlay } from '../../../../overlays/useBuyOfferExpiredOverlay'
+import { useOfferOutsideRangeOverlay } from '../../../../overlays/useOfferOutsideRangeOverlay'
 
 type PNEventHandlers = Partial<Record<NotificationType, (data: PNData, notification?: PNNotification) => void>>
 
 export const useOfferPopupEvents = () => {
   const confirmEscrowOverlay = useConfirmEscrowOverlay()
   const wronglyFundedOverlay = useWronglyFundedOverlay()
+  const offerOutsideRangeOverlay = useOfferOutsideRangeOverlay()
   const buyOfferExpiredOverlay = useBuyOfferExpiredOverlay()
 
   const offerPopupEvents: PNEventHandlers = useMemo(
@@ -27,13 +29,18 @@ export const useOfferPopupEvents = () => {
         if (!sellOffer) return
         wronglyFundedOverlay(sellOffer)
       },
+      // PN-S10
+      'offer.outsideRange': ({ offerId }) => {
+        if (!offerId) return
+        offerOutsideRangeOverlay(offerId)
+      },
       // PN-B14
       'offer.buyOfferExpired': (_, notification) => {
         const [offerId, days] = notification?.bodyLocArgs || []
         buyOfferExpiredOverlay(offerId, days)
       },
     }),
-    [buyOfferExpiredOverlay, confirmEscrowOverlay, wronglyFundedOverlay],
+    [buyOfferExpiredOverlay, confirmEscrowOverlay, offerOutsideRangeOverlay, wronglyFundedOverlay],
   )
   return offerPopupEvents
 }
