@@ -48,4 +48,12 @@ describe('useOnboardingHeader', () => {
     expect(useHeaderState.getState().hideGoBackButton).toBe(true)
     expect(useHeaderState.getState().icons).toHaveLength(0)
   })
+  it('should navigate to contact', () => {
+    const title = 'a title'
+    renderHook(useOnboardingHeader, { initialProps: { title }, wrapper })
+
+    useHeaderState.getState().icons?.[0].onPress()
+
+    expect(navigateMock).toHaveBeenCalledWith('contact')
+  })
 })
