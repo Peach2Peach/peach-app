@@ -21,6 +21,12 @@ const useFakePNs = () => {
   const fakeOfferPNs = [
     {
       data: {
+        type: 'user.badge.unlocked',
+        badges: 'fastTrader,superTrader',
+      },
+    },
+    {
+      data: {
         type: 'offer.escrowFunded',
         offerId: sellOfferId,
       },
@@ -59,15 +65,6 @@ const useFakePNs = () => {
       data: {
         type: 'offer.outsideRange',
         offerId: sellOfferId,
-      },
-      notification: {
-        bodyLocArgs: ['P-123'],
-      },
-    },
-    {
-      data: {
-        type: 'offer.buyOfferImminentExpiry',
-        offerId: buyOfferId,
       },
       notification: {
         bodyLocArgs: ['P-123'],

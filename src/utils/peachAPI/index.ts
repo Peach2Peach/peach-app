@@ -17,6 +17,7 @@ export {
   getTradingLimit,
   logoutUser,
   redeemReferralCode,
+  redeemNoPeachFees,
 } from './private/user'
 export {
   cancelOffer,

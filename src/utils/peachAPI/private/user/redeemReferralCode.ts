@@ -17,5 +17,5 @@ export const redeemReferralCode = async ({ code, timeout }: Props): Promise<[API
     signal: timeout ? getAbortWithTimeout(timeout).signal : undefined,
   })
 
-  return await parseResponse<APISuccess>(response, 'updateUser')
+  return await parseResponse<APISuccess>(response, 'redeemReferralCode')
 }

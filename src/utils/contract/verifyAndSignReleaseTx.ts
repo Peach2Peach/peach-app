@@ -1,10 +1,14 @@
+import { BIP32Interface } from 'bip32'
 import { Psbt } from 'bitcoinjs-lib'
 import { verifyPSBT } from '../../views/contract/helpers/verifyPSBT'
-import { getEscrowWallet, getFinalScript, getNetwork, getWallet } from '../wallet'
-import { getSellOfferFromContract } from './getSellOfferFromContract'
+import { signAndFinalizePSBT } from '../bitcoin'
+import { getNetwork } from '../wallet'
 
-export const signReleaseTx = (contract: Contract): [string | null, string | null] => {
-  const sellOffer = getSellOfferFromContract(contract)
+export const verifyAndSignReleaseTx = (
+  contract: Contract,
+  sellOffer: SellOffer,
+  wallet: BIP32Interface,
+): [string | null, string | null] => {
   const sellOfferId = sellOffer.oldOfferId || sellOffer.id
 
   if (!sellOfferId || !sellOffer?.funding) return [null, 'SELL_OFFER_NOT_FOUND']
@@ -16,10 +20,7 @@ export const signReleaseTx = (contract: Contract): [string | null, string | null
 
   if (errorMsg) return [null, errorMsg]
 
-  // Sign psbt
-  psbt.txInputs.forEach((input, i) =>
-    psbt.signInput(i, getEscrowWallet(getWallet(), sellOfferId)).finalizeInput(i, getFinalScript),
-  )
+  signAndFinalizePSBT(psbt, wallet)
 
   const tx = psbt.extractTransaction().toHex()
 

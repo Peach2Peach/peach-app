@@ -53,6 +53,7 @@ import Wallet from './wallet/Wallet'
 import RedesignWelcome from './welcome/RedesignWelcome'
 import Welcome from './welcome/Welcome'
 import YourTrades from './yourTrades/YourTrades'
+import NewBadge from './overlays/NewBadge'
 
 type ViewType = {
   name: keyof RootStackParamList
@@ -110,10 +111,7 @@ const sellFlow: ViewType[] = [
   { name: 'setRefundWallet', component: SetRefundWallet, ...defaultConfig },
 ]
 
-const search: ViewType[] = [
-  { name: 'offerPublished', component: OfferPublished, ...invertedThemeConfig },
-  { name: 'search', component: Search, ...defaultConfig },
-]
+const search: ViewType[] = [{ name: 'search', component: Search, ...defaultConfig }]
 
 const trade: ViewType[] = [
   { name: 'contract', component: Contract, ...defaultConfig },
@@ -141,6 +139,11 @@ const contact = (hasAccount: boolean): ViewType[] =>
     ]
 
 const publicProfile: ViewType[] = [{ name: 'publicProfile', component: PublicProfile, ...defaultConfig }]
+
+const overlays: ViewType[] = [
+  { name: 'offerPublished', component: OfferPublished, ...invertedThemeConfig },
+  { name: 'newBadge', component: NewBadge, ...invertedThemeConfig },
+]
 
 const settings: ViewType[] = [
   { name: 'settings', component: Settings, ...defaultConfig, animationEnabled: false },
@@ -184,6 +187,7 @@ export const getViews = (hasAccount: boolean): ViewType[] =>
       ...publicProfile,
       ...contact(hasAccount),
       ...settings,
+      ...overlays,
       ...testViews,
     ]
     : [...onboarding, ...contact(hasAccount)]

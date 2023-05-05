@@ -62,8 +62,10 @@ declare type User = {
   pgpPublicKeyProof: string
 }
 
-declare type UserPrivate = User & {
+declare type SelfUser = User & {
   feeRate: FeeRate
+  freeTrades: number
+  maxFreeTrades: number
   historyRating: number
   recentRating: number
 }
@@ -433,6 +435,7 @@ declare type ReviveSellOfferResponseBody = {
 declare type ExtendPaymentTimerResponseBody = APISuccess
 
 declare type NotificationType =
+  | 'user.badge.unlocked' // PN-U01
   | 'offer.escrowFunded' // PN-S03
   | 'offer.notFunded' // PN-S02
   | 'offer.fundingAmountDifferent' // PN-S07
@@ -440,6 +443,7 @@ declare type NotificationType =
   | 'offer.sellOfferExpired' // PN-S06
   | 'offer.matchBuyer' // PN-B02
   | 'offer.matchSeller' // PN-S09
+  | 'offer.outsideRange' // PN-S10
   | 'contract.contractCreated' // PN-B03
   | 'contract.buyer.paymentReminderSixHours' // PN-B04
   | 'contract.buyer.paymentReminderOneHour' // PN-B05
@@ -462,14 +466,19 @@ declare type NotificationType =
   | 'contract.cancelationRequest' // PN-B08
   | 'contract.cancelationRequestAccepted' // PN-S15
   | 'contract.cancelationRequestRejected' // PN-S16
-  | 'offer.buyOfferImminentExpiry' // PN-B10
-  | 'offer.buyOfferExpired' // PN-B11
+  | 'offer.buyOfferExpired' // PN-B14
 
 declare type PNData = {
+  type?: NotificationType
+  badges?: string
   offerId?: string
   contractId?: string
   isChat?: string
-  type?: NotificationType
+}
+
+declare type PNNotification = {
+  titleLocArgs?: string[]
+  bodyLocArgs?: string[]
 }
 
 declare type RefundSellOfferResponse = APISuccess
