@@ -42,6 +42,6 @@ describe('useNewBadgeSetup', () => {
     })
     const { result } = renderHook(useNewBadgeSetup, { wrapper: NavigationWrapper })
     result.current.close()
-    expect(setParamsMock).toHaveBeenCalledWith('newBadge', { badges: 'superTrader' })
+    expect(setParamsMock).toHaveBeenCalledWith({ badges: 'superTrader' })
   })
 })
