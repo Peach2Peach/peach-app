@@ -61,9 +61,13 @@ export default (): ReactElement => {
           </Text>
         </View>
       </View>
-      <View style={tw`items-center justify-center flex-grow`}>
-        <SelectAmount min={minTradingAmount} max={maxTradingAmount} value={amount} onChange={setSelectedAmount} />
-      </View>
+      <SelectAmount
+        style={tw`h-full flex-shrink`}
+        min={minTradingAmount}
+        max={maxTradingAmount}
+        value={amount}
+        onChange={setSelectedAmount}
+      />
       <View style={[tw`flex-row items-center justify-center mt-4 mb-1`, tw.md`mb-4`]}>
         <PrimaryButton disabled={!amountValid} testID="navigation-next" onPress={next} narrow>
           {i18n('next')}
