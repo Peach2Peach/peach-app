@@ -1,3 +1,4 @@
+/* eslint-disable max-lines-per-function */
 import { act, renderHook } from '@testing-library/react-native'
 import { NavigationWrapper, navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { useOverlayEvents } from './useOverlayEvents'
@@ -49,6 +50,30 @@ describe('useOverlayEvents', () => {
     act(() => {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       result.current['offer.escrowFunded']!(data)
+    })
+
+    expect(navigateMock).not.toHaveBeenCalled()
+  })
+  it('should navigate to paymentMade screen on "contract.paymentMade" event', () => {
+    const { result } = renderHook(useOverlayEvents, { wrapper: NavigationWrapper })
+
+    const contractId = '123-456'
+    const data = { contractId } as PNData
+    act(() => {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      result.current['contract.paymentMade']!(data)
+    })
+
+    expect(navigateMock).toHaveBeenCalledWith('paymentMade', { contractId })
+  })
+
+  it('should not navigate to offerPublished screen on "contract.paymentMade" event if offerId is not provided', () => {
+    const { result } = renderHook(useOverlayEvents, { wrapper: NavigationWrapper })
+
+    const data = {} as PNData
+    act(() => {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      result.current['contract.paymentMade']!(data)
     })
 
     expect(navigateMock).not.toHaveBeenCalled()

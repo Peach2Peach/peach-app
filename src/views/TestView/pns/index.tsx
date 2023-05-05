@@ -102,6 +102,12 @@ const useFakePNs = () => {
     },
     {
       data: {
+        type: 'contract.paymentMade',
+        contractId,
+      },
+    },
+    {
+      data: {
         type: 'contract.buyer.disputeRaised',
         contractId,
       },

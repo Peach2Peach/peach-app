@@ -13,6 +13,9 @@ export const useOverlayEvents = () => {
       // PN-S03
       'offer.escrowFunded': ({ offerId }: PNData) =>
         offerId ? navigation.navigate('offerPublished', { isSellOffer: true, shouldGoBack: true }) : undefined,
+      // PN-S11
+      'contract.paymentMade': ({ contractId }: PNData) =>
+        contractId ? navigation.navigate('paymentMade', { contractId }) : undefined,
     }),
     [navigation],
   )
