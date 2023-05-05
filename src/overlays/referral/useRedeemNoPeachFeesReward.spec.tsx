@@ -38,7 +38,7 @@ describe('useRedeemNoPeachFeesReward', () => {
     const { result } = renderHook(useRedeemNoPeachFeesReward, { wrapper })
     result.current()
     expect(overlayState).toEqual({
-      title: '5x no peach fees',
+      title: '5x free trading',
       content: <NoPeachFees />,
       level: 'APP',
       visible: true,
@@ -66,7 +66,7 @@ describe('useRedeemNoPeachFeesReward', () => {
     await overlayState.action1?.callback()
     expect(redeemNoPeachFeesMock).toHaveBeenCalled()
     expect(overlayState).toEqual({
-      title: '5x no peach fees',
+      title: '5x free trading',
       content: <NoPeachFeesSuccess />,
       level: 'APP',
       visible: true,
