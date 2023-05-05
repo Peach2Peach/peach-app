@@ -1,10 +1,11 @@
 import { ReactElement, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Animated, LayoutChangeEvent, View } from 'react-native'
-import { SATSINBTC } from '../../../constants'
 import { useBitcoinPrices } from '../../../hooks'
 import tw from '../../../styles/tailwind'
+import i18n from '../../../utils/i18n'
 import { getTranslateY } from '../../../utils/layout'
 import { interpolate, round } from '../../../utils/math'
+import { ParsedPeachText, Text } from '../../text'
 import { CustomAmount } from './CustomAmount'
 import { SliderKnob } from './SliderKnob'
 import { SliderTrack } from './SliderTrack'
@@ -14,8 +15,6 @@ import { getOffset } from './helpers/getOffset'
 import { onStartShouldSetResponder } from './helpers/onStartShouldSetResponder'
 import { panListener } from './helpers/panListener'
 import { useKnobHeight } from './hooks/useKnobHeight'
-import { ParsedPeachText, Text } from '../../text'
-import i18n from '../../../utils/i18n'
 
 type RangeAmountProps = ComponentProps & {
   min: number
@@ -33,22 +32,21 @@ export const RangeAmount = ({ min, max, value, onChange, style }: RangeAmountPro
   const [maximum, setMaximum] = useState(value[1])
   const [minimum, setMinimum] = useState(value[0])
   const maxY = useMemo(
-    () => interpolate(maximum, [max, min], [0, knobTrackHeight]),
+    () => getOffset({ amount: maximum, min, max, trackHeight: knobTrackHeight }),
     [knobTrackHeight, max, maximum, min],
   )
   const minY = useMemo(
-    () => interpolate(minimum, [max, min], [0, knobTrackHeight]),
+    () => getOffset({ amount: minimum, min, max, trackHeight: knobTrackHeight }),
     [knobTrackHeight, max, min, minimum],
   )
+
   const { displayPrice: displayPriceMinimum, displayCurrency, fullDisplayPrice } = useBitcoinPrices({ sats: minimum })
   const { displayPrice: displayPriceMaximum } = useBitcoinPrices({ sats: maximum })
-  const [customFiatPriceMinimum, setCustomFiatPriceMinimum] = useState<number>()
-  const [customFiatPriceMaximum, setCustomFiatPriceMaximum] = useState<number>()
 
   const trackRange: [number, number] = useMemo(() => [0, knobTrackHeight], [knobTrackHeight])
   const trackRangeMax: [number, number] = useMemo(() => [0, knobTrackHeight - knobHeight], [knobHeight, knobTrackHeight])
   const trackRangeMin: [number, number] = useMemo(() => [knobHeight, knobTrackHeight], [knobHeight, knobTrackHeight])
-  const rangeHeight = minY - maxY
+
   const minSatsDistance = useMemo(
     () => round(interpolate(knobHeight, [0, knobTrackHeight], [0, max - min]), -4),
     [knobHeight, knobTrackHeight, max, min],
@@ -62,6 +60,9 @@ export const RangeAmount = ({ min, max, value, onChange, style }: RangeAmountPro
   const onTrackLayout = (event: LayoutChangeEvent) => {
     const height = Math.round(event.nativeEvent.layout.height)
     setTrackHeight(height)
+    const newKnowTrackHeight = height - knobHeight
+    panMax.setOffset(getOffset({ amount: maximum, min, max, trackHeight: newKnowTrackHeight }))
+    panMin.setOffset(getOffset({ amount: minimum, min, max, trackHeight: newKnowTrackHeight }))
   }
 
   const setMaximumRounded = useCallback(
@@ -121,7 +122,7 @@ export const RangeAmount = ({ min, max, value, onChange, style }: RangeAmountPro
           {...{
             amount: minimum,
             setAmount: () => {},
-            fiatPrice: customFiatPriceMinimum || displayPriceMinimum,
+            fiatPrice: displayPriceMinimum,
             setCustomFiatPrice: () => {},
             bitcoinPrice: fullDisplayPrice,
             displayCurrency,
@@ -134,7 +135,7 @@ export const RangeAmount = ({ min, max, value, onChange, style }: RangeAmountPro
           {...{
             amount: maximum,
             setAmount: () => {},
-            fiatPrice: customFiatPriceMaximum || displayPriceMaximum,
+            fiatPrice: displayPriceMaximum,
             setCustomFiatPrice: () => {},
             bitcoinPrice: fullDisplayPrice,
             displayCurrency,
@@ -149,7 +150,7 @@ export const RangeAmount = ({ min, max, value, onChange, style }: RangeAmountPro
         <Animated.View
           style={[
             tw`absolute left-0 right-0 opacity-50 bg-primary-main`,
-            { height: rangeHeight, top: knobHeight / 2 },
+            { height: minY - maxY, top: knobHeight / 2 },
             getTranslateY(panMax, trackRangeMax),
           ]}
         />
