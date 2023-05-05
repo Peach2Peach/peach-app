@@ -32,6 +32,7 @@ describe('useOnboardingHeader', () => {
     expect(useHeaderState.getState().icons?.[1].iconComponent.type).toBe(Icon)
     expect(useHeaderState.getState().icons?.[1].iconComponent.props.id).toBe('globe')
     expect(useHeaderState.getState().icons?.[1].onPress).toEqual(goToHomepage)
+    expect(useHeaderState.getState().theme).toBe('inverted')
   })
   it('allows overwriting values', () => {
     const title = 'a title'
