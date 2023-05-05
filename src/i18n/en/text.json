@@ -63,6 +63,7 @@
   "restoreBackup.IdontHave": "I don't have a backup",
   "restoreBackup.dontWorry": "Don't worry! You can create a new Peach ID. This will have your existing reputation and trading limits.",
   "restoreBackup.restoreReputation": "restore reputation",
+  "restoreBackup.restoringReputation": "restoring reputation",
   "restoreBackup.reputationRestored": "reputation restored",
   "restoreBackup.welcomeBack": "welcome back!",
   "createAccount": "create account",

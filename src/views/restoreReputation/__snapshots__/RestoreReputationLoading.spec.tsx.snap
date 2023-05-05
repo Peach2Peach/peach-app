@@ -33,7 +33,7 @@ exports[`RestoreReputationLoading should render correctly 1`] = `
       ]
     }
   >
-    restore reputation
+    restoring reputation
   </Text>
   <Text
     allowFontScaling={false}
