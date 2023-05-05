@@ -47,6 +47,8 @@
 		<string>Baloo2-Regular.ttf</string>
 		<string>Baloo2-SemiBold.ttf</string>
 		<string>Baloo2-Bold.ttf</string>
+		<string>CourierPrime-Regular.ttf</string>
+		<string>CourierPrime-Bold.ttf</string>
 	</array>
 	<key>UIBackgroundModes</key>
 	<array>

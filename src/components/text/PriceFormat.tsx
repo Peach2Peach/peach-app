@@ -10,7 +10,7 @@ type PriceFormatProps = ComponentProps & {
 
 export const PriceFormat = ({ amount, currency, round, style }: PriceFormatProps): ReactElement => (
   <Text style={style}>
-    {currency} {priceFormat(amount, round)}
+    {priceFormat(amount, round)} {currency}
   </Text>
 )
 

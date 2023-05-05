@@ -133,6 +133,8 @@ module.exports = {
       'baloo-medium': ['Baloo2-Medium', 'sans-serif'],
       'baloo-semibold': ['Baloo2-SemiBold', 'sans-serif'],
       'baloo-bold': ['Baloo2-Bold', 'sans-serif'],
+      'courier-prime': ['CourierPrime-Regular', 'sans-serif'],
+      'courier-prime-bold': ['CourierPrime-Bold', 'sans-serif'],
     },
     screens: {
       sm: '640px',

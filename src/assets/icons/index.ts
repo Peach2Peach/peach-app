@@ -57,6 +57,7 @@ import link from './link.svg'
 import list from './list.svg'
 import mail from './mail.svg'
 import map from './map.svg'
+import menu from './menu.svg'
 import messageCircle from './messageCircle.svg'
 import messageFull from './messageFull.svg'
 import minusCircle from './minusCircle.svg'
@@ -176,6 +177,7 @@ const Icons = {
   list,
   mail,
   map,
+  menu,
   messageCircle,
   messageFull,
   minusCircle,
