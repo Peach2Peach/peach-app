@@ -1,19 +1,21 @@
 import { ReactElement, useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { Animated, View } from 'react-native'
+import { Animated, LayoutChangeEvent, View } from 'react-native'
+import { SATSINBTC } from '../../../constants'
+import { useBitcoinPrices } from '../../../hooks'
 import tw from '../../../styles/tailwind'
-import i18n from '../../../utils/i18n'
 import { getTranslateY } from '../../../utils/layout'
 import { interpolate, round } from '../../../utils/math'
-import { BitcoinPrice } from '../../bitcoin'
-import { SatsFormat } from '../../text'
-import { ToolTip } from '../../ui/ToolTip'
-import { createPanResponder } from './helpers/createPanResponder'
-import { onStartShouldSetResponder } from './helpers/onStartShouldSetResponder'
-import { panListener } from './helpers/panListener'
-import { useKnobHeight } from './hooks/useKnobHeight'
+import { CustomAmount } from './CustomAmount'
 import { SliderKnob } from './SliderKnob'
 import { SliderTrack } from './SliderTrack'
 import { TrackMarkers } from './TrackMarkers'
+import { createPanResponder } from './helpers/createPanResponder'
+import { getOffset } from './helpers/getOffset'
+import { onStartShouldSetResponder } from './helpers/onStartShouldSetResponder'
+import { panListener } from './helpers/panListener'
+import { useKnobHeight } from './hooks/useKnobHeight'
+import { ParsedPeachText, Text } from '../../text'
+import i18n from '../../../utils/i18n'
 
 type RangeAmountProps = ComponentProps & {
   min: number
@@ -22,9 +24,10 @@ type RangeAmountProps = ComponentProps & {
   onChange: (value: [number, number]) => void
 }
 
+// eslint-disable-next-line max-statements
 export const RangeAmount = ({ min, max, value, onChange, style }: RangeAmountProps): ReactElement => {
   const knobHeight = useKnobHeight()
-  const trackHeight = knobHeight * 10
+  const [trackHeight, setTrackHeight] = useState(260)
   const knobTrackHeight = trackHeight - knobHeight
 
   const [maximum, setMaximum] = useState(value[1])
@@ -37,6 +40,11 @@ export const RangeAmount = ({ min, max, value, onChange, style }: RangeAmountPro
     () => interpolate(minimum, [max, min], [0, knobTrackHeight]),
     [knobTrackHeight, max, min, minimum],
   )
+  const { displayPrice: displayPriceMinimum, displayCurrency, fullDisplayPrice } = useBitcoinPrices({ sats: minimum })
+  const { displayPrice: displayPriceMaximum } = useBitcoinPrices({ sats: maximum })
+  const [customFiatPriceMinimum, setCustomFiatPriceMinimum] = useState<number>()
+  const [customFiatPriceMaximum, setCustomFiatPriceMaximum] = useState<number>()
+
   const trackRange: [number, number] = useMemo(() => [0, knobTrackHeight], [knobTrackHeight])
   const trackRangeMax: [number, number] = useMemo(() => [0, knobTrackHeight - knobHeight], [knobHeight, knobTrackHeight])
   const trackRangeMin: [number, number] = useMemo(() => [knobHeight, knobTrackHeight], [knobHeight, knobTrackHeight])
@@ -50,6 +58,11 @@ export const RangeAmount = ({ min, max, value, onChange, style }: RangeAmountPro
 
   const panMaxResponder = useRef(createPanResponder(panMax)).current
   const panMinResponder = useRef(createPanResponder(panMin)).current
+
+  const onTrackLayout = (event: LayoutChangeEvent) => {
+    const height = Math.round(event.nativeEvent.layout.height)
+    setTrackHeight(height)
+  }
 
   const setMaximumRounded = useCallback(
     (val: number, abs: number) => {
@@ -96,9 +109,43 @@ export const RangeAmount = ({ min, max, value, onChange, style }: RangeAmountPro
   }, [panMin, panMax])
 
   return (
-    <View style={[tw`items-end w-[210px] pr-5`, style]}>
-      <SliderTrack style={{ height: trackHeight }}>
-        <TrackMarkers {...{ trackHeight }} labels={{ 0: i18n('max'), 9: i18n('min') }} />
+    <View style={[tw`flex-row items-center justify-between pl-5 pr-4`, style]}>
+      <View style={[tw`flex-shrink items-start gap-2`, tw.md`gap-4`]}>
+        <ParsedPeachText
+          style={[tw`h7`, tw.md`h5`]}
+          parse={[{ pattern: new RegExp(i18n('buy.subtitle.highlight'), 'u'), style: tw`text-success-main` }]}
+        >
+          {i18n('buy.subtitle')}
+        </ParsedPeachText>
+        <CustomAmount
+          {...{
+            amount: minimum,
+            setAmount: () => {},
+            fiatPrice: customFiatPriceMinimum || displayPriceMinimum,
+            setCustomFiatPrice: () => {},
+            bitcoinPrice: fullDisplayPrice,
+            displayCurrency,
+            disable: true,
+          }}
+          style={tw`flex-shrink items-start`}
+        />
+        <Text style={[tw`h7`, tw.md`h5`]}>{i18n('and')}</Text>
+        <CustomAmount
+          {...{
+            amount: maximum,
+            setAmount: () => {},
+            fiatPrice: customFiatPriceMaximum || displayPriceMaximum,
+            setCustomFiatPrice: () => {},
+            bitcoinPrice: fullDisplayPrice,
+            displayCurrency,
+            disable: true,
+          }}
+          style={tw`flex-shrink items-start`}
+        />
+      </View>
+
+      <SliderTrack style={tw`h-full`} onLayout={onTrackLayout}>
+        <TrackMarkers />
         <Animated.View
           style={[
             tw`absolute left-0 right-0 opacity-50 bg-primary-main`,
@@ -112,10 +159,6 @@ export const RangeAmount = ({ min, max, value, onChange, style }: RangeAmountPro
           style={[tw`absolute top-0 flex-row items-center`, getTranslateY(panMax, trackRangeMax)]}
         >
           <SliderKnob />
-          <ToolTip style={tw`absolute right-8 w-[165px]`}>
-            <SatsFormat sats={maximum} />
-            <BitcoinPrice sats={maximum} style={tw`ml-4 body-s text-black-3`} />
-          </ToolTip>
         </Animated.View>
         <Animated.View
           {...panMinResponder.panHandlers}
@@ -123,10 +166,6 @@ export const RangeAmount = ({ min, max, value, onChange, style }: RangeAmountPro
           style={[tw`absolute top-0 flex-row items-center`, getTranslateY(panMin, trackRangeMin)]}
         >
           <SliderKnob />
-          <ToolTip style={tw`absolute right-8 w-[165px]`}>
-            <SatsFormat sats={minimum} />
-            <BitcoinPrice sats={minimum} style={tw`ml-4 body-s text-black-3`} />
-          </ToolTip>
         </Animated.View>
       </SliderTrack>
     </View>
