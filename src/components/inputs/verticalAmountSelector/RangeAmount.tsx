@@ -120,9 +120,9 @@ export const RangeAmount = ({ min, max, value, onChange, style }: RangeAmountPro
         </ParsedPeachText>
         <CustomAmount
           {...{
-            amount: minimum,
+            amount: maximum,
             setAmount: () => {},
-            fiatPrice: displayPriceMinimum,
+            fiatPrice: displayPriceMaximum,
             setCustomFiatPrice: () => {},
             bitcoinPrice: fullDisplayPrice,
             displayCurrency,
@@ -133,9 +133,9 @@ export const RangeAmount = ({ min, max, value, onChange, style }: RangeAmountPro
         <Text style={[tw`h7`, tw.md`h5`]}>{i18n('and')}</Text>
         <CustomAmount
           {...{
-            amount: maximum,
+            amount: minimum,
             setAmount: () => {},
-            fiatPrice: displayPriceMaximum,
+            fiatPrice: displayPriceMinimum,
             setCustomFiatPrice: () => {},
             bitcoinPrice: fullDisplayPrice,
             displayCurrency,
