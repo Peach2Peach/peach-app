@@ -1,5 +1,5 @@
 import analytics from '@react-native-firebase/analytics'
-import { renderHook } from '@testing-library/react-native'
+import { renderHook, waitFor } from '@testing-library/react-native'
 import { act } from 'react-test-renderer'
 import { recoveredAccount } from '../../../../tests/unit/data/accountData'
 import { NavigationWrapper, replaceMock } from '../../../../tests/unit/helpers/NavigationWrapper'
@@ -22,6 +22,7 @@ import { sessionStorage } from '../../../utils/session'
 import { defaultWalletState, walletStorage, walletStore } from '../../../utils/wallet/walletStore'
 import { useNewUserSetup } from './useNewUserSetup'
 import { useTemporaryAccount } from '../../../hooks/useTemporaryAccount'
+import { useHeaderState } from '../../../components/header/store'
 
 const useRouteMock = jest.fn(() => ({
   params: {
@@ -53,7 +54,6 @@ jest.mock('../../../init/userUpdate', () => ({
 jest.mock('../../../utils/peachAPI', () => ({
   register: (...args: any[]) => registerMock(...args),
 }))
-jest.useFakeTimers({ now: new Date('2022-12-30T23:00:00.000Z') })
 
 describe('useNewUserSetup', () => {
   const forProcessToFinish = async () => {
@@ -65,13 +65,30 @@ describe('useNewUserSetup', () => {
     })
   }
   beforeEach(() => {
-    jest.clearAllMocks()
+    jest.useFakeTimers({ now: new Date('2022-12-30T23:00:00.000Z') })
+
     settingsStore.setState({ pgpPublished: false, fcmToken: undefined })
     setAccount(defaultAccount)
+  })
+  afterEach(() => {
+    jest.clearAllMocks()
   })
   it('should return default values', async () => {
     const { result } = renderHook(useNewUserSetup, { wrapper: NavigationWrapper })
     expect(result.current).toStrictEqual({ success: false, error: '', userExistsForDevice: false })
+  })
+  it('should set up the header correctly', () => {
+    renderHook(useNewUserSetup, { wrapper: NavigationWrapper })
+
+    expect(useHeaderState.getState().title).toBe('welcome to Peach!')
+    expect(useHeaderState.getState().hideGoBackButton).toBe(true)
+    expect(useHeaderState.getState().icons).toEqual([])
+  })
+  it('should show header actions when not loading', async () => {
+    renderHook(useNewUserSetup, { wrapper: NavigationWrapper })
+
+    await waitFor(() => expect(useHeaderState.getState().icons).toHaveLength(2))
+    expect(useHeaderState.getState().hideGoBackButton).toBe(false)
   })
   it('should create an account', async () => {
     renderHook(useNewUserSetup, { wrapper: NavigationWrapper })

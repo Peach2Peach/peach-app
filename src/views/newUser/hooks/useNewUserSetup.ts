@@ -25,7 +25,7 @@ export const useNewUserSetup = () => {
   useOnboardingHeader({
     title: i18n('welcome.welcomeToPeach.title'),
     hideGoBackButton: !success || userExistsForDevice || !!error,
-    icons: !isLoading ? [] : undefined,
+    icons: isLoading ? [] : undefined,
   })
 
   const onError = useCallback((err?: string) => {
