@@ -173,7 +173,7 @@ describe('handlePushNotification', () => {
     expect(result).toEqual(false)
   })
   it('navigates to newBadges when badges are defined on the PN', async () => {
-   const badges = 'fastTrader'
+    const badges = 'fastTrader'
 
     const remoteMessage = {
       data: {
@@ -185,7 +185,7 @@ describe('handlePushNotification', () => {
 
     await handlePushNotification(navigationRef, remoteMessage)
 
-    expect(navigationRef.navigate).toHaveBeenCalledWith('newBadges', {
+    expect(navigationRef.navigate).toHaveBeenCalledWith('newBadge', {
       badges,
     })
   })
