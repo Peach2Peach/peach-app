@@ -1,4 +1,3 @@
-import { useMemo } from 'react'
 import { useHeaderSetup, useNavigation } from '../../../hooks'
 import { useSettingsStore } from '../../../store/settingsStore'
 import i18n, { Locale, useLanguageContext } from '../../../utils/i18n'
