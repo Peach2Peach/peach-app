@@ -1,10 +1,12 @@
 import { ReactElement, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Animated, LayoutChangeEvent, View } from 'react-native'
 import { SATSINBTC } from '../../../constants'
-import { useBitcoinPrices, useKeyboard } from '../../../hooks'
+import { useBitcoinPrices } from '../../../hooks'
 import tw from '../../../styles/tailwind'
+import i18n from '../../../utils/i18n'
 import { getTranslateY } from '../../../utils/layout'
 import { round } from '../../../utils/math'
+import { ParsedPeachText } from '../../text'
 import { CustomAmount } from './CustomAmount'
 import { SliderKnob } from './SliderKnob'
 import { SliderTrack } from './SliderTrack'
@@ -14,8 +16,6 @@ import { getOffset } from './helpers/getOffset'
 import { onStartShouldSetResponder } from './helpers/onStartShouldSetResponder'
 import { panListener } from './helpers/panListener'
 import { useKnobHeight } from './hooks/useKnobHeight'
-import { ParsedPeachText } from '../../text'
-import i18n from '../../../utils/i18n'
 
 type RangeAmountProps = ComponentProps & {
   min: number
@@ -25,7 +25,6 @@ type RangeAmountProps = ComponentProps & {
 }
 
 export const SelectAmount = ({ min, max, value, onChange, style }: RangeAmountProps): ReactElement => {
-  const keyboardOpen = useKeyboard()
   const knobHeight = useKnobHeight()
   const [trackHeight, setTrackHeight] = useState(260)
   const { displayPrice, displayCurrency, fullDisplayPrice } = useBitcoinPrices({ sats: value })
@@ -44,6 +43,7 @@ export const SelectAmount = ({ min, max, value, onChange, style }: RangeAmountPr
   const onTrackLayout = (event: LayoutChangeEvent) => {
     const height = Math.round(event.nativeEvent.layout.height)
     setTrackHeight(height)
+    pan.setOffset(getOffset({ amount: value, min, max, trackHeight: height }))
   }
   const updateAmount = useCallback((val: number) => {
     setAmount(round(val, -4))
@@ -67,11 +67,6 @@ export const SelectAmount = ({ min, max, value, onChange, style }: RangeAmountPr
     setCustomFiatPrice(undefined)
     onChange(amount)
   }, [onChange, amount, setKnobOffset])
-
-  useEffect(() => {
-    setKnobOffset(amount)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [keyboardOpen, setKnobOffset])
 
   useEffect(() => {
     pan.extractOffset()
