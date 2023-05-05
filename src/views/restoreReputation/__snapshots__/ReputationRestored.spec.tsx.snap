@@ -41,7 +41,7 @@ exports[`ReputationRestored should render correctly 1`] = `
   </PeachText>
   <Icon
     color="#FFFCFA"
-    id="userCheck"
+    id="save"
     style={
       {
         "height": 128,

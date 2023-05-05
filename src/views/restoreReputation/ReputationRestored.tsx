@@ -8,6 +8,6 @@ export const ReputationRestored = () => (
   <View style={tw`flex items-center justify-center h-full`}>
     <Text style={tw`text-center h4 text-primary-background-light`}>{i18n('restoreBackup.reputationRestored')}</Text>
     <Text style={tw`text-center body-l text-primary-background-light`}>{i18n('restoreBackup.welcomeBack')}</Text>
-    <Icon id="userCheck" style={tw`w-32 h-32 mt-16`} color={tw`text-primary-background-light`.color} />
+    <Icon id="save" style={tw`w-32 h-32 mt-16`} color={tw`text-primary-background-light`.color} />
   </View>
 )
