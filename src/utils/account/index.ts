@@ -26,6 +26,7 @@ export {
 } from './loadAccount'
 export { recoverAccount } from './recoverAccount'
 export { removePaymentData } from './removePaymentData'
+export { signMessageWithAccount } from './signMessageWithAccount'
 export {
   storeAccount,
   storeChat,

@@ -1,0 +1,736 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RestoreBackup should render correctly 1`] = `
+<View
+  style={
+    {
+      "height": "100%",
+    }
+  }
+>
+  <View
+    style={
+      {
+        "display": "flex",
+        "flexDirection": "column",
+        "height": "100%",
+        "paddingTop": 20,
+      }
+    }
+  >
+    <View
+      style={
+        [
+          {
+            "display": "flex",
+            "flexDirection": "row",
+            "justifyContent": "center",
+          },
+          undefined,
+        ]
+      }
+    >
+      <View
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          [
+            {
+              "paddingLeft": 8,
+              "paddingRight": 8,
+            },
+            undefined,
+            false,
+          ]
+        }
+      >
+        <View
+          style={
+            {
+              "alignItems": "center",
+              "flexDirection": "row",
+            }
+          }
+        >
+          <Text
+            allowFontScaling={false}
+            style={
+              [
+                {
+                  "color": "#2B1911",
+                  "fontFamily": "Baloo2-Regular",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 24,
+                },
+                [
+                  {
+                    "fontFamily": "Baloo2-Bold",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 20,
+                    "paddingBottom": 8,
+                    "paddingLeft": 16,
+                    "paddingRight": 16,
+                    "paddingTop": 8,
+                  },
+                  {
+                    "color": "#FFFCFA",
+                  },
+                  false,
+                ],
+              ]
+            }
+          >
+            file backup
+          </Text>
+        </View>
+        <View
+          style={
+            [
+              {
+                "height": 2,
+                "width": "100%",
+              },
+              {
+                "backgroundColor": "#FFFCFA",
+              },
+            ]
+          }
+        />
+      </View>
+      <View
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          [
+            {
+              "paddingLeft": 8,
+              "paddingRight": 8,
+            },
+            undefined,
+            false,
+          ]
+        }
+      >
+        <View
+          style={
+            {
+              "alignItems": "center",
+              "flexDirection": "row",
+            }
+          }
+        >
+          <Text
+            allowFontScaling={false}
+            style={
+              [
+                {
+                  "color": "#2B1911",
+                  "fontFamily": "Baloo2-Regular",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 24,
+                },
+                [
+                  {
+                    "fontFamily": "Baloo2-Bold",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 20,
+                    "paddingBottom": 8,
+                    "paddingLeft": 16,
+                    "paddingRight": 16,
+                    "paddingTop": 8,
+                  },
+                  {
+                    "color": "#FCCCB6",
+                  },
+                  false,
+                ],
+              ]
+            }
+          >
+            seed phrase
+          </Text>
+        </View>
+      </View>
+    </View>
+    <View
+      style={
+        [
+          {
+            "display": "flex",
+            "flexDirection": "column",
+            "paddingLeft": 24,
+            "paddingRight": 24,
+          },
+          {
+            "flexShrink": 1,
+            "height": "100%",
+          },
+        ]
+      }
+    >
+      <View
+        style={
+          {
+            "display": "flex",
+            "flexDirection": "column",
+            "flexShrink": 1,
+            "height": "100%",
+            "justifyContent": "space-between",
+          }
+        }
+      >
+        <View
+          style={
+            {
+              "display": "flex",
+              "flexDirection": "column",
+              "flexShrink": 1,
+              "height": "100%",
+              "justifyContent": "center",
+              "width": "100%",
+            }
+          }
+        >
+          <Text
+            allowFontScaling={false}
+            style={
+              [
+                {
+                  "color": "#2B1911",
+                  "fontFamily": "Baloo2-Regular",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 24,
+                },
+                {
+                  "color": "#FFFCFA",
+                  "fontFamily": "Baloo2-SemiBold",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 28,
+                  "marginTop": 16,
+                  "textAlign": "center",
+                },
+              ]
+            }
+          >
+            select your backup file & enter your password
+          </Text>
+          <View
+            style={
+              {
+                "marginTop": 8,
+                "paddingLeft": 8,
+                "paddingRight": 8,
+                "width": "100%",
+              }
+            }
+          >
+            <View>
+              <View
+                style={
+                  [
+                    {
+                      "alignItems": "center",
+                      "display": "flex",
+                      "flexDirection": "row",
+                      "justifyContent": "space-between",
+                      "paddingLeft": 12,
+                      "paddingRight": 12,
+                      "width": "100%",
+                    },
+                    {
+                      "borderRadius": 12,
+                      "borderWidth": 1,
+                      "overflow": "hidden",
+                    },
+                    {
+                      "backgroundColor": "transparent",
+                    },
+                    {
+                      "borderColor": "#FFFCFA",
+                    },
+                    false,
+                    false,
+                    {
+                      "marginBottom": 1,
+                      "marginTop": 1,
+                    },
+                    undefined,
+                  ]
+                }
+              >
+                <TextInput
+                  allowFontScaling={false}
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  blurOnSubmit={false}
+                  editable={false}
+                  multiline={false}
+                  onBlur={[Function]}
+                  onChangeText={[Function]}
+                  onEndEditing={[Function]}
+                  onFocus={[Function]}
+                  onPressIn={[Function]}
+                  onSubmitEditing={[Function]}
+                  placeholder="backup file"
+                  placeholderTextColor="#FCCCB6"
+                  removeClippedSubviews={false}
+                  style={
+                    [
+                      {
+                        "flexShrink": 1,
+                        "fontFamily": "Baloo2-Regular",
+                        "fontSize": 18,
+                        "height": 40,
+                        "letterSpacing": 0.18,
+                        "lineHeight": 29.25,
+                        "paddingBottom": 0,
+                        "paddingTop": 0,
+                        "width": "100%",
+                      },
+                      {
+                        "color": "#FCCCB6",
+                      },
+                      false,
+                      {
+                        "borderColor": "transparent",
+                        "borderWidth": 1,
+                      },
+                      false,
+                      false,
+                    ]
+                  }
+                  textAlignVertical="center"
+                  value=""
+                />
+                <View
+                  style={
+                    {
+                      "display": "flex",
+                      "flexDirection": "row",
+                    }
+                  }
+                >
+                  <View
+                    accessibilityState={
+                      {
+                        "busy": undefined,
+                        "checked": undefined,
+                        "disabled": undefined,
+                        "expanded": undefined,
+                        "selected": undefined,
+                      }
+                    }
+                    accessibilityValue={
+                      {
+                        "max": undefined,
+                        "min": undefined,
+                        "now": undefined,
+                        "text": undefined,
+                      }
+                    }
+                    accessible={true}
+                    collapsable={false}
+                    focusable={true}
+                    onBlur={[Function]}
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onResponderGrant={[Function]}
+                    onResponderMove={[Function]}
+                    onResponderRelease={[Function]}
+                    onResponderTerminate={[Function]}
+                    onResponderTerminationRequest={[Function]}
+                    onStartShouldSetResponder={[Function]}
+                  >
+                    <test-file-stub
+                      fill="#FFFCFA"
+                      style={
+                        [
+                          {
+                            "height": 24,
+                            "width": 24,
+                          },
+                          {
+                            "height": 20,
+                            "marginLeft": 16,
+                            "width": 20,
+                          },
+                        ]
+                      }
+                    />
+                  </View>
+                </View>
+              </View>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      {
+                        "fontFamily": "Baloo2-Medium",
+                        "fontSize": 14,
+                        "letterSpacing": 0.14,
+                        "lineHeight": 20,
+                        "marginLeft": 12,
+                        "marginTop": 4,
+                      },
+                      {
+                        "color": "#FFFCFA",
+                      },
+                    ],
+                  ]
+                }
+              >
+                 
+              </Text>
+            </View>
+          </View>
+          <View
+            style={
+              {
+                "paddingLeft": 8,
+                "paddingRight": 8,
+              }
+            }
+          >
+            <View>
+              <View
+                style={
+                  [
+                    {
+                      "alignItems": "center",
+                      "display": "flex",
+                      "flexDirection": "row",
+                      "justifyContent": "space-between",
+                      "paddingLeft": 12,
+                      "paddingRight": 12,
+                      "width": "100%",
+                    },
+                    {
+                      "borderRadius": 12,
+                      "borderWidth": 1,
+                      "overflow": "hidden",
+                    },
+                    {
+                      "backgroundColor": "transparent",
+                    },
+                    {
+                      "borderColor": "#FFFCFA",
+                    },
+                    false,
+                    false,
+                    {
+                      "marginBottom": 1,
+                      "marginTop": 1,
+                    },
+                    undefined,
+                  ]
+                }
+              >
+                <TextInput
+                  allowFontScaling={false}
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  blurOnSubmit={false}
+                  editable={true}
+                  multiline={false}
+                  onBlur={[Function]}
+                  onChangeText={[Function]}
+                  onEndEditing={[Function]}
+                  onFocus={[Function]}
+                  onSubmitEditing={[Function]}
+                  placeholder="your password"
+                  placeholderTextColor="#FCCCB6"
+                  removeClippedSubviews={false}
+                  secureTextEntry={true}
+                  style={
+                    [
+                      {
+                        "flexShrink": 1,
+                        "fontFamily": "Baloo2-Regular",
+                        "fontSize": 18,
+                        "height": 40,
+                        "letterSpacing": 0.18,
+                        "lineHeight": 29.25,
+                        "paddingBottom": 0,
+                        "paddingTop": 0,
+                        "width": "100%",
+                      },
+                      {
+                        "color": "#FCCCB6",
+                      },
+                      false,
+                      {
+                        "borderColor": "transparent",
+                        "borderWidth": 1,
+                      },
+                      false,
+                      false,
+                    ]
+                  }
+                  textAlignVertical="center"
+                  value=""
+                />
+                <View
+                  style={
+                    {
+                      "display": "flex",
+                      "flexDirection": "row",
+                    }
+                  }
+                >
+                  <View
+                    accessibilityState={
+                      {
+                        "busy": undefined,
+                        "checked": undefined,
+                        "disabled": undefined,
+                        "expanded": undefined,
+                        "selected": undefined,
+                      }
+                    }
+                    accessibilityValue={
+                      {
+                        "max": undefined,
+                        "min": undefined,
+                        "now": undefined,
+                        "text": undefined,
+                      }
+                    }
+                    accessible={true}
+                    collapsable={false}
+                    focusable={true}
+                    onBlur={[Function]}
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onResponderGrant={[Function]}
+                    onResponderMove={[Function]}
+                    onResponderRelease={[Function]}
+                    onResponderTerminate={[Function]}
+                    onResponderTerminationRequest={[Function]}
+                    onStartShouldSetResponder={[Function]}
+                  >
+                    <test-file-stub
+                      fill="#FFFCFA"
+                      style={
+                        [
+                          {
+                            "height": 24,
+                            "width": 24,
+                          },
+                          {
+                            "height": 20,
+                            "marginLeft": 16,
+                            "width": 20,
+                          },
+                        ]
+                      }
+                    />
+                  </View>
+                </View>
+              </View>
+              <Text
+                allowFontScaling={false}
+                style={
+                  [
+                    {
+                      "color": "#2B1911",
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 16,
+                      "letterSpacing": 0.16,
+                      "lineHeight": 24,
+                    },
+                    [
+                      {
+                        "fontFamily": "Baloo2-Medium",
+                        "fontSize": 14,
+                        "letterSpacing": 0.14,
+                        "lineHeight": 20,
+                        "marginLeft": 12,
+                        "marginTop": 4,
+                      },
+                      {
+                        "color": "#FFFCFA",
+                      },
+                    ],
+                  ]
+                }
+              >
+                 
+              </Text>
+            </View>
+          </View>
+        </View>
+        <View
+          style={
+            {
+              "alignItems": "center",
+              "display": "flex",
+              "paddingBottom": 32,
+            }
+          }
+        >
+          <View
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": true,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              {
+                "alignItems": "center",
+                "backgroundColor": "#FCCCB6",
+                "borderRadius": 9999,
+                "flexDirection": "row",
+                "height": 40,
+                "justifyContent": "center",
+                "opacity": 1,
+                "paddingLeft": 16,
+                "paddingRight": 16,
+              }
+            }
+          >
+            <Text
+              allowFontScaling={false}
+              ellipsizeMode="tail"
+              numberOfLines={1}
+              style={
+                [
+                  {
+                    "color": "#2B1911",
+                    "fontFamily": "Baloo2-Regular",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 24,
+                  },
+                  [
+                    {
+                      "color": "#F56522",
+                    },
+                    {
+                      "fontFamily": "Baloo2-SemiBold",
+                      "fontSize": 14,
+                      "letterSpacing": 0.5,
+                      "lineHeight": 24,
+                      "minWidth": 96,
+                      "paddingLeft": 8,
+                      "paddingRight": 8,
+                      "textAlign": "center",
+                      "textTransform": "uppercase",
+                    },
+                  ],
+                ]
+              }
+            >
+              restore backup
+            </Text>
+            <test-file-stub
+              fill="#F56522"
+              style={
+                [
+                  {
+                    "height": 24,
+                    "width": 24,
+                  },
+                  {
+                    "height": 16,
+                    "width": 16,
+                  },
+                ]
+              }
+            />
+          </View>
+        </View>
+      </View>
+    </View>
+  </View>
+</View>
+`;

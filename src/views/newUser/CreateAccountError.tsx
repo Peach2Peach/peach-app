@@ -1,4 +1,3 @@
-import { ReactElement } from 'react'
 import { View } from 'react-native'
 import { Icon, Text } from '../../components'
 import { PrimaryButton } from '../../components/buttons'
@@ -6,13 +5,13 @@ import { PrimaryButton } from '../../components/buttons'
 import { useNavigation } from '../../hooks'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { useCreateAccountErrorHeader } from './useCreateAccountErrorHeader'
+import { useCreateAccountErrorHeader } from './hooks/useCreateAccountErrorHeader'
 
 type CreateAccountErrorProps = {
   err: string
 }
 
-export default ({ err }: CreateAccountErrorProps): ReactElement => {
+export const CreateAccountError = ({ err }: CreateAccountErrorProps) => {
   useCreateAccountErrorHeader()
   const navigation = useNavigation()
   const goToContact = () => navigation.navigate('contact')

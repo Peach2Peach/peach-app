@@ -488,3 +488,4 @@ declare type CheckReferralCodeResponse = {
 }
 
 declare type RedeemReferralCodeResponseBody = APISuccess & { bonusPoints: User['bonusPoints'] }
+declare type RegisterResponseBody = AccessToken & { restored: boolean }

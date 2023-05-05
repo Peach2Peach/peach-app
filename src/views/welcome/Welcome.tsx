@@ -5,22 +5,25 @@ import tw from '../../styles/tailwind'
 import Carousel from 'react-native-snap-carousel'
 import { Icon, Progress, Text } from '../../components'
 import { PrimaryButton } from '../../components/buttons'
+import { useKeyboard } from '../../hooks'
+import { useCheckShowRedesignWelcome } from '../../hooks/'
+import { useOnboardingHeader } from '../../hooks/headers/useOnboardingHeader'
 import i18n from '../../utils/i18n'
+import AWalletYouControl from './AWalletYouControl'
 import LetsGetStarted from './LetsGetStarted'
 import PeachOfMind from './PeachOfMind'
 import PeerToPeer from './PeerToPeer'
 import PrivacyFirst from './PrivacyFirst'
-import { useWelcomeHeader } from './hooks/useWelcomeHeader'
-import { useKeyboard } from '../../hooks'
-import AWalletYouControl from './AWalletYouControl'
-import { useCheckShowRedesignWelcome } from '../../hooks/'
 
 const onStartShouldSetResponder = () => true
 
 const screens = [PeerToPeer, PeachOfMind, PrivacyFirst, AWalletYouControl, LetsGetStarted]
 
 export default (): ReactElement => {
-  useWelcomeHeader()
+  useOnboardingHeader({
+    title: i18n('welcome.welcomeToPeach.title'),
+    hideGoBackButton: true,
+  })
   const [{ width }] = useState(() => Dimensions.get('window'))
   const [page, setPage] = useState(0)
   const $carousel = useRef<Carousel<any>>(null)
