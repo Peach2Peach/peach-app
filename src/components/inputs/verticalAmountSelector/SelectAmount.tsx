@@ -14,6 +14,8 @@ import { getOffset } from './helpers/getOffset'
 import { onStartShouldSetResponder } from './helpers/onStartShouldSetResponder'
 import { panListener } from './helpers/panListener'
 import { useKnobHeight } from './hooks/useKnobHeight'
+import { ParsedPeachText } from '../../text'
+import i18n from '../../../utils/i18n'
 
 type RangeAmountProps = ComponentProps & {
   min: number
@@ -77,18 +79,25 @@ export const SelectAmount = ({ min, max, value, onChange, style }: RangeAmountPr
 
   return (
     <View style={[tw`flex-row items-center justify-between pl-5 pr-4`, style]}>
-      <CustomAmount
-        {...{
-          amount,
-          setAmount: updateCustomAmount,
-          fiatPrice: customFiatPrice || displayPrice,
-          setCustomFiatPrice: updateCustomFiatAmount,
-          bitcoinPrice: fullDisplayPrice,
-          displayCurrency,
-        }}
-        style={tw`flex-shrink items-start`}
-      />
-
+      <View style={[tw`flex-shrink items-start gap-2`, tw.md`gap-4`]}>
+        <ParsedPeachText
+          style={[tw`h7`, tw.md`h5`]}
+          parse={[{ pattern: new RegExp(i18n('sell.subtitle.highlight'), 'u'), style: tw`text-primary-main` }]}
+        >
+          {i18n('sell.subtitle')}
+        </ParsedPeachText>
+        <CustomAmount
+          {...{
+            amount,
+            setAmount: updateCustomAmount,
+            fiatPrice: customFiatPrice || displayPrice,
+            setCustomFiatPrice: updateCustomFiatAmount,
+            bitcoinPrice: fullDisplayPrice,
+            displayCurrency,
+          }}
+          style={tw`flex-shrink items-start`}
+        />
+      </View>
       <SliderTrack style={tw`h-full`} onLayout={onTrackLayout}>
         <TrackMarkers />
         <Animated.View

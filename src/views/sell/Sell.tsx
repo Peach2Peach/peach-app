@@ -54,15 +54,9 @@ export default (): ReactElement => {
       <HorizontalLine style={tw`mx-8`} />
       <View style={tw`px-8 mt-2`}>
         <BitcoinPriceStats />
-        <View style={tw`pt-4`}>
-          <Text style={[tw`hidden h6`, tw.md`flex`]}>
-            {i18n('sell.subtitle')}
-            <Text style={tw`h6 text-primary-main`}> {i18n('sell')}</Text>?
-          </Text>
-        </View>
       </View>
       <SelectAmount
-        style={tw`h-full flex-shrink`}
+        style={tw`h-full flex-shrink mt-4 mb-2`}
         min={minTradingAmount}
         max={maxTradingAmount}
         value={amount}
