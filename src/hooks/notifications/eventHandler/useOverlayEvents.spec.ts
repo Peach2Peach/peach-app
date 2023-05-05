@@ -18,6 +18,17 @@ describe('useOverlayEvents', () => {
 
     expect(navigateMock).toHaveBeenCalledWith('newBadge', { badges })
   })
+  it('should not navigate to newBadge screen on "user.badge.unlocked" event if no badges are provided', () => {
+    const { result } = renderHook(useOverlayEvents, { wrapper: NavigationWrapper })
+
+    const data = {} as PNData
+    act(() => {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      result.current['user.badge.unlocked']!(data)
+    })
+
+    expect(navigateMock).not.toHaveBeenCalled()
+  })
   it('should navigate to offerPublished screen on "offer.escrowFunded" event', () => {
     const { result } = renderHook(useOverlayEvents, { wrapper: NavigationWrapper })
 
