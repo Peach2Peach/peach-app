@@ -4,6 +4,16 @@ import { QueryClientWrapper } from '../../../tests/unit/helpers/QueryClientWrapp
 import { settingsStore } from '../../store/settingsStore'
 import Buy from './Buy'
 
+const useMarketPricesMock = jest.fn().mockReturnValue({
+  data: {
+    EUR: 20000,
+    CHF: 21000,
+  },
+})
+jest.mock('../../hooks/query/useMarketPrices', () => ({
+  useMarketPrices: () => useMarketPricesMock(),
+}))
+
 const useBuySetupMock = jest.fn().mockResolvedValue({ freeTrades: 0, maxFreeTrades: 5 })
 jest.mock('./hooks/useBuySetup', () => ({
   useBuySetup: () => useBuySetupMock(),
