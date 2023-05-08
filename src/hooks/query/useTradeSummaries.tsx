@@ -3,10 +3,10 @@ import { useContractSummaries } from './useContractSummaries'
 import { useOfferSummaries } from './useOfferSummaries'
 
 export const useTradeSummaries = (enabled = true) => {
-  const { offers, isLoading: offersLoading, error: offersError, refetch: refetchOffers } = useOfferSummaries(enabled)
+  const { offers, isFetching: offersFetching, error: offersError, refetch: refetchOffers } = useOfferSummaries(enabled)
   const {
     contracts,
-    isLoading: contractsLoading,
+    isFetching: contractsFetching,
     error: contractsError,
     refetch: refetchContracts,
   } = useContractSummaries(enabled)
@@ -17,9 +17,9 @@ export const useTradeSummaries = (enabled = true) => {
   }, [refetchContracts, refetchOffers])
 
   return {
-    offers,
-    contracts,
-    isLoading: offersLoading || contractsLoading,
+    offers: offers || [],
+    contracts: contracts || [],
+    isFetching: offersFetching || contractsFetching,
     error: offersError || contractsError,
     refetch,
   }

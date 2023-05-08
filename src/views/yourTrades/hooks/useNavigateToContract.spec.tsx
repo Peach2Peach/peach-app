@@ -5,6 +5,7 @@ import { QueryClientWrapper, queryClient } from '../../../../tests/unit/helpers/
 import { OverlayContext, defaultOverlay } from '../../../contexts/overlay'
 import { useLocalContractStore } from '../../../store/useLocalContractStore'
 import { useNavigateToContract } from './useNavigateToContract'
+import { contractSummary } from '../../../../tests/unit/data/contractSummaryData'
 
 let overlay = defaultOverlay
 const updateOverlay = jest.fn((newOverlay) => {
@@ -29,38 +30,23 @@ describe('useNavigateToContract', () => {
     </QueryClientWrapper>
   )
 
-  const defaultContractSummary: ContractSummary = {
-    id: 'contractId',
-    offerId: 'offerId',
-    type: 'bid',
-    creationDate: new Date('2021-01-01'),
-    lastModified: new Date('2021-01-01'),
-    tradeStatus: 'dispute',
-    amount: 21000,
-    price: 21,
-    currency: 'EUR',
-    unreadMessages: 0,
-  }
-
   afterEach(() => {
     jest.clearAllMocks()
   })
 
   it('should navigate to the contract', async () => {
-    const { result } = renderHook(() => useNavigateToContract(defaultContractSummary), { wrapper: TestWrapper })
-    await waitFor(() =>
-      expect(queryClient.getQueryState(['contract', defaultContractSummary.id])?.status).toBe('success'),
-    )
+    const { result } = renderHook(() => useNavigateToContract(contractSummary), { wrapper: TestWrapper })
+    await waitFor(() => expect(queryClient.getQueryState(['contract', contractSummary.id])?.status).toBe('success'))
     await act(async () => {
       await result.current()
     })
 
-    expect(navigateMock).toHaveBeenCalledWith('contract', { contractId: defaultContractSummary.id })
+    expect(navigateMock).toHaveBeenCalledWith('contract', { contractId: contractSummary.id })
   })
   it('should show the dispute email popup if it has not been seen yet', async () => {
     useLocalContractStore.getState().setContract({ id: 'newContractId', hasSeenDisputeEmailPopup: false })
     getContractMock.mockResolvedValueOnce([{ ...contract, id: 'newContractId', disputeActive: true }, null])
-    const { result } = renderHook(() => useNavigateToContract({ ...defaultContractSummary, id: 'newContractId' }), {
+    const { result } = renderHook(() => useNavigateToContract({ ...contractSummary, id: 'newContractId' }), {
       wrapper: TestWrapper,
     })
 

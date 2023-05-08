@@ -7,7 +7,7 @@ const getContractSummariesQuery = async () => {
   const [contracts, error] = await getContractSummaries({})
 
   if (error) throw new Error(error.error)
-  return contracts || []
+  return contracts || undefined
 }
 
 export const useContractSummaries = (enabled = true) => {
@@ -15,16 +15,17 @@ export const useContractSummaries = (enabled = true) => {
     (state) => [state.contracts, state.setContracts, state.getLastModified],
     shallow,
   )
-  const { data, isLoading, error, refetch } = useQuery({
+  const { data, isLoading, isFetching, error, refetch } = useQuery({
     queryKey: ['contractSummaries'],
     queryFn: getContractSummariesQuery,
     enabled,
     initialData: contracts,
     initialDataUpdatedAt: getLastModified().getTime(),
     onSuccess: (result) => {
+      if (!result) return
       setContracts(result)
     },
   })
 
-  return { contracts: data, isLoading, error, refetch }
+  return { contracts: data, isLoading, isFetching, error, refetch }
 }
