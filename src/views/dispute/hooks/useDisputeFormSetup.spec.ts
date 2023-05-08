@@ -3,8 +3,8 @@ import { contract } from '../../../../tests/unit/data/contractData'
 import { contractIdToHex } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
 import { useDisputeFormSetup } from './useDisputeFormSetup'
+import { unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
 
-const apiError = { error: 'UNAUTHORIZED' }
 const defaultReason = 'other'
 const useRouteMock = jest.fn(() => ({
   params: {
@@ -158,11 +158,11 @@ describe('useDisputeFormSetup', () => {
     expect(navigateMock).toHaveBeenCalledWith('contractChat', { contractId: contract.id })
   })
   it('shows error if raising dispute was not successful', async () => {
-    submitRaiseDisputeMock.mockResolvedValueOnce([false, apiError])
+    submitRaiseDisputeMock.mockResolvedValueOnce([false, unauthorizedError])
     const { result } = renderHook(useDisputeFormSetup)
     fillAllFields(result.current)
     await actSubmit(result.current)
 
-    expect(showErrorBannerMock).toHaveBeenCalledWith(apiError.error)
+    expect(showErrorBannerMock).toHaveBeenCalledWith(unauthorizedError.error)
   })
 })
