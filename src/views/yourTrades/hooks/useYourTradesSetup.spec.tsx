@@ -4,10 +4,7 @@ import { QueryClientWrapper } from '../../../../tests/unit/helpers/QueryClientWr
 import { useYourTradesSetup } from './useYourTradesSetup'
 
 const useRouteMock = jest.fn(() => ({
-  params: {
-    origin: 'yourTrades',
-    paymentData: {},
-  },
+  params: {},
 }))
 
 jest.mock('../../../hooks/useRoute', () => ({
