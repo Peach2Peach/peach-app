@@ -7,6 +7,12 @@ import i18n from '../../utils/i18n'
 import { BuyViewProps } from './BuyPreferences'
 import { useBuySummarySetup } from './hooks/useBuySummarySetup'
 
+const getButtonTextId = (canPublish: boolean, isPublishing: boolean) => {
+  if (isPublishing) return 'offer.publishing'
+  if (canPublish) return 'offer.publish'
+  return 'next'
+}
+
 export default ({ offerDraft, setOfferDraft }: BuyViewProps): ReactElement => {
   const {
     peachWalletActive,
@@ -48,10 +54,9 @@ export default ({ offerDraft, setOfferDraft }: BuyViewProps): ReactElement => {
         narrow={!canPublish}
         disabled={peachWalletActive && !messageSignature}
         onPress={canPublish ? publishBuyOffer : goToSetupPayoutWallet}
-        iconId={canPublish ? 'uploadCloud' : undefined}
         loading={isPublishing}
       >
-        {i18n(canPublish ? 'offer.publish' : 'next')}
+        {i18n(getButtonTextId(canPublish, isPublishing))}
       </PrimaryButton>
     </PeachScrollView>
   )
