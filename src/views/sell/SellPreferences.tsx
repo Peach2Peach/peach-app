@@ -15,7 +15,7 @@ import { useFocusEffect } from '@react-navigation/native'
 export type SellViewProps = {
   offerDraft: SellOfferDraft
   setOfferDraft: Dispatch<SetStateAction<SellOfferDraft>>
-  next: () => void
+  next?: () => void
 }
 
 const screens = [

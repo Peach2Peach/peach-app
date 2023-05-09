@@ -36,10 +36,9 @@ export default ({ offerDraft, setOfferDraft }: SellViewProps): ReactElement => {
         testID="navigation-next"
         narrow={!canPublish}
         onPress={canPublish ? publishSellOffer : goToSetupRefundWallet}
-        iconId={canPublish ? 'uploadCloud' : undefined}
         loading={isPublishing}
       >
-        {i18n(canPublish ? 'offer.publish' : 'next')}
+        {i18n('next')}
       </PrimaryButton>
     </PeachScrollView>
   )
