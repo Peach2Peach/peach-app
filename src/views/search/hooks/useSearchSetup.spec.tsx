@@ -4,8 +4,6 @@ import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrap
 import { QueryClientWrapper } from '../../../../tests/unit/helpers/QueryClientWrapper'
 import { useSearchSetup } from './useSearchSetup'
 
-const useRouteMock = jest.fn(() => ({
-  params: {
 jest.mock('../../../hooks/useRoute', () => ({
   useRoute: () => ({
     params: {
