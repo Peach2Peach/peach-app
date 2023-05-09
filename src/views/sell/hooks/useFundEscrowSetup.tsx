@@ -1,11 +1,11 @@
 import { useEffect, useMemo } from 'react'
-import { CancelIcon, HelpIcon } from '../../../components/icons'
 import { useCancelOffer, useHeaderSetup, useRoute } from '../../../hooks'
 import { useFundingStatus } from '../../../hooks/query/useFundingStatus'
 import { useOfferDetails } from '../../../hooks/query/useOfferDetails'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { useShowHelp } from '../../../hooks/useShowHelp'
 import i18n from '../../../utils/i18n'
+import { headerIcons } from '../../../utils/layout/headerIcons'
 import { isSellOffer } from '../../../utils/offer'
 import { parseError } from '../../../utils/result'
 import { shouldGetFundingStatus } from '../helpers/shouldGetFundingStatus'
@@ -38,14 +38,14 @@ export const useFundEscrowSetup = () => {
           ? {
             title: i18n('sell.funding.mempool.title'),
             hideGoBackButton: true,
-            icons: [{ iconComponent: <HelpIcon />, onPress: showMempoolHelp }],
+            icons: [{ ...headerIcons.help, onPress: showMempoolHelp }],
           }
           : {
             title: i18n('sell.escrow.title'),
             hideGoBackButton: true,
             icons: [
-              { iconComponent: <CancelIcon />, onPress: cancelOffer },
-              { iconComponent: <HelpIcon />, onPress: showHelp },
+              { ...headerIcons.cancel, onPress: cancelOffer },
+              { ...headerIcons.help, onPress: showHelp },
             ],
           },
       [fundingStatus, cancelOffer, showHelp, showMempoolHelp],

@@ -2,12 +2,12 @@ import { useMemo, useState } from 'react'
 import { Keyboard } from 'react-native'
 import { shallow } from 'zustand/shallow'
 
-import { HelpIcon } from '../../../components/icons'
 import { useHeaderSetup, useNavigation, useValidatedState } from '../../../hooks'
 import { useShowHelp } from '../../../hooks/useShowHelp'
 import { useSettingsStore } from '../../../store/settingsStore'
 import { backupAccount } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
+import { headerIcons } from '../../../utils/layout/headerIcons'
 
 const passwordRules = { required: true, password: true }
 
@@ -21,7 +21,7 @@ export const usePasswordPromptSetup = (onSuccess: () => void) => {
   const showPopup = useShowHelp('yourPassword')
   useHeaderSetup({
     title: i18n('settings.backups.fileBackup.title'),
-    icons: [{ iconComponent: <HelpIcon />, onPress: showPopup }],
+    icons: [{ ...headerIcons.help, onPress: showPopup }],
   })
 
   const [password, setPassword, passwordIsValid, passwordError] = useValidatedState<string>('', passwordRules)
