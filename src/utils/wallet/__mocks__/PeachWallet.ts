@@ -27,4 +27,8 @@ export class PeachWallet {
   findKeyPairByAddress () {
     return undefined
   }
+
+  signMessage () {
+    return 'signature'
+  }
 }

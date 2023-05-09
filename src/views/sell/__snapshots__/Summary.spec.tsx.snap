@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Summary should render the Summary view 1`] = `
+<PeachScrollView
+  contentContainerStyle={
+    {
+      "alignItems": "center",
+      "flexGrow": 1,
+      "justifyContent": "center",
+      "paddingBottom": 28,
+      "paddingLeft": 32,
+      "paddingRight": 32,
+    }
+  }
+>
+  <View
+    style={
+      {
+        "flexGrow": 1,
+        "justifyContent": "center",
+      }
+    }
+  >
+    <SellOfferSummary
+      offer={
+        {
+          "amount": 1000000,
+          "creationDate": 2022-02-14T12:00:00.000Z,
+          "funding": {
+            "amounts": [],
+            "expiry": 4320,
+            "status": "NULL",
+            "txIds": [],
+            "vouts": [],
+          },
+          "meansOfPayment": {
+            "EUR": [
+              "sepa",
+            ],
+          },
+          "originalPaymentData": [],
+          "paymentData": {
+            "sepa": {
+              "hash": "TODO add payment hash",
+            },
+          },
+          "premium": 1.5,
+          "returnAddress": "returnAddress",
+          "type": "ask",
+        }
+      }
+    />
+  </View>
+  <PrimaryButton
+    loading={false}
+    narrow={false}
+    onPress={[Function]}
+    style={
+      {
+        "alignSelf": "center",
+        "marginTop": 16,
+      }
+    }
+    testID="navigation-next"
+  >
+    next
+  </PrimaryButton>
+</PeachScrollView>
+`;

@@ -1,11 +1,9 @@
-import { useMemo } from 'react'
-
 import { shallow } from 'zustand/shallow'
-import { HelpIcon } from '../../../components/icons'
 import { useHeaderSetup, useNavigation, useRoute, useValidatedState } from '../../../hooks'
 import { useShowHelp } from '../../../hooks/useShowHelp'
 import { useSettingsStore } from '../../../store/settingsStore'
 import i18n from '../../../utils/i18n'
+import { headerIcons } from '../../../utils/layout/headerIcons'
 
 const addressRules = { bitcoinAddress: true, blockTaprootAddress: true, required: true }
 const labelRules = { required: true }
@@ -29,15 +27,10 @@ export const usePayoutAddressSetup = () => {
   const isUpdated = address === payoutAddress && addressLabel === payoutAddressLabel
   const showHelp = useShowHelp('payoutAddress')
 
-  useHeaderSetup(
-    useMemo(
-      () => ({
-        title: i18n(title[type || 'payout']),
-        icons: [{ iconComponent: <HelpIcon />, onPress: showHelp }],
-      }),
-      [showHelp, type],
-    ),
-  )
+  useHeaderSetup({
+    title: i18n(title[type || 'payout']),
+    icons: [{ ...headerIcons.help, onPress: showHelp }],
+  })
 
   const save = () => {
     if (addressValid && addressLabelValid) {
