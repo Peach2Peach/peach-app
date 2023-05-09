@@ -1,0 +1,89 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Icon can handle color 1`] = `
+<test-file-stub
+  fill="#BADA55"
+  style={
+    [
+      {
+        "height": 24,
+        "width": 24,
+      },
+      undefined,
+    ]
+  }
+/>
+`;
+
+exports[`Icon can handle styles 1`] = `
+<test-file-stub
+  fill="#888"
+  style={
+    [
+      {
+        "height": 24,
+        "width": 24,
+      },
+      {
+        "height": 40,
+        "width": 40,
+      },
+    ]
+  }
+/>
+`;
+
+exports[`Icon can handle styles 2`] = `
+<test-file-stub
+  fill="#888"
+  style={
+    [
+      {
+        "height": 24,
+        "width": 24,
+      },
+      {
+        "width": 40,
+      },
+      {
+        "height": 40,
+      },
+    ]
+  }
+/>
+`;
+
+exports[`Icon renders ❌ if icon id is unknown 1`] = `
+<Text
+  allowFontScaling={false}
+  style={
+    [
+      {
+        "color": "#2B1911",
+        "fontFamily": "Baloo2-Regular",
+        "fontSize": 16,
+        "letterSpacing": 0.16,
+        "lineHeight": 24,
+      },
+      undefined,
+    ]
+  }
+>
+  ❌
+</Text>
+`;
+
+exports[`Icon should render correctly 1`] = `
+<test-file-stub
+  fill="#888"
+  style={
+    [
+      {
+        "height": 24,
+        "width": 24,
+      },
+      undefined,
+    ]
+  }
+/>
+`;
