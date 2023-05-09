@@ -1,7 +1,7 @@
-import { renderHook, waitFor } from '@testing-library/react-native'
+import { act, renderHook, waitFor } from '@testing-library/react-native'
 import { buyOffer } from '../../../../tests/unit/data/offerData'
 import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
-import { QueryClientWrapper } from '../../../../tests/unit/helpers/QueryClientWrapper'
+import { queryClient, QueryClientWrapper } from '../../../../tests/unit/helpers/QueryClientWrapper'
 import { useSearchSetup } from './useSearchSetup'
 
 jest.mock('../../../hooks/useRoute', () => ({
@@ -42,9 +42,12 @@ describe('useSearchSetup', () => {
     jest.clearAllMocks()
   })
 
-  it('should return defaults', () => {
+  it('should return defaults', async () => {
     const { result } = renderHook(useSearchSetup, { wrapper })
     expect(result.current).toEqual({ offer: undefined, hasMatches: false })
+    await act(async () => {
+      await waitFor(() => expect(queryClient.isFetching()).toBe(0))
+    })
   })
   it('should load offer and matches', async () => {
     const { result } = renderHook(useSearchSetup, { wrapper })
