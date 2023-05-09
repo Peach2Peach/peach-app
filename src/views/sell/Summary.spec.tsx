@@ -1,7 +1,6 @@
-import { sellOffer } from '../../../tests/unit/data/offerData'
-import { defaultFundingStatus } from '../../utils/offer/constants'
-import Summary from './Summary'
 import { createRenderer } from 'react-test-renderer/shallow'
+import { getSellOfferDraft } from '../../../tests/unit/data/offerDraftData'
+import Summary from './Summary'
 
 const returnAddress = 'returnAddress'
 const walletLabel = 'walletLabel'
@@ -23,17 +22,7 @@ jest.mock('./hooks/useSellSummarySetup', () => ({
 jest.useFakeTimers({ now: new Date('2022-02-14T12:00:00.000Z') })
 
 describe('Summary', () => {
-  const offerDraft: SellOfferDraft = {
-    creationDate: new Date(),
-    type: 'ask',
-    amount: 1000000,
-    premium: 1.5,
-    returnAddress,
-    paymentData: sellOffer.paymentData,
-    funding: defaultFundingStatus,
-    meansOfPayment: sellOffer.meansOfPayment,
-    originalPaymentData: sellOffer.originalPaymentData,
-  }
+  const offerDraft = getSellOfferDraft()
   const setOfferDraft = jest.fn()
   const renderer = createRenderer()
 
