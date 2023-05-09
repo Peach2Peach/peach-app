@@ -6,12 +6,12 @@ import { useSearchSetup } from './useSearchSetup'
 
 const useRouteMock = jest.fn(() => ({
   params: {
-    offerId: '11',
-  },
-}))
-
 jest.mock('../../../hooks/useRoute', () => ({
-  useRoute: () => useRouteMock(),
+  useRoute: () => ({
+    params: {
+      offerId: '11',
+    },
+  }),
 }))
 
 const match: Partial<Match> = {
