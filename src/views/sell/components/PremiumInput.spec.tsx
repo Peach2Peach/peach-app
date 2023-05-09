@@ -18,7 +18,7 @@ describe('PremiumInput', () => {
     const result = renderer.getRenderOutput()
     expect(result).toMatchSnapshot()
   })
-  it('should render the PremiumInput view with 0 discount', () => {
+  it('should render the PremiumInput view with discount', () => {
     renderer.render(<PremiumInput premium="-3.2" setPremium={setPremiumMock} />)
     const result = renderer.getRenderOutput()
     expect(result).toMatchSnapshot()
