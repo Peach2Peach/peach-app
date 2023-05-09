@@ -3,6 +3,7 @@ import { contract } from '../../../tests/unit/data/contractData'
 import i18n from '../../utils/i18n'
 import { ConfirmCancelTradeRequest } from './ConfirmCancelTradeRequest'
 import { useConfirmTradeCancelationOverlay } from './useConfirmTradeCancelationOverlay'
+import { apiSuccess, unauthorizedError } from '../../../tests/unit/data/peachAPIData'
 
 const updateOverlayMock = jest.fn()
 const useOverlayContextMock = jest.fn().mockReturnValue([, updateOverlayMock])
@@ -26,8 +27,6 @@ jest.mock('../../hooks/useShowLoadingOverlay', () => ({
   useShowLoadingOverlay: () => useShowLoadingOverlayMock(),
 }))
 
-const apiSuccess = { success: true }
-const apiError = { error: 'UNAUTHORIZED' }
 const confirmContractCancelationMock = jest.fn().mockResolvedValue([apiSuccess, null])
 const rejectContractCancelationMock = jest.fn().mockResolvedValue([apiSuccess, null])
 jest.mock('../../utils/peachAPI', () => ({
@@ -107,7 +106,7 @@ describe('useConfirmTradeCancelationOverlay', () => {
     expect(replaceMock).toHaveBeenCalledWith('contract', { contractId: contract.id, contract: expectedContractUpdate })
   })
   it('handles cancel trade errors', async () => {
-    confirmContractCancelationMock.mockResolvedValueOnce([null, apiError])
+    confirmContractCancelationMock.mockResolvedValueOnce([null, unauthorizedError])
     const { result } = renderHook(useConfirmTradeCancelationOverlay)
 
     await result.current.cancelTrade(contract)
@@ -116,7 +115,7 @@ describe('useConfirmTradeCancelationOverlay', () => {
 
     expect(updateOverlayMock).toHaveBeenCalledWith({ visible: false })
     expect(replaceMock).not.toHaveBeenCalled()
-    expect(showErrorBannerMock).toHaveBeenCalledWith(apiError.error)
+    expect(showErrorBannerMock).toHaveBeenCalledWith(unauthorizedError.error)
   })
   it('continues trade', async () => {
     const expectedContractUpdate = {
@@ -141,7 +140,7 @@ describe('useConfirmTradeCancelationOverlay', () => {
     })
   })
   it('handles continue trade errors', async () => {
-    rejectContractCancelationMock.mockResolvedValueOnce([null, apiError])
+    rejectContractCancelationMock.mockResolvedValueOnce([null, unauthorizedError])
     const { result } = renderHook(useConfirmTradeCancelationOverlay)
 
     await result.current.continueTrade(contract)
@@ -150,6 +149,6 @@ describe('useConfirmTradeCancelationOverlay', () => {
 
     expect(updateOverlayMock).toHaveBeenCalledWith({ visible: false })
     expect(replaceMock).not.toHaveBeenCalled()
-    expect(showErrorBannerMock).toHaveBeenCalledWith(apiError.error)
+    expect(showErrorBannerMock).toHaveBeenCalledWith(unauthorizedError.error)
   })
 })

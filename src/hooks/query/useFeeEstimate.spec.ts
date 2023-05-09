@@ -2,10 +2,10 @@ import { renderHook, waitFor } from '@testing-library/react-native'
 import { queryClient, QueryClientWrapper } from '../../../tests/unit/helpers/QueryClientWrapper'
 import { placeholderFees, useFeeEstimate } from './useFeeEstimate'
 import { estimatedFees } from '../../../tests/unit/data/bitcoinNetworkData'
+import { unauthorizedError } from '../../../tests/unit/data/peachAPIData'
 
 jest.useFakeTimers()
 
-const apiError = { error: 'UNAUTHORIZED' }
 const getFeeEstimateMock = jest.fn().mockResolvedValue([estimatedFees])
 jest.mock('../../utils/peachAPI', () => ({
   getFeeEstimate: () => getFeeEstimateMock(),
@@ -34,7 +34,7 @@ describe('useFeeEstimate', () => {
     })
   })
   it('returns error if server did not return result', async () => {
-    getFeeEstimateMock.mockResolvedValueOnce([null, apiError])
+    getFeeEstimateMock.mockResolvedValueOnce([null, unauthorizedError])
     const { result } = renderHook(useFeeEstimate, {
       wrapper: QueryClientWrapper,
     })
@@ -48,7 +48,7 @@ describe('useFeeEstimate', () => {
     expect(result.current).toEqual({
       estimatedFees: placeholderFees,
       isLoading: false,
-      error: new Error(apiError.error),
+      error: new Error(unauthorizedError.error),
     })
   })
 })

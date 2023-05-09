@@ -3,6 +3,7 @@ import { act, renderHook } from '@testing-library/react-native'
 import { estimatedFees } from '../../../../tests/unit/data/bitcoinNetworkData'
 import { settingsStore } from '../../../store/settingsStore'
 import { useNetworkFeesSetup } from './useNetworkFeesSetup'
+import { apiSuccess, unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
 
 jest.mock('@react-navigation/native', () => ({
   useFocusEffect: jest.fn(),
@@ -29,8 +30,6 @@ jest.mock('../../../hooks/query/useFeeEstimate', () => ({
   }),
 }))
 
-const apiSuccess = { success: true }
-const apiError = { error: 'UNAUTHORIZED' }
 const updateUserMock = jest.fn().mockResolvedValue([apiSuccess])
 jest.mock('../../../utils/peachAPI', () => ({
   updateUser: (...args: any[]) => updateUserMock(...args),
@@ -136,12 +135,12 @@ describe('useNetworkFeesSetup', () => {
     expect(settingsStore.getState().feeRate).toEqual(4)
   })
   it('handles request errors', async () => {
-    updateUserMock.mockResolvedValueOnce([null, apiError])
+    updateUserMock.mockResolvedValueOnce([null, unauthorizedError])
     const { result } = renderHook(useNetworkFeesSetup)
 
     await result.current.submit()
     expect(updateMessageMock).toHaveBeenCalledWith({
-      msgKey: apiError.error,
+      msgKey: unauthorizedError.error,
       level: 'ERROR',
     })
   })
