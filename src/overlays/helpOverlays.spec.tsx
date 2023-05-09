@@ -1,11 +1,10 @@
 import i18n from '../utils/i18n'
-import { helpOverlays } from './helpOverlays'
 import { PayoutAddressPopup } from '../views/settings/components/PayoutAddressPopup'
-import { AcceptMatchPopup } from './AcceptMatchPopup'
+import { AcceptMatchPopup } from './info/AcceptMatchPopup'
 import { CashTrades } from './CashTrades'
 import { FileBackupPopup } from './FileBackupPopup'
+import { helpOverlays } from './helpOverlays'
 import { AddressSigning } from './info/AddressSigning'
-import { BuyingAndSelling } from './info/BuyingAndSelling'
 import { BuyingBitcoin } from './info/BuyingBitcoin'
 import { ConfirmPayment } from './info/ConfirmPayment'
 import { CurrenciesHelp } from './info/CurrenciesHelp'
@@ -19,6 +18,7 @@ import { PaymentMethodsHelp } from './info/PaymentMethodsHelp'
 import { Premium } from './info/Premium'
 import { ReferralsHelp } from './info/ReferralsHelp'
 import { SeedPhrasePopup } from './info/SeedPhrasePopup'
+import { SellingBitcoin } from './info/SellingBitcoin'
 import { TradingLimit } from './info/TradingLimit'
 import { WithdrawingFundsHelp } from './info/WithdrawingFundsHelp'
 import { YourPassword } from './info/YourPassword'
@@ -35,8 +35,8 @@ describe('HelpOverlays', () => {
   })
 
   it('should have the correct buying and selling help overlay', () => {
-    expect(helpOverlays.buyingAndSelling.title).toBe(i18n('help.buyingAndSelling.title'))
-    expect(helpOverlays.buyingAndSelling.content).toBe(BuyingAndSelling)
+    expect(helpOverlays.sellingBitcoin.title).toBe('selling bitcoin')
+    expect(helpOverlays.sellingBitcoin.content).toBe(SellingBitcoin)
   })
 
   it('should have the correct buying bitcoin help overlay', () => {
