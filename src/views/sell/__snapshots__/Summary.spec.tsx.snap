@@ -25,7 +25,7 @@ exports[`Summary should render the Summary view 1`] = `
       offer={
         {
           "amount": 1000000,
-          "creationDate": 2023-05-09T11:58:45.024Z,
+          "creationDate": 2022-02-14T12:00:00.000Z,
           "funding": {
             "amounts": [],
             "expiry": 4320,
@@ -52,7 +52,6 @@ exports[`Summary should render the Summary view 1`] = `
     />
   </View>
   <PrimaryButton
-    iconId="uploadCloud"
     loading={false}
     narrow={false}
     onPress={[Function]}

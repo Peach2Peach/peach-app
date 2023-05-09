@@ -20,6 +20,8 @@ jest.mock('./hooks/useSellSummarySetup', () => ({
   useSellSummarySetup: (...args: any[]) => useSellSummarySetupMock(...args),
 }))
 
+jest.useFakeTimers({ now: new Date('2022-02-14T12:00:00.000Z') })
+
 describe('Summary', () => {
   const offerDraft: SellOfferDraft = {
     creationDate: new Date(),
