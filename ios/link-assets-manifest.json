@@ -1,0 +1,29 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "assets/fonts/Baloo2-Bold.ttf",
+      "sha1": "c60e3b0be073a798d994633cfce11230f4cd5e41"
+    },
+    {
+      "path": "assets/fonts/Baloo2-Medium.ttf",
+      "sha1": "0c8db0b372caeea37f43a43b8b4773e8c386c964"
+    },
+    {
+      "path": "assets/fonts/Baloo2-Regular.ttf",
+      "sha1": "a58508e77570775950005c50f9653a17243aa6d1"
+    },
+    {
+      "path": "assets/fonts/Baloo2-SemiBold.ttf",
+      "sha1": "d80f6e2549f67d9032d1477e4244a8f13cc9d718"
+    },
+    {
+      "path": "assets/fonts/CourierPrime-Bold.ttf",
+      "sha1": "1787caeab5b89292549e4ffb01160482b70b1c78"
+    },
+    {
+      "path": "assets/fonts/CourierPrime-Regular.ttf",
+      "sha1": "058ff28e6a1010e7eb9109014e44c75ed2ec10cc"
+    }
+  ]
+}

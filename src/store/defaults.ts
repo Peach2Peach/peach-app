@@ -9,6 +9,7 @@ export const defaultConfig: Config = {
   latestAppVersion: APPVERSION,
   minTradingAmount: 0,
   maxTradingAmount: Infinity,
+  seenDisputeDisclaimer: false,
 }
 
 export const defaultSettings: Settings = {

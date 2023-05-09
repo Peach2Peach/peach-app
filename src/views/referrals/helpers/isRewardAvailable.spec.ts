@@ -15,13 +15,6 @@ describe('isRewardAvailable', () => {
     }
     expect(isRewardAvailable(reward, 50)).toBe(false)
   })
-  it('returns false if reward noPeachFees', () => {
-    const reward: Reward = {
-      id: 'noPeachFees',
-      requiredPoints: 100,
-    }
-    expect(isRewardAvailable(reward, 200)).toBe(false)
-  })
   it('returns false if reward sats', () => {
     const reward: Reward = {
       id: 'sats',

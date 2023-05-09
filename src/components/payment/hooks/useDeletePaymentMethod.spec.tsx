@@ -1,21 +1,19 @@
-import { useDeletePaymentMethod } from './useDeletePaymentMethod'
 import { renderHook } from '@testing-library/react-native'
+import { goBackMock, NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { defaultOverlay, OverlayContext } from '../../../contexts/overlay'
-import { NavigationContext } from '@react-navigation/native'
 import { DeletePaymentMethodConfirm } from '../../../overlays/info/DeletePaymentMethodConfirm'
-import i18n from '../../../utils/i18n'
 import { account, setAccount } from '../../../utils/account'
+import i18n from '../../../utils/i18n'
+import { useDeletePaymentMethod } from './useDeletePaymentMethod'
 
 let overlay = defaultOverlay
 const updateOverlay = jest.fn((newOverlay) => {
   overlay = newOverlay
 })
-const goBackMock = jest.fn()
 const wrapper = ({ children }: { children: JSX.Element }) => (
-  // @ts-ignore
-  <NavigationContext.Provider value={{ goBack: goBackMock }}>
+  <NavigationWrapper>
     <OverlayContext.Provider value={[overlay, updateOverlay]}>{children}</OverlayContext.Provider>
-  </NavigationContext.Provider>
+  </NavigationWrapper>
 )
 
 describe('useDeletePaymentMethod', () => {

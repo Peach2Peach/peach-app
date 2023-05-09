@@ -1,11 +1,6 @@
-import { NewBadges } from './Badges'
 import { render } from '@testing-library/react-native'
-import { NavigationContext } from '@react-navigation/native'
-
-const navigationWrapper: React.ComponentType<any> | undefined = ({ children }: any) => (
-  // @ts-ignore
-  <NavigationContext.Provider value={{ navigate: jest.fn() }}>{children}</NavigationContext.Provider>
-)
+import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { NewBadges } from './Badges'
 
 jest.mock('./Badge', () => ({
   Badge: 'Badge',
@@ -13,15 +8,13 @@ jest.mock('./Badge', () => ({
 
 describe('Badges', () => {
   it('should render correctly', () => {
-    const { toJSON } = render(<NewBadges user={{ medals: [] } as unknown as User} />, { wrapper: navigationWrapper })
+    const { toJSON } = render(<NewBadges user={{ medals: [] } as unknown as User} />, { wrapper: NavigationWrapper })
     expect(toJSON()).toMatchSnapshot()
   })
   it('should render correctly with unlocked badges', () => {
     const { toJSON } = render(
       <NewBadges user={{ medals: ['ambassador', 'superTrader', 'fastTrader'] } as unknown as User} />,
-      {
-        wrapper: navigationWrapper,
-      },
+      { wrapper: NavigationWrapper },
     )
     expect(toJSON()).toMatchSnapshot()
   })

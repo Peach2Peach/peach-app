@@ -5,7 +5,7 @@ import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
 import i18n from '../../utils/i18n'
 import { redeemReferralCode } from '../../utils/peachAPI'
 import { SetCustomReferralCode } from './SetCustomReferralCode'
-import { SetCustomReferralCodeSuccess } from './SetCustomReferralCodeSucess'
+import { SetCustomReferralCodeSuccess } from './SetCustomReferralCodeSuccess'
 
 export const useSetCustomReferralCodeOverlay = () => {
   const [, updateOverlay] = useOverlayContext()

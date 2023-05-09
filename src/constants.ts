@@ -2,12 +2,11 @@ import { getBuildNumber, getUniqueIdSync, getVersion, isEmulatorSync } from 'rea
 import { unique } from './utils/array'
 import { sha256 } from './utils/crypto/sha256'
 import { isCashTrade } from './utils/paymentMethod/isCashTrade'
+import { IconType } from './assets/icons'
 
 export const SATSINBTC = 100000000
 export const MSINADAY = 86400000
 export const MSINANHOUR = 3600000
-
-export const MAXMININGFEE = 20000
 
 // time go automatically restart app when calling app from background after this time has passed
 export const TIMETORESTART = 1000 * 60 * 5
@@ -139,3 +138,9 @@ export const INSTAGRAM = 'https://www.instagram.com/peachbitcoin'
 export const TELEGRAM = 'https://t.me/+3KpdrMw25xBhNGJk'
 export const DISCORD = 'https://discord.gg/skP9zqTB'
 export const TWITCH = 'https://www.twitch.tv/peachbitcoin'
+
+export const badgeIconMap: Record<Medal, IconType> = {
+  superTrader: 'star',
+  fastTrader: 'zap',
+  ambassador: 'award',
+}

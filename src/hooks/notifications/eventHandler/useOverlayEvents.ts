@@ -8,9 +8,14 @@ export const useOverlayEvents = () => {
 
   const overlayEvents: PNEventHandlers = useMemo(
     () => ({
+      // PN-U01
+      'user.badge.unlocked': ({ badges }: PNData) => (badges ? navigation.navigate('newBadge', { badges }) : undefined),
       // PN-S03
       'offer.escrowFunded': ({ offerId }: PNData) =>
-        offerId ? navigation.navigate('offerPublished', { isSellOffer: true, shouldGoBack: true }) : null,
+        offerId ? navigation.navigate('offerPublished', { isSellOffer: true, shouldGoBack: true }) : undefined,
+      // PN-S11
+      'contract.paymentMade': ({ contractId }: PNData) =>
+        contractId ? navigation.navigate('paymentMade', { contractId }) : undefined,
     }),
     [navigation],
   )

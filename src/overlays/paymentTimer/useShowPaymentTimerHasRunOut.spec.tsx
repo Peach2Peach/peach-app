@@ -1,17 +1,17 @@
-import { useShowPaymentTimerHasRunOut } from './useShowPaymentTimerHasRunOut'
 import { act, renderHook } from '@testing-library/react-native'
-import { defaultOverlay, OverlayContext } from '../../contexts/overlay'
-import i18n from '../../utils/i18n'
-import { PaymentTimerHasRunOut } from './PaymentTimerHasRunOut'
-import { contract } from '../../../tests/unit/data/contractData'
-import { NavigationContext } from '@react-navigation/native'
-import { defaultMessageState, MessageContext } from '../../contexts/message'
-import { setAccount } from '../../utils/account'
-import { setPeachWallet } from '../../utils/wallet/setWallet'
 import { account1 } from '../../../tests/unit/data/accountData'
+import { contract } from '../../../tests/unit/data/contractData'
 import { sellOffer } from '../../../tests/unit/data/offerData'
+import { NavigationWrapper, navigateMock, replaceMock } from '../../../tests/unit/helpers/NavigationWrapper'
+import { MessageContext, defaultMessageState } from '../../contexts/message'
+import { OverlayContext, defaultOverlay } from '../../contexts/overlay'
+import { setAccount } from '../../utils/account'
 import { getSellOfferIdFromContract } from '../../utils/contract'
+import i18n from '../../utils/i18n'
 import { PeachWallet } from '../../utils/wallet/PeachWallet'
+import { setPeachWallet } from '../../utils/wallet/setWallet'
+import { PaymentTimerHasRunOut } from './PaymentTimerHasRunOut'
+import { useShowPaymentTimerHasRunOut } from './useShowPaymentTimerHasRunOut'
 
 let overlay = defaultOverlay
 const updateOverlay = jest.fn((newOverlay) => {
@@ -19,15 +19,6 @@ const updateOverlay = jest.fn((newOverlay) => {
 })
 const OverlayWrapper = ({ children }: { children: any }) => (
   <OverlayContext.Provider value={[overlay, updateOverlay]}>{children}</OverlayContext.Provider>
-)
-
-const mockNavigate = jest.fn()
-const mockReplace = jest.fn()
-const NavigationWrapper = ({ children }: { children: any }) => (
-  // @ts-ignore
-  <NavigationContext.Provider value={{ navigate: mockNavigate, replace: mockReplace }}>
-    {children}
-  </NavigationContext.Provider>
 )
 
 let messageState = defaultMessageState
@@ -135,7 +126,7 @@ describe('useShowPaymentTimerHasRunOut', () => {
       overlay?.action1?.callback()
     })
     expect(overlay.visible).toBe(false)
-    expect(mockNavigate).toHaveBeenCalledWith('contract', {
+    expect(navigateMock).toHaveBeenCalledWith('contract', {
       contractId: contract.id,
     })
   })
@@ -160,7 +151,7 @@ describe('useShowPaymentTimerHasRunOut', () => {
     expect(mockCancelContract).toHaveBeenCalledWith({ contractId: contract.id })
 
     expect(overlay.visible).toBe(false)
-    expect(mockReplace).toHaveBeenCalledWith('contract', { contractId: contract.id })
+    expect(replaceMock).toHaveBeenCalledWith('contract', { contractId: contract.id })
   })
   it('should grant the buyer extra time when the extra time action is called', async () => {
     const { result } = renderHook(useShowPaymentTimerHasRunOut, {
