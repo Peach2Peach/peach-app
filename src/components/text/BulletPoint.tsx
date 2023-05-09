@@ -2,7 +2,7 @@ import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 import { PeachText } from './Text'
 
-type Props = { text: String }
+type Props = { text: string }
 
 export const BulletPoint = ({ text }: Props) => (
   <View style={tw`flex-row pl-3`}>
