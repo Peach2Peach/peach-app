@@ -44,7 +44,7 @@ export default ({ offerDraft, setOfferDraft, next }: SellViewProps) => {
           </View>
           {!!currentPrice && (
             <Text style={tw`mt-1 text-center text-black-2`}>
-              ({i18n('sell.premium.currently', `${displayCurrency} ${priceFormat(currentPrice)}`)})
+              ({i18n('sell.premium.currently', `${priceFormat(currentPrice)} ${displayCurrency}`)})
             </Text>
           )}
         </View>
