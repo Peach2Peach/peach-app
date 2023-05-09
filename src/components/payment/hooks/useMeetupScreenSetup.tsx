@@ -4,13 +4,10 @@ import { useGoToOrigin } from '../../../hooks/useGoToOrigin'
 import { useShowHelp } from '../../../hooks/useShowHelp'
 import { useMeetupEventsStore } from '../../../store/meetupEventsStore'
 import { account, addPaymentData } from '../../../utils/account'
+import { headerIcons } from '../../../utils/layout/headerIcons'
 import { getPaymentMethodInfo } from '../../../utils/paymentMethod'
 import { openAppLink } from '../../../utils/web'
-import { HelpIcon } from '../../icons'
-import { DeleteIcon } from '../../icons/DeleteIcon'
 import { useDeletePaymentMethod } from './useDeletePaymentMethod'
-import tw from '../../../styles/tailwind'
-import { headerIcons } from '../../../utils/layout/headerIcons'
 
 export const useMeetupScreenSetup = () => {
   const route = useRoute<'meetupScreen'>()

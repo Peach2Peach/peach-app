@@ -1,14 +1,12 @@
-import { useMemo, useState } from 'react'
-
-import { HelpIcon } from '../../../components/icons'
+import { useState } from 'react'
 import { useHeaderSetup } from '../../../hooks'
 import { useSelfUser } from '../../../hooks/query/useSelfUser'
 import { useShowHelp } from '../../../hooks/useShowHelp'
+import { useRedeemNoPeachFeesReward } from '../../../overlays/referral/useRedeemNoPeachFeesReward'
 import { useSetCustomReferralCodeOverlay } from '../../../overlays/referral/useSetCustomReferralCodeOverlay'
 import i18n from '../../../utils/i18n'
-import { isRewardAvailable } from '../helpers/isRewardAvailable'
-import { useRedeemNoPeachFeesReward } from '../../../overlays/referral/useRedeemNoPeachFeesReward'
 import { headerIcons } from '../../../utils/layout/headerIcons'
+import { isRewardAvailable } from '../helpers/isRewardAvailable'
 
 const BARLIMIT = 400
 const REWARDINFO: Reward[] = [
