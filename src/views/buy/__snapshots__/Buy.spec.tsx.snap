@@ -98,7 +98,7 @@ exports[`Buy should render correctly 1`] = `
                   "fontFamily": "Baloo2-Regular",
                   "fontSize": 16,
                   "letterSpacing": 0.16,
-                  "lineHeight": 24,
+                  "lineHeight": 28,
                 },
                 {
                   "fontFamily": "Baloo2-Regular",
@@ -178,7 +178,7 @@ exports[`Buy should render correctly 1`] = `
                   "fontFamily": "Baloo2-Regular",
                   "fontSize": 16,
                   "letterSpacing": 0.16,
-                  "lineHeight": 24,
+                  "lineHeight": 28,
                 },
                 {
                   "fontFamily": "Baloo2-Regular",
@@ -1628,7 +1628,7 @@ exports[`Buy should render correctly with free trades 1`] = `
                   "fontFamily": "Baloo2-Regular",
                   "fontSize": 16,
                   "letterSpacing": 0.16,
-                  "lineHeight": 24,
+                  "lineHeight": 28,
                 },
                 {
                   "fontFamily": "Baloo2-Regular",
@@ -1708,7 +1708,7 @@ exports[`Buy should render correctly with free trades 1`] = `
                   "fontFamily": "Baloo2-Regular",
                   "fontSize": 16,
                   "letterSpacing": 0.16,
-                  "lineHeight": 24,
+                  "lineHeight": 28,
                 },
                 {
                   "fontFamily": "Baloo2-Regular",

@@ -10,6 +10,8 @@ const wrapper = ({ children }: ComponentProps) => (
   </NavigationWrapper>
 )
 
+jest.useFakeTimers()
+
 describe('MyProfile', () => {
   beforeEach(() => {
     jest.clearAllMocks()
