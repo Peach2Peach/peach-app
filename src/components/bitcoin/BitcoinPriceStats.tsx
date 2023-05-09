@@ -14,7 +14,7 @@ export const BitcoinPriceStats = () => {
   )
   const colStyle = [tw`flex-row items-center gap-2`, tw.md`flex-col items-start gap-0`]
   const unitStyle = tw`subtitle-1`
-  const valueStyle = [tw`body-m text-primary-main`, tw.md`body-l`]
+  const valueStyle = [tw`body-m text-primary-main leading-xl`, tw.md`body-l`]
 
   return (
     <View style={tw`flex-row justify-between`}>
