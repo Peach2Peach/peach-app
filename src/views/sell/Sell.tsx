@@ -21,7 +21,7 @@ export default (): ReactElement => {
 
   const showCorrectBackupReminder = useShowBackupReminder()
 
-  useSellSetup({ help: 'buyingAndSelling', hideGoBackButton: true })
+  useSellSetup({ help: 'sellingBitcoin', hideGoBackButton: true })
 
   const [showBackupReminder, sellAmount, setSellAmount] = useSettingsStore(
     (state) => [state.showBackupReminder, state.sellAmount, state.setSellAmount],
