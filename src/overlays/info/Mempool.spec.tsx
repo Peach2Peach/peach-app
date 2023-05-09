@@ -1,10 +1,10 @@
 import ShallowRenderer from 'react-test-renderer/shallow'
-import { PayoutAddressPopup } from './PayoutAddressPopup'
+import { Mempool } from './Mempool'
 
-describe('PayoutAddressPopup', () => {
+describe('Mempool', () => {
   const renderer = ShallowRenderer.createRenderer()
   it('renders correctly', () => {
-    renderer.render(<PayoutAddressPopup />)
+    renderer.render(<Mempool />)
     expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
 })
