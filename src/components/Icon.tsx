@@ -4,7 +4,7 @@ import { Text } from '.'
 import tw from '../styles/tailwind'
 import Icons, { IconType } from '../assets/icons'
 
-type IconProps = ComponentProps & {
+type Props = ComponentProps & {
   id: IconType
   color?: FillProps['fill']
 }
@@ -17,10 +17,11 @@ type IconProps = ComponentProps & {
  *   color={tw`text-black-1`.color}
  * />
  */
-export const Icon = ({ id, style, color }: IconProps): ReactElement => {
+export const Icon = ({ id, style, color }: Props): ReactElement => {
   const SVG = Icons[id]
+  const iconStyle = Array.isArray(style) ? style : [style]
 
-  return SVG ? <SVG style={[tw`w-6 h-6`, style]} fill={color || '#888'} /> : <Text>❌</Text>
+  return SVG ? <SVG style={[tw`w-6 h-6`, ...iconStyle]} fill={color || '#888'} /> : <Text>❌</Text>
 }
 
 export default Icon
