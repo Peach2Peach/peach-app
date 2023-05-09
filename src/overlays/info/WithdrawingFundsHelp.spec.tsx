@@ -1,10 +1,10 @@
 import ShallowRenderer from 'react-test-renderer/shallow'
-import { PayoutAddressPopup } from './PayoutAddressPopup'
+import { WithdrawingFundsHelp } from './WithdrawingFundsHelp'
 
-describe('PayoutAddressPopup', () => {
+describe('WithdrawingFundsHelp', () => {
   const renderer = ShallowRenderer.createRenderer()
   it('renders correctly', () => {
-    renderer.render(<PayoutAddressPopup />)
+    renderer.render(<WithdrawingFundsHelp />)
     expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
 })

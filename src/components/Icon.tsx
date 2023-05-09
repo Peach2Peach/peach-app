@@ -1,8 +1,8 @@
 import { ReactElement } from 'react'
 import { FillProps } from 'react-native-svg'
-import { PeachText } from './text/Text'
-import tw from '../styles/tailwind'
 import Icons, { IconType } from '../assets/icons'
+import tw from '../styles/tailwind'
+import { PeachText } from './text/Text'
 
 type IconProps = ComponentProps & {
   id: IconType
