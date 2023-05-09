@@ -28,7 +28,7 @@ exports[`Summary should render correctly when publishing 1`] = `
             100000,
             1000000,
           ],
-          "creationDate": 2022-12-30T23:00:00.000Z,
+          "creationDate": 2023-03-01T13:39:55.942Z,
           "meansOfPayment": {
             "CHF": [
               "sepa",
@@ -94,7 +94,7 @@ exports[`Summary should render correctly while peach wallet is still signing mes
             100000,
             1000000,
           ],
-          "creationDate": 2022-12-30T23:00:00.000Z,
+          "creationDate": 2023-03-01T13:39:55.942Z,
           "meansOfPayment": {
             "CHF": [
               "sepa",
@@ -161,7 +161,7 @@ exports[`Summary should render correctly with custom payout wallet and signature
             100000,
             1000000,
           ],
-          "creationDate": 2022-12-30T23:00:00.000Z,
+          "creationDate": 2023-03-01T13:39:55.942Z,
           "meansOfPayment": {
             "CHF": [
               "sepa",
@@ -228,7 +228,7 @@ exports[`Summary should render the Summary view 1`] = `
             100000,
             1000000,
           ],
-          "creationDate": 2022-12-30T23:00:00.000Z,
+          "creationDate": 2023-03-01T13:39:55.942Z,
           "meansOfPayment": {
             "CHF": [
               "sepa",
