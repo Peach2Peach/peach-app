@@ -1,68 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`PremiumInput should render the PremiumInput view with 0 discount 1`] = `
-<View
-  style={
-    [
-      {
-        "alignItems": "center",
-        "flexDirection": "row",
-        "justifyContent": "center",
-      },
-      undefined,
-    ]
-  }
->
-  <PeachText
-    style={
-      [
-        {
-          "lineHeight": 32,
-        },
-        {
-          "color": "#F56522",
-        },
-      ]
-    }
-  >
-    discount
-    :
-  </PeachText>
-  <View
-    style={
-      {
-        "height": 40,
-        "marginLeft": 8,
-      }
-    }
-  >
-    <Input
-      icons={
-        [
-          [
-            "percent",
-            [Function],
-          ],
-        ]
-      }
-      inputStyle={
-        {
-          "textAlign": "right",
-        }
-      }
-      keyboardType="numeric"
-      onChange={[MockFunction]}
-      style={
-        {
-          "width": 96,
-        }
-      }
-      value="-3.2"
-    />
-  </View>
-</View>
-`;
-
 exports[`PremiumInput should render the PremiumInput view with 0 premium 1`] = `
 <View
   style={
@@ -121,6 +58,69 @@ exports[`PremiumInput should render the PremiumInput view with 0 premium 1`] = `
         }
       }
       value="0"
+    />
+  </View>
+</View>
+`;
+
+exports[`PremiumInput should render the PremiumInput view with discount 1`] = `
+<View
+  style={
+    [
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "justifyContent": "center",
+      },
+      undefined,
+    ]
+  }
+>
+  <PeachText
+    style={
+      [
+        {
+          "lineHeight": 32,
+        },
+        {
+          "color": "#F56522",
+        },
+      ]
+    }
+  >
+    discount
+    :
+  </PeachText>
+  <View
+    style={
+      {
+        "height": 40,
+        "marginLeft": 8,
+      }
+    }
+  >
+    <Input
+      icons={
+        [
+          [
+            "percent",
+            [Function],
+          ],
+        ]
+      }
+      inputStyle={
+        {
+          "textAlign": "right",
+        }
+      }
+      keyboardType="numeric"
+      onChange={[MockFunction]}
+      style={
+        {
+          "width": 96,
+        }
+      }
+      value="-3.2"
     />
   </View>
 </View>
