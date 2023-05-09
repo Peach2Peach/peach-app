@@ -1,18 +1,26 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ContractTitle should render correctly 1`] = `
-<Text
-  allowFontScaling={false}
-  numberOfLines={1}
+exports[`SellTitleComponent should render correctly 1`] = `
+<PeachText
   style={
     [
       {
-        "color": "#2B1911",
-        "fontFamily": "Baloo2-Regular",
+        "fontFamily": "Baloo2-Bold",
         "fontSize": 16,
         "letterSpacing": 0.16,
-        "lineHeight": 24,
+        "lineHeight": 26,
       },
+      {
+        "fontFamily": "Baloo2-Bold",
+        "fontSize": 20,
+        "letterSpacing": 0.2,
+        "lineHeight": 32,
+      },
+    ]
+  }
+>
+  <PeachText
+    style={
       [
         {
           "fontFamily": "Baloo2-Bold",
@@ -26,10 +34,15 @@ exports[`ContractTitle should render correctly 1`] = `
           "letterSpacing": 0.2,
           "lineHeight": 32,
         },
-      ],
-    ]
-  }
->
-  PC‑7B‑1C8
-</Text>
+        {
+          "color": "#F56522",
+        },
+      ]
+    }
+  >
+    sell
+  </PeachText>
+   
+  bitcoin
+</PeachText>
 `;
