@@ -9,6 +9,8 @@ import { openAppLink } from '../../../utils/web'
 import { HelpIcon } from '../../icons'
 import { DeleteIcon } from '../../icons/DeleteIcon'
 import { useDeletePaymentMethod } from './useDeletePaymentMethod'
+import tw from '../../../styles/tailwind'
+import { headerIcons } from '../../../utils/layout/headerIcons'
 
 export const useMeetupScreenSetup = () => {
   const route = useRoute<'meetupScreen'>()
@@ -44,12 +46,9 @@ export const useMeetupScreenSetup = () => {
   }
 
   const icons = useMemo(() => {
-    const icns = [{ iconComponent: <HelpIcon />, onPress: showHelp }]
+    const icns = [{ ...headerIcons.help, onPress: showHelp }]
     if (deletable) {
-      icns[1] = {
-        iconComponent: <DeleteIcon />,
-        onPress: deletePaymentMethod,
-      }
+      icns[1] = { ...headerIcons.delete, onPress: deletePaymentMethod }
     }
     return icns
   }, [deletable, deletePaymentMethod, showHelp])

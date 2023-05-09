@@ -8,6 +8,7 @@ import { useSetCustomReferralCodeOverlay } from '../../../overlays/referral/useS
 import i18n from '../../../utils/i18n'
 import { isRewardAvailable } from '../helpers/isRewardAvailable'
 import { useRedeemNoPeachFeesReward } from '../../../overlays/referral/useRedeemNoPeachFeesReward'
+import { headerIcons } from '../../../utils/layout/headerIcons'
 
 const BARLIMIT = 400
 const REWARDINFO: Reward[] = [
@@ -20,20 +21,10 @@ export const useReferralsSetup = () => {
   const { setCustomReferralCodeOverlay } = useSetCustomReferralCodeOverlay()
   const redeemNoPeachFeesReward = useRedeemNoPeachFeesReward()
 
-  useHeaderSetup(
-    useMemo(
-      () => ({
-        title: i18n('settings.referrals'),
-        icons: [
-          {
-            iconComponent: <HelpIcon />,
-            onPress: showHelp,
-          },
-        ],
-      }),
-      [showHelp],
-    ),
-  )
+  useHeaderSetup({
+    title: i18n('settings.referrals'),
+    icons: [{ ...headerIcons.help, onPress: showHelp }],
+  })
   const { user } = useSelfUser()
   const pointsBalance = user?.bonusPoints || 0
   const [selectedReward, setSelectedReward] = useState<RewardType>()

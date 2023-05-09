@@ -1,15 +1,13 @@
-import { useMeetupScreenSetup } from './useMeetupScreenSetup'
-import { renderHook } from '@testing-library/react-native'
 import { NavigationContainer } from '@react-navigation/native'
-import { HelpIcon } from '../../icons'
-import { useHeaderState } from '../../header/store'
-import { DeleteIcon } from '../../icons/DeleteIcon'
+import { renderHook } from '@testing-library/react-native'
 import { Linking } from 'react-native'
 import { setPaymentMethods } from '../../../constants'
-import { account, defaultAccount, setAccount } from '../../../utils/account'
-import { defaultOverlay, OverlayContext } from '../../../contexts/overlay'
+import { OverlayContext, defaultOverlay } from '../../../contexts/overlay'
 import { DeletePaymentMethodConfirm } from '../../../overlays/info/DeletePaymentMethodConfirm'
+import { account, defaultAccount, setAccount } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
+import { useHeaderState } from '../../header/store'
+import { useMeetupScreenSetup } from './useMeetupScreenSetup'
 
 const useRouteMock = jest.fn(() => ({
   params: {
@@ -68,9 +66,11 @@ describe('useMeetupScreenSetup', () => {
     })
 
     expect(useHeaderState.getState().title).toBe('')
-    expect(useHeaderState.getState().icons?.[0].iconComponent.type).toBe(HelpIcon)
+    expect(useHeaderState.getState().icons?.[0].id).toBe('helpCircle')
+    expect(useHeaderState.getState().icons?.[0].color).toBe('#099DE2')
     expect(useHeaderState.getState().icons?.[0].onPress).toBeInstanceOf(Function)
-    expect(useHeaderState.getState().icons?.[1].iconComponent.type).toBe(DeleteIcon)
+    expect(useHeaderState.getState().icons?.[1].id).toBe('trash')
+    expect(useHeaderState.getState().icons?.[1].color).toBe('#DF321F')
     expect(useHeaderState.getState().icons?.[1].onPress).toBeInstanceOf(Function)
   })
   it('should set up the header correctly when deletable is undefined', () => {
@@ -86,7 +86,8 @@ describe('useMeetupScreenSetup', () => {
     })
 
     expect(useHeaderState.getState().title).toBe('')
-    expect(useHeaderState.getState().icons?.[0].iconComponent.type).toBe(HelpIcon)
+    expect(useHeaderState.getState().icons?.[0].id).toBe('helpCircle')
+    expect(useHeaderState.getState().icons?.[0].color).toBe('#099DE2')
     expect(useHeaderState.getState().icons?.[0].onPress).toBeInstanceOf(Function)
     expect(useHeaderState.getState().icons?.[1]).toBeUndefined()
   })

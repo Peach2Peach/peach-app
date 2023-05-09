@@ -1,20 +1,18 @@
 import { ReactElement, useCallback, useMemo } from 'react'
 import { TouchableOpacity, View } from 'react-native'
-
-import tw from '../../styles/tailwind'
-import i18n from '../../utils/i18n'
-
 import { shallow } from 'zustand/shallow'
-import { BitcoinPriceStats, HorizontalLine, Icon, PrimaryButton, Text } from '../../components'
+import { BitcoinPriceStats, HorizontalLine, Icon, PrimaryButton } from '../../components'
 import { SelectAmount } from '../../components/inputs/verticalAmountSelector/SelectAmount'
 import { useNavigation, useValidatedState } from '../../hooks'
+import { useDebounce } from '../../hooks/useDebounce'
+import { useShowBackupReminder } from '../../hooks/useShowBackupReminder'
 import { useConfigStore } from '../../store/configStore'
 import { useSettingsStore } from '../../store/settingsStore'
+import tw from '../../styles/tailwind'
+import i18n from '../../utils/i18n'
+import LoadingScreen from '../loading/LoadingScreen'
 import { DailyTradingLimit } from '../settings/profile/DailyTradingLimit'
 import { useSellSetup } from './hooks/useSellSetup'
-import LoadingScreen from '../loading/LoadingScreen'
-import { useShowBackupReminder } from '../../hooks/useShowBackupReminder'
-import { useDebounce } from '../../hooks/useDebounce'
 
 export default (): ReactElement => {
   const navigation = useNavigation()
