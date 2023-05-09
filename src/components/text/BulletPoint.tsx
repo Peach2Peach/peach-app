@@ -1,12 +1,12 @@
 import { View } from 'react-native'
-import { Text } from '.'
 import tw from '../../styles/tailwind'
+import { PeachText } from './Text'
 
-type BulletPointProps = { text: String }
+type Props = { text: String }
 
-export const BulletPoint = ({ text }: BulletPointProps) => (
+export const BulletPoint = ({ text }: Props) => (
   <View style={tw`flex-row pl-3`}>
-    <Text style={tw`text-xl body-m`}>· </Text>
-    <Text style={tw`body-m`}>{text}</Text>
+    <PeachText style={tw`text-xl body-m`}>· </PeachText>
+    <PeachText style={tw`body-m`}>{text}</PeachText>
   </View>
 )
