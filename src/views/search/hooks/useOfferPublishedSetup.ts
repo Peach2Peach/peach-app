@@ -8,7 +8,6 @@ export const useOfferPublishedSetup = () => {
   const goBack = () => navigation.goBack()
 
   return {
-    shouldGoBack,
     goToOffer,
     closeAction: shouldGoBack ? goBack : goBackHome,
   }

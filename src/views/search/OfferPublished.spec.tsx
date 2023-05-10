@@ -28,16 +28,16 @@ describe('OfferPublished', () => {
     fireEvent.press(button)
     expect(replaceMock).toHaveBeenCalledWith('search', { offerId })
   })
-  it('should go back to buy for buy offers when pressing back home button', () => {
+  it('should go back to buy for buy offers when pressing back close button', () => {
     const { getByText } = render(<OfferPublished />, { wrapper: NavigationWrapper })
-    const closeButton = getByText('home')
+    const closeButton = getByText('close')
     fireEvent.press(closeButton)
     expect(replaceMock).toHaveBeenCalledWith('buy')
   })
-  it('should go back to sell for sell offers when pressing back home button', () => {
+  it('should go back to sell for sell offers when pressing back close button', () => {
     useRouteMock.mockReturnValueOnce({ params: { isSellOffer: true, shouldGoBack: false } })
     const { getByText } = render(<OfferPublished />, { wrapper: NavigationWrapper })
-    const closeButton = getByText('home')
+    const closeButton = getByText('close')
     fireEvent.press(closeButton)
     expect(replaceMock).toHaveBeenCalledWith('sell')
   })
