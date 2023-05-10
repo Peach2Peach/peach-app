@@ -33,13 +33,13 @@ export const useBuySummarySetup = () => {
   const publishOffer = async (offerDraft: BuyOfferDraft) => {
     if (isPublishing) return
     setIsPublishing(true)
-    const { isOfferPublished, errorMessage } = await publishBuyOffer(offerDraft)
+    const { offerId, isOfferPublished, errorMessage } = await publishBuyOffer(offerDraft)
     setIsPublishing(false)
 
-    if (!isOfferPublished) {
+    if (!isOfferPublished || !offerId) {
       showErrorBanner(errorMessage)
     } else {
-      navigation.replace('offerPublished', { isSellOffer: false })
+      navigation.replace('offerPublished', { offerId, isSellOffer: false })
     }
   }
 

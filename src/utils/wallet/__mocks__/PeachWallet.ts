@@ -23,4 +23,8 @@ export class PeachWallet {
   async withdrawAll (): Promise<string | null> {
     return 'txId'
   }
+
+  signMessage () {
+    return 'signature'
+  }
 }
