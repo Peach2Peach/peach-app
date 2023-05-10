@@ -25,7 +25,7 @@ describe('useBuySummarySetup', () => {
     renderHook(useBuySummarySetup, { wrapper: NavigationWrapper })
     expect(settingsStore.getState().peachWalletActive).toBeTruthy()
   })
-  it('should enable peach wallet if payout address is set', () => {
+  it('should not enable peach wallet if payout address is set', () => {
     settingsStore.getState().setPeachWalletActive(false)
     settingsStore.getState().setPayoutAddress('payoutAddress')
     renderHook(useBuySummarySetup, { wrapper: NavigationWrapper })
