@@ -24,6 +24,10 @@
 		675514872812BA4E00A17B6C /* assets in Resources */ = {isa = PBXBuildFile; fileRef = 675514862812BA4E00A17B6C /* assets */; };
 		675F68012850FEE7009208C5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 675F68002850FEE7009208C5 /* GoogleService-Info.plist */; };
 		6769491227F72D6900C73BEF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6769491127F72D6900C73BEF /* GoogleService-Info.plist */; };
+		676EA9ED2A052B2D00F18766 /* CourierPrime-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 676EA9EB2A052B2D00F18766 /* CourierPrime-Bold.ttf */; };
+		676EA9EE2A052B2D00F18766 /* CourierPrime-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 676EA9EB2A052B2D00F18766 /* CourierPrime-Bold.ttf */; };
+		676EA9EF2A052B2D00F18766 /* CourierPrime-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 676EA9EC2A052B2D00F18766 /* CourierPrime-Regular.ttf */; };
+		676EA9F02A052B2D00F18766 /* CourierPrime-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 676EA9EC2A052B2D00F18766 /* CourierPrime-Regular.ttf */; };
 		6775E9BD288B0A0400A9A0DB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 672B1300288AF7240089147A /* Localizable.strings */; };
 		679FE63929B1F73D0013638A /* Baloo2-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E933C379E4634FC3B74EC880 /* Baloo2-Medium.ttf */; };
 		679FE63A29B1F73D0013638A /* Baloo2-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D93F5B2771A4DC39AE22AC6 /* Baloo2-Regular.ttf */; };
@@ -73,6 +77,8 @@
 		675514862812BA4E00A17B6C /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = assets; sourceTree = "<group>"; };
 		675F68002850FEE7009208C5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6769491127F72D6900C73BEF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		676EA9EB2A052B2D00F18766 /* CourierPrime-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "CourierPrime-Bold.ttf"; path = "../assets/fonts/CourierPrime-Bold.ttf"; sourceTree = "<group>"; };
+		676EA9EC2A052B2D00F18766 /* CourierPrime-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "CourierPrime-Regular.ttf"; path = "../assets/fonts/CourierPrime-Regular.ttf"; sourceTree = "<group>"; };
 		67A9CC6529E4306400F514FA /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		67AC8BE429E431100014F1AF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		67D10E1E282BFAD400DA4D19 /* peachDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = peachDebug.entitlements; path = peach/peachDebug.entitlements; sourceTree = "<group>"; };
@@ -175,6 +181,8 @@
 				E933C379E4634FC3B74EC880 /* Baloo2-Medium.ttf */,
 				3D93F5B2771A4DC39AE22AC6 /* Baloo2-Regular.ttf */,
 				CBF9B8092F4B48B49CF6FE55 /* Baloo2-SemiBold.ttf */,
+				676EA9EB2A052B2D00F18766 /* CourierPrime-Bold.ttf */,
+				676EA9EC2A052B2D00F18766 /* CourierPrime-Regular.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -403,6 +411,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6775E9BD288B0A0400A9A0DB /* Localizable.strings in Resources */,
+				676EA9EF2A052B2D00F18766 /* CourierPrime-Regular.ttf in Resources */,
 				675514872812BA4E00A17B6C /* assets in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				6769491227F72D6900C73BEF /* GoogleService-Info.plist in Resources */,
@@ -411,6 +420,7 @@
 				F44C7ADD2E084A65814B6133 /* Baloo2-Bold.ttf in Resources */,
 				0F65AADB629A41A99AFB90FE /* Baloo2-Medium.ttf in Resources */,
 				7CC2629E48F44EFC87CEBE24 /* Baloo2-Regular.ttf in Resources */,
+				676EA9ED2A052B2D00F18766 /* CourierPrime-Bold.ttf in Resources */,
 				3437C51D4F624ACE824256C7 /* Baloo2-SemiBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -420,6 +430,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				679FE63929B1F73D0013638A /* Baloo2-Medium.ttf in Resources */,
+				676EA9F02A052B2D00F18766 /* CourierPrime-Regular.ttf in Resources */,
 				679FE63A29B1F73D0013638A /* Baloo2-Regular.ttf in Resources */,
 				679FE63B29B1F73D0013638A /* Baloo2-SemiBold.ttf in Resources */,
 				672B1302288AF7240089147A /* Localizable.strings in Resources */,
@@ -428,6 +439,7 @@
 				671A56362850E9AE0058434C /* assets in Resources */,
 				671A56342850E9AE0058434C /* LaunchScreen.storyboard in Resources */,
 				675F68012850FEE7009208C5 /* GoogleService-Info.plist in Resources */,
+				676EA9EE2A052B2D00F18766 /* CourierPrime-Bold.ttf in Resources */,
 				671A56392850E9AE0058434C /* Baloo2-Bold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

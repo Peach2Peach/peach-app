@@ -6,7 +6,7 @@ import * as accountData from '../../../../tests/unit/data/accountData'
 
 describe('loadContract', () => {
   beforeEach(async () => {
-    await setAccount(defaultAccount, true)
+    await setAccount(defaultAccount)
   })
   it('loads contracts', async () => {
     await storeContracts(accountData.account1.contracts)

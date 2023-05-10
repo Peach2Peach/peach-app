@@ -1,29 +1,20 @@
-import { useNavigateToContract } from './useNavigateToContract'
 import { act, renderHook, waitFor } from '@testing-library/react-native'
-import { NavigationContext } from '@react-navigation/native'
-import { defaultOverlay, OverlayContext } from '../../../contexts/overlay'
-import { queryClient, QueryClientWrapper } from '../../../../tests/unit/helpers/QueryClientWrapper'
 import { contract } from '../../../../tests/unit/data/contractData'
+import { NavigationWrapper, navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { QueryClientWrapper, queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
+import { OverlayContext, defaultOverlay } from '../../../contexts/overlay'
 import { useLocalContractStore } from '../../../store/useLocalContractStore'
 import { defaultPopupState, usePopupStore } from '../../../store/usePopupStore'
 import { DisputeWon } from '../../../overlays/dispute/components/DisputeWon'
 import { account } from '../../../utils/account'
-
-const navigateMock = jest.fn()
-const NavigationWrapper = ({ children }) => (
-  <NavigationContext.Provider
-    value={{ navigate: navigateMock, isFocused: () => true, addListener: jest.fn(() => jest.fn()) }}
-  >
-    {children}
-  </NavigationContext.Provider>
-)
+import { useNavigateToContract } from './useNavigateToContract'
 
 let overlay = defaultOverlay
 const updateOverlay = jest.fn((newOverlay) => {
   overlay = newOverlay
 })
 
-const OverlayWrapper = ({ children }) => (
+const OverlayWrapper = ({ children }: ComponentProps) => (
   <OverlayContext.Provider value={[overlay, updateOverlay]}>{children}</OverlayContext.Provider>
 )
 
@@ -33,7 +24,7 @@ jest.mock('../../../utils/peachAPI', () => ({
 }))
 
 describe('useNavigateToContract', () => {
-  const TestWrapper = ({ children }) => (
+  const TestWrapper = ({ children }: ComponentProps) => (
     <QueryClientWrapper>
       <NavigationWrapper>
         <OverlayWrapper>{children}</OverlayWrapper>

@@ -1,13 +1,12 @@
 import { strictEqual } from 'assert'
-import { createWalletFromSeedPhrase, getNetwork, getPublicKeyForEscrow } from '.'
+import { getPublicKeyForEscrow } from '.'
+import { createTestWallet } from '../../../tests/unit/helpers/createTestWallet'
 
 describe('getPublicKeyForEscrow', () => {
   it('returns wallet for escrow depending on offer id', () => {
-    const network = getNetwork()
-    const mnemonic = 'mom mom mom mom mom mom mom mom mom mom mom mom mom mom mom mom'
-    const expectedPublicKey = '03f54c36a63e6432f8744f4afc14ecf99d8882898d687878a1f972d89d01168e6c'
-    const recoveredWallet = createWalletFromSeedPhrase(mnemonic, network)
+    const expectedPublicKey = '025f088c65f92954f00b9e54cd73f4bc32a9cdbdd8cb99649a6dad39fdcd87c175'
+    const recoveredWallet = createTestWallet()
 
-    strictEqual(getPublicKeyForEscrow(recoveredWallet.wallet, '1'), expectedPublicKey)
+    strictEqual(getPublicKeyForEscrow(recoveredWallet, '1'), expectedPublicKey)
   })
 })

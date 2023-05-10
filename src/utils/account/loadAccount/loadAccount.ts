@@ -7,7 +7,7 @@ import {
   loadOffers,
   loadPaymentData,
   loadTradingLimit,
-  setAccount,
+  updateAccount,
 } from '../'
 import { error, info } from '../../log'
 import { loadLegacyPaymentData } from './loadLegacyPaymentData'
@@ -46,7 +46,7 @@ export const loadAccount = async (): Promise<Account> => {
     error('Account does not exist')
   } else {
     info('Account loaded', account.publicKey)
-    await setAccount(acc)
+    await updateAccount(acc)
   }
 
   return account

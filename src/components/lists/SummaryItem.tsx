@@ -115,7 +115,7 @@ export const SummaryItem = ({
           {amount2 ? (
             <View>
               <Text style={tw`absolute w-full overflow-visible text-center bottom-3 text-3xs text-black-3`}>~</Text>
-              <SatsFormat sats={amount2} containerStyle={tw`w-35`} satsContainerStyle={tw`justify-end flex-1`} />
+              <SatsFormat sats={amount2} satsContainerStyle={tw`justify-end flex-1`} />
             </View>
           ) : !!price && !!currency ? (
             <PriceFormat style={tw`text-right text-black-2`} {...{ amount: price, currency }} />

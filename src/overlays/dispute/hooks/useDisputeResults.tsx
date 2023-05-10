@@ -5,12 +5,13 @@ import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { useShowLoadingOverlay } from '../../../hooks/useShowLoadingOverlay'
 import { getChat, saveChat } from '../../../utils/chat'
 import { endDisputeSystemMessages } from '../../../utils/chat/endDisputeSystemMessages'
-import { contractIdToHex, saveContract, signReleaseTx } from '../../../utils/contract'
+import { contractIdToHex, getSellOfferFromContract, saveContract, verifyAndSignReleaseTx } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
 import { confirmPayment } from '../../../utils/peachAPI'
 import { DisputeLostBuyer } from '../components/DisputeLostBuyer'
 import { DisputeLostSeller } from '../components/DisputeLostSeller'
 import NonDispute from '../components/NonDispute'
+import { getEscrowWalletForOffer } from '../../../utils/wallet'
 
 export const useDisputeResults = () => {
   const navigation = useNavigation()
@@ -43,7 +44,8 @@ export const useDisputeResults = () => {
           title: i18n('dispute.lost'),
           level: 'WARN',
         })
-        const [tx, errorMsg] = signReleaseTx(contract)
+        const sellOffer = getSellOfferFromContract(contract)
+        const [tx, errorMsg] = verifyAndSignReleaseTx(contract, sellOffer, getEscrowWalletForOffer(sellOffer))
         if (!tx) {
           closeOverlay()
           return showError(errorMsg)

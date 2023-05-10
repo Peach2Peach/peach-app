@@ -16,6 +16,13 @@ describe('parseBitcoinRequest', () => {
     }
     deepStrictEqual(parseBitcoinRequest(request), parsedRequest)
   })
+  it('parses valid bitcoin requests in upper case', () => {
+    const request = 'bitcoin:BCRT1QZPCLS9L6JP6FCETUPL0UCV2Y5U9LZ427SQ4E5F'
+    const parsedRequest = {
+      address: 'bcrt1qzpcls9l6jp6fcetupl0ucv2y5u9lz427sq4e5f',
+    }
+    deepStrictEqual(parseBitcoinRequest(request), parsedRequest)
+  })
 
   it('parses valid bitcoin requests with partial data', () => {
     const request = 'bitcoin:bc1qar0srrr7xfkvy5l643lydnw9re59gtzzwf5mdq?amount=0.00001'

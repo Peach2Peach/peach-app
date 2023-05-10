@@ -1,14 +1,10 @@
-import { ProvideEmailButton } from './ProvideEmailButton'
 import { fireEvent, render } from '@testing-library/react-native'
-import { NavigationContext } from '@react-navigation/native'
 import { contract } from '../../../../tests/unit/data/contractData'
-import DisputeRaisedNotice from '../../../overlays/dispute/components/DisputeRaisedNotice'
+import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { QueryClientWrapper } from '../../../../tests/unit/helpers/QueryClientWrapper'
+import DisputeRaisedNotice from '../../../overlays/dispute/components/DisputeRaisedNotice'
 import { usePopupStore } from '../../../store/usePopupStore'
-
-const NavigationWrapper = ({ children }: { children: JSX.Element }) => (
-  <NavigationContext.Provider value={{ replace: jest.fn() }}>{children}</NavigationContext.Provider>
-)
+import { ProvideEmailButton } from './ProvideEmailButton'
 
 describe('ProvideEmailButton', () => {
   const TestWrapper = ({ children }: { children: JSX.Element }) => (

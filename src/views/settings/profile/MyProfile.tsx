@@ -1,8 +1,5 @@
-import { useMemo } from 'react'
 import { View } from 'react-native'
-
 import { PeachScrollView } from '../../../components'
-import { HelpIcon } from '../../../components/icons'
 import { useHeaderSetup } from '../../../hooks'
 import { useShowHelp } from '../../../hooks/useShowHelp'
 import { useUser } from '../../../hooks/query/useUserQuery'
@@ -13,19 +10,15 @@ import { AccountInfo } from './accountInfo/AccountInfo'
 import { DeleteAccountButton } from './deleteAccount/DeleteAccountButton'
 import { ProfileOverview } from '../../publicProfile/components'
 import { TradingLimits } from './TradingLimits'
+import { headerIcons } from '../../../utils/layout/headerIcons'
 
 export default () => {
   const { user, isLoading } = useUser(account.publicKey)
   const openTradingLimitsPopup = useShowHelp('tradingLimit')
-  useHeaderSetup(
-    useMemo(
-      () => ({
-        title: i18n('settings.myProfile'),
-        icons: [{ iconComponent: <HelpIcon />, onPress: openTradingLimitsPopup }],
-      }),
-      [openTradingLimitsPopup],
-    ),
-  )
+  useHeaderSetup({
+    title: i18n('settings.myProfile'),
+    icons: [{ ...headerIcons.help, onPress: openTradingLimitsPopup }],
+  })
   if (isLoading || !user) return <></>
 
   return (

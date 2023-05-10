@@ -5,7 +5,7 @@ import * as accountData from '../../../../tests/unit/data/accountData'
 
 describe('loadTradingLimit', () => {
   beforeEach(async () => {
-    await setAccount(defaultAccount, true)
+    await setAccount(defaultAccount)
   })
 
   it('loads trading limit', async () => {

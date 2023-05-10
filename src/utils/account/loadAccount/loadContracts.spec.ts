@@ -13,7 +13,7 @@ describe('loadContracts', () => {
   beforeEach(async () => {
     ;(<jest.Mock>getRandom).mockImplementation(async () => Buffer.from('0000000000000000'))
 
-    await setAccount(defaultAccount, true)
+    await setAccount(defaultAccount)
   })
 
   it('loads contracts', async () => {

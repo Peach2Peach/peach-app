@@ -128,3 +128,14 @@ brew install applesimutils
 npx react-native link
 cd ios && pod install
 ```
+
+### Adding fonts
+
+1. Add fonts to assets/fonts
+2. Add font file names in `Info.plist` under `UIAppFonts`
+
+then run
+
+3. `npx react-native-asset`
+
+before building the app

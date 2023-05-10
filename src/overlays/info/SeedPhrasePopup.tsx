@@ -1,11 +1,11 @@
-import { Text } from '../../components'
+import { PeachText } from '../../components/text/Text'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 
 export const SeedPhrasePopup = () => (
-  <Text style={tw`body-m`}>
+  <PeachText style={tw`body-m`}>
     {i18n('settings.backups.seedPhrase.popup.text.1')}
     {'\n\n'}
-    <Text style={tw`font-bold`}>{i18n('settings.backups.seedPhrase.popup.text.2')}</Text>
-  </Text>
+    <PeachText style={tw`font-bold`}>{i18n('settings.backups.seedPhrase.popup.text.2')}</PeachText>
+  </PeachText>
 )

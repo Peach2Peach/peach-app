@@ -1,27 +1,25 @@
 import { ReactElement, useCallback, useMemo } from 'react'
 import { TouchableOpacity, View } from 'react-native'
-
-import tw from '../../styles/tailwind'
-import i18n from '../../utils/i18n'
-
 import { shallow } from 'zustand/shallow'
-import { BitcoinPriceStats, HorizontalLine, Icon, PrimaryButton, Text } from '../../components'
+import { BitcoinPriceStats, HorizontalLine, Icon, PrimaryButton } from '../../components'
 import { SelectAmount } from '../../components/inputs/verticalAmountSelector/SelectAmount'
 import { useNavigation, useValidatedState } from '../../hooks'
+import { useDebounce } from '../../hooks/useDebounce'
+import { useShowBackupReminder } from '../../hooks/useShowBackupReminder'
 import { useConfigStore } from '../../store/configStore'
 import { useSettingsStore } from '../../store/settingsStore'
+import tw from '../../styles/tailwind'
+import i18n from '../../utils/i18n'
+import LoadingScreen from '../loading/LoadingScreen'
 import { DailyTradingLimit } from '../settings/profile/DailyTradingLimit'
 import { useSellSetup } from './hooks/useSellSetup'
-import LoadingScreen from '../loading/LoadingScreen'
-import { useShowBackupReminder } from '../../hooks/useShowBackupReminder'
-import { useDebounce } from '../../hooks/useDebounce'
 
 export default (): ReactElement => {
   const navigation = useNavigation()
 
   const showCorrectBackupReminder = useShowBackupReminder()
 
-  useSellSetup({ help: 'buyingAndSelling', hideGoBackButton: true })
+  useSellSetup({ help: 'sellingBitcoin', hideGoBackButton: true })
 
   const [showBackupReminder, sellAmount, setSellAmount] = useSettingsStore(
     (state) => [state.showBackupReminder, state.sellAmount, state.setSellAmount],
@@ -54,16 +52,14 @@ export default (): ReactElement => {
       <HorizontalLine style={tw`mx-8`} />
       <View style={tw`px-8 mt-2`}>
         <BitcoinPriceStats />
-        <View style={tw`pt-4`}>
-          <Text style={[tw`hidden h6`, tw.md`flex`]}>
-            {i18n('sell.subtitle')}
-            <Text style={tw`h6 text-primary-main`}> {i18n('sell')}</Text>?
-          </Text>
-        </View>
       </View>
-      <View style={tw`items-center justify-center flex-grow`}>
-        <SelectAmount min={minTradingAmount} max={maxTradingAmount} value={amount} onChange={setSelectedAmount} />
-      </View>
+      <SelectAmount
+        style={tw`h-full flex-shrink mt-4 mb-2`}
+        min={minTradingAmount}
+        max={maxTradingAmount}
+        value={amount}
+        onChange={setSelectedAmount}
+      />
       <View style={[tw`flex-row items-center justify-center mt-4 mb-1`, tw.md`mb-4`]}>
         <PrimaryButton disabled={!amountValid} testID="navigation-next" onPress={next} narrow>
           {i18n('next')}

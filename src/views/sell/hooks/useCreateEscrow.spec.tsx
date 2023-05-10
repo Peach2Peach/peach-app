@@ -2,7 +2,7 @@ import { renderHook, waitFor } from '@testing-library/react-native'
 import { account1 } from '../../../../tests/unit/data/accountData'
 import { sellOffer } from '../../../../tests/unit/data/offerData'
 import { QueryClientWrapper } from '../../../../tests/unit/helpers/QueryClientWrapper'
-import { setAccount } from '../../../utils/account'
+import { updateAccount } from '../../../utils/account'
 import { defaultFundingStatus } from '../../../utils/offer/constants'
 import { useCreateEscrow } from './useCreateEscrow'
 
@@ -30,7 +30,7 @@ jest.mock('../../../hooks/useShowErrorBanner', () => ({
 
 describe('useCreateEscrow', () => {
   beforeEach(async () => {
-    await setAccount(account1)
+    await updateAccount(account1, true)
   })
   afterEach(() => {
     jest.clearAllMocks()
@@ -43,8 +43,8 @@ describe('useCreateEscrow', () => {
     await result.current.mutate()
     await waitFor(() => expect(result.current.isLoading).toBeFalsy())
     expect(createEscrowMock).toHaveBeenCalledWith({
-      offerId: '38',
-      publicKey: '03c2312751aae3cd2e9c4aa4086e009fca7f4fa75b3ec1c752ea7272cf86cb26a0',
+      offerId: sellOffer.id,
+      publicKey: '029d3a758589d86eaeccb6bd50dd91b4846ec558bde201999c8e3dee203a892c57',
     })
   })
   it('shows error banner on API errors', async () => {

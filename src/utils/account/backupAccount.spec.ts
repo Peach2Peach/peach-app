@@ -6,7 +6,7 @@ describe('backupAccount', () => {
   const openSpy = jest.spyOn(Share, 'open')
 
   beforeAll(async () => {
-    await setAccount(accountData.account1, true)
+    await setAccount(accountData.account1)
   })
   afterEach(() => {
     openSpy.mockReset()

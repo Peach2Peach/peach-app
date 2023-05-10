@@ -3,6 +3,7 @@ import { getSellOfferFromContract } from '../../../utils/contract'
 import { patchOffer } from '../../../utils/peachAPI'
 import { getResult } from '../../../utils/result'
 import { Result } from '../../../utils/result/types'
+import { getEscrowWalletForOffer } from '../../../utils/wallet'
 
 type UpdateResult = {
   sellOffer: SellOffer
@@ -18,7 +19,7 @@ export const patchSellOfferWithRefundTx = async (
   if (checkRefundPSBTError) return getResult({ sellOffer }, checkRefundPSBTError)
   if (!isValid || !psbt) return getResult({ sellOffer }, 'UNKNOWN_ERROR')
 
-  const signedPSBT = signPSBT(psbt, sellOffer, false)
+  const signedPSBT = signPSBT(psbt, getEscrowWalletForOffer(sellOffer))
   const [patchOfferResult, patchOfferError] = await patchOffer({
     offerId: sellOffer.id,
     refundTx: signedPSBT.toBase64(),

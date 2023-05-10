@@ -7,7 +7,7 @@ import alignLeft from './alignLeft.svg'
 import arrowLeftCircle from './arrowLeftCircle.svg'
 import arrowRightCircle from './arrowRightCircle.svg'
 import award from './award.svg'
-import bellSmall from './bellSmall.svg'
+import awardCircleInverted from './awardCircleInverted.svg'
 import bitbox from './bitbox.svg'
 import bitcoin from './bitcoin.svg'
 import calendar from './calendar.svg'
@@ -56,6 +56,7 @@ import link from './link.svg'
 import list from './list.svg'
 import mail from './mail.svg'
 import map from './map.svg'
+import menu from './menu.svg'
 import messageCircle from './messageCircle.svg'
 import messageFull from './messageFull.svg'
 import minusCircle from './minusCircle.svg'
@@ -90,6 +91,7 @@ import sliderPrev from './slider-prev.svg'
 import smile from './smile.svg'
 import square from './square.svg'
 import star from './star.svg'
+import starCircleInverted from './starCircleInverted.svg'
 import thumbsDown from './thumbsDown.svg'
 import thumbsUp from './thumbsUp.svg'
 import timer from './timer.svg'
@@ -110,6 +112,7 @@ import xCircle from './xCircle.svg'
 import xSquare from './xSquare.svg'
 import yourTrades from './yourTrades.svg'
 import zap from './zap.svg'
+import zapCircleInverted from './zapCircleInverted.svg'
 import { LogoIcons } from '../logo'
 
 const Icons = {
@@ -122,7 +125,7 @@ const Icons = {
   arrowLeftCircle,
   arrowRightCircle,
   award,
-  bellSmall,
+  awardCircleInverted,
   bitcoin,
   bitbox,
   buy: download,
@@ -172,6 +175,7 @@ const Icons = {
   list,
   mail,
   map,
+  menu,
   messageCircle,
   messageFull,
   minusCircle,
@@ -207,6 +211,7 @@ const Icons = {
   smile,
   square,
   star,
+  starCircleInverted,
   thumbsDown,
   thumbsUp,
   timer,
@@ -227,6 +232,7 @@ const Icons = {
   xSquare,
   yourTrades,
   zap,
+  zapCircleInverted,
   ...LogoIcons,
 }
 

@@ -6,7 +6,7 @@ import * as accountData from '../../../../tests/unit/data/accountData'
 
 describe('loadIdentity', () => {
   beforeEach(async () => {
-    await setAccount(defaultAccount, true)
+    await setAccount(defaultAccount)
   })
 
   it('loads identity', async () => {
