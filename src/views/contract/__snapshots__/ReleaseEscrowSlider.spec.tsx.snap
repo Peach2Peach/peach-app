@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ReleaseEscrowSlider should render correctly 1`] = `
+<SlideToUnlock
+  label1="release escrow"
+  onUnlock={[Function]}
+  style={
+    {
+      "marginTop": 12,
+      "width": 263,
+    }
+  }
+/>
+`;
