@@ -1,4 +1,3 @@
-import { ReactElement } from 'react'
 import { View } from 'react-native'
 import { PrimaryButton } from '../../../components'
 import tw from '../../../styles/tailwind'
@@ -12,7 +11,7 @@ type Props = ComponentProps & {
   saveAndUpdate: (contract: Contract) => void
 }
 
-export const Rate = ({ contract, view, saveAndUpdate, vote, style }: Props): ReactElement => {
+export const Rate = ({ contract, view, saveAndUpdate, vote, style }: Props) => {
   const { rate, showTradeBreakdown } = useRateSetup({ contract, view, saveAndUpdate, vote })
 
   return (
