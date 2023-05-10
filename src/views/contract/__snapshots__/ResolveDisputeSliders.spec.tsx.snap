@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ResolveDisputeSliders should render correctly 1`] = `
+[
+  <SlideToUnlock
+    label1="re-publish offer"
+    onUnlock={[Function]}
+    style={
+      {
+        "marginBottom": 12,
+        "width": 263,
+      }
+    }
+  />,
+  <SlideToUnlock
+    label1="refund escrow"
+    onUnlock={[Function]}
+    style={
+      {
+        "width": 263,
+      }
+    }
+  />,
+]
+`;
