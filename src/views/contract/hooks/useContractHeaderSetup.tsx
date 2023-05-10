@@ -1,10 +1,10 @@
 import { useMemo } from 'react'
-import { CancelIcon, HelpIcon } from '../../../components/icons'
 import { ContractTitle } from '../../../components/titles/ContractTitle'
 import { useHeaderSetup } from '../../../hooks'
 import { useShowHelp } from '../../../hooks/useShowHelp'
 import { useConfirmCancelTrade } from '../../../overlays/tradeCancelation/useConfirmCancelTrade'
 import { canCancelContract } from '../../../utils/contract'
+import { headerIcons } from '../../../utils/layout/headerIcons'
 
 export const useContractHeaderSetup = ({
   contract,
@@ -25,15 +25,15 @@ export const useContractHeaderSetup = ({
     useMemo(() => {
       const icons = []
       if (contract && canCancelContract(contract)) icons.push({
-        iconComponent: <CancelIcon />,
+        ...headerIcons.cancel,
         onPress: () => showConfirmOverlay(contract),
       })
       if (view === 'buyer' && requiredAction === 'sendPayment') icons.push({
-        iconComponent: <HelpIcon />,
+        ...headerIcons.help,
         onPress: showMakePaymentHelp,
       })
       if (view === 'seller' && requiredAction === 'confirmPayment') icons.push({
-        iconComponent: <HelpIcon />,
+        ...headerIcons.help,
         onPress: showConfirmPaymentHelp,
       })
       return {

@@ -1,6 +1,0 @@
-export { BellIcon } from './BellIcon'
-export { CancelIcon } from './CancelIcon'
-export { EditIcon } from './EditIcon'
-export { HelpIcon } from './HelpIcon'
-export { StatsIcon } from './StatsIcon'
-export { WalletIcon } from './WalletIcon'

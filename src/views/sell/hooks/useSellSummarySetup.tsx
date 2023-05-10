@@ -1,10 +1,10 @@
 import { useEffect, useMemo, useState } from 'react'
 import { shallow } from 'zustand/shallow'
-import { WalletIcon } from '../../../components/icons'
 import { useHeaderSetup, useNavigation } from '../../../hooks'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { useSettingsStore } from '../../../store/settingsStore'
 import i18n from '../../../utils/i18n'
+import { headerIcons } from '../../../utils/layout/headerIcons'
 import { peachWallet } from '../../../utils/wallet/setWallet'
 import { publishSellOffer } from '../helpers/publishSellOffer'
 
@@ -12,10 +12,13 @@ export const useSellSummarySetup = () => {
   const navigation = useNavigation()
   const showErrorBanner = useShowErrorBanner()
 
-  const [peachWalletActive, payoutAddress, payoutAddressLabel] = useSettingsStore(
-    (state) => [state.peachWalletActive, state.payoutAddress, state.payoutAddressLabel],
+  const [peachWalletActive, setPeachWalletActive, payoutAddress, payoutAddressLabel] = useSettingsStore(
+    (state) => [state.peachWalletActive, state.setPeachWalletActive, state.payoutAddress, state.payoutAddressLabel],
     shallow,
   )
+
+  if (!peachWalletActive && !payoutAddress) setPeachWalletActive(true)
+
   const [returnAddress, setReturnAddress] = useState('')
   const [isPublishing, setIsPublishing] = useState(false)
   const [canPublish, setCanPublish] = useState(false)
@@ -39,12 +42,7 @@ export const useSellSummarySetup = () => {
     useMemo(
       () => ({
         title: i18n('sell.summary.title'),
-        icons: [
-          {
-            iconComponent: <WalletIcon />,
-            onPress: () => navigation.navigate('selectWallet', { type: 'refund' }),
-          },
-        ],
+        icons: [{ ...headerIcons.wallet, onPress: () => navigation.navigate('selectWallet', { type: 'refund' }) }],
       }),
       [navigation],
     ),

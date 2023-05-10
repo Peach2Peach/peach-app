@@ -1,14 +1,12 @@
 import { act, renderHook } from '@testing-library/react-native'
 import { useSettingsStore } from '../../../store/settingsStore'
 import { useSeedBackupSetup } from './useSeedBackupSetup'
+import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { useHeaderState } from '../../../components/header/store'
 
 jest.mock('@react-navigation/native', () => ({
-  useFocusEffect: jest.fn(),
-}))
-jest.mock('../../../hooks/useNavigation', () => ({
-  useNavigation: jest.fn().mockReturnValue({
-    navigate: jest.fn(),
-  }),
+  ...jest.requireActual('@react-navigation/native'),
+  useFocusEffect: (callback: Function) => callback(),
 }))
 jest.mock('../../../store/settingsStore')
 
@@ -26,7 +24,7 @@ describe('useSeedBackupSetup', () => {
     jest.resetAllMocks()
   })
   it('returns default correct values', () => {
-    const { result } = renderHook(useSeedBackupSetup)
+    const { result } = renderHook(useSeedBackupSetup, { wrapper: NavigationWrapper })
     expect(result.current.checked).toBeFalsy()
     expect(result.current.toggleChecked).toBeInstanceOf(Function)
     expect(result.current.showNextScreen).toBeInstanceOf(Function)
@@ -35,6 +33,13 @@ describe('useSeedBackupSetup', () => {
     expect(result.current.lastSeedBackupDate).not.toBeDefined()
     expect(result.current.getCurrentScreen().id).toBe('securityInfo')
   })
+
+  it('should set up header correctly', () => {
+    renderHook(useSeedBackupSetup, { wrapper: NavigationWrapper })
+    expect(useHeaderState.getState().title).toBe('wallet backup')
+    expect(useHeaderState.getState().icons?.[0].id).toBe('helpCircle')
+  })
+
   it('returns start at lastSeedBackup if seedPhrase backup has been already made', () => {
     ;(useSettingsStore as jest.Mock).mockReturnValue([
       setShowBackupReminderMock,
@@ -42,20 +47,20 @@ describe('useSeedBackupSetup', () => {
       now.getTime(),
     ])
 
-    const { result } = renderHook(useSeedBackupSetup)
+    const { result } = renderHook(useSeedBackupSetup, { wrapper: NavigationWrapper })
     expect(result.current.currentScreenIndex).toBe(0)
     expect(result.current.getCurrentScreen().id).toBe('lastSeedBackup')
     expect(result.current.lastSeedBackupDate).toBe(now.getTime())
   })
   it('allows to toggle checked', () => {
-    const { result } = renderHook(useSeedBackupSetup)
+    const { result } = renderHook(useSeedBackupSetup, { wrapper: NavigationWrapper })
     act(() => {
       result.current.toggleChecked()
     })
     expect(result.current.checked).toBeTruthy()
   })
   it('cycles through the screens', () => {
-    const { result } = renderHook(useSeedBackupSetup)
+    const { result } = renderHook(useSeedBackupSetup, { wrapper: NavigationWrapper })
     act(() => {
       result.current.toggleChecked()
     })
@@ -75,7 +80,7 @@ describe('useSeedBackupSetup', () => {
     expect(result.current.checked).toBeFalsy()
   })
   it('updates last lastSeedBackupDate and sets showBackupReminder to false after keepPhraseSecure screen', () => {
-    const { result } = renderHook(useSeedBackupSetup)
+    const { result } = renderHook(useSeedBackupSetup, { wrapper: NavigationWrapper })
     expect(result.current.lastSeedBackupDate).not.toBeDefined()
     act(() => {
       result.current.showNextScreen()

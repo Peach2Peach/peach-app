@@ -1,11 +1,9 @@
-import { ReactElement } from 'react'
-
-import { Text } from '../components'
+import { PeachText } from '../components/text/Text'
 import i18n from '../utils/i18n'
 
-type RefundProps = {
+type Props = {
   isPeachWallet: boolean
 }
-export default ({ isPeachWallet }: RefundProps): ReactElement => (
-  <Text>{i18n(isPeachWallet ? 'refund.text.peachWallet' : 'refund.text.externalWallet')}</Text>
+export const Refund = ({ isPeachWallet }: Props) => (
+  <PeachText>{i18n(isPeachWallet ? 'refund.text.peachWallet' : 'refund.text.externalWallet')}</PeachText>
 )
