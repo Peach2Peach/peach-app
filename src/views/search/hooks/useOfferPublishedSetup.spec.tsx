@@ -15,7 +15,6 @@ describe('useOfferPublishedSetup', () => {
   it('returns defaults', () => {
     const { result } = renderHook(useOfferPublishedSetup, { wrapper: NavigationWrapper })
     expect(result.current).toEqual({
-      shouldGoBack: false,
       goToOffer: expect.any(Function),
       closeAction: expect.any(Function),
     })
