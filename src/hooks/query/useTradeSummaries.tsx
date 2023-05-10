@@ -17,8 +17,8 @@ export const useTradeSummaries = (enabled = true) => {
   }, [refetchContracts, refetchOffers])
 
   return {
-    offers: offers || [],
-    contracts: contracts || [],
+    offers,
+    contracts,
     isFetching: offersFetching || contractsFetching,
     error: offersError || contractsError,
     refetch,
