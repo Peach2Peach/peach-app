@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import { QueryClientWrapper } from '../../../../../tests/unit/helpers/QueryClientWrapper'
-import { setAccount } from '../../../../utils/account'
+import { updateAccount } from '../../../../utils/account'
 import { account1 } from '../../../../../tests/unit/data/accountData'
 import { TradeItem } from './TradeItem'
 
@@ -32,7 +32,7 @@ describe('ContractItem', () => {
   }
 
   beforeAll(() => {
-    setAccount(account1, true)
+    updateAccount(account1)
   })
 
   it('should render correctly', () => {
