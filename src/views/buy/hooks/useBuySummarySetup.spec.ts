@@ -5,6 +5,7 @@ import { PeachWallet } from '../../../utils/wallet/PeachWallet'
 import { setPeachWallet } from '../../../utils/wallet/setWallet'
 import { getBuyOfferDraft } from '../helpers/getBuyOfferDraft'
 import { useBuySummarySetup } from './useBuySummarySetup'
+import { settingsStore } from '../../../store/settingsStore'
 
 const offerId = '123'
 const publishBuyOfferMock = jest.fn().mockResolvedValue({ offerId, isOfferPublished: true, errorMessage: null })
@@ -35,5 +36,18 @@ describe('useBuySummarySetup', () => {
       }),
     )
     expect(replaceMock).toHaveBeenCalledWith('offerPublished', { offerId, isSellOffer: false })
+  })
+
+  it('should enable peach wallet if no payout address is set', () => {
+    settingsStore.getState().setPeachWalletActive(false)
+    expect(settingsStore.getState().peachWalletActive).toBeFalsy()
+    renderHook(useBuySummarySetup, { wrapper: NavigationWrapper })
+    expect(settingsStore.getState().peachWalletActive).toBeTruthy()
+  })
+  it('should not enable peach wallet if payout address is set', () => {
+    settingsStore.getState().setPeachWalletActive(false)
+    settingsStore.getState().setPayoutAddress('payoutAddress')
+    renderHook(useBuySummarySetup, { wrapper: NavigationWrapper })
+    expect(settingsStore.getState().peachWalletActive).toBeFalsy()
   })
 })
