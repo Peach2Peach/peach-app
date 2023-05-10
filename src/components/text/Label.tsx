@@ -2,7 +2,7 @@ import { TouchableOpacity } from 'react-native'
 import tw from '../../styles/tailwind'
 
 export type Props = ComponentProps & {
-  onPress: () => void
+  onPress?: () => void
 }
 export const Label = ({ children, onPress, style, testID }: Props) => (
   <TouchableOpacity

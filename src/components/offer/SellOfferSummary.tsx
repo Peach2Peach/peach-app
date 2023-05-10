@@ -61,7 +61,7 @@ export const SellOfferSummary = ({ offer, style }: SellOfferSummaryProps): React
       <TradeSeparator text={i18n('refund.wallet')} />
 
       {isPublishedOffer(offer) ? (
-        <WalletLabel label={offer.walletLabel} address={offer.returnAddress} style={tw`self-center subtitle-1 mt-1`} />
+        <WalletLabel label={offer.walletLabel} address={offer.returnAddress} style={tw`mt-1`} />
       ) : (
         <SelectWallet type="refund" style={tw`mt-1`} />
       )}

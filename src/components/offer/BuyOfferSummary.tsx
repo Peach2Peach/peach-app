@@ -53,7 +53,7 @@ export const BuyOfferSummary = ({ offer, style }: BuyOfferSummaryProps): ReactEl
       </View>
       <TradeSeparator text={i18n('payout.wallet')} />
       {isPublishedOffer(offer) ? (
-        <WalletLabel label={offer.walletLabel} address={offer.releaseAddress} style={tw`self-center subtitle-1 mt-1`} />
+        <WalletLabel label={offer.walletLabel} address={offer.releaseAddress} style={tw`mt-1`} />
       ) : (
         <SelectWallet type="payout" style={tw`mt-1`} />
       )}
