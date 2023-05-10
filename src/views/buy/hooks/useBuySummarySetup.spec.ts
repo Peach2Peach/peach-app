@@ -1,9 +1,16 @@
 import { renderHook, waitFor } from '@testing-library/react-native'
-import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { NavigationWrapper, replaceMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { useHeaderState } from '../../../components/header/store'
-import { useBuySummarySetup } from './useBuySummarySetup'
-import { setPeachWallet } from '../../../utils/wallet/setWallet'
 import { PeachWallet } from '../../../utils/wallet/PeachWallet'
+import { setPeachWallet } from '../../../utils/wallet/setWallet'
+import { getBuyOfferDraft } from '../helpers/getBuyOfferDraft'
+import { useBuySummarySetup } from './useBuySummarySetup'
+
+const offerId = '123'
+const publishBuyOfferMock = jest.fn().mockResolvedValue({ offerId, isOfferPublished: true, errorMessage: null })
+jest.mock('../helpers/publishBuyOffer', () => ({
+  publishBuyOffer: (...args: any[]) => publishBuyOfferMock(...args),
+}))
 
 describe('useBuySummarySetup', () => {
   beforeEach(() => {
@@ -17,5 +24,16 @@ describe('useBuySummarySetup', () => {
     expect(useHeaderState.getState().title).toBe('publish buy offer')
     expect(useHeaderState.getState().icons?.[0].id).toBe('wallet')
     await waitFor(() => expect(result.current.message).toBeDefined())
+  })
+  it('should show offer published overlay when offer has been published successfully', async () => {
+    const { result } = renderHook(useBuySummarySetup, { wrapper: NavigationWrapper })
+    await result.current.publishOffer(
+      getBuyOfferDraft({
+        minBuyAmount: 1000,
+        maxBuyAmount: 10000,
+        meansOfPayment: {},
+      }),
+    )
+    expect(replaceMock).toHaveBeenCalledWith('offerPublished', { offerId, isSellOffer: false })
   })
 })
