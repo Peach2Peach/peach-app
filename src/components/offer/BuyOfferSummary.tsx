@@ -2,13 +2,15 @@ import { ReactElement, useState } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
+import { isPublishedOffer } from '../../utils/offer/isPublishedOffer'
 import { getCurrencies } from '../../utils/paymentMethod'
 import { PaymentMethod } from '../matches/PaymentMethod'
 import { TabbedNavigation } from '../navigation/TabbedNavigation'
 import { SatsFormat, Text } from '../text'
 import { HorizontalLine } from '../ui'
-import { WalletLabel } from './WalletLabel'
+import { SelectWallet } from './SelectWallet'
 import { TradeSeparator } from './TradeSeparator'
+import { WalletLabel } from './WalletLabel'
 
 type BuyOfferSummaryProps = ComponentProps & {
   offer: BuyOffer | BuyOfferDraft
@@ -50,7 +52,11 @@ export const BuyOfferSummary = ({ offer, style }: BuyOfferSummaryProps): ReactEl
         ))}
       </View>
       <TradeSeparator text={i18n('payout.wallet')} />
-      <WalletLabel label={offer.walletLabel} address={offer.releaseAddress} style={tw`self-center subtitle-1`} />
+      {isPublishedOffer(offer) ? (
+        <WalletLabel label={offer.walletLabel} address={offer.releaseAddress} style={tw`self-center subtitle-1 mt-1`} />
+      ) : (
+        <SelectWallet type="payout" style={tw`mt-1`} />
+      )}
     </View>
   )
 }

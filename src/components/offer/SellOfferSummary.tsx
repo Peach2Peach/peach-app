@@ -13,6 +13,8 @@ import { SatsFormat, Text } from '../text'
 import { HorizontalLine } from '../ui'
 import { WalletLabel } from './WalletLabel'
 import { TradeSeparator } from './TradeSeparator'
+import { isPublishedOffer } from '../../utils/offer'
+import { SelectWallet } from './SelectWallet'
 
 type SellOfferSummaryProps = ComponentProps & {
   offer: SellOffer | SellOfferDraft
@@ -58,7 +60,11 @@ export const SellOfferSummary = ({ offer, style }: SellOfferSummaryProps): React
 
       <TradeSeparator text={i18n('refund.wallet')} />
 
-      <WalletLabel label={offer.walletLabel} address={offer.returnAddress} style={tw`self-center subtitle-1`} />
+      {isPublishedOffer(offer) ? (
+        <WalletLabel label={offer.walletLabel} address={offer.returnAddress} style={tw`self-center subtitle-1 mt-1`} />
+      ) : (
+        <SelectWallet type="refund" style={tw`mt-1`} />
+      )}
 
       {isSellOfferWithDefinedEscrow(offer) && (
         <>
