@@ -21,7 +21,7 @@ export default (): ReactElement => {
         {i18n('showOffer')}
       </PrimaryButton>
       <PrimaryButton style={tw`mt-3`} white narrow border onPress={closeAction}>
-        {i18n(shouldGoBack ? 'close' : 'goBackHome')}
+        {i18n(shouldGoBack ? 'close' : 'home')}
       </PrimaryButton>
     </View>
   )
