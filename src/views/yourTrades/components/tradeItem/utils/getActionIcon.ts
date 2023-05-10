@@ -1,6 +1,6 @@
 import { isContractSummary, isPastOffer, statusIcons } from '../../../utils'
 
-export const getActionIcon = (tradeSummary: TradeSummary, status: TradeStatus) => {
+export const getActionIcon = (tradeSummary: Pick<TradeSummary, 'tradeStatus'>, status: TradeStatus) => {
   if (isPastOffer(tradeSummary.tradeStatus)) {
     return undefined
   }
