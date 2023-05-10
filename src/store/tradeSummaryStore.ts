@@ -9,7 +9,6 @@ export type TradeSummaryState = {
 }
 
 type TradeSummaryStore = TradeSummaryState & {
-  getLastModified: () => Date
   setOffers: (offers: OfferSummary[]) => void
   setOffer: (offerId: string, data: Partial<OfferSummary>) => void
   getOffer: (offerId: string) => OfferSummary | undefined
@@ -29,7 +28,6 @@ export const tradeSummaryStore = createStore(
   persist<TradeSummaryStore>(
     (set, get) => ({
       ...defaultTradeSummaryState,
-      getLastModified: () => get().lastModified,
       setOffers: (offers) => set((state) => ({ ...state, offers, lastModified: new Date() })),
       setOffer: (offerId, data) => {
         let itemFound = false
