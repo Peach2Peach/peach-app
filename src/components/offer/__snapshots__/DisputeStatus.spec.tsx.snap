@@ -1,0 +1,249 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DisputeStatus renders correctly 1`] = `
+<React.Fragment>
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "marginBottom": 8,
+        "marginTop": 8,
+      }
+    }
+  >
+    <PeachText
+      style={
+        {
+          "color": "#9F8C82",
+          "width": 72,
+        }
+      }
+    >
+      status
+    </PeachText>
+    <PeachText
+      style={
+        {
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 14,
+          "letterSpacing": 0.14,
+          "lineHeight": 22,
+          "marginLeft": 8,
+          "marginRight": 8,
+        }
+      }
+    >
+      dispute won
+    </PeachText>
+    <Icon
+      color="#05A85A"
+      id="checkCircle"
+      style={
+        {
+          "height": 16,
+          "width": 16,
+        }
+      }
+    />
+  </View>
+  <PeachText
+    style={
+      {
+        "fontFamily": "Baloo2-Regular",
+        "fontSize": 14,
+        "letterSpacing": 0.14,
+        "lineHeight": 20,
+      }
+    }
+  >
+    You won the dispute! The seller's reputation has been impacted and they will need to release the funds to you.
+  </PeachText>
+</React.Fragment>
+`;
+
+exports[`DisputeStatus renders correctly with seller view 1`] = `
+<React.Fragment>
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "marginBottom": 8,
+        "marginTop": 8,
+      }
+    }
+  >
+    <PeachText
+      style={
+        {
+          "color": "#9F8C82",
+          "width": 72,
+        }
+      }
+    >
+      status
+    </PeachText>
+    <PeachText
+      style={
+        {
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 14,
+          "letterSpacing": 0.14,
+          "lineHeight": 22,
+          "marginLeft": 8,
+          "marginRight": 8,
+        }
+      }
+    >
+      dispute lost
+    </PeachText>
+    <Icon
+      color="#DF321F"
+      id="xCircle"
+      style={
+        {
+          "height": 16,
+          "width": 16,
+        }
+      }
+    />
+  </View>
+  <PeachText
+    style={
+      {
+        "fontFamily": "Baloo2-Regular",
+        "fontSize": 14,
+        "letterSpacing": 0.14,
+        "lineHeight": 20,
+      }
+    }
+  >
+    You lost the dispute! Your reputation has been impacted, and you need to release the escrow to the buyer.
+  </PeachText>
+</React.Fragment>
+`;
+
+exports[`DisputeStatus renders correctly with seller winner 1`] = `
+<React.Fragment>
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "marginBottom": 8,
+        "marginTop": 8,
+      }
+    }
+  >
+    <PeachText
+      style={
+        {
+          "color": "#9F8C82",
+          "width": 72,
+        }
+      }
+    >
+      status
+    </PeachText>
+    <PeachText
+      style={
+        {
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 14,
+          "letterSpacing": 0.14,
+          "lineHeight": 22,
+          "marginLeft": 8,
+          "marginRight": 8,
+        }
+      }
+    >
+      dispute lost
+    </PeachText>
+    <Icon
+      color="#DF321F"
+      id="xCircle"
+      style={
+        {
+          "height": 16,
+          "width": 16,
+        }
+      }
+    />
+  </View>
+  <PeachText
+    style={
+      {
+        "fontFamily": "Baloo2-Regular",
+        "fontSize": 14,
+        "letterSpacing": 0.14,
+        "lineHeight": 20,
+      }
+    }
+  >
+    contract.disputeLost.buyer.text
+  </PeachText>
+</React.Fragment>
+`;
+
+exports[`DisputeStatus renders correctly with seller winner and seller view 1`] = `
+<React.Fragment>
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "marginBottom": 8,
+        "marginTop": 8,
+      }
+    }
+  >
+    <PeachText
+      style={
+        {
+          "color": "#9F8C82",
+          "width": 72,
+        }
+      }
+    >
+      status
+    </PeachText>
+    <PeachText
+      style={
+        {
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 14,
+          "letterSpacing": 0.14,
+          "lineHeight": 22,
+          "marginLeft": 8,
+          "marginRight": 8,
+        }
+      }
+    >
+      dispute won
+    </PeachText>
+    <Icon
+      color="#05A85A"
+      id="checkCircle"
+      style={
+        {
+          "height": 16,
+          "width": 16,
+        }
+      }
+    />
+  </View>
+  <PeachText
+    style={
+      {
+        "fontFamily": "Baloo2-Regular",
+        "fontSize": 14,
+        "letterSpacing": 0.14,
+        "lineHeight": 20,
+      }
+    }
+  >
+    You won the dispute! The buyer's reputation has been impacted. You can now either re-publish the offer or get refunded.
+  </PeachText>
+</React.Fragment>
+`;
