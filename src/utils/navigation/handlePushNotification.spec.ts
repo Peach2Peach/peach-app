@@ -172,4 +172,21 @@ describe('handlePushNotification', () => {
     const result = await handlePushNotification(navigationRef, remoteMessage)
     expect(result).toEqual(false)
   })
+  it('navigates to newBadges when badges are defined on the PN', async () => {
+    const badges = 'fastTrader'
+
+    const remoteMessage = {
+      data: {
+        type: 'contract.paymentMade',
+        badges,
+        sentTime: 1231006505000,
+      },
+    } as FirebaseMessagingTypes.RemoteMessage & { data: any }
+
+    await handlePushNotification(navigationRef, remoteMessage)
+
+    expect(navigationRef.navigate).toHaveBeenCalledWith('newBadge', {
+      badges,
+    })
+  })
 })

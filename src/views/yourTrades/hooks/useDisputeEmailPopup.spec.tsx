@@ -9,15 +9,7 @@ import i18n from '../../../utils/i18n'
 import { defaultPopupState, usePopupStore } from '../../../store/usePopupStore'
 import { account1 } from '../../../../tests/unit/data/accountData'
 import { setAccount } from '../../../utils/account'
-
-const navigateMock = jest.fn()
-const NavigationWrapper = ({ children }: ComponentProps) => (
-  <NavigationContext.Provider
-    value={{ navigate: navigateMock, isFocused: () => true, addListener: jest.fn(() => jest.fn()) }}
-  >
-    {children}
-  </NavigationContext.Provider>
-)
+import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
 
 const getContractMock = jest.fn().mockResolvedValue([contract, null])
 jest.mock('../../../utils/peachAPI', () => ({
@@ -32,7 +24,7 @@ describe('useDisputeEmailPopup', () => {
   )
 
   beforeEach(async () => {
-    await setAccount({ ...account1, contracts: [] }, true)
+    await setAccount({ ...account1, contracts: [] })
 
     jest.clearAllMocks()
     useLocalContractStore.getState().setContract({

@@ -49,7 +49,6 @@ declare type Chat = {
   lastSeen: Date
   messages: Message[]
   draftMessage: string
-  seenDisputeDisclaimer: boolean
 }
 
 declare type AppState = {
@@ -119,6 +118,7 @@ declare type Config = {
   minAppVersion: string
   latestAppVersion: string
   minTradingAmount: number
-  hasSeenRedesignWelcome?: boolean
   maxTradingAmount: number
+  hasSeenRedesignWelcome?: boolean
+  seenDisputeDisclaimer: boolean
 }

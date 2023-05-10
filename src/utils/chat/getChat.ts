@@ -15,7 +15,6 @@ export const getChat = (id: string): Chat => {
     lastSeen: new Date(),
     messages: [],
     draftMessage,
-    seenDisputeDisclaimer: false,
   }
 
   messages = messages.map((message: Message) => ({

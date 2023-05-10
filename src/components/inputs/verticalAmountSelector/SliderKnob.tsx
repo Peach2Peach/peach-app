@@ -4,10 +4,10 @@ import Icon from '../../Icon'
 import { useKnobHeight } from './hooks/useKnobHeight'
 
 export const SliderKnob = ({ style }: ComponentProps) => {
-  const knobHeight = useKnobHeight()
+  const height = useKnobHeight()
   return (
-    <View style={[{ height: knobHeight }, tw`items-center justify-center w-full rounded-full bg-primary-main`, style]}>
-      <Icon id="chevronsLeft" style={tw`w-4 h-4`} color={tw`text-primary-background-light`.color} />
+    <View style={[{ height }, tw`w-full items-center justify-center rounded-full bg-primary-main`, style]}>
+      <Icon id="menu" style={tw`w-3 h-3`} color={tw`text-primary-background-light`.color} />
     </View>
   )
 }

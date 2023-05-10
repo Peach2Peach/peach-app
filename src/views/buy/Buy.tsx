@@ -16,13 +16,14 @@ import LoadingScreen from '../loading/LoadingScreen'
 import { useCheckShowRedesignWelcome } from '../../hooks/'
 import { useShowBackupReminder } from '../../hooks/useShowBackupReminder'
 import { useDebounce } from '../../hooks/useDebounce'
+import { ProgressDonut } from '../../components/ui'
 
 export default (): ReactElement => {
   const navigation = useNavigation()
   const checkShowRedesignWelcome = useCheckShowRedesignWelcome()
   const showCorrectBackupReminder = useShowBackupReminder()
 
-  useBuySetup()
+  const { freeTrades, maxFreeTrades } = useBuySetup()
 
   const [showBackupReminder, minBuyAmount, setMinBuyAmount, maxBuyAmount, setMaxBuyAmount] = useSettingsStore(
     (state) => [
@@ -70,22 +71,23 @@ export default (): ReactElement => {
       <HorizontalLine style={tw`mx-8`} />
       <View style={tw`px-8 mt-2`}>
         <BitcoinPriceStats />
-        <View style={tw`pt-4`}>
-          <Text style={[tw`hidden h6`, tw.md`flex`]}>
-            {i18n('buy.subtitle')}
-            <Text style={tw`h6 text-success-main`}> {i18n('buy')}</Text>?
-          </Text>
-        </View>
       </View>
-      <View style={tw`items-center justify-center flex-grow`}>
-        <RangeAmount
-          min={minTradingAmount}
-          max={maxTradingAmount}
-          value={[currentMinAmount, currentMaxAmount]}
-          onChange={setSelectedRange}
-        />
-      </View>
+      <RangeAmount
+        style={tw`h-full flex-shrink mt-4 mb-2`}
+        min={minTradingAmount}
+        max={maxTradingAmount}
+        value={[currentMinAmount, currentMaxAmount]}
+        onChange={setSelectedRange}
+      />
       <View style={[tw`flex-row items-center justify-center mt-4 mb-1`, tw.md`mb-4`]}>
+        {freeTrades > 0 && (
+          <ProgressDonut
+            style={tw`absolute left-5 bottom-0`}
+            title={i18n('settings.referrals.noPeachFees.freeTrades')}
+            value={freeTrades}
+            max={maxFreeTrades}
+          />
+        )}
         <PrimaryButton disabled={!minAmountValid || !maxAmountValid} testID="navigation-next" onPress={next} narrow>
           {i18n('next')}
         </PrimaryButton>

@@ -13,7 +13,7 @@ export const TransactionInMempool = () => {
     <View style={tw`justify-between h-full`}>
       <View style={tw`justify-center flex-shrink h-full px-8`}>
         <Text>{i18n('sell.funding.mempool.description')}</Text>
-        <View style={tw`mt-3`} {...{ onLayout }}>
+        <View style={tw`mt-3`} {...{ onLayout }} testID="image-container">
           <Image source={txInMempool} style={{ width, height: width * 0.7 }} resizeMode="contain" />
         </View>
       </View>
