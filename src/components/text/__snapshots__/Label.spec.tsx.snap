@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Label renders correctly 1`] = `
+<TouchableOpacity
+  onPress={[MockFunction]}
+  style={
+    [
+      {
+        "alignItems": "center",
+        "borderColor": "#2B1911",
+        "borderRadius": 8,
+        "borderWidth": 1,
+        "height": 24,
+        "justifyContent": "center",
+        "paddingLeft": 8,
+        "paddingRight": 8,
+      },
+      undefined,
+    ]
+  }
+>
+  <PeachText>
+    Test
+  </PeachText>
+</TouchableOpacity>
+`;

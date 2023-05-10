@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OnOffLabel renders correctly when active 1`] = `
+<Label
+  onPress={[MockFunction]}
+  style={
+    {
+      "backgroundColor": "#F56522",
+      "borderColor": "#F56522",
+    }
+  }
+>
+  <PeachText
+    style={
+      [
+        {
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 14,
+          "letterSpacing": 0.5,
+          "lineHeight": 24,
+          "textTransform": "uppercase",
+        },
+        {
+          "color": "#FFFCFA",
+        },
+      ]
+    }
+  >
+    Test
+  </PeachText>
+</Label>
+`;
+
+exports[`OnOffLabel renders correctly when inactive 1`] = `
+<Label
+  onPress={[MockFunction]}
+  style={
+    {
+      "borderColor": "#9F8C82",
+    }
+  }
+>
+  <PeachText
+    style={
+      [
+        {
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 14,
+          "letterSpacing": 0.5,
+          "lineHeight": 24,
+          "textTransform": "uppercase",
+        },
+        {
+          "color": "#9F8C82",
+        },
+      ]
+    }
+  >
+    Test
+  </PeachText>
+</Label>
+`;
