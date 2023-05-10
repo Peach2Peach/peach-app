@@ -9,7 +9,7 @@ const releaseAddress = 'releaseAddress'
 const walletLabel = 'walletLabel'
 const message = 'message'
 const messageSignature = 'messageSignature'
-const goToSetupPayoutWallet = jest.fn()
+const goToMessageSigning = jest.fn()
 const publishOffer = jest.fn()
 
 const defaultBuySummary = {
@@ -17,7 +17,7 @@ const defaultBuySummary = {
   walletLabel,
   message,
   messageSignature,
-  goToSetupPayoutWallet,
+  goToMessageSigning,
   canPublish: true,
   publishOffer,
   isPublishing: false,
@@ -91,7 +91,7 @@ describe('Summary', () => {
     fireEvent(getByText('publish'), 'onPress')
     expect(publishOffer).toHaveBeenCalled()
   })
-  it('clicking on "next" navigates to setup payout wallet', () => {
+  it('clicking on "next" navigates to message signing', () => {
     useBuySummarySetupMock.mockReturnValueOnce({
       ...defaultBuySummary,
       messageSignature: undefined,
@@ -100,6 +100,6 @@ describe('Summary', () => {
     })
     const { getByText } = render(<Summary {...{ offerDraft, setOfferDraft }} />)
     fireEvent(getByText('next'), 'onPress')
-    expect(goToSetupPayoutWallet).toHaveBeenCalled()
+    expect(goToMessageSigning).toHaveBeenCalled()
   })
 })
