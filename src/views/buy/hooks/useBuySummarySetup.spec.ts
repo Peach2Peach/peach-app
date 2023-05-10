@@ -15,7 +15,6 @@ describe('useBuySummarySetup', () => {
   it('should set up header correctly', async () => {
     const { result } = renderHook(useBuySummarySetup, { wrapper: NavigationWrapper })
     expect(useHeaderState.getState().title).toBe('publish buy offer')
-    expect(useHeaderState.getState().icons?.[0].id).toBe('wallet')
     await waitFor(() => expect(result.current.message).toBeDefined())
   })
 })

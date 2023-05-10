@@ -2,7 +2,7 @@ import i18n from '../../utils/i18n'
 import { TradeSeparator } from './TradeSeparator'
 
 export type Props = ComponentProps & {
-  disputeActive: boolean
+  disputeActive?: boolean
 }
 
 export const TradeStatus = ({ style, disputeActive }: Props) => (

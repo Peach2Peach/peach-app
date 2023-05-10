@@ -1,0 +1,182 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BuyOfferSummary renders correctly 1`] = `
+<View
+  style={
+    [
+      {
+        "backgroundColor": "#FFFCFA",
+        "borderColor": "#EAE3DF",
+        "borderRadius": 16,
+        "borderWidth": 1,
+        "paddingBottom": 28,
+        "paddingLeft": 28,
+        "paddingRight": 28,
+        "paddingTop": 28,
+        "width": "100%",
+      },
+      undefined,
+    ]
+  }
+>
+  <PeachText
+    style={
+      {
+        "alignSelf": "center",
+        "color": "#7D675E",
+        "fontFamily": "Baloo2-Regular",
+        "fontSize": 16,
+        "letterSpacing": 0.16,
+        "lineHeight": 24,
+      }
+    }
+  >
+    you want to buy between
+  </PeachText>
+  <SatsFormat
+    containerStyle={
+      {
+        "alignSelf": "center",
+      }
+    }
+    sats={50000}
+    satsStyle={
+      {
+        "fontFamily": "Baloo2-Regular",
+        "fontSize": 14,
+        "fontWeight": "normal",
+        "letterSpacing": 0.14,
+        "lineHeight": 20,
+      }
+    }
+    style={
+      {
+        "fontFamily": "Baloo2-SemiBold",
+        "fontSize": 16,
+        "fontWeight": "600",
+        "letterSpacing": 0.16,
+        "lineHeight": 28,
+      }
+    }
+  />
+  <PeachText
+    style={
+      {
+        "alignSelf": "center",
+        "color": "#7D675E",
+      }
+    }
+  >
+    &
+  </PeachText>
+  <SatsFormat
+    containerStyle={
+      {
+        "alignSelf": "center",
+      }
+    }
+    sats={250000}
+    satsStyle={
+      {
+        "fontFamily": "Baloo2-Regular",
+        "fontSize": 14,
+        "fontWeight": "normal",
+        "letterSpacing": 0.14,
+        "lineHeight": 20,
+      }
+    }
+    style={
+      {
+        "fontFamily": "Baloo2-SemiBold",
+        "fontSize": 16,
+        "fontWeight": "600",
+        "letterSpacing": 0.16,
+        "lineHeight": 28,
+      }
+    }
+  />
+  <HorizontalLine
+    style={
+      {
+        "marginBottom": 16,
+        "marginTop": 16,
+        "width": 256,
+      }
+    }
+  />
+  <PeachText
+    style={
+      {
+        "alignSelf": "center",
+        "color": "#7D675E",
+        "fontFamily": "Baloo2-Regular",
+        "fontSize": 16,
+        "letterSpacing": 0.16,
+        "lineHeight": 24,
+      }
+    }
+  >
+    with these payment methods:
+  </PeachText>
+  <TabbedNavigation
+    items={
+      [
+        {
+          "display": "eur",
+          "id": "EUR",
+        },
+        {
+          "display": "chf",
+          "id": "CHF",
+        },
+      ]
+    }
+    select={[Function]}
+    selected={
+      {
+        "display": "EUR",
+        "id": "EUR",
+      }
+    }
+  />
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "flexWrap": "wrap",
+        "justifyContent": "center",
+        "marginBottom": 8,
+        "marginTop": 12,
+      }
+    }
+  >
+    <PaymentMethod
+      paymentMethod="sepa"
+      style={
+        {
+          "marginBottom": 4,
+          "marginLeft": 4,
+          "marginRight": 4,
+          "marginTop": 4,
+        }
+      }
+    />
+  </View>
+  <TradeSeparator
+    text="payout wallet"
+  />
+  <WalletLabel
+    address="bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh"
+    style={
+      {
+        "alignSelf": "center",
+        "fontFamily": "Baloo2-SemiBold",
+        "fontSize": 16,
+        "letterSpacing": 0.16,
+        "lineHeight": 28,
+      }
+    }
+  />
+</View>
+`;
