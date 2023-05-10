@@ -21,7 +21,7 @@ export const useYourTradesSetup = () => {
   const showErrorBanner = useShowErrorBanner()
   const [currentTab, setCurrentTab] = useState(getTabById(tabs, tab) || tabs[0])
 
-  const { offers, contracts, isFetching, error, refetch } = useTradeSummaries()
+  const { offers, contracts, isFetching, isLoading, error, refetch } = useTradeSummaries()
 
   const filteredOffers = offers.filter(({ contractId }) => !contractId)
   const trades = [...filteredOffers, ...contracts].sort(sortContractsByDate).reverse()
@@ -57,7 +57,7 @@ export const useYourTradesSetup = () => {
   }, [isFetching, error, showErrorBanner])
 
   return {
-    isLoading: isFetching,
+    isLoading,
     refetch,
     allOpenOffers,
     openOffers,
