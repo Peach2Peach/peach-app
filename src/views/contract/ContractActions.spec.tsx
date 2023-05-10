@@ -41,12 +41,3 @@ describe('ContractActions', () => {
     expect(result).toMatchSnapshot()
   })
 })
-
-/**
-   *   contract,
-              view,
-              requiredAction,
-              actionPending,
-              postConfirmPaymentBuyer,
-              postConfirmPaymentSeller,
-   */
