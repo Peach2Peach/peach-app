@@ -6,8 +6,8 @@ import { getContractSummaries } from '../../utils/peachAPI'
 const getContractSummariesQuery = async () => {
   const [contracts, error] = await getContractSummaries({})
 
-  if (error) throw new Error(error.error)
-  return contracts || undefined
+  if (error || !contracts) throw new Error(error?.error)
+  return contracts
 }
 
 export const useContractSummaries = (enabled = true) => {
@@ -22,10 +22,7 @@ export const useContractSummaries = (enabled = true) => {
     refetchOnMount: true,
     initialData: contracts,
     initialDataUpdatedAt: lastModified.getTime(),
-    onSuccess: (result) => {
-      if (!result) return
-      setContracts(result)
-    },
+    onSuccess: setContracts,
   })
 
   return { contracts: data, isLoading, isFetching, error, refetch }

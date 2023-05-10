@@ -6,8 +6,8 @@ import { getOfferSummaries } from '../../utils/peachAPI'
 const getOfferSummariesQuery = async () => {
   const [offers, error] = await getOfferSummaries({})
 
-  if (error) throw new Error(error.error)
-  return offers || undefined
+  if (error || !offers) throw new Error(error?.error)
+  return offers
 }
 
 export const useOfferSummaries = (enabled = true) => {
@@ -22,10 +22,7 @@ export const useOfferSummaries = (enabled = true) => {
     refetchOnMount: true,
     initialData: offers,
     initialDataUpdatedAt: lastModified.getTime(),
-    onSuccess: (result) => {
-      if (!result) return
-      setOffers(result)
-    },
+    onSuccess: setOffers,
   })
 
   return { offers: data, isLoading, isFetching, error, refetch }
