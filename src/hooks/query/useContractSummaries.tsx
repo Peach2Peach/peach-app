@@ -19,7 +19,6 @@ export const useContractSummaries = (enabled = true) => {
     queryKey: ['contractSummaries'],
     queryFn: getContractSummariesQuery,
     enabled,
-    refetchOnMount: true,
     initialData: contracts,
     initialDataUpdatedAt: lastModified.getTime(),
     onSuccess: setContracts,
