@@ -6,7 +6,7 @@ import i18n from '../../utils/i18n'
 import { useOfferPublishedSetup } from './hooks/useOfferPublishedSetup'
 
 export default (): ReactElement => {
-  const { goToOffer, shouldGoBack, closeAction } = useOfferPublishedSetup()
+  const { goToOffer, closeAction } = useOfferPublishedSetup()
 
   return (
     <View style={tw`items-center justify-between h-full px-9 pb-7`}>
@@ -21,7 +21,7 @@ export default (): ReactElement => {
         {i18n('showOffer')}
       </PrimaryButton>
       <PrimaryButton style={tw`mt-3`} white narrow border onPress={closeAction}>
-        {i18n(shouldGoBack ? 'close' : 'home')}
+        {i18n('close')}
       </PrimaryButton>
     </View>
   )

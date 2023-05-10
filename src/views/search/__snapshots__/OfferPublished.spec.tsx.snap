@@ -253,7 +253,7 @@ exports[`OfferPublished renders correctly 1`] = `
         ]
       }
     >
-      home
+      close
     </Text>
   </View>
 </View>
