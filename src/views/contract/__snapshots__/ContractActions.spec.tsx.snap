@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ContractActions should not show the dispute sliders when there is no dispute winner 1`] = `
+<React.Fragment>
+  <ContractCTA
+    actionPending={false}
+    contract={
+      {
+        "disputeWinner": undefined,
+        "tradeStatus": "refundOrReviveRequired",
+      }
+    }
+    postConfirmPaymentBuyer={[MockFunction]}
+    postConfirmPaymentSeller={[MockFunction]}
+    requiredAction="none"
+    view="buyer"
+  />
+</React.Fragment>
+`;
+
+exports[`ContractActions should show the dispute sliders when the contract is in the refundOrReviveRequired state 1`] = `
+<React.Fragment>
+  <ContractCTA
+    actionPending={false}
+    contract={
+      {
+        "disputeWinner": "seller",
+        "tradeStatus": "refundOrReviveRequired",
+      }
+    }
+    postConfirmPaymentBuyer={[MockFunction]}
+    postConfirmPaymentSeller={[MockFunction]}
+    requiredAction="none"
+    view="buyer"
+  />
+  <ResolveDisputeSliders
+    contract={
+      {
+        "disputeWinner": "seller",
+        "tradeStatus": "refundOrReviveRequired",
+      }
+    }
+  />
+</React.Fragment>
+`;
