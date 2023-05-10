@@ -23,7 +23,7 @@ export default ({ offerDraft, setOfferDraft }: BuyViewProps): ReactElement => {
     canPublish,
     publishOffer,
     isPublishing,
-    goToSetupPayoutWallet,
+    goToMessageSigning,
   } = useBuySummarySetup()
   const publishBuyOffer = () => publishOffer(offerDraft)
 
@@ -53,7 +53,7 @@ export default ({ offerDraft, setOfferDraft }: BuyViewProps): ReactElement => {
         style={tw`self-center mt-4`}
         narrow={!canPublish}
         disabled={peachWalletActive && !messageSignature}
-        onPress={canPublish ? publishBuyOffer : goToSetupPayoutWallet}
+        onPress={canPublish ? publishBuyOffer : goToMessageSigning}
         loading={isPublishing}
       >
         {i18n(getButtonTextId(canPublish, isPublishing))}

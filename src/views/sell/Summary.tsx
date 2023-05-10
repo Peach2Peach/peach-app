@@ -8,8 +8,7 @@ import { useSellSummarySetup } from './hooks/useSellSummarySetup'
 import { SellViewProps } from './SellPreferences'
 
 export default ({ offerDraft, setOfferDraft }: SellViewProps): ReactElement => {
-  const { returnAddress, walletLabel, goToSetupRefundWallet, canPublish, publishOffer, isPublishing }
-    = useSellSummarySetup()
+  const { returnAddress, walletLabel, canPublish, publishOffer, isPublishing } = useSellSummarySetup()
   const publishSellOffer = () => publishOffer(offerDraft)
 
   useEffect(() => {
@@ -35,7 +34,7 @@ export default ({ offerDraft, setOfferDraft }: SellViewProps): ReactElement => {
         style={tw`self-center mt-4`}
         testID="navigation-next"
         narrow={!canPublish}
-        onPress={canPublish ? publishSellOffer : goToSetupRefundWallet}
+        onPress={canPublish ? publishSellOffer : undefined}
         loading={isPublishing}
       >
         {i18n('next')}
