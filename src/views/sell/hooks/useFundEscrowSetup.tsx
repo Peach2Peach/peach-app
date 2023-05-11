@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react'
+import { useEffect } from 'react'
 import { CancelIcon, HelpIcon } from '../../../components/icons'
 import { useCancelOffer, useHeaderSetup, useRoute } from '../../../hooks'
 import { useFundingStatus } from '../../../hooks/query/useFundingStatus'
@@ -30,26 +30,21 @@ export const useFundEscrowSetup = () => {
   } = useFundingStatus(offerId, canFetchFundingStatus)
   const fundingAmount = sellOffer ? sellOffer.amount : 0
   const cancelOffer = useCancelOffer(sellOffer)
-
   useHeaderSetup(
-    useMemo(
-      () =>
-        fundingStatus.status === 'MEMPOOL'
-          ? {
-            title: i18n('sell.funding.mempool.title'),
-            hideGoBackButton: true,
-            icons: [{ iconComponent: <HelpIcon />, onPress: showMempoolHelp }],
-          }
-          : {
-            title: i18n('sell.escrow.title'),
-            hideGoBackButton: true,
-            icons: [
-              { iconComponent: <CancelIcon />, onPress: cancelOffer },
-              { iconComponent: <HelpIcon />, onPress: showHelp },
-            ],
-          },
-      [fundingStatus, cancelOffer, showHelp, showMempoolHelp],
-    ),
+    fundingStatus.status === 'MEMPOOL'
+      ? {
+        title: i18n('sell.funding.mempool.title'),
+        hideGoBackButton: true,
+        icons: [{ iconComponent: <HelpIcon />, onPress: showMempoolHelp }],
+      }
+      : {
+        title: i18n('sell.escrow.title'),
+        hideGoBackButton: true,
+        icons: [
+          { iconComponent: <CancelIcon />, onPress: cancelOffer },
+          { iconComponent: <HelpIcon />, onPress: showHelp },
+        ],
+      },
   )
 
   useHandleFundingStatus({
