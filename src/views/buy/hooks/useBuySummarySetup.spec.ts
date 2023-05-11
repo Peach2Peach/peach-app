@@ -1,11 +1,11 @@
-import { renderHook, waitFor } from '@testing-library/react-native'
+import { act, renderHook, waitFor } from '@testing-library/react-native'
 import { NavigationWrapper, replaceMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { useHeaderState } from '../../../components/header/store'
+import { settingsStore } from '../../../store/settingsStore'
 import { PeachWallet } from '../../../utils/wallet/PeachWallet'
 import { setPeachWallet } from '../../../utils/wallet/setWallet'
 import { getBuyOfferDraft } from '../helpers/getBuyOfferDraft'
 import { useBuySummarySetup } from './useBuySummarySetup'
-import { settingsStore } from '../../../store/settingsStore'
 
 const offerId = '123'
 const publishBuyOfferMock = jest.fn().mockResolvedValue({ offerId, isOfferPublished: true, errorMessage: null })
@@ -28,21 +28,24 @@ describe('useBuySummarySetup', () => {
   })
   it('should show offer published overlay when offer has been published successfully', async () => {
     const { result } = renderHook(useBuySummarySetup, { wrapper: NavigationWrapper })
-    await result.current.publishOffer(
-      getBuyOfferDraft({
-        minBuyAmount: 1000,
-        maxBuyAmount: 10000,
-        meansOfPayment: {},
-      }),
-    )
+    await act(async () => {
+      await result.current.publishOffer(
+        getBuyOfferDraft({
+          minBuyAmount: 1000,
+          maxBuyAmount: 10000,
+          meansOfPayment: {},
+        }),
+      )
+    })
     expect(replaceMock).toHaveBeenCalledWith('offerPublished', { offerId, isSellOffer: false })
   })
 
-  it('should enable peach wallet if no payout address is set', () => {
+  it('should enable peach wallet if no payout address is set', async () => {
     settingsStore.getState().setPeachWalletActive(false)
     expect(settingsStore.getState().peachWalletActive).toBeFalsy()
-    renderHook(useBuySummarySetup, { wrapper: NavigationWrapper })
+    const { result } = renderHook(useBuySummarySetup, { wrapper: NavigationWrapper })
     expect(settingsStore.getState().peachWalletActive).toBeTruthy()
+    await waitFor(() => expect(result.current.messageSignature).toBeDefined())
   })
   it('should not enable peach wallet if payout address is set', () => {
     settingsStore.getState().setPeachWalletActive(false)
