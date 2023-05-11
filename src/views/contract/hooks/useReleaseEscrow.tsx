@@ -1,9 +1,10 @@
 import { useOverlayContext } from '../../../contexts/overlay'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { useShowLoadingOverlay } from '../../../hooks/useShowLoadingOverlay'
-import { saveContract, signReleaseTx } from '../../../utils/contract'
+import { saveContract } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
 import { confirmPayment } from '../../../utils/peachAPI'
+import { signReleaseTxOfContract } from '../../../utils/contract/signReleaseTxOfContract'
 
 export const useReleaseEscrow = (contract: Contract) => {
   const [, updateOverlay] = useOverlayContext()
@@ -18,7 +19,7 @@ export const useReleaseEscrow = (contract: Contract) => {
       title: i18n('dispute.lost'),
       level: 'WARN',
     })
-    const [tx, errorMsg] = signReleaseTx(contract)
+    const [tx, errorMsg] = signReleaseTxOfContract(contract)
     if (!tx) {
       closeOverlay()
       return showError(errorMsg)
