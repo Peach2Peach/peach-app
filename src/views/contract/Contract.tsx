@@ -13,7 +13,7 @@ export default () => {
   if (!contract || !view || isLoading) return <LoadingScreen />
 
   return (
-    <PeachScrollView contentContainerStyle={tw`h-full px-6 pt-5`}>
+    <PeachScrollView contentContainerStyle={[tw`h-full px-4 pt-5`, tw.md`px-6`]}>
       <View style={tw`h-full`}>
         <TradeSummary {...{ contract, view }} />
         <ContractActions

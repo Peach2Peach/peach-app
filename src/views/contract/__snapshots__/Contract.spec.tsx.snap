@@ -3,12 +3,18 @@
 exports[`Contract should render a default Contract 1`] = `
 <PeachScrollView
   contentContainerStyle={
-    {
-      "height": "100%",
-      "paddingLeft": 24,
-      "paddingRight": 24,
-      "paddingTop": 20,
-    }
+    [
+      {
+        "height": "100%",
+        "paddingLeft": 16,
+        "paddingRight": 16,
+        "paddingTop": 20,
+      },
+      {
+        "paddingLeft": 24,
+        "paddingRight": 24,
+      },
+    ]
   }
 >
   <View
@@ -45,6 +51,7 @@ exports[`Contract should render a default Contract 1`] = `
           },
         }
       }
+      isEmailRequired={false}
       postConfirmPaymentBuyer={[MockFunction]}
       postConfirmPaymentSeller={[MockFunction]}
       requiredAction="requiredAction"
@@ -66,12 +73,18 @@ exports[`Contract should render a default Contract 1`] = `
 exports[`Contract should show the buyers profile overview if the viewer is the seller 1`] = `
 <PeachScrollView
   contentContainerStyle={
-    {
-      "height": "100%",
-      "paddingLeft": 24,
-      "paddingRight": 24,
-      "paddingTop": 20,
-    }
+    [
+      {
+        "height": "100%",
+        "paddingLeft": 16,
+        "paddingRight": 16,
+        "paddingTop": 20,
+      },
+      {
+        "paddingLeft": 24,
+        "paddingRight": 24,
+      },
+    ]
   }
 >
   <View
@@ -108,6 +121,7 @@ exports[`Contract should show the buyers profile overview if the viewer is the s
           },
         }
       }
+      isEmailRequired={false}
       postConfirmPaymentBuyer={[MockFunction]}
       postConfirmPaymentSeller={[MockFunction]}
       requiredAction="requiredAction"
@@ -131,12 +145,18 @@ exports[`Contract should show the loading screen if isLoading is true 1`] = `<_d
 exports[`Contract should show the provide email button when the contract requires an email 1`] = `
 <PeachScrollView
   contentContainerStyle={
-    {
-      "height": "100%",
-      "paddingLeft": 24,
-      "paddingRight": 24,
-      "paddingTop": 20,
-    }
+    [
+      {
+        "height": "100%",
+        "paddingLeft": 16,
+        "paddingRight": 16,
+        "paddingTop": 20,
+      },
+      {
+        "paddingLeft": 24,
+        "paddingRight": 24,
+      },
+    ]
   }
 >
   <View
@@ -175,6 +195,7 @@ exports[`Contract should show the provide email button when the contract require
           },
         }
       }
+      isEmailRequired={false}
       postConfirmPaymentBuyer={[MockFunction]}
       postConfirmPaymentSeller={[MockFunction]}
       requiredAction="requiredAction"

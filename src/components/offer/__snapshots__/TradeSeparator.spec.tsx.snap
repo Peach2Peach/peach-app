@@ -1,237 +1,75 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`TradeSeparator renders correctly 1`] = `
-<View
-  style={
-    [
-      {
-        "alignItems": "center",
-        "flexDirection": "row",
-      },
-      undefined,
-    ]
-  }
->
-  <PeachText
-    style={
-      [
-        {
-          "color": "#7D675E",
-          "marginRight": 4,
-        },
-        false,
-      ]
-    }
-  >
-    text
-  </PeachText>
-  <HorizontalLine
-    style={
-      [
-        {
-          "flexGrow": 1,
-          "marginLeft": 4,
-        },
-        false,
-      ]
-    }
-  />
-</View>
+<Divider
+  text="text"
+  type="light"
+/>
 `;
 
 exports[`TradeSeparator renders correctly with disputeActive 1`] = `
-<View
-  style={
-    [
-      {
-        "alignItems": "center",
-        "flexDirection": "row",
-      },
-      undefined,
-    ]
-  }
->
-  <PeachText
-    style={
-      [
-        {
-          "color": "#7D675E",
-          "marginRight": 4,
-        },
-        {
-          "color": "#DF321F",
-        },
-      ]
-    }
-  >
-    text
-  </PeachText>
-  <HorizontalLine
-    style={
-      [
-        {
-          "flexGrow": 1,
-          "marginLeft": 4,
-        },
-        {
-          "backgroundColor": "#FFD1CA",
-        },
-      ]
-    }
-  />
-</View>
+<Divider
+  text="text"
+  type="error"
+/>
 `;
 
 exports[`TradeSeparator renders correctly with iconColor 1`] = `
-<View
-  style={
-    [
-      {
-        "alignItems": "center",
-        "flexDirection": "row",
-      },
-      undefined,
-    ]
-  }
->
-  <Icon
-    color="iconColor"
-    id="xCircle"
-    style={
-      {
-        "height": 16,
-        "marginRight": 4,
-        "width": 16,
-      }
-    }
-  />
-  <PeachText
-    style={
-      [
+<Divider
+  icon={
+    <Icon
+      color="iconColor"
+      id="xCircle"
+      style={
         {
-          "color": "#7D675E",
+          "height": 16,
           "marginRight": 4,
-        },
-        false,
-      ]
-    }
-  >
-    text
-  </PeachText>
-  <HorizontalLine
-    style={
-      [
-        {
-          "flexGrow": 1,
-          "marginLeft": 4,
-        },
-        false,
-      ]
-    }
-  />
-</View>
+          "width": 16,
+        }
+      }
+    />
+  }
+  text="text"
+  type="light"
+/>
 `;
 
 exports[`TradeSeparator renders correctly with iconId 1`] = `
-<View
-  style={
-    [
-      {
-        "alignItems": "center",
-        "flexDirection": "row",
-      },
-      undefined,
-    ]
-  }
->
-  <Icon
-    color="#DF321F"
-    id="xCircle"
-    style={
-      {
-        "height": 16,
-        "marginRight": 4,
-        "width": 16,
-      }
-    }
-  />
-  <PeachText
-    style={
-      [
+<Divider
+  icon={
+    <Icon
+      color="#DF321F"
+      id="xCircle"
+      style={
         {
-          "color": "#7D675E",
+          "height": 16,
           "marginRight": 4,
-        },
-        false,
-      ]
-    }
-  >
-    text
-  </PeachText>
-  <HorizontalLine
-    style={
-      [
-        {
-          "flexGrow": 1,
-          "marginLeft": 4,
-        },
-        false,
-      ]
-    }
-  />
-</View>
+          "width": 16,
+        }
+      }
+    />
+  }
+  text="text"
+  type="light"
+/>
 `;
 
 exports[`TradeSeparator renders correctly with iconId, iconColor and disputeActive 1`] = `
-<View
-  style={
-    [
-      {
-        "alignItems": "center",
-        "flexDirection": "row",
-      },
-      undefined,
-    ]
-  }
->
-  <Icon
-    color="iconColor"
-    id="xCircle"
-    style={
-      {
-        "height": 16,
-        "marginRight": 4,
-        "width": 16,
-      }
-    }
-  />
-  <PeachText
-    style={
-      [
+<Divider
+  icon={
+    <Icon
+      color="iconColor"
+      id="xCircle"
+      style={
         {
-          "color": "#7D675E",
+          "height": 16,
           "marginRight": 4,
-        },
-        {
-          "color": "#DF321F",
-        },
-      ]
-    }
-  >
-    text
-  </PeachText>
-  <HorizontalLine
-    style={
-      [
-        {
-          "flexGrow": 1,
-          "marginLeft": 4,
-        },
-        {
-          "backgroundColor": "#FFD1CA",
-        },
-      ]
-    }
-  />
-</View>
+          "width": 16,
+        }
+      }
+    />
+  }
+  text="text"
+  type="error"
+/>
 `;

@@ -1,9 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`TradeSummary should render closed trade correctly 1`] = `
-<React.Fragment>
+<View
+  style={
+    [
+      {
+        "gap": 16,
+      },
+      {
+        "gap": 32,
+      },
+    ]
+  }
+>
   <MatchCardCounterparty />
-  <ClosedTrade
+  <TradeInformation
     contract={
       {
         "canceled": true,
@@ -12,13 +23,32 @@ exports[`TradeSummary should render closed trade correctly 1`] = `
     }
     view="buyer"
   />
-</React.Fragment>
+  <TradeStuff
+    contract={
+      {
+        "canceled": true,
+        "paymentConfirmed": null,
+      }
+    }
+  />
+</View>
 `;
 
 exports[`TradeSummary should render open trade correctly 1`] = `
-<React.Fragment>
+<View
+  style={
+    [
+      {
+        "gap": 16,
+      },
+      {
+        "gap": 32,
+      },
+    ]
+  }
+>
   <MatchCardCounterparty />
-  <OpenTrade
+  <TradeInformation
     contract={
       {
         "canceled": false,
@@ -27,13 +57,32 @@ exports[`TradeSummary should render open trade correctly 1`] = `
     }
     view="buyer"
   />
-</React.Fragment>
+  <TradeStuff
+    contract={
+      {
+        "canceled": false,
+        "paymentConfirmed": null,
+      }
+    }
+  />
+</View>
 `;
 
 exports[`TradeSummary should render won dispute with outstanding action as seller correctly 1`] = `
-<React.Fragment>
+<View
+  style={
+    [
+      {
+        "gap": 16,
+      },
+      {
+        "gap": 32,
+      },
+    ]
+  }
+>
   <MatchCardCounterparty />
-  <ClosedTrade
+  <TradeInformation
     contract={
       {
         "canceled": true,
@@ -43,5 +92,14 @@ exports[`TradeSummary should render won dispute with outstanding action as selle
     }
     view="seller"
   />
-</React.Fragment>
+  <TradeStuff
+    contract={
+      {
+        "canceled": true,
+        "paymentConfirmed": null,
+        "tradeStatus": "refundOrReviveRequired",
+      }
+    }
+  />
+</View>
 `;
