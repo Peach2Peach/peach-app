@@ -630,7 +630,7 @@
   "contract.paymentMade.description": "If you have received it,  confirm the payment in the trades tab.",
   "rate.subtitle": "How would you rate your counterparty for this trade?",
   "rate.rateAndFinish": "rate & finish",
-  "rate.tradeBreakdown": "show trade breakdown",
+  "rate.tradeBreakdown": "trade breakdown",
   "tradeComplete.title.buyer.default": "trade complete, stacked some sats!",
   "tradeComplete.title.seller.default": "trade complete,\ncash in the pocket!",
   "tradeComplete.popup.tradeBreakdown.title": "trade breakdown",
