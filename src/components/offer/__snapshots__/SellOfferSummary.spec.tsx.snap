@@ -136,7 +136,7 @@ exports[`SellOfferSummary renders correctly for sell offers drafts 1`] = `
     offer={
       {
         "amount": 1000000,
-        "creationDate": 2023-05-11T14:11:01.428Z,
+        "creationDate": 2023-04-26T14:58:49.437Z,
         "funding": {
           "amounts": [],
           "expiry": 4320,

@@ -7,6 +7,8 @@ import { Linking } from 'react-native'
 import { setPeachWallet } from '../../utils/wallet/setWallet'
 import { PeachWallet } from '../../utils/wallet/PeachWallet'
 
+jest.useFakeTimers({ now: new Date('2023-04-26T14:58:49.437Z') })
+
 describe('SellOfferSummary', () => {
   const renderer = createRenderer()
 
