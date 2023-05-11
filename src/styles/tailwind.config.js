@@ -5,7 +5,6 @@ module.exports = {
     screens: {
       sm: '320px',
       md: '374px',
-      lg: '1199px',
     },
     extend: {
       maxHeight: {
