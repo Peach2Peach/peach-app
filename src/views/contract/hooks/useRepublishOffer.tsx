@@ -30,20 +30,19 @@ export const useRepublishOffer = () => {
       const sellOffer = getSellOfferFromContract(contract)
 
       const [reviveSellOfferResult, err] = await reviveSellOffer({ offerId: sellOffer.id })
+      if (!reviveSellOfferResult || err) {
+        showErrorBanner(err?.error)
+        closeOverlay()
+        return
+      }
 
       const closeAction = () => {
         navigation.replace('contract', { contractId: contract.id })
         confirmOverlay(contract)
       }
       const goToOfferAction = () => {
-        if (!reviveSellOfferResult) return
         navigation.replace('search', { offerId: reviveSellOfferResult.newOfferId })
         confirmOverlay(contract)
-      }
-      if (!reviveSellOfferResult || err) {
-        showErrorBanner(err?.error)
-        closeOverlay()
-        return { closeAction, goToOfferAction }
       }
 
       updateOverlay({
@@ -63,8 +62,6 @@ export const useRepublishOffer = () => {
           callback: closeAction,
         },
       })
-
-      return { closeAction, goToOfferAction }
     },
     [closeOverlay, confirmOverlay, navigation, showErrorBanner, updateOverlay],
   )
