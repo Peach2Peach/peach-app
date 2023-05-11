@@ -5,7 +5,7 @@ exports[`BuyOfferSummary renders correctly 1`] = `
   style={
     [
       {
-        "gap": 12,
+        "gap": 16,
       },
       {
         "gap": 48,
@@ -14,7 +14,7 @@ exports[`BuyOfferSummary renders correctly 1`] = `
     ]
   }
 >
-  <AmountSummary
+  <AmountRangeSummary
     amount={
       [
         50000,
