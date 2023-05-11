@@ -96,13 +96,39 @@ exports[`FundEscrow should render the FundEscrow view 1`] = `
       }
     }
   >
-    <PrimaryButton
-      disabled={true}
-      iconId="download"
-      testID="navigation-next"
+    <View
+      style={
+        {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "justifyContent": "center",
+        }
+      }
     >
-      fund to continue
-    </PrimaryButton>
+      <PeachText
+        style={
+          {
+            "color": "#F56522",
+            "fontFamily": "Baloo2-SemiBold",
+            "fontSize": 14,
+            "letterSpacing": 0.5,
+            "lineHeight": 24,
+            "textTransform": "uppercase",
+          }
+        }
+      >
+        checking funding status
+      </PeachText>
+      <Loading
+        color="#F56522"
+        style={
+          {
+            "height": 20,
+            "width": 20,
+          }
+        }
+      />
+    </View>
   </View>
   <DailyTradingLimit />
 </View>
