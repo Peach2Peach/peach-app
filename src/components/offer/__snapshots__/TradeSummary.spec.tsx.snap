@@ -1,38 +1,47 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`TradeSummary should render closed trade correctly 1`] = `
-<ClosedTrade
-  contract={
-    {
-      "canceled": true,
-      "paymentConfirmed": null,
+<React.Fragment>
+  <MatchCardCounterparty />
+  <ClosedTrade
+    contract={
+      {
+        "canceled": true,
+        "paymentConfirmed": null,
+      }
     }
-  }
-  view="buyer"
-/>
+    view="buyer"
+  />
+</React.Fragment>
 `;
 
 exports[`TradeSummary should render open trade correctly 1`] = `
-<OpenTrade
-  contract={
-    {
-      "canceled": false,
-      "paymentConfirmed": null,
+<React.Fragment>
+  <MatchCardCounterparty />
+  <OpenTrade
+    contract={
+      {
+        "canceled": false,
+        "paymentConfirmed": null,
+      }
     }
-  }
-  view="buyer"
-/>
+    view="buyer"
+  />
+</React.Fragment>
 `;
 
 exports[`TradeSummary should render won dispute with outstanding action as seller correctly 1`] = `
-<ClosedTrade
-  contract={
-    {
-      "canceled": true,
-      "paymentConfirmed": null,
-      "tradeStatus": "refundOrReviveRequired",
+<React.Fragment>
+  <MatchCardCounterparty />
+  <ClosedTrade
+    contract={
+      {
+        "canceled": true,
+        "paymentConfirmed": null,
+        "tradeStatus": "refundOrReviveRequired",
+      }
     }
-  }
-  view="seller"
-/>
+    view="seller"
+  />
+</React.Fragment>
 `;

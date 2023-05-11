@@ -1,6 +1,5 @@
 import { View } from 'react-native'
 import { PeachScrollView } from '../../components'
-import { MatchCardCounterparty } from '../../components/matches/components/MatchCardCounterparty'
 import { TradeSummary } from '../../components/offer'
 import tw from '../../styles/tailwind'
 
@@ -17,10 +16,6 @@ export default () => {
   return (
     <PeachScrollView contentContainerStyle={tw`h-full px-6 pt-5`}>
       <View style={tw`h-full`}>
-        <MatchCardCounterparty
-          user={view === 'buyer' ? contract.seller : contract.buyer}
-          isDispute={contract.disputeActive}
-        />
         <TradeSummary {...{ contract, view }} />
         <View style={tw`items-center justify-end flex-grow w-full mb-2`}>
           <ContractActions

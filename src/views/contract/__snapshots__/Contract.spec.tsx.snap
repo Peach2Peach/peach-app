@@ -18,14 +18,6 @@ exports[`Contract should render a default Contract 1`] = `
       }
     }
   >
-    <MatchCardCounterparty
-      isDispute={false}
-      user={
-        {
-          "username": "sellerUsername",
-        }
-      }
-    />
     <TradeSummary
       contract={
         {
@@ -92,14 +84,6 @@ exports[`Contract should show the buyers profile overview if the viewer is the s
       }
     }
   >
-    <MatchCardCounterparty
-      isDispute={false}
-      user={
-        {
-          "username": "buyerUsername",
-        }
-      }
-    />
     <TradeSummary
       contract={
         {
@@ -168,14 +152,6 @@ exports[`Contract should show the provide email button when the contract require
       }
     }
   >
-    <MatchCardCounterparty
-      isDispute={false}
-      user={
-        {
-          "username": "sellerUsername",
-        }
-      }
-    />
     <TradeSummary
       contract={
         {
