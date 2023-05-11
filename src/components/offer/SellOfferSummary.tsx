@@ -1,87 +1,42 @@
 import { NETWORK } from '@env'
-import { ReactElement, useState } from 'react'
+import { ReactElement } from 'react'
 import { TouchableOpacity, View } from 'react-native'
 import tw from '../../styles/tailwind'
 import { showAddress } from '../../utils/bitcoin'
 import i18n from '../../utils/i18n'
-import { getCurrencies } from '../../utils/paymentMethod'
 import Icon from '../Icon'
-import { PaymentMethod } from '../matches/PaymentMethod'
-import { getPremiumColor } from '../matches/utils'
-import { TabbedNavigation } from '../navigation/TabbedNavigation'
-import { SatsFormat, Text } from '../text'
+import { PremiumText } from '../matches/components/PremiumText'
+import { Text } from '../text'
 import { HorizontalLine } from '../ui'
-import { WalletLabel } from './WalletLabel'
-import { TradeSeparator } from './TradeSeparator'
-import { isPublishedOffer } from '../../utils/offer'
-import { SelectWallet } from './SelectWallet'
+import { AmountSummary } from './AmountSummary'
+import { PaymentMethodsSummary } from './PaymentMethodsSummary'
+import { PayoutWalletSummary } from './PayoutWalletSummary'
 
-type SellOfferSummaryProps = ComponentProps & {
+type Props = ComponentProps & {
   offer: SellOffer | SellOfferDraft
 }
 
 const isSellOfferWithDefinedEscrow = (offer: SellOffer | SellOfferDraft): offer is SellOffer & { escrow: string } =>
   'escrow' in offer && !!offer.escrow
 
-export const SellOfferSummary = ({ offer, style }: SellOfferSummaryProps): ReactElement => {
-  const currencies = getCurrencies(offer.meansOfPayment)
-  const [selectedCurrency, setSelectedCurrency] = useState(currencies[0])
-
-  return (
-    <View style={[tw`border border-black-5 rounded-2xl p-7 bg-primary-background-light`, style]}>
-      <Text style={tw`self-center body-m text-black-2`}>
-        {i18n(`offer.summary.${offer.tradeStatus !== 'offerCanceled' ? 'youAreSelling' : 'youWereSelling'}`)}
-      </Text>
-      <SatsFormat
-        sats={offer.amount}
-        containerStyle={tw`self-center`}
-        bitcoinLogoStyle={tw`w-4 h-4 mr-1`}
-        style={tw`font-semibold subtitle-1`}
-        satsStyle={tw`font-normal body-s`}
-      />
-      <HorizontalLine style={tw`w-64 my-4`} />
-      <Text style={tw`self-center body-m text-black-2`}>{i18n('offer.summary.withA')}</Text>
-      <Text style={[tw`text-center subtitle-1`, getPremiumColor(offer.premium, false)]}>
-        <Text style={tw`subtitle-1`}>{Math.abs(offer.premium)}% </Text>
-        {i18n(offer.premium > 0 ? 'offer.summary.premium' : 'offer.summary.discount')}
-      </Text>
-      <HorizontalLine style={tw`w-64 my-4`} />
-      <Text style={tw`self-center body-m text-black-2`}>{i18n('offer.summary.withTheseMethods')}</Text>
-      <TabbedNavigation
-        items={currencies.map((currency) => ({ id: currency, display: currency.toLowerCase() }))}
-        selected={{ id: selectedCurrency, display: selectedCurrency }}
-        select={(c) => setSelectedCurrency(c.id as Currency)}
-      />
-      <View style={tw`flex-row flex-wrap items-center justify-center mt-3 mb-2`}>
-        {offer.meansOfPayment[selectedCurrency]?.map((p) => (
-          <PaymentMethod key={`sellOfferMethod-${p}`} paymentMethod={p} style={tw`m-1`} />
-        ))}
-      </View>
-
-      <TradeSeparator text={i18n('refund.wallet')} />
-
-      {isPublishedOffer(offer) ? (
-        <WalletLabel label={offer.walletLabel} address={offer.returnAddress} style={tw`mt-1`} />
-      ) : (
-        <SelectWallet type="refund" style={tw`mt-1`} />
-      )}
-
-      {isSellOfferWithDefinedEscrow(offer) && (
-        <>
-          <HorizontalLine style={tw`w-64 my-4`} />
-          <TouchableOpacity
-            style={tw`flex-row items-end self-center`}
-            onPress={() => showAddress(offer.escrow, NETWORK)}
-          >
-            <Text style={tw`underline tooltip text-black-2`}>{i18n('escrow.viewInExplorer')}</Text>
-            <Icon
-              id="externalLink"
-              style={tw`w-[18px] h-[18px] ml-[2px] mb-[2px]`}
-              color={tw`text-primary-main`.color}
-            />
-          </TouchableOpacity>
-        </>
-      )}
+export const SellOfferSummary = ({ offer, style }: Props): ReactElement => (
+  <View style={[tw`gap-4`, tw.md`gap-12`, style]}>
+    <View>
+      <AmountSummary amount={offer.amount} />
+      <PremiumText style={tw`text-black-2 body-l`} premium={offer.premium} />
     </View>
-  )
-}
+    <PaymentMethodsSummary meansOfPayment={offer.meansOfPayment} />
+    <PayoutWalletSummary offer={offer} walletLabel={offer.walletLabel} address={offer.returnAddress} />
+    <HorizontalLine style={tw`w-64 my-4`} />
+
+    {isSellOfferWithDefinedEscrow(offer) && (
+      <>
+        <HorizontalLine style={tw`w-64 my-4`} />
+        <TouchableOpacity style={tw`flex-row items-end self-center`} onPress={() => showAddress(offer.escrow, NETWORK)}>
+          <Text style={tw`underline tooltip text-black-2`}>{i18n('escrow.viewInExplorer')}</Text>
+          <Icon id="externalLink" style={tw`w-[18px] h-[18px] ml-[2px] mb-[2px]`} color={tw`text-primary-main`.color} />
+        </TouchableOpacity>
+      </>
+    )}
+  </View>
+)

@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PayoutWalletSummary renders correctly 1`] = `
+<View>
+  <TradeSeparator
+    text="payout wallet"
+  />
+  <WalletLabel
+    style={
+      {
+        "marginTop": 4,
+      }
+    }
+  />
+</View>
+`;
+
+exports[`PayoutWalletSummary renders correctly for offer draft 1`] = `
+<View>
+  <TradeSeparator
+    text="payout wallet"
+  />
+  <SelectWallet
+    style={
+      {
+        "marginTop": 4,
+      }
+    }
+    type="payout"
+  />
+</View>
+`;
