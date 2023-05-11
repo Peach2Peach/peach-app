@@ -5,10 +5,12 @@ exports[`ReleaseEscrowSlider should render correctly 1`] = `
   label1="release escrow"
   onUnlock={[Function]}
   style={
-    {
-      "marginTop": 12,
-      "width": 263,
-    }
+    [
+      {
+        "width": 263,
+      },
+      undefined,
+    ]
   }
 />
 `;

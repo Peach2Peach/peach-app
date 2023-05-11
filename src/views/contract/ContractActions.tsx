@@ -19,6 +19,8 @@ export const ContractActions = ({ contract, view, ...contractCTAProps }: Props) 
     {contract.tradeStatus === 'refundOrReviveRequired' && !!contract.disputeWinner && (
       <ResolveDisputeSliders {...{ contract }} />
     )}
-    {contract.tradeStatus === 'releaseEscrow' && !!contract.disputeWinner && <ReleaseEscrowSlider {...{ contract }} />}
+    {contract.tradeStatus === 'releaseEscrow' && !!contract.disputeWinner && (
+      <ReleaseEscrowSlider {...{ contract }} style={tw`mt-3`} />
+    )}
   </>
 )
