@@ -11,18 +11,15 @@ import { NoEscrowFound } from './components/NoEscrowFound'
 import { TransactionInMempool } from './components/TransactionInMempool'
 import { useAutoFundOffer } from './hooks/regtest/useAutoFundOffer'
 import { useFundEscrowSetup } from './hooks/useFundEscrowSetup'
+import { BitcoinLoading } from '../loading/BitcoinLoading'
 
 export default (): ReactElement => {
   const { offerId, escrow, createEscrowError, fundingStatus, fundingAmount } = useFundEscrowSetup()
   const { showRegtestButton, fundEscrowAddress } = useAutoFundOffer({ offerId, fundingStatus })
 
   if (createEscrowError) return <NoEscrowFound />
-  if (!escrow) return (
-    <View style={tw`items-center justify-center h-full`}>
-      <Loading />
-      <Text style={tw`mt-8 text-center subtitle-1`}>{i18n('sell.escrow.loading')}</Text>
-    </View>
-  )
+  if (!escrow) return <BitcoinLoading text={i18n('sell.escrow.loading')} />
+
   if (fundingStatus.status === 'MEMPOOL') return <TransactionInMempool />
 
   return (
