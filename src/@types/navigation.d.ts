@@ -111,13 +111,7 @@ declare type RootStackParamList = {
   redesignWelcome: undefined
   splashScreen: undefined
   myProfile: undefined
-  testView: undefined
-  testViewButtons: undefined
-  testViewPopups: undefined
-  testViewMessages: undefined
-  testViewComponents: undefined
-  testViewPNs: undefined
-}
+} & Record<`testView${string}`, undefined>
 
 type KeysWithUndefined<T> = {
   [K in keyof T]: undefined extends T[K] ? K : never
