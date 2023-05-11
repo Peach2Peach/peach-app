@@ -27,7 +27,7 @@ export default ({ offerDraft, setOfferDraft }: SellViewProps): ReactElement => {
   }, [walletLabel, setOfferDraft])
 
   return (
-    <PeachScrollView contentContainerStyle={tw`items-center justify-center flex-grow px-8 pb-7`}>
+    <PeachScrollView contentContainerStyle={[tw`items-center justify-center flex-grow px-6 pb-5`, tw.md`px-8`]}>
       <View style={tw`justify-center flex-grow`}>
         <SellOfferSummary offer={offerDraft} />
       </View>
