@@ -38,7 +38,7 @@ export const UnmatchButton = ({ match, offer, interruptMatching, showUnmatchedCa
         label: i18n('search.popups.unmatch.confirm'),
         icon: 'minusCircle',
         callback: () => {
-          updateOverlay({ visible: false })
+          updateOverlay({ title: i18n('search.popups.unmatched'), level: 'WARN', visible: true })
           showUnmatchedCard()
           unmatch()
         },
