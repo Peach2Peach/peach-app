@@ -19,10 +19,10 @@ export const useOfferSummaries = (enabled = true) => {
     queryKey: ['offerSummaries'],
     queryFn: getOfferSummariesQuery,
     enabled,
-    initialData: offers,
+    initialData: offers.length ? [] : undefined,
     initialDataUpdatedAt: lastModified.getTime(),
     onSuccess: setOffers,
   })
 
-  return { offers: data, isLoading, isFetching, error, refetch }
+  return { offers: data || [], isLoading, isFetching, error, refetch }
 }

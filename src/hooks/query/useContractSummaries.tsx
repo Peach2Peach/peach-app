@@ -19,10 +19,10 @@ export const useContractSummaries = (enabled = true) => {
     queryKey: ['contractSummaries'],
     queryFn: getContractSummariesQuery,
     enabled,
-    initialData: contracts,
+    initialData: contracts.length ? [] : undefined,
     initialDataUpdatedAt: lastModified.getTime(),
     onSuccess: setContracts,
   })
 
-  return { contracts: data, isLoading, isFetching, error, refetch }
+  return { contracts: data || [], isLoading, isFetching, error, refetch }
 }
