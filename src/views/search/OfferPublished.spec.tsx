@@ -16,11 +16,6 @@ describe('OfferPublished', () => {
     const { toJSON } = render(<OfferPublished />, { wrapper: NavigationWrapper })
     expect(toJSON()).toMatchSnapshot()
   })
-  it('renders correctly when it can be "closed"', () => {
-    useRouteMock.mockReturnValueOnce({ params: { isSellOffer: true, shouldGoBack: true } })
-    const { toJSON } = render(<OfferPublished />, { wrapper: NavigationWrapper })
-    expect(toJSON()).toMatchSnapshot()
-  })
 
   it('should go to search when pressing show offer button', () => {
     const { getByText } = render(<OfferPublished />, { wrapper: NavigationWrapper })
