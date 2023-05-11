@@ -1,12 +1,11 @@
 import { act, renderHook, waitFor } from '@testing-library/react-native'
 import { NavigationWrapper, replaceMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { useHeaderState } from '../../../components/header/store'
-import { settingsStore } from '../../../store/settingsStore'
+import { WalletIcon } from '../../../components/icons'
 import { PeachWallet } from '../../../utils/wallet/PeachWallet'
 import { setPeachWallet } from '../../../utils/wallet/setWallet'
 import { getBuyOfferDraft } from '../helpers/getBuyOfferDraft'
 import { useBuySummarySetup } from './useBuySummarySetup'
-import { WalletIcon } from '../../../components/icons'
 
 const offerId = '123'
 const publishBuyOfferMock = jest.fn().mockResolvedValue({ offerId, isOfferPublished: true, errorMessage: null })
