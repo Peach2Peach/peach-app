@@ -140,7 +140,7 @@ describe('UnmatchButton', () => {
     expect(overlay.visible).toBeFalsy()
     expect(showUnmatchedCard).not.toHaveBeenCalled()
   })
-  it('should unmatch when action2 is pressed', async () => {
+  it('should unmatch and show confirmation popup when action2 is pressed', async () => {
     const { getByText } = render(<UnmatchButton {...defaultProps} />, {
       wrapper: ({ children }) => OverlayContextWrapper(QueryClientWrapper({ children })),
     })
@@ -153,7 +153,11 @@ describe('UnmatchButton', () => {
       overlay?.action2?.callback()
     })
 
-    expect(overlay.visible).toBeFalsy()
+    expect(overlay).toStrictEqual({
+      title: 'unmatched!',
+      level: 'WARN',
+      visible: true,
+    })
     expect(showUnmatchedCard).toHaveBeenCalled()
     expect(unmatchOfferMock).toHaveBeenCalledWith({ offerId: 'offerId', matchingOfferId: 'offerId' })
     expect(queryClient.getQueryData(['matches', 'offerId'])).toStrictEqual({

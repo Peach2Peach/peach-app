@@ -11,10 +11,13 @@ export const useSellSummarySetup = () => {
   const navigation = useNavigation()
   const showErrorBanner = useShowErrorBanner()
 
-  const [peachWalletActive, payoutAddress, payoutAddressLabel] = useSettingsStore(
-    (state) => [state.peachWalletActive, state.payoutAddress, state.payoutAddressLabel],
+  const [peachWalletActive, setPeachWalletActive, payoutAddress, payoutAddressLabel] = useSettingsStore(
+    (state) => [state.peachWalletActive, state.setPeachWalletActive, state.payoutAddress, state.payoutAddressLabel],
     shallow,
   )
+
+  if (!peachWalletActive && !payoutAddress) setPeachWalletActive(true)
+
   const [returnAddress, setReturnAddress] = useState('')
   const [isPublishing, setIsPublishing] = useState(false)
   const [canPublish, setCanPublish] = useState(false)

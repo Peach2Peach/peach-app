@@ -4,6 +4,7 @@ import { useHeaderState } from '../../../components/header/store'
 import { useBuySummarySetup } from './useBuySummarySetup'
 import { setPeachWallet } from '../../../utils/wallet/setWallet'
 import { PeachWallet } from '../../../utils/wallet/PeachWallet'
+import { settingsStore } from '../../../store/settingsStore'
 
 describe('useBuySummarySetup', () => {
   beforeEach(() => {
@@ -16,5 +17,17 @@ describe('useBuySummarySetup', () => {
     const { result } = renderHook(useBuySummarySetup, { wrapper: NavigationWrapper })
     expect(useHeaderState.getState().title).toBe('publish buy offer')
     await waitFor(() => expect(result.current.message).toBeDefined())
+  })
+  it('should enable peach wallet if no payout address is set', () => {
+    settingsStore.getState().setPeachWalletActive(false)
+    expect(settingsStore.getState().peachWalletActive).toBeFalsy()
+    renderHook(useBuySummarySetup, { wrapper: NavigationWrapper })
+    expect(settingsStore.getState().peachWalletActive).toBeTruthy()
+  })
+  it('should not enable peach wallet if payout address is set', () => {
+    settingsStore.getState().setPeachWalletActive(false)
+    settingsStore.getState().setPayoutAddress('payoutAddress')
+    renderHook(useBuySummarySetup, { wrapper: NavigationWrapper })
+    expect(settingsStore.getState().peachWalletActive).toBeFalsy()
   })
 })
