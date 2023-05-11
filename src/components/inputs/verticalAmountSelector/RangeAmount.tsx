@@ -111,9 +111,9 @@ export const RangeAmount = ({ min, max, value, onChange, style }: RangeAmountPro
 
   return (
     <View style={[tw`flex-row items-center justify-between pl-5 pr-4`, style]}>
-      <View style={[tw`flex-shrink items-start gap-2`, tw.md`gap-4`]}>
+      <View style={tw`flex-shrink items-start gap-2 md:gap-4`}>
         <ParsedPeachText
-          style={[tw`h7`, tw.md`h5`]}
+          style={tw`h7 md:h5`}
           parse={[{ pattern: new RegExp(i18n('buy.subtitle.highlight'), 'u'), style: tw`text-success-main` }]}
         >
           {i18n('buy.subtitle')}
@@ -130,7 +130,7 @@ export const RangeAmount = ({ min, max, value, onChange, style }: RangeAmountPro
           }}
           style={tw`flex-shrink items-start`}
         />
-        <Text style={[tw`h7`, tw.md`h5`]}>{i18n('and')}</Text>
+        <Text style={tw`h7 md:h5`}>{i18n('and')}</Text>
         <CustomAmount
           {...{
             amount: minimum,

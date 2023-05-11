@@ -2,6 +2,11 @@ const { plugin } = require('twrnc')
 
 module.exports = {
   theme: {
+    screens: {
+      sm: '320px',
+      md: '374px',
+      lg: '1199px',
+    },
     extend: {
       maxHeight: {
         0: '0',
@@ -135,13 +140,6 @@ module.exports = {
       'baloo-bold': ['Baloo2-Bold', 'sans-serif'],
       'courier-prime': ['CourierPrime-Regular', 'sans-serif'],
       'courier-prime-bold': ['CourierPrime-Bold', 'sans-serif'],
-    },
-    screens: {
-      sm: '640px',
-      md: '768px',
-      lg: '1024px',
-      xl: '1280px',
-      '2xl': '1536px',
     },
   },
   variants: {},

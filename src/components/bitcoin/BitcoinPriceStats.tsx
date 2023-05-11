@@ -12,9 +12,9 @@ export const BitcoinPriceStats = () => {
     (state) => [state.currency, state.satsPerUnit, state.price],
     shallow,
   )
-  const colStyle = [tw`flex-row items-center gap-2`, tw.md`flex-col items-start gap-0`]
+  const colStyle = tw`flex-row items-center gap-2 md:flex-col md:items-start md:gap-0`
   const unitStyle = tw`subtitle-1`
-  const valueStyle = [tw`body-m text-primary-main leading-xl`, tw.md`body-l`]
+  const valueStyle = tw`body-m text-primary-main leading-xl md:body-l`
 
   return (
     <View style={tw`flex-row justify-between`}>
@@ -22,11 +22,9 @@ export const BitcoinPriceStats = () => {
         <Text style={unitStyle}>1 {i18n('btc')}</Text>
         <PriceFormat style={valueStyle} currency={currency} amount={price} round />
       </View>
-      <View style={[...colStyle, tw.md`items-end`]}>
+      <View style={[colStyle, tw`md:items-end`]}>
         <Text style={[unitStyle, tw`text-right`]}>{currency === 'CHF' ? `${currency} 1` : `1 ${currency}`}</Text>
-        <Text style={[...valueStyle, tw`text-right`]}>
-          {i18n('currency.format.sats', thousands(round(satsPerUnit)))}
-        </Text>
+        <Text style={[valueStyle, tw`text-right`]}>{i18n('currency.format.sats', thousands(round(satsPerUnit)))}</Text>
       </View>
     </View>
   )

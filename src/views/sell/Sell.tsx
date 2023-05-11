@@ -60,7 +60,7 @@ export default (): ReactElement => {
         value={amount}
         onChange={setSelectedAmount}
       />
-      <View style={[tw`flex-row items-center justify-center mt-4 mb-1`, tw.md`mb-4`]}>
+      <View style={tw`flex-row items-center justify-center mt-4 mb-1 md:mb-4`}>
         <PrimaryButton disabled={!amountValid} testID="navigation-next" onPress={next} narrow>
           {i18n('next')}
         </PrimaryButton>

@@ -11,14 +11,11 @@ exports[`BitcoinPriceStats should render correctly 1`] = `
 >
   <View
     style={
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "gap": 8,
-        },
-        {},
-      ]
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "gap": 8,
+      }
     }
   >
     <PeachText
@@ -39,16 +36,13 @@ exports[`BitcoinPriceStats should render correctly 1`] = `
       currency="EUR"
       round={true}
       style={
-        [
-          {
-            "color": "#F56522",
-            "fontFamily": "Baloo2-Regular",
-            "fontSize": 16,
-            "letterSpacing": 0.16,
-            "lineHeight": 28,
-          },
-          {},
-        ]
+        {
+          "color": "#F56522",
+          "fontFamily": "Baloo2-Regular",
+          "fontSize": 16,
+          "letterSpacing": 0.16,
+          "lineHeight": 28,
+        }
       }
     />
   </View>
@@ -60,7 +54,6 @@ exports[`BitcoinPriceStats should render correctly 1`] = `
           "flexDirection": "row",
           "gap": 8,
         },
-        {},
         {},
       ]
     }
@@ -92,7 +85,6 @@ exports[`BitcoinPriceStats should render correctly 1`] = `
             "letterSpacing": 0.16,
             "lineHeight": 28,
           },
-          {},
           {
             "textAlign": "right",
           },
@@ -116,18 +108,11 @@ exports[`BitcoinPriceStats should render medium screens correctly 1`] = `
 >
   <View
     style={
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "gap": 8,
-        },
-        {
-          "alignItems": "flex-start",
-          "flexDirection": "column",
-          "gap": 0,
-        },
-      ]
+      {
+        "alignItems": "flex-start",
+        "flexDirection": "column",
+        "gap": 0,
+      }
     }
   >
     <PeachText
@@ -148,32 +133,19 @@ exports[`BitcoinPriceStats should render medium screens correctly 1`] = `
       currency="EUR"
       round={true}
       style={
-        [
-          {
-            "color": "#F56522",
-            "fontFamily": "Baloo2-Regular",
-            "fontSize": 16,
-            "letterSpacing": 0.16,
-            "lineHeight": 28,
-          },
-          {
-            "fontFamily": "Baloo2-Regular",
-            "fontSize": 20,
-            "letterSpacing": 0.2,
-            "lineHeight": 28,
-          },
-        ]
+        {
+          "color": "#F56522",
+          "fontFamily": "Baloo2-Regular",
+          "fontSize": 16,
+          "letterSpacing": 0.16,
+          "lineHeight": 28,
+        }
       }
     />
   </View>
   <View
     style={
       [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "gap": 8,
-        },
         {
           "alignItems": "flex-start",
           "flexDirection": "column",
@@ -210,12 +182,6 @@ exports[`BitcoinPriceStats should render medium screens correctly 1`] = `
             "fontFamily": "Baloo2-Regular",
             "fontSize": 16,
             "letterSpacing": 0.16,
-            "lineHeight": 28,
-          },
-          {
-            "fontFamily": "Baloo2-Regular",
-            "fontSize": 20,
-            "letterSpacing": 0.2,
             "lineHeight": 28,
           },
           {

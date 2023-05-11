@@ -15,9 +15,6 @@ exports[`Button should render correctly 1`] = `
         "paddingRight": 16,
       },
       {
-        "height": 40,
-      },
-      {
         "borderRadius": 9999,
       },
       undefined,
@@ -61,13 +58,10 @@ exports[`Button should render correctly for medium viewports 1`] = `
       {
         "alignItems": "center",
         "flexDirection": "row",
-        "height": 32,
+        "height": 40,
         "justifyContent": "center",
         "paddingLeft": 16,
         "paddingRight": 16,
-      },
-      {
-        "height": 40,
       },
       {
         "borderRadius": 9999,

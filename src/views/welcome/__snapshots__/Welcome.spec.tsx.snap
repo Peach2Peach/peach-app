@@ -212,7 +212,7 @@ exports[`Welcome should render correctly 1`] = `
           "backgroundColor": "#FFFCFA",
           "borderRadius": 9999,
           "flexDirection": "row",
-          "height": 40,
+          "height": 32,
           "justifyContent": "center",
           "opacity": 1,
           "paddingLeft": 16,

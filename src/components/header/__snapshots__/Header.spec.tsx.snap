@@ -118,10 +118,6 @@ exports[`Header should render correctly with title and icons 1`] = `
               "height": 20,
               "width": 20,
             },
-            {
-              "height": 24,
-              "width": 24,
-            },
           ]
         }
       />
@@ -144,12 +140,6 @@ exports[`Header should render correctly with title and icons 1`] = `
               "fontSize": 16,
               "letterSpacing": 0.16,
               "lineHeight": 26,
-            },
-            {
-              "fontFamily": "Baloo2-Bold",
-              "fontSize": 20,
-              "letterSpacing": 0.2,
-              "lineHeight": 32,
             },
             {
               "textTransform": "lowercase",
@@ -221,10 +211,6 @@ exports[`Header should render correctly with title and icons 1`] = `
               "height": 20,
               "width": 20,
             },
-            {
-              "height": 24,
-              "width": 24,
-            },
           ]
         }
       />
@@ -276,10 +262,6 @@ exports[`Header should render correctly with title and icons 1`] = `
             {
               "height": 20,
               "width": 20,
-            },
-            {
-              "height": 24,
-              "width": 24,
             },
           ]
         }

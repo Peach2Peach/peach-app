@@ -47,6 +47,8 @@ import { error, info } from './utils/log'
 import { parseError } from './utils/result'
 import { isIOS, isNetworkError } from './utils/system'
 import { useShowUpdateAvailable } from './hooks/useShowUpdateAvailable'
+import { useDeviceContext } from 'twrnc'
+import tailwind from './styles/tailwind'
 
 enableScreens()
 
@@ -127,6 +129,8 @@ const App = () => {
   const { width } = Dimensions.get('window')
   const slideInAnim = useRef(new Animated.Value(-width)).current
   const navigationRef = useNavigationContainerRef()
+
+  useDeviceContext(tailwind)
 
   const [currentPage, setCurrentPage] = useState<keyof RootStackParamList>()
   const getCurrentPage = useCallback(() => currentPage, [currentPage])

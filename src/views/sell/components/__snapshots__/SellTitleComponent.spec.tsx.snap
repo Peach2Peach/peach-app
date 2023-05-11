@@ -3,20 +3,12 @@
 exports[`SellTitleComponent should render correctly 1`] = `
 <PeachText
   style={
-    [
-      {
-        "fontFamily": "Baloo2-Bold",
-        "fontSize": 16,
-        "letterSpacing": 0.16,
-        "lineHeight": 26,
-      },
-      {
-        "fontFamily": "Baloo2-Bold",
-        "fontSize": 20,
-        "letterSpacing": 0.2,
-        "lineHeight": 32,
-      },
-    ]
+    {
+      "fontFamily": "Baloo2-Bold",
+      "fontSize": 16,
+      "letterSpacing": 0.16,
+      "lineHeight": 26,
+    }
   }
 >
   <PeachText
@@ -27,12 +19,6 @@ exports[`SellTitleComponent should render correctly 1`] = `
           "fontSize": 16,
           "letterSpacing": 0.16,
           "lineHeight": 26,
-        },
-        {
-          "fontFamily": "Baloo2-Bold",
-          "fontSize": 20,
-          "letterSpacing": 0.2,
-          "lineHeight": 32,
         },
         {
           "color": "#F56522",

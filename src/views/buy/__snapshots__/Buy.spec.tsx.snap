@@ -44,18 +44,11 @@ exports[`Buy should render correctly 1`] = `
     >
       <View
         style={
-          [
-            {
-              "alignItems": "center",
-              "flexDirection": "row",
-              "gap": 8,
-            },
-            {
-              "alignItems": "flex-start",
-              "flexDirection": "column",
-              "gap": 0,
-            },
-          ]
+          {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "gap": 8,
+          }
         }
       >
         <Text
@@ -92,21 +85,13 @@ exports[`Buy should render correctly 1`] = `
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
               },
-              [
-                {
-                  "color": "#F56522",
-                  "fontFamily": "Baloo2-Regular",
-                  "fontSize": 16,
-                  "letterSpacing": 0.16,
-                  "lineHeight": 28,
-                },
-                {
-                  "fontFamily": "Baloo2-Regular",
-                  "fontSize": 20,
-                  "letterSpacing": 0.2,
-                  "lineHeight": 28,
-                },
-              ],
+              {
+                "color": "#F56522",
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
+                "lineHeight": 28,
+              },
             ]
           }
         >
@@ -123,14 +108,7 @@ exports[`Buy should render correctly 1`] = `
               "flexDirection": "row",
               "gap": 8,
             },
-            {
-              "alignItems": "flex-start",
-              "flexDirection": "column",
-              "gap": 0,
-            },
-            {
-              "alignItems": "flex-end",
-            },
+            {},
           ]
         }
       >
@@ -181,12 +159,6 @@ exports[`Buy should render correctly 1`] = `
                   "lineHeight": 28,
                 },
                 {
-                  "fontFamily": "Baloo2-Regular",
-                  "fontSize": 20,
-                  "letterSpacing": 0.2,
-                  "lineHeight": 28,
-                },
-                {
                   "textAlign": "right",
                 },
               ],
@@ -219,16 +191,11 @@ exports[`Buy should render correctly 1`] = `
   >
     <View
       style={
-        [
-          {
-            "alignItems": "flex-start",
-            "flexShrink": 1,
-            "gap": 8,
-          },
-          {
-            "gap": 16,
-          },
-        ]
+        {
+          "alignItems": "flex-start",
+          "flexShrink": 1,
+          "gap": 8,
+        }
       }
     >
       <Text
@@ -242,20 +209,12 @@ exports[`Buy should render correctly 1`] = `
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
-            [
-              {
-                "fontFamily": "Baloo2-Bold",
-                "fontSize": 16,
-                "letterSpacing": 0.16,
-                "lineHeight": 26,
-              },
-              {
-                "fontFamily": "Baloo2-Bold",
-                "fontSize": 24,
-                "letterSpacing": 0.24,
-                "lineHeight": 32,
-              },
-            ],
+            {
+              "fontFamily": "Baloo2-Bold",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 26,
+            },
           ]
         }
       >
@@ -270,20 +229,12 @@ exports[`Buy should render correctly 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
-                [
-                  {
-                    "fontFamily": "Baloo2-Bold",
-                    "fontSize": 16,
-                    "letterSpacing": 0.16,
-                    "lineHeight": 26,
-                  },
-                  {
-                    "fontFamily": "Baloo2-Bold",
-                    "fontSize": 24,
-                    "letterSpacing": 0.24,
-                    "lineHeight": 32,
-                  },
-                ],
+                {
+                  "fontFamily": "Baloo2-Bold",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 26,
+                },
               ],
               undefined,
             ]
@@ -302,20 +253,12 @@ exports[`Buy should render correctly 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
-                [
-                  {
-                    "fontFamily": "Baloo2-Bold",
-                    "fontSize": 16,
-                    "letterSpacing": 0.16,
-                    "lineHeight": 26,
-                  },
-                  {
-                    "fontFamily": "Baloo2-Bold",
-                    "fontSize": 24,
-                    "letterSpacing": 0.24,
-                    "lineHeight": 32,
-                  },
-                ],
+                {
+                  "fontFamily": "Baloo2-Bold",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 26,
+                },
               ],
               {
                 "color": "#05A85A",
@@ -336,20 +279,12 @@ exports[`Buy should render correctly 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
-                [
-                  {
-                    "fontFamily": "Baloo2-Bold",
-                    "fontSize": 16,
-                    "letterSpacing": 0.16,
-                    "lineHeight": 26,
-                  },
-                  {
-                    "fontFamily": "Baloo2-Bold",
-                    "fontSize": 24,
-                    "letterSpacing": 0.24,
-                    "lineHeight": 32,
-                  },
-                ],
+                {
+                  "fontFamily": "Baloo2-Bold",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 26,
+                },
               ],
               undefined,
             ]
@@ -579,20 +514,12 @@ exports[`Buy should render correctly 1`] = `
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
-            [
-              {
-                "fontFamily": "Baloo2-Bold",
-                "fontSize": 16,
-                "letterSpacing": 0.16,
-                "lineHeight": 26,
-              },
-              {
-                "fontFamily": "Baloo2-Bold",
-                "fontSize": 24,
-                "letterSpacing": 0.24,
-                "lineHeight": 32,
-              },
-            ],
+            {
+              "fontFamily": "Baloo2-Bold",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 26,
+            },
           ]
         }
       >
@@ -1157,18 +1084,13 @@ exports[`Buy should render correctly 1`] = `
   </View>
   <View
     style={
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "justifyContent": "center",
-          "marginBottom": 4,
-          "marginTop": 16,
-        },
-        {
-          "marginBottom": 16,
-        },
-      ]
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "justifyContent": "center",
+        "marginBottom": 4,
+        "marginTop": 16,
+      }
     }
   >
     <View
@@ -1205,7 +1127,7 @@ exports[`Buy should render correctly 1`] = `
           "backgroundColor": "#FCCCB6",
           "borderRadius": 9999,
           "flexDirection": "row",
-          "height": 40,
+          "height": 32,
           "justifyContent": "center",
           "opacity": 1,
           "paddingLeft": 16,
@@ -1574,18 +1496,11 @@ exports[`Buy should render correctly with free trades 1`] = `
     >
       <View
         style={
-          [
-            {
-              "alignItems": "center",
-              "flexDirection": "row",
-              "gap": 8,
-            },
-            {
-              "alignItems": "flex-start",
-              "flexDirection": "column",
-              "gap": 0,
-            },
-          ]
+          {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "gap": 8,
+          }
         }
       >
         <Text
@@ -1622,21 +1537,13 @@ exports[`Buy should render correctly with free trades 1`] = `
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
               },
-              [
-                {
-                  "color": "#F56522",
-                  "fontFamily": "Baloo2-Regular",
-                  "fontSize": 16,
-                  "letterSpacing": 0.16,
-                  "lineHeight": 28,
-                },
-                {
-                  "fontFamily": "Baloo2-Regular",
-                  "fontSize": 20,
-                  "letterSpacing": 0.2,
-                  "lineHeight": 28,
-                },
-              ],
+              {
+                "color": "#F56522",
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
+                "lineHeight": 28,
+              },
             ]
           }
         >
@@ -1653,14 +1560,7 @@ exports[`Buy should render correctly with free trades 1`] = `
               "flexDirection": "row",
               "gap": 8,
             },
-            {
-              "alignItems": "flex-start",
-              "flexDirection": "column",
-              "gap": 0,
-            },
-            {
-              "alignItems": "flex-end",
-            },
+            {},
           ]
         }
       >
@@ -1711,12 +1611,6 @@ exports[`Buy should render correctly with free trades 1`] = `
                   "lineHeight": 28,
                 },
                 {
-                  "fontFamily": "Baloo2-Regular",
-                  "fontSize": 20,
-                  "letterSpacing": 0.2,
-                  "lineHeight": 28,
-                },
-                {
                   "textAlign": "right",
                 },
               ],
@@ -1749,16 +1643,11 @@ exports[`Buy should render correctly with free trades 1`] = `
   >
     <View
       style={
-        [
-          {
-            "alignItems": "flex-start",
-            "flexShrink": 1,
-            "gap": 8,
-          },
-          {
-            "gap": 16,
-          },
-        ]
+        {
+          "alignItems": "flex-start",
+          "flexShrink": 1,
+          "gap": 8,
+        }
       }
     >
       <Text
@@ -1772,20 +1661,12 @@ exports[`Buy should render correctly with free trades 1`] = `
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
-            [
-              {
-                "fontFamily": "Baloo2-Bold",
-                "fontSize": 16,
-                "letterSpacing": 0.16,
-                "lineHeight": 26,
-              },
-              {
-                "fontFamily": "Baloo2-Bold",
-                "fontSize": 24,
-                "letterSpacing": 0.24,
-                "lineHeight": 32,
-              },
-            ],
+            {
+              "fontFamily": "Baloo2-Bold",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 26,
+            },
           ]
         }
       >
@@ -1800,20 +1681,12 @@ exports[`Buy should render correctly with free trades 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
-                [
-                  {
-                    "fontFamily": "Baloo2-Bold",
-                    "fontSize": 16,
-                    "letterSpacing": 0.16,
-                    "lineHeight": 26,
-                  },
-                  {
-                    "fontFamily": "Baloo2-Bold",
-                    "fontSize": 24,
-                    "letterSpacing": 0.24,
-                    "lineHeight": 32,
-                  },
-                ],
+                {
+                  "fontFamily": "Baloo2-Bold",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 26,
+                },
               ],
               undefined,
             ]
@@ -1832,20 +1705,12 @@ exports[`Buy should render correctly with free trades 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
-                [
-                  {
-                    "fontFamily": "Baloo2-Bold",
-                    "fontSize": 16,
-                    "letterSpacing": 0.16,
-                    "lineHeight": 26,
-                  },
-                  {
-                    "fontFamily": "Baloo2-Bold",
-                    "fontSize": 24,
-                    "letterSpacing": 0.24,
-                    "lineHeight": 32,
-                  },
-                ],
+                {
+                  "fontFamily": "Baloo2-Bold",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 26,
+                },
               ],
               {
                 "color": "#05A85A",
@@ -1866,20 +1731,12 @@ exports[`Buy should render correctly with free trades 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
-                [
-                  {
-                    "fontFamily": "Baloo2-Bold",
-                    "fontSize": 16,
-                    "letterSpacing": 0.16,
-                    "lineHeight": 26,
-                  },
-                  {
-                    "fontFamily": "Baloo2-Bold",
-                    "fontSize": 24,
-                    "letterSpacing": 0.24,
-                    "lineHeight": 32,
-                  },
-                ],
+                {
+                  "fontFamily": "Baloo2-Bold",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 26,
+                },
               ],
               undefined,
             ]
@@ -2109,20 +1966,12 @@ exports[`Buy should render correctly with free trades 1`] = `
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
-            [
-              {
-                "fontFamily": "Baloo2-Bold",
-                "fontSize": 16,
-                "letterSpacing": 0.16,
-                "lineHeight": 26,
-              },
-              {
-                "fontFamily": "Baloo2-Bold",
-                "fontSize": 24,
-                "letterSpacing": 0.24,
-                "lineHeight": 32,
-              },
-            ],
+            {
+              "fontFamily": "Baloo2-Bold",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 26,
+            },
           ]
         }
       >
@@ -2687,18 +2536,13 @@ exports[`Buy should render correctly with free trades 1`] = `
   </View>
   <View
     style={
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "justifyContent": "center",
-          "marginBottom": 4,
-          "marginTop": 16,
-        },
-        {
-          "marginBottom": 16,
-        },
-      ]
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "justifyContent": "center",
+        "marginBottom": 4,
+        "marginTop": 16,
+      }
     }
   >
     <View
@@ -2726,17 +2570,12 @@ exports[`Buy should render correctly with free trades 1`] = `
               "letterSpacing": 0.16,
               "lineHeight": 24,
             },
-            [
-              {
-                "color": "#F56522",
-                "fontSize": 12,
-                "fontWeight": "bold",
-                "textAlign": "center",
-              },
-              {
-                "fontSize": 14,
-              },
-            ],
+            {
+              "color": "#F56522",
+              "fontSize": 12,
+              "fontWeight": "bold",
+              "textAlign": "center",
+            },
           ]
         }
       >
@@ -2744,16 +2583,10 @@ exports[`Buy should render correctly with free trades 1`] = `
       </Text>
       <View
         style={
-          [
-            {
-              "height": 32,
-              "width": 32,
-            },
-            {
-              "height": 40,
-              "width": 40,
-            },
-          ]
+          {
+            "height": 32,
+            "width": 32,
+          }
         }
       >
         <RNSVGSvgView
@@ -2900,9 +2733,6 @@ exports[`Buy should render correctly with free trades 1`] = `
                     "fontWeight": "bold",
                   },
                   {
-                    "fontSize": 16,
-                  },
-                  {
                     "marginTop": 2,
                   },
                 ],
@@ -2948,7 +2778,7 @@ exports[`Buy should render correctly with free trades 1`] = `
           "backgroundColor": "#FCCCB6",
           "borderRadius": 9999,
           "flexDirection": "row",
-          "height": 40,
+          "height": 32,
           "justifyContent": "center",
           "opacity": 1,
           "paddingLeft": 16,

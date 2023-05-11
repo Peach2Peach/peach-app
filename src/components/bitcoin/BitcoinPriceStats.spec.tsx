@@ -1,7 +1,7 @@
 import ShallowRenderer from 'react-test-renderer/shallow'
-import { BitcoinPriceStats } from './BitcoinPriceStats'
 import { bitcoinStore } from '../../store/bitcoinStore'
-import { mockDimensions } from '../../../tests/unit/helpers/mockDimensions'
+import tw from '../../styles/tailwind'
+import { BitcoinPriceStats } from './BitcoinPriceStats'
 
 describe('BitcoinPriceStats', () => {
   const renderer = ShallowRenderer.createRenderer()
@@ -14,7 +14,7 @@ describe('BitcoinPriceStats', () => {
     })
   })
   it('should render correctly', () => {
-    mockDimensions({ width: 320, height: 600 })
+    tw.setWindowDimensions({ width: 320, height: 600 })
 
     renderer.render(<BitcoinPriceStats />)
 
@@ -22,7 +22,7 @@ describe('BitcoinPriceStats', () => {
     expect(renderOutput).toMatchSnapshot()
   })
   it('should render medium screens correctly', () => {
-    mockDimensions({ width: 600, height: 840 })
+    tw.setWindowDimensions({ width: 600, height: 840 })
 
     renderer.render(<BitcoinPriceStats />)
 

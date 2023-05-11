@@ -8,12 +8,12 @@ import { useHeaderState } from './store'
 const themes = {
   default: {
     text: tw`text-black-1`,
-    backButton: tw`text-black-2`,
+    backButton: tw.color('black-2'),
     bg: tw`bg-primary-background`,
   },
   inverted: {
     text: tw`text-primary-background-light`,
-    backButton: tw`text-primary-mild-1`,
+    backButton: tw.color('primary-mild-1'),
     bg: tw`bg-transparent`,
   },
 }
@@ -29,11 +29,11 @@ export const Header = () => {
       <View style={tw`flex-row items-center justify-start flex-shrink`}>
         {!hideGoBackButton && canGoBack() && (
           <TouchableOpacity style={tw`mr-1 -ml-3`} onPress={goBack}>
-            <Icon id="chevronLeft" style={iconSize} color={colors.backButton.color} />
+            <Icon id="chevronLeft" style={iconSize} color={colors.backButton} />
           </TouchableOpacity>
         )}
         {title ? (
-          <Text style={[...fontSize, tw`lowercase`, colors.text]} numberOfLines={1}>
+          <Text style={[fontSize, tw`lowercase`, colors.text]} numberOfLines={1}>
             {title}
           </Text>
         ) : (
@@ -44,7 +44,7 @@ export const Header = () => {
       <View style={tw`flex-row items-center justify-end`}>
         {icons?.map(({ id, style, color, onPress }, i) => (
           <TouchableOpacity key={i} style={tw`ml-4`} onPress={onPress}>
-            <Icon {...{ id, color }} style={[style, ...iconSize]} />
+            <Icon {...{ id, color }} style={[style, iconSize]} />
           </TouchableOpacity>
         ))}
       </View>

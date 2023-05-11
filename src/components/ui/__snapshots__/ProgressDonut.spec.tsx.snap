@@ -13,28 +13,22 @@ exports[`ProgressDonut should render correctly 1`] = `
 >
   <PeachText
     style={
-      [
-        {
-          "color": "#F56522",
-          "fontSize": 12,
-          "fontWeight": "bold",
-          "textAlign": "center",
-        },
-        {},
-      ]
+      {
+        "color": "#F56522",
+        "fontSize": 14,
+        "fontWeight": "bold",
+        "textAlign": "center",
+      }
     }
   >
     Donut Test
   </PeachText>
   <View
     style={
-      [
-        {
-          "height": 32,
-          "width": 32,
-        },
-        {},
-      ]
+      {
+        "height": 40,
+        "width": 40,
+      }
     }
   >
     <Svg
@@ -87,10 +81,9 @@ exports[`ProgressDonut should render correctly 1`] = `
         style={
           [
             {
-              "fontSize": 12,
+              "fontSize": 16,
               "fontWeight": "bold",
             },
-            {},
             undefined,
           ]
         }
@@ -115,28 +108,22 @@ exports[`ProgressDonut should render correctly for iOS 1`] = `
 >
   <PeachText
     style={
-      [
-        {
-          "color": "#F56522",
-          "fontSize": 12,
-          "fontWeight": "bold",
-          "textAlign": "center",
-        },
-        {},
-      ]
+      {
+        "color": "#F56522",
+        "fontSize": 14,
+        "fontWeight": "bold",
+        "textAlign": "center",
+      }
     }
   >
     Donut Test
   </PeachText>
   <View
     style={
-      [
-        {
-          "height": 32,
-          "width": 32,
-        },
-        {},
-      ]
+      {
+        "height": 40,
+        "width": 40,
+      }
     }
   >
     <Svg
@@ -189,10 +176,9 @@ exports[`ProgressDonut should render correctly for iOS 1`] = `
         style={
           [
             {
-              "fontSize": 12,
+              "fontSize": 16,
               "fontWeight": "bold",
             },
-            {},
             {
               "marginTop": 2,
             },
@@ -219,33 +205,22 @@ exports[`ProgressDonut should render correctly for medium viewports 1`] = `
 >
   <PeachText
     style={
-      [
-        {
-          "color": "#F56522",
-          "fontSize": 12,
-          "fontWeight": "bold",
-          "textAlign": "center",
-        },
-        {
-          "fontSize": 14,
-        },
-      ]
+      {
+        "color": "#F56522",
+        "fontSize": 14,
+        "fontWeight": "bold",
+        "textAlign": "center",
+      }
     }
   >
     Donut Test
   </PeachText>
   <View
     style={
-      [
-        {
-          "height": 32,
-          "width": 32,
-        },
-        {
-          "height": 40,
-          "width": 40,
-        },
-      ]
+      {
+        "height": 40,
+        "width": 40,
+      }
     }
   >
     <Svg
@@ -298,11 +273,8 @@ exports[`ProgressDonut should render correctly for medium viewports 1`] = `
         style={
           [
             {
-              "fontSize": 12,
-              "fontWeight": "bold",
-            },
-            {
               "fontSize": 16,
+              "fontWeight": "bold",
             },
             {
               "marginTop": 2,
@@ -330,28 +302,22 @@ exports[`ProgressDonut should render correctly when empty 1`] = `
 >
   <PeachText
     style={
-      [
-        {
-          "color": "#F56522",
-          "fontSize": 12,
-          "fontWeight": "bold",
-          "textAlign": "center",
-        },
-        {},
-      ]
+      {
+        "color": "#F56522",
+        "fontSize": 14,
+        "fontWeight": "bold",
+        "textAlign": "center",
+      }
     }
   >
     Donut Test
   </PeachText>
   <View
     style={
-      [
-        {
-          "height": 32,
-          "width": 32,
-        },
-        {},
-      ]
+      {
+        "height": 40,
+        "width": 40,
+      }
     }
   >
     <Svg
@@ -404,10 +370,9 @@ exports[`ProgressDonut should render correctly when empty 1`] = `
         style={
           [
             {
-              "fontSize": 12,
+              "fontSize": 16,
               "fontWeight": "bold",
             },
-            {},
             undefined,
           ]
         }
@@ -432,28 +397,22 @@ exports[`ProgressDonut should render correctly when full 1`] = `
 >
   <PeachText
     style={
-      [
-        {
-          "color": "#F56522",
-          "fontSize": 12,
-          "fontWeight": "bold",
-          "textAlign": "center",
-        },
-        {},
-      ]
+      {
+        "color": "#F56522",
+        "fontSize": 14,
+        "fontWeight": "bold",
+        "textAlign": "center",
+      }
     }
   >
     Donut Test
   </PeachText>
   <View
     style={
-      [
-        {
-          "height": 32,
-          "width": 32,
-        },
-        {},
-      ]
+      {
+        "height": 40,
+        "width": 40,
+      }
     }
   >
     <Svg
@@ -506,10 +465,9 @@ exports[`ProgressDonut should render correctly when full 1`] = `
         style={
           [
             {
-              "fontSize": 12,
+              "fontSize": 16,
               "fontWeight": "bold",
             },
-            {},
             undefined,
           ]
         }

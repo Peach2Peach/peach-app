@@ -77,7 +77,7 @@ export default (): ReactElement => {
         value={[currentMinAmount, currentMaxAmount]}
         onChange={setSelectedRange}
       />
-      <View style={[tw`flex-row items-center justify-center mt-4 mb-1`, tw.md`mb-4`]}>
+      <View style={tw`flex-row items-center justify-center mt-4 mb-1 md:mb-4`}>
         {freeTrades > 0 && (
           <ProgressDonut
             style={tw`absolute left-5 bottom-0`}
@@ -92,7 +92,7 @@ export default (): ReactElement => {
         {showBackupReminder && (
           <View style={tw`justify-center`}>
             <TouchableOpacity style={tw`absolute left-4`} onPress={showCorrectBackupReminder}>
-              <Icon id="alertTriangle" style={tw`w-8 h-8`} color={tw`text-warning-main`.color} />
+              <Icon id="alertTriangle" style={tw`w-8 h-8`} color={tw.color('warning-main')} />
             </TouchableOpacity>
           </View>
         )}

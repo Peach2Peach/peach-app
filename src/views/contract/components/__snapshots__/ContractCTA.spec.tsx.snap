@@ -37,7 +37,7 @@ exports[`ContractCTA should render correctly when a cancelation is requested 1`]
       "borderRadius": 9999,
       "borderWidth": 2,
       "flexDirection": "row",
-      "height": 40,
+      "height": 32,
       "justifyContent": "center",
       "opacity": 1,
       "paddingLeft": 16,

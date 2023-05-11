@@ -670,7 +670,7 @@ exports[`RestoreBackup should render correctly 1`] = `
                 "backgroundColor": "#FCCCB6",
                 "borderRadius": 9999,
                 "flexDirection": "row",
-                "height": 40,
+                "height": 32,
                 "justifyContent": "center",
                 "opacity": 1,
                 "paddingLeft": 16,

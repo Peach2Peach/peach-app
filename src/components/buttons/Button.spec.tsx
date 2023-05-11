@@ -1,7 +1,6 @@
 import { createRenderer } from 'react-test-renderer/shallow'
-import { Button } from './Button'
 import tw from '../../styles/tailwind'
-import { mockDimensions } from '../../../tests/unit/helpers/mockDimensions'
+import { Button } from './Button'
 
 describe('Button', () => {
   const shallowRenderer = createRenderer()
@@ -10,7 +9,7 @@ describe('Button', () => {
     expect(shallowRenderer.getRenderOutput()).toMatchSnapshot()
   })
   it('should render correctly for medium viewports', () => {
-    mockDimensions({
+    tw.setWindowDimensions({
       width: 400,
       height: 700,
     })
