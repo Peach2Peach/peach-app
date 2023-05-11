@@ -25,11 +25,11 @@ export const useDisputeWonPopup = (contractId: string) => {
         cancelConfirmationDismissed: view === 'buyer',
         disputeResolvedDate: new Date(),
       })
+      closePopup()
     }
 
     const goToChat = () => {
       saveAcknowledgeMent()
-      closePopup()
       navigation.navigate('contractChat', { contractId: contract.id })
     }
 
@@ -48,10 +48,7 @@ export const useDisputeWonPopup = (contractId: string) => {
       action2: {
         label: i18n('close'),
         icon: 'xSquare',
-        callback: () => {
-          saveAcknowledgeMent()
-          closePopup()
-        },
+        callback: saveAcknowledgeMent,
       },
       action1: {
         label: i18n('goToChat'),

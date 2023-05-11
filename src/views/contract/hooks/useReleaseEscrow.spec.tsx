@@ -31,7 +31,6 @@ jest.mock('../../../utils/contract/signReleaseTxOfContract', () => ({
   signReleaseTxOfContract: jest.fn((...args: any) => signReleaseTxOfContractMock(...args)),
 }))
 
-// mock global date to always return 01/09/2009
 const DATE_TO_USE = new Date('2009-09-01')
 jest.spyOn(global, 'Date').mockImplementation(() => DATE_TO_USE)
 
