@@ -41,7 +41,7 @@ export const useCancelOffer = (offer: BuyOffer | SellOffer | null | undefined) =
       title: i18n('offer.cancel.popup.title'),
       content: <CancelOffer offer={offer} />,
       visible: true,
-      level: 'ERROR',
+      level: 'DEFAULT',
       action2: {
         label: i18n('neverMind'),
         icon: 'arrowLeftCircle',
