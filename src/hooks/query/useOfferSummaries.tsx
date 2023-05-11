@@ -19,7 +19,7 @@ export const useOfferSummaries = (enabled = true) => {
     queryKey: ['offerSummaries'],
     queryFn: getOfferSummariesQuery,
     enabled,
-    initialData: offers.length ? [] : undefined,
+    initialData: offers.length ? offers : undefined,
     initialDataUpdatedAt: lastModified.getTime(),
     onSuccess: setOffers,
   })
