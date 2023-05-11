@@ -34,6 +34,10 @@ describe('Divider', () => {
     renderer.render(<Divider text={text} type="error" />)
     expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
+  it('renders correctly with type error and center align', () => {
+    renderer.render(<Divider text={text} type="error" align="center" />)
+    expect(renderer.getRenderOutput()).toMatchSnapshot()
+  })
   it('renders correctly on lg', () => {
     mockDimensions({ width: 376, height: 691 })
     renderer.render(<Divider text={text} />)
