@@ -38,7 +38,7 @@ describe('FundEscrow', () => {
   it('should show Loading, while escrow creation is pending', () => {
     useFundEscrowSetupMock.mockReturnValueOnce({
       ...defaultReturnValue,
-      escrow: '',
+      isLoading: true,
     })
     renderer.render(<FundEscrow />)
     const result = renderer.getRenderOutput()
@@ -49,6 +49,7 @@ describe('FundEscrow', () => {
     useFundEscrowSetupMock.mockReturnValueOnce({
       ...defaultReturnValue,
       escrow: '',
+      isLoading: false,
       createEscrowError: new Error('UNAUTHORIZED'),
     })
     renderer.render(<FundEscrow />)
