@@ -5,25 +5,24 @@ exports[`PaymentMethodsSummary renders correctly 1`] = `
   <TradeSeparator
     text="payment methods"
   />
-  <TabbedNavigation
-    items={
+  <CurrencySelection
+    currencies={
       [
-        {
-          "display": "eur",
-          "id": "EUR",
-        },
-        {
-          "display": "chf",
-          "id": "CHF",
-        },
+        "EUR",
+        "CHF",
       ]
     }
     select={[Function]}
-    selected={
-      {
-        "display": "EUR",
-        "id": "EUR",
-      }
+    selected="EUR"
+    style={
+      [
+        {
+          "marginTop": 8,
+        },
+        {
+          "marginTop": 16,
+        },
+      ]
     }
   />
   <View

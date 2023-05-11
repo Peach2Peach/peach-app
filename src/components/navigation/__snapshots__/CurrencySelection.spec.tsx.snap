@@ -1,0 +1,1042 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CurrencySelection renders correctly for 0 currencies 1`] = `
+<View
+  style={
+    [
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "flexWrap": "wrap",
+        "justifyContent": "flex-start",
+      },
+      false,
+      undefined,
+    ]
+  }
+/>
+`;
+
+exports[`CurrencySelection renders correctly for 1 currencies 1`] = `
+<View
+  style={
+    [
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "flexWrap": "wrap",
+        "justifyContent": "flex-start",
+      },
+      false,
+      undefined,
+    ]
+  }
+>
+  <React.Fragment>
+    <CurrencySelectionItem
+      currency="EUR"
+      isSelected={false}
+      onPress={[Function]}
+      style={
+        [
+          {
+            "paddingLeft": 4,
+            "paddingRight": 4,
+            "width": "100%",
+          },
+          {
+            "maxWidth": "25%",
+          },
+        ]
+      }
+    />
+  </React.Fragment>
+</View>
+`;
+
+exports[`CurrencySelection renders correctly for 2 currencies 1`] = `
+<View
+  style={
+    [
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "flexWrap": "wrap",
+        "justifyContent": "flex-start",
+      },
+      false,
+      undefined,
+    ]
+  }
+>
+  <React.Fragment>
+    <CurrencySelectionItem
+      currency="EUR"
+      isSelected={false}
+      onPress={[Function]}
+      style={
+        [
+          {
+            "paddingLeft": 4,
+            "paddingRight": 4,
+            "width": "100%",
+          },
+          {
+            "maxWidth": "25%",
+          },
+        ]
+      }
+    />
+    <ItemSeparator
+      style={
+        {
+          "marginRight": -1,
+        }
+      }
+    />
+  </React.Fragment>
+  <React.Fragment>
+    <CurrencySelectionItem
+      currency="CHF"
+      isSelected={false}
+      onPress={[Function]}
+      style={
+        [
+          {
+            "paddingLeft": 4,
+            "paddingRight": 4,
+            "width": "100%",
+          },
+          {
+            "maxWidth": "25%",
+          },
+        ]
+      }
+    />
+  </React.Fragment>
+</View>
+`;
+
+exports[`CurrencySelection renders correctly for 3 currencies 1`] = `
+<View
+  style={
+    [
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "flexWrap": "wrap",
+        "justifyContent": "flex-start",
+      },
+      false,
+      undefined,
+    ]
+  }
+>
+  <React.Fragment>
+    <CurrencySelectionItem
+      currency="EUR"
+      isSelected={false}
+      onPress={[Function]}
+      style={
+        [
+          {
+            "paddingLeft": 4,
+            "paddingRight": 4,
+            "width": "100%",
+          },
+          {
+            "maxWidth": "25%",
+          },
+        ]
+      }
+    />
+    <ItemSeparator
+      style={
+        {
+          "marginRight": -1,
+        }
+      }
+    />
+  </React.Fragment>
+  <React.Fragment>
+    <CurrencySelectionItem
+      currency="CHF"
+      isSelected={false}
+      onPress={[Function]}
+      style={
+        [
+          {
+            "paddingLeft": 4,
+            "paddingRight": 4,
+            "width": "100%",
+          },
+          {
+            "maxWidth": "25%",
+          },
+        ]
+      }
+    />
+    <ItemSeparator
+      style={
+        {
+          "marginRight": -1,
+        }
+      }
+    />
+  </React.Fragment>
+  <React.Fragment>
+    <CurrencySelectionItem
+      currency="GBP"
+      isSelected={false}
+      onPress={[Function]}
+      style={
+        [
+          {
+            "paddingLeft": 4,
+            "paddingRight": 4,
+            "width": "100%",
+          },
+          {
+            "maxWidth": "25%",
+          },
+        ]
+      }
+    />
+  </React.Fragment>
+</View>
+`;
+
+exports[`CurrencySelection renders correctly for 4 currencies 1`] = `
+<View
+  style={
+    [
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "flexWrap": "wrap",
+        "justifyContent": "flex-start",
+      },
+      false,
+      undefined,
+    ]
+  }
+>
+  <React.Fragment>
+    <CurrencySelectionItem
+      currency="EUR"
+      isSelected={false}
+      onPress={[Function]}
+      style={
+        [
+          {
+            "paddingLeft": 4,
+            "paddingRight": 4,
+            "width": "100%",
+          },
+          {
+            "maxWidth": "25%",
+          },
+        ]
+      }
+    />
+    <ItemSeparator
+      style={
+        {
+          "marginRight": -1,
+        }
+      }
+    />
+  </React.Fragment>
+  <React.Fragment>
+    <CurrencySelectionItem
+      currency="CHF"
+      isSelected={false}
+      onPress={[Function]}
+      style={
+        [
+          {
+            "paddingLeft": 4,
+            "paddingRight": 4,
+            "width": "100%",
+          },
+          {
+            "maxWidth": "25%",
+          },
+        ]
+      }
+    />
+    <ItemSeparator
+      style={
+        {
+          "marginRight": -1,
+        }
+      }
+    />
+  </React.Fragment>
+  <React.Fragment>
+    <CurrencySelectionItem
+      currency="GBP"
+      isSelected={false}
+      onPress={[Function]}
+      style={
+        [
+          {
+            "paddingLeft": 4,
+            "paddingRight": 4,
+            "width": "100%",
+          },
+          {
+            "maxWidth": "25%",
+          },
+        ]
+      }
+    />
+    <ItemSeparator
+      style={
+        {
+          "marginRight": -1,
+        }
+      }
+    />
+  </React.Fragment>
+  <React.Fragment>
+    <CurrencySelectionItem
+      currency="SEK"
+      isSelected={false}
+      onPress={[Function]}
+      style={
+        [
+          {
+            "paddingLeft": 4,
+            "paddingRight": 4,
+            "width": "100%",
+          },
+          {
+            "maxWidth": "25%",
+          },
+        ]
+      }
+    />
+  </React.Fragment>
+</View>
+`;
+
+exports[`CurrencySelection renders correctly for 5 currencies 1`] = `
+<View
+  style={
+    [
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "flexWrap": "wrap",
+        "justifyContent": "flex-start",
+      },
+      false,
+      undefined,
+    ]
+  }
+>
+  <React.Fragment>
+    <CurrencySelectionItem
+      currency="EUR"
+      isSelected={false}
+      onPress={[Function]}
+      style={
+        [
+          {
+            "paddingLeft": 4,
+            "paddingRight": 4,
+            "width": "100%",
+          },
+          {
+            "maxWidth": "20%",
+          },
+        ]
+      }
+    />
+    <ItemSeparator
+      style={
+        {
+          "marginRight": -1,
+        }
+      }
+    />
+  </React.Fragment>
+  <React.Fragment>
+    <CurrencySelectionItem
+      currency="CHF"
+      isSelected={false}
+      onPress={[Function]}
+      style={
+        [
+          {
+            "paddingLeft": 4,
+            "paddingRight": 4,
+            "width": "100%",
+          },
+          {
+            "maxWidth": "20%",
+          },
+        ]
+      }
+    />
+    <ItemSeparator
+      style={
+        {
+          "marginRight": -1,
+        }
+      }
+    />
+  </React.Fragment>
+  <React.Fragment>
+    <CurrencySelectionItem
+      currency="GBP"
+      isSelected={false}
+      onPress={[Function]}
+      style={
+        [
+          {
+            "paddingLeft": 4,
+            "paddingRight": 4,
+            "width": "100%",
+          },
+          {
+            "maxWidth": "20%",
+          },
+        ]
+      }
+    />
+    <ItemSeparator
+      style={
+        {
+          "marginRight": -1,
+        }
+      }
+    />
+  </React.Fragment>
+  <React.Fragment>
+    <CurrencySelectionItem
+      currency="SEK"
+      isSelected={false}
+      onPress={[Function]}
+      style={
+        [
+          {
+            "paddingLeft": 4,
+            "paddingRight": 4,
+            "width": "100%",
+          },
+          {
+            "maxWidth": "20%",
+          },
+        ]
+      }
+    />
+    <ItemSeparator
+      style={
+        {
+          "marginRight": -1,
+        }
+      }
+    />
+  </React.Fragment>
+  <React.Fragment>
+    <CurrencySelectionItem
+      currency="NOK"
+      isSelected={false}
+      onPress={[Function]}
+      style={
+        [
+          {
+            "paddingLeft": 4,
+            "paddingRight": 4,
+            "width": "100%",
+          },
+          {
+            "maxWidth": "20%",
+          },
+        ]
+      }
+    />
+  </React.Fragment>
+</View>
+`;
+
+exports[`CurrencySelection renders correctly for 6 currencies 1`] = `
+<View
+  style={
+    [
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "flexWrap": "wrap",
+        "justifyContent": "flex-start",
+      },
+      false,
+      undefined,
+    ]
+  }
+>
+  <React.Fragment>
+    <CurrencySelectionItem
+      currency="EUR"
+      isSelected={false}
+      onPress={[Function]}
+      style={
+        [
+          {
+            "paddingLeft": 4,
+            "paddingRight": 4,
+            "width": "100%",
+          },
+          {
+            "maxWidth": "16.666666666666664%",
+          },
+        ]
+      }
+    />
+    <ItemSeparator
+      style={
+        {
+          "marginRight": -1,
+        }
+      }
+    />
+  </React.Fragment>
+  <React.Fragment>
+    <CurrencySelectionItem
+      currency="CHF"
+      isSelected={false}
+      onPress={[Function]}
+      style={
+        [
+          {
+            "paddingLeft": 4,
+            "paddingRight": 4,
+            "width": "100%",
+          },
+          {
+            "maxWidth": "16.666666666666664%",
+          },
+        ]
+      }
+    />
+    <ItemSeparator
+      style={
+        {
+          "marginRight": -1,
+        }
+      }
+    />
+  </React.Fragment>
+  <React.Fragment>
+    <CurrencySelectionItem
+      currency="GBP"
+      isSelected={false}
+      onPress={[Function]}
+      style={
+        [
+          {
+            "paddingLeft": 4,
+            "paddingRight": 4,
+            "width": "100%",
+          },
+          {
+            "maxWidth": "16.666666666666664%",
+          },
+        ]
+      }
+    />
+    <ItemSeparator
+      style={
+        {
+          "marginRight": -1,
+        }
+      }
+    />
+  </React.Fragment>
+  <React.Fragment>
+    <CurrencySelectionItem
+      currency="SEK"
+      isSelected={false}
+      onPress={[Function]}
+      style={
+        [
+          {
+            "paddingLeft": 4,
+            "paddingRight": 4,
+            "width": "100%",
+          },
+          {
+            "maxWidth": "16.666666666666664%",
+          },
+        ]
+      }
+    />
+    <ItemSeparator
+      style={
+        {
+          "marginRight": -1,
+        }
+      }
+    />
+  </React.Fragment>
+  <React.Fragment>
+    <CurrencySelectionItem
+      currency="NOK"
+      isSelected={false}
+      onPress={[Function]}
+      style={
+        [
+          {
+            "paddingLeft": 4,
+            "paddingRight": 4,
+            "width": "100%",
+          },
+          {
+            "maxWidth": "16.666666666666664%",
+          },
+        ]
+      }
+    />
+    <ItemSeparator
+      style={
+        {
+          "marginRight": -1,
+        }
+      }
+    />
+  </React.Fragment>
+  <React.Fragment>
+    <CurrencySelectionItem
+      currency="HUF"
+      isSelected={false}
+      onPress={[Function]}
+      style={
+        [
+          {
+            "paddingLeft": 4,
+            "paddingRight": 4,
+            "width": "100%",
+          },
+          {
+            "maxWidth": "16.666666666666664%",
+          },
+        ]
+      }
+    />
+  </React.Fragment>
+</View>
+`;
+
+exports[`CurrencySelection renders correctly for 7 currencies 1`] = `
+<View
+  style={
+    [
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "flexWrap": "wrap",
+        "justifyContent": "flex-start",
+      },
+      false,
+      undefined,
+    ]
+  }
+>
+  <React.Fragment>
+    <CurrencySelectionItem
+      currency="EUR"
+      isSelected={false}
+      onPress={[Function]}
+      style={
+        [
+          {
+            "paddingLeft": 4,
+            "paddingRight": 4,
+            "width": "100%",
+          },
+          {
+            "maxWidth": "14.285714285714285%",
+          },
+        ]
+      }
+    />
+    <ItemSeparator
+      style={
+        {
+          "marginRight": -1,
+        }
+      }
+    />
+  </React.Fragment>
+  <React.Fragment>
+    <CurrencySelectionItem
+      currency="CHF"
+      isSelected={false}
+      onPress={[Function]}
+      style={
+        [
+          {
+            "paddingLeft": 4,
+            "paddingRight": 4,
+            "width": "100%",
+          },
+          {
+            "maxWidth": "14.285714285714285%",
+          },
+        ]
+      }
+    />
+    <ItemSeparator
+      style={
+        {
+          "marginRight": -1,
+        }
+      }
+    />
+  </React.Fragment>
+  <React.Fragment>
+    <CurrencySelectionItem
+      currency="GBP"
+      isSelected={false}
+      onPress={[Function]}
+      style={
+        [
+          {
+            "paddingLeft": 4,
+            "paddingRight": 4,
+            "width": "100%",
+          },
+          {
+            "maxWidth": "14.285714285714285%",
+          },
+        ]
+      }
+    />
+    <ItemSeparator
+      style={
+        {
+          "marginRight": -1,
+        }
+      }
+    />
+  </React.Fragment>
+  <React.Fragment>
+    <CurrencySelectionItem
+      currency="SEK"
+      isSelected={false}
+      onPress={[Function]}
+      style={
+        [
+          {
+            "paddingLeft": 4,
+            "paddingRight": 4,
+            "width": "100%",
+          },
+          {
+            "maxWidth": "14.285714285714285%",
+          },
+        ]
+      }
+    />
+    <ItemSeparator
+      style={
+        {
+          "marginRight": -1,
+        }
+      }
+    />
+  </React.Fragment>
+  <React.Fragment>
+    <CurrencySelectionItem
+      currency="NOK"
+      isSelected={false}
+      onPress={[Function]}
+      style={
+        [
+          {
+            "paddingLeft": 4,
+            "paddingRight": 4,
+            "width": "100%",
+          },
+          {
+            "maxWidth": "14.285714285714285%",
+          },
+        ]
+      }
+    />
+    <ItemSeparator
+      style={
+        {
+          "marginRight": -1,
+        }
+      }
+    />
+  </React.Fragment>
+  <React.Fragment>
+    <CurrencySelectionItem
+      currency="HUF"
+      isSelected={false}
+      onPress={[Function]}
+      style={
+        [
+          {
+            "paddingLeft": 4,
+            "paddingRight": 4,
+            "width": "100%",
+          },
+          {
+            "maxWidth": "14.285714285714285%",
+          },
+        ]
+      }
+    />
+    <ItemSeparator
+      style={
+        {
+          "marginRight": -1,
+        }
+      }
+    />
+  </React.Fragment>
+  <React.Fragment>
+    <CurrencySelectionItem
+      currency="BGN"
+      isSelected={false}
+      onPress={[Function]}
+      style={
+        [
+          {
+            "paddingLeft": 4,
+            "paddingRight": 4,
+            "width": "100%",
+          },
+          {
+            "maxWidth": "14.285714285714285%",
+          },
+        ]
+      }
+    />
+  </React.Fragment>
+</View>
+`;
+
+exports[`CurrencySelection renders correctly for 8 currencies 1`] = `
+<View
+  style={
+    [
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "flexWrap": "wrap",
+        "justifyContent": "flex-start",
+      },
+      false,
+      undefined,
+    ]
+  }
+>
+  <React.Fragment>
+    <CurrencySelectionItem
+      currency="EUR"
+      isSelected={false}
+      onPress={[Function]}
+      style={
+        [
+          {
+            "paddingLeft": 4,
+            "paddingRight": 4,
+            "width": "100%",
+          },
+          {
+            "maxWidth": "12.5%",
+          },
+        ]
+      }
+    />
+    <ItemSeparator
+      style={
+        {
+          "marginRight": -1,
+        }
+      }
+    />
+  </React.Fragment>
+  <React.Fragment>
+    <CurrencySelectionItem
+      currency="CHF"
+      isSelected={false}
+      onPress={[Function]}
+      style={
+        [
+          {
+            "paddingLeft": 4,
+            "paddingRight": 4,
+            "width": "100%",
+          },
+          {
+            "maxWidth": "12.5%",
+          },
+        ]
+      }
+    />
+    <ItemSeparator
+      style={
+        {
+          "marginRight": -1,
+        }
+      }
+    />
+  </React.Fragment>
+  <React.Fragment>
+    <CurrencySelectionItem
+      currency="GBP"
+      isSelected={false}
+      onPress={[Function]}
+      style={
+        [
+          {
+            "paddingLeft": 4,
+            "paddingRight": 4,
+            "width": "100%",
+          },
+          {
+            "maxWidth": "12.5%",
+          },
+        ]
+      }
+    />
+    <ItemSeparator
+      style={
+        {
+          "marginRight": -1,
+        }
+      }
+    />
+  </React.Fragment>
+  <React.Fragment>
+    <CurrencySelectionItem
+      currency="SEK"
+      isSelected={false}
+      onPress={[Function]}
+      style={
+        [
+          {
+            "paddingLeft": 4,
+            "paddingRight": 4,
+            "width": "100%",
+          },
+          {
+            "maxWidth": "12.5%",
+          },
+        ]
+      }
+    />
+    <ItemSeparator
+      style={
+        {
+          "marginRight": -1,
+        }
+      }
+    />
+  </React.Fragment>
+  <React.Fragment>
+    <CurrencySelectionItem
+      currency="NOK"
+      isSelected={false}
+      onPress={[Function]}
+      style={
+        [
+          {
+            "paddingLeft": 4,
+            "paddingRight": 4,
+            "width": "100%",
+          },
+          {
+            "maxWidth": "12.5%",
+          },
+        ]
+      }
+    />
+    <ItemSeparator
+      style={
+        {
+          "marginRight": -1,
+        }
+      }
+    />
+  </React.Fragment>
+  <React.Fragment>
+    <CurrencySelectionItem
+      currency="HUF"
+      isSelected={false}
+      onPress={[Function]}
+      style={
+        [
+          {
+            "paddingLeft": 4,
+            "paddingRight": 4,
+            "width": "100%",
+          },
+          {
+            "maxWidth": "12.5%",
+          },
+        ]
+      }
+    />
+    <ItemSeparator
+      style={
+        {
+          "marginRight": -1,
+        }
+      }
+    />
+  </React.Fragment>
+  <React.Fragment>
+    <CurrencySelectionItem
+      currency="BGN"
+      isSelected={false}
+      onPress={[Function]}
+      style={
+        [
+          {
+            "paddingLeft": 4,
+            "paddingRight": 4,
+            "width": "100%",
+          },
+          {
+            "maxWidth": "12.5%",
+          },
+        ]
+      }
+    />
+    <ItemSeparator
+      style={
+        {
+          "marginRight": -1,
+        }
+      }
+    />
+  </React.Fragment>
+  <React.Fragment>
+    <CurrencySelectionItem
+      currency="USD"
+      isSelected={false}
+      onPress={[Function]}
+      style={
+        [
+          {
+            "paddingLeft": 4,
+            "paddingRight": 4,
+            "width": "100%",
+          },
+          {
+            "maxWidth": "12.5%",
+          },
+        ]
+      }
+    />
+  </React.Fragment>
+</View>
+`;
