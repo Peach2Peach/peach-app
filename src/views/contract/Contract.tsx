@@ -17,18 +17,17 @@ export default () => {
     <PeachScrollView contentContainerStyle={tw`h-full px-6 pt-5`}>
       <View style={tw`h-full`}>
         <TradeSummary {...{ contract, view }} />
-        <View style={tw`items-center justify-end flex-grow w-full mb-2`}>
-          <ContractActions
-            {...{
-              contract,
-              view,
-              requiredAction,
-              actionPending,
-              postConfirmPaymentBuyer,
-              postConfirmPaymentSeller,
-            }}
-          />
-        </View>
+        <ContractActions
+          style={tw`items-center justify-end flex-grow w-full mb-2`}
+          {...{
+            contract,
+            view,
+            requiredAction,
+            actionPending,
+            postConfirmPaymentBuyer,
+            postConfirmPaymentSeller,
+          }}
+        />
       </View>
     </PeachScrollView>
   )

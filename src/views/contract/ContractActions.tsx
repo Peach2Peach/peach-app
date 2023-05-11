@@ -5,7 +5,7 @@ import { ResolveDisputeSliders } from './ResolveDisputeSliders'
 import { ReleaseEscrowSlider } from './ReleaseEscrowSlider'
 import { View } from 'react-native'
 
-type Props = {
+type Props = ComponentProps & {
   contract: Contract
   view: 'buyer' | 'seller'
   requiredAction: ContractAction
@@ -13,8 +13,8 @@ type Props = {
   postConfirmPaymentBuyer: () => void
   postConfirmPaymentSeller: () => void
 }
-export const ContractActions = ({ contract, view, ...contractCTAProps }: Props) => (
-  <View style={tw`gap-3`}>
+export const ContractActions = ({ contract, view, style, ...contractCTAProps }: Props) => (
+  <View style={[tw`gap-3`, style]}>
     {!!contract.isEmailRequired && <ProvideEmailButton {...{ contract, view }} style={tw`self-center`} />}
     <ContractCTA {...{ contract, view, ...contractCTAProps }} />
     {contract.tradeStatus === 'refundOrReviveRequired' && !!contract.disputeWinner && (

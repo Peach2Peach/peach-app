@@ -3,9 +3,12 @@
 exports[`ContractActions should not show the dispute sliders when there is no dispute winner 1`] = `
 <View
   style={
-    {
-      "gap": 12,
-    }
+    [
+      {
+        "gap": 12,
+      },
+      undefined,
+    ]
   }
 >
   <ContractCTA
@@ -27,9 +30,12 @@ exports[`ContractActions should not show the dispute sliders when there is no di
 exports[`ContractActions should show the dispute sliders when the contract is in the refundOrReviveRequired state 1`] = `
 <View
   style={
-    {
-      "gap": 12,
-    }
+    [
+      {
+        "gap": 12,
+      },
+      undefined,
+    ]
   }
 >
   <ContractCTA

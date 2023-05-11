@@ -32,7 +32,22 @@ exports[`Contract should render a default Contract 1`] = `
       }
       view="buyer"
     />
-    <View
+    <ContractActions
+      actionPending={false}
+      contract={
+        {
+          "buyer": {
+            "username": "buyerUsername",
+          },
+          "disputeActive": false,
+          "seller": {
+            "username": "sellerUsername",
+          },
+        }
+      }
+      postConfirmPaymentBuyer={[MockFunction]}
+      postConfirmPaymentSeller={[MockFunction]}
+      requiredAction="requiredAction"
       style={
         {
           "alignItems": "center",
@@ -42,26 +57,8 @@ exports[`Contract should render a default Contract 1`] = `
           "width": "100%",
         }
       }
-    >
-      <ContractActions
-        actionPending={false}
-        contract={
-          {
-            "buyer": {
-              "username": "buyerUsername",
-            },
-            "disputeActive": false,
-            "seller": {
-              "username": "sellerUsername",
-            },
-          }
-        }
-        postConfirmPaymentBuyer={[MockFunction]}
-        postConfirmPaymentSeller={[MockFunction]}
-        requiredAction="requiredAction"
-        view="buyer"
-      />
-    </View>
+      view="buyer"
+    />
   </View>
 </PeachScrollView>
 `;
@@ -98,7 +95,22 @@ exports[`Contract should show the buyers profile overview if the viewer is the s
       }
       view="seller"
     />
-    <View
+    <ContractActions
+      actionPending={false}
+      contract={
+        {
+          "buyer": {
+            "username": "buyerUsername",
+          },
+          "disputeActive": false,
+          "seller": {
+            "username": "sellerUsername",
+          },
+        }
+      }
+      postConfirmPaymentBuyer={[MockFunction]}
+      postConfirmPaymentSeller={[MockFunction]}
+      requiredAction="requiredAction"
       style={
         {
           "alignItems": "center",
@@ -108,26 +120,8 @@ exports[`Contract should show the buyers profile overview if the viewer is the s
           "width": "100%",
         }
       }
-    >
-      <ContractActions
-        actionPending={false}
-        contract={
-          {
-            "buyer": {
-              "username": "buyerUsername",
-            },
-            "disputeActive": false,
-            "seller": {
-              "username": "sellerUsername",
-            },
-          }
-        }
-        postConfirmPaymentBuyer={[MockFunction]}
-        postConfirmPaymentSeller={[MockFunction]}
-        requiredAction="requiredAction"
-        view="seller"
-      />
-    </View>
+      view="seller"
+    />
   </View>
 </PeachScrollView>
 `;
@@ -167,7 +161,23 @@ exports[`Contract should show the provide email button when the contract require
       }
       view="buyer"
     />
-    <View
+    <ContractActions
+      actionPending={false}
+      contract={
+        {
+          "buyer": {
+            "username": "buyerUsername",
+          },
+          "disputeActive": false,
+          "isEmailRequired": true,
+          "seller": {
+            "username": "sellerUsername",
+          },
+        }
+      }
+      postConfirmPaymentBuyer={[MockFunction]}
+      postConfirmPaymentSeller={[MockFunction]}
+      requiredAction="requiredAction"
       style={
         {
           "alignItems": "center",
@@ -177,27 +187,8 @@ exports[`Contract should show the provide email button when the contract require
           "width": "100%",
         }
       }
-    >
-      <ContractActions
-        actionPending={false}
-        contract={
-          {
-            "buyer": {
-              "username": "buyerUsername",
-            },
-            "disputeActive": false,
-            "isEmailRequired": true,
-            "seller": {
-              "username": "sellerUsername",
-            },
-          }
-        }
-        postConfirmPaymentBuyer={[MockFunction]}
-        postConfirmPaymentSeller={[MockFunction]}
-        requiredAction="requiredAction"
-        view="buyer"
-      />
-    </View>
+      view="buyer"
+    />
   </View>
 </PeachScrollView>
 `;
