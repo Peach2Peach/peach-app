@@ -1,7 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ContractActions should not show the dispute sliders when there is no dispute winner 1`] = `
-<React.Fragment>
+<View
+  style={
+    {
+      "gap": 12,
+    }
+  }
+>
   <ContractCTA
     actionPending={false}
     contract={
@@ -15,11 +21,17 @@ exports[`ContractActions should not show the dispute sliders when there is no di
     requiredAction="none"
     view="buyer"
   />
-</React.Fragment>
+</View>
 `;
 
 exports[`ContractActions should show the dispute sliders when the contract is in the refundOrReviveRequired state 1`] = `
-<React.Fragment>
+<View
+  style={
+    {
+      "gap": 12,
+    }
+  }
+>
   <ContractCTA
     actionPending={false}
     contract={
@@ -41,5 +53,5 @@ exports[`ContractActions should show the dispute sliders when the contract is in
       }
     }
   />
-</React.Fragment>
+</View>
 `;
