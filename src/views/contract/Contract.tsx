@@ -8,8 +8,7 @@ import { useContractSetup } from './hooks/useContractSetup'
 import { ContractActions } from './ContractActions'
 
 export default () => {
-  const { contract, isLoading, view, requiredAction, actionPending, postConfirmPaymentBuyer, postConfirmPaymentSeller }
-    = useContractSetup()
+  const { contract, isLoading, view, ...contractActionsProps } = useContractSetup()
 
   if (!contract || !view || isLoading) return <LoadingScreen />
 
@@ -19,14 +18,7 @@ export default () => {
         <TradeSummary {...{ contract, view }} />
         <ContractActions
           style={tw`items-center justify-end flex-grow w-full mb-2`}
-          {...{
-            contract,
-            view,
-            requiredAction,
-            actionPending,
-            postConfirmPaymentBuyer,
-            postConfirmPaymentSeller,
-          }}
+          {...{ contract, view, ...contractActionsProps }}
         />
       </View>
     </PeachScrollView>
