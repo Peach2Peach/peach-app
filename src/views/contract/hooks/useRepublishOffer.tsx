@@ -1,4 +1,3 @@
-import { useStartRefundOverlay } from '../../../overlays/useStartRefundOverlay'
 import { useNavigation } from '../../../hooks'
 import { useCallback } from 'react'
 import { reviveSellOffer } from '../../../utils/peachAPI'
@@ -8,9 +7,8 @@ import { useOverlayContext } from '../../../contexts/overlay'
 import i18n from '../../../utils/i18n'
 import { OfferRepublished } from '../../../overlays/tradeCancelation'
 
-export const useResolveDisputeActions = () => {
+export const useRepublishOffer = () => {
   const [, updateOverlay] = useOverlayContext()
-  const startRefund = useStartRefundOverlay()
   const showErrorBanner = useShowErrorBanner()
   const navigation = useNavigation()
 
@@ -71,5 +69,5 @@ export const useResolveDisputeActions = () => {
     [closeOverlay, confirmOverlay, navigation, showErrorBanner, updateOverlay],
   )
 
-  return { startRefund, republishOffer }
+  return republishOffer
 }
