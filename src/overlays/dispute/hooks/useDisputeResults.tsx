@@ -10,7 +10,6 @@ import i18n from '../../../utils/i18n'
 import { confirmPayment } from '../../../utils/peachAPI'
 import { DisputeLostBuyer } from '../components/DisputeLostBuyer'
 import { DisputeLostSeller } from '../components/DisputeLostSeller'
-import DisputeWon from '../components/DisputeWon'
 import NonDispute from '../components/NonDispute'
 import { getEscrowWalletForOffer } from '../../../utils/wallet'
 
@@ -97,25 +96,7 @@ export const useDisputeResults = () => {
         },
       })
 
-      if (contract.disputeWinner === view) return updateOverlay({
-        title: i18n('dispute.won'),
-        level: 'SUCCESS',
-        content: <DisputeWon tradeId={tradeId} />,
-        visible: true,
-        action2: {
-          label: i18n('close'),
-          icon: 'xSquare',
-          callback: () => {
-            saveAcknowledgeMent()
-            closeOverlay()
-          },
-        },
-        action1: {
-          label: i18n('goToChat'),
-          icon: 'messageCircle',
-          callback: goToChat,
-        },
-      })
+      if (contract.disputeWinner === view) return null
       if (view === 'buyer') return updateOverlay({
         title: i18n('dispute.lost'),
         level: 'WARN',
