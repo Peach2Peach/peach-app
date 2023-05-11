@@ -1,14 +1,15 @@
-import i18n from '../../utils/i18n'
+import tw from '../../styles/tailwind'
+import { getTradeStatusIcon } from './getTradeStatusIcon'
+import { getTradeStatusText } from './getTradeStatusText'
 import { TradeSeparator } from './TradeSeparator'
 
-export type Props = ComponentProps & {
-  disputeActive: boolean
-}
+type Props = ComponentProps & Pick<Contract, 'disputeActive' | 'tradeStatus'>
 
-export const TradeStatus = ({ style, disputeActive }: Props) => (
+export const TradeStatus = ({ style, disputeActive, tradeStatus }: Props) => (
   <TradeSeparator
     {...{ style, disputeActive }}
-    iconId={'alertOctagon'}
-    text={i18n(disputeActive ? 'trade.disputeActive' : 'trade.paymentDetails')}
+    iconId={getTradeStatusIcon(disputeActive, tradeStatus)}
+    text={getTradeStatusText(disputeActive, tradeStatus)}
+    iconColor={tradeStatus === 'confirmPaymentRequired' ? tw`text-black-2`.color : undefined}
   />
 )
