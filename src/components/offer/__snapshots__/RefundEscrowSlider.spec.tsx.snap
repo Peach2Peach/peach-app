@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RefundEscrowSlider renders correctly 1`] = `
+<SlideToUnlock
+  label1="refund escrow"
+  onUnlock={[Function]}
+  style={
+    {
+      "width": 263,
+    }
+  }
+/>
+`;
