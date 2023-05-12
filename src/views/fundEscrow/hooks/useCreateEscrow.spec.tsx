@@ -4,7 +4,7 @@ import { sellOffer } from '../../../../tests/unit/data/offerData'
 import { QueryClientWrapper } from '../../../../tests/unit/helpers/QueryClientWrapper'
 import { updateAccount } from '../../../utils/account'
 import { defaultFundingStatus } from '../../../utils/offer/constants'
-import { useCreateEscrow } from '../../fundEscrow/hooks/useCreateEscrow'
+import { useCreateEscrow } from './useCreateEscrow'
 
 jest.useFakeTimers()
 
