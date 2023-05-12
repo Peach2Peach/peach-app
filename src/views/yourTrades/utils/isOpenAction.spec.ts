@@ -3,6 +3,7 @@ import { isOpenAction } from './isOpenAction'
 describe('isOpenAction', () => {
   it('should return true for status that should show as waiting', () => {
     expect(isOpenAction('ask', 'fundEscrow')).toBe(true)
+    expect(isOpenAction('ask', 'fundingAmountDifferent')).toBe(true)
     expect(isOpenAction('ask', 'hasMatchesAvailable')).toBe(true)
     expect(isOpenAction('ask', 'offerHiddenWithMatchesAvailable')).toBe(true)
     expect(isOpenAction('ask', 'rateUser')).toBe(true)

@@ -1,4 +1,4 @@
-import FundEscrow from '../fundEscrow/FundEscrow'
+import FundEscrow from './FundEscrow'
 import { createRenderer } from 'react-test-renderer/shallow'
 
 const useFundEscrowSetupMock = jest.fn()

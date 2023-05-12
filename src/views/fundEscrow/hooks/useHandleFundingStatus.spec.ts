@@ -1,6 +1,6 @@
 /* eslint-disable max-lines-per-function */
 import { renderHook, waitFor } from '@testing-library/react-native'
-import { useHandleFundingStatus } from '../../fundEscrow/hooks/useHandleFundingStatus'
+import { useHandleFundingStatus } from './useHandleFundingStatus'
 import { sellOffer } from '../../../../tests/unit/data/offerData'
 import { account, setAccount } from '../../../utils/account'
 import { account1 } from '../../../../tests/unit/data/accountData'

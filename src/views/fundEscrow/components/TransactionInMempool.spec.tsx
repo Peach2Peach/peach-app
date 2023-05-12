@@ -1,4 +1,4 @@
-import { TransactionInMempool } from '../../fundEscrow/components/TransactionInMempool'
+import { TransactionInMempool } from './TransactionInMempool'
 import { act, fireEvent, render } from '@testing-library/react-native'
 
 describe('TransactionInMempool', () => {
