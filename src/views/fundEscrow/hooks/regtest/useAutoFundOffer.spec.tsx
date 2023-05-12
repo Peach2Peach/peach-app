@@ -1,5 +1,5 @@
 import { act, renderHook } from '@testing-library/react-native'
-import { useAutoFundOffer } from './useAutoFundOffer'
+import { useAutoFundOffer } from '../../../fundEscrow/hooks/regtest/useAutoFundOffer'
 import { sellOffer } from '../../../../../tests/unit/data/offerData'
 import { defaultFundingStatus } from '../../../../utils/offer/constants'
 

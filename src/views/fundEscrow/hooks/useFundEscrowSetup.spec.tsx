@@ -2,13 +2,13 @@ import { NavigationContainer } from '@react-navigation/native'
 import { renderHook, waitFor } from '@testing-library/react-native'
 import { account1 } from '../../../../tests/unit/data/accountData'
 import { sellOffer } from '../../../../tests/unit/data/offerData'
+import { unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
 import { QueryClientWrapper, queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
 import { useHeaderState } from '../../../components/header/store'
 import { setAccount, updateAccount } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
 import { defaultFundingStatus } from '../../../utils/offer/constants'
 import { useFundEscrowSetup } from './useFundEscrowSetup'
-import { unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
 
 jest.useFakeTimers()
 
