@@ -11,7 +11,7 @@ export const OfferDetailsTitle = ({ id }: Props) => {
   const { fontSize } = getHeaderStyles()
   return (
     <Text style={fontSize} numberOfLines={1}>
-      {i18n('offer')} {offerIdToHex(id)}
+      {offerIdToHex(id)}
     </Text>
   )
 }
