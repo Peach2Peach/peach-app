@@ -43,6 +43,17 @@ describe('getNavigationDestinationForOffer', () => {
     expect(destination2).toBe('fundEscrow')
     expect(params2).toEqual({ offerId: offerSummary.id })
   })
+  it('should navigate to wrongFundingAmount', () => {
+    const offerSummary: Partial<OfferSummary> = {
+      id: '3',
+      tradeStatus: 'fundingAmountDifferent',
+    }
+
+    const [destination, params] = getNavigationDestinationForOffer(offerSummary as OfferSummary)
+
+    expect(destination).toBe('wrongFundingAmount')
+    expect(params).toEqual({ offerId: offerSummary.id })
+  })
   it('should navigate to yourTrades as fallback', () => {
     const offerSummary: Partial<OfferSummary> = {
       id: '3',
