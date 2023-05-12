@@ -2,6 +2,7 @@
 
 exports[`RefundEscrowSlider renders correctly 1`] = `
 <SlideToUnlock
+  iconId="download"
   label1="refund escrow"
   onUnlock={[Function]}
   style={
