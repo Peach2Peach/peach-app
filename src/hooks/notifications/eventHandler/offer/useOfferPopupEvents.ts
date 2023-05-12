@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { useShowFundingAmountDifferentPopup } from '../../../../overlays/useShowFundingAmountDifferentPopup'
-import { useShowWronglyFundedPopup } from '../../../../overlays/useWronglyFundedOverlay'
+import { useShowWronglyFundedPopup } from '../../../../overlays/useShowWronglyFundedPopup'
 import { getOffer } from '../../../../utils/offer'
 import { useBuyOfferExpiredOverlay } from '../../../../overlays/useBuyOfferExpiredOverlay'
 import { useOfferOutsideRangeOverlay } from '../../../../overlays/useOfferOutsideRangeOverlay'
