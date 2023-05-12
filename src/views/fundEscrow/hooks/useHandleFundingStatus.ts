@@ -3,7 +3,7 @@ import { useNavigation } from '../../../hooks'
 import { info } from '../../../utils/log'
 import { saveOffer } from '../../../utils/offer'
 import { useStartRefundOverlay } from '../../../overlays/useStartRefundOverlay'
-import { useShowWronglyFundedPopup } from '../../../overlays/useWronglyFundedOverlay'
+import { useShowWronglyFundedPopup } from '../../../overlays/useShowWronglyFundedPopup'
 import { useShowFundingAmountDifferentPopup } from '../../../overlays/useShowFundingAmountDifferentPopup'
 import { useOfferMatches } from '../../search/hooks/useOfferMatches'
 

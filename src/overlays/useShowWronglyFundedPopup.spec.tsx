@@ -1,5 +1,5 @@
 import { act, renderHook } from '@testing-library/react-native'
-import { useShowWronglyFundedPopup } from './useWronglyFundedOverlay'
+import { useShowWronglyFundedPopup } from './useShowWronglyFundedPopup'
 import { WrongFundingAmount } from './warning/WrongFundingAmount'
 
 const navigateMock = jest.fn()
