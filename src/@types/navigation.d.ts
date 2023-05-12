@@ -34,6 +34,9 @@ declare type RootStackParamList = {
   fundEscrow: {
     offerId: string
   }
+  wrongFundingAmount: {
+    offerId: string
+  }
   selectWallet: {
     type: 'refund' | 'payout'
   }
