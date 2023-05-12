@@ -20,6 +20,11 @@ exports[`LabelAndAmount renders correctly 1`] = `
   </PeachText>
   <SatsFormat
     sats={123456}
+    satsStyle={
+      {
+        "fontSize": 12,
+      }
+    }
   />
 </View>
 `;

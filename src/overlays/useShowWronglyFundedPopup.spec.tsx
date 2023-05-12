@@ -1,6 +1,7 @@
 import { act, renderHook } from '@testing-library/react-native'
 import { useShowWronglyFundedPopup } from './useShowWronglyFundedPopup'
 import { WrongFundingAmount } from './warning/WrongFundingAmount'
+import { defaultPopupState, usePopupStore } from '../store/usePopupStore'
 
 const navigateMock = jest.fn()
 jest.mock('../hooks/useNavigation', () => ({
@@ -32,6 +33,7 @@ describe('useWronglyFundedOverlay', () => {
     useConfigStoreMock.mockReturnValue(maxTradingAmount)
   })
   afterEach(() => {
+    usePopupStore.setState(defaultPopupState)
     jest.resetAllMocks()
   })
   it('opens WrongFundingAmount overlay', () => {
@@ -48,16 +50,18 @@ describe('useWronglyFundedOverlay', () => {
       result.current(sellOffer as SellOffer)
     })
 
-    expect(updateOverlayMock).toHaveBeenCalledWith({
-      action1: expect.objectContaining({
-        callback: expect.any(Function),
-        icon: expect.any(String),
-        label: expect.any(String),
+    expect(usePopupStore.getState()).toEqual(
+      expect.objectContaining({
+        action1: expect.objectContaining({
+          callback: expect.any(Function),
+          icon: expect.any(String),
+          label: expect.any(String),
+        }),
+        content: <WrongFundingAmount actualAmount={actualAmount} amount={amount} maxAmount={maxTradingAmount} />,
+        level: 'WARN',
+        title: expect.any(String),
+        visible: true,
       }),
-      content: <WrongFundingAmount actualAmount={actualAmount} amount={amount} maxAmount={maxTradingAmount} />,
-      level: 'WARN',
-      title: expect.any(String),
-      visible: true,
-    })
+    )
   })
 })

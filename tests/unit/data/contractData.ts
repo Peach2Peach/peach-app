@@ -2,7 +2,7 @@ export const contract: Contract = {
   amount: 250000,
   buyer: {
     id: '02adcf3c857078dc3ca7064a49d20c6ae4978809057ffb75dc0750d8b5020aafe9',
-    creationDate: new Date(),
+    creationDate: new Date('2022-03-08T11:41:07.245Z'),
     trades: 0,
     rating: 0,
     userRating: 0,
@@ -23,7 +23,7 @@ export const contract: Contract = {
   },
   seller: {
     id: '03a9ea8d8000731f80287b43af99f28294b81ee011a5bde5dfd2beb6c03f6e3682',
-    creationDate: new Date(),
+    creationDate: new Date('2022-03-08T11:41:07.245Z'),
     trades: 0,
     rating: 0,
     userRating: 0,
