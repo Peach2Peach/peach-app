@@ -1,27 +1,21 @@
 import { useCallback } from 'react'
-import { shallow } from 'zustand/shallow'
 import { useNavigation } from '../hooks'
-import { useConfigStore } from '../store/configStore'
 import { usePopupStore } from '../store/usePopupStore'
 import i18n from '../utils/i18n'
 import { sum } from '../utils/math'
-import { WrongFundingAmount } from './warning/WrongFundingAmount'
+import { FundingAmountDifferent } from './warning/FundingAmountDifferent'
+import { shallow } from 'zustand/shallow'
 
-export const useShowWronglyFundedPopup = () => {
+export const useShowFundingAmountDifferentPopup = () => {
   const navigation = useNavigation()
   const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
-  const maxTradingAmount = useConfigStore((state) => state.maxTradingAmount)
 
-  const showWronglyFundedPopup = useCallback(
+  const showFundingAmountDifferentPopup = useCallback(
     (sellOffer: SellOffer) =>
       setPopup({
-        title: i18n('warning.wrongFundingAmount.title'),
+        title: i18n('warning.fundingAmountDifferent.title'),
         content: (
-          <WrongFundingAmount
-            amount={sellOffer.amount}
-            actualAmount={sellOffer.funding.amounts.reduce(sum, 0)}
-            maxAmount={maxTradingAmount}
-          />
+          <FundingAmountDifferent amount={sellOffer.amount} actualAmount={sellOffer.funding.amounts.reduce(sum, 0)} />
         ),
         visible: true,
         level: 'WARN',
@@ -34,7 +28,7 @@ export const useShowWronglyFundedPopup = () => {
           },
         },
       }),
-    [closePopup, maxTradingAmount, navigation, setPopup],
+    [closePopup, navigation, setPopup],
   )
-  return showWronglyFundedPopup
+  return showFundingAmountDifferentPopup
 }

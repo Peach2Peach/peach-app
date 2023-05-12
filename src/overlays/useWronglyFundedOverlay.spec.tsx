@@ -1,5 +1,5 @@
 import { act, renderHook } from '@testing-library/react-native'
-import { useWronglyFundedOverlay } from './useWronglyFundedOverlay'
+import { useShowWronglyFundedPopup } from './useWronglyFundedOverlay'
 import { WrongFundingAmount } from './warning/WrongFundingAmount'
 
 const navigateMock = jest.fn()
@@ -43,7 +43,7 @@ describe('useWronglyFundedOverlay', () => {
         amounts: [actualAmount],
       } as FundingStatus,
     }
-    const { result } = renderHook(() => useWronglyFundedOverlay())
+    const { result } = renderHook(() => useShowWronglyFundedPopup())
     act(() => {
       result.current(sellOffer as SellOffer)
     })
