@@ -40,7 +40,7 @@ export default (): ReactElement => {
         {isUpdated ? (
           <View style={tw`flex-row justify-center w-full h-6`}>
             <Text style={tw`uppercase button-medium`}>{i18n('settings.payoutAddress.success')}</Text>
-            <Icon id="check" style={tw`w-5 h-5 ml-1`} color={tw`text-success-main`.color} />
+            <Icon id="check" style={tw`w-5 h-5 ml-1`} color={tw.color('success-main')} />
           </View>
         ) : (
           <OpenWallet style={tw`h-6`} address={address} />

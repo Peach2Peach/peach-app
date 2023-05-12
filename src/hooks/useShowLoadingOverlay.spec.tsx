@@ -23,7 +23,7 @@ describe('useShowLoadingOverlay', () => {
     result.current()
     expect(updateOverlayMock).toHaveBeenCalledWith({
       action1: { callback: expect.any(Function), icon: 'clock', label: i18n('loading') },
-      content: <Loading color={tw`text-black-1`.color} style={tw`self-center`} />,
+      content: <Loading color={tw.color('black-1')} style={tw`self-center`} />,
       level: 'APP',
       requireUserAction: true,
       title: i18n('loading'),
@@ -40,7 +40,7 @@ describe('useShowLoadingOverlay', () => {
     })
     expect(updateOverlayMock).toHaveBeenCalledWith({
       action1: { callback: expect.any(Function), icon: 'clock', label: i18n('loading') },
-      content: <Loading color={tw`text-black-1`.color} style={tw`self-center`} />,
+      content: <Loading color={tw.color('black-1')} style={tw`self-center`} />,
       level,
       requireUserAction: true,
       title,

@@ -21,7 +21,7 @@ export const Badges = ({ user }: { user: User }) => {
               tw`rounded-full mx-[2px]`,
             ]}
           >
-            <Icon id={iconId} color={tw`text-primary-background-light`.color} style={tw`w-2 h-2 m-[2px]`} />
+            <Icon id={iconId} color={tw.color('primary-background-light')} style={tw`w-2 h-2 m-[2px]`} />
           </View>
           <Text
             style={[

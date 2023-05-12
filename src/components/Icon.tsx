@@ -14,7 +14,7 @@ type Props = ComponentProps & {
  * <Icon
  *   id={'save'}
  *   style={tw`mt-4`}
- *   color={tw`text-black-1`.color}
+ *   color={tw.color('black-1')}
  * />
  */
 export const Icon = ({ id, style, color }: Props): ReactElement => {

@@ -18,7 +18,7 @@ export default ({ offer, style }: OfferSummaryProps): ReactElement => (
           .split('/')
           .join(' / ')}
       </Text>
-      <Icon id={'xCircle'} style={tw`w-6 h-6 ml-2`} color={tw`text-black-2`.color} />
+      <Icon id={'xCircle'} style={tw`w-6 h-6 ml-2`} color={tw.color('black-2')} />
     </View>
 
     <SellOfferSummary offer={offer} style={tw`mt-8 px-7`} />

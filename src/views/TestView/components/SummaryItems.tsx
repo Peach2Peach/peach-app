@@ -29,7 +29,7 @@ export const SummaryItems = () => {
           ...defaultSummaryItem,
           date: new Date(Date.now() - MSINADAY),
           title: 'with icon',
-          icon: <Icon id="upload" style={tw`w-4`} color={tw`text-success-main`.color} />,
+          icon: <Icon id="upload" style={tw`w-4`} color={tw.color('success-main')} />,
         }}
       />
       <SummaryItem {...{ ...defaultSummaryItem, date: new Date(Date.now() - 2 * MSINADAY), level: 'INFO' }} />

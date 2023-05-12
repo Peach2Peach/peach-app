@@ -38,7 +38,7 @@ export const ScanQR = ({ onSuccess, onCancel }: ScanQRProps): ReactElement => {
               </View>
               <SafeAreaView style={tw`py-2 ml-3 `}>
                 <TouchableOpacity style={tw`flex-row items-center`} onPress={onCancel}>
-                  <Icon id="chevronLeft" color={tw`text-primary-mild-1`.color} style={tw`w-6 h-6 mr-1`} />
+                  <Icon id="chevronLeft" color={tw.color('primary-mild-1')} style={tw`w-6 h-6 mr-1`} />
                   <Text style={[tw`lowercase h6`, tw`text-primary-background-light`]} numberOfLines={1}>
                     {i18n('scanBTCAddress')}
                   </Text>

@@ -47,7 +47,7 @@ export default () => {
           <HorizontalLine style={tw`my-4`} />
           <TouchableOpacity style={tw`flex-row items-center justify-center`} onPress={openInExplorer}>
             <Text style={tw`underline text-black-2`}>{i18n('transaction.viewInExplorer')}</Text>
-            <Icon id="externalLink" style={tw`w-3 h-3 ml-1`} color={tw`text-primary-main`.color} />
+            <Icon id="externalLink" style={tw`w-3 h-3 ml-1`} color={tw.color('primary-main')} />
           </TouchableOpacity>
         </Card>
       )}

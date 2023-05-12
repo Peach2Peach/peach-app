@@ -67,7 +67,7 @@ export default (): ReactElement => {
         {showBackupReminder && (
           <View style={tw`justify-center`}>
             <TouchableOpacity style={tw`absolute left-4`} onPress={showCorrectBackupReminder}>
-              <Icon id="alertTriangle" style={tw`w-8 h-8`} color={tw`text-warning-main`.color} />
+              <Icon id="alertTriangle" style={tw`w-8 h-8`} color={tw.color('warning-main')} />
             </TouchableOpacity>
           </View>
         )}

@@ -20,7 +20,7 @@ export const ContractSubtitle = ({ contract, view, hasNewOffer, goToNewOffer }: 
       <Text style={tw`text-center subtitle-1`}>
         {i18n('contract.tradeCompleted')} {getDisplayDate(contract.lastModified)}
       </Text>
-      <Icon id="calendar" style={tw`w-6 h-6 ml-2`} color={tw`text-black-3`.color} />
+      <Icon id="calendar" style={tw`w-6 h-6 ml-2`} color={tw.color('black-3')} />
     </View>
   )
   if (contract.tradeStatus === 'tradeCanceled') return (
@@ -29,12 +29,12 @@ export const ContractSubtitle = ({ contract, view, hasNewOffer, goToNewOffer }: 
         <Text style={tw`text-center subtitle-1`}>
           {i18n('contract.tradeCanceled')} {getDisplayDate(contract.lastModified)}
         </Text>
-        <Icon id="xCircle" style={tw`w-6 h-6 ml-2`} color={tw`text-black-3`.color} />
+        <Icon id="xCircle" style={tw`w-6 h-6 ml-2`} color={tw.color('black-3')} />
       </View>
       {hasNewOffer && (
         <TouchableOpacity style={tw`flex-row items-center justify-center mt-2`} onPress={goToNewOffer}>
           <Text style={tw`text-center underline tooltip text-black-2`}>{i18n('contract.goToNewOffer')}</Text>
-          <Icon id="externalLink" style={tw`w-4 h-4 ml-1`} color={tw`text-primary-main`.color} />
+          <Icon id="externalLink" style={tw`w-4 h-4 ml-1`} color={tw.color('primary-main')} />
         </TouchableOpacity>
       )}
     </>

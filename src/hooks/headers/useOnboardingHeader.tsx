@@ -8,8 +8,8 @@ export const useOnboardingHeader = (config: HeaderConfig) => {
   const navigation = useNavigation()
 
   const headerIcons: HeaderConfig['icons'] = [
-    { id: 'mail', color: tw`text-primary-background-light`.color, onPress: () => navigation.navigate('contact') },
-    { id: 'globe', color: tw`text-primary-background-light`.color, onPress: goToHomepage },
+    { id: 'mail', color: tw.color('primary-background-light'), onPress: () => navigation.navigate('contact') },
+    { id: 'globe', color: tw.color('primary-background-light'), onPress: goToHomepage },
   ]
   useHeaderSetup({
     theme: 'inverted',

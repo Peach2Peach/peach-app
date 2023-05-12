@@ -15,7 +15,7 @@ export default (): ReactElement => {
       <View style={tw`justify-center flex-shrink w-full h-full`}>
         <Text style={tw`text-center h4 text-primary-background-light`}>{i18n('offer.published.title')}</Text>
         <View style={tw`flex-row items-center mt-8`}>
-          <Icon id="checkCircleInverted" style={tw`mr-6 w-23 h-23`} color={tw`text-primary-background-light`.color} />
+          <Icon id="checkCircleInverted" style={tw`mr-6 w-23 h-23`} color={tw.color('primary-background-light')} />
           <Text style={tw`flex-shrink body-l text-primary-background-light`}>{i18n('offer.published.description')}</Text>
         </View>
       </View>

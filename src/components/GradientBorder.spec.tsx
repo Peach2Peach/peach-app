@@ -4,9 +4,9 @@ import tw from '../styles/tailwind'
 
 describe('GradientBorder', () => {
   const testGradient = [
-    { offset: '0%', color: String(tw`text-gradient-yellow`.color), opacity: '1' },
-    { offset: '50.25%', color: String(tw`text-gradient-orange`.color), opacity: '1' },
-    { offset: '100%', color: String(tw`text-gradient-red`.color), opacity: '1' },
+    { offset: '0%', color: String(tw.color('gradient-yellow')), opacity: '1' },
+    { offset: '50.25%', color: String(tw.color('gradient-orange')), opacity: '1' },
+    { offset: '100%', color: String(tw.color('gradient-red')), opacity: '1' },
   ]
   it('should render correctly and show border by default', () => {
     const { toJSON } = render(

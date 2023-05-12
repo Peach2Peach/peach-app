@@ -11,7 +11,7 @@ export const useShowLoadingOverlay = () => {
     (options: Partial<OverlayState> = {}) =>
       updateOverlay({
         title: i18n('loading'),
-        content: <Loading style={tw`self-center`} color={tw`text-black-1`.color} />,
+        content: <Loading style={tw`self-center`} color={tw.color('black-1')} />,
         visible: true,
         level: 'APP',
         requireUserAction: true,

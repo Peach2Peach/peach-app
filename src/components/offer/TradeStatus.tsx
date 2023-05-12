@@ -10,6 +10,6 @@ export const TradeStatus = ({ style, disputeActive, tradeStatus }: Props) => (
     {...{ style, disputeActive }}
     iconId={getTradeStatusIcon(disputeActive, tradeStatus)}
     text={getTradeStatusText(disputeActive, tradeStatus)}
-    iconColor={tradeStatus === 'confirmPaymentRequired' ? tw`text-black-2`.color : undefined}
+    iconColor={tradeStatus === 'confirmPaymentRequired' ? tw.color('black-2') : undefined}
   />
 )

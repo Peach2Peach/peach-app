@@ -12,7 +12,7 @@ type Props = ComponentProps & {
  * @example
  * <Loading
  *   style={tw`mt-4`}
- *   color={tw`text-primary-background-light`.color}
+ *   color={tw.color('primary-background-light')}
  * />
  */
 
@@ -21,6 +21,6 @@ export const Loading = ({ style, color }: Props): JSX.Element => (
     style={[tw`w-20`, style]}
     source={loading}
     autoPlay
-    colorFilters={[{ keypath: 'LFCamada de forma 1', color: (color ?? tw`text-primary-main`.color) as string }]}
+    colorFilters={[{ keypath: 'LFCamada de forma 1', color: (color ?? tw.color('primary-main')) as string }]}
   />
 )

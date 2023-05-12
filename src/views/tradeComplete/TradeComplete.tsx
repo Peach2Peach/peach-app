@@ -31,7 +31,7 @@ export default (): ReactElement => {
           <Icon
             id="thumbsDown"
             style={tw`w-8 h-8`}
-            color={vote === 'negative' ? tw`text-primary-main`.color : tw`text-primary-background-light`.color}
+            color={vote === 'negative' ? tw.color('primary-main') : tw.color('primary-background-light')}
           />
         </TouchableOpacity>
         <TouchableOpacity
@@ -45,7 +45,7 @@ export default (): ReactElement => {
           <Icon
             id="thumbsUp"
             style={tw`w-8 h-8`}
-            color={vote === 'positive' ? tw`text-primary-main`.color : tw`text-primary-background-light`.color}
+            color={vote === 'positive' ? tw.color('primary-main') : tw.color('primary-background-light')}
           />
         </TouchableOpacity>
       </View>

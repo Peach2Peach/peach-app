@@ -13,7 +13,7 @@ export const DisputeStatus = ({ winner, view }: { winner: 'buyer' | 'seller'; vi
         <Text style={tw`mx-2 subtitle-2`}>{i18n(hasWon ? 'contract.disputeWon' : 'contract.disputeLost')}</Text>
         <Icon
           id={hasWon ? 'checkCircle' : 'xCircle'}
-          color={hasWon ? tw`text-success-main`.color : tw`text-error-main`.color}
+          color={hasWon ? tw.color('success-main') : tw.color('error-main')}
           style={tw`w-4 h-4`}
         />
       </View>

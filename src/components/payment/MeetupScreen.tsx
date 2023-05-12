@@ -39,13 +39,13 @@ export default (): ReactElement => {
               onPress={() => openLink('http://maps.google.com/maps?daddr=' + event.address)}
             >
               <Text style={tw`underline button-large text-black-2`}>{i18n('view.maps')}</Text>
-              <Icon id={'externalLink'} style={tw`w-5 h-5 ml-1`} color={tw`text-primary-main`.color} />
+              <Icon id={'externalLink'} style={tw`w-5 h-5 ml-1`} color={tw.color('primary-main')} />
             </Pressable>
           )}
           {!!event.url && (
             <Pressable style={tw`flex-row items-center mt-4`} onPress={() => openLink(event.url ?? '')}>
               <Text style={tw`underline button-large text-black-2`}>{i18n('meetup.website')}</Text>
-              <Icon id={'externalLink'} style={tw`w-5 h-5 ml-1`} color={tw`text-primary-main`.color} />
+              <Icon id={'externalLink'} style={tw`w-5 h-5 ml-1`} color={tw.color('primary-main')} />
             </Pressable>
           )}
         </View>

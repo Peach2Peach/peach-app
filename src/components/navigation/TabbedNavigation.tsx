@@ -73,7 +73,7 @@ export const TabbedNavigation = ({
               <ChatMessages
                 style={tw`mb-1 -mt-px w-[18px] h-[18px]`}
                 textStyle={[tw`text-[10px] text-primary-background-light`, isIOS() ? tw`pt-px pl-px` : {}]}
-                iconColor={tw`text-primary-main`.color}
+                iconColor={tw.color('primary-main')}
                 messages={messages[item.id as TradeTab]}
               />
             )}

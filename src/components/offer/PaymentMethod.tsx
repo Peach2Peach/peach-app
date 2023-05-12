@@ -33,7 +33,7 @@ export const PaymentMethod = ({ paymentMethod, showLink, isDispute, style }: Pro
         <Icon
           id="externalLink"
           style={tw`w-3 h-3 ml-1`}
-          color={isDispute ? tw`text-error-light`.color : tw`text-primary-main`.color}
+          color={isDispute ? tw.color('error-light') : tw.color('primary-main')}
         />
       )}
     </Pressable>

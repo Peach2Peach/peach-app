@@ -13,7 +13,7 @@ export const UserExistsForDevice = () => {
       <View style={tw`flex items-center justify-center`}>
         <Text style={tw`text-center h4 text-primary-background-light`}>{i18n('newUser.accountNotCreated')}</Text>
         <Text style={tw`text-center body-l text-primary-background-light`}>{i18n('newUser.youAlreadyHaveOne')}</Text>
-        <Icon id="userX" style={tw`w-32 h-32 mt-16`} color={tw`text-primary-background-light`.color} />
+        <Icon id="userX" style={tw`w-32 h-32 mt-16`} color={tw.color('primary-background-light')} />
       </View>
       <View style={tw`mt-16 items-center gap-8 `}>
         <MenuItem onPress={goToRestoreFromFile}>{i18n('restoreBackup.restoreFromFile')}</MenuItem>

@@ -84,7 +84,7 @@ export default ({ origin, isCash, style }: AddPaymentMethodProps): ReactElement 
           disabled={isCash && isLoading}
           style={[tw`flex flex-row items-center`, isCash && isLoading && tw`opacity-50`]}
         >
-          <Icon id="plusCircle" style={tw`mr-3 w-7 h-7`} color={tw`text-primary-main`.color} />
+          <Icon id="plusCircle" style={tw`mr-3 w-7 h-7`} color={tw.color('primary-main')} />
           <Text style={tw`h6 text-primary-main`}>
             {i18n(`paymentMethod.select.button.${isCash ? 'cash' : 'remote'}`)}
           </Text>

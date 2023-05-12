@@ -38,7 +38,7 @@ export default ({ toggle }: { toggle: () => void }): ReactElement => {
             value={password}
             errorMessage={passwordError}
             style={passwordIsValid && tw`border-black-2`}
-            iconColor={tw`text-black-2`.color}
+            iconColor={tw.color('black-2')}
           />
           <Input
             testID="backup-passwordRepeat"
@@ -50,7 +50,7 @@ export default ({ toggle }: { toggle: () => void }): ReactElement => {
             value={passwordRepeat}
             errorMessage={passwordRepeatError}
             style={passwordRepeatIsValid && tw`border-black-2`}
-            iconColor={tw`text-black-2`.color}
+            iconColor={tw.color('black-2')}
           />
         </View>
       </PeachScrollView>

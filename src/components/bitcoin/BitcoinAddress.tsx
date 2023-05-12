@@ -35,7 +35,7 @@ export const BitcoinAddress = ({
             {i18n('copied')}
           </Text>
         </Fade>
-        <QRCode size={width} value={urn.toString()} backgroundColor={String(tw`text-primary-background`.color)} />
+        <QRCode size={width} value={urn.toString()} backgroundColor={String(tw.color('primary-background'))} />
       </Pressable>
       <View style={tw`flex-row items-stretch w-full mt-4`}>
         <View style={tw`items-center justify-center flex-shrink w-full px-3 py-2 mr-2 border border-black-4 rounded-xl`}>

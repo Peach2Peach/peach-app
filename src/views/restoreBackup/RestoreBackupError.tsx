@@ -22,7 +22,7 @@ export default ({ err }: RestoreBackupErrorProps): ReactElement => {
       <View style={tw`flex items-center justify-center flex-shrink h-full`}>
         <Text style={tw`text-center h4 text-primary-background-light`}>{i18n('restoreBackup.title')}</Text>
         <Text style={tw`text-center body-l text-primary-background-light`}>{i18n(`${err}.text`)}</Text>
-        <Icon id="userX" style={tw`w-32 h-32 mt-16`} color={tw`text-primary-background-light`.color} />
+        <Icon id="userX" style={tw`w-32 h-32 mt-16`} color={tw.color('primary-background-light')} />
       </View>
       <View style={tw`flex flex-col items-center w-full mb-8`}>
         <PrimaryButton testID="restoreBackup-contactUs" onPress={goToContact} white narrow>

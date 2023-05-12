@@ -58,7 +58,7 @@ export default (): ReactElement => {
           style={[tw`flex flex-row items-center justify-end h-8`, endReached() ? tw`opacity-0` : {}]}
         >
           <Text style={tw`mr-1 text-primary-background-light`}>{i18n('skip')}</Text>
-          <Icon id="skipForward" style={tw`w-3 h-3`} color={tw`text-primary-background-light`.color} />
+          <Icon id="skipForward" style={tw`w-3 h-3`} color={tw.color('primary-background-light')} />
         </Pressable>
       </View>
       <View style={tw`flex-col items-center justify-end flex-shrink h-full`}>

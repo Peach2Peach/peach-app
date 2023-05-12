@@ -46,7 +46,7 @@ export const ProgressDonut = ({ title, max, value, style }: Props) => {
               cy="50%"
               r={radius}
               fill="transparent"
-              stroke={tw.color('text-primary-main')}
+              stroke={tw.color('primary-main')}
               strokeWidth={strokeWidth}
               strokeDasharray={circleCircumference}
               strokeDashoffset={strokeDashOffsetAnim}

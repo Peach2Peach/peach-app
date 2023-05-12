@@ -13,7 +13,7 @@ export const TradePlaceholders = ({ tab }: TradePlaceholdersProps): ReactElement
   const GoTradeButton = (): ReactElement => (
     <TouchableOpacity onPress={() => navigation.navigate(tab as 'buy' | 'sell')} style={tw`flex-row items-center`}>
       <Text style={tw`h6 text-primary-main`}>{i18n(`yourTrades.start.${tab === 'sell' ? 'selling' : 'buying'}`)}</Text>
-      <Icon id="arrowRightCircle" style={tw`w-5 h-5 ml-2`} color={tw`text-primary-main`.color} />
+      <Icon id="arrowRightCircle" style={tw`w-5 h-5 ml-2`} color={tw.color('primary-main')} />
     </TouchableOpacity>
   )
   return (

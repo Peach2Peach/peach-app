@@ -67,11 +67,7 @@ export const SellOfferSummary = ({ offer, style }: SellOfferSummaryProps): React
             onPress={() => showAddress(offer.escrow, NETWORK)}
           >
             <Text style={tw`underline tooltip text-black-2`}>{i18n('escrow.viewInExplorer')}</Text>
-            <Icon
-              id="externalLink"
-              style={tw`w-[18px] h-[18px] ml-[2px] mb-[2px]`}
-              color={tw`text-primary-main`.color}
-            />
+            <Icon id="externalLink" style={tw`w-[18px] h-[18px] ml-[2px] mb-[2px]`} color={tw.color('primary-main')} />
           </TouchableOpacity>
         </>
       )}

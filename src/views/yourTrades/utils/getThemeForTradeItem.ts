@@ -19,16 +19,16 @@ export const getThemeForTradeItem = (trade: ContractSummary | OfferSummary): Tra
     if (trade.tradeStatus === 'tradeCanceled') return {
       icon: 'xCircle',
       level,
-      color: tw`text-black-5`.color,
+      color: tw.color('black-5'),
     }
 
-    if (trade.type === 'ask') return { icon: 'sell', level, color: tw`text-primary-mild-2`.color }
-    if (trade.type === 'bid') return { icon: 'buy', level, color: tw`text-success-mild`.color }
+    if (trade.type === 'ask') return { icon: 'sell', level, color: tw.color('primary-mild-2') }
+    if (trade.type === 'bid') return { icon: 'buy', level, color: tw.color('success-mild') }
   }
 
   return {
     icon: 'xCircle',
     level,
-    color: tw`text-black-5`.color,
+    color: tw.color('black-5'),
   }
 }

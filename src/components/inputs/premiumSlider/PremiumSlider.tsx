@@ -100,7 +100,7 @@ export const PremiumSlider = ({ value, onChange, style }: PremiumSliderProps): R
               getTranslateX(pan, [0, trackWidth]),
             ]}
           >
-            <Icon id="chevronsDown" style={tw`w-4`} color={tw`text-primary-background-light`.color} />
+            <Icon id="chevronsDown" style={tw`w-4`} color={tw.color('primary-background-light')} />
           </Animated.View>
         </View>
       </View>

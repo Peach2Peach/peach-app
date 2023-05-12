@@ -30,7 +30,7 @@ export const UserId = ({ id, isDispute = false, showInfo = false, style }: Props
         {showInfo ? (
           <Icon
             id="info"
-            color={!isDispute ? tw`text-primary-main`.color : tw`text-error-main`.color}
+            color={!isDispute ? tw.color('primary-main') : tw.color('error-main')}
             style={tw`w-[14px] h-[14px]`}
           />
         ) : (

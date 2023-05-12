@@ -15,7 +15,7 @@ export default (): ReactElement => {
       <View style={tw`justify-center flex-shrink w-full h-full`}>
         <Text style={tw`text-center h4 text-primary-background-light`}>{i18n('backupTime.title')}</Text>
         <View style={tw`flex-row items-center justify-center mt-8`}>
-          <Icon id="saveCircleInverted" style={tw`w-16 h-16 mr-6`} color={tw`text-primary-background-light`.color} />
+          <Icon id="saveCircleInverted" style={tw`w-16 h-16 mr-6`} color={tw.color('primary-background-light')} />
           <Text style={tw`max-w-[200px] body-l text-primary-background-light`}>
             {i18n(`backupTime.description.${isMandatory ? 'mandatory' : 'optional'}`)}
           </Text>
@@ -27,7 +27,7 @@ export default (): ReactElement => {
             <Text style={tw`text-center text-primary-background-light`}>
               {i18n(`backupTime.mandatoryDisclaimer.${view}`)}
             </Text>
-            <Icon id="chevronsDown" style={tw`w-6 h-6 mt-1`} color={tw`text-primary-background-light`.color} />
+            <Icon id="chevronsDown" style={tw`w-6 h-6 mt-1`} color={tw.color('primary-background-light')} />
           </View>
         )}
         <PrimaryButton white onPress={goToBackups}>

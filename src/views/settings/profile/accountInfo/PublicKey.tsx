@@ -22,7 +22,7 @@ export const PublicKey = ({ publicKey, style }: { publicKey: string } & Componen
 
         <View style={tw`ml-3 items-center`}>
           <TouchableOpacity onPress={copy}>
-            <Icon id="copy" color={tw`text-primary-main`.color} style={tw`w-6 h-6`} />
+            <Icon id="copy" color={tw.color('primary-main')} style={tw`w-6 h-6`} />
           </TouchableOpacity>
           {copied && <Text style={tw`text-primary-main subtitle-2`}>{i18n('copied')}</Text>}
         </View>

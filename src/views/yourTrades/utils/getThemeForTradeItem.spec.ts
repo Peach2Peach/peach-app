@@ -31,18 +31,18 @@ describe('getThemeForTradeItem', () => {
     expect(theme).toEqual({
       icon: 'xCircle',
       level: 'DEFAULT',
-      color: tw`text-black-5`.color,
+      color: tw.color('black-5'),
     })
   })
 
   it('returns the correct theme for a completed trade as buyer', () => {
     const theme = getThemeForTradeItem(completedTradeBuyer as ContractSummary)
-    expect(theme).toEqual({ icon: 'buy', level: 'SUCCESS', color: tw`text-success-mild`.color })
+    expect(theme).toEqual({ icon: 'buy', level: 'SUCCESS', color: tw.color('success-mild') })
   })
 
   it('returns the correct theme for a completed trade as seller', () => {
     const theme = getThemeForTradeItem(completedTradeSeller as ContractSummary)
-    expect(theme).toEqual({ icon: 'sell', level: 'APP', color: tw`text-primary-mild-2`.color })
+    expect(theme).toEqual({ icon: 'sell', level: 'APP', color: tw.color('primary-mild-2') })
   })
   it('returns the correct theme for a lost dispute as buyer', () => {
     const theme = getThemeForTradeItem({

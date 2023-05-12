@@ -13,7 +13,7 @@ export const ChatMessages = ({ messages, iconColor, textStyle, style }: ChatMess
     <Icon
       id={messages > 0 ? 'messageFull' : 'messageCircle'}
       style={tw`w-full h-full`}
-      color={iconColor ?? tw`text-primary-background-light`.color}
+      color={iconColor ?? tw.color('primary-background-light')}
     />
     {messages > 0 && (
       <Text
@@ -32,7 +32,7 @@ export const NewChatMessages = ({ messages, style }: ChatMessagesProps) => (
     <Icon
       id={messages > 0 ? 'messageFull' : 'messageCircle'}
       style={tw`w-3 h-3`}
-      color={tw`text-primary-background-light`.color}
+      color={tw.color('primary-background-light')}
     />
     {messages > 0 && (
       <Text numberOfLines={1} ellipsizeMode="clip" style={[tw`absolute font-bold text-center pl-2px text-10px`]}>

@@ -9,7 +9,7 @@ export const EscrowLink = ({ address }: { address: string }) => (
   <>
     <TouchableOpacity style={tw`flex-row items-end self-center`} onPress={() => showAddress(address, NETWORK)}>
       <Text style={tw`underline tooltip text-black-2`}>{i18n('match.viewInEscrow')}</Text>
-      <Icon id="externalLink" style={tw`w-[18px] h-[18px] ml-[2px] mb-[2px]`} color={tw`text-primary-main`.color} />
+      <Icon id="externalLink" style={tw`w-[18px] h-[18px] ml-[2px] mb-[2px]`} color={tw.color('primary-main')} />
     </TouchableOpacity>
   </>
 )

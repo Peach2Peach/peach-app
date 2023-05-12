@@ -23,7 +23,7 @@ export const Escrow = ({ contract: { releaseTxId, escrow, disputeActive }, style
       <Icon
         id="externalLink"
         style={tw`w-3 h-3 ml-1 -mt-px`}
-        color={disputeActive ? tw`text-error-light`.color : tw`text-primary-main`.color}
+        color={disputeActive ? tw.color('error-light') : tw.color('primary-main')}
       />
     </TouchableOpacity>
   )

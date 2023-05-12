@@ -14,6 +14,6 @@ export const getDisputeResultTheme = (
   return {
     icon: 'alertOctagon',
     level: isWonDispute ? 'SUCCESS' : 'ERROR',
-    color: isWonDispute ? tw`text-success-main`.color : tw`text-error-main`.color,
+    color: isWonDispute ? tw.color('success-main') : tw.color('error-main'),
   }
 }

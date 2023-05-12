@@ -30,9 +30,9 @@ const getBackgroundColor = (pan: Animated.Value) =>
   pan.interpolate({
     inputRange: [0, 0.8, 1],
     outputRange: [
-      tw`text-primary-main`.color as string,
-      tw`text-primary-main`.color as string,
-      tw`text-success-main`.color as string,
+      tw.color('primary-main') as string,
+      tw.color('primary-main') as string,
+      tw.color('success-main') as string,
     ],
   })
 const getLabel1Opacity = (pan: Animated.Value) =>
@@ -107,8 +107,8 @@ export const SlideToUnlock = ({
             tw`flex flex-row justify-center py-2 my-1 rounded-full `,
           ]}
         >
-          <Icon id="checkCircle" style={tw`w-6 h-6`} color={tw`text-primary-background`.color} />
-          <Icon id="chevronsRight" style={tw`w-6 h-6 ml-1`} color={tw`text-primary-background`.color} />
+          <Icon id="checkCircle" style={tw`w-6 h-6`} color={tw.color('primary-background')} />
+          <Icon id="chevronsRight" style={tw`w-6 h-6 ml-1`} color={tw.color('primary-background')} />
         </Animated.View>
         <Animated.View style={{ width: widthToSlide, opacity: getLabel1Opacity(pan) }}>
           <Text style={tw`text-center button-large`} numberOfLines={1}>

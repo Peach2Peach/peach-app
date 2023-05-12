@@ -167,7 +167,7 @@ export default ({ setMeansOfPayment, editing, style, origin }: PaymentDetailsPro
               <LinedText style={tw`pb-3`}>
                 <Text style={tw`mr-1 h6 text-black-2`}>{i18n(`paymentCategory.${category}`)}</Text>
                 {paymentCategoryIcons[category] !== '' && (
-                  <Icon color={tw`text-black-2`.color} id={paymentCategoryIcons[category] as IconType} />
+                  <Icon color={tw.color('black-2')} id={paymentCategoryIcons[category] as IconType} />
                 )}
               </LinedText>
               {checkboxes.map((item, j) => (
@@ -187,7 +187,7 @@ export default ({ setMeansOfPayment, editing, style, origin }: PaymentDetailsPro
                     <View style={tw`flex flex-row justify-between`}>
                       <Text style={tw`font-baloo text-error-main`}>{item.data.label}</Text>
                       <Pressable onPress={() => deletePaymentData(item.data)} style={tw`w-6 h-6`}>
-                        <Icon id="trash" style={tw`w-6 h-6`} color={tw`text-black-2`.color} />
+                        <Icon id="trash" style={tw`w-6 h-6`} color={tw.color('black-2')} />
                       </Pressable>
                     </View>
                   )}
@@ -203,7 +203,7 @@ export default ({ setMeansOfPayment, editing, style, origin }: PaymentDetailsPro
       {paymentData.filter((item) => isCashTrade(item.type)).length !== 0 && (
         <LinedText style={tw`pb-3`}>
           <Text style={tw`mr-1 h6 text-black-2`}>{i18n('paymentSection.meetups')}</Text>
-          <Icon color={tw`text-black-2`.color} id={'users'} />
+          <Icon color={tw.color('black-2')} id={'users'} />
         </LinedText>
       )}
       {paymentData

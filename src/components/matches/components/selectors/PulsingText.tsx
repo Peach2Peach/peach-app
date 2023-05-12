@@ -59,7 +59,7 @@ export const PulsingText = ({ children, style, showPulse }: Props) => {
 
   const textColor = color.interpolate({
     inputRange: [0, 1],
-    outputRange: [String(tw`text-black-2`.color), String(tw`text-error-main`.color)],
+    outputRange: [String(tw.color('black-2')), String(tw.color('error-main'))],
   })
 
   useEffect(() => {
