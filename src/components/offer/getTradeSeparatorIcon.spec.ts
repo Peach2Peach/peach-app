@@ -10,6 +10,11 @@ describe('getTradeSeparatorIcon', () => {
   })
 
   it('returns calendar when tradeStatus is anything else', () => {
-    expect(getTradeSeparatorIcon('tradeCompleted')).toEqual('calendar')
+    // @ts-expect-error
+    expect(getTradeSeparatorIcon('somethingElse')).toEqual('calendar')
+  })
+
+  it('returns undefined for tradeCompleted', () => {
+    expect(getTradeSeparatorIcon('tradeCompleted')).toEqual(undefined)
   })
 })
