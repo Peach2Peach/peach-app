@@ -7,7 +7,7 @@ import { useHeaderState } from '../../../components/header/store'
 import { setAccount, updateAccount } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
 import { defaultFundingStatus } from '../../../utils/offer/constants'
-import { useFundEscrowSetup } from './useFundEscrowSetup'
+import { useFundEscrowSetup } from '../../fundEscrow/hooks/useFundEscrowSetup'
 
 jest.useFakeTimers()
 

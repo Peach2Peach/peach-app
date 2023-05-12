@@ -8,7 +8,7 @@ import i18n from '../../../utils/i18n'
 import { headerIcons } from '../../../utils/layout/headerIcons'
 import { isSellOffer } from '../../../utils/offer'
 import { parseError } from '../../../utils/result'
-import { shouldGetFundingStatus } from '../helpers/shouldGetFundingStatus'
+import { shouldGetFundingStatus } from '../../sell/helpers/shouldGetFundingStatus'
 import { useCreateEscrow } from './useCreateEscrow'
 import { useHandleFundingStatus } from './useHandleFundingStatus'
 
