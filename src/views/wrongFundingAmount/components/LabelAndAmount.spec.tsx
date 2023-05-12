@@ -1,10 +1,10 @@
 import { createRenderer } from 'react-test-renderer/shallow'
-import { ContinueTradeSlider } from './ContinueTradeSlider'
+import { LabelAndAmount } from './LabelAndAmount'
 
-describe('ContinueTradeSlider', () => {
+describe('LabelAndAmount', () => {
   const renderer = createRenderer()
   it('renders correctly', () => {
-    renderer.render(<ContinueTradeSlider onUnlock={jest.fn()} />)
+    renderer.render(<LabelAndAmount label="label" amount={123456} />)
     expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
 })

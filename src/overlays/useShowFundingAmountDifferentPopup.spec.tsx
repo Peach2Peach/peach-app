@@ -1,5 +1,5 @@
 import { act, renderHook } from '@testing-library/react-native'
-import { sellOffer } from '../../tests/unit/data/offerData'
+import { wronglyFundedSellOffer } from '../../tests/unit/data/offerData'
 import { NavigationWrapper, replaceMock } from '../../tests/unit/helpers/NavigationWrapper'
 import { defaultPopupState, usePopupStore } from '../store/usePopupStore'
 import { useShowFundingAmountDifferentPopup } from './useShowFundingAmountDifferentPopup'
@@ -8,13 +8,6 @@ import { FundingAmountDifferent } from './warning/FundingAmountDifferent'
 const wrapper = NavigationWrapper
 
 describe('useShowFundingAmountDifferentPopup', () => {
-  const amount = 42069
-  const actualAmount = 69420
-  const wronglyFundedSellOffer: SellOffer = {
-    ...sellOffer,
-    amount,
-    funding: { amounts: [actualAmount] } as FundingStatus,
-  }
   afterEach(() => {
     usePopupStore.setState(defaultPopupState)
     jest.resetAllMocks()
@@ -29,7 +22,11 @@ describe('useShowFundingAmountDifferentPopup', () => {
     expect(usePopupStore.getState()).toEqual({
       ...usePopupStore.getState(),
       title: 'different amounts',
-      content: <FundingAmountDifferent {...{ amount, actualAmount }} />,
+      content: (
+        <FundingAmountDifferent
+          {...{ amount: wronglyFundedSellOffer.amount, actualAmount: wronglyFundedSellOffer.funding.amounts[0] }}
+        />
+      ),
       visible: true,
       level: 'WARN',
       action1: {

@@ -1,5 +1,6 @@
-export { getTranslateY } from './getTranslateY'
+export { getHeaderStyles } from './getHeaderStyles'
 export { getTranslateX } from './getTranslateX'
+export { getTranslateY } from './getTranslateY'
+export { peachyGradient, primaryGradient, whiteGradient } from './gradients'
 export { screenTransition } from './screenTransition'
-export { primaryGradient, whiteGradient, peachyGradient } from './gradients'
 export { textShadow } from './shadows'
