@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
-import { useConfirmEscrowOverlay } from '../../../../overlays/useConfirmEscrowOverlay'
-import { useWronglyFundedOverlay } from '../../../../overlays/useWronglyFundedOverlay'
+import { useShowFundingAmountDifferentPopup } from '../../../../overlays/useShowFundingAmountDifferentPopup'
+import { useShowWronglyFundedPopup } from '../../../../overlays/useWronglyFundedOverlay'
 import { getOffer } from '../../../../utils/offer'
 import { useBuyOfferExpiredOverlay } from '../../../../overlays/useBuyOfferExpiredOverlay'
 import { useOfferOutsideRangeOverlay } from '../../../../overlays/useOfferOutsideRangeOverlay'
@@ -8,8 +8,8 @@ import { useOfferOutsideRangeOverlay } from '../../../../overlays/useOfferOutsid
 type PNEventHandlers = Partial<Record<NotificationType, (data: PNData, notification?: PNNotification) => void>>
 
 export const useOfferPopupEvents = () => {
-  const confirmEscrowOverlay = useConfirmEscrowOverlay()
-  const wronglyFundedOverlay = useWronglyFundedOverlay()
+  const showFundingAmountDifferentPopup = useShowFundingAmountDifferentPopup()
+  const wronglyFundedOverlay = useShowWronglyFundedPopup()
   const offerOutsideRangeOverlay = useOfferOutsideRangeOverlay()
   const buyOfferExpiredOverlay = useBuyOfferExpiredOverlay()
 
@@ -20,7 +20,7 @@ export const useOfferPopupEvents = () => {
         const sellOffer = offerId ? (getOffer(offerId) as SellOffer) : null
 
         if (!sellOffer) return
-        confirmEscrowOverlay(sellOffer)
+        showFundingAmountDifferentPopup(sellOffer)
       },
       // PN-S08
       'offer.wrongFundingAmount': ({ offerId }) => {
@@ -40,7 +40,7 @@ export const useOfferPopupEvents = () => {
         buyOfferExpiredOverlay(offerId, days)
       },
     }),
-    [buyOfferExpiredOverlay, confirmEscrowOverlay, offerOutsideRangeOverlay, wronglyFundedOverlay],
+    [buyOfferExpiredOverlay, showFundingAmountDifferentPopup, offerOutsideRangeOverlay, wronglyFundedOverlay],
   )
   return offerPopupEvents
 }

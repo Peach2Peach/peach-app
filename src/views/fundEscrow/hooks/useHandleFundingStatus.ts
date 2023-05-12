@@ -3,8 +3,8 @@ import { useNavigation } from '../../../hooks'
 import { info } from '../../../utils/log'
 import { saveOffer } from '../../../utils/offer'
 import { useStartRefundOverlay } from '../../../overlays/useStartRefundOverlay'
-import { useWronglyFundedOverlay } from '../../../overlays/useWronglyFundedOverlay'
-import { useConfirmEscrowOverlay } from '../../../overlays/useConfirmEscrowOverlay'
+import { useShowWronglyFundedPopup } from '../../../overlays/useWronglyFundedOverlay'
+import { useShowFundingAmountDifferentPopup } from '../../../overlays/useShowFundingAmountDifferentPopup'
 import { useOfferMatches } from '../../search/hooks/useOfferMatches'
 
 type Props = {
@@ -16,8 +16,8 @@ type Props = {
 export const useHandleFundingStatus = ({ offerId, sellOffer, fundingStatus, userConfirmationRequired }: Props) => {
   const navigation = useNavigation()
   const startRefund = useStartRefundOverlay()
-  const showWronglyFundedOverlay = useWronglyFundedOverlay()
-  const showEscrowConfirmOverlay = useConfirmEscrowOverlay()
+  const showWronglyFundedOverlay = useShowWronglyFundedPopup()
+  const showFundingAmountDifferentPopup = useShowFundingAmountDifferentPopup()
   const { refetch: fetchMatches } = useOfferMatches(offerId, fundingStatus.status === 'FUNDED')
 
   useEffect(() => {
@@ -40,7 +40,7 @@ export const useHandleFundingStatus = ({ offerId, sellOffer, fundingStatus, user
       return
     }
     if (userConfirmationRequired) {
-      showEscrowConfirmOverlay(updatedOffer)
+      showFundingAmountDifferentPopup(updatedOffer)
       return
     }
     if (fundingStatus.status === 'FUNDED') {

@@ -5,13 +5,13 @@ import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { thousands } from '../../utils/string'
 
-type WrongFundingAmountProps = {
+type Props = {
   amount: number
   actualAmount: number
   maxAmount: number
 }
 
-export const WrongFundingAmount = ({ amount, actualAmount, maxAmount }: WrongFundingAmountProps): ReactElement => (
+export const WrongFundingAmount = ({ amount, actualAmount, maxAmount }: Props): ReactElement => (
   <View>
     <Text>{i18n('warning.fundingAmountDifferent.description.1')}</Text>
     <SatsFormat style={tw`text-warning-mild`} color={tw`text-black-1`} sats={actualAmount} />
