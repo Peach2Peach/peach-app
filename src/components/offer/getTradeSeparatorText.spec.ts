@@ -7,7 +7,11 @@ describe('getTradeSeparatorText', () => {
   it('returns correct text when tradeStatus is refundOrReviveRequired', () => {
     expect(getTradeSeparatorText('refundOrReviveRequired')).toEqual('dispute resolved')
   })
+  it('returns correct text when tradeStatus is tradeCompleted', () => {
+    expect(getTradeSeparatorText('tradeCompleted')).toEqual('payment details')
+  })
   it('returns correct text when tradeStatus is anything else', () => {
-    expect(getTradeSeparatorText('tradeCompleted')).toEqual('trade completed')
+    // @ts-expect-error
+    expect(getTradeSeparatorText('something else')).toEqual('trade completed')
   })
 })

@@ -178,6 +178,7 @@
   "offer.requiredAction.waiting.buyer": "waiting for payment",
   "offer.requiredAction.waiting": "waiting for $0",
   "offer.publish": "publish offer",
+  "contract.paymentDetails": "payment details",
   "contract.provideEmail": "provide email",
   "contract.trade": "trade $0",
   "contract.tradeCompleted": "trade completed",
