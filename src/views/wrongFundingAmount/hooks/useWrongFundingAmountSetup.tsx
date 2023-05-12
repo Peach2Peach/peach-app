@@ -26,7 +26,6 @@ export const useWrongFundingAmountSetup = () => {
 
   useHeaderSetup({
     titleComponent: <OfferDetailsTitle id={offerId} />,
-    hideGoBackButton: true,
   })
 
   return {
