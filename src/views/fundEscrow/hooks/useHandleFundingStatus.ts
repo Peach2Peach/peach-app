@@ -60,7 +60,7 @@ export const useHandleFundingStatus = ({ offerId, sellOffer, fundingStatus, user
     navigation,
     offerId,
     sellOffer,
-    showEscrowConfirmOverlay,
+    showFundingAmountDifferentPopup,
     showWronglyFundedOverlay,
     startRefund,
     userConfirmationRequired,

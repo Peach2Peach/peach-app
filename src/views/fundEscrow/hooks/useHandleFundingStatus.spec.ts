@@ -65,19 +65,19 @@ jest.mock('../../../overlays/useStartRefundOverlay', () => ({
       (...args: any[]) =>
         startRefundOverlayMock(...args),
 }))
-const wronglyFundedOverlayMock = jest.fn()
-jest.mock('../../../overlays/useWronglyFundedOverlay', () => ({
-  useWronglyFundedOverlay:
+const showWronglyFundedPopupMock = jest.fn()
+jest.mock('../../../overlays/useShowWronglyFundedPopup', () => ({
+  useShowWronglyFundedPopup:
     () =>
       (...args: any[]) =>
-        wronglyFundedOverlayMock(...args),
+        showWronglyFundedPopupMock(...args),
 }))
-const confirmEscrowOverlayMock = jest.fn()
-jest.mock('../../../overlays/useConfirmEscrowOverlay', () => ({
-  useConfirmEscrowOverlay:
+const showFundingAmountDifferentPopup = jest.fn()
+jest.mock('../../../overlays/useShowFundingAmountDifferentPopup', () => ({
+  useShowFundingAmountDifferentPopup:
     () =>
       (...args: any[]) =>
-        confirmEscrowOverlayMock(...args),
+        showFundingAmountDifferentPopup(...args),
 }))
 
 describe('useHandleFundingStatus', () => {
@@ -106,8 +106,8 @@ describe('useHandleFundingStatus', () => {
     renderHook(useHandleFundingStatus, { initialProps })
     expect(replaceMock).not.toHaveBeenCalled()
     expect(startRefundOverlayMock).not.toHaveBeenCalled()
-    expect(wronglyFundedOverlayMock).not.toHaveBeenCalled()
-    expect(confirmEscrowOverlayMock).not.toHaveBeenCalled()
+    expect(showWronglyFundedPopupMock).not.toHaveBeenCalled()
+    expect(showFundingAmountDifferentPopup).not.toHaveBeenCalled()
     expect(account.offers).toEqual([])
   })
   it('should save offer when funding status updates', async () => {
@@ -141,7 +141,7 @@ describe('useHandleFundingStatus', () => {
       userConfirmationRequired: false,
     }
     renderHook(useHandleFundingStatus, { initialProps })
-    expect(wronglyFundedOverlayMock).toHaveBeenCalledWith({ ...sellOffer, funding: fundingStatus })
+    expect(showWronglyFundedPopupMock).toHaveBeenCalledWith({ ...sellOffer, funding: fundingStatus })
   })
   it('should show EscrowConfirmOverlay when user confirmation is required', async () => {
     const fundingStatus: FundingStatus = { ...defaultFundingStatus, status: 'MEMPOOL' }
@@ -152,7 +152,7 @@ describe('useHandleFundingStatus', () => {
       userConfirmationRequired: true,
     }
     renderHook(useHandleFundingStatus, { initialProps })
-    expect(confirmEscrowOverlayMock).toHaveBeenCalledWith({ ...sellOffer, funding: fundingStatus })
+    expect(showFundingAmountDifferentPopup).toHaveBeenCalledWith({ ...sellOffer, funding: fundingStatus })
   })
   it('should go to offerPublished if funding status is FUNDED but no matches yet', async () => {
     renderHook(useHandleFundingStatus, { initialProps: fundedProps })
