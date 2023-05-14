@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SummaryItem should render correctly for a lost dispute as a seller 1`] = `
+exports[`TradeSummaryCard should render correctly for a lost dispute as a seller 1`] = `
 <TouchableOpacity
   onPress={[Function]}
   style={
@@ -133,7 +133,7 @@ exports[`SummaryItem should render correctly for a lost dispute as a seller 1`] 
 </TouchableOpacity>
 `;
 
-exports[`SummaryItem should render correctly for a started dispute 1`] = `
+exports[`TradeSummaryCard should render correctly for a started dispute 1`] = `
 <TouchableOpacity
   onPress={[Function]}
   style={
@@ -266,7 +266,7 @@ exports[`SummaryItem should render correctly for a started dispute 1`] = `
 </TouchableOpacity>
 `;
 
-exports[`SummaryItem should render correctly for a won dispute as a seller 1`] = `
+exports[`TradeSummaryCard should render correctly for a won dispute as a seller 1`] = `
 <TouchableOpacity
   onPress={[Function]}
   style={
@@ -399,7 +399,7 @@ exports[`SummaryItem should render correctly for a won dispute as a seller 1`] =
 </TouchableOpacity>
 `;
 
-exports[`SummaryItem should render correctly for a won dispute as a seller with light theme 1`] = `
+exports[`TradeSummaryCard should render correctly for a won dispute as a seller with light theme 1`] = `
 <TouchableOpacity
   onPress={[Function]}
   style={

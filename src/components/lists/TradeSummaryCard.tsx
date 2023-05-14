@@ -83,7 +83,7 @@ type SummaryItemProps = ComponentProps & {
   theme?: 'default' | 'light'
 }
 
-export const SummaryItem = ({
+export const TradeSummaryCard = ({
   title,
   icon,
   amount,
