@@ -1,7 +1,6 @@
 import i18n from '../../utils/i18n'
 
-export const getTradeSeparatorText = (tradeStatus: TradeStatus) => {
-  console.log('TradeStatus:', tradeStatus)
+export const getTradeSeparatorText = (tradeStatus: TradeStatus, paymentMethod: PaymentMethod) => {
   if (tradeStatus === 'tradeCanceled') {
     return i18n('contract.tradeCanceled')
   }
@@ -9,7 +8,7 @@ export const getTradeSeparatorText = (tradeStatus: TradeStatus) => {
     return i18n('contract.disputeResolved')
   }
   if (tradeStatus === 'tradeCompleted') {
-    return i18n('contract.paymentDetails')
+    return i18n(paymentMethod) + ' ' + i18n('contract.paymentDetails')
   }
   return i18n('contract.tradeCompleted')
 }
