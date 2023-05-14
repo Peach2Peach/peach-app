@@ -7,7 +7,7 @@ import { Divider } from '../Divider'
 type Props = ComponentProps &
   Pick<Contract, 'disputeActive'> & {
     iconId: IconType | undefined
-    iconColor?: ColorValue | undefined
+    iconColor: ColorValue
     text: string
   }
 
@@ -15,9 +15,7 @@ export const TradeSeparator = ({ style, disputeActive, iconId, iconColor, text }
   <Divider
     type={disputeActive ? 'error' : 'light'}
     text={text}
-    icon={
-      iconId ? <Icon id={iconId} style={tw`w-4 h-4 mr-1`} color={iconColor || tw`text-error-main`.color} /> : undefined
-    }
+    icon={iconId ? <Icon id={iconId} style={tw`w-4 h-4 mr-1`} color={iconColor} /> : undefined}
     style={style}
   />
 )

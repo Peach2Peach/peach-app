@@ -9,12 +9,12 @@ describe('getTradeSeparatorIcon', () => {
     expect(getTradeSeparatorIcon('refundOrReviveRequired')).toEqual('alertOctagon')
   })
 
+  it('returns undefined for tradeCompleted', () => {
+    expect(getTradeSeparatorIcon('tradeCompleted')).toEqual(undefined)
+  })
+
   it('returns calendar when tradeStatus is anything else', () => {
     // @ts-expect-error
     expect(getTradeSeparatorIcon('somethingElse')).toEqual('calendar')
-  })
-
-  it('returns undefined for tradeCompleted', () => {
-    expect(getTradeSeparatorIcon('tradeCompleted')).toEqual(undefined)
   })
 })
