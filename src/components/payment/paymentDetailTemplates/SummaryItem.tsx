@@ -13,6 +13,11 @@ type Props = {
   isAvailable?: boolean
 } & ({ information: string; isBitcoinAmount?: false } | { information: number; isBitcoinAmount: true; isEscrow?: false })
 
+export const useIsMediumScreen = () => {
+  const { width, height } = useWindowDimensions()
+  return width > 375 && height > 690
+}
+
 export const SummaryItem = ({
   label,
   information,
@@ -22,8 +27,7 @@ export const SummaryItem = ({
   isEscrow,
   isAvailable = true,
 }: Props) => {
-  const { width, height } = useWindowDimensions()
-  const isMediumScreen = width > 375 && height > 690
+  const isMediumScreen = useIsMediumScreen()
   return (
     <View style={tw`flex-row items-center gap-2 h-30px`}>
       <Text style={[tw`text-black-3 w-18`, tw.md`input-text w-78px mr-1`, isDispute && tw`text-error-light`]}>
@@ -47,7 +51,7 @@ export const SummaryItem = ({
           ) : (
             <Text
               style={[
-                tw`subtitle-2 text-right top-1px`,
+                tw`text-right subtitle-2 top-1px`,
                 tw.md`input-title top-2px`,
                 isDispute && tw`text-error-dark`,
                 isEscrow && tw`underline`,
