@@ -11,10 +11,10 @@ describe('getTradeSeparatorText', () => {
     expect(getTradeSeparatorText('tradeCompleted', 'buyer')).toEqual('trade details')
   })
   it('returns correct text when tradeStatus is tradeCompleted for the seller', () => {
-    expect(getTradeSeparatorText('tradeCompleted', 'seller')).toEqual('sepa payment details')
+    expect(getTradeSeparatorText('tradeCompleted', 'seller')).toEqual('payment details')
   })
   it('returns correct text when tradeStatus is anything else', () => {
     // @ts-expect-error
-    expect(getTradeSeparatorText('something else', 'buyer')).toEqual('sepa payment details')
+    expect(getTradeSeparatorText('something else', 'buyer')).toEqual('payment details')
   })
 })
