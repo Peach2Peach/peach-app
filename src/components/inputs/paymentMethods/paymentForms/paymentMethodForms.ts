@@ -26,7 +26,9 @@ const template5Fields: TradeInformationField[] = ['price', 'beneficiary', 'ukBan
 const template6Fields: TradeInformationField[] = ['price', 'userName', 'email', 'phone', 'reference']
 const template7Fields: TradeInformationField[] = ['price', 'beneficiary', 'accountNumber', 'reference']
 const template8Fields: TradeInformationField[] = ['price', 'beneficiary', 'phone', 'reference']
-const template9Fields: TradeInformationField[] = ['price']
+
+/** @todo clarify if 'address' should be added here */
+const template9Fields: TradeInformationField[] = ['price', 'beneficiary', 'iban', 'accountNumber', 'bic', 'reference']
 
 export const PaymentMethodForms: PaymentMethodFormsType = {
   sepa: { component: Template1, fields: template1Fields },
@@ -55,12 +57,16 @@ export const PaymentMethodForms: PaymentMethodFormsType = {
   lydia: { component: Template3, fields: template3Fields },
   verse: { component: Template3, fields: template3Fields },
   iris: { component: Template3, fields: template3Fields },
-  // why isn't this template 4??
-  'giftCard.amazon': { component: GiftCardAmazon, fields: [] },
+  'giftCard.amazon': { component: GiftCardAmazon, fields: template4Fields },
 }
 GIFTCARDCOUNTRIES.forEach(
-  (c) => (PaymentMethodForms[('giftCard.amazon.' + c) as PaymentMethod] = { component: GiftCardAmazon, fields: [] }),
+  (c) =>
+    (PaymentMethodForms[('giftCard.amazon.' + c) as PaymentMethod] = {
+      component: GiftCardAmazon,
+      fields: template4Fields,
+    }),
 )
 NATIONALTRANSFERCOUNTRIES.forEach(
-  (c) => (PaymentMethodForms[`nationalTransfer${c}` as PaymentMethod] = { component: Template9, fields: [] }),
+  (c) =>
+    (PaymentMethodForms[`nationalTransfer${c}` as PaymentMethod] = { component: Template9, fields: template9Fields }),
 )
