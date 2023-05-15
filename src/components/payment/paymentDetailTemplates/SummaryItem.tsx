@@ -31,7 +31,7 @@ export const SummaryItem = ({
   return (
     <View style={tw`flex-row items-center gap-2 h-30px`}>
       <Text style={[tw`text-black-3 w-18`, tw.md`input-text w-78px mr-1`, isDisputeActive && tw`text-error-light`]}>
-        {isEscrow ? 'escrow' : isBitcoinAmount ? label || 'amount' : label}
+        {isEscrow ? 'escrow' : isBitcoinAmount ? 'amount' : label}
       </Text>
       <ConditionalWrapper
         condition={!!isEscrow}

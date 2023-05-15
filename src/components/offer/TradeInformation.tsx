@@ -49,7 +49,7 @@ const TradeStatusInfo = ({ contract, view }: TradeSummaryProps) => (
 
 // global constant for possible fields
 const tradeInformationFields = {
-  price: { label: 'amount', getInformation: (contract: Contract) => contract.price + ' ' + contract.currency },
+  price: { label: 'price', getInformation: (contract: Contract) => contract.price + ' ' + contract.currency },
   paidToMethod: {
     label: 'paid to',
     getInformation: (contract: Contract) =>
@@ -72,7 +72,7 @@ const tradeInformationFields = {
       return walletLabel
     },
   },
-  bitcoinAmount: { label: 'BTC', getInformation: (contract: Contract) => contract.amount },
+  bitcoinAmount: { label: undefined, getInformation: (contract: Contract) => contract.amount },
   bitcoinPrice: {
     label: 'BTC price',
     getInformation: (contract: Contract) =>
@@ -96,11 +96,12 @@ const tradeInformationFields = {
     getInformation: (contract: Contract) => contract.paymentData?.ukBankAccount,
   },
   ukSortCode: { label: 'swift/bic', getInformation: (contract: Contract) => contract.paymentData?.ukSortCode },
+  via: { label: 'via', getInformation: (contract: Contract) => contract.paymentMethod },
 }
 
 export type TradeInformationField = keyof typeof tradeInformationFields
-const activeSellOfferFields: TradeInformationField[] = ['price', 'paidToMethod']
-const pastSellOfferFields: TradeInformationField[] = ['price', 'paidToMethod', 'bitcoinAmount', 'bitcoinPrice']
+const activeSellOfferFields: TradeInformationField[] = ['price', 'reference', 'paidToMethod', 'via']
+const pastSellOfferFields: TradeInformationField[] = ['price', 'paidToMethod', 'via', 'bitcoinAmount', 'bitcoinPrice']
 const pastBuyOfferFields: TradeInformationField[] = [
   'price',
   'paidWithMethod',
