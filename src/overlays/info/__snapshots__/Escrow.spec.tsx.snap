@@ -46,7 +46,7 @@ Your offer will be published after one network confirmation. You can close the a
         }
       }
     >
-      You can click the QR code to copy the full payment request.
+      You can long press the QR code to copy the full payment request.
     </PeachText>
   </View>
 </React.Fragment>

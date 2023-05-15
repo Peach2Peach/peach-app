@@ -86,7 +86,7 @@
   "help.escrow.title": "Peach escrow",
   "help.escrow.description": "You pre-fund the escrow when making a trade on Peach. This protects both you and the buyer. You can read more about the escrow here.\n\nYour offer will be published after one network confirmation. You can close the app while waiting for this.",
   "help.escrow.description.link": "here",
-  "help.escrow.description.proTip": "You can click the QR code to copy the full payment request.",
+  "help.escrow.description.proTip": "You can long press the QR code to copy the full payment request.",
   "help.mempool.title": "the mempool",
   "help.mempool.description": "When you make a bitcoin transaction, it doesn't immediately get processed.\n\nInstead, they are first put in a list of unconfirmed transactions called the \"mempool\". The transactions that pay the highest fee will be processed first.",
   "help.networkFees.title": "bitcoin network fees",
