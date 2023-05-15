@@ -1,6 +1,6 @@
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
-import { getBitcoinPriceFromContract, getBuyOfferFromContract } from '../../utils/contract'
+import { getBitcoinPriceFromContract, getBuyOfferFromContract, getWalletLabelFromContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { getPaymentDataByMethod, getWalletLabel } from '../../utils/offer'
 import { hashPaymentData } from '../../utils/paymentMethod'
@@ -15,6 +15,7 @@ import { getTradeSeparatorText } from './getTradeSeparatorText'
 import { TradeSeparator } from './TradeSeparator'
 import { TradeSummaryProps } from './TradeSummary'
 
+// TODO
 const shouldShowTradeStatusInfo = (contract: Contract) => {
   const shouldShowDisputeInfo = true
 
@@ -24,29 +25,104 @@ const shouldShowTradeStatusInfo = (contract: Contract) => {
 }
 
 const getTradeActionStatus = (contract: Contract) => {
-  const status = 'not resolved'
-  return status
+  // TODO
+  const isRepublished = false
+  // TODO
+  const isRefunded = false
+  // TODO
+  const isReleasedToBuyer = false
+  // TODO
+  const isSellerRefunded = false
+  // TODO
+  const isPaidOut = false
+
+  if (isRepublished) {
+    return 're-published'
+  } else if (isRefunded) {
+    return 'refunded'
+  } else if (isReleasedToBuyer) {
+    return 'released to buyer'
+  } else if (isSellerRefunded) {
+    return 'seller refunded'
+  } else if (isPaidOut) {
+    return 'paid out'
+  }
+  return 'not resolved'
 }
 
-const getTradeActionStatusText = (contract: Contract, view: ContractViewer) => {
-  // eslint-disable-next-line max-len
-  const text = 'You\'ll need to decide if you want to re-publish this offer, or refund the escrow to your <wallet label>.'
-  const text1
-    = 'You lost the dispute! Your reputation has been impacted, and you need to release the escrow to the buyer.'
-  const text2 = 'You lost the dispute! Your reputation has been impacted, and you\'ve released the escrow to the buyer.'
-  if (view === 'buyer') {
-  } else if (contract.disputeWinner) {
-    if (contract.disputeWinner === 'buyer') {
-      if (contract.tradeStatus === 'releaseEscrow') {
-        return text1
-      }
-      return text2
+const getSellerDisputeStatusText = (contract: Contract) => {
+  if (contract.disputeWinner === 'buyer') {
+    if (contract.tradeStatus === 'releaseEscrow') {
+      return i18n('contract.seller.disputeLost.releaseEscrow')
     }
-    return text1
+    return i18n('contract.seller.disputeLost.escrowReleased')
   }
-  return text2
+  // TODO
+  const isRepublishAvailable = false
+  if (isRepublishAvailable) {
+    return i18n('contract.seller.disputeWon.refundOrRepublish')
+  }
+  return i18n('contract.seller.disputeWon.refund')
+}
 
-  contract.tradeStatus === ''
+const getBuyerStatusText = (contract: Contract) => {
+  // TODO
+  const paymentWasTooLate = false
+  // TODO
+  const buyerCanceledTrade = false
+  // TODO
+  const collaborativeTradeCancel = false
+  if (buyerCanceledTrade) {
+    return i18n('contract.buyer.buyerCanceledTrade')
+  } else if (collaborativeTradeCancel) {
+    // TODO
+    const isResolved = true
+    if (isResolved) {
+      return i18n('contract.buyer.collaborativeTradeCancel.resolved')
+    }
+    return i18n('contract.buyer.collaborativeTradeCancel.notResolved')
+  } else if (paymentWasTooLate) {
+    return i18n('contract.buyer.paymentWasTooLate')
+  }
+  if (contract.disputeWinner === 'seller') {
+    return i18n('contract.buyer.disputeLost')
+  }
+  // TODO
+  const isResolved = true
+  if (isResolved) {
+    return i18n('contract.buyer.disputeWon.paidOut')
+  }
+  return i18n('contract.buyer.disputeWon.awaitingPayout')
+}
+
+// eslint-disable-next-line max-statements
+const getTradeActionStatusText = (contract: Contract, view: ContractViewer) => {
+  const hasDisputeWinner = !!contract.disputeWinner
+
+  if (view === 'buyer') {
+    getBuyerStatusText(contract)
+  } else {
+    const walletLabel = getWalletLabelFromContract(contract)
+    // TODO
+    const isResolved = true
+    if (isResolved) {
+      // TODO
+      const isRepublished = true
+      if (isRepublished) {
+        return i18n('contract.seller.republished')
+      }
+      return i18n('contract.seller.refunded', walletLabel)
+    }
+    if (hasDisputeWinner) {
+      return getSellerDisputeStatusText(contract)
+    }
+    // TODO
+    const isRepublishAvailable = false
+    if (isRepublishAvailable) {
+      return i18n('contract.seller.refundOrRepublish', walletLabel)
+    }
+    return i18n('contract.seller.refund')
+  }
 }
 
 const TradeStatusInfo = ({ contract, view }: TradeSummaryProps) => (
@@ -113,15 +189,18 @@ const getTradeInfoFields = (contract: Contract, view: 'buyer' | 'seller') => {
   return view === 'buyer' ? PaymentMethodForms[contract.paymentMethod]?.fields || [] : activeSellOfferFields
 }
 
+const isTradeInformationGetter = (fieldName: PropertyKey): fieldName is keyof typeof tradeInformationGetters =>
+  tradeInformationGetters.hasOwnProperty(fieldName)
+
 const TradeDetails = ({ contract, view }: TradeSummaryProps) => {
-  // contract = { ...contract, paymentData: undefined, error: 'DECRYPTION_ERROR' }
   const fields = getTradeInfoFields(contract, view)
 
   return (
     <View>
       {fields.map((fieldName) => {
         const label = i18n(`contract.summary.${fieldName}`)
-        const information = Object.hasOwn(tradeInformationGetters, fieldName)
+
+        const information = isTradeInformationGetter(fieldName)
           ? tradeInformationGetters[fieldName](contract)
           : contract.paymentData?.[fieldName]
         if (!information && fieldName !== 'reference') return null
