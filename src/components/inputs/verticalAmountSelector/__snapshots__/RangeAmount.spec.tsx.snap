@@ -151,10 +151,6 @@ exports[`RangeAmount should render correctly 1`] = `
           {
             "alignItems": "center",
             "flexDirection": "row",
-            "marginLeft": -24,
-            "marginRight": -24,
-            "paddingLeft": 24,
-            "paddingRight": 24,
             "position": "absolute",
             "top": 0,
           },
@@ -188,10 +184,6 @@ exports[`RangeAmount should render correctly 1`] = `
           {
             "alignItems": "center",
             "flexDirection": "row",
-            "marginLeft": -24,
-            "marginRight": -24,
-            "paddingLeft": 24,
-            "paddingRight": 24,
             "position": "absolute",
             "top": 0,
           },
