@@ -16,7 +16,7 @@ import { TradeSeparator } from './TradeSeparator'
 import { TradeSummaryProps } from './TradeSummary'
 
 const shouldShowTradeStatusInfo = (contract: Contract) => {
-  const shouldShowDisputeInfo = false
+  const shouldShowDisputeInfo = true
 
   const shouldShowCancelationInfo = false
 
@@ -28,73 +28,80 @@ const getTradeActionStatus = (contract: Contract) => {
   return status
 }
 
-const getTradeActionStatusText = (contract: Contract) => {
+const getTradeActionStatusText = (contract: Contract, view: ContractViewer) => {
   // eslint-disable-next-line max-len
   const text = 'You\'ll need to decide if you want to re-publish this offer, or refund the escrow to your <wallet label>.'
-  return text
+  const text1
+    = 'You lost the dispute! Your reputation has been impacted, and you need to release the escrow to the buyer.'
+  const text2 = 'You lost the dispute! Your reputation has been impacted, and you\'ve released the escrow to the buyer.'
+  if (view === 'buyer') {
+  } else if (contract.disputeWinner) {
+    if (contract.disputeWinner === 'buyer') {
+      if (contract.tradeStatus === 'releaseEscrow') {
+        return text1
+      }
+      return text2
+    }
+    return text1
+  }
+  return text2
+
+  contract.tradeStatus === ''
 }
 
 const TradeStatusInfo = ({ contract, view }: TradeSummaryProps) => (
   <View style={tw``}>
     <SummaryItem isBitcoinAmount information={contract.amount} />
     <SummaryItem label="status" information={getTradeActionStatus(contract)} />
-    <Text style={tw`body-sc`}>{getTradeActionStatusText(contract)}</Text>
+    <Text style={tw`body-s`}>{getTradeActionStatusText(contract, view)}</Text>
   </View>
 )
 
-const tradeInformationFields = {
-  price: { label: 'price', getInformation: (contract: Contract) => contract.price + ' ' + contract.currency },
-  paidToMethod: {
-    label: 'paid to',
-    getInformation: (contract: Contract) =>
-      (contract.paymentData
-        ? getPaymentDataByMethod(contract.paymentMethod, hashPaymentData(contract.paymentData))
-        : null
-      )?.label,
+const tradeInformationGetters = {
+  price: (contract: Contract) => contract.price + ' ' + contract.currency,
+  paidToMethod: (contract: Contract) =>
+    (contract.paymentData ? getPaymentDataByMethod(contract.paymentMethod, hashPaymentData(contract.paymentData)) : null)
+      ?.label,
+  paidWithMethod: (contract: Contract) => contract.paymentMethod,
+  paidToWallet: (contract: Contract) => {
+    const buyOffer = getBuyOfferFromContract(contract)
+    const walletLabel
+      = buyOffer.walletLabel
+      || getWalletLabel({ address: buyOffer.releaseAddress, customPayoutAddress: '', customPayoutAddressLabel: '' })
+    return walletLabel
   },
-  paidWithMethod: {
-    label: 'paid with',
-    getInformation: (contract: Contract) => contract.paymentMethod,
-  },
-  paidToWallet: {
-    label: 'paid to',
-    getInformation: (contract: Contract) => {
-      const buyOffer = getBuyOfferFromContract(contract)
-      const walletLabel
-        = buyOffer.walletLabel
-        || getWalletLabel({ address: buyOffer.releaseAddress, customPayoutAddress: '', customPayoutAddressLabel: '' })
-      return walletLabel
-    },
-  },
-  bitcoinAmount: { label: undefined, getInformation: (contract: Contract) => contract.amount },
-  bitcoinPrice: {
-    label: 'BTC price',
-    getInformation: (contract: Contract) =>
-      groupChars(getBitcoinPriceFromContract(contract).toString(), 3) + ' ' + contract.currency,
-  },
-  name: { label: 'name', getInformation: (contract: Contract) => contract.paymentData?.name },
-  beneficiary: { label: 'name', getInformation: (contract: Contract) => contract.paymentData?.beneficiary },
-  phone: { label: 'phone #', getInformation: (contract: Contract) => contract.paymentData?.phone },
-  userName: { label: 'username', getInformation: (contract: Contract) => contract.paymentData?.userName },
-  email: { label: 'email', getInformation: (contract: Contract) => contract.paymentData?.email },
-  accountNumber: {
-    label: 'account #',
-    getInformation: (contract: Contract) => contract.paymentData?.accountNumber,
-  },
-  iban: { label: 'iban', getInformation: (contract: Contract) => contract.paymentData?.iban },
-  bic: { label: 'swift/bic', getInformation: (contract: Contract) => contract.paymentData?.bic },
-  reference: { label: 'reference', getInformation: (contract: Contract) => contract.paymentData?.reference },
-  wallet: { label: 'wallet #', getInformation: (contract: Contract) => contract.paymentData?.wallet },
-  ukBankAccount: {
-    label: 'iban',
-    getInformation: (contract: Contract) => contract.paymentData?.ukBankAccount,
-  },
-  ukSortCode: { label: 'swift/bic', getInformation: (contract: Contract) => contract.paymentData?.ukSortCode },
-  via: { label: 'via', getInformation: (contract: Contract) => i18n(`paymentMethod.${contract.paymentMethod}`) },
-  method: { label: 'method', getInformation: (contract: Contract) => i18n(`paymentMethod.${contract.paymentMethod}`) },
+  bitcoinAmount: (contract: Contract) => contract.amount,
+  bitcoinPrice: (contract: Contract) =>
+    groupChars(getBitcoinPriceFromContract(contract).toString(), 3) + ' ' + contract.currency,
+
+  via: (contract: Contract) => i18n(`paymentMethod.${contract.paymentMethod}`),
+  method: (contract: Contract) => i18n(`paymentMethod.${contract.paymentMethod}`),
 }
 
-export type TradeInfoField = keyof typeof tradeInformationFields
+const allPossibleFields = [
+  'price',
+  'paidToMethod',
+  'paidWithMethod',
+  'paidToWallet',
+  'bitcoinAmount',
+  'bitcoinPrice',
+  'name',
+  'beneficiary',
+  'phone',
+  'userName',
+  'email',
+  'accountNumber',
+  'iban',
+  'bic',
+  'reference',
+  'wallet',
+  'ukBankAccount',
+  'ukSortCode',
+  'via',
+  'method',
+] as const
+
+export type TradeInfoField = (typeof allPossibleFields)[number]
 const activeSellOfferFields: TradeInfoField[] = ['price', 'reference', 'paidToMethod', 'via']
 const pastSellOfferFields: TradeInfoField[] = ['price', 'paidToMethod', 'via', 'bitcoinAmount', 'bitcoinPrice']
 const pastBuyOfferFields: TradeInfoField[] = ['price', 'paidWithMethod', 'bitcoinAmount', 'bitcoinPrice', 'paidToWallet']
@@ -113,13 +120,15 @@ const TradeDetails = ({ contract, view }: TradeSummaryProps) => {
   return (
     <View>
       {fields.map((fieldName) => {
-        const { label, getInformation } = tradeInformationFields[fieldName]
-        const information = getInformation(contract)
-        if (!information && label !== 'reference') return null
+        const label = i18n(`contract.summary.${fieldName}`)
+        const information = Object.hasOwn(tradeInformationGetters, fieldName)
+          ? tradeInformationGetters[fieldName](contract)
+          : contract.paymentData?.[fieldName]
+        if (!information && fieldName !== 'reference') return null
         const props
           = typeof information === 'number'
             ? { label, information, isBitcoinAmount: true as const }
-            : typeof !information && label === 'reference'
+            : !information
               ? { label, information: 'none', isAvailable: false }
               : { label, information }
         return (
