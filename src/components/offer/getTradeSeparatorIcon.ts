@@ -1,5 +1,4 @@
 export const getTradeSeparatorIcon = (tradeStatus: TradeStatus) => {
-  console.log('TradeStatus:', tradeStatus)
   if (tradeStatus === 'tradeCompleted') {
     return undefined
   }
@@ -9,5 +8,5 @@ export const getTradeSeparatorIcon = (tradeStatus: TradeStatus) => {
   if (tradeStatus === 'refundOrReviveRequired') {
     return 'alertOctagon'
   }
-  return 'calendar'
+  return undefined
 }

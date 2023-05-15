@@ -13,8 +13,8 @@ describe('getTradeSeparatorIcon', () => {
     expect(getTradeSeparatorIcon('tradeCompleted')).toEqual(undefined)
   })
 
-  it('returns calendar when tradeStatus is anything else', () => {
+  it('returns undefined when tradeStatus is anything else', () => {
     // @ts-expect-error
-    expect(getTradeSeparatorIcon('somethingElse')).toEqual('calendar')
+    expect(getTradeSeparatorIcon('somethingElse')).toEqual(undefined)
   })
 })

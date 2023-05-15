@@ -155,7 +155,7 @@ export const TradeInformation = ({ contract, view }: TradeSummaryProps) => (
       {...contract}
       iconId={getTradeSeparatorIcon(contract.tradeStatus)}
       iconColor={getTradeSeparatorIconColor(contract.tradeStatus)}
-      text={getTradeSeparatorText(contract.tradeStatus, contract.paymentMethod)}
+      text={getTradeSeparatorText(contract.tradeStatus, contract.paymentMethod, view)}
     />
     <View>
       {shouldShowTradeStatusInfo(contract) ? (
