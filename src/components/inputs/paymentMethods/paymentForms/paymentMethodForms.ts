@@ -26,8 +26,6 @@ const template5Fields: TradeInformationField[] = ['price', 'beneficiary', 'ukBan
 const template6Fields: TradeInformationField[] = ['price', 'userName', 'email', 'phone', 'reference']
 const template7Fields: TradeInformationField[] = ['price', 'beneficiary', 'accountNumber', 'reference']
 const template8Fields: TradeInformationField[] = ['price', 'beneficiary', 'phone', 'reference']
-
-/** @todo clarify if 'address' should be added here */
 const template9Fields: TradeInformationField[] = ['price', 'beneficiary', 'iban', 'accountNumber', 'bic', 'reference']
 
 export const PaymentMethodForms: PaymentMethodFormsType = {

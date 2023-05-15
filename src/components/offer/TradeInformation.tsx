@@ -84,7 +84,7 @@ const tradeInformationFields = {
   userName: { label: 'username', getInformation: (contract: Contract) => contract.paymentData?.userName },
   email: { label: 'email', getInformation: (contract: Contract) => contract.paymentData?.email },
   accountNumber: {
-    label: 'account number',
+    label: 'account #',
     getInformation: (contract: Contract) => contract.paymentData?.accountNumber,
   },
   iban: { label: 'iban', getInformation: (contract: Contract) => contract.paymentData?.iban },
