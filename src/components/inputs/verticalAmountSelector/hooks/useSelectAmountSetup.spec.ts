@@ -62,7 +62,7 @@ describe('useSelectAmountSetup', () => {
   it('should update amount when pan changes occur', () => {
     const { result } = renderHook(useSelectAmountSetup, { initialProps })
     // @ts-ignore
-    act(() => result.current.pan._updateValue(40))
-    expect(result.current.amount).toEqual(90000)
+    act(() => result.current.pan.__callListeners(40))
+    expect(result.current.amount).toEqual(2490000)
   })
 })
