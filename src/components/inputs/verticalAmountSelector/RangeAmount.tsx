@@ -65,14 +65,26 @@ export const RangeAmount = ({ min, max, value, onChange, style }: RangeAmountPro
   )
 
   const updateCustomAmountMaximum = (customAmount: number) => {
-    const newMaximum = Math.max(minimum + minSatsDistance, Math.min(max, customAmount))
+    const newMaximum = Math.max(0, Math.min(max, customAmount))
     setMaximum(newMaximum)
     setKnobOffsetMaximum(newMaximum)
+
+    const newMinimum = Math.max(min, Math.min(newMaximum - minSatsDistance, minimum))
+    if (minimum !== newMinimum) {
+      setMinimum(newMinimum)
+      setKnobOffsetMinimum(newMinimum)
+    }
   }
   const updateCustomAmountMinimum = (customAmount: number) => {
-    const newMinimum = Math.max(0, Math.min(maximum - minSatsDistance, customAmount))
+    const newMinimum = Math.max(0, Math.min(max, customAmount))
     setMinimum(newMinimum)
     setKnobOffsetMinimum(newMinimum)
+
+    const newMaximum = Math.min(max, Math.max(newMinimum + minSatsDistance, maximum))
+    if (maximum !== newMaximum) {
+      setMaximum(newMaximum)
+      setKnobOffsetMaximum(newMaximum)
+    }
   }
 
   const onTrackLayout = (event: LayoutChangeEvent) => {
