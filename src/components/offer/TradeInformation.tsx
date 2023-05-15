@@ -80,6 +80,7 @@ const tradeInformationFields = {
 }
 
 type TradeInformationField = keyof typeof tradeInformationFields
+const activeSellOfferFields: TradeInformationField[] = ['price', 'paidToMethod']
 const pastSellOfferFields: TradeInformationField[] = ['price', 'paidToMethod', 'bitcoinAmount', 'bitcoinPrice']
 const pastBuyOfferFields: TradeInformationField[] = [
   'price',
@@ -90,15 +91,20 @@ const pastBuyOfferFields: TradeInformationField[] = [
 ]
 
 // used to get all applicable fields for a trade
-const getTradeInfoFields = (contract: Contract, view: 'buyer' | 'seller') =>
-  view === 'buyer' ? pastBuyOfferFields : pastSellOfferFields
+const getTradeInfoFields = (contract: Contract, view: 'buyer' | 'seller') => {
+  if (contract.tradeStatus === 'tradeCompleted') {
+    return view === 'buyer' ? pastBuyOfferFields : pastSellOfferFields
+  }
+  return view === 'buyer' ? activeSellOfferFields : activeSellOfferFields
+
+}
 
 // This is the component that shows the trade details (meaning SummaryItems)
 const TradeDetails = ({ contract, view }: TradeSummaryProps) => {
   const fields = getTradeInfoFields(contract, view)
 
   return (
-    <View style={tw``}>
+    <View>
       {fields.map((fieldName) => {
         const { label, getInformation } = tradeInformationFields[fieldName]
         const information = getInformation(contract)
