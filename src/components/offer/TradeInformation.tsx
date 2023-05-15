@@ -12,6 +12,7 @@ import { getBitcoinPriceFromContract, getBuyOfferFromContract } from '../../util
 import { groupChars } from '../../utils/string'
 import { Text } from '../text'
 import { CopyAble } from '../ui'
+import { PaymentMethodForms } from '../inputs/paymentMethods/paymentForms'
 
 // const shouldShowDisputeStatus = (contract: Contract): contract is Contract & { disputeWinner: 'buyer' | 'seller' } =>
 //   ['confirmPaymentRequired', 'releaseEscrow'].includes(contract.tradeStatus) && !!contract.disputeWinner
@@ -77,9 +78,20 @@ const tradeInformationFields = {
     getInformation: (contract: Contract) =>
       groupChars(getBitcoinPriceFromContract(contract).toString(), 3) + ' ' + contract.currency,
   },
+  name: { label: 'name', getInformation: (contract: Contract) => contract.paymentData?.name },
+  phone: { label: 'phone', getInformation: (contract: Contract) => contract.paymentData?.phone },
+  userName: { label: 'username', getInformation: (contract: Contract) => contract.paymentData?.userName },
+  email: { label: 'email', getInformation: (contract: Contract) => contract.paymentData?.email },
+  accountNumber: {
+    label: 'account number',
+    getInformation: (contract: Contract) => contract.paymentData?.accountNumber,
+  },
+  iban: { label: 'IBAN', getInformation: (contract: Contract) => contract.paymentData?.iban },
+  bic: { label: 'BIC', getInformation: (contract: Contract) => contract.paymentData?.bic },
+  reference: { label: 'reference', getInformation: (contract: Contract) => contract.paymentData?.reference },
 }
 
-type TradeInformationField = keyof typeof tradeInformationFields
+export type TradeInformationField = keyof typeof tradeInformationFields
 const activeSellOfferFields: TradeInformationField[] = ['price', 'paidToMethod']
 const pastSellOfferFields: TradeInformationField[] = ['price', 'paidToMethod', 'bitcoinAmount', 'bitcoinPrice']
 const pastBuyOfferFields: TradeInformationField[] = [
@@ -95,8 +107,7 @@ const getTradeInfoFields = (contract: Contract, view: 'buyer' | 'seller') => {
   if (contract.tradeStatus === 'tradeCompleted') {
     return view === 'buyer' ? pastBuyOfferFields : pastSellOfferFields
   }
-  return view === 'buyer' ? activeSellOfferFields : activeSellOfferFields
-
+  return view === 'buyer' ? PaymentMethodForms[contract.paymentMethod]?.fields || [] : activeSellOfferFields
 }
 
 // This is the component that shows the trade details (meaning SummaryItems)
@@ -111,7 +122,7 @@ const TradeDetails = ({ contract, view }: TradeSummaryProps) => {
         const props
           = typeof information === 'number'
             ? { label, information, isBitcoinAmount: true as const }
-            : typeof information === 'undefined'
+            : typeof information === 'undefined' || information === null || information === ''
               ? { label, information: 'none', isAvailable: false }
               : { label, information }
         return (

@@ -1,4 +1,5 @@
 import { GIFTCARDCOUNTRIES, NATIONALTRANSFERCOUNTRIES } from '../../../../constants'
+import { TradeInformationField } from '../../../offer/TradeInformation'
 import {
   Template1,
   Template2,
@@ -14,37 +15,52 @@ import { GiftCardAmazon } from './GiftCardAmazon'
 import { FormProps } from './PaymentMethodForm'
 
 type PaymentMethodFormsType = {
-  [key in PaymentMethod]?: (props: FormProps) => JSX.Element
+  [key in PaymentMethod]?: { component: (props: FormProps) => JSX.Element; fields: TradeInformationField[] }
 }
 
+const template1Fields: TradeInformationField[] = ['price', 'name', 'iban', 'bic', 'reference']
+const template2Fields: TradeInformationField[] = []
+const template3Fields: TradeInformationField[] = []
+const template4Fields: TradeInformationField[] = []
+const template5Fields: TradeInformationField[] = []
+const template6Fields: TradeInformationField[] = ['price', 'phone', 'userName', 'email', 'reference']
+const template7Fields: TradeInformationField[] = []
+const template8Fields: TradeInformationField[] = []
+const template9Fields: TradeInformationField[] = []
+
 export const PaymentMethodForms: PaymentMethodFormsType = {
-  sepa: Template1,
-  fasterPayments: Template5,
-  instantSepa: Template1,
-  paypal: Template6,
-  revolut: Template6,
-  vipps: Template3,
-  advcash: Template2,
-  blik: Template3,
-  wise: Template6,
-  twint: Template3,
-  swish: Template3,
-  satispay: Template3,
-  mbWay: Template3,
-  bizum: Template3,
-  mobilePay: Template3,
-  skrill: Template4,
-  neteller: Template4,
-  paysera: Template8,
-  straksbetaling: Template7,
-  keksPay: Template3,
-  friends24: Template3,
-  n26: Template3,
-  paylib: Template3,
-  lydia: Template3,
-  verse: Template3,
-  iris: Template3,
-  'giftCard.amazon': GiftCardAmazon,
+  sepa: { component: Template1, fields: [] },
+  fasterPayments: { component: Template5, fields: [] },
+  instantSepa: { component: Template1, fields: [] },
+  paypal: { component: Template6, fields: template6Fields },
+  revolut: { component: Template6, fields: template6Fields },
+  vipps: { component: Template3, fields: [] },
+  advcash: { component: Template2, fields: [] },
+  blik: { component: Template3, fields: [] },
+  wise: { component: Template6, fields: template6Fields },
+  twint: { component: Template3, fields: [] },
+  swish: { component: Template3, fields: [] },
+  satispay: { component: Template3, fields: [] },
+  mbWay: { component: Template3, fields: [] },
+  bizum: { component: Template3, fields: [] },
+  mobilePay: { component: Template3, fields: [] },
+  skrill: { component: Template4, fields: [] },
+  neteller: { component: Template4, fields: [] },
+  paysera: { component: Template8, fields: [] },
+  straksbetaling: { component: Template7, fields: [] },
+  keksPay: { component: Template3, fields: [] },
+  friends24: { component: Template3, fields: [] },
+  n26: { component: Template3, fields: [] },
+  paylib: { component: Template3, fields: [] },
+  lydia: { component: Template3, fields: [] },
+  verse: { component: Template3, fields: [] },
+  iris: { component: Template3, fields: [] },
+  // why isn't this template 4??
+  'giftCard.amazon': { component: GiftCardAmazon, fields: [] },
 }
-GIFTCARDCOUNTRIES.forEach((c) => (PaymentMethodForms[('giftCard.amazon.' + c) as PaymentMethod] = GiftCardAmazon))
-NATIONALTRANSFERCOUNTRIES.forEach((c) => (PaymentMethodForms[`nationalTransfer${c}` as PaymentMethod] = Template9))
+GIFTCARDCOUNTRIES.forEach(
+  (c) => (PaymentMethodForms[('giftCard.amazon.' + c) as PaymentMethod] = { component: GiftCardAmazon, fields: [] }),
+)
+NATIONALTRANSFERCOUNTRIES.forEach(
+  (c) => (PaymentMethodForms[`nationalTransfer${c}` as PaymentMethod] = { component: Template9, fields: [] }),
+)
