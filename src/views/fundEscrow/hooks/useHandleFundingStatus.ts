@@ -3,8 +3,6 @@ import { useNavigation } from '../../../hooks'
 import { info } from '../../../utils/log'
 import { saveOffer } from '../../../utils/offer'
 import { useStartRefundOverlay } from '../../../overlays/useStartRefundOverlay'
-import { useShowWronglyFundedPopup } from '../../../overlays/useShowWronglyFundedPopup'
-import { useShowFundingAmountDifferentPopup } from '../../../overlays/useShowFundingAmountDifferentPopup'
 import { useOfferMatches } from '../../search/hooks/useOfferMatches'
 
 type Props = {
@@ -16,8 +14,6 @@ type Props = {
 export const useHandleFundingStatus = ({ offerId, sellOffer, fundingStatus, userConfirmationRequired }: Props) => {
   const navigation = useNavigation()
   const startRefund = useStartRefundOverlay()
-  const showWronglyFundedOverlay = useShowWronglyFundedPopup()
-  const showFundingAmountDifferentPopup = useShowFundingAmountDifferentPopup()
   const { refetch: fetchMatches } = useOfferMatches(offerId, fundingStatus.status === 'FUNDED')
 
   useEffect(() => {
@@ -35,12 +31,8 @@ export const useHandleFundingStatus = ({ offerId, sellOffer, fundingStatus, user
       startRefund(sellOffer)
       return
     }
-    if (fundingStatus.status === 'WRONG_FUNDING_AMOUNT') {
-      showWronglyFundedOverlay(updatedOffer)
-      return
-    }
-    if (userConfirmationRequired) {
-      showFundingAmountDifferentPopup(updatedOffer)
+    if (userConfirmationRequired || fundingStatus.status === 'WRONG_FUNDING_AMOUNT') {
+      navigation.replace('wrongFundingAmount', { offerId: updatedOffer.id })
       return
     }
     if (fundingStatus.status === 'FUNDED') {
@@ -54,15 +46,5 @@ export const useHandleFundingStatus = ({ offerId, sellOffer, fundingStatus, user
         }
       })
     }
-  }, [
-    fetchMatches,
-    fundingStatus,
-    navigation,
-    offerId,
-    sellOffer,
-    showFundingAmountDifferentPopup,
-    showWronglyFundedOverlay,
-    startRefund,
-    userConfirmationRequired,
-  ])
+  }, [fetchMatches, fundingStatus, navigation, offerId, sellOffer, startRefund, userConfirmationRequired])
 }
