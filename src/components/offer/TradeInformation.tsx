@@ -13,6 +13,7 @@ import { groupChars } from '../../utils/string'
 import { Text } from '../text'
 import { CopyAble } from '../ui'
 import { PaymentMethodForms } from '../inputs/paymentMethods/paymentForms'
+import i18n from '../../utils/i18n'
 
 // const shouldShowDisputeStatus = (contract: Contract): contract is Contract & { disputeWinner: 'buyer' | 'seller' } =>
 //   ['confirmPaymentRequired', 'releaseEscrow'].includes(contract.tradeStatus) && !!contract.disputeWinner
@@ -96,19 +97,14 @@ const tradeInformationFields = {
     getInformation: (contract: Contract) => contract.paymentData?.ukBankAccount,
   },
   ukSortCode: { label: 'swift/bic', getInformation: (contract: Contract) => contract.paymentData?.ukSortCode },
-  via: { label: 'via', getInformation: (contract: Contract) => contract.paymentMethod },
+  via: { label: 'via', getInformation: (contract: Contract) => i18n(`paymentMethod.${contract.paymentMethod}`) },
+  method: { label: 'method', getInformation: (contract: Contract) => i18n(`paymentMethod.${contract.paymentMethod}`) },
 }
 
-export type TradeInformationField = keyof typeof tradeInformationFields
-const activeSellOfferFields: TradeInformationField[] = ['price', 'reference', 'paidToMethod', 'via']
-const pastSellOfferFields: TradeInformationField[] = ['price', 'paidToMethod', 'via', 'bitcoinAmount', 'bitcoinPrice']
-const pastBuyOfferFields: TradeInformationField[] = [
-  'price',
-  'paidWithMethod',
-  'bitcoinAmount',
-  'bitcoinPrice',
-  'paidToWallet',
-]
+export type TradeInfoField = keyof typeof tradeInformationFields
+const activeSellOfferFields: TradeInfoField[] = ['price', 'reference', 'paidToMethod', 'via']
+const pastSellOfferFields: TradeInfoField[] = ['price', 'paidToMethod', 'via', 'bitcoinAmount', 'bitcoinPrice']
+const pastBuyOfferFields: TradeInfoField[] = ['price', 'paidWithMethod', 'bitcoinAmount', 'bitcoinPrice', 'paidToWallet']
 
 // used to get all applicable fields for a trade
 const getTradeInfoFields = (contract: Contract, view: 'buyer' | 'seller') => {
@@ -156,7 +152,7 @@ export const TradeInformation = ({ contract, view }: TradeSummaryProps) => (
       {...contract}
       iconId={getTradeSeparatorIcon(contract.tradeStatus)}
       iconColor={getTradeSeparatorIconColor(contract.tradeStatus)}
-      text={getTradeSeparatorText(contract.tradeStatus, contract.paymentMethod, view)}
+      text={getTradeSeparatorText(contract.tradeStatus, view)}
     />
     <View>
       {shouldShowTradeStatusInfo(contract) ? (

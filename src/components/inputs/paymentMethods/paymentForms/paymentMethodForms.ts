@@ -1,5 +1,5 @@
 import { GIFTCARDCOUNTRIES, NATIONALTRANSFERCOUNTRIES } from '../../../../constants'
-import { TradeInformationField } from '../../../offer/TradeInformation'
+import { TradeInfoField } from '../../../offer/TradeInformation'
 import {
   Template1,
   Template2,
@@ -15,18 +15,20 @@ import { GiftCardAmazon } from './GiftCardAmazon'
 import { FormProps } from './PaymentMethodForm'
 
 type PaymentMethodFormsType = {
-  [key in PaymentMethod]?: { component: (props: FormProps) => JSX.Element; fields: TradeInformationField[] }
+  [key in PaymentMethod]?: { component: (props: FormProps) => JSX.Element; fields: TradeInfoField[] }
 }
 
-const template1Fields: TradeInformationField[] = ['price', 'beneficiary', 'iban', 'bic', 'reference']
-const template2Fields: TradeInformationField[] = ['price', 'wallet', 'email']
-const template3Fields: TradeInformationField[] = ['price', 'beneficiary', 'phone', 'reference']
-const template4Fields: TradeInformationField[] = ['price', 'beneficiary', 'email', 'reference']
-const template5Fields: TradeInformationField[] = ['price', 'beneficiary', 'ukBankAccount', 'ukSortCode', 'reference']
-const template6Fields: TradeInformationField[] = ['price', 'userName', 'email', 'phone', 'reference']
-const template7Fields: TradeInformationField[] = ['price', 'beneficiary', 'accountNumber', 'reference']
-const template8Fields: TradeInformationField[] = ['price', 'beneficiary', 'phone', 'reference']
-const template9Fields: TradeInformationField[] = ['price', 'beneficiary', 'iban', 'accountNumber', 'bic', 'reference']
+const sharedFields: TradeInfoField[] = ['method', 'price']
+
+const template1Fields: TradeInfoField[] = [...sharedFields, 'beneficiary', 'iban', 'bic', 'reference']
+const template2Fields: TradeInfoField[] = [...sharedFields, 'wallet', 'email']
+const template3Fields: TradeInfoField[] = [...sharedFields, 'beneficiary', 'phone', 'reference']
+const template4Fields: TradeInfoField[] = [...sharedFields, 'beneficiary', 'email', 'reference']
+const template5Fields: TradeInfoField[] = [...sharedFields, 'beneficiary', 'ukBankAccount', 'ukSortCode', 'reference']
+const template6Fields: TradeInfoField[] = [...sharedFields, 'userName', 'email', 'phone', 'reference']
+const template7Fields: TradeInfoField[] = [...sharedFields, 'beneficiary', 'accountNumber', 'reference']
+const template8Fields: TradeInfoField[] = [...sharedFields, 'beneficiary', 'phone', 'reference']
+const template9Fields: TradeInfoField[] = [...sharedFields, 'beneficiary', 'iban', 'accountNumber', 'bic', 'reference']
 
 export const PaymentMethodForms: PaymentMethodFormsType = {
   sepa: { component: Template1, fields: template1Fields },
