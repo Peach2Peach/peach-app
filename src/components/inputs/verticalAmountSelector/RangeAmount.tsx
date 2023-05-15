@@ -1,6 +1,5 @@
 import { ReactElement, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Animated, LayoutChangeEvent, View } from 'react-native'
-import { useBitcoinPrices } from '../../../hooks'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { getTranslateY } from '../../../utils/layout'
@@ -32,6 +31,7 @@ export const RangeAmount = ({ min, max, value, onChange, style }: RangeAmountPro
 
   const [maximum, setMaximum] = useState(value[1])
   const [minimum, setMinimum] = useState(value[0])
+
   const maxY = useMemo(
     () => getOffset({ amount: maximum, min, max, trackHeight: knobTrackHeight }),
     [knobTrackHeight, max, maximum, min],
@@ -40,9 +40,6 @@ export const RangeAmount = ({ min, max, value, onChange, style }: RangeAmountPro
     () => getOffset({ amount: minimum, min, max, trackHeight: knobTrackHeight }),
     [knobTrackHeight, max, min, minimum],
   )
-
-  const { displayPrice: displayPriceMinimum, displayCurrency, fullDisplayPrice } = useBitcoinPrices({ sats: minimum })
-  const { displayPrice: displayPriceMaximum } = useBitcoinPrices({ sats: maximum })
 
   const trackRange: [number, number] = useMemo(() => [0, knobTrackHeight], [knobTrackHeight])
   const trackRangeMax: [number, number] = useMemo(() => [0, knobTrackHeight - knobHeight], [knobHeight, knobTrackHeight])
@@ -57,6 +54,26 @@ export const RangeAmount = ({ min, max, value, onChange, style }: RangeAmountPro
 
   const panMaxResponder = useRef(createPanResponder(panMax)).current
   const panMinResponder = useRef(createPanResponder(panMin)).current
+
+  const setKnobOffsetMaximum = useCallback(
+    (newAmount: number) => panMax.setOffset(getOffset({ amount: newAmount, min, max, trackHeight: knobTrackHeight })),
+    [knobTrackHeight, max, min, panMax],
+  )
+  const setKnobOffsetMinimum = useCallback(
+    (newAmount: number) => panMin.setOffset(getOffset({ amount: newAmount, min, max, trackHeight: knobTrackHeight })),
+    [knobTrackHeight, max, min, panMin],
+  )
+
+  const updateCustomAmountMaximum = (customAmount: number) => {
+    const newMaximum = Math.max(minimum + minSatsDistance, Math.min(max, customAmount))
+    setMaximum(newMaximum)
+    setKnobOffsetMaximum(newMaximum)
+  }
+  const updateCustomAmountMinimum = (customAmount: number) => {
+    const newMinimum = Math.max(0, Math.min(maximum - minSatsDistance, customAmount))
+    setMinimum(newMinimum)
+    setKnobOffsetMinimum(newMinimum)
+  }
 
   const onTrackLayout = (event: LayoutChangeEvent) => {
     const height = Math.round(event.nativeEvent.layout.height)
@@ -81,7 +98,6 @@ export const RangeAmount = ({ min, max, value, onChange, style }: RangeAmountPro
     },
     [knobHeight, minSatsDistance, minimum, panMin],
   )
-
   const setMinimumRounded = useCallback(
     (val: number, abs: number) => {
       const roundedVal = round(val, -4)
@@ -125,12 +141,7 @@ export const RangeAmount = ({ min, max, value, onChange, style }: RangeAmountPro
         <CustomAmount
           {...{
             amount: maximum,
-            setAmount: () => {},
-            fiatPrice: displayPriceMaximum,
-            setCustomFiatPrice: () => {},
-            bitcoinPrice: fullDisplayPrice,
-            displayCurrency,
-            disable: true,
+            onChange: updateCustomAmountMaximum,
           }}
           style={tw`flex-shrink items-start`}
         />
@@ -138,12 +149,7 @@ export const RangeAmount = ({ min, max, value, onChange, style }: RangeAmountPro
         <CustomAmount
           {...{
             amount: minimum,
-            setAmount: () => {},
-            fiatPrice: displayPriceMinimum,
-            setCustomFiatPrice: () => {},
-            bitcoinPrice: fullDisplayPrice,
-            displayCurrency,
-            disable: true,
+            onChange: updateCustomAmountMinimum,
           }}
           style={tw`flex-shrink items-start`}
         />

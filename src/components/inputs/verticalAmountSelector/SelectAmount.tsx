@@ -1,7 +1,5 @@
 import { ReactElement, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Animated, LayoutChangeEvent, View } from 'react-native'
-import { SATSINBTC } from '../../../constants'
-import { useBitcoinPrices } from '../../../hooks'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { getTranslateY } from '../../../utils/layout'
@@ -28,46 +26,39 @@ type RangeAmountProps = ComponentProps & {
 export const SelectAmount = ({ min, max, value, onChange, style }: RangeAmountProps): ReactElement => {
   const knobHeight = useKnobHeight()
   const [trackHeight, setTrackHeight] = useState(260)
-  const { displayPrice, displayCurrency, fullDisplayPrice } = useBitcoinPrices({ sats: value })
+  const knobTrackHeight = trackHeight - knobHeight
 
   const [amount, setAmount] = useState(value)
-  const [customFiatPrice, setCustomFiatPrice] = useState<number>()
-  const trackRange: [number, number] = useMemo(() => [0, trackHeight - knobHeight], [knobHeight, trackHeight])
+  const trackRange: [number, number] = useMemo(() => [0, knobTrackHeight], [knobTrackHeight])
 
-  const pan = useRef(new Animated.Value(getOffset({ amount, min, max, trackHeight }))).current
+  const pan = useRef(new Animated.Value(getOffset({ amount, min, max, trackHeight: knobTrackHeight }))).current
   const panResponder = useRef(createPanResponder(pan)).current
 
   const setKnobOffset = useCallback(
-    (newAmount: number) => pan.setOffset(getOffset({ amount: newAmount, min, max, trackHeight })),
-    [max, min, pan, trackHeight],
+    (newAmount: number) => {
+      pan.setOffset(getOffset({ amount: newAmount, min, max, trackHeight: knobTrackHeight }))
+    },
+    [knobTrackHeight, max, min, pan],
   )
   const onTrackLayout = (event: LayoutChangeEvent) => {
     const height = Math.round(event.nativeEvent.layout.height)
     if (!height) return
 
     setTrackHeight(height)
-    pan.setOffset(getOffset({ amount: value, min, max, trackHeight: height }))
+    pan.setOffset(getOffset({ amount: value, min, max, trackHeight: height - knobHeight }))
   }
   const updateAmount = useCallback((val: number) => {
     setAmount(round(val, -4))
   }, [])
 
   const updateCustomAmount = (customAmount: number) => {
-    setAmount(Math.max(0, Math.min(max, customAmount)))
-    setKnobOffset(customAmount)
-  }
-  const updateCustomFiatAmount = (fiatAmount: number) => {
-    let newAmount = amount
-    newAmount = round((fiatAmount / fullDisplayPrice) * SATSINBTC)
-    setAmount(Math.max(0, Math.min(max, newAmount)))
-    setCustomFiatPrice(fiatAmount)
-    onChange(newAmount)
+    const newAmount = Math.max(0, Math.min(max, customAmount))
+    setAmount(newAmount)
     setKnobOffset(newAmount)
   }
   useEffect(() => panListener(pan, [max, min], trackRange, updateAmount), [max, min, pan, trackRange, updateAmount])
 
   useEffect(() => {
-    setCustomFiatPrice(undefined)
     onChange(amount)
   }, [onChange, amount, setKnobOffset])
 
@@ -87,11 +78,7 @@ export const SelectAmount = ({ min, max, value, onChange, style }: RangeAmountPr
         <CustomAmount
           {...{
             amount,
-            setAmount: updateCustomAmount,
-            fiatPrice: customFiatPrice || displayPrice,
-            setCustomFiatPrice: updateCustomFiatAmount,
-            bitcoinPrice: fullDisplayPrice,
-            displayCurrency,
+            onChange: updateCustomAmount,
           }}
           style={tw`flex-shrink items-start`}
         />
