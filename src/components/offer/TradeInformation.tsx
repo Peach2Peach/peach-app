@@ -1,28 +1,23 @@
-import { TradeSeparator } from './TradeSeparator'
+import { View } from 'react-native'
+import tw from '../../styles/tailwind'
+import { getBitcoinPriceFromContract, getBuyOfferFromContract } from '../../utils/contract'
+import i18n from '../../utils/i18n'
+import { getPaymentDataByMethod, getWalletLabel } from '../../utils/offer'
+import { hashPaymentData } from '../../utils/paymentMethod'
+import { groupChars } from '../../utils/string'
+import { PaymentMethodForms } from '../inputs/paymentMethods/paymentForms'
+import { SummaryItem } from '../payment/paymentDetailTemplates/SummaryItem'
+import { Text } from '../text'
+import { CopyAble, ErrorBox } from '../ui'
 import { getTradeSeparatorIcon } from './getTradeSeparatorIcon'
 import { getTradeSeparatorIconColor } from './getTradeSeparatorIconColor'
 import { getTradeSeparatorText } from './getTradeSeparatorText'
-import { View } from 'react-native'
+import { TradeSeparator } from './TradeSeparator'
 import { TradeSummaryProps } from './TradeSummary'
-import tw from '../../styles/tailwind'
-import { getPaymentDataByMethod, getWalletLabel } from '../../utils/offer'
-import { hashPaymentData } from '../../utils/paymentMethod'
-import { SummaryItem } from '../payment/paymentDetailTemplates/SummaryItem'
-import { getBitcoinPriceFromContract, getBuyOfferFromContract } from '../../utils/contract'
-import { groupChars } from '../../utils/string'
-import { Text } from '../text'
-import { CopyAble } from '../ui'
-import { PaymentMethodForms } from '../inputs/paymentMethods/paymentForms'
-import i18n from '../../utils/i18n'
-
-// const shouldShowDisputeStatus = (contract: Contract): contract is Contract & { disputeWinner: 'buyer' | 'seller' } =>
-//   ['confirmPaymentRequired', 'releaseEscrow'].includes(contract.tradeStatus) && !!contract.disputeWinner
 
 const shouldShowTradeStatusInfo = (contract: Contract) => {
-  // when there is an active or resolved dispute
   const shouldShowDisputeInfo = false
 
-  // buyer canceled, collab cancel (requested) or payment too late
   const shouldShowCancelationInfo = false
 
   return shouldShowDisputeInfo || shouldShowCancelationInfo
@@ -39,7 +34,6 @@ const getTradeActionStatusText = (contract: Contract) => {
   return text
 }
 
-// This is the component used for non default trades (disputes, canceled, etc)
 const TradeStatusInfo = ({ contract, view }: TradeSummaryProps) => (
   <View style={tw``}>
     <SummaryItem isBitcoinAmount information={contract.amount} />
@@ -48,7 +42,6 @@ const TradeStatusInfo = ({ contract, view }: TradeSummaryProps) => (
   </View>
 )
 
-// global constant for possible fields
 const tradeInformationFields = {
   price: { label: 'price', getInformation: (contract: Contract) => contract.price + ' ' + contract.currency },
   paidToMethod: {
@@ -106,7 +99,6 @@ const activeSellOfferFields: TradeInfoField[] = ['price', 'reference', 'paidToMe
 const pastSellOfferFields: TradeInfoField[] = ['price', 'paidToMethod', 'via', 'bitcoinAmount', 'bitcoinPrice']
 const pastBuyOfferFields: TradeInfoField[] = ['price', 'paidWithMethod', 'bitcoinAmount', 'bitcoinPrice', 'paidToWallet']
 
-// used to get all applicable fields for a trade
 const getTradeInfoFields = (contract: Contract, view: 'buyer' | 'seller') => {
   if (contract.tradeStatus === 'tradeCompleted') {
     return view === 'buyer' ? pastBuyOfferFields : pastSellOfferFields
@@ -114,8 +106,8 @@ const getTradeInfoFields = (contract: Contract, view: 'buyer' | 'seller') => {
   return view === 'buyer' ? PaymentMethodForms[contract.paymentMethod]?.fields || [] : activeSellOfferFields
 }
 
-// This is the component that shows the trade details (meaning SummaryItems)
 const TradeDetails = ({ contract, view }: TradeSummaryProps) => {
+  // contract = { ...contract, paymentData: undefined, error: 'DECRYPTION_ERROR' }
   const fields = getTradeInfoFields(contract, view)
 
   return (
@@ -142,6 +134,9 @@ const TradeDetails = ({ contract, view }: TradeSummaryProps) => {
           />
         )
       })}
+      {!contract.paymentData && contract.error === 'DECRYPTION_ERROR' && (
+        <ErrorBox style={tw`mt-[2px]`}>{i18n('contract.paymentData.decyptionFailed')}</ErrorBox>
+      )}
     </View>
   )
 }
@@ -160,51 +155,6 @@ export const TradeInformation = ({ contract, view }: TradeSummaryProps) => (
       ) : (
         <TradeDetails {...{ contract, view }} />
       )}
-
-      {/** All of the below will be removed */}
-      {/*  {shouldShowDisputeStatus(contract) ? (
-          <DisputeStatus winner={contract.disputeWinner} view={view} />
-        ) : (
-          <>
-            {shouldShowOpenTrade(contract) ? (
-              <>
-                <>
-                  <TradeAmount {...contract} isBuyer={view === 'buyer'} />
-                  {isCashTrade(contract.paymentMethod) && view === 'buyer' && <CashTradeDetails {...contract} />}
-                  {!!contract.paymentData && !!PaymentTo && <PaymentTo {...contract} copyable={view === 'buyer'} />}
-                  {view === 'seller'
-                    && !!storedPaymentData
-                    && (isCashTrade(contract.paymentMethod) ? (
-                      <CashTradeDetails {...contract} />
-                    ) : (
-                      <View style={tw`flex-row items-start mt-[2px]`}>
-                        <Text style={[tw`text-black-2 w-25`, contract.disputeActive && tw`text-error-light`]}>
-                          {i18n('contract.payment.to')}
-                        </Text>
-                        <View style={tw`flex-row items-center flex-1`}>
-                          <Text
-                            style={[
-                              tw`flex-wrap leading-normal subtitle-1`,
-                              contract.disputeActive && tw`text-error-dark`,
-                            ]}
-                          >
-                            {storedPaymentData.label}
-                          </Text>
-                        </View>
-                      </View>
-                    ))}
-                  {!contract.paymentData && contract.error === 'DECRYPTION_ERROR' && (
-                    <ErrorBox style={tw`mt-[2px]`}>{i18n('contract.paymentData.decyptionFailed')}</ErrorBox>
-                  )}
-                </>
-              </>
-            ) : contract.tradeStatus === 'tradeCanceled' ? (
-              <CanceledTradeDetails {...contract} style={tw`self-center`} />
-            ) : (
-              <CompletedTradeDetails {...contract} isBuyer={view === 'buyer'} />
-            )}
-          </>
-        )} */}
     </View>
   </View>
 )
