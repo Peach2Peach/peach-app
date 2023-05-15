@@ -51,6 +51,7 @@ describe('useRangeAmountSetup', () => {
     expect(result.current.minimum).toEqual(69420)
     // @ts-ignore
     expect(result.current.panMin._offset).toEqual(228)
+    expect(onChange).toHaveBeenCalledWith([69420, value[1]])
   })
   it('should update maximum amount', () => {
     const { result } = renderHook(useRangeAmountSetup, { initialProps })
@@ -58,6 +59,7 @@ describe('useRangeAmountSetup', () => {
     expect(result.current.maximum).toEqual(69420)
     // @ts-ignore
     expect(result.current.panMax._offset).toEqual(228)
+    expect(onChange).toHaveBeenCalledWith([50000, 69420])
   })
   it('should update maximum amount when minimum goes above maximum', () => {
     const { result } = renderHook(useRangeAmountSetup, { initialProps })
@@ -115,12 +117,14 @@ describe('useRangeAmountSetup', () => {
     // @ts-ignore
     act(() => result.current.panMin.__callListeners(40))
     expect(result.current.minimum).toEqual(2490000)
+    expect(onChange).toHaveBeenCalledWith([2490000, 2870000])
   })
   it('should update amount when max pan changes occur', () => {
     const { result } = renderHook(useRangeAmountSetup, { initialProps })
     // @ts-ignore
     act(() => result.current.panMax.__callListeners(40))
     expect(result.current.maximum).toEqual(2490000)
+    expect(onChange).toHaveBeenCalledWith([value[0], 2490000])
   })
   it('should push max amount amount when min pan goes above max', () => {
     const { result } = renderHook(useRangeAmountSetup, { initialProps })
