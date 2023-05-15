@@ -38,6 +38,7 @@ describe('useSelectAmountSetup', () => {
     expect(result.current.amount).toEqual(69420)
     // @ts-ignore
     expect(result.current.pan._offset).toEqual(228)
+    expect(onChange).toHaveBeenCalledWith(69420)
   })
   it('should respect minimum when updating amount', () => {
     const { result } = renderHook(useSelectAmountSetup, { initialProps })
@@ -64,5 +65,6 @@ describe('useSelectAmountSetup', () => {
     // @ts-ignore
     act(() => result.current.pan.__callListeners(40))
     expect(result.current.amount).toEqual(2490000)
+    expect(onChange).toHaveBeenCalledWith(2490000)
   })
 })
