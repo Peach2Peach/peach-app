@@ -79,16 +79,23 @@ const tradeInformationFields = {
       groupChars(getBitcoinPriceFromContract(contract).toString(), 3) + ' ' + contract.currency,
   },
   name: { label: 'name', getInformation: (contract: Contract) => contract.paymentData?.name },
-  phone: { label: 'phone', getInformation: (contract: Contract) => contract.paymentData?.phone },
+  beneficiary: { label: 'name', getInformation: (contract: Contract) => contract.paymentData?.beneficiary },
+  phone: { label: 'phone #', getInformation: (contract: Contract) => contract.paymentData?.phone },
   userName: { label: 'username', getInformation: (contract: Contract) => contract.paymentData?.userName },
   email: { label: 'email', getInformation: (contract: Contract) => contract.paymentData?.email },
   accountNumber: {
     label: 'account number',
     getInformation: (contract: Contract) => contract.paymentData?.accountNumber,
   },
-  iban: { label: 'IBAN', getInformation: (contract: Contract) => contract.paymentData?.iban },
-  bic: { label: 'BIC', getInformation: (contract: Contract) => contract.paymentData?.bic },
+  iban: { label: 'iban', getInformation: (contract: Contract) => contract.paymentData?.iban },
+  bic: { label: 'swift/bic', getInformation: (contract: Contract) => contract.paymentData?.bic },
   reference: { label: 'reference', getInformation: (contract: Contract) => contract.paymentData?.reference },
+  wallet: { label: 'wallet #', getInformation: (contract: Contract) => contract.paymentData?.wallet },
+  ukBankAccount: {
+    label: 'iban',
+    getInformation: (contract: Contract) => contract.paymentData?.ukBankAccount,
+  },
+  ukSortCode: { label: 'swift/bic', getInformation: (contract: Contract) => contract.paymentData?.ukSortCode },
 }
 
 export type TradeInformationField = keyof typeof tradeInformationFields
@@ -119,10 +126,11 @@ const TradeDetails = ({ contract, view }: TradeSummaryProps) => {
       {fields.map((fieldName) => {
         const { label, getInformation } = tradeInformationFields[fieldName]
         const information = getInformation(contract)
+        if (!information && label !== 'reference') return null
         const props
           = typeof information === 'number'
             ? { label, information, isBitcoinAmount: true as const }
-            : typeof information === 'undefined' || information === null || information === ''
+            : typeof !information && label === 'reference'
               ? { label, information: 'none', isAvailable: false }
               : { label, information }
         return (
