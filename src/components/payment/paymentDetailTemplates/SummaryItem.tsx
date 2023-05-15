@@ -8,7 +8,7 @@ import { BTCAmount } from './BTCAmount'
 type Props = {
   label?: string
   icon?: JSX.Element
-  isDispute?: boolean
+  isDisputeActive?: boolean
   isEscrow?: boolean
   isAvailable?: boolean
 } & ({ information: string; isBitcoinAmount?: false } | { information: number; isBitcoinAmount: true; isEscrow?: false })
@@ -21,7 +21,7 @@ export const useIsMediumScreen = () => {
 export const SummaryItem = ({
   label,
   information,
-  isDispute = false,
+  isDisputeActive = false,
   icon,
   isBitcoinAmount,
   isEscrow,
@@ -30,7 +30,7 @@ export const SummaryItem = ({
   const isMediumScreen = useIsMediumScreen()
   return (
     <View style={tw`flex-row items-center gap-2 h-30px`}>
-      <Text style={[tw`text-black-3 w-18`, tw.md`input-text w-78px mr-1`, isDispute && tw`text-error-light`]}>
+      <Text style={[tw`text-black-3 w-18`, tw.md`input-text w-78px mr-1`, isDisputeActive && tw`text-error-light`]}>
         {isEscrow ? 'escrow' : isBitcoinAmount ? 'amount' : label}
       </Text>
       <ConditionalWrapper
@@ -53,9 +53,9 @@ export const SummaryItem = ({
               style={[
                 tw`text-right subtitle-2 top-1px`,
                 tw.md`input-title top-2px`,
-                isDispute && tw`text-error-dark`,
+                isDisputeActive && tw`text-error-dark`,
                 isEscrow && tw`underline`,
-                !isAvailable && (isDispute ? tw`text-error-mild` : tw`text-black-5`),
+                !isAvailable && (isDisputeActive ? tw`text-error-mild` : tw`text-black-5`),
               ]}
             >
               {isEscrow ? 'view in explorer' : information}
@@ -65,7 +65,7 @@ export const SummaryItem = ({
           {isEscrow ? (
             <Icon id="externalLink" style={[tw`w-4 h-4`, tw.md`w-5 h-5`]} color={tw`text-primary-main`.color} />
           ) : (
-            !!icon && !isDispute && isAvailable && icon
+            !!icon && !isDisputeActive && isAvailable && icon
           )}
         </>
       </ConditionalWrapper>

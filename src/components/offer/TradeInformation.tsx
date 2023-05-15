@@ -111,7 +111,7 @@ const TradeDetails = ({ contract, view }: TradeSummaryProps) => {
         return (
           <SummaryItem
             {...props}
-            isDispute={contract.disputeActive}
+            isDisputeActive={contract.disputeActive}
             icon={
               view === 'buyer' && contract.tradeStatus !== 'tradeCompleted' ? (
                 <CopyAble value={String(information)} style={[tw`w-4 h-4`, tw.md`w-5 h-5`]} />
