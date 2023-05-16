@@ -13,14 +13,10 @@ exports[`BTCAmount should render correctly for extra large size 1`] = `
     ]
   }
 >
-  <test-file-stub
-    fill="#888"
+  <Icon
+    id="bitcoinLogo"
     style={
       [
-        {
-          "height": 24,
-          "width": 24,
-        },
         {
           "height": 24,
           "marginRight": 2,
@@ -46,369 +42,28 @@ exports[`BTCAmount should render correctly for extra large size 1`] = `
       }
     }
   >
-    <Text
+    <MixedLetterSpacingText
       style={
         [
-          [
-            {
-              "fontFamily": "CourierPrime-Regular",
-              "fontWeight": "bold",
-              "textAlign": "center",
-            },
-            {
-              "fontSize": 30,
-              "lineHeight": 40,
-              "paddingRight": 4,
-            },
-            false,
-            false,
-            false,
-            false,
-          ],
+          {
+            "fontFamily": "CourierPrime-Regular",
+            "fontWeight": "bold",
+            "textAlign": "center",
+          },
+          {
+            "fontSize": 30,
+            "lineHeight": 40,
+            "paddingRight": 4,
+          },
+          false,
+          false,
+          false,
+          false,
         ]
       }
-    >
-      <Text
-        style={
-          [
-            [
-              {
-                "fontFamily": "CourierPrime-Regular",
-                "fontWeight": "bold",
-                "textAlign": "center",
-              },
-              {
-                "fontSize": 30,
-                "lineHeight": 40,
-                "paddingRight": 4,
-              },
-              false,
-              false,
-              false,
-              false,
-            ],
-            {
-              "color": "#EAE3DF",
-            },
-            {
-              "letterSpacing": -2.25,
-            },
-          ]
-        }
-      >
-        0
-      </Text>
-      <Text
-        style={
-          [
-            [
-              {
-                "fontFamily": "CourierPrime-Regular",
-                "fontWeight": "bold",
-                "textAlign": "center",
-              },
-              {
-                "fontSize": 30,
-                "lineHeight": 40,
-                "paddingRight": 4,
-              },
-              false,
-              false,
-              false,
-              false,
-            ],
-            {
-              "color": "#EAE3DF",
-            },
-            {
-              "letterSpacing": -6.3,
-            },
-          ]
-        }
-      >
-        .
-      </Text>
-      <Text
-        style={
-          [
-            [
-              {
-                "fontFamily": "CourierPrime-Regular",
-                "fontWeight": "bold",
-                "textAlign": "center",
-              },
-              {
-                "fontSize": 30,
-                "lineHeight": 40,
-                "paddingRight": 4,
-              },
-              false,
-              false,
-              false,
-              false,
-            ],
-            {
-              "color": "#EAE3DF",
-            },
-            {
-              "letterSpacing": -2.25,
-            },
-          ]
-        }
-      >
-        0
-      </Text>
-      <Text
-        style={
-          [
-            [
-              {
-                "fontFamily": "CourierPrime-Regular",
-                "fontWeight": "bold",
-                "textAlign": "center",
-              },
-              {
-                "fontSize": 30,
-                "lineHeight": 40,
-                "paddingRight": 4,
-              },
-              false,
-              false,
-              false,
-              false,
-            ],
-            {
-              "color": "#EAE3DF",
-            },
-            {
-              "letterSpacing": -2.25,
-            },
-          ]
-        }
-      >
-        0
-      </Text>
-      <Text
-        style={
-          [
-            [
-              {
-                "fontFamily": "CourierPrime-Regular",
-                "fontWeight": "bold",
-                "textAlign": "center",
-              },
-              {
-                "fontSize": 30,
-                "lineHeight": 40,
-                "paddingRight": 4,
-              },
-              false,
-              false,
-              false,
-              false,
-            ],
-            {
-              "letterSpacing": -10.5,
-            },
-          ]
-        }
-      >
-         
-      </Text>
-      <Text
-        style={
-          [
-            [
-              {
-                "fontFamily": "CourierPrime-Regular",
-                "fontWeight": "bold",
-                "textAlign": "center",
-              },
-              {
-                "fontSize": 30,
-                "lineHeight": 40,
-                "paddingRight": 4,
-              },
-              false,
-              false,
-              false,
-              false,
-            ],
-            {
-              "color": "#EAE3DF",
-            },
-            {
-              "letterSpacing": -2.25,
-            },
-          ]
-        }
-      >
-        0
-      </Text>
-      <Text
-        style={
-          [
-            [
-              {
-                "fontFamily": "CourierPrime-Regular",
-                "fontWeight": "bold",
-                "textAlign": "center",
-              },
-              {
-                "fontSize": 30,
-                "lineHeight": 40,
-                "paddingRight": 4,
-              },
-              false,
-              false,
-              false,
-              false,
-            ],
-            {
-              "letterSpacing": -2.25,
-            },
-          ]
-        }
-      >
-        2
-      </Text>
-      <Text
-        style={
-          [
-            [
-              {
-                "fontFamily": "CourierPrime-Regular",
-                "fontWeight": "bold",
-                "textAlign": "center",
-              },
-              {
-                "fontSize": 30,
-                "lineHeight": 40,
-                "paddingRight": 4,
-              },
-              false,
-              false,
-              false,
-              false,
-            ],
-            {
-              "letterSpacing": -2.25,
-            },
-          ]
-        }
-      >
-        1
-      </Text>
-      <Text
-        style={
-          [
-            [
-              {
-                "fontFamily": "CourierPrime-Regular",
-                "fontWeight": "bold",
-                "textAlign": "center",
-              },
-              {
-                "fontSize": 30,
-                "lineHeight": 40,
-                "paddingRight": 4,
-              },
-              false,
-              false,
-              false,
-              false,
-            ],
-            {
-              "letterSpacing": -10.5,
-            },
-          ]
-        }
-      >
-         
-      </Text>
-      <Text
-        style={
-          [
-            [
-              {
-                "fontFamily": "CourierPrime-Regular",
-                "fontWeight": "bold",
-                "textAlign": "center",
-              },
-              {
-                "fontSize": 30,
-                "lineHeight": 40,
-                "paddingRight": 4,
-              },
-              false,
-              false,
-              false,
-              false,
-            ],
-            {
-              "letterSpacing": -2.25,
-            },
-          ]
-        }
-      >
-        0
-      </Text>
-      <Text
-        style={
-          [
-            [
-              {
-                "fontFamily": "CourierPrime-Regular",
-                "fontWeight": "bold",
-                "textAlign": "center",
-              },
-              {
-                "fontSize": 30,
-                "lineHeight": 40,
-                "paddingRight": 4,
-              },
-              false,
-              false,
-              false,
-              false,
-            ],
-            {
-              "letterSpacing": -2.25,
-            },
-          ]
-        }
-      >
-        0
-      </Text>
-      <Text
-        style={
-          [
-            [
-              {
-                "fontFamily": "CourierPrime-Regular",
-                "fontWeight": "bold",
-                "textAlign": "center",
-              },
-              {
-                "fontSize": 30,
-                "lineHeight": 40,
-                "paddingRight": 4,
-              },
-              false,
-              false,
-              false,
-              false,
-            ],
-            {
-              "letterSpacing": -2.25,
-            },
-          ]
-        }
-      >
-        0
-      </Text>
-    </Text>
-    <Text
+      value={21000}
+    />
+    <PeachText
       style={
         [
           {
@@ -430,7 +85,7 @@ exports[`BTCAmount should render correctly for extra large size 1`] = `
       }
     >
       sats
-    </Text>
+    </PeachText>
   </View>
 </View>
 `;
@@ -448,14 +103,10 @@ exports[`BTCAmount should render correctly for extra small size 1`] = `
     ]
   }
 >
-  <test-file-stub
-    fill="#888"
+  <Icon
+    id="bitcoinLogo"
     style={
       [
-        {
-          "height": 24,
-          "width": 24,
-        },
         false,
         false,
         false,
@@ -480,369 +131,28 @@ exports[`BTCAmount should render correctly for extra small size 1`] = `
       }
     }
   >
-    <Text
+    <MixedLetterSpacingText
       style={
         [
-          [
-            {
-              "fontFamily": "CourierPrime-Regular",
-              "fontWeight": "bold",
-              "textAlign": "center",
-            },
-            false,
-            false,
-            false,
-            false,
-            {
-              "fontSize": 15,
-              "lineHeight": 20,
-              "paddingRight": 2,
-            },
-          ],
+          {
+            "fontFamily": "CourierPrime-Regular",
+            "fontWeight": "bold",
+            "textAlign": "center",
+          },
+          false,
+          false,
+          false,
+          false,
+          {
+            "fontSize": 15,
+            "lineHeight": 20,
+            "paddingRight": 2,
+          },
         ]
       }
-    >
-      <Text
-        style={
-          [
-            [
-              {
-                "fontFamily": "CourierPrime-Regular",
-                "fontWeight": "bold",
-                "textAlign": "center",
-              },
-              false,
-              false,
-              false,
-              false,
-              {
-                "fontSize": 15,
-                "lineHeight": 20,
-                "paddingRight": 2,
-              },
-            ],
-            {
-              "color": "#EAE3DF",
-            },
-            {
-              "letterSpacing": -1.125,
-            },
-          ]
-        }
-      >
-        0
-      </Text>
-      <Text
-        style={
-          [
-            [
-              {
-                "fontFamily": "CourierPrime-Regular",
-                "fontWeight": "bold",
-                "textAlign": "center",
-              },
-              false,
-              false,
-              false,
-              false,
-              {
-                "fontSize": 15,
-                "lineHeight": 20,
-                "paddingRight": 2,
-              },
-            ],
-            {
-              "color": "#EAE3DF",
-            },
-            {
-              "letterSpacing": -3.15,
-            },
-          ]
-        }
-      >
-        .
-      </Text>
-      <Text
-        style={
-          [
-            [
-              {
-                "fontFamily": "CourierPrime-Regular",
-                "fontWeight": "bold",
-                "textAlign": "center",
-              },
-              false,
-              false,
-              false,
-              false,
-              {
-                "fontSize": 15,
-                "lineHeight": 20,
-                "paddingRight": 2,
-              },
-            ],
-            {
-              "color": "#EAE3DF",
-            },
-            {
-              "letterSpacing": -1.125,
-            },
-          ]
-        }
-      >
-        0
-      </Text>
-      <Text
-        style={
-          [
-            [
-              {
-                "fontFamily": "CourierPrime-Regular",
-                "fontWeight": "bold",
-                "textAlign": "center",
-              },
-              false,
-              false,
-              false,
-              false,
-              {
-                "fontSize": 15,
-                "lineHeight": 20,
-                "paddingRight": 2,
-              },
-            ],
-            {
-              "color": "#EAE3DF",
-            },
-            {
-              "letterSpacing": -1.125,
-            },
-          ]
-        }
-      >
-        0
-      </Text>
-      <Text
-        style={
-          [
-            [
-              {
-                "fontFamily": "CourierPrime-Regular",
-                "fontWeight": "bold",
-                "textAlign": "center",
-              },
-              false,
-              false,
-              false,
-              false,
-              {
-                "fontSize": 15,
-                "lineHeight": 20,
-                "paddingRight": 2,
-              },
-            ],
-            {
-              "letterSpacing": -5.25,
-            },
-          ]
-        }
-      >
-         
-      </Text>
-      <Text
-        style={
-          [
-            [
-              {
-                "fontFamily": "CourierPrime-Regular",
-                "fontWeight": "bold",
-                "textAlign": "center",
-              },
-              false,
-              false,
-              false,
-              false,
-              {
-                "fontSize": 15,
-                "lineHeight": 20,
-                "paddingRight": 2,
-              },
-            ],
-            {
-              "color": "#EAE3DF",
-            },
-            {
-              "letterSpacing": -1.125,
-            },
-          ]
-        }
-      >
-        0
-      </Text>
-      <Text
-        style={
-          [
-            [
-              {
-                "fontFamily": "CourierPrime-Regular",
-                "fontWeight": "bold",
-                "textAlign": "center",
-              },
-              false,
-              false,
-              false,
-              false,
-              {
-                "fontSize": 15,
-                "lineHeight": 20,
-                "paddingRight": 2,
-              },
-            ],
-            {
-              "letterSpacing": -1.125,
-            },
-          ]
-        }
-      >
-        2
-      </Text>
-      <Text
-        style={
-          [
-            [
-              {
-                "fontFamily": "CourierPrime-Regular",
-                "fontWeight": "bold",
-                "textAlign": "center",
-              },
-              false,
-              false,
-              false,
-              false,
-              {
-                "fontSize": 15,
-                "lineHeight": 20,
-                "paddingRight": 2,
-              },
-            ],
-            {
-              "letterSpacing": -1.125,
-            },
-          ]
-        }
-      >
-        1
-      </Text>
-      <Text
-        style={
-          [
-            [
-              {
-                "fontFamily": "CourierPrime-Regular",
-                "fontWeight": "bold",
-                "textAlign": "center",
-              },
-              false,
-              false,
-              false,
-              false,
-              {
-                "fontSize": 15,
-                "lineHeight": 20,
-                "paddingRight": 2,
-              },
-            ],
-            {
-              "letterSpacing": -5.25,
-            },
-          ]
-        }
-      >
-         
-      </Text>
-      <Text
-        style={
-          [
-            [
-              {
-                "fontFamily": "CourierPrime-Regular",
-                "fontWeight": "bold",
-                "textAlign": "center",
-              },
-              false,
-              false,
-              false,
-              false,
-              {
-                "fontSize": 15,
-                "lineHeight": 20,
-                "paddingRight": 2,
-              },
-            ],
-            {
-              "letterSpacing": -1.125,
-            },
-          ]
-        }
-      >
-        0
-      </Text>
-      <Text
-        style={
-          [
-            [
-              {
-                "fontFamily": "CourierPrime-Regular",
-                "fontWeight": "bold",
-                "textAlign": "center",
-              },
-              false,
-              false,
-              false,
-              false,
-              {
-                "fontSize": 15,
-                "lineHeight": 20,
-                "paddingRight": 2,
-              },
-            ],
-            {
-              "letterSpacing": -1.125,
-            },
-          ]
-        }
-      >
-        0
-      </Text>
-      <Text
-        style={
-          [
-            [
-              {
-                "fontFamily": "CourierPrime-Regular",
-                "fontWeight": "bold",
-                "textAlign": "center",
-              },
-              false,
-              false,
-              false,
-              false,
-              {
-                "fontSize": 15,
-                "lineHeight": 20,
-                "paddingRight": 2,
-              },
-            ],
-            {
-              "letterSpacing": -1.125,
-            },
-          ]
-        }
-      >
-        0
-      </Text>
-    </Text>
-    <Text
+      value={21000}
+    />
+    <PeachText
       style={
         [
           false,
@@ -864,7 +174,7 @@ exports[`BTCAmount should render correctly for extra small size 1`] = `
       }
     >
       sats
-    </Text>
+    </PeachText>
   </View>
 </View>
 `;
@@ -882,14 +192,10 @@ exports[`BTCAmount should render correctly for large size 1`] = `
     ]
   }
 >
-  <test-file-stub
-    fill="#888"
+  <Icon
+    id="bitcoinLogo"
     style={
       [
-        {
-          "height": 24,
-          "width": 24,
-        },
         false,
         {
           "height": 19.5,
@@ -915,369 +221,28 @@ exports[`BTCAmount should render correctly for large size 1`] = `
       }
     }
   >
-    <Text
+    <MixedLetterSpacingText
       style={
         [
-          [
-            {
-              "fontFamily": "CourierPrime-Regular",
-              "fontWeight": "bold",
-              "textAlign": "center",
-            },
-            false,
-            {
-              "fontSize": 26,
-              "lineHeight": 34,
-              "paddingRight": 4,
-            },
-            false,
-            false,
-            false,
-          ],
+          {
+            "fontFamily": "CourierPrime-Regular",
+            "fontWeight": "bold",
+            "textAlign": "center",
+          },
+          false,
+          {
+            "fontSize": 26,
+            "lineHeight": 34,
+            "paddingRight": 4,
+          },
+          false,
+          false,
+          false,
         ]
       }
-    >
-      <Text
-        style={
-          [
-            [
-              {
-                "fontFamily": "CourierPrime-Regular",
-                "fontWeight": "bold",
-                "textAlign": "center",
-              },
-              false,
-              {
-                "fontSize": 26,
-                "lineHeight": 34,
-                "paddingRight": 4,
-              },
-              false,
-              false,
-              false,
-            ],
-            {
-              "color": "#EAE3DF",
-            },
-            {
-              "letterSpacing": -1.95,
-            },
-          ]
-        }
-      >
-        0
-      </Text>
-      <Text
-        style={
-          [
-            [
-              {
-                "fontFamily": "CourierPrime-Regular",
-                "fontWeight": "bold",
-                "textAlign": "center",
-              },
-              false,
-              {
-                "fontSize": 26,
-                "lineHeight": 34,
-                "paddingRight": 4,
-              },
-              false,
-              false,
-              false,
-            ],
-            {
-              "color": "#EAE3DF",
-            },
-            {
-              "letterSpacing": -5.46,
-            },
-          ]
-        }
-      >
-        .
-      </Text>
-      <Text
-        style={
-          [
-            [
-              {
-                "fontFamily": "CourierPrime-Regular",
-                "fontWeight": "bold",
-                "textAlign": "center",
-              },
-              false,
-              {
-                "fontSize": 26,
-                "lineHeight": 34,
-                "paddingRight": 4,
-              },
-              false,
-              false,
-              false,
-            ],
-            {
-              "color": "#EAE3DF",
-            },
-            {
-              "letterSpacing": -1.95,
-            },
-          ]
-        }
-      >
-        0
-      </Text>
-      <Text
-        style={
-          [
-            [
-              {
-                "fontFamily": "CourierPrime-Regular",
-                "fontWeight": "bold",
-                "textAlign": "center",
-              },
-              false,
-              {
-                "fontSize": 26,
-                "lineHeight": 34,
-                "paddingRight": 4,
-              },
-              false,
-              false,
-              false,
-            ],
-            {
-              "color": "#EAE3DF",
-            },
-            {
-              "letterSpacing": -1.95,
-            },
-          ]
-        }
-      >
-        0
-      </Text>
-      <Text
-        style={
-          [
-            [
-              {
-                "fontFamily": "CourierPrime-Regular",
-                "fontWeight": "bold",
-                "textAlign": "center",
-              },
-              false,
-              {
-                "fontSize": 26,
-                "lineHeight": 34,
-                "paddingRight": 4,
-              },
-              false,
-              false,
-              false,
-            ],
-            {
-              "letterSpacing": -9.1,
-            },
-          ]
-        }
-      >
-         
-      </Text>
-      <Text
-        style={
-          [
-            [
-              {
-                "fontFamily": "CourierPrime-Regular",
-                "fontWeight": "bold",
-                "textAlign": "center",
-              },
-              false,
-              {
-                "fontSize": 26,
-                "lineHeight": 34,
-                "paddingRight": 4,
-              },
-              false,
-              false,
-              false,
-            ],
-            {
-              "color": "#EAE3DF",
-            },
-            {
-              "letterSpacing": -1.95,
-            },
-          ]
-        }
-      >
-        0
-      </Text>
-      <Text
-        style={
-          [
-            [
-              {
-                "fontFamily": "CourierPrime-Regular",
-                "fontWeight": "bold",
-                "textAlign": "center",
-              },
-              false,
-              {
-                "fontSize": 26,
-                "lineHeight": 34,
-                "paddingRight": 4,
-              },
-              false,
-              false,
-              false,
-            ],
-            {
-              "letterSpacing": -1.95,
-            },
-          ]
-        }
-      >
-        2
-      </Text>
-      <Text
-        style={
-          [
-            [
-              {
-                "fontFamily": "CourierPrime-Regular",
-                "fontWeight": "bold",
-                "textAlign": "center",
-              },
-              false,
-              {
-                "fontSize": 26,
-                "lineHeight": 34,
-                "paddingRight": 4,
-              },
-              false,
-              false,
-              false,
-            ],
-            {
-              "letterSpacing": -1.95,
-            },
-          ]
-        }
-      >
-        1
-      </Text>
-      <Text
-        style={
-          [
-            [
-              {
-                "fontFamily": "CourierPrime-Regular",
-                "fontWeight": "bold",
-                "textAlign": "center",
-              },
-              false,
-              {
-                "fontSize": 26,
-                "lineHeight": 34,
-                "paddingRight": 4,
-              },
-              false,
-              false,
-              false,
-            ],
-            {
-              "letterSpacing": -9.1,
-            },
-          ]
-        }
-      >
-         
-      </Text>
-      <Text
-        style={
-          [
-            [
-              {
-                "fontFamily": "CourierPrime-Regular",
-                "fontWeight": "bold",
-                "textAlign": "center",
-              },
-              false,
-              {
-                "fontSize": 26,
-                "lineHeight": 34,
-                "paddingRight": 4,
-              },
-              false,
-              false,
-              false,
-            ],
-            {
-              "letterSpacing": -1.95,
-            },
-          ]
-        }
-      >
-        0
-      </Text>
-      <Text
-        style={
-          [
-            [
-              {
-                "fontFamily": "CourierPrime-Regular",
-                "fontWeight": "bold",
-                "textAlign": "center",
-              },
-              false,
-              {
-                "fontSize": 26,
-                "lineHeight": 34,
-                "paddingRight": 4,
-              },
-              false,
-              false,
-              false,
-            ],
-            {
-              "letterSpacing": -1.95,
-            },
-          ]
-        }
-      >
-        0
-      </Text>
-      <Text
-        style={
-          [
-            [
-              {
-                "fontFamily": "CourierPrime-Regular",
-                "fontWeight": "bold",
-                "textAlign": "center",
-              },
-              false,
-              {
-                "fontSize": 26,
-                "lineHeight": 34,
-                "paddingRight": 4,
-              },
-              false,
-              false,
-              false,
-            ],
-            {
-              "letterSpacing": -1.95,
-            },
-          ]
-        }
-      >
-        0
-      </Text>
-    </Text>
-    <Text
+      value={21000}
+    />
+    <PeachText
       style={
         [
           false,
@@ -1299,7 +264,7 @@ exports[`BTCAmount should render correctly for large size 1`] = `
       }
     >
       sats
-    </Text>
+    </PeachText>
   </View>
 </View>
 `;
@@ -1317,14 +282,10 @@ exports[`BTCAmount should render correctly for medium size 1`] = `
     ]
   }
 >
-  <test-file-stub
-    fill="#888"
+  <Icon
+    id="bitcoinLogo"
     style={
       [
-        {
-          "height": 24,
-          "width": 24,
-        },
         false,
         false,
         {
@@ -1350,369 +311,28 @@ exports[`BTCAmount should render correctly for medium size 1`] = `
       }
     }
   >
-    <Text
+    <MixedLetterSpacingText
       style={
         [
-          [
-            {
-              "fontFamily": "CourierPrime-Regular",
-              "fontWeight": "bold",
-              "textAlign": "center",
-            },
-            false,
-            false,
-            {
-              "fontSize": 22,
-              "lineHeight": 30,
-              "paddingRight": 3,
-            },
-            false,
-            false,
-          ],
+          {
+            "fontFamily": "CourierPrime-Regular",
+            "fontWeight": "bold",
+            "textAlign": "center",
+          },
+          false,
+          false,
+          {
+            "fontSize": 22,
+            "lineHeight": 30,
+            "paddingRight": 3,
+          },
+          false,
+          false,
         ]
       }
-    >
-      <Text
-        style={
-          [
-            [
-              {
-                "fontFamily": "CourierPrime-Regular",
-                "fontWeight": "bold",
-                "textAlign": "center",
-              },
-              false,
-              false,
-              {
-                "fontSize": 22,
-                "lineHeight": 30,
-                "paddingRight": 3,
-              },
-              false,
-              false,
-            ],
-            {
-              "color": "#EAE3DF",
-            },
-            {
-              "letterSpacing": -1.65,
-            },
-          ]
-        }
-      >
-        0
-      </Text>
-      <Text
-        style={
-          [
-            [
-              {
-                "fontFamily": "CourierPrime-Regular",
-                "fontWeight": "bold",
-                "textAlign": "center",
-              },
-              false,
-              false,
-              {
-                "fontSize": 22,
-                "lineHeight": 30,
-                "paddingRight": 3,
-              },
-              false,
-              false,
-            ],
-            {
-              "color": "#EAE3DF",
-            },
-            {
-              "letterSpacing": -4.62,
-            },
-          ]
-        }
-      >
-        .
-      </Text>
-      <Text
-        style={
-          [
-            [
-              {
-                "fontFamily": "CourierPrime-Regular",
-                "fontWeight": "bold",
-                "textAlign": "center",
-              },
-              false,
-              false,
-              {
-                "fontSize": 22,
-                "lineHeight": 30,
-                "paddingRight": 3,
-              },
-              false,
-              false,
-            ],
-            {
-              "color": "#EAE3DF",
-            },
-            {
-              "letterSpacing": -1.65,
-            },
-          ]
-        }
-      >
-        0
-      </Text>
-      <Text
-        style={
-          [
-            [
-              {
-                "fontFamily": "CourierPrime-Regular",
-                "fontWeight": "bold",
-                "textAlign": "center",
-              },
-              false,
-              false,
-              {
-                "fontSize": 22,
-                "lineHeight": 30,
-                "paddingRight": 3,
-              },
-              false,
-              false,
-            ],
-            {
-              "color": "#EAE3DF",
-            },
-            {
-              "letterSpacing": -1.65,
-            },
-          ]
-        }
-      >
-        0
-      </Text>
-      <Text
-        style={
-          [
-            [
-              {
-                "fontFamily": "CourierPrime-Regular",
-                "fontWeight": "bold",
-                "textAlign": "center",
-              },
-              false,
-              false,
-              {
-                "fontSize": 22,
-                "lineHeight": 30,
-                "paddingRight": 3,
-              },
-              false,
-              false,
-            ],
-            {
-              "letterSpacing": -7.699999999999999,
-            },
-          ]
-        }
-      >
-         
-      </Text>
-      <Text
-        style={
-          [
-            [
-              {
-                "fontFamily": "CourierPrime-Regular",
-                "fontWeight": "bold",
-                "textAlign": "center",
-              },
-              false,
-              false,
-              {
-                "fontSize": 22,
-                "lineHeight": 30,
-                "paddingRight": 3,
-              },
-              false,
-              false,
-            ],
-            {
-              "color": "#EAE3DF",
-            },
-            {
-              "letterSpacing": -1.65,
-            },
-          ]
-        }
-      >
-        0
-      </Text>
-      <Text
-        style={
-          [
-            [
-              {
-                "fontFamily": "CourierPrime-Regular",
-                "fontWeight": "bold",
-                "textAlign": "center",
-              },
-              false,
-              false,
-              {
-                "fontSize": 22,
-                "lineHeight": 30,
-                "paddingRight": 3,
-              },
-              false,
-              false,
-            ],
-            {
-              "letterSpacing": -1.65,
-            },
-          ]
-        }
-      >
-        2
-      </Text>
-      <Text
-        style={
-          [
-            [
-              {
-                "fontFamily": "CourierPrime-Regular",
-                "fontWeight": "bold",
-                "textAlign": "center",
-              },
-              false,
-              false,
-              {
-                "fontSize": 22,
-                "lineHeight": 30,
-                "paddingRight": 3,
-              },
-              false,
-              false,
-            ],
-            {
-              "letterSpacing": -1.65,
-            },
-          ]
-        }
-      >
-        1
-      </Text>
-      <Text
-        style={
-          [
-            [
-              {
-                "fontFamily": "CourierPrime-Regular",
-                "fontWeight": "bold",
-                "textAlign": "center",
-              },
-              false,
-              false,
-              {
-                "fontSize": 22,
-                "lineHeight": 30,
-                "paddingRight": 3,
-              },
-              false,
-              false,
-            ],
-            {
-              "letterSpacing": -7.699999999999999,
-            },
-          ]
-        }
-      >
-         
-      </Text>
-      <Text
-        style={
-          [
-            [
-              {
-                "fontFamily": "CourierPrime-Regular",
-                "fontWeight": "bold",
-                "textAlign": "center",
-              },
-              false,
-              false,
-              {
-                "fontSize": 22,
-                "lineHeight": 30,
-                "paddingRight": 3,
-              },
-              false,
-              false,
-            ],
-            {
-              "letterSpacing": -1.65,
-            },
-          ]
-        }
-      >
-        0
-      </Text>
-      <Text
-        style={
-          [
-            [
-              {
-                "fontFamily": "CourierPrime-Regular",
-                "fontWeight": "bold",
-                "textAlign": "center",
-              },
-              false,
-              false,
-              {
-                "fontSize": 22,
-                "lineHeight": 30,
-                "paddingRight": 3,
-              },
-              false,
-              false,
-            ],
-            {
-              "letterSpacing": -1.65,
-            },
-          ]
-        }
-      >
-        0
-      </Text>
-      <Text
-        style={
-          [
-            [
-              {
-                "fontFamily": "CourierPrime-Regular",
-                "fontWeight": "bold",
-                "textAlign": "center",
-              },
-              false,
-              false,
-              {
-                "fontSize": 22,
-                "lineHeight": 30,
-                "paddingRight": 3,
-              },
-              false,
-              false,
-            ],
-            {
-              "letterSpacing": -1.65,
-            },
-          ]
-        }
-      >
-        0
-      </Text>
-    </Text>
-    <Text
+      value={21000}
+    />
+    <PeachText
       style={
         [
           false,
@@ -1734,7 +354,7 @@ exports[`BTCAmount should render correctly for medium size 1`] = `
       }
     >
       sats
-    </Text>
+    </PeachText>
   </View>
 </View>
 `;
@@ -1752,14 +372,10 @@ exports[`BTCAmount should render correctly for small size 1`] = `
     ]
   }
 >
-  <test-file-stub
-    fill="#888"
+  <Icon
+    id="bitcoinLogo"
     style={
       [
-        {
-          "height": 24,
-          "width": 24,
-        },
         false,
         false,
         false,
@@ -1784,369 +400,28 @@ exports[`BTCAmount should render correctly for small size 1`] = `
       }
     }
   >
-    <Text
+    <MixedLetterSpacingText
       style={
         [
-          [
-            {
-              "fontFamily": "CourierPrime-Regular",
-              "fontWeight": "bold",
-              "textAlign": "center",
-            },
-            false,
-            false,
-            false,
-            {
-              "fontSize": 17,
-              "lineHeight": 23,
-              "paddingRight": 2,
-            },
-            false,
-          ],
+          {
+            "fontFamily": "CourierPrime-Regular",
+            "fontWeight": "bold",
+            "textAlign": "center",
+          },
+          false,
+          false,
+          false,
+          {
+            "fontSize": 17,
+            "lineHeight": 23,
+            "paddingRight": 2,
+          },
+          false,
         ]
       }
-    >
-      <Text
-        style={
-          [
-            [
-              {
-                "fontFamily": "CourierPrime-Regular",
-                "fontWeight": "bold",
-                "textAlign": "center",
-              },
-              false,
-              false,
-              false,
-              {
-                "fontSize": 17,
-                "lineHeight": 23,
-                "paddingRight": 2,
-              },
-              false,
-            ],
-            {
-              "color": "#EAE3DF",
-            },
-            {
-              "letterSpacing": -1.275,
-            },
-          ]
-        }
-      >
-        0
-      </Text>
-      <Text
-        style={
-          [
-            [
-              {
-                "fontFamily": "CourierPrime-Regular",
-                "fontWeight": "bold",
-                "textAlign": "center",
-              },
-              false,
-              false,
-              false,
-              {
-                "fontSize": 17,
-                "lineHeight": 23,
-                "paddingRight": 2,
-              },
-              false,
-            ],
-            {
-              "color": "#EAE3DF",
-            },
-            {
-              "letterSpacing": -3.57,
-            },
-          ]
-        }
-      >
-        .
-      </Text>
-      <Text
-        style={
-          [
-            [
-              {
-                "fontFamily": "CourierPrime-Regular",
-                "fontWeight": "bold",
-                "textAlign": "center",
-              },
-              false,
-              false,
-              false,
-              {
-                "fontSize": 17,
-                "lineHeight": 23,
-                "paddingRight": 2,
-              },
-              false,
-            ],
-            {
-              "color": "#EAE3DF",
-            },
-            {
-              "letterSpacing": -1.275,
-            },
-          ]
-        }
-      >
-        0
-      </Text>
-      <Text
-        style={
-          [
-            [
-              {
-                "fontFamily": "CourierPrime-Regular",
-                "fontWeight": "bold",
-                "textAlign": "center",
-              },
-              false,
-              false,
-              false,
-              {
-                "fontSize": 17,
-                "lineHeight": 23,
-                "paddingRight": 2,
-              },
-              false,
-            ],
-            {
-              "color": "#EAE3DF",
-            },
-            {
-              "letterSpacing": -1.275,
-            },
-          ]
-        }
-      >
-        0
-      </Text>
-      <Text
-        style={
-          [
-            [
-              {
-                "fontFamily": "CourierPrime-Regular",
-                "fontWeight": "bold",
-                "textAlign": "center",
-              },
-              false,
-              false,
-              false,
-              {
-                "fontSize": 17,
-                "lineHeight": 23,
-                "paddingRight": 2,
-              },
-              false,
-            ],
-            {
-              "letterSpacing": -5.949999999999999,
-            },
-          ]
-        }
-      >
-         
-      </Text>
-      <Text
-        style={
-          [
-            [
-              {
-                "fontFamily": "CourierPrime-Regular",
-                "fontWeight": "bold",
-                "textAlign": "center",
-              },
-              false,
-              false,
-              false,
-              {
-                "fontSize": 17,
-                "lineHeight": 23,
-                "paddingRight": 2,
-              },
-              false,
-            ],
-            {
-              "color": "#EAE3DF",
-            },
-            {
-              "letterSpacing": -1.275,
-            },
-          ]
-        }
-      >
-        0
-      </Text>
-      <Text
-        style={
-          [
-            [
-              {
-                "fontFamily": "CourierPrime-Regular",
-                "fontWeight": "bold",
-                "textAlign": "center",
-              },
-              false,
-              false,
-              false,
-              {
-                "fontSize": 17,
-                "lineHeight": 23,
-                "paddingRight": 2,
-              },
-              false,
-            ],
-            {
-              "letterSpacing": -1.275,
-            },
-          ]
-        }
-      >
-        2
-      </Text>
-      <Text
-        style={
-          [
-            [
-              {
-                "fontFamily": "CourierPrime-Regular",
-                "fontWeight": "bold",
-                "textAlign": "center",
-              },
-              false,
-              false,
-              false,
-              {
-                "fontSize": 17,
-                "lineHeight": 23,
-                "paddingRight": 2,
-              },
-              false,
-            ],
-            {
-              "letterSpacing": -1.275,
-            },
-          ]
-        }
-      >
-        1
-      </Text>
-      <Text
-        style={
-          [
-            [
-              {
-                "fontFamily": "CourierPrime-Regular",
-                "fontWeight": "bold",
-                "textAlign": "center",
-              },
-              false,
-              false,
-              false,
-              {
-                "fontSize": 17,
-                "lineHeight": 23,
-                "paddingRight": 2,
-              },
-              false,
-            ],
-            {
-              "letterSpacing": -5.949999999999999,
-            },
-          ]
-        }
-      >
-         
-      </Text>
-      <Text
-        style={
-          [
-            [
-              {
-                "fontFamily": "CourierPrime-Regular",
-                "fontWeight": "bold",
-                "textAlign": "center",
-              },
-              false,
-              false,
-              false,
-              {
-                "fontSize": 17,
-                "lineHeight": 23,
-                "paddingRight": 2,
-              },
-              false,
-            ],
-            {
-              "letterSpacing": -1.275,
-            },
-          ]
-        }
-      >
-        0
-      </Text>
-      <Text
-        style={
-          [
-            [
-              {
-                "fontFamily": "CourierPrime-Regular",
-                "fontWeight": "bold",
-                "textAlign": "center",
-              },
-              false,
-              false,
-              false,
-              {
-                "fontSize": 17,
-                "lineHeight": 23,
-                "paddingRight": 2,
-              },
-              false,
-            ],
-            {
-              "letterSpacing": -1.275,
-            },
-          ]
-        }
-      >
-        0
-      </Text>
-      <Text
-        style={
-          [
-            [
-              {
-                "fontFamily": "CourierPrime-Regular",
-                "fontWeight": "bold",
-                "textAlign": "center",
-              },
-              false,
-              false,
-              false,
-              {
-                "fontSize": 17,
-                "lineHeight": 23,
-                "paddingRight": 2,
-              },
-              false,
-            ],
-            {
-              "letterSpacing": -1.275,
-            },
-          ]
-        }
-      >
-        0
-      </Text>
-    </Text>
-    <Text
+      value={21000}
+    />
+    <PeachText
       style={
         [
           false,
@@ -2168,7 +443,229 @@ exports[`BTCAmount should render correctly for small size 1`] = `
       }
     >
       sats
-    </Text>
+    </PeachText>
   </View>
 </View>
+`;
+
+exports[`MixedLetterSpacingText should render correctly 1`] = `
+<PeachText
+  style={
+    [
+      [
+        {
+          "fontSize": 16,
+        },
+      ],
+    ]
+  }
+>
+  <PeachText
+    style={
+      [
+        [
+          {
+            "fontSize": 16,
+          },
+        ],
+        {
+          "color": "#EAE3DF",
+        },
+        {
+          "letterSpacing": -1.2,
+        },
+      ]
+    }
+  >
+    0
+  </PeachText>
+  <PeachText
+    style={
+      [
+        [
+          {
+            "fontSize": 16,
+          },
+        ],
+        {
+          "color": "#EAE3DF",
+        },
+        {
+          "letterSpacing": -3.36,
+        },
+      ]
+    }
+  >
+    .
+  </PeachText>
+  <PeachText
+    style={
+      [
+        [
+          {
+            "fontSize": 16,
+          },
+        ],
+        {
+          "color": "#EAE3DF",
+        },
+        {
+          "letterSpacing": -1.2,
+        },
+      ]
+    }
+  >
+    0
+  </PeachText>
+  <PeachText
+    style={
+      [
+        [
+          {
+            "fontSize": 16,
+          },
+        ],
+        {
+          "color": "#EAE3DF",
+        },
+        {
+          "letterSpacing": -1.2,
+        },
+      ]
+    }
+  >
+    0
+  </PeachText>
+  <PeachText
+    style={
+      [
+        [
+          {
+            "fontSize": 16,
+          },
+        ],
+        {
+          "letterSpacing": -5.6,
+        },
+      ]
+    }
+  >
+     
+  </PeachText>
+  <PeachText
+    style={
+      [
+        [
+          {
+            "fontSize": 16,
+          },
+        ],
+        {
+          "color": "#EAE3DF",
+        },
+        {
+          "letterSpacing": -1.2,
+        },
+      ]
+    }
+  >
+    0
+  </PeachText>
+  <PeachText
+    style={
+      [
+        [
+          {
+            "fontSize": 16,
+          },
+        ],
+        {
+          "letterSpacing": -1.2,
+        },
+      ]
+    }
+  >
+    2
+  </PeachText>
+  <PeachText
+    style={
+      [
+        [
+          {
+            "fontSize": 16,
+          },
+        ],
+        {
+          "letterSpacing": -1.2,
+        },
+      ]
+    }
+  >
+    1
+  </PeachText>
+  <PeachText
+    style={
+      [
+        [
+          {
+            "fontSize": 16,
+          },
+        ],
+        {
+          "letterSpacing": -5.6,
+        },
+      ]
+    }
+  >
+     
+  </PeachText>
+  <PeachText
+    style={
+      [
+        [
+          {
+            "fontSize": 16,
+          },
+        ],
+        {
+          "letterSpacing": -1.2,
+        },
+      ]
+    }
+  >
+    0
+  </PeachText>
+  <PeachText
+    style={
+      [
+        [
+          {
+            "fontSize": 16,
+          },
+        ],
+        {
+          "letterSpacing": -1.2,
+        },
+      ]
+    }
+  >
+    0
+  </PeachText>
+  <PeachText
+    style={
+      [
+        [
+          {
+            "fontSize": 16,
+          },
+        ],
+        {
+          "letterSpacing": -1.2,
+        },
+      ]
+    }
+  >
+    0
+  </PeachText>
+</PeachText>
 `;

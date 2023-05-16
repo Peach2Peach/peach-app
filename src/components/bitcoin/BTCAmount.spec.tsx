@@ -1,30 +1,35 @@
-import { BTCAmount } from './BTCAmount'
-import { render } from '@testing-library/react-native'
+import { BTCAmount, MixedLetterSpacingText } from './BTCAmount'
+import { createRenderer } from 'react-test-renderer/shallow'
 
-jest.mock('../text', () => ({
-  Text: 'Text',
-}))
+describe('MixedLetterSpacingText', () => {
+  const renderer = createRenderer()
+  it('should render correctly', () => {
+    renderer.render(<MixedLetterSpacingText value={21000} style={[{ fontSize: 16 }]} />)
+    expect(renderer.getRenderOutput()).toMatchSnapshot()
+  })
+})
 
 describe('BTCAmount', () => {
+  const renderer = createRenderer()
   const amount = 21000
   it('should render correctly for extra small size', () => {
-    const { toJSON } = render(<BTCAmount amount={amount} size="x small" />)
-    expect(toJSON()).toMatchSnapshot()
+    renderer.render(<BTCAmount amount={amount} size="x small" />)
+    expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
   it('should render correctly for small size', () => {
-    const { toJSON } = render(<BTCAmount amount={amount} size="small" />)
-    expect(toJSON()).toMatchSnapshot()
+    renderer.render(<BTCAmount amount={amount} size="small" />)
+    expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
   it('should render correctly for medium size', () => {
-    const { toJSON } = render(<BTCAmount amount={amount} size="medium" />)
-    expect(toJSON()).toMatchSnapshot()
+    renderer.render(<BTCAmount amount={amount} size="medium" />)
+    expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
   it('should render correctly for large size', () => {
-    const { toJSON } = render(<BTCAmount amount={amount} size="large" />)
-    expect(toJSON()).toMatchSnapshot()
+    renderer.render(<BTCAmount amount={amount} size="large" />)
+    expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
   it('should render correctly for extra large size', () => {
-    const { toJSON } = render(<BTCAmount amount={amount} size="extra large" />)
-    expect(toJSON()).toMatchSnapshot()
+    renderer.render(<BTCAmount amount={amount} size="extra large" />)
+    expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
 })
