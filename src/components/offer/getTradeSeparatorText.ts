@@ -1,22 +1,45 @@
 import i18n from '../../utils/i18n'
 import { isPaymentTooLate } from './isPaymentTooLate'
+import { shouldShowTradeStatusInfo } from './shouldShowTradeStatusInfo'
 
 export const getTradeSeparatorText = (
-  contract: Pick<Contract, 'tradeStatus' | 'paymentMade' | 'paymentExpectedBy'>,
+  contract: Pick<
+    Contract,
+    | 'tradeStatus'
+    | 'paymentMade'
+    | 'paymentExpectedBy'
+    | 'disputeWinner'
+    | 'canceledBy'
+    | 'canceled'
+    | 'cancelationRequested'
+  >,
   view: ContractViewer,
 ) => {
-  const { tradeStatus } = contract
-  if (isPaymentTooLate(contract) && view === 'seller') {
+  const { tradeStatus, disputeWinner, canceledBy, canceled, cancelationRequested } = contract
+  if (disputeWinner) {
+    if (disputeWinner === view) {
+      return i18n('contract.disputeWon')
+    }
+    return i18n('contract.disputeLost')
+  }
+  if (canceledBy === 'buyer' && view === 'seller') {
+    return i18n('contract.summary.buyerCanceled')
+  }
+
+  if (isPaymentTooLate(contract) && (view === 'seller' || canceled)) {
     return i18n('contract.summary.paymentTooLate')
   }
-  if (tradeStatus === 'tradeCanceled') {
+
+  if (cancelationRequested && view === 'buyer' && !canceled) {
+    return i18n('contract.summary.sellerWantsToCancel')
+  }
+
+  if (shouldShowTradeStatusInfo(contract, view)) {
     return i18n('contract.tradeCanceled')
   }
-  if (tradeStatus === 'refundOrReviveRequired') {
-    return i18n('contract.disputeResolved')
-  }
-  if (tradeStatus === 'tradeCompleted') {
-    return view === 'seller' ? i18n('contract.paymentDetails') : 'trade details'
+
+  if (tradeStatus === 'tradeCompleted' && view === 'buyer') {
+    return i18n('contract.summary.tradeDetails')
   }
   return i18n('contract.paymentDetails')
 }

@@ -1,33 +1,59 @@
 import { getTradeSeparatorText } from './getTradeSeparatorText'
 
+const isPaymentTooLateMock = jest.fn(() => false)
+jest.mock('./isPaymentTooLate', () => ({
+  isPaymentTooLate: (_contract: any) => isPaymentTooLateMock(),
+}))
+
 describe('getTradeSeparatorText', () => {
   const mockContract = {
     tradeStatus: 'tradeCompleted',
     paymentMade: Date(),
   } as unknown as Contract
-  it.todo('returns correct text when buyer canceled')
-  it('returns correct text when tradeStatus is tradeCanceled', () => {
-    expect(getTradeSeparatorText({ ...mockContract, tradeStatus: 'tradeCanceled' }, 'buyer')).toEqual('trade canceled')
+
+  it('returns "dispute won" if the viewer won the dispute', () => {
+    expect(getTradeSeparatorText({ ...mockContract, disputeWinner: 'buyer' }, 'buyer')).toEqual('dispute won')
+    expect(getTradeSeparatorText({ ...mockContract, disputeWinner: 'seller' }, 'seller')).toEqual('dispute won')
   })
-  it.todo('returns correct text when payment is too late')
-  it.todo('returns correct text when dispute was won')
-  it.todo('returns correct text when dispute was lost')
-  it.todo('returns correct text when seller requested cancelation')
-  it('returns correct text when tradeStatus is refundOrReviveRequired', () => {
-    expect(getTradeSeparatorText({ ...mockContract, tradeStatus: 'refundOrReviveRequired' }, 'buyer')).toEqual(
-      'dispute resolved',
+  it('returns "dispute lost" if the viewer lost the dispute', () => {
+    expect(getTradeSeparatorText({ ...mockContract, disputeWinner: 'buyer' }, 'seller')).toEqual('dispute lost')
+    expect(getTradeSeparatorText({ ...mockContract, disputeWinner: 'seller' }, 'buyer')).toEqual('dispute lost')
+  })
+
+  it('returns "buyer canceled" if the buyer canceled the trade and the viewer is the seller', () => {
+    expect(getTradeSeparatorText({ ...mockContract, canceledBy: 'buyer' }, 'seller')).toEqual('buyer canceled')
+    expect(getTradeSeparatorText({ ...mockContract, canceledBy: 'buyer' }, 'buyer')).not.toEqual('buyer canceled')
+  })
+
+  it('returns "payment too late" if the payment is too late and the viewer is the seller', () => {
+    isPaymentTooLateMock.mockReturnValueOnce(true)
+    expect(getTradeSeparatorText(mockContract, 'seller')).toEqual('payment too late')
+  })
+  it('returns "payment too late" if the payment is too late, the viewer is the buyer and contract is canceled', () => {
+    isPaymentTooLateMock.mockReturnValueOnce(true)
+    expect(getTradeSeparatorText({ ...mockContract, canceled: true }, 'buyer')).toEqual('payment too late')
+    isPaymentTooLateMock.mockReturnValueOnce(true)
+    expect(getTradeSeparatorText({ ...mockContract, canceled: false }, 'buyer')).not.toEqual('payment too late')
+  })
+
+  it('returns correct text if seller requested cancelation, viewer is buyer and contract isn\'t canceled', () => {
+    expect(getTradeSeparatorText({ ...mockContract, cancelationRequested: true }, 'buyer')).toEqual(
+      'seller wants to cancel',
+    )
+    expect(getTradeSeparatorText({ ...mockContract, cancelationRequested: true, canceled: true }, 'buyer')).not.toEqual(
+      'seller wants to cancel',
     )
   })
-  it('returns correct text for completed trade for the buyer', () => {
+
+  it('returns "trade canceled" in all other non-standard cases', () => {
+    expect(getTradeSeparatorText({ ...mockContract, canceled: true }, 'seller')).toEqual('trade canceled')
+  })
+
+  it('returns "trade details" for completed buy trades', () => {
     expect(getTradeSeparatorText({ ...mockContract, tradeStatus: 'tradeCompleted' }, 'buyer')).toEqual('trade details')
   })
-  it('returns correct text when tradeStatus is tradeCompleted for the seller', () => {
-    expect(getTradeSeparatorText({ ...mockContract, tradeStatus: 'tradeCompleted' }, 'seller')).toEqual(
-      'payment details',
-    )
-  })
-  it('returns correct text when tradeStatus is anything else', () => {
-    // @ts-expect-error
-    expect(getTradeSeparatorText({ ...mockContract, tradeStatus: 'something else' }, 'buyer')).toEqual('payment details')
+
+  it('returns "payment details" in all other cases', () => {
+    expect(getTradeSeparatorText(mockContract, 'seller')).toEqual('payment details')
   })
 })
