@@ -17,6 +17,14 @@ jest.mock('../../../hooks/query/useTradeSummaries', () => ({
   useTradeSummaries: () => useTradeSummariesMock(),
 }))
 
+const showWronglyFundedPopupMock = jest.fn()
+jest.mock('../../../overlays/useShowWronglyFundedPopup', () => ({
+  useShowWronglyFundedPopup:
+    () =>
+      (...args: any[]) =>
+        showWronglyFundedPopupMock(...args),
+}))
+
 const searchWithNoMatches = {
   data: {
     pages: [
@@ -110,7 +118,7 @@ describe('useHandleFundingStatus', () => {
     renderHook(useHandleFundingStatus, { wrapper: NavigationWrapper, initialProps })
     expect(startRefundOverlayMock).toHaveBeenCalledWith(sellOffer)
   })
-  it('should navigate to wrongFundingAmount when it is WRONG_FUNDING_AMOUNT', async () => {
+  it('should show showWronglyFundedOverlay when WRONG_FUNDING_AMOUNT', async () => {
     const fundingStatus: FundingStatus = { ...defaultFundingStatus, status: 'WRONG_FUNDING_AMOUNT' }
     const initialProps = {
       offerId: sellOffer.id,
@@ -119,7 +127,7 @@ describe('useHandleFundingStatus', () => {
       userConfirmationRequired: false,
     }
     renderHook(useHandleFundingStatus, { wrapper: NavigationWrapper, initialProps })
-    expect(replaceMock).toHaveBeenCalledWith('wrongFundingAmount', { offerId: sellOffer.id })
+    expect(showWronglyFundedPopupMock).toHaveBeenCalledWith({ ...sellOffer, fundingStatus })
   })
   it('should navigate to wrongFundingAmount when user confirmation is required', async () => {
     const fundingStatus: FundingStatus = { ...defaultFundingStatus, status: 'MEMPOOL' }

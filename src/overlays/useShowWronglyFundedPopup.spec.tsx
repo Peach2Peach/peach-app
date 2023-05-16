@@ -3,20 +3,17 @@ import { useShowWronglyFundedPopup } from './useShowWronglyFundedPopup'
 import { WrongFundingAmount } from './warning/WrongFundingAmount'
 import { defaultPopupState, usePopupStore } from '../store/usePopupStore'
 
-const navigateMock = jest.fn()
-jest.mock('../hooks/useNavigation', () => ({
-  useNavigation: jest.fn().mockReturnValue({
-    navigate: () => navigateMock(),
-  }),
-}))
-
 const useOverlayContextMock = jest.fn()
 jest.mock('../contexts/overlay', () => ({
   useOverlayContext: () => useOverlayContextMock(),
 }))
-const useStartRefundOverlayMock = jest.fn()
+
+const startRefundOverlayMock = jest.fn()
 jest.mock('./useStartRefundOverlay', () => ({
-  useStartRefundOverlay: () => useStartRefundOverlayMock(),
+  useStartRefundOverlay:
+    () =>
+      (...args: any[]) =>
+        startRefundOverlayMock(...args),
 }))
 
 const useConfigStoreMock = jest.fn()
@@ -54,8 +51,8 @@ describe('useWronglyFundedOverlay', () => {
       expect.objectContaining({
         action1: expect.objectContaining({
           callback: expect.any(Function),
-          icon: expect.any(String),
-          label: expect.any(String),
+          icon: 'arrowRightCircle',
+          label: 'refund escrow',
         }),
         content: <WrongFundingAmount actualAmount={actualAmount} amount={amount} maxAmount={maxTradingAmount} />,
         level: 'WARN',
@@ -63,5 +60,21 @@ describe('useWronglyFundedOverlay', () => {
         visible: true,
       }),
     )
+  })
+  it('starts refund process', () => {
+    const amount = 100000
+    const actualAmount = 110000
+    const sellOffer: Partial<SellOffer> = {
+      amount,
+      funding: {
+        amounts: [actualAmount],
+      } as FundingStatus,
+    }
+    const { result } = renderHook(() => useShowWronglyFundedPopup())
+    act(() => {
+      result.current(sellOffer as SellOffer)
+    })
+    usePopupStore.getState().action1?.callback()
+    expect(startRefundOverlayMock).toHaveBeenCalledWith(sellOffer)
   })
 })
