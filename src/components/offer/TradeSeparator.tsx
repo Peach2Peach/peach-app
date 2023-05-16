@@ -8,9 +8,9 @@ import { getTradeSeparatorText } from './getTradeSeparatorText'
 
 export const TradeSeparator = ({ style }: ComponentProps) => {
   const { contract, view } = useContractContext()
-  const { disputeActive, tradeStatus } = contract
+  const { disputeActive, disputeWinner } = contract
   const iconId = getTradeSeparatorIcon(contract, view)
-  const iconColor = getTradeSeparatorIconColor(tradeStatus)
+  const iconColor = getTradeSeparatorIconColor(view, disputeWinner)
   const text = getTradeSeparatorText(contract, view)
   return (
     <Divider
