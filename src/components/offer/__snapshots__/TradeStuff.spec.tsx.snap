@@ -2,11 +2,7 @@
 
 exports[`TradeStuff doesn't show the escrow when the releaseTxId and the escrow are not set 1`] = `
 <View>
-  <TradeStuffSeparator
-    disputeActive={false}
-    escrow=""
-    paymentMethod="sepa"
-  />
+  <TradeStuffSeparator />
   <View
     style={
       {
@@ -17,28 +13,14 @@ exports[`TradeStuff doesn't show the escrow when the releaseTxId and the escrow 
       }
     }
   >
-    <ChatButton
-      contract={
-        {
-          "disputeActive": false,
-          "escrow": "",
-          "paymentMethod": "sepa",
-          "releaseTxId": undefined,
-        }
-      }
-    />
+    <ChatButton />
   </View>
 </View>
 `;
 
 exports[`TradeStuff renders correctly 1`] = `
 <View>
-  <TradeStuffSeparator
-    disputeActive={false}
-    escrow="0x123"
-    paymentMethod="sepa"
-    releaseTxId="0x123"
-  />
+  <TradeStuffSeparator />
   <View
     style={
       {
@@ -49,38 +31,15 @@ exports[`TradeStuff renders correctly 1`] = `
       }
     }
   >
-    <Escrow
-      contract={
-        {
-          "disputeActive": false,
-          "escrow": "0x123",
-          "paymentMethod": "sepa",
-          "releaseTxId": "0x123",
-        }
-      }
-    />
-    <ChatButton
-      contract={
-        {
-          "disputeActive": false,
-          "escrow": "0x123",
-          "paymentMethod": "sepa",
-          "releaseTxId": "0x123",
-        }
-      }
-    />
+    <Escrow />
+    <ChatButton />
   </View>
 </View>
 `;
 
 exports[`TradeStuff renders correctly when the paymentmethod includes cash 1`] = `
 <View>
-  <TradeStuffSeparator
-    disputeActive={false}
-    escrow="0x123"
-    paymentMethod="cash.DE"
-    releaseTxId="0x123"
-  />
+  <TradeStuffSeparator />
   <View
     style={
       {
@@ -91,26 +50,8 @@ exports[`TradeStuff renders correctly when the paymentmethod includes cash 1`] =
       }
     }
   >
-    <Escrow
-      contract={
-        {
-          "disputeActive": false,
-          "escrow": "0x123",
-          "paymentMethod": "cash.DE",
-          "releaseTxId": "0x123",
-        }
-      }
-    />
-    <ChatButton
-      contract={
-        {
-          "disputeActive": false,
-          "escrow": "0x123",
-          "paymentMethod": "cash.DE",
-          "releaseTxId": "0x123",
-        }
-      }
-    />
+    <Escrow />
+    <ChatButton />
   </View>
 </View>
 `;

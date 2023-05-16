@@ -2,23 +2,23 @@
 
 exports[`TradeSeparator renders correctly 1`] = `
 <Divider
-  text="text"
+  text="payment details"
   type="light"
 />
 `;
 
 exports[`TradeSeparator renders correctly with disputeActive 1`] = `
 <Divider
-  text="text"
+  text="payment details"
   type="error"
 />
 `;
 
-exports[`TradeSeparator renders correctly with iconColor 1`] = `
+exports[`TradeSeparator renders correctly with icon 1`] = `
 <Divider
   icon={
     <Icon
-      color="iconColor"
+      color="#7D675E"
       id="xCircle"
       style={
         {
@@ -29,47 +29,7 @@ exports[`TradeSeparator renders correctly with iconColor 1`] = `
       }
     />
   }
-  text="text"
+  text="trade canceled"
   type="light"
-/>
-`;
-
-exports[`TradeSeparator renders correctly with iconId 1`] = `
-<Divider
-  icon={
-    <Icon
-      color="#DF321F"
-      id="xCircle"
-      style={
-        {
-          "height": 16,
-          "marginRight": 4,
-          "width": 16,
-        }
-      }
-    />
-  }
-  text="text"
-  type="light"
-/>
-`;
-
-exports[`TradeSeparator renders correctly with iconId, iconColor and disputeActive 1`] = `
-<Divider
-  icon={
-    <Icon
-      color="iconColor"
-      id="xCircle"
-      style={
-        {
-          "height": 16,
-          "marginRight": 4,
-          "width": 16,
-        }
-      }
-    />
-  }
-  text="text"
-  type="error"
 />
 `;

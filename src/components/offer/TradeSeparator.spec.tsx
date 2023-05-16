@@ -1,32 +1,30 @@
 import { TradeSeparator } from './TradeSeparator'
 import { createRenderer } from 'react-test-renderer/shallow'
 
+const useContractContextMock = jest.fn()
+jest.mock('../../views/contract/context', () => ({
+  useContractContext: () => useContractContextMock(),
+}))
+
 describe('TradeSeparator', () => {
   const renderer = createRenderer()
-  const defaultProps = {
-    disputeActive: false,
-    iconId: undefined,
-    iconColor: undefined,
-    text: 'text',
-  }
+  const defaultContract = { disputeActive: false }
   it('renders correctly', () => {
-    renderer.render(<TradeSeparator {...defaultProps} />)
-    expect(renderer.getRenderOutput()).toMatchSnapshot()
-  })
-  it('renders correctly with iconId', () => {
-    renderer.render(<TradeSeparator {...defaultProps} iconId="xCircle" />)
-    expect(renderer.getRenderOutput()).toMatchSnapshot()
-  })
-  it('renders correctly with iconColor', () => {
-    renderer.render(<TradeSeparator {...defaultProps} iconId="xCircle" iconColor="iconColor" />)
+    useContractContextMock.mockReturnValueOnce({ contract: defaultContract, view: 'buyer' })
+    renderer.render(<TradeSeparator />)
     expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
   it('renders correctly with disputeActive', () => {
-    renderer.render(<TradeSeparator {...defaultProps} disputeActive />)
+    useContractContextMock.mockReturnValueOnce({ contract: { ...defaultContract, disputeActive: true }, view: 'buyer' })
+    renderer.render(<TradeSeparator />)
     expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
-  it('renders correctly with iconId, iconColor and disputeActive', () => {
-    renderer.render(<TradeSeparator {...defaultProps} iconId="xCircle" iconColor="iconColor" disputeActive />)
+  it('renders correctly with icon', () => {
+    useContractContextMock.mockReturnValueOnce({
+      contract: { ...defaultContract, tradeStatus: 'tradeCanceled' },
+      view: 'buyer',
+    })
+    renderer.render(<TradeSeparator />)
     expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
 })

@@ -1,51 +1,47 @@
 import { TradeStuff } from './TradeStuff'
 import { createRenderer } from 'react-test-renderer/shallow'
 
+const useContractContextMock = jest.fn()
+jest.mock('../../views/contract/context', () => ({
+  useContractContext: () => useContractContextMock(),
+}))
+
 describe('TradeStuff', () => {
   const renderer = createRenderer()
   it('renders correctly', () => {
-    renderer.render(
-      <TradeStuff
-        contract={
-          {
-            paymentMethod: 'sepa',
-            escrow: '0x123',
-            releaseTxId: '0x123',
-            disputeActive: false,
-          } as Contract
-        }
-      />,
-    )
+    useContractContextMock.mockReturnValueOnce({
+      contract: {
+        paymentMethod: 'sepa',
+        escrow: '0x123',
+        releaseTxId: '0x123',
+        disputeActive: false,
+      } as Contract,
+    })
+    renderer.render(<TradeStuff />)
     expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
   it('renders correctly when the paymentmethod includes cash', () => {
-    renderer.render(
-      <TradeStuff
-        contract={
-          {
-            paymentMethod: 'cash.DE',
-            escrow: '0x123',
-            releaseTxId: '0x123',
-            disputeActive: false,
-          } as unknown as Contract
-        }
-      />,
-    )
+    useContractContextMock.mockReturnValueOnce({
+      contract: {
+        paymentMethod: 'cash.DE',
+        escrow: '0x123',
+        releaseTxId: '0x123',
+        disputeActive: false,
+      } as unknown as Contract,
+    })
+    renderer.render(<TradeStuff />)
     expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
   it('doesn\'t show the escrow when the releaseTxId and the escrow are not set', () => {
-    renderer.render(
-      <TradeStuff
-        contract={
-          {
-            paymentMethod: 'sepa',
-            escrow: '',
-            releaseTxId: undefined,
-            disputeActive: false,
-          } as Contract
-        }
-      />,
-    )
+    useContractContextMock.mockReturnValueOnce({
+      contract: {
+        paymentMethod: 'sepa',
+        escrow: '',
+        releaseTxId: undefined,
+        disputeActive: false,
+      } as Contract,
+    })
+    renderer.render(<TradeStuff />)
     expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
 })
