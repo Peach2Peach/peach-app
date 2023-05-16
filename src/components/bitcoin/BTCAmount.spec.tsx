@@ -1,6 +1,10 @@
 import { BTCAmount } from './BTCAmount'
 import { render } from '@testing-library/react-native'
 
+jest.mock('../text', () => ({
+  Text: 'Text',
+}))
+
 describe('BTCAmount', () => {
   const amount = 21000
   it('should render correctly for extra small size', () => {
