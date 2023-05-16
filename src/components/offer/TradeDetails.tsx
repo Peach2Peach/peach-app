@@ -15,7 +15,7 @@ export const TradeDetails = () => {
 
   return (
     <View>
-      {fields.map((fieldName) => {
+      {fields.map((fieldName, index) => {
         const label = i18n(`contract.summary.${fieldName}`)
 
         const information = isTradeInformationGetter(fieldName)
@@ -38,6 +38,7 @@ export const TradeDetails = () => {
                 <CopyAble value={String(information)} style={[tw`w-4 h-4`, tw.md`w-5 h-5`]} />
               ) : undefined
             }
+            key={`${fieldName}-${index}`}
           />
         )
       })}

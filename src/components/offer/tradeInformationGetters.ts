@@ -24,8 +24,10 @@ export const tradeInformationGetters = {
   via: (contract: Contract) => i18n(`paymentMethod.${contract.paymentMethod}`),
   method: (contract: Contract) => i18n(`paymentMethod.${contract.paymentMethod}`),
 }
+
 export const isTradeInformationGetter = (fieldName: PropertyKey): fieldName is keyof typeof tradeInformationGetters =>
   tradeInformationGetters.hasOwnProperty(fieldName)
+
 const allPossibleFields = [
   'price',
   'paidToMethod',
