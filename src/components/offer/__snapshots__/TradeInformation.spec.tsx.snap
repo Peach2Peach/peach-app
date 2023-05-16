@@ -1,12 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`TradeInformation renders correctly 1`] = `
-<View>
-  <TradeSeparator />
-  <TradeStatusInfo />
-</View>
-`;
-
 exports[`TradeInformation renders correctly if TradeStatusInfo should not be shown 1`] = `
 <View>
   <TradeSeparator />
