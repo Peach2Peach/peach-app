@@ -1,22 +1,23 @@
 import { IconType } from '../../assets/icons'
 import { isPaymentTooLate } from './isPaymentTooLate'
+import { shouldShowTradeStatusInfo } from './shouldShowTradeStatusInfo'
 
 export const getTradeSeparatorIcon = (
-  contract: Pick<Contract, 'tradeStatus' | 'paymentMade' | 'paymentExpectedBy'>,
+  contract: Pick<
+    Contract,
+    'tradeStatus' | 'paymentMade' | 'paymentExpectedBy' | 'canceled' | 'disputeWinner' | 'cancelationRequested'
+  >,
   view: ContractViewer,
 ): IconType | undefined => {
-  const { tradeStatus } = contract
-  if (isPaymentTooLate(contract) && view === 'seller') {
+  const { canceled, disputeWinner } = contract
+  if (isPaymentTooLate(contract) && (view === 'seller' || canceled)) {
     return 'clock'
   }
-  if (tradeStatus === 'tradeCompleted') {
-    return undefined
+  if (disputeWinner) {
+    return 'alertCircle'
   }
-  if (tradeStatus === 'tradeCanceled') {
+  if (shouldShowTradeStatusInfo(contract, view)) {
     return 'xCircle'
-  }
-  if (tradeStatus === 'refundOrReviveRequired') {
-    return 'alertOctagon'
   }
   return undefined
 }

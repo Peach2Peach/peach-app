@@ -10,24 +10,34 @@ describe('getTradeSeparatorIcon', () => {
     tradeStatus: 'tradeCompleted',
     paymentMade: null,
   } as Contract
-  it('returns xCircle when tradeStatus is tradeCanceled', () => {
-    expect(getTradeSeparatorIcon({ ...mockContract, tradeStatus: 'tradeCanceled' })).toEqual('xCircle')
+  it('should return a clock if the payment was too late and the view is the seller', () => {
+    isPaymentTooLateMock.mockReturnValueOnce(true)
+    expect(getTradeSeparatorIcon(mockContract, 'seller')).toEqual('clock')
+  })
+  it('should return undefined if the payment was too late and the view is the buyer', () => {
+    isPaymentTooLateMock.mockReturnValueOnce(true)
+    expect(getTradeSeparatorIcon(mockContract, 'buyer')).toEqual(undefined)
+  })
+  it('should return a clock if the payment was too late and the contract is canceled', () => {
+    isPaymentTooLateMock.mockReturnValueOnce(true)
+    expect(getTradeSeparatorIcon({ ...mockContract, canceled: true }, 'buyer')).toEqual('clock')
+  })
+  it('should return the correct icon if there is a dispute winner', () => {
+    expect(getTradeSeparatorIcon({ ...mockContract, disputeWinner: 'seller' }, 'seller')).toEqual('alertCircle')
+    expect(getTradeSeparatorIcon({ ...mockContract, disputeWinner: 'seller' }, 'buyer')).toEqual('alertCircle')
+    expect(getTradeSeparatorIcon({ ...mockContract, disputeWinner: 'buyer' }, 'seller')).toEqual('alertCircle')
+    expect(getTradeSeparatorIcon({ ...mockContract, disputeWinner: 'buyer' }, 'buyer')).toEqual('alertCircle')
   })
 
-  it('returns alertOctagon when tradeStatus is refundOrReviveRequired', () => {
-    expect(getTradeSeparatorIcon({ ...mockContract, tradeStatus: 'refundOrReviveRequired' })).toEqual('alertOctagon')
+  it('should return xCircle for all other non standard cases', () => {
+    expect(getTradeSeparatorIcon({ ...mockContract, canceled: true }, 'seller')).toEqual('xCircle')
+    expect(getTradeSeparatorIcon({ ...mockContract, canceled: true }, 'buyer')).toEqual('xCircle')
+    expect(getTradeSeparatorIcon({ ...mockContract, cancelationRequested: true }, 'seller')).toEqual(undefined)
+    expect(getTradeSeparatorIcon({ ...mockContract, cancelationRequested: true }, 'buyer')).toEqual('xCircle')
   })
 
-  it('returns undefined for tradeCompleted', () => {
-    expect(getTradeSeparatorIcon({ ...mockContract, tradeStatus: 'tradeCompleted' })).toEqual(undefined)
+  it('should return undefined otherwise', () => {
+    expect(getTradeSeparatorIcon(mockContract, 'seller')).toEqual(undefined)
+    expect(getTradeSeparatorIcon(mockContract, 'buyer')).toEqual(undefined)
   })
-
-  it('returns undefined when tradeStatus is anything else', () => {
-    // @ts-expect-error
-    expect(getTradeSeparatorIcon({ ...mockContract, tradeStatus: 'somethingElse' })).toEqual(undefined)
-  })
-  it.todo('should return the correct icon if the seller won the dispute')
-  it.todo('should return the correct icon if the seller lost the dispute')
-  it.todo('should return the correct icon if the payment was too late')
-  it.todo('should return the correct icon if the trade was canceled')
 })
