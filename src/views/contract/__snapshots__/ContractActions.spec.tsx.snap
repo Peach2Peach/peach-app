@@ -13,16 +13,9 @@ exports[`ContractActions should not show the dispute sliders when there is no di
 >
   <ContractCTA
     actionPending={false}
-    contract={
-      {
-        "disputeWinner": undefined,
-        "tradeStatus": "refundOrReviveRequired",
-      }
-    }
     postConfirmPaymentBuyer={[MockFunction]}
     postConfirmPaymentSeller={[MockFunction]}
     requiredAction="none"
-    view="buyer"
   />
 </View>
 `;
@@ -40,24 +33,10 @@ exports[`ContractActions should show the dispute sliders when the contract is in
 >
   <ContractCTA
     actionPending={false}
-    contract={
-      {
-        "disputeWinner": "seller",
-        "tradeStatus": "refundOrReviveRequired",
-      }
-    }
     postConfirmPaymentBuyer={[MockFunction]}
     postConfirmPaymentSeller={[MockFunction]}
     requiredAction="none"
-    view="buyer"
   />
-  <ResolveDisputeSliders
-    contract={
-      {
-        "disputeWinner": "seller",
-        "tradeStatus": "refundOrReviveRequired",
-      }
-    }
-  />
+  <ResolveDisputeSliders />
 </View>
 `;

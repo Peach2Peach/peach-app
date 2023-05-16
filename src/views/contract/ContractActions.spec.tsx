@@ -1,42 +1,36 @@
 import { ContractActions } from './ContractActions'
 import { createRenderer } from 'react-test-renderer/shallow'
 
+const useContractContextMock = jest.fn()
+jest.mock('./context', () => ({
+  useContractContext: () => useContractContextMock(),
+}))
+
 describe('ContractActions', () => {
   const renderer = createRenderer()
   const contract = {
     tradeStatus: 'refundOrReviveRequired',
     disputeWinner: 'seller',
   } as Contract
-  const view = 'buyer'
-  const requiredAction = 'none'
+  useContractContextMock.mockReturnValue({ contract })
+  const requiredAction = 'none' as const
   const actionPending = false
   const postConfirmPaymentBuyer = jest.fn()
   const postConfirmPaymentSeller = jest.fn()
+  const props = { requiredAction, actionPending, postConfirmPaymentBuyer, postConfirmPaymentSeller }
   it('should show the dispute sliders when the contract is in the refundOrReviveRequired state', () => {
-    renderer.render(
-      <ContractActions
-        {...{ contract, view, requiredAction, actionPending, postConfirmPaymentBuyer, postConfirmPaymentSeller }}
-      />,
-    )
+    renderer.render(<ContractActions {...props} />)
     const result = renderer.getRenderOutput()
     expect(result).toMatchSnapshot()
   })
   it('should not show the dispute sliders when there is no dispute winner', () => {
-    renderer.render(
-      <ContractActions
-        {...{
-          contract: {
-            ...contract,
-            disputeWinner: undefined,
-          },
-          view,
-          requiredAction,
-          actionPending,
-          postConfirmPaymentBuyer,
-          postConfirmPaymentSeller,
-        }}
-      />,
-    )
+    useContractContextMock.mockReturnValueOnce({
+      contract: {
+        ...contract,
+        disputeWinner: undefined,
+      },
+    })
+    renderer.render(<ContractActions {...props} />)
     const result = renderer.getRenderOutput()
     expect(result).toMatchSnapshot()
   })
