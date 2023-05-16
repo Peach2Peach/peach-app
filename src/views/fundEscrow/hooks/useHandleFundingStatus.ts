@@ -3,6 +3,7 @@ import { useNavigation } from '../../../hooks'
 import { info } from '../../../utils/log'
 import { saveOffer } from '../../../utils/offer'
 import { useStartRefundOverlay } from '../../../overlays/useStartRefundOverlay'
+import { useShowWronglyFundedPopup } from '../../../overlays/useShowWronglyFundedPopup'
 import { useOfferMatches } from '../../search/hooks/useOfferMatches'
 
 type Props = {
@@ -13,6 +14,8 @@ type Props = {
 }
 export const useHandleFundingStatus = ({ offerId, sellOffer, fundingStatus, userConfirmationRequired }: Props) => {
   const navigation = useNavigation()
+  const showWronglyFundedOverlay = useShowWronglyFundedPopup()
+
   const startRefund = useStartRefundOverlay()
   const { refetch: fetchMatches } = useOfferMatches(offerId, fundingStatus.status === 'FUNDED')
 
@@ -31,7 +34,11 @@ export const useHandleFundingStatus = ({ offerId, sellOffer, fundingStatus, user
       startRefund(sellOffer)
       return
     }
-    if (userConfirmationRequired || fundingStatus.status === 'WRONG_FUNDING_AMOUNT') {
+    if (fundingStatus.status === 'WRONG_FUNDING_AMOUNT') {
+      showWronglyFundedOverlay(updatedOffer)
+      return
+    }
+    if (userConfirmationRequired) {
       navigation.replace('wrongFundingAmount', { offerId: updatedOffer.id })
       return
     }

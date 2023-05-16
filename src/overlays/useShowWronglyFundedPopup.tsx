@@ -1,16 +1,16 @@
 import { useCallback } from 'react'
 import { shallow } from 'zustand/shallow'
-import { useNavigation } from '../hooks'
 import { useConfigStore } from '../store/configStore'
 import { usePopupStore } from '../store/usePopupStore'
 import i18n from '../utils/i18n'
 import { sum } from '../utils/math'
+import { useStartRefundOverlay } from './useStartRefundOverlay'
 import { WrongFundingAmount } from './warning/WrongFundingAmount'
 
 export const useShowWronglyFundedPopup = () => {
-  const navigation = useNavigation()
   const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
   const maxTradingAmount = useConfigStore((state) => state.maxTradingAmount)
+  const startRefundOverlay = useStartRefundOverlay()
 
   const showWronglyFundedPopup = useCallback(
     (sellOffer: SellOffer) =>
@@ -26,15 +26,15 @@ export const useShowWronglyFundedPopup = () => {
         visible: true,
         level: 'WARN',
         action1: {
-          label: i18n('goToTrade'),
+          label: i18n('refundEscrow'),
           icon: 'arrowRightCircle',
           callback: () => {
             closePopup()
-            navigation.replace('wrongFundingAmount', { offerId: sellOffer.id })
+            startRefundOverlay(sellOffer)
           },
         },
       }),
-    [closePopup, maxTradingAmount, navigation, setPopup],
+    [closePopup, maxTradingAmount, setPopup, startRefundOverlay],
   )
   return showWronglyFundedPopup
 }
