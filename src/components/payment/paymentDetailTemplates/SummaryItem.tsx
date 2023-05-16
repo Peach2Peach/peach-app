@@ -3,7 +3,7 @@ import { TouchableOpacity, View } from 'react-native'
 import { ConditionalWrapper, Icon, Text } from '../..'
 import tw from '../../../styles/tailwind'
 import { showAddress } from '../../../utils/bitcoin'
-import { BTCAmount } from './BTCAmount'
+import { BTCAmount } from '../../bitcoin'
 import { BlurView } from '@react-native-community/blur'
 import { useIsMediumScreen } from '../../../hooks'
 
