@@ -1,21 +1,23 @@
-import { ColorValue } from 'react-native'
 import tw from '../../styles/tailwind'
 import Icon from '../Icon'
-import { IconType } from '../../assets/icons'
 import { Divider } from '../Divider'
+import { useContractContext } from '../../views/contract/context'
+import { getTradeSeparatorIcon } from './getTradeSeparatorIcon'
+import { getTradeSeparatorIconColor } from './getTradeSeparatorIconColor'
+import { getTradeSeparatorText } from './getTradeSeparatorText'
 
-type Props = ComponentProps &
-  Pick<Contract, 'disputeActive'> & {
-    iconId: IconType | undefined
-    iconColor: ColorValue
-    text: string
-  }
-
-export const TradeSeparator = ({ style, disputeActive, iconId, iconColor, text }: Props) => (
-  <Divider
-    type={disputeActive ? 'error' : 'light'}
-    text={text}
-    icon={iconId ? <Icon id={iconId} style={tw`w-4 h-4 mr-1`} color={iconColor} /> : undefined}
-    style={style}
-  />
-)
+export const TradeSeparator = ({ style }: ComponentProps) => {
+  const { contract, view } = useContractContext()
+  const { disputeActive, tradeStatus } = contract
+  const iconId = getTradeSeparatorIcon(contract, view)
+  const iconColor = getTradeSeparatorIconColor(tradeStatus)
+  const text = getTradeSeparatorText(contract, view)
+  return (
+    <Divider
+      type={disputeActive ? 'error' : 'light'}
+      text={text}
+      icon={iconId ? <Icon id={iconId} style={tw`w-4 h-4 mr-1`} color={iconColor} /> : undefined}
+      style={style}
+    />
+  )
+}

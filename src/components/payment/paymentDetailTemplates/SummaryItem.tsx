@@ -1,9 +1,11 @@
 import { NETWORK } from '@env'
-import { TouchableOpacity, useWindowDimensions, View } from 'react-native'
+import { TouchableOpacity, View } from 'react-native'
 import { ConditionalWrapper, Icon, Text } from '../..'
 import tw from '../../../styles/tailwind'
 import { showAddress } from '../../../utils/bitcoin'
 import { BTCAmount } from './BTCAmount'
+import { BlurView } from '@react-native-community/blur'
+import { useIsMediumScreen } from '../../../hooks'
 
 type Props = {
   label?: string
@@ -11,13 +13,10 @@ type Props = {
   isDisputeActive?: boolean
   isEscrow?: boolean
   isAvailable?: boolean
+  shouldBlur?: boolean
 } & ({ information: string; isBitcoinAmount?: false } | { information: number; isBitcoinAmount: true; isEscrow?: false })
 
-export const useIsMediumScreen = () => {
-  const { width, height } = useWindowDimensions()
-  return width > 375 && height > 690
-}
-
+// TODO translations
 export const SummaryItem = ({
   label,
   information,
@@ -26,6 +25,7 @@ export const SummaryItem = ({
   isBitcoinAmount,
   isEscrow,
   isAvailable = true,
+  shouldBlur = false,
 }: Props) => {
   const isMediumScreen = useIsMediumScreen()
   return (
@@ -45,7 +45,7 @@ export const SummaryItem = ({
           )
         }
       >
-        <>
+        <View style={tw`flex-row items-center gap-2`}>
           {isBitcoinAmount ? (
             <BTCAmount amount={information} size={isMediumScreen ? 'small' : 'x small'} />
           ) : (
@@ -61,13 +61,15 @@ export const SummaryItem = ({
               {isEscrow ? 'view in explorer' : information}
             </Text>
           )}
+          {shouldBlur && <BlurView style={tw`absolute h-full -left-2 -right-2`} blurType="light" blurAmount={3} />}
 
-          {isEscrow ? (
-            <Icon id="externalLink" style={[tw`w-4 h-4`, tw.md`w-5 h-5`]} color={tw`text-primary-main`.color} />
-          ) : (
-            !!icon && !isDisputeActive && isAvailable && icon
-          )}
-        </>
+          {!shouldBlur
+            && (isEscrow ? (
+              <Icon id="externalLink" style={[tw`w-4 h-4`, tw.md`w-5 h-5`]} color={tw`text-primary-main`.color} />
+            ) : (
+              !!icon && !isDisputeActive && isAvailable && icon
+            ))}
+        </View>
       </ConditionalWrapper>
     </View>
   )

@@ -1,10 +1,8 @@
 import i18n from '../../utils/i18n'
+import { useContractContext } from '../../views/contract/context'
 import { Divider } from '../Divider'
 
-type Props = {
-  disputeActive: boolean
-} & ComponentProps
-
-export const TradeStuffSeparator = ({ disputeActive, style }: Props) => (
-  <Divider style={style} text={i18n('trade.tradeStuff')} type={disputeActive ? 'error' : 'light'} />
-)
+export const TradeStuffSeparator = ({ style }: ComponentProps) => {
+  const { disputeActive } = useContractContext().contract
+  return <Divider style={style} text={i18n('trade.tradeStuff')} type={disputeActive ? 'error' : 'light'} />
+}

@@ -3,11 +3,12 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 import tw from '../../styles/tailwind'
 import { showAddress, showTransaction } from '../../utils/bitcoin'
 import i18n from '../../utils/i18n'
+import { useContractContext } from '../../views/contract/context'
 import Icon from '../Icon'
 import { Text } from '../text'
 
-type Props = ComponentProps & { contract: Contract }
-export const Escrow = ({ contract: { releaseTxId, escrow, disputeActive }, style }: Props) => {
+export const Escrow = ({ style }: ComponentProps) => {
+  const { releaseTxId, escrow, disputeActive } = useContractContext().contract
   const openEscrow = () => (releaseTxId ? showTransaction(releaseTxId, NETWORK) : showAddress(escrow, NETWORK))
 
   return (

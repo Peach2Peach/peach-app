@@ -6,23 +6,25 @@ import { Escrow } from './Escrow'
 import { PaymentMethod } from './PaymentMethod'
 import { isCashTrade } from '../../utils/paymentMethod/isCashTrade'
 import { TradeStuffSeparator } from './TradeStuffSeparator'
+import { useContractContext } from '../../views/contract/context'
 
-export const TradeStuff = ({ contract, style }: { contract: Contract } & ComponentProps) => {
-  const appLink = APPLINKS[contract.paymentMethod]
+export const TradeStuff = ({ style }: ComponentProps) => {
+  const { escrow, paymentMethod, releaseTxId, disputeActive } = useContractContext().contract
+  const appLink = APPLINKS[paymentMethod]
 
   return (
     <View style={style}>
-      <TradeStuffSeparator {...contract} />
+      <TradeStuffSeparator />
       <View style={tw`flex-row justify-start gap-2 mt-6px`}>
-        {(!!contract.escrow || !!contract.releaseTxId) && <Escrow contract={contract} />}
+        {(!!escrow || !!releaseTxId) && <Escrow />}
         {!!appLink && (
           <PaymentMethod
-            paymentMethod={isCashTrade(contract.paymentMethod) ? 'cash' : contract.paymentMethod}
-            isDispute={contract.disputeActive}
+            paymentMethod={isCashTrade(paymentMethod) ? 'cash' : paymentMethod}
+            isDispute={disputeActive}
             showLink
           />
         )}
-        <ChatButton contract={contract} />
+        <ChatButton />
       </View>
     </View>
   )

@@ -6,6 +6,7 @@ import tw from '../../styles/tailwind'
 import LoadingScreen from '../loading/LoadingScreen'
 import { useContractSetup } from './hooks/useContractSetup'
 import { ContractActions } from './ContractActions'
+import { ContractContext } from './context'
 
 export default () => {
   const { contract, isLoading, view, ...contractActionsProps } = useContractSetup()
@@ -15,11 +16,10 @@ export default () => {
   return (
     <PeachScrollView contentContainerStyle={[tw`h-full px-4 pt-5`, tw.md`px-6`]}>
       <View style={tw`h-full`}>
-        <TradeSummary {...{ contract, view }} />
-        <ContractActions
-          style={tw`items-center justify-end flex-grow w-full mb-2`}
-          {...{ contract, view, ...contractActionsProps }}
-        />
+        <ContractContext.Provider value={{ contract, view }}>
+          <TradeSummary />
+          <ContractActions style={tw`items-center justify-end flex-grow w-full mb-2`} {...contractActionsProps} />
+        </ContractContext.Provider>
       </View>
     </PeachScrollView>
   )
