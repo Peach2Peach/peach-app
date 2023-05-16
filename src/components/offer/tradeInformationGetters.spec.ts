@@ -1,5 +1,11 @@
 import { contract } from '../../../tests/unit/data/contractData'
-import { tradeInformationGetters, isTradeInformationGetter } from './tradeInformationGetters'
+import {
+  tradeInformationGetters,
+  isTradeInformationGetter,
+  activeSellOfferFields,
+  pastSellOfferFields,
+  pastBuyOfferFields,
+} from './tradeInformationGetters'
 
 jest.mock('../../utils/offer/getPaymentDataByMethod', () => ({
   getPaymentDataByMethod: jest.fn(() => ({
@@ -60,5 +66,17 @@ describe('isTradeInformationGetter', () => {
   })
   it('should return false if the field name is not a valid trade information getter', () => {
     expect(isTradeInformationGetter('foo')).toEqual(false)
+  })
+})
+
+describe('fields', () => {
+  test('activeSellOfferFields are correct', () => {
+    expect(activeSellOfferFields).toEqual(['price', 'reference', 'paidToMethod', 'via'])
+  })
+  test('pastSellOfferFields are correct', () => {
+    expect(pastSellOfferFields).toEqual(['price', 'paidToMethod', 'via', 'bitcoinAmount', 'bitcoinPrice'])
+  })
+  test('pastBuyOfferFields are correct', () => {
+    expect(pastBuyOfferFields).toEqual(['price', 'paidWithMethod', 'bitcoinAmount', 'bitcoinPrice', 'paidToWallet'])
   })
 })
