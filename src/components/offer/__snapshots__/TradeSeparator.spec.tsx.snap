@@ -19,7 +19,7 @@ exports[`TradeSeparator renders correctly with icon 1`] = `
   icon={
     <Icon
       color="#7D675E"
-      id="xCircle"
+      id="clock"
       style={
         {
           "height": 16,
@@ -29,7 +29,7 @@ exports[`TradeSeparator renders correctly with icon 1`] = `
       }
     />
   }
-  text="trade canceled"
+  text="payment too late"
   type="light"
 />
 `;

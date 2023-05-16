@@ -21,7 +21,7 @@ describe('TradeSeparator', () => {
   })
   it('renders correctly with icon', () => {
     useContractContextMock.mockReturnValueOnce({
-      contract: { ...defaultContract, tradeStatus: 'tradeCanceled' },
+      contract: { ...defaultContract, canceled: true },
       view: 'buyer',
     })
     renderer.render(<TradeSeparator />)
