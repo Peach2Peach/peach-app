@@ -13,6 +13,7 @@ import { SliderTrack } from './SliderTrack'
 import { TrackMarkers } from './TrackMarkers'
 import { createPanResponder } from './helpers/createPanResponder'
 import { getOffset } from './helpers/getOffset'
+import { knobLayout } from './helpers/knobLayout'
 import { onStartShouldSetResponder } from './helpers/onStartShouldSetResponder'
 import { panListener } from './helpers/panListener'
 import { useKnobHeight } from './hooks/useKnobHeight'
@@ -100,7 +101,7 @@ export const SelectAmount = ({ min, max, value, onChange, style }: RangeAmountPr
         <Animated.View
           {...panResponder.panHandlers}
           {...{ onStartShouldSetResponder }}
-          style={[tw`absolute top-0 flex-row items-center`, getTranslateY(pan, trackRange)]}
+          style={[knobLayout, getTranslateY(pan, trackRange)]}
         >
           <SliderKnob />
         </Animated.View>
