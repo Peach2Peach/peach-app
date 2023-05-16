@@ -1,8 +1,8 @@
 import { TextStyle, View } from 'react-native'
-import { Icon, Text } from '../..'
-import { SATSINBTC } from '../../../constants'
-import tw from '../../../styles/tailwind'
-import i18n from '../../../utils/i18n'
+import { Icon, Text } from '..'
+import { SATSINBTC } from '../../constants'
+import tw from '../../styles/tailwind'
+import i18n from '../../utils/i18n'
 
 const MixedLetterSpacingText = ({ value, style }: { value: number; style: (false | TextStyle)[] }) => {
   const newNum = (value / SATSINBTC).toFixed(8).split('')
@@ -13,7 +13,7 @@ const MixedLetterSpacingText = ({ value, style }: { value: number; style: (false
   }
 
   const hasFontSize = (s: false | TextStyle): s is TextStyle => s !== false && s?.fontSize !== undefined
-  const fontSize = style.find(hasFontSize)?.fontSize || 16
+  const fontSize = style.find(hasFontSize)!.fontSize!
   const desiredLetterSpacing = {
     whiteSpace: -(fontSize * 0.35),
     dot: -(fontSize * 0.21),
@@ -56,14 +56,13 @@ const MixedLetterSpacingText = ({ value, style }: { value: number; style: (false
   )
 }
 
-export const BTCAmount = ({
-  amount,
-  size,
-}: {
+type Props = ComponentProps & {
   amount: number
   size: 'extra large' | 'large' | 'medium' | 'small' | 'x small'
-}) => (
-  <View style={tw`flex-row items-center gap-2px`}>
+}
+
+export const BTCAmount = ({ amount, size, style }: Props) => (
+  <View style={[tw`flex-row items-center gap-2px`, style]}>
     <Icon
       id="bitcoinLogo"
       style={[

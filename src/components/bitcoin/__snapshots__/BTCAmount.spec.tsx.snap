@@ -1,0 +1,2874 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BTCAmount should render correctly for extra large size 1`] = `
+<View
+  style={
+    [
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "gap": 2,
+      },
+      undefined,
+    ]
+  }
+>
+  <test-file-stub
+    fill="#888"
+    style={
+      [
+        {
+          "height": 24,
+          "width": 24,
+        },
+        {
+          "height": 24,
+          "marginRight": 2,
+          "paddingBottom": 8,
+          "paddingLeft": 8,
+          "paddingRight": 8,
+          "paddingTop": 8,
+          "width": 24,
+        },
+        false,
+        false,
+        false,
+        false,
+      ]
+    }
+  />
+  <View
+    style={
+      {
+        "alignItems": "baseline",
+        "flexDirection": "row",
+        "paddingTop": 4,
+      }
+    }
+  >
+    <Text
+      allowFontScaling={false}
+      style={
+        [
+          {
+            "color": "#2B1911",
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 24,
+          },
+          [
+            [
+              {
+                "fontFamily": "CourierPrime-Regular",
+                "fontWeight": "bold",
+                "textAlign": "center",
+              },
+              {
+                "fontSize": 30,
+                "lineHeight": 40,
+                "paddingRight": 4,
+              },
+              false,
+              false,
+              false,
+              false,
+            ],
+          ],
+        ]
+      }
+    >
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              [
+                {
+                  "fontFamily": "CourierPrime-Regular",
+                  "fontWeight": "bold",
+                  "textAlign": "center",
+                },
+                {
+                  "fontSize": 30,
+                  "lineHeight": 40,
+                  "paddingRight": 4,
+                },
+                false,
+                false,
+                false,
+                false,
+              ],
+              {
+                "color": "#EAE3DF",
+              },
+              {
+                "letterSpacing": -2.25,
+              },
+            ],
+          ]
+        }
+      >
+        0
+      </Text>
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              [
+                {
+                  "fontFamily": "CourierPrime-Regular",
+                  "fontWeight": "bold",
+                  "textAlign": "center",
+                },
+                {
+                  "fontSize": 30,
+                  "lineHeight": 40,
+                  "paddingRight": 4,
+                },
+                false,
+                false,
+                false,
+                false,
+              ],
+              {
+                "color": "#EAE3DF",
+              },
+              {
+                "letterSpacing": -6.3,
+              },
+            ],
+          ]
+        }
+      >
+        .
+      </Text>
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              [
+                {
+                  "fontFamily": "CourierPrime-Regular",
+                  "fontWeight": "bold",
+                  "textAlign": "center",
+                },
+                {
+                  "fontSize": 30,
+                  "lineHeight": 40,
+                  "paddingRight": 4,
+                },
+                false,
+                false,
+                false,
+                false,
+              ],
+              {
+                "color": "#EAE3DF",
+              },
+              {
+                "letterSpacing": -2.25,
+              },
+            ],
+          ]
+        }
+      >
+        0
+      </Text>
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              [
+                {
+                  "fontFamily": "CourierPrime-Regular",
+                  "fontWeight": "bold",
+                  "textAlign": "center",
+                },
+                {
+                  "fontSize": 30,
+                  "lineHeight": 40,
+                  "paddingRight": 4,
+                },
+                false,
+                false,
+                false,
+                false,
+              ],
+              {
+                "color": "#EAE3DF",
+              },
+              {
+                "letterSpacing": -2.25,
+              },
+            ],
+          ]
+        }
+      >
+        0
+      </Text>
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              [
+                {
+                  "fontFamily": "CourierPrime-Regular",
+                  "fontWeight": "bold",
+                  "textAlign": "center",
+                },
+                {
+                  "fontSize": 30,
+                  "lineHeight": 40,
+                  "paddingRight": 4,
+                },
+                false,
+                false,
+                false,
+                false,
+              ],
+              {
+                "letterSpacing": -10.5,
+              },
+            ],
+          ]
+        }
+      >
+         
+      </Text>
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              [
+                {
+                  "fontFamily": "CourierPrime-Regular",
+                  "fontWeight": "bold",
+                  "textAlign": "center",
+                },
+                {
+                  "fontSize": 30,
+                  "lineHeight": 40,
+                  "paddingRight": 4,
+                },
+                false,
+                false,
+                false,
+                false,
+              ],
+              {
+                "color": "#EAE3DF",
+              },
+              {
+                "letterSpacing": -2.25,
+              },
+            ],
+          ]
+        }
+      >
+        0
+      </Text>
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              [
+                {
+                  "fontFamily": "CourierPrime-Regular",
+                  "fontWeight": "bold",
+                  "textAlign": "center",
+                },
+                {
+                  "fontSize": 30,
+                  "lineHeight": 40,
+                  "paddingRight": 4,
+                },
+                false,
+                false,
+                false,
+                false,
+              ],
+              {
+                "letterSpacing": -2.25,
+              },
+            ],
+          ]
+        }
+      >
+        2
+      </Text>
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              [
+                {
+                  "fontFamily": "CourierPrime-Regular",
+                  "fontWeight": "bold",
+                  "textAlign": "center",
+                },
+                {
+                  "fontSize": 30,
+                  "lineHeight": 40,
+                  "paddingRight": 4,
+                },
+                false,
+                false,
+                false,
+                false,
+              ],
+              {
+                "letterSpacing": -2.25,
+              },
+            ],
+          ]
+        }
+      >
+        1
+      </Text>
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              [
+                {
+                  "fontFamily": "CourierPrime-Regular",
+                  "fontWeight": "bold",
+                  "textAlign": "center",
+                },
+                {
+                  "fontSize": 30,
+                  "lineHeight": 40,
+                  "paddingRight": 4,
+                },
+                false,
+                false,
+                false,
+                false,
+              ],
+              {
+                "letterSpacing": -10.5,
+              },
+            ],
+          ]
+        }
+      >
+         
+      </Text>
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              [
+                {
+                  "fontFamily": "CourierPrime-Regular",
+                  "fontWeight": "bold",
+                  "textAlign": "center",
+                },
+                {
+                  "fontSize": 30,
+                  "lineHeight": 40,
+                  "paddingRight": 4,
+                },
+                false,
+                false,
+                false,
+                false,
+              ],
+              {
+                "letterSpacing": -2.25,
+              },
+            ],
+          ]
+        }
+      >
+        0
+      </Text>
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              [
+                {
+                  "fontFamily": "CourierPrime-Regular",
+                  "fontWeight": "bold",
+                  "textAlign": "center",
+                },
+                {
+                  "fontSize": 30,
+                  "lineHeight": 40,
+                  "paddingRight": 4,
+                },
+                false,
+                false,
+                false,
+                false,
+              ],
+              {
+                "letterSpacing": -2.25,
+              },
+            ],
+          ]
+        }
+      >
+        0
+      </Text>
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              [
+                {
+                  "fontFamily": "CourierPrime-Regular",
+                  "fontWeight": "bold",
+                  "textAlign": "center",
+                },
+                {
+                  "fontSize": 30,
+                  "lineHeight": 40,
+                  "paddingRight": 4,
+                },
+                false,
+                false,
+                false,
+                false,
+              ],
+              {
+                "letterSpacing": -2.25,
+              },
+            ],
+          ]
+        }
+      >
+        0
+      </Text>
+    </Text>
+    <Text
+      allowFontScaling={false}
+      style={
+        [
+          {
+            "color": "#2B1911",
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 24,
+          },
+          [
+            {
+              "fontSize": 20,
+              "lineHeight": 30,
+              "paddingBottom": 4,
+              "paddingLeft": 4,
+            },
+            false,
+            false,
+            false,
+            false,
+            {
+              "fontFamily": "Baloo2-Regular",
+              "fontWeight": "500",
+              "textAlign": "left",
+            },
+          ],
+        ]
+      }
+    >
+      sats
+    </Text>
+  </View>
+</View>
+`;
+
+exports[`BTCAmount should render correctly for extra small size 1`] = `
+<View
+  style={
+    [
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "gap": 2,
+      },
+      undefined,
+    ]
+  }
+>
+  <test-file-stub
+    fill="#888"
+    style={
+      [
+        {
+          "height": 24,
+          "width": 24,
+        },
+        false,
+        false,
+        false,
+        false,
+        {
+          "height": 10.5,
+          "paddingBottom": 3.5,
+          "paddingLeft": 3.5,
+          "paddingRight": 3.5,
+          "paddingTop": 3.5,
+          "width": 10.5,
+        },
+      ]
+    }
+  />
+  <View
+    style={
+      {
+        "alignItems": "baseline",
+        "flexDirection": "row",
+        "paddingTop": 4,
+      }
+    }
+  >
+    <Text
+      allowFontScaling={false}
+      style={
+        [
+          {
+            "color": "#2B1911",
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 24,
+          },
+          [
+            [
+              {
+                "fontFamily": "CourierPrime-Regular",
+                "fontWeight": "bold",
+                "textAlign": "center",
+              },
+              false,
+              false,
+              false,
+              false,
+              {
+                "fontSize": 15,
+                "lineHeight": 20,
+                "paddingRight": 2,
+              },
+            ],
+          ],
+        ]
+      }
+    >
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              [
+                {
+                  "fontFamily": "CourierPrime-Regular",
+                  "fontWeight": "bold",
+                  "textAlign": "center",
+                },
+                false,
+                false,
+                false,
+                false,
+                {
+                  "fontSize": 15,
+                  "lineHeight": 20,
+                  "paddingRight": 2,
+                },
+              ],
+              {
+                "color": "#EAE3DF",
+              },
+              {
+                "letterSpacing": -1.125,
+              },
+            ],
+          ]
+        }
+      >
+        0
+      </Text>
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              [
+                {
+                  "fontFamily": "CourierPrime-Regular",
+                  "fontWeight": "bold",
+                  "textAlign": "center",
+                },
+                false,
+                false,
+                false,
+                false,
+                {
+                  "fontSize": 15,
+                  "lineHeight": 20,
+                  "paddingRight": 2,
+                },
+              ],
+              {
+                "color": "#EAE3DF",
+              },
+              {
+                "letterSpacing": -3.15,
+              },
+            ],
+          ]
+        }
+      >
+        .
+      </Text>
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              [
+                {
+                  "fontFamily": "CourierPrime-Regular",
+                  "fontWeight": "bold",
+                  "textAlign": "center",
+                },
+                false,
+                false,
+                false,
+                false,
+                {
+                  "fontSize": 15,
+                  "lineHeight": 20,
+                  "paddingRight": 2,
+                },
+              ],
+              {
+                "color": "#EAE3DF",
+              },
+              {
+                "letterSpacing": -1.125,
+              },
+            ],
+          ]
+        }
+      >
+        0
+      </Text>
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              [
+                {
+                  "fontFamily": "CourierPrime-Regular",
+                  "fontWeight": "bold",
+                  "textAlign": "center",
+                },
+                false,
+                false,
+                false,
+                false,
+                {
+                  "fontSize": 15,
+                  "lineHeight": 20,
+                  "paddingRight": 2,
+                },
+              ],
+              {
+                "color": "#EAE3DF",
+              },
+              {
+                "letterSpacing": -1.125,
+              },
+            ],
+          ]
+        }
+      >
+        0
+      </Text>
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              [
+                {
+                  "fontFamily": "CourierPrime-Regular",
+                  "fontWeight": "bold",
+                  "textAlign": "center",
+                },
+                false,
+                false,
+                false,
+                false,
+                {
+                  "fontSize": 15,
+                  "lineHeight": 20,
+                  "paddingRight": 2,
+                },
+              ],
+              {
+                "letterSpacing": -5.25,
+              },
+            ],
+          ]
+        }
+      >
+         
+      </Text>
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              [
+                {
+                  "fontFamily": "CourierPrime-Regular",
+                  "fontWeight": "bold",
+                  "textAlign": "center",
+                },
+                false,
+                false,
+                false,
+                false,
+                {
+                  "fontSize": 15,
+                  "lineHeight": 20,
+                  "paddingRight": 2,
+                },
+              ],
+              {
+                "color": "#EAE3DF",
+              },
+              {
+                "letterSpacing": -1.125,
+              },
+            ],
+          ]
+        }
+      >
+        0
+      </Text>
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              [
+                {
+                  "fontFamily": "CourierPrime-Regular",
+                  "fontWeight": "bold",
+                  "textAlign": "center",
+                },
+                false,
+                false,
+                false,
+                false,
+                {
+                  "fontSize": 15,
+                  "lineHeight": 20,
+                  "paddingRight": 2,
+                },
+              ],
+              {
+                "letterSpacing": -1.125,
+              },
+            ],
+          ]
+        }
+      >
+        2
+      </Text>
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              [
+                {
+                  "fontFamily": "CourierPrime-Regular",
+                  "fontWeight": "bold",
+                  "textAlign": "center",
+                },
+                false,
+                false,
+                false,
+                false,
+                {
+                  "fontSize": 15,
+                  "lineHeight": 20,
+                  "paddingRight": 2,
+                },
+              ],
+              {
+                "letterSpacing": -1.125,
+              },
+            ],
+          ]
+        }
+      >
+        1
+      </Text>
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              [
+                {
+                  "fontFamily": "CourierPrime-Regular",
+                  "fontWeight": "bold",
+                  "textAlign": "center",
+                },
+                false,
+                false,
+                false,
+                false,
+                {
+                  "fontSize": 15,
+                  "lineHeight": 20,
+                  "paddingRight": 2,
+                },
+              ],
+              {
+                "letterSpacing": -5.25,
+              },
+            ],
+          ]
+        }
+      >
+         
+      </Text>
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              [
+                {
+                  "fontFamily": "CourierPrime-Regular",
+                  "fontWeight": "bold",
+                  "textAlign": "center",
+                },
+                false,
+                false,
+                false,
+                false,
+                {
+                  "fontSize": 15,
+                  "lineHeight": 20,
+                  "paddingRight": 2,
+                },
+              ],
+              {
+                "letterSpacing": -1.125,
+              },
+            ],
+          ]
+        }
+      >
+        0
+      </Text>
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              [
+                {
+                  "fontFamily": "CourierPrime-Regular",
+                  "fontWeight": "bold",
+                  "textAlign": "center",
+                },
+                false,
+                false,
+                false,
+                false,
+                {
+                  "fontSize": 15,
+                  "lineHeight": 20,
+                  "paddingRight": 2,
+                },
+              ],
+              {
+                "letterSpacing": -1.125,
+              },
+            ],
+          ]
+        }
+      >
+        0
+      </Text>
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              [
+                {
+                  "fontFamily": "CourierPrime-Regular",
+                  "fontWeight": "bold",
+                  "textAlign": "center",
+                },
+                false,
+                false,
+                false,
+                false,
+                {
+                  "fontSize": 15,
+                  "lineHeight": 20,
+                  "paddingRight": 2,
+                },
+              ],
+              {
+                "letterSpacing": -1.125,
+              },
+            ],
+          ]
+        }
+      >
+        0
+      </Text>
+    </Text>
+    <Text
+      allowFontScaling={false}
+      style={
+        [
+          {
+            "color": "#2B1911",
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 24,
+          },
+          [
+            false,
+            false,
+            false,
+            false,
+            {
+              "fontSize": 10,
+              "lineHeight": 15,
+              "paddingBottom": 2,
+              "paddingLeft": 2,
+            },
+            {
+              "fontFamily": "Baloo2-Regular",
+              "fontWeight": "500",
+              "textAlign": "left",
+            },
+          ],
+        ]
+      }
+    >
+      sats
+    </Text>
+  </View>
+</View>
+`;
+
+exports[`BTCAmount should render correctly for large size 1`] = `
+<View
+  style={
+    [
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "gap": 2,
+      },
+      undefined,
+    ]
+  }
+>
+  <test-file-stub
+    fill="#888"
+    style={
+      [
+        {
+          "height": 24,
+          "width": 24,
+        },
+        false,
+        {
+          "height": 19.5,
+          "marginRight": 2,
+          "paddingBottom": 6.5,
+          "paddingLeft": 6.5,
+          "paddingRight": 6.5,
+          "paddingTop": 6.5,
+          "width": 19.5,
+        },
+        false,
+        false,
+        false,
+      ]
+    }
+  />
+  <View
+    style={
+      {
+        "alignItems": "baseline",
+        "flexDirection": "row",
+        "paddingTop": 4,
+      }
+    }
+  >
+    <Text
+      allowFontScaling={false}
+      style={
+        [
+          {
+            "color": "#2B1911",
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 24,
+          },
+          [
+            [
+              {
+                "fontFamily": "CourierPrime-Regular",
+                "fontWeight": "bold",
+                "textAlign": "center",
+              },
+              false,
+              {
+                "fontSize": 26,
+                "lineHeight": 34,
+                "paddingRight": 4,
+              },
+              false,
+              false,
+              false,
+            ],
+          ],
+        ]
+      }
+    >
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              [
+                {
+                  "fontFamily": "CourierPrime-Regular",
+                  "fontWeight": "bold",
+                  "textAlign": "center",
+                },
+                false,
+                {
+                  "fontSize": 26,
+                  "lineHeight": 34,
+                  "paddingRight": 4,
+                },
+                false,
+                false,
+                false,
+              ],
+              {
+                "color": "#EAE3DF",
+              },
+              {
+                "letterSpacing": -1.95,
+              },
+            ],
+          ]
+        }
+      >
+        0
+      </Text>
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              [
+                {
+                  "fontFamily": "CourierPrime-Regular",
+                  "fontWeight": "bold",
+                  "textAlign": "center",
+                },
+                false,
+                {
+                  "fontSize": 26,
+                  "lineHeight": 34,
+                  "paddingRight": 4,
+                },
+                false,
+                false,
+                false,
+              ],
+              {
+                "color": "#EAE3DF",
+              },
+              {
+                "letterSpacing": -5.46,
+              },
+            ],
+          ]
+        }
+      >
+        .
+      </Text>
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              [
+                {
+                  "fontFamily": "CourierPrime-Regular",
+                  "fontWeight": "bold",
+                  "textAlign": "center",
+                },
+                false,
+                {
+                  "fontSize": 26,
+                  "lineHeight": 34,
+                  "paddingRight": 4,
+                },
+                false,
+                false,
+                false,
+              ],
+              {
+                "color": "#EAE3DF",
+              },
+              {
+                "letterSpacing": -1.95,
+              },
+            ],
+          ]
+        }
+      >
+        0
+      </Text>
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              [
+                {
+                  "fontFamily": "CourierPrime-Regular",
+                  "fontWeight": "bold",
+                  "textAlign": "center",
+                },
+                false,
+                {
+                  "fontSize": 26,
+                  "lineHeight": 34,
+                  "paddingRight": 4,
+                },
+                false,
+                false,
+                false,
+              ],
+              {
+                "color": "#EAE3DF",
+              },
+              {
+                "letterSpacing": -1.95,
+              },
+            ],
+          ]
+        }
+      >
+        0
+      </Text>
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              [
+                {
+                  "fontFamily": "CourierPrime-Regular",
+                  "fontWeight": "bold",
+                  "textAlign": "center",
+                },
+                false,
+                {
+                  "fontSize": 26,
+                  "lineHeight": 34,
+                  "paddingRight": 4,
+                },
+                false,
+                false,
+                false,
+              ],
+              {
+                "letterSpacing": -9.1,
+              },
+            ],
+          ]
+        }
+      >
+         
+      </Text>
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              [
+                {
+                  "fontFamily": "CourierPrime-Regular",
+                  "fontWeight": "bold",
+                  "textAlign": "center",
+                },
+                false,
+                {
+                  "fontSize": 26,
+                  "lineHeight": 34,
+                  "paddingRight": 4,
+                },
+                false,
+                false,
+                false,
+              ],
+              {
+                "color": "#EAE3DF",
+              },
+              {
+                "letterSpacing": -1.95,
+              },
+            ],
+          ]
+        }
+      >
+        0
+      </Text>
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              [
+                {
+                  "fontFamily": "CourierPrime-Regular",
+                  "fontWeight": "bold",
+                  "textAlign": "center",
+                },
+                false,
+                {
+                  "fontSize": 26,
+                  "lineHeight": 34,
+                  "paddingRight": 4,
+                },
+                false,
+                false,
+                false,
+              ],
+              {
+                "letterSpacing": -1.95,
+              },
+            ],
+          ]
+        }
+      >
+        2
+      </Text>
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              [
+                {
+                  "fontFamily": "CourierPrime-Regular",
+                  "fontWeight": "bold",
+                  "textAlign": "center",
+                },
+                false,
+                {
+                  "fontSize": 26,
+                  "lineHeight": 34,
+                  "paddingRight": 4,
+                },
+                false,
+                false,
+                false,
+              ],
+              {
+                "letterSpacing": -1.95,
+              },
+            ],
+          ]
+        }
+      >
+        1
+      </Text>
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              [
+                {
+                  "fontFamily": "CourierPrime-Regular",
+                  "fontWeight": "bold",
+                  "textAlign": "center",
+                },
+                false,
+                {
+                  "fontSize": 26,
+                  "lineHeight": 34,
+                  "paddingRight": 4,
+                },
+                false,
+                false,
+                false,
+              ],
+              {
+                "letterSpacing": -9.1,
+              },
+            ],
+          ]
+        }
+      >
+         
+      </Text>
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              [
+                {
+                  "fontFamily": "CourierPrime-Regular",
+                  "fontWeight": "bold",
+                  "textAlign": "center",
+                },
+                false,
+                {
+                  "fontSize": 26,
+                  "lineHeight": 34,
+                  "paddingRight": 4,
+                },
+                false,
+                false,
+                false,
+              ],
+              {
+                "letterSpacing": -1.95,
+              },
+            ],
+          ]
+        }
+      >
+        0
+      </Text>
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              [
+                {
+                  "fontFamily": "CourierPrime-Regular",
+                  "fontWeight": "bold",
+                  "textAlign": "center",
+                },
+                false,
+                {
+                  "fontSize": 26,
+                  "lineHeight": 34,
+                  "paddingRight": 4,
+                },
+                false,
+                false,
+                false,
+              ],
+              {
+                "letterSpacing": -1.95,
+              },
+            ],
+          ]
+        }
+      >
+        0
+      </Text>
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              [
+                {
+                  "fontFamily": "CourierPrime-Regular",
+                  "fontWeight": "bold",
+                  "textAlign": "center",
+                },
+                false,
+                {
+                  "fontSize": 26,
+                  "lineHeight": 34,
+                  "paddingRight": 4,
+                },
+                false,
+                false,
+                false,
+              ],
+              {
+                "letterSpacing": -1.95,
+              },
+            ],
+          ]
+        }
+      >
+        0
+      </Text>
+    </Text>
+    <Text
+      allowFontScaling={false}
+      style={
+        [
+          {
+            "color": "#2B1911",
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 24,
+          },
+          [
+            false,
+            {
+              "fontSize": 18,
+              "lineHeight": 27,
+              "paddingBottom": 3,
+              "paddingLeft": 4,
+            },
+            false,
+            false,
+            false,
+            {
+              "fontFamily": "Baloo2-Regular",
+              "fontWeight": "500",
+              "textAlign": "left",
+            },
+          ],
+        ]
+      }
+    >
+      sats
+    </Text>
+  </View>
+</View>
+`;
+
+exports[`BTCAmount should render correctly for medium size 1`] = `
+<View
+  style={
+    [
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "gap": 2,
+      },
+      undefined,
+    ]
+  }
+>
+  <test-file-stub
+    fill="#888"
+    style={
+      [
+        {
+          "height": 24,
+          "width": 24,
+        },
+        false,
+        false,
+        {
+          "height": 15,
+          "marginRight": 2,
+          "paddingBottom": 5,
+          "paddingLeft": 5,
+          "paddingRight": 5,
+          "paddingTop": 5,
+          "width": 15,
+        },
+        false,
+        false,
+      ]
+    }
+  />
+  <View
+    style={
+      {
+        "alignItems": "baseline",
+        "flexDirection": "row",
+        "paddingTop": 4,
+      }
+    }
+  >
+    <Text
+      allowFontScaling={false}
+      style={
+        [
+          {
+            "color": "#2B1911",
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 24,
+          },
+          [
+            [
+              {
+                "fontFamily": "CourierPrime-Regular",
+                "fontWeight": "bold",
+                "textAlign": "center",
+              },
+              false,
+              false,
+              {
+                "fontSize": 22,
+                "lineHeight": 30,
+                "paddingRight": 3,
+              },
+              false,
+              false,
+            ],
+          ],
+        ]
+      }
+    >
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              [
+                {
+                  "fontFamily": "CourierPrime-Regular",
+                  "fontWeight": "bold",
+                  "textAlign": "center",
+                },
+                false,
+                false,
+                {
+                  "fontSize": 22,
+                  "lineHeight": 30,
+                  "paddingRight": 3,
+                },
+                false,
+                false,
+              ],
+              {
+                "color": "#EAE3DF",
+              },
+              {
+                "letterSpacing": -1.65,
+              },
+            ],
+          ]
+        }
+      >
+        0
+      </Text>
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              [
+                {
+                  "fontFamily": "CourierPrime-Regular",
+                  "fontWeight": "bold",
+                  "textAlign": "center",
+                },
+                false,
+                false,
+                {
+                  "fontSize": 22,
+                  "lineHeight": 30,
+                  "paddingRight": 3,
+                },
+                false,
+                false,
+              ],
+              {
+                "color": "#EAE3DF",
+              },
+              {
+                "letterSpacing": -4.62,
+              },
+            ],
+          ]
+        }
+      >
+        .
+      </Text>
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              [
+                {
+                  "fontFamily": "CourierPrime-Regular",
+                  "fontWeight": "bold",
+                  "textAlign": "center",
+                },
+                false,
+                false,
+                {
+                  "fontSize": 22,
+                  "lineHeight": 30,
+                  "paddingRight": 3,
+                },
+                false,
+                false,
+              ],
+              {
+                "color": "#EAE3DF",
+              },
+              {
+                "letterSpacing": -1.65,
+              },
+            ],
+          ]
+        }
+      >
+        0
+      </Text>
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              [
+                {
+                  "fontFamily": "CourierPrime-Regular",
+                  "fontWeight": "bold",
+                  "textAlign": "center",
+                },
+                false,
+                false,
+                {
+                  "fontSize": 22,
+                  "lineHeight": 30,
+                  "paddingRight": 3,
+                },
+                false,
+                false,
+              ],
+              {
+                "color": "#EAE3DF",
+              },
+              {
+                "letterSpacing": -1.65,
+              },
+            ],
+          ]
+        }
+      >
+        0
+      </Text>
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              [
+                {
+                  "fontFamily": "CourierPrime-Regular",
+                  "fontWeight": "bold",
+                  "textAlign": "center",
+                },
+                false,
+                false,
+                {
+                  "fontSize": 22,
+                  "lineHeight": 30,
+                  "paddingRight": 3,
+                },
+                false,
+                false,
+              ],
+              {
+                "letterSpacing": -7.699999999999999,
+              },
+            ],
+          ]
+        }
+      >
+         
+      </Text>
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              [
+                {
+                  "fontFamily": "CourierPrime-Regular",
+                  "fontWeight": "bold",
+                  "textAlign": "center",
+                },
+                false,
+                false,
+                {
+                  "fontSize": 22,
+                  "lineHeight": 30,
+                  "paddingRight": 3,
+                },
+                false,
+                false,
+              ],
+              {
+                "color": "#EAE3DF",
+              },
+              {
+                "letterSpacing": -1.65,
+              },
+            ],
+          ]
+        }
+      >
+        0
+      </Text>
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              [
+                {
+                  "fontFamily": "CourierPrime-Regular",
+                  "fontWeight": "bold",
+                  "textAlign": "center",
+                },
+                false,
+                false,
+                {
+                  "fontSize": 22,
+                  "lineHeight": 30,
+                  "paddingRight": 3,
+                },
+                false,
+                false,
+              ],
+              {
+                "letterSpacing": -1.65,
+              },
+            ],
+          ]
+        }
+      >
+        2
+      </Text>
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              [
+                {
+                  "fontFamily": "CourierPrime-Regular",
+                  "fontWeight": "bold",
+                  "textAlign": "center",
+                },
+                false,
+                false,
+                {
+                  "fontSize": 22,
+                  "lineHeight": 30,
+                  "paddingRight": 3,
+                },
+                false,
+                false,
+              ],
+              {
+                "letterSpacing": -1.65,
+              },
+            ],
+          ]
+        }
+      >
+        1
+      </Text>
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              [
+                {
+                  "fontFamily": "CourierPrime-Regular",
+                  "fontWeight": "bold",
+                  "textAlign": "center",
+                },
+                false,
+                false,
+                {
+                  "fontSize": 22,
+                  "lineHeight": 30,
+                  "paddingRight": 3,
+                },
+                false,
+                false,
+              ],
+              {
+                "letterSpacing": -7.699999999999999,
+              },
+            ],
+          ]
+        }
+      >
+         
+      </Text>
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              [
+                {
+                  "fontFamily": "CourierPrime-Regular",
+                  "fontWeight": "bold",
+                  "textAlign": "center",
+                },
+                false,
+                false,
+                {
+                  "fontSize": 22,
+                  "lineHeight": 30,
+                  "paddingRight": 3,
+                },
+                false,
+                false,
+              ],
+              {
+                "letterSpacing": -1.65,
+              },
+            ],
+          ]
+        }
+      >
+        0
+      </Text>
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              [
+                {
+                  "fontFamily": "CourierPrime-Regular",
+                  "fontWeight": "bold",
+                  "textAlign": "center",
+                },
+                false,
+                false,
+                {
+                  "fontSize": 22,
+                  "lineHeight": 30,
+                  "paddingRight": 3,
+                },
+                false,
+                false,
+              ],
+              {
+                "letterSpacing": -1.65,
+              },
+            ],
+          ]
+        }
+      >
+        0
+      </Text>
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              [
+                {
+                  "fontFamily": "CourierPrime-Regular",
+                  "fontWeight": "bold",
+                  "textAlign": "center",
+                },
+                false,
+                false,
+                {
+                  "fontSize": 22,
+                  "lineHeight": 30,
+                  "paddingRight": 3,
+                },
+                false,
+                false,
+              ],
+              {
+                "letterSpacing": -1.65,
+              },
+            ],
+          ]
+        }
+      >
+        0
+      </Text>
+    </Text>
+    <Text
+      allowFontScaling={false}
+      style={
+        [
+          {
+            "color": "#2B1911",
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 24,
+          },
+          [
+            false,
+            false,
+            {
+              "fontSize": 16,
+              "lineHeight": 24,
+              "paddingBottom": 2,
+              "paddingLeft": 3,
+            },
+            false,
+            false,
+            {
+              "fontFamily": "Baloo2-Regular",
+              "fontWeight": "500",
+              "textAlign": "left",
+            },
+          ],
+        ]
+      }
+    >
+      sats
+    </Text>
+  </View>
+</View>
+`;
+
+exports[`BTCAmount should render correctly for small size 1`] = `
+<View
+  style={
+    [
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "gap": 2,
+      },
+      undefined,
+    ]
+  }
+>
+  <test-file-stub
+    fill="#888"
+    style={
+      [
+        {
+          "height": 24,
+          "width": 24,
+        },
+        false,
+        false,
+        false,
+        {
+          "height": 12,
+          "paddingBottom": 4,
+          "paddingLeft": 4,
+          "paddingRight": 4,
+          "paddingTop": 4,
+          "width": 12,
+        },
+        false,
+      ]
+    }
+  />
+  <View
+    style={
+      {
+        "alignItems": "baseline",
+        "flexDirection": "row",
+        "paddingTop": 4,
+      }
+    }
+  >
+    <Text
+      allowFontScaling={false}
+      style={
+        [
+          {
+            "color": "#2B1911",
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 24,
+          },
+          [
+            [
+              {
+                "fontFamily": "CourierPrime-Regular",
+                "fontWeight": "bold",
+                "textAlign": "center",
+              },
+              false,
+              false,
+              false,
+              {
+                "fontSize": 17,
+                "lineHeight": 23,
+                "paddingRight": 2,
+              },
+              false,
+            ],
+          ],
+        ]
+      }
+    >
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              [
+                {
+                  "fontFamily": "CourierPrime-Regular",
+                  "fontWeight": "bold",
+                  "textAlign": "center",
+                },
+                false,
+                false,
+                false,
+                {
+                  "fontSize": 17,
+                  "lineHeight": 23,
+                  "paddingRight": 2,
+                },
+                false,
+              ],
+              {
+                "color": "#EAE3DF",
+              },
+              {
+                "letterSpacing": -1.275,
+              },
+            ],
+          ]
+        }
+      >
+        0
+      </Text>
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              [
+                {
+                  "fontFamily": "CourierPrime-Regular",
+                  "fontWeight": "bold",
+                  "textAlign": "center",
+                },
+                false,
+                false,
+                false,
+                {
+                  "fontSize": 17,
+                  "lineHeight": 23,
+                  "paddingRight": 2,
+                },
+                false,
+              ],
+              {
+                "color": "#EAE3DF",
+              },
+              {
+                "letterSpacing": -3.57,
+              },
+            ],
+          ]
+        }
+      >
+        .
+      </Text>
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              [
+                {
+                  "fontFamily": "CourierPrime-Regular",
+                  "fontWeight": "bold",
+                  "textAlign": "center",
+                },
+                false,
+                false,
+                false,
+                {
+                  "fontSize": 17,
+                  "lineHeight": 23,
+                  "paddingRight": 2,
+                },
+                false,
+              ],
+              {
+                "color": "#EAE3DF",
+              },
+              {
+                "letterSpacing": -1.275,
+              },
+            ],
+          ]
+        }
+      >
+        0
+      </Text>
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              [
+                {
+                  "fontFamily": "CourierPrime-Regular",
+                  "fontWeight": "bold",
+                  "textAlign": "center",
+                },
+                false,
+                false,
+                false,
+                {
+                  "fontSize": 17,
+                  "lineHeight": 23,
+                  "paddingRight": 2,
+                },
+                false,
+              ],
+              {
+                "color": "#EAE3DF",
+              },
+              {
+                "letterSpacing": -1.275,
+              },
+            ],
+          ]
+        }
+      >
+        0
+      </Text>
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              [
+                {
+                  "fontFamily": "CourierPrime-Regular",
+                  "fontWeight": "bold",
+                  "textAlign": "center",
+                },
+                false,
+                false,
+                false,
+                {
+                  "fontSize": 17,
+                  "lineHeight": 23,
+                  "paddingRight": 2,
+                },
+                false,
+              ],
+              {
+                "letterSpacing": -5.949999999999999,
+              },
+            ],
+          ]
+        }
+      >
+         
+      </Text>
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              [
+                {
+                  "fontFamily": "CourierPrime-Regular",
+                  "fontWeight": "bold",
+                  "textAlign": "center",
+                },
+                false,
+                false,
+                false,
+                {
+                  "fontSize": 17,
+                  "lineHeight": 23,
+                  "paddingRight": 2,
+                },
+                false,
+              ],
+              {
+                "color": "#EAE3DF",
+              },
+              {
+                "letterSpacing": -1.275,
+              },
+            ],
+          ]
+        }
+      >
+        0
+      </Text>
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              [
+                {
+                  "fontFamily": "CourierPrime-Regular",
+                  "fontWeight": "bold",
+                  "textAlign": "center",
+                },
+                false,
+                false,
+                false,
+                {
+                  "fontSize": 17,
+                  "lineHeight": 23,
+                  "paddingRight": 2,
+                },
+                false,
+              ],
+              {
+                "letterSpacing": -1.275,
+              },
+            ],
+          ]
+        }
+      >
+        2
+      </Text>
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              [
+                {
+                  "fontFamily": "CourierPrime-Regular",
+                  "fontWeight": "bold",
+                  "textAlign": "center",
+                },
+                false,
+                false,
+                false,
+                {
+                  "fontSize": 17,
+                  "lineHeight": 23,
+                  "paddingRight": 2,
+                },
+                false,
+              ],
+              {
+                "letterSpacing": -1.275,
+              },
+            ],
+          ]
+        }
+      >
+        1
+      </Text>
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              [
+                {
+                  "fontFamily": "CourierPrime-Regular",
+                  "fontWeight": "bold",
+                  "textAlign": "center",
+                },
+                false,
+                false,
+                false,
+                {
+                  "fontSize": 17,
+                  "lineHeight": 23,
+                  "paddingRight": 2,
+                },
+                false,
+              ],
+              {
+                "letterSpacing": -5.949999999999999,
+              },
+            ],
+          ]
+        }
+      >
+         
+      </Text>
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              [
+                {
+                  "fontFamily": "CourierPrime-Regular",
+                  "fontWeight": "bold",
+                  "textAlign": "center",
+                },
+                false,
+                false,
+                false,
+                {
+                  "fontSize": 17,
+                  "lineHeight": 23,
+                  "paddingRight": 2,
+                },
+                false,
+              ],
+              {
+                "letterSpacing": -1.275,
+              },
+            ],
+          ]
+        }
+      >
+        0
+      </Text>
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              [
+                {
+                  "fontFamily": "CourierPrime-Regular",
+                  "fontWeight": "bold",
+                  "textAlign": "center",
+                },
+                false,
+                false,
+                false,
+                {
+                  "fontSize": 17,
+                  "lineHeight": 23,
+                  "paddingRight": 2,
+                },
+                false,
+              ],
+              {
+                "letterSpacing": -1.275,
+              },
+            ],
+          ]
+        }
+      >
+        0
+      </Text>
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              [
+                {
+                  "fontFamily": "CourierPrime-Regular",
+                  "fontWeight": "bold",
+                  "textAlign": "center",
+                },
+                false,
+                false,
+                false,
+                {
+                  "fontSize": 17,
+                  "lineHeight": 23,
+                  "paddingRight": 2,
+                },
+                false,
+              ],
+              {
+                "letterSpacing": -1.275,
+              },
+            ],
+          ]
+        }
+      >
+        0
+      </Text>
+    </Text>
+    <Text
+      allowFontScaling={false}
+      style={
+        [
+          {
+            "color": "#2B1911",
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 24,
+          },
+          [
+            false,
+            false,
+            false,
+            {
+              "fontSize": 12,
+              "lineHeight": 18,
+              "paddingBottom": 2,
+              "paddingLeft": 2,
+            },
+            false,
+            {
+              "fontFamily": "Baloo2-Regular",
+              "fontWeight": "500",
+              "textAlign": "left",
+            },
+          ],
+        ]
+      }
+    >
+      sats
+    </Text>
+  </View>
+</View>
+`;
