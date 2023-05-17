@@ -1,4 +1,5 @@
 import { contract } from '../../../../tests/unit/data/contractData'
+import { WalletLabel } from '../../../components/offer/WalletLabel'
 import {
   tradeInformationGetters,
   isTradeInformationGetter,
@@ -42,9 +43,11 @@ describe('tradeInformationGetters', () => {
     expect(tradeInformationGetters.paidWithMethod(contract)).toEqual('sepa')
   })
   it('should return the correct value for the paidToWallet field', () => {
-    expect(tradeInformationGetters.paidToWallet(contract)).toEqual('buyOfferWalletLabel')
+    expect(tradeInformationGetters.paidToWallet(contract)).toEqual(
+      <WalletLabel address="releaseAddress" label="buyOfferWalletLabel" />,
+    )
     getBuyOfferFromContractMock.mockReturnValueOnce({ walletLabel: '', releaseAddress: 'releaseAddress' })
-    expect(tradeInformationGetters.paidToWallet(contract)).toEqual('walletLabel')
+    expect(tradeInformationGetters.paidToWallet(contract)).toEqual(<WalletLabel address="releaseAddress" label="" />)
   })
   it('should return the correct value for the bitcoinAmount field', () => {
     expect(tradeInformationGetters.bitcoinAmount(contract)).toEqual(250000)
@@ -65,7 +68,7 @@ describe('isTradeInformationGetter', () => {
     expect(isTradeInformationGetter('price')).toEqual(true)
   })
   it('should return false if the field name is not a valid trade information getter', () => {
-    expect(isTradeInformationGetter('foo')).toEqual(false)
+    expect(isTradeInformationGetter('name')).toEqual(false)
   })
 })
 
