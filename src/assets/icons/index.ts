@@ -9,7 +9,6 @@ import arrowRightCircle from './arrowRightCircle.svg'
 import award from './award.svg'
 import awardCircleInverted from './awardCircleInverted.svg'
 import bellSmall from './bellSmall.svg'
-import bitbox from './bitbox.svg'
 import bitcoin from './bitcoin.svg'
 import calendar from './calendar.svg'
 import camera from './camera.svg'
@@ -129,7 +128,6 @@ const Icons = {
   awardCircleInverted,
   bellSmall,
   bitcoin,
-  bitbox,
   buy: download,
   calendar,
   camera,
