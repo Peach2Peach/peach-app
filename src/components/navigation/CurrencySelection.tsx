@@ -32,18 +32,18 @@ export const CurrencySelection = ({ currencies, selected, select, style }: Props
     <View
       style={[tw`flex-row flex-wrap justify-start items-center`, currencies.length > 8 && tw`justify-center`, style]}
     >
-      {currencies.map((currency, index) => (
-        <>
-          <CurrencySelectionItem
-            style={[tw`w-full px-1`, { maxWidth }]}
-            key={'currency-selection-' + currency}
-            currency={currency}
-            isSelected={currency === selected}
-            onPress={select}
-          />
-          {index < currencies.length - 1 && <ItemSeparator style={tw`-mr-px`} />}
-        </>
-      ))}
+      {currencies.map((currency, index) => [
+        <CurrencySelectionItem
+          style={[tw`w-full px-1`, { maxWidth }]}
+          key={'currency-selection-' + currency}
+          currency={currency}
+          isSelected={currency === selected}
+          onPress={select}
+        />,
+        index < currencies.length - 1 && (
+          <ItemSeparator key={'currency-selection-separator' + currency} style={tw`-mr-px`} />
+        ),
+      ])}
     </View>
   )
 }
