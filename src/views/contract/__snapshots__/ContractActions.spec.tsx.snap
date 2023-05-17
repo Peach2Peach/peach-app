@@ -40,3 +40,30 @@ exports[`ContractActions should show the dispute sliders when the contract is in
   <ResolveDisputeSliders />
 </View>
 `;
+
+exports[`ContractActions should show the provide email button when the contract requires an email 1`] = `
+<View
+  style={
+    [
+      {
+        "gap": 12,
+      },
+      undefined,
+    ]
+  }
+>
+  <ProvideEmailButton
+    style={
+      {
+        "alignSelf": "center",
+      }
+    }
+  />
+  <ContractCTA
+    actionPending={false}
+    postConfirmPaymentBuyer={[MockFunction]}
+    postConfirmPaymentSeller={[MockFunction]}
+    requiredAction="none"
+  />
+</View>
+`;

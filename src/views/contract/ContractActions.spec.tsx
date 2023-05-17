@@ -34,4 +34,10 @@ describe('ContractActions', () => {
     const result = renderer.getRenderOutput()
     expect(result).toMatchSnapshot()
   })
+  it('should show the provide email button when the contract requires an email', () => {
+    useContractContextMock.mockReturnValueOnce({ contract: { isEmailRequired: true } })
+    renderer.render(<ContractActions {...props} />)
+    const result = renderer.getRenderOutput()
+    expect(result).toMatchSnapshot()
+  })
 })
