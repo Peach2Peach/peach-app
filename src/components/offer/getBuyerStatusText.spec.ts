@@ -12,21 +12,46 @@ describe('getBuyerStatusText', () => {
     paymentMade: new Date(),
     paymentMethod: 'sepa',
   } as unknown as Contract
-  it('should return correct text if the buyer canceled the trade and it\'s not a cash trade', () => {
-    expect(getBuyerStatusText({ ...mockContract, canceled: true, canceledBy: 'buyer' })).toBe(
-      i18n('contract.buyer.buyerCanceledTrade'),
-    )
+  it('should return correct text if the buyer canceled the trade, it\'s not a cash trade and not collab cancel', () => {
+    expect(
+      getBuyerStatusText({ ...mockContract, canceled: true, canceledBy: 'buyer', cancelationRequested: false }),
+    ).toBe(i18n('contract.buyer.buyerCanceledTrade'))
   })
   it('should return correct text if the buyer canceled the trade and it\'s a cash trade', () => {
     expect(getBuyerStatusText({ ...mockContract, canceled: true, canceledBy: 'buyer', paymentMethod: 'cash' })).toBe(
-      'contract.buyer.buyerCanceledCashTrade',
+      i18n('contract.buyer.buyerCanceledCashTrade'),
     )
   })
-  it.todo('should return correct text if seller requested cancelation')
-  it.todo('should return correct text if buyer agreed to cancel')
-  it.todo('should return correct text if seller canceled cash trade')
-  it.todo('should return correct text if payment is too late')
-  it.todo('should return the correct text if buyer lost a dispute')
-  it.todo('should return the correct text if buyer won a dispute and is waiting for the seller to pay')
-  it.todo('should return correct text if the buyer won a dispute and the seller paid')
+  it('should return correct text if the buyer canceled the trade and it\'s a collab cancel', () => {
+    expect(
+      getBuyerStatusText({ ...mockContract, canceled: true, canceledBy: 'buyer', cancelationRequested: true }),
+    ).toBe(i18n('contract.buyer.collaborativeTradeCancel.resolved'))
+  })
+  it('should return correct text if seller requested cancelation', () => {
+    expect(getBuyerStatusText({ ...mockContract, canceled: false, cancelationRequested: true })).toBe(
+      i18n('contract.buyer.collaborativeTradeCancel.notResolved'),
+    )
+  })
+  it('should return correct text if seller canceled cash trade', () => {
+    expect(getBuyerStatusText({ ...mockContract, canceled: true, canceledBy: 'seller', paymentMethod: 'cash' })).toBe(
+      i18n('contract.buyer.sellerCanceledCashTrade'),
+    )
+  })
+  it('should return correct text if payment is too late', () => {
+    isPaymentTooLateMock.mockReturnValueOnce(true)
+    expect(getBuyerStatusText(mockContract)).toBe(i18n('contract.buyer.paymentWasTooLate'))
+  })
+  it('should return the correct text if buyer lost a dispute', () => {
+    expect(getBuyerStatusText({ ...mockContract, disputeWinner: 'seller' })).toBe(i18n('contract.buyer.disputeLost'))
+  })
+  it('should return the correct text if buyer won a dispute and is waiting for the seller to pay', () => {
+    expect(getBuyerStatusText({ ...mockContract, disputeWinner: 'buyer', releaseTxId: undefined })).toBe(
+      i18n('contract.buyer.disputeWon.awaitingPayout'),
+    )
+  })
+  it('should return correct text if the buyer won a dispute and the seller paid', () => {
+    expect(getBuyerStatusText({ ...mockContract, disputeWinner: 'buyer', releaseTxId: '123' })).toBe(
+      i18n('contract.buyer.disputeWon.paidOut'),
+    )
+  })
 })
