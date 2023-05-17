@@ -6,6 +6,7 @@ import { showAddress } from '../../../utils/bitcoin'
 import { BTCAmount } from '../../bitcoin'
 import { BlurView } from '@react-native-community/blur'
 import { useIsMediumScreen } from '../../../hooks'
+import i18n from '../../../utils/i18n'
 
 type Props = {
   label?: string
@@ -16,7 +17,6 @@ type Props = {
   shouldBlur?: boolean
 } & ({ information: string; isBitcoinAmount?: false } | { information: number; isBitcoinAmount: true; isEscrow?: false })
 
-// TODO translations
 export const SummaryItem = ({
   label,
   information,
@@ -31,7 +31,7 @@ export const SummaryItem = ({
   return (
     <View style={tw`flex-row items-center gap-2 h-30px`}>
       <Text style={[tw`text-black-3 w-18`, tw.md`input-text w-78px mr-1`, isDisputeActive && tw`text-error-light`]}>
-        {isEscrow ? 'escrow' : isBitcoinAmount ? 'amount' : label}
+        {isEscrow ? i18n('escrow') : isBitcoinAmount ? i18n('amount') : label}
       </Text>
       <ConditionalWrapper
         condition={!!isEscrow}
@@ -58,7 +58,7 @@ export const SummaryItem = ({
                 !isAvailable && (isDisputeActive ? tw`text-error-mild` : tw`text-black-5`),
               ]}
             >
-              {isEscrow ? 'view in explorer' : information}
+              {isEscrow ? i18n('contract.summary.viewInExplorer') : information}
             </Text>
           )}
           {shouldBlur && <BlurView style={tw`absolute h-full -left-2 -right-2`} blurType="light" blurAmount={3} />}

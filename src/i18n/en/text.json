@@ -250,6 +250,7 @@
   "contract.summary.in": "in",
   "contract.summary.from": "from",
   "contract.summary.location": "location agreed in chat",
+  "contract.summary.viewInExplorer": "view in explorer",
   "contract.cancel.title": "cancel trade",
   "contract.cancel.cash.title": "cancel cash trade",
   "contract.cancel.cash.text": "Are you sure? This will not affect your reputation.",
