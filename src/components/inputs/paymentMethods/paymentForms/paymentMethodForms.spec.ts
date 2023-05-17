@@ -1,3 +1,5 @@
+import { PaymentMethodForms } from './paymentMethodForms'
+import { GiftCardAmazon } from './GiftCardAmazon'
 import {
   Template1,
   Template2,
@@ -9,8 +11,6 @@ import {
   Template8,
   Template9,
 } from '../templates'
-import { GiftCardAmazon } from './GiftCardAmazon'
-import { PaymentMethodForms } from './paymentMethodForms'
 
 describe('paymentMethodForms', () => {
   it('should assign the correct template to each payment method', () => {

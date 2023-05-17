@@ -1,5 +1,5 @@
 import { GIFTCARDCOUNTRIES, NATIONALTRANSFERCOUNTRIES } from '../../../../constants'
-import { TradeInfoField } from '../../../offer/tradeInformationGetters'
+import { TradeInfoField } from '../../../../views/contract/helpers/tradeInformationGetters'
 import {
   Template1,
   Template2,
