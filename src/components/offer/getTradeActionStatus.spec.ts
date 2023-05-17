@@ -1,9 +1,9 @@
 import { getTradeActionStatus } from './getTradeActionStatus'
 
 const getSellOfferFromContractMock = jest.fn((..._args) => ({
-  newOfferId: 'newOfferId',
+  newOfferId: undefined as string | undefined,
   refunded: false,
-  releaseTxId: 'releaseTxId',
+  releaseTxId: null,
 }))
 
 jest.mock('../../utils/contract', () => ({
@@ -11,36 +11,66 @@ jest.mock('../../utils/contract', () => ({
 }))
 
 describe('getTradeActionStatus - buyer', () => {
-  it.todo('should return the correct status if the buyer canceled')
-  it.todo('should return the correct status if the buyer canceled a cash trade')
-  it.todo('should return the correct status if the seller canceled a cash trade')
-  it.todo('should return the correct status if the seller requested a cancelation')
-  it.todo('should return the correct status if the buyer agreed to cancel')
-  it.todo('should return the correct status if the payment is too late')
-  it.todo('should return the correct status if the buyer won the dispute and the funds were not released')
-  it.todo('should return the correct status if the buyer won the dispute and the funds were released')
-  it.todo('should return the correct status if the buyer lost the dispute')
+  it('should return "not resolved" if the seller requested a cancelation and the contract is not canceled', () => {
+    const contract = {
+      canceled: false,
+      cancelationRequested: true,
+    } as any
+    expect(getTradeActionStatus(contract, 'buyer')).toEqual('not resolved')
+  })
+  it('should return "not resolved" if the buyer won the dispute and the sats have not been released', () => {
+    const contract = {
+      canceled: false,
+      cancelationRequested: false,
+      disputeWinner: 'buyer',
+      releaseTxId: undefined,
+    } as any
+    expect(getTradeActionStatus(contract, 'buyer')).toEqual('not resolved')
+  })
+  it('should return "paid out" if the buyer won the dispute and the sats have been released', () => {
+    const contract = {
+      canceled: false,
+      cancelationRequested: false,
+      disputeWinner: 'buyer',
+      releaseTxId: 'releaseTxId',
+    } as any
+    expect(getTradeActionStatus(contract, 'buyer')).toEqual('paid out')
+  })
+  it('should return "seller refunded" in all other cases', () => {
+    const contract = {
+      canceled: true,
+    } as any
+    expect(getTradeActionStatus(contract, 'buyer')).toEqual('seller refunded')
+  })
 })
 
 describe('getTradeActionStatus - seller', () => {
-  it.todo('should return the correct status if the buyer canceled and republish is available')
-  it.todo('should return the correct status if the buyer canceled and republish is not available')
-  it.todo('should return the correct status if the buyer canceled and offer was republished')
-  it.todo('should return the correct status if the buyer canceled and offer was refunded')
-  it.todo('should return the correct status if the seller canceled a cash trade')
-  it.todo('should return the correct status if the trade was canceled collaboratively and republish is available')
-  it.todo('should return the correct status if the trade was canceled collaboratively and republish is not available')
-  it.todo('should return the correct status if the trade was canceled collaboratively and offer was republished')
-  it.todo('should return the correct status if the trade was canceled collaboratively and offer was refunded')
-  it.todo('should return the correct status if payment was too late and seller can cancel or give more time')
-  it.todo('should return the correct status if payment was too late and republish is available')
-  it.todo('should return the correct status if payment was too late and republish is not available')
-  it.todo('should return the correct status if payment was too late and offer was republished')
-  it.todo('should return the correct status if payment was too late and offer was refunded')
-  it.todo('should return the correct status if seller won the dispute and republish is available')
-  it.todo('should return the correct status if seller won the dispute and republish is not available')
-  it.todo('should return the correct status if seller won the dispute and offer was republished')
-  it.todo('should return the correct status if seller won the dispute and offer was refunded')
-  it.todo('should return the correct status if seller lost the dispute and has not released the funds')
-  it.todo('should return the correct status if seller lost the dispute and has released the funds')
+  it('should return "refunded" if the offer was refunded', () => {
+    getSellOfferFromContractMock.mockReturnValueOnce({
+      refunded: true,
+      newOfferId: undefined,
+      releaseTxId: null,
+    })
+    const contract = {} as any
+    expect(getTradeActionStatus(contract, 'seller')).toEqual('refunded')
+  })
+  it('should return "re-published" if the offer was re-published', () => {
+    getSellOfferFromContractMock.mockReturnValueOnce({
+      newOfferId: 'newOfferId',
+      refunded: false,
+      releaseTxId: null,
+    })
+    const contract = {} as any
+    expect(getTradeActionStatus(contract, 'seller')).toEqual('re-published')
+  })
+  it('should return "released to buyer" if the sats were released to the buyer', () => {
+    const contract = {
+      releaseTxId: 'releaseTxId',
+    } as any
+    expect(getTradeActionStatus(contract, 'seller')).toEqual('released to buyer')
+  })
+  it('should return "not resolved" in all other cases', () => {
+    const contract = {} as any
+    expect(getTradeActionStatus(contract, 'seller')).toEqual('not resolved')
+  })
 })
