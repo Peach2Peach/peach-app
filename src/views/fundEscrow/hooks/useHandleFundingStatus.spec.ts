@@ -127,7 +127,7 @@ describe('useHandleFundingStatus', () => {
       userConfirmationRequired: false,
     }
     renderHook(useHandleFundingStatus, { wrapper: NavigationWrapper, initialProps })
-    expect(showWronglyFundedPopupMock).toHaveBeenCalledWith({ ...sellOffer, fundingStatus })
+    expect(showWronglyFundedPopupMock).toHaveBeenCalledWith({ ...sellOffer, funding: fundingStatus })
   })
   it('should navigate to wrongFundingAmount when user confirmation is required', async () => {
     const fundingStatus: FundingStatus = { ...defaultFundingStatus, status: 'MEMPOOL' }
