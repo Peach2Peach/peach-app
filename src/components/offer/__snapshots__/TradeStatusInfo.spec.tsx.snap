@@ -12,12 +12,20 @@ exports[`TradeStatusInfo should render correctly 1`] = `
   />
   <PeachText
     style={
-      {
-        "fontFamily": "Baloo2-Regular",
-        "fontSize": 14,
-        "letterSpacing": 0.14,
-        "lineHeight": 20,
-      }
+      [
+        {
+          "fontFamily": "Baloo2-Regular",
+          "fontSize": 14,
+          "letterSpacing": 0.14,
+          "lineHeight": 20,
+        },
+        {
+          "fontFamily": "Baloo2-Regular",
+          "fontSize": 16,
+          "letterSpacing": 0.16,
+          "lineHeight": 24,
+        },
+      ]
     }
   >
     status text
