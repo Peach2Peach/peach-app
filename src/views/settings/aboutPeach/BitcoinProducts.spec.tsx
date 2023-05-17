@@ -1,12 +1,11 @@
 import { fireEvent, render } from '@testing-library/react-native'
+import { Linking } from 'react-native'
 import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
 import BitcoinProducts from './BitcoinProducts'
-import { Linking } from 'react-native'
 
-jest.mock('react-native', () => ({
-  Linking: {
-    openURL: jest.fn(),
-  },
+jest.mock('@react-navigation/native', () => ({
+  ...jest.requireActual('@react-navigation/native'),
+  useFocusEffect: jest.fn(),
 }))
 
 describe('BitcoinProducts', () => {
@@ -15,8 +14,9 @@ describe('BitcoinProducts', () => {
     expect(toJSON()).toMatchSnapshot()
   })
   it('should link to bitbox', () => {
+    const openURLSpy = jest.spyOn(Linking, 'openURL')
     const { getByText } = render(<BitcoinProducts />, { wrapper: NavigationWrapper })
     fireEvent(getByText('check out bitbox'), 'onPress')
-    expect(Linking.openURL).toHaveBeenCalledWith('https://shiftcrypto.ch/bitbox02/?ref=DLX6l9ccCc')
+    expect(openURLSpy).toHaveBeenCalledWith('https://shiftcrypto.ch/bitbox02/?ref=DLX6l9ccCc')
   })
 })
