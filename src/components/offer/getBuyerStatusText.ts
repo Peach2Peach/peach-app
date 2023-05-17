@@ -10,10 +10,8 @@ export const getBuyerStatusText = (contract: Contract) => {
   const isCash = isCashTrade(contract.paymentMethod)
   if (isCash && contract.canceled) {
     if (contract.canceledBy === 'buyer') {
-      // TODO: add translation
       return i18n('contract.buyer.buyerCanceledCashTrade')
     }
-    // TODO: add translation
     return i18n('contract.buyer.sellerCanceledCashTrade')
   }
 

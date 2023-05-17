@@ -199,6 +199,8 @@
   "contract.seller.refunded": "You've decided to refund this trade to your $0.",
   "contract.seller.paymentWasTooLate": "The buyer hasn't made the payment on time. You can give them additional time to make the payment, or cancel the trade without getting a reputation penalty.",
   "contract.buyer.buyerCanceledTrade": "You've canceled the trade and your reputation has been impacted.",
+  "contract.buyer.buyerCanceledCashTrade": "You canceled this cash trade.",
+  "contract.buyer.sellerCanceledCashTrade": "The seller canceled this cash trade.",
   "contract.buyer.collaborativeCancel.resolved": "You agreed to cancel the trade, and the seller has been refunded.",
   "contract.buyer.collaborativeCancel.notResolved": "You'll need to agree to or reject the cancelation.",
   "contract.buyer.paymentWasTooLate": "You were too late to pay the seller, and they decided to cancel the trade. Your reputation has been impacted.",
