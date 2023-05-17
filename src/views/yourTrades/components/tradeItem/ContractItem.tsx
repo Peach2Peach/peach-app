@@ -1,5 +1,5 @@
 import { View, ViewStyle } from 'react-native'
-import { TradeSummaryCard } from '../../../../components/lists/TradeSummaryCard'
+import { SummaryCard } from '../../../../components/lists/SummaryCard'
 import tw from '../../../../styles/tailwind'
 import { contractIdToHex } from '../../../../utils/contract'
 import { isIOS } from '../../../../utils/system'
@@ -32,7 +32,7 @@ export const ContractItem = ({ contractSummary, tradeTheme, icon, theme }: Props
 
   return (
     <View>
-      <TradeSummaryCard
+      <SummaryCard
         title={contractIdToHex(id)}
         level={getLevel(tradeTheme)}
         date={new Date(paymentMade || creationDate)}

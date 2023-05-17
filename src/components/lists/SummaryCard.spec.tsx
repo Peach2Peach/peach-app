@@ -1,5 +1,5 @@
 import { createRenderer } from 'react-test-renderer/shallow'
-import { TradeSummaryCard } from './TradeSummaryCard'
+import { SummaryCard } from './SummaryCard'
 
 describe('TradeSummaryCard', () => {
   const renderer = createRenderer()
@@ -19,7 +19,7 @@ describe('TradeSummaryCard', () => {
       currency: 'EUR',
       price: 10.9,
     } as const
-    renderer.render(<TradeSummaryCard {...props} />)
+    renderer.render(<SummaryCard {...props} />)
     expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
   it('should render correctly for a won dispute as a seller', () => {
@@ -38,7 +38,7 @@ describe('TradeSummaryCard', () => {
       currency: 'EUR',
       price: 12.64,
     } as const
-    renderer.render(<TradeSummaryCard {...props} />)
+    renderer.render(<SummaryCard {...props} />)
     expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
   it('should render correctly for a started dispute', () => {
@@ -57,7 +57,7 @@ describe('TradeSummaryCard', () => {
       currency: 'EUR',
       price: 12.94,
     } as const
-    renderer.render(<TradeSummaryCard {...props} />)
+    renderer.render(<SummaryCard {...props} />)
     expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
   it('should render correctly for a won dispute as a seller with light theme', () => {
@@ -76,7 +76,7 @@ describe('TradeSummaryCard', () => {
       currency: 'EUR',
       price: 12.64,
     } as const
-    renderer.render(<TradeSummaryCard {...props} />)
+    renderer.render(<SummaryCard {...props} />)
     expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
 })
