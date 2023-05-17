@@ -8,6 +8,7 @@ import { CustomAmount } from './CustomAmount'
 import { SliderKnob } from './SliderKnob'
 import { SliderTrack } from './SliderTrack'
 import { TrackMarkers } from './TrackMarkers'
+import { knobLayout } from './helpers/knobLayout'
 import { onStartShouldSetResponder } from './helpers/onStartShouldSetResponder'
 import { useSelectAmountSetup } from './hooks/useSelectAmountSetup'
 
@@ -47,7 +48,7 @@ export const SelectAmount = ({ min, max, value, onChange, style }: Props): React
         <Animated.View
           {...panResponder.panHandlers}
           {...{ onStartShouldSetResponder }}
-          style={[tw`absolute top-0 flex-row items-center`, getTranslateY(pan, trackRange)]}
+          style={[knobLayout, getTranslateY(pan, trackRange)]}
         >
           <SliderKnob />
         </Animated.View>
