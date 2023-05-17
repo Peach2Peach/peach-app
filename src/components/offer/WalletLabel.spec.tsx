@@ -2,6 +2,7 @@ import { settingsStore } from '../../store/settingsStore'
 import i18n from '../../utils/i18n'
 import { WalletLabel } from './WalletLabel'
 import { render, waitFor } from '@testing-library/react-native'
+import { Text } from '../text'
 
 const findKeyPairByAddressMock = jest.fn()
 jest.mock('../../utils/wallet/setWallet', () => ({
@@ -33,20 +34,32 @@ describe('WalletLabel', () => {
     const addressLabel = 'addressLabel'
     settingsStore.getState().setPayoutAddress(address)
     settingsStore.getState().setPayoutAddressLabel(addressLabel)
-    const { toJSON, getByText } = render(<WalletLabel {...{ address }} />)
+    const { toJSON, getByText } = render(
+      <Text>
+        <WalletLabel {...{ address }} />
+      </Text>,
+    )
     await waitFor(() => expect(getByText(addressLabel)).toBeDefined())
     expect(toJSON()).toMatchSnapshot()
   })
   it('should render correctly if address is peach wallet address', async () => {
     const address = 'peachAddress'
     findKeyPairByAddressMock.mockReturnValueOnce(true)
-    const { toJSON, getByText } = render(<WalletLabel {...{ address }} />)
+    const { toJSON, getByText } = render(
+      <Text>
+        <WalletLabel {...{ address }} />
+      </Text>,
+    )
     await waitFor(() => expect(getByText(i18n('peachWallet'))).toBeDefined())
     expect(toJSON()).toMatchSnapshot()
   })
   it('should render correctly if address is unknown', async () => {
     const address = 'unknownAddress'
-    const { toJSON, getByText } = render(<WalletLabel {...{ address }} />)
+    const { toJSON, getByText } = render(
+      <Text>
+        <WalletLabel {...{ address }} />
+      </Text>,
+    )
     await waitFor(() => expect(getByText(i18n('offer.summary.customPayoutAddress'))).toBeDefined())
     expect(toJSON()).toMatchSnapshot()
   })

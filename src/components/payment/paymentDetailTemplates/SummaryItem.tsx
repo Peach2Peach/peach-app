@@ -15,7 +15,10 @@ type Props = {
   isEscrow?: boolean
   isAvailable?: boolean
   shouldBlur?: boolean
-} & ({ information: string; isBitcoinAmount?: false } | { information: number; isBitcoinAmount: true; isEscrow?: false })
+} & (
+  | { information: string | JSX.Element; isBitcoinAmount?: false }
+  | { information: number; isBitcoinAmount: true; isEscrow?: false }
+)
 
 export const SummaryItem = ({
   label,
