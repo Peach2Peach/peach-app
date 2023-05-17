@@ -90,3 +90,85 @@ exports[`SellOfferSummary renders correctly 1`] = `
   />
 </View>
 `;
+
+exports[`SellOfferSummary renders correctly for sell offers drafts 1`] = `
+<View
+  style={
+    [
+      {
+        "gap": 16,
+      },
+      {
+        "gap": 48,
+      },
+      undefined,
+    ]
+  }
+>
+  <View>
+    <AmountSummary
+      amount={1000000}
+    />
+    <PremiumText
+      premium={1.5}
+      style={
+        {
+          "color": "#7D675E",
+          "fontFamily": "Baloo2-Regular",
+          "fontSize": 20,
+          "letterSpacing": 0.2,
+          "lineHeight": 28,
+        }
+      }
+    />
+  </View>
+  <PaymentMethodsSummary
+    meansOfPayment={
+      {
+        "EUR": [
+          "sepa",
+        ],
+      }
+    }
+  />
+  <PayoutWalletSummary
+    address="returnAddress"
+    offer={
+      {
+        "amount": 1000000,
+        "creationDate": 2023-04-26T14:58:49.437Z,
+        "funding": {
+          "amounts": [],
+          "expiry": 4320,
+          "status": "NULL",
+          "txIds": [],
+          "vouts": [],
+        },
+        "meansOfPayment": {
+          "EUR": [
+            "sepa",
+          ],
+        },
+        "originalPaymentData": [],
+        "paymentData": {
+          "sepa": {
+            "hash": "TODO add payment hash",
+          },
+        },
+        "premium": 1.5,
+        "returnAddress": "returnAddress",
+        "type": "ask",
+      }
+    }
+  />
+  <HorizontalLine
+    style={
+      {
+        "marginBottom": 16,
+        "marginTop": 16,
+        "width": 256,
+      }
+    }
+  />
+</View>
+`;

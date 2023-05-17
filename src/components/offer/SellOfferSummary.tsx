@@ -1,12 +1,11 @@
 import { NETWORK } from '@env'
 import { ReactElement } from 'react'
-import { TouchableOpacity, View } from 'react-native'
+import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 import { showAddress } from '../../utils/bitcoin'
-import i18n from '../../utils/i18n'
 import Icon from '../Icon'
 import { PremiumText } from '../matches/components/PremiumText'
-import { Text } from '../text'
+import { Label } from '../text'
 import { HorizontalLine } from '../ui'
 import { AmountSummary } from './AmountSummary'
 import { PaymentMethodsSummary } from './PaymentMethodsSummary'
@@ -24,19 +23,18 @@ export const SellOfferSummary = ({ offer, style }: Props): ReactElement => (
     <View>
       <AmountSummary amount={offer.amount} />
       <PremiumText style={tw`text-black-2 body-l`} premium={offer.premium} />
+      {isSellOfferWithDefinedEscrow(offer) && (
+        <Label
+          testID="showEscrow"
+          style={tw`border-primary-main absolute right-0 top-10`}
+          onPress={() => showAddress(offer.escrow, NETWORK)}
+        >
+          <Icon id="externalLink" style={tw`w-4 h-4`} color={tw`text-primary-main`.color} />
+        </Label>
+      )}
     </View>
     <PaymentMethodsSummary meansOfPayment={offer.meansOfPayment} />
     <PayoutWalletSummary offer={offer} walletLabel={offer.walletLabel} address={offer.returnAddress} />
     <HorizontalLine style={tw`w-64 my-4`} />
-
-    {isSellOfferWithDefinedEscrow(offer) && (
-      <>
-        <HorizontalLine style={tw`w-64 my-4`} />
-        <TouchableOpacity style={tw`flex-row items-end self-center`} onPress={() => showAddress(offer.escrow, NETWORK)}>
-          <Text style={tw`underline tooltip text-black-2`}>{i18n('escrow.viewInExplorer')}</Text>
-          <Icon id="externalLink" style={tw`w-[18px] h-[18px] ml-[2px] mb-[2px]`} color={tw`text-primary-main`.color} />
-        </TouchableOpacity>
-      </>
-    )}
   </View>
 )

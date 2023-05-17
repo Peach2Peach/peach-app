@@ -56,4 +56,10 @@ describe('OpenTrade', () => {
     )
     expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
+  it('show the dispute lost status to the seller', () => {
+    renderer.render(
+      <OpenTrade view="seller" contract={{ ...mockContract, tradeStatus: 'releaseEscrow', disputeWinner: 'buyer' }} />,
+    )
+    expect(renderer.getRenderOutput()).toMatchSnapshot()
+  })
 })
