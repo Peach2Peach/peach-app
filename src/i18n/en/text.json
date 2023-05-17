@@ -913,6 +913,7 @@
   "showTransaction": "show transaction",
   "showTx": "show tx",
   "showEscrow": "show escrow",
+  "showOffer": "show offer",
   "escrowNotFound": "404 escrow not found",
   "goToOffer": "go to offer",
   "goToTrade": "go to trade",

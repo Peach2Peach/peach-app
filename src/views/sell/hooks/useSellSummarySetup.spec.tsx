@@ -19,11 +19,12 @@ describe('useSellSummarySetup', () => {
     expect(useHeaderState.getState().icons?.[0].id).toBe('wallet')
     await waitFor(() => expect(result.current.returnAddress).toBeDefined())
   })
-  it('should enable peach wallet if no payout address is set', () => {
+  it('should enable peach wallet if no payout address is set', async () => {
     settingsStore.getState().setPeachWalletActive(false)
     expect(settingsStore.getState().peachWalletActive).toBeFalsy()
-    renderHook(useSellSummarySetup, { wrapper: NavigationWrapper })
+    const { result } = renderHook(useSellSummarySetup, { wrapper: NavigationWrapper })
     expect(settingsStore.getState().peachWalletActive).toBeTruthy()
+    await waitFor(() => expect(result.current.returnAddress).toBeDefined())
   })
   it('should not enable peach wallet if payout address is set', () => {
     settingsStore.getState().setPeachWalletActive(false)
