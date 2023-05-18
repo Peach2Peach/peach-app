@@ -59,7 +59,7 @@ exports[`PayoutWalletSummary renders correctly for offer draft 1`] = `
           100000,
           1000000,
         ],
-        "creationDate": 2023-05-18T13:57:10.206Z,
+        "creationDate": 2022-12-30T23:00:00.000Z,
         "meansOfPayment": {
           "EUR": [
             "sepa",

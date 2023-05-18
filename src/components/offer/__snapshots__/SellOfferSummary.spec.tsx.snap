@@ -41,7 +41,6 @@ exports[`SellOfferSummary renders correctly 1`] = `
     }
   />
   <PayoutWalletSummary
-    address="bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh"
     offer={
       {
         "amount": 250000,
@@ -76,15 +75,6 @@ exports[`SellOfferSummary renders correctly 1`] = `
         "returnAddress": "bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh",
         "seenMatches": [],
         "type": "ask",
-      }
-    }
-  />
-  <HorizontalLine
-    style={
-      {
-        "marginBottom": 16,
-        "marginTop": 16,
-        "width": 256,
       }
     }
   />
@@ -132,7 +122,6 @@ exports[`SellOfferSummary renders correctly for sell offers drafts 1`] = `
     }
   />
   <PayoutWalletSummary
-    address="returnAddress"
     offer={
       {
         "amount": 1000000,
@@ -158,15 +147,6 @@ exports[`SellOfferSummary renders correctly for sell offers drafts 1`] = `
         "premium": 1.5,
         "returnAddress": "returnAddress",
         "type": "ask",
-      }
-    }
-  />
-  <HorizontalLine
-    style={
-      {
-        "marginBottom": 16,
-        "marginTop": 16,
-        "width": 256,
       }
     }
   />
