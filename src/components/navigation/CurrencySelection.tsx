@@ -27,23 +27,23 @@ type Props = ComponentProps & {
 export const CurrencySelection = ({ currencies, selected, select, style }: Props) => {
   const maxColumns = Math.max(4, Math.min(currencies.length, 8))
   const maxWidth = (1 / maxColumns) * 100 - 0.001 + '%'
-
-  return (
-    <View
-      style={[tw`flex-row flex-wrap justify-start items-center`, currencies.length > 8 && tw`justify-center`, style]}
-    >
-      {currencies.map((currency, index) => [
+export const CurrencySelection = ({ currencies, selected, select, style }: Props) => (
+  <View style={[tw`flex-row flex-wrap`, currencies.length > 8 && tw`justify-center`, style]}>
+    {currencies.map((currency, index) => (
+      <View
+        style={[tw`flex-row min-w-[12.5%] max-w-[25%] flex-grow items-center`]}
+        key={'currency-selection-' + currency}
+      >
         <CurrencySelectionItem
-          style={[tw`w-full px-1`, { maxWidth }]}
-          key={'currency-selection-' + currency}
           currency={currency}
           isSelected={currency === selected}
           onPress={select}
-        />,
-        index < currencies.length - 1 && (
-          <ItemSeparator key={'currency-selection-separator' + currency} style={tw`-mr-px`} />
-        ),
-      ])}
-    </View>
-  )
-}
+          style={tw`flex-grow`}
+        />
+        {index < currencies.length - 1 && (
+          <ItemSeparator key={'currency-selection-separator' + currency} style={tw`mx-1`} />
+        )}
+      </View>
+    ))}
+  </View>
+)
