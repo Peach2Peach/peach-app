@@ -40,7 +40,11 @@ declare type RootStackParamList = {
   setRefundWallet: {
     offerId: string
   }
-  offerPublished: { isSellOffer: boolean; shouldGoBack?: boolean }
+  offerPublished: {
+    offerId: string
+    isSellOffer: boolean
+    shouldGoBack?: boolean
+  }
   search: { offerId: string }
   contract: {
     contractId: Contract['id']
@@ -111,13 +115,7 @@ declare type RootStackParamList = {
   redesignWelcome: undefined
   splashScreen: undefined
   myProfile: undefined
-  testView: undefined
-  testViewButtons: undefined
-  testViewPopups: undefined
-  testViewMessages: undefined
-  testViewComponents: undefined
-  testViewPNs: undefined
-}
+} & Record<`testView${string}`, undefined>
 
 type KeysWithUndefined<T> = {
   [K in keyof T]: undefined extends T[K] ? K : never

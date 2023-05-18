@@ -1,17 +1,16 @@
-import { ReactElement } from 'react'
 import { View } from 'react-native'
 
 import tw from '../../styles/tailwind'
 
 import { HorizontalLine, PeachScrollView, PrimaryButton, RadioButtons, Text } from '../../components'
 import i18n from '../../utils/i18n'
-import CustomFeeItem from './components/networkFees/CustomFeeItem'
+import { CustomFeeItem } from './components/networkFees/CustomFeeItem'
 import EstimatedFeeItem from './components/networkFees/EstimatedFeeItem'
 import { useNetworkFeesSetup } from './hooks/useNetworkFeesSetup'
 
 const estimatedFeeRates: FeeRate[] = ['fastestFee', 'halfHourFee', 'hourFee', 'custom']
 
-export default (): ReactElement => {
+export default () => {
   const {
     estimatedFees,
     selectedFeeRate,
@@ -36,13 +35,7 @@ export default (): ReactElement => {
   return (
     <View style={tw`flex-1`}>
       <PeachScrollView contentContainerStyle={tw`justify-center flex-1 p-8`}>
-        <RadioButtons
-          {...{
-            items: options,
-            selectedValue: selectedFeeRate,
-            onChange: setSelectedFeeRate,
-          }}
-        />
+        <RadioButtons items={options} selectedValue={selectedFeeRate} onChange={setSelectedFeeRate} />
         <HorizontalLine style={tw`mt-8`} />
         <Text style={tw`mt-4 text-center text-black-2`}>{i18n('settings.networkFees.averageFees')}</Text>
         <Text style={tw`text-center subtitle-1`}>

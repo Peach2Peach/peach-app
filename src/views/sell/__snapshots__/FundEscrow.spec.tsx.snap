@@ -96,45 +96,61 @@ exports[`FundEscrow should render the FundEscrow view 1`] = `
       }
     }
   >
-    <PrimaryButton
-      disabled={true}
-      iconId="download"
-      testID="navigation-next"
+    <View
+      style={
+        {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "gap": 8,
+          "justifyContent": "center",
+          "paddingBottom": 8,
+          "paddingLeft": 24,
+          "paddingRight": 24,
+          "paddingTop": 8,
+        }
+      }
     >
-      fund to continue
-    </PrimaryButton>
+      <PeachText
+        style={
+          {
+            "color": "#F56522",
+            "fontFamily": "Baloo2-SemiBold",
+            "fontSize": 14,
+            "letterSpacing": 0.5,
+            "lineHeight": 24,
+            "textTransform": "uppercase",
+          }
+        }
+      >
+        checking funding status
+      </PeachText>
+      <Loading
+        color="#F56522"
+        style={
+          {
+            "height": 20,
+            "width": 20,
+          }
+        }
+      />
+    </View>
   </View>
   <DailyTradingLimit />
 </View>
 `;
 
 exports[`FundEscrow should show Loading, while escrow creation is pending 1`] = `
-<View
-  style={
-    {
-      "alignItems": "center",
-      "height": "100%",
-      "justifyContent": "center",
-    }
-  }
->
-  <Loading />
-  <PeachText
-    style={
-      {
-        "fontFamily": "Baloo2-SemiBold",
-        "fontSize": 16,
-        "letterSpacing": 0.16,
-        "lineHeight": 28,
-        "marginTop": 32,
-        "textAlign": "center",
-      }
-    }
-  >
-    creating escrow,
-one sec...
-  </PeachText>
-</View>
+<BitcoinLoading
+  text="creating escrow,
+one sec..."
+/>
+`;
+
+exports[`FundEscrow should show Loading, while escrow is not defined 1`] = `
+<BitcoinLoading
+  text="creating escrow,
+one sec..."
+/>
 `;
 
 exports[`FundEscrow should show NoEscrowFound, if no there is an error while creating escrow 1`] = `<NoEscrowFound />`;

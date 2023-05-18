@@ -1,5 +1,5 @@
 import { NavigationContainer } from '@react-navigation/native'
-import { renderHook, waitFor } from '@testing-library/react-native'
+import { act, renderHook, waitFor } from '@testing-library/react-native'
 import { account1 } from '../../../../tests/unit/data/accountData'
 import { sellOffer } from '../../../../tests/unit/data/offerData'
 import { QueryClientWrapper, queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
@@ -8,10 +8,11 @@ import { setAccount, updateAccount } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
 import { defaultFundingStatus } from '../../../utils/offer/constants'
 import { useFundEscrowSetup } from './useFundEscrowSetup'
+import { saveOffer } from '../../../utils/offer'
+import { unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
 
 jest.useFakeTimers()
 
-const apiError = { error: 'UNAUTHORIZED' }
 const useRouteMock = jest.fn().mockReturnValue({
   params: { offerId: sellOffer.id },
 })
@@ -76,10 +77,11 @@ describe('useFundEscrowSetup', () => {
   beforeEach(async () => {
     useHeaderState.setState({ title: '', icons: [] })
 
-    await updateAccount(account1, true)
+    await updateAccount({ ...account1, offers: [] }, true)
   })
   afterEach(async () => {
     jest.clearAllMocks()
+
     queryClient.clear()
   })
 
@@ -88,10 +90,25 @@ describe('useFundEscrowSetup', () => {
 
     expect(result.current).toEqual({
       offerId: sellOffer.id,
+      isLoading: true,
       escrow: undefined,
       createEscrowError: null,
       fundingStatus: defaultFundingStatus,
-      fundingAmount: sellOffer.amount,
+      fundingAmount: 0,
+      cancelOffer: expect.any(Function),
+    })
+  })
+  it('should return default values with locally stored offer', () => {
+    saveOffer(sellOfferWithEscrow)
+    const { result } = renderHook(useFundEscrowSetup, { wrapper })
+
+    expect(result.current).toEqual({
+      offerId: sellOfferWithEscrow.id,
+      isLoading: false,
+      escrow: sellOfferWithEscrow.escrow,
+      createEscrowError: null,
+      fundingStatus: defaultFundingStatus,
+      fundingAmount: sellOfferWithEscrow.amount,
       cancelOffer: expect.any(Function),
     })
   })
@@ -101,17 +118,24 @@ describe('useFundEscrowSetup', () => {
     await waitFor(() => expect(createEscrowMock).toHaveBeenCalled())
     expect(result.current.escrow).toBe(sellOfferWithEscrow.escrow)
   })
+  it('should show loading for at least 1 second', async () => {
+    getOfferDetailsMock.mockReturnValueOnce([{ ...sellOffer, escrow: undefined }, null])
+    const { result } = renderHook(useFundEscrowSetup, { wrapper })
+    expect(result.current.isLoading).toBeTruthy()
+    await waitFor(() => expect(createEscrowMock).toHaveBeenCalled())
+    act(() => jest.advanceTimersByTime(1000))
+    expect(result.current.isLoading).toBeFalsy()
+  })
   it('should handle create escrow errors', async () => {
     getOfferDetailsMock.mockReturnValueOnce([{ ...sellOffer, escrow: undefined }, null])
-    createEscrowMock.mockResolvedValueOnce([null, apiError])
+    createEscrowMock.mockResolvedValueOnce([null, unauthorizedError])
     const { result } = renderHook(useFundEscrowSetup, { wrapper })
     await waitFor(() => expect(createEscrowMock).toHaveBeenCalled())
-    expect(result.current.createEscrowError).toEqual(new Error(apiError.error))
+    expect(result.current.createEscrowError).toEqual(new Error(unauthorizedError.error))
   })
   it('should render header correctly for unfunded offers', () => {
     const { result } = renderHook(useFundEscrowSetup, { wrapper })
     expect(useHeaderState.getState().title).toBe(i18n('sell.escrow.title'))
-    expect(useHeaderState.getState().hideGoBackButton).toBeTruthy()
     expect(useHeaderState.getState().icons?.[0].id).toBe('xCircle')
     expect(useHeaderState.getState().icons?.[0].onPress).toEqual(result.current.cancelOffer)
     expect(useHeaderState.getState().icons?.[1].id).toBe('helpCircle')
@@ -131,7 +155,6 @@ describe('useFundEscrowSetup', () => {
     })
     renderHook(useFundEscrowSetup, { wrapper })
     expect(useHeaderState.getState().title).toBe(i18n('sell.funding.mempool.title'))
-    expect(useHeaderState.getState().hideGoBackButton).toBeTruthy()
     expect(useHeaderState.getState().icons?.[0].id).toBe('helpCircle')
     expect(useHeaderState.getState().icons?.[0].onPress).toEqual(showHelpMock)
   })
@@ -140,18 +163,19 @@ describe('useFundEscrowSetup', () => {
       fundingStatus: defaultFundingStatus,
       userConfirmationRequired: false,
       isLoading: false,
-      error: new Error(apiError.error),
+      error: new Error(unauthorizedError.error),
     })
     renderHook(useFundEscrowSetup, { wrapper })
-    expect(showErrorBannerMock).toHaveBeenCalledWith(apiError.error)
+    expect(showErrorBannerMock).toHaveBeenCalledWith(unauthorizedError.error)
   })
   it('should handle the case that no offer could be returned', async () => {
     await setAccount({ ...account1, offers: [] })
 
-    getOfferDetailsMock.mockReturnValueOnce([null, apiError])
+    getOfferDetailsMock.mockReturnValueOnce([null, unauthorizedError])
     const { result } = renderHook(useFundEscrowSetup, { wrapper })
     expect(result.current).toEqual({
       offerId: sellOffer.id,
+      isLoading: true,
       escrow: undefined,
       createEscrowError: null,
       fundingStatus: defaultFundingStatus,
@@ -160,10 +184,12 @@ describe('useFundEscrowSetup', () => {
     })
   })
   it('should handle the case that no offer could be returned but offer exists locally', () => {
-    getOfferDetailsMock.mockReturnValueOnce([null, apiError])
+    saveOffer(sellOfferWithEscrow)
+    getOfferDetailsMock.mockReturnValueOnce([null, unauthorizedError])
     const { result } = renderHook(useFundEscrowSetup, { wrapper })
     expect(result.current).toEqual({
       offerId: sellOffer.id,
+      isLoading: false,
       escrow: 'escrow',
       createEscrowError: null,
       fundingStatus: defaultFundingStatus,

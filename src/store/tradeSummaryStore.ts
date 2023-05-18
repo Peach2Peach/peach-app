@@ -3,13 +3,12 @@ import { createJSONStorage, persist } from 'zustand/middleware'
 import { createStorage, toZustandStorage } from '../utils/storage'
 
 export type TradeSummaryState = {
-  lastModified?: Date
+  lastModified: Date
   offers: OfferSummary[]
   contracts: ContractSummary[]
 }
 
 type TradeSummaryStore = TradeSummaryState & {
-  getLastModified: () => Date
   setOffers: (offers: OfferSummary[]) => void
   setOffer: (offerId: string, data: Partial<OfferSummary>) => void
   getOffer: (offerId: string) => OfferSummary | undefined
@@ -18,17 +17,17 @@ type TradeSummaryStore = TradeSummaryState & {
   getContract: (contractId: string) => ContractSummary | undefined
 }
 
-const defaultState: TradeSummaryState = {
+export const defaultTradeSummaryState: TradeSummaryState = {
   offers: [],
   contracts: [],
+  lastModified: new Date(0),
 }
 export const tradeSummaryStorage = createStorage('tradeSummary')
 
 export const tradeSummaryStore = createStore(
   persist<TradeSummaryStore>(
     (set, get) => ({
-      ...defaultState,
-      getLastModified: () => new Date(get().lastModified || 0),
+      ...defaultTradeSummaryState,
       setOffers: (offers) => set((state) => ({ ...state, offers, lastModified: new Date() })),
       setOffer: (offerId, data) => {
         let itemFound = false

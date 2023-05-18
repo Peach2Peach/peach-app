@@ -1,4 +1,3 @@
-import { ReactElement } from 'react'
 import { View } from 'react-native'
 import { PremiumSlider, PrimaryButton, SatsFormat, Text } from '../../components'
 import tw from '../../styles/tailwind'
@@ -8,7 +7,7 @@ import { SellViewProps } from './SellPreferences'
 import { PremiumInput } from './components/PremiumInput'
 import { usePremiumSetup } from './hooks/usePremiumSetup'
 
-export default ({ offerDraft, setOfferDraft, next }: SellViewProps): ReactElement => {
+export default ({ offerDraft, setOfferDraft, next }: SellViewProps) => {
   const { premium, updatePremium, currentPrice, displayCurrency, stepValid } = usePremiumSetup(offerDraft, setOfferDraft)
   return (
     <View style={tw`items-center flex-shrink h-full pb-7`}>

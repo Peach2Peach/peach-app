@@ -34,7 +34,7 @@ export const SellOfferSummary = ({ offer, style }: Props): ReactElement => (
       )}
     </View>
     <PaymentMethodsSummary meansOfPayment={offer.meansOfPayment} />
-    <PayoutWalletSummary offer={offer} walletLabel={offer.walletLabel} address={offer.returnAddress} />
+    <PayoutWalletSummary offer={offer} />
     <HorizontalLine style={tw`w-64 my-4`} />
   </View>
 )

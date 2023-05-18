@@ -9,6 +9,8 @@ import { PeachWallet } from '../../utils/wallet/PeachWallet'
 
 jest.useFakeTimers({ now: new Date('2023-04-26T14:58:49.437Z') })
 
+jest.useFakeTimers({ now: new Date('2022-12-30T23:00:00.000Z') })
+
 describe('SellOfferSummary', () => {
   const renderer = createRenderer()
 

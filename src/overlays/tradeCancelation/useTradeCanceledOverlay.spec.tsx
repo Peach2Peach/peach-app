@@ -6,8 +6,8 @@ import i18n from '../../utils/i18n'
 import { OfferRepublished } from './OfferRepublished'
 import { ContractCanceledToSeller } from './ContractCanceledToSeller'
 import { BuyerConfirmedCancelTrade } from './BuyerConfirmedCancelTrade'
+import { unauthorizedError } from '../../../tests/unit/data/peachAPIData'
 
-const apiError = { error: 'UNAUTHORIZED' }
 const navigateMock = jest.fn()
 const replaceMock = jest.fn()
 jest.mock('../../hooks/useNavigation', () => ({
@@ -105,7 +105,7 @@ describe('useTradeCanceledOverlay', () => {
     expect(updateOverlayMock).toHaveBeenCalledWith({ visible: false })
   })
   it('does not go to offer if republishing failed', async () => {
-    reviveSellOfferMock.mockResolvedValueOnce([null, apiError])
+    reviveSellOfferMock.mockResolvedValueOnce([null, unauthorizedError])
     const { result } = renderHook(useTradeCanceledOverlay)
     const { goToOfferAction } = await result.current.republishOffer(sellOffer, contract)
     goToOfferAction()
@@ -119,11 +119,11 @@ describe('useTradeCanceledOverlay', () => {
     expect(updateOverlayMock).toHaveBeenCalledWith({ visible: false })
   })
   it('handles republishing errors', async () => {
-    reviveSellOfferMock.mockResolvedValueOnce([null, apiError])
+    reviveSellOfferMock.mockResolvedValueOnce([null, unauthorizedError])
     const { result } = renderHook(useTradeCanceledOverlay)
     await result.current.republishOffer(sellOffer, contract)
     expect(updateOverlayMock).toHaveBeenCalledWith({ visible: false })
-    expect(showErrorBannerMock).toHaveBeenCalledWith(apiError.error)
+    expect(showErrorBannerMock).toHaveBeenCalledWith(unauthorizedError.error)
   })
   it('shows navigates to trade overview history tab when showing trade canceled overlay', () => {
     getSellOfferFromContractMock.mockReturnValueOnce(sellOffer)
