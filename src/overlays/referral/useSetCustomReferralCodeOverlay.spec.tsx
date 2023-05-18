@@ -5,7 +5,7 @@ import { useSetCustomReferralCodeOverlay } from './useSetCustomReferralCodeOverl
 import { redeemReferralCode } from '../../utils/peachAPI'
 import { useNavigation } from '../../hooks/useNavigation'
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
-import { SetCustomReferralCodeSuccess } from './SetCustomReferralCodeSucess'
+import { SetCustomReferralCodeSuccess } from './SetCustomReferralCodeSuccess'
 import i18n from '../../utils/i18n'
 
 jest.mock('../../hooks/useNavigation', () => ({

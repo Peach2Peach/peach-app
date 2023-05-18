@@ -10,28 +10,12 @@ import { getAuthenticationChallenge } from '../../getAuthenticationChallenge'
 import { getResponseError } from '../../getResponseError'
 import { getPeachAccount } from '../../peachAccount'
 import { getPublicHeaders } from '../../public/getPublicHeaders'
+import { handleMissingPeachAccount } from './handleMissingPeachAccount'
+import { TOKENNOTFOUNDERROR } from './constants'
 
-const tokenNotFoundError: APIError = {
-  error: 'Token not found',
-}
+type Props = RequestProps
 
-type AuthProps = RequestProps
-
-/**
- * @description Method to handle missing peach account.
- * This method should ideally never be called but serves as messenger if something goes wrong
- */
-const handleMissingPeachAccount = () => {
-  const authError = new Error('Peach Account not set')
-  error(authError)
-  throw authError
-}
-
-/**
- * @description Method to authenticate with Peach API
- * @returns AccessToken or APIError
- */
-export const auth = async ({ timeout }: AuthProps): Promise<[AccessToken | null, APIError | null]> => {
+export const auth = async ({ timeout }: Props): Promise<[AccessToken | null, APIError | null]> => {
   const peachAccount = getPeachAccount()
   const message = getAuthenticationChallenge()
 
@@ -64,8 +48,8 @@ export const auth = async ({ timeout }: AuthProps): Promise<[AccessToken | null,
       return [null, result as APIError]
     }
 
-    error('peachAPI - auth - FAILED', tokenNotFoundError)
-    return [null, tokenNotFoundError]
+    error('peachAPI - auth - FAILED', TOKENNOTFOUNDERROR)
+    return [null, TOKENNOTFOUNDERROR]
   } catch (e) {
     error('peachAPI - auth', e)
     return [null, { error: 'INTERNAL_SERVER_ERROR' }]

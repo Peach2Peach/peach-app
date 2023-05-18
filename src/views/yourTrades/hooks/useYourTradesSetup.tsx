@@ -1,7 +1,5 @@
-import { useFocusEffect } from '@react-navigation/native'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { TabbedNavigationItem } from '../../../components/navigation/TabbedNavigation'
-
 import { useHeaderSetup, useRoute } from '../../../hooks'
 import { useTradeSummaries } from '../../../hooks/query/useTradeSummaries'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
@@ -22,7 +20,7 @@ export const useYourTradesSetup = () => {
   const showErrorBanner = useShowErrorBanner()
   const [currentTab, setCurrentTab] = useState(getTabById(tabs, tab) || tabs[0])
 
-  const { offers, contracts, isLoading, error, refetch } = useTradeSummaries()
+  const { offers, contracts, isFetching, isLoading, error, refetch } = useTradeSummaries()
 
   const filteredOffers = offers.filter(({ contractId }) => !contractId)
   const trades = [...filteredOffers, ...contracts].sort(sortContractsByDate).reverse()
@@ -47,17 +45,15 @@ export const useYourTradesSetup = () => {
     ),
   )
 
-  useFocusEffect(useCallback(() => refetch(), [refetch]))
-
   useEffect(() => {
     if (tab) setCurrentTab(getTabById(tabs, tab) || tabs[0])
   }, [tab])
 
   useEffect(() => {
-    if (isLoading) return
+    if (isFetching) return
 
     if (error) showErrorBanner(parseError(error))
-  }, [isLoading, error, showErrorBanner])
+  }, [isFetching, error, showErrorBanner])
 
   return {
     isLoading,

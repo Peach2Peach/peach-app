@@ -5,10 +5,10 @@ import { QueryClientWrapper } from '../../../../tests/unit/helpers/QueryClientWr
 import { updateAccount } from '../../../utils/account'
 import { defaultFundingStatus } from '../../../utils/offer/constants'
 import { useCreateEscrow } from './useCreateEscrow'
+import { unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
 
 jest.useFakeTimers()
 
-const apiError = { error: 'UNAUTHORIZED' }
 const createEscrowMock = jest.fn().mockResolvedValue([
   {
     offerId: sellOffer.id,
@@ -43,18 +43,18 @@ describe('useCreateEscrow', () => {
     await result.current.mutate()
     await waitFor(() => expect(result.current.isLoading).toBeFalsy())
     expect(createEscrowMock).toHaveBeenCalledWith({
-      offerId: '38',
-      publicKey: '03c2312751aae3cd2e9c4aa4086e009fca7f4fa75b3ec1c752ea7272cf86cb26a0',
+      offerId: sellOffer.id,
+      publicKey: '029d3a758589d86eaeccb6bd50dd91b4846ec558bde201999c8e3dee203a892c57',
     })
   })
   it('shows error banner on API errors', async () => {
-    createEscrowMock.mockResolvedValueOnce([null, apiError])
+    createEscrowMock.mockResolvedValueOnce([null, unauthorizedError])
     const { result } = renderHook(useCreateEscrow, {
       wrapper: QueryClientWrapper,
       initialProps: { offerId: sellOffer.id },
     })
     await result.current.mutate()
     await waitFor(() => expect(result.current.isLoading).toBeFalsy())
-    expect(showErrorBannerMock).toHaveBeenCalledWith(apiError.error)
+    expect(showErrorBannerMock).toHaveBeenCalledWith(unauthorizedError.error)
   })
 })

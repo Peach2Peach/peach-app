@@ -4,6 +4,7 @@ exports[`TrackMarkers should render correctly 1`] = `
 <View
   style={
     {
+      "height": "100%",
       "position": "absolute",
       "top": 0,
       "width": "100%",
@@ -23,30 +24,11 @@ exports[`TrackMarkers should render correctly 1`] = `
           "right": 8,
         },
         {
-          "top": 16,
+          "top": "5.555555555555555%",
         },
       ]
     }
-  >
-    <PeachText
-      numberOfLines={1}
-      style={
-        {
-          "color": "#7D675E",
-          "fontFamily": "Baloo2-SemiBold",
-          "fontSize": 14,
-          "left": "100%",
-          "letterSpacing": 0.14,
-          "lineHeight": 22,
-          "marginLeft": 20,
-          "position": "absolute",
-          "width": 80,
-        }
-      }
-    >
-      Have
-    </PeachText>
-  </View>
+  />
   <View
     style={
       [
@@ -60,30 +42,11 @@ exports[`TrackMarkers should render correctly 1`] = `
           "right": 8,
         },
         {
-          "top": 47,
+          "top": "16.666666666666664%",
         },
       ]
     }
-  >
-    <PeachText
-      numberOfLines={1}
-      style={
-        {
-          "color": "#7D675E",
-          "fontFamily": "Baloo2-SemiBold",
-          "fontSize": 14,
-          "left": "100%",
-          "letterSpacing": 0.14,
-          "lineHeight": 22,
-          "marginLeft": 20,
-          "position": "absolute",
-          "width": 80,
-        }
-      }
-    >
-      fun
-    </PeachText>
-  </View>
+  />
   <View
     style={
       [
@@ -97,30 +60,11 @@ exports[`TrackMarkers should render correctly 1`] = `
           "right": 8,
         },
         {
-          "top": 78,
+          "top": "27.77777777777778%",
         },
       ]
     }
-  >
-    <PeachText
-      numberOfLines={1}
-      style={
-        {
-          "color": "#7D675E",
-          "fontFamily": "Baloo2-SemiBold",
-          "fontSize": 14,
-          "left": "100%",
-          "letterSpacing": 0.14,
-          "lineHeight": 22,
-          "marginLeft": 20,
-          "position": "absolute",
-          "width": 80,
-        }
-      }
-    >
-      staying
-    </PeachText>
-  </View>
+  />
   <View
     style={
       [
@@ -134,29 +78,100 @@ exports[`TrackMarkers should render correctly 1`] = `
           "right": 8,
         },
         {
-          "top": 109,
+          "top": "38.88888888888889%",
         },
       ]
     }
-  >
-    <PeachText
-      numberOfLines={1}
-      style={
+  />
+  <View
+    style={
+      [
         {
-          "color": "#7D675E",
-          "fontFamily": "Baloo2-SemiBold",
-          "fontSize": 14,
-          "left": "100%",
-          "letterSpacing": 0.14,
-          "lineHeight": 22,
-          "marginLeft": 20,
+          "backgroundColor": "#FCCCB6",
+          "borderRadius": 9999,
+          "height": 2,
+          "justifyContent": "center",
+          "left": 8,
           "position": "absolute",
-          "width": 80,
-        }
-      }
-    >
-      poor
-    </PeachText>
-  </View>
+          "right": 8,
+        },
+        {
+          "top": "50%",
+        },
+      ]
+    }
+  />
+  <View
+    style={
+      [
+        {
+          "backgroundColor": "#FCCCB6",
+          "borderRadius": 9999,
+          "height": 2,
+          "justifyContent": "center",
+          "left": 8,
+          "position": "absolute",
+          "right": 8,
+        },
+        {
+          "top": "61.111111111111114%",
+        },
+      ]
+    }
+  />
+  <View
+    style={
+      [
+        {
+          "backgroundColor": "#FCCCB6",
+          "borderRadius": 9999,
+          "height": 2,
+          "justifyContent": "center",
+          "left": 8,
+          "position": "absolute",
+          "right": 8,
+        },
+        {
+          "top": "72.22222222222221%",
+        },
+      ]
+    }
+  />
+  <View
+    style={
+      [
+        {
+          "backgroundColor": "#FCCCB6",
+          "borderRadius": 9999,
+          "height": 2,
+          "justifyContent": "center",
+          "left": 8,
+          "position": "absolute",
+          "right": 8,
+        },
+        {
+          "top": "83.33333333333334%",
+        },
+      ]
+    }
+  />
+  <View
+    style={
+      [
+        {
+          "backgroundColor": "#FCCCB6",
+          "borderRadius": 9999,
+          "height": 2,
+          "justifyContent": "center",
+          "left": 8,
+          "position": "absolute",
+          "right": 8,
+        },
+        {
+          "top": "94.44444444444444%",
+        },
+      ]
+    }
+  />
 </View>
 `;

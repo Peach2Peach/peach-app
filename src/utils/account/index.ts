@@ -1,5 +1,4 @@
 export { account, defaultAccount, getAccount, setAccount } from './account'
-export { updateAccount } from './updateAccount'
 export { addPaymentData } from './addPaymentData'
 export { backupAccount } from './backupAccount'
 export { createAccount } from './createAccount'
@@ -7,6 +6,7 @@ export { createPeachAccount } from './createPeachAccount'
 export { decryptAccount } from './decryptAccount'
 export { deleteAccount } from './deleteAccount'
 export { getAccountBackup } from './getAccountBackup'
+export { getMainAccount } from './getMainAccount'
 export { getMessageToSignForAddress } from './getMessageToSignForAddress'
 export { getNewPreferredPaymentMethods } from './getNewPreferredPaymentMethods'
 export { getPaymentData } from './getPaymentData'
@@ -26,6 +26,7 @@ export {
 } from './loadAccount'
 export { recoverAccount } from './recoverAccount'
 export { removePaymentData } from './removePaymentData'
+export { signMessageWithAccount } from './signMessageWithAccount'
 export {
   storeAccount,
   storeChat,
@@ -38,4 +39,5 @@ export {
   storePaymentData,
   storeTradingLimit,
 } from './storeAccount'
+export { updateAccount } from './updateAccount'
 export { updatePaymentData } from './updatePaymentData'

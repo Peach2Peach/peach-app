@@ -27,7 +27,7 @@ import { shallow } from 'zustand/shallow'
 import { Background } from './components/background/Background'
 import { ISEMULATOR, TIMETORESTART } from './constants'
 import { useAppStateEffect } from './effects/useAppStateEffect'
-import { useUpdateTradingAmounts } from './hooks'
+import { useMarketPrices, useUpdateTradingAmounts } from './hooks'
 import { useMessageHandler } from './hooks/notifications/useMessageHandler'
 import { useHandleNotifications } from './hooks/notifications/usePushHandleNotifications'
 import { useCheckTradeNotifications } from './hooks/useCheckTradeNotifications'
@@ -43,7 +43,6 @@ import { useSettingsStore } from './store/settingsStore'
 import { account } from './utils/account'
 import { screenTransition } from './utils/layout/screenTransition'
 import { error, info } from './utils/log'
-import { marketPrices } from './utils/peachAPI/public/market'
 import { parseError } from './utils/result'
 import { isIOS, isNetworkError } from './utils/system'
 import { useShowUpdateAvailable } from './hooks/useShowUpdateAvailable'
@@ -72,6 +71,10 @@ const Handlers = ({ getCurrentPage }: HandlerProps): ReactElement => {
   const [, updateOverlay] = useOverlayContext()
   const showAnalyticsPrompt = useShowAnalyticsPrompt(updateOverlay)
   const analyticsPopupSeen = useSettingsStore((state) => state.analyticsPopupSeen)
+  const updateTradingAmounts = useUpdateTradingAmounts()
+  const displayCurrency = useSettingsStore((state) => state.displayCurrency)
+  const [setPrices, setCurrency] = useBitcoinStore((state) => [state.setPrices, state.setCurrency], shallow)
+  const { data: prices } = useMarketPrices()
 
   useShowUpdateAvailable()
 
@@ -81,17 +84,20 @@ const Handlers = ({ getCurrentPage }: HandlerProps): ReactElement => {
 
   useHandleNotifications(messageHandler)
 
+  useEffect(() => {
+    setCurrency(displayCurrency)
+
+    if (!prices) return
+    setPrices(prices)
+    if (prices.CHF) updateTradingAmounts(prices.CHF)
+  }, [displayCurrency, prices, setCurrency, setPrices, updateTradingAmounts])
+
   return <></>
 }
 const usePartialAppSetup = () => {
-  const [active, setActive] = useState(true)
-  const updateTradingAmounts = useUpdateTradingAmounts()
-  const displayCurrency = useSettingsStore((state) => state.displayCurrency)
-  const [setPrices, setCurrency] = useBitcoinStore((state) => [state.setPrices, state.setCurrency], shallow)
   useCheckTradeNotifications()
 
   const appStateCallback = useCallback((isActive: boolean) => {
-    setActive(isActive)
     if (isActive) {
       getPeachInfo()
       if (account?.publicKey) {
@@ -106,24 +112,6 @@ const usePartialAppSetup = () => {
   }, [])
 
   useAppStateEffect(appStateCallback)
-
-  useEffect(() => {
-    if (!active) return () => {}
-
-    const checkingInterval = 15 * 1000
-    const checkingFunction = async () => {
-      const [prices] = await marketPrices({ timeout: checkingInterval })
-      if (prices) setPrices(prices)
-      if (prices?.CHF) updateTradingAmounts(prices.CHF)
-    }
-    const interval = setInterval(checkingFunction, checkingInterval)
-    setCurrency(displayCurrency)
-    checkingFunction()
-
-    return () => {
-      clearInterval(interval)
-    }
-  }, [active, displayCurrency, setCurrency, setPrices, updateTradingAmounts])
 }
 
 // eslint-disable-next-line max-statements

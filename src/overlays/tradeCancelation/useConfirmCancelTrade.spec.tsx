@@ -7,8 +7,8 @@ import i18n from '../../utils/i18n'
 import { getResult } from '../../utils/result'
 import { ConfirmCancelTrade } from './ConfirmCancelTrade'
 import { useConfirmCancelTrade } from './useConfirmCancelTrade'
+import { unauthorizedError } from '../../../tests/unit/data/peachAPIData'
 
-const apiError = { error: 'UNAUTHORIZED' }
 const navigateMock = jest.fn()
 const replaceMock = jest.fn()
 jest.mock('../../hooks/useNavigation', () => ({
@@ -99,7 +99,7 @@ describe('useConfirmCancelTrade', () => {
     expect(replaceMock).toHaveBeenCalledWith('contract', { contractId: contract.id })
   })
   it('should handle error case when canceling a contract as seller', async () => {
-    cancelContractAsSellerMock.mockResolvedValueOnce(getResult({ contract }, apiError))
+    cancelContractAsSellerMock.mockResolvedValueOnce(getResult({ contract }, unauthorizedError))
     const { result } = renderHook(useConfirmCancelTrade)
     await result.current.cancelSeller(contract)
   })
@@ -117,7 +117,7 @@ describe('useConfirmCancelTrade', () => {
     expect(replaceMock).toHaveBeenCalledWith('contract', { contractId: contract.id })
   })
   it('should handle error case when canceling a contract as buyer', async () => {
-    cancelContractAsBuyerMock.mockResolvedValueOnce(getResult({ contract }, apiError))
+    cancelContractAsBuyerMock.mockResolvedValueOnce(getResult({ contract }, unauthorizedError))
     const { result } = renderHook(useConfirmCancelTrade)
     await result.current.cancelBuyer(contract)
   })

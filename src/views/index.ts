@@ -20,6 +20,7 @@ import PublicProfile from './publicProfile/PublicProfile'
 import Referrals from './referrals/Referrals'
 import Report from './report/Report'
 import RestoreBackup from './restoreBackup/RestoreBackup'
+import RestoreReputation from './restoreReputation/RestoreReputation'
 import OfferPublished from './search/OfferPublished'
 import Search from './search/Search'
 import SelectWallet from './selectWallet/SelectWallet'
@@ -53,6 +54,7 @@ import RedesignWelcome from './welcome/RedesignWelcome'
 import Welcome from './welcome/Welcome'
 import YourTrades from './yourTrades/YourTrades'
 import Language from './settings/Language'
+import NewBadge from './overlays/NewBadge'
 
 type ViewType = {
   name: keyof RootStackParamList
@@ -82,6 +84,7 @@ const onboarding: ViewType[] = [
   { name: 'home', component: Welcome, ...onboardingConfig },
   { name: 'newUser', component: NewUser, ...onboardingConfig },
   { name: 'restoreBackup', component: RestoreBackup, ...onboardingConfig },
+  { name: 'restoreReputation', component: RestoreReputation, ...onboardingConfig },
   { name: 'redesignWelcome', component: RedesignWelcome, ...invertedThemeConfig },
 ]
 
@@ -109,10 +112,7 @@ const sellFlow: ViewType[] = [
   { name: 'setRefundWallet', component: SetRefundWallet, ...defaultConfig },
 ]
 
-const search: ViewType[] = [
-  { name: 'offerPublished', component: OfferPublished, ...invertedThemeConfig },
-  { name: 'search', component: Search, ...defaultConfig },
-]
+const search: ViewType[] = [{ name: 'search', component: Search, ...defaultConfig }]
 
 const trade: ViewType[] = [
   { name: 'contract', component: Contract, ...defaultConfig },
@@ -140,6 +140,11 @@ const contact = (hasAccount: boolean): ViewType[] =>
     ]
 
 const publicProfile: ViewType[] = [{ name: 'publicProfile', component: PublicProfile, ...defaultConfig }]
+
+const overlays: ViewType[] = [
+  { name: 'offerPublished', component: OfferPublished, ...invertedThemeConfig },
+  { name: 'newBadge', component: NewBadge, ...invertedThemeConfig },
+]
 
 const settings: ViewType[] = [
   { name: 'settings', component: Settings, ...defaultConfig, animationEnabled: false },
@@ -184,6 +189,7 @@ export const getViews = (hasAccount: boolean): ViewType[] =>
       ...publicProfile,
       ...contact(hasAccount),
       ...settings,
+      ...overlays,
       ...testViews,
     ]
     : [...onboarding, ...contact(hasAccount)]

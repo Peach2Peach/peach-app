@@ -1,17 +1,16 @@
-import { ReactElement } from 'react'
 import { View } from 'react-native'
 import { Fade, PeachScrollView, Text } from '../../components'
 import { PrimaryButton } from '../../components/buttons'
 import { useKeyboard } from '../../hooks'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { useRestoreFromSeedSetup } from './hooks/useRestoreFromSeedSetup'
 import RestoreBackupError from './RestoreBackupError'
-import RestoreBackupLoading from './RestoreBackupLoading'
+import { RestoreBackupLoading } from './RestoreBackupLoading'
 import RestoreSuccess from './RestoreSuccess'
 import { SeedPhraseInput } from './SeedPhraseInput'
+import { useRestoreFromSeedSetup } from './hooks/useRestoreFromSeedSetup'
 
-export default ({ style }: ComponentProps): ReactElement => {
+export const RestoreFromSeed = ({ style }: ComponentProps) => {
   const { restored, error, loading, setWords, allWordsAreSet, isMnemonicValid, submit } = useRestoreFromSeedSetup()
   const keyboardOpen = useKeyboard()
 

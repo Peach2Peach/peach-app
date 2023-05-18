@@ -1,6 +1,6 @@
 import { ReactElement } from 'react'
 import { FillProps } from 'react-native-svg'
-import { Text } from '.'
+import { PeachText } from './text/Text'
 import tw from '../styles/tailwind'
 import Icons, { IconType } from '../assets/icons'
 
@@ -20,7 +20,7 @@ type IconProps = ComponentProps & {
 export const Icon = ({ id, style, color }: IconProps): ReactElement => {
   const SVG = Icons[id]
 
-  return SVG ? <SVG style={[tw`w-6 h-6`, style]} fill={color || '#888'} /> : <Text>❌</Text>
+  return SVG ? <SVG style={[tw`w-6 h-6`, style]} fill={color || '#888'} /> : <PeachText>❌</PeachText>
 }
 
 export default Icon
