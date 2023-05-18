@@ -23,11 +23,11 @@ jest.mock('./getDeviceLocale', () => ({
 }))
 
 describe('getDeviceLocale', () => {
-  it('checks whether app is running on android', () => {
+  it('gets local for android', () => {
     isIOSMock.mockReturnValue(false)
     expect(getDeviceLocale()).toBe('de')
   })
-  it('checks whether app is running on ios', () => {
+  it('gets local for ios', () => {
     isIOSMock.mockReturnValue(true)
     expect(getDeviceLocale()).toBe('fr_FR')
   })
