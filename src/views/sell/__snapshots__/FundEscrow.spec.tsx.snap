@@ -101,7 +101,12 @@ exports[`FundEscrow should render the FundEscrow view 1`] = `
         {
           "alignItems": "center",
           "flexDirection": "row",
+          "gap": 8,
           "justifyContent": "center",
+          "paddingBottom": 8,
+          "paddingLeft": 24,
+          "paddingRight": 24,
+          "paddingTop": 8,
         }
       }
     >
