@@ -43,7 +43,7 @@ export default (): ReactElement => {
         </View>
       </PeachScrollView>
       <View style={tw`flex items-center w-full my-4`}>
-        <View style={tw`flex-row items-center justify-center`}>
+        <View style={tw`flex-row items-center justify-center gap-2 px-6 py-2`}>
           <Text style={tw`text-primary-main button-medium`}>{i18n('sell.escrow.checkingFundingStatus')}</Text>
           <Loading style={tw`w-5 h-5`} color={tw`text-primary-main`.color} />
         </View>
