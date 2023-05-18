@@ -1,24 +1,24 @@
 import { ReactElement } from 'react'
 import { View } from 'react-native'
-import { BitcoinAddress, Loading, PeachScrollView, PrimaryButton, Text } from '../../components'
+import { BitcoinAddress, PeachScrollView, PrimaryButton, Text } from '../../components'
 import { SATSINBTC } from '../../constants'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { offerIdToHex } from '../../utils/offer'
+import { BitcoinLoading } from '../loading/BitcoinLoading'
 import { DailyTradingLimit } from '../settings/profile/DailyTradingLimit'
 import { FundingSatsFormat } from './components/FundingSatsFormat'
 import { NoEscrowFound } from './components/NoEscrowFound'
 import { TransactionInMempool } from './components/TransactionInMempool'
 import { useAutoFundOffer } from './hooks/regtest/useAutoFundOffer'
 import { useFundEscrowSetup } from './hooks/useFundEscrowSetup'
-import { BitcoinLoading } from '../loading/BitcoinLoading'
 
 export default (): ReactElement => {
   const { offerId, isLoading, escrow, createEscrowError, fundingStatus, fundingAmount } = useFundEscrowSetup()
   const { showRegtestButton, fundEscrowAddress } = useAutoFundOffer({ offerId, fundingStatus })
 
   if (createEscrowError) return <NoEscrowFound />
-  if (isLoading) return <BitcoinLoading text={i18n('sell.escrow.loading')} />
+  if (isLoading || !escrow) return <BitcoinLoading text={i18n('sell.escrow.loading')} />
 
   if (fundingStatus.status === 'MEMPOOL') return <TransactionInMempool />
 
