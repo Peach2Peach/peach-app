@@ -47,10 +47,6 @@ exports[`BitcoinProducts should render correctly 1`] = `
           "lineHeight": 24,
         },
         {
-          "fontFamily": "Baloo2-Regular",
-          "fontSize": 16,
-          "letterSpacing": 0.16,
-          "lineHeight": 24,
           "marginTop": 4,
         },
       ]
@@ -113,11 +109,12 @@ exports[`BitcoinProducts should render correctly 1`] = `
           },
           {
             "color": "#F56522",
-            "fontFamily": "Baloo2-Bold",
+            "fontFamily": "Baloo2-SemiBold",
             "fontSize": 20,
             "letterSpacing": 0.2,
             "lineHeight": 32,
             "textDecorationLine": "underline",
+            "textTransform": "lowercase",
           },
         ]
       }
