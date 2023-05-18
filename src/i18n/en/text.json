@@ -17,6 +17,7 @@
   "crashReport.requestPermission.sendReport": "send report",
   "privacyPolicy": "privacy policy",
   "language": "language",
+  "language.select": "select language",
   "languageName.en": "english",
   "languageName.es": "español",
   "languageName.de": "deutsch",

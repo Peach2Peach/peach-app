@@ -1,15 +1,10 @@
-import { ReactElement } from 'react'
 import { View } from 'react-native'
-
 import tw from '../../styles/tailwind'
-
 import { PeachScrollView, PrimaryButton, RadioButtons } from '../../components'
 import i18n from '../../utils/i18n'
-import { whiteGradient } from '../../utils/layout'
 import { useLanguageSetup } from './hooks/useLanguageSetup'
-const { LinearGradient } = require('react-native-gradients')
 
-export default (): ReactElement => {
+export default () => {
   const { locale, setLocale, saveLocale } = useLanguageSetup()
 
   return (
@@ -23,9 +18,6 @@ export default (): ReactElement => {
         />
       </PeachScrollView>
       <View style={tw`flex items-center w-full px-6 mt-4 bg-primary-background`}>
-        <View style={tw`w-full h-8 -mt-8`}>
-          <LinearGradient colorList={whiteGradient} angle={90} />
-        </View>
         <PrimaryButton testID="navigation-next" onPress={() => saveLocale(locale)} style={tw`mb-6`}>
           {i18n('confirm')}
         </PrimaryButton>
