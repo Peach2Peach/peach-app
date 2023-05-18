@@ -39,7 +39,7 @@ exports[`LanguageSelect renders correctly 1`] = `
           }
         }
       >
-        english
+        English
       </PeachText>
       <Icon
         color="#F56522"
@@ -98,7 +98,7 @@ exports[`LanguageSelect renders correctly 1`] = `
           }
         }
       >
-        español
+        Español
       </PeachText>
     </View>
     <HorizontalLine
