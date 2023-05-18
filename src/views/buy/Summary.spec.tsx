@@ -40,6 +40,7 @@ describe('Summary', () => {
     originalPaymentData: buyOffer.originalPaymentData,
   }
   const setOfferDraft = jest.fn()
+  const next = jest.fn()
   const renderer = createRenderer()
 
   beforeEach(() => {
@@ -51,7 +52,7 @@ describe('Summary', () => {
     jest.clearAllMocks()
   })
   it('should render the Summary view', () => {
-    renderer.render(<Summary {...{ offerDraft, setOfferDraft }} />)
+    renderer.render(<Summary {...{ offerDraft, setOfferDraft, next }} />)
     const result = renderer.getRenderOutput()
     expect(result).toMatchSnapshot()
   })
@@ -62,7 +63,7 @@ describe('Summary', () => {
       peachWalletActive: true,
       canPublish: false,
     })
-    renderer.render(<Summary {...{ offerDraft, setOfferDraft }} />)
+    renderer.render(<Summary {...{ offerDraft, setOfferDraft, next }} />)
     const result = renderer.getRenderOutput()
     expect(result).toMatchSnapshot()
   })
@@ -73,7 +74,7 @@ describe('Summary', () => {
       peachWalletActive: false,
       canPublish: false,
     })
-    renderer.render(<Summary {...{ offerDraft, setOfferDraft }} />)
+    renderer.render(<Summary {...{ offerDraft, setOfferDraft, next }} />)
     const result = renderer.getRenderOutput()
     expect(result).toMatchSnapshot()
   })
@@ -82,12 +83,12 @@ describe('Summary', () => {
       ...defaultBuySummary,
       isPublishing: true,
     })
-    renderer.render(<Summary {...{ offerDraft, setOfferDraft }} />)
+    renderer.render(<Summary {...{ offerDraft, setOfferDraft, next }} />)
     const result = renderer.getRenderOutput()
     expect(result).toMatchSnapshot()
   })
   it('clicking on "publish" publishes offer', () => {
-    const { getByText } = render(<Summary {...{ offerDraft, setOfferDraft }} />)
+    const { getByText } = render(<Summary {...{ offerDraft, setOfferDraft, next }} />)
     fireEvent(getByText('publish'), 'onPress')
     expect(publishOffer).toHaveBeenCalled()
   })
@@ -98,7 +99,7 @@ describe('Summary', () => {
       peachWalletActive: false,
       canPublish: false,
     })
-    const { getByText } = render(<Summary {...{ offerDraft, setOfferDraft }} />)
+    const { getByText } = render(<Summary {...{ offerDraft, setOfferDraft, next }} />)
     fireEvent(getByText('next'), 'onPress')
     expect(goToMessageSigning).toHaveBeenCalled()
   })
