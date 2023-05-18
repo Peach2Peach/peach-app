@@ -19,7 +19,7 @@ export default (): ReactElement => {
           <Text style={tw`flex-shrink body-l text-primary-background-light`}>{i18n('offer.published.description')}</Text>
         </View>
       </View>
-      <PrimaryButton white onPress={buttonAction}>
+      <PrimaryButton white wide onPress={buttonAction}>
         {i18n(shouldGoBack ? 'close' : 'goBackHome')}
       </PrimaryButton>
     </View>
