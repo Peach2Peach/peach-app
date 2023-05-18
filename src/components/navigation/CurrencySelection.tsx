@@ -12,7 +12,7 @@ const CurrencySelectionItem = ({ currency, isSelected, onPress, style }: Currenc
     <Text numberOfLines={1} style={[tw`button-large text-center text-black-2`, isSelected && tw`text-black-1`]}>
       {currency}
     </Text>
-    {isSelected && <View style={[tw`w-full h-0.5 -mt-0.5 bg-black-1`]} />}
+    {isSelected && <View style={[tw`w-full h-0.5 -mt-0.5 bg-black-1 rounded-1px`]} />}
   </Pressable>
 )
 
