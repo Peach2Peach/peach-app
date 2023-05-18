@@ -1,9 +1,7 @@
 import { TouchableOpacity, View } from 'react-native'
-
 import { useNavigation } from '@react-navigation/native'
 import { Icon, Text } from '..'
 import tw from '../../styles/tailwind'
-import { useLanguageContext } from '../../utils/i18n'
 import { useHeaderState } from './store'
 
 const themes = {

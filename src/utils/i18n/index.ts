@@ -3,7 +3,6 @@ import de_CH from '../../i18n/de-CH/text.json'
 import de from '../../i18n/de/text.json'
 import en from '../../i18n/en/text.json'
 import es from '../../i18n/es/text.json'
-import { getDeviceLocale } from '../system'
 
 const localeMapping: Record<string, Record<string, string>> = {
   en,
