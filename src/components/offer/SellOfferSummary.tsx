@@ -11,10 +11,7 @@ import { getPremiumColor } from '../matches/utils'
 import { TabbedNavigation } from '../navigation/TabbedNavigation'
 import { SatsFormat, Text } from '../text'
 import { HorizontalLine } from '../ui'
-import { WalletLabel } from './WalletLabel'
 import { TradeSeparator } from './TradeSeparator'
-import { isPublishedOffer } from '../../utils/offer'
-import { SelectWallet } from './SelectWallet'
 import { WalletSelector } from './WalletSelector'
 
 type SellOfferSummaryProps = ComponentProps & {
