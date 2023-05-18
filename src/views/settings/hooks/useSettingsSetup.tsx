@@ -49,9 +49,6 @@ export const useSettingsSetup = () => {
     }, []),
   )
 
-  const goToLanguageSettings = useCallback(() => navigation.navigate('language'), [navigation])
-  const goToCurrencySettings = useCallback(() => navigation.navigate('currency'), [navigation])
-
   const notificationClick = useCallback(() => {
     if (notificationsOn) {
       updateOverlay({
@@ -114,19 +111,11 @@ export const useSettingsSetup = () => {
             enabled: peachWalletActive,
           },
           !peachWalletActive ? { title: 'payoutAddress' } : undefined,
-          { title: 'language', onPress: goToLanguageSettings },
-          { title: 'currency', onPress: goToCurrencySettings },
+          { title: 'language' },
+          { title: 'currency' },
         ] satisfies (SettingsItemProps | undefined)[]
       ).filter(isDefined),
-    [
-      toggleAnalytics,
-      enableAnalytics,
-      notificationClick,
-      togglePeachWallet,
-      peachWalletActive,
-      goToLanguageSettings,
-      goToCurrencySettings,
-    ],
+    [toggleAnalytics, enableAnalytics, notificationClick, togglePeachWallet, peachWalletActive],
   )
 
   const settings = [
