@@ -15,6 +15,7 @@ import { WalletLabel } from './WalletLabel'
 import { TradeSeparator } from './TradeSeparator'
 import { isPublishedOffer } from '../../utils/offer'
 import { SelectWallet } from './SelectWallet'
+import { WalletSelector } from './WalletSelector'
 
 type SellOfferSummaryProps = ComponentProps & {
   offer: SellOffer | SellOfferDraft
@@ -59,12 +60,7 @@ export const SellOfferSummary = ({ offer, style }: SellOfferSummaryProps): React
       </View>
 
       <TradeSeparator text={i18n('refund.wallet')} />
-
-      {isPublishedOffer(offer) ? (
-        <WalletLabel label={offer.walletLabel} address={offer.returnAddress} style={tw`mt-1`} />
-      ) : (
-        <SelectWallet type="refund" style={tw`mt-1`} />
-      )}
+      <WalletSelector offer={offer} style={tw`mt-1`} />
 
       {isSellOfferWithDefinedEscrow(offer) && (
         <>

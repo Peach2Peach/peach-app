@@ -11,6 +11,7 @@ import { HorizontalLine } from '../ui'
 import { SelectWallet } from './SelectWallet'
 import { TradeSeparator } from './TradeSeparator'
 import { WalletLabel } from './WalletLabel'
+import { WalletSelector } from './WalletSelector'
 
 type BuyOfferSummaryProps = ComponentProps & {
   offer: BuyOffer | BuyOfferDraft
@@ -52,11 +53,7 @@ export const BuyOfferSummary = ({ offer, style }: BuyOfferSummaryProps): ReactEl
         ))}
       </View>
       <TradeSeparator text={i18n('payout.wallet')} />
-      {isPublishedOffer(offer) ? (
-        <WalletLabel label={offer.walletLabel} address={offer.releaseAddress} style={tw`mt-1`} />
-      ) : (
-        <SelectWallet type="payout" style={tw`mt-1`} />
-      )}
+      <WalletSelector offer={offer} style={tw`mt-1`} />
     </View>
   )
 }
