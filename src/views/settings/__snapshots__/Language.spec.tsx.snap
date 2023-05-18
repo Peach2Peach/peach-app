@@ -110,31 +110,57 @@ exports[`Language renders correctly 1`] = `
                   ]
                 }
               >
-                <Text
-                  allowFontScaling={false}
+                <View
                   style={
-                    [
-                      {
-                        "color": "#2B1911",
-                        "fontFamily": "Baloo2-Regular",
-                        "fontSize": 16,
-                        "letterSpacing": 0.16,
-                        "lineHeight": 24,
-                      },
-                      {
-                        "flexBasis": "0%",
-                        "flexGrow": 1,
-                        "flexShrink": 1,
-                        "fontFamily": "Baloo2-SemiBold",
-                        "fontSize": 16,
-                        "letterSpacing": 0.16,
-                        "lineHeight": 28,
-                      },
-                    ]
+                    {
+                      "flexBasis": "0%",
+                      "flexGrow": 1,
+                      "flexShrink": 1,
+                    }
                   }
                 >
-                  english
-                </Text>
+                  <View
+                    style={
+                      {
+                        "alignItems": "center",
+                        "flexDirection": "row",
+                      }
+                    }
+                  >
+                    <test-file-stub
+                      style={
+                        {
+                          "height": 32,
+                          "marginRight": 16,
+                          "overflow": "hidden",
+                          "width": 32,
+                        }
+                      }
+                    />
+                    <Text
+                      allowFontScaling={false}
+                      style={
+                        [
+                          {
+                            "color": "#2B1911",
+                            "fontFamily": "Baloo2-Regular",
+                            "fontSize": 16,
+                            "letterSpacing": 0.16,
+                            "lineHeight": 24,
+                          },
+                          {
+                            "fontFamily": "Baloo2-SemiBold",
+                            "fontSize": 16,
+                            "letterSpacing": 0.16,
+                            "lineHeight": 28,
+                          },
+                        ]
+                      }
+                    >
+                      english
+                    </Text>
+                  </View>
+                </View>
                 <test-file-stub
                   fill="#F56522"
                   style={
@@ -225,31 +251,57 @@ exports[`Language renders correctly 1`] = `
                   ]
                 }
               >
-                <Text
-                  allowFontScaling={false}
+                <View
                   style={
-                    [
-                      {
-                        "color": "#2B1911",
-                        "fontFamily": "Baloo2-Regular",
-                        "fontSize": 16,
-                        "letterSpacing": 0.16,
-                        "lineHeight": 24,
-                      },
-                      {
-                        "flexBasis": "0%",
-                        "flexGrow": 1,
-                        "flexShrink": 1,
-                        "fontFamily": "Baloo2-SemiBold",
-                        "fontSize": 16,
-                        "letterSpacing": 0.16,
-                        "lineHeight": 28,
-                      },
-                    ]
+                    {
+                      "flexBasis": "0%",
+                      "flexGrow": 1,
+                      "flexShrink": 1,
+                    }
                   }
                 >
-                  español
-                </Text>
+                  <View
+                    style={
+                      {
+                        "alignItems": "center",
+                        "flexDirection": "row",
+                      }
+                    }
+                  >
+                    <test-file-stub
+                      style={
+                        {
+                          "height": 32,
+                          "marginRight": 16,
+                          "overflow": "hidden",
+                          "width": 32,
+                        }
+                      }
+                    />
+                    <Text
+                      allowFontScaling={false}
+                      style={
+                        [
+                          {
+                            "color": "#2B1911",
+                            "fontFamily": "Baloo2-Regular",
+                            "fontSize": 16,
+                            "letterSpacing": 0.16,
+                            "lineHeight": 24,
+                          },
+                          {
+                            "fontFamily": "Baloo2-SemiBold",
+                            "fontSize": 16,
+                            "letterSpacing": 0.16,
+                            "lineHeight": 28,
+                          },
+                        ]
+                      }
+                    >
+                      español
+                    </Text>
+                  </View>
+                </View>
                 <test-file-stub
                   fill="#9F8C82"
                   style={
