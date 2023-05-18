@@ -1,7 +1,6 @@
 import { ReactElement } from 'react'
 import { Pressable, View } from 'react-native'
-import { Flag, HorizontalLine, Icon, Text } from '../components'
-import { localeToFlagMap } from '../components/flags/localeToFlagMap'
+import { HorizontalLine, Icon, Text } from '../components'
 import tw from '../styles/tailwind'
 import { sortAlphabetically } from '../utils/array/sortAlphabetically'
 import i18n from '../utils/i18n'
@@ -18,7 +17,6 @@ export const LanguageSelect = ({ locales, selected, onSelect }: Props): ReactEle
       .map((locale) => (
         <Pressable key={locale} onPress={() => onSelect(locale)}>
           <View style={tw`flex flex-row items-center px-8`}>
-            <Flag id={localeToFlagMap[locale]} style={tw`w-8 h-8 mr-4 overflow-hidden`} />
             <Text style={tw`flex-shrink w-full subtitle-1`}>{i18n(`languageName.${locale}`)}</Text>
             {locale === selected && <Icon id="check" style={tw`w-6 h-6`} color={tw`text-primary-main`.color} />}
           </View>

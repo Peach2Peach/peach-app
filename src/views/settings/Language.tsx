@@ -1,9 +1,8 @@
 import { View } from 'react-native'
+import { PeachScrollView, PrimaryButton, RadioButtons, Text } from '../../components'
 import tw from '../../styles/tailwind'
-import { Flag, PeachScrollView, PrimaryButton, RadioButtons, Text } from '../../components'
 import i18n from '../../utils/i18n'
 import { useLanguageSetup } from './hooks/useLanguageSetup'
-import { localeToFlagMap } from '../../components/flags/localeToFlagMap'
 
 export default () => {
   const { locale, setLocale, saveLocale } = useLanguageSetup()
@@ -16,12 +15,7 @@ export default () => {
           selectedValue={locale}
           items={i18n.getLocales().map((l) => ({
             value: l,
-            display: (
-              <View style={tw`flex-row items-center`}>
-                <Flag id={localeToFlagMap[l]} style={tw`w-8 h-8 mr-4 overflow-hidden`} />
-                <Text style={tw`subtitle-1`}>{i18n(`languageName.${l}`)}</Text>
-              </View>
-            ),
+            display: <Text style={tw`subtitle-1`}>{i18n(`languageName.${l}`)}</Text>,
           }))}
           onChange={setLocale}
         />

@@ -119,47 +119,28 @@ exports[`Language renders correctly 1`] = `
                     }
                   }
                 >
-                  <View
+                  <Text
+                    allowFontScaling={false}
                     style={
-                      {
-                        "alignItems": "center",
-                        "flexDirection": "row",
-                      }
+                      [
+                        {
+                          "color": "#2B1911",
+                          "fontFamily": "Baloo2-Regular",
+                          "fontSize": 16,
+                          "letterSpacing": 0.16,
+                          "lineHeight": 24,
+                        },
+                        {
+                          "fontFamily": "Baloo2-SemiBold",
+                          "fontSize": 16,
+                          "letterSpacing": 0.16,
+                          "lineHeight": 28,
+                        },
+                      ]
                     }
                   >
-                    <test-file-stub
-                      style={
-                        {
-                          "height": 32,
-                          "marginRight": 16,
-                          "overflow": "hidden",
-                          "width": 32,
-                        }
-                      }
-                    />
-                    <Text
-                      allowFontScaling={false}
-                      style={
-                        [
-                          {
-                            "color": "#2B1911",
-                            "fontFamily": "Baloo2-Regular",
-                            "fontSize": 16,
-                            "letterSpacing": 0.16,
-                            "lineHeight": 24,
-                          },
-                          {
-                            "fontFamily": "Baloo2-SemiBold",
-                            "fontSize": 16,
-                            "letterSpacing": 0.16,
-                            "lineHeight": 28,
-                          },
-                        ]
-                      }
-                    >
-                      English
-                    </Text>
-                  </View>
+                    English
+                  </Text>
                 </View>
                 <test-file-stub
                   fill="#F56522"
@@ -260,47 +241,28 @@ exports[`Language renders correctly 1`] = `
                     }
                   }
                 >
-                  <View
+                  <Text
+                    allowFontScaling={false}
                     style={
-                      {
-                        "alignItems": "center",
-                        "flexDirection": "row",
-                      }
+                      [
+                        {
+                          "color": "#2B1911",
+                          "fontFamily": "Baloo2-Regular",
+                          "fontSize": 16,
+                          "letterSpacing": 0.16,
+                          "lineHeight": 24,
+                        },
+                        {
+                          "fontFamily": "Baloo2-SemiBold",
+                          "fontSize": 16,
+                          "letterSpacing": 0.16,
+                          "lineHeight": 28,
+                        },
+                      ]
                     }
                   >
-                    <test-file-stub
-                      style={
-                        {
-                          "height": 32,
-                          "marginRight": 16,
-                          "overflow": "hidden",
-                          "width": 32,
-                        }
-                      }
-                    />
-                    <Text
-                      allowFontScaling={false}
-                      style={
-                        [
-                          {
-                            "color": "#2B1911",
-                            "fontFamily": "Baloo2-Regular",
-                            "fontSize": 16,
-                            "letterSpacing": 0.16,
-                            "lineHeight": 24,
-                          },
-                          {
-                            "fontFamily": "Baloo2-SemiBold",
-                            "fontSize": 16,
-                            "letterSpacing": 0.16,
-                            "lineHeight": 28,
-                          },
-                        ]
-                      }
-                    >
-                      Español
-                    </Text>
-                  </View>
+                    Español
+                  </Text>
                 </View>
                 <test-file-stub
                   fill="#9F8C82"
