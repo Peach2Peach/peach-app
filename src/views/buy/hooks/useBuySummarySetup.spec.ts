@@ -1,5 +1,5 @@
 import { act, renderHook, waitFor } from '@testing-library/react-native'
-import { NavigationWrapper, replaceMock } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { NavigationWrapper, navigateMock, replaceMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { useHeaderState } from '../../../components/header/store'
 import { settingsStore } from '../../../store/settingsStore'
 import { PeachWallet } from '../../../utils/wallet/PeachWallet'
@@ -52,5 +52,10 @@ describe('useBuySummarySetup', () => {
     settingsStore.getState().setPayoutAddress('payoutAddress')
     renderHook(useBuySummarySetup, { wrapper: NavigationWrapper })
     expect(settingsStore.getState().peachWalletActive).toBeFalsy()
+  })
+  it('should navigate to signMessage', () => {
+    const { result } = renderHook(useBuySummarySetup, { wrapper: NavigationWrapper })
+    result.current.goToMessageSigning()
+    expect(navigateMock).toHaveBeenCalledWith('signMessage')
   })
 })

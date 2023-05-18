@@ -25,8 +25,6 @@ export const useSellSummarySetup = () => {
 
   const walletLabel = peachWalletActive ? i18n('peachWallet') : payoutAddressLabel
 
-  const goToSetupRefundWallet = () => navigation.navigate('payoutAddress', { type: 'refund' })
-
   const publishOffer = async (offerDraft: SellOfferDraft) => {
     if (isPublishing) return
     setIsPublishing(true)
@@ -68,5 +66,5 @@ export const useSellSummarySetup = () => {
     })()
   }, [payoutAddress, peachWalletActive])
 
-  return { returnAddress, walletLabel, goToSetupRefundWallet, canPublish, publishOffer, isPublishing }
+  return { returnAddress, walletLabel, canPublish, publishOffer, isPublishing }
 }

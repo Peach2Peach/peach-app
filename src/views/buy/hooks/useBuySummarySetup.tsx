@@ -37,8 +37,7 @@ export const useBuySummarySetup = () => {
   )
   const walletLabel = peachWalletActive ? i18n('peachWallet') : payoutAddressLabel
 
-  const goToSetupPayoutWallet = () =>
-    payoutAddress ? navigation.navigate('signMessage') : navigation.navigate('payoutAddress', { type: 'payout' })
+  const goToMessageSigning = () => navigation.navigate('signMessage')
 
   const publishOffer = async (offerDraft: BuyOfferDraft) => {
     if (isPublishing) return
@@ -85,6 +84,6 @@ export const useBuySummarySetup = () => {
     canPublish,
     publishOffer,
     isPublishing,
-    goToSetupPayoutWallet,
+    goToMessageSigning,
   }
 }
