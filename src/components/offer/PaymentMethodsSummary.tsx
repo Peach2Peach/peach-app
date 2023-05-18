@@ -2,10 +2,10 @@ import { useState } from 'react'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { getCurrencies } from '../../utils/paymentMethod'
-import { TabbedNavigation } from '../navigation'
 import { PaymentMethod } from '../matches/PaymentMethod'
 import { TradeSeparator } from './TradeSeparator'
 import { View } from 'react-native'
+import { CurrencySelection } from '../navigation/CurrencySelection'
 
 type Props = {
   meansOfPayment: MeansOfPayment
@@ -17,10 +17,11 @@ export const PaymentMethodsSummary = ({ meansOfPayment }: Props) => {
   return (
     <View>
       <TradeSeparator text={i18n('paymentMethods.title')} />
-      <TabbedNavigation
-        items={currencies.map((currency) => ({ id: currency, display: currency.toLowerCase() }))}
-        selected={{ id: selectedCurrency, display: selectedCurrency }}
-        select={(c) => setSelectedCurrency(c.id as Currency)}
+      <CurrencySelection
+        style={[tw`mt-2`, tw.md`mt-4`]}
+        currencies={currencies}
+        selected={selectedCurrency}
+        select={setSelectedCurrency}
       />
       <View style={tw`flex-row flex-wrap items-center mt-3`}>
         {meansOfPayment[selectedCurrency]?.map((p) => (
