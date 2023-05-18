@@ -16,17 +16,6 @@ exports[`LanguageSelect renders correctly 1`] = `
         }
       }
     >
-      <Flag
-        id="GB"
-        style={
-          {
-            "height": 32,
-            "marginRight": 16,
-            "overflow": "hidden",
-            "width": 32,
-          }
-        }
-      />
       <PeachText
         style={
           {
@@ -75,17 +64,6 @@ exports[`LanguageSelect renders correctly 1`] = `
         }
       }
     >
-      <Flag
-        id="ES"
-        style={
-          {
-            "height": 32,
-            "marginRight": 16,
-            "overflow": "hidden",
-            "width": 32,
-          }
-        }
-      />
       <PeachText
         style={
           {
