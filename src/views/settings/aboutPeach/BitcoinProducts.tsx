@@ -13,7 +13,7 @@ export default () => {
   return (
     <View style={tw`justify-center flex-grow p-8`}>
       <PeachText style={tw`h5`}>{i18n('settings.bitcoinProducts.proSecurity')}</PeachText>
-      <PeachText style={tw`body-m mt-1`}>
+      <PeachText style={tw`mt-1`}>
         {i18n('settings.bitcoinProducts.proSecurity.description1')}
         {'\n\n'}
         {i18n('settings.bitcoinProducts.proSecurity.description2')}
