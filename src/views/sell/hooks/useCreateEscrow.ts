@@ -18,16 +18,14 @@ const createEscrowFn = async (offerId: string) => {
 
 type Props = {
   offerId: string
-  onSuccess: () => void
 }
-export const useCreateEscrow = ({ offerId, onSuccess }: Props) => {
+export const useCreateEscrow = ({ offerId }: Props) => {
   const queryClient = useQueryClient()
   const showErrorBanner = useShowErrorBanner()
 
   return useMutation({
     mutationFn: () => createEscrowFn(offerId),
     onError: (err: Error) => showErrorBanner(parseError(err)),
-    onSuccess,
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ['offer', offerId] })
     },

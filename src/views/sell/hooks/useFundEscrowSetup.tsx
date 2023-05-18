@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useCancelOffer, useHeaderSetup, useRoute } from '../../../hooks'
 import { useFundingStatus } from '../../../hooks/query/useFundingStatus'
 import { useOfferDetails } from '../../../hooks/query/useOfferDetails'
@@ -61,20 +61,21 @@ export const useFundEscrowSetup = () => {
     userConfirmationRequired,
   })
 
-  const onSuccess = () => {
+  const onSuccess = useCallback(() => {
     const timeout = Math.max(0, minLoadingTime - (Date.now() - showLoading))
     setTimeout(() => setShowLoading(0), timeout)
-  }
+  }, [showLoading])
 
   const { mutate: createEscrow, error: createEscrowError } = useCreateEscrow({
     offerId,
-    onSuccess,
   })
 
   useEffect(() => {
     if (!sellOffer || sellOffer.escrow) return
-    createEscrow()
-  }, [sellOffer, createEscrow])
+    createEscrow(undefined, {
+      onSuccess,
+    })
+  }, [sellOffer, createEscrow, onSuccess])
 
   useEffect(() => {
     if (!fundingStatusError) return
