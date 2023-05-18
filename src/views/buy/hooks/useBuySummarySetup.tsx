@@ -13,10 +13,20 @@ export const useBuySummarySetup = () => {
   const navigation = useNavigation()
   const showErrorBanner = useShowErrorBanner()
 
-  const [peachWalletActive, payoutAddress, payoutAddressLabel, payoutAddressSignature] = useSettingsStore(
-    (state) => [state.peachWalletActive, state.payoutAddress, state.payoutAddressLabel, state.payoutAddressSignature],
-    shallow,
-  )
+  const [peachWalletActive, setPeachWalletActive, payoutAddress, payoutAddressLabel, payoutAddressSignature]
+    = useSettingsStore(
+      (state) => [
+        state.peachWalletActive,
+        state.setPeachWalletActive,
+        state.payoutAddress,
+        state.payoutAddressLabel,
+        state.payoutAddressSignature,
+      ],
+      shallow,
+    )
+
+  if (!peachWalletActive && !payoutAddress) setPeachWalletActive(true)
+
   const [releaseAddress, setReleaseAddress] = useState('')
   const [message, setMessage] = useState('')
   const [canPublish, setCanPublish] = useState(false)
@@ -32,13 +42,13 @@ export const useBuySummarySetup = () => {
   const publishOffer = async (offerDraft: BuyOfferDraft) => {
     if (isPublishing) return
     setIsPublishing(true)
-    const { isOfferPublished, errorMessage } = await publishBuyOffer(offerDraft)
+    const { offerId, isOfferPublished, errorMessage } = await publishBuyOffer(offerDraft)
     setIsPublishing(false)
 
-    if (!isOfferPublished) {
+    if (!isOfferPublished || !offerId) {
       showErrorBanner(errorMessage)
     } else {
-      navigation.replace('offerPublished', { isSellOffer: false })
+      navigation.replace('offerPublished', { offerId, isSellOffer: false })
     }
   }
 

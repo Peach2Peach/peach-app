@@ -50,7 +50,7 @@ export const useHandleFundingStatus = ({ offerId, sellOffer, fundingStatus, user
         if (hasMatches) {
           navigation.replace('search', { offerId })
         } else {
-          navigation.replace('offerPublished', { isSellOffer: true })
+          navigation.replace('offerPublished', { offerId, isSellOffer: true })
         }
       })
     }

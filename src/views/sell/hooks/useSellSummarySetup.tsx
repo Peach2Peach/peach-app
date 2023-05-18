@@ -11,10 +11,13 @@ export const useSellSummarySetup = () => {
   const navigation = useNavigation()
   const showErrorBanner = useShowErrorBanner()
 
-  const [peachWalletActive, payoutAddress, payoutAddressLabel] = useSettingsStore(
-    (state) => [state.peachWalletActive, state.payoutAddress, state.payoutAddressLabel],
+  const [peachWalletActive, setPeachWalletActive, payoutAddress, payoutAddressLabel] = useSettingsStore(
+    (state) => [state.peachWalletActive, state.setPeachWalletActive, state.payoutAddress, state.payoutAddressLabel],
     shallow,
   )
+
+  if (!peachWalletActive && !payoutAddress) setPeachWalletActive(true)
+
   const [returnAddress, setReturnAddress] = useState('')
   const [isPublishing, setIsPublishing] = useState(false)
   const [canPublish, setCanPublish] = useState(false)
@@ -28,7 +31,13 @@ export const useSellSummarySetup = () => {
     setIsPublishing(true)
     const { isPublished, navigationParams, errorMessage } = await publishSellOffer(offerDraft)
     if (isPublished && navigationParams) {
-      navigation.replace('fundEscrow', navigationParams)
+      navigation.reset({
+        index: 1,
+        routes: [
+          { name: 'yourTrades', params: { tab: 'sell' } },
+          { name: 'fundEscrow', params: navigationParams },
+        ],
+      })
     } else if (errorMessage) {
       showErrorBanner(errorMessage)
     }

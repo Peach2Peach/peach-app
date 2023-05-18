@@ -4,19 +4,16 @@ import tw from '../../../styles/tailwind'
 import { wonDisputeForTrade } from './wonDisputeForTrade'
 
 export const getDisputeResultTheme = (
-  trade: ContractSummary,
+  trade: Pick<ContractSummary, 'disputeWinner' | 'type'>,
 ): {
   icon: IconType
   level: SummaryItemLevel
   color: ColorValue | undefined
 } => {
-  if (wonDisputeForTrade(trade)) {
-    if (trade.type === 'bid') return { icon: 'buy', level: 'SUCCESS', color: tw`text-success-main`.color }
-    return { icon: 'sell', level: 'APP', color: tw`text-primary-main`.color }
-  }
+  const isWonDispute = wonDisputeForTrade(trade)
   return {
     icon: 'alertOctagon',
-    level: 'WARN',
-    color: tw`text-warning-main`.color,
+    level: isWonDispute ? 'SUCCESS' : 'ERROR',
+    color: isWonDispute ? tw`text-success-main`.color : tw`text-error-main`.color,
   }
 }
