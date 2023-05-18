@@ -26,7 +26,7 @@ type Props = ComponentProps & {
 
 export const CurrencySelection = ({ currencies, selected, select, style }: Props) => {
   const maxColumns = Math.max(4, Math.min(currencies.length, 8))
-  const maxWidth = (1 / maxColumns) * 100 + '%'
+  const maxWidth = (1 / maxColumns) * 100 - 0.001 + '%'
 
   return (
     <View
