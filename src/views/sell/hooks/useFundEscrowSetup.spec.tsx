@@ -1,5 +1,5 @@
 import { NavigationContainer } from '@react-navigation/native'
-import { renderHook, waitFor } from '@testing-library/react-native'
+import { act, renderHook, waitFor } from '@testing-library/react-native'
 import { account1 } from '../../../../tests/unit/data/accountData'
 import { sellOffer } from '../../../../tests/unit/data/offerData'
 import { QueryClientWrapper, queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
@@ -8,6 +8,7 @@ import { setAccount, updateAccount } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
 import { defaultFundingStatus } from '../../../utils/offer/constants'
 import { useFundEscrowSetup } from './useFundEscrowSetup'
+import { saveOffer } from '../../../utils/offer'
 
 jest.useFakeTimers()
 
@@ -76,10 +77,11 @@ describe('useFundEscrowSetup', () => {
   beforeEach(async () => {
     useHeaderState.setState({ title: '', icons: [] })
 
-    await updateAccount(account1, true)
+    await updateAccount({ ...account1, offers: [] }, true)
   })
   afterEach(async () => {
     jest.clearAllMocks()
+
     queryClient.clear()
   })
 
@@ -88,10 +90,25 @@ describe('useFundEscrowSetup', () => {
 
     expect(result.current).toEqual({
       offerId: sellOffer.id,
+      isLoading: true,
       escrow: undefined,
       createEscrowError: null,
       fundingStatus: defaultFundingStatus,
-      fundingAmount: sellOffer.amount,
+      fundingAmount: 0,
+      cancelOffer: expect.any(Function),
+    })
+  })
+  it('should return default values with locally stored offer', () => {
+    saveOffer(sellOfferWithEscrow)
+    const { result } = renderHook(useFundEscrowSetup, { wrapper })
+
+    expect(result.current).toEqual({
+      offerId: sellOfferWithEscrow.id,
+      isLoading: false,
+      escrow: sellOfferWithEscrow.escrow,
+      createEscrowError: null,
+      fundingStatus: defaultFundingStatus,
+      fundingAmount: sellOfferWithEscrow.amount,
       cancelOffer: expect.any(Function),
     })
   })
@@ -100,6 +117,14 @@ describe('useFundEscrowSetup', () => {
     const { result } = renderHook(useFundEscrowSetup, { wrapper })
     await waitFor(() => expect(createEscrowMock).toHaveBeenCalled())
     expect(result.current.escrow).toBe(sellOfferWithEscrow.escrow)
+  })
+  it('should show loading for at least 1 second', async () => {
+    getOfferDetailsMock.mockReturnValueOnce([{ ...sellOffer, escrow: undefined }, null])
+    const { result } = renderHook(useFundEscrowSetup, { wrapper })
+    expect(result.current.isLoading).toBeTruthy()
+    await waitFor(() => expect(createEscrowMock).toHaveBeenCalled())
+    act(() => jest.advanceTimersByTime(1000))
+    expect(result.current.isLoading).toBeFalsy()
   })
   it('should handle create escrow errors', async () => {
     getOfferDetailsMock.mockReturnValueOnce([{ ...sellOffer, escrow: undefined }, null])
@@ -150,6 +175,7 @@ describe('useFundEscrowSetup', () => {
     const { result } = renderHook(useFundEscrowSetup, { wrapper })
     expect(result.current).toEqual({
       offerId: sellOffer.id,
+      isLoading: true,
       escrow: undefined,
       createEscrowError: null,
       fundingStatus: defaultFundingStatus,
@@ -158,10 +184,12 @@ describe('useFundEscrowSetup', () => {
     })
   })
   it('should handle the case that no offer could be returned but offer exists locally', () => {
+    saveOffer(sellOfferWithEscrow)
     getOfferDetailsMock.mockReturnValueOnce([null, apiError])
     const { result } = renderHook(useFundEscrowSetup, { wrapper })
     expect(result.current).toEqual({
       offerId: sellOffer.id,
+      isLoading: false,
       escrow: 'escrow',
       createEscrowError: null,
       fundingStatus: defaultFundingStatus,

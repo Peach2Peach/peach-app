@@ -140,32 +140,17 @@ exports[`FundEscrow should render the FundEscrow view 1`] = `
 `;
 
 exports[`FundEscrow should show Loading, while escrow creation is pending 1`] = `
-<View
-  style={
-    {
-      "alignItems": "center",
-      "height": "100%",
-      "justifyContent": "center",
-    }
-  }
->
-  <Loading />
-  <PeachText
-    style={
-      {
-        "fontFamily": "Baloo2-SemiBold",
-        "fontSize": 16,
-        "letterSpacing": 0.16,
-        "lineHeight": 28,
-        "marginTop": 32,
-        "textAlign": "center",
-      }
-    }
-  >
-    creating escrow,
-one sec...
-  </PeachText>
-</View>
+<BitcoinLoading
+  text="creating escrow,
+one sec..."
+/>
+`;
+
+exports[`FundEscrow should show Loading, while escrow is not defined 1`] = `
+<BitcoinLoading
+  text="creating escrow,
+one sec..."
+/>
 `;
 
 exports[`FundEscrow should show NoEscrowFound, if no there is an error while creating escrow 1`] = `<NoEscrowFound />`;
