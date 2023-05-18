@@ -17,6 +17,7 @@
   "crashReport.requestPermission.sendReport": "enviar informe",
   "privacyPolicy": "política de privacidad",
   "language": "idioma",
+  "language.select": "idioma",
   "welcome.redesign.title": "el siguiente nivel de persona a persona",
   "welcome.redesign.text": "¡Bienvenido a la versión completamente rediseñada de Peach 0.2!",
   "welcome.redesign.surprise": "Hay un pequeño regalo esperándote en tu pantalla de referidos 😉",

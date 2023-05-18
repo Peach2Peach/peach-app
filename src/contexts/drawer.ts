@@ -1,4 +1,4 @@
-import { createContext, Dispatch, ReactNode, ReducerState } from 'react'
+import { createContext, Dispatch, ReactNode, ReducerState, useContext } from 'react'
 
 let title = ''
 let content: ReactNode
@@ -9,6 +9,7 @@ let onClose = () => {}
 const dispatch: Dispatch<Partial<DrawerState>> = () => {}
 
 export const DrawerContext = createContext([{ title, content, show, onClose, previousDrawer }, dispatch] as const)
+export const useDrawerContext = () => useContext(DrawerContext)
 
 /**
  * @description Method to get drawer content
