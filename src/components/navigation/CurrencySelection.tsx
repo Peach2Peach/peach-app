@@ -27,10 +27,7 @@ type Props = ComponentProps & {
 export const CurrencySelection = ({ currencies, selected, select, style }: Props) => (
   <View style={[tw`flex-row flex-wrap`, currencies.length > 8 && tw`justify-center`, style]}>
     {currencies.map((currency, index) => (
-      <View
-        style={[tw`flex-row min-w-[12.5%] max-w-[25%] flex-grow items-center`]}
-        key={'currency-selection-' + currency}
-      >
+      <View style={[tw`flex-row min-w-1/8 max-w-1/4 flex-grow items-center`]} key={'currency-selection-' + currency}>
         <CurrencySelectionItem
           currency={currency}
           isSelected={currency === selected}
