@@ -24,9 +24,6 @@ type Props = ComponentProps & {
   select: (currency: Currency) => void
 }
 
-export const CurrencySelection = ({ currencies, selected, select, style }: Props) => {
-  const maxColumns = Math.max(4, Math.min(currencies.length, 8))
-  const maxWidth = (1 / maxColumns) * 100 - 0.001 + '%'
 export const CurrencySelection = ({ currencies, selected, select, style }: Props) => (
   <View style={[tw`flex-row flex-wrap`, currencies.length > 8 && tw`justify-center`, style]}>
     {currencies.map((currency, index) => (
