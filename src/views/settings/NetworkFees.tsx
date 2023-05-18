@@ -1,4 +1,3 @@
-import { ReactElement } from 'react'
 import { View } from 'react-native'
 
 import tw from '../../styles/tailwind'
@@ -11,7 +10,7 @@ import { useNetworkFeesSetup } from './hooks/useNetworkFeesSetup'
 
 const estimatedFeeRates: FeeRate[] = ['fastestFee', 'halfHourFee', 'hourFee', 'custom']
 
-export default (): ReactElement => {
+export default () => {
   const {
     estimatedFees,
     selectedFeeRate,
