@@ -5,7 +5,7 @@ import tw from '../../styles/tailwind'
 
 import { HorizontalLine, PeachScrollView, PrimaryButton, RadioButtons, Text } from '../../components'
 import i18n from '../../utils/i18n'
-import CustomFeeItem from './components/networkFees/CustomFeeItem'
+import { CustomFeeItem } from './components/networkFees/CustomFeeItem'
 import EstimatedFeeItem from './components/networkFees/EstimatedFeeItem'
 import { useNetworkFeesSetup } from './hooks/useNetworkFeesSetup'
 
