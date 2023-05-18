@@ -33,7 +33,7 @@ export default ({ offerDraft, setOfferDraft }: SellViewProps): ReactElement => {
       <PrimaryButton
         style={tw`self-center mt-4`}
         testID="navigation-next"
-        narrow={!canPublish}
+        narrow={true}
         onPress={canPublish ? publishSellOffer : undefined}
         loading={isPublishing}
       >

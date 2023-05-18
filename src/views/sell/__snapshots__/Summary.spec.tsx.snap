@@ -53,7 +53,7 @@ exports[`Summary should render the Summary view 1`] = `
   </View>
   <PrimaryButton
     loading={false}
-    narrow={false}
+    narrow={true}
     onPress={[Function]}
     style={
       {

@@ -51,7 +51,7 @@ export default ({ offerDraft, setOfferDraft }: BuyViewProps): ReactElement => {
       <PrimaryButton
         testID="navigation-next"
         style={tw`self-center mt-4`}
-        narrow={!canPublish}
+        narrow={true}
         disabled={peachWalletActive && !messageSignature}
         onPress={canPublish ? publishBuyOffer : goToMessageSigning}
         loading={isPublishing}
