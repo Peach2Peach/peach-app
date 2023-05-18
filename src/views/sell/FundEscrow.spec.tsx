@@ -44,6 +44,16 @@ describe('FundEscrow', () => {
     const result = renderer.getRenderOutput()
     expect(result).toMatchSnapshot()
   })
+  it('should show Loading, while escrow is not defined', () => {
+    useFundEscrowSetupMock.mockReturnValueOnce({
+      ...defaultReturnValue,
+      loading: false,
+      escrow: undefined,
+    })
+    renderer.render(<FundEscrow />)
+    const result = renderer.getRenderOutput()
+    expect(result).toMatchSnapshot()
+  })
 
   it('should show NoEscrowFound, if no there is an error while creating escrow', () => {
     useFundEscrowSetupMock.mockReturnValueOnce({
