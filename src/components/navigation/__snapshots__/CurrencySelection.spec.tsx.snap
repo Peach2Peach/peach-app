@@ -53,7 +53,7 @@ exports[`CurrencySelection renders correctly for 1 currencies 1`] = `
           "width": "100%",
         },
         {
-          "maxWidth": "25%",
+          "maxWidth": "24.999%",
         },
       ]
     }
@@ -94,6 +94,7 @@ exports[`CurrencySelection renders correctly for 1 currencies 1`] = `
         [
           {
             "backgroundColor": "#2B1911",
+            "borderRadius": 1,
             "height": 2,
             "marginTop": -2,
             "width": "100%",
@@ -158,7 +159,7 @@ exports[`CurrencySelection renders correctly for 2 currencies 1`] = `
           "width": "100%",
         },
         {
-          "maxWidth": "25%",
+          "maxWidth": "24.999%",
         },
       ]
     }
@@ -245,7 +246,7 @@ exports[`CurrencySelection renders correctly for 2 currencies 1`] = `
           "width": "100%",
         },
         {
-          "maxWidth": "25%",
+          "maxWidth": "24.999%",
         },
       ]
     }
@@ -286,6 +287,7 @@ exports[`CurrencySelection renders correctly for 2 currencies 1`] = `
         [
           {
             "backgroundColor": "#2B1911",
+            "borderRadius": 1,
             "height": 2,
             "marginTop": -2,
             "width": "100%",
@@ -350,7 +352,7 @@ exports[`CurrencySelection renders correctly for 3 currencies 1`] = `
           "width": "100%",
         },
         {
-          "maxWidth": "25%",
+          "maxWidth": "24.999%",
         },
       ]
     }
@@ -437,7 +439,7 @@ exports[`CurrencySelection renders correctly for 3 currencies 1`] = `
           "width": "100%",
         },
         {
-          "maxWidth": "25%",
+          "maxWidth": "24.999%",
         },
       ]
     }
@@ -524,7 +526,7 @@ exports[`CurrencySelection renders correctly for 3 currencies 1`] = `
           "width": "100%",
         },
         {
-          "maxWidth": "25%",
+          "maxWidth": "24.999%",
         },
       ]
     }
@@ -565,6 +567,7 @@ exports[`CurrencySelection renders correctly for 3 currencies 1`] = `
         [
           {
             "backgroundColor": "#2B1911",
+            "borderRadius": 1,
             "height": 2,
             "marginTop": -2,
             "width": "100%",
@@ -629,7 +632,7 @@ exports[`CurrencySelection renders correctly for 4 currencies 1`] = `
           "width": "100%",
         },
         {
-          "maxWidth": "25%",
+          "maxWidth": "24.999%",
         },
       ]
     }
@@ -716,7 +719,7 @@ exports[`CurrencySelection renders correctly for 4 currencies 1`] = `
           "width": "100%",
         },
         {
-          "maxWidth": "25%",
+          "maxWidth": "24.999%",
         },
       ]
     }
@@ -803,7 +806,7 @@ exports[`CurrencySelection renders correctly for 4 currencies 1`] = `
           "width": "100%",
         },
         {
-          "maxWidth": "25%",
+          "maxWidth": "24.999%",
         },
       ]
     }
@@ -890,7 +893,7 @@ exports[`CurrencySelection renders correctly for 4 currencies 1`] = `
           "width": "100%",
         },
         {
-          "maxWidth": "25%",
+          "maxWidth": "24.999%",
         },
       ]
     }
@@ -931,6 +934,7 @@ exports[`CurrencySelection renders correctly for 4 currencies 1`] = `
         [
           {
             "backgroundColor": "#2B1911",
+            "borderRadius": 1,
             "height": 2,
             "marginTop": -2,
             "width": "100%",
@@ -995,7 +999,7 @@ exports[`CurrencySelection renders correctly for 5 currencies 1`] = `
           "width": "100%",
         },
         {
-          "maxWidth": "20%",
+          "maxWidth": "19.999%",
         },
       ]
     }
@@ -1082,7 +1086,7 @@ exports[`CurrencySelection renders correctly for 5 currencies 1`] = `
           "width": "100%",
         },
         {
-          "maxWidth": "20%",
+          "maxWidth": "19.999%",
         },
       ]
     }
@@ -1169,7 +1173,7 @@ exports[`CurrencySelection renders correctly for 5 currencies 1`] = `
           "width": "100%",
         },
         {
-          "maxWidth": "20%",
+          "maxWidth": "19.999%",
         },
       ]
     }
@@ -1256,7 +1260,7 @@ exports[`CurrencySelection renders correctly for 5 currencies 1`] = `
           "width": "100%",
         },
         {
-          "maxWidth": "20%",
+          "maxWidth": "19.999%",
         },
       ]
     }
@@ -1343,7 +1347,7 @@ exports[`CurrencySelection renders correctly for 5 currencies 1`] = `
           "width": "100%",
         },
         {
-          "maxWidth": "20%",
+          "maxWidth": "19.999%",
         },
       ]
     }
@@ -1384,6 +1388,7 @@ exports[`CurrencySelection renders correctly for 5 currencies 1`] = `
         [
           {
             "backgroundColor": "#2B1911",
+            "borderRadius": 1,
             "height": 2,
             "marginTop": -2,
             "width": "100%",
@@ -1448,7 +1453,7 @@ exports[`CurrencySelection renders correctly for 6 currencies 1`] = `
           "width": "100%",
         },
         {
-          "maxWidth": "16.666666666666664%",
+          "maxWidth": "16.665666666666663%",
         },
       ]
     }
@@ -1535,7 +1540,7 @@ exports[`CurrencySelection renders correctly for 6 currencies 1`] = `
           "width": "100%",
         },
         {
-          "maxWidth": "16.666666666666664%",
+          "maxWidth": "16.665666666666663%",
         },
       ]
     }
@@ -1622,7 +1627,7 @@ exports[`CurrencySelection renders correctly for 6 currencies 1`] = `
           "width": "100%",
         },
         {
-          "maxWidth": "16.666666666666664%",
+          "maxWidth": "16.665666666666663%",
         },
       ]
     }
@@ -1709,7 +1714,7 @@ exports[`CurrencySelection renders correctly for 6 currencies 1`] = `
           "width": "100%",
         },
         {
-          "maxWidth": "16.666666666666664%",
+          "maxWidth": "16.665666666666663%",
         },
       ]
     }
@@ -1796,7 +1801,7 @@ exports[`CurrencySelection renders correctly for 6 currencies 1`] = `
           "width": "100%",
         },
         {
-          "maxWidth": "16.666666666666664%",
+          "maxWidth": "16.665666666666663%",
         },
       ]
     }
@@ -1883,7 +1888,7 @@ exports[`CurrencySelection renders correctly for 6 currencies 1`] = `
           "width": "100%",
         },
         {
-          "maxWidth": "16.666666666666664%",
+          "maxWidth": "16.665666666666663%",
         },
       ]
     }
@@ -1924,6 +1929,7 @@ exports[`CurrencySelection renders correctly for 6 currencies 1`] = `
         [
           {
             "backgroundColor": "#2B1911",
+            "borderRadius": 1,
             "height": 2,
             "marginTop": -2,
             "width": "100%",
@@ -1988,7 +1994,7 @@ exports[`CurrencySelection renders correctly for 7 currencies 1`] = `
           "width": "100%",
         },
         {
-          "maxWidth": "14.285714285714285%",
+          "maxWidth": "14.284714285714285%",
         },
       ]
     }
@@ -2075,7 +2081,7 @@ exports[`CurrencySelection renders correctly for 7 currencies 1`] = `
           "width": "100%",
         },
         {
-          "maxWidth": "14.285714285714285%",
+          "maxWidth": "14.284714285714285%",
         },
       ]
     }
@@ -2162,7 +2168,7 @@ exports[`CurrencySelection renders correctly for 7 currencies 1`] = `
           "width": "100%",
         },
         {
-          "maxWidth": "14.285714285714285%",
+          "maxWidth": "14.284714285714285%",
         },
       ]
     }
@@ -2249,7 +2255,7 @@ exports[`CurrencySelection renders correctly for 7 currencies 1`] = `
           "width": "100%",
         },
         {
-          "maxWidth": "14.285714285714285%",
+          "maxWidth": "14.284714285714285%",
         },
       ]
     }
@@ -2336,7 +2342,7 @@ exports[`CurrencySelection renders correctly for 7 currencies 1`] = `
           "width": "100%",
         },
         {
-          "maxWidth": "14.285714285714285%",
+          "maxWidth": "14.284714285714285%",
         },
       ]
     }
@@ -2423,7 +2429,7 @@ exports[`CurrencySelection renders correctly for 7 currencies 1`] = `
           "width": "100%",
         },
         {
-          "maxWidth": "14.285714285714285%",
+          "maxWidth": "14.284714285714285%",
         },
       ]
     }
@@ -2510,7 +2516,7 @@ exports[`CurrencySelection renders correctly for 7 currencies 1`] = `
           "width": "100%",
         },
         {
-          "maxWidth": "14.285714285714285%",
+          "maxWidth": "14.284714285714285%",
         },
       ]
     }
@@ -2551,6 +2557,7 @@ exports[`CurrencySelection renders correctly for 7 currencies 1`] = `
         [
           {
             "backgroundColor": "#2B1911",
+            "borderRadius": 1,
             "height": 2,
             "marginTop": -2,
             "width": "100%",
@@ -2615,7 +2622,7 @@ exports[`CurrencySelection renders correctly for 8 currencies 1`] = `
           "width": "100%",
         },
         {
-          "maxWidth": "12.5%",
+          "maxWidth": "12.499%",
         },
       ]
     }
@@ -2702,7 +2709,7 @@ exports[`CurrencySelection renders correctly for 8 currencies 1`] = `
           "width": "100%",
         },
         {
-          "maxWidth": "12.5%",
+          "maxWidth": "12.499%",
         },
       ]
     }
@@ -2789,7 +2796,7 @@ exports[`CurrencySelection renders correctly for 8 currencies 1`] = `
           "width": "100%",
         },
         {
-          "maxWidth": "12.5%",
+          "maxWidth": "12.499%",
         },
       ]
     }
@@ -2876,7 +2883,7 @@ exports[`CurrencySelection renders correctly for 8 currencies 1`] = `
           "width": "100%",
         },
         {
-          "maxWidth": "12.5%",
+          "maxWidth": "12.499%",
         },
       ]
     }
@@ -2963,7 +2970,7 @@ exports[`CurrencySelection renders correctly for 8 currencies 1`] = `
           "width": "100%",
         },
         {
-          "maxWidth": "12.5%",
+          "maxWidth": "12.499%",
         },
       ]
     }
@@ -3050,7 +3057,7 @@ exports[`CurrencySelection renders correctly for 8 currencies 1`] = `
           "width": "100%",
         },
         {
-          "maxWidth": "12.5%",
+          "maxWidth": "12.499%",
         },
       ]
     }
@@ -3137,7 +3144,7 @@ exports[`CurrencySelection renders correctly for 8 currencies 1`] = `
           "width": "100%",
         },
         {
-          "maxWidth": "12.5%",
+          "maxWidth": "12.499%",
         },
       ]
     }
@@ -3224,7 +3231,7 @@ exports[`CurrencySelection renders correctly for 8 currencies 1`] = `
           "width": "100%",
         },
         {
-          "maxWidth": "12.5%",
+          "maxWidth": "12.499%",
         },
       ]
     }
@@ -3265,6 +3272,7 @@ exports[`CurrencySelection renders correctly for 8 currencies 1`] = `
         [
           {
             "backgroundColor": "#2B1911",
+            "borderRadius": 1,
             "height": 2,
             "marginTop": -2,
             "width": "100%",
@@ -3331,7 +3339,7 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
           "width": "100%",
         },
         {
-          "maxWidth": "12.5%",
+          "maxWidth": "12.499%",
         },
       ]
     }
@@ -3418,7 +3426,7 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
           "width": "100%",
         },
         {
-          "maxWidth": "12.5%",
+          "maxWidth": "12.499%",
         },
       ]
     }
@@ -3505,7 +3513,7 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
           "width": "100%",
         },
         {
-          "maxWidth": "12.5%",
+          "maxWidth": "12.499%",
         },
       ]
     }
@@ -3592,7 +3600,7 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
           "width": "100%",
         },
         {
-          "maxWidth": "12.5%",
+          "maxWidth": "12.499%",
         },
       ]
     }
@@ -3679,7 +3687,7 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
           "width": "100%",
         },
         {
-          "maxWidth": "12.5%",
+          "maxWidth": "12.499%",
         },
       ]
     }
@@ -3766,7 +3774,7 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
           "width": "100%",
         },
         {
-          "maxWidth": "12.5%",
+          "maxWidth": "12.499%",
         },
       ]
     }
@@ -3853,7 +3861,7 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
           "width": "100%",
         },
         {
-          "maxWidth": "12.5%",
+          "maxWidth": "12.499%",
         },
       ]
     }
@@ -3940,7 +3948,7 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
           "width": "100%",
         },
         {
-          "maxWidth": "12.5%",
+          "maxWidth": "12.499%",
         },
       ]
     }
@@ -4027,7 +4035,7 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
           "width": "100%",
         },
         {
-          "maxWidth": "12.5%",
+          "maxWidth": "12.499%",
         },
       ]
     }
@@ -4068,6 +4076,7 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
         [
           {
             "backgroundColor": "#2B1911",
+            "borderRadius": 1,
             "height": 2,
             "marginTop": -2,
             "width": "100%",
