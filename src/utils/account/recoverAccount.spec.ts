@@ -5,8 +5,8 @@ import { contract } from '../../../tests/unit/data/contractData'
 import { buyOffer, sellOffer } from '../../../tests/unit/data/offerData'
 import { settingsStore } from '../../store/settingsStore'
 import { error } from '../log'
+import { unauthorizedError } from '../../../tests/unit/data/peachAPIData'
 
-const apiError = { error: 'UNAUTHORIZED' }
 const userUpdateMock = jest.fn()
 jest.mock('../../init/userUpdate', () => ({
   userUpdate: () => userUpdateMock(),
@@ -55,15 +55,15 @@ describe('recoverAccount', () => {
     expect(analytics().logEvent).toHaveBeenCalledWith('account_restored')
   })
   it('handles api errors for offers', async () => {
-    getOffersMock.mockReturnValueOnce([null, apiError])
+    getOffersMock.mockReturnValueOnce([null, unauthorizedError])
 
     await recoverAccount(recoveredAccount)
-    expect(error).toHaveBeenCalledWith('Error', apiError)
+    expect(error).toHaveBeenCalledWith('Error', unauthorizedError)
   })
   it('handles api errors for contracts', async () => {
-    getContractsMock.mockReturnValueOnce([null, apiError])
+    getContractsMock.mockReturnValueOnce([null, unauthorizedError])
 
     await recoverAccount(recoveredAccount)
-    expect(error).toHaveBeenCalledWith('Error', apiError)
+    expect(error).toHaveBeenCalledWith('Error', unauthorizedError)
   })
 })

@@ -3,6 +3,7 @@ import { account1 } from '../../../../tests/unit/data/accountData'
 import { contract } from '../../../../tests/unit/data/contractData'
 import { TradeBreakdown } from '../../../overlays/TradeBreakdown'
 import { Props, useRateSetup } from './useRateSetup'
+import { apiSuccess, unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
 
 const replaceMock = jest.fn()
 const useNavigationMock = jest.fn().mockReturnValue({
@@ -24,8 +25,6 @@ jest.mock('../../../contexts/overlay', () => ({
   useOverlayContext: () => useOverlayContextMock(),
 }))
 
-const apiSuccess = { success: true }
-const apiError = { error: 'UNAUTHORIZED' }
 const rateUserMock = jest.fn().mockResolvedValue([apiSuccess, null])
 jest.mock('../../../utils/peachAPI', () => ({
   rateUser: (...args: any[]) => rateUserMock(...args),
@@ -174,7 +173,7 @@ describe('useRateSetup', () => {
   })
   it('handles rating submit error', async () => {
     createUserRatingMock.mockReturnValueOnce(negativeRating)
-    rateUserMock.mockResolvedValueOnce([null, apiError])
+    rateUserMock.mockResolvedValueOnce([null, unauthorizedError])
     const { result } = renderHook(useRateSetup, {
       initialProps: { ...initialProps, vote: 'negative' },
     })
