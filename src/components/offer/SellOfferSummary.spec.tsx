@@ -1,15 +1,13 @@
-import { createRenderer } from 'react-test-renderer/shallow'
-import { sellOffer } from '../../../tests/unit/data/offerData'
-import { SellOfferSummary } from './SellOfferSummary'
-import { getSellOfferDraft } from '../../../tests/unit/data/offerDraftData'
 import { fireEvent, render } from '@testing-library/react-native'
 import { Linking } from 'react-native'
-import { setPeachWallet } from '../../utils/wallet/setWallet'
+import { createRenderer } from 'react-test-renderer/shallow'
+import { sellOffer } from '../../../tests/unit/data/offerData'
+import { getSellOfferDraft } from '../../../tests/unit/data/offerDraftData'
 import { PeachWallet } from '../../utils/wallet/PeachWallet'
+import { setPeachWallet } from '../../utils/wallet/setWallet'
+import { SellOfferSummary } from './SellOfferSummary'
 
 jest.useFakeTimers({ now: new Date('2023-04-26T14:58:49.437Z') })
-
-jest.useFakeTimers({ now: new Date('2022-12-30T23:00:00.000Z') })
 
 describe('SellOfferSummary', () => {
   const renderer = createRenderer()

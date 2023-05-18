@@ -1,12 +1,10 @@
 import { NETWORK } from '@env'
-import { ReactElement } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 import { showAddress } from '../../utils/bitcoin'
 import Icon from '../Icon'
 import { PremiumText } from '../matches/components/PremiumText'
 import { Label } from '../text'
-import { HorizontalLine } from '../ui'
 import { AmountSummary } from './AmountSummary'
 import { PaymentMethodsSummary } from './PaymentMethodsSummary'
 import { PayoutWalletSummary } from './PayoutWalletSummary'
@@ -18,7 +16,7 @@ type Props = ComponentProps & {
 const isSellOfferWithDefinedEscrow = (offer: SellOffer | SellOfferDraft): offer is SellOffer & { escrow: string } =>
   'escrow' in offer && !!offer.escrow
 
-export const SellOfferSummary = ({ offer, style }: Props): ReactElement => (
+export const SellOfferSummary = ({ offer, style }: Props) => (
   <View style={[tw`gap-4`, tw.md`gap-12`, style]}>
     <View>
       <AmountSummary amount={offer.amount} />
@@ -35,6 +33,5 @@ export const SellOfferSummary = ({ offer, style }: Props): ReactElement => (
     </View>
     <PaymentMethodsSummary meansOfPayment={offer.meansOfPayment} />
     <PayoutWalletSummary offer={offer} />
-    <HorizontalLine style={tw`w-64 my-4`} />
   </View>
 )
