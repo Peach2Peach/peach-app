@@ -15,7 +15,7 @@ describe('LanguageSelect', () => {
   })
   it('selects language', () => {
     const { getByText } = render(<LanguageSelect {...{ locales, selected, onSelect }} />)
-    fireEvent(getByText('español'), 'onPress')
+    fireEvent(getByText('Español'), 'onPress')
     expect(onSelect).toHaveBeenCalledWith('es')
   })
 })
