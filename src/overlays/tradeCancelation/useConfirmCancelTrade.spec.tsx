@@ -12,10 +12,10 @@ import { setPeachWallet } from '../../utils/wallet/setWallet'
 import { ConfirmCancelTrade } from './ConfirmCancelTrade'
 import { SellerCanceledContent } from './SellerCanceledContent'
 import { useConfirmCancelTrade } from './useConfirmCancelTrade'
+import { unauthorizedError } from '../../../tests/unit/data/peachAPIData'
 
 jest.mock('../../utils/wallet/__mocks__/PeachWallet')
 
-const apiError = { error: 'UNAUTHORIZED' }
 const navigateMock = jest.fn()
 const replaceMock = jest.fn()
 jest.mock('../../hooks/useNavigation', () => ({
@@ -76,6 +76,7 @@ jest.mock('./helpers/cancelContractAsBuyer', () => ({
 describe('useConfirmCancelTrade', () => {
   beforeAll(() => {
     setAccount({ ...account1, offers: [{ ...sellOffer, id: getSellOfferIdFromContract(contract) }] })
+    // @ts-ignore
     setPeachWallet(new PeachWallet())
   })
   afterEach(() => {
@@ -99,7 +100,7 @@ describe('useConfirmCancelTrade', () => {
     expect(replaceMock).toHaveBeenCalledWith('contract', { contractId: contract.id })
   })
   it('should handle error case when canceling a contract as seller', async () => {
-    cancelContractAsSellerMock.mockResolvedValueOnce(getResult({ contract }, apiError))
+    cancelContractAsSellerMock.mockResolvedValueOnce(getResult({ contract }, unauthorizedError))
     const { result } = renderHook(useConfirmCancelTrade, { wrapper: OverlayWrapper })
     await result.current.cancelSeller(contract)
   })
@@ -117,7 +118,7 @@ describe('useConfirmCancelTrade', () => {
     expect(replaceMock).toHaveBeenCalledWith('contract', { contractId: contract.id })
   })
   it('should handle error case when canceling a contract as buyer', async () => {
-    cancelContractAsBuyerMock.mockResolvedValueOnce(getResult({ contract }, apiError))
+    cancelContractAsBuyerMock.mockResolvedValueOnce(getResult({ contract }, unauthorizedError))
     const { result } = renderHook(useConfirmCancelTrade, { wrapper: OverlayWrapper })
     await result.current.cancelBuyer(contract)
   })

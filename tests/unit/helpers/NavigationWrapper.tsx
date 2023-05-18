@@ -15,6 +15,7 @@ export const NavigationWrapper = ({ children }: any) => (
   <NavigationContext.Provider
     value={{
       navigate: navigateMock,
+      reset: resetMock,
       // @ts-ignore
       replace: replaceMock,
       reset: resetMock,

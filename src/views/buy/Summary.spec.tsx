@@ -4,6 +4,7 @@ import { buyOffer } from '../../../tests/unit/data/offerData'
 import { PeachWallet } from '../../utils/wallet/PeachWallet'
 import { setPeachWallet } from '../../utils/wallet/setWallet'
 import Summary from './Summary'
+import { NavigationWrapper } from '../../../tests/unit/helpers/NavigationWrapper'
 
 const releaseAddress = 'releaseAddress'
 const walletLabel = 'walletLabel'
@@ -52,7 +53,7 @@ describe('Summary', () => {
     jest.clearAllMocks()
   })
   it('should render the Summary view', () => {
-    renderer.render(<Summary {...{ offerDraft, setOfferDraft, next }} />)
+    renderer.render(<Summary {...{ offerDraft, setOfferDraft, next }} />, { wrapper: NavigationWrapper })
     const result = renderer.getRenderOutput()
     expect(result).toMatchSnapshot()
   })
@@ -63,7 +64,7 @@ describe('Summary', () => {
       peachWalletActive: true,
       canPublish: false,
     })
-    renderer.render(<Summary {...{ offerDraft, setOfferDraft, next }} />)
+    renderer.render(<Summary {...{ offerDraft, setOfferDraft, next }} />, { wrapper: NavigationWrapper })
     const result = renderer.getRenderOutput()
     expect(result).toMatchSnapshot()
   })
@@ -74,7 +75,7 @@ describe('Summary', () => {
       peachWalletActive: false,
       canPublish: false,
     })
-    renderer.render(<Summary {...{ offerDraft, setOfferDraft, next }} />)
+    renderer.render(<Summary {...{ offerDraft, setOfferDraft, next }} />, { wrapper: NavigationWrapper })
     const result = renderer.getRenderOutput()
     expect(result).toMatchSnapshot()
   })
@@ -83,12 +84,12 @@ describe('Summary', () => {
       ...defaultBuySummary,
       isPublishing: true,
     })
-    renderer.render(<Summary {...{ offerDraft, setOfferDraft, next }} />)
+    renderer.render(<Summary {...{ offerDraft, setOfferDraft, next }} />, { wrapper: NavigationWrapper })
     const result = renderer.getRenderOutput()
     expect(result).toMatchSnapshot()
   })
   it('clicking on "publish" publishes offer', () => {
-    const { getByText } = render(<Summary {...{ offerDraft, setOfferDraft, next }} />)
+    const { getByText } = render(<Summary {...{ offerDraft, setOfferDraft, next }} />, { wrapper: NavigationWrapper })
     fireEvent(getByText('publish'), 'onPress')
     expect(publishOffer).toHaveBeenCalled()
   })
@@ -99,7 +100,7 @@ describe('Summary', () => {
       peachWalletActive: false,
       canPublish: false,
     })
-    const { getByText } = render(<Summary {...{ offerDraft, setOfferDraft, next }} />)
+    const { getByText } = render(<Summary {...{ offerDraft, setOfferDraft, next }} />, { wrapper: NavigationWrapper })
     fireEvent(getByText('next'), 'onPress')
     expect(goToMessageSigning).toHaveBeenCalled()
   })

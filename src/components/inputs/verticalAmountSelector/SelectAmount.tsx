@@ -42,6 +42,8 @@ export const SelectAmount = ({ min, max, value, onChange, style }: RangeAmountPr
   )
   const onTrackLayout = (event: LayoutChangeEvent) => {
     const height = Math.round(event.nativeEvent.layout.height)
+    if (!height) return
+
     setTrackHeight(height)
     pan.setOffset(getOffset({ amount: value, min, max, trackHeight: height }))
   }

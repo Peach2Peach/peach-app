@@ -9,10 +9,10 @@ import i18n from '../../../utils/i18n'
 import { defaultFundingStatus } from '../../../utils/offer/constants'
 import { useFundEscrowSetup } from './useFundEscrowSetup'
 import { saveOffer } from '../../../utils/offer'
+import { unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
 
 jest.useFakeTimers()
 
-const apiError = { error: 'UNAUTHORIZED' }
 const useRouteMock = jest.fn().mockReturnValue({
   params: { offerId: sellOffer.id },
 })
@@ -128,10 +128,10 @@ describe('useFundEscrowSetup', () => {
   })
   it('should handle create escrow errors', async () => {
     getOfferDetailsMock.mockReturnValueOnce([{ ...sellOffer, escrow: undefined }, null])
-    createEscrowMock.mockResolvedValueOnce([null, apiError])
+    createEscrowMock.mockResolvedValueOnce([null, unauthorizedError])
     const { result } = renderHook(useFundEscrowSetup, { wrapper })
     await waitFor(() => expect(createEscrowMock).toHaveBeenCalled())
-    expect(result.current.createEscrowError).toEqual(new Error(apiError.error))
+    expect(result.current.createEscrowError).toEqual(new Error(unauthorizedError.error))
   })
   it('should render header correctly for unfunded offers', () => {
     const { result } = renderHook(useFundEscrowSetup, { wrapper })
@@ -163,15 +163,15 @@ describe('useFundEscrowSetup', () => {
       fundingStatus: defaultFundingStatus,
       userConfirmationRequired: false,
       isLoading: false,
-      error: new Error(apiError.error),
+      error: new Error(unauthorizedError.error),
     })
     renderHook(useFundEscrowSetup, { wrapper })
-    expect(showErrorBannerMock).toHaveBeenCalledWith(apiError.error)
+    expect(showErrorBannerMock).toHaveBeenCalledWith(unauthorizedError.error)
   })
   it('should handle the case that no offer could be returned', async () => {
     await setAccount({ ...account1, offers: [] })
 
-    getOfferDetailsMock.mockReturnValueOnce([null, apiError])
+    getOfferDetailsMock.mockReturnValueOnce([null, unauthorizedError])
     const { result } = renderHook(useFundEscrowSetup, { wrapper })
     expect(result.current).toEqual({
       offerId: sellOffer.id,
@@ -185,7 +185,7 @@ describe('useFundEscrowSetup', () => {
   })
   it('should handle the case that no offer could be returned but offer exists locally', () => {
     saveOffer(sellOfferWithEscrow)
-    getOfferDetailsMock.mockReturnValueOnce([null, apiError])
+    getOfferDetailsMock.mockReturnValueOnce([null, unauthorizedError])
     const { result } = renderHook(useFundEscrowSetup, { wrapper })
     expect(result.current).toEqual({
       offerId: sellOffer.id,
