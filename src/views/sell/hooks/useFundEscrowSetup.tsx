@@ -1,5 +1,5 @@
 import { useEffect, useMemo } from 'react'
-import { useCancelOffer, useHeaderSetup, useRoute } from '../../../hooks'
+import { useCancelOffer, useHeaderSetup, useNavigation, useRoute } from '../../../hooks'
 import { useFundingStatus } from '../../../hooks/query/useFundingStatus'
 import { useOfferDetails } from '../../../hooks/query/useOfferDetails'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
@@ -30,26 +30,19 @@ export const useFundEscrowSetup = () => {
   } = useFundingStatus(offerId, canFetchFundingStatus)
   const fundingAmount = sellOffer ? sellOffer.amount : 0
   const cancelOffer = useCancelOffer(sellOffer)
-
   useHeaderSetup(
-    useMemo(
-      () =>
-        fundingStatus.status === 'MEMPOOL'
-          ? {
-            title: i18n('sell.funding.mempool.title'),
-            hideGoBackButton: true,
-            icons: [{ ...headerIcons.help, onPress: showMempoolHelp }],
-          }
-          : {
-            title: i18n('sell.escrow.title'),
-            hideGoBackButton: true,
-            icons: [
-              { ...headerIcons.cancel, onPress: cancelOffer },
-              { ...headerIcons.help, onPress: showHelp },
-            ],
-          },
-      [fundingStatus, cancelOffer, showHelp, showMempoolHelp],
-    ),
+    fundingStatus.status === 'MEMPOOL'
+      ? {
+        title: i18n('sell.funding.mempool.title'),
+        icons: [{ ...headerIcons.help, onPress: showMempoolHelp }],
+      }
+      : {
+        title: i18n('sell.escrow.title'),
+        icons: [
+          { ...headerIcons.cancel, onPress: cancelOffer },
+          { ...headerIcons.help, onPress: showHelp },
+        ],
+      },
   )
 
   useHandleFundingStatus({

@@ -2,9 +2,7 @@ import { publishPGPPublicKey } from '../../../init/publishPGPPublicKey'
 import { saveOffer } from '../../../utils/offer'
 import { postBuyOffer } from '../../../utils/peachAPI'
 
-export const publishBuyOffer = async (
-  offerDraft: BuyOfferDraft,
-): Promise<{ isOfferPublished: boolean; errorMessage: string | null }> => {
+export const publishBuyOffer = async (offerDraft: BuyOfferDraft) => {
   let [result, err] = await postBuyOffer(offerDraft)
 
   if (err?.error === 'PGP_MISSING') {
@@ -15,7 +13,7 @@ export const publishBuyOffer = async (
   }
   if (result) {
     saveOffer({ ...offerDraft, ...result })
-    return { isOfferPublished: true, errorMessage: null }
+    return { offerId: result.id, isOfferPublished: true, errorMessage: null }
   }
   return { isOfferPublished: false, errorMessage: err?.error || 'POST_OFFER_ERROR' }
 }

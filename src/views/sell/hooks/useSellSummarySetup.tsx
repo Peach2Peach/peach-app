@@ -30,7 +30,13 @@ export const useSellSummarySetup = () => {
     setIsPublishing(true)
     const { isPublished, navigationParams, errorMessage } = await publishSellOffer(offerDraft)
     if (isPublished && navigationParams) {
-      navigation.replace('fundEscrow', navigationParams)
+      navigation.reset({
+        index: 1,
+        routes: [
+          { name: 'yourTrades', params: { tab: 'sell' } },
+          { name: 'fundEscrow', params: navigationParams },
+        ],
+      })
     } else if (errorMessage) {
       showErrorBanner(errorMessage)
     }
