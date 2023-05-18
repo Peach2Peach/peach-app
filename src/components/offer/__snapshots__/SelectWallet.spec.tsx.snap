@@ -1,11 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`WalletLabel should first signal that it is loading if label is not known 1`] = `
+exports[`SelectWallet renders correctly when custom wallet exists 1`] = `
 <View
   style={
     [
       {
+        "alignItems": "stretch",
         "flexDirection": "row",
+        "gap": 4,
       },
       undefined,
     ]
@@ -31,7 +33,7 @@ exports[`WalletLabel should first signal that it is loading if label is not know
     }
     accessible={true}
     collapsable={false}
-    focusable={false}
+    focusable={true}
     onClick={[Function]}
     onResponderGrant={[Function]}
     onResponderMove={[Function]}
@@ -42,7 +44,8 @@ exports[`WalletLabel should first signal that it is loading if label is not know
     style={
       {
         "alignItems": "center",
-        "borderColor": "#2B1911",
+        "backgroundColor": "#F56522",
+        "borderColor": "#F56522",
         "borderRadius": 8,
         "borderWidth": 1,
         "height": 24,
@@ -64,34 +67,24 @@ exports[`WalletLabel should first signal that it is loading if label is not know
             "letterSpacing": 0.16,
             "lineHeight": 24,
           },
-          {
-            "color": "#2B1911",
-            "fontFamily": "Baloo2-SemiBold",
-            "fontSize": 14,
-            "letterSpacing": 0.5,
-            "lineHeight": 24,
-            "textTransform": "uppercase",
-          },
+          [
+            {
+              "fontFamily": "Baloo2-SemiBold",
+              "fontSize": 14,
+              "letterSpacing": 0.5,
+              "lineHeight": 24,
+              "textTransform": "uppercase",
+            },
+            {
+              "color": "#FFFCFA",
+            },
+          ],
         ]
       }
     >
-      loading...
+      Peach wallet
     </Text>
   </View>
-</View>
-`;
-
-exports[`WalletLabel should render correctly if address is payout address 1`] = `
-<View
-  style={
-    [
-      {
-        "flexDirection": "row",
-      },
-      undefined,
-    ]
-  }
->
   <View
     accessibilityState={
       {
@@ -112,7 +105,7 @@ exports[`WalletLabel should render correctly if address is payout address 1`] = 
     }
     accessible={true}
     collapsable={false}
-    focusable={false}
+    focusable={true}
     onClick={[Function]}
     onResponderGrant={[Function]}
     onResponderMove={[Function]}
@@ -123,7 +116,7 @@ exports[`WalletLabel should render correctly if address is payout address 1`] = 
     style={
       {
         "alignItems": "center",
-        "borderColor": "#2B1911",
+        "borderColor": "#9F8C82",
         "borderRadius": 8,
         "borderWidth": 1,
         "height": 24,
@@ -145,29 +138,35 @@ exports[`WalletLabel should render correctly if address is payout address 1`] = 
             "letterSpacing": 0.16,
             "lineHeight": 24,
           },
-          {
-            "color": "#2B1911",
-            "fontFamily": "Baloo2-SemiBold",
-            "fontSize": 14,
-            "letterSpacing": 0.5,
-            "lineHeight": 24,
-            "textTransform": "uppercase",
-          },
+          [
+            {
+              "fontFamily": "Baloo2-SemiBold",
+              "fontSize": 14,
+              "letterSpacing": 0.5,
+              "lineHeight": 24,
+              "textTransform": "uppercase",
+            },
+            {
+              "color": "#9F8C82",
+            },
+          ],
         ]
       }
     >
-      addressLabel
+      My custom address
     </Text>
   </View>
 </View>
 `;
 
-exports[`WalletLabel should render correctly if address is peach wallet address 1`] = `
+exports[`SelectWallet renders correctly when only peach wallet exists 1`] = `
 <View
   style={
     [
       {
+        "alignItems": "stretch",
         "flexDirection": "row",
+        "gap": 4,
       },
       undefined,
     ]
@@ -193,7 +192,7 @@ exports[`WalletLabel should render correctly if address is peach wallet address 
     }
     accessible={true}
     collapsable={false}
-    focusable={false}
+    focusable={true}
     onClick={[Function]}
     onResponderGrant={[Function]}
     onResponderMove={[Function]}
@@ -240,20 +239,6 @@ exports[`WalletLabel should render correctly if address is peach wallet address 
       Peach wallet
     </Text>
   </View>
-</View>
-`;
-
-exports[`WalletLabel should render correctly if address is unknown 1`] = `
-<View
-  style={
-    [
-      {
-        "flexDirection": "row",
-      },
-      undefined,
-    ]
-  }
->
   <View
     accessibilityState={
       {
@@ -274,7 +259,7 @@ exports[`WalletLabel should render correctly if address is unknown 1`] = `
     }
     accessible={true}
     collapsable={false}
-    focusable={false}
+    focusable={true}
     onClick={[Function]}
     onResponderGrant={[Function]}
     onResponderMove={[Function]}
@@ -285,7 +270,7 @@ exports[`WalletLabel should render correctly if address is unknown 1`] = `
     style={
       {
         "alignItems": "center",
-        "borderColor": "#2B1911",
+        "borderColor": "#F56522",
         "borderRadius": 8,
         "borderWidth": 1,
         "height": 24,
@@ -295,112 +280,23 @@ exports[`WalletLabel should render correctly if address is unknown 1`] = `
         "paddingRight": 8,
       }
     }
+    testID="goToPayoutAddress"
   >
-    <Text
-      allowFontScaling={false}
+    <test-file-stub
+      fill="#F56522"
       style={
         [
           {
-            "color": "#2B1911",
-            "fontFamily": "Baloo2-Regular",
-            "fontSize": 16,
-            "letterSpacing": 0.16,
-            "lineHeight": 24,
+            "height": 24,
+            "width": 24,
           },
           {
-            "color": "#2B1911",
-            "fontFamily": "Baloo2-SemiBold",
-            "fontSize": 14,
-            "letterSpacing": 0.5,
-            "lineHeight": 24,
-            "textTransform": "uppercase",
+            "height": 12,
+            "width": 12,
           },
         ]
       }
-    >
-      custom payout address
-    </Text>
-  </View>
-</View>
-`;
-
-exports[`WalletLabel should render correctly if label is known 1`] = `
-<View
-  style={
-    [
-      {
-        "flexDirection": "row",
-      },
-      undefined,
-    ]
-  }
->
-  <View
-    accessibilityState={
-      {
-        "busy": undefined,
-        "checked": undefined,
-        "disabled": undefined,
-        "expanded": undefined,
-        "selected": undefined,
-      }
-    }
-    accessibilityValue={
-      {
-        "max": undefined,
-        "min": undefined,
-        "now": undefined,
-        "text": undefined,
-      }
-    }
-    accessible={true}
-    collapsable={false}
-    focusable={false}
-    onClick={[Function]}
-    onResponderGrant={[Function]}
-    onResponderMove={[Function]}
-    onResponderRelease={[Function]}
-    onResponderTerminate={[Function]}
-    onResponderTerminationRequest={[Function]}
-    onStartShouldSetResponder={[Function]}
-    style={
-      {
-        "alignItems": "center",
-        "borderColor": "#2B1911",
-        "borderRadius": 8,
-        "borderWidth": 1,
-        "height": 24,
-        "justifyContent": "center",
-        "opacity": 1,
-        "paddingLeft": 8,
-        "paddingRight": 8,
-      }
-    }
-  >
-    <Text
-      allowFontScaling={false}
-      style={
-        [
-          {
-            "color": "#2B1911",
-            "fontFamily": "Baloo2-Regular",
-            "fontSize": 16,
-            "letterSpacing": 0.16,
-            "lineHeight": 24,
-          },
-          {
-            "color": "#2B1911",
-            "fontFamily": "Baloo2-SemiBold",
-            "fontSize": 14,
-            "letterSpacing": 0.5,
-            "lineHeight": 24,
-            "textTransform": "uppercase",
-          },
-        ]
-      }
-    >
-      Wallet Label
-    </Text>
+    />
   </View>
 </View>
 `;

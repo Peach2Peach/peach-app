@@ -27,7 +27,6 @@ describe('useSellSummarySetup', () => {
   it('should set up header correctly', async () => {
     const { result } = renderHook(useSellSummarySetup, { wrapper: NavigationWrapper })
     expect(useHeaderState.getState().title).toBe('sell offer summary')
-    expect(useHeaderState.getState().icons?.[0].id).toBe('wallet')
     await waitFor(() => expect(result.current.returnAddress).toBeDefined())
   })
   it('should enable peach wallet if no payout address is set', async () => {
