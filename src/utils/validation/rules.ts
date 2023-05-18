@@ -1,15 +1,15 @@
-import { isValidDigitLength } from './isValidDigitLength'
 import { validateMnemonic, wordlists } from 'bip39'
 import { address } from 'bitcoinjs-lib'
 import { getNetwork } from '../wallet'
 import { isAdvcashWallet } from './isAdvcashWallet'
 import { isBIC } from './isBIC'
-import { isEmail } from './isEmail'
 import { isEUIBAN } from './isEUIBAN'
+import { isEmail } from './isEmail'
 import { isIBAN } from './isIBAN'
 import { isPaypalUsername } from './isPaypalUsername'
 import { isPhone } from './isPhone'
 import { isPhoneAllowed } from './isPhoneAllowed'
+import { isReferralCode } from './isReferralCode'
 import { isRevtag } from './isRevtag'
 import { isTaproot } from './isTaproot'
 import { isUKBankAccount } from './isUKBankAccount'
@@ -17,7 +17,8 @@ import { isUKSortCode } from './isUKSortCode'
 import { isURL } from './isURL'
 import { isUsername } from './isUsername'
 import { isValidBitcoinSignature } from './isValidBitcoinSignature'
-import { isReferralCode } from './isReferralCode'
+import { isValidDigitLength } from './isValidDigitLength'
+import { isValidFeeRate } from './isValidFeeRate'
 import { isValidPaymentReference } from './isValidPaymentReference'
 
 export const rules = {
@@ -97,7 +98,7 @@ export const rules = {
     return isValidBitcoinSignature(message, btcAddress, value)
   },
   feeRate (_: boolean, value: string) {
-    return /^[0-9]*$/u.test(value) && Number(value) >= 1
+    return isValidFeeRate(value)
   },
   isPhoneAllowed (_: boolean, value: string) {
     return isPhoneAllowed(value)

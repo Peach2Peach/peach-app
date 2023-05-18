@@ -1,14 +1,13 @@
-import { ReactElement } from 'react'
 import { View } from 'react-native'
-
-import { Input, PremiumSlider, PrimaryButton, SatsFormat, Text } from '../../components'
+import { PremiumSlider, PrimaryButton, SatsFormat, Text } from '../../components'
+import { NumberInput } from '../../components/inputs'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { priceFormat } from '../../utils/string'
-import { usePremiumSetup } from './hooks/usePremiumSetup'
 import { SellViewProps } from './SellPreferences'
+import { usePremiumSetup } from './hooks/usePremiumSetup'
 
-export default ({ offerDraft, setOfferDraft, next }: SellViewProps): ReactElement => {
+export default ({ offerDraft, setOfferDraft, next }: SellViewProps) => {
   const { premium, updatePremium, currentPrice, displayCurrency, stepValid } = usePremiumSetup(offerDraft, setOfferDraft)
   return (
     <View style={tw`items-center flex-shrink h-full pb-7`}>
@@ -34,13 +33,12 @@ export default ({ offerDraft, setOfferDraft, next }: SellViewProps): ReactElemen
               {i18n(offerDraft.premium > 0 ? 'sell.premium' : 'sell.discount')}:
             </Text>
             <View style={tw`h-10 ml-2`}>
-              <Input
+              <NumberInput
                 style={tw`w-24`}
                 inputStyle={tw`text-right`}
                 value={premium || '0'}
                 onChange={updatePremium}
                 icons={[['percent', () => {}]]}
-                keyboardType={'numeric'}
               />
             </View>
           </View>
