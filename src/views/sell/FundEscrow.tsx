@@ -1,6 +1,6 @@
 import { ReactElement } from 'react'
 import { View } from 'react-native'
-import { BitcoinAddress, PeachScrollView, PrimaryButton, Text } from '../../components'
+import { BitcoinAddress, Loading, PeachScrollView, PrimaryButton, Text } from '../../components'
 import { SATSINBTC } from '../../constants'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
