@@ -1,20 +1,28 @@
-import { Linking } from 'react-native'
+import { Linking, View } from 'react-native'
+import { Icon } from '../../components/Icon'
+import { ParsedPeachText } from '../../components/text/ParsedPeachText'
 import { PeachText } from '../../components/text/Text'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 
-export const Escrow = () => {
-  const goToEscrowInfo = () => Linking.openURL('https://peachbitcoin.com/termsConditions.html')
-  return (
-    <PeachText>
-      {i18n('help.escrow.description.1')}{' '}
-      <PeachText style={tw`underline`} onPress={goToEscrowInfo}>
-        {i18n('help.escrow.description.1.link')}
-      </PeachText>
-      {'\n\n'}
-      {i18n('help.escrow.description.2')}
-      {'\n\n'}
-      {i18n('help.escrow.description.3')}
-    </PeachText>
-  )
-}
+const goToEscrowInfo = () => Linking.openURL('https://peachbitcoin.com/termsConditions.html')
+
+export const Escrow = () => (
+  <>
+    <ParsedPeachText
+      parse={[
+        {
+          pattern: new RegExp(i18n('help.escrow.description.link'), 'u'),
+          style: tw`underline`,
+          onPress: goToEscrowInfo,
+        },
+      ]}
+    >
+      {i18n('help.escrow.description')}
+    </ParsedPeachText>
+    <View style={tw`flex-row gap-3 items-center  mt-4`}>
+      <Icon id="info" style={tw`w-8 h-8`} color={tw`text-black-1`.color} />
+      <PeachText style={tw`flex-shrink`}>{i18n('help.escrow.description.proTip')}</PeachText>
+    </View>
+  </>
+)
