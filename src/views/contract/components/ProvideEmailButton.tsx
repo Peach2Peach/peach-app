@@ -2,13 +2,11 @@ import { PrimaryButton } from '../../../components'
 import tw from '../../../styles/tailwind'
 import { useDisputeRaisedNotice } from '../../../overlays/dispute/hooks/useDisputeRaisedNotice'
 import i18n from '../../../utils/i18n'
+import { useContractContext } from '../context'
 
-type Props = ComponentProps & {
-  contract: Contract
-  view: ContractViewer
-}
-export const ProvideEmailButton = ({ contract, view, style }: Props) => {
+export const ProvideEmailButton = ({ style }: ComponentProps) => {
   const { showDisputeRaisedNotice } = useDisputeRaisedNotice()
+  const { contract, view } = useContractContext()
   const onPress = () => showDisputeRaisedNotice(contract, view)
 
   return (

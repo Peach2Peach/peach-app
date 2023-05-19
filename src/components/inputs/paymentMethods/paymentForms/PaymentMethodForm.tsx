@@ -31,7 +31,7 @@ export const PaymentMethodForm = ({ paymentMethod, data, currencies = [], onSubm
   const { stepValid, setStepValid, setFormData, submitForm } = useSubmitForm<PaymentData>(onSubmit)
   const keyboardOpen = useKeyboard()
 
-  const Form = PaymentMethodForms[paymentMethod]
+  const Form = PaymentMethodForms[paymentMethod]?.component
 
   return (
     <View style={[tw`h-full`, style]}>

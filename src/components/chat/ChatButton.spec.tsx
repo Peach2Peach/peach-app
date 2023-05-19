@@ -3,6 +3,11 @@ import { fireEvent, render } from '@testing-library/react-native'
 import i18n from '../../utils/i18n'
 import { NavigationWrapper, pushMock } from '../../../tests/unit/helpers/NavigationWrapper'
 
+const useContractContextMock = jest.fn()
+jest.mock('../../views/contract/context/useContractContext', () => ({
+  useContractContext: () => useContractContextMock(),
+}))
+
 describe('ChatButton', () => {
   it('renders correctly', () => {
     const mockContract = {
@@ -10,7 +15,8 @@ describe('ChatButton', () => {
       id: '123',
       disputeActive: false,
     } as Contract
-    const { toJSON } = render(<ChatButton contract={mockContract} />, { wrapper: NavigationWrapper })
+    useContractContextMock.mockReturnValue({ contract: mockContract })
+    const { toJSON } = render(<ChatButton />, { wrapper: NavigationWrapper })
     expect(toJSON()).toMatchSnapshot()
   })
   it('renders correctly with active dispute', () => {
@@ -19,7 +25,8 @@ describe('ChatButton', () => {
       id: '123',
       disputeActive: true,
     } as Contract
-    const { toJSON } = render(<ChatButton contract={mockContract} />, { wrapper: NavigationWrapper })
+    useContractContextMock.mockReturnValue({ contract: mockContract })
+    const { toJSON } = render(<ChatButton />, { wrapper: NavigationWrapper })
     expect(toJSON()).toMatchSnapshot()
   })
   it('should navigate to chat screen when pressed', () => {
@@ -28,7 +35,8 @@ describe('ChatButton', () => {
       id: '123',
       disputeActive: false,
     } as Contract
-    const { getByText } = render(<ChatButton contract={mockContract} />, {
+    useContractContextMock.mockReturnValue({ contract: mockContract })
+    const { getByText } = render(<ChatButton />, {
       wrapper: NavigationWrapper,
     })
     fireEvent.press(getByText(i18n('chat')))

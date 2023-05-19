@@ -4,11 +4,12 @@ exports[`PayoutWalletSummary renders correctly 1`] = `
 <View
   style={
     {
+      "alignItems": "flex-start",
       "gap": 4,
     }
   }
 >
-  <TradeSeparator
+  <Divider
     text="payout wallet"
   />
   <WalletSelector
@@ -52,11 +53,12 @@ exports[`PayoutWalletSummary renders correctly for offer draft 1`] = `
 <View
   style={
     {
+      "alignItems": "flex-start",
       "gap": 4,
     }
   }
 >
-  <TradeSeparator
+  <Divider
     text="payout wallet"
   />
   <WalletSelector
