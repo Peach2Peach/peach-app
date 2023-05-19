@@ -7,7 +7,6 @@ import { OfferDetailsTitle } from '../../offerDetails/components/OfferDetailsTit
 import { useConfirmEscrow } from './useConfirmEscrow'
 
 export const useWrongFundingAmountSetup = () => {
-  const route = useRoute<'fundEscrow'>()
   const { offerId } = useRoute<'fundEscrow'>().params
 
   const showErrorBanner = useShowErrorBanner()
