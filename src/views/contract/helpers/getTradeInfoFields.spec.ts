@@ -8,13 +8,27 @@ describe('getTradeInfoFields', () => {
       paymentMethod: 'sepa',
     } as any
     expect(getTradeInfoFields(contract, 'seller')).toEqual(['price', 'reference', 'paidToMethod', 'via'])
+    expect(getTradeInfoFields({ ...contract, tradeStatus: 'dispute' }, 'seller')).toEqual([
+      'price',
+      'reference',
+      'paidToMethod',
+      'via',
+    ])
   })
   it('should return the correct fields for a past sell trade', () => {
     const contract = {
       tradeStatus: 'tradeCompleted',
       paymentMethod: 'sepa',
+      releaseTxId: 'someId',
     } as any
     expect(getTradeInfoFields(contract, 'seller')).toEqual([
+      'price',
+      'paidToMethod',
+      'via',
+      'bitcoinAmount',
+      'bitcoinPrice',
+    ])
+    expect(getTradeInfoFields({ ...contract, tradeStatus: 'dispute', releaseTxId: 'someId' }, 'seller')).toEqual([
       'price',
       'paidToMethod',
       'via',
@@ -26,6 +40,7 @@ describe('getTradeInfoFields', () => {
     const contract = {
       tradeStatus: 'tradeCompleted',
       paymentMethod: 'sepa',
+      releaseTxId: 'someId',
     } as any
     expect(getTradeInfoFields(contract, 'buyer')).toEqual([
       'price',

@@ -2,7 +2,7 @@ import { PaymentMethodForms } from '../../../components/inputs/paymentMethods/pa
 import { pastBuyOfferFields, pastSellOfferFields, activeSellOfferFields } from './tradeInformationGetters'
 
 export const getTradeInfoFields = (contract: Contract, view: 'buyer' | 'seller') => {
-  if (contract.tradeStatus === 'tradeCompleted') {
+  if (!!contract.releaseTxId) {
     return view === 'buyer' ? pastBuyOfferFields : pastSellOfferFields
   }
   return view === 'buyer' ? PaymentMethodForms[contract.paymentMethod]?.fields || [] : activeSellOfferFields
