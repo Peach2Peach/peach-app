@@ -1,18 +1,14 @@
 import { createRenderer } from 'react-test-renderer/shallow'
 import { sellOffer } from '../../../tests/unit/data/offerData'
 import { SellOfferSummary } from './SellOfferSummary'
-import { getSellOfferDraft } from '../../../tests/unit/data/offerDraftData'
 
-jest.useFakeTimers({ now: new Date('2022-12-30T23:00:00.000Z') })
+jest.useFakeTimers({ now: new Date('2023-04-26T14:58:49.437Z') })
 
 describe('SellOfferSummary', () => {
   const renderer = createRenderer()
+
   it('renders correctly', () => {
     renderer.render(<SellOfferSummary offer={sellOffer} />)
-    expect(renderer.getRenderOutput()).toMatchSnapshot()
-  })
-  it('renders correctly for offer draft', () => {
-    renderer.render(<SellOfferSummary offer={getSellOfferDraft()} />)
     expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
 })

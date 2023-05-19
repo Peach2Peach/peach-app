@@ -1,4 +1,4 @@
-import { isPublishedOffer } from '../../utils/offer'
+import { getWalletType, isPublishedOffer } from '../../utils/offer'
 import { SelectWallet } from './SelectWallet'
 import { WalletLabel } from './WalletLabel'
 
@@ -11,6 +11,5 @@ export const WalletSelector = ({ offer, style }: Props) => {
     return <WalletLabel label={offer.walletLabel} address={address} style={style} />
   }
 
-  const type = offer.type === 'bid' ? 'payout' : 'refund'
-  return <SelectWallet type={type} style={style} />
+  return <SelectWallet type={getWalletType(offer)} style={style} />
 }

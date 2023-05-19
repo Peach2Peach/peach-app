@@ -1,20 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Summary should render correctly when publishing 1`] = `
-<PeachScrollView
-  contentContainerStyle={
-    {
-      "alignItems": "center",
-      "flexGrow": 1,
-      "justifyContent": "center",
-      "paddingBottom": 28,
-      "paddingLeft": 32,
-      "paddingRight": 32,
-    }
+<View
+  style={
+    [
+      {
+        "flexGrow": 1,
+        "justifyContent": "center",
+        "paddingBottom": 20,
+        "paddingLeft": 24,
+        "paddingRight": 24,
+      },
+      {
+        "paddingLeft": 32,
+        "paddingRight": 32,
+      },
+    ]
   }
 >
-  <View
-    style={
+  <PeachScrollView
+    contentContainerStyle={
       {
         "flexGrow": 1,
         "justifyContent": "center",
@@ -28,11 +33,8 @@ exports[`Summary should render correctly when publishing 1`] = `
             100000,
             1000000,
           ],
-          "creationDate": 2023-03-01T13:39:55.942Z,
+          "creationDate": 2022-02-14T12:00:00.000Z,
           "meansOfPayment": {
-            "CHF": [
-              "sepa",
-            ],
             "EUR": [
               "sepa",
             ],
@@ -48,7 +50,7 @@ exports[`Summary should render correctly when publishing 1`] = `
         }
       }
     />
-  </View>
+  </PeachScrollView>
   <PrimaryButton
     loading={true}
     narrow={true}
@@ -63,24 +65,29 @@ exports[`Summary should render correctly when publishing 1`] = `
   >
     publishing
   </PrimaryButton>
-</PeachScrollView>
+</View>
 `;
 
 exports[`Summary should render correctly while peach wallet is still signing message 1`] = `
-<PeachScrollView
-  contentContainerStyle={
-    {
-      "alignItems": "center",
-      "flexGrow": 1,
-      "justifyContent": "center",
-      "paddingBottom": 28,
-      "paddingLeft": 32,
-      "paddingRight": 32,
-    }
+<View
+  style={
+    [
+      {
+        "flexGrow": 1,
+        "justifyContent": "center",
+        "paddingBottom": 20,
+        "paddingLeft": 24,
+        "paddingRight": 24,
+      },
+      {
+        "paddingLeft": 32,
+        "paddingRight": 32,
+      },
+    ]
   }
 >
-  <View
-    style={
+  <PeachScrollView
+    contentContainerStyle={
       {
         "flexGrow": 1,
         "justifyContent": "center",
@@ -94,11 +101,8 @@ exports[`Summary should render correctly while peach wallet is still signing mes
             100000,
             1000000,
           ],
-          "creationDate": 2023-03-01T13:39:55.942Z,
+          "creationDate": 2022-02-14T12:00:00.000Z,
           "meansOfPayment": {
-            "CHF": [
-              "sepa",
-            ],
             "EUR": [
               "sepa",
             ],
@@ -114,7 +118,7 @@ exports[`Summary should render correctly while peach wallet is still signing mes
         }
       }
     />
-  </View>
+  </PeachScrollView>
   <PrimaryButton
     disabled={true}
     loading={false}
@@ -130,24 +134,29 @@ exports[`Summary should render correctly while peach wallet is still signing mes
   >
     next
   </PrimaryButton>
-</PeachScrollView>
+</View>
 `;
 
 exports[`Summary should render correctly with custom payout wallet and signature is still missing 1`] = `
-<PeachScrollView
-  contentContainerStyle={
-    {
-      "alignItems": "center",
-      "flexGrow": 1,
-      "justifyContent": "center",
-      "paddingBottom": 28,
-      "paddingLeft": 32,
-      "paddingRight": 32,
-    }
+<View
+  style={
+    [
+      {
+        "flexGrow": 1,
+        "justifyContent": "center",
+        "paddingBottom": 20,
+        "paddingLeft": 24,
+        "paddingRight": 24,
+      },
+      {
+        "paddingLeft": 32,
+        "paddingRight": 32,
+      },
+    ]
   }
 >
-  <View
-    style={
+  <PeachScrollView
+    contentContainerStyle={
       {
         "flexGrow": 1,
         "justifyContent": "center",
@@ -161,11 +170,8 @@ exports[`Summary should render correctly with custom payout wallet and signature
             100000,
             1000000,
           ],
-          "creationDate": 2023-03-01T13:39:55.942Z,
+          "creationDate": 2022-02-14T12:00:00.000Z,
           "meansOfPayment": {
-            "CHF": [
-              "sepa",
-            ],
             "EUR": [
               "sepa",
             ],
@@ -181,7 +187,7 @@ exports[`Summary should render correctly with custom payout wallet and signature
         }
       }
     />
-  </View>
+  </PeachScrollView>
   <PrimaryButton
     disabled={false}
     loading={false}
@@ -197,24 +203,29 @@ exports[`Summary should render correctly with custom payout wallet and signature
   >
     next
   </PrimaryButton>
-</PeachScrollView>
+</View>
 `;
 
 exports[`Summary should render the Summary view 1`] = `
-<PeachScrollView
-  contentContainerStyle={
-    {
-      "alignItems": "center",
-      "flexGrow": 1,
-      "justifyContent": "center",
-      "paddingBottom": 28,
-      "paddingLeft": 32,
-      "paddingRight": 32,
-    }
+<View
+  style={
+    [
+      {
+        "flexGrow": 1,
+        "justifyContent": "center",
+        "paddingBottom": 20,
+        "paddingLeft": 24,
+        "paddingRight": 24,
+      },
+      {
+        "paddingLeft": 32,
+        "paddingRight": 32,
+      },
+    ]
   }
 >
-  <View
-    style={
+  <PeachScrollView
+    contentContainerStyle={
       {
         "flexGrow": 1,
         "justifyContent": "center",
@@ -228,11 +239,8 @@ exports[`Summary should render the Summary view 1`] = `
             100000,
             1000000,
           ],
-          "creationDate": 2023-03-01T13:39:55.942Z,
+          "creationDate": 2022-02-14T12:00:00.000Z,
           "meansOfPayment": {
-            "CHF": [
-              "sepa",
-            ],
             "EUR": [
               "sepa",
             ],
@@ -248,7 +256,7 @@ exports[`Summary should render the Summary view 1`] = `
         }
       }
     />
-  </View>
+  </PeachScrollView>
   <PrimaryButton
     loading={false}
     narrow={true}
@@ -263,5 +271,5 @@ exports[`Summary should render the Summary view 1`] = `
   >
     publish
   </PrimaryButton>
-</PeachScrollView>
+</View>
 `;

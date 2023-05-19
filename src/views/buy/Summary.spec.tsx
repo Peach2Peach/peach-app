@@ -1,17 +1,16 @@
 import { fireEvent, render } from '@testing-library/react-native'
 import { createRenderer } from 'react-test-renderer/shallow'
-import { buyOffer } from '../../../tests/unit/data/offerData'
-import { PeachWallet } from '../../utils/wallet/PeachWallet'
-import { setPeachWallet } from '../../utils/wallet/setWallet'
-import Summary from './Summary'
+import { getBuyOfferDraft } from '../../../tests/unit/data/offerDraftData'
 import { NavigationWrapper } from '../../../tests/unit/helpers/NavigationWrapper'
+import Summary from './Summary'
 
 const releaseAddress = 'releaseAddress'
 const walletLabel = 'walletLabel'
+const publishOffer = jest.fn()
+
 const message = 'message'
 const messageSignature = 'messageSignature'
 const goToMessageSigning = jest.fn()
-const publishOffer = jest.fn()
 
 const defaultBuySummary = {
   releaseAddress,
@@ -28,26 +27,13 @@ jest.mock('./hooks/useBuySummarySetup', () => ({
   useBuySummarySetup: (...args: any[]) => useBuySummarySetupMock(...args),
 }))
 
-jest.useFakeTimers({ now: new Date('2023-03-01T13:39:55.942Z') })
+jest.useFakeTimers({ now: new Date('2022-02-14T12:00:00.000Z') })
 
 describe('Summary', () => {
-  const offerDraft: BuyOfferDraft = {
-    creationDate: new Date(),
-    type: 'bid',
-    amount: [100000, 1000000],
-    releaseAddress,
-    paymentData: buyOffer.paymentData,
-    meansOfPayment: buyOffer.meansOfPayment,
-    originalPaymentData: buyOffer.originalPaymentData,
-  }
+  const renderer = createRenderer()
+  const offerDraft = getBuyOfferDraft()
   const setOfferDraft = jest.fn()
   const next = jest.fn()
-  const renderer = createRenderer()
-
-  beforeEach(() => {
-    // @ts-ignore
-    setPeachWallet(new PeachWallet())
-  })
 
   afterEach(() => {
     jest.clearAllMocks()

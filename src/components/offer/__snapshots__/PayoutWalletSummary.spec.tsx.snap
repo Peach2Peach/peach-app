@@ -1,40 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`BuyOfferSummary renders correctly 1`] = `
+exports[`PayoutWalletSummary renders correctly 1`] = `
 <View
   style={
-    [
-      {
-        "gap": 16,
-      },
-      {
-        "gap": 48,
-      },
-      undefined,
-    ]
+    {
+      "gap": 4,
+    }
   }
 >
-  <AmountRangeSummary
-    amount={
-      [
-        50000,
-        250000,
-      ]
-    }
+  <TradeSeparator
+    text="payout wallet"
   />
-  <PaymentMethodsSummary
-    meansOfPayment={
-      {
-        "CHF": [
-          "sepa",
-        ],
-        "EUR": [
-          "sepa",
-        ],
-      }
-    }
-  />
-  <PayoutWalletSummary
+  <WalletSelector
     offer={
       {
         "amount": [
@@ -64,6 +41,44 @@ exports[`BuyOfferSummary renders correctly 1`] = `
         "publishingDate": 2022-03-08T11:41:07.245Z,
         "releaseAddress": "bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh",
         "seenMatches": [],
+        "type": "bid",
+      }
+    }
+  />
+</View>
+`;
+
+exports[`PayoutWalletSummary renders correctly for offer draft 1`] = `
+<View
+  style={
+    {
+      "gap": 4,
+    }
+  }
+>
+  <TradeSeparator
+    text="payout wallet"
+  />
+  <WalletSelector
+    offer={
+      {
+        "amount": [
+          100000,
+          1000000,
+        ],
+        "creationDate": 2022-12-30T23:00:00.000Z,
+        "meansOfPayment": {
+          "EUR": [
+            "sepa",
+          ],
+        },
+        "originalPaymentData": [],
+        "paymentData": {
+          "sepa": {
+            "hash": "TODO add payment hash",
+          },
+        },
+        "releaseAddress": "releaseAddress",
         "type": "bid",
       }
     }

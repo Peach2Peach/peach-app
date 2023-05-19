@@ -409,14 +409,12 @@ exports[`Buy should render correctly 1`] = `
             >
               <test-file-stub
                 style={
-                  [
-                    {
-                      "height": 12,
-                      "marginRight": 4,
-                      "marginTop": -4,
-                      "width": 12,
-                    },
-                  ]
+                  {
+                    "height": 12,
+                    "marginRight": 4,
+                    "marginTop": -4,
+                    "width": 12,
+                  }
                 }
               />
               <View
@@ -649,14 +647,12 @@ exports[`Buy should render correctly 1`] = `
             >
               <test-file-stub
                 style={
-                  [
-                    {
-                      "height": 12,
-                      "marginRight": 4,
-                      "marginTop": -4,
-                      "width": 12,
-                    },
-                  ]
+                  {
+                    "height": 12,
+                    "marginRight": 4,
+                    "marginTop": -4,
+                    "width": 12,
+                  }
                 }
               />
               <View
@@ -1939,14 +1935,12 @@ exports[`Buy should render correctly with free trades 1`] = `
             >
               <test-file-stub
                 style={
-                  [
-                    {
-                      "height": 12,
-                      "marginRight": 4,
-                      "marginTop": -4,
-                      "width": 12,
-                    },
-                  ]
+                  {
+                    "height": 12,
+                    "marginRight": 4,
+                    "marginTop": -4,
+                    "width": 12,
+                  }
                 }
               />
               <View
@@ -2179,14 +2173,12 @@ exports[`Buy should render correctly with free trades 1`] = `
             >
               <test-file-stub
                 style={
-                  [
-                    {
-                      "height": 12,
-                      "marginRight": 4,
-                      "marginTop": -4,
-                      "width": 12,
-                    },
-                  ]
+                  {
+                    "height": 12,
+                    "marginRight": 4,
+                    "marginTop": -4,
+                    "width": 12,
+                  }
                 }
               />
               <View
