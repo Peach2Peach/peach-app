@@ -56,6 +56,9 @@ describe('getSellerStatusText', () => {
     expect(getSellerStatusText({ tradeStatus: 'refundOrReviveRequired' } as Contract)).toBe(
       'You\'ll need to decide if you want to re-publish this trade, or refund the escrow to your walletLabel.',
     )
+    expect(
+      getSellerStatusText({ canceled: true, canceledBy: 'buyer', tradeStatus: 'refundOrReviveRequired' } as Contract),
+    ).toBe('You\'ll need to decide if you want to re-publish this trade, or refund the escrow to your walletLabel.')
   })
   it('should return the correct status if republish is not available', () => {
     expect(getSellerStatusText({ tradeStatus: 'refundTxSignatureRequired' } as Contract)).toBe(

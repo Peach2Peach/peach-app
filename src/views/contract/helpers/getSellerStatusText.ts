@@ -29,7 +29,7 @@ export const getSellerStatusText = (contract: Contract) => {
 
   const isRepublishAvailable = contract.tradeStatus === 'refundOrReviveRequired'
   if (isRepublishAvailable) {
-    if (contract.canceledBy === 'buyer') {
+    if (contract.canceledBy === 'buyer' && !contract.cancelationRequested) {
       return i18n('contract.seller.refundOrRepublish.offer', walletLabel)
     }
     return i18n('contract.seller.refundOrRepublish.trade', walletLabel)
