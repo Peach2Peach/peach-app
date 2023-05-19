@@ -32,7 +32,7 @@ export const TradeDetails = () => {
             shouldBlur={shouldBlur}
             isDisputeActive={contract.disputeActive}
             icon={
-              view === 'buyer' && contract.tradeStatus !== 'tradeCompleted' ? (
+              view === 'buyer' && !contract.releaseTxId ? (
                 <CopyAble value={String(information)} style={[tw`w-4 h-4`, tw.md`w-5 h-5`]} />
               ) : undefined
             }

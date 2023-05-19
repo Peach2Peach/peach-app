@@ -18,7 +18,7 @@ describe('TradeDetails', () => {
   })
   it('should render correctly for past trade', () => {
     useContractContextMock.mockImplementationOnce(() => ({
-      contract: { ...mockContract, tradeStatus: 'tradeCompleted' },
+      contract: { ...mockContract, tradeStatus: 'tradeCompleted', releaseTxId: '123' },
       view: 'seller',
     }))
     renderer.render(<TradeDetails />)
