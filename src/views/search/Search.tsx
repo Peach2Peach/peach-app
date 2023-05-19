@@ -4,10 +4,10 @@ import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import { Matches, PeachScrollView } from '../../components'
+import { isSellOffer } from '../../utils/offer'
+import { DailyTradingLimit } from '../settings/profile/DailyTradingLimit'
 import { MatchInformation, NoMatchesYet } from './components'
 import { useSearchSetup } from './hooks/useSearchSetup'
-import { DailyTradingLimit } from '../settings/profile/DailyTradingLimit'
-import { isSellOffer } from '../../utils/offer'
 
 export default (): ReactElement => {
   const { hasMatches, offer } = useSearchSetup()
@@ -15,13 +15,15 @@ export default (): ReactElement => {
   return (
     <>
       <PeachScrollView style={tw`h-full`} contentContainerStyle={tw`justify-center flex-grow pt-5 pb-6`} bounces={false}>
-        <View style={tw`flex-grow px-6`}>
-          {hasMatches && isSellOffer(offer) && <MatchInformation offer={offer} />}
-          {!hasMatches && <NoMatchesYet offer={offer} style={tw`items-center mx-2`} />}
-        </View>
-        {hasMatches && <Matches />}
+        {!hasMatches && <NoMatchesYet offer={offer} style={tw`h-full px-6`} />}
+        {hasMatches && (
+          <>
+            <View style={tw`flex-grow px-6`}>{isSellOffer(offer) && <MatchInformation offer={offer} />}</View>
+            <Matches />
+          </>
+        )}
       </PeachScrollView>
-      <DailyTradingLimit />
+      {hasMatches && <DailyTradingLimit />}
     </>
   )
 }

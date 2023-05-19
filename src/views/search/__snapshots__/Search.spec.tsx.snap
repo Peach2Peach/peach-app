@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Search renders correctly for matches 1`] = `
+<React.Fragment>
+  <PeachScrollView
+    bounces={false}
+    contentContainerStyle={
+      {
+        "flexGrow": 1,
+        "justifyContent": "center",
+        "paddingBottom": 24,
+        "paddingTop": 20,
+      }
+    }
+    style={
+      {
+        "height": "100%",
+      }
+    }
+  >
+    <React.Fragment>
+      <View
+        style={
+          {
+            "flexGrow": 1,
+            "paddingLeft": 24,
+            "paddingRight": 24,
+          }
+        }
+      />
+      <Matches />
+    </React.Fragment>
+  </PeachScrollView>
+  <DailyTradingLimit />
+</React.Fragment>
+`;
+
+exports[`Search renders correctly for no matches 1`] = `
+<React.Fragment>
+  <PeachScrollView
+    bounces={false}
+    contentContainerStyle={
+      {
+        "flexGrow": 1,
+        "justifyContent": "center",
+        "paddingBottom": 24,
+        "paddingTop": 20,
+      }
+    }
+    style={
+      {
+        "height": "100%",
+      }
+    }
+  >
+    <NoMatchesYet
+      offer={{}}
+      style={
+        {
+          "height": "100%",
+          "paddingLeft": 24,
+          "paddingRight": 24,
+        }
+      }
+    />
+  </PeachScrollView>
+</React.Fragment>
+`;
