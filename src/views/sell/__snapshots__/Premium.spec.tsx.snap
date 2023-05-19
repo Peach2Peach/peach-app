@@ -696,6 +696,7 @@ exports[`Premium renders correctly 1`] = `
                   "letterSpacing": 0.14,
                   "lineHeight": 17.5,
                   "marginTop": 4,
+                  "maxWidth": 80,
                   "textAlign": "center",
                 },
               ]
@@ -738,6 +739,7 @@ exports[`Premium renders correctly 1`] = `
                   "letterSpacing": 0.14,
                   "lineHeight": 17.5,
                   "marginTop": 4,
+                  "maxWidth": 80,
                   "textAlign": "center",
                 },
               ]
@@ -780,6 +782,7 @@ exports[`Premium renders correctly 1`] = `
                   "letterSpacing": 0.14,
                   "lineHeight": 17.5,
                   "marginTop": 4,
+                  "maxWidth": 80,
                   "textAlign": "center",
                 },
               ]
@@ -822,6 +825,7 @@ price
                   "letterSpacing": 0.14,
                   "lineHeight": 17.5,
                   "marginTop": 4,
+                  "maxWidth": 80,
                   "textAlign": "center",
                 },
               ]
@@ -865,6 +869,7 @@ price
                   "letterSpacing": 0.14,
                   "lineHeight": 17.5,
                   "marginTop": 4,
+                  "maxWidth": 80,
                   "textAlign": "center",
                 },
               ]
