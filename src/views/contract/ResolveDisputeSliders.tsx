@@ -1,9 +1,10 @@
-import tw from '../../styles/tailwind'
+import { useMemo } from 'react'
 import { SlideToUnlock } from '../../components/inputs'
-import { useRepublishOffer } from './hooks/useRepublishOffer'
+import { RefundEscrowSlider } from '../../components/offer'
+import tw from '../../styles/tailwind'
 import { getSellOfferFromContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
-import { useStartRefundOverlay } from '../../overlays/useStartRefundOverlay'
+import { useRepublishOffer } from './hooks/useRepublishOffer'
 
 const RepublishOfferSlider = ({ contract }: { contract: Contract }) => {
   const republishOffer = useRepublishOffer()
@@ -12,20 +13,12 @@ const RepublishOfferSlider = ({ contract }: { contract: Contract }) => {
   )
 }
 
-const RefundEscrowSlider = ({ contract }: { contract: Contract }) => {
-  const startRefund = useStartRefundOverlay()
+export const ResolveDisputeSliders = (props: { contract: Contract }) => {
+  const sellOffer = useMemo(() => getSellOfferFromContract(props.contract), [props.contract])
   return (
-    <SlideToUnlock
-      style={tw`w-[263px]`}
-      onUnlock={() => startRefund(getSellOfferFromContract(contract))}
-      label1={i18n('refundEscrow')}
-    />
+    <>
+      <RepublishOfferSlider {...props} />
+      <RefundEscrowSlider sellOffer={sellOffer} />
+    </>
   )
 }
-
-export const ResolveDisputeSliders = (props: { contract: Contract }) => (
-  <>
-    <RepublishOfferSlider {...props} />
-    <RefundEscrowSlider {...props} />
-  </>
-)
