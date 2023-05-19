@@ -3,7 +3,7 @@ import { shallow } from 'zustand/shallow'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { Text } from '../text'
-import { PaymentMethod } from './PaymentMethod'
+import { PaymentMethod } from '../paymentMethod/PaymentMethod'
 import { useMatchStore } from './store'
 
 export const MatchPaymentDetails = ({ match, style }: ComponentProps & { match: Match }) => {

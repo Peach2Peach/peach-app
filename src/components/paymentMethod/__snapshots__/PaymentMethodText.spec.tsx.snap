@@ -1,0 +1,85 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PaymentMethodText renders correctly 1`] = `
+<React.Fragment>
+  <PeachText
+    style={
+      [
+        {
+          "alignSelf": "center",
+          "color": "#9F8C82",
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 14,
+          "letterSpacing": 0.5,
+          "lineHeight": 24,
+          "textTransform": "uppercase",
+        },
+        false,
+      ]
+    }
+  >
+    SEPA
+  </PeachText>
+</React.Fragment>
+`;
+
+exports[`PaymentMethodText renders correctly when selected 1`] = `
+<React.Fragment>
+  <PeachText
+    style={
+      [
+        {
+          "alignSelf": "center",
+          "color": "#9F8C82",
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 14,
+          "letterSpacing": 0.5,
+          "lineHeight": 24,
+          "textTransform": "uppercase",
+        },
+        {
+          "color": "#FFFCFA",
+        },
+      ]
+    }
+  >
+    SEPA
+  </PeachText>
+</React.Fragment>
+`;
+
+exports[`PaymentMethodText renders correctly when verified 1`] = `
+<React.Fragment>
+  <PeachText
+    style={
+      [
+        {
+          "alignSelf": "center",
+          "color": "#9F8C82",
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 14,
+          "letterSpacing": 0.5,
+          "lineHeight": 24,
+          "textTransform": "uppercase",
+        },
+        {
+          "color": "#FFFCFA",
+        },
+      ]
+    }
+  >
+    SEPA
+  </PeachText>
+  <Icon
+    color="#FFFCFA"
+    id="userCheck"
+    style={
+      {
+        "height": 12,
+        "marginLeft": 4,
+        "width": 12,
+      }
+    }
+  />
+</React.Fragment>
+`;

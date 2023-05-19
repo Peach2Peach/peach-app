@@ -2,10 +2,8 @@ import { View } from 'react-native'
 import { shallow } from 'zustand/shallow'
 import tw from '../../../../styles/tailwind'
 import i18n from '../../../../utils/i18n'
-import { NewTabbedNavigation } from '../../../navigation/NewTabbedNavigation'
+import { MeansOfPaymentSelect } from '../../../trade'
 import { MatchStore, useMatchStore } from '../../store'
-import { CustomSelector } from './CustomSelector'
-import { PaymentMethodSelectorText } from './PaymentMethodSelectorText'
 import { PulsingText } from './PulsingText'
 
 const storeSelector = (matchId: Match['offerId']) => (state: MatchStore) => ({
@@ -15,42 +13,32 @@ const storeSelector = (matchId: Match['offerId']) => (state: MatchStore) => ({
   setSelectedCurrency: state.setSelectedCurrency,
   availablePaymentMethods: state.matchSelectors[matchId]?.availablePaymentMethods || [],
   availableCurrencies: state.matchSelectors[matchId]?.availableCurrencies || [],
+  mopsInCommon: state.matchSelectors[matchId]?.mopsInCommon || {},
   showPaymentMethodPulse: state.matchSelectors[matchId]?.showPaymentMethodPulse || false,
 })
 
 export const PaymentMethodSelector = ({ matchId, disabled }: { matchId: Match['offerId']; disabled?: boolean }) => {
-  const {
-    selectedPaymentMethod,
-    selectedCurrency,
-    setSelectedPaymentMethod,
-    setSelectedCurrency,
-    availablePaymentMethods,
-    availableCurrencies,
-    showPaymentMethodPulse,
-  } = useMatchStore(storeSelector(matchId), shallow)
+  const { selectedPaymentMethod, setSelectedPaymentMethod, setSelectedCurrency, mopsInCommon, showPaymentMethodPulse }
+    = useMatchStore(storeSelector(matchId), shallow)
 
-  const onChange = (paymentMethod: PaymentMethod) => {
+  const setCurrency = (currency: Currency) => setSelectedCurrency(currency, matchId)
+  const setPaymentMethod = (paymentMethod: PaymentMethod) => {
     setSelectedPaymentMethod(paymentMethod, matchId)
   }
-
-  const isVerified = false
-  const items = availablePaymentMethods.map((p) => ({
-    value: p,
-    display: <PaymentMethodSelectorText isSelected={p === selectedPaymentMethod} isVerified={isVerified} name={p} />,
-  }))
 
   return (
     <View style={disabled && tw`opacity-33`} pointerEvents={disabled ? 'none' : 'auto'}>
       <PulsingText style={tw`self-center mb-1`} showPulse={showPaymentMethodPulse}>
         {i18n('form.paymentMethod')}
       </PulsingText>
-      <NewTabbedNavigation
-        items={availableCurrencies.map((currency) => ({ id: currency, display: currency }))}
-        selected={{ id: selectedCurrency, display: selectedCurrency }}
-        select={(c) => setSelectedCurrency(c.id, matchId)}
-        style={tw`mb-3`}
+      <MeansOfPaymentSelect
+        meansOfPayment={mopsInCommon}
+        {...{
+          setCurrency,
+          setPaymentMethod,
+          selectedPaymentMethod,
+        }}
       />
-      <CustomSelector style={tw`mb-2`} {...{ selectedValue: selectedPaymentMethod, items, onChange }} />
     </View>
   )
 }

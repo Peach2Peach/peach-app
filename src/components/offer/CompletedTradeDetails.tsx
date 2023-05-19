@@ -4,7 +4,7 @@ import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { getPaymentDataByMethod } from '../../utils/offer'
 import { hashPaymentData } from '../../utils/paymentMethod'
-import { PaymentMethod } from '../matches/PaymentMethod'
+import { PaymentMethod } from '../paymentMethod/PaymentMethod'
 import { PriceFormat, SatsFormat, Text } from '../text'
 import { getBitcoinPriceFromContract } from '../../utils/contract'
 
