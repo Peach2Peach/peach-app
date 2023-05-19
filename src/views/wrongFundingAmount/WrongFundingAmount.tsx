@@ -1,5 +1,5 @@
 import { View } from 'react-native'
-import { SatsFormat, Text } from '../../components'
+import { Text } from '../../components'
 import { useWrongFundingAmountSetup } from './hooks/useWrongFundingAmountSetup'
 import { TradeSeparator } from '../../components/offer/TradeSeparator'
 import i18n from '../../utils/i18n'
