@@ -8,7 +8,7 @@ import { useConfirmEscrow } from './useConfirmEscrow'
 
 export const useWrongFundingAmountSetup = () => {
   const route = useRoute<'fundEscrow'>()
-  const { offerId } = route.params
+  const { offerId } = useRoute<'fundEscrow'>().params
 
   const showErrorBanner = useShowErrorBanner()
 
