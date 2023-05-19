@@ -22,7 +22,7 @@ export const getTradeSeparatorText = (
     }
     return i18n('contract.disputeLost')
   }
-  if (canceledBy === 'buyer' && view === 'seller') {
+  if (canceledBy === 'buyer' && view === 'seller' && !cancelationRequested) {
     return i18n('contract.summary.buyerCanceled')
   }
 
