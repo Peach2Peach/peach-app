@@ -12,11 +12,11 @@ const CurrencySelectionItem = ({ currency, isSelected, onPress, style }: Currenc
     <Text numberOfLines={1} style={[tw`button-large text-center text-black-2`, isSelected && tw`text-black-1`]}>
       {currency}
     </Text>
-    {isSelected && <View style={[tw`w-full h-0.5 -mt-0.5 bg-black-1`]} />}
+    {isSelected && <View style={[tw`w-full h-0.5 -mt-0.5 bg-black-1 rounded-1px`]} />}
   </Pressable>
 )
 
-const ItemSeparator = ({ style }: ComponentProps) => <View style={[tw`w-px h-4 bg-black-6`, style]} />
+const ItemSeparator = ({ style }: ComponentProps) => <View style={[tw`w-px h-4 bg-black-6 rounded-1px`, style]} />
 
 type Props = ComponentProps & {
   currencies: Currency[]
@@ -24,26 +24,20 @@ type Props = ComponentProps & {
   select: (currency: Currency) => void
 }
 
-export const CurrencySelection = ({ currencies, selected, select, style }: Props) => {
-  const maxColumns = Math.max(4, Math.min(currencies.length, 8))
-  const maxWidth = (1 / maxColumns) * 100 + '%'
-
-  return (
-    <View
-      style={[tw`flex-row flex-wrap justify-start items-center`, currencies.length > 8 && tw`justify-center`, style]}
-    >
-      {currencies.map((currency, index) => (
-        <>
-          <CurrencySelectionItem
-            style={[tw`w-full px-1`, { maxWidth }]}
-            key={'currency-selection-' + currency}
-            currency={currency}
-            isSelected={currency === selected}
-            onPress={select}
-          />
-          {index < currencies.length - 1 && <ItemSeparator style={tw`-mr-px`} />}
-        </>
-      ))}
-    </View>
-  )
-}
+export const CurrencySelection = ({ currencies, selected, select, style }: Props) => (
+  <View style={[tw`flex-row flex-wrap`, currencies.length > 8 && tw`justify-center`, style]}>
+    {currencies.map((currency, index) => (
+      <View style={[tw`flex-row min-w-1/8 max-w-1/4 flex-grow items-center`]} key={'currency-selection-' + currency}>
+        <CurrencySelectionItem
+          currency={currency}
+          isSelected={currency === selected}
+          onPress={select}
+          style={tw`flex-grow`}
+        />
+        {index < currencies.length - 1 && (
+          <ItemSeparator key={'currency-selection-separator' + currency} style={tw`mx-1`} />
+        )}
+      </View>
+    ))}
+  </View>
+)

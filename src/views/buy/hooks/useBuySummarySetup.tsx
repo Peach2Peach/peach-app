@@ -36,19 +36,18 @@ export const useBuySummarySetup = () => {
   )
   const walletLabel = peachWalletActive ? i18n('peachWallet') : payoutAddressLabel
 
-  const goToSetupPayoutWallet = () =>
-    payoutAddress ? navigation.navigate('signMessage') : navigation.navigate('payoutAddress', { type: 'payout' })
+  const goToMessageSigning = () => navigation.navigate('signMessage')
 
   const publishOffer = async (offerDraft: BuyOfferDraft) => {
     if (isPublishing) return
     setIsPublishing(true)
-    const { isOfferPublished, errorMessage } = await publishBuyOffer(offerDraft)
+    const { offerId, isOfferPublished, errorMessage } = await publishBuyOffer(offerDraft)
     setIsPublishing(false)
 
-    if (!isOfferPublished) {
+    if (!isOfferPublished || !offerId) {
       showErrorBanner(errorMessage)
     } else {
-      navigation.replace('offerPublished', { isSellOffer: false })
+      navigation.replace('offerPublished', { offerId, isSellOffer: false })
     }
   }
 
@@ -81,6 +80,6 @@ export const useBuySummarySetup = () => {
     canPublish,
     publishOffer,
     isPublishing,
-    goToSetupPayoutWallet,
+    goToMessageSigning,
   }
 }

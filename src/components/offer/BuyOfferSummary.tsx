@@ -1,4 +1,3 @@
-import { ReactElement } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 import { AmountRangeSummary } from './AmountRangeSummary'
@@ -9,10 +8,10 @@ type Props = ComponentProps & {
   offer: BuyOffer | BuyOfferDraft
 }
 
-export const BuyOfferSummary = ({ offer, style }: Props): ReactElement => (
+export const BuyOfferSummary = ({ offer, style }: Props) => (
   <View style={[tw`gap-4`, tw.md`gap-12`, style]}>
     <AmountRangeSummary amount={offer.amount} />
     <PaymentMethodsSummary meansOfPayment={offer.meansOfPayment} />
-    <PayoutWalletSummary offer={offer} walletLabel={offer.walletLabel} address={offer.releaseAddress} />
+    <PayoutWalletSummary offer={offer} />
   </View>
 )

@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WrongFundingAmount renders correctly 1`] = `
+<View>
+  <PeachText>
+    You funded the escrow with:
+  </PeachText>
+  <SatsFormat
+    color={
+      {
+        "color": "#2B1911",
+      }
+    }
+    sats={69420}
+    style={
+      {
+        "color": "#DFD79A",
+      }
+    }
+  />
+  <PeachText
+    style={
+      {
+        "marginTop": 16,
+      }
+    }
+  >
+    The escrow was made for:
+  </PeachText>
+  <SatsFormat
+    color={
+      {
+        "color": "#2B1911",
+      }
+    }
+    sats={42060}
+    style={
+      {
+        "color": "#DFD79A",
+      }
+    }
+  />
+  <PeachText
+    style={
+      {
+        "marginTop": 16,
+      }
+    }
+  >
+    This exceeds the 61 500 sat limit per sell offer, you will be refunded.
+  </PeachText>
+</View>
+`;

@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LabelAndAmount renders correctly 1`] = `
+<View
+  style={
+    {
+      "flexDirection": "row",
+    }
+  }
+>
+  <PeachText
+    style={
+      {
+        "color": "#9F8C82",
+        "width": 80,
+      }
+    }
+  >
+    label
+  </PeachText>
+  <SatsFormat
+    sats={123456}
+    satsStyle={
+      {
+        "fontSize": 12,
+      }
+    }
+  />
+</View>
+`;

@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MeansOfPaymentSelect renders correctly 1`] = `
+<View
+  style={
+    {
+      "gap": 12,
+    }
+  }
+>
+  <CurrencySelection
+    currencies={
+      [
+        "EUR",
+        "CHF",
+      ]
+    }
+    select={[Function]}
+    selected="EUR"
+  />
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "flexWrap": "wrap",
+        "gap": 4,
+      }
+    }
+  >
+    <PaymentMethod
+      paymentMethod="sepa"
+    />
+  </View>
+</View>
+`;

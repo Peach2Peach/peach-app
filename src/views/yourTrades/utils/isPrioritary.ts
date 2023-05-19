@@ -1,6 +1,5 @@
 const prioritaryStatus: TradeStatus[] = [
   'releaseEscrow',
-  'fundingAmountDifferent',
   'confirmCancelation',
   'refundAddressRequired',
   'refundTxSignatureRequired',

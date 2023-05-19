@@ -6,25 +6,23 @@ import { getContractSummaries } from '../../utils/peachAPI'
 const getContractSummariesQuery = async () => {
   const [contracts, error] = await getContractSummaries({})
 
-  if (error) throw new Error(error.error)
-  return contracts || []
+  if (error || !contracts) throw new Error(error?.error)
+  return contracts
 }
 
 export const useContractSummaries = (enabled = true) => {
-  const [contracts, setContracts, getLastModified] = useTradeSummaryStore(
-    (state) => [state.contracts, state.setContracts, state.getLastModified],
+  const [contracts, setContracts, lastModified] = useTradeSummaryStore(
+    (state) => [state.contracts, state.setContracts, state.lastModified],
     shallow,
   )
-  const { data, isLoading, error, refetch } = useQuery({
+  const { data, isLoading, isFetching, error, refetch } = useQuery({
     queryKey: ['contractSummaries'],
     queryFn: getContractSummariesQuery,
     enabled,
-    initialData: contracts,
-    initialDataUpdatedAt: getLastModified().getTime(),
-    onSuccess: (result) => {
-      setContracts(result)
-    },
+    initialData: contracts.length ? contracts : undefined,
+    initialDataUpdatedAt: lastModified.getTime(),
+    onSuccess: setContracts,
   })
 
-  return { contracts: data, isLoading, error, refetch }
+  return { contracts: data || [], isLoading, isFetching, error, refetch }
 }

@@ -7,6 +7,6 @@ export const linkToAppStoreAndroid = async () => {
   Linking.openURL(
     isInstalledByGooglePlay
       ? `https://play.google.com/store/apps/details?id=${bundleId}`
-      : 'https://peachbitcoin.com/beta',
+      : 'https://peachbitcoin.com/apk/',
   )
 }
