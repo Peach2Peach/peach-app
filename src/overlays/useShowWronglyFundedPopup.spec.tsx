@@ -16,9 +16,9 @@ jest.mock('./useStartRefundOverlay', () => ({
         startRefundOverlayMock(...args),
 }))
 
-const useConfigStoreMock = jest.fn()
+const useConfigStoreMock = jest.fn((selector) => selector({ maxTradingAmount: 2000000 }))
 jest.mock('../store/configStore', () => ({
-  useConfigStore: () => useConfigStoreMock(),
+  useConfigStore: (selector: any) => useConfigStoreMock(selector),
 }))
 
 describe('useWronglyFundedOverlay', () => {
@@ -27,7 +27,7 @@ describe('useWronglyFundedOverlay', () => {
 
   beforeEach(() => {
     useOverlayContextMock.mockReturnValue([, updateOverlayMock])
-    useConfigStoreMock.mockReturnValue(maxTradingAmount)
+    useConfigStoreMock.mockImplementation((selector) => selector({ maxTradingAmount }))
   })
   afterEach(() => {
     usePopupStore.setState(defaultPopupState)
