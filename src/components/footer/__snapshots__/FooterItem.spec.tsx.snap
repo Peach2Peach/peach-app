@@ -7,6 +7,7 @@ exports[`FooterItem should render an active item 1`] = `
     {
       "flexDirection": "row",
       "justifyContent": "center",
+      "width": "20%",
     }
   }
   testID="footer-buy"
@@ -60,6 +61,7 @@ exports[`FooterItem should render an active item with inverted theme 1`] = `
     {
       "flexDirection": "row",
       "justifyContent": "center",
+      "width": "20%",
     }
   }
   testID="footer-buy"
@@ -113,6 +115,7 @@ exports[`FooterItem should render an inactive item 1`] = `
     {
       "flexDirection": "row",
       "justifyContent": "center",
+      "width": "20%",
     }
   }
   testID="footer-sell"
@@ -166,6 +169,7 @@ exports[`FooterItem should render an inactive item with inverted theme 1`] = `
     {
       "flexDirection": "row",
       "justifyContent": "center",
+      "width": "20%",
     }
   }
   testID="footer-sell"
@@ -219,6 +223,7 @@ exports[`FooterItem should render an item with notifications 1`] = `
     {
       "flexDirection": "row",
       "justifyContent": "center",
+      "width": "20%",
     }
   }
   testID="footer-yourTrades"
@@ -295,6 +300,7 @@ exports[`FooterItem should render an item without notifications with inverted th
     {
       "flexDirection": "row",
       "justifyContent": "center",
+      "width": "20%",
     }
   }
   testID="footer-yourTrades"
@@ -348,6 +354,7 @@ exports[`FooterItem should render special item for settings 1`] = `
     {
       "flexDirection": "row",
       "justifyContent": "center",
+      "width": "20%",
     }
   }
   testID="footer-settings"
@@ -399,6 +406,7 @@ exports[`FooterItem should render special item for settings 2`] = `
     {
       "flexDirection": "row",
       "justifyContent": "center",
+      "width": "20%",
     }
   }
   testID="footer-settings"

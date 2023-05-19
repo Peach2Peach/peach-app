@@ -7,16 +7,6 @@ import { getErrorsInField } from '../../../../../utils/validation'
 import { TabbedNavigationItem } from '../../../../navigation/TabbedNavigation'
 import { toggleCurrency } from '../../paymentForms/utils'
 
-const tabs: TabbedNavigationItem[] = [
-  {
-    id: 'wallet',
-    display: i18n('form.wallet'),
-  },
-  {
-    id: 'email',
-    display: i18n('form.email'),
-  },
-]
 const referenceRules = { required: false }
 // eslint-disable-next-line max-lines-per-function
 export const useTemplate2Setup = ({
@@ -27,6 +17,10 @@ export const useTemplate2Setup = ({
   paymentMethod,
   setFormData,
 }: FormProps) => {
+  const tabs: TabbedNavigationItem[] = [
+    { id: 'wallet', display: i18n('form.wallet') },
+    { id: 'email', display: i18n('form.email') },
+  ]
   const [label, setLabel] = useState(data?.label || '')
   const [email, setEmail] = useState(data?.email || '')
   const [wallet, setWallet] = useState(data?.wallet || '')

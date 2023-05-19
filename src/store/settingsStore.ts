@@ -5,6 +5,7 @@ import { info } from '../utils/log'
 import { createStorage, toZustandStorage } from '../utils/storage'
 import { defaultSettings } from './defaults'
 import { getPureSettingsState } from './helpers/getPureSettingsState'
+import { Locale } from '../utils/i18n'
 
 export type SettingsStore = Settings & {
   migrated?: boolean
@@ -21,6 +22,7 @@ export type SettingsStore = Settings & {
   setPayoutAddress: (payoutAddress: string) => void
   setPayoutAddressLabel: (payoutAddressLabel: string) => void
   setPayoutAddressSignature: (payoutAddressSignature: string) => void
+  setLocale: (locale: Locale) => void
   setDisplayCurrency: (displayCurrency: Currency) => void
   setMeansOfPayment: (meansOfPayment: MeansOfPayment) => void
   setPreferredPaymentMethods: (preferredPaymentMethods: Settings['preferredPaymentMethods']) => void
@@ -42,7 +44,13 @@ export const settingsStore = createStore(
   persist<SettingsStore>(
     (set, get) => ({
       ...defaultSettings,
-      reset: () => set({ ...defaultSettings, migrated: false, analyticsPopupSeen: get().analyticsPopupSeen }),
+      reset: () =>
+        set({
+          ...defaultSettings,
+          migrated: false,
+          analyticsPopupSeen: get().analyticsPopupSeen,
+          locale: get().locale,
+        }),
       setMigrated: () => set({ migrated: true }),
       getPureState: () => getPureSettingsState(get()),
       updateSettings: (settings) => set({ ...settings }),
@@ -58,6 +66,7 @@ export const settingsStore = createStore(
       setPayoutAddress: (payoutAddress) => set((state) => ({ ...state, payoutAddress })),
       setPayoutAddressLabel: (payoutAddressLabel) => set((state) => ({ ...state, payoutAddressLabel })),
       setPayoutAddressSignature: (payoutAddressSignature) => set((state) => ({ ...state, payoutAddressSignature })),
+      setLocale: (locale) => set((state) => ({ ...state, locale })),
       setDisplayCurrency: (displayCurrency) => set((state) => ({ ...state, displayCurrency })),
       setMeansOfPayment: (meansOfPayment) => set((state) => ({ ...state, meansOfPayment })),
       setPreferredPaymentMethods: (preferredPaymentMethods) => set((state) => ({ ...state, preferredPaymentMethods })),

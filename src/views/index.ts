@@ -37,6 +37,7 @@ import Sell from './sell/Sell'
 import SellPreferences from './sell/SellPreferences'
 import Backups from './settings/Backups'
 import Currency from './settings/Currency'
+import Language from './settings/Language'
 import NetworkFees from './settings/NetworkFees'
 import PaymentMethods from './settings/PaymentMethods'
 import PayoutAddress from './settings/PayoutAddress'
@@ -156,6 +157,7 @@ const settings: ViewType[] = [
   { name: 'paymentDetails', component: PaymentDetails, ...defaultConfig },
   { name: 'meetupScreen', component: MeetupScreen, ...defaultConfig },
   { name: 'currency', component: Currency, ...defaultConfig },
+  { name: 'language', component: Language, ...defaultConfig },
   { name: 'referrals', component: Referrals, ...defaultConfig },
   { name: 'backupTime', component: BackupTime, ...invertedThemeConfig, showFooter: true },
   { name: 'backups', component: Backups, ...defaultConfig },

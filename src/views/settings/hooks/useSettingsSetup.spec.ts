@@ -40,7 +40,8 @@ describe('useSettingsSetup', () => {
           { enabled: false, iconId: 'toggleLeft', onPress: expect.any(Function), title: 'analytics' },
           { onPress: expect.any(Function), title: 'notifications' },
           { enabled: true, iconId: 'toggleRight', onPress: expect.any(Function), title: 'peachWallet' },
-          { onPress: expect.any(Function), title: 'currency' },
+          { title: 'language' },
+          { title: 'currency' },
         ],
       },
     ])
@@ -53,7 +54,8 @@ describe('useSettingsSetup', () => {
       { onPress: expect.any(Function), title: 'notifications' },
       { enabled: false, iconId: 'toggleLeft', onPress: expect.any(Function), title: 'peachWallet' },
       { title: 'payoutAddress' },
-      { onPress: expect.any(Function), title: 'currency' },
+      { title: 'language' },
+      { title: 'currency' },
     ])
   })
   it('returns shows analytics as active if it is', () => {
@@ -63,7 +65,8 @@ describe('useSettingsSetup', () => {
       { enabled: true, iconId: 'toggleRight', onPress: expect.any(Function), title: 'analytics' },
       { onPress: expect.any(Function), title: 'notifications' },
       { enabled: true, iconId: 'toggleRight', onPress: expect.any(Function), title: 'peachWallet' },
-      { onPress: expect.any(Function), title: 'currency' },
+      { title: 'language' },
+      { title: 'currency' },
     ])
   })
   it('does not highlight backups if backup reminder is not active', () => {

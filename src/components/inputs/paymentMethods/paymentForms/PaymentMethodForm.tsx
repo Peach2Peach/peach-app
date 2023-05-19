@@ -36,10 +36,7 @@ export const PaymentMethodForm = ({ paymentMethod, data, currencies = [], onSubm
   return (
     <View style={[tw`h-full`, style]}>
       <PeachScrollView
-        contentContainerStyle={[
-          tw`items-center justify-center flex-grow`,
-          !specialTemplates[paymentMethod] && tw`pt-4 pb-10`,
-        ]}
+        contentContainerStyle={[tw`justify-center flex-grow`, !specialTemplates[paymentMethod] && tw`pt-4 pb-10`]}
       >
         {!!Form && <Form onSubmit={submitForm} {...{ paymentMethod, data, currencies, setStepValid, setFormData }} />}
       </PeachScrollView>
