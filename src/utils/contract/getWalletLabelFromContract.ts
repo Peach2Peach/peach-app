@@ -3,8 +3,8 @@ import { getWalletLabel } from '../offer'
 
 export const getWalletLabelFromContract = (
   contract: Contract,
-  customPayoutAddress: string | undefined,
-  customPayoutAddressLabel: string | undefined,
+  customPayoutAddress?: string | undefined,
+  customPayoutAddressLabel?: string | undefined,
 ) => {
   const sellOffer = getSellOfferFromContract(contract)
   const walletLabel

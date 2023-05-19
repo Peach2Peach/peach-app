@@ -76,9 +76,9 @@ export const BTCAmount = ({ amount, size, style }: Props) => (
     <View style={tw`flex-row items-baseline pt-1`}>
       <MixedLetterSpacingText
         style={[
-          tw`font-courier-prime font-bold text-center`,
-          size === 'extra large' && tw`text-30px leading-40px pr-1`,
-          size === 'large' && tw`text-26px leading-34px pr-1`,
+          tw`font-bold text-center font-courier-prime`,
+          size === 'extra large' && tw`pr-1 text-30px leading-40px`,
+          size === 'large' && tw`pr-1 text-26px leading-34px`,
           size === 'medium' && tw`text-22px leading-30px pr-3px`,
           size === 'small' && tw`text-17px leading-23px pr-2px`,
           size === 'x small' && tw`text-15px leading-20px pr-2px`,
@@ -87,12 +87,12 @@ export const BTCAmount = ({ amount, size, style }: Props) => (
       />
       <Text
         style={[
-          size === 'extra large' && tw`text-xl leading-30px pb-1 pl-1`,
-          size === 'large' && tw`text-lg leading-27px pb-3px pl-1`,
+          size === 'extra large' && tw`pb-1 pl-1 text-xl leading-30px`,
+          size === 'large' && tw`pl-1 text-lg leading-27px pb-3px`,
           size === 'medium' && tw`text-base leading-24px pb-2px pl-3px`,
           size === 'small' && tw`text-3xs leading-18px pb-2px pl-2px`,
           size === 'x small' && tw`text-10px leading-15px pb-2px pl-2px`,
-          tw`font-baloo font-medium text-left`,
+          tw`font-medium text-left font-baloo`,
         ]}
       >
         {i18n('currency.SATS')}

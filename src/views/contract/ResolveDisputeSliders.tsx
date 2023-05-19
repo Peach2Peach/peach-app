@@ -4,6 +4,7 @@ import { useRepublishOffer } from './hooks/useRepublishOffer'
 import { getSellOfferFromContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { useStartRefundOverlay } from '../../overlays/useStartRefundOverlay'
+import { useContractContext } from './context'
 
 const RepublishOfferSlider = ({ contract }: { contract: Contract }) => {
   const republishOffer = useRepublishOffer()
@@ -23,9 +24,12 @@ const RefundEscrowSlider = ({ contract }: { contract: Contract }) => {
   )
 }
 
-export const ResolveDisputeSliders = (props: { contract: Contract }) => (
-  <>
-    <RepublishOfferSlider {...props} />
-    <RefundEscrowSlider {...props} />
-  </>
-)
+export const ResolveDisputeSliders = () => {
+  const props = useContractContext()
+  return (
+    <>
+      <RepublishOfferSlider {...props} />
+      <RefundEscrowSlider {...props} />
+    </>
+  )
+}

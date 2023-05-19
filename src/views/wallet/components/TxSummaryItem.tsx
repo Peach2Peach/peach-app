@@ -1,4 +1,4 @@
-import { SummaryItem } from '../../../components/lists/SummaryItem'
+import { SummaryCard } from '../../../components/lists/SummaryCard'
 import { useNavigation } from '../../../hooks'
 import { getTxSummaryTitle } from '../helpers/getTxSummaryTitle'
 import { iconMap } from './iconMap'
@@ -12,7 +12,7 @@ export const TxSummaryItem = ({ tx, style }: TxSummaryItemProps) => {
   const navigation = useNavigation()
 
   return (
-    <SummaryItem
+    <SummaryCard
       {...{
         style,
         title: getTxSummaryTitle(tx),

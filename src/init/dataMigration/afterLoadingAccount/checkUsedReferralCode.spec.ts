@@ -17,7 +17,7 @@ describe('checkUsedReferralCode', () => {
         usedReferralCode: 'SATOSHI',
       },
     ])
-    await checkUsedReferralCode('publicKey')
+    await checkUsedReferralCode()
     expect(getSelfUser).toHaveBeenCalledWith({})
     expect(settingsStore.getState().usedReferralCode).toBe(true)
   })
@@ -27,7 +27,7 @@ describe('checkUsedReferralCode', () => {
         usedReferralCode: undefined,
       },
     ])
-    await checkUsedReferralCode('publicKey')
+    await checkUsedReferralCode()
     expect(getSelfUser).toHaveBeenCalledWith({})
     expect(settingsStore.getState().usedReferralCode).toBe(false)
   })
@@ -38,7 +38,7 @@ describe('checkUsedReferralCode', () => {
         usedReferralCode: undefined,
       },
     ])
-    await checkUsedReferralCode('publicKey')
+    await checkUsedReferralCode()
     expect(getSelfUser).not.toHaveBeenCalled()
   })
 })

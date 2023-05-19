@@ -13,9 +13,13 @@ const wrapper = ({ children }: ComponentProps) => (
   </QueryClientWrapper>
 )
 
+jest.mock('./context', () => ({
+  useContractContext: jest.fn(() => ({ contract: {} })),
+}))
+
 describe('ResolveDisputeSliders', () => {
   it('should render correctly', () => {
-    const { toJSON } = render(<ResolveDisputeSliders contract={{} as Contract} />, { wrapper })
+    const { toJSON } = render(<ResolveDisputeSliders />, { wrapper })
     expect(toJSON()).toMatchSnapshot()
   })
 })

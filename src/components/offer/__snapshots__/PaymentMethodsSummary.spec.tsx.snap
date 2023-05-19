@@ -13,7 +13,7 @@ exports[`PaymentMethodsSummary renders correctly 1`] = `
     ]
   }
 >
-  <TradeSeparator
+  <Divider
     text="payment methods"
   />
   <MeansOfPaymentSelect

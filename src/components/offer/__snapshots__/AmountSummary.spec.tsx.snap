@@ -2,7 +2,7 @@
 
 exports[`AmountSummary renders correctly 1`] = `
 <View>
-  <TradeSeparator
+  <Divider
     text="amount"
   />
   <SatsFormat
@@ -52,7 +52,7 @@ exports[`AmountSummary renders correctly 1`] = `
 
 exports[`AmountSummary renders correctly for md screens 1`] = `
 <View>
-  <TradeSeparator
+  <Divider
     text="amount"
   />
   <SatsFormat
