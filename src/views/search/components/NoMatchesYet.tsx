@@ -10,9 +10,10 @@ export const NoMatchesYet = ({ offer, style }: { offer: BuyOffer | SellOffer } &
   const { isLoading } = useOfferMatches(offer.id)
   if (isLoading) return <></>
   return (
-    <View style={style}>
-      <Text style={tw`mb-8 text-center subtitle-1`}>{i18n('search.weWillNotifyYou')}</Text>
+    <View style={[tw`justify-between`, style]}>
+      <Text style={tw`text-center subtitle-1 text-primary-main`}>{i18n('search.weWillNotifyYou')}</Text>
       {isBuyOffer(offer) ? <BuyOfferSummary offer={offer} /> : <SellOfferSummary offer={offer} />}
+      <View>{/** layout dummy **/}</View>
     </View>
   )
 }

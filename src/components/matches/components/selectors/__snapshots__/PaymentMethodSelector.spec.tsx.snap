@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PaymentMethodSelector should render correctly 1`] = `
+<View
+  pointerEvents="auto"
+  style={
+    [
+      {
+        "gap": 4,
+      },
+      {
+        "gap": 12,
+      },
+      false,
+    ]
+  }
+>
+  <Divider
+    text="payment method"
+  />
+  <MeansOfPaymentSelect
+    meansOfPayment={{}}
+    setCurrency={[Function]}
+    setPaymentMethod={[Function]}
+  />
+</View>
+`;
+
+exports[`PaymentMethodSelector should render correctly when disabled 1`] = `
+<View
+  pointerEvents="none"
+  style={
+    [
+      {
+        "gap": 4,
+      },
+      {
+        "gap": 12,
+      },
+      {
+        "opacity": 0.33,
+      },
+    ]
+  }
+>
+  <Divider
+    text="payment method"
+  />
+  <MeansOfPaymentSelect
+    meansOfPayment={{}}
+    setCurrency={[Function]}
+    setPaymentMethod={[Function]}
+  />
+</View>
+`;

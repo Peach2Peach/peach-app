@@ -20,7 +20,7 @@ export const SellAmountSummary = ({ offer }: Props) => (
     {isSellOfferWithDefinedEscrow(offer) && (
       <Label
         testID="showEscrow"
-        style={tw`border-primary-main absolute right-0 top-10`}
+        style={tw`border-primary-main absolute right-0 top-1/2`}
         onPress={() => showAddress(offer.escrow, NETWORK)}
       >
         <Icon id="externalLink" style={tw`w-4 h-4`} color={tw`text-primary-main`.color} />

@@ -1,0 +1,113 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PaymentMethod renders correctly 1`] = `
+<View
+  style={
+    [
+      {
+        "alignItems": "center",
+        "borderColor": "#2B1911",
+        "borderRadius": 8,
+        "borderWidth": 1,
+        "flexDirection": "row",
+        "fontFamily": "Baloo2-SemiBold",
+        "fontSize": 14,
+        "letterSpacing": 0.5,
+        "lineHeight": 24,
+        "paddingLeft": 8,
+        "paddingRight": 8,
+        "textTransform": "uppercase",
+      },
+      false,
+      undefined,
+    ]
+  }
+>
+  <PaymentMethodText
+    isSelected={false}
+    isVerified={false}
+    paymentMethod="sepa"
+    textStyle={
+      {
+        "color": "#2B1911",
+      }
+    }
+  />
+</View>
+`;
+
+exports[`PaymentMethod renders correctly when selected 1`] = `
+<View
+  style={
+    [
+      {
+        "alignItems": "center",
+        "borderColor": "#2B1911",
+        "borderRadius": 8,
+        "borderWidth": 1,
+        "flexDirection": "row",
+        "fontFamily": "Baloo2-SemiBold",
+        "fontSize": 14,
+        "letterSpacing": 0.5,
+        "lineHeight": 24,
+        "paddingLeft": 8,
+        "paddingRight": 8,
+        "textTransform": "uppercase",
+      },
+      {
+        "backgroundColor": "#F56522",
+      },
+      undefined,
+    ]
+  }
+>
+  <PaymentMethodText
+    isSelected={true}
+    isVerified={false}
+    paymentMethod="sepa"
+    textStyle={
+      {
+        "color": "#2B1911",
+      }
+    }
+  />
+</View>
+`;
+
+exports[`PaymentMethod renders correctly when verified 1`] = `
+<View
+  style={
+    [
+      {
+        "alignItems": "center",
+        "borderColor": "#2B1911",
+        "borderRadius": 8,
+        "borderWidth": 1,
+        "flexDirection": "row",
+        "fontFamily": "Baloo2-SemiBold",
+        "fontSize": 14,
+        "letterSpacing": 0.5,
+        "lineHeight": 24,
+        "paddingLeft": 8,
+        "paddingRight": 8,
+        "textTransform": "uppercase",
+      },
+      {
+        "backgroundColor": "#F56522",
+      },
+      undefined,
+    ]
+  }
+>
+  <PaymentMethodText
+    isSelected={true}
+    isVerified={true}
+    paymentMethod="sepa"
+    textStyle={
+      {
+        "color": "#2B1911",
+      }
+    }
+  />
+</View>
+`;

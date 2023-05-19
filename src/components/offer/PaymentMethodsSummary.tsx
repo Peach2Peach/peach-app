@@ -8,7 +8,7 @@ type Props = {
   meansOfPayment: MeansOfPayment
 }
 export const PaymentMethodsSummary = ({ meansOfPayment }: Props) => (
-  <View style={[tw`gap-2px`, tw.md`gap-2`]}>
+  <View style={[tw`gap-1`, tw.md`gap-3`]}>
     <Divider text={i18n('paymentMethods.title')} />
     <MeansOfPaymentSelect meansOfPayment={meansOfPayment} />
   </View>

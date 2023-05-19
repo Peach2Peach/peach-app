@@ -1,6 +1,6 @@
 import { ReactElement, ReactNode } from 'react'
 import { View, TouchableOpacity } from 'react-native'
-import tw from '../../../../styles/tailwind'
+import tw from '../../../styles/tailwind'
 
 type Item<T> = {
   value: T
@@ -20,7 +20,7 @@ export const CustomSelector = <T, >({
   style,
   disabled = false,
 }: SelectorProps<T>): ReactElement => (
-    <View style={[tw`flex-row flex-wrap justify-center`, style]}>
+    <View style={[tw`flex-row flex-wrap`, style]}>
       {items.map(({ value, display }, i) => (
         <TouchableOpacity
           onPress={() => onChange(value)}
