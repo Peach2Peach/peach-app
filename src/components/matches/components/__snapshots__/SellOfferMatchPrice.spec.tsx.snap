@@ -13,7 +13,7 @@ exports[`SellOfferMatchPrice should render correctly 1`] = `
     ]
   }
 >
-  <TradeSeparator
+  <Divider
     text="price"
   />
   <Price

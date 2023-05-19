@@ -2,10 +2,9 @@ import { View } from 'react-native'
 import { shallow } from 'zustand/shallow'
 import tw from '../../../../styles/tailwind'
 import i18n from '../../../../utils/i18n'
+import { Divider } from '../../../Divider'
 import { MeansOfPaymentSelect } from '../../../trade'
 import { MatchStore, useMatchStore } from '../../store'
-import { PulsingText } from './PulsingText'
-import { TradeSeparator } from '../../../offer/TradeSeparator'
 
 const storeSelector = (matchId: Match['offerId']) => (state: MatchStore) => ({
   selectedPaymentMethod: state.matchSelectors[matchId]?.selectedPaymentMethod,
@@ -34,7 +33,7 @@ export const PaymentMethodSelector = ({ matchId, disabled }: { matchId: Match['o
 
   return (
     <View style={[tw`gap-1`, tw.md`gap-3`, disabled && tw`opacity-33`]} pointerEvents={disabled ? 'none' : 'auto'}>
-      <TradeSeparator text={i18n('paymentMethod')} disputeActive={showMissingPaymentMethodWarning} />
+      <Divider text={i18n('paymentMethod')} type={showMissingPaymentMethodWarning ? 'error' : undefined} />
       <MeansOfPaymentSelect
         meansOfPayment={mopsInCommon}
         {...{

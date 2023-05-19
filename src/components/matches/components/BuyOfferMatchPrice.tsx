@@ -8,6 +8,7 @@ import { Label } from '../../text'
 import { ErrorBox } from '../../ui'
 import { PriceInfo } from './PriceInfo'
 import { NETWORK } from '@env'
+import { Divider } from '../../Divider'
 
 type Props = {
   match: Match
@@ -15,7 +16,7 @@ type Props = {
 }
 export const BuyOfferMatchPrice = ({ match, offer }: Props) => (
   <View style={[tw`gap-1`, tw.md`gap-3`]}>
-    <TradeSeparator text={i18n('price')} />
+    <Divider text={i18n('price')} />
     <PriceInfo {...{ match, offer }} />
     {match.escrow ? (
       <Label

@@ -15,8 +15,7 @@ exports[`PaymentMethodSelector should render correctly 1`] = `
     ]
   }
 >
-  <TradeSeparator
-    disputeActive={false}
+  <Divider
     text="payment method"
   />
   <MeansOfPaymentSelect
@@ -44,8 +43,7 @@ exports[`PaymentMethodSelector should render correctly when disabled 1`] = `
     ]
   }
 >
-  <TradeSeparator
-    disputeActive={false}
+  <Divider
     text="payment method"
   />
   <MeansOfPaymentSelect
