@@ -1,7 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`PaymentMethodsSummary renders correctly 1`] = `
-<View>
+<View
+  style={
+    [
+      {
+        "gap": 2,
+      },
+      {
+        "gap": 8,
+      },
+    ]
+  }
+>
   <TradeSeparator
     text="payment methods"
   />
