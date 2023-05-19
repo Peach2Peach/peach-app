@@ -146,9 +146,5 @@ export const useRangeAmountSetup = ({ min, max, value, onChange }: Props) => {
     trackRangeMax,
     onTrackLayout,
     knobHeight,
-    displayPriceMinimum,
-    displayPriceMaximum,
-    displayCurrency,
-    fullDisplayPrice,
   }
 }
