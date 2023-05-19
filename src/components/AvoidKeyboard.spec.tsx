@@ -2,7 +2,7 @@ import { AvoidKeyboard } from './AvoidKeyboard'
 import { createRenderer } from 'react-test-renderer/shallow'
 
 const isIOSMock = jest.fn().mockReturnValue(true)
-jest.mock('../utils/system', () => ({
+jest.mock('../utils/system/isIOS', () => ({
   isIOS: () => isIOSMock(),
 }))
 

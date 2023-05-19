@@ -1,7 +1,12 @@
 import { ReactElement } from 'react'
-
 import { BackgroundConfig } from '../components/background/Background'
 import MeetupScreen from '../components/payment/MeetupScreen'
+import TestView from './TestView/TestView'
+import TestViewButtons from './TestView/buttons'
+import TestViewComponents from './TestView/components'
+import TestViewMessages from './TestView/messages'
+import TestViewPNs from './TestView/pns'
+import TestViewPopups from './TestView/popups'
 import AddPaymentMethod from './addPaymentMethod/AddPaymentMethod'
 import PaymentDetails from './addPaymentMethod/PaymentDetails'
 import BackupTime from './backupTime/BackupTime'
@@ -14,8 +19,11 @@ import PaymentMade from './contract/PaymentMade'
 import ContractChat from './contractChat/ContractChat'
 import DisputeForm from './dispute/DisputeForm'
 import DisputeReasonSelector from './dispute/DisputeReasonSelector'
+import FundEscrow from './fundEscrow/FundEscrow'
+import { BitcoinLoading } from './loading/BitcoinLoading'
 import NewUser from './newUser/NewUser'
 import OfferDetails from './offerDetails/OfferDetails'
+import NewBadge from './overlays/NewBadge'
 import PublicProfile from './publicProfile/PublicProfile'
 import Referrals from './referrals/Referrals'
 import Report from './report/Report'
@@ -25,35 +33,29 @@ import OfferPublished from './search/OfferPublished'
 import Search from './search/Search'
 import SelectWallet from './selectWallet/SelectWallet'
 import SetRefundWallet from './selectWallet/SetRefundWallet'
-import FundEscrow from './sell/FundEscrow'
 import Sell from './sell/Sell'
 import SellPreferences from './sell/SellPreferences'
+import Backups from './settings/Backups'
+import Currency from './settings/Currency'
+import Language from './settings/Language'
+import NetworkFees from './settings/NetworkFees'
+import PaymentMethods from './settings/PaymentMethods'
+import PayoutAddress from './settings/PayoutAddress'
+import Settings from './settings/Settings'
 import AboutPeach from './settings/aboutPeach/AboutPeach'
 import BitcoinProducts from './settings/aboutPeach/BitcoinProducts'
 import PeachFees from './settings/aboutPeach/PeachFees'
 import Socials from './settings/aboutPeach/Socials'
-import Backups from './settings/Backups'
 import BackupCreated from './settings/components/backups/BackupCreated'
-import Currency from './settings/Currency'
-import NetworkFees from './settings/NetworkFees'
-import PaymentMethods from './settings/PaymentMethods'
-import PayoutAddress from './settings/PayoutAddress'
 import MyProfile from './settings/profile/MyProfile'
-import Settings from './settings/Settings'
-import TestViewButtons from './TestView/buttons'
-import TestViewComponents from './TestView/components'
-import TestViewMessages from './TestView/messages'
-import TestViewPNs from './TestView/pns'
-import TestViewPopups from './TestView/popups'
-import TestView from './TestView/TestView'
 import TradeComplete from './tradeComplete/TradeComplete'
 import TransactionDetails from './wallet/TransactionDetails'
 import TransactionHistory from './wallet/TransactionHistory'
 import Wallet from './wallet/Wallet'
 import RedesignWelcome from './welcome/RedesignWelcome'
 import Welcome from './welcome/Welcome'
+import { WrongFundingAmount } from './wrongFundingAmount/WrongFundingAmount'
 import YourTrades from './yourTrades/YourTrades'
-import NewBadge from './overlays/NewBadge'
 
 type ViewType = {
   name: keyof RootStackParamList
@@ -107,6 +109,7 @@ const sellFlow: ViewType[] = [
   { name: 'sell', component: Sell, ...defaultConfig, animationEnabled: false },
   { name: 'sellPreferences', component: SellPreferences, ...defaultConfig },
   { name: 'fundEscrow', component: FundEscrow, ...defaultConfig },
+  { name: 'wrongFundingAmount', component: WrongFundingAmount, ...defaultConfig },
   { name: 'selectWallet', component: SelectWallet, ...defaultConfig },
   { name: 'setRefundWallet', component: SetRefundWallet, ...defaultConfig },
 ]
@@ -154,6 +157,7 @@ const settings: ViewType[] = [
   { name: 'paymentDetails', component: PaymentDetails, ...defaultConfig },
   { name: 'meetupScreen', component: MeetupScreen, ...defaultConfig },
   { name: 'currency', component: Currency, ...defaultConfig },
+  { name: 'language', component: Language, ...defaultConfig },
   { name: 'referrals', component: Referrals, ...defaultConfig },
   { name: 'backupTime', component: BackupTime, ...invertedThemeConfig, showFooter: true },
   { name: 'backups', component: Backups, ...defaultConfig },
@@ -172,6 +176,7 @@ const testViews: ViewType[] = [
   { name: 'testViewMessages', component: TestViewMessages, ...defaultConfig },
   { name: 'testViewComponents', component: TestViewComponents, ...defaultConfig },
   { name: 'testViewPNs', component: TestViewPNs, ...defaultConfig },
+  { name: 'testViewLoading', component: BitcoinLoading, ...defaultConfig },
 ]
 
 export const getViews = (hasAccount: boolean): ViewType[] =>

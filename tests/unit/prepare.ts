@@ -5,4 +5,7 @@ jest.mock('../../src/utils/peachAPI', () => ({
 jest.mock('../../src/utils/wallet/PeachWallet')
 jest.mock('../../src/utils/log')
 
+jest.mock('../../src/utils/system/getDeviceLocale', () => ({
+  getDeviceLocale: () => 'en',
+}))
 export {}

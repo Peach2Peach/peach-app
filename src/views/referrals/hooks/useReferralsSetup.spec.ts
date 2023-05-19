@@ -4,10 +4,7 @@ import { defaultSelfUser } from '../../../../tests/unit/data/userData'
 import { useSelfUser } from '../../../hooks/query/useSelfUser'
 import { useReferralsSetup } from './useReferralsSetup'
 import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
-
-jest.mock('../../../hooks/useHeaderSetup', () => ({
-  useHeaderSetup: jest.fn(),
-}))
+import { useHeaderState } from '../../../components/header/store'
 
 jest.mock('../../../hooks/query/useSelfUser', () => ({
   useSelfUser: jest.fn(),
@@ -47,6 +44,16 @@ describe('useReferralsSetup', () => {
     expect(result.current.selectedReward).toBeUndefined()
     expect(result.current.setSelectedReward).toBeDefined()
     expect(result.current.redeem).toBeDefined()
+  })
+  it('sets up header correctly', () => {
+    renderHook(useReferralsSetup, { wrapper: NavigationWrapper })
+
+    expect(useHeaderState.getState().title).toBe('referrals')
+    expect(useHeaderState.getState().icons?.[0]).toEqual({
+      id: 'helpCircle',
+      color: '#099DE2',
+      onPress: expect.any(Function),
+    })
   })
 
   it('returns correct bonus points and available rewards', () => {

@@ -18,6 +18,7 @@ export const NavigationWrapper = ({ children }: any) => (
       reset: resetMock,
       // @ts-ignore
       replace: replaceMock,
+      reset: resetMock,
       push: pushMock,
       setParams: setParamsMock,
       goBack: goBackMock,

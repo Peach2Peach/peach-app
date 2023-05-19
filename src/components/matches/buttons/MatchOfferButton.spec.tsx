@@ -16,7 +16,7 @@ describe('MatchOfferButton', () => {
       ...state,
       matchSelectors: {
         [defaultProps.matchId]: {
-          showPaymentMethodPulse: false,
+          showMissingPaymentMethodWarning: false,
         },
       },
     }))
@@ -40,6 +40,6 @@ describe('MatchOfferButton', () => {
     })
 
     expect(matchOffer).not.toHaveBeenCalled()
-    expect(useMatchStore.getState().matchSelectors[defaultProps.matchId].showPaymentMethodPulse).toBe(true)
+    expect(useMatchStore.getState().matchSelectors[defaultProps.matchId].showMissingPaymentMethodWarning).toBe(true)
   })
 })

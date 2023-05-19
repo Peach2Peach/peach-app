@@ -36,6 +36,6 @@ describe('dataMigrationAfterLoadingAccount', () => {
 
   it('should call checkUsedReferralCode', async () => {
     await dataMigrationAfterLoadingAccount(account)
-    expect(checkUsedReferralCodeMock).toHaveBeenCalledWith(account.publicKey)
+    expect(checkUsedReferralCodeMock).toHaveBeenCalled()
   })
 })

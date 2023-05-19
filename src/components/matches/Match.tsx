@@ -1,24 +1,23 @@
-import { ReactElement, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { View } from 'react-native'
-import { HorizontalLine } from '..'
-
 import tw from '../../styles/tailwind'
 import { peachyGradient } from '../../utils/layout'
 import { isLimitReached } from '../../utils/match'
 import { isBuyOffer } from '../../utils/offer'
 import { GradientBorder } from '../GradientBorder'
-import { RadialGradient } from '../RadialGradient'
-import { MatchOfferButton, UnmatchButton } from './buttons'
+import { MatchOfferButton } from './buttons'
 import { options } from './buttons/options'
-import { EscrowLink, PriceInfo, PaymentMethodSelector, MatchCardCounterparty } from './components'
+import { MatchCardCounterparty, PaymentMethodSelector } from './components'
+import { BuyOfferMatchPrice } from './components/BuyOfferMatchPrice'
+import { MatchPaymentDetails } from './components/MatchPaymentDetails'
+import { MatchedOverlay } from './components/MatchedOverlay'
+import { SellOfferMatchPrice } from './components/SellOfferMatchPrice'
 import { useInterruptibleFunction, useMatchOffer } from './hooks'
-import { MatchPaymentDetails } from './MatchPaymentDetails'
-import { Price } from './Price'
 import { useMatchStore } from './store'
 
 type MatchProps = ComponentProps & { match: Match; offer: BuyOffer | SellOffer }
 
-export const Match = ({ match, offer }: MatchProps): ReactElement => {
+export const Match = ({ match, offer }: MatchProps) => {
   const { mutate } = useMatchOffer(offer, match)
   const [showMatchedCard, setShowMatchedCard] = useState(match.matched)
   const { interruptibleFn: matchFunction, interrupt: interruptMatchFunction } = useInterruptibleFunction(() => {
@@ -69,42 +68,22 @@ export const Match = ({ match, offer }: MatchProps): ReactElement => {
         style={tw`rounded-t-xl bg-primary-background-light`}
       >
         <>
-          <View style={tw`p-4`}>
+          <View style={[tw`px-4 py-6 gap-4`, tw.md`px-6 pt-8 pb-10 gap-8`]}>
             <MatchCardCounterparty user={match.user} />
-            <HorizontalLine style={tw`my-4`} />
-
             {isBuyOffer(offer) ? (
               <>
-                <PriceInfo {...{ match, offer }} />
-                <HorizontalLine style={tw`my-4`} />
+                <BuyOfferMatchPrice {...{ match, offer }} />
                 <PaymentMethodSelector matchId={match.offerId} disabled={currentOptionName === 'tradingLimitReached'} />
-                <HorizontalLine style={tw`my-4`} />
-                <EscrowLink address={match.escrow || ''} />
               </>
             ) : (
               <>
-                <Price {...{ match, offer }} />
-                <HorizontalLine style={tw`my-4`} />
+                <SellOfferMatchPrice {...{ match, offer }} />
                 <MatchPaymentDetails match={match} style={tw`mb-2`} />
               </>
             )}
           </View>
           {isMatched && isBuyOffer(offer) && (
-            <>
-              <View
-                style={tw`absolute top-0 left-0 w-full h-full overflow-hidden opacity-75 rounded-t-xl`}
-                pointerEvents="none"
-              >
-                <RadialGradient x="100%" y="0%" rx="110.76%" ry="117.21%" colorList={peachyGradient} />
-              </View>
-              <View style={tw`absolute top-0 left-0 items-center justify-center w-full h-full`} pointerEvents="box-none">
-                <UnmatchButton
-                  {...{ match, offer }}
-                  interruptMatching={interruptMatchFunction}
-                  showUnmatchedCard={() => setShowMatchedCard(false)}
-                />
-              </View>
-            </>
+            <MatchedOverlay {...{ match, offer, interruptMatchFunction, setShowMatchedCard }} />
           )}
         </>
       </GradientBorder>

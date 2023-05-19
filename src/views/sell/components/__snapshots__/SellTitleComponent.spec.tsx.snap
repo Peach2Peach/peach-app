@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SellTitleComponent should render correctly 1`] = `
+<PeachText
+  style={
+    [
+      {
+        "fontFamily": "Baloo2-Bold",
+        "fontSize": 16,
+        "letterSpacing": 0.16,
+        "lineHeight": 26,
+      },
+      {
+        "fontFamily": "Baloo2-Bold",
+        "fontSize": 20,
+        "letterSpacing": 0.2,
+        "lineHeight": 32,
+      },
+    ]
+  }
+>
+  <PeachText
+    style={
+      [
+        {
+          "fontFamily": "Baloo2-Bold",
+          "fontSize": 16,
+          "letterSpacing": 0.16,
+          "lineHeight": 26,
+        },
+        {
+          "fontFamily": "Baloo2-Bold",
+          "fontSize": 20,
+          "letterSpacing": 0.2,
+          "lineHeight": 32,
+        },
+        {
+          "color": "#F56522",
+        },
+      ]
+    }
+  >
+    sell
+  </PeachText>
+   
+  bitcoin
+</PeachText>
+`;

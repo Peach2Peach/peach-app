@@ -1,33 +1,25 @@
 import { View } from 'react-native'
 import { PeachScrollView } from '../../components'
-import { MatchCardCounterparty } from '../../components/matches/components/MatchCardCounterparty'
 import { TradeSummary } from '../../components/offer'
 import tw from '../../styles/tailwind'
 
 import LoadingScreen from '../loading/LoadingScreen'
-import { ContractCTA } from './components/ContractCTA'
 import { useContractSetup } from './hooks/useContractSetup'
-import { ProvideEmailButton } from './components/ProvideEmailButton'
+import { ContractActions } from './ContractActions'
+import { ContractContext } from './context'
 
 export default () => {
-  const { contract, isLoading, view, requiredAction, actionPending, postConfirmPaymentBuyer, postConfirmPaymentSeller }
-    = useContractSetup()
+  const { contract, isLoading, view, ...contractActionsProps } = useContractSetup()
+
   if (!contract || !view || isLoading) return <LoadingScreen />
 
   return (
-    <PeachScrollView contentContainerStyle={tw`h-full px-6 pt-5`}>
+    <PeachScrollView contentContainerStyle={[tw`h-full px-4 pt-5`, tw.md`px-6`]}>
       <View style={tw`h-full`}>
-        <MatchCardCounterparty
-          user={view === 'buyer' ? contract.seller : contract.buyer}
-          isDispute={contract.disputeActive}
-        />
-        <TradeSummary {...{ contract, view }} />
-        <View style={tw`items-center justify-end flex-grow w-full mb-2`}>
-          {!!contract.isEmailRequired && <ProvideEmailButton {...{ contract, view }} style={tw`self-center mb-4`} />}
-          <ContractCTA
-            {...{ contract, view, requiredAction, actionPending, postConfirmPaymentBuyer, postConfirmPaymentSeller }}
-          />
-        </View>
+        <ContractContext.Provider value={{ contract, view }}>
+          <TradeSummary />
+          <ContractActions style={tw`items-center justify-end flex-grow w-full mb-2`} {...contractActionsProps} />
+        </ContractContext.Provider>
       </View>
     </PeachScrollView>
   )

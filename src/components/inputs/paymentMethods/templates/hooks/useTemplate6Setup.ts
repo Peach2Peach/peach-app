@@ -20,25 +20,13 @@ export const useTemplate6Setup = ({
 }: FormProps) => {
   const tabs: TabbedNavigationItem[] = useMemo(() => {
     const tabItems = [
-      {
-        id: 'phone',
-        display: i18n('form.phone'),
-      },
-      {
-        id: 'email',
-        display: i18n('form.email'),
-      },
+      { id: 'phone', display: i18n('form.phone') },
+      { id: 'email', display: i18n('form.email') },
     ]
     if (paymentMethod === 'paypal') {
-      tabItems.push({
-        id: 'userName',
-        display: i18n('form.userName'),
-      })
+      tabItems.push({ id: 'userName', display: i18n('form.userName') })
     } else if (paymentMethod === 'revolut') {
-      tabItems.push({
-        id: 'revtag',
-        display: i18n('form.revtag'),
-      })
+      tabItems.push({ id: 'revtag', display: i18n('form.revtag') })
     }
     return tabItems
   }, [paymentMethod])

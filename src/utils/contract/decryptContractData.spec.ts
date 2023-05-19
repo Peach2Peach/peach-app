@@ -1,11 +1,8 @@
 import { decryptContractData } from '.'
-import { decryptSymmetricKey } from '../../views/contract/helpers/decryptSymmetricKey'
-import { getPaymentData } from '../../views/contract/helpers/getPaymentData'
+import { decryptSymmetricKey, getPaymentData } from '../../views/contract/helpers'
 
-jest.mock('../../views/contract/helpers/getPaymentData', () => ({
+jest.mock('../../views/contract/helpers', () => ({
   getPaymentData: jest.fn(),
-}))
-jest.mock('../../views/contract/helpers/decryptSymmetricKey', () => ({
   decryptSymmetricKey: jest.fn(),
 }))
 

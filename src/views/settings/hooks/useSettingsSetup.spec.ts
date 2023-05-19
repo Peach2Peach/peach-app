@@ -1,5 +1,5 @@
 /* eslint-disable max-lines-per-function */
-import { renderHook } from '@testing-library/react-native'
+import { act, renderHook } from '@testing-library/react-native'
 import { useSettingsSetup } from './useSettingsSetup'
 import { settingsStore } from '../../../store/settingsStore'
 
@@ -14,7 +14,9 @@ jest.mock('../../../hooks/useNavigation', () => ({
 
 describe('useSettingsSetup', () => {
   afterEach(() => {
-    settingsStore.getState().reset()
+    act(() => {
+      settingsStore.getState().reset()
+    })
   })
   it('returns default settings items', () => {
     const { result } = renderHook(useSettingsSetup)
@@ -38,7 +40,8 @@ describe('useSettingsSetup', () => {
           { enabled: false, iconId: 'toggleLeft', onPress: expect.any(Function), title: 'analytics' },
           { onPress: expect.any(Function), title: 'notifications' },
           { enabled: true, iconId: 'toggleRight', onPress: expect.any(Function), title: 'peachWallet' },
-          { onPress: expect.any(Function), title: 'currency' },
+          { title: 'language' },
+          { title: 'currency' },
         ],
       },
     ])
@@ -51,7 +54,8 @@ describe('useSettingsSetup', () => {
       { onPress: expect.any(Function), title: 'notifications' },
       { enabled: false, iconId: 'toggleLeft', onPress: expect.any(Function), title: 'peachWallet' },
       { title: 'payoutAddress' },
-      { onPress: expect.any(Function), title: 'currency' },
+      { title: 'language' },
+      { title: 'currency' },
     ])
   })
   it('returns shows analytics as active if it is', () => {
@@ -61,7 +65,8 @@ describe('useSettingsSetup', () => {
       { enabled: true, iconId: 'toggleRight', onPress: expect.any(Function), title: 'analytics' },
       { onPress: expect.any(Function), title: 'notifications' },
       { enabled: true, iconId: 'toggleRight', onPress: expect.any(Function), title: 'peachWallet' },
-      { onPress: expect.any(Function), title: 'currency' },
+      { title: 'language' },
+      { title: 'currency' },
     ])
   })
   it('does not highlight backups if backup reminder is not active', () => {

@@ -4,11 +4,11 @@ import alertOctagon from './alertOctagon.svg'
 import alertTriangle from './alertTriangle.svg'
 import alignJustify from './alignJustify.svg'
 import alignLeft from './alignLeft.svg'
+import arrowDown from './arrowDown.svg'
 import arrowLeftCircle from './arrowLeftCircle.svg'
 import arrowRightCircle from './arrowRightCircle.svg'
 import award from './award.svg'
 import awardCircleInverted from './awardCircleInverted.svg'
-import bellSmall from './bellSmall.svg'
 import bitcoin from './bitcoin.svg'
 import calendar from './calendar.svg'
 import camera from './camera.svg'
@@ -67,6 +67,7 @@ import offline from './offline.svg'
 import paperclip from './paperclip.svg'
 import pauseCircle from './pauseCircle.svg'
 import percent from './percent.svg'
+import plus from './plus.svg'
 import plusCircle from './plusCircle.svg'
 import plusSquare from './plusSquare.svg'
 import prev from './prev.svg'
@@ -122,11 +123,11 @@ const Icons = {
   alertTriangle,
   alignJustify,
   alignLeft,
+  arrowDown,
   arrowLeftCircle,
   arrowRightCircle,
   award,
   awardCircleInverted,
-  bellSmall,
   bitcoin,
   buy: download,
   calendar,
@@ -186,6 +187,7 @@ const Icons = {
   paperclip,
   pauseCircle,
   percent,
+  plus,
   plusCircle,
   plusSquare,
   prev,

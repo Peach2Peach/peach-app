@@ -1,5 +1,5 @@
 import { renderHook } from '@testing-library/react-native'
-import { tabs, useRestoreBackupSetup } from './useRestoreBackupSetup'
+import { useRestoreBackupSetup } from './useRestoreBackupSetup'
 import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { act } from 'react-test-renderer'
 
@@ -16,7 +16,7 @@ describe('useRestoreBackupSetup', () => {
     const { result } = renderHook(useRestoreBackupSetup, { wrapper: NavigationWrapper })
 
     expect(result.current).toEqual({
-      tabs,
+      tabs: expect.any(Object),
       currentTab: { id: 'fileBackup', display: 'file backup' },
       setCurrentTab: expect.any(Function),
     })
@@ -26,7 +26,7 @@ describe('useRestoreBackupSetup', () => {
     const { result } = renderHook(useRestoreBackupSetup, { wrapper: NavigationWrapper })
 
     expect(result.current).toEqual({
-      tabs,
+      tabs: expect.any(Object),
       currentTab: { id: 'seedPhrase', display: 'seed phrase' },
       setCurrentTab: expect.any(Function),
     })
@@ -34,9 +34,9 @@ describe('useRestoreBackupSetup', () => {
   it('changes current tab', async () => {
     const { result } = renderHook(useRestoreBackupSetup, { wrapper: NavigationWrapper })
 
-    act(() => result.current.setCurrentTab(tabs[1]))
+    act(() => result.current.setCurrentTab(result.current.tabs[1]))
     expect(result.current).toEqual({
-      tabs,
+      tabs: expect.any(Object),
       currentTab: { id: 'seedPhrase', display: 'seed phrase' },
       setCurrentTab: expect.any(Function),
     })

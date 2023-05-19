@@ -17,7 +17,7 @@ export type MatchStore = MatchState & {
   setAvailablePaymentMethods: (methods: PaymentMethod[], matchId: Match['offerId']) => void
   resetStore: () => void
   addMatchSelectors: (matches: Match[], offerMeansOfPayment: MeansOfPayment) => void
-  setShowPaymentMethodPulse: (matchId: Match['offerId'], show?: boolean) => void
+  setShowMissingPaymentMethodWarning: (matchId: Match['offerId'], show?: boolean) => void
 }
 
 const defaultState: MatchState = {
@@ -45,7 +45,7 @@ export const useMatchStore = create<MatchStore>()(
     },
     setSelectedPaymentMethod: (paymentMethod, matchId) =>
       set((state) => {
-        state.matchSelectors[matchId].showPaymentMethodPulse = false
+        state.matchSelectors[matchId].showMissingPaymentMethodWarning = false
         state.matchSelectors[matchId].selectedPaymentMethod = paymentMethod
       }),
     setCurrentIndex: (newIndex) =>
@@ -64,9 +64,9 @@ export const useMatchStore = create<MatchStore>()(
         matchSelectors: { ...newMatchSelectors, ...updatedMatchSelectors },
       }))
     },
-    setShowPaymentMethodPulse: (matchId, show = true) =>
+    setShowMissingPaymentMethodWarning: (matchId, show = true) =>
       set((state) => {
-        state.matchSelectors[matchId].showPaymentMethodPulse = show
+        state.matchSelectors[matchId].showMissingPaymentMethodWarning = show
       }),
   })),
 )

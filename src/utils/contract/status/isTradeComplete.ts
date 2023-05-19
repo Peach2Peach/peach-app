@@ -1,1 +1,1 @@
-export const isTradeComplete = (contract: Contract) => !!contract.paymentConfirmed
+export const isTradeComplete = (contract: Pick<Contract, 'paymentConfirmed'>) => !!contract.paymentConfirmed
