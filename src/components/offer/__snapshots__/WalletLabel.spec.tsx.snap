@@ -1,101 +1,406 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`WalletLabel should first signal that it is loading if label is not known 1`] = `
-<Text
-  allowFontScaling={false}
+<View
   style={
     [
       {
-        "color": "#2B1911",
-        "fontFamily": "Baloo2-Regular",
-        "fontSize": 16,
-        "letterSpacing": 0.16,
-        "lineHeight": 24,
+        "flexDirection": "row",
       },
       undefined,
     ]
   }
 >
-  loading...
-</Text>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={false}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "alignItems": "center",
+        "borderColor": "#2B1911",
+        "borderRadius": 8,
+        "borderWidth": 1,
+        "height": 24,
+        "justifyContent": "center",
+        "opacity": 1,
+        "paddingLeft": 8,
+        "paddingRight": 8,
+      }
+    }
+  >
+    <Text
+      allowFontScaling={false}
+      style={
+        [
+          {
+            "color": "#2B1911",
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 24,
+          },
+          {
+            "color": "#2B1911",
+            "fontFamily": "Baloo2-SemiBold",
+            "fontSize": 14,
+            "letterSpacing": 0.5,
+            "lineHeight": 24,
+            "textTransform": "uppercase",
+          },
+        ]
+      }
+    >
+      loading...
+    </Text>
+  </View>
+</View>
 `;
 
 exports[`WalletLabel should render correctly if address is payout address 1`] = `
-<Text
-  allowFontScaling={false}
+<View
   style={
     [
       {
-        "color": "#2B1911",
-        "fontFamily": "Baloo2-Regular",
-        "fontSize": 16,
-        "letterSpacing": 0.16,
-        "lineHeight": 24,
+        "flexDirection": "row",
       },
       undefined,
     ]
   }
 >
-  addressLabel
-</Text>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={false}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "alignItems": "center",
+        "borderColor": "#2B1911",
+        "borderRadius": 8,
+        "borderWidth": 1,
+        "height": 24,
+        "justifyContent": "center",
+        "opacity": 1,
+        "paddingLeft": 8,
+        "paddingRight": 8,
+      }
+    }
+  >
+    <Text
+      allowFontScaling={false}
+      style={
+        [
+          {
+            "color": "#2B1911",
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 24,
+          },
+          {
+            "color": "#2B1911",
+            "fontFamily": "Baloo2-SemiBold",
+            "fontSize": 14,
+            "letterSpacing": 0.5,
+            "lineHeight": 24,
+            "textTransform": "uppercase",
+          },
+        ]
+      }
+    >
+      addressLabel
+    </Text>
+  </View>
+</View>
 `;
 
 exports[`WalletLabel should render correctly if address is peach wallet address 1`] = `
-<Text
-  allowFontScaling={false}
+<View
   style={
     [
       {
-        "color": "#2B1911",
-        "fontFamily": "Baloo2-Regular",
-        "fontSize": 16,
-        "letterSpacing": 0.16,
-        "lineHeight": 24,
+        "flexDirection": "row",
       },
       undefined,
     ]
   }
 >
-  Peach wallet
-</Text>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={false}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "alignItems": "center",
+        "borderColor": "#2B1911",
+        "borderRadius": 8,
+        "borderWidth": 1,
+        "height": 24,
+        "justifyContent": "center",
+        "opacity": 1,
+        "paddingLeft": 8,
+        "paddingRight": 8,
+      }
+    }
+  >
+    <Text
+      allowFontScaling={false}
+      style={
+        [
+          {
+            "color": "#2B1911",
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 24,
+          },
+          {
+            "color": "#2B1911",
+            "fontFamily": "Baloo2-SemiBold",
+            "fontSize": 14,
+            "letterSpacing": 0.5,
+            "lineHeight": 24,
+            "textTransform": "uppercase",
+          },
+        ]
+      }
+    >
+      Peach wallet
+    </Text>
+  </View>
+</View>
 `;
 
 exports[`WalletLabel should render correctly if address is unknown 1`] = `
-<Text
-  allowFontScaling={false}
+<View
   style={
     [
       {
-        "color": "#2B1911",
-        "fontFamily": "Baloo2-Regular",
-        "fontSize": 16,
-        "letterSpacing": 0.16,
-        "lineHeight": 24,
+        "flexDirection": "row",
       },
       undefined,
     ]
   }
 >
-  custom payout address
-</Text>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={false}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "alignItems": "center",
+        "borderColor": "#2B1911",
+        "borderRadius": 8,
+        "borderWidth": 1,
+        "height": 24,
+        "justifyContent": "center",
+        "opacity": 1,
+        "paddingLeft": 8,
+        "paddingRight": 8,
+      }
+    }
+  >
+    <Text
+      allowFontScaling={false}
+      style={
+        [
+          {
+            "color": "#2B1911",
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 24,
+          },
+          {
+            "color": "#2B1911",
+            "fontFamily": "Baloo2-SemiBold",
+            "fontSize": 14,
+            "letterSpacing": 0.5,
+            "lineHeight": 24,
+            "textTransform": "uppercase",
+          },
+        ]
+      }
+    >
+      custom payout address
+    </Text>
+  </View>
+</View>
 `;
 
 exports[`WalletLabel should render correctly if label is known 1`] = `
-<Text
-  allowFontScaling={false}
+<View
   style={
     [
       {
-        "color": "#2B1911",
-        "fontFamily": "Baloo2-Regular",
-        "fontSize": 16,
-        "letterSpacing": 0.16,
-        "lineHeight": 24,
+        "flexDirection": "row",
       },
       undefined,
     ]
   }
 >
-  Wallet Label
-</Text>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={false}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "alignItems": "center",
+        "borderColor": "#2B1911",
+        "borderRadius": 8,
+        "borderWidth": 1,
+        "height": 24,
+        "justifyContent": "center",
+        "opacity": 1,
+        "paddingLeft": 8,
+        "paddingRight": 8,
+      }
+    }
+  >
+    <Text
+      allowFontScaling={false}
+      style={
+        [
+          {
+            "color": "#2B1911",
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 24,
+          },
+          {
+            "color": "#2B1911",
+            "fontFamily": "Baloo2-SemiBold",
+            "fontSize": 14,
+            "letterSpacing": 0.5,
+            "lineHeight": 24,
+            "textTransform": "uppercase",
+          },
+        ]
+      }
+    >
+      Wallet Label
+    </Text>
+  </View>
+</View>
 `;

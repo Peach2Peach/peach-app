@@ -7,7 +7,8 @@ import { PaymentMethod } from '../matches/PaymentMethod'
 import { TabbedNavigation } from '../navigation/TabbedNavigation'
 import { SatsFormat, Text } from '../text'
 import { HorizontalLine } from '../ui'
-import { WalletLabel } from './WalletLabel'
+import { TradeSeparator } from './TradeSeparator'
+import { WalletSelector } from './WalletSelector'
 
 type BuyOfferSummaryProps = ComponentProps & {
   offer: BuyOffer | BuyOfferDraft
@@ -48,9 +49,8 @@ export const BuyOfferSummary = ({ offer, style }: BuyOfferSummaryProps): ReactEl
           <PaymentMethod key={`buyOfferMethod-${p}`} paymentMethod={p} style={tw`m-1`} />
         ))}
       </View>
-      <HorizontalLine style={tw`w-64 my-4`} />
-      <Text style={tw`self-center body-m text-black-2`}>{i18n('to')}</Text>
-      <WalletLabel label={offer.walletLabel} address={offer.releaseAddress} style={tw`self-center subtitle-1`} />
+      <TradeSeparator text={i18n('payout.wallet')} />
+      <WalletSelector offer={offer} style={tw`mt-1`} />
     </View>
   )
 }

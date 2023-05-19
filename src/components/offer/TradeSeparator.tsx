@@ -1,15 +1,15 @@
 import { ColorValue, View } from 'react-native'
+import { IconType } from '../../assets/icons'
 import tw from '../../styles/tailwind'
+import Icon from '../Icon'
 import { Text } from '../text'
 import { HorizontalLine } from '../ui'
-import Icon from '../Icon'
-import { IconType } from '../../assets/icons'
 
 type Props = ComponentProps & {
-  iconId?: IconType
-  iconColor?: ColorValue
   text: string
   disputeActive?: boolean
+  iconId?: IconType | undefined
+  iconColor?: ColorValue | undefined
 }
 
 export const TradeSeparator = ({ style, disputeActive, iconId, iconColor, text }: Props) => (

@@ -1,0 +1,267 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Summary should render correctly when publishing 1`] = `
+<PeachScrollView
+  contentContainerStyle={
+    {
+      "alignItems": "center",
+      "flexGrow": 1,
+      "justifyContent": "center",
+      "paddingBottom": 28,
+      "paddingLeft": 32,
+      "paddingRight": 32,
+    }
+  }
+>
+  <View
+    style={
+      {
+        "flexGrow": 1,
+        "justifyContent": "center",
+      }
+    }
+  >
+    <BuyOfferSummary
+      offer={
+        {
+          "amount": [
+            100000,
+            1000000,
+          ],
+          "creationDate": 2023-03-01T13:39:55.942Z,
+          "meansOfPayment": {
+            "CHF": [
+              "sepa",
+            ],
+            "EUR": [
+              "sepa",
+            ],
+          },
+          "originalPaymentData": [],
+          "paymentData": {
+            "sepa": {
+              "hash": "TODO add payment hash",
+            },
+          },
+          "releaseAddress": "releaseAddress",
+          "type": "bid",
+        }
+      }
+    />
+  </View>
+  <PrimaryButton
+    loading={true}
+    narrow={true}
+    onPress={[Function]}
+    style={
+      {
+        "alignSelf": "center",
+        "marginTop": 16,
+      }
+    }
+    testID="navigation-next"
+  >
+    publishing
+  </PrimaryButton>
+</PeachScrollView>
+`;
+
+exports[`Summary should render correctly while peach wallet is still signing message 1`] = `
+<PeachScrollView
+  contentContainerStyle={
+    {
+      "alignItems": "center",
+      "flexGrow": 1,
+      "justifyContent": "center",
+      "paddingBottom": 28,
+      "paddingLeft": 32,
+      "paddingRight": 32,
+    }
+  }
+>
+  <View
+    style={
+      {
+        "flexGrow": 1,
+        "justifyContent": "center",
+      }
+    }
+  >
+    <BuyOfferSummary
+      offer={
+        {
+          "amount": [
+            100000,
+            1000000,
+          ],
+          "creationDate": 2023-03-01T13:39:55.942Z,
+          "meansOfPayment": {
+            "CHF": [
+              "sepa",
+            ],
+            "EUR": [
+              "sepa",
+            ],
+          },
+          "originalPaymentData": [],
+          "paymentData": {
+            "sepa": {
+              "hash": "TODO add payment hash",
+            },
+          },
+          "releaseAddress": "releaseAddress",
+          "type": "bid",
+        }
+      }
+    />
+  </View>
+  <PrimaryButton
+    disabled={true}
+    loading={false}
+    narrow={true}
+    onPress={[MockFunction]}
+    style={
+      {
+        "alignSelf": "center",
+        "marginTop": 16,
+      }
+    }
+    testID="navigation-next"
+  >
+    next
+  </PrimaryButton>
+</PeachScrollView>
+`;
+
+exports[`Summary should render correctly with custom payout wallet and signature is still missing 1`] = `
+<PeachScrollView
+  contentContainerStyle={
+    {
+      "alignItems": "center",
+      "flexGrow": 1,
+      "justifyContent": "center",
+      "paddingBottom": 28,
+      "paddingLeft": 32,
+      "paddingRight": 32,
+    }
+  }
+>
+  <View
+    style={
+      {
+        "flexGrow": 1,
+        "justifyContent": "center",
+      }
+    }
+  >
+    <BuyOfferSummary
+      offer={
+        {
+          "amount": [
+            100000,
+            1000000,
+          ],
+          "creationDate": 2023-03-01T13:39:55.942Z,
+          "meansOfPayment": {
+            "CHF": [
+              "sepa",
+            ],
+            "EUR": [
+              "sepa",
+            ],
+          },
+          "originalPaymentData": [],
+          "paymentData": {
+            "sepa": {
+              "hash": "TODO add payment hash",
+            },
+          },
+          "releaseAddress": "releaseAddress",
+          "type": "bid",
+        }
+      }
+    />
+  </View>
+  <PrimaryButton
+    disabled={false}
+    loading={false}
+    narrow={true}
+    onPress={[MockFunction]}
+    style={
+      {
+        "alignSelf": "center",
+        "marginTop": 16,
+      }
+    }
+    testID="navigation-next"
+  >
+    next
+  </PrimaryButton>
+</PeachScrollView>
+`;
+
+exports[`Summary should render the Summary view 1`] = `
+<PeachScrollView
+  contentContainerStyle={
+    {
+      "alignItems": "center",
+      "flexGrow": 1,
+      "justifyContent": "center",
+      "paddingBottom": 28,
+      "paddingLeft": 32,
+      "paddingRight": 32,
+    }
+  }
+>
+  <View
+    style={
+      {
+        "flexGrow": 1,
+        "justifyContent": "center",
+      }
+    }
+  >
+    <BuyOfferSummary
+      offer={
+        {
+          "amount": [
+            100000,
+            1000000,
+          ],
+          "creationDate": 2023-03-01T13:39:55.942Z,
+          "meansOfPayment": {
+            "CHF": [
+              "sepa",
+            ],
+            "EUR": [
+              "sepa",
+            ],
+          },
+          "originalPaymentData": [],
+          "paymentData": {
+            "sepa": {
+              "hash": "TODO add payment hash",
+            },
+          },
+          "releaseAddress": "releaseAddress",
+          "type": "bid",
+        }
+      }
+    />
+  </View>
+  <PrimaryButton
+    loading={false}
+    narrow={true}
+    onPress={[Function]}
+    style={
+      {
+        "alignSelf": "center",
+        "marginTop": 16,
+      }
+    }
+    testID="navigation-next"
+  >
+    publish
+  </PrimaryButton>
+</PeachScrollView>
+`;

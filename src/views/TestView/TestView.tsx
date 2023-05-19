@@ -10,6 +10,7 @@ export default () => {
   const goToMessages = () => navigation.navigate('testViewMessages')
   const goToComponents = () => navigation.navigate('testViewComponents')
   const goToPNTesting = () => navigation.navigate('testViewPNs')
+  const goToLoadingScreen = () => navigation.navigate('testViewLoading')
 
   return (
     <PeachScrollView
@@ -28,6 +29,9 @@ export default () => {
       </OptionButton>
       <OptionButton style={tw`mt-4`} onPress={goToPNTesting}>
         Push notifications
+      </OptionButton>
+      <OptionButton style={tw`mt-4`} onPress={goToLoadingScreen}>
+        Loading Screen
       </OptionButton>
     </PeachScrollView>
   )

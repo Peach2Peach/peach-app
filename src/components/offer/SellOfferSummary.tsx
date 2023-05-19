@@ -11,7 +11,8 @@ import { getPremiumColor } from '../matches/utils'
 import { TabbedNavigation } from '../navigation/TabbedNavigation'
 import { SatsFormat, Text } from '../text'
 import { HorizontalLine } from '../ui'
-import { WalletLabel } from './WalletLabel'
+import { TradeSeparator } from './TradeSeparator'
+import { WalletSelector } from './WalletSelector'
 
 type SellOfferSummaryProps = ComponentProps & {
   offer: SellOffer | SellOfferDraft
@@ -55,9 +56,8 @@ export const SellOfferSummary = ({ offer, style }: SellOfferSummaryProps): React
         ))}
       </View>
 
-      <HorizontalLine style={tw`w-64 my-4`} />
-      <Text style={tw`self-center body-m text-black-2`}>{i18n('offer.summary.refundWallet')}</Text>
-      <WalletLabel label={offer.walletLabel} address={offer.returnAddress} style={tw`self-center subtitle-1`} />
+      <TradeSeparator text={i18n('refund.wallet')} />
+      <WalletSelector offer={offer} style={tw`mt-1`} />
 
       {isSellOfferWithDefinedEscrow(offer) && (
         <>

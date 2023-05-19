@@ -4,8 +4,8 @@ import { sellOffer } from '../../../tests/unit/data/offerData'
 import { queryClient, QueryClientWrapper } from '../../../tests/unit/helpers/QueryClientWrapper'
 import { defaultFundingStatus } from '../../utils/offer/constants'
 import { useFundingStatus } from './useFundingStatus'
+import { unauthorizedError } from '../../../tests/unit/data/peachAPIData'
 
-const apiError = { error: 'UNAUTHORIZED' }
 const defaultFundingStatusResponse = { funding: defaultFundingStatus, userConfirmationRequired: false }
 const inMempool = {
   funding: { ...defaultFundingStatusResponse, status: 'MEMPOOL' },
@@ -47,7 +47,7 @@ describe('useFundingStatus', () => {
     })
   })
   it('returns default funding status if API does not return one', async () => {
-    getFundingStatusMock.mockResolvedValueOnce([null, apiError])
+    getFundingStatusMock.mockResolvedValueOnce([null, unauthorizedError])
 
     const { result } = renderHook(useFundingStatus, {
       wrapper: QueryClientWrapper,
@@ -67,7 +67,7 @@ describe('useFundingStatus', () => {
       fundingStatus: defaultFundingStatus,
       userConfirmationRequired: false,
       isLoading: false,
-      error: new Error(apiError.error),
+      error: new Error(unauthorizedError.error),
     })
   })
 })
