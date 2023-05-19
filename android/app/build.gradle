@@ -188,6 +188,8 @@ android {
                         defaultConfig.versionCode * 1000 + versionCodes.get(abi)
             }
 
+             output.outputFileName = output.outputFile.name.replace(".apk", "-${variant.versionName}-${variant.versionCode}.apk")
+
         }
     }
 }
