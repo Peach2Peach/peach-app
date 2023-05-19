@@ -33,6 +33,8 @@ jest.mock('../settings/profile/DailyTradingLimit', () => ({
   DailyTradingLimit: () => <></>,
 }))
 
+jest.useFakeTimers()
+
 describe('Search', () => {
   const shallowRenderer = createRenderer()
   it('renders correctly for matches', () => {
