@@ -53,5 +53,14 @@ export const useHandleFundingStatus = ({ offerId, sellOffer, fundingStatus, user
         }
       })
     }
-  }, [fetchMatches, fundingStatus, navigation, offerId, sellOffer, startRefund, userConfirmationRequired])
+  }, [
+    fetchMatches,
+    fundingStatus,
+    navigation,
+    offerId,
+    sellOffer,
+    showWronglyFundedOverlay,
+    startRefund,
+    userConfirmationRequired,
+  ])
 }
