@@ -6,15 +6,23 @@
   "coverageReporters": ["lcov", "text-summary"],
   "coverageThreshold": {
     "global": {
-      "statements": 73.47,
-      "branches": 50.08,
-      "functions": 59.56,
-      "lines": 75.01
+      "statements": 77.68,
+      "branches": 51.57,
+      "functions": 65.75,
+      "lines": 79.08
     }
   },
   "transform": {
     "\\.(js|jsx)$": "<rootDir>/node_modules/babel-jest",
-    "^.+\\.(t|j)sx?$": ["@swc/jest", { "jsc": { "transform": { "react": { "runtime": "automatic" } } } }]
+    "^.+\\.(t|j)sx?$": ["@swc/jest", {
+      "jsc": {
+        "transform": {
+          "react": {
+            "runtime": "automatic"
+          }
+        }
+      }
+    }]
   },
   "transformIgnorePatterns": [
     "node_modules/(?!(@react-native|react-native|@react-native-community|react-native-webview|react-native-canvas|react-native-form-validator|react-native-permissions|react-native-shadow-2|react-native-qrcode-svg|bdk-rn|react-native-parsed-text|react-native-snap-carousel|react-native-url-polyfill|react-native-camera)/)"

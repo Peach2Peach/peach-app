@@ -145,7 +145,6 @@ exports[`TradeSeparator renders correctly with iconId 1`] = `
   }
 >
   <Icon
-    color="#DF321F"
     id="xCircle"
     style={
       {

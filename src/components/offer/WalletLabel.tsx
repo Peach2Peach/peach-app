@@ -3,7 +3,9 @@ import { shallow } from 'zustand/shallow'
 import { useSettingsStore } from '../../store/settingsStore'
 import i18n from '../../utils/i18n'
 import { getWalletLabel } from '../../utils/offer'
-import { Text } from '../text'
+import { TextLabel } from '../text'
+import { View } from 'react-native'
+import tw from '../../styles/tailwind'
 
 type Props = ComponentProps & {
   label?: string
@@ -31,5 +33,9 @@ export const WalletLabel = ({ label, address, style }: Props) => {
     })
   }, [address, label, payoutAddress, payoutAddressLabel])
 
-  return <Text style={style}>{label || fallbackLabel}</Text>
+  return (
+    <View style={[tw`flex-row`, style]}>
+      <TextLabel>{label || fallbackLabel}</TextLabel>
+    </View>
+  )
 }

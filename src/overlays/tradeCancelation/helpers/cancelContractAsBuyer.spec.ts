@@ -1,8 +1,7 @@
 import { contract } from '../../../../tests/unit/data/contractData'
+import { apiSuccess, unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
 import { cancelContractAsBuyer } from './cancelContractAsBuyer'
 
-const apiSuccess = { success: true }
-const apiError = { error: 'UNAUTHORIZED' }
 const cancelContractMock = jest.fn().mockResolvedValue([apiSuccess, null])
 jest.mock('../../../utils/peachAPI', () => ({
   cancelContract: (...args: any[]) => cancelContractMock(...args),
@@ -26,10 +25,10 @@ describe('cancelContractAsBuyer', () => {
   })
 
   it('handles cancelContract error response', async () => {
-    cancelContractMock.mockResolvedValueOnce([null, apiError])
+    cancelContractMock.mockResolvedValueOnce([null, unauthorizedError])
     const result = await cancelContractAsBuyer(contract)
     expect(result.isError()).toBeTruthy()
-    expect(result.getError()).toBe(apiError.error)
+    expect(result.getError()).toBe(unauthorizedError.error)
     expect(result.getValue()).toEqual({ contract })
   })
 })

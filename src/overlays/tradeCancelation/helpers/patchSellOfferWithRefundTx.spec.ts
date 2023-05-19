@@ -5,9 +5,8 @@ import { sellOffer } from '../../../../tests/unit/data/offerData'
 import { patchSellOfferWithRefundTx } from './patchSellOfferWithRefundTx'
 import { setWallet } from '../../../utils/wallet'
 import { createTestWallet } from '../../../../tests/unit/helpers/createTestWallet'
+import { apiSuccess, unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
 
-const apiSuccess = { success: true }
-const apiError = { error: 'UNAUTHORIZED' }
 const patchOfferMock = jest.fn().mockResolvedValue([apiSuccess, null])
 jest.mock('../../../utils/peachAPI', () => ({
   patchOffer: (...args: any[]) => patchOfferMock(...args),
@@ -51,10 +50,10 @@ describe('patchSellOfferWithRefundTx', () => {
     expect(result.getValue()).toEqual({ sellOffer })
   })
   it('returns error result offer could not be patched', async () => {
-    patchOfferMock.mockResolvedValueOnce([null, apiError])
+    patchOfferMock.mockResolvedValueOnce([null, unauthorizedError])
     const result = await patchSellOfferWithRefundTx(contract, refundPSBT)
     expect(result.isError()).toBeTruthy()
-    expect(result.getError()).toBe(apiError.error)
+    expect(result.getError()).toBe(unauthorizedError.error)
     expect(result.getValue()).toEqual({ sellOffer })
   })
   it('returns unknown error result offer could not be patched with no reason', async () => {

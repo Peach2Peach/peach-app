@@ -1,10 +1,9 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { shallow } from 'zustand/shallow'
 import { useHeaderSetup, useNavigation } from '../../../hooks'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { useSettingsStore } from '../../../store/settingsStore'
 import i18n from '../../../utils/i18n'
-import { headerIcons } from '../../../utils/layout/headerIcons'
 import { peachWallet } from '../../../utils/wallet/setWallet'
 import { publishSellOffer } from '../helpers/publishSellOffer'
 
@@ -25,28 +24,26 @@ export const useSellSummarySetup = () => {
 
   const walletLabel = peachWalletActive ? i18n('peachWallet') : payoutAddressLabel
 
-  const goToSetupRefundWallet = () => navigation.navigate('payoutAddress', { type: 'refund' })
-
   const publishOffer = async (offerDraft: SellOfferDraft) => {
     if (isPublishing) return
     setIsPublishing(true)
     const { isPublished, navigationParams, errorMessage } = await publishSellOffer(offerDraft)
     if (isPublished && navigationParams) {
-      navigation.replace('fundEscrow', navigationParams)
+      navigation.reset({
+        index: 1,
+        routes: [
+          { name: 'yourTrades', params: { tab: 'sell' } },
+          { name: 'fundEscrow', params: navigationParams },
+        ],
+      })
     } else if (errorMessage) {
       showErrorBanner(errorMessage)
     }
     setIsPublishing(false)
   }
-  useHeaderSetup(
-    useMemo(
-      () => ({
-        title: i18n('sell.summary.title'),
-        icons: [{ ...headerIcons.wallet, onPress: () => navigation.navigate('selectWallet', { type: 'refund' }) }],
-      }),
-      [navigation],
-    ),
-  )
+  useHeaderSetup({
+    title: i18n('sell.summary.title'),
+  })
 
   useEffect(() => {
     setCanPublish(!!returnAddress)
@@ -62,5 +59,5 @@ export const useSellSummarySetup = () => {
     })()
   }, [payoutAddress, peachWalletActive])
 
-  return { returnAddress, walletLabel, goToSetupRefundWallet, canPublish, publishOffer, isPublishing }
+  return { returnAddress, walletLabel, canPublish, publishOffer, isPublishing }
 }

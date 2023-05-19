@@ -79,6 +79,9 @@ export const useRangeAmountSetup = ({ min, max, value, onChange }: Props) => {
 
   const onTrackLayout = (event: LayoutChangeEvent) => {
     const height = Math.round(event.nativeEvent.layout.height)
+
+    if (!height) return
+
     setTrackHeight(height)
     const newKnowTrackHeight = height - knobHeight
     panMax.setOffset(getOffset({ amount: maximum, min, max, trackHeight: newKnowTrackHeight }))
@@ -143,5 +146,9 @@ export const useRangeAmountSetup = ({ min, max, value, onChange }: Props) => {
     trackRangeMax,
     onTrackLayout,
     knobHeight,
+    displayPriceMinimum,
+    displayPriceMaximum,
+    displayCurrency,
+    fullDisplayPrice,
   }
 }

@@ -8,8 +8,7 @@ import { useSellSummarySetup } from './hooks/useSellSummarySetup'
 import { SellViewProps } from './SellPreferences'
 
 export default ({ offerDraft, setOfferDraft }: SellViewProps): ReactElement => {
-  const { returnAddress, walletLabel, goToSetupRefundWallet, canPublish, publishOffer, isPublishing }
-    = useSellSummarySetup()
+  const { returnAddress, walletLabel, canPublish, publishOffer, isPublishing } = useSellSummarySetup()
   const publishSellOffer = () => publishOffer(offerDraft)
 
   useEffect(() => {
@@ -27,19 +26,19 @@ export default ({ offerDraft, setOfferDraft }: SellViewProps): ReactElement => {
   }, [walletLabel, setOfferDraft])
 
   return (
-    <PeachScrollView contentContainerStyle={tw`items-center justify-center flex-grow px-8 pb-7`}>
-      <View style={tw`justify-center flex-grow`}>
+    <View style={[tw`justify-center flex-grow px-6 pb-5`, tw.md`px-8`]}>
+      <PeachScrollView contentContainerStyle={tw`justify-center flex-grow`}>
         <SellOfferSummary offer={offerDraft} />
-      </View>
+      </PeachScrollView>
       <PrimaryButton
         style={tw`self-center mt-4`}
         testID="navigation-next"
-        narrow={!canPublish}
-        onPress={canPublish ? publishSellOffer : goToSetupRefundWallet}
+        narrow={true}
+        onPress={canPublish ? publishSellOffer : undefined}
         loading={isPublishing}
       >
         {i18n('next')}
       </PrimaryButton>
-    </PeachScrollView>
+    </View>
   )
 }
