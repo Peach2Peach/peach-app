@@ -1,9 +1,10 @@
 import { WalletLabel } from '../../../components/offer/WalletLabel'
 import tw from '../../../styles/tailwind'
 import { getBitcoinPriceFromContract, getBuyOfferFromContract } from '../../../utils/contract'
+import { getEventName } from '../../../utils/events'
 import i18n from '../../../utils/i18n'
 import { getPaymentDataByMethod } from '../../../utils/offer'
-import { hashPaymentData } from '../../../utils/paymentMethod'
+import { getPaymentMethodName, hashPaymentData } from '../../../utils/paymentMethod'
 import { groupChars } from '../../../utils/string'
 
 export const tradeInformationGetters: Record<
@@ -32,9 +33,9 @@ export const tradeInformationGetters: Record<
   bitcoinPrice: (contract: Contract) =>
     groupChars(getBitcoinPriceFromContract(contract).toString(), 3) + ' ' + contract.currency,
 
-  via: (contract: Contract) => i18n(`paymentMethod.${contract.paymentMethod}`),
-  method: (contract: Contract) => i18n(`paymentMethod.${contract.paymentMethod}`),
-  meetup: (contract: Contract) => i18n(`paymentMethod.${contract.paymentMethod}`),
+  via: (contract: Contract) => getPaymentMethodName(contract.paymentMethod),
+  method: (contract: Contract) => getPaymentMethodName(contract.paymentMethod),
+  meetup: (contract: Contract) => getPaymentMethodName(contract.paymentMethod),
   location: (_contract: Contract) => i18n('contract.summary.location.text'),
 }
 const allPossibleFields = [
