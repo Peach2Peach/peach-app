@@ -13,18 +13,13 @@ export const MeansOfPaymentSelect = ({ meansOfPayment }: Props) => {
   const [selectedCurrency, setSelectedCurrency] = useState(currencies[0])
 
   return (
-    <>
-      <CurrencySelection
-        style={[tw`mt-2`, tw.md`mt-4`]}
-        currencies={currencies}
-        selected={selectedCurrency}
-        select={setSelectedCurrency}
-      />
-      <View style={tw`flex-row flex-wrap items-center mt-3`}>
+    <View style={tw`gap-3`}>
+      <CurrencySelection currencies={currencies} selected={selectedCurrency} select={setSelectedCurrency} />
+      <View style={tw`flex-row flex-wrap items-center gap-1`}>
         {meansOfPayment[selectedCurrency]?.map((p) => (
-          <PaymentMethod key={`meansOfPaymentSelect-${p}`} paymentMethod={p} style={tw`m-1`} />
+          <PaymentMethod key={`meansOfPaymentSelect-${p}`} paymentMethod={p} />
         ))}
       </View>
-    </>
+    </View>
   )
 }
