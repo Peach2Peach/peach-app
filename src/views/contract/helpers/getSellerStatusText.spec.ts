@@ -20,6 +20,11 @@ jest.mock('./getSellerDisputeStatusText', () => ({
 }))
 
 describe('getSellerStatusText', () => {
+  it('should return the correct status if the buyer canceled the trade (republish available)', () => {
+    expect(
+      getSellerStatusText({ canceled: true, canceledBy: 'buyer', tradeStatus: 'refundOrReviveRequired' } as Contract),
+    ).toBe('You\'ll need to decide if you want to re-publish this offer, or refund the escrow to your walletLabel.')
+  })
   it('should return the correct status if the payment was too late and contract is not canceled', () => {
     isPaymentTooLateMock.mockReturnValueOnce(true)
     expect(getSellerStatusText({ canceled: false } as Contract)).toBe(i18n('contract.seller.paymentWasTooLate'))
@@ -44,7 +49,7 @@ describe('getSellerStatusText', () => {
   })
   it('should return the correct status if republish is available (no dispute)', () => {
     expect(getSellerStatusText({ tradeStatus: 'refundOrReviveRequired' } as Contract)).toBe(
-      i18n('contract.seller.refundOrRepublish', 'walletLabel'),
+      'You\'ll need to decide if you want to re-publish this trade, or refund the escrow to your walletLabel.',
     )
   })
   it('should return the correct status if republish is not available', () => {
