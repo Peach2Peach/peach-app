@@ -4,10 +4,13 @@ import { getSellerDisputeStatusText } from './getSellerDisputeStatusText'
 import { isPaymentTooLate } from '../../../utils/contract/status/isPaymentTooLate'
 
 export const getSellerStatusText = (contract: Contract) => {
-  const hasDisputeWinner = !!contract.disputeWinner
-  const walletLabel = getWalletLabelFromContract(contract)
-  const sellOffer = getSellOfferFromContract(contract)
-  const paymentWasTooLate = isPaymentTooLate(contract)
+  const [hasDisputeWinner, walletLabel, sellOffer, paymentWasTooLate] = [
+    !!contract.disputeWinner,
+    getWalletLabelFromContract(contract),
+    getSellOfferFromContract(contract),
+    isPaymentTooLate(contract),
+  ]
+
   if (paymentWasTooLate && !contract.canceled) {
     return i18n('contract.seller.paymentWasTooLate')
   }
@@ -30,6 +33,9 @@ export const getSellerStatusText = (contract: Contract) => {
       return i18n('contract.seller.refundOrRepublish.offer', walletLabel)
     }
     return i18n('contract.seller.refundOrRepublish.trade', walletLabel)
+  }
+  if (contract.canceledBy === 'buyer') {
+    return i18n('contract.seller.refund.buyerCanceled')
   }
   return i18n('contract.seller.refund')
 }

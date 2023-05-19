@@ -25,6 +25,11 @@ describe('getSellerStatusText', () => {
       getSellerStatusText({ canceled: true, canceledBy: 'buyer', tradeStatus: 'refundOrReviveRequired' } as Contract),
     ).toBe('You\'ll need to decide if you want to re-publish this offer, or refund the escrow to your walletLabel.')
   })
+  it('should return the correct status if the buyer canceled the trade (republish unavailable)', () => {
+    expect(
+      getSellerStatusText({ canceled: true, canceledBy: 'buyer', tradeStatus: 'refundTxSignatureRequired' } as Contract),
+    ).toBe('The buyer canceled the trade and you can now get refunded.')
+  })
   it('should return the correct status if the payment was too late and contract is not canceled', () => {
     isPaymentTooLateMock.mockReturnValueOnce(true)
     expect(getSellerStatusText({ canceled: false } as Contract)).toBe(i18n('contract.seller.paymentWasTooLate'))
