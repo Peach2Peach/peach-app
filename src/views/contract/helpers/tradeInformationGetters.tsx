@@ -1,13 +1,23 @@
 import { WalletLabel } from '../../../components/offer/WalletLabel'
 import tw from '../../../styles/tailwind'
 import { getBitcoinPriceFromContract, getBuyOfferFromContract } from '../../../utils/contract'
+import { getEventName } from '../../../utils/events'
 import i18n from '../../../utils/i18n'
 import { getPaymentDataByMethod } from '../../../utils/offer'
-import { hashPaymentData } from '../../../utils/paymentMethod'
+import { getPaymentMethodName, hashPaymentData } from '../../../utils/paymentMethod'
 import { groupChars } from '../../../utils/string'
 
 export const tradeInformationGetters: Record<
-  'price' | 'paidToMethod' | 'paidWithMethod' | 'paidToWallet' | 'bitcoinAmount' | 'bitcoinPrice' | 'via' | 'method',
+  | 'price'
+  | 'paidToMethod'
+  | 'paidWithMethod'
+  | 'paidToWallet'
+  | 'bitcoinAmount'
+  | 'bitcoinPrice'
+  | 'via'
+  | 'method'
+  | 'meetup'
+  | 'location',
   (contract: Contract) => string | number | JSX.Element | undefined
 > = {
   price: (contract: Contract) => contract.price + ' ' + contract.currency,
@@ -23,8 +33,10 @@ export const tradeInformationGetters: Record<
   bitcoinPrice: (contract: Contract) =>
     groupChars(getBitcoinPriceFromContract(contract).toString(), 3) + ' ' + contract.currency,
 
-  via: (contract: Contract) => i18n(`paymentMethod.${contract.paymentMethod}`),
-  method: (contract: Contract) => i18n(`paymentMethod.${contract.paymentMethod}`),
+  via: (contract: Contract) => getPaymentMethodName(contract.paymentMethod),
+  method: (contract: Contract) => getPaymentMethodName(contract.paymentMethod),
+  meetup: (contract: Contract) => getPaymentMethodName(contract.paymentMethod),
+  location: (_contract: Contract) => i18n('contract.summary.location.text'),
 }
 const allPossibleFields = [
   'price',
@@ -47,6 +59,8 @@ const allPossibleFields = [
   'ukSortCode',
   'via',
   'method',
+  'meetup',
+  'location',
 ] as const
 export type TradeInfoField = (typeof allPossibleFields)[number]
 export const isTradeInformationGetter = (
@@ -62,3 +76,13 @@ export const pastBuyOfferFields: TradeInfoField[] = [
   'bitcoinPrice',
   'paidToWallet',
 ]
+
+export const activeCashTradeFields: TradeInfoField[] = ['bitcoinAmount', 'price', 'meetup', 'location']
+export const pastBuyOfferCashFields: TradeInfoField[] = [
+  'price',
+  'meetup',
+  'bitcoinAmount',
+  'bitcoinPrice',
+  'paidToWallet',
+]
+export const pastSellOfferCashFields: TradeInfoField[] = ['price', 'meetup', 'bitcoinAmount', 'bitcoinPrice']

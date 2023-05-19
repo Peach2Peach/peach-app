@@ -8,13 +8,27 @@ describe('getTradeInfoFields', () => {
       paymentMethod: 'sepa',
     } as any
     expect(getTradeInfoFields(contract, 'seller')).toEqual(['price', 'reference', 'paidToMethod', 'via'])
+    expect(getTradeInfoFields({ ...contract, tradeStatus: 'dispute' }, 'seller')).toEqual([
+      'price',
+      'reference',
+      'paidToMethod',
+      'via',
+    ])
   })
   it('should return the correct fields for a past sell trade', () => {
     const contract = {
       tradeStatus: 'tradeCompleted',
       paymentMethod: 'sepa',
+      releaseTxId: 'someId',
     } as any
     expect(getTradeInfoFields(contract, 'seller')).toEqual([
+      'price',
+      'paidToMethod',
+      'via',
+      'bitcoinAmount',
+      'bitcoinPrice',
+    ])
+    expect(getTradeInfoFields({ ...contract, tradeStatus: 'dispute', releaseTxId: 'someId' }, 'seller')).toEqual([
       'price',
       'paidToMethod',
       'via',
@@ -26,6 +40,7 @@ describe('getTradeInfoFields', () => {
     const contract = {
       tradeStatus: 'tradeCompleted',
       paymentMethod: 'sepa',
+      releaseTxId: 'someId',
     } as any
     expect(getTradeInfoFields(contract, 'buyer')).toEqual([
       'price',
@@ -118,5 +133,52 @@ describe('getTradeInfoFields', () => {
       'bic',
       'reference',
     ])
+  })
+})
+
+describe('getTradeInfoFields - cash trades', () => {
+  it('should return the correct fields for an active trade', () => {
+    expect(
+      getTradeInfoFields(
+        {
+          tradeStatus: 'waiting',
+          paymentMethod: 'cash.someMeetup',
+        } as any,
+        'buyer',
+      ),
+    ).toEqual(['bitcoinAmount', 'price', 'meetup', 'location'])
+    expect(
+      getTradeInfoFields(
+        {
+          tradeStatus: 'waiting',
+          paymentMethod: 'cash.someMeetup',
+        } as any,
+        'seller',
+      ),
+    ).toEqual(['bitcoinAmount', 'price', 'meetup', 'location'])
+  })
+  it('should return the correct fields for a past buy offer', () => {
+    expect(
+      getTradeInfoFields(
+        {
+          tradeStatus: 'tradeCompleted',
+          paymentMethod: 'cash.someMeetup',
+          releaseTxId: 'someId',
+        } as any,
+        'buyer',
+      ),
+    ).toEqual(['price', 'meetup', 'bitcoinAmount', 'bitcoinPrice', 'paidToWallet'])
+  })
+  it('should return the correct fields for a past sell offer', () => {
+    expect(
+      getTradeInfoFields(
+        {
+          tradeStatus: 'tradeCompleted',
+          paymentMethod: 'cash.someMeetup',
+          releaseTxId: 'someId',
+        } as any,
+        'seller',
+      ),
+    ).toEqual(['price', 'meetup', 'bitcoinAmount', 'bitcoinPrice'])
   })
 })

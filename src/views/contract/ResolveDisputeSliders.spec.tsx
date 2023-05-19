@@ -15,13 +15,13 @@ const wrapper = ({ children }: ComponentProps) => (
 )
 
 jest.mock('./context', () => ({
-  useContractContext: jest.fn(() => ({ contract: {} })),
+  useContractContext: jest.fn(() => ({ contract })),
 }))
 
 describe('ResolveDisputeSliders', () => {
   const shallowRender = createRenderer()
   it('should render correctly', () => {
-    shallowRender.render(<ResolveDisputeSliders contract={contract} />, { wrapper })
+    shallowRender.render(<ResolveDisputeSliders />, { wrapper })
     expect(shallowRender.getRenderOutput()).toMatchSnapshot()
   })
 })

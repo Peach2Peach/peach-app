@@ -33,4 +33,8 @@ describe('shouldShowTradeStatusInfo', () => {
     isPaymentTooLateMock.mockReturnValueOnce(true)
     expect(shouldShowTradeStatusInfo(mockContract, 'buyer')).toEqual(false)
   })
+  it('should return true if there is a dispute winner', () => {
+    expect(shouldShowTradeStatusInfo({ ...mockContract, disputeWinner: 'seller' }, 'seller')).toEqual(true)
+    expect(shouldShowTradeStatusInfo({ ...mockContract, disputeWinner: 'buyer' }, 'buyer')).toEqual(true)
+  })
 })

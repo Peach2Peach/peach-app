@@ -20,9 +20,13 @@ describe('getTradeSeparatorText', () => {
     expect(getTradeSeparatorText({ ...mockContract, disputeWinner: 'seller' }, 'buyer')).toEqual('dispute lost')
   })
 
-  it('returns "buyer canceled" if the buyer canceled the trade and the viewer is the seller', () => {
-    expect(getTradeSeparatorText({ ...mockContract, canceledBy: 'buyer' }, 'seller')).toEqual('buyer canceled')
-    expect(getTradeSeparatorText({ ...mockContract, canceledBy: 'buyer' }, 'buyer')).not.toEqual('buyer canceled')
+  it('returns "buyer canceled" if buyer canceled, viewer is seller and no cancelation was requested', () => {
+    expect(
+      getTradeSeparatorText({ ...mockContract, canceledBy: 'buyer', cancelationRequested: false }, 'seller'),
+    ).toEqual('buyer canceled')
+    expect(
+      getTradeSeparatorText({ ...mockContract, canceledBy: 'buyer', cancelationRequested: false }, 'buyer'),
+    ).not.toEqual('buyer canceled')
   })
 
   it('returns "payment too late" if the payment is too late and the viewer is the seller', () => {
@@ -47,6 +51,12 @@ describe('getTradeSeparatorText', () => {
 
   it('returns "trade canceled" in all other non-standard cases', () => {
     expect(getTradeSeparatorText({ ...mockContract, canceled: true }, 'seller')).toEqual('trade canceled')
+    expect(
+      getTradeSeparatorText(
+        { ...mockContract, canceled: true, cancelationRequested: true, canceledBy: 'buyer' },
+        'seller',
+      ),
+    ).toEqual('trade canceled')
   })
 
   it('returns "trade details" for completed buy trades', () => {

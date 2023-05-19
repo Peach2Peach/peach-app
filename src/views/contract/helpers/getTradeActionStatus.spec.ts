@@ -41,6 +41,7 @@ describe('getTradeActionStatus - buyer', () => {
       canceled: true,
     } as any
     expect(getTradeActionStatus(contract, 'buyer')).toEqual('seller refunded')
+    expect(getTradeActionStatus({ ...contract, cancelationRequested: true }, 'buyer')).toEqual('seller refunded')
   })
 })
 

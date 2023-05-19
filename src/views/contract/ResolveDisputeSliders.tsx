@@ -2,10 +2,10 @@ import { useMemo } from 'react'
 import { SlideToUnlock } from '../../components/inputs'
 import { RefundEscrowSlider } from '../../components/offer'
 import tw from '../../styles/tailwind'
+import { getSellOfferFromContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { useContractContext } from './context'
 import { useRepublishOffer } from './hooks/useRepublishOffer'
-import { getSellOfferFromContract } from '../../utils/contract'
 
 const RepublishOfferSlider = ({ contract }: { contract: Contract }) => {
   const republishOffer = useRepublishOffer()
