@@ -4,7 +4,15 @@ import { SATSINBTC } from '../../constants'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 
-export const MixedLetterSpacingText = ({ value, style }: { value: number; style: (false | TextStyle)[] }) => {
+export const MixedLetterSpacingText = ({
+  value,
+  style,
+  isError,
+}: {
+  value: number
+  style: (false | TextStyle)[]
+  isError: boolean
+}) => {
   const newNum = (value / SATSINBTC).toFixed(8).split('')
   for (let i = newNum.length - 3; i > 0; i -= 3) {
     if (newNum[i] !== '.') {
@@ -28,7 +36,11 @@ export const MixedLetterSpacingText = ({ value, style }: { value: number; style:
           return (
             <Text
               key={index}
-              style={[style, shouldBeBlack5 && tw`text-black-5`, { letterSpacing: desiredLetterSpacing.dot }]}
+              style={[
+                style,
+                shouldBeBlack5 && isError ? tw`text-error-mild` : tw`text-black-5`,
+                { letterSpacing: desiredLetterSpacing.dot },
+              ]}
             >
               {char}
             </Text>
@@ -41,13 +53,23 @@ export const MixedLetterSpacingText = ({ value, style }: { value: number; style:
           )
         } else if (char === '0' && index < newNum.findIndex((c) => c !== '0' && Number(c) > 0)) {
           return (
-            <Text key={index} style={[style, tw`text-black-5`, { letterSpacing: desiredLetterSpacing.digit }]}>
+            <Text
+              key={index}
+              style={[
+                style,
+                isError ? tw`text-error-mild` : tw`text-black-5`,
+                { letterSpacing: desiredLetterSpacing.digit },
+              ]}
+            >
               {char}
             </Text>
           )
         }
         return (
-          <Text key={index} style={[style, { letterSpacing: desiredLetterSpacing.digit }]}>
+          <Text
+            key={index}
+            style={[style, isError && tw`text-error-dark`, { letterSpacing: desiredLetterSpacing.digit }]}
+          >
             {char}
           </Text>
         )
@@ -59,9 +81,10 @@ export const MixedLetterSpacingText = ({ value, style }: { value: number; style:
 type Props = ComponentProps & {
   amount: number
   size: 'extra large' | 'large' | 'medium' | 'small' | 'x small'
+  isError?: boolean
 }
 
-export const BTCAmount = ({ amount, size, style }: Props) => (
+export const BTCAmount = ({ amount, size, isError = false, style }: Props) => (
   <View style={[tw`flex-row items-center gap-2px`, style]}>
     <Icon
       id="bitcoinLogo"
@@ -84,6 +107,7 @@ export const BTCAmount = ({ amount, size, style }: Props) => (
           size === 'x small' && tw`text-15px leading-20px pr-2px`,
         ]}
         value={amount}
+        isError={isError}
       />
       <Text
         style={[
@@ -93,6 +117,7 @@ export const BTCAmount = ({ amount, size, style }: Props) => (
           size === 'small' && tw`text-3xs leading-18px pb-2px pl-2px`,
           size === 'x small' && tw`text-10px leading-15px pb-2px pl-2px`,
           tw`font-medium text-left font-baloo`,
+          isError && tw`text-error-dark`,
         ]}
       >
         {i18n('currency.SATS')}

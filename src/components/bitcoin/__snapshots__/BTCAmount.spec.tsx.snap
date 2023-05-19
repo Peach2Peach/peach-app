@@ -43,6 +43,7 @@ exports[`BTCAmount should render correctly for extra large size 1`] = `
     }
   >
     <MixedLetterSpacingText
+      isError={false}
       style={
         [
           {
@@ -81,6 +82,7 @@ exports[`BTCAmount should render correctly for extra large size 1`] = `
             "fontWeight": "500",
             "textAlign": "left",
           },
+          false,
         ]
       }
     >
@@ -132,6 +134,7 @@ exports[`BTCAmount should render correctly for extra small size 1`] = `
     }
   >
     <MixedLetterSpacingText
+      isError={false}
       style={
         [
           {
@@ -170,6 +173,7 @@ exports[`BTCAmount should render correctly for extra small size 1`] = `
             "fontWeight": "500",
             "textAlign": "left",
           },
+          false,
         ]
       }
     >
@@ -222,6 +226,7 @@ exports[`BTCAmount should render correctly for large size 1`] = `
     }
   >
     <MixedLetterSpacingText
+      isError={false}
       style={
         [
           {
@@ -260,6 +265,7 @@ exports[`BTCAmount should render correctly for large size 1`] = `
             "fontWeight": "500",
             "textAlign": "left",
           },
+          false,
         ]
       }
     >
@@ -312,6 +318,7 @@ exports[`BTCAmount should render correctly for medium size 1`] = `
     }
   >
     <MixedLetterSpacingText
+      isError={false}
       style={
         [
           {
@@ -350,6 +357,7 @@ exports[`BTCAmount should render correctly for medium size 1`] = `
             "fontWeight": "500",
             "textAlign": "left",
           },
+          false,
         ]
       }
     >
@@ -401,6 +409,7 @@ exports[`BTCAmount should render correctly for small size 1`] = `
     }
   >
     <MixedLetterSpacingText
+      isError={false}
       style={
         [
           {
@@ -438,6 +447,101 @@ exports[`BTCAmount should render correctly for small size 1`] = `
             "fontFamily": "Baloo2-Regular",
             "fontWeight": "500",
             "textAlign": "left",
+          },
+          false,
+        ]
+      }
+    >
+      sats
+    </PeachText>
+  </View>
+</View>
+`;
+
+exports[`BTCAmount should render correctly with isError 1`] = `
+<View
+  style={
+    [
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "gap": 2,
+      },
+      undefined,
+    ]
+  }
+>
+  <Icon
+    id="bitcoinLogo"
+    style={
+      [
+        {
+          "height": 24,
+          "marginRight": 2,
+          "paddingBottom": 8,
+          "paddingLeft": 8,
+          "paddingRight": 8,
+          "paddingTop": 8,
+          "width": 24,
+        },
+        false,
+        false,
+        false,
+        false,
+      ]
+    }
+  />
+  <View
+    style={
+      {
+        "alignItems": "baseline",
+        "flexDirection": "row",
+        "paddingTop": 4,
+      }
+    }
+  >
+    <MixedLetterSpacingText
+      isError={true}
+      style={
+        [
+          {
+            "fontFamily": "CourierPrime-Regular",
+            "fontWeight": "bold",
+            "textAlign": "center",
+          },
+          {
+            "fontSize": 30,
+            "lineHeight": 40,
+            "paddingRight": 4,
+          },
+          false,
+          false,
+          false,
+          false,
+        ]
+      }
+      value={21000}
+    />
+    <PeachText
+      style={
+        [
+          {
+            "fontSize": 20,
+            "lineHeight": 30,
+            "paddingBottom": 4,
+            "paddingLeft": 4,
+          },
+          false,
+          false,
+          false,
+          false,
+          {
+            "fontFamily": "Baloo2-Regular",
+            "fontWeight": "500",
+            "textAlign": "left",
+          },
+          {
+            "color": "#B01807",
           },
         ]
       }
@@ -579,6 +683,7 @@ exports[`MixedLetterSpacingText should render correctly 1`] = `
             "fontSize": 16,
           },
         ],
+        false,
         {
           "letterSpacing": -1.2,
         },
@@ -595,6 +700,238 @@ exports[`MixedLetterSpacingText should render correctly 1`] = `
             "fontSize": 16,
           },
         ],
+        false,
+        {
+          "letterSpacing": -1.2,
+        },
+      ]
+    }
+  >
+    1
+  </PeachText>
+  <PeachText
+    style={
+      [
+        [
+          {
+            "fontSize": 16,
+          },
+        ],
+        {
+          "letterSpacing": -5.6,
+        },
+      ]
+    }
+  >
+     
+  </PeachText>
+  <PeachText
+    style={
+      [
+        [
+          {
+            "fontSize": 16,
+          },
+        ],
+        false,
+        {
+          "letterSpacing": -1.2,
+        },
+      ]
+    }
+  >
+    0
+  </PeachText>
+  <PeachText
+    style={
+      [
+        [
+          {
+            "fontSize": 16,
+          },
+        ],
+        false,
+        {
+          "letterSpacing": -1.2,
+        },
+      ]
+    }
+  >
+    0
+  </PeachText>
+  <PeachText
+    style={
+      [
+        [
+          {
+            "fontSize": 16,
+          },
+        ],
+        false,
+        {
+          "letterSpacing": -1.2,
+        },
+      ]
+    }
+  >
+    0
+  </PeachText>
+</PeachText>
+`;
+
+exports[`MixedLetterSpacingText should render correctly with isError 1`] = `
+<PeachText
+  style={
+    [
+      [
+        {
+          "fontSize": 16,
+        },
+      ],
+    ]
+  }
+>
+  <PeachText
+    style={
+      [
+        [
+          {
+            "fontSize": 16,
+          },
+        ],
+        {
+          "color": "#FFD1CA",
+        },
+        {
+          "letterSpacing": -1.2,
+        },
+      ]
+    }
+  >
+    0
+  </PeachText>
+  <PeachText
+    style={
+      [
+        [
+          {
+            "fontSize": 16,
+          },
+        ],
+        {
+          "color": "#FFD1CA",
+        },
+        {
+          "letterSpacing": -3.36,
+        },
+      ]
+    }
+  >
+    .
+  </PeachText>
+  <PeachText
+    style={
+      [
+        [
+          {
+            "fontSize": 16,
+          },
+        ],
+        {
+          "color": "#FFD1CA",
+        },
+        {
+          "letterSpacing": -1.2,
+        },
+      ]
+    }
+  >
+    0
+  </PeachText>
+  <PeachText
+    style={
+      [
+        [
+          {
+            "fontSize": 16,
+          },
+        ],
+        {
+          "color": "#FFD1CA",
+        },
+        {
+          "letterSpacing": -1.2,
+        },
+      ]
+    }
+  >
+    0
+  </PeachText>
+  <PeachText
+    style={
+      [
+        [
+          {
+            "fontSize": 16,
+          },
+        ],
+        {
+          "letterSpacing": -5.6,
+        },
+      ]
+    }
+  >
+     
+  </PeachText>
+  <PeachText
+    style={
+      [
+        [
+          {
+            "fontSize": 16,
+          },
+        ],
+        {
+          "color": "#FFD1CA",
+        },
+        {
+          "letterSpacing": -1.2,
+        },
+      ]
+    }
+  >
+    0
+  </PeachText>
+  <PeachText
+    style={
+      [
+        [
+          {
+            "fontSize": 16,
+          },
+        ],
+        {
+          "color": "#B01807",
+        },
+        {
+          "letterSpacing": -1.2,
+        },
+      ]
+    }
+  >
+    2
+  </PeachText>
+  <PeachText
+    style={
+      [
+        [
+          {
+            "fontSize": 16,
+          },
+        ],
+        {
+          "color": "#B01807",
+        },
         {
           "letterSpacing": -1.2,
         },
@@ -628,21 +965,8 @@ exports[`MixedLetterSpacingText should render correctly 1`] = `
           },
         ],
         {
-          "letterSpacing": -1.2,
+          "color": "#B01807",
         },
-      ]
-    }
-  >
-    0
-  </PeachText>
-  <PeachText
-    style={
-      [
-        [
-          {
-            "fontSize": 16,
-          },
-        ],
         {
           "letterSpacing": -1.2,
         },
@@ -659,6 +983,28 @@ exports[`MixedLetterSpacingText should render correctly 1`] = `
             "fontSize": 16,
           },
         ],
+        {
+          "color": "#B01807",
+        },
+        {
+          "letterSpacing": -1.2,
+        },
+      ]
+    }
+  >
+    0
+  </PeachText>
+  <PeachText
+    style={
+      [
+        [
+          {
+            "fontSize": 16,
+          },
+        ],
+        {
+          "color": "#B01807",
+        },
         {
           "letterSpacing": -1.2,
         },

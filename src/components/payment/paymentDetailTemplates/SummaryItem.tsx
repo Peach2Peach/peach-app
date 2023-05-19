@@ -50,7 +50,7 @@ export const SummaryItem = ({
       >
         <View style={tw`flex-row items-center gap-2`}>
           {isBitcoinAmount ? (
-            <BTCAmount amount={information} size={isMediumScreen ? 'small' : 'x small'} />
+            <BTCAmount amount={information} size={isMediumScreen ? 'small' : 'x small'} isError={isDisputeActive} />
           ) : (
             <Text
               style={[
