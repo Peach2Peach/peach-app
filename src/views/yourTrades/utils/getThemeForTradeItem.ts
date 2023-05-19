@@ -4,16 +4,15 @@ import tw from '../../../styles/tailwind'
 import { getDisputeResultTheme } from './getDisputeResultTheme'
 import { getOfferLevel } from './getOfferLevel'
 import { isContractSummary } from './isContractSummary'
-import { isPastOffer } from './isPastOffer'
 
-export const getThemeForTradeItem = (
-  trade: ContractSummary | OfferSummary,
-): { icon: IconType; level: SummaryItemLevel; color: ColorValue | undefined } => {
+export type TradeTheme = {
+  icon: IconType
+  level: SummaryItemLevel
+  color: ColorValue | undefined
+}
+
+export const getThemeForTradeItem = (trade: ContractSummary | OfferSummary): TradeTheme => {
   const level = getOfferLevel(trade)
-
-  if (!isPastOffer) {
-    return { level, icon: 'x' as IconType, color: '' }
-  }
 
   if (isContractSummary(trade)) {
     if (trade.disputeWinner) return getDisputeResultTheme(trade)

@@ -1,0 +1,116 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CustomFeeItem renders correctly 1`] = `
+<View
+  style={
+    {
+      "alignItems": "center",
+      "display": "flex",
+      "flexDirection": "row",
+    }
+  }
+>
+  <PeachText
+    style={
+      {
+        "fontFamily": "Baloo2-SemiBold",
+        "fontSize": 16,
+        "letterSpacing": 0.16,
+        "lineHeight": 24,
+      }
+    }
+  >
+    custom
+    :
+  </PeachText>
+  <View
+    style={
+      {
+        "height": 32,
+        "marginLeft": 8,
+        "marginRight": 8,
+      }
+    }
+  >
+    <NumberInput
+      onChange={[MockFunction]}
+      required={true}
+      style={
+        {
+          "height": 32,
+          "width": 64,
+        }
+      }
+      testID="input-custom-fees"
+      value="4"
+    />
+  </View>
+  <PeachText
+    style={
+      {
+        "color": "#7D675E",
+      }
+    }
+  >
+    sat / vb
+  </PeachText>
+</View>
+`;
+
+exports[`CustomFeeItem renders correctly when disabled 1`] = `
+<View
+  style={
+    {
+      "alignItems": "center",
+      "display": "flex",
+      "flexDirection": "row",
+    }
+  }
+>
+  <PeachText
+    style={
+      {
+        "fontFamily": "Baloo2-SemiBold",
+        "fontSize": 16,
+        "letterSpacing": 0.16,
+        "lineHeight": 24,
+      }
+    }
+  >
+    custom
+    :
+  </PeachText>
+  <View
+    style={
+      {
+        "height": 32,
+        "marginLeft": 8,
+        "marginRight": 8,
+      }
+    }
+  >
+    <NumberInput
+      disabled={true}
+      onChange={[MockFunction]}
+      required={true}
+      style={
+        {
+          "height": 32,
+          "width": 64,
+        }
+      }
+      testID="input-custom-fees"
+      value="4"
+    />
+  </View>
+  <PeachText
+    style={
+      {
+        "color": "#7D675E",
+      }
+    }
+  >
+    sat / vb
+  </PeachText>
+</View>
+`;

@@ -17,12 +17,12 @@ export const useShowPaymentTimerHasRunOut = () => {
   const showLoadingOverlay = useShowLoadingOverlay()
   const closeOverlay = useCallback(() => updateOverlay({ visible: false }), [updateOverlay])
 
-  const showPaymentTimerHasRunOutForSeller = useCallback(
+  const showPaymentTimerHasRunOut = useCallback(
     (contract: Contract, inTrade: boolean) => {
       const closeAction: Action = {
         label: i18n('close'),
         icon: 'xSquare',
-        callback: () => closeOverlay(),
+        callback: closeOverlay,
       }
       const goToContract: Action = {
         label: i18n('checkTrade'),
@@ -35,7 +35,10 @@ export const useShowPaymentTimerHasRunOut = () => {
       const cancelTrade: Action = {
         label: i18n('contract.seller.paymentTimerHasRunOut.cancelTrade'),
         icon: 'xSquare',
-        callback: () => cancelSeller(contract),
+        callback: () => {
+          cancelSeller(contract)
+          closeOverlay()
+        },
       }
       const extraTime: Action = {
         label: i18n('contract.seller.paymentTimerHasRunOut.extraTime'),
@@ -63,11 +66,6 @@ export const useShowPaymentTimerHasRunOut = () => {
       })
     },
     [cancelSeller, closeOverlay, navigation, showError, showLoadingOverlay, updateOverlay],
-  )
-
-  const showPaymentTimerHasRunOut = useCallback(
-    (contract: Contract, inTrade: boolean) => showPaymentTimerHasRunOutForSeller(contract, inTrade),
-    [showPaymentTimerHasRunOutForSeller],
   )
 
   return showPaymentTimerHasRunOut

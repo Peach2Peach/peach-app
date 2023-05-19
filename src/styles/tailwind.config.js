@@ -172,6 +172,7 @@ module.exports = {
         'input-label': 'font-baloo-bold text-base leading-xs tracking-normal',
         overline: 'font-baloo text-xs leading-xs tracking-normal',
         'input-text': 'font-baloo text-lg leading-relaxed tracking-normal',
+        'input-title': 'font-baloo text-base tracking-normal font-bold leading-23px',
         tooltip: 'font-baloo-medium text-xs leading-xs tracking-normal',
         notification: 'font-baloo text-3xs font-semibold tracking-superTightest leading-sm text-center',
       })

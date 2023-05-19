@@ -3,11 +3,12 @@ import { useNavigation } from '../../hooks'
 import tw from '../../styles/tailwind'
 import { getContractChatNotification } from '../../utils/chat'
 import i18n from '../../utils/i18n'
+import { useContractContext } from '../../views/contract/context'
 import { NewChatMessages } from '../../views/yourTrades/components/ChatMessages'
 import { Text } from '../text'
 
-type Props = ComponentProps & { contract: Contract }
-export const ChatButton = ({ contract, style }: Props) => {
+export const ChatButton = ({ style }: ComponentProps) => {
+  const { contract } = useContractContext()
   const navigation = useNavigation()
   const notifications = getContractChatNotification(contract)
   const goToChat = () => navigation.push('contractChat', { contractId: contract.id })

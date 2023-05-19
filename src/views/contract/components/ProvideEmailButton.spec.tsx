@@ -6,6 +6,13 @@ import DisputeRaisedNotice from '../../../overlays/dispute/components/DisputeRai
 import { usePopupStore } from '../../../store/usePopupStore'
 import { ProvideEmailButton } from './ProvideEmailButton'
 
+jest.mock('../context', () => ({
+  useContractContext: () => ({
+    contract,
+    view: 'buyer',
+  }),
+}))
+
 describe('ProvideEmailButton', () => {
   const TestWrapper = ({ children }: { children: JSX.Element }) => (
     <QueryClientWrapper>
@@ -14,11 +21,11 @@ describe('ProvideEmailButton', () => {
   )
 
   it('should render correctly', () => {
-    const { toJSON } = render(<ProvideEmailButton {...{ contract, view: 'buyer' }} />, { wrapper: TestWrapper })
+    const { toJSON } = render(<ProvideEmailButton />, { wrapper: TestWrapper })
     expect(toJSON()).toMatchSnapshot()
   })
   it('should show the dispute raised notice when pressed', () => {
-    const { getByText } = render(<ProvideEmailButton {...{ contract, view: 'buyer' }} />, { wrapper: TestWrapper })
+    const { getByText } = render(<ProvideEmailButton />, { wrapper: TestWrapper })
     fireEvent.press(getByText('provide email'))
     expect(usePopupStore.getState()).toStrictEqual(
       expect.objectContaining({

@@ -1,4 +1,3 @@
-import { Icon } from '../../components'
 import { HeaderConfig } from '../../components/header/store'
 import { useDrawerContext } from '../../contexts/drawer'
 import { LanguageSelect } from '../../drawers/LanguageSelect'
@@ -15,12 +14,10 @@ export const useOnboardingHeader = (config: HeaderConfig) => {
 
   const closeDrawer = () => updateDrawer({ show: false })
   const headerIcons = [
+    { id: 'mail', color: tw`text-primary-background-light`.color, onPress: () => navigation.navigate('contact') },
     {
-      iconComponent: <Icon id="mail" color={tw`text-primary-background-light`.color} />,
-      onPress: () => navigation.navigate('contact'),
-    },
-    {
-      iconComponent: <Icon id="globe" color={tw`text-primary-background-light`.color} />,
+      id: 'globe',
+      color: tw`text-primary-background-light`.color,
       onPress: () => {
         updateDrawer({
           title: i18n('language.select'),

@@ -6,11 +6,8 @@ import { defaultAccount, setAccount } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
 import { getBuyOfferDraft } from '../helpers/getBuyOfferDraft'
 import { useOfferDetailsSetup } from './useOfferDetailsSetup'
-
-const useHeaderSetupMock = jest.fn()
-jest.mock('../../../hooks/useHeaderSetup', () => ({
-  useHeaderSetup: (...args: any) => useHeaderSetupMock(...args),
-}))
+import { useHeaderState } from '../../../components/header/store'
+import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
 
 const showHelpMock = jest.fn()
 const useShowHelpMock = jest.fn((..._args) => showHelpMock)
@@ -52,7 +49,7 @@ describe('useOfferDetailsSetup', () => {
 
   it('should return default values', async () => {
     await setAccount(defaultAccount)
-    const { result } = renderHook(useOfferDetailsSetup, { initialProps })
+    const { result } = renderHook(useOfferDetailsSetup, { wrapper: NavigationWrapper, initialProps })
 
     expect(result.current.paymentData).toEqual([])
     expect(result.current.isEditing).toEqual(false)
@@ -62,50 +59,43 @@ describe('useOfferDetailsSetup', () => {
   })
   it('should return default values with existing payment data', async () => {
     await setAccount(fakeAccount)
-    const { result } = renderHook(useOfferDetailsSetup, { initialProps })
+    const { result } = renderHook(useOfferDetailsSetup, { wrapper: NavigationWrapper, initialProps })
 
     expect(result.current.paymentData).toEqual(fakeAccount.paymentData)
   })
 
   it('should add the correct header', async () => {
     await setAccount(defaultAccount)
-    renderHook(useOfferDetailsSetup, { initialProps })
+    renderHook(useOfferDetailsSetup, { wrapper: NavigationWrapper, initialProps })
 
-    expect(useHeaderSetupMock).toHaveBeenCalled()
-    const args = useHeaderSetupMock.mock.calls[0][0]
-    expect(args.title).toBe(i18n('paymentMethods.title'))
-    expect(args.icons[0].iconComponent).toMatchInlineSnapshot('<HelpIcon />')
-    expect(args.icons[0].onPress).toEqual(showHelpMock)
+    expect(useHeaderState.getState().title).toBe(i18n('paymentMethods.title'))
+    expect(useHeaderState.getState().icons?.[0].id).toBe('helpCircle')
+    expect(useHeaderState.getState().icons?.[0].onPress).toEqual(showHelpMock)
   })
   it('should add correct header for account with payment data', async () => {
     await setAccount(fakeAccount)
-    const { result } = renderHook(useOfferDetailsSetup, { initialProps })
+    const { result } = renderHook(useOfferDetailsSetup, { wrapper: NavigationWrapper, initialProps })
 
-    expect(useHeaderSetupMock).toHaveBeenCalled()
-    const args = useHeaderSetupMock.mock.calls[0][0]
-    expect(args.title).toBe(i18n('paymentMethods.title'))
-    expect(args.icons[0].iconComponent).toMatchInlineSnapshot('<EditIcon />')
-    expect(args.icons[0].onPress).toEqual(result.current.toggleIsEditing)
+    expect(useHeaderState.getState().title).toBe(i18n('paymentMethods.title'))
+    expect(useHeaderState.getState().icons?.[0].id).toBe('edit3')
+    expect(useHeaderState.getState().icons?.[0].onPress).toEqual(result.current.toggleIsEditing)
   })
   it('should add the correct while editing header', async () => {
     await setAccount(fakeAccount)
-    const { result } = renderHook(useOfferDetailsSetup, { initialProps })
-    useHeaderSetupMock.mockClear()
+    const { result } = renderHook(useOfferDetailsSetup, { wrapper: NavigationWrapper, initialProps })
 
     act(() => {
       result.current.toggleIsEditing()
     })
     expect(result.current.isEditing).toBeTruthy()
-    expect(useHeaderSetupMock).toHaveBeenCalled()
-    const args = useHeaderSetupMock.mock.calls[0][0]
-    expect(args.title).toBe(i18n('paymentMethods.edit.title'))
-    expect(args.icons[0].onPress).toEqual(result.current.toggleIsEditing)
-    expect(args.icons[1].iconComponent).toMatchInlineSnapshot('<HelpIcon />')
-    expect(args.icons[1].onPress).toEqual(showHelpMock)
+    expect(useHeaderState.getState().title).toBe(i18n('paymentMethods.edit.title'))
+    expect(useHeaderState.getState().icons?.[0].onPress).toEqual(result.current.toggleIsEditing)
+    expect(useHeaderState.getState().icons?.[1].id).toBe('helpCircle')
+    expect(useHeaderState.getState().icons?.[1].onPress).toEqual(showHelpMock)
   })
   it('should update offer draft on init', async () => {
     await setAccount(defaultAccount)
-    renderHook(useOfferDetailsSetup, { initialProps })
+    renderHook(useOfferDetailsSetup, { wrapper: NavigationWrapper, initialProps })
 
     expect(setOfferDraftMock).toHaveBeenCalled()
   })

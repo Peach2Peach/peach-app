@@ -42,7 +42,7 @@ type PaymentDataKeyFactsProps = ComponentProps & {
   paymentData: PaymentData
 }
 const PaymentDataKeyFacts = ({ paymentData, style }: PaymentDataKeyFactsProps) => (
-  <View style={[tw`flex-row justify-center`, style]}>
+  <View style={[tw`flex-row justify-center flex-wrap`, style]}>
     {(paymentData.currencies || []).map((currency) => (
       <View
         key={`paymentData-${paymentData.id}-currency-${currency}`}

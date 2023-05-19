@@ -1,5 +1,5 @@
 /* eslint-disable max-lines-per-function */
-import { renderHook } from '@testing-library/react-native'
+import { act, renderHook } from '@testing-library/react-native'
 import { useSettingsSetup } from './useSettingsSetup'
 import { settingsStore } from '../../../store/settingsStore'
 
@@ -14,7 +14,9 @@ jest.mock('../../../hooks/useNavigation', () => ({
 
 describe('useSettingsSetup', () => {
   afterEach(() => {
-    settingsStore.getState().reset()
+    act(() => {
+      settingsStore.getState().reset()
+    })
   })
   it('returns default settings items', () => {
     const { result } = renderHook(useSettingsSetup)
