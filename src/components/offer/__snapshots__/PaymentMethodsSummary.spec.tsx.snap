@@ -5,47 +5,17 @@ exports[`PaymentMethodsSummary renders correctly 1`] = `
   <TradeSeparator
     text="payment methods"
   />
-  <CurrencySelection
-    currencies={
-      [
-        "EUR",
-        "CHF",
-      ]
-    }
-    select={[Function]}
-    selected="EUR"
-    style={
-      [
-        {
-          "marginTop": 8,
-        },
-        {
-          "marginTop": 16,
-        },
-      ]
+  <MeansOfPaymentSelect
+    meansOfPayment={
+      {
+        "CHF": [
+          "sepa",
+        ],
+        "EUR": [
+          "sepa",
+        ],
+      }
     }
   />
-  <View
-    style={
-      {
-        "alignItems": "center",
-        "flexDirection": "row",
-        "flexWrap": "wrap",
-        "marginTop": 12,
-      }
-    }
-  >
-    <PaymentMethod
-      paymentMethod="sepa"
-      style={
-        {
-          "marginBottom": 4,
-          "marginLeft": 4,
-          "marginRight": 4,
-          "marginTop": 4,
-        }
-      }
-    />
-  </View>
 </View>
 `;
