@@ -7,13 +7,13 @@ jest.mock('../../../../utils/offer/getOffer', () => ({
   getOffer: () => getOfferMock(),
 }))
 
-const confirmEscrowOverlayMock = jest.fn()
-jest.mock('../../../../overlays/useConfirmEscrowOverlay', () => ({
-  useConfirmEscrowOverlay: () => confirmEscrowOverlayMock,
+const showFundingAmountDifferentPopupMock = jest.fn()
+jest.mock('../../../../overlays/useShowFundingAmountDifferentPopup', () => ({
+  useShowFundingAmountDifferentPopup: () => showFundingAmountDifferentPopupMock,
 }))
-const wronglyFundedOverlayMock = jest.fn()
-jest.mock('../../../../overlays/useWronglyFundedOverlay', () => ({
-  useWronglyFundedOverlay: () => wronglyFundedOverlayMock,
+const showWronglyFundedPopupMock = jest.fn()
+jest.mock('../../../../overlays/useShowWronglyFundedPopup', () => ({
+  useShowWronglyFundedPopup: () => showWronglyFundedPopupMock,
 }))
 const offerOutsideRangeOverlayMock = jest.fn()
 jest.mock('../../../../overlays/useOfferOutsideRangeOverlay', () => ({
@@ -38,7 +38,7 @@ describe('useOfferPopupEvents', () => {
     act(() => {
       result.current['offer.fundingAmountDifferent']!(eventData)
     })
-    expect(confirmEscrowOverlayMock).toHaveBeenCalledWith(sellOffer)
+    expect(showFundingAmountDifferentPopupMock).toHaveBeenCalledWith(sellOffer)
   })
 
   it('should show wrongly funded overlay on offer.wrongFundingAmount', () => {
@@ -50,7 +50,7 @@ describe('useOfferPopupEvents', () => {
     act(() => {
       result.current['offer.wrongFundingAmount']!(eventData)
     })
-    expect(wronglyFundedOverlayMock).toHaveBeenCalledWith(sellOffer)
+    expect(showWronglyFundedPopupMock).toHaveBeenCalledWith(sellOffer)
   })
   it('should show offer outside range overlay on offer.outsideRange', () => {
     const { result } = renderHook(() => useOfferPopupEvents())
@@ -80,8 +80,8 @@ describe('useOfferPopupEvents', () => {
       result.current['offer.wrongFundingAmount']!(eventData)
       result.current['offer.outsideRange']!(eventData)
     })
-    expect(confirmEscrowOverlayMock).not.toHaveBeenCalled()
-    expect(wronglyFundedOverlayMock).not.toHaveBeenCalled()
+    expect(showFundingAmountDifferentPopupMock).not.toHaveBeenCalled()
+    expect(showWronglyFundedPopupMock).not.toHaveBeenCalled()
     expect(offerOutsideRangeOverlayMock).not.toHaveBeenCalled()
   })
 })
