@@ -18,18 +18,9 @@ exports[`Search renders correctly for matches 1`] = `
       }
     }
   >
-    <React.Fragment>
-      <View
-        style={
-          {
-            "flexGrow": 1,
-            "paddingLeft": 24,
-            "paddingRight": 24,
-          }
-        }
-      />
-      <Matches />
-    </React.Fragment>
+    <WithMatches
+      offer={{}}
+    />
   </PeachScrollView>
   <DailyTradingLimit />
 </React.Fragment>

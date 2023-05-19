@@ -1,0 +1,106 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MatchInformation renders correctly 1`] = `
+<View>
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "justifyContent": "center",
+      }
+    }
+  >
+    <BTCAmount
+      amount={250000}
+      size="medium"
+      style={
+        {
+          "marginTop": -4,
+        }
+      }
+    />
+    <PeachText
+      style={
+        [
+          {
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 20,
+            "letterSpacing": 0.2,
+            "lineHeight": 40,
+          },
+          {
+            "color": "#05A85A",
+          },
+        ]
+      }
+    >
+       
+      (
+      +
+      1.5
+      %)
+    </PeachText>
+  </View>
+</View>
+`;
+
+exports[`MatchInformation renders correctly on medium screens 1`] = `
+<View>
+  <PeachText
+    style={
+      {
+        "color": "#7D675E",
+        "fontFamily": "Baloo2-Regular",
+        "fontSize": 20,
+        "letterSpacing": 0.2,
+        "lineHeight": 28,
+        "textAlign": "center",
+      }
+    }
+  >
+    for selling
+    :
+  </PeachText>
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "justifyContent": "center",
+      }
+    }
+  >
+    <BTCAmount
+      amount={250000}
+      size="extra large"
+      style={
+        {
+          "marginTop": -4,
+        }
+      }
+    />
+    <PeachText
+      style={
+        [
+          {
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 20,
+            "letterSpacing": 0.2,
+            "lineHeight": 40,
+          },
+          {
+            "color": "#05A85A",
+          },
+        ]
+      }
+    >
+       
+      (
+      +
+      1.5
+      %)
+    </PeachText>
+  </View>
+</View>
+`;

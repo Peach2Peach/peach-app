@@ -297,6 +297,8 @@
   "search.matchesAreWaiting": "matches are waiting for you",
   "search.youGotAMatch": "you've got a match!",
   "search.youGotMatches": "you've got matches!",
+  "search.selectYourMatches": "select your matches",
+  "search.selectYourMatches.highlight": "matches",
   "search.weWillNotifyYou": "we'll notify you when there is a match!",
   "search.buyOffer": "for buying",
   "search.sellOffer": "for selling",

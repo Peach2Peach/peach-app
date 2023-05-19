@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SellOfferTitle renders correctly 1`] = `
+<PeachText
+  style={
+    [
+      {
+        "color": "#F56522",
+        "fontFamily": "Baloo2-Bold",
+        "fontSize": 20,
+        "letterSpacing": 0.2,
+        "lineHeight": 32,
+        "textAlign": "center",
+      },
+      {
+        "fontFamily": "Baloo2-Bold",
+        "fontSize": 34,
+        "letterSpacing": 0.34,
+        "lineHeight": 42,
+      },
+    ]
+  }
+>
+  you've got a match!
+</PeachText>
+`;
+
+exports[`SellOfferTitle renders correctly for multiple matches 1`] = `
+<PeachText
+  style={
+    [
+      {
+        "color": "#F56522",
+        "fontFamily": "Baloo2-Bold",
+        "fontSize": 20,
+        "letterSpacing": 0.2,
+        "lineHeight": 32,
+        "textAlign": "center",
+      },
+      {
+        "fontFamily": "Baloo2-Bold",
+        "fontSize": 34,
+        "letterSpacing": 0.34,
+        "lineHeight": 42,
+      },
+    ]
+  }
+>
+  you've got matches!
+</PeachText>
+`;
