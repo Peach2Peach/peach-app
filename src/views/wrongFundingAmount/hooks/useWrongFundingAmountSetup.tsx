@@ -14,7 +14,7 @@ export const useWrongFundingAmountSetup = () => {
 
   const { offer } = useOfferDetails(route.params.offerId)
   const sellOffer = offer && isSellOffer(offer) ? offer : undefined
-  const fundingAmount = sellOffer ? sellOffer.amount : 0
+  const fundingAmount = sellOffer?.amount || 0
   const confirmEscrow = useConfirmEscrow()
   const confirmEscrowWithSellOffer = async () => {
     if (!sellOffer) {
