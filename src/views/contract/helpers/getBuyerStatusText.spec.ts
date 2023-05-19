@@ -12,6 +12,11 @@ describe('getBuyerStatusText', () => {
     paymentMade: new Date(),
     paymentMethod: 'sepa',
   } as unknown as Contract
+  it('should return correct text if seller requested cancelation', () => {
+    expect(getBuyerStatusText({ ...mockContract, cancelationRequested: true })).toBe(
+      'You\'ll need to agree to or reject the cancelation.',
+    )
+  })
   it('should return correct text if the buyer canceled the trade, it\'s not a cash trade and not collab cancel', () => {
     expect(
       getBuyerStatusText({ ...mockContract, canceled: true, canceledBy: 'buyer', cancelationRequested: false }),
@@ -26,11 +31,6 @@ describe('getBuyerStatusText', () => {
     expect(
       getBuyerStatusText({ ...mockContract, canceled: true, canceledBy: 'buyer', cancelationRequested: true }),
     ).toBe(i18n('contract.buyer.collaborativeTradeCancel.resolved'))
-  })
-  it('should return correct text if seller requested cancelation', () => {
-    expect(getBuyerStatusText({ ...mockContract, canceled: false, cancelationRequested: true })).toBe(
-      i18n('contract.buyer.collaborativeTradeCancel.notResolved'),
-    )
   })
   it('should return correct text if seller canceled cash trade', () => {
     expect(getBuyerStatusText({ ...mockContract, canceled: true, canceledBy: 'seller', paymentMethod: 'cash' })).toBe(

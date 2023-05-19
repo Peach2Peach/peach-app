@@ -20,9 +20,9 @@ export const getBuyerStatusText = (contract: Contract) => {
   } else if (collaborativeTradeCancel) {
     const isResolved = contract.canceled
     if (isResolved) {
-      return i18n('contract.buyer.collaborativeTradeCancel.resolved')
+      return i18n('contract.buyer.collaborativeCancel.resolved')
     }
-    return i18n('contract.buyer.collaborativeTradeCancel.notResolved')
+    return i18n('contract.buyer.collaborativeCancel.notResolved')
   } else if (paymentWasTooLate) {
     return i18n('contract.buyer.paymentWasTooLate')
   }
