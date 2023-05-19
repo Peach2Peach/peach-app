@@ -6,6 +6,15 @@ import { CopyAble, ErrorBox } from '../../../components/ui'
 import { tradeInformationGetters, isTradeInformationGetter, getTradeInfoFields } from '../helpers'
 import { isPaymentTooLate } from '../../../utils/contract/status/isPaymentTooLate'
 import { useContractContext } from '../context'
+import { Icon } from '../../../components'
+import { isCashTrade } from '../../../utils/paymentMethod/isCashTrade'
+
+const getTradeDetailsIcon = (shouldShowCopyable: boolean, shouldShowCashIcon: boolean, information: string) =>
+  shouldShowCopyable ? (
+    <CopyAble value={information} style={[tw`w-4 h-4`, tw.md`w-5 h-5`]} />
+  ) : shouldShowCashIcon ? (
+    <Icon style={tw`w-4 h-4`} id="arrowDown" color={tw`text-primary-main`.color} />
+  ) : undefined
 
 export const TradeDetails = () => {
   const { contract, view } = useContractContext()
@@ -31,11 +40,11 @@ export const TradeDetails = () => {
             {...props}
             shouldBlur={shouldBlur}
             isDisputeActive={contract.disputeActive}
-            icon={
-              view === 'buyer' && !contract.releaseTxId ? (
-                <CopyAble value={String(information)} style={[tw`w-4 h-4`, tw.md`w-5 h-5`]} />
-              ) : undefined
-            }
+            icon={getTradeDetailsIcon(
+              view === 'buyer' && !contract.releaseTxId && !isCashTrade(contract.paymentMethod),
+              isCashTrade(contract.paymentMethod) && fieldName === 'location',
+              String(information),
+            )}
             key={`${fieldName}-${index}`}
           />
         )

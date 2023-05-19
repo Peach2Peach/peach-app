@@ -4,6 +4,7 @@ import alertOctagon from './alertOctagon.svg'
 import alertTriangle from './alertTriangle.svg'
 import alignJustify from './alignJustify.svg'
 import alignLeft from './alignLeft.svg'
+import arrowDown from './arrowDown.svg'
 import arrowLeftCircle from './arrowLeftCircle.svg'
 import arrowRightCircle from './arrowRightCircle.svg'
 import award from './award.svg'
@@ -122,6 +123,7 @@ const Icons = {
   alertTriangle,
   alignJustify,
   alignLeft,
+  arrowDown,
   arrowLeftCircle,
   arrowRightCircle,
   award,
