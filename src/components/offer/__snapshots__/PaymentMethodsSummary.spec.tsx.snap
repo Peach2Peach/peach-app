@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PaymentMethodsSummary renders correctly 1`] = `
+<View>
+  <TradeSeparator
+    text="payment methods"
+  />
+  <MeansOfPaymentSelect
+    meansOfPayment={
+      {
+        "CHF": [
+          "sepa",
+        ],
+        "EUR": [
+          "sepa",
+        ],
+      }
+    }
+  />
+</View>
+`;

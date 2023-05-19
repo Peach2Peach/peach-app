@@ -2,35 +2,12 @@
 
 exports[`PriceInfo should render correctly 1`] = `
 <React.Fragment>
-  <SatsFormat
-    bitcoinLogoStyle={
-      {
-        "height": 18,
-        "marginRight": 8,
-        "width": 18,
-      }
-    }
-    containerStyle={
-      {
-        "alignSelf": "center",
-        "justifyContent": "center",
-      }
-    }
-    sats={210000}
-    satsStyle={
-      {
-        "fontFamily": "Baloo2-SemiBold",
-        "fontSize": 16,
-        "letterSpacing": 0.16,
-        "lineHeight": 28,
-      }
-    }
+  <BTCAmount
+    amount={210000}
+    size="large"
     style={
       {
-        "fontFamily": "Baloo2-Bold",
-        "fontSize": 24,
-        "letterSpacing": 0.24,
-        "lineHeight": 42,
+        "alignSelf": "center",
       }
     }
   />

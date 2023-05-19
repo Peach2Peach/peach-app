@@ -67,29 +67,20 @@ exports[`BTCAmount should render correctly for extra large size 1`] = `
       style={
         [
           {
-            "color": "#2B1911",
-            "fontFamily": "Baloo2-Regular",
-            "fontSize": 16,
-            "letterSpacing": 0.16,
-            "lineHeight": 24,
+            "fontSize": 20,
+            "lineHeight": 30,
+            "paddingBottom": 4,
+            "paddingLeft": 4,
           },
-          [
-            {
-              "fontSize": 20,
-              "lineHeight": 30,
-              "paddingBottom": 4,
-              "paddingLeft": 4,
-            },
-            false,
-            false,
-            false,
-            false,
-            {
-              "fontFamily": "Baloo2-Regular",
-              "fontWeight": "500",
-              "textAlign": "left",
-            },
-          ],
+          false,
+          false,
+          false,
+          false,
+          {
+            "fontFamily": "Baloo2-Regular",
+            "fontWeight": "500",
+            "textAlign": "left",
+          },
         ]
       }
     >
@@ -164,30 +155,21 @@ exports[`BTCAmount should render correctly for extra small size 1`] = `
     <PeachText
       style={
         [
+          false,
+          false,
+          false,
+          false,
           {
-            "color": "#2B1911",
-            "fontFamily": "Baloo2-Regular",
-            "fontSize": 16,
-            "letterSpacing": 0.16,
-            "lineHeight": 24,
+            "fontSize": 10,
+            "lineHeight": 15,
+            "paddingBottom": 2,
+            "paddingLeft": 2,
           },
-          [
-            false,
-            false,
-            false,
-            false,
-            {
-              "fontSize": 10,
-              "lineHeight": 15,
-              "paddingBottom": 2,
-              "paddingLeft": 2,
-            },
-            {
-              "fontFamily": "Baloo2-Regular",
-              "fontWeight": "500",
-              "textAlign": "left",
-            },
-          ],
+          {
+            "fontFamily": "Baloo2-Regular",
+            "fontWeight": "500",
+            "textAlign": "left",
+          },
         ]
       }
     >
@@ -263,30 +245,21 @@ exports[`BTCAmount should render correctly for large size 1`] = `
     <PeachText
       style={
         [
+          false,
           {
-            "color": "#2B1911",
-            "fontFamily": "Baloo2-Regular",
-            "fontSize": 16,
-            "letterSpacing": 0.16,
-            "lineHeight": 24,
+            "fontSize": 18,
+            "lineHeight": 27,
+            "paddingBottom": 3,
+            "paddingLeft": 4,
           },
-          [
-            false,
-            {
-              "fontSize": 18,
-              "lineHeight": 27,
-              "paddingBottom": 3,
-              "paddingLeft": 4,
-            },
-            false,
-            false,
-            false,
-            {
-              "fontFamily": "Baloo2-Regular",
-              "fontWeight": "500",
-              "textAlign": "left",
-            },
-          ],
+          false,
+          false,
+          false,
+          {
+            "fontFamily": "Baloo2-Regular",
+            "fontWeight": "500",
+            "textAlign": "left",
+          },
         ]
       }
     >
@@ -362,30 +335,21 @@ exports[`BTCAmount should render correctly for medium size 1`] = `
     <PeachText
       style={
         [
+          false,
+          false,
           {
-            "color": "#2B1911",
-            "fontFamily": "Baloo2-Regular",
             "fontSize": 16,
-            "letterSpacing": 0.16,
             "lineHeight": 24,
+            "paddingBottom": 2,
+            "paddingLeft": 3,
           },
-          [
-            false,
-            false,
-            {
-              "fontSize": 16,
-              "lineHeight": 24,
-              "paddingBottom": 2,
-              "paddingLeft": 3,
-            },
-            false,
-            false,
-            {
-              "fontFamily": "Baloo2-Regular",
-              "fontWeight": "500",
-              "textAlign": "left",
-            },
-          ],
+          false,
+          false,
+          {
+            "fontFamily": "Baloo2-Regular",
+            "fontWeight": "500",
+            "textAlign": "left",
+          },
         ]
       }
     >
@@ -460,30 +424,21 @@ exports[`BTCAmount should render correctly for small size 1`] = `
     <PeachText
       style={
         [
+          false,
+          false,
+          false,
           {
-            "color": "#2B1911",
-            "fontFamily": "Baloo2-Regular",
-            "fontSize": 16,
-            "letterSpacing": 0.16,
-            "lineHeight": 24,
+            "fontSize": 12,
+            "lineHeight": 18,
+            "paddingBottom": 2,
+            "paddingLeft": 2,
           },
-          [
-            false,
-            false,
-            false,
-            {
-              "fontSize": 12,
-              "lineHeight": 18,
-              "paddingBottom": 2,
-              "paddingLeft": 2,
-            },
-            false,
-            {
-              "fontFamily": "Baloo2-Regular",
-              "fontWeight": "500",
-              "textAlign": "left",
-            },
-          ],
+          false,
+          {
+            "fontFamily": "Baloo2-Regular",
+            "fontWeight": "500",
+            "textAlign": "left",
+          },
         ]
       }
     >

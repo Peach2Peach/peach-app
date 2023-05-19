@@ -7,7 +7,7 @@ import { HorizontalLine } from '../ui'
 
 type Props = ComponentProps & {
   disputeActive?: boolean
-  iconId?: IconType | undefined
+  iconId?: IconType
   iconColor?: ColorValue | undefined
   text: string
 }

@@ -5,7 +5,7 @@ import Icon from '../Icon'
 import { Text } from '../text'
 
 type Props = {
-  paymentMethod: PaymentMethod
+  paymentMethod?: PaymentMethod
   isSelected?: boolean
   isVerified?: boolean
 }

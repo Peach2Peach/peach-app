@@ -1,7 +1,7 @@
 import { useIsMediumScreen } from '../../../hooks/useIsMediumScreen'
 import tw from '../../../styles/tailwind'
 import { BTCAmount } from '../../bitcoin'
-import { SatsFormat, Text } from '../../text'
+import { Text } from '../../text'
 import { Price } from '../Price'
 import { PremiumText } from './PremiumText'
 

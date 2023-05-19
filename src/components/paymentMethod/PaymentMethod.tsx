@@ -3,7 +3,7 @@ import tw from '../../styles/tailwind'
 import { PaymentMethodText } from './PaymentMethodText'
 
 type Props = {
-  paymentMethod: PaymentMethod
+  paymentMethod?: PaymentMethod
   isSelected?: boolean
   isVerified?: boolean
 } & ComponentProps
