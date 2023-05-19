@@ -2,11 +2,9 @@ import { View } from 'react-native'
 import { shallow } from 'zustand/shallow'
 import tw from '../../../../styles/tailwind'
 import i18n from '../../../../utils/i18n'
-import { NewTabbedNavigation } from '../../../navigation/NewTabbedNavigation'
+import { Divider } from '../../../Divider'
+import { MeansOfPaymentSelect } from '../../../trade'
 import { MatchStore, useMatchStore } from '../../store'
-import { CustomSelector } from './CustomSelector'
-import { PaymentMethodSelectorText } from './PaymentMethodSelectorText'
-import { PulsingText } from './PulsingText'
 
 const storeSelector = (matchId: Match['offerId']) => (state: MatchStore) => ({
   selectedPaymentMethod: state.matchSelectors[matchId]?.selectedPaymentMethod,
@@ -15,42 +13,35 @@ const storeSelector = (matchId: Match['offerId']) => (state: MatchStore) => ({
   setSelectedCurrency: state.setSelectedCurrency,
   availablePaymentMethods: state.matchSelectors[matchId]?.availablePaymentMethods || [],
   availableCurrencies: state.matchSelectors[matchId]?.availableCurrencies || [],
-  showPaymentMethodPulse: state.matchSelectors[matchId]?.showPaymentMethodPulse || false,
+  mopsInCommon: state.matchSelectors[matchId]?.mopsInCommon || {},
+  showMissingPaymentMethodWarning: state.matchSelectors[matchId]?.showMissingPaymentMethodWarning || false,
 })
 
 export const PaymentMethodSelector = ({ matchId, disabled }: { matchId: Match['offerId']; disabled?: boolean }) => {
   const {
     selectedPaymentMethod,
-    selectedCurrency,
     setSelectedPaymentMethod,
     setSelectedCurrency,
-    availablePaymentMethods,
-    availableCurrencies,
-    showPaymentMethodPulse,
+    mopsInCommon,
+    showMissingPaymentMethodWarning,
   } = useMatchStore(storeSelector(matchId), shallow)
 
-  const onChange = (paymentMethod: PaymentMethod) => {
+  const setCurrency = (currency: Currency) => setSelectedCurrency(currency, matchId)
+  const setPaymentMethod = (paymentMethod: PaymentMethod) => {
     setSelectedPaymentMethod(paymentMethod, matchId)
   }
 
-  const isVerified = false
-  const items = availablePaymentMethods.map((p) => ({
-    value: p,
-    display: <PaymentMethodSelectorText isSelected={p === selectedPaymentMethod} isVerified={isVerified} name={p} />,
-  }))
-
   return (
-    <View style={disabled && tw`opacity-33`} pointerEvents={disabled ? 'none' : 'auto'}>
-      <PulsingText style={tw`self-center mb-1`} showPulse={showPaymentMethodPulse}>
-        {i18n('form.paymentMethod')}
-      </PulsingText>
-      <NewTabbedNavigation
-        items={availableCurrencies.map((currency) => ({ id: currency, display: currency }))}
-        selected={{ id: selectedCurrency, display: selectedCurrency }}
-        select={(c) => setSelectedCurrency(c.id, matchId)}
-        style={tw`mb-3`}
+    <View style={[tw`gap-1`, tw.md`gap-3`, disabled && tw`opacity-33`]} pointerEvents={disabled ? 'none' : 'auto'}>
+      <Divider text={i18n('paymentMethod')} type={showMissingPaymentMethodWarning ? 'error' : undefined} />
+      <MeansOfPaymentSelect
+        meansOfPayment={mopsInCommon}
+        {...{
+          setCurrency,
+          setPaymentMethod,
+          selectedPaymentMethod,
+        }}
       />
-      <CustomSelector style={tw`mb-2`} {...{ selectedValue: selectedPaymentMethod, items, onChange }} />
     </View>
   )
 }

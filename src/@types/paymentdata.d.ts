@@ -1,5 +1,17 @@
 declare type PaymentData = {
   [key: string]: any
+  name?: string
+  beneficiary?: string
+  phone?: string
+  userName?: string
+  email?: string
+  accountNumber?: string
+  iban?: string
+  bic?: string
+  reference?: string
+  wallet?: string
+  ukBankAccount?: string
+  ukSortCode?: string
   id: string
   version?: string
   label: string

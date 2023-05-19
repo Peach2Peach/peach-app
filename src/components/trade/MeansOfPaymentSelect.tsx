@@ -1,25 +1,56 @@
 import { useState } from 'react'
-import { getCurrencies } from '../../utils/paymentMethod'
-import { CurrencySelection } from '../navigation/CurrencySelection'
-import tw from '../../styles/tailwind'
 import { View } from 'react-native'
-import { PaymentMethod } from '../matches/PaymentMethod'
+import tw from '../../styles/tailwind'
+import { getCurrencies } from '../../utils/paymentMethod'
+import { CustomSelector } from '../inputs/selector'
+import { CurrencySelection } from '../navigation/CurrencySelection'
+import { PaymentMethodText } from '../paymentMethod/PaymentMethodText'
 
 type Props = {
   meansOfPayment: MeansOfPayment
+  selectedPaymentMethod?: PaymentMethod
+  setCurrency?: (currency: Currency) => void
+  setPaymentMethod?: (paymentMethod: PaymentMethod) => void
+  disabled?: boolean
 }
-export const MeansOfPaymentSelect = ({ meansOfPayment }: Props) => {
+export const MeansOfPaymentSelect = ({
+  meansOfPayment,
+  selectedPaymentMethod,
+  setCurrency,
+  setPaymentMethod = () => {},
+  disabled,
+}: Props) => {
   const currencies = getCurrencies(meansOfPayment)
   const [selectedCurrency, setSelectedCurrency] = useState(currencies[0])
 
+  const updateCurrency = (currency: Currency) => {
+    setSelectedCurrency(currency)
+    if (setCurrency) setCurrency(currency)
+  }
+  const paymentMethods = meansOfPayment[selectedCurrency] || []
+  const items = paymentMethods.map((p) => ({
+    value: p,
+    display: (
+      <PaymentMethodText
+        paymentMethod={p}
+        isSelected={p === selectedPaymentMethod}
+        isVerified={false}
+        textStyle={disabled ? tw`text-black-3` : undefined}
+      />
+    ),
+  }))
+
   return (
     <View style={tw`gap-3`}>
-      <CurrencySelection currencies={currencies} selected={selectedCurrency} select={setSelectedCurrency} />
-      <View style={tw`flex-row flex-wrap items-center gap-1`}>
-        {meansOfPayment[selectedCurrency]?.map((p) => (
-          <PaymentMethod key={`meansOfPaymentSelect-${p}`} paymentMethod={p} />
-        ))}
-      </View>
+      <CurrencySelection currencies={currencies} selected={selectedCurrency} select={updateCurrency} />
+      <CustomSelector
+        {...{
+          selectedValue: selectedPaymentMethod,
+          items,
+          onChange: setPaymentMethod,
+          disabled,
+        }}
+      />
     </View>
   )
 }

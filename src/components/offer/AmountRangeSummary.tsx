@@ -1,15 +1,15 @@
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
+import { Divider } from '../Divider'
 import { SatsFormat, Text } from '../text'
-import { TradeSeparator } from './TradeSeparator'
 
 type Props = {
   amount: number[]
 }
 export const AmountRangeSummary = ({ amount }: Props) => (
   <View style={tw`gap-2px`}>
-    <TradeSeparator text={i18n('amount')} />
+    <Divider text={i18n('amount')} />
     <View>
       <SatsFormat
         sats={amount[0]}

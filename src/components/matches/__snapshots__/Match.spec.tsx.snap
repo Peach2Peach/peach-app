@@ -1,0 +1,614 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Match should render correctly for buy offer 1`] = `
+<View
+  onStartShouldSetResponder={[Function]}
+  style={
+    {
+      "flexShrink": 1,
+    }
+  }
+>
+  <GradientBorder
+    containerStyle={
+      [
+        {
+          "borderTopLeftRadius": 16,
+          "borderTopRightRadius": 16,
+          "flexShrink": 1,
+          "overflow": "hidden",
+        },
+        [
+          {
+            "borderBottomWidth": 0,
+            "borderWidth": 1,
+          },
+          {
+            "borderColor": "#FCCCB6",
+          },
+        ],
+      ]
+    }
+    defaultBorderWidths={
+      [
+        1,
+        1,
+        0,
+        1,
+      ]
+    }
+    gradient={
+      [
+        {
+          "color": "#FFA24C",
+          "offset": "0%",
+          "opacity": "1",
+        },
+        {
+          "color": "#FF7A50",
+          "offset": "50.25%",
+          "opacity": "1",
+        },
+        {
+          "color": "#FF4D42",
+          "offset": "100%",
+          "opacity": "1",
+        },
+      ]
+    }
+    gradientBorderWidths={
+      [
+        4,
+        4,
+        0,
+        4,
+      ]
+    }
+    style={
+      {
+        "backgroundColor": "#FFFCFA",
+        "borderTopLeftRadius": 12,
+        "borderTopRightRadius": 12,
+      }
+    }
+  >
+    <React.Fragment>
+      <View
+        style={
+          [
+            {
+              "gap": 16,
+              "paddingBottom": 24,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 24,
+            },
+            {
+              "gap": 32,
+              "paddingBottom": 40,
+              "paddingLeft": 24,
+              "paddingRight": 24,
+              "paddingTop": 32,
+            },
+          ]
+        }
+      >
+        <MatchCardCounterparty
+          user={
+            {
+              "id": "03a9ea8d8000731f80287b43af99f28294b81ee011a5bde5dfd2beb6c03f6e3682",
+            }
+          }
+        />
+        <React.Fragment>
+          <BuyOfferMatchPrice
+            match={
+              {
+                "amount": 210000,
+                "meansOfPayment": {
+                  "CHF": [
+                    "sepa",
+                  ],
+                  "EUR": [
+                    "sepa",
+                  ],
+                },
+                "premium": 7,
+                "prices": {
+                  "CHF": 1.1,
+                  "EUR": 1,
+                },
+                "unavailable": {
+                  "exceedsLimit": [],
+                },
+                "user": {
+                  "id": "03a9ea8d8000731f80287b43af99f28294b81ee011a5bde5dfd2beb6c03f6e3682",
+                },
+              }
+            }
+            offer={
+              {
+                "amount": [
+                  50000,
+                  250000,
+                ],
+                "creationDate": 2022-03-08T11:41:07.245Z,
+                "doubleMatched": false,
+                "id": "37",
+                "matched": [],
+                "matches": [],
+                "meansOfPayment": {
+                  "CHF": [
+                    "sepa",
+                  ],
+                  "EUR": [
+                    "sepa",
+                  ],
+                },
+                "online": true,
+                "originalPaymentData": [],
+                "paymentData": {
+                  "sepa": {
+                    "hash": "TODO add payment hash",
+                  },
+                },
+                "publishingDate": 2022-03-08T11:41:07.245Z,
+                "releaseAddress": "bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh",
+                "seenMatches": [],
+                "type": "bid",
+              }
+            }
+          />
+          <PaymentMethodSelector
+            disabled={false}
+          />
+        </React.Fragment>
+      </View>
+    </React.Fragment>
+  </GradientBorder>
+  <MatchOfferButton
+    matchOffer={[Function]}
+    optionName="missingSelection"
+  />
+</View>
+`;
+
+exports[`Match should render correctly for buy offer that matched 1`] = `
+<View
+  onStartShouldSetResponder={[Function]}
+  style={
+    {
+      "flexShrink": 1,
+    }
+  }
+>
+  <GradientBorder
+    containerStyle={
+      [
+        {
+          "borderTopLeftRadius": 16,
+          "borderTopRightRadius": 16,
+          "flexShrink": 1,
+          "overflow": "hidden",
+        },
+        [
+          {
+            "borderBottomWidth": 0,
+            "borderWidth": 1,
+          },
+          {
+            "borderColor": "#F56522",
+          },
+        ],
+      ]
+    }
+    defaultBorderWidths={
+      [
+        1,
+        1,
+        0,
+        1,
+      ]
+    }
+    gradient={
+      [
+        {
+          "color": "#FFA24C",
+          "offset": "0%",
+          "opacity": "1",
+        },
+        {
+          "color": "#FF7A50",
+          "offset": "50.25%",
+          "opacity": "1",
+        },
+        {
+          "color": "#FF4D42",
+          "offset": "100%",
+          "opacity": "1",
+        },
+      ]
+    }
+    gradientBorderWidths={
+      [
+        4,
+        4,
+        0,
+        4,
+      ]
+    }
+    style={
+      {
+        "backgroundColor": "#FFFCFA",
+        "borderTopLeftRadius": 12,
+        "borderTopRightRadius": 12,
+      }
+    }
+  >
+    <React.Fragment>
+      <View
+        style={
+          [
+            {
+              "gap": 16,
+              "paddingBottom": 24,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 24,
+            },
+            {
+              "gap": 32,
+              "paddingBottom": 40,
+              "paddingLeft": 24,
+              "paddingRight": 24,
+              "paddingTop": 32,
+            },
+          ]
+        }
+      >
+        <MatchCardCounterparty
+          user={
+            {
+              "id": "03a9ea8d8000731f80287b43af99f28294b81ee011a5bde5dfd2beb6c03f6e3682",
+            }
+          }
+        />
+        <React.Fragment>
+          <BuyOfferMatchPrice
+            match={
+              {
+                "amount": 210000,
+                "matched": true,
+                "meansOfPayment": {
+                  "CHF": [
+                    "sepa",
+                  ],
+                  "EUR": [
+                    "sepa",
+                  ],
+                },
+                "premium": 7,
+                "prices": {
+                  "CHF": 1.1,
+                  "EUR": 1,
+                },
+                "unavailable": {
+                  "exceedsLimit": [],
+                },
+                "user": {
+                  "id": "03a9ea8d8000731f80287b43af99f28294b81ee011a5bde5dfd2beb6c03f6e3682",
+                },
+              }
+            }
+            offer={
+              {
+                "amount": [
+                  50000,
+                  250000,
+                ],
+                "creationDate": 2022-03-08T11:41:07.245Z,
+                "doubleMatched": false,
+                "id": "37",
+                "matched": [],
+                "matches": [],
+                "meansOfPayment": {
+                  "CHF": [
+                    "sepa",
+                  ],
+                  "EUR": [
+                    "sepa",
+                  ],
+                },
+                "online": true,
+                "originalPaymentData": [],
+                "paymentData": {
+                  "sepa": {
+                    "hash": "TODO add payment hash",
+                  },
+                },
+                "publishingDate": 2022-03-08T11:41:07.245Z,
+                "releaseAddress": "bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh",
+                "seenMatches": [],
+                "type": "bid",
+              }
+            }
+          />
+          <PaymentMethodSelector
+            disabled={false}
+          />
+        </React.Fragment>
+      </View>
+      <MatchedOverlay
+        interruptMatchFunction={[Function]}
+        match={
+          {
+            "amount": 210000,
+            "matched": true,
+            "meansOfPayment": {
+              "CHF": [
+                "sepa",
+              ],
+              "EUR": [
+                "sepa",
+              ],
+            },
+            "premium": 7,
+            "prices": {
+              "CHF": 1.1,
+              "EUR": 1,
+            },
+            "unavailable": {
+              "exceedsLimit": [],
+            },
+            "user": {
+              "id": "03a9ea8d8000731f80287b43af99f28294b81ee011a5bde5dfd2beb6c03f6e3682",
+            },
+          }
+        }
+        offer={
+          {
+            "amount": [
+              50000,
+              250000,
+            ],
+            "creationDate": 2022-03-08T11:41:07.245Z,
+            "doubleMatched": false,
+            "id": "37",
+            "matched": [],
+            "matches": [],
+            "meansOfPayment": {
+              "CHF": [
+                "sepa",
+              ],
+              "EUR": [
+                "sepa",
+              ],
+            },
+            "online": true,
+            "originalPaymentData": [],
+            "paymentData": {
+              "sepa": {
+                "hash": "TODO add payment hash",
+              },
+            },
+            "publishingDate": 2022-03-08T11:41:07.245Z,
+            "releaseAddress": "bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh",
+            "seenMatches": [],
+            "type": "bid",
+          }
+        }
+        setShowMatchedCard={[Function]}
+      />
+    </React.Fragment>
+  </GradientBorder>
+  <MatchOfferButton
+    matchOffer={[Function]}
+    optionName="offerMatched"
+  />
+</View>
+`;
+
+exports[`Match should render correctly for sell offer 1`] = `
+<View
+  onStartShouldSetResponder={[Function]}
+  style={
+    {
+      "flexShrink": 1,
+    }
+  }
+>
+  <GradientBorder
+    containerStyle={
+      [
+        {
+          "borderTopLeftRadius": 16,
+          "borderTopRightRadius": 16,
+          "flexShrink": 1,
+          "overflow": "hidden",
+        },
+        [
+          {
+            "borderBottomWidth": 0,
+            "borderWidth": 1,
+          },
+          {
+            "borderColor": "#FCCCB6",
+          },
+        ],
+      ]
+    }
+    defaultBorderWidths={
+      [
+        1,
+        1,
+        0,
+        1,
+      ]
+    }
+    gradient={
+      [
+        {
+          "color": "#FFA24C",
+          "offset": "0%",
+          "opacity": "1",
+        },
+        {
+          "color": "#FF7A50",
+          "offset": "50.25%",
+          "opacity": "1",
+        },
+        {
+          "color": "#FF4D42",
+          "offset": "100%",
+          "opacity": "1",
+        },
+      ]
+    }
+    gradientBorderWidths={
+      [
+        4,
+        4,
+        0,
+        4,
+      ]
+    }
+    style={
+      {
+        "backgroundColor": "#FFFCFA",
+        "borderTopLeftRadius": 12,
+        "borderTopRightRadius": 12,
+      }
+    }
+  >
+    <React.Fragment>
+      <View
+        style={
+          [
+            {
+              "gap": 16,
+              "paddingBottom": 24,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 24,
+            },
+            {
+              "gap": 32,
+              "paddingBottom": 40,
+              "paddingLeft": 24,
+              "paddingRight": 24,
+              "paddingTop": 32,
+            },
+          ]
+        }
+      >
+        <MatchCardCounterparty
+          user={
+            {
+              "id": "03a9ea8d8000731f80287b43af99f28294b81ee011a5bde5dfd2beb6c03f6e3682",
+            }
+          }
+        />
+        <React.Fragment>
+          <SellOfferMatchPrice
+            match={
+              {
+                "amount": 210000,
+                "meansOfPayment": {
+                  "CHF": [
+                    "sepa",
+                  ],
+                  "EUR": [
+                    "sepa",
+                  ],
+                },
+                "premium": 7,
+                "prices": {
+                  "CHF": 1.1,
+                  "EUR": 1,
+                },
+                "unavailable": {
+                  "exceedsLimit": [],
+                },
+                "user": {
+                  "id": "03a9ea8d8000731f80287b43af99f28294b81ee011a5bde5dfd2beb6c03f6e3682",
+                },
+              }
+            }
+            offer={
+              {
+                "amount": 250000,
+                "creationDate": 2022-03-08T11:41:07.245Z,
+                "doubleMatched": false,
+                "funding": {
+                  "amounts": [],
+                  "expiry": 537,
+                  "status": "NULL",
+                  "txIds": [],
+                  "vouts": [],
+                },
+                "id": "38",
+                "matched": [],
+                "matches": [],
+                "meansOfPayment": {
+                  "EUR": [
+                    "sepa",
+                  ],
+                },
+                "online": true,
+                "originalPaymentData": [],
+                "paymentData": {
+                  "sepa": {
+                    "hash": "TODO add payment hash",
+                  },
+                },
+                "premium": 1.5,
+                "publishingDate": 2022-03-08T11:41:07.245Z,
+                "refunded": false,
+                "released": false,
+                "returnAddress": "bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh",
+                "seenMatches": [],
+                "type": "ask",
+              }
+            }
+          />
+          <MatchPaymentDetails
+            match={
+              {
+                "amount": 210000,
+                "meansOfPayment": {
+                  "CHF": [
+                    "sepa",
+                  ],
+                  "EUR": [
+                    "sepa",
+                  ],
+                },
+                "premium": 7,
+                "prices": {
+                  "CHF": 1.1,
+                  "EUR": 1,
+                },
+                "unavailable": {
+                  "exceedsLimit": [],
+                },
+                "user": {
+                  "id": "03a9ea8d8000731f80287b43af99f28294b81ee011a5bde5dfd2beb6c03f6e3682",
+                },
+              }
+            }
+            style={
+              {
+                "marginBottom": 8,
+              }
+            }
+          />
+        </React.Fragment>
+      </View>
+    </React.Fragment>
+  </GradientBorder>
+  <MatchOfferButton
+    matchOffer={[Function]}
+    optionName="missingSelection"
+  />
+</View>
+`;

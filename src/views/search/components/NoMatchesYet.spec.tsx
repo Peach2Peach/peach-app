@@ -1,6 +1,6 @@
 import { createRenderer } from 'react-test-renderer/shallow'
 import { NoMatchesYet } from './NoMatchesYet'
-import { buyOffer } from '../../../../tests/unit/data/offerData'
+import { buyOffer, sellOffer } from '../../../../tests/unit/data/offerData'
 
 const useOfferMatchesMock = jest.fn().mockReturnValue({ isLoading: false })
 jest.mock('../hooks/useOfferMatches', () => ({
@@ -14,7 +14,7 @@ describe('NoMatchesYet', () => {
     expect(shallowRenderer.getRenderOutput()).toMatchSnapshot()
   })
   it('renders correctly for sell offer', () => {
-    shallowRenderer.render(<NoMatchesYet offer={buyOffer} />)
+    shallowRenderer.render(<NoMatchesYet offer={sellOffer} />)
     expect(shallowRenderer.getRenderOutput()).toMatchSnapshot()
   })
   it('renders correctly while loading', () => {

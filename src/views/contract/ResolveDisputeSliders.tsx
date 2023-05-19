@@ -4,6 +4,7 @@ import { RefundEscrowSlider } from '../../components/offer'
 import tw from '../../styles/tailwind'
 import { getSellOfferFromContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
+import { useContractContext } from './context'
 import { useRepublishOffer } from './hooks/useRepublishOffer'
 
 const RepublishOfferSlider = ({ contract }: { contract: Contract }) => {
@@ -13,7 +14,8 @@ const RepublishOfferSlider = ({ contract }: { contract: Contract }) => {
   )
 }
 
-export const ResolveDisputeSliders = (props: { contract: Contract }) => {
+export const ResolveDisputeSliders = () => {
+  const props = useContractContext()
   const sellOffer = useMemo(() => getSellOfferFromContract(props.contract), [props.contract])
   return (
     <>

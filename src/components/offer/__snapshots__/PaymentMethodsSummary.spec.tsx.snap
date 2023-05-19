@@ -5,15 +5,15 @@ exports[`PaymentMethodsSummary renders correctly 1`] = `
   style={
     [
       {
-        "gap": 2,
+        "gap": 4,
       },
       {
-        "gap": 8,
+        "gap": 12,
       },
     ]
   }
 >
-  <TradeSeparator
+  <Divider
     text="payment methods"
   />
   <MeansOfPaymentSelect

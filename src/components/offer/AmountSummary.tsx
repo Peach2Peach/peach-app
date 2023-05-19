@@ -2,14 +2,14 @@ import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { SatsFormat } from '../text'
-import { TradeSeparator } from './TradeSeparator'
+import { Divider } from '../Divider'
 
 type Props = {
   amount: number
 }
 export const AmountSummary = ({ amount }: Props) => (
   <View>
-    <TradeSeparator text={i18n('amount')} />
+    <Divider text={i18n('amount')} />
     <SatsFormat
       sats={amount}
       style={[tw`font-semibold subtitle-1 text-xl`, tw.md`text-2xl`]}

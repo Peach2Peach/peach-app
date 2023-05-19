@@ -6,7 +6,12 @@ jest.mock('../../../components/inputs', () => ({
   SlideToUnlock: 'SlideToUnlock',
 }))
 
-const navigationWrapper = ({ children }) => <NavigationContainer>{children}</NavigationContainer>
+const useContractContextMock = jest.fn()
+jest.mock('../context', () => ({
+  useContractContext: () => useContractContextMock(),
+}))
+
+const navigationWrapper = ({ children }: ComponentProps) => <NavigationContainer>{children}</NavigationContainer>
 
 describe('ContractCTA', () => {
   it('should render the payment confirm slider correctly for the buyer', () => {
@@ -16,11 +21,9 @@ describe('ContractCTA', () => {
       cancelationRequested: false,
       paymentExpectedBy: new Date('2021-01-02'),
     } as unknown as Contract
-
+    useContractContextMock.mockReturnValueOnce({ contract: mockContract, view: 'buyer' })
     const { toJSON } = render(
       <ContractCTA
-        contract={mockContract}
-        view="buyer"
         requiredAction="sendPayment"
         actionPending
         postConfirmPaymentBuyer={jest.fn()}
@@ -37,11 +40,9 @@ describe('ContractCTA', () => {
       paymentExpectedBy: new Date('2021-01-02'),
       paymentConfirmed: false,
     } as unknown as Contract
-
+    useContractContextMock.mockReturnValueOnce({ contract: mockContract, view: 'buyer' })
     const { toJSON } = render(
       <ContractCTA
-        contract={mockContract}
-        view="buyer"
         requiredAction="sendPayment"
         actionPending
         postConfirmPaymentBuyer={jest.fn()}
@@ -58,11 +59,9 @@ describe('ContractCTA', () => {
       paymentExpectedBy: new Date('2021-01-02'),
       paymentConfirmed: false,
     } as unknown as Contract
-
+    useContractContextMock.mockReturnValueOnce({ contract: mockContract, view: 'seller' })
     const { toJSON } = render(
       <ContractCTA
-        contract={mockContract}
-        view="seller"
         requiredAction="confirmPayment"
         actionPending
         postConfirmPaymentBuyer={jest.fn()}

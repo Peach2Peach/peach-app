@@ -8,7 +8,7 @@ exports[`AmountRangeSummary renders correctly 1`] = `
     }
   }
 >
-  <TradeSeparator
+  <Divider
     text="amount"
   />
   <View>
@@ -124,7 +124,7 @@ exports[`AmountRangeSummary renders correctly for md screens 1`] = `
     }
   }
 >
-  <TradeSeparator
+  <Divider
     text="amount"
   />
   <View>

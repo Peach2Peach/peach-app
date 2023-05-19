@@ -14,8 +14,8 @@ type Props = {
 }
 
 export const MatchOfferButton = ({ matchId, matchOffer, optionName }: Props) => {
-  const [selectedPaymentMethod, setShowPaymentMethodPulse] = useMatchStore(
-    (state) => [state.matchSelectors[matchId]?.selectedPaymentMethod, state.setShowPaymentMethodPulse],
+  const [selectedPaymentMethod, setShowMissingPaymentMethodWarning] = useMatchStore(
+    (state) => [state.matchSelectors[matchId]?.selectedPaymentMethod, state.setShowMissingPaymentMethodWarning],
     shallow,
   )
 
@@ -25,7 +25,7 @@ export const MatchOfferButton = ({ matchId, matchOffer, optionName }: Props) => 
     if (['matchOffer', 'acceptMatch'].includes(optionName)) {
       matchOffer()
     } else if (optionName === 'missingSelection') {
-      setShowPaymentMethodPulse(matchId, !selectedPaymentMethod)
+      setShowMissingPaymentMethodWarning(matchId, !selectedPaymentMethod)
     }
   }
 
