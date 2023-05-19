@@ -34,7 +34,7 @@ export const getSellerStatusText = (contract: Contract) => {
     }
     return i18n('contract.seller.refundOrRepublish.trade', walletLabel)
   }
-  if (contract.canceledBy === 'buyer') {
+  if (contract.canceledBy === 'buyer' && !contract.cancelationRequested) {
     return i18n('contract.seller.refund.buyerCanceled')
   }
   return i18n('contract.seller.refund')

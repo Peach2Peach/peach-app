@@ -69,5 +69,13 @@ describe('getSellerStatusText', () => {
     expect(getSellerStatusText({ tradeStatus: 'refundTxSignatureRequired' } as Contract)).toBe(
       i18n('contract.seller.refund'),
     )
+    expect(
+      getSellerStatusText({
+        canceled: true,
+        canceledBy: 'buyer',
+        cancelationRequested: true,
+        tradeStatus: 'refundTxSignatureRequired',
+      } as Contract),
+    ).toBe(i18n('contract.seller.refund'))
   })
 })
