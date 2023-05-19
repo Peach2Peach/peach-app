@@ -6,6 +6,8 @@ import { OfferOutsideRange } from './OfferOutsideRange'
 
 const wrapper = NavigationWrapper
 
+jest.useFakeTimers()
+
 describe('useOfferOutsideRangeOverlay', () => {
   const offerId = '37'
   afterEach(() => {
