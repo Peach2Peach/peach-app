@@ -7,6 +7,10 @@ describe('SlideToUnlock', () => {
     renderer.render(<SlideToUnlock label1="label1" label2="label2" onUnlock={() => {}} />)
     expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
+  it('renders with different icon', () => {
+    renderer.render(<SlideToUnlock label1="label1" label2="label2" onUnlock={() => {}} iconId="award" />)
+    expect(renderer.getRenderOutput()).toMatchSnapshot()
+  })
   it('renders correctly when disabled', () => {
     renderer.render(<SlideToUnlock label1="label1" label2="label2" onUnlock={() => {}} disabled />)
     expect(renderer.getRenderOutput()).toMatchSnapshot()

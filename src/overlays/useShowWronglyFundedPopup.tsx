@@ -1,21 +1,21 @@
 import { useCallback } from 'react'
-import { useOverlayContext } from '../contexts/overlay'
+import { shallow } from 'zustand/shallow'
 import { useConfigStore } from '../store/configStore'
-
+import { usePopupStore } from '../store/usePopupStore'
 import i18n from '../utils/i18n'
 import { sum } from '../utils/math'
 import { useStartRefundOverlay } from './useStartRefundOverlay'
 import { WrongFundingAmount } from './warning/WrongFundingAmount'
 
-export const useWronglyFundedOverlay = () => {
-  const [, updateOverlay] = useOverlayContext()
-  const showStartRefundOverlay = useStartRefundOverlay()
+export const useShowWronglyFundedPopup = () => {
+  const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
   const maxTradingAmount = useConfigStore((state) => state.maxTradingAmount)
+  const startRefundOverlay = useStartRefundOverlay()
 
-  const wronglyFundedOverlay = useCallback(
+  const showWronglyFundedPopup = useCallback(
     (sellOffer: SellOffer) =>
-      updateOverlay({
-        title: i18n('warning.fundingAmountDifferent.title'),
+      setPopup({
+        title: i18n('warning.wrongFundingAmount.title'),
         content: (
           <WrongFundingAmount
             amount={sellOffer.amount}
@@ -26,12 +26,15 @@ export const useWronglyFundedOverlay = () => {
         visible: true,
         level: 'WARN',
         action1: {
-          label: i18n('continue'),
+          label: i18n('refundEscrow'),
           icon: 'arrowRightCircle',
-          callback: () => showStartRefundOverlay(sellOffer),
+          callback: () => {
+            closePopup()
+            startRefundOverlay(sellOffer)
+          },
         },
       }),
-    [maxTradingAmount, showStartRefundOverlay, updateOverlay],
+    [closePopup, maxTradingAmount, setPopup, startRefundOverlay],
   )
-  return wronglyFundedOverlay
+  return showWronglyFundedPopup
 }

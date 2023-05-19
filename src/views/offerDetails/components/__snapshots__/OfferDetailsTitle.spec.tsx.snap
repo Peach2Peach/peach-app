@@ -20,8 +20,6 @@ exports[`OfferDetailsTitle should render correctly 1`] = `
     ]
   }
 >
-  offer
-   
   P‑7B
 </PeachText>
 `;
