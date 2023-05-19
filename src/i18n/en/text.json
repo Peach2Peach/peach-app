@@ -251,6 +251,7 @@
   "contract.summary.from": "from",
   "contract.summary.location": "location",
   "contract.summary.location.text": "determine in chat",
+  "contract.summary.meetup": "meetup",
   "contract.summary.viewInExplorer": "view in explorer",
   "contract.cancel.title": "cancel trade",
   "contract.cancel.cash.title": "cancel cash trade",
