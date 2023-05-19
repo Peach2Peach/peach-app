@@ -9,8 +9,8 @@ type Props = {
   offer: BuyOffer | BuyOfferDraft | SellOffer | SellOfferDraft
 }
 export const PayoutWalletSummary = ({ offer }: Props) => (
-  <View>
+  <View style={tw`gap-1`}>
     <TradeSeparator text={i18n(`${getWalletType(offer)}.wallet`)} />
-    <WalletSelector offer={offer} style={tw`mt-1`} />
+    <WalletSelector offer={offer} />
   </View>
 )

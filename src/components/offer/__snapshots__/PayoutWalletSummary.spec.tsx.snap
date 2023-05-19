@@ -1,7 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`PayoutWalletSummary renders correctly 1`] = `
-<View>
+<View
+  style={
+    {
+      "gap": 4,
+    }
+  }
+>
   <TradeSeparator
     text="payout wallet"
   />
@@ -38,17 +44,18 @@ exports[`PayoutWalletSummary renders correctly 1`] = `
         "type": "bid",
       }
     }
-    style={
-      {
-        "marginTop": 4,
-      }
-    }
   />
 </View>
 `;
 
 exports[`PayoutWalletSummary renders correctly for offer draft 1`] = `
-<View>
+<View
+  style={
+    {
+      "gap": 4,
+    }
+  }
+>
   <TradeSeparator
     text="payout wallet"
   />
@@ -73,11 +80,6 @@ exports[`PayoutWalletSummary renders correctly for offer draft 1`] = `
         },
         "releaseAddress": "releaseAddress",
         "type": "bid",
-      }
-    }
-    style={
-      {
-        "marginTop": 4,
       }
     }
   />

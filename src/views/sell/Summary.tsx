@@ -26,10 +26,10 @@ export default ({ offerDraft, setOfferDraft }: SellViewProps): ReactElement => {
   }, [walletLabel, setOfferDraft])
 
   return (
-    <PeachScrollView contentContainerStyle={[tw`items-center justify-center flex-grow px-6 pb-5`, tw.md`px-8`]}>
-      <View style={tw`justify-center flex-grow`}>
+    <View style={[tw`justify-center flex-grow px-6 pb-5`, tw.md`px-8`]}>
+      <PeachScrollView contentContainerStyle={tw`justify-center flex-grow`}>
         <SellOfferSummary offer={offerDraft} />
-      </View>
+      </PeachScrollView>
       <PrimaryButton
         style={tw`self-center mt-4`}
         testID="navigation-next"
@@ -39,6 +39,6 @@ export default ({ offerDraft, setOfferDraft }: SellViewProps): ReactElement => {
       >
         {i18n('next')}
       </PrimaryButton>
-    </PeachScrollView>
+    </View>
   )
 }
