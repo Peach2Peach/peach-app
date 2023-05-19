@@ -1,5 +1,4 @@
 import { Text } from '../../../components'
-import i18n from '../../../utils/i18n'
 import { getHeaderStyles } from '../../../utils/layout'
 import { offerIdToHex } from '../../../utils/offer'
 
