@@ -191,6 +191,7 @@ exports[`SummaryItem renders correctly for bitcoin amount 1`] = `
   >
     <BTCAmount
       amount={21000}
+      isError={false}
       size="small"
     />
   </View>
@@ -240,6 +241,7 @@ exports[`SummaryItem renders correctly for bitcoin amount on small screens 1`] =
   >
     <BTCAmount
       amount={21000}
+      isError={false}
       size="x small"
     />
   </View>
