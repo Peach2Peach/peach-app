@@ -27,6 +27,11 @@ exports[`PaymentMethod renders correctly 1`] = `
     isSelected={false}
     isVerified={false}
     paymentMethod="sepa"
+    textStyle={
+      {
+        "color": "#2B1911",
+      }
+    }
   />
 </View>
 `;
@@ -60,6 +65,11 @@ exports[`PaymentMethod renders correctly when selected 1`] = `
     isSelected={true}
     isVerified={false}
     paymentMethod="sepa"
+    textStyle={
+      {
+        "color": "#2B1911",
+      }
+    }
   />
 </View>
 `;
@@ -93,6 +103,11 @@ exports[`PaymentMethod renders correctly when verified 1`] = `
     isSelected={true}
     isVerified={true}
     paymentMethod="sepa"
+    textStyle={
+      {
+        "color": "#2B1911",
+      }
+    }
   />
 </View>
 `;

@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Price should render correctly 1`] = `
+<PeachText
+  style={
+    [
+      {
+        "fontFamily": "Baloo2-Regular",
+        "fontSize": 20,
+        "letterSpacing": 0.2,
+        "lineHeight": 28,
+      },
+      undefined,
+    ]
+  }
+>
+  <PriceFormat
+    amount={1}
+    currency="EUR"
+    style={
+      [
+        {
+          "fontFamily": "Baloo2-Regular",
+          "fontSize": 20,
+          "letterSpacing": 0.2,
+          "lineHeight": 28,
+        },
+        undefined,
+      ]
+    }
+  />
+</PeachText>
+`;

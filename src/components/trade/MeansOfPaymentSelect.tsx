@@ -29,17 +29,19 @@ export const MeansOfPaymentSelect = ({
   const paymentMethods = meansOfPayment[selectedCurrency] || []
   const items = paymentMethods.map((p) => ({
     value: p,
-    display: <PaymentMethodText paymentMethod={p} isSelected={p === selectedPaymentMethod} isVerified={false} />,
+    display: (
+      <PaymentMethodText
+        paymentMethod={p}
+        isSelected={p === selectedPaymentMethod}
+        isVerified={false}
+        textStyle={disabled ? tw`text-black-3` : undefined}
+      />
+    ),
   }))
 
   return (
     <>
-      <CurrencySelection
-        style={[tw`mt-2`, tw.md`mt-4`]}
-        currencies={currencies}
-        selected={selectedCurrency}
-        select={updateCurrency}
-      />
+      <CurrencySelection currencies={currencies} selected={selectedCurrency} select={updateCurrency} />
       <CustomSelector
         style={tw`mt-3`}
         {...{

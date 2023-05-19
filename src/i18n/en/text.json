@@ -907,6 +907,7 @@
   "currency": "currency",
   "currencies": "currencies",
   "payment": "payment",
+  "paymentMethod": "payment method",
   "kyc": "KYC",
   "showTransaction": "show transaction",
   "showTx": "show tx",

@@ -9,7 +9,7 @@ export type MatchSelectors = {
     availablePaymentMethods: PaymentMethod[]
     mopsInCommon: MeansOfPayment
     meansOfPayment: MeansOfPayment
-    showPaymentMethodPulse: boolean
+    showMissingPaymentMethodWarning: boolean
   }
 }
 
@@ -29,7 +29,7 @@ export const createMatchSelectors = (matches: Match[], offerMeansOfPayment: Mean
       availablePaymentMethods,
       mopsInCommon,
       meansOfPayment: match.meansOfPayment,
-      showPaymentMethodPulse: false,
+      showMissingPaymentMethodWarning: false,
     }
     return acc
   }, {})

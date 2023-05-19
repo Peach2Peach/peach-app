@@ -16,6 +16,6 @@ export const PaymentMethod = ({ paymentMethod, isSelected = false, isVerified = 
       style,
     ]}
   >
-    <PaymentMethodText {...{ paymentMethod, isSelected, isVerified }} />
+    <PaymentMethodText textStyle={tw`text-black-1`} {...{ paymentMethod, isSelected, isVerified }} />
   </View>
 )

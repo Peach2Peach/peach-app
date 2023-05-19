@@ -1,20 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`PriceInfo should render correctly 1`] = `
-<React.Fragment>
+<View>
   <BTCAmount
     amount={210000}
     size="large"
-    style={
-      {
-        "alignSelf": "center",
-      }
-    }
   />
   <PeachText
     style={
       {
-        "textAlign": "center",
+        "color": "#9F8C82",
       }
     }
   >
@@ -35,9 +30,16 @@ exports[`PriceInfo should render correctly 1`] = `
         }
       }
     />
+     (
     <PremiumText
       premium={7}
+      style={
+        {
+          "color": "#9F8C82",
+        }
+      }
     />
+    )
   </PeachText>
-</React.Fragment>
+</View>
 `;
