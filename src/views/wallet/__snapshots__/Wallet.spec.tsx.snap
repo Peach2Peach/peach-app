@@ -109,7 +109,12 @@ exports[`Wallet should render correctly 1`] = `
 </AvoidKeyboard>
 `;
 
-exports[`Wallet should render correctly when loading 1`] = `<WalletLoading />`;
+exports[`Wallet should render correctly when loading 1`] = `
+<BitcoinLoading
+  text="wallet loading,
+one sec..."
+/>
+`;
 
 exports[`Wallet should render correctly when refreshing 1`] = `
 <AvoidKeyboard

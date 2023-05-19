@@ -5,7 +5,6 @@ import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { useSettingsStore } from '../../../store/settingsStore'
 import { account, getMessageToSignForAddress } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
-import { headerIcons } from '../../../utils/layout/headerIcons'
 import { isValidBitcoinSignature } from '../../../utils/validation'
 import { peachWallet } from '../../../utils/wallet/setWallet'
 import { publishBuyOffer } from '../helpers/publishBuyOffer'
@@ -37,26 +36,22 @@ export const useBuySummarySetup = () => {
   )
   const walletLabel = peachWalletActive ? i18n('peachWallet') : payoutAddressLabel
 
-  const goToSetupPayoutWallet = () =>
-    payoutAddress ? navigation.navigate('signMessage') : navigation.navigate('payoutAddress', { type: 'payout' })
+  const goToMessageSigning = () => navigation.navigate('signMessage')
 
   const publishOffer = async (offerDraft: BuyOfferDraft) => {
     if (isPublishing) return
     setIsPublishing(true)
-    const { isOfferPublished, errorMessage } = await publishBuyOffer(offerDraft)
+    const { offerId, isOfferPublished, errorMessage } = await publishBuyOffer(offerDraft)
     setIsPublishing(false)
 
-    if (!isOfferPublished) {
+    if (!isOfferPublished || !offerId) {
       showErrorBanner(errorMessage)
     } else {
-      navigation.replace('offerPublished', { isSellOffer: false })
+      navigation.replace('offerPublished', { offerId, isSellOffer: false })
     }
   }
 
-  useHeaderSetup({
-    title: i18n('buy.summary.title'),
-    icons: [{ ...headerIcons.wallet, onPress: () => navigation.navigate('selectWallet', { type: 'payout' }) }],
-  })
+  useHeaderSetup({ title: i18n('buy.summary.title') })
 
   useEffect(() => {
     setCanPublish(isValidBitcoinSignature(message, releaseAddress, messageSignature))
@@ -85,6 +80,6 @@ export const useBuySummarySetup = () => {
     canPublish,
     publishOffer,
     isPublishing,
-    goToSetupPayoutWallet,
+    goToMessageSigning,
   }
 }

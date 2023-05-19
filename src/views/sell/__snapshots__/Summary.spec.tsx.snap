@@ -1,20 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Summary should render the Summary view 1`] = `
-<PeachScrollView
-  contentContainerStyle={
-    {
-      "alignItems": "center",
-      "flexGrow": 1,
-      "justifyContent": "center",
-      "paddingBottom": 28,
-      "paddingLeft": 32,
-      "paddingRight": 32,
-    }
+<View
+  style={
+    [
+      {
+        "flexGrow": 1,
+        "justifyContent": "center",
+        "paddingBottom": 20,
+        "paddingLeft": 24,
+        "paddingRight": 24,
+      },
+      {
+        "paddingLeft": 32,
+        "paddingRight": 32,
+      },
+    ]
   }
 >
-  <View
-    style={
+  <PeachScrollView
+    contentContainerStyle={
       {
         "flexGrow": 1,
         "justifyContent": "center",
@@ -50,10 +55,10 @@ exports[`Summary should render the Summary view 1`] = `
         }
       }
     />
-  </View>
+  </PeachScrollView>
   <PrimaryButton
     loading={false}
-    narrow={false}
+    narrow={true}
     onPress={[Function]}
     style={
       {
@@ -65,5 +70,5 @@ exports[`Summary should render the Summary view 1`] = `
   >
     next
   </PrimaryButton>
-</PeachScrollView>
+</View>
 `;

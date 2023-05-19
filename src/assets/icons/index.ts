@@ -8,7 +8,6 @@ import arrowLeftCircle from './arrowLeftCircle.svg'
 import arrowRightCircle from './arrowRightCircle.svg'
 import award from './award.svg'
 import awardCircleInverted from './awardCircleInverted.svg'
-import bitbox from './bitbox.svg'
 import bitcoin from './bitcoin.svg'
 import calendar from './calendar.svg'
 import camera from './camera.svg'
@@ -67,6 +66,7 @@ import offline from './offline.svg'
 import paperclip from './paperclip.svg'
 import pauseCircle from './pauseCircle.svg'
 import percent from './percent.svg'
+import plus from './plus.svg'
 import plusCircle from './plusCircle.svg'
 import plusSquare from './plusSquare.svg'
 import prev from './prev.svg'
@@ -127,7 +127,6 @@ const Icons = {
   award,
   awardCircleInverted,
   bitcoin,
-  bitbox,
   buy: download,
   calendar,
   camera,
@@ -186,6 +185,7 @@ const Icons = {
   paperclip,
   pauseCircle,
   percent,
+  plus,
   plusCircle,
   plusSquare,
   prev,

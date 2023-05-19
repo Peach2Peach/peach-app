@@ -1,0 +1,142 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BitcoinProducts should render correctly 1`] = `
+<View
+  style={
+    {
+      "flexGrow": 1,
+      "justifyContent": "center",
+      "paddingBottom": 32,
+      "paddingLeft": 32,
+      "paddingRight": 32,
+      "paddingTop": 32,
+    }
+  }
+>
+  <Text
+    allowFontScaling={false}
+    style={
+      [
+        {
+          "color": "#2B1911",
+          "fontFamily": "Baloo2-Regular",
+          "fontSize": 16,
+          "letterSpacing": 0.16,
+          "lineHeight": 24,
+        },
+        {
+          "fontFamily": "Baloo2-Bold",
+          "fontSize": 24,
+          "letterSpacing": 0.24,
+          "lineHeight": 32,
+        },
+      ]
+    }
+  >
+    pro security
+  </Text>
+  <Text
+    allowFontScaling={false}
+    style={
+      [
+        {
+          "color": "#2B1911",
+          "fontFamily": "Baloo2-Regular",
+          "fontSize": 16,
+          "letterSpacing": 0.16,
+          "lineHeight": 24,
+        },
+        {
+          "marginTop": 4,
+        },
+      ]
+    }
+  >
+    We use the open source bitbox to secure our own funds at Peach. That's why we recommend it to you as well!
+    
+
+
+    You can use code PEACH for a 5% discount.
+  </Text>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "gap": 16,
+        "marginTop": 16,
+        "opacity": 1,
+      }
+    }
+  >
+    <Text
+      allowFontScaling={false}
+      style={
+        [
+          {
+            "color": "#2B1911",
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 24,
+          },
+          {
+            "color": "#F56522",
+            "fontFamily": "Baloo2-SemiBold",
+            "fontSize": 20,
+            "letterSpacing": 0.2,
+            "lineHeight": 32,
+            "textDecorationLine": "underline",
+            "textTransform": "lowercase",
+          },
+        ]
+      }
+    >
+      check out bitbox
+    </Text>
+    <test-file-stub
+      fill="#F56522"
+      style={
+        [
+          {
+            "height": 24,
+            "width": 24,
+          },
+          {
+            "height": 24,
+            "marginTop": -4,
+            "width": 24,
+          },
+        ]
+      }
+    />
+  </View>
+</View>
+`;

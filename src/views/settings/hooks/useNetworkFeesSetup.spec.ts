@@ -5,6 +5,7 @@ import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrap
 import { useHeaderState } from '../../../components/header/store'
 import { settingsStore } from '../../../store/settingsStore'
 import { useNetworkFeesSetup } from './useNetworkFeesSetup'
+import { apiSuccess, unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
 
 const updateMessageMock = jest.fn()
 jest.mock('../../../contexts/message', () => ({
@@ -17,8 +18,6 @@ jest.mock('../../../hooks/query/useFeeEstimate', () => ({
   }),
 }))
 
-const apiSuccess = { success: true }
-const apiError = { error: 'UNAUTHORIZED' }
 const updateUserMock = jest.fn().mockResolvedValue([apiSuccess])
 jest.mock('../../../utils/peachAPI', () => ({
   updateUser: (...args: any[]) => updateUserMock(...args),
@@ -126,12 +125,12 @@ describe('useNetworkFeesSetup', () => {
     expect(settingsStore.getState().feeRate).toEqual(4)
   })
   it('handles request errors', async () => {
-    updateUserMock.mockResolvedValueOnce([null, apiError])
+    updateUserMock.mockResolvedValueOnce([null, unauthorizedError])
     const { result } = renderHook(useNetworkFeesSetup, { wrapper: NavigationWrapper })
 
     await result.current.submit()
     expect(updateMessageMock).toHaveBeenCalledWith({
-      msgKey: apiError.error,
+      msgKey: unauthorizedError.error,
       level: 'ERROR',
     })
   })

@@ -1,11 +1,10 @@
 import { contract } from '../../../../tests/unit/data/contractData'
 import { sellOffer } from '../../../../tests/unit/data/offerData'
+import { apiSuccess, unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
 import { MSINADAY } from '../../../constants'
 import { getResult } from '../../../utils/result'
 import { cancelContractAsSeller } from './cancelContractAsSeller'
 
-const apiSuccess = { success: true }
-const apiError = { error: 'UNAUTHORIZED' }
 const cancelContractSuccessWithPSBT = { success: true, psbt: 'psbt' }
 const cancelContractMock = jest.fn().mockResolvedValue([apiSuccess, null])
 jest.mock('../../../utils/peachAPI', () => ({
@@ -53,7 +52,7 @@ describe('cancelContractAsSeller', () => {
     })
   })
   it('handles cancelContract error response', async () => {
-    cancelContractMock.mockResolvedValueOnce([null, apiError])
+    cancelContractMock.mockResolvedValueOnce([null, unauthorizedError])
     const result = await cancelContractAsSeller(contract)
     expect(result.isError()).toBeTruthy()
     expect(result.getValue()).toEqual({ contract })
@@ -73,13 +72,13 @@ describe('cancelContractAsSeller', () => {
     })
   })
   it('also handles patchSellOfferWithRefundTx error case', async () => {
-    patchSellOfferWithRefundTxMock.mockResolvedValueOnce(getResult({ sellOffer }, apiError.error))
+    patchSellOfferWithRefundTxMock.mockResolvedValueOnce(getResult({ sellOffer }, unauthorizedError.error))
     cancelContractMock.mockResolvedValueOnce([cancelContractSuccessWithPSBT, null])
 
     const result = await cancelContractAsSeller(expiredContract)
     expect(cancelContractMock).toHaveBeenCalledWith({ contractId: contract.id })
     expect(result.isError()).toBeTruthy()
-    expect(result.getError()).toBe(apiError.error)
+    expect(result.getError()).toBe(unauthorizedError.error)
     expect(result.getValue()).toEqual({
       contract: { ...expiredContract, canceled: true },
       sellOffer,
