@@ -20,7 +20,19 @@ exports[`BuyOfferMatchPrice should render correctly 1`] = `
     match={
       {
         "amount": 210000,
+        "meansOfPayment": {
+          "CHF": [
+            "sepa",
+          ],
+          "EUR": [
+            "sepa",
+          ],
+        },
         "premium": 7,
+        "prices": {
+          "CHF": 1.1,
+          "EUR": 1,
+        },
         "unavailable": {
           "exceedsLimit": [],
         },

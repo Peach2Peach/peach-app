@@ -105,7 +105,19 @@ exports[`Match should render correctly for buy offer 1`] = `
             match={
               {
                 "amount": 210000,
+                "meansOfPayment": {
+                  "CHF": [
+                    "sepa",
+                  ],
+                  "EUR": [
+                    "sepa",
+                  ],
+                },
                 "premium": 7,
+                "prices": {
+                  "CHF": 1.1,
+                  "EUR": 1,
+                },
                 "unavailable": {
                   "exceedsLimit": [],
                 },
@@ -179,7 +191,15 @@ exports[`Match should render correctly for buy offer that matched 1`] = `
           "flexShrink": 1,
           "overflow": "hidden",
         },
-        false,
+        [
+          {
+            "borderBottomWidth": 0,
+            "borderWidth": 1,
+          },
+          {
+            "borderColor": "#F56522",
+          },
+        ],
       ]
     }
     defaultBorderWidths={
@@ -217,7 +237,6 @@ exports[`Match should render correctly for buy offer that matched 1`] = `
         4,
       ]
     }
-    showBorder={true}
     style={
       {
         "backgroundColor": "#FFFCFA",
@@ -260,7 +279,19 @@ exports[`Match should render correctly for buy offer that matched 1`] = `
               {
                 "amount": 210000,
                 "matched": true,
+                "meansOfPayment": {
+                  "CHF": [
+                    "sepa",
+                  ],
+                  "EUR": [
+                    "sepa",
+                  ],
+                },
                 "premium": 7,
+                "prices": {
+                  "CHF": 1.1,
+                  "EUR": 1,
+                },
                 "unavailable": {
                   "exceedsLimit": [],
                 },
@@ -313,7 +344,19 @@ exports[`Match should render correctly for buy offer that matched 1`] = `
           {
             "amount": 210000,
             "matched": true,
+            "meansOfPayment": {
+              "CHF": [
+                "sepa",
+              ],
+              "EUR": [
+                "sepa",
+              ],
+            },
             "premium": 7,
+            "prices": {
+              "CHF": 1.1,
+              "EUR": 1,
+            },
             "unavailable": {
               "exceedsLimit": [],
             },
@@ -470,7 +513,19 @@ exports[`Match should render correctly for sell offer 1`] = `
             match={
               {
                 "amount": 210000,
+                "meansOfPayment": {
+                  "CHF": [
+                    "sepa",
+                  ],
+                  "EUR": [
+                    "sepa",
+                  ],
+                },
                 "premium": 7,
+                "prices": {
+                  "CHF": 1.1,
+                  "EUR": 1,
+                },
                 "unavailable": {
                   "exceedsLimit": [],
                 },
@@ -520,7 +575,19 @@ exports[`Match should render correctly for sell offer 1`] = `
             match={
               {
                 "amount": 210000,
+                "meansOfPayment": {
+                  "CHF": [
+                    "sepa",
+                  ],
+                  "EUR": [
+                    "sepa",
+                  ],
+                },
                 "premium": 7,
+                "prices": {
+                  "CHF": 1.1,
+                  "EUR": 1,
+                },
                 "unavailable": {
                   "exceedsLimit": [],
                 },
