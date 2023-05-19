@@ -3,7 +3,10 @@ import i18n from '../../../utils/i18n'
 
 export const getTradeActionStatus = (contract: Contract, view: ContractViewer) => {
   if (view === 'buyer') {
-    if (contract.cancelationRequested || (contract.disputeWinner === 'buyer' && !contract.releaseTxId)) {
+    if (
+      (contract.cancelationRequested && !contract.canceled)
+      || (contract.disputeWinner === 'buyer' && !contract.releaseTxId)
+    ) {
       return i18n('contract.status.notResolved')
     }
     if (contract.disputeWinner === 'buyer' && contract.releaseTxId) {
