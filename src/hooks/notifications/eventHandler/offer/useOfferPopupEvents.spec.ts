@@ -11,9 +11,9 @@ const showFundingAmountDifferentPopupMock = jest.fn()
 jest.mock('../../../../overlays/useShowFundingAmountDifferentPopup', () => ({
   useShowFundingAmountDifferentPopup: () => showFundingAmountDifferentPopupMock,
 }))
-const useShowWronglyFundedPopupMock = jest.fn()
+const showWronglyFundedPopupMock = jest.fn()
 jest.mock('../../../../overlays/useShowWronglyFundedPopup', () => ({
-  useShowWronglyFundedPopup: () => useShowWronglyFundedPopupMock,
+  useShowWronglyFundedPopup: () => showWronglyFundedPopupMock,
 }))
 const offerOutsideRangeOverlayMock = jest.fn()
 jest.mock('../../../../overlays/useOfferOutsideRangeOverlay', () => ({
@@ -50,7 +50,7 @@ describe('useOfferPopupEvents', () => {
     act(() => {
       result.current['offer.wrongFundingAmount']!(eventData)
     })
-    expect(useShowWronglyFundedPopupMock).toHaveBeenCalledWith(sellOffer)
+    expect(showWronglyFundedPopupMock).toHaveBeenCalledWith(sellOffer)
   })
   it('should show offer outside range overlay on offer.outsideRange', () => {
     const { result } = renderHook(() => useOfferPopupEvents())
@@ -81,7 +81,7 @@ describe('useOfferPopupEvents', () => {
       result.current['offer.outsideRange']!(eventData)
     })
     expect(showFundingAmountDifferentPopupMock).not.toHaveBeenCalled()
-    expect(useShowWronglyFundedPopupMock).not.toHaveBeenCalled()
+    expect(showWronglyFundedPopupMock).not.toHaveBeenCalled()
     expect(offerOutsideRangeOverlayMock).not.toHaveBeenCalled()
   })
 })
