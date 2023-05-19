@@ -1,7 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`MeansOfPaymentSelect renders correctly 1`] = `
-<React.Fragment>
+<View
+  style={
+    {
+      "gap": 12,
+    }
+  }
+>
   <CurrencySelection
     currencies={
       [
@@ -26,11 +32,6 @@ exports[`MeansOfPaymentSelect renders correctly 1`] = `
       ]
     }
     onChange={[Function]}
-    style={
-      {
-        "marginTop": 12,
-      }
-    }
   />
-</React.Fragment>
+</View>
 `;

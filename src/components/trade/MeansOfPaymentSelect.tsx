@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 import { getCurrencies } from '../../utils/paymentMethod'
 import { CustomSelector } from '../inputs/selector'
@@ -40,10 +41,9 @@ export const MeansOfPaymentSelect = ({
   }))
 
   return (
-    <>
+    <View style={tw`gap-3`}>
       <CurrencySelection currencies={currencies} selected={selectedCurrency} select={updateCurrency} />
       <CustomSelector
-        style={tw`mt-3`}
         {...{
           selectedValue: selectedPaymentMethod,
           items,
@@ -51,6 +51,6 @@ export const MeansOfPaymentSelect = ({
           disabled,
         }}
       />
-    </>
+    </View>
   )
 }

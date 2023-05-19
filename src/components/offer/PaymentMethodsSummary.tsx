@@ -1,8 +1,8 @@
 import { View } from 'react-native'
+import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { MeansOfPaymentSelect } from '../trade'
 import { TradeSeparator } from './TradeSeparator'
-import tw from '../../styles/tailwind'
 
 type Props = {
   meansOfPayment: MeansOfPayment

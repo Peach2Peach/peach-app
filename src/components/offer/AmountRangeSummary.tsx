@@ -8,20 +8,22 @@ type Props = {
   amount: number[]
 }
 export const AmountRangeSummary = ({ amount }: Props) => (
-  <View>
+  <View style={tw`gap-2px`}>
     <TradeSeparator text={i18n('amount')} />
-    <SatsFormat
-      sats={amount[0]}
-      style={[tw`font-semibold subtitle-1 text-lg`, tw.md`text-xl`]}
-      satsStyle={[tw`font-normal text-3xs`, tw.md`text-base`]}
-      bitcoinLogoStyle={[tw`w-3 h-3 mr-1 -mt-1`, tw.md`w-4 h-4`]}
-    />
-    <Text style={tw`button-small text-black-2 -mt-2 -mb-1`}>{i18n('upTo')}</Text>
-    <SatsFormat
-      sats={amount[1]}
-      style={[tw`font-semibold subtitle-1 text-lg`, tw.md`text-xl`]}
-      satsStyle={[tw`font-normal text-3xs`, tw.md`text-base`]}
-      bitcoinLogoStyle={[tw`w-3 h-3 mr-1  -mt-1`, tw.md`w-4 h-4`]}
-    />
+    <View>
+      <SatsFormat
+        sats={amount[0]}
+        style={[tw`text-lg font-semibold subtitle-1`, tw.md`text-xl`]}
+        satsStyle={[tw`font-normal text-3xs`, tw.md`text-base`]}
+        bitcoinLogoStyle={[tw`w-3 h-3 mr-1 -mt-1`, tw.md`w-4 h-4`]}
+      />
+      <Text style={tw`-mt-2 -mb-1 button-small text-black-2`}>{i18n('upTo')}</Text>
+      <SatsFormat
+        sats={amount[1]}
+        style={[tw`text-lg font-semibold subtitle-1`, tw.md`text-xl`]}
+        satsStyle={[tw`font-normal text-3xs`, tw.md`text-base`]}
+        bitcoinLogoStyle={[tw`w-3 h-3 mr-1 -mt-1`, tw.md`w-4 h-4`]}
+      />
+    </View>
   </View>
 )
