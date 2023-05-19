@@ -30,7 +30,7 @@ describe('getBuyerStatusText', () => {
   it('should return correct text if the buyer canceled the trade and it\'s a collab cancel', () => {
     expect(
       getBuyerStatusText({ ...mockContract, canceled: true, canceledBy: 'buyer', cancelationRequested: true }),
-    ).toBe(i18n('contract.buyer.collaborativeTradeCancel.resolved'))
+    ).toBe('You agreed to cancel the trade, and the seller has been refunded.')
   })
   it('should return correct text if seller canceled cash trade', () => {
     expect(getBuyerStatusText({ ...mockContract, canceled: true, canceledBy: 'seller', paymentMethod: 'cash' })).toBe(
