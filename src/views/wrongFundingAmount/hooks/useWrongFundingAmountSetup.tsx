@@ -12,7 +12,7 @@ export const useWrongFundingAmountSetup = () => {
 
   const showErrorBanner = useShowErrorBanner()
 
-  const { offer } = useOfferDetails(route.params.offerId)
+  const { offer } = useOfferDetails(offerId)
   const sellOffer = offer && isSellOffer(offer) ? offer : undefined
   const fundingAmount = sellOffer?.amount || 0
   const confirmEscrow = useConfirmEscrow()
