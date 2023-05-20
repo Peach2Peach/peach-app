@@ -796,6 +796,7 @@
   "NOT_FOUND.icon": "map",
   "NOT_FOUND.title": "",
   "NOT_FOUND.text": "El recurso que solicitaste no pudo ser encontrado.",
+  "and": "y",
   "addNew": "agregar nuevo",
   "next": "siguiente",
   "continue": "continuar",

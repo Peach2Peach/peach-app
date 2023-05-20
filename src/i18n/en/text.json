@@ -840,6 +840,7 @@
   "NOT_FOUND.icon": "map",
   "NOT_FOUND.title": "",
   "NOT_FOUND.text": "The resource you requested could not be found.",
+  "and": "and",
   "addNew": "add new",
   "next": "next",
   "continue": "continue",
