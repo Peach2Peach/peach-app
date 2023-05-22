@@ -24,14 +24,22 @@ exports[`WrongFundingAmount renders correctly 1`] = `
       iconId="download"
       text="wrong amount funded"
     />
-    <LabelAndAmount
-      amount={69420}
-      label="funded"
-    />
-    <LabelAndAmount
-      amount={250000}
-      label="amount"
-    />
+    <View
+      style={
+        {
+          "gap": 4,
+        }
+      }
+    >
+      <LabelAndAmount
+        amount={69420}
+        label="funded"
+      />
+      <LabelAndAmount
+        amount={250000}
+        label="amount"
+      />
+    </View>
     <PeachText
       style={
         {
