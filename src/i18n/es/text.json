@@ -710,7 +710,7 @@
   "CRITICAL_UPDATE_AVAILABLE.text": "Esta actualización tiene correcciones críticas. No puedes seguir utilizando tu versión actual.",
   "UPDATE_AVAILABLE.icon": "chevronsUp",
   "UPDATE_AVAILABLE.title": "Actualización disponible",
-  "UPDATE_AVAILABLE.text": "¡Peach acaba de mejorar aún más! Puedes seguir utilizando esta versión si lo deseas.",
+  "UPDATE_AVAILABLE.text": "¡Peach no para de mejorar! Actualiza a la nueva versión de la app.",
   "PAYMENT_HASH_INVALID.text": "Estos datos de pago se utilizan en otra cuenta de Peach. Como tenemos una política estricta de una cuenta por usuario para respetar el límite de trade, no podrás publicar una oferta.",
   "PAYMENT_DATA_MISSING.icon": "creditCard",
   "PAYMENT_DATA_MISSING.title": "Datos de pago faltantes",
