@@ -5,10 +5,5 @@ exports[`ContinueTradeSlider renders correctly 1`] = `
   iconId="arrowRightCircle"
   label1="continue trade"
   onUnlock={[MockFunction]}
-  style={
-    {
-      "width": 263,
-    }
-  }
 />
 `;

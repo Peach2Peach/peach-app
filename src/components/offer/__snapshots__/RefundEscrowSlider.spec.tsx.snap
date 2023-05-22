@@ -5,10 +5,5 @@ exports[`RefundEscrowSlider renders correctly 1`] = `
   iconId="download"
   label1="refund escrow"
   onUnlock={[Function]}
-  style={
-    {
-      "width": 263,
-    }
-  }
 />
 `;

@@ -14,8 +14,10 @@ export const WrongFundingAmount = () => {
     <View style={tw`justify-between flex-grow px-6 pt-5 pb-3`}>
       <View style={tw`gap-3`}>
         <TradeSeparator iconId="download" text={i18n('offer.requiredAction.fundingAmountDifferent')} />
-        <LabelAndAmount label={i18n('escrow.funded')} amount={actualAmount} />
-        <LabelAndAmount label={i18n('amount')} amount={fundingAmount} />
+        <View style={tw`gap-1`}>
+          <LabelAndAmount label={i18n('escrow.funded')} amount={actualAmount} />
+          <LabelAndAmount label={i18n('amount')} amount={fundingAmount} />
+        </View>
         <Text style={tw`body-s`}>
           {i18n('escrow.wrongFundingAmount.description', String(actualAmount), String(fundingAmount))}
         </Text>
