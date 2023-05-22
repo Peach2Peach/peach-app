@@ -11,7 +11,6 @@ import { TrackMarkers } from './TrackMarkers'
 import { knobLayout } from './helpers/knobLayout'
 import { onStartShouldSetResponder } from './helpers/onStartShouldSetResponder'
 import { useSelectAmountSetup } from './hooks/useSelectAmountSetup'
-import { knobLayout } from './helpers/knobLayout'
 
 type Props = ComponentProps & {
   min: number
