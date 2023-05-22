@@ -5,6 +5,7 @@ import { PeachWallet } from '../../../utils/wallet/PeachWallet'
 import { setPeachWallet } from '../../../utils/wallet/setWallet'
 import { getBuyOfferDraft } from '../helpers/getBuyOfferDraft'
 import { useBuySummarySetup } from './useBuySummarySetup'
+import { WalletIcon } from '../../../components/icons'
 
 const offerId = '123'
 const publishBuyOfferMock = jest.fn().mockResolvedValue({ offerId, isOfferPublished: true, errorMessage: null })
@@ -22,7 +23,7 @@ describe('useBuySummarySetup', () => {
   it('should set up header correctly', async () => {
     const { result } = renderHook(useBuySummarySetup, { wrapper: NavigationWrapper })
     expect(useHeaderState.getState().title).toBe('publish buy offer')
-    expect(useHeaderState.getState().icons?.[0].id).toBe('wallet')
+    expect(useHeaderState.getState().icons?.[0].iconComponent.type).toBe(WalletIcon)
     await waitFor(() => expect(result.current.message).toBeDefined())
   })
   it('should show offer published overlay when offer has been published successfully', async () => {
