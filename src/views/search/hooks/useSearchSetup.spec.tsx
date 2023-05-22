@@ -1,7 +1,9 @@
 import { act, renderHook, waitFor } from '@testing-library/react-native'
-import { buyOffer } from '../../../../tests/unit/data/offerData'
+import { buyOffer, sellOffer } from '../../../../tests/unit/data/offerData'
 import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
-import { queryClient, QueryClientWrapper } from '../../../../tests/unit/helpers/QueryClientWrapper'
+import { QueryClientWrapper, queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
+import { useHeaderState } from '../../../components/header/store'
+import { OfferDetailsTitle } from '../../offerDetails/components/OfferDetailsTitle'
 import { useSearchSetup } from './useSearchSetup'
 
 jest.mock('../../../hooks/useRoute', () => ({
@@ -27,6 +29,16 @@ const getOfferDetailsMock = jest.fn().mockResolvedValue([buyOffer, null])
 jest.mock('../../../utils/peachAPI', () => ({
   getMatches: (...args: any[]) => getMatchesMock(...args),
   getOfferDetails: (...args: any[]) => getOfferDetailsMock(...args),
+}))
+
+const offerId = sellOffer.id
+const useRouteMock = jest.fn(() => ({
+  params: {
+    offerId,
+  },
+}))
+jest.mock('../../../hooks/useRoute', () => ({
+  useRoute: () => useRouteMock(),
 }))
 
 const wrapper = ({ children }: ComponentProps) => (
@@ -60,5 +72,15 @@ describe('useSearchSetup', () => {
     await waitFor(() => expect(result.current.offer).toBeDefined())
 
     expect(getMatchesMock).toHaveBeenCalledTimes(1)
+  })
+
+  it('should set up header correctly', async () => {
+    const { result } = renderHook(useSearchSetup, { wrapper })
+
+    await waitFor(() => expect(result.current.offer).toBeDefined())
+
+    expect(useHeaderState.getState().titleComponent?.type).toEqual(OfferDetailsTitle)
+    expect(useHeaderState.getState().titleComponent?.props).toEqual({ id: sellOffer.id })
+    expect(useHeaderState.getState().icons?.[0].id).toBe('xCircle')
   })
 })
