@@ -3,7 +3,7 @@ import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
 import { PeachScrollView, PrimaryButton } from '../../components'
-import PaymentDetails from '../../components/payment/PaymentDetails'
+import { PaymentDetails } from '../../components/payment/PaymentDetails'
 import i18n from '../../utils/i18n'
 import { useOfferDetailsSetup } from './hooks/useOfferDetailsSetup'
 import { SellViewProps } from './SellPreferences'

@@ -1,5 +1,5 @@
 import { ReactElement } from 'react'
-import PaymentDetails from '../../components/payment/PaymentDetails'
+import { PaymentDetails } from '../../components/payment/PaymentDetails'
 import { useHeaderSetup } from '../../hooks'
 import { account } from '../../utils/account'
 import i18n from '../../utils/i18n'
