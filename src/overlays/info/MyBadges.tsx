@@ -1,6 +1,7 @@
 import { Fragment, ReactElement } from 'react'
 import { View } from 'react-native'
-import { Icon, Text } from '../../components'
+import { Icon } from '../../components/Icon'
+import { PeachText } from '../../components/text/Text'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { badges } from '../../views/settings/profile/profileOverview/components/badges'
@@ -13,9 +14,9 @@ export const MyBadges = (): ReactElement => (
           <View style={tw`w-[18px] h-[18px] p-[3px] mx-[3px] rounded-full bg-info-light`}>
             <Icon id={icon} color={tw`text-primary-background-light`.color} style={tw`w-3 h-3`} />
           </View>
-          <Text style={tw`ml-1 subtitle-1`}>{i18n(`peachBadges.${value}`)}</Text>
+          <PeachText style={tw`ml-1 subtitle-1`}>{i18n(`peachBadges.${value}`)}</PeachText>
         </View>
-        <Text>{i18n(`peachBadges.${value}.description`)}</Text>
+        <PeachText>{i18n(`peachBadges.${value}.description`)}</PeachText>
       </Fragment>
     ))}
   </>
