@@ -3,12 +3,20 @@ import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrap
 import { QueryClientWrapper } from '../../../../tests/unit/helpers/QueryClientWrapper'
 import { useHeaderState } from '../../../components/header/store'
 import MyProfile from './MyProfile'
+import { apiSuccess } from '../../../../tests/unit/data/peachAPIData'
 
 const wrapper = ({ children }: ComponentProps) => (
   <NavigationWrapper>
     <QueryClientWrapper>{children}</QueryClientWrapper>
   </NavigationWrapper>
 )
+
+const authMock = jest.fn().mockResolvedValue([apiSuccess, null])
+jest.mock('../../../utils/peachAPI', () => ({
+  auth: (...args: any[]) => authMock(...args),
+}))
+
+jest.useFakeTimers()
 
 describe('MyProfile', () => {
   beforeEach(() => {
