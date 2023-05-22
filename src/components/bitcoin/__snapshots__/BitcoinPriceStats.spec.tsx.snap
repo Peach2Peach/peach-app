@@ -45,7 +45,7 @@ exports[`BitcoinPriceStats should render correctly 1`] = `
             "fontFamily": "Baloo2-Regular",
             "fontSize": 16,
             "letterSpacing": 0.16,
-            "lineHeight": 24,
+            "lineHeight": 28,
           },
           {},
         ]
@@ -90,7 +90,7 @@ exports[`BitcoinPriceStats should render correctly 1`] = `
             "fontFamily": "Baloo2-Regular",
             "fontSize": 16,
             "letterSpacing": 0.16,
-            "lineHeight": 24,
+            "lineHeight": 28,
           },
           {},
           {
@@ -154,7 +154,7 @@ exports[`BitcoinPriceStats should render medium screens correctly 1`] = `
             "fontFamily": "Baloo2-Regular",
             "fontSize": 16,
             "letterSpacing": 0.16,
-            "lineHeight": 24,
+            "lineHeight": 28,
           },
           {
             "fontFamily": "Baloo2-Regular",
@@ -210,7 +210,7 @@ exports[`BitcoinPriceStats should render medium screens correctly 1`] = `
             "fontFamily": "Baloo2-Regular",
             "fontSize": 16,
             "letterSpacing": 0.16,
-            "lineHeight": 24,
+            "lineHeight": 28,
           },
           {
             "fontFamily": "Baloo2-Regular",
