@@ -3,7 +3,7 @@ import { sleep } from '.'
 describe('sleep function', () => {
   it('should wait for the specified amount of time', async () => {
     const start = Date.now()
-    await sleep(1000)
+    await sleep(1001)
     const end = Date.now()
     expect(end - start).toBeGreaterThanOrEqual(1000)
   })

@@ -1,12 +1,12 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { shallow } from 'zustand/shallow'
-import { HelpIcon } from '../../../components/icons'
 import { useMessageContext } from '../../../contexts/message'
 import { useHeaderSetup, useValidatedState } from '../../../hooks'
 import { useFeeEstimate } from '../../../hooks/query/useFeeEstimate'
 import { useShowHelp } from '../../../hooks/useShowHelp'
 import { useSettingsStore } from '../../../store/settingsStore'
 import i18n from '../../../utils/i18n'
+import { headerIcons } from '../../../utils/layout/headerIcons'
 import { updateUser } from '../../../utils/peachAPI'
 
 const customFeeRules = {
@@ -45,20 +45,10 @@ export const useNetworkFeesSetup = () => {
     }
   }
 
-  useHeaderSetup(
-    useMemo(
-      () => ({
-        title: i18n('settings.networkFees'),
-        icons: [
-          {
-            iconComponent: <HelpIcon />,
-            onPress: showHelp,
-          },
-        ],
-      }),
-      [showHelp],
-    ),
-  )
+  useHeaderSetup({
+    title: i18n('settings.networkFees'),
+    icons: [{ ...headerIcons.help, onPress: showHelp }],
+  })
 
   useEffect(() => {
     if (!customFeeRate || isNaN(Number(customFeeRate)) || customFeeRate === '0') setCustomFeeRate(undefined)

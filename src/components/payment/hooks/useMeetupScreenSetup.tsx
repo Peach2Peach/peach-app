@@ -4,10 +4,9 @@ import { useGoToOrigin } from '../../../hooks/useGoToOrigin'
 import { useShowHelp } from '../../../hooks/useShowHelp'
 import { useMeetupEventsStore } from '../../../store/meetupEventsStore'
 import { account, addPaymentData } from '../../../utils/account'
+import { headerIcons } from '../../../utils/layout/headerIcons'
 import { getPaymentMethodInfo } from '../../../utils/paymentMethod'
 import { openAppLink } from '../../../utils/web'
-import { HelpIcon } from '../../icons'
-import { DeleteIcon } from '../../icons/DeleteIcon'
 import { useDeletePaymentMethod } from './useDeletePaymentMethod'
 
 export const useMeetupScreenSetup = () => {
@@ -44,12 +43,9 @@ export const useMeetupScreenSetup = () => {
   }
 
   const icons = useMemo(() => {
-    const icns = [{ iconComponent: <HelpIcon />, onPress: showHelp }]
+    const icns = [{ ...headerIcons.help, onPress: showHelp }]
     if (deletable) {
-      icns[1] = {
-        iconComponent: <DeleteIcon />,
-        onPress: deletePaymentMethod,
-      }
+      icns[1] = { ...headerIcons.delete, onPress: deletePaymentMethod }
     }
     return icns
   }, [deletable, deletePaymentMethod, showHelp])

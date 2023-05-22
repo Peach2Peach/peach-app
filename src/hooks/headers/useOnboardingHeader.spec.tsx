@@ -1,6 +1,5 @@
 import { renderHook } from '@testing-library/react-native'
 import { NavigationWrapper, navigateMock } from '../../../tests/unit/helpers/NavigationWrapper'
-import { Icon } from '../../components'
 import { useHeaderState } from '../../components/header/store'
 import { goToHomepage } from '../../utils/web'
 import { useOnboardingHeader } from './useOnboardingHeader'
@@ -19,11 +18,11 @@ describe('useOnboardingHeader', () => {
 
     expect(useHeaderState.getState().title).toBe(title)
     expect(useHeaderState.getState().hideGoBackButton).toBe(false)
-    expect(useHeaderState.getState().icons?.[0].iconComponent.type).toBe(Icon)
-    expect(useHeaderState.getState().icons?.[0].iconComponent.props.id).toBe('mail')
+    expect(useHeaderState.getState().icons?.[0].id).toBe('mail')
+    expect(useHeaderState.getState().icons?.[0].color).toBe('#FFFCFA')
     expect(useHeaderState.getState().icons?.[0].onPress).toBeInstanceOf(Function)
-    expect(useHeaderState.getState().icons?.[1].iconComponent.type).toBe(Icon)
-    expect(useHeaderState.getState().icons?.[1].iconComponent.props.id).toBe('globe')
+    expect(useHeaderState.getState().icons?.[1].id).toBe('globe')
+    expect(useHeaderState.getState().icons?.[1].color).toBe('#FFFCFA')
     expect(useHeaderState.getState().icons?.[1].onPress).toEqual(goToHomepage)
     expect(useHeaderState.getState().theme).toBe('inverted')
   })

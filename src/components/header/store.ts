@@ -1,9 +1,17 @@
+import { ColorValue, ViewStyle } from 'react-native'
 import { create } from 'zustand'
+import { IconType } from '../../assets/icons'
 
+export type HeaderIcon = {
+  id: IconType
+  style?: ViewStyle | ViewStyle[]
+  color?: ColorValue | undefined
+  onPress: () => void
+}
 export type HeaderConfig = {
   title?: string
   titleComponent?: JSX.Element
-  icons?: { iconComponent: JSX.Element; onPress: () => void }[]
+  icons?: HeaderIcon[]
   hideGoBackButton?: boolean
   theme?: 'default' | 'inverted'
 }
