@@ -312,6 +312,7 @@
   "search.popups.unmatch.text": "Unmatching now will negatively affect your reputation score.",
   "search.popups.unmatch.neverMind": "never mind",
   "search.popups.unmatch.confirm": "yes, unmatch",
+  "search.popups.unmatched": "unmatched!",
   "search.popups.matchUndone.title": "match undone",
   "search.popups.matchUndone.text": "Your reputation has not been affected, and you can always re-match.\n\nWhen you unmatch after the timer runs out, your reputation will be negatively affected.",
   "search.matchAsManyAsYouWant.1": "You can match as many offers as you want!",
