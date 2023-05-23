@@ -28,20 +28,14 @@ export const SelectAmount = ({ min, max, value, onChange, style }: Props): React
   })
   return (
     <View style={[tw`flex-row items-center justify-between pl-5 pr-4`, style]}>
-      <View style={[tw`flex-shrink items-start gap-2`, tw.md`gap-4`]}>
+      <View style={[tw`items-start flex-shrink gap-2`, tw.md`gap-4`]}>
         <ParsedPeachText
           style={[tw`h7`, tw.md`h5`]}
           parse={[{ pattern: new RegExp(i18n('sell.subtitle.highlight'), 'u'), style: tw`text-primary-main` }]}
         >
           {i18n('sell.subtitle')}
         </ParsedPeachText>
-        <CustomAmount
-          {...{
-            amount,
-            onChange: updateCustomAmount,
-          }}
-          style={tw`flex-shrink items-start`}
-        />
+        <CustomAmount amount={amount} onChange={updateCustomAmount} style={tw`items-start flex-shrink`} />
       </View>
       <SliderTrack style={tw`h-full`} onLayout={onTrackLayout}>
         <TrackMarkers />
