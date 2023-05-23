@@ -34,15 +34,16 @@ exports[`PopupAction renders correctly 1`] = `
   onStartShouldSetResponder={[Function]}
   style={
     [
-      undefined,
       {
         "alignItems": "center",
         "flexDirection": "row",
-        "flexShrink": 1,
+        "flexGrow": 1,
         "gap": 4,
+        "justifyContent": "flex-end",
       },
       false,
       false,
+      undefined,
     ]
   }
 >
@@ -125,17 +126,18 @@ exports[`PopupAction renders correctly when disabled 1`] = `
   onStartShouldSetResponder={[Function]}
   style={
     [
-      undefined,
       {
         "alignItems": "center",
         "flexDirection": "row",
-        "flexShrink": 1,
+        "flexGrow": 1,
         "gap": 4,
+        "justifyContent": "flex-end",
       },
       {
         "opacity": 0.5,
       },
       false,
+      undefined,
     ]
   }
 >
@@ -218,17 +220,18 @@ exports[`PopupAction renders correctly with reversed order 1`] = `
   onStartShouldSetResponder={[Function]}
   style={
     [
-      undefined,
       {
         "alignItems": "center",
         "flexDirection": "row",
-        "flexShrink": 1,
+        "flexGrow": 1,
         "gap": 4,
+        "justifyContent": "flex-end",
       },
       false,
       {
         "flexDirection": "row-reverse",
       },
+      undefined,
     ]
   }
 >
