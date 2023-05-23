@@ -54,7 +54,9 @@ export const SellOfferSummary = ({ offer, style }: Props) => {
 
       <HorizontalLine style={tw`w-64 my-4`} />
       <Text style={tw`self-center body-m text-black-2`}>{i18n('offer.summary.refundWallet')}</Text>
-      <WalletLabel label={offer.walletLabel} address={offer.returnAddress} style={tw`self-center subtitle-1`} />
+      <Text style={tw`self-center subtitle-1`}>
+        <WalletLabel label={offer.walletLabel} address={offer.returnAddress} />
+      </Text>
 
       {isSellOfferWithDefinedEscrow(offer) && (
         <>

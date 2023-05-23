@@ -47,7 +47,9 @@ export const BuyOfferSummary = ({ offer, style }: Props) => {
       </View>
       <HorizontalLine style={tw`w-64 my-4`} />
       <Text style={tw`self-center body-m text-black-2`}>{i18n('to')}</Text>
-      <WalletLabel label={offer.walletLabel} address={offer.releaseAddress} style={tw`self-center subtitle-1`} />
+      <Text style={tw`self-center subtitle-1`}>
+        <WalletLabel label={offer.walletLabel} address={offer.releaseAddress} />
+      </Text>
     </View>
   )
 }
