@@ -1,12 +1,10 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
-
 import { shallow } from 'zustand/shallow'
-import { Icon } from '../../../components'
-import { EditIcon, HelpIcon } from '../../../components/icons'
 import { useHeaderSetup, useShowHelp, useToggleBoolean } from '../../../hooks'
 import { useSettingsStore } from '../../../store/settingsStore'
 import { account, getPaymentData, getSelectedPaymentDataIds } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
+import { headerIcons } from '../../../utils/layout/headerIcons'
 import { hashPaymentData } from '../../../utils/paymentMethod'
 import { validateOfferDetailsStep } from '../helpers/validateOfferDetailsStep'
 
@@ -29,12 +27,12 @@ export const useOfferDetailsSetup = ({ offerDraft, setOfferDraft }: Props) => {
       account.paymentData.length !== 0
         ? [
           {
-            iconComponent: isEditing ? <Icon id="checkboxMark" /> : <EditIcon />,
+            ...(isEditing ? headerIcons.checkbox : headerIcons.edit),
             onPress: toggleIsEditing,
           },
-          { iconComponent: <HelpIcon />, onPress: showHelp },
+          { ...headerIcons.help, onPress: showHelp },
         ]
-        : [{ iconComponent: <HelpIcon />, onPress: showHelp }],
+        : [{ ...headerIcons.help, onPress: showHelp }],
   })
 
   useEffect(() => {

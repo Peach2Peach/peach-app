@@ -40,7 +40,7 @@ describe('useOverlayEvents', () => {
       result.current['offer.escrowFunded']!(data)
     })
 
-    expect(navigateMock).toHaveBeenCalledWith('offerPublished', { isSellOffer: true, shouldGoBack: true })
+    expect(navigateMock).toHaveBeenCalledWith('offerPublished', { offerId, isSellOffer: true, shouldGoBack: true })
   })
 
   it('should not navigate to offerPublished screen on "offer.escrowFunded" event if offerId is not provided', () => {

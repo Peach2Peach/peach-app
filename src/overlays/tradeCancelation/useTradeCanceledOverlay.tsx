@@ -115,7 +115,7 @@ export const useTradeCanceledOverlay = () => {
           <ContractCanceledToSeller contract={contract} />
         ),
         visible: true,
-        level: 'WARN',
+        level: 'DEFAULT',
         requireUserAction: true,
         action1,
         action2,

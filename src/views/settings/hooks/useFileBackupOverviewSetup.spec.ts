@@ -35,7 +35,7 @@ describe('useFileBackupOverviewSetup', () => {
     expect(useHeaderSetupMock).toHaveBeenCalled()
     const args = useHeaderSetupMock.mock.calls[0][0]
     expect(args.title).toBe(i18n('settings.backups.fileBackup.title'))
-    expect(args.icons[0].iconComponent).toMatchInlineSnapshot('<HelpIcon />')
+    expect(args.icons[0].id).toBe('helpCircle')
     expect(args.icons[0].onPress).toBe(showHelpMock)
   })
 })

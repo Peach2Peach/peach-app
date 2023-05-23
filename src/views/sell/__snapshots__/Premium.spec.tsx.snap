@@ -222,12 +222,16 @@ exports[`Premium renders correctly 1`] = `
       </View>
       <View
         style={
-          {
-            "alignItems": "center",
-            "flexDirection": "row",
-            "justifyContent": "center",
-            "marginTop": 32,
-          }
+          [
+            {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "justifyContent": "center",
+            },
+            {
+              "marginTop": 32,
+            },
+          ]
         }
       >
         <Text

@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OfferTaken should render correctly 1`] = `
+<PeachText>
+  sorry, someone else was faster!
+</PeachText>
+`;

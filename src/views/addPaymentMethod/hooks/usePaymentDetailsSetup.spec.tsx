@@ -1,14 +1,10 @@
-import { usePaymentDetailsSetup } from './usePaymentDetailsSetup'
 import { act, renderHook } from '@testing-library/react-native'
-import { NavigationContainer } from '@react-navigation/native'
+import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { useHeaderState } from '../../../components/header/store'
-import i18n from '../../../utils/i18n'
-import { defaultOverlay, OverlayContext } from '../../../contexts/overlay'
+import { OverlayContext, defaultOverlay } from '../../../contexts/overlay'
 import { account } from '../../../utils/account'
-
-jest.mock('../../../hooks/useNavigation', () => ({
-  useNavigation: jest.fn(),
-}))
+import i18n from '../../../utils/i18n'
+import { usePaymentDetailsSetup } from './usePaymentDetailsSetup'
 
 const useRouteMock = jest.fn(() => ({
   params: {
@@ -38,9 +34,9 @@ const updateOverlay = jest.fn((state) => {
 })
 
 const wrapper = ({ children }: { children: JSX.Element }) => (
-  <NavigationContainer>
+  <NavigationWrapper>
     <OverlayContext.Provider value={[overlayState, updateOverlay]}>{children}</OverlayContext.Provider>
-  </NavigationContainer>
+  </NavigationWrapper>
 )
 
 describe('usePaymentDetailsSetup', () => {
@@ -67,8 +63,8 @@ describe('usePaymentDetailsSetup', () => {
   it('should set the header', () => {
     renderHook(usePaymentDetailsSetup, { wrapper })
     expect(useHeaderState.getState().title).toEqual(i18n('paymentMethod.edit.title', i18n('paymentMethod.revolut')))
-    expect(useHeaderState.getState().icons?.[0].iconComponent).toMatchInlineSnapshot('<HelpIcon />')
-    expect(useHeaderState.getState().icons?.[1].iconComponent).toMatchInlineSnapshot('<DeleteIcon />')
+    expect(useHeaderState.getState().icons?.[0].id).toBe('helpCircle')
+    expect(useHeaderState.getState().icons?.[1].id).toBe('trash')
   })
   it('should set the header if no id is present and the paymentMethod is not revolut', () => {
     useRouteMock.mockReturnValueOnce({

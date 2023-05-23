@@ -22,7 +22,7 @@ export const useConfirmCancelTrade = () => {
     async (contract: Contract) => {
       showLoadingOverlay({
         title: i18n('contract.cancel.title'),
-        level: 'ERROR',
+        level: 'DEFAULT',
       })
       const result = await cancelContractAsBuyer(contract)
 
@@ -33,7 +33,7 @@ export const useConfirmCancelTrade = () => {
       }
       saveContract(result.getValue().contract)
       navigation.replace('contract', { contractId: contract.id })
-      updateOverlay({ title: i18n('contract.cancel.success'), visible: true, level: 'APP' })
+      updateOverlay({ title: i18n('contract.cancel.success'), visible: true, level: 'DEFAULT' })
     },
     [closeOverlay, navigation, showError, showLoadingOverlay, updateOverlay],
   )
@@ -42,7 +42,7 @@ export const useConfirmCancelTrade = () => {
     async (contract: Contract) => {
       showLoadingOverlay({
         title: i18n('contract.cancel.title'),
-        level: 'ERROR',
+        level: 'DEFAULT',
       })
       const result = await cancelContractAsSeller(contract)
 
@@ -67,7 +67,7 @@ export const useConfirmCancelTrade = () => {
       const cancelAction = () => (view === 'seller' ? cancelSeller(contract) : cancelBuyer(contract))
       updateOverlay({
         title: i18n('contract.cancel.title'),
-        level: 'ERROR',
+        level: 'DEFAULT',
         content: <ConfirmCancelTrade {...{ contract, view }} />,
         visible: true,
         action1: {

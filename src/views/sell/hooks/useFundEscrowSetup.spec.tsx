@@ -112,9 +112,9 @@ describe('useFundEscrowSetup', () => {
     const { result } = renderHook(useFundEscrowSetup, { wrapper })
     expect(useHeaderState.getState().title).toBe(i18n('sell.escrow.title'))
     expect(useHeaderState.getState().hideGoBackButton).toBeTruthy()
-    expect(useHeaderState.getState().icons?.[0].iconComponent).toMatchInlineSnapshot('<CancelIcon />')
+    expect(useHeaderState.getState().icons?.[0].id).toBe('xCircle')
     expect(useHeaderState.getState().icons?.[0].onPress).toEqual(result.current.cancelOffer)
-    expect(useHeaderState.getState().icons?.[1].iconComponent).toMatchInlineSnapshot('<HelpIcon />')
+    expect(useHeaderState.getState().icons?.[1].id).toBe('helpCircle')
     expect(useHeaderState.getState().icons?.[1].onPress).toEqual(showHelpMock)
   })
   it('should render header correctly for funding in mempool', () => {
@@ -132,7 +132,7 @@ describe('useFundEscrowSetup', () => {
     renderHook(useFundEscrowSetup, { wrapper })
     expect(useHeaderState.getState().title).toBe(i18n('sell.funding.mempool.title'))
     expect(useHeaderState.getState().hideGoBackButton).toBeTruthy()
-    expect(useHeaderState.getState().icons?.[0].iconComponent).toMatchInlineSnapshot('<HelpIcon />')
+    expect(useHeaderState.getState().icons?.[0].id).toBe('helpCircle')
     expect(useHeaderState.getState().icons?.[0].onPress).toEqual(showHelpMock)
   })
   it('should show error banner if there is an error with the funding status', () => {
