@@ -39,28 +39,16 @@ export const RangeAmount = ({ min, max, value, onChange, style }: Props): ReactE
 
   return (
     <View style={[tw`flex-row items-center justify-between pl-5 pr-4`, style]}>
-      <View style={[tw`flex-shrink items-start gap-2`, tw.md`gap-4`]}>
+      <View style={[tw`items-start flex-shrink gap-2`, tw.md`gap-4`]}>
         <ParsedPeachText
           style={[tw`h7`, tw.md`h5`]}
           parse={[{ pattern: new RegExp(i18n('buy.subtitle.highlight'), 'u'), style: tw`text-success-main` }]}
         >
           {i18n('buy.subtitle')}
         </ParsedPeachText>
-        <CustomAmount
-          {...{
-            amount: maximum,
-            onChange: updateCustomAmountMaximum,
-          }}
-          style={tw`flex-shrink items-start`}
-        />
+        <CustomAmount amount={maximum} onChange={updateCustomAmountMaximum} style={tw`items-start flex-shrink`} />
         <Text style={[tw`h7`, tw.md`h5`]}>{i18n('and')}</Text>
-        <CustomAmount
-          {...{
-            amount: minimum,
-            onChange: updateCustomAmountMinimum,
-          }}
-          style={tw`flex-shrink items-start`}
-        />
+        <CustomAmount amount={minimum} onChange={updateCustomAmountMinimum} style={tw`items-start flex-shrink`} />
       </View>
 
       <SliderTrack style={tw`h-full`} onLayout={onTrackLayout}>
