@@ -9,7 +9,7 @@ import { useOfferDetailsSetup } from './hooks/useOfferDetailsSetup'
 import { SellViewProps } from './SellPreferences'
 
 export default ({ offerDraft, setOfferDraft, next }: SellViewProps): ReactElement => {
-  const { paymentData, setMeansOfPayment, isEditing, isStepValid } = useOfferDetailsSetup({
+  const { setMeansOfPayment, isEditing, isStepValid } = useOfferDetailsSetup({
     offerDraft,
     setOfferDraft,
   })
@@ -19,7 +19,6 @@ export default ({ offerDraft, setOfferDraft, next }: SellViewProps): ReactElemen
       <PeachScrollView style={[tw`flex-shrink h-full mb-10`]}>
         <PaymentDetails
           style={tw`mt-4`}
-          paymentData={paymentData}
           setMeansOfPayment={setMeansOfPayment}
           editing={isEditing}
           origin="sellPreferences"
