@@ -67,7 +67,6 @@ import offline from './offline.svg'
 import paperclip from './paperclip.svg'
 import pauseCircle from './pauseCircle.svg'
 import percent from './percent.svg'
-import plus from './plus.svg'
 import plusCircle from './plusCircle.svg'
 import plusSquare from './plusSquare.svg'
 import prev from './prev.svg'
@@ -187,7 +186,6 @@ const Icons = {
   paperclip,
   pauseCircle,
   percent,
-  plus,
   plusCircle,
   plusSquare,
   prev,
