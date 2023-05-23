@@ -87,7 +87,7 @@ export const PopupContent = ({
               />
             )}
             <PopupAction
-              style={tw`py-2`}
+              style={[tw`py-2`, !action2 && tw`justify-center`]}
               isDisabled={action1?.disabled}
               onPress={action1 ? (!action1.disabled ? action1.callback : null) : closePopup}
               color={actionColor}
