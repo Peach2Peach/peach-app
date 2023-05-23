@@ -1,4 +1,4 @@
-import { Platform, TextStyle, View } from 'react-native'
+import { TextStyle, View } from 'react-native'
 import { Icon, Text } from '..'
 import { SATSINBTC } from '../../constants'
 import tw from '../../styles/tailwind'
@@ -23,9 +23,9 @@ export const MixedLetterSpacingText = ({
   const hasFontSize = (s: false | TextStyle): s is TextStyle => s !== false && s?.fontSize !== undefined
   const fontSize = style.find(hasFontSize)!.fontSize!
   const desiredLetterSpacing: Record<string, TextStyle['letterSpacing']> = {
-    whiteSpace: Platform.select({ ios: -(fontSize * 0.35), android: -(fontSize * 0.035) }),
-    dot: Platform.select({ ios: -(fontSize * 0.21), android: -(fontSize * 0.021) }),
-    digit: Platform.select({ ios: -(fontSize * 0.075), android: -(fontSize * 0.0075) }),
+    whiteSpace: -(fontSize * 0.35),
+    dot: -(fontSize * 0.21),
+    digit: -(fontSize * 0.075),
   }
 
   return (
@@ -99,7 +99,7 @@ export const BTCAmount = ({ amount, size, isError = false, style }: Props) => (
     <View style={tw`flex-row items-baseline pt-1`}>
       <MixedLetterSpacingText
         style={[
-          tw`font-bold text-center font-courier-prime`,
+          tw`text-center font-courier-prime-bold`,
           size === 'extra large' && tw`pr-1 text-30px leading-40px`,
           size === 'large' && tw`pr-1 text-26px leading-34px`,
           size === 'medium' && tw`text-22px leading-30px pr-3px`,
@@ -116,7 +116,7 @@ export const BTCAmount = ({ amount, size, isError = false, style }: Props) => (
           size === 'medium' && tw`text-base leading-24px pb-2px pl-3px`,
           size === 'small' && tw`text-3xs leading-18px pb-2px pl-2px`,
           size === 'x small' && tw`text-10px leading-15px pb-2px pl-2px`,
-          tw`font-medium text-left font-baloo`,
+          tw`text-left font-baloo-medium`,
           isError && tw`text-error-dark`,
         ]}
       >
