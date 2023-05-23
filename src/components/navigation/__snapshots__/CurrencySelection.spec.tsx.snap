@@ -7,30 +7,14 @@ exports[`CurrencySelection renders correctly for 1 currencies 1`] = `
       {
         "flexDirection": "row",
         "flexWrap": "wrap",
-<<<<<<< HEAD
-      },
-      false,
-=======
         "justifyContent": "center",
       },
->>>>>>> release/0.2.7-no-freeing-epic
       undefined,
     ]
   }
 >
   <View
     style={
-<<<<<<< HEAD
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
-=======
       {
         "alignItems": "center",
         "flexDirection": "row",
@@ -38,7 +22,6 @@ exports[`CurrencySelection renders correctly for 1 currencies 1`] = `
         "maxWidth": "25%",
         "minWidth": "12.5%",
       }
->>>>>>> release/0.2.7-no-freeing-epic
     }
   >
     <View
@@ -133,30 +116,14 @@ exports[`CurrencySelection renders correctly for 2 currencies 1`] = `
       {
         "flexDirection": "row",
         "flexWrap": "wrap",
-<<<<<<< HEAD
-      },
-      false,
-=======
         "justifyContent": "center",
       },
->>>>>>> release/0.2.7-no-freeing-epic
       undefined,
     ]
   }
 >
   <View
     style={
-<<<<<<< HEAD
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
-=======
       {
         "alignItems": "center",
         "flexDirection": "row",
@@ -164,7 +131,6 @@ exports[`CurrencySelection renders correctly for 2 currencies 1`] = `
         "maxWidth": "25%",
         "minWidth": "12.5%",
       }
->>>>>>> release/0.2.7-no-freeing-epic
     }
   >
     <View
@@ -252,17 +218,6 @@ exports[`CurrencySelection renders correctly for 2 currencies 1`] = `
   </View>
   <View
     style={
-<<<<<<< HEAD
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
-=======
       {
         "alignItems": "center",
         "flexDirection": "row",
@@ -270,7 +225,6 @@ exports[`CurrencySelection renders correctly for 2 currencies 1`] = `
         "maxWidth": "25%",
         "minWidth": "12.5%",
       }
->>>>>>> release/0.2.7-no-freeing-epic
     }
   >
     <View
@@ -365,30 +319,14 @@ exports[`CurrencySelection renders correctly for 3 currencies 1`] = `
       {
         "flexDirection": "row",
         "flexWrap": "wrap",
-<<<<<<< HEAD
-      },
-      false,
-=======
         "justifyContent": "center",
       },
->>>>>>> release/0.2.7-no-freeing-epic
       undefined,
     ]
   }
 >
   <View
     style={
-<<<<<<< HEAD
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
-=======
       {
         "alignItems": "center",
         "flexDirection": "row",
@@ -396,7 +334,6 @@ exports[`CurrencySelection renders correctly for 3 currencies 1`] = `
         "maxWidth": "25%",
         "minWidth": "12.5%",
       }
->>>>>>> release/0.2.7-no-freeing-epic
     }
   >
     <View
@@ -484,17 +421,6 @@ exports[`CurrencySelection renders correctly for 3 currencies 1`] = `
   </View>
   <View
     style={
-<<<<<<< HEAD
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
-=======
       {
         "alignItems": "center",
         "flexDirection": "row",
@@ -502,7 +428,6 @@ exports[`CurrencySelection renders correctly for 3 currencies 1`] = `
         "maxWidth": "25%",
         "minWidth": "12.5%",
       }
->>>>>>> release/0.2.7-no-freeing-epic
     }
   >
     <View
@@ -590,17 +515,6 @@ exports[`CurrencySelection renders correctly for 3 currencies 1`] = `
   </View>
   <View
     style={
-<<<<<<< HEAD
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
-=======
       {
         "alignItems": "center",
         "flexDirection": "row",
@@ -608,7 +522,6 @@ exports[`CurrencySelection renders correctly for 3 currencies 1`] = `
         "maxWidth": "25%",
         "minWidth": "12.5%",
       }
->>>>>>> release/0.2.7-no-freeing-epic
     }
   >
     <View
@@ -703,30 +616,14 @@ exports[`CurrencySelection renders correctly for 4 currencies 1`] = `
       {
         "flexDirection": "row",
         "flexWrap": "wrap",
-<<<<<<< HEAD
-      },
-      false,
-=======
         "justifyContent": "center",
       },
->>>>>>> release/0.2.7-no-freeing-epic
       undefined,
     ]
   }
 >
   <View
     style={
-<<<<<<< HEAD
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
-=======
       {
         "alignItems": "center",
         "flexDirection": "row",
@@ -734,7 +631,6 @@ exports[`CurrencySelection renders correctly for 4 currencies 1`] = `
         "maxWidth": "25%",
         "minWidth": "12.5%",
       }
->>>>>>> release/0.2.7-no-freeing-epic
     }
   >
     <View
@@ -822,17 +718,6 @@ exports[`CurrencySelection renders correctly for 4 currencies 1`] = `
   </View>
   <View
     style={
-<<<<<<< HEAD
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
-=======
       {
         "alignItems": "center",
         "flexDirection": "row",
@@ -840,7 +725,6 @@ exports[`CurrencySelection renders correctly for 4 currencies 1`] = `
         "maxWidth": "25%",
         "minWidth": "12.5%",
       }
->>>>>>> release/0.2.7-no-freeing-epic
     }
   >
     <View
@@ -928,17 +812,6 @@ exports[`CurrencySelection renders correctly for 4 currencies 1`] = `
   </View>
   <View
     style={
-<<<<<<< HEAD
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
-=======
       {
         "alignItems": "center",
         "flexDirection": "row",
@@ -946,7 +819,6 @@ exports[`CurrencySelection renders correctly for 4 currencies 1`] = `
         "maxWidth": "25%",
         "minWidth": "12.5%",
       }
->>>>>>> release/0.2.7-no-freeing-epic
     }
   >
     <View
@@ -1034,17 +906,6 @@ exports[`CurrencySelection renders correctly for 4 currencies 1`] = `
   </View>
   <View
     style={
-<<<<<<< HEAD
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
-=======
       {
         "alignItems": "center",
         "flexDirection": "row",
@@ -1052,7 +913,6 @@ exports[`CurrencySelection renders correctly for 4 currencies 1`] = `
         "maxWidth": "25%",
         "minWidth": "12.5%",
       }
->>>>>>> release/0.2.7-no-freeing-epic
     }
   >
     <View
@@ -1147,30 +1007,14 @@ exports[`CurrencySelection renders correctly for 5 currencies 1`] = `
       {
         "flexDirection": "row",
         "flexWrap": "wrap",
-<<<<<<< HEAD
-      },
-      false,
-=======
         "justifyContent": "center",
       },
->>>>>>> release/0.2.7-no-freeing-epic
       undefined,
     ]
   }
 >
   <View
     style={
-<<<<<<< HEAD
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
-=======
       {
         "alignItems": "center",
         "flexDirection": "row",
@@ -1178,7 +1022,6 @@ exports[`CurrencySelection renders correctly for 5 currencies 1`] = `
         "maxWidth": "25%",
         "minWidth": "12.5%",
       }
->>>>>>> release/0.2.7-no-freeing-epic
     }
   >
     <View
@@ -1266,17 +1109,6 @@ exports[`CurrencySelection renders correctly for 5 currencies 1`] = `
   </View>
   <View
     style={
-<<<<<<< HEAD
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
-=======
       {
         "alignItems": "center",
         "flexDirection": "row",
@@ -1284,7 +1116,6 @@ exports[`CurrencySelection renders correctly for 5 currencies 1`] = `
         "maxWidth": "25%",
         "minWidth": "12.5%",
       }
->>>>>>> release/0.2.7-no-freeing-epic
     }
   >
     <View
@@ -1372,17 +1203,6 @@ exports[`CurrencySelection renders correctly for 5 currencies 1`] = `
   </View>
   <View
     style={
-<<<<<<< HEAD
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
-=======
       {
         "alignItems": "center",
         "flexDirection": "row",
@@ -1390,7 +1210,6 @@ exports[`CurrencySelection renders correctly for 5 currencies 1`] = `
         "maxWidth": "25%",
         "minWidth": "12.5%",
       }
->>>>>>> release/0.2.7-no-freeing-epic
     }
   >
     <View
@@ -1478,17 +1297,6 @@ exports[`CurrencySelection renders correctly for 5 currencies 1`] = `
   </View>
   <View
     style={
-<<<<<<< HEAD
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
-=======
       {
         "alignItems": "center",
         "flexDirection": "row",
@@ -1496,7 +1304,6 @@ exports[`CurrencySelection renders correctly for 5 currencies 1`] = `
         "maxWidth": "25%",
         "minWidth": "12.5%",
       }
->>>>>>> release/0.2.7-no-freeing-epic
     }
   >
     <View
@@ -1584,17 +1391,6 @@ exports[`CurrencySelection renders correctly for 5 currencies 1`] = `
   </View>
   <View
     style={
-<<<<<<< HEAD
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
-=======
       {
         "alignItems": "center",
         "flexDirection": "row",
@@ -1602,7 +1398,6 @@ exports[`CurrencySelection renders correctly for 5 currencies 1`] = `
         "maxWidth": "25%",
         "minWidth": "12.5%",
       }
->>>>>>> release/0.2.7-no-freeing-epic
     }
   >
     <View
@@ -1697,30 +1492,14 @@ exports[`CurrencySelection renders correctly for 6 currencies 1`] = `
       {
         "flexDirection": "row",
         "flexWrap": "wrap",
-<<<<<<< HEAD
-      },
-      false,
-=======
         "justifyContent": "center",
       },
->>>>>>> release/0.2.7-no-freeing-epic
       undefined,
     ]
   }
 >
   <View
     style={
-<<<<<<< HEAD
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
-=======
       {
         "alignItems": "center",
         "flexDirection": "row",
@@ -1728,7 +1507,6 @@ exports[`CurrencySelection renders correctly for 6 currencies 1`] = `
         "maxWidth": "25%",
         "minWidth": "12.5%",
       }
->>>>>>> release/0.2.7-no-freeing-epic
     }
   >
     <View
@@ -1816,17 +1594,6 @@ exports[`CurrencySelection renders correctly for 6 currencies 1`] = `
   </View>
   <View
     style={
-<<<<<<< HEAD
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
-=======
       {
         "alignItems": "center",
         "flexDirection": "row",
@@ -1834,7 +1601,6 @@ exports[`CurrencySelection renders correctly for 6 currencies 1`] = `
         "maxWidth": "25%",
         "minWidth": "12.5%",
       }
->>>>>>> release/0.2.7-no-freeing-epic
     }
   >
     <View
@@ -1922,17 +1688,6 @@ exports[`CurrencySelection renders correctly for 6 currencies 1`] = `
   </View>
   <View
     style={
-<<<<<<< HEAD
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
-=======
       {
         "alignItems": "center",
         "flexDirection": "row",
@@ -1940,7 +1695,6 @@ exports[`CurrencySelection renders correctly for 6 currencies 1`] = `
         "maxWidth": "25%",
         "minWidth": "12.5%",
       }
->>>>>>> release/0.2.7-no-freeing-epic
     }
   >
     <View
@@ -2028,17 +1782,6 @@ exports[`CurrencySelection renders correctly for 6 currencies 1`] = `
   </View>
   <View
     style={
-<<<<<<< HEAD
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
-=======
       {
         "alignItems": "center",
         "flexDirection": "row",
@@ -2046,7 +1789,6 @@ exports[`CurrencySelection renders correctly for 6 currencies 1`] = `
         "maxWidth": "25%",
         "minWidth": "12.5%",
       }
->>>>>>> release/0.2.7-no-freeing-epic
     }
   >
     <View
@@ -2134,17 +1876,6 @@ exports[`CurrencySelection renders correctly for 6 currencies 1`] = `
   </View>
   <View
     style={
-<<<<<<< HEAD
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
-=======
       {
         "alignItems": "center",
         "flexDirection": "row",
@@ -2152,7 +1883,6 @@ exports[`CurrencySelection renders correctly for 6 currencies 1`] = `
         "maxWidth": "25%",
         "minWidth": "12.5%",
       }
->>>>>>> release/0.2.7-no-freeing-epic
     }
   >
     <View
@@ -2240,17 +1970,6 @@ exports[`CurrencySelection renders correctly for 6 currencies 1`] = `
   </View>
   <View
     style={
-<<<<<<< HEAD
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
-=======
       {
         "alignItems": "center",
         "flexDirection": "row",
@@ -2258,7 +1977,6 @@ exports[`CurrencySelection renders correctly for 6 currencies 1`] = `
         "maxWidth": "25%",
         "minWidth": "12.5%",
       }
->>>>>>> release/0.2.7-no-freeing-epic
     }
   >
     <View
@@ -2353,30 +2071,14 @@ exports[`CurrencySelection renders correctly for 7 currencies 1`] = `
       {
         "flexDirection": "row",
         "flexWrap": "wrap",
-<<<<<<< HEAD
-      },
-      false,
-=======
         "justifyContent": "center",
       },
->>>>>>> release/0.2.7-no-freeing-epic
       undefined,
     ]
   }
 >
   <View
     style={
-<<<<<<< HEAD
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
-=======
       {
         "alignItems": "center",
         "flexDirection": "row",
@@ -2384,7 +2086,6 @@ exports[`CurrencySelection renders correctly for 7 currencies 1`] = `
         "maxWidth": "25%",
         "minWidth": "12.5%",
       }
->>>>>>> release/0.2.7-no-freeing-epic
     }
   >
     <View
@@ -2472,17 +2173,6 @@ exports[`CurrencySelection renders correctly for 7 currencies 1`] = `
   </View>
   <View
     style={
-<<<<<<< HEAD
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
-=======
       {
         "alignItems": "center",
         "flexDirection": "row",
@@ -2490,7 +2180,6 @@ exports[`CurrencySelection renders correctly for 7 currencies 1`] = `
         "maxWidth": "25%",
         "minWidth": "12.5%",
       }
->>>>>>> release/0.2.7-no-freeing-epic
     }
   >
     <View
@@ -2578,17 +2267,6 @@ exports[`CurrencySelection renders correctly for 7 currencies 1`] = `
   </View>
   <View
     style={
-<<<<<<< HEAD
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
-=======
       {
         "alignItems": "center",
         "flexDirection": "row",
@@ -2596,7 +2274,6 @@ exports[`CurrencySelection renders correctly for 7 currencies 1`] = `
         "maxWidth": "25%",
         "minWidth": "12.5%",
       }
->>>>>>> release/0.2.7-no-freeing-epic
     }
   >
     <View
@@ -2684,17 +2361,6 @@ exports[`CurrencySelection renders correctly for 7 currencies 1`] = `
   </View>
   <View
     style={
-<<<<<<< HEAD
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
-=======
       {
         "alignItems": "center",
         "flexDirection": "row",
@@ -2702,7 +2368,6 @@ exports[`CurrencySelection renders correctly for 7 currencies 1`] = `
         "maxWidth": "25%",
         "minWidth": "12.5%",
       }
->>>>>>> release/0.2.7-no-freeing-epic
     }
   >
     <View
@@ -2790,17 +2455,6 @@ exports[`CurrencySelection renders correctly for 7 currencies 1`] = `
   </View>
   <View
     style={
-<<<<<<< HEAD
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
-=======
       {
         "alignItems": "center",
         "flexDirection": "row",
@@ -2808,7 +2462,6 @@ exports[`CurrencySelection renders correctly for 7 currencies 1`] = `
         "maxWidth": "25%",
         "minWidth": "12.5%",
       }
->>>>>>> release/0.2.7-no-freeing-epic
     }
   >
     <View
@@ -2896,17 +2549,6 @@ exports[`CurrencySelection renders correctly for 7 currencies 1`] = `
   </View>
   <View
     style={
-<<<<<<< HEAD
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
-=======
       {
         "alignItems": "center",
         "flexDirection": "row",
@@ -2914,7 +2556,6 @@ exports[`CurrencySelection renders correctly for 7 currencies 1`] = `
         "maxWidth": "25%",
         "minWidth": "12.5%",
       }
->>>>>>> release/0.2.7-no-freeing-epic
     }
   >
     <View
@@ -3002,17 +2643,6 @@ exports[`CurrencySelection renders correctly for 7 currencies 1`] = `
   </View>
   <View
     style={
-<<<<<<< HEAD
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
-=======
       {
         "alignItems": "center",
         "flexDirection": "row",
@@ -3020,7 +2650,6 @@ exports[`CurrencySelection renders correctly for 7 currencies 1`] = `
         "maxWidth": "25%",
         "minWidth": "12.5%",
       }
->>>>>>> release/0.2.7-no-freeing-epic
     }
   >
     <View
@@ -3115,30 +2744,14 @@ exports[`CurrencySelection renders correctly for 8 currencies 1`] = `
       {
         "flexDirection": "row",
         "flexWrap": "wrap",
-<<<<<<< HEAD
-      },
-      false,
-=======
         "justifyContent": "center",
       },
->>>>>>> release/0.2.7-no-freeing-epic
       undefined,
     ]
   }
 >
   <View
     style={
-<<<<<<< HEAD
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
-=======
       {
         "alignItems": "center",
         "flexDirection": "row",
@@ -3146,7 +2759,6 @@ exports[`CurrencySelection renders correctly for 8 currencies 1`] = `
         "maxWidth": "25%",
         "minWidth": "12.5%",
       }
->>>>>>> release/0.2.7-no-freeing-epic
     }
   >
     <View
@@ -3234,17 +2846,6 @@ exports[`CurrencySelection renders correctly for 8 currencies 1`] = `
   </View>
   <View
     style={
-<<<<<<< HEAD
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
-=======
       {
         "alignItems": "center",
         "flexDirection": "row",
@@ -3252,7 +2853,6 @@ exports[`CurrencySelection renders correctly for 8 currencies 1`] = `
         "maxWidth": "25%",
         "minWidth": "12.5%",
       }
->>>>>>> release/0.2.7-no-freeing-epic
     }
   >
     <View
@@ -3340,17 +2940,6 @@ exports[`CurrencySelection renders correctly for 8 currencies 1`] = `
   </View>
   <View
     style={
-<<<<<<< HEAD
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
-=======
       {
         "alignItems": "center",
         "flexDirection": "row",
@@ -3358,7 +2947,6 @@ exports[`CurrencySelection renders correctly for 8 currencies 1`] = `
         "maxWidth": "25%",
         "minWidth": "12.5%",
       }
->>>>>>> release/0.2.7-no-freeing-epic
     }
   >
     <View
@@ -3446,17 +3034,6 @@ exports[`CurrencySelection renders correctly for 8 currencies 1`] = `
   </View>
   <View
     style={
-<<<<<<< HEAD
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
-=======
       {
         "alignItems": "center",
         "flexDirection": "row",
@@ -3464,7 +3041,6 @@ exports[`CurrencySelection renders correctly for 8 currencies 1`] = `
         "maxWidth": "25%",
         "minWidth": "12.5%",
       }
->>>>>>> release/0.2.7-no-freeing-epic
     }
   >
     <View
@@ -3552,17 +3128,6 @@ exports[`CurrencySelection renders correctly for 8 currencies 1`] = `
   </View>
   <View
     style={
-<<<<<<< HEAD
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
-=======
       {
         "alignItems": "center",
         "flexDirection": "row",
@@ -3570,7 +3135,6 @@ exports[`CurrencySelection renders correctly for 8 currencies 1`] = `
         "maxWidth": "25%",
         "minWidth": "12.5%",
       }
->>>>>>> release/0.2.7-no-freeing-epic
     }
   >
     <View
@@ -3658,17 +3222,6 @@ exports[`CurrencySelection renders correctly for 8 currencies 1`] = `
   </View>
   <View
     style={
-<<<<<<< HEAD
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
-=======
       {
         "alignItems": "center",
         "flexDirection": "row",
@@ -3676,7 +3229,6 @@ exports[`CurrencySelection renders correctly for 8 currencies 1`] = `
         "maxWidth": "25%",
         "minWidth": "12.5%",
       }
->>>>>>> release/0.2.7-no-freeing-epic
     }
   >
     <View
@@ -3764,17 +3316,6 @@ exports[`CurrencySelection renders correctly for 8 currencies 1`] = `
   </View>
   <View
     style={
-<<<<<<< HEAD
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
-=======
       {
         "alignItems": "center",
         "flexDirection": "row",
@@ -3782,7 +3323,6 @@ exports[`CurrencySelection renders correctly for 8 currencies 1`] = `
         "maxWidth": "25%",
         "minWidth": "12.5%",
       }
->>>>>>> release/0.2.7-no-freeing-epic
     }
   >
     <View
@@ -3870,17 +3410,6 @@ exports[`CurrencySelection renders correctly for 8 currencies 1`] = `
   </View>
   <View
     style={
-<<<<<<< HEAD
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
-=======
       {
         "alignItems": "center",
         "flexDirection": "row",
@@ -3888,7 +3417,6 @@ exports[`CurrencySelection renders correctly for 8 currencies 1`] = `
         "maxWidth": "25%",
         "minWidth": "12.5%",
       }
->>>>>>> release/0.2.7-no-freeing-epic
     }
   >
     <View
@@ -3983,11 +3511,6 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
       {
         "flexDirection": "row",
         "flexWrap": "wrap",
-<<<<<<< HEAD
-      },
-      {
-=======
->>>>>>> release/0.2.7-no-freeing-epic
         "justifyContent": "center",
       },
       undefined,
@@ -3996,17 +3519,6 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
 >
   <View
     style={
-<<<<<<< HEAD
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
-=======
       {
         "alignItems": "center",
         "flexDirection": "row",
@@ -4014,7 +3526,6 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
         "maxWidth": "25%",
         "minWidth": "12.5%",
       }
->>>>>>> release/0.2.7-no-freeing-epic
     }
   >
     <View
@@ -4102,17 +3613,6 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
   </View>
   <View
     style={
-<<<<<<< HEAD
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
-=======
       {
         "alignItems": "center",
         "flexDirection": "row",
@@ -4120,7 +3620,6 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
         "maxWidth": "25%",
         "minWidth": "12.5%",
       }
->>>>>>> release/0.2.7-no-freeing-epic
     }
   >
     <View
@@ -4208,17 +3707,6 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
   </View>
   <View
     style={
-<<<<<<< HEAD
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
-=======
       {
         "alignItems": "center",
         "flexDirection": "row",
@@ -4226,7 +3714,6 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
         "maxWidth": "25%",
         "minWidth": "12.5%",
       }
->>>>>>> release/0.2.7-no-freeing-epic
     }
   >
     <View
@@ -4314,17 +3801,6 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
   </View>
   <View
     style={
-<<<<<<< HEAD
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
-=======
       {
         "alignItems": "center",
         "flexDirection": "row",
@@ -4332,7 +3808,6 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
         "maxWidth": "25%",
         "minWidth": "12.5%",
       }
->>>>>>> release/0.2.7-no-freeing-epic
     }
   >
     <View
@@ -4420,17 +3895,6 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
   </View>
   <View
     style={
-<<<<<<< HEAD
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
-=======
       {
         "alignItems": "center",
         "flexDirection": "row",
@@ -4438,7 +3902,6 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
         "maxWidth": "25%",
         "minWidth": "12.5%",
       }
->>>>>>> release/0.2.7-no-freeing-epic
     }
   >
     <View
@@ -4526,17 +3989,6 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
   </View>
   <View
     style={
-<<<<<<< HEAD
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
-=======
       {
         "alignItems": "center",
         "flexDirection": "row",
@@ -4544,7 +3996,6 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
         "maxWidth": "25%",
         "minWidth": "12.5%",
       }
->>>>>>> release/0.2.7-no-freeing-epic
     }
   >
     <View
@@ -4632,17 +4083,6 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
   </View>
   <View
     style={
-<<<<<<< HEAD
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
-=======
       {
         "alignItems": "center",
         "flexDirection": "row",
@@ -4650,7 +4090,6 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
         "maxWidth": "25%",
         "minWidth": "12.5%",
       }
->>>>>>> release/0.2.7-no-freeing-epic
     }
   >
     <View
@@ -4738,17 +4177,6 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
   </View>
   <View
     style={
-<<<<<<< HEAD
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
-=======
       {
         "alignItems": "center",
         "flexDirection": "row",
@@ -4756,7 +4184,6 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
         "maxWidth": "25%",
         "minWidth": "12.5%",
       }
->>>>>>> release/0.2.7-no-freeing-epic
     }
   >
     <View
@@ -4844,17 +4271,6 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
   </View>
   <View
     style={
-<<<<<<< HEAD
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
-=======
       {
         "alignItems": "center",
         "flexDirection": "row",
@@ -4862,7 +4278,6 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
         "maxWidth": "25%",
         "minWidth": "12.5%",
       }
->>>>>>> release/0.2.7-no-freeing-epic
     }
   >
     <View
