@@ -1,6 +1,5 @@
 import { renderHook } from '@testing-library/react-native'
 import { contract } from '../../../tests/unit/data/contractData'
-import i18n from '../../utils/i18n'
 import { ConfirmCancelTradeRequest } from './ConfirmCancelTradeRequest'
 import { useConfirmTradeCancelationOverlay } from './useConfirmTradeCancelationOverlay'
 import { apiSuccess, unauthorizedError } from '../../../tests/unit/data/peachAPIData'
@@ -56,19 +55,19 @@ describe('useConfirmTradeCancelationOverlay', () => {
 
     expect(updateOverlayMock).toHaveBeenCalledWith({
       action2: {
-        label: i18n('contract.cancel.sellerWantsToCancel.cancel'),
+        label: 'cancel',
         icon: 'xCircle',
         callback: disputeOverlayActions.cancelTradeCallback,
       },
       action1: {
-        label: i18n('contract.cancel.sellerWantsToCancel.continue'),
+        label: 'continue trade',
         icon: 'arrowRightCircle',
         callback: disputeOverlayActions.continueTradeCallback,
       },
-      title: i18n('contract.cancel.sellerWantsToCancel.title'),
+      title: 'trade cancelation',
       content: <ConfirmCancelTradeRequest contract={contract} />,
       visible: true,
-      level: 'WARN',
+      level: 'DEFAULT',
     })
   })
   it('ConfirmCancelTradeRequest popup actions call respective functions', () => {
@@ -91,17 +90,17 @@ describe('useConfirmTradeCancelationOverlay', () => {
     await result.current.cancelTrade(contract)
 
     expect(showLoadingOverlayMock).toHaveBeenCalledWith({
-      title: i18n('contract.cancel.sellerWantsToCancel.title'),
-      level: 'WARN',
+      title: 'trade cancelation',
+      level: 'DEFAULT',
     })
 
     expect(confirmContractCancelationMock).toHaveBeenCalledWith({ contractId: contract.id })
     expect(saveContractMock).toHaveBeenCalledWith(expectedContractUpdate)
 
     expect(updateOverlayMock).toHaveBeenCalledWith({
-      title: i18n('contract.cancel.success'),
+      title: 'trade canceled!',
       visible: true,
-      level: 'APP',
+      level: 'DEFAULT',
     })
     expect(replaceMock).toHaveBeenCalledWith('contract', { contractId: contract.id, contract: expectedContractUpdate })
   })
@@ -127,8 +126,8 @@ describe('useConfirmTradeCancelationOverlay', () => {
     await result.current.continueTrade(contract)
 
     expect(showLoadingOverlayMock).toHaveBeenCalledWith({
-      title: i18n('contract.cancel.sellerWantsToCancel.title'),
-      level: 'WARN',
+      title: 'trade cancelation',
+      level: 'DEFAULT',
     })
 
     expect(rejectContractCancelationMock).toHaveBeenCalledWith({ contractId: contract.id })

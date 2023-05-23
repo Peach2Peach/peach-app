@@ -46,43 +46,42 @@ describe('useDisputeEmailPopup', () => {
       await result.current()
     })
 
-    expect(usePopupStore.getState()).toStrictEqual(
-      expect.objectContaining({
-        title: i18n('dispute.opened'),
-        level: 'WARN',
-        closePopup: expect.any(Function),
-        content: (
-          <DisputeRaisedNotice
-            view="seller"
-            contract={contractDisputeInitiatedByCP}
-            email=""
-            setEmail={expect.any(Function)}
-            disputeReason={'other'}
-            action1={{
-              callback: expect.any(Function),
-              icon: 'messageCircle',
-              label: 'go to chat',
-            }}
-            action2={{
-              callback: expect.any(Function),
-              icon: 'xSquare',
-              label: 'close',
-            }}
-          />
-        ),
-        visible: true,
-        action2: {
-          label: i18n('close'),
-          icon: 'xSquare',
-          callback: expect.any(Function),
-        },
-        action1: {
-          icon: 'messageCircle',
-          label: 'go to chat',
-          callback: expect.any(Function),
-        },
-      }),
-    )
+    expect(usePopupStore.getState()).toStrictEqual({
+      ...usePopupStore.getState(),
+      title: i18n('dispute.opened'),
+      level: 'WARN',
+      closePopup: expect.any(Function),
+      content: (
+        <DisputeRaisedNotice
+          view="seller"
+          contract={contractDisputeInitiatedByCP}
+          email=""
+          setEmail={expect.any(Function)}
+          disputeReason={'other'}
+          action1={{
+            callback: expect.any(Function),
+            icon: 'messageCircle',
+            label: 'go to chat',
+          }}
+          action2={{
+            callback: expect.any(Function),
+            icon: 'xSquare',
+            label: 'close',
+          }}
+        />
+      ),
+      visible: true,
+      action2: {
+        label: i18n('close'),
+        icon: 'xSquare',
+        callback: expect.any(Function),
+      },
+      action1: {
+        icon: 'messageCircle',
+        label: 'go to chat',
+        callback: expect.any(Function),
+      },
+    })
   })
 
   it('should not show the dispute email popup if the user has already seen it', async () => {
