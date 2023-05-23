@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BulletPoint renders correctly 1`] = `
+<View
+  style={
+    {
+      "flexDirection": "row",
+      "paddingLeft": 12,
+    }
+  }
+>
+  <PeachText
+    style={
+      {
+        "fontFamily": "Baloo2-Regular",
+        "fontSize": 16,
+        "letterSpacing": 0.16,
+        "lineHeight": 24,
+      }
+    }
+  >
+    · 
+  </PeachText>
+  <PeachText
+    style={
+      {
+        "fontFamily": "Baloo2-Regular",
+        "fontSize": 16,
+        "letterSpacing": 0.16,
+        "lineHeight": 24,
+      }
+    }
+  >
+    text
+  </PeachText>
+</View>
+`;

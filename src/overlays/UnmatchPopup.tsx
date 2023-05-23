@@ -1,4 +1,4 @@
-import { Text } from '../components'
+import { PeachText } from '../components/text/Text'
 import i18n from '../utils/i18n'
 
-export const UnmatchPopup = () => <Text>{i18n('search.popups.unmatch.text')}</Text>
+export const UnmatchPopup = () => <PeachText>{i18n('search.popups.unmatch.text')}</PeachText>

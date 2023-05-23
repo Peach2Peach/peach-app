@@ -3,8 +3,6 @@ import { sellOffer } from '../../../../tests/unit/data/offerData'
 import { getSellOfferDraft } from '../../../../tests/unit/data/offerDraftData'
 import { NavigationWrapper, resetMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { useHeaderState } from '../../../components/header/store'
-import { WalletIcon } from '../../../components/icons'
-import { settingsStore } from '../../../store/settingsStore'
 import { PeachWallet } from '../../../utils/wallet/PeachWallet'
 import { setPeachWallet } from '../../../utils/wallet/setWallet'
 import { useSellSummarySetup } from './useSellSummarySetup'
@@ -28,7 +26,7 @@ describe('useSellSummarySetup', () => {
   it('should set up header correctly', async () => {
     const { result } = renderHook(useSellSummarySetup, { wrapper: NavigationWrapper })
     expect(useHeaderState.getState().title).toBe('sell offer summary')
-    expect(useHeaderState.getState().icons?.[0].iconComponent.type).toBe(WalletIcon)
+    expect(useHeaderState.getState().icons?.[0].id).toBe('wallet')
     await waitFor(() => expect(result.current.returnAddress).toBeDefined())
   })
   it('should navigate to funding screen after publishing', async () => {

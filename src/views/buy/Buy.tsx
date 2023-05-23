@@ -1,22 +1,20 @@
 import { ReactElement, useCallback, useEffect, useMemo } from 'react'
 import { TouchableOpacity, View } from 'react-native'
-
-import tw from '../../styles/tailwind'
-import i18n from '../../utils/i18n'
-
 import { shallow } from 'zustand/shallow'
-import { BitcoinPriceStats, HorizontalLine, Icon, PrimaryButton, Text } from '../../components'
+import { BitcoinPriceStats, HorizontalLine, Icon, PrimaryButton } from '../../components'
 import { RangeAmount } from '../../components/inputs/verticalAmountSelector/RangeAmount'
+import { ProgressDonut } from '../../components/ui'
 import { useNavigation, useValidatedState } from '../../hooks'
+import { useCheckShowRedesignWelcome } from '../../hooks/'
+import { useDebounce } from '../../hooks/useDebounce'
+import { useShowBackupReminder } from '../../hooks/useShowBackupReminder'
 import { useConfigStore } from '../../store/configStore'
 import { useSettingsStore } from '../../store/settingsStore'
+import tw from '../../styles/tailwind'
+import i18n from '../../utils/i18n'
+import LoadingScreen from '../loading/LoadingScreen'
 import { DailyTradingLimit } from '../settings/profile/DailyTradingLimit'
 import { useBuySetup } from './hooks/useBuySetup'
-import LoadingScreen from '../loading/LoadingScreen'
-import { useCheckShowRedesignWelcome } from '../../hooks/'
-import { useShowBackupReminder } from '../../hooks/useShowBackupReminder'
-import { useDebounce } from '../../hooks/useDebounce'
-import { ProgressDonut } from '../../components/ui'
 
 export default (): ReactElement => {
   const navigation = useNavigation()

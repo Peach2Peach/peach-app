@@ -2,7 +2,7 @@ import { View } from 'react-native'
 import { shallow } from 'zustand/shallow'
 import tw from '../../../../styles/tailwind'
 import i18n from '../../../../utils/i18n'
-import { NewTabbedNavigation } from '../../../navigation/NewTabbedNavigation'
+import { CurrencySelection } from '../../../navigation'
 import { MatchStore, useMatchStore } from '../../store'
 import { CustomSelector } from './CustomSelector'
 import { PaymentMethodSelectorText } from './PaymentMethodSelectorText'
@@ -44,12 +44,13 @@ export const PaymentMethodSelector = ({ matchId, disabled }: { matchId: Match['o
       <PulsingText style={tw`self-center mb-1`} showPulse={showPaymentMethodPulse}>
         {i18n('form.paymentMethod')}
       </PulsingText>
-      <NewTabbedNavigation
-        items={availableCurrencies.map((currency) => ({ id: currency, display: currency }))}
-        selected={{ id: selectedCurrency, display: selectedCurrency }}
-        select={(c) => setSelectedCurrency(c.id, matchId)}
-        style={tw`mb-3`}
+
+      <CurrencySelection
+        currencies={availableCurrencies}
+        selected={selectedCurrency}
+        select={(c) => setSelectedCurrency(c, matchId)}
       />
+
       <CustomSelector style={tw`mb-2`} {...{ selectedValue: selectedPaymentMethod, items, onChange }} />
     </View>
   )

@@ -1,16 +1,13 @@
 import { useCallback, useMemo } from 'react'
-
-import i18n from '../../../utils/i18n'
-
 import { HeaderConfig } from '../../../components/header/store'
-import { HelpIcon } from '../../../components/icons'
-import { DeleteIcon } from '../../../components/icons/DeleteIcon'
 import { useDeletePaymentMethod } from '../../../components/payment/hooks/useDeletePaymentMethod'
 import { useHeaderSetup, useRoute } from '../../../hooks'
 import { useGoToOrigin } from '../../../hooks/useGoToOrigin'
 import { useShowHelp } from '../../../hooks/useShowHelp'
 import { addPaymentData } from '../../../utils/account'
+import i18n from '../../../utils/i18n'
 import { info } from '../../../utils/log'
+import { headerIcons } from '../../../utils/layout/headerIcons'
 
 export const usePaymentDetailsSetup = () => {
   const route = useRoute<'paymentDetails'>()
@@ -26,16 +23,13 @@ export const usePaymentDetailsSetup = () => {
 
   const showHelp = useShowHelp('currencies')
 
-  const headerIcons = useCallback(() => {
+  const getHeaderIcons = useCallback(() => {
     const icons: HeaderConfig['icons'] = []
     if (['revolut', 'wise', 'paypal', 'advcash'].includes(paymentMethod)) {
-      icons[0] = { iconComponent: <HelpIcon />, onPress: showHelp }
+      icons[0] = { ...headerIcons.help, onPress: showHelp }
     }
     if (data.id) {
-      icons[1] = {
-        iconComponent: <DeleteIcon />,
-        onPress: deletePaymentMethod,
-      }
+      icons[1] = { ...headerIcons.delete, onPress: deletePaymentMethod }
     }
     info('icons' + icons)
     return icons
@@ -47,9 +41,9 @@ export const usePaymentDetailsSetup = () => {
         title: data.id
           ? i18n('paymentMethod.edit.title', i18n(`paymentMethod.${paymentMethod}`))
           : i18n('paymentMethod.select.title', i18n(`paymentMethod.${paymentMethod}`)),
-        icons: headerIcons(),
+        icons: getHeaderIcons(),
       }),
-      [data.id, headerIcons, paymentMethod],
+      [data.id, getHeaderIcons, paymentMethod],
     ),
   )
 

@@ -1,16 +1,13 @@
 import { useFocusEffect } from '@react-navigation/native'
 import { useCallback, useContext, useMemo, useState } from 'react'
-import { Icon } from '../../../components'
-import { HelpIcon } from '../../../components/icons'
 import { OverlayContext } from '../../../contexts/overlay'
-
 import { useHeaderSetup, useNavigation, useValidatedState } from '../../../hooks'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { useShowHelp } from '../../../hooks/useShowHelp'
 import { WithdrawalConfirmation } from '../../../overlays/WithdrawalConfirmation'
 import { useSettingsStore } from '../../../store/settingsStore'
-import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
+import { headerIcons } from '../../../utils/layout/headerIcons'
 import { getFeeEstimate } from '../../../utils/peachAPI'
 import { parseError } from '../../../utils/result'
 import { isNumber } from '../../../utils/validation'
@@ -94,15 +91,9 @@ export const useWalletSetup = () => {
             title: i18n('wallet.title'),
             hideGoBackButton: true,
             icons: [
-              {
-                iconComponent: <Icon id="yourTrades" color={tw`text-black-2`.color} />,
-                onPress: () => navigation.navigate('transactionHistory'),
-              },
-              {
-                iconComponent: <Icon id="bitcoin" color={tw`text-bitcoin`.color} />,
-                onPress: () => navigation.navigate('networkFees'),
-              },
-              { iconComponent: <HelpIcon />, onPress: showHelp },
+              { ...headerIcons.list, onPress: () => navigation.navigate('transactionHistory') },
+              { ...headerIcons.bitcoin, onPress: () => navigation.navigate('networkFees') },
+              { ...headerIcons.help, onPress: showHelp },
             ],
           },
       [navigation, showHelp, walletLoading],

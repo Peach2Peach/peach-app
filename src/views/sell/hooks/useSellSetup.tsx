@@ -1,14 +1,14 @@
 import { useEffect, useMemo } from 'react'
-import { HelpIcon } from '../../../components/icons'
 
 import { useHeaderSetup, useNavigation } from '../../../hooks'
 import { useShowHelp } from '../../../hooks/useShowHelp'
 import { HelpType } from '../../../overlays/helpOverlays'
 import { useSettingsStore } from '../../../store/settingsStore'
 import { isBackupMandatory } from '../../../utils/account'
-import SellTitleComponent from '../components/SellTitleComponent'
+import { headerIcons } from '../../../utils/layout/headerIcons'
+import { SellTitleComponent } from '../components/SellTitleComponent'
 
-type UseSellSetupProps = {
+export type UseSellSetupProps = {
   help: HelpType
   hideGoBackButton?: boolean
 }
@@ -23,7 +23,7 @@ export const useSellSetup = ({ help, hideGoBackButton }: UseSellSetupProps) => {
       () => ({
         titleComponent: <SellTitleComponent />,
         hideGoBackButton,
-        icons: [{ iconComponent: <HelpIcon />, onPress: showHelp }],
+        icons: [{ ...headerIcons.help, onPress: showHelp }],
       }),
       [hideGoBackButton, showHelp],
     ),

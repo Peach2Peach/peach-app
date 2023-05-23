@@ -1,10 +1,10 @@
-import { useState, useCallback } from 'react'
+import { useCallback, useState } from 'react'
 import { shallow } from 'zustand/shallow'
-import { HelpIcon } from '../../../components/icons'
 import { useHeaderSetup, useToggleBoolean } from '../../../hooks'
 import { useShowHelp } from '../../../hooks/useShowHelp'
 import { useSettingsStore } from '../../../store/settingsStore'
 import i18n from '../../../utils/i18n'
+import { headerIcons } from '../../../utils/layout/headerIcons'
 import { screens } from '../components/backups/SeedPhrase'
 
 export const useSeedBackupSetup = () => {
@@ -17,7 +17,7 @@ export const useSeedBackupSetup = () => {
 
   useHeaderSetup({
     title: i18n('settings.backups.walletBackup'),
-    icons: [{ iconComponent: <HelpIcon />, onPress: showSeedPhrasePopup }],
+    icons: [{ ...headerIcons.help, onPress: showSeedPhrasePopup }],
   })
   const [checked, toggleChecked] = useToggleBoolean()
   const [currentScreenIndex, setCurrentScreenIndex] = useState(lastSeedBackupDate ? 0 : 1)

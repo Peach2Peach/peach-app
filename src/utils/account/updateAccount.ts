@@ -18,7 +18,7 @@ export const updateAccount = async (acc: Account, overwrite?: boolean) => {
       },
   )
 
-  setLocaleQuiet(settingsStore.getState().locale)
+  setLocaleQuiet('en' || settingsStore.getState().locale)
 
   if (account.mnemonic) {
     const { wallet } = createWalletFromSeedPhrase(account.mnemonic, getNetwork())
