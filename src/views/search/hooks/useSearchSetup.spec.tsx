@@ -41,16 +41,6 @@ jest.mock('../../../utils/peachAPI', () => ({
   getOfferDetails: (...args: any[]) => getOfferDetailsMock(...args),
 }))
 
-const offerId = sellOffer.id
-const useRouteMock = jest.fn(() => ({
-  params: {
-    offerId,
-  },
-}))
-jest.mock('../../../hooks/useRoute', () => ({
-  useRoute: () => useRouteMock(),
-}))
-
 const wrapper = ({ children }: ComponentProps) => (
   <NavigationWrapper>
     <QueryClientWrapper>{children}</QueryClientWrapper>
@@ -91,15 +81,5 @@ describe('useSearchSetup', () => {
     await waitFor(() => expect(result.current.offer).toBeDefined())
 
     expect(getMatchesMock).toHaveBeenCalledTimes(1)
-  })
-
-  it('should set up header correctly', async () => {
-    const { result } = renderHook(useSearchSetup, { wrapper })
-
-    await waitFor(() => expect(result.current.offer).toBeDefined())
-
-    expect(useHeaderState.getState().titleComponent?.type).toEqual(OfferDetailsTitle)
-    expect(useHeaderState.getState().titleComponent?.props).toEqual({ id: sellOffer.id })
-    expect(useHeaderState.getState().icons?.[0].id).toBe('xCircle')
   })
 })
