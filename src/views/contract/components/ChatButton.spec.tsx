@@ -1,10 +1,10 @@
 import { ChatButton } from './ChatButton'
 import { fireEvent, render } from '@testing-library/react-native'
-import i18n from '../../utils/i18n'
-import { NavigationWrapper, pushMock } from '../../../tests/unit/helpers/NavigationWrapper'
+import i18n from '../../../utils/i18n'
+import { NavigationWrapper, pushMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 
 const useContractContextMock = jest.fn()
-jest.mock('../../views/contract/context/useContractContext', () => ({
+jest.mock('../context', () => ({
   useContractContext: () => useContractContextMock(),
 }))
 

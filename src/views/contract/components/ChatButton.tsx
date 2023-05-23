@@ -1,11 +1,11 @@
 import { TouchableOpacity } from 'react-native'
-import { useNavigation } from '../../hooks'
-import tw from '../../styles/tailwind'
-import { getContractChatNotification } from '../../utils/chat'
-import i18n from '../../utils/i18n'
-import { useContractContext } from '../../views/contract/context'
-import { NewChatMessages } from '../../views/yourTrades/components/ChatMessages'
-import { Text } from '../text'
+import { useNavigation } from '../../../hooks'
+import tw from '../../../styles/tailwind'
+import { getContractChatNotification } from '../../../utils/chat'
+import i18n from '../../../utils/i18n'
+import { useContractContext } from '../context'
+import { NewChatMessages } from '../../yourTrades/components/ChatMessages'
+import { Text } from '../../../components/text'
 
 export const ChatButton = ({ style }: ComponentProps) => {
   const { contract } = useContractContext()

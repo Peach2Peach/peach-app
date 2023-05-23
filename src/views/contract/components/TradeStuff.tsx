@@ -1,7 +1,7 @@
 import { View } from 'react-native'
 import { APPLINKS } from '../../../constants'
 import tw from '../../../styles/tailwind'
-import { ChatButton } from '../../../components/chat/ChatButton'
+import { ChatButton } from './ChatButton'
 import { Escrow } from './Escrow'
 import { PaymentMethod } from '../../../components/offer/PaymentMethod'
 import { isCashTrade } from '../../../utils/paymentMethod/isCashTrade'
