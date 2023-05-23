@@ -2,9 +2,9 @@
 import { act, renderHook } from '@testing-library/react-native'
 import { useOfferPopupEvents } from './useOfferPopupEvents'
 
-const getOfferMock = jest.fn()
-jest.mock('../../../../utils/offer/getOffer', () => ({
-  getOffer: () => getOfferMock(),
+const getOfferDetailsMock = jest.fn()
+jest.mock('../../../../utils/peachAPI', () => ({
+  getOfferDetails: (...args: any[]) => getOfferDetailsMock(...args),
 }))
 
 const showFundingAmountDifferentPopupMock = jest.fn()
@@ -26,29 +26,29 @@ jest.mock('../../../../overlays/useBuyOfferExpiredOverlay', () => ({
 
 describe('useOfferPopupEvents', () => {
   const offerId = '123'
+  const sellOffer = { id: offerId, type: 'ask' }
+
   afterEach(() => {
     jest.clearAllMocks()
   })
 
-  it('should show confirm escrow overlay on offer.fundingAmountDifferent', () => {
+  it('should show confirm escrow overlay on offer.fundingAmountDifferent', async () => {
     const { result } = renderHook(() => useOfferPopupEvents())
-    const sellOffer = { id: offerId }
-    getOfferMock.mockReturnValueOnce(sellOffer)
+    getOfferDetailsMock.mockResolvedValueOnce([sellOffer])
     const eventData = { offerId: sellOffer.id } as PNData
-    act(() => {
-      result.current['offer.fundingAmountDifferent']!(eventData)
+    await act(async () => {
+      await result.current['offer.fundingAmountDifferent']!(eventData)
     })
     expect(showFundingAmountDifferentPopupMock).toHaveBeenCalledWith(sellOffer)
   })
 
-  it('should show wrongly funded overlay on offer.wrongFundingAmount', () => {
+  it('should show wrongly funded overlay on offer.wrongFundingAmount', async () => {
     const { result } = renderHook(() => useOfferPopupEvents())
 
-    const sellOffer = { id: offerId }
-    getOfferMock.mockReturnValueOnce(sellOffer)
+    getOfferDetailsMock.mockResolvedValueOnce([sellOffer])
     const eventData = { offerId: sellOffer.id } as PNData
-    act(() => {
-      result.current['offer.wrongFundingAmount']!(eventData)
+    await act(async () => {
+      await result.current['offer.wrongFundingAmount']!(eventData)
     })
     expect(showWronglyFundedPopupMock).toHaveBeenCalledWith(sellOffer)
   })
