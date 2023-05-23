@@ -18,13 +18,9 @@ exports[`LabelAndAmount renders correctly 1`] = `
   >
     label
   </PeachText>
-  <SatsFormat
-    sats={123456}
-    satsStyle={
-      {
-        "fontSize": 12,
-      }
-    }
+  <BTCAmount
+    amount={123456}
+    size="small"
   />
 </View>
 `;
