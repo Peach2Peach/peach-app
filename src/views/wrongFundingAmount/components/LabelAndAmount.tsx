@@ -1,5 +1,5 @@
 import { View } from 'react-native'
-import { SatsFormat, Text } from '../../../components'
+import { Text } from '../../../components'
 import tw from '../../../styles/tailwind'
 import { BTCAmount } from '../../../components/text/BTCAmount'
 
