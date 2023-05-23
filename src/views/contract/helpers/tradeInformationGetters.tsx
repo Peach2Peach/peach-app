@@ -1,7 +1,5 @@
 import { WalletLabel } from '../../../components/offer/WalletLabel'
-import tw from '../../../styles/tailwind'
 import { getBitcoinPriceFromContract, getBuyOfferFromContract } from '../../../utils/contract'
-import { getEventName } from '../../../utils/events'
 import i18n from '../../../utils/i18n'
 import { getPaymentDataByMethod } from '../../../utils/offer'
 import { getPaymentMethodName, hashPaymentData } from '../../../utils/paymentMethod'
