@@ -26,7 +26,7 @@ export const chat1: Chat = {
       message: 'Ula2',
       decrypted: true,
       signature:
-        '-----BEGIN PGP SIGNATURE-----\nVersion: openpgp-mobile\n\nwsBzBAABCAAnBQJjIf3KCZDEc3XI0WoEtxahBHOR/fL1YZRIucxQd8RzdcjRagS3\nAADSTgf/RI9kX2ORNovzH1mS55wLbd53pPhdeD9a/4/xy6SlWAecGHfWtxxoqn+/\nSU5n32vH4rfQs6orP+U7aqmJWNAm/NcBxOYgLmhDScZrgCwkjeMALLyvXJXRI7GM\nYfxBTkgcMtBWK9tY5JrH+1IMLqFeuN0Ezy69w7JnFBuorC9TgOhBunpl7jfs6G06\nBAxOjJfafsZEsgO6TzCrjixIPcu7W0EUCjJrzv9CwhdpCIn9or6d46ERs9yRB4uv\n6wXmN12as73KMHB0H53GLwzv9RZvnmY5QAxyX4bXepmpXMkeF5pILOqZZ1we1GAJ\nNivv3U2iFrZdD57r3yIeXD5pHLyPAw==\n=d8UE\n-----END PGP SIGNATURE-----',
+        '-----BEGIN PGP SIGNATURE-----\nVersion: openpgp-mobile\n\nwsBzBAABCAAnBQJjIf3KCZDEc3XI0WoEtxahBHOR/fL1YZRIucxQd8RzdcjRagS3\nAADSTgf/RI9kX2ORNWvzH1mS55wLbd53pPhdeD9a/4/xy6SlWAecGHfWtxxoqn+/\nSU5n32vH4rfQs6orP+U7aqmJWNAm/NcBxOYgLmhDScZrgCwkjeMALLyvXJXRI7GM\nYfxBTkgcMtBWK9tY5JrH+1IMLqFeuN0Ezy69w7JnFBuorC9TgOhBunpl7jfs6G06\nBAxOjJfafsZEsgO6TzCrjixIPcu7W0EUCjJrzv9CwhdpCIn9or6d46ERs9yRB4uv\n6wXmN12as73KMHB0H53GLwzv9RZvnmY5QAxyX4bXepmpXMkeF5pILOqZZ1we1GAJ\nNivv3U2iFrZdD57r3yIeXD5pHLyPAw==\n=d8UE\n-----END PGP SIGNATURE-----',
     },
     {
       roomId: 'contract-313-312',
