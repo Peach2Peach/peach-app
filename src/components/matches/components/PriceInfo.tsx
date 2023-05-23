@@ -18,8 +18,8 @@ export const PriceInfo = ({ match, offer }: PriceInfoProps) => (
       bitcoinLogoStyle={tw`w-[18px] h-[18px] mr-2`}
     />
     <Text style={tw`text-center`}>
-      <Price {...{ match, offer }} textStyle={tw`subtitle-1`} /> (
-      <PremiumText style={tw`text-black-2`} premium={match.premium} />)
+      <Price {...{ match, offer }} textStyle={tw`subtitle-1`} />
+      <PremiumText premium={match.premium} />
     </Text>
   </>
 )

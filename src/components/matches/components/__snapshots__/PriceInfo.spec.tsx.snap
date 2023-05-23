@@ -58,16 +58,9 @@ exports[`PriceInfo should render correctly 1`] = `
         }
       }
     />
-     (
     <PremiumText
       premium={7}
-      style={
-        {
-          "color": "#7D675E",
-        }
-      }
     />
-    )
   </PeachText>
 </React.Fragment>
 `;
