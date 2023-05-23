@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { Animated, LayoutChangeEvent } from 'react-native'
+import { Animated, Keyboard, LayoutChangeEvent } from 'react-native'
 import { round } from '../../../../utils/math'
 import { createPanResponder } from '../helpers/createPanResponder'
 import { getOffset } from '../helpers/getOffset'
@@ -41,6 +41,7 @@ export const useSelectAmountSetup = ({ min, max, value, onChange }: Props) => {
 
   const updateCustomAmount = (customAmount: number) => {
     const newAmount = Math.max(0, Math.min(max, customAmount))
+    if (customAmount > newAmount) Keyboard.dismiss()
     setAmount(newAmount)
     setKnobOffset(newAmount)
   }

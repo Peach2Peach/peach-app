@@ -1,6 +1,6 @@
 import { act, renderHook } from '@testing-library/react-native'
 import { useRangeAmountSetup } from './useRangeAmountSetup'
-import { LayoutChangeEvent } from 'react-native'
+import { Keyboard, LayoutChangeEvent } from 'react-native'
 
 // eslint-disable-next-line max-lines-per-function
 describe('useRangeAmountSetup', () => {
@@ -14,6 +14,7 @@ describe('useRangeAmountSetup', () => {
     value,
     onChange,
   }
+  const dismissSpy = jest.spyOn(Keyboard, 'dismiss')
 
   afterEach(() => {
     jest.clearAllMocks()
@@ -90,14 +91,23 @@ describe('useRangeAmountSetup', () => {
     // @ts-ignore
     expect(result.current.panMin._offset).toEqual(234)
   })
+  it('should respect maximum when updating maximum amount', () => {
+    const { result } = renderHook(useRangeAmountSetup, { initialProps })
+    act(() => result.current.updateCustomAmountMaximum(max * 2))
+    expect(result.current.maximum).toEqual(max)
+    expect(dismissSpy).toHaveBeenCalled()
+    // @ts-ignore
+    expect(result.current.panMin._offset).toEqual(226)
+  })
   it('should respect maximum when updating minimum amount', () => {
     const { result } = renderHook(useRangeAmountSetup, { initialProps })
     act(() => result.current.updateCustomAmountMinimum(max * 2))
     expect(result.current.minimum).toEqual(max)
+    expect(dismissSpy).toHaveBeenCalled()
     // @ts-ignore
     expect(result.current.panMin._offset).toEqual(0)
   })
-  it('should respect maximum when updating maximum amount', () => {
+  it('should respect minimum when updating maximum amount', () => {
     const { result } = renderHook(useRangeAmountSetup, { initialProps })
     act(() => result.current.updateCustomAmountMaximum(0))
     expect(result.current.maximum).toEqual(0)

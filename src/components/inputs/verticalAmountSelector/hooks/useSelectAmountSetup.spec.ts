@@ -1,6 +1,6 @@
 import { act, renderHook } from '@testing-library/react-native'
 import { useSelectAmountSetup } from './useSelectAmountSetup'
-import { LayoutChangeEvent } from 'react-native'
+import { Keyboard, LayoutChangeEvent } from 'react-native'
 
 describe('useSelectAmountSetup', () => {
   const min = 50000
@@ -13,6 +13,7 @@ describe('useSelectAmountSetup', () => {
     value,
     onChange,
   }
+  const dismissSpy = jest.spyOn(Keyboard, 'dismiss')
 
   afterEach(() => {
     jest.clearAllMocks()
@@ -51,6 +52,7 @@ describe('useSelectAmountSetup', () => {
     const { result } = renderHook(useSelectAmountSetup, { initialProps })
     act(() => result.current.updateCustomAmount(max * 2))
     expect(result.current.amount).toEqual(max)
+    expect(dismissSpy).toHaveBeenCalled()
     // @ts-ignore
     expect(result.current.pan._offset).toEqual(0)
   })

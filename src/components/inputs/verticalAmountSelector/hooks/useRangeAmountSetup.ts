@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { Animated, LayoutChangeEvent } from 'react-native'
+import { Animated, Keyboard, LayoutChangeEvent } from 'react-native'
 import { interpolate, round } from '../../../../utils/math'
 import { createPanResponder } from '../helpers/createPanResponder'
 import { getOffset } from '../helpers/getOffset'
@@ -56,6 +56,8 @@ export const useRangeAmountSetup = ({ min, max, value, onChange }: Props) => {
 
   const updateCustomAmountMaximum = (customAmount: number) => {
     const newMaximum = Math.max(0, Math.min(max, customAmount))
+    if (customAmount > newMaximum) Keyboard.dismiss()
+
     setMaximum(newMaximum)
     setKnobOffsetMaximum(newMaximum)
 
@@ -67,6 +69,7 @@ export const useRangeAmountSetup = ({ min, max, value, onChange }: Props) => {
   }
   const updateCustomAmountMinimum = (customAmount: number) => {
     const newMinimum = Math.max(0, Math.min(max, customAmount))
+    if (customAmount > newMinimum) Keyboard.dismiss()
     setMinimum(newMinimum)
     setKnobOffsetMinimum(newMinimum)
 
