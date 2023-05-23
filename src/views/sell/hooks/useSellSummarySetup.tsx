@@ -4,6 +4,7 @@ import { useHeaderSetup, useNavigation } from '../../../hooks'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { useSettingsStore } from '../../../store/settingsStore'
 import i18n from '../../../utils/i18n'
+import { headerIcons } from '../../../utils/layout/headerIcons'
 import { peachWallet } from '../../../utils/wallet/setWallet'
 import { publishSellOffer } from '../helpers/publishSellOffer'
 
@@ -41,9 +42,15 @@ export const useSellSummarySetup = () => {
     }
     setIsPublishing(false)
   }
-  useHeaderSetup({
-    title: i18n('sell.summary.title'),
-  })
+  useHeaderSetup(
+    useMemo(
+      () => ({
+        title: i18n('sell.summary.title'),
+        icons: [{ ...headerIcons.wallet, onPress: () => navigation.navigate('selectWallet', { type: 'refund' }) }],
+      }),
+      [navigation],
+    ),
+  )
 
   useEffect(() => {
     setCanPublish(!!returnAddress)

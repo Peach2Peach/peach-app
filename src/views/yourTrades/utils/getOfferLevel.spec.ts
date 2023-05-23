@@ -37,8 +37,8 @@ describe('getOfferLevel', () => {
   it('should return "APP" when tradeStatus is "fundingAmountDifferent"', () => {
     expect(getOfferLevel({ ...defaultTrade, tradeStatus: 'fundingAmountDifferent' })).toBe('APP')
   })
-  it('should return "WARN" when tradeStatus is "confirmCancelation"', () => {
-    expect(getOfferLevel({ ...defaultTrade, tradeStatus: 'confirmCancelation' })).toBe('WARN')
+  it('should return "DEFAULT" when tradeStatus is "confirmCancelation"', () => {
+    expect(getOfferLevel({ ...defaultTrade, tradeStatus: 'confirmCancelation' })).toBe('DEFAULT')
   })
   it('should return "WARN" when tradeStatus is "refundTxSignatureRequired"', () => {
     expect(getOfferLevel({ ...defaultTrade, tradeStatus: 'refundTxSignatureRequired' })).toBe('WARN')

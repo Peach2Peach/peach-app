@@ -18,7 +18,7 @@ const themes: Record<string, ThemeConfig> = {
       WARN: tw`bg-warning-main`,
       ERROR: tw`bg-error-main`,
       INFO: tw`bg-info-light`,
-      DEFAULT: tw`bg-black-2`,
+      DEFAULT: tw`bg-black-3`,
       WAITING: tw`bg-primary-mild-1`,
     },
     border: {
@@ -27,7 +27,7 @@ const themes: Record<string, ThemeConfig> = {
       WARN: tw`border-warning-main`,
       ERROR: tw`border-error-main`,
       INFO: tw`border-info-light`,
-      DEFAULT: tw`border-black-2`,
+      DEFAULT: tw`border-black-3`,
       WAITING: tw`border-primary-mild-1`,
     },
     text: {

@@ -11,9 +11,9 @@ const wrapper = ({ children }: ComponentProps) => (
   </NavigationWrapper>
 )
 
-const authMock = jest.fn().mockResolvedValue([apiSuccess])
+const authMock = jest.fn().mockResolvedValue([apiSuccess, null])
 jest.mock('../../../utils/peachAPI', () => ({
-  auth: () => authMock(),
+  auth: (...args: any[]) => authMock(...args),
 }))
 
 jest.useFakeTimers()

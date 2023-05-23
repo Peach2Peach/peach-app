@@ -6,6 +6,7 @@ exports[`PaymentDataKeyFacts should render correctly 1`] = `
     [
       {
         "flexDirection": "row",
+        "flexWrap": "wrap",
         "justifyContent": "center",
       },
       {
@@ -59,6 +60,7 @@ exports[`PaymentDataKeyFacts should render multiple currencies, if set 1`] = `
     [
       {
         "flexDirection": "row",
+        "flexWrap": "wrap",
         "justifyContent": "center",
       },
       {

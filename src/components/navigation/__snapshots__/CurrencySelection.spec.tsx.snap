@@ -7,23 +7,21 @@ exports[`CurrencySelection renders correctly for 1 currencies 1`] = `
       {
         "flexDirection": "row",
         "flexWrap": "wrap",
+        "justifyContent": "center",
       },
-      false,
       undefined,
     ]
   }
 >
   <View
     style={
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "flexGrow": 1,
+        "maxWidth": "25%",
+        "minWidth": "12.5%",
+      }
     }
   >
     <View
@@ -118,23 +116,21 @@ exports[`CurrencySelection renders correctly for 2 currencies 1`] = `
       {
         "flexDirection": "row",
         "flexWrap": "wrap",
+        "justifyContent": "center",
       },
-      false,
       undefined,
     ]
   }
 >
   <View
     style={
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "flexGrow": 1,
+        "maxWidth": "25%",
+        "minWidth": "12.5%",
+      }
     }
   >
     <View
@@ -222,15 +218,13 @@ exports[`CurrencySelection renders correctly for 2 currencies 1`] = `
   </View>
   <View
     style={
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "flexGrow": 1,
+        "maxWidth": "25%",
+        "minWidth": "12.5%",
+      }
     }
   >
     <View
@@ -325,23 +319,21 @@ exports[`CurrencySelection renders correctly for 3 currencies 1`] = `
       {
         "flexDirection": "row",
         "flexWrap": "wrap",
+        "justifyContent": "center",
       },
-      false,
       undefined,
     ]
   }
 >
   <View
     style={
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "flexGrow": 1,
+        "maxWidth": "25%",
+        "minWidth": "12.5%",
+      }
     }
   >
     <View
@@ -429,15 +421,13 @@ exports[`CurrencySelection renders correctly for 3 currencies 1`] = `
   </View>
   <View
     style={
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "flexGrow": 1,
+        "maxWidth": "25%",
+        "minWidth": "12.5%",
+      }
     }
   >
     <View
@@ -525,15 +515,13 @@ exports[`CurrencySelection renders correctly for 3 currencies 1`] = `
   </View>
   <View
     style={
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "flexGrow": 1,
+        "maxWidth": "25%",
+        "minWidth": "12.5%",
+      }
     }
   >
     <View
@@ -628,23 +616,21 @@ exports[`CurrencySelection renders correctly for 4 currencies 1`] = `
       {
         "flexDirection": "row",
         "flexWrap": "wrap",
+        "justifyContent": "center",
       },
-      false,
       undefined,
     ]
   }
 >
   <View
     style={
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "flexGrow": 1,
+        "maxWidth": "25%",
+        "minWidth": "12.5%",
+      }
     }
   >
     <View
@@ -732,15 +718,13 @@ exports[`CurrencySelection renders correctly for 4 currencies 1`] = `
   </View>
   <View
     style={
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "flexGrow": 1,
+        "maxWidth": "25%",
+        "minWidth": "12.5%",
+      }
     }
   >
     <View
@@ -828,15 +812,13 @@ exports[`CurrencySelection renders correctly for 4 currencies 1`] = `
   </View>
   <View
     style={
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "flexGrow": 1,
+        "maxWidth": "25%",
+        "minWidth": "12.5%",
+      }
     }
   >
     <View
@@ -924,15 +906,13 @@ exports[`CurrencySelection renders correctly for 4 currencies 1`] = `
   </View>
   <View
     style={
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "flexGrow": 1,
+        "maxWidth": "25%",
+        "minWidth": "12.5%",
+      }
     }
   >
     <View
@@ -1027,23 +1007,21 @@ exports[`CurrencySelection renders correctly for 5 currencies 1`] = `
       {
         "flexDirection": "row",
         "flexWrap": "wrap",
+        "justifyContent": "center",
       },
-      false,
       undefined,
     ]
   }
 >
   <View
     style={
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "flexGrow": 1,
+        "maxWidth": "25%",
+        "minWidth": "12.5%",
+      }
     }
   >
     <View
@@ -1131,15 +1109,13 @@ exports[`CurrencySelection renders correctly for 5 currencies 1`] = `
   </View>
   <View
     style={
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "flexGrow": 1,
+        "maxWidth": "25%",
+        "minWidth": "12.5%",
+      }
     }
   >
     <View
@@ -1227,15 +1203,13 @@ exports[`CurrencySelection renders correctly for 5 currencies 1`] = `
   </View>
   <View
     style={
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "flexGrow": 1,
+        "maxWidth": "25%",
+        "minWidth": "12.5%",
+      }
     }
   >
     <View
@@ -1323,15 +1297,13 @@ exports[`CurrencySelection renders correctly for 5 currencies 1`] = `
   </View>
   <View
     style={
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "flexGrow": 1,
+        "maxWidth": "25%",
+        "minWidth": "12.5%",
+      }
     }
   >
     <View
@@ -1419,15 +1391,13 @@ exports[`CurrencySelection renders correctly for 5 currencies 1`] = `
   </View>
   <View
     style={
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "flexGrow": 1,
+        "maxWidth": "25%",
+        "minWidth": "12.5%",
+      }
     }
   >
     <View
@@ -1522,23 +1492,21 @@ exports[`CurrencySelection renders correctly for 6 currencies 1`] = `
       {
         "flexDirection": "row",
         "flexWrap": "wrap",
+        "justifyContent": "center",
       },
-      false,
       undefined,
     ]
   }
 >
   <View
     style={
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "flexGrow": 1,
+        "maxWidth": "25%",
+        "minWidth": "12.5%",
+      }
     }
   >
     <View
@@ -1626,15 +1594,13 @@ exports[`CurrencySelection renders correctly for 6 currencies 1`] = `
   </View>
   <View
     style={
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "flexGrow": 1,
+        "maxWidth": "25%",
+        "minWidth": "12.5%",
+      }
     }
   >
     <View
@@ -1722,15 +1688,13 @@ exports[`CurrencySelection renders correctly for 6 currencies 1`] = `
   </View>
   <View
     style={
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "flexGrow": 1,
+        "maxWidth": "25%",
+        "minWidth": "12.5%",
+      }
     }
   >
     <View
@@ -1818,15 +1782,13 @@ exports[`CurrencySelection renders correctly for 6 currencies 1`] = `
   </View>
   <View
     style={
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "flexGrow": 1,
+        "maxWidth": "25%",
+        "minWidth": "12.5%",
+      }
     }
   >
     <View
@@ -1914,15 +1876,13 @@ exports[`CurrencySelection renders correctly for 6 currencies 1`] = `
   </View>
   <View
     style={
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "flexGrow": 1,
+        "maxWidth": "25%",
+        "minWidth": "12.5%",
+      }
     }
   >
     <View
@@ -2010,15 +1970,13 @@ exports[`CurrencySelection renders correctly for 6 currencies 1`] = `
   </View>
   <View
     style={
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "flexGrow": 1,
+        "maxWidth": "25%",
+        "minWidth": "12.5%",
+      }
     }
   >
     <View
@@ -2113,23 +2071,21 @@ exports[`CurrencySelection renders correctly for 7 currencies 1`] = `
       {
         "flexDirection": "row",
         "flexWrap": "wrap",
+        "justifyContent": "center",
       },
-      false,
       undefined,
     ]
   }
 >
   <View
     style={
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "flexGrow": 1,
+        "maxWidth": "25%",
+        "minWidth": "12.5%",
+      }
     }
   >
     <View
@@ -2217,15 +2173,13 @@ exports[`CurrencySelection renders correctly for 7 currencies 1`] = `
   </View>
   <View
     style={
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "flexGrow": 1,
+        "maxWidth": "25%",
+        "minWidth": "12.5%",
+      }
     }
   >
     <View
@@ -2313,15 +2267,13 @@ exports[`CurrencySelection renders correctly for 7 currencies 1`] = `
   </View>
   <View
     style={
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "flexGrow": 1,
+        "maxWidth": "25%",
+        "minWidth": "12.5%",
+      }
     }
   >
     <View
@@ -2409,15 +2361,13 @@ exports[`CurrencySelection renders correctly for 7 currencies 1`] = `
   </View>
   <View
     style={
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "flexGrow": 1,
+        "maxWidth": "25%",
+        "minWidth": "12.5%",
+      }
     }
   >
     <View
@@ -2505,15 +2455,13 @@ exports[`CurrencySelection renders correctly for 7 currencies 1`] = `
   </View>
   <View
     style={
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "flexGrow": 1,
+        "maxWidth": "25%",
+        "minWidth": "12.5%",
+      }
     }
   >
     <View
@@ -2601,15 +2549,13 @@ exports[`CurrencySelection renders correctly for 7 currencies 1`] = `
   </View>
   <View
     style={
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "flexGrow": 1,
+        "maxWidth": "25%",
+        "minWidth": "12.5%",
+      }
     }
   >
     <View
@@ -2697,15 +2643,13 @@ exports[`CurrencySelection renders correctly for 7 currencies 1`] = `
   </View>
   <View
     style={
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "flexGrow": 1,
+        "maxWidth": "25%",
+        "minWidth": "12.5%",
+      }
     }
   >
     <View
@@ -2800,23 +2744,21 @@ exports[`CurrencySelection renders correctly for 8 currencies 1`] = `
       {
         "flexDirection": "row",
         "flexWrap": "wrap",
+        "justifyContent": "center",
       },
-      false,
       undefined,
     ]
   }
 >
   <View
     style={
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "flexGrow": 1,
+        "maxWidth": "25%",
+        "minWidth": "12.5%",
+      }
     }
   >
     <View
@@ -2904,15 +2846,13 @@ exports[`CurrencySelection renders correctly for 8 currencies 1`] = `
   </View>
   <View
     style={
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "flexGrow": 1,
+        "maxWidth": "25%",
+        "minWidth": "12.5%",
+      }
     }
   >
     <View
@@ -3000,15 +2940,13 @@ exports[`CurrencySelection renders correctly for 8 currencies 1`] = `
   </View>
   <View
     style={
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "flexGrow": 1,
+        "maxWidth": "25%",
+        "minWidth": "12.5%",
+      }
     }
   >
     <View
@@ -3096,15 +3034,13 @@ exports[`CurrencySelection renders correctly for 8 currencies 1`] = `
   </View>
   <View
     style={
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "flexGrow": 1,
+        "maxWidth": "25%",
+        "minWidth": "12.5%",
+      }
     }
   >
     <View
@@ -3192,15 +3128,13 @@ exports[`CurrencySelection renders correctly for 8 currencies 1`] = `
   </View>
   <View
     style={
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "flexGrow": 1,
+        "maxWidth": "25%",
+        "minWidth": "12.5%",
+      }
     }
   >
     <View
@@ -3288,15 +3222,13 @@ exports[`CurrencySelection renders correctly for 8 currencies 1`] = `
   </View>
   <View
     style={
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "flexGrow": 1,
+        "maxWidth": "25%",
+        "minWidth": "12.5%",
+      }
     }
   >
     <View
@@ -3384,15 +3316,13 @@ exports[`CurrencySelection renders correctly for 8 currencies 1`] = `
   </View>
   <View
     style={
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "flexGrow": 1,
+        "maxWidth": "25%",
+        "minWidth": "12.5%",
+      }
     }
   >
     <View
@@ -3480,15 +3410,13 @@ exports[`CurrencySelection renders correctly for 8 currencies 1`] = `
   </View>
   <View
     style={
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "flexGrow": 1,
+        "maxWidth": "25%",
+        "minWidth": "12.5%",
+      }
     }
   >
     <View
@@ -3583,8 +3511,6 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
       {
         "flexDirection": "row",
         "flexWrap": "wrap",
-      },
-      {
         "justifyContent": "center",
       },
       undefined,
@@ -3593,15 +3519,13 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
 >
   <View
     style={
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "flexGrow": 1,
+        "maxWidth": "25%",
+        "minWidth": "12.5%",
+      }
     }
   >
     <View
@@ -3689,15 +3613,13 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
   </View>
   <View
     style={
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "flexGrow": 1,
+        "maxWidth": "25%",
+        "minWidth": "12.5%",
+      }
     }
   >
     <View
@@ -3785,15 +3707,13 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
   </View>
   <View
     style={
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "flexGrow": 1,
+        "maxWidth": "25%",
+        "minWidth": "12.5%",
+      }
     }
   >
     <View
@@ -3881,15 +3801,13 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
   </View>
   <View
     style={
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "flexGrow": 1,
+        "maxWidth": "25%",
+        "minWidth": "12.5%",
+      }
     }
   >
     <View
@@ -3977,15 +3895,13 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
   </View>
   <View
     style={
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "flexGrow": 1,
+        "maxWidth": "25%",
+        "minWidth": "12.5%",
+      }
     }
   >
     <View
@@ -4073,15 +3989,13 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
   </View>
   <View
     style={
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "flexGrow": 1,
+        "maxWidth": "25%",
+        "minWidth": "12.5%",
+      }
     }
   >
     <View
@@ -4169,15 +4083,13 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
   </View>
   <View
     style={
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "flexGrow": 1,
+        "maxWidth": "25%",
+        "minWidth": "12.5%",
+      }
     }
   >
     <View
@@ -4265,15 +4177,13 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
   </View>
   <View
     style={
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "flexGrow": 1,
+        "maxWidth": "25%",
+        "minWidth": "12.5%",
+      }
     }
   >
     <View
@@ -4361,15 +4271,13 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
   </View>
   <View
     style={
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "flexGrow": 1,
-          "maxWidth": "25%",
-          "minWidth": "12.5%",
-        },
-      ]
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "flexGrow": 1,
+        "maxWidth": "25%",
+        "minWidth": "12.5%",
+      }
     }
   >
     <View

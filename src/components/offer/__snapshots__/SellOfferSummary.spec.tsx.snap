@@ -5,97 +5,208 @@ exports[`SellOfferSummary renders correctly 1`] = `
   style={
     [
       {
-        "gap": 16,
-      },
-      {
-        "gap": 48,
+        "backgroundColor": "#FFFCFA",
+        "borderColor": "#EAE3DF",
+        "borderRadius": 16,
+        "borderWidth": 1,
+        "paddingBottom": 28,
+        "paddingLeft": 28,
+        "paddingRight": 28,
+        "paddingTop": 28,
       },
       undefined,
     ]
   }
 >
-  <SellAmountSummary
-    offer={
+  <PeachText
+    style={
       {
-        "amount": 250000,
-        "creationDate": 2022-03-08T11:41:07.245Z,
-        "doubleMatched": false,
-        "funding": {
-          "amounts": [],
-          "expiry": 537,
-          "status": "NULL",
-          "txIds": [],
-          "vouts": [],
-        },
-        "id": "38",
-        "matched": [],
-        "matches": [],
-        "meansOfPayment": {
-          "EUR": [
-            "sepa",
-          ],
-        },
-        "online": true,
-        "originalPaymentData": [],
-        "paymentData": {
-          "sepa": {
-            "hash": "TODO add payment hash",
-          },
-        },
-        "premium": 1.5,
-        "publishingDate": 2022-03-08T11:41:07.245Z,
-        "refunded": false,
-        "released": false,
-        "returnAddress": "bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh",
-        "seenMatches": [],
-        "type": "ask",
+        "alignSelf": "center",
+        "color": "#7D675E",
+        "fontFamily": "Baloo2-Regular",
+        "fontSize": 16,
+        "letterSpacing": 0.16,
+        "lineHeight": 24,
+      }
+    }
+  >
+    you're selling
+  </PeachText>
+  <SatsFormat
+    bitcoinLogoStyle={
+      {
+        "height": 16,
+        "marginRight": 4,
+        "width": 16,
+      }
+    }
+    containerStyle={
+      {
+        "alignSelf": "center",
+      }
+    }
+    sats={250000}
+    satsStyle={
+      {
+        "fontFamily": "Baloo2-Regular",
+        "fontSize": 14,
+        "fontWeight": "normal",
+        "letterSpacing": 0.14,
+        "lineHeight": 20,
+      }
+    }
+    style={
+      {
+        "fontFamily": "Baloo2-SemiBold",
+        "fontSize": 16,
+        "fontWeight": "600",
+        "letterSpacing": 0.16,
+        "lineHeight": 28,
       }
     }
   />
-  <PaymentMethodsSummary
-    meansOfPayment={
+  <HorizontalLine
+    style={
       {
-        "EUR": [
-          "sepa",
-        ],
+        "marginBottom": 16,
+        "marginTop": 16,
+        "width": 256,
       }
     }
   />
-  <PayoutWalletSummary
-    offer={
+  <PeachText
+    style={
       {
-        "amount": 250000,
-        "creationDate": 2022-03-08T11:41:07.245Z,
-        "doubleMatched": false,
-        "funding": {
-          "amounts": [],
-          "expiry": 537,
-          "status": "NULL",
-          "txIds": [],
-          "vouts": [],
+        "alignSelf": "center",
+        "color": "#7D675E",
+        "fontFamily": "Baloo2-Regular",
+        "fontSize": 16,
+        "letterSpacing": 0.16,
+        "lineHeight": 24,
+      }
+    }
+  >
+    with a
+  </PeachText>
+  <PeachText
+    style={
+      [
+        {
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 16,
+          "letterSpacing": 0.16,
+          "lineHeight": 28,
+          "textAlign": "center",
         },
-        "id": "38",
-        "matched": [],
-        "matches": [],
-        "meansOfPayment": {
-          "EUR": [
-            "sepa",
-          ],
+        {
+          "color": "#05A85A",
         },
-        "online": true,
-        "originalPaymentData": [],
-        "paymentData": {
-          "sepa": {
-            "hash": "TODO add payment hash",
-          },
-        },
-        "premium": 1.5,
-        "publishingDate": 2022-03-08T11:41:07.245Z,
-        "refunded": false,
-        "released": false,
-        "returnAddress": "bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh",
-        "seenMatches": [],
-        "type": "ask",
+      ]
+    }
+  >
+    <PeachText
+      style={
+        {
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 16,
+          "letterSpacing": 0.16,
+          "lineHeight": 28,
+        }
+      }
+    >
+      1.5
+      %
+    </PeachText>
+    premium
+  </PeachText>
+  <HorizontalLine
+    style={
+      {
+        "marginBottom": 16,
+        "marginTop": 16,
+        "width": 256,
+      }
+    }
+  />
+  <PeachText
+    style={
+      {
+        "alignSelf": "center",
+        "color": "#7D675E",
+        "fontFamily": "Baloo2-Regular",
+        "fontSize": 16,
+        "letterSpacing": 0.16,
+        "lineHeight": 24,
+      }
+    }
+  >
+    with these payment methods:
+  </PeachText>
+  <CurrencySelection
+    currencies={
+      [
+        "EUR",
+      ]
+    }
+    select={[Function]}
+    selected="EUR"
+  />
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "flexWrap": "wrap",
+        "justifyContent": "center",
+        "marginBottom": 8,
+        "marginTop": 12,
+      }
+    }
+  >
+    <PaymentMethod
+      paymentMethod="sepa"
+      style={
+        {
+          "marginBottom": 4,
+          "marginLeft": 4,
+          "marginRight": 4,
+          "marginTop": 4,
+        }
+      }
+    />
+  </View>
+  <HorizontalLine
+    style={
+      {
+        "marginBottom": 16,
+        "marginTop": 16,
+        "width": 256,
+      }
+    }
+  />
+  <PeachText
+    style={
+      {
+        "alignSelf": "center",
+        "color": "#7D675E",
+        "fontFamily": "Baloo2-Regular",
+        "fontSize": 16,
+        "letterSpacing": 0.16,
+        "lineHeight": 24,
+      }
+    }
+  >
+    refund wallet:
+  </PeachText>
+  <WalletLabel
+    address="bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh"
+    style={
+      {
+        "alignSelf": "center",
+        "fontFamily": "Baloo2-SemiBold",
+        "fontSize": 16,
+        "letterSpacing": 0.16,
+        "lineHeight": 28,
       }
     }
   />

@@ -94,9 +94,16 @@ exports[`Premium should render the Premium view 1`] = `
         premium={1.5}
         setPremium={[MockFunction]}
         style={
-          {
-            "marginTop": 32,
-          }
+          [
+            {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "justifyContent": "center",
+            },
+            {
+              "marginTop": 32,
+            },
+          ]
         }
       />
       <PeachText
