@@ -12,6 +12,8 @@ export const getOfferLevel = (trade: TradeSummary): SummaryItemLevel => {
     if (trade.type === 'ask') return 'APP'
     if (trade.type === 'bid') return 'SUCCESS'
   }
+  if (trade.tradeStatus === 'confirmCancelation') return 'DEFAULT'
+
   if (isError(trade.tradeStatus)) return 'ERROR'
   if (isPrioritary(trade.tradeStatus)) return 'WARN'
   if (isWaiting(trade.type, trade.tradeStatus)) return 'WAITING'

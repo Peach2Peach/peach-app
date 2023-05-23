@@ -5,7 +5,7 @@ import tw from '../../../styles/tailwind'
 import { CurrencySelections } from './CurrencySelections'
 
 export const UIComponents = () => (
-  <View style={tw`flex flex-col items-center gap-4`}>
+  <View style={tw`flex flex-col items-center`}>
     <Text style={tw`mt-4 h4`}>UI Components</Text>
     <CurrencySelections />
     <ErrorBox style={tw`w-64`}>in here goes an error message that can appear inside the ui</ErrorBox>

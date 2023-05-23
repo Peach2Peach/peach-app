@@ -136,6 +136,7 @@ describe('useFundEscrowSetup', () => {
   it('should render header correctly for unfunded offers', () => {
     const { result } = renderHook(useFundEscrowSetup, { wrapper })
     expect(useHeaderState.getState().title).toBe(i18n('sell.escrow.title'))
+    expect(useHeaderState.getState().hideGoBackButton).toBeTruthy()
     expect(useHeaderState.getState().icons?.[0].id).toBe('xCircle')
     expect(useHeaderState.getState().icons?.[0].onPress).toEqual(result.current.cancelOffer)
     expect(useHeaderState.getState().icons?.[1].id).toBe('helpCircle')
@@ -155,6 +156,7 @@ describe('useFundEscrowSetup', () => {
     })
     renderHook(useFundEscrowSetup, { wrapper })
     expect(useHeaderState.getState().title).toBe(i18n('sell.funding.mempool.title'))
+    expect(useHeaderState.getState().hideGoBackButton).toBeTruthy()
     expect(useHeaderState.getState().icons?.[0].id).toBe('helpCircle')
     expect(useHeaderState.getState().icons?.[0].onPress).toEqual(showHelpMock)
   })

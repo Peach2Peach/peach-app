@@ -1,21 +1,22 @@
-import { useCallback, useContext } from 'react'
-import { OverlayContext } from '../contexts/overlay'
+import { useCallback } from 'react'
+import { shallow } from 'zustand/shallow'
 import { CancelOffer } from '../overlays/CancelOffer'
 import { useStartRefundOverlay } from '../overlays/useStartRefundOverlay'
+import { usePopupStore } from '../store/usePopupStore'
 import i18n from '../utils/i18n'
 import { cancelAndSaveOffer, isBuyOffer } from '../utils/offer'
 import { useNavigation } from './useNavigation'
-import { useShowAppPopup } from './useShowAppPopup'
 import { useShowErrorBanner } from './useShowErrorBanner'
 
 export const useCancelOffer = (offer: BuyOffer | SellOffer | null | undefined) => {
   const navigation = useNavigation()
   const showError = useShowErrorBanner()
-  const [, updateOverlay] = useContext(OverlayContext)
+  const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
 
-  const closeOverlay = useCallback(() => updateOverlay({ visible: false }), [updateOverlay])
+  const showOfferCanceled = useCallback(() => {
+    setPopup({ title: i18n('offer.canceled.popup.title'), level: 'DEFAULT' })
+  }, [setPopup])
 
-  const showOfferCanceled = useShowAppPopup('offerCanceled')
   const startRefund = useStartRefundOverlay()
 
   const confirmCancelOffer = useCallback(async () => {
@@ -37,7 +38,7 @@ export const useCancelOffer = (offer: BuyOffer | SellOffer | null | undefined) =
 
   const cancelOffer = useCallback(() => {
     if (!offer) return
-    updateOverlay({
+    setPopup({
       title: i18n('offer.cancel.popup.title'),
       content: <CancelOffer offer={offer} />,
       visible: true,
@@ -45,7 +46,7 @@ export const useCancelOffer = (offer: BuyOffer | SellOffer | null | undefined) =
       action2: {
         label: i18n('neverMind'),
         icon: 'arrowLeftCircle',
-        callback: closeOverlay,
+        callback: closePopup,
       },
       action1: {
         label: i18n('cancelOffer'),
@@ -53,7 +54,7 @@ export const useCancelOffer = (offer: BuyOffer | SellOffer | null | undefined) =
         callback: confirmCancelOffer,
       },
     })
-  }, [closeOverlay, confirmCancelOffer, offer, updateOverlay])
+  }, [closePopup, confirmCancelOffer, offer, setPopup])
 
   return cancelOffer
 }

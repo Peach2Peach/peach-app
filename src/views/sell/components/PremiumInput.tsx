@@ -1,8 +1,8 @@
 import { View } from 'react-native'
-import { Input, Text } from '../../../components'
-import i18n from '../../../utils/i18n'
-import tw from '../../../styles/tailwind'
+import { Text } from '../../../components'
 import { NumberInput } from '../../../components/inputs'
+import tw from '../../../styles/tailwind'
+import i18n from '../../../utils/i18n'
 
 type Props = ComponentProps & {
   premium: string

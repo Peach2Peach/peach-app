@@ -6,24 +6,14 @@ import { defaultOverlay, OverlayContext } from '../../contexts/overlay'
 import { setAccount } from '../../utils/account'
 import { getSellOfferIdFromContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
+import { unauthorizedError } from '../../../tests/unit/data/peachAPIData'
+import { NavigationWrapper, replaceMock } from '../../../tests/unit/helpers/NavigationWrapper'
 import { getResult } from '../../utils/result'
 import { PeachWallet } from '../../utils/wallet/PeachWallet'
 import { setPeachWallet } from '../../utils/wallet/setWallet'
 import { ConfirmCancelTrade } from './ConfirmCancelTrade'
 import { SellerCanceledContent } from './SellerCanceledContent'
 import { useConfirmCancelTrade } from './useConfirmCancelTrade'
-import { unauthorizedError } from '../../../tests/unit/data/peachAPIData'
-
-jest.mock('../../utils/wallet/__mocks__/PeachWallet')
-
-const navigateMock = jest.fn()
-const replaceMock = jest.fn()
-jest.mock('../../hooks/useNavigation', () => ({
-  useNavigation: () => ({
-    navigate: navigateMock,
-    replace: replaceMock,
-  }),
-}))
 
 let overlay = defaultOverlay
 const updateOverlayMock = jest.fn().mockImplementation((newOverlay: OverlayState) => {
@@ -74,6 +64,11 @@ jest.mock('./helpers/cancelContractAsBuyer', () => ({
   cancelContractAsBuyer: (...args: any[]) => cancelContractAsBuyerMock(...args),
 }))
 describe('useConfirmCancelTrade', () => {
+  const wrapper = ({ children }: { children: JSX.Element }) => (
+    <OverlayWrapper>
+      <NavigationWrapper>{children}</NavigationWrapper>
+    </OverlayWrapper>
+  )
   beforeAll(() => {
     setAccount({ ...account1, offers: [{ ...sellOffer, id: getSellOfferIdFromContract(contract) }] })
     // @ts-ignore
@@ -84,7 +79,7 @@ describe('useConfirmCancelTrade', () => {
     overlay = defaultOverlay
   })
   it('should return the correct default values', () => {
-    const { result } = renderHook(useConfirmCancelTrade, { wrapper: OverlayWrapper })
+    const { result } = renderHook(useConfirmCancelTrade, { wrapper })
     expect(result.current).toStrictEqual({
       showConfirmOverlay: expect.any(Function),
       cancelSeller: expect.any(Function),
@@ -94,58 +89,64 @@ describe('useConfirmCancelTrade', () => {
   })
 
   it('should cancel a contract as seller', async () => {
-    const { result } = renderHook(useConfirmCancelTrade, { wrapper: OverlayWrapper })
+    const { result } = renderHook(useConfirmCancelTrade, { wrapper })
     await result.current.cancelSeller(contract)
     expect(cancelContractAsSellerMock).toHaveBeenCalledWith(contract)
     expect(replaceMock).toHaveBeenCalledWith('contract', { contractId: contract.id })
   })
   it('should handle error case when canceling a contract as seller', async () => {
     cancelContractAsSellerMock.mockResolvedValueOnce(getResult({ contract }, unauthorizedError))
-    const { result } = renderHook(useConfirmCancelTrade, { wrapper: OverlayWrapper })
+    const { result } = renderHook(useConfirmCancelTrade, { wrapper })
     await result.current.cancelSeller(contract)
   })
   it('should optimistically update contract and offer after cancelation as seller', async () => {
-    const { result } = renderHook(useConfirmCancelTrade, { wrapper: OverlayWrapper })
+    const { result } = renderHook(useConfirmCancelTrade, { wrapper })
     await result.current.cancelSeller(contract)
 
     expect(saveContractMock).toHaveBeenCalledWith(contractUpdate)
     expect(saveOfferMock).toHaveBeenCalledWith(sellOfferUpdate)
   })
   it('should cancel a contract as buyer', async () => {
-    const { result } = renderHook(useConfirmCancelTrade, { wrapper: OverlayWrapper })
+    const { result } = renderHook(useConfirmCancelTrade, { wrapper })
     await result.current.cancelBuyer(contract)
     expect(cancelContractAsBuyerMock).toHaveBeenCalledWith(contract)
     expect(replaceMock).toHaveBeenCalledWith('contract', { contractId: contract.id })
+    expect(updateOverlayMock).toHaveBeenCalledWith({
+      level: 'DEFAULT',
+      title: 'trade canceled!',
+      visible: true,
+    })
   })
   it('should handle error case when canceling a contract as buyer', async () => {
     cancelContractAsBuyerMock.mockResolvedValueOnce(getResult({ contract }, unauthorizedError))
-    const { result } = renderHook(useConfirmCancelTrade, { wrapper: OverlayWrapper })
+    const { result } = renderHook(useConfirmCancelTrade, { wrapper })
     await result.current.cancelBuyer(contract)
   })
   it('should optimistically update contract and offer after cancelation as buyer', async () => {
-    const { result } = renderHook(useConfirmCancelTrade, { wrapper: OverlayWrapper })
+    const { result } = renderHook(useConfirmCancelTrade, { wrapper })
     await result.current.cancelBuyer(contract)
 
     expect(saveContractMock).toHaveBeenCalledWith(contractUpdate)
   })
   it('should show confirm cancelation overlay for buyer', async () => {
     setAccount({ ...account1, publicKey: contract.buyer.id })
-    const { result } = renderHook(useConfirmCancelTrade, { wrapper: OverlayWrapper })
+    const { result } = renderHook(useConfirmCancelTrade, { wrapper })
     result.current.showConfirmOverlay(contract)
 
     expect(overlay).toStrictEqual({
       action1: {
         callback: expect.any(Function),
         icon: 'xCircle',
-        label: i18n('contract.cancel.title'),
+        label: 'cancel trade',
       },
       action2: {
         callback: result.current.closeOverlay,
         icon: 'arrowLeftCircle',
-        label: i18n('contract.cancel.confirm.back'),
+        label: 'never mind',
       },
       content: <ConfirmCancelTrade {...{ contract, view: 'buyer' }} />,
-      title: i18n('contract.cancel.title'),
+      level: 'DEFAULT',
+      title: 'cancel trade',
       visible: true,
     })
 
@@ -158,35 +159,36 @@ describe('useConfirmCancelTrade', () => {
       offers: [{ ...sellOffer, id: getSellOfferIdFromContract(contract) }],
       publicKey: contract.seller.id,
     })
-    const { result } = renderHook(useConfirmCancelTrade, { wrapper: OverlayWrapper })
+    const { result } = renderHook(useConfirmCancelTrade, { wrapper })
     result.current.showConfirmOverlay(contract)
 
     expect(overlay).toStrictEqual({
       action1: {
         callback: expect.any(Function),
         icon: 'xCircle',
-        label: i18n('contract.cancel.title'),
+        label: 'cancel trade',
       },
       action2: {
         callback: result.current.closeOverlay,
         icon: 'arrowLeftCircle',
-        label: i18n('contract.cancel.confirm.back'),
+        label: 'never mind',
       },
       content: <ConfirmCancelTrade {...{ contract, view: 'seller' }} />,
-      title: i18n('contract.cancel.title'),
+      level: 'DEFAULT',
+      title: 'cancel trade',
       visible: true,
     })
     await overlay.action1?.callback()
     expect(cancelContractAsSellerMock).toHaveBeenCalledWith(contract)
   })
   it('confirmOverlay should be gray', () => {
-    const { result } = renderHook(useConfirmCancelTrade, { wrapper: OverlayWrapper })
+    const { result } = renderHook(useConfirmCancelTrade, { wrapper })
     result.current.showConfirmOverlay(contract)
 
-    expect(overlay.level).toBe(undefined)
+    expect(overlay.level).toBe('DEFAULT')
   })
   it('should show the correct overlay for cash trades of the seller', () => {
-    const { result } = renderHook(useConfirmCancelTrade, { wrapper: OverlayWrapper })
+    const { result } = renderHook(useConfirmCancelTrade, { wrapper })
     result.current.showConfirmOverlay({ ...contract, paymentMethod: 'cash' })
 
     expect(overlay).toStrictEqual({
@@ -200,6 +202,7 @@ describe('useConfirmCancelTrade', () => {
         icon: 'arrowLeftCircle',
         label: 'never mind',
       },
+      level: 'DEFAULT',
       title: 'cancel cash trade',
       content: <ConfirmCancelTrade view="seller" contract={{ ...contract, paymentMethod: 'cash' }} />,
       visible: true,
@@ -208,11 +211,12 @@ describe('useConfirmCancelTrade', () => {
   it('should show the correct confirmation overlay for canceled trade as buyer', async () => {
     setAccount({ ...account1, publicKey: contract.buyer.id })
 
-    const { result } = renderHook(useConfirmCancelTrade, { wrapper: OverlayWrapper })
+    const { result } = renderHook(useConfirmCancelTrade, { wrapper })
     result.current.showConfirmOverlay(contract)
     overlay.action1?.callback()
     expect(overlay).toStrictEqual({
-      title: 'trade canceled',
+      title: 'trade canceled!',
+      level: 'DEFAULT',
       visible: true,
     })
   })
@@ -223,11 +227,12 @@ describe('useConfirmCancelTrade', () => {
       publicKey: contract.seller.id,
     })
 
-    const { result } = renderHook(useConfirmCancelTrade, { wrapper: OverlayWrapper })
+    const { result } = renderHook(useConfirmCancelTrade, { wrapper })
     result.current.showConfirmOverlay(contract)
     overlay.action1?.callback()
     expect(overlay).toStrictEqual({
       title: 'request sent',
+      level: 'DEFAULT',
       content: (
         <SellerCanceledContent
           isCash={false}
@@ -246,11 +251,12 @@ describe('useConfirmCancelTrade', () => {
       publicKey: contract.seller.id,
     })
 
-    const { result } = renderHook(useConfirmCancelTrade, { wrapper: OverlayWrapper })
+    const { result } = renderHook(useConfirmCancelTrade, { wrapper })
     result.current.showConfirmOverlay({ ...contract, paymentMethod: 'cash' })
     overlay.action1?.callback()
     expect(overlay).toStrictEqual({
       title: 'trade canceled',
+      level: 'DEFAULT',
       content: <SellerCanceledContent isCash canRepublish tradeID={contract.id} walletName={'custom payout address'} />,
       visible: true,
     })
@@ -262,11 +268,12 @@ describe('useConfirmCancelTrade', () => {
       publicKey: contract.seller.id,
     })
 
-    const { result } = renderHook(useConfirmCancelTrade, { wrapper: OverlayWrapper })
+    const { result } = renderHook(useConfirmCancelTrade, { wrapper })
     result.current.showConfirmOverlay({ ...contract, paymentMethod: 'cash' })
     overlay.action1?.callback()
     expect(overlay).toStrictEqual({
       title: 'trade canceled',
+      level: 'DEFAULT',
       content: (
         <SellerCanceledContent isCash canRepublish={false} tradeID={contract.id} walletName={'custom payout address'} />
       ),

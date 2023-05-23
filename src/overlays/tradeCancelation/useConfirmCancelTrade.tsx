@@ -28,7 +28,7 @@ export const useConfirmCancelTrade = () => {
 
   const cancelBuyer = useCallback(
     async (contract: Contract) => {
-      updateOverlay({ title: i18n('contract.cancel.tradeCanceled'), visible: true })
+      updateOverlay({ title: i18n('contract.cancel.success'), visible: true, level: 'DEFAULT' })
       const result = await cancelContractAsBuyer(contract)
 
       if (result.isError() || !result.isOk()) {
@@ -49,6 +49,7 @@ export const useConfirmCancelTrade = () => {
       updateOverlay({
         title: getSellerCanceledTitle(contract.paymentMethod),
         visible: true,
+        level: 'DEFAULT',
         content: <SellerCanceledContent {...{ isCash, canRepublish, tradeID: contract.id, walletName }} />,
       })
 
@@ -74,6 +75,7 @@ export const useConfirmCancelTrade = () => {
       const title = i18n(isCashTrade(contract.paymentMethod) ? 'contract.cancel.cash.title' : 'contract.cancel.title')
       updateOverlay({
         title,
+        level: 'DEFAULT',
         content: <ConfirmCancelTrade {...{ contract, view }} />,
         visible: true,
         action1: {
