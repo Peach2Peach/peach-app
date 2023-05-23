@@ -16,6 +16,7 @@ import { useFocusEffect } from '@react-navigation/native'
 import AddPaymentMethodButton from './AddPaymentMethodButton'
 import { useSettingsStore } from '../../store/settingsStore'
 import { isCashTrade } from '../../utils/paymentMethod/isCashTrade'
+import { PaymentDataKeyFacts } from './components/PaymentDataKeyFacts'
 
 const paymentCategoryIcons: Record<PaymentCategory, IconType | ''> = {
   bankTransfer: 'inbox',
@@ -49,29 +50,12 @@ const getSelectedPaymentDataIds = (preferredMoPs: Settings['preferredPaymentMeth
     return arr.concat(id)
   }, [])
 
-type PaymentDataKeyFactsProps = ComponentProps & {
-  paymentData: PaymentData
-}
-const PaymentDataKeyFacts = ({ paymentData, style }: PaymentDataKeyFactsProps) => (
-  <View style={[tw`flex-row justify-center`, style]}>
-    {(paymentData.currencies || []).map((currency) => (
-      <View
-        key={`paymentData-${paymentData.id}-currency-${currency}`}
-        style={[tw`justify-center px-1 mx-1 border rounded-lg border-black-1`, style]}
-      >
-        <Text style={[tw`button-medium text-black-1`]}>{currency}</Text>
-      </View>
-    ))}
-  </View>
-)
-
 type PaymentDetailsProps = ComponentProps & {
-  paymentData: PaymentData[]
   setMeansOfPayment?: Dispatch<SetStateAction<Offer['meansOfPayment']>> | ((meansOfPayment: MeansOfPayment) => void)
   editing: boolean
   origin: keyof RootStackParamList
 }
-export default ({ setMeansOfPayment, editing, style, origin }: PaymentDetailsProps): ReactElement => {
+export const PaymentDetails = ({ setMeansOfPayment, editing, style, origin }: PaymentDetailsProps): ReactElement => {
   const [, setRandom] = useState(0)
   const navigation = useNavigation()
   const preferredPaymentMethods = useSettingsStore((state) => state.preferredPaymentMethods)

@@ -4,7 +4,7 @@ import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { getCurrencies } from '../../utils/paymentMethod'
 import { PaymentMethod } from '../matches/PaymentMethod'
-import { TabbedNavigation } from '../navigation/TabbedNavigation'
+import { CurrencySelection } from '../navigation'
 import { SatsFormat, Text } from '../text'
 import { HorizontalLine } from '../ui'
 import { WalletLabel } from './WalletLabel'
@@ -38,11 +38,8 @@ export const BuyOfferSummary = ({ offer, style }: BuyOfferSummaryProps): ReactEl
       <HorizontalLine style={tw`w-64 my-4`} />
 
       <Text style={tw`self-center body-m text-black-2`}>{i18n('offer.summary.withTheseMethods')}</Text>
-      <TabbedNavigation
-        items={currencies.map((currency) => ({ id: currency, display: currency.toLowerCase() }))}
-        selected={{ id: selectedCurrency, display: selectedCurrency }}
-        select={(c) => setSelectedCurrency(c.id as Currency)}
-      />
+      <CurrencySelection currencies={currencies} selected={selectedCurrency} select={setSelectedCurrency} />
+
       <View style={tw`flex-row flex-wrap items-center justify-center mt-3 mb-2`}>
         {offer.meansOfPayment[selectedCurrency]?.map((p) => (
           <PaymentMethod key={`buyOfferMethod-${p}`} paymentMethod={p} style={tw`m-1`} />
