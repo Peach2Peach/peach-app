@@ -46,8 +46,7 @@ exports[`BTCAmount should render correctly for android 1`] = `
       style={
         [
           {
-            "fontFamily": "CourierPrime-Regular",
-            "fontWeight": "bold",
+            "fontFamily": "CourierPrime-Bold",
             "textAlign": "center",
           },
           false,
@@ -77,8 +76,7 @@ exports[`BTCAmount should render correctly for android 1`] = `
           },
           false,
           {
-            "fontFamily": "Baloo2-Regular",
-            "fontWeight": "500",
+            "fontFamily": "Baloo2-Medium",
             "textAlign": "left",
           },
           false,
@@ -138,8 +136,7 @@ exports[`BTCAmount should render correctly for extra large size 1`] = `
       style={
         [
           {
-            "fontFamily": "CourierPrime-Regular",
-            "fontWeight": "bold",
+            "fontFamily": "CourierPrime-Bold",
             "textAlign": "center",
           },
           {
@@ -169,8 +166,7 @@ exports[`BTCAmount should render correctly for extra large size 1`] = `
           false,
           false,
           {
-            "fontFamily": "Baloo2-Regular",
-            "fontWeight": "500",
+            "fontFamily": "Baloo2-Medium",
             "textAlign": "left",
           },
           false,
@@ -229,8 +225,7 @@ exports[`BTCAmount should render correctly for extra small size 1`] = `
       style={
         [
           {
-            "fontFamily": "CourierPrime-Regular",
-            "fontWeight": "bold",
+            "fontFamily": "CourierPrime-Bold",
             "textAlign": "center",
           },
           false,
@@ -260,8 +255,7 @@ exports[`BTCAmount should render correctly for extra small size 1`] = `
             "paddingLeft": 2,
           },
           {
-            "fontFamily": "Baloo2-Regular",
-            "fontWeight": "500",
+            "fontFamily": "Baloo2-Medium",
             "textAlign": "left",
           },
           false,
@@ -321,8 +315,7 @@ exports[`BTCAmount should render correctly for large size 1`] = `
       style={
         [
           {
-            "fontFamily": "CourierPrime-Regular",
-            "fontWeight": "bold",
+            "fontFamily": "CourierPrime-Bold",
             "textAlign": "center",
           },
           false,
@@ -352,8 +345,7 @@ exports[`BTCAmount should render correctly for large size 1`] = `
           false,
           false,
           {
-            "fontFamily": "Baloo2-Regular",
-            "fontWeight": "500",
+            "fontFamily": "Baloo2-Medium",
             "textAlign": "left",
           },
           false,
@@ -413,8 +405,7 @@ exports[`BTCAmount should render correctly for medium size 1`] = `
       style={
         [
           {
-            "fontFamily": "CourierPrime-Regular",
-            "fontWeight": "bold",
+            "fontFamily": "CourierPrime-Bold",
             "textAlign": "center",
           },
           false,
@@ -444,8 +435,7 @@ exports[`BTCAmount should render correctly for medium size 1`] = `
           false,
           false,
           {
-            "fontFamily": "Baloo2-Regular",
-            "fontWeight": "500",
+            "fontFamily": "Baloo2-Medium",
             "textAlign": "left",
           },
           false,
@@ -504,8 +494,7 @@ exports[`BTCAmount should render correctly for small size 1`] = `
       style={
         [
           {
-            "fontFamily": "CourierPrime-Regular",
-            "fontWeight": "bold",
+            "fontFamily": "CourierPrime-Bold",
             "textAlign": "center",
           },
           false,
@@ -535,8 +524,7 @@ exports[`BTCAmount should render correctly for small size 1`] = `
           },
           false,
           {
-            "fontFamily": "Baloo2-Regular",
-            "fontWeight": "500",
+            "fontFamily": "Baloo2-Medium",
             "textAlign": "left",
           },
           false,
@@ -596,8 +584,7 @@ exports[`BTCAmount should render correctly with isError 1`] = `
       style={
         [
           {
-            "fontFamily": "CourierPrime-Regular",
-            "fontWeight": "bold",
+            "fontFamily": "CourierPrime-Bold",
             "textAlign": "center",
           },
           {
@@ -627,8 +614,7 @@ exports[`BTCAmount should render correctly with isError 1`] = `
           false,
           false,
           {
-            "fontFamily": "Baloo2-Regular",
-            "fontWeight": "500",
+            "fontFamily": "Baloo2-Medium",
             "textAlign": "left",
           },
           {
@@ -643,4 +629,466 @@ exports[`BTCAmount should render correctly with isError 1`] = `
 </View>
 `;
 
-exports[`MixedLetterSpacingText should render correctly with isError 1`] = `null`;
+exports[`MixedLetterSpacingText should render correctly 1`] = `
+<PeachText
+  style={
+    [
+      [
+        {
+          "fontSize": 16,
+        },
+      ],
+    ]
+  }
+>
+  <PeachText
+    style={
+      [
+        [
+          {
+            "fontSize": 16,
+          },
+        ],
+        {
+          "color": "#EAE3DF",
+        },
+        {
+          "letterSpacing": -1.2,
+        },
+      ]
+    }
+  >
+    0
+  </PeachText>
+  <PeachText
+    style={
+      [
+        [
+          {
+            "fontSize": 16,
+          },
+        ],
+        {
+          "color": "#EAE3DF",
+        },
+        {
+          "letterSpacing": -3.36,
+        },
+      ]
+    }
+  >
+    .
+  </PeachText>
+  <PeachText
+    style={
+      [
+        [
+          {
+            "fontSize": 16,
+          },
+        ],
+        {
+          "color": "#EAE3DF",
+        },
+        {
+          "letterSpacing": -1.2,
+        },
+      ]
+    }
+  >
+    0
+  </PeachText>
+  <PeachText
+    style={
+      [
+        [
+          {
+            "fontSize": 16,
+          },
+        ],
+        {
+          "color": "#EAE3DF",
+        },
+        {
+          "letterSpacing": -1.2,
+        },
+      ]
+    }
+  >
+    0
+  </PeachText>
+  <PeachText
+    style={
+      [
+        [
+          {
+            "fontSize": 16,
+          },
+        ],
+        {
+          "letterSpacing": -5.6,
+        },
+      ]
+    }
+  >
+     
+  </PeachText>
+  <PeachText
+    style={
+      [
+        [
+          {
+            "fontSize": 16,
+          },
+        ],
+        {
+          "color": "#EAE3DF",
+        },
+        {
+          "letterSpacing": -1.2,
+        },
+      ]
+    }
+  >
+    0
+  </PeachText>
+  <PeachText
+    style={
+      [
+        [
+          {
+            "fontSize": 16,
+          },
+        ],
+        false,
+        {
+          "letterSpacing": -1.2,
+        },
+      ]
+    }
+  >
+    2
+  </PeachText>
+  <PeachText
+    style={
+      [
+        [
+          {
+            "fontSize": 16,
+          },
+        ],
+        false,
+        {
+          "letterSpacing": -1.2,
+        },
+      ]
+    }
+  >
+    1
+  </PeachText>
+  <PeachText
+    style={
+      [
+        [
+          {
+            "fontSize": 16,
+          },
+        ],
+        {
+          "letterSpacing": -5.6,
+        },
+      ]
+    }
+  >
+     
+  </PeachText>
+  <PeachText
+    style={
+      [
+        [
+          {
+            "fontSize": 16,
+          },
+        ],
+        false,
+        {
+          "letterSpacing": -1.2,
+        },
+      ]
+    }
+  >
+    0
+  </PeachText>
+  <PeachText
+    style={
+      [
+        [
+          {
+            "fontSize": 16,
+          },
+        ],
+        false,
+        {
+          "letterSpacing": -1.2,
+        },
+      ]
+    }
+  >
+    0
+  </PeachText>
+  <PeachText
+    style={
+      [
+        [
+          {
+            "fontSize": 16,
+          },
+        ],
+        false,
+        {
+          "letterSpacing": -1.2,
+        },
+      ]
+    }
+  >
+    0
+  </PeachText>
+</PeachText>
+`;
+
+exports[`MixedLetterSpacingText should render correctly with isError 1`] = `
+<PeachText
+  style={
+    [
+      [
+        {
+          "fontSize": 16,
+        },
+      ],
+    ]
+  }
+>
+  <PeachText
+    style={
+      [
+        [
+          {
+            "fontSize": 16,
+          },
+        ],
+        {
+          "color": "#FFD1CA",
+        },
+        {
+          "letterSpacing": -1.2,
+        },
+      ]
+    }
+  >
+    0
+  </PeachText>
+  <PeachText
+    style={
+      [
+        [
+          {
+            "fontSize": 16,
+          },
+        ],
+        {
+          "color": "#FFD1CA",
+        },
+        {
+          "letterSpacing": -3.36,
+        },
+      ]
+    }
+  >
+    .
+  </PeachText>
+  <PeachText
+    style={
+      [
+        [
+          {
+            "fontSize": 16,
+          },
+        ],
+        {
+          "color": "#FFD1CA",
+        },
+        {
+          "letterSpacing": -1.2,
+        },
+      ]
+    }
+  >
+    0
+  </PeachText>
+  <PeachText
+    style={
+      [
+        [
+          {
+            "fontSize": 16,
+          },
+        ],
+        {
+          "color": "#FFD1CA",
+        },
+        {
+          "letterSpacing": -1.2,
+        },
+      ]
+    }
+  >
+    0
+  </PeachText>
+  <PeachText
+    style={
+      [
+        [
+          {
+            "fontSize": 16,
+          },
+        ],
+        {
+          "letterSpacing": -5.6,
+        },
+      ]
+    }
+  >
+     
+  </PeachText>
+  <PeachText
+    style={
+      [
+        [
+          {
+            "fontSize": 16,
+          },
+        ],
+        {
+          "color": "#FFD1CA",
+        },
+        {
+          "letterSpacing": -1.2,
+        },
+      ]
+    }
+  >
+    0
+  </PeachText>
+  <PeachText
+    style={
+      [
+        [
+          {
+            "fontSize": 16,
+          },
+        ],
+        {
+          "color": "#B01807",
+        },
+        {
+          "letterSpacing": -1.2,
+        },
+      ]
+    }
+  >
+    2
+  </PeachText>
+  <PeachText
+    style={
+      [
+        [
+          {
+            "fontSize": 16,
+          },
+        ],
+        {
+          "color": "#B01807",
+        },
+        {
+          "letterSpacing": -1.2,
+        },
+      ]
+    }
+  >
+    1
+  </PeachText>
+  <PeachText
+    style={
+      [
+        [
+          {
+            "fontSize": 16,
+          },
+        ],
+        {
+          "letterSpacing": -5.6,
+        },
+      ]
+    }
+  >
+     
+  </PeachText>
+  <PeachText
+    style={
+      [
+        [
+          {
+            "fontSize": 16,
+          },
+        ],
+        {
+          "color": "#B01807",
+        },
+        {
+          "letterSpacing": -1.2,
+        },
+      ]
+    }
+  >
+    0
+  </PeachText>
+  <PeachText
+    style={
+      [
+        [
+          {
+            "fontSize": 16,
+          },
+        ],
+        {
+          "color": "#B01807",
+        },
+        {
+          "letterSpacing": -1.2,
+        },
+      ]
+    }
+  >
+    0
+  </PeachText>
+  <PeachText
+    style={
+      [
+        [
+          {
+            "fontSize": 16,
+          },
+        ],
+        {
+          "color": "#B01807",
+        },
+        {
+          "letterSpacing": -1.2,
+        },
+      ]
+    }
+  >
+    0
+  </PeachText>
+</PeachText>
+`;
