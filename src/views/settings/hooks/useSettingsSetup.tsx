@@ -4,7 +4,7 @@ import { AppState } from 'react-native'
 import { useFocusEffect } from '@react-navigation/native'
 import { shallow } from 'zustand/shallow'
 import { OverlayContext } from '../../../contexts/overlay'
-import { useHeaderSetup, useNavigation } from '../../../hooks'
+import { useHeaderSetup } from '../../../hooks'
 import { useSettingsStore } from '../../../store/settingsStore'
 import i18n from '../../../utils/i18n'
 import { checkNotificationStatus, isProduction, toggleNotifications } from '../../../utils/system'
@@ -19,7 +19,6 @@ const contactUs = (() => {
 })()
 
 export const useSettingsSetup = () => {
-  const navigation = useNavigation()
   useHeaderSetup({ title: i18n('settings.title'), hideGoBackButton: true })
   const [, updateOverlay] = useContext(OverlayContext)
   const [notificationsOn, setNotificationsOn] = useState(false)
