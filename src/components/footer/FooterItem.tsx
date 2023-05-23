@@ -21,7 +21,7 @@ export const FooterItem = ({ id, active, onPress, notifications = 0, theme = 'de
   const colors = footerThemes[theme]
   const color = active ? (id === 'settings' ? colors.textSelectedSettings : colors.textSelected) : colors.text
   return (
-    <Pressable testID={`footer-${id}`} onPress={onPress} style={tw`w-1/5  flex-row justify-center`}>
+    <Pressable testID={`footer-${id}`} onPress={onPress} style={tw`flex-row justify-center w-1/5`}>
       <View>
         <View style={tw`flex items-center`}>
           {id === 'settings' && theme === 'default' ? (
