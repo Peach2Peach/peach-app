@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
 import { shallow } from 'zustand/shallow'
-import { WalletIcon } from '../../../components/icons'
 import { useHeaderSetup, useNavigation } from '../../../hooks'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { useSettingsStore } from '../../../store/settingsStore'
 import { account, getMessageToSignForAddress } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
+import { headerIcons } from '../../../utils/layout/headerIcons'
 import { isValidBitcoinSignature } from '../../../utils/validation'
 import { peachWallet } from '../../../utils/wallet/setWallet'
 import { publishBuyOffer } from '../helpers/publishBuyOffer'
@@ -45,7 +45,7 @@ export const useBuySummarySetup = () => {
 
   useHeaderSetup({
     title: i18n('buy.summary.title'),
-    icons: [{ iconComponent: <WalletIcon />, onPress: () => navigation.navigate('selectWallet', { type: 'payout' }) }],
+    icons: [{ ...headerIcons.wallet, onPress: () => navigation.navigate('selectWallet', { type: 'payout' }) }],
   })
 
   useEffect(() => {

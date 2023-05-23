@@ -13,7 +13,7 @@ import { saveOffer } from '../utils/offer'
 import { cancelOffer, refundSellOffer } from '../utils/peachAPI'
 import { getEscrowWalletForOffer } from '../utils/wallet'
 import { peachWallet } from '../utils/wallet/setWallet'
-import Refund from './Refund'
+import { Refund } from './Refund'
 
 export const useStartRefundOverlay = () => {
   const [, updateOverlay] = useOverlayContext()

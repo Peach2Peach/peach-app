@@ -1,12 +1,11 @@
 import { useEffect, useMemo } from 'react'
 import { shallow } from 'zustand/shallow'
-import { HelpIcon } from '../../../components/icons'
-
 import { useHeaderSetup, useNavigation, useShowHelp } from '../../../hooks'
+import { useSelfUser } from '../../../hooks/query/useSelfUser'
 import { useSettingsStore } from '../../../store/settingsStore'
 import { isBackupMandatory } from '../../../utils/account'
+import { headerIcons } from '../../../utils/layout/headerIcons'
 import { BuyTitleComponent } from '../components/BuyTitleComponent'
-import { useSelfUser } from '../../../hooks/query/useSelfUser'
 
 export const useBuySetup = () => {
   const navigation = useNavigation()
@@ -24,7 +23,7 @@ export const useBuySetup = () => {
       () => ({
         titleComponent: <BuyTitleComponent />,
         hideGoBackButton: true,
-        icons: [{ iconComponent: <HelpIcon />, onPress: showHelp }],
+        icons: [{ ...headerIcons.help, onPress: showHelp }],
       }),
       [showHelp],
     ),

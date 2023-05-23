@@ -1,5 +1,4 @@
 import { contract as mockContract } from '../../../../tests/unit/data/contractData'
-import { Icon } from '../../../components'
 import tw from '../../../styles/tailwind'
 import { getHeaderChatActions } from './getHeaderChatActions'
 
@@ -29,14 +28,8 @@ describe('getHeaderChatActions', () => {
     const view = 'buyer'
     const result = getHeaderChatActions(contract, showCancelOverlay, showOpenDisputeOverlay, view)
     expect(result).toEqual([
-      {
-        iconComponent: <Icon style={false} id="xCircle" color={tw`text-error-main`.color} />,
-        onPress: expect.any(Function),
-      },
-      {
-        iconComponent: <Icon style={false} id="alertOctagon" color={tw`text-error-main`.color} />,
-        onPress: expect.any(Function),
-      },
+      { id: 'xCircle', color: '#9F8C82', onPress: expect.any(Function) },
+      { id: 'alertOctagon', color: '#DF321F', onPress: expect.any(Function) },
     ])
   })
   it('should return correctly if contract not canceled, payment not made, can\'t cancel or raise dispute', () => {
@@ -54,14 +47,8 @@ describe('getHeaderChatActions', () => {
     const view = 'seller'
     const result = getHeaderChatActions(contract, showCancelOverlay, showOpenDisputeOverlay, view)
     expect(result).toEqual([
-      {
-        iconComponent: <Icon style={tw`opacity-50`} id="xCircle" color={tw`text-error-main`.color} />,
-        onPress: expect.any(Function),
-      },
-      {
-        iconComponent: <Icon style={tw`opacity-50`} id="alertOctagon" color={tw`text-error-main`.color} />,
-        onPress: expect.any(Function),
-      },
+      { id: 'xCircle', color: '#9F8C82', style: tw`opacity-50`, onPress: expect.any(Function) },
+      { id: 'alertOctagon', color: '#DF321F', style: tw`opacity-50`, onPress: expect.any(Function) },
     ])
   })
   it('should show cancel overlay if contract can be canceled', () => {
