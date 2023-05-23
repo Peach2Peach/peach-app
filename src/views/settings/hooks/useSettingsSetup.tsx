@@ -110,8 +110,8 @@ export const useSettingsSetup = () => {
             enabled: peachWalletActive,
           },
           !peachWalletActive ? { title: 'payoutAddress' } : undefined,
-          { title: 'language' },
           { title: 'currency' },
+          { title: 'language' },
         ] satisfies (SettingsItemProps | undefined)[]
       ).filter(isDefined),
     [toggleAnalytics, enableAnalytics, notificationClick, togglePeachWallet, peachWalletActive],

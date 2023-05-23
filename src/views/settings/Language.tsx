@@ -11,7 +11,6 @@ export default () => {
     <View style={tw`flex h-full`}>
       <PeachScrollView contentContainerStyle={tw`items-center justify-center flex-grow px-10 pb-10`}>
         <RadioButtons
-          style={tw`mt-2`}
           selectedValue={locale}
           items={i18n.getLocales().map((l) => ({
             value: l,
@@ -20,8 +19,8 @@ export default () => {
           onChange={setLocale}
         />
       </PeachScrollView>
-      <View style={tw`flex items-center w-full px-6 mt-4 bg-primary-background`}>
-        <PrimaryButton testID="navigation-next" onPress={() => saveLocale(locale)} style={tw`mb-6`}>
+      <View style={tw`flex items-center w-full px-6 mt-4 mb-5 bg-primary-background`}>
+        <PrimaryButton testID="navigation-next" narrow onPress={() => saveLocale(locale)}>
           {i18n('confirm')}
         </PrimaryButton>
       </View>

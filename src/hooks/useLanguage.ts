@@ -6,9 +6,5 @@ export const useLanguage = () => {
   const setLocale = (l: Locale) => updateLanguageContext({ locale: l })
   const setLocaleStore = useSettingsStore((state) => state.setLocale)
 
-  const saveLocale = (l: Locale) => {
-    setLocaleStore(l)
-  }
-
-  return { locale, setLocale, saveLocale }
+  return { locale, setLocale, saveLocale: setLocaleStore }
 }

@@ -35,20 +35,20 @@ exports[`Language renders correctly 1`] = `
       >
         <View
           style={
-            {
-              "marginTop": 8,
-            }
+            [
+              {
+                "gap": 8,
+              },
+              undefined,
+            ]
           }
         >
           <View
             style={
-              [
-                {
-                  "alignItems": "center",
-                  "flexDirection": "row",
-                },
-                {},
-              ]
+              {
+                "alignItems": "center",
+                "flexDirection": "row",
+              }
             }
           >
             <View
@@ -162,15 +162,10 @@ exports[`Language renders correctly 1`] = `
           </View>
           <View
             style={
-              [
-                {
-                  "alignItems": "center",
-                  "flexDirection": "row",
-                },
-                {
-                  "marginTop": 8,
-                },
-              ]
+              {
+                "alignItems": "center",
+                "flexDirection": "row",
+              }
             }
           >
             <View
@@ -292,6 +287,7 @@ exports[`Language renders correctly 1`] = `
         "alignItems": "center",
         "backgroundColor": "#FFF9F6",
         "display": "flex",
+        "marginBottom": 20,
         "marginTop": 16,
         "paddingLeft": 24,
         "paddingRight": 24,
@@ -335,10 +331,10 @@ exports[`Language renders correctly 1`] = `
           "flexDirection": "row",
           "height": 40,
           "justifyContent": "center",
-          "marginBottom": 24,
           "opacity": 1,
           "paddingLeft": 16,
           "paddingRight": 16,
+          "width": 156,
         }
       }
       testID="navigation-next"
