@@ -236,6 +236,7 @@
   "contract.summary.paidToMethod": "pagado a",
   "contract.summary.paidWithMethod": "pagado con",
   "contract.summary.paidToWallet": "enviado a",
+  "contract.summary.bitcoinPrice": "precio BTC",
   "contract.summary.name": "nombre",
   "contract.summary.email": "email",
   "contract.summary.phone": "teléfono",
