@@ -29,10 +29,8 @@ exports[`CustomAmount should render correctly 1`] = `
             "justifyContent": "center",
             "paddingLeft": 12,
             "paddingRight": 12,
-            "width": 210,
-          },
-          {
             "position": "absolute",
+            "width": 210,
           },
         ]
       }
@@ -86,8 +84,6 @@ exports[`CustomAmount should render correctly 1`] = `
             "justifyContent": "center",
             "paddingLeft": 12,
             "paddingRight": 16,
-          },
-          {
             "position": "absolute",
           },
         ]

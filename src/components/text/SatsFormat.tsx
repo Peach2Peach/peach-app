@@ -17,7 +17,7 @@ type SatsFormatProps = ComponentProps & {
 }
 
 export const SatsFormat = ({
-  sats,
+  sats = 0,
   color,
   style,
   containerStyle,

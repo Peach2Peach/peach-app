@@ -143,7 +143,7 @@ describe('useHandleFundingStatus', () => {
   it('should go to offerPublished if funding status is FUNDED but no matches yet', async () => {
     renderHook(useHandleFundingStatus, { wrapper: NavigationWrapper, initialProps: fundedProps })
     await waitFor(() => expect(fetchMatchesMock).toHaveBeenCalled())
-    expect(replaceMock).toHaveBeenCalledWith('offerPublished', { isSellOffer: true })
+    expect(replaceMock).toHaveBeenCalledWith('offerPublished', { offerId: sellOffer.id, isSellOffer: true })
   })
   it('should go to search if funding status is FUNDED with matches already', async () => {
     fetchMatchesMock.mockResolvedValueOnce(searchWithMatches)
@@ -157,6 +157,6 @@ describe('useHandleFundingStatus', () => {
 
     renderHook(useHandleFundingStatus, { wrapper: NavigationWrapper, initialProps: fundedProps })
     await waitFor(() => expect(fetchMatchesMock).toHaveBeenCalled())
-    expect(replaceMock).toHaveBeenCalledWith('offerPublished', { isSellOffer: true })
+    expect(replaceMock).toHaveBeenCalledWith('offerPublished', { offerId: sellOffer.id, isSellOffer: true })
   })
 })
