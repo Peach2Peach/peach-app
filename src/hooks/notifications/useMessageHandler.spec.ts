@@ -74,6 +74,11 @@ describe('useMessageHandler', () => {
       fcmOptions: {},
     } as FirebaseMessagingTypes.RemoteMessage
     const { result: onMessageHandler } = renderHook(() => useMessageHandler(mockGetCurrentPage))
+
+    act(() => {
+      appStateSpy.mock.calls[0][1]('active')
+    })
+
     await act(async () => {
       await onMessageHandler.current(mockRemoteMessage)
     })
@@ -84,6 +89,28 @@ describe('useMessageHandler', () => {
       level: 'WARN',
       action: actionMock,
     })
+  })
+  it('should not call updateMessage when type is not found and appstate is background', async () => {
+    const mockRemoteMessage = {
+      data: {
+        type: 'SOME_TYPE',
+      },
+      notification: {
+        bodyLocArgs: ['arg1', 'arg2'],
+      },
+      fcmOptions: {},
+    } as FirebaseMessagingTypes.RemoteMessage
+    const { result: onMessageHandler } = renderHook(() => useMessageHandler(mockGetCurrentPage))
+
+    act(() => {
+      appStateSpy.mock.calls[0][1]('background')
+    })
+
+    await act(async () => {
+      await onMessageHandler.current(mockRemoteMessage)
+    })
+
+    expect(updateMessageMock).not.toHaveBeenCalled()
   })
 
   it('should call overlay event when type is found in overlayEvents', async () => {

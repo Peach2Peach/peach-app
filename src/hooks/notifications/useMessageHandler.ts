@@ -43,7 +43,7 @@ export const useMessageHandler = (getCurrentPage: () => keyof RootStackParamList
         contractPopupEvents[type]?.(contract)
       } else if (stateUpdateEvents[type]) {
         stateUpdateEvents[type]?.(data)
-      } else {
+      } else if (appState === 'active') {
         updateMessage({
           msgKey: 'notification.' + type,
           bodyArgs: remoteMessage.notification?.bodyLocArgs,
