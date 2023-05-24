@@ -5,6 +5,7 @@ import { useNavigation } from '../hooks'
 import { useTradeSummaries } from '../hooks/query/useTradeSummaries'
 import { useShowErrorBanner } from '../hooks/useShowErrorBanner'
 import { useShowLoadingOverlay } from '../hooks/useShowLoadingOverlay'
+import { useSettingsStore } from '../store/settingsStore'
 import { useTradeSummaryStore } from '../store/tradeSummaryStore'
 import { checkRefundPSBT, showTransaction, signAndFinalizePSBT } from '../utils/bitcoin'
 import i18n from '../utils/i18n'
@@ -29,6 +30,7 @@ export const useStartRefundOverlay = () => {
     [closeOverlay, navigation],
   )
   const setOffer = useTradeSummaryStore((state) => state.setOffer)
+  const isPeachWallet = useSettingsStore((state) => state.peachWalletActive)
 
   const refund = useCallback(
     async (sellOffer: SellOffer, rawPSBT: string) => {
@@ -42,9 +44,6 @@ export const useStartRefundOverlay = () => {
       }
       const signedTx = signAndFinalizePSBT(psbt, getEscrowWalletForOffer(sellOffer)).extractTransaction()
       const [tx, txId] = [signedTx.toHex(), signedTx.getId()]
-
-      const address = psbt.txOutputs[0].address
-      const isPeachWallet = address ? !!peachWallet.findKeyPairByAddress(address) : false
 
       updateOverlay({
         title: i18n('refund.title'),
@@ -62,7 +61,14 @@ export const useStartRefundOverlay = () => {
         action2: {
           label: i18n(isPeachWallet ? 'goToWallet' : 'showTx'),
           icon: isPeachWallet ? 'wallet' : 'externalLink',
-          callback: () => (isPeachWallet ? goToWallet(txId) : showTransaction(txId, NETWORK)),
+          callback: () => {
+            if (isPeachWallet) {
+              goToWallet(txId)
+            } else {
+              closeOverlay()
+              showTransaction(txId, NETWORK)
+            }
+          },
         },
         level: 'APP',
       })
@@ -83,7 +89,7 @@ export const useStartRefundOverlay = () => {
         peachWallet.syncWallet()
       }
     },
-    [closeOverlay, goToWallet, navigation, refetchTradeSummaries, setOffer, showError, updateOverlay],
+    [closeOverlay, goToWallet, isPeachWallet, navigation, refetchTradeSummaries, setOffer, showError, updateOverlay],
   )
   const showLoadingOverlay = useShowLoadingOverlay()
 
