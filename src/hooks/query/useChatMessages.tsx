@@ -4,6 +4,8 @@ import { useMemo } from 'react'
 import { getChat } from '../../utils/peachAPI'
 import { decryptSymmetric } from '../../utils/pgp'
 
+const PAGE_SIZE = 22
+
 type GetChatQueryProps = {
   queryKey: [string, string]
   pageParam?: number
@@ -52,6 +54,7 @@ export const useChatMessages = (id: string, symmetricKey?: string) => {
     keepPreviousData: true,
     enabled: !!symmetricKey && isFocused,
     refetchInterval: 1000,
+    getNextPageParam: (lastPage, allPages) => lastPage.length === PAGE_SIZE ? allPages.length : null,
   })
 
   const messages = useMemo(() => (data?.pages || []).flat(), [data?.pages])
