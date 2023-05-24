@@ -1,4 +1,4 @@
-import { ReactElement, useState } from 'react'
+import { useState } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
@@ -9,11 +9,11 @@ import { SatsFormat, Text } from '../text'
 import { HorizontalLine } from '../ui'
 import { WalletLabel } from './WalletLabel'
 
-type BuyOfferSummaryProps = ComponentProps & {
+type Props = ComponentProps & {
   offer: BuyOffer | BuyOfferDraft
 }
 
-export const BuyOfferSummary = ({ offer, style }: BuyOfferSummaryProps): ReactElement => {
+export const BuyOfferSummary = ({ offer, style }: Props) => {
   const currencies = getCurrencies(offer.meansOfPayment)
   const [selectedCurrency, setSelectedCurrency] = useState(currencies[0])
 
@@ -47,7 +47,9 @@ export const BuyOfferSummary = ({ offer, style }: BuyOfferSummaryProps): ReactEl
       </View>
       <HorizontalLine style={tw`w-64 my-4`} />
       <Text style={tw`self-center body-m text-black-2`}>{i18n('to')}</Text>
-      <WalletLabel label={offer.walletLabel} address={offer.releaseAddress} style={tw`self-center subtitle-1`} />
+      <Text style={tw`self-center subtitle-1`}>
+        <WalletLabel label={offer.walletLabel} address={offer.releaseAddress} />
+      </Text>
     </View>
   )
 }

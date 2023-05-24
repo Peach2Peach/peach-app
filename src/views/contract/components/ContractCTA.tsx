@@ -7,18 +7,15 @@ import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { shouldShowConfirmCancelTradeRequest } from '../../../utils/overlay'
 import { getPaymentExpectedBy } from '../../../utils/contract/getPaymentExpectedBy'
+import { useContractContext } from '../context'
 
 type Props = {
-  contract: Contract
-  view: ContractViewer
   requiredAction: ContractAction
   actionPending: boolean
   postConfirmPaymentBuyer: () => void
   postConfirmPaymentSeller: () => void
 }
 export const ContractCTA = ({
-  contract,
-  view,
   requiredAction,
   actionPending,
   postConfirmPaymentBuyer,
@@ -26,6 +23,7 @@ export const ContractCTA = ({
 }: Props) => {
   const showPaymentTooLateOverlay = usePaymentTooLateOverlay()
   const { showConfirmTradeCancelation } = useConfirmTradeCancelationOverlay()
+  const { contract, view } = useContractContext()
 
   if (shouldShowConfirmCancelTradeRequest(contract, view)) return (
     <WarningButton onPress={() => showConfirmTradeCancelation(contract)}>{i18n('contract.respond')}</WarningButton>

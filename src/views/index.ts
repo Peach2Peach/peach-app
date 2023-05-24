@@ -21,6 +21,7 @@ import ContractChat from './contractChat/ContractChat'
 import DisputeForm from './dispute/DisputeForm'
 import DisputeReasonSelector from './dispute/DisputeReasonSelector'
 import FundEscrow from './fundEscrow/FundEscrow'
+import { BitcoinLoading } from './loading/BitcoinLoading'
 import NewUser from './newUser/NewUser'
 import OfferDetails from './offerDetails/OfferDetails'
 import NewBadge from './overlays/NewBadge'
@@ -176,6 +177,7 @@ const testViews: ViewType[] = [
   { name: 'testViewMessages', component: TestViewMessages, ...defaultConfig },
   { name: 'testViewComponents', component: TestViewComponents, ...defaultConfig },
   { name: 'testViewPNs', component: TestViewPNs, ...defaultConfig },
+  { name: 'testViewLoading', component: BitcoinLoading, ...defaultConfig },
 ]
 
 export const getViews = (hasAccount: boolean): ViewType[] =>

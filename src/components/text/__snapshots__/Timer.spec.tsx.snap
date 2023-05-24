@@ -1,0 +1,97 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Timer should render correctly 1`] = `
+<View
+  style={
+    [
+      {
+        "flexDirection": "row",
+        "justifyContent": "center",
+      },
+      undefined,
+    ]
+  }
+>
+  <PeachText
+    style={
+      {
+        "fontFamily": "Baloo2-SemiBold",
+        "fontSize": 14,
+        "letterSpacing": 0.5,
+        "lineHeight": 24,
+        "textTransform": "uppercase",
+      }
+    }
+  >
+    text
+  </PeachText>
+  <PeachText
+    style={
+      [
+        {
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 14,
+          "letterSpacing": 0.5,
+          "lineHeight": 24,
+          "paddingLeft": 4,
+          "textTransform": "uppercase",
+          "width": 72,
+        },
+        {
+          "color": "#9F8C82",
+        },
+      ]
+    }
+  >
+    24:00:00
+  </PeachText>
+</View>
+`;
+
+exports[`Timer should render correctly when timer expired 1`] = `
+<View
+  style={
+    [
+      {
+        "flexDirection": "row",
+        "justifyContent": "center",
+      },
+      undefined,
+    ]
+  }
+>
+  <PeachText
+    style={
+      {
+        "fontFamily": "Baloo2-SemiBold",
+        "fontSize": 14,
+        "letterSpacing": 0.5,
+        "lineHeight": 24,
+        "textTransform": "uppercase",
+      }
+    }
+  >
+    text
+  </PeachText>
+  <PeachText
+    style={
+      [
+        {
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 14,
+          "letterSpacing": 0.5,
+          "lineHeight": 24,
+          "paddingLeft": 4,
+          "textTransform": "uppercase",
+          "width": 72,
+        },
+        {
+          "color": "#DF321F",
+        },
+      ]
+    }
+  >
+    00:00:00
+  </PeachText>
+</View>
+`;

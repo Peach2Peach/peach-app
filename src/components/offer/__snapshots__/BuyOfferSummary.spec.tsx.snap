@@ -175,8 +175,7 @@ exports[`BuyOfferSummary renders correctly 1`] = `
   >
     to
   </PeachText>
-  <WalletLabel
-    address="bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh"
+  <PeachText
     style={
       {
         "alignSelf": "center",
@@ -186,6 +185,10 @@ exports[`BuyOfferSummary renders correctly 1`] = `
         "lineHeight": 28,
       }
     }
-  />
+  >
+    <WalletLabel
+      address="bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh"
+    />
+  </PeachText>
 </View>
 `;
