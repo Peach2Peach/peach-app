@@ -1,5 +1,5 @@
-import { getHeaderStyles } from '.'
 import { mockDimensions } from '../../../tests/unit/helpers/mockDimensions'
+import { getHeaderStyles } from './getHeaderStyles'
 
 describe('getHeaderStyles', () => {
   it('returns header styles', () => {

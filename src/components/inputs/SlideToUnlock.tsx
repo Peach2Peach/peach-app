@@ -4,10 +4,12 @@ import { Text } from '..'
 import tw from '../../styles/tailwind'
 import { getNormalized } from '../../utils/math'
 import Icon from '../Icon'
+import { IconType } from '../../assets/icons'
 
 type SlideToUnlockProps = ComponentProps & {
   label1: string
   label2?: string
+  iconId?: IconType
   disabled?: boolean
   onUnlock: () => void
 }
@@ -44,6 +46,7 @@ const getLabel1Opacity = (pan: Animated.Value) =>
 export const SlideToUnlock = ({
   label1,
   label2 = label1,
+  iconId = 'checkCircle',
   disabled,
   onUnlock,
   style,
@@ -107,7 +110,7 @@ export const SlideToUnlock = ({
             tw`flex flex-row justify-center py-2 my-1 rounded-full `,
           ]}
         >
-          <Icon id="checkCircle" style={tw`w-6 h-6`} color={tw`text-primary-background`.color} />
+          <Icon id={iconId} style={tw`w-6 h-6`} color={tw`text-primary-background`.color} />
           <Icon id="chevronsRight" style={tw`w-6 h-6 ml-1`} color={tw`text-primary-background`.color} />
         </Animated.View>
         <Animated.View style={{ width: widthToSlide, opacity: getLabel1Opacity(pan) }}>
