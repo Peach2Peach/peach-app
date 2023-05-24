@@ -1,6 +1,7 @@
 export { useGetPNActionHandler } from './notifications/useGetPNActionHandler'
 export { useMarketPrices } from './query/useMarketPrices'
 export { useTradingLimits } from './query/useTradingLimits'
+export { useAppState } from './useAppState'
 export { useBitcoinPrices } from './useBitcoinPrices'
 export { useCancelOffer } from './useCancelOffer'
 export { useCheckShowRedesignWelcome } from './useCheckShowRedesignWelcome'
