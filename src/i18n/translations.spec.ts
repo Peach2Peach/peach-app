@@ -12,4 +12,9 @@ describe('translations', () => {
       ok(isDefined(es[key]), `${key} does not exist in es`)
     }
   })
+  test('non existing texts has not been translated', () => {
+    for (const key in es) {
+      ok(isDefined(en[key]), `${key} does not exist in en`)
+    }
+  })
 })
