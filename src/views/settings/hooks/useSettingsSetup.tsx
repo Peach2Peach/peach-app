@@ -4,15 +4,13 @@ import { AppState } from 'react-native'
 import { useFocusEffect } from '@react-navigation/native'
 import { shallow } from 'zustand/shallow'
 import { OverlayContext } from '../../../contexts/overlay'
-import { useHeaderSetup, useNavigation } from '../../../hooks'
+import { useHeaderSetup } from '../../../hooks'
 import { useSettingsStore } from '../../../store/settingsStore'
 import i18n from '../../../utils/i18n'
 import { checkNotificationStatus, isProduction, toggleNotifications } from '../../../utils/system'
 import { NotificationPopup } from '../components/NotificationPopup'
 import { SettingsItemProps } from '../components/SettingsItem'
 import { isDefined } from '../../../utils/array/isDefined'
-
-const headerConfig = { title: i18n('settings.title'), hideGoBackButton: true }
 
 const contactUs = (() => {
   let arr: SettingsItemProps[] = [{ title: 'contact' }, { title: 'aboutPeach' }]
@@ -21,8 +19,7 @@ const contactUs = (() => {
 })()
 
 export const useSettingsSetup = () => {
-  const navigation = useNavigation()
-  useHeaderSetup(headerConfig)
+  useHeaderSetup({ title: i18n('settings.title'), hideGoBackButton: true })
   const [, updateOverlay] = useContext(OverlayContext)
   const [notificationsOn, setNotificationsOn] = useState(false)
   const [peachWalletActive, togglePeachWallet, enableAnalytics, toggleAnalytics, showBackupReminder] = useSettingsStore(
@@ -50,8 +47,6 @@ export const useSettingsSetup = () => {
       }
     }, []),
   )
-
-  const goToCurrencySettings = useCallback(() => navigation.navigate('currency'), [navigation])
 
   const notificationClick = useCallback(() => {
     if (notificationsOn) {
@@ -115,10 +110,11 @@ export const useSettingsSetup = () => {
             enabled: peachWalletActive,
           },
           !peachWalletActive ? { title: 'payoutAddress' } : undefined,
-          { title: 'currency', onPress: goToCurrencySettings },
+          { title: 'currency' },
+          { title: 'language' },
         ] satisfies (SettingsItemProps | undefined)[]
       ).filter(isDefined),
-    [toggleAnalytics, enableAnalytics, notificationClick, togglePeachWallet, peachWalletActive, goToCurrencySettings],
+    [toggleAnalytics, enableAnalytics, notificationClick, togglePeachWallet, peachWalletActive],
   )
 
   const settings = [

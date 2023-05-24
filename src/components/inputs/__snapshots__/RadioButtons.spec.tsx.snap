@@ -1,16 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`RadioButtons renders correctly 1`] = `
-<View>
+<View
+  style={
+    [
+      {
+        "gap": 8,
+      },
+      undefined,
+    ]
+  }
+>
   <View
     style={
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-        },
-        {},
-      ]
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+      }
     }
   >
     <Memo(Pressable)
@@ -29,15 +35,10 @@ exports[`RadioButtons renders correctly 1`] = `
   </View>
   <View
     style={
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-        },
-        {
-          "marginTop": 8,
-        },
-      ]
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+      }
     }
   >
     <Memo(Pressable)

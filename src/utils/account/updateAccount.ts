@@ -6,6 +6,7 @@ import { PeachWallet } from '../wallet/PeachWallet'
 import { setPeachWallet } from '../wallet/setWallet'
 import { createPeachAccount } from './createPeachAccount'
 import { account, defaultAccount, setAccount } from './account'
+import { getDeviceLocale } from '../system'
 
 export const updateAccount = async (acc: Account, overwrite?: boolean) => {
   setAccount(
@@ -18,7 +19,7 @@ export const updateAccount = async (acc: Account, overwrite?: boolean) => {
       },
   )
 
-  setLocaleQuiet('en' || settingsStore.getState().locale)
+  setLocaleQuiet(settingsStore.getState().locale || getDeviceLocale())
 
   if (account.mnemonic) {
     const { wallet } = createWalletFromSeedPhrase(account.mnemonic, getNetwork())

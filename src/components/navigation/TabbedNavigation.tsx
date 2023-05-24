@@ -46,22 +46,26 @@ export const TabbedNavigation = ({
 }: TabbedNavigationProps) => {
   const colors = themes[theme]
   return (
-    <View style={[tw`flex flex-row justify-center`, style]}>
+    <View style={[tw`flex-row justify-center`, style]}>
       {items.map((item) => (
         <Pressable
-          style={[tw`px-2`, buttonStyle, !!tabHasError.length && !tabHasError.includes(item.id) && tw`opacity-10`]}
+          style={[
+            tw`flex-shrink px-2`,
+            buttonStyle,
+            !!tabHasError.length && !tabHasError.includes(item.id) && tw`opacity-10`,
+          ]}
           key={item.id}
           onPress={() => select(item)}
         >
           <View style={tw`flex-row items-center`}>
             {tabHasError.includes(item.id) && item.id !== selected.id ? (
-              <PulsingText showPulse style={[tw`px-4 py-2 input-label`]}>
+              <PulsingText showPulse style={[tw`px-4 py-2 input-label text-center`]}>
                 {item.display}
               </PulsingText>
             ) : (
               <Text
                 style={[
-                  tw`px-4 py-2 input-label`,
+                  tw`px-4 py-2 input-label text-center`,
                   item.id === selected.id ? colors.textSelected : colors.text,
                   tabHasError.includes(item.id) && item.id !== selected.id && tw`text-error-main`,
                 ]}
