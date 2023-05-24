@@ -5,6 +5,7 @@ import { ResolveDisputeSliders } from './ResolveDisputeSliders'
 import { ReleaseEscrowSlider } from './ReleaseEscrowSlider'
 import { View } from 'react-native'
 import { useContractContext } from './context'
+import { ContractStatusInfo } from './components/ContractStatusInfo'
 
 type Props = ComponentProps & {
   requiredAction: ContractAction
@@ -18,6 +19,7 @@ export const ContractActions = ({ style, ...contractCTAProps }: Props) => {
   const shouldShowReleaseEscrow = tradeStatus === 'releaseEscrow' && !!disputeWinner
   return (
     <View style={[tw`gap-3`, style]}>
+      <ContractStatusInfo {...contractCTAProps} />
       {!!isEmailRequired && <ProvideEmailButton style={tw`self-center`} />}
       {!shouldShowReleaseEscrow && <ContractCTA {...{ ...contractCTAProps }} />}
       {tradeStatus === 'refundOrReviveRequired' && !!disputeWinner && <ResolveDisputeSliders />}

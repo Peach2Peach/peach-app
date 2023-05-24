@@ -4,9 +4,9 @@ import { TradeSummary } from '../../components/offer'
 import tw from '../../styles/tailwind'
 
 import LoadingScreen from '../loading/LoadingScreen'
-import { useContractSetup } from './hooks/useContractSetup'
 import { ContractActions } from './ContractActions'
 import { ContractContext } from './context'
+import { useContractSetup } from './hooks/useContractSetup'
 
 export default () => {
   const { contract, isLoading, view, ...contractActionsProps } = useContractSetup()
