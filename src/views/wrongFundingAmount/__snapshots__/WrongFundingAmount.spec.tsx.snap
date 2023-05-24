@@ -50,7 +50,7 @@ exports[`WrongFundingAmount renders correctly 1`] = `
         }
       }
     >
-      You funded the escrow with 69420, while you made a trade for 250000.
+      You funded the escrow with 69 420 sats, while you made a trade for 250 000. sats
     </PeachText>
     <PeachText
       style={
@@ -62,7 +62,7 @@ exports[`WrongFundingAmount renders correctly 1`] = `
         }
       }
     >
-      Do you want to continue the trade with 69420 sats, or do you want to be refunded?
+      Do you want to continue the trade with 69 420 sats, or do you want to be refunded?
     </PeachText>
   </View>
   <View

@@ -243,7 +243,7 @@
   "settings.escrow.paymentRequest.label": "Peach Escrow - offer",
   "escrow.viewInExplorer": "view escrow in explorer",
   "escrow.funded": "funded",
-  "escrow.wrongFundingAmount.description": "You funded the escrow with $0, while you made a trade for $1.",
+  "escrow.wrongFundingAmount.description": "You funded the escrow with $0 sats, while you made a trade for $1. sats",
   "escrow.wrongFundingAmount.continueOrRefund": "Do you want to continue the trade with $0 sats, or do you want to be refunded?",
   "continueTrade": "continue trade",
   "transaction.viewInExplorer": "view transaction in explorer",

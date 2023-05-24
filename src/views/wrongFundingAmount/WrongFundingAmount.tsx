@@ -7,6 +7,7 @@ import tw from '../../styles/tailwind'
 import { RefundEscrowSlider } from '../../components/offer'
 import { ContinueTradeSlider } from './components/ContinueTradeSlider'
 import { LabelAndAmount } from './components/LabelAndAmount'
+import { thousands } from '../../utils/string'
 
 export const WrongFundingAmount = () => {
   const { sellOffer, fundingAmount, actualAmount, confirmEscrow } = useWrongFundingAmountSetup()
@@ -19,9 +20,9 @@ export const WrongFundingAmount = () => {
           <LabelAndAmount label={i18n('amount')} amount={fundingAmount} />
         </View>
         <Text style={tw`body-s`}>
-          {i18n('escrow.wrongFundingAmount.description', String(actualAmount), String(fundingAmount))}
+          {i18n('escrow.wrongFundingAmount.description', thousands(actualAmount), thousands(fundingAmount))}
         </Text>
-        <Text style={tw`body-s`}>{i18n('escrow.wrongFundingAmount.continueOrRefund', String(actualAmount))}</Text>
+        <Text style={tw`body-s`}>{i18n('escrow.wrongFundingAmount.continueOrRefund', thousands(actualAmount))}</Text>
       </View>
       <View style={tw`items-center gap-3`}>
         <ContinueTradeSlider onUnlock={confirmEscrow} />
