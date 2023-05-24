@@ -34,12 +34,10 @@ export const useFundEscrowSetup = () => {
     fundingStatus.status === 'MEMPOOL'
       ? {
         title: i18n('sell.funding.mempool.title'),
-        hideGoBackButton: true,
         icons: [{ ...headerIcons.help, onPress: showMempoolHelp }],
       }
       : {
         title: i18n('sell.escrow.title'),
-        hideGoBackButton: true,
         icons: [
           { ...headerIcons.cancel, onPress: cancelOffer },
           { ...headerIcons.help, onPress: showHelp },
