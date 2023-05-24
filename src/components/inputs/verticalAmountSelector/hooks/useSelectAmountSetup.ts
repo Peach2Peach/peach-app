@@ -32,6 +32,7 @@ export const useSelectAmountSetup = ({ min, max, value, onChange }: Props) => {
   )
   const onTrackLayout = (event: LayoutChangeEvent) => {
     const height = Math.round(event.nativeEvent.layout.height)
+    if (!height) return
     setTrackHeight(height)
     pan.setOffset(getOffset({ amount: value, min, max, trackHeight: height - knobHeight }))
   }
