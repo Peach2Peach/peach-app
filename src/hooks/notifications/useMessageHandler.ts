@@ -9,6 +9,7 @@ import { useOfferPopupEvents } from './eventHandler/offer/useOfferPopupEvents'
 import { getContract as getContractAPI } from '../../utils/peachAPI'
 import { useContractPopupEvents } from './eventHandler/contract/useContractPopupEvents'
 import { getContract } from '../../utils/contract'
+import { useAppState } from '../useAppState'
 
 export const useMessageHandler = (getCurrentPage: () => keyof RootStackParamList | undefined) => {
   const [, updateMessage] = useContext(MessageContext)
@@ -17,6 +18,7 @@ export const useMessageHandler = (getCurrentPage: () => keyof RootStackParamList
   const offerPopupEvents = useOfferPopupEvents()
   const contractPopupEvents = useContractPopupEvents()
   const stateUpdateEvents = useStateUpdateEvents()
+  const appState = useAppState()
 
   const onMessageHandler = useCallback(
     async (remoteMessage: FirebaseMessagingTypes.RemoteMessage): Promise<void> => {
@@ -29,9 +31,9 @@ export const useMessageHandler = (getCurrentPage: () => keyof RootStackParamList
 
       if (overlayEvents[type]) {
         overlayEvents[type]?.(data)
-      } else if (offerPopupEvents[type]) {
+      } else if (offerPopupEvents[type] && appState === 'active') {
         offerPopupEvents[type]?.(data, remoteMessage.notification)
-      } else if (contractPopupEvents[type]) {
+      } else if (contractPopupEvents[type] && appState === 'active') {
         const { contractId } = data
         if (!contractId) return
         const storedContract = getContract(contractId)
@@ -51,6 +53,7 @@ export const useMessageHandler = (getCurrentPage: () => keyof RootStackParamList
       }
     },
     [
+      appState,
       contractPopupEvents,
       getCurrentPage,
       getPNActionHandler,
