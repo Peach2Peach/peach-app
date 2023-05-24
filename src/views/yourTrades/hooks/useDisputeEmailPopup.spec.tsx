@@ -1,6 +1,5 @@
 import { useDisputeEmailPopup } from './useDisputeEmailPopup'
 import { act, renderHook, waitFor } from '@testing-library/react-native'
-import { NavigationContext } from '@react-navigation/native'
 import { contract } from '../../../../tests/unit/data/contractData'
 import { queryClient, QueryClientWrapper } from '../../../../tests/unit/helpers/QueryClientWrapper'
 import { useLocalContractStore } from '../../../store/useLocalContractStore'

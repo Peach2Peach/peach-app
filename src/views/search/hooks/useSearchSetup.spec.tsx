@@ -6,10 +6,20 @@ import { useHeaderState } from '../../../components/header/store'
 import { OfferDetailsTitle } from '../../offerDetails/components/OfferDetailsTitle'
 import { useSearchSetup } from './useSearchSetup'
 
+const offerId = sellOffer.id
+const useRouteMock = jest.fn(() => ({
+  params: {
+    offerId,
+  },
+}))
+jest.mock('../../../hooks/useRoute', () => ({
+  useRoute: () => useRouteMock(),
+}))
+
 jest.mock('../../../hooks/useRoute', () => ({
   useRoute: () => ({
     params: {
-      offerId: '11',
+      offerId: buyOffer.id,
     },
   }),
 }))
@@ -31,16 +41,6 @@ jest.mock('../../../utils/peachAPI', () => ({
   getOfferDetails: (...args: any[]) => getOfferDetailsMock(...args),
 }))
 
-const offerId = sellOffer.id
-const useRouteMock = jest.fn(() => ({
-  params: {
-    offerId,
-  },
-}))
-jest.mock('../../../hooks/useRoute', () => ({
-  useRoute: () => useRouteMock(),
-}))
-
 const wrapper = ({ children }: ComponentProps) => (
   <NavigationWrapper>
     <QueryClientWrapper>{children}</QueryClientWrapper>
@@ -50,13 +50,22 @@ const wrapper = ({ children }: ComponentProps) => (
 jest.useFakeTimers()
 
 describe('useSearchSetup', () => {
-  afterEach(() => {
+  beforeEach(() => {
     jest.clearAllMocks()
   })
 
+  it('should set up header correctly', async () => {
+    const { result } = renderHook(useSearchSetup, { wrapper })
+
+    await waitFor(() => expect(result.current.offer).toBeDefined())
+
+    expect(useHeaderState.getState().titleComponent?.type).toEqual(OfferDetailsTitle)
+    expect(useHeaderState.getState().titleComponent?.props).toEqual({ id: buyOffer.id })
+    expect(useHeaderState.getState().icons?.[0].id).toBe('xCircle')
+  })
   it('should return defaults', async () => {
     const { result } = renderHook(useSearchSetup, { wrapper })
-    expect(result.current).toEqual({ offer: undefined, hasMatches: false })
+    expect(result.current).toEqual({ offer: buyOffer, hasMatches: true })
     await act(async () => {
       await waitFor(() => expect(queryClient.isFetching()).toBe(0))
     })
@@ -72,15 +81,5 @@ describe('useSearchSetup', () => {
     await waitFor(() => expect(result.current.offer).toBeDefined())
 
     expect(getMatchesMock).toHaveBeenCalledTimes(1)
-  })
-
-  it('should set up header correctly', async () => {
-    const { result } = renderHook(useSearchSetup, { wrapper })
-
-    await waitFor(() => expect(result.current.offer).toBeDefined())
-
-    expect(useHeaderState.getState().titleComponent?.type).toEqual(OfferDetailsTitle)
-    expect(useHeaderState.getState().titleComponent?.props).toEqual({ id: sellOffer.id })
-    expect(useHeaderState.getState().icons?.[0].id).toBe('xCircle')
   })
 })

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Premium renders correctly 1`] = `
+exports[`Premium should render the Premium view 1`] = `
 <View
   style={
     {
@@ -27,29 +27,19 @@ exports[`Premium renders correctly 1`] = `
         }
       }
     >
-      <Text
-        allowFontScaling={false}
+      <PeachText
         style={
-          [
-            {
-              "color": "#2B1911",
-              "fontFamily": "Baloo2-Regular",
-              "fontSize": 16,
-              "letterSpacing": 0.16,
-              "lineHeight": 24,
-            },
-            {
-              "fontFamily": "Baloo2-Bold",
-              "fontSize": 24,
-              "letterSpacing": 0.24,
-              "lineHeight": 32,
-              "textAlign": "center",
-            },
-          ]
+          {
+            "fontFamily": "Baloo2-Bold",
+            "fontSize": 24,
+            "letterSpacing": 0.24,
+            "lineHeight": 32,
+            "textAlign": "center",
+          }
         }
       >
         set your premium / discount
-      </Text>
+      </PeachText>
       <View
         style={
           {
@@ -59,399 +49,72 @@ exports[`Premium renders correctly 1`] = `
           }
         }
       >
-        <Text
-          allowFontScaling={false}
+        <PeachText
           style={
-            [
-              {
-                "color": "#2B1911",
-                "fontFamily": "Baloo2-Regular",
-                "fontSize": 16,
-                "letterSpacing": 0.16,
-                "lineHeight": 24,
-              },
-              {
-                "fontFamily": "Baloo2-SemiBold",
-                "fontSize": 16,
-                "letterSpacing": 0.16,
-                "lineHeight": 28,
-                "paddingRight": 8,
-              },
-            ]
+            {
+              "fontFamily": "Baloo2-SemiBold",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 28,
+              "paddingRight": 8,
+            }
           }
         >
           for selling
-        </Text>
-        <View
-          style={
-            [
-              {
-                "alignItems": "center",
-                "display": "flex",
-                "flexDirection": "row",
-              },
-              undefined,
-            ]
+        </PeachText>
+        <SatsFormat
+          bitcoinLogoStyle={
+            {
+              "height": 12,
+              "marginRight": 4,
+              "width": 12,
+            }
           }
-        >
-          <test-file-stub
-            style={
-              [
-                {
-                  "height": 12,
-                  "marginRight": 4,
-                  "width": 12,
-                },
-              ]
+          sats={1000000}
+          satsStyle={
+            {
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 14,
+              "fontWeight": "normal",
+              "letterSpacing": 0.14,
+              "lineHeight": 20,
             }
-          />
-          <View
-            style={
-              [
-                {
-                  "alignItems": "center",
-                  "flexDirection": "row",
-                },
-                undefined,
-              ]
+          }
+          style={
+            {
+              "fontFamily": "Baloo2-SemiBold",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 28,
             }
-          >
-            <Text
-              allowFontScaling={false}
-              style={
-                [
-                  {
-                    "color": "#2B1911",
-                    "fontFamily": "Baloo2-Regular",
-                    "fontSize": 16,
-                    "letterSpacing": 0.16,
-                    "lineHeight": 24,
-                  },
-                  [
-                    {
-                      "fontFamily": "CourierPrime-Regular",
-                      "fontWeight": "500",
-                    },
-                    {
-                      "color": "#EAE3DF",
-                    },
-                    {
-                      "fontFamily": "Baloo2-SemiBold",
-                      "fontSize": 16,
-                      "letterSpacing": 0.16,
-                      "lineHeight": 28,
-                    },
-                  ],
-                ]
-              }
-            >
-              0
-              .
-              00 0
-            </Text>
-            <Text
-              allowFontScaling={false}
-              style={
-                [
-                  {
-                    "color": "#2B1911",
-                    "fontFamily": "Baloo2-Regular",
-                    "fontSize": 16,
-                    "letterSpacing": 0.16,
-                    "lineHeight": 24,
-                  },
-                  [
-                    {
-                      "fontFamily": "CourierPrime-Regular",
-                      "fontWeight": "500",
-                    },
-                    {
-                      "fontFamily": "Baloo2-SemiBold",
-                      "fontSize": 16,
-                      "letterSpacing": 0.16,
-                      "lineHeight": 28,
-                    },
-                    {
-                      "color": "#2B1911",
-                    },
-                  ],
-                ]
-              }
-            >
-              10 000
-            </Text>
-            <Text
-              allowFontScaling={false}
-              style={
-                [
-                  {
-                    "color": "#2B1911",
-                    "fontFamily": "Baloo2-Regular",
-                    "fontSize": 16,
-                    "letterSpacing": 0.16,
-                    "lineHeight": 24,
-                  },
-                  [
-                    {
-                      "fontFamily": "Baloo2-Regular",
-                      "fontSize": 14,
-                      "fontWeight": "500",
-                      "letterSpacing": 0.14,
-                      "lineHeight": 20,
-                      "marginTop": 2,
-                    },
-                    {
-                      "fontFamily": "Baloo2-Regular",
-                      "fontSize": 14,
-                      "fontWeight": "normal",
-                      "letterSpacing": 0.14,
-                      "lineHeight": 20,
-                    },
-                    {
-                      "color": "#2B1911",
-                    },
-                  ],
-                ]
-              }
-            >
-               
-              sats
-            </Text>
-          </View>
-        </View>
+          }
+        />
       </View>
-      <View
+      <PremiumInput
+        premium={1.5}
+        setPremium={[MockFunction]}
         style={
-          [
-            {
-              "alignItems": "center",
-              "flexDirection": "row",
-              "justifyContent": "center",
-            },
-            {
-              "marginTop": 32,
-            },
-          ]
+          {
+            "marginTop": 32,
+          }
+        }
+      />
+      <PeachText
+        style={
+          {
+            "color": "#7D675E",
+            "marginTop": 4,
+            "textAlign": "center",
+          }
         }
       >
-        <Text
-          allowFontScaling={false}
-          style={
-            [
-              {
-                "color": "#2B1911",
-                "fontFamily": "Baloo2-Regular",
-                "fontSize": 16,
-                "letterSpacing": 0.16,
-                "lineHeight": 24,
-              },
-              [
-                {
-                  "lineHeight": 32,
-                },
-                {
-                  "color": "#05A85A",
-                },
-              ],
-            ]
-          }
-        >
-          premium
-          :
-        </Text>
-        <View
-          style={
-            {
-              "height": 40,
-              "marginLeft": 8,
-            }
-          }
-        >
-          <View>
-            <View
-              style={
-                [
-                  {
-                    "alignItems": "center",
-                    "display": "flex",
-                    "flexDirection": "row",
-                    "justifyContent": "space-between",
-                    "paddingLeft": 12,
-                    "paddingRight": 12,
-                    "width": "100%",
-                  },
-                  {
-                    "borderRadius": 12,
-                    "borderWidth": 1,
-                    "overflow": "hidden",
-                  },
-                  {
-                    "backgroundColor": "#FFFCFA",
-                  },
-                  {
-                    "borderColor": "#2B1911",
-                  },
-                  false,
-                  false,
-                  {
-                    "marginBottom": 1,
-                    "marginTop": 1,
-                  },
-                  {
-                    "width": 96,
-                  },
-                ]
-              }
-            >
-              <TextInput
-                allowFontScaling={false}
-                autoCapitalize="none"
-                autoCorrect={false}
-                blurOnSubmit={false}
-                editable={true}
-                keyboardType="numeric"
-                multiline={false}
-                onBlur={[Function]}
-                onChangeText={[Function]}
-                onEndEditing={[Function]}
-                onFocus={[Function]}
-                onSubmitEditing={[Function]}
-                placeholderTextColor="#BAADA7"
-                removeClippedSubviews={false}
-                style={
-                  [
-                    {
-                      "flexShrink": 1,
-                      "fontFamily": "Baloo2-Regular",
-                      "fontSize": 18,
-                      "height": 40,
-                      "letterSpacing": 0.18,
-                      "lineHeight": 29.25,
-                      "paddingBottom": 0,
-                      "paddingTop": 0,
-                      "width": "100%",
-                    },
-                    {
-                      "color": "#2B1911",
-                    },
-                    false,
-                    {
-                      "borderColor": "transparent",
-                      "borderWidth": 1,
-                    },
-                    false,
-                    {
-                      "textAlign": "right",
-                    },
-                  ]
-                }
-                textAlignVertical="center"
-                value="1.5"
-              />
-              <View
-                style={
-                  {
-                    "display": "flex",
-                    "flexDirection": "row",
-                  }
-                }
-              >
-                <View
-                  accessibilityState={
-                    {
-                      "busy": undefined,
-                      "checked": undefined,
-                      "disabled": undefined,
-                      "expanded": undefined,
-                      "selected": undefined,
-                    }
-                  }
-                  accessibilityValue={
-                    {
-                      "max": undefined,
-                      "min": undefined,
-                      "now": undefined,
-                      "text": undefined,
-                    }
-                  }
-                  accessible={true}
-                  collapsable={false}
-                  focusable={true}
-                  onBlur={[Function]}
-                  onClick={[Function]}
-                  onFocus={[Function]}
-                  onResponderGrant={[Function]}
-                  onResponderMove={[Function]}
-                  onResponderRelease={[Function]}
-                  onResponderTerminate={[Function]}
-                  onResponderTerminationRequest={[Function]}
-                  onStartShouldSetResponder={[Function]}
-                >
-                  <test-file-stub
-                    fill="#2B1911"
-                    style={
-                      [
-                        {
-                          "height": 24,
-                          "width": 24,
-                        },
-                        {
-                          "height": 20,
-                          "marginLeft": 16,
-                          "width": 20,
-                        },
-                      ]
-                    }
-                  />
-                </View>
-              </View>
-            </View>
-            <Text
-              allowFontScaling={false}
-              style={
-                [
-                  {
-                    "color": "#2B1911",
-                    "fontFamily": "Baloo2-Regular",
-                    "fontSize": 16,
-                    "letterSpacing": 0.16,
-                    "lineHeight": 24,
-                  },
-                  [
-                    {
-                      "fontFamily": "Baloo2-Medium",
-                      "fontSize": 14,
-                      "letterSpacing": 0.14,
-                      "lineHeight": 20,
-                      "marginLeft": 12,
-                      "marginTop": 4,
-                    },
-                    {
-                      "color": "#DF321F",
-                    },
-                  ],
-                ]
-              }
-            >
-               
-            </Text>
-          </View>
-        </View>
-      </View>
+        (
+        currently 150.00 EUR
+        )
+      </PeachText>
     </View>
-    <View
-      onMoveShouldSetResponder={[Function]}
-      onMoveShouldSetResponderCapture={[Function]}
-      onResponderEnd={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderReject={[Function]}
-      onResponderRelease={[Function]}
-      onResponderStart={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      onStartShouldSetResponderCapture={[Function]}
+    <PremiumSlider
+      onChange={[MockFunction]}
       style={
         {
           "marginTop": 24,
@@ -459,507 +122,16 @@ exports[`Premium renders correctly 1`] = `
           "paddingRight": 16,
         }
       }
-    >
-      <View
-        style={
-          [
-            {
-              "height": 32,
-              "width": "100%",
-            },
-            {
-              "backgroundColor": "#FEEDE5",
-              "borderColor": "#FCCCB6",
-              "borderRadius": 9999,
-              "borderWidth": 1,
-              "paddingBottom": 2,
-              "paddingLeft": 2,
-              "paddingRight": 2,
-              "paddingTop": 2,
-            },
-            {
-              "justifyContent": "center",
-            },
-          ]
-        }
-      >
-        <View
-          style={
-            [
-              {
-                "alignItems": "center",
-                "bottom": 12,
-                "justifyContent": "center",
-                "position": "absolute",
-                "top": 12,
-                "width": "100%",
-              },
-              {
-                "left": -130,
-              },
-            ]
-          }
-        >
-          <View
-            style={
-              {
-                "backgroundColor": "#FCCCB6",
-                "height": "100%",
-                "width": 2,
-              }
-            }
-          />
-        </View>
-        <View
-          style={
-            [
-              {
-                "alignItems": "center",
-                "bottom": 12,
-                "justifyContent": "center",
-                "position": "absolute",
-                "top": 12,
-                "width": "100%",
-              },
-              {
-                "left": -62,
-              },
-            ]
-          }
-        >
-          <View
-            style={
-              {
-                "backgroundColor": "#FCCCB6",
-                "height": "100%",
-                "width": 2,
-              }
-            }
-          />
-        </View>
-        <View
-          style={
-            [
-              {
-                "alignItems": "center",
-                "bottom": 12,
-                "justifyContent": "center",
-                "position": "absolute",
-                "top": 12,
-                "width": "100%",
-              },
-              {
-                "left": 0,
-              },
-            ]
-          }
-        >
-          <View
-            style={
-              {
-                "backgroundColor": "#FCCCB6",
-                "height": "100%",
-                "width": 2,
-              }
-            }
-          />
-        </View>
-        <View
-          style={
-            [
-              {
-                "alignItems": "center",
-                "bottom": 12,
-                "justifyContent": "center",
-                "position": "absolute",
-                "top": 12,
-                "width": "100%",
-              },
-              {
-                "left": 62,
-              },
-            ]
-          }
-        >
-          <View
-            style={
-              {
-                "backgroundColor": "#FCCCB6",
-                "height": "100%",
-                "width": 2,
-              }
-            }
-          />
-        </View>
-        <View
-          style={
-            [
-              {
-                "alignItems": "center",
-                "bottom": 12,
-                "justifyContent": "center",
-                "position": "absolute",
-                "top": 12,
-                "width": "100%",
-              },
-              {
-                "left": 130,
-              },
-            ]
-          }
-        >
-          <View
-            style={
-              {
-                "backgroundColor": "#FCCCB6",
-                "height": "100%",
-                "width": 2,
-              }
-            }
-          />
-        </View>
-        <View
-          onLayout={[Function]}
-        >
-          <View
-            collapsable={false}
-            style={
-              {
-                "alignItems": "center",
-                "backgroundColor": "#F56522",
-                "borderRadius": 9999,
-                "display": "flex",
-                "height": "100%",
-                "justifyContent": "center",
-                "transform": [
-                  {
-                    "translateX": 139.28571428571428,
-                  },
-                ],
-                "width": 32,
-                "zIndex": 10,
-              }
-            }
-          >
-            <test-file-stub
-              fill="#FFFCFA"
-              style={
-                [
-                  {
-                    "height": 24,
-                    "width": 24,
-                  },
-                  {
-                    "width": 16,
-                  },
-                ]
-              }
-            />
-          </View>
-        </View>
-      </View>
-      <View
-        style={
-          {
-            "height": 40,
-            "marginTop": 4,
-            "width": "100%",
-          }
-        }
-      >
-        <View
-          style={
-            [
-              {
-                "alignItems": "center",
-                "position": "absolute",
-                "width": "100%",
-              },
-              {
-                "left": -130,
-              },
-              undefined,
-            ]
-          }
-        >
-          <Text
-            allowFontScaling={false}
-            style={
-              [
-                {
-                  "color": "#2B1911",
-                  "fontFamily": "Baloo2-Regular",
-                  "fontSize": 16,
-                  "letterSpacing": 0.16,
-                  "lineHeight": 24,
-                },
-                {
-                  "color": "#7D675E",
-                  "fontFamily": "Baloo2-SemiBold",
-                  "fontSize": 14,
-                  "letterSpacing": 0.14,
-                  "lineHeight": 17.5,
-                  "marginTop": 4,
-                  "textAlign": "center",
-                },
-              ]
-            }
-          >
-            -21
-            %
-          </Text>
-        </View>
-        <View
-          style={
-            [
-              {
-                "alignItems": "center",
-                "position": "absolute",
-                "width": "100%",
-              },
-              {
-                "left": -62,
-              },
-              undefined,
-            ]
-          }
-        >
-          <Text
-            allowFontScaling={false}
-            style={
-              [
-                {
-                  "color": "#2B1911",
-                  "fontFamily": "Baloo2-Regular",
-                  "fontSize": 16,
-                  "letterSpacing": 0.16,
-                  "lineHeight": 24,
-                },
-                {
-                  "color": "#7D675E",
-                  "fontFamily": "Baloo2-SemiBold",
-                  "fontSize": 14,
-                  "letterSpacing": 0.14,
-                  "lineHeight": 17.5,
-                  "marginTop": 4,
-                  "textAlign": "center",
-                },
-              ]
-            }
-          >
-            -10
-            %
-          </Text>
-        </View>
-        <View
-          style={
-            [
-              {
-                "alignItems": "center",
-                "position": "absolute",
-                "width": "100%",
-              },
-              {
-                "left": 0,
-              },
-              undefined,
-            ]
-          }
-        >
-          <Text
-            allowFontScaling={false}
-            style={
-              [
-                {
-                  "color": "#2B1911",
-                  "fontFamily": "Baloo2-Regular",
-                  "fontSize": 16,
-                  "letterSpacing": 0.16,
-                  "lineHeight": 24,
-                },
-                {
-                  "color": "#7D675E",
-                  "fontFamily": "Baloo2-SemiBold",
-                  "fontSize": 14,
-                  "letterSpacing": 0.14,
-                  "lineHeight": 17.5,
-                  "marginTop": 4,
-                  "textAlign": "center",
-                },
-              ]
-            }
-          >
-            market
-price
-          </Text>
-        </View>
-        <View
-          style={
-            [
-              {
-                "alignItems": "center",
-                "position": "absolute",
-                "width": "100%",
-              },
-              {
-                "left": 62,
-              },
-              undefined,
-            ]
-          }
-        >
-          <Text
-            allowFontScaling={false}
-            style={
-              [
-                {
-                  "color": "#2B1911",
-                  "fontFamily": "Baloo2-Regular",
-                  "fontSize": 16,
-                  "letterSpacing": 0.16,
-                  "lineHeight": 24,
-                },
-                {
-                  "color": "#7D675E",
-                  "fontFamily": "Baloo2-SemiBold",
-                  "fontSize": 14,
-                  "letterSpacing": 0.14,
-                  "lineHeight": 17.5,
-                  "marginTop": 4,
-                  "textAlign": "center",
-                },
-              ]
-            }
-          >
-            +
-            10
-            %
-          </Text>
-        </View>
-        <View
-          style={
-            [
-              {
-                "alignItems": "center",
-                "position": "absolute",
-                "width": "100%",
-              },
-              {
-                "left": 130,
-              },
-              undefined,
-            ]
-          }
-        >
-          <Text
-            allowFontScaling={false}
-            style={
-              [
-                {
-                  "color": "#2B1911",
-                  "fontFamily": "Baloo2-Regular",
-                  "fontSize": 16,
-                  "letterSpacing": 0.16,
-                  "lineHeight": 24,
-                },
-                {
-                  "color": "#7D675E",
-                  "fontFamily": "Baloo2-SemiBold",
-                  "fontSize": 14,
-                  "letterSpacing": 0.14,
-                  "lineHeight": 17.5,
-                  "marginTop": 4,
-                  "textAlign": "center",
-                },
-              ]
-            }
-          >
-            +
-            21
-            %
-          </Text>
-        </View>
-      </View>
-    </View>
+      value={1.5}
+    />
   </View>
-  <View
-    accessibilityState={
-      {
-        "busy": undefined,
-        "checked": undefined,
-        "disabled": true,
-        "expanded": undefined,
-        "selected": undefined,
-      }
-    }
-    accessibilityValue={
-      {
-        "max": undefined,
-        "min": undefined,
-        "now": undefined,
-        "text": undefined,
-      }
-    }
-    accessible={true}
-    collapsable={false}
-    focusable={true}
-    onClick={[Function]}
-    onResponderGrant={[Function]}
-    onResponderMove={[Function]}
-    onResponderRelease={[Function]}
-    onResponderTerminate={[Function]}
-    onResponderTerminationRequest={[Function]}
-    onStartShouldSetResponder={[Function]}
-    style={
-      {
-        "alignItems": "center",
-        "backgroundColor": "#FCCCB6",
-        "borderRadius": 9999,
-        "flexDirection": "row",
-        "height": 40,
-        "justifyContent": "center",
-        "opacity": 1,
-        "paddingLeft": 16,
-        "paddingRight": 16,
-        "width": 156,
-      }
-    }
+  <PrimaryButton
+    disabled={false}
+    narrow={true}
+    onPress={[MockFunction]}
     testID="navigation-next"
   >
-    <Text
-      allowFontScaling={false}
-      ellipsizeMode="tail"
-      numberOfLines={1}
-      style={
-        [
-          {
-            "color": "#2B1911",
-            "fontFamily": "Baloo2-Regular",
-            "fontSize": 16,
-            "letterSpacing": 0.16,
-            "lineHeight": 24,
-          },
-          [
-            {
-              "color": "#FFFCFA",
-            },
-            {
-              "fontFamily": "Baloo2-SemiBold",
-              "fontSize": 14,
-              "letterSpacing": 0.5,
-              "lineHeight": 24,
-              "minWidth": 96,
-              "paddingLeft": 8,
-              "paddingRight": 8,
-              "textAlign": "center",
-              "textTransform": "uppercase",
-            },
-          ],
-        ]
-      }
-    >
-      next
-    </Text>
-  </View>
+    next
+  </PrimaryButton>
 </View>
 `;

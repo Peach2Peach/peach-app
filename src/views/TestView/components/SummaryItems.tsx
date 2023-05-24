@@ -1,6 +1,6 @@
 import { Alert, View } from 'react-native'
 import { Icon, Text } from '../../../components'
-import { SummaryItem } from '../../../components/lists/SummaryItem'
+import { SummaryCard } from '../../../components/lists/SummaryCard'
 import { MSINADAY } from '../../../constants'
 import tw from '../../../styles/tailwind'
 
@@ -23,8 +23,8 @@ export const SummaryItems = () => {
   return (
     <View style={tw`flex flex-col items-center`}>
       <Text style={tw`mt-4 h3`}>Summary Item</Text>
-      <SummaryItem {...defaultSummaryItem} />
-      <SummaryItem
+      <SummaryCard {...defaultSummaryItem} />
+      <SummaryCard
         {...{
           ...defaultSummaryItem,
           date: new Date(Date.now() - MSINADAY),
@@ -32,9 +32,9 @@ export const SummaryItems = () => {
           icon: <Icon id="upload" style={tw`w-4`} color={tw`text-success-main`.color} />,
         }}
       />
-      <SummaryItem {...{ ...defaultSummaryItem, date: new Date(Date.now() - 2 * MSINADAY), level: 'INFO' }} />
-      <SummaryItem {...{ ...defaultSummaryItem, level: 'WARN' }} />
-      <SummaryItem {...{ ...defaultSummaryItem, title: 'no action', action: { callback: () => {} } }} />
+      <SummaryCard {...{ ...defaultSummaryItem, date: new Date(Date.now() - 2 * MSINADAY), level: 'INFO' }} />
+      <SummaryCard {...{ ...defaultSummaryItem, level: 'WARN' }} />
+      <SummaryCard {...{ ...defaultSummaryItem, title: 'no action', action: { callback: () => {} } }} />
     </View>
   )
 }

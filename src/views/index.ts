@@ -54,6 +54,7 @@ import RedesignWelcome from './welcome/RedesignWelcome'
 import Welcome from './welcome/Welcome'
 import YourTrades from './yourTrades/YourTrades'
 import NewBadge from './overlays/NewBadge'
+import { BitcoinLoading } from './loading/BitcoinLoading'
 import { WrongFundingAmount } from './wrongFundingAmount/WrongFundingAmount'
 
 type ViewType = {
@@ -174,6 +175,7 @@ const testViews: ViewType[] = [
   { name: 'testViewMessages', component: TestViewMessages, ...defaultConfig },
   { name: 'testViewComponents', component: TestViewComponents, ...defaultConfig },
   { name: 'testViewPNs', component: TestViewPNs, ...defaultConfig },
+  { name: 'testViewLoading', component: BitcoinLoading, ...defaultConfig },
 ]
 
 export const getViews = (hasAccount: boolean): ViewType[] =>

@@ -5,6 +5,7 @@ import { SATSINBTC } from '../../constants'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { offerIdToHex } from '../../utils/offer'
+import { BitcoinLoading } from '../loading/BitcoinLoading'
 import { DailyTradingLimit } from '../settings/profile/DailyTradingLimit'
 import { FundingSatsFormat } from './components/FundingSatsFormat'
 import { NoEscrowFound } from './components/NoEscrowFound'
@@ -13,16 +14,12 @@ import { useAutoFundOffer } from './hooks/regtest/useAutoFundOffer'
 import { useFundEscrowSetup } from './hooks/useFundEscrowSetup'
 
 export default (): ReactElement => {
-  const { offerId, escrow, createEscrowError, fundingStatus, fundingAmount } = useFundEscrowSetup()
+  const { offerId, isLoading, escrow, createEscrowError, fundingStatus, fundingAmount } = useFundEscrowSetup()
   const { showRegtestButton, fundEscrowAddress } = useAutoFundOffer({ offerId, fundingStatus })
 
   if (createEscrowError) return <NoEscrowFound />
-  if (!escrow) return (
-    <View style={tw`items-center justify-center h-full`}>
-      <Loading />
-      <Text style={tw`mt-8 text-center subtitle-1`}>{i18n('sell.escrow.loading')}</Text>
-    </View>
-  )
+  if (isLoading || !escrow) return <BitcoinLoading text={i18n('sell.escrow.loading')} />
+
   if (fundingStatus.status === 'MEMPOOL') return <TransactionInMempool />
 
   return (

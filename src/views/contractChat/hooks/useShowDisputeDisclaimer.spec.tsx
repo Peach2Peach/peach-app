@@ -30,7 +30,9 @@ describe('useShowDisputeDisclaimer', () => {
   })
   it('should show the overlay', () => {
     const showDisputeDisclaimer = result.current
-    act(() => showDisputeDisclaimer())
+    act(() => {
+      showDisputeDisclaimer()
+    })
     expect(overlayState).toStrictEqual({
       title: 'trade chat',
       content: <DisputeDisclaimer />,
