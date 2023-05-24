@@ -6,13 +6,14 @@ import { getPaymentExpectedBy } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
 import { shouldShowConfirmCancelTradeRequest } from '../../../utils/overlay'
 import { isCashTrade } from '../../../utils/paymentMethod/isCashTrade'
+import { useContractContext } from '../context'
 
 type ContractStatusInfoProps = {
-  contract: Contract
   requiredAction: ContractAction
-  view: ContractViewer
 }
-export const ContractStatusInfo = ({ contract, requiredAction, view }: ContractStatusInfoProps): ReactElement => {
+export const ContractStatusInfo = ({ requiredAction }: ContractStatusInfoProps): ReactElement => {
+  const { contract, view } = useContractContext()
+
   if (contract.disputeActive) return (
     <View style={tw`flex-row items-center justify-center`}>
       <Text style={tw`text-center button-medium`}>

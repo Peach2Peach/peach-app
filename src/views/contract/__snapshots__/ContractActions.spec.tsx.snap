@@ -11,6 +11,12 @@ exports[`ContractActions should not show the dispute sliders when there is no di
     ]
   }
 >
+  <ContractStatusInfo
+    actionPending={false}
+    postConfirmPaymentBuyer={[MockFunction]}
+    postConfirmPaymentSeller={[MockFunction]}
+    requiredAction="none"
+  />
   <ContractCTA
     actionPending={false}
     postConfirmPaymentBuyer={[MockFunction]}
@@ -31,6 +37,12 @@ exports[`ContractActions should show the dispute sliders when the contract is in
     ]
   }
 >
+  <ContractStatusInfo
+    actionPending={false}
+    postConfirmPaymentBuyer={[MockFunction]}
+    postConfirmPaymentSeller={[MockFunction]}
+    requiredAction="none"
+  />
   <ContractCTA
     actionPending={false}
     postConfirmPaymentBuyer={[MockFunction]}
@@ -52,6 +64,12 @@ exports[`ContractActions should show the provide email button when the contract 
     ]
   }
 >
+  <ContractStatusInfo
+    actionPending={false}
+    postConfirmPaymentBuyer={[MockFunction]}
+    postConfirmPaymentSeller={[MockFunction]}
+    requiredAction="none"
+  />
   <ProvideEmailButton
     style={
       {
