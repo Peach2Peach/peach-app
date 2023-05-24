@@ -37,21 +37,10 @@ describe('useSettingsSetup', () => {
         items: [
           { enabled: false, iconId: 'toggleLeft', onPress: expect.any(Function), title: 'analytics' },
           { onPress: expect.any(Function), title: 'notifications' },
-          { enabled: true, iconId: 'toggleRight', onPress: expect.any(Function), title: 'peachWallet' },
+          { title: 'payoutAddress' },
           { onPress: expect.any(Function), title: 'currency' },
         ],
       },
-    ])
-  })
-  it('returns payoutAddress if peach wallet is not active', () => {
-    settingsStore.getState().setPeachWalletActive(false)
-    const { result } = renderHook(useSettingsSetup)
-    expect(result.current[2].items).toEqual([
-      { enabled: false, iconId: 'toggleLeft', onPress: expect.any(Function), title: 'analytics' },
-      { onPress: expect.any(Function), title: 'notifications' },
-      { enabled: false, iconId: 'toggleLeft', onPress: expect.any(Function), title: 'peachWallet' },
-      { title: 'payoutAddress' },
-      { onPress: expect.any(Function), title: 'currency' },
     ])
   })
   it('returns shows analytics as active if it is', () => {
@@ -60,7 +49,7 @@ describe('useSettingsSetup', () => {
     expect(result.current[2].items).toEqual([
       { enabled: true, iconId: 'toggleRight', onPress: expect.any(Function), title: 'analytics' },
       { onPress: expect.any(Function), title: 'notifications' },
-      { enabled: true, iconId: 'toggleRight', onPress: expect.any(Function), title: 'peachWallet' },
+      { title: 'payoutAddress' },
       { onPress: expect.any(Function), title: 'currency' },
     ])
   })
