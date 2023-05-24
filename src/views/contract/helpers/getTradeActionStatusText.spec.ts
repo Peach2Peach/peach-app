@@ -9,9 +9,9 @@ jest.mock('./getSellerStatusText', () => ({
 
 describe('getTradeActionStatusText', () => {
   it('should return the correct text for the buyer', () => {
-    expect(getTradeActionStatusText({} as Contract, 'buyer')).toBe('buyer status text')
+    expect(getTradeActionStatusText({} as Contract, 'buyer', true)).toBe('buyer status text')
   })
   it('should return the correct text for the seller', () => {
-    expect(getTradeActionStatusText({} as Contract, 'seller')).toBe('seller status text')
+    expect(getTradeActionStatusText({} as Contract, 'seller', true)).toBe('seller status text')
   })
 })
