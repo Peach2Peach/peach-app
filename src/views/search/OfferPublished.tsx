@@ -17,10 +17,10 @@ export default (): ReactElement => {
           <Text style={tw`flex-shrink body-l text-primary-background-light`}>{i18n('offer.published.description')}</Text>
         </View>
       </View>
-      <PrimaryButton white narrow onPress={goToOffer}>
+      <PrimaryButton white wide onPress={goToOffer}>
         {i18n('showOffer')}
       </PrimaryButton>
-      <PrimaryButton style={tw`mt-3`} white narrow border onPress={closeAction}>
+      <PrimaryButton style={tw`mt-3`} white wide border onPress={closeAction}>
         {i18n('close')}
       </PrimaryButton>
     </View>

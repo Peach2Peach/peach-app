@@ -137,7 +137,7 @@ exports[`OfferPublished renders correctly 1`] = `
         "opacity": 1,
         "paddingLeft": 16,
         "paddingRight": 16,
-        "width": 156,
+        "width": 228,
       }
     }
   >
@@ -217,7 +217,7 @@ exports[`OfferPublished renders correctly 1`] = `
         "opacity": 1,
         "paddingLeft": 16,
         "paddingRight": 16,
-        "width": 156,
+        "width": 228,
       }
     }
   >

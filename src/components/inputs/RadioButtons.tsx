@@ -33,9 +33,9 @@ type RadioButtonsProps<T> = ComponentProps & {
     onChange={(value) => setHandsome(value as boolean)}/>
  */
 export const RadioButtons = <T, >({ items, selectedValue, onChange, style }: RadioButtonsProps<T>): ReactElement => (
-  <View style={style}>
+  <View style={[tw`gap-2`, style]}>
     {items.map((item, i) => (
-      <View key={i} style={[tw`flex-row items-center`, i > 0 ? tw`mt-2` : {}]}>
+      <View key={i} style={tw`flex-row items-center`}>
         <Pressable style={tw`w-full`} onPress={() => (onChange && !item.disabled ? onChange(item.value) : null)}>
           <RadioButtonItem display={item.display} selected={item.value === selectedValue} disabled={item.disabled} />
         </Pressable>

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">peach</string>
+    <string name="app_name">peach bitcoin</string>
     <string name="notification.title.user.badge.unlocked">New badge unlocked</string>
     <string name="notification.body.user.badge.unlocked">Click here to check it out &#128526;</string>
     <string name="notification.title.offer.escrowFunded">Escrow funded</string>

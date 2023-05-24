@@ -1,17 +1,14 @@
-import { useContext } from 'react'
 import { Image, useWindowDimensions, View } from 'react-native'
-import { Text } from '../../components'
-import LanguageContext from '../../contexts/language'
-import tw from '../../styles/tailwind'
-import i18n from '../../utils/i18n'
+import aWalletYouControl from '../../assets/onboarding/a-wallet-you-control.png'
 import peachOfMind from '../../assets/onboarding/peach-of-mind.png'
 import peerToPeer from '../../assets/onboarding/peer-to-peer.png'
 import privacyFirst from '../../assets/onboarding/privacy-first.png'
-import aWalletYouControl from '../../assets/onboarding/a-wallet-you-control.png'
+import { Text } from '../../components'
+import tw from '../../styles/tailwind'
+import i18n from '../../utils/i18n'
 
 const images = { peachOfMind, peerToPeer, privacyFirst, aWalletYouControl }
 export default ({ name }: { name: 'peachOfMind' | 'peerToPeer' | 'privacyFirst' | 'aWalletYouControl' }) => {
-  useContext(LanguageContext)
   const { width } = useWindowDimensions()
 
   return (
