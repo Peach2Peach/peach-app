@@ -1,7 +1,7 @@
 import { renderHook } from '@testing-library/react-native'
-import { NavigationWrapper, replaceMock } from '../../../../tests/unit/helpers/NavigationWrapper'
-import { useConfirmEscrow } from './useConfirmEscrow'
 import { sellOffer } from '../../../../tests/unit/data/offerData'
+import { NavigationWrapper, resetMock } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { useConfirmEscrow } from './useConfirmEscrow'
 
 const apiSuccess = { success: true }
 const unauthorizedError = { error: 'UNAUTHORIZED' }
@@ -39,11 +39,17 @@ describe('useConfirmEscrow', () => {
   it('confirms escrow and navigates to search if sell offer is funded', async () => {
     const { result } = renderHook(useConfirmEscrow, { wrapper })
     await result.current({ ...sellOffer, funding: { status: 'FUNDED' } as FundingStatus })
-    expect(replaceMock).toHaveBeenCalledWith('search', { offerId: sellOffer.id })
+    expect(resetMock).toHaveBeenCalledWith({
+      index: 1,
+      routes: [{ name: 'yourTrades' }, { name: 'search', params: { offerId: sellOffer.id } }],
+    })
   })
   it('confirms escrow and navigates to fundEscrow if sell offer is not yet funded', async () => {
     const { result } = renderHook(useConfirmEscrow, { wrapper })
     await result.current({ ...sellOffer, funding: { status: 'MEMPOOL' } as FundingStatus })
-    expect(replaceMock).toHaveBeenCalledWith('fundEscrow', { offerId: sellOffer.id })
+    expect(resetMock).toHaveBeenCalledWith({
+      index: 1,
+      routes: [{ name: 'yourTrades' }, { name: 'fundEscrow', params: { offerId: sellOffer.id } }],
+    })
   })
 })

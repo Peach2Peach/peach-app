@@ -15,11 +15,11 @@ export const useConfirmEscrow = () => {
         showErrorBanner(confirmEscrowErr?.error)
         return
       }
-      if (sellOffer.funding.status === 'FUNDED') {
-        navigation.replace('search', { offerId: sellOffer.id })
-      } else {
-        navigation.replace('fundEscrow', { offerId: sellOffer.id })
-      }
+      const destination = sellOffer.funding.status === 'FUNDED' ? 'search' : 'fundEscrow'
+      navigation.reset({
+        index: 1,
+        routes: [{ name: 'yourTrades' }, { name: destination, params: { offerId: sellOffer.id } }],
+      })
     },
     [navigation, showErrorBanner],
   )
