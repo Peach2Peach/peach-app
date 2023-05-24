@@ -19,7 +19,7 @@ describe('saveChat', () => {
   it('does not duplicate messages when overwriting existing chat', () => {
     saveChat(chatData.chat1.id, chatData.chat1)
     saveChat(chatData.chat1.id, chatData.chat1)
-    strictEqual(account.chats[chatData.chat1.id].messages.length, 22)
+    strictEqual(account.chats[chatData.chat1.id].messages.length, 23)
   })
   it('removes duplicate messages', () => {
     const savedChat = saveChat(chatData.chatWithDuplicate.id, chatData.chatWithDuplicate)

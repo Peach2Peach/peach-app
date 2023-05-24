@@ -1,16 +1,14 @@
-import { useContext, useEffect, useMemo } from 'react'
+import { useContext, useEffect } from 'react'
 import { shallow } from 'zustand/shallow'
-import { Icon, Text } from '../../../components'
-import { HelpIcon } from '../../../components/icons'
 import { useMatchStore } from '../../../components/matches/store'
 import { MessageContext } from '../../../contexts/message'
 import { useCancelOffer, useHeaderSetup, useNavigation, useRoute } from '../../../hooks'
 import { useOfferDetails } from '../../../hooks/query/useOfferDetails'
 import { useShowHelp } from '../../../hooks/useShowHelp'
-import tw from '../../../styles/tailwind'
-import i18n from '../../../utils/i18n'
-import { isBuyOffer, offerIdToHex } from '../../../utils/offer'
+import { headerIcons } from '../../../utils/layout/headerIcons'
+import { isBuyOffer } from '../../../utils/offer'
 import { parseError } from '../../../utils/result'
+import { OfferDetailsTitle } from '../../offerDetails/components/OfferDetailsTitle'
 import { shouldGoToContract } from '../helpers/shouldGoToContract'
 import { useOfferMatches } from './useOfferMatches'
 import useRefetchOnNotification from './useRefetchOnNotification'
@@ -28,21 +26,17 @@ export const useSearchSetup = () => {
   const showAcceptMatchPopup = useShowHelp('acceptMatch')
 
   const cancelOffer = useCancelOffer(offer)
-  const headerIcons = useMemo(() => {
+  const getHeaderIcons = () => {
     if (!offer) return undefined
-    const icons = [{ iconComponent: <Icon id="xCircle" color={tw`text-error-main`.color} />, onPress: cancelOffer }]
+    const icons = [{ ...headerIcons.cancel, onPress: cancelOffer }]
     if (offer.matches.length > 0) {
-      icons.push({ iconComponent: <HelpIcon />, onPress: isBuyOffer(offer) ? showMatchPopup : showAcceptMatchPopup })
+      icons.push({ ...headerIcons.help, onPress: isBuyOffer(offer) ? showMatchPopup : showAcceptMatchPopup })
     }
     return icons
-  }, [cancelOffer, offer, showAcceptMatchPopup, showMatchPopup])
+  }
   useHeaderSetup({
-    titleComponent: (
-      <Text style={tw`h6`}>
-        {i18n('offer')} {offerIdToHex(offerId)}
-      </Text>
-    ),
-    icons: headerIcons,
+    titleComponent: <OfferDetailsTitle id={offerId} />,
+    icons: getHeaderIcons(),
   })
 
   useEffect(() => {

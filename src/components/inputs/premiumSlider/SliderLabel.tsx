@@ -7,6 +7,6 @@ type SliderLabelProps = ComponentProps & { position: number }
 
 export const SliderLabel = ({ position, style, children }: SliderLabelProps): ReactElement => (
   <View style={[tw`absolute items-center w-full`, { left: position }, style]}>
-    <Text style={tw`mt-1 leading-tight text-center subtitle-2 text-black-2`}>{children}</Text>
+    <Text style={tw`mt-1 leading-tight text-center subtitle-2 text-black-2 max-w-20`}>{children}</Text>
   </View>
 )

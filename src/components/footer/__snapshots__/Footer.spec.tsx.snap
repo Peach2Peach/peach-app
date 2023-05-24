@@ -31,8 +31,8 @@ exports[`Footer should render a Footer 1`] = `
             "flexDirection": "row",
             "justifyContent": "space-between",
             "paddingBottom": 16,
-            "paddingLeft": 20,
-            "paddingRight": 20,
+            "paddingLeft": 8,
+            "paddingRight": 8,
             "paddingTop": 16,
           },
           {
@@ -106,8 +106,8 @@ exports[`Footer should render a Footer with inverted theme 1`] = `
             "flexDirection": "row",
             "justifyContent": "space-between",
             "paddingBottom": 16,
-            "paddingLeft": 20,
-            "paddingRight": 20,
+            "paddingLeft": 8,
+            "paddingRight": 8,
             "paddingTop": 16,
           },
           {

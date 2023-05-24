@@ -1,32 +1,33 @@
 import { useMemo } from 'react'
-import { useConfirmEscrowOverlay } from '../../../../overlays/useConfirmEscrowOverlay'
-import { useWronglyFundedOverlay } from '../../../../overlays/useWronglyFundedOverlay'
-import { getOffer } from '../../../../utils/offer'
+import { useShowFundingAmountDifferentPopup } from '../../../../overlays/useShowFundingAmountDifferentPopup'
+import { useShowWronglyFundedPopup } from '../../../../overlays/useShowWronglyFundedPopup'
+import { getOffer, isSellOffer } from '../../../../utils/offer'
 import { useBuyOfferExpiredOverlay } from '../../../../overlays/useBuyOfferExpiredOverlay'
 import { useOfferOutsideRangeOverlay } from '../../../../overlays/useOfferOutsideRangeOverlay'
+import { getOfferDetails } from '../../../../utils/peachAPI'
 
 type PNEventHandlers = Partial<Record<NotificationType, (data: PNData, notification?: PNNotification) => void>>
 
 export const useOfferPopupEvents = () => {
-  const confirmEscrowOverlay = useConfirmEscrowOverlay()
-  const wronglyFundedOverlay = useWronglyFundedOverlay()
+  const showFundingAmountDifferentPopup = useShowFundingAmountDifferentPopup()
+  const wronglyFundedOverlay = useShowWronglyFundedPopup()
   const offerOutsideRangeOverlay = useOfferOutsideRangeOverlay()
   const buyOfferExpiredOverlay = useBuyOfferExpiredOverlay()
 
   const offerPopupEvents: PNEventHandlers = useMemo(
     () => ({
       // PN-S07
-      'offer.fundingAmountDifferent': ({ offerId }) => {
-        const sellOffer = offerId ? (getOffer(offerId) as SellOffer) : null
+      'offer.fundingAmountDifferent': async ({ offerId }) => {
+        const [sellOffer] = offerId ? await getOfferDetails({ offerId }) : [null]
+        if (!sellOffer || !isSellOffer(sellOffer)) return
 
-        if (!sellOffer) return
-        confirmEscrowOverlay(sellOffer)
+        showFundingAmountDifferentPopup(sellOffer)
       },
       // PN-S08
-      'offer.wrongFundingAmount': ({ offerId }) => {
-        const sellOffer = offerId ? (getOffer(offerId) as SellOffer) : null
+      'offer.wrongFundingAmount': async ({ offerId }) => {
+        const [sellOffer] = offerId ? await getOfferDetails({ offerId }) : [null]
 
-        if (!sellOffer) return
+        if (!sellOffer || !isSellOffer(sellOffer)) return
         wronglyFundedOverlay(sellOffer)
       },
       // PN-S10
@@ -40,7 +41,7 @@ export const useOfferPopupEvents = () => {
         buyOfferExpiredOverlay(offerId, days)
       },
     }),
-    [buyOfferExpiredOverlay, confirmEscrowOverlay, offerOutsideRangeOverlay, wronglyFundedOverlay],
+    [buyOfferExpiredOverlay, showFundingAmountDifferentPopup, offerOutsideRangeOverlay, wronglyFundedOverlay],
   )
   return offerPopupEvents
 }

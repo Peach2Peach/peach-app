@@ -69,44 +69,7 @@ exports[`ContractStatusInfo renders correctly for buyer when requiredAction is s
 </View>
 `;
 
-exports[`ContractStatusInfo renders correctly for seller when cancellation is pending 1`] = `
-<View
-  style={
-    {
-      "alignItems": "center",
-      "flexDirection": "row",
-      "justifyContent": "center",
-    }
-  }
->
-  <PeachText
-    style={
-      {
-        "fontFamily": "Baloo2-SemiBold",
-        "fontSize": 14,
-        "letterSpacing": 0.5,
-        "lineHeight": 24,
-        "textAlign": "center",
-        "textTransform": "uppercase",
-      }
-    }
-  >
-    pending cancelation
-  </PeachText>
-  <Icon
-    color="#9F8C82"
-    id="xCircle"
-    style={
-      {
-        "height": 20,
-        "marginLeft": 4,
-        "marginTop": -2,
-        "width": 20,
-      }
-    }
-  />
-</View>
-`;
+exports[`ContractStatusInfo renders correctly for seller when cancellation is pending 1`] = `<React.Fragment />`;
 
 exports[`ContractStatusInfo renders correctly for seller when requiredAction is confirmPayment 1`] = `
 <View
@@ -147,59 +110,8 @@ exports[`ContractStatusInfo renders correctly for seller when requiredAction is 
 </View>
 `;
 
-exports[`ContractStatusInfo renders correctly when cancel trade request confirmation is required from buyer 1`] = `
-<View
-  style={
-    {
-      "alignItems": "center",
-      "flexDirection": "row",
-      "justifyContent": "center",
-    }
-  }
->
-  <PeachText
-    style={
-      {
-        "color": "#F19E12",
-        "fontFamily": "Baloo2-SemiBold",
-        "fontSize": 14,
-        "letterSpacing": 0.5,
-        "lineHeight": 24,
-        "textAlign": "center",
-        "textTransform": "uppercase",
-      }
-    }
-  >
-    seller wants to cancel
-  </PeachText>
-</View>
-`;
+exports[`ContractStatusInfo renders correctly when cancel trade request confirmation is required from buyer 1`] = `<React.Fragment />`;
 
-exports[`ContractStatusInfo renders correctly when contract is in dispute 1`] = `
-<View
-  style={
-    {
-      "alignItems": "center",
-      "flexDirection": "row",
-      "justifyContent": "center",
-    }
-  }
->
-  <PeachText
-    style={
-      {
-        "fontFamily": "Baloo2-SemiBold",
-        "fontSize": 14,
-        "letterSpacing": 0.5,
-        "lineHeight": 24,
-        "textAlign": "center",
-        "textTransform": "uppercase",
-      }
-    }
-  >
-    trade in dispute - check the chat
-  </PeachText>
-</View>
-`;
+exports[`ContractStatusInfo renders correctly when contract is in dispute 1`] = `<React.Fragment />`;
 
 exports[`ContractStatusInfo renders correctly when payment method is cash trade 1`] = `<React.Fragment />`;

@@ -2,11 +2,11 @@ import { View } from 'react-native'
 import { Text } from '../..'
 import tw from '../../../styles/tailwind'
 
-type PaymentDataKeyFactsProps = ComponentProps & {
+type Props = ComponentProps & {
   paymentData: PaymentData
 }
-export const PaymentDataKeyFacts = ({ paymentData, style }: PaymentDataKeyFactsProps) => (
-  <View style={[tw`flex-row justify-center`, style]}>
+export const PaymentDataKeyFacts = ({ paymentData, style }: Props) => (
+  <View style={[tw`flex-row flex-wrap justify-center`, style]}>
     {(paymentData.currencies || []).map((currency) => (
       <View
         key={`paymentData-${paymentData.id}-currency-${currency}`}

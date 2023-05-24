@@ -11,8 +11,7 @@ jest.mock('../../../utils/offer', () => ({
 }))
 
 const getOfferDetailsMock = jest.fn().mockResolvedValue([{ oldOfferId: '21' } as BuyOffer])
-// @ts-expect-error
-const postBuyOfferMock = jest.fn().mockResolvedValue([{ offerId: '21' } as BuyOffer])
+const postBuyOfferMock = jest.fn().mockResolvedValue([{ id: '21' } as BuyOffer])
 jest.mock('../../../utils/peachAPI', () => ({
   getOfferDetails: (...args: any[]) => getOfferDetailsMock(...args),
   postBuyOffer: (...args: any[]) => postBuyOfferMock(...args),
@@ -32,8 +31,8 @@ describe('publishBuyOffer', () => {
     expect(saveOfferMock).toHaveBeenCalled()
   })
   it('should return true if postBuyOffer returns a result', async () => {
-    postBuyOfferMock.mockResolvedValueOnce([{} as BuyOffer])
-    const { isOfferPublished: result, errorMessage: err } = await publishBuyOffer({} as BuyOfferDraft)
+    const { offerId, isOfferPublished: result, errorMessage: err } = await publishBuyOffer({} as BuyOfferDraft)
+    expect(offerId).toBe('21')
     expect(result).toBe(true)
     expect(err).toBe(null)
   })

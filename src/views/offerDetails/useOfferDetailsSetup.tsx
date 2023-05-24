@@ -1,12 +1,8 @@
 import { useEffect } from 'react'
-import { Text } from '../../components'
-
 import { useHeaderSetup, useRoute } from '../../hooks'
 import { useOfferDetails } from '../../hooks/query/useOfferDetails'
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
-import tw from '../../styles/tailwind'
-import i18n from '../../utils/i18n'
-import { offerIdToHex } from '../../utils/offer'
+import { OfferDetailsTitle } from './components/OfferDetailsTitle'
 
 export const useOfferDetailsSetup = () => {
   const { offerId } = useRoute<'offer'>().params
@@ -20,13 +16,7 @@ export const useOfferDetailsSetup = () => {
     }
   }, [error, offerId, showErrorBanner])
 
-  useHeaderSetup({
-    titleComponent: (
-      <Text style={tw`h6`}>
-        {i18n('offer')} {offerIdToHex(offerId)}
-      </Text>
-    ),
-  })
+  useHeaderSetup({ titleComponent: <OfferDetailsTitle id={offerId} /> })
 
   return offer
 }
