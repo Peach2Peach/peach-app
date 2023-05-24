@@ -684,6 +684,7 @@
   "contract.respond": "respond",
   "contract.checkTheChat": "check the chat",
   "contract.timer.sendPayment.buyer": "you should pay within",
+  "contract.timer.paymentTimeExpired.buyer": "payment too late!",
   "contract.timer.paymentTimeExpired.button.buyer": "what now?",
   "contract.timer.paymentTimeExpired.button.seller": "respond",
   "contract.timer.sendPayment.seller": "buyer should make payment in",

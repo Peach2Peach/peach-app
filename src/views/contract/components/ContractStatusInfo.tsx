@@ -23,7 +23,12 @@ export const ContractStatusInfo = ({ requiredAction }: ContractStatusInfoProps):
     if (Date.now() < paymentExpectedBy) {
       return <Timer text={i18n(`contract.timer.${requiredAction}.${view}`)} end={paymentExpectedBy} />
     }
-    return <></>
+    return (
+      <View style={tw`flex-row items-center`}>
+        <Text style={tw`uppercase button-medium`}>{i18n('contract.timer.paymentTimeExpired.buyer')}</Text>
+        <Icon id={'clock'} style={tw`w-5 h-5 ml-1`} />
+      </View>
+    )
   }
   if (view === 'buyer' && requiredAction === 'confirmPayment') return (
     <View style={tw`flex-row items-center justify-center`}>
