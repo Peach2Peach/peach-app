@@ -5,13 +5,7 @@ import { sellOffer } from '../../../../tests/unit/data/offerData'
 import { account, setAccount } from '../../../utils/account'
 import { account1 } from '../../../../tests/unit/data/accountData'
 import { defaultFundingStatus } from '../../../utils/offer/constants'
-
-const replaceMock = jest.fn()
-jest.mock('../../../hooks/useNavigation', () => ({
-  useNavigation: jest.fn().mockReturnValue({
-    replace: (...args: any[]) => replaceMock(...args),
-  }),
-}))
+import { NavigationWrapper, replaceMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 
 const useTradeSummariesMock = jest.fn().mockReturnValue({
   offers: [],
@@ -21,6 +15,14 @@ const useTradeSummariesMock = jest.fn().mockReturnValue({
 })
 jest.mock('../../../hooks/query/useTradeSummaries', () => ({
   useTradeSummaries: () => useTradeSummariesMock(),
+}))
+
+const showWronglyFundedPopupMock = jest.fn()
+jest.mock('../../../overlays/useShowWronglyFundedPopup', () => ({
+  useShowWronglyFundedPopup:
+    () =>
+      (...args: any[]) =>
+        showWronglyFundedPopupMock(...args),
 }))
 
 const searchWithNoMatches = {
@@ -65,20 +67,6 @@ jest.mock('../../../overlays/useStartRefundOverlay', () => ({
       (...args: any[]) =>
         startRefundOverlayMock(...args),
 }))
-const wronglyFundedOverlayMock = jest.fn()
-jest.mock('../../../overlays/useWronglyFundedOverlay', () => ({
-  useWronglyFundedOverlay:
-    () =>
-      (...args: any[]) =>
-        wronglyFundedOverlayMock(...args),
-}))
-const confirmEscrowOverlayMock = jest.fn()
-jest.mock('../../../overlays/useConfirmEscrowOverlay', () => ({
-  useConfirmEscrowOverlay:
-    () =>
-      (...args: any[]) =>
-        confirmEscrowOverlayMock(...args),
-}))
 
 describe('useHandleFundingStatus', () => {
   const fundingStatusFunded: FundingStatus = { ...defaultFundingStatus, status: 'FUNDED' }
@@ -103,11 +91,9 @@ describe('useHandleFundingStatus', () => {
       fundingStatus: defaultFundingStatus,
       userConfirmationRequired: false,
     }
-    renderHook(useHandleFundingStatus, { initialProps })
+    renderHook(useHandleFundingStatus, { wrapper: NavigationWrapper, initialProps })
     expect(replaceMock).not.toHaveBeenCalled()
     expect(startRefundOverlayMock).not.toHaveBeenCalled()
-    expect(wronglyFundedOverlayMock).not.toHaveBeenCalled()
-    expect(confirmEscrowOverlayMock).not.toHaveBeenCalled()
     expect(account.offers).toEqual([])
   })
   it('should save offer when funding status updates', async () => {
@@ -118,7 +104,7 @@ describe('useHandleFundingStatus', () => {
       fundingStatus,
       userConfirmationRequired: false,
     }
-    renderHook(useHandleFundingStatus, { initialProps })
+    renderHook(useHandleFundingStatus, { wrapper: NavigationWrapper, initialProps })
     expect(account.offers[0]).toEqual({ ...sellOffer, funding: fundingStatus })
   })
   it('should handle funding status when it is CANCELED', async () => {
@@ -129,10 +115,10 @@ describe('useHandleFundingStatus', () => {
       fundingStatus,
       userConfirmationRequired: false,
     }
-    renderHook(useHandleFundingStatus, { initialProps })
+    renderHook(useHandleFundingStatus, { wrapper: NavigationWrapper, initialProps })
     expect(startRefundOverlayMock).toHaveBeenCalledWith(sellOffer)
   })
-  it('should handle funding status when it is WRONG_FUNDING_AMOUNT', async () => {
+  it('should show showWronglyFundedOverlay when WRONG_FUNDING_AMOUNT', async () => {
     const fundingStatus: FundingStatus = { ...defaultFundingStatus, status: 'WRONG_FUNDING_AMOUNT' }
     const initialProps = {
       offerId: sellOffer.id,
@@ -140,10 +126,10 @@ describe('useHandleFundingStatus', () => {
       fundingStatus,
       userConfirmationRequired: false,
     }
-    renderHook(useHandleFundingStatus, { initialProps })
-    expect(wronglyFundedOverlayMock).toHaveBeenCalledWith({ ...sellOffer, funding: fundingStatus })
+    renderHook(useHandleFundingStatus, { wrapper: NavigationWrapper, initialProps })
+    expect(showWronglyFundedPopupMock).toHaveBeenCalledWith({ ...sellOffer, funding: fundingStatus })
   })
-  it('should show EscrowConfirmOverlay when user confirmation is required', async () => {
+  it('should navigate to wrongFundingAmount when user confirmation is required', async () => {
     const fundingStatus: FundingStatus = { ...defaultFundingStatus, status: 'MEMPOOL' }
     const initialProps = {
       offerId: sellOffer.id,
@@ -151,25 +137,25 @@ describe('useHandleFundingStatus', () => {
       fundingStatus,
       userConfirmationRequired: true,
     }
-    renderHook(useHandleFundingStatus, { initialProps })
-    expect(confirmEscrowOverlayMock).toHaveBeenCalledWith({ ...sellOffer, funding: fundingStatus })
+    renderHook(useHandleFundingStatus, { wrapper: NavigationWrapper, initialProps })
+    expect(replaceMock).toHaveBeenCalledWith('wrongFundingAmount', { offerId: sellOffer.id })
   })
   it('should go to offerPublished if funding status is FUNDED but no matches yet', async () => {
-    renderHook(useHandleFundingStatus, { initialProps: fundedProps })
+    renderHook(useHandleFundingStatus, { wrapper: NavigationWrapper, initialProps: fundedProps })
     await waitFor(() => expect(fetchMatchesMock).toHaveBeenCalled())
     expect(replaceMock).toHaveBeenCalledWith('offerPublished', { offerId: sellOffer.id, isSellOffer: true })
   })
   it('should go to search if funding status is FUNDED with matches already', async () => {
     fetchMatchesMock.mockResolvedValueOnce(searchWithMatches)
 
-    renderHook(useHandleFundingStatus, { initialProps: fundedProps })
+    renderHook(useHandleFundingStatus, { wrapper: NavigationWrapper, initialProps: fundedProps })
     await waitFor(() => expect(fetchMatchesMock).toHaveBeenCalled())
     expect(replaceMock).toHaveBeenCalledWith('search', { offerId: sellOffer.id })
   })
   it('should go to offerPublished if funding status is FUNDED but no search response', async () => {
     fetchMatchesMock.mockResolvedValueOnce(searchWithNoPages)
 
-    renderHook(useHandleFundingStatus, { initialProps: fundedProps })
+    renderHook(useHandleFundingStatus, { wrapper: NavigationWrapper, initialProps: fundedProps })
     await waitFor(() => expect(fetchMatchesMock).toHaveBeenCalled())
     expect(replaceMock).toHaveBeenCalledWith('offerPublished', { offerId: sellOffer.id, isSellOffer: true })
   })

@@ -1,151 +1,54 @@
-import { ReactElement, useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { Animated, LayoutChangeEvent, View } from 'react-native'
-import { useBitcoinPrices } from '../../../hooks'
+import { ReactElement } from 'react'
+import { Animated, View } from 'react-native'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { getTranslateY } from '../../../utils/layout'
-import { interpolate, round } from '../../../utils/math'
 import { ParsedPeachText, Text } from '../../text'
 import { CustomAmount } from './CustomAmount'
 import { SliderKnob } from './SliderKnob'
 import { SliderTrack } from './SliderTrack'
 import { TrackMarkers } from './TrackMarkers'
-import { createPanResponder } from './helpers/createPanResponder'
-import { getOffset } from './helpers/getOffset'
+import { knobLayout } from './helpers/knobLayout'
 import { onStartShouldSetResponder } from './helpers/onStartShouldSetResponder'
-import { panListener } from './helpers/panListener'
-import { useKnobHeight } from './hooks/useKnobHeight'
+import { useRangeAmountSetup } from './hooks/useRangeAmountSetup'
 
-type RangeAmountProps = ComponentProps & {
+type Props = ComponentProps & {
   min: number
   max: number
   value: [number, number]
   onChange: (value: [number, number]) => void
 }
 
-// eslint-disable-next-line max-statements
-export const RangeAmount = ({ min, max, value, onChange, style }: RangeAmountProps): ReactElement => {
-  const knobHeight = useKnobHeight()
-  const [trackHeight, setTrackHeight] = useState(260)
-  const knobTrackHeight = trackHeight - knobHeight
-
-  const [maximum, setMaximum] = useState(value[1])
-  const [minimum, setMinimum] = useState(value[0])
-  const maxY = useMemo(
-    () => getOffset({ amount: maximum, min, max, trackHeight: knobTrackHeight }),
-    [knobTrackHeight, max, maximum, min],
-  )
-  const minY = useMemo(
-    () => getOffset({ amount: minimum, min, max, trackHeight: knobTrackHeight }),
-    [knobTrackHeight, max, min, minimum],
-  )
-
-  const { displayPrice: displayPriceMinimum, displayCurrency, fullDisplayPrice } = useBitcoinPrices({ sats: minimum })
-  const { displayPrice: displayPriceMaximum } = useBitcoinPrices({ sats: maximum })
-
-  const trackRange: [number, number] = useMemo(() => [0, knobTrackHeight], [knobTrackHeight])
-  const trackRangeMax: [number, number] = useMemo(() => [0, knobTrackHeight - knobHeight], [knobHeight, knobTrackHeight])
-  const trackRangeMin: [number, number] = useMemo(() => [knobHeight, knobTrackHeight], [knobHeight, knobTrackHeight])
-
-  const minSatsDistance = useMemo(
-    () => round(interpolate(knobHeight, [0, knobTrackHeight], [0, max - min]), -4),
-    [knobHeight, knobTrackHeight, max, min],
-  )
-  const panMax = useRef(new Animated.Value(maxY)).current
-  const panMin = useRef(new Animated.Value(minY)).current
-
-  const panMaxResponder = useRef(createPanResponder(panMax)).current
-  const panMinResponder = useRef(createPanResponder(panMin)).current
-
-  const onTrackLayout = (event: LayoutChangeEvent) => {
-    const height = Math.round(event.nativeEvent.layout.height)
-
-    if (!height) return
-
-    setTrackHeight(height)
-    const newKnowTrackHeight = height - knobHeight
-    panMax.setOffset(getOffset({ amount: maximum, min, max, trackHeight: newKnowTrackHeight }))
-    panMin.setOffset(getOffset({ amount: minimum, min, max, trackHeight: newKnowTrackHeight }))
-  }
-
-  const setMaximumRounded = useCallback(
-    (val: number, abs: number) => {
-      const roundedVal = round(val, -4)
-
-      if (roundedVal - minimum < minSatsDistance) {
-        panMin.setOffset(abs + knobHeight)
-        setMinimum(roundedVal - minSatsDistance)
-      }
-      setMaximum(roundedVal)
-    },
-    [knobHeight, minSatsDistance, minimum, panMin],
-  )
-
-  const setMinimumRounded = useCallback(
-    (val: number, abs: number) => {
-      const roundedVal = round(val, -4)
-
-      if (maximum - roundedVal < minSatsDistance) {
-        panMax.setOffset(abs - knobHeight)
-        setMaximum(roundedVal + minSatsDistance)
-      }
-      setMinimum(roundedVal)
-    },
-    [knobHeight, minSatsDistance, maximum, panMax],
-  )
-
-  useEffect(
-    () => panListener(panMax, [max, min], trackRange, setMaximumRounded, trackRangeMax),
-    [max, min, panMax, setMaximumRounded, trackRange, trackRangeMax],
-  )
-  useEffect(
-    () => panListener(panMin, [max, min], trackRange, setMinimumRounded, trackRangeMin),
-    [max, min, panMin, setMinimumRounded, trackRange, trackRangeMin],
-  )
-
-  useEffect(() => {
-    onChange([minimum, maximum])
-  }, [onChange, minimum, maximum])
-
-  useEffect(() => {
-    panMin.extractOffset()
-    panMax.extractOffset()
-  }, [panMin, panMax])
+export const RangeAmount = ({ min, max, value, onChange, style }: Props): ReactElement => {
+  const {
+    minimum,
+    maximum,
+    updateCustomAmountMaximum,
+    updateCustomAmountMinimum,
+    minY,
+    maxY,
+    panMin,
+    panMax,
+    panMinResponder,
+    panMaxResponder,
+    trackRangeMin,
+    trackRangeMax,
+    onTrackLayout,
+    knobHeight,
+  } = useRangeAmountSetup({ min, max, value, onChange })
 
   return (
     <View style={[tw`flex-row items-center justify-between pl-5 pr-4`, style]}>
-      <View style={[tw`flex-shrink items-start gap-2`, tw.md`gap-4`]}>
+      <View style={[tw`items-start flex-shrink gap-2`, tw.md`gap-4`]}>
         <ParsedPeachText
           style={[tw`h7`, tw.md`h5`]}
           parse={[{ pattern: new RegExp(i18n('buy.subtitle.highlight'), 'u'), style: tw`text-success-main` }]}
         >
           {i18n('buy.subtitle')}
         </ParsedPeachText>
-        <CustomAmount
-          {...{
-            amount: maximum,
-            setAmount: () => {},
-            fiatPrice: displayPriceMaximum,
-            setCustomFiatPrice: () => {},
-            bitcoinPrice: fullDisplayPrice,
-            displayCurrency,
-            disable: true,
-          }}
-          style={tw`flex-shrink items-start`}
-        />
+        <CustomAmount amount={maximum} onChange={updateCustomAmountMaximum} style={tw`items-start flex-shrink`} />
         <Text style={[tw`h7`, tw.md`h5`]}>{i18n('and')}</Text>
-        <CustomAmount
-          {...{
-            amount: minimum,
-            setAmount: () => {},
-            fiatPrice: displayPriceMinimum,
-            setCustomFiatPrice: () => {},
-            bitcoinPrice: fullDisplayPrice,
-            displayCurrency,
-            disable: true,
-          }}
-          style={tw`flex-shrink items-start`}
-        />
+        <CustomAmount amount={minimum} onChange={updateCustomAmountMinimum} style={tw`items-start flex-shrink`} />
       </View>
 
       <SliderTrack style={tw`h-full`} onLayout={onTrackLayout}>
@@ -160,14 +63,14 @@ export const RangeAmount = ({ min, max, value, onChange, style }: RangeAmountPro
         <Animated.View
           {...panMaxResponder.panHandlers}
           {...{ onStartShouldSetResponder }}
-          style={[tw`absolute top-0 flex-row items-center`, getTranslateY(panMax, trackRangeMax)]}
+          style={[knobLayout, getTranslateY(panMax, trackRangeMax)]}
         >
           <SliderKnob />
         </Animated.View>
         <Animated.View
           {...panMinResponder.panHandlers}
           {...{ onStartShouldSetResponder }}
-          style={[tw`absolute top-0 flex-row items-center`, getTranslateY(panMin, trackRangeMin)]}
+          style={[knobLayout, getTranslateY(panMin, trackRangeMin)]}
         >
           <SliderKnob />
         </Animated.View>

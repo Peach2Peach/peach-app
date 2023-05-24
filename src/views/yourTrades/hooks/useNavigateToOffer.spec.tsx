@@ -1,14 +1,8 @@
 import { renderHook } from '@testing-library/react-native'
-import { useNavigateToOffer } from './useNavigateToOffer'
-import { QueryClientWrapper } from '../../../../tests/unit/helpers/QueryClientWrapper'
 import { sellOffer } from '../../../../tests/unit/data/offerData'
-
-const navigateMock = jest.fn()
-jest.mock('../../../hooks/useNavigation', () => ({
-  useNavigation: jest.fn().mockReturnValue({
-    navigate: (...args: any[]) => navigateMock(...args),
-  }),
-}))
+import { NavigationWrapper, navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { QueryClientWrapper } from '../../../../tests/unit/helpers/QueryClientWrapper'
+import { useNavigateToOffer } from './useNavigateToOffer'
 
 const getOfferDetailsMock = jest.fn().mockResolvedValue([sellOffer])
 jest.mock('../../../utils/peachAPI', () => ({
@@ -18,11 +12,12 @@ const startRefundOverlayMock = jest.fn()
 jest.mock('../../../overlays/useStartRefundOverlay', () => ({
   useStartRefundOverlay: () => startRefundOverlayMock,
 }))
-const confirmEscrowOverlayMock = jest.fn()
-jest.mock('../../../overlays/useConfirmEscrowOverlay', () => ({
-  useConfirmEscrowOverlay: () => confirmEscrowOverlayMock,
-}))
 
+const wrapper = ({ children }: ComponentProps) => (
+  <NavigationWrapper>
+    <QueryClientWrapper>{children}</QueryClientWrapper>
+  </NavigationWrapper>
+)
 describe('useNavigateToOffer', () => {
   it('should navigate to offer', async () => {
     const offerSummary: Partial<OfferSummary> = {
@@ -31,7 +26,7 @@ describe('useNavigateToOffer', () => {
     }
     const { result } = renderHook(useNavigateToOffer, {
       initialProps: offerSummary as OfferSummary,
-      wrapper: QueryClientWrapper,
+      wrapper,
     })
     await result.current()
     expect(navigateMock).toHaveBeenCalledWith('offer', { offerId: offerSummary.id })
@@ -43,21 +38,21 @@ describe('useNavigateToOffer', () => {
     }
     const { result } = renderHook(useNavigateToOffer, {
       initialProps: offerSummary as OfferSummary,
-      wrapper: QueryClientWrapper,
+      wrapper,
     })
     await result.current()
     expect(startRefundOverlayMock).toHaveBeenCalledWith(sellOffer)
   })
-  it('should open overlay if status is fundingAmountDifferent', async () => {
+  it('should navigate to wrongFundingAmount if status is fundingAmountDifferent', async () => {
     const offerSummary: Partial<OfferSummary> = {
       id: '3',
       tradeStatus: 'fundingAmountDifferent',
     }
     const { result } = renderHook(useNavigateToOffer, {
       initialProps: offerSummary as OfferSummary,
-      wrapper: QueryClientWrapper,
+      wrapper,
     })
     await result.current()
-    expect(confirmEscrowOverlayMock).toHaveBeenCalledWith(sellOffer)
+    expect(navigateMock).toHaveBeenCalledWith('wrongFundingAmount', { offerId: offerSummary.id })
   })
 })

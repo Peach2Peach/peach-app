@@ -1,4 +1,4 @@
-export const groupChars = (string: string, sets: number, separator = ' '): string =>
+export const groupChars = (string = '', sets = 1, separator = ' '): string =>
   string
     .split('')
     .reverse()

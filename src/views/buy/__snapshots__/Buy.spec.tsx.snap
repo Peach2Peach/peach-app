@@ -389,9 +389,9 @@ exports[`Buy should render correctly 1`] = `
                   "justifyContent": "center",
                   "paddingLeft": 12,
                   "paddingRight": 12,
+                  "position": "absolute",
                   "width": 210,
                 },
-                false,
               ]
             }
           >
@@ -522,6 +522,135 @@ exports[`Buy should render correctly 1`] = `
               </View>
             </View>
           </View>
+          <View>
+            <View
+              style={
+                [
+                  {
+                    "alignItems": "center",
+                    "display": "flex",
+                    "flexDirection": "row",
+                    "justifyContent": "space-between",
+                    "paddingLeft": 12,
+                    "paddingRight": 12,
+                    "width": "100%",
+                  },
+                  {
+                    "borderRadius": 12,
+                    "borderWidth": 1,
+                    "overflow": "hidden",
+                  },
+                  {
+                    "backgroundColor": "#FFFCFA",
+                  },
+                  {
+                    "borderColor": "#2B1911",
+                  },
+                  false,
+                  false,
+                  {
+                    "marginBottom": 1,
+                    "marginTop": 1,
+                  },
+                  [
+                    {
+                      "fontSize": 20,
+                      "height": 32,
+                      "paddingBottom": 0,
+                      "paddingLeft": 0,
+                      "paddingRight": 0,
+                      "paddingTop": 0,
+                      "width": "100%",
+                    },
+                    {
+                      "opacity": 0,
+                    },
+                  ],
+                ]
+              }
+            >
+              <TextInput
+                allowFontScaling={false}
+                autoCapitalize="none"
+                autoCorrect={false}
+                blurOnSubmit={false}
+                editable={true}
+                keyboardType="number-pad"
+                multiline={false}
+                onBlur={[Function]}
+                onChangeText={[Function]}
+                onEndEditing={[Function]}
+                onFocus={[Function]}
+                onSubmitEditing={[Function]}
+                placeholderTextColor="#BAADA7"
+                removeClippedSubviews={false}
+                style={
+                  [
+                    {
+                      "flexShrink": 1,
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 18,
+                      "height": 40,
+                      "letterSpacing": 0.18,
+                      "lineHeight": 29.25,
+                      "paddingBottom": 0,
+                      "paddingTop": 0,
+                      "width": "100%",
+                    },
+                    {
+                      "color": "#2B1911",
+                    },
+                    false,
+                    {
+                      "borderColor": "transparent",
+                      "borderWidth": 1,
+                    },
+                    false,
+                    false,
+                  ]
+                }
+                textAlignVertical="center"
+                value="1000000"
+              />
+              <View
+                style={
+                  {
+                    "display": "flex",
+                    "flexDirection": "row",
+                  }
+                }
+              />
+            </View>
+            <Text
+              allowFontScaling={false}
+              style={
+                [
+                  {
+                    "color": "#2B1911",
+                    "fontFamily": "Baloo2-Regular",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 24,
+                  },
+                  [
+                    {
+                      "fontFamily": "Baloo2-Medium",
+                      "fontSize": 14,
+                      "letterSpacing": 0.14,
+                      "lineHeight": 20,
+                      "marginLeft": 12,
+                      "marginTop": 4,
+                    },
+                    {
+                      "color": "#DF321F",
+                    },
+                  ],
+                ]
+              }
+            >
+               
+            </Text>
+          </View>
         </View>
         <View>
           <View
@@ -535,8 +664,8 @@ exports[`Buy should render correctly 1`] = `
                   "justifyContent": "center",
                   "paddingLeft": 12,
                   "paddingRight": 16,
+                  "position": "absolute",
                 },
-                false,
               ]
             }
           >
@@ -562,6 +691,135 @@ exports[`Buy should render correctly 1`] = `
               200.00
                
               EUR
+            </Text>
+          </View>
+          <View>
+            <View
+              style={
+                [
+                  {
+                    "alignItems": "center",
+                    "display": "flex",
+                    "flexDirection": "row",
+                    "justifyContent": "space-between",
+                    "paddingLeft": 12,
+                    "paddingRight": 12,
+                    "width": "100%",
+                  },
+                  {
+                    "borderRadius": 12,
+                    "borderWidth": 1,
+                    "overflow": "hidden",
+                  },
+                  {
+                    "backgroundColor": "#FFFCFA",
+                  },
+                  {
+                    "borderColor": "#2B1911",
+                  },
+                  false,
+                  false,
+                  {
+                    "marginBottom": 1,
+                    "marginTop": 1,
+                  },
+                  [
+                    {
+                      "fontSize": 20,
+                      "height": 32,
+                      "paddingBottom": 0,
+                      "paddingLeft": 0,
+                      "paddingRight": 0,
+                      "paddingTop": 0,
+                      "width": "100%",
+                    },
+                    {
+                      "opacity": 0,
+                    },
+                  ],
+                ]
+              }
+            >
+              <TextInput
+                allowFontScaling={false}
+                autoCapitalize="none"
+                autoCorrect={false}
+                blurOnSubmit={false}
+                editable={true}
+                keyboardType="number-pad"
+                multiline={false}
+                onBlur={[Function]}
+                onChangeText={[Function]}
+                onEndEditing={[Function]}
+                onFocus={[Function]}
+                onSubmitEditing={[Function]}
+                placeholderTextColor="#BAADA7"
+                removeClippedSubviews={false}
+                style={
+                  [
+                    {
+                      "flexShrink": 1,
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 18,
+                      "height": 40,
+                      "letterSpacing": 0.18,
+                      "lineHeight": 29.25,
+                      "paddingBottom": 0,
+                      "paddingTop": 0,
+                      "width": "100%",
+                    },
+                    {
+                      "color": "#2B1911",
+                    },
+                    false,
+                    {
+                      "borderColor": "transparent",
+                      "borderWidth": 1,
+                    },
+                    false,
+                    false,
+                  ]
+                }
+                textAlignVertical="center"
+                value="200"
+              />
+              <View
+                style={
+                  {
+                    "display": "flex",
+                    "flexDirection": "row",
+                  }
+                }
+              />
+            </View>
+            <Text
+              allowFontScaling={false}
+              style={
+                [
+                  {
+                    "color": "#2B1911",
+                    "fontFamily": "Baloo2-Regular",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 24,
+                  },
+                  [
+                    {
+                      "fontFamily": "Baloo2-Medium",
+                      "fontSize": 14,
+                      "letterSpacing": 0.14,
+                      "lineHeight": 20,
+                      "marginLeft": 12,
+                      "marginTop": 4,
+                    },
+                    {
+                      "color": "#DF321F",
+                    },
+                  ],
+                ]
+              }
+            >
+               
             </Text>
           </View>
         </View>
@@ -627,9 +885,9 @@ exports[`Buy should render correctly 1`] = `
                   "justifyContent": "center",
                   "paddingLeft": 12,
                   "paddingRight": 12,
+                  "position": "absolute",
                   "width": 210,
                 },
-                false,
               ]
             }
           >
@@ -760,6 +1018,135 @@ exports[`Buy should render correctly 1`] = `
               </View>
             </View>
           </View>
+          <View>
+            <View
+              style={
+                [
+                  {
+                    "alignItems": "center",
+                    "display": "flex",
+                    "flexDirection": "row",
+                    "justifyContent": "space-between",
+                    "paddingLeft": 12,
+                    "paddingRight": 12,
+                    "width": "100%",
+                  },
+                  {
+                    "borderRadius": 12,
+                    "borderWidth": 1,
+                    "overflow": "hidden",
+                  },
+                  {
+                    "backgroundColor": "#FFFCFA",
+                  },
+                  {
+                    "borderColor": "#2B1911",
+                  },
+                  false,
+                  false,
+                  {
+                    "marginBottom": 1,
+                    "marginTop": 1,
+                  },
+                  [
+                    {
+                      "fontSize": 20,
+                      "height": 32,
+                      "paddingBottom": 0,
+                      "paddingLeft": 0,
+                      "paddingRight": 0,
+                      "paddingTop": 0,
+                      "width": "100%",
+                    },
+                    {
+                      "opacity": 0,
+                    },
+                  ],
+                ]
+              }
+            >
+              <TextInput
+                allowFontScaling={false}
+                autoCapitalize="none"
+                autoCorrect={false}
+                blurOnSubmit={false}
+                editable={true}
+                keyboardType="number-pad"
+                multiline={false}
+                onBlur={[Function]}
+                onChangeText={[Function]}
+                onEndEditing={[Function]}
+                onFocus={[Function]}
+                onSubmitEditing={[Function]}
+                placeholderTextColor="#BAADA7"
+                removeClippedSubviews={false}
+                style={
+                  [
+                    {
+                      "flexShrink": 1,
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 18,
+                      "height": 40,
+                      "letterSpacing": 0.18,
+                      "lineHeight": 29.25,
+                      "paddingBottom": 0,
+                      "paddingTop": 0,
+                      "width": "100%",
+                    },
+                    {
+                      "color": "#2B1911",
+                    },
+                    false,
+                    {
+                      "borderColor": "transparent",
+                      "borderWidth": 1,
+                    },
+                    false,
+                    false,
+                  ]
+                }
+                textAlignVertical="center"
+                value="0"
+              />
+              <View
+                style={
+                  {
+                    "display": "flex",
+                    "flexDirection": "row",
+                  }
+                }
+              />
+            </View>
+            <Text
+              allowFontScaling={false}
+              style={
+                [
+                  {
+                    "color": "#2B1911",
+                    "fontFamily": "Baloo2-Regular",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 24,
+                  },
+                  [
+                    {
+                      "fontFamily": "Baloo2-Medium",
+                      "fontSize": 14,
+                      "letterSpacing": 0.14,
+                      "lineHeight": 20,
+                      "marginLeft": 12,
+                      "marginTop": 4,
+                    },
+                    {
+                      "color": "#DF321F",
+                    },
+                  ],
+                ]
+              }
+            >
+               
+            </Text>
+          </View>
         </View>
         <View>
           <View
@@ -773,8 +1160,8 @@ exports[`Buy should render correctly 1`] = `
                   "justifyContent": "center",
                   "paddingLeft": 12,
                   "paddingRight": 16,
+                  "position": "absolute",
                 },
-                false,
               ]
             }
           >
@@ -800,6 +1187,135 @@ exports[`Buy should render correctly 1`] = `
               0.00
                
               EUR
+            </Text>
+          </View>
+          <View>
+            <View
+              style={
+                [
+                  {
+                    "alignItems": "center",
+                    "display": "flex",
+                    "flexDirection": "row",
+                    "justifyContent": "space-between",
+                    "paddingLeft": 12,
+                    "paddingRight": 12,
+                    "width": "100%",
+                  },
+                  {
+                    "borderRadius": 12,
+                    "borderWidth": 1,
+                    "overflow": "hidden",
+                  },
+                  {
+                    "backgroundColor": "#FFFCFA",
+                  },
+                  {
+                    "borderColor": "#2B1911",
+                  },
+                  false,
+                  false,
+                  {
+                    "marginBottom": 1,
+                    "marginTop": 1,
+                  },
+                  [
+                    {
+                      "fontSize": 20,
+                      "height": 32,
+                      "paddingBottom": 0,
+                      "paddingLeft": 0,
+                      "paddingRight": 0,
+                      "paddingTop": 0,
+                      "width": "100%",
+                    },
+                    {
+                      "opacity": 0,
+                    },
+                  ],
+                ]
+              }
+            >
+              <TextInput
+                allowFontScaling={false}
+                autoCapitalize="none"
+                autoCorrect={false}
+                blurOnSubmit={false}
+                editable={true}
+                keyboardType="number-pad"
+                multiline={false}
+                onBlur={[Function]}
+                onChangeText={[Function]}
+                onEndEditing={[Function]}
+                onFocus={[Function]}
+                onSubmitEditing={[Function]}
+                placeholderTextColor="#BAADA7"
+                removeClippedSubviews={false}
+                style={
+                  [
+                    {
+                      "flexShrink": 1,
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 18,
+                      "height": 40,
+                      "letterSpacing": 0.18,
+                      "lineHeight": 29.25,
+                      "paddingBottom": 0,
+                      "paddingTop": 0,
+                      "width": "100%",
+                    },
+                    {
+                      "color": "#2B1911",
+                    },
+                    false,
+                    {
+                      "borderColor": "transparent",
+                      "borderWidth": 1,
+                    },
+                    false,
+                    false,
+                  ]
+                }
+                textAlignVertical="center"
+                value="0"
+              />
+              <View
+                style={
+                  {
+                    "display": "flex",
+                    "flexDirection": "row",
+                  }
+                }
+              />
+            </View>
+            <Text
+              allowFontScaling={false}
+              style={
+                [
+                  {
+                    "color": "#2B1911",
+                    "fontFamily": "Baloo2-Regular",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 24,
+                  },
+                  [
+                    {
+                      "fontFamily": "Baloo2-Medium",
+                      "fontSize": 14,
+                      "letterSpacing": 0.14,
+                      "lineHeight": 20,
+                      "marginLeft": 12,
+                      "marginTop": 4,
+                    },
+                    {
+                      "color": "#DF321F",
+                    },
+                  ],
+                ]
+              }
+            >
+               
             </Text>
           </View>
         </View>
@@ -1042,6 +1558,10 @@ exports[`Buy should render correctly 1`] = `
             {
               "alignItems": "center",
               "flexDirection": "row",
+              "marginLeft": -24,
+              "marginRight": -24,
+              "paddingLeft": 24,
+              "paddingRight": 24,
               "position": "absolute",
               "top": 0,
               "transform": [
@@ -1104,6 +1624,10 @@ exports[`Buy should render correctly 1`] = `
             {
               "alignItems": "center",
               "flexDirection": "row",
+              "marginLeft": -24,
+              "marginRight": -24,
+              "paddingLeft": 24,
+              "paddingRight": 24,
               "position": "absolute",
               "top": 0,
               "transform": [
@@ -1915,9 +2439,9 @@ exports[`Buy should render correctly with free trades 1`] = `
                   "justifyContent": "center",
                   "paddingLeft": 12,
                   "paddingRight": 12,
+                  "position": "absolute",
                   "width": 210,
                 },
-                false,
               ]
             }
           >
@@ -2048,6 +2572,135 @@ exports[`Buy should render correctly with free trades 1`] = `
               </View>
             </View>
           </View>
+          <View>
+            <View
+              style={
+                [
+                  {
+                    "alignItems": "center",
+                    "display": "flex",
+                    "flexDirection": "row",
+                    "justifyContent": "space-between",
+                    "paddingLeft": 12,
+                    "paddingRight": 12,
+                    "width": "100%",
+                  },
+                  {
+                    "borderRadius": 12,
+                    "borderWidth": 1,
+                    "overflow": "hidden",
+                  },
+                  {
+                    "backgroundColor": "#FFFCFA",
+                  },
+                  {
+                    "borderColor": "#2B1911",
+                  },
+                  false,
+                  false,
+                  {
+                    "marginBottom": 1,
+                    "marginTop": 1,
+                  },
+                  [
+                    {
+                      "fontSize": 20,
+                      "height": 32,
+                      "paddingBottom": 0,
+                      "paddingLeft": 0,
+                      "paddingRight": 0,
+                      "paddingTop": 0,
+                      "width": "100%",
+                    },
+                    {
+                      "opacity": 0,
+                    },
+                  ],
+                ]
+              }
+            >
+              <TextInput
+                allowFontScaling={false}
+                autoCapitalize="none"
+                autoCorrect={false}
+                blurOnSubmit={false}
+                editable={true}
+                keyboardType="number-pad"
+                multiline={false}
+                onBlur={[Function]}
+                onChangeText={[Function]}
+                onEndEditing={[Function]}
+                onFocus={[Function]}
+                onSubmitEditing={[Function]}
+                placeholderTextColor="#BAADA7"
+                removeClippedSubviews={false}
+                style={
+                  [
+                    {
+                      "flexShrink": 1,
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 18,
+                      "height": 40,
+                      "letterSpacing": 0.18,
+                      "lineHeight": 29.25,
+                      "paddingBottom": 0,
+                      "paddingTop": 0,
+                      "width": "100%",
+                    },
+                    {
+                      "color": "#2B1911",
+                    },
+                    false,
+                    {
+                      "borderColor": "transparent",
+                      "borderWidth": 1,
+                    },
+                    false,
+                    false,
+                  ]
+                }
+                textAlignVertical="center"
+                value="1000000"
+              />
+              <View
+                style={
+                  {
+                    "display": "flex",
+                    "flexDirection": "row",
+                  }
+                }
+              />
+            </View>
+            <Text
+              allowFontScaling={false}
+              style={
+                [
+                  {
+                    "color": "#2B1911",
+                    "fontFamily": "Baloo2-Regular",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 24,
+                  },
+                  [
+                    {
+                      "fontFamily": "Baloo2-Medium",
+                      "fontSize": 14,
+                      "letterSpacing": 0.14,
+                      "lineHeight": 20,
+                      "marginLeft": 12,
+                      "marginTop": 4,
+                    },
+                    {
+                      "color": "#DF321F",
+                    },
+                  ],
+                ]
+              }
+            >
+               
+            </Text>
+          </View>
         </View>
         <View>
           <View
@@ -2061,8 +2714,8 @@ exports[`Buy should render correctly with free trades 1`] = `
                   "justifyContent": "center",
                   "paddingLeft": 12,
                   "paddingRight": 16,
+                  "position": "absolute",
                 },
-                false,
               ]
             }
           >
@@ -2088,6 +2741,135 @@ exports[`Buy should render correctly with free trades 1`] = `
               200.00
                
               EUR
+            </Text>
+          </View>
+          <View>
+            <View
+              style={
+                [
+                  {
+                    "alignItems": "center",
+                    "display": "flex",
+                    "flexDirection": "row",
+                    "justifyContent": "space-between",
+                    "paddingLeft": 12,
+                    "paddingRight": 12,
+                    "width": "100%",
+                  },
+                  {
+                    "borderRadius": 12,
+                    "borderWidth": 1,
+                    "overflow": "hidden",
+                  },
+                  {
+                    "backgroundColor": "#FFFCFA",
+                  },
+                  {
+                    "borderColor": "#2B1911",
+                  },
+                  false,
+                  false,
+                  {
+                    "marginBottom": 1,
+                    "marginTop": 1,
+                  },
+                  [
+                    {
+                      "fontSize": 20,
+                      "height": 32,
+                      "paddingBottom": 0,
+                      "paddingLeft": 0,
+                      "paddingRight": 0,
+                      "paddingTop": 0,
+                      "width": "100%",
+                    },
+                    {
+                      "opacity": 0,
+                    },
+                  ],
+                ]
+              }
+            >
+              <TextInput
+                allowFontScaling={false}
+                autoCapitalize="none"
+                autoCorrect={false}
+                blurOnSubmit={false}
+                editable={true}
+                keyboardType="number-pad"
+                multiline={false}
+                onBlur={[Function]}
+                onChangeText={[Function]}
+                onEndEditing={[Function]}
+                onFocus={[Function]}
+                onSubmitEditing={[Function]}
+                placeholderTextColor="#BAADA7"
+                removeClippedSubviews={false}
+                style={
+                  [
+                    {
+                      "flexShrink": 1,
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 18,
+                      "height": 40,
+                      "letterSpacing": 0.18,
+                      "lineHeight": 29.25,
+                      "paddingBottom": 0,
+                      "paddingTop": 0,
+                      "width": "100%",
+                    },
+                    {
+                      "color": "#2B1911",
+                    },
+                    false,
+                    {
+                      "borderColor": "transparent",
+                      "borderWidth": 1,
+                    },
+                    false,
+                    false,
+                  ]
+                }
+                textAlignVertical="center"
+                value="200"
+              />
+              <View
+                style={
+                  {
+                    "display": "flex",
+                    "flexDirection": "row",
+                  }
+                }
+              />
+            </View>
+            <Text
+              allowFontScaling={false}
+              style={
+                [
+                  {
+                    "color": "#2B1911",
+                    "fontFamily": "Baloo2-Regular",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 24,
+                  },
+                  [
+                    {
+                      "fontFamily": "Baloo2-Medium",
+                      "fontSize": 14,
+                      "letterSpacing": 0.14,
+                      "lineHeight": 20,
+                      "marginLeft": 12,
+                      "marginTop": 4,
+                    },
+                    {
+                      "color": "#DF321F",
+                    },
+                  ],
+                ]
+              }
+            >
+               
             </Text>
           </View>
         </View>
@@ -2153,9 +2935,9 @@ exports[`Buy should render correctly with free trades 1`] = `
                   "justifyContent": "center",
                   "paddingLeft": 12,
                   "paddingRight": 12,
+                  "position": "absolute",
                   "width": 210,
                 },
-                false,
               ]
             }
           >
@@ -2286,6 +3068,135 @@ exports[`Buy should render correctly with free trades 1`] = `
               </View>
             </View>
           </View>
+          <View>
+            <View
+              style={
+                [
+                  {
+                    "alignItems": "center",
+                    "display": "flex",
+                    "flexDirection": "row",
+                    "justifyContent": "space-between",
+                    "paddingLeft": 12,
+                    "paddingRight": 12,
+                    "width": "100%",
+                  },
+                  {
+                    "borderRadius": 12,
+                    "borderWidth": 1,
+                    "overflow": "hidden",
+                  },
+                  {
+                    "backgroundColor": "#FFFCFA",
+                  },
+                  {
+                    "borderColor": "#2B1911",
+                  },
+                  false,
+                  false,
+                  {
+                    "marginBottom": 1,
+                    "marginTop": 1,
+                  },
+                  [
+                    {
+                      "fontSize": 20,
+                      "height": 32,
+                      "paddingBottom": 0,
+                      "paddingLeft": 0,
+                      "paddingRight": 0,
+                      "paddingTop": 0,
+                      "width": "100%",
+                    },
+                    {
+                      "opacity": 0,
+                    },
+                  ],
+                ]
+              }
+            >
+              <TextInput
+                allowFontScaling={false}
+                autoCapitalize="none"
+                autoCorrect={false}
+                blurOnSubmit={false}
+                editable={true}
+                keyboardType="number-pad"
+                multiline={false}
+                onBlur={[Function]}
+                onChangeText={[Function]}
+                onEndEditing={[Function]}
+                onFocus={[Function]}
+                onSubmitEditing={[Function]}
+                placeholderTextColor="#BAADA7"
+                removeClippedSubviews={false}
+                style={
+                  [
+                    {
+                      "flexShrink": 1,
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 18,
+                      "height": 40,
+                      "letterSpacing": 0.18,
+                      "lineHeight": 29.25,
+                      "paddingBottom": 0,
+                      "paddingTop": 0,
+                      "width": "100%",
+                    },
+                    {
+                      "color": "#2B1911",
+                    },
+                    false,
+                    {
+                      "borderColor": "transparent",
+                      "borderWidth": 1,
+                    },
+                    false,
+                    false,
+                  ]
+                }
+                textAlignVertical="center"
+                value="0"
+              />
+              <View
+                style={
+                  {
+                    "display": "flex",
+                    "flexDirection": "row",
+                  }
+                }
+              />
+            </View>
+            <Text
+              allowFontScaling={false}
+              style={
+                [
+                  {
+                    "color": "#2B1911",
+                    "fontFamily": "Baloo2-Regular",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 24,
+                  },
+                  [
+                    {
+                      "fontFamily": "Baloo2-Medium",
+                      "fontSize": 14,
+                      "letterSpacing": 0.14,
+                      "lineHeight": 20,
+                      "marginLeft": 12,
+                      "marginTop": 4,
+                    },
+                    {
+                      "color": "#DF321F",
+                    },
+                  ],
+                ]
+              }
+            >
+               
+            </Text>
+          </View>
         </View>
         <View>
           <View
@@ -2299,8 +3210,8 @@ exports[`Buy should render correctly with free trades 1`] = `
                   "justifyContent": "center",
                   "paddingLeft": 12,
                   "paddingRight": 16,
+                  "position": "absolute",
                 },
-                false,
               ]
             }
           >
@@ -2326,6 +3237,135 @@ exports[`Buy should render correctly with free trades 1`] = `
               0.00
                
               EUR
+            </Text>
+          </View>
+          <View>
+            <View
+              style={
+                [
+                  {
+                    "alignItems": "center",
+                    "display": "flex",
+                    "flexDirection": "row",
+                    "justifyContent": "space-between",
+                    "paddingLeft": 12,
+                    "paddingRight": 12,
+                    "width": "100%",
+                  },
+                  {
+                    "borderRadius": 12,
+                    "borderWidth": 1,
+                    "overflow": "hidden",
+                  },
+                  {
+                    "backgroundColor": "#FFFCFA",
+                  },
+                  {
+                    "borderColor": "#2B1911",
+                  },
+                  false,
+                  false,
+                  {
+                    "marginBottom": 1,
+                    "marginTop": 1,
+                  },
+                  [
+                    {
+                      "fontSize": 20,
+                      "height": 32,
+                      "paddingBottom": 0,
+                      "paddingLeft": 0,
+                      "paddingRight": 0,
+                      "paddingTop": 0,
+                      "width": "100%",
+                    },
+                    {
+                      "opacity": 0,
+                    },
+                  ],
+                ]
+              }
+            >
+              <TextInput
+                allowFontScaling={false}
+                autoCapitalize="none"
+                autoCorrect={false}
+                blurOnSubmit={false}
+                editable={true}
+                keyboardType="number-pad"
+                multiline={false}
+                onBlur={[Function]}
+                onChangeText={[Function]}
+                onEndEditing={[Function]}
+                onFocus={[Function]}
+                onSubmitEditing={[Function]}
+                placeholderTextColor="#BAADA7"
+                removeClippedSubviews={false}
+                style={
+                  [
+                    {
+                      "flexShrink": 1,
+                      "fontFamily": "Baloo2-Regular",
+                      "fontSize": 18,
+                      "height": 40,
+                      "letterSpacing": 0.18,
+                      "lineHeight": 29.25,
+                      "paddingBottom": 0,
+                      "paddingTop": 0,
+                      "width": "100%",
+                    },
+                    {
+                      "color": "#2B1911",
+                    },
+                    false,
+                    {
+                      "borderColor": "transparent",
+                      "borderWidth": 1,
+                    },
+                    false,
+                    false,
+                  ]
+                }
+                textAlignVertical="center"
+                value="0"
+              />
+              <View
+                style={
+                  {
+                    "display": "flex",
+                    "flexDirection": "row",
+                  }
+                }
+              />
+            </View>
+            <Text
+              allowFontScaling={false}
+              style={
+                [
+                  {
+                    "color": "#2B1911",
+                    "fontFamily": "Baloo2-Regular",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 24,
+                  },
+                  [
+                    {
+                      "fontFamily": "Baloo2-Medium",
+                      "fontSize": 14,
+                      "letterSpacing": 0.14,
+                      "lineHeight": 20,
+                      "marginLeft": 12,
+                      "marginTop": 4,
+                    },
+                    {
+                      "color": "#DF321F",
+                    },
+                  ],
+                ]
+              }
+            >
+               
             </Text>
           </View>
         </View>
@@ -2568,6 +3608,10 @@ exports[`Buy should render correctly with free trades 1`] = `
             {
               "alignItems": "center",
               "flexDirection": "row",
+              "marginLeft": -24,
+              "marginRight": -24,
+              "paddingLeft": 24,
+              "paddingRight": 24,
               "position": "absolute",
               "top": 0,
               "transform": [
@@ -2630,6 +3674,10 @@ exports[`Buy should render correctly with free trades 1`] = `
             {
               "alignItems": "center",
               "flexDirection": "row",
+              "marginLeft": -24,
+              "marginRight": -24,
+              "paddingLeft": 24,
+              "paddingRight": 24,
               "position": "absolute",
               "top": 0,
               "transform": [

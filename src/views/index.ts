@@ -25,7 +25,7 @@ import OfferPublished from './search/OfferPublished'
 import Search from './search/Search'
 import SelectWallet from './selectWallet/SelectWallet'
 import SetRefundWallet from './selectWallet/SetRefundWallet'
-import FundEscrow from './sell/FundEscrow'
+import FundEscrow from './fundEscrow/FundEscrow'
 import Sell from './sell/Sell'
 import SellPreferences from './sell/SellPreferences'
 import AboutPeach from './settings/aboutPeach/AboutPeach'
@@ -55,6 +55,7 @@ import Welcome from './welcome/Welcome'
 import YourTrades from './yourTrades/YourTrades'
 import NewBadge from './overlays/NewBadge'
 import { BitcoinLoading } from './loading/BitcoinLoading'
+import { WrongFundingAmount } from './wrongFundingAmount/WrongFundingAmount'
 
 type ViewType = {
   name: keyof RootStackParamList
@@ -108,6 +109,7 @@ const sellFlow: ViewType[] = [
   { name: 'sell', component: Sell, ...defaultConfig, animationEnabled: false },
   { name: 'sellPreferences', component: SellPreferences, ...defaultConfig },
   { name: 'fundEscrow', component: FundEscrow, ...defaultConfig },
+  { name: 'wrongFundingAmount', component: WrongFundingAmount, ...defaultConfig },
   { name: 'selectWallet', component: SelectWallet, ...defaultConfig },
   { name: 'setRefundWallet', component: SetRefundWallet, ...defaultConfig },
 ]

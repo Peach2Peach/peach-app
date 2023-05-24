@@ -2,6 +2,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import { act, renderHook, waitFor } from '@testing-library/react-native'
 import { account1 } from '../../../../tests/unit/data/accountData'
 import { sellOffer } from '../../../../tests/unit/data/offerData'
+import { unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
 import { QueryClientWrapper, queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
 import { useHeaderState } from '../../../components/header/store'
 import { setAccount, updateAccount } from '../../../utils/account'
@@ -9,7 +10,6 @@ import i18n from '../../../utils/i18n'
 import { defaultFundingStatus } from '../../../utils/offer/constants'
 import { useFundEscrowSetup } from './useFundEscrowSetup'
 import { saveOffer } from '../../../utils/offer'
-import { unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
 
 jest.useFakeTimers()
 
@@ -136,7 +136,7 @@ describe('useFundEscrowSetup', () => {
   it('should render header correctly for unfunded offers', () => {
     const { result } = renderHook(useFundEscrowSetup, { wrapper })
     expect(useHeaderState.getState().title).toBe(i18n('sell.escrow.title'))
-    expect(useHeaderState.getState().hideGoBackButton).toBeTruthy()
+    expect(useHeaderState.getState().hideGoBackButton).toBeFalsy()
     expect(useHeaderState.getState().icons?.[0].id).toBe('xCircle')
     expect(useHeaderState.getState().icons?.[0].onPress).toEqual(result.current.cancelOffer)
     expect(useHeaderState.getState().icons?.[1].id).toBe('helpCircle')
@@ -156,7 +156,7 @@ describe('useFundEscrowSetup', () => {
     })
     renderHook(useFundEscrowSetup, { wrapper })
     expect(useHeaderState.getState().title).toBe(i18n('sell.funding.mempool.title'))
-    expect(useHeaderState.getState().hideGoBackButton).toBeTruthy()
+    expect(useHeaderState.getState().hideGoBackButton).toBeFalsy()
     expect(useHeaderState.getState().icons?.[0].id).toBe('helpCircle')
     expect(useHeaderState.getState().icons?.[0].onPress).toEqual(showHelpMock)
   })

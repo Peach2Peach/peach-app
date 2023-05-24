@@ -1,11 +1,11 @@
 import { renderHook, waitFor } from '@testing-library/react-native'
 import { account1 } from '../../../../tests/unit/data/accountData'
 import { sellOffer } from '../../../../tests/unit/data/offerData'
+import { unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
 import { QueryClientWrapper } from '../../../../tests/unit/helpers/QueryClientWrapper'
 import { updateAccount } from '../../../utils/account'
 import { defaultFundingStatus } from '../../../utils/offer/constants'
 import { useCreateEscrow } from './useCreateEscrow'
-import { unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
 
 jest.useFakeTimers()
 
