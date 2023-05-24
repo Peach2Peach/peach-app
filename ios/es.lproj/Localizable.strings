@@ -10,8 +10,6 @@
 "notification.body.offer.sellOfferExpired" = "Tu oferta de venta ha sido cerrada después de no recibir una match por %2$@ días.";
 "notification.title.offer.outsideRange" = "Bitcoin se disparó";
 "notification.body.offer.outsideRange" = "La oferta %1$@ está fuera del rango de negociación y no se mostrará a los compradores. Puedes optar por cancelar la oferta y hacer una nueva, o dejarla tal como está.";
-"notification.title.offer.buyOfferImminentExpiry" = "La oferta no ha recibido matches en 23 días";
-"notification.body.offer.buyOfferImminentExpiry" = "Tu oferta de compra %1$@ todavía no ha recibido una match, se eliminará en una semana.";
 "notification.title.offer.buyOfferExpired" = "La oferta no ha recibido match en %2$@ días";
 "notification.body.offer.buyOfferExpired" = "Tu oferta de compra %1$@ no ha recibido una match después de %2$@ días y ha sido eliminada.";
 "notification.title.offer.matchBuyer" = "Hay matches esperándote";

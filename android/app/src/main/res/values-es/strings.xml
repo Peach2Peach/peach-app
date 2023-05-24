@@ -12,8 +12,6 @@
     <string name="notification.body.offer.sellOfferExpired">Tu oferta de venta ha sido cerrada después de no recibir ningún match durante %2$s días.</string>
     <string name="notification.title.offer.outsideRange">Bitcoin ha subido</string>
     <string name="notification.body.offer.outsideRange">La oferta %1$s está fuera del rango comercial y no se mostrará a los compradores. Puede optar por cancelar la oferta y hacer una nueva, o dejarla como está.</string>
-    <string name="notification.title.offer.buyOfferImminentExpiry">La oferta no ha recibido un match durante 23 días.</string>
-    <string name="notification.body.offer.buyOfferImminentExpiry">Tu oferta de compra %1$s todavía no ha recibido un match. Se eliminará en una semana.</string>
     <string name="notification.title.offer.buyOfferExpired">La oferta no ha recibido un match durante %2$s días.</string>
     <string name="notification.body.offer.buyOfferExpired">Tu oferta de compra %1$s no ha recibido un match después de %2$s días y ha sido eliminada.</string>
     <string name="notification.title.offer.matchBuyer">Hay matches esperando por ti.</string>
