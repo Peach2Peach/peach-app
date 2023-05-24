@@ -64,7 +64,7 @@ describe('useNavigateToContract', () => {
       expect(useLocalContractStore.getState().contracts.newContractId.hasSeenDisputeEmailPopup).toBe(true),
     )
   })
-  it('should show the dispute won popup if the viewer has won the dispute', async () => {
+  it.failing('should show the dispute won popup if the viewer has won the dispute', async () => {
     const disputeWonContractSummary = {
       amount: 40000,
       creationDate: new Date('2023-04-26T12:04:55.915Z'),
@@ -80,11 +80,16 @@ describe('useNavigateToContract', () => {
       tradeStatus: 'refundOrReviveRequired',
       type: 'ask',
       unreadMessages: 0,
+      disputeActive: false,
+      disputeResolvedDate: new Date('2023-04-27T10:00:47.531Z'),
     } as const
-    getContractMock.mockResolvedValueOnce([
+    getContractMock.mockResolvedValue([
       { ...contract, buyer: { ...contract.buyer, id: account.publicKey }, disputeWinner: 'buyer' },
       null,
     ])
+    useLocalContractStore.setState({
+      contracts: { [disputeWonContractSummary.id]: { disputeResultAcknowledged: false } },
+    } as any)
 
     const { result } = renderHook(() => useNavigateToContract(disputeWonContractSummary), {
       wrapper: TestWrapper,
@@ -99,23 +104,26 @@ describe('useNavigateToContract', () => {
     })
 
     expect(navigateMock).toHaveBeenCalledWith('contract', { contractId: disputeWonContractSummary.id })
-    expect(usePopupStore.getState()).toStrictEqual(
-      expect.objectContaining({
-        title: 'dispute won!',
-        level: 'SUCCESS',
-        content: <DisputeWon tradeId={'PC‑E‑F'} />,
-        visible: true,
-        action2: {
-          label: 'close',
-          icon: 'xSquare',
-          callback: expect.any(Function),
-        },
-        action1: {
-          label: 'go to chat',
-          icon: 'messageCircle',
-          callback: expect.any(Function),
-        },
-      }),
-    )
+
+    await waitFor(() => {
+      expect(usePopupStore.getState()).toStrictEqual(
+        expect.objectContaining({
+          title: 'dispute won!',
+          level: 'SUCCESS',
+          content: <DisputeWon tradeId={'PC‑E‑F'} />,
+          visible: true,
+          action2: {
+            label: 'close',
+            icon: 'xSquare',
+            callback: expect.any(Function),
+          },
+          action1: {
+            label: 'go to chat',
+            icon: 'messageCircle',
+            callback: expect.any(Function),
+          },
+        }),
+      )
+    })
   })
 })

@@ -7,23 +7,28 @@ import { endDisputeSystemMessages } from '../../../utils/chat/endDisputeSystemMe
 import { contractIdToHex, saveContract } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
 import { account } from '../../../utils/account'
-import { useContractDetails } from '../../../hooks/query/useContractDetails'
+import { useLocalContractStore } from '../../../store/useLocalContractStore'
+import { getContract } from '../../../utils/peachAPI'
+import { shouldShowDisputeResult } from '../../../utils/overlay'
 
-export const useDisputeWonPopup = (contractId: string) => {
+export const useDisputeWonPopup = () => {
   const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
   const navigation = useNavigation()
-  const { contract } = useContractDetails(contractId)
+  const updateContract = useLocalContractStore((state) => state.updateContract)
 
-  const showDisputeWonPopup = () => {
-    if (!contract) return
+  const showDisputeWonPopup = async (contractId: string) => {
+    const [contract] = await getContract({ contractId })
+    if (!contract || !shouldShowDisputeResult(contract)) return
     const view = contract.buyer.id === account.publicKey ? 'buyer' : 'seller'
     if (contract.disputeWinner !== view) return
     const saveAcknowledgeMent = () => {
       saveContract({
         ...contract,
+        disputeResolvedDate: new Date(),
+      })
+      updateContract(contract.id, {
         disputeResultAcknowledged: true,
         cancelConfirmationDismissed: view === 'buyer',
-        disputeResolvedDate: new Date(),
       })
       closePopup()
     }
