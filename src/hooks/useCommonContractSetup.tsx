@@ -15,7 +15,7 @@ import {
 } from '../utils/contract'
 import { saveOffer } from '../utils/offer'
 import { PeachWSContext } from '../utils/peachAPI/websocket'
-import { useHandleNotifications as useHandlePushNotifications } from './notifications/usePushHandleNotifications'
+import { useHandleNotifications } from './notifications/useHandleNotifications'
 import { useContractDetails } from './query/useContractDetails'
 import { useOfferDetails } from './query/useOfferDetails'
 import { useShowErrorBanner } from './useShowErrorBanner'
@@ -40,7 +40,7 @@ export const useCommonContractSetup = (contractId: string) => {
     })
   }, [])
 
-  useHandlePushNotifications(
+  useHandleNotifications(
     useCallback(
       (message) => {
         if (message.data?.contractId === contractId) refetch()
