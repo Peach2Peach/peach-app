@@ -14,10 +14,10 @@ type ContractStatusInfoProps = {
 export const ContractStatusInfo = ({ requiredAction }: ContractStatusInfoProps): ReactElement => {
   const { contract, view } = useContractContext()
 
-  if (contract.disputeActive) return <></>
-  if (shouldShowConfirmCancelTradeRequest(contract, view)) return <></>
+  if (contract.disputeActive || shouldShowConfirmCancelTradeRequest(contract, view) || contract.cancelationRequested) {
+    return <></>
+  }
 
-  if (contract.cancelationRequested) <></>
   if (requiredAction === 'sendPayment' && !isCashTrade(contract.paymentMethod)) {
     const paymentExpectedBy = getPaymentExpectedBy(contract)
     if (Date.now() < paymentExpectedBy) {
