@@ -182,6 +182,7 @@
   "offer.publishing": "publishing",
   "contract.paymentDetails": "payment details",
   "contract.provideEmail": "provide email",
+  "contract.goToNewTrade": "go to new trade",
   "contract.trade": "trade $0",
   "contract.tradeCompleted": "trade completed",
   "contract.tradeCanceled": "trade canceled",
