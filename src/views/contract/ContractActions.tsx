@@ -15,12 +15,13 @@ type Props = ComponentProps & {
 export const ContractActions = ({ style, ...contractCTAProps }: Props) => {
   const { contract } = useContractContext()
   const { isEmailRequired, tradeStatus, disputeWinner } = contract
+  const shouldShowReleaseEscrow = tradeStatus === 'releaseEscrow' && !!disputeWinner
   return (
     <View style={[tw`gap-3`, style]}>
       {!!isEmailRequired && <ProvideEmailButton style={tw`self-center`} />}
-      <ContractCTA {...{ ...contractCTAProps }} />
+      {!shouldShowReleaseEscrow && <ContractCTA {...{ ...contractCTAProps }} />}
       {tradeStatus === 'refundOrReviveRequired' && !!disputeWinner && <ResolveDisputeSliders />}
-      {tradeStatus === 'releaseEscrow' && !!disputeWinner && <ReleaseEscrowSlider {...{ contract }} />}
+      {shouldShowReleaseEscrow && <ReleaseEscrowSlider {...{ contract }} />}
     </View>
   )
 }
