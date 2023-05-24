@@ -4,7 +4,7 @@ import tw from '../../../styles/tailwind'
 import { getChat } from '../../../utils/chat'
 import { ChatMessage } from './ChatMessage'
 
-const PAGE_SIZE = 21
+const PAGE_SIZE = 22
 
 type ChatBoxProps = {
   chat: Chat

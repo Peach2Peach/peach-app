@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ContinueTradeSlider renders correctly 1`] = `
+<SlideToUnlock
+  iconId="arrowRightCircle"
+  label1="continue trade"
+  onUnlock={[MockFunction]}
+/>
+`;
