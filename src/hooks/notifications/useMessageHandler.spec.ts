@@ -131,7 +131,7 @@ describe('useMessageHandler', () => {
     expect(overlayEventHanderMock).toHaveBeenCalledWith(mockRemoteMessage.data)
   })
 
-  it('should call popup event when type is found in offerPopupEvents and appstate is active', async () => {
+  it('should call popup event when type is found in offerPopupEvents', async () => {
     const mockRemoteMessage = {
       data: {
         type: 'offerPopupEvent',
@@ -142,37 +142,14 @@ describe('useMessageHandler', () => {
       fcmOptions: {},
     } as FirebaseMessagingTypes.RemoteMessage
     const { result: onMessageHandler } = renderHook(() => useMessageHandler(mockGetCurrentPage))
-    act(() => {
-      appStateSpy.mock.calls[0][1]('active')
-    })
     await act(async () => {
       await onMessageHandler.current(mockRemoteMessage)
     })
 
     expect(offerPopupEventHandlerMock).toHaveBeenCalledWith(mockRemoteMessage.data, mockRemoteMessage.notification)
   })
-  it('should not call offer popup event when app state is not active', async () => {
-    const mockRemoteMessage = {
-      data: {
-        type: 'offerPopupEvent',
-      },
-      notification: {
-        bodyLocArgs: ['arg1', 'arg2'],
-      },
-      fcmOptions: {},
-    } as FirebaseMessagingTypes.RemoteMessage
-    const { result: onMessageHandler } = renderHook(() => useMessageHandler(mockGetCurrentPage))
-    act(() => {
-      appStateSpy.mock.calls[0][1]('inactive')
-    })
-    await act(async () => {
-      await onMessageHandler.current(mockRemoteMessage)
-    })
 
-    expect(offerPopupEventHandlerMock).not.toHaveBeenCalled()
-  })
-
-  it('should call popup event when type is found in contractPopupEvents and appstate is active', async () => {
+  it('should call popup event when type is found in contractPopupEvents', async () => {
     const mockRemoteMessage = {
       data: {
         type: 'contractPopupEvent',
@@ -184,11 +161,6 @@ describe('useMessageHandler', () => {
       fcmOptions: {},
     } as FirebaseMessagingTypes.RemoteMessage
     const { result: onMessageHandler } = renderHook(() => useMessageHandler(mockGetCurrentPage))
-
-    act(() => {
-      appStateSpy.mock.calls[0][1]('active')
-    })
-
     await act(async () => {
       await onMessageHandler.current(mockRemoteMessage)
     })
@@ -227,29 +199,6 @@ describe('useMessageHandler', () => {
     ;(getContract as jest.Mock).mockReturnValue(undefined)
     ;(getContractAPI as jest.Mock).mockResolvedValue([null])
     const { result: onMessageHandler } = renderHook(() => useMessageHandler(mockGetCurrentPage))
-    await act(async () => {
-      await onMessageHandler.current(mockRemoteMessage)
-    })
-
-    expect(contractPopupEventHandlerMock).not.toHaveBeenCalled()
-  })
-  it('should not call contract popup event when app state is not active', async () => {
-    const mockRemoteMessage = {
-      data: {
-        type: 'contractPopupEvent',
-        contractId: '1',
-      },
-      notification: {
-        bodyLocArgs: ['arg1', 'arg2'],
-      },
-      fcmOptions: {},
-    } as FirebaseMessagingTypes.RemoteMessage
-    const { result: onMessageHandler } = renderHook(() => useMessageHandler(mockGetCurrentPage))
-
-    act(() => {
-      appStateSpy.mock.calls[0][1]('inactive')
-    })
-
     await act(async () => {
       await onMessageHandler.current(mockRemoteMessage)
     })
