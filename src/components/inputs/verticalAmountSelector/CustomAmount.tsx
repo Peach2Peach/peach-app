@@ -9,7 +9,7 @@ type Props = ComponentProps & {
   onChange: (amount: number) => void
 }
 
-export const CustomAmount = ({ amount, onChange, style }: Props) => {
+export const CustomAmount = ({ amount = 0, onChange, style }: Props) => {
   const { updateCustomAmount, clearCustomAmount, customFiatPrice, updateCustomFiatAmount, displayCurrency }
     = useCustomAmountSetup({ amount, onChange })
 
@@ -28,11 +28,11 @@ export const CustomAmount = ({ amount, onChange, style }: Props) => {
         />
       </View>
       <View>
-        <View style={[tw`pl-3 pr-4 h-8 justify-center border rounded-full border-black-4 absolute`]}>
+        <View style={[tw`absolute justify-center h-8 pl-3 pr-4 border rounded-full border-black-4`]}>
           <PriceFormat
             amount={customFiatPrice}
             currency={displayCurrency}
-            style={tw`font-courier-prime text-lg text-black-1`}
+            style={tw`text-lg font-courier-prime text-black-1`}
           />
         </View>
         <Input
