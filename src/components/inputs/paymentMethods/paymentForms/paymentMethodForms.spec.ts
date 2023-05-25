@@ -36,7 +36,7 @@ describe('paymentMethodForms', () => {
       straksbetaling: { component: Template7, fields: expect.any(Array) },
       keksPay: { component: Template3, fields: expect.any(Array) },
       friends24: { component: Template3, fields: expect.any(Array) },
-      n26: { component: Template3, fields: expect.any(Array) },
+      n26: { component: Template6, fields: expect.any(Array) },
       paylib: { component: Template3, fields: expect.any(Array) },
       lydia: { component: Template3, fields: expect.any(Array) },
       verse: { component: Template3, fields: expect.any(Array) },
