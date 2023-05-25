@@ -9,7 +9,7 @@ import { useOfferPopupEvents } from './eventHandler/offer/useOfferPopupEvents'
 import { getContract as getContractAPI } from '../../utils/peachAPI'
 import { useContractPopupEvents } from './eventHandler/contract/useContractPopupEvents'
 import { getContract } from '../../utils/contract'
-import { useAppState } from '../useAppState'
+import { AppState } from 'react-native'
 
 export const useMessageHandler = (getCurrentPage: () => keyof RootStackParamList | undefined) => {
   const [, updateMessage] = useContext(MessageContext)
@@ -18,7 +18,6 @@ export const useMessageHandler = (getCurrentPage: () => keyof RootStackParamList
   const offerPopupEvents = useOfferPopupEvents()
   const contractPopupEvents = useContractPopupEvents()
   const stateUpdateEvents = useStateUpdateEvents()
-  const appState = useAppState()
 
   const onMessageHandler = useCallback(
     async (remoteMessage: FirebaseMessagingTypes.RemoteMessage): Promise<void> => {
@@ -43,7 +42,7 @@ export const useMessageHandler = (getCurrentPage: () => keyof RootStackParamList
         contractPopupEvents[type]?.(contract)
       } else if (stateUpdateEvents[type]) {
         stateUpdateEvents[type]?.(data)
-      } else if (appState === 'active') {
+      } else if (AppState.currentState === 'active') {
         updateMessage({
           msgKey: 'notification.' + type,
           bodyArgs: remoteMessage.notification?.bodyLocArgs,
@@ -53,7 +52,6 @@ export const useMessageHandler = (getCurrentPage: () => keyof RootStackParamList
       }
     },
     [
-      appState,
       contractPopupEvents,
       getCurrentPage,
       getPNActionHandler,
