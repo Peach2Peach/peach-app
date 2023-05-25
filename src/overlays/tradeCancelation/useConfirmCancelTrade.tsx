@@ -21,8 +21,8 @@ export const useConfirmCancelTrade = () => {
   const navigation = useNavigation()
   const showError = useShowErrorBanner()
   const closeOverlay = useCallback(() => updateOverlay({ visible: false }), [updateOverlay])
-  const [customPayoutAddress, customPayoutAddressLabel] = useSettingsStore(
-    (state) => [state.payoutAddress, state.payoutAddressLabel],
+  const [customPayoutAddress, customPayoutAddressLabel, isPeachWalletActive] = useSettingsStore(
+    (state) => [state.payoutAddress, state.payoutAddressLabel, state.peachWalletActive],
     shallow,
   )
 
@@ -45,7 +45,12 @@ export const useConfirmCancelTrade = () => {
     async (contract: Contract) => {
       const isCash = isCashTrade(contract.paymentMethod)
       const canRepublish = !getOfferExpiry(getSellOfferFromContract(contract)).isExpired
-      const walletName = getWalletLabelFromContract(contract, customPayoutAddress, customPayoutAddressLabel)
+      const walletName = getWalletLabelFromContract({
+        contract,
+        customPayoutAddress,
+        customPayoutAddressLabel,
+        isPeachWalletActive,
+      })
       updateOverlay({
         title: getSellerCanceledTitle(contract.paymentMethod),
         visible: true,
@@ -65,7 +70,7 @@ export const useConfirmCancelTrade = () => {
       if (sellOffer) saveOffer(sellOffer)
       navigation.replace('contract', { contractId: contract.id })
     },
-    [customPayoutAddress, customPayoutAddressLabel, updateOverlay, navigation, showError],
+    [customPayoutAddress, customPayoutAddressLabel, isPeachWalletActive, updateOverlay, navigation, showError],
   )
 
   const showConfirmOverlay = useCallback(

@@ -19,20 +19,27 @@ jest.mock('./getSellerDisputeStatusText', () => ({
   getSellerDisputeStatusText: jest.fn(() => 'disputeStatusText'),
 }))
 
+// eslint-disable-next-line max-lines-per-function
 describe('getSellerStatusText', () => {
   it('should return the correct status if the buyer canceled the trade (republish available)', () => {
     expect(
-      getSellerStatusText({ canceled: true, canceledBy: 'buyer', tradeStatus: 'refundOrReviveRequired' } as Contract),
+      getSellerStatusText(
+        { canceled: true, canceledBy: 'buyer', tradeStatus: 'refundOrReviveRequired' } as Contract,
+        true,
+      ),
     ).toBe('You\'ll need to decide if you want to re-publish this offer, or refund the escrow to your walletLabel.')
   })
   it('should return the correct status if the buyer canceled the trade (republish unavailable)', () => {
     expect(
-      getSellerStatusText({ canceled: true, canceledBy: 'buyer', tradeStatus: 'refundTxSignatureRequired' } as Contract),
+      getSellerStatusText(
+        { canceled: true, canceledBy: 'buyer', tradeStatus: 'refundTxSignatureRequired' } as Contract,
+        true,
+      ),
     ).toBe('The buyer canceled the trade and you can now get refunded.')
   })
   it('should return the correct status if the payment was too late and contract is not canceled', () => {
     isPaymentTooLateMock.mockReturnValueOnce(true)
-    expect(getSellerStatusText({ canceled: false } as Contract)).toBe(i18n('contract.seller.paymentWasTooLate'))
+    expect(getSellerStatusText({ canceled: false } as Contract, true)).toBe(i18n('contract.seller.paymentWasTooLate'))
   })
   it('should return the correct status if the offer was republished', () => {
     getSellOfferFromContractMock.mockReturnValueOnce({
@@ -40,42 +47,48 @@ describe('getSellerStatusText', () => {
       // @ts-ignore
       newOfferId: 'newOfferId',
     })
-    expect(getSellerStatusText({} as any)).toBe(i18n('contract.seller.republished'))
+    expect(getSellerStatusText({} as any, true)).toBe(i18n('contract.seller.republished'))
   })
   it('should return the correct status if the offer was refunded', () => {
     getSellOfferFromContractMock.mockReturnValueOnce({
       refunded: true,
       newOfferId: undefined,
     })
-    expect(getSellerStatusText({} as any)).toBe(i18n('contract.seller.refunded', 'walletLabel'))
+    expect(getSellerStatusText({} as any, true)).toBe(i18n('contract.seller.refunded', 'walletLabel'))
   })
   it('should return the dispute status text if there is a dispute winner', () => {
-    expect(getSellerStatusText({ disputeWinner: 'buyer' } as Contract)).toBe('disputeStatusText')
+    expect(getSellerStatusText({ disputeWinner: 'buyer' } as Contract, true)).toBe('disputeStatusText')
   })
   it('should return the correct status if republish is available (no dispute)', () => {
-    expect(getSellerStatusText({ tradeStatus: 'refundOrReviveRequired' } as Contract)).toBe(
+    expect(getSellerStatusText({ tradeStatus: 'refundOrReviveRequired' } as Contract, true)).toBe(
       'You\'ll need to decide if you want to re-publish this trade, or refund the escrow to your walletLabel.',
     )
     expect(
-      getSellerStatusText({
-        canceled: true,
-        canceledBy: 'buyer',
-        cancelationRequested: true,
-        tradeStatus: 'refundOrReviveRequired',
-      } as Contract),
+      getSellerStatusText(
+        {
+          canceled: true,
+          canceledBy: 'buyer',
+          cancelationRequested: true,
+          tradeStatus: 'refundOrReviveRequired',
+        } as Contract,
+        true,
+      ),
     ).toBe('You\'ll need to decide if you want to re-publish this trade, or refund the escrow to your walletLabel.')
   })
   it('should return the correct status if republish is not available', () => {
-    expect(getSellerStatusText({ tradeStatus: 'refundTxSignatureRequired' } as Contract)).toBe(
+    expect(getSellerStatusText({ tradeStatus: 'refundTxSignatureRequired' } as Contract, true)).toBe(
       i18n('contract.seller.refund'),
     )
     expect(
-      getSellerStatusText({
-        canceled: true,
-        canceledBy: 'buyer',
-        cancelationRequested: true,
-        tradeStatus: 'refundTxSignatureRequired',
-      } as Contract),
+      getSellerStatusText(
+        {
+          canceled: true,
+          canceledBy: 'buyer',
+          cancelationRequested: true,
+          tradeStatus: 'refundTxSignatureRequired',
+        } as Contract,
+        true,
+      ),
     ).toBe(i18n('contract.seller.refund'))
   })
 })
