@@ -348,7 +348,7 @@
   "wallet.withdraw.help.text": "Aquí puedes enviar el contenido de tu cartera Peach a otra cartera de tu elección, por ejemplo una cartera de hardware para mayor seguridad. \n\nPeach recomienda la cartera de hardware BitBox para almacenamiento seguro.",
   "wallet.loading": "cargando cartera,\nun momento...",
   "buy.title": "comprar bitcoin",
-  "buy.subtitle": "¿cuánto quieres comprar?",
+  "buy.subtitle": "comprar entre",
   "buy.subtitle.highlight": "comprar",
   "buy.meansOfPayment": "¿cómo te gustaría pagar?",
   "buy.summary.title": "publicar oferta de compra",

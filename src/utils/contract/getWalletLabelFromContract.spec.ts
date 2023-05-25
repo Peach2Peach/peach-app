@@ -19,7 +19,14 @@ describe('getWalletLabelFromContract', () => {
     setPeachWallet(new PeachWallet())
   })
   it('should return "custom payout address" by default', () => {
-    expect(getWalletLabelFromContract(contract, undefined, undefined)).toBe('custom payout address')
+    expect(
+      getWalletLabelFromContract({
+        contract,
+        customPayoutAddress: undefined,
+        customPayoutAddressLabel: undefined,
+        isPeachWalletActive: true,
+      }),
+    ).toBe('custom payout address')
   })
 
   it('should return the wallet label from the sell offer', () => {
@@ -27,6 +34,13 @@ describe('getWalletLabelFromContract', () => {
       ...account1,
       offers: [{ ...sellOffer, walletLabel: 'walletLabel', id: getSellOfferIdFromContract(contract) }],
     })
-    expect(getWalletLabelFromContract(contract, undefined, undefined)).toBe('walletLabel')
+    expect(
+      getWalletLabelFromContract({
+        contract,
+        customPayoutAddress: undefined,
+        customPayoutAddressLabel: undefined,
+        isPeachWalletActive: true,
+      }),
+    ).toBe('walletLabel')
   })
 })

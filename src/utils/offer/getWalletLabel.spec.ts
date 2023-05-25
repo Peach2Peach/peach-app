@@ -23,6 +23,7 @@ describe('getWalletLabel', () => {
       address,
       customPayoutAddress,
       customPayoutAddressLabel,
+      isPeachWalletActive: true,
     })
 
     expect(result).toEqual(customPayoutAddressLabel)
@@ -39,6 +40,7 @@ describe('getWalletLabel', () => {
       address,
       customPayoutAddress,
       customPayoutAddressLabel,
+      isPeachWalletActive: true,
     })
 
     expect(result).toEqual(i18n('peachWallet'))
@@ -55,6 +57,7 @@ describe('getWalletLabel', () => {
       address,
       customPayoutAddress,
       customPayoutAddressLabel,
+      isPeachWalletActive: true,
     })
 
     expect(result).toEqual(customPayoutAddressLabel)
@@ -69,6 +72,7 @@ describe('getWalletLabel', () => {
       address,
       customPayoutAddress,
       customPayoutAddressLabel,
+      isPeachWalletActive: true,
     })
 
     expect(result).toEqual('custom payout address')
@@ -81,6 +85,7 @@ describe('getWalletLabel', () => {
       address: undefined,
       customPayoutAddress,
       customPayoutAddressLabel,
+      isPeachWalletActive: true,
     })
 
     expect(result).toEqual('custom payout address')
@@ -93,6 +98,17 @@ describe('getWalletLabel', () => {
       address,
       customPayoutAddress,
       customPayoutAddressLabel: undefined,
+      isPeachWalletActive: true,
+    })
+
+    expect(result).toEqual('custom payout address')
+  })
+  it('returns "custom payout address" if the peach wallet is not active', () => {
+    const result = getWalletLabel({
+      address: 'address',
+      customPayoutAddress: undefined,
+      customPayoutAddressLabel: undefined,
+      isPeachWalletActive: false,
     })
 
     expect(result).toEqual('custom payout address')
