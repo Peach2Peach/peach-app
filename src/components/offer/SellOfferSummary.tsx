@@ -1,5 +1,5 @@
 import { NETWORK } from '@env'
-import { ReactElement, useState } from 'react'
+import { useState } from 'react'
 import { TouchableOpacity, View } from 'react-native'
 import tw from '../../styles/tailwind'
 import { showAddress } from '../../utils/bitcoin'
@@ -8,19 +8,19 @@ import { getCurrencies } from '../../utils/paymentMethod'
 import Icon from '../Icon'
 import { PaymentMethod } from '../matches/PaymentMethod'
 import { getPremiumColor } from '../matches/utils'
-import { TabbedNavigation } from '../navigation/TabbedNavigation'
+import { CurrencySelection } from '../navigation'
 import { SatsFormat, Text } from '../text'
 import { HorizontalLine } from '../ui'
 import { WalletLabel } from './WalletLabel'
 
-type SellOfferSummaryProps = ComponentProps & {
+type Props = ComponentProps & {
   offer: SellOffer | SellOfferDraft
 }
 
 const isSellOfferWithDefinedEscrow = (offer: SellOffer | SellOfferDraft): offer is SellOffer & { escrow: string } =>
   'escrow' in offer && !!offer.escrow
 
-export const SellOfferSummary = ({ offer, style }: SellOfferSummaryProps): ReactElement => {
+export const SellOfferSummary = ({ offer, style }: Props) => {
   const currencies = getCurrencies(offer.meansOfPayment)
   const [selectedCurrency, setSelectedCurrency] = useState(currencies[0])
 
@@ -44,11 +44,8 @@ export const SellOfferSummary = ({ offer, style }: SellOfferSummaryProps): React
       </Text>
       <HorizontalLine style={tw`w-64 my-4`} />
       <Text style={tw`self-center body-m text-black-2`}>{i18n('offer.summary.withTheseMethods')}</Text>
-      <TabbedNavigation
-        items={currencies.map((currency) => ({ id: currency, display: currency.toLowerCase() }))}
-        selected={{ id: selectedCurrency, display: selectedCurrency }}
-        select={(c) => setSelectedCurrency(c.id as Currency)}
-      />
+      <CurrencySelection currencies={currencies} selected={selectedCurrency} select={setSelectedCurrency} />
+
       <View style={tw`flex-row flex-wrap items-center justify-center mt-3 mb-2`}>
         {offer.meansOfPayment[selectedCurrency]?.map((p) => (
           <PaymentMethod key={`sellOfferMethod-${p}`} paymentMethod={p} style={tw`m-1`} />
@@ -57,7 +54,9 @@ export const SellOfferSummary = ({ offer, style }: SellOfferSummaryProps): React
 
       <HorizontalLine style={tw`w-64 my-4`} />
       <Text style={tw`self-center body-m text-black-2`}>{i18n('offer.summary.refundWallet')}</Text>
-      <WalletLabel label={offer.walletLabel} address={offer.returnAddress} style={tw`self-center subtitle-1`} />
+      <Text style={tw`self-center subtitle-1`}>
+        <WalletLabel label={offer.walletLabel} address={offer.returnAddress} />
+      </Text>
 
       {isSellOfferWithDefinedEscrow(offer) && (
         <>

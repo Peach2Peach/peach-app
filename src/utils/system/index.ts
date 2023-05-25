@@ -3,6 +3,7 @@ export { checkNotificationStatusAndroid } from './checkNotificationStatusAndroid
 export { checkNotificationStatusIOS } from './checkNotificationStatusIOS'
 export { compatibilityCheck } from './compatibilityCheck'
 export { dateTimeReviver } from './dateTimeReviver'
+export { getDeviceLocale } from './getDeviceLocale'
 export { getOS } from './getOS'
 export { isAndroid } from './isAndroid'
 export { isIOS } from './isIOS'

@@ -1,7 +1,7 @@
-import { Icon } from '../../../components'
-import tw from '../../../styles/tailwind'
 import { HeaderConfig } from '../../../components/header/store'
+import tw from '../../../styles/tailwind'
 import { canCancelContract, canOpenDispute } from '../../../utils/contract'
+import { headerIcons } from '../../../utils/layout/headerIcons'
 
 /* eslint max-params: ["error", 4]*/
 export const getHeaderChatActions = (
@@ -21,12 +21,14 @@ export const getHeaderChatActions = (
   const icons: HeaderConfig['icons'] = []
   if (!contract.paymentMade && !contract.canceled) {
     icons.push({
-      iconComponent: <Icon style={!canCancel && tw`opacity-50`} id="xCircle" color={tw`text-error-main`.color} />,
+      ...headerIcons.cancel,
+      style: !canCancel ? tw`opacity-50` : undefined,
       onPress: openCancelTrade,
     })
   }
   icons.push({
-    iconComponent: <Icon style={!canDispute && tw`opacity-50`} id="alertOctagon" color={tw`text-error-main`.color} />,
+    ...headerIcons.warning,
+    style: !canDispute ? tw`opacity-50` : undefined,
     onPress: raiseDispute,
   })
   return icons

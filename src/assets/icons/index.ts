@@ -4,12 +4,11 @@ import alertOctagon from './alertOctagon.svg'
 import alertTriangle from './alertTriangle.svg'
 import alignJustify from './alignJustify.svg'
 import alignLeft from './alignLeft.svg'
+import arrowDown from './arrowDown.svg'
 import arrowLeftCircle from './arrowLeftCircle.svg'
 import arrowRightCircle from './arrowRightCircle.svg'
 import award from './award.svg'
 import awardCircleInverted from './awardCircleInverted.svg'
-import bellSmall from './bellSmall.svg'
-import bitbox from './bitbox.svg'
 import bitcoin from './bitcoin.svg'
 import calendar from './calendar.svg'
 import camera from './camera.svg'
@@ -123,13 +122,12 @@ const Icons = {
   alertTriangle,
   alignJustify,
   alignLeft,
+  arrowDown,
   arrowLeftCircle,
   arrowRightCircle,
   award,
   awardCircleInverted,
-  bellSmall,
   bitcoin,
-  bitbox,
   buy: download,
   calendar,
   camera,

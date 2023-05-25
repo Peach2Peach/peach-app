@@ -1,12 +1,15 @@
 import { Text } from '..'
-import tw from '../../styles/tailwind'
 import { contractIdToHex } from '../../utils/contract'
+import { getHeaderStyles } from '../../utils/layout'
 
 type Props = {
   id: string
 }
-export const ContractTitle = ({ id }: Props) => (
-  <Text style={tw`h6`} numberOfLines={1}>
-    {contractIdToHex(id)}
-  </Text>
-)
+export const ContractTitle = ({ id }: Props) => {
+  const { fontSize } = getHeaderStyles()
+  return (
+    <Text style={fontSize} numberOfLines={1}>
+      {contractIdToHex(id)}
+    </Text>
+  )
+}

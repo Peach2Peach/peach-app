@@ -28,7 +28,7 @@ export default ({ style }: ComponentProps): ReactElement => {
 
   return (
     <View style={[tw`h-full`, style]}>
-      <PeachScrollView contentContainerStyle={tw`items-center justify-center flex-grow`}>
+      <PeachScrollView contentContainerStyle={tw`justify-center flex-grow`}>
         {<CurrentView {...{ goBackToStart }} />}
       </PeachScrollView>
       <View>

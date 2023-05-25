@@ -1,54 +1,62 @@
 import { useCallback } from 'react'
+import { shallow } from 'zustand/shallow'
 import { useOverlayContext } from '../../contexts/overlay'
 import { useNavigation } from '../../hooks'
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
-import { useShowLoadingOverlay } from '../../hooks/useShowLoadingOverlay'
+import { useSettingsStore } from '../../store/settingsStore'
 import { account } from '../../utils/account'
-import { saveContract } from '../../utils/contract'
+import { getSellOfferFromContract, saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
-import { saveOffer } from '../../utils/offer'
+import { getOfferExpiry, saveOffer } from '../../utils/offer'
+import { isCashTrade } from '../../utils/paymentMethod/isCashTrade'
 import { ConfirmCancelTrade } from './ConfirmCancelTrade'
+import { getSellerCanceledTitle } from './getSellerCanceledTitle'
+import { getWalletLabelFromContract } from '../../utils/contract/getWalletLabelFromContract'
 import { cancelContractAsBuyer } from './helpers/cancelContractAsBuyer'
 import { cancelContractAsSeller } from './helpers/cancelContractAsSeller'
+import { SellerCanceledContent } from './SellerCanceledContent'
 
 export const useConfirmCancelTrade = () => {
   const [, updateOverlay] = useOverlayContext()
   const navigation = useNavigation()
   const showError = useShowErrorBanner()
   const closeOverlay = useCallback(() => updateOverlay({ visible: false }), [updateOverlay])
-  const showLoadingOverlay = useShowLoadingOverlay()
+  const [customPayoutAddress, customPayoutAddressLabel] = useSettingsStore(
+    (state) => [state.payoutAddress, state.payoutAddressLabel],
+    shallow,
+  )
 
   const cancelBuyer = useCallback(
     async (contract: Contract) => {
-      showLoadingOverlay({
-        title: i18n('contract.cancel.title'),
-        level: 'ERROR',
-      })
+      updateOverlay({ title: i18n('contract.cancel.success'), visible: true, level: 'DEFAULT' })
       const result = await cancelContractAsBuyer(contract)
 
       if (result.isError() || !result.isOk()) {
-        closeOverlay()
         showError(result.isError() ? result.getError() : undefined)
         return
       }
       saveContract(result.getValue().contract)
       navigation.replace('contract', { contractId: contract.id })
-      updateOverlay({ title: i18n('contract.cancel.success'), visible: true, level: 'APP' })
     },
-    [closeOverlay, navigation, showError, showLoadingOverlay, updateOverlay],
+    [navigation, showError, updateOverlay],
   )
 
   const cancelSeller = useCallback(
     async (contract: Contract) => {
-      showLoadingOverlay({
-        title: i18n('contract.cancel.title'),
-        level: 'ERROR',
+      const isCash = isCashTrade(contract.paymentMethod)
+      const canRepublish = !getOfferExpiry(getSellOfferFromContract(contract)).isExpired
+      const walletName = getWalletLabelFromContract(contract, customPayoutAddress, customPayoutAddressLabel)
+      updateOverlay({
+        title: getSellerCanceledTitle(contract.paymentMethod),
+        visible: true,
+        level: 'DEFAULT',
+        content: <SellerCanceledContent {...{ isCash, canRepublish, tradeID: contract.id, walletName }} />,
       })
+
       const result = await cancelContractAsSeller(contract)
 
       if (result.isError() || !result.isOk()) {
         showError(result.isError() ? result.getError() : undefined)
-        closeOverlay()
         return
       }
 
@@ -56,18 +64,18 @@ export const useConfirmCancelTrade = () => {
       saveContract(contractUpdate)
       if (sellOffer) saveOffer(sellOffer)
       navigation.replace('contract', { contractId: contract.id })
-      closeOverlay()
     },
-    [showLoadingOverlay, navigation, closeOverlay, showError],
+    [customPayoutAddress, customPayoutAddressLabel, updateOverlay, navigation, showError],
   )
 
   const showConfirmOverlay = useCallback(
     (contract: Contract) => {
       const view = account.publicKey === contract?.seller.id ? 'seller' : 'buyer'
       const cancelAction = () => (view === 'seller' ? cancelSeller(contract) : cancelBuyer(contract))
+      const title = i18n(isCashTrade(contract.paymentMethod) ? 'contract.cancel.cash.title' : 'contract.cancel.title')
       updateOverlay({
-        title: i18n('contract.cancel.title'),
-        level: 'ERROR',
+        title,
+        level: 'DEFAULT',
         content: <ConfirmCancelTrade {...{ contract, view }} />,
         visible: true,
         action1: {
@@ -81,13 +89,9 @@ export const useConfirmCancelTrade = () => {
           callback: closeOverlay,
         },
       })
-
-      return {
-        cancelAction,
-      }
     },
     [updateOverlay, cancelSeller, cancelBuyer, closeOverlay],
   )
 
-  return { showConfirmOverlay, cancelSeller, cancelBuyer, showLoadingOverlay, closeOverlay }
+  return { showConfirmOverlay, cancelSeller, cancelBuyer, closeOverlay }
 }

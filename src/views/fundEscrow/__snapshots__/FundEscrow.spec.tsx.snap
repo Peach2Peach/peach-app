@@ -1,0 +1,158 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FundEscrow should render the FundEscrow view 1`] = `
+<View
+  style={
+    {
+      "height": "100%",
+    }
+  }
+>
+  <PeachScrollView
+    contentContainerStyle={
+      {
+        "paddingBottom": 16,
+        "paddingLeft": 28,
+        "paddingRight": 28,
+        "paddingTop": 16,
+      }
+    }
+    style={
+      {
+        "flexShrink": 1,
+        "height": "100%",
+      }
+    }
+  >
+    <View
+      style={
+        {
+          "flexShrink": 1,
+          "height": "100%",
+        }
+      }
+    >
+      <View
+        style={
+          {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "justifyContent": "center",
+          }
+        }
+      >
+        <PeachText
+          style={
+            {
+              "fontFamily": "Baloo2-SemiBold",
+              "fontSize": 20,
+              "letterSpacing": 0.2,
+              "lineHeight": 32,
+              "textTransform": "lowercase",
+            }
+          }
+        >
+          send
+           
+        </PeachText>
+        <FundingSatsFormat
+          sats={100000}
+        />
+        <PeachText
+          style={
+            {
+              "fontFamily": "Baloo2-SemiBold",
+              "fontSize": 20,
+              "letterSpacing": 0.2,
+              "lineHeight": 32,
+              "textTransform": "lowercase",
+            }
+          }
+        >
+           
+          to:
+        </PeachText>
+      </View>
+      <BitcoinAddress
+        address="123"
+        amount={0.001}
+        label="Peach Escrow - offer P‑7B"
+        style={
+          {
+            "marginTop": 16,
+          }
+        }
+      />
+    </View>
+  </PeachScrollView>
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "display": "flex",
+        "marginBottom": 16,
+        "marginTop": 16,
+        "width": "100%",
+      }
+    }
+  >
+    <View
+      style={
+        {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "gap": 8,
+          "justifyContent": "center",
+          "paddingBottom": 8,
+          "paddingLeft": 24,
+          "paddingRight": 24,
+          "paddingTop": 8,
+        }
+      }
+    >
+      <PeachText
+        style={
+          {
+            "color": "#F56522",
+            "fontFamily": "Baloo2-SemiBold",
+            "fontSize": 14,
+            "letterSpacing": 0.5,
+            "lineHeight": 24,
+            "textTransform": "uppercase",
+          }
+        }
+      >
+        checking funding status
+      </PeachText>
+      <Loading
+        color="#F56522"
+        style={
+          {
+            "height": 20,
+            "width": 20,
+          }
+        }
+      />
+    </View>
+  </View>
+  <DailyTradingLimit />
+</View>
+`;
+
+exports[`FundEscrow should show Loading, while escrow creation is pending 1`] = `
+<BitcoinLoading
+  text="creating escrow,
+one sec..."
+/>
+`;
+
+exports[`FundEscrow should show Loading, while escrow is not defined 1`] = `
+<BitcoinLoading
+  text="creating escrow,
+one sec..."
+/>
+`;
+
+exports[`FundEscrow should show NoEscrowFound, if no there is an error while creating escrow 1`] = `<NoEscrowFound />`;
+
+exports[`FundEscrow should show TransactionInMempool, if fundingStatus is MEMPOOL 1`] = `<TransactionInMempool />`;

@@ -3,6 +3,7 @@ import { NavigationWrapper } from '../../../tests/unit/helpers/NavigationWrapper
 import { QueryClientWrapper } from '../../../tests/unit/helpers/QueryClientWrapper'
 import { settingsStore } from '../../store/settingsStore'
 import Buy from './Buy'
+import { bitcoinStore } from '../../store/bitcoinStore'
 
 const useMarketPricesMock = jest.fn().mockReturnValue({
   data: {
@@ -28,6 +29,13 @@ const wrapper = ({ children }: ComponentProps) => (
 jest.useFakeTimers()
 
 describe('Buy', () => {
+  beforeAll(() => {
+    bitcoinStore.setState({
+      currency: 'EUR',
+      satsPerUnit: 250,
+      price: 400000,
+    })
+  })
   beforeEach(() => {
     settingsStore.getState().setMaxBuyAmount(1000000)
   })

@@ -1,11 +1,11 @@
 import { useMemo } from 'react'
 import { shallow } from 'zustand/shallow'
-import { HelpIcon } from '../../../components/icons'
 import { useHeaderSetup, useNavigation, useValidatedState } from '../../../hooks'
 import { useShowHelp } from '../../../hooks/useShowHelp'
 import { useSettingsStore } from '../../../store/settingsStore'
 import { account, getMessageToSignForAddress } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
+import { headerIcons } from '../../../utils/layout/headerIcons'
 
 export const useSignMessageSetup = () => {
   const navigation = useNavigation()
@@ -27,7 +27,7 @@ export const useSignMessageSetup = () => {
     useMemo(
       () => ({
         title: i18n('buy.addressSigning.title'),
-        icons: [{ iconComponent: <HelpIcon />, onPress: showHelp }],
+        icons: [{ ...headerIcons.help, onPress: showHelp }],
       }),
       [showHelp],
     ),

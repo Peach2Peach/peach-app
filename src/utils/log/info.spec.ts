@@ -2,7 +2,7 @@ import crashlytics from '@react-native-firebase/crashlytics'
 import { isProduction } from '../system'
 import { info } from './info'
 
-jest.mock('../system', () => ({
+jest.mock('../system/isProduction', () => ({
   isProduction: jest.fn(),
 }))
 

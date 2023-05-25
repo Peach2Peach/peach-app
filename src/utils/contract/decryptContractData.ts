@@ -1,6 +1,5 @@
 import { error, info } from '../log'
-import { decryptSymmetricKey } from '../../views/contract/helpers/decryptSymmetricKey'
-import { getPaymentData } from '../../views/contract/helpers/getPaymentData'
+import { decryptSymmetricKey, getPaymentData } from '../../views/contract/helpers'
 
 export const decryptContractData = async (contract: Contract) => {
   info('decryptContractData - decrypting symmetric key')

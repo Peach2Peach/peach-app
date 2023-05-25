@@ -7,7 +7,7 @@ import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { peachWallet } from '../../utils/wallet/setWallet'
 import { useWalletSetup } from './hooks/useWalletSetup'
-import { WalletLoading } from './WalletLoading'
+import { BitcoinLoading } from '../loading/BitcoinLoading'
 
 export default () => {
   const {
@@ -22,7 +22,7 @@ export default () => {
     walletLoading,
   } = useWalletSetup()
 
-  if (walletLoading) return <WalletLoading />
+  if (walletLoading) return <BitcoinLoading text={i18n('wallet.loading')} />
 
   return (
     <AvoidKeyboard iOSBehavior={'height'} androidBehavior={'height'}>

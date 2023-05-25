@@ -5,6 +5,7 @@ import { setAccount } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
 import { disputeReasons } from './disputeReasons'
 import { useDisputeReasonSelectorSetup } from './useDisputeReasonSelectorSetup'
+import { apiSuccess, unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
 
 const useRouteMock = jest.fn().mockReturnValue({
   params: {
@@ -34,8 +35,6 @@ jest.mock('../../../utils/contract/getContract', () => ({
   getContract: (...args: any[]) => getContractMock(...args),
 }))
 
-const apiSuccess = { success: true }
-const apiError = { error: 'UNAUTHORIZED' }
 const submitRaiseDisputeMock = jest.fn().mockResolvedValue([apiSuccess, null])
 jest.mock('../utils/submitRaiseDispute', () => ({
   submitRaiseDispute: (...args: any[]) => submitRaiseDisputeMock(...args),
@@ -117,11 +116,11 @@ describe('useDisputeReasonSelectorSetup', () => {
     expect(showDisputeRaisedOverlayMock).toHaveBeenCalled()
   })
   it('shows error banner if dispute request fails', async () => {
-    submitRaiseDisputeMock.mockResolvedValueOnce([null, apiError])
+    submitRaiseDisputeMock.mockResolvedValueOnce([null, unauthorizedError])
     const reason = 'abusive'
     const { result } = renderHook(useDisputeReasonSelectorSetup)
     await result.current.setReason(reason)
-    expect(showErrorBannerMock).toHaveBeenCalledWith(apiError.error)
+    expect(showErrorBannerMock).toHaveBeenCalledWith(unauthorizedError.error)
     expect(showDisputeRaisedOverlayMock).not.toHaveBeenCalled()
   })
 })

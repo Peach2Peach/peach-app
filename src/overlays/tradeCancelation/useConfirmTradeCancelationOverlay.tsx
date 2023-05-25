@@ -20,7 +20,7 @@ export const useConfirmTradeCancelationOverlay = () => {
     async (contract: Contract) => {
       showLoadingOverlay({
         title: i18n('contract.cancel.sellerWantsToCancel.title'),
-        level: 'WARN',
+        level: 'DEFAULT',
       })
       const [result, err] = await confirmContractCancelation({ contractId: contract.id })
 
@@ -31,7 +31,7 @@ export const useConfirmTradeCancelationOverlay = () => {
           cancelationRequested: false,
         }
         saveContract(updatedContract)
-        updateOverlay({ title: i18n('contract.cancel.success'), visible: true, level: 'APP' })
+        updateOverlay({ title: i18n('contract.cancel.success'), visible: true, level: 'DEFAULT' })
         navigation.replace('contract', { contractId: contract.id, contract: updatedContract })
         return
       } else if (err) {
@@ -46,7 +46,7 @@ export const useConfirmTradeCancelationOverlay = () => {
     async (contract: Contract) => {
       showLoadingOverlay({
         title: i18n('contract.cancel.sellerWantsToCancel.title'),
-        level: 'WARN',
+        level: 'DEFAULT',
       })
       const [result, err] = await rejectContractCancelation({ contractId: contract.id })
 
@@ -74,7 +74,7 @@ export const useConfirmTradeCancelationOverlay = () => {
         title: i18n('contract.cancel.sellerWantsToCancel.title'),
         content: <ConfirmCancelTradeRequest contract={contract} />,
         visible: true,
-        level: 'WARN',
+        level: 'DEFAULT',
         action2: {
           label: i18n('contract.cancel.sellerWantsToCancel.cancel'),
           icon: 'xCircle',

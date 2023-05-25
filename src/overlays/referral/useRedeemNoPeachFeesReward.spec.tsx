@@ -4,6 +4,7 @@ import { OverlayContext, defaultOverlay } from '../../contexts/overlay'
 import { NoPeachFees } from './NoPeachFees'
 import { useRedeemNoPeachFeesReward } from './useRedeemNoPeachFeesReward'
 import { NoPeachFeesSuccess } from './NoPeachFeesSuccess'
+import { notEnoughPointsError } from '../../../tests/unit/data/peachAPIData'
 
 const showErrorBannerMock = jest.fn()
 const useShowErrorBannerMock = jest.fn().mockReturnValue(showErrorBannerMock)
@@ -12,7 +13,6 @@ jest.mock('../../hooks/useShowErrorBanner', () => ({
 }))
 
 const apiSuccess = { success: true, bonusPoints: 10 }
-const apiError = { error: 'NOT_ENOUGH_POINTS' }
 const redeemNoPeachFeesMock = jest.fn().mockResolvedValue([apiSuccess])
 jest.mock('../../utils/peachAPI', () => ({
   redeemNoPeachFees: () => redeemNoPeachFeesMock(),
@@ -74,10 +74,10 @@ describe('useRedeemNoPeachFeesReward', () => {
     expect(replaceMock).toHaveBeenCalledWith('referrals')
   })
   it('show error banner if reward could not be redeemed', async () => {
-    redeemNoPeachFeesMock.mockResolvedValueOnce([null, apiError])
+    redeemNoPeachFeesMock.mockResolvedValueOnce([null, notEnoughPointsError])
     const { result } = renderHook(useRedeemNoPeachFeesReward, { wrapper })
     result.current()
     await overlayState.action1?.callback()
-    expect(showErrorBannerMock).toHaveBeenCalledWith(apiError.error)
+    expect(showErrorBannerMock).toHaveBeenCalledWith(notEnoughPointsError.error)
   })
 })

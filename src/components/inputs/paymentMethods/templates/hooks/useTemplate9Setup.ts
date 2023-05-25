@@ -10,17 +10,7 @@ import { TabbedNavigationItem } from '../../../../navigation/TabbedNavigation'
 const beneficiaryRules = { required: true }
 const referenceRules = { required: false, isValidPaymentReference: true }
 
-const tabs: TabbedNavigationItem[] = [
-  {
-    id: 'iban',
-    display: i18n('form.iban'),
-  },
-  {
-    id: 'account',
-    display: i18n('form.account'),
-  },
-]
-// eslint-disable-next-line max-lines-per-function
+// eslint-disable-next-line max-lines-per-function, max-statements
 export const useTemplate9Setup = ({
   data,
   currencies = [],
@@ -29,6 +19,10 @@ export const useTemplate9Setup = ({
   paymentMethod,
   setFormData,
 }: FormProps) => {
+  const tabs: TabbedNavigationItem[] = [
+    { id: 'iban', display: i18n('form.iban') },
+    { id: 'account', display: i18n('form.account') },
+  ]
   const [label, setLabel] = useState(data?.label || '')
   const [beneficiary, setBeneficiary, , beneficiaryErrors] = useValidatedState(data?.beneficiary || '', beneficiaryRules)
 

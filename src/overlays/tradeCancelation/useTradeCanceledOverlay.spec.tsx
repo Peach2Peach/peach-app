@@ -2,12 +2,11 @@ import { renderHook } from '@testing-library/react-native'
 import { useTradeCanceledOverlay } from './useTradeCanceledOverlay'
 import { contract } from '../../../tests/unit/data/contractData'
 import { sellOffer } from '../../../tests/unit/data/offerData'
-import i18n from '../../utils/i18n'
 import { OfferRepublished } from './OfferRepublished'
 import { ContractCanceledToSeller } from './ContractCanceledToSeller'
 import { BuyerConfirmedCancelTrade } from './BuyerConfirmedCancelTrade'
+import { unauthorizedError } from '../../../tests/unit/data/peachAPIData'
 
-const apiError = { error: 'UNAUTHORIZED' }
 const navigateMock = jest.fn()
 const replaceMock = jest.fn()
 jest.mock('../../hooks/useNavigation', () => ({
@@ -80,18 +79,18 @@ describe('useTradeCanceledOverlay', () => {
     const { closeAction, goToOfferAction } = await result.current.republishOffer(sellOffer, contract)
     expect(reviveSellOfferMock).toHaveBeenCalledWith({ offerId: sellOffer.id })
     expect(updateOverlayMock).toHaveBeenCalledWith({
-      title: i18n('contract.cancel.offerRepublished.title'),
+      title: 'offer re-published',
       content: <OfferRepublished />,
       visible: true,
       level: 'APP',
       requireUserAction: true,
       action1: {
-        label: i18n('goToOffer'),
+        label: 'go to offer',
         icon: 'arrowRightCircle',
         callback: goToOfferAction,
       },
       action2: {
-        label: i18n('close'),
+        label: 'close',
         icon: 'xSquare',
         callback: closeAction,
       },
@@ -105,7 +104,7 @@ describe('useTradeCanceledOverlay', () => {
     expect(updateOverlayMock).toHaveBeenCalledWith({ visible: false })
   })
   it('does not go to offer if republishing failed', async () => {
-    reviveSellOfferMock.mockResolvedValueOnce([null, apiError])
+    reviveSellOfferMock.mockResolvedValueOnce([null, unauthorizedError])
     const { result } = renderHook(useTradeCanceledOverlay)
     const { goToOfferAction } = await result.current.republishOffer(sellOffer, contract)
     goToOfferAction()
@@ -119,11 +118,11 @@ describe('useTradeCanceledOverlay', () => {
     expect(updateOverlayMock).toHaveBeenCalledWith({ visible: false })
   })
   it('handles republishing errors', async () => {
-    reviveSellOfferMock.mockResolvedValueOnce([null, apiError])
+    reviveSellOfferMock.mockResolvedValueOnce([null, unauthorizedError])
     const { result } = renderHook(useTradeCanceledOverlay)
     await result.current.republishOffer(sellOffer, contract)
     expect(updateOverlayMock).toHaveBeenCalledWith({ visible: false })
-    expect(showErrorBannerMock).toHaveBeenCalledWith(apiError.error)
+    expect(showErrorBannerMock).toHaveBeenCalledWith(unauthorizedError.error)
   })
   it('shows navigates to trade overview history tab when showing trade canceled overlay', () => {
     getSellOfferFromContractMock.mockReturnValueOnce(sellOffer)
@@ -137,18 +136,18 @@ describe('useTradeCanceledOverlay', () => {
     const { result } = renderHook(useTradeCanceledOverlay)
     const { republishAction, refundAction } = result.current.showTradeCanceled(contract, false)
     expect(updateOverlayMock).toHaveBeenCalledWith({
-      title: i18n('contract.cancel.buyer.canceled.title'),
+      title: 'your buyer canceled',
       content: <ContractCanceledToSeller contract={contract} />,
       visible: true,
-      level: 'WARN',
+      level: 'DEFAULT',
       requireUserAction: true,
       action1: {
-        label: i18n('contract.cancel.tradeCanceled.republish'),
+        label: 're-publish offer',
         icon: 'refreshCw',
         callback: republishAction,
       },
       action2: {
-        label: i18n('contract.cancel.tradeCanceled.refund'),
+        label: 'refund me',
         icon: 'download',
         callback: refundAction,
       },
@@ -160,13 +159,13 @@ describe('useTradeCanceledOverlay', () => {
     const { result } = renderHook(useTradeCanceledOverlay)
     const { refundAction } = result.current.showTradeCanceled(contract, false)
     expect(updateOverlayMock).toHaveBeenCalledWith({
-      title: i18n('contract.cancel.buyer.canceled.title'),
+      title: 'your buyer canceled',
       content: <ContractCanceledToSeller contract={contract} />,
       visible: true,
-      level: 'WARN',
+      level: 'DEFAULT',
       requireUserAction: true,
       action1: {
-        label: i18n('contract.cancel.tradeCanceled.refund'),
+        label: 'refund me',
         icon: 'download',
         callback: refundAction,
       },
@@ -178,18 +177,18 @@ describe('useTradeCanceledOverlay', () => {
     const { result } = renderHook(useTradeCanceledOverlay)
     const { republishAction, refundAction } = result.current.showTradeCanceled(contract, true)
     expect(updateOverlayMock).toHaveBeenCalledWith({
-      title: i18n('contract.cancel.buyerConfirmed.title'),
+      title: 'trade canceled',
       content: <BuyerConfirmedCancelTrade contract={contract} />,
       visible: true,
-      level: 'WARN',
+      level: 'DEFAULT',
       requireUserAction: true,
       action1: {
-        label: i18n('contract.cancel.tradeCanceled.republish'),
+        label: 're-publish offer',
         icon: 'refreshCw',
         callback: republishAction,
       },
       action2: {
-        label: i18n('contract.cancel.tradeCanceled.refund'),
+        label: 'refund me',
         icon: 'download',
         callback: refundAction,
       },
@@ -201,13 +200,13 @@ describe('useTradeCanceledOverlay', () => {
     const { result } = renderHook(useTradeCanceledOverlay)
     const { refundAction } = result.current.showTradeCanceled(contract, true)
     expect(updateOverlayMock).toHaveBeenCalledWith({
-      title: i18n('contract.cancel.buyerConfirmed.title'),
+      title: 'trade canceled',
       content: <BuyerConfirmedCancelTrade contract={contract} />,
       visible: true,
-      level: 'WARN',
+      level: 'DEFAULT',
       requireUserAction: true,
       action1: {
-        label: i18n('contract.cancel.tradeCanceled.refund'),
+        label: 'refund me',
         icon: 'download',
         callback: refundAction,
       },

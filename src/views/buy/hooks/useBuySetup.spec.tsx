@@ -69,7 +69,8 @@ describe('useBuySetup', () => {
     const args = useHeaderSetupMock.mock.calls[0][0]
     expect(args.titleComponent).toMatchInlineSnapshot('<BuyTitleComponent />')
     expect(args.hideGoBackButton).toBe(true)
-    expect(args.icons[0].iconComponent).toMatchInlineSnapshot('<HelpIcon />')
+    expect(args.icons[0].id).toBe('helpCircle')
+    expect(args.icons[0].color).toBe('#099DE2')
     expect(args.icons[0].onPress).toBe(showHelpMock)
   })
 

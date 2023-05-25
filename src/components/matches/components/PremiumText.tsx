@@ -1,4 +1,3 @@
-import React from 'react'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { Text } from '../../text'

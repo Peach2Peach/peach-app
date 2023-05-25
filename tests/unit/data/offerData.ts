@@ -57,6 +57,12 @@ export const sellOffer: SellOffer = {
   refunded: false,
   released: false,
 }
+
+export const wronglyFundedSellOffer: SellOffer = {
+  ...sellOffer,
+  amount: 42069,
+  funding: { ...sellOffer.funding, amounts: [69420] },
+}
 export const buyOfferUnpublished: BuyOffer = {
   creationDate: new Date('2022-03-08T11:41:07.245Z'),
   type: 'bid',

@@ -119,8 +119,8 @@ android {
         applicationId "com.peachbitcoin.peach"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 167
-        versionName "0.2.6"
+        versionCode 170
+        versionName "0.2.7"
         missingDimensionStrategy 'react-native-camera', 'general'
         multiDexEnabled true
 
@@ -187,6 +187,8 @@ android {
                 output.versionCodeOverride =
                         defaultConfig.versionCode * 1000 + versionCodes.get(abi)
             }
+
+             output.outputFileName = output.outputFile.name.replace(".apk", "-${variant.versionName}-${variant.versionCode}.apk")
 
         }
     }
