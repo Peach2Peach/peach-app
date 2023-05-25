@@ -9,8 +9,8 @@ type Props = ComponentProps & {
   address?: string
 }
 export const WalletLabel = ({ label, address }: Props) => {
-  const [payoutAddress, payoutAddressLabel] = useSettingsStore(
-    (state) => [state.payoutAddress, state.payoutAddressLabel],
+  const [payoutAddress, payoutAddressLabel, isPeachWalletActive] = useSettingsStore(
+    (state) => [state.payoutAddress, state.payoutAddressLabel, state.peachWalletActive],
     shallow,
   )
   const [fallbackLabel, setFallbackLabel] = useState(i18n('loading'))
@@ -25,10 +25,11 @@ export const WalletLabel = ({ label, address }: Props) => {
           address,
           customPayoutAddress: payoutAddress,
           customPayoutAddressLabel: payoutAddressLabel,
+          isPeachWalletActive,
         }),
       )
     })
-  }, [address, label, payoutAddress, payoutAddressLabel])
+  }, [address, label, payoutAddress, payoutAddressLabel, isPeachWalletActive])
 
   return <>{label || fallbackLabel}</>
 }
