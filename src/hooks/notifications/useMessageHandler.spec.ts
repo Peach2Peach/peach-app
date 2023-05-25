@@ -54,7 +54,6 @@ jest.mock('./useGetPNActionHandler', () => ({
 // eslint-disable-next-line max-lines-per-function
 describe('useMessageHandler', () => {
   const mockGetCurrentPage = () => 'home' as keyof RootStackParamList
-  const appStateSpy = jest.spyOn(AppState, 'addEventListener')
   beforeEach(() => {
     ;(getContract as jest.Mock).mockReturnValue(contract)
     ;(getContractAPI as jest.Mock).mockResolvedValue([contract])
@@ -74,11 +73,7 @@ describe('useMessageHandler', () => {
       fcmOptions: {},
     } as FirebaseMessagingTypes.RemoteMessage
     const { result: onMessageHandler } = renderHook(() => useMessageHandler(mockGetCurrentPage))
-
-    act(() => {
-      appStateSpy.mock.calls[0][1]('active')
-    })
-
+    AppState.currentState = 'active'
     await act(async () => {
       await onMessageHandler.current(mockRemoteMessage)
     })
@@ -101,10 +96,7 @@ describe('useMessageHandler', () => {
       fcmOptions: {},
     } as FirebaseMessagingTypes.RemoteMessage
     const { result: onMessageHandler } = renderHook(() => useMessageHandler(mockGetCurrentPage))
-
-    act(() => {
-      appStateSpy.mock.calls[0][1]('background')
-    })
+    AppState.currentState = 'background'
 
     await act(async () => {
       await onMessageHandler.current(mockRemoteMessage)
