@@ -15,4 +15,9 @@ describe('CustomAmount', () => {
     shallowRenderer.render(<CustomAmount {...{ amount: 50000, onChange: jest.fn() }} />)
     expect(shallowRenderer.getRenderOutput()).toMatchSnapshot()
   })
+  it('should render correctly with null amount', () => {
+    // @ts-expect-error
+    shallowRenderer.render(<CustomAmount {...{ amount: null, onChange: jest.fn() }} />)
+    expect(shallowRenderer.getRenderOutput()).toMatchSnapshot()
+  })
 })

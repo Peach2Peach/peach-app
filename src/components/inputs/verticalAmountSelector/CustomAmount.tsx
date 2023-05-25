@@ -9,7 +9,8 @@ type Props = ComponentProps & {
   onChange: (amount: number) => void
 }
 
-export const CustomAmount = ({ amount = 0, onChange, style }: Props) => {
+export const CustomAmount = ({ amount, onChange, style }: Props) => {
+  amount ||= 0
   const { updateCustomAmount, clearCustomAmount, customFiatPrice, updateCustomFiatAmount, displayCurrency }
     = useCustomAmountSetup({ amount, onChange })
 
