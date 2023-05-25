@@ -182,6 +182,7 @@
   "offer.publishing": "publicando",
   "contract.paymentDetails": "detalles de pago",
   "contract.provideEmail": "proporcionar email",
+  "contract.goToNewTrade": "Ir a la nueva oferta",
   "contract.trade": "intercambio de $0",
   "contract.tradeCompleted": "intercambio completado",
   "contract.tradeCanceled": "intercambio cancelado",
