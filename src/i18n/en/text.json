@@ -172,6 +172,7 @@
   "offer.requiredAction.confirmPaymentRequired.dispute": "dispute won: awaiting payout",
   "offer.requiredAction.rateUser.buyer": "rate buyer",
   "offer.requiredAction.rateUser.seller": "rate seller",
+  "offer.requiredAction.confirmCancelation": "seller wants to cancel",
   "offer.requiredAction.dispute": "dispute started",
   "offer.requiredAction.releaseEscrow": "release escrow",
   "offer.requiredAction.releaseEscrow.dispute": "dispute lost: release escrow",

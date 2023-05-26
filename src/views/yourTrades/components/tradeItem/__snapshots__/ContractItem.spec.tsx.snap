@@ -67,6 +67,33 @@ exports[`ContractItem should render correctly with past contract 1`] = `
 </View>
 `;
 
+exports[`ContractItem should render correctly with seller requested cancel 1`] = `
+<View>
+  <SummaryCard
+    action={
+      {
+        "callback": [Function],
+        "icon": "xCircle",
+        "label": "seller wants to cancel",
+      }
+    }
+    amount={21000}
+    creationDate={2021-01-01T00:00:00.000Z}
+    currency="EUR"
+    date={2021-01-01T00:00:00.000Z}
+    id="contractId"
+    lastModified={2021-01-01T00:00:00.000Z}
+    level="DEFAULT"
+    offerId="offerId"
+    price={21}
+    title="PC‑NAN‑NAN"
+    tradeStatus="confirmCancelation"
+    type="bid"
+    unreadMessages={0}
+  />
+</View>
+`;
+
 exports[`ContractItem should render correctly with unread messages 1`] = `
 <View>
   <SummaryCard
