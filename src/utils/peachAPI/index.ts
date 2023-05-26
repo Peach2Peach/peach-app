@@ -10,14 +10,15 @@ export { marketPrice } from './public/market'
 export { checkReferralCode, getUser } from './public/user'
 export {
   auth,
-  register,
-  getSelfUser,
+  deletePaymentHash,
   fetchAccessToken,
-  updateUser,
+  getSelfUser,
   getTradingLimit,
   logoutUser,
-  redeemReferralCode,
   redeemNoPeachFees,
+  redeemReferralCode,
+  register,
+  updateUser,
 } from './private/user'
 export {
   cancelOffer,

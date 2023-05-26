@@ -1,7 +1,8 @@
 import { act, renderHook } from '@testing-library/react-native'
 import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { useHeaderState } from '../../../components/header/store'
-import { OverlayContext, defaultOverlay } from '../../../contexts/overlay'
+import { defaultOverlay } from '../../../contexts/overlay'
+import { usePopupStore } from '../../../store/usePopupStore'
 import { account } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
 import { usePaymentDetailsSetup } from './usePaymentDetailsSetup'
@@ -28,22 +29,15 @@ jest.mock('../../../hooks/useGoToOrigin', () => ({
   useGoToOrigin: jest.fn(() => goToOriginMock),
 }))
 
-let overlayState = { ...defaultOverlay }
-const updateOverlay = jest.fn((state) => {
-  overlayState = state
-})
-
-const wrapper = ({ children }: { children: JSX.Element }) => (
-  <NavigationWrapper>
-    <OverlayContext.Provider value={[overlayState, updateOverlay]}>{children}</OverlayContext.Provider>
-  </NavigationWrapper>
-)
+const wrapper = ({ children }: { children: JSX.Element }) => <NavigationWrapper>{children}</NavigationWrapper>
 
 describe('usePaymentDetailsSetup', () => {
   beforeEach(() => {
     jest.clearAllMocks()
     useHeaderState.setState({ title: '', icons: [] })
-    overlayState = { ...defaultOverlay }
+  })
+  afterEach(() => {
+    usePopupStore.setState(defaultOverlay)
   })
   it('should return paymentMethod, onSubmit, currencies, data', () => {
     const { result } = renderHook(usePaymentDetailsSetup, { wrapper })
@@ -89,7 +83,8 @@ describe('usePaymentDetailsSetup', () => {
     act(() => {
       useHeaderState.getState().icons?.[1].onPress?.()
     })
-    expect(overlayState).toEqual({
+    expect(usePopupStore.getState()).toEqual({
+      ...usePopupStore.getState(),
       title: i18n('help.paymentMethodDelete.title'),
       content: expect.any(Object),
       visible: true,
@@ -105,7 +100,7 @@ describe('usePaymentDetailsSetup', () => {
         label: i18n('delete'),
       },
     })
-    expect(overlayState.content).toMatchInlineSnapshot('<DeletePaymentMethodConfirm />')
+    expect(usePopupStore.getState().content).toMatchInlineSnapshot('<DeletePaymentMethodConfirm />')
   })
   it('should add the payment method when the form is submitted', () => {
     const { result } = renderHook(usePaymentDetailsSetup, { wrapper })
