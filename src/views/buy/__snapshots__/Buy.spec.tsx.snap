@@ -1814,7 +1814,7 @@ exports[`Buy should render correctly 1`] = `
         }
       >
         <test-file-stub
-          fill="#F5CE22"
+          fill="#DF321F"
           style={
             [
               {
@@ -4077,7 +4077,7 @@ exports[`Buy should render correctly with free trades 1`] = `
         }
       >
         <test-file-stub
-          fill="#F5CE22"
+          fill="#DF321F"
           style={
             [
               {

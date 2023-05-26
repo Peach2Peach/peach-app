@@ -71,7 +71,7 @@ export default (): ReactElement => {
         <BitcoinPriceStats />
       </View>
       <RangeAmount
-        style={tw`h-full flex-shrink mt-4 mb-2`}
+        style={tw`flex-shrink h-full mt-4 mb-2`}
         min={minTradingAmount}
         max={maxTradingAmount}
         value={[currentMinAmount, currentMaxAmount]}
@@ -80,7 +80,7 @@ export default (): ReactElement => {
       <View style={[tw`flex-row items-center justify-center mt-4 mb-1`, tw.md`mb-4`]}>
         {freeTrades > 0 && (
           <ProgressDonut
-            style={tw`absolute left-5 bottom-0`}
+            style={tw`absolute bottom-0 left-5`}
             title={i18n('settings.referrals.noPeachFees.freeTrades')}
             value={freeTrades}
             max={maxFreeTrades}
@@ -92,7 +92,7 @@ export default (): ReactElement => {
         {showBackupReminder && (
           <View style={tw`justify-center`}>
             <TouchableOpacity style={tw`absolute left-4`} onPress={showCorrectBackupReminder}>
-              <Icon id="alertTriangle" style={tw`w-8 h-8`} color={tw`text-warning-main`.color} />
+              <Icon id="alertTriangle" style={tw`w-8 h-8`} color={tw`text-error-main`.color} />
             </TouchableOpacity>
           </View>
         )}

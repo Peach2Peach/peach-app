@@ -1,4 +1,3 @@
-import { ReactElement } from 'react'
 import { View } from 'react-native'
 
 import tw from '../../styles/tailwind'
@@ -9,7 +8,7 @@ import { SettingsItem } from './components/SettingsItem'
 import { VersionInfo } from './components/VersionInfo'
 import { useSettingsSetup } from './hooks/useSettingsSetup'
 
-export default (): ReactElement => {
+export default () => {
   const settings = useSettingsSetup()
 
   return (
