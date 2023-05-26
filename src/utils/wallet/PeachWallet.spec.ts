@@ -16,7 +16,7 @@ jest.mock('./getTxHex', () => ({
 }))
 
 const rebroadcastTransactionsMock = jest.fn()
-jest.mock('./peachWallet/rebroadcastTransactions', () => ({
+jest.mock('./rebroadcastTransactions', () => ({
   rebroadcastTransactions: (args: any) => rebroadcastTransactionsMock(args),
 }))
 
@@ -116,15 +116,27 @@ describe('PeachWallet', () => {
       pending: [{ txid: 'txid2', sent: 2, received: 2, fee: 2 }],
     })
   })
-  it('rebroadcasts tx that are dropped from the block explorer', async () => {
+  it('tries to rebroadcast tx that are dropped from the block explorer', async () => {
     const peachWallet = new PeachWallet({ wallet })
     peachWallet.transactions = {
       confirmed: [],
       pending: [{ txid: 'txid3', sent: 3, received: 3, fee: 3 }],
     }
     await peachWallet.getTransactions()
+    expect(getTxHexMock).toHaveBeenCalledWith({ txId: 'txid2' })
     expect(getTxHexMock).toHaveBeenCalledWith({ txId: 'txid3' })
-    expect(rebroadcastTransactionsMock).toHaveBeenCalledWith({ txid3: 'txid3Hex' })
+    expect(rebroadcastTransactionsMock).toHaveBeenCalledWith(['txid3'])
+  })
+  it('does not call getTxHex for already known tx', async () => {
+    const peachWallet = new PeachWallet({ wallet })
+    peachWallet.transactions = {
+      confirmed: [],
+      pending: [{ txid: 'txid3', sent: 3, received: 3, fee: 3 }],
+    }
+    walletStore.getState().addPendingTransactionHex('txid2', 'txid2Hex')
+    walletStore.getState().addPendingTransactionHex('txid3', 'txid3Hex')
+    await peachWallet.getTransactions()
+    expect(getTxHexMock).not.toHaveBeenCalled()
   })
   it('logs error if transaction could not be retrieved', async () => {
     // @ts-ignore

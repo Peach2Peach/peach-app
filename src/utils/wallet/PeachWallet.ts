@@ -11,8 +11,8 @@ import { getBuyOfferIdFromContract } from '../contract'
 import { error, info } from '../log'
 import { PeachWalletErrorHandlers } from './PeachWalletErrorHandlers'
 import { findTransactionsToRebroadcast } from './findTransactionsToRebroadcast'
+import { getAndStorePendingTransactionHex } from './getAndStorePendingTransactionHex'
 import { getNetwork } from './getNetwork'
-import { getTxHex } from './getTxHex'
 import { mergeTransactionList } from './mergeTransactionList'
 import { rebroadcastTransactions } from './rebroadcastTransactions'
 import { walletStore } from './walletStore'
@@ -185,13 +185,12 @@ export class PeachWallet extends PeachWalletErrorHandlers {
     this.transactions = mergeTransactionList(this.transactions, result.value)
     const toRebroadcast = findTransactionsToRebroadcast(this.transactions.pending, result.value.pending)
 
-    await Promise.all([
-      toRebroadcast.map(async ({ txid: txId }) => {
-        const [hex] = await getTxHex({ txId })
-        if (hex) walletStore.getState().addPendingTransactionHex(txId, hex)
-      }),
-    ])
-    rebroadcastTransactions(walletStore.getState().pendingTransactions)
+    await Promise.all(this.transactions.pending.map(({ txid }) => getAndStorePendingTransactionHex(txid)))
+
+    await rebroadcastTransactions(toRebroadcast.map(({ txid }) => txid))
+    this.transactions.pending = this.transactions.pending.filter(
+      (tx) => walletStore.getState().pendingTransactions[tx.txid],
+    )
     this.updateStore()
 
     return this.transactions

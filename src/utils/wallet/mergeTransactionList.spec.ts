@@ -1,5 +1,5 @@
 import { TransactionsResponse } from 'bdk-rn/lib/lib/interfaces'
-import { mergeTransactionList } from '../mergeTransactionList'
+import { mergeTransactionList } from './mergeTransactionList'
 
 describe('mergeTransactionList', () => {
   const old: TransactionsResponse = {

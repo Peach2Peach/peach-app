@@ -11,10 +11,14 @@ type Props = RequestProps & {
 
 export const getTxHex = async ({ txId, timeout, abortSignal }: Props): Promise<[string | null, APIError | null]> => {
   const response = await fetch(`${BLOCKEXPLORER}/tx/${txId}/hex`, {
-    headers: getPublicHeaders(),
+    headers: {
+      ...getPublicHeaders(),
+      Accept: 'text/html',
+      'Content-Type': 'text/html',
+    },
     method: 'GET',
     signal: abortSignal || (timeout ? getAbortWithTimeout(timeout).signal : undefined),
   })
 
-  return await parseResponse<string>(response, 'postTx')
+  return await parseResponse<string>(response, 'getTxHex', true)
 }

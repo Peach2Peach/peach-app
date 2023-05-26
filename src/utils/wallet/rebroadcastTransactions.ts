@@ -1,11 +1,17 @@
-import { postTx } from '../peachAPI'
-import { walletStore, WalletState } from './walletStore'
+import { isDefined } from '../array/isDefined'
+import { postTransaction } from '../electrum/postTransaction'
+import { walletStore } from './walletStore'
 
-export const rebroadcastTransactions = (pending: WalletState['pendingTransactions']) =>
+export const rebroadcastTransactions = (toRebroadcast: string[]) =>
   Promise.all(
-    Object.keys(pending).map(async (txId) => {
-      const hex = pending[txId]
-      const [response] = await postTx({ tx: hex })
-      if (response?.txId) walletStore.getState().removePendingTransaction(txId)
-    }),
+    toRebroadcast
+      .map((txId) => ({ txId, hex: walletStore.getState().pendingTransactions[txId] }))
+      .filter(isDefined)
+      .map(async ({ txId, hex }) => {
+        const [response, err] = await postTransaction({ tx: hex })
+        if (err?.toString().includes('bad-txns-inputs-missingorspent')) {
+          walletStore.getState().removePendingTransaction(txId)
+        }
+        if (response) walletStore.getState().removePendingTransaction(response)
+      }),
   )
