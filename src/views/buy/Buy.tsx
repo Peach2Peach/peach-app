@@ -1,25 +1,24 @@
-import { ReactElement, useCallback, useEffect, useMemo } from 'react'
-import { TouchableOpacity, View } from 'react-native'
+import { useCallback, useEffect, useMemo } from 'react'
+import { View } from 'react-native'
 import { shallow } from 'zustand/shallow'
-import { BitcoinPriceStats, HorizontalLine, Icon, PrimaryButton } from '../../components'
+import { BitcoinPriceStats, HorizontalLine, PrimaryButton } from '../../components'
 import { RangeAmount } from '../../components/inputs/verticalAmountSelector/RangeAmount'
 import { ProgressDonut } from '../../components/ui'
 import { useNavigation, useValidatedState } from '../../hooks'
 import { useCheckShowRedesignWelcome } from '../../hooks/'
 import { useDebounce } from '../../hooks/useDebounce'
-import { useShowBackupReminder } from '../../hooks/useShowBackupReminder'
 import { useConfigStore } from '../../store/configStore'
 import { useSettingsStore } from '../../store/settingsStore'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import LoadingScreen from '../loading/LoadingScreen'
 import { DailyTradingLimit } from '../settings/profile/DailyTradingLimit'
+import { BackupReminderIcon } from './BackupReminderIcon'
 import { useBuySetup } from './hooks/useBuySetup'
 
-export default (): ReactElement => {
+export default () => {
   const navigation = useNavigation()
   const checkShowRedesignWelcome = useCheckShowRedesignWelcome()
-  const showCorrectBackupReminder = useShowBackupReminder()
 
   const { freeTrades, maxFreeTrades } = useBuySetup()
 
@@ -89,13 +88,7 @@ export default (): ReactElement => {
         <PrimaryButton disabled={!minAmountValid || !maxAmountValid} testID="navigation-next" onPress={next} narrow>
           {i18n('next')}
         </PrimaryButton>
-        {showBackupReminder && (
-          <View style={tw`justify-center`}>
-            <TouchableOpacity style={tw`absolute left-4`} onPress={showCorrectBackupReminder}>
-              <Icon id="alertTriangle" style={tw`w-8 h-8`} color={tw`text-error-main`.color} />
-            </TouchableOpacity>
-          </View>
-        )}
+        {showBackupReminder && <BackupReminderIcon />}
       </View>
       <DailyTradingLimit />
     </View>
