@@ -25,7 +25,11 @@ export const useStartRefundOverlay = () => {
   const goToWallet = useCallback(
     (txId: string) => {
       closeOverlay()
-      navigation.navigate('transactionDetails', { txId })
+      if (shouldShowBackupOverlay && isPeachWallet) {
+        navigation.navigate('backupTime', { nextScreen: 'transactionDetails', txId })
+      } else {
+        navigation.navigate('transactionDetails', { txId })
+      }
     },
     [closeOverlay, navigation],
   )
@@ -61,6 +65,9 @@ export const useStartRefundOverlay = () => {
           callback: () => {
             closeOverlay()
             navigation.navigate('yourTrades', { tab: 'history' })
+            if (shouldShowBackupOverlay && isPeachWallet) {
+              navigation.navigate('backupTime', { nextScreen: 'yourTrades' })
+            }
           },
         },
         action2: {
@@ -71,6 +78,8 @@ export const useStartRefundOverlay = () => {
               goToWallet(txId)
             } else {
               closeOverlay()
+              navigation.navigate('backupTime', { nextScreen: 'yourTrades', tab: 'sell' })
+
               showTransaction(txId, NETWORK)
             }
           },
@@ -95,7 +104,6 @@ export const useStartRefundOverlay = () => {
         if (shouldShowBackupOverlay && isPeachWallet) {
           setShowBackupReminder(true)
           setShouldShowBackupOverlay('refundedEscrow', false)
-          navigation.navigate('backupTime', { nextScreen: 'yourTrades' })
         }
       }
     },
