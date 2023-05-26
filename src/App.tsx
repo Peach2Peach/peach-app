@@ -25,7 +25,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { setUnhandledPromiseRejectionTracker } from 'react-native-promise-rejection-utils'
 import { shallow } from 'zustand/shallow'
 import { Background } from './components/background/Background'
-import { ISEMULATOR, TIMETORESTART } from './constants'
+import { ISEMULATOR, MSINAMONTH, TIMETORESTART } from './constants'
 import { useAppStateEffect } from './effects/useAppStateEffect'
 import { useMarketPrices, useUpdateTradingAmounts } from './hooks'
 import { useMessageHandler } from './hooks/notifications/useMessageHandler'
@@ -70,23 +70,16 @@ const Handlers = ({ getCurrentPage }: HandlerProps): ReactElement => {
   const messageHandler = useMessageHandler(getCurrentPage)
   const [, updateOverlay] = useOverlayContext()
   const showAnalyticsPrompt = useShowAnalyticsPrompt(updateOverlay)
-  const [analyticsPopupSeen, lastBackupDate, showBackupReminder, setShouldShowBackupOverlay] = useSettingsStore(
-    (state) => [
-      state.analyticsPopupSeen,
-      state.lastBackupDate,
-      state.showBackupReminder,
-      state.setShouldShowBackupOverlay,
-    ],
+  const [analyticsPopupSeen, lastBackupDate, showBackupReminder, setShowBackupReminder] = useSettingsStore(
+    (state) => [state.analyticsPopupSeen, state.lastBackupDate, state.showBackupReminder, state.setShowBackupReminder],
     shallow,
   )
   const updateTradingAmounts = useUpdateTradingAmounts()
   const displayCurrency = useSettingsStore((state) => state.displayCurrency)
   const [setPrices, setCurrency] = useBitcoinStore((state) => [state.setPrices, state.setCurrency], shallow)
   const { data: prices } = useMarketPrices()
-  if (!showBackupReminder && lastBackupDate && Date.now() - lastBackupDate > 1000 * 60 * 60 * 24 * 30) {
-    setShouldShowBackupOverlay('bitcoinReceived', true)
-    setShouldShowBackupOverlay('completedBuyOffer', true)
-    setShouldShowBackupOverlay('refundedEscrow', true)
+  if (!showBackupReminder && lastBackupDate && Date.now() - lastBackupDate > MSINAMONTH) {
+    setShowBackupReminder(true)
   }
 
   useShowUpdateAvailable()
