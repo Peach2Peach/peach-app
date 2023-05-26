@@ -3,7 +3,7 @@ import { getBitcoinPriceFromContract, getBuyOfferFromContract } from '../../../u
 import i18n from '../../../utils/i18n'
 import { getPaymentDataByMethod } from '../../../utils/offer'
 import { getPaymentMethodName, hashPaymentData } from '../../../utils/paymentMethod'
-import { groupChars } from '../../../utils/string'
+import { groupChars, priceFormat } from '../../../utils/string'
 
 export const tradeInformationGetters: Record<
   | 'price'
@@ -18,7 +18,7 @@ export const tradeInformationGetters: Record<
   | 'location',
   (contract: Contract) => string | number | JSX.Element | undefined
 > = {
-  price: (contract: Contract) => contract.price + ' ' + contract.currency,
+  price: (contract: Contract) => priceFormat(contract.price) + ' ' + contract.currency,
   paidToMethod: (contract: Contract) =>
     (contract.paymentData ? getPaymentDataByMethod(contract.paymentMethod, hashPaymentData(contract.paymentData)) : null)
       ?.label,
