@@ -1,4 +1,3 @@
-export { createSystemMessage } from './createSystemMessage'
 export { decryptMessage } from './decryptMessage'
 export { deleteMessage } from './deleteMessage'
 export { getChat } from './getChat'
