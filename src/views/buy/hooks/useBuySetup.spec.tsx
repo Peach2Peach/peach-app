@@ -1,6 +1,6 @@
 import { renderHook, waitFor } from '@testing-library/react-native'
 import { useBuySetup } from './useBuySetup'
-import { NavigationWrapper, replaceMock } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { defaultSelfUser } from '../../../../tests/unit/data/userData'
 import { QueryClientWrapper } from '../../../../tests/unit/helpers/QueryClientWrapper'
 
