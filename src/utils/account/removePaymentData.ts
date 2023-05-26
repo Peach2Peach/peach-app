@@ -6,10 +6,6 @@ import { getPaymentData } from './getPaymentData'
 import { getPaymentDataByType } from './getPaymentDataByType'
 import { storePaymentData } from './storeAccount'
 
-/**
- * @description Method to remove payment data
- * @param id id of payment data to remove
- */
 export const removePaymentData = async (id: PaymentData['id']) => {
   const dataToBeRemoved = getPaymentData(id)
   if (!dataToBeRemoved) return
@@ -17,7 +13,7 @@ export const removePaymentData = async (id: PaymentData['id']) => {
   const [result, err] = await deletePaymentHash({ hash: hashPaymentData(dataToBeRemoved) })
 
   if (!result && err?.error !== 'UNAUTHORIZED' && err?.error !== 'AUTHENTICATION_FAILED') {
-    throw Error('NETWORK_ERROR')
+    throw new Error('NETWORK_ERROR')
   }
 
   account.paymentData = account.paymentData.filter((data) => data.id !== id)

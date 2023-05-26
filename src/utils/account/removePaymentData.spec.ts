@@ -1,6 +1,8 @@
+/* eslint-disable max-lines-per-function */
 import { account, removePaymentData, setAccount } from '.'
 import { account1, paymentData } from '../../../tests/unit/data/accountData'
 import { apiSuccess } from '../../../tests/unit/data/peachAPIData'
+import { NoErrorThrownError, getError } from '../../../tests/unit/helpers/getError'
 import { settingsStore } from '../../store/settingsStore'
 
 const storePaymentDataMock = jest.fn()
@@ -67,21 +69,15 @@ describe('removePaymentData', () => {
     await setAccount(fakeAccount)
 
     deletePaymentHashMock.mockResolvedValueOnce([null, { error: 'UNEXPECTED' }])
-    try {
-      await removePaymentData(fakeAccount.paymentData[0].id)
-    } catch (e) {
-      // @ts-ignore
-      expect(e.message).toBe('NETWORK_ERROR')
-    }
+    const error = await getError<Error>(async () => await removePaymentData(fakeAccount.paymentData[0].id))
+    expect(error).not.toBeInstanceOf(NoErrorThrownError)
+    expect(error.message).toBe('NETWORK_ERROR')
     expect(account.paymentData).toEqual(paymentData)
 
     deletePaymentHashMock.mockResolvedValueOnce([null, null])
-    try {
-      await removePaymentData(fakeAccount.paymentData[0].id)
-    } catch (e) {
-      // @ts-ignore
-      expect(e.message).toBe('NETWORK_ERROR')
-    }
+    const error2 = await getError<Error>(async () => await removePaymentData(fakeAccount.paymentData[0].id))
+    expect(error2).not.toBeInstanceOf(NoErrorThrownError)
+    expect(error2.message).toBe('NETWORK_ERROR')
     expect(account.paymentData).toEqual(paymentData)
   })
 
