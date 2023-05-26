@@ -20,6 +20,12 @@ export const useStartRefundOverlay = () => {
   const [, updateOverlay] = useOverlayContext()
   const showError = useShowErrorBanner()
   const navigation = useNavigation()
+  const isPeachWallet = useSettingsStore((state) => state.peachWalletActive)
+  const [setShowBackupReminder, shouldShowBackupOverlay, setShouldShowBackupOverlay] = useSettingsStore((state) => [
+    state.setShowBackupReminder,
+    state.shouldShowBackupOverlay.refundedEscrow,
+    state.setShouldShowBackupOverlay,
+  ])
   const { refetch: refetchTradeSummaries } = useTradeSummaries(false)
   const closeOverlay = useCallback(() => updateOverlay({ visible: false }), [updateOverlay])
   const goToWallet = useCallback(
@@ -34,12 +40,6 @@ export const useStartRefundOverlay = () => {
     [closeOverlay, navigation],
   )
   const setOffer = useTradeSummaryStore((state) => state.setOffer)
-  const isPeachWallet = useSettingsStore((state) => state.peachWalletActive)
-  const [setShowBackupReminder, shouldShowBackupOverlay, setShouldShowBackupOverlay] = useSettingsStore((state) => [
-    state.setShowBackupReminder,
-    state.shouldShowBackupOverlay.refundedEscrow,
-    state.setShouldShowBackupOverlay,
-  ])
 
   const refund = useCallback(
     async (sellOffer: SellOffer, rawPSBT: string) => {
