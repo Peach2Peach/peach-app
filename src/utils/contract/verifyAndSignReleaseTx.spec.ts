@@ -15,6 +15,7 @@ const verifyPSBTMock = jest.fn()
 jest.mock('../../views/contract/helpers/verifyPSBT', () => ({
   verifyPSBT: (...args: any[]) => verifyPSBTMock(...args),
 }))
+
 // eslint-disable-next-line max-lines-per-function
 describe('verifyAndSignReleaseTx', () => {
   const mockSellOffer = {

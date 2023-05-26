@@ -172,6 +172,7 @@
   "offer.requiredAction.confirmPaymentRequired.dispute": "disputa ganada: esperando pago",
   "offer.requiredAction.rateUser.buyer": "calificar comprador",
   "offer.requiredAction.rateUser.seller": "calificar vendedor",
+  "offer.requiredAction.confirmCancelation": "el vendedor quiere cancelar",
   "offer.requiredAction.dispute": "disputa iniciada",
   "offer.requiredAction.releaseEscrow": "liberar fondos",
   "offer.requiredAction.releaseEscrow.dispute": "disputa perdida: liberar fondos",
