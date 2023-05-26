@@ -2,8 +2,8 @@ import { NavigationContainer } from '@react-navigation/native'
 import { renderHook } from '@testing-library/react-native'
 import { Linking } from 'react-native'
 import { setPaymentMethods } from '../../../constants'
-import { OverlayContext, defaultOverlay } from '../../../contexts/overlay'
 import { DeletePaymentMethodConfirm } from '../../../overlays/info/DeletePaymentMethodConfirm'
+import { usePopupStore } from '../../../store/usePopupStore'
 import { account, defaultAccount, setAccount } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
 import { useHeaderState } from '../../header/store'
@@ -127,21 +127,11 @@ describe('useMeetupScreenSetup', () => {
     expect(goBackMock).toHaveBeenCalled()
   })
   it('should show the delete payment method overlay', () => {
-    let overlay = defaultOverlay
-    const updateOverlay = jest.fn((newOverlay) => {
-      overlay = newOverlay
-    })
-
-    renderHook(useMeetupScreenSetup, {
-      wrapper: ({ children }) => (
-        <NavigationContainer>
-          <OverlayContext.Provider value={[overlay, updateOverlay]}>{children}</OverlayContext.Provider>
-        </NavigationContainer>
-      ),
-    })
+    renderHook(useMeetupScreenSetup, { wrapper: NavigationContainer })
 
     useHeaderState.getState().icons?.[1].onPress()
-    expect(overlay).toStrictEqual({
+    expect(usePopupStore.getState()).toStrictEqual({
+      ...usePopupStore.getState(),
       title: i18n('help.paymentMethodDelete.title'),
       content: <DeletePaymentMethodConfirm />,
       visible: true,
