@@ -29,7 +29,5 @@ export const addPaymentData = async (data: PaymentData, save = true) => {
     })
   }
 
-  settingsStore.getState().setShowBackupReminder(true)
-
   if (save) await storePaymentData(account.paymentData)
 }
