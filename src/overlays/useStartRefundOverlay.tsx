@@ -20,17 +20,26 @@ export const useStartRefundOverlay = () => {
   const [, updateOverlay] = useOverlayContext()
   const showError = useShowErrorBanner()
   const navigation = useNavigation()
+  const isPeachWallet = useSettingsStore((state) => state.peachWalletActive)
+  const [setShowBackupReminder, shouldShowBackupOverlay, setShouldShowBackupOverlay] = useSettingsStore((state) => [
+    state.setShowBackupReminder,
+    state.shouldShowBackupOverlay.refundedEscrow,
+    state.setShouldShowBackupOverlay,
+  ])
   const { refetch: refetchTradeSummaries } = useTradeSummaries(false)
   const closeOverlay = useCallback(() => updateOverlay({ visible: false }), [updateOverlay])
   const goToWallet = useCallback(
     (txId: string) => {
       closeOverlay()
-      navigation.navigate('transactionDetails', { txId })
+      if (shouldShowBackupOverlay && isPeachWallet) {
+        navigation.navigate('backupTime', { nextScreen: 'transactionDetails', txId })
+      } else {
+        navigation.navigate('transactionDetails', { txId })
+      }
     },
     [closeOverlay, navigation],
   )
   const setOffer = useTradeSummaryStore((state) => state.setOffer)
-  const isPeachWallet = useSettingsStore((state) => state.peachWalletActive)
 
   const refund = useCallback(
     async (sellOffer: SellOffer, rawPSBT: string) => {
@@ -56,6 +65,9 @@ export const useStartRefundOverlay = () => {
           callback: () => {
             closeOverlay()
             navigation.navigate('yourTrades', { tab: 'history' })
+            if (shouldShowBackupOverlay && isPeachWallet) {
+              navigation.navigate('backupTime', { nextScreen: 'yourTrades' })
+            }
           },
         },
         action2: {
@@ -66,6 +78,8 @@ export const useStartRefundOverlay = () => {
               goToWallet(txId)
             } else {
               closeOverlay()
+              navigation.navigate('backupTime', { nextScreen: 'yourTrades', tab: 'sell' })
+
               showTransaction(txId, NETWORK)
             }
           },
@@ -87,9 +101,25 @@ export const useStartRefundOverlay = () => {
         setOffer(sellOffer.id, { txId })
         refetchTradeSummaries()
         peachWallet.syncWallet()
+        if (shouldShowBackupOverlay && isPeachWallet) {
+          setShowBackupReminder(true)
+          setShouldShowBackupOverlay('refundedEscrow', false)
+        }
       }
     },
-    [closeOverlay, goToWallet, isPeachWallet, navigation, refetchTradeSummaries, setOffer, showError, updateOverlay],
+    [
+      closeOverlay,
+      goToWallet,
+      isPeachWallet,
+      navigation,
+      refetchTradeSummaries,
+      setOffer,
+      setShouldShowBackupOverlay,
+      setShowBackupReminder,
+      shouldShowBackupOverlay,
+      showError,
+      updateOverlay,
+    ],
   )
   const showLoadingOverlay = useShowLoadingOverlay()
 

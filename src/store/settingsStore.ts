@@ -30,6 +30,10 @@ export type SettingsStore = Settings & {
   setLastSeedBackupDate: (lastSeedBackupDate: number) => void
   setLastFileBackupDate: (lastFileBackupDate: number) => void
   setShowBackupReminder: (showBackupReminder: boolean) => void
+  setShouldShowBackupOverlay: (
+    type: 'completedBuyOffer' | 'refundedEscrow' | 'bitcoinReceived',
+    shouldShow?: boolean
+  ) => void
   setPeachWalletActive: (peachWalletActive: boolean) => void
   togglePeachWallet: () => void
   setFeeRate: (feeRate: number | 'fastestFee' | 'halfHourFee' | 'hourFee' | 'economyFee') => void
@@ -74,6 +78,8 @@ export const settingsStore = createStore(
       setLastFileBackupDate: (lastFileBackupDate) => set((state) => ({ ...state, lastFileBackupDate })),
       setLastSeedBackupDate: (lastSeedBackupDate) => set((state) => ({ ...state, lastSeedBackupDate })),
       setShowBackupReminder: (showBackupReminder) => set((state) => ({ ...state, showBackupReminder })),
+      setShouldShowBackupOverlay: (type, shouldShow) =>
+        set((state) => ({ shouldShowBackupOverlay: { ...state.shouldShowBackupOverlay, [type]: shouldShow } })),
       setPeachWalletActive: (peachWalletActive) => set((state) => ({ ...state, peachWalletActive })),
       togglePeachWallet: () => get().setPeachWalletActive(!get().peachWalletActive),
       setFeeRate: (feeRate) => set((state) => ({ ...state, feeRate })),

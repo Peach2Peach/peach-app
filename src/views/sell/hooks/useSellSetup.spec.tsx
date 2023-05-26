@@ -5,7 +5,7 @@ import { SellTitleComponent } from '../components/SellTitleComponent'
 import { UseSellSetupProps, useSellSetup } from './useSellSetup'
 
 describe('useSellSetup', () => {
-  const initialProps: UseSellSetupProps = { help: 'buyingAndSelling', hideGoBackButton: false }
+  const initialProps: UseSellSetupProps = { help: 'sellingBitcoin', hideGoBackButton: false }
   beforeEach(() => {
     jest.clearAllMocks()
   })

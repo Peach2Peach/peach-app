@@ -1,6 +1,6 @@
 import { renderHook, waitFor } from '@testing-library/react-native'
 import { useBuySetup } from './useBuySetup'
-import { NavigationWrapper, replaceMock } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { defaultSelfUser } from '../../../../tests/unit/data/userData'
 import { QueryClientWrapper } from '../../../../tests/unit/helpers/QueryClientWrapper'
 
@@ -72,37 +72,5 @@ describe('useBuySetup', () => {
     expect(args.icons[0].id).toBe('helpCircle')
     expect(args.icons[0].color).toBe('#099DE2')
     expect(args.icons[0].onPress).toBe(showHelpMock)
-  })
-
-  it('should replace screen with backupTime if backupDates are null and isBackupMandatory is true', () => {
-    mockIsBackupMandatory.mockReturnValue(true)
-
-    renderHook(useBuySetup, { wrapper })
-
-    expect(replaceMock).toHaveBeenCalledWith('backupTime', { view: 'buyer' })
-  })
-
-  it('should not replace screen with backupTime if any backupDate is not null or backup isn\'t mandatory', () => {
-    useSettingsStoreMock.mockImplementationOnce((selector) =>
-      selector({ lastFileBackupDate: '2021-01-01', lastSeedBackupDate: null }),
-    )
-
-    renderHook(useBuySetup, { wrapper })
-
-    expect(replaceMock).not.toHaveBeenCalled()
-
-    useSettingsStoreMock.mockImplementationOnce((selector) =>
-      selector({ lastFileBackupDate: null, lastSeedBackupDate: '2021-01-01' }),
-    )
-
-    renderHook(useBuySetup, { wrapper })
-
-    expect(replaceMock).not.toHaveBeenCalled()
-
-    mockIsBackupMandatory.mockReturnValue(false)
-
-    renderHook(useBuySetup, { wrapper })
-
-    expect(replaceMock).not.toHaveBeenCalled()
   })
 })
