@@ -1,20 +1,12 @@
 import { renderHook } from '@testing-library/react-native'
 import { goBackMock, NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
-import { defaultOverlay, OverlayContext } from '../../../contexts/overlay'
 import { DeletePaymentMethodConfirm } from '../../../overlays/info/DeletePaymentMethodConfirm'
+import { usePopupStore } from '../../../store/usePopupStore'
 import { account, setAccount } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
 import { useDeletePaymentMethod } from './useDeletePaymentMethod'
 
-let overlay = defaultOverlay
-const updateOverlay = jest.fn((newOverlay) => {
-  overlay = newOverlay
-})
-const wrapper = ({ children }: { children: JSX.Element }) => (
-  <NavigationWrapper>
-    <OverlayContext.Provider value={[overlay, updateOverlay]}>{children}</OverlayContext.Provider>
-  </NavigationWrapper>
-)
+const wrapper = ({ children }: { children: JSX.Element }) => <NavigationWrapper>{children}</NavigationWrapper>
 
 describe('useDeletePaymentMethod', () => {
   beforeEach(() => {
@@ -23,7 +15,8 @@ describe('useDeletePaymentMethod', () => {
   it('should show the overlay', () => {
     const { result } = renderHook(() => useDeletePaymentMethod('sepa'), { wrapper })
     result.current()
-    expect(overlay).toStrictEqual({
+    expect(usePopupStore.getState()).toStrictEqual({
+      ...usePopupStore.getState(),
       title: i18n('help.paymentMethodDelete.title'),
       content: <DeletePaymentMethodConfirm />,
       visible: true,
@@ -44,16 +37,16 @@ describe('useDeletePaymentMethod', () => {
   it('should close the overlay when action1 is clicked', () => {
     const { result } = renderHook(() => useDeletePaymentMethod('sepa'), { wrapper })
     result.current()
-    overlay?.action1?.callback()
-    expect(overlay.visible).toBe(false)
+    usePopupStore.getState().action1?.callback()
+    expect(usePopupStore.getState().visible).toBe(false)
   })
 
   it('should remove the payment data, close the overlay and go back when action2 is clicked', () => {
     const { result } = renderHook(() => useDeletePaymentMethod('sepa'), { wrapper })
     result.current()
-    overlay?.action2?.callback()
+    usePopupStore.getState().action2?.callback()
     expect(account.paymentData).toStrictEqual([])
-    expect(overlay.visible).toBe(false)
+    expect(usePopupStore.getState().visible).toBe(false)
     expect(goBackMock).toHaveBeenCalled()
   })
 })
