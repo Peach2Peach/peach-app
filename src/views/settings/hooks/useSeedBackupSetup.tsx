@@ -21,7 +21,7 @@ export const useSeedBackupSetup = () => {
   })
   const [checked, toggleChecked] = useToggleBoolean()
   const [currentScreenIndex, setCurrentScreenIndex] = useState(lastSeedBackupDate ? 0 : 1)
-  const getCurrentScreen = () => screens[currentScreenIndex]
+  const getCurrentScreen = useCallback(() => screens[currentScreenIndex], [currentScreenIndex])
   const showNextScreen = useCallback(() => {
     if (getCurrentScreen().id === 'keepPhraseSecure') {
       setLastSeedBackupDate(Date.now())
@@ -33,7 +33,7 @@ export const useSeedBackupSetup = () => {
       setCurrentScreenIndex(0)
       toggleChecked()
     }
-  }, [currentScreenIndex, toggleChecked, setLastSeedBackupDate, setShowBackupReminder])
+  }, [getCurrentScreen, currentScreenIndex, setLastSeedBackupDate, setShowBackupReminder, toggleChecked])
 
   const goBackToStart = useCallback(() => {
     setCurrentScreenIndex(1)

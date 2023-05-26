@@ -1,4 +1,5 @@
 import { NETWORK } from '@env'
+import { shallow } from 'zustand/shallow'
 import { useOverlayContext } from '../../../contexts/overlay'
 import { useNavigation } from '../../../hooks'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
@@ -19,10 +20,13 @@ export const useRateSetup = ({ contract, view, vote, saveAndUpdate }: Props) => 
   const navigation = useNavigation()
   const [, updateOverlay] = useOverlayContext()
   const showError = useShowErrorBanner()
-  const showBackupReminder = useSettingsStore((state) => state.showBackupReminder)
+  const [showBackupReminder, isPeachWalletActive] = useSettingsStore(
+    (state) => [state.showBackupReminder, state.peachWalletActive],
+    shallow,
+  )
 
   const navigateAfterRating = (rating: 1 | -1) => {
-    if (showBackupReminder) {
+    if (showBackupReminder && !isPeachWalletActive) {
       if (rating === 1) {
         return navigation.replace('backupTime', { view, nextScreen: 'contract', contractId: contract.id })
       }
