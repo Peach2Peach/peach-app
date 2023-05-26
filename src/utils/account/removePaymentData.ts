@@ -1,5 +1,7 @@
 import { account } from '.'
 import { settingsStore } from '../../store/settingsStore'
+import { hashPaymentData } from '../paymentMethod'
+import { deletePaymentHash } from '../peachAPI'
 import { getPaymentData } from './getPaymentData'
 import { getPaymentDataByType } from './getPaymentDataByType'
 import { storePaymentData } from './storeAccount'
@@ -11,6 +13,12 @@ import { storePaymentData } from './storeAccount'
 export const removePaymentData = async (id: PaymentData['id']) => {
   const dataToBeRemoved = getPaymentData(id)
   if (!dataToBeRemoved) return
+
+  const [result, err] = await deletePaymentHash({ hash: hashPaymentData(dataToBeRemoved) })
+
+  if (!result && err?.error !== 'UNAUTHORIZED' && err?.error !== 'AUTHENTICATION_FAILED') {
+    throw Error('NETWORK_ERROR')
+  }
 
   account.paymentData = account.paymentData.filter((data) => data.id !== id)
 
