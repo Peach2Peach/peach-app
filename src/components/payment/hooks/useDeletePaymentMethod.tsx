@@ -4,33 +4,34 @@ import { DeletePaymentMethodConfirm } from '../../../overlays/info/DeletePayment
 import { usePopupStore } from '../../../store/usePopupStore'
 import { removePaymentData } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
+import { useCallback } from 'react'
 
 export const useDeletePaymentMethod = (id: string) => {
   const navigation = useNavigation()
   const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
 
-  const deleteMethod = () => {
+  const deleteMethod = useCallback(() => {
     setPopup({
       title: i18n('help.paymentMethodDelete.title'),
       content: <DeletePaymentMethodConfirm />,
       visible: true,
       level: 'ERROR',
       action1: {
-        callback: () => closePopup(),
+        callback: closePopup,
         icon: 'xSquare',
         label: i18n('neverMind'),
       },
       action2: {
         callback: () => {
           removePaymentData(id)
-          closePopup()
           navigation.goBack()
+          closePopup()
         },
         icon: 'trash',
         label: i18n('delete'),
       },
     })
-  }
+  }, [closePopup, id, navigation, setPopup])
 
   return deleteMethod
 }
