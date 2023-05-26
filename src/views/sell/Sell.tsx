@@ -1,11 +1,10 @@
-import { ReactElement, useCallback, useMemo } from 'react'
-import { TouchableOpacity, View } from 'react-native'
+import { useCallback, useMemo } from 'react'
+import { View } from 'react-native'
 import { shallow } from 'zustand/shallow'
-import { BitcoinPriceStats, HorizontalLine, Icon, PrimaryButton } from '../../components'
+import { BitcoinPriceStats, HorizontalLine, PrimaryButton } from '../../components'
 import { SelectAmount } from '../../components/inputs/verticalAmountSelector/SelectAmount'
 import { useNavigation, useValidatedState } from '../../hooks'
 import { useDebounce } from '../../hooks/useDebounce'
-import { useShowBackupReminder } from '../../hooks/useShowBackupReminder'
 import { useConfigStore } from '../../store/configStore'
 import { useSettingsStore } from '../../store/settingsStore'
 import tw from '../../styles/tailwind'
@@ -15,15 +14,13 @@ import LoadingScreen from '../loading/LoadingScreen'
 import { DailyTradingLimit } from '../settings/profile/DailyTradingLimit'
 import { useSellSetup } from './hooks/useSellSetup'
 
-export default (): ReactElement => {
+export default () => {
   const navigation = useNavigation()
-
-  const showCorrectBackupReminder = useShowBackupReminder()
 
   useSellSetup({ help: 'sellingBitcoin', hideGoBackButton: true })
 
-  const [showBackupReminder, sellAmount, setSellAmount] = useSettingsStore(
-    (state) => [state.showBackupReminder, state.sellAmount, state.setSellAmount],
+  const [showBackupReminder, hasSeenBackupOverlay, sellAmount, setSellAmount] = useSettingsStore(
+    (state) => [state.showBackupReminder, state.hasSeenBackupOverlay, state.sellAmount, state.setSellAmount],
     shallow,
   )
   const [minTradingAmount, maxTradingAmount] = useConfigStore(
@@ -65,7 +62,7 @@ export default (): ReactElement => {
         <PrimaryButton disabled={!amountValid} testID="navigation-next" onPress={next} narrow>
           {i18n('next')}
         </PrimaryButton>
-        {showBackupReminder && <BackupReminderIcon />}
+        {showBackupReminder && hasSeenBackupOverlay && <BackupReminderIcon />}
       </View>
       <DailyTradingLimit />
     </View>

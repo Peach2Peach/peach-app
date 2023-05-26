@@ -22,6 +22,7 @@ export const defaultSettings: Settings = {
   lastFileBackupDate: undefined,
   lastSeedBackupDate: undefined,
   showBackupReminder: true,
+  hasSeenBackupOverlay: false,
 
   country: undefined,
   locale: undefined,
