@@ -3,7 +3,7 @@ import { getAndStorePendingTransactionHex } from './getAndStorePendingTransactio
 
 const txHex = 'txHex'
 const getTxHexMock = jest.fn().mockResolvedValue([txHex])
-jest.mock('./getTxHex', () => ({
+jest.mock('../electrum/getTxHex', () => ({
   getTxHex: (...args: any[]) => getTxHexMock(...args),
 }))
 

@@ -11,7 +11,7 @@ import { error } from '../log'
 jest.mock('./PeachWallet', () => jest.requireActual('./PeachWallet'))
 
 const getTxHexMock = jest.fn(({ txId }) => [txId + 'Hex'])
-jest.mock('./getTxHex', () => ({
+jest.mock('../electrum/getTxHex', () => ({
   getTxHex: (args: any) => getTxHexMock(args),
 }))
 

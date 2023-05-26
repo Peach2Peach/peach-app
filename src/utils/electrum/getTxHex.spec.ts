@@ -1,5 +1,5 @@
 import fetch from '../fetch'
-import { getTxHex } from '../electrum/getTxHex'
+import { getTxHex } from './getTxHex'
 
 jest.mock('../fetch')
 

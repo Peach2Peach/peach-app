@@ -1,5 +1,5 @@
 import fetch from '../fetch'
-import { postTransaction } from '../electrum/postTransaction'
+import { postTransaction } from './postTransaction'
 
 jest.mock('../fetch')
 

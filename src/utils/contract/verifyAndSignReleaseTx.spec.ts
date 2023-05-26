@@ -1,6 +1,5 @@
 import { Psbt } from 'bitcoinjs-lib'
 import { createTestWallet } from '../../../tests/unit/helpers/createTestWallet'
-import { verifyPSBT } from '../../views/contract/helpers/verifyPSBT'
 import { getEscrowWalletForOffer, setWallet } from '../wallet'
 import { verifyAndSignReleaseTx } from './verifyAndSignReleaseTx'
 
@@ -11,13 +10,12 @@ jest.mock('bitcoinjs-lib', () => ({
     fromBase64: () => fromBase64Mock(),
   },
 }))
+
+const verifyPSBTMock = jest.fn()
 jest.mock('../../views/contract/helpers/verifyPSBT', () => ({
-  verifyPSBT: jest.fn(),
+  verifyPSBT: (...args: any[]) => verifyPSBTMock(...args),
 }))
-jest.mock('../wallet', () => ({
-  ...jest.requireActual('../wallet'),
-  getEscrowWallet: jest.fn(),
-  getWallet: jest.fn(),
+jest.mock('../wallet/getNetwork', () => ({
   getNetwork: jest.fn(),
 }))
 
@@ -50,11 +48,11 @@ describe('verifyAndSignReleaseTx', () => {
   const wallet = getEscrowWalletForOffer(mockSellOffer as SellOffer)
 
   afterEach(() => {
-    jest.restoreAllMocks()
+    jest.clearAllMocks()
   })
 
   it('should return null and error message if psbt is not valid', () => {
-    ;(verifyPSBT as jest.Mock).mockReturnValue('INVALID_INPUT')
+    verifyPSBTMock.mockReturnValueOnce('INVALID_INPUT')
 
     const [tx, error] = verifyAndSignReleaseTx(mockContract as Contract, mockSellOffer as SellOffer, wallet)
 
@@ -82,7 +80,7 @@ describe('verifyAndSignReleaseTx', () => {
       ] as Psbt['txOutputs'],
     }
     fromBase64Mock.mockReturnValue(psbt as Psbt)
-    ;(verifyPSBT as jest.Mock).mockReturnValue(null)
+    verifyPSBTMock.mockReturnValueOnce(null)
     const [tx, error] = verifyAndSignReleaseTx(mockContract as Contract, mockSellOffer as SellOffer, wallet)
 
     expect(error).toBe(null)
@@ -90,6 +88,6 @@ describe('verifyAndSignReleaseTx', () => {
     expect(psbt.signInput).toHaveBeenCalled()
     expect(finalizeInputMock).toHaveBeenCalled()
     expect(psbt.extractTransaction).toHaveBeenCalled()
-    expect(psbt.extractTransaction().toHex).toHaveBeenCalled()
+    expect(psbt.extractTransaction?.().toHex).toHaveBeenCalled()
   })
 })

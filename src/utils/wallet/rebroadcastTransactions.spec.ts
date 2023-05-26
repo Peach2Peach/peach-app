@@ -2,7 +2,7 @@ import { walletStore } from './walletStore'
 import { rebroadcastTransactions } from './rebroadcastTransactions'
 
 const postTransactionMock = jest.fn()
-jest.mock('./postTransaction', () => ({
+jest.mock('../electrum/postTransaction', () => ({
   postTransaction: (...args: any[]) => postTransactionMock(...args),
 }))
 

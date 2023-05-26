@@ -11,6 +11,10 @@ jest.mock('../context', () => ({
 
 describe('Escrow', () => {
   const renderer = createRenderer()
+
+  afterEach(() => {
+    jest.clearAllMocks()
+  })
   it('renders correctly', () => {
     const mockContract = { releaseTxId: undefined, escrow: '123', disputeActive: false } as Contract
     useContractContextMock.mockReturnValueOnce({ contract: mockContract })
@@ -28,13 +32,13 @@ describe('Escrow', () => {
     useContractContextMock.mockReturnValueOnce({ contract: mockContract })
     const { getByText } = render(<Escrow />)
     fireEvent.press(getByText(i18n('escrow')))
-    expect(Linking.openURL).toHaveBeenCalledWith('https://mempool.space/testnet/tx/123')
+    expect(Linking.openURL).toHaveBeenCalledWith('https://localhost:3000/tx/123')
   })
   it('opens a link with the escrow address when the releaseTxId is not present', () => {
     const mockContract = { releaseTxId: undefined, escrow: '123', disputeActive: false } as Contract
     useContractContextMock.mockReturnValueOnce({ contract: mockContract })
     const { getByText } = render(<Escrow />)
     fireEvent.press(getByText(i18n('escrow')))
-    expect(Linking.openURL).toHaveBeenCalledWith('https://mempool.space/testnet/address/123')
+    expect(Linking.openURL).toHaveBeenCalledWith('https://localhost:3000/address/123')
   })
 })
