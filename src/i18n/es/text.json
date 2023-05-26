@@ -108,7 +108,7 @@
   "help.referral.description.1": "Por cada 10.000 sats que tus referidos intercambien en Peach, obtienes un punto de referido.",
   "help.referral.description.2": "¡Ahorra tus puntos para obtener recompensas geniales!",
   "warning.firstBackup.title": "¡Haz una copia de seguridad!",
-  "warning.firstBackup.description": "Ahora que has realizado un intercambio, deberías hacer una copia de seguridad antes de continuar.\nSi no lo haces, perderás tu cuenta de Peach y cualquier fondo almacenado en la cartera de Peach si pierdes tu teléfono.",
+  "warning.firstBackup.description": "Ahora que has usado la cartera de Peach, deberías guardar una copia de seguridad antes de continuar.\n\nSino, podrías perder tu cuenta junto a tus fondos si pierdes tu telefono.",
   "error.firstBackup.action": "hacer una copia de seguridad",
   "warning.fundingAmountDifferent.title": "cantidades diferentes",
   "warning.fundingAmountDifferent.description.1": "Depositáste:",
