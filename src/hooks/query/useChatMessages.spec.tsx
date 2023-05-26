@@ -48,6 +48,45 @@ describe('useChatMessages', () => {
       error: null,
     })
   })
+  it('handles system messages', async () => {
+    const systemMessage1: Message = {
+      roomId: 'contract-313-312',
+      from: 'system',
+      date: new Date('2022-09-14T16:14:02.835Z'),
+      readBy: ['system'],
+      message: 'chat.systemMessage.mediatorWillJoinSoon',
+      decrypted: true,
+      signature: '-----BEGIN PGP SIGNATURE-----\nVersion: openpgp-mobile\n\nsig\n-----END PGP SIGNATURE-----',
+    }
+    const systemMessage2: Message = {
+      roomId: 'contract-313-312',
+      from: 'system',
+      date: new Date('2022-09-14T16:14:02.835Z'),
+      readBy: ['system'],
+      message: 'chat.systemMessage.disputeStarted.seller.noPayment::Peach12345678::buyer.noPayment',
+      decrypted: true,
+      signature: '-----BEGIN PGP SIGNATURE-----\nVersion: openpgp-mobile\n\nsig\n-----END PGP SIGNATURE-----',
+    }
+    getChatMock.mockResolvedValueOnce([[systemMessage1, systemMessage2]])
+    const { result } = renderHook((props: [string, string | undefined]) => useChatMessages(...props), {
+      wrapper: QueryClientWrapper,
+      initialProps: [chat1.id, contract.symmetricKey],
+    })
+
+    await waitFor(() => expect(result.current.isLoading).toBe(false))
+
+    expect(result.current.messages).toEqual([
+      {
+        ...systemMessage1,
+        message: 'A Peach mediator will join the chat soon',
+      },
+      {
+        ...systemMessage2,
+        message:
+          'A dispute has been started by the buyer Peach12345678 for the following reason: \'bitcoin not received\'',
+      },
+    ])
+  })
   it('fetches next page', async () => {
     const { result } = renderHook((props: [string, string | undefined]) => useChatMessages(...props), {
       wrapper: QueryClientWrapper,

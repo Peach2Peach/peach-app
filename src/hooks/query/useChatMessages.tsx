@@ -3,6 +3,7 @@ import { useInfiniteQuery } from '@tanstack/react-query'
 import { useMemo } from 'react'
 import { getChat } from '../../utils/peachAPI'
 import { decryptSymmetric } from '../../utils/pgp'
+import i18n from '../../utils/i18n'
 
 const PAGE_SIZE = 22
 
@@ -31,6 +32,14 @@ const getDecryptedChat
         messages.map(async (message) => {
           try {
             const decrypted = await decryptSymmetric(message.message, symmetricKey)
+            if (message.from === 'system') {
+              const [textId, ...args] = decrypted.split('::')
+              return {
+                ...message,
+                message: i18n(textId, ...args),
+                decrypted: !!decrypted,
+              }
+            }
             return {
               ...message,
               message: decrypted,
@@ -54,7 +63,7 @@ export const useChatMessages = (id: string, symmetricKey?: string) => {
     keepPreviousData: true,
     enabled: !!symmetricKey && isFocused,
     refetchInterval: 1000,
-    getNextPageParam: (lastPage, allPages) => lastPage.length === PAGE_SIZE ? allPages.length : null,
+    getNextPageParam: (lastPage, allPages) => (lastPage.length === PAGE_SIZE ? allPages.length : null),
   })
 
   const messages = useMemo(() => (data?.pages || []).flat(), [data?.pages])
