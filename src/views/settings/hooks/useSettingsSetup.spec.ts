@@ -29,7 +29,7 @@ describe('useSettingsSetup', () => {
         items: [
           { title: 'myProfile' },
           { title: 'referrals' },
-          { iconId: 'alertTriangle', title: 'backups', warning: true },
+          { title: 'backups', warning: false },
           { title: 'networkFees' },
           { title: 'paymentMethods' },
         ],
@@ -76,6 +76,17 @@ describe('useSettingsSetup', () => {
       { title: 'myProfile' },
       { title: 'referrals' },
       { title: 'backups', warning: false },
+      { title: 'networkFees' },
+      { title: 'paymentMethods' },
+    ])
+  })
+  it('does  highlight backups if backup reminder is  active', () => {
+    settingsStore.getState().setShowBackupReminder(true)
+    const { result } = renderHook(useSettingsSetup)
+    expect(result.current[1].items).toEqual([
+      { title: 'myProfile' },
+      { title: 'referrals' },
+      { title: 'backups', warning: true, iconId: 'alertTriangle' },
       { title: 'networkFees' },
       { title: 'paymentMethods' },
     ])

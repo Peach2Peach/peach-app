@@ -26,31 +26,11 @@ describe('useBackupTimeSetup', () => {
     jest.clearAllMocks()
   })
 
-  it('isMandatory should be true when there are no dates and isBackupMandatory returns false', () => {
+  it('should return defaults', () => {
     const { result } = renderHook(useBackupTimeSetup)
 
-    expect(result.current.isMandatory).toBe(true)
-  })
-
-  it('isMandatory should be false when lastFileBackupDate is truthy', () => {
-    useSettingsStoreMock.mockReturnValueOnce(['someDate', null])
-    const { result } = renderHook(useBackupTimeSetup)
-
-    expect(result.current.isMandatory).toBe(false)
-  })
-
-  it('isMandatory should be false when lastSeedBackupDate is truthy', () => {
-    useSettingsStoreMock.mockReturnValueOnce([null, 'someDate'])
-    const { result } = renderHook(useBackupTimeSetup)
-
-    expect(result.current.isMandatory).toBe(false)
-  })
-
-  it('isMandatory should be false when isBackupMandatory is false', () => {
-    isBackupMandatoryMock.mockReturnValueOnce(false)
-    const { result } = renderHook(useBackupTimeSetup)
-
-    expect(result.current.isMandatory).toBe(false)
+    expect(result.current.goToBackups).toBeInstanceOf(Function)
+    expect(result.current.skip).toBeInstanceOf(Function)
   })
 
   it('should navigate to backups screen when goToBackups is called', () => {
