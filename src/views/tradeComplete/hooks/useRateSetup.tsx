@@ -26,7 +26,7 @@ export const useRateSetup = ({ contract, view, vote, saveAndUpdate }: Props) => 
   )
 
   const navigateAfterRating = (rating: 1 | -1) => {
-    if (showBackupReminder && !isPeachWalletActive) {
+    if (showBackupReminder && !isPeachWalletActive && view === 'buyer') {
       if (rating === 1) {
         return navigation.replace('backupTime', { view, nextScreen: 'contract', contractId: contract.id })
       }

@@ -9,7 +9,7 @@ export const useShowBackupReminder = () => {
   const navigation = useNavigation()
   const showBackupReminder = () => {
     setPopup({
-      title: i18n('warning.firstBackup.title'),
+      title: i18n('error.firstBackup.title'),
       content: <FirstBackup />,
       visible: true,
       action2: {
