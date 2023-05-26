@@ -4,6 +4,7 @@ import { QueryClientWrapper } from '../../../../../tests/unit/helpers/QueryClien
 import { updateAccount } from '../../../../utils/account'
 import { account1 } from '../../../../../tests/unit/data/accountData'
 import { TradeItem } from './TradeItem'
+import { ContractItem } from './ContractItem'
 
 const TestWrapper = ({ children }: { children: React.ReactNode }) => (
   <QueryClientWrapper>
@@ -49,6 +50,20 @@ describe('ContractItem', () => {
     const { toJSON } = render(<TradeItem item={{ ...contract, tradeStatus: 'tradeCompleted' }} />, {
       wrapper: TestWrapper,
     })
+    expect(toJSON()).toMatchSnapshot()
+  })
+  it('should render correctly with seller requested cancel', () => {
+    const { toJSON } = render(
+      <ContractItem
+        contractSummary={{ ...contract, tradeStatus: 'confirmCancelation' }}
+        tradeTheme={{ color: '#000000', icon: 'bitcoinLogo', level: 'DEFAULT' }}
+        icon={undefined}
+        theme={undefined}
+      />,
+      {
+        wrapper: TestWrapper,
+      },
+    )
     expect(toJSON()).toMatchSnapshot()
   })
 })
