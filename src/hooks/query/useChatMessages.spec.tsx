@@ -63,7 +63,7 @@ describe('useChatMessages', () => {
       from: 'system',
       date: new Date('2022-09-14T16:14:02.835Z'),
       readBy: ['system'],
-      message: 'chat.systemMessage.disputeStarted.seller.noPayment::Peach12345678::buyer.noPayment',
+      message: 'chat.systemMessage.disputeStarted.seller.noPayment.buyer::Peach12345678::buyer.noPayment',
       decrypted: true,
       signature: '-----BEGIN PGP SIGNATURE-----\nVersion: openpgp-mobile\n\nsig\n-----END PGP SIGNATURE-----',
     }
