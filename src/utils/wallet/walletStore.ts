@@ -51,7 +51,7 @@ export const walletStore = createStore(
           .getAllTransactions()
           .find((tx) => tx.txid === txId),
       addPendingTransactionHex: (txid, hex) =>
-        set({ pendingTransactions: { ...get().pendingTransactions, [txid]: hex } }),
+        set((state) => ({ pendingTransactions: { ...state.pendingTransactions, [txid]: hex } })),
       removePendingTransaction: (txid) => {
         const pendingTransactions = get().pendingTransactions
         delete pendingTransactions[txid]
