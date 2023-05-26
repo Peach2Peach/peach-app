@@ -30,6 +30,9 @@ describe('tradeInformationGetters', () => {
   it('should return the correct value for the price field', () => {
     expect(tradeInformationGetters.price(contract)).toEqual('89.04 EUR')
   })
+  it('should apply the priceFormat function to the price field', () => {
+    expect(tradeInformationGetters.price({ ...contract, price: 21000000 })).toEqual('21 000 000.00 EUR')
+  })
   it('should return the correct value for the paidToMethod field', () => {
     expect(
       tradeInformationGetters.paidToMethod({
