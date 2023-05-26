@@ -25,13 +25,9 @@ export const Timer = ({ text, end, style }: Props) => {
   }, [end])
 
   return (
-    <View style={[tw`flex-row justify-center`, style]}>
-      <Text style={tw`button-medium uppercase`}>{text}</Text>
-      <Text style={[tw`w-18 pl-1 button-medium`, timer > 0 ? tw`text-black-3` : tw`text-error-main`]}>
-        {msToTimer(timer)}
-      </Text>
+    <View style={[tw`flex-row justify-center w-full gap-1`, style]}>
+      <Text style={tw`button-medium`}>{text}</Text>
+      <Text style={[tw`button-medium`, timer > 0 ? tw`text-black-3` : tw`text-error-main`]}>{msToTimer(timer)}</Text>
     </View>
   )
 }
-
-export default Timer
