@@ -1,1 +1,1 @@
-export const isTradeCanceled = (contract: Contract) => contract.canceled
+export const isTradeCanceled = (contract: Pick<Contract, 'canceled'>) => contract.canceled

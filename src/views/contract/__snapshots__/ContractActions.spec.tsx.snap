@@ -1,0 +1,119 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ContractActions should not show the dispute sliders when there is no dispute winner 1`] = `
+<View
+  style={
+    [
+      {
+        "gap": 12,
+      },
+      undefined,
+    ]
+  }
+>
+  <ContractStatusInfo
+    actionPending={false}
+    postConfirmPaymentBuyer={[MockFunction]}
+    postConfirmPaymentSeller={[MockFunction]}
+    requiredAction="none"
+  />
+  <ContractCTA
+    actionPending={false}
+    postConfirmPaymentBuyer={[MockFunction]}
+    postConfirmPaymentSeller={[MockFunction]}
+    requiredAction="none"
+  />
+</View>
+`;
+
+exports[`ContractActions should show the "go to new trade" button when there is a new offer 1`] = `
+<View
+  style={
+    [
+      {
+        "gap": 12,
+      },
+      undefined,
+    ]
+  }
+>
+  <ContractStatusInfo
+    actionPending={false}
+    postConfirmPaymentBuyer={[MockFunction]}
+    postConfirmPaymentSeller={[MockFunction]}
+    requiredAction="none"
+  />
+  <PrimaryButton
+    onPress={[MockFunction]}
+  >
+    go to new trade
+  </PrimaryButton>
+  <ContractCTA
+    actionPending={false}
+    postConfirmPaymentBuyer={[MockFunction]}
+    postConfirmPaymentSeller={[MockFunction]}
+    requiredAction="none"
+  />
+  <ResolveDisputeSliders />
+</View>
+`;
+
+exports[`ContractActions should show the dispute sliders when the contract is in the refundOrReviveRequired state 1`] = `
+<View
+  style={
+    [
+      {
+        "gap": 12,
+      },
+      undefined,
+    ]
+  }
+>
+  <ContractStatusInfo
+    actionPending={false}
+    postConfirmPaymentBuyer={[MockFunction]}
+    postConfirmPaymentSeller={[MockFunction]}
+    requiredAction="none"
+  />
+  <ContractCTA
+    actionPending={false}
+    postConfirmPaymentBuyer={[MockFunction]}
+    postConfirmPaymentSeller={[MockFunction]}
+    requiredAction="none"
+  />
+  <ResolveDisputeSliders />
+</View>
+`;
+
+exports[`ContractActions should show the provide email button when the contract requires an email 1`] = `
+<View
+  style={
+    [
+      {
+        "gap": 12,
+      },
+      undefined,
+    ]
+  }
+>
+  <ContractStatusInfo
+    actionPending={false}
+    postConfirmPaymentBuyer={[MockFunction]}
+    postConfirmPaymentSeller={[MockFunction]}
+    requiredAction="none"
+  />
+  <ProvideEmailButton
+    style={
+      {
+        "alignSelf": "center",
+      }
+    }
+  />
+  <ContractCTA
+    actionPending={false}
+    postConfirmPaymentBuyer={[MockFunction]}
+    postConfirmPaymentSeller={[MockFunction]}
+    requiredAction="none"
+  />
+</View>
+`;

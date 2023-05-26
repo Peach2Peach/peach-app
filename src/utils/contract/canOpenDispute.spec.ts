@@ -50,5 +50,6 @@ describe('canOpenDispute', () => {
     }
 
     expect(canOpenDispute(contract as Contract)).toBe(true)
+    expect(canOpenDispute({ ...contract, paymentMethod: 'advcash' } as Contract)).toBe(true)
   })
 })

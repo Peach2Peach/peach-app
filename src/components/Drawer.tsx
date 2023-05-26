@@ -92,7 +92,7 @@ export const Drawer = ({ title, content, show, previousDrawer, onClose }: Drawer
           )}
           <Text style={tw`text-center drawer-title`}>{title}</Text>
           <Pressable testID="closeButton" onPress={closeDrawer} style={tw`absolute p-3 right-4 top-3`}>
-            <Icon id="xSquare" style={tw`w-6 h-6`} color={tw`text-black-4`.color} />
+            <Icon id="xSquare" style={tw`w-6 h-6`} color={tw`text-black-3`.color} />
           </Pressable>
         </View>
         <HorizontalLine />

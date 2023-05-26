@@ -12,17 +12,18 @@ export const useSellSummarySetup = () => {
   const navigation = useNavigation()
   const showErrorBanner = useShowErrorBanner()
 
-  const [peachWalletActive, payoutAddress, payoutAddressLabel] = useSettingsStore(
-    (state) => [state.peachWalletActive, state.payoutAddress, state.payoutAddressLabel],
+  const [peachWalletActive, setPeachWalletActive, payoutAddress, payoutAddressLabel] = useSettingsStore(
+    (state) => [state.peachWalletActive, state.setPeachWalletActive, state.payoutAddress, state.payoutAddressLabel],
     shallow,
   )
+
+  if (!peachWalletActive && !payoutAddress) setPeachWalletActive(true)
+
   const [returnAddress, setReturnAddress] = useState('')
   const [isPublishing, setIsPublishing] = useState(false)
   const [canPublish, setCanPublish] = useState(false)
 
   const walletLabel = peachWalletActive ? i18n('peachWallet') : payoutAddressLabel
-
-  const goToSetupRefundWallet = () => navigation.navigate('payoutAddress', { type: 'refund' })
 
   const publishOffer = async (offerDraft: SellOfferDraft) => {
     if (isPublishing) return
@@ -65,5 +66,5 @@ export const useSellSummarySetup = () => {
     })()
   }, [payoutAddress, peachWalletActive])
 
-  return { returnAddress, walletLabel, goToSetupRefundWallet, canPublish, publishOffer, isPublishing }
+  return { returnAddress, walletLabel, canPublish, publishOffer, isPublishing }
 }

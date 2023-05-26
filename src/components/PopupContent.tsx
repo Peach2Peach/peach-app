@@ -63,7 +63,7 @@ export const PopupContent = ({
 
   return (
     <Modal transparent={true} visible={visible}>
-      <View style={tw`items-center justify-center flex-1`}>
+      <View style={tw`justify-center flex-1`}>
         <Pressable
           testID="overlay-background"
           style={tw`absolute top-0 left-0 w-full h-full bg-black-1 opacity-40`}

@@ -2,16 +2,15 @@ import { useEffect, useState } from 'react'
 import { shallow } from 'zustand/shallow'
 import { useSettingsStore } from '../../store/settingsStore'
 import i18n from '../../utils/i18n'
-import { getSummaryWalletLabel } from '../../utils/offer'
-import { Text } from '../text'
+import { getWalletLabel } from '../../utils/offer'
 
 type Props = ComponentProps & {
   label?: string
   address?: string
 }
-export const WalletLabel = ({ label, address, style }: Props) => {
-  const [payoutAddress, payoutAddressLabel] = useSettingsStore(
-    (state) => [state.payoutAddress, state.payoutAddressLabel],
+export const WalletLabel = ({ label, address }: Props) => {
+  const [payoutAddress, payoutAddressLabel, isPeachWalletActive] = useSettingsStore(
+    (state) => [state.payoutAddress, state.payoutAddressLabel, state.peachWalletActive],
     shallow,
   )
   const [fallbackLabel, setFallbackLabel] = useState(i18n('loading'))
@@ -22,14 +21,15 @@ export const WalletLabel = ({ label, address, style }: Props) => {
     // this operation can be expensive, hence we delay execution
     setTimeout(() => {
       setFallbackLabel(
-        getSummaryWalletLabel({
+        getWalletLabel({
           address,
           customPayoutAddress: payoutAddress,
           customPayoutAddressLabel: payoutAddressLabel,
-        }) || i18n('offer.summary.customPayoutAddress'),
+          isPeachWalletActive,
+        }),
       )
     })
-  }, [address, label, payoutAddress, payoutAddressLabel])
+  }, [address, label, payoutAddress, payoutAddressLabel, isPeachWalletActive])
 
-  return <Text style={style}>{label || fallbackLabel}</Text>
+  return <>{label || fallbackLabel}</>
 }

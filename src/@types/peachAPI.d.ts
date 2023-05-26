@@ -135,7 +135,7 @@ declare type PaymentMethodCountry =
 declare type Location = 'amsterdam' | 'belgianEmbassy' | 'lugano'
 
 declare type CashTrade = 'cash' | `cash.${string}`
-declare type AmazonGiftCard = `giftCard.amazon.${PaymentMethodCountry}`
+declare type AmazonGiftCard = 'giftCard.amazon' | `giftCard.amazon.${PaymentMethodCountry}`
 declare type NationalTransfer = `nationalTransfer${PaymentMethodCountry}`
 declare type PaymentMethod =
   | 'sepa'
