@@ -99,7 +99,7 @@ describe('HelpOverlays', () => {
   })
 
   it('should have the correct payout address help overlay', () => {
-    expect(helpOverlays.payoutAddress.title).toBe('payout address')
+    expect(helpOverlays.payoutAddress.title).toBe('custom payout wallet')
     expect(helpOverlays.payoutAddress.content).toBe(PayoutAddressPopup)
   })
 

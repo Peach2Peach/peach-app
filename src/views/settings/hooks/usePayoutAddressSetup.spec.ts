@@ -17,7 +17,7 @@ describe('usePayoutAddressSetup', () => {
 
   it('should set up header correctly', () => {
     renderHook(usePayoutAddressSetup, { wrapper: NavigationWrapper })
-    expect(useHeaderState.getState().title).toBe('payout address')
+    expect(useHeaderState.getState().title).toBe('custom payout wallet')
     expect(useHeaderState.getState().icons?.[0].id).toBe('helpCircle')
   })
 })
