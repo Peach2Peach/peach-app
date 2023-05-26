@@ -70,11 +70,24 @@ const Handlers = ({ getCurrentPage }: HandlerProps): ReactElement => {
   const messageHandler = useMessageHandler(getCurrentPage)
   const [, updateOverlay] = useOverlayContext()
   const showAnalyticsPrompt = useShowAnalyticsPrompt(updateOverlay)
-  const analyticsPopupSeen = useSettingsStore((state) => state.analyticsPopupSeen)
+  const [analyticsPopupSeen, lastBackupDate, showBackupReminder, setShouldShowBackupOverlay] = useSettingsStore(
+    (state) => [
+      state.analyticsPopupSeen,
+      state.lastBackupDate,
+      state.showBackupReminder,
+      state.setShouldShowBackupOverlay,
+    ],
+    shallow,
+  )
   const updateTradingAmounts = useUpdateTradingAmounts()
   const displayCurrency = useSettingsStore((state) => state.displayCurrency)
   const [setPrices, setCurrency] = useBitcoinStore((state) => [state.setPrices, state.setCurrency], shallow)
   const { data: prices } = useMarketPrices()
+  if (!showBackupReminder && lastBackupDate && Date.now() - lastBackupDate > 1000 * 60 * 60 * 24 * 30) {
+    setShouldShowBackupOverlay('bitcoinReceived', true)
+    setShouldShowBackupOverlay('completedBuyOffer', true)
+    setShouldShowBackupOverlay('refundedEscrow', true)
+  }
 
   useShowUpdateAvailable()
 

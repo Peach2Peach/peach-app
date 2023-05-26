@@ -22,18 +22,16 @@ export default () => {
 
   const { freeTrades, maxFreeTrades } = useBuySetup()
 
-  const [showBackupReminder, hasSeenBackupOverlay, minBuyAmount, setMinBuyAmount, maxBuyAmount, setMaxBuyAmount]
-    = useSettingsStore(
-      (state) => [
-        state.showBackupReminder,
-        state.hasSeenBackupOverlay,
-        state.minBuyAmount,
-        state.setMinBuyAmount,
-        state.maxBuyAmount,
-        state.setMaxBuyAmount,
-      ],
-      shallow,
-    )
+  const [showBackupReminder, minBuyAmount, setMinBuyAmount, maxBuyAmount, setMaxBuyAmount] = useSettingsStore(
+    (state) => [
+      state.showBackupReminder,
+      state.minBuyAmount,
+      state.setMinBuyAmount,
+      state.maxBuyAmount,
+      state.setMaxBuyAmount,
+    ],
+    shallow,
+  )
   const [minTradingAmount, maxTradingAmount] = useConfigStore(
     (state) => [state.minTradingAmount, state.maxTradingAmount],
     shallow,
@@ -90,7 +88,7 @@ export default () => {
         <PrimaryButton disabled={!minAmountValid || !maxAmountValid} testID="navigation-next" onPress={next} narrow>
           {i18n('next')}
         </PrimaryButton>
-        {showBackupReminder && hasSeenBackupOverlay && <BackupReminderIcon />}
+        {showBackupReminder && <BackupReminderIcon />}
       </View>
       <DailyTradingLimit />
     </View>

@@ -21,8 +21,12 @@ export const defaultSettings: Settings = {
   lastBackupDate: undefined,
   lastFileBackupDate: undefined,
   lastSeedBackupDate: undefined,
-  showBackupReminder: true,
-  hasSeenBackupOverlay: false,
+  showBackupReminder: false,
+  shouldShowBackupOverlay: {
+    completedBuyOffer: true,
+    refundedEscrow: true,
+    bitcoinReceived: true,
+  },
 
   country: undefined,
   locale: undefined,

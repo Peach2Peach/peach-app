@@ -19,8 +19,8 @@ export default () => {
 
   useSellSetup({ help: 'sellingBitcoin', hideGoBackButton: true })
 
-  const [showBackupReminder, hasSeenBackupOverlay, sellAmount, setSellAmount] = useSettingsStore(
-    (state) => [state.showBackupReminder, state.hasSeenBackupOverlay, state.sellAmount, state.setSellAmount],
+  const [showBackupReminder, sellAmount, setSellAmount] = useSettingsStore(
+    (state) => [state.showBackupReminder, state.sellAmount, state.setSellAmount],
     shallow,
   )
   const [minTradingAmount, maxTradingAmount] = useConfigStore(
@@ -62,7 +62,7 @@ export default () => {
         <PrimaryButton disabled={!amountValid} testID="navigation-next" onPress={next} narrow>
           {i18n('next')}
         </PrimaryButton>
-        {showBackupReminder && hasSeenBackupOverlay && <BackupReminderIcon />}
+        {showBackupReminder && <BackupReminderIcon />}
       </View>
       <DailyTradingLimit />
     </View>

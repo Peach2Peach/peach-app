@@ -90,7 +90,6 @@ declare type RootStackParamList = {
   publicProfile: undefined
   referrals: undefined
   backupTime: {
-    view: 'buyer' | 'seller'
     nextScreen?: keyof RootStackParamList
     [key: string]: any
   }
