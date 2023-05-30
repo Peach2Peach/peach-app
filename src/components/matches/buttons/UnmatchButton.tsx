@@ -1,5 +1,4 @@
-import { useCallback, useContext } from 'react'
-import { OverlayContext } from '../../../contexts/overlay'
+import { useCallback } from 'react'
 import { useToggleBoolean } from '../../../hooks'
 import { useShowAppPopup } from '../../../hooks/useShowAppPopup'
 import { UnmatchPopup } from '../../../overlays/UnmatchPopup'
@@ -34,7 +33,7 @@ export const UnmatchButton = ({ match, offer, interruptMatching, showUnmatchedCa
       action1: {
         label: i18n('search.popups.unmatch.neverMind'),
         icon: 'xSquare',
-        callback: () => closePopup(),
+        callback: closePopup,
       },
       action2: {
         label: i18n('search.popups.unmatch.confirm'),
