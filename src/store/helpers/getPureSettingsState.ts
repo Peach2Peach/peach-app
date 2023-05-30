@@ -23,6 +23,7 @@ export const getPureSettingsState = (state: SettingsStore): Settings => ({
   lastFileBackupDate: state.lastFileBackupDate,
   lastSeedBackupDate: state.lastSeedBackupDate,
   showBackupReminder: state.showBackupReminder,
+  shouldShowBackupOverlay: state.shouldShowBackupOverlay,
   peachWalletActive: state.peachWalletActive,
   nodeURL: state.nodeURL,
   feeRate: state.feeRate,

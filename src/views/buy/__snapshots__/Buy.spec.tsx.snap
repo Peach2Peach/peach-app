@@ -1770,66 +1770,6 @@ exports[`Buy should render correctly 1`] = `
         next
       </Text>
     </View>
-    <View
-      style={
-        {
-          "justifyContent": "center",
-        }
-      }
-    >
-      <View
-        accessibilityState={
-          {
-            "busy": undefined,
-            "checked": undefined,
-            "disabled": undefined,
-            "expanded": undefined,
-            "selected": undefined,
-          }
-        }
-        accessibilityValue={
-          {
-            "max": undefined,
-            "min": undefined,
-            "now": undefined,
-            "text": undefined,
-          }
-        }
-        accessible={true}
-        collapsable={false}
-        focusable={true}
-        onClick={[Function]}
-        onResponderGrant={[Function]}
-        onResponderMove={[Function]}
-        onResponderRelease={[Function]}
-        onResponderTerminate={[Function]}
-        onResponderTerminationRequest={[Function]}
-        onStartShouldSetResponder={[Function]}
-        style={
-          {
-            "left": 16,
-            "opacity": 1,
-            "position": "absolute",
-          }
-        }
-      >
-        <test-file-stub
-          fill="#F5CE22"
-          style={
-            [
-              {
-                "height": 24,
-                "width": 24,
-              },
-              {
-                "height": 32,
-                "width": 32,
-              },
-            ]
-          }
-        />
-      </View>
-    </View>
   </View>
   <View>
     <View
@@ -4032,66 +3972,6 @@ exports[`Buy should render correctly with free trades 1`] = `
       >
         next
       </Text>
-    </View>
-    <View
-      style={
-        {
-          "justifyContent": "center",
-        }
-      }
-    >
-      <View
-        accessibilityState={
-          {
-            "busy": undefined,
-            "checked": undefined,
-            "disabled": undefined,
-            "expanded": undefined,
-            "selected": undefined,
-          }
-        }
-        accessibilityValue={
-          {
-            "max": undefined,
-            "min": undefined,
-            "now": undefined,
-            "text": undefined,
-          }
-        }
-        accessible={true}
-        collapsable={false}
-        focusable={true}
-        onClick={[Function]}
-        onResponderGrant={[Function]}
-        onResponderMove={[Function]}
-        onResponderRelease={[Function]}
-        onResponderTerminate={[Function]}
-        onResponderTerminationRequest={[Function]}
-        onStartShouldSetResponder={[Function]}
-        style={
-          {
-            "left": 16,
-            "opacity": 1,
-            "position": "absolute",
-          }
-        }
-      >
-        <test-file-stub
-          fill="#F5CE22"
-          style={
-            [
-              {
-                "height": 24,
-                "width": 24,
-              },
-              {
-                "height": 32,
-                "width": 32,
-              },
-            ]
-          }
-        />
-      </View>
     </View>
   </View>
   <View>

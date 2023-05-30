@@ -22,14 +22,8 @@ export const useSettingsSetup = () => {
   useHeaderSetup({ title: i18n('settings.title'), hideGoBackButton: true })
   const [, updateOverlay] = useContext(OverlayContext)
   const [notificationsOn, setNotificationsOn] = useState(false)
-  const [peachWalletActive, togglePeachWallet, enableAnalytics, toggleAnalytics, showBackupReminder] = useSettingsStore(
-    (state) => [
-      state.peachWalletActive,
-      state.togglePeachWallet,
-      state.enableAnalytics,
-      state.toggleAnalytics,
-      state.showBackupReminder,
-    ],
+  const [enableAnalytics, toggleAnalytics, showBackupReminder] = useSettingsStore(
+    (state) => [state.enableAnalytics, state.toggleAnalytics, state.showBackupReminder],
     shallow,
   )
 
@@ -103,18 +97,12 @@ export const useSettingsSetup = () => {
             title: 'notifications',
             onPress: notificationClick,
           },
-          {
-            title: 'peachWallet',
-            onPress: togglePeachWallet,
-            iconId: peachWalletActive ? 'toggleRight' : 'toggleLeft',
-            enabled: peachWalletActive,
-          },
-          !peachWalletActive ? { title: 'payoutAddress' } : undefined,
+          { title: 'payoutAddress' },
           { title: 'currency' },
           { title: 'language' },
         ] satisfies (SettingsItemProps | undefined)[]
       ).filter(isDefined),
-    [toggleAnalytics, enableAnalytics, notificationClick, togglePeachWallet, peachWalletActive],
+    [toggleAnalytics, enableAnalytics, notificationClick],
   )
 
   const settings = [

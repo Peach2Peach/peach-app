@@ -4,6 +4,7 @@ import { useMessageHandler } from './useMessageHandler'
 import { getContract } from '../../utils/contract'
 import { getContract as getContractAPI } from '../../utils/peachAPI'
 import { contract } from '../../../tests/unit/data/contractData'
+import { AppState } from 'react-native'
 
 const updateMessageMock = jest.fn()
 jest.mock('react', () => ({
@@ -53,7 +54,6 @@ jest.mock('./useGetPNActionHandler', () => ({
 // eslint-disable-next-line max-lines-per-function
 describe('useMessageHandler', () => {
   const mockGetCurrentPage = () => 'home' as keyof RootStackParamList
-
   beforeEach(() => {
     ;(getContract as jest.Mock).mockReturnValue(contract)
     ;(getContractAPI as jest.Mock).mockResolvedValue([contract])
@@ -73,6 +73,7 @@ describe('useMessageHandler', () => {
       fcmOptions: {},
     } as FirebaseMessagingTypes.RemoteMessage
     const { result: onMessageHandler } = renderHook(() => useMessageHandler(mockGetCurrentPage))
+    AppState.currentState = 'active'
     await act(async () => {
       await onMessageHandler.current(mockRemoteMessage)
     })
@@ -83,6 +84,25 @@ describe('useMessageHandler', () => {
       level: 'WARN',
       action: actionMock,
     })
+  })
+  it('should not call updateMessage when type is not found and appstate is background', async () => {
+    const mockRemoteMessage = {
+      data: {
+        type: 'SOME_TYPE',
+      },
+      notification: {
+        bodyLocArgs: ['arg1', 'arg2'],
+      },
+      fcmOptions: {},
+    } as FirebaseMessagingTypes.RemoteMessage
+    const { result: onMessageHandler } = renderHook(() => useMessageHandler(mockGetCurrentPage))
+    AppState.currentState = 'background'
+
+    await act(async () => {
+      await onMessageHandler.current(mockRemoteMessage)
+    })
+
+    expect(updateMessageMock).not.toHaveBeenCalled()
   })
 
   it('should call overlay event when type is found in overlayEvents', async () => {

@@ -3,7 +3,7 @@ import { enforceFormatOnPaymentData } from '.'
 
 describe('enforceFormatOnPaymentData', () => {
   it('should enforce format on sepa data correctly', () => {
-    const data: PaymentData & SEPAData = {
+    const data: PaymentData = {
       id: 'sepa-1',
       label: 'Sepa',
       type: 'sepa',
@@ -13,7 +13,7 @@ describe('enforceFormatOnPaymentData', () => {
       bic: 'aaaabbcc123',
       reference: 'Some reference',
     }
-    const expected: PaymentData & SEPAData = {
+    const expected: PaymentData = {
       id: 'sepa-1',
       version: '0.2.0',
       label: 'Sepa',
@@ -27,7 +27,7 @@ describe('enforceFormatOnPaymentData', () => {
     expect(enforceFormatOnPaymentData(data)).toEqual(expected)
   })
   it('should enforce format on payment data with phone, email, username correctly', () => {
-    const data: PaymentData & PaypalData = {
+    const data: PaymentData = {
       id: 'paypal-1',
       label: 'Paypal',
       type: 'paypal',
@@ -36,7 +36,7 @@ describe('enforceFormatOnPaymentData', () => {
       email: 'sATOSHI@gmx.at',
       userName: 'Satoshi',
     }
-    const expected: PaymentData & PaypalData = {
+    const expected: PaymentData = {
       id: 'paypal-1',
       version: '0.2.0',
       label: 'Paypal',
@@ -50,7 +50,7 @@ describe('enforceFormatOnPaymentData', () => {
   })
 
   it('should skip enforce on data with latest version', () => {
-    const data: PaymentData & SEPAData = {
+    const data: PaymentData = {
       id: 'sepa-1',
       version: '0.2.0',
       label: 'Sepa',

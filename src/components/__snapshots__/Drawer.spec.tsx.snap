@@ -101,7 +101,7 @@ exports[`Drawer renders correctly 1`] = `
         testID="closeButton"
       >
         <Icon
-          color="#BAADA7"
+          color="#9F8C82"
           id="xSquare"
           style={
             {
@@ -264,7 +264,7 @@ exports[`Drawer renders correctly with previous drawer 1`] = `
         testID="closeButton"
       >
         <Icon
-          color="#BAADA7"
+          color="#9F8C82"
           id="xSquare"
           style={
             {

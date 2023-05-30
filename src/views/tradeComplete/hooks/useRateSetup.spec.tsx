@@ -4,14 +4,8 @@ import { contract } from '../../../../tests/unit/data/contractData'
 import { TradeBreakdown } from '../../../overlays/TradeBreakdown'
 import { Props, useRateSetup } from './useRateSetup'
 import { apiSuccess, unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
-
-const replaceMock = jest.fn()
-const useNavigationMock = jest.fn().mockReturnValue({
-  replace: (...args: any[]) => replaceMock(...args),
-})
-jest.mock('../../../hooks/useNavigation', () => ({
-  useNavigation: () => useNavigationMock(),
-}))
+import { settingsStore } from '../../../store/settingsStore'
+import { NavigationWrapper, replaceMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 
 const showErrorBannerMock = jest.fn()
 const useShowErrorBannerMock = jest.fn().mockReturnValue(showErrorBannerMock)
@@ -33,11 +27,6 @@ jest.mock('../../../utils/peachAPI', () => ({
 const createUserRatingMock = jest.fn()
 jest.mock('../../../utils/contract', () => ({
   createUserRating: (...args: any[]) => createUserRatingMock(...args),
-}))
-
-const useSettingsStoreMock = jest.fn((selector) => selector({ showBackupReminder: true }))
-jest.mock('../../../store/settingsStore', () => ({
-  useSettingsStore: (selector: any) => useSettingsStoreMock(selector),
 }))
 
 const showTransactionMock = jest.fn()
@@ -65,12 +54,17 @@ describe('useRateSetup', () => {
   const saveAndUpdateMock = jest.fn()
   const initialProps: Props = { contract, view: 'buyer', vote: undefined, saveAndUpdate: saveAndUpdateMock }
 
+  beforeEach(() => {
+    settingsStore.getState().setShouldShowBackupOverlay('completedBuyOffer', false)
+  })
   afterEach(() => {
     jest.clearAllMocks()
+    settingsStore.getState().reset()
   })
   it('returns default values correctly', () => {
     const { result } = renderHook(useRateSetup, {
       initialProps,
+      wrapper: NavigationWrapper,
     })
 
     expect(result.current).toEqual({
@@ -82,6 +76,7 @@ describe('useRateSetup', () => {
   it('does not submit rating if none has been set', () => {
     const { result } = renderHook(useRateSetup, {
       initialProps,
+      wrapper: NavigationWrapper,
     })
     result.current.rate()
     expect(rateUserMock).not.toHaveBeenCalled()
@@ -90,6 +85,7 @@ describe('useRateSetup', () => {
     createUserRatingMock.mockReturnValueOnce(positiveRating)
     const { result } = renderHook(useRateSetup, {
       initialProps: { ...initialProps, vote: 'positive', view: 'buyer' },
+      wrapper: NavigationWrapper,
     })
     await result.current.rate()
     expect(rateUserMock).toHaveBeenCalledWith({
@@ -106,6 +102,7 @@ describe('useRateSetup', () => {
     createUserRatingMock.mockReturnValueOnce(positiveRating)
     const { result } = renderHook(useRateSetup, {
       initialProps: { ...initialProps, vote: 'positive', view: 'seller' },
+      wrapper: NavigationWrapper,
     })
     await result.current.rate()
     expect(rateUserMock).toHaveBeenCalledWith({
@@ -119,9 +116,11 @@ describe('useRateSetup', () => {
     })
   })
   it('does submit positive rating and navigates to backupTime', async () => {
+    settingsStore.getState().setShouldShowBackupOverlay('completedBuyOffer', true)
     createUserRatingMock.mockReturnValueOnce(positiveRating)
     const { result } = renderHook(useRateSetup, {
       initialProps: { ...initialProps, vote: 'positive' },
+      wrapper: NavigationWrapper,
     })
     await result.current.rate()
     expect(rateUserMock).toHaveBeenCalledWith({
@@ -130,15 +129,16 @@ describe('useRateSetup', () => {
       signature: positiveRating.signature,
     })
     expect(replaceMock).toHaveBeenCalledWith('backupTime', {
-      view: initialProps.view,
       nextScreen: 'contract',
       contractId: contract.id,
     })
   })
   it('does submit negative rating and navigates to backupTime', async () => {
+    settingsStore.getState().setShouldShowBackupOverlay('completedBuyOffer', true)
     createUserRatingMock.mockReturnValueOnce(negativeRating)
     const { result } = renderHook(useRateSetup, {
       initialProps: { ...initialProps, vote: 'negative' },
+      wrapper: NavigationWrapper,
     })
     await result.current.rate()
     expect(rateUserMock).toHaveBeenCalledWith({
@@ -147,15 +147,15 @@ describe('useRateSetup', () => {
       signature: negativeRating.signature,
     })
     expect(replaceMock).toHaveBeenCalledWith('backupTime', {
-      view: initialProps.view,
       nextScreen: 'yourTrades',
     })
   })
   it('does submit positive rating and navigates back to contract', async () => {
-    useSettingsStoreMock.mockImplementationOnce((selector) => selector({ showBackupReminder: false }))
+    settingsStore.getState().setShowBackupReminder(false)
     createUserRatingMock.mockReturnValueOnce(positiveRating)
     const { result } = renderHook(useRateSetup, {
       initialProps: { ...initialProps, vote: 'positive' },
+      wrapper: NavigationWrapper,
     })
     await result.current.rate()
     expect(replaceMock).toHaveBeenCalledWith('contract', {
@@ -163,10 +163,11 @@ describe('useRateSetup', () => {
     })
   })
   it('does submit negative rating and navigates to yourTrades', async () => {
-    useSettingsStoreMock.mockImplementationOnce((selector) => selector({ showBackupReminder: false }))
+    settingsStore.getState().setShowBackupReminder(false)
     createUserRatingMock.mockReturnValueOnce(negativeRating)
     const { result } = renderHook(useRateSetup, {
       initialProps: { ...initialProps, vote: 'negative' },
+      wrapper: NavigationWrapper,
     })
     await result.current.rate()
     expect(replaceMock).toHaveBeenCalledWith('yourTrades')
@@ -176,6 +177,7 @@ describe('useRateSetup', () => {
     rateUserMock.mockResolvedValueOnce([null, unauthorizedError])
     const { result } = renderHook(useRateSetup, {
       initialProps: { ...initialProps, vote: 'negative' },
+      wrapper: NavigationWrapper,
     })
     await result.current.rate()
     expect(showErrorBannerMock).toHaveBeenCalled()
@@ -184,6 +186,7 @@ describe('useRateSetup', () => {
   it('opens trade breakdown poup', () => {
     const { result } = renderHook(useRateSetup, {
       initialProps,
+      wrapper: NavigationWrapper,
     })
     result.current.showTradeBreakdown()
     expect(updateOverlayMock).toHaveBeenCalledWith({
@@ -202,6 +205,7 @@ describe('useRateSetup', () => {
     const contractWithTxId = { ...contract, releaseTxId: 'releaseTxId' }
     const { result } = renderHook(useRateSetup, {
       initialProps: { ...initialProps, contract: contractWithTxId },
+      wrapper: NavigationWrapper,
     })
     result.current.viewInExplorer()
     expect(showTransactionMock).toHaveBeenCalledWith(contractWithTxId.releaseTxId, 'regtest')
@@ -209,6 +213,7 @@ describe('useRateSetup', () => {
   it('opens escrow address in explorer if txId is not known', () => {
     const { result } = renderHook(useRateSetup, {
       initialProps,
+      wrapper: NavigationWrapper,
     })
     result.current.viewInExplorer()
     expect(showAddressMock).toHaveBeenCalledWith(contract.escrow, 'regtest')

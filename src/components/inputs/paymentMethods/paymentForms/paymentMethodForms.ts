@@ -52,7 +52,7 @@ export const PaymentMethodForms: PaymentMethodFormsType = {
   straksbetaling: { component: Template7, fields: template7Fields },
   keksPay: { component: Template3, fields: template3Fields },
   friends24: { component: Template3, fields: template3Fields },
-  n26: { component: Template3, fields: template3Fields },
+  n26: { component: Template6, fields: template6Fields },
   paylib: { component: Template3, fields: template3Fields },
   lydia: { component: Template3, fields: template3Fields },
   verse: { component: Template3, fields: template3Fields },

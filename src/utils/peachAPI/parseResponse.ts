@@ -3,19 +3,17 @@ import { parseError } from '../result'
 import { dateTimeReviver } from '../system'
 import { getResponseError } from './getResponseError'
 
-/**
- * @description Method to parse and handle peach response
- * @param response response object
- * @param caller calling function name
- * @returns parsed Peach API Response
- */
-export const parseResponse = async <T>(response: Response, caller: string): Promise<[T | null, APIError | null]> => {
+export const parseResponse = async <T>(
+  response: Response,
+  caller: string,
+  string = false,
+): Promise<[T | null, APIError | null]> => {
   try {
     const responseError = getResponseError(response)
     if (responseError === 'ABORTED') return [null, null]
     if (responseError) return [null, { error: responseError }]
 
-    const data = JSON.parse(await response.text(), dateTimeReviver)
+    const data = !string ? JSON.parse(await response.text(), dateTimeReviver) : await response.text()
 
     if (response.status !== 200) {
       error(

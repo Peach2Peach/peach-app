@@ -9,8 +9,12 @@ import { settingsStore } from '../../store/settingsStore'
 import { tradeSummaryStore } from '../../store/tradeSummaryStore'
 import { getBuyOfferIdFromContract } from '../contract'
 import { error, info } from '../log'
-import { getNetwork } from './getNetwork'
 import { PeachWalletErrorHandlers } from './PeachWalletErrorHandlers'
+import { findTransactionsToRebroadcast } from './findTransactionsToRebroadcast'
+import { getAndStorePendingTransactionHex } from './getAndStorePendingTransactionHex'
+import { getNetwork } from './getNetwork'
+import { mergeTransactionList } from './mergeTransactionList'
+import { rebroadcastTransactions } from './rebroadcastTransactions'
 import { walletStore } from './walletStore'
 
 type PeachWalletProps = {
@@ -177,7 +181,16 @@ export class PeachWallet extends PeachWalletErrorHandlers {
       error(result.error)
       return this.transactions
     }
-    this.transactions = result.value
+
+    this.transactions = mergeTransactionList(this.transactions, result.value)
+    const toRebroadcast = findTransactionsToRebroadcast(this.transactions.pending, result.value.pending)
+
+    await Promise.all(this.transactions.pending.map(({ txid }) => getAndStorePendingTransactionHex(txid)))
+
+    await rebroadcastTransactions(toRebroadcast.map(({ txid }) => txid))
+    this.transactions.pending = this.transactions.pending.filter(
+      (tx) => walletStore.getState().pendingTransactions[tx.txid],
+    )
     this.updateStore()
 
     return this.transactions
@@ -219,6 +232,7 @@ export class PeachWallet extends PeachWalletErrorHandlers {
 
   loadWalletStore (): void {
     this.addresses = walletStore.getState().addresses
+    this.transactions = walletStore.getState().transactions
     this.balance = walletStore.getState().balance
   }
 

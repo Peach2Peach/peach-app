@@ -1,23 +1,21 @@
-import { ReactElement, useCallback, useMemo } from 'react'
-import { TouchableOpacity, View } from 'react-native'
+import { useCallback, useMemo } from 'react'
+import { View } from 'react-native'
 import { shallow } from 'zustand/shallow'
-import { BitcoinPriceStats, HorizontalLine, Icon, PrimaryButton } from '../../components'
+import { BitcoinPriceStats, HorizontalLine, PrimaryButton } from '../../components'
 import { SelectAmount } from '../../components/inputs/verticalAmountSelector/SelectAmount'
 import { useNavigation, useValidatedState } from '../../hooks'
 import { useDebounce } from '../../hooks/useDebounce'
-import { useShowBackupReminder } from '../../hooks/useShowBackupReminder'
 import { useConfigStore } from '../../store/configStore'
 import { useSettingsStore } from '../../store/settingsStore'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
+import { BackupReminderIcon } from '../buy/BackupReminderIcon'
 import LoadingScreen from '../loading/LoadingScreen'
 import { DailyTradingLimit } from '../settings/profile/DailyTradingLimit'
 import { useSellSetup } from './hooks/useSellSetup'
 
-export default (): ReactElement => {
+export default () => {
   const navigation = useNavigation()
-
-  const showCorrectBackupReminder = useShowBackupReminder()
 
   useSellSetup({ help: 'sellingBitcoin', hideGoBackButton: true })
 
@@ -54,7 +52,7 @@ export default (): ReactElement => {
         <BitcoinPriceStats />
       </View>
       <SelectAmount
-        style={tw`h-full flex-shrink mt-4 mb-2`}
+        style={tw`flex-shrink h-full mt-4 mb-2`}
         min={minTradingAmount}
         max={maxTradingAmount}
         value={amount}
@@ -64,13 +62,7 @@ export default (): ReactElement => {
         <PrimaryButton disabled={!amountValid} testID="navigation-next" onPress={next} narrow>
           {i18n('next')}
         </PrimaryButton>
-        {showBackupReminder && (
-          <View style={tw`justify-center`}>
-            <TouchableOpacity style={tw`absolute left-4`} onPress={showCorrectBackupReminder}>
-              <Icon id="alertTriangle" style={tw`w-8 h-8`} color={tw`text-warning-main`.color} />
-            </TouchableOpacity>
-          </View>
-        )}
+        {showBackupReminder && <BackupReminderIcon />}
       </View>
       <DailyTradingLimit />
     </View>

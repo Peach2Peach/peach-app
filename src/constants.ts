@@ -5,8 +5,9 @@ import { isCashTrade } from './utils/paymentMethod/isCashTrade'
 import { IconType } from './assets/icons'
 
 export const SATSINBTC = 100000000
-export const MSINADAY = 86400000
 export const MSINANHOUR = 3600000
+export const MSINADAY = MSINANHOUR * 24
+export const MSINAMONTH = MSINADAY * 30
 
 // time go automatically restart app when calling app from background after this time has passed
 export const TIMETORESTART = 1000 * 60 * 5

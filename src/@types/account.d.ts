@@ -21,6 +21,11 @@ declare type Settings = {
   lastFileBackupDate?: number
   lastSeedBackupDate?: number
   showBackupReminder: boolean
+  shouldShowBackupOverlay: {
+    completedBuyOffer: boolean
+    refundedEscrow: boolean
+    bitcoinReceived: boolean
+  }
   peachWalletActive: boolean
   nodeURL: string
   feeRate: number | 'fastestFee' | 'halfHourFee' | 'hourFee' | 'economyFee'

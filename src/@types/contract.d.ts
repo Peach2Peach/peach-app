@@ -35,6 +35,7 @@ declare type Contract = {
 
   escrow: string
   releaseAddress: string
+  releasePsbt: string
   releaseTransaction: string
   releaseTxId?: string
 

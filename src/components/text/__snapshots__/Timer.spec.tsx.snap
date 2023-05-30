@@ -6,7 +6,9 @@ exports[`Timer should render correctly 1`] = `
     [
       {
         "flexDirection": "row",
+        "gap": 4,
         "justifyContent": "center",
+        "width": "100%",
       },
       undefined,
     ]
@@ -33,9 +35,7 @@ exports[`Timer should render correctly 1`] = `
           "fontSize": 14,
           "letterSpacing": 0.5,
           "lineHeight": 24,
-          "paddingLeft": 4,
           "textTransform": "uppercase",
-          "width": 72,
         },
         {
           "color": "#9F8C82",
@@ -54,7 +54,9 @@ exports[`Timer should render correctly when timer expired 1`] = `
     [
       {
         "flexDirection": "row",
+        "gap": 4,
         "justifyContent": "center",
+        "width": "100%",
       },
       undefined,
     ]
@@ -81,9 +83,7 @@ exports[`Timer should render correctly when timer expired 1`] = `
           "fontSize": 14,
           "letterSpacing": 0.5,
           "lineHeight": 24,
-          "paddingLeft": 4,
           "textTransform": "uppercase",
-          "width": 72,
         },
         {
           "color": "#DF321F",
