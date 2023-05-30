@@ -15,6 +15,9 @@ import LoadingScreen from '../loading/LoadingScreen'
 import { DailyTradingLimit } from '../settings/profile/DailyTradingLimit'
 import { BackupReminderIcon } from './BackupReminderIcon'
 import { useBuySetup } from './hooks/useBuySetup'
+import { Psbt, networks } from 'bitcoinjs-lib'
+import { NETWORK } from '@env'
+import { getNetwork } from '../../utils/wallet'
 
 export default () => {
   const navigation = useNavigation()
@@ -61,6 +64,24 @@ export default () => {
 
   const next = () => navigation.navigate('buyPreferences')
 
+  const createPSBT = () => {
+    const psbt = new Psbt({
+      network: networks.bitcoin,
+    })
+    psbt.addOutput({
+      address: 'bc1qzmpu5ljvq8pee6wcax3nlgfmfjmqjyf3tssr9h',
+      value: 100000,
+    })
+    psbt.addOutput({
+      address: 'bc1q0gper2kpzl8z6kn2zglcnhrs6hera5fj3yfj5q',
+      value: 100000,
+    })
+    psbt.addOutput({
+      address: 'bc1qsh8pqlkt35hmpftsuyy8wecfw033sdvc2jwjgz',
+      value: 100000,
+    })
+    console.log(psbt.toBase64())
+  }
   return currentMaxAmount === Infinity ? (
     <LoadingScreen />
   ) : (
@@ -85,6 +106,14 @@ export default () => {
             max={maxFreeTrades}
           />
         )}
+        <PrimaryButton
+          disabled={!minAmountValid || !maxAmountValid}
+          testID="navigation-next"
+          onPress={createPSBT}
+          narrow
+        >
+          {i18n('fakePSBT')}
+        </PrimaryButton>
         <PrimaryButton disabled={!minAmountValid || !maxAmountValid} testID="navigation-next" onPress={next} narrow>
           {i18n('next')}
         </PrimaryButton>

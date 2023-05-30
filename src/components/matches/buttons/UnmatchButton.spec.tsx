@@ -1,10 +1,12 @@
-import { UnmatchButton } from './UnmatchButton'
-import { render, fireEvent, act } from '@testing-library/react-native'
-import { queryClient, QueryClientWrapper } from '../../../../tests/unit/helpers/QueryClientWrapper'
-import i18n from '../../../utils/i18n'
-import { defaultOverlay, OverlayContext } from '../../../contexts/overlay'
+import { act, fireEvent, render } from '@testing-library/react-native'
+import { QueryClientWrapper, queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
+import { defaultOverlay } from '../../../contexts/overlay'
+import { MatchUndone } from '../../../overlays/MatchUndone'
 import { UnmatchPopup } from '../../../overlays/UnmatchPopup'
 import { appOverlays } from '../../../overlays/appOverlays'
+import { usePopupStore } from '../../../store/usePopupStore'
+import i18n from '../../../utils/i18n'
+import { UnmatchButton } from './UnmatchButton'
 
 jest.useFakeTimers()
 
@@ -53,14 +55,6 @@ describe('UnmatchButton', () => {
     showUnmatchedCard,
   }
 
-  let overlay = { ...defaultOverlay }
-  const updateOverlay = jest.fn((newOverlay) => {
-    overlay = newOverlay
-  })
-  const OverlayContextWrapper = (children: JSX.Element) => (
-    <OverlayContext.Provider value={[overlay, updateOverlay]}>{children}</OverlayContext.Provider>
-  )
-
   beforeEach(() => {
     jest.clearAllMocks()
     queryClient.setQueryData(['matches', 'offerId'], {
@@ -75,7 +69,7 @@ describe('UnmatchButton', () => {
         },
       ],
     })
-    overlay = { ...defaultOverlay }
+    usePopupStore.getState().setPopup(defaultOverlay)
   })
   it('renders correctly', () => {
     const { toJSON } = render(<UnmatchButton {...defaultProps} />, { wrapper: QueryClientWrapper })
@@ -87,21 +81,22 @@ describe('UnmatchButton', () => {
     })
     expect(toJSON()).toMatchSnapshot()
   })
-  it('should show the unmatch button again after the timer is over', () => {
+  it('should show the unmatch button again after the timer is over', async () => {
     const { getByText } = render(<UnmatchButton {...defaultProps} match={{ ...defaultProps.match, matched: false }} />, {
       wrapper: QueryClientWrapper,
     })
-    act(() => {
+    await act(() => {
       jest.advanceTimersByTime(5000)
     })
     expect(getByText(i18n('search.unmatch'))).toBeTruthy()
   })
-  it('should show the unmatch popup when unmatch is pressed', () => {
+  it('should show the unmatch popup when unmatch is pressed', async () => {
     const { getByText } = render(<UnmatchButton {...defaultProps} />, {
-      wrapper: ({ children }) => OverlayContextWrapper(QueryClientWrapper({ children })),
+      wrapper: QueryClientWrapper,
     })
 
     const expectedOverlay = {
+      ...usePopupStore.getState(),
       title: i18n('search.popups.unmatch.title'),
       content: <UnmatchPopup />,
       visible: true,
@@ -118,42 +113,43 @@ describe('UnmatchButton', () => {
       },
     }
 
-    act(() => {
+    await act(() => {
       fireEvent.press(getByText(i18n('search.unmatch')))
     })
 
-    expect(overlay).toStrictEqual(expectedOverlay)
+    expect(usePopupStore.getState()).toStrictEqual(expectedOverlay)
   })
-  it('should close the overlay when action1 is pressed', () => {
+  it('should close the overlay when action1 is pressed', async () => {
     const { getByText } = render(<UnmatchButton {...defaultProps} />, {
-      wrapper: ({ children }) => OverlayContextWrapper(QueryClientWrapper({ children })),
+      wrapper: QueryClientWrapper,
     })
 
-    act(() => {
-      fireEvent.press(getByText(i18n('search.unmatch')))
-    })
-
-    act(() => {
-      overlay?.action1?.callback()
-    })
-
-    expect(overlay.visible).toBeFalsy()
-    expect(showUnmatchedCard).not.toHaveBeenCalled()
-  })
-  it('should unmatch and show confirmation popup when action2 is pressed', async () => {
-    const { getByText } = render(<UnmatchButton {...defaultProps} />, {
-      wrapper: ({ children }) => OverlayContextWrapper(QueryClientWrapper({ children })),
-    })
-
-    act(() => {
+    await act(() => {
       fireEvent.press(getByText(i18n('search.unmatch')))
     })
 
     await act(() => {
-      overlay?.action2?.callback()
+      usePopupStore.getState().action1?.callback()
     })
 
-    expect(overlay).toStrictEqual({
+    expect(usePopupStore.getState().visible).toBeFalsy()
+    expect(showUnmatchedCard).not.toHaveBeenCalled()
+  })
+  it('should unmatch and show confirmation popup when action2 is pressed', async () => {
+    const { getByText } = render(<UnmatchButton {...defaultProps} />, {
+      wrapper: QueryClientWrapper,
+    })
+
+    await act(() => {
+      fireEvent.press(getByText(i18n('search.unmatch')))
+    })
+
+    await act(() => {
+      usePopupStore.getState().action2?.callback()
+    })
+
+    expect(usePopupStore.getState()).toStrictEqual({
+      ...usePopupStore.getState(),
       title: 'unmatched!',
       level: 'WARN',
       visible: true,
@@ -173,7 +169,7 @@ describe('UnmatchButton', () => {
       ],
     })
   })
-  it('should call showUnmatchedCard when undo is pressed', () => {
+  it('should call showUnmatchedCard when undo is pressed', async () => {
     const { getAllByText } = render(
       <UnmatchButton {...defaultProps} match={{ ...defaultProps.match, matched: false }} />,
       {
@@ -181,13 +177,13 @@ describe('UnmatchButton', () => {
       },
     )
 
-    act(() => {
+    await act(() => {
       fireEvent.press(getAllByText(i18n('search.undo'))[0])
     })
 
     expect(showUnmatchedCard).toHaveBeenCalled()
   })
-  it('should call interruptMatching when undo is pressed', () => {
+  it('should call interruptMatching when undo is pressed', async () => {
     const { getAllByText } = render(
       <UnmatchButton {...defaultProps} match={{ ...defaultProps.match, matched: false }} />,
       {
@@ -195,27 +191,27 @@ describe('UnmatchButton', () => {
       },
     )
 
-    act(() => {
+    await act(() => {
       fireEvent.press(getAllByText(i18n('search.undo'))[0])
     })
 
     expect(interruptMatching).toHaveBeenCalled()
   })
-  it('show the match undone popup when undo is pressed', () => {
+  it('show the match undone popup when undo is pressed', async () => {
     const { getAllByText } = render(
       <UnmatchButton {...defaultProps} match={{ ...defaultProps.match, matched: false }} />,
       {
-        wrapper: ({ children }) => OverlayContextWrapper(QueryClientWrapper({ children })),
+        wrapper: QueryClientWrapper,
       },
     )
 
-    act(() => {
-      fireEvent.press(getAllByText(i18n('search.undo'))[0])
+    await act(() => {
+      fireEvent.press(getAllByText('undo')[0])
     })
-    const ExpectedContent = appOverlays.matchUndone.content
-    expect(overlay).toStrictEqual({
+    expect(usePopupStore.getState()).toStrictEqual({
+      ...usePopupStore.getState(),
       title: appOverlays.matchUndone.title,
-      content: <ExpectedContent />,
+      content: <MatchUndone />,
       visible: true,
       level: 'APP',
     })

@@ -9,6 +9,8 @@ import i18n from '../../../utils/i18n'
 import { PrimaryButton } from '../../buttons'
 import { useUnmatchOffer } from '../hooks'
 import { UndoButton } from './UndoButton'
+import { usePopupStore } from '../../../store/usePopupStore'
+import { shallow } from 'zustand/shallow'
 
 type Props = {
   match: Pick<Match, 'matched' | 'offerId'>
@@ -18,13 +20,13 @@ type Props = {
 }
 
 export const UnmatchButton = ({ match, offer, interruptMatching, showUnmatchedCard }: Props) => {
-  const [, updateOverlay] = useContext(OverlayContext)
+  const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
   const { mutate: unmatch } = useUnmatchOffer(offer, match.offerId)
 
   const [showUnmatch, toggle] = useToggleBoolean(match.matched)
 
   const showUnmatchPopup = useCallback(() => {
-    updateOverlay({
+    setPopup({
       title: i18n('search.popups.unmatch.title'),
       content: <UnmatchPopup />,
       visible: true,
@@ -32,19 +34,19 @@ export const UnmatchButton = ({ match, offer, interruptMatching, showUnmatchedCa
       action1: {
         label: i18n('search.popups.unmatch.neverMind'),
         icon: 'xSquare',
-        callback: () => updateOverlay({ visible: false }),
+        callback: () => closePopup(),
       },
       action2: {
         label: i18n('search.popups.unmatch.confirm'),
         icon: 'minusCircle',
         callback: () => {
-          updateOverlay({ title: i18n('search.popups.unmatched'), level: 'WARN', visible: true })
+          setPopup({ title: i18n('search.popups.unmatched'), level: 'WARN', visible: true })
           showUnmatchedCard()
           unmatch()
         },
       },
     })
-  }, [showUnmatchedCard, unmatch, updateOverlay])
+  }, [closePopup, setPopup, showUnmatchedCard, unmatch])
 
   const showMatchUndonePopup = useShowAppPopup('matchUndone')
 
