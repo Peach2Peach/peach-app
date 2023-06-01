@@ -1,5 +1,5 @@
 import { strictEqual } from 'assert'
-import i18n from '../i18n'
+import i18n, { languageState, setLocaleQuiet } from '../i18n'
 
 describe('i18n', () => {
   it('returns the localized text for the right locale', () => {
@@ -10,17 +10,22 @@ describe('i18n', () => {
   })
 
   it('falls back gracefully', () => {
-    i18n.setLocale(null, { locale: 'de-CH' })
+    languageState.locale = 'de-CH'
     strictEqual('Fallback Test 1 de-CH', i18n('i18n.test.fallback.1'))
     strictEqual('Fallback Test 2 de', i18n('i18n.test.fallback.2'))
     strictEqual('Fallback Test 3 en', i18n('i18n.test.fallback.3'))
 
-    i18n.setLocale(null, { locale: 'de' })
+    languageState.locale = 'de'
     strictEqual('Fallback Test 1 de', i18n('i18n.test.fallback.1'))
     strictEqual('Fallback Test 2 de', i18n('i18n.test.fallback.2'))
     strictEqual('Fallback Test 3 en', i18n('i18n.test.fallback.3'))
 
-    i18n.setLocale(null, { locale: 'en' })
+    languageState.locale = 'en'
+    strictEqual('Fallback Test 1 en', i18n('i18n.test.fallback.1'))
+    strictEqual('Fallback Test 2 en', i18n('i18n.test.fallback.2'))
+    strictEqual('Fallback Test 3 en', i18n('i18n.test.fallback.3'))
+
+    languageState.locale = 'it-US'
     strictEqual('Fallback Test 1 en', i18n('i18n.test.fallback.1'))
     strictEqual('Fallback Test 2 en', i18n('i18n.test.fallback.2'))
     strictEqual('Fallback Test 3 en', i18n('i18n.test.fallback.3'))
@@ -47,5 +52,19 @@ describe('i18n', () => {
     strictEqual('cool three words', i18n('i18n.test.three'))
     strictEqual('four words are nice', i18n('i18n.test.four'))
     strictEqual('five words get very interesting', i18n('i18n.test.five'))
+  })
+})
+
+describe('setLocaleQuite', () => {
+  it('sets the locale', () => {
+    setLocaleQuiet('en')
+    strictEqual('en', languageState.locale)
+    setLocaleQuiet('de')
+    strictEqual('de', languageState.locale)
+  })
+
+  it('falls back to en if locale is not configured', () => {
+    setLocaleQuiet('fr')
+    strictEqual('en', languageState.locale)
   })
 })

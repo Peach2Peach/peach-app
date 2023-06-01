@@ -15,11 +15,14 @@ export type Locale = keyof typeof localeMapping
 type LanguageState = {
   locale: Locale
 }
-const languageState: LanguageState = {
+export const languageState: LanguageState = {
   locale: 'en',
 }
 export const locales = ['en', 'es']
-export const setLocaleQuiet = (lcl: Locale) => (languageState.locale = lcl)
+export const setLocaleQuiet = (lcl: Locale) => {
+  if (!localeMapping[lcl]) lcl = 'en'
+  languageState.locale = lcl
+}
 
 /**
  * @description Method to get localized string based on current locale
@@ -39,7 +42,7 @@ export const i18n = (id: string, ...args: string[]): string => {
 
   if (!text && locale.includes('-')) {
     const language = locale.split('-')[0]
-    text = localeMapping[language][id]
+    text = localeMapping[language]?.[id]
   }
   if (!text) text = localeMapping.en[id]
 
