@@ -1,4 +1,3 @@
-import { ReactElement } from 'react'
 import { View } from 'react-native'
 const { LinearGradient } = require('react-native-gradients')
 
@@ -21,7 +20,7 @@ export const screens = [
   { id: 'keepPhraseSecure', view: KeepPhraseSecure, buttonText: 'finish' },
 ]
 
-export default ({ style }: ComponentProps): ReactElement => {
+export default ({ style }: ComponentProps) => {
   const { checked, toggleChecked, showNextScreen, currentScreenIndex, goBackToStart } = useSeedBackupSetup()
 
   const CurrentView = screens[currentScreenIndex].view

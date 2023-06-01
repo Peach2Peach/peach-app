@@ -1,4 +1,3 @@
-import { ReactElement } from 'react'
 import { TouchableOpacity, View } from 'react-native'
 import { useNavigation } from '../../../hooks'
 import { HorizontalLine, Icon, Text } from '../../../components'
@@ -7,10 +6,10 @@ import tw from '../../../styles/tailwind'
 type TradePlaceholdersProps = ComponentProps & {
   tab: TradeTab
 }
-export const TradePlaceholders = ({ tab }: TradePlaceholdersProps): ReactElement => {
+export const TradePlaceholders = ({ tab }: TradePlaceholdersProps) => {
   const navigation = useNavigation()
 
-  const GoTradeButton = (): ReactElement => (
+  const GoTradeButton = () => (
     <TouchableOpacity onPress={() => navigation.navigate(tab as 'buy' | 'sell')} style={tw`flex-row items-center`}>
       <Text style={tw`h6 text-primary-main`}>{i18n(`yourTrades.start.${tab === 'sell' ? 'selling' : 'buying'}`)}</Text>
       <Icon id="arrowRightCircle" style={tw`w-5 h-5 ml-2`} color={tw`text-primary-main`.color} />

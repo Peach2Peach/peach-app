@@ -1,4 +1,4 @@
-import { ReactElement, useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { Animated, View, ViewStyle } from 'react-native'
 import tw from '../../styles/tailwind'
 
@@ -8,7 +8,7 @@ type ProgressProps = ComponentProps & {
   backgroundStyle?: ViewStyle
   barStyle?: ViewStyle
 }
-export const Progress = ({ percent, backgroundStyle, barStyle, style }: ProgressProps): ReactElement => {
+export const Progress = ({ percent, backgroundStyle, barStyle, style }: ProgressProps) => {
   const widthAnim = useRef(new Animated.Value(percent)).current
 
   useEffect(() => {

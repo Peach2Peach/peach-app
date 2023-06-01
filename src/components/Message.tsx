@@ -1,4 +1,4 @@
-import { ReactElement, useContext } from 'react'
+import { useContext } from 'react'
 import { TextStyle, TouchableOpacity, View, ViewStyle } from 'react-native'
 
 import { Icon, Text } from '.'
@@ -33,7 +33,7 @@ const levelColorMap: LevelColorMap = {
 
 type MessageProps = ComponentProps & MessageState
 
-export const Message = ({ level, msgKey, bodyArgs = [], action, onClose, style }: MessageProps): ReactElement => {
+export const Message = ({ level, msgKey, bodyArgs = [], action, onClose, style }: MessageProps) => {
   const [, updateMessage] = useContext(MessageContext)
   let icon: IconType | null = msgKey ? (i18n(`${msgKey}.icon`) as IconType) : null
   let title = msgKey ? i18n(`${msgKey}.title`) : ''

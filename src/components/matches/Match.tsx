@@ -1,4 +1,4 @@
-import { ReactElement, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { View } from 'react-native'
 import { HorizontalLine } from '..'
 
@@ -18,7 +18,7 @@ import { useMatchStore } from './store'
 
 type MatchProps = ComponentProps & { match: Match; offer: BuyOffer | SellOffer }
 
-export const Match = ({ match, offer }: MatchProps): ReactElement => {
+export const Match = ({ match, offer }: MatchProps) => {
   const { mutate } = useMatchOffer(offer, match)
   const [showMatchedCard, setShowMatchedCard] = useState(match.matched)
   const { interruptibleFn: matchFunction, interrupt: interruptMatchFunction } = useInterruptibleFunction(() => {

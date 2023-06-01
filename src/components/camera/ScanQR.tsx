@@ -1,4 +1,3 @@
-import { ReactElement } from 'react'
 import { Modal, TouchableOpacity, View, SafeAreaView } from 'react-native'
 import { BarCodeReadEvent } from 'react-native-camera'
 import QRCodeScanner from './CustomQRCodeScanner'
@@ -12,7 +11,7 @@ type ScanQRProps = {
   testID?: string
 }
 
-export const ScanQR = ({ onSuccess, onCancel }: ScanQRProps): ReactElement => {
+export const ScanQR = ({ onSuccess, onCancel }: ScanQRProps) => {
   const CircleMask = () => (
     <Svg style={tw`w-full h-full`}>
       <Defs>

@@ -1,4 +1,3 @@
-import { ReactElement } from 'react'
 import { TouchableOpacity, View } from 'react-native'
 import { Icon, SatsFormat, Text } from '../../../components'
 import { getPremiumColor } from '../../../components/matches/utils'
@@ -14,7 +13,7 @@ type ContractSubtitleProps = {
   hasNewOffer: boolean
   goToNewOffer: () => void
 }
-export const ContractSubtitle = ({ contract, view, hasNewOffer, goToNewOffer }: ContractSubtitleProps): ReactElement => {
+export const ContractSubtitle = ({ contract, view, hasNewOffer, goToNewOffer }: ContractSubtitleProps) => {
   if (contract.tradeStatus === 'tradeCompleted') return (
     <View style={tw`flex-row items-center justify-center`}>
       <Text style={tw`text-center subtitle-1`}>

@@ -1,4 +1,3 @@
-import { ReactElement } from 'react'
 import { Pressable, View, ViewStyle } from 'react-native'
 import tw from '../../styles/tailwind'
 import { Text } from '../'
@@ -7,7 +6,7 @@ import { themes } from './TabbedNavigation'
 export type TabbedNavigationItem<T> = {
   id: T
   display: string
-  view?: (props: any) => ReactElement
+  view?: (props: any) => JSX.Element
 }
 export type TabbedNavigationProps<T> = ComponentProps & {
   items: TabbedNavigationItem<T>[]

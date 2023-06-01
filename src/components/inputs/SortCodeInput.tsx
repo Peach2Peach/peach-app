@@ -1,9 +1,8 @@
-import { ReactElement } from 'react'
 import { enforceSortCodeFormat } from '../../utils/format'
 import i18n from '../../utils/i18n'
 import Input, { InputProps } from './Input'
 
-export const SortCodeInput = ({ onChange, onSubmit, ...props }: InputProps): ReactElement => (
+export const SortCodeInput = ({ onChange, onSubmit, ...props }: InputProps) => (
   <Input
     {...{
       required: true,

@@ -1,4 +1,4 @@
-import { ReactElement, useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { ScrollView, View } from 'react-native'
 import { useFocusEffect } from '@react-navigation/native'
 
@@ -20,7 +20,7 @@ const getPage = ({ currencies, paymentMethod }: RootStackParamList['addPaymentMe
   return 0
 }
 
-export default (): ReactElement => {
+export default () => {
   const route = useRoute<'addPaymentMethod'>()
   const navigation = useNavigation()
   const [page, setPage] = useState(getPage(route.params))

@@ -1,4 +1,4 @@
-import { ReactElement, useContext, useEffect, useState, Dispatch, SetStateAction } from 'react'
+import { useContext, useEffect, useState, Dispatch, SetStateAction } from 'react'
 import { View } from 'react-native'
 import { DrawerContext } from '../../contexts/drawer'
 
@@ -23,7 +23,7 @@ type PaymentCategorySelectProps = {
   next: () => void
 }
 
-export default ({ currency, paymentMethod, setPaymentMethod, next }: PaymentCategorySelectProps): ReactElement => {
+export default ({ currency, paymentMethod, setPaymentMethod, next }: PaymentCategorySelectProps) => {
   const [, updateDrawer] = useContext(DrawerContext)
 
   const [stepValid, setStepValid] = useState(false)

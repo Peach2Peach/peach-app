@@ -1,4 +1,4 @@
-import { ReactElement, useContext, useMemo } from 'react'
+import { useContext, useMemo } from 'react'
 import { OverlayContext } from '../contexts/overlay'
 import { PopupContent } from './PopupContent'
 
@@ -10,7 +10,7 @@ export const Overlay = ({
   level = 'DEFAULT',
   visible,
   requireUserAction,
-}: OverlayState): ReactElement => {
+}: OverlayState) => {
   const [, updateOverlay] = useContext(OverlayContext)
   const closePopup = useMemo(() => () => updateOverlay({ visible: false }), [updateOverlay])
 

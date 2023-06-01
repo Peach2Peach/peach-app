@@ -1,4 +1,4 @@
-import { ReactElement, useRef } from 'react'
+import { useRef } from 'react'
 import { TextInput, View } from 'react-native'
 import tw from '../../styles/tailwind'
 
@@ -7,7 +7,7 @@ import { EmailInput } from '../../components/inputs/EmailInput'
 import i18n from '../../utils/i18n'
 import { useDisputeFormSetup } from './hooks/useDisputeFormSetup'
 
-export default (): ReactElement => {
+export default () => {
   const { email, setEmail, emailErrors, reason, message, setMessage, messageErrors, isFormValid, submit, loading }
     = useDisputeFormSetup()
   let $message = useRef<TextInput>(null).current

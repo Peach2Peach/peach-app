@@ -1,10 +1,9 @@
-import { ReactElement } from 'react'
 import { create } from 'zustand'
 import { isDefined } from '../utils/array/isDefined'
 
 type PopupState = {
   visible: boolean
-  content: ReactElement | undefined
+  content: JSX.Element | undefined
   title: string
   action1: Action | undefined
   action2: Action | undefined

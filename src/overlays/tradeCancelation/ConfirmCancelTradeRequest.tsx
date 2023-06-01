@@ -1,4 +1,3 @@
-import { ReactElement } from 'react'
 import { Text } from '../../components'
 import { contractIdToHex } from '../../utils/contract'
 import i18n from '../../utils/i18n'
@@ -8,7 +7,7 @@ type ConfirmCancelTradeRequestProps = {
   contract: Contract
 }
 
-export const ConfirmCancelTradeRequest = ({ contract }: ConfirmCancelTradeRequestProps): ReactElement => (
+export const ConfirmCancelTradeRequest = ({ contract }: ConfirmCancelTradeRequestProps) => (
   <Text>
     {i18n('contract.cancel.sellerWantsToCancel.text', contractIdToHex(contract.id), thousands(contract.amount))}
   </Text>

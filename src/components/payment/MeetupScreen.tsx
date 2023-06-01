@@ -1,5 +1,4 @@
 import { API_URL } from '@env'
-import { ReactElement } from 'react'
 import { Image, Pressable, View } from 'react-native'
 import { Text } from '../../components'
 import tw from '../../styles/tailwind'
@@ -13,7 +12,7 @@ import { useMeetupScreenSetup } from './hooks/useMeetupScreenSetup'
  * @description Screen for meetup event details.
  * Shows info for the specified event and takes care of adding to paymentMethods
  */
-export default (): ReactElement => {
+export default () => {
   const { event, openLink, deletable, addToPaymentMethods } = useMeetupScreenSetup()
 
   return (

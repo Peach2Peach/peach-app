@@ -1,4 +1,3 @@
-import { ReactElement } from 'react'
 import { Pressable, View } from 'react-native'
 import { Icon, Text } from '..'
 import { IconType } from '../../assets/icons'
@@ -17,7 +16,7 @@ type Props = {
   notifications?: number
 }
 
-export const FooterItem = ({ id, active, onPress, notifications = 0, theme = 'default' }: Props): ReactElement => {
+export const FooterItem = ({ id, active, onPress, notifications = 0, theme = 'default' }: Props) => {
   const colors = footerThemes[theme]
   const color = active ? (id === 'settings' ? colors.textSelectedSettings : colors.textSelected) : colors.text
   return (

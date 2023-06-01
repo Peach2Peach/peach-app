@@ -1,4 +1,3 @@
-import { ReactElement } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
@@ -11,7 +10,7 @@ import { RadioButtonItem } from '../../components/inputs/RadioButtons'
 import { isRewardAvailable } from './helpers/isRewardAvailable'
 import { RewardItem } from './components/RewardItem'
 
-export default (): ReactElement => {
+export default () => {
   const { user, pointsBalance, REWARDINFO, BARLIMIT, availableRewards, selectedReward, setSelectedReward, redeem }
     = useReferralsSetup()
 

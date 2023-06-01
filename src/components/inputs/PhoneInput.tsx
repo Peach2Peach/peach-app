@@ -1,9 +1,8 @@
-import { ReactElement } from 'react'
 import { enforcePhoneFormat } from '../../utils/format'
 import i18n from '../../utils/i18n'
 import Input, { InputProps } from './Input'
 
-export const PhoneInput = ({ onChange, onSubmit, ...props }: InputProps): ReactElement => (
+export const PhoneInput = ({ onChange, onSubmit, ...props }: InputProps) => (
   <Input
     {...{
       label: i18n('form.phoneLong'),

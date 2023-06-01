@@ -1,4 +1,3 @@
-import { ReactElement } from 'react'
 import 'react-native-url-polyfill/auto'
 
 import { Text } from '..'
@@ -19,7 +18,7 @@ type ShortBitcoinAddressProps = ComponentProps & {
   address: string
 }
 
-export const ShortBitcoinAddress = ({ address, style }: ShortBitcoinAddressProps): ReactElement => {
+export const ShortBitcoinAddress = ({ address, style }: ShortBitcoinAddressProps) => {
   const addressParts = getAddressParts(address)
 
   return (
