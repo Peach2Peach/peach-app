@@ -1,5 +1,5 @@
 import { strictEqual } from 'assert'
-import i18n, { languageState } from '../i18n'
+import i18n, { languageState, setLocaleQuiet } from '../i18n'
 
 describe('i18n', () => {
   it('returns the localized text for the right locale', () => {
@@ -52,5 +52,19 @@ describe('i18n', () => {
     strictEqual('cool three words', i18n('i18n.test.three'))
     strictEqual('four words are nice', i18n('i18n.test.four'))
     strictEqual('five words get very interesting', i18n('i18n.test.five'))
+  })
+})
+
+describe('setLocaleQuite', () => {
+  it('sets the locale', () => {
+    setLocaleQuiet('en')
+    strictEqual('en', languageState.locale)
+    setLocaleQuiet('de')
+    strictEqual('de', languageState.locale)
+  })
+
+  it('falls back to en if locale is not configured', () => {
+    setLocaleQuiet('fr')
+    strictEqual('en', languageState.locale)
   })
 })
