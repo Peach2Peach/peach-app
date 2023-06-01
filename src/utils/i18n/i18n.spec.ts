@@ -1,5 +1,5 @@
 import { strictEqual } from 'assert'
-import i18n, { languageState, setLocaleQuiet } from '../i18n'
+import i18n, { languageState } from '../i18n'
 
 describe('i18n', () => {
   it('returns the localized text for the right locale', () => {
