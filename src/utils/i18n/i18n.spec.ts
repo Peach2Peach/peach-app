@@ -1,5 +1,5 @@
 import { strictEqual } from 'assert'
-import i18n from '../i18n'
+import i18n, { languageState, setLocaleQuiet } from '../i18n'
 
 describe('i18n', () => {
   it('returns the localized text for the right locale', () => {
@@ -10,22 +10,22 @@ describe('i18n', () => {
   })
 
   it('falls back gracefully', () => {
-    i18n.setLocale(null, { locale: 'de-CH' })
+    languageState.locale = 'de-CH'
     strictEqual('Fallback Test 1 de-CH', i18n('i18n.test.fallback.1'))
     strictEqual('Fallback Test 2 de', i18n('i18n.test.fallback.2'))
     strictEqual('Fallback Test 3 en', i18n('i18n.test.fallback.3'))
 
-    i18n.setLocale(null, { locale: 'de' })
+    languageState.locale = 'de'
     strictEqual('Fallback Test 1 de', i18n('i18n.test.fallback.1'))
     strictEqual('Fallback Test 2 de', i18n('i18n.test.fallback.2'))
     strictEqual('Fallback Test 3 en', i18n('i18n.test.fallback.3'))
 
-    i18n.setLocale(null, { locale: 'en' })
+    languageState.locale = 'en'
     strictEqual('Fallback Test 1 en', i18n('i18n.test.fallback.1'))
     strictEqual('Fallback Test 2 en', i18n('i18n.test.fallback.2'))
     strictEqual('Fallback Test 3 en', i18n('i18n.test.fallback.3'))
 
-    i18n.setLocale(null, { locale: 'it-US' })
+    languageState.locale = 'it-US'
     strictEqual('Fallback Test 1 en', i18n('i18n.test.fallback.1'))
     strictEqual('Fallback Test 2 en', i18n('i18n.test.fallback.2'))
     strictEqual('Fallback Test 3 en', i18n('i18n.test.fallback.3'))
