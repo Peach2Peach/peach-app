@@ -1,20 +1,20 @@
-import { useCallback, useContext } from 'react'
-import { OverlayContext } from '../contexts/overlay'
-import { appOverlays, AppPopupId } from '../overlays/appOverlays'
+import { useCallback } from 'react'
+import { AppPopupId, appOverlays } from '../overlays/appOverlays'
+import { usePopupStore } from '../store/usePopupStore'
 
 export const useShowAppPopup = (id: AppPopupId) => {
-  const [, updateOverlay] = useContext(OverlayContext)
+  const setPopup = usePopupStore((state) => state.setPopup)
 
   const showPopup = useCallback(() => {
     const Content = appOverlays[id].content
 
-    updateOverlay({
+    setPopup({
       title: appOverlays[id].title,
-      content: !!Content ? <Content /> : undefined,
+      content: Content ? <Content /> : undefined,
       visible: true,
       level: 'APP',
     })
-  }, [id, updateOverlay])
+  }, [id, setPopup])
 
   return showPopup
 }
