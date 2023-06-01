@@ -24,6 +24,11 @@ describe('i18n', () => {
     strictEqual('Fallback Test 1 en', i18n('i18n.test.fallback.1'))
     strictEqual('Fallback Test 2 en', i18n('i18n.test.fallback.2'))
     strictEqual('Fallback Test 3 en', i18n('i18n.test.fallback.3'))
+
+    i18n.setLocale(null, { locale: 'it-US' })
+    strictEqual('Fallback Test 1 en', i18n('i18n.test.fallback.1'))
+    strictEqual('Fallback Test 2 en', i18n('i18n.test.fallback.2'))
+    strictEqual('Fallback Test 3 en', i18n('i18n.test.fallback.3'))
   })
 
   it('returns id only if text could not be mapped', () => {

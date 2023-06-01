@@ -39,7 +39,7 @@ export const i18n = (id: string, ...args: string[]): string => {
 
   if (!text && locale.includes('-')) {
     const language = locale.split('-')[0]
-    text = localeMapping[language][id]
+    text = localeMapping[language]?.[id]
   }
   if (!text) text = localeMapping.en[id]
 
