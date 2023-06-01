@@ -112,7 +112,7 @@ export const useWalletSetup = () => {
   )
 
   const syncWalletOnLoad = async () => {
-    setWalletLoading(peachWallet.allTransactions.length === 0)
+    setWalletLoading(peachWallet.transactions.length === 0)
     await peachWallet.syncWallet(() => setWalletLoading(false))
   }
 
