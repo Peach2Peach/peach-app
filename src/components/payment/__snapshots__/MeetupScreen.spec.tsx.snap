@@ -1,11 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`MeetupScreen should render correctly 1`] = `
-<React.Fragment>
+<View
+  style={
+    {
+      "height": "100%",
+      "paddingBottom": 28,
+    }
+  }
+>
   <PeachScrollView
     contentContainerStyle={
       {
-        "paddingBottom": 80,
+        "flexGrow": 1,
+        "justifyContent": "center",
+        "paddingBottom": 32,
         "paddingLeft": 32,
         "paddingRight": 32,
         "paddingTop": 32,
@@ -41,16 +50,34 @@ exports[`MeetupScreen should render correctly 1`] = `
       />
     </View>
   </PeachScrollView>
-  true
-</React.Fragment>
+  <PrimaryButton
+    onPress={[MockFunction]}
+    style={
+      {
+        "alignSelf": "center",
+      }
+    }
+  >
+    add this meetup
+  </PrimaryButton>
+</View>
 `;
 
 exports[`MeetupScreen should render correctly with multiple currencies 1`] = `
-<React.Fragment>
+<View
+  style={
+    {
+      "height": "100%",
+      "paddingBottom": 28,
+    }
+  }
+>
   <PeachScrollView
     contentContainerStyle={
       {
-        "paddingBottom": 80,
+        "flexGrow": 1,
+        "justifyContent": "center",
+        "paddingBottom": 32,
         "paddingLeft": 32,
         "paddingRight": 32,
         "paddingTop": 32,
@@ -109,12 +136,10 @@ exports[`MeetupScreen should render correctly with multiple currencies 1`] = `
     style={
       {
         "alignSelf": "center",
-        "bottom": 32,
-        "position": "absolute",
       }
     }
   >
     add this meetup
   </PrimaryButton>
-</React.Fragment>
+</View>
 `;

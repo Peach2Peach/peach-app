@@ -23,8 +23,8 @@ export const MeetupScreen = () => {
     = useMeetupScreenSetup()
 
   return (
-    <>
-      <PeachScrollView contentContainerStyle={tw`p-8 pb-20`}>
+    <View style={tw`h-full pb-7`}>
+      <PeachScrollView contentContainerStyle={tw`justify-center flex-grow p-8`}>
         {!!event.logo && (
           <Image source={{ uri: API_URL + event.logo }} style={tw`w-full mb-5 h-30`} resizeMode={'contain'} />
         )}
@@ -56,12 +56,11 @@ export const MeetupScreen = () => {
           )}
         </View>
       </PeachScrollView>
-      {!deletable
-        || (event.currencies.length > 1 && (
-          <PrimaryButton style={tw`absolute self-center bottom-8`} onPress={addToPaymentMethods}>
-            {i18n('meetup.add')}
-          </PrimaryButton>
-        ))}
-    </>
+      {(!deletable || event.currencies.length > 1) && (
+        <PrimaryButton style={tw`self-center`} onPress={addToPaymentMethods}>
+          {i18n('meetup.add')}
+        </PrimaryButton>
+      )}
+    </View>
   )
 }
