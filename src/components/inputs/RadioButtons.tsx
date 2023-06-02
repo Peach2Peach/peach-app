@@ -1,4 +1,4 @@
-import { ReactElement, ReactNode } from 'react'
+import { ReactNode } from 'react'
 import { Pressable, View } from 'react-native'
 import tw from '../../styles/tailwind'
 import { RadioButtonItem } from './RadioButtonItem'
@@ -32,7 +32,7 @@ type RadioButtonsProps<T> = ComponentProps & {
     selectedValue={handsome}
     onChange={(value) => setHandsome(value as boolean)}/>
  */
-export const RadioButtons = <T, >({ items, selectedValue, onChange, style }: RadioButtonsProps<T>): ReactElement => (
+export const RadioButtons = <T, >({ items, selectedValue, onChange, style }: RadioButtonsProps<T>) => (
   <View style={[tw`gap-2`, style]}>
     {items.map((item, i) => (
       <View key={i} style={tw`flex-row items-center`}>

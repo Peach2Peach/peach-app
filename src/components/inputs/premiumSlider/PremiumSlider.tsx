@@ -1,4 +1,4 @@
-import { ReactElement, useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Animated, LayoutChangeEvent, PanResponder, View } from 'react-native'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
@@ -20,7 +20,7 @@ const KNOBWIDTH = tw`w-8`.width as number
 
 const onStartShouldSetResponder = () => true
 
-export const PremiumSlider = ({ value, onChange, style }: PremiumSliderProps): ReactElement => {
+export const PremiumSlider = ({ value, onChange, style }: PremiumSliderProps) => {
   const [isSliding, setIsSliding] = useState(false)
   const [premium, setPremium] = useState(value)
   const [trackWidth, setTrackWidth] = useState(260)

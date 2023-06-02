@@ -1,4 +1,4 @@
-import { ReactElement, useState } from 'react'
+import { useState } from 'react'
 import 'react-native-url-polyfill/auto'
 
 import { LayoutChangeEvent, Pressable, View } from 'react-native'
@@ -9,12 +9,7 @@ import i18n from '../../utils/i18n'
 import { Fade } from '../animation'
 import { BitcoinAddressProps, useBitcoinAddressSetup } from './hooks/useBitcoinAddressSetup'
 
-export const BitcoinAddress = ({
-  address,
-  amount,
-  label,
-  style,
-}: ComponentProps & BitcoinAddressProps): ReactElement => {
+export const BitcoinAddress = ({ address, amount, label, style }: ComponentProps & BitcoinAddressProps) => {
   const [width, setWidth] = useState(300)
   const onLayout = (event: LayoutChangeEvent) => setWidth(event.nativeEvent.layout.width)
 

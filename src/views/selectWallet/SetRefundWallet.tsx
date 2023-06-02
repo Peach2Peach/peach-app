@@ -1,4 +1,3 @@
-import { ReactElement } from 'react'
 import { TouchableOpacity, View } from 'react-native'
 
 import { Icon, PrimaryButton, RadioButtons, Text } from '../../components'
@@ -6,7 +5,7 @@ import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { useSetRefundWalletSetup } from './hooks/useSetRefundWalletSetup'
 
-export default (): ReactElement => {
+export default () => {
   const { wallets, peachWalletActive, setSelectedWallet, payoutAddress, goToSetRefundWallet, selectAndContinue }
     = useSetRefundWalletSetup()
 

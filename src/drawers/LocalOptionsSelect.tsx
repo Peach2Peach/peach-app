@@ -1,4 +1,4 @@
-import { FC, ReactElement } from 'react'
+import { FC } from 'react'
 import { Pressable, View } from 'react-native'
 import { HorizontalLine, Text } from '../components'
 import tw from '../styles/tailwind'
@@ -36,7 +36,7 @@ const icons: Record<string, FC<SvgProps>> = {
   iris,
 }
 
-export const LocalOptionsSelect = ({ local, onSelect }: LocalOptionsProps): ReactElement => (
+export const LocalOptionsSelect = ({ local, onSelect }: LocalOptionsProps) => (
   <View>
     {local.map((localOption: OptionItem) => {
       const SVG = icons[localOption.value]

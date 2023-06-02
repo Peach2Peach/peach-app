@@ -1,4 +1,4 @@
-import { ReactElement, useContext } from 'react'
+import { useContext } from 'react'
 import { Pressable, View } from 'react-native'
 import { Icon, Text } from '../'
 import { DrawerContext } from '../../contexts/drawer'
@@ -17,7 +17,7 @@ type AddPaymentMethodProps = ComponentProps & {
   isCash: boolean
 }
 
-export default ({ origin, isCash, style }: AddPaymentMethodProps): ReactElement => {
+export default ({ origin, isCash, style }: AddPaymentMethodProps) => {
   const navigation = useNavigation()
   const [, updateDrawer] = useContext(DrawerContext)
   const { meetupEvents, isLoading } = useMeetupEvents()

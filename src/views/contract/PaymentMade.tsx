@@ -1,4 +1,3 @@
-import { ReactElement } from 'react'
 import { View } from 'react-native'
 
 import tw from '../../styles/tailwind'
@@ -7,7 +6,7 @@ import { Icon, PrimaryButton, Text } from '../../components'
 import i18n from '../../utils/i18n'
 import { usePaymentMadeSetup } from './hooks/usePaymentMadeSetup'
 
-export default (): ReactElement => {
+export default () => {
   const { goToTrade, close } = usePaymentMadeSetup()
 
   return (

@@ -1,4 +1,3 @@
-import { ReactElement } from 'react'
 import { View } from 'react-native'
 import { Text } from '../../../../components'
 import tw from '../../../../styles/tailwind'
@@ -8,7 +7,7 @@ type EstimatedFeeItemProps = {
   feeRate: FeeRate
   estimatedFees: number
 }
-export default ({ feeRate, estimatedFees }: EstimatedFeeItemProps): ReactElement => (
+export default ({ feeRate, estimatedFees }: EstimatedFeeItemProps) => (
   <View>
     <Text style={tw`py-1 subtitle-1 leading-base`}>
       {i18n(`settings.networkFees.estimatedTime.${feeRate}`)}

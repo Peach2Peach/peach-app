@@ -1,4 +1,3 @@
-import { ReactElement } from 'react'
 import { Image, View } from 'react-native'
 import { shallow } from 'zustand/shallow'
 import bitcoinAnimation from '../../assets/animated/bitcoin.gif'
@@ -10,7 +9,7 @@ import { useSettingsStore } from '../../store/settingsStore'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 
-export default (): ReactElement => {
+export default () => {
   const [setSeenRedesignWelcome] = useConfigStore((state) => [state.setSeenRedesignWelcome], shallow)
   const [usedReferralCode] = useSettingsStore((state) => [state.usedReferralCode], shallow)
   const { goBack } = useNavigation()

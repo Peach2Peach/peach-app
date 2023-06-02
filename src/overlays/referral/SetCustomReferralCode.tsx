@@ -1,4 +1,4 @@
-import { Dispatch, ReactElement, SetStateAction } from 'react'
+import { Dispatch, SetStateAction } from 'react'
 import { View } from 'react-native'
 import { Input, Text } from '../../components'
 import tw from '../../styles/tailwind'
@@ -9,7 +9,7 @@ type Props = {
   setReferralCode: Dispatch<SetStateAction<string>> | ((code: string) => void)
   referralCodeErrors: string[] | undefined
 }
-export const SetCustomReferralCode = ({ referralCode, setReferralCode, referralCodeErrors }: Props): ReactElement => (
+export const SetCustomReferralCode = ({ referralCode, setReferralCode, referralCodeErrors }: Props) => (
   <View>
     <Text>{i18n('settings.referrals.customReferralCode.popup.text')}</Text>
     <Input

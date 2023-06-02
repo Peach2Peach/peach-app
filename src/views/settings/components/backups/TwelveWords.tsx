@@ -1,4 +1,3 @@
-import { ReactElement } from 'react'
 import { View } from 'react-native'
 
 import { Text } from '../../../../components'
@@ -7,7 +6,7 @@ import { account } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
 import { Word } from './Word'
 
-export const TwelveWords = (): ReactElement => (
+export const TwelveWords = () => (
   <>
     <Text style={tw`self-center subtitle-1`}>{i18n('settings.backups.seedPhrase.yourSeedPhrase')}</Text>
     <View style={tw`flex-row mt-4 px-13`}>

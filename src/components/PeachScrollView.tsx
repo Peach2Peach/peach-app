@@ -1,4 +1,4 @@
-import { ReactElement, useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { LayoutChangeEvent, ScrollView, ScrollViewProps, View } from 'react-native'
 import tw from '../styles/tailwind'
 
@@ -20,7 +20,7 @@ export const PeachScrollView = ({
   showsHorizontalScrollIndicator = false,
   showsVerticalScrollIndicator = false,
   ...scrollViewProps
-}: PeachScrollViewProps): ReactElement => {
+}: PeachScrollViewProps) => {
   const $scroll = useRef<ScrollView>(null)
 
   useEffect(() => {

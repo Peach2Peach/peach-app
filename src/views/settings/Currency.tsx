@@ -1,4 +1,3 @@
-import { ReactElement } from 'react'
 import { View } from 'react-native'
 
 import tw from '../../styles/tailwind'
@@ -10,7 +9,7 @@ import { useCurrencySetup } from './hooks/useCurrencySetup'
 const { LinearGradient } = require('react-native-gradients')
 import { whiteGradient } from '../../utils/layout'
 
-export default (): ReactElement => {
+export default () => {
   const { currency, setCurrency, updateCurrency } = useCurrencySetup()
 
   return (

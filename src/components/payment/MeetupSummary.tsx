@@ -1,4 +1,3 @@
-import { ReactElement } from 'react'
 import { Text, Pressable } from 'react-native'
 import tw from '../../styles/tailwind'
 import { HorizontalLine } from '../ui'
@@ -11,7 +10,7 @@ declare type MeetupSummaryProps = {
   onPress: () => void
 }
 
-export default ({ event, onPress }: MeetupSummaryProps): ReactElement => (
+export default ({ event, onPress }: MeetupSummaryProps) => (
   <Pressable onPress={onPress}>
     <Text style={tw`pl-5 input-label text-black-1`}>{event.city}</Text>
     <Text style={tw`pl-5 body-s text-black-1`}>{event.longName}</Text>

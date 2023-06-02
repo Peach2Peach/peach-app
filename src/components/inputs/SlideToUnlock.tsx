@@ -1,4 +1,4 @@
-import { ReactElement, useMemo, useRef, useState } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import { Animated, LayoutChangeEvent, PanResponder, View } from 'react-native'
 import { Text } from '..'
 import tw from '../../styles/tailwind'
@@ -50,7 +50,7 @@ export const SlideToUnlock = ({
   disabled,
   onUnlock,
   style,
-}: SlideToUnlockProps): ReactElement => {
+}: SlideToUnlockProps) => {
   const [widthToSlide, setWidthToSlide] = useState(trackWidth - knobWidth - padding)
 
   const onLayout = (event: LayoutChangeEvent) => {

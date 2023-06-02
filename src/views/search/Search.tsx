@@ -1,4 +1,3 @@
-import { ReactElement } from 'react'
 import { View } from 'react-native'
 
 import tw from '../../styles/tailwind'
@@ -9,7 +8,7 @@ import { useSearchSetup } from './hooks/useSearchSetup'
 import { DailyTradingLimit } from '../settings/profile/DailyTradingLimit'
 import { isSellOffer } from '../../utils/offer'
 
-export default (): ReactElement => {
+export default () => {
   const { hasMatches, offer } = useSearchSetup()
   if (!offer) return <></>
   return (

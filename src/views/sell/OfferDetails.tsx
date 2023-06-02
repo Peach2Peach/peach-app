@@ -1,4 +1,3 @@
-import { ReactElement } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
@@ -8,7 +7,7 @@ import i18n from '../../utils/i18n'
 import { useOfferDetailsSetup } from './hooks/useOfferDetailsSetup'
 import { SellViewProps } from './SellPreferences'
 
-export default ({ offerDraft, setOfferDraft, next }: SellViewProps): ReactElement => {
+export default ({ offerDraft, setOfferDraft, next }: SellViewProps) => {
   const { setMeansOfPayment, isEditing, isStepValid } = useOfferDetailsSetup({
     offerDraft,
     setOfferDraft,

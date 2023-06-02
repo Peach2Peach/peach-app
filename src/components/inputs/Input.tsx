@@ -1,4 +1,4 @@
-import { ReactElement, Ref, useEffect, useMemo, useState } from 'react'
+import { Ref, useEffect, useMemo, useState } from 'react'
 import {
   ColorValue,
   NativeSyntheticEvent,
@@ -10,7 +10,6 @@ import {
   View,
   ViewStyle,
 } from 'react-native'
-
 
 import { Text } from '..'
 import { IconType } from '../../assets/icons'
@@ -107,7 +106,7 @@ export const Input = ({
   theme = 'default',
   reference,
   ...inputProps
-}: InputProps): ReactElement => {
+}: InputProps) => {
   const colors = useMemo(() => themes[theme], [theme])
   const [touched, setTouched] = useState(false)
   const [showSecret, setShowSecret] = useState(false)

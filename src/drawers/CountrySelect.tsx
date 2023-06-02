@@ -1,4 +1,3 @@
-import { ReactElement } from 'react'
 import { Pressable, View } from 'react-native'
 import { Flag, HorizontalLine, Text } from '../components'
 import { FlagType } from '../components/flags'
@@ -11,7 +10,7 @@ type CountryProps = {
   selectedCountry?: FlagType
   onSelect: (country: FlagType) => void
 }
-export const CountrySelect = ({ countries, onSelect }: CountryProps): ReactElement => (
+export const CountrySelect = ({ countries, onSelect }: CountryProps) => (
   <View>
     {countries
       .sort((a, b) => sortAlphabetically(i18n(`country.${a}`), i18n(`country.${b}`)))
