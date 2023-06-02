@@ -119,6 +119,5 @@ declare type Config = {
   latestAppVersion: string
   minTradingAmount: number
   maxTradingAmount: number
-  hasSeenRedesignWelcome?: boolean
   seenDisputeDisclaimer: boolean
 }
