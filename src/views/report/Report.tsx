@@ -1,14 +1,12 @@
 import { useRef } from 'react'
 import { Pressable, TextInput, View } from 'react-native'
-
-import tw from '../../styles/tailwind'
-
 import { Icon, Input, PeachScrollView, PrimaryButton, Text } from '../../components'
 import { EmailInput } from '../../components/inputs/EmailInput'
+import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { useReportSetup } from './hooks/useReportSetup'
 
-export default () => {
+export const Report = () => {
   const {
     email,
     setEmail,
@@ -34,8 +32,8 @@ export default () => {
   let $message = useRef<TextInput>(null).current
 
   return (
-    <PeachScrollView contentContainerStyle={tw`flex-grow`}>
-      <View style={tw`justify-end h-full px-6 pt-6 pb-10`}>
+    <View style={tw`justify-center flex-grow p-6 pb-7`}>
+      <PeachScrollView contentContainerStyle={tw`justify-center flex-grow`}>
         <EmailInput
           onChange={setEmail}
           onSubmit={() => $topic?.focus()}
@@ -84,16 +82,15 @@ export default () => {
           </View>
           <Text style={tw`pl-2 subtitle-1`}>{i18n('form.shareLogs')}</Text>
         </Pressable>
-
-        <PrimaryButton
-          style={tw`self-center mt-10`}
-          onPress={submit}
-          disabled={!(isEmailValid && isTopicValid && isMessageValid)}
-          narrow
-        >
-          {i18n('report.sendReport')}
-        </PrimaryButton>
-      </View>
-    </PeachScrollView>
+      </PeachScrollView>
+      <PrimaryButton
+        style={tw`self-center`}
+        onPress={submit}
+        disabled={!(isEmailValid && isTopicValid && isMessageValid)}
+        narrow
+      >
+        {i18n('report.sendReport')}
+      </PrimaryButton>
+    </View>
   )
 }
