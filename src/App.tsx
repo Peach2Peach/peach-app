@@ -1,5 +1,5 @@
 /* eslint-disable max-lines */
-import { ReactElement, useCallback, useEffect, useReducer, useRef, useState } from 'react'
+import { useCallback, useEffect, useReducer, useRef, useState } from 'react'
 
 import { Animated, Dimensions, SafeAreaView, View } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
@@ -66,7 +66,7 @@ let goHomeTimeout: NodeJS.Timer
 type HandlerProps = {
   getCurrentPage: () => keyof RootStackParamList | undefined
 }
-const Handlers = ({ getCurrentPage }: HandlerProps): ReactElement => {
+const Handlers = ({ getCurrentPage }: HandlerProps) => {
   const messageHandler = useMessageHandler(getCurrentPage)
   const [, updateOverlay] = useOverlayContext()
   const showAnalyticsPrompt = useShowAnalyticsPrompt(updateOverlay)

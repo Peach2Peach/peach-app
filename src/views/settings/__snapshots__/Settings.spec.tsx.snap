@@ -600,9 +600,7 @@ exports[`Settings should render correctly 1`] = `
                     "lineHeight": 32,
                     "textTransform": "lowercase",
                   },
-                  {
-                    "color": "#DF321F",
-                  },
+                  false,
                 ],
               ]
             }
@@ -620,7 +618,7 @@ exports[`Settings should render correctly 1`] = `
             }
           >
             <test-file-stub
-              fill="#DF321F"
+              fill="#9F8C82"
               style={
                 [
                   {

@@ -1,4 +1,3 @@
-import { ReactElement } from 'react'
 import { Pressable } from 'react-native'
 import tw from '../../styles/tailwind'
 import Icon from '../Icon'
@@ -9,7 +8,7 @@ type ItemProps = ComponentProps & {
   isSelected: boolean
   onPress: () => void
 }
-export const CurrencyItem = ({ label, isSelected, onPress, style }: ItemProps): ReactElement => {
+export const CurrencyItem = ({ label, isSelected, onPress, style }: ItemProps) => {
   const bgColor = isSelected ? tw`bg-primary-main` : {}
   const borderColor = isSelected ? tw`border-primary-main` : tw`border-black-3`
   const textColor = isSelected ? tw`text-primary-background-light` : tw`text-black-3`

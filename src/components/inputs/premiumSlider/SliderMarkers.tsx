@@ -1,4 +1,3 @@
-import { ReactElement } from 'react'
 import { View } from 'react-native'
 import tw from '../../../styles/tailwind'
 
@@ -6,7 +5,7 @@ type SliderMarkersProp = ComponentProps & {
   positions: number[]
 }
 
-export const SliderMarkers = ({ positions }: SliderMarkersProp): ReactElement => (
+export const SliderMarkers = ({ positions }: SliderMarkersProp) => (
   <>
     {positions.map((position) => (
       <View key={position} style={[tw`absolute items-center justify-center w-full top-3 bottom-3`, { left: position }]}>

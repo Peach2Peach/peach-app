@@ -1,4 +1,4 @@
-import { ReactElement, useEffect } from 'react'
+import { useEffect } from 'react'
 import { View } from 'react-native'
 import { PeachScrollView, PrimaryButton } from '../../components'
 import { SellOfferSummary } from '../../components/offer'
@@ -7,7 +7,7 @@ import i18n from '../../utils/i18n'
 import { useSellSummarySetup } from './hooks/useSellSummarySetup'
 import { SellViewProps } from './SellPreferences'
 
-export default ({ offerDraft, setOfferDraft }: SellViewProps): ReactElement => {
+export default ({ offerDraft, setOfferDraft }: SellViewProps) => {
   const { returnAddress, walletLabel, canPublish, publishOffer, isPublishing } = useSellSummarySetup()
   const publishSellOffer = () => publishOffer(offerDraft)
 

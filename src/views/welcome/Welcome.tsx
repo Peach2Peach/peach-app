@@ -1,4 +1,4 @@
-import { ReactElement, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Dimensions, Pressable, View } from 'react-native'
 import tw from '../../styles/tailwind'
 
@@ -19,7 +19,7 @@ const onStartShouldSetResponder = () => true
 
 const screens = [PeerToPeer, PeachOfMind, PrivacyFirst, AWalletYouControl, LetsGetStarted]
 
-export default (): ReactElement => {
+export default () => {
   useOnboardingHeader({
     title: i18n('welcome.welcomeToPeach.title'),
     hideGoBackButton: true,

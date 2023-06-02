@@ -1,4 +1,4 @@
-import { ReactElement, useEffect } from 'react'
+import { useEffect } from 'react'
 import { View } from 'react-native'
 import { PeachScrollView, PrimaryButton } from '../../components'
 import { BuyOfferSummary } from '../../components/offer'
@@ -13,7 +13,7 @@ const getButtonTextId = (canPublish: boolean, isPublishing: boolean) => {
   return 'next'
 }
 
-export default ({ offerDraft, setOfferDraft }: BuyViewProps): ReactElement => {
+export default ({ offerDraft, setOfferDraft }: BuyViewProps) => {
   const {
     peachWalletActive,
     releaseAddress,

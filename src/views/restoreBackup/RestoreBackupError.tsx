@@ -1,4 +1,3 @@
-import { ReactElement } from 'react'
 import { View } from 'react-native'
 import { Icon, Text } from '../../components'
 import { PrimaryButton } from '../../components/buttons'
@@ -12,7 +11,7 @@ type RestoreBackupErrorProps = {
   err: string
 }
 
-export default ({ err }: RestoreBackupErrorProps): ReactElement => {
+export default ({ err }: RestoreBackupErrorProps) => {
   useBackupHeader()
   const navigation = useNavigation()
   const goToContact = () => navigation.navigate('contact')

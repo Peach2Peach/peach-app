@@ -1,4 +1,3 @@
-import { ReactElement } from 'react'
 import { ColorValue, TouchableOpacity, View, ViewStyle } from 'react-native'
 import { Icon, Text } from '../../../components'
 import { IconType } from '../../../assets/icons'
@@ -95,7 +94,7 @@ export const ChatMessage = ({
   index,
   online,
   resendMessage,
-}: ChatMessageProps): ReactElement => {
+}: ChatMessageProps) => {
   const meta = getMessageMeta({
     message,
     previous: chatMessages[index - 1],

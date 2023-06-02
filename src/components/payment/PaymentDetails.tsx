@@ -1,4 +1,4 @@
-import { ReactElement, useEffect, useState, Dispatch, SetStateAction, useCallback } from 'react'
+import { useEffect, useState, Dispatch, SetStateAction, useCallback } from 'react'
 import { Pressable, View } from 'react-native'
 import { HorizontalLine, Icon, PeachScrollView, Text } from '..'
 import { IconType } from '../../assets/icons'
@@ -44,7 +44,7 @@ type PaymentDetailsProps = ComponentProps & {
   editing: boolean
   origin: keyof RootStackParamList
 }
-export const PaymentDetails = ({ setMeansOfPayment, editing, style, origin }: PaymentDetailsProps): ReactElement => {
+export const PaymentDetails = ({ setMeansOfPayment, editing, style, origin }: PaymentDetailsProps) => {
   const tabs: TabbedNavigationItem[] = [
     { id: 'remote', display: i18n('paymentSection.remote') },
     { id: 'meetups', display: i18n('paymentSection.meetups') },

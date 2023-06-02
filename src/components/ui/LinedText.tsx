@@ -1,4 +1,3 @@
-import { ReactElement } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
@@ -13,7 +12,7 @@ import tw from '../../styles/tailwind'
  * <Text style={tw`px-2 body-m text-black-2`}>text</Text>
  * </LinedText>
  */
-export const LinedText = ({ style, children }: ComponentProps): ReactElement => (
+export const LinedText = ({ style, children }: ComponentProps) => (
   <View style={[tw`flex-row items-center justify-center `, style]}>
     <View style={tw`flex-1 h-px mr-2 bg-black-5`} />
     {children}

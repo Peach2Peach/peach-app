@@ -1,4 +1,4 @@
-import { ReactElement, useRef } from 'react'
+import { useRef } from 'react'
 import { TextInput, View } from 'react-native'
 
 import { Input, PeachScrollView, Text } from '../../../../components'
@@ -7,7 +7,7 @@ import tw from '../../../../styles/tailwind'
 import i18n from '../../../../utils/i18n'
 import { usePasswordPromptSetup } from '../../hooks/usePasswordPromptSetup'
 
-export default ({ toggle }: { toggle: () => void }): ReactElement => {
+export default ({ toggle }: { toggle: () => void }) => {
   const {
     setPassword,
     password,

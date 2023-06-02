@@ -1,10 +1,9 @@
-import { ReactElement } from 'react'
 import { Linking } from 'react-native'
 import { Text } from '../components'
 import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
 
-export const AnalyticsPrompt = (): ReactElement => (
+export const AnalyticsPrompt = () => (
   <Text>
     {i18n('analytics.request.description1')}
     {'\n\n'}

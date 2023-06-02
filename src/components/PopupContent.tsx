@@ -1,4 +1,4 @@
-import { ReactElement, useEffect } from 'react'
+import { useEffect } from 'react'
 import { BackHandler, Modal, Pressable, View, ViewStyle } from 'react-native'
 import { Text } from '.'
 import tw from '../styles/tailwind'
@@ -30,7 +30,7 @@ const levelColorMap: LevelColorMap = {
 type Props = {
   visible: boolean
   title?: string
-  content?: ReactElement
+  content?: JSX.Element
   action1?: Action
   action2?: Action
   closePopup: () => void

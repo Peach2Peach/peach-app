@@ -1,5 +1,3 @@
-import { ReactElement } from 'react'
-
 import { BackgroundConfig } from '../components/background/Background'
 import MeetupScreen from '../components/payment/MeetupScreen'
 import TestView from './TestView/TestView'
@@ -60,7 +58,7 @@ import YourTrades from './yourTrades/YourTrades'
 
 type ViewType = {
   name: keyof RootStackParamList
-  component: (props: any) => ReactElement
+  component: (props: any) => JSX.Element
   showHeader: boolean
   showFooter: boolean
   background: BackgroundConfig

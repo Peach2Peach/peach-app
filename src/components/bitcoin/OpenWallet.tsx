@@ -1,4 +1,3 @@
-import { ReactElement } from 'react'
 import 'react-native-url-polyfill/auto'
 
 import { TouchableOpacity } from 'react-native'
@@ -11,7 +10,7 @@ type OpenWalletProps = ComponentProps & {
   address?: string
 }
 
-export const OpenWallet = ({ address, style }: OpenWalletProps): ReactElement => {
+export const OpenWallet = ({ address, style }: OpenWalletProps) => {
   const openWalletApp = () => openInWallet(`bitcoin:${address ?? ''}`)
 
   return (

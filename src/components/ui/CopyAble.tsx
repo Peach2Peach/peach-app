@@ -1,5 +1,5 @@
 import Clipboard from '@react-native-clipboard/clipboard'
-import { ReactElement, useCallback, useImperativeHandle, useState } from 'react'
+import { useCallback, useImperativeHandle, useState } from 'react'
 import { Pressable, TextStyle } from 'react-native'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
@@ -24,14 +24,7 @@ type Props = ComponentProps & {
   textPosition?: keyof typeof textPositions
 }
 
-export const CopyAble = ({
-  forwardRef,
-  value,
-  color,
-  disabled,
-  style,
-  textPosition = 'bottom',
-}: Props): ReactElement => {
+export const CopyAble = ({ forwardRef, value, color, disabled, style, textPosition = 'bottom' }: Props) => {
   const [showCopied, setShowCopied] = useState(false)
 
   const copy = useCallback(() => {

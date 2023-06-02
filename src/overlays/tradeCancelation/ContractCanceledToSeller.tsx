@@ -1,4 +1,3 @@
-import { ReactElement } from 'react'
 import { View } from 'react-native'
 import { Text } from '../../components'
 import { getSellOfferFromContract } from '../../utils/contract'
@@ -8,7 +7,7 @@ import { getEscrowExpiry } from '../../utils/offer'
 type ContractCanceledToSellerProps = {
   contract: Contract
 }
-export const ContractCanceledToSeller = ({ contract }: ContractCanceledToSellerProps): ReactElement => {
+export const ContractCanceledToSeller = ({ contract }: ContractCanceledToSellerProps) => {
   const sellOffer = getSellOfferFromContract(contract)
   const expiry = getEscrowExpiry(sellOffer)
 

@@ -1,4 +1,3 @@
-import { ReactElement } from 'react'
 import { View } from 'react-native'
 
 import tw from '../../styles/tailwind'
@@ -8,7 +7,7 @@ import i18n from '../../utils/i18n'
 import { usePayoutAddressSetup } from './hooks/usePayoutAddressSetup'
 import { OpenWallet } from '../../components/bitcoin'
 
-export default (): ReactElement => {
+export default () => {
   const {
     type,
     address,

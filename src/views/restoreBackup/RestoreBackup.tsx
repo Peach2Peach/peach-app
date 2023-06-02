@@ -1,4 +1,3 @@
-import { ReactElement } from 'react'
 import { View } from 'react-native'
 import { TabbedNavigation } from '../../components/navigation/TabbedNavigation'
 import tw from '../../styles/tailwind'
@@ -6,7 +5,7 @@ import { RestoreFromFile } from './RestoreFromFile'
 import { RestoreFromSeed } from './RestoreFromSeed'
 import { useRestoreBackupSetup } from './hooks/useRestoreBackupSetup'
 
-const tabContent: Record<string, (props: ComponentProps) => ReactElement> = {
+const tabContent: Record<string, (props: ComponentProps) => JSX.Element> = {
   fileBackup: RestoreFromFile,
   seedPhrase: RestoreFromSeed,
 }
