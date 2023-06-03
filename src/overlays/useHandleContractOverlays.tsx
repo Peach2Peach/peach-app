@@ -8,12 +8,12 @@ import {
 } from '../utils/overlay'
 import { useDisputeResults } from './dispute/hooks/useDisputeResults'
 import { useShowPaymentTimerHasRunOut } from './paymentTimer/useShowPaymentTimerHasRunOut'
-import { useTradeCanceledOverlay } from './tradeCancelation/useTradeCanceledOverlay'
+import { useTradeCanceledPopup } from './tradeCancelation/useTradeCanceledPopup'
 import { useBuyerRejectedCancelTradeOverlay } from './tradeCancelation/useBuyerRejectedCancelTradeOverlay'
 
 export const useHandleContractOverlays = () => {
   const showDisputeResults = useDisputeResults()
-  const { showTradeCanceled } = useTradeCanceledOverlay()
+  const { showTradeCanceled } = useTradeCanceledPopup()
   const showCancelTradeRequestRejected = useBuyerRejectedCancelTradeOverlay()
 
   const showPaymentTimerHasRunOut = useShowPaymentTimerHasRunOut()

@@ -1,13 +1,13 @@
 import { useMemo } from 'react'
 import { useConfirmTradeCancelationOverlay } from '../../../../overlays/tradeCancelation'
-import { useTradeCanceledOverlay } from '../../../../overlays/tradeCancelation/useTradeCanceledOverlay'
+import { useTradeCanceledPopup } from '../../../../overlays/tradeCancelation/useTradeCanceledPopup'
 import { usePaymentTooLatePopup } from '../../../../overlays/usePaymentTooLatePopup'
 
 type PNEventHandlers = Partial<Record<NotificationType, (contract: Contract) => void>>
 
 export const useContractPopupEvents = () => {
   const { showConfirmTradeCancelation } = useConfirmTradeCancelationOverlay()
-  const { showTradeCanceled } = useTradeCanceledOverlay()
+  const { showTradeCanceled } = useTradeCanceledPopup()
   const showPaymentTooLateOverlay = usePaymentTooLatePopup()
 
   const contractPopupEvents: PNEventHandlers = useMemo(
