@@ -3,11 +3,6 @@ import { useShowWronglyFundedPopup } from './useShowWronglyFundedPopup'
 import { WrongFundingAmount } from './warning/WrongFundingAmount'
 import { defaultPopupState, usePopupStore } from '../store/usePopupStore'
 
-const useOverlayContextMock = jest.fn()
-jest.mock('../contexts/overlay', () => ({
-  useOverlayContext: () => useOverlayContextMock(),
-}))
-
 const startRefundPopupMock = jest.fn()
 jest.mock('./useStartRefundPopup', () => ({
   useStartRefundPopup:
@@ -21,12 +16,10 @@ jest.mock('../store/configStore', () => ({
   useConfigStore: (selector: any) => useConfigStoreMock(selector),
 }))
 
-describe('useWronglyFundedOverlay', () => {
-  const updateOverlayMock = jest.fn()
+describe('useShowWronglyFundedPopup', () => {
   const maxTradingAmount = 2000000
 
   beforeEach(() => {
-    useOverlayContextMock.mockReturnValue([, updateOverlayMock])
     useConfigStoreMock.mockImplementation((selector) => selector({ maxTradingAmount }))
   })
   afterEach(() => {
