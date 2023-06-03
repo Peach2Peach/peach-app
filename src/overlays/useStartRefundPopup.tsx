@@ -4,7 +4,7 @@ import { shallow } from 'zustand/shallow'
 import { useNavigation } from '../hooks'
 import { useTradeSummaries } from '../hooks/query/useTradeSummaries'
 import { useShowErrorBanner } from '../hooks/useShowErrorBanner'
-import { useShowLoadingOverlay } from '../hooks/useShowLoadingOverlay'
+import { useShowLoadingPopup } from '../hooks/useShowLoadingPopup'
 import { useSettingsStore } from '../store/settingsStore'
 import { useTradeSummaryStore } from '../store/tradeSummaryStore'
 import { usePopupStore } from '../store/usePopupStore'
@@ -121,11 +121,11 @@ export const useStartRefundPopup = () => {
       showError,
     ],
   )
-  const showLoadingOverlay = useShowLoadingOverlay()
+  const showLoadingPopup = useShowLoadingPopup()
 
   const startRefund = useCallback(
     async (sellOffer: SellOffer) => {
-      showLoadingOverlay({
+      showLoadingPopup({
         title: i18n('refund.loading.title'),
       })
 
@@ -138,7 +138,7 @@ export const useStartRefundPopup = () => {
         closePopup()
       }
     },
-    [closePopup, refund, showError, showLoadingOverlay],
+    [closePopup, refund, showError, showLoadingPopup],
   )
 
   return startRefund

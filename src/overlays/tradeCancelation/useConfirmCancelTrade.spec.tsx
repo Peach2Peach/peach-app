@@ -25,8 +25,8 @@ const OverlayWrapper = ({ children }: { children: React.ReactNode }) => (
 
 const showLoadingOverlayMock = jest.fn()
 const useShowLoadingOverlayMock = jest.fn().mockReturnValue(showLoadingOverlayMock)
-jest.mock('../../hooks/useShowLoadingOverlay', () => ({
-  useShowLoadingOverlay: () => useShowLoadingOverlayMock(),
+jest.mock('../../hooks/useShowLoadingPopup', () => ({
+  useShowLoadingPopup: () => useShowLoadingOverlayMock(),
 }))
 
 const saveContractMock = jest.fn()

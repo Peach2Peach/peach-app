@@ -2,7 +2,7 @@ import { useCallback, useContext } from 'react'
 import { OverlayContext } from '../../../contexts/overlay'
 import { useNavigation } from '../../../hooks'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
-import { useShowLoadingOverlay } from '../../../hooks/useShowLoadingOverlay'
+import { useShowLoadingPopup } from '../../../hooks/useShowLoadingPopup'
 import { contractIdToHex, getSellOfferFromContract, saveContract, verifyAndSignReleaseTx } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
 import { confirmPayment } from '../../../utils/peachAPI'
@@ -16,7 +16,7 @@ export const useDisputeResults = () => {
   const [, updateOverlay] = useContext(OverlayContext)
 
   const showError = useShowErrorBanner()
-  const showLoadingOverlay = useShowLoadingOverlay()
+  const showLoadingPopup = useShowLoadingPopup()
   const showDisputeResults = useCallback(
     (contract: Contract, view: ContractViewer) => {
       const saveAcknowledgeMent = () => {
@@ -38,7 +38,7 @@ export const useDisputeResults = () => {
       }
 
       const release = async () => {
-        showLoadingOverlay({
+        showLoadingPopup({
           title: i18n('dispute.lost'),
           level: 'WARN',
         })
@@ -131,7 +131,7 @@ export const useDisputeResults = () => {
             },
       })
     },
-    [navigation, showError, showLoadingOverlay, updateOverlay],
+    [navigation, showError, showLoadingPopup, updateOverlay],
   )
 
   return showDisputeResults

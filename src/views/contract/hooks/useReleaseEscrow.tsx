@@ -1,6 +1,6 @@
 import { useOverlayContext } from '../../../contexts/overlay'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
-import { useShowLoadingOverlay } from '../../../hooks/useShowLoadingOverlay'
+import { useShowLoadingPopup } from '../../../hooks/useShowLoadingPopup'
 import { saveContract } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
 import { confirmPayment } from '../../../utils/peachAPI'
@@ -10,12 +10,12 @@ export const useReleaseEscrow = (contract: Contract) => {
   const [, updateOverlay] = useOverlayContext()
 
   const showError = useShowErrorBanner()
-  const showLoadingOverlay = useShowLoadingOverlay()
+  const showLoadingPopup = useShowLoadingPopup()
   const closeOverlay = () => {
     updateOverlay({ visible: false })
   }
   const releaseEscrow = async () => {
-    showLoadingOverlay({
+    showLoadingPopup({
       title: i18n('dispute.lost'),
       level: 'WARN',
     })

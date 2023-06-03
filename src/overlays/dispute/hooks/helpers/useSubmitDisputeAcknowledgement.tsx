@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Keyboard } from 'react-native'
 import { useShowErrorBanner } from '../../../../hooks/useShowErrorBanner'
-import { useShowLoadingOverlay } from '../../../../hooks/useShowLoadingOverlay'
+import { useShowLoadingPopup } from '../../../../hooks/useShowLoadingPopup'
 import { usePopupStore } from '../../../../store/usePopupStore'
 import { account } from '../../../../utils/account'
 import { saveContract } from '../../../../utils/contract'
@@ -30,12 +30,12 @@ export const useSubmitDisputeAcknowledgement = () => {
   const closePopup = usePopupStore((state) => state.closePopup)
   const queryClient = useQueryClient()
   const showError = useShowErrorBanner()
-  const showLoadingOverlay = useShowLoadingOverlay()
+  const showLoadingPopup = useShowLoadingPopup()
   const { mutate: submitAcknowledgementMutation } = useMutation({
     onMutate: async ({ contractId }) => {
       await queryClient.cancelQueries({ queryKey: ['contract', contractId] })
       const previousContract = queryClient.getQueryData<Contract>(['contract', contractId])
-      showLoadingOverlay({
+      showLoadingPopup({
         title: i18n('dispute.opened'),
         level: 'WARN',
       })

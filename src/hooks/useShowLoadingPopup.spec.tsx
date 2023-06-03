@@ -2,19 +2,19 @@ import { renderHook } from '@testing-library/react-native'
 import { Loading } from '../components'
 import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
-import { useShowLoadingOverlay } from './useShowLoadingOverlay'
+import { useShowLoadingPopup } from './useShowLoadingPopup'
 import { usePopupStore } from '../store/usePopupStore'
 
-describe('useShowLoadingOverlay', () => {
+describe('useShowLoadingPopup', () => {
   beforeEach(() => {
     jest.clearAllMocks()
   })
   it('returns function to show loading popup', () => {
-    const { result } = renderHook(useShowLoadingOverlay)
+    const { result } = renderHook(useShowLoadingPopup)
     expect(result.current).toBeInstanceOf(Function)
   })
   it('opens default overlay with loading animation', () => {
-    const { result } = renderHook(useShowLoadingOverlay)
+    const { result } = renderHook(useShowLoadingPopup)
     result.current()
     expect(usePopupStore.getState()).toEqual({
       ...usePopupStore.getState(),
@@ -27,7 +27,7 @@ describe('useShowLoadingOverlay', () => {
     })
   })
   it('action callback does not close popup', () => {
-    const { result } = renderHook(useShowLoadingOverlay)
+    const { result } = renderHook(useShowLoadingPopup)
     result.current()
     usePopupStore.getState().action1?.callback()
     expect(usePopupStore.getState().visible).toEqual(true)
@@ -35,7 +35,7 @@ describe('useShowLoadingOverlay', () => {
   it('respects passed options', () => {
     const title = 'title'
     const level = 'WARN'
-    const { result } = renderHook(useShowLoadingOverlay)
+    const { result } = renderHook(useShowLoadingPopup)
     result.current({
       title,
       level,

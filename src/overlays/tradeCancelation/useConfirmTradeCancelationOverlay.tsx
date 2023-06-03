@@ -2,7 +2,7 @@ import { useCallback } from 'react'
 import { useOverlayContext } from '../../contexts/overlay'
 import { useNavigation } from '../../hooks'
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
-import { useShowLoadingOverlay } from '../../hooks/useShowLoadingOverlay'
+import { useShowLoadingPopup } from '../../hooks/useShowLoadingPopup'
 import { saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { confirmContractCancelation, rejectContractCancelation } from '../../utils/peachAPI'
@@ -14,11 +14,11 @@ export const useConfirmTradeCancelationOverlay = () => {
   const navigation = useNavigation()
 
   const closeOverlay = useCallback(() => updateOverlay({ visible: false }), [updateOverlay])
-  const showLoadingOverlay = useShowLoadingOverlay()
+  const showLoadingPopup = useShowLoadingPopup()
 
   const cancelTrade = useCallback(
     async (contract: Contract) => {
-      showLoadingOverlay({
+      showLoadingPopup({
         title: i18n('contract.cancel.sellerWantsToCancel.title'),
         level: 'DEFAULT',
       })
@@ -39,12 +39,12 @@ export const useConfirmTradeCancelationOverlay = () => {
       }
       closeOverlay()
     },
-    [closeOverlay, navigation, showError, showLoadingOverlay, updateOverlay],
+    [closeOverlay, navigation, showError, showLoadingPopup, updateOverlay],
   )
 
   const continueTrade = useCallback(
     async (contract: Contract) => {
-      showLoadingOverlay({
+      showLoadingPopup({
         title: i18n('contract.cancel.sellerWantsToCancel.title'),
         level: 'DEFAULT',
       })
@@ -63,7 +63,7 @@ export const useConfirmTradeCancelationOverlay = () => {
       }
       closeOverlay()
     },
-    [closeOverlay, navigation, showError, showLoadingOverlay],
+    [closeOverlay, navigation, showError, showLoadingPopup],
   )
 
   const showConfirmTradeCancelation = useCallback(

@@ -2,7 +2,7 @@ import { useCallback } from 'react'
 import { shallow } from 'zustand/shallow'
 import { useNavigation } from '../../hooks'
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
-import { useShowLoadingOverlay } from '../../hooks/useShowLoadingOverlay'
+import { useShowLoadingPopup } from '../../hooks/useShowLoadingPopup'
 import { usePopupStore } from '../../store/usePopupStore'
 import i18n from '../../utils/i18n'
 import { extendPaymentTimer } from '../../utils/peachAPI'
@@ -12,7 +12,7 @@ import { PaymentTimerHasRunOut } from './PaymentTimerHasRunOut'
 export const useShowPaymentTimerHasRunOut = () => {
   const navigation = useNavigation()
   const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
-  const showLoadingOverlay = useShowLoadingOverlay()
+  const showLoadingPopup = useShowLoadingPopup()
   const { cancelSeller } = useConfirmCancelTrade()
   const showError = useShowErrorBanner()
 
@@ -43,7 +43,7 @@ export const useShowPaymentTimerHasRunOut = () => {
         label: i18n('contract.seller.paymentTimerHasRunOut.extraTime'),
         icon: 'clock',
         callback: async () => {
-          showLoadingOverlay({
+          showLoadingPopup({
             title: i18n('contract.buyer.paymentTimerHasRunOut.title'),
             level: 'WARN',
           })
@@ -64,7 +64,7 @@ export const useShowPaymentTimerHasRunOut = () => {
         action2: inTrade ? cancelTrade : closeAction,
       })
     },
-    [cancelSeller, closePopup, navigation, showError, showLoadingOverlay, setPopup],
+    [cancelSeller, closePopup, navigation, showError, showLoadingPopup, setPopup],
   )
 
   return showPaymentTimerHasRunOut

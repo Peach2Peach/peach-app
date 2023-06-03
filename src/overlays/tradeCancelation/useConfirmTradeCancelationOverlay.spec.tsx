@@ -22,8 +22,8 @@ jest.mock('../../hooks/useShowErrorBanner', () => ({
 }))
 const showLoadingOverlayMock = jest.fn()
 const useShowLoadingOverlayMock = jest.fn().mockReturnValue(showLoadingOverlayMock)
-jest.mock('../../hooks/useShowLoadingOverlay', () => ({
-  useShowLoadingOverlay: () => useShowLoadingOverlayMock(),
+jest.mock('../../hooks/useShowLoadingPopup', () => ({
+  useShowLoadingPopup: () => useShowLoadingOverlayMock(),
 }))
 
 const confirmContractCancelationMock = jest.fn().mockResolvedValue([apiSuccess, null])

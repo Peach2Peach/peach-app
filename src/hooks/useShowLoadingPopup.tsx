@@ -4,10 +4,10 @@ import { usePopupStore } from '../store/usePopupStore'
 import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
 
-export const useShowLoadingOverlay = () => {
+export const useShowLoadingPopup = () => {
   const setPopup = usePopupStore((state) => state.setPopup)
 
-  const showLoadingOverlay = useCallback(
+  const showLoadingPopup = useCallback(
     (options: Partial<OverlayState> = {}) =>
       setPopup({
         title: i18n('loading'),
@@ -24,5 +24,5 @@ export const useShowLoadingOverlay = () => {
       }),
     [setPopup],
   )
-  return showLoadingOverlay
+  return showLoadingPopup
 }

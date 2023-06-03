@@ -16,8 +16,8 @@ jest.mock('../../../hooks/useShowErrorBanner', () => ({
 }))
 
 const showLoadingOverlayMock = jest.fn()
-jest.mock('../../../hooks/useShowLoadingOverlay', () => ({
-  useShowLoadingOverlay: jest.fn(() => showLoadingOverlayMock),
+jest.mock('../../../hooks/useShowLoadingPopup', () => ({
+  useShowLoadingPopup: jest.fn(() => showLoadingOverlayMock),
 }))
 jest.mock('../../../utils/contract')
 
