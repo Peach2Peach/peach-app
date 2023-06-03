@@ -8,20 +8,20 @@ type PNEventHandlers = Partial<Record<NotificationType, (contract: Contract) => 
 export const useContractPopupEvents = () => {
   const { showConfirmTradeCancelation } = useConfirmTradeCancelationOverlay()
   const { showTradeCanceled } = useTradeCanceledPopup()
-  const showPaymentTooLateOverlay = usePaymentTooLatePopup()
+  const showPaymentTooLatePopup = usePaymentTooLatePopup()
 
   const contractPopupEvents: PNEventHandlers = useMemo(
     () => ({
       'contract.canceled': (contract: Contract) => showTradeCanceled(contract, false),
       // PN-S14
-      'seller.canceledAfterEscrowExpiry': (contract: Contract) => showTradeCanceled(contract, false),
+      'contract.seller.canceledAfterEscrowExpiry': (contract: Contract) => showTradeCanceled(contract, false),
       // PN-B08
       'contract.cancelationRequest': (contract: Contract) =>
         !contract.disputeActive ? showConfirmTradeCancelation(contract) : null,
       // PN-B12
-      'contract.buyer.paymentTimerHasRunOut': () => showPaymentTooLateOverlay(),
+      'contract.buyer.paymentTimerHasRunOut': () => showPaymentTooLatePopup(),
     }),
-    [showConfirmTradeCancelation, showPaymentTooLateOverlay, showTradeCanceled],
+    [showConfirmTradeCancelation, showPaymentTooLatePopup, showTradeCanceled],
   )
 
   return contractPopupEvents

@@ -8,12 +8,12 @@ jest.mock('../contexts/overlay', () => ({
   useOverlayContext: () => useOverlayContextMock(),
 }))
 
-const startRefundOverlayMock = jest.fn()
-jest.mock('./useStartRefundOverlay', () => ({
-  useStartRefundOverlay:
+const startRefundPopupMock = jest.fn()
+jest.mock('./useStartRefundPopup', () => ({
+  useStartRefundPopup:
     () =>
       (...args: any[]) =>
-        startRefundOverlayMock(...args),
+        startRefundPopupMock(...args),
 }))
 
 const useConfigStoreMock = jest.fn((selector) => selector({ maxTradingAmount: 2000000 }))
@@ -75,6 +75,6 @@ describe('useWronglyFundedOverlay', () => {
       result.current(sellOffer as SellOffer)
     })
     usePopupStore.getState().action1?.callback()
-    expect(startRefundOverlayMock).toHaveBeenCalledWith(sellOffer)
+    expect(startRefundPopupMock).toHaveBeenCalledWith(sellOffer)
   })
 })

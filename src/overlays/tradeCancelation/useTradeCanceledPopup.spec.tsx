@@ -17,9 +17,9 @@ jest.mock('../../hooks/useNavigation', () => ({
   }),
 }))
 
-const startRefundOverlayMock = jest.fn()
-jest.mock('../useStartRefundOverlay', () => ({
-  useStartRefundOverlay: () => startRefundOverlayMock,
+const startRefundPopupMock = jest.fn()
+jest.mock('../useStartRefundPopup', () => ({
+  useStartRefundPopup: () => startRefundPopupMock,
 }))
 
 const saveContractMock = jest.fn()
@@ -226,7 +226,7 @@ describe('useTradeCanceledPopup', () => {
     const { result } = renderHook(useTradeCanceledPopup)
     const { refundAction } = result.current.showTradeCanceled(contract, true)
     refundAction()
-    expect(startRefundOverlayMock).toHaveBeenCalledWith(sellOffer)
+    expect(startRefundPopupMock).toHaveBeenCalledWith(sellOffer)
     expect(saveContractMock).toHaveBeenCalled()
   })
   it('does not show trade cancel overlay if sell offer cannot be found', () => {
