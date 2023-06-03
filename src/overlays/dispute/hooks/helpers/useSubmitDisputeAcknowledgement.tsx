@@ -1,6 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Keyboard } from 'react-native'
-import { useOverlayContext } from '../../../../contexts/overlay'
 import { useShowErrorBanner } from '../../../../hooks/useShowErrorBanner'
 import { useShowLoadingOverlay } from '../../../../hooks/useShowLoadingOverlay'
 import { usePopupStore } from '../../../../store/usePopupStore'
@@ -28,7 +27,6 @@ const acknowledgeDisputeMutation = async (contractId: string, email: string, dis
 }
 
 export const useSubmitDisputeAcknowledgement = () => {
-  const [, updateOverlay] = useOverlayContext()
   const closePopup = usePopupStore((state) => state.closePopup)
   const queryClient = useQueryClient()
   const showError = useShowErrorBanner()
@@ -78,7 +76,6 @@ export const useSubmitDisputeAcknowledgement = () => {
       }
     },
     onSettled: (_data, _error, { contractId }) => {
-      updateOverlay({ visible: false })
       closePopup()
       queryClient.invalidateQueries(['contract', contractId])
     },
