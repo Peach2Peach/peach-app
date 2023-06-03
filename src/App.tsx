@@ -10,14 +10,14 @@ import { createStackNavigator } from '@react-navigation/stack'
 import RNRestart from 'react-native-restart'
 import { enableScreens } from 'react-native-screens'
 
-import { AvoidKeyboard, Footer, Header, Drawer, Message, Overlay, Popup } from './components'
+import { AvoidKeyboard, Drawer, Footer, Header, Message, Overlay, Popup } from './components'
 import tw from './styles/tailwind'
 import i18n, { LanguageContext } from './utils/i18n'
 import { getViews } from './views'
 
 import { DrawerContext, getDrawer, setDrawer } from './contexts/drawer'
 import { MessageContext, getMessage, setMessage, showMessageEffect } from './contexts/message'
-import { OverlayContext, defaultOverlay, useOverlay, useOverlayContext } from './contexts/overlay'
+import { OverlayContext, defaultOverlay, useOverlay } from './contexts/overlay'
 import { PeachWSContext, getWebSocket, setPeachWS } from './utils/peachAPI/websocket'
 
 import { DEV } from '@env'
@@ -28,16 +28,17 @@ import { Background } from './components/background/Background'
 import { ISEMULATOR, MSINAMONTH, TIMETORESTART } from './constants'
 import { useAppStateEffect } from './effects/useAppStateEffect'
 import { useMarketPrices, useUpdateTradingAmounts } from './hooks'
-import { useMessageHandler } from './hooks/notifications/useMessageHandler'
 import { useHandleNotifications } from './hooks/notifications/useHandleNotifications'
+import { useMessageHandler } from './hooks/notifications/useMessageHandler'
 import { useCheckTradeNotifications } from './hooks/useCheckTradeNotifications'
+import { useShowUpdateAvailable } from './hooks/useShowUpdateAvailable'
 import { getPeachInfo } from './init/getPeachInfo'
 import { getTrades } from './init/getTrades'
 import { initApp } from './init/initApp'
 import { initialNavigation } from './init/initialNavigation'
 import requestUserPermissions from './init/requestUserPermissions'
 import websocket from './init/websocket'
-import { useShowAnalyticsPrompt } from './overlays/useShowAnalyticsPrompt'
+import { useShowAnalyticsPopup } from './overlays/useShowAnalyticsPopup'
 import { useBitcoinStore } from './store/bitcoinStore'
 import { useSettingsStore } from './store/settingsStore'
 import { account } from './utils/account'
@@ -45,7 +46,6 @@ import { screenTransition } from './utils/layout/screenTransition'
 import { error, info } from './utils/log'
 import { parseError } from './utils/result'
 import { isIOS, isNetworkError } from './utils/system'
-import { useShowUpdateAvailable } from './hooks/useShowUpdateAvailable'
 
 enableScreens()
 
@@ -68,8 +68,7 @@ type HandlerProps = {
 }
 const Handlers = ({ getCurrentPage }: HandlerProps) => {
   const messageHandler = useMessageHandler(getCurrentPage)
-  const [, updateOverlay] = useOverlayContext()
-  const showAnalyticsPrompt = useShowAnalyticsPrompt(updateOverlay)
+  const showAnalyticsPrompt = useShowAnalyticsPopup()
   const [analyticsPopupSeen, lastBackupDate, showBackupReminder, setShowBackupReminder] = useSettingsStore(
     (state) => [state.analyticsPopupSeen, state.lastBackupDate, state.showBackupReminder, state.setShowBackupReminder],
     shallow,

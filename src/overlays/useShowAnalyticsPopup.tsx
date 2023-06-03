@@ -1,10 +1,12 @@
-import { useCallback, Dispatch } from 'react'
+import { useCallback } from 'react'
 import { shallow } from 'zustand/shallow'
 import { useSettingsStore } from '../store/settingsStore'
+import { usePopupStore } from '../store/usePopupStore'
 import i18n from '../utils/i18n'
 import { AnalyticsPrompt } from './AnalyticsPrompt'
 
-export const useShowAnalyticsPrompt = (updateOverlay: Dispatch<OverlayState>) => {
+export const useShowAnalyticsPopup = () => {
+  const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
   const [setAnalyticsPopupSeen, setEnableAnalytics] = useSettingsStore(
     (state) => [state.setAnalyticsPopupSeen, state.setEnableAnalytics],
     shallow,
@@ -13,17 +15,17 @@ export const useShowAnalyticsPrompt = (updateOverlay: Dispatch<OverlayState>) =>
   const accept = useCallback(() => {
     setEnableAnalytics(true)
     setAnalyticsPopupSeen(true)
-    updateOverlay({ visible: false })
-  }, [setEnableAnalytics, setAnalyticsPopupSeen, updateOverlay])
+    closePopup()
+  }, [setEnableAnalytics, setAnalyticsPopupSeen, closePopup])
 
   const deny = useCallback(() => {
     setEnableAnalytics(false)
     setAnalyticsPopupSeen(true)
-    updateOverlay({ visible: false })
-  }, [setEnableAnalytics, setAnalyticsPopupSeen, updateOverlay])
+    closePopup()
+  }, [setEnableAnalytics, setAnalyticsPopupSeen, closePopup])
 
   const showAnalyticsPrompt = useCallback(() => {
-    updateOverlay({
+    setPopup({
       title: i18n('analytics.request.title'),
       content: <AnalyticsPrompt />,
       visible: true,
@@ -39,6 +41,7 @@ export const useShowAnalyticsPrompt = (updateOverlay: Dispatch<OverlayState>) =>
       },
       level: 'APP',
     })
-  }, [accept, deny, updateOverlay])
+  }, [accept, deny, setPopup])
+
   return showAnalyticsPrompt
 }
