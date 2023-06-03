@@ -1,7 +1,5 @@
-import { useCallback, useContext, useEffect, useState } from 'react'
-
 import { useFocusEffect } from '@react-navigation/native'
-import { OverlayContext } from '../contexts/overlay'
+import { useCallback, useContext, useEffect, useState } from 'react'
 import { useHandleContractOverlays } from '../overlays/useHandleContractOverlays'
 import { account } from '../utils/account'
 import {
@@ -22,7 +20,6 @@ import { useShowErrorBanner } from './useShowErrorBanner'
 
 export const useCommonContractSetup = (contractId: string) => {
   const ws = useContext(PeachWSContext)
-  const [, updateOverlay] = useContext(OverlayContext)
   const showError = useShowErrorBanner()
   const handleContractOverlays = useHandleContractOverlays()
   const { contract, isLoading, refetch } = useContractDetails(contractId, 15 * 1000)
@@ -102,15 +99,7 @@ export const useCommonContractSetup = (contractId: string) => {
 
       return saveAndUpdate({ ...contract, symmetricKey, paymentData })
     })()
-  }, [
-    contract,
-    decryptionError,
-    saveAndUpdate,
-    showError,
-    storedContract?.paymentData,
-    storedContract?.symmetricKey,
-    updateOverlay,
-  ])
+  }, [contract, decryptionError, saveAndUpdate, showError, storedContract?.paymentData, storedContract?.symmetricKey])
 
   useEffect(() => {
     if (!contract) return () => {}
