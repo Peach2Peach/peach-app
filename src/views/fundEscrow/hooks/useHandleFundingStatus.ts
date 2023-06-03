@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useNavigation } from '../../../hooks'
 import { info } from '../../../utils/log'
 import { saveOffer } from '../../../utils/offer'
-import { useStartRefundOverlay } from '../../../overlays/useStartRefundOverlay'
+import { useStartRefundPopup } from '../../../overlays/useStartRefundPopup'
 import { useShowWronglyFundedPopup } from '../../../overlays/useShowWronglyFundedPopup'
 import { useOfferMatches } from '../../search/hooks/useOfferMatches'
 
@@ -16,7 +16,7 @@ export const useHandleFundingStatus = ({ offerId, sellOffer, fundingStatus, user
   const navigation = useNavigation()
   const showWronglyFundedOverlay = useShowWronglyFundedPopup()
 
-  const startRefund = useStartRefundOverlay()
+  const startRefund = useStartRefundPopup()
   const { refetch: fetchMatches } = useOfferMatches(offerId, fundingStatus.status === 'FUNDED')
 
   useEffect(() => {

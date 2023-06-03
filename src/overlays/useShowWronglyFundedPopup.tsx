@@ -4,13 +4,13 @@ import { useConfigStore } from '../store/configStore'
 import { usePopupStore } from '../store/usePopupStore'
 import i18n from '../utils/i18n'
 import { sum } from '../utils/math'
-import { useStartRefundOverlay } from './useStartRefundOverlay'
+import { useStartRefundPopup } from './useStartRefundPopup'
 import { WrongFundingAmount } from './warning/WrongFundingAmount'
 
 export const useShowWronglyFundedPopup = () => {
   const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
   const maxTradingAmount = useConfigStore((state) => state.maxTradingAmount)
-  const startRefundOverlay = useStartRefundOverlay()
+  const startRefundOverlay = useStartRefundPopup()
 
   const showWronglyFundedPopup = useCallback(
     (sellOffer: SellOffer) =>

@@ -7,14 +7,14 @@ import { getSellOfferFromContract, saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { getOfferExpiry } from '../../utils/offer'
 import { reviveSellOffer } from '../../utils/peachAPI'
-import { useStartRefundOverlay } from '../useStartRefundOverlay'
+import { useStartRefundPopup } from '../useStartRefundPopup'
 import { BuyerConfirmedCancelTrade } from './BuyerConfirmedCancelTrade'
 import { ContractCanceledToSeller } from './ContractCanceledToSeller'
 import { OfferRepublished } from './OfferRepublished'
 
 export const useTradeCanceledPopup = () => {
   const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
-  const startRefund = useStartRefundOverlay()
+  const startRefund = useStartRefundPopup()
   const showErrorBanner = useShowErrorBanner()
   const navigation = useNavigation()
 

@@ -1,5 +1,5 @@
 import { useNavigation } from '../../../hooks'
-import { useStartRefundOverlay } from '../../../overlays/useStartRefundOverlay'
+import { useStartRefundPopup } from '../../../overlays/useStartRefundPopup'
 import { getOffer } from '../../../utils/offer'
 import { getNavigationDestinationForContract } from '../utils/navigation/getNavigationDestinationForContract'
 import { shouldOpenOverlay } from '../utils/shouldOpenOverlay'
@@ -7,7 +7,7 @@ import { useNavigateToContractPopups } from './useNavigateToContractPopups'
 
 export const useNavigateToContract = (contractSummary: ContractSummary) => {
   const navigation = useNavigation()
-  const startRefund = useStartRefundOverlay()
+  const startRefund = useStartRefundPopup()
   const showContractPopup = useNavigateToContractPopups(contractSummary.id)
 
   const navigateToContract = async () => {

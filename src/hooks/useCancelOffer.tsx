@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 import { shallow } from 'zustand/shallow'
 import { CancelOffer } from '../overlays/CancelOffer'
-import { useStartRefundOverlay } from '../overlays/useStartRefundOverlay'
+import { useStartRefundPopup } from '../overlays/useStartRefundPopup'
 import { usePopupStore } from '../store/usePopupStore'
 import i18n from '../utils/i18n'
 import { cancelAndSaveOffer, isBuyOffer } from '../utils/offer'
@@ -17,7 +17,7 @@ export const useCancelOffer = (offer: BuyOffer | SellOffer | null | undefined) =
     setPopup({ title: i18n('offer.canceled.popup.title'), level: 'DEFAULT' })
   }, [setPopup])
 
-  const startRefund = useStartRefundOverlay()
+  const startRefund = useStartRefundPopup()
 
   const confirmCancelOffer = useCallback(async () => {
     if (!offer) return
