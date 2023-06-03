@@ -1,21 +1,15 @@
-import { useCallback, useContext } from 'react'
-import { OverlayContext } from '../../../contexts/overlay'
+import { useCallback } from 'react'
+import { shallow } from 'zustand/shallow'
+import { usePopupStore } from '../../../store/usePopupStore'
 import i18n from '../../../utils/i18n'
-import DisputeRaisedSuccess from '../components/DisputeRaisedSuccess'
+import { DisputeRaisedSuccess } from '../components/DisputeRaisedSuccess'
 
-/**
- * @description Overlay appearing after raising dispute
- */
 export const useDisputeRaisedSuccess = () => {
-  const [, updateOverlay] = useContext(OverlayContext)
+  const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
 
-  const closeOverlay = useCallback(() => {
-    updateOverlay({ visible: false })
-  }, [updateOverlay])
-
-  const showOverlay = useCallback(
+  const showDisputeRaisedSuccess = useCallback(
     (view: ContractViewer) => {
-      updateOverlay({
+      setPopup({
         title: i18n('dispute.opened'),
         level: 'ERROR',
         content: <DisputeRaisedSuccess view={view} />,
@@ -23,11 +17,11 @@ export const useDisputeRaisedSuccess = () => {
         action1: {
           label: i18n('close'),
           icon: 'xSquare',
-          callback: closeOverlay,
+          callback: closePopup,
         },
       })
     },
-    [updateOverlay, closeOverlay],
+    [setPopup, closePopup],
   )
-  return showOverlay
+  return showDisputeRaisedSuccess
 }
