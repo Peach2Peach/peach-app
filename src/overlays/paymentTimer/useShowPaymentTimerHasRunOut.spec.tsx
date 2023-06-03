@@ -4,7 +4,7 @@ import { contract } from '../../../tests/unit/data/contractData'
 import { sellOffer } from '../../../tests/unit/data/offerData'
 import { NavigationWrapper, navigateMock, replaceMock } from '../../../tests/unit/helpers/NavigationWrapper'
 import { MessageContext, defaultMessageState } from '../../contexts/message'
-import { OverlayContext, defaultOverlay } from '../../contexts/overlay'
+import { usePopupStore } from '../../store/usePopupStore'
 import { setAccount } from '../../utils/account'
 import { getSellOfferIdFromContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
@@ -12,14 +12,7 @@ import { PeachWallet } from '../../utils/wallet/PeachWallet'
 import { setPeachWallet } from '../../utils/wallet/setWallet'
 import { PaymentTimerHasRunOut } from './PaymentTimerHasRunOut'
 import { useShowPaymentTimerHasRunOut } from './useShowPaymentTimerHasRunOut'
-
-let overlay = defaultOverlay
-const updateOverlay = jest.fn((newOverlay) => {
-  overlay = newOverlay
-})
-const OverlayWrapper = ({ children }: { children: any }) => (
-  <OverlayContext.Provider value={[overlay, updateOverlay]}>{children}</OverlayContext.Provider>
-)
+import { defaultOverlay } from '../../contexts/overlay'
 
 let messageState = defaultMessageState
 const setMessage = jest.fn((newMessageState) => {
@@ -39,18 +32,18 @@ jest.mock('../../utils/peachAPI', () => ({
 jest.mock('../../utils/wallet/PeachWallet')
 
 describe('useShowPaymentTimerHasRunOut', () => {
-  it('should show the payment timer has run out overlay if inTrade is false', () => {
-    const { result } = renderHook(useShowPaymentTimerHasRunOut, {
-      wrapper: ({ children }) => (
-        <NavigationWrapper>
-          <OverlayWrapper>{children}</OverlayWrapper>
-        </NavigationWrapper>
-      ),
-    })
+  afterEach(() => {
+    usePopupStore.setState(defaultOverlay)
+    jest.clearAllMocks()
+  })
+
+  it('should show the payment timer has run out usePopupStore.getState()if inTrade is false', () => {
+    const { result } = renderHook(useShowPaymentTimerHasRunOut, { wrapper: NavigationWrapper })
     act(() => {
       result.current(contract, false)
     })
-    expect(overlay).toStrictEqual({
+    expect(usePopupStore.getState()).toEqual({
+      ...usePopupStore.getState(),
       title: i18n('contract.seller.paymentTimerHasRunOut.title'),
       content: <PaymentTimerHasRunOut contract={contract} />,
       visible: true,
@@ -67,18 +60,13 @@ describe('useShowPaymentTimerHasRunOut', () => {
       },
     })
   })
-  it('should show the payment timer has run out overlay if inTrade is true', () => {
-    const { result } = renderHook(useShowPaymentTimerHasRunOut, {
-      wrapper: ({ children }) => (
-        <NavigationWrapper>
-          <OverlayWrapper>{children}</OverlayWrapper>
-        </NavigationWrapper>
-      ),
-    })
+  it('should show the payment timer has run out usePopupStore.getState()if inTrade is true', () => {
+    const { result } = renderHook(useShowPaymentTimerHasRunOut, { wrapper: NavigationWrapper })
     act(() => {
       result.current(contract, true)
     })
-    expect(overlay).toStrictEqual({
+    expect(usePopupStore.getState()).toEqual({
+      ...usePopupStore.getState(),
       title: i18n('contract.seller.paymentTimerHasRunOut.title'),
       content: <PaymentTimerHasRunOut contract={contract} />,
       visible: true,
@@ -95,37 +83,25 @@ describe('useShowPaymentTimerHasRunOut', () => {
       },
     })
   })
-  it('should close the overlay when the close action is called', () => {
-    const { result } = renderHook(useShowPaymentTimerHasRunOut, {
-      wrapper: ({ children }) => (
-        <NavigationWrapper>
-          <OverlayWrapper>{children}</OverlayWrapper>
-        </NavigationWrapper>
-      ),
-    })
+  it('should close the usePopupStore.getState()when the close action is called', () => {
+    const { result } = renderHook(useShowPaymentTimerHasRunOut, { wrapper: NavigationWrapper })
     act(() => {
       result.current(contract, false)
     })
     act(() => {
-      overlay?.action2?.callback()
+      usePopupStore.getState().action2?.callback()
     })
-    expect(overlay.visible).toBe(false)
+    expect(usePopupStore.getState().visible).toBe(false)
   })
   it('should go to the contract screen when the check trade action is called', () => {
-    const { result } = renderHook(useShowPaymentTimerHasRunOut, {
-      wrapper: ({ children }) => (
-        <NavigationWrapper>
-          <OverlayWrapper>{children}</OverlayWrapper>
-        </NavigationWrapper>
-      ),
-    })
+    const { result } = renderHook(useShowPaymentTimerHasRunOut, { wrapper: NavigationWrapper })
     act(() => {
       result.current(contract, false)
     })
     act(() => {
-      overlay?.action1?.callback()
+      usePopupStore.getState().action1?.callback()
     })
-    expect(overlay.visible).toBe(false)
+    expect(usePopupStore.getState().visible).toBe(false)
     expect(navigateMock).toHaveBeenCalledWith('contract', {
       contractId: contract.id,
     })
@@ -134,32 +110,24 @@ describe('useShowPaymentTimerHasRunOut', () => {
     setAccount({ ...account1, offers: [{ ...sellOffer, id: getSellOfferIdFromContract(contract) }] })
     // @ts-ignore
     setPeachWallet(new PeachWallet())
-    const { result } = renderHook(useShowPaymentTimerHasRunOut, {
-      wrapper: ({ children }) => (
-        <NavigationWrapper>
-          <OverlayWrapper>{children}</OverlayWrapper>
-        </NavigationWrapper>
-      ),
-    })
+    const { result } = renderHook(useShowPaymentTimerHasRunOut, { wrapper: NavigationWrapper })
     act(() => {
       result.current(contract, true)
     })
     await act(() => {
-      overlay?.action2?.callback()
+      usePopupStore.getState().action2?.callback()
     })
 
     expect(mockCancelContract).toHaveBeenCalledWith({ contractId: contract.id })
 
-    expect(overlay.visible).toBe(false)
+    expect(usePopupStore.getState().visible).toBe(false)
     expect(replaceMock).toHaveBeenCalledWith('contract', { contractId: contract.id })
   })
   it('should grant the buyer extra time when the extra time action is called', async () => {
     const { result } = renderHook(useShowPaymentTimerHasRunOut, {
       wrapper: ({ children }) => (
         <NavigationWrapper>
-          <OverlayWrapper>
-            <MessageWrapper>{children}</MessageWrapper>
-          </OverlayWrapper>
+          <MessageWrapper>{children}</MessageWrapper>
         </NavigationWrapper>
       ),
     })
@@ -167,21 +135,19 @@ describe('useShowPaymentTimerHasRunOut', () => {
       result.current(contract, true)
     })
     await act(() => {
-      overlay?.action1?.callback()
+      usePopupStore.getState().action1?.callback()
     })
 
     expect(mockExtendPaymentTimer).toHaveBeenCalledWith({ contractId: contract.id })
 
-    expect(overlay.visible).toBe(false)
+    expect(usePopupStore.getState().visible).toBe(false)
   })
   it('should show a message if the buyer extra time fails', async () => {
     mockExtendPaymentTimer.mockImplementationOnce((_args: unknown) => Promise.resolve([false, { error: 'testError' }]))
     const { result } = renderHook(useShowPaymentTimerHasRunOut, {
       wrapper: ({ children }) => (
         <NavigationWrapper>
-          <OverlayWrapper>
-            <MessageWrapper>{children}</MessageWrapper>
-          </OverlayWrapper>
+          <MessageWrapper>{children}</MessageWrapper>
         </NavigationWrapper>
       ),
     })
@@ -189,12 +155,12 @@ describe('useShowPaymentTimerHasRunOut', () => {
       result.current(contract, true)
     })
     await act(() => {
-      overlay?.action1?.callback()
+      usePopupStore.getState().action1?.callback()
     })
 
     expect(mockExtendPaymentTimer).toHaveBeenCalledWith({ contractId: contract.id })
 
-    expect(overlay.visible).toBe(false)
+    expect(usePopupStore.getState().visible).toBe(false)
     expect(messageState).toStrictEqual({
       msgKey: 'TESTERROR',
       level: 'ERROR',

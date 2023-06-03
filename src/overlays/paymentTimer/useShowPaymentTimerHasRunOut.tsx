@@ -1,34 +1,33 @@
-import { useCallback, useContext } from 'react'
-import { OverlayContext } from '../../contexts/overlay'
+import { useCallback } from 'react'
+import { shallow } from 'zustand/shallow'
 import { useNavigation } from '../../hooks'
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
 import { useShowLoadingOverlay } from '../../hooks/useShowLoadingOverlay'
+import { usePopupStore } from '../../store/usePopupStore'
 import i18n from '../../utils/i18n'
 import { extendPaymentTimer } from '../../utils/peachAPI'
 import { useConfirmCancelTrade } from '../tradeCancelation/useConfirmCancelTrade'
 import { PaymentTimerHasRunOut } from './PaymentTimerHasRunOut'
 
 export const useShowPaymentTimerHasRunOut = () => {
-  const [, updateOverlay] = useContext(OverlayContext)
   const navigation = useNavigation()
+  const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
+  const showLoadingOverlay = useShowLoadingOverlay()
   const { cancelSeller } = useConfirmCancelTrade()
   const showError = useShowErrorBanner()
-
-  const showLoadingOverlay = useShowLoadingOverlay()
-  const closeOverlay = useCallback(() => updateOverlay({ visible: false }), [updateOverlay])
 
   const showPaymentTimerHasRunOut = useCallback(
     (contract: Contract, inTrade: boolean) => {
       const closeAction: Action = {
         label: i18n('close'),
         icon: 'xSquare',
-        callback: closeOverlay,
+        callback: closePopup,
       }
       const goToContract: Action = {
         label: i18n('checkTrade'),
         icon: 'arrowLeftCircle',
         callback: () => {
-          closeOverlay()
+          closePopup()
           navigation.navigate('contract', { contractId: contract.id })
         },
       }
@@ -37,7 +36,7 @@ export const useShowPaymentTimerHasRunOut = () => {
         icon: 'xSquare',
         callback: () => {
           cancelSeller(contract)
-          closeOverlay()
+          closePopup()
         },
       }
       const extraTime: Action = {
@@ -52,11 +51,11 @@ export const useShowPaymentTimerHasRunOut = () => {
           const [result, err] = await extendPaymentTimer({ contractId: contract.id })
           if (!result || err) showError(err?.error)
 
-          closeOverlay()
+          closePopup()
         },
       }
 
-      updateOverlay({
+      setPopup({
         title: i18n('contract.seller.paymentTimerHasRunOut.title'),
         content: <PaymentTimerHasRunOut {...{ contract }} />,
         visible: true,
@@ -65,7 +64,7 @@ export const useShowPaymentTimerHasRunOut = () => {
         action2: inTrade ? cancelTrade : closeAction,
       })
     },
-    [cancelSeller, closeOverlay, navigation, showError, showLoadingOverlay, updateOverlay],
+    [cancelSeller, closePopup, navigation, showError, showLoadingOverlay, setPopup],
   )
 
   return showPaymentTimerHasRunOut
