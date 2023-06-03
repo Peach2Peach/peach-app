@@ -3,12 +3,7 @@ import { Loading } from '../components'
 import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
 import { useShowLoadingOverlay } from './useShowLoadingOverlay'
-
-const updateOverlayMock = jest.fn()
-const useOverlayContextMock = jest.fn().mockReturnValue([, updateOverlayMock])
-jest.mock('../contexts/overlay', () => ({
-  useOverlayContext: (...args: any[]) => useOverlayContextMock(...args),
-}))
+import { usePopupStore } from '../store/usePopupStore'
 
 describe('useShowLoadingOverlay', () => {
   beforeEach(() => {
@@ -21,7 +16,8 @@ describe('useShowLoadingOverlay', () => {
   it('opens default overlay with loading animation', () => {
     const { result } = renderHook(useShowLoadingOverlay)
     result.current()
-    expect(updateOverlayMock).toHaveBeenCalledWith({
+    expect(usePopupStore.getState()).toEqual({
+      ...usePopupStore.getState(),
       action1: { callback: expect.any(Function), icon: 'clock', label: i18n('loading') },
       content: <Loading color={tw`text-black-1`.color} style={tw`self-center`} />,
       level: 'APP',
@@ -29,6 +25,12 @@ describe('useShowLoadingOverlay', () => {
       title: i18n('loading'),
       visible: true,
     })
+  })
+  it('action callback does not close popup', () => {
+    const { result } = renderHook(useShowLoadingOverlay)
+    result.current()
+    usePopupStore.getState().action1?.callback()
+    expect(usePopupStore.getState().visible).toEqual(true)
   })
   it('respects passed options', () => {
     const title = 'title'
@@ -38,7 +40,8 @@ describe('useShowLoadingOverlay', () => {
       title,
       level,
     })
-    expect(updateOverlayMock).toHaveBeenCalledWith({
+    expect(usePopupStore.getState()).toEqual({
+      ...usePopupStore.getState(),
       action1: { callback: expect.any(Function), icon: 'clock', label: i18n('loading') },
       content: <Loading color={tw`text-black-1`.color} style={tw`self-center`} />,
       level,
