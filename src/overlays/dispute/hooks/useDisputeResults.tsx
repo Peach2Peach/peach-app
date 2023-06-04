@@ -1,8 +1,9 @@
-import { useCallback, useContext } from 'react'
-import { OverlayContext } from '../../../contexts/overlay'
+import { useCallback } from 'react'
+import { shallow } from 'zustand/shallow'
 import { useNavigation } from '../../../hooks'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { useShowLoadingPopup } from '../../../hooks/useShowLoadingPopup'
+import { usePopupStore } from '../../../store/usePopupStore'
 import { contractIdToHex, getSellOfferFromContract, saveContract, verifyAndSignReleaseTx } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
 import { confirmPayment } from '../../../utils/peachAPI'
@@ -13,7 +14,7 @@ import NonDispute from '../components/NonDispute'
 
 export const useDisputeResults = () => {
   const navigation = useNavigation()
-  const [, updateOverlay] = useContext(OverlayContext)
+  const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
 
   const showError = useShowErrorBanner()
   const showLoadingPopup = useShowLoadingPopup()
@@ -27,13 +28,10 @@ export const useDisputeResults = () => {
           disputeResolvedDate: new Date(),
         })
       }
-      const closeOverlay = () => {
-        updateOverlay({ visible: false })
-      }
 
       const goToChat = () => {
         saveAcknowledgeMent()
-        closeOverlay()
+        closePopup()
         navigation.navigate('contractChat', { contractId: contract.id })
       }
 
@@ -45,13 +43,13 @@ export const useDisputeResults = () => {
         const sellOffer = getSellOfferFromContract(contract)
         const [tx, errorMsg] = verifyAndSignReleaseTx(contract, sellOffer, getEscrowWalletForOffer(sellOffer))
         if (!tx) {
-          closeOverlay()
+          closePopup()
           return showError(errorMsg)
         }
 
         const [result, err] = await confirmPayment({ contractId: contract.id, releaseTransaction: tx })
         if (err) {
-          closeOverlay()
+          closePopup()
           return showError(err.error)
         }
 
@@ -63,12 +61,12 @@ export const useDisputeResults = () => {
           disputeResultAcknowledged: true,
           disputeResolvedDate: new Date(),
         })
-        return closeOverlay()
+        return closePopup()
       }
 
       const tradeId = contractIdToHex(contract.id)
 
-      if (!contract.disputeWinner) return updateOverlay({
+      if (!contract.disputeWinner) return setPopup({
         title: i18n('dispute.closed'),
         level: 'WARN',
         content: <NonDispute tradeId={tradeId} />,
@@ -78,7 +76,7 @@ export const useDisputeResults = () => {
           icon: 'xSquare',
           callback: () => {
             saveAcknowledgeMent()
-            closeOverlay()
+            closePopup()
             navigation.replace('contract', { contractId: contract.id })
           },
         },
@@ -90,7 +88,7 @@ export const useDisputeResults = () => {
       })
 
       if (contract.disputeWinner === view) return null
-      if (view === 'buyer') return updateOverlay({
+      if (view === 'buyer') return setPopup({
         title: i18n('dispute.lost'),
         level: 'WARN',
         content: <DisputeLostBuyer tradeId={tradeId} />,
@@ -100,7 +98,7 @@ export const useDisputeResults = () => {
           icon: 'xSquare',
           callback: () => {
             saveAcknowledgeMent()
-            closeOverlay()
+            closePopup()
           },
         },
         action1: {
@@ -109,7 +107,7 @@ export const useDisputeResults = () => {
           callback: goToChat,
         },
       })
-      return updateOverlay({
+      return setPopup({
         title: i18n('dispute.lost'),
         level: 'WARN',
         content: <DisputeLostSeller tradeId={tradeId} isCompleted={!!contract.releaseTxId || contract.canceled} />,
@@ -126,12 +124,12 @@ export const useDisputeResults = () => {
               icon: 'xSquare',
               callback: () => {
                 saveAcknowledgeMent()
-                closeOverlay()
+                closePopup()
               },
             },
       })
     },
-    [navigation, showError, showLoadingPopup, updateOverlay],
+    [setPopup, closePopup, navigation, showLoadingPopup, showError],
   )
 
   return showDisputeResults
