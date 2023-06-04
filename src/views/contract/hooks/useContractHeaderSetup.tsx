@@ -24,7 +24,7 @@ export const useContractHeaderSetup = ({
   useHeaderSetup(
     useMemo(() => {
       const icons = []
-      if (contract && canCancelContract(contract)) icons.push({
+      if (contract && canCancelContract(contract, view)) icons.push({
         ...headerIcons.cancel,
         onPress: () => showConfirmOverlay(contract),
       })
