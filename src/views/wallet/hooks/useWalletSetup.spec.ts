@@ -1,15 +1,7 @@
 import { act, renderHook } from '@testing-library/react-native'
+import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { settingsStore } from '../../../store/settingsStore'
 import { useWalletSetup } from './useWalletSetup'
-
-jest.mock('@react-navigation/native', () => ({
-  useFocusEffect: jest.fn(),
-}))
-const replaceMock = jest.fn()
-const useNavigationMock = jest.fn(() => ({ replace: replaceMock }))
-jest.mock('../../../hooks/useNavigation', () => ({
-  useNavigation: () => useNavigationMock(),
-}))
 
 const walletStore = {}
 const walletStateMock = jest.fn((selector, _compareFn) => selector(walletStore))
@@ -20,6 +12,8 @@ const mockWithdrawAll = jest.fn()
 jest.mock('../../../utils/wallet/setWallet', () => ({
   peachWallet: {
     withdrawAll: (...args: any) => mockWithdrawAll(...args),
+    allTransactions: [],
+    syncWallet: jest.fn((onSuccess: () => void) => onSuccess()),
   },
 }))
 
@@ -29,7 +23,7 @@ describe('useWalletSetup', () => {
     jest.clearAllMocks()
   })
   it('should return correct default values', () => {
-    const { result } = renderHook(useWalletSetup)
+    const { result } = renderHook(useWalletSetup, { wrapper: NavigationWrapper })
 
     expect(result.current.walletStore).toEqual(walletStore)
     expect(result.current.refresh).toBeInstanceOf(Function)
@@ -46,7 +40,7 @@ describe('useWalletSetup', () => {
   it('should confirm withdrawal with correct fees', () => {
     const finalFeeRate = 3
     settingsStore.getState().setFeeRate(finalFeeRate)
-    const { result } = renderHook(useWalletSetup)
+    const { result } = renderHook(useWalletSetup, { wrapper: NavigationWrapper })
 
     act(() => {
       result.current.setAddress(address)
