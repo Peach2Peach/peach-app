@@ -1,6 +1,5 @@
 import { renderHook } from '@testing-library/react-native'
-import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
-import { useHeaderState } from '../../../components/header/store'
+import { headerState, NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { useContractHeaderSetup } from './useContractHeaderSetup'
 
 describe('useContractHeaderSetup', () => {
@@ -15,9 +14,6 @@ describe('useContractHeaderSetup', () => {
         }),
       { wrapper: NavigationWrapper },
     )
-
-    expect(useHeaderState.getState().titleComponent).toMatchSnapshot()
-    expect(useHeaderState.getState().icons).toEqual([])
-    expect(useHeaderState.getState().hideGoBackButton).toEqual(false)
+    expect(headerState.header()).toMatchSnapshot()
   })
 })

@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`useOnboardingHeader allows overwriting values 1`] = `
+<Header
+  hideGoBackButton={true}
+  icons={[]}
+  theme="inverted"
+  title="a title"
+/>
+`;
+
+exports[`useOnboardingHeader should set up the header correctly 1`] = `
+<Header
+  icons={
+    [
+      {
+        "color": "#FFFCFA",
+        "id": "mail",
+        "onPress": [Function],
+      },
+      {
+        "color": "#FFFCFA",
+        "id": "globe",
+        "onPress": [Function],
+      },
+    ]
+  }
+  theme="inverted"
+  title="a title"
+/>
+`;

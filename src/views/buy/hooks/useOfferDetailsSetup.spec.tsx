@@ -3,11 +3,9 @@ import { act } from 'react-test-renderer'
 import { account1, paymentData } from '../../../../tests/unit/data/accountData'
 import { settings1 } from '../../../../tests/unit/data/settingsData'
 import { defaultAccount, setAccount } from '../../../utils/account'
-import i18n from '../../../utils/i18n'
 import { getBuyOfferDraft } from '../helpers/getBuyOfferDraft'
 import { useOfferDetailsSetup } from './useOfferDetailsSetup'
-import { useHeaderState } from '../../../components/header/store'
-import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { headerState, NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
 
 const showHelpMock = jest.fn()
 const useShowHelpMock = jest.fn((..._args) => showHelpMock)
@@ -47,8 +45,8 @@ describe('useOfferDetailsSetup', () => {
     jest.clearAllMocks()
   })
 
-  it('should return default values', async () => {
-    await setAccount(defaultAccount)
+  it('should return default values', () => {
+    setAccount(defaultAccount)
     const { result } = renderHook(useOfferDetailsSetup, { wrapper: NavigationWrapper, initialProps })
 
     expect(result.current.paymentData).toEqual([])
@@ -57,44 +55,38 @@ describe('useOfferDetailsSetup', () => {
     expect(result.current.toggleIsEditing).toBeInstanceOf(Function)
     expect(result.current.isStepValid).toEqual(false)
   })
-  it('should return default values with existing payment data', async () => {
-    await setAccount(fakeAccount)
+  it('should return default values with existing payment data', () => {
+    setAccount(fakeAccount)
     const { result } = renderHook(useOfferDetailsSetup, { wrapper: NavigationWrapper, initialProps })
 
     expect(result.current.paymentData).toEqual(fakeAccount.paymentData)
   })
 
-  it('should add the correct header', async () => {
-    await setAccount(defaultAccount)
+  it('should add the correct header', () => {
+    setAccount(defaultAccount)
     renderHook(useOfferDetailsSetup, { wrapper: NavigationWrapper, initialProps })
-
-    expect(useHeaderState.getState().title).toBe(i18n('paymentMethods.title'))
-    expect(useHeaderState.getState().icons?.[0].id).toBe('helpCircle')
-    expect(useHeaderState.getState().icons?.[0].onPress).toEqual(showHelpMock)
+    expect(headerState.header()).toMatchSnapshot()
   })
-  it('should add correct header for account with payment data', async () => {
-    await setAccount(fakeAccount)
+  it('should add correct header for account with payment data', () => {
+    setAccount(fakeAccount)
     const { result } = renderHook(useOfferDetailsSetup, { wrapper: NavigationWrapper, initialProps })
-
-    expect(useHeaderState.getState().title).toBe(i18n('paymentMethods.title'))
-    expect(useHeaderState.getState().icons?.[0].id).toBe('edit3')
-    expect(useHeaderState.getState().icons?.[0].onPress).toEqual(result.current.toggleIsEditing)
+    expect(headerState.header()).toMatchSnapshot()
+    expect(headerState.header().props.icons?.[0].onPress).toEqual(result.current.toggleIsEditing)
   })
-  it('should add the correct while editing header', async () => {
-    await setAccount(fakeAccount)
+  it('should add the correct while editing header', () => {
+    setAccount(fakeAccount)
     const { result } = renderHook(useOfferDetailsSetup, { wrapper: NavigationWrapper, initialProps })
 
     act(() => {
       result.current.toggleIsEditing()
     })
     expect(result.current.isEditing).toBeTruthy()
-    expect(useHeaderState.getState().title).toBe(i18n('paymentMethods.edit.title'))
-    expect(useHeaderState.getState().icons?.[0].onPress).toEqual(result.current.toggleIsEditing)
-    expect(useHeaderState.getState().icons?.[1].id).toBe('helpCircle')
-    expect(useHeaderState.getState().icons?.[1].onPress).toEqual(showHelpMock)
+    expect(headerState.header()).toMatchSnapshot()
+    expect(headerState.header().props.icons?.[0].onPress).toEqual(result.current.toggleIsEditing)
+    expect(headerState.header().props.icons?.[1].onPress).toEqual(showHelpMock)
   })
-  it('should update offer draft on init', async () => {
-    await setAccount(defaultAccount)
+  it('should update offer draft on init', () => {
+    setAccount(defaultAccount)
     renderHook(useOfferDetailsSetup, { wrapper: NavigationWrapper, initialProps })
 
     expect(setOfferDraftMock).toHaveBeenCalled()

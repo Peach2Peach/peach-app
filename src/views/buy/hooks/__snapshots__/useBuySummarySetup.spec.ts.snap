@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`useBuySummarySetup should set up header correctly 1`] = `
+<Header
+  icons={
+    [
+      {
+        "color": "#7D675E",
+        "id": "wallet",
+        "onPress": [Function],
+      },
+    ]
+  }
+  title="publish buy offer"
+/>
+`;

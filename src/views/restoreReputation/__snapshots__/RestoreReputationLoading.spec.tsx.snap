@@ -112,3 +112,12 @@ exports[`RestoreReputationLoading should render correctly 1`] = `
   </View>
 </View>
 `;
+
+exports[`RestoreReputationLoading should set header correctly 1`] = `
+<Header
+  hideGoBackButton={true}
+  icons={[]}
+  theme="inverted"
+  title="restore reputation"
+/>
+`;

@@ -1,9 +1,9 @@
 import { useNavigation } from '@react-navigation/native'
-import { TouchableOpacity, View } from 'react-native'
+import { ColorValue, TouchableOpacity, View, ViewStyle } from 'react-native'
 import { Icon, Text } from '..'
+import { IconType } from '../../assets/icons'
 import tw from '../../styles/tailwind'
 import { getHeaderStyles } from '../../utils/layout'
-import { useHeaderState } from './store'
 
 const themes = {
   default: {
@@ -18,8 +18,22 @@ const themes = {
   },
 }
 
-export const Header = () => {
-  const { title, icons, titleComponent, hideGoBackButton, theme } = useHeaderState()
+export type HeaderIcon = {
+  id: IconType
+  style?: ViewStyle | ViewStyle[]
+  color?: ColorValue | undefined
+  onPress: () => void
+}
+
+export type HeaderConfig = {
+  title?: string
+  titleComponent?: JSX.Element
+  icons?: HeaderIcon[]
+  hideGoBackButton?: boolean
+  theme?: 'default' | 'inverted'
+}
+
+export const Header = ({ title, icons, titleComponent, hideGoBackButton, theme }: HeaderConfig) => {
   const colors = themes[theme || 'default']
   const { goBack, canGoBack } = useNavigation()
   const { iconSize, fontSize } = getHeaderStyles()

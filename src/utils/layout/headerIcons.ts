@@ -1,4 +1,4 @@
-import { HeaderIcon } from '../../components/header/store'
+import { HeaderIcon } from '../../components/header/Header'
 import tw from '../../styles/tailwind'
 
 export const headerIcons: Record<string, Omit<HeaderIcon, 'onPress'>> = {

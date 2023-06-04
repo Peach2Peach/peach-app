@@ -1,7 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`useContractHeaderSetup should set up the header correctly for trade in dispute 1`] = `
-<ContractTitle
-  id="123"
+<Header
+  icons={[]}
+  titleComponent={
+    <ContractTitle
+      id="123"
+    />
+  }
 />
 `;

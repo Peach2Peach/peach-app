@@ -6,7 +6,6 @@ import { DeletePaymentMethodConfirm } from '../../../overlays/info/DeletePayment
 import { usePopupStore } from '../../../store/usePopupStore'
 import { account, defaultAccount, setAccount } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
-import { useHeaderState } from '../../header/store'
 import { useMeetupScreenSetup } from './useMeetupScreenSetup'
 
 const useRouteMock = jest.fn(() => ({
@@ -20,6 +19,12 @@ jest.mock('../../../hooks/useRoute', () => ({
   useRoute: () => useRouteMock(),
 }))
 const goBackMock = jest.fn()
+let headerState: Record<'header', () => JSX.Element> = {
+  header: () => <></>,
+}
+const setOptionsMock = jest.fn((options) => {
+  headerState = options
+})
 jest.mock('../../../hooks/useNavigation', () => ({
   useNavigation: jest.fn(() => ({
     goBack: goBackMock,
@@ -33,6 +38,7 @@ jest.mock('../../../hooks/useNavigation', () => ({
         },
       ],
     })),
+    setOptions: setOptionsMock,
   })),
 }))
 
@@ -62,16 +68,10 @@ describe('useMeetupScreenSetup', () => {
   })
   it('should set up the header correctly', () => {
     renderHook(useMeetupScreenSetup, {
-      wrapper: ({ children }) => <NavigationContainer>{children}</NavigationContainer>,
+      wrapper: NavigationContainer,
     })
 
-    expect(useHeaderState.getState().title).toBe('')
-    expect(useHeaderState.getState().icons?.[0].id).toBe('helpCircle')
-    expect(useHeaderState.getState().icons?.[0].color).toBe('#099DE2')
-    expect(useHeaderState.getState().icons?.[0].onPress).toBeInstanceOf(Function)
-    expect(useHeaderState.getState().icons?.[1].id).toBe('trash')
-    expect(useHeaderState.getState().icons?.[1].color).toBe('#DF321F')
-    expect(useHeaderState.getState().icons?.[1].onPress).toBeInstanceOf(Function)
+    expect(headerState.header()).toMatchSnapshot()
   })
   it('should set up the header correctly when deletable is undefined', () => {
     useRouteMock.mockReturnValueOnce({
@@ -82,14 +82,10 @@ describe('useMeetupScreenSetup', () => {
       },
     })
     renderHook(useMeetupScreenSetup, {
-      wrapper: ({ children }) => <NavigationContainer>{children}</NavigationContainer>,
+      wrapper: NavigationContainer,
     })
 
-    expect(useHeaderState.getState().title).toBe('')
-    expect(useHeaderState.getState().icons?.[0].id).toBe('helpCircle')
-    expect(useHeaderState.getState().icons?.[0].color).toBe('#099DE2')
-    expect(useHeaderState.getState().icons?.[0].onPress).toBeInstanceOf(Function)
-    expect(useHeaderState.getState().icons?.[1]).toBeUndefined()
+    expect(headerState.header()).toMatchSnapshot()
   })
   it('should open a link', () => {
     const { result } = renderHook(useMeetupScreenSetup, {
@@ -129,7 +125,7 @@ describe('useMeetupScreenSetup', () => {
   it('should show the delete payment method overlay', () => {
     renderHook(useMeetupScreenSetup, { wrapper: NavigationContainer })
 
-    useHeaderState.getState().icons?.[1].onPress()
+    headerState.header()?.props.icons[1].onPress()
     expect(usePopupStore.getState()).toStrictEqual({
       ...usePopupStore.getState(),
       title: i18n('help.paymentMethodDelete.title'),
