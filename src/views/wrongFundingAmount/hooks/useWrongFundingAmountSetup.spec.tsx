@@ -1,8 +1,7 @@
 import { renderHook, waitFor } from '@testing-library/react-native'
 import { sellOffer, wronglyFundedSellOffer } from '../../../../tests/unit/data/offerData'
-import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { headerState, NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { QueryClientWrapper } from '../../../../tests/unit/helpers/QueryClientWrapper'
-import { useHeaderState } from '../../../components/header/store'
 import { useWrongFundingAmountSetup } from './useWrongFundingAmountSetup'
 
 const wrapper = ({ children }: ComponentProps) => (
@@ -65,8 +64,7 @@ describe('useWrongFundingAmountSetup', () => {
 
   it('sets up header correctly', async () => {
     renderHook(useWrongFundingAmountSetup, { wrapper })
-    expect(useHeaderState.getState().titleComponent).toMatchSnapshot()
-    expect(useHeaderState.getState().hideGoBackButton).toEqual(false)
+    expect(headerState.header()).toMatchSnapshot()
   })
 
   it('confirms escrow', async () => {

@@ -1,13 +1,17 @@
 import { fireEvent, render } from '@testing-library/react-native'
-import { NavigationWrapper, goBackMock } from '../../../tests/unit/helpers/NavigationWrapper'
-import { useHeaderState } from '../../components/header/store'
+import {
+  NavigationWrapper,
+  goBackMock,
+  setOptionsMock,
+  headerState,
+} from '../../../tests/unit/helpers/NavigationWrapper'
 import RedesignWelcome from './RedesignWelcome'
 import { settingsStore } from '../../store/settingsStore'
 import { configStore } from '../../store/configStore'
 
 describe('RedesignWelcome', () => {
   beforeEach(() => {
-    useHeaderState.setState({ title: '', icons: [] })
+    setOptionsMock({ header: { title: '', icons: [] } })
   })
   it('should render correctly with referral code set', () => {
     settingsStore.getState().setUsedReferralCode(true)
@@ -31,8 +35,6 @@ describe('RedesignWelcome', () => {
   })
   it('should set header correctly', () => {
     render(<RedesignWelcome />, { wrapper: NavigationWrapper })
-    expect(useHeaderState.getState().title).toBe('')
-    expect(useHeaderState.getState().icons).toHaveLength(0)
-    expect(useHeaderState.getState().hideGoBackButton).toBeTruthy()
+    expect(headerState.header()).toMatchSnapshot()
   })
 })

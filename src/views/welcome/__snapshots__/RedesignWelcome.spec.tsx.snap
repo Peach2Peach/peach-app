@@ -475,3 +475,11 @@ exports[`RedesignWelcome should render correctly with referral code set 1`] = `
   </View>
 </View>
 `;
+
+exports[`RedesignWelcome should set header correctly 1`] = `
+<Header
+  hideGoBackButton={true}
+  icons={[]}
+  theme="inverted"
+/>
+`;
