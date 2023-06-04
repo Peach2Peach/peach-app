@@ -631,7 +631,6 @@
   "form.feeRate.error": "tasa de comisión inválida",
   "form.iban": "IBAN",
   "form.iban.error": "este IBAN no es válido",
-  "form.instantSepa.checkbox": "mi banco admite pagos instantáneos",
   "form.iban.long": "número de cuenta bancaria",
   "form.iban.placeholder": "AB12 CDEF 3456 7890 1234",
   "form.wallet": "número de cartera",
