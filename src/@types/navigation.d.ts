@@ -114,7 +114,6 @@ declare type RootStackParamList = {
   bitcoinProducts: undefined
   socials: undefined
   welcome: undefined
-  redesignWelcome: undefined
   splashScreen: undefined
   myProfile: undefined
 } & Record<`testView${string}`, undefined>

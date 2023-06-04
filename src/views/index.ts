@@ -51,7 +51,6 @@ import TradeComplete from './tradeComplete/TradeComplete'
 import TransactionDetails from './wallet/TransactionDetails'
 import TransactionHistory from './wallet/TransactionHistory'
 import Wallet from './wallet/Wallet'
-import RedesignWelcome from './welcome/RedesignWelcome'
 import Welcome from './welcome/Welcome'
 import { WrongFundingAmount } from './wrongFundingAmount/WrongFundingAmount'
 import YourTrades from './yourTrades/YourTrades'
@@ -85,13 +84,9 @@ const onboarding: ViewType[] = [
   { name: 'newUser', component: NewUser, ...onboardingConfig },
   { name: 'restoreBackup', component: RestoreBackup, ...onboardingConfig },
   { name: 'restoreReputation', component: RestoreReputation, ...onboardingConfig },
-  { name: 'redesignWelcome', component: RedesignWelcome, ...invertedThemeConfig },
 ]
 
-const home: ViewType[] = [
-  { name: 'home', component: Buy, ...defaultConfig },
-  { name: 'redesignWelcome', component: RedesignWelcome, ...invertedThemeConfig },
-]
+const home: ViewType[] = [{ name: 'home', component: Buy, ...defaultConfig }]
 
 const wallet: ViewType[] = [
   { name: 'wallet', component: Wallet, ...defaultConfig, animationEnabled: false },
