@@ -1,26 +1,25 @@
 import { useCallback } from 'react'
 import { shallow } from 'zustand/shallow'
-import { useOverlayContext } from '../../contexts/overlay'
 import { useNavigation } from '../../hooks'
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
 import { useSettingsStore } from '../../store/settingsStore'
+import { usePopupStore } from '../../store/usePopupStore'
 import { account } from '../../utils/account'
 import { getSellOfferFromContract, saveContract } from '../../utils/contract'
+import { getWalletLabelFromContract } from '../../utils/contract/getWalletLabelFromContract'
 import i18n from '../../utils/i18n'
 import { getOfferExpiry, saveOffer } from '../../utils/offer'
 import { isCashTrade } from '../../utils/paymentMethod/isCashTrade'
 import { ConfirmCancelTrade } from './ConfirmCancelTrade'
+import { SellerCanceledContent } from './SellerCanceledContent'
 import { getSellerCanceledTitle } from './getSellerCanceledTitle'
-import { getWalletLabelFromContract } from '../../utils/contract/getWalletLabelFromContract'
 import { cancelContractAsBuyer } from './helpers/cancelContractAsBuyer'
 import { cancelContractAsSeller } from './helpers/cancelContractAsSeller'
-import { SellerCanceledContent } from './SellerCanceledContent'
 
 export const useConfirmCancelTrade = () => {
-  const [, updateOverlay] = useOverlayContext()
+  const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
   const navigation = useNavigation()
   const showError = useShowErrorBanner()
-  const closeOverlay = useCallback(() => updateOverlay({ visible: false }), [updateOverlay])
   const [customPayoutAddress, customPayoutAddressLabel, isPeachWalletActive] = useSettingsStore(
     (state) => [state.payoutAddress, state.payoutAddressLabel, state.peachWalletActive],
     shallow,
@@ -28,7 +27,7 @@ export const useConfirmCancelTrade = () => {
 
   const cancelBuyer = useCallback(
     async (contract: Contract) => {
-      updateOverlay({ title: i18n('contract.cancel.success'), visible: true, level: 'DEFAULT' })
+      setPopup({ title: i18n('contract.cancel.success'), visible: true, level: 'DEFAULT' })
       const result = await cancelContractAsBuyer(contract)
 
       if (result.isError() || !result.isOk()) {
@@ -38,7 +37,7 @@ export const useConfirmCancelTrade = () => {
       saveContract(result.getValue().contract)
       navigation.replace('contract', { contractId: contract.id })
     },
-    [navigation, showError, updateOverlay],
+    [navigation, showError, setPopup],
   )
 
   const cancelSeller = useCallback(
@@ -51,7 +50,7 @@ export const useConfirmCancelTrade = () => {
         customPayoutAddressLabel,
         isPeachWalletActive,
       })
-      updateOverlay({
+      setPopup({
         title: getSellerCanceledTitle(contract.paymentMethod),
         visible: true,
         level: 'DEFAULT',
@@ -70,7 +69,7 @@ export const useConfirmCancelTrade = () => {
       if (sellOffer) saveOffer(sellOffer)
       navigation.replace('contract', { contractId: contract.id })
     },
-    [customPayoutAddress, customPayoutAddressLabel, isPeachWalletActive, updateOverlay, navigation, showError],
+    [customPayoutAddress, customPayoutAddressLabel, isPeachWalletActive, setPopup, navigation, showError],
   )
 
   const showConfirmOverlay = useCallback(
@@ -78,7 +77,7 @@ export const useConfirmCancelTrade = () => {
       const view = account.publicKey === contract?.seller.id ? 'seller' : 'buyer'
       const cancelAction = () => (view === 'seller' ? cancelSeller(contract) : cancelBuyer(contract))
       const title = i18n(isCashTrade(contract.paymentMethod) ? 'contract.cancel.cash.title' : 'contract.cancel.title')
-      updateOverlay({
+      setPopup({
         title,
         level: 'DEFAULT',
         content: <ConfirmCancelTrade {...{ contract, view }} />,
@@ -91,12 +90,12 @@ export const useConfirmCancelTrade = () => {
         action2: {
           label: i18n('contract.cancel.confirm.back'),
           icon: 'arrowLeftCircle',
-          callback: closeOverlay,
+          callback: closePopup,
         },
       })
     },
-    [updateOverlay, cancelSeller, cancelBuyer, closeOverlay],
+    [setPopup, cancelSeller, cancelBuyer, closePopup],
   )
 
-  return { showConfirmOverlay, cancelSeller, cancelBuyer, closeOverlay }
+  return { showConfirmOverlay, cancelSeller, cancelBuyer, closePopup }
 }
