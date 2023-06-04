@@ -1,7 +1,7 @@
 import { renderHook } from '@testing-library/react-native'
 import { contract } from '../../../../tests/unit/data/contractData'
 import { NavigationWrapper, navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
-import { usePopupStore } from '../../../store/usePopupStore'
+import { defaultPopupState, usePopupStore } from '../../../store/usePopupStore'
 import { contractIdToHex } from '../../../utils/contract'
 import { DisputeLostBuyer } from '../components/DisputeLostBuyer'
 import { DisputeLostSeller } from '../components/DisputeLostSeller'
@@ -9,6 +9,9 @@ import NonDispute from '../components/NonDispute'
 import { useDisputeResults } from './useDisputeResults'
 
 describe('useDisputeResults', () => {
+  afterEach(() => {
+    usePopupStore.setState(defaultPopupState)
+  })
   it('opens dispute results popup for non disputes', () => {
     const { result } = renderHook(useDisputeResults, { wrapper: NavigationWrapper })
     result.current({ ...contract }, 'buyer')
