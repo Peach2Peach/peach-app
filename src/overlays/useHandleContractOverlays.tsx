@@ -9,12 +9,12 @@ import {
 import { useDisputeResults } from './dispute/hooks/useDisputeResults'
 import { useShowPaymentTimerHasRunOut } from './paymentTimer/useShowPaymentTimerHasRunOut'
 import { useTradeCanceledPopup } from './tradeCancelation/useTradeCanceledPopup'
-import { useBuyerRejectedCancelTradeOverlay } from './tradeCancelation/useBuyerRejectedCancelTradeOverlay'
+import { useBuyerRejectedCancelTradePopup } from './tradeCancelation/useBuyerRejectedCancelTradePopup'
 
 export const useHandleContractOverlays = () => {
   const showDisputeResults = useDisputeResults()
   const { showTradeCanceled } = useTradeCanceledPopup()
-  const showCancelTradeRequestRejected = useBuyerRejectedCancelTradeOverlay()
+  const showCancelTradeRequestRejected = useBuyerRejectedCancelTradePopup()
 
   const showPaymentTimerHasRunOut = useShowPaymentTimerHasRunOut()
 

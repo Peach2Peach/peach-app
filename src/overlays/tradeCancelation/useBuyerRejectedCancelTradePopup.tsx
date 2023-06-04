@@ -1,17 +1,18 @@
 import { useCallback } from 'react'
-import { useOverlayContext } from '../../contexts/overlay'
+import { shallow } from 'zustand/shallow'
 import { useNavigation } from '../../hooks'
+import { usePopupStore } from '../../store/usePopupStore'
 import { saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { BuyerRejectedCancelTrade } from './BuyerRejectedCancelTrade'
 
-export const useBuyerRejectedCancelTradeOverlay = () => {
-  const [, updateOverlay] = useOverlayContext()
+export const useBuyerRejectedCancelTradePopup = () => {
+  const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
   const navigation = useNavigation()
 
   const confirmOverlay = useCallback(
     (contract: Contract) => {
-      updateOverlay({ visible: false })
+      closePopup()
       navigation.replace('contract', { contractId: contract.id })
       saveContract({
         ...contract,
@@ -19,12 +20,12 @@ export const useBuyerRejectedCancelTradeOverlay = () => {
         cancelConfirmationPending: false,
       })
     },
-    [updateOverlay, navigation],
+    [closePopup, navigation],
   )
 
   const showCancelTradeRequestRejected = useCallback(
     (contract: Contract) => {
-      updateOverlay({
+      setPopup({
         title: i18n('contract.cancel.buyerRejected.title'),
         content: <BuyerRejectedCancelTrade contract={contract} />,
         visible: true,
@@ -37,7 +38,7 @@ export const useBuyerRejectedCancelTradeOverlay = () => {
         },
       })
     },
-    [confirmOverlay, updateOverlay],
+    [confirmOverlay, setPopup],
   )
   return showCancelTradeRequestRejected
 }
