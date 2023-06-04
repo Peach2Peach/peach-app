@@ -41,7 +41,7 @@ export const ContractCTA = ({
   )
   if (view === 'buyer' && requiredAction === 'sendPayment') {
     const paymentExpectedBy = getPaymentExpectedBy(contract)
-    if (contract.disputeActive || Date.now() < paymentExpectedBy) {
+    if (Date.now() < paymentExpectedBy) {
       return (
         <SlideToUnlock
           style={tw`w-[263px]`}
