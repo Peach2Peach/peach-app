@@ -6,17 +6,12 @@ import { Props, useRateSetup } from './useRateSetup'
 import { apiSuccess, unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
 import { settingsStore } from '../../../store/settingsStore'
 import { NavigationWrapper, replaceMock } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { usePopupStore } from '../../../store/usePopupStore'
 
 const showErrorBannerMock = jest.fn()
 const useShowErrorBannerMock = jest.fn().mockReturnValue(showErrorBannerMock)
 jest.mock('../../../hooks/useShowErrorBanner', () => ({
   useShowErrorBanner: () => useShowErrorBannerMock(),
-}))
-
-const updateOverlayMock = jest.fn()
-const useOverlayContextMock = jest.fn().mockReturnValue([, updateOverlayMock])
-jest.mock('../../../contexts/overlay', () => ({
-  useOverlayContext: () => useOverlayContextMock(),
 }))
 
 const rateUserMock = jest.fn().mockResolvedValue([apiSuccess, null])
@@ -189,7 +184,8 @@ describe('useRateSetup', () => {
       wrapper: NavigationWrapper,
     })
     result.current.showTradeBreakdown()
-    expect(updateOverlayMock).toHaveBeenCalledWith({
+    expect(usePopupStore.getState()).toEqual({
+      ...usePopupStore.getState(),
       action2: {
         callback: result.current.viewInExplorer,
         icon: 'externalLink',
