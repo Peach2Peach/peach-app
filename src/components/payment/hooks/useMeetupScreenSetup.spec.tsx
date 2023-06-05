@@ -7,6 +7,7 @@ import { account, defaultAccount, setAccount } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
 import { useHeaderState } from '../../header/store'
 import { useMeetupScreenSetup } from './useMeetupScreenSetup'
+import { meetupEventsStore } from '../../../store/meetupEventsStore'
 
 const useRouteMock = jest.fn(() => ({
   params: {
@@ -50,13 +51,16 @@ describe('useMeetupScreenSetup', () => {
       event: {
         city: '',
         country: 'DE',
+        currencies: [],
         id: '123',
         longName: '',
         shortName: '',
       },
-      openLink: expect.any(Function),
       deletable: true,
       addToPaymentMethods: expect.any(Function),
+      paymentMethod: 'cash.123',
+      onCurrencyToggle: expect.any(Function),
+      selectedCurrencies: [],
     })
   })
   it('should set up the header correctly', () => {
@@ -93,6 +97,16 @@ describe('useMeetupScreenSetup', () => {
 
   it('should add a meetup to the payment methods', () => {
     setPaymentMethods([{ id: 'cash.123', currencies: ['EUR'], anonymous: true }])
+    meetupEventsStore.getState().setMeetupEvents([
+      {
+        id: '123',
+        currencies: ['EUR'],
+        country: 'DE',
+        city: 'Berlin',
+        shortName: 'shortName',
+        longName: 'longName',
+      },
+    ])
     const { result } = renderHook(useMeetupScreenSetup, {
       wrapper: NavigationContainer,
     })
@@ -103,7 +117,7 @@ describe('useMeetupScreenSetup', () => {
         id: 'cash.123',
         currencies: ['EUR'],
         country: 'DE',
-        label: '',
+        label: 'shortName',
         type: 'cash.123',
         userId: '',
       },
