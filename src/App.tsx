@@ -10,14 +10,13 @@ import { createStackNavigator } from '@react-navigation/stack'
 import RNRestart from 'react-native-restart'
 import { enableScreens } from 'react-native-screens'
 
-import { AvoidKeyboard, Drawer, Footer, Header, Message, Overlay, Popup } from './components'
+import { AvoidKeyboard, Drawer, Footer, Header, Message, Popup } from './components'
 import tw from './styles/tailwind'
 import i18n, { LanguageContext } from './utils/i18n'
 import { getViews } from './views'
 
 import { DrawerContext, getDrawer, setDrawer } from './contexts/drawer'
 import { MessageContext, getMessage, setMessage, showMessageEffect } from './contexts/message'
-import { OverlayContext, defaultOverlay, useOverlay } from './contexts/overlay'
 import { PeachWSContext, getWebSocket, setPeachWS } from './utils/peachAPI/websocket'
 
 import { DEV } from '@env'
@@ -127,7 +126,6 @@ const App = () => {
     { title: drawerTitle, content: drawerContent, show: showDrawer, previousDrawer, onClose: onCloseDrawer },
     updateDrawer,
   ] = useReducer(setDrawer, getDrawer())
-  const [overlayState, updateOverlay] = useOverlay()
   const [peachWS, updatePeachWS] = useReducer(setPeachWS, getWebSocket())
   const { width } = Dimensions.get('window')
   const slideInAnim = useRef(new Animated.Value(-width)).current
@@ -230,65 +228,62 @@ const App = () => {
                     updateDrawer,
                   ]}
                 >
-                  <OverlayContext.Provider value={[defaultOverlay, updateOverlay]}>
-                    <NavigationContainer theme={navTheme} ref={navigationRef} onStateChange={onNavStateChange}>
-                      <Handlers {...{ getCurrentPage }} />
-                      <Background config={backgroundConfig}>
-                        <Drawer
-                          title={drawerTitle}
-                          content={drawerContent}
-                          show={showDrawer}
-                          onClose={onCloseDrawer}
-                          previousDrawer={previousDrawer}
-                        />
-                        <Overlay {...overlayState} />
-                        <Popup />
-                        <SafeAreaView>
-                          <View style={tw`flex-col h-full`}>
-                            {!!messageState.msgKey && (
-                              <Animated.View style={[tw`absolute z-20 w-full`, { top: slideInAnim }]}>
-                                <Message {...messageState} />
-                              </Animated.View>
-                            )}
-                            <View style={tw`flex-shrink h-full`}>
-                              <Stack.Navigator
-                                detachInactiveScreens={true}
-                                screenOptions={{
-                                  gestureEnabled: isIOS(),
-                                  headerShown: false,
-                                }}
-                              >
-                                {views.map(({ name, component, showHeader, background, animationEnabled }) => (
-                                  <Stack.Screen
-                                    {...{ name, component }}
-                                    key={name}
-                                    options={{
-                                      headerShown: showHeader,
-                                      header: () => <Header />,
-                                      animationEnabled: isIOS() && animationEnabled,
-                                      cardStyle: !background.color && tw`bg-primary-background`,
-                                      transitionSpec: {
-                                        open: screenTransition,
-                                        close: screenTransition,
-                                      },
-                                    }}
-                                  />
-                                ))}
-                              </Stack.Navigator>
-                            </View>
-                            {showFooter && (
-                              <Footer
-                                style={tw`z-10`}
-                                active={currentPage}
-                                setCurrentPage={setCurrentPage}
-                                theme={backgroundConfig?.color === 'primaryGradient' ? 'inverted' : 'default'}
-                              />
-                            )}
+                  <NavigationContainer theme={navTheme} ref={navigationRef} onStateChange={onNavStateChange}>
+                    <Handlers {...{ getCurrentPage }} />
+                    <Background config={backgroundConfig}>
+                      <Drawer
+                        title={drawerTitle}
+                        content={drawerContent}
+                        show={showDrawer}
+                        onClose={onCloseDrawer}
+                        previousDrawer={previousDrawer}
+                      />
+                      <Popup />
+                      <SafeAreaView>
+                        <View style={tw`flex-col h-full`}>
+                          {!!messageState.msgKey && (
+                            <Animated.View style={[tw`absolute z-20 w-full`, { top: slideInAnim }]}>
+                              <Message {...messageState} />
+                            </Animated.View>
+                          )}
+                          <View style={tw`flex-shrink h-full`}>
+                            <Stack.Navigator
+                              detachInactiveScreens={true}
+                              screenOptions={{
+                                gestureEnabled: isIOS(),
+                                headerShown: false,
+                              }}
+                            >
+                              {views.map(({ name, component, showHeader, background, animationEnabled }) => (
+                                <Stack.Screen
+                                  {...{ name, component }}
+                                  key={name}
+                                  options={{
+                                    headerShown: showHeader,
+                                    header: () => <Header />,
+                                    animationEnabled: isIOS() && animationEnabled,
+                                    cardStyle: !background.color && tw`bg-primary-background`,
+                                    transitionSpec: {
+                                      open: screenTransition,
+                                      close: screenTransition,
+                                    },
+                                  }}
+                                />
+                              ))}
+                            </Stack.Navigator>
                           </View>
-                        </SafeAreaView>
-                      </Background>
-                    </NavigationContainer>
-                  </OverlayContext.Provider>
+                          {showFooter && (
+                            <Footer
+                              style={tw`z-10`}
+                              active={currentPage}
+                              setCurrentPage={setCurrentPage}
+                              theme={backgroundConfig?.color === 'primaryGradient' ? 'inverted' : 'default'}
+                            />
+                          )}
+                        </View>
+                      </SafeAreaView>
+                    </Background>
+                  </NavigationContainer>
                 </DrawerContext.Provider>
               </MessageContext.Provider>
             </PeachWSContext.Provider>

@@ -1,8 +1,8 @@
 import { act, renderHook } from '@testing-library/react-native'
 import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { useHeaderState } from '../../../components/header/store'
-import { defaultOverlay } from '../../../contexts/overlay'
-import { usePopupStore } from '../../../store/usePopupStore'
+import { defautOverlay } from '../../../contexts/overlay'
+import { defaultPopupState, usePopupStore } from '../../../store/usePopupStore'
 import { account } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
 import { usePaymentDetailsSetup } from './usePaymentDetailsSetup'
@@ -37,7 +37,7 @@ describe('usePaymentDetailsSetup', () => {
     useHeaderState.setState({ title: '', icons: [] })
   })
   afterEach(() => {
-    usePopupStore.setState(defaultOverlay)
+    usePopupStore.setState(defaultPopupState)
   })
   it('should return paymentMethod, onSubmit, currencies, data', () => {
     const { result } = renderHook(usePaymentDetailsSetup, { wrapper })

@@ -4,7 +4,7 @@ import { contract } from '../../../tests/unit/data/contractData'
 import { sellOffer } from '../../../tests/unit/data/offerData'
 import { NavigationWrapper, navigateMock, replaceMock } from '../../../tests/unit/helpers/NavigationWrapper'
 import { MessageContext, defaultMessageState } from '../../contexts/message'
-import { usePopupStore } from '../../store/usePopupStore'
+import { defaultPopupState, usePopupStore } from '../../store/usePopupStore'
 import { setAccount } from '../../utils/account'
 import { getSellOfferIdFromContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
@@ -12,7 +12,6 @@ import { PeachWallet } from '../../utils/wallet/PeachWallet'
 import { setPeachWallet } from '../../utils/wallet/setWallet'
 import { PaymentTimerHasRunOut } from './PaymentTimerHasRunOut'
 import { useShowPaymentTimerHasRunOut } from './useShowPaymentTimerHasRunOut'
-import { defaultOverlay } from '../../contexts/overlay'
 
 let messageState = defaultMessageState
 const setMessage = jest.fn((newMessageState) => {
@@ -33,7 +32,7 @@ jest.mock('../../utils/wallet/PeachWallet')
 
 describe('useShowPaymentTimerHasRunOut', () => {
   afterEach(() => {
-    usePopupStore.setState(defaultOverlay)
+    usePopupStore.setState(defaultPopupState)
     jest.clearAllMocks()
   })
 

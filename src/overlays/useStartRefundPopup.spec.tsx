@@ -3,9 +3,8 @@ import { sellOffer } from '../../tests/unit/data/offerData'
 import { NavigationWrapper, navigateMock } from '../../tests/unit/helpers/NavigationWrapper'
 import { QueryClientWrapper } from '../../tests/unit/helpers/QueryClientWrapper'
 import { Loading } from '../components'
-import { defaultOverlay } from '../contexts/overlay'
 import { settingsStore } from '../store/settingsStore'
-import { usePopupStore } from '../store/usePopupStore'
+import { defaultPopupState, usePopupStore } from '../store/usePopupStore'
 import { Refund } from './Refund'
 import { useStartRefundPopup } from './useStartRefundPopup'
 
@@ -62,7 +61,7 @@ describe('useStartRefundPopup', () => {
   )
 
   afterEach(() => {
-    usePopupStore.setState(defaultOverlay)
+    usePopupStore.setState(defaultPopupState)
     jest.clearAllMocks()
   })
   it('should return a function', () => {
