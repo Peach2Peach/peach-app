@@ -17,7 +17,7 @@ export const useContractHeaderSetup = ({
   requiredAction: ContractAction
   contractId: string
 }) => {
-  const { showConfirmOverlay } = useConfirmCancelTrade()
+  const { showConfirmPopup } = useConfirmCancelTrade()
   const showMakePaymentHelp = useShowHelp('makePayment')
   const showConfirmPaymentHelp = useShowHelp('confirmPayment')
 
@@ -26,7 +26,7 @@ export const useContractHeaderSetup = ({
       const icons = []
       if (contract && canCancelContract(contract)) icons.push({
         ...headerIcons.cancel,
-        onPress: () => showConfirmOverlay(contract),
+        onPress: () => showConfirmPopup(contract),
       })
       if (view === 'buyer' && requiredAction === 'sendPayment') icons.push({
         ...headerIcons.help,
@@ -40,6 +40,6 @@ export const useContractHeaderSetup = ({
         titleComponent: <ContractTitle id={contractId} />,
         icons: contract?.disputeActive ? [] : icons,
       }
-    }, [showConfirmOverlay, contract, requiredAction, contractId, showConfirmPaymentHelp, showMakePaymentHelp, view]),
+    }, [showConfirmPopup, contract, requiredAction, contractId, showConfirmPaymentHelp, showMakePaymentHelp, view]),
   )
 }

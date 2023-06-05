@@ -16,7 +16,7 @@ const REWARDINFO: Reward[] = [
 ]
 export const useReferralsSetup = () => {
   const showHelp = useShowHelp('referrals')
-  const { setCustomReferralCodeOverlay } = useSetCustomReferralCodePopup()
+  const { setCustomReferralCodePopup } = useSetCustomReferralCodePopup()
   const redeemNoPeachFeesReward = useRedeemNoPeachFeesReward()
 
   useHeaderSetup({
@@ -32,7 +32,7 @@ export const useReferralsSetup = () => {
   const redeem = async () => {
     switch (selectedReward) {
     case 'customReferralCode':
-      setCustomReferralCodeOverlay()
+      setCustomReferralCodePopup()
       break
     case 'noPeachFees':
       redeemNoPeachFeesReward()

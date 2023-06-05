@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { useShowFundingAmountDifferentPopup } from '../../../../popups/useShowFundingAmountDifferentPopup'
 import { useShowWronglyFundedPopup } from '../../../../popups/useShowWronglyFundedPopup'
-import { getOffer, isSellOffer } from '../../../../utils/offer'
+import { isSellOffer } from '../../../../utils/offer'
 import { useBuyOfferExpiredPopup } from '../../../../popups/useBuyOfferExpiredPopup'
 import { useOfferOutsideRangePopup } from '../../../../popups/useOfferOutsideRangePopup'
 import { getOfferDetails } from '../../../../utils/peachAPI'
