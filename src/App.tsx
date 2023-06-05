@@ -34,8 +34,8 @@ import { useShowUpdateAvailable } from './hooks/useShowUpdateAvailable'
 import { getPeachInfo } from './init/getPeachInfo'
 import { getTrades } from './init/getTrades'
 import { initApp } from './init/initApp'
-import { initialNavigation } from './init/initialNavigation'
 import requestUserPermissions from './init/requestUserPermissions'
+import { useInitialNavigation } from './init/useInitialNavigation'
 import websocket from './init/websocket'
 import { useShowAnalyticsPopup } from './popups/useShowAnalyticsPopup'
 import { useBitcoinStore } from './store/bitcoinStore'
@@ -80,6 +80,7 @@ const Handlers = ({ getCurrentPage }: HandlerProps) => {
     setShowBackupReminder(true)
   }
 
+  useInitialNavigation()
   useShowUpdateAvailable()
 
   useEffect(() => {
@@ -189,7 +190,6 @@ const App = () => {
         })
       }
       setCurrentPage(!!account?.publicKey ? 'home' : 'welcome')
-      await initialNavigation(navigationRef, updateMessage)
       requestUserPermissions()
     })()
   }, [])

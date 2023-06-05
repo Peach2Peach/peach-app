@@ -1,5 +1,5 @@
 import analytics from '@react-native-firebase/analytics'
-import { createStore, useStore } from 'zustand'
+import { create, createStore, useStore } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
 import { info } from '../utils/log'
 import { createStorage, toZustandStorage } from '../utils/storage'
@@ -44,7 +44,7 @@ export type SettingsStore = Settings & {
 
 export const settingsStorage = createStorage('settings')
 
-export const settingsStore = createStore(
+export const settingsStore = create(
   persist<SettingsStore>(
     (set, get) => ({
       ...defaultSettings,
