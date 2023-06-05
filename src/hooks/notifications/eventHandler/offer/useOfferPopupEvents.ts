@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { useShowFundingAmountDifferentPopup } from '../../../../overlays/useShowFundingAmountDifferentPopup'
 import { useShowWronglyFundedPopup } from '../../../../overlays/useShowWronglyFundedPopup'
-import { getOffer, isSellOffer } from '../../../../utils/offer'
+import { isSellOffer } from '../../../../utils/offer'
 import { useBuyOfferExpiredOverlay } from '../../../../overlays/useBuyOfferExpiredOverlay'
 import { useOfferOutsideRangeOverlay } from '../../../../overlays/useOfferOutsideRangeOverlay'
 import { getOfferDetails } from '../../../../utils/peachAPI'
