@@ -6,7 +6,6 @@ import { useMeetupEventsStore } from '../../../store/meetupEventsStore'
 import { account, addPaymentData } from '../../../utils/account'
 import { headerIcons } from '../../../utils/layout/headerIcons'
 import { getPaymentMethodInfo } from '../../../utils/paymentMethod'
-import { openAppLink } from '../../../utils/web'
 import { useDeletePaymentMethod } from './useDeletePaymentMethod'
 import { toggleCurrency } from '../../inputs/paymentMethods/paymentForms/utils'
 
@@ -29,8 +28,6 @@ export const useMeetupScreenSetup = () => {
   const onCurrencyToggle = (currency: Currency) => {
     setSelectedCurrencies(toggleCurrency(currency))
   }
-
-  const openLink = (url: string) => (url ? openAppLink(url) : null)
 
   const showHelp = useShowHelp('cashTrades')
   const deletePaymentMethod = useDeletePaymentMethod('cash.' + event.id)
@@ -65,7 +62,6 @@ export const useMeetupScreenSetup = () => {
   return {
     paymentMethod: ('cash.' + event.id) as PaymentMethod,
     event,
-    openLink,
     deletable,
     addToPaymentMethods,
     selectedCurrencies,

@@ -1,6 +1,5 @@
 import { NavigationContainer } from '@react-navigation/native'
 import { renderHook } from '@testing-library/react-native'
-import { Linking } from 'react-native'
 import { setPaymentMethods } from '../../../constants'
 import { DeletePaymentMethodConfirm } from '../../../overlays/info/DeletePaymentMethodConfirm'
 import { usePopupStore } from '../../../store/usePopupStore'
@@ -91,22 +90,7 @@ describe('useMeetupScreenSetup', () => {
     expect(useHeaderState.getState().icons?.[0].onPress).toBeInstanceOf(Function)
     expect(useHeaderState.getState().icons?.[1]).toBeUndefined()
   })
-  it('should open a link', () => {
-    const { result } = renderHook(useMeetupScreenSetup, {
-      wrapper: NavigationContainer,
-    })
 
-    result.current.openLink('https://www.google.com')
-    expect(Linking.openURL).toHaveBeenCalledWith('https://www.google.com')
-  })
-  it('shouldn\'t try to open a link if the url is falsy', () => {
-    const { result } = renderHook(useMeetupScreenSetup, {
-      wrapper: NavigationContainer,
-    })
-
-    result.current.openLink('')
-    expect(Linking.openURL).not.toHaveBeenCalled()
-  })
   it('should add a meetup to the payment methods', () => {
     setPaymentMethods([{ id: 'cash.123', currencies: ['EUR'], anonymous: true }])
     const { result } = renderHook(useMeetupScreenSetup, {
