@@ -104,3 +104,36 @@ exports[`TradeDetails should render correctly for past trade 1`] = `
   />
 </View>
 `;
+
+exports[`TradeDetails should show errorBox for missing paymentdata and decryption error 1`] = `
+<View>
+  <SummaryItem
+    information="89.04 EUR"
+    isDisputeActive={false}
+    label="price"
+    shouldBlur={true}
+  />
+  <SummaryItem
+    information="none"
+    isAvailable={false}
+    isDisputeActive={false}
+    label="reference"
+    shouldBlur={true}
+  />
+  <SummaryItem
+    information="SEPA"
+    isDisputeActive={false}
+    label="via"
+    shouldBlur={true}
+  />
+  <ErrorBox
+    style={
+      {
+        "marginTop": 2,
+      }
+    }
+  >
+    could not decrypt payment data, ask for details in the chat if needed
+  </ErrorBox>
+</View>
+`;
