@@ -5,6 +5,7 @@ import { storePaymentData } from './storePaymentData'
 import { storeOffers } from './storeOffers'
 import { storeContracts } from './storeContracts'
 import { storeChats } from './storeChats'
+import { useAccountStore } from '../../../store/accountStore'
 
 /**
  * @description Method to save whole account
@@ -14,8 +15,16 @@ export const storeAccount = async (acc: Account): Promise<void> => {
 
   if (!acc.publicKey) throw new Error('ERROR_SAVE_ACCOUNT')
 
+  const identity: Identity = {
+    publicKey: acc.publicKey,
+    privKey: acc.privKey,
+    mnemonic: acc.mnemonic,
+    pgp: acc.pgp,
+  }
+  useAccountStore.getState().setIdentity(identity)
+
   await Promise.all([
-    storeIdentity(acc),
+    storeIdentity(identity),
     storeTradingLimit(acc.tradingLimit),
     storePaymentData(acc.paymentData),
     storeOffers(acc.offers),

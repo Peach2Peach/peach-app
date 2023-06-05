@@ -10,6 +10,7 @@ type Account = {
 type AccountStore = Account & {
   setIdentity: (identity: Identity) => void
   setMigrated: () => void
+  reset: () => void
 }
 
 const defaultAccount: Account = {
@@ -26,6 +27,7 @@ export const useAccountStore = create(
       ...defaultAccount,
       setIdentity: (identity) => set({ identity, loggedIn: !!identity.privKey }),
       setMigrated: () => set({ migrated: true }),
+      reset: () => set(defaultAccount),
     }),
     {
       name: 'account',
