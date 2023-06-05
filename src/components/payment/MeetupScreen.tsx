@@ -6,8 +6,8 @@ import i18n from '../../utils/i18n'
 import { PeachScrollView } from '../PeachScrollView'
 import { PrimaryButton } from '../buttons'
 import { CurrencySelection } from '../inputs/paymentMethods/paymentForms/components'
-import { useMeetupScreenSetup } from './hooks/useMeetupScreenSetup'
 import { Link } from './components/Link'
+import { useMeetupScreenSetup } from './hooks/useMeetupScreenSetup'
 
 export const MeetupScreen = () => {
   const { paymentMethod, event, deletable, addToPaymentMethods, selectedCurrencies, onCurrencyToggle }
