@@ -18,7 +18,7 @@ jest.mock('../../../hooks/query/useTradeSummaries', () => ({
 }))
 
 const showWronglyFundedPopupMock = jest.fn()
-jest.mock('../../../overlays/useShowWronglyFundedPopup', () => ({
+jest.mock('../../../popups/useShowWronglyFundedPopup', () => ({
   useShowWronglyFundedPopup:
     () =>
       (...args: any[]) =>
@@ -61,7 +61,7 @@ jest.mock('../../search/hooks/useOfferMatches', () => ({
 }))
 
 const startRefundPopupMock = jest.fn()
-jest.mock('../../../overlays/useStartRefundPopup', () => ({
+jest.mock('../../../popups/useStartRefundPopup', () => ({
   useStartRefundPopup:
     () =>
       (...args: any[]) =>

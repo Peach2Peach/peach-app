@@ -105,7 +105,7 @@ describe('useMessageHandler', () => {
     expect(updateMessageMock).not.toHaveBeenCalled()
   })
 
-  it('should call overlay event when type is found in overlayEvents', async () => {
+  it('should call popup event when type is found in overlayEvents', async () => {
     const mockRemoteMessage = {
       data: {
         type: 'overlayEvent',

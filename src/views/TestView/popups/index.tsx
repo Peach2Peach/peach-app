@@ -2,14 +2,14 @@ import { View } from 'react-native'
 import { shallow } from 'zustand/shallow'
 import { PeachScrollView, PrimaryButton, Text } from '../../../components'
 import { useHeaderSetup } from '../../../hooks'
-import { usePopupStore } from '../../../store/usePopupStore'
+import { PopupState, usePopupStore } from '../../../store/usePopupStore'
 import tw from '../../../styles/tailwind'
 
 export default () => {
   useHeaderSetup({ title: 'test view - popups' })
   const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
 
-  const openPopup = (level: Level, options: Partial<OverlayState> = {}) =>
+  const openPopup = (level: Level, options: Partial<PopupState> = {}) =>
     setPopup({
       title: 'There once was a trader named Pete',
       content: (

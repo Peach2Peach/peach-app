@@ -22,7 +22,7 @@ import { TradingLimit } from './info/TradingLimit'
 import { WithdrawingFundsHelp } from './info/WithdrawingFundsHelp'
 import { YourPassword } from './info/YourPassword'
 
-export const helpOverlays = {
+export const helpPopups = {
   acceptMatch: { title: i18n('search.popups.acceptMatch.title'), content: AcceptMatchPopup },
   addressSigning: { title: i18n('help.addressSigning.title'), content: AddressSigning },
   buyingBitcoin: { title: i18n('help.buyingBitcoin.title'), content: BuyingBitcoin },
@@ -47,4 +47,4 @@ export const helpOverlays = {
   yourPassword: { title: i18n('settings.backups.fileBackup.popup2.title'), content: YourPassword },
 }
 
-export type HelpType = keyof typeof helpOverlays
+export type HelpType = keyof typeof helpPopups

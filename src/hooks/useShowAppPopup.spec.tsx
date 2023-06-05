@@ -1,8 +1,8 @@
 import { renderHook } from '@testing-library/react-native'
 import { useShowAppPopup } from './useShowAppPopup'
 import { usePopupStore } from '../store/usePopupStore'
-import { OfferTaken } from '../overlays/app/OfferTaken'
-import { MatchUndone } from '../overlays/app/MatchUndone'
+import { OfferTaken } from '../popups/app/OfferTaken'
+import { MatchUndone } from '../popups/app/MatchUndone'
 
 describe('useShowAppPopup', () => {
   it('open offerTaken popup', () => {

@@ -9,7 +9,7 @@ jest.mock('../../../utils/peachAPI', () => ({
   getOfferDetails: () => getOfferDetailsMock(),
 }))
 const startRefundPopupMock = jest.fn()
-jest.mock('../../../overlays/useStartRefundPopup', () => ({
+jest.mock('../../../popups/useStartRefundPopup', () => ({
   useStartRefundPopup: () => startRefundPopupMock,
 }))
 
@@ -31,7 +31,7 @@ describe('useNavigateToOffer', () => {
     await result.current()
     expect(navigateMock).toHaveBeenCalledWith('offer', { offerId: offerSummary.id })
   })
-  it('should open overlay if status is refundTxSignatureRequired', async () => {
+  it('should open popup if status is refundTxSignatureRequired', async () => {
     const offerSummary: Partial<OfferSummary> = {
       id: '3',
       tradeStatus: 'refundTxSignatureRequired',

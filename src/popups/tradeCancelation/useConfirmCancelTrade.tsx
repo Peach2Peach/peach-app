@@ -72,7 +72,7 @@ export const useConfirmCancelTrade = () => {
     [customPayoutAddress, customPayoutAddressLabel, isPeachWalletActive, setPopup, navigation, showError],
   )
 
-  const showConfirmOverlay = useCallback(
+  const showConfirmPopup = useCallback(
     (contract: Contract) => {
       const view = account.publicKey === contract?.seller.id ? 'seller' : 'buyer'
       const cancelAction = () => (view === 'seller' ? cancelSeller(contract) : cancelBuyer(contract))
@@ -97,5 +97,5 @@ export const useConfirmCancelTrade = () => {
     [setPopup, cancelSeller, cancelBuyer, closePopup],
   )
 
-  return { showConfirmOverlay, cancelSeller, cancelBuyer, closePopup }
+  return { showConfirmPopup, cancelSeller, cancelBuyer, closePopup }
 }

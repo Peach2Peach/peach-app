@@ -26,7 +26,7 @@ describe('useShowWronglyFundedPopup', () => {
     usePopupStore.setState(defaultPopupState)
     jest.resetAllMocks()
   })
-  it('opens WrongFundingAmount overlay', () => {
+  it('opens WrongFundingAmount popup', () => {
     const amount = 100000
     const actualAmount = 110000
     const sellOffer: Partial<SellOffer> = {

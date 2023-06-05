@@ -65,11 +65,11 @@ export const PopupContent = ({
     <Modal transparent={true} visible={visible}>
       <View style={tw`justify-center flex-1`}>
         <Pressable
-          testID="overlay-background"
+          testID="popup-background"
           style={tw`absolute top-0 left-0 w-full h-full bg-black-1 opacity-40`}
           onPress={onBackgroundPress}
         ></Pressable>
-        <View testID="overlay" style={[levelColorMap.bg1[level], tw`mx-6 rounded-2xl`]}>
+        <View testID="popup" style={[levelColorMap.bg1[level], tw`mx-6 rounded-2xl`]}>
           <View style={[tw`p-4`, levelColorMap.bg2[level], tw`rounded-t-2xl`]}>
             {!!title && <Text style={tw`mb-1 h5 text-black-1`}>{title.toLocaleLowerCase()}</Text>}
             {content}

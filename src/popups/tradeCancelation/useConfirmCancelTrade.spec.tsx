@@ -14,10 +14,10 @@ import { ConfirmCancelTrade } from './ConfirmCancelTrade'
 import { SellerCanceledContent } from './SellerCanceledContent'
 import { useConfirmCancelTrade } from './useConfirmCancelTrade'
 
-const showLoadingOverlayMock = jest.fn()
-const useShowLoadingOverlayMock = jest.fn().mockReturnValue(showLoadingOverlayMock)
+const showLoadingpopupMock = jest.fn()
+const useShowLoadingpopupMock = jest.fn().mockReturnValue(showLoadingpopupMock)
 jest.mock('../../hooks/useShowLoadingPopup', () => ({
-  useShowLoadingPopup: () => useShowLoadingOverlayMock(),
+  useShowLoadingPopup: () => useShowLoadingpopupMock(),
 }))
 
 const saveContractMock = jest.fn()
@@ -68,7 +68,7 @@ describe('useConfirmCancelTrade', () => {
   it('should return the correct default values', () => {
     const { result } = renderHook(useConfirmCancelTrade, { wrapper })
     expect(result.current).toStrictEqual({
-      showConfirmOverlay: expect.any(Function),
+      showConfirmPopup: expect.any(Function),
       cancelSeller: expect.any(Function),
       cancelBuyer: expect.any(Function),
       closePopup: expect.any(Function),
@@ -116,10 +116,10 @@ describe('useConfirmCancelTrade', () => {
 
     expect(saveContractMock).toHaveBeenCalledWith(contractUpdate)
   })
-  it('should show confirm cancelation overlay for buyer', async () => {
+  it('should show confirm cancelation popup for buyer', async () => {
     setAccount({ ...account1, publicKey: contract.buyer.id })
     const { result } = renderHook(useConfirmCancelTrade, { wrapper })
-    result.current.showConfirmOverlay(contract)
+    result.current.showConfirmPopup(contract)
 
     expect(usePopupStore.getState()).toEqual({
       ...usePopupStore.getState(),
@@ -142,14 +142,14 @@ describe('useConfirmCancelTrade', () => {
     await usePopupStore.getState().action1?.callback()
     expect(cancelContractAsBuyerMock).toHaveBeenCalledWith(contract)
   })
-  it('should show confirm cancelation overlay for seller', async () => {
+  it('should show confirm cancelation popup for seller', async () => {
     setAccount({
       ...account1,
       offers: [{ ...sellOffer, id: getSellOfferIdFromContract(contract) }],
       publicKey: contract.seller.id,
     })
     const { result } = renderHook(useConfirmCancelTrade, { wrapper })
-    result.current.showConfirmOverlay(contract)
+    result.current.showConfirmPopup(contract)
 
     expect(usePopupStore.getState()).toEqual({
       ...usePopupStore.getState(),
@@ -171,15 +171,15 @@ describe('useConfirmCancelTrade', () => {
     await usePopupStore.getState().action1?.callback()
     expect(cancelContractAsSellerMock).toHaveBeenCalledWith(contract)
   })
-  it('confirmOverlay should be gray', () => {
+  it('confirmpopup should be gray', () => {
     const { result } = renderHook(useConfirmCancelTrade, { wrapper })
-    result.current.showConfirmOverlay(contract)
+    result.current.showConfirmPopup(contract)
 
     expect(usePopupStore.getState().level).toBe('DEFAULT')
   })
-  it('should show the correct overlay for cash trades of the seller', () => {
+  it('should show the correct popup for cash trades of the seller', () => {
     const { result } = renderHook(useConfirmCancelTrade, { wrapper })
-    result.current.showConfirmOverlay({ ...contract, paymentMethod: 'cash' })
+    result.current.showConfirmPopup({ ...contract, paymentMethod: 'cash' })
 
     expect(usePopupStore.getState()).toEqual({
       ...usePopupStore.getState(),
@@ -199,11 +199,11 @@ describe('useConfirmCancelTrade', () => {
       visible: true,
     })
   })
-  it('should show the correct confirmation overlay for canceled trade as buyer', async () => {
+  it('should show the correct confirmation popup for canceled trade as buyer', async () => {
     setAccount({ ...account1, publicKey: contract.buyer.id })
 
     const { result } = renderHook(useConfirmCancelTrade, { wrapper })
-    result.current.showConfirmOverlay(contract)
+    result.current.showConfirmPopup(contract)
     usePopupStore.getState().action1?.callback()
     expect(usePopupStore.getState()).toEqual({
       ...usePopupStore.getState(),
@@ -212,7 +212,7 @@ describe('useConfirmCancelTrade', () => {
       visible: true,
     })
   })
-  it('should show the correct confirmation overlay for canceled trade as seller', async () => {
+  it('should show the correct confirmation popup for canceled trade as seller', async () => {
     setAccount({
       ...account1,
       offers: [{ ...sellOffer, id: getSellOfferIdFromContract(contract) }],
@@ -220,7 +220,7 @@ describe('useConfirmCancelTrade', () => {
     })
 
     const { result } = renderHook(useConfirmCancelTrade, { wrapper })
-    result.current.showConfirmOverlay(contract)
+    result.current.showConfirmPopup(contract)
     usePopupStore.getState().action1?.callback()
     expect(usePopupStore.getState()).toEqual({
       ...usePopupStore.getState(),
@@ -237,7 +237,7 @@ describe('useConfirmCancelTrade', () => {
       visible: true,
     })
   })
-  it('shows the correct confirmation overlay for canceled cash trade as seller with republish available', async () => {
+  it('shows the correct confirmation popup for canceled cash trade as seller with republish available', async () => {
     setAccount({
       ...account1,
       offers: [{ ...sellOffer, id: getSellOfferIdFromContract(contract), publishingDate: new Date() }],
@@ -245,7 +245,7 @@ describe('useConfirmCancelTrade', () => {
     })
 
     const { result } = renderHook(useConfirmCancelTrade, { wrapper })
-    result.current.showConfirmOverlay({ ...contract, paymentMethod: 'cash' })
+    result.current.showConfirmPopup({ ...contract, paymentMethod: 'cash' })
     usePopupStore.getState().action1?.callback()
     expect(usePopupStore.getState()).toEqual({
       ...usePopupStore.getState(),
@@ -255,7 +255,7 @@ describe('useConfirmCancelTrade', () => {
       visible: true,
     })
   })
-  it('shows the correct confirmation overlay for canceled cash trade as seller with republish unavailable', async () => {
+  it('shows the correct confirmation popup for canceled cash trade as seller with republish unavailable', async () => {
     setAccount({
       ...account1,
       offers: [{ ...sellOffer, id: getSellOfferIdFromContract(contract), publishingDate: new Date(0) }],
@@ -263,7 +263,7 @@ describe('useConfirmCancelTrade', () => {
     })
 
     const { result } = renderHook(useConfirmCancelTrade, { wrapper })
-    result.current.showConfirmOverlay({ ...contract, paymentMethod: 'cash' })
+    result.current.showConfirmPopup({ ...contract, paymentMethod: 'cash' })
     usePopupStore.getState().action1?.callback()
     expect(usePopupStore.getState()).toEqual({
       ...usePopupStore.getState(),

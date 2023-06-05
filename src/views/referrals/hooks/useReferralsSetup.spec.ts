@@ -14,12 +14,12 @@ const setCustomReferralCodeOverlayMock = jest.fn()
 const useSetCustomReferralCodePopupMock = jest.fn().mockReturnValue({
   setCustomReferralCodeOverlay: setCustomReferralCodeOverlayMock,
 })
-jest.mock('../../../overlays/referral/useSetCustomReferralCodePopup', () => ({
+jest.mock('../../../popups/referral/useSetCustomReferralCodePopup', () => ({
   useSetCustomReferralCodePopup: () => useSetCustomReferralCodePopupMock(),
 }))
 const redeemNoPeachFeesReward = jest.fn()
 const useRedeemNoPeachFeesRewardMock = jest.fn().mockReturnValue(redeemNoPeachFeesReward)
-jest.mock('../../../overlays/referral/useRedeemNoPeachFeesReward', () => ({
+jest.mock('../../../popups/referral/useRedeemNoPeachFeesReward', () => ({
   useRedeemNoPeachFeesReward: () => useRedeemNoPeachFeesRewardMock(),
 }))
 

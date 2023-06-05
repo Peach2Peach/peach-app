@@ -1,6 +1,6 @@
 import { useHeaderSetup, useNavigation, useRoute } from '../../../hooks'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
-import { useDisputeRaisedSuccess } from '../../../overlays/dispute/hooks/useDisputeRaisedSuccess'
+import { useDisputeRaisedSuccess } from '../../../popups/dispute/hooks/useDisputeRaisedSuccess'
 import { account } from '../../../utils/account'
 import { contractIdToHex, getContract, getContractViewer } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'

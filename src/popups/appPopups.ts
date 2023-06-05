@@ -3,10 +3,10 @@ import { MatchUndone } from './app/MatchUndone'
 import { OfferTaken } from './app/OfferTaken'
 import { ReportSuccess } from './app/ReportSuccess'
 
-export const appOverlays = {
+export const appPopups = {
   offerTaken: { title: i18n('search.popups.offerTaken.title'), content: OfferTaken },
   matchUndone: { title: i18n('search.popups.matchUndone.title'), content: MatchUndone },
   reportSuccess: { title: i18n('report.success.title'), content: ReportSuccess },
 }
 
-export type AppPopupId = keyof typeof appOverlays
+export type AppPopupId = keyof typeof appPopups

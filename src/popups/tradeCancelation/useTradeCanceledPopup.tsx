@@ -18,7 +18,7 @@ export const useTradeCanceledPopup = () => {
   const showErrorBanner = useShowErrorBanner()
   const navigation = useNavigation()
 
-  const confirmOverlay = useCallback(
+  const confirmPopup = useCallback(
     (contract: Contract) => {
       closePopup()
       saveContract({
@@ -36,12 +36,12 @@ export const useTradeCanceledPopup = () => {
 
       const closeAction = () => {
         navigation.replace('contract', { contractId: contract.id })
-        confirmOverlay(contract)
+        confirmPopup(contract)
       }
       const goToOfferAction = () => {
         if (!reviveSellOfferResult) return
         navigation.replace('search', { offerId: reviveSellOfferResult.newOfferId })
-        confirmOverlay(contract)
+        confirmPopup(contract)
       }
       if (!reviveSellOfferResult || err) {
         showErrorBanner(err?.error)
@@ -67,7 +67,7 @@ export const useTradeCanceledPopup = () => {
         },
       })
     },
-    [closePopup, confirmOverlay, navigation, setPopup, showErrorBanner],
+    [closePopup, confirmPopup, navigation, setPopup, showErrorBanner],
   )
 
   const showTradeCanceled = useCallback(
@@ -75,7 +75,7 @@ export const useTradeCanceledPopup = () => {
       const sellOffer = getSellOfferFromContract(contract)
 
       const refundAction = () => {
-        confirmOverlay(contract)
+        confirmPopup(contract)
         startRefund(sellOffer)
       }
       const republishAction = () => republishOffer(sellOffer, contract)
@@ -121,8 +121,8 @@ export const useTradeCanceledPopup = () => {
 
       return { republishAction, refundAction }
     },
-    [confirmOverlay, navigation, republishOffer, setPopup, startRefund],
+    [confirmPopup, navigation, republishOffer, setPopup, startRefund],
   )
 
-  return { showTradeCanceled, republishOffer, confirmOverlay }
+  return { showTradeCanceled, republishOffer, confirmPopup }
 }

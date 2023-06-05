@@ -1,12 +1,12 @@
 import { PrimaryButton } from '../../../components'
 import { WarningButton } from '../../../components/buttons'
 import { SlideToUnlock } from '../../../components/inputs'
-import { useConfirmTradeCancelationOverlay } from '../../../overlays/tradeCancelation/useConfirmTradeCancelationOverlay'
-import { usePaymentTooLatePopup } from '../../../overlays/usePaymentTooLatePopup'
+import { useConfirmTradeCancelationPopup } from '../../../popups/tradeCancelation/useConfirmTradeCancelationPopup'
+import { usePaymentTooLatePopup } from '../../../popups/usePaymentTooLatePopup'
 import tw from '../../../styles/tailwind'
 import { getPaymentExpectedBy } from '../../../utils/contract/getPaymentExpectedBy'
 import i18n from '../../../utils/i18n'
-import { shouldShowConfirmCancelTradeRequest } from '../../../utils/overlay'
+import { shouldShowConfirmCancelTradeRequest } from '../../../utils/popup'
 import { useContractContext } from '../context'
 
 type Props = {
@@ -22,7 +22,7 @@ export const ContractCTA = ({
   postConfirmPaymentSeller,
 }: Props) => {
   const showPaymentTooLatePopup = usePaymentTooLatePopup()
-  const { showConfirmTradeCancelation } = useConfirmTradeCancelationOverlay()
+  const { showConfirmTradeCancelation } = useConfirmTradeCancelationPopup()
   const { contract, view } = useContractContext()
 
   if (shouldShowConfirmCancelTradeRequest(contract, view)) return (

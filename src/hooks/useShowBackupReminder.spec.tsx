@@ -1,6 +1,6 @@
 import { renderHook } from '@testing-library/react-native'
 import { NavigationWrapper } from '../../tests/unit/helpers/NavigationWrapper'
-import { FirstBackup } from '../overlays/warning/FirstBackup'
+import { FirstBackup } from '../popups/warning/FirstBackup'
 import { usePopupStore } from '../store/usePopupStore'
 import { useShowBackupReminder } from './useShowBackupReminder'
 

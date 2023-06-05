@@ -5,7 +5,7 @@ import { usePopupStore } from '../store/usePopupStore'
 import i18n from '../utils/i18n'
 import { BuyOfferExpired } from './BuyOfferExpired'
 
-export const useBuyOfferExpiredOverlay = () => {
+export const useBuyOfferExpiredPopup = () => {
   const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
   const navigation = useNavigation()
   const goToContact = useCallback(() => {

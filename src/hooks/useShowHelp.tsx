@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 import { shallow } from 'zustand/shallow'
 import { useNavigation } from '../hooks'
-import { HelpType, helpOverlays } from '../overlays/helpOverlays'
+import { HelpType, helpPopups } from '../popups/helpPopups'
 import { usePopupStore } from '../store/usePopupStore'
 import i18n from '../utils/i18n'
 
@@ -14,10 +14,10 @@ export const useShowHelp = (id: HelpType) => {
   }, [navigation, closePopup])
 
   const showHelp = useCallback(() => {
-    const Content = helpOverlays[id].content
+    const Content = helpPopups[id].content
 
     setPopup({
-      title: helpOverlays[id].title,
+      title: helpPopups[id].title,
       content: <Content />,
       visible: true,
       action2: {

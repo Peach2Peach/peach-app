@@ -22,9 +22,9 @@ describe('useSetCustomReferralCodePopup', () => {
   afterEach(() => {
     jest.clearAllMocks()
   })
-  it('returns function to start setCustomReferralCodeOverlay', () => {
+  it('returns function to start setCustomReferralCodePopup', () => {
     const { result } = renderHook(useSetCustomReferralCodePopup, { wrapper: NavigationWrapper })
-    expect(result.current.setCustomReferralCodeOverlay).toBeInstanceOf(Function)
+    expect(result.current.setCustomReferralCodePopup).toBeInstanceOf(Function)
   })
   it('returns referral code state', () => {
     const { result } = renderHook(useSetCustomReferralCodePopup, { wrapper: NavigationWrapper })
@@ -35,11 +35,11 @@ describe('useSetCustomReferralCodePopup', () => {
     expect(referralCodeValid).toBeFalsy()
     expect(referralCodeErrors).toHaveLength(2)
   })
-  it('opens overlay with correct default values', () => {
+  it('opens popup with correct default values', () => {
     const { result } = renderHook(useSetCustomReferralCodePopup, { wrapper: NavigationWrapper })
     const { submitCustomReferralCode, setReferralCode, referralCodeErrors } = result.current
     act(() => {
-      result.current.setCustomReferralCodeOverlay()
+      result.current.setCustomReferralCodePopup()
     })
 
     expect(usePopupStore.getState()).toEqual({
@@ -61,10 +61,10 @@ describe('useSetCustomReferralCodePopup', () => {
       }),
     })
   })
-  it('can close overlay', () => {
+  it('can close popup', () => {
     const { result } = renderHook(useSetCustomReferralCodePopup, { wrapper: NavigationWrapper })
     act(() => {
-      result.current.setCustomReferralCodeOverlay()
+      result.current.setCustomReferralCodePopup()
     })
 
     usePopupStore.getState().action2?.callback()

@@ -9,7 +9,7 @@ import i18n from '../../utils/i18n'
 import { confirmContractCancelation, rejectContractCancelation } from '../../utils/peachAPI'
 import { ConfirmCancelTradeRequest } from './ConfirmCancelTradeRequest'
 
-export const useConfirmTradeCancelationOverlay = () => {
+export const useConfirmTradeCancelationPopup = () => {
   const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
   const showError = useShowErrorBanner()
   const navigation = useNavigation()

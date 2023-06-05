@@ -8,10 +8,10 @@ describe('getHeaderChatActions', () => {
       ...mockContract,
       disputeActive: true,
     }
-    const showCancelOverlay = jest.fn()
-    const showOpenDisputeOverlay = jest.fn()
+    const showCancelPopup = jest.fn()
+    const showOpenDisputePopup = jest.fn()
     const view = 'buyer'
-    const result = getHeaderChatActions(contract, showCancelOverlay, showOpenDisputeOverlay, view)
+    const result = getHeaderChatActions(contract, showCancelPopup, showOpenDisputePopup, view)
     expect(result).toEqual([])
   })
   it('should return correctly if contract not canceled, payment not made, can cancel and raise dispute', () => {
@@ -23,10 +23,10 @@ describe('getHeaderChatActions', () => {
       paymentMade: null,
       paymentMethod: 'sepa' as const,
     }
-    const showCancelOverlay = jest.fn()
-    const showOpenDisputeOverlay = jest.fn()
+    const showCancelPopup = jest.fn()
+    const showOpenDisputePopup = jest.fn()
     const view = 'buyer'
-    const result = getHeaderChatActions(contract, showCancelOverlay, showOpenDisputeOverlay, view)
+    const result = getHeaderChatActions(contract, showCancelPopup, showOpenDisputePopup, view)
     expect(result).toEqual([
       { id: 'xCircle', color: '#9F8C82', onPress: expect.any(Function) },
       { id: 'alertOctagon', color: '#DF321F', onPress: expect.any(Function) },
@@ -42,16 +42,16 @@ describe('getHeaderChatActions', () => {
       paymentMade: null,
       paymentMethod: 'sepa' as const,
     }
-    const showCancelOverlay = jest.fn()
-    const showOpenDisputeOverlay = jest.fn()
+    const showCancelPopup = jest.fn()
+    const showOpenDisputePopup = jest.fn()
     const view = 'seller'
-    const result = getHeaderChatActions(contract, showCancelOverlay, showOpenDisputeOverlay, view)
+    const result = getHeaderChatActions(contract, showCancelPopup, showOpenDisputePopup, view)
     expect(result).toEqual([
       { id: 'xCircle', color: '#9F8C82', style: tw`opacity-50`, onPress: expect.any(Function) },
       { id: 'alertOctagon', color: '#DF321F', style: tw`opacity-50`, onPress: expect.any(Function) },
     ])
   })
-  it('should show cancel overlay if contract can be canceled', () => {
+  it('should show cancel popup if contract can be canceled', () => {
     const contract = {
       ...mockContract,
       disputeActive: false,
@@ -60,14 +60,14 @@ describe('getHeaderChatActions', () => {
       paymentMade: null,
       paymentMethod: 'sepa' as const,
     }
-    const showCancelOverlay = jest.fn()
-    const showOpenDisputeOverlay = jest.fn()
+    const showCancelPopup = jest.fn()
+    const showOpenDisputePopup = jest.fn()
     const view = 'buyer'
-    const result = getHeaderChatActions(contract, showCancelOverlay, showOpenDisputeOverlay, view)
+    const result = getHeaderChatActions(contract, showCancelPopup, showOpenDisputePopup, view)
     result?.[0].onPress()
-    expect(showCancelOverlay).toHaveBeenCalled()
+    expect(showCancelPopup).toHaveBeenCalled()
   })
-  it('should show open dispute overlay if contract can be disputed', () => {
+  it('should show open dispute popup if contract can be disputed', () => {
     const contract = {
       ...mockContract,
       disputeActive: false,
@@ -76,14 +76,14 @@ describe('getHeaderChatActions', () => {
       paymentMade: null,
       paymentMethod: 'sepa' as const,
     }
-    const showCancelOverlay = jest.fn()
-    const showOpenDisputeOverlay = jest.fn()
+    const showCancelPopup = jest.fn()
+    const showOpenDisputePopup = jest.fn()
     const view = 'buyer'
-    const result = getHeaderChatActions(contract, showCancelOverlay, showOpenDisputeOverlay, view)
+    const result = getHeaderChatActions(contract, showCancelPopup, showOpenDisputePopup, view)
     result?.[1].onPress()
-    expect(showOpenDisputeOverlay).toHaveBeenCalled()
+    expect(showOpenDisputePopup).toHaveBeenCalled()
   })
-  it('should not show cancel overlay if contract can\'t be canceled', () => {
+  it('should not show cancel popup if contract can\'t be canceled', () => {
     const contract = {
       ...mockContract,
       disputeActive: false,
@@ -92,14 +92,14 @@ describe('getHeaderChatActions', () => {
       paymentMade: null,
       paymentMethod: 'sepa' as const,
     }
-    const showCancelOverlay = jest.fn()
-    const showOpenDisputeOverlay = jest.fn()
+    const showCancelPopup = jest.fn()
+    const showOpenDisputePopup = jest.fn()
     const view = 'buyer'
-    const result = getHeaderChatActions(contract, showCancelOverlay, showOpenDisputeOverlay, view)
+    const result = getHeaderChatActions(contract, showCancelPopup, showOpenDisputePopup, view)
     result?.[0].onPress()
-    expect(showCancelOverlay).not.toHaveBeenCalled()
+    expect(showCancelPopup).not.toHaveBeenCalled()
   })
-  it('should not show open dispute overlay if contract can\'t be disputed', () => {
+  it('should not show open dispute popup if contract can\'t be disputed', () => {
     const contract = {
       ...mockContract,
       disputeActive: false,
@@ -109,11 +109,11 @@ describe('getHeaderChatActions', () => {
       paymentMade: null,
       paymentMethod: 'sepa' as const,
     }
-    const showCancelOverlay = jest.fn()
-    const showOpenDisputeOverlay = jest.fn()
+    const showCancelPopup = jest.fn()
+    const showOpenDisputePopup = jest.fn()
     const view = 'buyer'
-    const result = getHeaderChatActions(contract, showCancelOverlay, showOpenDisputeOverlay, view)
+    const result = getHeaderChatActions(contract, showCancelPopup, showOpenDisputePopup, view)
     result?.[1].onPress()
-    expect(showOpenDisputeOverlay).not.toHaveBeenCalled()
+    expect(showOpenDisputePopup).not.toHaveBeenCalled()
   })
 })

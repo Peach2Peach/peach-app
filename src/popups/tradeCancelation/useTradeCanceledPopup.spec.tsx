@@ -58,12 +58,12 @@ describe('useTradeCanceledPopup', () => {
     expect(result.current).toStrictEqual({
       showTradeCanceled: expect.any(Function),
       republishOffer: expect.any(Function),
-      confirmOverlay: expect.any(Function),
+      confirmPopup: expect.any(Function),
     })
   })
   it('confirms trade cancelation', () => {
     const { result } = renderHook(useTradeCanceledPopup)
-    result.current.confirmOverlay(contract)
+    result.current.confirmPopup(contract)
     expect(saveContractMock).toHaveBeenCalledWith({
       ...contract,
       cancelConfirmationDismissed: true,
@@ -122,13 +122,13 @@ describe('useTradeCanceledPopup', () => {
     expect(usePopupStore.getState().visible).toEqual(false)
     expect(showErrorBannerMock).toHaveBeenCalledWith(unauthorizedError.error)
   })
-  it('shows navigates to trade overview history tab when showing trade canceled overlay', () => {
+  it('shows navigates to trade overview history tab when showing trade canceled popup', () => {
     getSellOfferFromContractMock.mockReturnValueOnce(sellOffer)
     const { result } = renderHook(useTradeCanceledPopup)
     result.current.showTradeCanceled(contract, false)
     expect(navigateMock).toHaveBeenCalledWith('yourTrades', { tab: 'history' })
   })
-  it('shows trade canceled overlay for non mutual cancel and non expired sell offer', () => {
+  it('shows trade canceled popup for non mutual cancel and non expired sell offer', () => {
     const nonExpiredSellOffer = { ...sellOffer, publishingDate: now }
     getSellOfferFromContractMock.mockReturnValueOnce(nonExpiredSellOffer)
     const { result } = renderHook(useTradeCanceledPopup)
@@ -152,7 +152,7 @@ describe('useTradeCanceledPopup', () => {
       },
     })
   })
-  it('shows trade canceled overlay for non mutual cancel and expired sell offer', () => {
+  it('shows trade canceled popup for non mutual cancel and expired sell offer', () => {
     const expiredSellOffer = { ...sellOffer, publishingDate: new Date(2022, 1, 1) }
     getSellOfferFromContractMock.mockReturnValueOnce(expiredSellOffer)
     const { result } = renderHook(useTradeCanceledPopup)
@@ -171,7 +171,7 @@ describe('useTradeCanceledPopup', () => {
       },
     })
   })
-  it('shows trade canceled overlay for mutual cancel and non expired sell offer', () => {
+  it('shows trade canceled popup for mutual cancel and non expired sell offer', () => {
     const nonExpiredSellOffer = { ...sellOffer, publishingDate: now }
     getSellOfferFromContractMock.mockReturnValueOnce(nonExpiredSellOffer)
     const { result } = renderHook(useTradeCanceledPopup)
@@ -195,7 +195,7 @@ describe('useTradeCanceledPopup', () => {
       },
     })
   })
-  it('shows trade canceled overlay for mutual cancel and expired sell offer', () => {
+  it('shows trade canceled popup for mutual cancel and expired sell offer', () => {
     const expiredSellOffer = { ...sellOffer, publishingDate: new Date(2022, 1, 1) }
     getSellOfferFromContractMock.mockReturnValueOnce(expiredSellOffer)
     const { result } = renderHook(useTradeCanceledPopup)
@@ -214,14 +214,14 @@ describe('useTradeCanceledPopup', () => {
       },
     })
   })
-  it('triggers republish action from overlay', () => {
+  it('triggers republish action from popup', () => {
     getSellOfferFromContractMock.mockReturnValueOnce(sellOffer)
     const { result } = renderHook(useTradeCanceledPopup)
     const { republishAction } = result.current.showTradeCanceled(contract, true)
     republishAction()
     expect(reviveSellOfferMock).toHaveBeenCalledWith({ offerId: sellOffer.id })
   })
-  it('triggers refund action from overlay', () => {
+  it('triggers refund action from popup', () => {
     getSellOfferFromContractMock.mockReturnValueOnce(sellOffer)
     const { result } = renderHook(useTradeCanceledPopup)
     const { refundAction } = result.current.showTradeCanceled(contract, true)
@@ -229,7 +229,7 @@ describe('useTradeCanceledPopup', () => {
     expect(startRefundPopupMock).toHaveBeenCalledWith(sellOffer)
     expect(saveContractMock).toHaveBeenCalled()
   })
-  it('does not show trade cancel overlay if sell offer cannot be found', () => {
+  it('does not show trade cancel popup if sell offer cannot be found', () => {
     getSellOfferFromContractMock.mockReturnValueOnce(null)
     const { result } = renderHook(useTradeCanceledPopup)
     result.current.showTradeCanceled(contract, true)
@@ -238,7 +238,7 @@ describe('useTradeCanceledPopup', () => {
       ...defaultPopupState,
     })
   })
-  it('does not show trade cancel overlay if sell offer has already been refunded', () => {
+  it('does not show trade cancel popup if sell offer has already been refunded', () => {
     getSellOfferFromContractMock.mockReturnValueOnce({ ...sellOffer, refunded: true })
     const { result } = renderHook(useTradeCanceledPopup)
     result.current.showTradeCanceled(contract, true)
@@ -247,7 +247,7 @@ describe('useTradeCanceledPopup', () => {
       ...defaultPopupState,
     })
   })
-  it('does not show trade cancel overlay if escrow has already been released', () => {
+  it('does not show trade cancel popup if escrow has already been released', () => {
     getSellOfferFromContractMock.mockReturnValueOnce({ ...sellOffer, released: true })
     const { result } = renderHook(useTradeCanceledPopup)
     result.current.showTradeCanceled(contract, true)
@@ -256,7 +256,7 @@ describe('useTradeCanceledPopup', () => {
       ...defaultPopupState,
     })
   })
-  it('does not show trade cancel overlay if sell offer has already been re-published', () => {
+  it('does not show trade cancel popup if sell offer has already been re-published', () => {
     getSellOfferFromContractMock.mockReturnValueOnce({ ...sellOffer, newOfferId: '4' })
     const { result } = renderHook(useTradeCanceledPopup)
     result.current.showTradeCanceled(contract, true)

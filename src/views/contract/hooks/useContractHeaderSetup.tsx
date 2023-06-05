@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import { ContractTitle } from '../../../components/titles/ContractTitle'
 import { useHeaderSetup } from '../../../hooks'
 import { useShowHelp } from '../../../hooks/useShowHelp'
-import { useConfirmCancelTrade } from '../../../overlays/tradeCancelation/useConfirmCancelTrade'
+import { useConfirmCancelTrade } from '../../../popups/tradeCancelation/useConfirmCancelTrade'
 import { canCancelContract } from '../../../utils/contract'
 import { headerIcons } from '../../../utils/layout/headerIcons'
 

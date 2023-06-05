@@ -1,6 +1,6 @@
 import { PrimaryButton } from '../../../components'
 import tw from '../../../styles/tailwind'
-import { useDisputeRaisedNotice } from '../../../overlays/dispute/hooks/useDisputeRaisedNotice'
+import { useDisputeRaisedNotice } from '../../../popups/dispute/hooks/useDisputeRaisedNotice'
 import i18n from '../../../utils/i18n'
 import { useContractContext } from '../context'
 

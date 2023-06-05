@@ -5,13 +5,13 @@ import {
   shouldShowCancelTradeRequestRejected,
   shouldShowDisputeResult,
   shouldShowPaymentTimerHasRunOut,
-} from '../utils/overlay'
+} from '../utils/popup'
 import { useDisputeResults } from './dispute/hooks/useDisputeResults'
 import { useShowPaymentTimerHasRunOut } from './paymentTimer/useShowPaymentTimerHasRunOut'
 import { useTradeCanceledPopup } from './tradeCancelation/useTradeCanceledPopup'
 import { useBuyerRejectedCancelTradePopup } from './tradeCancelation/useBuyerRejectedCancelTradePopup'
 
-export const useHandleContractOverlays = () => {
+export const useHandleContractPopups = () => {
   const showDisputeResults = useDisputeResults()
   const { showTradeCanceled } = useTradeCanceledPopup()
   const showCancelTradeRequestRejected = useBuyerRejectedCancelTradePopup()

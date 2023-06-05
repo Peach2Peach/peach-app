@@ -2,8 +2,8 @@ import { useEffect } from 'react'
 import { useNavigation } from '../../../hooks'
 import { info } from '../../../utils/log'
 import { saveOffer } from '../../../utils/offer'
-import { useStartRefundPopup } from '../../../overlays/useStartRefundPopup'
-import { useShowWronglyFundedPopup } from '../../../overlays/useShowWronglyFundedPopup'
+import { useStartRefundPopup } from '../../../popups/useStartRefundPopup'
+import { useShowWronglyFundedPopup } from '../../../popups/useShowWronglyFundedPopup'
 import { useOfferMatches } from '../../search/hooks/useOfferMatches'
 
 type Props = {

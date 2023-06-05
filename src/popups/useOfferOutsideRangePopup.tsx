@@ -5,7 +5,7 @@ import { usePopupStore } from '../store/usePopupStore'
 import i18n from '../utils/i18n'
 import { OfferOutsideRange } from './OfferOutsideRange'
 
-export const useOfferOutsideRangeOverlay = () => {
+export const useOfferOutsideRangePopup = () => {
   const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
   const navigation = useNavigation()
   const goToOffer = useCallback(

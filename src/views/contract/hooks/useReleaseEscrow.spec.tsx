@@ -34,7 +34,7 @@ describe('useReleaseEscrow', () => {
   afterEach(() => {
     usePopupStore.setState(defaultPopupState)
   })
-  it('should show the loading overlay', async () => {
+  it('should show the loading popup', async () => {
     const { result } = renderHook(() => useReleaseEscrow(contract))
     await result.current()
     expect(usePopupStore.getState()).toEqual({
@@ -51,7 +51,7 @@ describe('useReleaseEscrow', () => {
     expect(signReleaseTxOfContract).toHaveBeenCalledWith(contract)
   })
 
-  it('should close the overlay and show an error if the transaction could not be signed', async () => {
+  it('should close the popup and show an error if the transaction could not be signed', async () => {
     const { result } = renderHook(() => useReleaseEscrow(contract))
     signReleaseTxOfContractMock.mockReturnValueOnce([null, 'error'])
     await result.current()
@@ -65,7 +65,7 @@ describe('useReleaseEscrow', () => {
     expect(confirmPayment).toHaveBeenCalledWith({ contractId: contract.id, releaseTransaction: 'tx' })
   })
 
-  it('should close the overlay and show an error if the payment could not be confirmed', async () => {
+  it('should close the popup and show an error if the payment could not be confirmed', async () => {
     const { result } = renderHook(() => useReleaseEscrow(contract))
     confirmPaymentMock.mockReturnValueOnce([null, { error: 'error' }])
     await result.current()
@@ -87,7 +87,7 @@ describe('useReleaseEscrow', () => {
     })
   })
 
-  it('should close the overlay', async () => {
+  it('should close the popup', async () => {
     const { result } = renderHook(() => useReleaseEscrow(contract))
     await result.current()
     expect(usePopupStore.getState().visible).toEqual(false)

@@ -1,6 +1,6 @@
 import { useFocusEffect } from '@react-navigation/native'
 import { useCallback, useContext, useEffect, useState } from 'react'
-import { useHandleContractOverlays } from '../overlays/useHandleContractOverlays'
+import { useHandleContractPopups } from '../popups/useHandleContractPopups'
 import { account } from '../utils/account'
 import {
   decryptContractData,
@@ -21,7 +21,7 @@ import { useShowErrorBanner } from './useShowErrorBanner'
 export const useCommonContractSetup = (contractId: string) => {
   const ws = useContext(PeachWSContext)
   const showError = useShowErrorBanner()
-  const handleContractOverlays = useHandleContractOverlays()
+  const handleContractOverlays = useHandleContractPopups()
   const { contract, isLoading, refetch } = useContractDetails(contractId, 15 * 1000)
   const { offer } = useOfferDetails(contract ? getOfferIdFromContract(contract) : '')
   const [storedContract, setStoredContract] = useState(getContract(contractId))

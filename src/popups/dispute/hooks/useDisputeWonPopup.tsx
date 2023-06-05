@@ -5,7 +5,7 @@ import { usePopupStore } from '../../../store/usePopupStore'
 import { account } from '../../../utils/account'
 import { contractIdToHex, saveContract } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
-import { shouldShowDisputeResult } from '../../../utils/overlay'
+import { shouldShowDisputeResult } from '../../../utils/popup'
 import { getContract } from '../../../utils/peachAPI'
 import { DisputeWon } from '../components/DisputeWon'
 

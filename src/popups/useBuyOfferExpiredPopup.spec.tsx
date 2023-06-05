@@ -2,11 +2,11 @@ import { act, renderHook } from '@testing-library/react-native'
 import { NavigationWrapper, navigateMock } from '../../tests/unit/helpers/NavigationWrapper'
 import { defaultPopupState, usePopupStore } from '../store/usePopupStore'
 import { BuyOfferExpired } from './BuyOfferExpired'
-import { useBuyOfferExpiredOverlay } from './useBuyOfferExpiredOverlay'
+import { useBuyOfferExpiredPopup } from './useBuyOfferExpiredPopup'
 
 const wrapper = NavigationWrapper
 
-describe('useBuyOfferExpiredOverlay', () => {
+describe('useBuyOfferExpiredPopup', () => {
   const offerId = '37'
   const days = '30'
   afterEach(() => {
@@ -14,8 +14,8 @@ describe('useBuyOfferExpiredOverlay', () => {
     jest.resetAllMocks()
   })
 
-  it('opens BuyOfferExpired overlay', () => {
-    const { result } = renderHook(useBuyOfferExpiredOverlay, { wrapper })
+  it('opens BuyOfferExpired popup', () => {
+    const { result } = renderHook(useBuyOfferExpiredPopup, { wrapper })
     act(() => {
       result.current(offerId, days)
     })
@@ -38,8 +38,8 @@ describe('useBuyOfferExpiredOverlay', () => {
       },
     })
   })
-  it('closes overlay', () => {
-    const { result } = renderHook(useBuyOfferExpiredOverlay, { wrapper })
+  it('closes popup', () => {
+    const { result } = renderHook(useBuyOfferExpiredPopup, { wrapper })
     act(() => {
       result.current(offerId, days)
     })
@@ -49,7 +49,7 @@ describe('useBuyOfferExpiredOverlay', () => {
     expect(usePopupStore.getState().visible).toBeFalsy()
   })
   it('navigates to contact', () => {
-    const { result } = renderHook(useBuyOfferExpiredOverlay, { wrapper })
+    const { result } = renderHook(useBuyOfferExpiredPopup, { wrapper })
     act(() => {
       result.current(offerId, days)
     })

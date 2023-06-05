@@ -1,7 +1,7 @@
 import { renderHook } from '@testing-library/react-native'
 import { contract } from '../../../tests/unit/data/contractData'
 import { ConfirmCancelTradeRequest } from './ConfirmCancelTradeRequest'
-import { useConfirmTradeCancelationOverlay } from './useConfirmTradeCancelationOverlay'
+import { useConfirmTradeCancelationPopup } from './useConfirmTradeCancelationPopup'
 import { apiSuccess, unauthorizedError } from '../../../tests/unit/data/peachAPIData'
 import { defaultPopupState, usePopupStore } from '../../store/usePopupStore'
 import { NavigationWrapper, replaceMock } from '../../../tests/unit/helpers/NavigationWrapper'
@@ -29,7 +29,7 @@ jest.mock('../../utils/contract', () => ({
   saveContract: (...args: any[]) => saveContractMock(...args),
 }))
 
-describe('useConfirmTradeCancelationOverlay', () => {
+describe('useConfirmTradeCancelationPopup', () => {
   const wrapper = NavigationWrapper
 
   afterEach(() => {
@@ -37,14 +37,14 @@ describe('useConfirmTradeCancelationOverlay', () => {
     usePopupStore.setState(defaultPopupState)
   })
   it('returns default values correctly', () => {
-    const { result } = renderHook(useConfirmTradeCancelationOverlay, { wrapper })
+    const { result } = renderHook(useConfirmTradeCancelationPopup, { wrapper })
 
     expect(result.current.showConfirmTradeCancelation).toBeInstanceOf(Function)
     expect(result.current.cancelTrade).toBeInstanceOf(Function)
     expect(result.current.continueTrade).toBeInstanceOf(Function)
   })
   it('opens ConfirmCancelTradeRequest popup', () => {
-    const { result } = renderHook(useConfirmTradeCancelationOverlay, { wrapper })
+    const { result } = renderHook(useConfirmTradeCancelationPopup, { wrapper })
     const disputeOverlayActions = result.current.showConfirmTradeCancelation(contract)
 
     expect(usePopupStore.getState()).toEqual({
@@ -66,7 +66,7 @@ describe('useConfirmTradeCancelationOverlay', () => {
     })
   })
   it('ConfirmCancelTradeRequest popup actions call respective functions', () => {
-    const { result } = renderHook(useConfirmTradeCancelationOverlay, { wrapper })
+    const { result } = renderHook(useConfirmTradeCancelationPopup, { wrapper })
     const disputeOverlayActions = result.current.showConfirmTradeCancelation(contract)
 
     disputeOverlayActions.cancelTradeCallback()
@@ -80,7 +80,7 @@ describe('useConfirmTradeCancelationOverlay', () => {
       canceled: true,
       cancelationRequested: false,
     }
-    const { result } = renderHook(useConfirmTradeCancelationOverlay, { wrapper })
+    const { result } = renderHook(useConfirmTradeCancelationPopup, { wrapper })
 
     await result.current.cancelTrade(contract)
 
@@ -102,7 +102,7 @@ describe('useConfirmTradeCancelationOverlay', () => {
   })
   it('handles cancel trade errors', async () => {
     confirmContractCancelationMock.mockResolvedValueOnce([null, unauthorizedError])
-    const { result } = renderHook(useConfirmTradeCancelationOverlay, { wrapper })
+    const { result } = renderHook(useConfirmTradeCancelationPopup, { wrapper })
 
     await result.current.cancelTrade(contract)
 
@@ -117,7 +117,7 @@ describe('useConfirmTradeCancelationOverlay', () => {
       ...contract,
       cancelationRequested: false,
     }
-    const { result } = renderHook(useConfirmTradeCancelationOverlay, { wrapper })
+    const { result } = renderHook(useConfirmTradeCancelationPopup, { wrapper })
 
     await result.current.continueTrade(contract)
 
@@ -136,7 +136,7 @@ describe('useConfirmTradeCancelationOverlay', () => {
   })
   it('handles continue trade errors', async () => {
     rejectContractCancelationMock.mockResolvedValueOnce([null, unauthorizedError])
-    const { result } = renderHook(useConfirmTradeCancelationOverlay, { wrapper })
+    const { result } = renderHook(useConfirmTradeCancelationPopup, { wrapper })
 
     await result.current.continueTrade(contract)
 

@@ -48,7 +48,7 @@ jest.mock('../../../hooks/useShowErrorBanner', () => ({
         showErrorBannerMock(...args),
 }))
 const showDisputeRaisedOverlayMock = jest.fn()
-jest.mock('../../../overlays/dispute/hooks/useDisputeRaisedSuccess', () => ({
+jest.mock('../../../popups/dispute/hooks/useDisputeRaisedSuccess', () => ({
   useDisputeRaisedSuccess:
     () =>
       (...args: any[]) =>

@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 import { shallow } from 'zustand/shallow'
 import { useNavigation } from '../../../hooks'
-import { DisputeDisclaimer } from '../../../overlays/info/DisputeDisclaimer'
+import { DisputeDisclaimer } from '../../../popups/info/DisputeDisclaimer'
 import { useConfigStore } from '../../../store/configStore'
 import { usePopupStore } from '../../../store/usePopupStore'
 import i18n from '../../../utils/i18n'

@@ -1,9 +1,9 @@
 import { useMemo } from 'react'
-import { useShowFundingAmountDifferentPopup } from '../../../../overlays/useShowFundingAmountDifferentPopup'
-import { useShowWronglyFundedPopup } from '../../../../overlays/useShowWronglyFundedPopup'
+import { useShowFundingAmountDifferentPopup } from '../../../../popups/useShowFundingAmountDifferentPopup'
+import { useShowWronglyFundedPopup } from '../../../../popups/useShowWronglyFundedPopup'
 import { getOffer, isSellOffer } from '../../../../utils/offer'
-import { useBuyOfferExpiredOverlay } from '../../../../overlays/useBuyOfferExpiredOverlay'
-import { useOfferOutsideRangeOverlay } from '../../../../overlays/useOfferOutsideRangeOverlay'
+import { useBuyOfferExpiredPopup } from '../../../../popups/useBuyOfferExpiredPopup'
+import { useOfferOutsideRangePopup } from '../../../../popups/useOfferOutsideRangePopup'
 import { getOfferDetails } from '../../../../utils/peachAPI'
 
 type PNEventHandlers = Partial<Record<NotificationType, (data: PNData, notification?: PNNotification) => void>>
@@ -11,8 +11,8 @@ type PNEventHandlers = Partial<Record<NotificationType, (data: PNData, notificat
 export const useOfferPopupEvents = () => {
   const showFundingAmountDifferentPopup = useShowFundingAmountDifferentPopup()
   const wronglyFundedOverlay = useShowWronglyFundedPopup()
-  const offerOutsideRangeOverlay = useOfferOutsideRangeOverlay()
-  const buyOfferExpiredOverlay = useBuyOfferExpiredOverlay()
+  const offerOutsideRangeOverlay = useOfferOutsideRangePopup()
+  const buyOfferExpiredOverlay = useBuyOfferExpiredPopup()
 
   const offerPopupEvents: PNEventHandlers = useMemo(
     () => ({

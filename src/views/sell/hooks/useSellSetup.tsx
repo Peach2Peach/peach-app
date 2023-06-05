@@ -1,6 +1,6 @@
 import { useHeaderSetup } from '../../../hooks'
 import { useShowHelp } from '../../../hooks/useShowHelp'
-import { HelpType } from '../../../overlays/helpOverlays'
+import { HelpType } from '../../../popups/helpPopups'
 import { headerIcons } from '../../../utils/layout/headerIcons'
 import { SellTitleComponent } from '../components/SellTitleComponent'
 

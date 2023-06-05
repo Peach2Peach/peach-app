@@ -40,12 +40,12 @@ describe('useDisputeRaisedNotice', () => {
       disputeReason,
     }
     const { result } = renderHook(useDisputeRaisedNotice)
-    const disputeOverlayActions = result.current.showDisputeRaisedNotice(noPaymentContract, 'seller')
+    const disputePopupActions = result.current.showDisputeRaisedNotice(noPaymentContract, 'seller')
 
     expect(usePopupStore.getState()).toStrictEqual(
       expect.objectContaining({
         action1: {
-          callback: disputeOverlayActions.submitAndClose,
+          callback: disputePopupActions.submitAndClose,
           icon: 'arrowRightCircle',
           label: i18n('send'),
         },
@@ -72,17 +72,17 @@ describe('useDisputeRaisedNotice', () => {
   })
   it('opens dispute raised popup for seller without email required', () => {
     const { result } = renderHook(useDisputeRaisedNotice)
-    const disputeOverlayActions = result.current.showDisputeRaisedNotice(contract, 'seller')
+    const disputePopupActions = result.current.showDisputeRaisedNotice(contract, 'seller')
 
     expect(usePopupStore.getState()).toStrictEqual(
       expect.objectContaining({
         action1: {
-          callback: disputeOverlayActions.submitAndGoToChat,
+          callback: disputePopupActions.submitAndGoToChat,
           icon: 'messageCircle',
           label: i18n('goToChat'),
         },
         action2: {
-          callback: disputeOverlayActions.submitAndClose,
+          callback: disputePopupActions.submitAndClose,
           icon: 'xSquare',
           label: i18n('close'),
         },
@@ -111,20 +111,20 @@ describe('useDisputeRaisedNotice', () => {
       }),
     )
   })
-  it('overlay action submits acknowledgement', async () => {
+  it('popup action submits acknowledgement', async () => {
     const { result } = renderHook(useDisputeRaisedNotice)
-    const disputeOverlayActions = result.current.showDisputeRaisedNotice(contract, 'seller')
-    await disputeOverlayActions.submitAndClose()
+    const disputePopupActions = result.current.showDisputeRaisedNotice(contract, 'seller')
+    await disputePopupActions.submitAndClose()
     expect(submitDisputeAcknowledgementMock).toHaveBeenCalledWith({
       contractId: contract.id,
       disputeReason: 'other',
       email: '',
     })
   })
-  it('overlay action submits acknowledgement and goes to chat', async () => {
+  it('popup action submits acknowledgement and goes to chat', async () => {
     const { result } = renderHook(useDisputeRaisedNotice)
-    const disputeOverlayActions = result.current.showDisputeRaisedNotice(contract, 'seller')
-    await disputeOverlayActions.submitAndGoToChat()
+    const disputePopupActions = result.current.showDisputeRaisedNotice(contract, 'seller')
+    await disputePopupActions.submitAndGoToChat()
     expect(submitDisputeAcknowledgementMock).toHaveBeenCalledWith({
       contractId: contract.id,
       disputeReason: 'other',

@@ -1,7 +1,7 @@
 import { renderHook } from '@testing-library/react-native'
 import { account1 } from '../../../../tests/unit/data/accountData'
 import { contract } from '../../../../tests/unit/data/contractData'
-import { TradeBreakdown } from '../../../overlays/TradeBreakdown'
+import { TradeBreakdown } from '../../../popups/TradeBreakdown'
 import { Props, useRateSetup } from './useRateSetup'
 import { apiSuccess, unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
 import { settingsStore } from '../../../store/settingsStore'

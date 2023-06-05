@@ -13,7 +13,7 @@ describe('useShowFundingAmountDifferentPopup', () => {
     jest.resetAllMocks()
   })
 
-  it('opens funding amount different overlay', () => {
+  it('opens funding amount different popup', () => {
     const { result } = renderHook(useShowFundingAmountDifferentPopup, { wrapper })
     act(() => {
       result.current(wronglyFundedSellOffer)

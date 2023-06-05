@@ -50,7 +50,7 @@ export const useSetCustomReferralCodePopup = () => {
     navigation.replace('referrals')
   }, [navigation, referralCode, showErrorBanner, setPopup])
 
-  const setCustomReferralCodeOverlay = useCallback(() => {
+  const setCustomReferralCodePopup = useCallback(() => {
     setPopup({
       title: i18n('settings.referrals.customReferralCode.popup.title'),
       content: <SetCustomReferralCode {...{ referralCode, setReferralCode: updateReferralCode, referralCodeErrors }} />,
@@ -82,11 +82,11 @@ export const useSetCustomReferralCodePopup = () => {
     // This is not optimal but needed to update the content of the input field
     // should be tackled with issue #1154
     if (referralCodePristine) return
-    setCustomReferralCodeOverlay()
-  }, [referralCodePristine, setCustomReferralCodeOverlay])
+    setCustomReferralCodePopup()
+  }, [referralCodePristine, setCustomReferralCodePopup])
 
   return {
-    setCustomReferralCodeOverlay,
+    setCustomReferralCodePopup,
     closePopup,
     submitCustomReferralCode,
     referralCode,

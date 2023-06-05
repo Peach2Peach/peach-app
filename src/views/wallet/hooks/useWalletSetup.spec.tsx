@@ -3,7 +3,7 @@ import { settingsStore } from '../../../store/settingsStore'
 import { useWalletSetup } from './useWalletSetup'
 import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { usePopupStore } from '../../../store/usePopupStore'
-import { WithdrawalConfirmation } from '../../../overlays/WithdrawalConfirmation'
+import { WithdrawalConfirmation } from '../../../popups/WithdrawalConfirmation'
 
 const walletStore = {}
 const walletStateMock = jest.fn((selector, _compareFn) => selector(walletStore))

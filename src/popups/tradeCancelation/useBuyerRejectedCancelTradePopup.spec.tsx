@@ -14,7 +14,7 @@ describe('useBuyerRejectedCancelTradePopup', () => {
     jest.clearAllMocks()
     usePopupStore.setState(defaultPopupState)
   })
-  it('should show the overlay', () => {
+  it('should show the popup', () => {
     const showCancelTradeRequestRejected = result.current
     act(() => showCancelTradeRequestRejected(contract))
     expect(usePopupStore.getState()).toEqual({

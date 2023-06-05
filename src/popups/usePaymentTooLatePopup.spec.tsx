@@ -9,7 +9,7 @@ describe('usePaymentTooLatePopup', () => {
     const { result } = renderHook(usePaymentTooLatePopup, { wrapper: NavigationWrapper })
     expect(result.current).toBeInstanceOf(Function)
   })
-  it('opens overlay with help text', () => {
+  it('opens popup with help text', () => {
     const { result } = renderHook(usePaymentTooLatePopup, { wrapper: NavigationWrapper })
     result.current()
     expect(usePopupStore.getState()).toEqual({

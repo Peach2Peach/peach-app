@@ -69,7 +69,7 @@ describe('useStartRefundPopup', () => {
     expect(result.current).toBeInstanceOf(Function)
   })
 
-  it('should show the loading overlay when called', () => {
+  it('should show the loading popup when called', () => {
     const { result } = renderHook(useStartRefundPopup, { wrapper })
     result.current(sellOffer)
     expect(usePopupStore.getState()).toEqual({
@@ -167,7 +167,7 @@ describe('useStartRefundPopup', () => {
     expect(usePopupStore.getState().visible).toEqual(false)
   })
 
-  it('should close overlay and go to trades on close of success overlay', async () => {
+  it('should close popup and go to trades on close of success popup', async () => {
     cancelOfferMock.mockResolvedValueOnce([{ psbt: 'psbt' }, null])
     checkRefundPSBTMock.mockReturnValueOnce({ psbt: 'checkedPsbt', err: null })
     signAndFinalizePSBTMock.mockReturnValueOnce({
@@ -185,7 +185,7 @@ describe('useStartRefundPopup', () => {
     expect(navigateMock).toHaveBeenCalledWith('yourTrades', { tab: 'history' })
   })
 
-  it('should show the right success overlay when peach wallet is active', async () => {
+  it('should show the right success popup when peach wallet is active', async () => {
     cancelOfferMock.mockResolvedValueOnce([{ psbt: 'psbt' }, null])
     checkRefundPSBTMock.mockReturnValueOnce({ psbt: 'checkedPsbt', err: null })
     signAndFinalizePSBTMock.mockReturnValueOnce({
