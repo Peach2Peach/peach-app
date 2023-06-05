@@ -10,7 +10,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import RNRestart from 'react-native-restart'
 import { enableScreens } from 'react-native-screens'
 
-import { AvoidKeyboard, Footer, Header, Drawer, Message, Overlay, Popup } from './components'
+import { AvoidKeyboard, Drawer, Footer, Header, Message, Overlay, Popup } from './components'
 import tw from './styles/tailwind'
 import i18n, { LanguageContext } from './utils/i18n'
 import { getViews } from './views'
@@ -28,24 +28,24 @@ import { Background } from './components/background/Background'
 import { ISEMULATOR, MSINAMONTH, TIMETORESTART } from './constants'
 import { useAppStateEffect } from './effects/useAppStateEffect'
 import { useMarketPrices, useUpdateTradingAmounts } from './hooks'
-import { useMessageHandler } from './hooks/notifications/useMessageHandler'
 import { useHandleNotifications } from './hooks/notifications/useHandleNotifications'
+import { useMessageHandler } from './hooks/notifications/useMessageHandler'
 import { useCheckTradeNotifications } from './hooks/useCheckTradeNotifications'
+import { useShowUpdateAvailable } from './hooks/useShowUpdateAvailable'
 import { getPeachInfo } from './init/getPeachInfo'
 import { getTrades } from './init/getTrades'
 import { initApp } from './init/initApp'
-import { initialNavigation } from './init/initialNavigation'
+import { useInitialNavigation } from './init/useInitialNavigation'
 import requestUserPermissions from './init/requestUserPermissions'
 import websocket from './init/websocket'
 import { useShowAnalyticsPrompt } from './overlays/useShowAnalyticsPrompt'
+import { useAccountStore } from './store/accountStore'
 import { useBitcoinStore } from './store/bitcoinStore'
-import { useSettingsStore } from './store/settingsStore'
-import { account } from './utils/account'
+import { settingsStore, useSettingsStore } from './store/settingsStore'
 import { screenTransition } from './utils/layout/screenTransition'
 import { error, info } from './utils/log'
 import { parseError } from './utils/result'
 import { isIOS, isNetworkError } from './utils/system'
-import { useShowUpdateAvailable } from './hooks/useShowUpdateAvailable'
 
 enableScreens()
 
@@ -82,9 +82,11 @@ const Handlers = ({ getCurrentPage }: HandlerProps) => {
     setShowBackupReminder(true)
   }
 
+  useInitialNavigation()
   useShowUpdateAvailable()
 
   useEffect(() => {
+    if (!settingsStore.persist?.hasHydrated()) return
     if (!analyticsPopupSeen) showAnalyticsPrompt()
   }, [analyticsPopupSeen, showAnalyticsPrompt])
 
@@ -101,14 +103,13 @@ const Handlers = ({ getCurrentPage }: HandlerProps) => {
   return <></>
 }
 const usePartialAppSetup = () => {
+  const account = useAccountStore((state) => state)
   useCheckTradeNotifications()
 
   const appStateCallback = useCallback((isActive: boolean) => {
     if (isActive) {
       getPeachInfo()
-      if (account?.publicKey) {
-        getTrades()
-      }
+      if (account.loggedIn) getTrades()
       analytics().logAppOpen()
 
       clearTimeout(goHomeTimeout)
@@ -133,10 +134,10 @@ const App = () => {
   const { width } = Dimensions.get('window')
   const slideInAnim = useRef(new Animated.Value(-width)).current
   const navigationRef = useNavigationContainerRef()
-
+  const account = useAccountStore((state) => state)
   const [currentPage, setCurrentPage] = useState<keyof RootStackParamList>()
   const getCurrentPage = useCallback(() => currentPage, [currentPage])
-  const views = getViews(!!account?.publicKey)
+  const views = getViews(!!account.loggedIn)
   const showFooter = !!views.find((v) => v.name === currentPage)?.showFooter
   const backgroundConfig = views.find((v) => v.name === currentPage)?.background
 
@@ -191,8 +192,7 @@ const App = () => {
           },
         })
       }
-      setCurrentPage(!!account?.publicKey ? 'home' : 'welcome')
-      await initialNavigation(navigationRef, updateMessage)
+      setCurrentPage(account.loggedIn ? 'home' : 'welcome')
       requestUserPermissions()
     })()
   }, [])
