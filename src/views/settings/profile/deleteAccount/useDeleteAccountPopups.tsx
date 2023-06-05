@@ -1,18 +1,17 @@
 import { CommonActions } from '@react-navigation/native'
-import { useCallback, useContext } from 'react'
-
-import { OverlayContext } from '../../../../contexts/overlay'
+import { useCallback } from 'react'
+import { usePopupStore } from '../../../../store/usePopupStore'
 import { deleteAccount } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
 import { logoutUser } from '../../../../utils/peachAPI'
 import { DeleteAccountPopup } from './DeleteAccountPopup'
 
 export const useDeleteAccountPopups = () => {
-  const [, updateOverlay] = useContext(OverlayContext)
+  const setPopup = usePopupStore((state) => state.setPopup)
 
   const showOverlay = useCallback(
     (content: JSX.Element, callback?: () => void, isSuccess = false) =>
-      updateOverlay({
+      setPopup({
         visible: true,
         title: i18n(`settings.deleteAccount.${isSuccess ? 'success' : 'popup'}.title`),
         content,
@@ -26,7 +25,7 @@ export const useDeleteAccountPopups = () => {
             }
             : undefined,
       }),
-    [updateOverlay],
+    [setPopup],
   )
 
   const deleteAccountClicked = async () => {
@@ -39,12 +38,12 @@ export const useDeleteAccountPopups = () => {
     showOverlay(<DeleteAccountPopup title={'success'} />, undefined, true)
   }
 
-  const showForRealsiesOverlay = () => {
+  const showForRealsiesPopup = () => {
     showOverlay(<DeleteAccountPopup title={'forRealsies'} />, deleteAccountClicked)
   }
-  const showDeleteAccountOverlay = () => {
-    showOverlay(<DeleteAccountPopup title={'popup'} />, showForRealsiesOverlay)
+  const showDeleteAccountPopup = () => {
+    showOverlay(<DeleteAccountPopup title={'popup'} />, showForRealsiesPopup)
   }
 
-  return showDeleteAccountOverlay
+  return showDeleteAccountPopup
 }
