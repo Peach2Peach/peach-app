@@ -1,26 +1,27 @@
-import { useCallback, useContext } from 'react'
-import { OverlayContext } from '../../../contexts/overlay'
+import { useCallback } from 'react'
+import { shallow } from 'zustand/shallow'
 import { useNavigation } from '../../../hooks'
 import { DisputeDisclaimer } from '../../../overlays/info/DisputeDisclaimer'
 import { useConfigStore } from '../../../store/configStore'
+import { usePopupStore } from '../../../store/usePopupStore'
 import i18n from '../../../utils/i18n'
 
 export const useShowDisputeDisclaimer = () => {
   const navigation = useNavigation()
-  const [, updateOverlay] = useContext(OverlayContext)
+  const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
   const setSeenDisputeDisclaimer = useConfigStore((state) => state.setSeenDisputeDisclaimer)
 
   const showDisputeDisclaimer = useCallback(async () => {
     const goToHelp = () => {
       setSeenDisputeDisclaimer(true)
-      updateOverlay({ visible: false })
+      closePopup()
       navigation.navigate('contact')
     }
     const close = () => {
       setSeenDisputeDisclaimer(true)
-      updateOverlay({ visible: false })
+      closePopup()
     }
-    updateOverlay({
+    setPopup({
       title: i18n('trade.chat'),
       level: 'INFO',
       content: <DisputeDisclaimer />,
@@ -36,6 +37,6 @@ export const useShowDisputeDisclaimer = () => {
         icon: 'info',
       },
     })
-  }, [navigation, setSeenDisputeDisclaimer, updateOverlay])
+  }, [closePopup, navigation, setPopup, setSeenDisputeDisclaimer])
   return showDisputeDisclaimer
 }
