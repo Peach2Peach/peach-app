@@ -36,7 +36,7 @@ describe('useShowPaymentTimerHasRunOut', () => {
     jest.clearAllMocks()
   })
 
-  it('should show the payment timer has run out usePopupStore.getState()if inTrade is false', () => {
+  it('should show the payment timer has run out popup if inTrade is false', () => {
     const { result } = renderHook(useShowPaymentTimerHasRunOut, { wrapper: NavigationWrapper })
     act(() => {
       result.current(contract, false)
@@ -59,7 +59,7 @@ describe('useShowPaymentTimerHasRunOut', () => {
       },
     })
   })
-  it('should show the payment timer has run out usePopupStore.getState()if inTrade is true', () => {
+  it('should show the payment timer has run out popup if inTrade is true', () => {
     const { result } = renderHook(useShowPaymentTimerHasRunOut, { wrapper: NavigationWrapper })
     act(() => {
       result.current(contract, true)
@@ -82,7 +82,7 @@ describe('useShowPaymentTimerHasRunOut', () => {
       },
     })
   })
-  it('should close the usePopupStore.getState()when the close action is called', () => {
+  it('should close the popup when the close action is called', () => {
     const { result } = renderHook(useShowPaymentTimerHasRunOut, { wrapper: NavigationWrapper })
     act(() => {
       result.current(contract, false)

@@ -1,13 +1,11 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { Dimensions, Pressable, View } from 'react-native'
-import tw from '../../styles/tailwind'
-
 import Carousel from 'react-native-snap-carousel'
 import { Icon, Progress, Text } from '../../components'
 import { PrimaryButton } from '../../components/buttons'
 import { useKeyboard } from '../../hooks'
-import { useCheckShowRedesignWelcome } from '../../hooks/'
 import { useOnboardingHeader } from '../../hooks/headers/useOnboardingHeader'
+import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import AWalletYouControl from './AWalletYouControl'
 import LetsGetStarted from './LetsGetStarted'
@@ -28,7 +26,6 @@ export default () => {
   const [page, setPage] = useState(0)
   const $carousel = useRef<Carousel<any>>(null)
   const keyboardOpen = useKeyboard()
-  const checkShowRedesignWelcome = useCheckShowRedesignWelcome()
 
   const next = () => {
     $carousel.current?.snapToNext()
@@ -38,10 +35,6 @@ export default () => {
   }
   const getProgress = () => (page + 1) / screens.length
   const endReached = () => getProgress() === 1
-
-  useEffect(() => {
-    checkShowRedesignWelcome()
-  }, [checkShowRedesignWelcome])
 
   return (
     <View style={tw`flex h-full`} testID="welcome">
