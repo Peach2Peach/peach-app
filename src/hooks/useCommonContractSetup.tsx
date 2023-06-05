@@ -19,6 +19,7 @@ import { useHandleNotifications } from './notifications/useHandleNotifications'
 import { useContractDetails } from './query/useContractDetails'
 import { useOfferDetails } from './query/useOfferDetails'
 import { useShowErrorBanner } from './useShowErrorBanner'
+import { useLocalContractStore } from '../store/useLocalContractStore'
 
 export const useCommonContractSetup = (contractId: string) => {
   const ws = useContext(PeachWSContext)
@@ -31,6 +32,7 @@ export const useCommonContractSetup = (contractId: string) => {
   const view = contract ? getContractViewer(contract, account) : undefined
   const requiredAction = storedContract ? getRequiredAction(storedContract) : 'none'
   const [decryptionError, setDecryptionError] = useState(false)
+  const setLocalContract = useLocalContractStore((state) => state.setContract)
 
   const saveAndUpdate = useCallback((contractData: Partial<Contract>) => {
     setStoredContract((prev) => {
@@ -95,7 +97,8 @@ export const useCommonContractSetup = (contractId: string) => {
     ;(async () => {
       const { symmetricKey, paymentData } = await decryptContractData(contract)
       if (!symmetricKey || !paymentData) {
-        saveAndUpdate({ ...contract, error: 'DECRYPTION_ERROR' })
+        saveAndUpdate(contract)
+        setLocalContract({ ...contract, error: 'DECRYPTION_ERROR' })
 
         return setDecryptionError(true)
       }
@@ -106,6 +109,7 @@ export const useCommonContractSetup = (contractId: string) => {
     contract,
     decryptionError,
     saveAndUpdate,
+    setLocalContract,
     showError,
     storedContract?.paymentData,
     storedContract?.symmetricKey,
