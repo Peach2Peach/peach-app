@@ -27,7 +27,7 @@ export const useShowHelp = (id: HelpType) => {
       },
       level: 'INFO',
     })
-  }, [closePopup, id, navigation, setPopup])
+  }, [goToHelp, id, setPopup])
 
   return showHelp
 }
