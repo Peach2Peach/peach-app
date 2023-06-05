@@ -14,6 +14,7 @@ import { chatStorage } from './chatStorage'
 import { contractStorage } from './contractStorage'
 import { offerStorage } from './offerStorage'
 import { updateAccount } from './updateAccount'
+import { useAccountStore } from '../../store/accountStore'
 
 export const deleteAccount = async () => {
   info('Deleting account')
@@ -29,7 +30,9 @@ export const deleteAccount = async () => {
     settingsStorage,
     notificationStorage,
   ].forEach((storage) => storage.clearStore())
-  ;[notificationStore, configStore, walletStore, settingsStore].forEach((store) => store.getState().reset())
+  ;[useAccountStore, notificationStore, configStore, walletStore, settingsStore].forEach((store) =>
+    store.getState().reset(),
+  )
 
   deleteAccessToken()
   deletePeachAccount()
