@@ -10,9 +10,9 @@ type PNEventHandlers = Partial<Record<NotificationType, (data: PNData, notificat
 
 export const useOfferPopupEvents = () => {
   const showFundingAmountDifferentPopup = useShowFundingAmountDifferentPopup()
-  const wronglyFundedOverlay = useShowWronglyFundedPopup()
-  const offerOutsideRangeOverlay = useOfferOutsideRangePopup()
-  const buyOfferExpiredOverlay = useBuyOfferExpiredPopup()
+  const wronglyFundedPopup = useShowWronglyFundedPopup()
+  const offerOutsideRangePopup = useOfferOutsideRangePopup()
+  const buyOfferExpiredPopup = useBuyOfferExpiredPopup()
 
   const offerPopupEvents: PNEventHandlers = useMemo(
     () => ({
@@ -28,20 +28,20 @@ export const useOfferPopupEvents = () => {
         const [sellOffer] = offerId ? await getOfferDetails({ offerId }) : [null]
 
         if (!sellOffer || !isSellOffer(sellOffer)) return
-        wronglyFundedOverlay(sellOffer)
+        wronglyFundedPopup(sellOffer)
       },
       // PN-S10
       'offer.outsideRange': ({ offerId }) => {
         if (!offerId) return
-        offerOutsideRangeOverlay(offerId)
+        offerOutsideRangePopup(offerId)
       },
       // PN-B14
       'offer.buyOfferExpired': (_, notification) => {
         const [offerId, days] = notification?.bodyLocArgs || []
-        buyOfferExpiredOverlay(offerId, days)
+        buyOfferExpiredPopup(offerId, days)
       },
     }),
-    [buyOfferExpiredOverlay, showFundingAmountDifferentPopup, offerOutsideRangeOverlay, wronglyFundedOverlay],
+    [buyOfferExpiredPopup, showFundingAmountDifferentPopup, offerOutsideRangePopup, wronglyFundedPopup],
   )
   return offerPopupEvents
 }

@@ -18,7 +18,7 @@ export const useHandleContractPopups = () => {
 
   const showPaymentTimerHasRunOut = useShowPaymentTimerHasRunOut()
 
-  const handleContractOverlays = useCallback(
+  const handleContractPopups = useCallback(
     (contract: Contract, view: ContractViewer) => {
       if (shouldShowDisputeResult(contract)) return showDisputeResults(contract, view)
 
@@ -33,5 +33,5 @@ export const useHandleContractPopups = () => {
     [showTradeCanceled, showCancelTradeRequestRejected, showDisputeResults, showPaymentTimerHasRunOut],
   )
 
-  return handleContractOverlays
+  return handleContractPopups
 }

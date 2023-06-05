@@ -27,7 +27,7 @@ export const useDisputeFormSetup = () => {
   const [loading, setLoading] = useState(false)
   const isFormValid = emailIsValid && messageIsValid
 
-  const disputeRaisedOverlay = useDisputeRaisedSuccess()
+  const disputeRaisedPopup = useDisputeRaisedSuccess()
 
   const showErrorBanner = useShowErrorBanner()
 
@@ -44,7 +44,7 @@ export const useDisputeFormSetup = () => {
     const [disputeRaised, disputeRaisedError] = await submitRaiseDispute(contract, reason, email, message)
     if (disputeRaised) {
       navigation.navigate('contractChat', { contractId })
-      disputeRaisedOverlay(getContractViewer(contract, account))
+      disputeRaisedPopup(getContractViewer(contract, account))
     } else {
       showErrorBanner(disputeRaisedError?.error)
     }

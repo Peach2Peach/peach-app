@@ -13,7 +13,7 @@ export const useRepublishOffer = () => {
   const showErrorBanner = useShowErrorBanner()
   const navigation = useNavigation()
 
-  const confirmOverlay = useCallback(
+  const confirmPopup = useCallback(
     (contract: Contract) => {
       closePopup()
       saveContract({
@@ -38,11 +38,11 @@ export const useRepublishOffer = () => {
 
       const closeAction = () => {
         navigation.replace('contract', { contractId: contract.id })
-        confirmOverlay(contract)
+        confirmPopup(contract)
       }
       const goToOfferAction = () => {
         navigation.replace('search', { offerId: reviveSellOfferResult.newOfferId })
-        confirmOverlay(contract)
+        confirmPopup(contract)
       }
 
       setPopup({
@@ -63,7 +63,7 @@ export const useRepublishOffer = () => {
         },
       })
     },
-    [closePopup, confirmOverlay, navigation, setPopup, showErrorBanner],
+    [closePopup, confirmPopup, navigation, setPopup, showErrorBanner],
   )
 
   return republishOffer

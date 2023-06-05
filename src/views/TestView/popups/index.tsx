@@ -41,27 +41,27 @@ export default () => {
       style={tw`h-full bg-primary-mild-1`}
       contentContainerStyle={tw`flex items-center w-full px-6 py-10`}
     >
-      <PrimaryButton onPress={() => openPopup('APP')}>APP Overlay</PrimaryButton>
+      <PrimaryButton onPress={() => openPopup('APP')}>APP Popup</PrimaryButton>
       <PrimaryButton style={tw`mt-4`} onPress={() => openPopup('APP', { action1: undefined, action2: undefined })}>
-        APP Overlay without defined actions
+        APP Popup without defined actions
       </PrimaryButton>
       <PrimaryButton style={tw`mt-4`} onPress={() => openPopup('APP', { requireUserAction: true })}>
         User action required
       </PrimaryButton>
       <PrimaryButton style={tw`mt-4`} onPress={() => openPopup('DEFAULT')}>
-        Default Overlay
+        Default Popup
       </PrimaryButton>
       <PrimaryButton style={tw`mt-4`} onPress={() => openPopup('WARN')}>
-        Warn Overlay
+        Warn Popup
       </PrimaryButton>
       <PrimaryButton style={tw`mt-4`} onPress={() => openPopup('ERROR')}>
-        Error Overlay
+        Error Popup
       </PrimaryButton>
       <PrimaryButton style={tw`mt-4`} onPress={() => openPopup('SUCCESS')}>
-        Success Overlay
+        Success Popup
       </PrimaryButton>
       <PrimaryButton style={tw`mt-4`} onPress={() => openPopup('INFO')}>
-        Info Overlay
+        Info Popup
       </PrimaryButton>
     </PeachScrollView>
   )

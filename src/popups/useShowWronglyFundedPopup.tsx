@@ -10,7 +10,7 @@ import { WrongFundingAmount } from './warning/WrongFundingAmount'
 export const useShowWronglyFundedPopup = () => {
   const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
   const maxTradingAmount = useConfigStore((state) => state.maxTradingAmount)
-  const startRefundOverlay = useStartRefundPopup()
+  const startRefundPopup = useStartRefundPopup()
 
   const showWronglyFundedPopup = useCallback(
     (sellOffer: SellOffer) =>
@@ -30,11 +30,11 @@ export const useShowWronglyFundedPopup = () => {
           icon: 'arrowRightCircle',
           callback: () => {
             closePopup()
-            startRefundOverlay(sellOffer)
+            startRefundPopup(sellOffer)
           },
         },
       }),
-    [closePopup, maxTradingAmount, setPopup, startRefundOverlay],
+    [closePopup, maxTradingAmount, setPopup, startRefundPopup],
   )
   return showWronglyFundedPopup
 }

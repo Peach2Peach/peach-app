@@ -10,7 +10,7 @@ export const useBuyerRejectedCancelTradePopup = () => {
   const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
   const navigation = useNavigation()
 
-  const confirmOverlay = useCallback(
+  const confirmPopup = useCallback(
     (contract: Contract) => {
       closePopup()
       navigation.replace('contract', { contractId: contract.id })
@@ -34,11 +34,11 @@ export const useBuyerRejectedCancelTradePopup = () => {
         action1: {
           label: i18n('close'),
           icon: 'xSquare',
-          callback: () => confirmOverlay(contract),
+          callback: () => confirmPopup(contract),
         },
       })
     },
-    [confirmOverlay, setPopup],
+    [confirmPopup, setPopup],
   )
   return showCancelTradeRequestRejected
 }

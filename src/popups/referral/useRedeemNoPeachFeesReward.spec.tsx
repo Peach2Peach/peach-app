@@ -24,7 +24,7 @@ describe('useRedeemNoPeachFeesReward', () => {
   afterEach(() => {
     jest.clearAllMocks()
   })
-  it('returns function to start setCustomReferralCodeOverlay', () => {
+  it('returns function to start setCustomReferralCodePopup', () => {
     const { result } = renderHook(useRedeemNoPeachFeesReward, { wrapper })
     expect(result.current).toBeInstanceOf(Function)
   })

@@ -21,7 +21,7 @@ import { useShowErrorBanner } from './useShowErrorBanner'
 export const useCommonContractSetup = (contractId: string) => {
   const ws = useContext(PeachWSContext)
   const showError = useShowErrorBanner()
-  const handleContractOverlays = useHandleContractPopups()
+  const handleContractPopups = useHandleContractPopups()
   const { contract, isLoading, refetch } = useContractDetails(contractId, 15 * 1000)
   const { offer } = useOfferDetails(contract ? getOfferIdFromContract(contract) : '')
   const [storedContract, setStoredContract] = useState(getContract(contractId))
@@ -114,8 +114,8 @@ export const useCommonContractSetup = (contractId: string) => {
 
   useEffect(() => {
     if (!storedContract) return
-    handleContractOverlays(storedContract, getContractViewer(storedContract, account))
-  }, [storedContract, handleContractOverlays])
+    handleContractPopups(storedContract, getContractViewer(storedContract, account))
+  }, [storedContract, handleContractPopups])
 
   useEffect(() => {
     if (offer) saveOffer(offer)

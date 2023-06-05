@@ -13,7 +13,7 @@ export const useBuyOfferExpiredPopup = () => {
     navigation.navigate('contact')
   }, [closePopup, navigation])
 
-  const buyOfferExpiredOverlay = useCallback(
+  const buyOfferExpiredPopup = useCallback(
     (offerId: string, days: string) => {
       setPopup({
         title: i18n('notification.offer.buyOfferExpired.title'),
@@ -34,5 +34,5 @@ export const useBuyOfferExpiredPopup = () => {
     },
     [closePopup, goToContact, setPopup],
   )
-  return buyOfferExpiredOverlay
+  return buyOfferExpiredPopup
 }

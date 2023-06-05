@@ -17,7 +17,7 @@ export const useDisputeReasonSelectorSetup = () => {
   const navigation = useNavigation()
   const showErrorBanner = useShowErrorBanner()
 
-  const showDisputeRaisedOverlay = useDisputeRaisedSuccess()
+  const showDisputeRaisedPopup = useDisputeRaisedSuccess()
 
   useHeaderSetup({
     title: i18n('dispute.disputeForTrade', !!contract ? contractIdToHex(contract.id) : ''),
@@ -29,7 +29,7 @@ export const useDisputeReasonSelectorSetup = () => {
       showErrorBanner(error?.error)
       return
     }
-    if (view) showDisputeRaisedOverlay(view)
+    if (view) showDisputeRaisedPopup(view)
     navigation.goBack()
   }
 

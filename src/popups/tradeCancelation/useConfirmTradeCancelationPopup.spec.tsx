@@ -45,19 +45,19 @@ describe('useConfirmTradeCancelationPopup', () => {
   })
   it('opens ConfirmCancelTradeRequest popup', () => {
     const { result } = renderHook(useConfirmTradeCancelationPopup, { wrapper })
-    const disputeOverlayActions = result.current.showConfirmTradeCancelation(contract)
+    const disputePopupActions = result.current.showConfirmTradeCancelation(contract)
 
     expect(usePopupStore.getState()).toEqual({
       ...usePopupStore.getState(),
       action2: {
         label: 'cancel',
         icon: 'xCircle',
-        callback: disputeOverlayActions.cancelTradeCallback,
+        callback: disputePopupActions.cancelTradeCallback,
       },
       action1: {
         label: 'continue trade',
         icon: 'arrowRightCircle',
-        callback: disputeOverlayActions.continueTradeCallback,
+        callback: disputePopupActions.continueTradeCallback,
       },
       title: 'trade cancelation',
       content: <ConfirmCancelTradeRequest contract={contract} />,
@@ -67,11 +67,11 @@ describe('useConfirmTradeCancelationPopup', () => {
   })
   it('ConfirmCancelTradeRequest popup actions call respective functions', () => {
     const { result } = renderHook(useConfirmTradeCancelationPopup, { wrapper })
-    const disputeOverlayActions = result.current.showConfirmTradeCancelation(contract)
+    const disputePopupActions = result.current.showConfirmTradeCancelation(contract)
 
-    disputeOverlayActions.cancelTradeCallback()
+    disputePopupActions.cancelTradeCallback()
     expect(confirmContractCancelationMock).toHaveBeenCalledWith({ contractId: contract.id })
-    disputeOverlayActions.continueTradeCallback()
+    disputePopupActions.continueTradeCallback()
     expect(rejectContractCancelationMock).toHaveBeenCalledWith({ contractId: contract.id })
   })
   it('cancels trade', async () => {

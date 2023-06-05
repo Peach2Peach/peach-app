@@ -33,9 +33,9 @@ export const useContractChatSetup = () => {
     fetchNextPage,
   } = useChatMessages(contractId, contract?.symmetricKey)
   const showError = useShowErrorBanner()
-  const { showConfirmOverlay } = useConfirmCancelTrade()
+  const { showConfirmPopup } = useConfirmCancelTrade()
   const showDisputeDisclaimer = useShowDisputeDisclaimer()
-  const openDisputeOverlay = useOpenDispute(contractId)
+  const openDisputePopup = useOpenDispute(contractId)
   const tradingPartner = contract ? getTradingPartner(contract, account) : null
   const [chat, setChat] = useState(getChat(contractId))
   const [newMessage, setNewMessage] = useState(chat.draftMessage)
@@ -46,11 +46,9 @@ export const useContractChatSetup = () => {
     useMemo(
       () => ({
         titleComponent: <ContractTitle id={contractId} />,
-        icons: contract
-          ? getHeaderChatActions(contract, () => showConfirmOverlay(contract), openDisputeOverlay, view)
-          : [],
+        icons: contract ? getHeaderChatActions(contract, () => showConfirmPopup(contract), openDisputePopup, view) : [],
       }),
-      [contractId, contract, showConfirmOverlay, openDisputeOverlay, view],
+      [contractId, contract, showConfirmPopup, openDisputePopup, view],
     ),
   )
 

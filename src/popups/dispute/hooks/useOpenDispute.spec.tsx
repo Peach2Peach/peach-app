@@ -1,7 +1,6 @@
 import { renderHook } from '@testing-library/react-native'
 import { NavigationWrapper, navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { defaultPopupState, usePopupStore } from '../../../store/usePopupStore'
-import { DisputeWon } from '../components/DisputeWon'
 import { useOpenDispute } from './useOpenDispute'
 import { contract } from '../../../../tests/unit/data/contractData'
 import { OpenDispute } from '../components/OpenDispute'

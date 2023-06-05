@@ -118,7 +118,7 @@ describe('useHandleFundingStatus', () => {
     renderHook(useHandleFundingStatus, { wrapper: NavigationWrapper, initialProps })
     expect(startRefundPopupMock).toHaveBeenCalledWith(sellOffer)
   })
-  it('should show showWronglyFundedOverlay when WRONG_FUNDING_AMOUNT', async () => {
+  it('should show showWronglyFundedPopup when WRONG_FUNDING_AMOUNT', async () => {
     const fundingStatus: FundingStatus = { ...defaultFundingStatus, status: 'WRONG_FUNDING_AMOUNT' }
     const initialProps = {
       offerId: sellOffer.id,

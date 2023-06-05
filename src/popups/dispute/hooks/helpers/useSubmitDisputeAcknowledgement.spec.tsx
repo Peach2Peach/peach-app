@@ -16,10 +16,10 @@ const useShowErrorBannerMock = jest.fn().mockReturnValue(showErrorBannerMock)
 jest.mock('../../../../hooks/useShowErrorBanner', () => ({
   useShowErrorBanner: () => useShowErrorBannerMock(),
 }))
-const showLoadingOverlayMock = jest.fn()
-const useShowLoadingOverlayMock = jest.fn().mockReturnValue(showLoadingOverlayMock)
+const showLoadingPopupMock = jest.fn()
+const useShowLoadingPopupMock = jest.fn().mockReturnValue(showLoadingPopupMock)
 jest.mock('../../../../hooks/useShowLoadingPopup', () => ({
-  useShowLoadingPopup: () => useShowLoadingOverlayMock(),
+  useShowLoadingPopup: () => useShowLoadingPopupMock(),
 }))
 
 const acknowledgeDisputeMock = jest.fn().mockResolvedValue([{ success: true }, null])
@@ -65,7 +65,7 @@ describe('useSubmitDisputeAcknowledgement', () => {
       expect(queryClient.getQueryState(['contract', contract.id])?.status).toBe('success')
     })
 
-    expect(showLoadingOverlayMock).not.toHaveBeenCalled()
+    expect(showLoadingPopupMock).not.toHaveBeenCalled()
     expect(acknowledgeDisputeMock).not.toHaveBeenCalled()
   })
 
@@ -76,7 +76,7 @@ describe('useSubmitDisputeAcknowledgement', () => {
       expect(queryClient.getQueryState(['contract', contract.id])?.status).toBe('success')
     })
 
-    expect(showLoadingOverlayMock).toHaveBeenCalledWith({
+    expect(showLoadingPopupMock).toHaveBeenCalledWith({
       level: 'WARN',
       title: i18n('dispute.opened'),
     })

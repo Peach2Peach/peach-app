@@ -7,14 +7,14 @@ import { shouldOpenPopup } from '../utils/shouldOpenPopup'
 
 export const useNavigateToOffer = (offer: OfferSummary) => {
   const navigation = useNavigation()
-  const showStartRefundOverlay = useStartRefundPopup()
+  const showStartRefundPopup = useStartRefundPopup()
 
   return async () => {
     const destination = getNavigationDestinationForOffer(offer)
     if (shouldOpenPopup(offer.tradeStatus)) {
       const [sellOffer] = await getOfferDetails({ offerId: offer.id })
       if (sellOffer && isSellOffer(sellOffer)) {
-        if (offer.tradeStatus === 'refundTxSignatureRequired') showStartRefundOverlay(sellOffer)
+        if (offer.tradeStatus === 'refundTxSignatureRequired') showStartRefundPopup(sellOffer)
       }
       return
     }

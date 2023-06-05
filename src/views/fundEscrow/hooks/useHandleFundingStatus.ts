@@ -14,7 +14,7 @@ type Props = {
 }
 export const useHandleFundingStatus = ({ offerId, sellOffer, fundingStatus, userConfirmationRequired }: Props) => {
   const navigation = useNavigation()
-  const showWronglyFundedOverlay = useShowWronglyFundedPopup()
+  const showWronglyFundedPopup = useShowWronglyFundedPopup()
 
   const startRefund = useStartRefundPopup()
   const { refetch: fetchMatches } = useOfferMatches(offerId, fundingStatus.status === 'FUNDED')
@@ -35,7 +35,7 @@ export const useHandleFundingStatus = ({ offerId, sellOffer, fundingStatus, user
       return
     }
     if (fundingStatus.status === 'WRONG_FUNDING_AMOUNT') {
-      showWronglyFundedOverlay(updatedOffer)
+      showWronglyFundedPopup(updatedOffer)
       return
     }
     if (userConfirmationRequired) {
@@ -59,7 +59,7 @@ export const useHandleFundingStatus = ({ offerId, sellOffer, fundingStatus, user
     navigation,
     offerId,
     sellOffer,
-    showWronglyFundedOverlay,
+    showWronglyFundedPopup,
     startRefund,
     userConfirmationRequired,
   ])

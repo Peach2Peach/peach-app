@@ -6,8 +6,8 @@ import { headerIcons } from '../../../utils/layout/headerIcons'
 /* eslint max-params: ["error", 4]*/
 export const getHeaderChatActions = (
   contract: Contract,
-  showCancelOverlay: () => void,
-  showOpenDisputeOverlay: () => void,
+  showCancelPopup: () => void,
+  showOpenDisputePopup: () => void,
   view?: ContractViewer,
 ): HeaderConfig['icons'] => {
   if (contract?.disputeActive) return []
@@ -15,8 +15,8 @@ export const getHeaderChatActions = (
   const canCancel = canCancelContract(contract)
   const canDispute = canOpenDispute(contract, view)
 
-  const openCancelTrade = canCancel ? showCancelOverlay : () => {}
-  const raiseDispute = canDispute ? showOpenDisputeOverlay : () => {}
+  const openCancelTrade = canCancel ? showCancelPopup : () => {}
+  const raiseDispute = canDispute ? showOpenDisputePopup : () => {}
 
   const icons: HeaderConfig['icons'] = []
   if (!contract.paymentMade && !contract.canceled) {

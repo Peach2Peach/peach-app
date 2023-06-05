@@ -16,7 +16,7 @@ export const useOfferOutsideRangePopup = () => {
     [closePopup, navigation],
   )
 
-  const buyOfferExpiredOverlay = useCallback(
+  const buyOfferExpiredPopup = useCallback(
     (offerId: string) => {
       setPopup({
         title: i18n('notification.offer.outsideRange.title'),
@@ -37,5 +37,5 @@ export const useOfferOutsideRangePopup = () => {
     },
     [closePopup, goToOffer, setPopup],
   )
-  return buyOfferExpiredOverlay
+  return buyOfferExpiredPopup
 }
