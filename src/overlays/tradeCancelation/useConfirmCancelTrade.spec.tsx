@@ -2,12 +2,11 @@ import { renderHook } from '@testing-library/react-native'
 import { account1 } from '../../../tests/unit/data/accountData'
 import { contract } from '../../../tests/unit/data/contractData'
 import { sellOffer } from '../../../tests/unit/data/offerData'
-import { defaultOverlay, OverlayContext } from '../../contexts/overlay'
-import { setAccount } from '../../utils/account'
-import { getSellOfferIdFromContract } from '../../utils/contract'
-import i18n from '../../utils/i18n'
 import { unauthorizedError } from '../../../tests/unit/data/peachAPIData'
 import { NavigationWrapper, replaceMock } from '../../../tests/unit/helpers/NavigationWrapper'
+import { defaultPopupState, usePopupStore } from '../../store/usePopupStore'
+import { setAccount } from '../../utils/account'
+import { getSellOfferIdFromContract } from '../../utils/contract'
 import { getResult } from '../../utils/result'
 import { PeachWallet } from '../../utils/wallet/PeachWallet'
 import { setPeachWallet } from '../../utils/wallet/setWallet'
@@ -15,18 +14,10 @@ import { ConfirmCancelTrade } from './ConfirmCancelTrade'
 import { SellerCanceledContent } from './SellerCanceledContent'
 import { useConfirmCancelTrade } from './useConfirmCancelTrade'
 
-let overlay = defaultOverlay
-const updateOverlayMock = jest.fn().mockImplementation((newOverlay: OverlayState) => {
-  overlay = newOverlay
-})
-const OverlayWrapper = ({ children }: { children: React.ReactNode }) => (
-  <OverlayContext.Provider value={[overlay, updateOverlayMock]}>{children}</OverlayContext.Provider>
-)
-
 const showLoadingOverlayMock = jest.fn()
 const useShowLoadingOverlayMock = jest.fn().mockReturnValue(showLoadingOverlayMock)
-jest.mock('../../hooks/useShowLoadingOverlay', () => ({
-  useShowLoadingOverlay: () => useShowLoadingOverlayMock(),
+jest.mock('../../hooks/useShowLoadingPopup', () => ({
+  useShowLoadingPopup: () => useShowLoadingOverlayMock(),
 }))
 
 const saveContractMock = jest.fn()
@@ -64,11 +55,7 @@ jest.mock('./helpers/cancelContractAsBuyer', () => ({
   cancelContractAsBuyer: (...args: any[]) => cancelContractAsBuyerMock(...args),
 }))
 describe('useConfirmCancelTrade', () => {
-  const wrapper = ({ children }: { children: JSX.Element }) => (
-    <OverlayWrapper>
-      <NavigationWrapper>{children}</NavigationWrapper>
-    </OverlayWrapper>
-  )
+  const wrapper = NavigationWrapper
   beforeAll(() => {
     setAccount({ ...account1, offers: [{ ...sellOffer, id: getSellOfferIdFromContract(contract) }] })
     // @ts-ignore
@@ -76,7 +63,7 @@ describe('useConfirmCancelTrade', () => {
   })
   afterEach(() => {
     jest.clearAllMocks()
-    overlay = defaultOverlay
+    usePopupStore.setState(defaultPopupState)
   })
   it('should return the correct default values', () => {
     const { result } = renderHook(useConfirmCancelTrade, { wrapper })
@@ -84,7 +71,7 @@ describe('useConfirmCancelTrade', () => {
       showConfirmOverlay: expect.any(Function),
       cancelSeller: expect.any(Function),
       cancelBuyer: expect.any(Function),
-      closeOverlay: expect.any(Function),
+      closePopup: expect.any(Function),
     })
   })
 
@@ -111,7 +98,8 @@ describe('useConfirmCancelTrade', () => {
     await result.current.cancelBuyer(contract)
     expect(cancelContractAsBuyerMock).toHaveBeenCalledWith(contract)
     expect(replaceMock).toHaveBeenCalledWith('contract', { contractId: contract.id })
-    expect(updateOverlayMock).toHaveBeenCalledWith({
+    expect(usePopupStore.getState()).toEqual({
+      ...usePopupStore.getState(),
       level: 'DEFAULT',
       title: 'trade canceled!',
       visible: true,
@@ -133,14 +121,15 @@ describe('useConfirmCancelTrade', () => {
     const { result } = renderHook(useConfirmCancelTrade, { wrapper })
     result.current.showConfirmOverlay(contract)
 
-    expect(overlay).toStrictEqual({
+    expect(usePopupStore.getState()).toEqual({
+      ...usePopupStore.getState(),
       action1: {
         callback: expect.any(Function),
         icon: 'xCircle',
         label: 'cancel trade',
       },
       action2: {
-        callback: result.current.closeOverlay,
+        callback: expect.any(Function),
         icon: 'arrowLeftCircle',
         label: 'never mind',
       },
@@ -150,7 +139,7 @@ describe('useConfirmCancelTrade', () => {
       visible: true,
     })
 
-    await overlay.action1?.callback()
+    await usePopupStore.getState().action1?.callback()
     expect(cancelContractAsBuyerMock).toHaveBeenCalledWith(contract)
   })
   it('should show confirm cancelation overlay for seller', async () => {
@@ -162,14 +151,15 @@ describe('useConfirmCancelTrade', () => {
     const { result } = renderHook(useConfirmCancelTrade, { wrapper })
     result.current.showConfirmOverlay(contract)
 
-    expect(overlay).toStrictEqual({
+    expect(usePopupStore.getState()).toEqual({
+      ...usePopupStore.getState(),
       action1: {
         callback: expect.any(Function),
         icon: 'xCircle',
         label: 'cancel trade',
       },
       action2: {
-        callback: result.current.closeOverlay,
+        callback: expect.any(Function),
         icon: 'arrowLeftCircle',
         label: 'never mind',
       },
@@ -178,20 +168,21 @@ describe('useConfirmCancelTrade', () => {
       title: 'cancel trade',
       visible: true,
     })
-    await overlay.action1?.callback()
+    await usePopupStore.getState().action1?.callback()
     expect(cancelContractAsSellerMock).toHaveBeenCalledWith(contract)
   })
   it('confirmOverlay should be gray', () => {
     const { result } = renderHook(useConfirmCancelTrade, { wrapper })
     result.current.showConfirmOverlay(contract)
 
-    expect(overlay.level).toBe('DEFAULT')
+    expect(usePopupStore.getState().level).toBe('DEFAULT')
   })
   it('should show the correct overlay for cash trades of the seller', () => {
     const { result } = renderHook(useConfirmCancelTrade, { wrapper })
     result.current.showConfirmOverlay({ ...contract, paymentMethod: 'cash' })
 
-    expect(overlay).toStrictEqual({
+    expect(usePopupStore.getState()).toEqual({
+      ...usePopupStore.getState(),
       action1: {
         callback: expect.any(Function),
         icon: 'xCircle',
@@ -213,8 +204,9 @@ describe('useConfirmCancelTrade', () => {
 
     const { result } = renderHook(useConfirmCancelTrade, { wrapper })
     result.current.showConfirmOverlay(contract)
-    overlay.action1?.callback()
-    expect(overlay).toStrictEqual({
+    usePopupStore.getState().action1?.callback()
+    expect(usePopupStore.getState()).toEqual({
+      ...usePopupStore.getState(),
       title: 'trade canceled!',
       level: 'DEFAULT',
       visible: true,
@@ -229,8 +221,9 @@ describe('useConfirmCancelTrade', () => {
 
     const { result } = renderHook(useConfirmCancelTrade, { wrapper })
     result.current.showConfirmOverlay(contract)
-    overlay.action1?.callback()
-    expect(overlay).toStrictEqual({
+    usePopupStore.getState().action1?.callback()
+    expect(usePopupStore.getState()).toEqual({
+      ...usePopupStore.getState(),
       title: 'request sent',
       level: 'DEFAULT',
       content: (
@@ -253,8 +246,9 @@ describe('useConfirmCancelTrade', () => {
 
     const { result } = renderHook(useConfirmCancelTrade, { wrapper })
     result.current.showConfirmOverlay({ ...contract, paymentMethod: 'cash' })
-    overlay.action1?.callback()
-    expect(overlay).toStrictEqual({
+    usePopupStore.getState().action1?.callback()
+    expect(usePopupStore.getState()).toEqual({
+      ...usePopupStore.getState(),
       title: 'trade canceled',
       level: 'DEFAULT',
       content: <SellerCanceledContent isCash canRepublish tradeID={contract.id} walletName={'custom payout address'} />,
@@ -270,8 +264,9 @@ describe('useConfirmCancelTrade', () => {
 
     const { result } = renderHook(useConfirmCancelTrade, { wrapper })
     result.current.showConfirmOverlay({ ...contract, paymentMethod: 'cash' })
-    overlay.action1?.callback()
-    expect(overlay).toStrictEqual({
+    usePopupStore.getState().action1?.callback()
+    expect(usePopupStore.getState()).toEqual({
+      ...usePopupStore.getState(),
       title: 'trade canceled',
       level: 'DEFAULT',
       content: (

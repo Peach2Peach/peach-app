@@ -1,16 +1,15 @@
-import { useCallback, useContext, useMemo, useState } from 'react'
-import { AppState } from 'react-native'
-
 import { useFocusEffect } from '@react-navigation/native'
+import { useCallback, useMemo, useState } from 'react'
+import { AppState } from 'react-native'
 import { shallow } from 'zustand/shallow'
-import { OverlayContext } from '../../../contexts/overlay'
 import { useHeaderSetup } from '../../../hooks'
 import { useSettingsStore } from '../../../store/settingsStore'
+import { usePopupStore } from '../../../store/usePopupStore'
+import { isDefined } from '../../../utils/array/isDefined'
 import i18n from '../../../utils/i18n'
 import { checkNotificationStatus, isProduction, toggleNotifications } from '../../../utils/system'
 import { NotificationPopup } from '../components/NotificationPopup'
 import { SettingsItemProps } from '../components/SettingsItem'
-import { isDefined } from '../../../utils/array/isDefined'
 
 const contactUs = (() => {
   let arr: SettingsItemProps[] = [{ title: 'contact' }, { title: 'aboutPeach' }]
@@ -20,7 +19,7 @@ const contactUs = (() => {
 
 export const useSettingsSetup = () => {
   useHeaderSetup({ title: i18n('settings.title'), hideGoBackButton: true })
-  const [, updateOverlay] = useContext(OverlayContext)
+  const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
   const [notificationsOn, setNotificationsOn] = useState(false)
   const [enableAnalytics, toggleAnalytics, showBackupReminder] = useSettingsStore(
     (state) => [state.enableAnalytics, state.toggleAnalytics, state.showBackupReminder],
@@ -44,19 +43,19 @@ export const useSettingsSetup = () => {
 
   const notificationClick = useCallback(() => {
     if (notificationsOn) {
-      updateOverlay({
+      setPopup({
         title: i18n('settings.notifications.overlay.title'),
         content: <NotificationPopup />,
         visible: true,
         level: 'WARN',
         action2: {
-          callback: () => updateOverlay({ visible: false }),
+          callback: closePopup,
           label: i18n('settings.notifications.overlay.neverMind'),
           icon: 'arrowLeftCircle',
         },
         action1: {
           callback: () => {
-            updateOverlay({ visible: false })
+            closePopup()
             toggleNotifications()
           },
           label: i18n('settings.notifications.overlay.yes'),
@@ -66,7 +65,7 @@ export const useSettingsSetup = () => {
     } else {
       toggleNotifications()
     }
-  }, [notificationsOn, updateOverlay])
+  }, [closePopup, notificationsOn, setPopup])
 
   const profileSettings: SettingsItemProps[] = useMemo(
     () => [

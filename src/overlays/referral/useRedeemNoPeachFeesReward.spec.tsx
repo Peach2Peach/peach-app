@@ -1,10 +1,10 @@
 import { renderHook } from '@testing-library/react-native'
-import { NavigationWrapper, replaceMock } from '../../../tests/unit/helpers/NavigationWrapper'
-import { OverlayContext, defaultOverlay } from '../../contexts/overlay'
-import { NoPeachFees } from './NoPeachFees'
-import { useRedeemNoPeachFeesReward } from './useRedeemNoPeachFeesReward'
-import { NoPeachFeesSuccess } from './NoPeachFeesSuccess'
 import { notEnoughPointsError } from '../../../tests/unit/data/peachAPIData'
+import { NavigationWrapper, replaceMock } from '../../../tests/unit/helpers/NavigationWrapper'
+import { usePopupStore } from '../../store/usePopupStore'
+import { NoPeachFees } from './NoPeachFees'
+import { NoPeachFeesSuccess } from './NoPeachFeesSuccess'
+import { useRedeemNoPeachFeesReward } from './useRedeemNoPeachFeesReward'
 
 const showErrorBannerMock = jest.fn()
 const useShowErrorBannerMock = jest.fn().mockReturnValue(showErrorBannerMock)
@@ -19,13 +19,7 @@ jest.mock('../../utils/peachAPI', () => ({
 }))
 
 describe('useRedeemNoPeachFeesReward', () => {
-  let overlayState = { ...defaultOverlay }
-  const updateOverlay = jest.fn((newState) => (overlayState = newState))
-  const wrapper = ({ children }: ComponentProps) => (
-    <NavigationWrapper>
-      <OverlayContext.Provider value={[overlayState, updateOverlay]}>{children}</OverlayContext.Provider>
-    </NavigationWrapper>
-  )
+  const wrapper = NavigationWrapper
 
   afterEach(() => {
     jest.clearAllMocks()
@@ -37,7 +31,8 @@ describe('useRedeemNoPeachFeesReward', () => {
   it('opens popup to redeem reward', () => {
     const { result } = renderHook(useRedeemNoPeachFeesReward, { wrapper })
     result.current()
-    expect(overlayState).toEqual({
+    expect(usePopupStore.getState()).toEqual({
+      ...usePopupStore.getState(),
       title: '5x free trading',
       content: <NoPeachFees />,
       level: 'APP',
@@ -57,15 +52,16 @@ describe('useRedeemNoPeachFeesReward', () => {
   it('closes popup', async () => {
     const { result } = renderHook(useRedeemNoPeachFeesReward, { wrapper })
     result.current()
-    await overlayState.action2?.callback()
-    expect(overlayState).toEqual({ visible: false })
+    await usePopupStore.getState().action2?.callback()
+    expect(usePopupStore.getState().visible).toEqual(false)
   })
   it('redeems reward successfully', async () => {
     const { result } = renderHook(useRedeemNoPeachFeesReward, { wrapper })
     result.current()
-    await overlayState.action1?.callback()
+    await usePopupStore.getState().action1?.callback()
     expect(redeemNoPeachFeesMock).toHaveBeenCalled()
-    expect(overlayState).toEqual({
+    expect(usePopupStore.getState()).toEqual({
+      ...usePopupStore.getState(),
       title: '5x free trading',
       content: <NoPeachFeesSuccess />,
       level: 'APP',
@@ -77,7 +73,7 @@ describe('useRedeemNoPeachFeesReward', () => {
     redeemNoPeachFeesMock.mockResolvedValueOnce([null, notEnoughPointsError])
     const { result } = renderHook(useRedeemNoPeachFeesReward, { wrapper })
     result.current()
-    await overlayState.action1?.callback()
+    await usePopupStore.getState().action1?.callback()
     expect(showErrorBannerMock).toHaveBeenCalledWith(notEnoughPointsError.error)
   })
 })

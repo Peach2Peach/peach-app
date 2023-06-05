@@ -2,7 +2,7 @@ import { useRepublishOffer } from './useRepublishOffer'
 import { renderHook } from '@testing-library/react-native'
 import { NavigationWrapper, replaceMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { OfferRepublished } from '../../../overlays/tradeCancelation'
-import { defaultOverlay, OverlayContext } from '../../../contexts/overlay'
+import { usePopupStore } from '../../../store/usePopupStore'
 
 const reviveSellOfferMock = jest.fn()
 jest.mock('../../../utils/peachAPI', () => ({
@@ -21,15 +21,7 @@ jest.mock('../../../hooks/useShowErrorBanner', () => ({
   useShowErrorBanner: () => showErrorBannerMock,
 }))
 
-let overlay = defaultOverlay
-const updateOverlayMock = jest.fn((newOverlay) => {
-  overlay = newOverlay
-})
-const wrapper = ({ children }: { children: React.ReactNode }) => (
-  <NavigationWrapper>
-    <OverlayContext.Provider value={[overlay, updateOverlayMock]}>{children}</OverlayContext.Provider>
-  </NavigationWrapper>
-)
+const wrapper = NavigationWrapper
 describe('useRepublishOffer', () => {
   const contract = {
     id: 'contractId',
@@ -42,7 +34,6 @@ describe('useRepublishOffer', () => {
 
   afterEach(() => {
     jest.clearAllMocks()
-    overlay = defaultOverlay
   })
   it('should revive the sell offer', async () => {
     reviveSellOfferMock.mockResolvedValue([{ newOfferId: 'newOfferId' }, null])
@@ -58,7 +49,7 @@ describe('useRepublishOffer', () => {
     const { result } = renderHook(useRepublishOffer, { wrapper })
     await result.current(contract)
     expect(showErrorBannerMock).toHaveBeenCalledWith('error')
-    expect(overlay.visible).toBe(false)
+    expect(usePopupStore.getState().visible).toBe(false)
   })
 
   it('should show the offer republished overlay', async () => {
@@ -66,7 +57,8 @@ describe('useRepublishOffer', () => {
     reviveSellOfferMock.mockResolvedValue([{ newOfferId: 'newOfferId' }, null])
     getSellOfferFromContractMock.mockReturnValue(sellOffer)
     await result.current(contract)
-    expect(overlay).toStrictEqual({
+    expect(usePopupStore.getState()).toStrictEqual({
+      ...usePopupStore.getState(),
       title: 'offer re-published',
       content: <OfferRepublished />,
       visible: true,
@@ -90,8 +82,8 @@ describe('useRepublishOffer', () => {
     reviveSellOfferMock.mockResolvedValue([{ newOfferId: 'newOfferId' }, null])
     getSellOfferFromContractMock.mockReturnValue(sellOffer)
     await result.current(contract)
-    overlay.action2?.callback()
-    expect(overlay.visible).toBe(false)
+    usePopupStore.getState().action2?.callback()
+    expect(usePopupStore.getState().visible).toBe(false)
     expect(saveContractMock).toHaveBeenCalledWith({
       ...contract,
       cancelConfirmationPending: false,
@@ -105,8 +97,8 @@ describe('useRepublishOffer', () => {
     reviveSellOfferMock.mockResolvedValue([{ newOfferId: 'newOfferId' }, null])
     getSellOfferFromContractMock.mockReturnValue(sellOffer)
     await result.current(contract)
-    overlay.action1?.callback()
-    expect(overlay.visible).toBe(false)
+    usePopupStore.getState().action1?.callback()
+    expect(usePopupStore.getState().visible).toBe(false)
     expect(saveContractMock).toHaveBeenCalledWith({
       ...contract,
       cancelConfirmationPending: false,

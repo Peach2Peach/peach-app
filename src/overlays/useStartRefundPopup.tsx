@@ -1,12 +1,13 @@
 import { NETWORK } from '@env'
 import { useCallback } from 'react'
-import { useOverlayContext } from '../contexts/overlay'
+import { shallow } from 'zustand/shallow'
 import { useNavigation } from '../hooks'
 import { useTradeSummaries } from '../hooks/query/useTradeSummaries'
 import { useShowErrorBanner } from '../hooks/useShowErrorBanner'
-import { useShowLoadingOverlay } from '../hooks/useShowLoadingOverlay'
+import { useShowLoadingPopup } from '../hooks/useShowLoadingPopup'
 import { useSettingsStore } from '../store/settingsStore'
 import { useTradeSummaryStore } from '../store/tradeSummaryStore'
+import { usePopupStore } from '../store/usePopupStore'
 import { checkRefundPSBT, showTransaction, signAndFinalizePSBT } from '../utils/bitcoin'
 import i18n from '../utils/i18n'
 import { info } from '../utils/log'
@@ -16,8 +17,8 @@ import { getEscrowWalletForOffer } from '../utils/wallet'
 import { peachWallet } from '../utils/wallet/setWallet'
 import { Refund } from './Refund'
 
-export const useStartRefundOverlay = () => {
-  const [, updateOverlay] = useOverlayContext()
+export const useStartRefundPopup = () => {
+  const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
   const showError = useShowErrorBanner()
   const navigation = useNavigation()
   const isPeachWallet = useSettingsStore((state) => state.peachWalletActive)
@@ -27,17 +28,16 @@ export const useStartRefundOverlay = () => {
     state.setShouldShowBackupOverlay,
   ])
   const { refetch: refetchTradeSummaries } = useTradeSummaries(false)
-  const closeOverlay = useCallback(() => updateOverlay({ visible: false }), [updateOverlay])
   const goToWallet = useCallback(
     (txId: string) => {
-      closeOverlay()
+      closePopup()
       if (shouldShowBackupOverlay && isPeachWallet) {
         navigation.navigate('backupTime', { nextScreen: 'transactionDetails', txId })
       } else {
         navigation.navigate('transactionDetails', { txId })
       }
     },
-    [closeOverlay, navigation],
+    [closePopup, isPeachWallet, navigation, shouldShowBackupOverlay],
   )
   const setOffer = useTradeSummaryStore((state) => state.setOffer)
 
@@ -48,13 +48,13 @@ export const useStartRefundOverlay = () => {
 
       if (!psbt || err) {
         showError(err)
-        closeOverlay()
+        closePopup()
         return
       }
       const signedTx = signAndFinalizePSBT(psbt, getEscrowWalletForOffer(sellOffer)).extractTransaction()
       const [tx, txId] = [signedTx.toHex(), signedTx.getId()]
 
-      updateOverlay({
+      setPopup({
         title: i18n('refund.title'),
         content: <Refund isPeachWallet={isPeachWallet} />,
         visible: true,
@@ -63,7 +63,7 @@ export const useStartRefundOverlay = () => {
           label: i18n('close'),
           icon: 'xSquare',
           callback: () => {
-            closeOverlay()
+            closePopup()
             navigation.navigate('yourTrades', { tab: 'history' })
             if (shouldShowBackupOverlay && isPeachWallet) {
               navigation.navigate('backupTime', { nextScreen: 'yourTrades' })
@@ -77,7 +77,7 @@ export const useStartRefundOverlay = () => {
             if (isPeachWallet) {
               goToWallet(txId)
             } else {
-              closeOverlay()
+              closePopup()
               navigation.navigate('backupTime', { nextScreen: 'yourTrades', tab: 'sell' })
 
               showTransaction(txId, NETWORK)
@@ -90,7 +90,7 @@ export const useStartRefundOverlay = () => {
       const [, postTXError] = await refundSellOffer({ offerId: sellOffer.id, tx, timeout: 15 * 1000 })
       if (postTXError) {
         showError(postTXError.error)
-        closeOverlay()
+        closePopup()
       } else {
         saveOffer({
           ...sellOffer,
@@ -108,24 +108,24 @@ export const useStartRefundOverlay = () => {
       }
     },
     [
-      closeOverlay,
+      closePopup,
       goToWallet,
       isPeachWallet,
       navigation,
       refetchTradeSummaries,
       setOffer,
+      setPopup,
       setShouldShowBackupOverlay,
       setShowBackupReminder,
       shouldShowBackupOverlay,
       showError,
-      updateOverlay,
     ],
   )
-  const showLoadingOverlay = useShowLoadingOverlay()
+  const showLoadingPopup = useShowLoadingPopup()
 
   const startRefund = useCallback(
     async (sellOffer: SellOffer) => {
-      showLoadingOverlay({
+      showLoadingPopup({
         title: i18n('refund.loading.title'),
       })
 
@@ -135,10 +135,10 @@ export const useStartRefundOverlay = () => {
         await refund(sellOffer, cancelResult.psbt)
       } else {
         showError(cancelError?.error)
-        closeOverlay()
+        closePopup()
       }
     },
-    [closeOverlay, refund, showError, showLoadingOverlay],
+    [closePopup, refund, showError, showLoadingPopup],
   )
 
   return startRefund

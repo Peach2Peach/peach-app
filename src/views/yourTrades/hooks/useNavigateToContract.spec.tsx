@@ -1,23 +1,11 @@
 import { act, renderHook, waitFor } from '@testing-library/react-native'
 import { contract } from '../../../../tests/unit/data/contractData'
+import { contractSummary } from '../../../../tests/unit/data/contractSummaryData'
 import { NavigationWrapper, navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { QueryClientWrapper, queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
-import { OverlayContext, defaultOverlay } from '../../../contexts/overlay'
 import { useLocalContractStore } from '../../../store/useLocalContractStore'
 import { defaultPopupState, usePopupStore } from '../../../store/usePopupStore'
-import { DisputeWon } from '../../../overlays/dispute/components/DisputeWon'
-import { account } from '../../../utils/account'
 import { useNavigateToContract } from './useNavigateToContract'
-import { contractSummary } from '../../../../tests/unit/data/contractSummaryData'
-
-let overlay = defaultOverlay
-const updateOverlay = jest.fn((newOverlay) => {
-  overlay = newOverlay
-})
-
-const OverlayWrapper = ({ children }: ComponentProps) => (
-  <OverlayContext.Provider value={[overlay, updateOverlay]}>{children}</OverlayContext.Provider>
-)
 
 const getContractMock = jest.fn(() => Promise.resolve([contract, null]))
 jest.mock('../../../utils/peachAPI', () => ({
@@ -25,11 +13,9 @@ jest.mock('../../../utils/peachAPI', () => ({
 }))
 
 describe('useNavigateToContract', () => {
-  const TestWrapper = ({ children }: ComponentProps) => (
+  const wrapper = ({ children }: ComponentProps) => (
     <QueryClientWrapper>
-      <NavigationWrapper>
-        <OverlayWrapper>{children}</OverlayWrapper>
-      </NavigationWrapper>
+      <NavigationWrapper>{children}</NavigationWrapper>
     </QueryClientWrapper>
   )
 
@@ -39,7 +25,7 @@ describe('useNavigateToContract', () => {
   })
 
   it('should navigate to the contract', async () => {
-    const { result } = renderHook(() => useNavigateToContract(contractSummary), { wrapper: TestWrapper })
+    const { result } = renderHook(() => useNavigateToContract(contractSummary), { wrapper })
     await waitFor(() => expect(queryClient.getQueryState(['contract', contractSummary.id])?.status).toBe('success'))
     await act(async () => {
       await result.current()
@@ -51,7 +37,7 @@ describe('useNavigateToContract', () => {
     useLocalContractStore.getState().setContract({ id: 'newContractId', hasSeenDisputeEmailPopup: false })
     getContractMock.mockResolvedValueOnce([{ ...contract, id: 'newContractId', disputeActive: true }, null])
     const { result } = renderHook(() => useNavigateToContract({ ...contractSummary, id: 'newContractId' }), {
-      wrapper: TestWrapper,
+      wrapper,
     })
 
     await waitFor(() => expect(queryClient.getQueryState(['contract', 'newContractId'])?.status).toBe('success'))
@@ -92,7 +78,7 @@ describe('useNavigateToContract', () => {
   //   } as any)
 
   //   const { result } = renderHook(() => useNavigateToContract(disputeWonContractSummary), {
-  //     wrapper: TestWrapper,
+  //     wrapper: wrapper,
   //   })
 
   //   await waitFor(() =>

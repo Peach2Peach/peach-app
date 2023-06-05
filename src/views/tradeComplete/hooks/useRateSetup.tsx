@@ -1,10 +1,10 @@
 import { NETWORK } from '@env'
 import { shallow } from 'zustand/shallow'
-import { useOverlayContext } from '../../../contexts/overlay'
 import { useNavigation } from '../../../hooks'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { TradeBreakdown } from '../../../overlays/TradeBreakdown'
 import { useSettingsStore } from '../../../store/settingsStore'
+import { usePopupStore } from '../../../store/usePopupStore'
 import { showAddress, showTransaction } from '../../../utils/bitcoin'
 import { createUserRating } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
@@ -18,7 +18,7 @@ export type Props = {
 }
 export const useRateSetup = ({ contract, view, vote, saveAndUpdate }: Props) => {
   const navigation = useNavigation()
-  const [, updateOverlay] = useOverlayContext()
+  const setPopup = usePopupStore((state) => state.setPopup)
   const showError = useShowErrorBanner()
   const [showBackupOverlay, setShouldShowBackupOverlay, setShowBackupReminder, isPeachWalletActive] = useSettingsStore(
     (state) => [
@@ -74,7 +74,7 @@ export const useRateSetup = ({ contract, view, vote, saveAndUpdate }: Props) => 
     contract.releaseTxId ? showTransaction(contract.releaseTxId, NETWORK) : showAddress(contract.escrow, NETWORK)
 
   const showTradeBreakdown = () => {
-    updateOverlay({
+    setPopup({
       title: i18n('tradeComplete.popup.tradeBreakdown.title'),
       content: <TradeBreakdown {...contract} />,
       visible: true,

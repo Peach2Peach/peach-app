@@ -3,7 +3,7 @@ import { SlideToUnlock } from '../../components/inputs'
 import { useRepublishOffer } from './hooks/useRepublishOffer'
 import { getSellOfferFromContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
-import { useStartRefundOverlay } from '../../overlays/useStartRefundOverlay'
+import { useStartRefundPopup } from '../../overlays/useStartRefundPopup'
 import { useContractContext } from './context'
 
 const RepublishOfferSlider = ({ contract }: { contract: Contract }) => {
@@ -14,7 +14,7 @@ const RepublishOfferSlider = ({ contract }: { contract: Contract }) => {
 }
 
 const RefundEscrowSlider = ({ contract }: { contract: Contract }) => {
-  const startRefund = useStartRefundOverlay()
+  const startRefund = useStartRefundPopup()
   return (
     <SlideToUnlock
       style={tw`w-[263px]`}

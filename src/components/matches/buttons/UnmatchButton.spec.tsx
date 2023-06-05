@@ -1,10 +1,9 @@
 import { act, fireEvent, render } from '@testing-library/react-native'
 import { QueryClientWrapper, queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
-import { defaultOverlay } from '../../../contexts/overlay'
-import { MatchUndone } from '../../../overlays/MatchUndone'
 import { UnmatchPopup } from '../../../overlays/UnmatchPopup'
+import { MatchUndone } from '../../../overlays/app/MatchUndone'
 import { appOverlays } from '../../../overlays/appOverlays'
-import { usePopupStore } from '../../../store/usePopupStore'
+import { defaultPopupState, usePopupStore } from '../../../store/usePopupStore'
 import i18n from '../../../utils/i18n'
 import { UnmatchButton } from './UnmatchButton'
 
@@ -69,7 +68,7 @@ describe('UnmatchButton', () => {
         },
       ],
     })
-    usePopupStore.getState().setPopup(defaultOverlay)
+    usePopupStore.getState().setPopup(defaultPopupState)
   })
   it('renders correctly', () => {
     const { toJSON } = render(<UnmatchButton {...defaultProps} />, { wrapper: QueryClientWrapper })

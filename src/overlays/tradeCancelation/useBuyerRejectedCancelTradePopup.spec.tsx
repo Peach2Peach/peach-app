@@ -1,39 +1,24 @@
 import { renderHook } from '@testing-library/react-native'
-import { contract } from '../../../tests/unit/data/contractData'
-import i18n from '../../utils/i18n'
-import { useBuyerRejectedCancelTradeOverlay } from './useBuyerRejectedCancelTradeOverlay'
-import { BuyerRejectedCancelTrade } from './BuyerRejectedCancelTrade'
 import { act } from 'react-test-renderer'
-import { defaultOverlay, OverlayContext } from '../../contexts/overlay'
+import { contract } from '../../../tests/unit/data/contractData'
+import { NavigationWrapper, replaceMock } from '../../../tests/unit/helpers/NavigationWrapper'
+import { defaultPopupState, usePopupStore } from '../../store/usePopupStore'
 import { getContract } from '../../utils/contract'
+import i18n from '../../utils/i18n'
+import { BuyerRejectedCancelTrade } from './BuyerRejectedCancelTrade'
+import { useBuyerRejectedCancelTradePopup } from './useBuyerRejectedCancelTradePopup'
 
-const replaceMock = jest.fn()
-jest.mock('../../hooks/useNavigation', () => ({
-  useNavigation: () => ({
-    replace: replaceMock,
-  }),
-}))
-
-describe('useBuyerRejectedCancelTradeOverlay', () => {
+describe('useBuyerRejectedCancelTradePopup', () => {
+  const { result } = renderHook(useBuyerRejectedCancelTradePopup, { wrapper: NavigationWrapper })
   afterEach(() => {
     jest.clearAllMocks()
-  })
-  let overlayState = { ...defaultOverlay }
-  const updateOverlay = jest.fn((newState) => (overlayState = newState))
-
-  const { result } = renderHook(useBuyerRejectedCancelTradeOverlay, {
-    wrapper: ({ children }) => (
-      <OverlayContext.Provider value={[overlayState, updateOverlay]}>{children}</OverlayContext.Provider>
-    ),
-  })
-  afterEach(() => {
-    jest.clearAllMocks()
-    overlayState = { ...defaultOverlay }
+    usePopupStore.setState(defaultPopupState)
   })
   it('should show the overlay', () => {
     const showCancelTradeRequestRejected = result.current
     act(() => showCancelTradeRequestRejected(contract))
-    expect(overlayState).toStrictEqual({
+    expect(usePopupStore.getState()).toEqual({
+      ...usePopupStore.getState(),
       title: i18n('contract.cancel.buyerRejected.title'),
       content: <BuyerRejectedCancelTrade contract={contract} />,
       visible: true,
@@ -46,15 +31,13 @@ describe('useBuyerRejectedCancelTradeOverlay', () => {
       },
     })
   })
-  it('should hide the overlay, navigate to contract screen and save contract when action is called', () => {
+  it('should hide the popup, navigate to contract screen and save contract when action is called', () => {
     const showCancelTradeRequestRejected = result.current
     act(() => {
       showCancelTradeRequestRejected(contract)
-      overlayState.action1?.callback()
+      usePopupStore.getState().action1?.callback()
     })
-    expect(overlayState).toStrictEqual({
-      visible: false,
-    })
+    expect(usePopupStore.getState().visible).toEqual(false)
     expect(replaceMock).toHaveBeenCalledWith('contract', { contractId: contract.id })
     expect(getContract(contract.id)).toStrictEqual({
       ...contract,

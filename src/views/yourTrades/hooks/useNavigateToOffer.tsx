@@ -1,5 +1,5 @@
 import { useNavigation } from '../../../hooks'
-import { useStartRefundOverlay } from '../../../overlays/useStartRefundOverlay'
+import { useStartRefundPopup } from '../../../overlays/useStartRefundPopup'
 import { isSellOffer } from '../../../utils/offer'
 import { getOfferDetails } from '../../../utils/peachAPI'
 import { getNavigationDestinationForOffer } from '../utils/navigation/getNavigationDestinationForOffer'
@@ -7,7 +7,7 @@ import { shouldOpenOverlay } from '../utils/shouldOpenOverlay'
 
 export const useNavigateToOffer = (offer: OfferSummary) => {
   const navigation = useNavigation()
-  const showStartRefundOverlay = useStartRefundOverlay()
+  const showStartRefundOverlay = useStartRefundPopup()
 
   return async () => {
     const destination = getNavigationDestinationForOffer(offer)

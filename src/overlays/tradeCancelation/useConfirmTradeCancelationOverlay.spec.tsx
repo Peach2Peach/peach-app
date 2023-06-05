@@ -3,27 +3,18 @@ import { contract } from '../../../tests/unit/data/contractData'
 import { ConfirmCancelTradeRequest } from './ConfirmCancelTradeRequest'
 import { useConfirmTradeCancelationOverlay } from './useConfirmTradeCancelationOverlay'
 import { apiSuccess, unauthorizedError } from '../../../tests/unit/data/peachAPIData'
+import { defaultPopupState, usePopupStore } from '../../store/usePopupStore'
+import { NavigationWrapper, replaceMock } from '../../../tests/unit/helpers/NavigationWrapper'
 
-const updateOverlayMock = jest.fn()
-const useOverlayContextMock = jest.fn().mockReturnValue([, updateOverlayMock])
-jest.mock('../../contexts/overlay', () => ({
-  useOverlayContext: (...args: any[]) => useOverlayContextMock(...args),
-}))
-const replaceMock = jest.fn()
-jest.mock('../../hooks/useNavigation', () => ({
-  useNavigation: jest.fn().mockReturnValue({
-    replace: (...args: any[]) => replaceMock(...args),
-  }),
-}))
 const showErrorBannerMock = jest.fn()
 const useShowErrorBannerMock = jest.fn().mockReturnValue(showErrorBannerMock)
 jest.mock('../../hooks/useShowErrorBanner', () => ({
   useShowErrorBanner: () => useShowErrorBannerMock(),
 }))
-const showLoadingOverlayMock = jest.fn()
-const useShowLoadingOverlayMock = jest.fn().mockReturnValue(showLoadingOverlayMock)
-jest.mock('../../hooks/useShowLoadingOverlay', () => ({
-  useShowLoadingOverlay: () => useShowLoadingOverlayMock(),
+const showLoadingPopupMock = jest.fn()
+const useShowLoadingPopupMock = jest.fn().mockReturnValue(showLoadingPopupMock)
+jest.mock('../../hooks/useShowLoadingPopup', () => ({
+  useShowLoadingPopup: () => useShowLoadingPopupMock(),
 }))
 
 const confirmContractCancelationMock = jest.fn().mockResolvedValue([apiSuccess, null])
@@ -39,21 +30,25 @@ jest.mock('../../utils/contract', () => ({
 }))
 
 describe('useConfirmTradeCancelationOverlay', () => {
+  const wrapper = NavigationWrapper
+
   afterEach(() => {
     jest.clearAllMocks()
+    usePopupStore.setState(defaultPopupState)
   })
   it('returns default values correctly', () => {
-    const { result } = renderHook(useConfirmTradeCancelationOverlay)
+    const { result } = renderHook(useConfirmTradeCancelationOverlay, { wrapper })
 
     expect(result.current.showConfirmTradeCancelation).toBeInstanceOf(Function)
     expect(result.current.cancelTrade).toBeInstanceOf(Function)
     expect(result.current.continueTrade).toBeInstanceOf(Function)
   })
   it('opens ConfirmCancelTradeRequest popup', () => {
-    const { result } = renderHook(useConfirmTradeCancelationOverlay)
+    const { result } = renderHook(useConfirmTradeCancelationOverlay, { wrapper })
     const disputeOverlayActions = result.current.showConfirmTradeCancelation(contract)
 
-    expect(updateOverlayMock).toHaveBeenCalledWith({
+    expect(usePopupStore.getState()).toEqual({
+      ...usePopupStore.getState(),
       action2: {
         label: 'cancel',
         icon: 'xCircle',
@@ -71,7 +66,7 @@ describe('useConfirmTradeCancelationOverlay', () => {
     })
   })
   it('ConfirmCancelTradeRequest popup actions call respective functions', () => {
-    const { result } = renderHook(useConfirmTradeCancelationOverlay)
+    const { result } = renderHook(useConfirmTradeCancelationOverlay, { wrapper })
     const disputeOverlayActions = result.current.showConfirmTradeCancelation(contract)
 
     disputeOverlayActions.cancelTradeCallback()
@@ -85,11 +80,11 @@ describe('useConfirmTradeCancelationOverlay', () => {
       canceled: true,
       cancelationRequested: false,
     }
-    const { result } = renderHook(useConfirmTradeCancelationOverlay)
+    const { result } = renderHook(useConfirmTradeCancelationOverlay, { wrapper })
 
     await result.current.cancelTrade(contract)
 
-    expect(showLoadingOverlayMock).toHaveBeenCalledWith({
+    expect(showLoadingPopupMock).toHaveBeenCalledWith({
       title: 'trade cancelation',
       level: 'DEFAULT',
     })
@@ -97,7 +92,8 @@ describe('useConfirmTradeCancelationOverlay', () => {
     expect(confirmContractCancelationMock).toHaveBeenCalledWith({ contractId: contract.id })
     expect(saveContractMock).toHaveBeenCalledWith(expectedContractUpdate)
 
-    expect(updateOverlayMock).toHaveBeenCalledWith({
+    expect(usePopupStore.getState()).toEqual({
+      ...usePopupStore.getState(),
       title: 'trade canceled!',
       visible: true,
       level: 'DEFAULT',
@@ -106,13 +102,13 @@ describe('useConfirmTradeCancelationOverlay', () => {
   })
   it('handles cancel trade errors', async () => {
     confirmContractCancelationMock.mockResolvedValueOnce([null, unauthorizedError])
-    const { result } = renderHook(useConfirmTradeCancelationOverlay)
+    const { result } = renderHook(useConfirmTradeCancelationOverlay, { wrapper })
 
     await result.current.cancelTrade(contract)
 
     expect(saveContractMock).not.toHaveBeenCalled()
 
-    expect(updateOverlayMock).toHaveBeenCalledWith({ visible: false })
+    expect(usePopupStore.getState().visible).toEqual(false)
     expect(replaceMock).not.toHaveBeenCalled()
     expect(showErrorBannerMock).toHaveBeenCalledWith(unauthorizedError.error)
   })
@@ -121,18 +117,18 @@ describe('useConfirmTradeCancelationOverlay', () => {
       ...contract,
       cancelationRequested: false,
     }
-    const { result } = renderHook(useConfirmTradeCancelationOverlay)
+    const { result } = renderHook(useConfirmTradeCancelationOverlay, { wrapper })
 
     await result.current.continueTrade(contract)
 
-    expect(showLoadingOverlayMock).toHaveBeenCalledWith({
+    expect(showLoadingPopupMock).toHaveBeenCalledWith({
       title: 'trade cancelation',
       level: 'DEFAULT',
     })
 
     expect(rejectContractCancelationMock).toHaveBeenCalledWith({ contractId: contract.id })
     expect(saveContractMock).toHaveBeenCalledWith(expectedContractUpdate)
-    expect(updateOverlayMock).toHaveBeenCalledWith({ visible: false })
+    expect(usePopupStore.getState().visible).toEqual(false)
     expect(replaceMock).toHaveBeenCalledWith('contract', {
       contractId: contract.id,
       contract: expectedContractUpdate,
@@ -140,13 +136,13 @@ describe('useConfirmTradeCancelationOverlay', () => {
   })
   it('handles continue trade errors', async () => {
     rejectContractCancelationMock.mockResolvedValueOnce([null, unauthorizedError])
-    const { result } = renderHook(useConfirmTradeCancelationOverlay)
+    const { result } = renderHook(useConfirmTradeCancelationOverlay, { wrapper })
 
     await result.current.continueTrade(contract)
 
     expect(saveContractMock).not.toHaveBeenCalled()
 
-    expect(updateOverlayMock).toHaveBeenCalledWith({ visible: false })
+    expect(usePopupStore.getState().visible).toEqual(false)
     expect(replaceMock).not.toHaveBeenCalled()
     expect(showErrorBannerMock).toHaveBeenCalledWith(unauthorizedError.error)
   })

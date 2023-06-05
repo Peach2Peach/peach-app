@@ -11,11 +11,11 @@ jest.mock('../../../hooks/query/useSelfUser', () => ({
 }))
 
 const setCustomReferralCodeOverlayMock = jest.fn()
-const useSetCustomReferralCodeOverlayMock = jest.fn().mockReturnValue({
+const useSetCustomReferralCodePopupMock = jest.fn().mockReturnValue({
   setCustomReferralCodeOverlay: setCustomReferralCodeOverlayMock,
 })
-jest.mock('../../../overlays/referral/useSetCustomReferralCodeOverlay', () => ({
-  useSetCustomReferralCodeOverlay: () => useSetCustomReferralCodeOverlayMock(),
+jest.mock('../../../overlays/referral/useSetCustomReferralCodePopup', () => ({
+  useSetCustomReferralCodePopup: () => useSetCustomReferralCodePopupMock(),
 }))
 const redeemNoPeachFeesReward = jest.fn()
 const useRedeemNoPeachFeesRewardMock = jest.fn().mockReturnValue(redeemNoPeachFeesReward)

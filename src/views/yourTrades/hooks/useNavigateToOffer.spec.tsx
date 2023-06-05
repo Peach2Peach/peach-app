@@ -8,9 +8,9 @@ const getOfferDetailsMock = jest.fn().mockResolvedValue([sellOffer])
 jest.mock('../../../utils/peachAPI', () => ({
   getOfferDetails: () => getOfferDetailsMock(),
 }))
-const startRefundOverlayMock = jest.fn()
-jest.mock('../../../overlays/useStartRefundOverlay', () => ({
-  useStartRefundOverlay: () => startRefundOverlayMock,
+const startRefundPopupMock = jest.fn()
+jest.mock('../../../overlays/useStartRefundPopup', () => ({
+  useStartRefundPopup: () => startRefundPopupMock,
 }))
 
 const wrapper = ({ children }: ComponentProps) => (
@@ -41,7 +41,7 @@ describe('useNavigateToOffer', () => {
       wrapper,
     })
     await result.current()
-    expect(startRefundOverlayMock).toHaveBeenCalledWith(sellOffer)
+    expect(startRefundPopupMock).toHaveBeenCalledWith(sellOffer)
   })
   it('should navigate to wrongFundingAmount if status is fundingAmountDifferent', async () => {
     const offerSummary: Partial<OfferSummary> = {

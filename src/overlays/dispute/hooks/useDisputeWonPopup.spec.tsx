@@ -1,13 +1,13 @@
-import { useDisputeWonPopup } from './useDisputeWonPopup'
-import { renderHook, waitFor } from '@testing-library/react-native'
+import { renderHook } from '@testing-library/react-native'
 import { NavigationWrapper, navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { QueryClientWrapper } from '../../../../tests/unit/helpers/QueryClientWrapper'
+import { useLocalContractStore } from '../../../store/useLocalContractStore'
+import { defaultPopupState, usePopupStore } from '../../../store/usePopupStore'
+import { account } from '../../../utils/account'
 import { saveChat } from '../../../utils/chat'
 import { contractIdToHex, saveContract } from '../../../utils/contract'
-import { account } from '../../../utils/account'
-import { defaultPopupState, usePopupStore } from '../../../store/usePopupStore'
-import { QueryClientWrapper } from '../../../../tests/unit/helpers/QueryClientWrapper'
 import { DisputeWon } from '../components/DisputeWon'
-import { useLocalContractStore } from '../../../store/useLocalContractStore'
+import { useDisputeWonPopup } from './useDisputeWonPopup'
 
 const wrapper = ({ children }: ComponentProps) => (
   <QueryClientWrapper>

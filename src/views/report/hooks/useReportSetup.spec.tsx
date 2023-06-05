@@ -1,18 +1,22 @@
 /* eslint-disable max-lines-per-function */
 import { act, renderHook } from '@testing-library/react-native'
-import { useHeaderSetup, useNavigation, useRoute } from '../../../hooks'
+import { NavigationWrapper, navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { useHeaderSetup } from '../../../hooks'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
-import { showReportSuccess } from '../../../overlays/showReportSuccess'
+import { ReportSuccess } from '../../../overlays/app/ReportSuccess'
+import { defaultPopupState, usePopupStore } from '../../../store/usePopupStore'
 import { defaultAccount, setAccount } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
 import { submitReport } from '../helpers/submitReport'
 import { useReportSetup } from './useReportSetup'
 
+const useRouteMock = jest.fn().mockReturnValue({
+  params: {
+    reason: 'testReason',
+  },
+})
 jest.mock('../../../hooks/useRoute', () => ({
-  useRoute: jest.fn(),
-}))
-jest.mock('../../../hooks/useNavigation', () => ({
-  useNavigation: jest.fn(),
+  useRoute: () => useRouteMock(),
 }))
 jest.mock('../../../hooks/useHeaderSetup', () => ({
   useHeaderSetup: jest.fn(),
@@ -22,9 +26,6 @@ jest.mock('../helpers/submitReport', () => ({
   submitReport: jest.fn(),
 }))
 
-jest.mock('../../../overlays/showReportSuccess', () => ({
-  showReportSuccess: jest.fn(),
-}))
 jest.mock('../../../hooks/useShowErrorBanner', () => ({
   useShowErrorBanner: jest.fn(),
 }))
@@ -33,7 +34,13 @@ describe('useReportSetup', () => {
   const email = 'test@email.com'
   const topic = 'testTopic'
   const message = 'testMessage'
-
+  const reportSuccessPopup = {
+    content: <ReportSuccess />,
+    level: 'APP',
+    requireUserAction: false,
+    title: 'report sent!',
+    visible: true,
+  }
   const fillAllFields = async (current: ReturnType<typeof useReportSetup>) =>
     await act(async () => {
       current.setEmail(email)
@@ -46,23 +53,15 @@ describe('useReportSetup', () => {
       await current.submit()
     })
 
-  beforeEach(async () => {
-    ;(useRoute as jest.Mock).mockReturnValue({
-      params: {
-        reason: 'testReason',
-      },
-    })
-    ;(useNavigation as jest.Mock).mockReturnValue({
-      navigate: jest.fn(),
-    })
-
+  beforeAll(async () => {
     await setAccount(defaultAccount)
   })
   afterEach(() => {
-    jest.resetAllMocks()
+    usePopupStore.setState(defaultPopupState)
+    jest.clearAllMocks()
   })
   it('returns default values correctly', () => {
-    const { result } = renderHook(useReportSetup)
+    const { result } = renderHook(useReportSetup, { wrapper: NavigationWrapper })
 
     expect(result.current.reason).toEqual('testReason')
     expect(result.current.email).toEqual('')
@@ -86,7 +85,7 @@ describe('useReportSetup', () => {
   })
 
   it('respects route params', () => {
-    ;(useRoute as jest.Mock).mockReturnValueOnce({
+    useRouteMock.mockReturnValueOnce({
       params: {
         reason: 'testReason',
         topic: 'testTopic',
@@ -94,7 +93,7 @@ describe('useReportSetup', () => {
         shareDeviceID: true,
       },
     })
-    const { result } = renderHook(useReportSetup)
+    const { result } = renderHook(useReportSetup, { wrapper: NavigationWrapper })
 
     expect(result.current.reason).toEqual('testReason')
     expect(result.current.topic).toEqual('testTopic')
@@ -107,14 +106,14 @@ describe('useReportSetup', () => {
   })
 
   it('sets up the header correctly', () => {
-    renderHook(useReportSetup)
+    renderHook(useReportSetup, { wrapper: NavigationWrapper })
     expect(useHeaderSetup).toHaveBeenCalledWith({
       title: i18n('contact.title'),
     })
   })
 
   it('sets email', () => {
-    const { result } = renderHook(useReportSetup)
+    const { result } = renderHook(useReportSetup, { wrapper: NavigationWrapper })
 
     act(() => {
       result.current.setEmail(email)
@@ -125,7 +124,7 @@ describe('useReportSetup', () => {
     expect(result.current.emailErrors).toHaveLength(0)
   })
   it('sets topic', () => {
-    const { result } = renderHook(useReportSetup)
+    const { result } = renderHook(useReportSetup, { wrapper: NavigationWrapper })
 
     act(() => {
       result.current.setTopic(topic)
@@ -137,7 +136,7 @@ describe('useReportSetup', () => {
   })
 
   it('sets message', () => {
-    const { result } = renderHook(useReportSetup)
+    const { result } = renderHook(useReportSetup, { wrapper: NavigationWrapper })
 
     act(() => {
       result.current.setMessage(message)
@@ -149,7 +148,7 @@ describe('useReportSetup', () => {
   })
 
   it('toggles deviceIDSharing', () => {
-    const { result } = renderHook(useReportSetup)
+    const { result } = renderHook(useReportSetup, { wrapper: NavigationWrapper })
 
     expect(result.current.shareDeviceID).toBeFalsy()
     act(() => {
@@ -159,7 +158,7 @@ describe('useReportSetup', () => {
   })
 
   it('toggles sharing logs', () => {
-    const { result } = renderHook(useReportSetup)
+    const { result } = renderHook(useReportSetup, { wrapper: NavigationWrapper })
 
     expect(result.current.shareLogs).toBeFalsy()
     act(() => {
@@ -170,7 +169,7 @@ describe('useReportSetup', () => {
 
   it('ensure all fields are valid before submitting report', async () => {
     ;(submitReport as jest.Mock).mockResolvedValueOnce(['success', null])
-    const { result } = renderHook(useReportSetup)
+    const { result } = renderHook(useReportSetup, { wrapper: NavigationWrapper })
 
     await actSubmit(result.current)
     expect(submitReport).not.toHaveBeenCalled()
@@ -196,7 +195,7 @@ describe('useReportSetup', () => {
 
   it('submits report navigates to welcome on success for not logged in user', async () => {
     ;(submitReport as jest.Mock).mockResolvedValueOnce(['success', null])
-    const { result } = renderHook(useReportSetup)
+    const { result } = renderHook(useReportSetup, { wrapper: NavigationWrapper })
 
     await fillAllFields(result.current)
     await actSubmit(result.current)
@@ -209,34 +208,43 @@ describe('useReportSetup', () => {
       shareDeviceID: false,
       shareLogs: false,
     })
-    expect(useNavigation().navigate).toHaveBeenCalledWith('welcome')
-    expect(showReportSuccess).toHaveBeenCalled()
+    expect(navigateMock).toHaveBeenCalledWith('welcome')
+    expect(usePopupStore.getState()).toEqual({
+      ...usePopupStore.getState(),
+      ...reportSuccessPopup,
+    })
   })
   it('submits report navigates to settings on success for logged in user', async () => {
     ;(submitReport as jest.Mock).mockResolvedValueOnce(['success', null])
     await setAccount({ ...defaultAccount, publicKey: 'somepublickey' })
 
-    const { result } = renderHook(useReportSetup)
+    const { result } = renderHook(useReportSetup, { wrapper: NavigationWrapper })
 
     await fillAllFields(result.current)
     await actSubmit(result.current)
 
     expect(submitReport).toHaveBeenCalled()
-    expect(useNavigation().navigate).toHaveBeenCalledWith('settings')
-    expect(showReportSuccess).toHaveBeenCalled()
+    expect(navigateMock).toHaveBeenCalledWith('settings')
+    expect(usePopupStore.getState()).toEqual({
+      ...usePopupStore.getState(),
+      ...reportSuccessPopup,
+    })
   })
   it('shows error banner if report could not be submitted', async () => {
     ;(submitReport as jest.Mock).mockResolvedValueOnce([null, 'error'])
     ;(useShowErrorBanner as jest.Mock).mockReturnValue(jest.fn())
     await setAccount({ ...defaultAccount, publicKey: 'somepublickey' })
 
-    const { result } = renderHook(useReportSetup)
+    const { result } = renderHook(useReportSetup, { wrapper: NavigationWrapper })
 
     await fillAllFields(result.current)
     await actSubmit(result.current)
 
-    expect(useNavigation().navigate).not.toHaveBeenCalledWith()
-    expect(showReportSuccess).not.toHaveBeenCalled()
+    expect(navigateMock).not.toHaveBeenCalledWith()
+    expect(usePopupStore.getState()).toEqual({
+      ...usePopupStore.getState(),
+      ...defaultPopupState,
+    })
     expect(useShowErrorBanner()).toHaveBeenCalled()
   })
 })

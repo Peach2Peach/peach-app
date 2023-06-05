@@ -1,33 +1,33 @@
 import { useCallback } from 'react'
-import { useOverlayContext } from '../../contexts/overlay'
+import { shallow } from 'zustand/shallow'
 import { useNavigation } from '../../hooks'
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
+import { usePopupStore } from '../../store/usePopupStore'
 import { getSellOfferFromContract, saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { getOfferExpiry } from '../../utils/offer'
 import { reviveSellOffer } from '../../utils/peachAPI'
-import { useStartRefundOverlay } from '../useStartRefundOverlay'
+import { useStartRefundPopup } from '../useStartRefundPopup'
 import { BuyerConfirmedCancelTrade } from './BuyerConfirmedCancelTrade'
 import { ContractCanceledToSeller } from './ContractCanceledToSeller'
 import { OfferRepublished } from './OfferRepublished'
 
-export const useTradeCanceledOverlay = () => {
-  const [, updateOverlay] = useOverlayContext()
-  const startRefund = useStartRefundOverlay()
+export const useTradeCanceledPopup = () => {
+  const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
+  const startRefund = useStartRefundPopup()
   const showErrorBanner = useShowErrorBanner()
   const navigation = useNavigation()
 
-  const closeOverlay = useCallback(() => updateOverlay({ visible: false }), [updateOverlay])
   const confirmOverlay = useCallback(
     (contract: Contract) => {
-      closeOverlay()
+      closePopup()
       saveContract({
         ...contract,
         cancelConfirmationDismissed: true,
         cancelConfirmationPending: false,
       })
     },
-    [closeOverlay],
+    [closePopup],
   )
 
   const republishOffer = useCallback(
@@ -45,11 +45,11 @@ export const useTradeCanceledOverlay = () => {
       }
       if (!reviveSellOfferResult || err) {
         showErrorBanner(err?.error)
-        closeOverlay()
-        return { closeAction, goToOfferAction }
+        closePopup()
+        return
       }
 
-      updateOverlay({
+      setPopup({
         title: i18n('contract.cancel.offerRepublished.title'),
         content: <OfferRepublished />,
         visible: true,
@@ -66,10 +66,8 @@ export const useTradeCanceledOverlay = () => {
           callback: closeAction,
         },
       })
-
-      return { closeAction, goToOfferAction }
     },
-    [closeOverlay, confirmOverlay, navigation, showErrorBanner, updateOverlay],
+    [closePopup, confirmOverlay, navigation, setPopup, showErrorBanner],
   )
 
   const showTradeCanceled = useCallback(
@@ -103,7 +101,7 @@ export const useTradeCanceledOverlay = () => {
         }
       const action2 = expiry.isExpired ? undefined : refundActionObject
 
-      updateOverlay({
+      setPopup({
         title: i18n(
           mutualClose
             ? 'contract.cancel.buyerConfirmed.title'
@@ -123,7 +121,7 @@ export const useTradeCanceledOverlay = () => {
 
       return { republishAction, refundAction }
     },
-    [confirmOverlay, navigation, republishOffer, startRefund, updateOverlay],
+    [confirmOverlay, navigation, republishOffer, setPopup, startRefund],
   )
 
   return { showTradeCanceled, republishOffer, confirmOverlay }

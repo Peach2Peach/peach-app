@@ -1,15 +1,9 @@
 import { act, renderHook } from '@testing-library/react-native'
 import { settingsStore } from '../../../store/settingsStore'
 import { useWalletSetup } from './useWalletSetup'
-
-jest.mock('@react-navigation/native', () => ({
-  useFocusEffect: jest.fn(),
-}))
-const replaceMock = jest.fn()
-const useNavigationMock = jest.fn(() => ({ replace: replaceMock }))
-jest.mock('../../../hooks/useNavigation', () => ({
-  useNavigation: () => useNavigationMock(),
-}))
+import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { usePopupStore } from '../../../store/usePopupStore'
+import { WithdrawalConfirmation } from '../../../overlays/WithdrawalConfirmation'
 
 const walletStore = {}
 const walletStateMock = jest.fn((selector, _compareFn) => selector(walletStore))
@@ -19,17 +13,20 @@ jest.mock('../../../utils/wallet/walletStore', () => ({
 const mockWithdrawAll = jest.fn()
 jest.mock('../../../utils/wallet/setWallet', () => ({
   peachWallet: {
+    allTransactions: () => [],
+    syncWallet: jest.fn(),
     withdrawAll: (...args: any) => mockWithdrawAll(...args),
   },
 }))
 
 describe('useWalletSetup', () => {
+  const wrapper = NavigationWrapper
   const address = 'bitcoinAddress'
   afterEach(() => {
     jest.clearAllMocks()
   })
   it('should return correct default values', () => {
-    const { result } = renderHook(useWalletSetup)
+    const { result } = renderHook(useWalletSetup, { wrapper })
 
     expect(result.current.walletStore).toEqual(walletStore)
     expect(result.current.refresh).toBeInstanceOf(Function)
@@ -40,19 +37,47 @@ describe('useWalletSetup', () => {
     expect(result.current.addressErrors).toHaveLength(0)
     expect(result.current.openWithdrawalConfirmation).toBeInstanceOf(Function)
     expect(result.current.confirmWithdrawal).toBeInstanceOf(Function)
-    expect(result.current.walletLoading).toBeFalsy()
+    expect(result.current.walletLoading).toBeTruthy()
   })
 
-  it('should confirm withdrawal with correct fees', () => {
+  it('should open confirm withdrawal popup', () => {
+    const { result } = renderHook(useWalletSetup, { wrapper })
+
+    act(() => {
+      result.current.openWithdrawalConfirmation()
+    })
+
+    expect(usePopupStore.getState()).toEqual({
+      ...usePopupStore.getState(),
+      title: 'sending funds',
+      content: <WithdrawalConfirmation />,
+      visible: true,
+      action2: {
+        callback: expect.any(Function),
+        label: 'cancel',
+        icon: 'xCircle',
+      },
+      action1: {
+        callback: expect.any(Function),
+        label: 'confirm & send',
+        icon: 'arrowRightCircle',
+      },
+      level: 'APP',
+    })
+  })
+  it('should confirm withdrawal with correct fees', async () => {
     const finalFeeRate = 3
     settingsStore.getState().setFeeRate(finalFeeRate)
-    const { result } = renderHook(useWalletSetup)
+    const { result } = renderHook(useWalletSetup, { wrapper })
 
     act(() => {
       result.current.setAddress(address)
     })
     act(() => {
-      result.current.confirmWithdrawal()
+      result.current.openWithdrawalConfirmation()
+    })
+    await act(async () => {
+      await usePopupStore.getState().action1?.callback()
     })
 
     expect(mockWithdrawAll).toHaveBeenCalledWith(address, finalFeeRate)

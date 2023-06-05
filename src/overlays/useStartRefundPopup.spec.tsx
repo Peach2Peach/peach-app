@@ -1,29 +1,14 @@
-import { useStartRefundOverlay } from './useStartRefundOverlay'
 import { act, renderHook } from '@testing-library/react-native'
-import { navigateMock, NavigationWrapper } from '../../tests/unit/helpers/NavigationWrapper'
-import { QueryClientWrapper } from '../../tests/unit/helpers/QueryClientWrapper'
-import { defaultOverlay, OverlayContext } from '../contexts/overlay'
 import { sellOffer } from '../../tests/unit/data/offerData'
+import { NavigationWrapper, navigateMock } from '../../tests/unit/helpers/NavigationWrapper'
+import { QueryClientWrapper } from '../../tests/unit/helpers/QueryClientWrapper'
 import { Loading } from '../components'
+import { settingsStore } from '../store/settingsStore'
+import { defaultPopupState, usePopupStore } from '../store/usePopupStore'
 import { Refund } from './Refund'
-import { settingsStore, useSettingsStore } from '../store/settingsStore'
-import { refundSellOffer } from '../utils/peachAPI'
-import { saveOffer } from '../utils/offer'
-import { useTradeSummaries } from '../hooks/query/useTradeSummaries'
-import { peachWallet } from '../utils/wallet/setWallet'
-import { getEscrowWalletForOffer } from '../utils/wallet'
-import { useShowErrorBanner } from '../hooks/useShowErrorBanner'
-import { showTransaction } from '../utils/bitcoin'
+import { useStartRefundPopup } from './useStartRefundPopup'
 
-let overlay = defaultOverlay
-const updateOverlay = jest.fn((newOverlay) => {
-  overlay = newOverlay
-})
-const OverlayWrapper = ({ children }: { children: JSX.Element }) => (
-  <OverlayContext.Provider value={[overlay, updateOverlay]}>{children}</OverlayContext.Provider>
-)
-
-const cancelOfferMock = jest.fn((..._args: any) => Promise.resolve([null, null]))
+const cancelOfferMock = jest.fn().mockResolvedValue([null, null])
 const refundSellOfferMock = jest.fn()
 jest.mock('../utils/peachAPI', () => ({
   cancelOffer: (...args: any) => cancelOfferMock(...args),
@@ -68,28 +53,27 @@ jest.mock('../hooks/useShowErrorBanner', () => ({
   useShowErrorBanner: jest.fn(() => showErrorMock),
 }))
 
-describe('useStartRefundOverlay', () => {
+describe('useStartRefundPopup', () => {
   const wrapper = ({ children }: { children: JSX.Element }) => (
     <QueryClientWrapper>
-      <OverlayWrapper>
-        <NavigationWrapper>{children}</NavigationWrapper>
-      </OverlayWrapper>
+      <NavigationWrapper>{children}</NavigationWrapper>
     </QueryClientWrapper>
   )
 
   afterEach(() => {
-    overlay = defaultOverlay
+    usePopupStore.setState(defaultPopupState)
     jest.clearAllMocks()
   })
   it('should return a function', () => {
-    const { result } = renderHook(useStartRefundOverlay, { wrapper })
+    const { result } = renderHook(useStartRefundPopup, { wrapper })
     expect(result.current).toBeInstanceOf(Function)
   })
 
   it('should show the loading overlay when called', () => {
-    const { result } = renderHook(useStartRefundOverlay, { wrapper })
+    const { result } = renderHook(useStartRefundPopup, { wrapper })
     result.current(sellOffer)
-    expect(overlay).toStrictEqual({
+    expect(usePopupStore.getState()).toEqual({
+      ...usePopupStore.getState(),
       title: 'refunding escrow',
       content: (
         <Loading
@@ -119,11 +103,12 @@ describe('useStartRefundOverlay', () => {
     refundSellOfferMock.mockResolvedValueOnce([null, null])
     getEscrowWalletForOfferMock.mockReturnValueOnce('escrowWallet')
     settingsStore.setState({ peachWalletActive: false })
-    const { result } = renderHook(useStartRefundOverlay, { wrapper })
+    const { result } = renderHook(useStartRefundPopup, { wrapper })
     await result.current(sellOffer)
     expect(checkRefundPSBTMock).toHaveBeenCalledWith('psbt', sellOffer)
     expect(signAndFinalizePSBTMock).toHaveBeenCalledWith('checkedPsbt', 'escrowWallet')
-    expect(overlay).toStrictEqual({
+    expect(usePopupStore.getState()).toStrictEqual({
+      ...usePopupStore.getState(),
       title: 'escrow refunded',
       content: <Refund isPeachWallet={false} />,
       visible: true,
@@ -152,19 +137,19 @@ describe('useStartRefundOverlay', () => {
 
   it('should handle cancelation errors', async () => {
     cancelOfferMock.mockResolvedValueOnce([null, { error: 'error' }])
-    const { result } = renderHook(useStartRefundOverlay, { wrapper })
+    const { result } = renderHook(useStartRefundPopup, { wrapper })
     await result.current(sellOffer)
     expect(showErrorMock).toHaveBeenCalledWith('error')
-    expect(overlay).toStrictEqual({ visible: false })
+    expect(usePopupStore.getState().visible).toEqual(false)
   })
 
   it('should handle psbt errors', async () => {
     cancelOfferMock.mockResolvedValueOnce([{ psbt: 'psbt' }, null])
     checkRefundPSBTMock.mockReturnValueOnce({ psbt: 'something went wrong', err: 'error' })
-    const { result } = renderHook(useStartRefundOverlay, { wrapper })
+    const { result } = renderHook(useStartRefundPopup, { wrapper })
     await result.current(sellOffer)
     expect(showErrorMock).toHaveBeenCalledWith('error')
-    expect(overlay).toStrictEqual({ visible: false })
+    expect(usePopupStore.getState().visible).toEqual(false)
   })
 
   it('should handle refund errors', async () => {
@@ -176,10 +161,10 @@ describe('useStartRefundOverlay', () => {
     refundSellOfferMock.mockResolvedValueOnce([null, { error: 'error' }])
     getEscrowWalletForOfferMock.mockReturnValueOnce('escrowWallet')
     settingsStore.setState({ peachWalletActive: false })
-    const { result } = renderHook(useStartRefundOverlay, { wrapper })
+    const { result } = renderHook(useStartRefundPopup, { wrapper })
     await result.current(sellOffer)
     expect(showErrorMock).toHaveBeenCalledWith('error')
-    expect(overlay).toStrictEqual({ visible: false })
+    expect(usePopupStore.getState().visible).toEqual(false)
   })
 
   it('should close overlay and go to trades on close of success overlay', async () => {
@@ -191,12 +176,12 @@ describe('useStartRefundOverlay', () => {
     refundSellOfferMock.mockResolvedValueOnce([null, null])
     getEscrowWalletForOfferMock.mockReturnValueOnce('escrowWallet')
     settingsStore.setState({ peachWalletActive: false })
-    const { result } = renderHook(useStartRefundOverlay, { wrapper })
+    const { result } = renderHook(useStartRefundPopup, { wrapper })
     await result.current(sellOffer)
     act(() => {
-      overlay.action1?.callback()
+      usePopupStore.getState().action1?.callback()
     })
-    expect(overlay).toStrictEqual({ visible: false })
+    expect(usePopupStore.getState().visible).toEqual(false)
     expect(navigateMock).toHaveBeenCalledWith('yourTrades', { tab: 'history' })
   })
 
@@ -209,9 +194,12 @@ describe('useStartRefundOverlay', () => {
     refundSellOfferMock.mockResolvedValueOnce([null, null])
     getEscrowWalletForOfferMock.mockReturnValueOnce('escrowWallet')
     settingsStore.setState({ peachWalletActive: true })
-    const { result } = renderHook(useStartRefundOverlay, { wrapper })
-    await result.current(sellOffer)
-    expect(overlay).toStrictEqual({
+    const { result } = renderHook(useStartRefundPopup, { wrapper })
+    await act(async () => {
+      await result.current(sellOffer)
+    })
+    expect(usePopupStore.getState()).toStrictEqual({
+      ...usePopupStore.getState(),
       title: 'escrow refunded',
       content: <Refund isPeachWallet={true} />,
       visible: true,
@@ -239,12 +227,12 @@ describe('useStartRefundOverlay', () => {
     refundSellOfferMock.mockResolvedValueOnce([null, null])
     getEscrowWalletForOfferMock.mockReturnValueOnce('escrowWallet')
     settingsStore.setState({ peachWalletActive: true })
-    const { result } = renderHook(useStartRefundOverlay, { wrapper })
+    const { result } = renderHook(useStartRefundPopup, { wrapper })
     await result.current(sellOffer)
     act(() => {
-      overlay.action2?.callback()
+      usePopupStore.getState().action2?.callback()
     })
-    expect(overlay).toStrictEqual({ visible: false })
+    expect(usePopupStore.getState().visible).toEqual(false)
     expect(navigateMock).toHaveBeenCalledWith('transactionDetails', { txId: 'id' })
   })
 
@@ -257,12 +245,12 @@ describe('useStartRefundOverlay', () => {
     refundSellOfferMock.mockResolvedValueOnce([null, null])
     getEscrowWalletForOfferMock.mockReturnValueOnce('escrowWallet')
     settingsStore.setState({ peachWalletActive: false })
-    const { result } = renderHook(useStartRefundOverlay, { wrapper })
+    const { result } = renderHook(useStartRefundPopup, { wrapper })
     await result.current(sellOffer)
     act(() => {
-      overlay.action2?.callback()
+      usePopupStore.getState().action2?.callback()
     })
-    expect(overlay).toStrictEqual({ visible: false })
+    expect(usePopupStore.getState().visible).toEqual(false)
     expect(showTransactionMock).toHaveBeenCalledWith('id', 'regtest')
   })
 })

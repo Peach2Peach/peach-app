@@ -1,14 +1,15 @@
 import { useCallback } from 'react'
-import { useOverlayContext } from '../../contexts/overlay'
+import { shallow } from 'zustand/shallow'
 import { useNavigation } from '../../hooks'
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
+import { usePopupStore } from '../../store/usePopupStore'
 import i18n from '../../utils/i18n'
 import { redeemNoPeachFees } from '../../utils/peachAPI'
 import { NoPeachFees } from './NoPeachFees'
 import { NoPeachFeesSuccess } from './NoPeachFeesSuccess'
 
 export const useRedeemNoPeachFeesReward = () => {
-  const [, updateOverlay] = useOverlayContext()
+  const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
   const navigation = useNavigation()
   const showErrorBanner = useShowErrorBanner()
 
@@ -19,18 +20,17 @@ export const useRedeemNoPeachFeesReward = () => {
       showErrorBanner(redeemError.error)
       return
     }
-    updateOverlay({
+    setPopup({
       title: i18n('settings.referrals.noPeachFees.popup.title'),
       content: <NoPeachFeesSuccess />,
       level: 'APP',
       visible: true,
     })
     navigation.replace('referrals')
-  }, [navigation, showErrorBanner, updateOverlay])
+  }, [navigation, setPopup, showErrorBanner])
 
-  const closeOverlay = useCallback(() => updateOverlay({ visible: false }), [updateOverlay])
   const redeemNoPeachFeesReward = useCallback(() => {
-    updateOverlay({
+    setPopup({
       title: i18n('settings.referrals.noPeachFees.popup.title'),
       content: <NoPeachFees />,
       level: 'APP',
@@ -43,10 +43,10 @@ export const useRedeemNoPeachFeesReward = () => {
       action2: {
         label: i18n('close'),
         icon: 'xSquare',
-        callback: closeOverlay,
+        callback: closePopup,
       },
     })
-  }, [updateOverlay, redeem, closeOverlay])
+  }, [setPopup, redeem, closePopup])
 
   return redeemNoPeachFeesReward
 }

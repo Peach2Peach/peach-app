@@ -2,12 +2,12 @@ import { createRenderer } from 'react-test-renderer/shallow'
 import { sellOffer } from '../../../tests/unit/data/offerData'
 import { RefundEscrowSlider } from './RefundEscrowSlider'
 
-const startRefundOverlayMock = jest.fn()
-jest.mock('../../overlays/useStartRefundOverlay', () => ({
-  useStartRefundOverlay:
+const startRefundPopupMock = jest.fn()
+jest.mock('../../overlays/useStartRefundPopup', () => ({
+  useStartRefundPopup:
     () =>
       (...args: any[]) =>
-        startRefundOverlayMock(...args),
+        startRefundPopupMock(...args),
 }))
 
 describe('RefundEscrowSlider', () => {

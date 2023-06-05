@@ -1,14 +1,15 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { useOverlayContext } from '../../contexts/overlay'
+import { shallow } from 'zustand/shallow'
 import { useNavigation, useValidatedState } from '../../hooks'
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
+import { usePopupStore } from '../../store/usePopupStore'
 import i18n from '../../utils/i18n'
 import { redeemReferralCode } from '../../utils/peachAPI'
 import { SetCustomReferralCode } from './SetCustomReferralCode'
 import { SetCustomReferralCodeSuccess } from './SetCustomReferralCodeSuccess'
 
-export const useSetCustomReferralCodeOverlay = () => {
-  const [, updateOverlay] = useOverlayContext()
+export const useSetCustomReferralCodePopup = () => {
+  const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
   const navigation = useNavigation()
   const showErrorBanner = useShowErrorBanner()
 
@@ -40,18 +41,17 @@ export const useSetCustomReferralCodeOverlay = () => {
       showErrorBanner(redeemError.error)
       return
     }
-    updateOverlay({
+    setPopup({
       title: i18n('settings.referrals.customReferralCode.popup.title'),
       content: <SetCustomReferralCodeSuccess {...{ referralCode }} />,
       level: 'APP',
       visible: true,
     })
     navigation.replace('referrals')
-  }, [navigation, referralCode, showErrorBanner, updateOverlay])
+  }, [navigation, referralCode, showErrorBanner, setPopup])
 
-  const closeOverlay = useCallback(() => updateOverlay({ visible: false }), [updateOverlay])
   const setCustomReferralCodeOverlay = useCallback(() => {
-    updateOverlay({
+    setPopup({
       title: i18n('settings.referrals.customReferralCode.popup.title'),
       content: <SetCustomReferralCode {...{ referralCode, setReferralCode: updateReferralCode, referralCodeErrors }} />,
       level: 'APP',
@@ -65,17 +65,17 @@ export const useSetCustomReferralCodeOverlay = () => {
       action2: {
         label: i18n('close'),
         icon: 'xSquare',
-        callback: closeOverlay,
+        callback: closePopup,
       },
     })
   }, [
-    updateOverlay,
+    setPopup,
     referralCode,
     updateReferralCode,
     referralCodeErrors,
     submitCustomReferralCode,
     referralCodeValid,
-    closeOverlay,
+    closePopup,
   ])
 
   useEffect(() => {
@@ -87,7 +87,7 @@ export const useSetCustomReferralCodeOverlay = () => {
 
   return {
     setCustomReferralCodeOverlay,
-    closeOverlay,
+    closePopup,
     submitCustomReferralCode,
     referralCode,
     setReferralCode: updateReferralCode,

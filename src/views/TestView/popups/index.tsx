@@ -1,22 +1,16 @@
-import { useContext } from 'react'
 import { View } from 'react-native'
+import { shallow } from 'zustand/shallow'
 import { PeachScrollView, PrimaryButton, Text } from '../../../components'
-import { OverlayContext } from '../../../contexts/overlay'
 import { useHeaderSetup } from '../../../hooks'
+import { usePopupStore } from '../../../store/usePopupStore'
 import tw from '../../../styles/tailwind'
 
-const headerConfig = { title: 'test view - popups' }
-
 export default () => {
-  useHeaderSetup(headerConfig)
-  const [, updateOverlay] = useContext(OverlayContext)
+  useHeaderSetup({ title: 'test view - popups' })
+  const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
 
-  const closeOverlay = () =>
-    updateOverlay({
-      visible: false,
-    })
-  const openOverlay = (level: Level, options: Partial<OverlayState> = {}) =>
-    updateOverlay({
+  const openPopup = (level: Level, options: Partial<OverlayState> = {}) =>
+    setPopup({
       title: 'There once was a trader named Pete',
       content: (
         <View>
@@ -31,12 +25,12 @@ export default () => {
       visible: true,
       level,
       action1: {
-        callback: closeOverlay,
+        callback: closePopup,
         label: 'close',
         icon: 'checkSquare',
       },
       action2: {
-        callback: closeOverlay,
+        callback: closePopup,
         label: 'also close',
         icon: 'xSquare',
       },
@@ -47,26 +41,26 @@ export default () => {
       style={tw`h-full bg-primary-mild-1`}
       contentContainerStyle={tw`flex items-center w-full px-6 py-10`}
     >
-      <PrimaryButton onPress={() => openOverlay('APP')}>APP Overlay</PrimaryButton>
-      <PrimaryButton style={tw`mt-4`} onPress={() => openOverlay('APP', { action1: undefined, action2: undefined })}>
+      <PrimaryButton onPress={() => openPopup('APP')}>APP Overlay</PrimaryButton>
+      <PrimaryButton style={tw`mt-4`} onPress={() => openPopup('APP', { action1: undefined, action2: undefined })}>
         APP Overlay without defined actions
       </PrimaryButton>
-      <PrimaryButton style={tw`mt-4`} onPress={() => openOverlay('APP', { requireUserAction: true })}>
+      <PrimaryButton style={tw`mt-4`} onPress={() => openPopup('APP', { requireUserAction: true })}>
         User action required
       </PrimaryButton>
-      <PrimaryButton style={tw`mt-4`} onPress={() => openOverlay('DEFAULT')}>
+      <PrimaryButton style={tw`mt-4`} onPress={() => openPopup('DEFAULT')}>
         Default Overlay
       </PrimaryButton>
-      <PrimaryButton style={tw`mt-4`} onPress={() => openOverlay('WARN')}>
+      <PrimaryButton style={tw`mt-4`} onPress={() => openPopup('WARN')}>
         Warn Overlay
       </PrimaryButton>
-      <PrimaryButton style={tw`mt-4`} onPress={() => openOverlay('ERROR')}>
+      <PrimaryButton style={tw`mt-4`} onPress={() => openPopup('ERROR')}>
         Error Overlay
       </PrimaryButton>
-      <PrimaryButton style={tw`mt-4`} onPress={() => openOverlay('SUCCESS')}>
+      <PrimaryButton style={tw`mt-4`} onPress={() => openPopup('SUCCESS')}>
         Success Overlay
       </PrimaryButton>
-      <PrimaryButton style={tw`mt-4`} onPress={() => openOverlay('INFO')}>
+      <PrimaryButton style={tw`mt-4`} onPress={() => openPopup('INFO')}>
         Info Overlay
       </PrimaryButton>
     </PeachScrollView>

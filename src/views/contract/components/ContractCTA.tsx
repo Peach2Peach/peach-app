@@ -2,11 +2,11 @@ import { PrimaryButton } from '../../../components'
 import { WarningButton } from '../../../components/buttons'
 import { SlideToUnlock } from '../../../components/inputs'
 import { useConfirmTradeCancelationOverlay } from '../../../overlays/tradeCancelation/useConfirmTradeCancelationOverlay'
-import { usePaymentTooLateOverlay } from '../../../overlays/usePaymentTooLateOverlay'
+import { usePaymentTooLatePopup } from '../../../overlays/usePaymentTooLatePopup'
 import tw from '../../../styles/tailwind'
+import { getPaymentExpectedBy } from '../../../utils/contract/getPaymentExpectedBy'
 import i18n from '../../../utils/i18n'
 import { shouldShowConfirmCancelTradeRequest } from '../../../utils/overlay'
-import { getPaymentExpectedBy } from '../../../utils/contract/getPaymentExpectedBy'
 import { useContractContext } from '../context'
 
 type Props = {
@@ -21,7 +21,7 @@ export const ContractCTA = ({
   postConfirmPaymentBuyer,
   postConfirmPaymentSeller,
 }: Props) => {
-  const showPaymentTooLateOverlay = usePaymentTooLateOverlay()
+  const showPaymentTooLatePopup = usePaymentTooLatePopup()
   const { showConfirmTradeCancelation } = useConfirmTradeCancelationOverlay()
   const { contract, view } = useContractContext()
 
@@ -53,7 +53,7 @@ export const ContractCTA = ({
       )
     }
     return (
-      <WarningButton onPress={showPaymentTooLateOverlay} iconId="alertOctagon" disabled={contract.disputeActive}>
+      <WarningButton onPress={showPaymentTooLatePopup} iconId="alertOctagon" disabled={contract.disputeActive}>
         {i18n('contract.timer.paymentTimeExpired.button.buyer')}
       </WarningButton>
     )

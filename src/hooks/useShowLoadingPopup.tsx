@@ -1,15 +1,15 @@
 import { useCallback } from 'react'
 import { Loading } from '../components'
-import { useOverlayContext } from '../contexts/overlay'
+import { usePopupStore } from '../store/usePopupStore'
 import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
 
-export const useShowLoadingOverlay = () => {
-  const [, updateOverlay] = useOverlayContext()
+export const useShowLoadingPopup = () => {
+  const setPopup = usePopupStore((state) => state.setPopup)
 
-  const showLoadingOverlay = useCallback(
+  const showLoadingPopup = useCallback(
     (options: Partial<OverlayState> = {}) =>
-      updateOverlay({
+      setPopup({
         title: i18n('loading'),
         content: <Loading style={tw`self-center`} color={tw`text-black-1`.color} />,
         visible: true,
@@ -22,7 +22,7 @@ export const useShowLoadingOverlay = () => {
         },
         ...options,
       }),
-    [updateOverlay],
+    [setPopup],
   )
-  return showLoadingOverlay
+  return showLoadingPopup
 }

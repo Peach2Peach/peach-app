@@ -8,12 +8,6 @@ import { useCancelOffer } from './useCancelOffer'
 import { updateAccount } from '../utils/account'
 import { account1 } from '../../tests/unit/data/accountData'
 
-const updateOverlayMock = jest.fn()
-const useOverlayContextMock = jest.fn().mockReturnValue([, updateOverlayMock])
-jest.mock('../contexts/overlay', () => ({
-  useOverlayContext: () => useOverlayContextMock(),
-}))
-
 const saveOfferMock = jest.fn()
 jest.mock('../utils/offer/saveOffer', () => ({
   saveOffer: (...args: any[]) => saveOfferMock(...args),
