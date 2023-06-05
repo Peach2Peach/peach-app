@@ -1,0 +1,120 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MeetupScreen should render correctly 1`] = `
+<React.Fragment>
+  <PeachScrollView
+    contentContainerStyle={
+      {
+        "paddingBottom": 80,
+        "paddingLeft": 32,
+        "paddingRight": 32,
+        "paddingTop": 32,
+      }
+    }
+  >
+    <View
+      style={
+        {
+          "gap": 32,
+        }
+      }
+    >
+      <PeachText
+        style={
+          {
+            "color": "#2B1911",
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 20,
+            "letterSpacing": 0.2,
+            "lineHeight": 28,
+          }
+        }
+      >
+        You can use cash to trade with your fellow bitcoiners at undefined!
+      </PeachText>
+      <View
+        style={
+          {
+            "gap": 16,
+          }
+        }
+      />
+    </View>
+  </PeachScrollView>
+  true
+</React.Fragment>
+`;
+
+exports[`MeetupScreen should render correctly with multiple currencies 1`] = `
+<React.Fragment>
+  <PeachScrollView
+    contentContainerStyle={
+      {
+        "paddingBottom": 80,
+        "paddingLeft": 32,
+        "paddingRight": 32,
+        "paddingTop": 32,
+      }
+    }
+  >
+    <View
+      style={
+        {
+          "gap": 32,
+        }
+      }
+    >
+      <PeachText
+        style={
+          {
+            "color": "#2B1911",
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 20,
+            "letterSpacing": 0.2,
+            "lineHeight": 28,
+          }
+        }
+      >
+        You can use cash to trade with your fellow bitcoiners at undefined!
+      </PeachText>
+      <View
+        style={
+          {
+            "gap": 16,
+          }
+        }
+      >
+        <Link
+          text="view on maps"
+          url="http://maps.google.com/maps?daddr=Prague"
+        />
+        <Link
+          text="meetup website"
+          url="https://peachbitcoin.com/"
+        />
+      </View>
+      <CurrencySelection
+        onToggle={[MockFunction]}
+        paymentMethod="cash.cz.prague.btc-prague"
+        selectedCurrencies={
+          [
+            "EUR",
+          ]
+        }
+      />
+    </View>
+  </PeachScrollView>
+  <PrimaryButton
+    onPress={[MockFunction]}
+    style={
+      {
+        "alignSelf": "center",
+        "bottom": 32,
+        "position": "absolute",
+      }
+    }
+  >
+    add this meetup
+  </PrimaryButton>
+</React.Fragment>
+`;

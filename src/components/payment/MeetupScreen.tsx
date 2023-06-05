@@ -1,20 +1,26 @@
 import { API_URL } from '@env'
-import { ReactElement } from 'react'
 import { Image, Pressable, View } from 'react-native'
 import { Text } from '../../components'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { PrimaryButton } from '../buttons'
 import Icon from '../Icon'
 import { PeachScrollView } from '../PeachScrollView'
+import { PrimaryButton } from '../buttons'
+import { CurrencySelection } from '../inputs/paymentMethods/paymentForms/components'
 import { useMeetupScreenSetup } from './hooks/useMeetupScreenSetup'
+import { openAppLink } from '../../utils/web'
 
-/**
- * @description Screen for meetup event details.
- * Shows info for the specified event and takes care of adding to paymentMethods
- */
-export default (): ReactElement => {
-  const { event, openLink, deletable, addToPaymentMethods } = useMeetupScreenSetup()
+type Props = { text: string; url: string }
+const Link = ({ text, url }: Props) => (
+  <Pressable style={tw`flex-row items-center gap-1`} onPress={() => openAppLink(url)}>
+    <Text style={tw`underline button-large text-black-2`}>{text}</Text>
+    <Icon id={'externalLink'} style={tw`w-5 h-5`} color={tw`text-primary-main`.color} />
+  </Pressable>
+)
+
+export const MeetupScreen = () => {
+  const { paymentMethod, event, openLink, deletable, addToPaymentMethods, selectedCurrencies, onCurrencyToggle }
+    = useMeetupScreenSetup()
 
   return (
     <>
@@ -22,39 +28,40 @@ export default (): ReactElement => {
         {!!event.logo && (
           <Image source={{ uri: API_URL + event.logo }} style={tw`w-full mb-5 h-30`} resizeMode={'contain'} />
         )}
-        <Text style={tw`body-l text-black-1`}>{i18n('meetup.description', event.longName)}</Text>
-        {!!event.frequency && (
-          <View style={tw`flex-row mt-8`}>
-            <Text style={tw`body-l`}>
-              {i18n('meetup.date') + ': '}
-              <Text style={tw`h6`}>{event.frequency}</Text>
-            </Text>
-          </View>
-        )}
-        {!!event.address && <Text style={tw`mt-4 body-l text-black-1`}>{event.address}</Text>}
-        <View style={tw`mt-8`}>
-          {!!event.address && (
-            <Pressable
-              style={tw`flex-row items-center`}
-              onPress={() => openLink('http://maps.google.com/maps?daddr=' + event.address)}
-            >
-              <Text style={tw`underline button-large text-black-2`}>{i18n('view.maps')}</Text>
-              <Icon id={'externalLink'} style={tw`w-5 h-5 ml-1`} color={tw`text-primary-main`.color} />
-            </Pressable>
+        <View style={tw`gap-8`}>
+          <Text style={tw`body-l text-black-1`}>{i18n('meetup.description', event.longName)}</Text>
+          {!!event.frequency && (
+            <View style={tw`gap-4`}>
+              <Text style={tw`body-l`}>
+                {i18n('meetup.date') + ': '}
+                <Text style={tw`h6`}>{event.frequency}</Text>
+              </Text>
+              {!!event.address && <Text style={tw`body-l text-black-1`}>{event.address}</Text>}
+            </View>
           )}
-          {!!event.url && (
-            <Pressable style={tw`flex-row items-center mt-4`} onPress={() => openLink(event.url ?? '')}>
-              <Text style={tw`underline button-large text-black-2`}>{i18n('meetup.website')}</Text>
-              <Icon id={'externalLink'} style={tw`w-5 h-5 ml-1`} color={tw`text-primary-main`.color} />
-            </Pressable>
+          <View style={tw`gap-4`}>
+            {!!event.address && (
+              <Link text={i18n('view.maps')} url={'http://maps.google.com/maps?daddr=' + event.address} />
+            )}
+            {!!event.url && <Link text={i18n('meetup.website')} url={event.url} />}
+          </View>
+          {event.currencies.length > 1 && (
+            <CurrencySelection
+              {...{
+                paymentMethod,
+                selectedCurrencies,
+                onToggle: onCurrencyToggle,
+              }}
+            />
           )}
         </View>
       </PeachScrollView>
-      {!deletable && (
-        <PrimaryButton style={tw`absolute self-center bottom-8`} onPress={addToPaymentMethods}>
-          {i18n('meetup.add')}
-        </PrimaryButton>
-      )}
+      {!deletable
+        || (event.currencies.length > 1 && (
+          <PrimaryButton style={tw`absolute self-center bottom-8`} onPress={addToPaymentMethods}>
+            {i18n('meetup.add')}
+          </PrimaryButton>
+        ))}
     </>
   )
 }

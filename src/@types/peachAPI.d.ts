@@ -169,8 +169,8 @@ declare type PaymentMethod =
   | NationalTransfer
 
 declare type MeetupEvent = {
-  // BitcoinEvent in backend
   id: string
+  currencies: Currency[]
   country: PaymentMethodCountry
   city: string
   shortName: string
@@ -178,7 +178,7 @@ declare type MeetupEvent = {
   url?: string
   address?: string
   frequency?: string
-  logo?: string // path to the logo
+  logo?: string
 }
 declare type CountryEventsMap = Record<Country, MeetupEvent[]>
 

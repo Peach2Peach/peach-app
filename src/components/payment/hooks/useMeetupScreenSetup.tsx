@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { useHeaderSetup, useRoute } from '../../../hooks'
 import { useGoToOrigin } from '../../../hooks/useGoToOrigin'
 import { useShowHelp } from '../../../hooks/useShowHelp'
@@ -8,6 +8,7 @@ import { headerIcons } from '../../../utils/layout/headerIcons'
 import { getPaymentMethodInfo } from '../../../utils/paymentMethod'
 import { openAppLink } from '../../../utils/web'
 import { useDeletePaymentMethod } from './useDeletePaymentMethod'
+import { toggleCurrency } from '../../inputs/paymentMethods/paymentForms/utils'
 
 export const useMeetupScreenSetup = () => {
   const route = useRoute<'meetupScreen'>()
@@ -19,8 +20,14 @@ export const useMeetupScreenSetup = () => {
     id: eventId,
     longName: '',
     shortName: '',
+    currencies: [],
     country: 'DE',
     city: '',
+  }
+
+  const [selectedCurrencies, setSelectedCurrencies] = useState(event.currencies || [])
+  const onCurrencyToggle = (currency: Currency) => {
+    setSelectedCurrencies(toggleCurrency(currency))
   }
 
   const openLink = (url: string) => (url ? openAppLink(url) : null)
@@ -35,7 +42,7 @@ export const useMeetupScreenSetup = () => {
       label: event.shortName,
       userId: account.publicKey,
       type: meetupInfo.id,
-      currencies: meetupInfo.currencies,
+      currencies: selectedCurrencies,
       country: event.country,
     }
     addPaymentData(meetup)
@@ -55,5 +62,13 @@ export const useMeetupScreenSetup = () => {
     icons,
   })
 
-  return { event, openLink, deletable, addToPaymentMethods }
+  return {
+    paymentMethod: ('cash.' + event.id) as PaymentMethod,
+    event,
+    openLink,
+    deletable,
+    addToPaymentMethods,
+    selectedCurrencies,
+    onCurrencyToggle,
+  }
 }
