@@ -1,12 +1,12 @@
 import analytics from '@react-native-firebase/analytics'
 import { useCallback } from 'react'
 import RNRestart from 'react-native-restart'
+import { TIMETORESTART } from './constants'
 import { useAppStateEffect } from './effects/useAppStateEffect'
 import { useCheckTradeNotifications } from './hooks/useCheckTradeNotifications'
 import { getPeachInfo } from './init/getPeachInfo'
 import { getTrades } from './init/getTrades'
 import { useAccountStore } from './store/accountStore'
-import { TIMETORESTART } from './constants'
 
 let goHomeTimeout: NodeJS.Timer
 

@@ -42,7 +42,7 @@ export const useInitialNavigation = async () => {
     })
 
     SplashScreen.hide()
-  }, [loggedIn, navigation])
+  }, [navigation])
 
   useEffect(() => {
     if (!useAccountStore.persist?.hasHydrated()) return
