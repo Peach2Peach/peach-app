@@ -14,17 +14,20 @@ export const usePartialAppSetup = () => {
   const account = useAccountStore((state) => state)
   useCheckTradeNotifications()
 
-  const appStateCallback = useCallback((isActive: boolean) => {
-    if (isActive) {
-      getPeachInfo()
-      if (account.loggedIn) getTrades()
-      analytics().logAppOpen()
+  const appStateCallback = useCallback(
+    (isActive: boolean) => {
+      if (isActive) {
+        getPeachInfo()
+        if (account.loggedIn) getTrades()
+        analytics().logAppOpen()
 
-      clearTimeout(goHomeTimeout)
-    } else {
-      goHomeTimeout = setTimeout(() => RNRestart.Restart(), TIMETORESTART)
-    }
-  }, [])
+        clearTimeout(goHomeTimeout)
+      } else {
+        goHomeTimeout = setTimeout(() => RNRestart.Restart(), TIMETORESTART)
+      }
+    },
+    [account.loggedIn],
+  )
 
   useAppStateEffect(appStateCallback)
 }

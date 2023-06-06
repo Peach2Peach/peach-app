@@ -9,6 +9,7 @@ import { useInitialNavigation } from './init/useInitialNavigation'
 import { useShowUpdateAvailable } from './hooks/useShowUpdateAvailable'
 import { useEffect } from 'react'
 import { useHandleNotifications } from './hooks/notifications/useHandleNotifications'
+import { MSINAMONTH } from './constants'
 
 type Props = {
   getCurrentPage: () => keyof RootStackParamList | undefined
@@ -19,7 +20,7 @@ export const GlobalHandlers = ({ getCurrentPage }: Props) => {
   const showAnalyticsPrompt = useShowAnalyticsPrompt(updateOverlay)
   const [analyticsPopupSeen, lastBackupDate, showBackupReminder, setShowBackupReminder] = useSettingsStore(
     (state) => [state.analyticsPopupSeen, state.lastBackupDate, state.showBackupReminder, state.setShowBackupReminder],
-    shallow
+    shallow,
   )
   const updateTradingAmounts = useUpdateTradingAmounts()
   const displayCurrency = useSettingsStore((state) => state.displayCurrency)
