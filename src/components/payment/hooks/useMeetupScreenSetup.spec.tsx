@@ -1,7 +1,7 @@
 import { NavigationContainer } from '@react-navigation/native'
 import { act, renderHook } from '@testing-library/react-native'
 import { setPaymentMethods } from '../../../constants'
-import { DeletePaymentMethodConfirm } from '../../../overlays/info/DeletePaymentMethodConfirm'
+import { DeletePaymentMethodConfirm } from '../../../popups/info/DeletePaymentMethodConfirm'
 import { usePopupStore } from '../../../store/usePopupStore'
 import { account, defaultAccount, setAccount } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
@@ -124,7 +124,7 @@ describe('useMeetupScreenSetup', () => {
     ])
     expect(goBackMock).toHaveBeenCalled()
   })
-  it('should show the delete payment method overlay', () => {
+  it('should show the delete payment method popup', () => {
     renderHook(useMeetupScreenSetup, { wrapper: NavigationContainer })
 
     useHeaderState.getState().icons?.[1].onPress()

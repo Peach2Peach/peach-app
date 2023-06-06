@@ -1,4 +1,3 @@
-import { ReactElement } from 'react'
 import { Text, TextProps } from 'react-native'
 import tw from '../../styles/tailwind'
 
@@ -16,7 +15,7 @@ export type PeachTextProps = ComponentProps & TextProps
  *   {i18n('form.save')}
  * </Text>
  */
-export const PeachText = ({ style, ...props }: TextProps): ReactElement => (
+export const PeachText = ({ style, ...props }: TextProps) => (
   <Text style={[tw`body-m text-black-1`, style]} allowFontScaling={false} {...props} />
 )
 

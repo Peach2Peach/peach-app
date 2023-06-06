@@ -75,15 +75,6 @@ declare type MessageState = {
   keepAlive?: boolean
 }
 
-declare type OverlayState = {
-  level?: Level
-  title?: string
-  content?: ReactNode
-  action1?: Action
-  action2?: Action
-  visible: boolean
-  requireUserAction?: boolean
-}
 declare type DrawerState = {
   title: string
   content: ReactNode | null
@@ -119,6 +110,5 @@ declare type Config = {
   latestAppVersion: string
   minTradingAmount: number
   maxTradingAmount: number
-  hasSeenRedesignWelcome?: boolean
   seenDisputeDisclaimer: boolean
 }

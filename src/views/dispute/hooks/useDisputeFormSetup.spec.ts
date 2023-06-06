@@ -50,7 +50,7 @@ const useDisputeRaisedSuccessMock = jest.fn(
     (...args: any[]) =>
       disputeRaisedSuccessMock(...args),
 )
-jest.mock('../../../overlays/dispute/hooks/useDisputeRaisedSuccess', () => ({
+jest.mock('../../../popups/dispute/hooks/useDisputeRaisedSuccess', () => ({
   useDisputeRaisedSuccess: () => useDisputeRaisedSuccessMock(),
 }))
 

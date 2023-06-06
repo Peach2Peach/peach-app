@@ -1,4 +1,4 @@
-import { ReactElement, useMemo } from 'react'
+import { useMemo } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
@@ -18,7 +18,7 @@ type CurrencySelectProps = {
 
 const stepValid = true
 
-export default ({ currency = 'EUR', setCurrency, next }: CurrencySelectProps): ReactElement => {
+export default ({ currency = 'EUR', setCurrency, next }: CurrencySelectProps) => {
   useHeaderSetup(useMemo(() => ({ title: i18n('paymentMethod.select') }), []))
   const currencies = CURRENCIES.map((c) => ({
     value: c,

@@ -1,11 +1,10 @@
-import { useCallback, useEffect, useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
 import { View } from 'react-native'
 import { shallow } from 'zustand/shallow'
 import { BitcoinPriceStats, HorizontalLine, PrimaryButton } from '../../components'
 import { RangeAmount } from '../../components/inputs/verticalAmountSelector/RangeAmount'
 import { ProgressDonut } from '../../components/ui'
 import { useNavigation, useValidatedState } from '../../hooks'
-import { useCheckShowRedesignWelcome } from '../../hooks/'
 import { useDebounce } from '../../hooks/useDebounce'
 import { useConfigStore } from '../../store/configStore'
 import { useSettingsStore } from '../../store/settingsStore'
@@ -18,7 +17,6 @@ import { useBuySetup } from './hooks/useBuySetup'
 
 export default () => {
   const navigation = useNavigation()
-  const checkShowRedesignWelcome = useCheckShowRedesignWelcome()
 
   const { freeTrades, maxFreeTrades } = useBuySetup()
 
@@ -43,10 +41,6 @@ export default () => {
 
   const [currentMinAmount, setCurrentMinAmount, minAmountValid] = useValidatedState(minBuyAmount, rangeRules)
   const [currentMaxAmount, setCurrentMaxAmount, maxAmountValid] = useValidatedState(maxBuyAmount, rangeRules)
-
-  useEffect(() => {
-    checkShowRedesignWelcome()
-  }, [checkShowRedesignWelcome])
 
   useDebounce(currentMinAmount, setMinBuyAmount, 400)
   useDebounce(currentMaxAmount, setMaxBuyAmount, 400)

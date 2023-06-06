@@ -1,4 +1,4 @@
-import { ReactElement, useRef } from 'react'
+import { useRef } from 'react'
 import { Pressable, TextInput, View } from 'react-native'
 
 import tw from '../../styles/tailwind'
@@ -8,7 +8,7 @@ import { EmailInput } from '../../components/inputs/EmailInput'
 import i18n from '../../utils/i18n'
 import { useReportSetup } from './hooks/useReportSetup'
 
-export default (): ReactElement => {
+export default () => {
   const {
     email,
     setEmail,

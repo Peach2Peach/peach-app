@@ -33,6 +33,26 @@ describe('ContractCTA', () => {
     )
     expect(toJSON()).toMatchSnapshot()
   })
+  it('should not show the confirm payment slider when the payment is too late', () => {
+    jest.spyOn(Date, 'now').mockImplementation(() => new Date('2021-01-03').getTime())
+    const mockContract = {
+      disputeActive: true,
+      cancelationRequested: false,
+      paymentExpectedBy: new Date('2021-01-02'),
+    } as unknown as Contract
+    useContractContextMock.mockReturnValueOnce({ contract: mockContract, view: 'buyer' })
+    const { toJSON } = render(
+      <ContractCTA
+        requiredAction="sendPayment"
+        actionPending
+        postConfirmPaymentBuyer={jest.fn()}
+        postConfirmPaymentSeller={jest.fn()}
+      />,
+      { wrapper: navigationWrapper },
+    )
+    expect(toJSON()).toMatchSnapshot()
+  })
+
   it('should render correctly when a cancelation is requested', () => {
     const mockContract = {
       disputeActive: false,

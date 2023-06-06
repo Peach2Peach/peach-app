@@ -20,11 +20,10 @@ export const CurrencySelection = ({ paymentMethod, selectedCurrencies, onToggle,
       <View style={tw`flex-row items-center`}>
         <Text style={tw`input-label`}>{i18n('form.additionalCurrencies')}</Text>
       </View>
-      <View style={tw`flex-row flex-wrap`}>
+      <View style={tw`flex-row flex-wrap gap-2 mt-1`}>
         {paymentMethodInfo.currencies.map((currency) => (
           <CurrencyItem
             key={currency}
-            style={tw`my-1 mr-2`}
             label={currency}
             isSelected={selectedCurrencies.includes(currency)}
             onPress={() =>

@@ -1,4 +1,3 @@
-import { ReactElement } from 'react'
 import { View } from 'react-native'
 import { Icon, PeachScrollView, Text } from '../../../components'
 import { SellOfferSummary } from '../../../components/offer'
@@ -9,7 +8,7 @@ type OfferSummaryProps = {
   offer: SellOffer & { tradeStatus: 'offerCanceled' }
 } & ComponentProps
 
-export default ({ offer, style }: OfferSummaryProps): ReactElement => (
+export default ({ offer, style }: OfferSummaryProps) => (
   <PeachScrollView style={style} contentContainerStyle={tw`pb-10 pt-15`}>
     <View style={tw`flex-row items-center self-center`}>
       <Text style={tw`subtitle-1`}>

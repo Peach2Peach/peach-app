@@ -1,28 +1,28 @@
-import { useNavigation } from '../../../hooks'
 import { useCallback } from 'react'
-import { reviveSellOffer } from '../../../utils/peachAPI'
-import { getSellOfferFromContract, saveContract } from '../../../utils/contract'
+import { shallow } from 'zustand/shallow'
+import { useNavigation } from '../../../hooks'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
-import { useOverlayContext } from '../../../contexts/overlay'
+import { OfferRepublished } from '../../../popups/tradeCancelation'
+import { usePopupStore } from '../../../store/usePopupStore'
+import { getSellOfferFromContract, saveContract } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
-import { OfferRepublished } from '../../../overlays/tradeCancelation'
+import { reviveSellOffer } from '../../../utils/peachAPI'
 
 export const useRepublishOffer = () => {
-  const [, updateOverlay] = useOverlayContext()
+  const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
   const showErrorBanner = useShowErrorBanner()
   const navigation = useNavigation()
 
-  const closeOverlay = useCallback(() => updateOverlay({ visible: false }), [updateOverlay])
-  const confirmOverlay = useCallback(
+  const confirmPopup = useCallback(
     (contract: Contract) => {
-      closeOverlay()
+      closePopup()
       saveContract({
         ...contract,
         cancelConfirmationDismissed: true,
         cancelConfirmationPending: false,
       })
     },
-    [closeOverlay],
+    [closePopup],
   )
 
   const republishOffer = useCallback(
@@ -32,20 +32,20 @@ export const useRepublishOffer = () => {
       const [reviveSellOfferResult, err] = await reviveSellOffer({ offerId: sellOffer.id })
       if (!reviveSellOfferResult || err) {
         showErrorBanner(err?.error)
-        closeOverlay()
+        closePopup()
         return
       }
 
       const closeAction = () => {
         navigation.replace('contract', { contractId: contract.id })
-        confirmOverlay(contract)
+        confirmPopup(contract)
       }
       const goToOfferAction = () => {
         navigation.replace('search', { offerId: reviveSellOfferResult.newOfferId })
-        confirmOverlay(contract)
+        confirmPopup(contract)
       }
 
-      updateOverlay({
+      setPopup({
         title: i18n('contract.cancel.offerRepublished.title'),
         content: <OfferRepublished />,
         visible: true,
@@ -63,7 +63,7 @@ export const useRepublishOffer = () => {
         },
       })
     },
-    [closeOverlay, confirmOverlay, navigation, showErrorBanner, updateOverlay],
+    [closePopup, confirmPopup, navigation, setPopup, showErrorBanner],
   )
 
   return republishOffer

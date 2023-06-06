@@ -1,9 +1,8 @@
-import { ReactElement } from 'react'
 import { enforceEmailFormat } from '../../utils/format'
 import i18n from '../../utils/i18n'
 import Input, { InputProps } from './Input'
 
-export const EmailInput = ({ onChange, onSubmit, ...props }: InputProps): ReactElement => (
+export const EmailInput = ({ onChange, onSubmit, ...props }: InputProps) => (
   <Input
     {...{
       placeholder: i18n('form.email.placeholder'),

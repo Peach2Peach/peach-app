@@ -1,4 +1,3 @@
-import { ReactElement } from 'react'
 import { Pressable, View, ViewStyle } from 'react-native'
 import tw from '../../styles/tailwind'
 import { Text } from '../'
@@ -22,7 +21,7 @@ export const themes = {
 export type TabbedNavigationItem = {
   id: string
   display: string
-  view?: (props: any) => ReactElement
+  view?: (props: any) => JSX.Element
 }
 type TabbedNavigationProps = ComponentProps & {
   items: TabbedNavigationItem[]
@@ -59,13 +58,13 @@ export const TabbedNavigation = ({
         >
           <View style={tw`flex-row items-center`}>
             {tabHasError.includes(item.id) && item.id !== selected.id ? (
-              <PulsingText showPulse style={[tw`px-4 py-2 input-label text-center`]}>
+              <PulsingText showPulse style={[tw`px-4 py-2 text-center input-label`]}>
                 {item.display}
               </PulsingText>
             ) : (
               <Text
                 style={[
-                  tw`px-4 py-2 input-label text-center`,
+                  tw`px-4 py-2 text-center input-label`,
                   item.id === selected.id ? colors.textSelected : colors.text,
                   tabHasError.includes(item.id) && item.id !== selected.id && tw`text-error-main`,
                 ]}

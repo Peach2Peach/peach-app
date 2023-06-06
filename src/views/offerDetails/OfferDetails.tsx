@@ -1,4 +1,3 @@
-import { ReactElement } from 'react'
 import tw from '../../styles/tailwind'
 import { isSellOffer } from '../../utils/offer'
 
@@ -7,7 +6,7 @@ import OfferSummary from './components/OfferSummary'
 import { isCanceledOffer } from './helpers/isCanceledOffer'
 import { useOfferDetailsSetup } from './useOfferDetailsSetup'
 
-export default (): ReactElement => {
+export default () => {
   const offer = useOfferDetailsSetup()
 
   return isCanceledOffer(offer) && isSellOffer(offer) ? (

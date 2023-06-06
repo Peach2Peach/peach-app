@@ -1,11 +1,11 @@
-import { Dispatch, ReactElement, SetStateAction, useCallback } from 'react'
+import { Dispatch, SetStateAction, useCallback } from 'react'
 import { Input } from '../../components'
 import { useValidatedState } from '../../hooks'
 import { bip39WordRules } from './hooks/useRestoreFromSeedSetup'
 
 type Props = ComponentProps & { index: number; setWords: Dispatch<SetStateAction<string[]>> }
 
-export const SeedPhraseInput = ({ style, index, setWords }: Props): ReactElement => {
+export const SeedPhraseInput = ({ style, index, setWords }: Props) => {
   const [word, setWord, , errorMessage] = useValidatedState<string>('', bip39WordRules)
   const onChange = useCallback(
     (value: string) => {

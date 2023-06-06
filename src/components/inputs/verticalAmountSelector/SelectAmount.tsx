@@ -1,4 +1,3 @@
-import { ReactElement } from 'react'
 import { Animated, View } from 'react-native'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
@@ -19,7 +18,7 @@ type Props = ComponentProps & {
   onChange: (value: number) => void
 }
 
-export const SelectAmount = ({ min, max, value, onChange, style }: Props): ReactElement => {
+export const SelectAmount = ({ min, max, value, onChange, style }: Props) => {
   const { amount, updateCustomAmount, pan, panResponder, trackRange, onTrackLayout } = useSelectAmountSetup({
     min,
     max,

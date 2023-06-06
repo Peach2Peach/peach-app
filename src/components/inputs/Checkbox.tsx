@@ -1,4 +1,3 @@
-import { ReactElement } from 'react'
 import { TouchableOpacity } from 'react-native'
 import { Icon, Text } from '..'
 import { FillProps } from 'react-native-svg'
@@ -10,7 +9,7 @@ type Props = ComponentProps & {
   text?: string
   iconProps?: ComponentProps & { color: FillProps['fill'] }
 }
-export const Checkbox = ({ checked, iconProps, style, text, ...wrapperProps }: Props): ReactElement => (
+export const Checkbox = ({ checked, iconProps, style, text, ...wrapperProps }: Props) => (
   <TouchableOpacity {...wrapperProps} style={[style, tw`flex-row items-center`]}>
     <Icon
       id={checked ? 'checkboxMark' : 'square'}

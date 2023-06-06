@@ -1,4 +1,4 @@
-import { ReactElement, useMemo } from 'react'
+import { useMemo } from 'react'
 import { View } from 'react-native'
 import { Text } from '../../../components'
 import { BulletPoint } from '../../../components/text'
@@ -7,7 +7,7 @@ import { useConfigStore } from '../../../store/configStore'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 
-export default (): ReactElement => {
+export default () => {
   useHeaderSetup(useMemo(() => ({ title: i18n('settings.peachFees') }), []))
   const peachFee = useConfigStore((state) => state.peachFee)
 

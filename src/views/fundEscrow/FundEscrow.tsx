@@ -1,4 +1,3 @@
-import { ReactElement } from 'react'
 import { View } from 'react-native'
 import { BitcoinAddress, Loading, PeachScrollView, PrimaryButton, Text } from '../../components'
 import { SATSINBTC } from '../../constants'
@@ -13,7 +12,7 @@ import { TransactionInMempool } from './components/TransactionInMempool'
 import { useAutoFundOffer } from './hooks/regtest/useAutoFundOffer'
 import { useFundEscrowSetup } from './hooks/useFundEscrowSetup'
 
-export default (): ReactElement => {
+export default () => {
   const { offerId, isLoading, escrow, createEscrowError, fundingStatus, fundingAmount } = useFundEscrowSetup()
   const { showRegtestButton, fundEscrowAddress } = useAutoFundOffer({ offerId, fundingStatus })
 
