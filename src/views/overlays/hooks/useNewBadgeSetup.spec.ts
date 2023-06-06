@@ -31,7 +31,7 @@ describe('useNewBadgeSetup', () => {
     result.current.goToProfile()
     expect(replaceMock).toHaveBeenCalledWith('myProfile')
   })
-  it('closes overlay', () => {
+  it('closes popup', () => {
     const { result } = renderHook(useNewBadgeSetup, { wrapper: NavigationWrapper })
     result.current.close()
     expect(goBackMock).toHaveBeenCalled()

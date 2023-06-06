@@ -1,8 +1,7 @@
 import { act, renderHook } from '@testing-library/react-native'
 import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { useHeaderState } from '../../../components/header/store'
-import { defaultOverlay } from '../../../contexts/overlay'
-import { usePopupStore } from '../../../store/usePopupStore'
+import { defaultPopupState, usePopupStore } from '../../../store/usePopupStore'
 import { account } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
 import { usePaymentDetailsSetup } from './usePaymentDetailsSetup'
@@ -37,7 +36,7 @@ describe('usePaymentDetailsSetup', () => {
     useHeaderState.setState({ title: '', icons: [] })
   })
   afterEach(() => {
-    usePopupStore.setState(defaultOverlay)
+    usePopupStore.setState(defaultPopupState)
   })
   it('should return paymentMethod, onSubmit, currencies, data', () => {
     const { result } = renderHook(usePaymentDetailsSetup, { wrapper })
@@ -77,7 +76,7 @@ describe('usePaymentDetailsSetup', () => {
     expect(useHeaderState.getState().title).toEqual(i18n('paymentMethod.select.title', i18n('paymentMethod.sepa')))
     expect(useHeaderState.getState().icons).toStrictEqual([])
   })
-  it('should show the delete PM overlay when the delete icon is pressed', () => {
+  it('should show the delete PM popup when the delete icon is pressed', () => {
     renderHook(usePaymentDetailsSetup, { wrapper })
 
     act(() => {

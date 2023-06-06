@@ -1,6 +1,6 @@
 import { renderHook, waitFor } from '@testing-library/react-native'
 import { goBackMock, NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
-import { DeletePaymentMethodConfirm } from '../../../overlays/info/DeletePaymentMethodConfirm'
+import { DeletePaymentMethodConfirm } from '../../../popups/info/DeletePaymentMethodConfirm'
 import { usePopupStore } from '../../../store/usePopupStore'
 import { account, setAccount } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
@@ -18,7 +18,7 @@ describe('useDeletePaymentMethod', () => {
   beforeEach(() => {
     setAccount({ ...account, paymentData: [{ id: 'sepa', label: 'sepa', currencies: ['EUR'], type: 'sepa' }] })
   })
-  it('should show the overlay', () => {
+  it('should show the popup', () => {
     const { result } = renderHook(() => useDeletePaymentMethod('sepa'), { wrapper })
     result.current()
     expect(usePopupStore.getState()).toStrictEqual({
@@ -40,14 +40,14 @@ describe('useDeletePaymentMethod', () => {
     })
   })
 
-  it('should close the overlay when action1 is clicked', () => {
+  it('should close the popup when action1 is clicked', () => {
     const { result } = renderHook(() => useDeletePaymentMethod('sepa'), { wrapper })
     result.current()
     usePopupStore.getState().action1?.callback()
     expect(usePopupStore.getState().visible).toBe(false)
   })
 
-  it('should remove the payment data, close the overlay and go back when action2 is clicked', async () => {
+  it('should remove the payment data, close the popup and go back when action2 is clicked', async () => {
     const { result } = renderHook(() => useDeletePaymentMethod('sepa'), { wrapper })
     result.current()
     usePopupStore.getState().action2?.callback()

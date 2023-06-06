@@ -1,9 +1,7 @@
-import { useContext, useMemo } from 'react'
-
-import { OverlayContext } from '../../../contexts/overlay'
+import { useMemo } from 'react'
 import { useHeaderSetup, useNavigation, useRoute, useToggleBoolean, useValidatedState } from '../../../hooks'
+import { useShowAppPopup } from '../../../hooks/useShowAppPopup'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
-import { showReportSuccess } from '../../../overlays/showReportSuccess'
 import { account } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
 import { submitReport } from '../helpers/submitReport'
@@ -14,8 +12,7 @@ const required = { required: true }
 export const useReportSetup = () => {
   const route = useRoute<'report'>()
   const navigation = useNavigation()
-  const [, updateOverlay] = useContext(OverlayContext)
-
+  const showReportSuccess = useShowAppPopup('reportSuccess')
   const [email, setEmail, isEmailValid, emailErrors] = useValidatedState<string>('', emailRules)
   const [topic, setTopic, isTopicValid, topicErrors] = useValidatedState(route.params.topic || '', required)
   const [message, setMessage, isMessageValid, messageErrors] = useValidatedState(route.params.message || '', required)
@@ -46,7 +43,7 @@ export const useReportSetup = () => {
       } else {
         navigation.navigate('welcome')
       }
-      showReportSuccess(updateOverlay)
+      showReportSuccess()
       return
     }
 

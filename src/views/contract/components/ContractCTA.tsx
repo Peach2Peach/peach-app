@@ -1,12 +1,12 @@
 import { PrimaryButton } from '../../../components'
 import { WarningButton } from '../../../components/buttons'
 import { SlideToUnlock } from '../../../components/inputs'
-import { useConfirmTradeCancelationOverlay } from '../../../overlays/tradeCancelation/useConfirmTradeCancelationOverlay'
-import { usePaymentTooLateOverlay } from '../../../overlays/usePaymentTooLateOverlay'
+import { useConfirmTradeCancelationPopup } from '../../../popups/tradeCancelation/useConfirmTradeCancelationPopup'
+import { usePaymentTooLatePopup } from '../../../popups/usePaymentTooLatePopup'
 import tw from '../../../styles/tailwind'
-import i18n from '../../../utils/i18n'
-import { shouldShowConfirmCancelTradeRequest } from '../../../utils/overlay'
 import { getPaymentExpectedBy } from '../../../utils/contract/getPaymentExpectedBy'
+import i18n from '../../../utils/i18n'
+import { shouldShowConfirmCancelTradeRequest } from '../../../utils/popup'
 import { useContractContext } from '../context'
 
 type Props = {
@@ -21,8 +21,8 @@ export const ContractCTA = ({
   postConfirmPaymentBuyer,
   postConfirmPaymentSeller,
 }: Props) => {
-  const showPaymentTooLateOverlay = usePaymentTooLateOverlay()
-  const { showConfirmTradeCancelation } = useConfirmTradeCancelationOverlay()
+  const showPaymentTooLatePopup = usePaymentTooLatePopup()
+  const { showConfirmTradeCancelation } = useConfirmTradeCancelationPopup()
   const { contract, view } = useContractContext()
 
   if (shouldShowConfirmCancelTradeRequest(contract, view)) return (
@@ -41,7 +41,7 @@ export const ContractCTA = ({
   )
   if (view === 'buyer' && requiredAction === 'sendPayment') {
     const paymentExpectedBy = getPaymentExpectedBy(contract)
-    if (contract.disputeActive || Date.now() < paymentExpectedBy) {
+    if (Date.now() < paymentExpectedBy) {
       return (
         <SlideToUnlock
           style={tw`w-[263px]`}
@@ -53,7 +53,7 @@ export const ContractCTA = ({
       )
     }
     return (
-      <WarningButton onPress={showPaymentTooLateOverlay} iconId="alertOctagon" disabled={contract.disputeActive}>
+      <WarningButton onPress={showPaymentTooLatePopup} iconId="alertOctagon" disabled={contract.disputeActive}>
         {i18n('contract.timer.paymentTimeExpired.button.buyer')}
       </WarningButton>
     )

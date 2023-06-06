@@ -2,8 +2,8 @@ import { useState } from 'react'
 import { useHeaderSetup } from '../../../hooks'
 import { useSelfUser } from '../../../hooks/query/useSelfUser'
 import { useShowHelp } from '../../../hooks/useShowHelp'
-import { useRedeemNoPeachFeesReward } from '../../../overlays/referral/useRedeemNoPeachFeesReward'
-import { useSetCustomReferralCodeOverlay } from '../../../overlays/referral/useSetCustomReferralCodeOverlay'
+import { useRedeemNoPeachFeesReward } from '../../../popups/referral/useRedeemNoPeachFeesReward'
+import { useSetCustomReferralCodePopup } from '../../../popups/referral/useSetCustomReferralCodePopup'
 import i18n from '../../../utils/i18n'
 import { headerIcons } from '../../../utils/layout/headerIcons'
 import { isRewardAvailable } from '../helpers/isRewardAvailable'
@@ -16,7 +16,7 @@ const REWARDINFO: Reward[] = [
 ]
 export const useReferralsSetup = () => {
   const showHelp = useShowHelp('referrals')
-  const { setCustomReferralCodeOverlay } = useSetCustomReferralCodeOverlay()
+  const { setCustomReferralCodePopup } = useSetCustomReferralCodePopup()
   const redeemNoPeachFeesReward = useRedeemNoPeachFeesReward()
 
   useHeaderSetup({
@@ -32,7 +32,7 @@ export const useReferralsSetup = () => {
   const redeem = async () => {
     switch (selectedReward) {
     case 'customReferralCode':
-      setCustomReferralCodeOverlay()
+      setCustomReferralCodePopup()
       break
     case 'noPeachFees':
       redeemNoPeachFeesReward()

@@ -1,6 +1,6 @@
 import { shallow } from 'zustand/shallow'
 import { useNavigation } from '../../../hooks'
-import { DeletePaymentMethodConfirm } from '../../../overlays/info/DeletePaymentMethodConfirm'
+import { DeletePaymentMethodConfirm } from '../../../popups/info/DeletePaymentMethodConfirm'
 import { usePopupStore } from '../../../store/usePopupStore'
 import { removePaymentData } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
