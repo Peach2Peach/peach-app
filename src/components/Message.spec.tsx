@@ -11,7 +11,7 @@ jest.mock('../utils/i18n', () => ({
 describe('Message', () => {
   const defaultProps = {
     level: 'APP' as const,
-    msgKey: 'testMsgKey',
+    msgKey: 'NETWORK_ERROR',
     bodyArgs: [],
     action: {
       label: 'testLabel',

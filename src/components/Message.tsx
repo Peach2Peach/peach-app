@@ -1,12 +1,12 @@
 import { useContext } from 'react'
 import { TextStyle, TouchableOpacity, View, ViewStyle } from 'react-native'
-
 import { Icon, Text } from '.'
 import { IconType } from '../assets/icons'
 import { MessageContext } from '../contexts/message'
 import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
 import { messageShadow } from '../utils/layout/shadows'
+import { iconMap } from './message/iconMap'
 
 type LevelColorMap = {
   bg: Record<Level, ViewStyle>
@@ -35,12 +35,10 @@ type MessageProps = ComponentProps & MessageState
 
 export const Message = ({ level, msgKey, bodyArgs = [], action, onClose, style }: MessageProps) => {
   const [, updateMessage] = useContext(MessageContext)
-  let icon: IconType | null = msgKey ? (i18n(`${msgKey}.icon`) as IconType) : null
+  const icon: IconType | undefined = msgKey ? iconMap[msgKey] : undefined
   let title = msgKey ? i18n(`${msgKey}.title`) : ''
   let message = msgKey ? i18n(`${msgKey}.text`, ...bodyArgs) : ''
 
-  // fallbacks
-  if (icon === `${msgKey}.icon`) icon = null
   if (title === `${msgKey}.title`) title = ''
   if (msgKey && message === `${msgKey}.text`) {
     message = i18n(msgKey, ...bodyArgs)

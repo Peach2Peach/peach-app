@@ -56,7 +56,7 @@ exports[`Message renders correctly 1`] = `
     >
       <Icon
         color="#FFF9F6"
-        id="translatedtestMsgKey.icon"
+        id="noNetwork"
         style={
           {
             "height": 20,
@@ -81,7 +81,7 @@ exports[`Message renders correctly 1`] = `
           ]
         }
       >
-        translatedtestMsgKey.title
+        translatedNETWORK_ERROR.title
       </PeachText>
     </View>
     <PeachText
@@ -103,7 +103,7 @@ exports[`Message renders correctly 1`] = `
         ]
       }
     >
-      translatedtestMsgKey.text
+      translatedNETWORK_ERROR.text
     </PeachText>
   </View>
   <View
@@ -247,7 +247,7 @@ exports[`Message renders correctly with no action 1`] = `
     >
       <Icon
         color="#FFF9F6"
-        id="translatedtestMsgKey.icon"
+        id="noNetwork"
         style={
           {
             "height": 20,
@@ -272,7 +272,7 @@ exports[`Message renders correctly with no action 1`] = `
           ]
         }
       >
-        translatedtestMsgKey.title
+        translatedNETWORK_ERROR.title
       </PeachText>
     </View>
     <PeachText
@@ -294,7 +294,7 @@ exports[`Message renders correctly with no action 1`] = `
         ]
       }
     >
-      translatedtestMsgKey.text
+      translatedNETWORK_ERROR.text
     </PeachText>
   </View>
   <View
@@ -407,7 +407,19 @@ exports[`Message should use default values for missing translations 1`] = `
           "justifyContent": "center",
         }
       }
-    />
+    >
+      <Icon
+        color="#FFF9F6"
+        id="noNetwork"
+        style={
+          {
+            "height": 20,
+            "marginRight": 8,
+            "width": 20,
+          }
+        }
+      />
+    </View>
     <PeachText
       style={
         [
@@ -425,7 +437,7 @@ exports[`Message should use default values for missing translations 1`] = `
         ]
       }
     >
-      testMsgKey
+      NETWORK_ERROR
     </PeachText>
   </View>
   <View
