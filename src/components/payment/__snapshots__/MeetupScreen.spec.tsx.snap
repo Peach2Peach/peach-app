@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`MeetupScreen renders correctly 1`] = `
+exports[`MeetupScreen should render correctly 1`] = `
 <View
   style={
     {
@@ -21,45 +21,17 @@ exports[`MeetupScreen renders correctly 1`] = `
       }
     }
   >
-    <Image
-      resizeMode="contain"
-      source={
-        {
-          "uri": "https://localhost:8080/v1/events/logo/laussane.png",
-        }
-      }
-      style={
-        {
-          "height": 120,
-          "marginBottom": 20,
-          "width": "100%",
-        }
-      }
-    />
-    <PeachText
-      style={
-        {
-          "color": "#2B1911",
-          "fontFamily": "Baloo2-Regular",
-          "fontSize": 20,
-          "letterSpacing": 0.2,
-          "lineHeight": 28,
-        }
-      }
-    >
-      You can use cash to trade with your fellow bitcoiners at Lausanne Bitcoin!
-    </PeachText>
     <View
       style={
         {
-          "flexDirection": "row",
-          "marginTop": 32,
+          "gap": 32,
         }
       }
     >
       <PeachText
         style={
           {
+            "color": "#2B1911",
             "fontFamily": "Baloo2-Regular",
             "fontSize": 20,
             "letterSpacing": 0.2,
@@ -67,65 +39,96 @@ exports[`MeetupScreen renders correctly 1`] = `
           }
         }
       >
-        Meetup date: 
-        <PeachText
-          style={
-            {
-              "fontFamily": "Baloo2-Bold",
-              "fontSize": 20,
-              "letterSpacing": 0.2,
-              "lineHeight": 32,
-            }
-          }
-        >
-          1st Wednesday of the month
-        </PeachText>
+        You can use cash to trade with your fellow bitcoiners at undefined!
       </PeachText>
+      <View
+        style={
+          {
+            "gap": 16,
+          }
+        }
+      />
     </View>
+  </PeachScrollView>
+  <PrimaryButton
+    onPress={[MockFunction]}
+    style={
+      {
+        "alignSelf": "center",
+      }
+    }
+  >
+    add this meetup
+  </PrimaryButton>
+</View>
+`;
+
+exports[`MeetupScreen should render correctly with multiple currencies 1`] = `
+<View
+  style={
+    {
+      "height": "100%",
+      "paddingBottom": 28,
+    }
+  }
+>
+  <PeachScrollView
+    contentContainerStyle={
+      {
+        "flexGrow": 1,
+        "justifyContent": "center",
+        "paddingBottom": 32,
+        "paddingLeft": 32,
+        "paddingRight": 32,
+        "paddingTop": 32,
+      }
+    }
+  >
     <View
       style={
         {
-          "marginTop": 32,
+          "gap": 32,
         }
       }
     >
-      <Memo(Pressable)
-        onPress={[Function]}
+      <PeachText
         style={
           {
-            "alignItems": "center",
-            "flexDirection": "row",
-            "marginTop": 16,
+            "color": "#2B1911",
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 20,
+            "letterSpacing": 0.2,
+            "lineHeight": 28,
           }
         }
       >
-        <PeachText
-          style={
-            {
-              "color": "#7D675E",
-              "fontFamily": "Baloo2-SemiBold",
-              "fontSize": 15,
-              "letterSpacing": 0.54,
-              "lineHeight": 26,
-              "textDecorationLine": "underline",
-              "textTransform": "uppercase",
-            }
+        You can use cash to trade with your fellow bitcoiners at undefined!
+      </PeachText>
+      <View
+        style={
+          {
+            "gap": 16,
           }
-        >
-          meetup website
-        </PeachText>
-        <Icon
-          color="#F56522"
-          id="externalLink"
-          style={
-            {
-              "height": 20,
-              "marginLeft": 4,
-              "width": 20,
-            }
-          }
+        }
+      >
+        <Link
+          text="view on maps"
+          url="http://maps.google.com/maps?daddr=Prague"
         />
-      </Memo(Pressable)>
+        <Link
+          text="meetup website"
+          url="https://peachbitcoin.com/"
+        />
+      </View>
+      <CurrencySelection
+        onToggle={[MockFunction]}
+        paymentMethod="cash.cz.prague.btc-prague"
+        selectedCurrencies={
+          [
+            "EUR",
+          ]
+        }
+      />
     </View>
   </PeachScrollView>
   <PrimaryButton

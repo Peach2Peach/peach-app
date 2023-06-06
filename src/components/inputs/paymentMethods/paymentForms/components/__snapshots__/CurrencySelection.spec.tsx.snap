@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CurrencySelection renders correctly 1`] = `
+exports[`CurrencySelection should render correctly 1`] = `
 <View>
   <View
     style={
@@ -20,7 +20,7 @@ exports[`CurrencySelection renders correctly 1`] = `
         }
       }
     >
-      accepted currencies
+      Which currencies do you want to accept?
     </PeachText>
   </View>
   <View
