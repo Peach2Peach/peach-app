@@ -211,4 +211,38 @@ describe('useMeetupScreenSetup', () => {
 
     expect(result.current.selectedCurrencies).toStrictEqual([])
   })
+  it('should add the payment method to the account with only the selected currencies', () => {
+    setPaymentMethods([{ id: 'cash.123', currencies: ['EUR', 'CHF'], anonymous: true }])
+    meetupEventsStore.getState().setMeetupEvents([
+      {
+        id: '123',
+        currencies: ['EUR', 'CHF'],
+        country: 'DE',
+        city: 'Berlin',
+        shortName: 'shortName',
+        longName: 'longName',
+      },
+    ])
+
+    const { result } = renderHook(useMeetupScreenSetup, {
+      wrapper: NavigationContainer,
+    })
+
+    act(() => {
+      result.current.onCurrencyToggle('EUR')
+    })
+    act(() => {
+      result.current.addToPaymentMethods()
+    })
+    expect(account.paymentData).toStrictEqual([
+      {
+        id: 'cash.123',
+        currencies: ['CHF'],
+        country: 'DE',
+        label: 'shortName',
+        type: 'cash.123',
+        userId: '',
+      },
+    ])
+  })
 })
