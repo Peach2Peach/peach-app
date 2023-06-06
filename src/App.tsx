@@ -34,6 +34,8 @@ import { screenTransition } from './utils/layout/screenTransition'
 import { error, info } from './utils/log'
 import { parseError } from './utils/result'
 import { isIOS, isNetworkError } from './utils/system'
+import { getTrades } from './init/getTrades'
+import { userUpdate } from './init/userUpdate'
 
 enableScreens()
 
@@ -120,10 +122,12 @@ const App = () => {
         })
       }
       const loadedAccount = await loadAccount()
-
       updateAccount(loadedAccount)
+
       setTimeout(() => {
         if (loadedAccount.mnemonic) loadAccountFromSeedPhrase(loadedAccount.mnemonic)
+        getTrades()
+        userUpdate()
       })
 
       setCurrentPage(account.loggedIn ? 'home' : 'welcome')

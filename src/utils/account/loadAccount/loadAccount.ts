@@ -7,26 +7,12 @@ import {
   loadOffers,
   loadPaymentData,
   loadTradingLimit,
-  updateAccount,
 } from '../'
 import { dataMigrationAfterLoadingAccount } from '../../../init/dataMigration'
-import { getTrades } from '../../../init/getTrades'
-import { userUpdate } from '../../../init/userUpdate'
 import { error, info } from '../../log'
 import { loadLegacyPaymentData } from './loadLegacyPaymentData'
 
-const onAccountLoaded = async () => {
-  getTrades()
-  userUpdate()
-  await dataMigrationAfterLoadingAccount(account)
-}
-
 export const loadAccount = async (): Promise<Account> => {
-  if (account.publicKey) {
-    onAccountLoaded()
-    return account
-  }
-
   info('Loading full account from secure storage')
   const identity = await loadIdentity()
 
@@ -58,8 +44,8 @@ export const loadAccount = async (): Promise<Account> => {
     error('Account does not exist')
   } else {
     info('Account loaded', account.publicKey)
-    onAccountLoaded()
+    await dataMigrationAfterLoadingAccount(account)
   }
 
-  return account
+  return acc
 }

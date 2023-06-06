@@ -1,3 +1,5 @@
+import { useAccountStore } from '../../store/accountStore'
+
 export const defaultLimits = {
   daily: 1000,
   dailyAmount: 0,
@@ -22,5 +24,12 @@ export const defaultAccount: Account = {
 }
 
 export let account = defaultAccount
-export const setAccount = (acc: Account) => (account = acc)
+export const setAccount = (acc: Account) => {
+  useAccountStore.getState().setIdentity({
+    privKey: acc.privKey,
+    publicKey: acc.publicKey,
+    pgp: acc.pgp,
+  })
+  account = acc
+}
 export const getAccount = () => account
