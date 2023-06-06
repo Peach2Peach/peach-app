@@ -605,7 +605,7 @@
   "form.file": "file",
   "form.file.placeholder": "select file...",
   "form.currency": "select currency",
-  "form.additionalCurrencies": "accepted currencies",
+  "form.additionalCurrencies": "Which currencies do you want to accept?",
   "form.paymentMethod": "select payment method",
   "form.paymentMethod.edit": "edit payment methods",
   "form.paymentMethodName": "payment method label",
