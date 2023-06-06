@@ -33,6 +33,8 @@ import { screenTransition } from './utils/layout/screenTransition'
 import { error, info } from './utils/log'
 import { parseError } from './utils/result'
 import { isIOS, isNetworkError } from './utils/system'
+import { loadAccount, updateAccount } from './utils/account'
+import { loadAccountFromSeedPhrase } from './utils/account/loadAccountFromSeedPhrase'
 
 enableScreens()
 
@@ -119,6 +121,13 @@ const App = () => {
           },
         })
       }
+      const loadedAccount = await loadAccount()
+
+      updateAccount(loadedAccount)
+      setTimeout(() => {
+        if (loadedAccount.mnemonic) loadAccountFromSeedPhrase(loadedAccount.mnemonic)
+      })
+
       setCurrentPage(account.loggedIn ? 'home' : 'welcome')
       requestUserPermissions()
     })()

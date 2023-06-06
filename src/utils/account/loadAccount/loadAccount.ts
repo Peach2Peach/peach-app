@@ -59,7 +59,6 @@ export const loadAccount = async (): Promise<Account> => {
   } else {
     info('Account loaded', account.publicKey)
     onAccountLoaded()
-    await updateAccount(acc)
   }
 
   return account

@@ -1,8 +1,6 @@
-import { settingsStore } from './../../store/settingsStore'
 import { account1 } from '../../../tests/unit/data/accountData'
 import { tradingLimit } from '../../../tests/unit/data/tradingLimitsData'
-import { getPeachAccount } from '../peachAPI/peachAccount'
-import { getWallet } from '../wallet'
+import { settingsStore } from './../../store/settingsStore'
 import { account, defaultAccount } from './account'
 import { updateAccount } from './updateAccount'
 
@@ -20,11 +18,9 @@ describe('updateAccount', () => {
   afterEach(() => {
     jest.clearAllMocks()
   })
-  it('sets an account, sets wallet and peachAccount', async () => {
+  it('sets an account', async () => {
     await updateAccount(account1)
     expect(account).toEqual(account1)
-    expect(getWallet()).toBeDefined()
-    expect(getPeachAccount()).toBeDefined()
   })
   it('overwrites an account', async () => {
     await updateAccount({ ...account1, tradingLimit }, true)

@@ -1,10 +1,9 @@
 import { settingsStore } from '../../store/settingsStore'
 import { setLocaleQuiet } from '../i18n'
 import { getDeviceLocale } from '../system'
-import { account, defaultAccount, setAccount } from './account'
-import { loadAccountFromSeedPhrase } from './loadAccountFromSeedPhrase'
+import { defaultAccount, setAccount } from './account'
 
-export const updateAccount = async (acc: Account, overwrite?: boolean) => {
+export const updateAccount = (acc: Account, overwrite?: boolean) => {
   setAccount(
     overwrite
       ? acc
@@ -16,6 +15,4 @@ export const updateAccount = async (acc: Account, overwrite?: boolean) => {
   )
 
   setLocaleQuiet(settingsStore.getState().locale || getDeviceLocale() || 'en')
-
-  if (account.mnemonic) loadAccountFromSeedPhrase(account.mnemonic)
 }

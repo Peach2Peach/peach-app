@@ -10,6 +10,7 @@ import i18n from '../../../utils/i18n'
 import { register } from '../../../utils/peachAPI'
 import { getAuthenticationChallenge } from '../../../utils/peachAPI/getAuthenticationChallenge'
 import { parseError } from '../../../utils/result'
+import { loadAccountFromSeedPhrase } from '../../../utils/account/loadAccountFromSeedPhrase'
 
 // eslint-disable-next-line max-lines-per-function
 export const useNewUserSetup = () => {
@@ -36,7 +37,8 @@ export const useNewUserSetup = () => {
 
   const finishRegistration = useCallback(
     async (account: Account) => {
-      await updateAccount(account, true)
+      updateAccount(account, true)
+      if (account.mnemonic) loadAccountFromSeedPhrase(account.mnemonic)
 
       storeAccount(account)
       setSuccess(true)

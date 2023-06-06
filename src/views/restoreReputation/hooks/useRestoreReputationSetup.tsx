@@ -4,6 +4,7 @@ import { useOnboardingHeader } from '../../../hooks/headers/useOnboardingHeader'
 import { useTemporaryAccount } from '../../../hooks/useTemporaryAccount'
 import { storeAccount, updateAccount } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
+import { loadAccountFromSeedPhrase } from '../../../utils/account/loadAccountFromSeedPhrase'
 
 export const useRestoreReputationSetup = () => {
   const navigation = useNavigation()
@@ -22,7 +23,9 @@ export const useRestoreReputationSetup = () => {
     setIsLoading(true)
     // prevent render blocking
     setTimeout(async () => {
-      await updateAccount(temporaryAccount, true)
+      updateAccount(temporaryAccount, true)
+      if (temporaryAccount.mnemonic) loadAccountFromSeedPhrase(temporaryAccount.mnemonic)
+
       storeAccount(temporaryAccount)
       setIsRestored(true)
 
