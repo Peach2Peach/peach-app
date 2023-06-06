@@ -5,19 +5,18 @@ import { useAppStateEffect } from './effects/useAppStateEffect'
 import { useCheckTradeNotifications } from './hooks/useCheckTradeNotifications'
 import { getPeachInfo } from './init/getPeachInfo'
 import { getTrades } from './init/getTrades'
-import { useAccountStore } from './store/accountStore'
 import { TIMETORESTART } from './constants'
+import { account } from './utils/account'
 
 let goHomeTimeout: NodeJS.Timer
 
 export const usePartialAppSetup = () => {
-  const account = useAccountStore((state) => state)
   useCheckTradeNotifications()
 
   const appStateCallback = useCallback((isActive: boolean) => {
     if (isActive) {
       getPeachInfo()
-      if (account.loggedIn) getTrades()
+      if (!!account?.publicKey) getTrades()
       analytics().logAppOpen()
 
       clearTimeout(goHomeTimeout)
