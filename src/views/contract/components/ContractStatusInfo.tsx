@@ -3,7 +3,7 @@ import { Icon, Text, Timer } from '../../../components'
 import tw from '../../../styles/tailwind'
 import { getPaymentExpectedBy } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
-import { shouldShowConfirmCancelTradeRequest } from '../../../utils/overlay'
+import { shouldShowConfirmCancelTradeRequest } from '../../../utils/popup'
 import { isCashTrade } from '../../../utils/paymentMethod/isCashTrade'
 import { useContractContext } from '../context'
 

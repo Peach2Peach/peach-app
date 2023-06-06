@@ -1,6 +1,6 @@
 import { useHeaderSetup, useNavigation, useRoute } from '../../../hooks'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
-import { useDisputeRaisedSuccess } from '../../../overlays/dispute/hooks/useDisputeRaisedSuccess'
+import { useDisputeRaisedSuccess } from '../../../popups/dispute/hooks/useDisputeRaisedSuccess'
 import { account } from '../../../utils/account'
 import { contractIdToHex, getContract, getContractViewer } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
@@ -17,7 +17,7 @@ export const useDisputeReasonSelectorSetup = () => {
   const navigation = useNavigation()
   const showErrorBanner = useShowErrorBanner()
 
-  const showDisputeRaisedOverlay = useDisputeRaisedSuccess()
+  const showDisputeRaisedPopup = useDisputeRaisedSuccess()
 
   useHeaderSetup({
     title: i18n('dispute.disputeForTrade', !!contract ? contractIdToHex(contract.id) : ''),
@@ -29,7 +29,7 @@ export const useDisputeReasonSelectorSetup = () => {
       showErrorBanner(error?.error)
       return
     }
-    if (view) showDisputeRaisedOverlay(view)
+    if (view) showDisputeRaisedPopup(view)
     navigation.goBack()
   }
 
