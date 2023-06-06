@@ -1,4 +1,4 @@
-import { HeaderConfig } from '../../../components/header/store'
+import { HeaderConfig } from '../../../components/header/Header'
 import tw from '../../../styles/tailwind'
 import { canCancelContract, canOpenDispute } from '../../../utils/contract'
 import { headerIcons } from '../../../utils/layout/headerIcons'

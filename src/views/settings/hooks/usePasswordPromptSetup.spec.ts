@@ -1,8 +1,7 @@
 import { act, renderHook } from '@testing-library/react-native'
 import { Keyboard } from 'react-native'
 import { usePasswordPromptSetup } from './usePasswordPromptSetup'
-import { NavigationWrapper, navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
-import { useHeaderState } from '../../../components/header/store'
+import { NavigationWrapper, navigateMock, headerState } from '../../../../tests/unit/helpers/NavigationWrapper'
 
 const setShowBackupReminderMock = jest.fn()
 const setLastFileBackupDateMock = jest.fn()
@@ -40,8 +39,7 @@ describe('usePasswordPromptSetup', () => {
   })
   it('should set up header correctly', () => {
     renderHook(usePasswordPromptSetup, { wrapper: NavigationWrapper, initialProps: onSuccessMock })
-    expect(useHeaderState.getState().title).toBe('backups')
-    expect(useHeaderState.getState().icons?.[0].id).toBe('helpCircle')
+    expect(headerState.header()).toMatchSnapshot()
   })
   it('should set the password', () => {
     const { result } = renderHook(usePasswordPromptSetup, { wrapper: NavigationWrapper, initialProps: onSuccessMock })

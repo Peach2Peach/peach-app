@@ -1,25 +1,74 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`useContractHeaderSetup should set up the header correctly for trade in dispute 1`] = `
-<ContractTitle
-  id="123"
+<Header
+  icons={[]}
+  titleComponent={
+    <ContractTitle
+      id="123"
+    />
+  }
 />
 `;
 
 exports[`useContractHeaderSetup should show the cancel icon if the contract can be cancelled 1`] = `
-<ContractTitle
-  id="123"
+<Header
+  icons={
+    [
+      {
+        "color": "#9F8C82",
+        "id": "xCircle",
+        "onPress": [Function],
+      },
+    ]
+  }
+  titleComponent={
+    <ContractTitle
+      id="123"
+    />
+  }
 />
 `;
 
 exports[`useContractHeaderSetup should show the confirm payment help icon if the contract is in the seller view and requires a payment 1`] = `
-<ContractTitle
-  id="123"
+<Header
+  icons={
+    [
+      {
+        "color": "#099DE2",
+        "id": "helpCircle",
+        "onPress": [Function],
+      },
+    ]
+  }
+  titleComponent={
+    <ContractTitle
+      id="123"
+    />
+  }
 />
 `;
 
 exports[`useContractHeaderSetup should show the make payment help icon if the contract is in the buyer view and requires a payment 1`] = `
-<ContractTitle
-  id="123"
+<Header
+  icons={
+    [
+      {
+        "color": "#9F8C82",
+        "id": "xCircle",
+        "onPress": [Function],
+      },
+      {
+        "color": "#099DE2",
+        "id": "helpCircle",
+        "onPress": [Function],
+      },
+    ]
+  }
+  titleComponent={
+    <ContractTitle
+      id="123"
+    />
+  }
 />
 `;

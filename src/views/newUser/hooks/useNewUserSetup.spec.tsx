@@ -2,7 +2,7 @@ import analytics from '@react-native-firebase/analytics'
 import { renderHook, waitFor } from '@testing-library/react-native'
 import { act } from 'react-test-renderer'
 import { recoveredAccount } from '../../../../tests/unit/data/accountData'
-import { NavigationWrapper, replaceMock } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { headerState, NavigationWrapper, replaceMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import {
   defaultNotificationState,
   notificationStorage,
@@ -22,7 +22,6 @@ import { sessionStorage } from '../../../utils/session'
 import { defaultWalletState, walletStorage, walletStore } from '../../../utils/wallet/walletStore'
 import { useNewUserSetup } from './useNewUserSetup'
 import { useTemporaryAccount } from '../../../hooks/useTemporaryAccount'
-import { useHeaderState } from '../../../components/header/store'
 
 const useRouteMock = jest.fn(() => ({
   params: {
@@ -79,16 +78,13 @@ describe('useNewUserSetup', () => {
   })
   it('should set up the header correctly', () => {
     renderHook(useNewUserSetup, { wrapper: NavigationWrapper })
-
-    expect(useHeaderState.getState().title).toBe('welcome to Peach!')
-    expect(useHeaderState.getState().hideGoBackButton).toBe(true)
-    expect(useHeaderState.getState().icons).toEqual([])
+    expect(headerState.header()).toMatchSnapshot()
   })
   it('should show header actions when not loading', async () => {
     renderHook(useNewUserSetup, { wrapper: NavigationWrapper })
 
-    await waitFor(() => expect(useHeaderState.getState().icons).toHaveLength(2))
-    expect(useHeaderState.getState().hideGoBackButton).toBe(false)
+    await waitFor(() => expect(headerState.header().props.icons).toHaveLength(2))
+    expect(headerState.header()).toMatchSnapshot()
   })
   it('should create an account', async () => {
     renderHook(useNewUserSetup, { wrapper: NavigationWrapper })

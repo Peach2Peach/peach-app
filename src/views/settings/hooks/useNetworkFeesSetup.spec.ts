@@ -1,8 +1,7 @@
 /* eslint-disable max-lines-per-function */
 import { act, renderHook } from '@testing-library/react-native'
 import { estimatedFees } from '../../../../tests/unit/data/bitcoinNetworkData'
-import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
-import { useHeaderState } from '../../../components/header/store'
+import { headerState, NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { settingsStore } from '../../../store/settingsStore'
 import { useNetworkFeesSetup } from './useNetworkFeesSetup'
 import { apiSuccess, unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
@@ -77,9 +76,7 @@ describe('useNetworkFeesSetup', () => {
   })
   it('sets header as expected', () => {
     renderHook(useNetworkFeesSetup, { wrapper: NavigationWrapper })
-    expect(useHeaderState.getState().title).toBe('network fees')
-    expect(useHeaderState.getState().icons?.[0].id).toBe('helpCircle')
-    expect(useHeaderState.getState().icons?.[0].onPress).toEqual(expect.any(Function))
+    expect(headerState.header()).toMatchSnapshot()
   })
   it('sets fee preferences', async () => {
     const { result } = renderHook(useNetworkFeesSetup, { wrapper: NavigationWrapper })

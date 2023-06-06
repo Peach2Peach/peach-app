@@ -3,8 +3,7 @@ import { act, renderHook } from '@testing-library/react-native'
 import { defaultSelfUser } from '../../../../tests/unit/data/userData'
 import { useSelfUser } from '../../../hooks/query/useSelfUser'
 import { useReferralsSetup } from './useReferralsSetup'
-import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
-import { useHeaderState } from '../../../components/header/store'
+import { headerState, NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
 
 jest.mock('../../../hooks/query/useSelfUser', () => ({
   useSelfUser: jest.fn(),
@@ -47,13 +46,7 @@ describe('useReferralsSetup', () => {
   })
   it('sets up header correctly', () => {
     renderHook(useReferralsSetup, { wrapper: NavigationWrapper })
-
-    expect(useHeaderState.getState().title).toBe('referrals')
-    expect(useHeaderState.getState().icons?.[0]).toEqual({
-      id: 'helpCircle',
-      color: '#099DE2',
-      onPress: expect.any(Function),
-    })
+    expect(headerState.header()).toMatchSnapshot()
   })
 
   it('returns correct bonus points and available rewards', () => {

@@ -1,5 +1,5 @@
 import { useCallback, useMemo } from 'react'
-import { HeaderConfig } from '../../../components/header/store'
+import { HeaderConfig } from '../../../components/header/Header'
 import { useDeletePaymentMethod } from '../../../components/payment/hooks/useDeletePaymentMethod'
 import { useHeaderSetup, useRoute } from '../../../hooks'
 import { useGoToOrigin } from '../../../hooks/useGoToOrigin'

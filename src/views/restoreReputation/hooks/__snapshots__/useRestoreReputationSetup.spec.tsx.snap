@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`useRestoreReputationSetup should set up the header correctly 1`] = `
+<Header
+  hideGoBackButton={false}
+  icons={
+    [
+      {
+        "color": "#FFFCFA",
+        "id": "mail",
+        "onPress": [Function],
+      },
+      {
+        "color": "#FFFCFA",
+        "id": "globe",
+        "onPress": [Function],
+      },
+    ]
+  }
+  theme="inverted"
+  title="restore reputation"
+/>
+`;

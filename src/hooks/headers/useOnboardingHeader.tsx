@@ -1,4 +1,4 @@
-import { HeaderConfig } from '../../components/header/store'
+import { HeaderConfig } from '../../components/header/Header'
 import { useDrawerContext } from '../../contexts/drawer'
 import { LanguageSelect } from '../../drawers/LanguageSelect'
 import tw from '../../styles/tailwind'

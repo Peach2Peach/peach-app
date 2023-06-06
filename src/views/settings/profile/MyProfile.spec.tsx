@@ -1,7 +1,6 @@
 import { render } from '@testing-library/react-native'
-import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { headerState, NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { QueryClientWrapper } from '../../../../tests/unit/helpers/QueryClientWrapper'
-import { useHeaderState } from '../../../components/header/store'
 import MyProfile from './MyProfile'
 import { apiSuccess } from '../../../../tests/unit/data/peachAPIData'
 
@@ -25,7 +24,6 @@ describe('MyProfile', () => {
 
   it('should set up header correctly', () => {
     render(<MyProfile />, { wrapper })
-    expect(useHeaderState.getState().title).toBe('my profile')
-    expect(useHeaderState.getState().icons?.[0].id).toBe('helpCircle')
+    expect(headerState.header()).toMatchSnapshot()
   })
 })

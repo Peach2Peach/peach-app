@@ -112,3 +112,12 @@ exports[`RestoreBackupLoading should render correctly 1`] = `
   </View>
 </View>
 `;
+
+exports[`RestoreBackupLoading should set header correctly 1`] = `
+<Header
+  hideGoBackButton={true}
+  icons={[]}
+  theme="inverted"
+  title="restore backup"
+/>
+`;

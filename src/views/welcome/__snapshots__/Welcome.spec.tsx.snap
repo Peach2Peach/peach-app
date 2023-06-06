@@ -275,3 +275,25 @@ exports[`Welcome should render correctly 1`] = `
   </View>
 </View>
 `;
+
+exports[`Welcome should set header correctly 1`] = `
+<Header
+  hideGoBackButton={true}
+  icons={
+    [
+      {
+        "color": "#FFFCFA",
+        "id": "mail",
+        "onPress": [Function],
+      },
+      {
+        "color": "#FFFCFA",
+        "id": "globe",
+        "onPress": [Function],
+      },
+    ]
+  }
+  theme="inverted"
+  title="welcome to Peach!"
+/>
+`;

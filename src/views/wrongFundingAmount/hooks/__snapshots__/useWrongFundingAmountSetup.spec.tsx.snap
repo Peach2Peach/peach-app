@@ -1,7 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`useWrongFundingAmountSetup sets up header correctly 1`] = `
-<OfferDetailsTitle
-  id="38"
+<Header
+  titleComponent={
+    <OfferDetailsTitle
+      id="38"
+    />
+  }
 />
 `;

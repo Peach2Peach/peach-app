@@ -1,7 +1,7 @@
 import { act, renderHook } from '@testing-library/react-native'
+import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { settingsStore } from '../../../store/settingsStore'
 import { useWalletSetup } from './useWalletSetup'
-import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { usePopupStore } from '../../../store/usePopupStore'
 import { WithdrawalConfirmation } from '../../../popups/WithdrawalConfirmation'
 
@@ -14,8 +14,8 @@ const mockWithdrawAll = jest.fn()
 jest.mock('../../../utils/wallet/setWallet', () => ({
   peachWallet: {
     allTransactions: () => [],
-    syncWallet: jest.fn(),
     withdrawAll: (...args: any) => mockWithdrawAll(...args),
+    syncWallet: jest.fn((onSuccess: () => void) => onSuccess()),
   },
 }))
 
@@ -37,7 +37,7 @@ describe('useWalletSetup', () => {
     expect(result.current.addressErrors).toHaveLength(0)
     expect(result.current.openWithdrawalConfirmation).toBeInstanceOf(Function)
     expect(result.current.confirmWithdrawal).toBeInstanceOf(Function)
-    expect(result.current.walletLoading).toBeTruthy()
+    expect(result.current.walletLoading).toBeFalsy()
   })
 
   it('should open confirm withdrawal popup', () => {

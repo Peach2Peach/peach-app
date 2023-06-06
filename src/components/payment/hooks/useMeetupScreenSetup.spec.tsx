@@ -1,13 +1,13 @@
 import { NavigationContainer } from '@react-navigation/native'
 import { act, renderHook } from '@testing-library/react-native'
+import { headerState, setOptionsMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { setPaymentMethods } from '../../../constants'
 import { DeletePaymentMethodConfirm } from '../../../popups/info/DeletePaymentMethodConfirm'
+import { meetupEventsStore } from '../../../store/meetupEventsStore'
 import { usePopupStore } from '../../../store/usePopupStore'
 import { account, defaultAccount, setAccount } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
-import { useHeaderState } from '../../header/store'
 import { useMeetupScreenSetup } from './useMeetupScreenSetup'
-import { meetupEventsStore } from '../../../store/meetupEventsStore'
 
 const useRouteMock = jest.fn(() => ({
   params: {
@@ -33,6 +33,7 @@ jest.mock('../../../hooks/useNavigation', () => ({
         },
       ],
     })),
+    setOptions: setOptionsMock,
   })),
 }))
 
@@ -65,16 +66,10 @@ describe('useMeetupScreenSetup', () => {
   })
   it('should set up the header correctly', () => {
     renderHook(useMeetupScreenSetup, {
-      wrapper: ({ children }) => <NavigationContainer>{children}</NavigationContainer>,
+      wrapper: NavigationContainer,
     })
 
-    expect(useHeaderState.getState().title).toBe('')
-    expect(useHeaderState.getState().icons?.[0].id).toBe('helpCircle')
-    expect(useHeaderState.getState().icons?.[0].color).toBe('#099DE2')
-    expect(useHeaderState.getState().icons?.[0].onPress).toBeInstanceOf(Function)
-    expect(useHeaderState.getState().icons?.[1].id).toBe('trash')
-    expect(useHeaderState.getState().icons?.[1].color).toBe('#DF321F')
-    expect(useHeaderState.getState().icons?.[1].onPress).toBeInstanceOf(Function)
+    expect(headerState.header()).toMatchSnapshot()
   })
   it('should set up the header correctly when deletable is undefined', () => {
     useRouteMock.mockReturnValueOnce({
@@ -85,14 +80,10 @@ describe('useMeetupScreenSetup', () => {
       },
     })
     renderHook(useMeetupScreenSetup, {
-      wrapper: ({ children }) => <NavigationContainer>{children}</NavigationContainer>,
+      wrapper: NavigationContainer,
     })
 
-    expect(useHeaderState.getState().title).toBe('')
-    expect(useHeaderState.getState().icons?.[0].id).toBe('helpCircle')
-    expect(useHeaderState.getState().icons?.[0].color).toBe('#099DE2')
-    expect(useHeaderState.getState().icons?.[0].onPress).toBeInstanceOf(Function)
-    expect(useHeaderState.getState().icons?.[1]).toBeUndefined()
+    expect(headerState.header()).toMatchSnapshot()
   })
 
   it('should add a meetup to the payment methods', () => {
@@ -127,7 +118,7 @@ describe('useMeetupScreenSetup', () => {
   it('should show the delete payment method popup', () => {
     renderHook(useMeetupScreenSetup, { wrapper: NavigationContainer })
 
-    useHeaderState.getState().icons?.[1].onPress()
+    headerState.header()?.props.icons[1].onPress()
     expect(usePopupStore.getState()).toStrictEqual({
       ...usePopupStore.getState(),
       title: i18n('help.paymentMethodDelete.title'),
