@@ -32,7 +32,7 @@ export const Report = () => {
   let $message = useRef<TextInput>(null).current
 
   return (
-    <View style={tw`justify-center flex-grow p-6 pb-7`}>
+    <View style={tw`justify-center flex-grow p-6`}>
       <PeachScrollView contentContainerStyle={tw`justify-center flex-grow`}>
         <EmailInput
           onChange={setEmail}
