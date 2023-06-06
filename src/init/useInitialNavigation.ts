@@ -31,10 +31,7 @@ export const useInitialNavigation = async () => {
       info('Notification caused app to open from quit state:', JSON.stringify(initialNotification))
 
       if (dataIsDefined(initialNotification)) {
-        const handledNotification = await handlePushNotification(navigation, initialNotification)
-        if (!handledNotification) {
-          navigation.navigate(loggedIn ? 'home' : 'welcome')
-        }
+        await handlePushNotification(navigation, initialNotification)
       }
     }
 
@@ -49,6 +46,7 @@ export const useInitialNavigation = async () => {
 
   useEffect(() => {
     if (!useAccountStore.persist?.hasHydrated()) return
+
     initialNavigation()
   }, [initialNavigation])
 }
