@@ -1,7 +1,7 @@
 import { renderHook } from '@testing-library/react-native'
 import { act } from 'react-test-renderer'
 import { NavigationWrapper, navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
-import { DisputeDisclaimer } from '../../../overlays/info/DisputeDisclaimer'
+import { DisputeDisclaimer } from '../../../popups/info/DisputeDisclaimer'
 import { configStore } from '../../../store/configStore'
 import { usePopupStore } from '../../../store/usePopupStore'
 import { useShowDisputeDisclaimer } from './useShowDisputeDisclaimer'
@@ -13,7 +13,7 @@ describe('useShowDisputeDisclaimer', () => {
   afterEach(() => {
     jest.clearAllMocks()
   })
-  it('should show the overlay', () => {
+  it('should show the popup', () => {
     const showDisputeDisclaimer = result.current
     act(() => {
       showDisputeDisclaimer()
@@ -36,7 +36,7 @@ describe('useShowDisputeDisclaimer', () => {
       },
     })
   })
-  it('should hide the overlay, store that popup has been seen and navigate to contact screen', () => {
+  it('should hide the popup, store that popup has been seen and navigate to contact screen', () => {
     const showDisputeDisclaimer = result.current
     act(() => {
       showDisputeDisclaimer()
@@ -46,7 +46,7 @@ describe('useShowDisputeDisclaimer', () => {
     expect(navigateMock).toHaveBeenCalledWith('contact')
     expect(configStore.getState().seenDisputeDisclaimer).toBeTruthy()
   })
-  it('should hide the overlay, store that popup has been seen on close', () => {
+  it('should hide the popup, store that popup has been seen on close', () => {
     const showDisputeDisclaimer = result.current
     act(() => {
       showDisputeDisclaimer()

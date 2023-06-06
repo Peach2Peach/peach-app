@@ -1,4 +1,4 @@
-import { useStartRefundPopup } from '../../overlays/useStartRefundPopup'
+import { useStartRefundPopup } from '../../popups/useStartRefundPopup'
 import i18n from '../../utils/i18n'
 import { SlideToUnlock } from '../inputs/SlideToUnlock'
 

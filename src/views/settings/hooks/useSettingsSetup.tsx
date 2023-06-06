@@ -44,13 +44,13 @@ export const useSettingsSetup = () => {
   const notificationClick = useCallback(() => {
     if (notificationsOn) {
       setPopup({
-        title: i18n('settings.notifications.overlay.title'),
+        title: i18n('settings.notifications.popup.title'),
         content: <NotificationPopup />,
         visible: true,
         level: 'WARN',
         action2: {
           callback: closePopup,
-          label: i18n('settings.notifications.overlay.neverMind'),
+          label: i18n('settings.notifications.popup.neverMind'),
           icon: 'arrowLeftCircle',
         },
         action1: {
@@ -58,7 +58,7 @@ export const useSettingsSetup = () => {
             closePopup()
             toggleNotifications()
           },
-          label: i18n('settings.notifications.overlay.yes'),
+          label: i18n('settings.notifications.popup.yes'),
           icon: 'slash',
         },
       })

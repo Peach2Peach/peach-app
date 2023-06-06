@@ -18,7 +18,7 @@ jest.mock('../../../hooks/query/useTradeSummaries', () => ({
 }))
 
 const showWronglyFundedPopupMock = jest.fn()
-jest.mock('../../../overlays/useShowWronglyFundedPopup', () => ({
+jest.mock('../../../popups/useShowWronglyFundedPopup', () => ({
   useShowWronglyFundedPopup:
     () =>
       (...args: any[]) =>
@@ -61,7 +61,7 @@ jest.mock('../../search/hooks/useOfferMatches', () => ({
 }))
 
 const startRefundPopupMock = jest.fn()
-jest.mock('../../../overlays/useStartRefundPopup', () => ({
+jest.mock('../../../popups/useStartRefundPopup', () => ({
   useStartRefundPopup:
     () =>
       (...args: any[]) =>
@@ -118,7 +118,7 @@ describe('useHandleFundingStatus', () => {
     renderHook(useHandleFundingStatus, { wrapper: NavigationWrapper, initialProps })
     expect(startRefundPopupMock).toHaveBeenCalledWith(sellOffer)
   })
-  it('should show showWronglyFundedOverlay when WRONG_FUNDING_AMOUNT', async () => {
+  it('should show showWronglyFundedPopup when WRONG_FUNDING_AMOUNT', async () => {
     const fundingStatus: FundingStatus = { ...defaultFundingStatus, status: 'WRONG_FUNDING_AMOUNT' }
     const initialProps = {
       offerId: sellOffer.id,

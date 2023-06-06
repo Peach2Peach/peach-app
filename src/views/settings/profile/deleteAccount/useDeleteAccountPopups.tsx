@@ -9,7 +9,7 @@ import { DeleteAccountPopup } from './DeleteAccountPopup'
 export const useDeleteAccountPopups = () => {
   const setPopup = usePopupStore((state) => state.setPopup)
 
-  const showOverlay = useCallback(
+  const showPopup = useCallback(
     (content: JSX.Element, callback?: () => void, isSuccess = false) =>
       setPopup({
         visible: true,
@@ -35,14 +35,14 @@ export const useDeleteAccountPopups = () => {
       index: 0,
       routes: [{ name: 'welcome' }],
     })
-    showOverlay(<DeleteAccountPopup title={'success'} />, undefined, true)
+    showPopup(<DeleteAccountPopup title={'success'} />, undefined, true)
   }
 
   const showForRealsiesPopup = () => {
-    showOverlay(<DeleteAccountPopup title={'forRealsies'} />, deleteAccountClicked)
+    showPopup(<DeleteAccountPopup title={'forRealsies'} />, deleteAccountClicked)
   }
   const showDeleteAccountPopup = () => {
-    showOverlay(<DeleteAccountPopup title={'popup'} />, showForRealsiesPopup)
+    showPopup(<DeleteAccountPopup title={'popup'} />, showForRealsiesPopup)
   }
 
   return showDeleteAccountPopup

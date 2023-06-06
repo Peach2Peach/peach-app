@@ -1,5 +1,5 @@
 import { shallow } from 'zustand/shallow'
-import { FirstBackup } from '../overlays/warning/FirstBackup'
+import { FirstBackup } from '../popups/warning/FirstBackup'
 import { usePopupStore } from '../store/usePopupStore'
 import i18n from '../utils/i18n'
 import { useNavigation } from './useNavigation'

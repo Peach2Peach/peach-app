@@ -13,7 +13,7 @@ describe('useShowLoadingPopup', () => {
     const { result } = renderHook(useShowLoadingPopup)
     expect(result.current).toBeInstanceOf(Function)
   })
-  it('opens default overlay with loading animation', () => {
+  it('opens default popup with loading animation', () => {
     const { result } = renderHook(useShowLoadingPopup)
     result.current()
     expect(usePopupStore.getState()).toEqual({

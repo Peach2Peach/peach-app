@@ -3,7 +3,7 @@ import { sellOffer } from '../../../tests/unit/data/offerData'
 import { RefundEscrowSlider } from './RefundEscrowSlider'
 
 const startRefundPopupMock = jest.fn()
-jest.mock('../../overlays/useStartRefundPopup', () => ({
+jest.mock('../../popups/useStartRefundPopup', () => ({
   useStartRefundPopup:
     () =>
       (...args: any[]) =>

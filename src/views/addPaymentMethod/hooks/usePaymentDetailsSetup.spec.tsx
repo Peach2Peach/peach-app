@@ -76,7 +76,7 @@ describe('usePaymentDetailsSetup', () => {
     expect(useHeaderState.getState().title).toEqual(i18n('paymentMethod.select.title', i18n('paymentMethod.sepa')))
     expect(useHeaderState.getState().icons).toStrictEqual([])
   })
-  it('should show the delete PM overlay when the delete icon is pressed', () => {
+  it('should show the delete PM popup when the delete icon is pressed', () => {
     renderHook(usePaymentDetailsSetup, { wrapper })
 
     act(() => {

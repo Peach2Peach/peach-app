@@ -1,5 +1,5 @@
 import { useDisputeEmailPopup } from './useDisputeEmailPopup'
-import { useDisputeWonPopup } from '../../../overlays/dispute/hooks/useDisputeWonPopup'
+import { useDisputeWonPopup } from '../../../popups/dispute/hooks/useDisputeWonPopup'
 import { useLocalContractStore } from '../../../store/useLocalContractStore'
 
 export const useNavigateToContractPopups = (id: string) => {

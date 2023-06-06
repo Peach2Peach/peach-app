@@ -2,7 +2,7 @@ import { useCallback } from 'react'
 import { shallow } from 'zustand/shallow'
 import { useNavigation } from '../../../hooks'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
-import { OfferRepublished } from '../../../overlays/tradeCancelation'
+import { OfferRepublished } from '../../../popups/tradeCancelation'
 import { usePopupStore } from '../../../store/usePopupStore'
 import { getSellOfferFromContract, saveContract } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
@@ -13,7 +13,7 @@ export const useRepublishOffer = () => {
   const showErrorBanner = useShowErrorBanner()
   const navigation = useNavigation()
 
-  const confirmOverlay = useCallback(
+  const confirmPopup = useCallback(
     (contract: Contract) => {
       closePopup()
       saveContract({
@@ -38,11 +38,11 @@ export const useRepublishOffer = () => {
 
       const closeAction = () => {
         navigation.replace('contract', { contractId: contract.id })
-        confirmOverlay(contract)
+        confirmPopup(contract)
       }
       const goToOfferAction = () => {
         navigation.replace('search', { offerId: reviveSellOfferResult.newOfferId })
-        confirmOverlay(contract)
+        confirmPopup(contract)
       }
 
       setPopup({
@@ -63,7 +63,7 @@ export const useRepublishOffer = () => {
         },
       })
     },
-    [closePopup, confirmOverlay, navigation, setPopup, showErrorBanner],
+    [closePopup, confirmPopup, navigation, setPopup, showErrorBanner],
   )
 
   return republishOffer

@@ -1,8 +1,8 @@
 import { act, fireEvent, render } from '@testing-library/react-native'
 import { QueryClientWrapper, queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
-import { UnmatchPopup } from '../../../overlays/UnmatchPopup'
-import { MatchUndone } from '../../../overlays/app/MatchUndone'
-import { appOverlays } from '../../../overlays/appOverlays'
+import { UnmatchPopup } from '../../../popups/UnmatchPopup'
+import { MatchUndone } from '../../../popups/app/MatchUndone'
+import { appPopups } from '../../../popups/appPopups'
 import { defaultPopupState, usePopupStore } from '../../../store/usePopupStore'
 import i18n from '../../../utils/i18n'
 import { UnmatchButton } from './UnmatchButton'
@@ -94,7 +94,7 @@ describe('UnmatchButton', () => {
       wrapper: QueryClientWrapper,
     })
 
-    const expectedOverlay = {
+    const expectedPopup = {
       ...usePopupStore.getState(),
       title: i18n('search.popups.unmatch.title'),
       content: <UnmatchPopup />,
@@ -116,9 +116,9 @@ describe('UnmatchButton', () => {
       fireEvent.press(getByText(i18n('search.unmatch')))
     })
 
-    expect(usePopupStore.getState()).toStrictEqual(expectedOverlay)
+    expect(usePopupStore.getState()).toStrictEqual(expectedPopup)
   })
-  it('should close the overlay when action1 is pressed', async () => {
+  it('should close the popup when action1 is pressed', async () => {
     const { getByText } = render(<UnmatchButton {...defaultProps} />, {
       wrapper: QueryClientWrapper,
     })
@@ -209,7 +209,7 @@ describe('UnmatchButton', () => {
     })
     expect(usePopupStore.getState()).toStrictEqual({
       ...usePopupStore.getState(),
-      title: appOverlays.matchUndone.title,
+      title: appPopups.matchUndone.title,
       content: <MatchUndone />,
       visible: true,
       level: 'APP',

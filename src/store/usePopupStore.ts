@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import { isDefined } from '../utils/array/isDefined'
 
-type PopupState = {
+export type PopupState = {
   visible: boolean
   content: JSX.Element | undefined
   title: string
