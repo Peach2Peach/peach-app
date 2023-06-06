@@ -130,7 +130,7 @@ const App = () => {
         userUpdate()
       })
 
-      setCurrentPage(account.loggedIn ? 'home' : 'welcome')
+      setCurrentPage(!!loadedAccount.publicKey ? 'home' : 'welcome')
       requestUserPermissions()
     })()
   }, [])
