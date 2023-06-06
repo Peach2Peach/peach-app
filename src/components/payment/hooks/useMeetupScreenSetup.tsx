@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { useHeaderSetup, useRoute } from '../../../hooks'
 import { useGoToOrigin } from '../../../hooks/useGoToOrigin'
 import { useShowHelp } from '../../../hooks/useShowHelp'
@@ -6,8 +6,8 @@ import { useMeetupEventsStore } from '../../../store/meetupEventsStore'
 import { account, addPaymentData } from '../../../utils/account'
 import { headerIcons } from '../../../utils/layout/headerIcons'
 import { getPaymentMethodInfo } from '../../../utils/paymentMethod'
-import { openAppLink } from '../../../utils/web'
 import { useDeletePaymentMethod } from './useDeletePaymentMethod'
+import { toggleCurrency } from '../../inputs/paymentMethods/paymentForms/utils'
 
 export const useMeetupScreenSetup = () => {
   const route = useRoute<'meetupScreen'>()
@@ -19,11 +19,15 @@ export const useMeetupScreenSetup = () => {
     id: eventId,
     longName: '',
     shortName: '',
+    currencies: [],
     country: 'DE',
     city: '',
   }
 
-  const openLink = (url: string) => (url ? openAppLink(url) : null)
+  const [selectedCurrencies, setSelectedCurrencies] = useState(event.currencies || [])
+  const onCurrencyToggle = (currency: Currency) => {
+    setSelectedCurrencies(toggleCurrency(currency))
+  }
 
   const showHelp = useShowHelp('cashTrades')
   const deletePaymentMethod = useDeletePaymentMethod('cash.' + event.id)
@@ -35,7 +39,7 @@ export const useMeetupScreenSetup = () => {
       label: event.shortName,
       userId: account.publicKey,
       type: meetupInfo.id,
-      currencies: meetupInfo.currencies,
+      currencies: selectedCurrencies,
       country: event.country,
     }
     addPaymentData(meetup)
@@ -55,5 +59,12 @@ export const useMeetupScreenSetup = () => {
     icons,
   })
 
-  return { event, openLink, deletable, addToPaymentMethods }
+  return {
+    paymentMethod: ('cash.' + event.id) as PaymentMethod,
+    event,
+    deletable,
+    addToPaymentMethods,
+    selectedCurrencies,
+    onCurrencyToggle,
+  }
 }
