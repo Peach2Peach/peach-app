@@ -1,5 +1,5 @@
 import analytics from '@react-native-firebase/analytics'
-import { create, createStore, useStore } from 'zustand'
+import { create, useStore } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
 import { info } from '../utils/log'
 import { createStorage, toZustandStorage } from '../utils/storage'
