@@ -1,5 +1,5 @@
 import { NavigationContainer } from '@react-navigation/native'
-import { renderHook } from '@testing-library/react-native'
+import { act, renderHook } from '@testing-library/react-native'
 import { setPaymentMethods } from '../../../constants'
 import { DeletePaymentMethodConfirm } from '../../../overlays/info/DeletePaymentMethodConfirm'
 import { usePopupStore } from '../../../store/usePopupStore'
@@ -145,5 +145,51 @@ describe('useMeetupScreenSetup', () => {
         label: i18n('delete'),
       },
     })
+  })
+  it('should select all currencies by default', () => {
+    setPaymentMethods([{ id: 'cash.123', currencies: ['EUR', 'CHF'], anonymous: true }])
+    meetupEventsStore.getState().setMeetupEvents([
+      {
+        id: '123',
+        currencies: ['EUR', 'CHF'],
+        country: 'DE',
+        city: 'Berlin',
+        shortName: 'shortName',
+        longName: 'longName',
+      },
+    ])
+
+    const { result } = renderHook(useMeetupScreenSetup, {
+      wrapper: NavigationContainer,
+    })
+
+    expect(result.current.selectedCurrencies).toStrictEqual(['EUR', 'CHF'])
+  })
+
+  it('should update the selected currencies', () => {
+    setPaymentMethods([{ id: 'cash.123', currencies: ['EUR', 'CHF'], anonymous: true }])
+    meetupEventsStore.getState().setMeetupEvents([
+      {
+        id: '123',
+        currencies: ['EUR', 'CHF'],
+        country: 'DE',
+        city: 'Berlin',
+        shortName: 'shortName',
+        longName: 'longName',
+      },
+    ])
+
+    const { result } = renderHook(useMeetupScreenSetup, {
+      wrapper: NavigationContainer,
+    })
+
+    act(() => {
+      result.current.onCurrencyToggle('CHF')
+    })
+    expect(result.current.selectedCurrencies).toStrictEqual(['EUR'])
+    act(() => {
+      result.current.onCurrencyToggle('CHF')
+    })
+    expect(result.current.selectedCurrencies).toStrictEqual(['EUR', 'CHF'])
   })
 })
