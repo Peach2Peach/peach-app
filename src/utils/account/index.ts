@@ -24,6 +24,7 @@ export {
   loadPaymentData,
   loadTradingLimit,
 } from './loadAccount'
+export { loadAccountFromSeedPhrase } from './loadAccountFromSeedPhrase'
 export { recoverAccount } from './recoverAccount'
 export { removePaymentData } from './removePaymentData'
 export { signMessageWithAccount } from './signMessageWithAccount'
