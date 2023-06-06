@@ -37,13 +37,7 @@ export const MeetupScreen = () => {
             {!!event.url && <Link text={i18n('meetup.website')} url={event.url} />}
           </View>
           {event.currencies.length > 1 && (
-            <CurrencySelection
-              {...{
-                paymentMethod,
-                selectedCurrencies,
-                onToggle: onCurrencyToggle,
-              }}
-            />
+            <CurrencySelection onToggle={onCurrencyToggle} {...{ paymentMethod, selectedCurrencies }} />
           )}
         </View>
       </PeachScrollView>
