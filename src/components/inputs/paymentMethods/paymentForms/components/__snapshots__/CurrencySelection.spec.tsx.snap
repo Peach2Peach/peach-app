@@ -20,7 +20,7 @@ exports[`CurrencySelection renders correctly 1`] = `
         }
       }
     >
-      accepted currencies
+      Which currencies do you want to accept?
     </PeachText>
   </View>
   <View
