@@ -12,7 +12,7 @@ export const getHeaderChatActions = (
 ): HeaderConfig['icons'] => {
   if (contract?.disputeActive) return []
 
-  const canCancel = canCancelContract(contract)
+  const canCancel = canCancelContract(contract, view)
   const canDispute = canOpenDispute(contract, view)
 
   const openCancelTrade = canCancel ? showCancelOverlay : () => {}
