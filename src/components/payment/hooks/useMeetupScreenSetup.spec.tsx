@@ -192,4 +192,23 @@ describe('useMeetupScreenSetup', () => {
     })
     expect(result.current.selectedCurrencies).toStrictEqual(['EUR', 'CHF'])
   })
+  it('should use empty array as fallback if event has no currencies', () => {
+    setPaymentMethods([{ id: 'cash.123', currencies: ['EUR', 'CHF'], anonymous: true }])
+    meetupEventsStore.getState().setMeetupEvents([
+      {
+        id: '123',
+        currencies: [],
+        country: 'DE',
+        city: 'Berlin',
+        shortName: 'shortName',
+        longName: 'longName',
+      },
+    ])
+
+    const { result } = renderHook(useMeetupScreenSetup, {
+      wrapper: NavigationContainer,
+    })
+
+    expect(result.current.selectedCurrencies).toStrictEqual([])
+  })
 })
