@@ -81,7 +81,7 @@ exports[`Message renders correctly 1`] = `
           ]
         }
       >
-        translatedNETWORK_ERROR.title
+        network error
       </PeachText>
     </View>
     <PeachText
@@ -103,7 +103,7 @@ exports[`Message renders correctly 1`] = `
         ]
       }
     >
-      translatedNETWORK_ERROR.text
+      Peach was unable to connect to the Peach server. Please check your network connection or try again later.
     </PeachText>
   </View>
   <View
@@ -173,7 +173,7 @@ exports[`Message renders correctly 1`] = `
           ]
         }
       >
-        translatedclose
+        close
          
       </PeachText>
       <Icon
@@ -272,7 +272,7 @@ exports[`Message renders correctly with no action 1`] = `
           ]
         }
       >
-        translatedNETWORK_ERROR.title
+        network error
       </PeachText>
     </View>
     <PeachText
@@ -294,7 +294,7 @@ exports[`Message renders correctly with no action 1`] = `
         ]
       }
     >
-      translatedNETWORK_ERROR.text
+      Peach was unable to connect to the Peach server. Please check your network connection or try again later.
     </PeachText>
   </View>
   <View
@@ -336,7 +336,7 @@ exports[`Message renders correctly with no action 1`] = `
           ]
         }
       >
-        translatedclose
+        close
          
       </PeachText>
       <Icon
@@ -419,6 +419,24 @@ exports[`Message should use default values for missing translations 1`] = `
           }
         }
       />
+      <PeachText
+        style={
+          [
+            {
+              "fontFamily": "Baloo2-Bold",
+              "fontSize": 20,
+              "letterSpacing": 0.2,
+              "lineHeight": 32,
+              "textAlign": "center",
+            },
+            {
+              "color": "#FFF9F6",
+            },
+          ]
+        }
+      >
+        network error
+      </PeachText>
     </View>
     <PeachText
       style={
@@ -433,11 +451,13 @@ exports[`Message should use default values for missing translations 1`] = `
           {
             "color": "#FFF9F6",
           },
-          false,
+          {
+            "marginTop": 4,
+          },
         ]
       }
     >
-      NETWORK_ERROR
+      Peach was unable to connect to the Peach server. Please check your network connection or try again later.
     </PeachText>
   </View>
   <View
