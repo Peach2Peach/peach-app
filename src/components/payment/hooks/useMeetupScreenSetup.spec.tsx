@@ -7,6 +7,7 @@ import { usePopupStore } from '../../../store/usePopupStore'
 import { account, defaultAccount, setAccount } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
 import { useMeetupScreenSetup } from './useMeetupScreenSetup'
+import { headerState, setOptionsMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 
 const useRouteMock = jest.fn(() => ({
   params: {
@@ -19,12 +20,6 @@ jest.mock('../../../hooks/useRoute', () => ({
   useRoute: () => useRouteMock(),
 }))
 const goBackMock = jest.fn()
-let headerState: Record<'header', () => JSX.Element> = {
-  header: () => <></>,
-}
-const setOptionsMock = jest.fn((options) => {
-  headerState = options
-})
 jest.mock('../../../hooks/useNavigation', () => ({
   useNavigation: jest.fn(() => ({
     goBack: goBackMock,
