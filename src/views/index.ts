@@ -1,5 +1,5 @@
 import { BackgroundConfig } from '../components/background/Background'
-import MeetupScreen from '../components/payment/MeetupScreen'
+import { MeetupScreen } from '../components/payment/MeetupScreen'
 import TestView from './TestView/TestView'
 import TestViewButtons from './TestView/buttons'
 import TestViewComponents from './TestView/components'

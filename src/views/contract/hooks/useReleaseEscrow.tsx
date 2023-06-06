@@ -1,33 +1,30 @@
-import { useOverlayContext } from '../../../contexts/overlay'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
-import { useShowLoadingOverlay } from '../../../hooks/useShowLoadingOverlay'
+import { useShowLoadingPopup } from '../../../hooks/useShowLoadingPopup'
+import { usePopupStore } from '../../../store/usePopupStore'
 import { saveContract } from '../../../utils/contract'
+import { signReleaseTxOfContract } from '../../../utils/contract/signReleaseTxOfContract'
 import i18n from '../../../utils/i18n'
 import { confirmPayment } from '../../../utils/peachAPI'
-import { signReleaseTxOfContract } from '../../../utils/contract/signReleaseTxOfContract'
 
 export const useReleaseEscrow = (contract: Contract) => {
-  const [, updateOverlay] = useOverlayContext()
-
+  const closePopup = usePopupStore((state) => state.closePopup)
   const showError = useShowErrorBanner()
-  const showLoadingOverlay = useShowLoadingOverlay()
-  const closeOverlay = () => {
-    updateOverlay({ visible: false })
-  }
+  const showLoadingPopup = useShowLoadingPopup()
+
   const releaseEscrow = async () => {
-    showLoadingOverlay({
+    showLoadingPopup({
       title: i18n('dispute.lost'),
       level: 'WARN',
     })
     const [tx, errorMsg] = signReleaseTxOfContract(contract)
     if (!tx) {
-      closeOverlay()
+      closePopup()
       return showError(errorMsg)
     }
 
     const [result, err] = await confirmPayment({ contractId: contract.id, releaseTransaction: tx })
     if (err) {
-      closeOverlay()
+      closePopup()
       return showError(err.error)
     }
 
@@ -39,7 +36,7 @@ export const useReleaseEscrow = (contract: Contract) => {
       disputeResultAcknowledged: true,
       disputeResolvedDate: new Date(),
     })
-    return closeOverlay()
+    return closePopup()
   }
 
   return releaseEscrow

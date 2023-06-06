@@ -1,8 +1,6 @@
-import { useCallback, useContext, useEffect, useState } from 'react'
-
 import { useFocusEffect } from '@react-navigation/native'
-import { OverlayContext } from '../contexts/overlay'
-import { useHandleContractOverlays } from '../overlays/useHandleContractOverlays'
+import { useCallback, useContext, useEffect, useState } from 'react'
+import { useHandleContractPopups } from '../popups/useHandleContractPopups'
 import { account } from '../utils/account'
 import {
   decryptContractData,
@@ -22,9 +20,8 @@ import { useShowErrorBanner } from './useShowErrorBanner'
 
 export const useCommonContractSetup = (contractId: string) => {
   const ws = useContext(PeachWSContext)
-  const [, updateOverlay] = useContext(OverlayContext)
   const showError = useShowErrorBanner()
-  const handleContractOverlays = useHandleContractOverlays()
+  const handleContractPopups = useHandleContractPopups()
   const { contract, isLoading, refetch } = useContractDetails(contractId, 15 * 1000)
   const { offer } = useOfferDetails(contract ? getOfferIdFromContract(contract) : '')
   const [storedContract, setStoredContract] = useState(getContract(contractId))
@@ -102,15 +99,7 @@ export const useCommonContractSetup = (contractId: string) => {
 
       return saveAndUpdate({ ...contract, symmetricKey, paymentData })
     })()
-  }, [
-    contract,
-    decryptionError,
-    saveAndUpdate,
-    showError,
-    storedContract?.paymentData,
-    storedContract?.symmetricKey,
-    updateOverlay,
-  ])
+  }, [contract, decryptionError, saveAndUpdate, showError, storedContract?.paymentData, storedContract?.symmetricKey])
 
   useEffect(() => {
     if (!contract) return () => {}
@@ -125,8 +114,8 @@ export const useCommonContractSetup = (contractId: string) => {
 
   useEffect(() => {
     if (!storedContract) return
-    handleContractOverlays(storedContract, getContractViewer(storedContract, account))
-  }, [storedContract, handleContractOverlays])
+    handleContractPopups(storedContract, getContractViewer(storedContract, account))
+  }, [storedContract, handleContractPopups])
 
   useEffect(() => {
     if (offer) saveOffer(offer)

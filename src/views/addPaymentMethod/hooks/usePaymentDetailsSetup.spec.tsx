@@ -1,7 +1,6 @@
 import { act, renderHook } from '@testing-library/react-native'
-import { headerState, NavigationWrapper, setOptionsMock } from '../../../../tests/unit/helpers/NavigationWrapper'
-import { defaultOverlay } from '../../../contexts/overlay'
-import { usePopupStore } from '../../../store/usePopupStore'
+import { NavigationWrapper, headerState, setOptionsMock } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { defaultPopupState, usePopupStore } from '../../../store/usePopupStore'
 import { account } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
 import { usePaymentDetailsSetup } from './usePaymentDetailsSetup'
@@ -36,7 +35,7 @@ describe('usePaymentDetailsSetup', () => {
     setOptionsMock({ header: { title: '', icons: [] } })
   })
   afterEach(() => {
-    usePopupStore.setState(defaultOverlay)
+    usePopupStore.setState(defaultPopupState)
   })
   it('should return paymentMethod, onSubmit, currencies, data', () => {
     const { result } = renderHook(usePaymentDetailsSetup, { wrapper })
@@ -73,7 +72,7 @@ describe('usePaymentDetailsSetup', () => {
     renderHook(usePaymentDetailsSetup, { wrapper })
     expect(headerState.header()).toMatchSnapshot()
   })
-  it('should show the delete PM overlay when the delete icon is pressed', () => {
+  it('should show the delete PM popup when the delete icon is pressed', () => {
     renderHook(usePaymentDetailsSetup, { wrapper })
 
     headerState.header().props.icons?.[1].onPress()

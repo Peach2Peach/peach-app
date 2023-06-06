@@ -8,16 +8,12 @@ import Icon from '../Icon'
 import { PeachScrollView } from '../PeachScrollView'
 import { useMeetupScreenSetup } from './hooks/useMeetupScreenSetup'
 
-/**
- * @description Screen for meetup event details.
- * Shows info for the specified event and takes care of adding to paymentMethods
- */
-export default () => {
+export const MeetupScreen = () => {
   const { event, openLink, deletable, addToPaymentMethods } = useMeetupScreenSetup()
 
   return (
-    <>
-      <PeachScrollView contentContainerStyle={tw`p-8 pb-20`}>
+    <View style={tw`h-full pb-7`}>
+      <PeachScrollView contentContainerStyle={tw`justify-center flex-grow p-8`}>
         {!!event.logo && (
           <Image source={{ uri: API_URL + event.logo }} style={tw`w-full mb-5 h-30`} resizeMode={'contain'} />
         )}
@@ -50,10 +46,10 @@ export default () => {
         </View>
       </PeachScrollView>
       {!deletable && (
-        <PrimaryButton style={tw`absolute self-center bottom-8`} onPress={addToPaymentMethods}>
+        <PrimaryButton style={tw`self-center`} onPress={addToPaymentMethods}>
           {i18n('meetup.add')}
         </PrimaryButton>
       )}
-    </>
+    </View>
   )
 }

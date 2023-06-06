@@ -9,16 +9,16 @@ jest.mock('../../../hooks/query/useSelfUser', () => ({
   useSelfUser: jest.fn(),
 }))
 
-const setCustomReferralCodeOverlayMock = jest.fn()
-const useSetCustomReferralCodeOverlayMock = jest.fn().mockReturnValue({
-  setCustomReferralCodeOverlay: setCustomReferralCodeOverlayMock,
+const setCustomReferralCodePopupMock = jest.fn()
+const useSetCustomReferralCodePopupMock = jest.fn().mockReturnValue({
+  setCustomReferralCodePopup: setCustomReferralCodePopupMock,
 })
-jest.mock('../../../overlays/referral/useSetCustomReferralCodeOverlay', () => ({
-  useSetCustomReferralCodeOverlay: () => useSetCustomReferralCodeOverlayMock(),
+jest.mock('../../../popups/referral/useSetCustomReferralCodePopup', () => ({
+  useSetCustomReferralCodePopup: () => useSetCustomReferralCodePopupMock(),
 }))
 const redeemNoPeachFeesReward = jest.fn()
 const useRedeemNoPeachFeesRewardMock = jest.fn().mockReturnValue(redeemNoPeachFeesReward)
-jest.mock('../../../overlays/referral/useRedeemNoPeachFeesReward', () => ({
+jest.mock('../../../popups/referral/useRedeemNoPeachFeesReward', () => ({
   useRedeemNoPeachFeesReward: () => useRedeemNoPeachFeesRewardMock(),
 }))
 
@@ -96,7 +96,7 @@ describe('useReferralsSetup', () => {
       result.current.redeem()
     })
 
-    expect(setCustomReferralCodeOverlayMock).not.toHaveBeenCalled()
+    expect(setCustomReferralCodePopupMock).not.toHaveBeenCalled()
   })
   it('lets user start redemption of a custom referral code', () => {
     const { result } = renderHook(useReferralsSetup, { wrapper: NavigationWrapper })
@@ -108,7 +108,7 @@ describe('useReferralsSetup', () => {
       result.current.redeem()
     })
 
-    expect(setCustomReferralCodeOverlayMock).toHaveBeenCalled()
+    expect(setCustomReferralCodePopupMock).toHaveBeenCalled()
   })
   it('lets user start redemption of a no peach fees', () => {
     const { result } = renderHook(useReferralsSetup, { wrapper: NavigationWrapper })

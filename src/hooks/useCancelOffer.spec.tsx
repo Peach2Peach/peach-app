@@ -2,17 +2,11 @@ import { renderHook } from '@testing-library/react-native'
 import { buyOffer } from '../../tests/unit/data/offerData'
 import { NavigationWrapper } from '../../tests/unit/helpers/NavigationWrapper'
 import { QueryClientWrapper } from '../../tests/unit/helpers/QueryClientWrapper'
-import { CancelOffer } from '../overlays/CancelOffer'
+import { CancelOffer } from '../popups/CancelOffer'
 import { usePopupStore } from '../store/usePopupStore'
 import { useCancelOffer } from './useCancelOffer'
 import { updateAccount } from '../utils/account'
 import { account1 } from '../../tests/unit/data/accountData'
-
-const updateOverlayMock = jest.fn()
-const useOverlayContextMock = jest.fn().mockReturnValue([, updateOverlayMock])
-jest.mock('../contexts/overlay', () => ({
-  useOverlayContext: () => useOverlayContextMock(),
-}))
 
 const saveOfferMock = jest.fn()
 jest.mock('../utils/offer/saveOffer', () => ({
