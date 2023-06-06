@@ -1,4 +1,3 @@
-/* eslint-disable max-lines */
 import { useCallback, useEffect, useReducer, useRef, useState } from 'react'
 
 import { Animated, Dimensions, SafeAreaView, View } from 'react-native'
@@ -7,7 +6,6 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import analytics from '@react-native-firebase/analytics'
 import { DefaultTheme, NavigationContainer, NavigationState, useNavigationContainerRef } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
-import RNRestart from 'react-native-restart'
 import { enableScreens } from 'react-native-screens'
 
 import { AvoidKeyboard, Drawer, Footer, Header, Message, Overlay, Popup } from './components'
@@ -17,31 +15,20 @@ import { getViews } from './views'
 
 import { DrawerContext, getDrawer, setDrawer } from './contexts/drawer'
 import { MessageContext, getMessage, setMessage, showMessageEffect } from './contexts/message'
-import { OverlayContext, defaultOverlay, useOverlay, useOverlayContext } from './contexts/overlay'
+import { OverlayContext, defaultOverlay, useOverlay } from './contexts/overlay'
 import { PeachWSContext, getWebSocket, setPeachWS } from './utils/peachAPI/websocket'
 
 import { DEV } from '@env'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { setUnhandledPromiseRejectionTracker } from 'react-native-promise-rejection-utils'
-import { shallow } from 'zustand/shallow'
+import { GlobalHandlers } from './GlobalHandlers'
 import { Background } from './components/background/Background'
-import { ISEMULATOR, MSINAMONTH, TIMETORESTART } from './constants'
-import { useAppStateEffect } from './effects/useAppStateEffect'
-import { useMarketPrices, useUpdateTradingAmounts } from './hooks'
-import { useHandleNotifications } from './hooks/notifications/useHandleNotifications'
-import { useMessageHandler } from './hooks/notifications/useMessageHandler'
-import { useCheckTradeNotifications } from './hooks/useCheckTradeNotifications'
-import { useShowUpdateAvailable } from './hooks/useShowUpdateAvailable'
-import { getPeachInfo } from './init/getPeachInfo'
-import { getTrades } from './init/getTrades'
+import { ISEMULATOR } from './constants'
 import { initApp } from './init/initApp'
-import { useInitialNavigation } from './init/useInitialNavigation'
 import requestUserPermissions from './init/requestUserPermissions'
 import websocket from './init/websocket'
-import { useShowAnalyticsPrompt } from './overlays/useShowAnalyticsPrompt'
 import { useAccountStore } from './store/accountStore'
-import { useBitcoinStore } from './store/bitcoinStore'
-import { settingsStore, useSettingsStore } from './store/settingsStore'
+import { usePartialAppSetup } from './usePartialAppSetup'
 import { screenTransition } from './utils/layout/screenTransition'
 import { error, info } from './utils/log'
 import { parseError } from './utils/result'
@@ -60,66 +47,6 @@ const navTheme = {
 }
 
 const queryClient = new QueryClient()
-
-let goHomeTimeout: NodeJS.Timer
-
-type HandlerProps = {
-  getCurrentPage: () => keyof RootStackParamList | undefined
-}
-const Handlers = ({ getCurrentPage }: HandlerProps) => {
-  const messageHandler = useMessageHandler(getCurrentPage)
-  const [, updateOverlay] = useOverlayContext()
-  const showAnalyticsPrompt = useShowAnalyticsPrompt(updateOverlay)
-  const [analyticsPopupSeen, lastBackupDate, showBackupReminder, setShowBackupReminder] = useSettingsStore(
-    (state) => [state.analyticsPopupSeen, state.lastBackupDate, state.showBackupReminder, state.setShowBackupReminder],
-    shallow,
-  )
-  const updateTradingAmounts = useUpdateTradingAmounts()
-  const displayCurrency = useSettingsStore((state) => state.displayCurrency)
-  const [setPrices, setCurrency] = useBitcoinStore((state) => [state.setPrices, state.setCurrency], shallow)
-  const { data: prices } = useMarketPrices()
-  if (!showBackupReminder && lastBackupDate && Date.now() - lastBackupDate > MSINAMONTH) {
-    setShowBackupReminder(true)
-  }
-
-  useInitialNavigation()
-  useShowUpdateAvailable()
-
-  useEffect(() => {
-    if (!settingsStore.persist?.hasHydrated()) return
-    if (!analyticsPopupSeen) showAnalyticsPrompt()
-  }, [analyticsPopupSeen, showAnalyticsPrompt])
-
-  useHandleNotifications(messageHandler)
-
-  useEffect(() => {
-    setCurrency(displayCurrency)
-
-    if (!prices) return
-    setPrices(prices)
-    if (prices.CHF) updateTradingAmounts(prices.CHF)
-  }, [displayCurrency, prices, setCurrency, setPrices, updateTradingAmounts])
-
-  return <></>
-}
-const usePartialAppSetup = () => {
-  const account = useAccountStore((state) => state)
-  useCheckTradeNotifications()
-
-  const appStateCallback = useCallback((isActive: boolean) => {
-    if (isActive) {
-      getPeachInfo()
-      if (account.loggedIn) getTrades()
-      analytics().logAppOpen()
-
-      clearTimeout(goHomeTimeout)
-    } else {
-      goHomeTimeout = setTimeout(() => RNRestart.Restart(), TIMETORESTART)
-    }
-  }, [])
-
-  useAppStateEffect(appStateCallback)
-}
 
 // eslint-disable-next-line max-statements
 const App = () => {
@@ -233,7 +160,7 @@ const App = () => {
                 >
                   <OverlayContext.Provider value={[defaultOverlay, updateOverlay]}>
                     <NavigationContainer theme={navTheme} ref={navigationRef} onStateChange={onNavStateChange}>
-                      <Handlers {...{ getCurrentPage }} />
+                      <GlobalHandlers {...{ getCurrentPage }} />
                       <Background config={backgroundConfig}>
                         <Drawer
                           title={drawerTitle}
