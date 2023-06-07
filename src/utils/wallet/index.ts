@@ -1,6 +1,7 @@
 export { createRandomWallet } from './createRandomWallet'
 export { createWalletFromSeedPhrase } from './createWalletFromSeedPhrase'
 export { getAndStorePendingTransactionHex } from './getAndStorePendingTransactionHex'
+export { getDescriptorSecretKey } from './getDescriptorSecretKey'
 export { getEscrowWallet } from './getEscrowWallet'
 export { getEscrowWalletForOffer } from './getEscrowWalletForOffer'
 export { getFinalScript } from './getFinalScript'

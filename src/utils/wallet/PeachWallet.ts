@@ -1,23 +1,7 @@
 import { NETWORK } from '@env'
-import {
-  Address,
-  Blockchain,
-  DatabaseConfig,
-  Descriptor,
-  DescriptorSecretKey,
-  Mnemonic,
-  TxBuilder,
-  Wallet,
-} from 'bdk-rn'
+import { Address, Blockchain, DatabaseConfig, Descriptor, TxBuilder, Wallet } from 'bdk-rn'
 import { TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
-import {
-  AddressIndex,
-  BlockChainNames,
-  BlockchainEsploraConfig,
-  KeychainKind,
-  Network,
-  WordCount,
-} from 'bdk-rn/lib/lib/enums'
+import { AddressIndex, BlockChainNames, BlockchainEsploraConfig, KeychainKind, Network } from 'bdk-rn/lib/lib/enums'
 import { BIP32Interface } from 'bip32'
 import { payments } from 'bitcoinjs-lib'
 import { sign } from 'bitcoinjs-message'
@@ -31,6 +15,7 @@ import { mergeTransactionList } from '../transaction/mergeTransactionList'
 import { checkConnection } from '../web'
 import { PeachWalletErrorHandlers } from './PeachWalletErrorHandlers'
 import { getAndStorePendingTransactionHex } from './getAndStorePendingTransactionHex'
+import { getDescriptorSecretKey } from './getDescriptorSecretKey'
 import { getNetwork } from './getNetwork'
 import { rebroadcastTransactions } from './rebroadcastTransactions'
 import { walletStore } from './walletStore'
@@ -80,14 +65,6 @@ export class PeachWallet extends PeachWalletErrorHandlers {
     this.synced = false
   }
 
-  static async getDescriptor (network: Network, seedphrase?: string): Promise<DescriptorSecretKey> {
-    const mnemonic = await new Mnemonic().create(WordCount.WORDS12)
-
-    if (seedphrase) await mnemonic.fromString(seedphrase)
-
-    return await new DescriptorSecretKey().create(network, mnemonic)
-  }
-
   async loadWallet (seedphrase?: string): Promise<void> {
     this.loadFromStorage()
 
@@ -98,7 +75,7 @@ export class PeachWallet extends PeachWalletErrorHandlers {
 
         info('PeachWallet - loadWallet - createWallet')
 
-        const descriptorSecretKey = await PeachWallet.getDescriptor(this.network, seedphrase)
+        const descriptorSecretKey = await getDescriptorSecretKey(this.network, seedphrase)
         const externalDescriptor = await new Descriptor().newBip84(
           descriptorSecretKey,
           KeychainKind.External,
