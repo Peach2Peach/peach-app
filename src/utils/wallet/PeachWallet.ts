@@ -1,6 +1,15 @@
 import { NETWORK } from '@env'
-import { Blockchain, DatabaseConfig, Descriptor, DescriptorSecretKey, Mnemonic, TxBuilder, Wallet } from 'bdk-rn'
-import { Script, TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
+import {
+  Address,
+  Blockchain,
+  DatabaseConfig,
+  Descriptor,
+  DescriptorSecretKey,
+  Mnemonic,
+  TxBuilder,
+  Wallet,
+} from 'bdk-rn'
+import { TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
 import {
   AddressIndex,
   BlockChainNames,
@@ -19,12 +28,12 @@ import { info } from '../log'
 import { isPending } from '../transaction'
 import { findTransactionsToRebroadcast } from '../transaction/findTransactionsToRebroadcast'
 import { mergeTransactionList } from '../transaction/mergeTransactionList'
+import { checkConnection } from '../web'
 import { PeachWalletErrorHandlers } from './PeachWalletErrorHandlers'
 import { getAndStorePendingTransactionHex } from './getAndStorePendingTransactionHex'
 import { getNetwork } from './getNetwork'
 import { rebroadcastTransactions } from './rebroadcastTransactions'
 import { walletStore } from './walletStore'
-import { checkConnection } from '../web'
 
 type PeachWalletProps = {
   wallet: BIP32Interface
@@ -71,12 +80,12 @@ export class PeachWallet extends PeachWalletErrorHandlers {
     this.synced = false
   }
 
-  static async getDescriptor (seedphrase?: string): Promise<DescriptorSecretKey> {
+  static async getDescriptor (network: Network, seedphrase?: string): Promise<DescriptorSecretKey> {
     const mnemonic = await new Mnemonic().create(WordCount.WORDS12)
 
     if (seedphrase) await mnemonic.fromString(seedphrase)
 
-    return await new DescriptorSecretKey().create(Network.Testnet, mnemonic)
+    return await new DescriptorSecretKey().create(network, mnemonic)
   }
 
   async loadWallet (seedphrase?: string) {
@@ -88,7 +97,7 @@ export class PeachWallet extends PeachWalletErrorHandlers {
 
       info('PeachWallet - loadWallet - createWallet')
 
-      const descriptorSecretKey = await PeachWallet.getDescriptor(seedphrase)
+      const descriptorSecretKey = await PeachWallet.getDescriptor(this.network, seedphrase)
       const externalDescriptor = await new Descriptor().newBip84(
         descriptorSecretKey,
         KeychainKind.External,
@@ -111,13 +120,11 @@ export class PeachWallet extends PeachWalletErrorHandlers {
       this.blockchain = await new Blockchain().create(config, BlockChainNames.Esplora)
       const dbConfig = await new DatabaseConfig().memory()
 
-      this.wallet = await new Wallet().create(externalDescriptor, internalDescriptor, Network.Testnet, dbConfig)
+      this.wallet = await new Wallet().create(externalDescriptor, internalDescriptor, this.network, dbConfig)
 
       info('PeachWallet - loadWallet - createWallet')
 
       this.initialized = true
-      this.getBalance()
-      this.getTransactions()
 
       this.syncWallet()
 
@@ -132,11 +139,11 @@ export class PeachWallet extends PeachWalletErrorHandlers {
       this.synced = false
 
       const success = await this.wallet.sync(this.blockchain)
-
       if (success) {
         this.getBalance()
         this.getTransactions()
         this.synced = true
+        walletStore.getState().setSynced(this.synced)
         info('PeachWallet - syncWallet - synced')
       }
       if (callback) callback(success)
@@ -188,23 +195,27 @@ export class PeachWallet extends PeachWalletErrorHandlers {
     info('PeachWallet - getReceivingAddress - start')
     if (!this.wallet) throw Error('WALLET_NOT_READY')
 
-    const result = await this.wallet.getAddress(AddressIndex.LastUnused)
-
+    const result = await this.wallet.getAddress(AddressIndex.New)
     this.updateStore()
 
     return result.address
   }
 
+  // eslint-disable-next-line max-statements
   async withdrawAll (address: string, feeRate?: number): Promise<string | null> {
-    info('PeachWallet - withdrawAll - start')
     if (!this.wallet) throw Error('WALLET_NOT_READY')
+    info('PeachWallet - withdrawAll - start')
+
     const txBuilder = await new TxBuilder().create()
     if (feeRate) await txBuilder.feeRate(feeRate)
     await txBuilder.enableRbf()
-    const recipient = new Script(address)
-    await txBuilder.drainTo(recipient)
+    const recipientAddress = await new Address().create(address)
+    const utxos = await this.wallet.listUnspent()
+    await txBuilder.addUtxos(utxos.map((utxo) => utxo.outpoint))
+    await txBuilder.drainTo(await recipientAddress.scriptPubKey())
     const result = await txBuilder.finish(this.wallet)
-
+    const signedPSBT = await this.wallet.sign(result.psbt)
+    this.blockchain?.broadcast(await signedPSBT.extractTx())
     this.syncWallet()
     info('PeachWallet - withdrawAll - end')
 
