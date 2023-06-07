@@ -71,8 +71,10 @@ export class DescriptorPublicKey {
 
   asString = jest.fn()
 }
+
+export const descriptorSecretKeyCreateMock = jest.fn().mockReturnThis()
 export class DescriptorSecretKey {
-  create = jest.fn().mockReturnThis()
+  create = descriptorSecretKeyCreateMock
 
   derive = jest.fn()
 
@@ -85,9 +87,10 @@ export class DescriptorSecretKey {
   asString = jest.fn()
 }
 
-export const mnemonicFromStringMock = jest.fn()
+export const mnemonicCreateMock = jest.fn().mockReturnThis()
+export const mnemonicFromStringMock = jest.fn().mockReturnThis()
 export class Mnemonic {
-  create = jest.fn().mockReturnThis()
+  create = mnemonicCreateMock
 
   fromString = mnemonicFromStringMock
 
