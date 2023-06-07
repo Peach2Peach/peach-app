@@ -9,11 +9,12 @@ import { settingsStore } from '../../store/settingsStore'
 import { tradeSummaryStore } from '../../store/tradeSummaryStore'
 import { getBuyOfferIdFromContract } from '../contract'
 import { info } from '../log'
+import { parseError } from '../result'
 import { isPending } from '../transaction'
 import { findTransactionsToRebroadcast } from '../transaction/findTransactionsToRebroadcast'
 import { mergeTransactionList } from '../transaction/mergeTransactionList'
 import { checkConnection } from '../web'
-import { PeachWalletErrorHandlers } from './PeachWalletErrorHandlers'
+import { PeachWalletErrorHandlers, handleBroadcastError } from './error/handleBroadcastError'
 import { getAndStorePendingTransactionHex } from './getAndStorePendingTransactionHex'
 import { getDescriptorSecretKey } from './getDescriptorSecretKey'
 import { getNetwork } from './getNetwork'
@@ -186,24 +187,27 @@ export class PeachWallet extends PeachWalletErrorHandlers {
   async withdrawAll (address: string, feeRate?: number): Promise<string | null> {
     if (!this.wallet || !this.blockchain) throw Error('WALLET_NOT_READY')
     info('PeachWallet - withdrawAll - start')
+    try {
+      const txBuilder = await new TxBuilder().create()
+      if (feeRate) await txBuilder.feeRate(feeRate)
+      await txBuilder.enableRbf()
+      const recipientAddress = await new Address().create(address)
+      const utxos = await this.wallet.listUnspent()
+      await txBuilder.addUtxos(utxos.map((utxo) => utxo.outpoint))
+      await txBuilder.drainTo(await recipientAddress.scriptPubKey())
 
-    const txBuilder = await new TxBuilder().create()
-    if (feeRate) await txBuilder.feeRate(feeRate)
-    await txBuilder.enableRbf()
-    const recipientAddress = await new Address().create(address)
-    const utxos = await this.wallet.listUnspent()
-    await txBuilder.addUtxos(utxos.map((utxo) => utxo.outpoint))
-    await txBuilder.drainTo(await recipientAddress.scriptPubKey())
+      const result = await txBuilder.finish(this.wallet)
+      const signedPSBT = await this.wallet.sign(result.psbt)
 
-    const result = await txBuilder.finish(this.wallet)
-    const signedPSBT = await this.wallet.sign(result.psbt)
+      this.blockchain.broadcast(await signedPSBT.extractTx())
+      this.syncWallet()
 
-    this.blockchain.broadcast(await signedPSBT.extractTx())
-    this.syncWallet()
+      info('PeachWallet - withdrawAll - end')
 
-    info('PeachWallet - withdrawAll - end')
-
-    return result.txDetails.txid
+      return result.txDetails.txid
+    } catch (e) {
+      throw handleBroadcastError(parseError(e))
+    }
   }
 
   getKeyPair (index: number): BIP32Interface {
