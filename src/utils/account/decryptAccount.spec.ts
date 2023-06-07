@@ -10,7 +10,7 @@ describe('decryptAccount', () => {
       encryptedAccount: JSON.stringify(accountData.recoveredAccount),
       password: 'mockpassword',
     })
-    ok(!err, 'Error has been thrown ' + err)
+    ok(!err, `Error has been thrown ${err}`)
     deepStrictEqual(recoveredAccount, accountData.recoveredAccount)
   })
 })

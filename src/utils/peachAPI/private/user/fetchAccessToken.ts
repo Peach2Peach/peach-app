@@ -4,21 +4,18 @@ import { auth } from './auth'
 
 let fetchingToken: Promise<AccessToken> | null
 
-/**
- * @description Method to get and return access token
- * @returns Access Token
- */
+
 export const fetchAccessToken = async (): Promise<string> => {
   const accessToken = getAccessToken()
   if (accessToken && accessToken.expiry > new Date().getTime() + 60 * 1000) {
-    return 'Basic ' + Buffer.from(accessToken.accessToken)
+    return `Basic ${Buffer.from(accessToken.accessToken)}`
   }
 
   if (fetchingToken) {
     info('Authentication already in progress, waiting...')
     await fetchingToken
     info('Background authentication finished')
-    if (accessToken) return 'Basic ' + Buffer.from(accessToken.accessToken)
+    if (accessToken) return `Basic ${Buffer.from(accessToken.accessToken)}`
   }
 
   info('Starting authentication, waiting...')
@@ -40,5 +37,5 @@ export const fetchAccessToken = async (): Promise<string> => {
   const result = await fetchingToken
   info('Authentication finished')
 
-  return 'Basic ' + Buffer.from(result.accessToken)
+  return `Basic ${Buffer.from(result.accessToken)}`
 }

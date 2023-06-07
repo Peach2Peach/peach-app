@@ -3,7 +3,7 @@ import RNFS from 'react-native-fs'
 
 describe('readChunkOfFile', () => {
   it('should return the file content', async () => {
-    const uri = RNFS.DocumentDirectoryPath + 'test.txt'
+    const uri = `${RNFS.DocumentDirectoryPath}test.txt`
     const chunksize = 2
     const index = 0
 
