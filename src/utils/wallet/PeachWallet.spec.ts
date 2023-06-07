@@ -1,12 +1,12 @@
 /* eslint-disable max-lines-per-function */
 import { TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
 import { account1 } from '../../../tests/unit/data/accountData'
+import { createMock } from '../../../tests/unit/mocks/bdkRN'
 import { PeachWallet } from './PeachWallet'
 import { createWalletFromSeedPhrase } from './createWalletFromSeedPhrase'
 import { getNetwork } from './getNetwork'
 import { walletStore } from './walletStore'
 
-jest.mock('bdk-rn')
 jest.mock('./PeachWallet', () => jest.requireActual('./PeachWallet'))
 
 const getTxHexMock = jest.fn(({ txId }) => [txId + 'Hex'])
@@ -53,6 +53,10 @@ describe('PeachWallet', () => {
     peachWallet.loadWallet()
     expect(peachWallet.balance).toBe(balance)
     expect(peachWallet.addresses).toBe(addresses)
+    expect(createMock).toHaveBeenCalledWith(
+      { concurrency: '1', proxy: '', stopGap: '5', timeout: '5', url: 'https://localhost:3000' },
+      'Esplora',
+    )
   })
   it('load existing when wallet store is ready', () => {
     const balance = 50000
