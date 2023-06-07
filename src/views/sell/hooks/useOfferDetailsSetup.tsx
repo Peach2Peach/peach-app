@@ -14,11 +14,11 @@ type Props = {
 }
 export const useOfferDetailsSetup = ({ offerDraft, setOfferDraft }: Props) => {
   const [isEditing, toggleIsEditing] = useToggleBoolean(false)
+  const [isStepValid, setIsStepValid] = useState(false)
   const [meansOfPayment, setMeansOfPayment, preferredPaymentMethods] = useSettingsStore(
     (state) => [state.meansOfPayment, state.setMeansOfPayment, state.preferredPaymentMethods],
     shallow,
   )
-  const [isStepValid, setIsStepValid] = useState(false)
 
   const showHelp = useShowHelp('paymentMethods')
 
@@ -50,8 +50,8 @@ export const useOfferDetailsSetup = ({ offerDraft, setOfferDraft }: Props) => {
     setOfferDraft((prev) => ({
       ...prev,
       meansOfPayment,
-      originalPaymentData: getSelectedPaymentDataIds(preferredPaymentMethods).map(getPaymentData) as PaymentData[],
       paymentData,
+      originalPaymentData: getSelectedPaymentDataIds(preferredPaymentMethods).map(getPaymentData) as PaymentData[],
     }))
   }, [meansOfPayment, preferredPaymentMethods, setOfferDraft])
 
