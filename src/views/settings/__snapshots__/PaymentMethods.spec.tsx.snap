@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PaymentMethods should render correctly 1`] = `
+<PaymentDetails
+  editing={true}
+  origin="paymentMethods"
+/>
+`;
