@@ -5,11 +5,12 @@ import { mockDimensions } from '../../tests/unit/helpers/mockDimensions'
 describe('tailwind', () => {
   it('returns correct styles', () => {
     deepStrictEqual(tw`mt-4`, { marginTop: 16 })
-    deepStrictEqual(tw`text-xl text-warning-dark-1`, {
-      color: '#F3B71A',
+    deepStrictEqual(tw`text-xl text-primary-main`, {
+      color: '#F56522',
       fontSize: 20,
     })
   })
+
   it('does not return styles for md or lg when on sm', () => {
     mockDimensions({ width: 320, height: 700 })
     deepStrictEqual(tw.md`mt-4`, {})

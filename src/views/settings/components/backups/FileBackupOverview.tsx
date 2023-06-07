@@ -1,4 +1,3 @@
-import { ReactElement } from 'react'
 import { View } from 'react-native'
 import { Text } from '../../../../components'
 import { PrimaryButton } from '../../../../components/buttons'
@@ -9,7 +8,7 @@ import { useFileBackupOverviewSetup } from '../../hooks/useFileBackupOverviewSet
 
 type FileBackupOverviewProps = { next: () => void }
 
-export const FileBackupOverview = ({ next }: FileBackupOverviewProps): ReactElement => {
+export const FileBackupOverview = ({ next }: FileBackupOverviewProps) => {
   const { lastFileBackupDate } = useFileBackupOverviewSetup()
   return (
     <View style={tw`items-center h-full`}>

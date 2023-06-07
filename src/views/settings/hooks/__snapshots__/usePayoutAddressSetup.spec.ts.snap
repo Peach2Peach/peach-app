@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`usePayoutAddressSetup should set up header correctly 1`] = `
+<Header
+  icons={
+    [
+      {
+        "color": "#099DE2",
+        "id": "helpCircle",
+        "onPress": [Function],
+      },
+    ]
+  }
+  title="custom payout wallet"
+/>
+`;

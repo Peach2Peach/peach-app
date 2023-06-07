@@ -4,20 +4,20 @@ import { useContractPopupEvents } from './useContractPopupEvents'
 import { contract } from '../../../../../tests/unit/data/contractData'
 
 const showConfirmTradeCancelationMock = jest.fn()
-jest.mock('../../../../overlays/tradeCancelation/useConfirmTradeCancelationOverlay', () => ({
-  useConfirmTradeCancelationOverlay: () => ({
+jest.mock('../../../../popups/tradeCancelation/useConfirmTradeCancelationPopup', () => ({
+  useConfirmTradeCancelationPopup: () => ({
     showConfirmTradeCancelation: showConfirmTradeCancelationMock,
   }),
 }))
 const showTradeCanceledMock = jest.fn()
-jest.mock('../../../../overlays/tradeCancelation/useTradeCanceledOverlay', () => ({
-  useTradeCanceledOverlay: () => ({
+jest.mock('../../../../popups/tradeCancelation/useTradeCanceledPopup', () => ({
+  useTradeCanceledPopup: () => ({
     showTradeCanceled: showTradeCanceledMock,
   }),
 }))
-const showPaymentTooLateOverlayMock = jest.fn()
-jest.mock('../../../../overlays/usePaymentTooLateOverlay', () => ({
-  usePaymentTooLateOverlay: () => showPaymentTooLateOverlayMock,
+const showPaymentTooLatePopupMock = jest.fn()
+jest.mock('../../../../popups/usePaymentTooLatePopup', () => ({
+  usePaymentTooLatePopup: () => showPaymentTooLatePopupMock,
 }))
 
 describe('useContractPopupEvents', () => {
@@ -26,7 +26,7 @@ describe('useContractPopupEvents', () => {
   })
 
   it('should handle "contract.canceled" event', () => {
-    const { result } = renderHook(() => useContractPopupEvents())
+    const { result } = renderHook(useContractPopupEvents)
 
     act(() => {
       result.current['contract.canceled']!(contract)
@@ -34,17 +34,17 @@ describe('useContractPopupEvents', () => {
 
     expect(showTradeCanceledMock).toHaveBeenCalledWith(contract, false)
   })
-  it('should handle "seller.canceledAfterEscrowExpiry" event', () => {
-    const { result } = renderHook(() => useContractPopupEvents())
+  it('should handle "contract.seller.canceledAfterEscrowExpiry" event', () => {
+    const { result } = renderHook(useContractPopupEvents)
 
     act(() => {
-      result.current['seller.canceledAfterEscrowExpiry']!(contract)
+      result.current['contract.seller.canceledAfterEscrowExpiry']!(contract)
     })
 
     expect(showTradeCanceledMock).toHaveBeenCalledWith(contract, false)
   })
   it('should handle "contract.cancelationRequest" event if dispute is not active', () => {
-    const { result } = renderHook(() => useContractPopupEvents())
+    const { result } = renderHook(useContractPopupEvents)
 
     act(() => {
       result.current['contract.cancelationRequest']!({ ...contract, disputeActive: false })
@@ -53,7 +53,7 @@ describe('useContractPopupEvents', () => {
     expect(showConfirmTradeCancelationMock).toHaveBeenCalledWith(contract)
   })
   it('should not handle "contract.cancelationRequest" event if dispute is active', () => {
-    const { result } = renderHook(() => useContractPopupEvents())
+    const { result } = renderHook(useContractPopupEvents)
 
     act(() => {
       result.current['contract.cancelationRequest']!({ ...contract, disputeActive: true })
@@ -62,12 +62,12 @@ describe('useContractPopupEvents', () => {
     expect(showConfirmTradeCancelationMock).not.toHaveBeenCalled()
   })
   it('should handle "contract.buyer.paymentTimerHasRunOut" event', () => {
-    const { result } = renderHook(() => useContractPopupEvents())
+    const { result } = renderHook(useContractPopupEvents)
 
     act(() => {
       result.current['contract.buyer.paymentTimerHasRunOut']!(contract)
     })
 
-    expect(showPaymentTooLateOverlayMock).toHaveBeenCalled()
+    expect(showPaymentTooLatePopupMock).toHaveBeenCalled()
   })
 })

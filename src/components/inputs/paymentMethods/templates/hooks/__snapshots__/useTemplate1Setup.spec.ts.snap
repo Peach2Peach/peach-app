@@ -14,11 +14,6 @@ exports[`useTemplate1Setup should return the correct values 1`] = `
     "onChange": [Function],
     "value": "bic",
   },
-  "checkboxProps": {
-    "checked": true,
-    "onPress": [Function],
-    "text": "my bank supports instant payments",
-  },
   "currencySelectionProps": {
     "onToggle": [Function],
     "paymentMethod": "sepa",
@@ -44,7 +39,6 @@ exports[`useTemplate1Setup should return the correct values 1`] = `
     "onSubmit": [Function],
     "value": "reference",
   },
-  "shouldShowCheckbox": false,
   "shouldShowCurrencySelection": false,
 }
 `;

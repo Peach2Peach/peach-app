@@ -1,4 +1,3 @@
-import { ReactElement } from 'react'
 import { Text } from '..'
 import PaymentLogos, { PaymentLogoType } from './logos'
 
@@ -14,7 +13,7 @@ type PaymentLogoProps = ComponentProps & {
  * @example
  * <PaymentLogo id="amazon" style={tw`mt-4`} />
  */
-export const PaymentLogo = ({ id, style }: PaymentLogoProps): ReactElement => {
+export const PaymentLogo = ({ id, style }: PaymentLogoProps) => {
   const SVG = PaymentLogos[id]
 
   return SVG ? <SVG style={style} /> : <Text>❌</Text>

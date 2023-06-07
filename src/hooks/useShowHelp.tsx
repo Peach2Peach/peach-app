@@ -1,24 +1,23 @@
-import { useCallback, useContext } from 'react'
-import { OverlayContext } from '../contexts/overlay'
+import { useCallback } from 'react'
+import { shallow } from 'zustand/shallow'
 import { useNavigation } from '../hooks'
-import { helpOverlays, HelpType } from '../overlays/helpOverlays'
+import { HelpType, helpPopups } from '../popups/helpPopups'
+import { usePopupStore } from '../store/usePopupStore'
 import i18n from '../utils/i18n'
 
 export const useShowHelp = (id: HelpType) => {
   const navigation = useNavigation()
-  const [, updateOverlay] = useContext(OverlayContext)
+  const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
+  const goToHelp = useCallback(() => {
+    closePopup()
+    navigation.navigate('contact')
+  }, [navigation, closePopup])
 
   const showHelp = useCallback(() => {
-    const goToHelp = () => {
-      updateOverlay({
-        visible: false,
-      })
-      navigation.navigate('contact')
-    }
-    const Content = helpOverlays[id].content
+    const Content = helpPopups[id].content
 
-    updateOverlay({
-      title: helpOverlays[id].title,
+    setPopup({
+      title: helpPopups[id].title,
       content: <Content />,
       visible: true,
       action2: {
@@ -28,7 +27,7 @@ export const useShowHelp = (id: HelpType) => {
       },
       level: 'INFO',
     })
-  }, [id, navigation, updateOverlay])
+  }, [goToHelp, id, setPopup])
 
   return showHelp
 }

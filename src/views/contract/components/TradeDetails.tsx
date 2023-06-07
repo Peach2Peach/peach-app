@@ -8,6 +8,7 @@ import { isPaymentTooLate } from '../../../utils/contract/status/isPaymentTooLat
 import { useContractContext } from '../context'
 import { Icon } from '../../../components'
 import { isCashTrade } from '../../../utils/paymentMethod/isCashTrade'
+import { useLocalContractStore } from '../../../store/useLocalContractStore'
 
 const getTradeDetailsIcon = (shouldShowCopyable: boolean, shouldShowCashIcon: boolean, information: string) =>
   shouldShowCopyable ? (
@@ -20,6 +21,7 @@ export const TradeDetails = () => {
   const { contract, view } = useContractContext()
   const fields = getTradeInfoFields(contract, view)
   const shouldBlur = isPaymentTooLate(contract)
+  const error = useLocalContractStore((state) => state.contracts[contract.id]?.error)
 
   return (
     <View>
@@ -49,7 +51,7 @@ export const TradeDetails = () => {
           />
         )
       })}
-      {!contract.paymentData && contract.error === 'DECRYPTION_ERROR' && (
+      {!contract.paymentData && error === 'DECRYPTION_ERROR' && (
         <ErrorBox style={tw`mt-[2px]`}>{i18n('contract.paymentData.decyptionFailed')}</ErrorBox>
       )}
     </View>

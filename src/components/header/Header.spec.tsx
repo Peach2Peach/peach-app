@@ -1,7 +1,6 @@
 import { render } from '@testing-library/react-native'
 import { NavigationWrapper, canGoBackMock } from '../../../tests/unit/helpers/NavigationWrapper'
-import { Header } from './Header'
-import { HeaderConfig, useHeaderState } from './store'
+import { Header, HeaderConfig } from './Header'
 
 describe('Header', () => {
   const title = 'title'
@@ -15,11 +14,7 @@ describe('Header', () => {
   })
   it('should render correctly with title and icons', () => {
     canGoBackMock.mockReturnValueOnce(true)
-    useHeaderState.setState({
-      title,
-      icons,
-    })
-    const { toJSON } = render(<Header />, { wrapper: NavigationWrapper })
+    const { toJSON } = render(<Header {...{ title, icons }} />, { wrapper: NavigationWrapper })
     expect(toJSON()).toMatchSnapshot()
   })
 })

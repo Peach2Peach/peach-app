@@ -1,4 +1,4 @@
-import { ReactElement, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Animated, ViewProps } from 'react-native'
 
 type FadeProps = ViewProps &
@@ -29,7 +29,7 @@ export const Fade = ({
   delay = 0,
   pointerEvents,
   displayNone = true,
-}: FadeProps): ReactElement => {
+}: FadeProps) => {
   const fadeAnim = useRef(new Animated.Value(show ? 1 : 0)).current
   const [display, setDisplay] = useState(true)
 

@@ -1,4 +1,3 @@
-import { ReactElement } from 'react'
 import { TextStyle, View, ViewStyle } from 'react-native'
 import { Text } from '.'
 import { SATSINBTC } from '../../constants'
@@ -24,7 +23,7 @@ export const SatsFormat = ({
   satsContainerStyle,
   bitcoinLogoStyle,
   satsStyle,
-}: SatsFormatProps): ReactElement => {
+}: SatsFormatProps) => {
   const parts = getNumberFormatParts(sats / SATSINBTC)
   return (
     <View style={[tw`flex flex-row items-center`, containerStyle]}>
@@ -32,14 +31,14 @@ export const SatsFormat = ({
       <View style={[tw`flex-row items-center`, satsContainerStyle]}>
         <Text
           style={[
-            tw`font-courier-prime font-medium`,
+            tw`font-medium font-courier-prime`,
             parts[0] === '0' ? tw`text-black-5` : tw`text-black-1`,
             style,
           ].flat()}
         >
           {parts[0]}.{parts[1]}
         </Text>
-        <Text style={[tw`font-courier-prime font-medium`, style, color || tw`text-black-1`].flat()}>{parts[2]}</Text>
+        <Text style={[tw`font-medium font-courier-prime`, style, color || tw`text-black-1`].flat()}>{parts[2]}</Text>
         <Text style={[tw`body-s font-medium mt-0.5`, satsStyle || style, color || tw`text-black-1`].flat()}>
           {' '}
           {i18n('currency.SATS')}

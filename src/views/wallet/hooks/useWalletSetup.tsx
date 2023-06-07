@@ -1,11 +1,12 @@
 import { useFocusEffect } from '@react-navigation/native'
-import { useCallback, useContext, useMemo, useState } from 'react'
-import { OverlayContext } from '../../../contexts/overlay'
+import { useCallback, useMemo, useState } from 'react'
+import { shallow } from 'zustand/shallow'
 import { useHeaderSetup, useNavigation, useValidatedState } from '../../../hooks'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { useShowHelp } from '../../../hooks/useShowHelp'
-import { WithdrawalConfirmation } from '../../../overlays/WithdrawalConfirmation'
+import { WithdrawalConfirmation } from '../../../popups/WithdrawalConfirmation'
 import { useSettingsStore } from '../../../store/settingsStore'
+import { usePopupStore } from '../../../store/usePopupStore'
 import i18n from '../../../utils/i18n'
 import { headerIcons } from '../../../utils/layout/headerIcons'
 import { getFeeEstimate } from '../../../utils/peachAPI'
@@ -20,7 +21,7 @@ import { useSyncWallet } from './useSyncWallet'
 const bitcoinAddressRules = { required: false, bitcoinAddress: true }
 
 export const useWalletSetup = () => {
-  const [, updateOverlay] = useContext(OverlayContext)
+  const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
   const showErrorBanner = useShowErrorBanner()
   const feeRate = useSettingsStore((state) => state.feeRate)
   const walletStore = useWalletState((state) => state)
@@ -40,8 +41,6 @@ export const useWalletSetup = () => {
     navigation.navigate('backupTime', { nextScreen: 'wallet' })
   }
 
-  const closeOverlay = useMemo(() => () => updateOverlay({ visible: false }), [updateOverlay])
-
   const [address, setAddress, isValid, addressErrors] = useValidatedState<string>('', bitcoinAddressRules)
 
   const onChange = useCallback(
@@ -52,7 +51,7 @@ export const useWalletSetup = () => {
   )
 
   const confirmWithdrawal = async () => {
-    closeOverlay()
+    closePopup()
     let finalFeeRate = feeRate
     if (feeRate && !isNumber(feeRate)) {
       const [estimatedFees] = await getFeeEstimate({})
@@ -76,12 +75,12 @@ export const useWalletSetup = () => {
   }
 
   const openWithdrawalConfirmation = () =>
-    updateOverlay({
+    setPopup({
       title: i18n('wallet.confirmWithdraw.title'),
       content: <WithdrawalConfirmation />,
       visible: true,
       action2: {
-        callback: closeOverlay,
+        callback: closePopup,
         label: i18n('cancel'),
         icon: 'xCircle',
       },

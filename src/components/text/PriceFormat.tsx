@@ -1,4 +1,3 @@
-import { ReactElement } from 'react'
 import { Text } from '.'
 import { priceFormat } from '../../utils/string'
 
@@ -8,7 +7,7 @@ type PriceFormatProps = ComponentProps & {
   round?: boolean
 }
 
-export const PriceFormat = ({ amount, currency, round, style }: PriceFormatProps): ReactElement => (
+export const PriceFormat = ({ amount, currency, round, style }: PriceFormatProps) => (
   <Text style={style}>
     {priceFormat(amount, round)} {currency}
   </Text>

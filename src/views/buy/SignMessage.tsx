@@ -1,5 +1,4 @@
 import Clipboard from '@react-native-clipboard/clipboard'
-import { ReactElement } from 'react'
 import { View } from 'react-native'
 import { CopyAble, Input, PeachScrollView, PrimaryButton } from '../../components'
 import { Text } from '../../components/text'
@@ -8,7 +7,7 @@ import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { useSignMessageSetup } from './hooks/useSignMessageSetup'
 
-export default (): ReactElement => {
+export default () => {
   const { address, message, submit, signature, setSignature, signatureValid, signatureError } = useSignMessageSetup()
 
   const submitSignature = () => submit(signature)

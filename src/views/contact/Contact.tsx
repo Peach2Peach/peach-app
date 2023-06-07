@@ -1,4 +1,3 @@
-import { ReactElement } from 'react'
 import { Text, View } from 'react-native'
 import { OptionButton, PeachScrollView } from '../../components'
 import LinedText from '../../components/ui/LinedText'
@@ -7,7 +6,7 @@ import i18n from '../../utils/i18n'
 import { ContactButton } from './components/ContactButton'
 import { useContactSetup } from './hooks/useContactSetup'
 
-export default (): ReactElement => {
+export default () => {
   const { contactReasons, setReason, openTelegram, openDiscord } = useContactSetup()
 
   return (

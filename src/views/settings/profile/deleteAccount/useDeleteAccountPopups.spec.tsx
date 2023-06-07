@@ -1,11 +1,11 @@
-import { useDeleteAccountPopups } from './useDeleteAccountPopups'
-import { act, renderHook } from '@testing-library/react-native'
-import { OverlayContext, defaultOverlay } from '../../../../contexts/overlay'
-import { deleteAccount } from '../../../../utils/account'
-import { logoutUser } from '../../../../utils/peachAPI'
 import { CommonActions } from '@react-navigation/native'
-import { DeleteAccountPopup } from './DeleteAccountPopup'
+import { act, renderHook } from '@testing-library/react-native'
+import { usePopupStore } from '../../../../store/usePopupStore'
+import { deleteAccount } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
+import { logoutUser } from '../../../../utils/peachAPI'
+import { DeleteAccountPopup } from './DeleteAccountPopup'
+import { useDeleteAccountPopups } from './useDeleteAccountPopups'
 
 jest.mock('../../../../utils/account', () => ({
   deleteAccount: jest.fn(),
@@ -22,18 +22,14 @@ jest.mock('@react-navigation/native', () => ({
 }))
 
 describe('useDeleteAccountPopups', () => {
-  let defaultOverlayMock = { ...defaultOverlay }
-  const updateOverlayMock = jest.fn((props) => (defaultOverlayMock = { ...defaultOverlayMock, ...props }))
-  const { result } = renderHook(useDeleteAccountPopups, {
-    wrapper: ({ children }) => (
-      <OverlayContext.Provider value={[defaultOverlayMock, updateOverlayMock]}>{children}</OverlayContext.Provider>
-    ),
-  })
+  const { result } = renderHook(useDeleteAccountPopups)
+
   it('should show deleteAccount ovelay', () => {
     act(() => {
       result.current()
     })
-    expect(defaultOverlayMock).toStrictEqual({
+    expect(usePopupStore.getState()).toEqual({
+      ...usePopupStore.getState(),
       visible: true,
       title: i18n('settings.deleteAccount.popup.title'),
       content: <DeleteAccountPopup title={'popup'} />,
@@ -50,9 +46,10 @@ describe('useDeleteAccountPopups', () => {
 
   it('should show forRealsies ovelay', () => {
     act(() => {
-      defaultOverlayMock.action2?.callback()
+      usePopupStore.getState().action2?.callback()
     })
-    expect(defaultOverlayMock).toStrictEqual({
+    expect(usePopupStore.getState()).toEqual({
+      ...usePopupStore.getState(),
       visible: true,
       title: i18n('settings.deleteAccount.popup.title'),
       content: <DeleteAccountPopup title={'forRealsies'} />,
@@ -69,7 +66,7 @@ describe('useDeleteAccountPopups', () => {
 
   it('should delete the account', () => {
     act(() => {
-      defaultOverlayMock.action2?.callback()
+      usePopupStore.getState().action2?.callback()
     })
     expect(deleteAccount).toHaveBeenCalledTimes(1)
   })
@@ -83,7 +80,8 @@ describe('useDeleteAccountPopups', () => {
   })
 
   it('should show success ovelay', () => {
-    expect(defaultOverlayMock).toStrictEqual({
+    expect(usePopupStore.getState()).toEqual({
+      ...usePopupStore.getState(),
       visible: true,
       title: i18n('settings.deleteAccount.success.title'),
       content: <DeleteAccountPopup title={'success'} />,

@@ -1,4 +1,4 @@
-import { ReactElement, useState } from 'react'
+import { useState } from 'react'
 import { Platform } from 'react-native'
 import DocumentPicker from 'react-native-document-picker'
 import { readFileInChunks } from '../../utils/file'
@@ -21,7 +21,7 @@ export const FileInput = ({
   theme = 'default',
   errorMessage = [],
   onChange,
-}: FileInputProps): ReactElement => {
+}: FileInputProps) => {
   const [loading, setLoading] = useState(false)
   const selectFile = (): Promise<FileData> =>
     new Promise(async (resolve) => {

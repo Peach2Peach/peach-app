@@ -1,4 +1,4 @@
-import { ReactElement, useCallback, useEffect, useRef } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
 import { FlatList, Keyboard, View, ViewToken } from 'react-native'
 import tw from '../../../styles/tailwind'
 import { getChat } from '../../../utils/chat'
@@ -17,14 +17,7 @@ type ChatBoxProps = {
   online: boolean
 }
 
-export default ({
-  chat,
-  setAndSaveChat,
-  page,
-  fetchNextPage,
-  isLoading,
-  ...chatMessageProps
-}: ChatBoxProps): ReactElement => {
+export default ({ chat, setAndSaveChat, page, fetchNextPage, isLoading, ...chatMessageProps }: ChatBoxProps) => {
   const scroll = useRef<FlatList<Message>>(null)
   const visibleChatMessages = chat.messages.slice(-(page + 1) * PAGE_SIZE)
 

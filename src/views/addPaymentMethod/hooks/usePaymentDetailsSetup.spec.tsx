@@ -1,8 +1,6 @@
 import { act, renderHook } from '@testing-library/react-native'
-import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
-import { useHeaderState } from '../../../components/header/store'
-import { defaultOverlay } from '../../../contexts/overlay'
-import { usePopupStore } from '../../../store/usePopupStore'
+import { NavigationWrapper, headerState, setOptionsMock } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { defaultPopupState, usePopupStore } from '../../../store/usePopupStore'
 import { account } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
 import { usePaymentDetailsSetup } from './usePaymentDetailsSetup'
@@ -29,15 +27,15 @@ jest.mock('../../../hooks/useGoToOrigin', () => ({
   useGoToOrigin: jest.fn(() => goToOriginMock),
 }))
 
-const wrapper = ({ children }: { children: JSX.Element }) => <NavigationWrapper>{children}</NavigationWrapper>
+const wrapper = NavigationWrapper
 
 describe('usePaymentDetailsSetup', () => {
   beforeEach(() => {
     jest.clearAllMocks()
-    useHeaderState.setState({ title: '', icons: [] })
+    setOptionsMock({ header: { title: '', icons: [] } })
   })
   afterEach(() => {
-    usePopupStore.setState(defaultOverlay)
+    usePopupStore.setState(defaultPopupState)
   })
   it('should return paymentMethod, onSubmit, currencies, data', () => {
     const { result } = renderHook(usePaymentDetailsSetup, { wrapper })
@@ -56,9 +54,7 @@ describe('usePaymentDetailsSetup', () => {
   })
   it('should set the header', () => {
     renderHook(usePaymentDetailsSetup, { wrapper })
-    expect(useHeaderState.getState().title).toEqual(i18n('paymentMethod.edit.title', i18n('paymentMethod.revolut')))
-    expect(useHeaderState.getState().icons?.[0].id).toBe('helpCircle')
-    expect(useHeaderState.getState().icons?.[1].id).toBe('trash')
+    expect(headerState.header()).toMatchSnapshot()
   })
   it('should set the header if no id is present and the paymentMethod is not revolut', () => {
     useRouteMock.mockReturnValueOnce({
@@ -74,15 +70,12 @@ describe('usePaymentDetailsSetup', () => {
       },
     })
     renderHook(usePaymentDetailsSetup, { wrapper })
-    expect(useHeaderState.getState().title).toEqual(i18n('paymentMethod.select.title', i18n('paymentMethod.sepa')))
-    expect(useHeaderState.getState().icons).toStrictEqual([])
+    expect(headerState.header()).toMatchSnapshot()
   })
-  it('should show the delete PM overlay when the delete icon is pressed', () => {
+  it('should show the delete PM popup when the delete icon is pressed', () => {
     renderHook(usePaymentDetailsSetup, { wrapper })
 
-    act(() => {
-      useHeaderState.getState().icons?.[1].onPress?.()
-    })
+    headerState.header().props.icons?.[1].onPress()
     expect(usePopupStore.getState()).toEqual({
       ...usePopupStore.getState(),
       title: i18n('help.paymentMethodDelete.title'),

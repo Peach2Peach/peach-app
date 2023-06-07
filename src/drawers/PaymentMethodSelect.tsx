@@ -1,4 +1,3 @@
-import { ReactElement } from 'react'
 import { View } from 'react-native'
 import { HorizontalLine, PaymentLogo, Text } from '../components'
 import { PaymentLogoType } from '../components/payment/logos'
@@ -10,7 +9,7 @@ type PaymentMethodSelectProps = {
   paymentMethods: PaymentMethod[]
   onSelect: (method: PaymentMethod) => void
 }
-export const PaymentMethodSelect = ({ paymentMethods, onSelect }: PaymentMethodSelectProps): ReactElement => (
+export const PaymentMethodSelect = ({ paymentMethods, onSelect }: PaymentMethodSelectProps) => (
   <View>
     {paymentMethods
       .sort((a, b) => sortAlphabetically(i18n(`paymentMethod.${a}`), i18n(`paymentMethod.${b}`)))
@@ -18,7 +17,7 @@ export const PaymentMethodSelect = ({ paymentMethods, onSelect }: PaymentMethodS
         <View key={method}>
           <View style={tw`flex flex-row items-center px-8`}>
             <View
-              style={[tw`mr-4 px-1`, !method.includes('nationalTransfer') && tw`py-1 border rounded-lg border-black-6`]}
+              style={[tw`px-1 mr-4`, !method.includes('nationalTransfer') && tw`py-1 border rounded-lg border-black-6`]}
             >
               <PaymentLogo id={method as PaymentLogoType} style={tw`w-6 h-6`} />
             </View>

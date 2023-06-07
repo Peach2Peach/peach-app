@@ -1,4 +1,3 @@
-import { ReactElement } from 'react'
 import { Pressable, View } from 'react-native'
 import { HorizontalLine, Icon, Text } from '../components'
 import tw from '../styles/tailwind'
@@ -10,7 +9,7 @@ type Props = {
   selected?: string
   onSelect: (country: string) => void
 }
-export const LanguageSelect = ({ locales, selected, onSelect }: Props): ReactElement => (
+export const LanguageSelect = ({ locales, selected, onSelect }: Props) => (
   <View>
     {locales
       .sort((a, b) => sortAlphabetically(i18n(`languageName.${a}`), i18n(`languageName.${b}`)))

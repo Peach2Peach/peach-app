@@ -1,4 +1,3 @@
-import { ReactElement } from 'react'
 import { View } from 'react-native'
 
 import { Text } from '../../../../components'
@@ -10,7 +9,7 @@ import i18n from '../../../../utils/i18n'
 
 type Props = { goBackToStart: () => void }
 
-export const LastSeedBackup = ({ goBackToStart }: Props): ReactElement => {
+export const LastSeedBackup = ({ goBackToStart }: Props) => {
   const lastSeedBackupDate = useSettingsStore((state) => state.lastSeedBackupDate)
   return (
     <View style={tw`items-center`}>

@@ -1,7 +1,5 @@
-import { ReactElement } from 'react'
-
 import { BackgroundConfig } from '../components/background/Background'
-import MeetupScreen from '../components/payment/MeetupScreen'
+import { MeetupScreen } from '../components/payment/MeetupScreen'
 import TestView from './TestView/TestView'
 import TestViewButtons from './TestView/buttons'
 import TestViewComponents from './TestView/components'
@@ -53,14 +51,13 @@ import TradeComplete from './tradeComplete/TradeComplete'
 import TransactionDetails from './wallet/TransactionDetails'
 import TransactionHistory from './wallet/TransactionHistory'
 import Wallet from './wallet/Wallet'
-import RedesignWelcome from './welcome/RedesignWelcome'
 import Welcome from './welcome/Welcome'
 import { WrongFundingAmount } from './wrongFundingAmount/WrongFundingAmount'
 import YourTrades from './yourTrades/YourTrades'
 
 type ViewType = {
   name: keyof RootStackParamList
-  component: (props: any) => ReactElement
+  component: (props: any) => JSX.Element
   showHeader: boolean
   showFooter: boolean
   background: BackgroundConfig
@@ -87,13 +84,9 @@ const onboarding: ViewType[] = [
   { name: 'newUser', component: NewUser, ...onboardingConfig },
   { name: 'restoreBackup', component: RestoreBackup, ...onboardingConfig },
   { name: 'restoreReputation', component: RestoreReputation, ...onboardingConfig },
-  { name: 'redesignWelcome', component: RedesignWelcome, ...invertedThemeConfig },
 ]
 
-const home: ViewType[] = [
-  { name: 'home', component: Buy, ...defaultConfig },
-  { name: 'redesignWelcome', component: RedesignWelcome, ...invertedThemeConfig },
-]
+const home: ViewType[] = [{ name: 'home', component: Buy, ...defaultConfig }]
 
 const wallet: ViewType[] = [
   { name: 'wallet', component: Wallet, ...defaultConfig, animationEnabled: false },

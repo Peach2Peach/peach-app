@@ -1,4 +1,3 @@
-import { ReactElement } from 'react'
 import { TextStyle, View } from 'react-native'
 import { Text } from '.'
 import { SATSINBTC } from '../../constants'
@@ -12,7 +11,7 @@ type SatsFormat = ComponentProps & {
   color?: TextStyle
 }
 
-export const MediumSatsFormat = ({ sats, color, style }: SatsFormat): ReactElement => {
+export const MediumSatsFormat = ({ sats, color, style }: SatsFormat) => {
   const parts = getNumberFormatParts(sats / SATSINBTC)
   return (
     <View style={tw`flex flex-row items-center`}>

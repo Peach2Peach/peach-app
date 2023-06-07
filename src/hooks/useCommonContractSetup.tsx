@@ -1,8 +1,6 @@
-import { useCallback, useContext, useEffect, useState } from 'react'
-
 import { useFocusEffect } from '@react-navigation/native'
-import { OverlayContext } from '../contexts/overlay'
-import { useHandleContractOverlays } from '../overlays/useHandleContractOverlays'
+import { useCallback, useContext, useEffect, useState } from 'react'
+import { useHandleContractPopups } from '../popups/useHandleContractPopups'
 import { account } from '../utils/account'
 import {
   decryptContractData,
@@ -19,18 +17,19 @@ import { useHandleNotifications } from './notifications/useHandleNotifications'
 import { useContractDetails } from './query/useContractDetails'
 import { useOfferDetails } from './query/useOfferDetails'
 import { useShowErrorBanner } from './useShowErrorBanner'
+import { useLocalContractStore } from '../store/useLocalContractStore'
 
 export const useCommonContractSetup = (contractId: string) => {
   const ws = useContext(PeachWSContext)
-  const [, updateOverlay] = useContext(OverlayContext)
   const showError = useShowErrorBanner()
-  const handleContractOverlays = useHandleContractOverlays()
+  const handleContractPopups = useHandleContractPopups()
   const { contract, isLoading, refetch } = useContractDetails(contractId, 15 * 1000)
   const { offer } = useOfferDetails(contract ? getOfferIdFromContract(contract) : '')
   const [storedContract, setStoredContract] = useState(getContract(contractId))
   const view = contract ? getContractViewer(contract, account) : undefined
   const requiredAction = storedContract ? getRequiredAction(storedContract) : 'none'
   const [decryptionError, setDecryptionError] = useState(false)
+  const setLocalContract = useLocalContractStore((state) => state.setContract)
 
   const saveAndUpdate = useCallback((contractData: Partial<Contract>) => {
     setStoredContract((prev) => {
@@ -95,7 +94,8 @@ export const useCommonContractSetup = (contractId: string) => {
     ;(async () => {
       const { symmetricKey, paymentData } = await decryptContractData(contract)
       if (!symmetricKey || !paymentData) {
-        saveAndUpdate({ ...contract, error: 'DECRYPTION_ERROR' })
+        saveAndUpdate(contract)
+        setLocalContract({ ...contract, error: 'DECRYPTION_ERROR' })
 
         return setDecryptionError(true)
       }
@@ -106,10 +106,10 @@ export const useCommonContractSetup = (contractId: string) => {
     contract,
     decryptionError,
     saveAndUpdate,
+    setLocalContract,
     showError,
     storedContract?.paymentData,
     storedContract?.symmetricKey,
-    updateOverlay,
   ])
 
   useEffect(() => {
@@ -125,8 +125,8 @@ export const useCommonContractSetup = (contractId: string) => {
 
   useEffect(() => {
     if (!storedContract) return
-    handleContractOverlays(storedContract, getContractViewer(storedContract, account))
-  }, [storedContract, handleContractOverlays])
+    handleContractPopups(storedContract, getContractViewer(storedContract, account))
+  }, [storedContract, handleContractPopups])
 
   useEffect(() => {
     if (offer) saveOffer(offer)

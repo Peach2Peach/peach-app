@@ -1,4 +1,4 @@
-import { ReactElement, useCallback, useState, Dispatch, SetStateAction } from 'react'
+import { useCallback, useState, Dispatch, SetStateAction } from 'react'
 import { BackHandler, View } from 'react-native'
 import tw from '../../styles/tailwind'
 
@@ -28,7 +28,7 @@ const screens = [
   },
 ]
 
-export default (): ReactElement => {
+export default () => {
   const partialSettings = useSettingsStore(
     (state) => ({
       minBuyAmount: state.minBuyAmount,

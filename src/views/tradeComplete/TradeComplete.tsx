@@ -1,4 +1,3 @@
-import { ReactElement } from 'react'
 import { TouchableOpacity, View } from 'react-native'
 import { Icon, Text } from '../../components'
 import tw from '../../styles/tailwind'
@@ -6,7 +5,7 @@ import i18n from '../../utils/i18n'
 import { Rate } from './components/Rate'
 import { useTradeCompleteSetup } from './hooks/useTradeCompleteSetup'
 
-export default (): ReactElement => {
+export default () => {
   const { view, vote, setVote, contract, saveAndUpdate } = useTradeCompleteSetup()
 
   return (

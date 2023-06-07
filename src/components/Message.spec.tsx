@@ -3,15 +3,10 @@ import { fireEvent, render } from '@testing-library/react-native'
 import { createRenderer } from 'react-test-renderer/shallow'
 import i18n from '../utils/i18n'
 
-jest.mock('../utils/i18n', () => ({
-  __esModule: true,
-  default: jest.fn((key: string) => 'translated' + key),
-}))
-
 describe('Message', () => {
   const defaultProps = {
     level: 'APP' as const,
-    msgKey: 'testMsgKey',
+    msgKey: 'NETWORK_ERROR',
     bodyArgs: [],
     action: {
       label: 'testLabel',

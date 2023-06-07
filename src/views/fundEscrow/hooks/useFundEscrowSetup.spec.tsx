@@ -1,15 +1,13 @@
-import { NavigationContainer } from '@react-navigation/native'
 import { act, renderHook, waitFor } from '@testing-library/react-native'
 import { account1 } from '../../../../tests/unit/data/accountData'
 import { sellOffer } from '../../../../tests/unit/data/offerData'
 import { unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
 import { QueryClientWrapper, queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
-import { useHeaderState } from '../../../components/header/store'
 import { setAccount, updateAccount } from '../../../utils/account'
-import i18n from '../../../utils/i18n'
 import { defaultFundingStatus } from '../../../utils/offer/constants'
 import { useFundEscrowSetup } from './useFundEscrowSetup'
 import { saveOffer } from '../../../utils/offer'
+import { headerState, NavigationWrapper, setOptionsMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 
 jest.useFakeTimers()
 
@@ -43,7 +41,7 @@ jest.mock('../../../hooks/query/useFundingStatus', () => ({
 
 const wrapper = ({ children }: { children: JSX.Element }) => (
   <QueryClientWrapper>
-    <NavigationContainer>{children}</NavigationContainer>
+    <NavigationWrapper>{children}</NavigationWrapper>
   </QueryClientWrapper>
 )
 
@@ -75,7 +73,7 @@ jest.mock('../../../hooks/useCancelOffer', () => ({
 
 describe('useFundEscrowSetup', () => {
   beforeEach(async () => {
-    useHeaderState.setState({ title: '', icons: [] })
+    setOptionsMock({ header: { title: '', icons: [] } })
 
     await updateAccount({ ...account1, offers: [] }, true)
   })
@@ -135,12 +133,9 @@ describe('useFundEscrowSetup', () => {
   })
   it('should render header correctly for unfunded offers', () => {
     const { result } = renderHook(useFundEscrowSetup, { wrapper })
-    expect(useHeaderState.getState().title).toBe(i18n('sell.escrow.title'))
-    expect(useHeaderState.getState().hideGoBackButton).toBeFalsy()
-    expect(useHeaderState.getState().icons?.[0].id).toBe('xCircle')
-    expect(useHeaderState.getState().icons?.[0].onPress).toEqual(result.current.cancelOffer)
-    expect(useHeaderState.getState().icons?.[1].id).toBe('helpCircle')
-    expect(useHeaderState.getState().icons?.[1].onPress).toEqual(showHelpMock)
+    expect(headerState.header()).toMatchSnapshot()
+    expect(headerState.header().props.icons?.[0].onPress).toEqual(result.current.cancelOffer)
+    expect(headerState.header().props.icons?.[1].onPress).toEqual(showHelpMock)
   })
   it('should render header correctly for funding in mempool', () => {
     useFundingStatusMock.mockReturnValueOnce({
@@ -155,10 +150,8 @@ describe('useFundEscrowSetup', () => {
       isLoading: false,
     })
     renderHook(useFundEscrowSetup, { wrapper })
-    expect(useHeaderState.getState().title).toBe(i18n('sell.funding.mempool.title'))
-    expect(useHeaderState.getState().hideGoBackButton).toBeFalsy()
-    expect(useHeaderState.getState().icons?.[0].id).toBe('helpCircle')
-    expect(useHeaderState.getState().icons?.[0].onPress).toEqual(showHelpMock)
+    expect(headerState.header()).toMatchSnapshot()
+    expect(headerState.header().props.icons?.[0].onPress).toEqual(showHelpMock)
   })
   it('should show error banner if there is an error with the funding status', () => {
     useFundingStatusMock.mockReturnValueOnce({
@@ -170,8 +163,8 @@ describe('useFundEscrowSetup', () => {
     renderHook(useFundEscrowSetup, { wrapper })
     expect(showErrorBannerMock).toHaveBeenCalledWith(unauthorizedError.error)
   })
-  it('should handle the case that no offer could be returned', async () => {
-    await setAccount({ ...account1, offers: [] })
+  it('should handle the case that no offer could be returned', () => {
+    setAccount({ ...account1, offers: [] })
 
     getOfferDetailsMock.mockReturnValueOnce([null, unauthorizedError])
     const { result } = renderHook(useFundEscrowSetup, { wrapper })

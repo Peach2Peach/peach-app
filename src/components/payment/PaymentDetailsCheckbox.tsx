@@ -1,4 +1,4 @@
-import { ReactElement, ReactNode } from 'react'
+import { ReactNode } from 'react'
 import { Pressable, View } from 'react-native'
 import { Icon } from '..'
 import tw from '../../styles/tailwind'
@@ -16,14 +16,7 @@ type CheckboxProps = ComponentProps & {
   checked: boolean
   editing: boolean
 }
-export const PaymentDetailsCheckbox = ({
-  item,
-  checked,
-  onPress,
-  style,
-  testID,
-  editing,
-}: CheckboxProps): ReactElement => (
+export const PaymentDetailsCheckbox = ({ item, checked, onPress, style, testID, editing }: CheckboxProps) => (
   <Pressable
     testID={testID}
     onPress={onPress}

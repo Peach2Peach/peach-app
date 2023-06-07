@@ -1,4 +1,4 @@
-import { ReactElement, useEffect, useMemo, useState, Dispatch, SetStateAction } from 'react'
+import { useEffect, useMemo, useState, Dispatch, SetStateAction } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
@@ -19,7 +19,7 @@ type CountrySelectProps = {
   next: () => void
 }
 
-export default ({ paymentMethod, currency, selected, setCountry, next }: CountrySelectProps): ReactElement => {
+export default ({ paymentMethod, currency, selected, setCountry, next }: CountrySelectProps) => {
   const [paymentMethodInfo] = useState(() => getPaymentMethodInfo(paymentMethod))
   const [stepValid, setStepValid] = useState(false)
   const [selectedCountry, setSelectedCountry] = useState(selected)
