@@ -112,7 +112,8 @@ export const useWalletSetup = () => {
 
   const syncWalletOnLoad = async () => {
     setWalletLoading(peachWallet.transactions.length === 0)
-    await peachWallet.syncWallet(() => setWalletLoading(false))
+    await peachWallet.syncWallet()
+    setWalletLoading(false)
   }
 
   useFocusEffect(

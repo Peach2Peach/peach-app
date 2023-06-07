@@ -1,19 +1,22 @@
 /* eslint-disable max-classes-per-file */
+
+export const addressScriptPubKeyMock = jest.fn()
 export class Address {
   create = jest.fn().mockReturnThis()
 
-  scriptPubKey = jest.fn()
+  scriptPubKey = addressScriptPubKeyMock
 }
 
-export const createMock = jest.fn().mockReturnThis()
+export const blockChainCreateMock = jest.fn().mockReturnThis()
+export const blockchainBroadcastMock = jest.fn()
 export class Blockchain {
-  create = createMock
+  create = blockChainCreateMock
 
   getHeight = jest.fn()
 
   getBlockHash = jest.fn()
 
-  broadcast = jest.fn()
+  broadcast = blockchainBroadcastMock
 
   estimateFee = jest.fn()
 }
@@ -81,17 +84,21 @@ export class DescriptorSecretKey {
 
   asString = jest.fn()
 }
+
+export const mnemonicFromStringMock = jest.fn()
 export class Mnemonic {
   create = jest.fn().mockReturnThis()
 
-  fromString = jest.fn()
+  fromString = mnemonicFromStringMock
 
   fromEntropy = jest.fn()
 }
+
+export const psbtExtractTxMock = jest.fn()
 export class PartiallySignedTransaction {
   combine = jest.fn()
 
-  extractTx = jest.fn()
+  extractTx = psbtExtractTxMock
 
   serialize = jest.fn()
 
@@ -101,15 +108,24 @@ export class PartiallySignedTransaction {
 
   feeRate = jest.fn()
 }
+
+const transactionCreateMock = jest.fn().mockReturnThis()
 export class Transaction {
   _setTransaction = jest.fn()
 
-  create = jest.fn().mockReturnThis()
+  create = transactionCreateMock
 
   serialize = jest.fn()
 }
+
+export const txBuilderCreateMock = jest.fn().mockReturnThis()
+export const txBuilderFeeRateMock = jest.fn()
+export const txBuilderEnableRbfMock = jest.fn()
+export const txBuilderAddUtxosMock = jest.fn()
+export const txBuilderDrainToMock = jest.fn()
+export const txBuilderFinishMock = jest.fn()
 export class TxBuilder {
-  create = jest.fn().mockReturnThis()
+  create = txBuilderCreateMock
 
   addRecipient = jest.fn()
 
@@ -117,7 +133,7 @@ export class TxBuilder {
 
   addUtxo = jest.fn()
 
-  addUtxos = jest.fn()
+  addUtxos = txBuilderAddUtxosMock
 
   doNotSpendChange = jest.fn()
 
@@ -127,15 +143,15 @@ export class TxBuilder {
 
   unspendable = jest.fn()
 
-  feeRate = jest.fn()
+  feeRate = txBuilderFeeRateMock
 
   feeAbsolute = jest.fn()
 
   drainWallet = jest.fn()
 
-  drainTo = jest.fn()
+  drainTo = txBuilderDrainToMock
 
-  enableRbf = jest.fn()
+  enableRbf = txBuilderEnableRbfMock
 
   enableRbfWithSequence = jest.fn()
 
@@ -143,30 +159,38 @@ export class TxBuilder {
 
   setRecipients = jest.fn()
 
-  finish = jest.fn()
+  finish = txBuilderFinishMock
 }
+
+export const walletGetBalanceMock = jest.fn().mockResolvedValue({
+  trustedPending: 0,
+  untrustedPending: 0,
+  confirmed: 0,
+  spendable: 0,
+  total: 0,
+})
+
+export const getAddressMock = jest.fn()
+export const walletSyncMock = jest.fn()
+export const listUnspentMock = jest.fn().mockResolvedValue([])
+export const walletListTransactionsMock = jest.fn().mockResolvedValue([])
+export const walletSignMock = jest.fn()
 export class Wallet {
   create = jest.fn().mockReturnThis()
 
-  getAddress = jest.fn()
+  getAddress = getAddressMock
 
-  getBalance = jest.fn().mockResolvedValue({
-    trustedPending: 0,
-    untrustedPending: 0,
-    confirmed: 0,
-    spendable: 0,
-    total: 0,
-  })
+  getBalance = walletGetBalanceMock
 
   network = jest.fn()
 
-  sync = jest.fn()
+  sync = walletSyncMock
 
-  listUnspent = jest.fn().mockResolvedValue([])
+  listUnspent = listUnspentMock
 
-  listTransactions = jest.fn().mockResolvedValue([])
+  listTransactions = walletListTransactionsMock
 
-  sign = jest.fn()
+  sign = walletSignMock
 }
 
 export const mockBDKRN = () =>

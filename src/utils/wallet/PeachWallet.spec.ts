@@ -1,7 +1,33 @@
+/* eslint-disable max-lines */
+/* eslint-disable max-statements */
 /* eslint-disable max-lines-per-function */
-import { TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
+import { waitFor } from '@testing-library/react-native'
+import { PartiallySignedTransaction, Transaction } from 'bdk-rn'
+import { LocalUtxo, OutPoint, TransactionDetails, TxBuilderResult, TxOut } from 'bdk-rn/lib/classes/Bindings'
+import { AddressIndex } from 'bdk-rn/lib/lib/enums'
 import { account1 } from '../../../tests/unit/data/accountData'
-import { createMock } from '../../../tests/unit/mocks/bdkRN'
+import { confirmed1, confirmed2, pending1, pending2, pending3 } from '../../../tests/unit/data/transactionDetailData'
+import { getError } from '../../../tests/unit/helpers/getError'
+import {
+  addressScriptPubKeyMock,
+  blockChainCreateMock,
+  blockchainBroadcastMock,
+  getAddressMock,
+  listUnspentMock,
+  mnemonicFromStringMock,
+  psbtExtractTxMock,
+  txBuilderAddUtxosMock,
+  txBuilderCreateMock,
+  txBuilderDrainToMock,
+  txBuilderEnableRbfMock,
+  txBuilderFeeRateMock,
+  txBuilderFinishMock,
+  walletGetBalanceMock,
+  walletListTransactionsMock,
+  walletSignMock,
+  walletSyncMock,
+} from '../../../tests/unit/mocks/bdkRN'
+import { tradeSummaryStore } from '../../store/tradeSummaryStore'
 import { PeachWallet } from './PeachWallet'
 import { createWalletFromSeedPhrase } from './createWalletFromSeedPhrase'
 import { getNetwork } from './getNetwork'
@@ -44,8 +70,19 @@ describe('PeachWallet', () => {
     expect(peachWallet.initialized).toBeFalsy()
     expect(peachWallet.synced).toBeFalsy()
     expect(peachWallet.jsWallet).toEqual(wallet)
+    expect(peachWallet.derivationPath).toEqual('m/84\'/1\'/0\'')
+    expect(peachWallet.descriptorPath).toEqual('/84\'/1\'/0\'/0/*')
   })
-  it('load existing data', () => {
+  it('instantiates for mainnet', () => {
+    peachWallet = new PeachWallet({ wallet, network: 'bitcoin' })
+
+    expect(peachWallet.initialized).toBeFalsy()
+    expect(peachWallet.synced).toBeFalsy()
+    expect(peachWallet.jsWallet).toEqual(wallet)
+    expect(peachWallet.derivationPath).toEqual('m/84\'/0\'/0\'')
+    expect(peachWallet.descriptorPath).toEqual('/84\'/0\'/0\'/0/*')
+  })
+  it('loads existing data', () => {
     const balance = 50000
     const addresses = ['address1', 'address2']
     walletStore.getState().setBalance(balance)
@@ -53,10 +90,14 @@ describe('PeachWallet', () => {
     peachWallet.loadWallet()
     expect(peachWallet.balance).toBe(balance)
     expect(peachWallet.addresses).toBe(addresses)
-    expect(createMock).toHaveBeenCalledWith(
+    expect(blockChainCreateMock).toHaveBeenCalledWith(
       { concurrency: '1', proxy: '', stopGap: '5', timeout: '5', url: 'https://localhost:3000' },
       'Esplora',
     )
+  })
+  it('loads wallet with seed', async () => {
+    await peachWallet.loadWallet(account1.mnemonic)
+    expect(mnemonicFromStringMock).toHaveBeenCalledWith(account1.mnemonic)
   })
   it('load existing when wallet store is ready', () => {
     const balance = 50000
@@ -72,6 +113,33 @@ describe('PeachWallet', () => {
     expect(peachWallet.balance).toBe(balance)
     expect(peachWallet.addresses).toBe(addresses)
   })
+  it('synchronises wallet with the blockchain', async () => {
+    walletSyncMock.mockResolvedValueOnce(true)
+
+    expect(peachWallet.synced).toBeFalsy()
+    expect(walletStore.getState().synced).toBeFalsy()
+    await peachWallet.syncWallet()
+    expect(peachWallet.synced).toBeTruthy()
+    expect(walletStore.getState().synced).toBeTruthy()
+    expect(walletSyncMock).toHaveBeenCalled()
+  })
+  it('gets balance and transactions after sync', async () => {
+    walletSyncMock.mockResolvedValueOnce(true)
+    walletGetBalanceMock.mockResolvedValueOnce({
+      total: 111110,
+    })
+    const transactions = [confirmed1, pending2]
+    walletListTransactionsMock.mockResolvedValueOnce(transactions)
+    await peachWallet.syncWallet()
+    await waitFor(() => expect(peachWallet.balance).toBe(111110))
+    await waitFor(() => expect(peachWallet.transactions).toEqual(transactions))
+  })
+  it('sync wallet attempt throws error if wallet is not ready', async () => {
+    peachWallet.wallet = undefined
+    const error = await getError<Error>(async () => peachWallet.syncWallet())
+
+    expect(error.message).toBe('WALLET_NOT_READY')
+  })
   it('finds key pair by address and stores scanned addresses', () => {
     const address = peachWallet.getAddress(3)
 
@@ -84,13 +152,6 @@ describe('PeachWallet', () => {
       'bcrt1qfvss2z90h0cpwyp8tvtxytqjmrhdq0ltfacxgx',
       'bcrt1qupwsjlw68j596em27078uglyf8net95ddyr9ev',
     ])
-  })
-  it('gets transactions', async () => {
-    // @ts-ignore
-    peachWallet.wallet.listTransactions = listTransactionsMock
-
-    const transactions = await peachWallet.getTransactions()
-    expect(transactions).toEqual(txResponse)
   })
   it('overwrites confirmed and merges pending transactions', async () => {
     peachWallet.transactions = [
@@ -141,5 +202,108 @@ describe('PeachWallet', () => {
 
     await peachWallet.getTransactions()
     expect(getTxHexMock).not.toHaveBeenCalled()
+  })
+  it('gets balance', async () => {
+    walletGetBalanceMock.mockResolvedValueOnce({
+      total: 111110,
+    })
+    await peachWallet.getBalance()
+    await waitFor(() => expect(peachWallet.balance).toBe(111110))
+  })
+  it('throws error when requesting balance before wallet is ready', async () => {
+    peachWallet.wallet = undefined
+    const error = await getError<Error>(async () => peachWallet.getBalance())
+    expect(error.message).toBe('WALLET_NOT_READY')
+  })
+  it('gets transactions', async () => {
+    const transactions = [confirmed1, pending2]
+    walletListTransactionsMock.mockResolvedValueOnce(transactions)
+
+    await peachWallet.getTransactions()
+    await waitFor(() => expect(peachWallet.transactions).toEqual(transactions))
+  })
+  it('throws error when requesting transactions before wallet is ready', async () => {
+    peachWallet.wallet = undefined
+    const error = await getError<Error>(async () => peachWallet.getTransactions())
+    expect(error.message).toBe('WALLET_NOT_READY')
+  })
+  it('gets a new unused receiving address', async () => {
+    const address = 'address'
+    getAddressMock.mockResolvedValueOnce({ address })
+
+    const newAddress = await peachWallet.getReceivingAddress()
+    expect(newAddress).toBe(address)
+    expect(getAddressMock).toHaveBeenCalledWith(AddressIndex.LastUnused)
+  })
+  it('throws error when requesting receiving address before wallet is ready', async () => {
+    peachWallet.wallet = undefined
+    const error = await getError<Error>(async () => peachWallet.getReceivingAddress())
+    expect(error.message).toBe('WALLET_NOT_READY')
+  })
+  it('updates wallet sotre', async () => {
+    peachWallet.synced = true
+    peachWallet.transactions = [confirmed1, confirmed2, pending3]
+    tradeSummaryStore.getState().setContract('1-3', { id: '1-3', releaseTxId: confirmed1.txid })
+    tradeSummaryStore.getState().setOffer('2', { id: '2', txId: confirmed2.txid })
+    await peachWallet.updateStore()
+    expect(walletStore.getState().synced).toBe(true)
+    expect(walletStore.getState().transactions).toEqual([confirmed1, confirmed2, pending3])
+    expect(walletStore.getState().txOfferMap).toEqual({
+      txid1: '3',
+      txid2: '2',
+    })
+  })
+  it('withdraws full balance to an address', async () => {
+    const address = 'address'
+    const scriptPubKey = 'scriptPubKey'
+    const feeRate = 10
+    const utxo1: LocalUtxo = {
+      outpoint: new OutPoint('txid1', 0),
+      txout: new TxOut(1000, 'address1'),
+      isSpent: false,
+    }
+    const utxo2: LocalUtxo = {
+      outpoint: new OutPoint('txid2', 0),
+      txout: new TxOut(1000, 'address2'),
+      isSpent: false,
+    }
+    const utxos = [utxo1, utxo2]
+    const result: TxBuilderResult = {
+      psbt: new PartiallySignedTransaction('base64'),
+      txDetails: pending1,
+    }
+    const transaction = await new Transaction().create([])
+    listUnspentMock.mockResolvedValueOnce(utxos)
+    addressScriptPubKeyMock.mockResolvedValueOnce(scriptPubKey)
+    txBuilderFinishMock.mockResolvedValueOnce(result)
+    walletSignMock.mockResolvedValueOnce(result.psbt)
+    psbtExtractTxMock.mockResolvedValueOnce(transaction)
+    await peachWallet.withdrawAll(address, feeRate)
+    expect(txBuilderCreateMock).toHaveBeenCalled()
+    expect(txBuilderFeeRateMock).toHaveBeenCalledWith(feeRate)
+    expect(txBuilderEnableRbfMock).toHaveBeenCalled()
+    expect(txBuilderAddUtxosMock).toHaveBeenCalledWith(utxos.map((utxo) => utxo.outpoint))
+    expect(txBuilderDrainToMock).toHaveBeenCalledWith(scriptPubKey)
+    expect(txBuilderFinishMock).toHaveBeenCalledWith(peachWallet.wallet)
+    expect(walletSignMock).toHaveBeenCalledWith(result.psbt)
+    expect(blockchainBroadcastMock).toHaveBeenCalledWith(transaction)
+  })
+
+  it('throws error when trying to withdraw before wallet is ready', async () => {
+    peachWallet.wallet = undefined
+    const error = await getError<Error>(async () => peachWallet.withdrawAll('address', 1))
+    expect(error.message).toBe('WALLET_NOT_READY')
+  })
+  it('signs an arbitrary message', async () => {
+    const message = 'message'
+    const address = 'bcrt1q7jyvzs6yu9wz8qzmcwyruw0e652xhyhkdw5qrt'
+    const signature = peachWallet.signMessage(message, address)
+    expect(signature).toBe('H/3SBIrDhI686xf6q40H1aQCI9DHF1zD4YKHuG3Efq8XK3rDDA0zYCQQ31XERBZqEq+2DUOupYYCIahvYOwbJ3s=')
+  })
+  it('throws an error if address is not part of wallet', async () => {
+    const message = 'message'
+    const address = 'bcrt1qdoesnotexist'
+    const error = await getError<Error>(async () => peachWallet.signMessage(message, address))
+    expect(error.message).toBe('Address not part of wallet')
   })
 })

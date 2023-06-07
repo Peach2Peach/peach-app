@@ -72,8 +72,8 @@ export class PeachWallet extends PeachWalletErrorHandlers {
     this.gapLimit = gapLimit
     this.jsWallet = wallet
     this.addresses = []
-    this.derivationPath = `m/84\'/${NETWORK === 'bitcoin' ? '0' : '1'}\'/0\'`
-    this.descriptorPath = `/84\'/${NETWORK === 'bitcoin' ? '0' : '1'}\'/0\'/0/*`
+    this.derivationPath = `m/84\'/${network === 'bitcoin' ? '0' : '1'}\'/0\'`
+    this.descriptorPath = `/84\'/${network === 'bitcoin' ? '0' : '1'}\'/0\'/0/*`
     this.balance = 0
     this.transactions = []
     this.initialized = false
@@ -88,66 +88,71 @@ export class PeachWallet extends PeachWalletErrorHandlers {
     return await new DescriptorSecretKey().create(network, mnemonic)
   }
 
-  async loadWallet (seedphrase?: string) {
+  async loadWallet (seedphrase?: string): Promise<void> {
     this.loadFromStorage()
 
-    checkConnection(async () => {
-      const nodeURL = settingsStore.getState().nodeURL
-      info('PeachWallet - loadWallet - start')
+    return new Promise((resolve) =>
+      checkConnection(async () => {
+        const nodeURL = settingsStore.getState().nodeURL
+        info('PeachWallet - loadWallet - start')
 
-      info('PeachWallet - loadWallet - createWallet')
+        info('PeachWallet - loadWallet - createWallet')
 
-      const descriptorSecretKey = await PeachWallet.getDescriptor(this.network, seedphrase)
-      const externalDescriptor = await new Descriptor().newBip84(
-        descriptorSecretKey,
-        KeychainKind.External,
-        this.network,
-      )
-      const internalDescriptor = await new Descriptor().newBip84(
-        descriptorSecretKey,
-        KeychainKind.Internal,
-        this.network,
-      )
+        const descriptorSecretKey = await PeachWallet.getDescriptor(this.network, seedphrase)
+        const externalDescriptor = await new Descriptor().newBip84(
+          descriptorSecretKey,
+          KeychainKind.External,
+          this.network,
+        )
+        const internalDescriptor = await new Descriptor().newBip84(
+          descriptorSecretKey,
+          KeychainKind.Internal,
+          this.network,
+        )
 
-      const config: BlockchainEsploraConfig = {
-        url: nodeURL,
-        proxy: '',
-        concurrency: '1',
-        timeout: '5',
-        stopGap: '5',
-      }
+        const config: BlockchainEsploraConfig = {
+          url: nodeURL,
+          proxy: '',
+          concurrency: '1',
+          timeout: '5',
+          stopGap: '5',
+        }
 
-      this.blockchain = await new Blockchain().create(config, BlockChainNames.Esplora)
-      const dbConfig = await new DatabaseConfig().memory()
+        this.blockchain = await new Blockchain().create(config, BlockChainNames.Esplora)
+        const dbConfig = await new DatabaseConfig().memory()
 
-      this.wallet = await new Wallet().create(externalDescriptor, internalDescriptor, this.network, dbConfig)
+        this.wallet = await new Wallet().create(externalDescriptor, internalDescriptor, this.network, dbConfig)
 
-      info('PeachWallet - loadWallet - createWallet')
+        info('PeachWallet - loadWallet - createWallet')
 
-      this.initialized = true
+        this.initialized = true
 
-      this.syncWallet()
+        this.syncWallet()
 
-      info('PeachWallet - loadWallet - loaded')
-    })
+        info('PeachWallet - loadWallet - loaded')
+        resolve()
+      }),
+    )
   }
 
-  async syncWallet (callback?: (result: Awaited<boolean>) => void) {
-    checkConnection(async () => {
-      if (!this.wallet || !this.blockchain) throw Error('WALLET_NOT_READY')
-      info('PeachWallet - syncWallet - start')
-      this.synced = false
+  async syncWallet (): Promise<void> {
+    return new Promise((resolve, reject) =>
+      checkConnection(async () => {
+        if (!this.wallet || !this.blockchain) return reject(new Error('WALLET_NOT_READY'))
+        info('PeachWallet - syncWallet - start')
+        this.synced = false
 
-      const success = await this.wallet.sync(this.blockchain)
-      if (success) {
-        this.getBalance()
-        this.getTransactions()
-        this.synced = true
-        walletStore.getState().setSynced(this.synced)
-        info('PeachWallet - syncWallet - synced')
-      }
-      if (callback) callback(success)
-    })
+        const success = await this.wallet.sync(this.blockchain)
+        if (success) {
+          this.getBalance()
+          this.getTransactions()
+          this.synced = true
+          walletStore.getState().setSynced(this.synced)
+          info('PeachWallet - syncWallet - synced')
+        }
+        return resolve()
+      }),
+    )
   }
 
   updateStore (): void {
@@ -192,18 +197,17 @@ export class PeachWallet extends PeachWalletErrorHandlers {
   }
 
   async getReceivingAddress (): Promise<string> {
-    info('PeachWallet - getReceivingAddress - start')
     if (!this.wallet) throw Error('WALLET_NOT_READY')
+    info('PeachWallet - getReceivingAddress - start')
 
-    const result = await this.wallet.getAddress(AddressIndex.New)
+    const result = await this.wallet.getAddress(AddressIndex.LastUnused)
     this.updateStore()
 
     return result.address
   }
 
-  // eslint-disable-next-line max-statements
   async withdrawAll (address: string, feeRate?: number): Promise<string | null> {
-    if (!this.wallet) throw Error('WALLET_NOT_READY')
+    if (!this.wallet || !this.blockchain) throw Error('WALLET_NOT_READY')
     info('PeachWallet - withdrawAll - start')
 
     const txBuilder = await new TxBuilder().create()
@@ -213,10 +217,13 @@ export class PeachWallet extends PeachWalletErrorHandlers {
     const utxos = await this.wallet.listUnspent()
     await txBuilder.addUtxos(utxos.map((utxo) => utxo.outpoint))
     await txBuilder.drainTo(await recipientAddress.scriptPubKey())
+
     const result = await txBuilder.finish(this.wallet)
     const signedPSBT = await this.wallet.sign(result.psbt)
-    this.blockchain?.broadcast(await signedPSBT.extractTx())
+
+    this.blockchain.broadcast(await signedPSBT.extractTx())
     this.syncWallet()
+
     info('PeachWallet - withdrawAll - end')
 
     return result.txDetails.txid
