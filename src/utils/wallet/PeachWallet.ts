@@ -14,7 +14,7 @@ import { isPending } from '../transaction'
 import { findTransactionsToRebroadcast } from '../transaction/findTransactionsToRebroadcast'
 import { mergeTransactionList } from '../transaction/mergeTransactionList'
 import { checkConnection } from '../web'
-import { PeachWalletErrorHandlers, handleBroadcastError } from './error/handleBroadcastError'
+import { handleBroadcastError } from './error/handleBroadcastError'
 import { getAndStorePendingTransactionHex } from './getAndStorePendingTransactionHex'
 import { getDescriptorSecretKey } from './getDescriptorSecretKey'
 import { getNetwork } from './getNetwork'
@@ -27,7 +27,7 @@ type PeachWalletProps = {
   gapLimit?: number
 }
 
-export class PeachWallet extends PeachWalletErrorHandlers {
+export class PeachWallet {
   initialized: boolean
 
   synced: boolean
@@ -53,7 +53,6 @@ export class PeachWallet extends PeachWalletErrorHandlers {
   addresses: string[]
 
   constructor ({ wallet, network = NETWORK, gapLimit = 25 }: PeachWalletProps) {
-    super()
     this.network = network as Network
     this.gapLimit = gapLimit
     this.jsWallet = wallet
