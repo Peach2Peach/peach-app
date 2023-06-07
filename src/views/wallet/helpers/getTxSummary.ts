@@ -1,9 +1,8 @@
-import { ConfirmedTransaction, PendingTransaction } from 'bdk-rn/lib/lib/interfaces'
+import { TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
 import { bitcoinStore } from '../../../store/bitcoinStore'
 import { tradeSummaryStore } from '../../../store/tradeSummaryStore'
 import { getTransactionType, txIsConfirmed } from '../../../utils/transaction'
 import { walletStore } from '../../../utils/wallet/walletStore'
-import { TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
 
 export const getTxSummary = (tx: TransactionDetails) => {
   const offerId = walletStore.getState().txOfferMap[tx.txid]

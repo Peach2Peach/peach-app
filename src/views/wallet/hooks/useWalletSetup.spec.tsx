@@ -13,7 +13,7 @@ jest.mock('../../../utils/wallet/walletStore', () => ({
 const mockWithdrawAll = jest.fn()
 jest.mock('../../../utils/wallet/setWallet', () => ({
   peachWallet: {
-    allTransactions: () => [],
+    transactions: [],
     withdrawAll: (...args: any) => mockWithdrawAll(...args),
     syncWallet: jest.fn((onSuccess: () => void) => onSuccess()),
   },

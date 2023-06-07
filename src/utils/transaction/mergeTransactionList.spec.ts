@@ -14,8 +14,8 @@ describe('mergeTransactionList', () => {
   ]
   const expected: TransactionDetails[] = [
     { txid: 'txid1', confirmationTime, sent: 1, received: 1, fee: 1 },
-    { txid: 'txid2', sent: 2, received: 2, fee: 2 },
     { txid: 'txid3', sent: 3, received: 3, fee: 3 },
+    { txid: 'txid2', sent: 2, received: 2, fee: 2 },
   ]
   it('should overwrite confirmed transactions', () => {
     expect(mergeTransactionList(old, update)).toEqual(expected)
