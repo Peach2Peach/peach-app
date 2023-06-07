@@ -1,5 +1,5 @@
 import { deepStrictEqual } from 'assert'
-import { defaultAccount, setAccount, storeIdentity } from '..'
+import { storeIdentity } from '..'
 import { accountStorage } from '../accountStorage'
 import { loadIdentity } from '.'
 import { account1 } from '../../../../tests/unit/data/accountData'
