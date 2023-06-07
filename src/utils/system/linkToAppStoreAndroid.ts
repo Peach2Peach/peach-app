@@ -1,7 +1,7 @@
 import { Linking } from 'react-native'
 import { getBundleId, getInstallerPackageNameSync } from 'react-native-device-info'
 
-export const linkToAppStoreAndroid = async () => {
+export const linkToAppStoreAndroid = () => {
   const bundleId = getBundleId()
   const isInstalledByGooglePlay = getInstallerPackageNameSync() === 'com.android.vending'
   Linking.openURL(

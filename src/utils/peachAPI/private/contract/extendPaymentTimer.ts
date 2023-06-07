@@ -5,19 +5,16 @@ import { getAbortWithTimeout } from '../../../getAbortWithTimeout'
 import { parseResponse } from '../../parseResponse'
 import { getPrivateHeaders } from '../getPrivateHeaders'
 
-type extendPaymentTimeProps = RequestProps & {
+type Props = RequestProps & {
   contractId: Contract['id']
 }
 
-export const extendPaymentTimer = async ({
-  contractId,
-  timeout,
-}: extendPaymentTimeProps): Promise<[ExtendPaymentTimerResponseBody | null, APIError | null]> => {
+export const extendPaymentTimer = async ({ contractId, timeout }: Props) => {
   const response = await fetch(`${API_URL}/v1/contract/${contractId}/extendTime`, {
     headers: await getPrivateHeaders(),
     method: 'PATCH',
     signal: timeout ? getAbortWithTimeout(timeout).signal : undefined,
   })
 
-  return await parseResponse<ExtendPaymentTimerResponseBody>(response, 'extendPaymentTimer')
+  return parseResponse<ExtendPaymentTimerResponseBody>(response, 'extendPaymentTimer')
 }

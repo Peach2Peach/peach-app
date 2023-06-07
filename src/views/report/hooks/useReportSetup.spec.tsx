@@ -41,14 +41,14 @@ describe('useReportSetup', () => {
     title: 'report sent!',
     visible: true,
   }
-  const fillAllFields = async (current: ReturnType<typeof useReportSetup>) =>
-    await act(async () => {
+  const fillAllFields = (current: ReturnType<typeof useReportSetup>) =>
+    act(() => {
       current.setEmail(email)
       current.setTopic(topic)
       current.setMessage(message)
     })
 
-  const actSubmit = async (current: ReturnType<typeof useReportSetup>) =>
+  const actSubmit = (current: ReturnType<typeof useReportSetup>) =>
     act(async () => {
       await current.submit()
     })

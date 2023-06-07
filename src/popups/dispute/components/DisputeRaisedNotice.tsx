@@ -32,7 +32,7 @@ export default ({ contract, view, disputeReason, email, setEmail }: DisputeRaise
     submitDisputeAcknowledgement({ contractId: contract.id, disputeReason, email: emailValue })
   }
 
-  const submitAndGoToChat = async () => {
+  const submitAndGoToChat = () => {
     onSubmit()
     navigation.replace('contractChat', { contractId: contract.id })
   }

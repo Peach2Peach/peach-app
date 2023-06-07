@@ -62,7 +62,7 @@ export const useRestoreFromFileSetup = () => {
     }, 1500)
   }
 
-  const submit = async () => {
+  const submit = () => {
     Keyboard.dismiss()
     setLoading(true)
 

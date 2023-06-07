@@ -11,7 +11,7 @@ const emptyIdentity: Identity = {
   },
 }
 
-export const loadIdentity = async (): Promise<Identity> => {
+export const loadIdentity = () => {
   const identity = accountStorage.getMap('identity')
 
   if (identity) return identity as Identity

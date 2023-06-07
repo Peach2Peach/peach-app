@@ -14,7 +14,7 @@ const dataIsDefined = (
   }
 } => !!remoteMessage.data
 
-export const useInitialNavigation = async () => {
+export const useInitialNavigation = () => {
   const navigation = useNavigation()
 
   const initialNavigation = useCallback(async () => {

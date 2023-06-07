@@ -199,7 +199,7 @@ describe('useConfirmCancelTrade', () => {
       visible: true,
     })
   })
-  it('should show the correct confirmation popup for canceled trade as buyer', async () => {
+  it('should show the correct confirmation popup for canceled trade as buyer', () => {
     setAccount({ ...account1, publicKey: contract.buyer.id })
 
     const { result } = renderHook(useConfirmCancelTrade, { wrapper })
@@ -212,7 +212,7 @@ describe('useConfirmCancelTrade', () => {
       visible: true,
     })
   })
-  it('should show the correct confirmation popup for canceled trade as seller', async () => {
+  it('should show the correct confirmation popup for canceled trade as seller', () => {
     setAccount({
       ...account1,
       offers: [{ ...sellOffer, id: getSellOfferIdFromContract(contract) }],
@@ -237,7 +237,7 @@ describe('useConfirmCancelTrade', () => {
       visible: true,
     })
   })
-  it('shows the correct confirmation popup for canceled cash trade as seller with republish available', async () => {
+  it('shows the correct confirmation popup for canceled cash trade as seller with republish available', () => {
     setAccount({
       ...account1,
       offers: [{ ...sellOffer, id: getSellOfferIdFromContract(contract), publishingDate: new Date() }],
@@ -255,7 +255,7 @@ describe('useConfirmCancelTrade', () => {
       visible: true,
     })
   })
-  it('shows the correct confirmation popup for canceled cash trade as seller with republish unavailable', async () => {
+  it('shows the correct confirmation popup for canceled cash trade as seller with republish unavailable', () => {
     setAccount({
       ...account1,
       offers: [{ ...sellOffer, id: getSellOfferIdFromContract(contract), publishingDate: new Date(0) }],

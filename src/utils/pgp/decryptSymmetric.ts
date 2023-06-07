@@ -1,4 +1,4 @@
 import OpenPGP from 'react-native-fast-openpgp'
 
-export const decryptSymmetric = async (encrypted: string, passphrase: string): Promise<string> =>
-  await OpenPGP.decryptSymmetric(encrypted, passphrase, { cipher: 2 })
+export const decryptSymmetric = (encrypted: string, passphrase: string) =>
+  OpenPGP.decryptSymmetric(encrypted, passphrase, { cipher: 2 })

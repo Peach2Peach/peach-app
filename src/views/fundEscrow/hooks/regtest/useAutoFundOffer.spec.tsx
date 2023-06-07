@@ -12,7 +12,7 @@ jest.mock('../../../../utils/peachAPI', () => ({
 }))
 
 describe('useAutoFundOffer', () => {
-  afterEach(async () => {
+  afterEach(() => {
     jest.clearAllMocks()
   })
 

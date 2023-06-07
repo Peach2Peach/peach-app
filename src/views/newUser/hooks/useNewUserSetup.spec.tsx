@@ -72,7 +72,7 @@ describe('useNewUserSetup', () => {
   afterEach(() => {
     jest.clearAllMocks()
   })
-  it('should return default values', async () => {
+  it('should return default values', () => {
     const { result } = renderHook(useNewUserSetup, { wrapper: NavigationWrapper })
     expect(result.current).toStrictEqual({ success: false, error: '', userExistsForDevice: false })
   })

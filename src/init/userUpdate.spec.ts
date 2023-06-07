@@ -5,7 +5,7 @@ import { userUpdate } from './userUpdate'
 
 const getTokenMock = jest.fn()
 jest.mock('@react-native-firebase/messaging', () => () => ({
-  getToken: async () => await getTokenMock(),
+  getToken: () => getTokenMock(),
 }))
 
 const updateUserMock = jest.fn().mockResolvedValue([{ success: true }, null])

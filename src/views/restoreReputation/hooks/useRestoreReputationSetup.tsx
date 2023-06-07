@@ -17,7 +17,7 @@ export const useRestoreReputationSetup = () => {
     hideGoBackButton: isLoading,
   })
 
-  const restoreReputation = async () => {
+  const restoreReputation = () => {
     if (!temporaryAccount) return
     setIsLoading(true)
     // prevent render blocking

@@ -41,7 +41,7 @@ describe('useOfferDetailsSetup', () => {
     offerDraft,
     setOfferDraft: setOfferDraftMock,
   }
-  afterEach(async () => {
+  afterEach(() => {
     jest.clearAllMocks()
   })
 

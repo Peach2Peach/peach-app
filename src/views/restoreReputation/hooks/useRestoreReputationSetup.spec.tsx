@@ -11,7 +11,7 @@ describe('useRestoreReputationSetup', () => {
   afterEach(() => {
     jest.clearAllMocks()
   })
-  it('should return defaults', async () => {
+  it('should return defaults', () => {
     const { result } = renderHook(useRestoreReputationSetup, { wrapper: NavigationWrapper })
     expect(result.current).toEqual({
       restoreReputation: expect.any(Function),

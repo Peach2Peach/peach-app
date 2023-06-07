@@ -41,7 +41,7 @@ describe('useWrongFundingAmountSetup', () => {
   afterEach(() => {
     jest.clearAllMocks()
   })
-  it('returns defaults', async () => {
+  it('returns defaults', () => {
     useOfferDetailsMock.mockReturnValueOnce({ offer: undefined })
     const { result } = renderHook(useWrongFundingAmountSetup, { wrapper })
     expect(result.current).toEqual({
@@ -62,7 +62,7 @@ describe('useWrongFundingAmountSetup', () => {
     })
   })
 
-  it('sets up header correctly', async () => {
+  it('sets up header correctly', () => {
     renderHook(useWrongFundingAmountSetup, { wrapper })
     expect(headerState.header()).toMatchSnapshot()
   })

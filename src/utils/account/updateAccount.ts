@@ -8,7 +8,7 @@ import { createPeachAccount } from './createPeachAccount'
 import { account, defaultAccount, setAccount } from './account'
 import { getDeviceLocale } from '../system'
 
-export const updateAccount = async (acc: Account, overwrite?: boolean) => {
+export const updateAccount = (acc: Account, overwrite?: boolean) => {
   setAccount(
     overwrite
       ? acc

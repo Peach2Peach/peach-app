@@ -5,7 +5,7 @@ import { contract } from '../../../tests/unit/data/contractData'
 import { QueryClientWrapper, queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
 import { useChatMessages } from './useChatMessages'
 
-const decryptSymmetricMock = jest.fn().mockImplementation(async (str) => str)
+const decryptSymmetricMock = jest.fn().mockImplementation((str) => str)
 jest.mock('../../utils/pgp', () => ({
   decryptSymmetric: (...args: any[]) => decryptSymmetricMock(...args),
 }))
@@ -100,7 +100,7 @@ describe('useChatMessages', () => {
 
     getChatMock.mockResolvedValueOnce([chat1.messages.slice(-1)])
     // @ts-ignore
-    await act(async () => await result.current.fetchNextPage())
+    await act(() => result.current.fetchNextPage())
 
     await waitFor(() => expect(result.current.messages.length).toBe(23))
     expect(getChatMock).toHaveBeenCalledWith({ contractId: chat1.id, page: 1 })

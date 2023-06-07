@@ -7,7 +7,7 @@ import { info } from '../../../utils/log'
  * Workaround to enable legacy sell offers (pre 0.2.0) double match with existing payment data
  * Shoud be removed by April 2023
  */
-const storeLegacyPaymentData = async (paymentData: Account['paymentData']) => {
+const storeLegacyPaymentData = (paymentData: Account['paymentData']) => {
   info('storeLegacyPaymentData - Storing payment data')
 
   accountStorage.setArray('legacyPaymentData', paymentData)

@@ -65,7 +65,7 @@ describe('useDisputeFormSetup', () => {
       current.setMessage(message)
     })
 
-  const actSubmit = async (current: ReturnType<typeof useDisputeFormSetup>) =>
+  const actSubmit = (current: ReturnType<typeof useDisputeFormSetup>) =>
     act(async () => {
       await current.submit()
     })

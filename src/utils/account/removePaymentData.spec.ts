@@ -69,13 +69,13 @@ describe('removePaymentData', () => {
     await setAccount(fakeAccount)
 
     deletePaymentHashMock.mockResolvedValueOnce([null, { error: 'UNEXPECTED' }])
-    const error = await getError<Error>(async () => await removePaymentData(fakeAccount.paymentData[0].id))
+    const error = await getError<Error>(() => removePaymentData(fakeAccount.paymentData[0].id))
     expect(error).not.toBeInstanceOf(NoErrorThrownError)
     expect(error.message).toBe('NETWORK_ERROR')
     expect(account.paymentData).toEqual(paymentData)
 
     deletePaymentHashMock.mockResolvedValueOnce([null, null])
-    const error2 = await getError<Error>(async () => await removePaymentData(fakeAccount.paymentData[0].id))
+    const error2 = await getError<Error>(() => removePaymentData(fakeAccount.paymentData[0].id))
     expect(error2).not.toBeInstanceOf(NoErrorThrownError)
     expect(error2.message).toBe('NETWORK_ERROR')
     expect(account.paymentData).toEqual(paymentData)

@@ -22,12 +22,12 @@ describe('useShowUpdateAvailable', () => {
     jest.clearAllMocks()
     messageState = { ...defaultMessageState }
   })
-  it('does not show update available banner if app version is above min/latest', async () => {
+  it('does not show update available banner if app version is above min/latest', () => {
     renderHook(useShowUpdateAvailable, { wrapper })
 
     expect(updateMessage).not.toHaveBeenCalled()
   })
-  it('does show update available banner if app version is not above latest', async () => {
+  it('does show update available banner if app version is not above latest', () => {
     configStore.getState().setLatestAppVersion(definitelyHigherVersion)
 
     renderHook(useShowUpdateAvailable, { wrapper })
@@ -43,7 +43,7 @@ describe('useShowUpdateAvailable', () => {
       msgKey: 'UPDATE_AVAILABLE',
     })
   })
-  it('does show critical update available banner if app version is not above min', async () => {
+  it('does show critical update available banner if app version is not above min', () => {
     configStore.getState().setMinAppVersion(definitelyHigherVersion)
 
     renderHook(useShowUpdateAvailable, { wrapper })
@@ -59,7 +59,7 @@ describe('useShowUpdateAvailable', () => {
       msgKey: 'CRITICAL_UPDATE_AVAILABLE',
     })
   })
-  it('does still show critical update available banner if app version is not above min/latest', async () => {
+  it('does still show critical update available banner if app version is not above min/latest', () => {
     configStore.getState().setLatestAppVersion(definitelyHigherVersion)
     configStore.getState().setMinAppVersion(definitelyHigherVersion)
 
@@ -76,7 +76,7 @@ describe('useShowUpdateAvailable', () => {
       msgKey: 'CRITICAL_UPDATE_AVAILABLE',
     })
   })
-  it('shows update banner should the min/latest version change during the session', async () => {
+  it('shows update banner should the min/latest version change during the session', () => {
     renderHook(useShowUpdateAvailable, { wrapper })
 
     const { result: configStoreResult } = renderHook(() => useConfigStore((state) => state))
