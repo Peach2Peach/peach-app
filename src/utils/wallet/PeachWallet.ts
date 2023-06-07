@@ -1,7 +1,14 @@
 import { NETWORK } from '@env'
 import { Blockchain, DatabaseConfig, Descriptor, DescriptorSecretKey, Mnemonic, TxBuilder, Wallet } from 'bdk-rn'
 import { Script, TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
-import { AddressIndex, BlockchainEsploraConfig, KeychainKind, Network, WordCount } from 'bdk-rn/lib/lib/enums'
+import {
+  AddressIndex,
+  BlockChainNames,
+  BlockchainEsploraConfig,
+  KeychainKind,
+  Network,
+  WordCount,
+} from 'bdk-rn/lib/lib/enums'
 import { BIP32Interface } from 'bip32'
 import { payments } from 'bitcoinjs-lib'
 import { sign } from 'bitcoinjs-message'
@@ -101,7 +108,7 @@ export class PeachWallet extends PeachWalletErrorHandlers {
         stopGap: '5',
       }
 
-      this.blockchain = await new Blockchain().create(config)
+      this.blockchain = await new Blockchain().create(config, BlockChainNames.Esplora)
       const dbConfig = await new DatabaseConfig().memory()
 
       this.wallet = await new Wallet().create(externalDescriptor, internalDescriptor, Network.Testnet, dbConfig)
