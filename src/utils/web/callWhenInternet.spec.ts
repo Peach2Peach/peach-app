@@ -1,4 +1,4 @@
-import { checkConnection } from '.'
+import { callWhenInternet } from './callWhenInternet'
 
 const fetchMock = jest.fn().mockResolvedValue({ isInternetReachable: true })
 const callbacks: Function[] = []
@@ -12,20 +12,20 @@ jest.mock('@react-native-community/netinfo', () => ({
   addEventListener: (cb: Function) => addEventListenerMock(cb),
 }))
 
-describe('checkConnection', () => {
+describe('callWhenInternet', () => {
   const callback = jest.fn()
   afterEach(() => {
     jest.clearAllMocks()
   })
 
   it('should run callback when connected to the internet', async () => {
-    await checkConnection(callback)
+    await callWhenInternet(callback)
 
     expect(callback).toHaveBeenCalled()
   })
   it('should not run callback immediately when not connected to the internet', async () => {
     fetchMock.mockResolvedValue({ isInternetReachable: false })
-    await checkConnection(callback)
+    await callWhenInternet(callback)
 
     expect(callback).not.toHaveBeenCalled()
 
@@ -38,7 +38,7 @@ describe('checkConnection', () => {
   })
   it('should not run callback at all when not connected to the internet', async () => {
     fetchMock.mockResolvedValue({ isInternetReachable: false })
-    await checkConnection(callback)
+    await callWhenInternet(callback)
 
     const connectedState = {
       isInternetReachable: false,

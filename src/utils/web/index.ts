@@ -1,2 +1,2 @@
-export { checkConnection } from './checkConnection'
+export { callWhenInternet } from './callWhenInternet'
 export { openAppLink } from './openAppLink'

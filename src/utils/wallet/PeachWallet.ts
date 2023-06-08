@@ -13,7 +13,7 @@ import { parseError } from '../result'
 import { isPending } from '../transaction'
 import { findTransactionsToRebroadcast } from '../transaction/findTransactionsToRebroadcast'
 import { mergeTransactionList } from '../transaction/mergeTransactionList'
-import { checkConnection } from '../web'
+import { callWhenInternet } from '../web'
 import { handleBroadcastError } from './error/handleBroadcastError'
 import { getAndStorePendingTransactionHex } from './getAndStorePendingTransactionHex'
 import { getDescriptorSecretKey } from './getDescriptorSecretKey'
@@ -69,7 +69,7 @@ export class PeachWallet {
     this.loadFromStorage()
 
     return new Promise((resolve) =>
-      checkConnection(async () => {
+      callWhenInternet(async () => {
         const nodeURL = settingsStore.getState().nodeURL
         info('PeachWallet - loadWallet - start')
 
@@ -114,7 +114,7 @@ export class PeachWallet {
 
   async syncWallet (): Promise<void> {
     return new Promise((resolve, reject) =>
-      checkConnection(async () => {
+      callWhenInternet(async () => {
         if (!this.wallet || !this.blockchain) return reject(new Error('WALLET_NOT_READY'))
         info('PeachWallet - syncWallet - start')
         this.synced = false

@@ -1,6 +1,6 @@
 import NetInfo from '@react-native-community/netinfo'
 
-export const checkConnection = async (callback: Function) => {
+export const callWhenInternet = async (callback: Function) => {
   const netInfo = await NetInfo.fetch()
   if (netInfo.isInternetReachable) {
     callback()
