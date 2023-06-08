@@ -252,8 +252,6 @@ declare type TradeStatus =
   | 'waiting'
 
 declare type OfferDraft = {
-  creationDate: Date
-  lastModified?: Date
   type: 'bid' | 'ask'
   meansOfPayment: MeansOfPayment
   paymentData: Partial<
@@ -285,6 +283,8 @@ declare type Offer = OfferDraft & {
   doubleMatched: boolean
   contractId?: string
   tradeStatus: TradeStatus
+  creationDate: Date
+  lastModified?: Date
 }
 
 declare type PostOfferResponseBody = BuyOffer | SellOffer

@@ -12,8 +12,6 @@ describe('useOfferPreferences - store', () => {
   it('should have the correct default values', () => {
     expect(useOfferPreferences.getState().buyPreferences).toStrictEqual({
       type: 'bid',
-      creationDate: undefined,
-      lastModified: undefined,
       amount: [0, Infinity],
       meansOfPayment: {},
       paymentData: {},
@@ -22,8 +20,6 @@ describe('useOfferPreferences - store', () => {
     })
     expect(useOfferPreferences.getState().sellPreferences).toStrictEqual({
       type: 'ask',
-      creationDate: undefined,
-      lastModified: undefined,
       tradeStatus: 'fundEscrow',
       premium: 1.5,
       meansOfPayment: {},
@@ -44,10 +40,8 @@ describe('useOfferPreferences - store', () => {
 
 describe('useOfferPreferences - actions - buyPreferences', () => {
   it('should update the buy preferences', () => {
-    const newPreferences = {
+    const newPreferences: BuyOfferDraft = {
       type: 'bid',
-      creationDate: undefined,
-      lastModified: undefined,
       amount: [50000, 3200000],
       meansOfPayment: {},
       paymentData: {},
@@ -58,14 +52,12 @@ describe('useOfferPreferences - actions - buyPreferences', () => {
     expect(useOfferPreferences.getState().buyPreferences).toStrictEqual(newPreferences)
   })
   it('should merge existing buy preferences with new preferences', () => {
-    const newPreferences = {
+    const newPreferences: Partial<BuyOfferDraft> = {
       amount: [50000, 3200000],
     }
     useOfferPreferences.getState().updateBuyPreferences(newPreferences)
     expect(useOfferPreferences.getState().buyPreferences).toStrictEqual({
       type: 'bid',
-      creationDate: undefined,
-      lastModified: undefined,
       amount: [50000, 3200000],
       meansOfPayment: {},
       paymentData: {},
@@ -77,10 +69,8 @@ describe('useOfferPreferences - actions - buyPreferences', () => {
 
 describe('useOfferPreferences - actions - sellPreferences', () => {
   it('should update the sell preferences', () => {
-    const newPreferences = {
+    const newPreferences: SellOfferDraft = {
       type: 'ask',
-      creationDate: undefined,
-      lastModified: undefined,
       tradeStatus: 'fundEscrow',
       premium: 1.5,
       meansOfPayment: {},
@@ -100,8 +90,6 @@ describe('useOfferPreferences - actions - sellPreferences', () => {
     useOfferPreferences.getState().updateSellPreferences(newPreferences)
     expect(useOfferPreferences.getState().sellPreferences).toStrictEqual({
       type: 'ask',
-      creationDate: undefined,
-      lastModified: undefined,
       tradeStatus: 'fundEscrow',
       premium: 1.5,
       meansOfPayment: {},

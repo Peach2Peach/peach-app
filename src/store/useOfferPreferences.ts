@@ -1,10 +1,8 @@
 import { create } from 'zustand'
 import { defaultFundingStatus } from '../utils/offer/constants'
 
-const defaultBuyPreferences = {
+const defaultBuyPreferences: BuyOfferDraft = {
   type: 'bid',
-  creationDate: undefined,
-  lastModified: undefined,
   amount: [0, Infinity],
   meansOfPayment: {},
   paymentData: {},
@@ -12,10 +10,8 @@ const defaultBuyPreferences = {
   originalPaymentData: [],
 }
 
-const defaultSellPreferences = {
+const defaultSellPreferences: SellOfferDraft = {
   type: 'ask',
-  creationDate: undefined,
-  lastModified: undefined,
   tradeStatus: 'fundEscrow',
   premium: 1.5,
   meansOfPayment: {},
@@ -27,13 +23,13 @@ const defaultSellPreferences = {
 }
 
 type OfferPreferences = {
-  buyPreferences: typeof defaultBuyPreferences
-  sellPreferences: typeof defaultSellPreferences
+  buyPreferences: BuyOfferDraft
+  sellPreferences: SellOfferDraft
 }
 
 type OfferPreferencesActions = {
-  updateBuyPreferences: (newPreferences: Partial<typeof defaultBuyPreferences>) => void
-  updateSellPreferences: (newPreferences: Partial<typeof defaultSellPreferences>) => void
+  updateBuyPreferences: (newPreferences: Partial<BuyOfferDraft>) => void
+  updateSellPreferences: (newPreferences: Partial<SellOfferDraft>) => void
 }
 
 type OfferPreferencesState = OfferPreferences & OfferPreferencesActions
