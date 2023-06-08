@@ -6,7 +6,6 @@ import { toZustandStorage } from '../storage/toZustandStorage'
 import { migrateWalletStore } from './migration'
 
 export type WalletState = {
-  synced: boolean
   balance: number
   addresses: string[]
   transactions: TransactionDetails[]
@@ -16,7 +15,6 @@ export type WalletState = {
 
 export type WalletStore = WalletState & {
   reset: () => void
-  setSynced: (synced: boolean) => void
   setAddresses: (addresses: string[]) => void
   setBalance: (balance: number) => void
   setTransactions: (txs: TransactionDetails[]) => void
@@ -27,7 +25,6 @@ export type WalletStore = WalletState & {
 }
 
 export const defaultWalletState: WalletState = {
-  synced: false,
   addresses: [],
   balance: 0,
   transactions: [],
@@ -41,7 +38,6 @@ export const walletStore = createStore(
     (set, get) => ({
       ...defaultWalletState,
       reset: () => set(() => defaultWalletState),
-      setSynced: (synced) => set((state) => ({ ...state, synced })),
       setAddresses: (addresses) => set((state) => ({ ...state, addresses })),
       setBalance: (balance) => set((state) => ({ ...state, balance })),
       setTransactions: (transactions) => set((state) => ({ ...state, transactions })),

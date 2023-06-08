@@ -124,7 +124,6 @@ export class PeachWallet {
           this.getBalance()
           this.getTransactions()
           this.synced = true
-          walletStore.getState().setSynced(this.synced)
           info('PeachWallet - syncWallet - synced')
         }
         return resolve()
@@ -133,7 +132,6 @@ export class PeachWallet {
   }
 
   updateStore (): void {
-    walletStore.getState().setSynced(this.synced)
     walletStore.getState().setTransactions(this.transactions)
     this.transactions
       .filter(({ txid }) => !walletStore.getState().txOfferMap[txid])

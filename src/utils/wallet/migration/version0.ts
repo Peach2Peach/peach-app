@@ -21,7 +21,6 @@ export type TransactionsResponse = {
   pending: PendingTransaction[]
 }
 export type WalletStateVersion0 = {
-  synced: boolean
   balance: number
   addresses: string[]
   transactions: TransactionsResponse
