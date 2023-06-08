@@ -14,27 +14,8 @@ const getButtonTextId = (canPublish: boolean, isPublishing: boolean) => {
 }
 
 export default ({ offerDraft, setOfferDraft }: BuyViewProps) => {
-  const {
-    peachWalletActive,
-    releaseAddress,
-    walletLabel,
-    message,
-    messageSignature,
-    canPublish,
-    publishOffer,
-    isPublishing,
-    goToMessageSigning,
-  } = useBuySummarySetup()
+  const { walletLabel, canPublish, publishOffer, isPublishing, goToMessageSigning } = useBuySummarySetup()
   const publishBuyOffer = () => publishOffer(offerDraft)
-
-  useEffect(() => {
-    if (releaseAddress) setOfferDraft((prev) => ({
-      ...prev,
-      releaseAddress,
-      message,
-      messageSignature,
-    }))
-  }, [releaseAddress, message, messageSignature, setOfferDraft])
 
   useEffect(() => {
     if (walletLabel) setOfferDraft((prev) => ({
@@ -52,7 +33,6 @@ export default ({ offerDraft, setOfferDraft }: BuyViewProps) => {
         testID="navigation-next"
         style={tw`self-center mt-4`}
         narrow={true}
-        disabled={peachWalletActive && !messageSignature}
         onPress={canPublish ? publishBuyOffer : goToMessageSigning}
         loading={isPublishing}
       >

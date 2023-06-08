@@ -18,9 +18,8 @@ describe('useBuySummarySetup', () => {
   })
 
   it('should set up header correctly', async () => {
-    const { result } = renderHook(useBuySummarySetup, { wrapper: NavigationWrapper })
+    renderHook(useBuySummarySetup, { wrapper: NavigationWrapper })
     expect(headerState.header()).toMatchSnapshot()
-    await waitFor(() => expect(result.current.message).toBeDefined())
   })
   it('should show offer published overlay when offer has been published successfully', async () => {
     const { result } = renderHook(useBuySummarySetup, { wrapper: NavigationWrapper })

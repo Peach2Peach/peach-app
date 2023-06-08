@@ -59,7 +59,8 @@ export const useSellSummarySetup = () => {
   useEffect(() => {
     ;(async () => {
       if (peachWalletActive) {
-        setReturnAddress((await peachWallet.getReceivingAddress()) || '')
+        const { address } = await peachWallet.getReceivingAddress()
+        setReturnAddress(address || '')
       } else {
         setReturnAddress(payoutAddress || '')
       }

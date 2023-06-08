@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import { NETWORK } from '@env'
 import { Address, Blockchain, DatabaseConfig, Descriptor, TxBuilder, Wallet } from 'bdk-rn'
 import { TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
@@ -174,13 +175,13 @@ export class PeachWallet {
     return this.transactions
   }
 
-  async getReceivingAddress (): Promise<string> {
+  async getReceivingAddress () {
     if (!this.wallet) throw Error('WALLET_NOT_READY')
     info('PeachWallet - getReceivingAddress - start')
 
     const result = await this.wallet.getAddress(AddressIndex.New)
 
-    return result.address
+    return result
   }
 
   async withdrawAll (address: string, feeRate?: number): Promise<string | null> {
@@ -288,10 +289,10 @@ export class PeachWallet {
     return null
   }
 
-  signMessage (message: string, address: string): string {
+  signMessage (message: string, address: string, index?: number): string {
     info('PeachWallet - signMessage - start')
 
-    const keyPair = this.findKeyPairByAddress(address)
+    const keyPair = index ? this.getKeyPair(index) : this.findKeyPairByAddress(address)
     if (!keyPair?.privateKey) throw Error('Address not part of wallet')
     const signature = sign(message, keyPair.privateKey, true)
 

@@ -239,10 +239,12 @@ describe('PeachWallet', () => {
   })
   it('gets a new unused receiving address', async () => {
     const address = 'address'
-    getAddressMock.mockResolvedValueOnce({ address })
+    const index = 0
+    getAddressMock.mockResolvedValueOnce({ address, index })
 
-    const newAddress = await peachWallet.getReceivingAddress()
+    const {address: newAddress, index: addressIndex} = await peachWallet.getReceivingAddress()
     expect(newAddress).toBe(address)
+    expect(addressIndex).toBe(index)
     expect(getAddressMock).toHaveBeenCalledWith(AddressIndex.New)
   })
   it('throws error when requesting receiving address before wallet is ready', async () => {
