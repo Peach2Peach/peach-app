@@ -19,6 +19,7 @@ import {
   txBuilderAddUtxosMock,
   txBuilderCreateMock,
   txBuilderDrainToMock,
+  txBuilderDrainWalletMock,
   txBuilderEnableRbfMock,
   txBuilderFeeRateMock,
   txBuilderFinishMock,
@@ -242,7 +243,7 @@ describe('PeachWallet', () => {
     const index = 0
     getAddressMock.mockResolvedValueOnce({ address, index })
 
-    const {address: newAddress, index: addressIndex} = await peachWallet.getReceivingAddress()
+    const { address: newAddress, index: addressIndex } = await peachWallet.getReceivingAddress()
     expect(newAddress).toBe(address)
     expect(addressIndex).toBe(index)
     expect(getAddressMock).toHaveBeenCalledWith(AddressIndex.New)
@@ -268,23 +269,11 @@ describe('PeachWallet', () => {
     const address = 'address'
     const scriptPubKey = 'scriptPubKey'
     const feeRate = 10
-    const utxo1: LocalUtxo = {
-      outpoint: new OutPoint('txid1', 0),
-      txout: new TxOut(1000, 'address1'),
-      isSpent: false,
-    }
-    const utxo2: LocalUtxo = {
-      outpoint: new OutPoint('txid2', 0),
-      txout: new TxOut(1000, 'address2'),
-      isSpent: false,
-    }
-    const utxos = [utxo1, utxo2]
     const result: TxBuilderResult = {
       psbt: new PartiallySignedTransaction('base64'),
       txDetails: pending1,
     }
     const transaction = await new Transaction().create([])
-    listUnspentMock.mockResolvedValueOnce(utxos)
     addressScriptPubKeyMock.mockResolvedValueOnce(scriptPubKey)
     txBuilderFinishMock.mockResolvedValueOnce(result)
     walletSignMock.mockResolvedValueOnce(result.psbt)
@@ -293,7 +282,7 @@ describe('PeachWallet', () => {
     expect(txBuilderCreateMock).toHaveBeenCalled()
     expect(txBuilderFeeRateMock).toHaveBeenCalledWith(feeRate)
     expect(txBuilderEnableRbfMock).toHaveBeenCalled()
-    expect(txBuilderAddUtxosMock).toHaveBeenCalledWith(utxos.map((utxo) => utxo.outpoint))
+    expect(txBuilderDrainWalletMock).toHaveBeenCalled()
     expect(txBuilderDrainToMock).toHaveBeenCalledWith(scriptPubKey)
     expect(txBuilderFinishMock).toHaveBeenCalledWith(peachWallet.wallet)
     expect(walletSignMock).toHaveBeenCalledWith(result.psbt)

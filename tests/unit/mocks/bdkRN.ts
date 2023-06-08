@@ -123,6 +123,7 @@ export class Transaction {
 
 export const txBuilderCreateMock = jest.fn().mockReturnThis()
 export const txBuilderFeeRateMock = jest.fn()
+export const txBuilderDrainWalletMock = jest.fn()
 export const txBuilderEnableRbfMock = jest.fn()
 export const txBuilderAddUtxosMock = jest.fn()
 export const txBuilderDrainToMock = jest.fn()
@@ -150,7 +151,7 @@ export class TxBuilder {
 
   feeAbsolute = jest.fn()
 
-  drainWallet = jest.fn()
+  drainWallet = txBuilderDrainWalletMock
 
   drainTo = txBuilderDrainToMock
 

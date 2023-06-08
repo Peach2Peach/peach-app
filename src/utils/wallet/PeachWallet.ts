@@ -192,9 +192,7 @@ export class PeachWallet {
       if (feeRate) await txBuilder.feeRate(feeRate)
       await txBuilder.enableRbf()
       const recipientAddress = await new Address().create(address)
-      // TODO check if needed
-      const utxos = await this.wallet.listUnspent()
-      await txBuilder.addUtxos(utxos.map((utxo) => utxo.outpoint))
+      await txBuilder.drainWallet()
       await txBuilder.drainTo(await recipientAddress.scriptPubKey())
 
       const result = await txBuilder.finish(this.wallet)
