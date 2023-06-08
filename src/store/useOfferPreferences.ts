@@ -30,6 +30,9 @@ type OfferPreferences = {
 type OfferPreferencesActions = {
   updateBuyPreferences: (newPreferences: Partial<BuyOfferDraft>) => void
   updateSellPreferences: (newPreferences: Partial<SellOfferDraft>) => void
+  setMinBuyAmount: (minBuyAmount: number) => void
+  setMaxBuyAmount: (maxBuyAmount: number) => void
+  setSellAmount: (sellAmount: number) => void
 }
 
 type OfferPreferencesState = OfferPreferences & OfferPreferencesActions
@@ -45,4 +48,13 @@ export const useOfferPreferences = create<OfferPreferencesState>()((set) => ({
     set((state) => ({
       sellPreferences: { ...state.sellPreferences, ...newPreferences },
     })),
+  setMinBuyAmount: (minBuyAmount) =>
+    set((state) => ({
+      buyPreferences: { ...state.buyPreferences, amount: [minBuyAmount, state.buyPreferences.amount[1]] },
+    })),
+  setMaxBuyAmount: (maxBuyAmount) =>
+    set((state) => ({
+      buyPreferences: { ...state.buyPreferences, amount: [state.buyPreferences.amount[0], maxBuyAmount] },
+    })),
+  setSellAmount: (sellAmount) => set((state) => ({ sellPreferences: { ...state.sellPreferences, amount: sellAmount } })),
 }))

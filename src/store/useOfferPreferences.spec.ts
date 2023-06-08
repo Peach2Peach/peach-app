@@ -100,4 +100,17 @@ describe('useOfferPreferences - actions - sellPreferences', () => {
       returnAddress: '',
     })
   })
+
+  it('should update the min buy amount', () => {
+    useOfferPreferences.getState().setMinBuyAmount(100000)
+    expect(useOfferPreferences.getState().buyPreferences.amount[0]).toStrictEqual(100000)
+  })
+  it('should update the max buy amount', () => {
+    useOfferPreferences.getState().setMaxBuyAmount(100000)
+    expect(useOfferPreferences.getState().buyPreferences.amount[1]).toStrictEqual(100000)
+  })
+  it('should update the sell amount', () => {
+    useOfferPreferences.getState().setSellAmount(100000)
+    expect(useOfferPreferences.getState().sellPreferences.amount).toStrictEqual(100000)
+  })
 })
