@@ -44,9 +44,6 @@ describe('usePremiumSetup', () => {
   const sellAmount = 100000
   const sellOfferDraft = getSellOfferDraft({ sellAmount, premium })
   const setOfferDraftMock = jest.fn((fn) => fn())
-  beforeEach(() => {
-    jest.clearAllMocks()
-  })
 
   beforeEach(() => {
     settingsStore.setState((def) => ({ ...def, ...state }))

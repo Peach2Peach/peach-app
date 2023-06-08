@@ -17,9 +17,6 @@ jest.mock('../i18n', () => ({
 }))
 
 describe('updateAccount', () => {
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
   it('sets an account, sets wallet and peachAccount', async () => {
     await updateAccount(account1)
     expect(account).toEqual(account1)

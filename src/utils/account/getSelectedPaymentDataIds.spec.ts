@@ -6,10 +6,6 @@ jest.mock('../paymentMethod', () => ({
 }))
 
 describe('getSelectedPaymentDataIds', () => {
-  beforeEach(() => {
-    jest.clearAllMocks()
-  })
-
   it('should return an array of payment data ids', () => {
     const preferredPaymentMethods: Settings['preferredPaymentMethods'] = {
       sepa: 'sepa-1',

@@ -8,9 +8,6 @@ jest.mock('../../../utils/bitcoin', () => ({
 
 // eslint-disable-next-line max-lines-per-function
 describe('verifyPSBT', () => {
-  beforeEach(() => {
-    jest.clearAllMocks()
-  })
   it('should handle missing data', () => {
     const mockPsbt = 'somePsbt'
     const mockSellOffer = undefined

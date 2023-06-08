@@ -80,9 +80,6 @@ describe('useHandleFundingStatus', () => {
   beforeEach(async () => {
     await setAccount({ ...account1, offers: [] })
   })
-  afterEach(async () => {
-    jest.clearAllMocks()
-  })
 
   it('should do nothing if no sell offer is passed', async () => {
     const initialProps = {

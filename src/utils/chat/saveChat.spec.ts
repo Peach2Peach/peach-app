@@ -7,9 +7,6 @@ describe('saveChat', () => {
   beforeEach(async () => {
     await setAccount(defaultAccount)
   })
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
 
   it('saves a new chat', () => {
     const savedChat = saveChat(chatData.chat1.id, chatData.chat1)

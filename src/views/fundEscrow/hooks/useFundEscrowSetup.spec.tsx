@@ -78,8 +78,6 @@ describe('useFundEscrowSetup', () => {
     await updateAccount({ ...account1, offers: [] }, true)
   })
   afterEach(async () => {
-    jest.clearAllMocks()
-
     queryClient.clear()
   })
 

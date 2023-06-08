@@ -16,7 +16,6 @@ describe('userUpdate', () => {
   const fcmToken = 'fcmToken'
   const referralCode = 'referralCode'
   afterEach(async () => {
-    jest.clearAllMocks()
     await setAccount(defaultAccount)
   })
 

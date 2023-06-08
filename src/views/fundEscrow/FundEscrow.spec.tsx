@@ -25,9 +25,6 @@ describe('FundEscrow', () => {
   }
   const renderer = createRenderer()
 
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
   it('should render the FundEscrow view', () => {
     useFundEscrowSetupMock.mockReturnValueOnce(defaultReturnValue)
     renderer.render(<FundEscrow />)

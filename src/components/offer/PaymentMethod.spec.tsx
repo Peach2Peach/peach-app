@@ -6,9 +6,6 @@ import { Linking } from 'react-native'
 
 describe('PaymentMethod', () => {
   const renderer = createRenderer()
-  beforeEach(() => {
-    jest.clearAllMocks()
-  })
   it('renders correctly', () => {
     renderer.render(<PaymentMethod paymentMethod="sepa" showLink isDispute={false} />)
     expect(renderer.getRenderOutput()).toMatchSnapshot()

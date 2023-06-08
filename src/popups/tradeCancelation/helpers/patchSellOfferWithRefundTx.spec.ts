@@ -26,9 +26,6 @@ describe('patchSellOfferWithRefundTx', () => {
   beforeEach(() => {
     setWallet(createTestWallet())
   })
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
   it('calls patchOffer', async () => {
     const result = await patchSellOfferWithRefundTx(contract, refundPSBT)
     expect(patchOfferMock).toHaveBeenCalledWith({ offerId: sellOffer.id, refundTx })

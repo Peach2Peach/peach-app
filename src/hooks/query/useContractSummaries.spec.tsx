@@ -20,7 +20,6 @@ describe('useContractSummaries', () => {
   })
 
   afterEach(() => {
-    jest.clearAllMocks()
     queryClient.clear()
   })
   it('fetches contract summaries from API and save in local store', async () => {

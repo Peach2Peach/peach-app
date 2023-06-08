@@ -41,7 +41,6 @@ describe('Buy', () => {
   })
   afterEach(() => {
     settingsStore.getState().reset()
-    jest.clearAllMocks()
   })
   it('should render correctly while loading max trading amount', () => {
     settingsStore.getState().setMaxBuyAmount(Infinity)

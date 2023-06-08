@@ -32,9 +32,6 @@ describe('useRepublishOffer', () => {
     id: 'offerId',
   }
 
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
   it('should revive the sell offer', async () => {
     reviveSellOfferMock.mockResolvedValue([{ newOfferId: 'newOfferId' }, null])
     getSellOfferFromContractMock.mockReturnValue(sellOffer)

@@ -69,9 +69,6 @@ describe('useNewUserSetup', () => {
     settingsStore.setState({ pgpPublished: false, fcmToken: undefined })
     setAccount(defaultAccount)
   })
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
   it('should return default values', async () => {
     const { result } = renderHook(useNewUserSetup, { wrapper: NavigationWrapper })
     expect(result.current).toStrictEqual({ success: false, error: '', userExistsForDevice: false })

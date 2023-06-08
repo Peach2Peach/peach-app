@@ -19,9 +19,6 @@ jest.mock('../../hooks/useShowErrorBanner', () => ({
 }))
 
 describe('useSetCustomReferralCodePopup', () => {
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
   it('returns function to start setCustomReferralCodePopup', () => {
     const { result } = renderHook(useSetCustomReferralCodePopup, { wrapper: NavigationWrapper })
     expect(result.current.setCustomReferralCodePopup).toBeInstanceOf(Function)

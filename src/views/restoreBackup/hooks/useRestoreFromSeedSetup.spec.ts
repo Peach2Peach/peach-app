@@ -38,9 +38,6 @@ jest.mock('../../../utils/peachAPI', () => ({
 }))
 
 describe('useRestoreFromSeedSetup', () => {
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
   it('restores account from file', async () => {
     const { result } = renderHook(useRestoreFromSeedSetup)
     act(() => {
