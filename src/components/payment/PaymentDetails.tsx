@@ -1,36 +1,20 @@
 import { useEffect, useState, Dispatch, SetStateAction, useCallback } from 'react'
-import { Pressable, View } from 'react-native'
-import { HorizontalLine, Icon, PeachScrollView, Text } from '..'
-import { IconType } from '../../assets/icons'
-import { PAYMENTCATEGORIES } from '../../constants'
+import { View } from 'react-native'
+import { HorizontalLine, PeachScrollView } from '..'
 import { useNavigation } from '../../hooks'
 import tw from '../../styles/tailwind'
-import { account, getPaymentData, removePaymentData } from '../../utils/account'
+import { account, getPaymentData } from '../../utils/account'
 import { isDefined } from '../../utils/array/isDefined'
 import i18n from '../../utils/i18n'
-import { dataToMeansOfPayment, getPaymentMethodInfo, isValidPaymentData } from '../../utils/paymentMethod'
-import { PaymentDetailsCheckbox, CheckboxType } from './PaymentDetailsCheckbox'
-import LinedText from '../ui/LinedText'
+import { dataToMeansOfPayment, getPaymentMethodInfo } from '../../utils/paymentMethod'
+import { CheckboxType } from './PaymentDetailsCheckbox'
 import { TabbedNavigation, TabbedNavigationItem } from '../navigation/TabbedNavigation'
 import { useFocusEffect } from '@react-navigation/native'
 import AddPaymentMethodButton from './AddPaymentMethodButton'
 import { useSettingsStore } from '../../store/settingsStore'
 import { isCashTrade } from '../../utils/paymentMethod/isCashTrade'
-import { PaymentDataKeyFacts } from './components/PaymentDataKeyFacts'
-
-const paymentCategoryIcons: Record<PaymentCategory, IconType | ''> = {
-  bankTransfer: 'inbox',
-  onlineWallet: 'cloud',
-  giftCard: 'creditCard',
-  localOption: 'flag',
-  cash: '',
-  cryptoCurrency: '',
-}
-
-const belongsToCategory = (category: PaymentCategory) => (data: PaymentData) =>
-  PAYMENTCATEGORIES[category].includes(data.type)
-  && !(category === 'localOption' && data.type === 'mobilePay' && data.currencies[0] === 'DKK')
-  && !(category === 'onlineWallet' && data.type === 'mobilePay' && data.currencies[0] === 'EUR')
+import { MeetupPaymentDetails } from './MeetupPaymentDetails'
+import { RemotePaymentDetails } from './RemotePaymentDetails'
 
 const getSelectedPaymentDataIds = (preferredMoPs: Settings['preferredPaymentMethods']) =>
   (Object.keys(preferredMoPs) as PaymentMethod[]).reduce((arr: string[], type: PaymentMethod) => {
@@ -49,7 +33,7 @@ export const PaymentDetails = ({ setMeansOfPayment, editing, style, origin }: Pa
     { id: 'remote', display: i18n('paymentSection.remote') },
     { id: 'meetups', display: i18n('paymentSection.meetups') },
   ]
-  const [, setRandom] = useState(0)
+
   const navigation = useNavigation()
   const preferredPaymentMethods = useSettingsStore((state) => state.preferredPaymentMethods)
   const selectedPaymentData = getSelectedPaymentDataIds(preferredPaymentMethods)
@@ -73,13 +57,6 @@ export const PaymentDetails = ({ setMeansOfPayment, editing, style, origin }: Pa
     }
   }, [preferredPaymentMethods, setMeansOfPayment])
 
-  const mapPaymentDataToCheckboxes = (data: PaymentData) => ({
-    value: data.id,
-    display: <Text style={tw`subtitle-1`}>{data.label}</Text>,
-    isValid: isValidPaymentData(data),
-    data,
-  })
-
   const setPaymentMethods = (ids: string[]) => {
     const newPreferredPaymentMethods = ids.reduce((obj, id) => {
       const method = paymentData.find((d) => d.id === id)?.type
@@ -88,11 +65,6 @@ export const PaymentDetails = ({ setMeansOfPayment, editing, style, origin }: Pa
     }, {} as Settings['preferredPaymentMethods'])
     setPreferredPaymentMethods(newPreferredPaymentMethods)
     update()
-  }
-
-  const deletePaymentData = (data: PaymentData) => {
-    removePaymentData(data.id)
-    setRandom(Math.random())
   }
 
   const editItem = (data: PaymentData) => {
@@ -122,85 +94,6 @@ export const PaymentDetails = ({ setMeansOfPayment, editing, style, origin }: Pa
     update()
   }, [paymentData, update])
 
-  const remotePaymentDetails = () =>
-    paymentData.filter((item) => !isCashTrade(item.type)).length === 0 ? (
-      <Text style={tw`text-center h6 text-black-3`}>{i18n('paymentMethod.empty')}</Text>
-    ) : (
-      <View testID={'checkboxes-buy-mops'}>
-        {(Object.keys(PAYMENTCATEGORIES) as PaymentCategory[])
-          .map((category) => ({
-            category,
-            checkboxes: paymentData
-              .filter((item) => !item.hidden)
-              .filter((item) => !isCashTrade(item.type))
-              .filter(belongsToCategory(category))
-              .filter((data) => getPaymentMethodInfo(data.type))
-              .sort((a, b) => (a.id > b.id ? 1 : -1))
-              .map(mapPaymentDataToCheckboxes),
-          }))
-          .filter(({ checkboxes }) => checkboxes.length)
-          .map(({ category, checkboxes }, i) => (
-            <View key={category} style={i > 0 ? tw`mt-8` : {}}>
-              <LinedText style={tw`pb-3`}>
-                <Text style={tw`mr-1 h6 text-black-2`}>{i18n(`paymentCategory.${category}`)}</Text>
-                {paymentCategoryIcons[category] !== '' && (
-                  <Icon color={tw`text-black-2`.color} id={paymentCategoryIcons[category] as IconType} />
-                )}
-              </LinedText>
-              {checkboxes.map((item, j) => (
-                <View key={item.data.id} style={j > 0 ? tw`mt-4` : {}}>
-                  {item.isValid ? (
-                    <View>
-                      <PaymentDetailsCheckbox
-                        testID={`buy-mops-checkbox-${item.value}`}
-                        onPress={() => (editing ? editItem(item.data) : select(item.value))}
-                        item={item}
-                        checked={isSelected(item)}
-                        editing={editing}
-                      />
-                      <PaymentDataKeyFacts style={tw`mt-1`} paymentData={item.data} />
-                    </View>
-                  ) : (
-                    <View style={tw`flex flex-row justify-between`}>
-                      <Text style={tw`font-baloo text-error-main`}>{item.data.label}</Text>
-                      <Pressable onPress={() => deletePaymentData(item.data)} style={tw`w-6 h-6`}>
-                        <Icon id="trash" style={tw`w-6 h-6`} color={tw`text-black-2`.color} />
-                      </Pressable>
-                    </View>
-                  )}
-                </View>
-              ))}
-            </View>
-          ))}
-      </View>
-    )
-
-  const meetupPaymentDetails = () => (
-    <>
-      {paymentData.filter((item) => isCashTrade(item.type)).length !== 0 && (
-        <LinedText style={tw`pb-3`}>
-          <Text style={tw`mr-1 h6 text-black-2`}>{i18n('paymentSection.meetups')}</Text>
-          <Icon color={tw`text-black-2`.color} id={'users'} />
-        </LinedText>
-      )}
-      {paymentData
-        .filter((item) => !item.hidden)
-        .filter((item) => isCashTrade(item.type))
-        .map(mapPaymentDataToCheckboxes)
-        .map((item, i) => (
-          <View key={item.data.id} style={i > 0 ? tw`mt-4` : {}}>
-            <PaymentDetailsCheckbox
-              onPress={() => (editing ? editItem(item.data) : select(item.value))}
-              item={item}
-              checked={isSelected(item)}
-              editing={editing}
-            />
-            <PaymentDataKeyFacts style={tw`mt-1`} paymentData={item.data} />
-          </View>
-        ))}
-    </>
-  )
-
   return (
     <View style={style}>
       <TabbedNavigation items={tabs} selected={currentTab} select={setCurrentTab} />
@@ -208,7 +101,11 @@ export const PaymentDetails = ({ setMeansOfPayment, editing, style, origin }: Pa
         style={tw`flex-shrink h-full`}
         contentContainerStyle={tw`justify-center flex-grow px-6 pb-10 pt-7`}
       >
-        {currentTab.id === 'remote' ? remotePaymentDetails() : meetupPaymentDetails()}
+        {currentTab.id === 'remote' ? (
+          <RemotePaymentDetails {...{ paymentData, editing, editItem, select, isSelected }} />
+        ) : (
+          <MeetupPaymentDetails {...{ paymentData, editing, editItem, select, isSelected }} />
+        )}
         <HorizontalLine style={tw`w-auto m-5`} />
         <AddPaymentMethodButton origin={origin} isCash={currentTab.id === 'meetups'} />
       </PeachScrollView>
