@@ -13,20 +13,20 @@ describe('migrateSettingsToStore', () => {
     settingsStore.getState().reset()
     jest.clearAllMocks()
   })
-  it('loads default settings if no stored settings have been found', async () => {
-    await migrateSettingsToStore()
+  it('loads default settings if no stored settings have been found', () => {
+    migrateSettingsToStore()
     expect(loadSettingsMock).toHaveBeenCalledWith()
     expect(settingsStore.getState()).toEqual(expect.objectContaining(defaultSettings))
   })
-  it('loads settings if stored settings have been found', async () => {
-    loadSettingsMock.mockResolvedValueOnce(settings1)
-    await migrateSettingsToStore()
+  it('loads settings if stored settings have been found', () => {
+    loadSettingsMock.mockReturnValueOnce(settings1)
+    migrateSettingsToStore()
     expect(loadSettingsMock).toHaveBeenCalledWith()
     expect(settingsStore.getState()).toEqual(expect.objectContaining(settings1))
   })
-  it('does not migrate twice', async () => {
-    await migrateSettingsToStore()
-    await migrateSettingsToStore()
+  it('does not migrate twice', () => {
+    migrateSettingsToStore()
+    migrateSettingsToStore()
     expect(loadSettingsMock).toHaveBeenCalledTimes(1)
   })
 })

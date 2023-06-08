@@ -6,8 +6,8 @@ import * as chatData from '../../../tests/unit/data/chatData'
 import { encrypt } from '../crypto'
 
 describe('decryptMessage', () => {
-  beforeEach(async () => {
-    await setAccount(defaultAccount)
+  beforeEach(() => {
+    setAccount(defaultAccount)
   })
   afterEach(() => {
     jest.clearAllMocks()

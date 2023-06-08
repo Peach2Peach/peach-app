@@ -37,8 +37,8 @@ describe('useRestoreReputationSetup', () => {
     act(() => {
       tempAccount.current.setTemporaryAccount(account1)
     })
-    await act(async () => {
-      await result.current.restoreReputation()
+    await act(() => {
+      result.current.restoreReputation()
       jest.runAllTimers()
     })
     expect(result.current.isLoading).toBeTruthy()

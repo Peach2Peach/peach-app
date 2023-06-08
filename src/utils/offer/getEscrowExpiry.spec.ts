@@ -3,12 +3,12 @@ import { getEscrowExpiry } from '.'
 import * as offerData from '../../../tests/unit/data/offerData'
 
 describe('getEscrowExpiry', () => {
-  it('should return the offer expiry', async () => {
+  it('should return the offer expiry', () => {
     const now = new Date()
     const expectedExpiry = new Date()
     expectedExpiry.setMilliseconds(+322200000)
 
-    const offerExpiry = await getEscrowExpiry({
+    const offerExpiry = getEscrowExpiry({
       ...offerData.sellOffer,
       publishingDate: now,
     })
@@ -19,13 +19,13 @@ describe('getEscrowExpiry', () => {
       isExpired: false,
     })
   })
-  it('should return the offer expiry and signal that it is expired', async () => {
+  it('should return the offer expiry and signal that it is expired', () => {
     const tenDaysAgo = new Date()
     tenDaysAgo.setDate(-10)
     const expectedExpiry = new Date(tenDaysAgo)
     expectedExpiry.setMilliseconds(+322200000)
 
-    const offerExpiry = await getEscrowExpiry({
+    const offerExpiry = getEscrowExpiry({
       ...offerData.sellOffer,
       creationDate: tenDaysAgo,
       publishingDate: tenDaysAgo,

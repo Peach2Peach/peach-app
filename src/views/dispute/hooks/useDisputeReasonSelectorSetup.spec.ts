@@ -42,32 +42,26 @@ jest.mock('../utils/submitRaiseDispute', () => ({
 
 const showErrorBannerMock = jest.fn()
 jest.mock('../../../hooks/useShowErrorBanner', () => ({
-  useShowErrorBanner:
-    () =>
-      (...args: any[]) =>
-        showErrorBannerMock(...args),
+  useShowErrorBanner: () => showErrorBannerMock,
 }))
 const showDisputeRaisedPopupMock = jest.fn()
 jest.mock('../../../popups/dispute/hooks/useDisputeRaisedSuccess', () => ({
-  useDisputeRaisedSuccess:
-    () =>
-      (...args: any[]) =>
-        showDisputeRaisedPopupMock(...args),
+  useDisputeRaisedSuccess: () => showDisputeRaisedPopupMock,
 }))
 
 describe('useDisputeReasonSelectorSetup', () => {
   afterEach(() => {
     jest.clearAllMocks()
   })
-  it('returns default values correctly for seller', async () => {
-    await setAccount({ ...account1, publicKey: contract.seller.id })
+  it('returns default values correctly for seller', () => {
+    setAccount({ ...account1, publicKey: contract.seller.id })
     const { result } = renderHook(useDisputeReasonSelectorSetup)
 
     expect(result.current.availableReasons).toEqual(disputeReasons.seller)
     expect(result.current.setReason).toBeInstanceOf(Function)
   })
-  it('returns default values correctly for buyer', async () => {
-    await setAccount({ ...account1, publicKey: contract.buyer.id })
+  it('returns default values correctly for buyer', () => {
+    setAccount({ ...account1, publicKey: contract.buyer.id })
     const { result } = renderHook(useDisputeReasonSelectorSetup)
 
     expect(result.current.availableReasons).toEqual(disputeReasons.buyer)

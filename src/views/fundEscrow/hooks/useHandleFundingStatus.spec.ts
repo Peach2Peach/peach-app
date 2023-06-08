@@ -19,10 +19,7 @@ jest.mock('../../../hooks/query/useTradeSummaries', () => ({
 
 const showWronglyFundedPopupMock = jest.fn()
 jest.mock('../../../popups/useShowWronglyFundedPopup', () => ({
-  useShowWronglyFundedPopup:
-    () =>
-      (...args: any[]) =>
-        showWronglyFundedPopupMock(...args),
+  useShowWronglyFundedPopup: () => showWronglyFundedPopupMock,
 }))
 
 const searchWithNoMatches = {
@@ -62,10 +59,7 @@ jest.mock('../../search/hooks/useOfferMatches', () => ({
 
 const startRefundPopupMock = jest.fn()
 jest.mock('../../../popups/useStartRefundPopup', () => ({
-  useStartRefundPopup:
-    () =>
-      (...args: any[]) =>
-        startRefundPopupMock(...args),
+  useStartRefundPopup: () => startRefundPopupMock,
 }))
 
 describe('useHandleFundingStatus', () => {
@@ -77,8 +71,8 @@ describe('useHandleFundingStatus', () => {
     userConfirmationRequired: false,
   }
 
-  beforeEach(async () => {
-    await setAccount({ ...account1, offers: [] })
+  beforeEach(() => {
+    setAccount({ ...account1, offers: [] })
   })
   afterEach(() => {
     jest.clearAllMocks()

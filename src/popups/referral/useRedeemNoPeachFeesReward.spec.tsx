@@ -49,16 +49,16 @@ describe('useRedeemNoPeachFeesReward', () => {
       },
     })
   })
-  it('closes popup', async () => {
+  it('closes popup', () => {
     const { result } = renderHook(useRedeemNoPeachFeesReward, { wrapper })
     result.current()
-    await usePopupStore.getState().action2?.callback()
+    usePopupStore.getState().action2?.callback()
     expect(usePopupStore.getState().visible).toEqual(false)
   })
-  it('redeems reward successfully', async () => {
+  it('redeems reward successfully', () => {
     const { result } = renderHook(useRedeemNoPeachFeesReward, { wrapper })
     result.current()
-    await usePopupStore.getState().action1?.callback()
+    usePopupStore.getState().action1?.callback()
     expect(redeemNoPeachFeesMock).toHaveBeenCalled()
     expect(usePopupStore.getState()).toEqual({
       ...usePopupStore.getState(),
@@ -69,11 +69,11 @@ describe('useRedeemNoPeachFeesReward', () => {
     })
     expect(replaceMock).toHaveBeenCalledWith('referrals')
   })
-  it('show error banner if reward could not be redeemed', async () => {
+  it('show error banner if reward could not be redeemed', () => {
     redeemNoPeachFeesMock.mockResolvedValueOnce([null, notEnoughPointsError])
     const { result } = renderHook(useRedeemNoPeachFeesReward, { wrapper })
     result.current()
-    await usePopupStore.getState().action1?.callback()
+    usePopupStore.getState().action1?.callback()
     expect(showErrorBannerMock).toHaveBeenCalledWith(notEnoughPointsError.error)
   })
 })

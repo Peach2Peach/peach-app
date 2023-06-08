@@ -10,10 +10,10 @@ jest.mock('../../crypto', () => ({
 }))
 
 describe('loadContracts', () => {
-  beforeEach(async () => {
+  beforeEach(() => {
     ;(<jest.Mock>getRandom).mockImplementation(() => Buffer.from('0000000000000000'))
 
-    await setAccount(defaultAccount)
+    setAccount(defaultAccount)
   })
 
   it('loads contracts', async () => {

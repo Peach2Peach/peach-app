@@ -12,9 +12,9 @@ const storeLegacyPaymentData = (paymentData: Account['paymentData']) => {
 
   accountStorage.setArray('legacyPaymentData', paymentData)
 }
-const updateLegacyPaymentData = async (account: Account, paymentData: PaymentData[]) => {
+const updateLegacyPaymentData = (account: Account, paymentData: PaymentData[]) => {
   account.legacyPaymentData = paymentData
-  await storeLegacyPaymentData(account.legacyPaymentData)
+  storeLegacyPaymentData(account.legacyPaymentData)
 }
 
 export const enforcePaymentDataFormats = (account: Account, paymentData: PaymentData[]) => {

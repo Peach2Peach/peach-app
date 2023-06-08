@@ -22,15 +22,12 @@ jest.mock('../../../utils/peachAPI', () => ({
 
 const showErrorBannerMock = jest.fn()
 jest.mock('../../../hooks/useShowErrorBanner', () => ({
-  useShowErrorBanner:
-    () =>
-      (...args: any[]) =>
-        showErrorBannerMock(...args),
+  useShowErrorBanner: () => showErrorBannerMock,
 }))
 
 describe('useCreateEscrow', () => {
-  beforeEach(async () => {
-    await updateAccount(account1, true)
+  beforeEach(() => {
+    updateAccount(account1, true)
   })
   afterEach(() => {
     jest.clearAllMocks()
@@ -40,7 +37,7 @@ describe('useCreateEscrow', () => {
       wrapper: QueryClientWrapper,
       initialProps: { offerId: sellOffer.id },
     })
-    await result.current.mutate()
+    result.current.mutate()
     await waitFor(() => expect(result.current.isLoading).toBeFalsy())
     expect(createEscrowMock).toHaveBeenCalledWith({
       offerId: sellOffer.id,
@@ -53,7 +50,7 @@ describe('useCreateEscrow', () => {
       wrapper: QueryClientWrapper,
       initialProps: { offerId: sellOffer.id },
     })
-    await result.current.mutate()
+    result.current.mutate()
     await waitFor(() => expect(result.current.isLoading).toBeFalsy())
     expect(showErrorBannerMock).toHaveBeenCalledWith(unauthorizedError.error)
   })

@@ -22,8 +22,8 @@ describe('useDisputeEmailPopup', () => {
     </QueryClientWrapper>
   )
 
-  beforeEach(async () => {
-    await setAccount({ ...account1, contracts: [] })
+  beforeEach(() => {
+    setAccount({ ...account1, contracts: [] })
 
     jest.clearAllMocks()
     useLocalContractStore.getState().setContract({
@@ -41,8 +41,8 @@ describe('useDisputeEmailPopup', () => {
     await waitFor(() => {
       expect(queryClient.getQueryState(['contract', contract.id])?.status).toBe('success')
     })
-    await act(async () => {
-      await result.current()
+    act(() => {
+      result.current()
     })
 
     expect(usePopupStore.getState()).toStrictEqual({
@@ -92,8 +92,8 @@ describe('useDisputeEmailPopup', () => {
     await waitFor(() => {
       expect(queryClient.getQueryState(['contract', contract.id])?.status).toBe('success')
     })
-    await act(async () => {
-      await result.current()
+    act(() => {
+      result.current()
     })
 
     expect(usePopupStore.getState()).toStrictEqual(expect.objectContaining(defaultPopupState))
@@ -108,8 +108,8 @@ describe('useDisputeEmailPopup', () => {
     await waitFor(() => {
       expect(queryClient.getQueryState(['contract', contract.id])?.status).toBe('success')
     })
-    await act(async () => {
-      await result.current()
+    act(() => {
+      result.current()
     })
 
     expect(usePopupStore.getState()).toStrictEqual(expect.objectContaining(defaultPopupState))

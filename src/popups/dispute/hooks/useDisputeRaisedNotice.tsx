@@ -16,15 +16,15 @@ export const useDisputeRaisedNotice = () => {
 
   const showDisputeRaisedNotice = useCallback(
     (contract: Contract, view: ContractViewer) => {
-      const submit = async () => {
-        await submitDisputeAcknowledgement({
+      const submit = () => {
+        submitDisputeAcknowledgement({
           contractId: contract.id,
           disputeReason: contract.disputeReason || 'other',
           email,
         })
       }
-      const submitAndGoToChat = async () => {
-        await submit()
+      const submitAndGoToChat = () => {
+        submit()
         navigation.replace('contractChat', { contractId: contract.id })
       }
 

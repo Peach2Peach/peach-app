@@ -116,7 +116,7 @@ describe('useConfirmCancelTrade', () => {
 
     expect(saveContractMock).toHaveBeenCalledWith(contractUpdate)
   })
-  it('should show confirm cancelation popup for buyer', async () => {
+  it('should show confirm cancelation popup for buyer', () => {
     setAccount({ ...account1, publicKey: contract.buyer.id })
     const { result } = renderHook(useConfirmCancelTrade, { wrapper })
     result.current.showConfirmPopup(contract)
@@ -139,10 +139,10 @@ describe('useConfirmCancelTrade', () => {
       visible: true,
     })
 
-    await usePopupStore.getState().action1?.callback()
+    usePopupStore.getState().action1?.callback()
     expect(cancelContractAsBuyerMock).toHaveBeenCalledWith(contract)
   })
-  it('should show confirm cancelation popup for seller', async () => {
+  it('should show confirm cancelation popup for seller', () => {
     setAccount({
       ...account1,
       offers: [{ ...sellOffer, id: getSellOfferIdFromContract(contract) }],
@@ -168,7 +168,7 @@ describe('useConfirmCancelTrade', () => {
       title: 'cancel trade',
       visible: true,
     })
-    await usePopupStore.getState().action1?.callback()
+    usePopupStore.getState().action1?.callback()
     expect(cancelContractAsSellerMock).toHaveBeenCalledWith(contract)
   })
   it('confirmpopup should be gray', () => {

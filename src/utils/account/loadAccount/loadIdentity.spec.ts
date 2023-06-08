@@ -5,14 +5,14 @@ import { loadIdentity } from '.'
 import * as accountData from '../../../../tests/unit/data/accountData'
 
 describe('loadIdentity', () => {
-  beforeEach(async () => {
-    await setAccount(defaultAccount)
+  beforeEach(() => {
+    setAccount(defaultAccount)
   })
 
   it('loads identity', async () => {
     await storeIdentity(accountData.account1)
 
-    const identity = await loadIdentity()
+    const identity = loadIdentity()
     expect(accountStorage.getMap).toHaveBeenCalledWith('identity')
     deepStrictEqual(identity, {
       publicKey: accountData.account1.publicKey,

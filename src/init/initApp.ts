@@ -6,14 +6,14 @@ import { getTrades } from './getTrades'
 import { saveMeetupEvents } from './saveMeetupEvents'
 
 export const initApp = async (): Promise<GetStatusResponse | undefined> => {
-  await dataMigrationBeforeLoadingAccount()
+  dataMigrationBeforeLoadingAccount()
 
   await loadAccount()
   const statusResponse = await getPeachInfo()
   if (!statusResponse?.error && account?.publicKey) {
     getTrades()
     userUpdate()
-    await dataMigrationAfterLoadingAccount(account)
+    dataMigrationAfterLoadingAccount(account)
   }
   if (!statusResponse?.error) saveMeetupEvents()
   return statusResponse

@@ -30,20 +30,20 @@ describe('contractUpdateHandler', () => {
     jest.clearAllMocks()
   })
 
-  it('does nothing if contract cannot be found', async () => {
+  it('does nothing if contract cannot be found', () => {
     getContractMock.mockReturnValueOnce(undefined)
-    await contractUpdateHandler(paymentMadeEvent)
+    contractUpdateHandler(paymentMadeEvent)
     expect(saveContractMock).not.toHaveBeenCalled()
   })
-  it('handles contract updates for paymentMade events', async () => {
-    await contractUpdateHandler(paymentMadeEvent)
+  it('handles contract updates for paymentMade events', () => {
+    contractUpdateHandler(paymentMadeEvent)
     expect(saveContractMock).toHaveBeenCalledWith({
       ...contract,
       paymentMade: new Date(now),
     })
   })
-  it('handles contract updates for paymentConfirmed events', async () => {
-    await contractUpdateHandler(paymentConfirmedEvent)
+  it('handles contract updates for paymentConfirmed events', () => {
+    contractUpdateHandler(paymentConfirmedEvent)
     expect(saveContractMock).toHaveBeenCalledWith({
       ...contract,
       paymentConfirmed: new Date(now),

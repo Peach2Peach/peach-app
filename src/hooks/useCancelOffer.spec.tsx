@@ -25,8 +25,8 @@ const wrapper = ({ children }: { children: JSX.Element }) => (
 )
 
 describe('useCancelOffer', () => {
-  beforeEach(async () => {
-    await updateAccount(account1)
+  beforeEach(() => {
+    updateAccount(account1)
   })
   afterEach(() => {
     jest.clearAllMocks()
@@ -57,14 +57,14 @@ describe('useCancelOffer', () => {
     })
   })
 
-  it('should show cancel offer confirmation popup', async () => {
+  it('should show cancel offer confirmation popup', () => {
     const { result } = renderHook(useCancelOffer, {
       wrapper,
       initialProps: buyOffer,
     })
     result.current()
 
-    await usePopupStore.getState().action1?.callback()
+    usePopupStore.getState().action1?.callback()
 
     expect(usePopupStore.getState()).toEqual({
       ...usePopupStore.getState(),

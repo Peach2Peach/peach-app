@@ -32,7 +32,7 @@ export const useRestoreFromFileSetup = () => {
   }
 
   const decryptAndRecover = async () => {
-    const [recoveredAccount, err] = await decryptAccount({
+    const [recoveredAccount, err] = decryptAccount({
       encryptedAccount: file.content,
       password,
     })

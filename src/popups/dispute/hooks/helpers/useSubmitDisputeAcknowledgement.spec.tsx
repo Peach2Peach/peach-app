@@ -60,7 +60,7 @@ describe('useSubmitDisputeAcknowledgement', () => {
       disputeReason,
     }
     const { result } = renderHook(useSubmitDisputeAcknowledgement, { wrapper })
-    await result.current({ contractId: noPaymentContract.id, disputeReason, email: '' })
+    result.current({ contractId: noPaymentContract.id, disputeReason, email: '' })
     await waitFor(() => {
       expect(queryClient.getQueryState(['contract', contract.id])?.status).toBe('success')
     })
@@ -71,7 +71,7 @@ describe('useSubmitDisputeAcknowledgement', () => {
 
   it('opens popup with loading animation', async () => {
     const { result } = renderHook(useSubmitDisputeAcknowledgement, { wrapper })
-    await result.current({ contractId: contract.id, disputeReason: 'other', email: '' })
+    result.current({ contractId: contract.id, disputeReason: 'other', email: '' })
     await waitFor(() => {
       expect(queryClient.getQueryState(['contract', contract.id])?.status).toBe('success')
     })
@@ -83,9 +83,9 @@ describe('useSubmitDisputeAcknowledgement', () => {
   })
 
   it('saves contract for seller update when successful', async () => {
-    await setAccount({ ...defaultAccount, publicKey: contract.seller.id })
+    setAccount({ ...defaultAccount, publicKey: contract.seller.id })
     const { result } = renderHook(useSubmitDisputeAcknowledgement, { wrapper })
-    await result.current({ contractId: contract.id, disputeReason: 'other', email: '' })
+    result.current({ contractId: contract.id, disputeReason: 'other', email: '' })
 
     await waitFor(() => {
       expect(queryClient.getQueryState(['contract', contract.id])?.status).toBe('success')
@@ -99,9 +99,9 @@ describe('useSubmitDisputeAcknowledgement', () => {
     })
   })
   it('saves contract for buyer update when successful', async () => {
-    await setAccount({ ...defaultAccount, publicKey: contract.buyer.id })
+    setAccount({ ...defaultAccount, publicKey: contract.buyer.id })
     const { result } = renderHook(useSubmitDisputeAcknowledgement, { wrapper })
-    await result.current({ contractId: contract.id, disputeReason: 'other', email: '' })
+    result.current({ contractId: contract.id, disputeReason: 'other', email: '' })
     await waitFor(() => {
       expect(queryClient.getQueryState(['contract', contract.id])?.status).toBe('success')
     })
@@ -115,7 +115,7 @@ describe('useSubmitDisputeAcknowledgement', () => {
   })
   it('closes popup when successful', async () => {
     const { result } = renderHook(useSubmitDisputeAcknowledgement, { wrapper })
-    await result.current({ contractId: contract.id, disputeReason: 'other', email: 'seller@mail.com' })
+    result.current({ contractId: contract.id, disputeReason: 'other', email: 'seller@mail.com' })
     await waitFor(() => {
       expect(queryClient.getQueryState(['contract', contract.id])?.status).toBe('success')
     })
@@ -130,7 +130,7 @@ describe('useSubmitDisputeAcknowledgement', () => {
       disputeReason,
     }
     const { result } = renderHook(useSubmitDisputeAcknowledgement, { wrapper })
-    await result.current({ contractId: noPaymentContract.id, disputeReason, email: 'satoshi@bitcoin.org' })
+    result.current({ contractId: noPaymentContract.id, disputeReason, email: 'satoshi@bitcoin.org' })
     await waitFor(() => {
       expect(queryClient.isMutating()).toBe(0)
       expect(queryClient.getQueryState(['contract', contract.id])?.status).toBe('success')
@@ -147,7 +147,7 @@ describe('useSubmitDisputeAcknowledgement', () => {
       disputeReason,
     }
     const { result } = renderHook(useSubmitDisputeAcknowledgement, { wrapper })
-    await result.current({ contractId: noPaymentContract.id, disputeReason, email: 'satoshi@bitcoin.org' })
+    result.current({ contractId: noPaymentContract.id, disputeReason, email: 'satoshi@bitcoin.org' })
     await waitFor(() => {
       expect(queryClient.getQueryState(['contract', contract.id])?.status).toBe('success')
     })
@@ -157,9 +157,9 @@ describe('useSubmitDisputeAcknowledgement', () => {
     queryClient.setQueryData(['contract', contract.id], { ...contract, isEmailRequired: true })
     jest.spyOn(Date, 'now').mockReturnValue(now.getTime())
 
-    await setAccount({ ...defaultAccount, publicKey: contract.buyer.id })
+    setAccount({ ...defaultAccount, publicKey: contract.buyer.id })
     const { result } = renderHook(useSubmitDisputeAcknowledgement, { wrapper })
-    await result.current({ contractId: contract.id, disputeReason: 'other', email: '' })
+    result.current({ contractId: contract.id, disputeReason: 'other', email: '' })
 
     await waitFor(() => {
       expect(queryClient.isMutating()).toBe(0)

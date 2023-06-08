@@ -53,8 +53,8 @@ describe('useReportSetup', () => {
       await current.submit()
     })
 
-  beforeAll(async () => {
-    await setAccount(defaultAccount)
+  beforeAll(() => {
+    setAccount(defaultAccount)
   })
   afterEach(() => {
     usePopupStore.setState(defaultPopupState)
@@ -216,7 +216,7 @@ describe('useReportSetup', () => {
   })
   it('submits report navigates to settings on success for logged in user', async () => {
     ;(submitReport as jest.Mock).mockResolvedValueOnce(['success', null])
-    await setAccount({ ...defaultAccount, publicKey: 'somepublickey' })
+    setAccount({ ...defaultAccount, publicKey: 'somepublickey' })
 
     const { result } = renderHook(useReportSetup, { wrapper: NavigationWrapper })
 
@@ -233,7 +233,7 @@ describe('useReportSetup', () => {
   it('shows error banner if report could not be submitted', async () => {
     ;(submitReport as jest.Mock).mockResolvedValueOnce([null, 'error'])
     ;(useShowErrorBanner as jest.Mock).mockReturnValue(jest.fn())
-    await setAccount({ ...defaultAccount, publicKey: 'somepublickey' })
+    setAccount({ ...defaultAccount, publicKey: 'somepublickey' })
 
     const { result } = renderHook(useReportSetup, { wrapper: NavigationWrapper })
 

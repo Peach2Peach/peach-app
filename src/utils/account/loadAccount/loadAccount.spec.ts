@@ -3,8 +3,8 @@ import { account, defaultAccount, loadAccount, setAccount, storeAccount } from '
 import * as accountData from '../../../../tests/unit/data/accountData'
 
 describe('loadAccount', () => {
-  beforeEach(async () => {
-    await setAccount(defaultAccount)
+  beforeEach(() => {
+    setAccount(defaultAccount)
   })
 
   it('loads account', async () => {
@@ -18,7 +18,7 @@ describe('loadAccount', () => {
   })
 
   it('returns already loaded account', async () => {
-    await setAccount(accountData.account1)
+    setAccount(accountData.account1)
     const acc = await loadAccount()
     deepStrictEqual(account, acc)
     deepStrictEqual(account, accountData.account1)

@@ -8,9 +8,9 @@ jest.mock('../utils/peachAPI', () => ({
   updateUser: (...args: any[]) => updateUserMock(...args),
 }))
 describe('publishPGPPublicKey', () => {
-  afterEach(async () => {
+  afterEach(() => {
     jest.clearAllMocks()
-    await setAccount(defaultAccount)
+    setAccount(defaultAccount)
   })
 
   it('does not send pgp key to server if there is no data to be sent', async () => {
@@ -21,7 +21,7 @@ describe('publishPGPPublicKey', () => {
     expect(updateUserMock).not.toHaveBeenCalled()
   })
   it('does send pgp key to server if there is data to send and has not been sent yet', async () => {
-    await setAccount(account1)
+    setAccount(account1)
     settingsStore.setState({
       pgpPublished: false,
     })
@@ -31,7 +31,7 @@ describe('publishPGPPublicKey', () => {
     })
   })
   it('should handle updateUser errors', async () => {
-    await setAccount(account1)
+    setAccount(account1)
     settingsStore.setState({
       pgpPublished: false,
     })
@@ -43,7 +43,7 @@ describe('publishPGPPublicKey', () => {
     expect(settingsStore.getState().pgpPublished).toBe(false)
   })
   it('should catch errors', async () => {
-    await setAccount(account1)
+    setAccount(account1)
     settingsStore.setState({
       pgpPublished: false,
     })

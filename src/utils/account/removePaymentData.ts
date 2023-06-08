@@ -28,5 +28,5 @@ export const removePaymentData = async (id: PaymentData['id']) => {
     })
   }
 
-  await storePaymentData(account.paymentData)
+  storePaymentData(account.paymentData)
 }

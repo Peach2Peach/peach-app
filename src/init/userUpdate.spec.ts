@@ -15,9 +15,9 @@ jest.mock('../utils/peachAPI', () => ({
 describe('userUpdate', () => {
   const fcmToken = 'fcmToken'
   const referralCode = 'referralCode'
-  afterEach(async () => {
+  afterEach(() => {
     jest.clearAllMocks()
-    await setAccount(defaultAccount)
+    setAccount(defaultAccount)
   })
 
   it('does not send updates to server if there is no data to send', async () => {
@@ -26,7 +26,7 @@ describe('userUpdate', () => {
   })
   it('does send updates to server if there is data to send', async () => {
     const newToken = 'otherToken'
-    await setAccount(account1)
+    setAccount(account1)
     getTokenMock.mockResolvedValueOnce(newToken)
     settingsStore.setState({
       fcmToken,

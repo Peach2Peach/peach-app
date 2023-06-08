@@ -21,8 +21,8 @@ export const useRestoreReputationSetup = () => {
     if (!temporaryAccount) return
     setIsLoading(true)
     // prevent render blocking
-    setTimeout(async () => {
-      await updateAccount(temporaryAccount, true)
+    setTimeout(() => {
+      updateAccount(temporaryAccount, true)
       storeAccount(temporaryAccount)
       setIsRestored(true)
 
