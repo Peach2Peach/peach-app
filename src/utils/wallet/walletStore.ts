@@ -3,7 +3,7 @@ import { createStore, useStore } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
 import { createStorage } from '../storage'
 import { toZustandStorage } from '../storage/toZustandStorage'
-import { migrateWalletStore } from './migration'
+import { migrateWalletStore } from './migration/migrateWalletStore'
 
 export type WalletState = {
   balance: number

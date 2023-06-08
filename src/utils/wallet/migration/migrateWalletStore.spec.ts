@@ -1,5 +1,5 @@
 import { TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
-import { migrateWalletStore } from '.'
+import { migrateWalletStore } from './migrateWalletStore'
 import { ConfirmedTransaction, PendingTransaction, WalletStateVersion0 } from './version0'
 
 describe('migrateWalletStore', () => {
@@ -19,7 +19,6 @@ describe('migrateWalletStore', () => {
       fee: 123,
     }
     const version0Store: WalletStateVersion0 = {
-      synced: true,
       balance: 0,
       addresses: [],
       transactions: {
