@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-native'
+import { renderHook, waitFor } from '@testing-library/react-native'
 import { notEnoughPointsError } from '../../../tests/unit/data/peachAPIData'
 import { NavigationWrapper, replaceMock } from '../../../tests/unit/helpers/NavigationWrapper'
 import { usePopupStore } from '../../store/usePopupStore'
@@ -55,25 +55,29 @@ describe('useRedeemNoPeachFeesReward', () => {
     usePopupStore.getState().action2?.callback()
     expect(usePopupStore.getState().visible).toEqual(false)
   })
-  it('redeems reward successfully', () => {
+  it('redeems reward successfully', async () => {
     const { result } = renderHook(useRedeemNoPeachFeesReward, { wrapper })
     result.current()
     usePopupStore.getState().action1?.callback()
     expect(redeemNoPeachFeesMock).toHaveBeenCalled()
-    expect(usePopupStore.getState()).toEqual({
-      ...usePopupStore.getState(),
-      title: '5x free trading',
-      content: <NoPeachFeesSuccess />,
-      level: 'APP',
-      visible: true,
+    await waitFor(() => {
+      expect(usePopupStore.getState()).toEqual({
+        ...usePopupStore.getState(),
+        title: '5x free trading',
+        content: <NoPeachFeesSuccess />,
+        level: 'APP',
+        visible: true,
+      })
     })
     expect(replaceMock).toHaveBeenCalledWith('referrals')
   })
-  it('show error banner if reward could not be redeemed', () => {
+  it('show error banner if reward could not be redeemed', async () => {
     redeemNoPeachFeesMock.mockResolvedValueOnce([null, notEnoughPointsError])
     const { result } = renderHook(useRedeemNoPeachFeesReward, { wrapper })
     result.current()
     usePopupStore.getState().action1?.callback()
-    expect(showErrorBannerMock).toHaveBeenCalledWith(notEnoughPointsError.error)
+    await waitFor(() => {
+      expect(showErrorBannerMock).toHaveBeenCalledWith(notEnoughPointsError.error)
+    })
   })
 })
