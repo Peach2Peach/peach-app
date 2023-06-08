@@ -166,6 +166,9 @@ export class PeachWallet {
     await Promise.all(pending.map(({ txid }) => getAndStorePendingTransactionHex(txid)))
 
     await rebroadcastTransactions(toRebroadcast.map(({ txid }) => txid))
+    this.transactions = this.transactions.filter(
+      (tx) => tx.confirmationTime || walletStore.getState().pendingTransactions[tx.txid],
+    )
     this.updateStore()
 
     return this.transactions
@@ -175,8 +178,7 @@ export class PeachWallet {
     if (!this.wallet) throw Error('WALLET_NOT_READY')
     info('PeachWallet - getReceivingAddress - start')
 
-    const result = await this.wallet.getAddress(AddressIndex.LastUnused)
-    this.updateStore()
+    const result = await this.wallet.getAddress(AddressIndex.New)
 
     return result.address
   }
@@ -189,6 +191,7 @@ export class PeachWallet {
       if (feeRate) await txBuilder.feeRate(feeRate)
       await txBuilder.enableRbf()
       const recipientAddress = await new Address().create(address)
+      // TODO check if needed
       const utxos = await this.wallet.listUnspent()
       await txBuilder.addUtxos(utxos.map((utxo) => utxo.outpoint))
       await txBuilder.drainTo(await recipientAddress.scriptPubKey())
@@ -200,6 +203,30 @@ export class PeachWallet {
       this.syncWallet()
 
       info('PeachWallet - withdrawAll - end')
+
+      return result.txDetails.txid
+    } catch (e) {
+      throw handleBroadcastError(parseError(e))
+    }
+  }
+
+  async sendTo (address: string, amount: number, feeRate?: number): Promise<string | null> {
+    if (!this.wallet || !this.blockchain) throw Error('WALLET_NOT_READY')
+    info('PeachWallet - sendTo - start')
+    try {
+      const txBuilder = await new TxBuilder().create()
+      if (feeRate) await txBuilder.feeRate(feeRate)
+      await txBuilder.enableRbf()
+      const recipientAddress = await new Address().create(address)
+      await txBuilder.addRecipient(await recipientAddress.scriptPubKey(), amount)
+
+      const result = await txBuilder.finish(this.wallet)
+      const signedPSBT = await this.wallet.sign(result.psbt)
+
+      this.blockchain.broadcast(await signedPSBT.extractTx())
+      this.syncWallet()
+
+      info('PeachWallet - sendTo - end')
 
       return result.txDetails.txid
     } catch (e) {

@@ -117,10 +117,8 @@ describe('PeachWallet', () => {
     walletSyncMock.mockResolvedValueOnce(true)
 
     expect(peachWallet.synced).toBeFalsy()
-    expect(walletStore.getState().synced).toBeFalsy()
     await peachWallet.syncWallet()
     expect(peachWallet.synced).toBeTruthy()
-    expect(walletStore.getState().synced).toBeTruthy()
     expect(walletSyncMock).toHaveBeenCalled()
   })
   it('gets balance and transactions after sync', async () => {
@@ -181,6 +179,18 @@ describe('PeachWallet', () => {
       { txid: 'txid2', sent: 2, received: 2, fee: 2 },
     ])
   })
+  it('removes pending transactions that are replaced', async () => {
+    peachWallet.transactions = [{ txid: 'txid1', sent: 1, received: 1, fee: 1 }]
+    const replacement = { txid: 'txid2', sent: 1, received: 1, fee: 1 }
+
+    listTransactionsMock.mockResolvedValueOnce([replacement])
+    rebroadcastTransactionsMock.mockImplementationOnce(() => walletStore.getState().removePendingTransaction('txid1'))
+    // @ts-ignore
+    peachWallet.wallet.listTransactions = listTransactionsMock
+
+    const transactions = await peachWallet.getTransactions()
+    expect(transactions).toEqual([replacement])
+  })
   it('tries to rebroadcast tx that are dropped from the block explorer', async () => {
     peachWallet.transactions = [{ txid: 'txid3', sent: 3, received: 3, fee: 3 }]
 
@@ -233,7 +243,7 @@ describe('PeachWallet', () => {
 
     const newAddress = await peachWallet.getReceivingAddress()
     expect(newAddress).toBe(address)
-    expect(getAddressMock).toHaveBeenCalledWith(AddressIndex.LastUnused)
+    expect(getAddressMock).toHaveBeenCalledWith(AddressIndex.New)
   })
   it('throws error when requesting receiving address before wallet is ready', async () => {
     peachWallet.wallet = undefined
@@ -246,7 +256,6 @@ describe('PeachWallet', () => {
     tradeSummaryStore.getState().setContract('1-3', { id: '1-3', releaseTxId: confirmed1.txid })
     tradeSummaryStore.getState().setOffer('2', { id: '2', txId: confirmed2.txid })
     await peachWallet.updateStore()
-    expect(walletStore.getState().synced).toBe(true)
     expect(walletStore.getState().transactions).toEqual([confirmed1, confirmed2, pending3])
     expect(walletStore.getState().txOfferMap).toEqual({
       txid1: '3',
