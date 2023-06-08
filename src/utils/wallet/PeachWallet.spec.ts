@@ -3,7 +3,7 @@
 /* eslint-disable max-lines-per-function */
 import { waitFor } from '@testing-library/react-native'
 import { PartiallySignedTransaction, Transaction } from 'bdk-rn'
-import { LocalUtxo, OutPoint, TransactionDetails, TxBuilderResult, TxOut } from 'bdk-rn/lib/classes/Bindings'
+import { TransactionDetails, TxBuilderResult } from 'bdk-rn/lib/classes/Bindings'
 import { AddressIndex } from 'bdk-rn/lib/lib/enums'
 import { account1 } from '../../../tests/unit/data/accountData'
 import { confirmed1, confirmed2, pending1, pending2, pending3 } from '../../../tests/unit/data/transactionDetailData'
@@ -13,10 +13,8 @@ import {
   blockChainCreateMock,
   blockchainBroadcastMock,
   getAddressMock,
-  listUnspentMock,
   mnemonicFromStringMock,
   psbtExtractTxMock,
-  txBuilderAddUtxosMock,
   txBuilderCreateMock,
   txBuilderDrainToMock,
   txBuilderDrainWalletMock,
