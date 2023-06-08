@@ -2,7 +2,7 @@ import { renderHook } from '@testing-library/react-native'
 import { act } from 'react-test-renderer'
 import { useUpdateTradingAmounts } from '.'
 import { useConfigStore } from '../store/configStore'
-import { useSettingsStore } from '../store/settingsStore'
+import { useOfferPreferences } from '../store/useOfferPreferences'
 import { getTradingAmountLimits } from '../utils/market'
 
 jest.mock('../utils/market', () => ({
@@ -29,12 +29,11 @@ describe('useUpdateTradingAmounts', () => {
   })
   it('updates selected amounts if they fall out of range', async () => {
     const { result: updateTradingAmounts } = renderHook(() => useUpdateTradingAmounts())
-    const { result: settingsStoreResult } = renderHook(() => useSettingsStore((state) => state))
 
     act(() => {
-      settingsStoreResult.current.setSellAmount(5)
-      settingsStoreResult.current.setMinBuyAmount(5)
-      settingsStoreResult.current.setMaxBuyAmount(200)
+      useOfferPreferences.getState().setSellAmount(5)
+      useOfferPreferences.getState().setMinBuyAmount(5)
+      useOfferPreferences.getState().setMaxBuyAmount(200)
     })
 
     act(() => {
@@ -42,19 +41,17 @@ describe('useUpdateTradingAmounts', () => {
     })
 
     expect(getTradingAmountLimits).toHaveBeenCalledWith(50)
-    expect(settingsStoreResult.current.sellAmount).toEqual(10)
-    expect(settingsStoreResult.current.minBuyAmount).toEqual(10)
-    expect(settingsStoreResult.current.maxBuyAmount).toEqual(100)
+    expect(useOfferPreferences.getState().sellPreferences.amount).toEqual(10)
+    expect(useOfferPreferences.getState().buyPreferences.amount).toEqual([10, 100])
   })
 
   it('does not update selected amounts if they do not fall out of range', async () => {
     const { result: updateTradingAmounts } = renderHook(() => useUpdateTradingAmounts())
-    const { result: settingsStoreResult } = renderHook(() => useSettingsStore((state) => state))
 
     act(() => {
-      settingsStoreResult.current.setSellAmount(20)
-      settingsStoreResult.current.setMinBuyAmount(20)
-      settingsStoreResult.current.setMaxBuyAmount(40)
+      useOfferPreferences.getState().setSellAmount(20)
+      useOfferPreferences.getState().setMinBuyAmount(20)
+      useOfferPreferences.getState().setMaxBuyAmount(40)
     })
 
     act(() => {
@@ -62,8 +59,7 @@ describe('useUpdateTradingAmounts', () => {
     })
 
     expect(getTradingAmountLimits).toHaveBeenCalledWith(50)
-    expect(settingsStoreResult.current.sellAmount).toEqual(20)
-    expect(settingsStoreResult.current.minBuyAmount).toEqual(20)
-    expect(settingsStoreResult.current.maxBuyAmount).toEqual(40)
+    expect(useOfferPreferences.getState().sellPreferences.amount).toEqual(20)
+    expect(useOfferPreferences.getState().buyPreferences.amount).toEqual([20, 40])
   })
 })

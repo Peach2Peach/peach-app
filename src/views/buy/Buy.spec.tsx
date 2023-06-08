@@ -1,9 +1,9 @@
 import { render } from '@testing-library/react-native'
 import { NavigationWrapper } from '../../../tests/unit/helpers/NavigationWrapper'
 import { QueryClientWrapper } from '../../../tests/unit/helpers/QueryClientWrapper'
-import { settingsStore } from '../../store/settingsStore'
 import Buy from './Buy'
 import { bitcoinStore } from '../../store/bitcoinStore'
+import { useOfferPreferences } from '../../store/useOfferPreferences'
 
 const useMarketPricesMock = jest.fn().mockReturnValue({
   data: {
@@ -36,17 +36,14 @@ describe('Buy', () => {
       price: 400000,
     })
   })
-  beforeEach(() => {
-    settingsStore.getState().setMaxBuyAmount(1000000)
-  })
   afterEach(() => {
-    settingsStore.getState().reset()
     jest.clearAllMocks()
   })
   it('should render correctly while loading max trading amount', () => {
-    settingsStore.getState().setMaxBuyAmount(Infinity)
+    useOfferPreferences.getState().setMaxBuyAmount(Infinity)
     const { toJSON } = render(<Buy />, { wrapper })
     expect(toJSON()).toMatchSnapshot()
+    useOfferPreferences.getState().setMaxBuyAmount(1000000)
   })
   it('should render correctly', () => {
     const { toJSON } = render(<Buy />, { wrapper })

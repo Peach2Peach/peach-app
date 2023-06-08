@@ -37,10 +37,6 @@ export const defaultSettings: Settings = {
 
   premium: 1.5,
 
-  minBuyAmount: defaultConfig.minTradingAmount,
-  maxBuyAmount: defaultConfig.maxTradingAmount,
-  sellAmount: defaultConfig.minTradingAmount,
-
   nodeURL: BLOCKEXPLORER,
 
   returnAddress: undefined,

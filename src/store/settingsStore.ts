@@ -16,9 +16,6 @@ export type SettingsStore = Settings & {
   setEnableAnalytics: (enableAnalytics: boolean) => void
   toggleAnalytics: () => void
   setAnalyticsPopupSeen: (analyticsPopupSeen: boolean) => void
-  setMinBuyAmount: (minBuyAmount: number) => void
-  setMaxBuyAmount: (maxBuyAmount: number) => void
-  setSellAmount: (sellAmount: number) => void
   setPayoutAddress: (payoutAddress: string) => void
   setPayoutAddressLabel: (payoutAddressLabel: string) => void
   setPayoutAddressSignature: (payoutAddressSignature: string) => void
@@ -64,9 +61,6 @@ export const settingsStore = create(
       },
       toggleAnalytics: () => get().setEnableAnalytics(!get().enableAnalytics),
       setAnalyticsPopupSeen: (analyticsPopupSeen) => set((state) => ({ ...state, analyticsPopupSeen })),
-      setMinBuyAmount: (minBuyAmount) => set((state) => ({ ...state, minBuyAmount })),
-      setMaxBuyAmount: (maxBuyAmount) => set((state) => ({ ...state, maxBuyAmount })),
-      setSellAmount: (sellAmount) => set((state) => ({ ...state, sellAmount })),
       setPayoutAddress: (payoutAddress) => set((state) => ({ ...state, payoutAddress })),
       setPayoutAddressLabel: (payoutAddressLabel) => set((state) => ({ ...state, payoutAddressLabel })),
       setPayoutAddressSignature: (payoutAddressSignature) => set((state) => ({ ...state, payoutAddressSignature })),

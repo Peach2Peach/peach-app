@@ -3,9 +3,6 @@ declare type Settings = {
   analyticsPopupSeen?: boolean
   enableAnalytics?: boolean
   locale?: string
-  minBuyAmount: number
-  maxBuyAmount: number
-  sellAmount: number
   returnAddress?: string
   payoutAddress?: string
   payoutAddressLabel?: string

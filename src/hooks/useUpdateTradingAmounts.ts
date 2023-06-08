@@ -1,21 +1,21 @@
 import { useCallback } from 'react'
 import { shallow } from 'zustand/shallow'
 import { useConfigStore } from '../store/configStore'
-import { useSettingsStore } from '../store/settingsStore'
+import { useOfferPreferences } from '../store/useOfferPreferences'
 import { getTradingAmountLimits } from '../utils/market'
 
 export const useUpdateTradingAmounts = () => {
-  const [sellAmount, setSellAmount, minBuyAmount, setMinBuyAmount, maxBuyAmount, setMaxBuyAmount] = useSettingsStore(
-    (state) => [
-      state.sellAmount,
-      state.setSellAmount,
-      state.minBuyAmount,
-      state.setMinBuyAmount,
-      state.maxBuyAmount,
-      state.setMaxBuyAmount,
-    ],
-    shallow,
-  )
+  const [sellAmount, setSellAmount, [minBuyAmount, maxBuyAmount], setMinBuyAmount, setMaxBuyAmount]
+    = useOfferPreferences(
+      (state) => [
+        state.sellPreferences.amount,
+        state.setSellAmount,
+        state.buyPreferences.amount,
+        state.setMinBuyAmount,
+        state.setMaxBuyAmount,
+      ],
+      shallow,
+    )
   const [setMinTradingAmount, setMaxTradingAmount] = useConfigStore(
     (state) => [state.setMinTradingAmount, state.setMaxTradingAmount],
     shallow,

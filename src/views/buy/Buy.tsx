@@ -8,6 +8,7 @@ import { useNavigation, useValidatedState } from '../../hooks'
 import { useDebounce } from '../../hooks/useDebounce'
 import { useConfigStore } from '../../store/configStore'
 import { useSettingsStore } from '../../store/settingsStore'
+import { useOfferPreferences } from '../../store/useOfferPreferences'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import LoadingScreen from '../loading/LoadingScreen'
@@ -20,14 +21,9 @@ export default () => {
 
   const { freeTrades, maxFreeTrades } = useBuySetup()
 
-  const [showBackupReminder, minBuyAmount, setMinBuyAmount, maxBuyAmount, setMaxBuyAmount] = useSettingsStore(
-    (state) => [
-      state.showBackupReminder,
-      state.minBuyAmount,
-      state.setMinBuyAmount,
-      state.maxBuyAmount,
-      state.setMaxBuyAmount,
-    ],
+  const showBackupReminder = useSettingsStore((state) => state.showBackupReminder)
+  const [[minBuyAmount, maxBuyAmount], setMinBuyAmount, setMaxBuyAmount] = useOfferPreferences(
+    (state) => [state.buyPreferences.amount, state.setMinBuyAmount, state.setMaxBuyAmount],
     shallow,
   )
   const [minTradingAmount, maxTradingAmount] = useConfigStore(
@@ -55,9 +51,13 @@ export default () => {
 
   const next = () => navigation.navigate('buyPreferences')
 
-  return currentMaxAmount === Infinity ? (
-    <LoadingScreen />
-  ) : (
+  if (currentMaxAmount === Infinity) {
+    setCurrentMinAmount(minBuyAmount)
+    setCurrentMaxAmount(maxBuyAmount)
+    return <LoadingScreen />
+  }
+
+  return (
     <View testID="view-buy" style={tw`flex h-full`}>
       <HorizontalLine style={tw`mx-8`} />
       <View style={tw`px-8 mt-2`}>

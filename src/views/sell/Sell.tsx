@@ -7,6 +7,7 @@ import { useNavigation, useValidatedState } from '../../hooks'
 import { useDebounce } from '../../hooks/useDebounce'
 import { useConfigStore } from '../../store/configStore'
 import { useSettingsStore } from '../../store/settingsStore'
+import { useOfferPreferences } from '../../store/useOfferPreferences'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { BackupReminderIcon } from '../buy/BackupReminderIcon'
@@ -19,8 +20,9 @@ export default () => {
 
   useSellSetup({ help: 'sellingBitcoin', hideGoBackButton: true })
 
-  const [showBackupReminder, sellAmount, setSellAmount] = useSettingsStore(
-    (state) => [state.showBackupReminder, state.sellAmount, state.setSellAmount],
+  const showBackupReminder = useSettingsStore((state) => state.showBackupReminder)
+  const [sellAmount, setSellAmount] = useOfferPreferences(
+    (state) => [state.sellPreferences.amount, state.setSellAmount],
     shallow,
   )
   const [minTradingAmount, maxTradingAmount] = useConfigStore(
