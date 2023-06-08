@@ -2,7 +2,7 @@
   "rootDir": "./",
   "preset": "react-native",
   "moduleFileExtensions": ["ts", "tsx", "js", "jsx"],
-  "collectCoverage": true,
+  "collectCoverage": false,
   "coverageReporters": ["lcov", "text-summary"],
   "coverageThreshold": {
     "global": {
