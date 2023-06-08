@@ -9,7 +9,7 @@ jest.mock('../../../utils/account', () => ({
 
 describe('storeBase58', () => {
   const wallet = createTestWallet()
-  it('updates payment data by enforcing format', () => {
+  it('stores master private key (base58) to the identity', () => {
     storeBase58(wallet, account1)
     expect(storeIdentity).toHaveBeenCalledWith({
       ...account1,
