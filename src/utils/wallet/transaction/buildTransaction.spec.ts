@@ -1,26 +1,26 @@
 import { TxBuilder } from 'bdk-rn'
 import {
   addressScriptPubKeyMock,
+  txBuilderAddRecipientMock,
   txBuilderCreateMock,
-  txBuilderDrainToMock,
-  txBuilderDrainWalletMock,
   txBuilderEnableRbfMock,
   txBuilderFeeRateMock,
 } from '../../../../tests/unit/mocks/bdkRN'
-import { buildDrainWalletTransaction } from './buildDrainWalletTransaction'
+import { buildTransaction } from './buildTransaction'
 
-describe('buildDrainWalletTransaction', () => {
+describe('buildTransaction', () => {
   it('creates a transaction that drains wallet', async () => {
     const address = 'address'
+    const amount = 21000000
     const scriptPubKey = 'scriptPubKey'
     const feeRate = 10
+
     addressScriptPubKeyMock.mockResolvedValueOnce(scriptPubKey)
-    const transactionResult = await buildDrainWalletTransaction(address, feeRate)
+    const transactionResult = await buildTransaction(address, amount, feeRate)
     expect(txBuilderCreateMock).toHaveBeenCalled()
     expect(txBuilderFeeRateMock).toHaveBeenCalledWith(feeRate)
     expect(txBuilderEnableRbfMock).toHaveBeenCalled()
-    expect(txBuilderDrainWalletMock).toHaveBeenCalled()
-    expect(txBuilderDrainToMock).toHaveBeenCalledWith(scriptPubKey)
+    expect(txBuilderAddRecipientMock).toHaveBeenCalledWith(scriptPubKey, amount)
 
     expect(transactionResult).toBeInstanceOf(TxBuilder)
   })

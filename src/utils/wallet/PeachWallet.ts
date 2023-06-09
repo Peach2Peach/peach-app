@@ -19,6 +19,7 @@ import { getDescriptorSecretKey } from './getDescriptorSecretKey'
 import { rebroadcastTransactions } from './rebroadcastTransactions'
 import { walletStore } from './walletStore'
 import { buildDrainWalletTransaction } from './transaction/buildDrainWalletTransaction'
+import { buildTransaction } from './transaction/buildTransaction'
 
 type PeachWalletProps = {
   wallet: BIP32Interface
@@ -175,9 +176,9 @@ export class PeachWallet extends PeachJSWallet {
     if (!this.wallet || !this.blockchain) throw Error('WALLET_NOT_READY')
     info('PeachWallet - withdrawAll - start')
     try {
-      const drainWalletTranasction = await buildDrainWalletTransaction(address, feeRate)
+      const drainWalletTransaction = await buildDrainWalletTransaction(address, feeRate)
 
-      const result = await drainWalletTranasction.finish(this.wallet)
+      const result = await drainWalletTransaction.finish(this.wallet)
       const signedPSBT = await this.wallet.sign(result.psbt)
 
       this.blockchain.broadcast(await signedPSBT.extractTx())
@@ -195,13 +196,9 @@ export class PeachWallet extends PeachJSWallet {
     if (!this.wallet || !this.blockchain) throw Error('WALLET_NOT_READY')
     info('PeachWallet - sendTo - start')
     try {
-      const txBuilder = await new TxBuilder().create()
-      if (feeRate) await txBuilder.feeRate(feeRate)
-      await txBuilder.enableRbf()
-      const recipientAddress = await new Address().create(address)
-      await txBuilder.addRecipient(await recipientAddress.scriptPubKey(), amount)
+      const transaction = await buildTransaction(address, amount, feeRate)
 
-      const result = await txBuilder.finish(this.wallet)
+      const result = await transaction.finish(this.wallet)
       const signedPSBT = await this.wallet.sign(result.psbt)
 
       this.blockchain.broadcast(await signedPSBT.extractTx())
