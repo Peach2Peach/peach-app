@@ -43,13 +43,6 @@ export const useWalletSetup = () => {
 
   const [address, setAddress, isValid, addressErrors] = useValidatedState<string>('', bitcoinAddressRules)
 
-  const onChange = useCallback(
-    (value: string) => {
-      setAddress(value)
-    },
-    [setAddress],
-  )
-
   const confirmWithdrawal = async () => {
     closePopup()
     let finalFeeRate = feeRate
@@ -126,7 +119,6 @@ export const useWalletSetup = () => {
     walletStore,
     refresh,
     isRefreshing,
-    onChange,
     isValid,
     address,
     setAddress,

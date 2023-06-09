@@ -1,5 +1,5 @@
 import { RefreshControl, View } from 'react-native'
-import { AvoidKeyboard, Loading, PeachScrollView, Text } from '../../components'
+import { AvoidKeyboard, Loading, PeachScrollView, PrimaryButton, Text } from '../../components'
 import { OpenWallet } from '../../components/bitcoin'
 import { BitcoinAddressInput, SlideToUnlock } from '../../components/inputs'
 import { BigSatsFormat } from '../../components/text'
@@ -14,9 +14,9 @@ export default () => {
     walletStore,
     refresh,
     isRefreshing,
-    onChange,
     isValid,
     address,
+    setAddress,
     addressErrors,
     openWithdrawalConfirmation,
     walletLoading,
@@ -40,7 +40,7 @@ export default () => {
             <BitcoinAddressInput
               style={tw`mt-4`}
               {...{
-                onChange,
+                onChange: setAddress,
                 isValid,
                 value: address,
                 errorMessage: addressErrors,
