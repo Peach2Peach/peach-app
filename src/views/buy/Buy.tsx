@@ -52,8 +52,10 @@ export default () => {
   const next = () => navigation.navigate('buyPreferences')
 
   if (currentMaxAmount === Infinity) {
-    setCurrentMinAmount(minBuyAmount)
-    setCurrentMaxAmount(maxBuyAmount)
+    if (maxBuyAmount !== Infinity) {
+      setCurrentMinAmount(minBuyAmount)
+      setCurrentMaxAmount(maxBuyAmount)
+    }
     return <LoadingScreen />
   }
 
