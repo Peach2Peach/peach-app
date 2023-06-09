@@ -1,6 +1,7 @@
 import { BackgroundConfig } from '../components/background/Background'
 import { MeetupScreen } from '../components/payment/MeetupScreen'
 import TestView from './TestView/TestView'
+import TestViewPeachWallet from './TestView/peachWallet'
 import TestViewButtons from './TestView/buttons'
 import TestViewComponents from './TestView/components'
 import TestViewMessages from './TestView/messages'
@@ -165,6 +166,7 @@ const settings: ViewType[] = [
 
 const testViews: ViewType[] = [
   { name: 'testView', component: TestView, ...defaultConfig },
+  { name: 'testViewPeachWallet', component: TestViewPeachWallet, ...defaultConfig },
   { name: 'testViewButtons', component: TestViewButtons, ...defaultConfig },
   { name: 'testViewPopups', component: TestViewPopups, ...defaultConfig },
   { name: 'testViewMessages', component: TestViewMessages, ...defaultConfig },
