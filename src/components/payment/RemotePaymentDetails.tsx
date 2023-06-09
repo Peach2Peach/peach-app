@@ -4,7 +4,7 @@ import { Icon, Text } from '..'
 import { IconType } from '../../assets/icons'
 import { PAYMENTCATEGORIES } from '../../constants'
 import tw from '../../styles/tailwind'
-import { removePaymentData } from '../../utils/account'
+import { account, removePaymentData } from '../../utils/account'
 import i18n from '../../utils/i18n'
 import { getPaymentMethodInfo, isValidPaymentData } from '../../utils/paymentMethod'
 import { PaymentDetailsCheckbox, CheckboxType } from './PaymentDetailsCheckbox'
@@ -34,14 +34,14 @@ const belongsToCategory = (category: PaymentCategory) => (data: PaymentData) =>
   && !(category === 'onlineWallet' && data.type === 'mobilePay' && data.currencies[0] === 'EUR')
 
 type Props = {
-  paymentData: PaymentData[]
   editing: boolean
   editItem: (data: PaymentData) => void
   select: (value: string) => void
   isSelected: (item: CheckboxType) => boolean
 }
 
-export const RemotePaymentDetails = ({ paymentData, editing, editItem, select, isSelected }: Props) => {
+export const RemotePaymentDetails = ({ editing, editItem, select, isSelected }: Props) => {
+  const { paymentData } = account
   const [, setRandom] = useState(0)
   const deletePaymentData = (data: PaymentData) => {
     removePaymentData(data.id)
