@@ -1,11 +1,8 @@
-/* eslint-disable max-lines */
 import { NETWORK } from '@env'
 import { Address, Blockchain, DatabaseConfig, Descriptor, TxBuilder, Wallet } from 'bdk-rn'
 import { TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
 import { AddressIndex, BlockChainNames, BlockchainEsploraConfig, KeychainKind, Network } from 'bdk-rn/lib/lib/enums'
 import { BIP32Interface } from 'bip32'
-import { payments } from 'bitcoinjs-lib'
-import { sign } from 'bitcoinjs-message'
 import { settingsStore } from '../../store/settingsStore'
 import { tradeSummaryStore } from '../../store/tradeSummaryStore'
 import { getBuyOfferIdFromContract } from '../contract'
@@ -15,10 +12,10 @@ import { isPending } from '../transaction'
 import { findTransactionsToRebroadcast } from '../transaction/findTransactionsToRebroadcast'
 import { mergeTransactionList } from '../transaction/mergeTransactionList'
 import { callWhenInternet } from '../web'
+import { PeachJSWallet } from './PeachJSWallet'
 import { handleBroadcastError } from './error/handleBroadcastError'
 import { getAndStorePendingTransactionHex } from './getAndStorePendingTransactionHex'
 import { getDescriptorSecretKey } from './getDescriptorSecretKey'
-import { getNetwork } from './getNetwork'
 import { rebroadcastTransactions } from './rebroadcastTransactions'
 import { walletStore } from './walletStore'
 
@@ -28,12 +25,10 @@ type PeachWalletProps = {
   gapLimit?: number
 }
 
-export class PeachWallet {
+export class PeachWallet extends PeachJSWallet {
   initialized: boolean
 
   synced: boolean
-
-  derivationPath: string
 
   descriptorPath: string
 
@@ -45,20 +40,11 @@ export class PeachWallet {
 
   wallet: Wallet | undefined
 
-  jsWallet: BIP32Interface
-
   blockchain: Blockchain | undefined
 
-  gapLimit: number
-
-  addresses: string[]
-
   constructor ({ wallet, network = NETWORK, gapLimit = 25 }: PeachWalletProps) {
+    super({ wallet, network, gapLimit })
     this.network = network as Network
-    this.gapLimit = gapLimit
-    this.jsWallet = wallet
-    this.addresses = []
-    this.derivationPath = `m/84\'/${network === 'bitcoin' ? '0' : '1'}\'/0\'`
     this.descriptorPath = `/84\'/${network === 'bitcoin' ? '0' : '1'}\'/0\'/0/*`
     this.balance = 0
     this.transactions = []
@@ -233,12 +219,7 @@ export class PeachWallet {
     }
   }
 
-  getKeyPair (index: number): BIP32Interface {
-    return this.jsWallet.derivePath(this.derivationPath + `/0/${index}`)
-  }
-
   loadWalletStore (): void {
-    this.addresses = walletStore.getState().addresses
     this.transactions = walletStore.getState().transactions
     this.balance = walletStore.getState().balance
   }
@@ -251,51 +232,5 @@ export class PeachWallet {
         this.loadWalletStore()
       })
     }
-  }
-
-  getAddress (index: number): string | undefined {
-    info('PeachWallet - getAddress', index)
-
-    if (this.addresses[index]) return this.addresses[index]
-
-    const keyPair = this.getKeyPair(index)
-    const p2wpkh = payments.p2wpkh({
-      network: getNetwork(),
-      pubkey: keyPair.publicKey,
-    })
-
-    if (p2wpkh.address) this.addresses[index] = p2wpkh.address
-
-    return p2wpkh.address
-  }
-
-  findKeyPairByAddress (address: string): BIP32Interface | null {
-    info('PeachWallet - findKeyPairByAddress - start')
-
-    const limit = this.addresses.length + this.gapLimit
-    for (let i = 0; i <= limit; i++) {
-      info('PeachWallet - findKeyPairByAddress - scanning', i)
-
-      const candidate = this.getAddress(i)
-      if (address === candidate) {
-        walletStore.getState().setAddresses(this.addresses)
-        return this.getKeyPair(i)
-      }
-    }
-
-    walletStore.getState().setAddresses(this.addresses)
-    return null
-  }
-
-  signMessage (message: string, address: string, index?: number): string {
-    info('PeachWallet - signMessage - start')
-
-    const keyPair = index ? this.getKeyPair(index) : this.findKeyPairByAddress(address)
-    if (!keyPair?.privateKey) throw Error('Address not part of wallet')
-    const signature = sign(message, keyPair.privateKey, true)
-
-    info('PeachWallet - signMessage - end')
-
-    return signature.toString('base64')
   }
 }

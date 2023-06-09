@@ -1,4 +1,3 @@
-/* eslint-disable max-lines */
 /* eslint-disable max-statements */
 /* eslint-disable max-lines-per-function */
 import { waitFor } from '@testing-library/react-native'
@@ -68,8 +67,6 @@ describe('PeachWallet', () => {
 
     expect(peachWallet.initialized).toBeFalsy()
     expect(peachWallet.synced).toBeFalsy()
-    expect(peachWallet.jsWallet).toEqual(wallet)
-    expect(peachWallet.derivationPath).toEqual('m/84\'/1\'/0\'')
     expect(peachWallet.descriptorPath).toEqual('/84\'/1\'/0\'/0/*')
   })
   it('instantiates for mainnet', () => {
@@ -77,18 +74,13 @@ describe('PeachWallet', () => {
 
     expect(peachWallet.initialized).toBeFalsy()
     expect(peachWallet.synced).toBeFalsy()
-    expect(peachWallet.jsWallet).toEqual(wallet)
-    expect(peachWallet.derivationPath).toEqual('m/84\'/0\'/0\'')
     expect(peachWallet.descriptorPath).toEqual('/84\'/0\'/0\'/0/*')
   })
   it('loads existing data', () => {
     const balance = 50000
-    const addresses = ['address1', 'address2']
     walletStore.getState().setBalance(balance)
-    walletStore.getState().setAddresses(addresses)
     peachWallet.loadWallet()
     expect(peachWallet.balance).toBe(balance)
-    expect(peachWallet.addresses).toBe(addresses)
     expect(blockChainCreateMock).toHaveBeenCalledWith(
       { concurrency: '1', proxy: '', stopGap: '5', timeout: '5', url: 'https://localhost:3000' },
       'Esplora',
@@ -100,17 +92,14 @@ describe('PeachWallet', () => {
   })
   it('load existing when wallet store is ready', () => {
     const balance = 50000
-    const addresses = ['address1', 'address2']
     const hasHydratedSpy = jest.spyOn(walletStore.persist, 'hasHydrated')
     const onFinishHydrationSpy = jest.spyOn(walletStore.persist, 'onFinishHydration')
     hasHydratedSpy.mockReturnValueOnce(false)
     // @ts-ignore
     onFinishHydrationSpy.mockImplementationOnce((cb) => cb(walletStore.getState()))
     walletStore.getState().setBalance(balance)
-    walletStore.getState().setAddresses(addresses)
     peachWallet.loadWallet()
     expect(peachWallet.balance).toBe(balance)
-    expect(peachWallet.addresses).toBe(addresses)
   })
   it('synchronises wallet with the blockchain', async () => {
     walletSyncMock.mockResolvedValueOnce(true)
@@ -137,19 +126,7 @@ describe('PeachWallet', () => {
 
     expect(error.message).toBe('WALLET_NOT_READY')
   })
-  it('finds key pair by address and stores scanned addresses', () => {
-    const address = peachWallet.getAddress(3)
 
-    if (!address) throw Error()
-    const keyPair = peachWallet.findKeyPairByAddress(address)
-    expect(keyPair?.publicKey.toString('hex')).toBe('03f5c7061bd2ca963c20edc0f8e09c42a9a5b35df3f708d3339446f1d00656b67c')
-    expect(peachWallet.addresses).toEqual([
-      'bcrt1q7jyvzs6yu9wz8qzmcwyruw0e652xhyhkdw5qrt',
-      'bcrt1qgt4a6p3z8nr2a9snvlmd7vl0vqytq2l757gmn2',
-      'bcrt1qfvss2z90h0cpwyp8tvtxytqjmrhdq0ltfacxgx',
-      'bcrt1qupwsjlw68j596em27078uglyf8net95ddyr9ev',
-    ])
-  })
   it('overwrites confirmed and merges pending transactions', async () => {
     peachWallet.transactions = [
       { txid: 'txid1', sent: 1, received: 1, fee: 1, confirmationTime: { timestamp: 1, height: 1 } },
@@ -291,17 +268,5 @@ describe('PeachWallet', () => {
     peachWallet.wallet = undefined
     const error = await getError<Error>(async () => peachWallet.withdrawAll('address', 1))
     expect(error.message).toBe('WALLET_NOT_READY')
-  })
-  it('signs an arbitrary message', async () => {
-    const message = 'message'
-    const address = 'bcrt1q7jyvzs6yu9wz8qzmcwyruw0e652xhyhkdw5qrt'
-    const signature = peachWallet.signMessage(message, address)
-    expect(signature).toBe('H/3SBIrDhI686xf6q40H1aQCI9DHF1zD4YKHuG3Efq8XK3rDDA0zYCQQ31XERBZqEq+2DUOupYYCIahvYOwbJ3s=')
-  })
-  it('throws an error if address is not part of wallet', async () => {
-    const message = 'message'
-    const address = 'bcrt1qdoesnotexist'
-    const error = await getError<Error>(async () => peachWallet.signMessage(message, address))
-    expect(error.message).toBe('Address not part of wallet')
   })
 })
