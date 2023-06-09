@@ -4,7 +4,9 @@ declare type RootStackParamList = {
     referralCode?: string
   }
   restoreBackup: { tab: 'fileBackup' | 'seedPhrase' } | undefined
-  restoreReputation: undefined
+  restoreReputation: {
+    referralCode?: string
+  }
   newBadge: {
     badges: string
   }

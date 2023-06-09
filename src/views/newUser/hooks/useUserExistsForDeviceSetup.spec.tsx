@@ -2,6 +2,12 @@ import { renderHook } from '@testing-library/react-native'
 import { NavigationWrapper, navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { useUserExistsForDeviceSetup } from './useUserExistsForDeviceSetup'
 
+const useRouteMock = jest.fn().mockReturnValue({
+  params: {},
+})
+jest.mock('../../../hooks/useRoute', () => ({
+  useRoute: () => useRouteMock(),
+}))
 describe('useUserExistsForDeviceSetup', () => {
   afterEach(() => {
     jest.clearAllMocks()
@@ -27,6 +33,13 @@ describe('useUserExistsForDeviceSetup', () => {
   it('should navigate to restore reputation', async () => {
     const { result } = renderHook(useUserExistsForDeviceSetup, { wrapper: NavigationWrapper })
     result.current.goToRestoreReputation()
-    expect(navigateMock).toHaveBeenCalledWith('restoreReputation')
+    expect(navigateMock).toHaveBeenCalledWith('restoreReputation', {})
+  })
+  it('should navigate to restore reputation with params if set', async () => {
+    const params = { referralCode: 'REFERRALCODE' }
+    useRouteMock.mockReturnValueOnce({ params })
+    const { result } = renderHook(useUserExistsForDeviceSetup, { wrapper: NavigationWrapper })
+    result.current.goToRestoreReputation()
+    expect(navigateMock).toHaveBeenCalledWith('restoreReputation', params)
   })
 })
