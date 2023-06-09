@@ -18,6 +18,7 @@ import { getAndStorePendingTransactionHex } from './getAndStorePendingTransactio
 import { getDescriptorSecretKey } from './getDescriptorSecretKey'
 import { rebroadcastTransactions } from './rebroadcastTransactions'
 import { walletStore } from './walletStore'
+import { buildDrainWalletTransaction } from './transaction/buildDrainWalletTransaction'
 
 type PeachWalletProps = {
   wallet: BIP32Interface
@@ -174,14 +175,9 @@ export class PeachWallet extends PeachJSWallet {
     if (!this.wallet || !this.blockchain) throw Error('WALLET_NOT_READY')
     info('PeachWallet - withdrawAll - start')
     try {
-      const txBuilder = await new TxBuilder().create()
-      if (feeRate) await txBuilder.feeRate(feeRate)
-      await txBuilder.enableRbf()
-      const recipientAddress = await new Address().create(address)
-      await txBuilder.drainWallet()
-      await txBuilder.drainTo(await recipientAddress.scriptPubKey())
+      const drainWalletTranasction = await buildDrainWalletTransaction(address, feeRate)
 
-      const result = await txBuilder.finish(this.wallet)
+      const result = await drainWalletTranasction.finish(this.wallet)
       const signedPSBT = await this.wallet.sign(result.psbt)
 
       this.blockchain.broadcast(await signedPSBT.extractTx())

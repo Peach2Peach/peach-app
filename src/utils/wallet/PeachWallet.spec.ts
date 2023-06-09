@@ -1,24 +1,18 @@
 /* eslint-disable max-statements */
 /* eslint-disable max-lines-per-function */
 import { waitFor } from '@testing-library/react-native'
-import { PartiallySignedTransaction, Transaction } from 'bdk-rn'
+import { PartiallySignedTransaction, Transaction, TxBuilder } from 'bdk-rn'
 import { TransactionDetails, TxBuilderResult } from 'bdk-rn/lib/classes/Bindings'
 import { AddressIndex } from 'bdk-rn/lib/lib/enums'
 import { account1 } from '../../../tests/unit/data/accountData'
 import { confirmed1, confirmed2, pending1, pending2, pending3 } from '../../../tests/unit/data/transactionDetailData'
 import { getError } from '../../../tests/unit/helpers/getError'
 import {
-  addressScriptPubKeyMock,
   blockChainCreateMock,
   blockchainBroadcastMock,
   getAddressMock,
   mnemonicFromStringMock,
   psbtExtractTxMock,
-  txBuilderCreateMock,
-  txBuilderDrainToMock,
-  txBuilderDrainWalletMock,
-  txBuilderEnableRbfMock,
-  txBuilderFeeRateMock,
   txBuilderFinishMock,
   walletGetBalanceMock,
   walletListTransactionsMock,
@@ -41,6 +35,11 @@ jest.mock('../electrum/getTxHex', () => ({
 const rebroadcastTransactionsMock = jest.fn()
 jest.mock('./rebroadcastTransactions', () => ({
   rebroadcastTransactions: (args: any) => rebroadcastTransactionsMock(args),
+}))
+
+const buildDrainWalletTransactionMock = jest.fn()
+jest.mock('./transaction/buildDrainWalletTransaction', () => ({
+  buildDrainWalletTransaction: (...args: any[]) => buildDrainWalletTransactionMock(...args),
 }))
 
 describe('PeachWallet', () => {
@@ -242,23 +241,21 @@ describe('PeachWallet', () => {
   })
   it('withdraws full balance to an address', async () => {
     const address = 'address'
-    const scriptPubKey = 'scriptPubKey'
     const feeRate = 10
+
     const result: TxBuilderResult = {
       psbt: new PartiallySignedTransaction('base64'),
       txDetails: pending1,
     }
     const transaction = await new Transaction().create([])
-    addressScriptPubKeyMock.mockResolvedValueOnce(scriptPubKey)
+    const txBuilder = await new TxBuilder().create()
+
+    buildDrainWalletTransactionMock.mockResolvedValueOnce(txBuilder)
     txBuilderFinishMock.mockResolvedValueOnce(result)
     walletSignMock.mockResolvedValueOnce(result.psbt)
     psbtExtractTxMock.mockResolvedValueOnce(transaction)
     await peachWallet.withdrawAll(address, feeRate)
-    expect(txBuilderCreateMock).toHaveBeenCalled()
-    expect(txBuilderFeeRateMock).toHaveBeenCalledWith(feeRate)
-    expect(txBuilderEnableRbfMock).toHaveBeenCalled()
-    expect(txBuilderDrainWalletMock).toHaveBeenCalled()
-    expect(txBuilderDrainToMock).toHaveBeenCalledWith(scriptPubKey)
+    expect(buildDrainWalletTransactionMock).toHaveBeenCalledWith(address, feeRate)
     expect(txBuilderFinishMock).toHaveBeenCalledWith(peachWallet.wallet)
     expect(walletSignMock).toHaveBeenCalledWith(result.psbt)
     expect(blockchainBroadcastMock).toHaveBeenCalledWith(transaction)
