@@ -15,12 +15,16 @@ type PostOfferProps = RequestProps & {
 
 export const postBuyOffer = async ({
   timeout,
-  ...requestBody
+  type,
+  amount,
+  meansOfPayment,
+  paymentData,
+  releaseAddress,
 }: PostOfferProps): Promise<[PostOfferResponseBody | null, APIError | null]> => {
   const response = await fetch(`${API_URL}/v1/offer`, {
     headers: await getPrivateHeaders(),
     method: 'POST',
-    body: JSON.stringify(requestBody),
+    body: JSON.stringify({ type, amount, meansOfPayment, paymentData, releaseAddress }),
     signal: timeout ? getAbortWithTimeout(timeout).signal : undefined,
   })
 

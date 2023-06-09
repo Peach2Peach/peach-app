@@ -287,7 +287,9 @@ declare type Offer = OfferDraft & {
   lastModified?: Date
 }
 
-declare type PostOfferResponseBody = BuyOffer | SellOffer
+declare type PostOfferResponseBody =
+  | Omit<BuyOffer, 'originalPaymentData' | 'tradeStatus'>
+  | Omit<SellOffer, 'originalPaymentData' | 'tradeStatus'>
 declare type OfferType = 'ask' | 'bid'
 
 declare type CreateEscrowResponse = {
