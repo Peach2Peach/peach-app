@@ -1,5 +1,6 @@
 import { act, renderHook } from '@testing-library/react-native'
 import { NavigationWrapper, headerState, setOptionsMock } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { useOfferPreferences } from '../../../store/offerPreferenes'
 import { defaultPopupState, usePopupStore } from '../../../store/usePopupStore'
 import { account } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
@@ -107,6 +108,20 @@ describe('usePaymentDetailsSetup', () => {
       result.current.onSubmit(paymentMethod)
     })
     expect(account.paymentData).toContainEqual(paymentMethod)
+  })
+  it('should automatically select the payment method', () => {
+    const { result } = renderHook(usePaymentMethodDetailsSetup, { wrapper })
+    useOfferPreferences.setState({ preferredPaymentMethods: {} })
+    const paymentMethod = {
+      id: '1',
+      label: 'Revolut',
+      type: 'revolut',
+      currencies: ['EUR'],
+    } satisfies PaymentData
+    act(() => {
+      result.current.onSubmit(paymentMethod)
+    })
+    expect(useOfferPreferences.getState().preferredPaymentMethods).toEqual({ revolut: '1' })
   })
   it('should go to the origin when the form is submitted', () => {
     const { result } = renderHook(usePaymentMethodDetailsSetup, { wrapper })
