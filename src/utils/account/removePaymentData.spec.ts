@@ -37,6 +37,15 @@ describe('removePaymentData', () => {
     await removePaymentData(fakeAccount.paymentData[0].id)
     expect(account.paymentData).toEqual([paymentData[1]])
   })
+  it('updates the offerPreferences state if method was not preferred', () => {
+    const setPaymentMethodsSpy = jest.spyOn(useOfferPreferences.getState(), 'setPaymentMethods')
+    const fakeAccount = makeFakeAccount()
+
+    setAccount(fakeAccount)
+    useOfferPreferences.getState().setPaymentMethods([fakeAccount.paymentData[1].id])
+    removePaymentData(fakeAccount.paymentData[0].id)
+    expect(setPaymentMethodsSpy).toHaveBeenCalledWith([fakeAccount.paymentData[1].id])
+  })
   it('replaces payment method from preferred payment methods if set and fallback exists', async () => {
     const fakeAccount = makeFakeAccount()
     const [id1, id2] = fakeAccount.paymentData.map(({ id }) => id)
