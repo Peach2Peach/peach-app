@@ -8,6 +8,7 @@ import { addPaymentData } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
 import { info } from '../../../utils/log'
 import { headerIcons } from '../../../utils/layout/headerIcons'
+import { useOfferPreferences } from '../../../store/offerPreferenes'
 
 export const usePaymentMethodDetailsSetup = () => {
   const route = useRoute<'paymentMethodDetails'>()
@@ -15,10 +16,11 @@ export const usePaymentMethodDetailsSetup = () => {
   const { paymentData: data } = route.params
   const { type: paymentMethod, currencies } = data
   const deletePaymentMethod = useDeletePaymentMethod(data.id ?? '')
+  const selectPaymentMethod = useOfferPreferences((state) => state.selectPaymentMethod)
 
   const onSubmit = (d: PaymentData) => {
     addPaymentData(d)
-    // todo: automatically select in offer preferences
+    selectPaymentMethod(d.id)
     goToOrigin(route.params.origin)
   }
 
