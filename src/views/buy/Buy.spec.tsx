@@ -3,7 +3,7 @@ import { NavigationWrapper } from '../../../tests/unit/helpers/NavigationWrapper
 import { QueryClientWrapper } from '../../../tests/unit/helpers/QueryClientWrapper'
 import Buy from './Buy'
 import { bitcoinStore } from '../../store/bitcoinStore'
-import { useOfferPreferences } from '../../store/useOfferPreferences'
+import { useOfferPreferences } from '../../store/offerPreferenes/useOfferPreferences'
 
 const useMarketPricesMock = jest.fn().mockReturnValue({
   data: {
@@ -40,12 +40,13 @@ describe('Buy', () => {
     jest.clearAllMocks()
   })
   it('should render correctly while loading max trading amount', () => {
-    useOfferPreferences.getState().setMaxBuyAmount(Infinity)
+    useOfferPreferences.getState().setBuyAmountRange([0, Infinity], { min: 0, max: 10 })
     const { toJSON } = render(<Buy />, { wrapper })
     expect(toJSON()).toMatchSnapshot()
-    useOfferPreferences.getState().setMaxBuyAmount(1000000)
   })
   it('should render correctly', () => {
+    useOfferPreferences.getState().setBuyAmountRange([0, 1000000], { min: 0, max: 10 })
+
     const { toJSON } = render(<Buy />, { wrapper })
     expect(toJSON()).toMatchSnapshot()
   })

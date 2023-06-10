@@ -23,7 +23,7 @@ type Props = {
   isSelected: (item: CheckboxType) => boolean
 }
 
-export const MeetupPaymentDetails = ({ isEditing, editItem, select, isSelected }: Props) => {
+export const MeetupPaymentMethods = ({ isEditing, editItem, select, isSelected }: Props) => {
   const { paymentData } = account
   return (
     <>

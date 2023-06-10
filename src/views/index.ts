@@ -1,3 +1,4 @@
+import { PaymentMethods } from '../components/payment/PaymentMethods'
 import { BackgroundConfig } from '../components/background/Background'
 import { MeetupScreen } from '../components/payment/MeetupScreen'
 import TestView from './TestView/TestView'
@@ -7,10 +8,9 @@ import TestViewMessages from './TestView/messages'
 import TestViewPNs from './TestView/pns'
 import TestViewPopups from './TestView/popups'
 import AddPaymentMethod from './addPaymentMethod/AddPaymentMethod'
-import PaymentDetails from './addPaymentMethod/PaymentDetails'
+import { PaymentMethodDetails } from './addPaymentMethod/PaymentMethodDetails'
 import BackupTime from './backupTime/BackupTime'
 import Buy from './buy/Buy'
-import BuyPreferences from './buy/BuyPreferences'
 import SignMessage from './buy/SignMessage'
 import Contact from './contact/Contact'
 import Contract from './contract/Contract'
@@ -33,12 +33,10 @@ import Search from './search/Search'
 import SelectWallet from './selectWallet/SelectWallet'
 import SetRefundWallet from './selectWallet/SetRefundWallet'
 import Sell from './sell/Sell'
-import SellPreferences from './sell/SellPreferences'
 import Backups from './settings/Backups'
 import Currency from './settings/Currency'
 import Language from './settings/Language'
 import NetworkFees from './settings/NetworkFees'
-import PaymentMethods from './settings/PaymentMethods'
 import PayoutAddress from './settings/PayoutAddress'
 import Settings from './settings/Settings'
 import AboutPeach from './settings/aboutPeach/AboutPeach'
@@ -54,6 +52,9 @@ import Wallet from './wallet/Wallet'
 import Welcome from './welcome/Welcome'
 import { WrongFundingAmount } from './wrongFundingAmount/WrongFundingAmount'
 import YourTrades from './yourTrades/YourTrades'
+import { BuySummary } from './buy/BuySummary'
+import { SellSummary } from './sell/SellSummary'
+import { Premium } from './sell/Premium'
 
 type ViewType = {
   name: keyof RootStackParamList
@@ -95,13 +96,16 @@ const wallet: ViewType[] = [
 ]
 const buyFlow: ViewType[] = [
   { name: 'buy', component: Buy, ...defaultConfig, animationEnabled: false },
-  { name: 'buyPreferences', component: BuyPreferences, ...defaultConfig },
+  { name: 'buyPreferences', component: PaymentMethods, ...defaultConfig },
+  { name: 'buySummary', component: BuySummary, ...defaultConfig },
   { name: 'signMessage', component: SignMessage, ...defaultConfig },
 ]
 
 const sellFlow: ViewType[] = [
   { name: 'sell', component: Sell, ...defaultConfig, animationEnabled: false },
-  { name: 'sellPreferences', component: SellPreferences, ...defaultConfig },
+  { name: 'premium', component: Premium, ...defaultConfig },
+  { name: 'sellPreferences', component: PaymentMethods, ...defaultConfig },
+  { name: 'sellSummary', component: SellSummary, ...defaultConfig },
   { name: 'fundEscrow', component: FundEscrow, ...defaultConfig },
   { name: 'wrongFundingAmount', component: WrongFundingAmount, ...defaultConfig },
   { name: 'selectWallet', component: SelectWallet, ...defaultConfig },

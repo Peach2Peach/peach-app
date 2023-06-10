@@ -1,6 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`useOfferDetailsSetup should add correct header for account with payment data 1`] = `
+exports[`useOfferDetailsSetup should setup header 1`] = `
+<Header
+  icons={
+    [
+      {
+        "color": "#099DE2",
+        "id": "helpCircle",
+        "onPress": [Function],
+      },
+    ]
+  }
+  title="payment methods"
+/>
+`;
+
+exports[`useOfferDetailsSetup should setup header for account with payment data 1`] = `
 <Header
   icons={
     [
@@ -12,7 +27,7 @@ exports[`useOfferDetailsSetup should add correct header for account with payment
       {
         "color": "#099DE2",
         "id": "helpCircle",
-        "onPress": [MockFunction],
+        "onPress": [Function],
       },
     ]
   }
@@ -20,22 +35,7 @@ exports[`useOfferDetailsSetup should add correct header for account with payment
 />
 `;
 
-exports[`useOfferDetailsSetup should add the correct header 1`] = `
-<Header
-  icons={
-    [
-      {
-        "color": "#099DE2",
-        "id": "helpCircle",
-        "onPress": [MockFunction],
-      },
-    ]
-  }
-  title="payment methods"
-/>
-`;
-
-exports[`useOfferDetailsSetup should add the correct while editing header 1`] = `
+exports[`useOfferDetailsSetup should setup header when editing 1`] = `
 <Header
   icons={
     [
@@ -47,7 +47,7 @@ exports[`useOfferDetailsSetup should add the correct while editing header 1`] = 
       {
         "color": "#099DE2",
         "id": "helpCircle",
-        "onPress": [MockFunction],
+        "onPress": [Function],
       },
     ]
   }

@@ -8,6 +8,7 @@ import { headerIcons } from '../../../utils/layout/headerIcons'
 import { getPaymentMethodInfo } from '../../../utils/paymentMethod'
 import { useDeletePaymentMethod } from './useDeletePaymentMethod'
 import { toggleCurrency } from '../../inputs/paymentMethods/paymentForms/utils'
+import { useOfferPreferences } from '../../../store/offerPreferenes'
 
 export const useMeetupScreenSetup = () => {
   const route = useRoute<'meetupScreen'>()
@@ -32,6 +33,8 @@ export const useMeetupScreenSetup = () => {
   const showHelp = useShowHelp('cashTrades')
   const deletePaymentMethod = useDeletePaymentMethod('cash.' + event.id)
 
+  const selectPaymentMethod = useOfferPreferences((state) => state.selectPaymentMethod)
+
   const addToPaymentMethods = async () => {
     const meetupInfo = getPaymentMethodInfo('cash.' + event.id)
     const meetup: PaymentData = {
@@ -43,6 +46,7 @@ export const useMeetupScreenSetup = () => {
       country: event.country,
     }
     addPaymentData(meetup)
+    selectPaymentMethod(meetupInfo.id)
     goToOrigin(route.params.origin)
   }
 

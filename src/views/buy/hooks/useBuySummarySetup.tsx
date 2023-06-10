@@ -3,6 +3,7 @@ import { shallow } from 'zustand/shallow'
 import { useHeaderSetup, useNavigation } from '../../../hooks'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { useSettingsStore } from '../../../store/settingsStore'
+import { useOfferPreferences } from '../../../store/offerPreferenes/useOfferPreferences'
 import { account, getMessageToSignForAddress } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
 import { headerIcons } from '../../../utils/layout/headerIcons'
@@ -39,7 +40,22 @@ export const useBuySummarySetup = () => {
 
   const goToMessageSigning = () => navigation.navigate('signMessage')
 
-  const publishOffer = async (offerDraft: BuyOfferDraft) => {
+  const buyOfferPreferences = useOfferPreferences(
+    (state) => ({
+      amount: state.buyAmountRange,
+      meansOfPayment: state.meansOfPayment,
+      paymentData: state.paymentData,
+      originalPaymentData: state.originalPaymentData,
+    }),
+    shallow,
+  )
+  const [offerDraft, setOfferDraft] = useState<BuyOfferDraft>({
+    type: 'bid',
+    releaseAddress,
+    ...buyOfferPreferences,
+  })
+
+  const publishOffer = async () => {
     if (isPublishing) return
     setIsPublishing(true)
     const { offerId, isOfferPublished, errorMessage } = await publishBuyOffer(offerDraft)
@@ -75,15 +91,26 @@ export const useBuySummarySetup = () => {
     })()
   }, [payoutAddress, payoutAddressSignature, peachWalletActive])
 
+  useEffect(() => {
+    if (releaseAddress) setOfferDraft((prev) => ({
+      ...prev,
+      releaseAddress,
+      message,
+      messageSignature,
+    }))
+  }, [releaseAddress, message, messageSignature, setOfferDraft])
+
+  useEffect(() => {
+    if (walletLabel) setOfferDraft((prev) => ({ ...prev, walletLabel }))
+  }, [walletLabel, setOfferDraft])
+
   return {
     peachWalletActive,
-    releaseAddress,
-    walletLabel,
-    message,
     messageSignature,
     canPublish,
     publishOffer,
     isPublishing,
     goToMessageSigning,
+    offerDraft,
   }
 }

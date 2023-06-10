@@ -1,3 +1,4 @@
+/* eslint-disable max-lines-per-function */
 import { setPaymentMethods } from '../../constants'
 import { account, updateAccount } from '../../utils/account'
 import { useOfferPreferences } from './useOfferPreferences'
@@ -25,6 +26,7 @@ describe('useOfferPreferences - store', () => {
       setSellAmount: expect.any(Function),
       setPremium: expect.any(Function),
       setPaymentMethods: expect.any(Function),
+      selectPaymentMethod: expect.any(Function),
     })
   })
   it('should persist the store', () => {
@@ -103,7 +105,6 @@ describe('useOfferPreferences - actions - setPremium', () => {
   })
 })
 
-// eslint-disable-next-line max-lines-per-function
 describe('useOfferPreferences - actions - setPaymentMethods', () => {
   const ids = ['sepa-1234', 'revolut-1234', 'paypal-5678']
   updateAccount({
@@ -197,5 +198,97 @@ describe('useOfferPreferences - actions - setPaymentMethods', () => {
     expect(useOfferPreferences.getState().canContinue.paymentMethods).toBe(false)
     useOfferPreferences.getState().setPaymentMethods(['sepa-1234'])
     expect(useOfferPreferences.getState().canContinue.paymentMethods).toBe(true)
+  })
+})
+
+describe('useOfferPreferences - actions - selectPaymentMethod', () => {
+  beforeAll(() => {
+    updateAccount({
+      ...account,
+      paymentData: [
+        {
+          id: 'sepa-1234',
+          iban: 'DE89370400440532013000',
+          bic: 'COBADEFFXXX',
+          label: 'SEPA',
+          type: 'sepa',
+          currencies: ['EUR'],
+        },
+      ],
+    })
+    setPaymentMethods([{ id: 'sepa', currencies: ['EUR', 'CHF'], anonymous: false }])
+    useOfferPreferences.getState().setPaymentMethods([])
+  })
+  afterEach(() => {
+    useOfferPreferences.getState().setPaymentMethods([])
+  })
+  const id = 'sepa-1234'
+  it('should add the payment method to the preferred payment methods', () => {
+    useOfferPreferences.getState().selectPaymentMethod(id)
+    const expected = {
+      sepa: 'sepa-1234',
+    }
+    expect(useOfferPreferences.getState().preferredPaymentMethods).toStrictEqual(expected)
+  })
+  it('should remove the payment method if it is already in the preferred payment methods', () => {
+    useOfferPreferences.getState().selectPaymentMethod(id)
+    useOfferPreferences.getState().selectPaymentMethod(id)
+    const expected = {}
+    expect(useOfferPreferences.getState().preferredPaymentMethods).toStrictEqual(expected)
+  })
+  it('should add the payment method to the means of payment', () => {
+    useOfferPreferences.getState().selectPaymentMethod(id)
+    const expected = {
+      EUR: ['sepa'],
+    }
+    expect(useOfferPreferences.getState().meansOfPayment).toStrictEqual(expected)
+  })
+  it('should remove the payment method if it is already in the means of payment', () => {
+    useOfferPreferences.getState().selectPaymentMethod(id)
+    useOfferPreferences.getState().selectPaymentMethod(id)
+    const expected = {}
+    expect(useOfferPreferences.getState().meansOfPayment).toStrictEqual(expected)
+  })
+  it('should add the payment data to the payment data', () => {
+    useOfferPreferences.getState().selectPaymentMethod(id)
+    const expected = {
+      sepa: { country: undefined, hash: '94c30c03991f2923fae94566e32d9171e59ba045eea4c0607b4dbe17edfbf74e' },
+    }
+    expect(useOfferPreferences.getState().paymentData).toStrictEqual(expected)
+  })
+  it('should remove the payment data if it is already in the payment data', () => {
+    useOfferPreferences.getState().selectPaymentMethod(id)
+    useOfferPreferences.getState().selectPaymentMethod(id)
+    const expected = {}
+    expect(useOfferPreferences.getState().paymentData).toStrictEqual(expected)
+  })
+  it('should add the payment data to the original payment data', () => {
+    useOfferPreferences.getState().selectPaymentMethod(id)
+    const expected = [
+      {
+        id: 'sepa-1234',
+        iban: 'DE89370400440532013000',
+        bic: 'COBADEFFXXX',
+        label: 'SEPA',
+        type: 'sepa',
+        currencies: ['EUR'],
+      },
+    ]
+    expect(useOfferPreferences.getState().originalPaymentData).toStrictEqual(expected)
+  })
+  it('should remove the payment data if it is already in the original payment data', () => {
+    useOfferPreferences.getState().selectPaymentMethod(id)
+    useOfferPreferences.getState().selectPaymentMethod(id)
+    const expected = []
+    expect(useOfferPreferences.getState().originalPaymentData).toStrictEqual(expected)
+  })
+  it('should set can continue to true if the payment methods are valid', () => {
+    useOfferPreferences.getState().selectPaymentMethod(id)
+    expect(useOfferPreferences.getState().canContinue.paymentMethods).toBe(true)
+  })
+  it('should set can continue to false if the payment methods are not valid', () => {
+    useOfferPreferences.getState().selectPaymentMethod(id)
+    useOfferPreferences.getState().selectPaymentMethod(id)
+    expect(useOfferPreferences.getState().canContinue.paymentMethods).toBe(false)
   })
 })

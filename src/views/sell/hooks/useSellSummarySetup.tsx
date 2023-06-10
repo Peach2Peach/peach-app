@@ -1,10 +1,12 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { shallow } from 'zustand/shallow'
 import { useHeaderSetup, useNavigation } from '../../../hooks'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { useSettingsStore } from '../../../store/settingsStore'
+import { useOfferPreferences } from '../../../store/offerPreferenes/useOfferPreferences'
 import i18n from '../../../utils/i18n'
 import { headerIcons } from '../../../utils/layout/headerIcons'
+import { defaultFundingStatus } from '../../../utils/offer/constants'
 import { peachWallet } from '../../../utils/wallet/setWallet'
 import { publishSellOffer } from '../helpers/publishSellOffer'
 
@@ -25,7 +27,24 @@ export const useSellSummarySetup = () => {
 
   const walletLabel = peachWalletActive ? i18n('peachWallet') : payoutAddressLabel
 
-  const publishOffer = async (offerDraft: SellOfferDraft) => {
+  const sellPreferences = useOfferPreferences(
+    (state) => ({
+      amount: state.sellAmount,
+      premium: state.premium,
+      meansOfPayment: state.meansOfPayment,
+      paymentData: state.paymentData,
+      originalPaymentData: state.originalPaymentData,
+    }),
+    shallow,
+  )
+  const [offerDraft, setOfferDraft] = useState<SellOfferDraft>({
+    type: 'ask',
+    returnAddress,
+    funding: defaultFundingStatus,
+    ...sellPreferences,
+  })
+
+  const publishOffer = async () => {
     if (isPublishing) return
     setIsPublishing(true)
     const { isPublished, navigationParams, errorMessage } = await publishSellOffer(offerDraft)
@@ -42,15 +61,10 @@ export const useSellSummarySetup = () => {
     }
     setIsPublishing(false)
   }
-  useHeaderSetup(
-    useMemo(
-      () => ({
-        title: i18n('sell.summary.title'),
-        icons: [{ ...headerIcons.wallet, onPress: () => navigation.navigate('selectWallet', { type: 'refund' }) }],
-      }),
-      [navigation],
-    ),
-  )
+  useHeaderSetup({
+    title: i18n('sell.summary.title'),
+    icons: [{ ...headerIcons.wallet, onPress: () => navigation.navigate('selectWallet', { type: 'refund' }) }],
+  })
 
   useEffect(() => {
     setCanPublish(!!returnAddress)
@@ -66,5 +80,19 @@ export const useSellSummarySetup = () => {
     })()
   }, [payoutAddress, peachWalletActive])
 
-  return { returnAddress, walletLabel, canPublish, publishOffer, isPublishing }
+  useEffect(() => {
+    if (returnAddress) setOfferDraft((prev) => ({
+      ...prev,
+      returnAddress,
+    }))
+  }, [returnAddress, setOfferDraft])
+
+  useEffect(() => {
+    if (walletLabel) setOfferDraft((prev) => ({
+      ...prev,
+      walletLabel,
+    }))
+  }, [walletLabel, setOfferDraft])
+
+  return { canPublish, publishOffer, isPublishing, offerDraft }
 }

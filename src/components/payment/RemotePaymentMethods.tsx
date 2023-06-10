@@ -34,13 +34,13 @@ const belongsToCategory = (category: PaymentCategory) => (data: PaymentData) =>
   && !(category === 'onlineWallet' && data.type === 'mobilePay' && data.currencies[0] === 'EUR')
 
 type Props = {
-  editing: boolean
+  isEditing: boolean
   editItem: (data: PaymentData) => void
   select: (value: string) => void
   isSelected: (item: CheckboxType) => boolean
 }
 
-export const RemotePaymentDetails = ({ editing, editItem, select, isSelected }: Props) => {
+export const RemotePaymentMethods = ({ isEditing, editItem, select, isSelected }: Props) => {
   const { paymentData } = account
   const [, setRandom] = useState(0)
   const deletePaymentData = (data: PaymentData) => {
@@ -77,10 +77,10 @@ export const RemotePaymentDetails = ({ editing, editItem, select, isSelected }: 
                   <View>
                     <PaymentDetailsCheckbox
                       testID={`buy-mops-checkbox-${item.value}`}
-                      onPress={() => (editing ? editItem(item.data) : select(item.value))}
+                      onPress={() => (isEditing ? editItem(item.data) : select(item.value))}
                       item={item}
                       checked={isSelected(item)}
-                      editing={editing}
+                      editing={isEditing}
                     />
                     <PaymentDataKeyFacts style={tw`mt-1`} paymentData={item.data} />
                   </View>

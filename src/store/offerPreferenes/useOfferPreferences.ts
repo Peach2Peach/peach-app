@@ -9,6 +9,7 @@ import {
   getMeansOfPayment,
 } from './helpers'
 import { enforcePremiumFormat } from '../../views/sell/helpers/enforcePremiumFormat'
+import { getSelectedPaymentDataIds } from '../../utils/account'
 
 export type OfferPreferences = {
   buyAmountRange: [number, number]
@@ -52,6 +53,7 @@ type OfferPreferencesActions = {
   setSellAmount: (sellAmount: number, rangeRestrictions: { min: number; max: number }) => void
   setPremium: (newPremium: number, isValid?: boolean) => void
   setPaymentMethods: (ids: string[]) => void
+  selectPaymentMethod: (id: string) => void
 }
 
 type OfferPreferencesStore = OfferPreferencesState & OfferPreferencesActions
@@ -60,7 +62,8 @@ const offerPreferences = createStorage('offerPreferences')
 
 export const useOfferPreferences = create<OfferPreferencesStore>()(
   persist(
-    (set) => ({
+    // eslint-disable-next-line max-lines-per-function
+    (set, get) => ({
       ...defaultPreferences,
       canContinue: {
         buyAmountRange: false,
@@ -123,7 +126,16 @@ export const useOfferPreferences = create<OfferPreferencesStore>()(
           },
         }))
       },
+      selectPaymentMethod: (id: string) => {
+        const selectedPaymentDataIds = getSelectedPaymentDataIds(get().preferredPaymentMethods)
+        if (selectedPaymentDataIds.includes(id)) {
+          get().setPaymentMethods(selectedPaymentDataIds.filter((v) => v !== id))
+        } else {
+          get().setPaymentMethods([...selectedPaymentDataIds, id])
+        }
+      },
     }),
+
     {
       name: 'offerPreferences',
       version: 0,
