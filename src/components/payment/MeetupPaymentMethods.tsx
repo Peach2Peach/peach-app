@@ -2,7 +2,7 @@ import { View } from 'react-native'
 import { Icon, Text } from '..'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { CheckboxType, PaymentDetailsCheckbox } from './PaymentDetailsCheckbox'
+import { PaymentDetailsCheckbox } from './PaymentDetailsCheckbox'
 import LinedText from '../ui/LinedText'
 import { isCashTrade } from '../../utils/paymentMethod/isCashTrade'
 import { PaymentDataKeyFacts } from './components/PaymentDataKeyFacts'
@@ -20,7 +20,7 @@ type Props = {
   isEditing: boolean
   editItem: (data: PaymentData) => void
   select: (value: string) => void
-  isSelected: (item: CheckboxType) => boolean
+  isSelected: (item: { value: string }) => boolean
 }
 
 export const MeetupPaymentMethods = ({ isEditing, editItem, select, isSelected }: Props) => {

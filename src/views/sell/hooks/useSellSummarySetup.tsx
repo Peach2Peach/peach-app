@@ -21,11 +21,8 @@ export const useSellSummarySetup = () => {
 
   if (!peachWalletActive && !payoutAddress) setPeachWalletActive(true)
 
-  const [returnAddress, setReturnAddress] = useState('')
   const [isPublishing, setIsPublishing] = useState(false)
   const [canPublish, setCanPublish] = useState(false)
-
-  const walletLabel = peachWalletActive ? i18n('peachWallet') : payoutAddressLabel
 
   const sellPreferences = useOfferPreferences(
     (state) => ({
@@ -39,7 +36,7 @@ export const useSellSummarySetup = () => {
   )
   const [offerDraft, setOfferDraft] = useState<SellOfferDraft>({
     type: 'ask',
-    returnAddress,
+    returnAddress: '',
     funding: defaultFundingStatus,
     ...sellPreferences,
   })
@@ -67,32 +64,24 @@ export const useSellSummarySetup = () => {
   })
 
   useEffect(() => {
-    setCanPublish(!!returnAddress)
-  }, [returnAddress])
-
-  useEffect(() => {
     ;(async () => {
-      if (peachWalletActive) {
-        setReturnAddress((await peachWallet.getReceivingAddress()) || '')
-      } else {
-        setReturnAddress(payoutAddress || '')
-      }
+      const address = peachWalletActive ? await peachWallet.getReceivingAddress() : payoutAddress
+      setCanPublish(!!address)
+      if (!address) return
+      setOfferDraft((prev) => ({
+        ...prev,
+        returnAddress: address,
+      }))
     })()
   }, [payoutAddress, peachWalletActive])
 
   useEffect(() => {
-    if (returnAddress) setOfferDraft((prev) => ({
-      ...prev,
-      returnAddress,
-    }))
-  }, [returnAddress, setOfferDraft])
-
-  useEffect(() => {
+    const walletLabel = peachWalletActive ? i18n('peachWallet') : payoutAddressLabel
     if (walletLabel) setOfferDraft((prev) => ({
       ...prev,
       walletLabel,
     }))
-  }, [walletLabel, setOfferDraft])
+  }, [payoutAddressLabel, peachWalletActive])
 
   return { canPublish, publishOffer, isPublishing, offerDraft }
 }

@@ -29,7 +29,7 @@ export type OfferPreferences = {
   originalPaymentData: PaymentData[]
 }
 
-const defaultPreferences: OfferPreferences = {
+export const defaultPreferences: OfferPreferences = {
   buyAmountRange: [0, Infinity],
   sellAmount: 0,
   premium: 1.5,

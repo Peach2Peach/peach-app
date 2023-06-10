@@ -10,9 +10,6 @@ declare type Settings = {
   derivationPath?: string
   displayCurrency: Currency
   country?: string
-  meansOfPayment: MeansOfPayment
-  preferredPaymentMethods: Partial<Record<PaymentMethod, PaymentData['id']>>
-  premium: number
   pgpPublished?: boolean
   fcmToken?: string
   lastFileBackupDate?: number

@@ -29,14 +29,11 @@ export const useBuySummarySetup = () => {
 
   if (!peachWalletActive && !payoutAddress) setPeachWalletActive(true)
 
-  const [releaseAddress, setReleaseAddress] = useState('')
-  const [message, setMessage] = useState('')
   const [canPublish, setCanPublish] = useState(false)
   const [isPublishing, setIsPublishing] = useState(false)
   const [messageSignature, setMessageSignature] = useState(
     !peachWalletActive && payoutAddressSignature ? payoutAddressSignature : '',
   )
-  const walletLabel = peachWalletActive ? i18n('peachWallet') : payoutAddressLabel
 
   const goToMessageSigning = () => navigation.navigate('signMessage')
 
@@ -51,7 +48,7 @@ export const useBuySummarySetup = () => {
   )
   const [offerDraft, setOfferDraft] = useState<BuyOfferDraft>({
     type: 'bid',
-    releaseAddress,
+    releaseAddress: '',
     ...buyOfferPreferences,
   })
 
@@ -74,35 +71,28 @@ export const useBuySummarySetup = () => {
   })
 
   useEffect(() => {
-    setCanPublish(isValidBitcoinSignature(message, releaseAddress, messageSignature))
-  }, [releaseAddress, message, messageSignature])
-
-  useEffect(() => {
     ;(async () => {
       const address = peachWalletActive ? await peachWallet.getReceivingAddress() : payoutAddress
       if (!address) return
 
       const messageToSign = getMessageToSignForAddress(account.publicKey, address)
-      setReleaseAddress(address)
-      setMessage(messageToSign)
-      setMessageSignature(
-        peachWalletActive ? peachWallet.signMessage(messageToSign, address) : payoutAddressSignature || '',
-      )
+      const newSignature = peachWalletActive
+        ? peachWallet.signMessage(messageToSign, address)
+        : payoutAddressSignature || ''
+      setMessageSignature(newSignature)
+      setOfferDraft((prev) => ({
+        ...prev,
+        releaseAddress: address,
+        message: messageToSign,
+        messageSignature: newSignature,
+      }))
+      setCanPublish(isValidBitcoinSignature(messageToSign, address, newSignature))
     })()
   }, [payoutAddress, payoutAddressSignature, peachWalletActive])
 
   useEffect(() => {
-    if (releaseAddress) setOfferDraft((prev) => ({
-      ...prev,
-      releaseAddress,
-      message,
-      messageSignature,
-    }))
-  }, [releaseAddress, message, messageSignature, setOfferDraft])
-
-  useEffect(() => {
-    if (walletLabel) setOfferDraft((prev) => ({ ...prev, walletLabel }))
-  }, [walletLabel, setOfferDraft])
+    setOfferDraft((prev) => ({ ...prev, walletLabel: peachWalletActive ? i18n('peachWallet') : payoutAddressLabel }))
+  }, [payoutAddressLabel, peachWalletActive])
 
   return {
     peachWalletActive,

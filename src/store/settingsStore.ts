@@ -1,11 +1,11 @@
 import analytics from '@react-native-firebase/analytics'
 import { create, useStore } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
-import { info } from '../utils/log'
 import { createStorage, toZustandStorage } from '../utils/storage'
 import { defaultSettings } from './defaults'
 import { getPureSettingsState } from './helpers/getPureSettingsState'
 import { Locale } from '../utils/i18n'
+import { migrateSettings } from './helpers/migrateSettings'
 
 export type SettingsStore = Settings & {
   migrated?: boolean
@@ -21,9 +21,6 @@ export type SettingsStore = Settings & {
   setPayoutAddressSignature: (payoutAddressSignature: string) => void
   setLocale: (locale: Locale) => void
   setDisplayCurrency: (displayCurrency: Currency) => void
-  setMeansOfPayment: (meansOfPayment: MeansOfPayment) => void
-  setPreferredPaymentMethods: (preferredPaymentMethods: Settings['preferredPaymentMethods']) => void
-  setPremium: (premium: number) => void
   setLastSeedBackupDate: (lastSeedBackupDate: number) => void
   setLastFileBackupDate: (lastFileBackupDate: number) => void
   setShowBackupReminder: (showBackupReminder: boolean) => void
@@ -46,12 +43,12 @@ export const settingsStore = create(
     (set, get) => ({
       ...defaultSettings,
       reset: () =>
-        set({
+        set((state) => ({
           ...defaultSettings,
           migrated: false,
-          analyticsPopupSeen: get().analyticsPopupSeen,
-          locale: get().locale,
-        }),
+          analyticsPopupSeen: state.analyticsPopupSeen,
+          locale: state.locale,
+        })),
       setMigrated: () => set({ migrated: true }),
       getPureState: () => getPureSettingsState(get()),
       updateSettings: (settings) => set({ ...settings }),
@@ -60,41 +57,28 @@ export const settingsStore = create(
         set((state) => ({ ...state, enableAnalytics }))
       },
       toggleAnalytics: () => get().setEnableAnalytics(!get().enableAnalytics),
-      setAnalyticsPopupSeen: (analyticsPopupSeen) => set((state) => ({ ...state, analyticsPopupSeen })),
-      setPayoutAddress: (payoutAddress) => set((state) => ({ ...state, payoutAddress })),
-      setPayoutAddressLabel: (payoutAddressLabel) => set((state) => ({ ...state, payoutAddressLabel })),
-      setPayoutAddressSignature: (payoutAddressSignature) => set((state) => ({ ...state, payoutAddressSignature })),
-      setLocale: (locale) => set((state) => ({ ...state, locale })),
-      setDisplayCurrency: (displayCurrency) => set((state) => ({ ...state, displayCurrency })),
-      setMeansOfPayment: (meansOfPayment) => set((state) => ({ ...state, meansOfPayment })),
-      setPreferredPaymentMethods: (preferredPaymentMethods) => set((state) => ({ ...state, preferredPaymentMethods })),
-      setPremium: (premium) => set((state) => ({ ...state, premium })),
-      setLastFileBackupDate: (lastFileBackupDate) => set((state) => ({ ...state, lastFileBackupDate })),
-      setLastSeedBackupDate: (lastSeedBackupDate) => set((state) => ({ ...state, lastSeedBackupDate })),
-      setShowBackupReminder: (showBackupReminder) => set((state) => ({ ...state, showBackupReminder })),
+      setAnalyticsPopupSeen: (analyticsPopupSeen) => set({ analyticsPopupSeen }),
+      setPayoutAddress: (payoutAddress) => set({ payoutAddress }),
+      setPayoutAddressLabel: (payoutAddressLabel) => set({ payoutAddressLabel }),
+      setPayoutAddressSignature: (payoutAddressSignature) => set({ payoutAddressSignature }),
+      setLocale: (locale) => set({ locale }),
+      setDisplayCurrency: (displayCurrency) => set({ displayCurrency }),
+      setLastFileBackupDate: (lastFileBackupDate) => set({ lastFileBackupDate }),
+      setLastSeedBackupDate: (lastSeedBackupDate) => set({ lastSeedBackupDate }),
+      setShowBackupReminder: (showBackupReminder) => set({ showBackupReminder }),
       setShouldShowBackupOverlay: (type, shouldShow) =>
         set((state) => ({ shouldShowBackupOverlay: { ...state.shouldShowBackupOverlay, [type]: shouldShow } })),
-      setPeachWalletActive: (peachWalletActive) => set((state) => ({ ...state, peachWalletActive })),
+      setPeachWalletActive: (peachWalletActive) => set({ peachWalletActive }),
       togglePeachWallet: () => get().setPeachWalletActive(!get().peachWalletActive),
-      setFeeRate: (feeRate) => set((state) => ({ ...state, feeRate })),
-      setUsedReferralCode: (usedReferralCode) => set((state) => ({ ...state, usedReferralCode })),
-      setPGPPublished: (pgpPublished) => set((state) => ({ ...state, pgpPublished })),
-      setFCMToken: (fcmToken) => set((state) => ({ ...state, fcmToken })),
+      setFeeRate: (feeRate) => set({ feeRate }),
+      setUsedReferralCode: (usedReferralCode) => set({ usedReferralCode }),
+      setPGPPublished: (pgpPublished) => set({ pgpPublished }),
+      setFCMToken: (fcmToken) => set({ fcmToken }),
     }),
     {
       name: 'settings',
-      version: 1,
-      migrate: (persistedState: unknown, version: number): SettingsStore | Promise<SettingsStore> => {
-        const migratedState = persistedState as SettingsStore
-        if (version === 0) {
-          info('settingsStore - migrating from version 0')
-          // if the stored value is in version 0, we rename the field to the new name
-          migratedState.lastFileBackupDate = migratedState.lastBackupDate
-          delete migratedState.lastBackupDate
-        }
-
-        return migratedState
-      },
+      version: 2,
+      migrate: migrateSettings,
       storage: createJSONStorage(() => toZustandStorage(settingsStorage)),
     },
   ),

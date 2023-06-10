@@ -5,7 +5,6 @@ import { useNavigation, usePreviousRouteName, useRoute } from '../../hooks'
 import tw from '../../styles/tailwind'
 import { getSelectedPaymentDataIds } from '../../utils/account'
 import i18n from '../../utils/i18n'
-import { CheckboxType } from './PaymentDetailsCheckbox'
 import { TabbedNavigation, TabbedNavigationItem } from '../navigation/TabbedNavigation'
 import { AddPaymentMethodButton } from './AddPaymentMethodButton'
 import { isCashTrade } from '../../utils/paymentMethod/isCashTrade'
@@ -49,7 +48,7 @@ export const PaymentMethods = () => {
     }
   }
 
-  const isSelected = (itm: CheckboxType) => selectedPaymentDataIds.includes(itm.value as string)
+  const isSelected = (itm: { value: string }) => selectedPaymentDataIds.includes(itm.value)
 
   return (
     <View style={tw`items-center flex-shrink h-full p-5 pb-7`}>

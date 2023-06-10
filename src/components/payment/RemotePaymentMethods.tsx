@@ -7,7 +7,7 @@ import tw from '../../styles/tailwind'
 import { account, removePaymentData } from '../../utils/account'
 import i18n from '../../utils/i18n'
 import { getPaymentMethodInfo, isValidPaymentData } from '../../utils/paymentMethod'
-import { PaymentDetailsCheckbox, CheckboxType } from './PaymentDetailsCheckbox'
+import { PaymentDetailsCheckbox } from './PaymentDetailsCheckbox'
 import LinedText from '../ui/LinedText'
 import { isCashTrade } from '../../utils/paymentMethod/isCashTrade'
 import { PaymentDataKeyFacts } from './components/PaymentDataKeyFacts'
@@ -37,7 +37,7 @@ type Props = {
   isEditing: boolean
   editItem: (data: PaymentData) => void
   select: (value: string) => void
-  isSelected: (item: CheckboxType) => boolean
+  isSelected: (item: { value: string }) => boolean
 }
 
 export const RemotePaymentMethods = ({ isEditing, editItem, select, isSelected }: Props) => {

@@ -4,8 +4,6 @@ import { createRenderer } from 'react-test-renderer/shallow'
 import { NavigationWrapper } from '../../../tests/unit/helpers/NavigationWrapper'
 import { BuySummary } from './BuySummary'
 
-const releaseAddress = 'releaseAddress'
-const walletLabel = 'walletLabel'
 const publishOffer = jest.fn()
 
 const message = 'message'
@@ -13,8 +11,6 @@ const messageSignature = 'messageSignature'
 const goToMessageSigning = jest.fn()
 
 const defaultBuySummary = {
-  releaseAddress,
-  walletLabel,
   message,
   messageSignature,
   goToMessageSigning,
@@ -72,6 +68,10 @@ describe('BuySummary', () => {
     expect(result).toMatchSnapshot()
   })
   it('clicking on "publish" publishes offer', () => {
+    useBuySummarySetupMock.mockReturnValue({
+      ...defaultBuySummary,
+      offerDraft: { meansOfPayment: { EUR: ['sepa'] }, amount: [50000, 100000] },
+    })
     const { getByText } = render(<BuySummary />, {
       wrapper: NavigationWrapper,
     })
@@ -81,6 +81,7 @@ describe('BuySummary', () => {
   it('clicking on "next" navigates to message signing', () => {
     useBuySummarySetupMock.mockReturnValue({
       ...defaultBuySummary,
+      offerDraft: { meansOfPayment: { EUR: ['sepa'] }, amount: [50000, 100000] },
       messageSignature: undefined,
       peachWalletActive: false,
       canPublish: false,

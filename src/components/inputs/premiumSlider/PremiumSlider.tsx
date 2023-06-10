@@ -20,7 +20,6 @@ const onStartShouldSetResponder = () => true
 export const PremiumSlider = ({ style }: ComponentProps) => {
   const [isSliding, setIsSliding] = useState(false)
   const [premium, setPremium] = useOfferPreferences((state) => [state.premium, state.setPremium], shallow)
-
   const [trackWidth, setTrackWidth] = useState(260)
   const labelPosition = useMemo(
     () => [
@@ -38,40 +37,39 @@ export const PremiumSlider = ({ style }: ComponentProps) => {
   const panResponder = useRef(
     PanResponder.create({
       onMoveShouldSetPanResponder: () => true,
-      onPanResponderMove: (e, gestureState) => {
+      onPanResponderGrant: () => {
         setIsSliding(true)
-        Animated.event([null, { dx: pan }], { useNativeDriver: false })(e, gestureState)
       },
+      onPanResponderMove: Animated.event([null, { dx: pan }], {
+        useNativeDriver: false,
+      }),
       onPanResponderRelease: () => {
         setIsSliding(false)
-        pan.extractOffset()
+        pan.flattenOffset()
       },
       onShouldBlockNativeResponder: () => true,
     }),
   ).current
 
   useEffect(() => {
+    if (!isSliding) return undefined
     pan.extractOffset()
     pan.addListener((props) => {
-      if (props.value < 0) pan.setOffset(0)
-      if (props.value > trackWidth) pan.setOffset(trackWidth)
-
       const boundedX = props.value < 0 ? 0 : Math.min(props.value, trackWidth)
       const val = round((boundedX / trackWidth) * DELTA + MIN)
       setPremium(val)
     })
 
     return () => pan.removeAllListeners()
-  }, [pan, setPremium, trackWidth])
+  }, [isSliding, pan, setPremium, trackWidth])
 
   useEffect(() => {
-    if (isSliding || isNaN(premium)) return
-    pan.setOffset(((premium - MIN) / DELTA) * trackWidth)
+    if (isSliding) return
+    pan.setValue(((premium - MIN) / DELTA) * trackWidth)
   }, [isSliding, pan, trackWidth, premium])
 
   const onLayout = (event: LayoutChangeEvent) => {
     const newTrackWidth = event.nativeEvent.layout.width - KNOBWIDTH
-    pan.setOffset(((premium - MIN) / DELTA) * newTrackWidth)
     setTrackWidth(newTrackWidth)
   }
 

@@ -32,11 +32,6 @@ export const defaultSettings: Settings = {
   locale: undefined,
   displayCurrency: 'EUR',
 
-  meansOfPayment: {},
-  preferredPaymentMethods: {},
-
-  premium: 1.5,
-
   nodeURL: BLOCKEXPLORER,
 
   returnAddress: undefined,

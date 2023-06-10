@@ -31,7 +31,7 @@ exports[`BuySummary should render correctly when publishing 1`] = `
   <PrimaryButton
     loading={true}
     narrow={true}
-    onPress={[Function]}
+    onPress={[MockFunction]}
     style={
       {
         "alignSelf": "center",
@@ -168,7 +168,7 @@ exports[`BuySummary should render the BuySummary view 1`] = `
   <PrimaryButton
     loading={false}
     narrow={true}
-    onPress={[Function]}
+    onPress={[MockFunction]}
     style={
       {
         "alignSelf": "center",
