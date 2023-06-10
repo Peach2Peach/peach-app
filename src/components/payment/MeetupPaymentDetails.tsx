@@ -17,13 +17,13 @@ const mapPaymentDataToCheckboxes = (data: PaymentData) => ({
 })
 
 type Props = {
-  editing: boolean
+  isEditing: boolean
   editItem: (data: PaymentData) => void
   select: (value: string) => void
   isSelected: (item: CheckboxType) => boolean
 }
 
-export const MeetupPaymentDetails = ({ editing, editItem, select, isSelected }: Props) => {
+export const MeetupPaymentDetails = ({ isEditing, editItem, select, isSelected }: Props) => {
   const { paymentData } = account
   return (
     <>
@@ -40,10 +40,10 @@ export const MeetupPaymentDetails = ({ editing, editItem, select, isSelected }: 
         .map((item, i) => (
           <View key={item.data.id} style={i > 0 ? tw`mt-4` : {}}>
             <PaymentDetailsCheckbox
-              onPress={() => (editing ? editItem(item.data) : select(item.value))}
+              onPress={() => (isEditing ? editItem(item.data) : select(item.value))}
               item={item}
               checked={isSelected(item)}
-              editing={editing}
+              editing={isEditing}
             />
             <PaymentDataKeyFacts style={tw`mt-1`} paymentData={item.data} />
           </View>
