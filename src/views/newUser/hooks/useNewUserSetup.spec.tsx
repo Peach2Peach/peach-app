@@ -112,6 +112,7 @@ describe('useNewUserSetup', () => {
       privKey: recoveredAccount.privKey,
       mnemonic: recoveredAccount.mnemonic,
       pgp: recoveredAccount.pgp,
+      base58: recoveredAccount.base58,
     }
 
     expect(accountStorage.getMap('identity')).toStrictEqual(expectedIdentity)

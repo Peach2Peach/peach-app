@@ -3,6 +3,7 @@ import { useRestoreFromFileSetup } from './useRestoreFromFileSetup'
 import { MSINANHOUR } from '../../../constants'
 import { account1 } from '../../../../tests/unit/data/accountData'
 import { act } from 'react-test-renderer'
+import { getPeachAccount } from '../../../utils/peachAPI/peachAccount'
 
 jest.useFakeTimers()
 
@@ -64,5 +65,8 @@ describe('useRestoreFromFileSetup', () => {
     })
     expect(recoverAccountMock).toHaveBeenCalledWith(account1)
     expect(storeAccountMock).toHaveBeenCalledWith(account1)
+    expect(getPeachAccount()?.privateKey?.toString('hex')).toBe(
+      '62233e988e4ca00c3b346b4753c7dc316f6ce39280410072ddab298f36a7fe64',
+    )
   })
 })

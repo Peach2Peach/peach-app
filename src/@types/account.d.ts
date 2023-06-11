@@ -42,6 +42,7 @@ declare type Identity = {
   publicKey: string
   privKey?: string
   mnemonic?: string
+  base58?: string
   pgp: PGPKeychain
 }
 
