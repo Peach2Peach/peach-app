@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`useOfferDetailsSetup should setup header 1`] = `
+exports[`usePaymentMethodsSetup should setup header 1`] = `
 <Header
   icons={
     [
@@ -15,7 +15,7 @@ exports[`useOfferDetailsSetup should setup header 1`] = `
 />
 `;
 
-exports[`useOfferDetailsSetup should setup header for account with payment data 1`] = `
+exports[`usePaymentMethodsSetup should setup header for account with payment data 1`] = `
 <Header
   icons={
     [
@@ -35,7 +35,22 @@ exports[`useOfferDetailsSetup should setup header for account with payment data 
 />
 `;
 
-exports[`useOfferDetailsSetup should setup header when editing 1`] = `
+exports[`usePaymentMethodsSetup should setup header when coming from settings 1`] = `
+<Header
+  icons={
+    [
+      {
+        "color": "#099DE2",
+        "id": "helpCircle",
+        "onPress": [Function],
+      },
+    ]
+  }
+  title="edit payment methods"
+/>
+`;
+
+exports[`usePaymentMethodsSetup should setup header when editing 1`] = `
 <Header
   icons={
     [

@@ -3,12 +3,12 @@ import { useHeaderSetup, useRoute } from '../../../hooks'
 import { useGoToOrigin } from '../../../hooks/useGoToOrigin'
 import { useShowHelp } from '../../../hooks/useShowHelp'
 import { useMeetupEventsStore } from '../../../store/meetupEventsStore'
+import { useOfferPreferences } from '../../../store/offerPreferenes'
 import { account, addPaymentData } from '../../../utils/account'
 import { headerIcons } from '../../../utils/layout/headerIcons'
 import { getPaymentMethodInfo } from '../../../utils/paymentMethod'
-import { useDeletePaymentMethod } from './useDeletePaymentMethod'
 import { toggleCurrency } from '../../inputs/paymentMethods/paymentForms/utils'
-import { useOfferPreferences } from '../../../store/offerPreferenes'
+import { useDeletePaymentMethod } from './useDeletePaymentMethod'
 
 export const useMeetupScreenSetup = () => {
   const route = useRoute<'meetupScreen'>()

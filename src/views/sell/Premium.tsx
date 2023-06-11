@@ -1,13 +1,13 @@
 import { View } from 'react-native'
+import { shallow } from 'zustand/shallow'
 import { BitcoinPriceStats, HorizontalLine, PremiumSlider, PrimaryButton, SatsFormat, Text } from '../../components'
+import { useNavigation } from '../../hooks'
+import { useOfferPreferences } from '../../store/offerPreferenes/useOfferPreferences'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { priceFormat } from '../../utils/string'
 import { PremiumInput } from './components/PremiumInput'
 import { usePremiumSetup } from './hooks/usePremiumSetup'
-import { useNavigation } from '../../hooks'
-import { useOfferPreferences } from '../../store/offerPreferenes/useOfferPreferences'
-import { shallow } from 'zustand/shallow'
 
 export const Premium = () => {
   const [amount, isStepValid] = useOfferPreferences((state) => [state.sellAmount, state.canContinue.premium], shallow)

@@ -10,7 +10,7 @@ export const usePaymentMethodsSetup = () => {
   useHeaderSetup({
     title: i18n(isEditing ? 'paymentMethods.edit.title' : 'paymentMethods.title'),
     icons:
-      account.paymentData.length !== 0
+      account.paymentData.length !== 0 && origin !== 'settings'
         ? [
           {
             ...(isEditing ? headerIcons.checkbox : headerIcons.edit),
