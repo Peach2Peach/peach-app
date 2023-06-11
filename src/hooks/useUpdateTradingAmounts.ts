@@ -20,7 +20,7 @@ export const useUpdateTradingAmounts = () => {
       setMinTradingAmount(newMinAmount)
       setMaxTradingAmount(newMaxAmount)
       if (sellAmount < newMinAmount) setSellAmount(newMinAmount, { min: newMinAmount, max: newMaxAmount })
-      if (sellAmount > newMaxAmount) setSellAmount(newMaxAmount, { min: newMinAmount, max: newMaxAmount })
+      else if (sellAmount > newMaxAmount) setSellAmount(newMaxAmount, { min: newMinAmount, max: newMaxAmount })
       if (minBuyAmount < newMinAmount || maxBuyAmount > newMaxAmount) {
         const newMinBuyAmount = Math.max(newMinAmount, minBuyAmount)
         const newMaxBuyAmount = Math.min(newMaxAmount, maxBuyAmount)
