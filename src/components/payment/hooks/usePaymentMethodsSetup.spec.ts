@@ -5,6 +5,10 @@ import { account, updateAccount } from '../../../utils/account'
 import { usePaymentMethodsSetup } from './usePaymentMethodsSetup'
 
 describe('usePaymentMethodsSetup', () => {
+  afterEach(() => {
+    jest.clearAllMocks()
+    updateAccount({ ...account, paymentData: [] })
+  })
   it('should setup header', () => {
     renderHook(usePaymentMethodsSetup, { wrapper: NavigationWrapper })
     expect(headerState.header()).toMatchSnapshot()
@@ -15,6 +19,7 @@ describe('usePaymentMethodsSetup', () => {
     expect(headerState.header()).toMatchSnapshot()
   })
   it('should setup header when editing', () => {
+    updateAccount({ ...account, paymentData: testPaymentData })
     renderHook(usePaymentMethodsSetup, { wrapper: NavigationWrapper })
     act(() => {
       headerState.header().props.icons[0].onPress()
@@ -22,6 +27,7 @@ describe('usePaymentMethodsSetup', () => {
     expect(headerState.header()).toMatchSnapshot()
   })
   it('should setup header when coming from settings', () => {
+    updateAccount({ ...account, paymentData: testPaymentData })
     getStateMock.mockReturnValueOnce({
       routes: [{ name: 'settings' }, { name: 'paymentMethods' }],
     })
