@@ -1,5 +1,6 @@
 import { fireEvent, render } from '@testing-library/react-native'
 import { createRenderer } from 'react-test-renderer/shallow'
+import { getBuyOfferDraft } from '../../../tests/unit/data/offerDraftData'
 
 import { NavigationWrapper } from '../../../tests/unit/helpers/NavigationWrapper'
 import { BuySummary } from './BuySummary'
@@ -70,7 +71,7 @@ describe('BuySummary', () => {
   it('clicking on "publish" publishes offer', () => {
     useBuySummarySetupMock.mockReturnValue({
       ...defaultBuySummary,
-      offerDraft: { meansOfPayment: { EUR: ['sepa'] }, amount: [50000, 100000] },
+      offerDraft: getBuyOfferDraft(),
     })
     const { getByText } = render(<BuySummary />, {
       wrapper: NavigationWrapper,
@@ -81,7 +82,7 @@ describe('BuySummary', () => {
   it('clicking on "next" navigates to message signing', () => {
     useBuySummarySetupMock.mockReturnValue({
       ...defaultBuySummary,
-      offerDraft: { meansOfPayment: { EUR: ['sepa'] }, amount: [50000, 100000] },
+      offerDraft: getBuyOfferDraft(),
       messageSignature: undefined,
       peachWalletActive: false,
       canPublish: false,
