@@ -3,7 +3,7 @@ import tw from '../../styles/tailwind'
 import { HorizontalLine } from '../ui'
 
 declare type Props = {
-  event: MeetupEvent
+  event: Pick<MeetupEvent, 'city' | 'longName'>
   onPress: () => void
 }
 
