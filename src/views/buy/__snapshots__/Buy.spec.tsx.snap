@@ -207,12 +207,16 @@ exports[`Buy should render correctly 1`] = `
           "paddingLeft": 20,
           "paddingRight": 16,
         },
-        {
-          "flexShrink": 1,
-          "height": "100%",
-          "marginBottom": 8,
-          "marginTop": 16,
-        },
+        [
+          {
+            "flexShrink": 1,
+            "height": "100%",
+          },
+          {
+            "marginBottom": 8,
+            "marginTop": 16,
+          },
+        ],
       ]
     }
   >
@@ -2195,12 +2199,16 @@ exports[`Buy should render correctly with free trades 1`] = `
           "paddingLeft": 20,
           "paddingRight": 16,
         },
-        {
-          "flexShrink": 1,
-          "height": "100%",
-          "marginBottom": 8,
-          "marginTop": 16,
-        },
+        [
+          {
+            "flexShrink": 1,
+            "height": "100%",
+          },
+          {
+            "marginBottom": 8,
+            "marginTop": 16,
+          },
+        ],
       ]
     }
   >
