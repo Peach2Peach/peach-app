@@ -105,5 +105,3 @@ export const PremiumSlider = ({ style }: ComponentProps) => {
     </View>
   )
 }
-
-export default PremiumSlider
