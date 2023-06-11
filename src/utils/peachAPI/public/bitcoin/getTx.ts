@@ -16,5 +16,5 @@ export const getTx = async ({ txId, timeout, abortSignal }: GetTxProps) => {
     signal: abortSignal || (timeout ? getAbortWithTimeout(timeout).signal : undefined),
   })
 
-  return parseResponse<GetTxResponse>(response, 'postTx')
+  return parseResponse<GetTxResponse>(response, 'getTx')
 }
