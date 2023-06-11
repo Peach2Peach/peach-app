@@ -6,12 +6,12 @@ import { CountrySelect } from '../../drawers/CountrySelect'
 import { useNavigation, useRoute } from '../../hooks'
 import { useMeetupEvents } from '../../hooks/query/useMeetupEvents'
 import tw from '../../styles/tailwind'
+import { sortAlphabetically } from '../../utils/array/sortAlphabetically'
+import { Country } from '../../utils/country/countryMap'
 import { structureEventsByCountry } from '../../utils/events'
 import i18n from '../../utils/i18n'
 import { FlagType } from '../flags'
-import MeetupSummary from './MeetupSummary'
-import { sortAlphabetically } from '../../utils/array/sortAlphabetically'
-import { Country } from '../../utils/country/countryMap'
+import { MeetupSummary } from './MeetupSummary'
 
 type Props = ComponentProps & {
   isCash: boolean
