@@ -86,33 +86,7 @@ exports[`Premium should render the Premium view 1`] = `
           >
             for selling
           </PeachText>
-          <SatsFormat
-            bitcoinLogoStyle={
-              {
-                "height": 12,
-                "marginRight": 4,
-                "width": 12,
-              }
-            }
-            sats={0}
-            satsStyle={
-              {
-                "fontFamily": "Baloo2-Regular",
-                "fontSize": 14,
-                "fontWeight": "normal",
-                "letterSpacing": 0.14,
-                "lineHeight": 20,
-              }
-            }
-            style={
-              {
-                "fontFamily": "Baloo2-SemiBold",
-                "fontSize": 16,
-                "letterSpacing": 0.16,
-                "lineHeight": 28,
-              }
-            }
-          />
+          <CurrentOfferAmount />
         </View>
         <PremiumInput
           style={
@@ -121,19 +95,13 @@ exports[`Premium should render the Premium view 1`] = `
             }
           }
         />
-        <PeachText
+        <CurrentOfferPrice
           style={
             {
-              "color": "#7D675E",
               "marginTop": 4,
-              "textAlign": "center",
             }
           }
-        >
-          (
-          currently 150.00 EUR
-          )
-        </PeachText>
+        />
       </View>
       <PremiumSlider
         style={

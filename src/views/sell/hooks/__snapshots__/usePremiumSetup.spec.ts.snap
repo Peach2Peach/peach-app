@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`usePremiumSetup calls useSellSetup with correct params 1`] = `
+exports[`usePremiumSetup sets up the header correctly 1`] = `
 <Header
   icons={
     [
