@@ -3,10 +3,10 @@ import { act } from 'react-test-renderer'
 import { useUpdateTradingAmounts } from '.'
 import { configStore } from '../store/configStore'
 import { useOfferPreferences } from '../store/offerPreferenes/useOfferPreferences'
-import { getTradingAmountLimits } from '../utils/market'
 
+const getTradingAmountLimitsMock = jest.fn().mockReturnValue([10, 100])
 jest.mock('../utils/market', () => ({
-  getTradingAmountLimits: jest.fn().mockReturnValue([10, 100]),
+  getTradingAmountLimits: (priceCHF: number) => getTradingAmountLimitsMock(priceCHF),
 }))
 
 describe('useUpdateTradingAmounts', () => {
@@ -22,7 +22,7 @@ describe('useUpdateTradingAmounts', () => {
       updateTradingAmounts.current(50)
     })
 
-    expect(getTradingAmountLimits).toHaveBeenCalledWith(50)
+    expect(getTradingAmountLimitsMock).toHaveBeenCalledWith(50)
     expect(configStore.getState().minTradingAmount).toEqual(10)
     expect(configStore.getState().maxTradingAmount).toEqual(100)
   })
@@ -38,7 +38,7 @@ describe('useUpdateTradingAmounts', () => {
       updateTradingAmounts.current(50)
     })
 
-    expect(getTradingAmountLimits).toHaveBeenCalledWith(50)
+    expect(getTradingAmountLimitsMock).toHaveBeenCalledWith(50)
     expect(useOfferPreferences.getState().sellAmount).toEqual(10)
     expect(useOfferPreferences.getState().buyAmountRange).toEqual([10, 100])
   })
@@ -55,8 +55,23 @@ describe('useUpdateTradingAmounts', () => {
       updateTradingAmounts.current(50)
     })
 
-    expect(getTradingAmountLimits).toHaveBeenCalledWith(50)
+    expect(getTradingAmountLimitsMock).toHaveBeenCalledWith(50)
     expect(useOfferPreferences.getState().sellAmount).toEqual(20)
     expect(useOfferPreferences.getState().buyAmountRange).toEqual([20, 40])
+  })
+  it('only updates the buy amount that fell out of range', async () => {
+    getTradingAmountLimitsMock.mockReturnValue([10, 300])
+    const { result: updateTradingAmounts } = renderHook(() => useUpdateTradingAmounts())
+
+    act(() => {
+      useOfferPreferences.getState().setBuyAmountRange([5, 200], { min: 5, max: 400 })
+    })
+    act(() => {
+      updateTradingAmounts.current(50)
+    })
+
+    expect(getTradingAmountLimitsMock).toHaveBeenCalledWith(50)
+    expect(useOfferPreferences.getState().buyAmountRange[0]).toEqual(10)
+    expect(useOfferPreferences.getState().buyAmountRange[1]).toEqual(200)
   })
 })
