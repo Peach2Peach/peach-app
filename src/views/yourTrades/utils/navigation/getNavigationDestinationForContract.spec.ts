@@ -10,9 +10,6 @@ jest.mock('../../../../utils/peachAPI', () => ({
   getContract: () => getContractMock(),
 }))
 
-afterEach(() => {
-  jest.clearAllMocks()
-})
 describe('getNavigationDestinationForContract', () => {
   it('should navigate to contract', async () => {
     const contractSummary: Partial<ContractSummary> = {

@@ -19,9 +19,6 @@ jest.mock('../peachAPI', () => ({
 }))
 
 describe('recoverAccount', () => {
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
   it('resets fcm token', async () => {
     settingsStore.getState().setFCMToken('existingFCMToken')
     await recoverAccount(recoveredAccount)

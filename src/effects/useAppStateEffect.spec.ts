@@ -4,9 +4,6 @@ import { AppState } from 'react-native'
 
 describe('useAppStateEffect', () => {
   const appStateSpy = jest.spyOn(AppState, 'addEventListener')
-  beforeEach(() => {
-    jest.clearAllMocks()
-  })
 
   it('should call the callback if the app transitions from active to inactive', () => {
     const callback = jest.fn()

@@ -11,6 +11,7 @@ export const storeIdentity = async (acc: Account) => {
       privKey: acc.privKey,
       mnemonic: acc.mnemonic,
       pgp: acc.pgp,
+      base58: acc.base58,
     }),
     accountStorage.setStringAsync('publicKey', acc.publicKey),
   ])

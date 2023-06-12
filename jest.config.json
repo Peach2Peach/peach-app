@@ -2,27 +2,32 @@
   "rootDir": "./",
   "preset": "react-native",
   "moduleFileExtensions": ["ts", "tsx", "js", "jsx"],
-  "collectCoverage": true,
+  "clearMocks": true,
+  "maxWorkers": "50%",
+  "collectCoverage": false,
   "coverageReporters": ["lcov", "text-summary"],
   "coverageThreshold": {
     "global": {
-      "statements": 77.68,
-      "branches": 51.57,
-      "functions": 65.75,
-      "lines": 79.08
+      "statements": 83.0,
+      "branches": 64.0,
+      "functions": 73.0,
+      "lines": 84.0
     }
   },
   "transform": {
     "\\.(js|jsx)$": "<rootDir>/node_modules/babel-jest",
-    "^.+\\.(t|j)sx?$": ["@swc/jest", {
-      "jsc": {
-        "transform": {
-          "react": {
-            "runtime": "automatic"
+    "^.+\\.(t|j)sx?$": [
+      "@swc/jest",
+      {
+        "jsc": {
+          "transform": {
+            "react": {
+              "runtime": "automatic"
+            }
           }
         }
       }
-    }]
+    ]
   },
   "transformIgnorePatterns": [
     "node_modules/(?!(@react-native|react-native|@react-native-community|react-native-form-validator|react-native-permissions|react-native-shadow-2|react-native-qrcode-svg|bdk-rn|react-native-parsed-text|react-native-snap-carousel|react-native-url-polyfill|react-native-camera)/)"

@@ -5,7 +5,6 @@ describe('openInWallet', () => {
   const openURLMock = jest.fn()
 
   beforeEach(() => {
-    jest.clearAllMocks()
     jest.spyOn(Linking, 'openURL').mockImplementation(openURLMock)
   })
 

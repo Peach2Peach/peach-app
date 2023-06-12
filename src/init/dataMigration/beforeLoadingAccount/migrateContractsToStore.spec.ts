@@ -20,7 +20,6 @@ describe('migrateContractsToStore', () => {
     },
   ]
   beforeEach(async () => {
-    jest.clearAllMocks()
     useLocalContractStore.setState({
       migrated: false,
       contracts: {},

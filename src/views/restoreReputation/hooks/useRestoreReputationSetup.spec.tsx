@@ -8,9 +8,6 @@ import { useRestoreReputationSetup } from './useRestoreReputationSetup'
 jest.useFakeTimers()
 
 describe('useRestoreReputationSetup', () => {
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
   it('should return defaults', async () => {
     const { result } = renderHook(useRestoreReputationSetup, { wrapper: NavigationWrapper })
     expect(result.current).toEqual({

@@ -69,9 +69,6 @@ describe('useNewUserSetup', () => {
     settingsStore.setState({ pgpPublished: false, fcmToken: undefined })
     setAccount(defaultAccount)
   })
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
   it('should return default values', async () => {
     const { result } = renderHook(useNewUserSetup, { wrapper: NavigationWrapper })
     expect(result.current).toStrictEqual({ success: false, error: '', userExistsForDevice: false })
@@ -112,6 +109,7 @@ describe('useNewUserSetup', () => {
       privKey: recoveredAccount.privKey,
       mnemonic: recoveredAccount.mnemonic,
       pgp: recoveredAccount.pgp,
+      base58: recoveredAccount.base58,
     }
 
     expect(accountStorage.getMap('identity')).toStrictEqual(expectedIdentity)

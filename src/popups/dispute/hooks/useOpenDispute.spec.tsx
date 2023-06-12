@@ -7,7 +7,6 @@ import { OpenDispute } from '../components/OpenDispute'
 
 describe('useOpenDispute', () => {
   afterEach(() => {
-    jest.clearAllMocks()
     usePopupStore.setState(defaultPopupState)
   })
 

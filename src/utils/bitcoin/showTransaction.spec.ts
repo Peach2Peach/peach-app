@@ -4,9 +4,6 @@ import { showTransaction } from './showTransaction'
 describe('showTransaction', () => {
   const openURLSpy = jest.spyOn(Linking, 'openURL')
 
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
   it('links to mainnet blockexplorer', () => {
     showTransaction('txId', 'bitcoin')
     expect(openURLSpy).toHaveBeenCalledWith('https://mempool.space/tx/txId')

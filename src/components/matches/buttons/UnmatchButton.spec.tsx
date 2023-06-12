@@ -55,7 +55,6 @@ describe('UnmatchButton', () => {
   }
 
   beforeEach(() => {
-    jest.clearAllMocks()
     queryClient.setQueryData(['matches', 'offerId'], {
       pages: [
         {
