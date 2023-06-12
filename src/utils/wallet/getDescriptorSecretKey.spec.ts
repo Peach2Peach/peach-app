@@ -21,7 +21,7 @@ describe('getDescriptorSecretKey', () => {
   })
   it('loads wallet with seed', async () => {
     const mnemonic = await new Mnemonic().create()
-    mnemonicCreateMock.mockReturnValueOnce(mnemonic)
+    mnemonicFromStringMock.mockReturnValueOnce(mnemonic)
 
     await getDescriptorSecretKey(Network.Bitcoin, account1.mnemonic)
     expect(mnemonicFromStringMock).toHaveBeenCalledWith(account1.mnemonic)
