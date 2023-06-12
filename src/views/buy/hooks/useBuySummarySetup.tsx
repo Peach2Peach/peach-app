@@ -70,7 +70,7 @@ export const useBuySummarySetup = () => {
     const messageSigningData = await getMessageSigningData()
 
     if (messageSigningData.getError()) {
-      showErrorBanner('MISSING_SIGNATURE')
+      showErrorBanner(messageSigningData.getError())
       setIsPublishing(false)
       return
     }
