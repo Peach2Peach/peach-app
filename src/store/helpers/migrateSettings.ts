@@ -5,13 +5,13 @@ import { SettingsStore } from '../settingsStore'
 
 export const migrateSettings = (persistedState: unknown, version: number): SettingsStore | Promise<SettingsStore> => {
   const migratedState = persistedState as SettingsStore
-  if (version === 0) {
+  if (version < 1) {
     info('settingsStore - migrating from version 0')
     // if the stored value is in version 0, we rename the field to the new name
     migratedState.lastFileBackupDate = migratedState.lastBackupDate
     delete migratedState.lastBackupDate
   }
-  if (version === 1) {
+  if (version < 2) {
     const { setPaymentMethods, setPremium, setBuyAmountRange, setSellAmount } = useOfferPreferences.getState()
     info('settingsStore - migrating from version 1')
     // @ts-expect-error
