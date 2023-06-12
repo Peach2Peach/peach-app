@@ -1089,6 +1089,7 @@
   "wallet.loading": "wallet loading,\none sec...",
   "wallet.openWalletApp": "open wallet app",
   "wallet.refund": "$0",
+  "wallet.refund.long": "refund - $0",
   "wallet.stackedSats": "stacked sats - $0",
   "wallet.title": "Peach wallet",
   "wallet.totalBalance": "total balance",

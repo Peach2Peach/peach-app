@@ -1089,6 +1089,7 @@
   "wallet.loading": "cargando cartera,\nun momento...",
   "wallet.openWalletApp": "abrir cartera externa",
   "wallet.refund": "$0",
+  "wallet.refund.long": "reembolso - $0",
   "wallet.stackedSats": "sats acumulados - $0",
   "wallet.title": "Cartera de Peach",
   "wallet.totalBalance": "balance total",
