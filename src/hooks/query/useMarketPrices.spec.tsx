@@ -62,4 +62,31 @@ describe('useMarketPrices', () => {
       })
     })
   })
+  it('should preserve the existing data on error', async () => {
+    marketPricesMock
+      .mockResolvedValueOnce([
+        {
+          EUR: 21000,
+          CHF: 21000,
+        },
+        null,
+      ])
+      .mockResolvedValueOnce([null, null])
+
+    const { result } = renderHook(useMarketPrices, { wrapper: QueryClientWrapper })
+    await waitFor(() => {
+      expect(result.current.data).toEqual({
+        EUR: 21000,
+        CHF: 21000,
+      })
+    })
+    jest.advanceTimersByTime(15000)
+    await waitFor(() => {
+      expect(result.current.isError).toBe(true)
+      expect(result.current.data).toEqual({
+        EUR: 21000,
+        CHF: 21000,
+      })
+    })
+  })
 })
