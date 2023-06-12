@@ -10,5 +10,5 @@ export const getDescriptorSecretKey = async (network: Network, seedphrase?: stri
     mnemonic = await mnemonic.create(WordCount.WORDS12)
   }
 
-  return await new DescriptorSecretKey().create(network, mnemonic)
+  return new DescriptorSecretKey().create(network, mnemonic)
 }
