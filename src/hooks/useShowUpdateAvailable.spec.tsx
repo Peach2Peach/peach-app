@@ -19,7 +19,6 @@ describe('useShowUpdateAvailable', () => {
     configStore.getState().setMinAppVersion(APPVERSION)
   })
   afterEach(() => {
-    jest.clearAllMocks()
     messageState = { ...defaultMessageState }
   })
   it('does not show update available banner if app version is above min/latest', async () => {

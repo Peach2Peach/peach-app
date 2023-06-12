@@ -30,10 +30,6 @@ jest.mock('./loadAccountFromSeedPhrase', () => ({
 
 describe('updateAccount', () => {
   const loadWalletSpy = jest.spyOn(PeachWallet.prototype, 'loadWallet')
-
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
   it('sets an account, sets wallet and peachAccount', async () => {
     await updateAccount(account1)
     expect(account).toEqual(account1)

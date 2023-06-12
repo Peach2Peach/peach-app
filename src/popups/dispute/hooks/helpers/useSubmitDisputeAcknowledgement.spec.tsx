@@ -44,7 +44,6 @@ describe('useSubmitDisputeAcknowledgement', () => {
   })
 
   afterEach(() => {
-    jest.clearAllMocks()
     queryClient.clear()
   })
 

@@ -53,7 +53,6 @@ describe('useRateSetup', () => {
     settingsStore.getState().setShouldShowBackupOverlay('completedBuyOffer', false)
   })
   afterEach(() => {
-    jest.clearAllMocks()
     settingsStore.getState().reset()
   })
   it('returns default values correctly', () => {

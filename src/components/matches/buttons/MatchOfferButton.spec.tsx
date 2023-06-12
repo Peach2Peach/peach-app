@@ -20,7 +20,6 @@ describe('MatchOfferButton', () => {
         },
       },
     }))
-    jest.clearAllMocks()
   })
   it('renders correctly', () => {
     const { toJSON } = render(<MatchOfferButton {...defaultProps} />)

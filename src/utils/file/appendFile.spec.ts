@@ -2,9 +2,6 @@ import RNFS from 'react-native-fs'
 import { appendFile } from '.'
 
 describe('appendFile', () => {
-  beforeEach(() => {
-    jest.clearAllMocks()
-  })
   it('should append content to a file', async () => {
     const path = 'test.txt'
     const content = 'test'

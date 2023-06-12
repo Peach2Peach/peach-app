@@ -7,9 +7,6 @@ jest.mock('./beforeLoadingAccount/migrateSettingsToStore', () => ({
 }))
 
 describe('dataMigrationBeforeLoadingAccount', () => {
-  beforeEach(() => {
-    jest.clearAllMocks()
-  })
   it('should call migrateSettingsToStore', async () => {
     await dataMigrationBeforeLoadingAccount()
     expect(migrateSettingsToStoreMock).toHaveBeenCalled()

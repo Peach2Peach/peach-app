@@ -13,7 +13,6 @@ jest.mock('../../utils/peachAPI', () => ({
 
 describe('useFeeEstimate', () => {
   afterEach(() => {
-    jest.clearAllMocks()
     queryClient.clear()
   })
 

@@ -32,9 +32,6 @@ describe('useCreateEscrow', () => {
   beforeEach(async () => {
     await updateAccount(account1, true)
   })
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
   it('sends API request to create escrow', async () => {
     const { result } = renderHook(useCreateEscrow, {
       wrapper: QueryClientWrapper,

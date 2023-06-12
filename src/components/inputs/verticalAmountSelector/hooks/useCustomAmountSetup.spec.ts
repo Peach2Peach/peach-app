@@ -18,9 +18,6 @@ describe('useCustomAmountSetup', () => {
     onChange: setAmount,
   }
 
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
   it('should return default values', () => {
     const { result } = renderHook(useCustomAmountSetup, { initialProps })
     expect(result.current).toEqual({

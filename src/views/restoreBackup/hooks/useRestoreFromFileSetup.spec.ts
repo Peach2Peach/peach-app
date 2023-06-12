@@ -41,9 +41,6 @@ jest.mock('../../../utils/peachAPI', () => ({
 describe('useRestoreFromFileSetup', () => {
   const encryptedAccount = 'encryptedAccount'
   const password = 'password'
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
   it('restores account from file', async () => {
     const { result } = renderHook(useRestoreFromFileSetup)
     act(() => {

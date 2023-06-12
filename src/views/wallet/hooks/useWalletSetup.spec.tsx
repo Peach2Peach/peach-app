@@ -22,9 +22,6 @@ jest.mock('../../../utils/wallet/setWallet', () => ({
 describe('useWalletSetup', () => {
   const wrapper = NavigationWrapper
   const address = 'bitcoinAddress'
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
   it('should return correct default values', () => {
     const { result } = renderHook(useWalletSetup, { wrapper })
 
