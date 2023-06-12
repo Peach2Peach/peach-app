@@ -4,7 +4,7 @@ export const getTransactionType = (
   tx: ConfirmedTransaction | PendingTransaction,
   offer?: OfferSummary,
 ): TransactionType => {
-  if (offer) {
+  if (tx.received > 0 && offer) {
     return offer.type === 'ask' ? 'REFUND' : 'TRADE'
   }
   return tx.received === 0 ? 'WITHDRAWAL' : 'DEPOSIT'
