@@ -12,11 +12,6 @@
 # Package: react-native-svg
 -keep public class com.horcrux.svg.** { *; }
 
-# Package: react-native-keychain
--keep class com.facebook.crypto.** {
-   *;
-}
-
 # Package: bdk-rn
 -keep class com.sun.jna.** { *; }
 -keep class org.bitcoindevkit.** { *; }
