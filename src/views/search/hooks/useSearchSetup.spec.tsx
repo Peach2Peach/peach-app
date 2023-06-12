@@ -38,10 +38,6 @@ const wrapper = ({ children }: ComponentProps) => (
 jest.useFakeTimers()
 
 describe('useSearchSetup', () => {
-  beforeEach(() => {
-    jest.clearAllMocks()
-  })
-
   it('should set up header correctly', async () => {
     const { result } = renderHook(useSearchSetup, { wrapper })
 

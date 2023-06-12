@@ -51,7 +51,6 @@ describe('useTradeCanceledPopup', () => {
 
   afterEach(() => {
     usePopupStore.setState(defaultPopupState)
-    jest.clearAllMocks()
   })
   it('should return the correct default values', () => {
     const { result } = renderHook(useTradeCanceledPopup)

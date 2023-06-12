@@ -36,9 +36,6 @@ describe('Buy', () => {
       price: 400000,
     })
   })
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
   it('should render correctly while loading max trading amount', () => {
     useOfferPreferences.getState().setBuyAmountRange([0, Infinity], { min: 0, max: 10 })
     const { toJSON } = render(<Buy />, { wrapper })

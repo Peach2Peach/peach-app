@@ -40,7 +40,6 @@ jest.mock('../../../hooks/useNavigation', () => ({
 
 describe('useMeetupScreenSetup', () => {
   beforeEach(() => {
-    jest.clearAllMocks()
     setPaymentMethods([])
     setAccount(defaultAccount)
   })

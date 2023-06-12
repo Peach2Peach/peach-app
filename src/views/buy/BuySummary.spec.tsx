@@ -29,9 +29,6 @@ jest.useFakeTimers({ now: new Date('2022-02-14T12:00:00.000Z') })
 describe('BuySummary', () => {
   const renderer = createRenderer()
 
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
   it('should render the BuySummary view', () => {
     renderer.render(<BuySummary />, { wrapper: NavigationWrapper })
     const result = renderer.getRenderOutput()

@@ -1,4 +1,5 @@
 export { createRandomWallet } from './createRandomWallet'
+export { createWalletFromBase58 } from './createWalletFromBase58'
 export { createWalletFromSeedPhrase } from './createWalletFromSeedPhrase'
 export { findTransactionsToRebroadcast } from './findTransactionsToRebroadcast'
 export { getAndStorePendingTransactionHex } from './getAndStorePendingTransactionHex'

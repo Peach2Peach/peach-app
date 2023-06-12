@@ -1,4 +1,5 @@
 import analytics from '@react-native-firebase/analytics'
+import perf from '@react-native-firebase/perf'
 import { create, useStore } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
 import { createStorage, toZustandStorage } from '../utils/storage'
@@ -54,6 +55,8 @@ export const settingsStore = create(
       updateSettings: (settings) => set({ ...settings }),
       setEnableAnalytics: (enableAnalytics) => {
         analytics().setAnalyticsCollectionEnabled(enableAnalytics)
+        perf().setPerformanceCollectionEnabled(enableAnalytics)
+
         set((state) => ({ ...state, enableAnalytics }))
       },
       toggleAnalytics: () => get().setEnableAnalytics(!get().enableAnalytics),

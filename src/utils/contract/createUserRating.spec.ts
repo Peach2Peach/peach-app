@@ -28,9 +28,6 @@ describe('createUserRating', () => {
   beforeEach(() => {
     setAccount(account1)
   })
-  afterAll(() => {
-    jest.clearAllMocks()
-  })
 
   it('creates a rating with correct signature by using peach account', () => {
     account.publicKey = 'publicKey'

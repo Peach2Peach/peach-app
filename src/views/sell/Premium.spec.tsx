@@ -18,9 +18,6 @@ jest.useFakeTimers({ now: new Date('2022-02-14T12:00:00.000Z') })
 describe('Premium', () => {
   const renderer = createRenderer()
 
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
   it('should render the Premium view', () => {
     renderer.render(<Premium />)
     const result = renderer.getRenderOutput()

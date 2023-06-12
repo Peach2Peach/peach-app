@@ -32,7 +32,6 @@ const wrapper = NavigationWrapper
 
 describe('usePaymentDetailsSetup', () => {
   beforeEach(() => {
-    jest.clearAllMocks()
     setOptionsMock({ header: { title: '', icons: [] } })
   })
   afterEach(() => {

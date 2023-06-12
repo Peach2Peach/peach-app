@@ -17,7 +17,6 @@ describe('useSellSummarySetup', () => {
   beforeEach(() => {
     // @ts-ignore
     setPeachWallet(new PeachWallet())
-    jest.clearAllMocks()
   })
 
   it('should set up header correctly', async () => {

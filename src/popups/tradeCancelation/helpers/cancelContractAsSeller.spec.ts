@@ -23,9 +23,6 @@ describe('cancelContractAsSeller', () => {
   const yesterday = new Date(Date.now() - MSINADAY)
   const tomorrow = new Date(Date.now() + MSINADAY)
   const expiredContract = { ...contract, paymentExpectedBy: yesterday }
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
   it('calls cancelContract with active payment timer', async () => {
     const activeContract = { ...contract, paymentExpectedBy: tomorrow }
     const result = await cancelContractAsSeller(activeContract)

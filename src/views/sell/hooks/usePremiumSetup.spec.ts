@@ -24,7 +24,6 @@ jest.mock('../../../hooks/query/useTradingLimits', () => ({
 describe('usePremiumSetup', () => {
   const sellAmount = 100000
   afterEach(() => {
-    jest.clearAllMocks()
     act(() => {
       settingsStore.setState({ displayCurrency: 'EUR' })
       useOfferPreferences.getState().setSellAmount(sellAmount, { min: 1000, max: 1000000 })

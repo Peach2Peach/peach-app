@@ -21,9 +21,6 @@ jest.mock('../../../utils/peachAPI', () => ({
 }))
 
 describe('useConfirmEscrow', () => {
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
   it('shows error banner if escrow could not be confirmed', async () => {
     confirmEscrowMock.mockResolvedValueOnce([null, unauthorizedError])
     const { result } = renderHook(useConfirmEscrow, { wrapper })

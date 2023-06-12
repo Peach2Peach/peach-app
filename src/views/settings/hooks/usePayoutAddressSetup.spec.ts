@@ -10,10 +10,6 @@ jest.mock('../../../hooks/useRoute', () => ({
 }))
 
 describe('usePayoutAddressSetup', () => {
-  beforeEach(() => {
-    jest.clearAllMocks()
-  })
-
   it('should set up header correctly', () => {
     renderHook(usePayoutAddressSetup, { wrapper: NavigationWrapper })
     expect(headerState.header()).toMatchSnapshot()

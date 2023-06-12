@@ -28,10 +28,6 @@ describe('useOfferPopupEvents', () => {
   const offerId = '123'
   const sellOffer = { id: offerId, type: 'ask' }
 
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
-
   it('should show confirm escrow popup on offer.fundingAmountDifferent', async () => {
     const { result } = renderHook(() => useOfferPopupEvents())
     getOfferDetailsMock.mockResolvedValueOnce([sellOffer])

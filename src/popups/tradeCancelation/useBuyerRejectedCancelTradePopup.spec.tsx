@@ -11,7 +11,6 @@ import { useBuyerRejectedCancelTradePopup } from './useBuyerRejectedCancelTradeP
 describe('useBuyerRejectedCancelTradePopup', () => {
   const { result } = renderHook(useBuyerRejectedCancelTradePopup, { wrapper: NavigationWrapper })
   afterEach(() => {
-    jest.clearAllMocks()
     usePopupStore.setState(defaultPopupState)
   })
   it('should show the popup', () => {

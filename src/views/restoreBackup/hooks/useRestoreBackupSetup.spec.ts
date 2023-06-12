@@ -9,9 +9,6 @@ jest.mock('../../../hooks/useRoute', () => ({
 }))
 
 describe('useRestoreBackupSetup', () => {
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
   it('returns defaults', async () => {
     const { result } = renderHook(useRestoreBackupSetup, { wrapper: NavigationWrapper })
 
