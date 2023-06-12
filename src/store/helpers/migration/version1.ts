@@ -1,8 +1,9 @@
 import { getSelectedPaymentDataIds } from '../../../utils/account'
 import { info } from '../../../utils/log'
 import { useOfferPreferences } from '../../offerPreferenes'
+import { SettingsVersion2 } from './migrateSettings'
 
-export type SettingsStoreVersion1 = {
+export type SettingsVersion1 = {
   appVersion: string
   analyticsPopupSeen?: boolean
   enableAnalytics?: boolean
@@ -37,7 +38,12 @@ export type SettingsStoreVersion1 = {
   lastBackupDate?: number
 }
 
-export const version1 = (migratedState: SettingsStoreVersion1) => {
+export const shouldMigrateToVersion2 = (
+  _persistedState: unknown,
+  version: number,
+): _persistedState is SettingsVersion1 => version < 2
+
+export const version1 = (migratedState: SettingsVersion1): SettingsVersion2 => {
   const { setPaymentMethods, setPremium, setBuyAmountRange, setSellAmount } = useOfferPreferences.getState()
   info('settingsStore - migrating from version 1')
   setPaymentMethods(getSelectedPaymentDataIds(migratedState.preferredPaymentMethods))
@@ -68,5 +74,5 @@ export const version1 = (migratedState: SettingsStoreVersion1) => {
     feeRate: migratedState.feeRate,
     usedReferralCode: migratedState.usedReferralCode,
     lastBackupDate: migratedState.lastBackupDate,
-  } satisfies Settings
+  }
 }
