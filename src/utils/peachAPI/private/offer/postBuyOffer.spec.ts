@@ -21,16 +21,16 @@ const responseBody: PostOfferResponseBody = {
   seenMatches: [],
   creationDate: new Date('2021-01-01'),
 }
-const fetchMock = jest.fn().mockImplementation(async (url: string) => {
+const fetchMock = jest.fn().mockImplementation((url: string) => {
   if (url === `${API_URL}/v1/offer`) {
     return {
       ok: true,
-      json: async () => responseBody,
+      json: () => responseBody,
     }
   }
   return {
     ok: false,
-    json: async () => ({
+    json: () => ({
       error: 'error',
     }),
   }
@@ -130,7 +130,7 @@ describe('postBuyOffer', () => {
     }
     fetchMock.mockResolvedValueOnce({
       ok: false,
-      json: async () => error,
+      json: () => error,
     })
     const result = await postBuyOffer(offerDraft)
     expect(result).toEqual([null, error])

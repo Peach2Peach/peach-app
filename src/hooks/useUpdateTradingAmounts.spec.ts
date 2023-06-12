@@ -70,7 +70,7 @@ describe('useUpdateTradingAmounts', () => {
     expect(useOfferPreferences.getState().sellAmount).toEqual(20)
     expect(useOfferPreferences.getState().buyAmountRange).toEqual([20, 40])
   })
-  it('only updates the buy amount that fell out of range', async () => {
+  it('only updates the buy amount that fell out of range', () => {
     getTradingAmountLimitsMock.mockReturnValue([10, 300])
     const { result: updateTradingAmounts } = renderHook(() => useUpdateTradingAmounts())
 
