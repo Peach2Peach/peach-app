@@ -38,7 +38,7 @@ describe('Footer', () => {
     expect(result).toMatchSnapshot()
   })
   it('should render correctly on the premium page', () => {
-    renderer.render(<Footer active="premium" setCurrentPage={setCurrentPageMock} theme="inverted" />)
+    renderer.render(<Footer active="premium" setCurrentPage={setCurrentPageMock} />)
     const result = renderer.getRenderOutput()
     expect(result).toMatchSnapshot()
   })

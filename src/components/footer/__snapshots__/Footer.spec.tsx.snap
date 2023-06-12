@@ -186,7 +186,7 @@ exports[`Footer should render correctly on the premium page 1`] = `
             "paddingTop": 16,
           },
           {
-            "backgroundColor": "transparent",
+            "backgroundColor": "#FFF9F6",
           },
         ]
       }
@@ -195,32 +195,32 @@ exports[`Footer should render correctly on the premium page 1`] = `
         active={false}
         id="buy"
         onPress={[MockFunction]}
-        theme="inverted"
+        theme="default"
       />
       <FooterItem
         active={true}
         id="sell"
         onPress={[MockFunction]}
-        theme="inverted"
+        theme="default"
       />
       <FooterItem
         active={false}
         id="wallet"
         onPress={[MockFunction]}
-        theme="inverted"
+        theme="default"
       />
       <FooterItem
         active={false}
         id="yourTrades"
         notifications={9}
         onPress={[MockFunction]}
-        theme="inverted"
+        theme="default"
       />
       <FooterItem
         active={false}
         id="settings"
         onPress={[MockFunction]}
-        theme="inverted"
+        theme="default"
       />
     </View>
   </View>
