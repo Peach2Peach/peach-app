@@ -1,32 +1,72 @@
 import { getSelectedPaymentDataIds } from '../../../utils/account'
 import { info } from '../../../utils/log'
 import { useOfferPreferences } from '../../offerPreferenes'
-import { SettingsStore } from '../../settingsStore'
 
-export const version1 = (migratedState: SettingsStore) => {
+export type SettingsStoreVersion1 = {
+  appVersion: string
+  analyticsPopupSeen?: boolean
+  enableAnalytics?: boolean
+  locale?: string
+  minBuyAmount: number
+  maxBuyAmount: number
+  sellAmount: number
+  returnAddress?: string
+  payoutAddress?: string
+  payoutAddressLabel?: string
+  payoutAddressSignature?: string
+  derivationPath?: string
+  displayCurrency: Currency
+  country?: string
+  meansOfPayment: MeansOfPayment
+  preferredPaymentMethods: Partial<Record<PaymentMethod, PaymentData['id']>>
+  premium: number
+  pgpPublished?: boolean
+  fcmToken?: string
+  lastFileBackupDate?: number
+  lastSeedBackupDate?: number
+  showBackupReminder: boolean
+  shouldShowBackupOverlay: {
+    completedBuyOffer: boolean
+    refundedEscrow: boolean
+    bitcoinReceived: boolean
+  }
+  peachWalletActive: boolean
+  nodeURL: string
+  feeRate: number | 'fastestFee' | 'halfHourFee' | 'hourFee' | 'economyFee'
+  usedReferralCode?: boolean
+  lastBackupDate?: number
+}
+
+export const version1 = (migratedState: SettingsStoreVersion1) => {
   const { setPaymentMethods, setPremium, setBuyAmountRange, setSellAmount } = useOfferPreferences.getState()
   info('settingsStore - migrating from version 1')
-  // @ts-expect-error
   setPaymentMethods(getSelectedPaymentDataIds(migratedState.preferredPaymentMethods))
-  // @ts-expect-error
   setPremium(migratedState.premium)
-  // @ts-expect-error
   setBuyAmountRange([migratedState.minBuyAmount, migratedState.maxBuyAmount], { min: 0, max: 0 })
-  // @ts-expect-error
   setSellAmount(migratedState.sellAmount, { min: 0, max: 0 })
-  useOfferPreferences
-    .getState()
-    // @ts-expect-error
-    .setPaymentMethods(getSelectedPaymentDataIds(migratedState.preferredPaymentMethods))
-  // @ts-expect-error
-  delete migratedState.preferredPaymentMethods
-  // @ts-expect-error
-  delete migratedState.premium
-  // @ts-expect-error
-  delete migratedState.minBuyAmount
-  // @ts-expect-error
-  delete migratedState.maxBuyAmount
-  // @ts-expect-error
-  delete migratedState.sellAmount
-  return migratedState
+  useOfferPreferences.getState().setPaymentMethods(getSelectedPaymentDataIds(migratedState.preferredPaymentMethods))
+  return {
+    appVersion: migratedState.appVersion,
+    analyticsPopupSeen: migratedState.analyticsPopupSeen,
+    enableAnalytics: migratedState.enableAnalytics,
+    locale: migratedState.locale,
+    returnAddress: migratedState.returnAddress,
+    payoutAddress: migratedState.payoutAddress,
+    payoutAddressLabel: migratedState.payoutAddressLabel,
+    payoutAddressSignature: migratedState.payoutAddressSignature,
+    derivationPath: migratedState.derivationPath,
+    displayCurrency: migratedState.displayCurrency,
+    country: migratedState.country,
+    pgpPublished: migratedState.pgpPublished,
+    fcmToken: migratedState.fcmToken,
+    lastFileBackupDate: migratedState.lastFileBackupDate,
+    lastSeedBackupDate: migratedState.lastSeedBackupDate,
+    showBackupReminder: migratedState.showBackupReminder,
+    shouldShowBackupOverlay: migratedState.shouldShowBackupOverlay,
+    peachWalletActive: migratedState.peachWalletActive,
+    nodeURL: migratedState.nodeURL,
+    feeRate: migratedState.feeRate,
+    usedReferralCode: migratedState.usedReferralCode,
+    lastBackupDate: migratedState.lastBackupDate,
+  } satisfies Settings
 }

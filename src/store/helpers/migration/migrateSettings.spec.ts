@@ -67,6 +67,9 @@ describe('migrateSettings', () => {
 
   it('should migrate from version 1', () => {
     const persistedState = {
+      meansOfPayment: {
+        EUR: ['sepa'],
+      },
       preferredPaymentMethods: { sepa: 'sepa-1234', revolut: 'revolut-1234' },
       premium: 1,
       minBuyAmount: 100,
