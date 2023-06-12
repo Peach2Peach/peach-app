@@ -1,41 +1,14 @@
-import { getSelectedPaymentDataIds } from '../../../utils/account'
-import { info } from '../../../utils/log'
-import { useOfferPreferences } from '../../offerPreferenes'
 import { SettingsStore } from '../../settingsStore'
+import { version0 } from './version0'
+import { version1 } from './version1'
 
-export const migrateSettings = (persistedState: unknown, version: number): SettingsStore | Promise<SettingsStore> => {
-  const migratedState = persistedState as SettingsStore
+export const migrateSettings = (persistedState: unknown, version: number) => {
+  let migratedState = persistedState as SettingsStore
   if (version < 1) {
-    info('settingsStore - migrating from version 0')
-    // if the stored value is in version 0, we rename the field to the new name
-    migratedState.lastFileBackupDate = migratedState.lastBackupDate
-    delete migratedState.lastBackupDate
+    migratedState = version0(migratedState)
   }
   if (version < 2) {
-    const { setPaymentMethods, setPremium, setBuyAmountRange, setSellAmount } = useOfferPreferences.getState()
-    info('settingsStore - migrating from version 1')
-    // @ts-expect-error
-    setPaymentMethods(getSelectedPaymentDataIds(migratedState.preferredPaymentMethods))
-    // @ts-expect-error
-    setPremium(migratedState.premium)
-    // @ts-expect-error
-    setBuyAmountRange([migratedState.minBuyAmount, migratedState.maxBuyAmount], { min: 0, max: 0 })
-    // @ts-expect-error
-    setSellAmount(migratedState.sellAmount, { min: 0, max: 0 })
-    useOfferPreferences
-      .getState()
-      // @ts-expect-error
-      .setPaymentMethods(getSelectedPaymentDataIds(migratedState.preferredPaymentMethods))
-    // @ts-expect-error
-    delete migratedState.preferredPaymentMethods
-    // @ts-expect-error
-    delete migratedState.premium
-    // @ts-expect-error
-    delete migratedState.minBuyAmount
-    // @ts-expect-error
-    delete migratedState.maxBuyAmount
-    // @ts-expect-error
-    delete migratedState.sellAmount
+    migratedState = version1(migratedState)
   }
 
   return migratedState
