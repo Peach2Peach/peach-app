@@ -1,3 +1,4 @@
+import { SettingsStore } from '../../settingsStore'
 import { SettingsVersion0, shouldMigrateToVersion1, version0 } from './version0'
 import { SettingsVersion1, shouldMigrateToVersion2, version1 } from './version1'
 
@@ -39,5 +40,5 @@ export const migrateSettings = (persistedState: unknown, version: number) => {
     migratedState = version1(migratedState)
   }
 
-  return migratedState
+  return migratedState as SettingsStore
 }
