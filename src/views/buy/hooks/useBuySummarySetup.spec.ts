@@ -5,6 +5,11 @@ import { setPeachWallet } from '../../../utils/wallet/setWallet'
 import { getBuyOfferDraft } from '../helpers/getBuyOfferDraft'
 import { useBuySummarySetup } from './useBuySummarySetup'
 
+const isValidBitcoinSignatureMock = jest.fn().mockReturnValue(true)
+jest.mock('../../../utils/validation', () => ({
+  isValidBitcoinSignature: (...args: any[]) => isValidBitcoinSignatureMock(...args),
+}))
+
 const offerId = '123'
 const publishBuyOfferMock = jest.fn().mockResolvedValue({ offerId, isOfferPublished: true, errorMessage: null })
 jest.mock('../helpers/publishBuyOffer', () => ({
