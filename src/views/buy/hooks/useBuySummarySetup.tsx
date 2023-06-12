@@ -98,7 +98,7 @@ export const useBuySummarySetup = () => {
     }
 
     const messageToSign = getMessageToSignForAddress(account.publicKey, payoutAddress)
-    setCanPublish(peachWalletActive || isValidBitcoinSignature(messageToSign, payoutAddress, payoutAddressSignature))
+    setCanPublish(isValidBitcoinSignature(messageToSign, payoutAddress, payoutAddressSignature))
   }, [payoutAddress, payoutAddressSignature, peachWalletActive])
 
   return {
