@@ -179,4 +179,41 @@ describe('postBuyOffer', () => {
       }),
     })
   })
+  it('should send the messageSignature to the server', async () => {
+    const offerDraft = {
+      type: 'bid',
+      amount: [1000, 2000],
+      meansOfPayment: {
+        EUR: ['sepa'],
+      } satisfies OfferDraft['meansOfPayment'],
+      paymentData: {
+        sepa: {
+          hash: 'hash',
+          country: 'DE',
+        },
+      } satisfies OfferDraft['paymentData'],
+      releaseAddress: 'releaseAddress',
+      messageSignature: 'messageSignature',
+    }
+    // @ts-expect-error
+    await postBuyOffer(offerDraft)
+    expect(fetchMock).toHaveBeenCalledWith(`${API_URL}/v1/offer`, {
+      ...defaultArgs,
+      body: JSON.stringify({
+        type: 'bid',
+        amount: [1000, 2000],
+        meansOfPayment: {
+          EUR: ['sepa'],
+        },
+        paymentData: {
+          sepa: {
+            hash: 'hash',
+            country: 'DE',
+          },
+        },
+        releaseAddress: 'releaseAddress',
+        messageSignature: 'messageSignature',
+      }),
+    })
+  })
 })
