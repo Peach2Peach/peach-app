@@ -8,9 +8,6 @@ describe('getChat', () => {
   beforeEach(() => {
     setAccount(defaultAccount)
   })
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
 
   it('gets a chat', () => {
     saveChat(chat1.id, chat1)

@@ -28,9 +28,6 @@ describe('useCancelOffer', () => {
   beforeEach(() => {
     updateAccount(account1)
   })
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
   it('should show cancel offer popup', () => {
     const { result } = renderHook(useCancelOffer, {
       wrapper,

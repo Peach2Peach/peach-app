@@ -1,6 +1,6 @@
 import { deepStrictEqual, ok } from 'assert'
 import { account, defaultAccount, loadAccount, setAccount, storeAccount } from '..'
-import * as accountData from '../../../../tests/unit/data/accountData'
+import { account1, buyer } from '../../../../tests/unit/data/accountData'
 
 describe('loadAccount', () => {
   beforeEach(() => {
@@ -8,19 +8,19 @@ describe('loadAccount', () => {
   })
 
   it('loads account', async () => {
-    await storeAccount(accountData.buyer)
+    await storeAccount(buyer)
 
     const acc = await loadAccount()
     ok(acc.publicKey)
     ok(account.publicKey)
     deepStrictEqual(account, acc)
-    deepStrictEqual(account, accountData.buyer)
+    deepStrictEqual(account, buyer)
   })
 
   it('returns already loaded account', async () => {
-    setAccount(accountData.account1)
+    setAccount(account1)
     const acc = await loadAccount()
     deepStrictEqual(account, acc)
-    deepStrictEqual(account, accountData.account1)
+    deepStrictEqual(account, account1)
   })
 })

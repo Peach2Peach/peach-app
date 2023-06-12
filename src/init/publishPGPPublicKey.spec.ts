@@ -9,7 +9,6 @@ jest.mock('../utils/peachAPI', () => ({
 }))
 describe('publishPGPPublicKey', () => {
   afterEach(() => {
-    jest.clearAllMocks()
     setAccount(defaultAccount)
   })
 

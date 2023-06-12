@@ -10,9 +10,6 @@ jest.mock('../../../utils/peachAPI', () => ({
 // eslint-disable-next-line max-lines-per-function
 describe('submitRaiseDispute', () => {
   const mockContract = { ...contract }
-  beforeEach(() => {
-    jest.clearAllMocks()
-  })
   it('should return [false, null] if contract is undefined', async () => {
     const [result, err] = await submitRaiseDispute(undefined, 'noPayment.buyer')
     expect(result).toBe(false)

@@ -28,9 +28,6 @@ describe('useReferralsSetup', () => {
       user: defaultSelfUser,
     })
   })
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
   it('returns default correct values', () => {
     const { result } = renderHook(useReferralsSetup, { wrapper: NavigationWrapper })
 

@@ -11,7 +11,6 @@ jest.mock('./helpers/loadSettings', () => ({
 describe('migrateSettingsToStore', () => {
   afterEach(() => {
     settingsStore.getState().reset()
-    jest.clearAllMocks()
   })
   it('loads default settings if no stored settings have been found', () => {
     migrateSettingsToStore()

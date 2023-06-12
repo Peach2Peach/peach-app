@@ -21,10 +21,6 @@ jest.mock('./helpers/useSubmitDisputeAcknowledgement', () => ({
 }))
 
 describe('useDisputeRaisedNotice', () => {
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
-
   it('returns interface', () => {
     const { result } = renderHook(useDisputeRaisedNotice)
     expect(result.current.showDisputeRaisedNotice).toBeInstanceOf(Function)

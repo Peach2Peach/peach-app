@@ -58,7 +58,6 @@ describe('useReportSetup', () => {
   })
   afterEach(() => {
     usePopupStore.setState(defaultPopupState)
-    jest.clearAllMocks()
   })
   it('returns default values correctly', () => {
     const { result } = renderHook(useReportSetup, { wrapper: NavigationWrapper })

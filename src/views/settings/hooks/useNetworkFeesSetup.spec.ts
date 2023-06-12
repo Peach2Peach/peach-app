@@ -26,9 +26,6 @@ describe('useNetworkFeesSetup', () => {
   beforeEach(() => {
     settingsStore.getState().setFeeRate('halfHourFee')
   })
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
   it('returns default correct values', () => {
     const { result } = renderHook(useNetworkFeesSetup, { wrapper: NavigationWrapper })
     expect(result.current).toEqual({

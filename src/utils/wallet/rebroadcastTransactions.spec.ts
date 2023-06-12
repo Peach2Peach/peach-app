@@ -13,7 +13,6 @@ describe('rebroadcastTransactions', () => {
   }
 
   afterEach(() => {
-    jest.clearAllMocks()
     walletStore.getState().reset()
   })
 

@@ -38,9 +38,6 @@ jest.mock('../../../utils/peachAPI', () => ({
 jest.useFakeTimers()
 
 describe('useWrongFundingAmountSetup', () => {
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
   it('returns defaults', () => {
     useOfferDetailsMock.mockReturnValueOnce({ offer: undefined })
     const { result } = renderHook(useWrongFundingAmountSetup, { wrapper })

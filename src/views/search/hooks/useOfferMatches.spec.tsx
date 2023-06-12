@@ -20,9 +20,6 @@ jest.mock('@react-navigation/native', () => ({
 jest.useFakeTimers()
 
 describe('useOfferMatches', () => {
-  beforeEach(() => {
-    jest.clearAllMocks()
-  })
   it('should return the matches for an offer', async () => {
     const { result } = renderHook(useOfferMatches, {
       initialProps: 'offerId',

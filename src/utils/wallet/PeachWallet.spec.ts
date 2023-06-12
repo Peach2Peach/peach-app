@@ -32,7 +32,6 @@ describe('PeachWallet', () => {
   const { wallet } = createWalletFromSeedPhrase(account1.mnemonic!, getNetwork())
 
   afterEach(() => {
-    jest.clearAllMocks()
     walletStore.getState().reset()
   })
 

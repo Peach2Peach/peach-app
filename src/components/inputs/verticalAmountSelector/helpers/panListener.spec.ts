@@ -2,9 +2,6 @@ import { Animated } from 'react-native'
 import { panListener } from './panListener'
 
 describe('panListener', () => {
-  beforeEach(() => {
-    jest.clearAllMocks()
-  })
   it('should add a listener to the pan value', () => {
     const pan = new Animated.Value(0)
     const range = [0, 100] satisfies [number, number]

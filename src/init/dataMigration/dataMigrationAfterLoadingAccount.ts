@@ -1,6 +1,6 @@
-import { checkUsedReferralCode } from './afterLoadingAccount/checkUsedReferralCode'
 import { PAYMENTMETHODINFOS } from '../../constants'
 import { checkSupportedPaymentMethods } from './afterLoadingAccount/checkSupportedPaymentMethods'
+import { checkUsedReferralCode } from './afterLoadingAccount/checkUsedReferralCode'
 import { enforcePaymentDataFormats } from './afterLoadingAccount/enforcePaymentDataFormats'
 
 export const dataMigrationAfterLoadingAccount = (account: Account) => {

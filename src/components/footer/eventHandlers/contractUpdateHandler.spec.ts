@@ -26,9 +26,6 @@ describe('contractUpdateHandler', () => {
       date: now,
     },
   }
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
 
   it('does nothing if contract cannot be found', () => {
     getContractMock.mockReturnValueOnce(undefined)

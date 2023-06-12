@@ -41,9 +41,6 @@ describe('useOfferDetailsSetup', () => {
     offerDraft,
     setOfferDraft: setOfferDraftMock,
   }
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
 
   it('should return default values', () => {
     setAccount(defaultAccount)

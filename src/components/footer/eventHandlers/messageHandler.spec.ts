@@ -22,10 +22,6 @@ describe('messageHandler', () => {
     readBy: [],
     signature: 'signature',
   }
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
-
   it('does nothing if message is missing important data', () => {
     messageHandler({ ...message, message: '' })
     messageHandler({ ...message, roomId: '' })

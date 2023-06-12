@@ -62,7 +62,6 @@ describe('useConfirmCancelTrade', () => {
     setPeachWallet(new PeachWallet())
   })
   afterEach(() => {
-    jest.clearAllMocks()
     usePopupStore.setState(defaultPopupState)
   })
   it('should return the correct default values', () => {

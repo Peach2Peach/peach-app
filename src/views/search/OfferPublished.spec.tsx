@@ -9,9 +9,6 @@ jest.mock('../../hooks/useRoute', () => ({
 }))
 
 describe('OfferPublished', () => {
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
   it('renders correctly', () => {
     const { toJSON } = render(<OfferPublished />, { wrapper: NavigationWrapper })
     expect(toJSON()).toMatchSnapshot()

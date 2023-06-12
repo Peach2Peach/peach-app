@@ -3,9 +3,6 @@ import { NavigationWrapper, navigateMock } from '../../../../tests/unit/helpers/
 import { useUserExistsForDeviceSetup } from './useUserExistsForDeviceSetup'
 
 describe('useUserExistsForDeviceSetup', () => {
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
   it('should return navigation methods', () => {
     const { result } = renderHook(useUserExistsForDeviceSetup, { wrapper: NavigationWrapper })
     expect(result.current).toEqual({

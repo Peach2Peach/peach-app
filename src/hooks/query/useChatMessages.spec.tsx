@@ -23,7 +23,6 @@ jest.useFakeTimers()
 
 describe('useChatMessages', () => {
   afterEach(() => {
-    jest.clearAllMocks()
     queryClient.clear()
   })
   it('fetches chat messages from API', async () => {

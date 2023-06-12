@@ -22,10 +22,6 @@ jest.mock('./sendErrors', () => ({
 describe('openCrashReportPrompt function', () => {
   const errors = [new Error('Test error 1'), new Error('Test error 2')]
 
-  beforeEach(() => {
-    jest.clearAllMocks()
-  })
-
   it('should call the Alert.alert method with the correct parameters', () => {
     openCrashReportPrompt(errors)
     expect(Alert.alert).toHaveBeenCalledWith(expect.any(String), expect.any(String), [

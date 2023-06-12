@@ -22,10 +22,17 @@ jest.mock('@react-navigation/native', () => ({
 }))
 
 describe('useDeleteAccountPopups', () => {
-  const { result } = renderHook(useDeleteAccountPopups)
-
-  it('should show deleteAccount ovelay', () => {
-    act(() => {
+  const logout = async () => {
+    await act(() => {
+      usePopupStore.getState().action2?.callback()
+    })
+    await act(() => {
+      usePopupStore.getState().action2?.callback()
+    })
+  }
+  it('should show deleteAccount ovelay', async () => {
+    const { result } = renderHook(useDeleteAccountPopups)
+    await act(() => {
       result.current()
     })
     expect(usePopupStore.getState()).toEqual({
@@ -44,8 +51,12 @@ describe('useDeleteAccountPopups', () => {
     })
   })
 
-  it('should show forRealsies ovelay', () => {
-    act(() => {
+  it('should show forRealsies ovelay', async () => {
+    const { result } = renderHook(useDeleteAccountPopups)
+    await act(() => {
+      result.current()
+    })
+    await act(() => {
       usePopupStore.getState().action2?.callback()
     })
     expect(usePopupStore.getState()).toEqual({
@@ -64,22 +75,41 @@ describe('useDeleteAccountPopups', () => {
     })
   })
 
-  it('should delete the account', () => {
-    act(() => {
-      usePopupStore.getState().action2?.callback()
+  it('should delete the account', async () => {
+    const { result } = renderHook(useDeleteAccountPopups)
+    await act(() => {
+      result.current()
     })
+
+    await logout()
     expect(deleteAccount).toHaveBeenCalledTimes(1)
   })
 
-  it('should logout the user', () => {
+  it('should logout the user', async () => {
+    const { result } = renderHook(useDeleteAccountPopups)
+    await act(() => {
+      result.current()
+    })
+    await logout()
     expect(logoutUser).toHaveBeenCalledTimes(1)
   })
 
-  it('should reset the navigation', () => {
+  it('should reset the navigation', async () => {
+    const { result } = renderHook(useDeleteAccountPopups)
+    await act(() => {
+      result.current()
+    })
+    await logout()
     expect(CommonActions.reset).toHaveBeenCalledTimes(1)
   })
 
-  it('should show success ovelay', () => {
+  it('should show success ovelay', async () => {
+    const { result } = renderHook(useDeleteAccountPopups)
+    await act(() => {
+      result.current()
+    })
+    await logout()
+
     expect(usePopupStore.getState()).toEqual({
       ...usePopupStore.getState(),
       visible: true,

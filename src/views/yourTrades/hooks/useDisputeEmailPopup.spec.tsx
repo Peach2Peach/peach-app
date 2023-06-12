@@ -25,7 +25,6 @@ describe('useDisputeEmailPopup', () => {
   beforeEach(() => {
     setAccount({ ...account1, contracts: [] })
 
-    jest.clearAllMocks()
     useLocalContractStore.getState().setContract({
       id: contract.id,
       hasSeenDisputeEmailPopup: false,
