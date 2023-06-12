@@ -4,8 +4,8 @@ import { loadOffers } from '.'
 import * as accountData from '../../../../tests/unit/data/accountData'
 
 describe('loadOffers', () => {
-  beforeEach(async () => {
-    await setAccount(defaultAccount)
+  beforeEach(() => {
+    setAccount(defaultAccount)
   })
 
   it('loads offers', async () => {

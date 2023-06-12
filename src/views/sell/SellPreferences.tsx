@@ -68,7 +68,7 @@ export default () => {
     }, [page]),
   )
 
-  const next = async () => {
+  const next = () => {
     setPage(page + 1)
   }
 

@@ -5,9 +5,6 @@ describe('PremiumInput', () => {
   const setPremiumMock = jest.fn()
   const renderer = createRenderer()
 
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
   it('should render the PremiumInput view with premium', () => {
     renderer.render(<PremiumInput premium="3.2" setPremium={setPremiumMock} />)
     const result = renderer.getRenderOutput()

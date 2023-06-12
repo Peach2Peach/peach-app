@@ -9,11 +9,7 @@ type PostTxProps = RequestProps & {
   tx: string
 }
 
-export const postTx = async ({
-  tx,
-  timeout,
-  abortSignal,
-}: PostTxProps): Promise<[PostTxResponse | null, APIError | null]> => {
+export const postTx = async ({ tx, timeout, abortSignal }: PostTxProps) => {
   const response = await fetch(`${API_URL}/v1/tx`, {
     headers: getPublicHeaders(),
     method: 'POST',
@@ -23,5 +19,5 @@ export const postTx = async ({
     signal: abortSignal || (timeout ? getAbortWithTimeout(timeout).signal : undefined),
   })
 
-  return await parseResponse<PostTxResponse>(response, 'postTx')
+  return parseResponse<PostTxResponse>(response, 'postTx')
 }

@@ -10,16 +10,7 @@ type ConfirmPaymentProps = RequestProps & {
   releaseTransaction?: string
 }
 
-/**
- * @description Method to confirm either payment made or received depending on party
- * @param contractId contract id
- * @returns Contract
- */
-export const confirmPayment = async ({
-  contractId,
-  releaseTransaction,
-  timeout,
-}: ConfirmPaymentProps): Promise<[ConfirmPaymentResponse | null, APIError | null]> => {
+export const confirmPayment = async ({ contractId, releaseTransaction, timeout }: ConfirmPaymentProps) => {
   const response = await fetch(`${API_URL}/v1/contract/${contractId}/payment/confirm`, {
     headers: await getPrivateHeaders(),
     method: 'POST',
@@ -29,5 +20,5 @@ export const confirmPayment = async ({
     signal: timeout ? getAbortWithTimeout(timeout).signal : undefined,
   })
 
-  return await parseResponse<ConfirmPaymentResponse>(response, 'confirmPayment')
+  return parseResponse<ConfirmPaymentResponse>(response, 'confirmPayment')
 }

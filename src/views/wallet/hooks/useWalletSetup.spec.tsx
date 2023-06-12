@@ -22,9 +22,6 @@ jest.mock('../../../utils/wallet/setWallet', () => ({
 describe('useWalletSetup', () => {
   const wrapper = NavigationWrapper
   const address = 'bitcoinAddress'
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
   it('should return correct default values', async () => {
     const { result } = renderHook(useWalletSetup, { wrapper })
 
@@ -78,8 +75,8 @@ describe('useWalletSetup', () => {
     act(() => {
       result.current.openWithdrawalConfirmation()
     })
-    await act(async () => {
-      await usePopupStore.getState().action1?.callback()
+    await act(() => {
+      usePopupStore.getState().action1?.callback()
     })
 
     expect(mockWithdrawAll).toHaveBeenCalledWith(address, finalFeeRate)

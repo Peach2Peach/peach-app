@@ -34,7 +34,7 @@ import { walletStore } from './walletStore'
 
 jest.mock('./PeachWallet', () => jest.requireActual('./PeachWallet'))
 
-const getTxHexMock = jest.fn(({ txId }) => [txId + 'Hex'])
+const getTxHexMock = jest.fn(({ txId }) => [`${txId}Hex`])
 jest.mock('../electrum/getTxHex', () => ({
   getTxHex: (args: any) => getTxHexMock(args),
 }))
@@ -59,7 +59,6 @@ describe('PeachWallet', () => {
     await peachWallet.loadWallet()
   })
   afterEach(() => {
-    jest.clearAllMocks()
     walletStore.getState().reset()
   })
 

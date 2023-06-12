@@ -35,9 +35,6 @@ describe('Summary', () => {
   const setOfferDraft = jest.fn()
   const next = jest.fn()
 
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
   it('should render the Summary view', () => {
     renderer.render(<Summary {...{ offerDraft, setOfferDraft, next }} />, { wrapper: NavigationWrapper })
     const result = renderer.getRenderOutput()

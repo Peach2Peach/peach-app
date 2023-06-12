@@ -35,8 +35,8 @@ export const useNewUserSetup = () => {
   }, [])
 
   const finishRegistration = useCallback(
-    async (account: Account) => {
-      await updateAccount(account, true)
+    (account: Account) => {
+      updateAccount(account, true)
 
       storeAccount(account)
       setSuccess(true)
@@ -70,7 +70,7 @@ export const useNewUserSetup = () => {
         setUserExistsForDevice(true)
         return
       }
-      await finishRegistration(account)
+      finishRegistration(account)
     },
     [route.params.referralCode, finishRegistration, onError, setTemporaryAccount],
   )

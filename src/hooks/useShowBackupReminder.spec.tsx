@@ -5,10 +5,6 @@ import { usePopupStore } from '../store/usePopupStore'
 import { useShowBackupReminder } from './useShowBackupReminder'
 
 describe('useShowBackupReminder', () => {
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
-
   it('should upen backup reminder popup', () => {
     const { result } = renderHook(useShowBackupReminder, { wrapper: NavigationWrapper })
     result.current()

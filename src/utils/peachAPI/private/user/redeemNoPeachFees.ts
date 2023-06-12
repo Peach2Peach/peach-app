@@ -5,14 +5,12 @@ import { getAbortWithTimeout } from '../../../getAbortWithTimeout'
 import { parseResponse } from '../../parseResponse'
 import { getPrivateHeaders } from '../getPrivateHeaders'
 
-type Props = RequestProps
-
-export const redeemNoPeachFees = async ({ timeout }: Props): Promise<[APISuccess | null, APIError | null]> => {
+export const redeemNoPeachFees = async ({ timeout }: RequestProps) => {
   const response = await fetch(`${API_URL}/v1/user/referral/redeem/fiveFreeTrades`, {
     headers: await getPrivateHeaders(),
     method: 'PATCH',
     signal: timeout ? getAbortWithTimeout(timeout).signal : undefined,
   })
 
-  return await parseResponse<APISuccess>(response, 'redeemNoPeachFees')
+  return parseResponse<APISuccess>(response, 'redeemNoPeachFees')
 }

@@ -19,7 +19,7 @@ export const constructPSBT = (wallet: BIP32Interface) => {
     index: 0,
     witnessScript: p2wsh.redeem!.output!,
     witnessUtxo: {
-      script: Buffer.from('0020' + sha256(p2wsh.redeem!.output!).toString('hex'), 'hex'),
+      script: Buffer.from(`0020${sha256(p2wsh.redeem!.output!).toString('hex')}`, 'hex'),
       value: 10000000,
     },
   })

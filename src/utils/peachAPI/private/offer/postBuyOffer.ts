@@ -13,10 +13,7 @@ type PostOfferProps = RequestProps & {
   releaseAddress: string
 }
 
-export const postBuyOffer = async ({
-  timeout,
-  ...requestBody
-}: PostOfferProps): Promise<[PostOfferResponseBody | null, APIError | null]> => {
+export const postBuyOffer = async ({ timeout, ...requestBody }: PostOfferProps) => {
   const response = await fetch(`${API_URL}/v1/offer`, {
     headers: await getPrivateHeaders(),
     method: 'POST',
@@ -24,5 +21,5 @@ export const postBuyOffer = async ({
     signal: timeout ? getAbortWithTimeout(timeout).signal : undefined,
   })
 
-  return await parseResponse<PostOfferResponseBody>(response, 'postOffer')
+  return parseResponse<PostOfferResponseBody>(response, 'postOffer')
 }

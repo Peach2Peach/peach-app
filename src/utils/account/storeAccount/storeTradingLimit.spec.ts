@@ -3,8 +3,8 @@ import { storeTradingLimit } from '.'
 import * as accountData from '../../../../tests/unit/data/accountData'
 
 describe('storeTradingLimit', () => {
-  it('would write file to store tradingLimit', async () => {
-    await storeTradingLimit(accountData.account1.tradingLimit)
+  it('would write file to store tradingLimit', () => {
+    storeTradingLimit(accountData.account1.tradingLimit)
     expect(accountStorage.setMap).toHaveBeenCalledWith('tradingLimit', accountData.account1.tradingLimit)
   })
 })

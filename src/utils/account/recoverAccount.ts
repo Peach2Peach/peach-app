@@ -13,7 +13,7 @@ export const recoverAccount = async (account: Account): Promise<Account> => {
   settingsStore.getState().setFCMToken('')
   settingsStore.getState().setPGPPublished(false)
 
-  await updateAccount(account, true)
+  updateAccount(account, true)
 
   info('Get offers')
   const [[getOffersResult, getOffersErr], [getContractsResult, getContractsErr]] = await Promise.all([

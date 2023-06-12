@@ -29,7 +29,7 @@ export const useReferralsSetup = () => {
 
   const availableRewards = REWARDINFO.filter((reward) => isRewardAvailable(reward, pointsBalance)).length
 
-  const redeem = async () => {
+  const redeem = () => {
     switch (selectedReward) {
     case 'customReferralCode':
       setCustomReferralCodePopup()

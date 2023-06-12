@@ -15,10 +15,6 @@ type BackupAccountProps = {
   onError: () => void
 }
 
-/**
- * @description Method to backup account
- * Will open share dialogue on mobile or automatically download the file on web
- */
 export const backupAccount = async ({ password, onSuccess, onCancel, onError }: BackupAccountProps) => {
   info('Backing up account')
   try {
@@ -28,7 +24,7 @@ export const backupAccount = async ({ password, onSuccess, onCancel, onError }: 
         : `peach-account-${NETWORK}-${account.publicKey.substring(0, 8)}.json`
 
     await writeFile(
-      '/' + destinationFileName,
+      `/${destinationFileName}`,
       JSON.stringify(getAccountBackup(account, settingsStore.getState().getPureState())),
       password,
     )

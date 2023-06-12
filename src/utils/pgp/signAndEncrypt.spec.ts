@@ -3,8 +3,8 @@ import { account, defaultAccount, setAccount } from '../account'
 import { signAndEncrypt } from '.'
 
 describe('signAndEncrypt', () => {
-  beforeEach(async () => {
-    await setAccount({
+  beforeEach(() => {
+    setAccount({
       ...defaultAccount,
       pgp: {
         publicKey: 'publicKey',

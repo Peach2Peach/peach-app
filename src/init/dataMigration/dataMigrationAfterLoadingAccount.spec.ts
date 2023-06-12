@@ -24,18 +24,18 @@ describe('dataMigrationAfterLoadingAccount', () => {
     jest.resetAllMocks()
   })
 
-  it('should call checkSupportedPaymentMethods', async () => {
-    await dataMigrationAfterLoadingAccount(account)
+  it('should call checkSupportedPaymentMethods', () => {
+    dataMigrationAfterLoadingAccount(account)
     expect(checkSupportedPaymentMethodsMock).toHaveBeenCalledWith(account.paymentData, PAYMENTMETHODINFOS)
   })
 
-  it('should call enforcePaymentDataFormats', async () => {
-    await dataMigrationAfterLoadingAccount(account)
+  it('should call enforcePaymentDataFormats', () => {
+    dataMigrationAfterLoadingAccount(account)
     expect(enforcePaymentDataFormatsMock).toHaveBeenCalledWith(account, account.paymentData)
   })
 
-  it('should call checkUsedReferralCode', async () => {
-    await dataMigrationAfterLoadingAccount(account)
+  it('should call checkUsedReferralCode', () => {
+    dataMigrationAfterLoadingAccount(account)
     expect(checkUsedReferralCodeMock).toHaveBeenCalled()
   })
 })

@@ -5,9 +5,6 @@ import { usePopupStore } from '../store/usePopupStore'
 import { useShowHelp } from './useShowHelp'
 
 describe('useShowHelp', () => {
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
   it('returns function to show help popup', () => {
     const { result } = renderHook(useShowHelp, { wrapper: NavigationWrapper, initialProps: 'acceptMatch' })
     expect(result.current).toBeInstanceOf(Function)

@@ -50,13 +50,13 @@ export const useCommonContractSetup = (contractId: string) => {
 
   useFocusEffect(
     useCallback(() => {
-      const contractUpdateHandler = async (update: ContractUpdate) => {
+      const contractUpdateHandler = (update: ContractUpdate) => {
         if (!storedContract || update.contractId !== contractId || !update.event) return
         saveAndUpdate({
           [update.event]: new Date(update.data.date),
         })
       }
-      const messageHandler = async (message: Message) => {
+      const messageHandler = (message: Message) => {
         if (!storedContract) return
         if (!message.message || message.roomId !== `contract-${contractId}` || message.from === account.publicKey) return
 

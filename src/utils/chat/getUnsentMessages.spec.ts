@@ -4,8 +4,8 @@ import { getUnsentMessages, saveChat } from '.'
 import * as chatData from '../../../tests/unit/data/chatData'
 
 describe('getUnsentMessages', () => {
-  beforeEach(async () => {
-    await setAccount({
+  beforeEach(() => {
+    setAccount({
       ...defaultAccount,
       publicKey: '0366497c46fef0ba126a42993ed0390c17b99eb1cc1285cef10e2496478ad709b4',
     })

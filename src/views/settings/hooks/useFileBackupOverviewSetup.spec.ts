@@ -27,11 +27,13 @@ jest.mock('../../../hooks/useShowHelp', () => ({
 }))
 
 describe('useFileBackupOverviewSetup', () => {
-  const { result } = renderHook(useFileBackupOverviewSetup)
   it('returns default correct values', () => {
+    const { result } = renderHook(useFileBackupOverviewSetup)
     expect(result.current.lastFileBackupDate).toBe('correctDateFromStore')
   })
   it('sets up the header correctly', () => {
+    renderHook(useFileBackupOverviewSetup)
+
     expect(useHeaderSetupMock).toHaveBeenCalled()
     const args = useHeaderSetupMock.mock.calls[0][0]
     expect(args.title).toBe(i18n('settings.backups.fileBackup.title'))

@@ -31,7 +31,7 @@ export const usePaymentDetailsSetup = () => {
     if (data.id) {
       icons[1] = { ...headerIcons.delete, onPress: deletePaymentMethod }
     }
-    info('icons' + icons)
+    info(`icons${icons}`)
     return icons
   }, [data.id, deletePaymentMethod, paymentMethod, showHelp])
 

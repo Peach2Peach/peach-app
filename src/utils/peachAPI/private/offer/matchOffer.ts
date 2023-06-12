@@ -17,10 +17,6 @@ export type MatchProps = RequestProps & {
   hashedPaymentData?: string
 }
 
-/**
- * @description Method to match an offer
- * @returns MatchResponse
- */
 export const matchOffer = async ({
   offerId,
   currency,
@@ -32,7 +28,7 @@ export const matchOffer = async ({
   paymentDataSignature,
   hashedPaymentData,
   timeout,
-}: MatchProps): Promise<[MatchResponse | null, APIError | null]> => {
+}: MatchProps) => {
   const response = await fetch(`${API_URL}/v1/offer/${offerId}/match`, {
     headers: await getPrivateHeaders(),
     body: JSON.stringify({
@@ -49,5 +45,5 @@ export const matchOffer = async ({
     signal: timeout ? getAbortWithTimeout(timeout).signal : undefined,
   })
 
-  return await parseResponse<MatchResponse>(response, 'matchOffer')
+  return parseResponse<MatchResponse>(response, 'matchOffer')
 }

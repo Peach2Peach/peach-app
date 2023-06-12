@@ -43,7 +43,7 @@ export const useTemplate4Setup = ({
       id: data?.id || `${paymentMethod}-${Date.now()}`,
       label,
       type:
-        paymentMethod !== 'giftCard.amazon' ? paymentMethod : ((paymentMethod + '.' + data?.country) as PaymentMethod),
+        paymentMethod !== 'giftCard.amazon' ? paymentMethod : ((`${paymentMethod}.${data?.country}`) as PaymentMethod),
       email,
       beneficiary,
       reference,

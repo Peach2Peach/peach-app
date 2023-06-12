@@ -5,13 +5,7 @@ import { getAbortWithTimeout } from '../../../getAbortWithTimeout'
 import { parseResponse } from '../../parseResponse'
 import { getPublicHeaders } from '../getPublicHeaders'
 
-type GetInfoProps = RequestProps
-
-/**
- * @description Method get information about peach trading platform
- * @returns GetTxResponse
- */
-export const getInfo = async ({ timeout }: GetInfoProps): Promise<[GetInfoResponse | null, APIError | null]> => {
+export const getInfo = async ({ timeout }: RequestProps) => {
   const response = await fetch(`${API_URL}/v1/info`, {
     headers: {
       ...getPublicHeaders(),
@@ -21,5 +15,5 @@ export const getInfo = async ({ timeout }: GetInfoProps): Promise<[GetInfoRespon
     signal: timeout ? getAbortWithTimeout(timeout).signal : undefined,
   })
 
-  return await parseResponse<GetInfoResponse>(response, 'getInfo')
+  return parseResponse<GetInfoResponse>(response, 'getInfo')
 }

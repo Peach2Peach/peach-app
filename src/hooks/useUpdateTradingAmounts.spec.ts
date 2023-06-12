@@ -10,7 +10,7 @@ jest.mock('../utils/market', () => ({
 }))
 
 describe('useUpdateTradingAmounts', () => {
-  it('updates the min and max trading amounts correctly', async () => {
+  it('updates the min and max trading amounts correctly', () => {
     const { result: updateTradingAmounts } = renderHook(() => useUpdateTradingAmounts())
     const { result: configStoreResult } = renderHook(() => useConfigStore((state) => state))
 
@@ -27,7 +27,7 @@ describe('useUpdateTradingAmounts', () => {
     expect(configStoreResult.current.minTradingAmount).toEqual(10)
     expect(configStoreResult.current.maxTradingAmount).toEqual(100)
   })
-  it('updates selected amounts if they fall out of range', async () => {
+  it('updates selected amounts if they fall out of range', () => {
     const { result: updateTradingAmounts } = renderHook(() => useUpdateTradingAmounts())
     const { result: settingsStoreResult } = renderHook(() => useSettingsStore((state) => state))
 
@@ -47,7 +47,7 @@ describe('useUpdateTradingAmounts', () => {
     expect(settingsStoreResult.current.maxBuyAmount).toEqual(100)
   })
 
-  it('does not update selected amounts if they do not fall out of range', async () => {
+  it('does not update selected amounts if they do not fall out of range', () => {
     const { result: updateTradingAmounts } = renderHook(() => useUpdateTradingAmounts())
     const { result: settingsStoreResult } = renderHook(() => useSettingsStore((state) => state))
 

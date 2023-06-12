@@ -9,16 +9,12 @@ type GetUserProps = RequestProps & {
   userId: User['id']
 }
 
-/**
- * @description Method get user information
- * @returns User
- */
-export const getUser = async ({ userId, timeout }: GetUserProps): Promise<[User | null, APIError | null]> => {
+export const getUser = async ({ userId, timeout }: GetUserProps) => {
   const response = await fetch(`${API_URL}/v1/user/${userId}`, {
     headers: getPublicHeaders(),
     method: 'GET',
     signal: timeout ? getAbortWithTimeout(timeout).signal : undefined,
   })
 
-  return await parseResponse<User>(response, 'getUser')
+  return parseResponse<User>(response, 'getUser')
 }

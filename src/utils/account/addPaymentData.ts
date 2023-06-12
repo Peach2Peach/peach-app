@@ -8,7 +8,7 @@ import { storePaymentData } from './storeAccount'
  * @param paymentData settings to add
  * @param save if true save on account
  */
-export const addPaymentData = async (data: PaymentData, save = true) => {
+export const addPaymentData = (data: PaymentData, save = true) => {
   if (getPaymentData(data.id)) {
     // existing payment data, update
     account.paymentData = account.paymentData.map((d) => {
@@ -29,5 +29,5 @@ export const addPaymentData = async (data: PaymentData, save = true) => {
     })
   }
 
-  if (save) await storePaymentData(account.paymentData)
+  if (save) storePaymentData(account.paymentData)
 }

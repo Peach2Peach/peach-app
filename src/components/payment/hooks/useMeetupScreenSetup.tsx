@@ -30,10 +30,10 @@ export const useMeetupScreenSetup = () => {
   }
 
   const showHelp = useShowHelp('cashTrades')
-  const deletePaymentMethod = useDeletePaymentMethod('cash.' + event.id)
+  const deletePaymentMethod = useDeletePaymentMethod(`cash.${event.id}`)
 
-  const addToPaymentMethods = async () => {
-    const meetupInfo = getPaymentMethodInfo('cash.' + event.id)
+  const addToPaymentMethods = () => {
+    const meetupInfo = getPaymentMethodInfo(`cash.${event.id}`)
     const meetup: PaymentData = {
       id: meetupInfo.id,
       label: event.shortName,
@@ -60,7 +60,7 @@ export const useMeetupScreenSetup = () => {
   })
 
   return {
-    paymentMethod: ('cash.' + event.id) as PaymentMethod,
+    paymentMethod: `cash.${event.id}` as PaymentMethod,
     event,
     deletable,
     addToPaymentMethods,

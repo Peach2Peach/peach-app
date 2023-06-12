@@ -66,7 +66,7 @@ export class PeachWallet {
     this.synced = false
   }
 
-  async loadWallet (seedphrase?: string): Promise<void> {
+  loadWallet (seedphrase?: string): Promise<void> {
     this.loadFromStorage()
 
     return new Promise((resolve) =>
@@ -113,7 +113,7 @@ export class PeachWallet {
     )
   }
 
-  async syncWallet (): Promise<void> {
+  syncWallet (): Promise<void> {
     return new Promise((resolve, reject) =>
       callWhenInternet(async () => {
         if (!this.wallet || !this.blockchain) return reject(new Error('WALLET_NOT_READY'))
@@ -234,7 +234,7 @@ export class PeachWallet {
   }
 
   getKeyPair (index: number): BIP32Interface {
-    return this.jsWallet.derivePath(this.derivationPath + `/0/${index}`)
+    return this.jsWallet.derivePath(`${this.derivationPath}/0/${index}`)
   }
 
   loadWalletStore (): void {
