@@ -8,7 +8,7 @@ describe('loadWalletFromAccount', () => {
     const wallet = loadWalletFromAccount(account1)
     expect(wallet.privateKey.toString('hex')).toBe(privateKey)
   })
-  it('loads wallet from seed phrase', async () => {
+  it('loads wallet from seed phrase', () => {
     const wallet = loadWalletFromAccount({ ...account1, base58: undefined })
     expect(wallet.privateKey.toString('hex')).toBe(privateKey)
   })

@@ -1,3 +1,4 @@
+/* eslint-disable require-await */
 import { sellOffer } from '../../../tests/unit/data/offerData'
 
 const accessToken: AccessToken = {

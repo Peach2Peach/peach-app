@@ -32,24 +32,24 @@ jest.mock('./loadAccountFromSeedPhrase', () => ({
 
 describe('updateAccount', () => {
   const loadWalletSpy = jest.spyOn(PeachWallet.prototype, 'loadWallet')
-  it('sets an account, sets wallet and peachAccount', async () => {
-    await updateAccount(account1)
+  it('sets an account, sets wallet and peachAccount', () => {
+    updateAccount(account1)
     expect(account).toEqual(account1)
     expect(getWallet()).toBeDefined()
     expect(getPeachAccount()).toBeDefined()
   })
-  it('overwrites an account', async () => {
-    await updateAccount({ ...account1, tradingLimit }, true)
+  it('overwrites an account', () => {
+    updateAccount({ ...account1, tradingLimit }, true)
     expect(account.tradingLimit).toEqual(tradingLimit)
   })
-  it('merges an account with update', async () => {
-    await updateAccount({ ...account1, tradingLimit })
+  it('merges an account with update', () => {
+    updateAccount({ ...account1, tradingLimit })
     expect(account.tradingLimit).toEqual(defaultAccount.tradingLimit)
   })
-  it('does not set the locale to undefined', async () => {
+  it('does not set the locale to undefined', () => {
     getDeviceLocaleMock.mockReturnValueOnce(undefined)
     settingsStore.setState({ locale: undefined })
-    await updateAccount(account1)
+    updateAccount(account1)
     expect(setLocaleQuietMock).toHaveBeenCalledWith('en')
   })
   it('loads wallet from seed and starts migration', async () => {

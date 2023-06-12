@@ -3,8 +3,8 @@ import { account, defaultAccount, setAccount, updatePaymentData } from '.'
 import * as accountData from '../../../tests/unit/data/accountData'
 
 describe('updatePaymentData', () => {
-  beforeAll(async () => {
-    await setAccount(defaultAccount)
+  beforeAll(() => {
+    setAccount(defaultAccount)
   })
 
   it('updates account payment data', () => {

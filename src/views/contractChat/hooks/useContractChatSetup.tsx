@@ -95,7 +95,7 @@ export const useContractChatSetup = () => {
     sendMessage(message.message)
   }
 
-  const submit = async () => {
+  const submit = () => {
     if (!contract || !tradingPartner || !contract.symmetricKey || !newMessage) return
     setDisableSend(true)
     setTimeout(() => setDisableSend(false), 300)

@@ -32,5 +32,5 @@ export const removePaymentData = async (id: PaymentData['id']) => {
     useOfferPreferences.getState().setPaymentMethods(getSelectedPaymentDataIds(preferredPaymentMethods))
   }
 
-  await storePaymentData(account.paymentData)
+  storePaymentData(account.paymentData)
 }

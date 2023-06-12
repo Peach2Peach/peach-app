@@ -16,7 +16,7 @@ export const loadAccount = async (): Promise<Account> => {
   if (account.publicKey) return account
 
   info('Loading full account from secure storage')
-  const identity = await loadIdentity()
+  const identity = loadIdentity()
 
   if (!identity?.publicKey) {
     error('Account does not exist')
@@ -46,7 +46,7 @@ export const loadAccount = async (): Promise<Account> => {
     error('Account does not exist')
   } else {
     info('Account loaded', account.publicKey)
-    await updateAccount(acc)
+    updateAccount(acc)
   }
 
   return account

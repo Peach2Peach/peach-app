@@ -107,20 +107,20 @@ describe('useDisputeRaisedNotice', () => {
       }),
     )
   })
-  it('popup action submits acknowledgement', async () => {
+  it('popup action submits acknowledgement', () => {
     const { result } = renderHook(useDisputeRaisedNotice)
     const disputePopupActions = result.current.showDisputeRaisedNotice(contract, 'seller')
-    await disputePopupActions.submitAndClose()
+    disputePopupActions.submitAndClose()
     expect(submitDisputeAcknowledgementMock).toHaveBeenCalledWith({
       contractId: contract.id,
       disputeReason: 'other',
       email: '',
     })
   })
-  it('popup action submits acknowledgement and goes to chat', async () => {
+  it('popup action submits acknowledgement and goes to chat', () => {
     const { result } = renderHook(useDisputeRaisedNotice)
     const disputePopupActions = result.current.showDisputeRaisedNotice(contract, 'seller')
-    await disputePopupActions.submitAndGoToChat()
+    disputePopupActions.submitAndGoToChat()
     expect(submitDisputeAcknowledgementMock).toHaveBeenCalledWith({
       contractId: contract.id,
       disputeReason: 'other',

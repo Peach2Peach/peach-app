@@ -5,8 +5,8 @@ import { saveOffer } from '.'
 import * as offerData from '../../../tests/unit/data/offerData'
 
 describe('saveOffer', () => {
-  beforeAll(async () => {
-    await setAccount(defaultAccount)
+  beforeAll(() => {
+    setAccount(defaultAccount)
   })
 
   it('does not save offers without an ID', () => {

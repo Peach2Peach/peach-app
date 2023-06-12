@@ -3,8 +3,8 @@ import { defaultAccount, loadAccount, setAccount, storeAccount } from '..'
 import * as accountData from '../../../../tests/unit/data/accountData'
 
 describe('storeAccount', () => {
-  beforeEach(async () => {
-    await setAccount(defaultAccount)
+  beforeEach(() => {
+    setAccount(defaultAccount)
   })
 
   it('would store whole account', async () => {

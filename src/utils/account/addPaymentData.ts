@@ -2,7 +2,7 @@ import { account } from '.'
 import { getPaymentData } from './getPaymentData'
 import { storePaymentData } from './storeAccount'
 
-export const addPaymentData = async (data: PaymentData, save = true) => {
+export const addPaymentData = (data: PaymentData, save = true) => {
   if (getPaymentData(data.id)) {
     // existing payment data, update
     account.paymentData = account.paymentData.map((d) => {
@@ -14,5 +14,5 @@ export const addPaymentData = async (data: PaymentData, save = true) => {
     account.paymentData = account.paymentData.concat([data])
   }
 
-  if (save) await storePaymentData(account.paymentData)
+  if (save) storePaymentData(account.paymentData)
 }

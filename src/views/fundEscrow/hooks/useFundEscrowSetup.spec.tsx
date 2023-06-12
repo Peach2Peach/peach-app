@@ -65,19 +65,16 @@ jest.mock('./useHandleFundingStatus', () => ({
 
 const cancelOfferMock = jest.fn()
 jest.mock('../../../hooks/useCancelOffer', () => ({
-  useCancelOffer:
-    () =>
-      (...args: any[]) =>
-        cancelOfferMock(...args),
+  useCancelOffer: () => cancelOfferMock,
 }))
 
 describe('useFundEscrowSetup', () => {
-  beforeEach(async () => {
+  beforeEach(() => {
     setOptionsMock({ header: { title: '', icons: [] } })
 
-    await updateAccount({ ...account1, offers: [] }, true)
+    updateAccount({ ...account1, offers: [] }, true)
   })
-  afterEach(async () => {
+  afterEach(() => {
     queryClient.clear()
   })
 

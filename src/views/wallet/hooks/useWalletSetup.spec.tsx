@@ -73,8 +73,8 @@ describe('useWalletSetup', () => {
     act(() => {
       result.current.openWithdrawalConfirmation()
     })
-    await act(async () => {
-      await usePopupStore.getState().action1?.callback()
+    await act(() => {
+      usePopupStore.getState().action1?.callback()
     })
 
     expect(mockWithdrawAll).toHaveBeenCalledWith(address, finalFeeRate)

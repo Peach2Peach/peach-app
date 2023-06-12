@@ -1,4 +1,4 @@
-/* eslint-disable class-methods-use-this */
+/* eslint-disable class-methods-use-this, require-await */
 import { TransactionsResponse } from 'bdk-rn/lib/lib/interfaces'
 
 export class PeachWallet {

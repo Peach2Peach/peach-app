@@ -133,7 +133,7 @@ describe('Drawer', () => {
     expect(drawerState.title).toBe(drawerState.previousDrawer.title)
     expect(drawerState.content).toBe(drawerState.previousDrawer.content)
   })
-  it('should close the drawer if the title is swiped down', async () => {
+  it('should close the drawer if the title is swiped down', () => {
     const { getByText } = render(<Drawer {...drawerState} />, { wrapper })
     const title = getByText(drawerState.title)
     act(() => {
@@ -143,7 +143,7 @@ describe('Drawer', () => {
 
     expect(drawerState.show).toBe(false)
   })
-  it('should not close the drawer if the title is swiped down less than 21 pixels', async () => {
+  it('should not close the drawer if the title is swiped down less than 21 pixels', () => {
     const { getByText } = render(<Drawer {...drawerState} />, { wrapper })
     const title = getByText(drawerState.title)
     act(() => {

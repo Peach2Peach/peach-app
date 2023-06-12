@@ -59,7 +59,7 @@ export const AddPaymentMethodButton = ({ isCash, style }: Props) => {
     })
   }
 
-  const addCashPaymentMethods = async () => {
+  const addCashPaymentMethods = () => {
     if (!meetupEvents) return
 
     const eventsByCountry = meetupEvents.reduce(structureEventsByCountry, {} as CountryEventsMap)

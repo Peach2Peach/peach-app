@@ -15,7 +15,7 @@ export const TwelveWords = () => (
           ?.split(' ')
           .slice(0, 6)
           .map((word, i) => (
-            <Word word={word} index={i + 1} key={'seedPhraseWord' + i} />
+            <Word word={word} index={i + 1} key={`seedPhraseWord${i}`} />
           ))}
       </View>
       <View style={tw`w-1/2 pl-2`}>
@@ -23,7 +23,7 @@ export const TwelveWords = () => (
           ?.split(' ')
           .slice(6, 12)
           .map((word, i) => (
-            <Word word={word} index={i + 7} key={'seedPhraseWord' + (i + 7)} />
+            <Word word={word} index={i + 7} key={`seedPhraseWord${i + 7}`} />
           ))}
       </View>
     </View>

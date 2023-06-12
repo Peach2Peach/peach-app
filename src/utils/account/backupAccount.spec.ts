@@ -5,8 +5,8 @@ import * as accountData from '../../../tests/unit/data/accountData'
 describe('backupAccount', () => {
   const openSpy = jest.spyOn(Share, 'open')
 
-  beforeAll(async () => {
-    await setAccount(accountData.account1)
+  beforeAll(() => {
+    setAccount(accountData.account1)
   })
   afterEach(() => {
     openSpy.mockReset()

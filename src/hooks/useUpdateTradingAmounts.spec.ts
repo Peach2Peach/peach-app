@@ -11,7 +11,7 @@ jest.mock('../utils/market', () => ({
 
 // eslint-disable-next-line max-lines-per-function
 describe('useUpdateTradingAmounts', () => {
-  it('updates the min and max trading amounts correctly', async () => {
+  it('updates the min and max trading amounts correctly', () => {
     const { result: updateTradingAmounts } = renderHook(() => useUpdateTradingAmounts())
 
     act(() => {
@@ -27,7 +27,7 @@ describe('useUpdateTradingAmounts', () => {
     expect(configStore.getState().minTradingAmount).toEqual(10)
     expect(configStore.getState().maxTradingAmount).toEqual(100)
   })
-  it('updates selected amounts if they fall out of range', async () => {
+  it('updates selected amounts if they fall out of range', () => {
     const { result: updateTradingAmounts } = renderHook(() => useUpdateTradingAmounts())
 
     act(() => {
@@ -54,7 +54,7 @@ describe('useUpdateTradingAmounts', () => {
     expect(useOfferPreferences.getState().sellAmount).toEqual(100)
   })
 
-  it('does not update selected amounts if they do not fall out of range', async () => {
+  it('does not update selected amounts if they do not fall out of range', () => {
     const { result: updateTradingAmounts } = renderHook(() => useUpdateTradingAmounts())
 
     act(() => {

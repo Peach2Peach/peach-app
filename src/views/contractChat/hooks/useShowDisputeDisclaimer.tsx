@@ -11,7 +11,7 @@ export const useShowDisputeDisclaimer = () => {
   const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
   const setSeenDisputeDisclaimer = useConfigStore((state) => state.setSeenDisputeDisclaimer)
 
-  const showDisputeDisclaimer = useCallback(async () => {
+  const showDisputeDisclaimer = useCallback(() => {
     const goToHelp = () => {
       setSeenDisputeDisclaimer(true)
       closePopup()

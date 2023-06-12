@@ -18,7 +18,7 @@ describe('WalletLabel', () => {
     const { toJSON } = render(<WalletLabel label="Wallet Label" />)
     expect(toJSON()).toMatchSnapshot()
   })
-  it('should first signal that it is loading if label is not known', async () => {
+  it('should first signal that it is loading if label is not known', () => {
     const address = 'address'
     const addressLabel = 'addressLabel'
     settingsStore.getState().setPayoutAddress(address)

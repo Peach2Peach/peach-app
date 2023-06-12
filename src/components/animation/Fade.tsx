@@ -9,18 +9,6 @@ type FadeProps = ViewProps &
     displayNone?: boolean
   }
 
-/**
- * @description Animated view to fade content in and out
- * @param children child element
- * @param show if true fade in, if false fade out
- * @param [style] css style object
- * @param [duration] animation duration in ms
- * @param [delay] animation delay in ms
- * @return view
- * @example <Fade show={true} duration={400} delay={500}>
-    <Text>🍑</Text>
-  </Fade>
- */
 export const Fade = ({
   children,
   style,

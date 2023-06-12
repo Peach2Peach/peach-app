@@ -22,8 +22,8 @@ jest.mock('../../../utils/contract/saveContract', () => ({
 }))
 
 describe('useTradeCompleteSetup', () => {
-  it('returns default values correctly as buyer', async () => {
-    await setAccount({ ...account1, publicKey: contract.buyer.id })
+  it('returns default values correctly as buyer', () => {
+    setAccount({ ...account1, publicKey: contract.buyer.id })
     const { result } = renderHook(useTradeCompleteSetup)
 
     expect(result.current).toEqual({
@@ -34,8 +34,8 @@ describe('useTradeCompleteSetup', () => {
       saveAndUpdate: expect.any(Function),
     })
   })
-  it('returns default values correctly as seller', async () => {
-    await setAccount({ ...account1, publicKey: contract.seller.id })
+  it('returns default values correctly as seller', () => {
+    setAccount({ ...account1, publicKey: contract.seller.id })
     const { result } = renderHook(useTradeCompleteSetup)
 
     expect(result.current).toEqual({

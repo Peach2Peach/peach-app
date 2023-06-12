@@ -9,7 +9,7 @@ export const useOpenDispute = (contractId: string) => {
   const navigation = useNavigation()
   const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
 
-  const ok = useCallback(async () => {
+  const ok = useCallback(() => {
     closePopup()
     navigation.navigate('disputeReasonSelector', { contractId })
   }, [closePopup, contractId, navigation])

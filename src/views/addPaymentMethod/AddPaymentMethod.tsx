@@ -37,7 +37,7 @@ export default () => {
       const methodType = data.country ? (`${data.paymentMethod}.${data.country}` as PaymentMethod) : data.paymentMethod
       const existingPaymentMethodsOfType: number = getPaymentDataByType(methodType).length
       let label = i18n(`paymentMethod.${methodType}`)
-      if (existingPaymentMethodsOfType > 0) label += ' #' + (existingPaymentMethodsOfType + 1)
+      if (existingPaymentMethodsOfType > 0) label += ` #${existingPaymentMethodsOfType + 1}`
 
       navigation.push('paymentMethodDetails', {
         paymentData: { type: data.paymentMethod, label, currencies: data.currencies, country: data.country },

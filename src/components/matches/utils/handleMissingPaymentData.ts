@@ -16,7 +16,7 @@ export const handleMissingPaymentData = (
   const openAddPaymentMethodDialog = () => {
     updateMessage({ msgKey: undefined, level: 'ERROR' })
     const existingPaymentMethodsOfType = getPaymentDataByType(paymentMethod).length + 1
-    const label = i18n(`paymentMethod.${paymentMethod}`) + ' #' + existingPaymentMethodsOfType
+    const label = `${i18n(`paymentMethod.${paymentMethod}`)} #${existingPaymentMethodsOfType}`
 
     navigation.push('paymentMethodDetails', {
       paymentData: {
