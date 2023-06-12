@@ -72,7 +72,10 @@ export const useBuySummarySetup = () => {
     if (messageSigningData.getError()) {
       showErrorBanner('MISSING_SIGNATURE')
     }
-    const { offerId, isOfferPublished, errorMessage } = await publishBuyOffer({ ...offerDraft, ...messageSigningData })
+    const { offerId, isOfferPublished, errorMessage } = await publishBuyOffer({
+      ...offerDraft,
+      ...messageSigningData.getValue(),
+    })
     setIsPublishing(false)
 
     if (!isOfferPublished || !offerId) {
