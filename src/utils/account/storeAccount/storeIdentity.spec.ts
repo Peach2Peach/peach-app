@@ -4,8 +4,8 @@ import { storeIdentity } from '.'
 import { account1 } from '../../../../tests/unit/data/accountData'
 
 describe('storeIdentity', () => {
-  beforeEach(async () => {
-    await setAccount(defaultAccount)
+  beforeEach(() => {
+    setAccount(defaultAccount)
   })
 
   it('would store identity', async () => {

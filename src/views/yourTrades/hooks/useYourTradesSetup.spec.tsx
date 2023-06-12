@@ -33,7 +33,7 @@ describe('useYourTradesSetup', () => {
     { display: 'history', id: 'history' },
   ]
 
-  it('should return defaults', async () => {
+  it('should return defaults', () => {
     const { result } = renderHook(useYourTradesSetup, { wrapper })
     expect(result.current).toEqual({
       isLoading: true,

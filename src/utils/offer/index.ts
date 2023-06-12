@@ -9,7 +9,6 @@ export { getPaymentDataByOfferAndMethod } from './getPaymentDataByOfferAndMethod
 export { getSummaryFromOffer } from './getSummaryFromOffer'
 export { getWalletLabel } from './getWalletLabel'
 export { hasMopsConfigured } from './hasMopsConfigured'
-export { hexToOfferId } from './hexToOfferId'
 export { isBuyOffer } from './isBuyOffer'
 export { isSellOffer } from './isSellOffer'
 export { offerExists } from './offerExists'

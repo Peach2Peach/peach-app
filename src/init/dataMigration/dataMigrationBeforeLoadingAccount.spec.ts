@@ -7,12 +7,12 @@ jest.mock('./beforeLoadingAccount/migrateSettingsToStore', () => ({
 }))
 
 describe('dataMigrationBeforeLoadingAccount', () => {
-  it('should call migrateSettingsToStore', async () => {
-    await dataMigrationBeforeLoadingAccount()
+  it('should call migrateSettingsToStore', () => {
+    dataMigrationBeforeLoadingAccount()
     expect(migrateSettingsToStoreMock).toHaveBeenCalled()
   })
-  it('should migrate contracts to store', async () => {
-    await dataMigrationBeforeLoadingAccount()
+  it('should migrate contracts to store', () => {
+    dataMigrationBeforeLoadingAccount()
     expect(useLocalContractStore.getState().migrated).toBe(true)
   })
 })

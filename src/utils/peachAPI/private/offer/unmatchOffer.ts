@@ -10,15 +10,7 @@ type UnmatchProps = RequestProps & {
   matchingOfferId: string
 }
 
-/**
- * @description Method to match an offer
- * @returns MatchResponse
- */
-export const unmatchOffer = async ({
-  offerId,
-  matchingOfferId,
-  timeout,
-}: UnmatchProps): Promise<[MatchResponse | null, APIError | null]> => {
+export const unmatchOffer = async ({ offerId, matchingOfferId, timeout }: UnmatchProps) => {
   const response = await fetch(`${API_URL}/v1/offer/${offerId}/match`, {
     headers: await getPrivateHeaders(),
     body: JSON.stringify({
@@ -28,5 +20,5 @@ export const unmatchOffer = async ({
     signal: timeout ? getAbortWithTimeout(timeout).signal : undefined,
   })
 
-  return await parseResponse<MatchResponse>(response, 'unmatchOffer')
+  return parseResponse<MatchResponse>(response, 'unmatchOffer')
 }

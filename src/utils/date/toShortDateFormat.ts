@@ -1,10 +1,7 @@
 import { padString } from '../string/padString'
 
 /**
- * @description Format date as hh::mm
- * @param date date to format
- * @param [showTime] if true, append time
- * @returns formatted date as hh:mm
+ * @description Format date as hh:mm
  */
 export const toTimeFormat = (date: Date) =>
   [
@@ -24,9 +21,6 @@ export const toTimeFormat = (date: Date) =>
 
 /**
  * @description Format date as dd/mm/yyyy (hh:mm)
- * @param date date to format
- * @param [showTime] if true, append time
- * @returns formatted date as dd/mm/yyyy (hh:mm)
  */
 export const toShortDateFormat = (date: Date, showTime = false) =>
   [
@@ -43,4 +37,4 @@ export const toShortDateFormat = (date: Date, showTime = false) =>
       side: 'left',
     }),
     date.getFullYear(),
-  ].join('/') + (showTime ? ' ' + toTimeFormat(date) : '')
+  ].join('/') + (showTime ? ` ${toTimeFormat(date)}` : '')

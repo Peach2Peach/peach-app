@@ -8,7 +8,7 @@ describe('loadIdentity', () => {
   it('loads identity', async () => {
     await storeIdentity(account1)
 
-    const identity = await loadIdentity()
+    const identity = loadIdentity()
     expect(accountStorage.getMap).toHaveBeenCalledWith('identity')
     deepStrictEqual(identity, {
       publicKey: account1.publicKey,

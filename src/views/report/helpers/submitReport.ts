@@ -11,13 +11,13 @@ type Props = {
   shareLogs: boolean
 }
 
-export const submitReport = async ({ email, reason, topic, message, shareDeviceID, shareLogs }: Props) => {
+export const submitReport = ({ email, reason, topic, message, shareDeviceID, shareLogs }: Props) => {
   const messageToSend = buildReportMessage({ message, shareDeviceID, shareLogs })
   if (shareLogs) {
     sendErrors([new Error(`user shared app logs: ${topic} - ${messageToSend}`)])
   }
 
-  return await sendReport({
+  return sendReport({
     email,
     reason,
     topic,

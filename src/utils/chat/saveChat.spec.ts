@@ -4,8 +4,8 @@ import { saveChat } from '.'
 import * as chatData from '../../../tests/unit/data/chatData'
 
 describe('saveChat', () => {
-  beforeEach(async () => {
-    await setAccount(defaultAccount)
+  beforeEach(() => {
+    setAccount(defaultAccount)
   })
 
   it('saves a new chat', () => {

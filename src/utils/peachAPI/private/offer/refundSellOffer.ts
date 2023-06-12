@@ -10,11 +10,7 @@ type RefundSellOfferProps = RequestProps & {
   tx: string
 }
 
-export const refundSellOffer = async ({
-  offerId,
-  tx,
-  timeout,
-}: RefundSellOfferProps): Promise<[RefundSellOfferResponse | null, APIError | null]> => {
+export const refundSellOffer = async ({ offerId, tx, timeout }: RefundSellOfferProps) => {
   const response = await fetch(`${API_URL}/v1/offer/${offerId}/refund`, {
     headers: await getPrivateHeaders(),
     method: 'POST',
@@ -24,5 +20,5 @@ export const refundSellOffer = async ({
     signal: timeout ? getAbortWithTimeout(timeout).signal : undefined,
   })
 
-  return await parseResponse<RefundSellOfferResponse>(response, 'refundSellOffer')
+  return parseResponse<RefundSellOfferResponse>(response, 'refundSellOffer')
 }

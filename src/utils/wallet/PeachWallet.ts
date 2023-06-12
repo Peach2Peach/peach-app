@@ -86,7 +86,7 @@ export class PeachWallet extends PeachWalletErrorHandlers {
     return result.value
   }
 
-  async loadWallet (seedphrase?: string) {
+  loadWallet (seedphrase?: string) {
     this.loadFromStorage()
 
     PeachWallet.checkConnection(async () => {
@@ -133,7 +133,7 @@ export class PeachWallet extends PeachWalletErrorHandlers {
     })
   }
 
-  async syncWallet (callback?: (result: Awaited<ReturnType<typeof BdkRn.syncWallet>>) => void) {
+  syncWallet (callback?: (result: Awaited<ReturnType<typeof BdkRn.syncWallet>>) => void) {
     PeachWallet.checkConnection(async () => {
       info('PeachWallet - syncWallet - start')
       this.synced = false
@@ -227,7 +227,7 @@ export class PeachWallet extends PeachWalletErrorHandlers {
   }
 
   getKeyPair (index: number): BIP32Interface {
-    return this.wallet.derivePath(this.derivationPath + `/0/${index}`)
+    return this.wallet.derivePath(`${this.derivationPath}/0/${index}`)
   }
 
   loadWalletStore (): void {

@@ -22,7 +22,7 @@ exports[`useFundEscrowSetup should render header correctly for unfunded offers 1
       {
         "color": "#9F8C82",
         "id": "xCircle",
-        "onPress": [Function],
+        "onPress": [MockFunction],
       },
       {
         "color": "#099DE2",

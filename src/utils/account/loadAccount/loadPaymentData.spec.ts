@@ -4,14 +4,14 @@ import { loadPaymentData } from '.'
 import * as accountData from '../../../../tests/unit/data/accountData'
 
 describe('loadPaymentData', () => {
-  beforeEach(async () => {
-    await setAccount(defaultAccount)
+  beforeEach(() => {
+    setAccount(defaultAccount)
   })
 
   it('loads payment data', async () => {
     await storeAccount(accountData.account1)
 
-    const paymentData = await loadPaymentData()
+    const paymentData = loadPaymentData()
     deepStrictEqual(paymentData, accountData.account1.paymentData)
   })
 })

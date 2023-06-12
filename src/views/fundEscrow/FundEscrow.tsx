@@ -34,7 +34,7 @@ export default () => {
             style={tw`mt-4`}
             address={escrow}
             amount={fundingAmount / SATSINBTC}
-            label={i18n('settings.escrow.paymentRequest.label') + ' ' + offerIdToHex(offerId)}
+            label={`${i18n('settings.escrow.paymentRequest.label')} ${offerIdToHex(offerId)}`}
           />
         </View>
       </PeachScrollView>

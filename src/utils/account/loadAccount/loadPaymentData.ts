@@ -2,7 +2,7 @@ import { defaultAccount } from '../'
 import { error } from '../../log'
 import { accountStorage } from '../accountStorage'
 
-export const loadPaymentData = async (): Promise<Account['paymentData']> => {
+export const loadPaymentData = () => {
   const paymentData = accountStorage.getArray('paymentData')
 
   if (paymentData) return paymentData as Account['paymentData']

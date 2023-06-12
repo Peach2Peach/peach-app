@@ -3,8 +3,8 @@ import * as accountData from '../../../tests/unit/data/accountData'
 import { settingsStore } from '../../store/settingsStore'
 
 describe('addPaymentData', () => {
-  beforeAll(async () => {
-    await setAccount(defaultAccount)
+  beforeAll(() => {
+    setAccount(defaultAccount)
   })
 
   it('adds new payment data to account', () => {

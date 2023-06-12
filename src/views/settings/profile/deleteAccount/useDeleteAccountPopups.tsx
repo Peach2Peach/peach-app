@@ -28,8 +28,8 @@ export const useDeleteAccountPopups = () => {
     [setPopup],
   )
 
-  const deleteAccountClicked = async () => {
-    await deleteAccount()
+  const deleteAccountClicked = () => {
+    deleteAccount()
     logoutUser({})
     CommonActions.reset({
       index: 0,

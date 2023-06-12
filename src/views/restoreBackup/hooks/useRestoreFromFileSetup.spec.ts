@@ -15,7 +15,7 @@ jest.mock('../../../hooks/useNavigation', () => ({
   useNavigation: () => useNavigationMock(),
 }))
 
-const decryptAccountMock = jest.fn().mockResolvedValue([account1])
+const decryptAccountMock = jest.fn().mockReturnValue([account1])
 jest.mock('../../../utils/account/decryptAccount', () => ({
   decryptAccount: (...args: any[]) => decryptAccountMock(...args),
 }))
