@@ -6,7 +6,7 @@ import { createStorage, toZustandStorage } from '../utils/storage'
 import { defaultSettings } from './defaults'
 import { getPureSettingsState } from './helpers/getPureSettingsState'
 import { Locale } from '../utils/i18n'
-import { migrateSettings } from './helpers/migrateSettings'
+import { migrateSettings } from './helpers/migration'
 
 export type SettingsStore = Settings & {
   migrated?: boolean

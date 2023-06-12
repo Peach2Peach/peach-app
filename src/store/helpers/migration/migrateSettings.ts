@@ -1,7 +1,7 @@
-import { getSelectedPaymentDataIds } from '../../utils/account'
-import { info } from '../../utils/log'
-import { useOfferPreferences } from '../offerPreferenes'
-import { SettingsStore } from '../settingsStore'
+import { getSelectedPaymentDataIds } from '../../../utils/account'
+import { info } from '../../../utils/log'
+import { useOfferPreferences } from '../../offerPreferenes'
+import { SettingsStore } from '../../settingsStore'
 
 export const migrateSettings = (persistedState: unknown, version: number): SettingsStore | Promise<SettingsStore> => {
   const migratedState = persistedState as SettingsStore

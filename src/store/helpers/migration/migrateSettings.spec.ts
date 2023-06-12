@@ -1,6 +1,6 @@
-import { account, updateAccount } from '../../utils/account'
-import { useOfferPreferences } from '../offerPreferenes'
-import { defaultPreferences } from '../offerPreferenes/useOfferPreferences'
+import { account, updateAccount } from '../../../utils/account'
+import { useOfferPreferences } from '../../offerPreferenes'
+import { defaultPreferences } from '../../offerPreferenes/useOfferPreferences'
 import { migrateSettings } from './migrateSettings'
 
 // eslint-disable-next-line max-lines-per-function
