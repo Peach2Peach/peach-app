@@ -16,8 +16,8 @@ export class PeachWallet {
     return { confirmed: [], pending: [] }
   }
 
-  async getReceivingAddress (): Promise<string | null> {
-    return 'receivingAddress'
+  async getReceivingAddress () {
+    return { address: 'receivingAddress', index: 0 }
   }
 
   async withdrawAll (): Promise<string | null> {

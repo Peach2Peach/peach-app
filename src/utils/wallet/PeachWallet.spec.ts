@@ -12,7 +12,7 @@ import {
   addressScriptPubKeyMock,
   blockChainCreateMock,
   blockchainBroadcastMock,
-  getAddressMock,
+  walletGetAddressMock,
   mnemonicFromStringMock,
   psbtExtractTxMock,
   txBuilderCreateMock,
@@ -238,12 +238,12 @@ describe('PeachWallet', () => {
   it('gets a new unused receiving address', async () => {
     const address = 'address'
     const index = 0
-    getAddressMock.mockResolvedValueOnce({ address, index })
+    walletGetAddressMock.mockResolvedValueOnce({ address, index })
 
     const { address: newAddress, index: addressIndex } = await peachWallet.getReceivingAddress()
     expect(newAddress).toBe(address)
     expect(addressIndex).toBe(index)
-    expect(getAddressMock).toHaveBeenCalledWith(AddressIndex.New)
+    expect(walletGetAddressMock).toHaveBeenCalledWith(AddressIndex.New)
   })
   it('throws error when requesting receiving address before wallet is ready', async () => {
     peachWallet.wallet = undefined

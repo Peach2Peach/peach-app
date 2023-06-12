@@ -174,15 +174,15 @@ export const walletGetBalanceMock = jest.fn().mockResolvedValue({
   total: 0,
 })
 
-export const getAddressMock = jest.fn()
+export const walletGetAddressMock = jest.fn()
 export const walletSyncMock = jest.fn()
-export const listUnspentMock = jest.fn().mockResolvedValue([])
+export const walletListUnspentMock = jest.fn().mockResolvedValue([])
 export const walletListTransactionsMock = jest.fn().mockResolvedValue([])
 export const walletSignMock = jest.fn()
 export class Wallet {
   create = jest.fn().mockReturnThis()
 
-  getAddress = getAddressMock
+  getAddress = walletGetAddressMock
 
   getBalance = walletGetBalanceMock
 
@@ -190,7 +190,7 @@ export class Wallet {
 
   sync = walletSyncMock
 
-  listUnspent = listUnspentMock
+  listUnspent = walletListUnspentMock
 
   listTransactions = walletListTransactionsMock
 
