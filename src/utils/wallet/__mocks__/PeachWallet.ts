@@ -17,7 +17,7 @@ export class PeachWallet {
   }
 
   async getReceivingAddress () {
-    return { address: 'receivingAddress', index: 0 }
+    return { address: 'bcrt1qwype5wug33a6hwz9u2n6vz4lc0kpw0kg4xc8fq', index: 0 }
   }
 
   async withdrawAll (): Promise<string | null> {
@@ -29,6 +29,7 @@ export class PeachWallet {
   }
 
   signMessage () {
-    return 'signature'
+    // message: I confirm that only I, peach02d13a5d, control the address bcrt1qwype5wug33a6hwz9u2n6vz4lc0kpw0kg4xc8fq
+    return 'IH9ZjMHG1af6puAITFTdV5RSYoK1MNmecZdhW0s4soh4EIAz4igtVQTec5yj4H9Iy7sB6qYReRjGpE3b4OoXSLY'
   }
 }
