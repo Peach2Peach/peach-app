@@ -18,6 +18,7 @@ export const createAccount = async (seedPhrase?: string): Promise<Account> => {
     publicKey: mainAccount.publicKey.toString('hex'),
     privKey: (wallet.privateKey as Buffer).toString('hex'),
     mnemonic,
+    base58: wallet.toBase58(),
     pgp: {
       privateKey: recipient.privateKey,
       publicKey: recipient.publicKey,

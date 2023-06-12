@@ -12,9 +12,6 @@ jest.mock('../../popups/useStartRefundPopup', () => ({
 
 describe('RefundEscrowSlider', () => {
   const renderer = createRenderer()
-  beforeEach(() => {
-    jest.clearAllMocks()
-  })
   it('renders correctly', () => {
     renderer.render(<RefundEscrowSlider sellOffer={sellOffer} />)
     expect(renderer.getRenderOutput()).toMatchSnapshot()

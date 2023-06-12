@@ -62,7 +62,6 @@ describe('useContractChatSetup', () => {
     act(() => {
       configStore.getState().reset()
     })
-    jest.clearAllMocks()
   })
   it('open dispute disclaimer if not seen before', () => {
     renderHook(useContractChatSetup, { wrapper })

@@ -73,9 +73,6 @@ describe('useDisputeFormSetup', () => {
   beforeEach(() => {
     getContractMock.mockReturnValue(contract)
   })
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
   it('should return the correct default values', () => {
     const { result } = renderHook(() => useDisputeFormSetup())
     expect(result.current).toStrictEqual({

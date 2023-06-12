@@ -22,9 +22,6 @@ jest.mock('../../../utils/contract/saveContract', () => ({
 }))
 
 describe('useTradeCompleteSetup', () => {
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
   it('returns default values correctly as buyer', async () => {
     await setAccount({ ...account1, publicKey: contract.buyer.id })
     const { result } = renderHook(useTradeCompleteSetup)

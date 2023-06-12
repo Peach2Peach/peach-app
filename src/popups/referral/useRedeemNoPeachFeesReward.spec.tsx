@@ -21,9 +21,6 @@ jest.mock('../../utils/peachAPI', () => ({
 describe('useRedeemNoPeachFeesReward', () => {
   const wrapper = NavigationWrapper
 
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
   it('returns function to start setCustomReferralCodePopup', () => {
     const { result } = renderHook(useRedeemNoPeachFeesReward, { wrapper })
     expect(result.current).toBeInstanceOf(Function)

@@ -44,10 +44,6 @@ describe('verifyAndSignReleaseTx', () => {
 
   const wallet = getEscrowWalletForOffer(mockSellOffer as SellOffer)
 
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
-
   it('should return null and error message if psbt is not valid', () => {
     verifyPSBTMock.mockReturnValueOnce('INVALID_INPUT')
 

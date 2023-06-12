@@ -9,6 +9,7 @@ import { auth } from '../../../utils/peachAPI'
 import { parseError } from '../../../utils/result'
 import { setPeachAccount } from '../../../utils/peachAPI/peachAccount'
 import { createPeachAccount } from '../../../utils/account/createPeachAccount'
+import { loadWalletFromAccount } from '../../../utils/account/loadWalletFromAccount'
 
 const passwordRules = { password: true, required: true }
 
@@ -43,7 +44,8 @@ export const useRestoreFromFileSetup = () => {
       return
     }
 
-    setPeachAccount(createPeachAccount(recoveredAccount.mnemonic))
+    const wallet = loadWalletFromAccount(recoveredAccount)
+    setPeachAccount(createPeachAccount(wallet))
 
     const [, authErr] = await auth({})
     if (authErr) {

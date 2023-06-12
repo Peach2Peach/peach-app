@@ -56,9 +56,6 @@ jest.mock('../../../popups/dispute/hooks/useDisputeRaisedSuccess', () => ({
 }))
 
 describe('useDisputeReasonSelectorSetup', () => {
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
   it('returns default values correctly for seller', async () => {
     await setAccount({ ...account1, publicKey: contract.seller.id })
     const { result } = renderHook(useDisputeReasonSelectorSetup)

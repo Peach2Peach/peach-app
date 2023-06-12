@@ -33,7 +33,6 @@ describe('useConfirmTradeCancelationPopup', () => {
   const wrapper = NavigationWrapper
 
   afterEach(() => {
-    jest.clearAllMocks()
     usePopupStore.setState(defaultPopupState)
   })
   it('returns default values correctly', () => {

@@ -51,7 +51,6 @@ jest.mock('../../../utils/peachAPI', () => ({
 
 describe('useDisputeWonPopup', () => {
   afterEach(() => {
-    jest.clearAllMocks()
     usePopupStore.setState(defaultPopupState)
   })
   it('should not do anything if the contract is not loaded', () => {

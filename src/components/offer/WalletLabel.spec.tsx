@@ -14,9 +14,6 @@ jest.mock('../../utils/wallet/setWallet', () => ({
 jest.useFakeTimers()
 
 describe('WalletLabel', () => {
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
   it('should render correctly if label is known', () => {
     const { toJSON } = render(<WalletLabel label="Wallet Label" />)
     expect(toJSON()).toMatchSnapshot()

@@ -9,9 +9,6 @@ describe('decryptMessage', () => {
   beforeEach(async () => {
     await setAccount(defaultAccount)
   })
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
 
   it('decrypts message if it doesn\'t exist', async () => {
     jest.spyOn(OpenPGP, 'decryptSymmetric').mockResolvedValue('decryptedMessage')

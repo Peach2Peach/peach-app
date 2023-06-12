@@ -12,9 +12,6 @@ jest.mock('../context', () => ({
 describe('Escrow', () => {
   const renderer = createRenderer()
 
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
   it('renders correctly', () => {
     const mockContract = { releaseTxId: undefined, escrow: '123', disputeActive: false } as Contract
     useContractContextMock.mockReturnValueOnce({ contract: mockContract })

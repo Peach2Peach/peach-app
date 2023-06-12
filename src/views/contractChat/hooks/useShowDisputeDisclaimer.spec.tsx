@@ -9,10 +9,6 @@ import { useShowDisputeDisclaimer } from './useShowDisputeDisclaimer'
 describe('useShowDisputeDisclaimer', () => {
   const wrapper = NavigationWrapper
   const { result } = renderHook(useShowDisputeDisclaimer, { wrapper })
-
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
   it('should show the popup', () => {
     const showDisputeDisclaimer = result.current
     act(() => {
