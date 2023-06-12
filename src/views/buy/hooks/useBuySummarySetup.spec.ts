@@ -16,7 +16,7 @@ describe('useBuySummarySetup', () => {
     setPeachWallet(new PeachWallet())
   })
 
-  it('should set up header correctly', async () => {
+  it('should set up header correctly', () => {
     renderHook(useBuySummarySetup, { wrapper: NavigationWrapper })
     expect(headerState.header()).toMatchSnapshot()
   })

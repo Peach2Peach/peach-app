@@ -132,7 +132,7 @@ describe('PeachWallet', () => {
   })
   it('sync wallet attempt throws error if wallet is not ready', async () => {
     peachWallet.wallet = undefined
-    const error = await getError<Error>(async () => peachWallet.syncWallet())
+    const error = await getError<Error>(() => peachWallet.syncWallet())
 
     expect(error.message).toBe('WALLET_NOT_READY')
   })
@@ -220,7 +220,7 @@ describe('PeachWallet', () => {
   })
   it('throws error when requesting balance before wallet is ready', async () => {
     peachWallet.wallet = undefined
-    const error = await getError<Error>(async () => peachWallet.getBalance())
+    const error = await getError<Error>(() => peachWallet.getBalance())
     expect(error.message).toBe('WALLET_NOT_READY')
   })
   it('gets transactions', async () => {
@@ -232,7 +232,7 @@ describe('PeachWallet', () => {
   })
   it('throws error when requesting transactions before wallet is ready', async () => {
     peachWallet.wallet = undefined
-    const error = await getError<Error>(async () => peachWallet.getTransactions())
+    const error = await getError<Error>(() => peachWallet.getTransactions())
     expect(error.message).toBe('WALLET_NOT_READY')
   })
   it('gets a new unused receiving address', async () => {
@@ -247,7 +247,7 @@ describe('PeachWallet', () => {
   })
   it('throws error when requesting receiving address before wallet is ready', async () => {
     peachWallet.wallet = undefined
-    const error = await getError<Error>(async () => peachWallet.getReceivingAddress())
+    const error = await getError<Error>(() => peachWallet.getReceivingAddress())
     expect(error.message).toBe('WALLET_NOT_READY')
   })
   it('updates wallet sotre', async () => {
@@ -288,10 +288,10 @@ describe('PeachWallet', () => {
 
   it('throws error when trying to withdraw before wallet is ready', async () => {
     peachWallet.wallet = undefined
-    const error = await getError<Error>(async () => peachWallet.withdrawAll('address', 1))
+    const error = await getError<Error>(() => peachWallet.withdrawAll('address', 1))
     expect(error.message).toBe('WALLET_NOT_READY')
   })
-  it('signs an arbitrary message', async () => {
+  it('signs an arbitrary message', () => {
     const message = 'message'
     const address = 'bcrt1q7jyvzs6yu9wz8qzmcwyruw0e652xhyhkdw5qrt'
     const signature = peachWallet.signMessage(message, address)
@@ -300,7 +300,7 @@ describe('PeachWallet', () => {
   it('throws an error if address is not part of wallet', async () => {
     const message = 'message'
     const address = 'bcrt1qdoesnotexist'
-    const error = await getError<Error>(async () => peachWallet.signMessage(message, address))
+    const error = await getError<Error>(() => peachWallet.signMessage(message, address))
     expect(error.message).toBe('Address not part of wallet')
   })
 })
