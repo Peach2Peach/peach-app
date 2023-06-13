@@ -40,6 +40,7 @@ export const AddPaymentMethodButton = ({ isCash, style }: Props) => {
         <View>
           {eventsByCountry[selected]
             .sort((a, b) => sortAlphabetically(a.city, b.city))
+            .sort((a) => (a.featured ? -1 : 1))
             .map((event) => (
               <MeetupSummary key={event.id} event={event} onPress={() => goToEventDetails(event)} />
             ))}
@@ -61,7 +62,6 @@ export const AddPaymentMethodButton = ({ isCash, style }: Props) => {
 
   const addCashPaymentMethods = () => {
     if (!meetupEvents) return
-
     const eventsByCountry = meetupEvents.reduce(structureEventsByCountry, {} as CountryEventsMap)
 
     updateDrawer({

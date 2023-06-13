@@ -291,6 +291,43 @@ exports[`AddPaymentMethodButton should render correctly with isCash while still 
 </View>
 `;
 
+exports[`AddPaymentMethodButton should show the featured meetups at the top of the list 1`] = `
+<View>
+  <MeetupSummary
+    event={
+      {
+        "city": "Berlin",
+        "country": "DE",
+        "currencies": [
+          "EUR",
+        ],
+        "featured": true,
+        "id": "1",
+        "longName": "EINUNDZWANZIG BTC",
+        "shortName": "21BTC",
+      }
+    }
+    onPress={[Function]}
+  />
+  <MeetupSummary
+    event={
+      {
+        "city": "Aachen",
+        "country": "DE",
+        "currencies": [
+          "EUR",
+        ],
+        "featured": false,
+        "id": "2",
+        "longName": "ZWEIUNDZWANZIG BTC",
+        "shortName": "22BTC",
+      }
+    }
+    onPress={[Function]}
+  />
+</View>
+`;
+
 exports[`AddPaymentMethodButton should show the meetup select drawer after selecting a country: drawer's content 1`] = `
 <View>
   <MeetupSummary
@@ -301,6 +338,7 @@ exports[`AddPaymentMethodButton should show the meetup select drawer after selec
         "currencies": [
           "EUR",
         ],
+        "featured": false,
         "id": "1",
         "longName": "EINUNDZWANZIG BTC",
         "shortName": "21BTC",
@@ -320,6 +358,43 @@ exports[`AddPaymentMethodButton should show the meetup select drawer after selec
   }
   onSelect={[Function]}
 />
+`;
+
+exports[`AddPaymentMethodButton should sort the meetups alphabetically 1`] = `
+<View>
+  <MeetupSummary
+    event={
+      {
+        "city": "Aachen",
+        "country": "DE",
+        "currencies": [
+          "EUR",
+        ],
+        "featured": false,
+        "id": "2",
+        "longName": "ZWEIUNDZWANZIG BTC",
+        "shortName": "22BTC",
+      }
+    }
+    onPress={[Function]}
+  />
+  <MeetupSummary
+    event={
+      {
+        "city": "Berlin",
+        "country": "DE",
+        "currencies": [
+          "EUR",
+        ],
+        "featured": false,
+        "id": "1",
+        "longName": "EINUNDZWANZIG BTC",
+        "shortName": "21BTC",
+      }
+    }
+    onPress={[Function]}
+  />
+</View>
 `;
 
 exports[`AddPaymentMethodButton should update the drawer with the right parameters for cash trades 1`] = `
