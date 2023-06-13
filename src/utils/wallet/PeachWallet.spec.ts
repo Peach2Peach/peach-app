@@ -29,7 +29,7 @@ describe('PeachWallet', () => {
   // @ts-ignore
   getTransactionsSpy.mockResolvedValue({ value: txResponse, isErr: () => false })
 
-  const { wallet } = createWalletFromSeedPhrase(account1.mnemonic!, getNetwork())
+  const { wallet } = createWalletFromSeedPhrase(account1.mnemonic, getNetwork())
 
   afterEach(() => {
     walletStore.getState().reset()
