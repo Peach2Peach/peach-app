@@ -9,7 +9,7 @@ describe('PeachJSWallet', () => {
   const { wallet } = createWalletFromSeedPhrase(account1.mnemonic!, getNetwork())
   let peachJSWallet: PeachJSWallet
 
-  beforeEach(async () => {
+  beforeEach(() => {
     peachJSWallet = new PeachJSWallet({ wallet })
   })
   afterEach(() => {
