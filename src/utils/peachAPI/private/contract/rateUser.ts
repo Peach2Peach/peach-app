@@ -11,17 +11,7 @@ type RateUserProps = RequestProps & {
   signature: string
 }
 
-/**
- * @description Method to confirm either payment made or received depending on party
- * @param contractId contract id
- * @returns Contract
- */
-export const rateUser = async ({
-  contractId,
-  rating,
-  signature,
-  timeout,
-}: RateUserProps): Promise<[APISuccess | null, APIError | null]> => {
+export const rateUser = async ({ contractId, rating, signature, timeout }: RateUserProps) => {
   const response = await fetch(`${API_URL}/v1/contract/${contractId}/user/rate`, {
     headers: await getPrivateHeaders(),
     method: 'POST',
@@ -32,5 +22,5 @@ export const rateUser = async ({
     signal: timeout ? getAbortWithTimeout(timeout).signal : undefined,
   })
 
-  return await parseResponse<APISuccess>(response, 'rateUser')
+  return parseResponse<APISuccess>(response, 'rateUser')
 }

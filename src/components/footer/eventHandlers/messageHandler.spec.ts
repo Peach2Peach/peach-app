@@ -22,27 +22,23 @@ describe('messageHandler', () => {
     readBy: [],
     signature: 'signature',
   }
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
-
-  it('does nothing if message is missing important data', async () => {
-    await messageHandler({ ...message, message: '' })
-    await messageHandler({ ...message, roomId: '' })
+  it('does nothing if message is missing important data', () => {
+    messageHandler({ ...message, message: '' })
+    messageHandler({ ...message, roomId: '' })
     expect(saveContractMock).not.toHaveBeenCalled()
   })
-  it('does nothing if message is from sending user', async () => {
-    await setAccount(account1)
-    await messageHandler({ ...message, from: account1.publicKey })
+  it('does nothing if message is from sending user', () => {
+    setAccount(account1)
+    messageHandler({ ...message, from: account1.publicKey })
     expect(saveContractMock).not.toHaveBeenCalled()
   })
-  it('does nothing if contract cannot be found', async () => {
+  it('does nothing if contract cannot be found', () => {
     getContractMock.mockReturnValueOnce(undefined)
-    await messageHandler(message)
+    messageHandler(message)
     expect(saveContractMock).not.toHaveBeenCalled()
   })
-  it('adds +1 to unread messages', async () => {
-    await messageHandler(message)
+  it('adds +1 to unread messages', () => {
+    messageHandler(message)
     expect(saveContractMock).toHaveBeenCalledWith({
       ...contract,
       unreadMessages: contract.unreadMessages + 1,

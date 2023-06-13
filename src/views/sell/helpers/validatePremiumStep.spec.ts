@@ -6,10 +6,6 @@ describe('validatePremiumStep', () => {
     CHF: 19,
   }
 
-  beforeEach(() => {
-    jest.clearAllMocks()
-  })
-
   it('should return false if the premium is more than 21 or less than -21', () => {
     const offer1: Partial<SellOfferDraft> = {
       premium: 22,

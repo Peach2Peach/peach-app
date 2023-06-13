@@ -66,7 +66,7 @@ export const useSubmitDisputeAcknowledgement = () => {
       showError(err.message)
       queryClient.setQueryData(['contract', contractId], context?.previousContract)
     },
-    onSuccess: async (_data, { disputeReason, contractId }) => {
+    onSuccess: (_data, { disputeReason, contractId }) => {
       const updatedContract = queryClient.getQueryData<Contract>(['contract', contractId])
       if (!updatedContract) return
       saveContract(updatedContract)

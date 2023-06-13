@@ -28,7 +28,7 @@ const getDecryptedChat
     async ({ queryKey, pageParam = 0 }: GetChatQueryProps) => {
       const messages = await getChatQuery({ queryKey, pageParam })
 
-      return await Promise.all(
+      return Promise.all(
         messages.map(async (message) => {
           try {
             const decrypted = await decryptSymmetric(message.message, symmetricKey)

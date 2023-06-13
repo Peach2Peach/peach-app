@@ -18,10 +18,6 @@ jest.mock('../../../utils/peachAPI', () => ({
 jest.useFakeTimers()
 
 describe('MyProfile', () => {
-  beforeEach(() => {
-    jest.clearAllMocks()
-  })
-
   it('should set up header correctly', () => {
     render(<MyProfile />, { wrapper })
     expect(headerState.header()).toMatchSnapshot()

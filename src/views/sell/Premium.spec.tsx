@@ -25,9 +25,6 @@ describe('Premium', () => {
   const next = jest.fn()
   const renderer = createRenderer()
 
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
   it('should render the Premium view', () => {
     renderer.render(<Premium {...{ offerDraft, setOfferDraft, next }} />)
     const result = renderer.getRenderOutput()

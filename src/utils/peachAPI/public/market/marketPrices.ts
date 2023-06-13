@@ -5,16 +5,10 @@ import { getAbortWithTimeout } from '../../../getAbortWithTimeout'
 import { parseResponse } from '../../parseResponse'
 import { getPublicHeaders } from '../getPublicHeaders'
 
-type GetMarketPricesProps = RequestProps
-
-/**
- * @description Method to get market prices
- * @returns Pricebook
- */
-export const marketPrices = async ({ timeout }: GetMarketPricesProps): Promise<[Pricebook | null, APIError | null]> => {
+export const marketPrices = async ({ timeout }: RequestProps) => {
   const response = await fetch(`${API_URL}/v1/market/prices`, {
     headers: getPublicHeaders(),
     signal: timeout ? getAbortWithTimeout(timeout).signal : undefined,
   })
-  return await parseResponse<Pricebook>(response, 'marketPrices')
+  return parseResponse<Pricebook>(response, 'marketPrices')
 }

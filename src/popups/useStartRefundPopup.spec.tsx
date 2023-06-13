@@ -62,7 +62,6 @@ describe('useStartRefundPopup', () => {
 
   afterEach(() => {
     usePopupStore.setState(defaultPopupState)
-    jest.clearAllMocks()
   })
   it('should return a function', () => {
     const { result } = renderHook(useStartRefundPopup, { wrapper })

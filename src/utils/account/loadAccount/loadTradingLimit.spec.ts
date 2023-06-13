@@ -4,14 +4,14 @@ import { loadTradingLimit } from '.'
 import * as accountData from '../../../../tests/unit/data/accountData'
 
 describe('loadTradingLimit', () => {
-  beforeEach(async () => {
-    await setAccount(defaultAccount)
+  beforeEach(() => {
+    setAccount(defaultAccount)
   })
 
-  it('loads trading limit', async () => {
-    await storeTradingLimit(accountData.account1.tradingLimit)
+  it('loads trading limit', () => {
+    storeTradingLimit(accountData.account1.tradingLimit)
 
-    const tradingLimit = await loadTradingLimit()
+    const tradingLimit = loadTradingLimit()
     deepStrictEqual(tradingLimit, accountData.account1.tradingLimit)
   })
 })

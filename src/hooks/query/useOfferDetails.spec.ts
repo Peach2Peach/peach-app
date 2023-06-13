@@ -18,7 +18,6 @@ describe('useOfferDetails', () => {
   const localOffer = { ...sellOffer, refundTx: '1' }
 
   afterEach(() => {
-    jest.clearAllMocks()
     queryClient.clear()
   })
   it('fetches offer details from API', async () => {

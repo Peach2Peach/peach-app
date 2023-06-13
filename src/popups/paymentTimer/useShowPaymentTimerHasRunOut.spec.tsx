@@ -33,7 +33,6 @@ jest.mock('../../utils/wallet/PeachWallet')
 describe('useShowPaymentTimerHasRunOut', () => {
   afterEach(() => {
     usePopupStore.setState(defaultPopupState)
-    jest.clearAllMocks()
   })
 
   it('should show the payment timer has run out popup if inTrade is false', () => {

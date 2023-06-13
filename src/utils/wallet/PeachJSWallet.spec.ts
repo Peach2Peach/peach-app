@@ -48,7 +48,7 @@ describe('PeachJSWallet', () => {
     ])
   })
 
-  it('signs an arbitrary message', async () => {
+  it('signs an arbitrary message', () => {
     const message = 'message'
     const address = 'bcrt1q7jyvzs6yu9wz8qzmcwyruw0e652xhyhkdw5qrt'
     const signature = peachJSWallet.signMessage(message, address)
@@ -57,7 +57,7 @@ describe('PeachJSWallet', () => {
   it('throws an error if address is not part of wallet', async () => {
     const message = 'message'
     const address = 'bcrt1qdoesnotexist'
-    const error = await getError<Error>(async () => peachJSWallet.signMessage(message, address))
+    const error = await getError<Error>(() => peachJSWallet.signMessage(message, address))
     expect(error.message).toBe('Address not part of wallet')
   })
 })

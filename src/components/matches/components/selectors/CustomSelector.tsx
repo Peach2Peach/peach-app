@@ -19,7 +19,7 @@ export const CustomSelector = <T, >({ items, selectedValue, onChange, style, dis
       <TouchableOpacity
         onPress={() => onChange(value)}
         disabled={disabled}
-        key={'selector-item-' + value + '-' + i}
+        key={`selector-item-${value}-${i}`}
         style={[
           tw`flex-row items-center px-2 border rounded-lg border-black-3`,
           value === selectedValue && tw`bg-primary-main border-primary-main`,

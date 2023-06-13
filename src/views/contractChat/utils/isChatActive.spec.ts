@@ -5,10 +5,6 @@ import { contract } from '../../../../tests/unit/data/contractData'
 describe('isChatActive', () => {
   const THIRTYDAYSINMS = 2592000000
 
-  beforeEach(() => {
-    jest.clearAllMocks()
-  })
-
   it('returns false if contract is falsy', () => {
     expect(isChatActive(null)).toBe(false)
   })

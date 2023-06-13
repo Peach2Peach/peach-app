@@ -69,10 +69,15 @@ export const useBuySummarySetup = () => {
     setIsPublishing(true)
     const messageSigningData = await getMessageSigningData()
 
-    if (messageSigningData) {
-      showErrorBanner('MISSING_SIGNATURE')
+    if (messageSigningData.getError()) {
+      showErrorBanner(messageSigningData.getError())
+      setIsPublishing(false)
+      return
     }
-    const { offerId, isOfferPublished, errorMessage } = await publishBuyOffer({ ...offerDraft, ...messageSigningData })
+    const { offerId, isOfferPublished, errorMessage } = await publishBuyOffer({
+      ...offerDraft,
+      ...messageSigningData.getValue(),
+    })
     setIsPublishing(false)
 
     if (!isOfferPublished || !offerId) {
@@ -98,7 +103,7 @@ export const useBuySummarySetup = () => {
     }
 
     const messageToSign = getMessageToSignForAddress(account.publicKey, payoutAddress)
-    setCanPublish(peachWalletActive || isValidBitcoinSignature(messageToSign, payoutAddress, payoutAddressSignature))
+    setCanPublish(isValidBitcoinSignature(messageToSign, payoutAddress, payoutAddressSignature))
   }, [payoutAddress, payoutAddressSignature, peachWalletActive])
 
   return {

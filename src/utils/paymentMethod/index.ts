@@ -18,4 +18,3 @@ export { paymentMethodAllowedForCurrency } from './paymentMethodAllowedForCurren
 export { paymentMethodSelected } from './paymentMethodSelected'
 export { shouldUsePaymentMethod } from './shouldUsePaymentMethod'
 export { somePaymentDataExists } from './somePaymentDataExists'
-export { toMeansOfPayment } from './toMeansOfPayment'

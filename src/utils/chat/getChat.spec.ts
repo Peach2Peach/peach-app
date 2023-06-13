@@ -5,11 +5,8 @@ import { account, defaultAccount, setAccount } from '../account'
 const now = new Date()
 jest.useFakeTimers({ now })
 describe('getChat', () => {
-  beforeEach(async () => {
-    await setAccount(defaultAccount)
-  })
-  afterEach(() => {
-    jest.clearAllMocks()
+  beforeEach(() => {
+    setAccount(defaultAccount)
   })
 
   it('gets a chat', () => {

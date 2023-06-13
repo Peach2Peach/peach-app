@@ -11,6 +11,7 @@ import i18n from '../../utils/i18n'
 import { FlagType } from '../flags'
 import MeetupSummary from './MeetupSummary'
 import { sortAlphabetically } from '../../utils/array/sortAlphabetically'
+import { Country } from '../../utils/country/countryMap'
 
 type AddPaymentMethodProps = ComponentProps & {
   origin: keyof RootStackParamList
@@ -58,7 +59,7 @@ export default ({ origin, isCash, style }: AddPaymentMethodProps) => {
     })
   }
 
-  const addCashPaymentMethods = async () => {
+  const addCashPaymentMethods = () => {
     if (!meetupEvents) return
 
     const eventsByCountry = meetupEvents.reduce(structureEventsByCountry, {} as CountryEventsMap)

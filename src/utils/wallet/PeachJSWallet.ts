@@ -1,4 +1,3 @@
-/* eslint-disable max-lines */
 import { NETWORK } from '@env'
 import { Network } from 'bdk-rn/lib/lib/enums'
 import { BIP32Interface } from 'bip32'
@@ -32,11 +31,11 @@ export class PeachJSWallet {
     this.jsWallet = wallet
     this.addresses = walletStore.getState().addresses
 
-    this.derivationPath = `m/84\'/${network === 'bitcoin' ? '0' : '1'}\'/0\'`
+    this.derivationPath = `m/84'/${network === 'bitcoin' ? '0' : '1'}'/0'`
   }
 
   getKeyPair (index: number): BIP32Interface {
-    return this.jsWallet.derivePath(this.derivationPath + `/0/${index}`)
+    return this.jsWallet.derivePath(`${this.derivationPath}/0/${index}`)
   }
 
   getAddress (index: number): string | undefined {

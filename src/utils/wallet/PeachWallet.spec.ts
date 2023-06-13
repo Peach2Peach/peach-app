@@ -10,7 +10,7 @@ import { getError } from '../../../tests/unit/helpers/getError'
 import {
   blockChainCreateMock,
   blockchainBroadcastMock,
-  getAddressMock,
+  walletGetAddressMock,
   mnemonicFromStringMock,
   psbtExtractTxMock,
   txBuilderFinishMock,
@@ -27,7 +27,7 @@ import { walletStore } from './walletStore'
 
 jest.mock('./PeachWallet', () => jest.requireActual('./PeachWallet'))
 
-const getTxHexMock = jest.fn(({ txId }) => [txId + 'Hex'])
+const getTxHexMock = jest.fn(({ txId }) => [`${txId}Hex`])
 jest.mock('../electrum/getTxHex', () => ({
   getTxHex: (args: any) => getTxHexMock(args),
 }))
@@ -57,7 +57,6 @@ describe('PeachWallet', () => {
     await peachWallet.loadWallet()
   })
   afterEach(() => {
-    jest.clearAllMocks()
     walletStore.getState().reset()
   })
 
@@ -81,7 +80,7 @@ describe('PeachWallet', () => {
     peachWallet.loadWallet()
     expect(peachWallet.balance).toBe(balance)
     expect(blockChainCreateMock).toHaveBeenCalledWith(
-      { concurrency: '1', proxy: '', stopGap: '5', timeout: '5', url: 'https://localhost:3000' },
+      { concurrency: '5', proxy: '', stopGap: '25', timeout: '5', url: 'https://localhost:3000' },
       'Esplora',
     )
   })
@@ -121,7 +120,7 @@ describe('PeachWallet', () => {
   })
   it('sync wallet attempt throws error if wallet is not ready', async () => {
     peachWallet.wallet = undefined
-    const error = await getError<Error>(async () => peachWallet.syncWallet())
+    const error = await getError<Error>(() => peachWallet.syncWallet())
 
     expect(error.message).toBe('WALLET_NOT_READY')
   })
@@ -197,7 +196,7 @@ describe('PeachWallet', () => {
   })
   it('throws error when requesting balance before wallet is ready', async () => {
     peachWallet.wallet = undefined
-    const error = await getError<Error>(async () => peachWallet.getBalance())
+    const error = await getError<Error>(() => peachWallet.getBalance())
     expect(error.message).toBe('WALLET_NOT_READY')
   })
   it('gets transactions', async () => {
@@ -209,30 +208,30 @@ describe('PeachWallet', () => {
   })
   it('throws error when requesting transactions before wallet is ready', async () => {
     peachWallet.wallet = undefined
-    const error = await getError<Error>(async () => peachWallet.getTransactions())
+    const error = await getError<Error>(() => peachWallet.getTransactions())
     expect(error.message).toBe('WALLET_NOT_READY')
   })
   it('gets a new unused receiving address', async () => {
     const address = 'address'
     const index = 0
-    getAddressMock.mockResolvedValueOnce({ address, index })
+    walletGetAddressMock.mockResolvedValueOnce({ address, index })
 
     const { address: newAddress, index: addressIndex } = await peachWallet.getReceivingAddress()
     expect(newAddress).toBe(address)
     expect(addressIndex).toBe(index)
-    expect(getAddressMock).toHaveBeenCalledWith(AddressIndex.New)
+    expect(walletGetAddressMock).toHaveBeenCalledWith(AddressIndex.New)
   })
   it('throws error when requesting receiving address before wallet is ready', async () => {
     peachWallet.wallet = undefined
-    const error = await getError<Error>(async () => peachWallet.getReceivingAddress())
+    const error = await getError<Error>(() => peachWallet.getReceivingAddress())
     expect(error.message).toBe('WALLET_NOT_READY')
   })
-  it('updates wallet sotre', async () => {
+  it('updates wallet sotre', () => {
     peachWallet.synced = true
     peachWallet.transactions = [confirmed1, confirmed2, pending3]
     tradeSummaryStore.getState().setContract('1-3', { id: '1-3', releaseTxId: confirmed1.txid })
     tradeSummaryStore.getState().setOffer('2', { id: '2', txId: confirmed2.txid })
-    await peachWallet.updateStore()
+    peachWallet.updateStore()
     expect(walletStore.getState().transactions).toEqual([confirmed1, confirmed2, pending3])
     expect(walletStore.getState().txOfferMap).toEqual({
       txid1: '3',
@@ -263,7 +262,7 @@ describe('PeachWallet', () => {
 
   it('throws error when trying to withdraw before wallet is ready', async () => {
     peachWallet.wallet = undefined
-    const error = await getError<Error>(async () => peachWallet.withdrawAll('address', 1))
+    const error = await getError<Error>(() => peachWallet.withdrawAll('address', 1))
     expect(error.message).toBe('WALLET_NOT_READY')
   })
 })

@@ -20,7 +20,6 @@ describe('useOfferSummaries', () => {
   })
 
   afterEach(() => {
-    jest.clearAllMocks()
     queryClient.clear()
   })
   it('fetches offer summaries from API and stores in local store', async () => {

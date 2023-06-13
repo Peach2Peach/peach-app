@@ -12,10 +12,6 @@ jest.mock('../../../../utils/peachAPI', () => ({
 }))
 
 describe('useAutoFundOffer', () => {
-  afterEach(async () => {
-    jest.clearAllMocks()
-  })
-
   it('should return default values', () => {
     const { result } = renderHook(useAutoFundOffer, {
       initialProps: { offerId: sellOffer.id, fundingStatus: defaultFundingStatus },

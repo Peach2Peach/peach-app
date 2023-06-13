@@ -4,9 +4,6 @@ import { UseSellSetupProps, useSellSetup } from './useSellSetup'
 
 describe('useSellSetup', () => {
   const initialProps: UseSellSetupProps = { help: 'sellingBitcoin', hideGoBackButton: false }
-  beforeEach(() => {
-    jest.clearAllMocks()
-  })
 
   it('should set up header correctly', () => {
     renderHook(useSellSetup, { wrapper: NavigationWrapper, initialProps })

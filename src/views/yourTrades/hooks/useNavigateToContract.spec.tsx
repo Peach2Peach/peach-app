@@ -20,7 +20,6 @@ describe('useNavigateToContract', () => {
   )
 
   afterEach(() => {
-    jest.clearAllMocks()
     usePopupStore.setState(defaultPopupState)
   })
 

@@ -18,7 +18,6 @@ jest.mock('@react-navigation/native', () => ({
 
 describe('useContractDetails', () => {
   afterEach(() => {
-    jest.clearAllMocks()
     queryClient.clear()
   })
   it('fetches contract details from API', async () => {

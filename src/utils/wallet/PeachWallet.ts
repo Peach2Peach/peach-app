@@ -1,9 +1,8 @@
-import { NETWORK } from '@env'
-import { Address, Blockchain, DatabaseConfig, Descriptor, TxBuilder, Wallet } from 'bdk-rn'
+import { BLOCKEXPLORER, NETWORK } from '@env'
+import { Blockchain, DatabaseConfig, Descriptor, Wallet } from 'bdk-rn'
 import { TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
 import { AddressIndex, BlockChainNames, BlockchainEsploraConfig, KeychainKind, Network } from 'bdk-rn/lib/lib/enums'
 import { BIP32Interface } from 'bip32'
-import { settingsStore } from '../../store/settingsStore'
 import { tradeSummaryStore } from '../../store/tradeSummaryStore'
 import { getBuyOfferIdFromContract } from '../contract'
 import { info } from '../log'
@@ -17,9 +16,9 @@ import { handleBroadcastError } from './error/handleBroadcastError'
 import { getAndStorePendingTransactionHex } from './getAndStorePendingTransactionHex'
 import { getDescriptorSecretKey } from './getDescriptorSecretKey'
 import { rebroadcastTransactions } from './rebroadcastTransactions'
-import { walletStore } from './walletStore'
 import { buildDrainWalletTransaction } from './transaction/buildDrainWalletTransaction'
 import { buildTransaction } from './transaction/buildTransaction'
+import { walletStore } from './walletStore'
 
 type PeachWalletProps = {
   wallet: BIP32Interface
@@ -47,22 +46,19 @@ export class PeachWallet extends PeachJSWallet {
   constructor ({ wallet, network = NETWORK, gapLimit = 25 }: PeachWalletProps) {
     super({ wallet, network, gapLimit })
     this.network = network as Network
-    this.descriptorPath = `/84\'/${network === 'bitcoin' ? '0' : '1'}\'/0\'/0/*`
+    this.descriptorPath = `/84'/${network === 'bitcoin' ? '0' : '1'}'/0'/0/*`
     this.balance = 0
     this.transactions = []
     this.initialized = false
     this.synced = false
   }
 
-  async loadWallet (seedphrase?: string): Promise<void> {
+  loadWallet (seedphrase?: string): Promise<void> {
     this.loadFromStorage()
 
     return new Promise((resolve) =>
       callWhenInternet(async () => {
-        const nodeURL = settingsStore.getState().nodeURL
         info('PeachWallet - loadWallet - start')
-
-        info('PeachWallet - loadWallet - createWallet')
 
         const descriptorSecretKey = await getDescriptorSecretKey(this.network, seedphrase)
         const externalDescriptor = await new Descriptor().newBip84(
@@ -77,19 +73,21 @@ export class PeachWallet extends PeachJSWallet {
         )
 
         const config: BlockchainEsploraConfig = {
-          url: nodeURL,
+          url: BLOCKEXPLORER,
           proxy: '',
-          concurrency: '1',
+          concurrency: '5',
           timeout: '5',
-          stopGap: '5',
+          stopGap: this.gapLimit.toString(),
         }
 
         this.blockchain = await new Blockchain().create(config, BlockChainNames.Esplora)
         const dbConfig = await new DatabaseConfig().memory()
 
+        info('PeachWallet - loadWallet - createWallet')
+
         this.wallet = await new Wallet().create(externalDescriptor, internalDescriptor, this.network, dbConfig)
 
-        info('PeachWallet - loadWallet - createWallet')
+        info('PeachWallet - loadWallet - createdWallet')
 
         this.initialized = true
 
@@ -101,10 +99,11 @@ export class PeachWallet extends PeachJSWallet {
     )
   }
 
-  async syncWallet (): Promise<void> {
+  syncWallet (): Promise<void> {
     return new Promise((resolve, reject) =>
       callWhenInternet(async () => {
         if (!this.wallet || !this.blockchain) return reject(new Error('WALLET_NOT_READY'))
+
         info('PeachWallet - syncWallet - start')
         this.synced = false
 
@@ -154,7 +153,7 @@ export class PeachWallet extends PeachJSWallet {
     const pending = this.transactions.filter(isPending)
     await Promise.all(pending.map(({ txid }) => getAndStorePendingTransactionHex(txid)))
 
-    await rebroadcastTransactions(toRebroadcast.map(({ txid }) => txid))
+    rebroadcastTransactions(toRebroadcast.map(({ txid }) => txid))
     this.transactions = this.transactions.filter(
       (tx) => tx.confirmationTime || walletStore.getState().pendingTransactions[tx.txid],
     )

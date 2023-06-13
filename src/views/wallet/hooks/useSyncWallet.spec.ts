@@ -9,9 +9,6 @@ jest.mock('../../../utils/wallet/setWallet', () => ({
 }))
 
 describe('useSyncWallet', () => {
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
   it('should return correct default values', () => {
     const { result } = renderHook(useSyncWallet)
 

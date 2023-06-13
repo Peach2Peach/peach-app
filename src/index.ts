@@ -27,6 +27,7 @@ LogBox.ignoreLogs([
 LogBox.ignoreAllLogs(isProduction())
 
 try {
+  // eslint-disable-next-line require-await
   messaging().setBackgroundMessageHandler(async (remoteMessage) => {
     const [notifications, setNotifications] = useNotificationStore(
       (state) => [state.notifications, state.setNotifications],
