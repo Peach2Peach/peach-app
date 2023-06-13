@@ -132,7 +132,7 @@ describe('PeachWallet', () => {
   })
   it('sync wallet attempt throws error if wallet is not ready', async () => {
     peachWallet.wallet = undefined
-    const error = await getError<Error>(peachWallet.syncWallet)
+    const error = await getError<Error>(() => peachWallet.syncWallet())
 
     expect(error.message).toBe('WALLET_NOT_READY')
   })
@@ -220,7 +220,7 @@ describe('PeachWallet', () => {
   })
   it('throws error when requesting balance before wallet is ready', async () => {
     peachWallet.wallet = undefined
-    const error = await getError<Error>(peachWallet.getBalance)
+    const error = await getError<Error>(() => peachWallet.getBalance())
     expect(error.message).toBe('WALLET_NOT_READY')
   })
   it('gets transactions', async () => {
@@ -232,7 +232,7 @@ describe('PeachWallet', () => {
   })
   it('throws error when requesting transactions before wallet is ready', async () => {
     peachWallet.wallet = undefined
-    const error = await getError<Error>(peachWallet.getTransactions)
+    const error = await getError<Error>(() => peachWallet.getTransactions())
     expect(error.message).toBe('WALLET_NOT_READY')
   })
   it('gets a new unused receiving address', async () => {
@@ -247,15 +247,15 @@ describe('PeachWallet', () => {
   })
   it('throws error when requesting receiving address before wallet is ready', async () => {
     peachWallet.wallet = undefined
-    const error = await getError<Error>(peachWallet.getReceivingAddress)
+    const error = await getError<Error>(() => peachWallet.getReceivingAddress())
     expect(error.message).toBe('WALLET_NOT_READY')
   })
-  it('updates wallet sotre', async () => {
+  it('updates wallet sotre', () => {
     peachWallet.synced = true
     peachWallet.transactions = [confirmed1, confirmed2, pending3]
     tradeSummaryStore.getState().setContract('1-3', { id: '1-3', releaseTxId: confirmed1.txid })
     tradeSummaryStore.getState().setOffer('2', { id: '2', txId: confirmed2.txid })
-    await peachWallet.updateStore()
+    peachWallet.updateStore()
     expect(walletStore.getState().transactions).toEqual([confirmed1, confirmed2, pending3])
     expect(walletStore.getState().txOfferMap).toEqual({
       txid1: '3',
