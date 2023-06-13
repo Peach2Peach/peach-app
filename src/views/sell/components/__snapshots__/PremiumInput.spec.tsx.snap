@@ -50,7 +50,7 @@ exports[`PremiumInput should render the PremiumInput view with 0 premium 1`] = `
           "textAlign": "right",
         }
       }
-      onChange={[MockFunction]}
+      onChange={[Function]}
       style={
         {
           "width": 96,
@@ -112,7 +112,7 @@ exports[`PremiumInput should render the PremiumInput view with discount 1`] = `
           "textAlign": "right",
         }
       }
-      onChange={[MockFunction]}
+      onChange={[Function]}
       style={
         {
           "width": 96,
@@ -174,7 +174,7 @@ exports[`PremiumInput should render the PremiumInput view with premium 1`] = `
           "textAlign": "right",
         }
       }
-      onChange={[MockFunction]}
+      onChange={[Function]}
       style={
         {
           "width": 96,

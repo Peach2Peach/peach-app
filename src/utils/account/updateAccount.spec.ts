@@ -16,6 +16,8 @@ jest.mock('../system', () => ({
 
 const setLocaleQuietMock = jest.fn()
 jest.mock('../i18n', () => ({
+  __esModule: true,
+  ...jest.requireActual('../i18n'),
   setLocaleQuiet: (locale: string) => setLocaleQuietMock(locale),
 }))
 

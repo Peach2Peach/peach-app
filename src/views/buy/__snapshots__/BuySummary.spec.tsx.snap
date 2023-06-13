@@ -1,0 +1,183 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BuySummary should render correctly when publishing 1`] = `
+<View
+  style={
+    [
+      {
+        "flexGrow": 1,
+        "justifyContent": "center",
+        "paddingBottom": 20,
+        "paddingLeft": 24,
+        "paddingRight": 24,
+      },
+      {
+        "paddingLeft": 32,
+        "paddingRight": 32,
+      },
+    ]
+  }
+>
+  <PeachScrollView
+    contentContainerStyle={
+      {
+        "flexGrow": 1,
+        "justifyContent": "center",
+      }
+    }
+  >
+    <BuyOfferSummary />
+  </PeachScrollView>
+  <PrimaryButton
+    loading={true}
+    narrow={true}
+    onPress={[MockFunction]}
+    style={
+      {
+        "alignSelf": "center",
+        "marginTop": 16,
+      }
+    }
+    testID="navigation-next"
+  >
+    publishing
+  </PrimaryButton>
+</View>
+`;
+
+exports[`BuySummary should render correctly while peach wallet is still signing message 1`] = `
+<View
+  style={
+    [
+      {
+        "flexGrow": 1,
+        "justifyContent": "center",
+        "paddingBottom": 20,
+        "paddingLeft": 24,
+        "paddingRight": 24,
+      },
+      {
+        "paddingLeft": 32,
+        "paddingRight": 32,
+      },
+    ]
+  }
+>
+  <PeachScrollView
+    contentContainerStyle={
+      {
+        "flexGrow": 1,
+        "justifyContent": "center",
+      }
+    }
+  >
+    <BuyOfferSummary />
+  </PeachScrollView>
+  <PrimaryButton
+    disabled={true}
+    loading={false}
+    narrow={true}
+    onPress={[MockFunction]}
+    style={
+      {
+        "alignSelf": "center",
+        "marginTop": 16,
+      }
+    }
+    testID="navigation-next"
+  >
+    next
+  </PrimaryButton>
+</View>
+`;
+
+exports[`BuySummary should render correctly with custom payout wallet and signature is still missing 1`] = `
+<View
+  style={
+    [
+      {
+        "flexGrow": 1,
+        "justifyContent": "center",
+        "paddingBottom": 20,
+        "paddingLeft": 24,
+        "paddingRight": 24,
+      },
+      {
+        "paddingLeft": 32,
+        "paddingRight": 32,
+      },
+    ]
+  }
+>
+  <PeachScrollView
+    contentContainerStyle={
+      {
+        "flexGrow": 1,
+        "justifyContent": "center",
+      }
+    }
+  >
+    <BuyOfferSummary />
+  </PeachScrollView>
+  <PrimaryButton
+    disabled={false}
+    loading={false}
+    narrow={true}
+    onPress={[MockFunction]}
+    style={
+      {
+        "alignSelf": "center",
+        "marginTop": 16,
+      }
+    }
+    testID="navigation-next"
+  >
+    next
+  </PrimaryButton>
+</View>
+`;
+
+exports[`BuySummary should render the BuySummary view 1`] = `
+<View
+  style={
+    [
+      {
+        "flexGrow": 1,
+        "justifyContent": "center",
+        "paddingBottom": 20,
+        "paddingLeft": 24,
+        "paddingRight": 24,
+      },
+      {
+        "paddingLeft": 32,
+        "paddingRight": 32,
+      },
+    ]
+  }
+>
+  <PeachScrollView
+    contentContainerStyle={
+      {
+        "flexGrow": 1,
+        "justifyContent": "center",
+      }
+    }
+  >
+    <BuyOfferSummary />
+  </PeachScrollView>
+  <PrimaryButton
+    loading={false}
+    narrow={true}
+    onPress={[MockFunction]}
+    style={
+      {
+        "alignSelf": "center",
+        "marginTop": 16,
+      }
+    }
+    testID="navigation-next"
+  >
+    publish
+  </PrimaryButton>
+</View>
+`;
