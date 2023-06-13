@@ -1,13 +1,13 @@
 import { RefreshControl, View } from 'react-native'
-import { AvoidKeyboard, Loading, PeachScrollView, PrimaryButton, Text } from '../../components'
+import { AvoidKeyboard, Loading, PeachScrollView, Text } from '../../components'
 import { OpenWallet } from '../../components/bitcoin'
 import { BitcoinAddressInput, SlideToUnlock } from '../../components/inputs'
 import { BigSatsFormat } from '../../components/text'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { peachWallet } from '../../utils/wallet/setWallet'
-import { useWalletSetup } from './hooks/useWalletSetup'
 import { BitcoinLoading } from '../loading/BitcoinLoading'
+import { useWalletSetup } from './hooks/useWalletSetup'
 
 export default () => {
   const {
