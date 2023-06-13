@@ -89,7 +89,7 @@ describe('PeachWallet', () => {
     expect(peachWallet.balance).toBe(balance)
     expect(peachWallet.addresses).toBe(addresses)
     expect(blockChainCreateMock).toHaveBeenCalledWith(
-      { concurrency: '5', proxy: '', stopGap: '5', timeout: '5', url: 'https://localhost:3000' },
+      { concurrency: '5', proxy: '', stopGap: '25', timeout: '5', url: 'https://localhost:3000' },
       'Esplora',
     )
   })

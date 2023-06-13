@@ -89,7 +89,7 @@ export class PeachWallet {
           proxy: '',
           concurrency: '5',
           timeout: '5',
-          stopGap: '1' || this.gapLimit.toString(),
+          stopGap: this.gapLimit.toString(),
         }
 
         this.blockchain = await new Blockchain().create(config, BlockChainNames.Esplora)
