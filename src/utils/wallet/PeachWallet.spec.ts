@@ -89,7 +89,7 @@ describe('PeachWallet', () => {
     expect(peachWallet.balance).toBe(balance)
     expect(peachWallet.addresses).toBe(addresses)
     expect(blockChainCreateMock).toHaveBeenCalledWith(
-      { concurrency: '1', proxy: '', stopGap: '5', timeout: '5', url: 'https://localhost:3000' },
+      { concurrency: '5', proxy: '', stopGap: '25', timeout: '5', url: 'https://localhost:3000' },
       'Esplora',
     )
   })
@@ -250,12 +250,12 @@ describe('PeachWallet', () => {
     const error = await getError<Error>(() => peachWallet.getReceivingAddress())
     expect(error.message).toBe('WALLET_NOT_READY')
   })
-  it('updates wallet sotre', async () => {
+  it('updates wallet sotre', () => {
     peachWallet.synced = true
     peachWallet.transactions = [confirmed1, confirmed2, pending3]
     tradeSummaryStore.getState().setContract('1-3', { id: '1-3', releaseTxId: confirmed1.txid })
     tradeSummaryStore.getState().setOffer('2', { id: '2', txId: confirmed2.txid })
-    await peachWallet.updateStore()
+    peachWallet.updateStore()
     expect(walletStore.getState().transactions).toEqual([confirmed1, confirmed2, pending3])
     expect(walletStore.getState().txOfferMap).toEqual({
       txid1: '3',

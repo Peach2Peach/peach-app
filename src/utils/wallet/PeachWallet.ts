@@ -1,12 +1,11 @@
 /* eslint-disable max-lines */
-import { NETWORK } from '@env'
+import { BLOCKEXPLORER, NETWORK } from '@env'
 import { Address, Blockchain, DatabaseConfig, Descriptor, TxBuilder, Wallet } from 'bdk-rn'
 import { TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
 import { AddressIndex, BlockChainNames, BlockchainEsploraConfig, KeychainKind, Network } from 'bdk-rn/lib/lib/enums'
 import { BIP32Interface } from 'bip32'
 import { payments } from 'bitcoinjs-lib'
 import { sign } from 'bitcoinjs-message'
-import { settingsStore } from '../../store/settingsStore'
 import { tradeSummaryStore } from '../../store/tradeSummaryStore'
 import { getBuyOfferIdFromContract } from '../contract'
 import { info } from '../log'
@@ -71,10 +70,7 @@ export class PeachWallet {
 
     return new Promise((resolve) =>
       callWhenInternet(async () => {
-        const nodeURL = settingsStore.getState().nodeURL
         info('PeachWallet - loadWallet - start')
-
-        info('PeachWallet - loadWallet - createWallet')
 
         const descriptorSecretKey = await getDescriptorSecretKey(this.network, seedphrase)
         const externalDescriptor = await new Descriptor().newBip84(
@@ -89,19 +85,21 @@ export class PeachWallet {
         )
 
         const config: BlockchainEsploraConfig = {
-          url: nodeURL,
+          url: BLOCKEXPLORER,
           proxy: '',
-          concurrency: '1',
+          concurrency: '5',
           timeout: '5',
-          stopGap: '5',
+          stopGap: this.gapLimit.toString(),
         }
 
         this.blockchain = await new Blockchain().create(config, BlockChainNames.Esplora)
         const dbConfig = await new DatabaseConfig().memory()
 
+        info('PeachWallet - loadWallet - createWallet')
+
         this.wallet = await new Wallet().create(externalDescriptor, internalDescriptor, this.network, dbConfig)
 
-        info('PeachWallet - loadWallet - createWallet')
+        info('PeachWallet - loadWallet - createdWallet')
 
         this.initialized = true
 
@@ -117,6 +115,7 @@ export class PeachWallet {
     return new Promise((resolve, reject) =>
       callWhenInternet(async () => {
         if (!this.wallet || !this.blockchain) return reject(new Error('WALLET_NOT_READY'))
+
         info('PeachWallet - syncWallet - start')
         this.synced = false
 
