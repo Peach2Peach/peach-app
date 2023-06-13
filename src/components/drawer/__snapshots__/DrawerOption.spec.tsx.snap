@@ -1,0 +1,1333 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DrawerOption should render correctly when highlighted 1`] = `
+<View
+  accessibilityState={
+    {
+      "busy": undefined,
+      "checked": undefined,
+      "disabled": undefined,
+      "expanded": undefined,
+      "selected": undefined,
+    }
+  }
+  accessibilityValue={
+    {
+      "max": undefined,
+      "min": undefined,
+      "now": undefined,
+      "text": undefined,
+    }
+  }
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    {
+      "alignItems": "center",
+      "flexDirection": "row",
+      "gap": 12,
+      "opacity": 1,
+      "paddingLeft": 32,
+      "paddingRight": 32,
+    }
+  }
+>
+  <View
+    style={
+      [
+        {
+          "flexGrow": 1,
+          "justifyContent": "center",
+        },
+        undefined,
+      ]
+    }
+  >
+    <Text
+      allowFontScaling={false}
+      style={
+        [
+          {
+            "color": "#2B1911",
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 24,
+          },
+          [
+            {
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "fontWeight": "bold",
+              "letterSpacing": 0.16,
+              "lineHeight": 23,
+            },
+            {
+              "color": "#F56522",
+            },
+          ],
+        ]
+      }
+    >
+      title
+    </Text>
+    <Text
+      allowFontScaling={false}
+      style={
+        [
+          {
+            "color": "#2B1911",
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 24,
+          },
+          [
+            {
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 14,
+              "letterSpacing": 0.14,
+              "lineHeight": 20,
+            },
+            {
+              "color": "#F56522",
+            },
+          ],
+        ]
+      }
+    >
+      subtext
+    </Text>
+  </View>
+  <test-file-stub
+    fill="#F56522"
+    style={
+      [
+        {
+          "height": 24,
+          "width": 24,
+        },
+        {
+          "height": 24,
+          "width": 24,
+        },
+      ]
+    }
+  />
+</View>
+`;
+
+exports[`DrawerOption should render correctly with only title 1`] = `
+<View
+  accessibilityState={
+    {
+      "busy": undefined,
+      "checked": undefined,
+      "disabled": undefined,
+      "expanded": undefined,
+      "selected": undefined,
+    }
+  }
+  accessibilityValue={
+    {
+      "max": undefined,
+      "min": undefined,
+      "now": undefined,
+      "text": undefined,
+    }
+  }
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    {
+      "alignItems": "center",
+      "flexDirection": "row",
+      "gap": 12,
+      "opacity": 1,
+      "paddingBottom": 6,
+      "paddingLeft": 32,
+      "paddingRight": 32,
+      "paddingTop": 6,
+    }
+  }
+>
+  <View
+    style={
+      [
+        {
+          "flexGrow": 1,
+          "justifyContent": "center",
+        },
+        undefined,
+      ]
+    }
+  >
+    <View
+      style={
+        {
+          "height": 22,
+          "justifyContent": "center",
+        }
+      }
+    >
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              {
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 16,
+                "fontWeight": "bold",
+                "letterSpacing": 0.16,
+                "lineHeight": 23,
+              },
+              {
+                "marginBottom": -40,
+                "marginTop": -40,
+              },
+            ],
+          ]
+        }
+      >
+        title
+      </Text>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`DrawerOption should render correctly with title and flagID 1`] = `
+<View
+  accessibilityState={
+    {
+      "busy": undefined,
+      "checked": undefined,
+      "disabled": undefined,
+      "expanded": undefined,
+      "selected": undefined,
+    }
+  }
+  accessibilityValue={
+    {
+      "max": undefined,
+      "min": undefined,
+      "now": undefined,
+      "text": undefined,
+    }
+  }
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    {
+      "alignItems": "center",
+      "flexDirection": "row",
+      "gap": 12,
+      "opacity": 1,
+      "paddingBottom": 8,
+      "paddingLeft": 32,
+      "paddingRight": 32,
+      "paddingTop": 8,
+    }
+  }
+>
+  <test-file-stub
+    style={
+      {
+        "height": 24,
+        "width": 32,
+      }
+    }
+  />
+  <View
+    style={
+      [
+        {
+          "flexGrow": 1,
+          "justifyContent": "center",
+        },
+        {
+          "gap": 2,
+        },
+      ]
+    }
+  >
+    <View
+      style={
+        {
+          "height": 22,
+          "justifyContent": "center",
+        }
+      }
+    >
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              {
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 16,
+                "fontWeight": "bold",
+                "letterSpacing": 0.16,
+                "lineHeight": 23,
+              },
+              {
+                "marginBottom": -40,
+                "marginTop": -40,
+              },
+            ],
+          ]
+        }
+      >
+        title
+      </Text>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`DrawerOption should render correctly with title and iconRightID 1`] = `
+<View
+  accessibilityState={
+    {
+      "busy": undefined,
+      "checked": undefined,
+      "disabled": undefined,
+      "expanded": undefined,
+      "selected": undefined,
+    }
+  }
+  accessibilityValue={
+    {
+      "max": undefined,
+      "min": undefined,
+      "now": undefined,
+      "text": undefined,
+    }
+  }
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    {
+      "alignItems": "center",
+      "flexDirection": "row",
+      "gap": 12,
+      "opacity": 1,
+      "paddingBottom": 4,
+      "paddingLeft": 32,
+      "paddingRight": 32,
+      "paddingTop": 4,
+    }
+  }
+>
+  <View
+    style={
+      [
+        {
+          "flexGrow": 1,
+          "justifyContent": "center",
+        },
+        undefined,
+      ]
+    }
+  >
+    <View
+      style={
+        {
+          "height": 22,
+          "justifyContent": "center",
+        }
+      }
+    >
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              {
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 16,
+                "fontWeight": "bold",
+                "letterSpacing": 0.16,
+                "lineHeight": 23,
+              },
+              {
+                "marginBottom": -40,
+                "marginTop": -40,
+              },
+            ],
+          ]
+        }
+      >
+        title
+      </Text>
+    </View>
+  </View>
+  <test-file-stub
+    fill="#F56522"
+    style={
+      [
+        {
+          "height": 24,
+          "width": 24,
+        },
+        {
+          "height": 24,
+          "width": 24,
+        },
+      ]
+    }
+  />
+</View>
+`;
+
+exports[`DrawerOption should render correctly with title and logoID 1`] = `
+<View
+  accessibilityState={
+    {
+      "busy": undefined,
+      "checked": undefined,
+      "disabled": undefined,
+      "expanded": undefined,
+      "selected": undefined,
+    }
+  }
+  accessibilityValue={
+    {
+      "max": undefined,
+      "min": undefined,
+      "now": undefined,
+      "text": undefined,
+    }
+  }
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    {
+      "alignItems": "center",
+      "flexDirection": "row",
+      "gap": 12,
+      "opacity": 1,
+      "paddingBottom": 4,
+      "paddingLeft": 32,
+      "paddingRight": 32,
+      "paddingTop": 4,
+    }
+  }
+>
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "backgroundColor": "#FFFCFA",
+        "borderColor": "#F4EEEB",
+        "borderRadius": 5,
+        "borderWidth": 1,
+        "height": 32,
+        "justifyContent": "center",
+        "width": 32,
+      }
+    }
+  >
+    <test-file-stub
+      style={
+        {
+          "height": 24,
+          "width": 24,
+        }
+      }
+    />
+  </View>
+  <View
+    style={
+      [
+        {
+          "flexGrow": 1,
+          "justifyContent": "center",
+        },
+        undefined,
+      ]
+    }
+  >
+    <View
+      style={
+        {
+          "height": 22,
+          "justifyContent": "center",
+        }
+      }
+    >
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              {
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 16,
+                "fontWeight": "bold",
+                "letterSpacing": 0.16,
+                "lineHeight": 23,
+              },
+              {
+                "marginBottom": -40,
+                "marginTop": -40,
+              },
+            ],
+          ]
+        }
+      >
+        title
+      </Text>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`DrawerOption should render correctly with title and subtext 1`] = `
+<View
+  accessibilityState={
+    {
+      "busy": undefined,
+      "checked": undefined,
+      "disabled": undefined,
+      "expanded": undefined,
+      "selected": undefined,
+    }
+  }
+  accessibilityValue={
+    {
+      "max": undefined,
+      "min": undefined,
+      "now": undefined,
+      "text": undefined,
+    }
+  }
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    {
+      "alignItems": "center",
+      "flexDirection": "row",
+      "gap": 12,
+      "opacity": 1,
+      "paddingLeft": 32,
+      "paddingRight": 32,
+    }
+  }
+>
+  <View
+    style={
+      [
+        {
+          "flexGrow": 1,
+          "justifyContent": "center",
+        },
+        undefined,
+      ]
+    }
+  >
+    <Text
+      allowFontScaling={false}
+      style={
+        [
+          {
+            "color": "#2B1911",
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 24,
+          },
+          [
+            {
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "fontWeight": "bold",
+              "letterSpacing": 0.16,
+              "lineHeight": 23,
+            },
+            undefined,
+          ],
+        ]
+      }
+    >
+      title
+    </Text>
+    <Text
+      allowFontScaling={false}
+      style={
+        [
+          {
+            "color": "#2B1911",
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 24,
+          },
+          [
+            {
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 14,
+              "letterSpacing": 0.14,
+              "lineHeight": 20,
+            },
+            undefined,
+          ],
+        ]
+      }
+    >
+      subtext
+    </Text>
+  </View>
+</View>
+`;
+
+exports[`DrawerOption should render correctly with title, flagID and iconRightID 1`] = `
+<View
+  accessibilityState={
+    {
+      "busy": undefined,
+      "checked": undefined,
+      "disabled": undefined,
+      "expanded": undefined,
+      "selected": undefined,
+    }
+  }
+  accessibilityValue={
+    {
+      "max": undefined,
+      "min": undefined,
+      "now": undefined,
+      "text": undefined,
+    }
+  }
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    {
+      "alignItems": "center",
+      "flexDirection": "row",
+      "gap": 12,
+      "opacity": 1,
+      "paddingBottom": 8,
+      "paddingLeft": 32,
+      "paddingRight": 32,
+      "paddingTop": 8,
+    }
+  }
+>
+  <test-file-stub
+    style={
+      {
+        "height": 24,
+        "width": 32,
+      }
+    }
+  />
+  <View
+    style={
+      [
+        {
+          "flexGrow": 1,
+          "justifyContent": "center",
+        },
+        {
+          "gap": 2,
+        },
+      ]
+    }
+  >
+    <View
+      style={
+        {
+          "height": 22,
+          "justifyContent": "center",
+        }
+      }
+    >
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              {
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 16,
+                "fontWeight": "bold",
+                "letterSpacing": 0.16,
+                "lineHeight": 23,
+              },
+              {
+                "marginBottom": -40,
+                "marginTop": -40,
+              },
+            ],
+          ]
+        }
+      >
+        title
+      </Text>
+    </View>
+  </View>
+  <test-file-stub
+    fill="#F56522"
+    style={
+      [
+        {
+          "height": 24,
+          "width": 24,
+        },
+        {
+          "height": 24,
+          "width": 24,
+        },
+      ]
+    }
+  />
+</View>
+`;
+
+exports[`DrawerOption should render correctly with title, logoID and iconRightID 1`] = `
+<View
+  accessibilityState={
+    {
+      "busy": undefined,
+      "checked": undefined,
+      "disabled": undefined,
+      "expanded": undefined,
+      "selected": undefined,
+    }
+  }
+  accessibilityValue={
+    {
+      "max": undefined,
+      "min": undefined,
+      "now": undefined,
+      "text": undefined,
+    }
+  }
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    {
+      "alignItems": "center",
+      "flexDirection": "row",
+      "gap": 12,
+      "opacity": 1,
+      "paddingBottom": 4,
+      "paddingLeft": 32,
+      "paddingRight": 32,
+      "paddingTop": 4,
+    }
+  }
+>
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "backgroundColor": "#FFFCFA",
+        "borderColor": "#F4EEEB",
+        "borderRadius": 5,
+        "borderWidth": 1,
+        "height": 32,
+        "justifyContent": "center",
+        "width": 32,
+      }
+    }
+  >
+    <test-file-stub
+      style={
+        {
+          "height": 24,
+          "width": 24,
+        }
+      }
+    />
+  </View>
+  <View
+    style={
+      [
+        {
+          "flexGrow": 1,
+          "justifyContent": "center",
+        },
+        undefined,
+      ]
+    }
+  >
+    <View
+      style={
+        {
+          "height": 22,
+          "justifyContent": "center",
+        }
+      }
+    >
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              {
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 16,
+                "fontWeight": "bold",
+                "letterSpacing": 0.16,
+                "lineHeight": 23,
+              },
+              {
+                "marginBottom": -40,
+                "marginTop": -40,
+              },
+            ],
+          ]
+        }
+      >
+        title
+      </Text>
+    </View>
+  </View>
+  <test-file-stub
+    fill="#F56522"
+    style={
+      [
+        {
+          "height": 24,
+          "width": 24,
+        },
+        {
+          "height": 24,
+          "width": 24,
+        },
+      ]
+    }
+  />
+</View>
+`;
+
+exports[`DrawerOption should render correctly with title, subtext and flagID 1`] = `
+<View
+  accessibilityState={
+    {
+      "busy": undefined,
+      "checked": undefined,
+      "disabled": undefined,
+      "expanded": undefined,
+      "selected": undefined,
+    }
+  }
+  accessibilityValue={
+    {
+      "max": undefined,
+      "min": undefined,
+      "now": undefined,
+      "text": undefined,
+    }
+  }
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    {
+      "alignItems": "center",
+      "flexDirection": "row",
+      "gap": 12,
+      "opacity": 1,
+      "paddingBottom": 2,
+      "paddingLeft": 32,
+      "paddingRight": 32,
+      "paddingTop": 2,
+    }
+  }
+>
+  <test-file-stub
+    style={
+      {
+        "height": 24,
+        "width": 32,
+      }
+    }
+  />
+  <View
+    style={
+      [
+        {
+          "flexGrow": 1,
+          "justifyContent": "center",
+        },
+        {
+          "gap": 2,
+        },
+      ]
+    }
+  >
+    <View
+      style={
+        {
+          "height": 17,
+          "justifyContent": "center",
+        }
+      }
+    >
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              {
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 16,
+                "fontWeight": "bold",
+                "letterSpacing": 0.16,
+                "lineHeight": 23,
+              },
+              {
+                "marginBottom": -40,
+                "marginTop": -40,
+              },
+            ],
+          ]
+        }
+      >
+        title
+      </Text>
+    </View>
+    <View
+      style={
+        {
+          "height": 17,
+          "justifyContent": "center",
+        }
+      }
+    >
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              {
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 14,
+                "letterSpacing": 0.14,
+                "lineHeight": 20,
+              },
+              {
+                "marginBottom": -40,
+                "marginTop": -40,
+              },
+            ],
+          ]
+        }
+      >
+        subtext
+      </Text>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`DrawerOption should render correctly with title, subtext and iconRightID 1`] = `
+<View
+  accessibilityState={
+    {
+      "busy": undefined,
+      "checked": undefined,
+      "disabled": undefined,
+      "expanded": undefined,
+      "selected": undefined,
+    }
+  }
+  accessibilityValue={
+    {
+      "max": undefined,
+      "min": undefined,
+      "now": undefined,
+      "text": undefined,
+    }
+  }
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    {
+      "alignItems": "center",
+      "flexDirection": "row",
+      "gap": 12,
+      "opacity": 1,
+      "paddingLeft": 32,
+      "paddingRight": 32,
+    }
+  }
+>
+  <View
+    style={
+      [
+        {
+          "flexGrow": 1,
+          "justifyContent": "center",
+        },
+        undefined,
+      ]
+    }
+  >
+    <Text
+      allowFontScaling={false}
+      style={
+        [
+          {
+            "color": "#2B1911",
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 24,
+          },
+          [
+            {
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "fontWeight": "bold",
+              "letterSpacing": 0.16,
+              "lineHeight": 23,
+            },
+            undefined,
+          ],
+        ]
+      }
+    >
+      title
+    </Text>
+    <Text
+      allowFontScaling={false}
+      style={
+        [
+          {
+            "color": "#2B1911",
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 24,
+          },
+          [
+            {
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 14,
+              "letterSpacing": 0.14,
+              "lineHeight": 20,
+            },
+            undefined,
+          ],
+        ]
+      }
+    >
+      subtext
+    </Text>
+  </View>
+  <test-file-stub
+    fill="#F56522"
+    style={
+      [
+        {
+          "height": 24,
+          "width": 24,
+        },
+        {
+          "height": 24,
+          "width": 24,
+        },
+      ]
+    }
+  />
+</View>
+`;
+
+exports[`DrawerOption should render correctly with title, subtext, flagID and iconRightID 1`] = `
+<View
+  accessibilityState={
+    {
+      "busy": undefined,
+      "checked": undefined,
+      "disabled": undefined,
+      "expanded": undefined,
+      "selected": undefined,
+    }
+  }
+  accessibilityValue={
+    {
+      "max": undefined,
+      "min": undefined,
+      "now": undefined,
+      "text": undefined,
+    }
+  }
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    {
+      "alignItems": "center",
+      "flexDirection": "row",
+      "gap": 12,
+      "opacity": 1,
+      "paddingBottom": 2,
+      "paddingLeft": 32,
+      "paddingRight": 32,
+      "paddingTop": 2,
+    }
+  }
+>
+  <test-file-stub
+    style={
+      {
+        "height": 24,
+        "width": 32,
+      }
+    }
+  />
+  <View
+    style={
+      [
+        {
+          "flexGrow": 1,
+          "justifyContent": "center",
+        },
+        {
+          "gap": 2,
+        },
+      ]
+    }
+  >
+    <View
+      style={
+        {
+          "height": 17,
+          "justifyContent": "center",
+        }
+      }
+    >
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              {
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 16,
+                "fontWeight": "bold",
+                "letterSpacing": 0.16,
+                "lineHeight": 23,
+              },
+              {
+                "marginBottom": -40,
+                "marginTop": -40,
+              },
+            ],
+          ]
+        }
+      >
+        title
+      </Text>
+    </View>
+    <View
+      style={
+        {
+          "height": 17,
+          "justifyContent": "center",
+        }
+      }
+    >
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              {
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 14,
+                "letterSpacing": 0.14,
+                "lineHeight": 20,
+              },
+              {
+                "marginBottom": -40,
+                "marginTop": -40,
+              },
+            ],
+          ]
+        }
+      >
+        subtext
+      </Text>
+    </View>
+  </View>
+  <test-file-stub
+    fill="#F56522"
+    style={
+      [
+        {
+          "height": 24,
+          "width": 24,
+        },
+        {
+          "height": 24,
+          "width": 24,
+        },
+      ]
+    }
+  />
+</View>
+`;
