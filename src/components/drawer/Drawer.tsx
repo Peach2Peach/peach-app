@@ -1,10 +1,10 @@
 import { useContext, useEffect, useRef, useState } from 'react'
 import { Animated, BackHandler, Dimensions, Easing, GestureResponderEvent, Pressable, View } from 'react-native'
-import { HorizontalLine, Icon, PeachScrollView, Text } from '.'
+import { HorizontalLine, Icon, PeachScrollView, Text } from '..'
 
-import { DrawerContext } from '../contexts/drawer'
-import tw from '../styles/tailwind'
-import { info } from '../utils/log'
+import { DrawerContext } from '../../contexts/drawer'
+import tw from '../../styles/tailwind'
+import { info } from '../../utils/log'
 
 const animConfig = {
   duration: 300,
