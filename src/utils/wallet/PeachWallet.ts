@@ -6,7 +6,6 @@ import { AddressIndex, BlockChainNames, BlockchainEsploraConfig, KeychainKind, N
 import { BIP32Interface } from 'bip32'
 import { payments } from 'bitcoinjs-lib'
 import { sign } from 'bitcoinjs-message'
-import { InteractionManager } from 'react-native'
 import { tradeSummaryStore } from '../../store/tradeSummaryStore'
 import { getBuyOfferIdFromContract } from '../contract'
 import { info } from '../log'
@@ -90,7 +89,7 @@ export class PeachWallet {
           proxy: '',
           concurrency: '5',
           timeout: '5',
-          stopGap: '5',
+          stopGap: '1' || this.gapLimit.toString(),
         }
 
         this.blockchain = await new Blockchain().create(config, BlockChainNames.Esplora)
@@ -114,23 +113,20 @@ export class PeachWallet {
 
   syncWallet (): Promise<void> {
     return new Promise((resolve, reject) =>
-      callWhenInternet(() => {
-        // wallet.sync is blocking execution
-        InteractionManager.runAfterInteractions(async () => {
-          if (!this.wallet || !this.blockchain) return reject(new Error('WALLET_NOT_READY'))
+      callWhenInternet(async () => {
+        if (!this.wallet || !this.blockchain) return reject(new Error('WALLET_NOT_READY'))
 
-          info('PeachWallet - syncWallet - start')
-          this.synced = false
+        info('PeachWallet - syncWallet - start')
+        this.synced = false
 
-          const success = await this.wallet.sync(this.blockchain)
-          if (success) {
-            this.getBalance()
-            this.getTransactions()
-            this.synced = true
-            info('PeachWallet - syncWallet - synced')
-          }
-          return resolve()
-        })
+        const success = await this.wallet.sync(this.blockchain)
+        if (success) {
+          this.getBalance()
+          this.getTransactions()
+          this.synced = true
+          info('PeachWallet - syncWallet - synced')
+        }
+        return resolve()
       }),
     )
   }

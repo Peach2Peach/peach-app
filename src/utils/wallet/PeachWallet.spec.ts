@@ -89,7 +89,7 @@ describe('PeachWallet', () => {
     expect(peachWallet.balance).toBe(balance)
     expect(peachWallet.addresses).toBe(addresses)
     expect(blockChainCreateMock).toHaveBeenCalledWith(
-      { concurrency: '1', proxy: '', stopGap: '5', timeout: '5', url: 'https://localhost:3000' },
+      { concurrency: '5', proxy: '', stopGap: '5', timeout: '5', url: 'https://localhost:3000' },
       'Esplora',
     )
   })
@@ -132,7 +132,7 @@ describe('PeachWallet', () => {
   })
   it('sync wallet attempt throws error if wallet is not ready', async () => {
     peachWallet.wallet = undefined
-    const error = await getError<Error>(() => peachWallet.syncWallet())
+    const error = await getError<Error>(peachWallet.syncWallet)
 
     expect(error.message).toBe('WALLET_NOT_READY')
   })
@@ -220,7 +220,7 @@ describe('PeachWallet', () => {
   })
   it('throws error when requesting balance before wallet is ready', async () => {
     peachWallet.wallet = undefined
-    const error = await getError<Error>(() => peachWallet.getBalance())
+    const error = await getError<Error>(peachWallet.getBalance)
     expect(error.message).toBe('WALLET_NOT_READY')
   })
   it('gets transactions', async () => {
@@ -232,7 +232,7 @@ describe('PeachWallet', () => {
   })
   it('throws error when requesting transactions before wallet is ready', async () => {
     peachWallet.wallet = undefined
-    const error = await getError<Error>(() => peachWallet.getTransactions())
+    const error = await getError<Error>(peachWallet.getTransactions)
     expect(error.message).toBe('WALLET_NOT_READY')
   })
   it('gets a new unused receiving address', async () => {
@@ -247,7 +247,7 @@ describe('PeachWallet', () => {
   })
   it('throws error when requesting receiving address before wallet is ready', async () => {
     peachWallet.wallet = undefined
-    const error = await getError<Error>(() => peachWallet.getReceivingAddress())
+    const error = await getError<Error>(peachWallet.getReceivingAddress)
     expect(error.message).toBe('WALLET_NOT_READY')
   })
   it('updates wallet sotre', async () => {
