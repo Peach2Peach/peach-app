@@ -12,31 +12,30 @@ type Props = {
   title: string
   subtext?: string
   iconRightID?: IconType
-  highlighted?: boolean
   onPress: () => void
 } & (
   | {
       logoID: PaymentLogoType
       flagID?: never
-      highlighted?: false
+      highlighted?: never
       subtext?: never
     }
   | {
       flagID: FlagType
       logoID?: never
-      highlighted?: false
+      highlighted?: never
     }
   | {
       flagID?: never
       logoID?: never
-      highlighted: true
+      highlighted: boolean
       subtext: string
       iconRightID?: never
     }
   | {
       flagID?: never
       logoID?: never
-      highlighted?: false
+      highlighted?: never
     }
 )
 
