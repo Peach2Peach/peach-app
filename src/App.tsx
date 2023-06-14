@@ -52,7 +52,14 @@ const App = () => {
   const [messageState, updateMessage] = useReducer(setMessage, getMessage())
   const [languageState, updateLanguage] = useReducer(i18n.setLocale, i18n.getState())
   const [
-    { title: drawerTitle, content: drawerContent, show: showDrawer, previousDrawer, onClose: onCloseDrawer },
+    {
+      title: drawerTitle,
+      content: drawerContent,
+      options: drawerOptions,
+      show: showDrawer,
+      previousDrawer,
+      onClose: onCloseDrawer,
+    },
     updateDrawer,
   ] = useReducer(setDrawer, getDrawer())
   const [peachWS, updatePeachWS] = useReducer(setPeachWS, getWebSocket())
@@ -152,20 +159,21 @@ const App = () => {
               <MessageContext.Provider value={[messageState, updateMessage]}>
                 <DrawerContext.Provider
                   value={[
-                    { title: '', content: null, show: false, previousDrawer: {}, onClose: () => {} },
+                    {
+                      title: drawerTitle,
+                      content: drawerContent,
+                      options: drawerOptions,
+                      show: showDrawer,
+                      previousDrawer,
+                      onClose: onCloseDrawer,
+                    },
                     updateDrawer,
                   ]}
                 >
                   <NavigationContainer theme={navTheme} ref={navigationRef} onStateChange={onNavStateChange}>
                     <GlobalHandlers {...{ getCurrentPage }} />
                     <Background config={backgroundConfig}>
-                      <Drawer
-                        title={drawerTitle}
-                        content={drawerContent}
-                        show={showDrawer}
-                        onClose={onCloseDrawer}
-                        previousDrawer={previousDrawer}
-                      />
+                      <Drawer />
                       <Popup />
                       <SafeAreaView>
                         <View style={tw`flex-col h-full`}>

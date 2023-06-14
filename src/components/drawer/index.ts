@@ -1,1 +1,1 @@
-export { Drawer } from '../drawer/Drawer'
+export { Drawer } from './Drawer'
