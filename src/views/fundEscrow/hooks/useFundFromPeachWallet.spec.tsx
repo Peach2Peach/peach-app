@@ -7,12 +7,30 @@ import { PeachWallet } from '../../../utils/wallet/PeachWallet'
 import { act } from 'react-test-renderer'
 import { usePopupStore } from '../../../store/usePopupStore'
 import { ConfirmFundingFromPeachWallet } from '../components/ConfirmFundingFromPeachWallet'
+import { getTransactionDetails } from '../../../../tests/unit/helpers/getTransactionDetails'
+import { estimatedFees } from '../../../../tests/unit/data/bitcoinNetworkData'
+import { Loading } from '../../../components'
+import tw from '../../../styles/tailwind'
+import { broadcastError } from '../../../../tests/unit/data/errors'
+
+const useFeeEstimateMock = jest.fn().mockReturnValue({ estimatedFees })
+jest.mock('../../../hooks/query/useFeeEstimate', () => ({
+  useFeeEstimate: () => useFeeEstimateMock(),
+}))
+
+const showErrorBannerMock = jest.fn()
+jest.mock('../../../hooks/useShowErrorBanner', () => ({
+  useShowErrorBanner:
+    () =>
+      (...args: any[]) =>
+        showErrorBannerMock(...args),
+}))
 
 describe('useFundFromPeachWallet', () => {
   const amount = sellOffer.amount
   const address = 'bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh'
-  const fee = 110
-  const feeRate = 1
+  const feeRate = estimatedFees.halfHourFee
+  const fee = feeRate * 110
   const offerWithEscrow = { ...sellOffer, escrow: address }
   const initialProps = { offer: offerWithEscrow, fundingStatus: defaultFundingStatus }
   beforeEach(() => {
@@ -23,8 +41,9 @@ describe('useFundFromPeachWallet', () => {
     const { result } = renderHook(useFundFromPeachWallet, { initialProps })
 
     expect(result.current).toEqual({
-      canFundFromPeachWallet: false,
+      canFundFromPeachWallet: true,
       fundFromPeachWallet: expect.any(Function),
+      fundedFromPeachWallet: false,
     })
   })
   it('should return canFundFromPeachWallet as true if peach wallet has enough funds', () => {
@@ -57,17 +76,28 @@ describe('useFundFromPeachWallet', () => {
   })
 
   it('should not open popup if cannot fund from peach wallet', async () => {
+    const { result } = renderHook(useFundFromPeachWallet, {
+      initialProps: {
+        ...initialProps,
+        fundingStatus: {
+          ...defaultFundingStatus,
+          status: 'MEMPOOL',
+        },
+      },
+    })
+
+    await act(async () => {
+      await result.current.fundFromPeachWallet()
+    })
+    expect(usePopupStore.getState().visible).toBeFalsy()
+  })
+  it('should open confirmation popup', async () => {
+    peachWallet.balance = amount
+    peachWallet.finishTransaction = jest.fn().mockResolvedValue(getTransactionDetails(amount, feeRate))
+
     const { result } = renderHook(useFundFromPeachWallet, { initialProps })
 
     await result.current.fundFromPeachWallet()
-    expect(usePopupStore.getState().visible).toBeFalsy()
-  })
-  it('should open confirmation popup', () => {
-    peachWallet.balance = amount
-
-    const { result } = renderHook(useFundFromPeachWallet, { initialProps })
-
-    result.current.fundFromPeachWallet()
     expect(usePopupStore.getState()).toEqual({
       ...usePopupStore.getState(),
       title: 'funding escrow',
@@ -85,6 +115,49 @@ describe('useFundFromPeachWallet', () => {
       },
     })
   })
+  it('should broadcast transaction on confirm', async () => {
+    const txDetails = getTransactionDetails(amount, feeRate)
+    peachWallet.balance = amount
+    peachWallet.finishTransaction = jest.fn().mockResolvedValue(txDetails)
+    peachWallet.signAndBroadcastTransaction = jest.fn().mockResolvedValue(txDetails)
 
-  // await act(result.current.fundFromPeachWallet)
+    const { result } = renderHook(useFundFromPeachWallet, { initialProps })
+
+    await act(async () => {
+      await result.current.fundFromPeachWallet()
+    })
+    const promise = usePopupStore.getState().action1?.callback()
+
+    expect(usePopupStore.getState()).toEqual({
+      ...usePopupStore.getState(),
+      title: 'funding escrow',
+      level: 'APP',
+      content: <Loading color={tw`text-black-1`.color} style={tw`self-center`} />,
+      action1: {
+        label: 'loading...',
+        icon: 'clock',
+        callback: expect.any(Function),
+      },
+    })
+    await act(async () => {
+      await promise
+    })
+
+    expect(peachWallet.signAndBroadcastTransaction).toHaveBeenCalledWith(txDetails)
+    expect(usePopupStore.getState().visible).toBeFalsy()
+    expect(result.current.fundedFromPeachWallet).toBeTruthy()
+  })
+  it('should handle broadcast errors', async () => {
+    peachWallet.balance = amount
+    peachWallet.signAndBroadcastTransaction = jest.fn().mockImplementation(() => {
+      throw broadcastError
+    })
+
+    const { result } = renderHook(useFundFromPeachWallet, { initialProps })
+
+    await result.current.fundFromPeachWallet()
+    await usePopupStore.getState().action1?.callback()
+    expect(showErrorBannerMock).toHaveBeenCalledWith('INSUFFICIENT_FUNDS', ['78999997952', '1089000'])
+    expect(usePopupStore.getState().visible).toBeFalsy()
+  })
 })

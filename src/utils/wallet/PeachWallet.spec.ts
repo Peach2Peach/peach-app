@@ -296,16 +296,24 @@ describe('PeachWallet', () => {
       txDetails: pending1,
     }
     const transaction = await new Transaction().create([])
-    const txBuilder = await new TxBuilder().create()
 
-    buildTransactionMock.mockResolvedValueOnce(txBuilder)
-    txBuilderFinishMock.mockResolvedValueOnce(result)
     walletSignMock.mockResolvedValueOnce(result.psbt)
     psbtExtractTxMock.mockResolvedValueOnce(transaction)
-    const signAndSendResult = await peachWallet.signAndBroadcastTransaction(txBuilder)
-    expect(txBuilderFinishMock).toHaveBeenCalledWith(peachWallet.wallet)
+    const signAndSendResult = await peachWallet.signAndBroadcastTransaction(result)
     expect(walletSignMock).toHaveBeenCalledWith(result.psbt)
     expect(blockchainBroadcastMock).toHaveBeenCalledWith(transaction)
+    expect(signAndSendResult).toEqual(result)
+  })
+  it('finishes a transaction', async () => {
+    const result: TxBuilderResult = {
+      psbt: new PartiallySignedTransaction('base64'),
+      txDetails: pending1,
+    }
+    txBuilderFinishMock.mockResolvedValueOnce(result)
+    const txBuilder = await new TxBuilder().create()
+
+    const signAndSendResult = await peachWallet.finishTransaction(txBuilder)
+    expect(txBuilderFinishMock).toHaveBeenCalledWith(peachWallet.wallet)
     expect(signAndSendResult).toEqual(result)
   })
 

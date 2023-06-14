@@ -2,6 +2,7 @@
 import { PartiallySignedTransaction } from 'bdk-rn'
 import { BlockTime, TransactionDetails, TxBuilderResult } from 'bdk-rn/lib/classes/Bindings'
 import { TransactionsResponse } from 'bdk-rn/lib/lib/interfaces'
+import { getTransactionDetails } from '../../../../tests/unit/helpers/getTransactionDetails'
 
 export class PeachWallet {
   balance: number
@@ -33,10 +34,15 @@ export class PeachWallet {
   }
 
   async sendTo (address: string, amount: number, feeRate = 1): Promise<TxBuilderResult> {
-    return {
-      psbt: new PartiallySignedTransaction('base64'),
-      txDetails: new TransactionDetails('txId', 0, amount, feeRate * 110, new BlockTime(1, 1)),
-    }
+    return getTransactionDetails(amount, feeRate)
+  }
+
+  async finishTransaction () {
+    return getTransactionDetails()
+  }
+
+  async signAndBroadcastTransaction (transaction: TxBuilderResult) {
+    return transaction
   }
 
   findKeyPairByAddress () {
