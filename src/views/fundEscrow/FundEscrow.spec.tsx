@@ -1,3 +1,5 @@
+import { sellOffer } from '../../../tests/unit/data/offerData'
+import { defaultFundingStatus } from '../../utils/offer/constants'
 import FundEscrow from './FundEscrow'
 import { createRenderer } from 'react-test-renderer/shallow'
 
@@ -5,21 +7,20 @@ const useFundEscrowSetupMock = jest.fn()
 jest.mock('./hooks/useFundEscrowSetup', () => ({
   useFundEscrowSetup: () => useFundEscrowSetupMock(),
 }))
-const useAutoFundOfferSetupMock = jest.fn().mockReturnValue({
-  showRegtestButton: false,
-  fundEscrowAddress: jest.fn(),
+const useFundFromPeachWalletMock = jest.fn().mockReturnValue({
+  canFundFromPeachWallet: false,
+  fundFromPeachWallet: jest.fn(),
 })
-jest.mock('./hooks/regtest/useAutoFundOffer', () => ({
-  useAutoFundOffer: () => useAutoFundOfferSetupMock(),
+jest.mock('./hooks/useFundFromPeachWallet', () => ({
+  useFundFromPeachWallet: () => useFundFromPeachWalletMock(),
 }))
 
 describe('FundEscrow', () => {
   const defaultReturnValue = {
-    offerId: '123',
+    offerId: sellOffer.id,
+    offer: sellOffer,
     escrow: '123',
-    fundingStatus: {
-      status: 'NULL',
-    },
+    fundingStatus: defaultFundingStatus,
     fundingAmount: 100000,
     createEscrowError: null,
   }
@@ -27,6 +28,15 @@ describe('FundEscrow', () => {
 
   it('should render the FundEscrow view', () => {
     useFundEscrowSetupMock.mockReturnValueOnce(defaultReturnValue)
+    renderer.render(<FundEscrow />)
+    expect(renderer.getRenderOutput()).toMatchSnapshot()
+  })
+  it('should render the FundEscrow view with fund from peach wallet button', () => {
+    useFundEscrowSetupMock.mockReturnValueOnce(defaultReturnValue)
+    useFundFromPeachWalletMock.mockReturnValueOnce({
+      canFundFromPeachWallet: true,
+      fundFromPeachWallet: jest.fn(),
+    })
     renderer.render(<FundEscrow />)
     expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
@@ -65,6 +75,7 @@ describe('FundEscrow', () => {
       ...defaultReturnValue,
       isLoading: false,
       fundingStatus: {
+        ...defaultFundingStatus,
         status: 'MEMPOOL',
       },
     })

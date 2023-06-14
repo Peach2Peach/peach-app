@@ -77,6 +77,7 @@ export const useFundEscrowSetup = () => {
 
   return {
     offerId,
+    offer: sellOffer,
     isLoading: showLoading > 0,
     escrow: sellOffer?.escrow,
     createEscrowError,

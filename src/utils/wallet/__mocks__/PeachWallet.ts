@@ -1,7 +1,15 @@
 /* eslint-disable class-methods-use-this, require-await */
+import { PartiallySignedTransaction } from 'bdk-rn'
+import { BlockTime, TransactionDetails, TxBuilderResult } from 'bdk-rn/lib/classes/Bindings'
 import { TransactionsResponse } from 'bdk-rn/lib/lib/interfaces'
 
 export class PeachWallet {
+  balance: number
+
+  constructor () {
+    this.balance = 0
+  }
+
   async loadWallet () {}
 
   async syncWallet () {}
@@ -22,6 +30,13 @@ export class PeachWallet {
 
   async withdrawAll (): Promise<string | null> {
     return 'txId'
+  }
+
+  async sendTo (address: string, amount: number, feeRate = 1): Promise<TxBuilderResult> {
+    return {
+      psbt: new PartiallySignedTransaction('base64'),
+      txDetails: new TransactionDetails('txId', 0, amount, feeRate * 110, new BlockTime(1, 1)),
+    }
   }
 
   findKeyPairByAddress () {
