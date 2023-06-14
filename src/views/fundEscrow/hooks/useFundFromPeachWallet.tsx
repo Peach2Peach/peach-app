@@ -6,9 +6,12 @@ import { useFeeRate } from '../../../hooks/useFeeRate'
 import { useShowLoadingPopup } from '../../../hooks/useShowLoadingPopup'
 import { usePopupStore } from '../../../store/usePopupStore'
 import i18n from '../../../utils/i18n'
+import { parseError } from '../../../utils/result'
 import { peachWallet } from '../../../utils/wallet/setWallet'
+import { buildDrainWalletTransaction } from '../../../utils/wallet/transaction'
 import { buildTransaction } from '../../../utils/wallet/transaction/buildTransaction'
 import { ConfirmFundingFromPeachWallet } from '../components/ConfirmFundingFromPeachWallet'
+import { ConfirmFundingWithInsufficientFunds } from '../components/ConfirmFundingWithInsufficientFunds'
 
 const canFundOfferFromPeachWallet = (fundingStatus: FundingStatus, offer?: SellOffer) =>
   offer?.escrow && fundingStatus.status === 'NULL'
@@ -26,7 +29,7 @@ export const useFundFromPeachWallet = ({ offer, fundingStatus }: Props) => {
   const [fundedFromPeachWallet, setFundedFromPeachWallet] = useState(false)
 
   const confirmAndSend = async (transaction: TxBuilderResult) => {
-    if (!offer?.escrow || !canFundFromPeachWallet) throw Error('WALLET_NOT_READY')
+    if (!offer?.escrow || !canFundFromPeachWallet) throw Error()
 
     showLoadingPopup({
       title: i18n('fundFromPeachWallet.confirm.title'),
@@ -42,16 +45,21 @@ export const useFundFromPeachWallet = ({ offer, fundingStatus }: Props) => {
     }
   }
 
-  const fundFromPeachWallet = async () => {
-    if (!offer?.escrow || !canFundFromPeachWallet) return
-    const transaction = await buildTransaction(offer.escrow, offer.amount, feeRate)
-    const finishedTransaction = await peachWallet.finishTransaction(transaction)
+  const showFundEscrowPopup = async (finishedTransaction: TxBuilderResult) => {
+    if (!offer?.escrow || !canFundFromPeachWallet) throw Error()
+
     const fee = await finishedTransaction.psbt.feeAmount()
+
     setPopup({
       title: i18n('fundFromPeachWallet.confirm.title'),
       level: 'APP',
       content: (
-        <ConfirmFundingFromPeachWallet amount={offer.amount} address={offer.escrow} fee={fee} feeRate={feeRate} />
+        <ConfirmFundingFromPeachWallet
+          amount={finishedTransaction.txDetails.sent}
+          address={offer.escrow}
+          fee={fee}
+          feeRate={feeRate}
+        />
       ),
       action1: {
         label: i18n('fundFromPeachWallet.confirm.confirmAndSend'),
@@ -64,6 +72,52 @@ export const useFundFromPeachWallet = ({ offer, fundingStatus }: Props) => {
         callback: closePopup,
       },
     })
+  }
+  const showInsufficientFundsPopup = async (finishedTransaction: TxBuilderResult) => {
+    if (!offer?.escrow || !canFundFromPeachWallet) throw Error()
+
+    const fee = await finishedTransaction.psbt.feeAmount()
+
+    setPopup({
+      title: i18n('fundFromPeachWallet.insufficientFunds.title'),
+      level: 'APP',
+      content: (
+        <ConfirmFundingWithInsufficientFunds
+          amount={finishedTransaction.txDetails.sent}
+          address={offer.escrow}
+          fee={fee}
+          feeRate={feeRate}
+        />
+      ),
+      action1: {
+        label: i18n('fundFromPeachWallet.confirm.confirmAndSend'),
+        icon: 'arrowRightCircle',
+        callback: () => confirmAndSend(finishedTransaction),
+      },
+      action2: {
+        label: i18n('cancel'),
+        icon: 'xCircle',
+        callback: closePopup,
+      },
+    })
+  }
+
+  const fundFromPeachWallet = async (): Promise<void> => {
+    if (!offer?.escrow || !canFundFromPeachWallet) return undefined
+
+    let finishedTransaction: TxBuilderResult
+    try {
+      const transaction = await buildTransaction(offer.escrow, offer.amount, feeRate)
+      finishedTransaction = await peachWallet.finishTransaction(transaction)
+    } catch (e) {
+      const broadcastError = parseError(e)
+      if (!broadcastError.includes('InsufficientFunds')) return handleBroadcastError(e)
+
+      const transaction = await buildDrainWalletTransaction(offer.escrow, feeRate)
+      finishedTransaction = await peachWallet.finishTransaction(transaction)
+      return showInsufficientFundsPopup(finishedTransaction)
+    }
+    return showFundEscrowPopup(finishedTransaction)
   }
 
   useEffect(() => {

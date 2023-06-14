@@ -11,7 +11,8 @@ import { getTransactionDetails } from '../../../../tests/unit/helpers/getTransac
 import { estimatedFees } from '../../../../tests/unit/data/bitcoinNetworkData'
 import { Loading } from '../../../components'
 import tw from '../../../styles/tailwind'
-import { broadcastError } from '../../../../tests/unit/data/errors'
+import { broadcastError, insufficientFunds } from '../../../../tests/unit/data/errors'
+import { ConfirmFundingWithInsufficientFunds } from '../components/ConfirmFundingWithInsufficientFunds'
 
 const useFeeEstimateMock = jest.fn().mockReturnValue({ estimatedFees })
 jest.mock('../../../hooks/query/useFeeEstimate', () => ({
@@ -159,5 +160,34 @@ describe('useFundFromPeachWallet', () => {
     await usePopupStore.getState().action1?.callback()
     expect(showErrorBannerMock).toHaveBeenCalledWith('INSUFFICIENT_FUNDS', ['78999997952', '1089000'])
     expect(usePopupStore.getState().visible).toBeFalsy()
+  })
+  it('should open insufficient funds popup', async () => {
+    let call = 0
+    peachWallet.balance = amount
+    peachWallet.finishTransaction = jest.fn().mockImplementation(() => {
+      call++
+      if (call === 1) throw insufficientFunds
+      return getTransactionDetails(amount, feeRate)
+    })
+
+    const { result } = renderHook(useFundFromPeachWallet, { initialProps })
+
+    await result.current.fundFromPeachWallet()
+    expect(usePopupStore.getState()).toEqual({
+      ...usePopupStore.getState(),
+      title: 'insufficient funds',
+      level: 'APP',
+      content: <ConfirmFundingWithInsufficientFunds {...{ amount, address, fee, feeRate }} />,
+      action1: {
+        label: 'confirm & send',
+        icon: 'arrowRightCircle',
+        callback: expect.any(Function),
+      },
+      action2: {
+        label: 'cancel',
+        icon: 'xCircle',
+        callback: usePopupStore.getState().closePopup,
+      },
+    })
   })
 })
