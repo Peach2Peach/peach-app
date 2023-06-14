@@ -1,26 +1,21 @@
 import { useEffect, useRef } from 'react'
-import { LayoutChangeEvent, ScrollView, ScrollViewProps, View } from 'react-native'
-import tw from '../styles/tailwind'
+import { ScrollView, ScrollViewProps, View } from 'react-native'
 
-type PeachScrollViewProps = ComponentProps &
+type Props = ComponentProps &
   ScrollViewProps & {
     scrollRef?: (ref: ScrollView) => void
     disable?: boolean
-    onContainerLayout?: (e: LayoutChangeEvent) => void
-    onContentLayout?: (e: LayoutChangeEvent) => void
   }
 
 export const PeachScrollView = ({
   children,
   scrollRef,
   disable,
-  onContainerLayout,
-  onContentLayout,
   style,
   showsHorizontalScrollIndicator = false,
   showsVerticalScrollIndicator = false,
   ...scrollViewProps
-}: PeachScrollViewProps) => {
+}: Props) => {
   const $scroll = useRef<ScrollView>(null)
 
   useEffect(() => {
@@ -32,11 +27,9 @@ export const PeachScrollView = ({
       ref={$scroll}
       {...{ style, showsHorizontalScrollIndicator, showsVerticalScrollIndicator, ...scrollViewProps }}
       indicatorStyle="black"
-      onLayout={onContainerLayout}
+      onStartShouldSetResponder={() => true}
     >
-      <View onStartShouldSetResponder={() => true} style={tw`bg-transparent`} onLayout={onContentLayout}>
-        {children}
-      </View>
+      {children}
     </ScrollView>
   ) : (
     <View style={style}>{children}</View>
