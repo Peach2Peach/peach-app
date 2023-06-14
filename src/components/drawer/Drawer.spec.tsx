@@ -1,5 +1,5 @@
 import { Drawer } from '.'
-import { act, fireEvent, render, waitFor } from '@testing-library/react-native'
+import { act, render } from '@testing-library/react-native'
 import { BackHandler, Text } from 'react-native'
 import { createRenderer } from 'react-test-renderer/shallow'
 import { DrawerContext } from '../../contexts/drawer'

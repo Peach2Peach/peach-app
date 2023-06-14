@@ -1,4 +1,4 @@
-import { act, fireEvent, render, waitFor } from '@testing-library/react-native'
+import { fireEvent, render, waitFor } from '@testing-library/react-native'
 import { NavigationWrapper, pushMock } from '../../../tests/unit/helpers/NavigationWrapper'
 import { queryClient, QueryClientWrapper } from '../../../tests/unit/helpers/QueryClientWrapper'
 import { defaultState, DrawerContext } from '../../contexts/drawer'
@@ -14,18 +14,18 @@ const mockEvents: MeetupEvent[] = [
     id: '1',
     currencies: ['EUR'],
     country: 'DE',
-    city: 'Berlin',
-    shortName: '21BTC',
-    longName: 'EINUNDZWANZIG BTC',
+    city: 'Aachen',
+    shortName: '22BTC',
+    longName: 'ZWEIUNDZWANZIG BTC',
     featured: false,
   },
   {
     id: '2',
     currencies: ['EUR'],
     country: 'DE',
-    city: 'Aachen',
-    shortName: '22BTC',
-    longName: 'ZWEIUNDZWANZIG BTC',
+    city: 'Berlin',
+    shortName: '21BTC',
+    longName: 'EINUNDZWANZIG BTC',
     featured: false,
   },
 ]
@@ -163,7 +163,7 @@ describe('AddPaymentMethodButton', () => {
 
     expect(drawer.show).toBe(false)
     expect(pushMock).toHaveBeenCalledWith('meetupScreen', {
-      eventId: '1',
+      eventId: '2',
       origin: 'paymentMethods',
     })
   })
@@ -177,15 +177,7 @@ describe('AddPaymentMethodButton', () => {
   it('should sort the countries alphabetically', async () => {
     getMeetupEventsMock.mockResolvedValueOnce([
       [
-        {
-          id: '1',
-          currencies: ['EUR'],
-          country: 'DE',
-          city: 'Berlin',
-          shortName: '21BTC',
-          longName: 'EINUNDZWANZIG BTC',
-          featured: true,
-        },
+        ...mockEvents,
         {
           id: '2',
           currencies: ['EUR'],
@@ -201,15 +193,7 @@ describe('AddPaymentMethodButton', () => {
     const { getByText } = render(<AddPaymentMethodButton isCash={true} />, { wrapper })
     await waitFor(() => {
       expect(meetupEventsStore.getState().meetupEvents).toStrictEqual([
-        {
-          id: '1',
-          currencies: ['EUR'],
-          country: 'DE',
-          city: 'Berlin',
-          shortName: '21BTC',
-          longName: 'EINUNDZWANZIG BTC',
-          featured: true,
-        },
+        ...mockEvents,
         {
           id: '2',
           currencies: ['EUR'],
@@ -266,52 +250,20 @@ describe('AddPaymentMethodButton', () => {
   })
 
   it('should show the featured meetups at the top of the list', async () => {
-    getMeetupEventsMock.mockResolvedValueOnce([
-      [
-        {
-          id: '1',
-          currencies: ['EUR'],
-          country: 'DE',
-          city: 'Berlin',
-          shortName: '21BTC',
-          longName: 'EINUNDZWANZIG BTC',
-          featured: true,
-        },
-        {
-          id: '2',
-          currencies: ['EUR'],
-          country: 'DE',
-          city: 'Aachen',
-          shortName: '22BTC',
-          longName: 'ZWEIUNDZWANZIG BTC',
-          featured: false,
-        },
-      ],
-      null,
-    ])
+    const featuredEvent: MeetupEvent = {
+      id: '1',
+      currencies: ['EUR'],
+      country: 'DE',
+      city: 'Berlin',
+      shortName: '21BTC',
+      longName: 'EINUNDZWANZIG BTC',
+      featured: true,
+    }
+    getMeetupEventsMock.mockResolvedValueOnce([[mockEvents[0], featuredEvent], null])
     expect(meetupEventsStore.getState().meetupEvents).toStrictEqual([])
     const { getByText } = render(<AddPaymentMethodButton isCash={true} />, { wrapper })
     await waitFor(() => {
-      expect(meetupEventsStore.getState().meetupEvents).toStrictEqual([
-        {
-          id: '1',
-          currencies: ['EUR'],
-          country: 'DE',
-          city: 'Berlin',
-          shortName: '21BTC',
-          longName: 'EINUNDZWANZIG BTC',
-          featured: true,
-        },
-        {
-          id: '2',
-          currencies: ['EUR'],
-          country: 'DE',
-          city: 'Aachen',
-          shortName: '22BTC',
-          longName: 'ZWEIUNDZWANZIG BTC',
-          featured: false,
-        },
-      ])
+      expect(meetupEventsStore.getState().meetupEvents).toStrictEqual([mockEvents[0], featuredEvent])
     })
     fireEvent.press(getByText('add new cash option'))
     expect(drawer.options).toStrictEqual([
