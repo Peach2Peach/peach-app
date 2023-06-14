@@ -2,6 +2,7 @@ import { useFocusEffect } from '@react-navigation/native'
 import { useCallback, useMemo, useState } from 'react'
 import { shallow } from 'zustand/shallow'
 import { useHeaderSetup, useNavigation, useValidatedState } from '../../../hooks'
+import { useFeeRate } from '../../../hooks/useFeeRate'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { useShowHelp } from '../../../hooks/useShowHelp'
 import { WithdrawalConfirmation } from '../../../popups/WithdrawalConfirmation'
@@ -9,9 +10,7 @@ import { useSettingsStore } from '../../../store/settingsStore'
 import { usePopupStore } from '../../../store/usePopupStore'
 import i18n from '../../../utils/i18n'
 import { headerIcons } from '../../../utils/layout/headerIcons'
-import { getFeeEstimate } from '../../../utils/peachAPI'
 import { parseError } from '../../../utils/result'
-import { isNumber } from '../../../utils/validation'
 import { peachWallet } from '../../../utils/wallet/setWallet'
 import { InsufficientFundsError } from '../../../utils/wallet/types'
 import { useWalletState } from '../../../utils/wallet/walletStore'
@@ -23,7 +22,7 @@ const bitcoinAddressRules = { required: false, bitcoinAddress: true }
 export const useWalletSetup = () => {
   const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
   const showErrorBanner = useShowErrorBanner()
-  const feeRate = useSettingsStore((state) => state.feeRate)
+  const feeRate = useFeeRate()
   const walletStore = useWalletState((state) => state)
   const showHelp = useShowHelp('withdrawingFunds')
   const navigation = useNavigation()
@@ -45,19 +44,9 @@ export const useWalletSetup = () => {
 
   const confirmWithdrawal = async () => {
     closePopup()
-    let finalFeeRate = feeRate
-    if (feeRate && !isNumber(feeRate)) {
-      const [estimatedFees] = await getFeeEstimate({})
-      if (estimatedFees) finalFeeRate = estimatedFees[feeRate]
-    }
-
-    if (!isNumber(finalFeeRate)) {
-      showErrorBanner()
-      return
-    }
 
     try {
-      const result = await peachWallet.withdrawAll(address, finalFeeRate)
+      const result = await peachWallet.withdrawAll(address, feeRate)
       if (result.txDetails.txid) setAddress('')
     } catch (e) {
       const [err, cause] = e as [Error, string | InsufficientFundsError]
