@@ -1,5 +1,5 @@
 import { BLOCKEXPLORER, NETWORK } from '@env'
-import { Blockchain, DatabaseConfig, Descriptor, Wallet } from 'bdk-rn'
+import { Blockchain, DatabaseConfig, Descriptor, TxBuilder, Wallet } from 'bdk-rn'
 import { TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
 import { AddressIndex, BlockChainNames, BlockchainEsploraConfig, KeychainKind, Network } from 'bdk-rn/lib/lib/enums'
 import { BIP32Interface } from 'bip32'
@@ -171,41 +171,33 @@ export class PeachWallet extends PeachJSWallet {
     return result
   }
 
-  async withdrawAll (address: string, feeRate?: number): Promise<string | null> {
+  async withdrawAll (address: string, feeRate?: number) {
     if (!this.wallet || !this.blockchain) throw Error('WALLET_NOT_READY')
     info('PeachWallet - withdrawAll - start')
-    try {
-      const drainWalletTransaction = await buildDrainWalletTransaction(address, feeRate)
-
-      const result = await drainWalletTransaction.finish(this.wallet)
-      const signedPSBT = await this.wallet.sign(result.psbt)
-
-      this.blockchain.broadcast(await signedPSBT.extractTx())
-      this.syncWallet()
-
-      info('PeachWallet - withdrawAll - end')
-
-      return result.txDetails.txid
-    } catch (e) {
-      throw handleBroadcastError(parseError(e))
-    }
+    const drainWalletTransaction = await buildDrainWalletTransaction(address, feeRate)
+    return this.signAndBroadcastTransaction(drainWalletTransaction)
   }
 
-  async sendTo (address: string, amount: number, feeRate?: number): Promise<string | null> {
+  async sendTo (address: string, amount: number, feeRate?: number) {
     if (!this.wallet || !this.blockchain) throw Error('WALLET_NOT_READY')
     info('PeachWallet - sendTo - start')
-    try {
-      const transaction = await buildTransaction(address, amount, feeRate)
+    const transaction = await buildTransaction(address, amount, feeRate)
+    return this.signAndBroadcastTransaction(transaction)
+  }
 
+  async signAndBroadcastTransaction (transaction: TxBuilder) {
+    if (!this.wallet || !this.blockchain) throw Error('WALLET_NOT_READY')
+    info('PeachWallet - signAndBroadcastTransaction - start')
+    try {
       const result = await transaction.finish(this.wallet)
       const signedPSBT = await this.wallet.sign(result.psbt)
 
       this.blockchain.broadcast(await signedPSBT.extractTx())
       this.syncWallet()
 
-      info('PeachWallet - sendTo - end')
+      info('PeachWallet - signAndBroadcastTransaction - end')
 
-      return result.txDetails.txid
+      return result
     } catch (e) {
       throw handleBroadcastError(parseError(e))
     }

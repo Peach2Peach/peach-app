@@ -57,8 +57,8 @@ export const useWalletSetup = () => {
     }
 
     try {
-      const txId = await peachWallet.withdrawAll(address, finalFeeRate)
-      if (txId) setAddress('')
+      const result = await peachWallet.withdrawAll(address, finalFeeRate)
+      if (result.txDetails.txid) setAddress('')
     } catch (e) {
       const [err, cause] = e as [Error, string | InsufficientFundsError]
       const error = parseError(err)

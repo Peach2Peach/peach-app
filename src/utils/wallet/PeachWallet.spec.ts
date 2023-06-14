@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 /* eslint-disable max-statements */
 /* eslint-disable max-lines-per-function */
 import { waitFor } from '@testing-library/react-native'
@@ -40,6 +41,11 @@ jest.mock('./rebroadcastTransactions', () => ({
 const buildDrainWalletTransactionMock = jest.fn()
 jest.mock('./transaction/buildDrainWalletTransaction', () => ({
   buildDrainWalletTransaction: (...args: any[]) => buildDrainWalletTransactionMock(...args),
+}))
+
+const buildTransactionMock = jest.fn()
+jest.mock('./transaction/buildTransaction', () => ({
+  buildTransaction: (...args: any[]) => buildTransactionMock(...args),
 }))
 
 describe('PeachWallet', () => {
@@ -226,7 +232,7 @@ describe('PeachWallet', () => {
     const error = await getError<Error>(() => peachWallet.getReceivingAddress())
     expect(error.message).toBe('WALLET_NOT_READY')
   })
-  it('updates wallet sotre', () => {
+  it('updates wallet store', () => {
     peachWallet.synced = true
     peachWallet.transactions = [confirmed1, confirmed2, pending3]
     tradeSummaryStore.getState().setContract('1-3', { id: '1-3', releaseTxId: confirmed1.txid })
@@ -253,11 +259,54 @@ describe('PeachWallet', () => {
     txBuilderFinishMock.mockResolvedValueOnce(result)
     walletSignMock.mockResolvedValueOnce(result.psbt)
     psbtExtractTxMock.mockResolvedValueOnce(transaction)
-    await peachWallet.withdrawAll(address, feeRate)
+    const withdrawResult = await peachWallet.withdrawAll(address, feeRate)
     expect(buildDrainWalletTransactionMock).toHaveBeenCalledWith(address, feeRate)
     expect(txBuilderFinishMock).toHaveBeenCalledWith(peachWallet.wallet)
     expect(walletSignMock).toHaveBeenCalledWith(result.psbt)
     expect(blockchainBroadcastMock).toHaveBeenCalledWith(transaction)
+    expect(withdrawResult).toEqual(result)
+  })
+
+  it('sends bitcoin to an address', async () => {
+    const address = 'address'
+    const amount = 100000
+    const feeRate = 10
+    const result: TxBuilderResult = {
+      psbt: new PartiallySignedTransaction('base64'),
+      txDetails: pending1,
+    }
+    const transaction = await new Transaction().create([])
+    const txBuilder = await new TxBuilder().create()
+
+    buildTransactionMock.mockResolvedValueOnce(txBuilder)
+    txBuilderFinishMock.mockResolvedValueOnce(result)
+    walletSignMock.mockResolvedValueOnce(result.psbt)
+    psbtExtractTxMock.mockResolvedValueOnce(transaction)
+    const withdrawResult = await peachWallet.sendTo(address, amount, feeRate)
+    expect(buildTransactionMock).toHaveBeenCalledWith(address, amount, feeRate)
+    expect(txBuilderFinishMock).toHaveBeenCalledWith(peachWallet.wallet)
+    expect(walletSignMock).toHaveBeenCalledWith(result.psbt)
+    expect(blockchainBroadcastMock).toHaveBeenCalledWith(transaction)
+    expect(withdrawResult).toEqual(result)
+  })
+
+  it('signs and broadcast a transaction', async () => {
+    const result: TxBuilderResult = {
+      psbt: new PartiallySignedTransaction('base64'),
+      txDetails: pending1,
+    }
+    const transaction = await new Transaction().create([])
+    const txBuilder = await new TxBuilder().create()
+
+    buildTransactionMock.mockResolvedValueOnce(txBuilder)
+    txBuilderFinishMock.mockResolvedValueOnce(result)
+    walletSignMock.mockResolvedValueOnce(result.psbt)
+    psbtExtractTxMock.mockResolvedValueOnce(transaction)
+    const signAndSendResult = await peachWallet.signAndBroadcastTransaction(txBuilder)
+    expect(txBuilderFinishMock).toHaveBeenCalledWith(peachWallet.wallet)
+    expect(walletSignMock).toHaveBeenCalledWith(result.psbt)
+    expect(blockchainBroadcastMock).toHaveBeenCalledWith(transaction)
+    expect(signAndSendResult).toEqual(result)
   })
 
   it('throws error when trying to withdraw before wallet is ready', async () => {
