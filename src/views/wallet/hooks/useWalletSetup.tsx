@@ -2,26 +2,23 @@ import { useFocusEffect } from '@react-navigation/native'
 import { useCallback, useMemo, useState } from 'react'
 import { shallow } from 'zustand/shallow'
 import { useHeaderSetup, useNavigation, useValidatedState } from '../../../hooks'
+import { useHandleBroadcastError } from '../../../hooks/error/useHandleBroadcastError'
 import { useFeeRate } from '../../../hooks/useFeeRate'
-import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { useShowHelp } from '../../../hooks/useShowHelp'
 import { WithdrawalConfirmation } from '../../../popups/WithdrawalConfirmation'
 import { useSettingsStore } from '../../../store/settingsStore'
 import { usePopupStore } from '../../../store/usePopupStore'
 import i18n from '../../../utils/i18n'
 import { headerIcons } from '../../../utils/layout/headerIcons'
-import { parseError } from '../../../utils/result'
 import { peachWallet } from '../../../utils/wallet/setWallet'
-import { InsufficientFundsError } from '../../../utils/wallet/types'
 import { useWalletState } from '../../../utils/wallet/walletStore'
-import { parseBroadcastError } from '../helpers/parseBroadcastError'
 import { useSyncWallet } from './useSyncWallet'
 
 const bitcoinAddressRules = { required: false, bitcoinAddress: true }
 
 export const useWalletSetup = () => {
   const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
-  const showErrorBanner = useShowErrorBanner()
+  const handleBroadcastError = useHandleBroadcastError()
   const feeRate = useFeeRate()
   const walletStore = useWalletState((state) => state)
   const showHelp = useShowHelp('withdrawingFunds')
@@ -49,10 +46,7 @@ export const useWalletSetup = () => {
       const result = await peachWallet.withdrawAll(address, feeRate)
       if (result.txDetails.txid) setAddress('')
     } catch (e) {
-      const [err, cause] = e as [Error, string | InsufficientFundsError]
-      const error = parseError(err)
-      const bodyArgs = parseBroadcastError(err, cause)
-      showErrorBanner(error, bodyArgs)
+      handleBroadcastError(e)
     }
   }
 
