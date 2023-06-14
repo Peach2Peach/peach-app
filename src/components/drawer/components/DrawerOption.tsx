@@ -1,45 +1,19 @@
 import { TouchableOpacity, View } from 'react-native'
-import { IconType } from '../../assets/icons'
-import tw from '../../styles/tailwind'
-import { Flag } from '../Flag'
-import { FlagType } from '../flags'
-import Icon from '../Icon'
-import { PaymentLogoType } from '../payment/logos'
-import PaymentLogo from '../payment/PaymentLogo'
-import { Text, FixedHeightText } from '../text'
+import tw from '../../../styles/tailwind'
+import { Flag } from '../../Flag'
+import Icon from '../../Icon'
+import PaymentLogo from '../../payment/PaymentLogo'
+import { Text, FixedHeightText } from '../../text'
 
-type Props = {
-  title: string
-  subtext?: string
-  iconRightID?: IconType
-  onPress: () => void
-} & (
-  | {
-      logoID: PaymentLogoType
-      flagID?: never
-      highlighted?: never
-      subtext?: never
-    }
-  | {
-      flagID: FlagType
-      logoID?: never
-      highlighted?: never
-    }
-  | {
-      flagID?: never
-      logoID?: never
-      highlighted: boolean
-      subtext: string
-      iconRightID?: never
-    }
-  | {
-      flagID?: never
-      logoID?: never
-      highlighted?: never
-    }
-)
-
-export const DrawerOption = ({ logoID, flagID, title, subtext, iconRightID, highlighted, onPress }: Props) => (
+export const DrawerOption = ({
+  logoID,
+  flagID,
+  title,
+  subtext,
+  iconRightID,
+  highlighted,
+  onPress,
+}: DrawerOptionType) => (
   <TouchableOpacity
     style={[
       tw`flex-row items-center gap-3 px-8`,
