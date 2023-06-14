@@ -8,7 +8,6 @@ jest.mock('./hooks/useFundEscrowSetup', () => ({
   useFundEscrowSetup: () => useFundEscrowSetupMock(),
 }))
 const useFundFromPeachWalletMock = jest.fn().mockReturnValue({
-  canFundFromPeachWallet: false,
   fundFromPeachWallet: jest.fn(),
 })
 jest.mock('./hooks/useFundFromPeachWallet', () => ({
@@ -28,15 +27,6 @@ describe('FundEscrow', () => {
 
   it('should render the FundEscrow view', () => {
     useFundEscrowSetupMock.mockReturnValueOnce(defaultReturnValue)
-    renderer.render(<FundEscrow />)
-    expect(renderer.getRenderOutput()).toMatchSnapshot()
-  })
-  it('should render the FundEscrow view with fund from peach wallet button', () => {
-    useFundEscrowSetupMock.mockReturnValueOnce(defaultReturnValue)
-    useFundFromPeachWalletMock.mockReturnValueOnce({
-      canFundFromPeachWallet: true,
-      fundFromPeachWallet: jest.fn(),
-    })
     renderer.render(<FundEscrow />)
     expect(renderer.getRenderOutput()).toMatchSnapshot()
   })

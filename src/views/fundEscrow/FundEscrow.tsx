@@ -13,7 +13,7 @@ import { useFundFromPeachWallet } from './hooks/useFundFromPeachWallet'
 
 export default () => {
   const { offerId, offer, isLoading, escrow, createEscrowError, fundingStatus, fundingAmount } = useFundEscrowSetup()
-  const { canFundFromPeachWallet, fundFromPeachWallet } = useFundFromPeachWallet({ offer, fundingStatus })
+  const { fundFromPeachWallet } = useFundFromPeachWallet({ offer, fundingStatus })
 
   if (createEscrowError) return <NoEscrowFound />
   if (isLoading || !escrow) return <BitcoinLoading text={i18n('sell.escrow.loading')} />
@@ -36,19 +36,15 @@ export default () => {
           />
         </View>
       </PeachScrollView>
-      <View style={tw`flex justify-center items-center w-full px-7 p-4`}>
+      <View style={tw`flex justify-center items-center w-full px-7 p-4 gap-4`}>
         <View style={tw`flex-row items-center justify-center gap-2`}>
           <Text style={tw`text-primary-main button-medium`}>{i18n('sell.escrow.checkingFundingStatus')}</Text>
           <Loading style={tw`w-5 h-5`} color={tw`text-primary-main`.color} />
         </View>
-        {canFundFromPeachWallet && (
-          <View style={tw`w-full gap-4 mt-4 items-center`}>
-            <Divider />
-            <PrimaryButton testID="escrow-fund" border iconId="sell" onPress={fundFromPeachWallet}>
-              {i18n('fundFromPeachWallet.button')}
-            </PrimaryButton>
-          </View>
-        )}
+        <Divider />
+        <PrimaryButton testID="escrow-fund" border iconId="sell" onPress={fundFromPeachWallet}>
+          {i18n('fundFromPeachWallet.button')}
+        </PrimaryButton>
       </View>
     </View>
   )
