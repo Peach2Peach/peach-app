@@ -9,6 +9,7 @@ describe('parseInsufficientFunds', () => {
       available: '1089000',
     })
   })
+
   it('should return unknown if the message is not parsable', () => {
     expect(parseInsufficientFunds('garbage')).toEqual({
       needed: 'unknown',
