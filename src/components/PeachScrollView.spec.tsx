@@ -1,6 +1,6 @@
 import { PeachScrollView } from './PeachScrollView'
 import { render } from '@testing-library/react-native'
-import { Text } from 'react-native'
+import { ScrollView, Text } from 'react-native'
 
 describe('PeachScrollView', () => {
   it('renders correctly', () => {
@@ -12,12 +12,12 @@ describe('PeachScrollView', () => {
     expect(toJSON()).toMatchSnapshot()
   })
   it('should set responder on start', () => {
-    const { getByText } = render(
+    const { UNSAFE_getByType } = render(
       <PeachScrollView>
         <Text>Test</Text>
       </PeachScrollView>,
     )
-    expect(getByText('Test').parent?.parent?.props.onStartShouldSetResponder()).toBe(true)
+    expect(UNSAFE_getByType(ScrollView).props.onStartShouldSetResponder()).toBe(true)
   })
   it('should set ref', () => {
     const ref = jest.fn()

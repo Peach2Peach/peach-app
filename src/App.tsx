@@ -13,7 +13,7 @@ import tw from './styles/tailwind'
 import i18n, { LanguageContext } from './utils/i18n'
 import { getViews } from './views'
 
-import { DrawerContext, getDrawer, setDrawer } from './contexts/drawer'
+import { defaultState, DrawerContext, setDrawer } from './contexts/drawer'
 import { MessageContext, getMessage, setMessage, showMessageEffect } from './contexts/message'
 import { PeachWSContext, getWebSocket, setPeachWS } from './utils/peachAPI/websocket'
 
@@ -61,7 +61,7 @@ const App = () => {
       onClose: onCloseDrawer,
     },
     updateDrawer,
-  ] = useReducer(setDrawer, getDrawer())
+  ] = useReducer(setDrawer, defaultState)
   const [peachWS, updatePeachWS] = useReducer(setPeachWS, getWebSocket())
   const { width } = Dimensions.get('window')
   const slideInAnim = useRef(new Animated.Value(-width)).current

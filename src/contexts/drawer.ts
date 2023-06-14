@@ -14,8 +14,6 @@ const dispatch: Dispatch<Partial<DrawerState>> = () => {}
 export const DrawerContext = createContext([defaultState, dispatch] as const)
 export const useDrawerContext = () => useContext(DrawerContext)
 
-export const getDrawer = (): DrawerState => defaultState
-
 export const setDrawer = (state: ReducerState<any>, newState: Partial<DrawerState>): DrawerState => ({
   title: newState.title || '',
   content: newState.content ?? null,
