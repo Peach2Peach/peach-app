@@ -9,6 +9,7 @@ jest.mock('./hooks/useFundEscrowSetup', () => ({
 }))
 const useFundFromPeachWalletMock = jest.fn().mockReturnValue({
   fundFromPeachWallet: jest.fn(),
+  fundedFromPeachWallet: false,
 })
 jest.mock('./hooks/useFundFromPeachWallet', () => ({
   useFundFromPeachWallet: () => useFundFromPeachWalletMock(),
@@ -18,7 +19,7 @@ describe('FundEscrow', () => {
   const defaultReturnValue = {
     offerId: sellOffer.id,
     offer: sellOffer,
-    escrow: '123',
+    escrow: sellOffer.returnAddress,
     fundingStatus: defaultFundingStatus,
     fundingAmount: 100000,
     createEscrowError: null,
@@ -60,6 +61,15 @@ describe('FundEscrow', () => {
     expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
 
+  it('should show funded from peach wallet, if funded from peach wallet', () => {
+    useFundEscrowSetupMock.mockReturnValueOnce(defaultReturnValue)
+    useFundFromPeachWalletMock.mockReturnValueOnce({
+      fundFromPeachWallet: jest.fn(),
+      fundedFromPeachWallet: true,
+    })
+    renderer.render(<FundEscrow />)
+    expect(renderer.getRenderOutput()).toMatchSnapshot()
+  })
   it('should show TransactionInMempool, if fundingStatus is MEMPOOL', () => {
     useFundEscrowSetupMock.mockReturnValueOnce({
       ...defaultReturnValue,

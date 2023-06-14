@@ -1,5 +1,6 @@
 import { View } from 'react-native'
 import { BitcoinAddress, Divider, Loading, PeachScrollView, PrimaryButton, Text } from '../../components'
+import { TradeInfo } from '../../components/offer'
 import { BTCAmount } from '../../components/text/BTCAmount'
 import { SATSINBTC } from '../../constants'
 import tw from '../../styles/tailwind'
@@ -13,7 +14,7 @@ import { useFundFromPeachWallet } from './hooks/useFundFromPeachWallet'
 
 export default () => {
   const { offerId, offer, isLoading, escrow, createEscrowError, fundingStatus, fundingAmount } = useFundEscrowSetup()
-  const { fundFromPeachWallet } = useFundFromPeachWallet({ offer, fundingStatus })
+  const { fundFromPeachWallet, fundedFromPeachWallet } = useFundFromPeachWallet({ offer, fundingStatus })
 
   if (createEscrowError) return <NoEscrowFound />
   if (isLoading || !escrow) return <BitcoinLoading text={i18n('sell.escrow.loading')} />
@@ -42,9 +43,17 @@ export default () => {
           <Loading style={tw`w-5 h-5`} color={tw`text-primary-main`.color} />
         </View>
         <Divider />
-        <PrimaryButton testID="escrow-fund" border iconId="sell" onPress={fundFromPeachWallet}>
-          {i18n('fundFromPeachWallet.button')}
-        </PrimaryButton>
+        {fundedFromPeachWallet ? (
+          <TradeInfo
+            text={i18n('fundFromPeachWallet.funded')}
+            iconId="checkCircle"
+            iconColor={tw`text-success-main`.color}
+          />
+        ) : (
+          <PrimaryButton testID="escrow-fund" border iconId="sell" onPress={fundFromPeachWallet}>
+            {i18n('fundFromPeachWallet.button')}
+          </PrimaryButton>
+        )}
       </View>
     </View>
   )
