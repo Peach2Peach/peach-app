@@ -56,6 +56,7 @@ describe('useMeetupScreenSetup', () => {
         id: '123',
         longName: '',
         shortName: '',
+        featured: false,
       },
       deletable: true,
       addToPaymentMethods: expect.any(Function),

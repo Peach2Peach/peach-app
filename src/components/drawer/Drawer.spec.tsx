@@ -1,5 +1,5 @@
 import { Drawer } from '.'
-import { act, fireEvent, render } from '@testing-library/react-native'
+import { act, fireEvent, render, waitFor } from '@testing-library/react-native'
 import { BackHandler, Text } from 'react-native'
 import { createRenderer } from 'react-test-renderer/shallow'
 import { DrawerContext } from '../../contexts/drawer'
@@ -38,6 +38,25 @@ describe('Drawer', () => {
     updateDrawer(defaultState)
   })
   it('renders correctly', () => {
+    shallowRenderer.render(<Drawer />, { wrapper })
+    const result = shallowRenderer.getRenderOutput()
+    expect(result).toMatchSnapshot()
+  })
+  it('renders correctly with options', () => {
+    updateDrawer({
+      options: [
+        {
+          title: 'option1',
+          onPress: jest.fn(),
+        },
+        {
+          title: 'option2',
+          onPress: jest.fn(),
+        },
+      ],
+      content: null,
+      show: true,
+    })
     shallowRenderer.render(<Drawer />, { wrapper })
     const result = shallowRenderer.getRenderOutput()
     expect(result).toMatchSnapshot()

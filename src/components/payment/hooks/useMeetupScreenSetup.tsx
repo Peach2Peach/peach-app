@@ -26,7 +26,7 @@ export const useMeetupScreenSetup = () => {
     featured: false,
   }
 
-  const [selectedCurrencies, setSelectedCurrencies] = useState(event.currencies || [])
+  const [selectedCurrencies, setSelectedCurrencies] = useState(event.currencies)
   const onCurrencyToggle = (currency: Currency) => {
     setSelectedCurrencies(toggleCurrency(currency))
   }

@@ -68,6 +68,74 @@ exports[`Drawer renders correctly 1`] = `
 </View>
 `;
 
+exports[`Drawer renders correctly with options 1`] = `
+<View
+  style={
+    [
+      {
+        "display": "flex",
+        "height": "100%",
+        "left": 0,
+        "position": "absolute",
+        "top": 0,
+        "width": "100%",
+        "zIndex": 20,
+      },
+      {
+        "display": "none",
+      },
+    ]
+  }
+>
+  <ForwardRef(AnimatedComponentWrapper)
+    onPress={[Function]}
+    style={
+      [
+        {
+          "backgroundColor": "#2B1911",
+          "height": "100%",
+          "position": "absolute",
+          "width": "100%",
+        },
+        {
+          "opacity": 0,
+        },
+      ]
+    }
+  />
+  <ForwardRef(AnimatedComponentWrapper)
+    style={
+      [
+        {
+          "backgroundColor": "#FFFCFA",
+          "borderTopLeftRadius": 24,
+          "borderTopRightRadius": 24,
+          "marginTop": "auto",
+          "paddingBottom": 24,
+          "paddingLeft": 16,
+          "paddingRight": 16,
+          "paddingTop": 24,
+        },
+        {
+          "maxHeight": 0,
+        },
+      ]
+    }
+  >
+    <DrawerHeader
+      closeDrawer={[Function]}
+    />
+    <DrawerOptions
+      style={
+        {
+          "paddingTop": 24,
+        }
+      }
+    />
+  </ForwardRef(AnimatedComponentWrapper)>
+</View>
+`;
+
 exports[`Drawer renders correctly with previous drawer 1`] = `
 <View
   style={

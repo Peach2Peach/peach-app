@@ -174,8 +174,68 @@ describe('AddPaymentMethodButton', () => {
       origin: 'paymentMethods',
     })
   })
+  it('should sort the countries alphabetically', async () => {
+    getMeetupEventsMock.mockResolvedValueOnce([
+      [
+        {
+          id: '1',
+          currencies: ['EUR'],
+          country: 'DE',
+          city: 'Berlin',
+          shortName: '21BTC',
+          longName: 'EINUNDZWANZIG BTC',
+          featured: true,
+        },
+        {
+          id: '2',
+          currencies: ['EUR'],
+          country: 'UK',
+          city: 'London',
+          shortName: '22BTC',
+          longName: 'TWENTYTWO BTC',
+          featured: false,
+        },
+      ],
+      null,
+    ])
+    const { getByText } = render(<AddPaymentMethodButton isCash={true} />, { wrapper })
+    await waitFor(() => {
+      expect(meetupEventsStore.getState().meetupEvents).toStrictEqual([
+        {
+          id: '1',
+          currencies: ['EUR'],
+          country: 'DE',
+          city: 'Berlin',
+          shortName: '21BTC',
+          longName: 'EINUNDZWANZIG BTC',
+          featured: true,
+        },
+        {
+          id: '2',
+          currencies: ['EUR'],
+          country: 'UK',
+          city: 'London',
+          shortName: '22BTC',
+          longName: 'TWENTYTWO BTC',
+          featured: false,
+        },
+      ])
+    })
+    fireEvent.press(getByText('add new cash option'))
+    expect(drawer.options).toStrictEqual([
+      {
+        flagID: 'DE',
+        onPress: expect.any(Function),
+        title: 'Germany',
+      },
+      {
+        flagID: 'UK',
+        onPress: expect.any(Function),
+        title: 'United Kingdom',
+      },
+    ])
+  })
   it('should sort the meetups alphabetically', async () => {
-    expect(meetupEventsStore.getState().meetupEvents).toStrictEqual([])
     const { getByText } = render(<AddPaymentMethodButton isCash={true} />, { wrapper })
     await waitFor(() => {
       expect(meetupEventsStore.getState().meetupEvents).toStrictEqual(mockEvents)
