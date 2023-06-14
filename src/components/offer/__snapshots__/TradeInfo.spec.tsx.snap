@@ -1,0 +1,72 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TradeInfo renders correctly 1`] = `
+<View
+  style={
+    {
+      "alignItems": "center",
+      "flexDirection": "row",
+      "gap": 4,
+    }
+  }
+>
+  <PeachText
+    style={
+      {
+        "fontFamily": "Baloo2-SemiBold",
+        "fontSize": 14,
+        "letterSpacing": 0.5,
+        "lineHeight": 24,
+        "textTransform": "uppercase",
+      }
+    }
+  >
+    text
+  </PeachText>
+  <Icon
+    id="alertCircle"
+    style={
+      {
+        "height": 16,
+        "width": 16,
+      }
+    }
+  />
+</View>
+`;
+
+exports[`TradeInfo renders correctly with icon color 1`] = `
+<View
+  style={
+    {
+      "alignItems": "center",
+      "flexDirection": "row",
+      "gap": 4,
+    }
+  }
+>
+  <PeachText
+    style={
+      {
+        "fontFamily": "Baloo2-SemiBold",
+        "fontSize": 14,
+        "letterSpacing": 0.5,
+        "lineHeight": 24,
+        "textTransform": "uppercase",
+      }
+    }
+  >
+    text
+  </PeachText>
+  <Icon
+    color="#BADA55"
+    id="alertCircle"
+    style={
+      {
+        "height": 16,
+        "width": 16,
+      }
+    }
+  />
+</View>
+`;
