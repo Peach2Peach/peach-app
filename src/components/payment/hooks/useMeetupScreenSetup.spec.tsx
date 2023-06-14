@@ -96,6 +96,7 @@ describe('useMeetupScreenSetup', () => {
         city: 'Berlin',
         shortName: 'shortName',
         longName: 'longName',
+        featured: false,
       },
     ])
     const { result } = renderHook(useMeetupScreenSetup, {
@@ -126,6 +127,7 @@ describe('useMeetupScreenSetup', () => {
         city: 'Berlin',
         shortName: 'shortName',
         longName: 'longName',
+        featured: false,
       },
     ])
     const { result } = renderHook(useMeetupScreenSetup, {
@@ -195,6 +197,7 @@ describe('useMeetupScreenSetup', () => {
         city: 'Berlin',
         shortName: 'shortName',
         longName: 'longName',
+        featured: false,
       },
     ])
 
@@ -215,6 +218,7 @@ describe('useMeetupScreenSetup', () => {
         city: 'Berlin',
         shortName: 'shortName',
         longName: 'longName',
+        featured: false,
       },
     ])
 
@@ -241,6 +245,7 @@ describe('useMeetupScreenSetup', () => {
         city: 'Berlin',
         shortName: 'shortName',
         longName: 'longName',
+        featured: false,
       },
     ])
 
@@ -260,6 +265,7 @@ describe('useMeetupScreenSetup', () => {
         city: 'Berlin',
         shortName: 'shortName',
         longName: 'longName',
+        featured: false,
       },
     ])
 
