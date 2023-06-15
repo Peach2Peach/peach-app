@@ -14,6 +14,7 @@ import FR from './fr.svg'
 import GB from './gb.svg'
 import GR from './gr.svg'
 import HR from './hr.svg'
+import IE from './ie.svg'
 import IT from './it.svg'
 import NL from './nl.svg'
 import PL from './pl.svg'
@@ -40,6 +41,7 @@ const Flags = {
   GB,
   GR,
   HR,
+  IE,
   IT,
   NL,
   PL,
