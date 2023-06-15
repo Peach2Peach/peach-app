@@ -52,7 +52,7 @@ exports[`CustomFeeItem renders correctly 1`] = `
       }
     }
   >
-    sat / vb
+    sat/vB
   </PeachText>
 </View>
 `;
@@ -110,7 +110,7 @@ exports[`CustomFeeItem renders correctly when disabled 1`] = `
       }
     }
   >
-    sat / vb
+    sat/vB
   </PeachText>
 </View>
 `;
