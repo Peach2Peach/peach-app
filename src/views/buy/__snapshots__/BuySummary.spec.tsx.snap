@@ -74,7 +74,6 @@ exports[`BuySummary should render correctly while peach wallet is still signing 
     <BuyOfferSummary />
   </PeachScrollView>
   <PrimaryButton
-    disabled={true}
     loading={false}
     narrow={true}
     onPress={[MockFunction]}
@@ -120,7 +119,6 @@ exports[`BuySummary should render correctly with custom payout wallet and signat
     <BuyOfferSummary />
   </PeachScrollView>
   <PrimaryButton
-    disabled={false}
     loading={false}
     narrow={true}
     onPress={[MockFunction]}
