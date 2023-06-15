@@ -7,6 +7,7 @@ export const headerIcons: Record<string, Omit<HeaderIcon, 'onPress'>> = {
   checkbox: { id: 'checkboxMark', color: tw`text-black-2`.color },
   delete: { id: 'trash', color: tw`text-error-main`.color },
   edit: { id: 'edit3', color: tw`text-black-2`.color },
+  generateBlock: { id: 'cpu', color: tw`text-warning-main`.color },
   help: { id: 'helpCircle', color: tw`text-info-light`.color },
   list: { id: 'yourTrades', color: tw`text-black-2`.color },
   wallet: { id: 'wallet', color: tw`text-black-2`.color },

@@ -1,7 +1,10 @@
+import { networks } from 'bitcoinjs-lib'
 import { useCancelOffer, useHeaderSetup } from '../../../hooks'
 import { useShowHelp } from '../../../hooks/useShowHelp'
 import i18n from '../../../utils/i18n'
 import { headerIcons } from '../../../utils/layout/headerIcons'
+import { generateBlock } from '../../../utils/regtest'
+import { getNetwork } from '../../../utils/wallet'
 
 type Props = {
   fundingStatus: FundingStatus
@@ -12,8 +15,8 @@ export const useFundEscrowHeader = ({ fundingStatus, sellOffer }: Props) => {
   const showMempoolHelp = useShowHelp('mempool')
   const cancelOffer = useCancelOffer(sellOffer)
 
-  useHeaderSetup(
-    fundingStatus.status === 'MEMPOOL'
+  const headerConfig
+    = fundingStatus.status === 'MEMPOOL'
       ? {
         title: i18n('sell.funding.mempool.title'),
         icons: [{ ...headerIcons.help, onPress: showMempoolHelp }],
@@ -24,6 +27,10 @@ export const useFundEscrowHeader = ({ fundingStatus, sellOffer }: Props) => {
           { ...headerIcons.cancel, onPress: cancelOffer },
           { ...headerIcons.help, onPress: showHelp },
         ],
-      },
-  )
+      }
+
+  if (getNetwork() === networks.regtest) {
+    headerConfig.icons.unshift({ ...headerIcons.generateBlock, onPress: generateBlock })
+  }
+  useHeaderSetup(headerConfig)
 }

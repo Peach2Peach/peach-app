@@ -1,10 +1,10 @@
 import { renderHook } from '@testing-library/react-native'
-import { account1 } from '../../../../tests/unit/data/accountData'
+import { networks } from 'bitcoinjs-lib'
 import { sellOffer } from '../../../../tests/unit/data/offerData'
 import { NavigationWrapper, headerState, setOptionsMock } from '../../../../tests/unit/helpers/NavigationWrapper'
-import { updateAccount } from '../../../utils/account'
-import { useFundEscrowHeader } from './useFundEscrowHeader'
 import { defaultFundingStatus } from '../../../utils/offer/constants'
+import { generateBlock } from '../../../utils/regtest'
+import { useFundEscrowHeader } from './useFundEscrowHeader'
 
 const showHelpMock = jest.fn()
 const useShowHelpMock = jest.fn((..._args) => showHelpMock)
@@ -19,11 +19,14 @@ jest.mock('../../../hooks/useCancelOffer', () => ({
   useCancelOffer: () => cancelOfferMock,
 }))
 
+const getNetworkMock = jest.fn().mockReturnValue(networks.bitcoin)
+jest.mock('../../../utils/wallet', () => ({
+  getNetwork: () => getNetworkMock(),
+}))
+
 describe('useFundEscrowHeader', () => {
   beforeEach(() => {
     setOptionsMock({ header: { title: '', icons: [] } })
-
-    updateAccount({ ...account1, offers: [] }, true)
   })
 
   it('should render header correctly for unfunded offers', () => {
@@ -48,5 +51,20 @@ describe('useFundEscrowHeader', () => {
     })
     expect(headerState.header()).toMatchSnapshot()
     expect(headerState.header().props.icons?.[0].onPress).toEqual(showHelpMock)
+  })
+
+  it('should show regtest icons', () => {
+    getNetworkMock.mockReturnValueOnce(networks.regtest)
+    renderHook(useFundEscrowHeader, {
+      wrapper,
+      initialProps: {
+        fundingStatus: defaultFundingStatus,
+        sellOffer,
+      },
+    })
+    expect(headerState.header()).toMatchSnapshot()
+    expect(headerState.header().props.icons?.[0].onPress).toEqual(generateBlock)
+    expect(headerState.header().props.icons?.[1].onPress).toEqual(cancelOfferMock)
+    expect(headerState.header().props.icons?.[2].onPress).toEqual(showHelpMock)
   })
 })
