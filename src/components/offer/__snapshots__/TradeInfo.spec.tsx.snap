@@ -6,8 +6,10 @@ exports[`TradeInfo renders correctly 1`] = `
     [
       {
         "alignItems": "center",
+        "alignSelf": "stretch",
         "flexDirection": "row",
         "gap": 4,
+        "justifyContent": "center",
       },
       undefined,
     ]
@@ -38,8 +40,10 @@ exports[`TradeInfo renders correctly with IconComponent 1`] = `
     [
       {
         "alignItems": "center",
+        "alignSelf": "stretch",
         "flexDirection": "row",
         "gap": 4,
+        "justifyContent": "center",
       },
       {
         "marginTop": 16,
@@ -75,8 +79,10 @@ exports[`TradeInfo renders correctly with additional styles 1`] = `
     [
       {
         "alignItems": "center",
+        "alignSelf": "stretch",
         "flexDirection": "row",
         "gap": 4,
+        "justifyContent": "center",
       },
       {
         "marginTop": 16,

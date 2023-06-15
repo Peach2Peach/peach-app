@@ -8,7 +8,7 @@ type Props = ComponentProps & {
   IconComponent?: JSX.Element
 }
 export const TradeInfo = ({ text, textStyle, IconComponent, style }: Props) => (
-  <View style={[tw`flex-row items-center gap-1`, style]}>
+  <View style={[tw`flex-row items-center self-stretch justify-center gap-1`, style]}>
     <Text style={[tw`uppercase button-medium`, textStyle]}>{text}</Text>
     {IconComponent}
   </View>
