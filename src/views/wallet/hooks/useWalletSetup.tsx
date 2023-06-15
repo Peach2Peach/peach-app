@@ -16,7 +16,7 @@ import { useSyncWallet } from './useSyncWallet'
 
 const bitcoinAddressRules = { required: false, bitcoinAddress: true }
 
-export const useWalletSetup = () => {
+export const useWalletSetup = (syncOnLoad = true) => {
   const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
   const handleBroadcastError = useHandleBroadcastError()
   const feeRate = useFeeRate()
@@ -94,8 +94,8 @@ export const useWalletSetup = () => {
 
   useFocusEffect(
     useCallback(() => {
-      syncWalletOnLoad()
-    }, []),
+      if (syncOnLoad) syncWalletOnLoad()
+    }, [syncOnLoad]),
   )
 
   return {

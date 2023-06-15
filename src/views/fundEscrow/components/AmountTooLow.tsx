@@ -8,6 +8,7 @@ type Props = {
   available: number
   needed: number
 }
+
 export const AmountTooLow = ({ available, needed }: Props) => (
   <View style={tw`gap-3`}>
     <Text>{i18n('fundFromPeachWallet.amountTooLow.description.1')}</Text>

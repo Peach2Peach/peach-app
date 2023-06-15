@@ -20,7 +20,7 @@ export default () => {
     addressErrors,
     openWithdrawalConfirmation,
     walletLoading,
-  } = useWalletSetup()
+  } = useWalletSetup(true)
 
   if (walletLoading) return <BitcoinLoading text={i18n('wallet.loading')} />
 

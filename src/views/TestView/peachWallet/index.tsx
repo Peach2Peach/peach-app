@@ -20,10 +20,10 @@ export default () => {
   }
   const send50k = async () => {
     if (!isValid || !address) throw Error('Address invalid')
-    const newTxId = await peachWallet.sendTo(address, 50000, 3)
+    const transactionDetails = await peachWallet.sendTo(address, 50000, 3)
 
-    if (!newTxId) throw Error('Transaction failed')
-    setTxId(newTxId)
+    if (!transactionDetails) throw Error('Transaction failed')
+    setTxId(transactionDetails.txDetails.txid)
   }
 
   return (
