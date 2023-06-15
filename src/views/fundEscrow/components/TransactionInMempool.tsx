@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Image, LayoutChangeEvent, TouchableOpacity, View } from 'react-native'
 import txInMempool from '../../../assets/escrow/tx-in-mempool.png'
-import { Text } from '../../../components'
+import { Icon, Text } from '../../../components'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { TradeInfo } from '../../../components/offer'
@@ -29,9 +29,7 @@ export const TransactionInMempool = ({ txId }: Props) => {
             style={tw`self-center`}
             text={i18n('showInExplorer')}
             textStyle={tw`underline`}
-            iconId="externalLink"
-            iconSize={20}
-            iconColor={tw`text-primary-main`.color}
+            IconComponent={<Icon id="externalLink" style={tw`w-5 h-5`} color={tw`text-primary-main`.color} />}
           />
         </TouchableOpacity>
       </View>

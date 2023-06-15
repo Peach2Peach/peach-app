@@ -29,14 +29,42 @@ exports[`TradeInfo renders correctly 1`] = `
   >
     text
   </PeachText>
-  <Icon
-    id="alertCircle"
-    style={
+</View>
+`;
+
+exports[`TradeInfo renders correctly with IconComponent 1`] = `
+<View
+  style={
+    [
       {
-        "height": 16,
-        "width": 16,
-      }
+        "alignItems": "center",
+        "flexDirection": "row",
+        "gap": 4,
+      },
+      {
+        "marginTop": 16,
+      },
+    ]
+  }
+>
+  <PeachText
+    style={
+      [
+        {
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 14,
+          "letterSpacing": 0.5,
+          "lineHeight": 24,
+          "textTransform": "uppercase",
+        },
+        undefined,
+      ]
     }
+  >
+    text
+  </PeachText>
+  <Icon
+    id="activity"
   />
 </View>
 `;
@@ -74,15 +102,5 @@ exports[`TradeInfo renders correctly with additional styles 1`] = `
   >
     text
   </PeachText>
-  <Icon
-    color="#BADA55"
-    id="alertCircle"
-    style={
-      {
-        "height": 20,
-        "width": 20,
-      }
-    }
-  />
 </View>
 `;
