@@ -1,18 +1,22 @@
 import { useMemo, useState } from 'react'
 import { View } from 'react-native'
-import { BigSatsFormat, Loading, PrimaryButton, Text } from '../../../components'
+import { BigSatsFormat, Divider, Loading, PrimaryButton, Text } from '../../../components'
 import { useHeaderSetup } from '../../../hooks'
 import tw from '../../../styles/tailwind'
 import { peachWallet } from '../../../utils/wallet/setWallet'
 import i18n from '../../../utils/i18n'
 import { useWalletSetup } from '../../wallet/hooks/useWalletSetup'
-import { BitcoinAddressInput } from '../../../components/inputs'
+import { BitcoinAddressInput, NumberInput } from '../../../components/inputs'
 import { showTransaction } from '../../../utils/bitcoin'
 import { NETWORK } from '@env'
+import { BTCAmount } from '../../../components/bitcoin'
+import { thousands } from '../../../utils/string'
+import { fundAddress } from '../../../utils/regtest'
 
 export default () => {
-  const { walletStore, isRefreshing, walletLoading, address, setAddress, isValid, addressErrors } = useWalletSetup()
+  const { walletStore, isRefreshing, walletLoading, address, setAddress, isValid, addressErrors } = useWalletSetup(false)
   useHeaderSetup(useMemo(() => ({ title: 'test view - peach wallet' }), []))
+  const [amount, setAmount] = useState('0')
   const [txId, setTxId] = useState('')
   const getNewAddress = async () => {
     const newAddress = await peachWallet.getReceivingAddress()
@@ -24,6 +28,12 @@ export default () => {
 
     if (!transactionDetails) throw Error('Transaction failed')
     setTxId(transactionDetails.txDetails.txid)
+    peachWallet.syncWallet()
+  }
+  const refill = async () => {
+    const { address: newAddress } = await peachWallet.getReceivingAddress()
+    fundAddress({ address: newAddress, amount: 1000000 })
+    peachWallet.syncWallet()
   }
 
   return (
@@ -44,13 +54,29 @@ export default () => {
           }}
         />
       </View>
-      <PrimaryButton onPress={getNewAddress}>Get new address</PrimaryButton>
-      <PrimaryButton onPress={send50k}>Send 50k sats</PrimaryButton>
+      <NumberInput
+        {...{
+          onChange: setAmount,
+          isValid: true,
+          value: amount,
+        }}
+      />
+      <PrimaryButton onPress={send50k} iconId="upload">
+        Send {thousands(Number(amount))} sats
+      </PrimaryButton>
       {!!txId && (
         <View>
           <Text onPress={() => showTransaction(txId, NETWORK)}>txId: {txId}</Text>
         </View>
       )}
+
+      <Divider />
+      <PrimaryButton onPress={getNewAddress} iconId="refreshCcw">
+        Get new address
+      </PrimaryButton>
+      <PrimaryButton onPress={refill} iconId="star">
+        1M sats refill
+      </PrimaryButton>
     </View>
   )
 }
