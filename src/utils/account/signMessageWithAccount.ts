@@ -3,8 +3,8 @@ import { createWalletFromSeedPhrase, getNetwork } from '../wallet'
 import { getMainAccount } from './getMainAccount'
 import { NETWORK } from '@env'
 
-export const signMessageWithAccount = (message: string, account: Account) => {
-  const { wallet } = createWalletFromSeedPhrase(account.mnemonic!, getNetwork())
+export const signMessageWithAccount = (message: string, account: Account & { mnemonic: string }) => {
+  const { wallet } = createWalletFromSeedPhrase(account.mnemonic, getNetwork())
   const firstAddress = getMainAccount(wallet, NETWORK)
   return firstAddress.sign(sha256(Buffer.from(message))).toString('hex')
 }

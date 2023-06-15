@@ -49,7 +49,7 @@ describe('PeachWallet', () => {
   ]
   const listTransactionsMock = jest.fn().mockResolvedValue(txResponse)
 
-  const { wallet } = createWalletFromSeedPhrase(account1.mnemonic!, getNetwork())
+  const { wallet } = createWalletFromSeedPhrase(account1.mnemonic, getNetwork())
   let peachWallet: PeachWallet
 
   beforeEach(async () => {

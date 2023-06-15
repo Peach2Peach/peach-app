@@ -41,8 +41,8 @@ export const useMatchOffer = (offer: BuyOffer | SellOffer, match: Match) => {
     onError: (err: Error, _variables, context) => {
       const errorMsg = parseError(err)
 
-      if (errorMsg === 'MISSING_PAYMENTDATA') {
-        handleMissingPaymentData(offer, selectedCurrency, selectedPaymentMethod!, updateMessage, navigation)
+      if (errorMsg === 'MISSING_PAYMENTDATA' && selectedPaymentMethod) {
+        handleMissingPaymentData(offer, selectedCurrency, selectedPaymentMethod, updateMessage, navigation)
       } else if (errorMsg === 'OFFER_TAKEN') {
         showPopup()
       } else {

@@ -34,7 +34,7 @@ export const recoveredAccount: Account = {
   mnemonic,
 }
 
-export const account1: Account = {
+export const account1: Account & { mnemonic: string } = {
   paymentData: [],
   legacyPaymentData: [],
   tradingLimit: {

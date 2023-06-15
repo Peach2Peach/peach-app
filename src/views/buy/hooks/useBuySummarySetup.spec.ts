@@ -2,15 +2,16 @@ import { act, renderHook } from '@testing-library/react-native'
 import { NavigationWrapper, headerState, replaceMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { PeachWallet } from '../../../utils/wallet/PeachWallet'
 import { setPeachWallet } from '../../../utils/wallet/setWallet'
-import { getBuyOfferDraft } from '../helpers/getBuyOfferDraft'
 import { useBuySummarySetup } from './useBuySummarySetup'
 import { setAccount } from '../../../utils/account'
 import { account1 } from '../../../../tests/unit/data/accountData'
 
-const offerId = '123'
-const publishBuyOfferMock = jest.fn().mockResolvedValue({ offerId, isOfferPublished: true, errorMessage: null })
 jest.mock('../helpers/publishBuyOffer', () => ({
-  publishBuyOffer: (...args: any[]) => publishBuyOfferMock(...args),
+  publishBuyOffer: jest.fn().mockResolvedValue({ offerId: '123', isOfferPublished: true, errorMessage: null }),
+}))
+
+jest.mock('../../../utils/validation', () => ({
+  isValidBitcoinSignature: jest.fn().mockReturnValue(true),
 }))
 describe('useBuySummarySetup', () => {
   beforeEach(() => {
@@ -27,14 +28,8 @@ describe('useBuySummarySetup', () => {
 
     const { result } = renderHook(useBuySummarySetup, { wrapper: NavigationWrapper })
     await act(async () => {
-      await result.current.publishOffer(
-        getBuyOfferDraft({
-          minBuyAmount: 1000,
-          maxBuyAmount: 10000,
-          meansOfPayment: {},
-        }),
-      )
+      await result.current.publishOffer()
     })
-    expect(replaceMock).toHaveBeenCalledWith('offerPublished', { offerId, isSellOffer: false })
+    expect(replaceMock).toHaveBeenCalledWith('offerPublished', { offerId: '123', isSellOffer: false })
   })
 })
