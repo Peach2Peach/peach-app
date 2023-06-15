@@ -10,7 +10,6 @@ jest.mock('../electrum/getTxHex', () => ({
 describe('getAndStorePendingTransactionHex', () => {
   afterEach(() => {
     walletStore.getState().reset()
-    jest.clearAllMocks()
   })
   it('should fetch a hex of a tx it does not know', async () => {
     const txId = 'txId'

@@ -14,9 +14,6 @@ jest.mock('../animation/Fade', () => ({
 describe('CopyAble', () => {
   const value = 'value'
 
-  beforeEach(() => {
-    jest.clearAllMocks()
-  })
   it('should copy value to clipboard', () => {
     const testInstance = create(<CopyAble {...{ value }} />).root
     act(() => {

@@ -7,15 +7,15 @@ describe('linkToAppStoreAndroid', () => {
   })
   const getInstallerPackageNameSync = jest.spyOn(require('react-native-device-info'), 'getInstallerPackageNameSync')
 
-  it('opens the correct URL when installed from Google Play', async () => {
+  it('opens the correct URL when installed from Google Play', () => {
     getInstallerPackageNameSync.mockReturnValueOnce('com.android.vending')
-    await linkToAppStoreAndroid()
+    linkToAppStoreAndroid()
     expect(Linking.openURL).toHaveBeenCalledWith('https://play.google.com/store/apps/details?id=com.example.bundleId')
   })
 
-  it('opens the correct URL when not installed via APK', async () => {
+  it('opens the correct URL when not installed via APK', () => {
     getInstallerPackageNameSync.mockReturnValueOnce('com.example.installer')
-    await linkToAppStoreAndroid()
+    linkToAppStoreAndroid()
     expect(Linking.openURL).toHaveBeenCalledWith('https://peachbitcoin.com/apk/')
   })
 })

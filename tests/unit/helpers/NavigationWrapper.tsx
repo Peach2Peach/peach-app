@@ -16,7 +16,7 @@ export let headerState: Record<'header', () => JSX.Element> = {
 export const setOptionsMock = jest.fn((options) => {
   headerState = options
 })
-const getStateMock = jest.fn(() => ({
+export const getStateMock = jest.fn(() => ({
   routes: [
     {
       name: 'origin',

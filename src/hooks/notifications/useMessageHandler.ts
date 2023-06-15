@@ -21,7 +21,7 @@ export const useMessageHandler = (getCurrentPage: () => keyof RootStackParamList
 
   const onMessageHandler = useCallback(
     async (remoteMessage: FirebaseMessagingTypes.RemoteMessage): Promise<void> => {
-      info('A new FCM message arrived! ' + JSON.stringify(remoteMessage), 'currentPage ' + getCurrentPage())
+      info(`A new FCM message arrived! ${JSON.stringify(remoteMessage)}`, `currentPage ${getCurrentPage()}`)
       if (!remoteMessage.data) return
 
       const data = remoteMessage.data as unknown as PNData
@@ -44,7 +44,7 @@ export const useMessageHandler = (getCurrentPage: () => keyof RootStackParamList
         stateUpdateEvents[type]?.(data)
       } else if (AppState.currentState === 'active') {
         updateMessage({
-          msgKey: 'notification.' + type,
+          msgKey: `notification.${type}`,
           bodyArgs: remoteMessage.notification?.bodyLocArgs,
           level: 'WARN',
           action: getPNActionHandler(data),

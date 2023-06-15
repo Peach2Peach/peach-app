@@ -6,7 +6,7 @@ import { account, defaultAccount, setAccount } from './account'
 import { loadWalletFromAccount } from './loadWalletFromAccount'
 import { setWallets } from './setWallets'
 
-export const updateAccount = async (acc: Account, overwrite?: boolean) => {
+export const updateAccount = (acc: Account, overwrite?: boolean) => {
   setAccount(
     overwrite
       ? acc

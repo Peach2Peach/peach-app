@@ -1,7 +1,7 @@
 import { error, info } from '../../log'
 import { offerStorage } from '../offerStorage'
 
-export const storeOffer = async (offer: SellOffer | BuyOffer): Promise<void> => {
+export const storeOffer = (offer: SellOffer | BuyOffer) => {
   if (!offer.id) {
     error('storeOffer - No offer id defined')
     return

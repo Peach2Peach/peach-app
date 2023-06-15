@@ -28,16 +28,12 @@ describe('useOfferPopupEvents', () => {
   const offerId = '123'
   const sellOffer = { id: offerId, type: 'ask' }
 
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
-
   it('should show confirm escrow popup on offer.fundingAmountDifferent', async () => {
     const { result } = renderHook(() => useOfferPopupEvents())
     getOfferDetailsMock.mockResolvedValueOnce([sellOffer])
     const eventData = { offerId: sellOffer.id } as PNData
-    await act(async () => {
-      await result.current['offer.fundingAmountDifferent']!(eventData)
+    await act(() => {
+      result.current['offer.fundingAmountDifferent']!(eventData)
     })
     expect(showFundingAmountDifferentPopupMock).toHaveBeenCalledWith(sellOffer)
   })
@@ -47,8 +43,8 @@ describe('useOfferPopupEvents', () => {
 
     getOfferDetailsMock.mockResolvedValueOnce([sellOffer])
     const eventData = { offerId: sellOffer.id } as PNData
-    await act(async () => {
-      await result.current['offer.wrongFundingAmount']!(eventData)
+    await act(() => {
+      result.current['offer.wrongFundingAmount']!(eventData)
     })
     expect(showWronglyFundedPopupMock).toHaveBeenCalledWith(sellOffer)
   })

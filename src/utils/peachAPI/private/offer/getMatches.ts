@@ -11,22 +11,12 @@ type GetMatchesProps = RequestProps & {
   size?: number
 }
 
-/**
- * @description Method to get matches of an offer
- * @returns GetOffersResponse
- */
-export const getMatches = async ({
-  offerId,
-  page = 0,
-  size = 21,
-  timeout,
-  abortSignal,
-}: GetMatchesProps): Promise<[GetMatchesResponse | null, APIError | null]> => {
+export const getMatches = async ({ offerId, page = 0, size = 21, timeout, abortSignal }: GetMatchesProps) => {
   const response = await fetch(`${API_URL}/v1/offer/${offerId}/matches?page=${page}&size=${size}`, {
     headers: await getPrivateHeaders(),
     method: 'GET',
     signal: abortSignal || (timeout ? getAbortWithTimeout(timeout).signal : undefined),
   })
 
-  return await parseResponse<GetMatchesResponse>(response, 'getMatches')
+  return parseResponse<GetMatchesResponse>(response, 'getMatches')
 }

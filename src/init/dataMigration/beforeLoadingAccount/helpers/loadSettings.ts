@@ -2,7 +2,7 @@ import { defaultSettings } from '../../../../store/defaults'
 import { accountStorage } from '../../../../utils/account/accountStorage'
 import { error } from '../../../../utils/log'
 
-export const loadSettings = async (): Promise<Settings> => {
+export const loadSettings = () => {
   const settings = accountStorage.getMap('settings')
 
   if (settings) return settings as Settings

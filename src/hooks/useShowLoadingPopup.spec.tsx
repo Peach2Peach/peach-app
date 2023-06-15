@@ -6,9 +6,6 @@ import { useShowLoadingPopup } from './useShowLoadingPopup'
 import { usePopupStore } from '../store/usePopupStore'
 
 describe('useShowLoadingPopup', () => {
-  beforeEach(() => {
-    jest.clearAllMocks()
-  })
   it('returns function to show loading popup', () => {
     const { result } = renderHook(useShowLoadingPopup)
     expect(result.current).toBeInstanceOf(Function)

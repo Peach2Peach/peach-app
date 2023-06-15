@@ -9,10 +9,7 @@ jest.mock('../../../hooks/useRoute', () => ({
 }))
 
 describe('useRestoreBackupSetup', () => {
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
-  it('returns defaults', async () => {
+  it('returns defaults', () => {
     const { result } = renderHook(useRestoreBackupSetup, { wrapper: NavigationWrapper })
 
     expect(result.current).toEqual({
@@ -21,7 +18,7 @@ describe('useRestoreBackupSetup', () => {
       setCurrentTab: expect.any(Function),
     })
   })
-  it('respects route params defaults', async () => {
+  it('respects route params defaults', () => {
     useRouteMock.mockReturnValueOnce({ params: { tab: 'seedPhrase' } })
     const { result } = renderHook(useRestoreBackupSetup, { wrapper: NavigationWrapper })
 
@@ -31,7 +28,7 @@ describe('useRestoreBackupSetup', () => {
       setCurrentTab: expect.any(Function),
     })
   })
-  it('changes current tab', async () => {
+  it('changes current tab', () => {
     const { result } = renderHook(useRestoreBackupSetup, { wrapper: NavigationWrapper })
 
     act(() => result.current.setCurrentTab(tabs[1]))

@@ -26,9 +26,6 @@ describe('useFooterSetup', () => {
   const initialProps: Props = { setCurrentPage: setCurrentPageMock }
   const mainPages: MainPage[] = ['home', 'buy', 'sell', 'wallet', 'yourTrades', 'settings']
 
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
   it('returns default values correctly', () => {
     const { result } = renderHook(useFooterSetup, { initialProps })
 

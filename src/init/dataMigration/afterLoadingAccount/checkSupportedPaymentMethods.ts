@@ -1,5 +1,5 @@
-import { settingsStore } from '../../../store/settingsStore'
-import { getNewPreferredPaymentMethods, updatePaymentData } from '../../../utils/account'
+import { useOfferPreferences } from '../../../store/offerPreferenes'
+import { getNewPreferredPaymentMethods, getSelectedPaymentDataIds, updatePaymentData } from '../../../utils/account'
 
 export const checkSupportedPaymentMethods = (paymentData: PaymentData[], paymentInfo: PaymentMethodInfo[]) => {
   const updatedPaymentData = paymentData.map((data) => ({
@@ -8,10 +8,10 @@ export const checkSupportedPaymentMethods = (paymentData: PaymentData[], payment
   }))
 
   const newPreferredPaymentMethods = getNewPreferredPaymentMethods(
-    settingsStore.getState().preferredPaymentMethods,
+    useOfferPreferences.getState().preferredPaymentMethods,
     updatedPaymentData,
   )
-  settingsStore.getState().setPreferredPaymentMethods(newPreferredPaymentMethods)
+  useOfferPreferences.getState().setPaymentMethods(getSelectedPaymentDataIds(newPreferredPaymentMethods))
 
   updatePaymentData(updatedPaymentData)
 

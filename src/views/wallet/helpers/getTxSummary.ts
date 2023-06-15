@@ -1,10 +1,10 @@
-import { ConfirmedTransaction, PendingTransaction } from 'bdk-rn/lib/lib/interfaces'
+import { TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
 import { bitcoinStore } from '../../../store/bitcoinStore'
 import { tradeSummaryStore } from '../../../store/tradeSummaryStore'
 import { getTransactionType, txIsConfirmed } from '../../../utils/transaction'
 import { walletStore } from '../../../utils/wallet/walletStore'
 
-export const getTxSummary = (tx: ConfirmedTransaction | PendingTransaction) => {
+export const getTxSummary = (tx: TransactionDetails) => {
   const offerId = walletStore.getState().txOfferMap[tx.txid]
   const offer = tradeSummaryStore.getState().getOffer(offerId)
   const contract = offer?.contractId ? tradeSummaryStore.getState().getContract(offer.contractId) : undefined
@@ -20,7 +20,7 @@ export const getTxSummary = (tx: ConfirmedTransaction | PendingTransaction) => {
     amount: sats,
     price,
     currency: bitcoinStore.getState().currency,
-    date: txIsConfirmed(tx) ? new Date((tx.block_timestamp || tx.confirmation_time || Date.now()) * 1000) : new Date(),
+    date: txIsConfirmed(tx) ? new Date((tx.confirmationTime?.timestamp || Date.now()) * 1000) : new Date(),
     confirmed: txIsConfirmed(tx),
   }
 }

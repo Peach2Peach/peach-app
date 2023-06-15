@@ -40,9 +40,6 @@ describe('publishSellOffer', () => {
     returnAddress: '1F1tAaz5x1HUXrCNLbtMDqcw6o5GNn4xqX',
   }
 
-  beforeEach(() => {
-    jest.clearAllMocks()
-  })
 
   it('should call info with "Posting offer"', async () => {
     // @ts-ignore

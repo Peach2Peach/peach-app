@@ -21,7 +21,8 @@ export const MixedLetterSpacingText = ({
   }
 
   const hasFontSize = (s: false | TextStyle): s is TextStyle => s !== false && s?.fontSize !== undefined
-  const fontSize = style.find(hasFontSize)!.fontSize!
+  const styleWithFontSize = style.find(hasFontSize)
+  const fontSize = styleWithFontSize?.fontSize ?? 22
   const desiredLetterSpacing: Record<string, TextStyle['letterSpacing']> = {
     whiteSpace: -(fontSize * 0.35),
     dot: -(fontSize * 0.21),

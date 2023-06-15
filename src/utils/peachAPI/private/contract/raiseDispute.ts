@@ -13,13 +13,6 @@ type RaiseDisputeProps = RequestProps & {
   symmetricKeyEncrypted: string
 }
 
-/**
- * @description Method to raise a dispute for a contract
- * @param contractId contract id
- * @param reason reason
- * @param message message
- * @param symmetricKey symmetricKey to encrypt/decrypt messages
- */
 export const raiseDispute = async ({
   contractId,
   email,
@@ -27,7 +20,7 @@ export const raiseDispute = async ({
   message,
   symmetricKeyEncrypted,
   timeout,
-}: RaiseDisputeProps): Promise<[APISuccess | null, APIError | null]> => {
+}: RaiseDisputeProps) => {
   const response = await fetch(`${API_URL}/v1/contract/${contractId}/dispute`, {
     headers: await getPrivateHeaders(),
     method: 'POST',
@@ -40,5 +33,5 @@ export const raiseDispute = async ({
     signal: timeout ? getAbortWithTimeout(timeout).signal : undefined,
   })
 
-  return await parseResponse<APISuccess>(response, 'raiseDispute')
+  return parseResponse<APISuccess>(response, 'raiseDispute')
 }

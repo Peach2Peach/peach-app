@@ -15,7 +15,7 @@ import { contractStorage } from './contractStorage'
 import { offerStorage } from './offerStorage'
 import { updateAccount } from './updateAccount'
 
-export const deleteAccount = async () => {
+export const deleteAccount = () => {
   info('Deleting account')
 
   updateAccount(defaultAccount, true)

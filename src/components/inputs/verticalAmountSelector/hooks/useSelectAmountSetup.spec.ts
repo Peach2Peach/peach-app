@@ -15,9 +15,6 @@ describe('useSelectAmountSetup', () => {
   }
   const dismissSpy = jest.spyOn(Keyboard, 'dismiss')
 
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
   it('should return default values', () => {
     const { result } = renderHook(useSelectAmountSetup, { initialProps })
     expect(result.current).toEqual({

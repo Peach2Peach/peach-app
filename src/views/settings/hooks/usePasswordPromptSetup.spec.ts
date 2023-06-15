@@ -21,9 +21,6 @@ const onSuccessMock = jest.fn()
 const password = 'password'
 const passwordRepeat = 'password'
 describe('usePasswordPromptSetup', () => {
-  beforeEach(() => {
-    jest.clearAllMocks()
-  })
   it('returns default correct values', () => {
     const { result } = renderHook(usePasswordPromptSetup, { wrapper: NavigationWrapper, initialProps: onSuccessMock })
     expect(result.current.setPassword).toBeInstanceOf(Function)
@@ -70,9 +67,6 @@ describe('usePasswordPromptSetup', () => {
 
 // eslint-disable-next-line max-lines-per-function
 describe('startAccountBackup', () => {
-  beforeEach(() => {
-    jest.clearAllMocks()
-  })
   it('should not start backup when passwords are not valid', () => {
     const keyboardSpy = jest.spyOn(Keyboard, 'dismiss')
     const { result } = renderHook(usePasswordPromptSetup, { wrapper: NavigationWrapper, initialProps: onSuccessMock })
@@ -83,7 +77,6 @@ describe('startAccountBackup', () => {
     expect(keyboardSpy).not.toHaveBeenCalled()
   })
   it('should dismiss keyboard when passwords are valid', () => {
-    jest.clearAllMocks()
     const keyboardSpy = jest.spyOn(Keyboard, 'dismiss')
     const { result } = renderHook(usePasswordPromptSetup, { wrapper: NavigationWrapper, initialProps: onSuccessMock })
     act(() => {

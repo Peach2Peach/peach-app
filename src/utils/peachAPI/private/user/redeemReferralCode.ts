@@ -7,7 +7,7 @@ import { getPrivateHeaders } from '../getPrivateHeaders'
 
 type Props = RequestProps & { code: string }
 
-export const redeemReferralCode = async ({ code, timeout }: Props): Promise<[APISuccess | null, APIError | null]> => {
+export const redeemReferralCode = async ({ code, timeout }: Props) => {
   const response = await fetch(`${API_URL}/v1/user/referral/redeem/referralCode`, {
     headers: await getPrivateHeaders(),
     method: 'PATCH',
@@ -17,5 +17,5 @@ export const redeemReferralCode = async ({ code, timeout }: Props): Promise<[API
     signal: timeout ? getAbortWithTimeout(timeout).signal : undefined,
   })
 
-  return await parseResponse<APISuccess>(response, 'redeemReferralCode')
+  return parseResponse<APISuccess>(response, 'redeemReferralCode')
 }

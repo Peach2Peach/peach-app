@@ -6,9 +6,6 @@ import { storeOffers } from './storeOffers'
 import { storeContracts } from './storeContracts'
 import { storeChats } from './storeChats'
 
-/**
- * @description Method to save whole account
- */
 export const storeAccount = async (acc: Account): Promise<void> => {
   info('storeAccount - Storing account')
 

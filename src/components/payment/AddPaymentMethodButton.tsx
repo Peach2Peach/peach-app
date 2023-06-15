@@ -3,33 +3,34 @@ import { Pressable, View } from 'react-native'
 import { Icon, Text } from '../'
 import { DrawerContext } from '../../contexts/drawer'
 import { CountrySelect } from '../../drawers/CountrySelect'
-import { useNavigation } from '../../hooks'
+import { useNavigation, useRoute } from '../../hooks'
 import { useMeetupEvents } from '../../hooks/query/useMeetupEvents'
 import tw from '../../styles/tailwind'
+import { sortAlphabetically } from '../../utils/array/sortAlphabetically'
+import { Country } from '../../utils/country/countryMap'
 import { structureEventsByCountry } from '../../utils/events'
 import i18n from '../../utils/i18n'
 import { FlagType } from '../flags'
-import MeetupSummary from './MeetupSummary'
-import { sortAlphabetically } from '../../utils/array/sortAlphabetically'
+import { MeetupSummary } from './MeetupSummary'
 
-type AddPaymentMethodProps = ComponentProps & {
-  origin: keyof RootStackParamList
+type Props = ComponentProps & {
   isCash: boolean
 }
 
-export default ({ origin, isCash, style }: AddPaymentMethodProps) => {
+export const AddPaymentMethodButton = ({ isCash, style }: Props) => {
   const navigation = useNavigation()
+  const currentRoute = useRoute().name
   const [, updateDrawer] = useContext(DrawerContext)
   const { meetupEvents, isLoading } = useMeetupEvents()
   const addPaymentMethods = () => {
-    navigation.push('addPaymentMethod', { origin })
+    navigation.push('addPaymentMethod', { origin: currentRoute })
   }
 
   const goToEventDetails = (event: MeetupEvent) => {
     updateDrawer({
       show: false,
     })
-    navigation.push('meetupScreen', { eventId: event.id.replace('cash.', ''), origin })
+    navigation.push('meetupScreen', { eventId: event.id.replace('cash.', ''), origin: currentRoute })
   }
 
   const selectCountry = (eventsByCountry: CountryEventsMap, selected: Country) => {
@@ -58,7 +59,7 @@ export default ({ origin, isCash, style }: AddPaymentMethodProps) => {
     })
   }
 
-  const addCashPaymentMethods = async () => {
+  const addCashPaymentMethods = () => {
     if (!meetupEvents) return
 
     const eventsByCountry = meetupEvents.reduce(structureEventsByCountry, {} as CountryEventsMap)

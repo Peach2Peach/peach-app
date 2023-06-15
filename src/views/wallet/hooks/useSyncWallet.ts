@@ -4,10 +4,11 @@ import { peachWallet } from '../../../utils/wallet/setWallet'
 export const useSyncWallet = () => {
   const [isRefreshing, setIsRefreshing] = useState(false)
 
-  const refresh = () => {
+  const refresh = async () => {
     if (isRefreshing) return
     setIsRefreshing(true)
-    peachWallet.syncWallet(() => setIsRefreshing(false))
+    await peachWallet.syncWallet()
+    setIsRefreshing(false)
   }
 
   return { refresh, isRefreshing }

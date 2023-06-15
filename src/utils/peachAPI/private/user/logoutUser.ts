@@ -6,13 +6,7 @@ import { parseResponse } from '../../parseResponse'
 import { getPeachAccount } from '../../peachAccount'
 import { getPrivateHeaders } from '../getPrivateHeaders'
 
-type LogoutUserProps = RequestProps
-
-/**
- * @description Method to tell peach server that the user logged out
- * @returns APISuccess
- */
-export const logoutUser = async ({ timeout }: LogoutUserProps): Promise<[APISuccess | null, APIError | null]> => {
+export const logoutUser = async ({ timeout }: RequestProps) => {
   const peachAccount = getPeachAccount()
   if (!peachAccount) return [null, { error: 'UNAUTHORIZED' }]
 
@@ -22,5 +16,5 @@ export const logoutUser = async ({ timeout }: LogoutUserProps): Promise<[APISucc
     signal: timeout ? getAbortWithTimeout(timeout).signal : undefined,
   })
 
-  return await parseResponse<APISuccess>(response, 'logoutUser')
+  return parseResponse<APISuccess>(response, 'logoutUser')
 }
