@@ -1,7 +1,8 @@
 import { NETWORK } from '@env'
 import { useMemo, useState } from 'react'
 import { View } from 'react-native'
-import { BigSatsFormat, Divider, Loading, PeachScrollView, PrimaryButton, Text } from '../../../components'
+import { Divider, Loading, PeachScrollView, PrimaryButton, Text } from '../../../components'
+import { BTCAmount } from '../../../components/bitcoin'
 import { BitcoinAddressInput, NumberInput } from '../../../components/inputs'
 import { useHeaderSetup } from '../../../hooks'
 import tw from '../../../styles/tailwind'
@@ -11,7 +12,6 @@ import { fundAddress } from '../../../utils/regtest'
 import { thousands } from '../../../utils/string'
 import { peachWallet } from '../../../utils/wallet/setWallet'
 import { useWalletSetup } from '../../wallet/hooks/useWalletSetup'
-import { BTCAmount } from '../../../components/bitcoin'
 
 export default () => {
   const { walletStore, isRefreshing, walletLoading, address, setAddress, isValid, addressErrors } = useWalletSetup(false)

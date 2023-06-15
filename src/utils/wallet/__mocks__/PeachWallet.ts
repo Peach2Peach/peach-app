@@ -1,6 +1,5 @@
 /* eslint-disable class-methods-use-this, require-await */
-import { PartiallySignedTransaction } from 'bdk-rn'
-import { BlockTime, TransactionDetails, TxBuilderResult } from 'bdk-rn/lib/classes/Bindings'
+import { TxBuilderResult } from 'bdk-rn/lib/classes/Bindings'
 import { TransactionsResponse } from 'bdk-rn/lib/lib/interfaces'
 import { getTransactionDetails } from '../../../../tests/unit/helpers/getTransactionDetails'
 
