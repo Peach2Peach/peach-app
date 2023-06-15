@@ -12,8 +12,7 @@ const getButtonTextId = (canPublish: boolean, isPublishing: boolean) => {
 }
 
 export const BuySummary = () => {
-  const { peachWalletActive, messageSignature, canPublish, publishOffer, isPublishing, goToMessageSigning, offerDraft }
-    = useBuySummarySetup()
+  const { canPublish, publishOffer, isPublishing, goToMessageSigning, offerDraft } = useBuySummarySetup()
 
   return (
     <View style={[tw`justify-center flex-grow px-6 pb-5`, tw.md`px-8`]}>
@@ -24,7 +23,6 @@ export const BuySummary = () => {
         testID="navigation-next"
         style={tw`self-center mt-4`}
         narrow={true}
-        disabled={peachWalletActive && !messageSignature}
         onPress={canPublish ? publishOffer : goToMessageSigning}
         loading={isPublishing}
       >

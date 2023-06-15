@@ -25,7 +25,9 @@ export const useSetRefundWalletSetup = () => {
   }
 
   const selectAndContinue = async () => {
-    const refundAddress = peachWalletActive ? await peachWallet.getReceivingAddress() : payoutAddress
+    const { address: refundAddress } = peachWalletActive
+      ? await peachWallet.getReceivingAddress()
+      : { address: payoutAddress }
     if (!refundAddress) return
 
     const [result, error] = await patchOffer({

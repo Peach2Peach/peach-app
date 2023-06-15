@@ -10,7 +10,14 @@ import { headerIcons } from '../../../utils/layout/headerIcons'
 import { isValidBitcoinSignature } from '../../../utils/validation'
 import { peachWallet } from '../../../utils/wallet/setWallet'
 import { publishBuyOffer } from '../helpers/publishBuyOffer'
+import { getError, getResult } from '../../../utils/result'
+import { Err, Result } from '../../../utils/result/types'
 
+type MessageSigningData = {
+  releaseAddress: string
+  message: string
+  messageSignature: string
+}
 export const useBuySummarySetup = () => {
   const navigation = useNavigation()
   const showErrorBanner = useShowErrorBanner()
@@ -31,11 +38,30 @@ export const useBuySummarySetup = () => {
 
   const [canPublish, setCanPublish] = useState(false)
   const [isPublishing, setIsPublishing] = useState(false)
-  const [messageSignature, setMessageSignature] = useState(
-    !peachWalletActive && payoutAddressSignature ? payoutAddressSignature : '',
-  )
 
   const goToMessageSigning = () => navigation.navigate('signMessage')
+
+  const getMessageSigningData = async (): Promise<
+    Result<MessageSigningData, Error> | Err<Error, MessageSigningData>
+  > => {
+    const { address, index } = peachWalletActive
+      ? await peachWallet.getReceivingAddress()
+      : { address: payoutAddress, index: 0 }
+    if (!address) return getError(new Error('MISSING_ADDRESS'))
+
+    const messageToSign = getMessageToSignForAddress(account.publicKey, address)
+    const signature = peachWalletActive
+      ? peachWallet.signMessage(messageToSign, address, index)
+      : payoutAddressSignature || ''
+
+    if (!isValidBitcoinSignature(messageToSign, address, signature)) return getError(new Error('INAVLID_SIGNATURE'))
+
+    return getResult({
+      releaseAddress: address,
+      message: messageToSign,
+      messageSignature: signature,
+    })
+  }
 
   const buyOfferPreferences = useOfferPreferences(
     (state) => ({
@@ -55,7 +81,17 @@ export const useBuySummarySetup = () => {
   const publishOffer = async () => {
     if (isPublishing) return
     setIsPublishing(true)
-    const { offerId, isOfferPublished, errorMessage } = await publishBuyOffer(offerDraft)
+    const messageSigningData = await getMessageSigningData()
+
+    if (messageSigningData.getError()) {
+      showErrorBanner(messageSigningData.getError())
+      setIsPublishing(false)
+      return
+    }
+    const { offerId, isOfferPublished, errorMessage } = await publishBuyOffer({
+      ...offerDraft,
+      ...messageSigningData.getValue(),
+    })
     setIsPublishing(false)
 
     if (!isOfferPublished || !offerId) {
@@ -71,23 +107,17 @@ export const useBuySummarySetup = () => {
   })
 
   useEffect(() => {
-    ;(async () => {
-      const address = peachWalletActive ? await peachWallet.getReceivingAddress() : payoutAddress
-      if (!address) return
+    if (peachWalletActive) {
+      setCanPublish(true)
+      return
+    }
+    if (!payoutAddress || !payoutAddressSignature) {
+      setCanPublish(false)
+      return
+    }
 
-      const messageToSign = getMessageToSignForAddress(account.publicKey, address)
-      const newSignature = peachWalletActive
-        ? peachWallet.signMessage(messageToSign, address)
-        : payoutAddressSignature || ''
-      setMessageSignature(newSignature)
-      setOfferDraft((prev) => ({
-        ...prev,
-        releaseAddress: address,
-        message: messageToSign,
-        messageSignature: newSignature,
-      }))
-      setCanPublish(isValidBitcoinSignature(messageToSign, address, newSignature))
-    })()
+    const messageToSign = getMessageToSignForAddress(account.publicKey, payoutAddress)
+    setCanPublish(isValidBitcoinSignature(messageToSign, payoutAddress, payoutAddressSignature))
   }, [payoutAddress, payoutAddressSignature, peachWalletActive])
 
   useEffect(() => {
@@ -96,7 +126,6 @@ export const useBuySummarySetup = () => {
 
   return {
     peachWalletActive,
-    messageSignature,
     canPublish,
     publishOffer,
     isPublishing,
