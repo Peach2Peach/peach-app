@@ -3,7 +3,7 @@
 exports[`useContractHeaderSetup should set up the header correctly for trade in dispute 1`] = `
 <Header
   icons={[]}
-  title="PC‑7B‑NAN"
+  title="PC‑7B‑1C8"
 />
 `;
 
@@ -18,7 +18,7 @@ exports[`useContractHeaderSetup should show the cancel icon if the contract can 
       },
     ]
   }
-  title="PC‑7B‑NAN"
+  title="PC‑7B‑1C8"
 />
 `;
 
