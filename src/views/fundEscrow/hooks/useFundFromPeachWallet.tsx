@@ -12,6 +12,8 @@ import { buildDrainWalletTransaction } from '../../../utils/wallet/transaction'
 import { buildTransaction } from '../../../utils/wallet/transaction/buildTransaction'
 import { ConfirmFundingFromPeachWallet } from '../components/ConfirmFundingFromPeachWallet'
 import { ConfirmFundingWithInsufficientFunds } from '../components/ConfirmFundingWithInsufficientFunds'
+import { useConfigStore } from '../../../store/configStore'
+import { AmountTooLow } from '../components/AmountTooLow'
 
 const canFundOfferFromPeachWallet = (fundingStatus: FundingStatus, offer?: SellOffer) =>
   offer?.escrow && fundingStatus.status === 'NULL'
@@ -22,6 +24,7 @@ type Props = {
 }
 export const useFundFromPeachWallet = ({ offer, fundingStatus }: Props) => {
   const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
+  const minTradingAmount = useConfigStore((state) => state.minTradingAmount)
   const showLoadingPopup = useShowLoadingPopup()
   const handleBroadcastError = useHandleBroadcastError()
   const feeRate = useFeeRate()
@@ -101,10 +104,18 @@ export const useFundFromPeachWallet = ({ offer, fundingStatus }: Props) => {
       },
     })
   }
+  const openAmountTooLowPopup = (available: number, needed: number) => {
+    setPopup({
+      title: i18n('fundFromPeachWallet.amountTooLow.title'),
+      level: 'APP',
+      content: <AmountTooLow {...{ available, needed }} />,
+    })
+  }
 
   const fundFromPeachWallet = async (): Promise<void> => {
     if (!offer?.escrow || !canFundFromPeachWallet) return undefined
 
+    if (peachWallet.balance < minTradingAmount) return openAmountTooLowPopup(peachWallet.balance, minTradingAmount)
     let finishedTransaction: TxBuilderResult
     try {
       const transaction = await buildTransaction(offer.escrow, offer.amount, feeRate)

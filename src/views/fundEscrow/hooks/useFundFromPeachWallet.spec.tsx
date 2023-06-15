@@ -13,6 +13,8 @@ import { Loading } from '../../../components'
 import tw from '../../../styles/tailwind'
 import { broadcastError, insufficientFunds } from '../../../../tests/unit/data/errors'
 import { ConfirmFundingWithInsufficientFunds } from '../components/ConfirmFundingWithInsufficientFunds'
+import { AmountTooLow } from '../components/AmountTooLow'
+import { configStore } from '../../../store/configStore'
 
 const useFeeEstimateMock = jest.fn().mockReturnValue({ estimatedFees })
 jest.mock('../../../hooks/query/useFeeEstimate', () => ({
@@ -29,11 +31,16 @@ jest.mock('../../../hooks/useShowErrorBanner', () => ({
 
 describe('useFundFromPeachWallet', () => {
   const amount = sellOffer.amount
+  const minTradingAmount = 50000
   const address = 'bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh'
   const feeRate = estimatedFees.halfHourFee
   const fee = feeRate * 110
   const offerWithEscrow = { ...sellOffer, escrow: address }
   const initialProps = { offer: offerWithEscrow, fundingStatus: defaultFundingStatus }
+
+  beforeAll(() => {
+    configStore.getState().setMinTradingAmount(minTradingAmount)
+  })
   beforeEach(() => {
     // @ts-ignore
     setPeachWallet(new PeachWallet())
@@ -188,6 +195,57 @@ describe('useFundFromPeachWallet', () => {
         icon: 'xCircle',
         callback: usePopupStore.getState().closePopup,
       },
+    })
+  })
+
+  it('should broadcast withdraw all transaction on confirm', async () => {
+    const txDetails = getTransactionDetails(amount, feeRate)
+    let call = 0
+    peachWallet.balance = amount
+    peachWallet.finishTransaction = jest.fn().mockImplementation(() => {
+      call++
+      if (call === 1) throw insufficientFunds
+      return txDetails
+    })
+    peachWallet.signAndBroadcastTransaction = jest.fn().mockResolvedValue(txDetails)
+
+    const { result } = renderHook(useFundFromPeachWallet, { initialProps })
+
+    await act(async () => {
+      await result.current.fundFromPeachWallet()
+    })
+    const promise = usePopupStore.getState().action1?.callback()
+
+    expect(usePopupStore.getState()).toEqual({
+      ...usePopupStore.getState(),
+      title: 'funding escrow',
+      level: 'APP',
+      content: <Loading color={tw`text-black-1`.color} style={tw`self-center`} />,
+      action1: {
+        label: 'loading...',
+        icon: 'clock',
+        callback: expect.any(Function),
+      },
+    })
+    await act(async () => {
+      await promise
+    })
+
+    expect(peachWallet.signAndBroadcastTransaction).toHaveBeenCalledWith(txDetails)
+    expect(usePopupStore.getState().visible).toBeFalsy()
+    expect(result.current.fundedFromPeachWallet).toBeTruthy()
+  })
+
+  it('should open amount too low popup', async () => {
+    peachWallet.balance = 0
+    const { result } = renderHook(useFundFromPeachWallet, { initialProps })
+
+    await result.current.fundFromPeachWallet()
+    expect(usePopupStore.getState()).toEqual({
+      ...usePopupStore.getState(),
+      title: 'amount too low',
+      level: 'APP',
+      content: <AmountTooLow available={0} needed={minTradingAmount} />,
     })
   })
 })
