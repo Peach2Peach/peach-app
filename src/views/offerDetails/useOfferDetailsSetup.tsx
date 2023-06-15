@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useHeaderSetup, useRoute } from '../../hooks'
 import { useOfferDetails } from '../../hooks/query/useOfferDetails'
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
-import { OfferDetailsTitle } from './components/OfferDetailsTitle'
+import { offerIdToHex } from '../../utils/offer'
 
 export const useOfferDetailsSetup = () => {
   const { offerId } = useRoute<'offer'>().params
@@ -16,7 +16,7 @@ export const useOfferDetailsSetup = () => {
     }
   }, [error, offerId, showErrorBanner])
 
-  useHeaderSetup({ titleComponent: <OfferDetailsTitle id={offerId} /> })
+  useHeaderSetup({ title: offerIdToHex(offerId) })
 
   return offer
 }

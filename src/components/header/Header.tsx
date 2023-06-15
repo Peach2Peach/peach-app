@@ -47,7 +47,7 @@ export const Header = ({ title, icons, titleComponent, hideGoBackButton, theme }
           </TouchableOpacity>
         )}
         {title ? (
-          <Text style={[...fontSize, tw`lowercase`, colors.text]} numberOfLines={1}>
+          <Text style={[...fontSize, colors.text]} numberOfLines={1}>
             {title}
           </Text>
         ) : (
