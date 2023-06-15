@@ -1,16 +1,11 @@
 import { BackgroundConfig } from '../components/background/Background'
 import { MeetupScreen } from '../components/payment/MeetupScreen'
-import TestView from './TestView/TestView'
-import TestViewButtons from './TestView/buttons'
-import TestViewComponents from './TestView/components'
-import TestViewMessages from './TestView/messages'
-import TestViewPNs from './TestView/pns'
-import TestViewPopups from './TestView/popups'
+import { PaymentMethods } from '../components/payment/PaymentMethods'
 import AddPaymentMethod from './addPaymentMethod/AddPaymentMethod'
-import PaymentDetails from './addPaymentMethod/PaymentDetails'
+import { PaymentMethodDetails } from './addPaymentMethod/PaymentMethodDetails'
 import BackupTime from './backupTime/BackupTime'
 import Buy from './buy/Buy'
-import BuyPreferences from './buy/BuyPreferences'
+import { BuySummary } from './buy/BuySummary'
 import SignMessage from './buy/SignMessage'
 import Contact from './contact/Contact'
 import Contract from './contract/Contract'
@@ -32,21 +27,27 @@ import OfferPublished from './search/OfferPublished'
 import Search from './search/Search'
 import SelectWallet from './selectWallet/SelectWallet'
 import SetRefundWallet from './selectWallet/SetRefundWallet'
+import { Premium } from './sell/Premium'
 import Sell from './sell/Sell'
-import SellPreferences from './sell/SellPreferences'
-import Backups from './settings/Backups'
-import Currency from './settings/Currency'
-import Language from './settings/Language'
-import NetworkFees from './settings/NetworkFees'
-import PaymentMethods from './settings/PaymentMethods'
-import PayoutAddress from './settings/PayoutAddress'
-import Settings from './settings/Settings'
+import { SellSummary } from './sell/SellSummary'
 import AboutPeach from './settings/aboutPeach/AboutPeach'
 import BitcoinProducts from './settings/aboutPeach/BitcoinProducts'
 import PeachFees from './settings/aboutPeach/PeachFees'
 import Socials from './settings/aboutPeach/Socials'
+import Backups from './settings/Backups'
 import BackupCreated from './settings/components/backups/BackupCreated'
+import Currency from './settings/Currency'
+import Language from './settings/Language'
+import NetworkFees from './settings/NetworkFees'
+import PayoutAddress from './settings/PayoutAddress'
 import MyProfile from './settings/profile/MyProfile'
+import Settings from './settings/Settings'
+import TestViewButtons from './TestView/buttons'
+import TestViewComponents from './TestView/components'
+import TestViewMessages from './TestView/messages'
+import TestViewPNs from './TestView/pns'
+import TestViewPopups from './TestView/popups'
+import TestView from './TestView/TestView'
 import TradeComplete from './tradeComplete/TradeComplete'
 import TransactionDetails from './wallet/TransactionDetails'
 import TransactionHistory from './wallet/TransactionHistory'
@@ -95,13 +96,16 @@ const wallet: ViewType[] = [
 ]
 const buyFlow: ViewType[] = [
   { name: 'buy', component: Buy, ...defaultConfig, animationEnabled: false },
-  { name: 'buyPreferences', component: BuyPreferences, ...defaultConfig },
+  { name: 'buyPreferences', component: PaymentMethods, ...defaultConfig },
+  { name: 'buySummary', component: BuySummary, ...defaultConfig },
   { name: 'signMessage', component: SignMessage, ...defaultConfig },
 ]
 
 const sellFlow: ViewType[] = [
   { name: 'sell', component: Sell, ...defaultConfig, animationEnabled: false },
-  { name: 'sellPreferences', component: SellPreferences, ...defaultConfig },
+  { name: 'premium', component: Premium, ...defaultConfig },
+  { name: 'sellPreferences', component: PaymentMethods, ...defaultConfig },
+  { name: 'sellSummary', component: SellSummary, ...defaultConfig },
   { name: 'fundEscrow', component: FundEscrow, ...defaultConfig },
   { name: 'wrongFundingAmount', component: WrongFundingAmount, ...defaultConfig },
   { name: 'selectWallet', component: SelectWallet, ...defaultConfig },
@@ -148,7 +152,7 @@ const settings: ViewType[] = [
   { name: 'myProfile', component: MyProfile, ...defaultConfig },
   { name: 'bitcoinProducts', component: BitcoinProducts, ...defaultConfig },
   { name: 'addPaymentMethod', component: AddPaymentMethod, ...defaultConfig },
-  { name: 'paymentDetails', component: PaymentDetails, ...defaultConfig },
+  { name: 'paymentMethodDetails', component: PaymentMethodDetails, ...defaultConfig },
   { name: 'meetupScreen', component: MeetupScreen, ...defaultConfig },
   { name: 'currency', component: Currency, ...defaultConfig },
   { name: 'language', component: Language, ...defaultConfig },

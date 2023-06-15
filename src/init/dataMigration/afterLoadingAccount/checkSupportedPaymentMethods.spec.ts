@@ -1,6 +1,7 @@
 import { checkSupportedPaymentMethods } from './checkSupportedPaymentMethods'
-import { settingsStore } from '../../../store/settingsStore'
 import { updatePaymentData } from '../../../utils/account/updatePaymentData'
+import { useOfferPreferences } from '../../../store/offerPreferenes'
+import { account, updateAccount } from '../../../utils/account'
 
 jest.mock('../../../utils/account/updatePaymentData', () => ({
   updatePaymentData: jest.fn(),
@@ -35,10 +36,11 @@ const paymentInfo: PaymentMethodInfo[] = [
 
 describe('checkSupportedPaymentMethods', () => {
   beforeEach(() => {
-    settingsStore.getState().setPreferredPaymentMethods({
-      sepa: 'sepa-1069850495',
-      paypal: 'paypal-1095805944',
+    updateAccount({
+      ...account,
+      paymentData,
     })
+    useOfferPreferences.getState().setPaymentMethods(['sepa-1069850495', 'paypal-1095805944'])
   })
   afterEach(() => {
     jest.resetAllMocks()
@@ -49,13 +51,12 @@ describe('checkSupportedPaymentMethods', () => {
     expect(method1.hidden).toEqual(false)
     expect(method2.hidden).toEqual(true)
   })
-  it('sets calls setPreferredPaymentMethods to update settings with new preferred methods', () => {
-    const setSpy = jest.spyOn(settingsStore.getState(), 'setPreferredPaymentMethods')
+  it('calls setPreferredPaymentMethods to update settings with new preferred methods', () => {
+    const setSpy = jest.spyOn(useOfferPreferences.getState(), 'setPaymentMethods')
 
     checkSupportedPaymentMethods(paymentData, paymentInfo)
-    expect(setSpy).toHaveBeenCalledWith({
-      sepa: 'sepa-1069850495',
-    })
+
+    expect(setSpy).toHaveBeenCalledWith(['sepa-1069850495'])
   })
   it('calls updatePaymentData with new data', () => {
     checkSupportedPaymentMethods(paymentData, paymentInfo)

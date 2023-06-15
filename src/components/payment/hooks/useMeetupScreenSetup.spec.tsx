@@ -4,6 +4,7 @@ import { headerState, setOptionsMock } from '../../../../tests/unit/helpers/Navi
 import { setPaymentMethods } from '../../../constants'
 import { DeletePaymentMethodConfirm } from '../../../popups/info/DeletePaymentMethodConfirm'
 import { meetupEventsStore } from '../../../store/meetupEventsStore'
+import { useOfferPreferences } from '../../../store/offerPreferenes'
 import { usePopupStore } from '../../../store/usePopupStore'
 import { account, defaultAccount, setAccount } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
@@ -113,6 +114,54 @@ describe('useMeetupScreenSetup', () => {
       },
     ])
     expect(goBackMock).toHaveBeenCalled()
+  })
+  it('should automatically add the meetup to the selected methods', () => {
+    useOfferPreferences.getState().setPaymentMethods([])
+    setPaymentMethods([{ id: 'cash.123', currencies: ['EUR'], anonymous: true }])
+    meetupEventsStore.getState().setMeetupEvents([
+      {
+        id: '123',
+        currencies: ['EUR'],
+        country: 'DE',
+        city: 'Berlin',
+        shortName: 'shortName',
+        longName: 'longName',
+      },
+    ])
+    const { result } = renderHook(useMeetupScreenSetup, {
+      wrapper: NavigationContainer,
+    })
+
+    expect(useOfferPreferences.getState().preferredPaymentMethods).toStrictEqual({})
+    act(() => {
+      result.current.addToPaymentMethods()
+    })
+    expect(useOfferPreferences.getState()).toStrictEqual(
+      expect.objectContaining({
+        meansOfPayment: {
+          EUR: ['cash.123'],
+        },
+        originalPaymentData: [
+          {
+            country: 'DE',
+            currencies: ['EUR'],
+            id: 'cash.123',
+            label: 'shortName',
+            type: 'cash.123',
+            userId: '',
+          },
+        ],
+        paymentData: {
+          'cash.123': {
+            country: 'DE',
+            hash: '271c06de9309a4262c2fd1c77bda4c56efd105579ade0217897f8fdb161ff8ba',
+          },
+        },
+        preferredPaymentMethods: {
+          'cash.123': 'cash.123',
+        },
+      }),
+    )
   })
   it('should show the delete payment method popup', () => {
     renderHook(useMeetupScreenSetup, { wrapper: NavigationContainer })

@@ -32,15 +32,6 @@ export const defaultSettings: Settings = {
   locale: undefined,
   displayCurrency: 'EUR',
 
-  meansOfPayment: {},
-  preferredPaymentMethods: {},
-
-  premium: 1.5,
-
-  minBuyAmount: defaultConfig.minTradingAmount,
-  maxBuyAmount: defaultConfig.maxTradingAmount,
-  sellAmount: defaultConfig.minTradingAmount,
-
   nodeURL: BLOCKEXPLORER,
 
   returnAddress: undefined,

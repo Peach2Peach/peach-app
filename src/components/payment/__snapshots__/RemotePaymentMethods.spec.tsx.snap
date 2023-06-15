@@ -1,0 +1,99 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RemotePaymentMethods should render correctly with methods 1`] = `
+<View
+  testID="checkboxes-buy-mops"
+>
+  <View
+    style={{}}
+  >
+    <LinedText
+      style={
+        {
+          "paddingBottom": 12,
+        }
+      }
+    >
+      <PeachText
+        style={
+          {
+            "color": "#7D675E",
+            "fontFamily": "Baloo2-Bold",
+            "fontSize": 20,
+            "letterSpacing": 0.2,
+            "lineHeight": 32,
+            "marginRight": 4,
+          }
+        }
+      >
+        bank transfer
+      </PeachText>
+      <Icon
+        color="#7D675E"
+        id="inbox"
+      />
+    </LinedText>
+    <View
+      style={{}}
+    >
+      <View
+        style={
+          {
+            "display": "flex",
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+          }
+        }
+      >
+        <PeachText
+          style={
+            {
+              "color": "#DF321F",
+              "fontFamily": "Baloo2-Regular",
+            }
+          }
+        >
+          SEPA
+        </PeachText>
+        <Memo(Pressable)
+          onPress={[Function]}
+          style={
+            {
+              "height": 24,
+              "width": 24,
+            }
+          }
+        >
+          <Icon
+            color="#7D675E"
+            id="trash"
+            style={
+              {
+                "height": 24,
+                "width": 24,
+              }
+            }
+          />
+        </Memo(Pressable)>
+      </View>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`RemotePaymentMethods should render correctly without methods 1`] = `
+<PeachText
+  style={
+    {
+      "color": "#9F8C82",
+      "fontFamily": "Baloo2-Bold",
+      "fontSize": 20,
+      "letterSpacing": 0.2,
+      "lineHeight": 32,
+      "textAlign": "center",
+    }
+  }
+>
+  none yet!
+</PeachText>
+`;
