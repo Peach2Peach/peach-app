@@ -1,15 +1,13 @@
 import { useCallback, useEffect, useState } from 'react'
-import { useCancelOffer, useHeaderSetup, useRoute } from '../../../hooks'
+import { useCancelOffer, useRoute } from '../../../hooks'
 import { useFundingStatus } from '../../../hooks/query/useFundingStatus'
 import { useOfferDetails } from '../../../hooks/query/useOfferDetails'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
-import { useShowHelp } from '../../../hooks/useShowHelp'
-import i18n from '../../../utils/i18n'
-import { headerIcons } from '../../../utils/layout/headerIcons'
 import { isSellOffer } from '../../../utils/offer'
 import { parseError } from '../../../utils/result'
 import { shouldGetFundingStatus } from '../../sell/helpers/shouldGetFundingStatus'
 import { useCreateEscrow } from './useCreateEscrow'
+import { useFundEscrowHeader } from './useFundEscrowHeader'
 import { useHandleFundingStatus } from './useHandleFundingStatus'
 
 const minLoadingTime = 1000
@@ -17,8 +15,6 @@ export const useFundEscrowSetup = () => {
   const route = useRoute<'fundEscrow'>()
   const { offerId } = route.params
 
-  const showHelp = useShowHelp('escrow')
-  const showMempoolHelp = useShowHelp('mempool')
   const showErrorBanner = useShowErrorBanner()
 
   const { offer } = useOfferDetails(route.params.offerId)
@@ -32,20 +28,8 @@ export const useFundEscrowSetup = () => {
   } = useFundingStatus(offerId, canFetchFundingStatus)
   const fundingAmount = sellOffer ? sellOffer.amount : 0
   const cancelOffer = useCancelOffer(sellOffer)
-  useHeaderSetup(
-    fundingStatus.status === 'MEMPOOL'
-      ? {
-        title: i18n('sell.funding.mempool.title'),
-        icons: [{ ...headerIcons.help, onPress: showMempoolHelp }],
-      }
-      : {
-        title: i18n('sell.escrow.title'),
-        icons: [
-          { ...headerIcons.cancel, onPress: cancelOffer },
-          { ...headerIcons.help, onPress: showHelp },
-        ],
-      },
-  )
+
+  useFundEscrowHeader({ fundingStatus, sellOffer })
 
   useHandleFundingStatus({
     offerId,

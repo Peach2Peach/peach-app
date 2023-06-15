@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`useFundEscrowSetup should render header correctly for funding in mempool 1`] = `
+exports[`useFundEscrowHeader should render header correctly for funding in mempool 1`] = `
 <Header
   icons={
     [
@@ -15,7 +15,7 @@ exports[`useFundEscrowSetup should render header correctly for funding in mempoo
 />
 `;
 
-exports[`useFundEscrowSetup should render header correctly for unfunded offers 1`] = `
+exports[`useFundEscrowHeader should render header correctly for unfunded offers 1`] = `
 <Header
   icons={
     [
