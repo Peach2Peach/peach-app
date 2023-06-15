@@ -932,7 +932,7 @@
   "sell.funding.mempool.title": "transaction en attente",
   "sell.meansOfPayment": "comment souhaitez-vous être payé ?",
   "sell.premium": "Prime",
-  "sell.premium.currently": "Actuellement : 0 $",
+  "sell.premium.currently": "Actuellement : $0",
   "sell.premium.marketPrice": "Prix\ndu marché",
   "sell.premium.title": "Définir votre prime / réduction",
   "sell.subtitle": "Vous vendez :",
