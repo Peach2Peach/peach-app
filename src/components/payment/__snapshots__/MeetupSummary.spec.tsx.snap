@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MeetupSummary should render correctly 1`] = `
+<Memo(Pressable)
+  onPress={[Function]}
+>
+  <Text
+    style={
+      {
+        "color": "#2B1911",
+        "fontFamily": "Baloo2-Bold",
+        "fontSize": 16,
+        "letterSpacing": 0.16,
+        "lineHeight": 20,
+        "paddingLeft": 20,
+      }
+    }
+  >
+    city
+  </Text>
+  <Text
+    style={
+      {
+        "color": "#2B1911",
+        "fontFamily": "Baloo2-Regular",
+        "fontSize": 14,
+        "letterSpacing": 0.14,
+        "lineHeight": 20,
+        "paddingLeft": 20,
+      }
+    }
+  >
+    longName
+  </Text>
+  <HorizontalLine
+    style={
+      {
+        "marginBottom": 24,
+        "marginTop": 24,
+      }
+    }
+  />
+</Memo(Pressable)>
+`;

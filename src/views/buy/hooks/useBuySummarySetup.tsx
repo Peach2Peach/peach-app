@@ -3,6 +3,7 @@ import { shallow } from 'zustand/shallow'
 import { useHeaderSetup, useNavigation } from '../../../hooks'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { useSettingsStore } from '../../../store/settingsStore'
+import { useOfferPreferences } from '../../../store/offerPreferenes/useOfferPreferences'
 import { account, getMessageToSignForAddress } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
 import { headerIcons } from '../../../utils/layout/headerIcons'
@@ -38,8 +39,6 @@ export const useBuySummarySetup = () => {
   const [canPublish, setCanPublish] = useState(false)
   const [isPublishing, setIsPublishing] = useState(false)
 
-  const walletLabel = peachWalletActive ? i18n('peachWallet') : payoutAddressLabel
-
   const goToMessageSigning = () => navigation.navigate('signMessage')
 
   const getMessageSigningData = async (): Promise<
@@ -64,7 +63,22 @@ export const useBuySummarySetup = () => {
     })
   }
 
-  const publishOffer = async (offerDraft: BuyOfferDraft) => {
+  const buyOfferPreferences = useOfferPreferences(
+    (state) => ({
+      amount: state.buyAmountRange,
+      meansOfPayment: state.meansOfPayment,
+      paymentData: state.paymentData,
+      originalPaymentData: state.originalPaymentData,
+    }),
+    shallow,
+  )
+  const [offerDraft, setOfferDraft] = useState<BuyOfferDraft>({
+    type: 'bid',
+    releaseAddress: '',
+    ...buyOfferPreferences,
+  })
+
+  const publishOffer = async () => {
     if (isPublishing) return
     setIsPublishing(true)
     const messageSigningData = await getMessageSigningData()
@@ -106,12 +120,16 @@ export const useBuySummarySetup = () => {
     setCanPublish(isValidBitcoinSignature(messageToSign, payoutAddress, payoutAddressSignature))
   }, [payoutAddress, payoutAddressSignature, peachWalletActive])
 
+  useEffect(() => {
+    setOfferDraft((prev) => ({ ...prev, walletLabel: peachWalletActive ? i18n('peachWallet') : payoutAddressLabel }))
+  }, [payoutAddressLabel, peachWalletActive])
+
   return {
     peachWalletActive,
-    walletLabel,
     canPublish,
     publishOffer,
     isPublishing,
     goToMessageSigning,
+    offerDraft,
   }
 }

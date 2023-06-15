@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Animated, LayoutChangeEvent, PanResponder, View } from 'react-native'
+import { shallow } from 'zustand/shallow'
+import { useOfferPreferences } from '../../../store/offerPreferenes/useOfferPreferences'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { getTranslateX } from '../../../utils/layout'
@@ -8,11 +10,6 @@ import Icon from '../../Icon'
 import { SliderLabel } from './SliderLabel'
 import { SliderMarkers } from './SliderMarkers'
 
-type PremiumSliderProps = ComponentProps & {
-  value: number
-  onChange: (value: number) => void
-}
-
 const MIN = -21
 const MAX = 21
 const DELTA = MAX - MIN
@@ -20,9 +17,9 @@ const KNOBWIDTH = tw`w-8`.width as number
 
 const onStartShouldSetResponder = () => true
 
-export const PremiumSlider = ({ value, onChange, style }: PremiumSliderProps) => {
+export const PremiumSlider = ({ style }: ComponentProps) => {
   const [isSliding, setIsSliding] = useState(false)
-  const [premium, setPremium] = useState(value)
+  const [premium, setPremium] = useOfferPreferences((state) => [state.premium, state.setPremium], shallow)
   const [trackWidth, setTrackWidth] = useState(260)
   const labelPosition = useMemo(
     () => [
@@ -35,50 +32,44 @@ export const PremiumSlider = ({ value, onChange, style }: PremiumSliderProps) =>
     [trackWidth],
   )
 
-  const pan = useRef(new Animated.Value(((value - MIN) / DELTA) * trackWidth)).current
+  const pan = useRef(new Animated.Value(((premium - MIN) / DELTA) * trackWidth)).current
 
   const panResponder = useRef(
     PanResponder.create({
       onMoveShouldSetPanResponder: () => true,
-      onPanResponderMove: (e, gestureState) => {
+      onPanResponderGrant: () => {
         setIsSliding(true)
-        Animated.event([null, { dx: pan }], { useNativeDriver: false })(e, gestureState)
       },
+      onPanResponderMove: Animated.event([null, { dx: pan }], {
+        useNativeDriver: false,
+      }),
       onPanResponderRelease: () => {
         setIsSliding(false)
-        pan.extractOffset()
+        pan.flattenOffset()
       },
       onShouldBlockNativeResponder: () => true,
     }),
   ).current
 
   useEffect(() => {
+    if (!isSliding) return undefined
     pan.extractOffset()
     pan.addListener((props) => {
-      if (props.value < 0) pan.setOffset(0)
-      if (props.value > trackWidth) pan.setOffset(trackWidth)
-
       const boundedX = props.value < 0 ? 0 : Math.min(props.value, trackWidth)
       const val = round((boundedX / trackWidth) * DELTA + MIN)
       setPremium(val)
     })
 
     return () => pan.removeAllListeners()
-  }, [pan, trackWidth])
+  }, [isSliding, pan, setPremium, trackWidth])
 
   useEffect(() => {
-    if (isSliding || isNaN(value)) return
-    pan.setOffset(((value - MIN) / DELTA) * trackWidth)
-  }, [isSliding, pan, trackWidth, value])
-
-  useEffect(() => {
-    if (!isSliding) return
-    onChange(premium)
-  }, [isSliding, onChange, premium])
+    if (isSliding) return
+    pan.setValue(((premium - MIN) / DELTA) * trackWidth)
+  }, [isSliding, pan, trackWidth, premium])
 
   const onLayout = (event: LayoutChangeEvent) => {
     const newTrackWidth = event.nativeEvent.layout.width - KNOBWIDTH
-    pan.setOffset(((value - MIN) / DELTA) * newTrackWidth)
     setTrackWidth(newTrackWidth)
   }
 
@@ -114,5 +105,3 @@ export const PremiumSlider = ({ value, onChange, style }: PremiumSliderProps) =>
     </View>
   )
 }
-
-export default PremiumSlider

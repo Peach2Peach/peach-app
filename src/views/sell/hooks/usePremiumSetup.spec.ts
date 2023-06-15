@@ -1,17 +1,11 @@
 import { act, renderHook } from '@testing-library/react-native'
-import { settings1 } from '../../../../tests/unit/data/settingsData'
-import { SettingsStore, settingsStore } from '../../../store/settingsStore'
+import { headerState, NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { SATSINBTC } from '../../../constants'
+import { useOfferPreferences } from '../../../store/offerPreferenes'
+import { settingsStore } from '../../../store/settingsStore'
 import { defaultLimits } from '../../../utils/account/account'
-import { getSellOfferDraft } from '../helpers/getSellOfferDraft'
 import { usePremiumSetup } from './usePremiumSetup'
 
-const setPremiumMock = jest.fn()
-const premium = 1.5
-const state = {
-  premium,
-  setPremium: setPremiumMock,
-  displayCurrency: 'EUR',
-} satisfies Partial<SettingsStore>
 const useMarketPricesMock = jest.fn().mockReturnValue({
   data: {
     EUR: 20000,
@@ -25,91 +19,94 @@ const useTradingLimitsMock = jest.fn().mockReturnValue({ limits: defaultLimits }
 jest.mock('../../../hooks/query/useTradingLimits', () => ({
   useTradingLimits: () => useTradingLimitsMock(),
 }))
-jest.mock('../../../hooks/useNavigation', () => ({
-  useNavigation: jest.fn().mockReturnValue({
-    navigate: jest.fn(),
-  }),
-}))
-jest.mock('@react-navigation/native', () => ({
-  useFocusEffect: jest.fn(),
-}))
-
-const useSellSetupMock = jest.fn()
-jest.mock('./useSellSetup', () => ({
-  useSellSetup: (...args: any) => useSellSetupMock(...args),
-}))
 
 // eslint-disable-next-line max-lines-per-function
 describe('usePremiumSetup', () => {
   const sellAmount = 100000
-  const sellOfferDraft = getSellOfferDraft({ sellAmount, premium })
-  const setOfferDraftMock = jest.fn((fn) => fn())
-
-  beforeEach(() => {
-    settingsStore.setState((def) => ({ ...def, ...state }))
+  afterEach(() => {
+    act(() => {
+      settingsStore.setState({ displayCurrency: 'EUR' })
+      useOfferPreferences.getState().setSellAmount(sellAmount, { min: 1000, max: 1000000 })
+    })
   })
 
-  it('returns default values correctly', () => {
-    const { result } = renderHook(() => usePremiumSetup(sellOfferDraft, setOfferDraftMock))
-
-    expect(result.current.premium).toBe(premium.toString())
-    expect(result.current.updatePremium).toBeInstanceOf(Function)
-    expect(result.current.currentPrice).toBe(20.3)
-    expect(result.current.displayCurrency).toBe(settings1.displayCurrency)
-    expect(result.current.stepValid).toBeTruthy()
-  })
-  it('calls useSellSetup with correct params', () => {
-    renderHook(() => usePremiumSetup(sellOfferDraft, setOfferDraftMock))
-
-    expect(useSellSetupMock).toHaveBeenCalledWith({ help: 'premium' })
+  it('sets up the header correctly', () => {
+    renderHook(usePremiumSetup, { wrapper: NavigationWrapper })
+    expect(headerState.header()).toMatchSnapshot()
   })
 
-  it('updatePremium is updating the premium', () => {
-    const { result } = renderHook(() => usePremiumSetup(sellOfferDraft, setOfferDraftMock))
+  it('should validate the premium step when the premium is set too high', () => {
+    const SATSPrice = 20000 / SATSINBTC
+    useOfferPreferences.setState({ sellAmount: defaultLimits.daily / SATSPrice, premium: 0 })
+    renderHook(usePremiumSetup, { wrapper: NavigationWrapper })
+    expect(useOfferPreferences.getState().canContinue.premium).toBe(true)
+    act(() => {
+      useOfferPreferences.setState({ premium: 0.5 })
+    })
+    expect(useOfferPreferences.getState().canContinue.premium).toBe(false)
+  })
+  it('should validate the premium step when the price pumps', () => {
+    useOfferPreferences.setState({ sellAmount: 210000, premium: 0 })
+    const { rerender } = renderHook(usePremiumSetup, { wrapper: NavigationWrapper })
+    expect(useOfferPreferences.getState().canContinue.premium).toBe(true)
+    useMarketPricesMock.mockReturnValue({
+      data: {
+        EUR: Infinity,
+        CHF: Infinity,
+      },
+    })
+    act(() => {
+      rerender(undefined)
+    })
+    expect(useOfferPreferences.getState().canContinue.premium).toBe(false)
+  })
+  it('should validate the premium step when the trading limits change', () => {
+    useMarketPricesMock.mockReturnValue({
+      data: {
+        EUR: 20000,
+        CHF: 20000,
+      },
+    })
+    const SATSPrice = 20000 / SATSINBTC
+    useOfferPreferences.setState({ sellAmount: defaultLimits.daily / SATSPrice, premium: 0 })
+    const { rerender } = renderHook(usePremiumSetup, { wrapper: NavigationWrapper })
+    expect(useOfferPreferences.getState().canContinue.premium).toBe(true)
+    useTradingLimitsMock.mockReturnValue({ limits: { daily: 100 } })
+    act(() => {
+      rerender(undefined)
+    })
+    expect(useOfferPreferences.getState().canContinue.premium).toBe(false)
+  })
+  it('should validate the premium step when the amount changes', () => {
+    useTradingLimitsMock.mockReturnValue({ limits: defaultLimits })
+    const SATSPrice = 20000 / SATSINBTC
+    useOfferPreferences.setState({ sellAmount: defaultLimits.daily / SATSPrice, premium: 0 })
+    renderHook(usePremiumSetup, { wrapper: NavigationWrapper })
+    expect(useOfferPreferences.getState().canContinue.premium).toBe(true)
+    act(() => {
+      useOfferPreferences.setState({ sellAmount: defaultLimits.daily / SATSPrice + 1000 })
+    })
+    expect(useOfferPreferences.getState().canContinue.premium).toBe(false)
+  })
+  it('should not update the state, if the validation result is the same', () => {
+    const setPremiumSpy = jest.spyOn(useOfferPreferences.getState(), 'setPremium')
+    useOfferPreferences.setState({ sellAmount: 210000, premium: 0 })
+    const { rerender } = renderHook(usePremiumSetup, { wrapper: NavigationWrapper })
+    expect(setPremiumSpy).toHaveBeenCalledTimes(0)
+    useMarketPricesMock.mockReturnValue({
+      data: {
+        EUR: Infinity,
+        CHF: Infinity,
+      },
+    })
+    act(() => {
+      rerender(undefined)
+    })
+    expect(setPremiumSpy).toHaveBeenCalledTimes(1)
 
     act(() => {
-      result.current.updatePremium(10)
+      rerender(undefined)
     })
-    expect(result.current.premium).toBe('10')
-    expect(setOfferDraftMock).toHaveBeenCalledTimes(2)
-  })
-
-  it('defaults to a price of 0 if the market price is not available', () => {
-    useMarketPricesMock.mockReturnValue({ data: null })
-    const { result } = renderHook(() => usePremiumSetup(sellOfferDraft, setOfferDraftMock))
-
-    expect(result.current.currentPrice).toBe(0)
-  })
-
-  it('doesn\'t allow more than 2 decimals', () => {
-    const { result } = renderHook(() => usePremiumSetup(sellOfferDraft, setOfferDraftMock))
-
-    act(() => {
-      result.current.updatePremium(10.123)
-    })
-    expect(result.current.premium).toBe('10.12')
-
-    act(() => {
-      result.current.updatePremium('10.1')
-    })
-    expect(result.current.premium).toBe('10.1')
-
-    act(() => {
-      result.current.updatePremium('10.10')
-    })
-    expect(result.current.premium).toBe('10.10')
-  })
-  it('should handle the premium being NaN', () => {
-    settingsStore.setState((def) => ({ ...def, premium: NaN }))
-    const { result } = renderHook(() => usePremiumSetup(sellOfferDraft, setOfferDraftMock))
-
-    expect(result.current.premium).toBe('0')
-  })
-  it('should handle the premium being null', () => {
-    // @ts-ignore
-    settingsStore.setState((def) => ({ ...def, premium: null }))
-    const { result } = renderHook(() => usePremiumSetup(sellOfferDraft, setOfferDraftMock))
-
-    expect(result.current.premium).toBe('0')
+    expect(setPremiumSpy).toHaveBeenCalledTimes(1)
   })
 })

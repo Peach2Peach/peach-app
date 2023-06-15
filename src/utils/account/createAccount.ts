@@ -5,7 +5,7 @@ import { createRandomWallet, createWalletFromSeedPhrase, getNetwork } from '../w
 import { getMainAccount } from './getMainAccount'
 import { NETWORK } from '@env'
 
-export const createAccount = async (seedPhrase?: string): Promise<Account> => {
+export const createAccount = async (seedPhrase?: string) => {
   info('Create account')
   const { wallet, mnemonic } = seedPhrase
     ? createWalletFromSeedPhrase(seedPhrase, getNetwork())
