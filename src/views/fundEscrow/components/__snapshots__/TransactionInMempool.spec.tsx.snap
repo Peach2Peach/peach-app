@@ -94,8 +94,10 @@ You can go do something else, we'll automatically publish your offer as soon as 
           [
             {
               "alignItems": "center",
+              "alignSelf": "stretch",
               "flexDirection": "row",
               "gap": 4,
+              "justifyContent": "center",
             },
             {
               "alignSelf": "center",
@@ -246,8 +248,10 @@ You can go do something else, we'll automatically publish your offer as soon as 
           [
             {
               "alignItems": "center",
+              "alignSelf": "stretch",
               "flexDirection": "row",
               "gap": 4,
+              "justifyContent": "center",
             },
             {
               "alignSelf": "center",
