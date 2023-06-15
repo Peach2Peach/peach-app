@@ -1,18 +1,20 @@
-import { View } from 'react-native'
-import { Text } from '../text'
+import { View, ViewStyle } from 'react-native'
+import { FillProps } from 'react-native-svg'
+import { IconType } from '../../assets/icons'
 import tw from '../../styles/tailwind'
 import Icon from '../Icon'
-import { IconType } from '../../assets/icons'
-import { FillProps } from 'react-native-svg'
+import { Text } from '../text'
 
-type Props = {
+type Props = ComponentProps & {
   text: string
+  textStyle?: ViewStyle | ViewStyle[]
   iconId: IconType
+  iconSize?: number
   iconColor?: FillProps['fill']
 }
-export const TradeInfo = ({ text, iconId, iconColor }: Props) => (
-  <View style={tw`flex-row items-center gap-1`}>
-    <Text style={tw`uppercase button-medium`}>{text}</Text>
-    <Icon id={iconId} style={tw`w-4 h-4`} color={iconColor} />
+export const TradeInfo = ({ text, textStyle, iconId, iconSize = 16, iconColor, style }: Props) => (
+  <View style={[tw`flex-row items-center gap-1`, style]}>
+    <Text style={[tw`uppercase button-medium`, textStyle]}>{text}</Text>
+    <Icon id={iconId} style={{ width: iconSize, height: iconSize }} color={iconColor} />
   </View>
 )

@@ -3,22 +3,28 @@
 exports[`TradeInfo renders correctly 1`] = `
 <View
   style={
-    {
-      "alignItems": "center",
-      "flexDirection": "row",
-      "gap": 4,
-    }
+    [
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "gap": 4,
+      },
+      undefined,
+    ]
   }
 >
   <PeachText
     style={
-      {
-        "fontFamily": "Baloo2-SemiBold",
-        "fontSize": 14,
-        "letterSpacing": 0.5,
-        "lineHeight": 24,
-        "textTransform": "uppercase",
-      }
+      [
+        {
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 14,
+          "letterSpacing": 0.5,
+          "lineHeight": 24,
+          "textTransform": "uppercase",
+        },
+        undefined,
+      ]
     }
   >
     text
@@ -35,25 +41,35 @@ exports[`TradeInfo renders correctly 1`] = `
 </View>
 `;
 
-exports[`TradeInfo renders correctly with icon color 1`] = `
+exports[`TradeInfo renders correctly with additional styles 1`] = `
 <View
   style={
-    {
-      "alignItems": "center",
-      "flexDirection": "row",
-      "gap": 4,
-    }
+    [
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "gap": 4,
+      },
+      {
+        "marginTop": 16,
+      },
+    ]
   }
 >
   <PeachText
     style={
-      {
-        "fontFamily": "Baloo2-SemiBold",
-        "fontSize": 14,
-        "letterSpacing": 0.5,
-        "lineHeight": 24,
-        "textTransform": "uppercase",
-      }
+      [
+        {
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 14,
+          "letterSpacing": 0.5,
+          "lineHeight": 24,
+          "textTransform": "uppercase",
+        },
+        {
+          "color": "#F56522",
+        },
+      ]
     }
   >
     text
@@ -63,8 +79,8 @@ exports[`TradeInfo renders correctly with icon color 1`] = `
     id="alertCircle"
     style={
       {
-        "height": 16,
-        "width": 16,
+        "height": 20,
+        "width": 20,
       }
     }
   />
