@@ -9,11 +9,7 @@ type Props = RequestProps & {
   tx: string
 }
 
-export const postTransaction = async ({
-  tx,
-  timeout,
-  abortSignal,
-}: Props): Promise<[string | null, APIError | null]> => {
+export const postTransaction = async ({ tx, timeout, abortSignal }: Props) => {
   const response = await fetch(`${BLOCKEXPLORER}/tx`, {
     headers: {
       ...getPublicHeaders(),
@@ -25,5 +21,5 @@ export const postTransaction = async ({
     signal: abortSignal || (timeout ? getAbortWithTimeout(timeout).signal : undefined),
   })
 
-  return await parseResponse<string>(response, 'postTransaction', true)
+  return parseResponse<string>(response, 'postTransaction', true)
 }

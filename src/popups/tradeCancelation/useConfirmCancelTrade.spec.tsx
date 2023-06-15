@@ -62,7 +62,6 @@ describe('useConfirmCancelTrade', () => {
     setPeachWallet(new PeachWallet())
   })
   afterEach(() => {
-    jest.clearAllMocks()
     usePopupStore.setState(defaultPopupState)
   })
   it('should return the correct default values', () => {
@@ -116,7 +115,7 @@ describe('useConfirmCancelTrade', () => {
 
     expect(saveContractMock).toHaveBeenCalledWith(contractUpdate)
   })
-  it('should show confirm cancelation popup for buyer', async () => {
+  it('should show confirm cancelation popup for buyer', () => {
     setAccount({ ...account1, publicKey: contract.buyer.id })
     const { result } = renderHook(useConfirmCancelTrade, { wrapper })
     result.current.showConfirmPopup(contract)
@@ -139,10 +138,10 @@ describe('useConfirmCancelTrade', () => {
       visible: true,
     })
 
-    await usePopupStore.getState().action1?.callback()
+    usePopupStore.getState().action1?.callback()
     expect(cancelContractAsBuyerMock).toHaveBeenCalledWith(contract)
   })
-  it('should show confirm cancelation popup for seller', async () => {
+  it('should show confirm cancelation popup for seller', () => {
     setAccount({
       ...account1,
       offers: [{ ...sellOffer, id: getSellOfferIdFromContract(contract) }],
@@ -168,7 +167,7 @@ describe('useConfirmCancelTrade', () => {
       title: 'cancel trade',
       visible: true,
     })
-    await usePopupStore.getState().action1?.callback()
+    usePopupStore.getState().action1?.callback()
     expect(cancelContractAsSellerMock).toHaveBeenCalledWith(contract)
   })
   it('confirmpopup should be gray', () => {
@@ -199,7 +198,7 @@ describe('useConfirmCancelTrade', () => {
       visible: true,
     })
   })
-  it('should show the correct confirmation popup for canceled trade as buyer', async () => {
+  it('should show the correct confirmation popup for canceled trade as buyer', () => {
     setAccount({ ...account1, publicKey: contract.buyer.id })
 
     const { result } = renderHook(useConfirmCancelTrade, { wrapper })
@@ -212,7 +211,7 @@ describe('useConfirmCancelTrade', () => {
       visible: true,
     })
   })
-  it('should show the correct confirmation popup for canceled trade as seller', async () => {
+  it('should show the correct confirmation popup for canceled trade as seller', () => {
     setAccount({
       ...account1,
       offers: [{ ...sellOffer, id: getSellOfferIdFromContract(contract) }],
@@ -237,7 +236,7 @@ describe('useConfirmCancelTrade', () => {
       visible: true,
     })
   })
-  it('shows the correct confirmation popup for canceled cash trade as seller with republish available', async () => {
+  it('shows the correct confirmation popup for canceled cash trade as seller with republish available', () => {
     setAccount({
       ...account1,
       offers: [{ ...sellOffer, id: getSellOfferIdFromContract(contract), publishingDate: new Date() }],
@@ -255,7 +254,7 @@ describe('useConfirmCancelTrade', () => {
       visible: true,
     })
   })
-  it('shows the correct confirmation popup for canceled cash trade as seller with republish unavailable', async () => {
+  it('shows the correct confirmation popup for canceled cash trade as seller with republish unavailable', () => {
     setAccount({
       ...account1,
       offers: [{ ...sellOffer, id: getSellOfferIdFromContract(contract), publishingDate: new Date(0) }],

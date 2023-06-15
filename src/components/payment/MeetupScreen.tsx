@@ -24,7 +24,7 @@ export const MeetupScreen = () => {
           {!!event.frequency && (
             <View style={tw`gap-4`}>
               <Text style={tw`body-l`}>
-                {i18n('meetup.date') + ': '}
+                {`${i18n('meetup.date')}: `}
                 <Text style={tw`h6`}>{event.frequency}</Text>
               </Text>
               {!!event.address && <Text style={tw`body-l text-black-1`}>{event.address}</Text>}
@@ -32,7 +32,7 @@ export const MeetupScreen = () => {
           )}
           <View style={tw`gap-4`}>
             {!!event.address && (
-              <Link text={i18n('view.maps')} url={'http://maps.google.com/maps?daddr=' + event.address} />
+              <Link text={i18n('view.maps')} url={`http://maps.google.com/maps?daddr=${event.address}`} />
             )}
             {!!event.url && <Link text={i18n('meetup.website')} url={event.url} />}
           </View>

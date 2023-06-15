@@ -10,15 +10,7 @@ type AcknowledgeDisputeProps = RequestProps & {
   email?: string
 }
 
-/**
- * @description Method to acknowlege a dispute for a contract
- * @param contractId contract id
- */
-export const acknowledgeDispute = async ({
-  contractId,
-  email,
-  timeout,
-}: AcknowledgeDisputeProps): Promise<[APISuccess | null, APIError | null]> => {
+export const acknowledgeDispute = async ({ contractId, email, timeout }: AcknowledgeDisputeProps) => {
   const response = await fetch(`${API_URL}/v1/contract/${contractId}/dispute/acknowledge`, {
     headers: await getPrivateHeaders(),
     method: 'POST',
@@ -28,5 +20,5 @@ export const acknowledgeDispute = async ({
     signal: timeout ? getAbortWithTimeout(timeout).signal : undefined,
   })
 
-  return await parseResponse<APISuccess>(response, 'acknowledgeDispute')
+  return parseResponse<APISuccess>(response, 'acknowledgeDispute')
 }

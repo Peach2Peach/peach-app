@@ -1,4 +1,4 @@
-import { act, renderHook } from '@testing-library/react-native'
+import { act, renderHook, waitFor } from '@testing-library/react-native'
 import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { settingsStore } from '../../../store/settingsStore'
 import { useWalletSetup } from './useWalletSetup'
@@ -13,19 +13,16 @@ jest.mock('../../../utils/wallet/walletStore', () => ({
 const mockWithdrawAll = jest.fn()
 jest.mock('../../../utils/wallet/setWallet', () => ({
   peachWallet: {
-    allTransactions: () => [],
+    transactions: [],
     withdrawAll: (...args: any) => mockWithdrawAll(...args),
-    syncWallet: jest.fn((onSuccess: () => void) => onSuccess()),
+    syncWallet: jest.fn().mockResolvedValue(undefined),
   },
 }))
 
 describe('useWalletSetup', () => {
   const wrapper = NavigationWrapper
   const address = 'bitcoinAddress'
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
-  it('should return correct default values', () => {
+  it('should return correct default values', async () => {
     const { result } = renderHook(useWalletSetup, { wrapper })
 
     expect(result.current.walletStore).toEqual(walletStore)
@@ -37,10 +34,11 @@ describe('useWalletSetup', () => {
     expect(result.current.addressErrors).toHaveLength(0)
     expect(result.current.openWithdrawalConfirmation).toBeInstanceOf(Function)
     expect(result.current.confirmWithdrawal).toBeInstanceOf(Function)
-    expect(result.current.walletLoading).toBeFalsy()
+    expect(result.current.walletLoading).toBeTruthy()
+    await waitFor(() => expect(result.current.walletLoading).toBeFalsy())
   })
 
-  it('should open confirm withdrawal popup', () => {
+  it('should open confirm withdrawal popup', async () => {
     const { result } = renderHook(useWalletSetup, { wrapper })
 
     act(() => {
@@ -64,6 +62,7 @@ describe('useWalletSetup', () => {
       },
       level: 'APP',
     })
+    await waitFor(() => expect(result.current.walletLoading).toBeFalsy())
   })
   it('should confirm withdrawal with correct fees', async () => {
     const finalFeeRate = 3
@@ -76,10 +75,11 @@ describe('useWalletSetup', () => {
     act(() => {
       result.current.openWithdrawalConfirmation()
     })
-    await act(async () => {
-      await usePopupStore.getState().action1?.callback()
+    await act(() => {
+      usePopupStore.getState().action1?.callback()
     })
 
     expect(mockWithdrawAll).toHaveBeenCalledWith(address, finalFeeRate)
+    await waitFor(() => expect(result.current.walletLoading).toBeFalsy())
   })
 })

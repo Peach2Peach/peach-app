@@ -62,12 +62,12 @@ jest.mock('../wallet/walletStore', () => ({
 }))
 
 describe('deleteAccount', () => {
-  beforeAll(async () => {
-    await setAccount(accountData.account1)
+  beforeAll(() => {
+    setAccount(accountData.account1)
   })
 
-  it('would delete account file', async () => {
-    await deleteAccount()
+  it('would delete account file', () => {
+    deleteAccount()
 
     expect(accountStorage.clearStore).toHaveBeenCalled()
     expect(offerStorage.clearStore).toHaveBeenCalled()

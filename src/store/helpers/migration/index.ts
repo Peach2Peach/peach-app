@@ -1,0 +1,1 @@
+export { migrateSettings } from './migrateSettings'

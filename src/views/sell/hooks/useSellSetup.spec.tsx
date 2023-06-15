@@ -1,12 +1,9 @@
 import { renderHook } from '@testing-library/react-native'
 import { headerState, NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
-import { UseSellSetupProps, useSellSetup } from './useSellSetup'
+import { useSellSetup } from './useSellSetup'
 
 describe('useSellSetup', () => {
-  const initialProps: UseSellSetupProps = { help: 'sellingBitcoin', hideGoBackButton: false }
-  beforeEach(() => {
-    jest.clearAllMocks()
-  })
+  const initialProps = { help: 'sellingBitcoin', hideGoBackButton: false } as const
 
   it('should set up header correctly', () => {
     renderHook(useSellSetup, { wrapper: NavigationWrapper, initialProps })

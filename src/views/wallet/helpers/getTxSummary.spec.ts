@@ -1,4 +1,4 @@
-import { ConfirmedTransaction } from 'bdk-rn/lib/lib/interfaces'
+import { TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
 import { bitcoinStore } from '../../../store/bitcoinStore'
 import { tradeSummaryStore } from '../../../store/tradeSummaryStore'
 import { txIsConfirmed } from '../../../utils/transaction'
@@ -8,8 +8,7 @@ import { getTxSummary } from './getTxSummary'
 jest.mock('../../../utils/offer', () => ({
   getOffer: jest.fn(),
 }))
-jest.mock('../../../utils/transaction', () => ({
-  ...jest.requireActual('../../../utils/transaction'),
+jest.mock('../../../utils/transaction/txIsConfirmed', () => ({
   txIsConfirmed: jest.fn(),
 }))
 
@@ -60,13 +59,16 @@ describe('getTxSummary', () => {
 
   it('returns the correct transaction summary object for a confirmed trade', () => {
     ;(<jest.Mock>(<unknown>txIsConfirmed)).mockReturnValue(true)
-    const tx: Partial<ConfirmedTransaction> = {
+    const tx: Partial<TransactionDetails> = {
       txid: '123',
       received: 100000000,
       sent: 0,
-      block_timestamp: 1234567890,
+      confirmationTime: {
+        height: 1,
+        timestamp: 1234567890,
+      },
     }
-    const result = getTxSummary(tx as ConfirmedTransaction)
+    const result = getTxSummary(tx as TransactionDetails)
     expect(result).toEqual({
       id: '123',
       offerId: '16',

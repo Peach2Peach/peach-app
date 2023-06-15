@@ -65,16 +65,13 @@ describe('useDisputeFormSetup', () => {
       current.setMessage(message)
     })
 
-  const actSubmit = async (current: ReturnType<typeof useDisputeFormSetup>) =>
+  const actSubmit = (current: ReturnType<typeof useDisputeFormSetup>) =>
     act(async () => {
       await current.submit()
     })
 
   beforeEach(() => {
     getContractMock.mockReturnValue(contract)
-  })
-  afterEach(() => {
-    jest.clearAllMocks()
   })
   it('should return the correct default values', () => {
     const { result } = renderHook(() => useDisputeFormSetup())

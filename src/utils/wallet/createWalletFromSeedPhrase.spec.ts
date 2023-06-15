@@ -1,16 +1,18 @@
 import { deepStrictEqual, strictEqual } from 'assert'
-import { getNetwork } from '.'
-import { createTestWallet } from '../../../tests/unit/helpers/createTestWallet'
+import { getNetwork } from './getNetwork'
+import { createWalletFromSeedPhrase } from './createWalletFromSeedPhrase'
+import { account1 } from '../../../tests/unit/data/accountData'
 
 describe('createWalletFromSeedPhrase', () => {
   it('recovers a wallet from mnemonic', () => {
     const network = getNetwork()
-    const expectedPrivateKey = 'ba4e90a60a8a6a7df66f0158e529e38fd3bea2b6b75b1f5007da6d47942b43cc'
-    const expectedPublicKey = '02e327f0e1669a6c9aa052c861ba13a966972d1ba6b2e4f793c9a1ce4b06950231'
-    const recoveredWallet = createTestWallet()
+    const expectedPrivateKey = '80d12e8d17542fdc2377089de363ea716ebf7fd5fcad522d6a1e7bfa33e239e5'
+    const expectedPublicKey = '02383ee5e64037a1164ccd93e0b4787e461047b4b1eea51ec2fee9d394d241abc2'
+    // @ts-ignore
+    const recoveredWallet = createWalletFromSeedPhrase(account1.mnemonic, network)
 
-    deepStrictEqual(recoveredWallet.network, network, 'Network is not correct')
-    strictEqual(recoveredWallet.privateKey.toString('hex'), expectedPrivateKey)
-    strictEqual(recoveredWallet.publicKey.toString('hex'), expectedPublicKey)
+    deepStrictEqual(recoveredWallet.wallet.network, network, 'Network is not correct')
+    strictEqual(recoveredWallet.wallet.privateKey.toString('hex'), expectedPrivateKey)
+    strictEqual(recoveredWallet.wallet.publicKey.toString('hex'), expectedPublicKey)
   })
 })

@@ -26,9 +26,6 @@ describe('useNetworkFeesSetup', () => {
   beforeEach(() => {
     settingsStore.getState().setFeeRate('halfHourFee')
   })
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
   it('returns default correct values', () => {
     const { result } = renderHook(useNetworkFeesSetup, { wrapper: NavigationWrapper })
     expect(result.current).toEqual({
@@ -65,7 +62,7 @@ describe('useNetworkFeesSetup', () => {
     expect(result.current.customFeeRate).toBeUndefined()
     expect(result.current.isValid).toBeFalsy()
   })
-  it('returns info whether a new fee rate has been set', async () => {
+  it('returns info whether a new fee rate has been set', () => {
     const { result } = renderHook(useNetworkFeesSetup, { wrapper: NavigationWrapper })
 
     expect(result.current.feeRateSet).toBeTruthy()
@@ -78,7 +75,7 @@ describe('useNetworkFeesSetup', () => {
     renderHook(useNetworkFeesSetup, { wrapper: NavigationWrapper })
     expect(headerState.header()).toMatchSnapshot()
   })
-  it('sets fee preferences', async () => {
+  it('sets fee preferences', () => {
     const { result } = renderHook(useNetworkFeesSetup, { wrapper: NavigationWrapper })
     act(() => {
       result.current.setSelectedFeeRate('fastestFee')

@@ -11,7 +11,7 @@ import renderer from 'react-test-renderer'
 jest.useFakeTimers()
 
 describe('App', () => {
-  it.skip('renders correctly', async () => {
+  it.skip('renders correctly', () => {
     renderer.create(<App />)
   })
 })

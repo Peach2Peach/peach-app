@@ -41,10 +41,6 @@ const wrapper = ({ children }: ComponentProps) => (
 jest.useFakeTimers()
 
 describe('useBuySetup', () => {
-  beforeEach(() => {
-    jest.clearAllMocks()
-  })
-
   it('should return default values', () => {
     const { result } = renderHook(useBuySetup, { wrapper })
     expect(result.current).toEqual({

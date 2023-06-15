@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-native'
+import { renderHook, waitFor } from '@testing-library/react-native'
 import { notEnoughPointsError } from '../../../tests/unit/data/peachAPIData'
 import { NavigationWrapper, replaceMock } from '../../../tests/unit/helpers/NavigationWrapper'
 import { usePopupStore } from '../../store/usePopupStore'
@@ -21,9 +21,6 @@ jest.mock('../../utils/peachAPI', () => ({
 describe('useRedeemNoPeachFeesReward', () => {
   const wrapper = NavigationWrapper
 
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
   it('returns function to start setCustomReferralCodePopup', () => {
     const { result } = renderHook(useRedeemNoPeachFeesReward, { wrapper })
     expect(result.current).toBeInstanceOf(Function)
@@ -49,23 +46,25 @@ describe('useRedeemNoPeachFeesReward', () => {
       },
     })
   })
-  it('closes popup', async () => {
+  it('closes popup', () => {
     const { result } = renderHook(useRedeemNoPeachFeesReward, { wrapper })
     result.current()
-    await usePopupStore.getState().action2?.callback()
+    usePopupStore.getState().action2?.callback()
     expect(usePopupStore.getState().visible).toEqual(false)
   })
   it('redeems reward successfully', async () => {
     const { result } = renderHook(useRedeemNoPeachFeesReward, { wrapper })
     result.current()
-    await usePopupStore.getState().action1?.callback()
+    usePopupStore.getState().action1?.callback()
     expect(redeemNoPeachFeesMock).toHaveBeenCalled()
-    expect(usePopupStore.getState()).toEqual({
-      ...usePopupStore.getState(),
-      title: '5x free trading',
-      content: <NoPeachFeesSuccess />,
-      level: 'APP',
-      visible: true,
+    await waitFor(() => {
+      expect(usePopupStore.getState()).toEqual({
+        ...usePopupStore.getState(),
+        title: '5x free trading',
+        content: <NoPeachFeesSuccess />,
+        level: 'APP',
+        visible: true,
+      })
     })
     expect(replaceMock).toHaveBeenCalledWith('referrals')
   })
@@ -73,7 +72,9 @@ describe('useRedeemNoPeachFeesReward', () => {
     redeemNoPeachFeesMock.mockResolvedValueOnce([null, notEnoughPointsError])
     const { result } = renderHook(useRedeemNoPeachFeesReward, { wrapper })
     result.current()
-    await usePopupStore.getState().action1?.callback()
-    expect(showErrorBannerMock).toHaveBeenCalledWith(notEnoughPointsError.error)
+    usePopupStore.getState().action1?.callback()
+    await waitFor(() => {
+      expect(showErrorBannerMock).toHaveBeenCalledWith(notEnoughPointsError.error)
+    })
   })
 })

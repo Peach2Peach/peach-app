@@ -3,8 +3,8 @@ import { account, defaultAccount, setAccount } from '../account'
 import { decrypt } from './decrypt'
 
 describe('decrypt', () => {
-  beforeEach(async () => {
-    await setAccount({
+  beforeEach(() => {
+    setAccount({
       ...defaultAccount,
       pgp: {
         publicKey: 'publicKey',

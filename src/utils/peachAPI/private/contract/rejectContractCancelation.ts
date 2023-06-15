@@ -9,20 +9,12 @@ type RejectContractCancelationProps = RequestProps & {
   contractId: Contract['id']
 }
 
-/**
- * @description Method to reject contract cancelation
- * @param contractId contract id
- * @returns scuess or error
- */
-export const rejectContractCancelation = async ({
-  contractId,
-  timeout,
-}: RejectContractCancelationProps): Promise<[APISuccess | null, APIError | null]> => {
+export const rejectContractCancelation = async ({ contractId, timeout }: RejectContractCancelationProps) => {
   const response = await fetch(`${API_URL}/v1/contract/${contractId}/cancel/reject`, {
     headers: await getPrivateHeaders(),
     method: 'POST',
     signal: timeout ? getAbortWithTimeout(timeout).signal : undefined,
   })
 
-  return await parseResponse<APISuccess>(response, 'rejectContractCancelation')
+  return parseResponse<APISuccess>(response, 'rejectContractCancelation')
 }

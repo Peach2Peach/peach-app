@@ -22,10 +22,6 @@ jest.mock('../../../utils/account', () => ({
 }))
 
 describe('useBackupTimeSetup', () => {
-  beforeEach(() => {
-    jest.clearAllMocks()
-  })
-
   it('should return defaults', () => {
     const { result } = renderHook(useBackupTimeSetup)
 

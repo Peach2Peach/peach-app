@@ -7,10 +7,7 @@ interface DecryptAccountProps {
   password: string
 }
 
-export const decryptAccount = async ({
-  encryptedAccount,
-  password = '',
-}: DecryptAccountProps): Promise<[Account | null, string | null]> => {
+export const decryptAccount = ({ encryptedAccount, password = '' }: DecryptAccountProps) => {
   info('Decrypting account')
 
   try {

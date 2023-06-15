@@ -4,9 +4,6 @@ import { NavigationWrapper, navigateMock } from '../../../../tests/unit/helpers/
 import { useOverlayEvents } from './useOverlayEvents'
 
 describe('useOverlayEvents', () => {
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
   it('should navigate to newBadge screen on "user.badge.unlocked" event', () => {
     const { result } = renderHook(useOverlayEvents, { wrapper: NavigationWrapper })
 

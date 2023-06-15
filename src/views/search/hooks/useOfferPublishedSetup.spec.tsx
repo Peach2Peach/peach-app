@@ -9,9 +9,6 @@ jest.mock('../../../hooks/useRoute', () => ({
 }))
 
 describe('useOfferPublishedSetup', () => {
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
   it('returns defaults', () => {
     const { result } = renderHook(useOfferPublishedSetup, { wrapper: NavigationWrapper })
     expect(result.current).toEqual({

@@ -10,17 +10,7 @@ type CancelContractProps = RequestProps & {
   satsPerByte?: number
 }
 
-/**
- * @description Method to cancel contract
- * @param contractId contract id
- * @param [satsPerByte] network fees in sats per byte
- * @returns scuess or error
- */
-export const cancelContract = async ({
-  contractId,
-  satsPerByte,
-  timeout,
-}: CancelContractProps): Promise<[CancelContractResponse | null, APIError | null]> => {
+export const cancelContract = async ({ contractId, satsPerByte, timeout }: CancelContractProps) => {
   const response = await fetch(`${API_URL}/v1/contract/${contractId}/cancel`, {
     headers: await getPrivateHeaders(),
     method: 'POST',
@@ -30,5 +20,5 @@ export const cancelContract = async ({
     signal: timeout ? getAbortWithTimeout(timeout).signal : undefined,
   })
 
-  return await parseResponse<CancelContractResponse>(response, 'cancelContract')
+  return parseResponse<CancelContractResponse>(response, 'cancelContract')
 }

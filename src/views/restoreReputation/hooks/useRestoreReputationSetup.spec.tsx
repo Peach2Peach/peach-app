@@ -18,10 +18,7 @@ jest.mock('../../../hooks/useRoute', () => ({
 }))
 
 describe('useRestoreReputationSetup', () => {
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
-  it('should return defaults', async () => {
+  it('should return defaults', () => {
     const { result } = renderHook(useRestoreReputationSetup, { wrapper: NavigationWrapper })
     expect(result.current).toEqual({
       restoreReputation: expect.any(Function),
@@ -47,8 +44,8 @@ describe('useRestoreReputationSetup', () => {
     act(() => {
       tempAccount.current.setTemporaryAccount(account1)
     })
-    await act(async () => {
-      await result.current.restoreReputation()
+    await act(() => {
+      result.current.restoreReputation()
       jest.runAllTimers()
     })
     expect(result.current.isLoading).toBeTruthy()

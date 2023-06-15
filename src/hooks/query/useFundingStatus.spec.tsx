@@ -19,7 +19,6 @@ jest.mock('../../utils/peachAPI', () => ({
 
 describe('useFundingStatus', () => {
   afterEach(() => {
-    jest.clearAllMocks()
     queryClient.clear()
   })
   it('fetches funding status from API', async () => {

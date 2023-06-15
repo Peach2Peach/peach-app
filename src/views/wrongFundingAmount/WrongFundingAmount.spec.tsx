@@ -14,9 +14,6 @@ jest.mock('./hooks/useWrongFundingAmountSetup', () => ({
 }))
 describe('WrongFundingAmount', () => {
   const renderer = createRenderer()
-  beforeEach(() => {
-    jest.clearAllMocks()
-  })
   it('renders correctly', () => {
     renderer.render(<WrongFundingAmount />)
     expect(renderer.getRenderOutput()).toMatchSnapshot()

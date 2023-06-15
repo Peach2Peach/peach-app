@@ -8,9 +8,6 @@ jest.mock('../../../utils/peachAPI', () => ({
 }))
 
 describe('cancelContractAsBuyer', () => {
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
   it('calls cancelContract and returns contract update', async () => {
     const result = await cancelContractAsBuyer(contract)
     expect(cancelContractMock).toHaveBeenCalledWith({ contractId: contract.id })
