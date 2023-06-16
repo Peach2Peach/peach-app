@@ -13,6 +13,9 @@ declare type RootStackParamList = {
   transactionDetails: {
     txId: string
   }
+  bumpNetworkFees: {
+    txId: string
+  }
   buy: undefined
   sell: undefined
   buyPreferences: undefined
