@@ -1,4 +1,3 @@
-import { TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
 import { bitcoinStore } from '../../../store/bitcoinStore'
 import { tradeSummaryStore } from '../../../store/tradeSummaryStore'
 import { walletStore } from '../../../utils/wallet/walletStore'
@@ -15,41 +14,38 @@ jest.mock('../../../utils/offer', () => ({
   getOffer: jest.fn(),
 }))
 
-// eslint-disable-next-line max-lines-per-function
+const offerWithContract = { ...offerSummary, id: 'offerWithContract', contractId: contractSummary.id }
+const txId = '123'
+const baseTx = {
+  txid: txId,
+  received: 0,
+  sent: 0,
+  confirmationTime: {
+    height: 1,
+    timestamp: 1234567890,
+  },
+}
+const receivedTx = { ...baseTx, received: 100000000 }
+const sentTx = { ...baseTx, sent: 100000000 }
+const baseSummary = {
+  id: '123',
+  amount: 100000000,
+  price: 1,
+  currency: 'USD',
+  date: new Date(1234567890000),
+  confirmed: true,
+  offerId: undefined,
+  contractId: undefined,
+}
 describe('getTxSummary', () => {
-  const offerWithContract = { ...offerSummary, id: 'offerWithContract', contractId: contractSummary.id }
-  const txId = '123'
-  const baseTx: Partial<TransactionDetails> = {
-    txid: txId,
-    received: 0,
-    sent: 0,
-    confirmationTime: {
-      height: 1,
-      timestamp: 1234567890,
-    },
-  }
-  const receivedTx: Partial<TransactionDetails> = { ...baseTx, received: 100000000 }
-  const sentTx: Partial<TransactionDetails> = { ...baseTx, sent: 100000000 }
-  const baseSummary = {
-    id: '123',
-    amount: 100000000,
-    price: 1,
-    currency: 'USD',
-    date: new Date(1234567890000),
-    confirmed: true,
-    offerId: undefined,
-    contractId: undefined,
-  }
   beforeEach(() => {
-    bitcoinStore.getState().setCurrency('USD')
-    bitcoinStore.getState().setPrice(1)
-    bitcoinStore.getState().setSatsPerUnit(100000000)
+    bitcoinStore.setState({ currency: 'USD', price: 1, satsPerUnit: 100000000 })
     walletStore.getState().updateTxOfferMap(txId, offerSummary.id)
     tradeSummaryStore.getState().setOffers([offerSummary, offerWithContract])
     tradeSummaryStore.getState().setContracts([contractSummary])
   })
   it('returns transaction summary with offer id', () => {
-    expect(getTxSummary(receivedTx as TransactionDetails)).toEqual({
+    expect(getTxSummary(receivedTx)).toEqual({
       ...baseSummary,
       offerId: offerSummary.id,
       type: 'TRADE',
@@ -57,7 +53,7 @@ describe('getTxSummary', () => {
   })
   it('returns transaction summary with contract id', () => {
     walletStore.getState().updateTxOfferMap(txId, offerWithContract.id)
-    expect(getTxSummary(receivedTx as TransactionDetails)).toEqual({
+    expect(getTxSummary(receivedTx)).toEqual({
       ...baseSummary,
       offerId: offerWithContract.id,
       contractId: contractSummary.id,
@@ -65,7 +61,7 @@ describe('getTxSummary', () => {
     })
   })
   it('returns the correct transaction summary object for a confirmed trade', () => {
-    expect(getTxSummary(receivedTx as TransactionDetails)).toEqual({
+    expect(getTxSummary(receivedTx)).toEqual({
       ...baseSummary,
       offerId: offerSummary.id,
       type: 'TRADE',
@@ -76,7 +72,7 @@ describe('getTxSummary', () => {
     tradeSummaryStore.getState().setOffers([{ ...offerWithContract, type: 'ask' }])
     walletStore.getState().updateTxOfferMap(txId, offerWithContract.id)
 
-    expect(getTxSummary(receivedTx as TransactionDetails)).toEqual({
+    expect(getTxSummary(receivedTx)).toEqual({
       ...baseSummary,
       offerId: offerWithContract.id,
       contractId: contractSummary.id,
@@ -87,13 +83,13 @@ describe('getTxSummary', () => {
     // @ts-ignore
     walletStore.getState().updateTxOfferMap(txId, undefined)
 
-    expect(getTxSummary(receivedTx as TransactionDetails)).toEqual({
+    expect(getTxSummary(receivedTx)).toEqual({
       ...baseSummary,
       type: 'DEPOSIT',
     })
   })
   it('returns the correct transaction summary object for a withdrawal', () => {
-    expect(getTxSummary(sentTx as TransactionDetails)).toEqual({
+    expect(getTxSummary(sentTx)).toEqual({
       ...baseSummary,
       offerId: '456',
       type: 'WITHDRAWAL',
