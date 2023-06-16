@@ -53,5 +53,3 @@ export const BitcoinAddress = ({ address, amount, label, style }: ComponentProps
     </View>
   )
 }
-
-export default BitcoinAddress

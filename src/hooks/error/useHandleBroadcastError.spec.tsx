@@ -16,10 +16,10 @@ describe('useHandleBroadcastError', () => {
     expect(result.current).toBeInstanceOf(Function)
   })
 
-  it('should handle broadcast errors', async () => {
+  it('should handle broadcast errors', () => {
     const { result } = renderHook(useHandleBroadcastError)
 
-    await result.current(broadcastError)
+    result.current(broadcastError)
     expect(showErrorBannerMock).toHaveBeenCalledWith('INSUFFICIENT_FUNDS', ['78999997952', '1089000'])
   })
 })
