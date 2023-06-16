@@ -1,8 +1,11 @@
 import { TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
 
-export const getTransactionType = (tx: TransactionDetails, offer?: OfferSummary): TransactionType => {
-  if (tx.received > 0 && offer) {
+export const getTransactionType = (
+  { received }: Pick<TransactionDetails, 'received'>,
+  offer?: Pick<OfferSummary, 'type'>,
+): TransactionType => {
+  if (received > 0 && offer) {
     return offer.type === 'ask' ? 'REFUND' : 'TRADE'
   }
-  return tx.received === 0 ? 'WITHDRAWAL' : 'DEPOSIT'
+  return received === 0 ? 'WITHDRAWAL' : 'DEPOSIT'
 }
