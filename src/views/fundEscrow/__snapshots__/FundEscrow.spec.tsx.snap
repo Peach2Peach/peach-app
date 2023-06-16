@@ -8,7 +8,7 @@ exports[`FundEscrow should render the FundEscrow view 1`] = `
     }
   }
 >
-  <PeachScrollView
+  <ForwardRef
     contentContainerStyle={
       {
         "paddingBottom": 16,
@@ -84,7 +84,7 @@ exports[`FundEscrow should render the FundEscrow view 1`] = `
         }
       />
     </View>
-  </PeachScrollView>
+  </ForwardRef>
   <View
     style={
       {

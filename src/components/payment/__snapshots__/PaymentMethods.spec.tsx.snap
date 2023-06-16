@@ -14,7 +14,7 @@ exports[`PaymentMethods should render correctly 1`] = `
     }
   }
 >
-  <PeachScrollView
+  <ForwardRef
     style={
       [
         {
@@ -53,7 +53,7 @@ exports[`PaymentMethods should render correctly 1`] = `
           }
         }
       />
-      <PeachScrollView
+      <ForwardRef
         contentContainerStyle={
           {
             "flexGrow": 1,
@@ -91,9 +91,9 @@ exports[`PaymentMethods should render correctly 1`] = `
         <AddPaymentMethodButton
           isCash={false}
         />
-      </PeachScrollView>
+      </ForwardRef>
     </View>
-  </PeachScrollView>
+  </ForwardRef>
   <NextButton />
 </View>
 `;
