@@ -1,7 +1,8 @@
 import { DrawerOptions } from './DrawerOptions'
-import { render } from '@testing-library/react-native'
+import { act, render } from '@testing-library/react-native'
 import { defaultState, DrawerContext } from '../../../contexts/drawer'
 import { Text } from '../../text'
+import { PeachScrollView } from '../../PeachScrollView'
 
 jest.mock('./DrawerOption', () => ({
   DrawerOption: 'DrawerOption',
@@ -58,5 +59,28 @@ describe('DrawerOptions', () => {
     })
     const { toJSON } = render(<DrawerOptions />, { wrapper })
     expect(toJSON()).toMatchSnapshot()
+  })
+  it('should scroll back to the top when either options or content changes', () => {
+    updateDrawer({
+      options: [
+        {
+          title: 'testLabel',
+          onPress: () => {},
+        },
+      ],
+    })
+    const { rerender, UNSAFE_getByType } = render(<DrawerOptions />, { wrapper })
+    // @ts-ignore
+    const scrollViewRef = UNSAFE_getByType(PeachScrollView)._fiber.ref.current
+    expect(scrollViewRef.scrollTo).toHaveBeenCalledWith({ y: 0, animated: false })
+    act(() => {
+      updateDrawer({
+        content: <Text>testContent</Text>,
+      })
+      rerender(<DrawerOptions />)
+    })
+
+    expect(scrollViewRef.scrollTo).toHaveBeenCalledTimes(2)
+    expect(scrollViewRef.scrollTo).toHaveBeenLastCalledWith({ y: 0, animated: false })
   })
 })
