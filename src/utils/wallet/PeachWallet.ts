@@ -1,4 +1,3 @@
-/* eslint-disable max-lines */
 import { BLOCKEXPLORER, NETWORK } from '@env'
 import { Address, Blockchain, DatabaseConfig, Descriptor, TxBuilder, Wallet } from 'bdk-rn'
 import { TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
