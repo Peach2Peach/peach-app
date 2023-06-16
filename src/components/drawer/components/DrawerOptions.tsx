@@ -16,7 +16,7 @@ export const DrawerOptions = ({ style }: ComponentProps) => {
   }, [options, content, $scroll])
 
   return (
-    <PeachScrollView style={style} ref={$scroll} contentContainerStyle={tw`gap-6`}>
+    <PeachScrollView style={style} ref={$scroll} contentStyle={tw`gap-6`}>
       {options.map((option, i) => (
         <Fragment key={`drawer-option-${option}-${i}`}>
           <DrawerOption {...option} />

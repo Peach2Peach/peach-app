@@ -1,20 +1,25 @@
 import { forwardRef, LegacyRef } from 'react'
-import { ScrollView, ScrollViewProps } from 'react-native'
+import { ScrollView, ScrollViewProps, View, ViewStyle } from 'react-native'
+
+type Props = ScrollViewProps & {
+  contentStyle?: ViewStyle
+}
 
 export const PeachScrollView = forwardRef(
   (
     {
       showsHorizontalScrollIndicator = false,
       showsVerticalScrollIndicator = false,
+      children,
+      contentStyle,
       ...scrollViewProps
-    }: ScrollViewProps,
+    }: Props,
     ref: LegacyRef<ScrollView> | undefined,
   ) => (
-    <ScrollView
-      {...{ showsHorizontalScrollIndicator, showsVerticalScrollIndicator, ...scrollViewProps }}
-      indicatorStyle="black"
-      ref={ref}
-      onStartShouldSetResponder={() => true}
-    />
+    <ScrollView {...{ showsHorizontalScrollIndicator, showsVerticalScrollIndicator, ref, ...scrollViewProps }}>
+      <View onStartShouldSetResponder={() => true} style={contentStyle}>
+        {children}
+      </View>
+    </ScrollView>
   ),
 )
