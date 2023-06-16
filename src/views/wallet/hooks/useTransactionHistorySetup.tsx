@@ -1,5 +1,5 @@
 import { useFocusEffect } from '@react-navigation/native'
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useState } from 'react'
 import { useHeaderSetup } from '../../../hooks'
 import { sort } from '../../../utils/array'
 import i18n from '../../../utils/i18n'
@@ -8,24 +8,19 @@ import { getTxSummary } from '../helpers/getTxSummary'
 import { useSyncWallet } from './useSyncWallet'
 
 export const useTransactionHistorySetup = () => {
-  const walletStore = useWalletState((state) => state)
+  const storedTransactions = useWalletState((state) => state.transactions)
   const { refresh, isRefreshing } = useSyncWallet()
   const [transactions, setTransactions] = useState<TransactionSummary[]>([])
 
-  useHeaderSetup(
-    useMemo(
-      () => ({
-        title: i18n('wallet.transactionHistory'),
-      }),
-      [],
-    ),
-  )
+  useHeaderSetup({
+    title: i18n('wallet.transactionHistory'),
+  })
 
   useFocusEffect(
     useCallback(() => {
-      setTransactions(walletStore.transactions.map(getTxSummary).sort(sort('date'))
+      setTransactions(storedTransactions.map(getTxSummary).sort(sort('date'))
         .reverse())
-    }, [walletStore]),
+    }, [storedTransactions]),
   )
   return {
     transactions,
