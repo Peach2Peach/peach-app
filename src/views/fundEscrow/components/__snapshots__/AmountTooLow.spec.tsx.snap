@@ -16,7 +16,7 @@ exports[`AmountTooLow should render correctly 1`] = `
     size="medium"
   />
   <PeachText>
-    Your Peach wallet has:
+    The escrow needs to be funded with at least:
   </PeachText>
   <BTCAmount
     amount={1234560}
