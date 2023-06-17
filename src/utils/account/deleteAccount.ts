@@ -1,7 +1,7 @@
 import analytics from '@react-native-firebase/analytics'
 
 import { defaultAccount } from '.'
-import { notificationStorage, notificationStore } from '../../components/footer/notificationsStore'
+import { notificationStorage, useNotificationStore } from '../../components/footer/notificationsStore'
 import { useConfigStore } from '../../store/configStore'
 import { settingsStorage, useSettingsStore } from '../../store/settingsStore'
 import { info } from '../log'
@@ -29,7 +29,7 @@ export const deleteAccount = () => {
     settingsStorage,
     notificationStorage,
   ].forEach((storage) => storage.clearStore())
-  ;[notificationStore, useConfigStore, useWalletState, useSettingsStore].forEach((store) => store.getState().reset())
+  ;[useNotificationStore, useConfigStore, useWalletState, useSettingsStore].forEach((store) => store.getState().reset())
 
   deleteAccessToken()
   deletePeachAccount()

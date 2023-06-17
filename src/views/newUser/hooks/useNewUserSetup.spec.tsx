@@ -6,7 +6,7 @@ import { headerState, NavigationWrapper, replaceMock } from '../../../../tests/u
 import {
   defaultNotificationState,
   notificationStorage,
-  notificationStore,
+  useNotificationStore,
 } from '../../../components/footer/notificationsStore'
 import { useConfigStore } from '../../../store/configStore'
 import { defaultConfig, defaultSettings } from '../../../store/defaults'
@@ -188,7 +188,7 @@ describe('useNewUserSetup', () => {
       expect(storage.clearStore).toHaveBeenCalled()
     })
 
-    expect(notificationStore.getState()).toEqual(expect.objectContaining(defaultNotificationState))
+    expect(useNotificationStore.getState()).toEqual(expect.objectContaining(defaultNotificationState))
     expect(useConfigStore.getState()).toEqual(expect.objectContaining(defaultConfig))
     expect(useWalletState.getState()).toEqual(expect.objectContaining(defaultWalletState))
     expect(useSettingsStore.getState()).toEqual(expect.objectContaining(defaultSettings))
@@ -226,7 +226,7 @@ describe('useNewUserSetup', () => {
       expect(storage.clearStore).toHaveBeenCalled()
     })
 
-    expect(notificationStore.getState()).toEqual(expect.objectContaining(defaultNotificationState))
+    expect(useNotificationStore.getState()).toEqual(expect.objectContaining(defaultNotificationState))
     expect(useConfigStore.getState()).toEqual(expect.objectContaining(defaultConfig))
     expect(useWalletState.getState()).toEqual(expect.objectContaining(defaultWalletState))
     expect(useSettingsStore.getState()).toEqual(expect.objectContaining(defaultSettings))
