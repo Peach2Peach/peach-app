@@ -30,7 +30,7 @@ import { tradeSummaryStore } from '../../store/tradeSummaryStore'
 import { PeachWallet } from './PeachWallet'
 import { createWalletFromSeedPhrase } from './createWalletFromSeedPhrase'
 import { getNetwork } from './getNetwork'
-import { walletStore } from './walletStore'
+import { useWalletState } from './walletStore'
 
 jest.mock('./PeachWallet', () => jest.requireActual('./PeachWallet'))
 
@@ -59,7 +59,7 @@ describe('PeachWallet', () => {
     await peachWallet.loadWallet()
   })
   afterEach(() => {
-    walletStore.getState().reset()
+    useWalletState.getState().reset()
   })
 
   it('instantiates', () => {
@@ -83,8 +83,8 @@ describe('PeachWallet', () => {
   it('loads existing data', () => {
     const balance = 50000
     const addresses = ['address1', 'address2']
-    walletStore.getState().setBalance(balance)
-    walletStore.getState().setAddresses(addresses)
+    useWalletState.getState().setBalance(balance)
+    useWalletState.getState().setAddresses(addresses)
     peachWallet.loadWallet()
     expect(peachWallet.balance).toBe(balance)
     expect(peachWallet.addresses).toBe(addresses)
@@ -100,13 +100,13 @@ describe('PeachWallet', () => {
   it('load existing when wallet store is ready', () => {
     const balance = 50000
     const addresses = ['address1', 'address2']
-    const hasHydratedSpy = jest.spyOn(walletStore.persist, 'hasHydrated')
-    const onFinishHydrationSpy = jest.spyOn(walletStore.persist, 'onFinishHydration')
+    const hasHydratedSpy = jest.spyOn(useWalletState.persist, 'hasHydrated')
+    const onFinishHydrationSpy = jest.spyOn(useWalletState.persist, 'onFinishHydration')
     hasHydratedSpy.mockReturnValueOnce(false)
     // @ts-ignore
-    onFinishHydrationSpy.mockImplementationOnce((cb) => cb(walletStore.getState()))
-    walletStore.getState().setBalance(balance)
-    walletStore.getState().setAddresses(addresses)
+    onFinishHydrationSpy.mockImplementationOnce((cb) => cb(useWalletState.getState()))
+    useWalletState.getState().setBalance(balance)
+    useWalletState.getState().setAddresses(addresses)
     peachWallet.loadWallet()
     expect(peachWallet.balance).toBe(balance)
     expect(peachWallet.addresses).toBe(addresses)
@@ -182,7 +182,7 @@ describe('PeachWallet', () => {
     const replacement = { txid: 'txid2', sent: 1, received: 1, fee: 1 }
 
     listTransactionsMock.mockResolvedValueOnce([replacement])
-    rebroadcastTransactionsMock.mockImplementationOnce(() => walletStore.getState().removePendingTransaction('txid1'))
+    rebroadcastTransactionsMock.mockImplementationOnce(() => useWalletState.getState().removePendingTransaction('txid1'))
     // @ts-ignore
     peachWallet.wallet.listTransactions = listTransactionsMock
 
@@ -202,8 +202,8 @@ describe('PeachWallet', () => {
   })
   it('does not call getTxHex for already known tx', async () => {
     peachWallet.transactions = [{ txid: 'txid3', sent: 3, received: 3, fee: 3 }]
-    walletStore.getState().addPendingTransactionHex('txid2', 'txid2Hex')
-    walletStore.getState().addPendingTransactionHex('txid3', 'txid3Hex')
+    useWalletState.getState().addPendingTransactionHex('txid2', 'txid2Hex')
+    useWalletState.getState().addPendingTransactionHex('txid3', 'txid3Hex')
 
     // @ts-ignore
     peachWallet.wallet.listTransactions = listTransactionsMock
@@ -256,8 +256,8 @@ describe('PeachWallet', () => {
     tradeSummaryStore.getState().setContract('1-3', { id: '1-3', releaseTxId: confirmed1.txid })
     tradeSummaryStore.getState().setOffer('2', { id: '2', txId: confirmed2.txid })
     peachWallet.updateStore()
-    expect(walletStore.getState().transactions).toEqual([confirmed1, confirmed2, pending3])
-    expect(walletStore.getState().txOfferMap).toEqual({
+    expect(useWalletState.getState().transactions).toEqual([confirmed1, confirmed2, pending3])
+    expect(useWalletState.getState().txOfferMap).toEqual({
       txid1: '3',
       txid2: '2',
     })

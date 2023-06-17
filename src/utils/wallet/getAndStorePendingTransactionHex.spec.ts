@@ -1,4 +1,4 @@
-import { walletStore } from './walletStore'
+import { useWalletState } from './walletStore'
 import { getAndStorePendingTransactionHex } from './getAndStorePendingTransactionHex'
 
 const txHex = 'txHex'
@@ -9,14 +9,14 @@ jest.mock('../electrum/getTxHex', () => ({
 
 describe('getAndStorePendingTransactionHex', () => {
   afterEach(() => {
-    walletStore.getState().reset()
+    useWalletState.getState().reset()
   })
   it('should fetch a hex of a tx it does not know', async () => {
     const txId = 'txId'
     const result = await getAndStorePendingTransactionHex(txId)
     expect(getTxHexMock).toHaveBeenCalledWith({ txId })
     expect(result).toBe(txHex)
-    expect(walletStore.getState().pendingTransactions).toEqual({
+    expect(useWalletState.getState().pendingTransactions).toEqual({
       txId: txHex,
     })
   })
@@ -24,7 +24,7 @@ describe('getAndStorePendingTransactionHex', () => {
     const pending = {
       txId1: 'txHex1',
     }
-    walletStore.getState().addPendingTransactionHex('txId1', pending.txId1)
+    useWalletState.getState().addPendingTransactionHex('txId1', pending.txId1)
 
     const result = await getAndStorePendingTransactionHex('txId1')
     expect(getTxHexMock).not.toHaveBeenCalled()

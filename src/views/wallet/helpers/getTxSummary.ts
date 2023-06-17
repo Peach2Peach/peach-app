@@ -2,10 +2,10 @@ import { TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
 import { bitcoinStore } from '../../../store/bitcoinStore'
 import { tradeSummaryStore } from '../../../store/tradeSummaryStore'
 import { getTransactionType, txIsConfirmed } from '../../../utils/transaction'
-import { walletStore } from '../../../utils/wallet/walletStore'
+import { useWalletState } from '../../../utils/wallet/walletStore'
 
 export const getTxSummary = (tx: TransactionDetails) => {
-  const offerId = walletStore.getState().txOfferMap[tx.txid]
+  const offerId = useWalletState.getState().txOfferMap[tx.txid]
   const offer = tradeSummaryStore.getState().getOffer(offerId)
   const sats = Math.abs(tx.received - tx.sent)
   const price = sats / bitcoinStore.getState().satsPerUnit

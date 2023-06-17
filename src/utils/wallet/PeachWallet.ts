@@ -19,7 +19,7 @@ import { getAndStorePendingTransactionHex } from './getAndStorePendingTransactio
 import { getDescriptorSecretKey } from './getDescriptorSecretKey'
 import { getNetwork } from './getNetwork'
 import { rebroadcastTransactions } from './rebroadcastTransactions'
-import { walletStore } from './walletStore'
+import { useWalletState } from './walletStore'
 
 type PeachWalletProps = {
   wallet: BIP32Interface
@@ -132,15 +132,15 @@ export class PeachWallet {
   }
 
   updateStore (): void {
-    walletStore.getState().setTransactions(this.transactions)
+    useWalletState.getState().setTransactions(this.transactions)
     this.transactions
-      .filter(({ txid }) => !walletStore.getState().txOfferMap[txid])
+      .filter(({ txid }) => !useWalletState.getState().txOfferMap[txid])
       .forEach(({ txid }) => {
         const sellOffer = tradeSummaryStore.getState().offers.find((offer) => offer.txId === txid)
-        if (sellOffer?.id) return walletStore.getState().updateTxOfferMap(txid, sellOffer.id)
+        if (sellOffer?.id) return useWalletState.getState().updateTxOfferMap(txid, sellOffer.id)
 
         const contract = tradeSummaryStore.getState().contracts.find((cntrct) => cntrct.releaseTxId === txid)
-        if (contract) return walletStore.getState().updateTxOfferMap(txid, getBuyOfferIdFromContract(contract))
+        if (contract) return useWalletState.getState().updateTxOfferMap(txid, getBuyOfferIdFromContract(contract))
         return null
       })
   }
@@ -151,7 +151,7 @@ export class PeachWallet {
     const balance = await this.wallet.getBalance()
 
     this.balance = Number(balance.total)
-    walletStore.getState().setBalance(this.balance)
+    useWalletState.getState().setBalance(this.balance)
     return this.balance
   }
 
@@ -167,7 +167,7 @@ export class PeachWallet {
 
     await rebroadcastTransactions(toRebroadcast.map(({ txid }) => txid))
     this.transactions = this.transactions.filter(
-      (tx) => tx.confirmationTime || walletStore.getState().pendingTransactions[tx.txid],
+      (tx) => tx.confirmationTime || useWalletState.getState().pendingTransactions[tx.txid],
     )
     this.updateStore()
 
@@ -237,16 +237,16 @@ export class PeachWallet {
   }
 
   loadWalletStore (): void {
-    this.addresses = walletStore.getState().addresses
-    this.transactions = walletStore.getState().transactions
-    this.balance = walletStore.getState().balance
+    this.addresses = useWalletState.getState().addresses
+    this.transactions = useWalletState.getState().transactions
+    this.balance = useWalletState.getState().balance
   }
 
   loadFromStorage (): void {
-    if (walletStore.persist.hasHydrated()) {
+    if (useWalletState.persist.hasHydrated()) {
       this.loadWalletStore()
     } else {
-      walletStore.persist.onFinishHydration(() => {
+      useWalletState.persist.onFinishHydration(() => {
         this.loadWalletStore()
       })
     }
@@ -277,12 +277,12 @@ export class PeachWallet {
 
       const candidate = this.getAddress(i)
       if (address === candidate) {
-        walletStore.getState().setAddresses(this.addresses)
+        useWalletState.getState().setAddresses(this.addresses)
         return this.getKeyPair(i)
       }
     }
 
-    walletStore.getState().setAddresses(this.addresses)
+    useWalletState.getState().setAddresses(this.addresses)
     return null
   }
 

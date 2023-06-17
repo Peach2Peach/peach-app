@@ -19,7 +19,7 @@ import { offerStorage } from '../../../utils/account/offerStorage'
 import { getAccessToken } from '../../../utils/peachAPI/accessToken'
 import { getPeachAccount } from '../../../utils/peachAPI/peachAccount'
 import { sessionStorage } from '../../../utils/session'
-import { defaultWalletState, walletStorage, walletStore } from '../../../utils/wallet/walletStore'
+import { defaultWalletState, walletStorage, useWalletState } from '../../../utils/wallet/walletStore'
 import { useNewUserSetup } from './useNewUserSetup'
 import { useTemporaryAccount } from '../../../hooks/useTemporaryAccount'
 
@@ -190,7 +190,7 @@ describe('useNewUserSetup', () => {
 
     expect(notificationStore.getState()).toEqual(expect.objectContaining(defaultNotificationState))
     expect(configStore.getState()).toEqual(expect.objectContaining(defaultConfig))
-    expect(walletStore.getState()).toEqual(expect.objectContaining(defaultWalletState))
+    expect(useWalletState.getState()).toEqual(expect.objectContaining(defaultWalletState))
     expect(settingsStore.getState()).toEqual(expect.objectContaining(defaultSettings))
 
     expect(getAccessToken()).toBeNull()
@@ -228,7 +228,7 @@ describe('useNewUserSetup', () => {
 
     expect(notificationStore.getState()).toEqual(expect.objectContaining(defaultNotificationState))
     expect(configStore.getState()).toEqual(expect.objectContaining(defaultConfig))
-    expect(walletStore.getState()).toEqual(expect.objectContaining(defaultWalletState))
+    expect(useWalletState.getState()).toEqual(expect.objectContaining(defaultWalletState))
     expect(settingsStore.getState()).toEqual(expect.objectContaining(defaultSettings))
 
     expect(getAccessToken()).toBeNull()
