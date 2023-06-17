@@ -1,8 +1,9 @@
 import { BLOCKEXPLORER, NETWORK } from '@env'
 import { Blockchain, DatabaseConfig, Descriptor, TxBuilder, Wallet } from 'bdk-rn'
-import { TransactionDetails, TxBuilderResult } from 'bdk-rn/lib/classes/Bindings'
+import { PartiallySignedTransaction, TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
 import { AddressIndex, BlockChainNames, BlockchainEsploraConfig, KeychainKind, Network } from 'bdk-rn/lib/lib/enums'
 import { BIP32Interface } from 'bip32'
+import { BumpFeeTxBuilder } from '../../../tests/unit/mocks/bdkRN'
 import { tradeSummaryStore } from '../../store/tradeSummaryStore'
 import { getBuyOfferIdFromContract } from '../contract'
 import { info } from '../log'
@@ -16,8 +17,8 @@ import { handleBroadcastError } from './error/handleBroadcastError'
 import { getAndStorePendingTransactionHex } from './getAndStorePendingTransactionHex'
 import { getDescriptorSecretKey } from './getDescriptorSecretKey'
 import { rebroadcastTransactions } from './rebroadcastTransactions'
+import { buildTransaction } from './transaction'
 import { buildDrainWalletTransaction } from './transaction/buildDrainWalletTransaction'
-import { buildTransaction } from './transaction/buildTransaction'
 import { walletStore } from './walletStore'
 
 type PeachWalletProps = {
@@ -175,34 +176,45 @@ export class PeachWallet extends PeachJSWallet {
     if (!this.wallet || !this.blockchain) throw Error('WALLET_NOT_READY')
     info('PeachWallet - withdrawAll - start')
     const drainWalletTransaction = await buildDrainWalletTransaction(address, feeRate)
-    return this.signAndBroadcastTransaction(await this.finishTransaction(drainWalletTransaction))
+    const finishedTransaction = await this.finishTransaction(drainWalletTransaction)
+    return this.signAndBroadcastPSBT(finishedTransaction.psbt)
   }
 
   async sendTo (address: string, amount: number, feeRate?: number) {
     if (!this.wallet || !this.blockchain) throw Error('WALLET_NOT_READY')
     info('PeachWallet - sendTo - start')
     const transaction = await buildTransaction(address, amount, feeRate)
-    return this.signAndBroadcastTransaction(await this.finishTransaction(transaction))
+    const finishedTransaction = await this.finishTransaction(transaction)
+    return this.signAndBroadcastPSBT(finishedTransaction.psbt)
   }
 
-  finishTransaction (transaction: TxBuilder) {
+  async bumpFee (txId: string, newFeeRate?: number) {
+    if (!this.wallet || !this.blockchain) throw Error('WALLET_NOT_READY')
+    info('PeachWallet - bumpFee - start')
+    const bumpFeeTxBuilder = await new BumpFeeTxBuilder().create(txId, newFeeRate)
+    await bumpFeeTxBuilder.enableRbf()
+
+    return this.signAndBroadcastPSBT(await bumpFeeTxBuilder.finish(this.wallet))
+  }
+
+  finishTransaction (transaction: TxBuilder | BumpFeeTxBuilder) {
     if (!this.wallet || !this.blockchain) throw Error('WALLET_NOT_READY')
     info('PeachWallet - finishTransaction - start')
     return transaction.finish(this.wallet)
   }
 
-  async signAndBroadcastTransaction (transaction: TxBuilderResult) {
+  async signAndBroadcastPSBT (psbt: PartiallySignedTransaction) {
     if (!this.wallet || !this.blockchain) throw Error('WALLET_NOT_READY')
     info('PeachWallet - signAndBroadcastTransaction - start')
     try {
-      const signedPSBT = await this.wallet.sign(transaction.psbt)
+      const signedPSBT = await this.wallet.sign(psbt)
 
       this.blockchain.broadcast(await signedPSBT.extractTx())
       this.syncWallet()
 
       info('PeachWallet - signAndBroadcastTransaction - end')
 
-      return transaction
+      return psbt
     } catch (e) {
       throw handleBroadcastError(parseError(e))
     }

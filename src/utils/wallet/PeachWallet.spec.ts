@@ -19,6 +19,9 @@ import {
   walletListTransactionsMock,
   walletSignMock,
   walletSyncMock,
+  bumpFeeTxBuilderCreateMock,
+  bumpFeeTxBuilderFinishMock,
+  bumpFeeTxBuilderEnableRbfMock,
 } from '../../../tests/unit/mocks/bdkRN'
 import { tradeSummaryStore } from '../../store/tradeSummaryStore'
 import { PeachWallet } from './PeachWallet'
@@ -264,7 +267,7 @@ describe('PeachWallet', () => {
     expect(txBuilderFinishMock).toHaveBeenCalledWith(peachWallet.wallet)
     expect(walletSignMock).toHaveBeenCalledWith(result.psbt)
     expect(blockchainBroadcastMock).toHaveBeenCalledWith(transaction)
-    expect(withdrawResult).toEqual(result)
+    expect(withdrawResult).toEqual(result.psbt)
   })
 
   it('sends bitcoin to an address', async () => {
@@ -282,12 +285,31 @@ describe('PeachWallet', () => {
     txBuilderFinishMock.mockResolvedValueOnce(result)
     walletSignMock.mockResolvedValueOnce(result.psbt)
     psbtExtractTxMock.mockResolvedValueOnce(transaction)
-    const withdrawResult = await peachWallet.sendTo(address, amount, feeRate)
+    const sendToResult = await peachWallet.sendTo(address, amount, feeRate)
     expect(buildTransactionMock).toHaveBeenCalledWith(address, amount, feeRate)
     expect(txBuilderFinishMock).toHaveBeenCalledWith(peachWallet.wallet)
     expect(walletSignMock).toHaveBeenCalledWith(result.psbt)
     expect(blockchainBroadcastMock).toHaveBeenCalledWith(transaction)
-    expect(withdrawResult).toEqual(result)
+    expect(sendToResult).toEqual(result.psbt)
+  })
+
+  it('bumps fees of a transaction', async () => {
+    const feeRate = 20
+    const result = new PartiallySignedTransaction('base64')
+    const transaction = await new Transaction().create([])
+    const txBuilder = await new TxBuilder().create()
+
+    buildTransactionMock.mockResolvedValueOnce(txBuilder)
+    bumpFeeTxBuilderFinishMock.mockResolvedValueOnce(result)
+    walletSignMock.mockResolvedValueOnce(result)
+    psbtExtractTxMock.mockResolvedValueOnce(transaction)
+    const bumpFeeResult = await peachWallet.bumpFee(pending1.txid, feeRate)
+    expect(bumpFeeTxBuilderCreateMock).toHaveBeenCalledWith(pending1.txid, feeRate)
+    expect(bumpFeeTxBuilderEnableRbfMock).toHaveBeenCalled()
+    expect(bumpFeeTxBuilderFinishMock).toHaveBeenCalledWith(peachWallet.wallet)
+    expect(walletSignMock).toHaveBeenCalledWith(result)
+    expect(blockchainBroadcastMock).toHaveBeenCalledWith(transaction)
+    expect(bumpFeeResult).toEqual(result)
   })
 
   it('signs and broadcast a transaction', async () => {
@@ -299,10 +321,10 @@ describe('PeachWallet', () => {
 
     walletSignMock.mockResolvedValueOnce(result.psbt)
     psbtExtractTxMock.mockResolvedValueOnce(transaction)
-    const signAndSendResult = await peachWallet.signAndBroadcastTransaction(result)
+    const signAndSendResult = await peachWallet.signAndBroadcastPSBT(result.psbt)
     expect(walletSignMock).toHaveBeenCalledWith(result.psbt)
     expect(blockchainBroadcastMock).toHaveBeenCalledWith(transaction)
-    expect(signAndSendResult).toEqual(result)
+    expect(signAndSendResult).toEqual(result.psbt)
   })
   it('finishes a transaction', async () => {
     const result: TxBuilderResult = {

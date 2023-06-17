@@ -4,16 +4,15 @@ import { shallow } from 'zustand/shallow'
 import { useHandleBroadcastError } from '../../../hooks/error/useHandleBroadcastError'
 import { useFeeRate } from '../../../hooks/useFeeRate'
 import { useShowLoadingPopup } from '../../../hooks/useShowLoadingPopup'
+import { useConfigStore } from '../../../store/configStore'
 import { usePopupStore } from '../../../store/usePopupStore'
 import i18n from '../../../utils/i18n'
 import { parseError } from '../../../utils/result'
 import { peachWallet } from '../../../utils/wallet/setWallet'
-import { buildDrainWalletTransaction } from '../../../utils/wallet/transaction'
-import { buildTransaction } from '../../../utils/wallet/transaction/buildTransaction'
+import { buildDrainWalletTransaction, buildTransaction } from '../../../utils/wallet/transaction'
+import { AmountTooLow } from '../components/AmountTooLow'
 import { ConfirmFundingFromPeachWallet } from '../components/ConfirmFundingFromPeachWallet'
 import { ConfirmFundingWithInsufficientFunds } from '../components/ConfirmFundingWithInsufficientFunds'
-import { useConfigStore } from '../../../store/configStore'
-import { AmountTooLow } from '../components/AmountTooLow'
 
 const canFundOfferFromPeachWallet = (fundingStatus: FundingStatus, offer?: SellOffer) =>
   offer?.escrow && fundingStatus.status === 'NULL'
@@ -39,7 +38,7 @@ export const useFundFromPeachWallet = ({ offer, fundingStatus }: Props) => {
       level: 'APP',
     })
     try {
-      await peachWallet.signAndBroadcastTransaction(transaction)
+      await peachWallet.signAndBroadcastPSBT(transaction.psbt)
       setFundedFromPeachWallet(true)
     } catch (e) {
       handleBroadcastError(e)
