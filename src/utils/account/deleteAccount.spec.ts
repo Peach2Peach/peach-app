@@ -18,48 +18,6 @@ jest.mock('../peachAPI/peachAccount', () => ({
   ...jest.requireActual('../peachAPI/peachAccount'),
   deletePeachAccount: jest.fn(),
 }))
-jest.mock('../../store/settingsStore', () => ({
-  settingsStorage: {
-    clearStore: jest.fn(),
-  },
-  settingsStore: {
-    getState: () => ({
-      reset: jest.fn(),
-      updateSettings: jest.fn(),
-    }),
-  },
-}))
-
-jest.mock('../../components/footer/notificationsStore', () => ({
-  notificationStorage: {
-    clearStore: jest.fn(),
-  },
-  notificationStore: {
-    getState: () => ({
-      reset: jest.fn(),
-    }),
-  },
-}))
-jest.mock('../../store/configStore', () => ({
-  configStorage: {
-    clearStore: jest.fn(),
-  },
-  configStore: {
-    getState: () => ({
-      reset: jest.fn(),
-    }),
-  },
-}))
-jest.mock('../wallet/walletStore', () => ({
-  walletStorage: {
-    clearStore: jest.fn(),
-  },
-  walletStore: {
-    getState: () => ({
-      reset: jest.fn(),
-    }),
-  },
-}))
 
 describe('deleteAccount', () => {
   beforeAll(() => {
