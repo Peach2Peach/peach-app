@@ -6,7 +6,7 @@ import { AddressIndex, BlockChainNames, BlockchainEsploraConfig, KeychainKind, N
 import { BIP32Interface } from 'bip32'
 import { payments } from 'bitcoinjs-lib'
 import { sign } from 'bitcoinjs-message'
-import { tradeSummaryStore } from '../../store/tradeSummaryStore'
+import { useTradeSummaryStore } from '../../store/tradeSummaryStore'
 import { getBuyOfferIdFromContract } from '../contract'
 import { info } from '../log'
 import { parseError } from '../result'
@@ -136,10 +136,10 @@ export class PeachWallet {
     this.transactions
       .filter(({ txid }) => !useWalletState.getState().txOfferMap[txid])
       .forEach(({ txid }) => {
-        const sellOffer = tradeSummaryStore.getState().offers.find((offer) => offer.txId === txid)
+        const sellOffer = useTradeSummaryStore.getState().offers.find((offer) => offer.txId === txid)
         if (sellOffer?.id) return useWalletState.getState().updateTxOfferMap(txid, sellOffer.id)
 
-        const contract = tradeSummaryStore.getState().contracts.find((cntrct) => cntrct.releaseTxId === txid)
+        const contract = useTradeSummaryStore.getState().contracts.find((cntrct) => cntrct.releaseTxId === txid)
         if (contract) return useWalletState.getState().updateTxOfferMap(txid, getBuyOfferIdFromContract(contract))
         return null
       })

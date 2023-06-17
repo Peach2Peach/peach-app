@@ -1,5 +1,5 @@
 import { bitcoinStore } from '../../../store/bitcoinStore'
-import { tradeSummaryStore } from '../../../store/tradeSummaryStore'
+import { useTradeSummaryStore } from '../../../store/tradeSummaryStore'
 import { useWalletState } from '../../../utils/wallet/walletStore'
 import { getTxSummary } from './getTxSummary'
 
@@ -21,7 +21,7 @@ describe('getTxSummary', () => {
         '123': '16',
       },
     })
-    tradeSummaryStore.setState({
+    useTradeSummaryStore.setState({
       offers: [
         // @ts-ignore
         {

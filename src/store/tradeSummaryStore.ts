@@ -1,4 +1,4 @@
-import { createStore, useStore } from 'zustand'
+import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
 import { createStorage, toZustandStorage } from '../utils/storage'
 
@@ -24,7 +24,7 @@ export const defaultTradeSummaryState: TradeSummaryState = {
 }
 export const tradeSummaryStorage = createStorage('tradeSummary')
 
-export const tradeSummaryStore = createStore(
+export const useTradeSummaryStore = create(
   persist<TradeSummaryStore>(
     (set, get) => ({
       ...defaultTradeSummaryState,
@@ -96,8 +96,3 @@ export const tradeSummaryStore = createStore(
     },
   ),
 )
-
-export const useTradeSummaryStore = <T>(
-  selector: (state: TradeSummaryStore) => T,
-  equalityFn?: ((a: T, b: T) => boolean) | undefined,
-) => useStore(tradeSummaryStore, selector, equalityFn)

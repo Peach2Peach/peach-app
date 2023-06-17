@@ -26,7 +26,7 @@ import {
   walletSignMock,
   walletSyncMock,
 } from '../../../tests/unit/mocks/bdkRN'
-import { tradeSummaryStore } from '../../store/tradeSummaryStore'
+import { useTradeSummaryStore } from '../../store/tradeSummaryStore'
 import { PeachWallet } from './PeachWallet'
 import { createWalletFromSeedPhrase } from './createWalletFromSeedPhrase'
 import { getNetwork } from './getNetwork'
@@ -253,8 +253,8 @@ describe('PeachWallet', () => {
   it('updates wallet sotre', () => {
     peachWallet.synced = true
     peachWallet.transactions = [confirmed1, confirmed2, pending3]
-    tradeSummaryStore.getState().setContract('1-3', { id: '1-3', releaseTxId: confirmed1.txid })
-    tradeSummaryStore.getState().setOffer('2', { id: '2', txId: confirmed2.txid })
+    useTradeSummaryStore.getState().setContract('1-3', { id: '1-3', releaseTxId: confirmed1.txid })
+    useTradeSummaryStore.getState().setOffer('2', { id: '2', txId: confirmed2.txid })
     peachWallet.updateStore()
     expect(useWalletState.getState().transactions).toEqual([confirmed1, confirmed2, pending3])
     expect(useWalletState.getState().txOfferMap).toEqual({
