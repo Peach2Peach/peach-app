@@ -1,7 +1,7 @@
 import { View } from 'react-native'
 import { SatsFormat, Text } from '../../../components'
 import tw from '../../../styles/tailwind'
-import { BTCAmount } from '../../../components/text/BTCAmount'
+import { BTCAmount } from '../../../components/bitcoin'
 
 export const SatsFormats = () => (
   <View style={tw`flex flex-col items-center`}>
