@@ -19,11 +19,13 @@ export const SatsFormats = () => (
     <SatsFormat sats={1234567890} />
     <SatsFormat sats={1000000000} />
     <SatsFormat sats={10000000000} />
-    <BTCAmount amount={0} size="x small" />
-    <BTCAmount amount={1} size="small" />
-    <BTCAmount amount={12} size="medium" />
-    <BTCAmount amount={123} size="large" />
-    <BTCAmount amount={1234} size="extra large" />
-    <BTCAmount amount={12345} size="extra large" isError />
+    <View style={tw`items-center gap-3 my-3`}>
+      <BTCAmount amount={0} size="x small" />
+      <BTCAmount amount={1} size="small" />
+      <BTCAmount amount={12} size="medium" />
+      <BTCAmount amount={123} size="large" />
+      <BTCAmount amount={1234} size="extra large" />
+      <BTCAmount amount={12345} size="extra large" isError />
+    </View>
   </View>
 )

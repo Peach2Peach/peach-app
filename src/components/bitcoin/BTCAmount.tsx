@@ -30,7 +30,7 @@ export const MixedLetterSpacingText = ({
   }
 
   return (
-    <Text style={[style]}>
+    <Text style={style}>
       {newNum.map((char, index) => {
         const shouldBeBlack5
           = index < newNum.findIndex((c) => c !== '0' && Number(c) > 0) || (value === 0 && index !== newNum.length - 1)
@@ -86,44 +86,80 @@ type Props = ComponentProps & {
   isError?: boolean
 }
 
+// eslint-disable-next-line complexity
 export const BTCAmount = ({ amount, size, isError = false, style }: Props) => (
-  <View style={[tw`flex-row items-center gap-2px`, style]}>
-    <Icon
-      id="bitcoinLogo"
+  <View
+    style={[
+      style,
+      tw`justify-center`,
+      size === 'x small' && tw`w-120px h-9px`,
+      size === 'small' && tw`w-135px h-10px`,
+      size === 'medium' && tw`w-179px h-13px`,
+      size === 'large' && tw`w-211px h-16px`,
+      size === 'extra large' && tw`w-242px h-18px`,
+    ]}
+  >
+    <View
       style={[
-        size === 'extra large' && tw`w-6 h-6 p-2 mr-2px`,
-        size === 'large' && tw`w-[19.5px] h-[19.5px] p-[6.5px] mr-2px`,
-        size === 'medium' && tw`w-[15px] h-[15px] p-[5px] mr-2px`,
-        size === 'small' && tw`w-3 h-3 p-1`,
-        size === 'x small' && tw`w-[10.5px] h-[10.5px] p-[3.5px]`,
+        tw`flex-row items-center justify-end -my-10`,
+        ['medium', 'large', 'extra large'].includes(size) && tw`gap-2px`,
       ]}
-    />
-    <View style={tw`flex-row items-baseline pt-1`}>
-      <MixedLetterSpacingText
+    >
+      <View
         style={[
-          tw`text-center font-courier-prime-bold`,
-          size === 'extra large' && tw`pr-1 text-30px leading-40px`,
-          size === 'large' && tw`pr-1 text-26px leading-34px`,
-          size === 'medium' && tw`text-22px leading-30px pr-3px`,
-          size === 'small' && tw`text-17px leading-23px pr-2px`,
-          size === 'x small' && tw`text-15px leading-20px pr-2px`,
-        ]}
-        value={amount}
-        isError={isError}
-      />
-      <Text
-        style={[
-          size === 'extra large' && tw`pb-1 pl-1 text-xl leading-30px`,
-          size === 'large' && tw`pl-1 text-lg leading-27px pb-3px`,
-          size === 'medium' && tw`text-base leading-24px pb-2px pl-3px`,
-          size === 'small' && tw`text-3xs leading-18px pb-2px pl-2px`,
-          size === 'x small' && tw`text-10px leading-15px pb-2px pl-2px`,
-          tw`text-left font-baloo-medium`,
-          isError && tw`text-error-dark`,
+          tw`items-center justify-center`,
+          size === 'x small' && tw`w-14px h-14px`,
+          size === 'small' && tw`w-16px h-16px`,
+          size === 'medium' && tw`w-20px h-20px`,
+          size === 'large' && tw`w-26px h-26px`,
+          size === 'extra large' && tw`w-32px h-32px`,
         ]}
       >
-        {i18n('currency.SATS')}
-      </Text>
+        <Icon
+          id="bitcoinLogo"
+          style={[
+            size === 'x small' && tw`w-10.5px h-10.5px`,
+            size === 'small' && tw`w-12px h-12px`,
+            size === 'medium' && tw`w-15px h-15px`,
+            size === 'large' && tw`w-19.5px h-19.5px`,
+            size === 'extra large' && tw`w-24px h-24px`,
+          ]}
+        />
+      </View>
+      <View
+        style={[
+          tw`flex-row items-baseline`,
+          ['x small', 'small'].includes(size) && tw`pt-3px gap-2px`,
+          size === 'medium' && tw`pt-4px gap-3px`,
+          ['large', 'extra large'].includes(size) && tw`pt-4px gap-4px`,
+        ]}
+      >
+        <MixedLetterSpacingText
+          style={[
+            tw`items-center text-center font-courier-prime-bold`,
+            size === 'x small' && tw`text-15px leading-20px`,
+            size === 'small' && tw`text-17px leading-23px`,
+            size === 'medium' && tw`text-22px leading-29px`,
+            size === 'large' && tw`text-26px leading-35px`,
+            size === 'extra large' && tw`text-30px leading-40px`,
+          ]}
+          value={amount}
+          isError={isError}
+        />
+        <Text
+          style={[
+            tw`items-center font-baloo-medium`,
+            isError && tw`text-error-dark`,
+            size === 'x small' && tw`text-10px leading-15px pb-2px`,
+            size === 'small' && tw`text-12px leading-18px pb-2px`,
+            size === 'medium' && tw`text-16px leading-24px pb-2px`,
+            size === 'large' && tw`text-18px leading-27px pb-3px`,
+            size === 'extra large' && tw`text-20px leading-30px pb-4px`,
+          ]}
+        >
+          {i18n('currency.SATS')}
+        </Text>
+      </View>
     </View>
   </View>
 )
