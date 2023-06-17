@@ -9,7 +9,7 @@ import {
 import { buildTransaction } from './buildTransaction'
 
 describe('buildTransaction', () => {
-  it('creates a transaction that drains wallet', async () => {
+  it('creates a transaction', async () => {
     const address = 'address'
     const amount = 21000000
     const scriptPubKey = 'scriptPubKey'
