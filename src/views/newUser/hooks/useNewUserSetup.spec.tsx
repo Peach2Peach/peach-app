@@ -8,7 +8,7 @@ import {
   notificationStorage,
   notificationStore,
 } from '../../../components/footer/notificationsStore'
-import { configStore } from '../../../store/configStore'
+import { useConfigStore } from '../../../store/configStore'
 import { defaultConfig, defaultSettings } from '../../../store/defaults'
 import { settingsStorage, useSettingsStore } from '../../../store/settingsStore'
 import { defaultAccount, getAccount, setAccount } from '../../../utils/account'
@@ -189,7 +189,7 @@ describe('useNewUserSetup', () => {
     })
 
     expect(notificationStore.getState()).toEqual(expect.objectContaining(defaultNotificationState))
-    expect(configStore.getState()).toEqual(expect.objectContaining(defaultConfig))
+    expect(useConfigStore.getState()).toEqual(expect.objectContaining(defaultConfig))
     expect(useWalletState.getState()).toEqual(expect.objectContaining(defaultWalletState))
     expect(useSettingsStore.getState()).toEqual(expect.objectContaining(defaultSettings))
 
@@ -227,7 +227,7 @@ describe('useNewUserSetup', () => {
     })
 
     expect(notificationStore.getState()).toEqual(expect.objectContaining(defaultNotificationState))
-    expect(configStore.getState()).toEqual(expect.objectContaining(defaultConfig))
+    expect(useConfigStore.getState()).toEqual(expect.objectContaining(defaultConfig))
     expect(useWalletState.getState()).toEqual(expect.objectContaining(defaultWalletState))
     expect(useSettingsStore.getState()).toEqual(expect.objectContaining(defaultSettings))
 

@@ -1,4 +1,4 @@
-import { configStore } from '../../../store/configStore'
+import { useConfigStore } from '../../../store/configStore'
 import { verifyPSBT } from './verifyPSBT'
 
 const txIdPartOfPSBTMock = jest.fn()
@@ -87,7 +87,7 @@ describe('verifyPSBT', () => {
   })
 
   it('should handle invalid peach fee', () => {
-    configStore.setState((state) => ({ ...state, peachFee: 0.02 }))
+    useConfigStore.setState((state) => ({ ...state, peachFee: 0.02 }))
     const mockPsbt = {
       txOutputs: [
         {
@@ -146,7 +146,7 @@ describe('verifyPSBT', () => {
   })
 
   it('should handle invalid buyer output when there\'s no peach fee', () => {
-    configStore.setState((state) => ({ ...state, peachFee: 0 }))
+    useConfigStore.setState((state) => ({ ...state, peachFee: 0 }))
     const mockPsbt = {
       txOutputs: [
         {
@@ -172,7 +172,7 @@ describe('verifyPSBT', () => {
   })
 
   it('should handle valid psbt', () => {
-    configStore.setState((state) => ({ ...state, peachFee: 0.02 }))
+    useConfigStore.setState((state) => ({ ...state, peachFee: 0.02 }))
     const mockPsbt = {
       txOutputs: [
         {
@@ -202,7 +202,7 @@ describe('verifyPSBT', () => {
   })
 
   it('should handle 0 peachFees for buyer set on contract', () => {
-    configStore.setState((state) => ({ ...state, peachFee: 0.02 }))
+    useConfigStore.setState((state) => ({ ...state, peachFee: 0.02 }))
     const mockPsbt = {
       txOutputs: [
         {
