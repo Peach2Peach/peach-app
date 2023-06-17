@@ -10,11 +10,7 @@ describe('walletStore', () => {
       addresses: [],
       balance: 0,
       pendingTransactions: {},
-      synced: false,
-      transactions: {
-        confirmed: [],
-        pending: [],
-      },
+      transactions: [],
       txOfferMap: {},
     })
   })

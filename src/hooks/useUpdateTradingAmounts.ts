@@ -1,19 +1,12 @@
 import { useCallback } from 'react'
 import { shallow } from 'zustand/shallow'
 import { useConfigStore } from '../store/configStore'
-import { useSettingsStore } from '../store/settingsStore'
+import { useOfferPreferences } from '../store/offerPreferenes/useOfferPreferences'
 import { getTradingAmountLimits } from '../utils/market'
 
 export const useUpdateTradingAmounts = () => {
-  const [sellAmount, setSellAmount, minBuyAmount, setMinBuyAmount, maxBuyAmount, setMaxBuyAmount] = useSettingsStore(
-    (state) => [
-      state.sellAmount,
-      state.setSellAmount,
-      state.minBuyAmount,
-      state.setMinBuyAmount,
-      state.maxBuyAmount,
-      state.setMaxBuyAmount,
-    ],
+  const [sellAmount, setSellAmount, [minBuyAmount, maxBuyAmount], setBuyAmountRange] = useOfferPreferences(
+    (state) => [state.sellAmount, state.setSellAmount, state.buyAmountRange, state.setBuyAmountRange],
     shallow,
   )
   const [setMinTradingAmount, setMaxTradingAmount] = useConfigStore(
@@ -26,20 +19,15 @@ export const useUpdateTradingAmounts = () => {
       const [newMinAmount, newMaxAmount] = getTradingAmountLimits(priceCHF)
       setMinTradingAmount(newMinAmount)
       setMaxTradingAmount(newMaxAmount)
-      if (sellAmount < newMinAmount) setSellAmount(newMinAmount)
-      if (minBuyAmount < newMinAmount) setMinBuyAmount(newMinAmount)
-      if (maxBuyAmount > newMaxAmount) setMaxBuyAmount(newMaxAmount)
+      if (sellAmount < newMinAmount) setSellAmount(newMinAmount, { min: newMinAmount, max: newMaxAmount })
+      else if (sellAmount > newMaxAmount) setSellAmount(newMaxAmount, { min: newMinAmount, max: newMaxAmount })
+      if (minBuyAmount < newMinAmount || maxBuyAmount > newMaxAmount) {
+        const newMinBuyAmount = Math.max(newMinAmount, minBuyAmount)
+        const newMaxBuyAmount = Math.min(newMaxAmount, maxBuyAmount)
+        setBuyAmountRange([newMinBuyAmount, newMaxBuyAmount], { min: newMinAmount, max: newMaxAmount })
+      }
     },
-    [
-      maxBuyAmount,
-      minBuyAmount,
-      sellAmount,
-      setMaxBuyAmount,
-      setMaxTradingAmount,
-      setMinBuyAmount,
-      setMinTradingAmount,
-      setSellAmount,
-    ],
+    [maxBuyAmount, minBuyAmount, sellAmount, setBuyAmountRange, setMaxTradingAmount, setMinTradingAmount, setSellAmount],
   )
 
   return updateTradingAmounts

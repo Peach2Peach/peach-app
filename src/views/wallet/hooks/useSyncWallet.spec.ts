@@ -1,10 +1,10 @@
-import { renderHook, act } from '@testing-library/react-native'
+import { act, renderHook } from '@testing-library/react-native'
 import { useSyncWallet } from './useSyncWallet'
 
-const mockSyncWallet = jest.fn()
+const mockSyncWallet = jest.fn().mockResolvedValue(undefined)
 jest.mock('../../../utils/wallet/setWallet', () => ({
   peachWallet: {
-    syncWallet: (...args: any) => mockSyncWallet(...args),
+    syncWallet: async () => await mockSyncWallet(),
   },
 }))
 
@@ -28,17 +28,17 @@ describe('useSyncWallet', () => {
     expect(result.current.isRefreshing).toBe(true)
   })
 
-  it('should call peachWallet.syncWallet on refresh', () => {
+  it('should call peachWallet.syncWallet on refresh', async () => {
     const { result } = renderHook(useSyncWallet)
 
-    act(() => {
-      result.current.refresh()
+    await act(async () => {
+      await result.current.refresh()
     })
 
-    expect(mockSyncWallet).toHaveBeenCalledWith(expect.any(Function))
+    expect(mockSyncWallet).toHaveBeenCalled()
   })
 
-  it('should not call peachWallet.syncWallet if already refreshing', () => {
+  it('should not call peachWallet.syncWallet if already refreshing', async () => {
     const { result } = renderHook(useSyncWallet)
 
     act(() => {
@@ -51,12 +51,11 @@ describe('useSyncWallet', () => {
     expect(mockSyncWallet).toHaveBeenCalledTimes(1)
   })
 
-  it('should set refreshing to false after refresh', () => {
-    mockSyncWallet.mockImplementationOnce((callback: any) => callback())
+  it('should set refreshing to false after refresh', async () => {
     const { result } = renderHook(useSyncWallet)
 
-    act(() => {
-      result.current.refresh()
+    await act(async () => {
+      await result.current.refresh()
     })
 
     expect(result.current.isRefreshing).toBe(false)

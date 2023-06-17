@@ -1,5 +1,5 @@
-import { account } from '.'
-import { settingsStore } from '../../store/settingsStore'
+import { account, getSelectedPaymentDataIds } from '.'
+import { useOfferPreferences } from '../../store/offerPreferenes'
 import { hashPaymentData } from '../paymentMethod'
 import { deletePaymentHash } from '../peachAPI'
 import { getPaymentData } from './getPaymentData'
@@ -18,14 +18,18 @@ export const removePaymentData = async (id: PaymentData['id']) => {
 
   account.paymentData = account.paymentData.filter((data) => data.id !== id)
 
-  const preferredPaymentMethods = settingsStore.getState().preferredPaymentMethods
+  const preferredPaymentMethods = useOfferPreferences.getState().preferredPaymentMethods
 
   if (preferredPaymentMethods[dataToBeRemoved.type]) {
     const nextInLine = getPaymentDataByType(dataToBeRemoved.type).shift()
-    settingsStore.getState().setPreferredPaymentMethods({
-      ...preferredPaymentMethods,
-      [dataToBeRemoved.type]: nextInLine?.id || '',
-    })
+    const newPaymentMethods = { ...preferredPaymentMethods }
+    if (nextInLine?.id) {
+      newPaymentMethods[dataToBeRemoved.type] = nextInLine.id
+    }
+
+    useOfferPreferences.getState().setPaymentMethods(getSelectedPaymentDataIds(newPaymentMethods))
+  } else {
+    useOfferPreferences.getState().setPaymentMethods(getSelectedPaymentDataIds(preferredPaymentMethods))
   }
 
   storePaymentData(account.paymentData)
