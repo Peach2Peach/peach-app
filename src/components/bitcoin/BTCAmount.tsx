@@ -4,15 +4,13 @@ import { SATSINBTC } from '../../constants'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 
-export const MixedLetterSpacingText = ({
-  value,
-  style,
-  isError,
-}: {
+type MixedLetterSpacingTextProps = {
   value: number
   style: (false | TextStyle)[]
   isError: boolean
-}) => {
+}
+
+export const MixedLetterSpacingText = ({ value, style, isError }: MixedLetterSpacingTextProps) => {
   const newNum = (value / SATSINBTC).toFixed(8).split('')
   for (let i = newNum.length - 3; i > 0; i -= 3) {
     if (newNum[i] !== '.') {
