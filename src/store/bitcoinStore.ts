@@ -1,4 +1,4 @@
-import { createStore, useStore } from 'zustand'
+import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
 import { SATSINBTC } from '../constants'
 import { createStorage, toZustandStorage } from '../utils/storage'
@@ -26,7 +26,7 @@ const defaultState: BitcoinState = {
 
 export const bitcoinStorage = createStorage('bitcoin')
 
-export const bitcoinStore = createStore(
+export const useBitcoinStore = create(
   persist<BitcoinStore>(
     (set, get) => ({
       ...defaultState,
@@ -47,8 +47,3 @@ export const bitcoinStore = createStore(
     },
   ),
 )
-
-export const useBitcoinStore = <T>(
-  selector: (state: BitcoinStore) => T,
-  equalityFn?: ((a: T, b: T) => boolean) | undefined,
-) => useStore(bitcoinStore, selector, equalityFn)

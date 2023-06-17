@@ -1,4 +1,4 @@
-import { bitcoinStore } from '../../../store/bitcoinStore'
+import { useBitcoinStore } from '../../../store/bitcoinStore'
 import { useTradeSummaryStore } from '../../../store/tradeSummaryStore'
 import { useWalletState } from '../../../utils/wallet/walletStore'
 import { getTxSummary } from './getTxSummary'
@@ -12,7 +12,7 @@ jest.mock('../../../utils/transaction/txIsConfirmed', () => ({
 
 describe('getTxSummary', () => {
   beforeEach(() => {
-    bitcoinStore.setState({
+    useBitcoinStore.setState({
       currency: 'USD',
       satsPerUnit: 100000000,
     })
