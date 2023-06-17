@@ -1,4 +1,4 @@
-import { SummaryCard } from '../../../../components/lists/SummaryCard'
+import { StatusCard } from '../../../../components/lists/StatusCard'
 import { offerIdToHex } from '../../../../utils/offer'
 import { useNavigateToOffer } from '../../hooks/useNavigateToOffer'
 import { TradeTheme } from '../../utils/getThemeForTradeItem'
@@ -16,7 +16,7 @@ export const OfferItem = ({ offerSummary, tradeTheme, icon, theme }: Props) => {
   const navigateToOffer = useNavigateToOffer(offerSummary)
 
   return (
-    <SummaryCard
+    <StatusCard
       title={offerIdToHex(id)}
       level={getLevel(tradeTheme, offerSummary)}
       date={new Date(creationDate)}

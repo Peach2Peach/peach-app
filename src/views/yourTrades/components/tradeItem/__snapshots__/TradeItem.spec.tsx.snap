@@ -2,7 +2,7 @@
 
 exports[`ContractItem should render correctly 1`] = `
 <View>
-  <SummaryCard
+  <StatusCard
     action={
       {
         "callback": [Function],
@@ -29,7 +29,7 @@ exports[`ContractItem should render correctly 1`] = `
 
 exports[`ContractItem should render correctly with past contract 1`] = `
 <View>
-  <SummaryCard
+  <StatusCard
     action={
       {
         "callback": [Function],
@@ -69,7 +69,7 @@ exports[`ContractItem should render correctly with past contract 1`] = `
 
 exports[`ContractItem should render correctly with unread messages 1`] = `
 <View>
-  <SummaryCard
+  <StatusCard
     action={
       {
         "callback": [Function],
@@ -172,7 +172,7 @@ exports[`ContractItem should render correctly with unread messages 1`] = `
 `;
 
 exports[`OfferItem should render correctly 1`] = `
-<SummaryCard
+<StatusCard
   action={
     {
       "callback": [Function],
@@ -193,7 +193,7 @@ exports[`OfferItem should render correctly 1`] = `
 `;
 
 exports[`OfferItem should render correctly if it's a past offer 1`] = `
-<SummaryCard
+<StatusCard
   action={
     {
       "callback": [Function],

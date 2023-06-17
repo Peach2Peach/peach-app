@@ -14,8 +14,8 @@ const TestWrapper = ({ children }: { children: React.ReactNode }) => (
 
 jest.useFakeTimers()
 
-jest.mock('../../../../components/lists/SummaryCard', () => ({
-  SummaryCard: 'SummaryCard',
+jest.mock('../../../../components/lists/StatusCard', () => ({
+  StatusCard: 'StatusCard',
 }))
 
 describe('ContractItem', () => {

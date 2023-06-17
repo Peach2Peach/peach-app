@@ -1,7 +1,7 @@
 import { createRenderer } from 'react-test-renderer/shallow'
-import { SummaryCard } from './SummaryCard'
+import { StatusCard } from './StatusCard'
 
-describe('TradeSummaryCard', () => {
+describe('StatusCard', () => {
   const renderer = createRenderer()
   it('should render correctly for a lost dispute as a seller', () => {
     const props = {
@@ -19,7 +19,7 @@ describe('TradeSummaryCard', () => {
       currency: 'EUR',
       price: 10.9,
     } as const
-    renderer.render(<SummaryCard {...props} />)
+    renderer.render(<StatusCard {...props} />)
     expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
   it('should render correctly for a won dispute as a seller', () => {
@@ -38,7 +38,7 @@ describe('TradeSummaryCard', () => {
       currency: 'EUR',
       price: 12.64,
     } as const
-    renderer.render(<SummaryCard {...props} />)
+    renderer.render(<StatusCard {...props} />)
     expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
   it('should render correctly for a started dispute', () => {
@@ -57,7 +57,7 @@ describe('TradeSummaryCard', () => {
       currency: 'EUR',
       price: 12.94,
     } as const
-    renderer.render(<SummaryCard {...props} />)
+    renderer.render(<StatusCard {...props} />)
     expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
   it('should render correctly for a won dispute as a seller with light theme', () => {
@@ -76,12 +76,12 @@ describe('TradeSummaryCard', () => {
       currency: 'EUR',
       price: 12.64,
     } as const
-    renderer.render(<SummaryCard {...props} />)
+    renderer.render(<StatusCard {...props} />)
     expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
 })
 
-describe('SummaryCard - DEFAULT', () => {
+describe('StatusCard - DEFAULT', () => {
   const renderer = createRenderer()
 
   const title = 'title'
@@ -95,11 +95,11 @@ describe('SummaryCard - DEFAULT', () => {
     icon: 'xCircle',
   }
   it('renders correctly for level DEFAULT', () => {
-    renderer.render(<SummaryCard {...{ title, amount, currency, price, date, level: 'DEFAULT' }} />)
+    renderer.render(<StatusCard {...{ title, amount, currency, price, date, level: 'DEFAULT' }} />)
     expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
   it('renders correctly for level DEFAULT with action', () => {
-    renderer.render(<SummaryCard {...{ title, amount, currency, price, date, level: 'DEFAULT', action }} />)
+    renderer.render(<StatusCard {...{ title, amount, currency, price, date, level: 'DEFAULT', action }} />)
     expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
 })
