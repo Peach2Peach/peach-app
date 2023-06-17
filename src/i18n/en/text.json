@@ -1049,6 +1049,7 @@
   "settings.title": "settings",
   "settings.website": "website",
   "showEscrow": "show escrow",
+  "showInExplorer": "show in explorer",
   "showOffer": "show offer",
   "showTransaction": "show transaction",
   "showTx": "show tx",
