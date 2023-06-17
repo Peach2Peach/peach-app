@@ -2,7 +2,7 @@ import { NETWORK } from '@env'
 import { useEffect, useMemo, useState } from 'react'
 import { shallow } from 'zustand/shallow'
 
-import { useHeaderSetup, useRoute } from '../../../hooks'
+import { useHeaderSetup, useNavigation, useRoute } from '../../../hooks'
 import { useBitcoinStore } from '../../../store/bitcoinStore'
 import { sort } from '../../../utils/array'
 import { showTransaction } from '../../../utils/bitcoin'
@@ -14,7 +14,8 @@ import { getTxSummary } from '../helpers/getTxSummary'
 import { useSyncWallet } from './useSyncWallet'
 
 export const useTransactionDetailsSetup = () => {
-  const route = useRoute<'transactionDetails'>()
+  const { txId } = useRoute<'transactionDetails'>().params
+  const navigation = useNavigation()
   const [currency, satsPerUnit] = useBitcoinStore((state) => [state.currency, state.satsPerUnit], shallow)
   const walletStore = useWalletState((state) => state)
   const [transaction, setTransaction] = useState<TransactionSummary>()
@@ -34,20 +35,24 @@ export const useTransactionDetailsSetup = () => {
     if (transaction) showTransaction(transaction.id as string, NETWORK)
   }
 
+  const goToBumpNetworkFees = () => {
+    navigation.navigate('bumpNetworkFees', { txId })
+  }
+
   useEffect(() => {
     ;(async () => {
-      const [result] = await getTx({ txId: route.params.txId })
+      const [result] = await getTx({ txId })
       const output = result?.vout.sort(sort('value')).pop()
       if (output) setReceivingAddress(output.scriptpubkey_address)
     })()
-  }, [route])
+  }, [txId])
 
   useEffect(() => {
-    const tx = walletStore.getTransaction(route.params.txId)
+    const tx = walletStore.getTransaction(txId)
     if (!tx) return
 
     setTransaction(getTxSummary(tx))
-  }, [currency, route, satsPerUnit, walletStore, walletStore.txOfferMap])
+  }, [currency, satsPerUnit, txId, walletStore, walletStore.txOfferMap])
 
   useEffect(() => {
     peachWallet.syncWallet()
@@ -59,5 +64,6 @@ export const useTransactionDetailsSetup = () => {
     openInExplorer,
     refresh,
     isRefreshing,
+    goToBumpNetworkFees,
   }
 }
