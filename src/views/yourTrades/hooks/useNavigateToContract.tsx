@@ -11,14 +11,14 @@ export const useNavigateToContract = (contractSummary: ContractSummary) => {
   const showContractPopup = useNavigateToContractPopups(contractSummary.id)
 
   const navigateToContract = async () => {
-    const [screen, params] = await getNavigationDestinationForContract(contractSummary)
+    const destination = await getNavigationDestinationForContract(contractSummary)
 
     if (shouldOpenPopup(contractSummary.tradeStatus)) {
       const sellOffer = getOffer(contractSummary.offerId) as SellOffer
       if (sellOffer) startRefund(sellOffer)
     }
 
-    navigation.navigate(screen, params)
+    navigation.navigate(...destination)
     showContractPopup()
   }
 
