@@ -86,77 +86,67 @@ type Props = ComponentProps & {
   isError?: boolean
 }
 
-// eslint-disable-next-line complexity
+const styles = {
+  'x small': {
+    container: tw`w-120px h-9px`,
+    contentContainer: undefined,
+    iconContainer: tw`w-14px h-14px`,
+    icon: tw`w-10.5px h-10.5px`,
+    textContainer: tw`pt-3px gap-2px`,
+    amount: tw`text-15px leading-20px`,
+    sats: tw`text-10px leading-15px pb-2px`,
+  },
+  small: {
+    container: tw`w-135px h-10px`,
+    contentContainer: undefined,
+    iconContainer: tw`w-16px h-16px`,
+    icon: tw`w-12px h-12px`,
+    textContainer: tw`pt-3px gap-2px`,
+    amount: tw`text-17px leading-23px`,
+    sats: tw`text-12px leading-18px pb-2px`,
+  },
+  medium: {
+    container: tw`w-179px h-13px`,
+    contentContainer: tw`gap-2px`,
+    iconContainer: tw`w-20px h-20px`,
+    icon: tw`w-15px h-15px`,
+    textContainer: tw`gap-3px pt-4px`,
+    amount: tw`text-22px leading-29px`,
+    sats: tw`text-16px leading-24px pb-2px`,
+  },
+  large: {
+    container: tw`w-211px h-16px`,
+    contentContainer: tw`gap-2px`,
+    iconContainer: tw`w-26px h-26px`,
+    icon: tw`w-19.5px h-19.5px`,
+    textContainer: tw`gap-4px pt-4px`,
+    amount: tw`text-26px leading-35px`,
+    sats: tw`text-18px leading-27px pb-3px`,
+  },
+  'extra large': {
+    container: tw`w-242px h-18px`,
+    contentContainer: tw`gap-2px`,
+    iconContainer: tw`w-32px h-32px`,
+    icon: tw`w-24px h-24px`,
+    textContainer: tw`gap-4px pt-4px`,
+    amount: tw`text-30px leading-40px`,
+    sats: tw`text-20px leading-30px pb-4px`,
+  },
+}
+
 export const BTCAmount = ({ amount, size, isError = false, style }: Props) => (
-  <View
-    style={[
-      style,
-      tw`justify-center`,
-      size === 'x small' && tw`w-120px h-9px`,
-      size === 'small' && tw`w-135px h-10px`,
-      size === 'medium' && tw`w-179px h-13px`,
-      size === 'large' && tw`w-211px h-16px`,
-      size === 'extra large' && tw`w-242px h-18px`,
-    ]}
-  >
-    <View
-      style={[
-        tw`flex-row items-center justify-end -my-10`,
-        ['medium', 'large', 'extra large'].includes(size) && tw`gap-2px`,
-      ]}
-    >
-      <View
-        style={[
-          tw`items-center justify-center`,
-          size === 'x small' && tw`w-14px h-14px`,
-          size === 'small' && tw`w-16px h-16px`,
-          size === 'medium' && tw`w-20px h-20px`,
-          size === 'large' && tw`w-26px h-26px`,
-          size === 'extra large' && tw`w-32px h-32px`,
-        ]}
-      >
-        <Icon
-          id="bitcoinLogo"
-          style={[
-            size === 'x small' && tw`w-10.5px h-10.5px`,
-            size === 'small' && tw`w-12px h-12px`,
-            size === 'medium' && tw`w-15px h-15px`,
-            size === 'large' && tw`w-19.5px h-19.5px`,
-            size === 'extra large' && tw`w-24px h-24px`,
-          ]}
-        />
+  <View style={[style, tw`justify-center`, styles[size].container]}>
+    <View style={[tw`flex-row items-center justify-end -my-10`, styles[size].contentContainer]}>
+      <View style={[tw`items-center justify-center`, styles[size].iconContainer]}>
+        <Icon id="bitcoinLogo" style={[styles[size].icon]} />
       </View>
-      <View
-        style={[
-          tw`flex-row items-baseline`,
-          ['x small', 'small'].includes(size) && tw`pt-3px gap-2px`,
-          size === 'medium' && tw`pt-4px gap-3px`,
-          ['large', 'extra large'].includes(size) && tw`pt-4px gap-4px`,
-        ]}
-      >
+      <View style={[tw`flex-row items-baseline`, styles[size].textContainer]}>
         <MixedLetterSpacingText
-          style={[
-            tw`items-center text-center font-courier-prime-bold`,
-            size === 'x small' && tw`text-15px leading-20px`,
-            size === 'small' && tw`text-17px leading-23px`,
-            size === 'medium' && tw`text-22px leading-29px`,
-            size === 'large' && tw`text-26px leading-35px`,
-            size === 'extra large' && tw`text-30px leading-40px`,
-          ]}
+          style={[tw`items-center text-center font-courier-prime-bold`, styles[size].amount]}
           value={amount}
           isError={isError}
         />
-        <Text
-          style={[
-            tw`items-center font-baloo-medium`,
-            isError && tw`text-error-dark`,
-            size === 'x small' && tw`text-10px leading-15px pb-2px`,
-            size === 'small' && tw`text-12px leading-18px pb-2px`,
-            size === 'medium' && tw`text-16px leading-24px pb-2px`,
-            size === 'large' && tw`text-18px leading-27px pb-3px`,
-            size === 'extra large' && tw`text-20px leading-30px pb-4px`,
-          ]}
-        >
+        <Text style={[tw`items-center font-baloo-medium`, isError && tw`text-error-dark`, styles[size].sats]}>
           {i18n('currency.SATS')}
         </Text>
       </View>
