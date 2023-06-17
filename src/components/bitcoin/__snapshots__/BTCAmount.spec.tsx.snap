@@ -448,6 +448,96 @@ exports[`BTCAmount should render correctly for small size 1`] = `
 </View>
 `;
 
+exports[`BTCAmount should render correctly when the value is 0 1`] = `
+<View
+  style={
+    [
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "gap": 2,
+      },
+      undefined,
+    ]
+  }
+>
+  <Icon
+    id="bitcoinLogo"
+    style={
+      [
+        {
+          "height": 24,
+          "marginRight": 2,
+          "paddingBottom": 8,
+          "paddingLeft": 8,
+          "paddingRight": 8,
+          "paddingTop": 8,
+          "width": 24,
+        },
+        false,
+        false,
+        false,
+        false,
+      ]
+    }
+  />
+  <View
+    style={
+      {
+        "alignItems": "baseline",
+        "flexDirection": "row",
+        "paddingTop": 4,
+      }
+    }
+  >
+    <MixedLetterSpacingText
+      isError={false}
+      style={
+        [
+          {
+            "fontFamily": "CourierPrime-Bold",
+            "textAlign": "center",
+          },
+          {
+            "fontSize": 30,
+            "lineHeight": 40,
+            "paddingRight": 4,
+          },
+          false,
+          false,
+          false,
+          false,
+        ]
+      }
+      value={0}
+    />
+    <PeachText
+      style={
+        [
+          {
+            "fontSize": 20,
+            "lineHeight": 30,
+            "paddingBottom": 4,
+            "paddingLeft": 4,
+          },
+          false,
+          false,
+          false,
+          false,
+          {
+            "fontFamily": "Baloo2-Medium",
+            "textAlign": "left",
+          },
+          false,
+        ]
+      }
+    >
+      sats
+    </PeachText>
+  </View>
+</View>
+`;
+
 exports[`BTCAmount should render correctly with isError 1`] = `
 <View
   style={

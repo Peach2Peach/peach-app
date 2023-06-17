@@ -32,7 +32,8 @@ export const MixedLetterSpacingText = ({
   return (
     <Text style={[style]}>
       {newNum.map((char, index) => {
-        const shouldBeBlack5 = index < newNum.findIndex((c) => c !== '0' && Number(c) > 0)
+        const shouldBeBlack5
+          = index < newNum.findIndex((c) => c !== '0' && Number(c) > 0) || (value === 0 && index !== newNum.length - 1)
         if (char === '.') {
           return (
             <Text
@@ -52,7 +53,7 @@ export const MixedLetterSpacingText = ({
               {char}
             </Text>
           )
-        } else if (char === '0' && index < newNum.findIndex((c) => c !== '0' && Number(c) > 0)) {
+        } else if (char === '0' && shouldBeBlack5) {
           return (
             <Text
               key={index}

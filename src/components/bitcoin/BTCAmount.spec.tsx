@@ -40,4 +40,8 @@ describe('BTCAmount', () => {
     renderer.render(<BTCAmount amount={amount} size="extra large" isError />)
     expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
+  it('should render correctly when the value is 0', () => {
+    renderer.render(<BTCAmount amount={0} size="extra large" />)
+    expect(renderer.getRenderOutput()).toMatchSnapshot()
+  })
 })
