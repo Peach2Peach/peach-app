@@ -3,7 +3,11 @@ import { getContract } from '../../../../utils/peachAPI'
 
 export const getNavigationDestinationForContract = async (
   contract: Contract | ContractSummary,
-): Promise<[keyof RootStackParamList, object | undefined]> => {
+): Promise<
+  | ['setRefundWallet', { offerId: string }]
+  | ['tradeComplete', { contract: Contract }]
+  | ['contract', { contractId: string }]
+> => {
   if (contract.tradeStatus === 'refundAddressRequired') {
     return ['setRefundWallet', { offerId: getSellOfferIdFromContract(contract) }]
   }
