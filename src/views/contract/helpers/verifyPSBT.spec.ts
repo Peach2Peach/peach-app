@@ -87,7 +87,7 @@ describe('verifyPSBT', () => {
   })
 
   it('should handle invalid peach fee', () => {
-    useConfigStore.setState((state) => ({ ...state, peachFee: 0.02 }))
+    useConfigStore.setState({ peachFee: 0.02 })
     const mockPsbt = {
       txOutputs: [
         {
@@ -146,7 +146,7 @@ describe('verifyPSBT', () => {
   })
 
   it('should handle invalid buyer output when there\'s no peach fee', () => {
-    useConfigStore.setState((state) => ({ ...state, peachFee: 0 }))
+    useConfigStore.setState({ peachFee: 0 })
     const mockPsbt = {
       txOutputs: [
         {
@@ -172,7 +172,7 @@ describe('verifyPSBT', () => {
   })
 
   it('should handle valid psbt', () => {
-    useConfigStore.setState((state) => ({ ...state, peachFee: 0.02 }))
+    useConfigStore.setState({ peachFee: 0.02 })
     const mockPsbt = {
       txOutputs: [
         {
@@ -202,7 +202,7 @@ describe('verifyPSBT', () => {
   })
 
   it('should handle 0 peachFees for buyer set on contract', () => {
-    useConfigStore.setState((state) => ({ ...state, peachFee: 0.02 }))
+    useConfigStore.setState({ peachFee: 0.02 })
     const mockPsbt = {
       txOutputs: [
         {
