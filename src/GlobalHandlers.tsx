@@ -2,7 +2,7 @@ import { shallow } from 'zustand/shallow'
 import { useMarketPrices, useUpdateTradingAmounts } from './hooks'
 import { useMessageHandler } from './hooks/notifications/useMessageHandler'
 import { useBitcoinStore } from './store/bitcoinStore'
-import { settingsStore, useSettingsStore } from './store/settingsStore'
+import { useSettingsStore } from './store/settingsStore'
 import { useInitialNavigation } from './init/useInitialNavigation'
 import { useShowUpdateAvailable } from './hooks/useShowUpdateAvailable'
 import { useEffect } from 'react'
@@ -32,7 +32,7 @@ export const GlobalHandlers = ({ getCurrentPage }: Props) => {
   useShowUpdateAvailable()
 
   useEffect(() => {
-    if (!settingsStore.persist?.hasHydrated()) return
+    if (!useSettingsStore.persist?.hasHydrated()) return
     if (!analyticsPopupSeen) showAnalyticsPrompt()
   }, [analyticsPopupSeen, showAnalyticsPrompt])
 

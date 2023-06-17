@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react-native'
 import { headerState, NavigationWrapper, setOptionsMock } from '../../../tests/unit/helpers/NavigationWrapper'
-import { settingsStore } from '../../store/settingsStore'
+import { useSettingsStore } from '../../store/settingsStore'
 import Welcome from './Welcome'
 
 describe('Welcome', () => {
@@ -8,7 +8,7 @@ describe('Welcome', () => {
     setOptionsMock({ header: { title: '', icons: [] } })
   })
   it('should render correctly', () => {
-    settingsStore.getState().setUsedReferralCode(true)
+    useSettingsStore.getState().setUsedReferralCode(true)
 
     const { toJSON } = render(<Welcome />, { wrapper: NavigationWrapper })
     expect(toJSON()).toMatchSnapshot()

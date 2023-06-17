@@ -3,7 +3,7 @@ import { sellOffer } from '../../tests/unit/data/offerData'
 import { NavigationWrapper, navigateMock } from '../../tests/unit/helpers/NavigationWrapper'
 import { QueryClientWrapper } from '../../tests/unit/helpers/QueryClientWrapper'
 import { Loading } from '../components'
-import { settingsStore } from '../store/settingsStore'
+import { useSettingsStore } from '../store/settingsStore'
 import { defaultPopupState, usePopupStore } from '../store/usePopupStore'
 import { Refund } from './Refund'
 import { useStartRefundPopup } from './useStartRefundPopup'
@@ -101,7 +101,7 @@ describe('useStartRefundPopup', () => {
     })
     refundSellOfferMock.mockResolvedValueOnce([null, null])
     getEscrowWalletForOfferMock.mockReturnValueOnce('escrowWallet')
-    settingsStore.setState({ peachWalletActive: false })
+    useSettingsStore.setState({ peachWalletActive: false })
     const { result } = renderHook(useStartRefundPopup, { wrapper })
     await result.current(sellOffer)
     expect(checkRefundPSBTMock).toHaveBeenCalledWith('psbt', sellOffer)
@@ -159,7 +159,7 @@ describe('useStartRefundPopup', () => {
     })
     refundSellOfferMock.mockResolvedValueOnce([null, { error: 'error' }])
     getEscrowWalletForOfferMock.mockReturnValueOnce('escrowWallet')
-    settingsStore.setState({ peachWalletActive: false })
+    useSettingsStore.setState({ peachWalletActive: false })
     const { result } = renderHook(useStartRefundPopup, { wrapper })
     await result.current(sellOffer)
     expect(showErrorMock).toHaveBeenCalledWith('error')
@@ -174,7 +174,7 @@ describe('useStartRefundPopup', () => {
     })
     refundSellOfferMock.mockResolvedValueOnce([null, null])
     getEscrowWalletForOfferMock.mockReturnValueOnce('escrowWallet')
-    settingsStore.setState({ peachWalletActive: false })
+    useSettingsStore.setState({ peachWalletActive: false })
     const { result } = renderHook(useStartRefundPopup, { wrapper })
     await result.current(sellOffer)
     act(() => {
@@ -192,7 +192,7 @@ describe('useStartRefundPopup', () => {
     })
     refundSellOfferMock.mockResolvedValueOnce([null, null])
     getEscrowWalletForOfferMock.mockReturnValueOnce('escrowWallet')
-    settingsStore.setState({ peachWalletActive: true })
+    useSettingsStore.setState({ peachWalletActive: true })
     const { result } = renderHook(useStartRefundPopup, { wrapper })
     await act(async () => {
       await result.current(sellOffer)
@@ -225,7 +225,7 @@ describe('useStartRefundPopup', () => {
     })
     refundSellOfferMock.mockResolvedValueOnce([null, null])
     getEscrowWalletForOfferMock.mockReturnValueOnce('escrowWallet')
-    settingsStore.setState({ peachWalletActive: true })
+    useSettingsStore.setState({ peachWalletActive: true })
     const { result } = renderHook(useStartRefundPopup, { wrapper })
     await result.current(sellOffer)
     act(() => {
@@ -243,7 +243,7 @@ describe('useStartRefundPopup', () => {
     })
     refundSellOfferMock.mockResolvedValueOnce([null, null])
     getEscrowWalletForOfferMock.mockReturnValueOnce('escrowWallet')
-    settingsStore.setState({ peachWalletActive: false })
+    useSettingsStore.setState({ peachWalletActive: false })
     const { result } = renderHook(useStartRefundPopup, { wrapper })
     await result.current(sellOffer)
     act(() => {

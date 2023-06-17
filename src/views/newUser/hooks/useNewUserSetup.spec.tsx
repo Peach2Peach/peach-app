@@ -10,7 +10,7 @@ import {
 } from '../../../components/footer/notificationsStore'
 import { configStore } from '../../../store/configStore'
 import { defaultConfig, defaultSettings } from '../../../store/defaults'
-import { settingsStorage, settingsStore } from '../../../store/settingsStore'
+import { settingsStorage, useSettingsStore } from '../../../store/settingsStore'
 import { defaultAccount, getAccount, setAccount } from '../../../utils/account'
 import { accountStorage } from '../../../utils/account/accountStorage'
 import { chatStorage } from '../../../utils/account/chatStorage'
@@ -66,7 +66,7 @@ describe('useNewUserSetup', () => {
   beforeEach(() => {
     jest.useFakeTimers({ now: new Date('2022-12-30T23:00:00.000Z') })
 
-    settingsStore.setState({ pgpPublished: false, fcmToken: undefined })
+    useSettingsStore.setState({ pgpPublished: false, fcmToken: undefined })
     setAccount(defaultAccount)
   })
   it('should return default values', () => {
@@ -191,7 +191,7 @@ describe('useNewUserSetup', () => {
     expect(notificationStore.getState()).toEqual(expect.objectContaining(defaultNotificationState))
     expect(configStore.getState()).toEqual(expect.objectContaining(defaultConfig))
     expect(useWalletState.getState()).toEqual(expect.objectContaining(defaultWalletState))
-    expect(settingsStore.getState()).toEqual(expect.objectContaining(defaultSettings))
+    expect(useSettingsStore.getState()).toEqual(expect.objectContaining(defaultSettings))
 
     expect(getAccessToken()).toBeNull()
     expect(getPeachAccount()).toBeNull()
@@ -229,7 +229,7 @@ describe('useNewUserSetup', () => {
     expect(notificationStore.getState()).toEqual(expect.objectContaining(defaultNotificationState))
     expect(configStore.getState()).toEqual(expect.objectContaining(defaultConfig))
     expect(useWalletState.getState()).toEqual(expect.objectContaining(defaultWalletState))
-    expect(settingsStore.getState()).toEqual(expect.objectContaining(defaultSettings))
+    expect(useSettingsStore.getState()).toEqual(expect.objectContaining(defaultSettings))
 
     expect(getAccessToken()).toBeNull()
     expect(getPeachAccount()).toBeNull()

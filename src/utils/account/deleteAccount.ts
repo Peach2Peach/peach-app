@@ -3,7 +3,7 @@ import analytics from '@react-native-firebase/analytics'
 import { defaultAccount } from '.'
 import { notificationStorage, notificationStore } from '../../components/footer/notificationsStore'
 import { configStore } from '../../store/configStore'
-import { settingsStorage, settingsStore } from '../../store/settingsStore'
+import { settingsStorage, useSettingsStore } from '../../store/settingsStore'
 import { info } from '../log'
 import { deleteAccessToken } from '../peachAPI/accessToken'
 import { deletePeachAccount } from '../peachAPI/peachAccount'
@@ -29,7 +29,7 @@ export const deleteAccount = () => {
     settingsStorage,
     notificationStorage,
   ].forEach((storage) => storage.clearStore())
-  ;[notificationStore, configStore, useWalletState, settingsStore].forEach((store) => store.getState().reset())
+  ;[notificationStore, configStore, useWalletState, useSettingsStore].forEach((store) => store.getState().reset())
 
   deleteAccessToken()
   deletePeachAccount()
