@@ -26,7 +26,11 @@ export const Left = ({ icon, title, subtext, replaced = false }: Props) => {
           !!icon && icon
         )}
         <FixedHeightText
-          style={[tw`body-s text-black-2`, replaced && tw`underline subtitle-2 text-black-1`]}
+          style={[
+            tw`body-s text-black-2`,
+            replaced && tw`underline subtitle-2 text-black-1`,
+            (!!icon || replaced) && tw`w-100px`,
+          ]}
           height={17}
           onPress={async () => {
             if (!replaced) return
