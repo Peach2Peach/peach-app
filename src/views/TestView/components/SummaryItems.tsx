@@ -1,6 +1,6 @@
 import { Alert, View } from 'react-native'
 import { Icon, Text } from '../../../components'
-import { StatusCard } from '../../../components/lists/StatusCard'
+import { StatusCard } from '../../../components/statusCard/StatusCard'
 import { MSINADAY } from '../../../constants'
 import tw from '../../../styles/tailwind'
 

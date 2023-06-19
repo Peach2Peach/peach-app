@@ -24,7 +24,7 @@ export default () => {
   )
   return (
     <FlatList
-      contentContainerStyle={tw`px-8 py-12`}
+      contentContainerStyle={[tw`px-4 py-12`, tw.md`px-8`]}
       data={transactions}
       renderItem={ListItem}
       ItemSeparatorComponent={Separator}

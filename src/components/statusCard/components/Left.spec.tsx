@@ -1,10 +1,10 @@
 import { Left } from './Left'
 import { fireEvent, render, waitFor } from '@testing-library/react-native'
-import Icon from '../Icon'
-import tw from '../../styles/tailwind'
-import { navigateMock, NavigationWrapper } from '../../../tests/unit/helpers/NavigationWrapper'
-import { contract } from '../../../tests/unit/data/contractData'
-import { sellOffer } from '../../../tests/unit/data/offerData'
+import Icon from '../../Icon'
+import tw from '../../../styles/tailwind'
+import { navigateMock, NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { contract } from '../../../../tests/unit/data/contractData'
+import { sellOffer } from '../../../../tests/unit/data/offerData'
 
 const getContractMock = jest.fn(() => Promise.resolve([contract, null]))
 const getOfferDetailsMock = jest.fn(() => Promise.resolve([{ ...sellOffer, tradeStatus: 'searchingForPeer' }, null]))
