@@ -1,20 +1,20 @@
 import { renderHook } from '@testing-library/react-native'
-import { sellOffer } from '../../../../tests/unit/data/offerData'
-import { defaultFundingStatus } from '../../../utils/offer/constants'
-import { useFundFromPeachWallet } from './useFundFromPeachWallet'
-import { peachWallet, setPeachWallet } from '../../../utils/wallet/setWallet'
-import { PeachWallet } from '../../../utils/wallet/PeachWallet'
 import { act } from 'react-test-renderer'
-import { usePopupStore } from '../../../store/usePopupStore'
-import { ConfirmFundingFromPeachWallet } from '../components/ConfirmFundingFromPeachWallet'
-import { getTransactionDetails } from '../../../../tests/unit/helpers/getTransactionDetails'
 import { estimatedFees } from '../../../../tests/unit/data/bitcoinNetworkData'
-import { Loading } from '../../../components'
-import tw from '../../../styles/tailwind'
 import { broadcastError, insufficientFunds } from '../../../../tests/unit/data/errors'
-import { ConfirmFundingWithInsufficientFunds } from '../components/ConfirmFundingWithInsufficientFunds'
-import { AmountTooLow } from '../components/AmountTooLow'
+import { sellOffer } from '../../../../tests/unit/data/offerData'
+import { getTransactionDetails } from '../../../../tests/unit/helpers/getTransactionDetails'
+import { Loading } from '../../../components'
 import { configStore } from '../../../store/configStore'
+import { usePopupStore } from '../../../store/usePopupStore'
+import tw from '../../../styles/tailwind'
+import { defaultFundingStatus } from '../../../utils/offer/constants'
+import { PeachWallet } from '../../../utils/wallet/PeachWallet'
+import { peachWallet, setPeachWallet } from '../../../utils/wallet/setWallet'
+import { AmountTooLow } from '../components/AmountTooLow'
+import { ConfirmFundingFromPeachWallet } from '../components/ConfirmFundingFromPeachWallet'
+import { ConfirmFundingWithInsufficientFunds } from '../components/ConfirmFundingWithInsufficientFunds'
+import { useFundFromPeachWallet } from './useFundFromPeachWallet'
 
 const useFeeEstimateMock = jest.fn().mockReturnValue({ estimatedFees })
 jest.mock('../../../hooks/query/useFeeEstimate', () => ({
@@ -98,6 +98,16 @@ describe('useFundFromPeachWallet', () => {
       await result.current.fundFromPeachWallet()
     })
     expect(usePopupStore.getState().visible).toBeFalsy()
+  })
+  it('should handle other finishTransaction transaction errors', async () => {
+    peachWallet.balance = amount
+    peachWallet.finishTransaction = jest.fn().mockImplementationOnce(() => {
+      throw Error('UNAUTHORIZED')
+    })
+    const { result } = renderHook(useFundFromPeachWallet, { initialProps })
+
+    await result.current.fundFromPeachWallet()
+    expect(showErrorBannerMock).toHaveBeenCalledWith('UNAUTHORIZED')
   })
   it('should open confirmation popup', async () => {
     peachWallet.balance = amount
