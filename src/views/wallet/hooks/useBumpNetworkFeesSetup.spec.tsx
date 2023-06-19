@@ -1,5 +1,5 @@
 import { act, renderHook, waitFor } from '@testing-library/react-native'
-import { broadcastError } from '../../../../tests/unit/data/errors'
+import { transactionError } from '../../../../tests/unit/data/errors'
 import { bitcoinTransaction, pending1 } from '../../../../tests/unit/data/transactionDetailData'
 import {
   NavigationWrapper,
@@ -189,7 +189,7 @@ describe('useBumpNetworkFeesSetup', () => {
   })
   it('should handle finish transaction errors', async () => {
     peachWallet.finishTransaction = jest.fn().mockImplementation(() => {
-      throw broadcastError
+      throw transactionError
     })
 
     const { result } = renderHook(useBumpNetworkFeesSetup, { wrapper })
@@ -201,7 +201,7 @@ describe('useBumpNetworkFeesSetup', () => {
   })
   it('should handle broadcast errors', async () => {
     peachWallet.signAndBroadcastPSBT = jest.fn().mockImplementation(() => {
-      throw broadcastError
+      throw transactionError
     })
 
     const { result } = renderHook(useBumpNetworkFeesSetup, { wrapper })

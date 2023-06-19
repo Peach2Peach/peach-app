@@ -2,7 +2,7 @@ import { PartiallySignedTransaction } from 'bdk-rn'
 import { useEffect, useMemo, useState } from 'react'
 import { shallow } from 'zustand/shallow'
 import { useHeaderSetup, useNavigation, useRoute, useShowHelp } from '../../../hooks'
-import { useHandleBroadcastError } from '../../../hooks/error/useHandleBroadcastError'
+import { useHandleTransactionError } from '../../../hooks/error/useHandleTransactionError'
 import { useFeeEstimate } from '../../../hooks/query/useFeeEstimate'
 import { useTransactionDetails } from '../../../hooks/query/useTransactionDetails'
 import { useShowLoadingPopup } from '../../../hooks/useShowLoadingPopup'
@@ -20,7 +20,7 @@ export const useBumpNetworkFeesSetup = () => {
   const { txId } = useRoute<'bumpNetworkFees'>().params
   const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
   const showLoadingPopup = useShowLoadingPopup()
-  const handleBroadcastError = useHandleBroadcastError()
+  const handleTransactionError = useHandleTransactionError()
 
   const navigation = useNavigation()
   const showHelp = useShowHelp('rbf')
@@ -53,7 +53,7 @@ export const useBumpNetworkFeesSetup = () => {
       navigation.goBack()
       navigation.replace('transactionDetails', { txId: await rbfTransaction.txid() })
     } catch (e) {
-      handleBroadcastError(e)
+      handleTransactionError(e)
     } finally {
       closePopup()
     }
@@ -88,7 +88,7 @@ export const useBumpNetworkFeesSetup = () => {
         },
       })
     } catch (e) {
-      handleBroadcastError(e)
+      handleTransactionError(e)
     }
   }
 

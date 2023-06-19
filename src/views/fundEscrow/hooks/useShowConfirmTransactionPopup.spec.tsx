@@ -1,7 +1,7 @@
 import { renderHook } from '@testing-library/react-native'
 import { act } from 'react-test-renderer'
 import { estimatedFees } from '../../../../tests/unit/data/bitcoinNetworkData'
-import { broadcastError } from '../../../../tests/unit/data/errors'
+import { transactionError } from '../../../../tests/unit/data/errors'
 import { sellOffer } from '../../../../tests/unit/data/offerData'
 import { getTransactionDetails } from '../../../../tests/unit/helpers/getTransactionDetails'
 import { Loading } from '../../../components'
@@ -94,7 +94,7 @@ describe('useShowConfirmTransactionPopup', () => {
   it('should handle broadcast errors', async () => {
     peachWallet.balance = amount
     peachWallet.signAndBroadcastPSBT = jest.fn().mockImplementation(() => {
-      throw broadcastError
+      throw transactionError
     })
 
     const { result } = renderHook(useShowConfirmTransactionPopup, { wrapper })

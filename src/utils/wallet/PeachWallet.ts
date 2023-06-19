@@ -20,11 +20,10 @@ import { findTransactionsToRebroadcast } from '../transaction/findTransactionsTo
 import { mergeTransactionList } from '../transaction/mergeTransactionList'
 import { callWhenInternet } from '../web'
 import { PeachJSWallet } from './PeachJSWallet'
-import { handleBroadcastError } from './error/handleBroadcastError'
+import { handleTransactionError } from './error/handleTransactionError'
 import { getAndStorePendingTransactionHex } from './getAndStorePendingTransactionHex'
 import { getDescriptorSecretKey } from './getDescriptorSecretKey'
 import { rebroadcastTransactions } from './rebroadcastTransactions'
-import { buildTransaction } from './transaction'
 import { buildDrainWalletTransaction } from './transaction/buildDrainWalletTransaction'
 import { walletStore } from './walletStore'
 
@@ -194,7 +193,7 @@ export class PeachWallet extends PeachJSWallet {
       // @ts-ignore exposed interface works, but internally it's struggling
       return await transaction.finish(this.wallet)
     } catch (e) {
-      throw handleBroadcastError(parseError(e))
+      throw handleTransactionError(parseError(e))
     }
   }
 
@@ -213,7 +212,7 @@ export class PeachWallet extends PeachJSWallet {
 
       return psbt
     } catch (e) {
-      throw handleBroadcastError(parseError(e))
+      throw handleTransactionError(parseError(e))
     }
   }
 
