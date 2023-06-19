@@ -31,7 +31,7 @@ export const useFundFromPeachWallet = ({ offer, fundingStatus }: Props) => {
 
   const onSuccess = () => setFundedFromPeachWallet(true)
 
-  const fundFromPeachWallet = async (): Promise<void> => {
+  const fundFromPeachWallet = async () => {
     if (!offer?.escrow || !canFundFromPeachWallet) return undefined
 
     if (peachWallet.balance < minTradingAmount) return openAmountTooLowPopup(peachWallet.balance, minTradingAmount)
