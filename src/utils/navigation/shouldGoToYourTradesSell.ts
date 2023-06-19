@@ -1,7 +1,5 @@
-import { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
-
-export const shouldGoToYourTradesSell = (remoteMessage: FirebaseMessagingTypes.RemoteMessage & { data: PNData }) =>
-  !!remoteMessage.data.offerId
-  && (remoteMessage.data.type === 'offer.sellOfferExpired'
-    || remoteMessage.data.type === 'offer.fundingAmountDifferent'
-    || remoteMessage.data.type === 'offer.wrongFundingAmount')
+export const shouldGoToYourTradesSell = ({ data }: { data: PNData }) =>
+  !!data.offerId
+  && (data.type === 'offer.sellOfferExpired'
+    || data.type === 'offer.fundingAmountDifferent'
+    || data.type === 'offer.wrongFundingAmount')

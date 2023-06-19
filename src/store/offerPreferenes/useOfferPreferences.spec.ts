@@ -285,7 +285,7 @@ describe('useOfferPreferences - actions - selectPaymentMethod', () => {
   it('should remove the payment data if it is already in the original payment data', () => {
     useOfferPreferences.getState().selectPaymentMethod(id)
     useOfferPreferences.getState().selectPaymentMethod(id)
-    const expected = []
+    const expected: PaymentData[] = []
     expect(useOfferPreferences.getState().originalPaymentData).toStrictEqual(expected)
   })
   it('should set can continue to true if the payment methods are valid', () => {

@@ -23,6 +23,7 @@ export const buyOffer: BuyOffer = {
   seenMatches: [],
   doubleMatched: false,
   releaseAddress: 'bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh',
+  tradeStatus: 'waiting',
 }
 
 export const sellOffer: SellOffer = {
@@ -56,6 +57,7 @@ export const sellOffer: SellOffer = {
   returnAddress: 'bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh',
   refunded: false,
   released: false,
+  tradeStatus: 'waiting',
 }
 
 export const wronglyFundedSellOffer: SellOffer = {
@@ -77,7 +79,9 @@ export const buyOfferUnpublished: BuyOffer = {
     },
   },
   originalPaymentData: [],
-  amount: 250000,
+  amount: [250000, 500000],
+  tradeStatus: 'offerHidden',
+  id: '37',
   matches: [],
   matched: [],
   seenMatches: [],
@@ -126,4 +130,8 @@ export const matchOffer: Match = {
   symmetricKeyEncrypted: 'TODO add symmetric key encrypted',
   symmetricKeySignature: 'TODO add symmetric key signature',
   matched: true,
+  amount: 250000,
+  unavailable: {
+    exceedsLimit: [],
+  },
 }
