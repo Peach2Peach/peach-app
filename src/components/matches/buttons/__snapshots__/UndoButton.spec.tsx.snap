@@ -109,6 +109,7 @@ exports[`UndoButton renders correctly 1`] = `
               "height": 16,
               "width": 16,
             },
+            false,
           ]
         }
       />
@@ -204,6 +205,7 @@ exports[`UndoButton renders correctly 1`] = `
             "height": 16,
             "width": 16,
           },
+          false,
         ]
       }
     />

@@ -122,6 +122,7 @@ exports[`Header should render correctly with title and icons 1`] = `
               "height": 24,
               "width": 24,
             },
+            false,
           ]
         }
       />
@@ -225,6 +226,7 @@ exports[`Header should render correctly with title and icons 1`] = `
               "height": 24,
               "width": 24,
             },
+            false,
           ]
         }
       />
@@ -281,6 +283,7 @@ exports[`Header should render correctly with title and icons 1`] = `
               "height": 24,
               "width": 24,
             },
+            false,
           ]
         }
       />

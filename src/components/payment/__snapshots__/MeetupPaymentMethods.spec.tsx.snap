@@ -61,6 +61,7 @@ exports[`MeetupPaymentMethods should render correctly when editing 1`] = `
             "width": 24,
           },
           undefined,
+          false,
         ]
       }
     />
@@ -196,6 +197,7 @@ exports[`MeetupPaymentMethods should render correctly when editing 1`] = `
                 "width": 24,
               },
               undefined,
+              false,
             ]
           }
         />
@@ -327,6 +329,7 @@ exports[`MeetupPaymentMethods should render correctly with available methods 1`]
             "width": 24,
           },
           undefined,
+          false,
         ]
       }
     />
@@ -781,6 +784,7 @@ exports[`MeetupPaymentMethods should render correctly with selected 1`] = `
             "width": 24,
           },
           undefined,
+          false,
         ]
       }
     />
@@ -919,6 +923,7 @@ exports[`MeetupPaymentMethods should render correctly with selected 1`] = `
                 "height": 20,
                 "width": 20,
               },
+              false,
             ]
           }
         />

@@ -80,6 +80,7 @@ exports[`MatchOfferButton renders correctly 1`] = `
           "marginLeft": 10,
           "width": 24,
         },
+        false,
       ]
     }
   />

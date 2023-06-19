@@ -134,6 +134,7 @@ exports[`BitcoinProducts should render correctly 1`] = `
             "marginTop": -4,
             "width": 24,
           },
+          false,
         ]
       }
     />

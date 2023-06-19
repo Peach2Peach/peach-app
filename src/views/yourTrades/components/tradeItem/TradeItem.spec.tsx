@@ -13,7 +13,7 @@ const TestWrapper = ({ children }: { children: React.ReactNode }) => (
   </QueryClientWrapper>
 )
 
-jest.mock('../../../../components/lists/StatusCard', () => ({
+jest.mock('../../../../components/statusCard', () => ({
   StatusCard: 'StatusCard',
 }))
 

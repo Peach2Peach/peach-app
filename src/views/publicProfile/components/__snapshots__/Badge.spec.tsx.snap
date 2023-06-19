@@ -40,6 +40,7 @@ exports[`Badge should render correctly 1`] = `
             "marginTop": 2,
             "width": 8,
           },
+          false,
         ]
       }
     />
@@ -117,6 +118,7 @@ exports[`Badge should render correctly if badge is unlocked 1`] = `
             "marginTop": 2,
             "width": 8,
           },
+          false,
         ]
       }
     />
@@ -194,6 +196,7 @@ exports[`Badge should render correctly with dispute active 1`] = `
             "marginTop": 2,
             "width": 8,
           },
+          false,
         ]
       }
     />

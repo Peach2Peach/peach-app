@@ -82,6 +82,7 @@ exports[`CreateAccountError should render correctly 1`] = `
             "marginTop": 64,
             "width": 128,
           },
+          false,
         ]
       }
     />

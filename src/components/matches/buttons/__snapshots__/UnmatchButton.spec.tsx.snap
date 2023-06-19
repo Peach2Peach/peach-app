@@ -90,6 +90,7 @@ exports[`UnmatchButton renders correctly 1`] = `
           "height": 16,
           "width": 16,
         },
+        false,
       ]
     }
   />
@@ -205,6 +206,7 @@ exports[`UnmatchButton should show the undo button if not yet matched 1`] = `
               "height": 16,
               "width": 16,
             },
+            false,
           ]
         }
       />
@@ -300,6 +302,7 @@ exports[`UnmatchButton should show the undo button if not yet matched 1`] = `
             "height": 16,
             "width": 16,
           },
+          false,
         ]
       }
     />
