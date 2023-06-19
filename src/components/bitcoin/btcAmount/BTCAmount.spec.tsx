@@ -1,18 +1,5 @@
 import { BTCAmount } from './BTCAmount'
-import { MixedLetterSpacingText } from './components/MixedLetterSpacingText'
 import { createRenderer } from 'react-test-renderer/shallow'
-
-describe('MixedLetterSpacingText', () => {
-  const renderer = createRenderer()
-  it('should render correctly', () => {
-    renderer.render(<MixedLetterSpacingText value={21000} style={[{ fontSize: 16 }]} isError={false} />)
-    expect(renderer.getRenderOutput()).toMatchSnapshot()
-  })
-  it('should render correctly with isError', () => {
-    renderer.render(<MixedLetterSpacingText value={21000} style={[{ fontSize: 16 }]} isError />)
-    expect(renderer.getRenderOutput()).toMatchSnapshot()
-  })
-})
 
 describe('BTCAmount', () => {
   const renderer = createRenderer()
