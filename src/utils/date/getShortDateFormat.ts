@@ -13,5 +13,5 @@ export const getShortDateFormat = (date: Date) => {
   if (date.toDateString() === yesterday.toDateString()) {
     return i18n('yesterday')
   }
-  return date.toLocaleDateString(undefined, { day: '2-digit', month: '2-digit', year: '2-digit' })
+  return date.toLocaleDateString(undefined, { day: '2-digit', month: '2-digit', year: '2-digit' }).replaceAll('/', ' / ')
 }
