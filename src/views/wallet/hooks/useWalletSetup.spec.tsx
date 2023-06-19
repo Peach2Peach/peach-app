@@ -4,19 +4,29 @@ import { settingsStore } from '../../../store/settingsStore'
 import { useWalletSetup } from './useWalletSetup'
 import { usePopupStore } from '../../../store/usePopupStore'
 import { WithdrawalConfirmation } from '../../../popups/WithdrawalConfirmation'
+import { estimatedFees } from '../../../../tests/unit/data/bitcoinNetworkData'
 
 const walletStore = {}
 const walletStateMock = jest.fn((selector, _compareFn) => selector(walletStore))
 jest.mock('../../../utils/wallet/walletStore', () => ({
   useWalletState: (selector: any, compareFn: any) => walletStateMock(selector, compareFn),
 }))
-const mockWithdrawAll = jest.fn()
+const mockWithdrawAll = jest.fn().mockResolvedValue({
+  txDetails: {
+    txId: 'txId',
+  },
+})
 jest.mock('../../../utils/wallet/setWallet', () => ({
   peachWallet: {
     transactions: [],
     withdrawAll: (...args: any) => mockWithdrawAll(...args),
     syncWallet: jest.fn().mockResolvedValue(undefined),
   },
+}))
+
+const useFeeEstimateMock = jest.fn().mockReturnValue({ estimatedFees })
+jest.mock('../../../hooks/query/useFeeEstimate', () => ({
+  useFeeEstimate: () => useFeeEstimateMock(),
 }))
 
 describe('useWalletSetup', () => {
@@ -28,9 +38,9 @@ describe('useWalletSetup', () => {
     expect(result.current.walletStore).toEqual(walletStore)
     expect(result.current.refresh).toBeInstanceOf(Function)
     expect(result.current.isRefreshing).toBeFalsy()
-    expect(result.current.onChange).toBeInstanceOf(Function)
     expect(result.current.isValid).toBeTruthy()
     expect(result.current.address).toBe('')
+    expect(result.current.setAddress).toBeInstanceOf(Function)
     expect(result.current.addressErrors).toHaveLength(0)
     expect(result.current.openWithdrawalConfirmation).toBeInstanceOf(Function)
     expect(result.current.confirmWithdrawal).toBeInstanceOf(Function)
