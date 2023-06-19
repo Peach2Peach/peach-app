@@ -1105,6 +1105,7 @@
   "wallet.loading": "chargement du portefeuille,\nun instant...",
   "wallet.openWalletApp": "ouvrir l'application de portefeuille",
   "wallet.refund": "$0",
+  "wallet.refund.long": "remboursement - $0",
   "wallet.stackedSats": "sats accumulés - $0",
   "wallet.title": "Portefeuille Peach",
   "wallet.totalBalance": "solde total",

@@ -12,7 +12,7 @@ describe('translations', () => {
   test('everything has been translated', () => {
     for (const key in en) {
       ok(isDefined(es[key]), `${key} does not exist in es`)
-      ok(isDefined(fr[key]), `${key} does not exist in es`)
+      ok(isDefined(fr[key]), `${key} does not exist in fr`)
     }
   })
   test('non existing texts has not been translated', () => {
@@ -20,7 +20,7 @@ describe('translations', () => {
       ok(isDefined(en[key]), `${key} does not exist in en`)
     }
     for (const key in fr) {
-      ok(isDefined(en[key]), `${key} does not exist in en`)
+      ok(isDefined(en[key]), `${key} does not exist in fr`)
     }
   })
 })
