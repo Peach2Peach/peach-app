@@ -35,15 +35,12 @@ export class PeachWallet extends PeachJSWallet {
 
   transactions: TransactionDetails[]
 
-  network: Network
-
   wallet: Wallet | undefined
 
   blockchain: Blockchain | undefined
 
   constructor ({ wallet, network = NETWORK, gapLimit = 25 }: PeachWalletProps) {
     super({ wallet, network, gapLimit })
-    this.network = network as Network
     this.descriptorPath = `/84'/${network === 'bitcoin' ? '0' : '1'}'/0'/0/*`
     this.balance = 0
     this.transactions = []
