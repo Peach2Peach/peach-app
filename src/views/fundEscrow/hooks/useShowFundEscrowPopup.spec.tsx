@@ -74,7 +74,7 @@ describe('useShowFundEscrowPopup', () => {
 
   it('should broadcast transaction on confirm', async () => {
     peachWallet.balance = amount
-    peachWallet.signAndBroadcastPSBT = jest.fn().mockResolvedValue(transaction)
+    peachWallet.signAndBroadcastPSBT = jest.fn().mockResolvedValue(transaction.psbt)
 
     const { result } = renderHook(useShowFundEscrowPopup, { wrapper })
 
@@ -98,7 +98,7 @@ describe('useShowFundEscrowPopup', () => {
       await promise
     })
 
-    expect(peachWallet.signAndBroadcastPSBT).toHaveBeenCalledWith(transaction)
+    expect(peachWallet.signAndBroadcastPSBT).toHaveBeenCalledWith(transaction.psbt)
     expect(usePopupStore.getState().visible).toBeFalsy()
     expect(onSuccess).toHaveBeenCalled()
   })

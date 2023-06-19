@@ -130,7 +130,7 @@ describe('useBumpNetworkFeesSetup', () => {
   it('should broadcast bump fee transaction', async () => {
     const txDetails = getTransactionDetails(bitcoinTransaction.value, newFeeRate)
     peachWallet.finishTransaction = jest.fn().mockResolvedValue(txDetails)
-    peachWallet.signAndBroadcastPSBT = jest.fn().mockResolvedValue(txDetails)
+    peachWallet.signAndBroadcastPSBT = jest.fn().mockResolvedValue(txDetails.psbt)
 
     const { result } = renderHook(useBumpNetworkFeesSetup, { wrapper })
 
@@ -151,7 +151,7 @@ describe('useBumpNetworkFeesSetup', () => {
 
     await promise
 
-    expect(peachWallet.signAndBroadcastPSBT).toHaveBeenCalledWith(txDetails)
+    expect(peachWallet.signAndBroadcastPSBT).toHaveBeenCalledWith(txDetails.psbt)
     expect(usePopupStore.getState().visible).toBeFalsy()
     expect(goBackMock).toHaveBeenCalled()
   })

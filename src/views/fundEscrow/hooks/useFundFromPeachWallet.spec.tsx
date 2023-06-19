@@ -137,7 +137,7 @@ describe('useFundFromPeachWallet', () => {
     const txDetails = getTransactionDetails(amount, feeRate)
     peachWallet.balance = amount
     peachWallet.finishTransaction = jest.fn().mockResolvedValue(txDetails)
-    peachWallet.signAndBroadcastPSBT = jest.fn().mockResolvedValue(txDetails)
+    peachWallet.signAndBroadcastPSBT = jest.fn().mockResolvedValue(txDetails.psbt)
 
     const { result } = renderHook(useFundFromPeachWallet, { initialProps })
 
@@ -161,7 +161,7 @@ describe('useFundFromPeachWallet', () => {
       await promise
     })
 
-    expect(peachWallet.signAndBroadcastPSBT).toHaveBeenCalledWith(txDetails)
+    expect(peachWallet.signAndBroadcastPSBT).toHaveBeenCalledWith(txDetails.psbt)
     expect(usePopupStore.getState().visible).toBeFalsy()
     expect(result.current.fundedFromPeachWallet).toBeTruthy()
   })
@@ -217,7 +217,7 @@ describe('useFundFromPeachWallet', () => {
       if (call === 1) throw insufficientFunds
       return txDetails
     })
-    peachWallet.signAndBroadcastPSBT = jest.fn().mockResolvedValue(txDetails)
+    peachWallet.signAndBroadcastPSBT = jest.fn().mockResolvedValue(txDetails.psbt)
 
     const { result } = renderHook(useFundFromPeachWallet, { initialProps })
 
@@ -241,7 +241,7 @@ describe('useFundFromPeachWallet', () => {
       await promise
     })
 
-    expect(peachWallet.signAndBroadcastPSBT).toHaveBeenCalledWith(txDetails)
+    expect(peachWallet.signAndBroadcastPSBT).toHaveBeenCalledWith(txDetails.psbt)
     expect(usePopupStore.getState().visible).toBeFalsy()
     expect(result.current.fundedFromPeachWallet).toBeTruthy()
   })
