@@ -10,8 +10,8 @@ describe('getTransactionDetails', () => {
     await getTransactionDetails({ txId })
     expect(fetch).toHaveBeenCalledWith('https://localhost:3000/tx/txId', {
       headers: {
-        Accept: 'text/html',
-        'Content-Type': 'text/html',
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
         Origin: 'https://localhost:8080',
         Referer: 'https://localhost:8080',
       },

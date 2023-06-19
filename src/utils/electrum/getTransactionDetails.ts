@@ -11,14 +11,10 @@ type Props = RequestProps & {
 
 export const getTransactionDetails = async ({ txId, timeout, abortSignal }: Props) => {
   const response = await fetch(`${BLOCKEXPLORER}/tx/${txId}`, {
-    headers: {
-      ...getPublicHeaders(),
-      Accept: 'text/html',
-      'Content-Type': 'text/html',
-    },
+    headers: getPublicHeaders(),
     method: 'GET',
     signal: abortSignal || (timeout ? getAbortWithTimeout(timeout).signal : undefined),
   })
 
-  return parseResponse<Transaction>(response, 'getTransactionDetails', true)
+  return parseResponse<Transaction>(response, 'getTransactionDetails', false)
 }
