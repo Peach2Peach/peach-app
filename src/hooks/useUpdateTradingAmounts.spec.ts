@@ -1,7 +1,7 @@
 import { renderHook } from '@testing-library/react-native'
 import { act } from 'react-test-renderer'
 import { useUpdateTradingAmounts } from '.'
-import { configStore } from '../store/configStore'
+import { useConfigStore } from '../store/configStore'
 import { useOfferPreferences } from '../store/offerPreferenes/useOfferPreferences'
 
 const getTradingAmountLimitsMock = jest.fn().mockReturnValue([10, 100])
@@ -15,8 +15,8 @@ describe('useUpdateTradingAmounts', () => {
     const { result: updateTradingAmounts } = renderHook(() => useUpdateTradingAmounts())
 
     act(() => {
-      configStore.getState().setMinTradingAmount(5)
-      configStore.getState().setMaxTradingAmount(400)
+      useConfigStore.getState().setMinTradingAmount(5)
+      useConfigStore.getState().setMaxTradingAmount(400)
     })
 
     act(() => {
@@ -24,8 +24,8 @@ describe('useUpdateTradingAmounts', () => {
     })
 
     expect(getTradingAmountLimitsMock).toHaveBeenCalledWith(50)
-    expect(configStore.getState().minTradingAmount).toEqual(10)
-    expect(configStore.getState().maxTradingAmount).toEqual(100)
+    expect(useConfigStore.getState().minTradingAmount).toEqual(10)
+    expect(useConfigStore.getState().maxTradingAmount).toEqual(100)
   })
   it('updates selected amounts if they fall out of range', () => {
     const { result: updateTradingAmounts } = renderHook(() => useUpdateTradingAmounts())

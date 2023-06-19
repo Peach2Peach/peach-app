@@ -1,5 +1,5 @@
 import { PAYMENTCATEGORIES, setPaymentMethods } from '../constants'
-import { configStore } from '../store/configStore'
+import { useConfigStore } from '../store/configStore'
 import { shouldUsePaymentMethod } from '../utils/paymentMethod'
 
 export const storePeachInfo = (peachInfo: GetInfoResponse) => {
@@ -9,7 +9,7 @@ export const storePeachInfo = (peachInfo: GetInfoResponse) => {
     setMinAppVersion,
     setPeachFee,
     setPeachPGPPublicKey,
-  } = configStore.getState()
+  } = useConfigStore.getState()
 
   const paymentMethods = peachInfo.paymentMethods.filter(shouldUsePaymentMethod(PAYMENTCATEGORIES))
   setPeachPGPPublicKey(peachInfo.peach.pgpPublicKey)

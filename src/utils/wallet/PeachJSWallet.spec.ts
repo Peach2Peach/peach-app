@@ -3,7 +3,7 @@ import { getError } from '../../../tests/unit/helpers/getError'
 import { PeachJSWallet } from './PeachJSWallet'
 import { createWalletFromSeedPhrase } from './createWalletFromSeedPhrase'
 import { getNetwork } from './getNetwork'
-import { walletStore } from './walletStore'
+import { useWalletState } from './walletStore'
 
 describe('PeachJSWallet', () => {
   const { wallet } = createWalletFromSeedPhrase(account1.mnemonic, getNetwork())
@@ -15,12 +15,12 @@ describe('PeachJSWallet', () => {
   })
   afterEach(() => {
     jest.clearAllMocks()
-    walletStore.getState().reset()
+    useWalletState.getState().reset()
   })
 
   it('instantiates', () => {
     const addresses = ['address1', 'address2']
-    walletStore.getState().setAddresses(addresses)
+    useWalletState.getState().setAddresses(addresses)
 
     peachJSWallet = new PeachJSWallet({ wallet })
 

@@ -1,14 +1,14 @@
-import { configStore } from './configStore'
+import { useConfigStore } from './configStore'
 
 describe('configStore', () => {
   afterEach(() => {
-    configStore.getState().reset()
+    useConfigStore.getState().reset()
   })
   it('dispute disclaimer seen state is false by default', () => {
-    expect(configStore.getState().seenDisputeDisclaimer).toBeFalsy()
+    expect(useConfigStore.getState().seenDisputeDisclaimer).toBeFalsy()
   })
   it('should set dispute disclaimer seen state', () => {
-    configStore.getState().setSeenDisputeDisclaimer(true)
-    expect(configStore.getState().seenDisputeDisclaimer).toBeTruthy()
+    useConfigStore.getState().setSeenDisputeDisclaimer(true)
+    expect(useConfigStore.getState().seenDisputeDisclaimer).toBeTruthy()
   })
 })

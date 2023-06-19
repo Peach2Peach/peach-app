@@ -2,7 +2,7 @@ import { fireEvent, render, waitFor } from '@testing-library/react-native'
 import { NavigationWrapper, pushMock } from '../../../tests/unit/helpers/NavigationWrapper'
 import { queryClient, QueryClientWrapper } from '../../../tests/unit/helpers/QueryClientWrapper'
 import { defaultState, DrawerContext } from '../../contexts/drawer'
-import { meetupEventsStore } from '../../store/meetupEventsStore'
+import { useMeetupEventsStore } from '../../store/meetupEventsStore'
 import { AddPaymentMethodButton } from './AddPaymentMethodButton'
 
 jest.mock('../../hooks/useRoute', () => ({
@@ -59,7 +59,7 @@ describe('AddPaymentMethodButton', () => {
   )
 
   beforeEach(() => {
-    meetupEventsStore.getState().setMeetupEvents([])
+    useMeetupEventsStore.getState().setMeetupEvents([])
   })
   afterEach(() => {
     queryClient.clear()
@@ -68,7 +68,7 @@ describe('AddPaymentMethodButton', () => {
   it('should render correctly', async () => {
     const { toJSON } = render(<AddPaymentMethodButton isCash={false} />, { wrapper })
     await waitFor(() => {
-      expect(meetupEventsStore.getState().meetupEvents).toEqual(mockEvents)
+      expect(useMeetupEventsStore.getState().meetupEvents).toEqual(mockEvents)
     })
     expect(toJSON()).toMatchSnapshot()
   })
@@ -76,7 +76,7 @@ describe('AddPaymentMethodButton', () => {
   it('should render correctly with isCash', async () => {
     const { toJSON } = render(<AddPaymentMethodButton isCash />, { wrapper })
     await waitFor(() => {
-      expect(meetupEventsStore.getState().meetupEvents).toEqual(mockEvents)
+      expect(useMeetupEventsStore.getState().meetupEvents).toEqual(mockEvents)
       jest.advanceTimersByTime(1000)
     })
     expect(toJSON()).toMatchSnapshot()
@@ -192,7 +192,7 @@ describe('AddPaymentMethodButton', () => {
     ])
     const { getByText } = render(<AddPaymentMethodButton isCash={true} />, { wrapper })
     await waitFor(() => {
-      expect(meetupEventsStore.getState().meetupEvents).toStrictEqual([
+      expect(useMeetupEventsStore.getState().meetupEvents).toStrictEqual([
         ...mockEvents,
         {
           id: '2',
@@ -222,7 +222,7 @@ describe('AddPaymentMethodButton', () => {
   it('should sort the meetups alphabetically', async () => {
     const { getByText } = render(<AddPaymentMethodButton isCash={true} />, { wrapper })
     await waitFor(() => {
-      expect(meetupEventsStore.getState().meetupEvents).toStrictEqual(mockEvents)
+      expect(useMeetupEventsStore.getState().meetupEvents).toStrictEqual(mockEvents)
     })
     fireEvent.press(getByText('add new cash option'))
     expect(drawer.options).toStrictEqual([
@@ -260,10 +260,10 @@ describe('AddPaymentMethodButton', () => {
       featured: true,
     }
     getMeetupEventsMock.mockResolvedValueOnce([[mockEvents[0], featuredEvent], null])
-    expect(meetupEventsStore.getState().meetupEvents).toStrictEqual([])
+    expect(useMeetupEventsStore.getState().meetupEvents).toStrictEqual([])
     const { getByText } = render(<AddPaymentMethodButton isCash={true} />, { wrapper })
     await waitFor(() => {
-      expect(meetupEventsStore.getState().meetupEvents).toStrictEqual([mockEvents[0], featuredEvent])
+      expect(useMeetupEventsStore.getState().meetupEvents).toStrictEqual([mockEvents[0], featuredEvent])
     })
     fireEvent.press(getByText('add new cash option'))
     expect(drawer.options).toStrictEqual([

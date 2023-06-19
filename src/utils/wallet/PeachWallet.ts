@@ -3,7 +3,7 @@ import { Blockchain, DatabaseConfig, Descriptor, TxBuilder, Wallet } from 'bdk-r
 import { TransactionDetails, TxBuilderResult } from 'bdk-rn/lib/classes/Bindings'
 import { AddressIndex, BlockChainNames, BlockchainEsploraConfig, KeychainKind } from 'bdk-rn/lib/lib/enums'
 import { BIP32Interface } from 'bip32'
-import { tradeSummaryStore } from '../../store/tradeSummaryStore'
+import { useTradeSummaryStore } from '../../store/tradeSummaryStore'
 import { getBuyOfferIdFromContract } from '../contract'
 import { info } from '../log'
 import { parseError } from '../result'
@@ -14,9 +14,9 @@ import { handleBroadcastError } from './error/handleBroadcastError'
 import { getAndStorePendingTransactionHex } from './getAndStorePendingTransactionHex'
 import { getDescriptorSecretKey } from './getDescriptorSecretKey'
 import { rebroadcastTransactions } from './rebroadcastTransactions'
+import { useWalletState } from './walletStore'
 import { buildDrainWalletTransaction } from './transaction/buildDrainWalletTransaction'
 import { buildTransaction } from './transaction/buildTransaction'
-import { walletStore } from './walletStore'
 
 type PeachWalletProps = {
   wallet: BIP32Interface
@@ -124,15 +124,15 @@ export class PeachWallet extends PeachJSWallet {
   }
 
   updateStore (): void {
-    walletStore.getState().setTransactions(this.transactions)
+    useWalletState.getState().setTransactions(this.transactions)
     this.transactions
-      .filter(({ txid }) => !walletStore.getState().txOfferMap[txid])
+      .filter(({ txid }) => !useWalletState.getState().txOfferMap[txid])
       .forEach(({ txid }) => {
-        const sellOffer = tradeSummaryStore.getState().offers.find((offer) => offer.txId === txid)
-        if (sellOffer?.id) return walletStore.getState().updateTxOfferMap(txid, sellOffer.id)
+        const sellOffer = useTradeSummaryStore.getState().offers.find((offer) => offer.txId === txid)
+        if (sellOffer?.id) return useWalletState.getState().updateTxOfferMap(txid, sellOffer.id)
 
-        const contract = tradeSummaryStore.getState().contracts.find((cntrct) => cntrct.releaseTxId === txid)
-        if (contract) return walletStore.getState().updateTxOfferMap(txid, getBuyOfferIdFromContract(contract))
+        const contract = useTradeSummaryStore.getState().contracts.find((cntrct) => cntrct.releaseTxId === txid)
+        if (contract) return useWalletState.getState().updateTxOfferMap(txid, getBuyOfferIdFromContract(contract))
         return null
       })
   }
@@ -143,7 +143,7 @@ export class PeachWallet extends PeachJSWallet {
     const balance = await this.wallet.getBalance()
 
     this.balance = Number(balance.total)
-    walletStore.getState().setBalance(this.balance)
+    useWalletState.getState().setBalance(this.balance)
     return this.balance
   }
 
@@ -159,7 +159,7 @@ export class PeachWallet extends PeachJSWallet {
 
     rebroadcastTransactions(toRebroadcast.map(({ txid }) => txid))
     this.transactions = this.transactions.filter(
-      (tx) => tx.confirmationTime || walletStore.getState().pendingTransactions[tx.txid],
+      (tx) => tx.confirmationTime || useWalletState.getState().pendingTransactions[tx.txid],
     )
     this.updateStore()
 
@@ -213,15 +213,15 @@ export class PeachWallet extends PeachJSWallet {
   }
 
   loadWalletStore (): void {
-    this.transactions = walletStore.getState().transactions
-    this.balance = walletStore.getState().balance
+    this.transactions = useWalletState.getState().transactions
+    this.balance = useWalletState.getState().balance
   }
 
   loadFromStorage (): void {
-    if (walletStore.persist.hasHydrated()) {
+    if (useWalletState.persist.hasHydrated()) {
       this.loadWalletStore()
     } else {
-      walletStore.persist.onFinishHydration(() => {
+      useWalletState.persist.onFinishHydration(() => {
         this.loadWalletStore()
       })
     }

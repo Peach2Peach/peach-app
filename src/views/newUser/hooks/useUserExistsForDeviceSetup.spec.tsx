@@ -32,7 +32,7 @@ describe('useUserExistsForDeviceSetup', () => {
     result.current.goToRestoreReputation()
     expect(navigateMock).toHaveBeenCalledWith('restoreReputation', {})
   })
-  it('should navigate to restore reputation with params if set', async () => {
+  it('should navigate to restore reputation with params if set', () => {
     const params = { referralCode: 'REFERRALCODE' }
     useRouteMock.mockReturnValueOnce({ params })
     const { result } = renderHook(useUserExistsForDeviceSetup, { wrapper: NavigationWrapper })

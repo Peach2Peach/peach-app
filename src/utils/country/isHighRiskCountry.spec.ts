@@ -19,7 +19,6 @@ describe('isHighRiskCountry', () => {
     expect(isHighRiskCountry('CH')).toEqual(false)
   })
   it('returns true if a country is unknown', () => {
-    // @ts-expect-error
     expect(isHighRiskCountry('XX')).toEqual(true)
   })
   it('returns true if a country is undefined', () => {

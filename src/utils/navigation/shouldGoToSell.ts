@@ -1,4 +1,1 @@
-import { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
-
-export const shouldGoToSell = (remoteMessage: FirebaseMessagingTypes.RemoteMessage & { data: PNData }) =>
-  !!remoteMessage.data.offerId && remoteMessage.data.type === 'offer.notFunded'
+export const shouldGoToSell = ({ data: { offerId, type } }: { data: PNData }) => !!offerId && type === 'offer.notFunded'
