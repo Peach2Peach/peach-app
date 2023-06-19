@@ -12,9 +12,7 @@ jest.mock('../../../utils/wallet/walletStore', () => ({
   useWalletState: (selector: any, compareFn: any) => walletStateMock(selector, compareFn),
 }))
 const mockWithdrawAll = jest.fn().mockResolvedValue({
-  txDetails: {
-    txId: 'txId',
-  },
+  txid: () => 'txId',
 })
 jest.mock('../../../utils/wallet/setWallet', () => ({
   peachWallet: {

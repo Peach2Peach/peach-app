@@ -44,7 +44,7 @@ export const useWalletSetup = (syncOnLoad = true) => {
 
     try {
       const result = await peachWallet.withdrawAll(address, feeRate)
-      if (result.txDetails.txid) setAddress('')
+      if (await result.txid()) setAddress('')
     } catch (e) {
       handleBroadcastError(e)
     }
