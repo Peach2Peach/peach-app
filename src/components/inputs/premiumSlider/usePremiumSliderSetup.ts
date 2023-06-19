@@ -62,6 +62,7 @@ export const usePremiumSliderSetup = () => {
   }, [isSliding, pan, trackWidth, premium])
 
   const onLayout = (event: LayoutChangeEvent) => {
+    if (!event.nativeEvent.layout.width) return
     const newTrackWidth = event.nativeEvent.layout.width - KNOBWIDTH
 
     setTrackWidth(newTrackWidth)
