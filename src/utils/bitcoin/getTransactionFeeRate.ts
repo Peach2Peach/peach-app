@@ -1,4 +1,4 @@
-import { round } from '../math'
+import { ceil } from '../math'
 
 export const getTransactionFeeRate = (transaction: Transaction) =>
-  Math.max(1, round((transaction.fee || 0) / (transaction.weight / 4), 2))
+  Math.max(1, ceil((transaction.fee || 0) / (transaction.weight / 4), 2))
