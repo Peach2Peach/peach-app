@@ -8,13 +8,12 @@ exports[`FundEscrow should render the FundEscrow view 1`] = `
     }
   }
 >
-  <PeachScrollView
+  <ForwardRef
     contentContainerStyle={
       {
-        "paddingBottom": 16,
+        "justifyContent": "center",
         "paddingLeft": 28,
         "paddingRight": 28,
-        "paddingTop": 16,
       }
     }
     style={
@@ -28,6 +27,7 @@ exports[`FundEscrow should render the FundEscrow view 1`] = `
       style={
         {
           "flexShrink": 1,
+          "gap": 16,
           "height": "100%",
         }
       }
@@ -55,8 +55,14 @@ exports[`FundEscrow should render the FundEscrow view 1`] = `
           send
            
         </PeachText>
-        <FundingSatsFormat
-          sats={100000}
+        <BTCAmount
+          amount={100000}
+          size="medium"
+          style={
+            {
+              "marginTop": -2,
+            }
+          }
         />
         <PeachText
           style={
@@ -74,24 +80,23 @@ exports[`FundEscrow should render the FundEscrow view 1`] = `
         </PeachText>
       </View>
       <BitcoinAddress
-        address="123"
+        address="bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh"
         amount={0.001}
-        label="Peach Escrow - offer P‑7B"
-        style={
-          {
-            "marginTop": 16,
-          }
-        }
+        label="Peach Escrow - offer P‑26"
       />
     </View>
-  </PeachScrollView>
+  </ForwardRef>
   <View
     style={
       {
         "alignItems": "center",
         "display": "flex",
-        "marginBottom": 16,
-        "marginTop": 16,
+        "gap": 16,
+        "justifyContent": "center",
+        "paddingBottom": 16,
+        "paddingLeft": 16,
+        "paddingRight": 16,
+        "paddingTop": 16,
         "width": "100%",
       }
     }
@@ -103,10 +108,6 @@ exports[`FundEscrow should render the FundEscrow view 1`] = `
           "flexDirection": "row",
           "gap": 8,
           "justifyContent": "center",
-          "paddingBottom": 8,
-          "paddingLeft": 24,
-          "paddingRight": 24,
-          "paddingTop": 8,
         }
       }
     >
@@ -134,8 +135,16 @@ exports[`FundEscrow should render the FundEscrow view 1`] = `
         }
       />
     </View>
+    <Divider />
+    <PrimaryButton
+      border={true}
+      iconId="sell"
+      onPress={[MockFunction]}
+      testID="escrow-fund"
+    >
+      fund from peach wallet
+    </PrimaryButton>
   </View>
-  <DailyTradingLimit />
 </View>
 `;
 
@@ -155,4 +164,163 @@ one sec..."
 
 exports[`FundEscrow should show NoEscrowFound, if no there is an error while creating escrow 1`] = `<NoEscrowFound />`;
 
-exports[`FundEscrow should show TransactionInMempool, if fundingStatus is MEMPOOL 1`] = `<TransactionInMempool />`;
+exports[`FundEscrow should show TransactionInMempool, if fundingStatus is MEMPOOL 1`] = `
+<TransactionInMempool
+  txId="txId"
+/>
+`;
+
+exports[`FundEscrow should show funded from peach wallet, if funded from peach wallet 1`] = `
+<View
+  style={
+    {
+      "height": "100%",
+    }
+  }
+>
+  <ForwardRef
+    contentContainerStyle={
+      {
+        "justifyContent": "center",
+        "paddingLeft": 28,
+        "paddingRight": 28,
+      }
+    }
+    style={
+      {
+        "flexShrink": 1,
+        "height": "100%",
+      }
+    }
+  >
+    <View
+      style={
+        {
+          "flexShrink": 1,
+          "gap": 16,
+          "height": "100%",
+        }
+      }
+    >
+      <View
+        style={
+          {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "justifyContent": "center",
+          }
+        }
+      >
+        <PeachText
+          style={
+            {
+              "fontFamily": "Baloo2-SemiBold",
+              "fontSize": 20,
+              "letterSpacing": 0.2,
+              "lineHeight": 32,
+              "textTransform": "lowercase",
+            }
+          }
+        >
+          send
+           
+        </PeachText>
+        <BTCAmount
+          amount={100000}
+          size="medium"
+          style={
+            {
+              "marginTop": -2,
+            }
+          }
+        />
+        <PeachText
+          style={
+            {
+              "fontFamily": "Baloo2-SemiBold",
+              "fontSize": 20,
+              "letterSpacing": 0.2,
+              "lineHeight": 32,
+              "textTransform": "lowercase",
+            }
+          }
+        >
+           
+          to:
+        </PeachText>
+      </View>
+      <BitcoinAddress
+        address="bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh"
+        amount={0.001}
+        label="Peach Escrow - offer P‑26"
+      />
+    </View>
+  </ForwardRef>
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "display": "flex",
+        "gap": 16,
+        "justifyContent": "center",
+        "paddingBottom": 16,
+        "paddingLeft": 16,
+        "paddingRight": 16,
+        "paddingTop": 16,
+        "width": "100%",
+      }
+    }
+  >
+    <View
+      style={
+        {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "gap": 8,
+          "justifyContent": "center",
+        }
+      }
+    >
+      <PeachText
+        style={
+          {
+            "color": "#F56522",
+            "fontFamily": "Baloo2-SemiBold",
+            "fontSize": 14,
+            "letterSpacing": 0.5,
+            "lineHeight": 24,
+            "textTransform": "uppercase",
+          }
+        }
+      >
+        checking funding status
+      </PeachText>
+      <Loading
+        color="#F56522"
+        style={
+          {
+            "height": 20,
+            "width": 20,
+          }
+        }
+      />
+    </View>
+    <Divider />
+    <TradeInfo
+      IconComponent={
+        <Icon
+          color="#05A85A"
+          id="checkCircle"
+          style={
+            {
+              "height": 16,
+              "width": 16,
+            }
+          }
+        />
+      }
+      text="funded from peach wallet"
+    />
+  </View>
+</View>
+`;

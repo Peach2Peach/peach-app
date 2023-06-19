@@ -1,25 +1,22 @@
-/* eslint-disable max-lines */
 import { BLOCKEXPLORER, NETWORK } from '@env'
-import { Address, Blockchain, DatabaseConfig, Descriptor, TxBuilder, Wallet } from 'bdk-rn'
-import { TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
-import { AddressIndex, BlockChainNames, BlockchainEsploraConfig, KeychainKind, Network } from 'bdk-rn/lib/lib/enums'
+import { Blockchain, DatabaseConfig, Descriptor, TxBuilder, Wallet } from 'bdk-rn'
+import { TransactionDetails, TxBuilderResult } from 'bdk-rn/lib/classes/Bindings'
+import { AddressIndex, BlockChainNames, BlockchainEsploraConfig, KeychainKind } from 'bdk-rn/lib/lib/enums'
 import { BIP32Interface } from 'bip32'
-import { payments } from 'bitcoinjs-lib'
-import { sign } from 'bitcoinjs-message'
 import { useTradeSummaryStore } from '../../store/tradeSummaryStore'
 import { getBuyOfferIdFromContract } from '../contract'
 import { info } from '../log'
 import { parseError } from '../result'
-import { isPending } from '../transaction'
-import { findTransactionsToRebroadcast } from '../transaction/findTransactionsToRebroadcast'
-import { mergeTransactionList } from '../transaction/mergeTransactionList'
+import { findTransactionsToRebroadcast, isPending, mergeTransactionList } from '../transaction'
 import { callWhenInternet } from '../web'
+import { PeachJSWallet } from './PeachJSWallet'
 import { handleBroadcastError } from './error/handleBroadcastError'
 import { getAndStorePendingTransactionHex } from './getAndStorePendingTransactionHex'
 import { getDescriptorSecretKey } from './getDescriptorSecretKey'
-import { getNetwork } from './getNetwork'
 import { rebroadcastTransactions } from './rebroadcastTransactions'
 import { useWalletState } from './walletStore'
+import { buildDrainWalletTransaction } from './transaction/buildDrainWalletTransaction'
+import { buildTransaction } from './transaction/buildTransaction'
 
 type PeachWalletProps = {
   wallet: BIP32Interface
@@ -27,12 +24,12 @@ type PeachWalletProps = {
   gapLimit?: number
 }
 
-export class PeachWallet {
+export class PeachWallet extends PeachJSWallet {
   initialized: boolean
 
   synced: boolean
 
-  derivationPath: string
+  syncInProgress: Promise<void> | undefined
 
   descriptorPath: string
 
@@ -40,29 +37,18 @@ export class PeachWallet {
 
   transactions: TransactionDetails[]
 
-  network: Network
-
   wallet: Wallet | undefined
-
-  jsWallet: BIP32Interface
 
   blockchain: Blockchain | undefined
 
-  gapLimit: number
-
-  addresses: string[]
-
   constructor ({ wallet, network = NETWORK, gapLimit = 25 }: PeachWalletProps) {
-    this.network = network as Network
-    this.gapLimit = gapLimit
-    this.jsWallet = wallet
-    this.addresses = []
-    this.derivationPath = `m/84\'/${network === 'bitcoin' ? '0' : '1'}\'/0\'`
-    this.descriptorPath = `/84\'/${network === 'bitcoin' ? '0' : '1'}\'/0\'/0/*`
+    super({ wallet, network, gapLimit })
+    this.descriptorPath = `/84'/${network === 'bitcoin' ? '0' : '1'}'/0'/0/*`
     this.balance = 0
     this.transactions = []
     this.initialized = false
     this.synced = false
+    this.syncInProgress = undefined
   }
 
   loadWallet (seedphrase?: string): Promise<void> {
@@ -112,7 +98,9 @@ export class PeachWallet {
   }
 
   syncWallet (): Promise<void> {
-    return new Promise((resolve, reject) =>
+    if (this.syncInProgress) return this.syncInProgress
+
+    this.syncInProgress = new Promise((resolve, reject) =>
       callWhenInternet(async () => {
         if (!this.wallet || !this.blockchain) return reject(new Error('WALLET_NOT_READY'))
 
@@ -126,9 +114,13 @@ export class PeachWallet {
           this.synced = true
           info('PeachWallet - syncWallet - synced')
         }
+
+        this.syncInProgress = undefined
+
         return resolve()
       }),
     )
+    return this.syncInProgress
   }
 
   updateStore (): void {
@@ -165,7 +157,7 @@ export class PeachWallet {
     const pending = this.transactions.filter(isPending)
     await Promise.all(pending.map(({ txid }) => getAndStorePendingTransactionHex(txid)))
 
-    await rebroadcastTransactions(toRebroadcast.map(({ txid }) => txid))
+    rebroadcastTransactions(toRebroadcast.map(({ txid }) => txid))
     this.transactions = this.transactions.filter(
       (tx) => tx.confirmationTime || useWalletState.getState().pendingTransactions[tx.txid],
     )
@@ -183,61 +175,44 @@ export class PeachWallet {
     return result
   }
 
-  async withdrawAll (address: string, feeRate?: number): Promise<string | null> {
+  async withdrawAll (address: string, feeRate?: number) {
     if (!this.wallet || !this.blockchain) throw Error('WALLET_NOT_READY')
     info('PeachWallet - withdrawAll - start')
-    try {
-      const txBuilder = await new TxBuilder().create()
-      if (feeRate) await txBuilder.feeRate(feeRate)
-      await txBuilder.enableRbf()
-      const recipientAddress = await new Address().create(address)
-      await txBuilder.drainWallet()
-      await txBuilder.drainTo(await recipientAddress.scriptPubKey())
-
-      const result = await txBuilder.finish(this.wallet)
-      const signedPSBT = await this.wallet.sign(result.psbt)
-
-      this.blockchain.broadcast(await signedPSBT.extractTx())
-      this.syncWallet()
-
-      info('PeachWallet - withdrawAll - end')
-
-      return result.txDetails.txid
-    } catch (e) {
-      throw handleBroadcastError(parseError(e))
-    }
+    const drainWalletTransaction = await buildDrainWalletTransaction(address, feeRate)
+    return this.signAndBroadcastTransaction(await this.finishTransaction(drainWalletTransaction))
   }
 
-  async sendTo (address: string, amount: number, feeRate?: number): Promise<string | null> {
+  async sendTo (address: string, amount: number, feeRate?: number) {
     if (!this.wallet || !this.blockchain) throw Error('WALLET_NOT_READY')
     info('PeachWallet - sendTo - start')
-    try {
-      const txBuilder = await new TxBuilder().create()
-      if (feeRate) await txBuilder.feeRate(feeRate)
-      await txBuilder.enableRbf()
-      const recipientAddress = await new Address().create(address)
-      await txBuilder.addRecipient(await recipientAddress.scriptPubKey(), amount)
+    const transaction = await buildTransaction(address, amount, feeRate)
+    return this.signAndBroadcastTransaction(await this.finishTransaction(transaction))
+  }
 
-      const result = await txBuilder.finish(this.wallet)
-      const signedPSBT = await this.wallet.sign(result.psbt)
+  finishTransaction (transaction: TxBuilder) {
+    if (!this.wallet || !this.blockchain) throw Error('WALLET_NOT_READY')
+    info('PeachWallet - finishTransaction - start')
+    return transaction.finish(this.wallet)
+  }
+
+  async signAndBroadcastTransaction (transaction: TxBuilderResult) {
+    if (!this.wallet || !this.blockchain) throw Error('WALLET_NOT_READY')
+    info('PeachWallet - signAndBroadcastTransaction - start')
+    try {
+      const signedPSBT = await this.wallet.sign(transaction.psbt)
 
       this.blockchain.broadcast(await signedPSBT.extractTx())
       this.syncWallet()
 
-      info('PeachWallet - sendTo - end')
+      info('PeachWallet - signAndBroadcastTransaction - end')
 
-      return result.txDetails.txid
+      return transaction
     } catch (e) {
       throw handleBroadcastError(parseError(e))
     }
-  }
-
-  getKeyPair (index: number): BIP32Interface {
-    return this.jsWallet.derivePath(`${this.derivationPath}/0/${index}`)
   }
 
   loadWalletStore (): void {
-    this.addresses = useWalletState.getState().addresses
     this.transactions = useWalletState.getState().transactions
     this.balance = useWalletState.getState().balance
   }
@@ -250,51 +225,5 @@ export class PeachWallet {
         this.loadWalletStore()
       })
     }
-  }
-
-  getAddress (index: number): string | undefined {
-    info('PeachWallet - getAddress', index)
-
-    if (this.addresses[index]) return this.addresses[index]
-
-    const keyPair = this.getKeyPair(index)
-    const p2wpkh = payments.p2wpkh({
-      network: getNetwork(),
-      pubkey: keyPair.publicKey,
-    })
-
-    if (p2wpkh.address) this.addresses[index] = p2wpkh.address
-
-    return p2wpkh.address
-  }
-
-  findKeyPairByAddress (address: string): BIP32Interface | null {
-    info('PeachWallet - findKeyPairByAddress - start')
-
-    const limit = this.addresses.length + this.gapLimit
-    for (let i = 0; i <= limit; i++) {
-      info('PeachWallet - findKeyPairByAddress - scanning', i)
-
-      const candidate = this.getAddress(i)
-      if (address === candidate) {
-        useWalletState.getState().setAddresses(this.addresses)
-        return this.getKeyPair(i)
-      }
-    }
-
-    useWalletState.getState().setAddresses(this.addresses)
-    return null
-  }
-
-  signMessage (message: string, address: string, index?: number): string {
-    info('PeachWallet - signMessage - start')
-
-    const keyPair = index ? this.getKeyPair(index) : this.findKeyPairByAddress(address)
-    if (!keyPair?.privateKey) throw Error('Address not part of wallet')
-    const signature = sign(message, keyPair.privateKey, true)
-
-    info('PeachWallet - signMessage - end')
-
-    return signature.toString('base64')
   }
 }

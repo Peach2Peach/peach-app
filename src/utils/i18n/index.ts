@@ -3,10 +3,12 @@ import de_CH from '../../i18n/de-CH/text.json'
 import de from '../../i18n/de/text.json'
 import en from '../../i18n/en/text.json'
 import es from '../../i18n/es/text.json'
+import fr from '../../i18n/fr/text.json'
 
 const localeMapping: Record<string, Record<string, string>> = {
   en,
   es,
+  fr,
   de,
   'de-CH': de_CH,
 }
@@ -18,7 +20,7 @@ type LanguageState = {
 export const languageState: LanguageState = {
   locale: 'en',
 }
-export const locales = ['en', 'es']
+export const locales = ['en', 'es', 'fr']
 export const setLocaleQuiet = (lcl: Locale) => {
   if (!localeMapping[lcl]) lcl = 'en'
   languageState.locale = lcl

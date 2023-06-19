@@ -18,7 +18,7 @@ exports[`BuySummary should render correctly when publishing 1`] = `
     ]
   }
 >
-  <PeachScrollView
+  <ForwardRef
     contentContainerStyle={
       {
         "flexGrow": 1,
@@ -27,7 +27,7 @@ exports[`BuySummary should render correctly when publishing 1`] = `
     }
   >
     <BuyOfferSummary />
-  </PeachScrollView>
+  </ForwardRef>
   <PrimaryButton
     loading={true}
     narrow={true}
@@ -63,7 +63,7 @@ exports[`BuySummary should render correctly while peach wallet is still signing 
     ]
   }
 >
-  <PeachScrollView
+  <ForwardRef
     contentContainerStyle={
       {
         "flexGrow": 1,
@@ -72,7 +72,7 @@ exports[`BuySummary should render correctly while peach wallet is still signing 
     }
   >
     <BuyOfferSummary />
-  </PeachScrollView>
+  </ForwardRef>
   <PrimaryButton
     loading={false}
     narrow={true}
@@ -108,7 +108,7 @@ exports[`BuySummary should render correctly with custom payout wallet and signat
     ]
   }
 >
-  <PeachScrollView
+  <ForwardRef
     contentContainerStyle={
       {
         "flexGrow": 1,
@@ -117,7 +117,7 @@ exports[`BuySummary should render correctly with custom payout wallet and signat
     }
   >
     <BuyOfferSummary />
-  </PeachScrollView>
+  </ForwardRef>
   <PrimaryButton
     loading={false}
     narrow={true}
@@ -153,7 +153,7 @@ exports[`BuySummary should render the BuySummary view 1`] = `
     ]
   }
 >
-  <PeachScrollView
+  <ForwardRef
     contentContainerStyle={
       {
         "flexGrow": 1,
@@ -162,7 +162,7 @@ exports[`BuySummary should render the BuySummary view 1`] = `
     }
   >
     <BuyOfferSummary />
-  </PeachScrollView>
+  </ForwardRef>
   <PrimaryButton
     loading={false}
     narrow={true}

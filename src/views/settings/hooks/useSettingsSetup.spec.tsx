@@ -18,8 +18,9 @@ describe('useSettingsSetup', () => {
       useSettingsStore.getState().reset()
     })
   })
-  it('returns default settings items', () => {
+  it('returns default settings items', async () => {
     const { result } = renderHook(useSettingsSetup, { wrapper })
+    await waitFor(() => expect(checkNotificationStatusMock).toHaveBeenCalled())
     expect(result.current).toEqual([
       {
         items: [{ title: 'testView' }, { title: 'contact' }, { title: 'aboutPeach' }],
@@ -46,9 +47,10 @@ describe('useSettingsSetup', () => {
       },
     ])
   })
-  it('returns shows analytics as active if it is', () => {
+  it('returns shows analytics as active if it is', async () => {
     useSettingsStore.getState().setEnableAnalytics(true)
     const { result } = renderHook(useSettingsSetup, { wrapper })
+    await waitFor(() => expect(checkNotificationStatusMock).toHaveBeenCalled())
     expect(result.current[2].items).toEqual([
       { enabled: true, iconId: 'toggleRight', onPress: expect.any(Function), title: 'analytics' },
       { onPress: expect.any(Function), title: 'notifications' },
@@ -57,9 +59,10 @@ describe('useSettingsSetup', () => {
       { title: 'language' },
     ])
   })
-  it('does not highlight backups if backup reminder is not active', () => {
+  it('does not highlight backups if backup reminder is not active', async () => {
     useSettingsStore.getState().setShowBackupReminder(false)
     const { result } = renderHook(useSettingsSetup, { wrapper })
+    await waitFor(() => expect(checkNotificationStatusMock).toHaveBeenCalled())
     expect(result.current[1].items).toEqual([
       { title: 'myProfile' },
       { title: 'referrals' },
@@ -68,9 +71,10 @@ describe('useSettingsSetup', () => {
       { title: 'paymentMethods' },
     ])
   })
-  it('does highlight backups if backup reminder is  active', () => {
+  it('does highlight backups if backup reminder is  active', async () => {
     useSettingsStore.getState().setShowBackupReminder(true)
     const { result } = renderHook(useSettingsSetup, { wrapper })
+    await waitFor(() => expect(checkNotificationStatusMock).toHaveBeenCalled())
     expect(result.current[1].items).toEqual([
       { title: 'myProfile' },
       { title: 'referrals' },

@@ -6,7 +6,7 @@ import { HorizontalLine } from './ui'
 type Props =
   | ComponentProps & {
       type?: 'heavy' | 'light' | 'error'
-      text: string
+      text?: string
       style?: StyleProp<ViewStyle>
     } & (
         | { align?: 'left'; icon?: JSX.Element; iconAlign?: 'left' | 'right' }
@@ -17,17 +17,19 @@ export const Divider = ({ type = 'light', align = 'left', icon, iconAlign = 'lef
   <View style={[tw`flex-row items-center`, style]}>
     {!!icon && iconAlign === 'left' && icon}
     {align === 'center' && <HorizontalLine style={[tw`flex-grow`, type === 'error' && tw`bg-error-mild`]} />}
-    <Text
-      style={[
-        tw`mr-2 text-black-2`,
-        align === 'center' && tw`mx-2`,
-        tw.md`body-l leading-normal`,
-        type === 'error' && tw`text-error-main`,
-        type === 'heavy' && [tw`h7 text-black-1`, tw.md`h6`],
-      ]}
-    >
-      {text}
-    </Text>
+    {!!text && (
+      <Text
+        style={[
+          tw`mr-2 text-black-2`,
+          align === 'center' && tw`mx-2`,
+          tw.md`body-l leading-normal`,
+          type === 'error' && tw`text-error-main`,
+          type === 'heavy' && [tw`h7 text-black-1`, tw.md`h6`],
+        ]}
+      >
+        {text}
+      </Text>
+    )}
     <HorizontalLine style={[tw`flex-grow`, type === 'error' && tw`bg-error-mild`]} />
     {!!icon && iconAlign === 'right' && icon}
   </View>

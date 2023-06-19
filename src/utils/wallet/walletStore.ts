@@ -38,9 +38,9 @@ export const useWalletState = create(
     (set, get) => ({
       ...defaultWalletState,
       reset: () => set(() => defaultWalletState),
-      setAddresses: (addresses) => set((state) => ({ ...state, addresses })),
-      setBalance: (balance) => set((state) => ({ ...state, balance })),
-      setTransactions: (transactions) => set((state) => ({ ...state, transactions })),
+      setAddresses: (addresses) => set({ addresses }),
+      setBalance: (balance) => set({ balance }),
+      setTransactions: (transactions) => set({ transactions }),
       getTransaction: (txId) => get().transactions.find((tx) => tx.txid === txId),
       addPendingTransactionHex: (txid, hex) =>
         set((state) => ({ pendingTransactions: { ...state.pendingTransactions, [txid]: hex } })),
@@ -51,7 +51,6 @@ export const useWalletState = create(
       },
       updateTxOfferMap: (txId: string, offerId: string) =>
         set((state) => ({
-          ...state,
           txOfferMap: {
             ...state.txOfferMap,
             [txId]: offerId,

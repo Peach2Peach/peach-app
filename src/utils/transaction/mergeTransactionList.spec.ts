@@ -17,10 +17,7 @@ describe('mergeTransactionList', () => {
     { txid: 'txid3', sent: 3, received: 3, fee: 3 },
     { txid: 'txid2', sent: 2, received: 2, fee: 2 },
   ]
-  it('should overwrite confirmed transactions', () => {
-    expect(mergeTransactionList(old, update)).toEqual(expected)
-  })
-  it('merge pending transactions and remove those that are confirmed', () => {
+  it('should overwrite confirmed transactions and merge pending transactions', () => {
     expect(mergeTransactionList(old, update)).toEqual(expected)
   })
 })

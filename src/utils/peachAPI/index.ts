@@ -51,5 +51,3 @@ export {
   raiseDispute,
   extendPaymentTimer,
 } from './private/contract'
-
-export { fundEscrow, generateBlock } from './regtest'
