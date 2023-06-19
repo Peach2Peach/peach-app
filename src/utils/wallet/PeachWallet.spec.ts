@@ -6,22 +6,20 @@ import { PartiallySignedTransaction, Transaction, TxBuilder } from 'bdk-rn'
 import { TransactionDetails, TxBuilderResult } from 'bdk-rn/lib/classes/Bindings'
 import { AddressIndex } from 'bdk-rn/lib/lib/enums'
 import { account1 } from '../../../tests/unit/data/accountData'
+import { insufficientFunds } from '../../../tests/unit/data/errors'
 import { confirmed1, confirmed2, pending1, pending2, pending3 } from '../../../tests/unit/data/transactionDetailData'
 import { getError } from '../../../tests/unit/helpers/getError'
 import {
   blockChainCreateMock,
   blockchainBroadcastMock,
-  walletGetAddressMock,
   mnemonicFromStringMock,
   psbtExtractTxMock,
   txBuilderFinishMock,
+  walletGetAddressMock,
   walletGetBalanceMock,
   walletListTransactionsMock,
   walletSignMock,
   walletSyncMock,
-  bumpFeeTxBuilderCreateMock,
-  bumpFeeTxBuilderFinishMock,
-  bumpFeeTxBuilderEnableRbfMock,
 } from '../../../tests/unit/mocks/bdkRN'
 import { tradeSummaryStore } from '../../store/tradeSummaryStore'
 import { PeachWallet } from './PeachWallet'
@@ -133,7 +131,6 @@ describe('PeachWallet', () => {
 
     expect(error.message).toBe('WALLET_NOT_READY')
   })
-
   it('overwrites confirmed and merges pending transactions', async () => {
     peachWallet.transactions = [
       { txid: 'txid1', sent: 1, received: 1, fee: 1, confirmationTime: { timestamp: 1, height: 1 } },
@@ -270,48 +267,6 @@ describe('PeachWallet', () => {
     expect(withdrawResult).toEqual(result.psbt)
   })
 
-  it('sends bitcoin to an address', async () => {
-    const address = 'address'
-    const amount = 100000
-    const feeRate = 10
-    const result: TxBuilderResult = {
-      psbt: new PartiallySignedTransaction('base64'),
-      txDetails: pending1,
-    }
-    const transaction = await new Transaction().create([])
-    const txBuilder = await new TxBuilder().create()
-
-    buildTransactionMock.mockResolvedValueOnce(txBuilder)
-    txBuilderFinishMock.mockResolvedValueOnce(result)
-    walletSignMock.mockResolvedValueOnce(result.psbt)
-    psbtExtractTxMock.mockResolvedValueOnce(transaction)
-    const sendToResult = await peachWallet.sendTo(address, amount, feeRate)
-    expect(buildTransactionMock).toHaveBeenCalledWith(address, amount, feeRate)
-    expect(txBuilderFinishMock).toHaveBeenCalledWith(peachWallet.wallet)
-    expect(walletSignMock).toHaveBeenCalledWith(result.psbt)
-    expect(blockchainBroadcastMock).toHaveBeenCalledWith(transaction)
-    expect(sendToResult).toEqual(result.psbt)
-  })
-
-  it('bumps fees of a transaction', async () => {
-    const feeRate = 20
-    const result = new PartiallySignedTransaction('base64')
-    const transaction = await new Transaction().create([])
-    const txBuilder = await new TxBuilder().create()
-
-    buildTransactionMock.mockResolvedValueOnce(txBuilder)
-    bumpFeeTxBuilderFinishMock.mockResolvedValueOnce(result)
-    walletSignMock.mockResolvedValueOnce(result)
-    psbtExtractTxMock.mockResolvedValueOnce(transaction)
-    const bumpFeeResult = await peachWallet.bumpFee(pending1.txid, feeRate)
-    expect(bumpFeeTxBuilderCreateMock).toHaveBeenCalledWith(pending1.txid, feeRate)
-    expect(bumpFeeTxBuilderEnableRbfMock).toHaveBeenCalled()
-    expect(bumpFeeTxBuilderFinishMock).toHaveBeenCalledWith(peachWallet.wallet)
-    expect(walletSignMock).toHaveBeenCalledWith(result)
-    expect(blockchainBroadcastMock).toHaveBeenCalledWith(transaction)
-    expect(bumpFeeResult).toEqual(result)
-  })
-
   it('signs and broadcast a transaction', async () => {
     const result: TxBuilderResult = {
       psbt: new PartiallySignedTransaction('base64'),
@@ -338,10 +293,41 @@ describe('PeachWallet', () => {
     expect(txBuilderFinishMock).toHaveBeenCalledWith(peachWallet.wallet)
     expect(signAndSendResult).toEqual(result)
   })
-
   it('throws error when trying to withdraw before wallet is ready', async () => {
     peachWallet.wallet = undefined
     const error = await getError<Error>(() => peachWallet.withdrawAll('address', 1))
     expect(error.message).toBe('WALLET_NOT_READY')
+  })
+  it('throws error when trying to broadcast before wallet is ready', async () => {
+    peachWallet.wallet = undefined
+    const error = await getError<Error>(() => peachWallet.signAndBroadcastPSBT(new PartiallySignedTransaction('base64')))
+    expect(error.message).toBe('WALLET_NOT_READY')
+  })
+  it('handles broadcast errors', async () => {
+    const result: TxBuilderResult = {
+      psbt: new PartiallySignedTransaction('base64'),
+      txDetails: pending1,
+    }
+    const transaction = await new Transaction().create([])
+
+    walletSignMock.mockResolvedValueOnce(result.psbt)
+    psbtExtractTxMock.mockResolvedValueOnce(transaction)
+    blockchainBroadcastMock.mockImplementation(() => {
+      throw insufficientFunds
+    })
+    const error = await getError<Error>(() => peachWallet.signAndBroadcastPSBT(result.psbt))
+    expect(error).toEqual([new Error('INSUFFICIENT_FUNDS'), { available: '1089000', needed: '78999997952' }])
+  })
+  it('throws error when trying to finish transaction before wallet is ready', async () => {
+    peachWallet.wallet = undefined
+    const error = await getError<Error>(() => peachWallet.finishTransaction(new TxBuilder()))
+    expect(error.message).toBe('WALLET_NOT_READY')
+  })
+  it('handles finish transaction errors', async () => {
+    txBuilderFinishMock.mockImplementationOnce(() => {
+      throw insufficientFunds
+    })
+    const error = await getError<Error>(() => peachWallet.finishTransaction(new TxBuilder()))
+    expect(error).toEqual([new Error('INSUFFICIENT_FUNDS'), { available: '1089000', needed: '78999997952' }])
   })
 })

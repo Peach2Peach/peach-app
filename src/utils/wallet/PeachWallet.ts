@@ -1,9 +1,16 @@
 import { BLOCKEXPLORER, NETWORK } from '@env'
-import { Blockchain, DatabaseConfig, Descriptor, TxBuilder, Wallet } from 'bdk-rn'
-import { PartiallySignedTransaction, TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
+import {
+  Blockchain,
+  BumpFeeTxBuilder,
+  DatabaseConfig,
+  Descriptor,
+  PartiallySignedTransaction,
+  TxBuilder,
+  Wallet,
+} from 'bdk-rn'
+import { TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
 import { AddressIndex, BlockChainNames, BlockchainEsploraConfig, KeychainKind, Network } from 'bdk-rn/lib/lib/enums'
 import { BIP32Interface } from 'bip32'
-import { BumpFeeTxBuilder } from '../../../tests/unit/mocks/bdkRN'
 import { tradeSummaryStore } from '../../store/tradeSummaryStore'
 import { getBuyOfferIdFromContract } from '../contract'
 import { info } from '../log'
@@ -180,27 +187,15 @@ export class PeachWallet extends PeachJSWallet {
     return this.signAndBroadcastPSBT(finishedTransaction.psbt)
   }
 
-  async sendTo (address: string, amount: number, feeRate?: number) {
-    if (!this.wallet || !this.blockchain) throw Error('WALLET_NOT_READY')
-    info('PeachWallet - sendTo - start')
-    const transaction = await buildTransaction(address, amount, feeRate)
-    const finishedTransaction = await this.finishTransaction(transaction)
-    return this.signAndBroadcastPSBT(finishedTransaction.psbt)
-  }
-
-  async bumpFee (txId: string, newFeeRate?: number) {
-    if (!this.wallet || !this.blockchain) throw Error('WALLET_NOT_READY')
-    info('PeachWallet - bumpFee - start')
-    const bumpFeeTxBuilder = await new BumpFeeTxBuilder().create(txId, newFeeRate)
-    await bumpFeeTxBuilder.enableRbf()
-
-    return this.signAndBroadcastPSBT(await bumpFeeTxBuilder.finish(this.wallet))
-  }
-
-  finishTransaction (transaction: TxBuilder | BumpFeeTxBuilder) {
+  async finishTransaction<T extends TxBuilder | BumpFeeTxBuilder> (transaction: T): ReturnType<T['finish']> {
     if (!this.wallet || !this.blockchain) throw Error('WALLET_NOT_READY')
     info('PeachWallet - finishTransaction - start')
-    return transaction.finish(this.wallet)
+    try {
+      // @ts-ignore exposed interface works, but internally it's struggling
+      return await transaction.finish(this.wallet)
+    } catch (e) {
+      throw handleBroadcastError(parseError(e))
+    }
   }
 
   async signAndBroadcastPSBT (psbt: PartiallySignedTransaction) {
@@ -208,8 +203,10 @@ export class PeachWallet extends PeachJSWallet {
     info('PeachWallet - signAndBroadcastPSBT - start')
     try {
       const signedPSBT = await this.wallet.sign(psbt)
+      info('PeachWallet - signAndBroadcastPSBT - signed')
 
       this.blockchain.broadcast(await signedPSBT.extractTx())
+      info('PeachWallet - signAndBroadcastPSBT - broadcasted')
       this.syncWallet()
 
       info('PeachWallet - signAndBroadcastPSBT - end')
