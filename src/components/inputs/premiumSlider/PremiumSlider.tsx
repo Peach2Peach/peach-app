@@ -1,7 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
-import { Animated, LayoutChangeEvent, PanResponder, View } from 'react-native'
-import { shallow } from 'zustand/shallow'
-import { useOfferPreferences } from '../../../store/offerPreferenes/useOfferPreferences'
+import { Animated, View } from 'react-native'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { getTranslateX } from '../../../utils/layout'
@@ -9,69 +6,12 @@ import { round } from '../../../utils/math'
 import Icon from '../../Icon'
 import { SliderLabel } from './SliderLabel'
 import { SliderMarkers } from './SliderMarkers'
-
-const MIN = -21
-const MAX = 21
-const DELTA = MAX - MIN
-const KNOBWIDTH = tw`w-8`.width as number
+import { usePremiumSliderSetup } from './usePremiumSliderSetup'
 
 const onStartShouldSetResponder = () => true
 
 export const PremiumSlider = ({ style }: ComponentProps) => {
-  const [isSliding, setIsSliding] = useState(false)
-  const [premium, setPremium] = useOfferPreferences((state) => [state.premium, state.setPremium], shallow)
-  const [trackWidth, setTrackWidth] = useState(260)
-  const labelPosition = useMemo(
-    () => [
-      -trackWidth / 2,
-      round((11 / DELTA) * trackWidth) - trackWidth / 2,
-      0,
-      round((31 / DELTA) * trackWidth) - trackWidth / 2,
-      trackWidth - trackWidth / 2,
-    ],
-    [trackWidth],
-  )
-
-  const pan = useRef(new Animated.Value(((premium - MIN) / DELTA) * trackWidth)).current
-
-  const panResponder = useRef(
-    PanResponder.create({
-      onMoveShouldSetPanResponder: () => true,
-      onPanResponderGrant: () => {
-        setIsSliding(true)
-      },
-      onPanResponderMove: Animated.event([null, { dx: pan }], {
-        useNativeDriver: false,
-      }),
-      onPanResponderRelease: () => {
-        setIsSliding(false)
-        pan.flattenOffset()
-      },
-      onShouldBlockNativeResponder: () => true,
-    }),
-  ).current
-
-  useEffect(() => {
-    if (!isSliding) return undefined
-    pan.extractOffset()
-    pan.addListener((props) => {
-      const boundedX = props.value < 0 ? 0 : Math.min(props.value, trackWidth)
-      const val = round((boundedX / trackWidth) * DELTA + MIN)
-      setPremium(val)
-    })
-
-    return () => pan.removeAllListeners()
-  }, [isSliding, pan, setPremium, trackWidth])
-
-  useEffect(() => {
-    if (isSliding) return
-    pan.setValue(((premium - MIN) / DELTA) * trackWidth)
-  }, [isSliding, pan, trackWidth, premium])
-
-  const onLayout = (event: LayoutChangeEvent) => {
-    const newTrackWidth = event.nativeEvent.layout.width - KNOBWIDTH
-    setTrackWidth(newTrackWidth)
-  }
+  const { pan, panResponder, onLayout, trackWidth, knobWidth, labelPosition, min, max } = usePremiumSliderSetup()
 
   return (
     <View style={style} {...panResponder.panHandlers} {...{ onStartShouldSetResponder }}>
@@ -86,7 +26,7 @@ export const PremiumSlider = ({ style }: ComponentProps) => {
         <View {...{ onLayout }}>
           <Animated.View
             style={[
-              { width: KNOBWIDTH },
+              { width: knobWidth },
               tw`z-10 flex items-center justify-center h-full rounded-full bg-primary-main`,
               getTranslateX(pan, [0, trackWidth]),
             ]}
@@ -96,11 +36,11 @@ export const PremiumSlider = ({ style }: ComponentProps) => {
         </View>
       </View>
       <View style={tw`w-full h-10 mt-1`}>
-        <SliderLabel position={labelPosition[0]}>{MIN}%</SliderLabel>
-        <SliderLabel position={labelPosition[1]}>{round(MIN / 2, -1)}%</SliderLabel>
+        <SliderLabel position={labelPosition[0]}>{min}%</SliderLabel>
+        <SliderLabel position={labelPosition[1]}>{round(min / 2, -1)}%</SliderLabel>
         <SliderLabel position={labelPosition[2]}>{i18n('sell.premium.marketPrice')}</SliderLabel>
-        <SliderLabel position={labelPosition[3]}>+{round(MAX / 2, -1)}%</SliderLabel>
-        <SliderLabel position={labelPosition[4]}>+{MAX}%</SliderLabel>
+        <SliderLabel position={labelPosition[3]}>+{round(max / 2, -1)}%</SliderLabel>
+        <SliderLabel position={labelPosition[4]}>+{max}%</SliderLabel>
       </View>
     </View>
   )

@@ -48,6 +48,8 @@ jest.mock('./transaction/buildTransaction', () => ({
   buildTransaction: (...args: any[]) => buildTransactionMock(...args),
 }))
 
+jest.useFakeTimers()
+
 describe('PeachWallet', () => {
   const txResponse: TransactionDetails[] = [
     { txid: 'txid1', sent: 1, received: 1, fee: 1, confirmationTime: { timestamp: 1, height: 1 } },
@@ -112,6 +114,20 @@ describe('PeachWallet', () => {
     await peachWallet.syncWallet()
     expect(peachWallet.synced).toBeTruthy()
     expect(walletSyncMock).toHaveBeenCalled()
+  })
+  it('waits for already running sync', async () => {
+    jest.clearAllMocks()
+    const promise = new Promise((resolve) => setTimeout(resolve, 100))
+    walletSyncMock.mockReturnValueOnce(promise)
+
+    expect(peachWallet.syncInProgress).toBeUndefined()
+    peachWallet.syncWallet()
+    expect(peachWallet.syncInProgress).not.toBeUndefined()
+    peachWallet.syncWallet()
+    jest.runAllTimers()
+    await peachWallet.syncInProgress
+    expect(peachWallet.syncInProgress).toBeUndefined()
+    expect(walletSyncMock).toHaveBeenCalledTimes(1)
   })
   it('gets balance and transactions after sync', async () => {
     walletSyncMock.mockResolvedValueOnce(true)
