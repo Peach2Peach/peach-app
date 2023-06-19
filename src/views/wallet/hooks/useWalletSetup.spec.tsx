@@ -4,19 +4,29 @@ import { settingsStore } from '../../../store/settingsStore'
 import { useWalletSetup } from './useWalletSetup'
 import { usePopupStore } from '../../../store/usePopupStore'
 import { WithdrawalConfirmation } from '../../../popups/WithdrawalConfirmation'
+import { estimatedFees } from '../../../../tests/unit/data/bitcoinNetworkData'
 
 const walletStore = {}
 const walletStateMock = jest.fn((selector, _compareFn) => selector(walletStore))
 jest.mock('../../../utils/wallet/walletStore', () => ({
   useWalletState: (selector: any, compareFn: any) => walletStateMock(selector, compareFn),
 }))
-const mockWithdrawAll = jest.fn()
+const mockWithdrawAll = jest.fn().mockResolvedValue({
+  txDetails: {
+    txId: 'txId',
+  },
+})
 jest.mock('../../../utils/wallet/setWallet', () => ({
   peachWallet: {
     transactions: [],
     withdrawAll: (...args: any) => mockWithdrawAll(...args),
     syncWallet: jest.fn().mockResolvedValue(undefined),
   },
+}))
+
+const useFeeEstimateMock = jest.fn().mockReturnValue({ estimatedFees })
+jest.mock('../../../hooks/query/useFeeEstimate', () => ({
+  useFeeEstimate: () => useFeeEstimateMock(),
 }))
 
 describe('useWalletSetup', () => {

@@ -1,15 +1,13 @@
 import { BLOCKEXPLORER, NETWORK } from '@env'
-import { Blockchain, DatabaseConfig, Descriptor, Wallet } from 'bdk-rn'
-import { TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
-import { AddressIndex, BlockChainNames, BlockchainEsploraConfig, KeychainKind, Network } from 'bdk-rn/lib/lib/enums'
+import { Blockchain, DatabaseConfig, Descriptor, TxBuilder, Wallet } from 'bdk-rn'
+import { TransactionDetails, TxBuilderResult } from 'bdk-rn/lib/classes/Bindings'
+import { AddressIndex, BlockChainNames, BlockchainEsploraConfig, KeychainKind } from 'bdk-rn/lib/lib/enums'
 import { BIP32Interface } from 'bip32'
 import { tradeSummaryStore } from '../../store/tradeSummaryStore'
 import { getBuyOfferIdFromContract } from '../contract'
 import { info } from '../log'
 import { parseError } from '../result'
-import { isPending } from '../transaction'
-import { findTransactionsToRebroadcast } from '../transaction/findTransactionsToRebroadcast'
-import { mergeTransactionList } from '../transaction/mergeTransactionList'
+import { findTransactionsToRebroadcast, isPending, mergeTransactionList } from '../transaction'
 import { callWhenInternet } from '../web'
 import { PeachJSWallet } from './PeachJSWallet'
 import { handleBroadcastError } from './error/handleBroadcastError'
@@ -37,15 +35,12 @@ export class PeachWallet extends PeachJSWallet {
 
   transactions: TransactionDetails[]
 
-  network: Network
-
   wallet: Wallet | undefined
 
   blockchain: Blockchain | undefined
 
   constructor ({ wallet, network = NETWORK, gapLimit = 25 }: PeachWalletProps) {
     super({ wallet, network, gapLimit })
-    this.network = network as Network
     this.descriptorPath = `/84'/${network === 'bitcoin' ? '0' : '1'}'/0'/0/*`
     this.balance = 0
     this.transactions = []
@@ -171,41 +166,38 @@ export class PeachWallet extends PeachJSWallet {
     return result
   }
 
-  async withdrawAll (address: string, feeRate?: number): Promise<string | null> {
+  async withdrawAll (address: string, feeRate?: number) {
     if (!this.wallet || !this.blockchain) throw Error('WALLET_NOT_READY')
     info('PeachWallet - withdrawAll - start')
-    try {
-      const drainWalletTransaction = await buildDrainWalletTransaction(address, feeRate)
-
-      const result = await drainWalletTransaction.finish(this.wallet)
-      const signedPSBT = await this.wallet.sign(result.psbt)
-
-      this.blockchain.broadcast(await signedPSBT.extractTx())
-      this.syncWallet()
-
-      info('PeachWallet - withdrawAll - end')
-
-      return result.txDetails.txid
-    } catch (e) {
-      throw handleBroadcastError(parseError(e))
-    }
+    const drainWalletTransaction = await buildDrainWalletTransaction(address, feeRate)
+    return this.signAndBroadcastTransaction(await this.finishTransaction(drainWalletTransaction))
   }
 
-  async sendTo (address: string, amount: number, feeRate?: number): Promise<string | null> {
+  async sendTo (address: string, amount: number, feeRate?: number) {
     if (!this.wallet || !this.blockchain) throw Error('WALLET_NOT_READY')
     info('PeachWallet - sendTo - start')
-    try {
-      const transaction = await buildTransaction(address, amount, feeRate)
+    const transaction = await buildTransaction(address, amount, feeRate)
+    return this.signAndBroadcastTransaction(await this.finishTransaction(transaction))
+  }
 
-      const result = await transaction.finish(this.wallet)
-      const signedPSBT = await this.wallet.sign(result.psbt)
+  finishTransaction (transaction: TxBuilder) {
+    if (!this.wallet || !this.blockchain) throw Error('WALLET_NOT_READY')
+    info('PeachWallet - finishTransaction - start')
+    return transaction.finish(this.wallet)
+  }
+
+  async signAndBroadcastTransaction (transaction: TxBuilderResult) {
+    if (!this.wallet || !this.blockchain) throw Error('WALLET_NOT_READY')
+    info('PeachWallet - signAndBroadcastTransaction - start')
+    try {
+      const signedPSBT = await this.wallet.sign(transaction.psbt)
 
       this.blockchain.broadcast(await signedPSBT.extractTx())
       this.syncWallet()
 
-      info('PeachWallet - sendTo - end')
+      info('PeachWallet - signAndBroadcastTransaction - end')
 
-      return result.txDetails.txid
+      return transaction
     } catch (e) {
       throw handleBroadcastError(parseError(e))
     }

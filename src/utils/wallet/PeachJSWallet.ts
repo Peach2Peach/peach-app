@@ -28,7 +28,6 @@ export class PeachJSWallet {
 
     this.network = network as Network
     this.gapLimit = gapLimit
-    this.jsWallet = wallet
     this.addresses = walletStore.getState().addresses
 
     this.derivationPath = `m/84'/${network === 'bitcoin' ? '0' : '1'}'/0'`
@@ -75,7 +74,7 @@ export class PeachJSWallet {
   signMessage (message: string, address: string, index?: number): string {
     info('PeachWallet - signMessage - start')
 
-    const keyPair = index ? this.getKeyPair(index) : this.findKeyPairByAddress(address)
+    const keyPair = index !== undefined ? this.getKeyPair(index) : this.findKeyPairByAddress(address)
     if (!keyPair?.privateKey) throw Error('Address not part of wallet')
     const signature = sign(message, keyPair.privateKey, true)
 

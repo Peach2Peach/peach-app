@@ -1,0 +1,85 @@
+import { Drawer } from '.'
+import { act, render } from '@testing-library/react-native'
+import { BackHandler, Text } from 'react-native'
+import { createRenderer } from 'react-test-renderer/shallow'
+import { DrawerContext } from '../../contexts/drawer'
+
+const onCloseMock = jest.fn()
+const defaultState: DrawerState = {
+  title: 'testTitle',
+  content: <Text>Drawer content</Text>,
+  options: [],
+  show: true,
+  previousDrawer: {},
+  onClose: onCloseMock,
+}
+
+jest.mock('react-native/Libraries/Utilities/BackHandler', () =>
+  jest.requireActual('react-native/Libraries/Utilities/__mocks__/BackHandler.js'),
+)
+
+jest.useFakeTimers()
+
+describe('Drawer', () => {
+  const shallowRenderer = createRenderer()
+  let drawerState = { ...defaultState }
+  const updateDrawer = jest.fn((newDrawerState: Partial<DrawerState>) => {
+    drawerState = {
+      ...drawerState,
+      ...newDrawerState,
+    }
+  })
+  const wrapper = ({ children }: { children: JSX.Element }) => (
+    // @ts-ignore  this is because the drawerState has show as false
+    <DrawerContext.Provider value={[drawerState, updateDrawer]}>{children}</DrawerContext.Provider>
+  )
+
+  afterEach(() => {
+    updateDrawer(defaultState)
+  })
+  it('renders correctly', () => {
+    shallowRenderer.render(<Drawer />, { wrapper })
+    const result = shallowRenderer.getRenderOutput()
+    expect(result).toMatchSnapshot()
+  })
+  it('renders correctly with options', () => {
+    updateDrawer({
+      options: [
+        {
+          title: 'option1',
+          onPress: jest.fn(),
+        },
+        {
+          title: 'option2',
+          onPress: jest.fn(),
+        },
+      ],
+      content: null,
+      show: true,
+    })
+    shallowRenderer.render(<Drawer />, { wrapper })
+    const result = shallowRenderer.getRenderOutput()
+    expect(result).toMatchSnapshot()
+  })
+  it('renders correctly with previous drawer', () => {
+    updateDrawer({
+      previousDrawer: {
+        title: 'previousDrawerTitle',
+      },
+    })
+    shallowRenderer.render(<Drawer />, { wrapper })
+    const result = shallowRenderer.getRenderOutput()
+    expect(result).toMatchSnapshot()
+  })
+  it('should close the drawer and call onClose on hardware back press', () => {
+    render(<Drawer />, { wrapper })
+
+    act(() => {
+      // @ts-ignore
+      BackHandler.mockPressBack()
+      jest.runAllTimers()
+    })
+    expect(drawerState.show).toBe(false)
+    expect(onCloseMock).toHaveBeenCalledTimes(1)
+  })
+})

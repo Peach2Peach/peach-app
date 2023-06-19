@@ -1,22 +1,19 @@
 import { renderHook } from '@testing-library/react-native'
 import { NavigationWrapper, navigateMock, headerState } from '../../../tests/unit/helpers/NavigationWrapper'
 import { useOnboardingHeader } from './useOnboardingHeader'
-import { DrawerContext, getDrawer, setDrawer } from '../../contexts/drawer'
-import { useReducer } from 'react'
+import { defaultState, DrawerContext } from '../../contexts/drawer'
 import { LanguageSelect } from '../../drawers/LanguageSelect'
 
-const Wrapper = ({ children }: ComponentProps) => {
-  const [, updateDrawer] = useReducer(setDrawer, getDrawer())
-  return (
-    <NavigationWrapper>
-      <DrawerContext.Provider
-        value={[{ title: '', content: null, show: false, previousDrawer: {}, onClose: () => {} }, updateDrawer]}
-      >
-        {children}
-      </DrawerContext.Provider>
-    </NavigationWrapper>
-  )
+let drawer = defaultState
+const setDrawer = (newState: Partial<DrawerState>) => {
+  drawer = { ...drawer, ...newState }
+  return drawer
 }
+const Wrapper = ({ children }: ComponentProps) => (
+  <NavigationWrapper>
+    <DrawerContext.Provider value={[defaultState, setDrawer]}>{children}</DrawerContext.Provider>
+  </NavigationWrapper>
+)
 
 describe('useOnboardingHeader', () => {
   const title = 'a title'
@@ -55,8 +52,9 @@ describe('useOnboardingHeader', () => {
 
     headerState.header().props.icons[1].onPress()
 
-    expect(getDrawer()).toEqual({
-      content: <LanguageSelect locales={['en', 'es']} onSelect={expect.any(Function)} selected="en" />,
+    expect(drawer).toEqual({
+      content: <LanguageSelect locales={['en', 'es', 'fr']} onSelect={expect.any(Function)} selected="en" />,
+      options: [],
       onClose: expect.any(Function),
       previousDrawer: {},
       show: true,

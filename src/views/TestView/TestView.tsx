@@ -16,7 +16,7 @@ export default () => {
 
   return (
     <PeachScrollView
-      style={tw`h-full bg-primary-mild-1 `}
+      style={tw`h-full bg-primary-mild-1`}
       contentContainerStyle={tw`flex items-center w-full px-6 py-10`}
     >
       <View style={tw`gap-4`}>

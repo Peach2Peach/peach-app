@@ -20,7 +20,7 @@ export default () => {
     addressErrors,
     openWithdrawalConfirmation,
     walletLoading,
-  } = useWalletSetup()
+  } = useWalletSetup(true)
 
   if (walletLoading) return <BitcoinLoading text={i18n('wallet.loading')} />
 
@@ -37,15 +37,7 @@ export default () => {
             <BigSatsFormat style={isRefreshing ? tw`opacity-60` : {}} sats={walletStore.balance} />
             {isRefreshing && <Loading style={tw`absolute`} />}
             <Text style={tw`mt-16 button-medium`}>{i18n('wallet.withdrawTo')}:</Text>
-            <BitcoinAddressInput
-              style={tw`mt-4`}
-              {...{
-                onChange: setAddress,
-                isValid,
-                value: address,
-                errorMessage: addressErrors,
-              }}
-            />
+            <BitcoinAddressInput style={tw`mt-4`} onChange={setAddress} value={address} errorMessage={addressErrors} />
             <OpenWallet />
           </View>
           <SlideToUnlock
