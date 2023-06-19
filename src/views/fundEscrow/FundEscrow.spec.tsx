@@ -77,6 +77,7 @@ describe('FundEscrow', () => {
       fundingStatus: {
         ...defaultFundingStatus,
         status: 'MEMPOOL',
+        txIds: ['txId'],
       },
     })
     renderer.render(<FundEscrow />)

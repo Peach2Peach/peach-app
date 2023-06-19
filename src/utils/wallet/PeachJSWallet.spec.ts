@@ -6,7 +6,8 @@ import { getNetwork } from './getNetwork'
 import { walletStore } from './walletStore'
 
 describe('PeachJSWallet', () => {
-  const { wallet } = createWalletFromSeedPhrase(account1.mnemonic!, getNetwork())
+  const { wallet } = createWalletFromSeedPhrase(account1.mnemonic, getNetwork())
+  const message = 'message'
   let peachJSWallet: PeachJSWallet
 
   beforeEach(() => {
@@ -49,13 +50,25 @@ describe('PeachJSWallet', () => {
   })
 
   it('signs an arbitrary message', () => {
-    const message = 'message'
     const address = 'bcrt1q7jyvzs6yu9wz8qzmcwyruw0e652xhyhkdw5qrt'
     const signature = peachJSWallet.signMessage(message, address)
     expect(signature).toBe('H/3SBIrDhI686xf6q40H1aQCI9DHF1zD4YKHuG3Efq8XK3rDDA0zYCQQ31XERBZqEq+2DUOupYYCIahvYOwbJ3s=')
   })
+  it('signs an arbitrary message with index', () => {
+    const address = 'bcrt1q7jyvzs6yu9wz8qzmcwyruw0e652xhyhkdw5qrt'
+    const findKeyPairByAddressSpy = jest.spyOn(peachJSWallet, 'findKeyPairByAddress')
+    const signature = peachJSWallet.signMessage(message, address, 1)
+    expect(findKeyPairByAddressSpy).not.toHaveBeenCalled()
+    expect(signature).toBe('H1cN5gQpMeLAsid1ZnUIJxEVC5+geRao9yeT9V88rtHfe4bEvglz8hSwnWCuMjjHHYCgBGKssceWPUQKKrpThRE=')
+  })
+  it('signs an arbitrary message with index 0', () => {
+    const address = 'bcrt1q7jyvzs6yu9wz8qzmcwyruw0e652xhyhkdw5qrt'
+    const findKeyPairByAddressSpy = jest.spyOn(peachJSWallet, 'findKeyPairByAddress')
+    const signature = peachJSWallet.signMessage(message, address, 0)
+    expect(findKeyPairByAddressSpy).not.toHaveBeenCalled()
+    expect(signature).toBe('H/3SBIrDhI686xf6q40H1aQCI9DHF1zD4YKHuG3Efq8XK3rDDA0zYCQQ31XERBZqEq+2DUOupYYCIahvYOwbJ3s=')
+  })
   it('throws an error if address is not part of wallet', async () => {
-    const message = 'message'
     const address = 'bcrt1qdoesnotexist'
     const error = await getError<Error>(() => peachJSWallet.signMessage(message, address))
     expect(error.message).toBe('Address not part of wallet')

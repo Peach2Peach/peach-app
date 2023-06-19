@@ -5,7 +5,7 @@ exports[`Wallet should render correctly 1`] = `
   androidBehavior="height"
   iOSBehavior="height"
 >
-  <PeachScrollView
+  <ForwardRef
     contentContainerStyle={
       {
         "height": "100%",
@@ -104,7 +104,7 @@ exports[`Wallet should render correctly 1`] = `
         }
       />
     </View>
-  </PeachScrollView>
+  </ForwardRef>
 </AvoidKeyboard>
 `;
 
@@ -120,7 +120,7 @@ exports[`Wallet should render correctly when refreshing 1`] = `
   androidBehavior="height"
   iOSBehavior="height"
 >
-  <PeachScrollView
+  <ForwardRef
     contentContainerStyle={
       {
         "height": "100%",
@@ -230,6 +230,6 @@ exports[`Wallet should render correctly when refreshing 1`] = `
         }
       />
     </View>
-  </PeachScrollView>
+  </ForwardRef>
 </AvoidKeyboard>
 `;

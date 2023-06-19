@@ -20,18 +20,12 @@ exports[`Language renders correctly 1`] = `
         "paddingRight": 40,
       }
     }
-    indicatorStyle="black"
     showsHorizontalScrollIndicator={false}
     showsVerticalScrollIndicator={false}
   >
     <View>
       <View
         onStartShouldSetResponder={[Function]}
-        style={
-          {
-            "backgroundColor": "transparent",
-          }
-        }
       >
         <View
           style={

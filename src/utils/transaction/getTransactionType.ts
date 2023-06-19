@@ -4,5 +4,5 @@ export const getTransactionType = (tx: TransactionDetails, offer?: OfferSummary)
   if (offer) {
     return offer.type === 'ask' ? 'REFUND' : 'TRADE'
   }
-  return tx.received === 0 ? 'WITHDRAWAL' : 'DEPOSIT'
+  return tx.sent === 0 ? 'DEPOSIT' : 'WITHDRAWAL'
 }
