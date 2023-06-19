@@ -7,7 +7,10 @@ interface DecryptAccountProps {
   password: string
 }
 
-export const decryptAccount = ({ encryptedAccount, password = '' }: DecryptAccountProps) => {
+export const decryptAccount = ({
+  encryptedAccount,
+  password = '',
+}: DecryptAccountProps): [AccountBackup | null, null | 'WRONG_PASSWORD'] => {
   info('Decrypting account')
 
   try {

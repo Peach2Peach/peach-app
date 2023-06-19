@@ -4,8 +4,8 @@ import { getEventName } from '.'
 describe('getEventName', () => {
   useMeetupEventsStore.setState({
     meetupEvents: [
-      { id: '1', shortName: 'event 1', country: 'DE', city: '', longName: '', currencies: ['EUR'] },
-      { id: '2', shortName: 'event 2', country: 'DE', city: '', longName: '', currencies: ['EUR'] },
+      { id: '1', shortName: 'event 1', country: 'DE', city: '', longName: '', currencies: ['EUR'], featured: false },
+      { id: '2', shortName: 'event 2', country: 'DE', city: '', longName: '', currencies: ['EUR'], featured: false },
     ],
   })
 

@@ -5,7 +5,7 @@ import { broadcastError, insufficientFunds } from '../../../../tests/unit/data/e
 import { sellOffer } from '../../../../tests/unit/data/offerData'
 import { getTransactionDetails } from '../../../../tests/unit/helpers/getTransactionDetails'
 import { Loading } from '../../../components'
-import { configStore } from '../../../store/configStore'
+import { useConfigStore } from '../../../store/configStore'
 import { usePopupStore } from '../../../store/usePopupStore'
 import tw from '../../../styles/tailwind'
 import { defaultFundingStatus } from '../../../utils/offer/constants'
@@ -39,7 +39,7 @@ describe('useFundFromPeachWallet', () => {
   const initialProps = { offer: offerWithEscrow, fundingStatus: defaultFundingStatus }
 
   beforeAll(() => {
-    configStore.getState().setMinTradingAmount(minTradingAmount)
+    useConfigStore.getState().setMinTradingAmount(minTradingAmount)
   })
   beforeEach(() => {
     // @ts-ignore
