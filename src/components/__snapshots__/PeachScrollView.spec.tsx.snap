@@ -2,21 +2,13 @@
 
 exports[`PeachScrollView renders correctly 1`] = `
 <RCTScrollView
-  indicatorStyle="black"
   showsHorizontalScrollIndicator={false}
   showsVerticalScrollIndicator={false}
 >
   <View>
     <View
       onStartShouldSetResponder={[Function]}
-      style={
-        {
-          "backgroundColor": "transparent",
-        }
-      }
     />
   </View>
 </RCTScrollView>
 `;
-
-exports[`PeachScrollView renders correctly when disabled 1`] = `<View />`;

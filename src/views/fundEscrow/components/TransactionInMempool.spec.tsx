@@ -5,11 +5,11 @@ describe('TransactionInMempool', () => {
   // This is to disable the error log for the Image source, which we mock in the test
   jest.spyOn(console, 'error').mockImplementation(() => {})
   it('should render correctly', () => {
-    const { toJSON } = render(<TransactionInMempool />)
+    const { toJSON } = render(<TransactionInMempool txId="txId" />)
     expect(toJSON()).toMatchSnapshot()
   })
   it('shoud render correctly with different width', () => {
-    const { toJSON, getByTestId } = render(<TransactionInMempool />)
+    const { toJSON, getByTestId } = render(<TransactionInMempool txId="txId" />)
     const imageContainer = getByTestId('image-container')
     act(() => {
       fireEvent(imageContainer, 'onLayout', { nativeEvent: { layout: { width: 100 } } })
