@@ -29,6 +29,8 @@ export class PeachWallet extends PeachJSWallet {
 
   synced: boolean
 
+  syncInProgress: Promise<void> | undefined
+
   descriptorPath: string
 
   balance: number
@@ -46,6 +48,7 @@ export class PeachWallet extends PeachJSWallet {
     this.transactions = []
     this.initialized = false
     this.synced = false
+    this.syncInProgress = undefined
   }
 
   loadWallet (seedphrase?: string): Promise<void> {
@@ -95,7 +98,9 @@ export class PeachWallet extends PeachJSWallet {
   }
 
   syncWallet (): Promise<void> {
-    return new Promise((resolve, reject) =>
+    if (this.syncInProgress) return this.syncInProgress
+
+    this.syncInProgress = new Promise((resolve, reject) =>
       callWhenInternet(async () => {
         if (!this.wallet || !this.blockchain) return reject(new Error('WALLET_NOT_READY'))
 
@@ -109,9 +114,13 @@ export class PeachWallet extends PeachJSWallet {
           this.synced = true
           info('PeachWallet - syncWallet - synced')
         }
+
+        this.syncInProgress = undefined
+
         return resolve()
       }),
     )
+    return this.syncInProgress
   }
 
   updateStore (): void {
