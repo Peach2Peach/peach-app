@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Contract should render a default Contract 1`] = `
-<PeachScrollView
+<ForwardRef
   contentContainerStyle={
     [
       {
@@ -59,7 +59,7 @@ exports[`Contract should render a default Contract 1`] = `
       />
     </Context.Provider>
   </View>
-</PeachScrollView>
+</ForwardRef>
 `;
 
 exports[`Contract should show the loading screen if isLoading is true 1`] = `<_default />`;

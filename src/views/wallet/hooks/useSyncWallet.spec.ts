@@ -4,7 +4,7 @@ import { useSyncWallet } from './useSyncWallet'
 const mockSyncWallet = jest.fn().mockResolvedValue(undefined)
 jest.mock('../../../utils/wallet/setWallet', () => ({
   peachWallet: {
-    syncWallet: async () => await mockSyncWallet(),
+    syncWallet: () => mockSyncWallet(),
   },
 }))
 
@@ -38,7 +38,7 @@ describe('useSyncWallet', () => {
     expect(mockSyncWallet).toHaveBeenCalled()
   })
 
-  it('should not call peachWallet.syncWallet if already refreshing', async () => {
+  it('should not call peachWallet.syncWallet if already refreshing', () => {
     const { result } = renderHook(useSyncWallet)
 
     act(() => {

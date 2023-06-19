@@ -1,0 +1,89 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DrawerHeader renders correctly 1`] = `
+<View
+  style={
+    {
+      "gap": 24,
+    }
+  }
+>
+  <View
+    onTouchMove={[Function]}
+    onTouchStart={[Function]}
+    style={
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "paddingLeft": 12,
+        "paddingRight": 12,
+      }
+    }
+    testID="touchResponder"
+  >
+    <GoBackIcon />
+    <DrawerTitle />
+    <CloseIcon
+      closeDrawer={[MockFunction]}
+    />
+  </View>
+  <View
+    style={
+      [
+        {
+          "alignItems": "stretch",
+          "backgroundColor": "#EAE3DF",
+          "height": 1,
+        },
+        undefined,
+      ]
+    }
+  />
+</View>
+`;
+
+exports[`DrawerHeader renders correctly when the first option is highlighted 1`] = `
+<View
+  style={
+    {
+      "gap": 24,
+    }
+  }
+>
+  <View
+    onTouchMove={[Function]}
+    onTouchStart={[Function]}
+    style={
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "paddingLeft": 12,
+        "paddingRight": 12,
+      }
+    }
+    testID="touchResponder"
+  >
+    <GoBackIcon />
+    <DrawerTitle />
+    <CloseIcon
+      closeDrawer={[MockFunction]}
+    />
+  </View>
+  <View
+    style={
+      [
+        {
+          "alignItems": "stretch",
+          "backgroundColor": "#EAE3DF",
+          "height": 1,
+        },
+        {
+          "backgroundColor": "#FCCCB6",
+        },
+      ]
+    }
+  />
+</View>
+`;

@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FixedHeightText renders correctly 1`] = `
+<View
+  style={
+    {
+      "height": 21,
+      "justifyContent": "center",
+    }
+  }
+>
+  <Text
+    allowFontScaling={false}
+    style={
+      [
+        {
+          "color": "#2B1911",
+          "fontFamily": "Baloo2-Regular",
+          "fontSize": 16,
+          "letterSpacing": 0.16,
+          "lineHeight": 24,
+        },
+        [
+          undefined,
+          {
+            "marginBottom": -40,
+            "marginTop": -40,
+          },
+        ],
+      ]
+    }
+  >
+    TINA
+  </Text>
+</View>
+`;

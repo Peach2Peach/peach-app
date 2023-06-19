@@ -13,7 +13,8 @@ export const getTxSummary = (tx: TransactionDetails) => {
 
   return {
     id: tx.txid,
-    offerId: offer?.id,
+    offerId,
+    contractId: offer?.contractId,
     type,
     amount: sats,
     price,
