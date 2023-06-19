@@ -26,7 +26,7 @@ export const useShowConfirmTransactionPopup = () => {
         level: 'APP',
       })
       try {
-        await peachWallet.signAndBroadcastTransaction(transaction)
+        await peachWallet.signAndBroadcastPSBT(transaction)
         onSuccess()
       } catch (e) {
         handleBroadcastError(e)

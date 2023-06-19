@@ -63,7 +63,7 @@ describe('useShowConfirmTransactionPopup', () => {
     })
   })
   it('should broadcast transaction on confirm', async () => {
-    peachWallet.signAndBroadcastTransaction = jest.fn().mockResolvedValue(transaction)
+    peachWallet.signAndBroadcastPSBT = jest.fn().mockResolvedValue(transaction)
 
     const { result } = renderHook(useShowConfirmTransactionPopup, { wrapper })
 
@@ -87,13 +87,13 @@ describe('useShowConfirmTransactionPopup', () => {
       await promise
     })
 
-    expect(peachWallet.signAndBroadcastTransaction).toHaveBeenCalledWith(transaction)
+    expect(peachWallet.signAndBroadcastPSBT).toHaveBeenCalledWith(transaction)
     expect(usePopupStore.getState().visible).toBeFalsy()
     expect(onSuccess).toHaveBeenCalled()
   })
   it('should handle broadcast errors', async () => {
     peachWallet.balance = amount
-    peachWallet.signAndBroadcastTransaction = jest.fn().mockImplementation(() => {
+    peachWallet.signAndBroadcastPSBT = jest.fn().mockImplementation(() => {
       throw broadcastError
     })
 

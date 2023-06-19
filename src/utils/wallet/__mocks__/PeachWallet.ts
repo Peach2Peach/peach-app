@@ -40,7 +40,7 @@ export class PeachWallet {
     return getTransactionDetails()
   }
 
-  async signAndBroadcastTransaction (transaction: TxBuilderResult) {
+  async signAndBroadcastPSBT (transaction: TxBuilderResult) {
     return transaction
   }
 

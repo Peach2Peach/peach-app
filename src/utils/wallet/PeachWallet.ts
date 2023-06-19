@@ -205,14 +205,14 @@ export class PeachWallet extends PeachJSWallet {
 
   async signAndBroadcastPSBT (psbt: PartiallySignedTransaction) {
     if (!this.wallet || !this.blockchain) throw Error('WALLET_NOT_READY')
-    info('PeachWallet - signAndBroadcastTransaction - start')
+    info('PeachWallet - signAndBroadcastPSBT - start')
     try {
       const signedPSBT = await this.wallet.sign(psbt)
 
       this.blockchain.broadcast(await signedPSBT.extractTx())
       this.syncWallet()
 
-      info('PeachWallet - signAndBroadcastTransaction - end')
+      info('PeachWallet - signAndBroadcastPSBT - end')
 
       return psbt
     } catch (e) {
