@@ -29,6 +29,8 @@ export class PeachWallet {
 
   synced: boolean
 
+  syncInProgress: Promise<void> | undefined
+
   derivationPath: string
 
   descriptorPath: string
@@ -60,6 +62,7 @@ export class PeachWallet {
     this.transactions = []
     this.initialized = false
     this.synced = false
+    this.syncInProgress = undefined
   }
 
   loadWallet (seedphrase?: string): Promise<void> {
@@ -109,7 +112,10 @@ export class PeachWallet {
   }
 
   syncWallet (): Promise<void> {
-    return new Promise((resolve, reject) =>
+    console.log(!!this.syncInProgress)
+    if (this.syncInProgress) return this.syncInProgress
+
+    this.syncInProgress = new Promise((resolve, reject) =>
       callWhenInternet(async () => {
         if (!this.wallet || !this.blockchain) return reject(new Error('WALLET_NOT_READY'))
 
@@ -123,9 +129,13 @@ export class PeachWallet {
           this.synced = true
           info('PeachWallet - syncWallet - synced')
         }
+
+        this.syncInProgress = undefined
+
         return resolve()
       }),
     )
+    return this.syncInProgress
   }
 
   updateStore (): void {
