@@ -1,3 +1,2 @@
-export { fundEscrow } from './fundEscrow'
+export { fundAddress } from './fundAddress'
 export { generateBlock } from './generateBlock'
-
