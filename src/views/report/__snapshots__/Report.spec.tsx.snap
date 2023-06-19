@@ -13,7 +13,7 @@ exports[`Report should render correctly 1`] = `
     }
   }
 >
-  <PeachScrollView
+  <ForwardRef
     contentContainerStyle={
       {
         "flexGrow": 1,
@@ -144,7 +144,7 @@ exports[`Report should render correctly 1`] = `
         include app logs
       </PeachText>
     </Memo(Pressable)>
-  </PeachScrollView>
+  </ForwardRef>
   <PrimaryButton
     disabled={false}
     narrow={true}
