@@ -47,6 +47,7 @@ jest.mock('../../../hooks/useShowErrorBanner', () => ({
 }))
 
 const wrapper = NavigationWrapper
+
 describe('useBumpNetworkFeesSetup', () => {
   const currentFeeRate = getTransactionFeeRate(bitcoinTransaction)
   const newFeeRate = 10
@@ -119,12 +120,15 @@ describe('useBumpNetworkFeesSetup', () => {
     expect(result.current.overpayingBy).toBe(2)
   })
   it('should not show bump fee confirmation popup if transaction details could not be loaded', async () => {
+    useTransactionDetailsMock.mockReturnValue({ transaction: undefined })
+
     const { result } = renderHook(useBumpNetworkFeesSetup, { wrapper })
 
     act(() => result.current.setNewFeeRate(String(newFeeRate)))
     await result.current.bumpFees()
 
     expect(usePopupStore.getState().visible).toBeFalsy()
+    useTransactionDetailsMock.mockReturnValue({ transaction: bitcoinTransaction })
   })
   it('should show bump fee confirmation popup', async () => {
     const { result } = renderHook(useBumpNetworkFeesSetup, { wrapper })
