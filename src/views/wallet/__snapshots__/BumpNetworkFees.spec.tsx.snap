@@ -61,6 +61,16 @@ exports[`BumpNetworkFees renders correctly 1`] = `
       <NewFee
         setNewFeeRate={[MockFunction]}
       />
+      <PeachText
+        style={
+          {
+            "color": "#DF321F",
+            "textAlign": "center",
+          }
+        }
+      >
+         
+      </PeachText>
     </View>
   </ForwardRef>
   <PrimaryButton
@@ -133,6 +143,16 @@ exports[`BumpNetworkFees renders correctly for medium screens 1`] = `
       <NewFee
         setNewFeeRate={[MockFunction]}
       />
+      <PeachText
+        style={
+          {
+            "color": "#DF321F",
+            "textAlign": "center",
+          }
+        }
+      >
+         
+      </PeachText>
     </View>
   </ForwardRef>
   <PrimaryButton
@@ -206,6 +226,16 @@ exports[`BumpNetworkFees renders correctly when new fee is invalid 1`] = `
         newFeeRate={1}
         setNewFeeRate={[MockFunction]}
       />
+      <PeachText
+        style={
+          {
+            "color": "#DF321F",
+            "textAlign": "center",
+          }
+        }
+      >
+         
+      </PeachText>
     </View>
   </ForwardRef>
   <PrimaryButton
@@ -279,6 +309,16 @@ exports[`BumpNetworkFees renders correctly when new fee is valid 1`] = `
         newFeeRate={20}
         setNewFeeRate={[MockFunction]}
       />
+      <PeachText
+        style={
+          {
+            "color": "#DF321F",
+            "textAlign": "center",
+          }
+        }
+      >
+         
+      </PeachText>
     </View>
   </ForwardRef>
   <PrimaryButton
@@ -349,7 +389,7 @@ exports[`BumpNetworkFees renders correctly when user would be overpaying by at l
       />
       <Divider />
       <NewFee
-        newFeeRate={3.9286871961102108}
+        newFeeRate={3.93}
         setNewFeeRate={[MockFunction]}
       />
       <PeachText

@@ -7,6 +7,7 @@ import { CurrentFee } from './components/bumpNetworkFees/CurrentFee'
 import { FeeEstimates } from './components/bumpNetworkFees/FeeEstimates'
 import { NewFee } from './components/bumpNetworkFees/NewFee'
 import { useBumpNetworkFeesSetup } from './hooks/useBumpNetworkFeesSetup'
+import { round } from '../../utils/math'
 
 export const BumpNetworkFees = () => {
   const {
@@ -31,11 +32,9 @@ export const BumpNetworkFees = () => {
           <FeeEstimates {...{ estimatedFees, setFeeRate: setNewFeeRate, isOverpaying: overpayingBy >= 1 }} />
           <Divider />
           <NewFee {...{ newFeeRate, setNewFeeRate }} />
-          {overpayingBy >= 1 && (
-            <Text style={tw`text-error-main text-center`}>
-              {i18n('wallet.bumpNetworkFees.overPayingBy', String(overpayingBy * 100))}
-            </Text>
-          )}
+          <Text style={tw`text-error-main text-center`}>
+            {overpayingBy >= 1 ? i18n('wallet.bumpNetworkFees.overPayingBy', String(round(overpayingBy * 100))) : ' '}
+          </Text>
         </View>
       </PeachScrollView>
       <PrimaryButton disabled={!newFeeRateIsValid} onPress={bumpFees}>
