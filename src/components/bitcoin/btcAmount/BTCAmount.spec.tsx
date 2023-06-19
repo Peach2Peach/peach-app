@@ -1,4 +1,5 @@
-import { BTCAmount, MixedLetterSpacingText } from './BTCAmount'
+import { BTCAmount } from './BTCAmount'
+import { MixedLetterSpacingText } from './components/MixedLetterSpacingText'
 import { createRenderer } from 'react-test-renderer/shallow'
 
 describe('MixedLetterSpacingText', () => {

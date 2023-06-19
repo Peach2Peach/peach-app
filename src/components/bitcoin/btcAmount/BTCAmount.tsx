@@ -1,82 +1,8 @@
-import { TextStyle, View } from 'react-native'
-import { Icon, Text } from '..'
-import { SATSINBTC } from '../../constants'
-import tw from '../../styles/tailwind'
-import i18n from '../../utils/i18n'
-
-type MixedLetterSpacingTextProps = {
-  value: number
-  style: (false | TextStyle)[]
-  isError: boolean
-}
-
-export const MixedLetterSpacingText = ({ value, style, isError }: MixedLetterSpacingTextProps) => {
-  const newNum = (value / SATSINBTC).toFixed(8).split('')
-  for (let i = newNum.length - 3; i > 0; i -= 3) {
-    if (newNum[i] !== '.') {
-      newNum.splice(i, 0, ' ')
-    }
-  }
-
-  const hasFontSize = (s: false | TextStyle): s is TextStyle => s !== false && s?.fontSize !== undefined
-  const styleWithFontSize = style.find(hasFontSize)
-  const fontSize = styleWithFontSize?.fontSize ?? 22
-  const desiredLetterSpacing = {
-    whiteSpace: -(fontSize * 0.35),
-    dot: -(fontSize * 0.21),
-    digit: -(fontSize * 0.075),
-  }
-
-  return (
-    <Text style={style}>
-      {newNum.map((char, index) => {
-        const shouldBeBlack5
-          = index < newNum.findIndex((c) => c !== '0' && Number(c) > 0) || (value === 0 && index !== newNum.length - 1)
-        if (char === '.') {
-          return (
-            <Text
-              key={index}
-              style={[
-                style,
-                shouldBeBlack5 && isError ? tw`text-error-mild` : tw`text-black-5`,
-                { letterSpacing: desiredLetterSpacing.dot },
-              ]}
-            >
-              {char}
-            </Text>
-          )
-        } else if (char === ' ') {
-          return (
-            <Text key={index} style={[style, { letterSpacing: desiredLetterSpacing.whiteSpace }]}>
-              {char}
-            </Text>
-          )
-        } else if (char === '0' && shouldBeBlack5) {
-          return (
-            <Text
-              key={index}
-              style={[
-                style,
-                isError ? tw`text-error-mild` : tw`text-black-5`,
-                { letterSpacing: desiredLetterSpacing.digit },
-              ]}
-            >
-              {char}
-            </Text>
-          )
-        }
-        return (
-          <Text
-            key={index}
-            style={[style, isError && tw`text-error-dark`, { letterSpacing: desiredLetterSpacing.digit }]}
-          >
-            {char}
-          </Text>
-        )
-      })}
-    </Text>
-  )
-}
+import { View } from 'react-native'
+import { Icon, Text } from '../..'
+import tw from '../../../styles/tailwind'
+import i18n from '../../../utils/i18n'
+import { MixedLetterSpacingText } from './components'
 
 type Props = ComponentProps & {
   amount: number
