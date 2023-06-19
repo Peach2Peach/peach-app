@@ -17,7 +17,7 @@ export const useShowInsufficientFundsPopup = () => {
         title: i18n('fundFromPeachWallet.insufficientFunds.title'),
         content: (
           <ConfirmFundingWithInsufficientFunds
-            amount={transaction.txDetails.sent}
+            amount={transaction.txDetails.sent - transaction.txDetails.received}
             address={address}
             fee={fee}
             feeRate={feeRate}

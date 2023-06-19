@@ -20,6 +20,10 @@ describe('useShowFundEscrowPopup', () => {
   const feeRate = estimatedFees.halfHourFee
   const fee = feeRate * 110
   const transaction = getTransactionDetails(amount, feeRate)
+  const transactionWithChange = getTransactionDetails(amount, feeRate)
+  transactionWithChange.txDetails.sent = sellOffer.amount + 5000
+  transactionWithChange.txDetails.received = 5000
+
   const onSuccess = jest.fn()
   const props = {
     address,
@@ -27,6 +31,8 @@ describe('useShowFundEscrowPopup', () => {
     feeRate,
     onSuccess,
   }
+  const propsWithChange = { ...props, transaction: transactionWithChange }
+
   beforeEach(() => {
     // @ts-ignore
     setPeachWallet(new PeachWallet())
@@ -34,7 +40,6 @@ describe('useShowFundEscrowPopup', () => {
 
   it('should open confirmation popup', async () => {
     peachWallet.balance = amount
-    peachWallet.finishTransaction = jest.fn().mockResolvedValue(getTransactionDetails(amount, feeRate))
 
     const { result } = renderHook(useShowFundEscrowPopup, { wrapper })
 
@@ -56,9 +61,19 @@ describe('useShowFundEscrowPopup', () => {
       },
     })
   })
+
+  it('should open insufficient funds popup with change considered', async () => {
+    const { result } = renderHook(useShowFundEscrowPopup, { wrapper })
+
+    await result.current(propsWithChange)
+    expect(usePopupStore.getState()).toEqual({
+      ...usePopupStore.getState(),
+      content: <ConfirmFundingFromPeachWallet {...{ amount, address, fee, feeRate }} />,
+    })
+  })
+
   it('should broadcast transaction on confirm', async () => {
     peachWallet.balance = amount
-    peachWallet.finishTransaction = jest.fn().mockResolvedValue(transaction)
     peachWallet.signAndBroadcastTransaction = jest.fn().mockResolvedValue(transaction)
 
     const { result } = renderHook(useShowFundEscrowPopup, { wrapper })

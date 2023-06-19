@@ -1,8 +1,8 @@
 import { renderHook } from '@testing-library/react-native'
 import { act } from 'react-test-renderer'
 import { estimatedFees } from '../../../../tests/unit/data/bitcoinNetworkData'
-import { insufficientFunds } from '../../../../tests/unit/data/errors'
 import { sellOffer } from '../../../../tests/unit/data/offerData'
+import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { getTransactionDetails } from '../../../../tests/unit/helpers/getTransactionDetails'
 import { Loading } from '../../../components'
 import { usePopupStore } from '../../../store/usePopupStore'
@@ -11,7 +11,6 @@ import { PeachWallet } from '../../../utils/wallet/PeachWallet'
 import { peachWallet, setPeachWallet } from '../../../utils/wallet/setWallet'
 import { ConfirmFundingWithInsufficientFunds } from '../components/ConfirmFundingWithInsufficientFunds'
 import { useShowInsufficientFundsPopup } from './useShowInsufficientFundsPopup'
-import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
 
 const wrapper = NavigationWrapper
 describe('useShowInsufficientFundsPopup', () => {
@@ -20,6 +19,9 @@ describe('useShowInsufficientFundsPopup', () => {
   const feeRate = estimatedFees.halfHourFee
   const fee = feeRate * 110
   const transaction = getTransactionDetails(amount, feeRate)
+  const transactionWithChange = getTransactionDetails(amount, feeRate)
+  transactionWithChange.txDetails.sent = sellOffer.amount + 5000
+  transactionWithChange.txDetails.received = 5000
   const onSuccess = jest.fn()
   const props = {
     address,
@@ -27,19 +29,13 @@ describe('useShowInsufficientFundsPopup', () => {
     feeRate,
     onSuccess,
   }
+  const propsWithChange = { ...props, transaction: transactionWithChange }
+
   beforeEach(() => {
     // @ts-ignore
     setPeachWallet(new PeachWallet())
   })
   it('should open insufficient funds popup', async () => {
-    let call = 0
-    peachWallet.balance = amount
-    peachWallet.finishTransaction = jest.fn().mockImplementation(() => {
-      call++
-      if (call === 1) throw insufficientFunds
-      return getTransactionDetails(amount, feeRate)
-    })
-
     const { result } = renderHook(useShowInsufficientFundsPopup, { wrapper })
 
     await result.current(props)
@@ -58,6 +54,16 @@ describe('useShowInsufficientFundsPopup', () => {
         icon: 'xCircle',
         callback: usePopupStore.getState().closePopup,
       },
+    })
+  })
+
+  it('should open insufficient funds popup with change considered', async () => {
+    const { result } = renderHook(useShowInsufficientFundsPopup, { wrapper })
+
+    await result.current(propsWithChange)
+    expect(usePopupStore.getState()).toEqual({
+      ...usePopupStore.getState(),
+      content: <ConfirmFundingWithInsufficientFunds {...{ amount, address, fee, feeRate }} />,
     })
   })
 

@@ -17,7 +17,7 @@ export const useShowFundEscrowPopup = () => {
         title: i18n('fundFromPeachWallet.confirm.title'),
         content: (
           <ConfirmFundingFromPeachWallet
-            amount={transaction.txDetails.sent}
+            amount={transaction.txDetails.sent - transaction.txDetails.received}
             address={address}
             fee={fee}
             feeRate={feeRate}
