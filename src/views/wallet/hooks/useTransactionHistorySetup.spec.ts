@@ -19,7 +19,7 @@ describe('useTransactionHistorySetup', () => {
       transactions: [
         {
           txid: '1',
-          sent: 100000,
+          sent: 0,
           received: 25000,
           fee: 10000,
           confirmationTime: {
@@ -29,7 +29,7 @@ describe('useTransactionHistorySetup', () => {
         },
         {
           txid: '2',
-          sent: 100000,
+          sent: 0,
           received: 25000,
           fee: 10000,
           confirmationTime: {
@@ -42,7 +42,7 @@ describe('useTransactionHistorySetup', () => {
     const { result } = renderHook(useTransactionHistorySetup, { wrapper: NavigationWrapper })
     expect(result.current.transactions).toEqual([
       {
-        amount: 75000,
+        amount: 25000,
         confirmed: true,
         contractId: undefined,
         currency: 'EUR',
@@ -53,7 +53,7 @@ describe('useTransactionHistorySetup', () => {
         type: 'DEPOSIT',
       },
       {
-        amount: 75000,
+        amount: 25000,
         confirmed: true,
         contractId: undefined,
         currency: 'EUR',
