@@ -112,7 +112,6 @@ export class PeachWallet {
   }
 
   syncWallet (): Promise<void> {
-    console.log(!!this.syncInProgress)
     if (this.syncInProgress) return this.syncInProgress
 
     this.syncInProgress = new Promise((resolve, reject) =>
