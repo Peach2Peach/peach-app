@@ -16,6 +16,11 @@ import { AmountTooLow } from '../components/AmountTooLow'
 import { ConfirmFundingFromPeachWallet } from '../components/ConfirmFundingFromPeachWallet'
 import { ConfirmFundingWithInsufficientFunds } from '../components/ConfirmFundingWithInsufficientFunds'
 
+type ShowConfirmTxPopupProps = {
+  title: string
+  content: JSX.Element
+  transaction: TxBuilderResult
+}
 const canFundOfferFromPeachWallet = (fundingStatus: FundingStatus, offer?: SellOffer) =>
   offer?.escrow && fundingStatus.status === 'NULL'
 
@@ -48,12 +53,29 @@ export const useFundFromPeachWallet = ({ offer, fundingStatus }: Props) => {
     }
   }
 
+  const showConfirmTxPopup = ({ title, content, transaction }: ShowConfirmTxPopupProps) => {
+    setPopup({
+      title,
+      level: 'APP',
+      content,
+      action1: {
+        label: i18n('fundFromPeachWallet.confirm.confirmAndSend'),
+        icon: 'arrowRightCircle',
+        callback: () => confirmAndSend(transaction),
+      },
+      action2: {
+        label: i18n('cancel'),
+        icon: 'xCircle',
+        callback: closePopup,
+      },
+    })
+  }
+
   const showFundEscrowPopup = async (escrow: string, finishedTransaction: TxBuilderResult) => {
     const fee = await finishedTransaction.psbt.feeAmount()
 
-    setPopup({
+    showConfirmTxPopup({
       title: i18n('fundFromPeachWallet.confirm.title'),
-      level: 'APP',
       content: (
         <ConfirmFundingFromPeachWallet
           amount={finishedTransaction.txDetails.sent}
@@ -62,24 +84,15 @@ export const useFundFromPeachWallet = ({ offer, fundingStatus }: Props) => {
           feeRate={feeRate}
         />
       ),
-      action1: {
-        label: i18n('fundFromPeachWallet.confirm.confirmAndSend'),
-        icon: 'arrowRightCircle',
-        callback: () => confirmAndSend(finishedTransaction),
-      },
-      action2: {
-        label: i18n('cancel'),
-        icon: 'xCircle',
-        callback: closePopup,
-      },
+      transaction: finishedTransaction,
     })
   }
+
   const showInsufficientFundsPopup = async (escrow: string, finishedTransaction: TxBuilderResult) => {
     const fee = await finishedTransaction.psbt.feeAmount()
 
-    setPopup({
+    showConfirmTxPopup({
       title: i18n('fundFromPeachWallet.insufficientFunds.title'),
-      level: 'APP',
       content: (
         <ConfirmFundingWithInsufficientFunds
           amount={finishedTransaction.txDetails.sent}
@@ -88,18 +101,10 @@ export const useFundFromPeachWallet = ({ offer, fundingStatus }: Props) => {
           feeRate={feeRate}
         />
       ),
-      action1: {
-        label: i18n('fundFromPeachWallet.confirm.confirmAndSend'),
-        icon: 'arrowRightCircle',
-        callback: () => confirmAndSend(finishedTransaction),
-      },
-      action2: {
-        label: i18n('cancel'),
-        icon: 'xCircle',
-        callback: closePopup,
-      },
+      transaction: finishedTransaction,
     })
   }
+
   const openAmountTooLowPopup = (available: number, needed: number) => {
     setPopup({
       title: i18n('fundFromPeachWallet.amountTooLow.title'),
