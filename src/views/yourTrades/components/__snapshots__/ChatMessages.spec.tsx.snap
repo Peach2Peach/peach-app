@@ -24,6 +24,7 @@ exports[`ChatMessages should render correctly 1`] = `
           "height": 12,
           "width": 12,
         },
+        false,
       ]
     }
   />
@@ -54,6 +55,7 @@ exports[`ChatMessages should render correctly with messages 1`] = `
           "height": 12,
           "width": 12,
         },
+        false,
       ]
     }
   />

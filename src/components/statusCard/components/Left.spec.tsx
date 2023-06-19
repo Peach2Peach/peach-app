@@ -8,7 +8,7 @@ import { sellOffer } from '../../../../tests/unit/data/offerData'
 
 const getContractMock = jest.fn(() => Promise.resolve([contract, null]))
 const getOfferDetailsMock = jest.fn(() => Promise.resolve([{ ...sellOffer, tradeStatus: 'searchingForPeer' }, null]))
-jest.mock('../../utils/peachAPI', () => ({
+jest.mock('../../../utils/peachAPI', () => ({
   getContract: () => getContractMock(),
   getOfferDetails: () => getOfferDetailsMock(),
 }))

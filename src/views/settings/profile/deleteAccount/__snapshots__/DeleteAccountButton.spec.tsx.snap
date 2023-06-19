@@ -73,6 +73,7 @@ exports[`DeleteAccountButton renders correctly 1`] = `
           "marginLeft": 16,
           "width": 16,
         },
+        false,
       ]
     }
   />

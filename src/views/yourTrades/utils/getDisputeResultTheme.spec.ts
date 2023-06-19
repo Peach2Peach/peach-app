@@ -24,7 +24,7 @@ describe('getDisputeResultTheme', () => {
     const theme = getDisputeResultTheme(wonAsBuyer)
     expect(theme).toEqual({
       icon: 'alertOctagon',
-      level: 'SUCCESS',
+      level: 'green',
       color: '#05A85A',
     })
   })
@@ -33,7 +33,7 @@ describe('getDisputeResultTheme', () => {
     const theme = getDisputeResultTheme(wonAsSeller)
     expect(theme).toEqual({
       icon: 'alertOctagon',
-      level: 'SUCCESS',
+      level: 'green',
       color: '#05A85A',
     })
   })
@@ -41,7 +41,7 @@ describe('getDisputeResultTheme', () => {
     const themeSeller = getDisputeResultTheme(lostAsSeller)
     expect(themeSeller).toEqual({
       icon: 'alertOctagon',
-      level: 'ERROR',
+      level: 'red',
       color: '#DF321F',
     })
   })
@@ -49,7 +49,7 @@ describe('getDisputeResultTheme', () => {
     const themeBuyer = getDisputeResultTheme(lostAsBuyer)
     expect(themeBuyer).toEqual({
       icon: 'alertOctagon',
-      level: 'ERROR',
+      level: 'red',
       color: '#DF321F',
     })
   })
