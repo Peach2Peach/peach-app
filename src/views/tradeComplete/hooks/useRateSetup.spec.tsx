@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-native'
+import { act, renderHook } from '@testing-library/react-native'
 import { account1 } from '../../../../tests/unit/data/accountData'
 import { contract } from '../../../../tests/unit/data/contractData'
 import { TradeBreakdown } from '../../../popups/TradeBreakdown'
@@ -50,10 +50,8 @@ describe('useRateSetup', () => {
   const initialProps: Props = { contract, view: 'buyer', vote: undefined, saveAndUpdate: saveAndUpdateMock }
 
   beforeEach(() => {
-    settingsStore.getState().setShouldShowBackupOverlay('completedBuyOffer', false)
-  })
-  afterEach(() => {
     settingsStore.getState().reset()
+    settingsStore.getState().setShouldShowBackupOverlay('completedBuyOffer', false)
   })
   it('returns default values correctly', () => {
     const { result } = renderHook(useRateSetup, {
@@ -67,12 +65,14 @@ describe('useRateSetup', () => {
       viewInExplorer: expect.any(Function),
     })
   })
-  it('does not submit rating if none has been set', () => {
+  it('does not submit rating if none has been set', async () => {
     const { result } = renderHook(useRateSetup, {
       initialProps,
       wrapper: NavigationWrapper,
     })
-    result.current.rate()
+    await act(async () => {
+      await result.current.rate()
+    })
     expect(rateUserMock).not.toHaveBeenCalled()
   })
   it('does submit rating as buyer', async () => {
@@ -81,7 +81,9 @@ describe('useRateSetup', () => {
       initialProps: { ...initialProps, vote: 'positive', view: 'buyer' },
       wrapper: NavigationWrapper,
     })
-    await result.current.rate()
+    await act(async () => {
+      await result.current.rate()
+    })
     expect(rateUserMock).toHaveBeenCalledWith({
       contractId: contract.id,
       rating: positiveRating.rating,
@@ -98,7 +100,9 @@ describe('useRateSetup', () => {
       initialProps: { ...initialProps, vote: 'positive', view: 'seller' },
       wrapper: NavigationWrapper,
     })
-    await result.current.rate()
+    await act(async () => {
+      await result.current.rate()
+    })
     expect(rateUserMock).toHaveBeenCalledWith({
       contractId: contract.id,
       rating: positiveRating.rating,
@@ -116,7 +120,9 @@ describe('useRateSetup', () => {
       initialProps: { ...initialProps, vote: 'positive' },
       wrapper: NavigationWrapper,
     })
-    await result.current.rate()
+    await act(async () => {
+      await result.current.rate()
+    })
     expect(rateUserMock).toHaveBeenCalledWith({
       contractId: contract.id,
       rating: positiveRating.rating,
@@ -134,7 +140,9 @@ describe('useRateSetup', () => {
       initialProps: { ...initialProps, vote: 'negative' },
       wrapper: NavigationWrapper,
     })
-    await result.current.rate()
+    await act(async () => {
+      await result.current.rate()
+    })
     expect(rateUserMock).toHaveBeenCalledWith({
       contractId: contract.id,
       rating: negativeRating.rating,
@@ -151,7 +159,9 @@ describe('useRateSetup', () => {
       initialProps: { ...initialProps, vote: 'positive' },
       wrapper: NavigationWrapper,
     })
-    await result.current.rate()
+    await act(async () => {
+      await result.current.rate()
+    })
     expect(replaceMock).toHaveBeenCalledWith('contract', {
       contractId: contract.id,
     })
@@ -163,7 +173,9 @@ describe('useRateSetup', () => {
       initialProps: { ...initialProps, vote: 'negative' },
       wrapper: NavigationWrapper,
     })
-    await result.current.rate()
+    await act(async () => {
+      await result.current.rate()
+    })
     expect(replaceMock).toHaveBeenCalledWith('yourTrades')
   })
   it('handles rating submit error', async () => {
@@ -173,7 +185,9 @@ describe('useRateSetup', () => {
       initialProps: { ...initialProps, vote: 'negative' },
       wrapper: NavigationWrapper,
     })
-    await result.current.rate()
+    await act(async () => {
+      await result.current.rate()
+    })
     expect(showErrorBannerMock).toHaveBeenCalled()
     expect(replaceMock).not.toHaveBeenCalled()
   })

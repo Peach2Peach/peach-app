@@ -8,7 +8,7 @@ exports[`FundEscrow should render the FundEscrow view 1`] = `
     }
   }
 >
-  <PeachScrollView
+  <ForwardRef
     contentContainerStyle={
       {
         "justifyContent": "center",
@@ -85,7 +85,7 @@ exports[`FundEscrow should render the FundEscrow view 1`] = `
         label="Peach Escrow - offer P‑26"
       />
     </View>
-  </PeachScrollView>
+  </ForwardRef>
   <View
     style={
       {
@@ -164,7 +164,11 @@ one sec..."
 
 exports[`FundEscrow should show NoEscrowFound, if no there is an error while creating escrow 1`] = `<NoEscrowFound />`;
 
-exports[`FundEscrow should show TransactionInMempool, if fundingStatus is MEMPOOL 1`] = `<TransactionInMempool />`;
+exports[`FundEscrow should show TransactionInMempool, if fundingStatus is MEMPOOL 1`] = `
+<TransactionInMempool
+  txId="txId"
+/>
+`;
 
 exports[`FundEscrow should show funded from peach wallet, if funded from peach wallet 1`] = `
 <View
@@ -174,7 +178,7 @@ exports[`FundEscrow should show funded from peach wallet, if funded from peach w
     }
   }
 >
-  <PeachScrollView
+  <ForwardRef
     contentContainerStyle={
       {
         "justifyContent": "center",
@@ -251,7 +255,7 @@ exports[`FundEscrow should show funded from peach wallet, if funded from peach w
         label="Peach Escrow - offer P‑26"
       />
     </View>
-  </PeachScrollView>
+  </ForwardRef>
   <View
     style={
       {
@@ -303,8 +307,18 @@ exports[`FundEscrow should show funded from peach wallet, if funded from peach w
     </View>
     <Divider />
     <TradeInfo
-      iconColor="#05A85A"
-      iconId="checkCircle"
+      IconComponent={
+        <Icon
+          color="#05A85A"
+          id="checkCircle"
+          style={
+            {
+              "height": 16,
+              "width": 16,
+            }
+          }
+        />
+      }
       text="funded from peach wallet"
     />
   </View>

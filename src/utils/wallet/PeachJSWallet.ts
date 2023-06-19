@@ -75,7 +75,7 @@ export class PeachJSWallet {
   signMessage (message: string, address: string, index?: number): string {
     info('PeachWallet - signMessage - start')
 
-    const keyPair = index ? this.getKeyPair(index) : this.findKeyPairByAddress(address)
+    const keyPair = index !== undefined ? this.getKeyPair(index) : this.findKeyPairByAddress(address)
     if (!keyPair?.privateKey) throw Error('Address not part of wallet')
     const signature = sign(message, keyPair.privateKey, true)
 

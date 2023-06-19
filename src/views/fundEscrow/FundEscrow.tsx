@@ -1,5 +1,5 @@
 import { View } from 'react-native'
-import { BitcoinAddress, Divider, Loading, PeachScrollView, PrimaryButton, Text } from '../../components'
+import { BitcoinAddress, Divider, Icon, Loading, PeachScrollView, PrimaryButton, Text } from '../../components'
 import { TradeInfo } from '../../components/offer'
 import { BTCAmount } from '../../components/text/BTCAmount'
 import { SATSINBTC } from '../../constants'
@@ -19,7 +19,7 @@ export default () => {
   if (createEscrowError) return <NoEscrowFound />
   if (isLoading || !escrow) return <BitcoinLoading text={i18n('sell.escrow.loading')} />
 
-  if (fundingStatus.status === 'MEMPOOL') return <TransactionInMempool />
+  if (fundingStatus.status === 'MEMPOOL') return <TransactionInMempool txId={fundingStatus.txIds[0]} />
 
   return (
     <View style={tw`h-full`}>
@@ -46,8 +46,7 @@ export default () => {
         {fundedFromPeachWallet ? (
           <TradeInfo
             text={i18n('fundFromPeachWallet.funded')}
-            iconId="checkCircle"
-            iconColor={tw`text-success-main`.color}
+            IconComponent={<Icon id="checkCircle" style={tw`w-4 h-4`} color={tw`text-success-main`.color} />}
           />
         ) : (
           <PrimaryButton testID="escrow-fund" border iconId="sell" onPress={fundFromPeachWallet}>

@@ -10,7 +10,7 @@ exports[`PayoutAddress should render correctly 1`] = `
     }
   }
 >
-  <PeachScrollView
+  <ForwardRef
     contentContainerStyle={
       {
         "height": "100%",
@@ -66,7 +66,7 @@ exports[`PayoutAddress should render correctly 1`] = `
         }
       }
     />
-  </PeachScrollView>
+  </ForwardRef>
   <PrimaryButton
     disabled={false}
     narrow={true}
@@ -94,7 +94,7 @@ exports[`PayoutAddress should render correctly when isUpdated is true 1`] = `
     }
   }
 >
-  <PeachScrollView
+  <ForwardRef
     contentContainerStyle={
       {
         "height": "100%",
@@ -177,7 +177,7 @@ exports[`PayoutAddress should render correctly when isUpdated is true 1`] = `
         }
       />
     </View>
-  </PeachScrollView>
+  </ForwardRef>
   <PrimaryButton
     disabled={true}
     narrow={true}
@@ -205,7 +205,7 @@ exports[`PayoutAddress should render correctly when type is refund 1`] = `
     }
   }
 >
-  <PeachScrollView
+  <ForwardRef
     contentContainerStyle={
       {
         "height": "100%",
@@ -261,7 +261,7 @@ exports[`PayoutAddress should render correctly when type is refund 1`] = `
         }
       }
     />
-  </PeachScrollView>
+  </ForwardRef>
   <PrimaryButton
     disabled={false}
     narrow={true}
