@@ -55,9 +55,12 @@ exports[`BumpNetworkFees renders correctly 1`] = `
           }
         }
         isOverpaying={false}
+        setFeeRate={[MockFunction]}
       />
       <Divider />
-      <NewFee />
+      <NewFee
+        setNewFeeRate={[MockFunction]}
+      />
     </View>
   </ForwardRef>
   <PrimaryButton
@@ -124,9 +127,12 @@ exports[`BumpNetworkFees renders correctly for medium screens 1`] = `
           }
         }
         isOverpaying={false}
+        setFeeRate={[MockFunction]}
       />
       <Divider />
-      <NewFee />
+      <NewFee
+        setNewFeeRate={[MockFunction]}
+      />
     </View>
   </ForwardRef>
   <PrimaryButton
@@ -193,9 +199,13 @@ exports[`BumpNetworkFees renders correctly when new fee is invalid 1`] = `
           }
         }
         isOverpaying={false}
+        setFeeRate={[MockFunction]}
       />
       <Divider />
-      <NewFee />
+      <NewFee
+        newFeeRate={1}
+        setNewFeeRate={[MockFunction]}
+      />
     </View>
   </ForwardRef>
   <PrimaryButton
@@ -262,13 +272,17 @@ exports[`BumpNetworkFees renders correctly when new fee is valid 1`] = `
           }
         }
         isOverpaying={false}
+        setFeeRate={[MockFunction]}
       />
       <Divider />
-      <NewFee />
+      <NewFee
+        newFeeRate={20}
+        setNewFeeRate={[MockFunction]}
+      />
     </View>
   </ForwardRef>
   <PrimaryButton
-    disabled={true}
+    disabled={false}
     onPress={[MockFunction]}
   >
     confirm
@@ -331,9 +345,13 @@ exports[`BumpNetworkFees renders correctly when user would be overpaying by at l
           }
         }
         isOverpaying={true}
+        setFeeRate={[MockFunction]}
       />
       <Divider />
-      <NewFee />
+      <NewFee
+        newFeeRate={3.9286871961102108}
+        setNewFeeRate={[MockFunction]}
+      />
       <PeachText
         style={
           {
@@ -347,7 +365,7 @@ exports[`BumpNetworkFees renders correctly when user would be overpaying by at l
     </View>
   </ForwardRef>
   <PrimaryButton
-    disabled={true}
+    disabled={false}
     onPress={[MockFunction]}
   >
     confirm

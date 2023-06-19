@@ -6,16 +6,16 @@ import { placeholderFees } from '../../hooks/query/useFeeEstimate'
 import { getTransactionFeeRate } from '../../utils/bitcoin'
 import { BumpNetworkFees } from './BumpNetworkFees'
 
-const setNewFeeMock = jest.fn()
+const setNewFeeRateMock = jest.fn()
 const bumpFeesMock = jest.fn()
 const bumpNetworkFeesSetupReturnValue = {
   txId: bitcoinTransaction.txid,
   transaction: bitcoinTransaction,
   currentFee: getTransactionFeeRate(bitcoinTransaction),
-  newFee: undefined,
-  setNewFee: setNewFeeMock,
-  newFeeIsValid: false,
-  newFeeErrors: [],
+  newFeeRate: undefined,
+  setNewFeeRate: setNewFeeRateMock,
+  newFeeRateIsValid: false,
+  newFeeRateErrors: [],
   estimatedFees: placeholderFees,
   overpayingBy: 0.5,
   bumpFees: bumpFeesMock,
@@ -25,6 +25,7 @@ const useBumpNetworkFeesSetupMock = jest.fn().mockReturnValue(bumpNetworkFeesSet
 jest.mock('./hooks/useBumpNetworkFeesSetup', () => ({
   useBumpNetworkFeesSetup: () => useBumpNetworkFeesSetupMock(),
 }))
+
 describe('BumpNetworkFees', () => {
   const renderer = createRenderer()
   it('renders correctly', () => {
@@ -48,8 +49,8 @@ describe('BumpNetworkFees', () => {
   it('renders correctly when new fee is valid', () => {
     useBumpNetworkFeesSetupMock.mockReturnValueOnce({
       ...bumpNetworkFeesSetupReturnValue,
-      newFee: 20,
-      newFeeIsValid: true,
+      newFeeRate: 20,
+      newFeeRateIsValid: true,
     })
     renderer.render(<BumpNetworkFees />)
     expect(renderer.getRenderOutput()).toMatchSnapshot()
@@ -57,8 +58,8 @@ describe('BumpNetworkFees', () => {
   it('renders correctly when new fee is invalid', () => {
     useBumpNetworkFeesSetupMock.mockReturnValueOnce({
       ...bumpNetworkFeesSetupReturnValue,
-      newFee: 1,
-      newFeeIsValid: false,
+      newFeeRate: 1,
+      newFeeRateIsValid: false,
     })
     renderer.render(<BumpNetworkFees />)
     expect(renderer.getRenderOutput()).toMatchSnapshot()
@@ -66,29 +67,29 @@ describe('BumpNetworkFees', () => {
   it('renders correctly when user would be overpaying by at least 100%', () => {
     useBumpNetworkFeesSetupMock.mockReturnValueOnce({
       ...bumpNetworkFeesSetupReturnValue,
-      newFee: bumpNetworkFeesSetupReturnValue.currentFee * 3,
+      newFeeRate: bumpNetworkFeesSetupReturnValue.currentFee * 3,
       overpayingBy: 2,
-      newFeeIsValid: true,
+      newFeeRateIsValid: true,
     })
     renderer.render(<BumpNetworkFees />)
     expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
   it('new fee input changes fee value', () => {
-    const newFee = 20
+    const newFeeRate = 20
     useBumpNetworkFeesSetupMock.mockReturnValueOnce({
       ...bumpNetworkFeesSetupReturnValue,
-      newFee: bumpNetworkFeesSetupReturnValue.currentFee * 3,
-      newFeeIsValid: true,
+      newFeeRate: bumpNetworkFeesSetupReturnValue.currentFee * 3,
+      newFeeRateIsValid: true,
     })
     const { getByPlaceholderText } = render(<BumpNetworkFees />)
-    fireEvent(getByPlaceholderText(''), 'onChange', newFee)
-    expect(setNewFeeMock).toHaveBeenCalledWith(newFee)
+    fireEvent(getByPlaceholderText(''), 'onChange', String(newFeeRate))
+    expect(setNewFeeRateMock).toHaveBeenCalledWith(String(newFeeRate))
   })
   it('calls bump fees', () => {
     useBumpNetworkFeesSetupMock.mockReturnValueOnce({
       ...bumpNetworkFeesSetupReturnValue,
-      newFee: 20,
-      newFeeIsValid: true,
+      newFeeRate: 20,
+      newFeeRateIsValid: true,
     })
     const { getByText } = render(<BumpNetworkFees />)
     fireEvent(getByText('confirm'), 'onPress')
