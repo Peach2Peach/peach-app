@@ -83,7 +83,7 @@ exports[`Wallet should render correctly 1`] = `
         </PeachText>
         <BitcoinAddressInput
           errorMessage=""
-          isValid={true}
+          onChange={[MockFunction]}
           style={
             {
               "marginTop": 16,
@@ -209,7 +209,7 @@ exports[`Wallet should render correctly when refreshing 1`] = `
         </PeachText>
         <BitcoinAddressInput
           errorMessage=""
-          isValid={true}
+          onChange={[MockFunction]}
           style={
             {
               "marginTop": 16,

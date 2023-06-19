@@ -18,9 +18,7 @@ export const useShowFundEscrowPopup = () => {
         content: (
           <ConfirmFundingFromPeachWallet
             amount={transaction.txDetails.sent - transaction.txDetails.received}
-            address={address}
-            fee={fee}
-            feeRate={feeRate}
+            {...{ address, fee, feeRate }}
           />
         ),
         transaction,

@@ -40,7 +40,7 @@ export const register = async ({
 
     if (result && 'accessToken' in result) {
       setAccessToken(result)
-      info('peachAPI - register - SUCCESS', publicKey, result)
+      info('peachAPI - register - SUCCESS', publicKey)
       return [result, null]
     } else if (result) {
       const errorMessage = (result as APIError).error

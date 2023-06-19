@@ -1,15 +1,13 @@
 import { BLOCKEXPLORER, NETWORK } from '@env'
 import { Blockchain, DatabaseConfig, Descriptor, TxBuilder, Wallet } from 'bdk-rn'
 import { TransactionDetails, TxBuilderResult } from 'bdk-rn/lib/classes/Bindings'
-import { AddressIndex, BlockChainNames, BlockchainEsploraConfig, KeychainKind, Network } from 'bdk-rn/lib/lib/enums'
+import { AddressIndex, BlockChainNames, BlockchainEsploraConfig, KeychainKind } from 'bdk-rn/lib/lib/enums'
 import { BIP32Interface } from 'bip32'
 import { tradeSummaryStore } from '../../store/tradeSummaryStore'
 import { getBuyOfferIdFromContract } from '../contract'
 import { info } from '../log'
 import { parseError } from '../result'
-import { isPending } from '../transaction'
-import { findTransactionsToRebroadcast } from '../transaction/findTransactionsToRebroadcast'
-import { mergeTransactionList } from '../transaction/mergeTransactionList'
+import { findTransactionsToRebroadcast, isPending, mergeTransactionList } from '../transaction'
 import { callWhenInternet } from '../web'
 import { PeachJSWallet } from './PeachJSWallet'
 import { handleBroadcastError } from './error/handleBroadcastError'
@@ -37,15 +35,12 @@ export class PeachWallet extends PeachJSWallet {
 
   transactions: TransactionDetails[]
 
-  network: Network
-
   wallet: Wallet | undefined
 
   blockchain: Blockchain | undefined
 
   constructor ({ wallet, network = NETWORK, gapLimit = 25 }: PeachWalletProps) {
     super({ wallet, network, gapLimit })
-    this.network = network as Network
     this.descriptorPath = `/84'/${network === 'bitcoin' ? '0' : '1'}'/0'/0/*`
     this.balance = 0
     this.transactions = []

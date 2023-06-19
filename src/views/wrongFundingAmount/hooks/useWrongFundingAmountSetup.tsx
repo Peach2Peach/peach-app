@@ -2,8 +2,7 @@ import { useHeaderSetup, useRoute } from '../../../hooks'
 import { useOfferDetails } from '../../../hooks/query/useOfferDetails'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { sum } from '../../../utils/math'
-import { isSellOffer } from '../../../utils/offer'
-import { OfferDetailsTitle } from '../../offerDetails/components/OfferDetailsTitle'
+import { isSellOffer, offerIdToHex } from '../../../utils/offer'
 import { useConfirmEscrow } from './useConfirmEscrow'
 
 export const useWrongFundingAmountSetup = () => {
@@ -24,7 +23,7 @@ export const useWrongFundingAmountSetup = () => {
   }
 
   useHeaderSetup({
-    titleComponent: <OfferDetailsTitle id={offerId} />,
+    title: offerIdToHex(offerId),
   })
 
   return {
