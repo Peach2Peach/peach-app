@@ -42,7 +42,7 @@ exports[`ConfirmRbf renders correctly 1`] = `
         }
       }
     >
-      ( 0% of transaction )
+      ( 2.8% of transaction )
     </PeachText>
   </View>
   <PeachText>
@@ -79,7 +79,7 @@ exports[`ConfirmRbf renders correctly 1`] = `
         }
       }
     >
-      ( 0.1% of transaction )
+      ( 8.3% of transaction )
     </PeachText>
   </View>
 </View>
