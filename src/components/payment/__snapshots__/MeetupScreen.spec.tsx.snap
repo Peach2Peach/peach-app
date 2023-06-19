@@ -9,7 +9,7 @@ exports[`MeetupScreen should render correctly 1`] = `
     }
   }
 >
-  <PeachScrollView
+  <ForwardRef
     contentContainerStyle={
       {
         "flexGrow": 1,
@@ -49,7 +49,7 @@ exports[`MeetupScreen should render correctly 1`] = `
         }
       />
     </View>
-  </PeachScrollView>
+  </ForwardRef>
   <PrimaryButton
     onPress={[MockFunction]}
     style={
@@ -72,7 +72,7 @@ exports[`MeetupScreen should render correctly with multiple currencies 1`] = `
     }
   }
 >
-  <PeachScrollView
+  <ForwardRef
     contentContainerStyle={
       {
         "flexGrow": 1,
@@ -130,7 +130,7 @@ exports[`MeetupScreen should render correctly with multiple currencies 1`] = `
         }
       />
     </View>
-  </PeachScrollView>
+  </ForwardRef>
   <PrimaryButton
     onPress={[MockFunction]}
     style={

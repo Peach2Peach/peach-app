@@ -19,7 +19,7 @@ export default () => {
   if (createEscrowError) return <NoEscrowFound />
   if (isLoading || !escrow) return <BitcoinLoading text={i18n('sell.escrow.loading')} />
 
-  if (fundingStatus.status === 'MEMPOOL') return <TransactionInMempool />
+  if (fundingStatus.status === 'MEMPOOL') return <TransactionInMempool txId={fundingStatus.txIds[0]} />
 
   return (
     <View style={tw`h-full`}>

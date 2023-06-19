@@ -18,7 +18,7 @@ exports[`SellSummary should render the SellSummary view 1`] = `
     ]
   }
 >
-  <PeachScrollView
+  <ForwardRef
     contentContainerStyle={
       {
         "flexGrow": 1,
@@ -27,7 +27,7 @@ exports[`SellSummary should render the SellSummary view 1`] = `
     }
   >
     <SellOfferSummary />
-  </PeachScrollView>
+  </ForwardRef>
   <PrimaryButton
     loading={false}
     narrow={true}

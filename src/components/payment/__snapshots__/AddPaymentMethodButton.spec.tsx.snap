@@ -1,334 +1,242 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`AddPaymentMethodButton should render correctly 1`] = `
-<View>
-  <View
+<View
+  accessibilityState={
+    {
+      "busy": undefined,
+      "checked": undefined,
+      "disabled": false,
+      "expanded": undefined,
+      "selected": undefined,
+    }
+  }
+  accessibilityValue={
+    {
+      "max": undefined,
+      "min": undefined,
+      "now": undefined,
+      "text": undefined,
+    }
+  }
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    {
+      "alignItems": "center",
+      "alignSelf": "center",
+      "flexDirection": "row",
+      "opacity": 1,
+    }
+  }
+>
+  <test-file-stub
+    fill="#F56522"
     style={
-      {
-        "alignItems": "center",
-        "display": "flex",
-      }
+      [
+        {
+          "height": 24,
+          "width": 24,
+        },
+        {
+          "height": 28,
+          "marginRight": 12,
+          "width": 28,
+        },
+      ]
+    }
+  />
+  <Text
+    allowFontScaling={false}
+    style={
+      [
+        {
+          "color": "#2B1911",
+          "fontFamily": "Baloo2-Regular",
+          "fontSize": 16,
+          "letterSpacing": 0.16,
+          "lineHeight": 24,
+        },
+        {
+          "color": "#F56522",
+          "fontFamily": "Baloo2-Bold",
+          "fontSize": 20,
+          "letterSpacing": 0.2,
+          "lineHeight": 32,
+        },
+      ]
     }
   >
-    <View
-      accessibilityState={
-        {
-          "busy": undefined,
-          "checked": undefined,
-          "disabled": false,
-          "expanded": undefined,
-          "selected": undefined,
-        }
-      }
-      accessibilityValue={
-        {
-          "max": undefined,
-          "min": undefined,
-          "now": undefined,
-          "text": undefined,
-        }
-      }
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        [
-          {
-            "alignItems": "center",
-            "display": "flex",
-            "flexDirection": "row",
-          },
-          false,
-        ]
-      }
-      testID="buy-add-mop"
-    >
-      <test-file-stub
-        fill="#F56522"
-        style={
-          [
-            {
-              "height": 24,
-              "width": 24,
-            },
-            {
-              "height": 28,
-              "marginRight": 12,
-              "width": 28,
-            },
-          ]
-        }
-      />
-      <Text
-        allowFontScaling={false}
-        style={
-          [
-            {
-              "color": "#2B1911",
-              "fontFamily": "Baloo2-Regular",
-              "fontSize": 16,
-              "letterSpacing": 0.16,
-              "lineHeight": 24,
-            },
-            {
-              "color": "#F56522",
-              "fontFamily": "Baloo2-Bold",
-              "fontSize": 20,
-              "letterSpacing": 0.2,
-              "lineHeight": 32,
-            },
-          ]
-        }
-      >
-        add new currency /
+    add new currency /
 payment method
-      </Text>
-    </View>
-  </View>
+  </Text>
 </View>
 `;
 
 exports[`AddPaymentMethodButton should render correctly with isCash 1`] = `
-<View>
-  <View
+<View
+  accessibilityState={
+    {
+      "busy": undefined,
+      "checked": undefined,
+      "disabled": false,
+      "expanded": undefined,
+      "selected": undefined,
+    }
+  }
+  accessibilityValue={
+    {
+      "max": undefined,
+      "min": undefined,
+      "now": undefined,
+      "text": undefined,
+    }
+  }
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    {
+      "alignItems": "center",
+      "alignSelf": "center",
+      "flexDirection": "row",
+      "opacity": 1,
+    }
+  }
+>
+  <test-file-stub
+    fill="#F56522"
     style={
-      {
-        "alignItems": "center",
-        "display": "flex",
-      }
+      [
+        {
+          "height": 24,
+          "width": 24,
+        },
+        {
+          "height": 28,
+          "marginRight": 12,
+          "width": 28,
+        },
+      ]
+    }
+  />
+  <Text
+    allowFontScaling={false}
+    style={
+      [
+        {
+          "color": "#2B1911",
+          "fontFamily": "Baloo2-Regular",
+          "fontSize": 16,
+          "letterSpacing": 0.16,
+          "lineHeight": 24,
+        },
+        {
+          "color": "#F56522",
+          "fontFamily": "Baloo2-Bold",
+          "fontSize": 20,
+          "letterSpacing": 0.2,
+          "lineHeight": 32,
+        },
+      ]
     }
   >
-    <View
-      accessibilityState={
-        {
-          "busy": undefined,
-          "checked": undefined,
-          "disabled": false,
-          "expanded": undefined,
-          "selected": undefined,
-        }
-      }
-      accessibilityValue={
-        {
-          "max": undefined,
-          "min": undefined,
-          "now": undefined,
-          "text": undefined,
-        }
-      }
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        [
-          {
-            "alignItems": "center",
-            "display": "flex",
-            "flexDirection": "row",
-          },
-          false,
-        ]
-      }
-      testID="buy-add-mop"
-    >
-      <test-file-stub
-        fill="#F56522"
-        style={
-          [
-            {
-              "height": 24,
-              "width": 24,
-            },
-            {
-              "height": 28,
-              "marginRight": 12,
-              "width": 28,
-            },
-          ]
-        }
-      />
-      <Text
-        allowFontScaling={false}
-        style={
-          [
-            {
-              "color": "#2B1911",
-              "fontFamily": "Baloo2-Regular",
-              "fontSize": 16,
-              "letterSpacing": 0.16,
-              "lineHeight": 24,
-            },
-            {
-              "color": "#F56522",
-              "fontFamily": "Baloo2-Bold",
-              "fontSize": 20,
-              "letterSpacing": 0.2,
-              "lineHeight": 32,
-            },
-          ]
-        }
-      >
-        add new cash option
-      </Text>
-    </View>
-  </View>
+    add new cash option
+  </Text>
 </View>
 `;
 
 exports[`AddPaymentMethodButton should render correctly with isCash while still loading 1`] = `
-<View>
-  <View
+<View
+  accessibilityState={
+    {
+      "busy": undefined,
+      "checked": undefined,
+      "disabled": true,
+      "expanded": undefined,
+      "selected": undefined,
+    }
+  }
+  accessibilityValue={
+    {
+      "max": undefined,
+      "min": undefined,
+      "now": undefined,
+      "text": undefined,
+    }
+  }
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    {
+      "alignItems": "center",
+      "alignSelf": "center",
+      "flexDirection": "row",
+      "opacity": 0.5,
+    }
+  }
+>
+  <test-file-stub
+    fill="#F56522"
     style={
-      {
-        "alignItems": "center",
-        "display": "flex",
-      }
+      [
+        {
+          "height": 24,
+          "width": 24,
+        },
+        {
+          "height": 28,
+          "marginRight": 12,
+          "width": 28,
+        },
+      ]
+    }
+  />
+  <Text
+    allowFontScaling={false}
+    style={
+      [
+        {
+          "color": "#2B1911",
+          "fontFamily": "Baloo2-Regular",
+          "fontSize": 16,
+          "letterSpacing": 0.16,
+          "lineHeight": 24,
+        },
+        {
+          "color": "#F56522",
+          "fontFamily": "Baloo2-Bold",
+          "fontSize": 20,
+          "letterSpacing": 0.2,
+          "lineHeight": 32,
+        },
+      ]
     }
   >
-    <View
-      accessibilityState={
-        {
-          "busy": undefined,
-          "checked": undefined,
-          "disabled": true,
-          "expanded": undefined,
-          "selected": undefined,
-        }
-      }
-      accessibilityValue={
-        {
-          "max": undefined,
-          "min": undefined,
-          "now": undefined,
-          "text": undefined,
-        }
-      }
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        [
-          {
-            "alignItems": "center",
-            "display": "flex",
-            "flexDirection": "row",
-          },
-          {
-            "opacity": 0.5,
-          },
-        ]
-      }
-      testID="buy-add-mop"
-    >
-      <test-file-stub
-        fill="#F56522"
-        style={
-          [
-            {
-              "height": 24,
-              "width": 24,
-            },
-            {
-              "height": 28,
-              "marginRight": 12,
-              "width": 28,
-            },
-          ]
-        }
-      />
-      <Text
-        allowFontScaling={false}
-        style={
-          [
-            {
-              "color": "#2B1911",
-              "fontFamily": "Baloo2-Regular",
-              "fontSize": 16,
-              "letterSpacing": 0.16,
-              "lineHeight": 24,
-            },
-            {
-              "color": "#F56522",
-              "fontFamily": "Baloo2-Bold",
-              "fontSize": 20,
-              "letterSpacing": 0.2,
-              "lineHeight": 32,
-            },
-          ]
-        }
-      >
-        add new cash option
-      </Text>
-    </View>
-  </View>
+    add new cash option
+  </Text>
 </View>
-`;
-
-exports[`AddPaymentMethodButton should show the meetup select drawer after selecting a country: drawer's content 1`] = `
-<View>
-  <MeetupSummary
-    event={
-      {
-        "city": "Berlin",
-        "country": "DE",
-        "currencies": [
-          "EUR",
-        ],
-        "id": "1",
-        "longName": "EINUNDZWANZIG BTC",
-        "shortName": "21BTC",
-      }
-    }
-    onPress={[Function]}
-  />
-</View>
-`;
-
-exports[`AddPaymentMethodButton should show the meetup select drawer after selecting a country: previousDrawer's content 1`] = `
-<CountrySelect
-  countries={
-    [
-      "DE",
-    ]
-  }
-  onSelect={[Function]}
-/>
-`;
-
-exports[`AddPaymentMethodButton should update the drawer with the right parameters for cash trades 1`] = `
-<CountrySelect
-  countries={
-    [
-      "DE",
-    ]
-  }
-  onSelect={[Function]}
-/>
 `;

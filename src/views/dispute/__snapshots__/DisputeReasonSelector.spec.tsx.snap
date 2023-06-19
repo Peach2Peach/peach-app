@@ -15,7 +15,7 @@ exports[`DisputeReasonSelector should render correctly 1`] = `
     }
   }
 >
-  <PeachScrollView
+  <ForwardRef
     contentContainerStyle={
       {
         "alignItems": "center",
@@ -93,6 +93,6 @@ exports[`DisputeReasonSelector should render correctly 1`] = `
     >
       something else
     </OptionButton>
-  </PeachScrollView>
+  </ForwardRef>
 </View>
 `;
