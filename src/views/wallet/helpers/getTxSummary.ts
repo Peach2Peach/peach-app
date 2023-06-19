@@ -7,7 +7,6 @@ import { walletStore } from '../../../utils/wallet/walletStore'
 export const getTxSummary = (tx: TransactionDetails) => {
   const offerId = walletStore.getState().txOfferMap[tx.txid]
   const offer = tradeSummaryStore.getState().getOffer(offerId)
-  const contract = offer?.contractId ? tradeSummaryStore.getState().getContract(offer.contractId) : undefined
   const sats = Math.abs(tx.received - tx.sent)
   const price = sats / bitcoinStore.getState().satsPerUnit
   const type = getTransactionType(tx, offer)
@@ -15,7 +14,7 @@ export const getTxSummary = (tx: TransactionDetails) => {
   return {
     id: tx.txid,
     offerId,
-    contractId: contract?.id,
+    contractId: offer?.contractId,
     type,
     amount: sats,
     price,

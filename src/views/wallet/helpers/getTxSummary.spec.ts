@@ -42,7 +42,6 @@ describe('getTxSummary', () => {
     bitcoinStore.setState({ currency: 'USD', price: 1, satsPerUnit: 100000000 })
     walletStore.getState().updateTxOfferMap(txId, offerSummary.id)
     tradeSummaryStore.getState().setOffers([offerSummary, offerWithContract])
-    tradeSummaryStore.getState().setContracts([contractSummary])
   })
   it('returns transaction summary with offer id', () => {
     expect(getTxSummary(receivedTx)).toEqual({
