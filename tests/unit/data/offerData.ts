@@ -65,10 +65,8 @@ export const wronglyFundedSellOffer: SellOffer = {
   amount: 42069,
   funding: { ...sellOffer.funding, amounts: [69420] },
 }
-export const buyOfferUnpublished: BuyOffer = {
-  creationDate: new Date('2022-03-08T11:41:07.245Z'),
+export const buyOfferUnpublished: BuyOfferDraft = {
   type: 'bid',
-  online: false,
   meansOfPayment: {
     EUR: ['sepa'],
     CHF: ['sepa'],
@@ -81,11 +79,6 @@ export const buyOfferUnpublished: BuyOffer = {
   originalPaymentData: [],
   amount: [250000, 500000],
   tradeStatus: 'offerHidden',
-  id: '37',
-  matches: [],
-  matched: [],
-  seenMatches: [],
-  doubleMatched: false,
   releaseAddress: 'bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh',
 }
 
