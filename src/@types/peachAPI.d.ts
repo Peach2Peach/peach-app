@@ -179,6 +179,7 @@ declare type MeetupEvent = {
   address?: string
   frequency?: string
   logo?: string
+  featured: boolean
 }
 declare type CountryEventsMap = Record<Country, MeetupEvent[]>
 

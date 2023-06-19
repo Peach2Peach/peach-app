@@ -11,7 +11,7 @@ exports[`PaymentMethodForm should render correctly 1`] = `
     ]
   }
 >
-  <PeachScrollView
+  <ForwardRef
     contentContainerStyle={
       [
         {
@@ -33,7 +33,7 @@ exports[`PaymentMethodForm should render correctly 1`] = `
       setFormData={[Function]}
       setStepValid={[Function]}
     />
-  </PeachScrollView>
+  </ForwardRef>
   <Fade
     show={true}
     style={

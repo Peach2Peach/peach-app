@@ -16,16 +16,17 @@ export const useMeetupScreenSetup = () => {
   const deletable = route.params.deletable ?? false
   const goToOrigin = useGoToOrigin()
   const getMeetupEvent = useMeetupEventsStore((state) => state.getMeetupEvent)
-  const event = getMeetupEvent(eventId) || {
+  const event: MeetupEvent = getMeetupEvent(eventId) || {
     id: eventId,
     longName: '',
     shortName: '',
     currencies: [],
     country: 'DE',
     city: '',
+    featured: false,
   }
 
-  const [selectedCurrencies, setSelectedCurrencies] = useState(event.currencies || [])
+  const [selectedCurrencies, setSelectedCurrencies] = useState(event.currencies)
   const onCurrencyToggle = (currency: Currency) => {
     setSelectedCurrencies(toggleCurrency(currency))
   }
