@@ -2,7 +2,7 @@ import { addressScriptPubKeyMock } from '../../../../tests/unit/mocks/bdkRN'
 import { getScriptPubKeyFromAddress } from './getScriptPubKeyFromAddress'
 
 describe('getScriptPubKeyFromAddress', () => {
-  it('creates a transaction that drains wallet', async () => {
+  it('returns the scriptPubKey from of an address', async () => {
     const address = 'address'
     const scriptPubKey = 'scriptPubKey'
 
