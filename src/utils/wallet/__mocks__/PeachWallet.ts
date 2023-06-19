@@ -1,7 +1,15 @@
 /* eslint-disable class-methods-use-this, require-await */
+import { TxBuilderResult } from 'bdk-rn/lib/classes/Bindings'
 import { TransactionsResponse } from 'bdk-rn/lib/lib/interfaces'
+import { getTransactionDetails } from '../../../../tests/unit/helpers/getTransactionDetails'
 
 export class PeachWallet {
+  balance: number
+
+  constructor () {
+    this.balance = 0
+  }
+
   async loadWallet () {}
 
   async syncWallet () {}
@@ -22,6 +30,18 @@ export class PeachWallet {
 
   async withdrawAll (): Promise<string | null> {
     return 'txId'
+  }
+
+  async sendTo (address: string, amount: number, feeRate = 1): Promise<TxBuilderResult> {
+    return getTransactionDetails(amount, feeRate)
+  }
+
+  async finishTransaction () {
+    return getTransactionDetails()
+  }
+
+  async signAndBroadcastTransaction (transaction: TxBuilderResult) {
+    return transaction
   }
 
   findKeyPairByAddress () {
