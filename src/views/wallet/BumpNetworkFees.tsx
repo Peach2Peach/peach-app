@@ -23,22 +23,24 @@ export const BumpNetworkFees = () => {
   if (!transaction) return <BitcoinLoading />
 
   return (
-    <PeachScrollView style={tw`h-full`} contentContainerStyle={[tw`justify-center flex-1 px-7`, tw.md`px-10`]}>
-      <View style={tw`gap-5`}>
-        <CurrentFee fee={currentFeeRate} />
-        <Divider />
-        <FeeEstimates {...{ estimatedFees, setFeeRate: setNewFeeRate, isOverpaying: overpayingBy >= 1 }} />
-        <Divider />
-        <NewFee {...{ newFeeRate, setNewFeeRate }} />
-        {overpayingBy >= 1 && (
-          <Text style={tw`text-error-main text-center`}>
-            {i18n('wallet.bumpNetworkFees.overPayingBy', String(overpayingBy * 100))}
-          </Text>
-        )}
-      </View>
+    <View style={tw`items-center justify-between h-full gap-4 pb-5`}>
+      <PeachScrollView style={tw`h-full`} contentContainerStyle={[tw`justify-center flex-1 px-7`, tw.md`px-10`]}>
+        <View style={tw`gap-5`}>
+          <CurrentFee fee={currentFeeRate} />
+          <Divider />
+          <FeeEstimates {...{ estimatedFees, setFeeRate: setNewFeeRate, isOverpaying: overpayingBy >= 1 }} />
+          <Divider />
+          <NewFee {...{ newFeeRate, setNewFeeRate }} />
+          {overpayingBy >= 1 && (
+            <Text style={tw`text-error-main text-center`}>
+              {i18n('wallet.bumpNetworkFees.overPayingBy', String(overpayingBy * 100))}
+            </Text>
+          )}
+        </View>
+      </PeachScrollView>
       <PrimaryButton disabled={!newFeeRateIsValid} onPress={bumpFees}>
         {i18n('confirm')}
       </PrimaryButton>
-    </PeachScrollView>
+    </View>
   )
 }
