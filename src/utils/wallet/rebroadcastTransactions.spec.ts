@@ -1,4 +1,4 @@
-import { walletStore } from './walletStore'
+import { useWalletState } from './walletStore'
 import { rebroadcastTransactions } from './rebroadcastTransactions'
 
 const postTransactionMock = jest.fn()
@@ -13,23 +13,23 @@ describe('rebroadcastTransactions', () => {
   }
 
   afterEach(() => {
-    walletStore.getState().reset()
+    useWalletState.getState().reset()
   })
 
   it('should rebroadcast transactions and remove it from the queue', async () => {
-    walletStore.getState().addPendingTransactionHex('txId1', pending.txId1)
-    walletStore.getState().addPendingTransactionHex('txId2', pending.txId2)
+    useWalletState.getState().addPendingTransactionHex('txId1', pending.txId1)
+    useWalletState.getState().addPendingTransactionHex('txId2', pending.txId2)
     postTransactionMock.mockResolvedValueOnce(['txId1'])
     postTransactionMock.mockResolvedValueOnce(['txId2'])
     await rebroadcastTransactions(Object.keys(pending))
     expect(postTransactionMock).toHaveBeenCalledWith({ tx: pending.txId1 })
     expect(postTransactionMock).toHaveBeenCalledWith({ tx: pending.txId2 })
-    expect(walletStore.getState().pendingTransactions).toEqual({})
+    expect(useWalletState.getState().pendingTransactions).toEqual({})
   })
   it('should remove tx from queue if electrum says that the inputs have already been spent', async () => {
-    walletStore.getState().addPendingTransactionHex('txId1', pending.txId1)
+    useWalletState.getState().addPendingTransactionHex('txId1', pending.txId1)
     postTransactionMock.mockResolvedValueOnce([null, '{"code":-25,"message":"bad-txns-inputs-missingorspent"}'])
     await rebroadcastTransactions(['txId1'])
-    expect(walletStore.getState().pendingTransactions).toEqual({})
+    expect(useWalletState.getState().pendingTransactions).toEqual({})
   })
 })

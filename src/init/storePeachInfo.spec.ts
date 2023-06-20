@@ -1,34 +1,15 @@
 import { peachInfo } from '../../tests/unit/data/peachInfoData'
+import { useConfigStore } from '../store/configStore'
 import { storePeachInfo } from './storePeachInfo'
 
-const getStateMock = jest.fn()
-jest.mock('../store/configStore', () => ({
-  configStore: {
-    getState: () => getStateMock(),
-  },
-}))
 describe('storePeachInfo', () => {
-  const setPaymentMethodsMock = jest.fn()
-  const setLatestAppVersionMock = jest.fn()
-  const setMinAppVersionMock = jest.fn()
-  const setPeachFeeMock = jest.fn()
-  const setPeachPGPPublicKeyMock = jest.fn()
-  beforeEach(() => {
-    getStateMock.mockReturnValue({
-      setPaymentMethods: setPaymentMethodsMock,
-      setLatestAppVersion: setLatestAppVersionMock,
-      setMinAppVersion: setMinAppVersionMock,
-      setPeachFee: setPeachFeeMock,
-      setPeachPGPPublicKey: setPeachPGPPublicKeyMock,
-    })
-  })
   afterEach(() => {
     jest.resetAllMocks()
   })
 
   it('stores peach info', () => {
     storePeachInfo(peachInfo)
-    expect(setPaymentMethodsMock).toHaveBeenCalledWith(
+    expect(useConfigStore.getState().paymentMethods).toStrictEqual(
       expect.arrayContaining([
         expect.objectContaining({
           id: 'sepa',
@@ -37,9 +18,9 @@ describe('storePeachInfo', () => {
         }),
       ]),
     )
-    expect(setLatestAppVersionMock).toHaveBeenCalledWith(peachInfo.latestAppVersion)
-    expect(setMinAppVersionMock).toHaveBeenCalledWith(peachInfo.minAppVersion)
-    expect(setPeachFeeMock).toHaveBeenCalledWith(peachInfo.fees.escrow)
-    expect(setPeachPGPPublicKeyMock).toHaveBeenCalledWith(peachInfo.peach.pgpPublicKey)
+    expect(useConfigStore.getState().latestAppVersion).toStrictEqual(peachInfo.latestAppVersion)
+    expect(useConfigStore.getState().minAppVersion).toStrictEqual(peachInfo.minAppVersion)
+    expect(useConfigStore.getState().peachFee).toStrictEqual(peachInfo.fees.escrow)
+    expect(useConfigStore.getState().peachPGPPublicKey).toStrictEqual(peachInfo.peach.pgpPublicKey)
   })
 })

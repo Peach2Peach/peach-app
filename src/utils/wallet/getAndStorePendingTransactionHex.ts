@@ -1,11 +1,11 @@
 import { getTxHex } from '../electrum/getTxHex'
-import { walletStore } from './walletStore'
+import { useWalletState } from './walletStore'
 
 export const getAndStorePendingTransactionHex = async (txId: string) => {
-  const hex = walletStore.getState().pendingTransactions[txId]
+  const hex = useWalletState.getState().pendingTransactions[txId]
   if (hex) return hex
 
   const [result] = await getTxHex({ txId })
-  if (result) walletStore.getState().addPendingTransactionHex(txId, result)
+  if (result) useWalletState.getState().addPendingTransactionHex(txId, result)
   return result
 }

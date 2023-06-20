@@ -1,4 +1,4 @@
-import { tradeSummaryStore } from '../../store/tradeSummaryStore'
+import { useTradeSummaryStore } from '../../store/tradeSummaryStore'
 import { defaultAccount, isBackupMandatory, setAccount } from '.'
 
 describe('isBackupMandatory', () => {
@@ -9,7 +9,7 @@ describe('isBackupMandatory', () => {
       { tradeStatus: 'tradeCompleted' },
       { tradeStatus: 'tradeCompleted' },
     ]
-    tradeSummaryStore.setState({ contracts: contracts as ContractSummary[] })
+    useTradeSummaryStore.setState({ contracts: contracts as ContractSummary[] })
     expect(isBackupMandatory()).toBe(true)
   })
   it('returns true when number of completed trades is greater than 3', () => {
@@ -21,7 +21,7 @@ describe('isBackupMandatory', () => {
       { tradeStatus: 'tradeCompleted' },
       { tradeStatus: 'tradeCompleted' },
     ]
-    tradeSummaryStore.setState({ contracts: contracts as ContractSummary[] })
+    useTradeSummaryStore.setState({ contracts: contracts as ContractSummary[] })
     expect(isBackupMandatory()).toBe(true)
   })
 
@@ -29,7 +29,7 @@ describe('isBackupMandatory', () => {
     setAccount(defaultAccount)
 
     const contracts: Partial<ContractSummary>[] = [{ tradeStatus: 'tradeCompleted' }, { tradeStatus: 'tradeCompleted' }]
-    tradeSummaryStore.setState({ contracts: contracts as ContractSummary[] })
+    useTradeSummaryStore.setState({ contracts: contracts as ContractSummary[] })
     expect(isBackupMandatory()).toBe(false)
   })
 })

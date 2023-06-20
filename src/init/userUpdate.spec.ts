@@ -1,5 +1,5 @@
 import { account1 } from '../../tests/unit/data/accountData'
-import { settingsStore } from '../store/settingsStore'
+import { useSettingsStore } from '../store/settingsStore'
 import { defaultAccount, setAccount } from '../utils/account'
 import { userUpdate } from './userUpdate'
 
@@ -27,7 +27,7 @@ describe('userUpdate', () => {
     const newToken = 'otherToken'
     setAccount(account1)
     getTokenMock.mockResolvedValueOnce(newToken)
-    settingsStore.setState({
+    useSettingsStore.setState({
       fcmToken,
       pgpPublished: false,
     })

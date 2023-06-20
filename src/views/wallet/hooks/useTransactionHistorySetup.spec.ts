@@ -1,7 +1,7 @@
 import { useTransactionHistorySetup } from './useTransactionHistorySetup'
 import { renderHook } from '@testing-library/react-native'
 import { headerState, NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
-import { walletStore } from '../../../utils/wallet/walletStore'
+import { useWalletState } from '../../../utils/wallet/walletStore'
 
 describe('useTransactionHistorySetup', () => {
   it('should return transactions, refresh and isRefreshing', () => {
@@ -15,7 +15,7 @@ describe('useTransactionHistorySetup', () => {
     expect(headerState.header()).toMatchSnapshot()
   })
   it('should return the stored transactions sorted by date and mapped to TxSummary type', () => {
-    walletStore.setState({
+    useWalletState.setState({
       transactions: [
         {
           txid: '1',

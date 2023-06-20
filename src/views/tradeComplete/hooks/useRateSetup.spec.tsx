@@ -4,7 +4,7 @@ import { contract } from '../../../../tests/unit/data/contractData'
 import { TradeBreakdown } from '../../../popups/TradeBreakdown'
 import { Props, useRateSetup } from './useRateSetup'
 import { apiSuccess, unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
-import { settingsStore } from '../../../store/settingsStore'
+import { useSettingsStore } from '../../../store/settingsStore'
 import { NavigationWrapper, replaceMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { usePopupStore } from '../../../store/usePopupStore'
 
@@ -50,8 +50,8 @@ describe('useRateSetup', () => {
   const initialProps: Props = { contract, view: 'buyer', vote: undefined, saveAndUpdate: saveAndUpdateMock }
 
   beforeEach(() => {
-    settingsStore.getState().reset()
-    settingsStore.getState().setShouldShowBackupOverlay('completedBuyOffer', false)
+    useSettingsStore.getState().reset()
+    useSettingsStore.getState().setShouldShowBackupOverlay('completedBuyOffer', false)
   })
   it('returns default values correctly', () => {
     const { result } = renderHook(useRateSetup, {
@@ -114,7 +114,7 @@ describe('useRateSetup', () => {
     })
   })
   it('does submit positive rating and navigates to backupTime', async () => {
-    settingsStore.getState().setShouldShowBackupOverlay('completedBuyOffer', true)
+    useSettingsStore.getState().setShouldShowBackupOverlay('completedBuyOffer', true)
     createUserRatingMock.mockReturnValueOnce(positiveRating)
     const { result } = renderHook(useRateSetup, {
       initialProps: { ...initialProps, vote: 'positive' },
@@ -134,7 +134,7 @@ describe('useRateSetup', () => {
     })
   })
   it('does submit negative rating and navigates to backupTime', async () => {
-    settingsStore.getState().setShouldShowBackupOverlay('completedBuyOffer', true)
+    useSettingsStore.getState().setShouldShowBackupOverlay('completedBuyOffer', true)
     createUserRatingMock.mockReturnValueOnce(negativeRating)
     const { result } = renderHook(useRateSetup, {
       initialProps: { ...initialProps, vote: 'negative' },
@@ -153,7 +153,7 @@ describe('useRateSetup', () => {
     })
   })
   it('does submit positive rating and navigates back to contract', async () => {
-    settingsStore.getState().setShowBackupReminder(false)
+    useSettingsStore.getState().setShowBackupReminder(false)
     createUserRatingMock.mockReturnValueOnce(positiveRating)
     const { result } = renderHook(useRateSetup, {
       initialProps: { ...initialProps, vote: 'positive' },
@@ -167,7 +167,7 @@ describe('useRateSetup', () => {
     })
   })
   it('does submit negative rating and navigates to yourTrades', async () => {
-    settingsStore.getState().setShowBackupReminder(false)
+    useSettingsStore.getState().setShowBackupReminder(false)
     createUserRatingMock.mockReturnValueOnce(negativeRating)
     const { result } = renderHook(useRateSetup, {
       initialProps: { ...initialProps, vote: 'negative' },

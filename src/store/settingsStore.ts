@@ -1,6 +1,6 @@
 import analytics from '@react-native-firebase/analytics'
 import perf from '@react-native-firebase/perf'
-import { create, useStore } from 'zustand'
+import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
 import { createStorage, toZustandStorage } from '../utils/storage'
 import { defaultSettings } from './defaults'
@@ -39,7 +39,7 @@ export type SettingsStore = Settings & {
 
 export const settingsStorage = createStorage('settings')
 
-export const settingsStore = create(
+export const useSettingsStore = create(
   persist<SettingsStore>(
     (set, get) => ({
       ...defaultSettings,
@@ -86,8 +86,3 @@ export const settingsStore = create(
     },
   ),
 )
-
-export const useSettingsStore = <T>(
-  selector: (state: SettingsStore) => T,
-  equalityFn?: ((a: T, b: T) => boolean) | undefined,
-) => useStore(settingsStore, selector, equalityFn)

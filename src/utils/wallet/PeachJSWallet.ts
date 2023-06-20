@@ -5,7 +5,7 @@ import { payments } from 'bitcoinjs-lib'
 import { sign } from 'bitcoinjs-message'
 import { info } from '../log'
 import { getNetwork } from './getNetwork'
-import { walletStore } from './walletStore'
+import { useWalletState } from './walletStore'
 
 type PeachJSWalletProps = {
   wallet: BIP32Interface
@@ -28,7 +28,7 @@ export class PeachJSWallet {
 
     this.network = network as Network
     this.gapLimit = gapLimit
-    this.addresses = walletStore.getState().addresses
+    this.addresses = useWalletState.getState().addresses
 
     this.derivationPath = `m/84'/${network === 'bitcoin' ? '0' : '1'}'/0'`
   }
@@ -62,12 +62,12 @@ export class PeachJSWallet {
 
       const candidate = this.getAddress(i)
       if (address === candidate) {
-        walletStore.getState().setAddresses(this.addresses)
+        useWalletState.getState().setAddresses(this.addresses)
         return this.getKeyPair(i)
       }
     }
 
-    walletStore.getState().setAddresses(this.addresses)
+    useWalletState.getState().setAddresses(this.addresses)
     return null
   }
 

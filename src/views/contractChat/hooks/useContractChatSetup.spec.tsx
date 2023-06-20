@@ -3,7 +3,7 @@ import { account1 } from '../../../../tests/unit/data/accountData'
 import { chat1 } from '../../../../tests/unit/data/chatData'
 import { contract } from '../../../../tests/unit/data/contractData'
 import { QueryClientWrapper } from '../../../../tests/unit/helpers/QueryClientWrapper'
-import { configStore } from '../../../store/configStore'
+import { useConfigStore } from '../../../store/configStore'
 import { setAccount } from '../../../utils/account'
 import { useContractChatSetup } from './useContractChatSetup'
 import { act } from 'react-test-renderer'
@@ -60,7 +60,7 @@ describe('useContractChatSetup', () => {
   })
   afterEach(() => {
     act(() => {
-      configStore.getState().reset()
+      useConfigStore.getState().reset()
     })
   })
   it('open dispute disclaimer if not seen before', () => {
@@ -68,7 +68,7 @@ describe('useContractChatSetup', () => {
     expect(showDisputeDisclaimerMock).toHaveBeenCalled()
   })
   it('should not open dispute disclaimer if has been seen before', () => {
-    configStore.getState().setSeenDisputeDisclaimer(true)
+    useConfigStore.getState().setSeenDisputeDisclaimer(true)
     renderHook(useContractChatSetup, { wrapper })
     expect(showDisputeDisclaimerMock).not.toHaveBeenCalled()
   })

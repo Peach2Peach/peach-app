@@ -1,5 +1,5 @@
 import { TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
-import { createStore, useStore } from 'zustand'
+import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
 import { createStorage } from '../storage'
 import { toZustandStorage } from '../storage/toZustandStorage'
@@ -33,7 +33,7 @@ export const defaultWalletState: WalletState = {
 }
 export const walletStorage = createStorage('wallet')
 
-export const walletStore = createStore(
+export const useWalletState = create(
   persist<WalletStore>(
     (set, get) => ({
       ...defaultWalletState,
@@ -65,8 +65,3 @@ export const walletStore = createStore(
     },
   ),
 )
-
-export const useWalletState = <T>(
-  selector: (state: WalletStore) => T,
-  equalityFn?: ((a: T, b: T) => boolean) | undefined,
-) => useStore(walletStore, selector, equalityFn)

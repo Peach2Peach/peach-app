@@ -11,6 +11,7 @@ describe('saveOffer', () => {
 
   it('does not save offers without an ID', () => {
     const errorSpy = jest.spyOn(jest.requireMock('../../utils/log'), 'error')
+    // @ts-expect-error
     saveOffer(offerData.buyOfferUnpublished)
     expect(errorSpy).toHaveBeenCalled()
     expect(account.offers.length).toBe(0)
