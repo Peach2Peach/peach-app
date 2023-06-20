@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TotalBalance renders correctly 1`] = `
+<View>
+  <PeachText
+    style={
+      {
+        "fontFamily": "Baloo2-SemiBold",
+        "fontSize": 14,
+        "letterSpacing": 0.5,
+        "lineHeight": 24,
+        "textAlign": "center",
+        "textTransform": "uppercase",
+      }
+    }
+  >
+    total balance
+    :
+  </PeachText>
+  <BTCAmount
+    amount={100000}
+    size="extra large"
+  />
+</View>
+`;

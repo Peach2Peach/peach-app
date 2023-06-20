@@ -9,8 +9,10 @@ exports[`Wallet should render correctly 1`] = `
     contentContainerStyle={
       {
         "height": "100%",
+        "paddingBottom": 24,
         "paddingLeft": 32,
         "paddingRight": 32,
+        "paddingTop": 24,
       }
     }
     refreshControl={
@@ -28,8 +30,6 @@ exports[`Wallet should render correctly 1`] = `
     <View
       style={
         {
-          "display": "flex",
-          "flexDirection": "column",
           "height": "100%",
           "justifyContent": "space-between",
         }
@@ -39,69 +39,28 @@ exports[`Wallet should render correctly 1`] = `
         style={
           {
             "alignItems": "center",
-            "display": "flex",
-            "flexDirection": "column",
+            "flexBasis": "0%",
+            "flexGrow": 1,
             "flexShrink": 1,
-            "height": "100%",
+            "gap": 64,
             "justifyContent": "center",
           }
         }
       >
-        <PeachText
-          style={
-            {
-              "fontFamily": "Baloo2-SemiBold",
-              "fontSize": 14,
-              "letterSpacing": 0.5,
-              "lineHeight": 24,
-              "marginBottom": 16,
-              "textTransform": "uppercase",
-            }
-          }
-        >
-          total balance
-          :
-        </PeachText>
-        <BigSatsFormat
-          sats={21}
-          style={{}}
+        <TotalBalance
+          amount={21}
+          style={false}
         />
-        <PeachText
-          style={
-            {
-              "fontFamily": "Baloo2-SemiBold",
-              "fontSize": 14,
-              "letterSpacing": 0.5,
-              "lineHeight": 24,
-              "marginTop": 64,
-              "textTransform": "uppercase",
-            }
-          }
-        >
-          send to
-          :
-        </PeachText>
-        <BitcoinAddressInput
-          errorMessage=""
-          onChange={[MockFunction]}
-          style={
-            {
-              "marginTop": 16,
-            }
-          }
-          value="address"
+        <SendTo
+          address="address"
+          addressErrors=""
+          setAddress={[MockFunction]}
         />
-        <OpenWallet />
       </View>
       <SlideToUnlock
-        disabled={false}
+        disabled={true}
         label1="send all"
         onUnlock={[MockFunction]}
-        style={
-          {
-            "marginBottom": 24,
-          }
-        }
       />
     </View>
   </ForwardRef>
@@ -124,8 +83,10 @@ exports[`Wallet should render correctly when refreshing 1`] = `
     contentContainerStyle={
       {
         "height": "100%",
+        "paddingBottom": 24,
         "paddingLeft": 32,
         "paddingRight": 32,
+        "paddingTop": 24,
       }
     }
     refreshControl={
@@ -143,8 +104,6 @@ exports[`Wallet should render correctly when refreshing 1`] = `
     <View
       style={
         {
-          "display": "flex",
-          "flexDirection": "column",
           "height": "100%",
           "justifyContent": "space-between",
         }
@@ -154,31 +113,16 @@ exports[`Wallet should render correctly when refreshing 1`] = `
         style={
           {
             "alignItems": "center",
-            "display": "flex",
-            "flexDirection": "column",
+            "flexBasis": "0%",
+            "flexGrow": 1,
             "flexShrink": 1,
-            "height": "100%",
+            "gap": 64,
             "justifyContent": "center",
           }
         }
       >
-        <PeachText
-          style={
-            {
-              "fontFamily": "Baloo2-SemiBold",
-              "fontSize": 14,
-              "letterSpacing": 0.5,
-              "lineHeight": 24,
-              "marginBottom": 16,
-              "textTransform": "uppercase",
-            }
-          }
-        >
-          total balance
-          :
-        </PeachText>
-        <BigSatsFormat
-          sats={21}
+        <TotalBalance
+          amount={21}
           style={
             {
               "opacity": 0.6,
@@ -192,42 +136,16 @@ exports[`Wallet should render correctly when refreshing 1`] = `
             }
           }
         />
-        <PeachText
-          style={
-            {
-              "fontFamily": "Baloo2-SemiBold",
-              "fontSize": 14,
-              "letterSpacing": 0.5,
-              "lineHeight": 24,
-              "marginTop": 64,
-              "textTransform": "uppercase",
-            }
-          }
-        >
-          send to
-          :
-        </PeachText>
-        <BitcoinAddressInput
-          errorMessage=""
-          onChange={[MockFunction]}
-          style={
-            {
-              "marginTop": 16,
-            }
-          }
-          value="address"
+        <SendTo
+          address="address"
+          addressErrors=""
+          setAddress={[MockFunction]}
         />
-        <OpenWallet />
       </View>
       <SlideToUnlock
-        disabled={false}
+        disabled={true}
         label1="send all"
         onUnlock={[MockFunction]}
-        style={
-          {
-            "marginBottom": 24,
-          }
-        }
       />
     </View>
   </ForwardRef>

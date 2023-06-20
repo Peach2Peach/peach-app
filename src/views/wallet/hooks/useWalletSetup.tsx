@@ -38,6 +38,7 @@ export const useWalletSetup = (syncOnLoad = true) => {
   }
 
   const [address, setAddress, isValid, addressErrors] = useValidatedState<string>('', bitcoinAddressRules)
+  const canWithdrawAll = walletStore.balance && peachWallet.synced && !!address && isValid
 
   const confirmWithdrawal = async () => {
     closePopup()
@@ -102,11 +103,11 @@ export const useWalletSetup = (syncOnLoad = true) => {
     walletStore,
     refresh,
     isRefreshing,
-    isValid,
     address,
     setAddress,
     addressErrors,
     openWithdrawalConfirmation,
+    canWithdrawAll,
     confirmWithdrawal,
     walletLoading,
   }

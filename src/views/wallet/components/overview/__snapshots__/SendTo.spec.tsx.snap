@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SendTo renders correctly 1`] = `
+<View
+  style={
+    {
+      "alignItems": "center",
+      "gap": 16,
+    }
+  }
+>
+  <PeachText
+    style={
+      {
+        "fontFamily": "Baloo2-SemiBold",
+        "fontSize": 14,
+        "letterSpacing": 0.5,
+        "lineHeight": 24,
+        "textTransform": "uppercase",
+      }
+    }
+  >
+    send to
+    :
+  </PeachText>
+  <BitcoinAddressInput
+    onChange={[MockFunction]}
+    value="address"
+  />
+  <OpenWallet />
+</View>
+`;
