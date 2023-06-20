@@ -220,6 +220,10 @@ describe('PeachWallet', () => {
     await peachWallet.getTransactions()
     expect(getTxHexMock).not.toHaveBeenCalled()
   })
+  it('gets pending transactions', () => {
+    peachWallet.transactions = [confirmed1, pending1, pending2, confirmed2]
+    expect(peachWallet.getPendingTransactions()).toEqual([pending1, pending2])
+  })
   it('gets balance', async () => {
     walletGetBalanceMock.mockResolvedValueOnce({
       total: 111110,
