@@ -12,4 +12,9 @@ describe('parseTransactionError', () => {
     const cause = 'cause'
     expect(parseTransactionError(error, cause)).toEqual([cause])
   })
+  it('returns empty array if no error could be parsed', () => {
+    const error = new Error('OTHER')
+    const cause = 'cause'
+    expect(parseTransactionError(error, cause)).toEqual([])
+  })
 })
