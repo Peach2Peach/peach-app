@@ -10,7 +10,7 @@ describe('useContractHeaderSetup', () => {
           contract: { disputeActive: true },
           view: 'buyer',
           requiredAction: 'none',
-          contractId: '123',
+          contractId: '123-456',
         }),
       { wrapper: NavigationWrapper },
     )
@@ -23,7 +23,7 @@ describe('useContractHeaderSetup', () => {
           contract: { disputeActive: false },
           view: 'buyer',
           requiredAction: 'none',
-          contractId: '123',
+          contractId: '123-456',
         }),
       { wrapper: NavigationWrapper },
     )
@@ -37,7 +37,7 @@ describe('useContractHeaderSetup', () => {
           contract: { disputeActive: false },
           view: 'buyer',
           requiredAction: 'sendPayment',
-          contractId: '123',
+          contractId: '123-456',
         }),
       { wrapper: NavigationWrapper },
     )
@@ -51,7 +51,7 @@ describe('useContractHeaderSetup', () => {
           contract: { disputeActive: false },
           view: 'seller',
           requiredAction: 'confirmPayment',
-          contractId: '123',
+          contractId: '123-456',
         }),
       { wrapper: NavigationWrapper },
     )

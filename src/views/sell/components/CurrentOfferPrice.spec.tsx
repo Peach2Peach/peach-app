@@ -1,7 +1,7 @@
 import { render, waitFor } from '@testing-library/react-native'
 import { queryClient, QueryClientWrapper } from '../../../../tests/unit/helpers/QueryClientWrapper'
 import { useOfferPreferences } from '../../../store/offerPreferenes'
-import { settingsStore } from '../../../store/settingsStore'
+import { useSettingsStore } from '../../../store/settingsStore'
 import { CurrentOfferPrice } from './CurrentOfferPrice'
 
 const marketPricesMock = jest.fn().mockResolvedValue([
@@ -31,7 +31,7 @@ describe('CurrentOfferPrice', () => {
       sellAmount: 210000,
       premium: 21,
     })
-    settingsStore.setState({
+    useSettingsStore.setState({
       displayCurrency: 'EUR',
     })
     const { toJSON } = render(<CurrentOfferPrice />, { wrapper: QueryClientWrapper })

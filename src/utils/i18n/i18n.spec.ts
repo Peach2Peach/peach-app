@@ -64,7 +64,7 @@ describe('setLocaleQuite', () => {
   })
 
   it('falls back to en if locale is not configured', () => {
-    setLocaleQuiet('fr')
+    setLocaleQuiet('cn')
     strictEqual('en', languageState.locale)
   })
 })

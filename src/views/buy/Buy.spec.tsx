@@ -2,7 +2,7 @@ import { render } from '@testing-library/react-native'
 import { NavigationWrapper } from '../../../tests/unit/helpers/NavigationWrapper'
 import { QueryClientWrapper } from '../../../tests/unit/helpers/QueryClientWrapper'
 import Buy from './Buy'
-import { bitcoinStore } from '../../store/bitcoinStore'
+import { useBitcoinStore } from '../../store/bitcoinStore'
 import { useOfferPreferences } from '../../store/offerPreferenes/useOfferPreferences'
 
 const useMarketPricesMock = jest.fn().mockReturnValue({
@@ -30,7 +30,7 @@ jest.useFakeTimers()
 
 describe('Buy', () => {
   beforeAll(() => {
-    bitcoinStore.setState({
+    useBitcoinStore.setState({
       currency: 'EUR',
       satsPerUnit: 250,
       price: 400000,

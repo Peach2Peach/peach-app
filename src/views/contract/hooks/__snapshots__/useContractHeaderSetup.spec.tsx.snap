@@ -3,11 +3,7 @@
 exports[`useContractHeaderSetup should set up the header correctly for trade in dispute 1`] = `
 <Header
   icons={[]}
-  titleComponent={
-    <ContractTitle
-      id="123"
-    />
-  }
+  title="PC‑7B‑1C8"
 />
 `;
 
@@ -22,11 +18,7 @@ exports[`useContractHeaderSetup should show the cancel icon if the contract can 
       },
     ]
   }
-  titleComponent={
-    <ContractTitle
-      id="123"
-    />
-  }
+  title="PC‑7B‑1C8"
 />
 `;
 
@@ -41,11 +33,7 @@ exports[`useContractHeaderSetup should show the confirm payment help icon if the
       },
     ]
   }
-  titleComponent={
-    <ContractTitle
-      id="123"
-    />
-  }
+  title="PC‑7B‑1C8"
 />
 `;
 
@@ -65,10 +53,6 @@ exports[`useContractHeaderSetup should show the make payment help icon if the co
       },
     ]
   }
-  titleComponent={
-    <ContractTitle
-      id="123"
-    />
-  }
+  title="PC‑7B‑1C8"
 />
 `;

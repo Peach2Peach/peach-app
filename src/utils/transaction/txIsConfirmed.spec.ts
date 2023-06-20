@@ -1,9 +1,8 @@
-import { TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
 import { txIsConfirmed } from '.'
 
 describe('txIsConfirmed', () => {
   it('should return true for a ConfirmedTransaction', () => {
-    const tx: TransactionDetails = {
+    const tx = {
       txid: '123',
       confirmationTime: {
         timestamp: 123,
@@ -18,7 +17,7 @@ describe('txIsConfirmed', () => {
   })
 
   it('should return false for a PendingTransaction', () => {
-    const tx: TransactionDetails = {
+    const tx = {
       txid: '123',
       sent: 1,
       received: 1,

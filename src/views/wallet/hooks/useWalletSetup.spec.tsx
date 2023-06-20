@@ -1,6 +1,6 @@
 import { act, renderHook, waitFor } from '@testing-library/react-native'
 import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
-import { settingsStore } from '../../../store/settingsStore'
+import { useSettingsStore } from '../../../store/settingsStore'
 import { useWalletSetup } from './useWalletSetup'
 import { usePopupStore } from '../../../store/usePopupStore'
 import { WithdrawalConfirmation } from '../../../popups/WithdrawalConfirmation'
@@ -74,7 +74,7 @@ describe('useWalletSetup', () => {
   })
   it('should confirm withdrawal with correct fees', async () => {
     const finalFeeRate = 3
-    settingsStore.getState().setFeeRate(finalFeeRate)
+    useSettingsStore.getState().setFeeRate(finalFeeRate)
     const { result } = renderHook(useWalletSetup, { wrapper })
 
     act(() => {

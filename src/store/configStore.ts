@@ -1,4 +1,4 @@
-import { createStore, useStore } from 'zustand'
+import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
 import { createStorage, toZustandStorage } from '../utils/storage'
 import { defaultConfig } from './defaults'
@@ -17,19 +17,19 @@ type ConfigStore = Config & {
 
 export const configStorage = createStorage('config')
 
-export const configStore = createStore(
+export const useConfigStore = create(
   persist<ConfigStore>(
     (set) => ({
       ...defaultConfig,
       reset: () => set(() => defaultConfig),
-      setPaymentMethods: (paymentMethods) => set((state) => ({ ...state, paymentMethods })),
-      setPeachPGPPublicKey: (peachPGPPublicKey) => set((state) => ({ ...state, peachPGPPublicKey })),
-      setPeachFee: (peachFee) => set((state) => ({ ...state, peachFee })),
-      setMinAppVersion: (minAppVersion) => set((state) => ({ ...state, minAppVersion })),
-      setLatestAppVersion: (latestAppVersion) => set((state) => ({ ...state, latestAppVersion })),
-      setMinTradingAmount: (minTradingAmount) => set((state) => ({ ...state, minTradingAmount })),
-      setMaxTradingAmount: (maxTradingAmount) => set((state) => ({ ...state, maxTradingAmount })),
-      setSeenDisputeDisclaimer: (seenDisputeDisclaimer) => set((state) => ({ ...state, seenDisputeDisclaimer })),
+      setPaymentMethods: (paymentMethods) => set({ paymentMethods }),
+      setPeachPGPPublicKey: (peachPGPPublicKey) => set({ peachPGPPublicKey }),
+      setPeachFee: (peachFee) => set({ peachFee }),
+      setMinAppVersion: (minAppVersion) => set({ minAppVersion }),
+      setLatestAppVersion: (latestAppVersion) => set({ latestAppVersion }),
+      setMinTradingAmount: (minTradingAmount) => set({ minTradingAmount }),
+      setMaxTradingAmount: (maxTradingAmount) => set({ maxTradingAmount }),
+      setSeenDisputeDisclaimer: (seenDisputeDisclaimer) => set({ seenDisputeDisclaimer }),
     }),
     {
       name: 'config',
@@ -38,8 +38,3 @@ export const configStore = createStore(
     },
   ),
 )
-
-export const useConfigStore = <T>(
-  selector: (state: ConfigStore) => T,
-  equalityFn?: ((a: T, b: T) => boolean) | undefined,
-) => useStore(configStore, selector, equalityFn)

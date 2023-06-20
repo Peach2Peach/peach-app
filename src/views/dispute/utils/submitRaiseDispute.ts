@@ -1,4 +1,4 @@
-import { configStore } from '../../../store/configStore'
+import { useConfigStore } from '../../../store/configStore'
 import { error } from '../../../utils/log'
 import { raiseDispute } from '../../../utils/peachAPI'
 import { signAndEncrypt } from '../../../utils/pgp'
@@ -13,7 +13,7 @@ export const submitRaiseDispute = async (
   if (!contract || !contract.symmetricKey) return [false, null]
   const { encrypted: symmetricKeyEncrypted } = await signAndEncrypt(
     contract.symmetricKey,
-    configStore.getState().peachPGPPublicKey,
+    useConfigStore.getState().peachPGPPublicKey,
   )
   const [result, err] = await raiseDispute({
     contractId: contract.id,

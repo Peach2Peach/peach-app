@@ -1,3 +1,4 @@
+import { useConfigStore } from '../store/configStore'
 import { getPeachInfo } from './getPeachInfo'
 import { storePeachInfo } from './storePeachInfo'
 
@@ -15,12 +16,6 @@ jest.mock('./calculateClientServerTimeDifference', () => ({
   calculateClientServerTimeDifference: () => calculateClientServerTimeDifferenceMock(),
 }))
 
-const getStateMock = jest.fn()
-jest.mock('../store/configStore', () => ({
-  configStore: {
-    getState: () => getStateMock(),
-  },
-}))
 jest.mock('./storePeachInfo')
 
 describe('getPeachInfo', () => {
@@ -32,7 +27,7 @@ describe('getPeachInfo', () => {
     },
   ]
   beforeEach(() => {
-    getStateMock.mockReturnValue({
+    useConfigStore.setState({
       paymentMethods,
     })
   })

@@ -1,13 +1,13 @@
 import ShallowRenderer from 'react-test-renderer/shallow'
 import { BitcoinPriceStats } from './BitcoinPriceStats'
-import { bitcoinStore } from '../../store/bitcoinStore'
+import { useBitcoinStore } from '../../store/bitcoinStore'
 import { mockDimensions } from '../../../tests/unit/helpers/mockDimensions'
 
 describe('BitcoinPriceStats', () => {
   const renderer = ShallowRenderer.createRenderer()
 
   beforeAll(() => {
-    bitcoinStore.setState({
+    useBitcoinStore.setState({
       currency: 'EUR',
       satsPerUnit: 250,
       price: 400000,

@@ -9,15 +9,13 @@ import {
   Wallet,
 } from 'bdk-rn'
 import { TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
-import { AddressIndex, BlockChainNames, BlockchainEsploraConfig, KeychainKind, Network } from 'bdk-rn/lib/lib/enums'
+import { AddressIndex, BlockChainNames, BlockchainEsploraConfig, KeychainKind } from 'bdk-rn/lib/lib/enums'
 import { BIP32Interface } from 'bip32'
-import { tradeSummaryStore } from '../../store/tradeSummaryStore'
+import { useTradeSummaryStore } from '../../store/tradeSummaryStore'
 import { getBuyOfferIdFromContract } from '../contract'
-import { info } from '../log'
+import { error, info } from '../log'
 import { parseError } from '../result'
-import { isPending } from '../transaction'
-import { findTransactionsToRebroadcast } from '../transaction/findTransactionsToRebroadcast'
-import { mergeTransactionList } from '../transaction/mergeTransactionList'
+import { findTransactionsToRebroadcast, isPending, mergeTransactionList } from '../transaction'
 import { callWhenInternet } from '../web'
 import { PeachJSWallet } from './PeachJSWallet'
 import { handleTransactionError } from './error/handleTransactionError'
@@ -25,7 +23,7 @@ import { getAndStorePendingTransactionHex } from './getAndStorePendingTransactio
 import { getDescriptorSecretKey } from './getDescriptorSecretKey'
 import { rebroadcastTransactions } from './rebroadcastTransactions'
 import { buildDrainWalletTransaction } from './transaction/buildDrainWalletTransaction'
-import { walletStore } from './walletStore'
+import { useWalletState } from './walletStore'
 
 type PeachWalletProps = {
   wallet: BIP32Interface
@@ -38,13 +36,13 @@ export class PeachWallet extends PeachJSWallet {
 
   synced: boolean
 
+  syncInProgress: Promise<void> | undefined
+
   descriptorPath: string
 
   balance: number
 
   transactions: TransactionDetails[]
-
-  network: Network
 
   wallet: Wallet | undefined
 
@@ -52,12 +50,12 @@ export class PeachWallet extends PeachJSWallet {
 
   constructor ({ wallet, network = NETWORK, gapLimit = 25 }: PeachWalletProps) {
     super({ wallet, network, gapLimit })
-    this.network = network as Network
     this.descriptorPath = `/84'/${network === 'bitcoin' ? '0' : '1'}'/0'/0/*`
     this.balance = 0
     this.transactions = []
     this.initialized = false
     this.synced = false
+    this.syncInProgress = undefined
   }
 
   loadWallet (seedphrase?: string): Promise<void> {
@@ -82,8 +80,8 @@ export class PeachWallet extends PeachJSWallet {
         const config: BlockchainEsploraConfig = {
           url: BLOCKEXPLORER,
           proxy: '',
-          concurrency: '5',
-          timeout: '5',
+          concurrency: '2',
+          timeout: '10',
           stopGap: this.gapLimit.toString(),
         }
 
@@ -107,35 +105,44 @@ export class PeachWallet extends PeachJSWallet {
   }
 
   syncWallet (): Promise<void> {
-    return new Promise((resolve, reject) =>
+    if (this.syncInProgress) return this.syncInProgress
+
+    this.syncInProgress = new Promise((resolve, reject) =>
       callWhenInternet(async () => {
         if (!this.wallet || !this.blockchain) return reject(new Error('WALLET_NOT_READY'))
 
         info('PeachWallet - syncWallet - start')
         this.synced = false
 
-        const success = await this.wallet.sync(this.blockchain)
-        if (success) {
-          this.getBalance()
-          this.getTransactions()
-          this.synced = true
-          info('PeachWallet - syncWallet - synced')
+        try {
+          const success = await this.wallet.sync(this.blockchain)
+          if (success) {
+            this.getBalance()
+            this.getTransactions()
+            this.synced = true
+            info('PeachWallet - syncWallet - synced')
+          }
+        } catch (e) {
+          error(parseError(e))
         }
+
+        this.syncInProgress = undefined
         return resolve()
       }),
     )
+    return this.syncInProgress
   }
 
   updateStore (): void {
-    walletStore.getState().setTransactions(this.transactions)
+    useWalletState.getState().setTransactions(this.transactions)
     this.transactions
-      .filter(({ txid }) => !walletStore.getState().txOfferMap[txid])
+      .filter(({ txid }) => !useWalletState.getState().txOfferMap[txid])
       .forEach(({ txid }) => {
-        const sellOffer = tradeSummaryStore.getState().offers.find((offer) => offer.txId === txid)
-        if (sellOffer?.id) return walletStore.getState().updateTxOfferMap(txid, sellOffer.id)
+        const sellOffer = useTradeSummaryStore.getState().offers.find((offer) => offer.txId === txid)
+        if (sellOffer?.id) return useWalletState.getState().updateTxOfferMap(txid, sellOffer.id)
 
-        const contract = tradeSummaryStore.getState().contracts.find((cntrct) => cntrct.releaseTxId === txid)
-        if (contract) return walletStore.getState().updateTxOfferMap(txid, getBuyOfferIdFromContract(contract))
+        const contract = useTradeSummaryStore.getState().contracts.find((cntrct) => cntrct.releaseTxId === txid)
+        if (contract) return useWalletState.getState().updateTxOfferMap(txid, getBuyOfferIdFromContract(contract))
         return null
       })
   }
@@ -146,7 +153,7 @@ export class PeachWallet extends PeachJSWallet {
     const balance = await this.wallet.getBalance()
 
     this.balance = Number(balance.total)
-    walletStore.getState().setBalance(this.balance)
+    useWalletState.getState().setBalance(this.balance)
     return this.balance
   }
 
@@ -162,7 +169,7 @@ export class PeachWallet extends PeachJSWallet {
 
     rebroadcastTransactions(toRebroadcast.map(({ txid }) => txid))
     this.transactions = this.transactions.filter(
-      (tx) => tx.confirmationTime || walletStore.getState().pendingTransactions[tx.txid],
+      (tx) => tx.confirmationTime || useWalletState.getState().pendingTransactions[tx.txid],
     )
     this.updateStore()
 
@@ -186,7 +193,7 @@ export class PeachWallet extends PeachJSWallet {
     return this.signAndBroadcastPSBT(finishedTransaction.psbt)
   }
 
-  async finishTransaction<T extends TxBuilder | BumpFeeTxBuilder> (transaction: T): ReturnType<T['finish']> {
+  async finishTransaction<T extends TxBuilder | BumpFeeTxBuilder> (transaction: T): Promise<ReturnType<T['finish']>> {
     if (!this.wallet || !this.blockchain) throw Error('WALLET_NOT_READY')
     info('PeachWallet - finishTransaction - start')
     try {
@@ -217,15 +224,15 @@ export class PeachWallet extends PeachJSWallet {
   }
 
   loadWalletStore (): void {
-    this.transactions = walletStore.getState().transactions
-    this.balance = walletStore.getState().balance
+    this.transactions = useWalletState.getState().transactions
+    this.balance = useWalletState.getState().balance
   }
 
   loadFromStorage (): void {
-    if (walletStore.persist.hasHydrated()) {
+    if (useWalletState.persist.hasHydrated()) {
       this.loadWalletStore()
     } else {
-      walletStore.persist.onFinishHydration(() => {
+      useWalletState.persist.onFinishHydration(() => {
         this.loadWalletStore()
       })
     }
