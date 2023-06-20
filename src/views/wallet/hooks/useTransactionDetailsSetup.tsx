@@ -1,7 +1,6 @@
 import { NETWORK } from '@env'
 import { useEffect, useMemo, useState } from 'react'
 import { shallow } from 'zustand/shallow'
-
 import { useHeaderSetup, useNavigation, useRoute } from '../../../hooks'
 import { useBitcoinStore } from '../../../store/bitcoinStore'
 import { sort } from '../../../utils/array'
@@ -12,6 +11,7 @@ import { peachWallet } from '../../../utils/wallet/setWallet'
 import { useWalletState } from '../../../utils/wallet/walletStore'
 import { getTxSummary } from '../helpers/getTxSummary'
 import { useSyncWallet } from './useSyncWallet'
+import { canBumpNetworkFees } from '../helpers/canBumpNetworkFees'
 
 export const useTransactionDetailsSetup = () => {
   const { txId } = useRoute<'transactionDetails'>().params
@@ -64,6 +64,7 @@ export const useTransactionDetailsSetup = () => {
     openInExplorer,
     refresh,
     isRefreshing,
+    canBumpNetworkFees: canBumpNetworkFees(peachWallet, transaction),
     goToBumpNetworkFees,
   }
 }

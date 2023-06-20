@@ -1,7 +1,8 @@
 import { RefreshControl, View } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-import { Card, HorizontalLine, Icon, Loading, PeachScrollView, PrimaryButton, Text } from '../../components'
+import { Card, HorizontalLine, Icon, Loading, PeachScrollView, Text } from '../../components'
 import { ShortBitcoinAddress } from '../../components/bitcoin'
+import { PrimaryBubble } from '../../components/bubble'
 import { MediumSatsFormat } from '../../components/text'
 import tw from '../../styles/tailwind'
 import { toDateFormat } from '../../utils/date'
@@ -10,9 +11,16 @@ import { iconMap } from './components/iconMap'
 import { getTxDetailsTitle } from './helpers/getTxDetailsTitle'
 import { useTransactionDetailsSetup } from './hooks/useTransactionDetailsSetup'
 
-export default () => {
-  const { transaction, receivingAddress, openInExplorer, refresh, isRefreshing, goToBumpNetworkFees }
-    = useTransactionDetailsSetup()
+export const TransactionDetails = () => {
+  const {
+    transaction,
+    receivingAddress,
+    openInExplorer,
+    refresh,
+    isRefreshing,
+    canBumpNetworkFees,
+    goToBumpNetworkFees,
+  } = useTransactionDetailsSetup()
 
   return (
     <PeachScrollView
@@ -50,7 +58,11 @@ export default () => {
             <Text style={tw`underline text-black-2`}>{i18n('transaction.viewInExplorer')}</Text>
             <Icon id="externalLink" style={tw`w-3 h-3 ml-1`} color={tw`text-primary-main`.color} />
           </TouchableOpacity>
-          <PrimaryButton onPress={goToBumpNetworkFees}>{i18n('wallet.bumpNetworkFees.button')}</PrimaryButton>
+          {canBumpNetworkFees && (
+            <PrimaryBubble onPress={goToBumpNetworkFees} iconId="chevronsUp" style={tw`self-center mt-4`}>
+              {i18n('wallet.bumpNetworkFees.button')}
+            </PrimaryBubble>
+          )}
         </Card>
       )}
     </PeachScrollView>

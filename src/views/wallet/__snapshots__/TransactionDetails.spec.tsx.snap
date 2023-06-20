@@ -1,0 +1,216 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TransactionDetails renders correctly 1`] = `
+<ForwardRef
+  contentContainerStyle={
+    {
+      "flexGrow": 1,
+      "justifyContent": "center",
+      "paddingLeft": 32,
+      "paddingRight": 32,
+    }
+  }
+  refreshControl={
+    <RefreshControlMock
+      onRefresh={[MockFunction]}
+      refreshing={false}
+    />
+  }
+  style={
+    {
+      "height": "100%",
+    }
+  }
+>
+  <Card
+    style={
+      {
+        "paddingBottom": 28,
+        "paddingLeft": 28,
+        "paddingRight": 28,
+        "paddingTop": 28,
+        "width": "100%",
+      }
+    }
+  >
+    <PeachText
+      style={
+        {
+          "color": "#7D675E",
+          "textAlign": "center",
+        }
+      }
+    >
+      type
+    </PeachText>
+    <View
+      style={
+        {
+          "display": "flex",
+          "flexDirection": "row",
+          "justifyContent": "center",
+        }
+      }
+    >
+      <Icon
+        color="#05A85A"
+        id="download"
+      />
+      <PeachText
+        style={
+          {
+            "fontFamily": "Baloo2-SemiBold",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 28,
+            "marginLeft": 8,
+            "textAlign": "center",
+          }
+        }
+      >
+        stacked sats - P‑7B
+      </PeachText>
+    </View>
+    <HorizontalLine
+      style={
+        {
+          "marginBottom": 16,
+          "marginTop": 16,
+        }
+      }
+    />
+    <PeachText
+      style={
+        {
+          "color": "#7D675E",
+          "textAlign": "center",
+        }
+      }
+    >
+      date
+    </PeachText>
+    <PeachText
+      style={
+        {
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 16,
+          "letterSpacing": 0.16,
+          "lineHeight": 28,
+          "textAlign": "center",
+        }
+      }
+    >
+      today
+    </PeachText>
+    <HorizontalLine
+      style={
+        {
+          "marginBottom": 16,
+          "marginTop": 16,
+        }
+      }
+    />
+    <PeachText
+      style={
+        {
+          "color": "#7D675E",
+          "textAlign": "center",
+        }
+      }
+    >
+      to
+    </PeachText>
+    <ShortBitcoinAddress
+      address="receivingAddress"
+      style={
+        {
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 16,
+          "letterSpacing": 0.16,
+          "lineHeight": 28,
+          "textAlign": "center",
+        }
+      }
+    />
+    <HorizontalLine
+      style={
+        {
+          "marginBottom": 16,
+          "marginTop": 16,
+        }
+      }
+    />
+    <PeachText
+      style={
+        {
+          "color": "#7D675E",
+          "textAlign": "center",
+        }
+      }
+    >
+      amount
+    </PeachText>
+    <View
+      style={
+        {
+          "display": "flex",
+          "flexDirection": "row",
+          "justifyContent": "center",
+        }
+      }
+    >
+      <MediumSatsFormat
+        sats={123456}
+      />
+    </View>
+    <HorizontalLine
+      style={
+        {
+          "marginBottom": 16,
+          "marginTop": 16,
+        }
+      }
+    />
+    <TouchableOpacity
+      activeOpacity={0.2}
+      delayLongPress={600}
+      extraButtonProps={
+        {
+          "exclusive": true,
+          "rippleColor": "transparent",
+        }
+      }
+      onPress={[MockFunction]}
+      style={
+        {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "justifyContent": "center",
+        }
+      }
+    >
+      <PeachText
+        style={
+          {
+            "color": "#7D675E",
+            "textDecorationLine": "underline",
+          }
+        }
+      >
+        view transaction in explorer
+      </PeachText>
+      <Icon
+        color="#F56522"
+        id="externalLink"
+        style={
+          {
+            "height": 12,
+            "marginLeft": 4,
+            "width": 12,
+          }
+        }
+      />
+    </TouchableOpacity>
+  </Card>
+</ForwardRef>
+`;

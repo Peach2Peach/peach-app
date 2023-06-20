@@ -25,6 +25,20 @@ export const pending1: TransactionDetails = { txid: 'txid1', sent: 1, received: 
 export const pending2: TransactionDetails = { txid: 'txid2', sent: 2, received: 2, fee: 2 }
 export const pending3: TransactionDetails = { txid: 'txid3', sent: 3, received: 3, fee: 3 }
 
+export const pendingTransactionSummary: TransactionSummary = {
+  amount: 123456,
+  price: 100,
+  currency: 'EUR',
+  date: new Date(),
+  confirmed: false,
+  id: pending1.txid,
+  offerId: '123',
+  type: 'TRADE',
+}
+export const confirmedTransactionSummary: TransactionSummary = {
+  ...pendingTransactionSummary,
+  confirmed: true,
+}
 export const bitcoinTransaction: Transaction = {
   txid: 'credacted',
   version: 1,
