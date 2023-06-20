@@ -1,5 +1,4 @@
 import { Icon } from '../../../../../components'
-import tw from '../../../../../styles/tailwind'
 import { getThemeForTradeItem, isContractSummary, isPastOffer } from '../../../utils'
 import { statusCardStyles } from '../../../../../components/statusCard/StatusCard'
 import { contractIdToHex } from '../../../../../utils/contract'

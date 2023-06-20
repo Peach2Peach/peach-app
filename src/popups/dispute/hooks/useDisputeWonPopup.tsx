@@ -17,8 +17,8 @@ export const useDisputeWonPopup = () => {
 
   const showDisputeWonPopup = async (contractId: string) => {
     const [contract] = await getContract({ contractId })
-    queryClient.setQueryData(['contract', contractId], contract)
     if (!contract || !shouldShowDisputeResult(contract)) return
+    queryClient.setQueryData(['contract', contractId], contract)
     const view = contract.buyer.id === account.publicKey ? 'buyer' : 'seller'
     if (contract.disputeWinner !== view) return
     const saveAcknowledgeMent = () => {
@@ -39,7 +39,6 @@ export const useDisputeWonPopup = () => {
     }
 
     const tradeId = contractIdToHex(contract.id)
-
     setPopup({
       title: i18n('dispute.won'),
       level: 'SUCCESS',
