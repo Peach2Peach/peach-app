@@ -5,7 +5,7 @@ import { AddressIndex, BlockChainNames, BlockchainEsploraConfig, KeychainKind } 
 import { BIP32Interface } from 'bip32'
 import { tradeSummaryStore } from '../../store/tradeSummaryStore'
 import { getBuyOfferIdFromContract } from '../contract'
-import { info } from '../log'
+import { error, info } from '../log'
 import { parseError } from '../result'
 import { findTransactionsToRebroadcast, isPending, mergeTransactionList } from '../transaction'
 import { callWhenInternet } from '../web'
@@ -73,8 +73,8 @@ export class PeachWallet extends PeachJSWallet {
         const config: BlockchainEsploraConfig = {
           url: BLOCKEXPLORER,
           proxy: '',
-          concurrency: '5',
-          timeout: '5',
+          concurrency: '2',
+          timeout: '10',
           stopGap: this.gapLimit.toString(),
         }
 
@@ -107,16 +107,19 @@ export class PeachWallet extends PeachJSWallet {
         info('PeachWallet - syncWallet - start')
         this.synced = false
 
-        const success = await this.wallet.sync(this.blockchain)
-        if (success) {
-          this.getBalance()
-          this.getTransactions()
-          this.synced = true
-          info('PeachWallet - syncWallet - synced')
+        try {
+          const success = await this.wallet.sync(this.blockchain)
+          if (success) {
+            this.getBalance()
+            this.getTransactions()
+            this.synced = true
+            info('PeachWallet - syncWallet - synced')
+          }
+        } catch (e) {
+          error(parseError(e))
         }
 
         this.syncInProgress = undefined
-
         return resolve()
       }),
     )
