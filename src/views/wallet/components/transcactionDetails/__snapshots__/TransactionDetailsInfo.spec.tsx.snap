@@ -1,0 +1,268 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TransactionDetailsInfo should render correctly for a confirmed transaction 1`] = `
+<View>
+  <PeachText
+    style={
+      {
+        "color": "#7D675E",
+        "textAlign": "center",
+      }
+    }
+  >
+    date
+  </PeachText>
+  <PeachText
+    style={
+      {
+        "fontFamily": "Baloo2-SemiBold",
+        "fontSize": 16,
+        "letterSpacing": 0.16,
+        "lineHeight": 28,
+        "textAlign": "center",
+      }
+    }
+  >
+    today
+  </PeachText>
+  <HorizontalLine
+    style={
+      {
+        "marginBottom": 16,
+        "marginTop": 16,
+      }
+    }
+  />
+  <PeachText
+    style={
+      {
+        "color": "#7D675E",
+        "textAlign": "center",
+      }
+    }
+  >
+    to
+  </PeachText>
+  <ShortBitcoinAddress
+    address=""
+    style={
+      {
+        "fontFamily": "Baloo2-SemiBold",
+        "fontSize": 16,
+        "letterSpacing": 0.16,
+        "lineHeight": 28,
+        "textAlign": "center",
+      }
+    }
+  />
+  <HorizontalLine
+    style={
+      {
+        "marginBottom": 16,
+        "marginTop": 16,
+      }
+    }
+  />
+  <PeachText
+    style={
+      {
+        "color": "#7D675E",
+        "textAlign": "center",
+      }
+    }
+  >
+    amount
+  </PeachText>
+  <View
+    style={
+      {
+        "display": "flex",
+        "flexDirection": "row",
+        "justifyContent": "center",
+      }
+    }
+  >
+    <MediumSatsFormat
+      sats={123456}
+    />
+  </View>
+</View>
+`;
+
+exports[`TransactionDetailsInfo should render correctly for a pending transaction 1`] = `
+<View>
+  <PeachText
+    style={
+      {
+        "color": "#7D675E",
+        "textAlign": "center",
+      }
+    }
+  >
+    date
+  </PeachText>
+  <PeachText
+    style={
+      {
+        "fontFamily": "Baloo2-SemiBold",
+        "fontSize": 16,
+        "letterSpacing": 0.16,
+        "lineHeight": 28,
+        "textAlign": "center",
+      }
+    }
+  >
+    unconfirmed
+  </PeachText>
+  <HorizontalLine
+    style={
+      {
+        "marginBottom": 16,
+        "marginTop": 16,
+      }
+    }
+  />
+  <PeachText
+    style={
+      {
+        "color": "#7D675E",
+        "textAlign": "center",
+      }
+    }
+  >
+    to
+  </PeachText>
+  <ShortBitcoinAddress
+    address=""
+    style={
+      {
+        "fontFamily": "Baloo2-SemiBold",
+        "fontSize": 16,
+        "letterSpacing": 0.16,
+        "lineHeight": 28,
+        "textAlign": "center",
+      }
+    }
+  />
+  <HorizontalLine
+    style={
+      {
+        "marginBottom": 16,
+        "marginTop": 16,
+      }
+    }
+  />
+  <PeachText
+    style={
+      {
+        "color": "#7D675E",
+        "textAlign": "center",
+      }
+    }
+  >
+    amount
+  </PeachText>
+  <View
+    style={
+      {
+        "display": "flex",
+        "flexDirection": "row",
+        "justifyContent": "center",
+      }
+    }
+  >
+    <MediumSatsFormat
+      sats={123456}
+    />
+  </View>
+</View>
+`;
+
+exports[`TransactionDetailsInfo should render correctly with a receiving address 1`] = `
+<View>
+  <PeachText
+    style={
+      {
+        "color": "#7D675E",
+        "textAlign": "center",
+      }
+    }
+  >
+    date
+  </PeachText>
+  <PeachText
+    style={
+      {
+        "fontFamily": "Baloo2-SemiBold",
+        "fontSize": 16,
+        "letterSpacing": 0.16,
+        "lineHeight": 28,
+        "textAlign": "center",
+      }
+    }
+  >
+    today
+  </PeachText>
+  <HorizontalLine
+    style={
+      {
+        "marginBottom": 16,
+        "marginTop": 16,
+      }
+    }
+  />
+  <PeachText
+    style={
+      {
+        "color": "#7D675E",
+        "textAlign": "center",
+      }
+    }
+  >
+    to
+  </PeachText>
+  <ShortBitcoinAddress
+    address="receivingAddress"
+    style={
+      {
+        "fontFamily": "Baloo2-SemiBold",
+        "fontSize": 16,
+        "letterSpacing": 0.16,
+        "lineHeight": 28,
+        "textAlign": "center",
+      }
+    }
+  />
+  <HorizontalLine
+    style={
+      {
+        "marginBottom": 16,
+        "marginTop": 16,
+      }
+    }
+  />
+  <PeachText
+    style={
+      {
+        "color": "#7D675E",
+        "textAlign": "center",
+      }
+    }
+  >
+    amount
+  </PeachText>
+  <View
+    style={
+      {
+        "display": "flex",
+        "flexDirection": "row",
+        "justifyContent": "center",
+      }
+    }
+  >
+    <MediumSatsFormat
+      sats={123456}
+    />
+  </View>
+</View>
+`;
