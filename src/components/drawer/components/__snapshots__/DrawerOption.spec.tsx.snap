@@ -119,6 +119,7 @@ exports[`DrawerOption should render correctly when highlighted 1`] = `
           "height": 24,
           "width": 24,
         },
+        false,
       ]
     }
   />
@@ -429,6 +430,7 @@ exports[`DrawerOption should render correctly with title and iconRightID 1`] = `
           "height": 24,
           "width": 24,
         },
+        false,
       ]
     }
   />
@@ -773,6 +775,7 @@ exports[`DrawerOption should render correctly with title, flagID and iconRightID
           "height": 24,
           "width": 24,
         },
+        false,
       ]
     }
   />
@@ -906,6 +909,7 @@ exports[`DrawerOption should render correctly with title, logoID and iconRightID
           "height": 24,
           "width": 24,
         },
+        false,
       ]
     }
   />
@@ -1169,6 +1173,7 @@ exports[`DrawerOption should render correctly with title, subtext and iconRightI
           "height": 24,
           "width": 24,
         },
+        false,
       ]
     }
   />
@@ -1326,6 +1331,7 @@ exports[`DrawerOption should render correctly with title, subtext, flagID and ic
           "height": 24,
           "width": 24,
         },
+        false,
       ]
     }
   />
