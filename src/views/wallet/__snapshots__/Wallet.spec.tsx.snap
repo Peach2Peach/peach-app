@@ -67,6 +67,73 @@ exports[`Wallet should render correctly 1`] = `
 </AvoidKeyboard>
 `;
 
+exports[`Wallet should render correctly user can withdraw 1`] = `
+<AvoidKeyboard
+  androidBehavior="height"
+  iOSBehavior="height"
+>
+  <ForwardRef
+    contentContainerStyle={
+      {
+        "height": "100%",
+        "paddingBottom": 24,
+        "paddingLeft": 32,
+        "paddingRight": 32,
+        "paddingTop": 24,
+      }
+    }
+    refreshControl={
+      <RefreshControlMock
+        onRefresh={[MockFunction]}
+        refreshing={false}
+      />
+    }
+    style={
+      {
+        "height": "100%",
+      }
+    }
+  >
+    <View
+      style={
+        {
+          "height": "100%",
+          "justifyContent": "space-between",
+        }
+      }
+    >
+      <View
+        style={
+          {
+            "alignItems": "center",
+            "flexBasis": "0%",
+            "flexGrow": 1,
+            "flexShrink": 1,
+            "gap": 64,
+            "justifyContent": "center",
+          }
+        }
+      >
+        <TotalBalance
+          amount={21}
+          style={false}
+        />
+        <SendTo
+          address="address"
+          addressErrors=""
+          setAddress={[MockFunction]}
+        />
+      </View>
+      <SlideToUnlock
+        disabled={false}
+        label1="send all"
+        onUnlock={[MockFunction]}
+      />
+    </View>
+  </ForwardRef>
+</AvoidKeyboard>
+`;
+
 exports[`Wallet should render correctly when loading 1`] = `
 <BitcoinLoading
   text="wallet loading,

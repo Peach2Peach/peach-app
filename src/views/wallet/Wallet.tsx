@@ -37,7 +37,7 @@ export default () => {
             <SendTo {...{ address, setAddress, addressErrors }} />
           </View>
           <SlideToUnlock
-            disabled={canWithdrawAll}
+            disabled={!canWithdrawAll}
             label1={i18n('wallet.withdrawAll')}
             onUnlock={openWithdrawalConfirmation}
           />

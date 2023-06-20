@@ -20,7 +20,7 @@ describe('Wallet', () => {
     refresh: jest.fn(),
     walletLoading: false,
     isRefreshing: false,
-    canWithdrawAll: true,
+    canWithdrawAll: false,
     address: 'address',
     setAddress: jest.fn(),
     addressErrors: '',
@@ -32,8 +32,7 @@ describe('Wallet', () => {
     useWalletSetupMock.mockReturnValueOnce(defaultReturnValue)
     renderer.render(<Wallet />)
 
-    const renderOutput = renderer.getRenderOutput()
-    expect(renderOutput).toMatchSnapshot()
+    expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
 
   it('should render correctly when refreshing', () => {
@@ -43,8 +42,7 @@ describe('Wallet', () => {
     })
     renderer.render(<Wallet />)
 
-    const renderOutput = renderer.getRenderOutput()
-    expect(renderOutput).toMatchSnapshot()
+    expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
 
   it('should render correctly when loading', () => {
@@ -54,7 +52,15 @@ describe('Wallet', () => {
     })
     renderer.render(<Wallet />)
 
-    const renderOutput = renderer.getRenderOutput()
-    expect(renderOutput).toMatchSnapshot()
+    expect(renderer.getRenderOutput()).toMatchSnapshot()
+  })
+  it('should render correctly user can withdraw', () => {
+    useWalletSetupMock.mockReturnValueOnce({
+      ...defaultReturnValue,
+      canWithdrawAll: true,
+    })
+    renderer.render(<Wallet />)
+
+    expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
 })
