@@ -8,10 +8,10 @@
   "coverageReporters": ["lcov", "text-summary"],
   "coverageThreshold": {
     "global": {
-      "statements": 84.48,
-      "branches": 66.18,
-      "functions": 76.15,
-      "lines": 85.84
+      "statements": 85.69,
+      "branches": 67.24,
+      "functions": 77.97,
+      "lines": 86.77
     }
   },
   "transform": {
