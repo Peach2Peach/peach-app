@@ -43,4 +43,8 @@ describe('Divider', () => {
     renderer.render(<Divider text={text} />)
     expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
+  it('renders correctly with no text', () => {
+    renderer.render(<Divider />)
+    expect(renderer.getRenderOutput()).toMatchSnapshot()
+  })
 })

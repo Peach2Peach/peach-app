@@ -2,7 +2,7 @@ import { act, renderHook } from '@testing-library/react-native'
 import { headerState, NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { SATSINBTC } from '../../../constants'
 import { useOfferPreferences } from '../../../store/offerPreferenes'
-import { settingsStore } from '../../../store/settingsStore'
+import { useSettingsStore } from '../../../store/settingsStore'
 import { defaultLimits } from '../../../utils/account/account'
 import { usePremiumSetup } from './usePremiumSetup'
 
@@ -25,7 +25,7 @@ describe('usePremiumSetup', () => {
   const sellAmount = 100000
   afterEach(() => {
     act(() => {
-      settingsStore.setState({ displayCurrency: 'EUR' })
+      useSettingsStore.setState({ displayCurrency: 'EUR' })
       useOfferPreferences.getState().setSellAmount(sellAmount, { min: 1000, max: 1000000 })
     })
   })

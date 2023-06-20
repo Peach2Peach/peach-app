@@ -1,12 +1,12 @@
-import { walletStore } from './walletStore'
+import { useWalletState } from './walletStore'
 
 describe('walletStore', () => {
   afterEach(() => {
-    walletStore.getState().reset()
+    useWalletState.getState().reset()
   })
   it('returns defaults', () => {
-    expect(walletStore.getState()).toEqual({
-      ...walletStore.getState(),
+    expect(useWalletState.getState()).toEqual({
+      ...useWalletState.getState(),
       addresses: [],
       balance: 0,
       pendingTransactions: {},
@@ -15,12 +15,12 @@ describe('walletStore', () => {
     })
   })
   it('adds pending transactions', () => {
-    walletStore.getState().addPendingTransactionHex('txId', 'txHex')
-    expect(walletStore.getState().pendingTransactions).toEqual({ txId: 'txHex' })
+    useWalletState.getState().addPendingTransactionHex('txId', 'txHex')
+    expect(useWalletState.getState().pendingTransactions).toEqual({ txId: 'txHex' })
   })
   it('removes pending transactions', () => {
-    walletStore.getState().addPendingTransactionHex('txId', 'txHex')
-    walletStore.getState().removePendingTransaction('txId')
-    expect(walletStore.getState().pendingTransactions).toEqual({})
+    useWalletState.getState().addPendingTransactionHex('txId', 'txHex')
+    useWalletState.getState().removePendingTransaction('txId')
+    expect(useWalletState.getState().pendingTransactions).toEqual({})
   })
 })

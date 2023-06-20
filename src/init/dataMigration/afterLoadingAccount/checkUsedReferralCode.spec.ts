@@ -1,5 +1,5 @@
 import { checkUsedReferralCode } from './checkUsedReferralCode'
-import { settingsStore } from '../../../store/settingsStore'
+import { useSettingsStore } from '../../../store/settingsStore'
 import { getSelfUser } from '../../../utils/peachAPI'
 
 jest.mock('../../../utils/peachAPI', () => ({
@@ -9,7 +9,7 @@ jest.mock('../../../utils/peachAPI', () => ({
 describe('checkUsedReferralCode', () => {
   afterEach(() => {
     jest.resetAllMocks()
-    settingsStore.setState({ usedReferralCode: undefined })
+    useSettingsStore.setState({ usedReferralCode: undefined })
   })
   it('should check if referral code has been used and set setting to true', async () => {
     ;(getSelfUser as jest.Mock).mockResolvedValue([
@@ -19,7 +19,7 @@ describe('checkUsedReferralCode', () => {
     ])
     await checkUsedReferralCode()
     expect(getSelfUser).toHaveBeenCalledWith({})
-    expect(settingsStore.getState().usedReferralCode).toBe(true)
+    expect(useSettingsStore.getState().usedReferralCode).toBe(true)
   })
   it('should check if referral code has been used and set setting to false if not used', async () => {
     ;(getSelfUser as jest.Mock).mockResolvedValue([
@@ -29,10 +29,10 @@ describe('checkUsedReferralCode', () => {
     ])
     await checkUsedReferralCode()
     expect(getSelfUser).toHaveBeenCalledWith({})
-    expect(settingsStore.getState().usedReferralCode).toBe(false)
+    expect(useSettingsStore.getState().usedReferralCode).toBe(false)
   })
   it('should not check again', async () => {
-    settingsStore.setState({ usedReferralCode: true })
+    useSettingsStore.setState({ usedReferralCode: true })
     ;(getSelfUser as jest.Mock).mockResolvedValue([
       {
         usedReferralCode: undefined,

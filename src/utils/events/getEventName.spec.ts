@@ -1,11 +1,13 @@
-import { meetupEventsStore } from '../../store/meetupEventsStore'
+import { useMeetupEventsStore } from '../../store/meetupEventsStore'
 import { getEventName } from '.'
 
 describe('getEventName', () => {
-  meetupEventsStore.getState().meetupEvents = [
-    { id: '1', shortName: 'event 1', country: 'DE', city: '', longName: '' },
-    { id: '2', shortName: 'event 2', country: 'DE', city: '', longName: '' },
-  ]
+  useMeetupEventsStore.setState({
+    meetupEvents: [
+      { id: '1', shortName: 'event 1', country: 'DE', city: '', longName: '', currencies: ['EUR'], featured: false },
+      { id: '2', shortName: 'event 2', country: 'DE', city: '', longName: '', currencies: ['EUR'], featured: false },
+    ],
+  })
 
   it('should return the name of the event with the matching id', () => {
     expect(getEventName('1')).toEqual('event 1')

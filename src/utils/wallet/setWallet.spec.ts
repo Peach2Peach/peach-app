@@ -5,8 +5,8 @@ import { createTestWallet } from '../../../tests/unit/helpers/createTestWallet'
 describe('setWallet', () => {
   it('returns wallet for escrow depending on offer id', () => {
     const recoveredWallet = createTestWallet()
-    setWallet(recoveredWallet.wallet)
+    setWallet(recoveredWallet)
 
-    deepStrictEqual(getWallet(), recoveredWallet.wallet)
+    deepStrictEqual(getWallet(), recoveredWallet)
   })
 })

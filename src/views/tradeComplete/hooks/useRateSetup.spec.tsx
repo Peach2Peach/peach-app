@@ -1,10 +1,10 @@
-import { renderHook } from '@testing-library/react-native'
+import { act, renderHook } from '@testing-library/react-native'
 import { account1 } from '../../../../tests/unit/data/accountData'
 import { contract } from '../../../../tests/unit/data/contractData'
 import { TradeBreakdown } from '../../../popups/TradeBreakdown'
 import { Props, useRateSetup } from './useRateSetup'
 import { apiSuccess, unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
-import { settingsStore } from '../../../store/settingsStore'
+import { useSettingsStore } from '../../../store/settingsStore'
 import { NavigationWrapper, replaceMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { usePopupStore } from '../../../store/usePopupStore'
 
@@ -50,10 +50,8 @@ describe('useRateSetup', () => {
   const initialProps: Props = { contract, view: 'buyer', vote: undefined, saveAndUpdate: saveAndUpdateMock }
 
   beforeEach(() => {
-    settingsStore.getState().setShouldShowBackupOverlay('completedBuyOffer', false)
-  })
-  afterEach(() => {
-    settingsStore.getState().reset()
+    useSettingsStore.getState().reset()
+    useSettingsStore.getState().setShouldShowBackupOverlay('completedBuyOffer', false)
   })
   it('returns default values correctly', () => {
     const { result } = renderHook(useRateSetup, {
@@ -67,12 +65,14 @@ describe('useRateSetup', () => {
       viewInExplorer: expect.any(Function),
     })
   })
-  it('does not submit rating if none has been set', () => {
+  it('does not submit rating if none has been set', async () => {
     const { result } = renderHook(useRateSetup, {
       initialProps,
       wrapper: NavigationWrapper,
     })
-    result.current.rate()
+    await act(async () => {
+      await result.current.rate()
+    })
     expect(rateUserMock).not.toHaveBeenCalled()
   })
   it('does submit rating as buyer', async () => {
@@ -81,7 +81,9 @@ describe('useRateSetup', () => {
       initialProps: { ...initialProps, vote: 'positive', view: 'buyer' },
       wrapper: NavigationWrapper,
     })
-    await result.current.rate()
+    await act(async () => {
+      await result.current.rate()
+    })
     expect(rateUserMock).toHaveBeenCalledWith({
       contractId: contract.id,
       rating: positiveRating.rating,
@@ -98,7 +100,9 @@ describe('useRateSetup', () => {
       initialProps: { ...initialProps, vote: 'positive', view: 'seller' },
       wrapper: NavigationWrapper,
     })
-    await result.current.rate()
+    await act(async () => {
+      await result.current.rate()
+    })
     expect(rateUserMock).toHaveBeenCalledWith({
       contractId: contract.id,
       rating: positiveRating.rating,
@@ -110,13 +114,15 @@ describe('useRateSetup', () => {
     })
   })
   it('does submit positive rating and navigates to backupTime', async () => {
-    settingsStore.getState().setShouldShowBackupOverlay('completedBuyOffer', true)
+    useSettingsStore.getState().setShouldShowBackupOverlay('completedBuyOffer', true)
     createUserRatingMock.mockReturnValueOnce(positiveRating)
     const { result } = renderHook(useRateSetup, {
       initialProps: { ...initialProps, vote: 'positive' },
       wrapper: NavigationWrapper,
     })
-    await result.current.rate()
+    await act(async () => {
+      await result.current.rate()
+    })
     expect(rateUserMock).toHaveBeenCalledWith({
       contractId: contract.id,
       rating: positiveRating.rating,
@@ -128,13 +134,15 @@ describe('useRateSetup', () => {
     })
   })
   it('does submit negative rating and navigates to backupTime', async () => {
-    settingsStore.getState().setShouldShowBackupOverlay('completedBuyOffer', true)
+    useSettingsStore.getState().setShouldShowBackupOverlay('completedBuyOffer', true)
     createUserRatingMock.mockReturnValueOnce(negativeRating)
     const { result } = renderHook(useRateSetup, {
       initialProps: { ...initialProps, vote: 'negative' },
       wrapper: NavigationWrapper,
     })
-    await result.current.rate()
+    await act(async () => {
+      await result.current.rate()
+    })
     expect(rateUserMock).toHaveBeenCalledWith({
       contractId: contract.id,
       rating: negativeRating.rating,
@@ -145,25 +153,29 @@ describe('useRateSetup', () => {
     })
   })
   it('does submit positive rating and navigates back to contract', async () => {
-    settingsStore.getState().setShowBackupReminder(false)
+    useSettingsStore.getState().setShowBackupReminder(false)
     createUserRatingMock.mockReturnValueOnce(positiveRating)
     const { result } = renderHook(useRateSetup, {
       initialProps: { ...initialProps, vote: 'positive' },
       wrapper: NavigationWrapper,
     })
-    await result.current.rate()
+    await act(async () => {
+      await result.current.rate()
+    })
     expect(replaceMock).toHaveBeenCalledWith('contract', {
       contractId: contract.id,
     })
   })
   it('does submit negative rating and navigates to yourTrades', async () => {
-    settingsStore.getState().setShowBackupReminder(false)
+    useSettingsStore.getState().setShowBackupReminder(false)
     createUserRatingMock.mockReturnValueOnce(negativeRating)
     const { result } = renderHook(useRateSetup, {
       initialProps: { ...initialProps, vote: 'negative' },
       wrapper: NavigationWrapper,
     })
-    await result.current.rate()
+    await act(async () => {
+      await result.current.rate()
+    })
     expect(replaceMock).toHaveBeenCalledWith('yourTrades')
   })
   it('handles rating submit error', async () => {
@@ -173,7 +185,9 @@ describe('useRateSetup', () => {
       initialProps: { ...initialProps, vote: 'negative' },
       wrapper: NavigationWrapper,
     })
-    await result.current.rate()
+    await act(async () => {
+      await result.current.rate()
+    })
     expect(showErrorBannerMock).toHaveBeenCalled()
     expect(replaceMock).not.toHaveBeenCalled()
   })

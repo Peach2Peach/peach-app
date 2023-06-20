@@ -1,8 +1,8 @@
-import { renderHook } from '@testing-library/react-native'
+import { act, renderHook } from '@testing-library/react-native'
 import { useLanguage } from './useLanguage'
 import i18n, { LanguageContext } from '../utils/i18n'
 import { useReducer } from 'react'
-import { settingsStore } from '../store/settingsStore'
+import { useSettingsStore } from '../store/settingsStore'
 
 const Wrapper = ({ children }: ComponentProps) => {
   const [languageState, updateLanguage] = useReducer(i18n.setLocale, i18n.getState())
@@ -20,12 +20,16 @@ describe('useLanguage', () => {
   })
   it('should set locale', () => {
     const { result } = renderHook(useLanguage, { wrapper: Wrapper })
-    result.current.setLocale('es')
+    act(() => {
+      result.current.setLocale('es')
+    })
     expect(i18n.getLocale()).toBe('es')
   })
   it('should save locale', () => {
     const { result } = renderHook(useLanguage, { wrapper: Wrapper })
-    result.current.saveLocale('es')
-    expect(settingsStore.getState().locale).toBe('es')
+    act(() => {
+      result.current.saveLocale('es')
+    })
+    expect(useSettingsStore.getState().locale).toBe('es')
   })
 })

@@ -1,5 +1,5 @@
 import messaging from '@react-native-firebase/messaging'
-import { settingsStore } from '../store/settingsStore'
+import { useSettingsStore } from '../store/settingsStore'
 import { account } from '../utils/account'
 import { error, info } from '../utils/log'
 import { updateUser } from '../utils/peachAPI'
@@ -9,7 +9,7 @@ import { parseError } from '../utils/result'
 export const userUpdate = async (referralCode?: string) => {
   if (!account) return
 
-  const settings = settingsStore.getState()
+  const settings = useSettingsStore.getState()
   try {
     const payload: UpdateUserProps = {}
 
@@ -30,8 +30,8 @@ export const userUpdate = async (referralCode?: string) => {
       if (result) {
         info('Updated user information', 'fcmToken', !!payload.fcmToken, 'pgp', !!payload.pgp)
 
-        settingsStore.getState().setPGPPublished(settings.pgpPublished || !!payload.pgp)
-        if (fcmToken) settingsStore.getState().setFCMToken(fcmToken)
+        useSettingsStore.getState().setPGPPublished(settings.pgpPublished || !!payload.pgp)
+        if (fcmToken) useSettingsStore.getState().setFCMToken(fcmToken)
       } else {
         error('User information could not be set', JSON.stringify(err))
       }

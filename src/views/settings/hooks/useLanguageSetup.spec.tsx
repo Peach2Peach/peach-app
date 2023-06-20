@@ -1,6 +1,6 @@
 import { renderHook } from '@testing-library/react-native'
 import { NavigationWrapper, goBackMock } from '../../../../tests/unit/helpers/NavigationWrapper'
-import { settingsStore } from '../../../store/settingsStore'
+import { useSettingsStore } from '../../../store/settingsStore'
 import { useLanguageSetup } from './useLanguageSetup'
 
 describe('useLanguageSetup', () => {
@@ -15,7 +15,7 @@ describe('useLanguageSetup', () => {
   it('should save locale and go back', () => {
     const { result } = renderHook(useLanguageSetup, { wrapper: NavigationWrapper })
     result.current.saveLocale('es')
-    expect(settingsStore.getState().locale).toBe('es')
+    expect(useSettingsStore.getState().locale).toBe('es')
     expect(goBackMock).toHaveBeenCalled()
   })
 })

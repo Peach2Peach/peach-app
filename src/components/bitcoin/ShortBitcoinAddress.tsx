@@ -30,5 +30,3 @@ export const ShortBitcoinAddress = ({ address, style }: ShortBitcoinAddressProps
     </Text>
   )
 }
-
-export default ShortBitcoinAddress

@@ -1,5 +1,5 @@
 import { TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
-import { createStore, useStore } from 'zustand'
+import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
 import { createStorage } from '../storage'
 import { toZustandStorage } from '../storage/toZustandStorage'
@@ -33,14 +33,14 @@ export const defaultWalletState: WalletState = {
 }
 export const walletStorage = createStorage('wallet')
 
-export const walletStore = createStore(
+export const useWalletState = create(
   persist<WalletStore>(
     (set, get) => ({
       ...defaultWalletState,
       reset: () => set(() => defaultWalletState),
-      setAddresses: (addresses) => set((state) => ({ ...state, addresses })),
-      setBalance: (balance) => set((state) => ({ ...state, balance })),
-      setTransactions: (transactions) => set((state) => ({ ...state, transactions })),
+      setAddresses: (addresses) => set({ addresses }),
+      setBalance: (balance) => set({ balance }),
+      setTransactions: (transactions) => set({ transactions }),
       getTransaction: (txId) => get().transactions.find((tx) => tx.txid === txId),
       addPendingTransactionHex: (txid, hex) =>
         set((state) => ({ pendingTransactions: { ...state.pendingTransactions, [txid]: hex } })),
@@ -51,7 +51,6 @@ export const walletStore = createStore(
       },
       updateTxOfferMap: (txId: string, offerId: string) =>
         set((state) => ({
-          ...state,
           txOfferMap: {
             ...state.txOfferMap,
             [txId]: offerId,
@@ -66,8 +65,3 @@ export const walletStore = createStore(
     },
   ),
 )
-
-export const useWalletState = <T>(
-  selector: (state: WalletStore) => T,
-  equalityFn?: ((a: T, b: T) => boolean) | undefined,
-) => useStore(walletStore, selector, equalityFn)

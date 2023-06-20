@@ -11,10 +11,6 @@ exports[`useSearchSetup should set up header correctly 1`] = `
       },
     ]
   }
-  titleComponent={
-    <OfferDetailsTitle
-      id="37"
-    />
-  }
+  title="P‑25"
 />
 `;

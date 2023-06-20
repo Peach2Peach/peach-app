@@ -153,9 +153,6 @@ exports[`Header should render correctly with title and icons 1`] = `
               "lineHeight": 32,
             },
             {
-              "textTransform": "lowercase",
-            },
-            {
               "color": "#2B1911",
             },
           ],

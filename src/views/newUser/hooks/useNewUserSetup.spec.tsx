@@ -6,11 +6,11 @@ import { headerState, NavigationWrapper, replaceMock } from '../../../../tests/u
 import {
   defaultNotificationState,
   notificationStorage,
-  notificationStore,
+  useNotificationStore,
 } from '../../../components/footer/notificationsStore'
-import { configStore } from '../../../store/configStore'
+import { useConfigStore } from '../../../store/configStore'
 import { defaultConfig, defaultSettings } from '../../../store/defaults'
-import { settingsStorage, settingsStore } from '../../../store/settingsStore'
+import { settingsStorage, useSettingsStore } from '../../../store/settingsStore'
 import { defaultAccount, getAccount, setAccount } from '../../../utils/account'
 import { accountStorage } from '../../../utils/account/accountStorage'
 import { chatStorage } from '../../../utils/account/chatStorage'
@@ -19,7 +19,7 @@ import { offerStorage } from '../../../utils/account/offerStorage'
 import { getAccessToken } from '../../../utils/peachAPI/accessToken'
 import { getPeachAccount } from '../../../utils/peachAPI/peachAccount'
 import { sessionStorage } from '../../../utils/session'
-import { defaultWalletState, walletStorage, walletStore } from '../../../utils/wallet/walletStore'
+import { defaultWalletState, walletStorage, useWalletState } from '../../../utils/wallet/walletStore'
 import { useNewUserSetup } from './useNewUserSetup'
 import { useTemporaryAccount } from '../../../hooks/useTemporaryAccount'
 
@@ -66,7 +66,7 @@ describe('useNewUserSetup', () => {
   beforeEach(() => {
     jest.useFakeTimers({ now: new Date('2022-12-30T23:00:00.000Z') })
 
-    settingsStore.setState({ pgpPublished: false, fcmToken: undefined })
+    useSettingsStore.setState({ pgpPublished: false, fcmToken: undefined })
     setAccount(defaultAccount)
   })
   it('should return default values', () => {
@@ -188,10 +188,10 @@ describe('useNewUserSetup', () => {
       expect(storage.clearStore).toHaveBeenCalled()
     })
 
-    expect(notificationStore.getState()).toEqual(expect.objectContaining(defaultNotificationState))
-    expect(configStore.getState()).toEqual(expect.objectContaining(defaultConfig))
-    expect(walletStore.getState()).toEqual(expect.objectContaining(defaultWalletState))
-    expect(settingsStore.getState()).toEqual(expect.objectContaining(defaultSettings))
+    expect(useNotificationStore.getState()).toEqual(expect.objectContaining(defaultNotificationState))
+    expect(useConfigStore.getState()).toEqual(expect.objectContaining(defaultConfig))
+    expect(useWalletState.getState()).toEqual(expect.objectContaining(defaultWalletState))
+    expect(useSettingsStore.getState()).toEqual(expect.objectContaining(defaultSettings))
 
     expect(getAccessToken()).toBeNull()
     expect(getPeachAccount()).toBeNull()
@@ -226,10 +226,10 @@ describe('useNewUserSetup', () => {
       expect(storage.clearStore).toHaveBeenCalled()
     })
 
-    expect(notificationStore.getState()).toEqual(expect.objectContaining(defaultNotificationState))
-    expect(configStore.getState()).toEqual(expect.objectContaining(defaultConfig))
-    expect(walletStore.getState()).toEqual(expect.objectContaining(defaultWalletState))
-    expect(settingsStore.getState()).toEqual(expect.objectContaining(defaultSettings))
+    expect(useNotificationStore.getState()).toEqual(expect.objectContaining(defaultNotificationState))
+    expect(useConfigStore.getState()).toEqual(expect.objectContaining(defaultConfig))
+    expect(useWalletState.getState()).toEqual(expect.objectContaining(defaultWalletState))
+    expect(useSettingsStore.getState()).toEqual(expect.objectContaining(defaultSettings))
 
     expect(getAccessToken()).toBeNull()
     expect(getPeachAccount()).toBeNull()

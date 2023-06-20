@@ -1,0 +1,332 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BitcoinAddress should render correctly 1`] = `
+<View
+  style={
+    [
+      {
+        "alignItems": "center",
+        "flexDirection": "column",
+        "width": "100%",
+      },
+      undefined,
+    ]
+  }
+>
+  <Memo(Pressable)
+    onLongPress={[Function]}
+    onPress={[Function]}
+  >
+    <Fade
+      delay={0}
+      duration={300}
+      show={false}
+    >
+      <PeachText
+        style={
+          [
+            {
+              "fontFamily": "Baloo2-SemiBold",
+              "fontSize": 14,
+              "letterSpacing": 0.14,
+              "lineHeight": 22,
+              "textAlign": "center",
+            },
+            {
+              "bottom": "100%",
+              "left": "50%",
+              "marginLeft": -40,
+              "position": "absolute",
+              "width": 80,
+            },
+          ]
+        }
+      >
+        copied!
+      </PeachText>
+    </Fade>
+    <QRCode
+      backgroundColor="#FFF9F6"
+      size={327}
+      value="bitcoin:bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh"
+    />
+  </Memo(Pressable)>
+  <View
+    style={
+      {
+        "alignItems": "stretch",
+        "flexDirection": "row",
+        "marginTop": 16,
+        "width": "100%",
+      }
+    }
+  >
+    <View
+      style={
+        {
+          "alignItems": "center",
+          "borderColor": "#BAADA7",
+          "borderRadius": 12,
+          "borderWidth": 1,
+          "flexShrink": 1,
+          "justifyContent": "center",
+          "marginRight": 8,
+          "paddingBottom": 8,
+          "paddingLeft": 12,
+          "paddingRight": 12,
+          "paddingTop": 8,
+          "width": "100%",
+        }
+      }
+    >
+      <Fade
+        delay={0}
+        duration={200}
+        show={true}
+        style={
+          {
+            "position": "absolute",
+          }
+        }
+      >
+        <PeachText
+          style={
+            {
+              "color": "#9F8C82",
+            }
+          }
+        >
+          bcrt
+          <PeachText
+            style={
+              {
+                "color": "#2B1911",
+              }
+            }
+          >
+            1q70z
+          </PeachText>
+          7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4
+          <PeachText
+            style={
+              {
+                "color": "#2B1911",
+              }
+            }
+          >
+            c0fuh
+          </PeachText>
+        </PeachText>
+      </Fade>
+      <Fade
+        delay={0}
+        duration={200}
+        show={false}
+        style={
+          {
+            "position": "absolute",
+          }
+        }
+      >
+        <PeachText
+          style={
+            {
+              "fontFamily": "Baloo2-SemiBold",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 28,
+              "textAlign": "center",
+            }
+          }
+        >
+          copied!
+        </PeachText>
+      </Fade>
+    </View>
+    <View>
+      <PrimaryButton
+        iconId="copy"
+        onPress={[Function]}
+      />
+      <PrimaryButton
+        iconId="externalLink"
+        onPress={[Function]}
+        style={
+          {
+            "marginTop": 8,
+          }
+        }
+      />
+    </View>
+  </View>
+</View>
+`;
+
+exports[`BitcoinAddress should render correctly for small screens 1`] = `
+<View
+  style={
+    [
+      {
+        "alignItems": "center",
+        "flexDirection": "column",
+        "width": "100%",
+      },
+      undefined,
+    ]
+  }
+>
+  <Memo(Pressable)
+    onLongPress={[Function]}
+    onPress={[Function]}
+  >
+    <Fade
+      delay={0}
+      duration={300}
+      show={false}
+    >
+      <PeachText
+        style={
+          [
+            {
+              "fontFamily": "Baloo2-SemiBold",
+              "fontSize": 14,
+              "letterSpacing": 0.14,
+              "lineHeight": 22,
+              "textAlign": "center",
+            },
+            {
+              "bottom": "100%",
+              "left": "50%",
+              "marginLeft": -40,
+              "position": "absolute",
+              "width": 80,
+            },
+          ]
+        }
+      >
+        copied!
+      </PeachText>
+    </Fade>
+    <QRCode
+      backgroundColor="#FFF9F6"
+      size={242}
+      value="bitcoin:bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh"
+    />
+  </Memo(Pressable)>
+  <View
+    style={
+      {
+        "alignItems": "stretch",
+        "flexDirection": "row",
+        "marginTop": 16,
+        "width": "100%",
+      }
+    }
+  >
+    <View
+      style={
+        {
+          "alignItems": "center",
+          "borderColor": "#BAADA7",
+          "borderRadius": 12,
+          "borderWidth": 1,
+          "flexShrink": 1,
+          "justifyContent": "center",
+          "marginRight": 8,
+          "paddingBottom": 8,
+          "paddingLeft": 12,
+          "paddingRight": 12,
+          "paddingTop": 8,
+          "width": "100%",
+        }
+      }
+    >
+      <Fade
+        delay={0}
+        duration={200}
+        show={false}
+        style={
+          {
+            "position": "absolute",
+          }
+        }
+      >
+        <PeachText
+          style={
+            {
+              "color": "#9F8C82",
+            }
+          }
+        >
+          bcrt
+          <PeachText
+            style={
+              {
+                "color": "#2B1911",
+              }
+            }
+          >
+            1q70z
+          </PeachText>
+          7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4
+          <PeachText
+            style={
+              {
+                "color": "#2B1911",
+              }
+            }
+          >
+            c0fuh
+          </PeachText>
+        </PeachText>
+      </Fade>
+      <Fade
+        delay={0}
+        duration={200}
+        show={
+          {
+            "fontScale": 2,
+            "height": 1334,
+            "scale": 2,
+            "width": 750,
+          }
+        }
+        style={
+          {
+            "position": "absolute",
+          }
+        }
+      >
+        <PeachText
+          style={
+            {
+              "fontFamily": "Baloo2-SemiBold",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 28,
+              "textAlign": "center",
+            }
+          }
+        >
+          copied!
+        </PeachText>
+      </Fade>
+    </View>
+    <View>
+      <PrimaryButton
+        iconId="copy"
+        onPress={[Function]}
+      />
+      <PrimaryButton
+        iconId="externalLink"
+        onPress={[Function]}
+        style={
+          {
+            "marginTop": 8,
+          }
+        }
+      />
+    </View>
+  </View>
+</View>
+`;

@@ -1,10 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`FixedHeightText should render correctly 1`] = `
+exports[`FixedHeightText renders correctly 1`] = `
 <View
   style={
     {
-      "height": 10,
+      "height": 21,
       "justifyContent": "center",
     }
   }
@@ -29,6 +29,8 @@ exports[`FixedHeightText should render correctly 1`] = `
         ],
       ]
     }
-  />
+  >
+    TINA
+  </Text>
 </View>
 `;

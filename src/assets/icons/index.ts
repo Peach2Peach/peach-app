@@ -10,6 +10,7 @@ import arrowRightCircle from './arrowRightCircle.svg'
 import award from './award.svg'
 import awardCircleInverted from './awardCircleInverted.svg'
 import bitcoin from './bitcoin.svg'
+import buy from './buy.svg'
 import calendar from './calendar.svg'
 import camera from './camera.svg'
 import cameraOff from './cameraOff.svg'
@@ -80,6 +81,7 @@ import saveCircleInverted from './saveCircleInverted.svg'
 import search from './search.svg'
 import selectClosed from './selectClosed.svg'
 import selectOpen from './selectOpen.svg'
+import sell from './sell.svg'
 import send from './send.svg'
 import settings from './settings.svg'
 import shield from './shield.svg'
@@ -129,7 +131,7 @@ const Icons = {
   award,
   awardCircleInverted,
   bitcoin,
-  buy: download,
+  buy,
   calendar,
   camera,
   cameraOff,
@@ -200,7 +202,7 @@ const Icons = {
   search,
   selectClosed,
   selectOpen,
-  sell: upload,
+  sell,
   send,
   settings,
   shield,

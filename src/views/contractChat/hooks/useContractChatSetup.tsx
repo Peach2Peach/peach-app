@@ -1,5 +1,4 @@
 import { useCallback, useContext, useEffect, useMemo, useState } from 'react'
-import { ContractTitle } from '../../../components/titles/ContractTitle'
 import { useHeaderSetup, useRoute } from '../../../hooks'
 import { useChatMessages } from '../../../hooks/query/useChatMessages'
 import { useCommonContractSetup } from '../../../hooks/useCommonContractSetup'
@@ -9,7 +8,7 @@ import { useConfirmCancelTrade } from '../../../popups/tradeCancelation/useConfi
 import { useConfigStore } from '../../../store/configStore'
 import { account } from '../../../utils/account'
 import { deleteMessage, getChat, getUnsentMessages, saveChat } from '../../../utils/chat'
-import { getTradingPartner } from '../../../utils/contract'
+import { contractIdToHex, getTradingPartner } from '../../../utils/contract'
 import { error } from '../../../utils/log'
 import { PeachWSContext } from '../../../utils/peachAPI/websocket'
 import { decryptSymmetric, signAndEncryptSymmetric } from '../../../utils/pgp'
@@ -45,7 +44,7 @@ export const useContractChatSetup = () => {
   useHeaderSetup(
     useMemo(
       () => ({
-        titleComponent: <ContractTitle id={contractId} />,
+        title: contractIdToHex(contractId),
         icons: contract ? getHeaderChatActions(contract, () => showConfirmPopup(contract), openDisputePopup, view) : [],
       }),
       [contractId, contract, showConfirmPopup, openDisputePopup, view],

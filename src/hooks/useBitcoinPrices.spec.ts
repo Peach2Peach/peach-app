@@ -1,6 +1,6 @@
 import { renderHook } from '@testing-library/react-native'
 import { useBitcoinPrices } from './useBitcoinPrices'
-import { settingsStore } from '../store/settingsStore'
+import { useSettingsStore } from '../store/settingsStore'
 
 const useMarketPricesMock = jest.fn().mockReturnValue({
   data: {
@@ -52,7 +52,7 @@ describe('useBitcoinPrices', () => {
     })
   })
   it('should return correct display price for any sats amount', () => {
-    settingsStore.getState().setDisplayCurrency('CHF')
+    useSettingsStore.getState().setDisplayCurrency('CHF')
     const { result } = renderHook(useBitcoinPrices, {
       initialProps: { sats: 1337420 },
     })

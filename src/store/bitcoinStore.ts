@@ -1,4 +1,4 @@
-import { createStore, useStore } from 'zustand'
+import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
 import { SATSINBTC } from '../constants'
 import { createStorage, toZustandStorage } from '../utils/storage'
@@ -26,18 +26,18 @@ const defaultState: BitcoinState = {
 
 export const bitcoinStorage = createStorage('bitcoin')
 
-export const bitcoinStore = createStore(
+export const useBitcoinStore = create(
   persist<BitcoinStore>(
     (set, get) => ({
       ...defaultState,
-      setCurrency: (currency: Currency) => set((state) => ({ ...state, currency })),
-      setSatsPerUnit: (satsPerUnit: number) => set((state) => ({ ...state, satsPerUnit })),
-      setPrice: (price: number) => set((state) => ({ ...state, price })),
-      setPrices: (prices: Pricebook) => {
+      setCurrency: (currency) => set({ currency }),
+      setSatsPerUnit: (satsPerUnit) => set({ satsPerUnit }),
+      setPrice: (price) => set({ price }),
+      setPrices: (prices) => {
         const price = prices[get().currency] || get().price
         get().setPrice(price)
         get().setSatsPerUnit(Math.round(SATSINBTC / price))
-        set((state) => ({ ...state, prices }))
+        set({ prices })
       },
     }),
     {
@@ -47,8 +47,3 @@ export const bitcoinStore = createStore(
     },
   ),
 )
-
-export const useBitcoinStore = <T>(
-  selector: (state: BitcoinStore) => T,
-  equalityFn?: ((a: T, b: T) => boolean) | undefined,
-) => useStore(bitcoinStore, selector, equalityFn)

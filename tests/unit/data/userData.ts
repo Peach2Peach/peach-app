@@ -17,4 +17,6 @@ export const defaultSelfUser: SelfUser = {
   referredTradingAmount: 0,
   trades: 11,
   userRating: 1,
+  freeTrades: 0,
+  maxFreeTrades: 0,
 }

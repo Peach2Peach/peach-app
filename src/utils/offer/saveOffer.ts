@@ -1,5 +1,5 @@
 import { getSummaryFromOffer } from './getSummaryFromOffer'
-import { tradeSummaryStore } from '../../store/tradeSummaryStore'
+import { useTradeSummaryStore } from '../../store/tradeSummaryStore'
 import { account } from '../account'
 import { storeOffer } from '../account/storeAccount'
 import { sort } from '../array'
@@ -47,5 +47,5 @@ export const saveOffer = (offer: SellOffer | BuyOffer, disableSave = false, shie
     storeOffer(offer)
     info('saveOffer', offer.id)
   }
-  tradeSummaryStore.getState().setOffer(offer.id, getSummaryFromOffer(offer))
+  useTradeSummaryStore.getState().setOffer(offer.id, getSummaryFromOffer(offer))
 }

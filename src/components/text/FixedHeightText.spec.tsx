@@ -2,8 +2,8 @@ import { FixedHeightText } from './FixedHeightText'
 import { render } from '@testing-library/react-native'
 
 describe('FixedHeightText', () => {
-  it('should render correctly', () => {
-    const { toJSON } = render(<FixedHeightText height={10} />)
+  it('renders correctly', () => {
+    const { toJSON } = render(<FixedHeightText height={21}>TINA</FixedHeightText>)
     expect(toJSON()).toMatchSnapshot()
   })
 })
