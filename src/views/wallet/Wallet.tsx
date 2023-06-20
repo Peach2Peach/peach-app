@@ -3,11 +3,10 @@ import { AvoidKeyboard, Loading, PeachScrollView } from '../../components'
 import { SlideToUnlock } from '../../components/inputs'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { peachWallet } from '../../utils/wallet/setWallet'
 import { BitcoinLoading } from '../loading/BitcoinLoading'
+import { SendTo } from './components/overview/SendTo'
 import { TotalBalance } from './components/overview/TotalBalance'
 import { useWalletSetup } from './hooks/useWalletSetup'
-import { SendTo } from './components/overview/SendTo'
 
 export default () => {
   const {
