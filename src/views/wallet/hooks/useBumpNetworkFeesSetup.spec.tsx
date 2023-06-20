@@ -14,7 +14,7 @@ import tw from '../../../styles/tailwind'
 import { getTransactionFeeRate } from '../../../utils/bitcoin'
 import { PeachWallet } from '../../../utils/wallet/PeachWallet'
 import { peachWallet, setPeachWallet } from '../../../utils/wallet/setWallet'
-import { walletStore } from '../../../utils/wallet/walletStore'
+import { useWalletState } from '../../../utils/wallet/walletStore'
 import { ConfirmRbf } from '../components/ConfirmRbf'
 import { useBumpNetworkFeesSetup } from './useBumpNetworkFeesSetup'
 import { estimatedFees } from '../../../../tests/unit/data/bitcoinNetworkData'
@@ -53,7 +53,7 @@ describe('useBumpNetworkFeesSetup', () => {
   const newFeeRate = 10
 
   beforeAll(() => {
-    walletStore
+    useWalletState
       .getState()
       .setTransactions([{ ...pending1, txid: bitcoinTransaction.txid, sent: 100000, received: 20000 }])
   })
