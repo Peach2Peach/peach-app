@@ -6,7 +6,7 @@ import { getLevel, getAction } from '../utils'
 import { offerIdToHex } from '../../../../../utils/offer'
 import { getShortDateFormat } from '../../../../../utils/date/getShortDateFormat'
 
-export const getStatusCardProps = (item: TradeSummary, navigateToOffer: () => void, navigateToContract: () => void) => {
+export const getStatusCardProps = (item: TradeSummary, onPress: () => void) => {
   const tradeTheme = getThemeForTradeItem(item)
   const { tradeStatus, paymentMade, creationDate, id, amount, unreadMessages } = item
   const { price, currency } = isContractSummary(item) ? item : { price: undefined, currency: undefined }
@@ -15,9 +15,8 @@ export const getStatusCardProps = (item: TradeSummary, navigateToOffer: () => vo
   const color = isContractSummary(item) ? getLevel(tradeTheme) : getLevel(tradeTheme, item)
   const date = isContractSummary(item) ? new Date(paymentMade || creationDate) : new Date(creationDate)
   const subtext = getShortDateFormat(date)
-  const action = isContractSummary(item)
-    ? getAction(item, navigateToContract, status)
-    : getAction(item, navigateToOffer, tradeStatus)
+  // TODO: further refactoring
+  const action = isContractSummary(item) ? getAction(item, onPress, status) : getAction(item, onPress, tradeStatus)
 
   const icon = isPastOffer(item.tradeStatus) ? (
     <Icon id={tradeTheme.icon} size={16} color={statusCardStyles.border[color].borderColor} />

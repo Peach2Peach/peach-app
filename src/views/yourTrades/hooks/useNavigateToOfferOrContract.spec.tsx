@@ -7,48 +7,48 @@ import { DisputeWon } from '../../../popups/dispute/components/DisputeWon'
 import { useLocalContractStore } from '../../../store/useLocalContractStore'
 import { defaultPopupState, usePopupStore } from '../../../store/usePopupStore'
 import { account } from '../../../utils/account'
-import { useNavigateToContract } from './useNavigateToContract'
+import { useNavigateToOfferOrContract } from './useNavigateToOfferOrContract'
+import { sellOffer } from '../../../../tests/unit/data/offerData'
+
+const startRefundPopupMock = jest.fn()
+jest.mock('../../../popups/useStartRefundPopup', () => ({
+  useStartRefundPopup: () => startRefundPopupMock,
+}))
 
 const getContractMock = jest.fn(() => Promise.resolve([contract, null]))
+const getOfferDetailsMock = jest.fn().mockResolvedValue([sellOffer])
 jest.mock('../../../utils/peachAPI', () => ({
   getContract: (..._args: unknown[]) => getContractMock(),
+  getOfferDetails: () => getOfferDetailsMock(),
 }))
 
 jest.mock('../../../queryClient', () => ({
   queryClient,
 }))
 
-describe('useNavigateToContract', () => {
-  const wrapper = ({ children }: ComponentProps) => (
-    <QueryClientWrapper>
-      <NavigationWrapper>{children}</NavigationWrapper>
-    </QueryClientWrapper>
-  )
+const wrapper = ({ children }: ComponentProps) => (
+  <QueryClientWrapper>
+    <NavigationWrapper>{children}</NavigationWrapper>
+  </QueryClientWrapper>
+)
 
+describe('useNavigateToContract', () => {
   afterEach(() => {
     usePopupStore.setState(defaultPopupState)
   })
 
   it('should navigate to the contract', async () => {
-    const { result } = renderHook(() => useNavigateToContract(contractSummary), { wrapper })
+    const { result } = renderHook(() => useNavigateToOfferOrContract(contractSummary), { wrapper })
     await act(async () => {
       await result.current()
     })
 
     expect(navigateMock).toHaveBeenCalledWith('contract', { contractId: contractSummary.id })
   })
-  it('should not navigate to the contract if it is not a contract summary', async () => {
-    const { result } = renderHook(() => useNavigateToContract({} as any), { wrapper })
-    await act(async () => {
-      await result.current()
-    })
-
-    expect(navigateMock).not.toHaveBeenCalled()
-  })
   it('should show the dispute email popup if it has not been seen yet', async () => {
     useLocalContractStore.getState().setContract({ id: 'newContractId', hasSeenDisputeEmailPopup: false })
     getContractMock.mockResolvedValueOnce([{ ...contract, id: 'newContractId', disputeActive: true }, null])
-    const { result } = renderHook(() => useNavigateToContract({ ...contractSummary, id: 'newContractId' }), {
+    const { result } = renderHook(() => useNavigateToOfferOrContract({ ...contractSummary, id: 'newContractId' }), {
       wrapper,
     })
 
@@ -93,7 +93,7 @@ describe('useNavigateToContract', () => {
       contracts: { [disputeWonContractSummary.id]: { disputeResultAcknowledged: false } },
     } as any)
 
-    const { result } = renderHook(() => useNavigateToContract(disputeWonContractSummary), {
+    const { result } = renderHook(() => useNavigateToOfferOrContract(disputeWonContractSummary), {
       wrapper,
     })
     await act(async () => {
@@ -122,5 +122,44 @@ describe('useNavigateToContract', () => {
         }),
       )
     })
+  })
+})
+
+describe('useNavigateToOfferOrContract', () => {
+  it('should navigate to offer', async () => {
+    const offerSummary: Partial<OfferSummary> = {
+      id: '3',
+      tradeStatus: 'offerCanceled',
+    }
+    const { result } = renderHook(useNavigateToOfferOrContract, {
+      initialProps: offerSummary as OfferSummary,
+      wrapper,
+    })
+    await result.current()
+    expect(navigateMock).toHaveBeenCalledWith('offer', { offerId: offerSummary.id })
+  })
+  it('should open popup if status is refundTxSignatureRequired', async () => {
+    const offerSummary: Partial<OfferSummary> = {
+      id: '3',
+      tradeStatus: 'refundTxSignatureRequired',
+    }
+    const { result } = renderHook(useNavigateToOfferOrContract, {
+      initialProps: offerSummary as OfferSummary,
+      wrapper,
+    })
+    await result.current()
+    expect(startRefundPopupMock).toHaveBeenCalledWith(sellOffer)
+  })
+  it('should navigate to wrongFundingAmount if status is fundingAmountDifferent', async () => {
+    const offerSummary: Partial<OfferSummary> = {
+      id: '3',
+      tradeStatus: 'fundingAmountDifferent',
+    }
+    const { result } = renderHook(useNavigateToOfferOrContract, {
+      initialProps: offerSummary as OfferSummary,
+      wrapper,
+    })
+    await result.current()
+    expect(navigateMock).toHaveBeenCalledWith('wrongFundingAmount', { offerId: offerSummary.id })
   })
 })

@@ -1,2 +1,1 @@
-export { useNavigateToContract } from './useNavigateToContract'
-export { useNavigateToOffer } from './useNavigateToOffer'
+export { useNavigateToOfferOrContract } from './useNavigateToOfferOrContract'
