@@ -26,7 +26,7 @@ import { PeachWallet } from './PeachWallet'
 import { createWalletFromSeedPhrase } from './createWalletFromSeedPhrase'
 import { getNetwork } from './getNetwork'
 import { useWalletState } from './walletStore'
-import { error } from '../log'
+import { error as logError } from '../log'
 
 jest.mock('./PeachWallet', () => jest.requireActual('./PeachWallet'))
 
@@ -125,7 +125,7 @@ describe('PeachWallet', () => {
 
     await peachWallet.syncWallet()
     expect(peachWallet.synced).toBeFalsy()
-    expect(error).toHaveBeenCalledWith(errorMsg)
+    expect(logError).toHaveBeenCalledWith(errorMsg)
   })
   it('waits for already running sync', async () => {
     jest.clearAllMocks()
