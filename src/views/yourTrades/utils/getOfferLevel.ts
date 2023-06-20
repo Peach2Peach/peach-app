@@ -21,7 +21,6 @@ export const getOfferLevel = (trade: TradeSummary): keyof typeof statusCardStyle
 
   if (isContractSummary(trade)) {
     if (trade.disputeWinner) return 'yellow'
-    if (trade.tradeStatus === 'tradeCanceled') return 'gray'
   }
 
   return 'orange'

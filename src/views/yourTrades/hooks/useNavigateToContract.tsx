@@ -1,9 +1,9 @@
 import { useNavigation } from '../../../hooks'
 import { useStartRefundPopup } from '../../../popups/useStartRefundPopup'
-import { getOffer } from '../../../utils/offer'
+import { queryClient } from '../../../queryClient'
+import { getOffer, isSellOffer } from '../../../utils/offer'
 import { isContractSummary } from '../utils'
 import { getNavigationDestinationForContract } from '../utils/navigation/getNavigationDestinationForContract'
-import { shouldOpenPopup } from '../utils/shouldOpenPopup'
 import { useNavigateToContractPopups } from './useNavigateToContractPopups'
 
 export const useNavigateToContract = (item: TradeSummary) => {
@@ -15,9 +15,14 @@ export const useNavigateToContract = (item: TradeSummary) => {
     if (!isContractSummary(item)) return
     const destination = await getNavigationDestinationForContract(item)
 
-    if (shouldOpenPopup(item.tradeStatus)) {
-      const sellOffer = getOffer(item.offerId) as SellOffer
-      if (sellOffer) startRefund(sellOffer)
+    if (item.tradeStatus === 'refundTxSignatureRequired') {
+      const sellOffer = getOffer(item.offerId)
+      if (sellOffer && isSellOffer(sellOffer)) {
+        queryClient.setQueryData(['offer', sellOffer.id], sellOffer)
+        startRefund(sellOffer)
+      }
+      // TODO: get ack for this change and test it + extract into reusable hook (useNavigateToOffer)
+      return
     }
 
     navigation.navigate(...destination)

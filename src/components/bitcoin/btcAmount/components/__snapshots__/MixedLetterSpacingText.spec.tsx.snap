@@ -91,6 +91,97 @@ exports[`MixedLetterSpacingText should render correctly 1`] = `
 </PeachText>
 `;
 
+exports[`MixedLetterSpacingText should render correctly if the value is 0 1`] = `
+<PeachText
+  style={[]}
+>
+  <BTCAmountChar
+    char="0"
+    isError={false}
+    letterSpacing={-1.65}
+    reduceOpacity={true}
+    style={[]}
+  />
+  <BTCAmountChar
+    char="."
+    isError={false}
+    letterSpacing={-4.62}
+    reduceOpacity={true}
+    style={[]}
+  />
+  <BTCAmountChar
+    char="0"
+    isError={false}
+    letterSpacing={-1.65}
+    reduceOpacity={true}
+    style={[]}
+  />
+  <BTCAmountChar
+    char="0"
+    isError={false}
+    letterSpacing={-1.65}
+    reduceOpacity={true}
+    style={[]}
+  />
+  <BTCAmountChar
+    char=" "
+    isError={false}
+    letterSpacing={-7.699999999999999}
+    reduceOpacity={true}
+    style={[]}
+  />
+  <BTCAmountChar
+    char="0"
+    isError={false}
+    letterSpacing={-1.65}
+    reduceOpacity={true}
+    style={[]}
+  />
+  <BTCAmountChar
+    char="0"
+    isError={false}
+    letterSpacing={-1.65}
+    reduceOpacity={true}
+    style={[]}
+  />
+  <BTCAmountChar
+    char="0"
+    isError={false}
+    letterSpacing={-1.65}
+    reduceOpacity={true}
+    style={[]}
+  />
+  <BTCAmountChar
+    char=" "
+    isError={false}
+    letterSpacing={-7.699999999999999}
+    reduceOpacity={true}
+    style={[]}
+  />
+  <BTCAmountChar
+    char="0"
+    isError={false}
+    letterSpacing={-1.65}
+    reduceOpacity={true}
+    style={[]}
+  />
+  <BTCAmountChar
+    char="0"
+    isError={false}
+    letterSpacing={-1.65}
+    reduceOpacity={true}
+    style={[]}
+  />
+  <BTCAmountChar
+    char="0"
+    isError={false}
+    letterSpacing={-1.65}
+    reduceOpacity={false}
+    style={[]}
+  />
+</PeachText>
+`;
+
 exports[`MixedLetterSpacingText should render correctly with error 1`] = `
 <PeachText
   style={[]}

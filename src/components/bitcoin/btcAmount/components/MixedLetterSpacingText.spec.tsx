@@ -12,4 +12,8 @@ describe('MixedLetterSpacingText', () => {
     renderer.render(<MixedLetterSpacingText value={value} style={[]} isError={true} />)
     expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
+  it('should render correctly if the value is 0', () => {
+    renderer.render(<MixedLetterSpacingText value={0} style={[]} isError={false} />)
+    expect(renderer.getRenderOutput()).toMatchSnapshot()
+  })
 })

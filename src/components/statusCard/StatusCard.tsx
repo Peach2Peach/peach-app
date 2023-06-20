@@ -1,7 +1,6 @@
 import { TouchableOpacity, View } from 'react-native'
 import tw from '../../styles/tailwind'
-import { Bottom } from './components/Bottom'
-import { Top } from './components/Top'
+import { Bottom, Top } from './components'
 
 export const statusCardStyles = {
   bg: {

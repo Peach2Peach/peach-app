@@ -1,4 +1,3 @@
-import { useMemo } from 'react'
 import { FlatList, Image, ListRenderItem, View } from 'react-native'
 import loadingAnimation from '../../assets/animated/logo-rotate.gif'
 import { Text } from '../../components'
@@ -12,7 +11,7 @@ const ListItem: ListRenderItem<TransactionSummary> = ({ item: tx }) => <TxSummar
 const Separator = () => <View style={tw`mt-4`} />
 
 export default () => {
-  useHeaderSetup(useMemo(() => ({ title: i18n('wallet.transactionHistory') }), []))
+  useHeaderSetup({ title: i18n('wallet.transactionHistory') })
   const { transactions, refresh, isRefreshing } = useTransactionHistorySetup()
 
   if (transactions.length === 0) return (

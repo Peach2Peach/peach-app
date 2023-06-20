@@ -1,5 +1,5 @@
 import { View } from 'react-native'
-import { useGoToOfferOrContract } from '../../../hooks/useGoToOfferOrContract'
+import { useGoToOfferOrContract } from '../../../hooks'
 import tw from '../../../styles/tailwind'
 import Icon from '../../Icon'
 import { FixedHeightText } from '../../text/FixedHeightText'

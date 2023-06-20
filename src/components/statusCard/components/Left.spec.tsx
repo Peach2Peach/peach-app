@@ -43,4 +43,11 @@ describe('Left', () => {
       expect(navigateMock).toHaveBeenCalledWith('contract', { contractId: contract.id })
     })
   })
+  it('should not redirect if it is not replaced', async () => {
+    const { getByText } = render(<Left title="title" subtext="P-123" />, { wrapper: NavigationWrapper })
+    fireEvent.press(getByText('P-123'))
+    await waitFor(() => {
+      expect(navigateMock).not.toHaveBeenCalled()
+    })
+  })
 })
