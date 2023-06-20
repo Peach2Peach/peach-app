@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`StatusCard - DEFAULT renders correctly for level DEFAULT 1`] = `
-<TouchableOpacity>
+exports[`StatusCard should render correctly 1`] = `
+<TouchableOpacity
+  onPress={[MockFunction]}
+>
   <View
     style={
       [
@@ -11,221 +13,23 @@ exports[`StatusCard - DEFAULT renders correctly for level DEFAULT 1`] = `
           "borderWidth": 1,
           "overflow": "hidden",
         },
-        undefined,
+        {
+          "borderColor": "#F56522",
+        },
       ]
     }
   >
     <Top
-      amount={100000}
-      currency="EUR"
-      date={2022-09-15T07:23:25.797Z}
-      level="DEFAULT"
-      price={100}
+      color="orange"
+      onPress={[MockFunction]}
+      subtext="subtext"
       title="title"
     />
     <Bottom
-      amount={100000}
-      currency="EUR"
-      date={2022-09-15T07:23:25.797Z}
-      level="DEFAULT"
-      price={100}
+      color="orange"
+      onPress={[MockFunction]}
+      subtext="subtext"
       title="title"
-    />
-  </View>
-</TouchableOpacity>
-`;
-
-exports[`StatusCard - DEFAULT renders correctly for level DEFAULT with action 1`] = `
-<TouchableOpacity>
-  <View
-    style={
-      [
-        {
-          "backgroundColor": "#FFFCFA",
-          "borderRadius": 12,
-          "borderWidth": 1,
-          "overflow": "hidden",
-        },
-        undefined,
-      ]
-    }
-  >
-    <Top
-      action={
-        {
-          "callback": [MockFunction],
-          "icon": "xCircle",
-          "label": "action",
-        }
-      }
-      amount={100000}
-      currency="EUR"
-      date={2022-09-15T07:23:25.797Z}
-      level="DEFAULT"
-      price={100}
-      title="title"
-    />
-    <Bottom
-      action={
-        {
-          "callback": [MockFunction],
-          "icon": "xCircle",
-          "label": "action",
-        }
-      }
-      amount={100000}
-      currency="EUR"
-      date={2022-09-15T07:23:25.797Z}
-      level="DEFAULT"
-      price={100}
-      title="title"
-    />
-  </View>
-</TouchableOpacity>
-`;
-
-exports[`StatusCard should render correctly for a lost dispute as a seller 1`] = `
-<TouchableOpacity>
-  <View
-    style={
-      [
-        {
-          "backgroundColor": "#FFFCFA",
-          "borderRadius": 12,
-          "borderWidth": 1,
-          "overflow": "hidden",
-        },
-        undefined,
-      ]
-    }
-  >
-    <Top
-      action={
-        {
-          "callback": [Function],
-          "icon": "alertOctagon",
-          "label": "release escrow",
-        }
-      }
-      amount={40000}
-      currency="EUR"
-      date={2009-01-09T00:00:00.000Z}
-      level="ERROR"
-      price={10.9}
-      title="PC‑14F‑152"
-    />
-    <Bottom
-      action={
-        {
-          "callback": [Function],
-          "icon": "alertOctagon",
-          "label": "release escrow",
-        }
-      }
-      amount={40000}
-      currency="EUR"
-      date={2009-01-09T00:00:00.000Z}
-      level="ERROR"
-      price={10.9}
-      title="PC‑14F‑152"
-    />
-  </View>
-</TouchableOpacity>
-`;
-
-exports[`StatusCard should render correctly for a started dispute 1`] = `
-<TouchableOpacity>
-  <View
-    style={
-      [
-        {
-          "backgroundColor": "#FFFCFA",
-          "borderRadius": 12,
-          "borderWidth": 1,
-          "overflow": "hidden",
-        },
-        undefined,
-      ]
-    }
-  >
-    <Top
-      action={
-        {
-          "callback": [Function],
-          "icon": "alertOctagon",
-          "label": "dispute started",
-        }
-      }
-      amount={50000}
-      currency="EUR"
-      date={2023-04-21T00:00:00.000Z}
-      level="ERROR"
-      price={12.94}
-      title="PC‑147‑148"
-    />
-    <Bottom
-      action={
-        {
-          "callback": [Function],
-          "icon": "alertOctagon",
-          "label": "dispute started",
-        }
-      }
-      amount={50000}
-      currency="EUR"
-      date={2023-04-21T00:00:00.000Z}
-      level="ERROR"
-      price={12.94}
-      title="PC‑147‑148"
-    />
-  </View>
-</TouchableOpacity>
-`;
-
-exports[`StatusCard should render correctly for a won dispute as a seller 1`] = `
-<TouchableOpacity>
-  <View
-    style={
-      [
-        {
-          "backgroundColor": "#FFFCFA",
-          "borderRadius": 12,
-          "borderWidth": 1,
-          "overflow": "hidden",
-        },
-        undefined,
-      ]
-    }
-  >
-    <Top
-      action={
-        {
-          "callback": [Function],
-          "icon": "alertOctagon",
-          "label": "refund escrow",
-        }
-      }
-      amount={50000}
-      currency="EUR"
-      date={2023-04-26T00:00:00.000Z}
-      level="SUCCESS"
-      price={12.64}
-      title="PC‑149‑14A"
-    />
-    <Bottom
-      action={
-        {
-          "callback": [Function],
-          "icon": "alertOctagon",
-          "label": "refund escrow",
-        }
-      }
-      amount={50000}
-      currency="EUR"
-      date={2023-04-26T00:00:00.000Z}
-      level="SUCCESS"
-      price={12.64}
-      title="PC‑149‑14A"
     />
   </View>
 </TouchableOpacity>
