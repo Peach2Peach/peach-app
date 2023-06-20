@@ -1,12 +1,9 @@
-import { PartiallySignedTransaction } from 'bdk-rn'
 import { useEffect, useMemo, useState } from 'react'
 import { shallow } from 'zustand/shallow'
 import { useHeaderSetup, useNavigation, useRoute, useShowHelp } from '../../../hooks'
 import { useHandleTransactionError } from '../../../hooks/error/useHandleTransactionError'
 import { useFeeEstimate } from '../../../hooks/query/useFeeEstimate'
 import { useTransactionDetails } from '../../../hooks/query/useTransactionDetails'
-import { useShowLoadingPopup } from '../../../hooks/useShowLoadingPopup'
-import { usePopupStore } from '../../../store/usePopupStore'
 import { getTransactionFeeRate } from '../../../utils/bitcoin'
 import i18n from '../../../utils/i18n'
 import { headerIcons } from '../../../utils/layout'
@@ -14,12 +11,11 @@ import { getErrorsInField } from '../../../utils/validation'
 import { peachWallet } from '../../../utils/wallet/setWallet'
 import { buildBumpFeeTransaction } from '../../../utils/wallet/transaction'
 import { useWalletState } from '../../../utils/wallet/walletStore'
-import { ConfirmRbf } from '../components/ConfirmRbf'
+import { useShowConfirmRbfPopup } from './useShowConfirmRbfPopup'
 
 export const useBumpNetworkFeesSetup = () => {
   const { txId } = useRoute<'bumpNetworkFees'>().params
-  const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
-  const showLoadingPopup = useShowLoadingPopup()
+  const showConfirmRbfPopup = useShowConfirmRbfPopup()
   const handleTransactionError = useHandleTransactionError()
 
   const navigation = useNavigation()
@@ -42,21 +38,10 @@ export const useBumpNetworkFeesSetup = () => {
     icons: [{ ...headerIcons.help, onPress: showHelp }],
   })
 
-  const confirmAndSend = async (rbfTransaction: PartiallySignedTransaction) => {
-    showLoadingPopup({
-      title: i18n('wallet.bumpNetworkFees.confirmRbf.title'),
-      level: 'APP',
-    })
-    try {
-      await peachWallet.signAndBroadcastPSBT(rbfTransaction)
-      removePendingTransaction(txId)
-      navigation.goBack()
-      navigation.replace('transactionDetails', { txId: await rbfTransaction.txid() })
-    } catch (e) {
-      handleTransactionError(e)
-    } finally {
-      closePopup()
-    }
+  const onSuccess = (newTxId: string) => {
+    removePendingTransaction(txId)
+    navigation.goBack()
+    navigation.replace('transactionDetails', { txId: newTxId })
   }
 
   const bumpFees = async () => {
@@ -65,27 +50,13 @@ export const useBumpNetworkFeesSetup = () => {
       const bumpFeeTransaction = await buildBumpFeeTransaction(txId, Number(newFeeRate))
       const finishedTransaction = await peachWallet.finishTransaction(bumpFeeTransaction)
 
-      setPopup({
-        title: i18n('wallet.bumpNetworkFees.confirmRbf.title'),
-        level: 'APP',
-        content: (
-          <ConfirmRbf
-            oldFeeRate={currentFeeRate}
-            newFeeRate={Number(newFeeRate)}
-            bytes={transaction.size}
-            sendingAmount={localTransaction.sent - localTransaction.received}
-          />
-        ),
-        action1: {
-          label: i18n('fundFromPeachWallet.confirm.confirmAndSend'),
-          icon: 'arrowRightCircle',
-          callback: () => confirmAndSend(finishedTransaction),
-        },
-        action2: {
-          label: i18n('cancel'),
-          icon: 'xCircle',
-          callback: closePopup,
-        },
+      showConfirmRbfPopup({
+        currentFeeRate,
+        newFeeRate,
+        transaction,
+        localTransaction,
+        finishedTransaction,
+        onSuccess,
       })
     } catch (e) {
       handleTransactionError(e)
