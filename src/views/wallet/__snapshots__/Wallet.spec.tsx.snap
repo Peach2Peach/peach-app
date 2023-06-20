@@ -9,10 +9,10 @@ exports[`Wallet should render correctly 1`] = `
     contentContainerStyle={
       {
         "height": "100%",
-        "paddingBottom": 24,
+        "paddingBottom": 20,
         "paddingLeft": 32,
         "paddingRight": 32,
-        "paddingTop": 24,
+        "paddingTop": 20,
       }
     }
     refreshControl={
@@ -49,7 +49,7 @@ exports[`Wallet should render correctly 1`] = `
       >
         <TotalBalance
           amount={21}
-          style={false}
+          isRefreshing={false}
         />
         <SendTo
           address="address"
@@ -76,10 +76,10 @@ exports[`Wallet should render correctly user can withdraw 1`] = `
     contentContainerStyle={
       {
         "height": "100%",
-        "paddingBottom": 24,
+        "paddingBottom": 20,
         "paddingLeft": 32,
         "paddingRight": 32,
-        "paddingTop": 24,
+        "paddingTop": 20,
       }
     }
     refreshControl={
@@ -116,7 +116,7 @@ exports[`Wallet should render correctly user can withdraw 1`] = `
       >
         <TotalBalance
           amount={21}
-          style={false}
+          isRefreshing={false}
         />
         <SendTo
           address="address"
@@ -150,10 +150,10 @@ exports[`Wallet should render correctly when refreshing 1`] = `
     contentContainerStyle={
       {
         "height": "100%",
-        "paddingBottom": 24,
+        "paddingBottom": 20,
         "paddingLeft": 32,
         "paddingRight": 32,
-        "paddingTop": 24,
+        "paddingTop": 20,
       }
     }
     refreshControl={
@@ -190,18 +190,7 @@ exports[`Wallet should render correctly when refreshing 1`] = `
       >
         <TotalBalance
           amount={21}
-          style={
-            {
-              "opacity": 0.6,
-            }
-          }
-        />
-        <Loading
-          style={
-            {
-              "position": "absolute",
-            }
-          }
+          isRefreshing={true}
         />
         <SendTo
           address="address"

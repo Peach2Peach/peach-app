@@ -2,24 +2,110 @@
 
 exports[`TotalBalance renders correctly 1`] = `
 <View>
-  <PeachText
+  <View
     style={
       {
-        "fontFamily": "Baloo2-SemiBold",
-        "fontSize": 14,
-        "letterSpacing": 0.5,
-        "lineHeight": 24,
-        "textAlign": "center",
-        "textTransform": "uppercase",
+        "alignItems": "center",
+        "flexDirection": "row",
+        "justifyContent": "center",
       }
     }
   >
-    total balance
-    :
-  </PeachText>
+    <PeachText
+      style={
+        [
+          {
+            "fontFamily": "Baloo2-SemiBold",
+            "fontSize": 14,
+            "letterSpacing": 0.5,
+            "lineHeight": 24,
+            "textAlign": "center",
+            "textTransform": "uppercase",
+          },
+          undefined,
+        ]
+      }
+    >
+      total balance
+      :
+    </PeachText>
+    <View
+      style={
+        {
+          "height": 32,
+          "width": 0,
+        }
+      }
+    />
+  </View>
   <BTCAmount
     amount={100000}
     size="extra large"
+  />
+</View>
+`;
+
+exports[`TotalBalance renders correctly when refreshing 1`] = `
+<View>
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "justifyContent": "center",
+      }
+    }
+  >
+    <PeachText
+      style={
+        [
+          {
+            "fontFamily": "Baloo2-SemiBold",
+            "fontSize": 14,
+            "letterSpacing": 0.5,
+            "lineHeight": 24,
+            "textAlign": "center",
+            "textTransform": "uppercase",
+          },
+          {
+            "opacity": 0.6,
+          },
+        ]
+      }
+    >
+      total balance
+      :
+    </PeachText>
+    <View
+      style={
+        {
+          "height": 32,
+          "width": 0,
+        }
+      }
+    >
+      <Image
+        resizeMode="contain"
+        source="test-file-stub"
+        style={
+          {
+            "height": 32,
+            "left": 16,
+            "position": "absolute",
+            "width": 32,
+          }
+        }
+      />
+    </View>
+  </View>
+  <BTCAmount
+    amount={100000}
+    size="extra large"
+    style={
+      {
+        "opacity": 0.6,
+      }
+    }
   />
 </View>
 `;

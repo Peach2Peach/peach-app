@@ -7,4 +7,8 @@ describe('TotalBalance', () => {
     renderer.render(<TotalBalance amount={100000} />)
     expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
+  it('renders correctly when refreshing', () => {
+    renderer.render(<TotalBalance amount={100000} isRefreshing />)
+    expect(renderer.getRenderOutput()).toMatchSnapshot()
+  })
 })

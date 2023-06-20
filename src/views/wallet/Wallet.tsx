@@ -1,5 +1,5 @@
 import { RefreshControl, View } from 'react-native'
-import { AvoidKeyboard, Loading, PeachScrollView } from '../../components'
+import { AvoidKeyboard, PeachScrollView } from '../../components'
 import { SlideToUnlock } from '../../components/inputs'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
@@ -27,13 +27,12 @@ export default () => {
     <AvoidKeyboard iOSBehavior={'height'} androidBehavior={'height'}>
       <PeachScrollView
         style={tw`h-full`}
-        contentContainerStyle={tw`h-full px-8 py-6`}
+        contentContainerStyle={tw`h-full px-8 py-5`}
         refreshControl={<RefreshControl refreshing={false} onRefresh={refresh} />}
       >
         <View style={tw`justify-between h-full`}>
           <View style={tw`items-center justify-center flex-1 gap-16`}>
-            <TotalBalance style={isRefreshing && tw`opacity-60`} amount={walletStore.balance} />
-            {isRefreshing && <Loading style={tw`absolute`} />}
+            <TotalBalance amount={walletStore.balance} isRefreshing={isRefreshing} />
             <SendTo {...{ address, setAddress, addressErrors }} />
           </View>
           <SlideToUnlock
