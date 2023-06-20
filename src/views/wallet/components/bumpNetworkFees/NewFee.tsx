@@ -18,6 +18,7 @@ export const NewFee = ({ newFeeRate, setNewFeeRate }: Props) => (
         style={tw`w-24 h-9`}
         {...{
           value: newFeeRate,
+          decimals: 2,
           placeholder: '',
           onChange: setNewFeeRate,
           required: true,
