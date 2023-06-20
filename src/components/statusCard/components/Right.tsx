@@ -9,7 +9,7 @@ import { StatusCardProps } from '../StatusCard'
 
 export type Props = Pick<StatusCardProps, 'amount' | 'price' | 'currency'>
 
-export const Right = (propsWithoutType: StatusCardProps) => {
+export const Right = (propsWithoutType: Props) => {
   const { type, amount, price, currency } = getPropsWithType(propsWithoutType)
   return (
     <View
