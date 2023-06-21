@@ -1,8 +1,8 @@
-import { FlatList, ListRenderItem, View } from 'react-native'
+import { FlatList, ListRenderItem } from 'react-native'
 import tw from '../../styles/tailwind'
+import { EmptyTransactionHistory } from './EmptyTransactionHistory'
 import { TxSummaryItem } from './components/TxSummaryItem'
 import { useTransactionHistorySetup } from './hooks/useTransactionHistorySetup'
-import { EmptyTransactionHistory } from './EmptyTransactionHistory'
 
 const ListItem: ListRenderItem<TransactionSummary> = ({ item: tx }) => <TxSummaryItem key={tx.id} tx={tx} />
 
