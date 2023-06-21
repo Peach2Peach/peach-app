@@ -11,16 +11,14 @@ import { peachWallet, setPeachWallet } from '../../../utils/wallet/setWallet'
 import { useOpenWithdrawalConfirmationPopup } from './useOpenWithdrawalConfirmationPopup'
 import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { WithdrawalConfirmation } from '../../../popups/WithdrawalConfirmation'
+import { transactionError } from '../../../../tests/unit/data/errors'
 
-const mockWithdrawAll = jest.fn().mockResolvedValue({
-  txid: () => 'txId',
-})
-jest.mock('../../../utils/wallet/setWallet', () => ({
-  peachWallet: {
-    transactions: [],
-    withdrawAll: (...args: any) => mockWithdrawAll(...args),
-    syncWallet: jest.fn().mockResolvedValue(undefined),
-  },
+const showErrorBannerMock = jest.fn()
+jest.mock('../../../hooks/useShowErrorBanner', () => ({
+  useShowErrorBanner:
+    () =>
+      (...args: any[]) =>
+        showErrorBannerMock(...args),
 }))
 
 const wrapper = NavigationWrapper
@@ -38,14 +36,13 @@ describe('useOpenWithdrawalConfirmationPopup', () => {
   const props = {
     address,
     transaction,
-    fee,
     feeRate,
     onSuccess,
   }
 
   beforeEach(() => {
     // @ts-ignore
-    // setPeachWallet(new PeachWallet())
+    setPeachWallet(new PeachWallet())
   })
 
   it('should open confirmation popup', async () => {
@@ -56,7 +53,7 @@ describe('useOpenWithdrawalConfirmationPopup', () => {
       ...usePopupStore.getState(),
       title: 'sending funds',
       level: 'APP',
-      content: <WithdrawalConfirmation />,
+      content: <WithdrawalConfirmation {...{ address, amount, fee, feeRate }} />,
       action1: {
         label: 'confirm & send',
         icon: 'arrowRightCircle',
@@ -95,9 +92,23 @@ describe('useOpenWithdrawalConfirmationPopup', () => {
       await promise
     })
 
-    // expect(peachWallet.signAndBroadcastPSBT).toHaveBeenCalledWith(transaction.psbt)
-    expect(mockWithdrawAll).toHaveBeenCalledWith(address, feeRate)
+    expect(peachWallet.signAndBroadcastPSBT).toHaveBeenCalledWith(transaction.psbt)
     expect(usePopupStore.getState().visible).toBeFalsy()
     expect(onSuccess).toHaveBeenCalled()
+  })
+
+  it('should handle broadcast errors', async () => {
+    peachWallet.signAndBroadcastPSBT = jest.fn().mockImplementation(() => {
+      throw transactionError
+    })
+
+    const { result } = renderHook(useOpenWithdrawalConfirmationPopup, { wrapper })
+
+    await act(async () => {
+      await result.current(props)
+    })
+    await usePopupStore.getState().action1?.callback()
+    expect(showErrorBannerMock).toHaveBeenCalledWith('INSUFFICIENT_FUNDS', ['78999997952', '1089000'])
+    expect(usePopupStore.getState().visible).toBeFalsy()
   })
 })

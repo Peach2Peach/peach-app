@@ -6,9 +6,11 @@ import { usePopupStore } from '../../../store/usePopupStore'
 import i18n from '../../../utils/i18n'
 import { peachWallet } from '../../../utils/wallet/setWallet'
 import { useShowLoadingPopup } from '../../../hooks/useShowLoadingPopup'
+import { TxBuilderResult } from 'bdk-rn/lib/classes/Bindings'
 
 type Props = {
   address: string
+  transaction: TxBuilderResult
   feeRate: number
   onSuccess: (txId: string) => void
 }
@@ -19,13 +21,13 @@ export const useOpenWithdrawalConfirmationPopup = () => {
   const showLoadingPopup = useShowLoadingPopup()
 
   const confirmWithdrawal = useCallback(
-    async ({ address, feeRate, onSuccess }: Props) => {
+    async (transaction: TxBuilderResult, onSuccess: Props['onSuccess']) => {
       showLoadingPopup({
         title: i18n('wallet.confirmWithdraw.title'),
         level: 'APP',
       })
       try {
-        const result = await peachWallet.withdrawAll(address, feeRate)
+        const result = await peachWallet.signAndBroadcastPSBT(transaction.psbt)
         onSuccess(await result.txid())
       } catch (e) {
         handleTransactionError(e)
@@ -37,10 +39,13 @@ export const useOpenWithdrawalConfirmationPopup = () => {
   )
 
   const openWithdrawalConfirmationPopup = useCallback(
-    (props: Props) => {
+    async ({ address, transaction, feeRate, onSuccess }: Props) => {
+      const amount = transaction.txDetails.sent - transaction.txDetails.received
+      const fee = await transaction.psbt.feeAmount()
+
       setPopup({
         title: i18n('wallet.confirmWithdraw.title'),
-        content: <WithdrawalConfirmation />,
+        content: <WithdrawalConfirmation {...{ amount, address, fee, feeRate }} />,
         visible: true,
         action2: {
           callback: closePopup,
@@ -48,7 +53,7 @@ export const useOpenWithdrawalConfirmationPopup = () => {
           icon: 'xCircle',
         },
         action1: {
-          callback: () => confirmWithdrawal(props),
+          callback: () => confirmWithdrawal(transaction, onSuccess),
           label: i18n('wallet.confirmWithdraw.confirm'),
           icon: 'arrowRightCircle',
         },
