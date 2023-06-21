@@ -29,7 +29,7 @@ export const pendingTransactionSummary: TransactionSummary = {
   amount: 123456,
   price: 100,
   currency: 'EUR',
-  date: new Date(),
+  date: new Date('2022-09-14T16:14:02.835Z'),
   confirmed: false,
   id: pending1.txid,
   offerId: '123',
