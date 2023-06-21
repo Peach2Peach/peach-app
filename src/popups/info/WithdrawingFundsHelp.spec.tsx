@@ -13,6 +13,6 @@ describe('WithdrawingFundsHelp', () => {
     const openURLSpy = jest.spyOn(Linking, 'openURL')
     const { getByText } = render(<WithdrawingFundsHelp />)
     fireEvent(getByText('BitBox hardware wallet'), 'onPress')
-    expect(openURLSpy).toHaveBeenCalledWith('https://shiftcrypto.ch/bitbox02/?ref=DLX6l9ccCc')
+    expect(openURLSpy).toHaveBeenCalledWith('https://bitbox.swiss/bitbox02/?ref=DLX6l9ccCc')
   })
 })
