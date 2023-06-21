@@ -35,6 +35,11 @@ describe('OfferItem', () => {
     id: 'receiveTx',
     type: 'DEPOSIT',
   }
+  const escrowFundedTx: TransactionSummary = {
+    ...baseTx,
+    id: 'receiveTx',
+    type: 'ESCROWFUNDED',
+  }
 
   it('should render correctly for a pending buy trade tx', () => {
     const { toJSON } = render(<TxSummaryItem tx={buyTradeTx} />, { wrapper })
@@ -66,6 +71,10 @@ describe('OfferItem', () => {
   })
   it('should render correctly for a confirmed receive tx', () => {
     const { toJSON } = render(<TxSummaryItem tx={{ ...receiveTx, confirmed: true }} />, { wrapper })
+    expect(toJSON()).toMatchSnapshot()
+  })
+  it('should render correctly for a escrow funded tx', () => {
+    const { toJSON } = render(<TxSummaryItem tx={{ ...escrowFundedTx, confirmed: true }} />, { wrapper })
     expect(toJSON()).toMatchSnapshot()
   })
 })
