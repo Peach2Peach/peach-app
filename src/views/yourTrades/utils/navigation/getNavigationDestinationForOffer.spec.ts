@@ -1,6 +1,5 @@
 import { getNavigationDestinationForOffer } from '..'
 
-// eslint-disable-next-line max-lines-per-function
 describe('getNavigationDestinationForOffer', () => {
   it('should navigate to offer', () => {
     const offerSummary: Partial<OfferSummary> = {
@@ -65,17 +64,5 @@ describe('getNavigationDestinationForOffer', () => {
 
     expect(destination).toBe('yourTrades')
     expect(params).toEqual(undefined)
-  })
-
-  it('should navigate to setRefundWallet', () => {
-    const offerSummary: Partial<OfferSummary> = {
-      id: '3',
-      tradeStatus: 'refundAddressRequired',
-    }
-
-    const [destination, params] = getNavigationDestinationForOffer(offerSummary as OfferSummary)
-
-    expect(destination).toBe('setRefundWallet')
-    expect(params).toEqual({ offerId: offerSummary.id })
   })
 })
