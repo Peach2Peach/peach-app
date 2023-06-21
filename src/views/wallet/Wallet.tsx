@@ -10,7 +10,7 @@ import { useWalletSetup } from './hooks/useWalletSetup'
 
 export default () => {
   const {
-    walletStore,
+    balance,
     refresh,
     isRefreshing,
     address,
@@ -19,7 +19,7 @@ export default () => {
     canWithdrawAll,
     openWithdrawalConfirmation,
     walletLoading,
-  } = useWalletSetup(true)
+  } = useWalletSetup({ syncOnLoad: true })
 
   if (walletLoading) return <BitcoinLoading text={i18n('wallet.loading')} />
 
@@ -32,7 +32,7 @@ export default () => {
       >
         <View style={tw`justify-between h-full`}>
           <View style={tw`items-center justify-center flex-1 gap-16`}>
-            <TotalBalance amount={walletStore.balance} isRefreshing={isRefreshing} />
+            <TotalBalance amount={balance} isRefreshing={isRefreshing} />
             <SendTo {...{ address, setAddress, addressErrors }} />
           </View>
           <SlideToUnlock

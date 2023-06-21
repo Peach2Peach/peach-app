@@ -15,7 +15,9 @@ import { useWalletSetup } from '../../wallet/hooks/useWalletSetup'
 import { buildTransaction } from '../../../utils/wallet/transaction'
 
 export default () => {
-  const { walletStore, isRefreshing, walletLoading, address, setAddress, isValid, addressErrors } = useWalletSetup(false)
+  const { balance, isRefreshing, walletLoading, address, setAddress, addressErrors } = useWalletSetup({
+    syncOnLoad: false,
+  })
   useHeaderSetup(useMemo(() => ({ title: 'test view - peach wallet' }), []))
   const [amount, setAmount] = useState('0')
   const [txId, setTxId] = useState('')
@@ -24,7 +26,7 @@ export default () => {
     setAddress(newAddress.address)
   }
   const send50k = async () => {
-    if (!isValid || !address) throw Error('Address invalid')
+    if (!address) throw Error('Address invalid')
     const transaction = await buildTransaction(address, 50000, 3)
     const finishedTransaction = await peachWallet.finishTransaction(transaction)
     const result = await peachWallet.signAndBroadcastPSBT(finishedTransaction.psbt)
@@ -39,11 +41,7 @@ export default () => {
     <PeachScrollView>
       <View style={tw`p-10 gap-4`}>
         <Text style={tw`text-center button-medium`}>{i18n('wallet.totalBalance')}:</Text>
-        <BTCAmount
-          style={[tw`self-center`, isRefreshing ? tw`opacity-60` : {}]}
-          amount={walletStore.balance}
-          size="extra large"
-        />
+        <BTCAmount style={[tw`self-center`, isRefreshing ? tw`opacity-60` : {}]} amount={balance} size="extra large" />
         {(isRefreshing || walletLoading) && <Loading style={tw`absolute`} />}
 
         <View>
@@ -52,7 +50,6 @@ export default () => {
             style={tw`mt-4`}
             {...{
               onChange: setAddress,
-              isValid,
               value: address,
               errorMessage: addressErrors,
             }}
