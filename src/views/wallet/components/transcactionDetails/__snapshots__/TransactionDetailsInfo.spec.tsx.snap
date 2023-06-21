@@ -23,7 +23,7 @@ exports[`TransactionDetailsInfo should render correctly for a confirmed transact
       }
     }
   >
-    today
+    sep 14th, 2022
   </PeachText>
   <HorizontalLine
     style={
@@ -201,7 +201,7 @@ exports[`TransactionDetailsInfo should render correctly with a receiving address
       }
     }
   >
-    today
+    sep 14th, 2022
   </PeachText>
   <HorizontalLine
     style={
