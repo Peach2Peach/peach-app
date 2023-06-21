@@ -33,6 +33,6 @@ describe('getTxDetailsTitle', () => {
   it('returns the correct string for a deposit without an offer ID', () => {
     const tx = { type: 'DEPOSIT' } as const
     const result = getTxDetailsTitle(tx)
-    expect(result).toEqual('deposit')
+    expect(result).toEqual('received')
   })
 })
