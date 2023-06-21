@@ -58,8 +58,14 @@ describe('getOfferColor', () => {
   it('should return "primary-mild" when tradeStatus is "paymentRequired" and type is "ask"', () => {
     expect(getOfferColor({ ...defaultTrade, tradeStatus: 'paymentRequired', type: 'ask' })).toBe('primary-mild')
   })
+  it('should return "primary-mild" when tradeStatus is "paymentRequired" and type is "bid"', () => {
+    expect(getOfferColor({ ...defaultTrade, tradeStatus: 'paymentRequired', type: 'bid' })).toBe('primary')
+  })
   it('should return "primary-mild" when tradeStatus is "confirmPaymentRequired" and type is "bid"', () => {
     expect(getOfferColor({ ...defaultTrade, tradeStatus: 'confirmPaymentRequired', type: 'bid' })).toBe('primary-mild')
+  })
+  it('should return "primary-mild" when tradeStatus is "confirmPaymentRequired" and type is "ask"', () => {
+    expect(getOfferColor({ ...defaultTrade, tradeStatus: 'confirmPaymentRequired', type: 'ask' })).toBe('primary')
   })
   it('should return "warning" when the trade has a dispute winner and is a contract summary', () => {
     expect(getOfferColor({ ...defaultTrade, disputeWinner: 'buyer' })).toBe('warning')
