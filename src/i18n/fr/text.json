@@ -529,6 +529,7 @@
   "goToProfile": "aller au profil",
   "goToTrade": "aller au contrat",
   "goToWallet": "aller au portefeuille",
+  "goTo": "aller à",
   "help": "aide",
   "help.addressSigning.description": "En raison de la législation suisse, vous devrez signer pour vérifier que vous êtes le propriétaire de l'adresse sur laquelle la transaction sera payée.\n\nSi vous ne savez pas comment cela fonctionne, nous vous recommandons d'utiliser le portefeuille Peach, où vous n'avez pas besoin de passer manuellement par cette étape.",
   "help.addressSigning.title": "signature d'adresse",

@@ -527,6 +527,7 @@
   "goToProfile": "go to profile",
   "goToTrade": "go to trade",
   "goToWallet": "go to wallet",
+  "goTo": "go to",
   "help": "help",
   "help.addressSigning.description": "Because of Swiss law, you'll need to sign to verify that you own the address the trade will be paid out to.\n\nIf you don't know how this works, we recommend using the Peach wallet, where you don't need to go manually through this step.",
   "help.addressSigning.title": "address signing",

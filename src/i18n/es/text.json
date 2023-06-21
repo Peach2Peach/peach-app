@@ -529,6 +529,7 @@
   "goToProfile": "ir al perfil",
   "goToTrade": "ir al intercambio",
   "goToWallet": "ir a cartera",
+  "goTo": "ir a",
   "help": "ayuda",
   "help.addressSigning.description": "Debido a la ley suiza, deberás firmar para verificar que eres el propietario de la dirección a la que se pagará el bitcoin.\n\nSi no sabes cómo funciona esto, te recomendamos usar la cartera Peach, donde no necesitas realizar este paso manualmente.",
   "help.addressSigning.title": "firma de dirección",
