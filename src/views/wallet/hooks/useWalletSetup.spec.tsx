@@ -1,10 +1,11 @@
-import { act, renderHook, waitFor } from '@testing-library/react-native'
-import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { act, fireEvent, render, renderHook, waitFor } from '@testing-library/react-native'
+import { NavigationWrapper, headerState, navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { useSettingsStore } from '../../../store/settingsStore'
 import { useWalletSetup } from './useWalletSetup'
 import { usePopupStore } from '../../../store/usePopupStore'
 import { WithdrawalConfirmation } from '../../../popups/WithdrawalConfirmation'
 import { estimatedFees } from '../../../../tests/unit/data/bitcoinNetworkData'
+import { WithdrawingFundsHelp } from '../../../popups/info/WithdrawingFundsHelp'
 
 const walletStore = {}
 const walletStateMock = jest.fn((selector, _compareFn) => selector(walletStore))
@@ -41,9 +42,30 @@ describe('useWalletSetup', () => {
     expect(result.current.addressErrors).toHaveLength(0)
     expect(result.current.canWithdrawAll).toBeFalsy()
     expect(result.current.openWithdrawalConfirmation).toBeInstanceOf(Function)
-    expect(result.current.confirmWithdrawal).toBeInstanceOf(Function)
     expect(result.current.walletLoading).toBeTruthy()
     await waitFor(() => expect(result.current.walletLoading).toBeFalsy())
+  })
+
+  it('should set up the header correctly while loading', () => {
+    renderHook(useWalletSetup, { wrapper })
+    expect(headerState.header()).toMatchSnapshot()
+  })
+  it('should set up the header correctly when loaded', async () => {
+    const { result } = renderHook(useWalletSetup, { wrapper })
+    await waitFor(() => expect(result.current.walletLoading).toBeFalsy())
+    expect(headerState.header()).toMatchSnapshot()
+
+    const { getByAccessibilityHint } = render(headerState.header(), { wrapper })
+    fireEvent(getByAccessibilityHint('go to transaction history'), 'onPress')
+    expect(navigateMock).toHaveBeenCalledWith('transactionHistory')
+    fireEvent(getByAccessibilityHint('go to network fees'), 'onPress')
+    expect(navigateMock).toHaveBeenCalledWith('networkFees')
+    fireEvent(getByAccessibilityHint('help'), 'onPress')
+    expect(usePopupStore.getState()).toEqual({
+      ...usePopupStore.getState(),
+      title: 'sending funds',
+      content: <WithdrawingFundsHelp />,
+    })
   })
 
   it('should open confirm withdrawal popup', async () => {

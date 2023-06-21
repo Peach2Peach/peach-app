@@ -72,17 +72,25 @@ export const useWalletSetup = (syncOnLoad = true) => {
   useHeaderSetup(
     useMemo(
       () =>
-        walletLoading
-          ? {}
-          : {
-            title: i18n('wallet.title'),
-            hideGoBackButton: true,
-            icons: [
-              { ...headerIcons.list, onPress: () => navigation.navigate('transactionHistory') },
-              { ...headerIcons.bitcoin, onPress: () => navigation.navigate('networkFees') },
-              { ...headerIcons.help, onPress: showHelp },
-            ],
+    walletLoading
+      ? {}
+      : {
+        title: i18n('wallet.title'),
+        hideGoBackButton: true,
+        icons: [
+          {
+            ...headerIcons.list,
+            label: `${i18n('goTo')} ${i18n('wallet.transactionHistory')}`,
+            onPress: () => navigation.navigate('transactionHistory'),
           },
+          {
+            ...headerIcons.bitcoin,
+            label: `${i18n('goTo')} ${i18n('settings.networkFees')}`,
+            onPress: () => navigation.navigate('networkFees'),
+          },
+          { ...headerIcons.help, label: `${i18n('help')}`, onPress: showHelp },
+        ],
+      },
       [navigation, showHelp, walletLoading],
     ),
   )

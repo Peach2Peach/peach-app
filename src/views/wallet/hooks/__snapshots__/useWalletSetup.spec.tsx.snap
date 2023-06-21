@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`useWalletSetup should set up the header correctly when loaded 1`] = `
+<Header
+  hideGoBackButton={true}
+  icons={
+    [
+      {
+        "color": "#7D675E",
+        "id": "yourTrades",
+        "label": "go to transaction history",
+        "onPress": [Function],
+      },
+      {
+        "color": "#F7931A",
+        "id": "bitcoin",
+        "label": "go to network fees",
+        "onPress": [Function],
+      },
+      {
+        "color": "#099DE2",
+        "id": "helpCircle",
+        "label": "help",
+        "onPress": [Function],
+      },
+    ]
+  }
+  title="Peach wallet"
+/>
+`;
+
+exports[`useWalletSetup should set up the header correctly while loading 1`] = `<Header />`;
