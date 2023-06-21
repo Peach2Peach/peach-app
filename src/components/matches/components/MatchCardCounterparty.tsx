@@ -6,13 +6,16 @@ import { UserId, Rating } from '../../../views/settings/profile/profileOverview/
 
 type Props = { user: User; isDispute?: boolean }
 
-export const MatchCardCounterparty = ({ user, isDispute = false }: Props) => (
-  <View>
-    <View style={tw`flex-row justify-between`}>
-      <UserId id={user.id} isDispute={isDispute} showInfo />
-      <Rating rating={user.rating} isNewUser={user.trades <= 3} />
-    </View>
+export const MatchCardCounterparty = ({ user, isDispute = false }: Props) => {
+  const isNewUser = user.trades <= 3
+  return (
+    <View>
+      <View style={tw`flex-row justify-between`}>
+        <UserId id={user.id} isDispute={isDispute} showInfo />
+        <Rating rating={user.rating} isNewUser={isNewUser} />
+      </View>
 
-    <NewBadges user={user} isDispute={isDispute} />
-  </View>
-)
+      {!isNewUser && <NewBadges user={user} isDispute={isDispute} />}
+    </View>
+  )
+}
