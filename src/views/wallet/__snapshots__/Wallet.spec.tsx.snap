@@ -48,7 +48,6 @@ exports[`Wallet should render correctly 1`] = `
         }
       >
         <TotalBalance
-          amount={21}
           isRefreshing={false}
         />
         <SendTo
@@ -115,7 +114,6 @@ exports[`Wallet should render correctly user can withdraw 1`] = `
         }
       >
         <TotalBalance
-          amount={21}
           isRefreshing={false}
         />
         <SendTo
@@ -189,7 +187,6 @@ exports[`Wallet should render correctly when refreshing 1`] = `
         }
       >
         <TotalBalance
-          amount={21}
           isRefreshing={true}
         />
         <SendTo
