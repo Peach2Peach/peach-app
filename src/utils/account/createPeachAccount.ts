@@ -1,8 +1,5 @@
 import { NETWORK } from '@env'
-import { createWalletFromSeedPhrase, getNetwork } from '../wallet'
+import { BIP32Interface } from 'bip32'
 import { getMainAccount } from './getMainAccount'
 
-export const createPeachAccount = (mnemonic: string) => {
-  const { wallet } = createWalletFromSeedPhrase(mnemonic, getNetwork())
-  return getMainAccount(wallet, NETWORK)
-}
+export const createPeachAccount = (wallet: BIP32Interface) => getMainAccount(wallet, NETWORK)

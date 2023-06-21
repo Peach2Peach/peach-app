@@ -7,9 +7,7 @@ jest.useFakeTimers()
 // eslint-disable-next-line max-lines-per-function
 describe('useBitcoinAddressSetup', () => {
   const address = '1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa'
-  beforeEach(() => {
-    jest.clearAllMocks()
-  })
+
   it('should return the correct default values', () => {
     const { result } = renderHook((props) => useBitcoinAddressSetup(props), {
       initialProps: {

@@ -1,8 +1,7 @@
 import { act, renderHook } from '@testing-library/react-native'
 import { useSettingsStore } from '../../../store/settingsStore'
 import { useSeedBackupSetup } from './useSeedBackupSetup'
-import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
-import { useHeaderState } from '../../../components/header/store'
+import { headerState, NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
 
 jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),
@@ -36,8 +35,7 @@ describe('useSeedBackupSetup', () => {
 
   it('should set up header correctly', () => {
     renderHook(useSeedBackupSetup, { wrapper: NavigationWrapper })
-    expect(useHeaderState.getState().title).toBe('wallet backup')
-    expect(useHeaderState.getState().icons?.[0].id).toBe('helpCircle')
+    expect(headerState.header()).toMatchSnapshot()
   })
 
   it('returns start at lastSeedBackup if seedPhrase backup has been already made', () => {

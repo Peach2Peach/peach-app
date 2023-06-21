@@ -50,7 +50,7 @@ const useDisputeRaisedSuccessMock = jest.fn(
     (...args: any[]) =>
       disputeRaisedSuccessMock(...args),
 )
-jest.mock('../../../overlays/dispute/hooks/useDisputeRaisedSuccess', () => ({
+jest.mock('../../../popups/dispute/hooks/useDisputeRaisedSuccess', () => ({
   useDisputeRaisedSuccess: () => useDisputeRaisedSuccessMock(),
 }))
 
@@ -65,16 +65,13 @@ describe('useDisputeFormSetup', () => {
       current.setMessage(message)
     })
 
-  const actSubmit = async (current: ReturnType<typeof useDisputeFormSetup>) =>
+  const actSubmit = (current: ReturnType<typeof useDisputeFormSetup>) =>
     act(async () => {
       await current.submit()
     })
 
   beforeEach(() => {
     getContractMock.mockReturnValue(contract)
-  })
-  afterEach(() => {
-    jest.clearAllMocks()
   })
   it('should return the correct default values', () => {
     const { result } = renderHook(() => useDisputeFormSetup())

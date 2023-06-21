@@ -20,9 +20,9 @@ describe('Wallet', () => {
     refresh: jest.fn(),
     walletLoading: false,
     isRefreshing: false,
-    onChange: jest.fn(),
     isValid: true,
     address: 'address',
+    setAddress: jest.fn(),
     addressErrors: '',
     openWithdrawalConfirmation: jest.fn(),
   }

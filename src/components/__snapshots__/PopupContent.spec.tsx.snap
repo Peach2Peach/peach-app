@@ -29,7 +29,7 @@ exports[`PopupContent should render correctly 1`] = `
           "width": "100%",
         }
       }
-      testID="overlay-background"
+      testID="popup-background"
     />
     <View
       style={
@@ -44,7 +44,7 @@ exports[`PopupContent should render correctly 1`] = `
           },
         ]
       }
-      testID="overlay"
+      testID="popup"
     >
       <View
         style={

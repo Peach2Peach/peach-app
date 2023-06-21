@@ -3,7 +3,7 @@ import { act, renderHook, waitFor } from '@testing-library/react-native'
 import { contract } from '../../../../tests/unit/data/contractData'
 import { queryClient, QueryClientWrapper } from '../../../../tests/unit/helpers/QueryClientWrapper'
 import { useLocalContractStore } from '../../../store/useLocalContractStore'
-import DisputeRaisedNotice from '../../../overlays/dispute/components/DisputeRaisedNotice'
+import DisputeRaisedNotice from '../../../popups/dispute/components/DisputeRaisedNotice'
 import i18n from '../../../utils/i18n'
 import { defaultPopupState, usePopupStore } from '../../../store/usePopupStore'
 import { account1 } from '../../../../tests/unit/data/accountData'
@@ -22,10 +22,9 @@ describe('useDisputeEmailPopup', () => {
     </QueryClientWrapper>
   )
 
-  beforeEach(async () => {
-    await setAccount({ ...account1, contracts: [] })
+  beforeEach(() => {
+    setAccount({ ...account1, contracts: [] })
 
-    jest.clearAllMocks()
     useLocalContractStore.getState().setContract({
       id: contract.id,
       hasSeenDisputeEmailPopup: false,
@@ -41,8 +40,8 @@ describe('useDisputeEmailPopup', () => {
     await waitFor(() => {
       expect(queryClient.getQueryState(['contract', contract.id])?.status).toBe('success')
     })
-    await act(async () => {
-      await result.current()
+    act(() => {
+      result.current()
     })
 
     expect(usePopupStore.getState()).toStrictEqual({
@@ -92,8 +91,8 @@ describe('useDisputeEmailPopup', () => {
     await waitFor(() => {
       expect(queryClient.getQueryState(['contract', contract.id])?.status).toBe('success')
     })
-    await act(async () => {
-      await result.current()
+    act(() => {
+      result.current()
     })
 
     expect(usePopupStore.getState()).toStrictEqual(expect.objectContaining(defaultPopupState))
@@ -108,8 +107,8 @@ describe('useDisputeEmailPopup', () => {
     await waitFor(() => {
       expect(queryClient.getQueryState(['contract', contract.id])?.status).toBe('success')
     })
-    await act(async () => {
-      await result.current()
+    act(() => {
+      result.current()
     })
 
     expect(usePopupStore.getState()).toStrictEqual(expect.objectContaining(defaultPopupState))

@@ -1,4 +1,3 @@
-import { ReactElement } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
@@ -8,7 +7,7 @@ import { useKeyboard } from '../../hooks'
 import i18n from '../../utils/i18n'
 import { useNewUserSetup } from './hooks/useNewUserSetup'
 
-export default (): ReactElement => {
+export default () => {
   const {
     referralCode,
     setReferralCode,
@@ -27,7 +26,7 @@ export default (): ReactElement => {
         <Text style={tw`text-center h4 text-primary-background-light`}>{i18n('welcome.letsGetStarted.title')}</Text>
         <Text style={tw`mt-4 text-center text-primary-background-light`}>{i18n('newUser.referralCode')}</Text>
         <View style={tw`flex-row items-center justify-center`}>
-          <View style={tw`h-14 mr-2`}>
+          <View style={tw`mr-2 h-14`}>
             <Input
               testID="newUser-referralCode"
               style={tw`w-40 mt-2`}

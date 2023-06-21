@@ -5,17 +5,12 @@ import { getAbortWithTimeout } from '../../../getAbortWithTimeout'
 import { parseResponse } from '../../parseResponse'
 import { getPublicHeaders } from '../getPublicHeaders'
 
-type GetFeeEstimateProps = RequestProps
-
-export const getFeeEstimate = async ({
-  timeout,
-  abortSignal,
-}: GetFeeEstimateProps): Promise<[GetFeeEstimateResponse | null, APIError | null]> => {
+export const getFeeEstimate = async ({ timeout, abortSignal }: RequestProps) => {
   const response = await fetch(`${API_URL}/v1/estimateFees`, {
     headers: getPublicHeaders(),
     method: 'GET',
     signal: abortSignal || (timeout ? getAbortWithTimeout(timeout).signal : undefined),
   })
 
-  return await parseResponse<GetFeeEstimateResponse>(response, 'postTx')
+  return parseResponse<GetFeeEstimateResponse>(response, 'postTx')
 }

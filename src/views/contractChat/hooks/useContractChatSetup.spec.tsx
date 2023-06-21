@@ -1,4 +1,3 @@
-import { NavigationContext } from '@react-navigation/native'
 import { renderHook } from '@testing-library/react-native'
 import { account1 } from '../../../../tests/unit/data/accountData'
 import { chat1 } from '../../../../tests/unit/data/chatData'
@@ -8,6 +7,7 @@ import { configStore } from '../../../store/configStore'
 import { setAccount } from '../../../utils/account'
 import { useContractChatSetup } from './useContractChatSetup'
 import { act } from 'react-test-renderer'
+import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
 
 const useRouteMock = jest.fn(() => ({
   params: {
@@ -16,14 +16,6 @@ const useRouteMock = jest.fn(() => ({
 }))
 jest.mock('../../../hooks/useRoute', () => ({
   useRoute: () => useRouteMock(),
-}))
-
-const replaceMock = jest.fn()
-const useNavigationMock = jest.fn(() => ({
-  replace: replaceMock,
-}))
-jest.mock('../../../hooks/useNavigation', () => ({
-  useNavigation: () => useNavigationMock(),
 }))
 
 const getChatMock = jest.fn().mockResolvedValue([chat1])
@@ -49,11 +41,10 @@ jest.mock('@react-navigation/native', () => ({
   useFocusEffect: () => useFocusEffectMock(),
 }))
 
-const NavigationWrapper = ({ children }: any) => (
-  // @ts-ignore
-  <NavigationContext.Provider value={{}}>
+const wrapper = ({ children }: any) => (
+  <NavigationWrapper>
     <QueryClientWrapper>{children}</QueryClientWrapper>
-  </NavigationContext.Provider>
+  </NavigationWrapper>
 )
 
 jest.useFakeTimers()
@@ -71,21 +62,20 @@ describe('useContractChatSetup', () => {
     act(() => {
       configStore.getState().reset()
     })
-    jest.clearAllMocks()
   })
   it('open dispute disclaimer if not seen before', () => {
-    renderHook(useContractChatSetup, { wrapper: NavigationWrapper })
+    renderHook(useContractChatSetup, { wrapper })
     expect(showDisputeDisclaimerMock).toHaveBeenCalled()
   })
   it('should not open dispute disclaimer if has been seen before', () => {
     configStore.getState().setSeenDisputeDisclaimer(true)
-    renderHook(useContractChatSetup, { wrapper: NavigationWrapper })
+    renderHook(useContractChatSetup, { wrapper })
     expect(showDisputeDisclaimerMock).not.toHaveBeenCalled()
   })
   it('should not open dispute disclaimer if dispute is active', () => {
     const contractWithDispute = { ...contract, disputeActive: true }
     useCommonContractSetupMock.mockReturnValue({ contract: contractWithDispute })
-    renderHook(useContractChatSetup, { wrapper: NavigationWrapper })
+    renderHook(useContractChatSetup, { wrapper })
     expect(showDisputeDisclaimerMock).not.toHaveBeenCalled()
   })
 })

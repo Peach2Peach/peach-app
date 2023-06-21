@@ -28,6 +28,8 @@ exports[`CurrencySelection should render correctly 1`] = `
       {
         "flexDirection": "row",
         "flexWrap": "wrap",
+        "gap": 8,
+        "marginTop": 4,
       }
     }
   >
@@ -35,145 +37,61 @@ exports[`CurrencySelection should render correctly 1`] = `
       isSelected={true}
       label="EUR"
       onPress={[Function]}
-      style={
-        {
-          "marginBottom": 4,
-          "marginRight": 8,
-          "marginTop": 4,
-        }
-      }
     />
     <CurrencyItem
       isSelected={true}
       label="CHF"
       onPress={[Function]}
-      style={
-        {
-          "marginBottom": 4,
-          "marginRight": 8,
-          "marginTop": 4,
-        }
-      }
     />
     <CurrencyItem
       isSelected={false}
       label="GBP"
       onPress={[Function]}
-      style={
-        {
-          "marginBottom": 4,
-          "marginRight": 8,
-          "marginTop": 4,
-        }
-      }
     />
     <CurrencyItem
       isSelected={false}
       label="BGN"
       onPress={[Function]}
-      style={
-        {
-          "marginBottom": 4,
-          "marginRight": 8,
-          "marginTop": 4,
-        }
-      }
     />
     <CurrencyItem
       isSelected={false}
       label="CZK"
       onPress={[Function]}
-      style={
-        {
-          "marginBottom": 4,
-          "marginRight": 8,
-          "marginTop": 4,
-        }
-      }
     />
     <CurrencyItem
       isSelected={false}
       label="DKK"
       onPress={[Function]}
-      style={
-        {
-          "marginBottom": 4,
-          "marginRight": 8,
-          "marginTop": 4,
-        }
-      }
     />
     <CurrencyItem
       isSelected={false}
       label="HUF"
       onPress={[Function]}
-      style={
-        {
-          "marginBottom": 4,
-          "marginRight": 8,
-          "marginTop": 4,
-        }
-      }
     />
     <CurrencyItem
       isSelected={false}
       label="ISK"
       onPress={[Function]}
-      style={
-        {
-          "marginBottom": 4,
-          "marginRight": 8,
-          "marginTop": 4,
-        }
-      }
     />
     <CurrencyItem
       isSelected={false}
       label="NOK"
       onPress={[Function]}
-      style={
-        {
-          "marginBottom": 4,
-          "marginRight": 8,
-          "marginTop": 4,
-        }
-      }
     />
     <CurrencyItem
       isSelected={false}
       label="PLN"
       onPress={[Function]}
-      style={
-        {
-          "marginBottom": 4,
-          "marginRight": 8,
-          "marginTop": 4,
-        }
-      }
     />
     <CurrencyItem
       isSelected={false}
       label="RON"
       onPress={[Function]}
-      style={
-        {
-          "marginBottom": 4,
-          "marginRight": 8,
-          "marginTop": 4,
-        }
-      }
     />
     <CurrencyItem
       isSelected={false}
       label="SEK"
       onPress={[Function]}
-      style={
-        {
-          "marginBottom": 4,
-          "marginRight": 8,
-          "marginTop": 4,
-        }
-      }
     />
   </View>
 </View>

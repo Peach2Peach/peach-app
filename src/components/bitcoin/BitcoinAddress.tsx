@@ -1,23 +1,17 @@
-import { ReactElement, useState } from 'react'
 import 'react-native-url-polyfill/auto'
 
-import { LayoutChangeEvent, Pressable, View } from 'react-native'
+import { Pressable, View } from 'react-native'
 import QRCode from 'react-native-qrcode-svg'
 import { PrimaryButton, Text } from '..'
+import { useIsMediumScreen } from '../../hooks'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { Fade } from '../animation'
 import { BitcoinAddressProps, useBitcoinAddressSetup } from './hooks/useBitcoinAddressSetup'
 
-export const BitcoinAddress = ({
-  address,
-  amount,
-  label,
-  style,
-}: ComponentProps & BitcoinAddressProps): ReactElement => {
-  const [width, setWidth] = useState(300)
-  const onLayout = (event: LayoutChangeEvent) => setWidth(event.nativeEvent.layout.width)
-
+export const BitcoinAddress = ({ address, amount, label, style }: ComponentProps & BitcoinAddressProps) => {
+  const isMediumScreen = useIsMediumScreen()
+  const width = isMediumScreen ? 327 : 242
   const {
     addressParts,
     openInWalletOrCopyPaymentRequest,
@@ -28,7 +22,7 @@ export const BitcoinAddress = ({
     urn,
   } = useBitcoinAddressSetup({ address, amount, label })
   return (
-    <View style={[tw`flex-col items-center w-full`, style]} {...{ onLayout }}>
+    <View style={[tw`flex-col items-center w-full`, style]}>
       <Pressable onPress={openInWalletOrCopyPaymentRequest} onLongPress={copyPaymentRequest}>
         <Fade show={showPaymentRequestCopied} duration={300} delay={0}>
           <Text style={[tw`text-center subtitle-2`, tw`absolute w-20 -ml-10 bottom-full left-1/2`]}>
@@ -59,5 +53,3 @@ export const BitcoinAddress = ({
     </View>
   )
 }
-
-export default BitcoinAddress

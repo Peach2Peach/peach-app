@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 import { useToggleBoolean } from '../../../hooks'
 import { useShowAppPopup } from '../../../hooks/useShowAppPopup'
-import { UnmatchPopup } from '../../../overlays/UnmatchPopup'
+import { UnmatchPopup } from '../../../popups/UnmatchPopup'
 import tw from '../../../styles/tailwind'
 
 import i18n from '../../../utils/i18n'

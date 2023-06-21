@@ -32,13 +32,13 @@ describe('usePaymentMadeSetup', () => {
       routes: [{ name: 'yourTrades' }, { name: 'contract', params: { contractId } }],
     })
   })
-  it('should close overlay by going back', () => {
+  it('should close popup by going back', () => {
     canGoBackMock.mockReturnValueOnce(true)
     const { result } = renderHook(usePaymentMadeSetup, { wrapper: NavigationWrapper })
     result.current.close()
     expect(goBackMock).toHaveBeenCalled()
   })
-  it('should close overlay by navigating to home if cannot go back', () => {
+  it('should close popup by navigating to home if cannot go back', () => {
     canGoBackMock.mockReturnValueOnce(false)
     const { result } = renderHook(usePaymentMadeSetup, { wrapper: NavigationWrapper })
     result.current.close()

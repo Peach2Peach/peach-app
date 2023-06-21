@@ -4,12 +4,12 @@ import { storePaymentData } from '.'
 import * as accountData from '../../../../tests/unit/data/accountData'
 
 describe('storePaymentData', () => {
-  beforeEach(async () => {
-    await setAccount(defaultAccount)
+  beforeEach(() => {
+    setAccount(defaultAccount)
   })
 
-  it('would store paymentData', async () => {
-    await storePaymentData(accountData.account1.paymentData)
+  it('would store paymentData', () => {
+    storePaymentData(accountData.account1.paymentData)
     expect(accountStorage.setArray).toHaveBeenCalledWith('paymentData', accountData.account1.paymentData)
   })
 })

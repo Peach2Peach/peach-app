@@ -1,8 +1,8 @@
 import { useRepublishOffer } from './useRepublishOffer'
 import { renderHook } from '@testing-library/react-native'
 import { NavigationWrapper, replaceMock } from '../../../../tests/unit/helpers/NavigationWrapper'
-import { OfferRepublished } from '../../../overlays/tradeCancelation'
-import { defaultOverlay, OverlayContext } from '../../../contexts/overlay'
+import { OfferRepublished } from '../../../popups/tradeCancelation'
+import { usePopupStore } from '../../../store/usePopupStore'
 
 const reviveSellOfferMock = jest.fn()
 jest.mock('../../../utils/peachAPI', () => ({
@@ -21,15 +21,7 @@ jest.mock('../../../hooks/useShowErrorBanner', () => ({
   useShowErrorBanner: () => showErrorBannerMock,
 }))
 
-let overlay = defaultOverlay
-const updateOverlayMock = jest.fn((newOverlay) => {
-  overlay = newOverlay
-})
-const wrapper = ({ children }: { children: React.ReactNode }) => (
-  <NavigationWrapper>
-    <OverlayContext.Provider value={[overlay, updateOverlayMock]}>{children}</OverlayContext.Provider>
-  </NavigationWrapper>
-)
+const wrapper = NavigationWrapper
 describe('useRepublishOffer', () => {
   const contract = {
     id: 'contractId',
@@ -40,10 +32,6 @@ describe('useRepublishOffer', () => {
     id: 'offerId',
   }
 
-  afterEach(() => {
-    jest.clearAllMocks()
-    overlay = defaultOverlay
-  })
   it('should revive the sell offer', async () => {
     reviveSellOfferMock.mockResolvedValue([{ newOfferId: 'newOfferId' }, null])
     getSellOfferFromContractMock.mockReturnValue(sellOffer)
@@ -52,21 +40,22 @@ describe('useRepublishOffer', () => {
     expect(reviveSellOfferMock).toHaveBeenCalledWith({ offerId: sellOffer.id })
   })
 
-  it('should show an error banner and close the overlay if the sell offer could not be revived', async () => {
+  it('should show an error banner and close the popup if the sell offer could not be revived', async () => {
     reviveSellOfferMock.mockResolvedValue([null, { error: 'error' }])
     getSellOfferFromContractMock.mockReturnValue(sellOffer)
     const { result } = renderHook(useRepublishOffer, { wrapper })
     await result.current(contract)
     expect(showErrorBannerMock).toHaveBeenCalledWith('error')
-    expect(overlay.visible).toBe(false)
+    expect(usePopupStore.getState().visible).toBe(false)
   })
 
-  it('should show the offer republished overlay', async () => {
+  it('should show the offer republished popup', async () => {
     const { result } = renderHook(useRepublishOffer, { wrapper })
     reviveSellOfferMock.mockResolvedValue([{ newOfferId: 'newOfferId' }, null])
     getSellOfferFromContractMock.mockReturnValue(sellOffer)
     await result.current(contract)
-    expect(overlay).toStrictEqual({
+    expect(usePopupStore.getState()).toStrictEqual({
+      ...usePopupStore.getState(),
       title: 'offer re-published',
       content: <OfferRepublished />,
       visible: true,
@@ -85,13 +74,13 @@ describe('useRepublishOffer', () => {
     })
   })
 
-  it('should close the overlay, save the contract and navigate to contract when the close is pressed', async () => {
+  it('should close the popup, save the contract and navigate to contract when the close is pressed', async () => {
     const { result } = renderHook(useRepublishOffer, { wrapper })
     reviveSellOfferMock.mockResolvedValue([{ newOfferId: 'newOfferId' }, null])
     getSellOfferFromContractMock.mockReturnValue(sellOffer)
     await result.current(contract)
-    overlay.action2?.callback()
-    expect(overlay.visible).toBe(false)
+    usePopupStore.getState().action2?.callback()
+    expect(usePopupStore.getState().visible).toBe(false)
     expect(saveContractMock).toHaveBeenCalledWith({
       ...contract,
       cancelConfirmationPending: false,
@@ -100,13 +89,13 @@ describe('useRepublishOffer', () => {
     expect(replaceMock).toHaveBeenCalledWith('contract', { contractId: contract.id })
   })
 
-  it('should close the overlay, save the contract and navigate to search when the go to offer is pressed', async () => {
+  it('should close the popup, save the contract and navigate to search when the go to offer is pressed', async () => {
     const { result } = renderHook(useRepublishOffer, { wrapper })
     reviveSellOfferMock.mockResolvedValue([{ newOfferId: 'newOfferId' }, null])
     getSellOfferFromContractMock.mockReturnValue(sellOffer)
     await result.current(contract)
-    overlay.action1?.callback()
-    expect(overlay.visible).toBe(false)
+    usePopupStore.getState().action1?.callback()
+    expect(usePopupStore.getState().visible).toBe(false)
     expect(saveContractMock).toHaveBeenCalledWith({
       ...contract,
       cancelConfirmationPending: false,

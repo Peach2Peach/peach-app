@@ -9,16 +9,12 @@ type GetTxProps = RequestProps & {
   txId: string
 }
 
-export const getTx = async ({
-  txId,
-  timeout,
-  abortSignal,
-}: GetTxProps): Promise<[GetTxResponse | null, APIError | null]> => {
+export const getTx = async ({ txId, timeout, abortSignal }: GetTxProps) => {
   const response = await fetch(`${API_URL}/v1/tx/${txId}`, {
     headers: getPublicHeaders(),
     method: 'GET',
     signal: abortSignal || (timeout ? getAbortWithTimeout(timeout).signal : undefined),
   })
 
-  return await parseResponse<GetTxResponse>(response, 'postTx')
+  return parseResponse<GetTxResponse>(response, 'getTx')
 }

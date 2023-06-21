@@ -1,4 +1,4 @@
-import { ReactElement, useState } from 'react'
+import { useState } from 'react'
 import { View } from 'react-native'
 
 import { TabbedNavigation, TabbedNavigationItem } from '../../components/navigation/TabbedNavigation'
@@ -7,7 +7,7 @@ import i18n from '../../utils/i18n'
 import FileBackup from './components/backups/FileBackup'
 import SeedPhrase from './components/backups/SeedPhrase'
 
-export default (): ReactElement => {
+export default () => {
   const tabs: TabbedNavigationItem[] = [
     { id: 'fileBackup', display: i18n('settings.backups.fileBackup'), view: FileBackup },
     { id: 'seedPhrase', display: i18n('settings.backups.seedPhrase'), view: SeedPhrase },

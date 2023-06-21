@@ -5,24 +5,30 @@ import { getAbortWithTimeout } from '../../../getAbortWithTimeout'
 import { parseResponse } from '../../parseResponse'
 import { getPrivateHeaders } from '../getPrivateHeaders'
 
-type PostOfferProps = RequestProps & {
+type Props = RequestProps & {
   type: 'bid'
   amount: [number, number]
   meansOfPayment: MeansOfPayment
   paymentData: Offer['paymentData']
   releaseAddress: string
+  messageSignature?: string
 }
 
 export const postBuyOffer = async ({
   timeout,
-  ...requestBody
-}: PostOfferProps): Promise<[PostOfferResponseBody | null, APIError | null]> => {
+  type,
+  amount,
+  meansOfPayment,
+  paymentData,
+  releaseAddress,
+  messageSignature,
+}: Props) => {
   const response = await fetch(`${API_URL}/v1/offer`, {
     headers: await getPrivateHeaders(),
     method: 'POST',
-    body: JSON.stringify(requestBody),
+    body: JSON.stringify({ type, amount, meansOfPayment, paymentData, releaseAddress, messageSignature }),
     signal: timeout ? getAbortWithTimeout(timeout).signal : undefined,
   })
 
-  return await parseResponse<PostOfferResponseBody>(response, 'postOffer')
+  return parseResponse<PostOfferResponseBody>(response, 'postOffer')
 }

@@ -10,17 +10,7 @@ type CreateEscrowProps = RequestProps & {
   publicKey: string
 }
 
-/**
- * @description Method to create escrow for offer
- * @param offerId offer id
- * @param publicKey Seller public key needed for verifying seller signature for release transaction
- * @returns FundingStatus
- */
-export const createEscrow = async ({
-  offerId,
-  publicKey,
-  timeout,
-}: CreateEscrowProps): Promise<[CreateEscrowResponse | null, APIError | null]> => {
+export const createEscrow = async ({ offerId, publicKey, timeout }: CreateEscrowProps) => {
   const response = await fetch(`${API_URL}/v1/offer/${offerId}/escrow`, {
     headers: await getPrivateHeaders(),
     method: 'POST',
@@ -30,5 +20,5 @@ export const createEscrow = async ({
     signal: timeout ? getAbortWithTimeout(timeout).signal : undefined,
   })
 
-  return await parseResponse<CreateEscrowResponse>(response, 'createEscrow')
+  return parseResponse<CreateEscrowResponse>(response, 'createEscrow')
 }

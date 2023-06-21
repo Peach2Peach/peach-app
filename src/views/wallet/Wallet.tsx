@@ -6,21 +6,21 @@ import { BigSatsFormat } from '../../components/text'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { peachWallet } from '../../utils/wallet/setWallet'
-import { useWalletSetup } from './hooks/useWalletSetup'
 import { BitcoinLoading } from '../loading/BitcoinLoading'
+import { useWalletSetup } from './hooks/useWalletSetup'
 
 export default () => {
   const {
     walletStore,
     refresh,
     isRefreshing,
-    onChange,
     isValid,
     address,
+    setAddress,
     addressErrors,
     openWithdrawalConfirmation,
     walletLoading,
-  } = useWalletSetup()
+  } = useWalletSetup(true)
 
   if (walletLoading) return <BitcoinLoading text={i18n('wallet.loading')} />
 
@@ -37,15 +37,7 @@ export default () => {
             <BigSatsFormat style={isRefreshing ? tw`opacity-60` : {}} sats={walletStore.balance} />
             {isRefreshing && <Loading style={tw`absolute`} />}
             <Text style={tw`mt-16 button-medium`}>{i18n('wallet.withdrawTo')}:</Text>
-            <BitcoinAddressInput
-              style={tw`mt-4`}
-              {...{
-                onChange,
-                isValid,
-                value: address,
-                errorMessage: addressErrors,
-              }}
-            />
+            <BitcoinAddressInput style={tw`mt-4`} onChange={setAddress} value={address} errorMessage={addressErrors} />
             <OpenWallet />
           </View>
           <SlideToUnlock

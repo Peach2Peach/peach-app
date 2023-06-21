@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { FormProps } from '../../paymentForms/PaymentMethodForm'
-import { useToggleBoolean, useValidatedState } from '../../../../../hooks'
+import { useValidatedState } from '../../../../../hooks'
 import { getPaymentDataByLabel } from '../../../../../utils/account'
-import { getErrorsInField } from '../../../../../utils/validation'
-import { toggleCurrency } from '../../paymentForms/utils'
 import i18n from '../../../../../utils/i18n'
+import { getErrorsInField } from '../../../../../utils/validation'
+import { FormProps } from '../../paymentForms/PaymentMethodForm'
+import { toggleCurrency } from '../../paymentForms/utils'
 import { hasMultipleAvailableCurrencies } from '../utils/hasMultipleAvailableCurrencies'
 
 const beneficiaryRules = { required: true }
@@ -22,7 +22,6 @@ export const useTemplate1Setup = ({
   setFormData,
 }: FormProps) => {
   const [label, setLabel] = useState(data?.label || '')
-  const [checked, toggleChecked] = useToggleBoolean(!!data.id)
   const [beneficiary, setBeneficiary, beneficiaryIsValid, beneficiaryErrors] = useValidatedState(
     data?.beneficiary || '',
     beneficiaryRules,
@@ -66,15 +65,8 @@ export const useTemplate1Setup = ({
 
   const isFormValid = useCallback(() => {
     setDisplayErrors(true)
-    return (
-      labelErrors.length === 0
-      && beneficiaryIsValid
-      && ibanIsValid
-      && bicIsValid
-      && referenceIsValid
-      && (checked || paymentMethod !== 'instantSepa')
-    )
-  }, [beneficiaryIsValid, bicIsValid, checked, ibanIsValid, labelErrors.length, paymentMethod, referenceIsValid])
+    return labelErrors.length === 0 && beneficiaryIsValid && ibanIsValid && bicIsValid && referenceIsValid
+  }, [beneficiaryIsValid, bicIsValid, ibanIsValid, labelErrors.length, referenceIsValid])
 
   const save = () => {
     if (!isFormValid()) return
@@ -115,17 +107,11 @@ export const useTemplate1Setup = ({
       onSubmit: save,
       errorMessage: displayErrors ? referenceErrors : undefined,
     },
-    checkboxProps: {
-      checked,
-      onPress: toggleChecked,
-      text: i18n('form.instantSepa.checkbox'),
-    },
     currencySelectionProps: {
       paymentMethod,
       onToggle: onCurrencyToggle,
       selectedCurrencies,
     },
-    shouldShowCheckbox: paymentMethod === 'instantSepa',
     shouldShowCurrencySelection: hasMultipleAvailableCurrencies(paymentMethod),
   }
 }

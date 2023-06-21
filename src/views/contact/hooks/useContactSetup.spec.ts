@@ -17,9 +17,6 @@ jest.mock('react-native/Libraries/Linking/Linking', () => ({
 }))
 
 describe('useContactSetup', () => {
-  beforeEach(() => {
-    jest.clearAllMocks()
-  })
   it('should return the correct default values', () => {
     const { result } = renderHook(() => useContactSetup())
     expect(result.current).toStrictEqual({

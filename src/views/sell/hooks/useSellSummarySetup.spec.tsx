@@ -1,37 +1,34 @@
-import { renderHook, waitFor } from '@testing-library/react-native'
+import { act, renderHook, waitFor } from '@testing-library/react-native'
 import { sellOffer } from '../../../../tests/unit/data/offerData'
-import { getSellOfferDraft } from '../../../../tests/unit/data/offerDraftData'
-import { NavigationWrapper, resetMock } from '../../../../tests/unit/helpers/NavigationWrapper'
-import { useHeaderState } from '../../../components/header/store'
+import { headerState, NavigationWrapper, resetMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { PeachWallet } from '../../../utils/wallet/PeachWallet'
 import { setPeachWallet } from '../../../utils/wallet/setWallet'
 import { useSellSummarySetup } from './useSellSummarySetup'
 
-const publishSellOfferMock = jest.fn().mockResolvedValue({
-  isPublished: true,
-  navigationParams: { offerId: sellOffer.id },
-  errorMessage: null,
-})
 jest.mock('../helpers/publishSellOffer', () => ({
-  publishSellOffer: (...args: any[]) => publishSellOfferMock(...args),
+  publishSellOffer: jest.fn().mockResolvedValue({
+    isPublished: true,
+    navigationParams: { offerId: sellOffer.id },
+    errorMessage: null,
+  }),
 }))
 
 describe('useSellSummarySetup', () => {
   beforeEach(() => {
     // @ts-ignore
     setPeachWallet(new PeachWallet())
-    jest.clearAllMocks()
   })
 
   it('should set up header correctly', async () => {
     const { result } = renderHook(useSellSummarySetup, { wrapper: NavigationWrapper })
-    expect(useHeaderState.getState().title).toBe('sell offer summary')
-    expect(useHeaderState.getState().icons?.[0].id).toBe('wallet')
-    await waitFor(() => expect(result.current.returnAddress).toBeDefined())
+    await waitFor(() => expect(result.current.canPublish).toBeTruthy())
+    expect(headerState.header()).toMatchSnapshot()
   })
   it('should navigate to funding screen after publishing', async () => {
     const { result } = renderHook(useSellSummarySetup, { wrapper: NavigationWrapper })
-    await result.current.publishOffer(getSellOfferDraft())
+    await act(async () => {
+      await result.current.publishOffer()
+    })
     expect(resetMock).toHaveBeenCalledWith({
       index: 1,
       routes: [

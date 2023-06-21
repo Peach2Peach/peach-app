@@ -1,23 +1,19 @@
 import { renderHook } from '@testing-library/react-native'
-import { NavigationWrapper, navigateMock } from '../../../tests/unit/helpers/NavigationWrapper'
-import { useHeaderState } from '../../components/header/store'
+import { NavigationWrapper, navigateMock, headerState } from '../../../tests/unit/helpers/NavigationWrapper'
 import { useOnboardingHeader } from './useOnboardingHeader'
-import { DrawerContext, getDrawer, setDrawer } from '../../contexts/drawer'
-import { useReducer } from 'react'
+import { defaultState, DrawerContext } from '../../contexts/drawer'
 import { LanguageSelect } from '../../drawers/LanguageSelect'
 
-const Wrapper = ({ children }: ComponentProps) => {
-  const [, updateDrawer] = useReducer(setDrawer, getDrawer())
-  return (
-    <NavigationWrapper>
-      <DrawerContext.Provider
-        value={[{ title: '', content: null, show: false, previousDrawer: {}, onClose: () => {} }, updateDrawer]}
-      >
-        {children}
-      </DrawerContext.Provider>
-    </NavigationWrapper>
-  )
+let drawer = defaultState
+const setDrawer = (newState: Partial<DrawerState>) => {
+  drawer = { ...drawer, ...newState }
+  return drawer
 }
+const Wrapper = ({ children }: ComponentProps) => (
+  <NavigationWrapper>
+    <DrawerContext.Provider value={[defaultState, setDrawer]}>{children}</DrawerContext.Provider>
+  </NavigationWrapper>
+)
 
 describe('useOnboardingHeader', () => {
   const title = 'a title'
@@ -30,15 +26,7 @@ describe('useOnboardingHeader', () => {
       wrapper: Wrapper,
     })
 
-    expect(useHeaderState.getState().title).toBe(title)
-    expect(useHeaderState.getState().hideGoBackButton).toBe(false)
-    expect(useHeaderState.getState().icons?.[0].id).toBe('mail')
-    expect(useHeaderState.getState().icons?.[0].color).toBe('#FFFCFA')
-    expect(useHeaderState.getState().icons?.[0].onPress).toBeInstanceOf(Function)
-    expect(useHeaderState.getState().icons?.[1].id).toBe('globe')
-    expect(useHeaderState.getState().icons?.[1].color).toBe('#FFFCFA')
-    expect(useHeaderState.getState().icons?.[1].onPress).toBeInstanceOf(Function)
-    expect(useHeaderState.getState().theme).toBe('inverted')
+    expect(headerState.header()).toMatchSnapshot()
   })
   it('allows overwriting values', () => {
     renderHook(useOnboardingHeader, {
@@ -50,24 +38,23 @@ describe('useOnboardingHeader', () => {
       wrapper: Wrapper,
     })
 
-    expect(useHeaderState.getState().title).toBe(title)
-    expect(useHeaderState.getState().hideGoBackButton).toBe(true)
-    expect(useHeaderState.getState().icons).toHaveLength(0)
+    expect(headerState.header()).toMatchSnapshot()
   })
   it('should navigate to contact', () => {
     renderHook(useOnboardingHeader, { initialProps: { title }, wrapper: Wrapper })
 
-    useHeaderState.getState().icons?.[0].onPress()
+    headerState.header().props.icons[0].onPress()
 
     expect(navigateMock).toHaveBeenCalledWith('contact')
   })
   it('should open language select drawer', () => {
     renderHook(useOnboardingHeader, { initialProps: { title }, wrapper: Wrapper })
 
-    useHeaderState.getState().icons?.[1].onPress()
+    headerState.header().props.icons[1].onPress()
 
-    expect(getDrawer()).toEqual({
-      content: <LanguageSelect locales={['en', 'es']} onSelect={expect.any(Function)} selected="en" />,
+    expect(drawer).toEqual({
+      content: <LanguageSelect locales={['en', 'es', 'fr']} onSelect={expect.any(Function)} selected="en" />,
+      options: [],
       onClose: expect.any(Function),
       previousDrawer: {},
       show: true,

@@ -1,6 +1,6 @@
 import { shallow } from 'zustand/shallow'
 import { useContractDetails } from '../../../hooks/query/useContractDetails'
-import { useDisputeRaisedNotice } from '../../../overlays/dispute/hooks/useDisputeRaisedNotice'
+import { useDisputeRaisedNotice } from '../../../popups/dispute/hooks/useDisputeRaisedNotice'
 import { useLocalContractStore } from '../../../store/useLocalContractStore'
 import { account } from '../../../utils/account'
 import { getContractViewer } from '../../../utils/contract'

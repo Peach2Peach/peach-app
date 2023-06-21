@@ -1,11 +1,11 @@
-import { useDeleteAccountPopups } from './useDeleteAccountPopups'
-import { act, renderHook } from '@testing-library/react-native'
-import { OverlayContext, defaultOverlay } from '../../../../contexts/overlay'
-import { deleteAccount } from '../../../../utils/account'
-import { logoutUser } from '../../../../utils/peachAPI'
 import { CommonActions } from '@react-navigation/native'
-import { DeleteAccountPopup } from './DeleteAccountPopup'
+import { act, renderHook } from '@testing-library/react-native'
+import { usePopupStore } from '../../../../store/usePopupStore'
+import { deleteAccount } from '../../../../utils/account'
 import i18n from '../../../../utils/i18n'
+import { logoutUser } from '../../../../utils/peachAPI'
+import { DeleteAccountPopup } from './DeleteAccountPopup'
+import { useDeleteAccountPopups } from './useDeleteAccountPopups'
 
 jest.mock('../../../../utils/account', () => ({
   deleteAccount: jest.fn(),
@@ -22,18 +22,21 @@ jest.mock('@react-navigation/native', () => ({
 }))
 
 describe('useDeleteAccountPopups', () => {
-  let defaultOverlayMock = { ...defaultOverlay }
-  const updateOverlayMock = jest.fn((props) => (defaultOverlayMock = { ...defaultOverlayMock, ...props }))
-  const { result } = renderHook(useDeleteAccountPopups, {
-    wrapper: ({ children }) => (
-      <OverlayContext.Provider value={[defaultOverlayMock, updateOverlayMock]}>{children}</OverlayContext.Provider>
-    ),
-  })
-  it('should show deleteAccount ovelay', () => {
-    act(() => {
+  const logout = async () => {
+    await act(() => {
+      usePopupStore.getState().action2?.callback()
+    })
+    await act(() => {
+      usePopupStore.getState().action2?.callback()
+    })
+  }
+  it('should show deleteAccount ovelay', async () => {
+    const { result } = renderHook(useDeleteAccountPopups)
+    await act(() => {
       result.current()
     })
-    expect(defaultOverlayMock).toStrictEqual({
+    expect(usePopupStore.getState()).toEqual({
+      ...usePopupStore.getState(),
       visible: true,
       title: i18n('settings.deleteAccount.popup.title'),
       content: <DeleteAccountPopup title={'popup'} />,
@@ -48,11 +51,16 @@ describe('useDeleteAccountPopups', () => {
     })
   })
 
-  it('should show forRealsies ovelay', () => {
-    act(() => {
-      defaultOverlayMock.action2?.callback()
+  it('should show forRealsies ovelay', async () => {
+    const { result } = renderHook(useDeleteAccountPopups)
+    await act(() => {
+      result.current()
     })
-    expect(defaultOverlayMock).toStrictEqual({
+    await act(() => {
+      usePopupStore.getState().action2?.callback()
+    })
+    expect(usePopupStore.getState()).toEqual({
+      ...usePopupStore.getState(),
       visible: true,
       title: i18n('settings.deleteAccount.popup.title'),
       content: <DeleteAccountPopup title={'forRealsies'} />,
@@ -67,23 +75,43 @@ describe('useDeleteAccountPopups', () => {
     })
   })
 
-  it('should delete the account', () => {
-    act(() => {
-      defaultOverlayMock.action2?.callback()
+  it('should delete the account', async () => {
+    const { result } = renderHook(useDeleteAccountPopups)
+    await act(() => {
+      result.current()
     })
+
+    await logout()
     expect(deleteAccount).toHaveBeenCalledTimes(1)
   })
 
-  it('should logout the user', () => {
+  it('should logout the user', async () => {
+    const { result } = renderHook(useDeleteAccountPopups)
+    await act(() => {
+      result.current()
+    })
+    await logout()
     expect(logoutUser).toHaveBeenCalledTimes(1)
   })
 
-  it('should reset the navigation', () => {
+  it('should reset the navigation', async () => {
+    const { result } = renderHook(useDeleteAccountPopups)
+    await act(() => {
+      result.current()
+    })
+    await logout()
     expect(CommonActions.reset).toHaveBeenCalledTimes(1)
   })
 
-  it('should show success ovelay', () => {
-    expect(defaultOverlayMock).toStrictEqual({
+  it('should show success ovelay', async () => {
+    const { result } = renderHook(useDeleteAccountPopups)
+    await act(() => {
+      result.current()
+    })
+    await logout()
+
+    expect(usePopupStore.getState()).toEqual({
+      ...usePopupStore.getState(),
       visible: true,
       title: i18n('settings.deleteAccount.success.title'),
       content: <DeleteAccountPopup title={'success'} />,

@@ -1,4 +1,3 @@
-import { ReactElement } from 'react'
 import { View } from 'react-native'
 
 import { Icon, Text } from '../../../../components'
@@ -10,7 +9,7 @@ const items = [
   { id: 'cloudOff', text: 'noDigital', color: tw`text-error-main`.color },
 ] as const
 
-export const SecurityInfo = (): ReactElement => (
+export const SecurityInfo = () => (
   <View style={tw`h-full px-6`}>
     <Text style={tw`text-center subtitle-1`}>{i18n('settings.backups.seedPhrase.toRestore')}</Text>
     <Text style={tw`h6 text-center mt-[45px]`}>{i18n('settings.backups.seedPhrase.keepSecure')}</Text>

@@ -4,6 +4,7 @@ import { MessageContext } from '../../../contexts/message'
 import { useNavigation, useValidatedState } from '../../../hooks'
 import { createAccount, deleteAccount, recoverAccount } from '../../../utils/account'
 import { createPeachAccount } from '../../../utils/account/createPeachAccount'
+import { loadWalletFromAccount } from '../../../utils/account/loadWalletFromAccount'
 import { storeAccount } from '../../../utils/account/storeAccount'
 import { auth } from '../../../utils/peachAPI'
 import { setPeachAccount } from '../../../utils/peachAPI/peachAccount'
@@ -52,7 +53,8 @@ export const useRestoreFromSeedSetup = () => {
 
   const createAndRecover = async () => {
     const recoveredAccount = await createAccount(mnemonic)
-    setPeachAccount(createPeachAccount(mnemonic))
+    const wallet = loadWalletFromAccount(recoveredAccount)
+    setPeachAccount(createPeachAccount(wallet))
 
     const [, authError] = await auth({})
     if (authError) {
@@ -71,7 +73,7 @@ export const useRestoreFromSeedSetup = () => {
     }, 1500)
   }
 
-  const submit = async () => {
+  const submit = () => {
     Keyboard.dismiss()
     setLoading(true)
 

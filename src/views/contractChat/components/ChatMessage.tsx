@@ -1,4 +1,3 @@
-import { ReactElement } from 'react'
 import { ColorValue, TouchableOpacity, View, ViewStyle } from 'react-native'
 import { Icon, Text } from '../../../components'
 import { IconType } from '../../../assets/icons'
@@ -71,12 +70,12 @@ const getMessageStyling = (message: Message, meta: MessageMeta): MessageStyling 
       : meta.readByCounterParty
         ? 'chatDoubleCheck'
         : 'check'
-  const statusIconColor = statusIcon === 'chatDoubleCheck' ? tw`text-info-main`.color : tw`text-black-3`.color
+  const statusIconColor = (statusIcon === 'chatDoubleCheck' ? tw`text-info-main`.color : tw`text-black-3`.color)!
   return {
     text,
     bgColor,
     statusIcon,
-    statusIconColor: statusIconColor!,
+    statusIconColor,
   }
 }
 type ChatMessageProps = {
@@ -95,7 +94,7 @@ export const ChatMessage = ({
   index,
   online,
   resendMessage,
-}: ChatMessageProps): ReactElement => {
+}: ChatMessageProps) => {
   const meta = getMessageMeta({
     message,
     previous: chatMessages[index - 1],

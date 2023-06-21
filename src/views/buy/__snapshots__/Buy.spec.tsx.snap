@@ -8,7 +8,6 @@ exports[`Buy should render correctly 1`] = `
       "height": "100%",
     }
   }
-  testID="view-buy"
 >
   <View
     style={
@@ -208,12 +207,16 @@ exports[`Buy should render correctly 1`] = `
           "paddingLeft": 20,
           "paddingRight": 16,
         },
-        {
-          "flexShrink": 1,
-          "height": "100%",
-          "marginBottom": 8,
-          "marginTop": 16,
-        },
+        [
+          {
+            "flexShrink": 1,
+            "height": "100%",
+          },
+          {
+            "marginBottom": 8,
+            "marginTop": 16,
+          },
+        ],
       ]
     }
   >
@@ -1696,7 +1699,7 @@ exports[`Buy should render correctly 1`] = `
         {
           "busy": undefined,
           "checked": undefined,
-          "disabled": true,
+          "disabled": false,
           "expanded": undefined,
           "selected": undefined,
         }
@@ -1722,7 +1725,7 @@ exports[`Buy should render correctly 1`] = `
       style={
         {
           "alignItems": "center",
-          "backgroundColor": "#FCCCB6",
+          "backgroundColor": "#F56522",
           "borderRadius": 9999,
           "flexDirection": "row",
           "height": 40,
@@ -1733,7 +1736,6 @@ exports[`Buy should render correctly 1`] = `
           "width": 156,
         }
       }
-      testID="navigation-next"
     >
       <Text
         allowFontScaling={false}
@@ -1998,7 +2000,6 @@ exports[`Buy should render correctly with free trades 1`] = `
       "height": "100%",
     }
   }
-  testID="view-buy"
 >
   <View
     style={
@@ -2198,12 +2199,16 @@ exports[`Buy should render correctly with free trades 1`] = `
           "paddingLeft": 20,
           "paddingRight": 16,
         },
-        {
-          "flexShrink": 1,
-          "height": "100%",
-          "marginBottom": 8,
-          "marginTop": 16,
-        },
+        [
+          {
+            "flexShrink": 1,
+            "height": "100%",
+          },
+          {
+            "marginBottom": 8,
+            "marginTop": 16,
+          },
+        ],
       ]
     }
   >
@@ -3899,7 +3904,7 @@ exports[`Buy should render correctly with free trades 1`] = `
         {
           "busy": undefined,
           "checked": undefined,
-          "disabled": true,
+          "disabled": false,
           "expanded": undefined,
           "selected": undefined,
         }
@@ -3925,7 +3930,7 @@ exports[`Buy should render correctly with free trades 1`] = `
       style={
         {
           "alignItems": "center",
-          "backgroundColor": "#FCCCB6",
+          "backgroundColor": "#F56522",
           "borderRadius": 9999,
           "flexDirection": "row",
           "height": 40,
@@ -3936,7 +3941,6 @@ exports[`Buy should render correctly with free trades 1`] = `
           "width": 156,
         }
       }
-      testID="navigation-next"
     >
       <Text
         allowFontScaling={false}

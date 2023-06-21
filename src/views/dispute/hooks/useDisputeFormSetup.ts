@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react'
 import { Keyboard } from 'react-native'
 import { useHeaderSetup, useNavigation, useRoute, useValidatedState } from '../../../hooks'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
-import { useDisputeRaisedSuccess } from '../../../overlays/dispute/hooks/useDisputeRaisedSuccess'
+import { useDisputeRaisedSuccess } from '../../../popups/dispute/hooks/useDisputeRaisedSuccess'
 import { account } from '../../../utils/account'
 import { contractIdToHex, getContract, getContractViewer } from '../../../utils/contract'
 import { isEmailRequiredForDispute } from '../../../utils/dispute'
@@ -27,7 +27,7 @@ export const useDisputeFormSetup = () => {
   const [loading, setLoading] = useState(false)
   const isFormValid = emailIsValid && messageIsValid
 
-  const disputeRaisedOverlay = useDisputeRaisedSuccess()
+  const disputeRaisedPopup = useDisputeRaisedSuccess()
 
   const showErrorBanner = useShowErrorBanner()
 
@@ -44,7 +44,7 @@ export const useDisputeFormSetup = () => {
     const [disputeRaised, disputeRaisedError] = await submitRaiseDispute(contract, reason, email, message)
     if (disputeRaised) {
       navigation.navigate('contractChat', { contractId })
-      disputeRaisedOverlay(getContractViewer(contract, account))
+      disputeRaisedPopup(getContractViewer(contract, account))
     } else {
       showErrorBanner(disputeRaisedError?.error)
     }

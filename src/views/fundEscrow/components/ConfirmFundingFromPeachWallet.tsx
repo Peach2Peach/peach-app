@@ -1,0 +1,24 @@
+import { View } from 'react-native'
+import { Text } from '../../../components'
+import { ShortBitcoinAddress } from '../../../components/bitcoin'
+import { BTCAmount } from '../../../components/text/BTCAmount'
+import i18n from '../../../utils/i18n'
+import { thousands } from '../../../utils/string'
+import tw from '../../../styles/tailwind'
+
+type Props = {
+  amount: number
+  address: string
+  fee: number
+  feeRate: number
+}
+export const ConfirmFundingFromPeachWallet = ({ amount, address, fee, feeRate }: Props) => (
+  <View style={tw`gap-3`}>
+    <Text>{i18n('fundFromPeachWallet.confirm.description')}</Text>
+    <BTCAmount amount={amount} size="medium" />
+    <Text>
+      {i18n('fundFromPeachWallet.confirm.to')} <ShortBitcoinAddress address={address} />
+    </Text>
+    <Text>{i18n('fundFromPeachWallet.confirm.networkFee', thousands(fee), thousands(feeRate))}</Text>
+  </View>
+)

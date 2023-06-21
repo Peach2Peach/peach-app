@@ -1,19 +1,12 @@
 import { renderHook } from '@testing-library/react-native'
-import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
-import { useHeaderState } from '../../../components/header/store'
-import { SellTitleComponent } from '../components/SellTitleComponent'
-import { UseSellSetupProps, useSellSetup } from './useSellSetup'
+import { headerState, NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { useSellSetup } from './useSellSetup'
 
 describe('useSellSetup', () => {
-  const initialProps: UseSellSetupProps = { help: 'sellingBitcoin', hideGoBackButton: false }
-  beforeEach(() => {
-    jest.clearAllMocks()
-  })
+  const initialProps = { help: 'sellingBitcoin', hideGoBackButton: false } as const
 
   it('should set up header correctly', () => {
     renderHook(useSellSetup, { wrapper: NavigationWrapper, initialProps })
-
-    expect(useHeaderState.getState().titleComponent?.type).toEqual(SellTitleComponent)
-    expect(useHeaderState.getState().icons?.[0].id).toBe('helpCircle')
+    expect(headerState.header()).toMatchSnapshot()
   })
 })

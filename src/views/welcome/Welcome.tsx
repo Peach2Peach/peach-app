@@ -1,13 +1,11 @@
-import { ReactElement, useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { Dimensions, Pressable, View } from 'react-native'
-import tw from '../../styles/tailwind'
-
 import Carousel from 'react-native-snap-carousel'
 import { Icon, Progress, Text } from '../../components'
 import { PrimaryButton } from '../../components/buttons'
 import { useKeyboard } from '../../hooks'
-import { useCheckShowRedesignWelcome } from '../../hooks/'
 import { useOnboardingHeader } from '../../hooks/headers/useOnboardingHeader'
+import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import AWalletYouControl from './AWalletYouControl'
 import LetsGetStarted from './LetsGetStarted'
@@ -19,7 +17,7 @@ const onStartShouldSetResponder = () => true
 
 const screens = [PeerToPeer, PeachOfMind, PrivacyFirst, AWalletYouControl, LetsGetStarted]
 
-export default (): ReactElement => {
+export default () => {
   useOnboardingHeader({
     title: i18n('welcome.welcomeToPeach.title'),
     hideGoBackButton: true,
@@ -28,7 +26,6 @@ export default (): ReactElement => {
   const [page, setPage] = useState(0)
   const $carousel = useRef<Carousel<any>>(null)
   const keyboardOpen = useKeyboard()
-  const checkShowRedesignWelcome = useCheckShowRedesignWelcome()
 
   const next = () => {
     $carousel.current?.snapToNext()
@@ -38,10 +35,6 @@ export default (): ReactElement => {
   }
   const getProgress = () => (page + 1) / screens.length
   const endReached = () => getProgress() === 1
-
-  useEffect(() => {
-    checkShowRedesignWelcome()
-  }, [checkShowRedesignWelcome])
 
   return (
     <View style={tw`flex h-full`} testID="welcome">
@@ -77,7 +70,7 @@ export default (): ReactElement => {
             shouldOptimizeUpdates={true}
             renderItem={({ item: Item, index }) => (
               <View
-                testID={'welcome-screen-' + index}
+                testID={`welcome-screen-${index}`}
                 onStartShouldSetResponder={onStartShouldSetResponder}
                 style={tw`h-full px-6`}
               >

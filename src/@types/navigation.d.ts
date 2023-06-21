@@ -16,14 +16,17 @@ declare type RootStackParamList = {
   buy: undefined
   sell: undefined
   buyPreferences: undefined
+  premium: undefined
   sellPreferences: undefined
+  buySummary: undefined
+  sellSummary: undefined
   addPaymentMethod: {
     currencies?: Currency[]
     country?: PaymentMethodCountry
     paymentMethod?: PaymentMethod
     origin: keyof RootStackParamList
   }
-  paymentDetails: {
+  paymentMethodDetails: {
     paymentData: Partial<PaymentData> & {
       type: PaymentMethod
       currencies: Currency[]
@@ -114,7 +117,6 @@ declare type RootStackParamList = {
   bitcoinProducts: undefined
   socials: undefined
   welcome: undefined
-  redesignWelcome: undefined
   splashScreen: undefined
   myProfile: undefined
 } & Record<`testView${string}`, undefined>

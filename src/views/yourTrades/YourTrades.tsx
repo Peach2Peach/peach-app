@@ -1,4 +1,3 @@
-import { ReactElement } from 'react'
 import { SectionList, View } from 'react-native'
 import { Loading } from '../../components'
 
@@ -11,7 +10,7 @@ import { useYourTradesSetup } from './hooks/useYourTradesSetup'
 import { checkMessages } from './utils/checkMessages'
 import { getCategories } from './utils/getCategories'
 
-export default (): ReactElement => {
+export default () => {
   const { openOffers, pastOffers, isLoading, refetch, tabs, currentTab, setCurrentTab } = useYourTradesSetup()
 
   const switchTab = (t: TabbedNavigationItem) => {

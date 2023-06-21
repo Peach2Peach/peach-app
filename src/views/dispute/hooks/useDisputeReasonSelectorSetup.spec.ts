@@ -42,32 +42,23 @@ jest.mock('../utils/submitRaiseDispute', () => ({
 
 const showErrorBannerMock = jest.fn()
 jest.mock('../../../hooks/useShowErrorBanner', () => ({
-  useShowErrorBanner:
-    () =>
-      (...args: any[]) =>
-        showErrorBannerMock(...args),
+  useShowErrorBanner: () => showErrorBannerMock,
 }))
-const showDisputeRaisedOverlayMock = jest.fn()
-jest.mock('../../../overlays/dispute/hooks/useDisputeRaisedSuccess', () => ({
-  useDisputeRaisedSuccess:
-    () =>
-      (...args: any[]) =>
-        showDisputeRaisedOverlayMock(...args),
+const showDisputeRaisedPopupMock = jest.fn()
+jest.mock('../../../popups/dispute/hooks/useDisputeRaisedSuccess', () => ({
+  useDisputeRaisedSuccess: () => showDisputeRaisedPopupMock,
 }))
 
 describe('useDisputeReasonSelectorSetup', () => {
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
-  it('returns default values correctly for seller', async () => {
-    await setAccount({ ...account1, publicKey: contract.seller.id })
+  it('returns default values correctly for seller', () => {
+    setAccount({ ...account1, publicKey: contract.seller.id })
     const { result } = renderHook(useDisputeReasonSelectorSetup)
 
     expect(result.current.availableReasons).toEqual(disputeReasons.seller)
     expect(result.current.setReason).toBeInstanceOf(Function)
   })
-  it('returns default values correctly for buyer', async () => {
-    await setAccount({ ...account1, publicKey: contract.buyer.id })
+  it('returns default values correctly for buyer', () => {
+    setAccount({ ...account1, publicKey: contract.buyer.id })
     const { result } = renderHook(useDisputeReasonSelectorSetup)
 
     expect(result.current.availableReasons).toEqual(disputeReasons.buyer)
@@ -99,21 +90,21 @@ describe('useDisputeReasonSelectorSetup', () => {
     const { result } = renderHook(useDisputeReasonSelectorSetup)
     await result.current.setReason(reason)
     expect(navigateMock).toHaveBeenCalledWith('disputeForm', { contractId: contract.id, reason })
-    expect(showDisputeRaisedOverlayMock).not.toHaveBeenCalled()
+    expect(showDisputeRaisedPopupMock).not.toHaveBeenCalled()
   })
   it('sets reason and navigate to dispute form if reason is noPayment.seller', async () => {
     const reason = 'noPayment.seller'
     const { result } = renderHook(useDisputeReasonSelectorSetup)
     await result.current.setReason(reason)
     expect(navigateMock).toHaveBeenCalledWith('disputeForm', { contractId: contract.id, reason })
-    expect(showDisputeRaisedOverlayMock).not.toHaveBeenCalled()
+    expect(showDisputeRaisedPopupMock).not.toHaveBeenCalled()
   })
   it('sets reason and submits dispute request if reason is any other', async () => {
     const reason = 'abusive'
     const { result } = renderHook(useDisputeReasonSelectorSetup)
     await result.current.setReason(reason)
     expect(submitRaiseDisputeMock).toHaveBeenCalledWith(contract, reason)
-    expect(showDisputeRaisedOverlayMock).toHaveBeenCalled()
+    expect(showDisputeRaisedPopupMock).toHaveBeenCalled()
   })
   it('shows error banner if dispute request fails', async () => {
     submitRaiseDisputeMock.mockResolvedValueOnce([null, unauthorizedError])
@@ -121,6 +112,6 @@ describe('useDisputeReasonSelectorSetup', () => {
     const { result } = renderHook(useDisputeReasonSelectorSetup)
     await result.current.setReason(reason)
     expect(showErrorBannerMock).toHaveBeenCalledWith(unauthorizedError.error)
-    expect(showDisputeRaisedOverlayMock).not.toHaveBeenCalled()
+    expect(showDisputeRaisedPopupMock).not.toHaveBeenCalled()
   })
 })

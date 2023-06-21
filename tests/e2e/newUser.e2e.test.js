@@ -9,27 +9,17 @@ describe('New user', () => {
   })
 
   it('should see analytics popup', async () => {
-    await expect(element(by.id('overlay-action1'))).toBeVisible()
+    await expect(element(by.id('popup-action1'))).toBeVisible()
   })
 
   it('analytics popup can be clicked away', async () => {
-    await element(by.id('overlay-action1')).tap()
-    await expect(element(by.id('overlay-action1'))).not.toBeVisible()
-  })
-
-  it('should see redesign welcome screen', async () => {
-    await expect(element(by.id('redesignWelcome'))).toBeVisible()
-  })
-
-  it('redesign welcome screen can be clicked away', async () => {
-    await element(by.id('redesignWelcome-close')).tap()
-    await expect(element(by.id('redesignWelcome'))).not.toBeVisible()
+    await element(by.id('popup-action1')).tap()
+    await expect(element(by.id('popup-action1'))).not.toBeVisible()
   })
 
   it('should have welcome screen', async () => {
     await expect(element(by.id('welcome'))).toBeVisible()
   })
-
 
   it('should go through carousel', async () => {
     await expect(element(by.id('welcome-screen-0'))).toBeVisible()

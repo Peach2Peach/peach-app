@@ -6,15 +6,7 @@ import { parseResponse } from '../../parseResponse'
 import { getPeachAccount } from '../../peachAccount'
 import { getPrivateHeaders } from '../getPrivateHeaders'
 
-type GetTradingLimitProps = RequestProps
-
-/**
- * @description Method to get trading limit of user
- * @returns TradingLimit
- */
-export const getTradingLimit = async ({
-  timeout,
-}: GetTradingLimitProps): Promise<[TradingLimit | null, APIError | null]> => {
+export const getTradingLimit = async ({ timeout }: RequestProps) => {
   const peachAccount = getPeachAccount()
   if (!peachAccount) return [null, { error: 'UNAUTHORIZED' }]
 
@@ -24,5 +16,5 @@ export const getTradingLimit = async ({
     signal: timeout ? getAbortWithTimeout(timeout).signal : undefined,
   })
 
-  return await parseResponse<TradingLimit>(response, 'getTradingLimit')
+  return parseResponse<TradingLimit>(response, 'getTradingLimit')
 }

@@ -1,4 +1,4 @@
-import { ReactElement, useMemo } from 'react'
+import { useMemo } from 'react'
 import { Linking, View } from 'react-native'
 
 import tw from '../../../styles/tailwind'
@@ -16,7 +16,7 @@ const socials = [
   { name: 'twitch', url: TWITCH },
 ]
 
-export default (): ReactElement => {
+export default () => {
   useHeaderSetup(useMemo(() => ({ title: i18n('settings.socials.subtitle') }), []))
 
   return (

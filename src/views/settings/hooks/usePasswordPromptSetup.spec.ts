@@ -1,8 +1,7 @@
 import { act, renderHook } from '@testing-library/react-native'
 import { Keyboard } from 'react-native'
 import { usePasswordPromptSetup } from './usePasswordPromptSetup'
-import { NavigationWrapper, navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
-import { useHeaderState } from '../../../components/header/store'
+import { NavigationWrapper, navigateMock, headerState } from '../../../../tests/unit/helpers/NavigationWrapper'
 
 const setShowBackupReminderMock = jest.fn()
 const setLastFileBackupDateMock = jest.fn()
@@ -22,9 +21,6 @@ const onSuccessMock = jest.fn()
 const password = 'password'
 const passwordRepeat = 'password'
 describe('usePasswordPromptSetup', () => {
-  beforeEach(() => {
-    jest.clearAllMocks()
-  })
   it('returns default correct values', () => {
     const { result } = renderHook(usePasswordPromptSetup, { wrapper: NavigationWrapper, initialProps: onSuccessMock })
     expect(result.current.setPassword).toBeInstanceOf(Function)
@@ -40,8 +36,7 @@ describe('usePasswordPromptSetup', () => {
   })
   it('should set up header correctly', () => {
     renderHook(usePasswordPromptSetup, { wrapper: NavigationWrapper, initialProps: onSuccessMock })
-    expect(useHeaderState.getState().title).toBe('backups')
-    expect(useHeaderState.getState().icons?.[0].id).toBe('helpCircle')
+    expect(headerState.header()).toMatchSnapshot()
   })
   it('should set the password', () => {
     const { result } = renderHook(usePasswordPromptSetup, { wrapper: NavigationWrapper, initialProps: onSuccessMock })
@@ -72,9 +67,6 @@ describe('usePasswordPromptSetup', () => {
 
 // eslint-disable-next-line max-lines-per-function
 describe('startAccountBackup', () => {
-  beforeEach(() => {
-    jest.clearAllMocks()
-  })
   it('should not start backup when passwords are not valid', () => {
     const keyboardSpy = jest.spyOn(Keyboard, 'dismiss')
     const { result } = renderHook(usePasswordPromptSetup, { wrapper: NavigationWrapper, initialProps: onSuccessMock })
@@ -85,7 +77,6 @@ describe('startAccountBackup', () => {
     expect(keyboardSpy).not.toHaveBeenCalled()
   })
   it('should dismiss keyboard when passwords are valid', () => {
-    jest.clearAllMocks()
     const keyboardSpy = jest.spyOn(Keyboard, 'dismiss')
     const { result } = renderHook(usePasswordPromptSetup, { wrapper: NavigationWrapper, initialProps: onSuccessMock })
     act(() => {

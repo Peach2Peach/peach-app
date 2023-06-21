@@ -1,17 +1,16 @@
-import { ReactElement } from 'react'
 import { View } from 'react-native'
 import { Icon, Text, Timer } from '../../../components'
 import tw from '../../../styles/tailwind'
 import { getPaymentExpectedBy } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
-import { shouldShowConfirmCancelTradeRequest } from '../../../utils/overlay'
+import { shouldShowConfirmCancelTradeRequest } from '../../../utils/popup'
 import { isCashTrade } from '../../../utils/paymentMethod/isCashTrade'
 import { useContractContext } from '../context'
 
 type ContractStatusInfoProps = {
   requiredAction: ContractAction
 }
-export const ContractStatusInfo = ({ requiredAction }: ContractStatusInfoProps): ReactElement => {
+export const ContractStatusInfo = ({ requiredAction }: ContractStatusInfoProps) => {
   const { contract, view } = useContractContext()
 
   if (contract.disputeActive || shouldShowConfirmCancelTradeRequest(contract, view) || contract.cancelationRequested) {

@@ -9,7 +9,7 @@ describe('signPSBT', () => {
   it('signs a PSBT', () => {
     const psbt = constructPSBT(wallet)
 
-    const signedPSBT = signPSBT(psbt, wallet, false)
+    const signedPSBT = signPSBT(psbt, wallet)
     expect(signedPSBT.validateSignaturesOfAllInputs(signatureValidator)).toBeTruthy()
   })
 })

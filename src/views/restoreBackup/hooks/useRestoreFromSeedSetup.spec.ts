@@ -38,13 +38,10 @@ jest.mock('../../../utils/peachAPI', () => ({
 }))
 
 describe('useRestoreFromSeedSetup', () => {
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
   it('restores account from file', async () => {
     const { result } = renderHook(useRestoreFromSeedSetup)
     act(() => {
-      result.current.setWords(account1.mnemonic!.split(' '))
+      result.current.setWords(account1.mnemonic.split(' '))
     })
     act(() => {
       result.current.submit()

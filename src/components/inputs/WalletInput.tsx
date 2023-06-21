@@ -1,9 +1,8 @@
-import { ReactElement } from 'react'
 import { enforceWalletFormat } from '../../utils/format/enforceWalletFormat'
 import i18n from '../../utils/i18n'
 import Input, { InputProps } from './Input'
 
-export const WalletInput = ({ onChange, onSubmit, ...props }: InputProps): ReactElement => (
+export const WalletInput = ({ onChange, onSubmit, ...props }: InputProps) => (
   <Input
     {...{
       placeholder: i18n('form.wallet.placeholder'),

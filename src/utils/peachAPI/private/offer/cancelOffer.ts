@@ -10,14 +10,7 @@ type CancelOfferProps = RequestProps &
     offerId: string
   }
 
-/**
- * @description Method to get cancel offer and get refunding information
- * @param offerId offer id
- */
-export const cancelOffer = async ({
-  offerId,
-  timeout,
-}: CancelOfferProps): Promise<[CancelOfferResponse | null, APIError | null]> => {
+export const cancelOffer = async ({ offerId, timeout }: CancelOfferProps) => {
   const data: CancelOfferRequest = {}
 
   const response = await fetch(`${API_URL}/v1/offer/${offerId}/cancel`, {
@@ -27,5 +20,5 @@ export const cancelOffer = async ({
     signal: timeout ? getAbortWithTimeout(timeout).signal : undefined,
   })
 
-  return await parseResponse<CancelOfferResponse>(response, 'cancelOffer')
+  return parseResponse<CancelOfferResponse>(response, 'cancelOffer')
 }

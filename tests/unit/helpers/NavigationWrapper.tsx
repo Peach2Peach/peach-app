@@ -10,12 +10,29 @@ export const canGoBackMock = jest.fn()
 export const isFocusedMock = jest.fn().mockReturnValue(true)
 export const unsubScribeMock = jest.fn()
 export const addListenerMock = jest.fn(() => unsubScribeMock)
+export let headerState: Record<'header', () => JSX.Element> = {
+  header: () => <></>,
+}
+export const setOptionsMock = jest.fn((options) => {
+  headerState = options
+})
+export const getStateMock = jest.fn(() => ({
+  routes: [
+    {
+      name: 'origin',
+    },
+    {
+      name: 'meetupScreen',
+    },
+  ],
+}))
 
 export const NavigationWrapper = ({ children }: any) => (
   <NavigationContext.Provider
     value={{
       navigate: navigateMock,
       reset: resetMock,
+      setOptions: setOptionsMock,
       // @ts-ignore
       replace: replaceMock,
       push: pushMock,
@@ -24,6 +41,8 @@ export const NavigationWrapper = ({ children }: any) => (
       canGoBack: canGoBackMock,
       isFocused: isFocusedMock,
       addListener: addListenerMock,
+      // @ts-ignore
+      getState: getStateMock,
     }}
   >
     {children}

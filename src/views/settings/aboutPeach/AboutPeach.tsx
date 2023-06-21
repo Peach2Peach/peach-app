@@ -1,4 +1,4 @@
-import { ReactElement, useCallback } from 'react'
+import { useCallback } from 'react'
 import { Linking, ViewStyle } from 'react-native'
 import { IconType } from '../../../assets/icons'
 import { PeachScrollView } from '../../../components'
@@ -7,7 +7,7 @@ import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { SettingsItem } from '../components/SettingsItem'
 
-export default (): ReactElement => {
+export default () => {
   const navigation = useNavigation()
   useHeaderSetup({ title: i18n('settings.aboutPeach') })
 

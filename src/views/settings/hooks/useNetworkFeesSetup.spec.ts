@@ -1,8 +1,7 @@
 /* eslint-disable max-lines-per-function */
 import { act, renderHook } from '@testing-library/react-native'
 import { estimatedFees } from '../../../../tests/unit/data/bitcoinNetworkData'
-import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
-import { useHeaderState } from '../../../components/header/store'
+import { headerState, NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { settingsStore } from '../../../store/settingsStore'
 import { useNetworkFeesSetup } from './useNetworkFeesSetup'
 import { apiSuccess, unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
@@ -26,9 +25,6 @@ jest.mock('../../../utils/peachAPI', () => ({
 describe('useNetworkFeesSetup', () => {
   beforeEach(() => {
     settingsStore.getState().setFeeRate('halfHourFee')
-  })
-  afterEach(() => {
-    jest.clearAllMocks()
   })
   it('returns default correct values', () => {
     const { result } = renderHook(useNetworkFeesSetup, { wrapper: NavigationWrapper })
@@ -66,7 +62,7 @@ describe('useNetworkFeesSetup', () => {
     expect(result.current.customFeeRate).toBeUndefined()
     expect(result.current.isValid).toBeFalsy()
   })
-  it('returns info whether a new fee rate has been set', async () => {
+  it('returns info whether a new fee rate has been set', () => {
     const { result } = renderHook(useNetworkFeesSetup, { wrapper: NavigationWrapper })
 
     expect(result.current.feeRateSet).toBeTruthy()
@@ -77,11 +73,9 @@ describe('useNetworkFeesSetup', () => {
   })
   it('sets header as expected', () => {
     renderHook(useNetworkFeesSetup, { wrapper: NavigationWrapper })
-    expect(useHeaderState.getState().title).toBe('network fees')
-    expect(useHeaderState.getState().icons?.[0].id).toBe('helpCircle')
-    expect(useHeaderState.getState().icons?.[0].onPress).toEqual(expect.any(Function))
+    expect(headerState.header()).toMatchSnapshot()
   })
-  it('sets fee preferences', async () => {
+  it('sets fee preferences', () => {
     const { result } = renderHook(useNetworkFeesSetup, { wrapper: NavigationWrapper })
     act(() => {
       result.current.setSelectedFeeRate('fastestFee')

@@ -4,9 +4,6 @@ import { showAddress } from './showAddress'
 describe('showAddress', () => {
   const openURLSpy = jest.spyOn(Linking, 'openURL')
 
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
   it('links to mainnet blockexplorer', () => {
     showAddress('address', 'bitcoin')
     expect(openURLSpy).toHaveBeenCalledWith('https://mempool.space/address/address')

@@ -3,9 +3,6 @@ declare type Settings = {
   analyticsPopupSeen?: boolean
   enableAnalytics?: boolean
   locale?: string
-  minBuyAmount: number
-  maxBuyAmount: number
-  sellAmount: number
   returnAddress?: string
   payoutAddress?: string
   payoutAddressLabel?: string
@@ -13,9 +10,6 @@ declare type Settings = {
   derivationPath?: string
   displayCurrency: Currency
   country?: string
-  meansOfPayment: MeansOfPayment
-  preferredPaymentMethods: Partial<Record<PaymentMethod, PaymentData['id']>>
-  premium: number
   pgpPublished?: boolean
   fcmToken?: string
   lastFileBackupDate?: number
@@ -42,6 +36,7 @@ declare type Identity = {
   publicKey: string
   privKey?: string
   mnemonic?: string
+  base58?: string
   pgp: PGPKeychain
 }
 

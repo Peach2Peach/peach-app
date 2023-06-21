@@ -12,17 +12,7 @@ type SendReportProps = RequestProps & {
   message: string
 }
 
-/**
- * @description Method send report
- * @returns APISuccess
- */
-export const sendReport = async ({
-  email,
-  reason,
-  topic,
-  message,
-  timeout,
-}: SendReportProps): Promise<[APISuccess | null, APIError | null]> => {
+export const sendReport = async ({ email, reason, topic, message, timeout }: SendReportProps) => {
   const response = await fetch(`${API_URL}/v1/contact/report`, {
     headers: getPublicHeaders(),
     method: 'POST',
@@ -35,5 +25,5 @@ export const sendReport = async ({
     signal: timeout ? getAbortWithTimeout(timeout).signal : undefined,
   })
 
-  return await parseResponse<APISuccess>(response, 'sendReport')
+  return parseResponse<APISuccess>(response, 'sendReport')
 }

@@ -1,14 +1,14 @@
 import { useHeaderSetup } from '../../../hooks'
 import { useShowHelp } from '../../../hooks/useShowHelp'
-import { HelpType } from '../../../overlays/helpOverlays'
+import { HelpType } from '../../../popups/helpPopups'
 import { headerIcons } from '../../../utils/layout/headerIcons'
-import { SellTitleComponent } from '../components/SellTitleComponent'
+import { SellTitleComponent } from '../components'
 
-export type UseSellSetupProps = {
+type Props = {
   help: HelpType
   hideGoBackButton?: boolean
 }
-export const useSellSetup = ({ help, hideGoBackButton }: UseSellSetupProps) => {
+export const useSellSetup = ({ help, hideGoBackButton }: Props) => {
   const showHelp = useShowHelp(help)
 
   useHeaderSetup({

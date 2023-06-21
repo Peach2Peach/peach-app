@@ -4,8 +4,8 @@ import { useHeaderSetup, useRoute } from '../../../hooks'
 import { useChatMessages } from '../../../hooks/query/useChatMessages'
 import { useCommonContractSetup } from '../../../hooks/useCommonContractSetup'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
-import { useOpenDispute } from '../../../overlays/dispute/hooks/useOpenDispute'
-import { useConfirmCancelTrade } from '../../../overlays/tradeCancelation/useConfirmCancelTrade'
+import { useOpenDispute } from '../../../popups/dispute/hooks/useOpenDispute'
+import { useConfirmCancelTrade } from '../../../popups/tradeCancelation/useConfirmCancelTrade'
 import { useConfigStore } from '../../../store/configStore'
 import { account } from '../../../utils/account'
 import { deleteMessage, getChat, getUnsentMessages, saveChat } from '../../../utils/chat'
@@ -33,9 +33,9 @@ export const useContractChatSetup = () => {
     fetchNextPage,
   } = useChatMessages(contractId, contract?.symmetricKey)
   const showError = useShowErrorBanner()
-  const { showConfirmOverlay } = useConfirmCancelTrade()
+  const { showConfirmPopup } = useConfirmCancelTrade()
   const showDisputeDisclaimer = useShowDisputeDisclaimer()
-  const openDisputeOverlay = useOpenDispute(contractId)
+  const openDisputePopup = useOpenDispute(contractId)
   const tradingPartner = contract ? getTradingPartner(contract, account) : null
   const [chat, setChat] = useState(getChat(contractId))
   const [newMessage, setNewMessage] = useState(chat.draftMessage)
@@ -46,11 +46,9 @@ export const useContractChatSetup = () => {
     useMemo(
       () => ({
         titleComponent: <ContractTitle id={contractId} />,
-        icons: contract
-          ? getHeaderChatActions(contract, () => showConfirmOverlay(contract), openDisputeOverlay, view)
-          : [],
+        icons: contract ? getHeaderChatActions(contract, () => showConfirmPopup(contract), openDisputePopup, view) : [],
       }),
-      [contractId, contract, showConfirmOverlay, openDisputeOverlay, view],
+      [contractId, contract, showConfirmPopup, openDisputePopup, view],
     ),
   )
 
@@ -97,7 +95,7 @@ export const useContractChatSetup = () => {
     sendMessage(message.message)
   }
 
-  const submit = async () => {
+  const submit = () => {
     if (!contract || !tradingPartner || !contract.symmetricKey || !newMessage) return
     setDisableSend(true)
     setTimeout(() => setDisableSend(false), 300)

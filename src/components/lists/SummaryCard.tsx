@@ -1,4 +1,3 @@
-import { ReactElement } from 'react'
 import { TextStyle, TouchableOpacity, View, ViewStyle } from 'react-native'
 import tw from '../../styles/tailwind'
 import { toDateFormat } from '../../utils/date'
@@ -73,7 +72,7 @@ const themes: Record<string, ThemeConfig> = {
 
 type SummaryItemProps = ComponentProps & {
   title: string
-  icon?: ReactElement
+  icon?: JSX.Element
   amount: number | [number, number]
   currency?: Currency
   price?: number
@@ -94,7 +93,7 @@ export const SummaryCard = ({
   level = 'DEFAULT',
   theme = 'default',
   style,
-}: SummaryItemProps): ReactElement => {
+}: SummaryItemProps) => {
   const [amount1, amount2] = Array.isArray(amount) ? amount : [amount]
 
   return (

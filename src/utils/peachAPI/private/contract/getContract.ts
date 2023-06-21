@@ -9,21 +9,12 @@ type GetContractProps = RequestProps & {
   contractId: Contract['id']
 }
 
-/**
- * @description Method to get contract
- * @param contractId contract id
- * @returns Contract
- */
-export const getContract = async ({
-  contractId,
-  timeout,
-  abortSignal,
-}: GetContractProps): Promise<[GetContractResponse | null, APIError | null]> => {
+export const getContract = async ({ contractId, timeout, abortSignal }: GetContractProps) => {
   const response = await fetch(`${API_URL}/v1/contract/${contractId}`, {
     headers: await getPrivateHeaders(),
     method: 'GET',
     signal: abortSignal || (timeout ? getAbortWithTimeout(timeout).signal : undefined),
   })
 
-  return await parseResponse<GetContractResponse>(response, 'getContract')
+  return parseResponse<GetContractResponse>(response, 'getContract')
 }

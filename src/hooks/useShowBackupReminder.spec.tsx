@@ -1,14 +1,10 @@
 import { renderHook } from '@testing-library/react-native'
-import { useShowBackupReminder } from './useShowBackupReminder'
 import { NavigationWrapper } from '../../tests/unit/helpers/NavigationWrapper'
+import { FirstBackup } from '../popups/warning/FirstBackup'
 import { usePopupStore } from '../store/usePopupStore'
-import { FirstBackup } from '../overlays/warning/Backups'
+import { useShowBackupReminder } from './useShowBackupReminder'
 
 describe('useShowBackupReminder', () => {
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
-
   it('should upen backup reminder popup', () => {
     const { result } = renderHook(useShowBackupReminder, { wrapper: NavigationWrapper })
     result.current()

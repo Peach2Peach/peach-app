@@ -1,39 +1,21 @@
 import { renderHook } from '@testing-library/react-native'
-import { useShowDisputeDisclaimer } from './useShowDisputeDisclaimer'
 import { act } from 'react-test-renderer'
-import { OverlayContext, defaultOverlay } from '../../../contexts/overlay'
-import { DisputeDisclaimer } from '../../../overlays/info/DisputeDisclaimer'
+import { NavigationWrapper, navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { DisputeDisclaimer } from '../../../popups/info/DisputeDisclaimer'
 import { configStore } from '../../../store/configStore'
-
-const navigateMock = jest.fn()
-jest.mock('../../../hooks/useNavigation', () => ({
-  useNavigation: () => ({
-    navigate: navigateMock,
-  }),
-}))
+import { usePopupStore } from '../../../store/usePopupStore'
+import { useShowDisputeDisclaimer } from './useShowDisputeDisclaimer'
 
 describe('useShowDisputeDisclaimer', () => {
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
-  let overlayState = { ...defaultOverlay }
-  const updateOverlay = jest.fn((newState) => (overlayState = newState))
-
-  const { result } = renderHook(useShowDisputeDisclaimer, {
-    wrapper: ({ children }) => (
-      <OverlayContext.Provider value={[overlayState, updateOverlay]}>{children}</OverlayContext.Provider>
-    ),
-  })
-  afterEach(() => {
-    jest.clearAllMocks()
-    overlayState = { ...defaultOverlay }
-  })
-  it('should show the overlay', () => {
+  const wrapper = NavigationWrapper
+  const { result } = renderHook(useShowDisputeDisclaimer, { wrapper })
+  it('should show the popup', () => {
     const showDisputeDisclaimer = result.current
     act(() => {
       showDisputeDisclaimer()
     })
-    expect(overlayState).toStrictEqual({
+    expect(usePopupStore.getState()).toEqual({
+      ...usePopupStore.getState(),
       title: 'trade chat',
       content: <DisputeDisclaimer />,
       visible: true,
@@ -50,23 +32,23 @@ describe('useShowDisputeDisclaimer', () => {
       },
     })
   })
-  it('should hide the overlay, store that popup has been seen and navigate to contact screen', () => {
+  it('should hide the popup, store that popup has been seen and navigate to contact screen', () => {
     const showDisputeDisclaimer = result.current
     act(() => {
       showDisputeDisclaimer()
-      overlayState.action2?.callback()
+      usePopupStore.getState().action2?.callback()
     })
-    expect(overlayState).toStrictEqual({ visible: false })
+    expect(usePopupStore.getState().visible).toEqual(false)
     expect(navigateMock).toHaveBeenCalledWith('contact')
     expect(configStore.getState().seenDisputeDisclaimer).toBeTruthy()
   })
-  it('should hide the overlay, store that popup has been seen on close', () => {
+  it('should hide the popup, store that popup has been seen on close', () => {
     const showDisputeDisclaimer = result.current
     act(() => {
       showDisputeDisclaimer()
-      overlayState.action1?.callback()
+      usePopupStore.getState().action1?.callback()
     })
-    expect(overlayState).toStrictEqual({ visible: false })
+    expect(usePopupStore.getState().visible).toEqual(false)
     expect(navigateMock).not.toHaveBeenCalled()
     expect(configStore.getState().seenDisputeDisclaimer).toBeTruthy()
   })

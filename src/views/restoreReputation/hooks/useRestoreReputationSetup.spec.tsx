@@ -1,7 +1,6 @@
 import { act, renderHook } from '@testing-library/react-native'
 import { account1 } from '../../../../tests/unit/data/accountData'
-import { NavigationWrapper, replaceMock } from '../../../../tests/unit/helpers/NavigationWrapper'
-import { useHeaderState } from '../../../components/header/store'
+import { headerState, NavigationWrapper, replaceMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { useTemporaryAccount } from '../../../hooks/useTemporaryAccount'
 import { account } from '../../../utils/account'
 import { useRestoreReputationSetup } from './useRestoreReputationSetup'
@@ -9,10 +8,7 @@ import { useRestoreReputationSetup } from './useRestoreReputationSetup'
 jest.useFakeTimers()
 
 describe('useRestoreReputationSetup', () => {
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
-  it('should return defaults', async () => {
+  it('should return defaults', () => {
     const { result } = renderHook(useRestoreReputationSetup, { wrapper: NavigationWrapper })
     expect(result.current).toEqual({
       restoreReputation: expect.any(Function),
@@ -22,10 +18,7 @@ describe('useRestoreReputationSetup', () => {
   })
   it('should set up the header correctly', () => {
     renderHook(useRestoreReputationSetup, { wrapper: NavigationWrapper })
-
-    expect(useHeaderState.getState().title).toBe('restore reputation')
-    expect(useHeaderState.getState().icons).toHaveLength(2)
-    expect(useHeaderState.getState().hideGoBackButton).toBeFalsy()
+    expect(headerState.header()).toMatchSnapshot()
   })
   it('should not restore reputation if temporary account is not set', async () => {
     const { result } = renderHook(useRestoreReputationSetup, { wrapper: NavigationWrapper })
@@ -41,8 +34,8 @@ describe('useRestoreReputationSetup', () => {
     act(() => {
       tempAccount.current.setTemporaryAccount(account1)
     })
-    await act(async () => {
-      await result.current.restoreReputation()
+    await act(() => {
+      result.current.restoreReputation()
       jest.runAllTimers()
     })
     expect(result.current.isLoading).toBeTruthy()

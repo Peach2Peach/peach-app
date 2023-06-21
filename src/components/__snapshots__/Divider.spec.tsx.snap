@@ -229,6 +229,31 @@ exports[`Divider renders correctly with iconAlign 1`] = `
 </View>
 `;
 
+exports[`Divider renders correctly with no text 1`] = `
+<View
+  style={
+    [
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+      },
+      undefined,
+    ]
+  }
+>
+  <HorizontalLine
+    style={
+      [
+        {
+          "flexGrow": 1,
+        },
+        false,
+      ]
+    }
+  />
+</View>
+`;
+
 exports[`Divider renders correctly with type error 1`] = `
 <View
   style={
