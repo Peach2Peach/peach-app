@@ -91,7 +91,6 @@ exports[`ContractCTA should not show the confirm payment slider when the payment
           "height": 16,
           "width": 16,
         },
-        false,
       ]
     }
   />

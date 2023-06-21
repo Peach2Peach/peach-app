@@ -90,7 +90,6 @@ exports[`ProvideEmailButton should render correctly 1`] = `
           "height": 16,
           "width": 16,
         },
-        false,
       ]
     }
   />

@@ -80,7 +80,6 @@ exports[`UserExistsForDevice should render correctly 1`] = `
             "marginTop": 64,
             "width": 128,
           },
-          false,
         ]
       }
     />
@@ -157,7 +156,6 @@ exports[`UserExistsForDevice should render correctly 1`] = `
                 "height": 24,
                 "width": 24,
               },
-              false,
             ]
           }
         />
@@ -226,7 +224,6 @@ exports[`UserExistsForDevice should render correctly 1`] = `
                 "height": 24,
                 "width": 24,
               },
-              false,
             ]
           }
         />
@@ -295,7 +292,6 @@ exports[`UserExistsForDevice should render correctly 1`] = `
                 "height": 24,
                 "width": 24,
               },
-              false,
             ]
           }
         />

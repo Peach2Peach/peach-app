@@ -51,7 +51,6 @@ exports[`AddPaymentMethodButton should render correctly 1`] = `
           "marginRight": 12,
           "width": 28,
         },
-        false,
       ]
     }
   />
@@ -133,7 +132,6 @@ exports[`AddPaymentMethodButton should render correctly with isCash 1`] = `
           "marginRight": 12,
           "width": 28,
         },
-        false,
       ]
     }
   />
@@ -214,7 +212,6 @@ exports[`AddPaymentMethodButton should render correctly with isCash while still 
           "marginRight": 12,
           "width": 28,
         },
-        false,
       ]
     }
   />

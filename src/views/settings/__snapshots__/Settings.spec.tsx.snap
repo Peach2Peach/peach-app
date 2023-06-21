@@ -112,7 +112,6 @@ exports[`Settings should render correctly 1`] = `
                     "height": 32,
                     "width": 32,
                   },
-                  false,
                 ]
               }
             />
@@ -208,7 +207,6 @@ exports[`Settings should render correctly 1`] = `
                     "height": 32,
                     "width": 32,
                   },
-                  false,
                 ]
               }
             />
@@ -304,7 +302,6 @@ exports[`Settings should render correctly 1`] = `
                     "height": 32,
                     "width": 32,
                   },
-                  false,
                 ]
               }
             />
@@ -436,7 +433,6 @@ exports[`Settings should render correctly 1`] = `
                     "height": 32,
                     "width": 32,
                   },
-                  false,
                 ]
               }
             />
@@ -532,7 +528,6 @@ exports[`Settings should render correctly 1`] = `
                     "height": 32,
                     "width": 32,
                   },
-                  false,
                 ]
               }
             />
@@ -628,7 +623,6 @@ exports[`Settings should render correctly 1`] = `
                     "height": 32,
                     "width": 32,
                   },
-                  false,
                 ]
               }
             />
@@ -724,7 +718,6 @@ exports[`Settings should render correctly 1`] = `
                     "height": 32,
                     "width": 32,
                   },
-                  false,
                 ]
               }
             />
@@ -820,7 +813,6 @@ exports[`Settings should render correctly 1`] = `
                     "height": 32,
                     "width": 32,
                   },
-                  false,
                 ]
               }
             />
@@ -952,7 +944,6 @@ exports[`Settings should render correctly 1`] = `
                     "height": 32,
                     "width": 32,
                   },
-                  false,
                 ]
               }
             />
@@ -1048,7 +1039,6 @@ exports[`Settings should render correctly 1`] = `
                     "height": 32,
                     "width": 32,
                   },
-                  false,
                 ]
               }
             />
@@ -1144,7 +1134,6 @@ exports[`Settings should render correctly 1`] = `
                     "height": 32,
                     "width": 32,
                   },
-                  false,
                 ]
               }
             />
@@ -1240,7 +1229,6 @@ exports[`Settings should render correctly 1`] = `
                     "height": 32,
                     "width": 32,
                   },
-                  false,
                 ]
               }
             />
@@ -1336,7 +1324,6 @@ exports[`Settings should render correctly 1`] = `
                     "height": 32,
                     "width": 32,
                   },
-                  false,
                 ]
               }
             />

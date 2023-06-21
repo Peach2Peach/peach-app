@@ -148,7 +148,6 @@ exports[`Language renders correctly 1`] = `
                         "height": 20,
                         "width": 20,
                       },
-                      false,
                     ]
                   }
                 />
@@ -266,7 +265,6 @@ exports[`Language renders correctly 1`] = `
                         "height": 20,
                         "width": 20,
                       },
-                      false,
                     ]
                   }
                 />
@@ -384,7 +382,6 @@ exports[`Language renders correctly 1`] = `
                         "height": 20,
                         "width": 20,
                       },
-                      false,
                     ]
                   }
                 />

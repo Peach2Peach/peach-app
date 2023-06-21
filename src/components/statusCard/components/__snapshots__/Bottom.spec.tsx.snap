@@ -35,7 +35,6 @@ exports[`Bottom should render correctly 1`] = `
           "opacity": 0,
           "width": 28,
         },
-        false,
       ]
     }
   />
@@ -103,7 +102,6 @@ exports[`Bottom should render correctly 1`] = `
             "height": 28,
             "width": 28,
           },
-          false,
         ]
       }
     />
@@ -163,7 +161,6 @@ exports[`Bottom should render correctly with labelIcon 1`] = `
           "opacity": 0,
           "width": 28,
         },
-        false,
       ]
     }
   />
@@ -181,14 +178,10 @@ exports[`Bottom should render correctly with labelIcon 1`] = `
       style={
         [
           {
-            "height": 24,
-            "width": 24,
-          },
-          undefined,
-          {
             "height": 10,
             "width": 10,
           },
+          undefined,
         ]
       }
     />
@@ -247,7 +240,6 @@ exports[`Bottom should render correctly with labelIcon 1`] = `
             "height": 28,
             "width": 28,
           },
-          false,
         ]
       }
     />
@@ -307,7 +299,6 @@ exports[`Bottom should render correctly with unreadMessages 1`] = `
           "opacity": 0,
           "width": 28,
         },
-        false,
       ]
     }
   />
@@ -373,7 +364,6 @@ exports[`Bottom should render correctly with unreadMessages 1`] = `
             "height": 28,
             "width": 28,
           },
-          false,
         ]
       }
     />

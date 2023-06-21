@@ -91,7 +91,6 @@ exports[`ChatButton renders correctly 1`] = `
             "height": 12,
             "width": 12,
           },
-          false,
         ]
       }
     />
@@ -190,7 +189,6 @@ exports[`ChatButton renders correctly with active dispute 1`] = `
             "height": 12,
             "width": 12,
           },
-          false,
         ]
       }
     />

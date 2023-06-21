@@ -138,7 +138,6 @@ exports[`Welcome should render correctly 1`] = `
               "height": 12,
               "width": 12,
             },
-            false,
           ]
         }
       />
@@ -269,7 +268,6 @@ exports[`Welcome should render correctly 1`] = `
               "height": 16,
               "width": 16,
             },
-            false,
           ]
         }
       />

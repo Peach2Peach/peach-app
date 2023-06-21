@@ -417,7 +417,6 @@ exports[`RestoreBackup should render correctly 1`] = `
                             "marginLeft": 16,
                             "width": 20,
                           },
-                          false,
                         ]
                       }
                     />
@@ -593,7 +592,6 @@ exports[`RestoreBackup should render correctly 1`] = `
                             "marginLeft": 16,
                             "width": 20,
                           },
-                          false,
                         ]
                       }
                     />
@@ -729,7 +727,6 @@ exports[`RestoreBackup should render correctly 1`] = `
                     "height": 16,
                     "width": 16,
                   },
-                  false,
                 ]
               }
             />

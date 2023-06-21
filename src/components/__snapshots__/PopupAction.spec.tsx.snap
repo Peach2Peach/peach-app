@@ -86,7 +86,6 @@ exports[`PopupAction renders correctly 1`] = `
           "height": 16,
           "width": 16,
         },
-        false,
       ]
     }
   />
@@ -181,7 +180,6 @@ exports[`PopupAction renders correctly when disabled 1`] = `
           "height": 16,
           "width": 16,
         },
-        false,
       ]
     }
   />
@@ -276,7 +274,6 @@ exports[`PopupAction renders correctly with reversed order 1`] = `
           "height": 16,
           "width": 16,
         },
-        false,
       ]
     }
   />

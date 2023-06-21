@@ -47,7 +47,6 @@ exports[`CloseIcon should render correctly 1`] = `
           "height": 24,
           "width": 24,
         },
-        false,
       ]
     }
   />

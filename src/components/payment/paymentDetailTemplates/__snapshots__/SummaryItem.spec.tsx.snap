@@ -371,7 +371,6 @@ exports[`SummaryItem renders correctly for escrow 1`] = `
               "height": 20,
               "width": 20,
             },
-            false,
           ]
         }
       />

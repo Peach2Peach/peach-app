@@ -72,7 +72,6 @@ exports[`Left should render correctly when replaced 1`] = `
             "height": 17,
             "width": 17,
           },
-          false,
         ]
       }
     />
@@ -309,7 +308,6 @@ exports[`Left should render correctly with title, icon and date 1`] = `
             "height": 17,
             "width": 17,
           },
-          false,
         ]
       }
     />

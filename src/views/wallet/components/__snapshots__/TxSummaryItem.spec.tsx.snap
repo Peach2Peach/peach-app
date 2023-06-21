@@ -126,14 +126,10 @@ exports[`OfferItem should render correctly for a confirmed buy trade tx 1`] = `
             style={
               [
                 {
-                  "height": 24,
-                  "width": 24,
-                },
-                undefined,
-                {
                   "height": 17,
                   "width": 17,
                 },
+                undefined,
               ]
             }
           />
@@ -256,7 +252,6 @@ exports[`OfferItem should render correctly for a confirmed buy trade tx 1`] = `
                       "height": 12,
                       "width": 12,
                     },
-                    false,
                   ]
                 }
               />
@@ -946,14 +941,10 @@ exports[`OfferItem should render correctly for a confirmed receive tx 1`] = `
             style={
               [
                 {
-                  "height": 24,
-                  "width": 24,
-                },
-                undefined,
-                {
                   "height": 17,
                   "width": 17,
                 },
+                undefined,
               ]
             }
           />
@@ -1076,7 +1067,6 @@ exports[`OfferItem should render correctly for a confirmed receive tx 1`] = `
                       "height": 12,
                       "width": 12,
                     },
-                    false,
                   ]
                 }
               />
@@ -1766,14 +1756,10 @@ exports[`OfferItem should render correctly for a confirmed refund tx 1`] = `
             style={
               [
                 {
-                  "height": 24,
-                  "width": 24,
-                },
-                undefined,
-                {
                   "height": 17,
                   "width": 17,
                 },
+                undefined,
               ]
             }
           />
@@ -1896,7 +1882,6 @@ exports[`OfferItem should render correctly for a confirmed refund tx 1`] = `
                       "height": 12,
                       "width": 12,
                     },
-                    false,
                   ]
                 }
               />
@@ -2586,14 +2571,10 @@ exports[`OfferItem should render correctly for a pending buy trade tx 1`] = `
             style={
               [
                 {
-                  "height": 24,
-                  "width": 24,
-                },
-                undefined,
-                {
                   "height": 17,
                   "width": 17,
                 },
+                undefined,
               ]
             }
           />
@@ -2716,7 +2697,6 @@ exports[`OfferItem should render correctly for a pending buy trade tx 1`] = `
                       "height": 12,
                       "width": 12,
                     },
-                    false,
                   ]
                 }
               />
@@ -3406,14 +3386,10 @@ exports[`OfferItem should render correctly for a pending confirmed tx 1`] = `
             style={
               [
                 {
-                  "height": 24,
-                  "width": 24,
-                },
-                undefined,
-                {
                   "height": 17,
                   "width": 17,
                 },
+                undefined,
               ]
             }
           />
@@ -3536,7 +3512,6 @@ exports[`OfferItem should render correctly for a pending confirmed tx 1`] = `
                       "height": 12,
                       "width": 12,
                     },
-                    false,
                   ]
                 }
               />
@@ -4226,14 +4201,10 @@ exports[`OfferItem should render correctly for a pending receive tx 1`] = `
             style={
               [
                 {
-                  "height": 24,
-                  "width": 24,
-                },
-                undefined,
-                {
                   "height": 17,
                   "width": 17,
                 },
+                undefined,
               ]
             }
           />
@@ -4356,7 +4327,6 @@ exports[`OfferItem should render correctly for a pending receive tx 1`] = `
                       "height": 12,
                       "width": 12,
                     },
-                    false,
                   ]
                 }
               />
@@ -5046,14 +5016,10 @@ exports[`OfferItem should render correctly for a pending refund tx 1`] = `
             style={
               [
                 {
-                  "height": 24,
-                  "width": 24,
-                },
-                undefined,
-                {
                   "height": 17,
                   "width": 17,
                 },
+                undefined,
               ]
             }
           />
@@ -5176,7 +5142,6 @@ exports[`OfferItem should render correctly for a pending refund tx 1`] = `
                       "height": 12,
                       "width": 12,
                     },
-                    false,
                   ]
                 }
               />
@@ -5866,14 +5831,10 @@ exports[`OfferItem should render correctly for a pending sent tx 1`] = `
             style={
               [
                 {
-                  "height": 24,
-                  "width": 24,
-                },
-                undefined,
-                {
                   "height": 17,
                   "width": 17,
                 },
+                undefined,
               ]
             }
           />
@@ -5996,7 +5957,6 @@ exports[`OfferItem should render correctly for a pending sent tx 1`] = `
                       "height": 12,
                       "width": 12,
                     },
-                    false,
                   ]
                 }
               />

@@ -145,7 +145,6 @@ You can go do something else, we'll automatically publish your offer as soon as 
                 "height": 20,
                 "width": 20,
               },
-              false,
             ]
           }
         />
@@ -300,7 +299,6 @@ You can go do something else, we'll automatically publish your offer as soon as 
                 "height": 20,
                 "width": 20,
               },
-              false,
             ]
           }
         />

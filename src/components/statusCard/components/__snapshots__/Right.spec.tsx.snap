@@ -90,7 +90,6 @@ exports[`Right should render correctly with amount 1`] = `
                 "height": 12,
                 "width": 12,
               },
-              false,
             ]
           }
         />
@@ -693,7 +692,6 @@ exports[`Right should render correctly with fiatAmount 1`] = `
                 "height": 12,
                 "width": 12,
               },
-              false,
             ]
           }
         />
@@ -1342,7 +1340,6 @@ exports[`Right should render correctly with range 1`] = `
                   "height": 12,
                   "width": 12,
                 },
-                false,
               ]
             }
           />
@@ -1946,7 +1943,6 @@ exports[`Right should render correctly with range 1`] = `
                   "height": 12,
                   "width": 12,
                 },
-                false,
               ]
             }
           />
