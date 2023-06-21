@@ -15,8 +15,10 @@ export const getThemeForTradeItem = (trade: TradeSummary): TradeTheme => {
   if (isContractSummary(trade)) {
     if (trade.disputeWinner) return getDisputeResultTheme(trade)
     if (trade.tradeStatus !== 'tradeCanceled') {
-      if (trade.type === 'ask') return { iconId: 'sell', color }
-      if (trade.type === 'bid') return { iconId: 'buy', color }
+      return {
+        iconId: trade.type === 'ask' ? 'sell' : 'buy',
+        color,
+      }
     }
   }
 
