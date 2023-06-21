@@ -1,24 +1,20 @@
 import { useFocusEffect } from '@react-navigation/native'
-import { useCallback, useMemo, useState } from 'react'
-import { shallow } from 'zustand/shallow'
+import { useCallback, useState } from 'react'
 import { useHeaderSetup, useNavigation, useValidatedState } from '../../../hooks'
-import { useHandleTransactionError } from '../../../hooks/error/useHandleTransactionError'
 import { useFeeRate } from '../../../hooks/useFeeRate'
 import { useShowHelp } from '../../../hooks/useShowHelp'
-import { WithdrawalConfirmation } from '../../../popups/WithdrawalConfirmation'
 import { useSettingsStore } from '../../../store/settingsStore'
-import { usePopupStore } from '../../../store/usePopupStore'
 import i18n from '../../../utils/i18n'
 import { headerIcons } from '../../../utils/layout/headerIcons'
 import { peachWallet } from '../../../utils/wallet/setWallet'
 import { useWalletState } from '../../../utils/wallet/walletStore'
+import { useOpenWithdrawalConfirmationPopup } from './useOpenWithdrawalConfirmationPopup'
 import { useSyncWallet } from './useSyncWallet'
 
 const bitcoinAddressRules = { required: false, bitcoinAddress: true }
 
 export const useWalletSetup = (syncOnLoad = true) => {
-  const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
-  const handleTransactionError = useHandleTransactionError()
+  const openWithdrawalConfirmationPopup = useOpenWithdrawalConfirmationPopup()
   const feeRate = useFeeRate()
   const walletStore = useWalletState((state) => state)
   const showHelp = useShowHelp('withdrawingFunds')
@@ -40,38 +36,25 @@ export const useWalletSetup = (syncOnLoad = true) => {
   const [address, setAddress, isValid, addressErrors] = useValidatedState<string>('', bitcoinAddressRules)
   const canWithdrawAll = walletStore.balance > 0 && peachWallet.synced && !!address && isValid
 
-  const confirmWithdrawal = async () => {
-    closePopup()
-
-    try {
-      const result = await peachWallet.withdrawAll(address, feeRate)
-      if (await result.txid()) setAddress('')
-    } catch (e) {
-      handleTransactionError(e)
-    }
+  const onSuccess = (txId: string) => {
+    if (!txId) return
+    setAddress('')
   }
 
   const openWithdrawalConfirmation = () =>
-    setPopup({
-      title: i18n('wallet.confirmWithdraw.title'),
-      content: <WithdrawalConfirmation />,
-      visible: true,
-      action2: {
-        callback: closePopup,
-        label: i18n('cancel'),
-        icon: 'xCircle',
-      },
-      action1: {
-        callback: confirmWithdrawal,
-        label: i18n('wallet.confirmWithdraw.confirm'),
-        icon: 'arrowRightCircle',
-      },
-      level: 'APP',
+    openWithdrawalConfirmationPopup({
+      address,
+      feeRate,
+      onSuccess,
     })
 
+  const syncWalletOnLoad = async () => {
+    setWalletLoading(peachWallet.transactions.length === 0)
+    await peachWallet.syncWallet()
+    setWalletLoading(false)
+  }
+
   useHeaderSetup(
-    useMemo(
-      () =>
     walletLoading
       ? {}
       : {
@@ -91,15 +74,7 @@ export const useWalletSetup = (syncOnLoad = true) => {
           { ...headerIcons.help, label: `${i18n('help')}`, onPress: showHelp },
         ],
       },
-      [navigation, showHelp, walletLoading],
-    ),
   )
-
-  const syncWalletOnLoad = async () => {
-    setWalletLoading(peachWallet.transactions.length === 0)
-    await peachWallet.syncWallet()
-    setWalletLoading(false)
-  }
 
   useFocusEffect(
     useCallback(() => {
@@ -116,7 +91,6 @@ export const useWalletSetup = (syncOnLoad = true) => {
     addressErrors,
     openWithdrawalConfirmation,
     canWithdrawAll,
-    confirmWithdrawal,
     walletLoading,
   }
 }
