@@ -34,11 +34,11 @@ describe('i18n', () => {
     i18n.setLocale(null, { locale: 'en' })
     strictEqual('Variable test: Hello John $2', i18n('i18n.test', 'Hello', 'John'))
     strictEqual('Variable test: Hello John Doe', i18n('i18n.test', 'Hello', 'John', 'Doe'))
-    strictEqual('100000 sats', i18n('currency.format.sats', '100000'))
+    strictEqual('100000 sats', i18n('currency.format.sats', '100000'))
 
     i18n.setLocale(null, { locale: 'fr' })
     strictEqual('Test de variable : Hello John Doe', i18n('i18n.test', 'Hello', 'John', 'Doe'))
-    strictEqual('1000 sats', i18n('currency.format.sats', '1000'))
+    strictEqual('1000 sats', i18n('currency.format.sats', '1000'))
   })
 
   it('avoids orphans for 4 or more words', () => {

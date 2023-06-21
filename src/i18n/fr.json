@@ -347,7 +347,7 @@
   "currency.format.GBP": "£ $0",
   "currency.format.SEK": "$0 SEK",
   "currency.format.USD": "$ $0",
-  "currency.format.sats": "$0 sats",
+  "currency.format.sats": "$0 sats",
   "currency.select.title": "sélectionner la devise",
   "decrypt": "déchiffrer",
   "default": "par défaut",
