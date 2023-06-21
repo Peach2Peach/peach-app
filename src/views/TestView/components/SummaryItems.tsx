@@ -15,22 +15,20 @@ const defaultProps: StatusCardProps = {
   onPress: () => Alert.alert('Action works'),
   label: 'action label',
   labelIcon: <Icon id="alertCircle" size={16} color={tw`text-error-main`.color} />,
-  color: 'orange',
+  color: 'primary',
 }
 export const SummaryItems = () => (
   <View style={tw`flex flex-col items-center`}>
     <Text style={tw`mt-4 h3`}>Summary Item</Text>
     <StatusCard {...defaultProps} />
     <StatusCard
-      {...{
-        ...defaultProps,
-        subtext: getShortDateFormat(new Date(Date.now() - MSINADAY)),
-        title: 'with icon',
-        icon: <Icon id="upload" style={tw`w-4`} color={tw`text-success-main`.color} />,
-      }}
+      {...{ ...defaultProps }}
+      subtext={getShortDateFormat(new Date(Date.now() - MSINADAY))}
+      title="with icon"
+      icon={<Icon id="upload" style={tw`w-4`} color={tw`text-success-main`.color} />}
     />
-    <StatusCard {...defaultProps} subtext={getShortDateFormat(new Date(Date.now() - 2 * MSINADAY))} color="blue" />
-    <StatusCard {...defaultProps} color="yellow" />
+    <StatusCard {...defaultProps} subtext={getShortDateFormat(new Date(Date.now() - 2 * MSINADAY))} color="info" />
+    <StatusCard {...defaultProps} color="warning" />
     <StatusCard {...defaultProps} title="no action" label={undefined} />
   </View>
 )

@@ -5,7 +5,7 @@ const mockProps = {
   title: 'title',
   subtext: 'subtext',
   onPress: jest.fn(),
-  color: 'orange',
+  color: 'primary',
 } as const
 
 describe('StatusCard', () => {

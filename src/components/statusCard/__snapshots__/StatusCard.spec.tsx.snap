@@ -20,13 +20,13 @@ exports[`StatusCard should render correctly 1`] = `
     }
   >
     <Top
-      color="orange"
+      color="primary"
       onPress={[MockFunction]}
       subtext="subtext"
       title="title"
     />
     <Bottom
-      color="orange"
+      color="primary"
       onPress={[MockFunction]}
       subtext="subtext"
       title="title"

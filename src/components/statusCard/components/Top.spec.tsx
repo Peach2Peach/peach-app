@@ -19,7 +19,7 @@ const props: StatusCardProps = {
   price: 100000,
   currency: 'EUR',
   onPress: jest.fn(),
-  color: 'orange',
+  color: 'primary',
 }
 describe('Top', () => {
   it('should render correctly', () => {

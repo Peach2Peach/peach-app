@@ -3,20 +3,26 @@
 exports[`ContractItem should render correctly 1`] = `
 <StatusCard
   amount={21000}
-  color="orange"
+  color="primary"
+  creationDate={2021-01-01T00:00:00.000Z}
   currency="EUR"
+  id="contractId"
   label="make payment"
   labelIcon={
     <Icon
       color="#FFFCFA"
       id="dollarSign"
-      size={16}
+      size={17}
     />
   }
+  lastModified={2021-01-01T00:00:00.000Z}
+  offerId="offerId"
   onPress={[Function]}
   price={21}
   subtext="01 / 01 / 21"
   title="PC‑NAN‑NAN"
+  tradeStatus="paymentRequired"
+  type="bid"
   unreadMessages={0}
 />
 `;
@@ -24,7 +30,8 @@ exports[`ContractItem should render correctly 1`] = `
 exports[`ContractItem should render correctly with past contract 1`] = `
 <StatusCard
   amount={21000}
-  color="green"
+  color="success"
+  creationDate={2021-01-01T00:00:00.000Z}
   currency="EUR"
   icon={
     <Icon
@@ -33,10 +40,15 @@ exports[`ContractItem should render correctly with past contract 1`] = `
       size={16}
     />
   }
+  id="contractId"
+  lastModified={2021-01-01T00:00:00.000Z}
+  offerId="offerId"
   onPress={[Function]}
   price={21}
   subtext="01 / 01 / 21"
   title="PC‑NAN‑NAN"
+  tradeStatus="tradeCompleted"
+  type="bid"
   unreadMessages={0}
 />
 `;
@@ -44,20 +56,26 @@ exports[`ContractItem should render correctly with past contract 1`] = `
 exports[`ContractItem should render correctly with unread messages 1`] = `
 <StatusCard
   amount={21000}
-  color="orange"
+  color="primary"
+  creationDate={2021-01-01T00:00:00.000Z}
   currency="EUR"
+  id="contractId"
   label="make payment"
   labelIcon={
     <Icon
       color="#FFFCFA"
       id="dollarSign"
-      size={16}
+      size={17}
     />
   }
+  lastModified={2021-01-01T00:00:00.000Z}
+  offerId="offerId"
   onPress={[Function]}
   price={21}
   subtext="01 / 01 / 21"
   title="PC‑NAN‑NAN"
+  tradeStatus="paymentRequired"
+  type="bid"
   unreadMessages={1}
 />
 `;
@@ -70,18 +88,29 @@ exports[`OfferItem should render correctly 1`] = `
       210000,
     ]
   }
-  color="mild"
+  color="primary-mild"
+  creationDate={2021-01-01T00:00:00.000Z}
+  id="id"
   label="looking for match"
   labelIcon={
     <Icon
       color="#7D675E"
       id="search"
-      size={16}
+      size={17}
     />
   }
+  lastModified={2021-01-01T00:00:00.000Z}
+  matches={[]}
   onPress={[Function]}
+  prices={
+    {
+      "EUR": 21,
+    }
+  }
   subtext="01 / 01 / 21"
   title="P‑NAN"
+  tradeStatus="searchingForPeer"
+  type="bid"
 />
 `;
 
@@ -93,7 +122,8 @@ exports[`OfferItem should render correctly if it's a past offer 1`] = `
       210000,
     ]
   }
-  color="green"
+  color="success"
+  creationDate={2021-01-01T00:00:00.000Z}
   icon={
     <Icon
       color="#05A85A"
@@ -101,8 +131,18 @@ exports[`OfferItem should render correctly if it's a past offer 1`] = `
       size={16}
     />
   }
+  id="id"
+  lastModified={2021-01-01T00:00:00.000Z}
+  matches={[]}
   onPress={[Function]}
+  prices={
+    {
+      "EUR": 21,
+    }
+  }
   subtext="01 / 01 / 21"
   title="P‑NAN"
+  tradeStatus="tradeCompleted"
+  type="bid"
 />
 `;

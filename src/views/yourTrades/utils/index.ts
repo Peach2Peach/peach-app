@@ -1,7 +1,7 @@
 export { getDisputeResultTheme } from './getDisputeResultTheme'
 export { getNavigationDestinationForContract } from './navigation/getNavigationDestinationForContract'
 export { getNavigationDestinationForOffer } from './navigation/getNavigationDestinationForOffer'
-export { getOfferLevel } from './getOfferLevel'
+export { getOfferColor } from './getOfferColor'
 export { getThemeForTradeItem } from './getThemeForTradeItem'
 export { isContractSummary } from './isContractSummary'
 export { isError } from './isError'

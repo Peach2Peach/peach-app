@@ -8,7 +8,7 @@ type Props = {
 
 export const TradeItem = ({ item }: Props) => {
   const onPress = useNavigateToOfferOrContract(item)
-  const statusCardProps = getStatusCardProps(item, onPress)
+  const statusCardProps = getStatusCardProps(item)
 
-  return <StatusCard {...statusCardProps} />
+  return <StatusCard {...{ ...item, ...statusCardProps, onPress }} />
 }

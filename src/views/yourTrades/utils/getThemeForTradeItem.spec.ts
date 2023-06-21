@@ -1,4 +1,3 @@
-import tw from '../../../styles/tailwind'
 import { getThemeForTradeItem } from '.'
 
 const completedTradeSeller: Partial<ContractSummary> = {
@@ -26,33 +25,32 @@ describe('getThemeForTradeItem', () => {
   it('returns the correct theme for a canceled contract', () => {
     const theme = getThemeForTradeItem(canceledTrade as ContractSummary)
     expect(theme).toEqual({
-      icon: 'xCircle',
-      level: 'gray',
-      color: tw`text-black-5`.color,
+      iconId: 'xCircle',
+      color: 'black',
     })
   })
 
   it('returns the correct theme for a completed trade as buyer', () => {
     const theme = getThemeForTradeItem(completedTradeBuyer as ContractSummary)
-    expect(theme).toEqual({ icon: 'buy', level: 'green', color: tw`text-success-mild`.color })
+    expect(theme).toEqual({ iconId: 'buy', color: 'success' })
   })
 
   it('returns the correct theme for a completed trade as seller', () => {
     const theme = getThemeForTradeItem(completedTradeSeller as ContractSummary)
-    expect(theme).toEqual({ icon: 'sell', level: 'orange', color: tw`text-primary-mild-2`.color })
+    expect(theme).toEqual({ iconId: 'sell', color: 'primary' })
   })
   it('returns the correct theme for a lost dispute as buyer', () => {
     const theme = getThemeForTradeItem({
       ...completedTradeBuyer,
       disputeWinner: 'seller',
     } as ContractSummary)
-    expect(theme).toEqual({ icon: 'alertOctagon', level: 'red', color: '#DF321F' })
+    expect(theme).toEqual({ iconId: 'alertOctagon', color: 'error' })
   })
   it('returns the correct theme for a won dispute as seller', () => {
     const theme = getThemeForTradeItem({
       ...completedTradeSeller,
       disputeWinner: 'seller',
     } as ContractSummary)
-    expect(theme).toEqual({ icon: 'alertOctagon', level: 'green', color: '#05A85A' })
+    expect(theme).toEqual({ iconId: 'alertOctagon', color: 'success' })
   })
 })

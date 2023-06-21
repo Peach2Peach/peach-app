@@ -8,6 +8,7 @@ type Empty = {
 } & Partial<Props>
 
 export const getPropsWithType = (props: Props): Empty | FiatAmount | Range | Amount => {
+  if (props.replaced) return { ...props, type: 'empty' }
   if (isRange(props)) return { ...props, type: 'range' }
   if (isFiatAmount(props)) return { ...props, type: 'fiatAmount' }
   if (isAmount(props)) return { ...props, type: 'amount' }

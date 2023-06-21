@@ -7,7 +7,7 @@ import { FixedHeightText } from '../../text/FixedHeightText'
 import { getPropsWithType } from '../helpers'
 import { StatusCardProps } from '../StatusCard'
 
-export type Props = Pick<StatusCardProps, 'amount' | 'price' | 'currency'>
+export type Props = Pick<StatusCardProps, 'amount' | 'price' | 'currency' | 'replaced'>
 
 export const Right = (propsWithoutType: Props) => {
   const { type, amount, price, currency } = getPropsWithType(propsWithoutType)

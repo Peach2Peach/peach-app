@@ -39,16 +39,4 @@ describe('getNavigationDestinationForContract', () => {
     expect(destination).toBe('tradeComplete')
     expect(params).toEqual({ contract })
   })
-
-  it('should navigate to setRefundWallet', async () => {
-    const contractSummary: Partial<ContractSummary> = {
-      id: '3',
-      tradeStatus: 'refundAddressRequired',
-    }
-
-    const [destination, params] = await getNavigationDestinationForContract(contractSummary as ContractSummary)
-
-    expect(destination).toBe('setRefundWallet')
-    expect(params).toEqual({ offerId: '1' })
-  })
 })

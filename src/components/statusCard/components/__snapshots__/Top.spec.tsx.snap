@@ -17,7 +17,7 @@ exports[`Top should render correctly 1`] = `
 >
   <Left
     amount={21}
-    color="orange"
+    color="primary"
     currency="EUR"
     onPress={[MockFunction]}
     price={100000}
@@ -27,7 +27,7 @@ exports[`Top should render correctly 1`] = `
   />
   <Right
     amount={21}
-    color="orange"
+    color="primary"
     currency="EUR"
     onPress={[MockFunction]}
     price={100000}
