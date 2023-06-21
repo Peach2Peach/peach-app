@@ -4,10 +4,10 @@ exports[`TransactionHistory should render correctly when empty 1`] = `<EmptyTran
 
 exports[`TransactionHistory should render correctly with tx 1`] = `
 <FlatList
-  ItemSeparatorComponent={[Function]}
   contentContainerStyle={
     [
       {
+        "gap": 16,
         "paddingBottom": 48,
         "paddingLeft": 16,
         "paddingRight": 16,
@@ -48,10 +48,10 @@ exports[`TransactionHistory should render correctly with tx 1`] = `
 
 exports[`TransactionHistory should render medium screens correctly 1`] = `
 <FlatList
-  ItemSeparatorComponent={[Function]}
   contentContainerStyle={
     [
       {
+        "gap": 16,
         "paddingBottom": 48,
         "paddingLeft": 16,
         "paddingRight": 16,
