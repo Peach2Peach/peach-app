@@ -8,19 +8,14 @@ type Props = ComponentProps & {
   color?: FillProps['fill']
   size?: number
 }
+const defaultSize = tw`w-6`.width
 
 export const Icon = ({ id, style, color, size }: Props) => {
   const SVG = Icons[id]
   const iconStyle = Array.isArray(style) ? style : [style]
+  const iconSize = { width: size || defaultSize, height: size || defaultSize }
 
-  return SVG ? (
-    <SVG
-      style={[tw`w-6 h-6`, ...iconStyle, size !== undefined && { width: size, height: size }]}
-      fill={color || '#888'}
-    />
-  ) : (
-    <PeachText>❌</PeachText>
-  )
+  return SVG ? <SVG style={[iconSize, ...iconStyle]} fill={color || '#888'} /> : <PeachText>❌</PeachText>
 }
 
 export default Icon

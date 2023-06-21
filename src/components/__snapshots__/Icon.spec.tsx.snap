@@ -10,7 +10,6 @@ exports[`Icon can handle color 1`] = `
         "width": 24,
       },
       undefined,
-      false,
     ]
   }
 />
@@ -22,14 +21,10 @@ exports[`Icon can handle size 1`] = `
   style={
     [
       {
-        "height": 24,
-        "width": 24,
-      },
-      undefined,
-      {
         "height": 10,
         "width": 10,
       },
+      undefined,
     ]
   }
 />
@@ -48,7 +43,6 @@ exports[`Icon can handle styles 1`] = `
         "height": 40,
         "width": 40,
       },
-      false,
     ]
   }
 />
@@ -69,7 +63,6 @@ exports[`Icon can handle styles 2`] = `
       {
         "height": 40,
       },
-      false,
     ]
   }
 />
@@ -105,7 +98,6 @@ exports[`Icon should render correctly 1`] = `
         "width": 24,
       },
       undefined,
-      false,
     ]
   }
 />
