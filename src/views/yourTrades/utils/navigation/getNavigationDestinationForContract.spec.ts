@@ -1,4 +1,5 @@
-// eslint-disable-next-line max-len
+import { waitFor } from '@testing-library/react-native'
+import { queryClient } from '../../../../../tests/unit/helpers/QueryClientWrapper'
 import { getNavigationDestinationForContract } from './getNavigationDestinationForContract'
 
 jest.mock('../../../../utils/contract', () => ({
@@ -9,6 +10,10 @@ jest.mock('../../../../utils/contract', () => ({
 const getContractMock = jest.fn()
 jest.mock('../../../../utils/peachAPI', () => ({
   getContract: () => getContractMock(),
+}))
+
+jest.mock('../../../../queryClient', () => ({
+  queryClient,
 }))
 
 describe('getNavigationDestinationForContract', () => {
@@ -38,5 +43,19 @@ describe('getNavigationDestinationForContract', () => {
 
     expect(destination).toBe('tradeComplete')
     expect(params).toEqual({ contract })
+  })
+
+  it('should update the query cache', async () => {
+    const contractSummary: Partial<ContractSummary> = {
+      id: '1-2',
+      tradeStatus: 'rateUser',
+    }
+
+    getContractMock.mockReturnValue([{ id: '1-2' }])
+    await getNavigationDestinationForContract(contractSummary as ContractSummary)
+
+    expect(queryClient.getQueryData(['contract', '1-2'])).toEqual({
+      id: '1-2',
+    })
   })
 })
