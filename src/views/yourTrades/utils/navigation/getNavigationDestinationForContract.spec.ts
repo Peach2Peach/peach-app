@@ -1,4 +1,3 @@
-import { waitFor } from '@testing-library/react-native'
 import { queryClient } from '../../../../../tests/unit/helpers/QueryClientWrapper'
 import { getNavigationDestinationForContract } from './getNavigationDestinationForContract'
 
