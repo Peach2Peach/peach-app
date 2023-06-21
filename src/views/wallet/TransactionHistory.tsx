@@ -12,6 +12,8 @@ export const TransactionHistory = () => {
   if (transactions.length === 0) return <EmptyTransactionHistory />
   return (
     <FlatList
+      initialNumToRender={10}
+      maxToRenderPerBatch={20}
       contentContainerStyle={[tw`px-4 py-12 gap-4`, tw.md`px-8`]}
       data={transactions}
       renderItem={ListItem}
