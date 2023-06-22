@@ -4,7 +4,7 @@ import { ContinueTradeSlider } from './ContinueTradeSlider'
 describe('ContinueTradeSlider', () => {
   const renderer = createRenderer()
   it('renders correctly', () => {
-    renderer.render(<ContinueTradeSlider onUnlock={jest.fn()} />)
+    renderer.render(<ContinueTradeSlider onConfirm={jest.fn()} />)
     expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
 })

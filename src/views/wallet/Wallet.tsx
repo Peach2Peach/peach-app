@@ -44,7 +44,7 @@ export default () => {
             style={tw`mb-6`}
             disabled={!walletStore.balance || !peachWallet.synced || !address || !isValid}
             label1={i18n('wallet.withdrawAll')}
-            onUnlock={openWithdrawalConfirmation}
+            onConfirm={openWithdrawalConfirmation}
           />
         </View>
       </PeachScrollView>

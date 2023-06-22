@@ -184,7 +184,7 @@ exports[`ContractCTA should render payment confirm slider correctly for the sell
   disabled={true}
   label1="confirm payment"
   label2="payment received"
-  onUnlock={[MockFunction]}
+  onConfirm={[MockFunction]}
   style={
     {
       "width": 263,
@@ -198,7 +198,7 @@ exports[`ContractCTA should render the payment confirm slider correctly for the 
   disabled={true}
   label1="I made the payment"
   label2="payment made"
-  onUnlock={[MockFunction]}
+  onConfirm={[MockFunction]}
   style={
     {
       "width": 263,

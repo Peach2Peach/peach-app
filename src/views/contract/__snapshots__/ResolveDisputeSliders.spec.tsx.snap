@@ -4,7 +4,7 @@ exports[`ResolveDisputeSliders should render correctly 1`] = `
 [
   <ConfirmSlider
     label1="re-publish offer"
-    onUnlock={[Function]}
+    onConfirm={[Function]}
     style={
       {
         "width": 263,
@@ -13,7 +13,7 @@ exports[`ResolveDisputeSliders should render correctly 1`] = `
   />,
   <ConfirmSlider
     label1="refund escrow"
-    onUnlock={[Function]}
+    onConfirm={[Function]}
     style={
       {
         "width": 263,

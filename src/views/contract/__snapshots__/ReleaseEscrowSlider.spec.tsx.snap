@@ -3,7 +3,7 @@
 exports[`ReleaseEscrowSlider should render correctly 1`] = `
 <ConfirmSlider
   label1="release escrow"
-  onUnlock={[Function]}
+  onConfirm={[Function]}
   style={
     [
       {

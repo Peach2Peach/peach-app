@@ -4,6 +4,6 @@ exports[`RefundEscrowSlider renders correctly 1`] = `
 <ConfirmSlider
   iconId="download"
   label1="refund escrow"
-  onUnlock={[Function]}
+  onConfirm={[Function]}
 />
 `;

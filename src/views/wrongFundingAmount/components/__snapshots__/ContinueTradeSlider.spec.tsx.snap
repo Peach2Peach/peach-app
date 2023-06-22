@@ -4,6 +4,6 @@ exports[`ContinueTradeSlider renders correctly 1`] = `
 <ConfirmSlider
   iconId="arrowRightCircle"
   label1="continue trade"
-  onUnlock={[MockFunction]}
+  onConfirm={[MockFunction]}
 />
 `;

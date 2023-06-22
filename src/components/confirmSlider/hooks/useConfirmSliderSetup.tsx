@@ -4,7 +4,7 @@ import { getNormalized } from '../../../utils/math'
 import { Props } from '../ConfirmSlider'
 import { knobWidth, padding, trackWidth } from '../constants'
 
-export const useConfirmSliderSetup = ({ disabled, onUnlock }: Pick<Props, 'disabled' | 'onUnlock'>) => {
+export const useConfirmSliderSetup = ({ disabled, onConfirm }: Pick<Props, 'disabled' | 'onConfirm'>) => {
   const [widthToSlide, setWidthToSlide] = useState(trackWidth - knobWidth - padding)
 
   const onLayout = (event: LayoutChangeEvent) => {
@@ -23,10 +23,9 @@ export const useConfirmSliderSetup = ({ disabled, onUnlock }: Pick<Props, 'disab
           const x = gestureState.dx
           pan.setValue(getNormalized(x, widthToSlide))
         },
-        onPanResponderRelease: (e, gestureState) => {
-          const x = gestureState.dx
-          const normalizedVal = getNormalized(x, widthToSlide)
-          if (normalizedVal === 1 && !disabled) onUnlock()
+        onPanResponderRelease: (_e, { dx }) => {
+          const normalizedVal = getNormalized(dx, widthToSlide)
+          if (normalizedVal >= 1 && !disabled) onConfirm()
           Animated.timing(pan, {
             toValue: 0,
             duration: 100,
@@ -36,7 +35,7 @@ export const useConfirmSliderSetup = ({ disabled, onUnlock }: Pick<Props, 'disab
         },
         onShouldBlockNativeResponder: () => true,
       }),
-    [disabled, onUnlock, pan, widthToSlide],
+    [disabled, onConfirm, pan, widthToSlide],
   )
 
   return { panResponder, pan, widthToSlide, onLayout }

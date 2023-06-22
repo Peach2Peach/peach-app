@@ -25,7 +25,7 @@ export const WrongFundingAmount = () => {
         <Text style={tw`body-s`}>{i18n('escrow.wrongFundingAmount.continueOrRefund', thousands(actualAmount))}</Text>
       </View>
       <View style={tw`items-center gap-3`}>
-        <ContinueTradeSlider onUnlock={confirmEscrow} />
+        <ContinueTradeSlider onConfirm={confirmEscrow} />
         {!!sellOffer && <RefundEscrowSlider sellOffer={sellOffer} />}
       </View>
     </View>

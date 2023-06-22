@@ -10,5 +10,5 @@ type Props = {
 export const ReleaseEscrowSlider = ({ contract, style }: Props) => {
   const releaseEscrow = useReleaseEscrow(contract)
 
-  return <ConfirmSlider style={[tw`w-[263px]`, style]} label1={i18n('releaseEscrow')} onUnlock={releaseEscrow} />
+  return <ConfirmSlider style={[tw`w-[263px]`, style]} label1={i18n('releaseEscrow')} onConfirm={releaseEscrow} />
 }

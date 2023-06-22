@@ -46,7 +46,7 @@ export const ContractCTA = ({
         <ConfirmSlider
           style={tw`w-[263px]`}
           disabled={actionPending}
-          onUnlock={postConfirmPaymentBuyer}
+          onConfirm={postConfirmPaymentBuyer}
           label1={i18n('contract.payment.buyer.confirm')}
           label2={i18n('contract.payment.made')}
         />
@@ -62,7 +62,7 @@ export const ContractCTA = ({
     <ConfirmSlider
       style={tw`w-[263px]`}
       disabled={actionPending}
-      onUnlock={postConfirmPaymentSeller}
+      onConfirm={postConfirmPaymentSeller}
       label1={i18n('contract.payment.confirm')}
       label2={i18n('contract.payment.received')}
     />

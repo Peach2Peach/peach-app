@@ -13,13 +13,20 @@ export type Props = ComponentProps & {
   label1: string
   label2?: string
   iconId?: IconType
-  onUnlock: () => void
+  onConfirm: () => void
   disabled?: boolean
 }
 
 const onStartShouldSetResponder = () => true
-export const ConfirmSlider = ({ label1, label2 = label1, iconId = 'checkCircle', onUnlock, disabled, style }: Props) => {
-  const { panResponder, pan, widthToSlide, onLayout } = useConfirmSliderSetup({ onUnlock, disabled })
+export const ConfirmSlider = ({
+  label1,
+  label2 = label1,
+  iconId = 'checkCircle',
+  onConfirm,
+  disabled,
+  style,
+}: Props) => {
+  const { panResponder, pan, widthToSlide, onLayout } = useConfirmSliderSetup({ onConfirm, disabled })
 
   return (
     <View

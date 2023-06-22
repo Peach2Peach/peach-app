@@ -4,5 +4,5 @@ import { ConfirmSlider } from '../confirmSlider/ConfirmSlider'
 
 export const RefundEscrowSlider = ({ sellOffer }: { sellOffer: SellOffer }) => {
   const startRefund = useStartRefundPopup()
-  return <ConfirmSlider onUnlock={() => startRefund(sellOffer)} label1={i18n('refundEscrow')} iconId="download" />
+  return <ConfirmSlider onConfirm={() => startRefund(sellOffer)} label1={i18n('refundEscrow')} iconId="download" />
 }

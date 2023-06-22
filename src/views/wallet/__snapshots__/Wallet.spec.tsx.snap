@@ -96,7 +96,7 @@ exports[`Wallet should render correctly 1`] = `
       <ConfirmSlider
         disabled={false}
         label1="send all"
-        onUnlock={[MockFunction]}
+        onConfirm={[MockFunction]}
         style={
           {
             "marginBottom": 24,
@@ -222,7 +222,7 @@ exports[`Wallet should render correctly when refreshing 1`] = `
       <ConfirmSlider
         disabled={false}
         label1="send all"
-        onUnlock={[MockFunction]}
+        onConfirm={[MockFunction]}
         style={
           {
             "marginBottom": 24,
