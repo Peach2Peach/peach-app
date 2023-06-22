@@ -66,21 +66,9 @@ exports[`ConfirmSlider renders correctly 1`] = `
         ]
       }
     >
-      <PeachText
-        numberOfLines={1}
-        style={
-          {
-            "fontFamily": "Baloo2-SemiBold",
-            "fontSize": 15,
-            "letterSpacing": 0.54,
-            "lineHeight": 26,
-            "textAlign": "center",
-            "textTransform": "uppercase",
-          }
-        }
-      >
+      <ConfirmSliderLabel>
         label2
-      </PeachText>
+      </ConfirmSliderLabel>
     </ForwardRef(AnimatedComponentWrapper)>
     <ForwardRef(AnimatedComponentWrapper)
       style={
@@ -132,21 +120,9 @@ exports[`ConfirmSlider renders correctly 1`] = `
         }
       }
     >
-      <PeachText
-        numberOfLines={1}
-        style={
-          {
-            "fontFamily": "Baloo2-SemiBold",
-            "fontSize": 15,
-            "letterSpacing": 0.54,
-            "lineHeight": 26,
-            "textAlign": "center",
-            "textTransform": "uppercase",
-          }
-        }
-      >
+      <ConfirmSliderLabel>
         label1
-      </PeachText>
+      </ConfirmSliderLabel>
     </ForwardRef(AnimatedComponentWrapper)>
   </ForwardRef(AnimatedComponentWrapper)>
 </View>
@@ -220,21 +196,9 @@ exports[`ConfirmSlider renders correctly when disabled 1`] = `
         ]
       }
     >
-      <PeachText
-        numberOfLines={1}
-        style={
-          {
-            "fontFamily": "Baloo2-SemiBold",
-            "fontSize": 15,
-            "letterSpacing": 0.54,
-            "lineHeight": 26,
-            "textAlign": "center",
-            "textTransform": "uppercase",
-          }
-        }
-      >
+      <ConfirmSliderLabel>
         label2
-      </PeachText>
+      </ConfirmSliderLabel>
     </ForwardRef(AnimatedComponentWrapper)>
     <ForwardRef(AnimatedComponentWrapper)
       style={
@@ -286,21 +250,9 @@ exports[`ConfirmSlider renders correctly when disabled 1`] = `
         }
       }
     >
-      <PeachText
-        numberOfLines={1}
-        style={
-          {
-            "fontFamily": "Baloo2-SemiBold",
-            "fontSize": 15,
-            "letterSpacing": 0.54,
-            "lineHeight": 26,
-            "textAlign": "center",
-            "textTransform": "uppercase",
-          }
-        }
-      >
+      <ConfirmSliderLabel>
         label1
-      </PeachText>
+      </ConfirmSliderLabel>
     </ForwardRef(AnimatedComponentWrapper)>
   </ForwardRef(AnimatedComponentWrapper)>
 </View>
@@ -372,21 +324,9 @@ exports[`ConfirmSlider renders with different icon 1`] = `
         ]
       }
     >
-      <PeachText
-        numberOfLines={1}
-        style={
-          {
-            "fontFamily": "Baloo2-SemiBold",
-            "fontSize": 15,
-            "letterSpacing": 0.54,
-            "lineHeight": 26,
-            "textAlign": "center",
-            "textTransform": "uppercase",
-          }
-        }
-      >
+      <ConfirmSliderLabel>
         label2
-      </PeachText>
+      </ConfirmSliderLabel>
     </ForwardRef(AnimatedComponentWrapper)>
     <ForwardRef(AnimatedComponentWrapper)
       style={
@@ -438,21 +378,9 @@ exports[`ConfirmSlider renders with different icon 1`] = `
         }
       }
     >
-      <PeachText
-        numberOfLines={1}
-        style={
-          {
-            "fontFamily": "Baloo2-SemiBold",
-            "fontSize": 15,
-            "letterSpacing": 0.54,
-            "lineHeight": 26,
-            "textAlign": "center",
-            "textTransform": "uppercase",
-          }
-        }
-      >
+      <ConfirmSliderLabel>
         label1
-      </PeachText>
+      </ConfirmSliderLabel>
     </ForwardRef(AnimatedComponentWrapper)>
   </ForwardRef(AnimatedComponentWrapper)>
 </View>
