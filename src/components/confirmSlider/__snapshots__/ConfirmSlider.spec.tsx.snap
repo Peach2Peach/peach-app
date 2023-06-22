@@ -2,386 +2,447 @@
 
 exports[`ConfirmSlider renders correctly 1`] = `
 <View
-  onLayout={[Function]}
-  onMoveShouldSetResponder={[Function]}
-  onMoveShouldSetResponderCapture={[Function]}
-  onResponderEnd={[Function]}
-  onResponderGrant={[Function]}
-  onResponderMove={[Function]}
-  onResponderReject={[Function]}
-  onResponderRelease={[Function]}
-  onResponderStart={[Function]}
-  onResponderTerminate={[Function]}
-  onResponderTerminationRequest={[Function]}
-  onStartShouldSetResponder={[Function]}
-  onStartShouldSetResponderCapture={[Function]}
   style={
     [
       {
         "backgroundColor": "#FEEDE5",
+        "borderColor": "#FCCCB6",
         "borderRadius": 9999,
-        "maxWidth": "100%",
+        "borderWidth": 1,
         "overflow": "hidden",
+        "paddingBottom": 4,
+        "paddingLeft": 4,
+        "paddingRight": 4,
+        "paddingTop": 4,
         "width": "100%",
       },
-      {
-        "borderColor": "#FCCCB6",
-        "borderWidth": 1,
-      },
-      false,
       undefined,
     ]
   }
 >
-  <ForwardRef(AnimatedComponentWrapper)
+  <View
+    onLayout={[Function]}
+    onMoveShouldSetResponder={[Function]}
+    onMoveShouldSetResponderCapture={[Function]}
+    onResponderEnd={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderReject={[Function]}
+    onResponderRelease={[Function]}
+    onResponderStart={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
+    onStartShouldSetResponderCapture={[Function]}
     style={
-      [
-        {
-          "alignItems": "center",
-          "display": "flex",
-          "flexDirection": "row",
-        },
-        {
-          "transform": [
-            {
-              "translateX": 4,
-            },
-          ],
-        },
-      ]
+      {
+        "width": "100%",
+      }
     }
   >
     <ForwardRef(AnimatedComponentWrapper)
+      onStartShouldSetResponder={[Function]}
       style={
         [
           {
-            "position": "absolute",
-            "right": "100%",
-          },
-          {
-            "opacity": 0,
-            "width": 184,
-          },
-        ]
-      }
-    >
-      <ConfirmSliderLabel>
-        label2
-      </ConfirmSliderLabel>
-    </ForwardRef(AnimatedComponentWrapper)>
-    <ForwardRef(AnimatedComponentWrapper)
-      style={
-        [
-          {
-            "backgroundColor": "rgba(245, 101, 34, 1)",
-            "width": 72,
-          },
-          {
-            "borderRadius": 9999,
-            "display": "flex",
+            "alignItems": "center",
             "flexDirection": "row",
-            "justifyContent": "center",
-            "marginBottom": 4,
-            "marginTop": 4,
-            "paddingBottom": 8,
-            "paddingTop": 8,
+          },
+          {
+            "transform": [
+              {
+                "translateX": 0,
+              },
+            ],
           },
         ]
       }
     >
-      <Icon
-        color="#FFF9F6"
-        id="checkCircle"
+      <ForwardRef(AnimatedComponentWrapper)
+        style={
+          [
+            {
+              "position": "absolute",
+              "right": "100%",
+            },
+            {
+              "opacity": 0,
+              "width": 204,
+            },
+          ]
+        }
+      >
+        <ConfirmSliderLabel>
+          label2
+        </ConfirmSliderLabel>
+      </ForwardRef(AnimatedComponentWrapper)>
+      <ForwardRef(AnimatedComponentWrapper)
+        style={
+          [
+            {
+              "backgroundColor": "rgba(245, 101, 34, 1)",
+              "width": 56,
+            },
+            {
+              "alignItems": "center",
+              "borderRadius": 9999,
+              "display": "flex",
+              "flexDirection": "row",
+              "gap": 2,
+              "height": 24,
+              "justifyContent": "center",
+            },
+            {
+              "gap": 4,
+              "height": 32,
+            },
+          ]
+        }
+      >
+        <Icon
+          color="#FFF9F6"
+          id="checkCircle"
+          style={
+            [
+              {
+                "height": 16,
+                "width": 16,
+              },
+              {
+                "height": 19,
+                "width": 19,
+              },
+            ]
+          }
+        />
+        <Icon
+          color="#FFF9F6"
+          id="chevronsRight"
+          style={
+            [
+              {
+                "height": 16,
+                "width": 16,
+              },
+              {
+                "height": 19,
+                "width": 19,
+              },
+            ]
+          }
+        />
+      </ForwardRef(AnimatedComponentWrapper)>
+      <ForwardRef(AnimatedComponentWrapper)
         style={
           {
-            "height": 24,
-            "width": 24,
+            "opacity": 1,
+            "width": 204,
           }
         }
-      />
-      <Icon
-        color="#FFF9F6"
-        id="chevronsRight"
-        style={
-          {
-            "height": 24,
-            "marginLeft": 4,
-            "width": 24,
-          }
-        }
-      />
+      >
+        <ConfirmSliderLabel>
+          label1
+        </ConfirmSliderLabel>
+      </ForwardRef(AnimatedComponentWrapper)>
     </ForwardRef(AnimatedComponentWrapper)>
-    <ForwardRef(AnimatedComponentWrapper)
-      style={
-        {
-          "opacity": 1,
-          "width": 184,
-        }
-      }
-    >
-      <ConfirmSliderLabel>
-        label1
-      </ConfirmSliderLabel>
-    </ForwardRef(AnimatedComponentWrapper)>
-  </ForwardRef(AnimatedComponentWrapper)>
+  </View>
 </View>
 `;
 
 exports[`ConfirmSlider renders correctly when disabled 1`] = `
 <View
-  onLayout={[Function]}
-  onMoveShouldSetResponder={[Function]}
-  onMoveShouldSetResponderCapture={[Function]}
-  onResponderEnd={[Function]}
-  onResponderGrant={[Function]}
-  onResponderMove={[Function]}
-  onResponderReject={[Function]}
-  onResponderRelease={[Function]}
-  onResponderStart={[Function]}
-  onResponderTerminate={[Function]}
-  onResponderTerminationRequest={[Function]}
-  onStartShouldSetResponder={[Function]}
-  onStartShouldSetResponderCapture={[Function]}
   style={
     [
       {
         "backgroundColor": "#FEEDE5",
-        "borderRadius": 9999,
-        "maxWidth": "100%",
-        "overflow": "hidden",
-        "width": "100%",
-      },
-      {
         "borderColor": "#FCCCB6",
+        "borderRadius": 9999,
         "borderWidth": 1,
-      },
-      {
-        "opacity": 0.5,
+        "overflow": "hidden",
+        "paddingBottom": 4,
+        "paddingLeft": 4,
+        "paddingRight": 4,
+        "paddingTop": 4,
+        "width": "100%",
       },
       undefined,
     ]
   }
 >
-  <ForwardRef(AnimatedComponentWrapper)
+  <View
+    onLayout={[Function]}
+    onMoveShouldSetResponder={[Function]}
+    onMoveShouldSetResponderCapture={[Function]}
+    onResponderEnd={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderReject={[Function]}
+    onResponderRelease={[Function]}
+    onResponderStart={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
+    onStartShouldSetResponderCapture={[Function]}
     style={
-      [
-        {
-          "alignItems": "center",
-          "display": "flex",
-          "flexDirection": "row",
-        },
-        {
-          "transform": [
-            {
-              "translateX": 4,
-            },
-          ],
-        },
-      ]
+      {
+        "width": "100%",
+      }
     }
   >
     <ForwardRef(AnimatedComponentWrapper)
+      onStartShouldSetResponder={[Function]}
       style={
         [
           {
-            "position": "absolute",
-            "right": "100%",
-          },
-          {
-            "opacity": 0,
-            "width": 184,
-          },
-        ]
-      }
-    >
-      <ConfirmSliderLabel>
-        label2
-      </ConfirmSliderLabel>
-    </ForwardRef(AnimatedComponentWrapper)>
-    <ForwardRef(AnimatedComponentWrapper)
-      style={
-        [
-          {
-            "backgroundColor": "rgba(245, 101, 34, 1)",
-            "width": 72,
-          },
-          {
-            "borderRadius": 9999,
-            "display": "flex",
+            "alignItems": "center",
             "flexDirection": "row",
-            "justifyContent": "center",
-            "marginBottom": 4,
-            "marginTop": 4,
-            "paddingBottom": 8,
-            "paddingTop": 8,
+          },
+          {
+            "transform": [
+              {
+                "translateX": 0,
+              },
+            ],
           },
         ]
       }
     >
-      <Icon
-        color="#FFF9F6"
-        id="checkCircle"
+      <ForwardRef(AnimatedComponentWrapper)
+        style={
+          [
+            {
+              "position": "absolute",
+              "right": "100%",
+            },
+            {
+              "opacity": 0,
+              "width": 204,
+            },
+          ]
+        }
+      >
+        <ConfirmSliderLabel>
+          label2
+        </ConfirmSliderLabel>
+      </ForwardRef(AnimatedComponentWrapper)>
+      <ForwardRef(AnimatedComponentWrapper)
+        style={
+          [
+            {
+              "backgroundColor": "#BAADA7",
+              "width": 56,
+            },
+            {
+              "alignItems": "center",
+              "borderRadius": 9999,
+              "display": "flex",
+              "flexDirection": "row",
+              "gap": 2,
+              "height": 24,
+              "justifyContent": "center",
+            },
+            {
+              "gap": 4,
+              "height": 32,
+            },
+          ]
+        }
+      >
+        <Icon
+          color="#FFF9F6"
+          id="slash"
+          style={
+            [
+              {
+                "height": 16,
+                "width": 16,
+              },
+              {
+                "height": 19,
+                "width": 19,
+              },
+            ]
+          }
+        />
+        <Icon
+          color="#FFF9F6"
+          id="chevronsRight"
+          style={
+            [
+              {
+                "height": 16,
+                "width": 16,
+              },
+              {
+                "height": 19,
+                "width": 19,
+              },
+            ]
+          }
+        />
+      </ForwardRef(AnimatedComponentWrapper)>
+      <ForwardRef(AnimatedComponentWrapper)
         style={
           {
-            "height": 24,
-            "width": 24,
+            "opacity": 1,
+            "width": 204,
           }
         }
-      />
-      <Icon
-        color="#FFF9F6"
-        id="chevronsRight"
-        style={
-          {
-            "height": 24,
-            "marginLeft": 4,
-            "width": 24,
-          }
-        }
-      />
+      >
+        <ConfirmSliderLabel>
+          label1
+        </ConfirmSliderLabel>
+      </ForwardRef(AnimatedComponentWrapper)>
     </ForwardRef(AnimatedComponentWrapper)>
-    <ForwardRef(AnimatedComponentWrapper)
-      style={
-        {
-          "opacity": 1,
-          "width": 184,
-        }
-      }
-    >
-      <ConfirmSliderLabel>
-        label1
-      </ConfirmSliderLabel>
-    </ForwardRef(AnimatedComponentWrapper)>
-  </ForwardRef(AnimatedComponentWrapper)>
+  </View>
 </View>
 `;
 
 exports[`ConfirmSlider renders with different icon 1`] = `
 <View
-  onLayout={[Function]}
-  onMoveShouldSetResponder={[Function]}
-  onMoveShouldSetResponderCapture={[Function]}
-  onResponderEnd={[Function]}
-  onResponderGrant={[Function]}
-  onResponderMove={[Function]}
-  onResponderReject={[Function]}
-  onResponderRelease={[Function]}
-  onResponderStart={[Function]}
-  onResponderTerminate={[Function]}
-  onResponderTerminationRequest={[Function]}
-  onStartShouldSetResponder={[Function]}
-  onStartShouldSetResponderCapture={[Function]}
   style={
     [
       {
         "backgroundColor": "#FEEDE5",
+        "borderColor": "#FCCCB6",
         "borderRadius": 9999,
-        "maxWidth": "100%",
+        "borderWidth": 1,
         "overflow": "hidden",
+        "paddingBottom": 4,
+        "paddingLeft": 4,
+        "paddingRight": 4,
+        "paddingTop": 4,
         "width": "100%",
       },
-      {
-        "borderColor": "#FCCCB6",
-        "borderWidth": 1,
-      },
-      false,
       undefined,
     ]
   }
 >
-  <ForwardRef(AnimatedComponentWrapper)
+  <View
+    onLayout={[Function]}
+    onMoveShouldSetResponder={[Function]}
+    onMoveShouldSetResponderCapture={[Function]}
+    onResponderEnd={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderReject={[Function]}
+    onResponderRelease={[Function]}
+    onResponderStart={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
+    onStartShouldSetResponderCapture={[Function]}
     style={
-      [
-        {
-          "alignItems": "center",
-          "display": "flex",
-          "flexDirection": "row",
-        },
-        {
-          "transform": [
-            {
-              "translateX": 4,
-            },
-          ],
-        },
-      ]
+      {
+        "width": "100%",
+      }
     }
   >
     <ForwardRef(AnimatedComponentWrapper)
+      onStartShouldSetResponder={[Function]}
       style={
         [
           {
-            "position": "absolute",
-            "right": "100%",
-          },
-          {
-            "opacity": 0,
-            "width": 184,
-          },
-        ]
-      }
-    >
-      <ConfirmSliderLabel>
-        label2
-      </ConfirmSliderLabel>
-    </ForwardRef(AnimatedComponentWrapper)>
-    <ForwardRef(AnimatedComponentWrapper)
-      style={
-        [
-          {
-            "backgroundColor": "rgba(245, 101, 34, 1)",
-            "width": 72,
-          },
-          {
-            "borderRadius": 9999,
-            "display": "flex",
+            "alignItems": "center",
             "flexDirection": "row",
-            "justifyContent": "center",
-            "marginBottom": 4,
-            "marginTop": 4,
-            "paddingBottom": 8,
-            "paddingTop": 8,
+          },
+          {
+            "transform": [
+              {
+                "translateX": 0,
+              },
+            ],
           },
         ]
       }
     >
-      <Icon
-        color="#FFF9F6"
-        id="award"
+      <ForwardRef(AnimatedComponentWrapper)
+        style={
+          [
+            {
+              "position": "absolute",
+              "right": "100%",
+            },
+            {
+              "opacity": 0,
+              "width": 204,
+            },
+          ]
+        }
+      >
+        <ConfirmSliderLabel>
+          label2
+        </ConfirmSliderLabel>
+      </ForwardRef(AnimatedComponentWrapper)>
+      <ForwardRef(AnimatedComponentWrapper)
+        style={
+          [
+            {
+              "backgroundColor": "rgba(245, 101, 34, 1)",
+              "width": 56,
+            },
+            {
+              "alignItems": "center",
+              "borderRadius": 9999,
+              "display": "flex",
+              "flexDirection": "row",
+              "gap": 2,
+              "height": 24,
+              "justifyContent": "center",
+            },
+            {
+              "gap": 4,
+              "height": 32,
+            },
+          ]
+        }
+      >
+        <Icon
+          color="#FFF9F6"
+          id="award"
+          style={
+            [
+              {
+                "height": 16,
+                "width": 16,
+              },
+              {
+                "height": 19,
+                "width": 19,
+              },
+            ]
+          }
+        />
+        <Icon
+          color="#FFF9F6"
+          id="chevronsRight"
+          style={
+            [
+              {
+                "height": 16,
+                "width": 16,
+              },
+              {
+                "height": 19,
+                "width": 19,
+              },
+            ]
+          }
+        />
+      </ForwardRef(AnimatedComponentWrapper)>
+      <ForwardRef(AnimatedComponentWrapper)
         style={
           {
-            "height": 24,
-            "width": 24,
+            "opacity": 1,
+            "width": 204,
           }
         }
-      />
-      <Icon
-        color="#FFF9F6"
-        id="chevronsRight"
-        style={
-          {
-            "height": 24,
-            "marginLeft": 4,
-            "width": 24,
-          }
-        }
-      />
+      >
+        <ConfirmSliderLabel>
+          label1
+        </ConfirmSliderLabel>
+      </ForwardRef(AnimatedComponentWrapper)>
     </ForwardRef(AnimatedComponentWrapper)>
-    <ForwardRef(AnimatedComponentWrapper)
-      style={
-        {
-          "opacity": 1,
-          "width": 184,
-        }
-      }
-    >
-      <ConfirmSliderLabel>
-        label1
-      </ConfirmSliderLabel>
-    </ForwardRef(AnimatedComponentWrapper)>
-  </ForwardRef(AnimatedComponentWrapper)>
+  </View>
 </View>
 `;

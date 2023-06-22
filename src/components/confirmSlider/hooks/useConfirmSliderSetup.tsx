@@ -1,16 +1,22 @@
 import { useMemo, useRef, useState } from 'react'
 import { Animated, LayoutChangeEvent, PanResponder } from 'react-native'
 import { getNormalized } from '../../../utils/math'
-import { Props } from '../ConfirmSlider'
-import { knobWidth, padding, trackWidth } from '../constants'
 
-export const useConfirmSliderSetup = ({ disabled, onConfirm }: Pick<Props, 'disabled' | 'onConfirm'>) => {
-  const [widthToSlide, setWidthToSlide] = useState(trackWidth - knobWidth - padding)
+type Props = ComponentProps & {
+  knobWidth: number
+  onConfirm: () => void
+  disabled?: boolean
+}
+
+const defaultWidth = 260
+
+export const useConfirmSliderSetup = ({ disabled, onConfirm, knobWidth }: Props) => {
+  const [widthToSlide, setWidthToSlide] = useState(defaultWidth - knobWidth)
 
   const onLayout = (event: LayoutChangeEvent) => {
     if (!event.nativeEvent.layout.width) return
     const width = Math.round(event.nativeEvent.layout.width)
-    setWidthToSlide(width - knobWidth - padding)
+    setWidthToSlide(width - knobWidth)
   }
 
   const pan = useRef(new Animated.Value(0)).current

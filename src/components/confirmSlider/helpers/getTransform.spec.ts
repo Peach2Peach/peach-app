@@ -15,7 +15,7 @@ describe('getTransform', () => {
 
     expect(pan.interpolate).toHaveBeenCalledWith({
       inputRange: [0, 1],
-      outputRange: [4, width],
+      outputRange: [0, width],
       extrapolate: 'clamp',
     })
   })

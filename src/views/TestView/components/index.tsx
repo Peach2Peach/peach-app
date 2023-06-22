@@ -13,11 +13,11 @@ export default () => {
 
   return (
     <PeachScrollView style={tw`h-full`} contentContainerStyle={tw`flex items-center w-full px-6 py-10`}>
+      <ConfirmSliderTests />
       <UIComponents />
       <SatsFormats />
       <PriceFormats />
       <SummaryItems />
-      <ConfirmSliderTests />
     </PeachScrollView>
   )
 }
