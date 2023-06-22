@@ -40,6 +40,8 @@ exports[`TransactionHistory should render correctly with tx 1`] = `
       },
     ]
   }
+  initialNumToRender={10}
+  maxToRenderPerBatch={20}
   onRefresh={[MockFunction]}
   refreshing={false}
   renderItem={[Function]}
@@ -87,6 +89,8 @@ exports[`TransactionHistory should render medium screens correctly 1`] = `
       },
     ]
   }
+  initialNumToRender={10}
+  maxToRenderPerBatch={20}
   onRefresh={[MockFunction]}
   refreshing={false}
   renderItem={[Function]}
