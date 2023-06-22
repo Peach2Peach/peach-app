@@ -1,8 +1,8 @@
 import { useStartRefundPopup } from '../../popups/useStartRefundPopup'
 import i18n from '../../utils/i18n'
-import { SlideToUnlock } from '../inputs/SlideToUnlock'
+import { ConfirmSlider } from '../inputs/ConfirmSlider'
 
 export const RefundEscrowSlider = ({ sellOffer }: { sellOffer: SellOffer }) => {
   const startRefund = useStartRefundPopup()
-  return <SlideToUnlock onUnlock={() => startRefund(sellOffer)} label1={i18n('refundEscrow')} iconId="download" />
+  return <ConfirmSlider onUnlock={() => startRefund(sellOffer)} label1={i18n('refundEscrow')} iconId="download" />
 }

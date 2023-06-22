@@ -2,9 +2,9 @@ import { useMemo } from 'react'
 import { PeachScrollView } from '../../../components'
 import { useHeaderSetup } from '../../../hooks'
 import tw from '../../../styles/tailwind'
+import { ConfirmSliderTests } from './ConfirmSliderTests'
 import { PriceFormats } from './PriceFormats'
 import { SatsFormats } from './SatsFormats'
-import { SlideToUnlockTests } from './SlideToUnlockTests'
 import { SummaryItems } from './SummaryItems'
 import { UIComponents } from './UIComponents'
 
@@ -17,7 +17,7 @@ export default () => {
       <SatsFormats />
       <PriceFormats />
       <SummaryItems />
-      <SlideToUnlockTests />
+      <ConfirmSliderTests />
     </PeachScrollView>
   )
 }

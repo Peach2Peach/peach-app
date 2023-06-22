@@ -4,7 +4,7 @@ import { NavigationWrapper } from '../../../tests/unit/helpers/NavigationWrapper
 import { QueryClientWrapper } from '../../../tests/unit/helpers/QueryClientWrapper'
 
 jest.mock('../../components/inputs', () => ({
-  SlideToUnlock: 'SlideToUnlock',
+  ConfirmSlider: 'ConfirmSlider',
 }))
 
 const wrapper = ({ children }: ComponentProps) => (

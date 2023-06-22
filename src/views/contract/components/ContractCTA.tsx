@@ -1,6 +1,6 @@
 import { PrimaryButton } from '../../../components'
 import { WarningButton } from '../../../components/buttons'
-import { SlideToUnlock } from '../../../components/inputs'
+import { ConfirmSlider } from '../../../components/inputs'
 import { useConfirmTradeCancelationPopup } from '../../../popups/tradeCancelation/useConfirmTradeCancelationPopup'
 import { usePaymentTooLatePopup } from '../../../popups/usePaymentTooLatePopup'
 import tw from '../../../styles/tailwind'
@@ -43,7 +43,7 @@ export const ContractCTA = ({
     const paymentExpectedBy = getPaymentExpectedBy(contract)
     if (Date.now() < paymentExpectedBy) {
       return (
-        <SlideToUnlock
+        <ConfirmSlider
           style={tw`w-[263px]`}
           disabled={actionPending}
           onUnlock={postConfirmPaymentBuyer}
@@ -59,7 +59,7 @@ export const ContractCTA = ({
     )
   }
   if (view === 'seller' && requiredAction === 'confirmPayment') return (
-    <SlideToUnlock
+    <ConfirmSlider
       style={tw`w-[263px]`}
       disabled={actionPending}
       onUnlock={postConfirmPaymentSeller}

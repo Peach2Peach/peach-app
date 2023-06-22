@@ -1,7 +1,7 @@
 import { RefreshControl, View } from 'react-native'
 import { AvoidKeyboard, Loading, PeachScrollView, Text } from '../../components'
 import { OpenWallet } from '../../components/bitcoin'
-import { BitcoinAddressInput, SlideToUnlock } from '../../components/inputs'
+import { BitcoinAddressInput, ConfirmSlider } from '../../components/inputs'
 import { BigSatsFormat } from '../../components/text'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
@@ -40,7 +40,7 @@ export default () => {
             <BitcoinAddressInput style={tw`mt-4`} onChange={setAddress} value={address} errorMessage={addressErrors} />
             <OpenWallet />
           </View>
-          <SlideToUnlock
+          <ConfirmSlider
             style={tw`mb-6`}
             disabled={!walletStore.balance || !peachWallet.synced || !address || !isValid}
             label1={i18n('wallet.withdrawAll')}

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SlideToUnlock renders correctly 1`] = `
+exports[`ConfirmSlider renders correctly 1`] = `
 <View
   onLayout={[Function]}
   onMoveShouldSetResponder={[Function]}
@@ -152,7 +152,7 @@ exports[`SlideToUnlock renders correctly 1`] = `
 </View>
 `;
 
-exports[`SlideToUnlock renders correctly when disabled 1`] = `
+exports[`ConfirmSlider renders correctly when disabled 1`] = `
 <View
   onLayout={[Function]}
   onMoveShouldSetResponder={[Function]}
@@ -306,7 +306,7 @@ exports[`SlideToUnlock renders correctly when disabled 1`] = `
 </View>
 `;
 
-exports[`SlideToUnlock renders with different icon 1`] = `
+exports[`ConfirmSlider renders with different icon 1`] = `
 <View
   onLayout={[Function]}
   onMoveShouldSetResponder={[Function]}

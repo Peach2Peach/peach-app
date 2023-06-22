@@ -180,7 +180,7 @@ exports[`ContractCTA should render correctly when a cancelation is requested 1`]
 `;
 
 exports[`ContractCTA should render payment confirm slider correctly for the seller 1`] = `
-<SlideToUnlock
+<ConfirmSlider
   disabled={true}
   label1="confirm payment"
   label2="payment received"
@@ -194,7 +194,7 @@ exports[`ContractCTA should render payment confirm slider correctly for the sell
 `;
 
 exports[`ContractCTA should render the payment confirm slider correctly for the buyer 1`] = `
-<SlideToUnlock
+<ConfirmSlider
   disabled={true}
   label1="I made the payment"
   label2="payment made"

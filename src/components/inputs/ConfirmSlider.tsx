@@ -6,7 +6,7 @@ import { getNormalized } from '../../utils/math'
 import Icon from '../Icon'
 import { IconType } from '../../assets/icons'
 
-type SlideToUnlockProps = ComponentProps & {
+type Props = ComponentProps & {
   label1: string
   label2?: string
   iconId?: IconType
@@ -43,14 +43,7 @@ const getLabel1Opacity = (pan: Animated.Value) =>
     outputRange: [1, 0],
   })
 
-export const SlideToUnlock = ({
-  label1,
-  label2 = label1,
-  iconId = 'checkCircle',
-  disabled,
-  onUnlock,
-  style,
-}: SlideToUnlockProps) => {
+export const ConfirmSlider = ({ label1, label2 = label1, iconId = 'checkCircle', disabled, onUnlock, style }: Props) => {
   const [widthToSlide, setWidthToSlide] = useState(trackWidth - knobWidth - padding)
 
   const onLayout = (event: LayoutChangeEvent) => {
