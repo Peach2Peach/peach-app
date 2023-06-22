@@ -2,7 +2,7 @@ import { ReleaseEscrowSlider } from './ReleaseEscrowSlider'
 import { render } from '@testing-library/react-native'
 import { NavigationWrapper } from '../../../tests/unit/helpers/NavigationWrapper'
 
-jest.mock('../../components/inputs/ConfirmSlider', () => ({
+jest.mock('../../components/confirmSlider/ConfirmSlider', () => ({
   ConfirmSlider: 'ConfirmSlider',
 }))
 
