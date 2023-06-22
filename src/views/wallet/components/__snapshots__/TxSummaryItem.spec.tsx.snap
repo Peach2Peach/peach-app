@@ -863,7 +863,7 @@ exports[`OfferItem should render correctly for a escrow funded tx 1`] = `
   style={
     {
       "backgroundColor": "#FFFCFA",
-      "borderColor": "#9F8C82",
+      "borderColor": "#F56522",
       "borderRadius": 12,
       "borderWidth": 1,
       "opacity": 1,
