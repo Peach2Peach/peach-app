@@ -31,7 +31,6 @@ export const navigationMock = {
   navigate: navigateMock,
   reset: resetMock,
   setOptions: setOptionsMock,
-  // @ts-ignore
   replace: replaceMock,
   push: pushMock,
   setParams: setParamsMock,
@@ -39,9 +38,9 @@ export const navigationMock = {
   canGoBack: canGoBackMock,
   isFocused: isFocusedMock,
   addListener: addListenerMock,
-  // @ts-ignore
   getState: getStateMock,
 }
 export const NavigationWrapper = ({ children }: any) => (
+  // @ts-ignore
   <NavigationContext.Provider value={navigationMock}>{children}</NavigationContext.Provider>
 )
