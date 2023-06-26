@@ -20,8 +20,8 @@ exports[`BumpNetworkFees renders correctly 1`] = `
           "flexGrow": 1,
           "flexShrink": 1,
           "justifyContent": "center",
-          "paddingLeft": 28,
-          "paddingRight": 28,
+          "paddingLeft": 32,
+          "paddingRight": 32,
         },
         {
           "paddingLeft": 40,
@@ -29,52 +29,47 @@ exports[`BumpNetworkFees renders correctly 1`] = `
         },
       ]
     }
+    contentStyle={
+      [
+        {
+          "gap": 12,
+        },
+        {
+          "gap": 20,
+        },
+      ]
+    }
     style={
       {
         "height": "100%",
+        "width": "100%",
       }
     }
   >
-    <View
-      style={
+    <CurrentFee />
+    <Divider />
+    <FeeEstimates
+      estimatedFees={
         {
-          "gap": 20,
+          "economyFee": 1,
+          "fastestFee": 1,
+          "halfHourFee": 1,
+          "hourFee": 1,
+          "minimumFee": 1,
         }
       }
-    >
-      <CurrentFee />
-      <Divider />
-      <FeeEstimates
-        estimatedFees={
-          {
-            "economyFee": 1,
-            "fastestFee": 1,
-            "halfHourFee": 1,
-            "hourFee": 1,
-            "minimumFee": 1,
-          }
-        }
-        isOverpaying={false}
-        setFeeRate={[MockFunction]}
-      />
-      <Divider />
-      <NewFee
-        setNewFeeRate={[MockFunction]}
-      />
-      <PeachText
-        style={
-          {
-            "color": "#DF321F",
-            "textAlign": "center",
-          }
-        }
-      >
-         
-      </PeachText>
-    </View>
+      isOverpaying={false}
+      setFeeRate={[MockFunction]}
+    />
+    <Divider />
+    <NewFee
+      overpayingBy={0.5}
+      setNewFeeRate={[MockFunction]}
+    />
   </ForwardRef>
   <PrimaryButton
     disabled={true}
+    narrow={true}
     onPress={[MockFunction]}
   >
     confirm
@@ -102,8 +97,8 @@ exports[`BumpNetworkFees renders correctly for medium screens 1`] = `
           "flexGrow": 1,
           "flexShrink": 1,
           "justifyContent": "center",
-          "paddingLeft": 28,
-          "paddingRight": 28,
+          "paddingLeft": 32,
+          "paddingRight": 32,
         },
         {
           "paddingLeft": 40,
@@ -111,52 +106,47 @@ exports[`BumpNetworkFees renders correctly for medium screens 1`] = `
         },
       ]
     }
+    contentStyle={
+      [
+        {
+          "gap": 12,
+        },
+        {
+          "gap": 20,
+        },
+      ]
+    }
     style={
       {
         "height": "100%",
+        "width": "100%",
       }
     }
   >
-    <View
-      style={
+    <CurrentFee />
+    <Divider />
+    <FeeEstimates
+      estimatedFees={
         {
-          "gap": 20,
+          "economyFee": 1,
+          "fastestFee": 1,
+          "halfHourFee": 1,
+          "hourFee": 1,
+          "minimumFee": 1,
         }
       }
-    >
-      <CurrentFee />
-      <Divider />
-      <FeeEstimates
-        estimatedFees={
-          {
-            "economyFee": 1,
-            "fastestFee": 1,
-            "halfHourFee": 1,
-            "hourFee": 1,
-            "minimumFee": 1,
-          }
-        }
-        isOverpaying={false}
-        setFeeRate={[MockFunction]}
-      />
-      <Divider />
-      <NewFee
-        setNewFeeRate={[MockFunction]}
-      />
-      <PeachText
-        style={
-          {
-            "color": "#DF321F",
-            "textAlign": "center",
-          }
-        }
-      >
-         
-      </PeachText>
-    </View>
+      isOverpaying={false}
+      setFeeRate={[MockFunction]}
+    />
+    <Divider />
+    <NewFee
+      overpayingBy={0.5}
+      setNewFeeRate={[MockFunction]}
+    />
   </ForwardRef>
   <PrimaryButton
     disabled={true}
+    narrow={true}
     onPress={[MockFunction]}
   >
     confirm
@@ -184,8 +174,8 @@ exports[`BumpNetworkFees renders correctly when new fee is invalid 1`] = `
           "flexGrow": 1,
           "flexShrink": 1,
           "justifyContent": "center",
-          "paddingLeft": 28,
-          "paddingRight": 28,
+          "paddingLeft": 32,
+          "paddingRight": 32,
         },
         {
           "paddingLeft": 40,
@@ -193,53 +183,48 @@ exports[`BumpNetworkFees renders correctly when new fee is invalid 1`] = `
         },
       ]
     }
+    contentStyle={
+      [
+        {
+          "gap": 12,
+        },
+        {
+          "gap": 20,
+        },
+      ]
+    }
     style={
       {
         "height": "100%",
+        "width": "100%",
       }
     }
   >
-    <View
-      style={
+    <CurrentFee />
+    <Divider />
+    <FeeEstimates
+      estimatedFees={
         {
-          "gap": 20,
+          "economyFee": 1,
+          "fastestFee": 1,
+          "halfHourFee": 1,
+          "hourFee": 1,
+          "minimumFee": 1,
         }
       }
-    >
-      <CurrentFee />
-      <Divider />
-      <FeeEstimates
-        estimatedFees={
-          {
-            "economyFee": 1,
-            "fastestFee": 1,
-            "halfHourFee": 1,
-            "hourFee": 1,
-            "minimumFee": 1,
-          }
-        }
-        isOverpaying={false}
-        setFeeRate={[MockFunction]}
-      />
-      <Divider />
-      <NewFee
-        newFeeRate={1}
-        setNewFeeRate={[MockFunction]}
-      />
-      <PeachText
-        style={
-          {
-            "color": "#DF321F",
-            "textAlign": "center",
-          }
-        }
-      >
-         
-      </PeachText>
-    </View>
+      isOverpaying={false}
+      setFeeRate={[MockFunction]}
+    />
+    <Divider />
+    <NewFee
+      newFeeRate={1}
+      overpayingBy={0.5}
+      setNewFeeRate={[MockFunction]}
+    />
   </ForwardRef>
   <PrimaryButton
     disabled={true}
+    narrow={true}
     onPress={[MockFunction]}
   >
     confirm
@@ -267,8 +252,8 @@ exports[`BumpNetworkFees renders correctly when new fee is valid 1`] = `
           "flexGrow": 1,
           "flexShrink": 1,
           "justifyContent": "center",
-          "paddingLeft": 28,
-          "paddingRight": 28,
+          "paddingLeft": 32,
+          "paddingRight": 32,
         },
         {
           "paddingLeft": 40,
@@ -276,53 +261,48 @@ exports[`BumpNetworkFees renders correctly when new fee is valid 1`] = `
         },
       ]
     }
+    contentStyle={
+      [
+        {
+          "gap": 12,
+        },
+        {
+          "gap": 20,
+        },
+      ]
+    }
     style={
       {
         "height": "100%",
+        "width": "100%",
       }
     }
   >
-    <View
-      style={
+    <CurrentFee />
+    <Divider />
+    <FeeEstimates
+      estimatedFees={
         {
-          "gap": 20,
+          "economyFee": 1,
+          "fastestFee": 1,
+          "halfHourFee": 1,
+          "hourFee": 1,
+          "minimumFee": 1,
         }
       }
-    >
-      <CurrentFee />
-      <Divider />
-      <FeeEstimates
-        estimatedFees={
-          {
-            "economyFee": 1,
-            "fastestFee": 1,
-            "halfHourFee": 1,
-            "hourFee": 1,
-            "minimumFee": 1,
-          }
-        }
-        isOverpaying={false}
-        setFeeRate={[MockFunction]}
-      />
-      <Divider />
-      <NewFee
-        newFeeRate={20}
-        setNewFeeRate={[MockFunction]}
-      />
-      <PeachText
-        style={
-          {
-            "color": "#DF321F",
-            "textAlign": "center",
-          }
-        }
-      >
-         
-      </PeachText>
-    </View>
+      isOverpaying={false}
+      setFeeRate={[MockFunction]}
+    />
+    <Divider />
+    <NewFee
+      newFeeRate={20}
+      overpayingBy={0.5}
+      setNewFeeRate={[MockFunction]}
+    />
   </ForwardRef>
   <PrimaryButton
     disabled={false}
+    narrow={true}
     onPress={[MockFunction]}
   >
     confirm
@@ -350,8 +330,8 @@ exports[`BumpNetworkFees renders correctly when user would be overpaying by at l
           "flexGrow": 1,
           "flexShrink": 1,
           "justifyContent": "center",
-          "paddingLeft": 28,
-          "paddingRight": 28,
+          "paddingLeft": 32,
+          "paddingRight": 32,
         },
         {
           "paddingLeft": 40,
@@ -359,53 +339,48 @@ exports[`BumpNetworkFees renders correctly when user would be overpaying by at l
         },
       ]
     }
+    contentStyle={
+      [
+        {
+          "gap": 12,
+        },
+        {
+          "gap": 20,
+        },
+      ]
+    }
     style={
       {
         "height": "100%",
+        "width": "100%",
       }
     }
   >
-    <View
-      style={
+    <CurrentFee />
+    <Divider />
+    <FeeEstimates
+      estimatedFees={
         {
-          "gap": 20,
+          "economyFee": 1,
+          "fastestFee": 1,
+          "halfHourFee": 1,
+          "hourFee": 1,
+          "minimumFee": 1,
         }
       }
-    >
-      <CurrentFee />
-      <Divider />
-      <FeeEstimates
-        estimatedFees={
-          {
-            "economyFee": 1,
-            "fastestFee": 1,
-            "halfHourFee": 1,
-            "hourFee": 1,
-            "minimumFee": 1,
-          }
-        }
-        isOverpaying={true}
-        setFeeRate={[MockFunction]}
-      />
-      <Divider />
-      <NewFee
-        newFeeRate={3.93}
-        setNewFeeRate={[MockFunction]}
-      />
-      <PeachText
-        style={
-          {
-            "color": "#DF321F",
-            "textAlign": "center",
-          }
-        }
-      >
-        overpaying by 200%
-      </PeachText>
-    </View>
+      isOverpaying={true}
+      setFeeRate={[MockFunction]}
+    />
+    <Divider />
+    <NewFee
+      newFeeRate={3.93}
+      overpayingBy={2}
+      setNewFeeRate={[MockFunction]}
+    />
   </ForwardRef>
   <PrimaryButton
     disabled={false}
+    narrow={true}
     onPress={[MockFunction]}
   >
     confirm
