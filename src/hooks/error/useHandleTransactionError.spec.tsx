@@ -1,6 +1,6 @@
 import { renderHook } from '@testing-library/react-native'
-import { useHandleBroadcastError } from './useHandleBroadcastError'
-import { broadcastError } from '../../../tests/unit/data/errors'
+import { transactionError } from '../../../tests/unit/data/errors'
+import { useHandleTransactionError } from './useHandleTransactionError'
 
 const showErrorBannerMock = jest.fn()
 jest.mock('../useShowErrorBanner', () => ({
@@ -10,16 +10,16 @@ jest.mock('../useShowErrorBanner', () => ({
         showErrorBannerMock(...args),
 }))
 
-describe('useHandleBroadcastError', () => {
+describe('useHandleTransactionError', () => {
   it('should return a function', () => {
-    const { result } = renderHook(useHandleBroadcastError)
+    const { result } = renderHook(useHandleTransactionError)
     expect(result.current).toBeInstanceOf(Function)
   })
 
   it('should handle broadcast errors', () => {
-    const { result } = renderHook(useHandleBroadcastError)
+    const { result } = renderHook(useHandleTransactionError)
 
-    result.current(broadcastError)
+    result.current(transactionError)
     expect(showErrorBannerMock).toHaveBeenCalledWith('INSUFFICIENT_FUNDS', ['78999997952', '1089000'])
   })
 })

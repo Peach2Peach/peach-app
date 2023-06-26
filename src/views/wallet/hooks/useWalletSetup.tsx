@@ -2,7 +2,7 @@ import { useFocusEffect } from '@react-navigation/native'
 import { useCallback, useMemo, useState } from 'react'
 import { shallow } from 'zustand/shallow'
 import { useHeaderSetup, useNavigation, useValidatedState } from '../../../hooks'
-import { useHandleBroadcastError } from '../../../hooks/error/useHandleBroadcastError'
+import { useHandleTransactionError } from '../../../hooks/error/useHandleTransactionError'
 import { useFeeRate } from '../../../hooks/useFeeRate'
 import { useShowHelp } from '../../../hooks/useShowHelp'
 import { WithdrawalConfirmation } from '../../../popups/WithdrawalConfirmation'
@@ -18,7 +18,7 @@ const bitcoinAddressRules = { required: false, bitcoinAddress: true }
 
 export const useWalletSetup = (syncOnLoad = true) => {
   const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
-  const handleBroadcastError = useHandleBroadcastError()
+  const handleTransactionError = useHandleTransactionError()
   const feeRate = useFeeRate()
   const walletStore = useWalletState((state) => state)
   const showHelp = useShowHelp('withdrawingFunds')
@@ -44,9 +44,9 @@ export const useWalletSetup = (syncOnLoad = true) => {
 
     try {
       const result = await peachWallet.withdrawAll(address, feeRate)
-      if (result.txDetails.txid) setAddress('')
+      if (await result.txid()) setAddress('')
     } catch (e) {
-      handleBroadcastError(e)
+      handleTransactionError(e)
     }
   }
 

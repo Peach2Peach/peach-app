@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NewFee renders correctly 1`] = `
+<View
+  style={
+    {
+      "alignItems": "center",
+      "flexDirection": "row",
+      "gap": 8,
+      "justifyContent": "center",
+    }
+  }
+>
+  <PeachText
+    style={
+      {
+        "fontFamily": "Baloo2-SemiBold",
+        "fontSize": 16,
+        "letterSpacing": 0.16,
+        "lineHeight": 28,
+      }
+    }
+  >
+    new fee:
+  </PeachText>
+  <View
+    style={
+      {
+        "height": 36,
+      }
+    }
+  >
+    <NumberInput
+      decimals={2}
+      onChange={[MockFunction]}
+      placeholder=""
+      required={true}
+      style={
+        {
+          "height": 36,
+          "width": 96,
+        }
+      }
+      value="1"
+    />
+  </View>
+  <PeachText
+    style={
+      {
+        "color": "#9F8C82",
+      }
+    }
+  >
+    sat/vB
+  </PeachText>
+</View>
+`;

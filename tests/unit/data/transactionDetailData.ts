@@ -29,7 +29,7 @@ export const pendingTransactionSummary: TransactionSummary = {
   amount: 123456,
   price: 100,
   currency: 'EUR',
-  date: new Date('2022-03-08T11:41:07.245Z'),
+  date: new Date('2022-09-14T16:14:02.835Z'),
   confirmed: false,
   id: pending1.txid,
   offerId: '123',
@@ -38,4 +38,53 @@ export const pendingTransactionSummary: TransactionSummary = {
 export const confirmedTransactionSummary: TransactionSummary = {
   ...pendingTransactionSummary,
   confirmed: true,
+}
+export const bitcoinTransaction: Transaction = {
+  txid: 'credacted',
+  version: 1,
+  locktime: 0,
+  vin: [
+    {
+      txid: 'bredacted',
+      vout: 0,
+      prevout: {
+        scriptpubkey: '5120redacted',
+        scriptpubkey_asm: 'OP_PUSHNUM_1 OP_PUSHBYTES_32 9a62redacted',
+        scriptpubkey_type: 'v1_p2tr',
+        scriptpubkey_address: 'bc1pnf32redacted',
+        value: 223667,
+      },
+      scriptsig: '',
+      scriptsig_asm: '',
+      witness: ['0667redacted'],
+      is_coinbase: false,
+      sequence: 4294967295,
+    },
+  ],
+  vout: [
+    {
+      scriptpubkey: '5120redacted',
+      scriptpubkey_asm: 'OP_PUSHNUM_1 OP_PUSHBYTES_32 7ba2redacted',
+      scriptpubkey_type: 'v1_p2tr',
+      scriptpubkey_address: 'bc1p0w3vredacted',
+      value: 173465,
+    },
+    {
+      scriptpubkey: '0020redacted',
+      scriptpubkey_asm: 'OP_0 OP_PUSHBYTES_32 372dredacted',
+      scriptpubkey_type: 'v0_p2wsh',
+      scriptpubkey_address: 'bc1qxukhredacted',
+      value: 50000,
+    },
+  ],
+  size: 206,
+  weight: 617,
+  fee: 202,
+  value: 223667,
+  status: {
+    confirmed: true,
+    block_height: 756530,
+    block_hash: 'redacted1680',
+    block_time: 1664622712,
+  },
 }
