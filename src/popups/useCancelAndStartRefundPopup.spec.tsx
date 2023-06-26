@@ -4,7 +4,7 @@ import { NavigationWrapper } from '../../tests/unit/helpers/NavigationWrapper'
 import { QueryClientWrapper } from '../../tests/unit/helpers/QueryClientWrapper'
 import { Loading } from '../components'
 import { defaultPopupState, usePopupStore } from '../store/usePopupStore'
-import { useStartRefundPopup } from './useStartRefundPopup'
+import { useCancelAndStartRefundPopup } from './useCancelAndStartRefundPopup'
 
 const refundEscrowMock = jest.fn()
 jest.mock('../hooks/useRefundEscrow', () => ({
@@ -12,9 +12,9 @@ jest.mock('../hooks/useRefundEscrow', () => ({
 }))
 
 const psbt = 'psbt'
-const getRefundPSBTMock = jest.fn().mockResolvedValue([{ psbt }, null])
+const cancelOfferMock = jest.fn().mockResolvedValue([{ psbt }, null])
 jest.mock('../utils/peachAPI', () => ({
-  getRefundPSBT: (...args: any) => getRefundPSBTMock(...args),
+  cancelOffer: (...args: any) => cancelOfferMock(...args),
 }))
 
 const showErrorMock = jest.fn()
@@ -28,17 +28,17 @@ const wrapper = ({ children }: { children: JSX.Element }) => (
   </QueryClientWrapper>
 )
 
-describe('useStartRefundPopup', () => {
+describe('useCancelAndStartRefundPopup', () => {
   afterEach(() => {
     usePopupStore.setState(defaultPopupState)
   })
   it('should return a function', () => {
-    const { result } = renderHook(useStartRefundPopup, { wrapper })
+    const { result } = renderHook(useCancelAndStartRefundPopup, { wrapper })
     expect(result.current).toBeInstanceOf(Function)
   })
 
   it('should show the loading popup and start refund', async () => {
-    const { result } = renderHook(useStartRefundPopup, { wrapper })
+    const { result } = renderHook(useCancelAndStartRefundPopup, { wrapper })
     await result.current(sellOffer)
     expect(usePopupStore.getState()).toEqual({
       ...usePopupStore.getState(),
