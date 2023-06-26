@@ -3,8 +3,9 @@ import { isContractSummary, isPastOffer } from '../../../utils'
 
 type PartialTradeSummary = Pick<TradeSummary, 'tradeStatus' | 'unreadMessages' | 'type'> & Partial<TradeSummary>
 
-export const getActionLabel = (tradeSummary: PartialTradeSummary, status: TradeStatus) => {
+export const getActionLabel = (tradeSummary: PartialTradeSummary, isWaiting: boolean) => {
   const { tradeStatus } = tradeSummary
+  const translationStatusKey = isWaiting ? 'waiting' : tradeStatus
 
   if (isContractSummary(tradeSummary)) {
     const { unreadMessages, type, disputeWinner } = tradeSummary
@@ -14,12 +15,12 @@ export const getActionLabel = (tradeSummary: PartialTradeSummary, status: TradeS
       return unreadMessages > 0 ? i18n('yourTrades.newMessages') : undefined
     }
     if (disputeWinner) {
-      return i18n(`offer.requiredAction.${status}.dispute`)
+      return i18n(`offer.requiredAction.${translationStatusKey}.dispute`)
     }
 
-    return status === 'waiting' || status === 'rateUser'
-      ? i18n(`offer.requiredAction.${status}.${counterparty}`)
-      : i18n(`offer.requiredAction.${status}`)
+    return isWaiting || tradeStatus === 'rateUser'
+      ? i18n(`offer.requiredAction.${translationStatusKey}.${counterparty}`)
+      : i18n(`offer.requiredAction.${translationStatusKey}`)
   }
 
   if (isPastOffer(tradeStatus)) {

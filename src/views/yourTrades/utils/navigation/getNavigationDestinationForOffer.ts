@@ -4,7 +4,7 @@ import { shouldGoToSearch } from './shouldGoToSearch'
 import { shouldGoToWrongFundingAmount } from './shouldGoToWrongFundingAmount'
 
 type Destination =
-  | ['offer' | 'setRefundWallet' | 'fundEscrow' | 'search' | 'wrongFundingAmount', { offerId: string }]
+  | ['offer' | 'fundEscrow' | 'search' | 'wrongFundingAmount', { offerId: string }]
   | ['yourTrades', undefined]
 
 export const getNavigationDestinationForOffer = ({
@@ -16,9 +16,6 @@ export const getNavigationDestinationForOffer = ({
 }): Destination => {
   if (shouldGoToOfferSummary(tradeStatus)) {
     return ['offer', { offerId }]
-  }
-  if (tradeStatus === 'refundAddressRequired') {
-    return ['setRefundWallet', { offerId }]
   }
 
   if (shouldGoToFundEscrow(tradeStatus)) return ['fundEscrow', { offerId }]

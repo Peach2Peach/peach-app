@@ -1,5 +1,5 @@
 export { getDateSuffix } from './getDateSuffix'
 export { getDateToDisplay } from './getDateToDisplay'
-export { getTimeDiffInDays } from './getTimeDiffInDays'
+export { getShortDateFormat } from './getShortDateFormat'
 export { toDateFormat } from './toDateFormat'
 export { toShortDateFormat } from './toShortDateFormat'
