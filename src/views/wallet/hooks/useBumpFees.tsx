@@ -4,7 +4,6 @@ import { useHandleTransactionError } from '../../../hooks/error/useHandleTransac
 import { getTransactionFeeRate } from '../../../utils/bitcoin'
 import { peachWallet } from '../../../utils/wallet/setWallet'
 import { buildBumpFeeTransaction } from '../../../utils/wallet/transaction'
-import { useWalletState } from '../../../utils/wallet/walletStore'
 import { useShowConfirmRbfPopup } from './useShowConfirmRbfPopup'
 
 type Props = {
@@ -17,17 +16,13 @@ export const useBumpFees = ({ transaction, newFeeRate, sendingAmount }: Props) =
   const handleTransactionError = useHandleTransactionError()
 
   const navigation = useNavigation()
-  const removePendingTransaction = useWalletState((state) => state.removePendingTransaction)
 
   const onSuccess = useCallback(
     (newTxId: string) => {
-      if (!transaction) return
-
-      removePendingTransaction(transaction?.txid)
       navigation.goBack()
       navigation.replace('transactionDetails', { txId: newTxId })
     },
-    [navigation, removePendingTransaction, transaction],
+    [navigation],
   )
 
   const bumpFees = useCallback(async () => {

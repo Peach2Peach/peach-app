@@ -9,6 +9,7 @@ import tw from '../../../styles/tailwind'
 import { getTransactionFeeRate } from '../../../utils/bitcoin'
 import { PeachWallet } from '../../../utils/wallet/PeachWallet'
 import { peachWallet, setPeachWallet } from '../../../utils/wallet/setWallet'
+import { useWalletState } from '../../../utils/wallet/walletStore'
 import { ConfirmRbf } from '../components/ConfirmRbf'
 import { useShowConfirmRbfPopup } from './useShowConfirmRbfPopup'
 
@@ -26,7 +27,7 @@ describe('useShowConfirmRbfPopup', () => {
   const currentFeeRate = getTransactionFeeRate(bitcoinTransaction)
   const newFeeRate = 10
   const onSuccess = jest.fn()
-  const txDetails = getTransactionDetails(bitcoinTransaction.value, newFeeRate, 'newTxId')
+  const txDetails = getTransactionDetails(bitcoinTransaction.value, newFeeRate, bitcoinTransaction.txid)
   const props = {
     currentFeeRate,
     newFeeRate,
@@ -38,6 +39,7 @@ describe('useShowConfirmRbfPopup', () => {
   beforeEach(() => {
     // @ts-ignore
     setPeachWallet(new PeachWallet())
+    useWalletState.getState().addPendingTransactionHex(bitcoinTransaction.txid, 'hex')
   })
 
   it('should show bump fee confirmation popup', async () => {
@@ -69,7 +71,6 @@ describe('useShowConfirmRbfPopup', () => {
       },
     })
   })
-
   it('should broadcast bump fee transaction', async () => {
     peachWallet.signAndBroadcastPSBT = jest.fn().mockResolvedValue(txDetails.psbt)
 
@@ -94,6 +95,7 @@ describe('useShowConfirmRbfPopup', () => {
 
     expect(peachWallet.signAndBroadcastPSBT).toHaveBeenCalledWith(txDetails.psbt)
     expect(usePopupStore.getState().visible).toBeFalsy()
+    expect(useWalletState.getState().pendingTransactions).toEqual({})
     expect(onSuccess).toHaveBeenCalled()
   })
   it('should handle broadcast errors', async () => {
@@ -107,5 +109,8 @@ describe('useShowConfirmRbfPopup', () => {
     await usePopupStore.getState().action1?.callback()
     expect(showErrorBannerMock).toHaveBeenCalledWith('INSUFFICIENT_FUNDS', ['78999997952', '1089000'])
     expect(usePopupStore.getState().visible).toBeFalsy()
+    expect(useWalletState.getState().pendingTransactions).toEqual({
+      credacted: 'hex',
+    })
   })
 })

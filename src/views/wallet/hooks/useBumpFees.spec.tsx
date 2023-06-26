@@ -38,6 +38,9 @@ describe('useBumpFees', () => {
     sendingAmount: bitcoinTransaction.value,
   }
 
+  const newTxId = 'newTxId'
+  const txDetails = getTransactionDetails(bitcoinTransaction.value, newFeeRate, 'newTxId')
+
   beforeAll(() => {
     useWalletState
       .getState()
@@ -86,8 +89,6 @@ describe('useBumpFees', () => {
   })
 
   it('should broadcast bump fee transaction', async () => {
-    const newTxId = 'newTxId'
-    const txDetails = getTransactionDetails(bitcoinTransaction.value, newFeeRate, 'newTxId')
     peachWallet.finishTransaction = jest.fn().mockResolvedValue(txDetails.psbt)
     peachWallet.signAndBroadcastPSBT = jest.fn().mockResolvedValue(txDetails.psbt)
 
@@ -127,6 +128,8 @@ describe('useBumpFees', () => {
     expect(usePopupStore.getState().visible).toBeFalsy()
   })
   it('should handle broadcast errors', async () => {
+    peachWallet.finishTransaction = jest.fn().mockResolvedValue(txDetails.psbt)
+
     peachWallet.signAndBroadcastPSBT = jest.fn().mockImplementation(() => {
       throw transactionError
     })
