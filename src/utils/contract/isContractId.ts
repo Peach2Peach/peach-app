@@ -1,1 +1,1 @@
-export const isContractId = (id: string) => id.startsWith('PC-')
+export const isContractId = (id: string) => id.includes('-')
