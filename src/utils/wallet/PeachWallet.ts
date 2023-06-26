@@ -71,11 +71,11 @@ export class PeachWallet extends PeachJSWallet {
         )
 
         const config: BlockchainEsploraConfig = {
-          url: BLOCKEXPLORER,
-          proxy: '',
-          concurrency: '2',
-          timeout: '10',
-          stopGap: this.gapLimit.toString(),
+          baseUrl: BLOCKEXPLORER,
+          proxy: null,
+          concurrency: 1,
+          timeout: 30,
+          stopGap: this.gapLimit,
         }
 
         this.blockchain = await new Blockchain().create(config, BlockChainNames.Esplora)
