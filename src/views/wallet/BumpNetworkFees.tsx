@@ -1,5 +1,5 @@
 import { View } from 'react-native'
-import { Divider, PeachScrollView, PrimaryButton, Text } from '../../components'
+import { Divider, PeachScrollView, PrimaryButton } from '../../components'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { BitcoinLoading } from '../loading/BitcoinLoading'
@@ -7,7 +7,7 @@ import { CurrentFee } from './components/bumpNetworkFees/CurrentFee'
 import { FeeEstimates } from './components/bumpNetworkFees/FeeEstimates'
 import { NewFee } from './components/bumpNetworkFees/NewFee'
 import { useBumpNetworkFeesSetup } from './hooks/useBumpNetworkFeesSetup'
-import { round } from '../../utils/math'
+import { useBumpFees } from './hooks/useBumpFees'
 
 export const BumpNetworkFees = () => {
   const {
@@ -17,9 +17,10 @@ export const BumpNetworkFees = () => {
     setNewFeeRate,
     newFeeRateIsValid,
     estimatedFees,
+    sendingAmount,
     overpayingBy,
-    bumpFees,
   } = useBumpNetworkFeesSetup()
+  const bumpFees = useBumpFees({ transaction, newFeeRate: Number(newFeeRate), sendingAmount })
 
   if (!transaction) return <BitcoinLoading />
 
