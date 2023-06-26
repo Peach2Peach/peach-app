@@ -1,0 +1,121 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BTCAmountChar should render correctly 1`] = `
+<Text
+  allowFontScaling={false}
+  style={
+    [
+      {
+        "color": "#2B1911",
+        "fontFamily": "Baloo2-Regular",
+        "fontSize": 16,
+        "letterSpacing": 0.16,
+        "lineHeight": 24,
+      },
+      [
+        [],
+        {
+          "color": "#2B1911",
+        },
+        false,
+        {
+          "letterSpacing": 0,
+        },
+      ],
+    ]
+  }
+>
+  1
+</Text>
+`;
+
+exports[`BTCAmountChar should render correctly with error 1`] = `
+<Text
+  allowFontScaling={false}
+  style={
+    [
+      {
+        "color": "#2B1911",
+        "fontFamily": "Baloo2-Regular",
+        "fontSize": 16,
+        "letterSpacing": 0.16,
+        "lineHeight": 24,
+      },
+      [
+        [],
+        {
+          "color": "#B01807",
+        },
+        false,
+        {
+          "letterSpacing": 0,
+        },
+      ],
+    ]
+  }
+>
+  1
+</Text>
+`;
+
+exports[`BTCAmountChar should render correctly with reduceOpacity 1`] = `
+<Text
+  allowFontScaling={false}
+  style={
+    [
+      {
+        "color": "#2B1911",
+        "fontFamily": "Baloo2-Regular",
+        "fontSize": 16,
+        "letterSpacing": 0.16,
+        "lineHeight": 24,
+      },
+      [
+        [],
+        {
+          "color": "#2B1911",
+        },
+        {
+          "opacity": 0.1,
+        },
+        {
+          "letterSpacing": 0,
+        },
+      ],
+    ]
+  }
+>
+  1
+</Text>
+`;
+
+exports[`BTCAmountChar should render correctly with reduceOpacity and isError 1`] = `
+<Text
+  allowFontScaling={false}
+  style={
+    [
+      {
+        "color": "#2B1911",
+        "fontFamily": "Baloo2-Regular",
+        "fontSize": 16,
+        "letterSpacing": 0.16,
+        "lineHeight": 24,
+      },
+      [
+        [],
+        {
+          "color": "#B01807",
+        },
+        {
+          "opacity": 0.1,
+        },
+        {
+          "letterSpacing": 0,
+        },
+      ],
+    ]
+  }
+>
+  1
+</Text>
+`;

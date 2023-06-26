@@ -1,8 +1,8 @@
-import { NavigationContainer } from '@react-navigation/native'
-import { render } from '@testing-library/react-native'
+import { fireEvent, render } from '@testing-library/react-native'
+import { navigateMock, NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { TxSummaryItem } from './TxSummaryItem'
 
-const wrapper = NavigationContainer
+const wrapper = NavigationWrapper
 
 describe('OfferItem', () => {
   const date = new Date('2022-09-15T07:23:25.797Z')
@@ -76,5 +76,10 @@ describe('OfferItem', () => {
   it('should render correctly for a escrow funded tx', () => {
     const { toJSON } = render(<TxSummaryItem tx={{ ...escrowFundedTx, confirmed: true }} />, { wrapper })
     expect(toJSON()).toMatchSnapshot()
+  })
+  it('should navigate to the transaction details screen when pressed', () => {
+    const { getByText } = render(<TxSummaryItem tx={receiveTx} />, { wrapper })
+    fireEvent.press(getByText('received'))
+    expect(navigateMock).toHaveBeenCalledWith('transactionDetails', { txId: 'receiveTx' })
   })
 })
