@@ -1,6 +1,7 @@
 export { canCancelContract } from './canCancelContract'
 export { canOpenDispute } from './canOpenDispute'
 export { contractExists } from './contractExists'
+export { contractIdFromHex } from './contractIdFromHex'
 export { contractIdToHex } from './contractIdToHex'
 export { createUserRating } from './createUserRating'
 export { decryptContractData } from './decryptContractData'
