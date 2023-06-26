@@ -3,7 +3,6 @@ import { WarningButton } from '../../../components/buttons'
 import { ConfirmSlider } from '../../../components/inputs'
 import { useConfirmTradeCancelationPopup } from '../../../popups/tradeCancelation/useConfirmTradeCancelationPopup'
 import { usePaymentTooLatePopup } from '../../../popups/usePaymentTooLatePopup'
-import tw from '../../../styles/tailwind'
 import { getPaymentExpectedBy } from '../../../utils/contract/getPaymentExpectedBy'
 import i18n from '../../../utils/i18n'
 import { shouldShowConfirmCancelTradeRequest } from '../../../utils/popup'
@@ -44,7 +43,6 @@ export const ContractCTA = ({
     if (Date.now() < paymentExpectedBy) {
       return (
         <ConfirmSlider
-          style={tw`w-[263px]`}
           disabled={actionPending}
           onConfirm={postConfirmPaymentBuyer}
           label1={i18n('contract.payment.buyer.confirm')}
@@ -60,7 +58,6 @@ export const ContractCTA = ({
   }
   if (view === 'seller' && requiredAction === 'confirmPayment') return (
     <ConfirmSlider
-      style={tw`w-[263px]`}
       disabled={actionPending}
       onConfirm={postConfirmPaymentSeller}
       label1={i18n('contract.payment.confirm')}

@@ -4,13 +4,5 @@ exports[`ReleaseEscrowSlider should render correctly 1`] = `
 <ConfirmSlider
   label1="release escrow"
   onConfirm={[Function]}
-  style={
-    [
-      {
-        "width": 263,
-      },
-      undefined,
-    ]
-  }
 />
 `;

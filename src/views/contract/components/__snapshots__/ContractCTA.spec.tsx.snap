@@ -185,11 +185,6 @@ exports[`ContractCTA should render payment confirm slider correctly for the sell
   label1="confirm payment"
   label2="payment received"
   onConfirm={[MockFunction]}
-  style={
-    {
-      "width": 263,
-    }
-  }
 />
 `;
 
@@ -199,10 +194,5 @@ exports[`ContractCTA should render the payment confirm slider correctly for the 
   label1="I made the payment"
   label2="payment made"
   onConfirm={[MockFunction]}
-  style={
-    {
-      "width": 263,
-    }
-  }
 />
 `;

@@ -1,26 +1,19 @@
-import tw from '../../styles/tailwind'
 import { ConfirmSlider } from '../../components/inputs'
-import { useRepublishOffer } from './hooks/useRepublishOffer'
+import { useStartRefundPopup } from '../../popups/useStartRefundPopup'
 import { getSellOfferFromContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
-import { useStartRefundPopup } from '../../popups/useStartRefundPopup'
 import { useContractContext } from './context'
+import { useRepublishOffer } from './hooks/useRepublishOffer'
 
 const RepublishOfferSlider = ({ contract }: { contract: Contract }) => {
   const republishOffer = useRepublishOffer()
-  return (
-    <ConfirmSlider style={tw`w-[263px]`} onConfirm={() => republishOffer(contract)} label1={i18n('republishOffer')} />
-  )
+  return <ConfirmSlider onConfirm={() => republishOffer(contract)} label1={i18n('republishOffer')} />
 }
 
 const RefundEscrowSlider = ({ contract }: { contract: Contract }) => {
   const startRefund = useStartRefundPopup()
   return (
-    <ConfirmSlider
-      style={tw`w-[263px]`}
-      onConfirm={() => startRefund(getSellOfferFromContract(contract))}
-      label1={i18n('refundEscrow')}
-    />
+    <ConfirmSlider onConfirm={() => startRefund(getSellOfferFromContract(contract))} label1={i18n('refundEscrow')} />
   )
 }
 
