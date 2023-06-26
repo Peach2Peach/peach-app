@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EmptyTransactionHistory should render correctly 1`] = `
+<View
+  style={
+    {
+      "alignItems": "center",
+      "height": "100%",
+      "justifyContent": "center",
+    }
+  }
+>
+  <Image
+    resizeMode="contain"
+    source="test-file-stub"
+    style={
+      {
+        "height": 120,
+        "width": 120,
+      }
+    }
+  />
+  <PeachText
+    style={
+      {
+        "color": "#7D675E",
+        "fontFamily": "Baloo2-SemiBold",
+        "fontSize": 16,
+        "letterSpacing": 0.16,
+        "lineHeight": 28,
+        "marginTop": 32,
+      }
+    }
+  >
+    nothing yet...
+  </PeachText>
+</View>
+`;

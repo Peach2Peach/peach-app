@@ -1,0 +1,98 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TransactionHistory should render correctly when empty 1`] = `<EmptyTransactionHistory />`;
+
+exports[`TransactionHistory should render correctly with tx 1`] = `
+<FlatList
+  contentContainerStyle={
+    [
+      {
+        "gap": 16,
+        "paddingBottom": 48,
+        "paddingLeft": 16,
+        "paddingRight": 16,
+        "paddingTop": 48,
+      },
+      {},
+    ]
+  }
+  data={
+    [
+      {
+        "amount": 123456,
+        "confirmed": false,
+        "currency": "EUR",
+        "date": 2022-03-08T11:41:07.245Z,
+        "id": "txid1",
+        "offerId": "123",
+        "price": 100,
+        "type": "TRADE",
+      },
+      {
+        "amount": 123456,
+        "confirmed": true,
+        "currency": "EUR",
+        "date": 2022-03-08T11:41:07.245Z,
+        "id": "txid1",
+        "offerId": "123",
+        "price": 100,
+        "type": "TRADE",
+      },
+    ]
+  }
+  initialNumToRender={10}
+  maxToRenderPerBatch={20}
+  onRefresh={[MockFunction]}
+  refreshing={false}
+  renderItem={[Function]}
+/>
+`;
+
+exports[`TransactionHistory should render medium screens correctly 1`] = `
+<FlatList
+  contentContainerStyle={
+    [
+      {
+        "gap": 16,
+        "paddingBottom": 48,
+        "paddingLeft": 16,
+        "paddingRight": 16,
+        "paddingTop": 48,
+      },
+      {
+        "paddingLeft": 32,
+        "paddingRight": 32,
+      },
+    ]
+  }
+  data={
+    [
+      {
+        "amount": 123456,
+        "confirmed": false,
+        "currency": "EUR",
+        "date": 2022-03-08T11:41:07.245Z,
+        "id": "txid1",
+        "offerId": "123",
+        "price": 100,
+        "type": "TRADE",
+      },
+      {
+        "amount": 123456,
+        "confirmed": true,
+        "currency": "EUR",
+        "date": 2022-03-08T11:41:07.245Z,
+        "id": "txid1",
+        "offerId": "123",
+        "price": 100,
+        "type": "TRADE",
+      },
+    ]
+  }
+  initialNumToRender={10}
+  maxToRenderPerBatch={20}
+  onRefresh={[MockFunction]}
+  refreshing={false}
+  renderItem={[Function]}
+/>
+`;
