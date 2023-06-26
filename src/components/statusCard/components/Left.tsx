@@ -1,6 +1,8 @@
 import { View } from 'react-native'
 import { useGoToOfferOrContract } from '../../../hooks'
 import tw from '../../../styles/tailwind'
+import { contractIdFromHex, isDisplayContractId } from '../../../utils/contract'
+import { offerIdFromHex } from '../../../utils/offer'
 import Icon from '../../Icon'
 import { FixedHeightText } from '../../text/FixedHeightText'
 import { StatusCardProps } from '../StatusCard'
@@ -11,7 +13,7 @@ export const Left = ({ icon, title, subtext, replaced = false }: Props) => {
   const goToNewOffer = useGoToOfferOrContract()
   const onPress = async () => {
     if (!replaced) return
-    const newOfferOrContractID = subtext
+    const newOfferOrContractID = isDisplayContractId(subtext) ? contractIdFromHex(subtext) : offerIdFromHex(subtext)
     await goToNewOffer(newOfferOrContractID)
   }
   return (
