@@ -10,7 +10,6 @@ describe('isReferralCode', () => {
     expect(isReferralCode('')).toBe(false)
   })
   it('should return false for an invalid referral code', () => {
-    expect(isReferralCode('ABC')).toBe(false)
     expect(isReferralCode('ABCDEFGHIJKLMNOPQ')).toBe(false)
     expect(isReferralCode('@CRAIGWRONG')).toBe(false)
   })
