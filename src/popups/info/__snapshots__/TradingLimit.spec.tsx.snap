@@ -4,10 +4,10 @@ exports[`TradingLimit renders correctly 1`] = `
 <PeachText>
   Peach has to enforce trading limits to abide by Swiss law. There are three trading limits:
 
-You can buy or sell CHF 1000 worth of bitcoin on Peach every day
+You can buy or sell 1000 CHF worth of bitcoin on Peach every day
 
-You can buy or sell CHF 1000 worth of bitcoin with cash or online gift cards (aka anonymous payment methods) every month
+You can buy or sell 1000 CHF worth of bitcoin with cash or online gift cards (aka anonymous payment methods) every month
 
-You can buy or sell CHF 100 000 worth of bitcoin per year.
+You can buy or sell 100 000 CHF worth of bitcoin per year.
 </PeachText>
 `;
