@@ -17,7 +17,7 @@ describe('useGoToOfferOrContract', () => {
       wrapper: NavigationWrapper,
     })
 
-    await result.current('PC-123-456')
+    await result.current('123-456')
 
     expect(navigateMock).toHaveBeenCalledTimes(1)
     expect(navigateMock).toHaveBeenCalledWith('contract', { contractId: contract.id })
@@ -28,7 +28,7 @@ describe('useGoToOfferOrContract', () => {
       wrapper: NavigationWrapper,
     })
 
-    await result.current('P-123')
+    await result.current('123')
 
     expect(navigateMock).toHaveBeenCalledTimes(1)
     expect(navigateMock).toHaveBeenCalledWith('yourTrades', undefined)
@@ -39,7 +39,7 @@ describe('useGoToOfferOrContract', () => {
       wrapper: NavigationWrapper,
     })
 
-    await result.current('PC-123-456')
+    await result.current('123-456')
 
     expect(navigateMock).toHaveBeenCalledTimes(0)
   })
@@ -49,7 +49,7 @@ describe('useGoToOfferOrContract', () => {
       wrapper: NavigationWrapper,
     })
 
-    await result.current('P-123')
+    await result.current('123')
 
     expect(navigateMock).toHaveBeenCalledTimes(0)
   })
