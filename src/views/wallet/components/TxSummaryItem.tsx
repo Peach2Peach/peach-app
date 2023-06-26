@@ -15,7 +15,7 @@ export const TxSummaryItem = ({ tx, style }: TxSummaryItemProps) => {
     <SummaryCard
       {...{
         style,
-        title: getTxSummaryTitle(tx),
+        title: getTxSummaryTitle(tx.type),
         icon: iconMap[tx.type],
         amount: tx.amount,
         currency: tx.currency,
