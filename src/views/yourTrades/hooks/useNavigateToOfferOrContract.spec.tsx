@@ -32,7 +32,7 @@ const wrapper = ({ children }: ComponentProps) => (
   </QueryClientWrapper>
 )
 
-describe('useNavigateToContract', () => {
+describe('useNavigateToOfferOrContract - contracts', () => {
   afterEach(() => {
     usePopupStore.setState(defaultPopupState)
   })
@@ -125,7 +125,7 @@ describe('useNavigateToContract', () => {
   })
 })
 
-describe('useNavigateToOfferOrContract', () => {
+describe('useNavigateToOfferOrContract - offers', () => {
   it('should navigate to offer', async () => {
     const offerSummary: Partial<OfferSummary> = {
       id: '3',
