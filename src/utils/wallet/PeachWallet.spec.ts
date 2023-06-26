@@ -88,7 +88,7 @@ describe('PeachWallet', () => {
     peachWallet.loadWallet()
     expect(peachWallet.balance).toBe(balance)
     expect(blockChainCreateMock).toHaveBeenCalledWith(
-      { concurrency: '2', proxy: '', stopGap: '25', timeout: '10', url: 'https://localhost:3000' },
+      { concurrency: 1, proxy: null, stopGap: 25, timeout: 30, baseUrl: 'https://localhost:3000' },
       'Esplora',
     )
   })
