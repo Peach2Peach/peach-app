@@ -1,5 +1,7 @@
-export const enforceDecimalsFormat = (value: string | number, decimals: number) => {
-  const formatted = value.toString()
+import { enforceNumberFormat } from './enforceNumberFormat'
+
+export const enforceDecimalsFormat = (value: string, decimals: number) => {
+  const formatted = enforceNumberFormat(value)
   if (value.toString().includes('.')) {
     const [integer, decimal] = value.toString().split('.')
     if (decimals === 0) return integer
