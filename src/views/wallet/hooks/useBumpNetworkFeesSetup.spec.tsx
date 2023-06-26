@@ -85,10 +85,18 @@ describe('useBumpNetworkFeesSetup', () => {
     rerender({})
     await waitFor(() => expect(result.current.newFeeRate).toBe('2.31'))
   })
+  it('should show no header while loading', () => {
+    useTransactionDetailsMock.mockReturnValue({ transaction: undefined })
+    renderHook(useBumpNetworkFeesSetup, { wrapper })
+    useTransactionDetailsMock.mockReturnValue({ transaction: bitcoinTransaction })
+
+    expect(headerState.header()).toMatchSnapshot()
+  })
   it('should set up header correctly', () => {
     renderHook(useBumpNetworkFeesSetup, { wrapper })
     expect(headerState.header()).toMatchSnapshot()
   })
+
   it('should set new fee', () => {
     const { result } = renderHook(useBumpNetworkFeesSetup, { wrapper })
 

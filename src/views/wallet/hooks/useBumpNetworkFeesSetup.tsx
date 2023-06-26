@@ -33,10 +33,14 @@ export const useBumpNetworkFeesSetup = () => {
   const newFeeRateIsValid = newFeeRate && newFeeRateErrors.length === 0
   const overpayingBy = Number(newFeeRate) / estimatedFees.fastestFee - 1
 
-  useHeaderSetup({
-    title: i18n('wallet.bumpNetworkFees.title'),
-    icons: [{ ...headerIcons.help, onPress: showHelp }],
-  })
+  useHeaderSetup(
+    !!transaction
+      ? {
+        title: i18n('wallet.bumpNetworkFees.title'),
+        icons: [{ ...headerIcons.help, onPress: showHelp }],
+      }
+      : {},
+  )
 
   const onSuccess = (newTxId: string) => {
     removePendingTransaction(txId)
