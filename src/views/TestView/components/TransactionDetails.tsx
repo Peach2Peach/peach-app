@@ -4,7 +4,7 @@ import tw from '../../../styles/tailwind'
 import { TransactionHeader } from '../../wallet/components/transactionDetails/TransactionHeader'
 
 export const TransactionDetails = () => (
-  <View style={tw`flex flex-col items-center`}>
+  <View style={tw`flex flex-col items-center gap-4`}>
     <Text style={tw`h4`}>Transaction Header</Text>
     <TransactionHeader type="TRADE" contractId="123-456" />
     <TransactionHeader type="DEPOSIT" />

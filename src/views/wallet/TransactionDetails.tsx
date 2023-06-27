@@ -3,8 +3,8 @@ import { Card, HorizontalLine, Loading, PeachScrollView } from '../../components
 import { PrimaryBubble } from '../../components/bubble'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
+import { TransactionHeader } from './components/transactionDetails/TransactionHeader'
 import { TransactionDetailsInfo } from './components/transcactionDetails/TransactionDetailsInfo'
-import { TranscactionDetailsHeader } from './components/transcactionDetails/TranscactionDetailsHeader'
 import { useTransactionDetailsSetup } from './hooks/useTransactionDetailsSetup'
 
 export const TransactionDetails = () => {
@@ -28,7 +28,7 @@ export const TransactionDetails = () => {
         <Loading style={tw`self-center`} />
       ) : (
         <Card style={tw`w-full p-7`}>
-          <TranscactionDetailsHeader {...{ transaction }} />
+          <TransactionHeader style={tw`self-center`} {...transaction} />
           <HorizontalLine style={tw`my-4`} />
           <TransactionDetailsInfo {...{ transaction, receivingAddress }} />
           <HorizontalLine style={tw`my-4`} />

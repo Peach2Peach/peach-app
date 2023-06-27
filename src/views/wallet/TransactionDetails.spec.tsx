@@ -1,7 +1,7 @@
-import { createRenderer } from 'react-test-renderer/shallow'
-import { confirmedTransactionSummary } from '../../../tests/unit/data/transactionDetailData'
-import { TransactionDetails } from './TransactionDetails'
 import { fireEvent, render } from '@testing-library/react-native'
+import { confirmedTransactionSummary } from '../../../tests/unit/data/transactionDetailData'
+import { NavigationAndQueryClientWrapper } from '../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
+import { TransactionDetails } from './TransactionDetails'
 
 const openInExplorerMock = jest.fn()
 const refreshMock = jest.fn()
@@ -22,11 +22,12 @@ jest.mock('./hooks/useTransactionDetailsSetup', () => ({
   useTransactionDetailsSetup: () => useTransactionDetailsSetupMock(),
 }))
 
+const wrapper = NavigationAndQueryClientWrapper
+
 describe('TransactionDetails', () => {
-  const renderer = createRenderer()
   it('renders correctly', () => {
-    renderer.render(<TransactionDetails />)
-    expect(renderer.getRenderOutput()).toMatchSnapshot()
+    const { toJSON } = render(<TransactionDetails />, { wrapper })
+    expect(toJSON()).toMatchSnapshot()
   })
   it('should go to increase network fee screen if rbf is possible', () => {
     useTransactionDetailsSetupMock.mockReturnValueOnce({
@@ -34,7 +35,7 @@ describe('TransactionDetails', () => {
       canBumpNetworkFees: true,
     })
 
-    const { getByText } = render(<TransactionDetails />)
+    const { getByText } = render(<TransactionDetails />, { wrapper })
     fireEvent(getByText('increase network fee'), 'onPress')
     expect(goToBumpNetworkFeesMock).toHaveBeenCalled()
   })
