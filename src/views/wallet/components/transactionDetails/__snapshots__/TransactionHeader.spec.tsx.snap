@@ -135,13 +135,10 @@ exports[`TransactionHeader should render correctly buy trade 1`] = `
         style={
           [
             {
-              "height": 24,
-              "width": 24,
+              "height": 20,
+              "width": 20,
             },
-            {
-              "height": 16,
-              "width": 16,
-            },
+            undefined,
           ]
         }
       />
@@ -285,13 +282,10 @@ exports[`TransactionHeader should render correctly for a funding escrow transact
         style={
           [
             {
-              "height": 24,
-              "width": 24,
+              "height": 20,
+              "width": 20,
             },
-            {
-              "height": 16,
-              "width": 16,
-            },
+            undefined,
           ]
         }
       />
@@ -435,13 +429,10 @@ exports[`TransactionHeader should render correctly for a funding escrow transact
         style={
           [
             {
-              "height": 24,
-              "width": 24,
+              "height": 20,
+              "width": 20,
             },
-            {
-              "height": 16,
-              "width": 16,
-            },
+            undefined,
           ]
         }
       />
@@ -643,13 +634,10 @@ exports[`TransactionHeader should render correctly for a refund transaction 1`] 
         style={
           [
             {
-              "height": 24,
-              "width": 24,
+              "height": 20,
+              "width": 20,
             },
-            {
-              "height": 16,
-              "width": 16,
-            },
+            undefined,
           ]
         }
       />
