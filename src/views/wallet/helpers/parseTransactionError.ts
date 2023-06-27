@@ -3,7 +3,7 @@ import { InsufficientFundsError } from '../../../utils/wallet/types'
 
 const isInsufficientFundsError = (cause: any): cause is InsufficientFundsError => cause && 'needed' in cause
 
-export const parseBroadcastError = (e: Error, cause: string | InsufficientFundsError): string[] => {
+export const parseTransactionError = (e: Error, cause: string | InsufficientFundsError): string[] => {
   const error = parseError(e)
   if (error === 'FEES_TOO_HIGH') {
     if (typeof cause === 'string') {

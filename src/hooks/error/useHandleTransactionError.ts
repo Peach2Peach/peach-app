@@ -1,20 +1,20 @@
 import { useCallback } from 'react'
-import { useShowErrorBanner } from '../useShowErrorBanner'
 import { parseError } from '../../utils/result'
-import { parseBroadcastError } from '../../views/wallet/helpers/parseBroadcastError'
 import { InsufficientFundsError } from '../../utils/wallet/types'
+import { parseTransactionError } from '../../views/wallet/helpers/parseTransactionError'
+import { useShowErrorBanner } from '../useShowErrorBanner'
 
-export const useHandleBroadcastError = () => {
+export const useHandleTransactionError = () => {
   const showErrorBanner = useShowErrorBanner()
 
-  const handleBroadcastError = useCallback(
+  const handleTransactionError = useCallback(
     (e: unknown) => {
       const [err, cause] = e as [Error, string | InsufficientFundsError]
       const error = parseError(err)
-      const bodyArgs = parseBroadcastError(err, cause)
+      const bodyArgs = parseTransactionError(err, cause)
       showErrorBanner(error, bodyArgs)
     },
     [showErrorBanner],
   )
-  return handleBroadcastError
+  return handleTransactionError
 }

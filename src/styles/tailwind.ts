@@ -14,7 +14,7 @@ const tailwind = create(require(NETWORK === 'testnet' ? './tailwind.testnet.conf
 const tw: Tailwind = (cls) => tailwind(cls)
 tw.md = (cls) => {
   const { width, height } = Dimensions.get('window')
-  return (width || 0) > 375 && (height || 0) > 690 ? tailwind(cls) : {}
+  return (width || 0) >= 375 && (height || 0) >= 690 ? tailwind(cls) : {}
 }
 tw.lg = (cls) => {
   const { width } = Dimensions.get('window')

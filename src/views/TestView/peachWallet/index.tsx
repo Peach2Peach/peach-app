@@ -12,6 +12,7 @@ import { fundAddress } from '../../../utils/regtest'
 import { thousands } from '../../../utils/string'
 import { peachWallet } from '../../../utils/wallet/setWallet'
 import { useWalletSetup } from '../../wallet/hooks/useWalletSetup'
+import { buildTransaction } from '../../../utils/wallet/transaction'
 
 export default () => {
   const { walletStore, isRefreshing, walletLoading, address, setAddress, isValid, addressErrors } = useWalletSetup(false)
@@ -24,10 +25,10 @@ export default () => {
   }
   const send50k = async () => {
     if (!isValid || !address) throw Error('Address invalid')
-    const transactionDetails = await peachWallet.sendTo(address, 50000, 3)
-
-    if (!transactionDetails) throw Error('Transaction failed')
-    setTxId(transactionDetails.txDetails.txid)
+    const transaction = await buildTransaction(address, 50000, 3)
+    const finishedTransaction = await peachWallet.finishTransaction(transaction)
+    const result = await peachWallet.signAndBroadcastPSBT(finishedTransaction.psbt)
+    setTxId(await result.txid())
   }
   const refill = async () => {
     const { address: newAddress } = await peachWallet.getReceivingAddress()

@@ -1,5 +1,6 @@
 export { enforceBICFormat } from './enforceBICFormat'
 export { enforceBankNumberFormat } from './enforceBankNumberFormat'
+export { enforceDecimalsFormat } from './enforceDecimalsFormat'
 export { enforceEmailFormat } from './enforceEmailFormat'
 export { enforceFormatOnPaymentData } from './enforceFormatOnPaymentData'
 export { enforceIBANFormat } from './enforceIBANFormat'
