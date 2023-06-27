@@ -1,14 +1,15 @@
 import { act, renderHook, waitFor } from '@testing-library/react-native'
 import { contract } from '../../tests/unit/data/contractData'
 import { contractSummary } from '../../tests/unit/data/contractSummaryData'
-import { NavigationWrapper, navigateMock } from '../../tests/unit/helpers/NavigationWrapper'
-import { QueryClientWrapper, queryClient } from '../../tests/unit/helpers/QueryClientWrapper'
+import { sellOffer } from '../../tests/unit/data/offerData'
+import { NavigationAndQueryClientWrapper } from '../../tests/unit/helpers/NavigationAndQueryClientWrapper'
+import { navigateMock } from '../../tests/unit/helpers/NavigationWrapper'
+import { queryClient } from '../../tests/unit/helpers/QueryClientWrapper'
 import { DisputeWon } from '../popups/dispute/components/DisputeWon'
 import { useLocalContractStore } from '../store/useLocalContractStore'
 import { defaultPopupState, usePopupStore } from '../store/usePopupStore'
 import { account } from '../utils/account'
 import { useNavigateToOfferOrContract } from './useNavigateToOfferOrContract'
-import { sellOffer } from '../../tests/unit/data/offerData'
 
 const startRefundPopupMock = jest.fn()
 jest.mock('../popups/useStartRefundPopup', () => ({
@@ -26,11 +27,7 @@ jest.mock('../queryClient', () => ({
   queryClient,
 }))
 
-const wrapper = ({ children }: ComponentProps) => (
-  <QueryClientWrapper>
-    <NavigationWrapper>{children}</NavigationWrapper>
-  </QueryClientWrapper>
-)
+const wrapper = NavigationAndQueryClientWrapper
 
 describe('useNavigateToOfferOrContract - contracts', () => {
   afterEach(() => {

@@ -2,8 +2,8 @@ import { act, renderHook, waitFor } from '@testing-library/react-native'
 import { account1 } from '../../../../tests/unit/data/accountData'
 import { sellOffer } from '../../../../tests/unit/data/offerData'
 import { unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
-import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
-import { QueryClientWrapper, queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
+import { NavigationAndQueryClientWrapper } from '../../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
+import { queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
 import { setAccount, updateAccount } from '../../../utils/account'
 import { saveOffer } from '../../../utils/offer'
 import { defaultFundingStatus } from '../../../utils/offer/constants'
@@ -39,11 +39,7 @@ jest.mock('../../../hooks/query/useFundingStatus', () => ({
   useFundingStatus: () => useFundingStatusMock(),
 }))
 
-const wrapper = ({ children }: { children: JSX.Element }) => (
-  <QueryClientWrapper>
-    <NavigationWrapper>{children}</NavigationWrapper>
-  </QueryClientWrapper>
-)
+const wrapper = NavigationAndQueryClientWrapper
 
 const sellOfferWithEscrow = { ...sellOffer, escrow: 'escrow' }
 const createEscrowSuccess = {
