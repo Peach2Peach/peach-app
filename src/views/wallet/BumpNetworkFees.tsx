@@ -24,7 +24,7 @@ export const BumpNetworkFees = () => {
   return (
     <>
       <PeachScrollView
-        style={tw`h-full w-full flex-1`}
+        style={tw`flex-1 w-full h-full`}
         contentContainerStyle={[tw`justify-center flex-1 px-8`, tw.md`px-10`]}
         contentStyle={[tw`gap-3`, tw.md`gap-5`]}
       >

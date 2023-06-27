@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { useHeaderSetup, useRoute, useShowHelp } from '../../../hooks'
 import { useFeeEstimate } from '../../../hooks/query/useFeeEstimate'
 import { useTransactionDetails } from '../../../hooks/query/useTransactionDetails'
@@ -16,11 +16,13 @@ export const useBumpNetworkFeesSetup = () => {
   const { transaction } = useTransactionDetails({ txId })
   const { estimatedFees } = useFeeEstimate()
   const currentFeeRate = transaction ? getTransactionFeeRate(transaction) : 1
-  const [newFeeRate, setNewFeeRate] = useState(String(currentFeeRate))
+  const [newFeeRate, setNewFeeRate] = useState<string>()
+  const feeRate = newFeeRate ?? String(currentFeeRate + 1)
+
   const newFeeRateRules = useMemo(() => ({ min: currentFeeRate + 1, required: true, feeRate: true }), [currentFeeRate])
-  const newFeeRateErrors = useMemo(() => getErrorsInField(newFeeRate, newFeeRateRules), [newFeeRate, newFeeRateRules])
-  const newFeeRateIsValid = newFeeRate && newFeeRateErrors.length === 0
-  const overpayingBy = Number(newFeeRate) / estimatedFees.fastestFee - 1
+  const newFeeRateErrors = useMemo(() => getErrorsInField(feeRate, newFeeRateRules), [feeRate, newFeeRateRules])
+  const newFeeRateIsValid = feeRate && newFeeRateErrors.length === 0
+  const overpayingBy = Number(feeRate) / estimatedFees.fastestFee - 1
 
   useHeaderSetup(
     !!transaction
@@ -31,14 +33,10 @@ export const useBumpNetworkFeesSetup = () => {
       : {},
   )
 
-  useEffect(() => {
-    setNewFeeRate(String(currentFeeRate + 1))
-  }, [currentFeeRate])
-
   return {
     transaction,
     currentFeeRate,
-    newFeeRate,
+    newFeeRate: feeRate,
     setNewFeeRate,
     newFeeRateIsValid,
     newFeeRateErrors,
