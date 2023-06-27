@@ -50,6 +50,7 @@ exports[`NewFee renders correctly 1`] = `
       style={
         {
           "color": "#9F8C82",
+          "textAlign": "center",
         }
       }
     >

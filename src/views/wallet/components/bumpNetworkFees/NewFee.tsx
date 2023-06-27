@@ -14,7 +14,7 @@ type Props = {
 
 export const NewFee = ({ newFeeRate, setNewFeeRate, overpayingBy = 0 }: Props) => (
   <>
-    <View style={tw`flex-row justify-center items-center gap-2 pt-2`}>
+    <View style={tw`flex-row items-center justify-center gap-2 pt-2`}>
       <Text style={tw`subtitle-1`}>{i18n('wallet.bumpNetworkFees.newFee')}</Text>
       <View style={tw`h-9`}>
         <NumberInput
@@ -26,9 +26,9 @@ export const NewFee = ({ newFeeRate, setNewFeeRate, overpayingBy = 0 }: Props) =
           required={true}
         />
       </View>
-      <Text style={tw`text-black-3`}>{i18n('satPerByte')}</Text>
+      <Text style={tw`text-center text-black-3`}>{i18n('satPerByte')}</Text>
     </View>
-    <Text style={tw`text-primary-main text-center`}>
+    <Text style={tw`text-center text-primary-main`}>
       {overpayingBy >= 1 ? i18n('wallet.bumpNetworkFees.overPayingBy', String(round(overpayingBy * 100))) : ' '}
     </Text>
   </>
