@@ -23,9 +23,9 @@ export const BumpNetworkFees = () => {
   if (!transaction) return <BitcoinLoading />
 
   return (
-    <View style={tw`items-center justify-between h-full gap-4 pb-5`}>
+    <>
       <PeachScrollView
-        style={tw`h-full w-full`}
+        style={tw`h-full w-full flex-1`}
         contentContainerStyle={[tw`justify-center flex-1 px-8`, tw.md`px-10`]}
         contentStyle={[tw`gap-3`, tw.md`gap-5`]}
       >
@@ -35,7 +35,11 @@ export const BumpNetworkFees = () => {
         <Divider />
         <NewFee {...{ newFeeRate, setNewFeeRate, overpayingBy }} />
       </PeachScrollView>
-      <BumpNetworkFeesButton {...{ transaction, newFeeRate, sendingAmount }} disabled={!newFeeRateIsValid} />
-    </View>
+      <BumpNetworkFeesButton
+        style={tw`self-center mb-5`}
+        {...{ transaction, newFeeRate, sendingAmount }}
+        disabled={!newFeeRateIsValid}
+      />
+    </>
   )
 }
