@@ -1,8 +1,16 @@
 import { RefreshControl, View } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-import { Card, HorizontalLine, Icon, Loading, PeachScrollView, PrimaryButton, Text } from '../../components'
+import {
+  Card,
+  HorizontalLine,
+  Icon,
+  Loading,
+  MediumSatsFormat,
+  PeachScrollView,
+  PrimaryButton,
+  Text,
+} from '../../components'
 import { ShortBitcoinAddress } from '../../components/bitcoin'
-import { MediumSatsFormat } from '../../components/text'
 import tw from '../../styles/tailwind'
 import { toDateFormat } from '../../utils/date'
 import i18n from '../../utils/i18n'
