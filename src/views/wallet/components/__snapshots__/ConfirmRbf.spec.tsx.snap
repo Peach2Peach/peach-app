@@ -38,7 +38,7 @@ exports[`ConfirmRbf renders correctly 1`] = `
     <PeachText
       style={
         {
-          "color": "#DF321F",
+          "color": "#F56522",
         }
       }
     >
@@ -75,7 +75,7 @@ exports[`ConfirmRbf renders correctly 1`] = `
     <PeachText
       style={
         {
-          "color": "#DF321F",
+          "color": "#F56522",
         }
       }
     >

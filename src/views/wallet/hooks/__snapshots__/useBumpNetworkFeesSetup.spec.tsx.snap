@@ -14,3 +14,5 @@ exports[`useBumpNetworkFeesSetup should set up header correctly 1`] = `
   title="increase network fee"
 />
 `;
+
+exports[`useBumpNetworkFeesSetup should show no header while loading 1`] = `<Header />`;

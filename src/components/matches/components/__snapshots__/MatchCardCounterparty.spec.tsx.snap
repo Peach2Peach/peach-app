@@ -32,3 +32,26 @@ exports[`MatchCardCounterparty renders correctly 1`] = `
   />
 </View>
 `;
+
+exports[`MatchCardCounterparty renders correctly for a new user 1`] = `
+<View>
+  <View
+    style={
+      {
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+      }
+    }
+  >
+    <UserId
+      id="123"
+      isDispute={false}
+      showInfo={true}
+    />
+    <Rating
+      isNewUser={true}
+      rating={1}
+    />
+  </View>
+</View>
+`;

@@ -25,7 +25,7 @@ export const ConfirmRbf = ({ oldFeeRate, newFeeRate, bytes, sendingAmount }: Pro
       </PeachText>
       <View>
         <BTCAmount amount={oldFee} size="medium" />
-        <PeachText style={tw`text-error-main`}>
+        <PeachText style={tw`text-primary-main`}>
           {i18n('wallet.bumpNetworkFees.confirmRbf.percentOfTx', String(round((oldFee / sendingAmount) * 100, 1)))}
         </PeachText>
       </View>
@@ -36,7 +36,7 @@ export const ConfirmRbf = ({ oldFeeRate, newFeeRate, bytes, sendingAmount }: Pro
       </PeachText>
       <View>
         <BTCAmount amount={newFee} size="medium" />
-        <PeachText style={tw`text-error-main`}>
+        <PeachText style={tw`text-primary-main`}>
           {i18n('wallet.bumpNetworkFees.confirmRbf.percentOfTx', String(round((newFee / sendingAmount) * 100, 1)))}
         </PeachText>
       </View>

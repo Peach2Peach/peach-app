@@ -1,16 +1,12 @@
 import { Dispatch, ReducerState, createContext, useContext } from 'react'
-import de_CH from '../../i18n/de-CH/text.json'
-import de from '../../i18n/de/text.json'
-import en from '../../i18n/en/text.json'
-import es from '../../i18n/es/text.json'
-import fr from '../../i18n/fr/text.json'
+import en from '../../i18n/en.json'
+import es from '../../i18n/es.json'
+import fr from '../../i18n/fr.json'
 
 const localeMapping: Record<string, Record<string, string>> = {
   en,
   es,
   fr,
-  de,
-  'de-CH': de_CH,
 }
 export type Locale = keyof typeof localeMapping
 
