@@ -11,7 +11,7 @@ type Props = {
 }
 
 export const FeeEstimates = ({ estimatedFees, setFeeRate, isOverpaying }: Props) => (
-  <View style={tw`flex-row items-center justify-center gap-6`}>
+  <View style={tw`flex-row items-center justify-between gap-6 px-2`}>
     <TouchableOpacity onPress={() => setFeeRate(estimatedFees.fastestFee.toString())}>
       <FeeInfo
         label={i18n('wallet.bumpNetworkFees.estimated.nextBlock')}

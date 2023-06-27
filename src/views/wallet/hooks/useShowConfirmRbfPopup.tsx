@@ -6,13 +6,14 @@ import { usePopupStore } from '../../../store/usePopupStore'
 import i18n from '../../../utils/i18n'
 import { peachWallet } from '../../../utils/wallet/setWallet'
 import { ConfirmRbf } from '../components/ConfirmRbf'
-import { TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
+import { useCallback } from 'react'
+import { useWalletState } from '../../../utils/wallet/walletStore'
 
 type Props = {
   currentFeeRate: number
-  newFeeRate: string
+  newFeeRate: number
   transaction: Transaction
-  localTransaction: TransactionDetails
+  sendingAmount: number
   finishedTransaction: PartiallySignedTransaction
   onSuccess: (txId: string) => void
 }
@@ -21,53 +22,55 @@ export const useShowConfirmRbfPopup = () => {
   const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
   const showLoadingPopup = useShowLoadingPopup()
   const handleTransactionError = useHandleTransactionError()
+  const removePendingTransaction = useWalletState((state) => state.removePendingTransaction)
 
-  const confirmAndSend = async (rbfTransaction: PartiallySignedTransaction, onSuccess: Props['onSuccess']) => {
-    showLoadingPopup({
-      title: i18n('wallet.bumpNetworkFees.confirmRbf.title'),
-      level: 'APP',
-    })
-    try {
-      await peachWallet.signAndBroadcastPSBT(rbfTransaction)
-      onSuccess(await rbfTransaction.txid())
-    } catch (e) {
-      handleTransactionError(e)
-    } finally {
-      closePopup()
-    }
-  }
+  const confirmAndSend = useCallback(
+    async (rbfTransaction: PartiallySignedTransaction, onSuccess: Props['onSuccess']) => {
+      showLoadingPopup({
+        title: i18n('wallet.bumpNetworkFees.confirmRbf.title'),
+        level: 'APP',
+      })
+      try {
+        const [txId] = await Promise.all([rbfTransaction.txid(), peachWallet.signAndBroadcastPSBT(rbfTransaction)])
 
-  const showConfirmRbfPopup = ({
-    currentFeeRate,
-    newFeeRate,
-    transaction,
-    localTransaction,
-    finishedTransaction,
-    onSuccess,
-  }: Props) => {
-    setPopup({
-      title: i18n('wallet.bumpNetworkFees.confirmRbf.title'),
-      level: 'APP',
-      content: (
-        <ConfirmRbf
-          oldFeeRate={currentFeeRate}
-          newFeeRate={Number(newFeeRate)}
-          bytes={transaction.size}
-          sendingAmount={localTransaction.sent - localTransaction.received}
-        />
-      ),
-      action1: {
-        label: i18n('fundFromPeachWallet.confirm.confirmAndSend'),
-        icon: 'arrowRightCircle',
-        callback: () => confirmAndSend(finishedTransaction, onSuccess),
-      },
-      action2: {
-        label: i18n('cancel'),
-        icon: 'xCircle',
-        callback: closePopup,
-      },
-    })
-  }
+        removePendingTransaction(txId)
+        onSuccess(txId)
+      } catch (e) {
+        handleTransactionError(e)
+      } finally {
+        closePopup()
+      }
+    },
+    [closePopup, handleTransactionError, removePendingTransaction, showLoadingPopup],
+  )
+
+  const showConfirmRbfPopup = useCallback(
+    ({ currentFeeRate, newFeeRate, transaction, sendingAmount, finishedTransaction, onSuccess }: Props) => {
+      setPopup({
+        title: i18n('wallet.bumpNetworkFees.confirmRbf.title'),
+        level: 'APP',
+        content: (
+          <ConfirmRbf
+            oldFeeRate={currentFeeRate}
+            newFeeRate={newFeeRate}
+            bytes={transaction.size}
+            sendingAmount={sendingAmount}
+          />
+        ),
+        action1: {
+          label: i18n('fundFromPeachWallet.confirm.confirmAndSend'),
+          icon: 'arrowRightCircle',
+          callback: () => confirmAndSend(finishedTransaction, onSuccess),
+        },
+        action2: {
+          label: i18n('cancel'),
+          icon: 'xCircle',
+          callback: closePopup,
+        },
+      })
+    },
+    [closePopup, confirmAndSend, setPopup],
+  )
 
   return showConfirmRbfPopup
 }

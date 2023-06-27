@@ -1,17 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`BumpNetworkFees renders correctly 1`] = `
-<View
-  style={
-    {
-      "alignItems": "center",
-      "gap": 16,
-      "height": "100%",
-      "justifyContent": "space-between",
-      "paddingBottom": 20,
-    }
-  }
->
+<React.Fragment>
   <ForwardRef
     contentContainerStyle={
       [
@@ -20,8 +10,8 @@ exports[`BumpNetworkFees renders correctly 1`] = `
           "flexGrow": 1,
           "flexShrink": 1,
           "justifyContent": "center",
-          "paddingLeft": 28,
-          "paddingRight": 28,
+          "paddingLeft": 32,
+          "paddingRight": 32,
         },
         {
           "paddingLeft": 40,
@@ -29,71 +19,114 @@ exports[`BumpNetworkFees renders correctly 1`] = `
         },
       ]
     }
+    contentStyle={
+      [
+        {
+          "gap": 12,
+        },
+        {
+          "gap": 20,
+        },
+      ]
+    }
     style={
       {
+        "flexBasis": "0%",
+        "flexGrow": 1,
+        "flexShrink": 1,
         "height": "100%",
+        "width": "100%",
       }
     }
   >
-    <View
-      style={
+    <CurrentFee />
+    <Divider />
+    <FeeEstimates
+      estimatedFees={
         {
-          "gap": 20,
+          "economyFee": 1,
+          "fastestFee": 1,
+          "halfHourFee": 1,
+          "hourFee": 1,
+          "minimumFee": 1,
         }
       }
-    >
-      <CurrentFee />
-      <Divider />
-      <FeeEstimates
-        estimatedFees={
-          {
-            "economyFee": 1,
-            "fastestFee": 1,
-            "halfHourFee": 1,
-            "hourFee": 1,
-            "minimumFee": 1,
-          }
-        }
-        isOverpaying={false}
-        setFeeRate={[MockFunction]}
-      />
-      <Divider />
-      <NewFee
-        setNewFeeRate={[MockFunction]}
-      />
-      <PeachText
-        style={
-          {
-            "color": "#DF321F",
-            "textAlign": "center",
-          }
-        }
-      >
-         
-      </PeachText>
-    </View>
+      isOverpaying={false}
+      setFeeRate={[MockFunction]}
+    />
+    <Divider />
+    <NewFee
+      overpayingBy={0.5}
+      setNewFeeRate={[MockFunction]}
+    />
   </ForwardRef>
-  <PrimaryButton
+  <BumpNetworkFeesButton
     disabled={true}
-    onPress={[MockFunction]}
-  >
-    confirm
-  </PrimaryButton>
-</View>
+    style={
+      {
+        "alignSelf": "center",
+        "marginBottom": 20,
+      }
+    }
+    transaction={
+      {
+        "fee": 202,
+        "locktime": 0,
+        "size": 206,
+        "status": {
+          "block_hash": "redacted1680",
+          "block_height": 756530,
+          "block_time": 1664622712,
+          "confirmed": true,
+        },
+        "txid": "credacted",
+        "value": 223667,
+        "version": 1,
+        "vin": [
+          {
+            "is_coinbase": false,
+            "prevout": {
+              "scriptpubkey": "5120redacted",
+              "scriptpubkey_address": "bc1pnf32redacted",
+              "scriptpubkey_asm": "OP_PUSHNUM_1 OP_PUSHBYTES_32 9a62redacted",
+              "scriptpubkey_type": "v1_p2tr",
+              "value": 223667,
+            },
+            "scriptsig": "",
+            "scriptsig_asm": "",
+            "sequence": 4294967295,
+            "txid": "bredacted",
+            "vout": 0,
+            "witness": [
+              "0667redacted",
+            ],
+          },
+        ],
+        "vout": [
+          {
+            "scriptpubkey": "5120redacted",
+            "scriptpubkey_address": "bc1p0w3vredacted",
+            "scriptpubkey_asm": "OP_PUSHNUM_1 OP_PUSHBYTES_32 7ba2redacted",
+            "scriptpubkey_type": "v1_p2tr",
+            "value": 173465,
+          },
+          {
+            "scriptpubkey": "0020redacted",
+            "scriptpubkey_address": "bc1qxukhredacted",
+            "scriptpubkey_asm": "OP_0 OP_PUSHBYTES_32 372dredacted",
+            "scriptpubkey_type": "v0_p2wsh",
+            "value": 50000,
+          },
+        ],
+        "weight": 617,
+      }
+    }
+  />
+</React.Fragment>
 `;
 
 exports[`BumpNetworkFees renders correctly for medium screens 1`] = `
-<View
-  style={
-    {
-      "alignItems": "center",
-      "gap": 16,
-      "height": "100%",
-      "justifyContent": "space-between",
-      "paddingBottom": 20,
-    }
-  }
->
+<React.Fragment>
   <ForwardRef
     contentContainerStyle={
       [
@@ -102,8 +135,8 @@ exports[`BumpNetworkFees renders correctly for medium screens 1`] = `
           "flexGrow": 1,
           "flexShrink": 1,
           "justifyContent": "center",
-          "paddingLeft": 28,
-          "paddingRight": 28,
+          "paddingLeft": 32,
+          "paddingRight": 32,
         },
         {
           "paddingLeft": 40,
@@ -111,71 +144,114 @@ exports[`BumpNetworkFees renders correctly for medium screens 1`] = `
         },
       ]
     }
+    contentStyle={
+      [
+        {
+          "gap": 12,
+        },
+        {
+          "gap": 20,
+        },
+      ]
+    }
     style={
       {
+        "flexBasis": "0%",
+        "flexGrow": 1,
+        "flexShrink": 1,
         "height": "100%",
+        "width": "100%",
       }
     }
   >
-    <View
-      style={
+    <CurrentFee />
+    <Divider />
+    <FeeEstimates
+      estimatedFees={
         {
-          "gap": 20,
+          "economyFee": 1,
+          "fastestFee": 1,
+          "halfHourFee": 1,
+          "hourFee": 1,
+          "minimumFee": 1,
         }
       }
-    >
-      <CurrentFee />
-      <Divider />
-      <FeeEstimates
-        estimatedFees={
-          {
-            "economyFee": 1,
-            "fastestFee": 1,
-            "halfHourFee": 1,
-            "hourFee": 1,
-            "minimumFee": 1,
-          }
-        }
-        isOverpaying={false}
-        setFeeRate={[MockFunction]}
-      />
-      <Divider />
-      <NewFee
-        setNewFeeRate={[MockFunction]}
-      />
-      <PeachText
-        style={
-          {
-            "color": "#DF321F",
-            "textAlign": "center",
-          }
-        }
-      >
-         
-      </PeachText>
-    </View>
+      isOverpaying={false}
+      setFeeRate={[MockFunction]}
+    />
+    <Divider />
+    <NewFee
+      overpayingBy={0.5}
+      setNewFeeRate={[MockFunction]}
+    />
   </ForwardRef>
-  <PrimaryButton
+  <BumpNetworkFeesButton
     disabled={true}
-    onPress={[MockFunction]}
-  >
-    confirm
-  </PrimaryButton>
-</View>
+    style={
+      {
+        "alignSelf": "center",
+        "marginBottom": 20,
+      }
+    }
+    transaction={
+      {
+        "fee": 202,
+        "locktime": 0,
+        "size": 206,
+        "status": {
+          "block_hash": "redacted1680",
+          "block_height": 756530,
+          "block_time": 1664622712,
+          "confirmed": true,
+        },
+        "txid": "credacted",
+        "value": 223667,
+        "version": 1,
+        "vin": [
+          {
+            "is_coinbase": false,
+            "prevout": {
+              "scriptpubkey": "5120redacted",
+              "scriptpubkey_address": "bc1pnf32redacted",
+              "scriptpubkey_asm": "OP_PUSHNUM_1 OP_PUSHBYTES_32 9a62redacted",
+              "scriptpubkey_type": "v1_p2tr",
+              "value": 223667,
+            },
+            "scriptsig": "",
+            "scriptsig_asm": "",
+            "sequence": 4294967295,
+            "txid": "bredacted",
+            "vout": 0,
+            "witness": [
+              "0667redacted",
+            ],
+          },
+        ],
+        "vout": [
+          {
+            "scriptpubkey": "5120redacted",
+            "scriptpubkey_address": "bc1p0w3vredacted",
+            "scriptpubkey_asm": "OP_PUSHNUM_1 OP_PUSHBYTES_32 7ba2redacted",
+            "scriptpubkey_type": "v1_p2tr",
+            "value": 173465,
+          },
+          {
+            "scriptpubkey": "0020redacted",
+            "scriptpubkey_address": "bc1qxukhredacted",
+            "scriptpubkey_asm": "OP_0 OP_PUSHBYTES_32 372dredacted",
+            "scriptpubkey_type": "v0_p2wsh",
+            "value": 50000,
+          },
+        ],
+        "weight": 617,
+      }
+    }
+  />
+</React.Fragment>
 `;
 
 exports[`BumpNetworkFees renders correctly when new fee is invalid 1`] = `
-<View
-  style={
-    {
-      "alignItems": "center",
-      "gap": 16,
-      "height": "100%",
-      "justifyContent": "space-between",
-      "paddingBottom": 20,
-    }
-  }
->
+<React.Fragment>
   <ForwardRef
     contentContainerStyle={
       [
@@ -184,8 +260,8 @@ exports[`BumpNetworkFees renders correctly when new fee is invalid 1`] = `
           "flexGrow": 1,
           "flexShrink": 1,
           "justifyContent": "center",
-          "paddingLeft": 28,
-          "paddingRight": 28,
+          "paddingLeft": 32,
+          "paddingRight": 32,
         },
         {
           "paddingLeft": 40,
@@ -193,72 +269,116 @@ exports[`BumpNetworkFees renders correctly when new fee is invalid 1`] = `
         },
       ]
     }
+    contentStyle={
+      [
+        {
+          "gap": 12,
+        },
+        {
+          "gap": 20,
+        },
+      ]
+    }
     style={
       {
+        "flexBasis": "0%",
+        "flexGrow": 1,
+        "flexShrink": 1,
         "height": "100%",
+        "width": "100%",
       }
     }
   >
-    <View
-      style={
+    <CurrentFee />
+    <Divider />
+    <FeeEstimates
+      estimatedFees={
         {
-          "gap": 20,
+          "economyFee": 1,
+          "fastestFee": 1,
+          "halfHourFee": 1,
+          "hourFee": 1,
+          "minimumFee": 1,
         }
       }
-    >
-      <CurrentFee />
-      <Divider />
-      <FeeEstimates
-        estimatedFees={
-          {
-            "economyFee": 1,
-            "fastestFee": 1,
-            "halfHourFee": 1,
-            "hourFee": 1,
-            "minimumFee": 1,
-          }
-        }
-        isOverpaying={false}
-        setFeeRate={[MockFunction]}
-      />
-      <Divider />
-      <NewFee
-        newFeeRate={1}
-        setNewFeeRate={[MockFunction]}
-      />
-      <PeachText
-        style={
-          {
-            "color": "#DF321F",
-            "textAlign": "center",
-          }
-        }
-      >
-         
-      </PeachText>
-    </View>
+      isOverpaying={false}
+      setFeeRate={[MockFunction]}
+    />
+    <Divider />
+    <NewFee
+      newFeeRate={1}
+      overpayingBy={0.5}
+      setNewFeeRate={[MockFunction]}
+    />
   </ForwardRef>
-  <PrimaryButton
+  <BumpNetworkFeesButton
     disabled={true}
-    onPress={[MockFunction]}
-  >
-    confirm
-  </PrimaryButton>
-</View>
+    newFeeRate={1}
+    style={
+      {
+        "alignSelf": "center",
+        "marginBottom": 20,
+      }
+    }
+    transaction={
+      {
+        "fee": 202,
+        "locktime": 0,
+        "size": 206,
+        "status": {
+          "block_hash": "redacted1680",
+          "block_height": 756530,
+          "block_time": 1664622712,
+          "confirmed": true,
+        },
+        "txid": "credacted",
+        "value": 223667,
+        "version": 1,
+        "vin": [
+          {
+            "is_coinbase": false,
+            "prevout": {
+              "scriptpubkey": "5120redacted",
+              "scriptpubkey_address": "bc1pnf32redacted",
+              "scriptpubkey_asm": "OP_PUSHNUM_1 OP_PUSHBYTES_32 9a62redacted",
+              "scriptpubkey_type": "v1_p2tr",
+              "value": 223667,
+            },
+            "scriptsig": "",
+            "scriptsig_asm": "",
+            "sequence": 4294967295,
+            "txid": "bredacted",
+            "vout": 0,
+            "witness": [
+              "0667redacted",
+            ],
+          },
+        ],
+        "vout": [
+          {
+            "scriptpubkey": "5120redacted",
+            "scriptpubkey_address": "bc1p0w3vredacted",
+            "scriptpubkey_asm": "OP_PUSHNUM_1 OP_PUSHBYTES_32 7ba2redacted",
+            "scriptpubkey_type": "v1_p2tr",
+            "value": 173465,
+          },
+          {
+            "scriptpubkey": "0020redacted",
+            "scriptpubkey_address": "bc1qxukhredacted",
+            "scriptpubkey_asm": "OP_0 OP_PUSHBYTES_32 372dredacted",
+            "scriptpubkey_type": "v0_p2wsh",
+            "value": 50000,
+          },
+        ],
+        "weight": 617,
+      }
+    }
+  />
+</React.Fragment>
 `;
 
 exports[`BumpNetworkFees renders correctly when new fee is valid 1`] = `
-<View
-  style={
-    {
-      "alignItems": "center",
-      "gap": 16,
-      "height": "100%",
-      "justifyContent": "space-between",
-      "paddingBottom": 20,
-    }
-  }
->
+<React.Fragment>
   <ForwardRef
     contentContainerStyle={
       [
@@ -267,8 +387,8 @@ exports[`BumpNetworkFees renders correctly when new fee is valid 1`] = `
           "flexGrow": 1,
           "flexShrink": 1,
           "justifyContent": "center",
-          "paddingLeft": 28,
-          "paddingRight": 28,
+          "paddingLeft": 32,
+          "paddingRight": 32,
         },
         {
           "paddingLeft": 40,
@@ -276,72 +396,116 @@ exports[`BumpNetworkFees renders correctly when new fee is valid 1`] = `
         },
       ]
     }
+    contentStyle={
+      [
+        {
+          "gap": 12,
+        },
+        {
+          "gap": 20,
+        },
+      ]
+    }
     style={
       {
+        "flexBasis": "0%",
+        "flexGrow": 1,
+        "flexShrink": 1,
         "height": "100%",
+        "width": "100%",
       }
     }
   >
-    <View
-      style={
+    <CurrentFee />
+    <Divider />
+    <FeeEstimates
+      estimatedFees={
         {
-          "gap": 20,
+          "economyFee": 1,
+          "fastestFee": 1,
+          "halfHourFee": 1,
+          "hourFee": 1,
+          "minimumFee": 1,
         }
       }
-    >
-      <CurrentFee />
-      <Divider />
-      <FeeEstimates
-        estimatedFees={
-          {
-            "economyFee": 1,
-            "fastestFee": 1,
-            "halfHourFee": 1,
-            "hourFee": 1,
-            "minimumFee": 1,
-          }
-        }
-        isOverpaying={false}
-        setFeeRate={[MockFunction]}
-      />
-      <Divider />
-      <NewFee
-        newFeeRate={20}
-        setNewFeeRate={[MockFunction]}
-      />
-      <PeachText
-        style={
-          {
-            "color": "#DF321F",
-            "textAlign": "center",
-          }
-        }
-      >
-         
-      </PeachText>
-    </View>
+      isOverpaying={false}
+      setFeeRate={[MockFunction]}
+    />
+    <Divider />
+    <NewFee
+      newFeeRate={20}
+      overpayingBy={0.5}
+      setNewFeeRate={[MockFunction]}
+    />
   </ForwardRef>
-  <PrimaryButton
+  <BumpNetworkFeesButton
     disabled={false}
-    onPress={[MockFunction]}
-  >
-    confirm
-  </PrimaryButton>
-</View>
+    newFeeRate={20}
+    style={
+      {
+        "alignSelf": "center",
+        "marginBottom": 20,
+      }
+    }
+    transaction={
+      {
+        "fee": 202,
+        "locktime": 0,
+        "size": 206,
+        "status": {
+          "block_hash": "redacted1680",
+          "block_height": 756530,
+          "block_time": 1664622712,
+          "confirmed": true,
+        },
+        "txid": "credacted",
+        "value": 223667,
+        "version": 1,
+        "vin": [
+          {
+            "is_coinbase": false,
+            "prevout": {
+              "scriptpubkey": "5120redacted",
+              "scriptpubkey_address": "bc1pnf32redacted",
+              "scriptpubkey_asm": "OP_PUSHNUM_1 OP_PUSHBYTES_32 9a62redacted",
+              "scriptpubkey_type": "v1_p2tr",
+              "value": 223667,
+            },
+            "scriptsig": "",
+            "scriptsig_asm": "",
+            "sequence": 4294967295,
+            "txid": "bredacted",
+            "vout": 0,
+            "witness": [
+              "0667redacted",
+            ],
+          },
+        ],
+        "vout": [
+          {
+            "scriptpubkey": "5120redacted",
+            "scriptpubkey_address": "bc1p0w3vredacted",
+            "scriptpubkey_asm": "OP_PUSHNUM_1 OP_PUSHBYTES_32 7ba2redacted",
+            "scriptpubkey_type": "v1_p2tr",
+            "value": 173465,
+          },
+          {
+            "scriptpubkey": "0020redacted",
+            "scriptpubkey_address": "bc1qxukhredacted",
+            "scriptpubkey_asm": "OP_0 OP_PUSHBYTES_32 372dredacted",
+            "scriptpubkey_type": "v0_p2wsh",
+            "value": 50000,
+          },
+        ],
+        "weight": 617,
+      }
+    }
+  />
+</React.Fragment>
 `;
 
 exports[`BumpNetworkFees renders correctly when user would be overpaying by at least 100% 1`] = `
-<View
-  style={
-    {
-      "alignItems": "center",
-      "gap": 16,
-      "height": "100%",
-      "justifyContent": "space-between",
-      "paddingBottom": 20,
-    }
-  }
->
+<React.Fragment>
   <ForwardRef
     contentContainerStyle={
       [
@@ -350,8 +514,8 @@ exports[`BumpNetworkFees renders correctly when user would be overpaying by at l
           "flexGrow": 1,
           "flexShrink": 1,
           "justifyContent": "center",
-          "paddingLeft": 28,
-          "paddingRight": 28,
+          "paddingLeft": 32,
+          "paddingRight": 32,
         },
         {
           "paddingLeft": 40,
@@ -359,58 +523,112 @@ exports[`BumpNetworkFees renders correctly when user would be overpaying by at l
         },
       ]
     }
+    contentStyle={
+      [
+        {
+          "gap": 12,
+        },
+        {
+          "gap": 20,
+        },
+      ]
+    }
     style={
       {
+        "flexBasis": "0%",
+        "flexGrow": 1,
+        "flexShrink": 1,
         "height": "100%",
+        "width": "100%",
       }
     }
   >
-    <View
-      style={
+    <CurrentFee />
+    <Divider />
+    <FeeEstimates
+      estimatedFees={
         {
-          "gap": 20,
+          "economyFee": 1,
+          "fastestFee": 1,
+          "halfHourFee": 1,
+          "hourFee": 1,
+          "minimumFee": 1,
         }
       }
-    >
-      <CurrentFee />
-      <Divider />
-      <FeeEstimates
-        estimatedFees={
-          {
-            "economyFee": 1,
-            "fastestFee": 1,
-            "halfHourFee": 1,
-            "hourFee": 1,
-            "minimumFee": 1,
-          }
-        }
-        isOverpaying={true}
-        setFeeRate={[MockFunction]}
-      />
-      <Divider />
-      <NewFee
-        newFeeRate={3.93}
-        setNewFeeRate={[MockFunction]}
-      />
-      <PeachText
-        style={
-          {
-            "color": "#DF321F",
-            "textAlign": "center",
-          }
-        }
-      >
-        overpaying by 200%
-      </PeachText>
-    </View>
+      isOverpaying={true}
+      setFeeRate={[MockFunction]}
+    />
+    <Divider />
+    <NewFee
+      newFeeRate={3.93}
+      overpayingBy={2}
+      setNewFeeRate={[MockFunction]}
+    />
   </ForwardRef>
-  <PrimaryButton
+  <BumpNetworkFeesButton
     disabled={false}
-    onPress={[MockFunction]}
-  >
-    confirm
-  </PrimaryButton>
-</View>
+    newFeeRate={3.93}
+    style={
+      {
+        "alignSelf": "center",
+        "marginBottom": 20,
+      }
+    }
+    transaction={
+      {
+        "fee": 202,
+        "locktime": 0,
+        "size": 206,
+        "status": {
+          "block_hash": "redacted1680",
+          "block_height": 756530,
+          "block_time": 1664622712,
+          "confirmed": true,
+        },
+        "txid": "credacted",
+        "value": 223667,
+        "version": 1,
+        "vin": [
+          {
+            "is_coinbase": false,
+            "prevout": {
+              "scriptpubkey": "5120redacted",
+              "scriptpubkey_address": "bc1pnf32redacted",
+              "scriptpubkey_asm": "OP_PUSHNUM_1 OP_PUSHBYTES_32 9a62redacted",
+              "scriptpubkey_type": "v1_p2tr",
+              "value": 223667,
+            },
+            "scriptsig": "",
+            "scriptsig_asm": "",
+            "sequence": 4294967295,
+            "txid": "bredacted",
+            "vout": 0,
+            "witness": [
+              "0667redacted",
+            ],
+          },
+        ],
+        "vout": [
+          {
+            "scriptpubkey": "5120redacted",
+            "scriptpubkey_address": "bc1p0w3vredacted",
+            "scriptpubkey_asm": "OP_PUSHNUM_1 OP_PUSHBYTES_32 7ba2redacted",
+            "scriptpubkey_type": "v1_p2tr",
+            "value": 173465,
+          },
+          {
+            "scriptpubkey": "0020redacted",
+            "scriptpubkey_address": "bc1qxukhredacted",
+            "scriptpubkey_asm": "OP_0 OP_PUSHBYTES_32 372dredacted",
+            "scriptpubkey_type": "v0_p2wsh",
+            "value": 50000,
+          },
+        ],
+        "weight": 617,
+      }
+    }
+  />
+</React.Fragment>
 `;
 
 exports[`BumpNetworkFees renders correctly while still loading 1`] = `<BitcoinLoading />`;

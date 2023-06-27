@@ -10,7 +10,7 @@ jest.mock('../../utils/system', () => ({
 describe('ProgressDonut', () => {
   const shallowRenderer = createRenderer()
   beforeEach(() => {
-    mockDimensions({ width: 375, height: 690 })
+    mockDimensions({ width: 374, height: 689 })
   })
   it('should render correctly', () => {
     shallowRenderer.render(<ProgressDonut title="Donut Test" value={1} max={5} />)
@@ -30,7 +30,7 @@ describe('ProgressDonut', () => {
     expect(shallowRenderer.getRenderOutput()).toMatchSnapshot()
   })
   it('should render correctly for medium viewports', () => {
-    mockDimensions({ width: 376, height: 691 })
+    mockDimensions({ width: 375, height: 690 })
 
     isIOSMock.mockReturnValueOnce(true)
     shallowRenderer.render(<ProgressDonut title="Donut Test" value={1} max={5} />)

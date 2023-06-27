@@ -7,7 +7,9 @@ exports[`FeeEstimates renders correctly 1`] = `
       "alignItems": "center",
       "flexDirection": "row",
       "gap": 24,
-      "justifyContent": "center",
+      "justifyContent": "space-between",
+      "paddingLeft": 8,
+      "paddingRight": 8,
     }
   }
 >
@@ -45,7 +47,9 @@ exports[`FeeEstimates renders correctly if overpaying 1`] = `
       "alignItems": "center",
       "flexDirection": "row",
       "gap": 24,
-      "justifyContent": "center",
+      "justifyContent": "space-between",
+      "paddingLeft": 8,
+      "paddingRight": 8,
     }
   }
 >

@@ -2,7 +2,7 @@ import { forwardRef, LegacyRef } from 'react'
 import { ScrollView, ScrollViewProps, View, ViewStyle } from 'react-native'
 
 type Props = ScrollViewProps & {
-  contentStyle?: ViewStyle
+  contentStyle?: ViewStyle | ViewStyle[]
 }
 
 export const PeachScrollView = forwardRef(
