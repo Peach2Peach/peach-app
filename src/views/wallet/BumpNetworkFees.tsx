@@ -1,13 +1,12 @@
 import { View } from 'react-native'
-import { Divider, PeachScrollView, PrimaryButton } from '../../components'
+import { Divider, PeachScrollView } from '../../components'
 import tw from '../../styles/tailwind'
-import i18n from '../../utils/i18n'
 import { BitcoinLoading } from '../loading/BitcoinLoading'
 import { CurrentFee } from './components/bumpNetworkFees/CurrentFee'
 import { FeeEstimates } from './components/bumpNetworkFees/FeeEstimates'
 import { NewFee } from './components/bumpNetworkFees/NewFee'
 import { useBumpNetworkFeesSetup } from './hooks/useBumpNetworkFeesSetup'
-import { useBumpFees } from './hooks/useBumpFees'
+import { BumpNetworkFeesButton } from './components/BumpNetworkFeesButton'
 
 export const BumpNetworkFees = () => {
   const {
@@ -20,7 +19,6 @@ export const BumpNetworkFees = () => {
     sendingAmount,
     overpayingBy,
   } = useBumpNetworkFeesSetup()
-  const bumpFees = useBumpFees({ transaction, newFeeRate: Number(newFeeRate), sendingAmount })
 
   if (!transaction) return <BitcoinLoading />
 
@@ -37,9 +35,7 @@ export const BumpNetworkFees = () => {
         <Divider />
         <NewFee {...{ newFeeRate, setNewFeeRate, overpayingBy }} />
       </PeachScrollView>
-      <PrimaryButton disabled={!newFeeRateIsValid} onPress={bumpFees} narrow>
-        {i18n('confirm')}
-      </PrimaryButton>
+      <BumpNetworkFeesButton {...{ transaction, newFeeRate, sendingAmount }} disabled={!newFeeRateIsValid} />
     </View>
   )
 }
