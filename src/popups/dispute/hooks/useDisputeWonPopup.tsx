@@ -8,6 +8,7 @@ import i18n from '../../../utils/i18n'
 import { shouldShowDisputeResult } from '../../../utils/popup'
 import { getContract } from '../../../utils/peachAPI'
 import { DisputeWon } from '../components/DisputeWon'
+import { queryClient } from '../../../queryClient'
 
 export const useDisputeWonPopup = () => {
   const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
@@ -17,6 +18,7 @@ export const useDisputeWonPopup = () => {
   const showDisputeWonPopup = async (contractId: string) => {
     const [contract] = await getContract({ contractId })
     if (!contract || !shouldShowDisputeResult(contract)) return
+    queryClient.setQueryData(['contract', contractId], contract)
     const view = contract.buyer.id === account.publicKey ? 'buyer' : 'seller'
     if (contract.disputeWinner !== view) return
     const saveAcknowledgeMent = () => {
@@ -37,7 +39,6 @@ export const useDisputeWonPopup = () => {
     }
 
     const tradeId = contractIdToHex(contract.id)
-
     setPopup({
       title: i18n('dispute.won'),
       level: 'SUCCESS',

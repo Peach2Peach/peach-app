@@ -15,49 +15,40 @@ describe('getActionLabel', () => {
   } as const
 
   it('should return the correct label for a past contract summary without unread messages', () => {
-    const status = 'waiting'
-    const result = getActionLabel(pastContractSummary, status)
+    const result = getActionLabel(pastContractSummary, true)
     expect(result).toBe(undefined)
   })
 
   it('should return the correct label for a past contract summary with unread messages', () => {
-    const status = 'waiting'
-    const result = getActionLabel({ ...pastContractSummary, unreadMessages: 1 }, status)
+    const result = getActionLabel({ ...pastContractSummary, unreadMessages: 1 }, true)
     expect(result).toEqual('new chat message')
   })
   it('should return correct label for a contract summary that is waiting', () => {
-    const status = 'waiting'
-    const result = getActionLabel({ ...pastContractSummary, tradeStatus: 'waiting' }, status)
+    const result = getActionLabel({ ...pastContractSummary, tradeStatus: 'waiting' }, true)
     expect(result).toEqual('waiting for payment')
   })
   it('should return correct label for a contract summary that is waiting and a buyer', () => {
-    const status = 'waiting'
-    const result = getActionLabel({ ...pastContractSummary, tradeStatus: 'waiting', type: 'bid' }, status)
+    const result = getActionLabel({ ...pastContractSummary, tradeStatus: 'waiting', type: 'bid' }, true)
     expect(result).toEqual('waiting for seller')
   })
   it('should return correct label for a contract summary that is rateUser', () => {
-    const status = 'rateUser'
-    const result = getActionLabel({ ...pastContractSummary, tradeStatus: 'rateUser' }, status)
+    const result = getActionLabel({ ...pastContractSummary, tradeStatus: 'rateUser' }, false)
     expect(result).toEqual('rate buyer')
   })
   it('should return correct label for a contract summary that is rateUser and a buyer', () => {
-    const status = 'rateUser'
-    const result = getActionLabel({ ...pastContractSummary, tradeStatus: 'rateUser', type: 'bid' }, status)
+    const result = getActionLabel({ ...pastContractSummary, tradeStatus: 'rateUser', type: 'bid' }, false)
     expect(result).toEqual('rate seller')
   })
   it('should return correct label for a contract summary that is not waiting or rateUser', () => {
-    const status = 'confirmPaymentRequired'
-    const result = getActionLabel({ ...pastContractSummary, tradeStatus: 'confirmPaymentRequired' }, status)
+    const result = getActionLabel({ ...pastContractSummary, tradeStatus: 'confirmPaymentRequired' }, false)
     expect(result).toEqual('confirm payment')
   })
   it('should return the correct label for past offer summaries', () => {
-    const status = 'waiting'
-    const result = getActionLabel(pastOfferSummary, status)
+    const result = getActionLabel(pastOfferSummary, true)
     expect(result).toBe(undefined)
   })
   it('should return the correct label for non-past offer summaries', () => {
-    const status = 'waiting'
-    const result = getActionLabel({ ...pastOfferSummary, tradeStatus: 'paymentRequired' }, status)
+    const result = getActionLabel({ ...pastOfferSummary, tradeStatus: 'paymentRequired' }, true)
     expect(result).toEqual('make payment')
   })
 })

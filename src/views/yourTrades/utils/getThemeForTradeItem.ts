@@ -1,34 +1,29 @@
-import { ColorValue } from 'react-native'
 import { IconType } from '../../../assets/icons'
-import tw from '../../../styles/tailwind'
+import { statusCardStyles } from '../../../components/statusCard/StatusCard'
 import { getDisputeResultTheme } from './getDisputeResultTheme'
-import { getOfferLevel } from './getOfferLevel'
+import { getOfferColor } from './getOfferColor'
 import { isContractSummary } from './isContractSummary'
 
 export type TradeTheme = {
-  icon: IconType
-  level: SummaryItemLevel
-  color: ColorValue | undefined
+  iconId: IconType
+  color: keyof typeof statusCardStyles.bg
 }
 
-export const getThemeForTradeItem = (trade: ContractSummary | OfferSummary): TradeTheme => {
-  const level = getOfferLevel(trade)
+export const getThemeForTradeItem = (trade: TradeSummary): TradeTheme => {
+  const color = getOfferColor(trade)
 
   if (isContractSummary(trade)) {
     if (trade.disputeWinner) return getDisputeResultTheme(trade)
-    if (trade.tradeStatus === 'tradeCanceled') return {
-      icon: 'xCircle',
-      level,
-      color: tw`text-black-5`.color,
+    if (trade.tradeStatus !== 'tradeCanceled') {
+      return {
+        iconId: trade.type === 'ask' ? 'sell' : 'buy',
+        color,
+      }
     }
-
-    if (trade.type === 'ask') return { icon: 'sell', level, color: tw`text-primary-mild-2`.color }
-    if (trade.type === 'bid') return { icon: 'buy', level, color: tw`text-success-mild`.color }
   }
 
   return {
-    icon: 'xCircle',
-    level,
-    color: tw`text-black-5`.color,
+    iconId: 'xCircle',
+    color,
   }
 }

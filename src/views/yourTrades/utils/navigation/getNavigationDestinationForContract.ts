@@ -1,15 +1,15 @@
-import { getSellOfferIdFromContract } from '../../../../utils/contract'
+import { queryClient } from '../../../../queryClient'
 import { getContract } from '../../../../utils/peachAPI'
 
 export const getNavigationDestinationForContract = async (
   contract: Contract | ContractSummary,
-): Promise<[keyof RootStackParamList, object | undefined]> => {
-  if (contract.tradeStatus === 'refundAddressRequired') {
-    return ['setRefundWallet', { offerId: getSellOfferIdFromContract(contract) }]
-  }
+): Promise<['tradeComplete', { contract: Contract }] | ['contract', { contractId: string }]> => {
   if (contract.tradeStatus === 'rateUser') {
     const [fullContract] = await getContract({ contractId: contract.id })
-    if (fullContract) return ['tradeComplete', { contract: fullContract }]
+    if (fullContract) {
+      queryClient.setQueryData(['contract', contract.id], fullContract)
+      return ['tradeComplete', { contract: fullContract }]
+    }
   }
 
   return ['contract', { contractId: contract.id }]

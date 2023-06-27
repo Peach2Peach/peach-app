@@ -1,7 +1,7 @@
 import { View } from 'react-native'
 import { Text } from '../../../components'
 import tw from '../../../styles/tailwind'
-import { BTCAmount } from '../../../components/text/BTCAmount'
+import { BTCAmount } from '../../../components/bitcoin'
 
 type Props = {
   label: string
