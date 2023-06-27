@@ -1,12 +1,11 @@
-import { View } from 'react-native'
 import { Divider, PeachScrollView } from '../../components'
 import tw from '../../styles/tailwind'
 import { BitcoinLoading } from '../loading/BitcoinLoading'
+import { BumpNetworkFeesButton } from './components/BumpNetworkFeesButton'
 import { CurrentFee } from './components/bumpNetworkFees/CurrentFee'
 import { FeeEstimates } from './components/bumpNetworkFees/FeeEstimates'
 import { NewFee } from './components/bumpNetworkFees/NewFee'
 import { useBumpNetworkFeesSetup } from './hooks/useBumpNetworkFeesSetup'
-import { BumpNetworkFeesButton } from './components/BumpNetworkFeesButton'
 
 export const BumpNetworkFees = () => {
   const {
