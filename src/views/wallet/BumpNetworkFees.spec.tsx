@@ -5,6 +5,11 @@ import { mockDimensions } from '../../../tests/unit/helpers/mockDimensions'
 import { placeholderFees } from '../../hooks/query/useFeeEstimate'
 import { getTransactionFeeRate } from '../../utils/bitcoin'
 import { BumpNetworkFees } from './BumpNetworkFees'
+import { navigationMock } from '../../../tests/unit/helpers/NavigationWrapper'
+
+jest.mock('../../hooks/useNavigation', () => ({
+  useNavigation: () => navigationMock,
+}))
 
 const setNewFeeRateMock = jest.fn()
 const bumpFeesMock = jest.fn()
@@ -18,12 +23,15 @@ const bumpNetworkFeesSetupReturnValue = {
   newFeeRateErrors: [],
   estimatedFees: placeholderFees,
   overpayingBy: 0.5,
-  bumpFees: bumpFeesMock,
 }
 
 const useBumpNetworkFeesSetupMock = jest.fn().mockReturnValue(bumpNetworkFeesSetupReturnValue)
 jest.mock('./hooks/useBumpNetworkFeesSetup', () => ({
   useBumpNetworkFeesSetup: () => useBumpNetworkFeesSetupMock(),
+}))
+const useBumpFeesMock = jest.fn().mockReturnValue(bumpFeesMock)
+jest.mock('./hooks/useBumpFees', () => ({
+  useBumpFees: () => useBumpFeesMock(),
 }))
 
 describe('BumpNetworkFees', () => {

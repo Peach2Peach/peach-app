@@ -24,7 +24,7 @@ export const useStartRefundPopup = () => {
   const isPeachWallet = useSettingsStore((state) => state.peachWalletActive)
   const [setShowBackupReminder, shouldShowBackupOverlay, setShouldShowBackupOverlay] = useSettingsStore((state) => [
     state.setShowBackupReminder,
-    state.shouldShowBackupOverlay.refundedEscrow,
+    state.shouldShowBackupOverlay?.refundedEscrow,
     state.setShouldShowBackupOverlay,
   ])
   const { refetch: refetchTradeSummaries } = useTradeSummaries(false)

@@ -78,11 +78,11 @@ export class PeachWallet extends PeachJSWallet {
         )
 
         const config: BlockchainEsploraConfig = {
-          url: BLOCKEXPLORER,
-          proxy: '',
-          concurrency: '2',
-          timeout: '10',
-          stopGap: this.gapLimit.toString(),
+          baseUrl: BLOCKEXPLORER,
+          proxy: null,
+          concurrency: 1,
+          timeout: 30,
+          stopGap: this.gapLimit,
         }
 
         this.blockchain = await new Blockchain().create(config, BlockChainNames.Esplora)
@@ -197,11 +197,12 @@ export class PeachWallet extends PeachJSWallet {
     return this.signAndBroadcastPSBT(finishedTransaction.psbt)
   }
 
-  async finishTransaction<T extends TxBuilder | BumpFeeTxBuilder> (transaction: T): Promise<ReturnType<T['finish']>> {
+  async finishTransaction<T extends TxBuilder | BumpFeeTxBuilder>(transaction: T): Promise<ReturnType<T['finish']>>
+
+  async finishTransaction (transaction: TxBuilder | BumpFeeTxBuilder) {
     if (!this.wallet || !this.blockchain) throw Error('WALLET_NOT_READY')
     info('PeachWallet - finishTransaction - start')
     try {
-      // @ts-ignore exposed interface works, but internally it's struggling
       return await transaction.finish(this.wallet)
     } catch (e) {
       throw handleTransactionError(parseError(e))
