@@ -11,18 +11,18 @@ import { useNavigateToOfferOrContract } from './useNavigateToOfferOrContract'
 import { sellOffer } from '../../tests/unit/data/offerData'
 
 const startRefundPopupMock = jest.fn()
-jest.mock('../../../popups/useStartRefundPopup', () => ({
+jest.mock('../popups/useStartRefundPopup', () => ({
   useStartRefundPopup: () => startRefundPopupMock,
 }))
 
 const getContractMock = jest.fn(() => Promise.resolve([contract, null]))
 const getOfferDetailsMock = jest.fn().mockResolvedValue([sellOffer])
-jest.mock('../../../utils/peachAPI', () => ({
+jest.mock('../utils/peachAPI', () => ({
   getContract: (..._args: unknown[]) => getContractMock(),
   getOfferDetails: () => getOfferDetailsMock(),
 }))
 
-jest.mock('../../../queryClient', () => ({
+jest.mock('../queryClient', () => ({
   queryClient,
 }))
 
