@@ -1,10 +1,8 @@
 import { render } from '@testing-library/react-native'
-import { NavigationWrapper } from '../../../tests/unit/helpers/NavigationWrapper'
-import { QueryClientWrapper } from '../../../tests/unit/helpers/QueryClientWrapper'
-import Buy from './Buy'
+import { NavigationAndQueryClientWrapper } from '../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
 import { useBitcoinStore } from '../../store/bitcoinStore'
 import { useOfferPreferences } from '../../store/offerPreferenes/useOfferPreferences'
-import { NavigationAndQueryClientWrapper } from '../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
+import Buy from './Buy'
 
 const useMarketPricesMock = jest.fn().mockReturnValue({
   data: {

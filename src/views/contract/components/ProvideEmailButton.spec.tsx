@@ -1,11 +1,9 @@
 import { fireEvent, render } from '@testing-library/react-native'
 import { contract } from '../../../../tests/unit/data/contractData'
-import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
-import { QueryClientWrapper } from '../../../../tests/unit/helpers/QueryClientWrapper'
+import { NavigationAndQueryClientWrapper } from '../../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
 import DisputeRaisedNotice from '../../../popups/dispute/components/DisputeRaisedNotice'
 import { usePopupStore } from '../../../store/usePopupStore'
 import { ProvideEmailButton } from './ProvideEmailButton'
-import { NavigationAndQueryClientWrapper } from '../../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
 
 jest.mock('../context', () => ({
   useContractContext: () => ({

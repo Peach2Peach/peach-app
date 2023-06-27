@@ -1,13 +1,12 @@
 import { renderHook, waitFor } from '@testing-library/react-native'
 import { Keyboard } from 'react-native'
 import { contract } from '../../../../../tests/unit/data/contractData'
-import { queryClient, QueryClientWrapper } from '../../../../../tests/unit/helpers/QueryClientWrapper'
+import { NavigationAndQueryClientWrapper } from '../../../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
+import { queryClient } from '../../../../../tests/unit/helpers/QueryClientWrapper'
+import { usePopupStore } from '../../../../store/usePopupStore'
 import { defaultAccount, setAccount } from '../../../../utils/account/account'
 import i18n from '../../../../utils/i18n'
 import { useSubmitDisputeAcknowledgement } from './useSubmitDisputeAcknowledgement'
-import { usePopupStore } from '../../../../store/usePopupStore'
-import { NavigationWrapper } from '../../../../../tests/unit/helpers/NavigationWrapper'
-import { NavigationAndQueryClientWrapper } from '../../../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
 
 const now = new Date()
 jest.useFakeTimers({ now })
