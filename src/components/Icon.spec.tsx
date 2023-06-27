@@ -15,6 +15,9 @@ describe('Icon', () => {
     expect(render(<Icon id="helpCircle" style={tw`w-10 h-10`} />).toJSON()).toMatchSnapshot()
     expect(render(<Icon id="helpCircle" style={[tw`w-10`, tw`h-10`]} />).toJSON()).toMatchSnapshot()
   })
+  it('can handle size', () => {
+    expect(render(<Icon id="helpCircle" size={10} />).toJSON()).toMatchSnapshot()
+  })
   it('renders ❌ if icon id is unknown', () => {
     // @ts-ignore
     const { toJSON } = render(<Icon id="garble" />)

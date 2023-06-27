@@ -1,7 +1,7 @@
 import { View } from 'react-native'
 import { BitcoinAddress, Divider, Icon, Loading, PeachScrollView, PrimaryButton, Text } from '../../components'
 import { TradeInfo } from '../../components/offer'
-import { BTCAmount } from '../../components/text/BTCAmount'
+import { BTCAmount } from '../../components/bitcoin'
 import { SATSINBTC } from '../../constants'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
@@ -37,7 +37,7 @@ export default () => {
           />
         </View>
       </PeachScrollView>
-      <View style={tw`flex justify-center items-center w-full px-7 p-4 gap-4`}>
+      <View style={tw`flex items-center justify-center w-full gap-4 p-4 px-7`}>
         <View style={tw`flex-row items-center justify-center gap-2`}>
           <Text style={tw`text-primary-main button-medium`}>{i18n('sell.escrow.checkingFundingStatus')}</Text>
           <Loading style={tw`w-5 h-5`} color={tw`text-primary-main`.color} />

@@ -94,8 +94,8 @@ exports[`FundEscrow should render the FundEscrow view 1`] = `
         "gap": 16,
         "justifyContent": "center",
         "paddingBottom": 16,
-        "paddingLeft": 16,
-        "paddingRight": 16,
+        "paddingLeft": 28,
+        "paddingRight": 28,
         "paddingTop": 16,
         "width": "100%",
       }
@@ -264,8 +264,8 @@ exports[`FundEscrow should show funded from peach wallet, if funded from peach w
         "gap": 16,
         "justifyContent": "center",
         "paddingBottom": 16,
-        "paddingLeft": 16,
-        "paddingRight": 16,
+        "paddingLeft": 28,
+        "paddingRight": 28,
         "paddingTop": 16,
         "width": "100%",
       }
