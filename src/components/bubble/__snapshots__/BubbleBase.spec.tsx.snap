@@ -147,12 +147,7 @@ exports[`BubbleBase should render correctly with icon 1`] = `
   <Icon
     color="#F56522"
     id="chevronsUp"
-    style={
-      {
-        "height": 16,
-        "width": 16,
-      }
-    }
+    size={20}
   />
 </TouchableOpacity>
 `;
@@ -203,12 +198,7 @@ exports[`BubbleBase should render correctly with icon and specific color 1`] = `
   <Icon
     color="#2B1911"
     id="chevronsUp"
-    style={
-      {
-        "height": 16,
-        "width": 16,
-      }
-    }
+    size={20}
   />
 </TouchableOpacity>
 `;

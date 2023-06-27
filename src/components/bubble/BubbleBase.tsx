@@ -10,6 +10,8 @@ export type BubbleBaseProps = {
   children?: ReactNode
   iconId?: IconType
   iconColor?: TextStyle
+  iconSize?: number
+  borderRadius?: ViewStyle
   color?: ViewStyle
   textColor: TextStyle
   borderColor?: ViewStyle
@@ -23,28 +25,25 @@ export const BubbleBase = ({
   textColor,
   iconColor = textColor,
   borderColor,
+  iconSize = 20,
+  borderRadius = tw`rounded-lg`,
   ...pressableProps
-}: BubbleBaseProps) => {
-  const iconSize = tw`w-4 h-4`
-  const borderRadius = tw`rounded-lg`
-
-  return (
-    <TouchableOpacity
-      {...pressableProps}
-      style={[
-        color,
-        tw`flex-row items-center justify-center h-7 px-[10px] gap-1`,
-        borderRadius,
-        borderColor && [tw`border`, borderColor],
-        pressableProps.style,
-      ]}
-    >
-      {children && (
-        <Text numberOfLines={1} ellipsizeMode="tail" style={[textColor, tw`text-center button-medium`]}>
-          {children}
-        </Text>
-      )}
-      {!!iconId && <Icon id={iconId} style={iconSize} color={iconColor?.color} />}
-    </TouchableOpacity>
-  )
-}
+}: BubbleBaseProps) => (
+  <TouchableOpacity
+    {...pressableProps}
+    style={[
+      color,
+      tw`flex-row items-center justify-center h-7 px-[10px] gap-1`,
+      borderRadius,
+      borderColor && [tw`border`, borderColor],
+      pressableProps.style,
+    ]}
+  >
+    {children && (
+      <Text numberOfLines={1} ellipsizeMode="tail" style={[textColor, tw`text-center button-medium`]}>
+        {children}
+      </Text>
+    )}
+    {!!iconId && <Icon id={iconId} size={iconSize} color={iconColor?.color} />}
+  </TouchableOpacity>
+)
