@@ -12,8 +12,8 @@ export const WrongFundingAmount = () => {
     <View style={tw`justify-between flex-grow px-6 pt-5 pb-3`}>
       <WrongFundingAmountSummary {...{ sellOffer }} />
       <View style={tw`items-center gap-3`}>
-        <ContinueTradeSlider sellOffer={sellOffer} />
-        <RefundEscrowSlider sellOffer={sellOffer} />
+        <ContinueTradeSlider {...{ sellOffer }} />
+        <RefundEscrowSlider {...{ sellOffer }} />
       </View>
     </View>
   )
