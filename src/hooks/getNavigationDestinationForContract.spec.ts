@@ -1,17 +1,17 @@
 import { queryClient } from '../../tests/unit/helpers/QueryClientWrapper'
 import { getNavigationDestinationForContract } from './getNavigationDestinationForContract'
 
-jest.mock('../../../../utils/contract', () => ({
+jest.mock('../utils/contract', () => ({
   getOfferIdFromContract: () => '1',
   getSellOfferIdFromContract: () => '1',
 }))
 
 const getContractMock = jest.fn()
-jest.mock('../../../../utils/peachAPI', () => ({
+jest.mock('../utils/peachAPI', () => ({
   getContract: () => getContractMock(),
 }))
 
-jest.mock('../../../../queryClient', () => ({
+jest.mock('../queryClient', () => ({
   queryClient,
 }))
 

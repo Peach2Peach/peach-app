@@ -4,12 +4,12 @@ import { NavigationAndQueryClientWrapper } from '../../tests/unit/helpers/Naviga
 import { queryClient } from '../../tests/unit/helpers/QueryClientWrapper'
 import { useHandleRefund } from './useHandleRefund'
 
-jest.mock('../../../queryClient', () => ({
+jest.mock('../queryClient', () => ({
   queryClient,
 }))
 
 const getOfferDetailsMock = jest.fn().mockResolvedValue([sellOffer, null])
-jest.mock('../../../utils/peachAPI', () => ({
+jest.mock('../utils/peachAPI', () => ({
   getOfferDetails: () => getOfferDetailsMock(),
   cancelOffer: jest.fn().mockResolvedValue([null, null]),
 }))
@@ -17,7 +17,7 @@ jest.mock('../../../utils/peachAPI', () => ({
 const wrapper = NavigationAndQueryClientWrapper
 
 const showStartRefundPopupMock = jest.fn()
-jest.mock('../../../popups/useStartRefundPopup', () => ({
+jest.mock('../popups/useStartRefundPopup', () => ({
   useStartRefundPopup: () => showStartRefundPopupMock,
 }))
 
