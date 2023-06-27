@@ -1,11 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`NewFee renders correctly 1`] = `
-<React.Fragment>
+<View
+  style={
+    {
+      "alignItems": "center",
+      "gap": 10,
+    }
+  }
+>
   <View
     style={
       {
         "alignItems": "center",
+        "alignSelf": "stretch",
         "flexDirection": "row",
         "gap": 8,
         "justifyContent": "center",
@@ -72,15 +80,23 @@ exports[`NewFee renders correctly 1`] = `
   >
     overpaying by 0%
   </PeachText>
-</React.Fragment>
+</View>
 `;
 
 exports[`NewFee renders correctly when overpaying 1`] = `
-<React.Fragment>
+<View
+  style={
+    {
+      "alignItems": "center",
+      "gap": 10,
+    }
+  }
+>
   <View
     style={
       {
         "alignItems": "center",
+        "alignSelf": "stretch",
         "flexDirection": "row",
         "gap": 8,
         "justifyContent": "center",
@@ -145,5 +161,5 @@ exports[`NewFee renders correctly when overpaying 1`] = `
   >
     overpaying by 100%
   </PeachText>
-</React.Fragment>
+</View>
 `;

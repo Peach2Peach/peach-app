@@ -13,8 +13,8 @@ type Props = {
 }
 
 export const NewFee = ({ newFeeRate, setNewFeeRate, overpayingBy = 0 }: Props) => (
-  <>
-    <View style={tw`flex-row items-center justify-center gap-2 pt-2`}>
+  <View style={tw`items-center gap-10px`}>
+    <View style={tw`flex-row items-center self-stretch justify-center gap-2 pt-2`}>
       <Text style={tw`subtitle-1`}>{i18n('wallet.bumpNetworkFees.newFee')}</Text>
       <View style={tw`h-9`}>
         <NumberInput
@@ -31,5 +31,5 @@ export const NewFee = ({ newFeeRate, setNewFeeRate, overpayingBy = 0 }: Props) =
     <Text style={[tw`text-center text-primary-main`, overpayingBy < 1 && tw`opacity-0`]}>
       {i18n('wallet.bumpNetworkFees.overPayingBy', String(round(overpayingBy * 100)))}
     </Text>
-  </>
+  </View>
 )
