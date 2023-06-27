@@ -1,0 +1,84 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MildBubble should render correctly 1`] = `
+<Bubble
+  borderColor={
+    {
+      "borderColor": "#FCCCB6",
+    }
+  }
+  color={
+    {
+      "backgroundColor": "#FEEDE5",
+    }
+  }
+  iconColor={
+    {
+      "color": "#F56522",
+    }
+  }
+  textColor={
+    {
+      "color": "#2B1911",
+    }
+  }
+>
+  Text
+</Bubble>
+`;
+
+exports[`MildBubble should render correctly with icon 1`] = `
+<Bubble
+  borderColor={
+    {
+      "borderColor": "#FCCCB6",
+    }
+  }
+  color={
+    {
+      "backgroundColor": "#FEEDE5",
+    }
+  }
+  iconColor={
+    {
+      "color": "#F56522",
+    }
+  }
+  iconId="chevronsUp"
+  textColor={
+    {
+      "color": "#2B1911",
+    }
+  }
+>
+  Text
+</Bubble>
+`;
+
+exports[`MildBubble should render correctly with no background 1`] = `
+<Bubble
+  border={true}
+  borderColor={
+    {
+      "borderColor": "#2B1911",
+    }
+  }
+  color={
+    {
+      "backgroundColor": "#FFFCFA",
+    }
+  }
+  iconColor={
+    {
+      "color": "#2B1911",
+    }
+  }
+  textColor={
+    {
+      "color": "#2B1911",
+    }
+  }
+>
+  Text
+</Bubble>
+`;

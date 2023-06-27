@@ -10,14 +10,22 @@ export type BubbleProps = {
   children?: ReactNode
   noBackground?: true
   iconId?: IconType
+  iconColor?: TextStyle
   color?: ViewStyle
   textColor: TextStyle
   borderColor?: ViewStyle
   style?: StyleProp<ViewStyle>
 } & TouchableOpacityProps
 
-export const Bubble = (props: BubbleProps) => {
-  const { children, iconId, color, textColor, borderColor, ...pressableProps } = props
+export const Bubble = ({
+  children,
+  iconId,
+  color,
+  textColor,
+  iconColor = textColor,
+  borderColor,
+  ...pressableProps
+}: BubbleProps) => {
   const iconSize = tw`w-4 h-4`
   const borderRadius = tw`rounded-lg`
 
@@ -37,7 +45,7 @@ export const Bubble = (props: BubbleProps) => {
           {children}
         </Text>
       )}
-      {!!iconId && <Icon id={iconId} style={iconSize} color={textColor?.color} />}
+      {!!iconId && <Icon id={iconId} style={iconSize} color={iconColor?.color} />}
     </TouchableOpacity>
   )
 }

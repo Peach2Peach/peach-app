@@ -1,11 +1,11 @@
 import tw from '../../styles/tailwind'
 import { Bubble, BubbleProps } from './Bubble'
 
-export type PrimaryBubbleProps = {
+export type Props = {
   border?: true
 } & Partial<BubbleProps>
 
-export const PrimaryBubble = (props: PrimaryBubbleProps) => {
+export const PrimaryBubble = (props: Props) => {
   const { border } = props
 
   const color = border ? tw`bg-primary-background-light` : tw`bg-primary-main`

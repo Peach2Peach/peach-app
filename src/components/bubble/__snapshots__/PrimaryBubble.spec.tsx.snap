@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PrimaryBubble should render correctly 1`] = `
+<Bubble
+  color={
+    {
+      "backgroundColor": "#F56522",
+    }
+  }
+  textColor={
+    {
+      "color": "#FFFCFA",
+    }
+  }
+>
+  Text
+</Bubble>
+`;
+
+exports[`PrimaryBubble should render correctly with icon 1`] = `
+<Bubble
+  color={
+    {
+      "backgroundColor": "#F56522",
+    }
+  }
+  iconId="chevronsUp"
+  textColor={
+    {
+      "color": "#FFFCFA",
+    }
+  }
+>
+  Text
+</Bubble>
+`;
+
+exports[`PrimaryBubble should render correctly with no background 1`] = `
+<Bubble
+  border={true}
+  borderColor={
+    {
+      "borderColor": "#F56522",
+    }
+  }
+  color={
+    {
+      "backgroundColor": "#FFFCFA",
+    }
+  }
+  textColor={
+    {
+      "color": "#F56522",
+    }
+  }
+>
+  Text
+</Bubble>
+`;
