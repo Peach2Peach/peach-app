@@ -2,7 +2,7 @@ import { StatusCard } from '../../../components/statusCard'
 import { useNavigation } from '../../../hooks'
 import { getShortDateFormat } from '../../../utils/date'
 import { getTxSummaryTitle } from '../helpers/getTxSummaryTitle'
-import { iconMap } from './iconMap'
+import { TransactionIcon } from './TransactionIcon'
 import { levelMap } from './levelMap'
 
 type Props = {
@@ -15,7 +15,7 @@ export const TxSummaryItem = ({ tx }: Props) => {
   return (
     <StatusCard
       title={getTxSummaryTitle(tx.type)}
-      icon={iconMap[tx.type]}
+      icon={<TransactionIcon type={tx.type} size={17} />}
       {...tx}
       subtext={getShortDateFormat(tx.date)}
       onPress={() => {
