@@ -17,6 +17,6 @@ describe('BitcoinProducts', () => {
     const openURLSpy = jest.spyOn(Linking, 'openURL')
     const { getByText } = render(<BitcoinProducts />, { wrapper: NavigationWrapper })
     fireEvent(getByText('check out bitbox'), 'onPress')
-    expect(openURLSpy).toHaveBeenCalledWith('https://shiftcrypto.ch/bitbox02/?ref=DLX6l9ccCc')
+    expect(openURLSpy).toHaveBeenCalledWith('https://bitbox.swiss/bitbox02/?ref=DLX6l9ccCc')
   })
 })

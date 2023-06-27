@@ -68,7 +68,7 @@ describe('useShowInsufficientFundsPopup', () => {
   })
 
   it('should broadcast withdraw all transaction on confirm', async () => {
-    peachWallet.signAndBroadcastTransaction = jest.fn().mockResolvedValue(transaction)
+    peachWallet.signAndBroadcastPSBT = jest.fn().mockResolvedValue(transaction.psbt)
 
     const { result } = renderHook(useShowInsufficientFundsPopup, { wrapper })
 
@@ -92,7 +92,7 @@ describe('useShowInsufficientFundsPopup', () => {
       await promise
     })
 
-    expect(peachWallet.signAndBroadcastTransaction).toHaveBeenCalledWith(transaction)
+    expect(peachWallet.signAndBroadcastPSBT).toHaveBeenCalledWith(transaction.psbt)
     expect(usePopupStore.getState().visible).toBeFalsy()
     expect(onSuccess).toHaveBeenCalled()
   })

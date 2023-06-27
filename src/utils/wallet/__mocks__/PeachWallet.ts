@@ -2,6 +2,7 @@
 import { TxBuilderResult } from 'bdk-rn/lib/classes/Bindings'
 import { TransactionsResponse } from 'bdk-rn/lib/lib/interfaces'
 import { getTransactionDetails } from '../../../../tests/unit/helpers/getTransactionDetails'
+import { PartiallySignedTransaction } from 'bdk-rn'
 
 export class PeachWallet {
   balance: number
@@ -40,8 +41,8 @@ export class PeachWallet {
     return getTransactionDetails()
   }
 
-  async signAndBroadcastTransaction (transaction: TxBuilderResult) {
-    return transaction
+  async signAndBroadcastPSBT (psbt: PartiallySignedTransaction) {
+    return psbt
   }
 
   findKeyPairByAddress () {
