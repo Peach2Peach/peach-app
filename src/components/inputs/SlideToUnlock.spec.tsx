@@ -24,6 +24,11 @@ describe('SlideToUnlock', () => {
     fireSwipeEvent({ element: getByTestId('confirmSlider'), x: 260 })
     expect(onUnlock).toHaveBeenCalled()
   })
+  it('does not call onUnlock on incomplete swipe', () => {
+    const { getByTestId } = render(<SlideToUnlock label1="label1" onUnlock={onUnlock} />)
+    fireSwipeEvent({ element: getByTestId('confirmSlider'), x: 183 })
+    expect(onUnlock).not.toHaveBeenCalled()
+  })
   it('does not call onUnlock on swipe to end if disabled', () => {
     const { getByTestId } = render(<SlideToUnlock label1="label1" onUnlock={onUnlock} disabled />)
     fireSwipeEvent({ element: getByTestId('confirmSlider'), x: 260 })
