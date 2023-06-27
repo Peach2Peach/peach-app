@@ -15,6 +15,21 @@ exports[`Icon can handle color 1`] = `
 />
 `;
 
+exports[`Icon can handle size 1`] = `
+<test-file-stub
+  fill="#888"
+  style={
+    [
+      {
+        "height": 10,
+        "width": 10,
+      },
+      undefined,
+    ]
+  }
+/>
+`;
+
 exports[`Icon can handle styles 1`] = `
 <test-file-stub
   fill="#888"

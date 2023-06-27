@@ -50,6 +50,7 @@ import Socials from './settings/aboutPeach/Socials'
 import BackupCreated from './settings/components/backups/BackupCreated'
 import MyProfile from './settings/profile/MyProfile'
 import TradeComplete from './tradeComplete/TradeComplete'
+import { BumpNetworkFees } from './wallet/BumpNetworkFees'
 import TransactionDetails from './wallet/TransactionDetails'
 import TransactionHistory from './wallet/TransactionHistory'
 import Wallet from './wallet/Wallet'
@@ -94,6 +95,7 @@ const wallet: ViewType[] = [
   { name: 'wallet', component: Wallet, ...defaultConfig, animationEnabled: false },
   { name: 'transactionHistory', component: TransactionHistory, ...defaultConfig },
   { name: 'transactionDetails', component: TransactionDetails, ...defaultConfig },
+  { name: 'bumpNetworkFees', component: BumpNetworkFees, ...defaultConfig },
 ]
 const buyFlow: ViewType[] = [
   { name: 'buy', component: Buy, ...defaultConfig, animationEnabled: false },

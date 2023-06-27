@@ -13,8 +13,8 @@ const TestWrapper = ({ children }: { children: React.ReactNode }) => (
   </QueryClientWrapper>
 )
 
-jest.mock('../../../../components/lists/SummaryCard', () => ({
-  SummaryCard: 'SummaryCard',
+jest.mock('../../../../components/statusCard', () => ({
+  StatusCard: 'StatusCard',
 }))
 
 describe('OfferItem', () => {
