@@ -1,6 +1,6 @@
 import { RefreshControl } from 'react-native'
 import { Card, HorizontalLine, Loading, PeachScrollView } from '../../components'
-import { PrimaryBubble } from '../../components/bubble'
+import { Bubble } from '../../components/bubble'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { TransactionHeader } from './components/transactionDetails/TransactionHeader'
@@ -32,13 +32,13 @@ export const TransactionDetails = () => {
           <HorizontalLine style={tw`my-4`} />
           <TransactionDetailsInfo {...{ transaction, receivingAddress }} />
           <HorizontalLine style={tw`my-4`} />
-          <PrimaryBubble style={tw`self-center`} border iconId="externalLink" onPress={openInExplorer}>
+          <Bubble color="primary" style={tw`self-center`} ghost iconId="externalLink" onPress={openInExplorer}>
             {i18n('transaction.viewInExplorer')}
-          </PrimaryBubble>
+          </Bubble>
           {canBumpNetworkFees && (
-            <PrimaryBubble onPress={goToBumpNetworkFees} iconId="chevronsUp" style={tw`self-center mt-4`}>
+            <Bubble color="primary" onPress={goToBumpNetworkFees} iconId="chevronsUp" style={tw`self-center mt-4`}>
               {i18n('wallet.bumpNetworkFees.button')}
-            </PrimaryBubble>
+            </Bubble>
           )}
         </Card>
       )}

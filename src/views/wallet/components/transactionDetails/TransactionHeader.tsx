@@ -1,6 +1,6 @@
 import { View } from 'react-native'
 import { Text } from '../../../../components'
-import { MildBubble } from '../../../../components/bubble'
+import { Bubble } from '../../../../components/bubble'
 import { useNavigateToOfferOrContract } from '../../../../hooks/useNavigateToOfferOrContract'
 import { useTradeSummaryStore } from '../../../../store/tradeSummaryStore'
 import tw from '../../../../styles/tailwind'
@@ -23,9 +23,9 @@ export const TransactionHeader = ({ type, offerId, contractId, style }: Props) =
       <View style={tw`items-start`}>
         <Text style={tw`h5`}>{i18n(`wallet.transactionDetails.type.${type}`)}</Text>
         {!!tradeId && (
-          <MildBubble iconId="info" onPress={goToOffer}>
+          <Bubble color="primary-mild" iconId="info" onPress={goToOffer}>
             {tradeId}
-          </MildBubble>
+          </Bubble>
         )}
       </View>
     </View>
