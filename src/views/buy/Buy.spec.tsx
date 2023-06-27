@@ -4,6 +4,7 @@ import { QueryClientWrapper } from '../../../tests/unit/helpers/QueryClientWrapp
 import Buy from './Buy'
 import { useBitcoinStore } from '../../store/bitcoinStore'
 import { useOfferPreferences } from '../../store/offerPreferenes/useOfferPreferences'
+import { NavigationAndQueryClientWrapper } from '../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
 
 const useMarketPricesMock = jest.fn().mockReturnValue({
   data: {
@@ -20,11 +21,7 @@ jest.mock('./hooks/useBuySetup', () => ({
   useBuySetup: () => useBuySetupMock(),
 }))
 
-const wrapper = ({ children }: ComponentProps) => (
-  <NavigationWrapper>
-    <QueryClientWrapper>{children}</QueryClientWrapper>
-  </NavigationWrapper>
-)
+const wrapper = NavigationAndQueryClientWrapper
 
 jest.useFakeTimers()
 

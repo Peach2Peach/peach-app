@@ -1,17 +1,12 @@
 import { render } from '@testing-library/react-native'
-import { NavigationContainer } from '@react-navigation/native'
-import { QueryClientWrapper } from '../../../../../tests/unit/helpers/QueryClientWrapper'
-import { TradeItem } from './TradeItem'
-import { updateAccount } from '../../../../utils/account'
 import { account1 } from '../../../../../tests/unit/data/accountData'
+import { NavigationAndQueryClientWrapper } from '../../../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
+import { updateAccount } from '../../../../utils/account'
+import { TradeItem } from './TradeItem'
 
 jest.useFakeTimers()
 
-const TestWrapper = ({ children }: { children: React.ReactNode }) => (
-  <QueryClientWrapper>
-    <NavigationContainer>{children}</NavigationContainer>
-  </QueryClientWrapper>
-)
+const wrapper = NavigationAndQueryClientWrapper
 
 jest.mock('../../../../components/statusCard', () => ({
   StatusCard: 'StatusCard',
@@ -32,12 +27,12 @@ describe('OfferItem', () => {
   }
 
   it('should render correctly', () => {
-    const { toJSON } = render(<TradeItem item={defaultOffer} />, { wrapper: TestWrapper })
+    const { toJSON } = render(<TradeItem item={defaultOffer} />, { wrapper })
     expect(toJSON()).toMatchSnapshot()
   })
   it('should render correctly if it\'s a past offer', () => {
     const { toJSON } = render(<TradeItem item={{ ...defaultOffer, tradeStatus: 'tradeCompleted' }} />, {
-      wrapper: TestWrapper,
+      wrapper,
     })
     expect(toJSON()).toMatchSnapshot()
   })
@@ -62,18 +57,18 @@ describe('ContractItem', () => {
   })
 
   it('should render correctly', () => {
-    const { toJSON } = render(<TradeItem item={contract} />, { wrapper: TestWrapper })
+    const { toJSON } = render(<TradeItem item={contract} />, { wrapper })
     expect(toJSON()).toMatchSnapshot()
   })
   it('should render correctly with unread messages', () => {
     const { toJSON } = render(<TradeItem item={{ ...contract, unreadMessages: 1 }} />, {
-      wrapper: TestWrapper,
+      wrapper,
     })
     expect(toJSON()).toMatchSnapshot()
   })
   it('should render correctly with past contract', () => {
     const { toJSON } = render(<TradeItem item={{ ...contract, tradeStatus: 'tradeCompleted' }} />, {
-      wrapper: TestWrapper,
+      wrapper,
     })
     expect(toJSON()).toMatchSnapshot()
   })

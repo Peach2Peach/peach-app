@@ -5,6 +5,7 @@ import { QueryClientWrapper } from '../../../../tests/unit/helpers/QueryClientWr
 import DisputeRaisedNotice from '../../../popups/dispute/components/DisputeRaisedNotice'
 import { usePopupStore } from '../../../store/usePopupStore'
 import { ProvideEmailButton } from './ProvideEmailButton'
+import { NavigationAndQueryClientWrapper } from '../../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
 
 jest.mock('../context', () => ({
   useContractContext: () => ({
@@ -13,19 +14,15 @@ jest.mock('../context', () => ({
   }),
 }))
 
-describe('ProvideEmailButton', () => {
-  const TestWrapper = ({ children }: { children: JSX.Element }) => (
-    <QueryClientWrapper>
-      <NavigationWrapper>{children}</NavigationWrapper>
-    </QueryClientWrapper>
-  )
+const wrapper = NavigationAndQueryClientWrapper
 
+describe('ProvideEmailButton', () => {
   it('should render correctly', () => {
-    const { toJSON } = render(<ProvideEmailButton />, { wrapper: TestWrapper })
+    const { toJSON } = render(<ProvideEmailButton />, { wrapper })
     expect(toJSON()).toMatchSnapshot()
   })
   it('should show the dispute raised notice when pressed', () => {
-    const { getByText } = render(<ProvideEmailButton />, { wrapper: TestWrapper })
+    const { getByText } = render(<ProvideEmailButton />, { wrapper })
     fireEvent.press(getByText('provide email'))
     expect(usePopupStore.getState()).toStrictEqual(
       expect.objectContaining({

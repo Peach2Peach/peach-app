@@ -8,6 +8,7 @@ import { setAccount } from '../../../utils/account'
 import { useContractChatSetup } from './useContractChatSetup'
 import { act } from 'react-test-renderer'
 import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { NavigationAndQueryClientWrapper } from '../../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
 
 const useRouteMock = jest.fn(() => ({
   params: {
@@ -41,11 +42,7 @@ jest.mock('@react-navigation/native', () => ({
   useFocusEffect: () => useFocusEffectMock(),
 }))
 
-const wrapper = ({ children }: any) => (
-  <NavigationWrapper>
-    <QueryClientWrapper>{children}</QueryClientWrapper>
-  </NavigationWrapper>
-)
+const wrapper = NavigationAndQueryClientWrapper
 
 jest.useFakeTimers()
 

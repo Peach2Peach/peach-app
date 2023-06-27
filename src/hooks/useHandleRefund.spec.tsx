@@ -1,7 +1,7 @@
 import { renderHook } from '@testing-library/react-native'
 import { sellOffer } from '../../tests/unit/data/offerData'
-import { NavigationWrapper } from '../../tests/unit/helpers/NavigationWrapper'
-import { queryClient, QueryClientWrapper } from '../../tests/unit/helpers/QueryClientWrapper'
+import { NavigationAndQueryClientWrapper } from '../../tests/unit/helpers/NavigationAndQueryClientWrapper'
+import { queryClient } from '../../tests/unit/helpers/QueryClientWrapper'
 import { useHandleRefund } from './useHandleRefund'
 
 jest.mock('../../../queryClient', () => ({
@@ -14,11 +14,7 @@ jest.mock('../../../utils/peachAPI', () => ({
   cancelOffer: jest.fn().mockResolvedValue([null, null]),
 }))
 
-const wrapper = ({ children }: { children: JSX.Element }) => (
-  <QueryClientWrapper>
-    <NavigationWrapper>{children}</NavigationWrapper>
-  </QueryClientWrapper>
-)
+const wrapper = NavigationAndQueryClientWrapper
 
 const showStartRefundPopupMock = jest.fn()
 jest.mock('../../../popups/useStartRefundPopup', () => ({

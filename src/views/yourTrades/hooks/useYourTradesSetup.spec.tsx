@@ -1,6 +1,5 @@
 import { renderHook } from '@testing-library/react-native'
-import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
-import { QueryClientWrapper } from '../../../../tests/unit/helpers/QueryClientWrapper'
+import { NavigationAndQueryClientWrapper } from '../../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
 import { useYourTradesSetup } from './useYourTradesSetup'
 
 const useRouteMock = jest.fn(() => ({
@@ -18,11 +17,7 @@ jest.mock('../../../utils/peachAPI', () => ({
   getOfferSummaries: (...args: any[]) => getOfferSummariesMock(...args),
 }))
 
-const wrapper = ({ children }: ComponentProps) => (
-  <NavigationWrapper>
-    <QueryClientWrapper>{children}</QueryClientWrapper>
-  </NavigationWrapper>
-)
+const wrapper = NavigationAndQueryClientWrapper
 
 jest.useFakeTimers()
 

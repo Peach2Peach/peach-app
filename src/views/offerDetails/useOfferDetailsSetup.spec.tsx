@@ -1,6 +1,6 @@
 import { renderHook } from '@testing-library/react-native'
-import { headerState, NavigationWrapper } from '../../../tests/unit/helpers/NavigationWrapper'
-import { QueryClientWrapper } from '../../../tests/unit/helpers/QueryClientWrapper'
+import { NavigationAndQueryClientWrapper } from '../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
+import { headerState } from '../../../tests/unit/helpers/NavigationWrapper'
 import { useOfferDetailsSetup } from './useOfferDetailsSetup'
 
 const offerId = '123'
@@ -13,11 +13,7 @@ jest.mock('../../hooks/useRoute', () => ({
   useRoute: () => useRouteMock(),
 }))
 
-const wrapper = ({ children }: ComponentProps) => (
-  <NavigationWrapper>
-    <QueryClientWrapper>{children}</QueryClientWrapper>
-  </NavigationWrapper>
-)
+const wrapper = NavigationAndQueryClientWrapper
 
 jest.useFakeTimers()
 

@@ -7,6 +7,7 @@ import i18n from '../../../../utils/i18n'
 import { useSubmitDisputeAcknowledgement } from './useSubmitDisputeAcknowledgement'
 import { usePopupStore } from '../../../../store/usePopupStore'
 import { NavigationWrapper } from '../../../../../tests/unit/helpers/NavigationWrapper'
+import { NavigationAndQueryClientWrapper } from '../../../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
 
 const now = new Date()
 jest.useFakeTimers({ now })
@@ -32,11 +33,7 @@ jest.mock('../../../../utils/contract/saveContract', () => ({
   saveContract: (...args: any[]) => saveContractMock(...args),
 }))
 
-const wrapper = ({ children }: ComponentProps) => (
-  <NavigationWrapper>
-    <QueryClientWrapper>{children}</QueryClientWrapper>
-  </NavigationWrapper>
-)
+const wrapper = NavigationAndQueryClientWrapper
 
 describe('useSubmitDisputeAcknowledgement', () => {
   beforeEach(() => {

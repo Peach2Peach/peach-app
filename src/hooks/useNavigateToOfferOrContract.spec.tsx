@@ -9,6 +9,7 @@ import { defaultPopupState, usePopupStore } from '../store/usePopupStore'
 import { account } from '../utils/account'
 import { useNavigateToOfferOrContract } from './useNavigateToOfferOrContract'
 import { sellOffer } from '../../tests/unit/data/offerData'
+import { NavigationAndQueryClientWrapper } from '../../tests/unit/helpers/NavigationAndQueryClientWrapper'
 
 const startRefundPopupMock = jest.fn()
 jest.mock('../../../popups/useStartRefundPopup', () => ({
@@ -26,11 +27,7 @@ jest.mock('../../../queryClient', () => ({
   queryClient,
 }))
 
-const wrapper = ({ children }: ComponentProps) => (
-  <QueryClientWrapper>
-    <NavigationWrapper>{children}</NavigationWrapper>
-  </QueryClientWrapper>
-)
+const wrapper = NavigationAndQueryClientWrapper
 
 describe('useNavigateToOfferOrContract - contracts', () => {
   afterEach(() => {

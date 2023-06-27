@@ -3,6 +3,7 @@ import { useBuySetup } from './useBuySetup'
 import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { defaultSelfUser } from '../../../../tests/unit/data/userData'
 import { QueryClientWrapper } from '../../../../tests/unit/helpers/QueryClientWrapper'
+import { NavigationAndQueryClientWrapper } from '../../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
 
 const useHeaderSetupMock = jest.fn()
 jest.mock('../../../hooks/useHeaderSetup', () => ({
@@ -32,11 +33,7 @@ jest.mock('../../../utils/peachAPI', () => ({
   getSelfUser: () => getSelfUserMock(),
 }))
 
-const wrapper = ({ children }: ComponentProps) => (
-  <NavigationWrapper>
-    <QueryClientWrapper>{children}</QueryClientWrapper>
-  </NavigationWrapper>
-)
+const wrapper = NavigationAndQueryClientWrapper
 
 jest.useFakeTimers()
 
