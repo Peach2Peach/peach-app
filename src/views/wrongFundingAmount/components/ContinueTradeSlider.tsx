@@ -1,9 +1,23 @@
 import { SlideToUnlock } from '../../../components/inputs'
 import i18n from '../../../utils/i18n'
+import { useConfirmEscrow } from '../hooks/useConfirmEscrow'
 
 type Props = {
-  onUnlock: () => void
+  sellOffer?: SellOffer
 }
-export const ContinueTradeSlider = ({ onUnlock }: Props) => (
-  <SlideToUnlock onUnlock={onUnlock} label1={i18n('continueTrade')} iconId="arrowRightCircle" />
-)
+export const ContinueTradeSlider = ({ sellOffer }: Props) => {
+  const confirmEscrow = useConfirmEscrow()
+  const confirmEscrowWithSellOffer = () => {
+    if (!sellOffer) return
+    confirmEscrow(sellOffer)
+  }
+
+  return (
+    <SlideToUnlock
+      disabled={!sellOffer}
+      onUnlock={confirmEscrowWithSellOffer}
+      label1={i18n('continueTrade')}
+      iconId="arrowRightCircle"
+    />
+  )
+}

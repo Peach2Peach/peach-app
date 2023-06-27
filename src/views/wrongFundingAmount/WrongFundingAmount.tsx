@@ -10,7 +10,8 @@ import { LabelAndAmount } from './components/LabelAndAmount'
 import { thousands } from '../../utils/string'
 
 export const WrongFundingAmount = () => {
-  const { sellOffer, fundingAmount, actualAmount, confirmEscrow } = useWrongFundingAmountSetup()
+  const { sellOffer, fundingAmount, actualAmount } = useWrongFundingAmountSetup()
+
   return (
     <View style={tw`justify-between flex-grow px-6 pt-5 pb-3`}>
       <View style={tw`gap-3`}>
@@ -25,8 +26,8 @@ export const WrongFundingAmount = () => {
         <Text style={tw`body-s`}>{i18n('escrow.wrongFundingAmount.continueOrRefund', thousands(actualAmount))}</Text>
       </View>
       <View style={tw`items-center gap-3`}>
-        <ContinueTradeSlider onUnlock={confirmEscrow} />
-        {!!sellOffer && <RefundEscrowSlider sellOffer={sellOffer} />}
+        <ContinueTradeSlider sellOffer={sellOffer} />
+        <RefundEscrowSlider sellOffer={sellOffer} />
       </View>
     </View>
   )
