@@ -32,6 +32,7 @@ import clock from './clock.svg'
 import cloud from './cloud.svg'
 import cloudOff from './cloudOff.svg'
 import copy from './copy.svg'
+import cornerDownRight from './cornerDownRight.svg'
 import cpu from './cpu.svg'
 import creditCard from './creditCard.svg'
 import crossOutlined from './crossOutlined.svg'
@@ -152,6 +153,7 @@ const Icons = {
   cloud,
   cloudOff,
   copy,
+  cornerDownRight,
   cpu,
   crossOutlined,
   cryptotag,

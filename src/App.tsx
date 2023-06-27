@@ -18,7 +18,7 @@ import { MessageContext, getMessage, setMessage, showMessageEffect } from './con
 import { PeachWSContext, getWebSocket, setPeachWS } from './utils/peachAPI/websocket'
 
 import { DEV } from '@env'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { QueryClientProvider } from '@tanstack/react-query'
 import { setUnhandledPromiseRejectionTracker } from 'react-native-promise-rejection-utils'
 import { GlobalHandlers } from './GlobalHandlers'
 import { Background } from './components/background/Background'
@@ -32,6 +32,7 @@ import { screenTransition } from './utils/layout/screenTransition'
 import { error, info } from './utils/log'
 import { parseError } from './utils/result'
 import { isIOS, isNetworkError } from './utils/system'
+import { queryClient } from './queryClient'
 
 enableScreens()
 
@@ -44,8 +45,6 @@ const navTheme = {
     background: 'transparent',
   },
 }
-
-const queryClient = new QueryClient()
 
 // eslint-disable-next-line max-statements
 const App = () => {

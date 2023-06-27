@@ -39,7 +39,7 @@ export default () => {
       />
       {getCurrentData().length > 0 ? (
         <SectionList
-          contentContainerStyle={[tw`px-8 py-10 bg-transparent`, isLoading && tw`opacity-60`]}
+          contentContainerStyle={[tw`px-4 py-10 bg-transparent`, tw.md`px-8`, isLoading && tw`opacity-60`]}
           onRefresh={refetch}
           refreshing={false}
           showsVerticalScrollIndicator={false}

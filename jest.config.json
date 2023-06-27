@@ -8,10 +8,10 @@
   "coverageReporters": ["lcov", "text-summary"],
   "coverageThreshold": {
     "global": {
-      "statements": 84.48,
-      "branches": 66.18,
-      "functions": 76.15,
-      "lines": 85.84
+      "statements": 84.51,
+      "branches": 66.89,
+      "functions": 78.24,
+      "lines": 85.27
     }
   },
   "transform": {
@@ -37,5 +37,6 @@
     "\\.(ttf|woff|woff2|eot|otf)$": "jest-transform-stub",
     "\\.(jpg|jpeg|png|gif|webp|svg|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js"
   },
-  "coveragePathIgnorePatterns": ["/node_modules/", "src/views/TestView"]
+  "coveragePathIgnorePatterns": ["/node_modules/", "src/views/TestView"],
+  "collectCoverageFrom": ["src/**/*.{js,jsx,ts,tsx}", "!src/**/*.d.ts", "!src/views/TestView/**/*"]
 }

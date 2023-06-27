@@ -1,0 +1,1 @@
+export { useNavigateToOfferOrContract } from './useNavigateToOfferOrContract'
