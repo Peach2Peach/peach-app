@@ -36,9 +36,6 @@ describe('useWrongFundingAmountSetup', () => {
     useOfferDetailsMock.mockReturnValueOnce({ offer: undefined })
     const { result } = renderHook(useWrongFundingAmountSetup, { wrapper })
     expect(result.current).toEqual({
-      actualAmount: 0,
-      confirmEscrow: expect.any(Function),
-      fundingAmount: 0,
       sellOffer: undefined,
     })
   })
@@ -46,9 +43,6 @@ describe('useWrongFundingAmountSetup', () => {
     const { result } = renderHook(useWrongFundingAmountSetup, { wrapper })
     await waitFor(() => expect(result.current.sellOffer).toBeDefined())
     expect(result.current).toEqual({
-      actualAmount: wronglyFundedSellOffer.funding.amounts[0],
-      confirmEscrow: expect.any(Function),
-      fundingAmount: wronglyFundedSellOffer.amount,
       sellOffer: wronglyFundedSellOffer,
     })
   })
