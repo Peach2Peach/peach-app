@@ -13,7 +13,7 @@ export const Bubble = (props: BubbleProps) => {
   const color = getBackgroundColor(props)
   const textColor = getTextColor(props)
   const borderColor = getBorderColor(props)
-  const iconColor = getIconColor(props)
+  const iconColor = props.iconColor || getIconColor(props)
 
   return <BubbleBase {...{ ...props, color, textColor, iconColor, borderColor }} />
 }

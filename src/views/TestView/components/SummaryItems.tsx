@@ -5,6 +5,10 @@ import { SummaryItem, TextSummaryItem } from '../../../components/summaryItem'
 import { info } from '../../../utils/log'
 import { ConfirmationSummaryItem } from '../../../components/summaryItem/ConfirmationSummaryItem'
 import { AmountSummaryItem } from '../../../components/summaryItem/AmountSummaryItem'
+import { PaymentMethodSummaryItem } from '../../../components/summaryItem/PaymentMethodSummaryItem'
+import { AddressSummaryItem } from '../../../components/summaryItem/AddressSummaryItem'
+import { RatingSummaryItem } from '../../../components/summaryItem/RatingSummaryItem'
+import { PeachIdSummaryItem } from '../../../components/summaryItem/PeachIdSummaryItem'
 
 export const SummaryItems = () => (
   <View style={tw`gap-4`}>
@@ -26,5 +30,11 @@ export const SummaryItems = () => (
     <ConfirmationSummaryItem />
     <ConfirmationSummaryItem confirmed />
     <AmountSummaryItem amount={12345} />
+    <PaymentMethodSummaryItem title="payment method" paymentMethod="sepa" />
+    <PaymentMethodSummaryItem title="clickable payment method" paymentMethod="revolut" />
+    <PeachIdSummaryItem title="user" id="0213583209ada26c16e5c3157d86809f8fd46e602936a4e3d51cd988a42ebe19f3" />
+    <AddressSummaryItem title="to" address="bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh" />
+    <RatingSummaryItem title="rating" rating={1} />
+    <RatingSummaryItem title="rating" rating={-1} />
   </View>
 )

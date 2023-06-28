@@ -1,26 +1,21 @@
-import * as React from 'react'
-
+import Clipboard from '@react-native-clipboard/clipboard'
+import { fireEvent, render } from '@testing-library/react-native'
 import { create } from 'react-test-renderer'
-import { usePublicProfileNavigation } from '../../../../../hooks/usePublicProfileNavigation'
-import { UserId } from './UserId'
-import { View } from 'react-native'
 import { createRenderer } from 'react-test-renderer/shallow'
+import { UserId } from './UserId'
 
+const publicProfileNavigationMock = jest.fn()
 jest.mock('../../../../../hooks/usePublicProfileNavigation', () => ({
-  usePublicProfileNavigation: jest.fn(),
-}))
-
-jest.mock('../../../../../components/animation/Fade', () => ({
-  Fade: () => <View />,
+  usePublicProfileNavigation:
+    () =>
+      (...args: any[]) =>
+        publicProfileNavigationMock(...args),
 }))
 
 describe('UserId', () => {
+  const shallowRenderer = createRenderer()
   const id = 'userId'
 
-  afterEach(() => {
-    jest.restoreAllMocks()
-  })
-  const shallowRenderer = createRenderer()
   it('should render correctly', () => {
     shallowRenderer.render(<UserId id={id} showInfo />)
     expect(shallowRenderer.getRenderOutput()).toMatchSnapshot()
@@ -34,24 +29,17 @@ describe('UserId', () => {
     expect(testInstance.props.showInfo).toBeFalsy()
   })
   it('should go to user profile if showInfo is true', () => {
-    ;(usePublicProfileNavigation as jest.Mock).mockReturnValue(jest.fn())
     const showInfo = true
-    const testInstance = create(<UserId {...{ id, showInfo }} />).root
-    testInstance.findByProps({ testID: 'user-id' }).props.onPress()
-    expect(usePublicProfileNavigation(id)).toHaveBeenCalled()
+    const { getByText } = render(<UserId {...{ id, showInfo }} />)
+    fireEvent.press(getByText('PeachuserId'))
+    expect(publicProfileNavigationMock).toHaveBeenCalled()
   })
-  it.skip('should copy user id if showInfo is false', () => {
-    // test implementation faulty
-    const copyMock = jest.fn()
-    jest.spyOn(React, 'useRef').mockReturnValue({
-      current: {
-        copy: copyMock,
-      },
-    })
+  it('should copy user id if showInfo is false', () => {
+    const copySpy = jest.spyOn(Clipboard, 'setString')
 
     const showInfo = false
-    const testInstance = create(<UserId {...{ id, showInfo }} />).root
-    testInstance.findByProps({ testID: 'user-id' }).props.onPress()
-    expect(copyMock).toHaveBeenCalled()
+    const { getByText } = render(<UserId {...{ id, showInfo }} />)
+    fireEvent.press(getByText('PeachuserId'))
+    expect(copySpy).toHaveBeenCalledWith('PeachuserId')
   })
 })

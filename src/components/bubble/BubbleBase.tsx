@@ -31,9 +31,10 @@ export const BubbleBase = ({
 }: BubbleBaseProps) => (
   <TouchableOpacity
     {...pressableProps}
+    disabled={!pressableProps.onPress}
     style={[
       color,
-      tw`flex-row items-center justify-center h-7 px-[10px] gap-1`,
+      tw`flex-row items-center justify-center h-7 px-2 gap-1`,
       borderRadius,
       borderColor && [tw`border`, borderColor],
       pressableProps.style,
