@@ -2,6 +2,7 @@
 
 exports[`BubbleBase should render background and border color 1`] = `
 <TouchableOpacity
+  disabled={true}
   style={
     [
       {
@@ -13,8 +14,8 @@ exports[`BubbleBase should render background and border color 1`] = `
         "gap": 4,
         "height": 28,
         "justifyContent": "center",
-        "paddingLeft": 10,
-        "paddingRight": 10,
+        "paddingLeft": 8,
+        "paddingRight": 8,
       },
       {
         "borderRadius": 8,
@@ -57,6 +58,7 @@ exports[`BubbleBase should render background and border color 1`] = `
 
 exports[`BubbleBase should render correctly 1`] = `
 <TouchableOpacity
+  disabled={true}
   style={
     [
       undefined,
@@ -66,8 +68,8 @@ exports[`BubbleBase should render correctly 1`] = `
         "gap": 4,
         "height": 28,
         "justifyContent": "center",
-        "paddingLeft": 10,
-        "paddingRight": 10,
+        "paddingLeft": 8,
+        "paddingRight": 8,
       },
       {
         "borderRadius": 8,
@@ -103,6 +105,7 @@ exports[`BubbleBase should render correctly 1`] = `
 
 exports[`BubbleBase should render correctly with icon 1`] = `
 <TouchableOpacity
+  disabled={true}
   style={
     [
       undefined,
@@ -112,8 +115,8 @@ exports[`BubbleBase should render correctly with icon 1`] = `
         "gap": 4,
         "height": 28,
         "justifyContent": "center",
-        "paddingLeft": 10,
-        "paddingRight": 10,
+        "paddingLeft": 8,
+        "paddingRight": 8,
       },
       {
         "borderRadius": 8,
@@ -154,6 +157,7 @@ exports[`BubbleBase should render correctly with icon 1`] = `
 
 exports[`BubbleBase should render correctly with icon and specific color 1`] = `
 <TouchableOpacity
+  disabled={true}
   style={
     [
       undefined,
@@ -163,8 +167,8 @@ exports[`BubbleBase should render correctly with icon and specific color 1`] = `
         "gap": 4,
         "height": 28,
         "justifyContent": "center",
-        "paddingLeft": 10,
-        "paddingRight": 10,
+        "paddingLeft": 8,
+        "paddingRight": 8,
       },
       {
         "borderRadius": 8,

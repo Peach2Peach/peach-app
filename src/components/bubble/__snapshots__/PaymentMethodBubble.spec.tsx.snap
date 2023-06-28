@@ -3,7 +3,6 @@
 exports[`PaymentMethodBubble renders correctly 1`] = `
 <Bubble
   color="primary-mild"
-  disabled={true}
   iconSize={12}
 >
   SEPA
@@ -13,7 +12,6 @@ exports[`PaymentMethodBubble renders correctly 1`] = `
 exports[`PaymentMethodBubble renders correctly when there is a link 1`] = `
 <Bubble
   color="primary-mild"
-  disabled={false}
   iconId="externalLink"
   iconSize={12}
   onPress={[Function]}

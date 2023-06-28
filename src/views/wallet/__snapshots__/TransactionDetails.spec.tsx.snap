@@ -109,7 +109,7 @@ exports[`TransactionDetails renders correctly 1`] = `
                 {
                   "busy": undefined,
                   "checked": undefined,
-                  "disabled": undefined,
+                  "disabled": false,
                   "expanded": undefined,
                   "selected": undefined,
                 }
@@ -144,8 +144,8 @@ exports[`TransactionDetails renders correctly 1`] = `
                   "height": 28,
                   "justifyContent": "center",
                   "opacity": 1,
-                  "paddingLeft": 10,
-                  "paddingRight": 10,
+                  "paddingLeft": 8,
+                  "paddingRight": 8,
                 }
               }
             >
@@ -547,7 +547,7 @@ exports[`TransactionDetails renders correctly 1`] = `
             {
               "busy": undefined,
               "checked": undefined,
-              "disabled": undefined,
+              "disabled": false,
               "expanded": undefined,
               "selected": undefined,
             }
@@ -583,8 +583,8 @@ exports[`TransactionDetails renders correctly 1`] = `
               "height": 28,
               "justifyContent": "center",
               "opacity": 1,
-              "paddingLeft": 10,
-              "paddingRight": 10,
+              "paddingLeft": 8,
+              "paddingRight": 8,
             }
           }
         >
