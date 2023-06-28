@@ -41,6 +41,7 @@ exports[`TransactionHistory should render correctly with tx 1`] = `
     ]
   }
   initialNumToRender={10}
+  keyExtractor={[Function]}
   maxToRenderPerBatch={20}
   onRefresh={[MockFunction]}
   refreshing={false}
@@ -92,6 +93,7 @@ exports[`TransactionHistory should render medium screens correctly 1`] = `
     ]
   }
   initialNumToRender={10}
+  keyExtractor={[Function]}
   maxToRenderPerBatch={20}
   onRefresh={[MockFunction]}
   refreshing={false}
