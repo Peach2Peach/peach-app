@@ -65,10 +65,10 @@ exports[`Wallet should render correctly 1`] = `
       setAddress={[MockFunction]}
     />
   </ForwardRef>
-  <SlideToUnlock
+  <ConfirmSendAllTo
+    address="address"
     disabled={true}
-    label1="send all"
-    onUnlock={[MockFunction]}
+    onSuccess={[Function]}
     style={
       {
         "alignSelf": "center",
@@ -144,10 +144,10 @@ exports[`Wallet should render correctly user can withdraw 1`] = `
       setAddress={[MockFunction]}
     />
   </ForwardRef>
-  <SlideToUnlock
+  <ConfirmSendAllTo
+    address="address"
     disabled={false}
-    label1="send all"
-    onUnlock={[MockFunction]}
+    onSuccess={[Function]}
     style={
       {
         "alignSelf": "center",
@@ -230,10 +230,10 @@ exports[`Wallet should render correctly when refreshing 1`] = `
       setAddress={[MockFunction]}
     />
   </ForwardRef>
-  <SlideToUnlock
+  <ConfirmSendAllTo
+    address="address"
     disabled={true}
-    label1="send all"
-    onUnlock={[MockFunction]}
+    onSuccess={[Function]}
     style={
       {
         "alignSelf": "center",
