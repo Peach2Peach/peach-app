@@ -6,10 +6,10 @@ import { iconMap } from './iconMap'
 import { levelMap } from './levelMap'
 
 type Props = {
-  tx: TransactionSummary
+  item: TransactionSummary
 }
 
-export const TxStatusCard = ({ tx }: Props) => {
+export const TxStatusCard = ({ item: tx }: Props) => {
   const navigation = useNavigation()
 
   return (

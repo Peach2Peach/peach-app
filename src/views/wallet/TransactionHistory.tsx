@@ -1,10 +1,8 @@
-import { FlatList, ListRenderItem } from 'react-native'
+import { FlatList } from 'react-native'
 import tw from '../../styles/tailwind'
 import { EmptyTransactionHistory } from './EmptyTransactionHistory'
 import { TxStatusCard } from './components/TxStatusCard'
 import { useTransactionHistorySetup } from './hooks/useTransactionHistorySetup'
-
-const ListItem: ListRenderItem<TransactionSummary> = ({ item: tx }) => <TxStatusCard key={tx.id} tx={tx} />
 
 export const TransactionHistory = () => {
   const { transactions, refresh, isRefreshing } = useTransactionHistorySetup()
@@ -16,7 +14,8 @@ export const TransactionHistory = () => {
       maxToRenderPerBatch={20}
       contentContainerStyle={[tw`gap-4 p-4`, tw.md`p-8`]}
       data={transactions}
-      renderItem={ListItem}
+      renderItem={TxStatusCard}
+      keyExtractor={(item) => item.id}
       onRefresh={refresh}
       refreshing={isRefreshing}
     />
