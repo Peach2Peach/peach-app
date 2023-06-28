@@ -74,15 +74,15 @@ export const useWalletSetup = ({ syncOnLoad = true }) => {
         icons: [
           {
             ...headerIcons.list,
-            label: `${i18n('goTo')} ${i18n('wallet.transactionHistory')}`,
+            accessibilityHint: `${i18n('goTo')} ${i18n('wallet.transactionHistory')}`,
             onPress: () => navigation.navigate('transactionHistory'),
           },
           {
             ...headerIcons.bitcoin,
-            label: `${i18n('goTo')} ${i18n('settings.networkFees')}`,
+            accessibilityHint: `${i18n('goTo')} ${i18n('settings.networkFees')}`,
             onPress: () => navigation.navigate('networkFees'),
           },
-          { ...headerIcons.help, label: `${i18n('help')}`, onPress: showHelp },
+          { ...headerIcons.help, accessibilityHint: `${i18n('help')}`, onPress: showHelp },
         ],
       },
   )
