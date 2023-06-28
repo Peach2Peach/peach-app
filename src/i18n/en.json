@@ -520,8 +520,6 @@
   "fundFromPeachWallet.amountTooLow.title": "amount too low",
   "fundFromPeachWallet.amountTooLow.description.1": "Your Peach wallet has:",
   "fundFromPeachWallet.amountTooLow.description.2": "The escrow needs to be funded with at least:",
-  "fundFromPeachWallet.confirm.networkFee": "network fee: $0 sats ($1 sat/vB)",
-  "fundFromPeachWallet.confirm.to": "to:",
   "fundFromPeachWallet.funded": "funded from peach wallet",
   "goBackHome": "back home",
   "goToChat": "go to chat",
