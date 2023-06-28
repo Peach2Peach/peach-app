@@ -5,9 +5,9 @@ import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 
 export const EmptyTransactionHistory = () => (
-  <View style={tw`items-center justify-center h-full`}>
-    <Image source={loadingAnimation} style={tw`w-30 h-30`} resizeMode="contain" />
+  <View style={tw`items-center justify-center h-full gap-8`}>
+    <Image source={loadingAnimation} style={tw`w-118px h-130px`} resizeMode="cover" />
 
-    <Text style={tw`mt-8 subtitle-1 text-black-2`}>{i18n('wallet.transactionHistory.empty')}</Text>
+    <Text style={tw`subtitle-1 text-black-2`}>{i18n('wallet.transactionHistory.empty')}</Text>
   </View>
 )
