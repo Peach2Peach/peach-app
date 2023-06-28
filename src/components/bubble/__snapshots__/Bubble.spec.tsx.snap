@@ -1,0 +1,150 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Bubble should render correctly 1`] = `
+<TouchableOpacity
+  style={
+    [
+      undefined,
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "gap": 4,
+        "height": 28,
+        "justifyContent": "center",
+        "paddingLeft": 10,
+        "paddingRight": 10,
+      },
+      {
+        "borderRadius": 8,
+      },
+      undefined,
+      undefined,
+    ]
+  }
+>
+  <PeachText
+    ellipsizeMode="tail"
+    numberOfLines={1}
+    style={
+      [
+        {
+          "color": "#F56522",
+        },
+        {
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 14,
+          "letterSpacing": 0.5,
+          "lineHeight": 24,
+          "textAlign": "center",
+          "textTransform": "uppercase",
+        },
+      ]
+    }
+  >
+    Text
+  </PeachText>
+</TouchableOpacity>
+`;
+
+exports[`Bubble should render correctly with icon 1`] = `
+<TouchableOpacity
+  style={
+    [
+      undefined,
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "gap": 4,
+        "height": 28,
+        "justifyContent": "center",
+        "paddingLeft": 10,
+        "paddingRight": 10,
+      },
+      {
+        "borderRadius": 8,
+      },
+      undefined,
+      undefined,
+    ]
+  }
+>
+  <PeachText
+    ellipsizeMode="tail"
+    numberOfLines={1}
+    style={
+      [
+        {
+          "color": "#F56522",
+        },
+        {
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 14,
+          "letterSpacing": 0.5,
+          "lineHeight": 24,
+          "textAlign": "center",
+          "textTransform": "uppercase",
+        },
+      ]
+    }
+  >
+    Text
+  </PeachText>
+  <Icon
+    color="#F56522"
+    id="chevronsUp"
+    style={
+      {
+        "height": 16,
+        "width": 16,
+      }
+    }
+  />
+</TouchableOpacity>
+`;
+
+exports[`Bubble should render correctly with no background 1`] = `
+<TouchableOpacity
+  noBackground={true}
+  style={
+    [
+      undefined,
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "gap": 4,
+        "height": 28,
+        "justifyContent": "center",
+        "paddingLeft": 10,
+        "paddingRight": 10,
+      },
+      {
+        "borderRadius": 8,
+      },
+      undefined,
+      undefined,
+    ]
+  }
+>
+  <PeachText
+    ellipsizeMode="tail"
+    numberOfLines={1}
+    style={
+      [
+        {
+          "color": "#F56522",
+        },
+        {
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 14,
+          "letterSpacing": 0.5,
+          "lineHeight": 24,
+          "textAlign": "center",
+          "textTransform": "uppercase",
+        },
+      ]
+    }
+  >
+    Text
+  </PeachText>
+</TouchableOpacity>
+`;

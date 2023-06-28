@@ -1,5 +1,13 @@
 import { TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
 
+export const genesisTx: TransactionDetails = {
+  txid: '4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b',
+  sent: 0,
+  received: 5000000000,
+  fee: 0,
+  confirmationTime: { height: 0, timestamp: 1231006505 },
+}
+
 export const confirmed1: TransactionDetails = {
   txid: 'txid1',
   sent: 1,
@@ -29,7 +37,7 @@ export const pendingTransactionSummary: TransactionSummary = {
   amount: 123456,
   price: 100,
   currency: 'EUR',
-  date: new Date('2022-03-08T11:41:07.245Z'),
+  date: new Date('2022-09-14T16:14:02.835Z'),
   confirmed: false,
   id: pending1.txid,
   offerId: '123',
@@ -39,7 +47,6 @@ export const confirmedTransactionSummary: TransactionSummary = {
   ...pendingTransactionSummary,
   confirmed: true,
 }
-
 export const bitcoinTransaction: Transaction = {
   txid: 'credacted',
   version: 1,

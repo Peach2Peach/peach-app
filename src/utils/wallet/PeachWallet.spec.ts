@@ -7,7 +7,14 @@ import { TransactionDetails, TxBuilderResult } from 'bdk-rn/lib/classes/Bindings
 import { AddressIndex } from 'bdk-rn/lib/lib/enums'
 import { account1 } from '../../../tests/unit/data/accountData'
 import { insufficientFunds } from '../../../tests/unit/data/errors'
-import { confirmed1, confirmed2, pending1, pending2, pending3 } from '../../../tests/unit/data/transactionDetailData'
+import {
+  confirmed1,
+  confirmed2,
+  genesisTx,
+  pending1,
+  pending2,
+  pending3,
+} from '../../../tests/unit/data/transactionDetailData'
 import { getError } from '../../../tests/unit/helpers/getError'
 import {
   blockChainCreateMock,
@@ -219,6 +226,10 @@ describe('PeachWallet', () => {
 
     await peachWallet.getTransactions()
     expect(getTxHexMock).not.toHaveBeenCalled()
+  })
+  it('gets pending transactions', () => {
+    peachWallet.transactions = [genesisTx, confirmed1, pending1, pending2, confirmed2]
+    expect(peachWallet.getPendingTransactions()).toEqual([pending1, pending2])
   })
   it('gets balance', async () => {
     walletGetBalanceMock.mockResolvedValueOnce({

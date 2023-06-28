@@ -1,0 +1,95 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TransactionDetails renders correctly 1`] = `
+<ForwardRef
+  contentContainerStyle={
+    {
+      "flexGrow": 1,
+      "justifyContent": "center",
+      "paddingLeft": 32,
+      "paddingRight": 32,
+    }
+  }
+  refreshControl={
+    <RefreshControlMock
+      onRefresh={[MockFunction]}
+      refreshing={false}
+    />
+  }
+  style={
+    {
+      "height": "100%",
+    }
+  }
+>
+  <Card
+    style={
+      {
+        "paddingBottom": 28,
+        "paddingLeft": 28,
+        "paddingRight": 28,
+        "paddingTop": 28,
+        "width": "100%",
+      }
+    }
+  >
+    <TranscactionDetailsHeader
+      transaction={
+        {
+          "amount": 123456,
+          "confirmed": true,
+          "currency": "EUR",
+          "date": 2022-09-14T16:14:02.835Z,
+          "id": "txid1",
+          "offerId": "123",
+          "price": 100,
+          "type": "TRADE",
+        }
+      }
+    />
+    <HorizontalLine
+      style={
+        {
+          "marginBottom": 16,
+          "marginTop": 16,
+        }
+      }
+    />
+    <TransactionDetailsInfo
+      receivingAddress="receivingAddress"
+      transaction={
+        {
+          "amount": 123456,
+          "confirmed": true,
+          "currency": "EUR",
+          "date": 2022-09-14T16:14:02.835Z,
+          "id": "txid1",
+          "offerId": "123",
+          "price": 100,
+          "type": "TRADE",
+        }
+      }
+    />
+    <HorizontalLine
+      style={
+        {
+          "marginBottom": 16,
+          "marginTop": 16,
+        }
+      }
+    />
+    <PrimaryBubble
+      border={true}
+      iconId="externalLink"
+      onPress={[MockFunction]}
+      style={
+        {
+          "alignSelf": "center",
+        }
+      }
+    >
+      view transaction in explorer
+    </PrimaryBubble>
+  </Card>
+</ForwardRef>
+`;
