@@ -1,135 +1,161 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Wallet should render correctly 1`] = `
-<AvoidKeyboard
-  androidBehavior="height"
-  iOSBehavior="height"
+<View
+  style={
+    [
+      {
+        "flexBasis": "0%",
+        "flexGrow": 1,
+        "flexShrink": 1,
+        "paddingLeft": 16,
+        "paddingRight": 16,
+      },
+      {
+        "paddingLeft": 32,
+        "paddingRight": 32,
+      },
+    ]
+  }
 >
   <ForwardRef
     contentContainerStyle={
       {
-        "height": "100%",
-        "paddingBottom": 20,
-        "paddingLeft": 32,
-        "paddingRight": 32,
-        "paddingTop": 20,
+        "flexBasis": "0%",
+        "flexGrow": 1,
+        "flexShrink": 1,
+      }
+    }
+    contentStyle={
+      {
+        "alignItems": "center",
+        "flexBasis": "0%",
+        "flexGrow": 1,
+        "flexShrink": 1,
+        "gap": 64,
+        "justifyContent": "center",
       }
     }
     refreshControl={
       <RefreshControlMock
         onRefresh={[MockFunction]}
         refreshing={false}
+        style={
+          {
+            "opacity": 0,
+          }
+        }
       />
     }
     style={
       {
+        "flexBasis": "0%",
+        "flexGrow": 1,
+        "flexShrink": 1,
         "height": "100%",
       }
     }
   >
-    <View
-      style={
-        {
-          "height": "100%",
-          "justifyContent": "space-between",
-        }
-      }
-    >
-      <View
-        style={
-          {
-            "alignItems": "center",
-            "flexBasis": "0%",
-            "flexGrow": 1,
-            "flexShrink": 1,
-            "gap": 64,
-            "justifyContent": "center",
-          }
-        }
-      >
-        <TotalBalance
-          isRefreshing={false}
-        />
-        <SendTo
-          address="address"
-          addressErrors=""
-          setAddress={[MockFunction]}
-        />
-      </View>
-      <SlideToUnlock
-        disabled={true}
-        label1="send all"
-        onUnlock={[MockFunction]}
-      />
-    </View>
+    <TotalBalance
+      isRefreshing={false}
+    />
+    <SendTo
+      address="address"
+      addressErrors=""
+      setAddress={[MockFunction]}
+    />
   </ForwardRef>
-</AvoidKeyboard>
+  <SlideToUnlock
+    disabled={true}
+    label1="send all"
+    onUnlock={[MockFunction]}
+    style={
+      {
+        "alignSelf": "center",
+        "marginBottom": 20,
+      }
+    }
+  />
+</View>
 `;
 
 exports[`Wallet should render correctly user can withdraw 1`] = `
-<AvoidKeyboard
-  androidBehavior="height"
-  iOSBehavior="height"
+<View
+  style={
+    [
+      {
+        "flexBasis": "0%",
+        "flexGrow": 1,
+        "flexShrink": 1,
+        "paddingLeft": 16,
+        "paddingRight": 16,
+      },
+      {
+        "paddingLeft": 32,
+        "paddingRight": 32,
+      },
+    ]
+  }
 >
   <ForwardRef
     contentContainerStyle={
       {
-        "height": "100%",
-        "paddingBottom": 20,
-        "paddingLeft": 32,
-        "paddingRight": 32,
-        "paddingTop": 20,
+        "flexBasis": "0%",
+        "flexGrow": 1,
+        "flexShrink": 1,
+      }
+    }
+    contentStyle={
+      {
+        "alignItems": "center",
+        "flexBasis": "0%",
+        "flexGrow": 1,
+        "flexShrink": 1,
+        "gap": 64,
+        "justifyContent": "center",
       }
     }
     refreshControl={
       <RefreshControlMock
         onRefresh={[MockFunction]}
         refreshing={false}
+        style={
+          {
+            "opacity": 0,
+          }
+        }
       />
     }
     style={
       {
+        "flexBasis": "0%",
+        "flexGrow": 1,
+        "flexShrink": 1,
         "height": "100%",
       }
     }
   >
-    <View
-      style={
-        {
-          "height": "100%",
-          "justifyContent": "space-between",
-        }
-      }
-    >
-      <View
-        style={
-          {
-            "alignItems": "center",
-            "flexBasis": "0%",
-            "flexGrow": 1,
-            "flexShrink": 1,
-            "gap": 64,
-            "justifyContent": "center",
-          }
-        }
-      >
-        <TotalBalance
-          isRefreshing={false}
-        />
-        <SendTo
-          address="address"
-          addressErrors=""
-          setAddress={[MockFunction]}
-        />
-      </View>
-      <SlideToUnlock
-        disabled={false}
-        label1="send all"
-        onUnlock={[MockFunction]}
-      />
-    </View>
+    <TotalBalance
+      isRefreshing={false}
+    />
+    <SendTo
+      address="address"
+      addressErrors=""
+      setAddress={[MockFunction]}
+    />
   </ForwardRef>
-</AvoidKeyboard>
+  <SlideToUnlock
+    disabled={false}
+    label1="send all"
+    onUnlock={[MockFunction]}
+    style={
+      {
+        "alignSelf": "center",
+        "marginBottom": 20,
+      }
+    }
+  />
+</View>
 `;
 
 exports[`Wallet should render correctly when loading 1`] = `
@@ -140,67 +166,80 @@ one sec..."
 `;
 
 exports[`Wallet should render correctly when refreshing 1`] = `
-<AvoidKeyboard
-  androidBehavior="height"
-  iOSBehavior="height"
+<View
+  style={
+    [
+      {
+        "flexBasis": "0%",
+        "flexGrow": 1,
+        "flexShrink": 1,
+        "paddingLeft": 16,
+        "paddingRight": 16,
+      },
+      {
+        "paddingLeft": 32,
+        "paddingRight": 32,
+      },
+    ]
+  }
 >
   <ForwardRef
     contentContainerStyle={
       {
-        "height": "100%",
-        "paddingBottom": 20,
-        "paddingLeft": 32,
-        "paddingRight": 32,
-        "paddingTop": 20,
+        "flexBasis": "0%",
+        "flexGrow": 1,
+        "flexShrink": 1,
+      }
+    }
+    contentStyle={
+      {
+        "alignItems": "center",
+        "flexBasis": "0%",
+        "flexGrow": 1,
+        "flexShrink": 1,
+        "gap": 64,
+        "justifyContent": "center",
       }
     }
     refreshControl={
       <RefreshControlMock
         onRefresh={[MockFunction]}
         refreshing={false}
+        style={
+          {
+            "opacity": 0,
+          }
+        }
       />
     }
     style={
       {
+        "flexBasis": "0%",
+        "flexGrow": 1,
+        "flexShrink": 1,
         "height": "100%",
       }
     }
   >
-    <View
-      style={
-        {
-          "height": "100%",
-          "justifyContent": "space-between",
-        }
-      }
-    >
-      <View
-        style={
-          {
-            "alignItems": "center",
-            "flexBasis": "0%",
-            "flexGrow": 1,
-            "flexShrink": 1,
-            "gap": 64,
-            "justifyContent": "center",
-          }
-        }
-      >
-        <TotalBalance
-          isRefreshing={true}
-        />
-        <SendTo
-          address="address"
-          addressErrors=""
-          setAddress={[MockFunction]}
-        />
-      </View>
-      <SlideToUnlock
-        disabled={true}
-        label1="send all"
-        onUnlock={[MockFunction]}
-      />
-    </View>
+    <TotalBalance
+      isRefreshing={true}
+    />
+    <SendTo
+      address="address"
+      addressErrors=""
+      setAddress={[MockFunction]}
+    />
   </ForwardRef>
-</AvoidKeyboard>
+  <SlideToUnlock
+    disabled={true}
+    label1="send all"
+    onUnlock={[MockFunction]}
+    style={
+      {
+        "alignSelf": "center",
+        "marginBottom": 20,
+      }
+    }
+  />
+</View>
 `;

@@ -1,5 +1,5 @@
 import { RefreshControl, View } from 'react-native'
-import { AvoidKeyboard, PeachScrollView } from '../../components'
+import { PeachScrollView } from '../../components'
 import { SlideToUnlock } from '../../components/inputs'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
@@ -24,24 +24,22 @@ export default () => {
   if (walletLoading) return <BitcoinLoading text={i18n('wallet.loading')} />
 
   return (
-    <AvoidKeyboard iOSBehavior={'height'} androidBehavior={'height'}>
+    <View style={[tw`flex-1 px-4`, tw.md`px-8`]}>
       <PeachScrollView
-        style={tw`h-full`}
-        contentContainerStyle={tw`h-full px-8 py-5`}
-        refreshControl={<RefreshControl refreshing={false} onRefresh={refresh} />}
+        style={tw`flex-1 h-full`}
+        contentContainerStyle={tw`flex-1`}
+        contentStyle={tw`flex-1 items-center justify-center gap-16`}
+        refreshControl={<RefreshControl style={tw`opacity-0`} refreshing={false} onRefresh={refresh} />}
       >
-        <View style={tw`justify-between h-full`}>
-          <View style={tw`items-center justify-center flex-1 gap-16`}>
-            <TotalBalance amount={balance} isRefreshing={isRefreshing} />
-            <SendTo {...{ address, setAddress, addressErrors }} />
-          </View>
-          <SlideToUnlock
-            disabled={!canWithdrawAll}
-            label1={i18n('wallet.withdrawAll')}
-            onUnlock={openWithdrawalConfirmation}
-          />
-        </View>
+        <TotalBalance amount={balance} isRefreshing={isRefreshing} />
+        <SendTo {...{ address, setAddress, addressErrors }} />
       </PeachScrollView>
-    </AvoidKeyboard>
+      <SlideToUnlock
+        style={tw`self-center mb-5`}
+        disabled={!canWithdrawAll}
+        label1={i18n('wallet.withdrawAll')}
+        onUnlock={openWithdrawalConfirmation}
+      />
+    </View>
   )
 }

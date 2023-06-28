@@ -9,7 +9,8 @@ exports[`SendTo renders correctly 1`] = `
     }
   }
 >
-  <PeachText
+  <FixedHeightText
+    height={8}
     style={
       {
         "fontFamily": "Baloo2-SemiBold",
@@ -22,11 +23,20 @@ exports[`SendTo renders correctly 1`] = `
   >
     send to
     :
-  </PeachText>
-  <BitcoinAddressInput
-    onChange={[MockFunction]}
-    value="address"
-  />
-  <OpenWallet />
+  </FixedHeightText>
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "gap": 4,
+      }
+    }
+  >
+    <BitcoinAddressInput
+      onChange={[MockFunction]}
+      value="address"
+    />
+    <OpenWallet />
+  </View>
 </View>
 `;
