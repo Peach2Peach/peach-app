@@ -16,4 +16,8 @@ describe('TradingLimitAmount', () => {
     renderer.render(<TradingLimitAmount amount={1000} limit={10000} displayCurrency="EUR" type="yearly" />)
     expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
+  it('should render correctly with infinite limit', () => {
+    renderer.render(<TradingLimitAmount amount={1000} limit={Infinity} displayCurrency="EUR" type="yearly" />)
+    expect(renderer.getRenderOutput()).toMatchSnapshot()
+  })
 })
