@@ -14,8 +14,9 @@ exports[`TotalBalance renders correctly 1`] = `
     style={
       {
         "alignItems": "center",
+        "alignSelf": "stretch",
         "flexDirection": "row",
-        "gap": 12,
+        "gap": 14,
         "justifyContent": "center",
       }
     }
@@ -47,7 +48,7 @@ exports[`TotalBalance renders correctly 1`] = `
       :
     </PeachText>
     <Image
-      resizeMode="contain"
+      resizeMode="cover"
       source="test-file-stub"
       style={
         [
@@ -83,8 +84,9 @@ exports[`TotalBalance renders correctly when refreshing 1`] = `
     style={
       {
         "alignItems": "center",
+        "alignSelf": "stretch",
         "flexDirection": "row",
-        "gap": 12,
+        "gap": 14,
         "justifyContent": "center",
       }
     }
@@ -118,7 +120,7 @@ exports[`TotalBalance renders correctly when refreshing 1`] = `
       :
     </PeachText>
     <Image
-      resizeMode="contain"
+      resizeMode="cover"
       source="test-file-stub"
       style={
         [
