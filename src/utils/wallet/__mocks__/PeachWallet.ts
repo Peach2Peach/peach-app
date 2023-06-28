@@ -1,8 +1,7 @@
 /* eslint-disable class-methods-use-this, require-await */
-import { TransactionDetails, TxBuilderResult } from 'bdk-rn/lib/classes/Bindings'
-import { TransactionsResponse } from 'bdk-rn/lib/lib/interfaces'
-import { getTransactionDetails } from '../../../../tests/unit/helpers/getTransactionDetails'
 import { PartiallySignedTransaction } from 'bdk-rn'
+import { TransactionDetails, TxBuilderResult } from 'bdk-rn/lib/classes/Bindings'
+import { getTransactionDetails } from '../../../../tests/unit/helpers/getTransactionDetails'
 
 export class PeachWallet {
   balance: number
@@ -29,8 +28,12 @@ export class PeachWallet {
     return 0
   }
 
-  async getTransactions (): Promise<TransactionsResponse> {
-    return { confirmed: [], pending: [] }
+  async getTransactions (): Promise<TransactionDetails[]> {
+    return []
+  }
+
+  getPendingTransactions () {
+    return this.transactions.filter((tx) => !tx.confirmationTime?.height)
   }
 
   async getReceivingAddress () {

@@ -1,0 +1,89 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TranscactionDetailsHeader should render correctly for a confirmed transaction 1`] = `
+<View>
+  <PeachText
+    style={
+      {
+        "color": "#7D675E",
+        "textAlign": "center",
+      }
+    }
+  >
+    type
+  </PeachText>
+  <View
+    style={
+      {
+        "display": "flex",
+        "flexDirection": "row",
+        "justifyContent": "center",
+      }
+    }
+  >
+    <Icon
+      color="#05A85A"
+      id="download"
+      size={17}
+    />
+    <PeachText
+      style={
+        {
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 16,
+          "letterSpacing": 0.16,
+          "lineHeight": 28,
+          "marginLeft": 8,
+          "textAlign": "center",
+        }
+      }
+    >
+      stacked sats - P‑7B
+    </PeachText>
+  </View>
+</View>
+`;
+
+exports[`TranscactionDetailsHeader should render correctly for a pending transaction 1`] = `
+<View>
+  <PeachText
+    style={
+      {
+        "color": "#7D675E",
+        "textAlign": "center",
+      }
+    }
+  >
+    type
+  </PeachText>
+  <View
+    style={
+      {
+        "display": "flex",
+        "flexDirection": "row",
+        "justifyContent": "center",
+      }
+    }
+  >
+    <Icon
+      color="#05A85A"
+      id="download"
+      size={17}
+    />
+    <PeachText
+      style={
+        {
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 16,
+          "letterSpacing": 0.16,
+          "lineHeight": 28,
+          "marginLeft": 8,
+          "textAlign": "center",
+        }
+      }
+    >
+      stacked sats - P‑7B
+    </PeachText>
+  </View>
+</View>
+`;
