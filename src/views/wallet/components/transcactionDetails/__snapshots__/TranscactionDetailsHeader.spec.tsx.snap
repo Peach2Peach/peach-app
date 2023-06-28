@@ -23,7 +23,7 @@ exports[`TranscactionDetailsHeader should render correctly for a confirmed trans
   >
     <Icon
       color="#05A85A"
-      id="download"
+      id="buy"
       size={17}
     />
     <PeachText
@@ -67,7 +67,7 @@ exports[`TranscactionDetailsHeader should render correctly for a pending transac
   >
     <Icon
       color="#05A85A"
-      id="download"
+      id="buy"
       size={17}
     />
     <PeachText

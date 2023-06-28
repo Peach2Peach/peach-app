@@ -116,7 +116,7 @@ exports[`MeetupScreen should render correctly with multiple currencies 1`] = `
           url="http://maps.google.com/maps?daddr=Prague"
         />
         <Link
-          text="meetup website"
+          text="meetup link"
           url="https://peachbitcoin.com/"
         />
       </View>
