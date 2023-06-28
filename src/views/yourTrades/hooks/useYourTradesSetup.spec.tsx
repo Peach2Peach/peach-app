@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-native'
+import { renderHook, waitFor } from '@testing-library/react-native'
 import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { QueryClientWrapper } from '../../../../tests/unit/helpers/QueryClientWrapper'
 import { useYourTradesSetup } from './useYourTradesSetup'
@@ -54,5 +54,39 @@ describe('useYourTradesSetup', () => {
     renderHook(useYourTradesSetup, { wrapper })
     expect(getOfferSummariesMock).toHaveBeenCalledTimes(1)
     expect(getContractSummariesMock).toHaveBeenCalledTimes(1)
+  })
+  it('should not include unfunded past sell offers', async () => {
+    const unfundedOffer = {
+      id: '1',
+      type: 'ask',
+      creationDate: new Date('2021-01-01'),
+      lastModified: new Date('2021-01-01'),
+      amount: 21000,
+      matches: [],
+      prices: {
+        EUR: 21000,
+      },
+      tradeStatus: 'offerCanceled',
+      fundingTxId: undefined,
+    }
+    const fundedOffer = {
+      id: '2',
+      type: 'ask',
+      creationDate: new Date('2021-01-01'),
+      lastModified: new Date('2021-01-01'),
+      amount: 21000,
+      matches: [],
+      prices: {
+        EUR: 21000,
+      },
+      tradeStatus: 'offerCanceled',
+      fundingTxId: '123',
+    }
+
+    getOfferSummariesMock.mockResolvedValueOnce([[unfundedOffer, fundedOffer], null])
+    const { result } = renderHook(useYourTradesSetup, { wrapper })
+    await waitFor(() => {
+      expect(result.current.pastOffers).toEqual([fundedOffer])
+    })
   })
 })

@@ -1,13 +1,12 @@
 import { TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
 
 export const genesisTx: TransactionDetails = {
-  txid: "4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b",
+  txid: '4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b',
   sent: 0,
   received: 5000000000,
   fee: 0,
   confirmationTime: { height: 0, timestamp: 1231006505 },
 }
-
 
 export const confirmed1: TransactionDetails = {
   txid: 'txid1',
