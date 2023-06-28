@@ -34,7 +34,6 @@ import { createWalletFromSeedPhrase } from './createWalletFromSeedPhrase'
 import { getNetwork } from './getNetwork'
 import { useWalletState } from './walletStore'
 import { error as logError } from '../log'
-import { FundingAmountDifferent } from '../../popups/warning/FundingAmountDifferent'
 
 jest.mock('./PeachWallet', () => jest.requireActual('./PeachWallet'))
 
