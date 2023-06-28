@@ -14,7 +14,7 @@ export const TransactionHistory = () => {
     <FlatList
       initialNumToRender={10}
       maxToRenderPerBatch={20}
-      contentContainerStyle={[tw`px-4 py-12 gap-4`, tw.md`px-8`]}
+      contentContainerStyle={[tw`gap-4 p-4`, tw.md`p-8`]}
       data={transactions}
       renderItem={ListItem}
       onRefresh={refresh}
