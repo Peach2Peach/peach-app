@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`TransactionSummaryItem should render correctly for a confirmed buy trade tx 1`] = `
+exports[`TxStatusCard should render correctly for a confirmed buy trade tx 1`] = `
 <View
   accessibilityState={
     {
@@ -773,7 +773,7 @@ exports[`TransactionSummaryItem should render correctly for a confirmed buy trad
 </View>
 `;
 
-exports[`TransactionSummaryItem should render correctly for a confirmed receive tx 1`] = `
+exports[`TxStatusCard should render correctly for a confirmed receive tx 1`] = `
 <View
   accessibilityState={
     {
@@ -1546,7 +1546,7 @@ exports[`TransactionSummaryItem should render correctly for a confirmed receive 
 </View>
 `;
 
-exports[`TransactionSummaryItem should render correctly for a confirmed refund tx 1`] = `
+exports[`TxStatusCard should render correctly for a confirmed refund tx 1`] = `
 <View
   accessibilityState={
     {
@@ -2319,7 +2319,7 @@ exports[`TransactionSummaryItem should render correctly for a confirmed refund t
 </View>
 `;
 
-exports[`TransactionSummaryItem should render correctly for a escrow funded tx 1`] = `
+exports[`TxStatusCard should render correctly for a escrow funded tx 1`] = `
 <View
   accessibilityState={
     {
@@ -3092,7 +3092,7 @@ exports[`TransactionSummaryItem should render correctly for a escrow funded tx 1
 </View>
 `;
 
-exports[`TransactionSummaryItem should render correctly for a pending buy trade tx 1`] = `
+exports[`TxStatusCard should render correctly for a pending buy trade tx 1`] = `
 <View
   accessibilityState={
     {
@@ -3865,7 +3865,7 @@ exports[`TransactionSummaryItem should render correctly for a pending buy trade 
 </View>
 `;
 
-exports[`TransactionSummaryItem should render correctly for a pending confirmed tx 1`] = `
+exports[`TxStatusCard should render correctly for a pending confirmed tx 1`] = `
 <View
   accessibilityState={
     {
@@ -4638,7 +4638,7 @@ exports[`TransactionSummaryItem should render correctly for a pending confirmed 
 </View>
 `;
 
-exports[`TransactionSummaryItem should render correctly for a pending receive tx 1`] = `
+exports[`TxStatusCard should render correctly for a pending receive tx 1`] = `
 <View
   accessibilityState={
     {
@@ -5411,7 +5411,7 @@ exports[`TransactionSummaryItem should render correctly for a pending receive tx
 </View>
 `;
 
-exports[`TransactionSummaryItem should render correctly for a pending refund tx 1`] = `
+exports[`TxStatusCard should render correctly for a pending refund tx 1`] = `
 <View
   accessibilityState={
     {
@@ -6184,7 +6184,7 @@ exports[`TransactionSummaryItem should render correctly for a pending refund tx 
 </View>
 `;
 
-exports[`TransactionSummaryItem should render correctly for a pending sent tx 1`] = `
+exports[`TxStatusCard should render correctly for a pending sent tx 1`] = `
 <View
   accessibilityState={
     {

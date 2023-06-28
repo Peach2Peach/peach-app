@@ -9,7 +9,7 @@ type Props = {
   tx: TransactionSummary
 }
 
-export const TxSummaryItem = ({ tx }: Props) => {
+export const TxStatusCard = ({ tx }: Props) => {
   const navigation = useNavigation()
 
   return (
