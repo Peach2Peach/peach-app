@@ -19,7 +19,7 @@ export default () => {
       <PeachScrollView
         style={tw`flex-1 h-full`}
         contentContainerStyle={tw`flex-1`}
-        contentStyle={tw`flex-1 items-center justify-center gap-16`}
+        contentStyle={tw`items-center justify-center flex-1 gap-16`}
         refreshControl={<RefreshControl style={tw`opacity-0`} refreshing={false} onRefresh={refresh} />}
       >
         <TotalBalance amount={balance} isRefreshing={isRefreshing} />
