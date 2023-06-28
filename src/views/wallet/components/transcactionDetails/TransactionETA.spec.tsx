@@ -1,13 +1,9 @@
 import { NavigationContainer } from '@react-navigation/native'
 import { createRenderer } from 'react-test-renderer/shallow'
-import {
-  bitcoinTransaction,
-  confirmedTransactionSummary,
-  pendingTransactionSummary,
-} from '../../../../../tests/unit/data/transactionDetailData'
-import { TransactionETA } from './TransactionETA'
 import { feeEstimates } from '../../../../../tests/unit/data/electrumData'
+import { bitcoinTransaction, pendingTransactionSummary } from '../../../../../tests/unit/data/transactionDetailData'
 import { placeholderFeeEstimates } from '../../../../hooks/query/useFeeEstimates'
+import { TransactionETA } from './TransactionETA'
 
 const wrapper = NavigationContainer
 
