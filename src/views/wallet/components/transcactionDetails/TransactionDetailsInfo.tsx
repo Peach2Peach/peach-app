@@ -1,9 +1,10 @@
 import { View } from 'react-native'
-import { toDateFormat } from '../../../../utils/date'
-import i18n from '../../../../utils/i18n'
 import { HorizontalLine, MediumSatsFormat, Text } from '../../../../components'
 import { ShortBitcoinAddress } from '../../../../components/bitcoin'
 import tw from '../../../../styles/tailwind'
+import { toDateFormat } from '../../../../utils/date'
+import i18n from '../../../../utils/i18n'
+import { TransactionETA } from './TransactionETA'
 
 type Props = {
   transaction: TransactionSummary
@@ -15,6 +16,7 @@ export const TransactionDetailsInfo = ({ transaction, receivingAddress }: Props)
     <Text style={tw`text-center subtitle-1`}>
       {transaction.confirmed ? toDateFormat(transaction.date) : i18n('wallet.transaction.pending')}
     </Text>
+    {!transaction.confirmed && <TransactionETA txId={transaction.id} />}
     <HorizontalLine style={tw`my-4`} />
     <Text style={tw`text-center text-black-2`}>{i18n('to')}</Text>
     <ShortBitcoinAddress

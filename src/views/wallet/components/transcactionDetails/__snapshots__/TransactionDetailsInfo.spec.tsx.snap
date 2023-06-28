@@ -114,6 +114,9 @@ exports[`TransactionDetailsInfo should render correctly for a pending transactio
   >
     unconfirmed
   </PeachText>
+  <TransactionETA
+    txId="txid1"
+  />
   <HorizontalLine
     style={
       {
