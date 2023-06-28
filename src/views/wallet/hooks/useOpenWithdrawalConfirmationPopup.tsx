@@ -46,7 +46,6 @@ export const useOpenWithdrawalConfirmationPopup = () => {
       setPopup({
         title: i18n('wallet.confirmWithdraw.title'),
         content: <WithdrawalConfirmation {...{ amount, address, fee, feeRate }} />,
-        visible: true,
         action2: {
           callback: closePopup,
           label: i18n('cancel'),

@@ -6,21 +6,21 @@ exports[`useWalletSetup should set up the header correctly when loaded 1`] = `
   icons={
     [
       {
+        "accessibilityHint": "go to transaction history",
         "color": "#7D675E",
         "id": "yourTrades",
-        "label": "go to transaction history",
         "onPress": [Function],
       },
       {
+        "accessibilityHint": "go to network fees",
         "color": "#F7931A",
         "id": "bitcoin",
-        "label": "go to network fees",
         "onPress": [Function],
       },
       {
+        "accessibilityHint": "help",
         "color": "#099DE2",
         "id": "helpCircle",
-        "label": "help",
         "onPress": [Function],
       },
     ]
