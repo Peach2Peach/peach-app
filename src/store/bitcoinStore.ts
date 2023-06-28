@@ -17,7 +17,7 @@ type BitcoinStore = BitcoinState & {
   setPrices: (prices: Pricebook) => void
 }
 
-const defaultState: BitcoinState = {
+export const defaultBitcoinState: BitcoinState = {
   currency: 'EUR',
   satsPerUnit: NaN,
   price: NaN,
@@ -29,12 +29,12 @@ export const bitcoinStorage = createStorage('bitcoin')
 export const bitcoinStore = createStore(
   persist<BitcoinStore>(
     (set, get) => ({
-      ...defaultState,
+      ...defaultBitcoinState,
       setCurrency: (currency) => set({ currency }),
       setSatsPerUnit: (satsPerUnit) => set({ satsPerUnit }),
       setPrice: (price) => set({ price }),
       setPrices: (prices) => {
-        const price = prices[get().currency] || get().price
+        const price = prices[get().currency] ?? get().price
         get().setPrice(price)
         get().setSatsPerUnit(Math.round(SATSINBTC / price))
         set({ prices })
@@ -44,6 +44,14 @@ export const bitcoinStore = createStore(
       name: 'bitcoin',
       version: 0,
       storage: createJSONStorage(() => toZustandStorage(bitcoinStorage)),
+      merge: (persistedState, currentState) => {
+        if (!persistedState) return currentState
+
+        const mergedState = { ...currentState, ...persistedState }
+        if (mergedState.price === null) mergedState.price = NaN
+        if (mergedState.satsPerUnit === null) mergedState.satsPerUnit = NaN
+        return mergedState
+      },
     },
   ),
 )
