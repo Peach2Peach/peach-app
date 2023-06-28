@@ -7,8 +7,6 @@ describe('bitcoinStore', () => {
   it('should return defaults', () => {
     expect(bitcoinStore.getState()).toEqual({
       currency: 'EUR',
-      getPrice: expect.any(Function),
-      getSatsPerUnit: expect.any(Function),
       price: NaN,
       prices: {},
       satsPerUnit: NaN,
@@ -22,13 +20,11 @@ describe('bitcoinStore', () => {
     const price = 1000
     bitcoinStore.getState().setPrice(price)
     expect(bitcoinStore.getState().price).toEqual(price)
-    expect(bitcoinStore.getState().getPrice()).toEqual(price)
   })
   it('should set satsPerUnit', () => {
     const satsPerUnit = 1000
     bitcoinStore.getState().setSatsPerUnit(satsPerUnit)
     expect(bitcoinStore.getState().satsPerUnit).toEqual(satsPerUnit)
-    expect(bitcoinStore.getState().getSatsPerUnit()).toEqual(satsPerUnit)
   })
   it('should handle persisted state with null values', async () => {
 
