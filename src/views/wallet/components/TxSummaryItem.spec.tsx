@@ -4,7 +4,7 @@ import { TxSummaryItem } from './TxSummaryItem'
 
 const wrapper = NavigationWrapper
 
-describe('OfferItem', () => {
+describe('TransactionSummaryItem', () => {
   const date = new Date('2022-09-15T07:23:25.797Z')
   const baseTx: Pick<TransactionSummary, 'amount' | 'price' | 'currency' | 'date' | 'confirmed'> = {
     amount: 123456,
@@ -81,5 +81,9 @@ describe('OfferItem', () => {
     const { getByText } = render(<TxSummaryItem tx={receiveTx} />, { wrapper })
     fireEvent.press(getByText('received'))
     expect(navigateMock).toHaveBeenCalledWith('transactionDetails', { txId: 'receiveTx' })
+  })
+  it('should not render the fiat price', () => {
+    const { queryByText } = render(<TxSummaryItem tx={receiveTx} />, { wrapper })
+    expect(queryByText('100.00 EUR')).toBeFalsy()
   })
 })

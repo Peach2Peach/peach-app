@@ -16,7 +16,7 @@ export const TxSummaryItem = ({ tx }: Props) => {
     <StatusCard
       title={getTxSummaryTitle(tx)}
       icon={iconMap[tx.type]}
-      {...tx}
+      amount={tx.amount}
       subtext={getShortDateFormat(tx.date)}
       onPress={() => {
         navigation.navigate('transactionDetails', { txId: tx.id })
