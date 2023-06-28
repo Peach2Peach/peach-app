@@ -17,8 +17,8 @@ export const WithdrawalConfirmation = ({ amount, address, fee, feeRate }: Props)
     <Text>{i18n('wallet.confirmWithdraw.text')}</Text>
     <BTCAmount amount={amount} size="medium" />
     <Text>
-      {i18n('fundFromPeachWallet.confirm.to')} <ShortBitcoinAddress address={address} />
+      {i18n('transaction.details.to')} <ShortBitcoinAddress address={address} />
     </Text>
-    <Text>{i18n('fundFromPeachWallet.confirm.networkFee', thousands(fee), thousands(feeRate))}</Text>
+    <Text>{i18n('transaction.details.networkFee', thousands(fee), thousands(feeRate))}</Text>
   </View>
 )
