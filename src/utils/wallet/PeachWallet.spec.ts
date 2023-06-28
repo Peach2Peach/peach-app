@@ -34,6 +34,7 @@ import { createWalletFromSeedPhrase } from './createWalletFromSeedPhrase'
 import { getNetwork } from './getNetwork'
 import { useWalletState } from './walletStore'
 import { error as logError } from '../log'
+import { FundingAmountDifferent } from '../../popups/warning/FundingAmountDifferent'
 
 jest.mock('./PeachWallet', () => jest.requireActual('./PeachWallet'))
 
@@ -280,6 +281,22 @@ describe('PeachWallet', () => {
     expect(useWalletState.getState().txOfferMap).toEqual({
       txid1: '3',
       txid2: '2',
+    })
+  })
+  it('updates wallet store with offers funded from peach wallet', () => {
+    const pendingOffer = { id: '4', fundingTxId: 'txid4' }
+    const fundingTx = { txid: 'txid4', sent: 4, received: 4, fee: 4 }
+    peachWallet.synced = true
+    peachWallet.transactions = [confirmed1, confirmed2, pending3, fundingTx]
+    useTradeSummaryStore.getState().setContract('1-3', { id: '1-3', releaseTxId: confirmed1.txid })
+    useTradeSummaryStore.getState().setOffer('2', { id: '2', txId: confirmed2.txid })
+    useTradeSummaryStore.getState().setOffer('4', pendingOffer)
+    peachWallet.updateStore()
+    expect(useWalletState.getState().transactions).toEqual([confirmed1, confirmed2, pending3, fundingTx])
+    expect(useWalletState.getState().txOfferMap).toEqual({
+      txid1: '3',
+      txid2: '2',
+      txid4: '4',
     })
   })
   it('withdraws full balance to an address', async () => {
