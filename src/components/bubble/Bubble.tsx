@@ -1,43 +1,19 @@
-import { ReactNode } from 'react'
-import { StyleProp, TextStyle, TouchableOpacity, TouchableOpacityProps, ViewStyle } from 'react-native'
-import { IconType } from '../../assets/icons'
-import tw from '../../styles/tailwind'
-import Icon from '../Icon'
-import { Text } from '../text'
+import { BubbleBase, BubbleBaseProps } from './BubbleBase'
+import { getBackgroundColor } from './helpers/getBackgroundColor'
+import { getBorderColor } from './helpers/getBorderColor'
+import { getIconColor } from './helpers/getIconColor'
+import { getTextColor } from './helpers/getTextColor'
 
-export type BubbleProps = {
-  option?: boolean
-  children?: ReactNode
-  noBackground?: true
-  iconId?: IconType
-  color?: ViewStyle
-  textColor: TextStyle
-  borderColor?: ViewStyle
-  style?: StyleProp<ViewStyle>
-} & TouchableOpacityProps
+export type BubbleProps = Partial<BubbleBaseProps> & {
+  color: 'primary' | 'primary-mild' | 'black' | 'gray'
+  ghost?: boolean
+}
 
 export const Bubble = (props: BubbleProps) => {
-  const { children, iconId, color, textColor, borderColor, ...pressableProps } = props
-  const iconSize = tw`w-4 h-4`
-  const borderRadius = tw`rounded-lg`
+  const color = getBackgroundColor(props)
+  const textColor = getTextColor(props)
+  const borderColor = getBorderColor(props)
+  const iconColor = getIconColor(props)
 
-  return (
-    <TouchableOpacity
-      {...pressableProps}
-      style={[
-        color,
-        tw`flex-row items-center justify-center h-7 px-[10px] gap-1`,
-        borderRadius,
-        borderColor && [tw`border`, borderColor],
-        pressableProps.style,
-      ]}
-    >
-      {children && (
-        <Text numberOfLines={1} ellipsizeMode="tail" style={[textColor, tw`text-center button-medium`]}>
-          {children}
-        </Text>
-      )}
-      {!!iconId && <Icon id={iconId} style={iconSize} color={textColor?.color} />}
-    </TouchableOpacity>
-  )
+  return <BubbleBase {...{ ...props, color, textColor, iconColor, borderColor }} />
 }

@@ -1,20 +1,17 @@
 import { act, renderHook } from '@testing-library/react-native'
-import { contract } from '../../../../tests/unit/data/contractData'
-import { queryClient as testQueryClient, QueryClientWrapper } from '../../../../tests/unit/helpers/QueryClientWrapper'
-import { useLocalContractStore } from '../../../store/useLocalContractStore'
-import DisputeRaisedNotice from '../../../popups/dispute/components/DisputeRaisedNotice'
-import i18n from '../../../utils/i18n'
-import { defaultPopupState, usePopupStore } from '../../../store/usePopupStore'
 import { account1 } from '../../../../tests/unit/data/accountData'
+import { contract } from '../../../../tests/unit/data/contractData'
+import { NavigationAndQueryClientWrapper } from '../../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
+import { queryClient as testQueryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
+import DisputeRaisedNotice from '../../../popups/dispute/components/DisputeRaisedNotice'
+import { useLocalContractStore } from '../../../store/useLocalContractStore'
+import { defaultPopupState, usePopupStore } from '../../../store/usePopupStore'
 import { setAccount } from '../../../utils/account'
-import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
+import i18n from '../../../utils/i18n'
 import { useDisputeEmailPopup } from './useDisputeEmailPopup'
 
-const wrapper = ({ children }: ComponentProps) => (
-  <QueryClientWrapper>
-    <NavigationWrapper>{children}</NavigationWrapper>
-  </QueryClientWrapper>
-)
+const wrapper = NavigationAndQueryClientWrapper
+
 const getContractMock = jest.fn().mockResolvedValue([contract, null])
 jest.mock('../../../utils/peachAPI', () => ({
   getContract: (..._args: unknown[]) => getContractMock(),

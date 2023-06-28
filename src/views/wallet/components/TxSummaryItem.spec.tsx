@@ -35,6 +35,11 @@ describe('OfferItem', () => {
     id: 'receiveTx',
     type: 'DEPOSIT',
   }
+  const escrowFundedTx: TransactionSummary = {
+    ...baseTx,
+    id: 'receiveTx',
+    type: 'ESCROWFUNDED',
+  }
 
   it('should render correctly for a pending buy trade tx', () => {
     const { toJSON } = render(<TxSummaryItem tx={buyTradeTx} />, { wrapper })
@@ -68,9 +73,13 @@ describe('OfferItem', () => {
     const { toJSON } = render(<TxSummaryItem tx={{ ...receiveTx, confirmed: true }} />, { wrapper })
     expect(toJSON()).toMatchSnapshot()
   })
+  it('should render correctly for a escrow funded tx', () => {
+    const { toJSON } = render(<TxSummaryItem tx={{ ...escrowFundedTx, confirmed: true }} />, { wrapper })
+    expect(toJSON()).toMatchSnapshot()
+  })
   it('should navigate to the transaction details screen when pressed', () => {
     const { getByText } = render(<TxSummaryItem tx={receiveTx} />, { wrapper })
-    fireEvent.press(getByText('deposit'))
+    fireEvent.press(getByText('received'))
     expect(navigateMock).toHaveBeenCalledWith('transactionDetails', { txId: 'receiveTx' })
   })
 })

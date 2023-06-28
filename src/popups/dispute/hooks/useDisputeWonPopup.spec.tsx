@@ -1,6 +1,7 @@
 import { act, renderHook, waitFor } from '@testing-library/react-native'
-import { NavigationWrapper, navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
-import { queryClient as testQueryClient, QueryClientWrapper } from '../../../../tests/unit/helpers/QueryClientWrapper'
+import { NavigationAndQueryClientWrapper } from '../../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
+import { navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { queryClient as testQueryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
 import { useLocalContractStore } from '../../../store/useLocalContractStore'
 import { defaultPopupState, usePopupStore } from '../../../store/usePopupStore'
 import { account } from '../../../utils/account'
@@ -9,11 +10,7 @@ import { contractIdToHex, saveContract } from '../../../utils/contract'
 import { DisputeWon } from '../components/DisputeWon'
 import { useDisputeWonPopup } from './useDisputeWonPopup'
 
-const wrapper = ({ children }: ComponentProps) => (
-  <QueryClientWrapper>
-    <NavigationWrapper>{children}</NavigationWrapper>
-  </QueryClientWrapper>
-)
+const wrapper = NavigationAndQueryClientWrapper
 
 const getChatMock = jest.fn()
 jest.mock('../../../utils/chat', () => ({

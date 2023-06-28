@@ -7,6 +7,7 @@ import { SatsFormats } from './SatsFormats'
 import { SlideToUnlockTests } from './SlideToUnlockTests'
 import { StatusCards } from './StatusCards'
 import { UIComponents } from './UIComponents'
+import { TransactionDetails } from './TransactionDetails'
 import { Bubbles } from './Bubbles'
 import { SummaryItems } from './SummaryItems'
 
@@ -20,6 +21,7 @@ export default () => {
       contentStyle={tw`gap-8`}
     >
       <SummaryItems />
+      <TransactionDetails />
       <Bubbles />
       <UIComponents />
       <SatsFormats />
