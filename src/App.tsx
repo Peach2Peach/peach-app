@@ -49,25 +49,14 @@ const navTheme = {
 // eslint-disable-next-line max-statements
 const App = () => {
   const [messageState, updateMessage] = useReducer(setMessage, getMessage())
-  const [languageState, updateLanguage] = useReducer(i18n.setLocale, i18n.getState())
-  const [
-    {
-      title: drawerTitle,
-      content: drawerContent,
-      options: drawerOptions,
-      show: showDrawer,
-      previousDrawer,
-      onClose: onCloseDrawer,
-    },
-    updateDrawer,
-  ] = useReducer(setDrawer, defaultState)
+  const languageReducer = useReducer(i18n.setLocale, i18n.getState())
+  const drawerReducer = useReducer(setDrawer, defaultState)
   const [peachWS, updatePeachWS] = useReducer(setPeachWS, getWebSocket())
   const { width } = Dimensions.get('window')
   const slideInAnim = useRef(new Animated.Value(-width)).current
   const navigationRef = useNavigationContainerRef()
 
   const [currentPage, setCurrentPage] = useState<keyof RootStackParamList>()
-  const getCurrentPage = useCallback(() => currentPage, [currentPage])
   const views = getViews(!!account?.publicKey)
   const showFooter = !!views.find((v) => v.name === currentPage)?.showFooter
   const backgroundConfig = views.find((v) => v.name === currentPage)?.background
@@ -153,24 +142,12 @@ const App = () => {
     <GestureHandlerRootView>
       <AvoidKeyboard>
         <QueryClientProvider client={queryClient}>
-          <LanguageContext.Provider value={[languageState, updateLanguage]}>
+          <LanguageContext.Provider value={languageReducer}>
             <PeachWSContext.Provider value={peachWS}>
               <MessageContext.Provider value={[messageState, updateMessage]}>
-                <DrawerContext.Provider
-                  value={[
-                    {
-                      title: drawerTitle,
-                      content: drawerContent,
-                      options: drawerOptions,
-                      show: showDrawer,
-                      previousDrawer,
-                      onClose: onCloseDrawer,
-                    },
-                    updateDrawer,
-                  ]}
-                >
+                <DrawerContext.Provider value={drawerReducer}>
                   <NavigationContainer theme={navTheme} ref={navigationRef} onStateChange={onNavStateChange}>
-                    <GlobalHandlers {...{ getCurrentPage }} />
+                    <GlobalHandlers {...{ currentPage }} />
                     <Background config={backgroundConfig}>
                       <Drawer />
                       <Popup />
