@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { useMarketPrices } from '..'
-import { useSettingsStore } from '../../store/useSettingsStore'
+import { useSettingsStore } from '../../store/settingsStore'
 import { defaultLimits } from '../../utils/account/account'
 import { getTradingLimit } from '../../utils/peachAPI'
 

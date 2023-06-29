@@ -1,5 +1,5 @@
 import { settings1 } from '../../../../tests/unit/data/settingsData'
-import { useSettingsStore, defaultSettings } from '../../../store/useSettingsStore'
+import { useSettingsStore, defaultSettings } from '../../../store/settingsStore'
 import { migrateSettingsToStore } from './migrateSettingsToStore'
 
 const loadSettingsMock = jest.fn()

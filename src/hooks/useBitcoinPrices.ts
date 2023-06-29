@@ -1,5 +1,5 @@
 import { SATSINBTC } from '../constants'
-import { useSettingsStore } from '../store/useSettingsStore'
+import { useSettingsStore } from '../store/settingsStore'
 import { round } from '../utils/math'
 import { useMarketPrices } from './query/useMarketPrices'
 

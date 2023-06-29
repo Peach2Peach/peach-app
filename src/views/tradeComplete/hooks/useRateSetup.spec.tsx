@@ -4,7 +4,7 @@ import { contract } from '../../../../tests/unit/data/contractData'
 import { TradeBreakdown } from '../../../popups/TradeBreakdown'
 import { Props, useRateSetup } from './useRateSetup'
 import { apiSuccess, unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
-import { useSettingsStore } from '../../../store/useSettingsStore'
+import { useSettingsStore } from '../../../store/settingsStore'
 import { NavigationWrapper, replaceMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { usePopupStore } from '../../../store/usePopupStore'
 

@@ -4,7 +4,7 @@ import { shallow } from 'zustand/shallow'
 
 import { useHeaderSetup, useNavigation, useValidatedState } from '../../../hooks'
 import { useShowHelp } from '../../../hooks/useShowHelp'
-import { useSettingsStore } from '../../../store/useSettingsStore'
+import { useSettingsStore } from '../../../store/settingsStore'
 import { backupAccount } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
 import { headerIcons } from '../../../utils/layout/headerIcons'

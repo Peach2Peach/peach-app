@@ -1,7 +1,7 @@
 import { Text } from '../../../components'
 import { useMarketPrices } from '../../../hooks'
 import { useOfferPreferences } from '../../../store/offerPreferenes'
-import { useSettingsStore } from '../../../store/useSettingsStore'
+import { useSettingsStore } from '../../../store/settingsStore'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { getOfferPrice } from '../../../utils/offer'

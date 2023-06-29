@@ -1,4 +1,4 @@
-import { useSettingsStore } from '../../../store/useSettingsStore'
+import { useSettingsStore } from '../../../store/settingsStore'
 import { loadSettings } from './helpers/loadSettings'
 
 export const migrateSettingsToStore = () => {

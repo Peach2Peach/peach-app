@@ -4,7 +4,7 @@ import { SummaryItem } from '../../../components/payment/paymentDetailTemplates/
 import { Text } from '../../../components/text'
 import { getTradeActionStatus, getTradeActionStatusText } from '../helpers'
 import { useContractContext } from '../context'
-import { useSettingsStore } from '../../../store/useSettingsStore'
+import { useSettingsStore } from '../../../store/settingsStore'
 
 export const TradeStatusInfo = () => {
   const { contract, view } = useContractContext()

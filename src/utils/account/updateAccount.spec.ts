@@ -5,7 +5,7 @@ import { dataMigrationAfterLoadingWallet } from '../../init/dataMigration/dataMi
 import { getPeachAccount } from '../peachAPI/peachAccount'
 import { getWallet } from '../wallet'
 import { PeachWallet } from '../wallet/PeachWallet'
-import { useSettingsStore } from '../../store/useSettingsStore'
+import { useSettingsStore } from '../../store/settingsStore'
 import { account, defaultAccount } from './account'
 import { updateAccount } from './updateAccount'
 

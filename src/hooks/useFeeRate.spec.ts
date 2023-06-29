@@ -1,6 +1,6 @@
 import { renderHook } from '@testing-library/react-native'
 import { estimatedFees } from '../../tests/unit/data/bitcoinNetworkData'
-import { useSettingsStore } from '../store/useSettingsStore'
+import { useSettingsStore } from '../store/settingsStore'
 import { useFeeRate } from './useFeeRate'
 
 const useFeeEstimateMock = jest.fn().mockReturnValue({ estimatedFees })

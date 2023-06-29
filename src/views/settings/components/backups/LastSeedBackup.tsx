@@ -2,7 +2,7 @@ import { View } from 'react-native'
 
 import { Text } from '../../../../components'
 import { PrimaryButton } from '../../../../components/buttons'
-import { useSettingsStore } from '../../../../store/useSettingsStore'
+import { useSettingsStore } from '../../../../store/settingsStore'
 import tw from '../../../../styles/tailwind'
 import { toShortDateFormat } from '../../../../utils/date'
 import i18n from '../../../../utils/i18n'

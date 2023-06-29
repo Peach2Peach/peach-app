@@ -1,4 +1,4 @@
-import { useSettingsStore } from '../store/useSettingsStore'
+import { useSettingsStore } from '../store/settingsStore'
 import { isNumber } from '../utils/validation'
 import { useFeeEstimate } from './query/useFeeEstimate'
 

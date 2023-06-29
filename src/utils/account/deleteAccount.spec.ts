@@ -1,5 +1,5 @@
 import { ok } from 'assert'
-import { settingsStorage } from '../../store/useSettingsStore'
+import { settingsStorage } from '../../store/settingsStore'
 import { deleteAccount, setAccount } from '.'
 import { accountStorage } from './accountStorage'
 import { chatStorage } from './chatStorage'

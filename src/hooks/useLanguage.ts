@@ -1,4 +1,4 @@
-import { useSettingsStore } from '../store/useSettingsStore'
+import { useSettingsStore } from '../store/settingsStore'
 import { Locale, useLanguageContext } from '../utils/i18n'
 
 export const useLanguage = () => {

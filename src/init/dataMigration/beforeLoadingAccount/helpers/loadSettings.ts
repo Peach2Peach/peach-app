@@ -1,4 +1,4 @@
-import { defaultSettings } from '../../../../store/useSettingsStore'
+import { defaultSettings } from '../../../../store/settingsStore'
 import { accountStorage } from '../../../../utils/account/accountStorage'
 import { error } from '../../../../utils/log'
 

@@ -1,5 +1,5 @@
 import ShallowRenderer from 'react-test-renderer/shallow'
-import { useSettingsStore } from '../../../../store/useSettingsStore'
+import { useSettingsStore } from '../../../../store/settingsStore'
 import { LastSeedBackup } from './LastSeedBackup'
 
 describe('LastSeedBackup', () => {

@@ -1,5 +1,5 @@
 import { account1 } from '../../tests/unit/data/accountData'
-import { useSettingsStore } from '../store/useSettingsStore'
+import { useSettingsStore } from '../store/settingsStore'
 import { defaultAccount, setAccount } from '../utils/account'
 import { userUpdate } from './userUpdate'
 

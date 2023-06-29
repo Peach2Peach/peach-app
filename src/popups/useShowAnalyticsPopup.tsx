@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 import { shallow } from 'zustand/shallow'
-import { useSettingsStore } from '../store/useSettingsStore'
+import { useSettingsStore } from '../store/settingsStore'
 import { usePopupStore } from '../store/usePopupStore'
 import i18n from '../utils/i18n'
 import { AnalyticsPrompt } from './AnalyticsPrompt'

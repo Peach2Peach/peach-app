@@ -1,4 +1,4 @@
-import { SettingsStore } from '../../settingsStore'
+import { SettingsStore } from '../../useSettingsStore'
 import { SettingsVersion0, shouldMigrateToVersion1, version0 } from './version0'
 import { SettingsVersion1, shouldMigrateToVersion2, version1 } from './version1'
 

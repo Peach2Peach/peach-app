@@ -1,4 +1,4 @@
-import { SettingsStore } from '../settingsStore'
+import { SettingsStore } from '../useSettingsStore'
 
 export const getPureSettingsState = (state: SettingsStore): Settings => ({
   appVersion: state.appVersion,

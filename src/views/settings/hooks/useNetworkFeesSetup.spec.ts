@@ -2,7 +2,7 @@
 import { act, renderHook } from '@testing-library/react-native'
 import { estimatedFees } from '../../../../tests/unit/data/bitcoinNetworkData'
 import { headerState, NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
-import { useSettingsStore } from '../../../store/useSettingsStore'
+import { useSettingsStore } from '../../../store/settingsStore'
 import { useNetworkFeesSetup } from './useNetworkFeesSetup'
 import { apiSuccess, unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
 

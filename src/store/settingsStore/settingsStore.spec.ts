@@ -1,4 +1,4 @@
-import { useSettingsStore } from './settingsStore'
+import { useSettingsStore } from './useSettingsStore'
 import analytics from '@react-native-firebase/analytics'
 import perf from '@react-native-firebase/perf'
 
