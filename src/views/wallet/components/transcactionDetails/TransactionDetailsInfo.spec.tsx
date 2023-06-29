@@ -8,6 +8,20 @@ import { TransactionDetailsInfo } from './TransactionDetailsInfo'
 
 const wrapper = NavigationContainer
 
+const receivingAddress = 'receivingAddress'
+const goToBumpNetworkFeesMock = jest.fn()
+const openInExplorerMock = jest.fn()
+const useTransactionDetailsInfoSetupReturnValue = {
+  receivingAddress,
+  canBumpFees: true,
+  goToBumpNetworkFees: goToBumpNetworkFeesMock,
+  openInExplorer: openInExplorerMock,
+}
+const useTransactionDetailsInfoSetupMock = jest.fn().mockReturnValue(useTransactionDetailsInfoSetupReturnValue)
+jest.mock('../../hooks/useTransactionDetailsInfoSetup', () => ({
+  useTransactionDetailsInfoSetup: (...args: any[]) => useTransactionDetailsInfoSetupMock(...args),
+}))
+
 describe('TransactionDetailsInfo', () => {
   const renderer = createRenderer()
   it('should render correctly for a pending transaction', () => {
@@ -15,14 +29,12 @@ describe('TransactionDetailsInfo', () => {
     expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
   it('should render correctly for a confirmed transaction', () => {
+    useTransactionDetailsInfoSetupMock.mockReturnValueOnce({
+      ...useTransactionDetailsInfoSetupReturnValue,
+      canBumpFees: false,
+    })
+
     renderer.render(<TransactionDetailsInfo transaction={confirmedTransactionSummary} />, { wrapper })
-    expect(renderer.getRenderOutput()).toMatchSnapshot()
-  })
-  it('should render correctly with a receiving address', () => {
-    renderer.render(
-      <TransactionDetailsInfo transaction={confirmedTransactionSummary} receivingAddress="receivingAddress" />,
-      { wrapper },
-    )
     expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
 })
