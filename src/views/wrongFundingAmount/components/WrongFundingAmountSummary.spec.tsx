@@ -1,11 +1,11 @@
 import { createRenderer } from 'react-test-renderer/shallow'
+import { wronglyFundedSellOffer } from '../../../../tests/unit/data/offerData'
 import { WrongFundingAmountSummary } from './WrongFundingAmountSummary'
-import { sellOffer } from '../../../../tests/unit/data/offerData'
 
 describe('WrongFundingAmountSummary', () => {
   const renderer = createRenderer()
   it('renders correctly', () => {
-    renderer.render(<WrongFundingAmountSummary sellOffer={sellOffer} />)
+    renderer.render(<WrongFundingAmountSummary sellOffer={wronglyFundedSellOffer} />)
     expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
 })

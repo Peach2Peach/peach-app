@@ -11,8 +11,8 @@ type Props = {
   sellOffer?: SellOffer
 }
 export const WrongFundingAmountSummary = ({ sellOffer }: Props) => {
-  const actualAmount = sellOffer?.amount || 0
-  const fundingAmount = sellOffer?.funding.amounts.reduce(sum, 0) || 0
+  const actualAmount = sellOffer?.funding.amounts.reduce(sum, 0) || 0
+  const fundingAmount = sellOffer?.amount || 0
   return (
     <View style={tw`gap-3`}>
       <TradeSeparator iconId="download" text={i18n('offer.requiredAction.fundingAmountDifferent')} />

@@ -20,11 +20,11 @@ exports[`WrongFundingAmountSummary renders correctly 1`] = `
     }
   >
     <LabelAndAmount
-      amount={250000}
+      amount={69420}
       label="funded"
     />
     <LabelAndAmount
-      amount={0}
+      amount={42069}
       label="amount"
     />
   </View>
@@ -38,7 +38,7 @@ exports[`WrongFundingAmountSummary renders correctly 1`] = `
       }
     }
   >
-    You funded the escrow with 250 000 sats, while you made a trade for 0 sats.
+    You funded the escrow with 69 420 sats, while you made a trade for 42 069 sats.
   </PeachText>
   <PeachText
     style={
@@ -50,7 +50,7 @@ exports[`WrongFundingAmountSummary renders correctly 1`] = `
       }
     }
   >
-    Do you want to continue the trade with 250 000 sats, or do you want to be refunded?
+    Do you want to continue the trade with 69 420 sats, or do you want to be refunded?
   </PeachText>
 </View>
 `;
