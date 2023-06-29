@@ -1,4 +1,4 @@
-import { fireEvent, render } from '@testing-library/react-native'
+import { render } from '@testing-library/react-native'
 import { confirmedTransactionSummary } from '../../../tests/unit/data/transactionDetailData'
 import { NavigationAndQueryClientWrapper } from '../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
 import { TransactionDetails } from './TransactionDetails'
@@ -28,15 +28,5 @@ describe('TransactionDetails', () => {
   it('renders correctly', () => {
     const { toJSON } = render(<TransactionDetails />, { wrapper })
     expect(toJSON()).toMatchSnapshot()
-  })
-  it('should go to increase network fee screen if rbf is possible', () => {
-    useTransactionDetailsSetupMock.mockReturnValueOnce({
-      ...transactionDetailsSetupReturnValue,
-      canBumpNetworkFees: true,
-    })
-
-    const { getByText } = render(<TransactionDetails />, { wrapper })
-    fireEvent(getByText('increase network fee'), 'onPress')
-    expect(goToBumpNetworkFeesMock).toHaveBeenCalled()
   })
 })

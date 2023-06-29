@@ -29,6 +29,27 @@ export const confirmed3: TransactionDetails = {
   fee: 3,
   confirmationTime: { height: 3, timestamp: 3 },
 }
+export const confirmed4: TransactionDetails = {
+  txid: 'txid4',
+  sent: 0,
+  received: 25000,
+  fee: 10000,
+  confirmationTime: {
+    height: 765432,
+    timestamp: 1234567890,
+  },
+}
+export const confirmed5: TransactionDetails = {
+  txid: 'txid5',
+  sent: 0,
+  received: 25000,
+  fee: 10000,
+  confirmationTime: {
+    height: 765432,
+    timestamp: 1234567890,
+  },
+}
+
 export const pending1: TransactionDetails = { txid: 'txid1', sent: 1000, received: 100, fee: 1 }
 export const pending2: TransactionDetails = { txid: 'txid2', sent: 2000, received: 200, fee: 2 }
 export const pending3: TransactionDetails = { txid: 'txid3', sent: 3000, received: 300, fee: 3 }

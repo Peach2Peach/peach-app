@@ -1,12 +1,13 @@
-import { NavigationContainer } from '@react-navigation/native'
 import { createRenderer } from 'react-test-renderer/shallow'
 import {
   confirmedTransactionSummary,
   pendingTransactionSummary,
 } from '../../../../../tests/unit/data/transactionDetailData'
 import { TransactionDetailsInfo } from './TransactionDetailsInfo'
+import { fireEvent, render } from '@testing-library/react-native'
+import { NavigationAndQueryClientWrapper } from '../../../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
 
-const wrapper = NavigationContainer
+const wrapper = NavigationAndQueryClientWrapper
 
 const receivingAddress = 'receivingAddress'
 const goToBumpNetworkFeesMock = jest.fn()
@@ -36,5 +37,11 @@ describe('TransactionDetailsInfo', () => {
 
     renderer.render(<TransactionDetailsInfo transaction={confirmedTransactionSummary} />, { wrapper })
     expect(renderer.getRenderOutput()).toMatchSnapshot()
+  })
+
+  it('should go to increase network fee screen if rbf is possible', () => {
+    const { getByText } = render(<TransactionDetailsInfo transaction={pendingTransactionSummary} />, { wrapper })
+    fireEvent(getByText('increase network fee'), 'onPress')
+    expect(goToBumpNetworkFeesMock).toHaveBeenCalled()
   })
 })
