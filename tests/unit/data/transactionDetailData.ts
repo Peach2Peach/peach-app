@@ -47,6 +47,7 @@ export const pendingTransactionSummary: TransactionSummary = {
 }
 export const confirmedTransactionSummary: TransactionSummary = {
   ...pendingTransactionSummary,
+  height: 1,
   confirmed: true,
 }
 export const bitcoinTransaction: Transaction = {
