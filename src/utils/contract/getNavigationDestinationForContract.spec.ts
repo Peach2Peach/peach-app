@@ -1,4 +1,4 @@
-import { queryClient } from '../../tests/unit/helpers/QueryClientWrapper'
+import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
 import { getNavigationDestinationForContract } from './getNavigationDestinationForContract'
 
 jest.mock('../utils/contract', () => ({
