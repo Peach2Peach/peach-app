@@ -13,4 +13,7 @@ describe('priceFormat', () => {
     expect(priceFormat(123.456, true)).toEqual('123')
     expect(priceFormat(123, true)).toEqual('123')
   })
+  it('should handle Infinity', () => {
+    expect(priceFormat(Infinity)).toEqual('∞')
+  })
 })
