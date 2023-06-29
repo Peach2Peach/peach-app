@@ -11,7 +11,7 @@ declare type Input = {
   scriptsig: string
   scriptsig_asm: string
   inner_redeemscript_asm?: string
-  witness: string[]
+  witness?: string[]
   is_coinbase: boolean
   sequence: number
 }
