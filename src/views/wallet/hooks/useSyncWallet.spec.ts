@@ -18,11 +18,21 @@ describe('useSyncWallet', () => {
     })
   })
 
+  it('should set refreshing to false after refresh', async () => {
+    const { result } = renderHook(useSyncWallet)
+
+    await act(async () => {
+      await result.current.refresh()
+    })
+
+    expect(result.current.isRefreshing).toBe(false)
+  })
+
   it('should set refreshing to true on refresh', () => {
     const { result } = renderHook(useSyncWallet)
 
-    act(() => {
-      result.current.refresh()
+    act(async () => {
+      await result.current.refresh()
     })
 
     expect(result.current.isRefreshing).toBe(true)
@@ -38,26 +48,16 @@ describe('useSyncWallet', () => {
     expect(mockSyncWallet).toHaveBeenCalled()
   })
 
-  it('should not call peachWallet.syncWallet if already refreshing', () => {
+  it('should not call peachWallet.syncWallet if already refreshing', async () => {
     const { result } = renderHook(useSyncWallet)
 
-    act(() => {
-      result.current.refresh()
+    act(async () => {
+      await result.current.refresh()
     })
-    act(() => {
-      result.current.refresh()
-    })
-
-    expect(mockSyncWallet).toHaveBeenCalledTimes(1)
-  })
-
-  it('should set refreshing to false after refresh', async () => {
-    const { result } = renderHook(useSyncWallet)
-
     await act(async () => {
       await result.current.refresh()
     })
 
-    expect(result.current.isRefreshing).toBe(false)
+    expect(mockSyncWallet).toHaveBeenCalledTimes(1)
   })
 })
