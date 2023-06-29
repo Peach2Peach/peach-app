@@ -78,7 +78,7 @@ describe('MeetupScreen', () => {
     const { getByText } = render(<MeetupScreen />)
     fireEvent(getByText('view on maps'), 'onPress')
     expect(openURLSpy).toHaveBeenCalledWith('http://maps.google.com/maps?daddr=Prague')
-    fireEvent(getByText('meetup website'), 'onPress')
+    fireEvent(getByText('meetup link'), 'onPress')
     expect(openURLSpy).toHaveBeenCalledWith(btcPragueEvent.url)
   })
 })

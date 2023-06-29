@@ -6,17 +6,17 @@ import { iconMap } from './iconMap'
 import { levelMap } from './levelMap'
 
 type Props = {
-  tx: TransactionSummary
+  item: TransactionSummary
 }
 
-export const TxSummaryItem = ({ tx }: Props) => {
+export const TxStatusCard = ({ item: tx }: Props) => {
   const navigation = useNavigation()
 
   return (
     <StatusCard
       title={getTxSummaryTitle(tx)}
       icon={iconMap[tx.type]}
-      {...tx}
+      amount={tx.amount}
       subtext={getShortDateFormat(tx.date)}
       onPress={() => {
         navigation.navigate('transactionDetails', { txId: tx.id })

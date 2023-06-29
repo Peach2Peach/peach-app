@@ -1,4 +1,4 @@
-declare type TransactionType = 'TRADE' | 'REFUND' | 'WITHDRAWAL' | 'DEPOSIT'
+declare type TransactionType = 'TRADE' | 'ESCROWFUNDED' | 'REFUND' | 'WITHDRAWAL' | 'DEPOSIT'
 declare type TransactionSummary = {
   id: string
   contractId?: string

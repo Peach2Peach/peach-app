@@ -5,8 +5,10 @@ import alertTriangle from './alertTriangle.svg'
 import alignJustify from './alignJustify.svg'
 import alignLeft from './alignLeft.svg'
 import arrowDown from './arrowDown.svg'
+import arrowDownCircle from './arrowDownCircle.svg'
 import arrowLeftCircle from './arrowLeftCircle.svg'
 import arrowRightCircle from './arrowRightCircle.svg'
+import arrowUpCircle from './arrowUpCircle.svg'
 import award from './award.svg'
 import awardCircleInverted from './awardCircleInverted.svg'
 import bitcoin from './bitcoin.svg'
@@ -126,8 +128,10 @@ const Icons = {
   alignJustify,
   alignLeft,
   arrowDown,
+  arrowDownCircle,
   arrowLeftCircle,
   arrowRightCircle,
+  arrowUpCircle,
   award,
   awardCircleInverted,
   bitcoin,
