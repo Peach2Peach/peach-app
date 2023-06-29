@@ -1,7 +1,7 @@
 import { View } from 'react-native'
 import { Text } from '../../../../components'
 import { Bubble } from '../../../../components/bubble'
-import { useNavigateToOfferOrContract } from '../../../../hooks/useNavigateToOfferOrContract'
+import { useNavigateToOfferOrContract } from '../../../../hooks'
 import { useTradeSummaryStore } from '../../../../store/tradeSummaryStore'
 import tw from '../../../../styles/tailwind'
 import { contractIdToHex } from '../../../../utils/contract'
