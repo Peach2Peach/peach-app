@@ -20,7 +20,7 @@ export const TradingLimitAmount = ({ amount, limit, displayCurrency, style, type
       <Text style={[textStyle, tw`text-black-2`]}> / </Text>
       {limit === Infinity ? (
         <Text style={[textStyle, tw`text-primary-mild-1`]}>
-          {'∞'} {displayCurrency}
+          {'∞'} {displayCurrency}
         </Text>
       ) : (
         <PriceFormat style={[textStyle, tw`text-primary-mild-1`]} currency={displayCurrency} amount={limit} round />

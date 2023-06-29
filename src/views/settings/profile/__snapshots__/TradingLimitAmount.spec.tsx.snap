@@ -294,7 +294,7 @@ exports[`TradingLimitAmount should render correctly with infinite limit 1`] = `
       }
     >
       ∞
-       
+       
       EUR
     </PeachText>
   </PeachText>
