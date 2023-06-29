@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`OfferItem should render correctly for a confirmed buy trade tx 1`] = `
+exports[`TxStatusCard should render correctly for a confirmed buy trade tx 1`] = `
 <View
   accessibilityState={
     {
@@ -191,9 +191,7 @@ exports[`OfferItem should render correctly for a confirmed buy trade tx 1`] = `
               "paddingTop": 4,
               "width": 141,
             },
-            {
-              "gap": 6,
-            },
+            false,
             false,
           ]
         }
@@ -769,53 +767,13 @@ exports[`OfferItem should render correctly for a confirmed buy trade tx 1`] = `
             </View>
           </View>
         </View>
-        <View
-          style={
-            {
-              "height": 17,
-              "justifyContent": "center",
-            }
-          }
-        >
-          <Text
-            allowFontScaling={false}
-            style={
-              [
-                {
-                  "color": "#2B1911",
-                  "fontFamily": "Baloo2-Regular",
-                  "fontSize": 16,
-                  "letterSpacing": 0.16,
-                  "lineHeight": 24,
-                },
-                [
-                  {
-                    "color": "#7D675E",
-                    "fontFamily": "Baloo2-Regular",
-                    "fontSize": 16,
-                    "letterSpacing": 0.16,
-                    "lineHeight": 24,
-                  },
-                  {
-                    "marginBottom": -40,
-                    "marginTop": -40,
-                  },
-                ],
-              ]
-            }
-          >
-            100.00
-             
-            EUR
-          </Text>
-        </View>
       </View>
     </View>
   </View>
 </View>
 `;
 
-exports[`OfferItem should render correctly for a confirmed receive tx 1`] = `
+exports[`TxStatusCard should render correctly for a confirmed receive tx 1`] = `
 <View
   accessibilityState={
     {
@@ -1006,9 +964,7 @@ exports[`OfferItem should render correctly for a confirmed receive tx 1`] = `
               "paddingTop": 4,
               "width": 141,
             },
-            {
-              "gap": 6,
-            },
+            false,
             false,
           ]
         }
@@ -1584,53 +1540,13 @@ exports[`OfferItem should render correctly for a confirmed receive tx 1`] = `
             </View>
           </View>
         </View>
-        <View
-          style={
-            {
-              "height": 17,
-              "justifyContent": "center",
-            }
-          }
-        >
-          <Text
-            allowFontScaling={false}
-            style={
-              [
-                {
-                  "color": "#2B1911",
-                  "fontFamily": "Baloo2-Regular",
-                  "fontSize": 16,
-                  "letterSpacing": 0.16,
-                  "lineHeight": 24,
-                },
-                [
-                  {
-                    "color": "#7D675E",
-                    "fontFamily": "Baloo2-Regular",
-                    "fontSize": 16,
-                    "letterSpacing": 0.16,
-                    "lineHeight": 24,
-                  },
-                  {
-                    "marginBottom": -40,
-                    "marginTop": -40,
-                  },
-                ],
-              ]
-            }
-          >
-            100.00
-             
-            EUR
-          </Text>
-        </View>
       </View>
     </View>
   </View>
 </View>
 `;
 
-exports[`OfferItem should render correctly for a confirmed refund tx 1`] = `
+exports[`TxStatusCard should render correctly for a confirmed refund tx 1`] = `
 <View
   accessibilityState={
     {
@@ -1821,9 +1737,7 @@ exports[`OfferItem should render correctly for a confirmed refund tx 1`] = `
               "paddingTop": 4,
               "width": 141,
             },
-            {
-              "gap": 6,
-            },
+            false,
             false,
           ]
         }
@@ -2399,53 +2313,13 @@ exports[`OfferItem should render correctly for a confirmed refund tx 1`] = `
             </View>
           </View>
         </View>
-        <View
-          style={
-            {
-              "height": 17,
-              "justifyContent": "center",
-            }
-          }
-        >
-          <Text
-            allowFontScaling={false}
-            style={
-              [
-                {
-                  "color": "#2B1911",
-                  "fontFamily": "Baloo2-Regular",
-                  "fontSize": 16,
-                  "letterSpacing": 0.16,
-                  "lineHeight": 24,
-                },
-                [
-                  {
-                    "color": "#7D675E",
-                    "fontFamily": "Baloo2-Regular",
-                    "fontSize": 16,
-                    "letterSpacing": 0.16,
-                    "lineHeight": 24,
-                  },
-                  {
-                    "marginBottom": -40,
-                    "marginTop": -40,
-                  },
-                ],
-              ]
-            }
-          >
-            100.00
-             
-            EUR
-          </Text>
-        </View>
       </View>
     </View>
   </View>
 </View>
 `;
 
-exports[`OfferItem should render correctly for a escrow funded tx 1`] = `
+exports[`TxStatusCard should render correctly for a escrow funded tx 1`] = `
 <View
   accessibilityState={
     {
@@ -2636,9 +2510,7 @@ exports[`OfferItem should render correctly for a escrow funded tx 1`] = `
               "paddingTop": 4,
               "width": 141,
             },
-            {
-              "gap": 6,
-            },
+            false,
             false,
           ]
         }
@@ -3214,53 +3086,13 @@ exports[`OfferItem should render correctly for a escrow funded tx 1`] = `
             </View>
           </View>
         </View>
-        <View
-          style={
-            {
-              "height": 17,
-              "justifyContent": "center",
-            }
-          }
-        >
-          <Text
-            allowFontScaling={false}
-            style={
-              [
-                {
-                  "color": "#2B1911",
-                  "fontFamily": "Baloo2-Regular",
-                  "fontSize": 16,
-                  "letterSpacing": 0.16,
-                  "lineHeight": 24,
-                },
-                [
-                  {
-                    "color": "#7D675E",
-                    "fontFamily": "Baloo2-Regular",
-                    "fontSize": 16,
-                    "letterSpacing": 0.16,
-                    "lineHeight": 24,
-                  },
-                  {
-                    "marginBottom": -40,
-                    "marginTop": -40,
-                  },
-                ],
-              ]
-            }
-          >
-            100.00
-             
-            EUR
-          </Text>
-        </View>
       </View>
     </View>
   </View>
 </View>
 `;
 
-exports[`OfferItem should render correctly for a pending buy trade tx 1`] = `
+exports[`TxStatusCard should render correctly for a pending buy trade tx 1`] = `
 <View
   accessibilityState={
     {
@@ -3451,9 +3283,7 @@ exports[`OfferItem should render correctly for a pending buy trade tx 1`] = `
               "paddingTop": 4,
               "width": 141,
             },
-            {
-              "gap": 6,
-            },
+            false,
             false,
           ]
         }
@@ -4029,53 +3859,13 @@ exports[`OfferItem should render correctly for a pending buy trade tx 1`] = `
             </View>
           </View>
         </View>
-        <View
-          style={
-            {
-              "height": 17,
-              "justifyContent": "center",
-            }
-          }
-        >
-          <Text
-            allowFontScaling={false}
-            style={
-              [
-                {
-                  "color": "#2B1911",
-                  "fontFamily": "Baloo2-Regular",
-                  "fontSize": 16,
-                  "letterSpacing": 0.16,
-                  "lineHeight": 24,
-                },
-                [
-                  {
-                    "color": "#7D675E",
-                    "fontFamily": "Baloo2-Regular",
-                    "fontSize": 16,
-                    "letterSpacing": 0.16,
-                    "lineHeight": 24,
-                  },
-                  {
-                    "marginBottom": -40,
-                    "marginTop": -40,
-                  },
-                ],
-              ]
-            }
-          >
-            100.00
-             
-            EUR
-          </Text>
-        </View>
       </View>
     </View>
   </View>
 </View>
 `;
 
-exports[`OfferItem should render correctly for a pending confirmed tx 1`] = `
+exports[`TxStatusCard should render correctly for a pending confirmed tx 1`] = `
 <View
   accessibilityState={
     {
@@ -4266,9 +4056,7 @@ exports[`OfferItem should render correctly for a pending confirmed tx 1`] = `
               "paddingTop": 4,
               "width": 141,
             },
-            {
-              "gap": 6,
-            },
+            false,
             false,
           ]
         }
@@ -4844,53 +4632,13 @@ exports[`OfferItem should render correctly for a pending confirmed tx 1`] = `
             </View>
           </View>
         </View>
-        <View
-          style={
-            {
-              "height": 17,
-              "justifyContent": "center",
-            }
-          }
-        >
-          <Text
-            allowFontScaling={false}
-            style={
-              [
-                {
-                  "color": "#2B1911",
-                  "fontFamily": "Baloo2-Regular",
-                  "fontSize": 16,
-                  "letterSpacing": 0.16,
-                  "lineHeight": 24,
-                },
-                [
-                  {
-                    "color": "#7D675E",
-                    "fontFamily": "Baloo2-Regular",
-                    "fontSize": 16,
-                    "letterSpacing": 0.16,
-                    "lineHeight": 24,
-                  },
-                  {
-                    "marginBottom": -40,
-                    "marginTop": -40,
-                  },
-                ],
-              ]
-            }
-          >
-            100.00
-             
-            EUR
-          </Text>
-        </View>
       </View>
     </View>
   </View>
 </View>
 `;
 
-exports[`OfferItem should render correctly for a pending receive tx 1`] = `
+exports[`TxStatusCard should render correctly for a pending receive tx 1`] = `
 <View
   accessibilityState={
     {
@@ -5081,9 +4829,7 @@ exports[`OfferItem should render correctly for a pending receive tx 1`] = `
               "paddingTop": 4,
               "width": 141,
             },
-            {
-              "gap": 6,
-            },
+            false,
             false,
           ]
         }
@@ -5659,53 +5405,13 @@ exports[`OfferItem should render correctly for a pending receive tx 1`] = `
             </View>
           </View>
         </View>
-        <View
-          style={
-            {
-              "height": 17,
-              "justifyContent": "center",
-            }
-          }
-        >
-          <Text
-            allowFontScaling={false}
-            style={
-              [
-                {
-                  "color": "#2B1911",
-                  "fontFamily": "Baloo2-Regular",
-                  "fontSize": 16,
-                  "letterSpacing": 0.16,
-                  "lineHeight": 24,
-                },
-                [
-                  {
-                    "color": "#7D675E",
-                    "fontFamily": "Baloo2-Regular",
-                    "fontSize": 16,
-                    "letterSpacing": 0.16,
-                    "lineHeight": 24,
-                  },
-                  {
-                    "marginBottom": -40,
-                    "marginTop": -40,
-                  },
-                ],
-              ]
-            }
-          >
-            100.00
-             
-            EUR
-          </Text>
-        </View>
       </View>
     </View>
   </View>
 </View>
 `;
 
-exports[`OfferItem should render correctly for a pending refund tx 1`] = `
+exports[`TxStatusCard should render correctly for a pending refund tx 1`] = `
 <View
   accessibilityState={
     {
@@ -5896,9 +5602,7 @@ exports[`OfferItem should render correctly for a pending refund tx 1`] = `
               "paddingTop": 4,
               "width": 141,
             },
-            {
-              "gap": 6,
-            },
+            false,
             false,
           ]
         }
@@ -6474,53 +6178,13 @@ exports[`OfferItem should render correctly for a pending refund tx 1`] = `
             </View>
           </View>
         </View>
-        <View
-          style={
-            {
-              "height": 17,
-              "justifyContent": "center",
-            }
-          }
-        >
-          <Text
-            allowFontScaling={false}
-            style={
-              [
-                {
-                  "color": "#2B1911",
-                  "fontFamily": "Baloo2-Regular",
-                  "fontSize": 16,
-                  "letterSpacing": 0.16,
-                  "lineHeight": 24,
-                },
-                [
-                  {
-                    "color": "#7D675E",
-                    "fontFamily": "Baloo2-Regular",
-                    "fontSize": 16,
-                    "letterSpacing": 0.16,
-                    "lineHeight": 24,
-                  },
-                  {
-                    "marginBottom": -40,
-                    "marginTop": -40,
-                  },
-                ],
-              ]
-            }
-          >
-            100.00
-             
-            EUR
-          </Text>
-        </View>
       </View>
     </View>
   </View>
 </View>
 `;
 
-exports[`OfferItem should render correctly for a pending sent tx 1`] = `
+exports[`TxStatusCard should render correctly for a pending sent tx 1`] = `
 <View
   accessibilityState={
     {
@@ -6711,9 +6375,7 @@ exports[`OfferItem should render correctly for a pending sent tx 1`] = `
               "paddingTop": 4,
               "width": 141,
             },
-            {
-              "gap": 6,
-            },
+            false,
             false,
           ]
         }
@@ -7288,46 +6950,6 @@ exports[`OfferItem should render correctly for a pending sent tx 1`] = `
               </Text>
             </View>
           </View>
-        </View>
-        <View
-          style={
-            {
-              "height": 17,
-              "justifyContent": "center",
-            }
-          }
-        >
-          <Text
-            allowFontScaling={false}
-            style={
-              [
-                {
-                  "color": "#2B1911",
-                  "fontFamily": "Baloo2-Regular",
-                  "fontSize": 16,
-                  "letterSpacing": 0.16,
-                  "lineHeight": 24,
-                },
-                [
-                  {
-                    "color": "#7D675E",
-                    "fontFamily": "Baloo2-Regular",
-                    "fontSize": 16,
-                    "letterSpacing": 0.16,
-                    "lineHeight": 24,
-                  },
-                  {
-                    "marginBottom": -40,
-                    "marginTop": -40,
-                  },
-                ],
-              ]
-            }
-          >
-            100.00
-             
-            EUR
-          </Text>
         </View>
       </View>
     </View>

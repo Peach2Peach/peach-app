@@ -6,16 +6,21 @@ import { getTransactionDetails } from '../../../../tests/unit/helpers/getTransac
 export class PeachWallet {
   balance: number
 
+  synced: boolean
+
   transactions: TransactionDetails[]
 
   constructor () {
     this.balance = 0
+    this.synced = false
     this.transactions = []
   }
 
   async loadWallet () {}
 
-  async syncWallet () {}
+  async syncWallet () {
+    this.synced = true
+  }
 
   updateStore (): void {}
 

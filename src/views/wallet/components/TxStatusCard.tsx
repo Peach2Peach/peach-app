@@ -6,17 +6,17 @@ import { TransactionIcon } from './TransactionIcon'
 import { levelMap } from './levelMap'
 
 type Props = {
-  tx: TransactionSummary
+  item: TransactionSummary
 }
 
-export const TxSummaryItem = ({ tx }: Props) => {
+export const TxStatusCard = ({ item: tx }: Props) => {
   const navigation = useNavigation()
 
   return (
     <StatusCard
       title={getTxSummaryTitle(tx.type)}
       icon={<TransactionIcon type={tx.type} size={17} />}
-      {...tx}
+      amount={tx.amount}
       subtext={getShortDateFormat(tx.date)}
       onPress={() => {
         navigation.navigate('transactionDetails', { txId: tx.id })

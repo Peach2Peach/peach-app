@@ -1,10 +1,10 @@
 import { fireEvent, render } from '@testing-library/react-native'
 import { navigateMock, NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
-import { TxSummaryItem } from './TxSummaryItem'
+import { TxStatusCard } from './TxStatusCard'
 
 const wrapper = NavigationWrapper
 
-describe('OfferItem', () => {
+describe('TxStatusCard', () => {
   const date = new Date('2022-09-15T07:23:25.797Z')
   const baseTx: Pick<TransactionSummary, 'amount' | 'price' | 'currency' | 'date' | 'confirmed'> = {
     amount: 123456,
@@ -42,44 +42,48 @@ describe('OfferItem', () => {
   }
 
   it('should render correctly for a pending buy trade tx', () => {
-    const { toJSON } = render(<TxSummaryItem tx={buyTradeTx} />, { wrapper })
+    const { toJSON } = render(<TxStatusCard item={buyTradeTx} />, { wrapper })
     expect(toJSON()).toMatchSnapshot()
   })
   it('should render correctly for a confirmed buy trade tx', () => {
-    const { toJSON } = render(<TxSummaryItem tx={{ ...buyTradeTx, confirmed: true }} />, { wrapper })
+    const { toJSON } = render(<TxStatusCard item={{ ...buyTradeTx, confirmed: true }} />, { wrapper })
     expect(toJSON()).toMatchSnapshot()
   })
   it('should render correctly for a pending sent tx', () => {
-    const { toJSON } = render(<TxSummaryItem tx={sentTx} />, { wrapper })
+    const { toJSON } = render(<TxStatusCard item={sentTx} />, { wrapper })
     expect(toJSON()).toMatchSnapshot()
   })
   it('should render correctly for a pending confirmed tx', () => {
-    const { toJSON } = render(<TxSummaryItem tx={{ ...sentTx, confirmed: true }} />, { wrapper })
+    const { toJSON } = render(<TxStatusCard item={{ ...sentTx, confirmed: true }} />, { wrapper })
     expect(toJSON()).toMatchSnapshot()
   })
   it('should render correctly for a pending refund tx', () => {
-    const { toJSON } = render(<TxSummaryItem tx={refundTx} />, { wrapper })
+    const { toJSON } = render(<TxStatusCard item={refundTx} />, { wrapper })
     expect(toJSON()).toMatchSnapshot()
   })
   it('should render correctly for a confirmed refund tx', () => {
-    const { toJSON } = render(<TxSummaryItem tx={{ ...refundTx, confirmed: true }} />, { wrapper })
+    const { toJSON } = render(<TxStatusCard item={{ ...refundTx, confirmed: true }} />, { wrapper })
     expect(toJSON()).toMatchSnapshot()
   })
   it('should render correctly for a pending receive tx', () => {
-    const { toJSON } = render(<TxSummaryItem tx={receiveTx} />, { wrapper })
+    const { toJSON } = render(<TxStatusCard item={receiveTx} />, { wrapper })
     expect(toJSON()).toMatchSnapshot()
   })
   it('should render correctly for a confirmed receive tx', () => {
-    const { toJSON } = render(<TxSummaryItem tx={{ ...receiveTx, confirmed: true }} />, { wrapper })
+    const { toJSON } = render(<TxStatusCard item={{ ...receiveTx, confirmed: true }} />, { wrapper })
     expect(toJSON()).toMatchSnapshot()
   })
   it('should render correctly for a escrow funded tx', () => {
-    const { toJSON } = render(<TxSummaryItem tx={{ ...escrowFundedTx, confirmed: true }} />, { wrapper })
+    const { toJSON } = render(<TxStatusCard item={{ ...escrowFundedTx, confirmed: true }} />, { wrapper })
     expect(toJSON()).toMatchSnapshot()
   })
   it('should navigate to the transaction details screen when pressed', () => {
-    const { getByText } = render(<TxSummaryItem tx={receiveTx} />, { wrapper })
+    const { getByText } = render(<TxStatusCard item={receiveTx} />, { wrapper })
     fireEvent.press(getByText('received'))
     expect(navigateMock).toHaveBeenCalledWith('transactionDetails', { txId: 'receiveTx' })
+  })
+  it('should not render the fiat price', () => {
+    const { queryByText } = render(<TxStatusCard item={receiveTx} />, { wrapper })
+    expect(queryByText('100.00 EUR')).toBeFalsy()
   })
 })

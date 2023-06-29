@@ -8,10 +8,10 @@ exports[`TransactionHistory should render correctly with tx 1`] = `
     [
       {
         "gap": 16,
-        "paddingBottom": 48,
+        "paddingBottom": 16,
         "paddingLeft": 16,
         "paddingRight": 16,
-        "paddingTop": 48,
+        "paddingTop": 16,
       },
       {},
     ]
@@ -41,6 +41,7 @@ exports[`TransactionHistory should render correctly with tx 1`] = `
     ]
   }
   initialNumToRender={10}
+  keyExtractor={[Function]}
   maxToRenderPerBatch={20}
   onRefresh={[MockFunction]}
   refreshing={false}
@@ -54,14 +55,16 @@ exports[`TransactionHistory should render medium screens correctly 1`] = `
     [
       {
         "gap": 16,
-        "paddingBottom": 48,
+        "paddingBottom": 16,
         "paddingLeft": 16,
         "paddingRight": 16,
-        "paddingTop": 48,
+        "paddingTop": 16,
       },
       {
+        "paddingBottom": 32,
         "paddingLeft": 32,
         "paddingRight": 32,
+        "paddingTop": 32,
       },
     ]
   }
@@ -90,6 +93,7 @@ exports[`TransactionHistory should render medium screens correctly 1`] = `
     ]
   }
   initialNumToRender={10}
+  keyExtractor={[Function]}
   maxToRenderPerBatch={20}
   onRefresh={[MockFunction]}
   refreshing={false}
