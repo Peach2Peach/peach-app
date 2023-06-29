@@ -5,18 +5,19 @@ exports[`EmptyTransactionHistory should render correctly 1`] = `
   style={
     {
       "alignItems": "center",
+      "gap": 32,
       "height": "100%",
       "justifyContent": "center",
     }
   }
 >
   <Image
-    resizeMode="contain"
+    resizeMode="cover"
     source="test-file-stub"
     style={
       {
-        "height": 120,
-        "width": 120,
+        "height": 130,
+        "width": 118,
       }
     }
   />
@@ -28,7 +29,6 @@ exports[`EmptyTransactionHistory should render correctly 1`] = `
         "fontSize": 16,
         "letterSpacing": 0.16,
         "lineHeight": 28,
-        "marginTop": 32,
       }
     }
   >

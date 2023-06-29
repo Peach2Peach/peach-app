@@ -9,14 +9,14 @@ type Props = {
   tx: TransactionSummary
 }
 
-export const TxSummaryItem = ({ tx }: Props) => {
+export const TxStatusCard = ({ tx }: Props) => {
   const navigation = useNavigation()
 
   return (
     <StatusCard
       title={getTxSummaryTitle(tx.type)}
       icon={<TransactionIcon type={tx.type} size={17} />}
-      {...tx}
+      amount={tx.amount}
       subtext={getShortDateFormat(tx.date)}
       onPress={() => {
         navigation.navigate('transactionDetails', { txId: tx.id })
