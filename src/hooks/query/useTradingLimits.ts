@@ -6,6 +6,9 @@ import { getTradingLimit } from '../../utils/peachAPI'
 
 const tradingLimitQuery = async () => {
   const [result, err] = await getTradingLimit({})
+  if (result && 'error' in result) {
+    throw new Error(result?.error)
+  }
   if (err) {
     throw new Error(err.error)
   }
@@ -16,7 +19,7 @@ export const useTradingLimits = () => {
   const { data: marketPrices } = useMarketPrices()
   const displayCurrency = useSettingsStore((state) => state.displayCurrency)
 
-  const displayPrice = marketPrices && marketPrices[displayCurrency]
+  const displayPrice = marketPrices?.[displayCurrency]
   const exchangeRate = displayPrice && marketPrices.CHF ? displayPrice / marketPrices.CHF : 1
 
   const roundedDisplayLimits = limits
