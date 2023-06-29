@@ -24,7 +24,9 @@ export type SettingsStore = Settings & {
   setLocale: (locale: Locale) => void
   setDisplayCurrency: (displayCurrency: Currency) => void
   setLastSeedBackupDate: (lastSeedBackupDate: number) => void
+  updateSeedBackupDate: () => void
   setLastFileBackupDate: (lastFileBackupDate: number) => void
+  updateFileBackupDate: () => void
   setShowBackupReminder: (showBackupReminder: boolean) => void
   setPeachWalletActive: (peachWalletActive: boolean) => void
   togglePeachWallet: () => void
@@ -62,7 +64,11 @@ export const useSettingsStore = create(
       setLocale: (locale) => set({ locale }),
       setDisplayCurrency: (displayCurrency) => set({ displayCurrency }),
       setLastFileBackupDate: (lastFileBackupDate) => set({ lastFileBackupDate }),
+      updateFileBackupDate: () =>
+        set({ lastFileBackupDate: Date.now(), shouldShowBackupOverlay: false, showBackupReminder: false }),
       setLastSeedBackupDate: (lastSeedBackupDate) => set({ lastSeedBackupDate }),
+      updateSeedBackupDate: () =>
+        set({ lastSeedBackupDate: Date.now(), shouldShowBackupOverlay: false, showBackupReminder: false }),
       setShowBackupReminder: (showBackupReminder) =>
         set({ showBackupReminder, shouldShowBackupOverlay: showBackupReminder }),
       setPeachWalletActive: (peachWalletActive) => set({ peachWalletActive }),

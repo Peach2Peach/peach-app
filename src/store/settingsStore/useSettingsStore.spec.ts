@@ -27,3 +27,37 @@ describe('settingsStore', () => {
     expect(useSettingsStore.persist.getOptions().version).toBe(3)
   })
 })
+
+describe('settingsStore - updateFileBackupDate', () => {
+  const now = 1234567890
+  jest.spyOn(Date, 'now').mockImplementation(() => now)
+  it('should update lastFileBackupDate', () => {
+    useSettingsStore.getState().updateFileBackupDate()
+    expect(useSettingsStore.getState().lastFileBackupDate).toBeGreaterThanOrEqual(now)
+  })
+  it('should set shouldShowBackupOverlay to false', () => {
+    useSettingsStore.getState().updateFileBackupDate()
+    expect(useSettingsStore.getState().shouldShowBackupOverlay).toBeFalsy()
+  })
+  it('should set showBackupReminder to false', () => {
+    useSettingsStore.getState().updateFileBackupDate()
+    expect(useSettingsStore.getState().showBackupReminder).toBeFalsy()
+  })
+})
+
+describe('settingsStore - updateSeedBackupDate', () => {
+  const now = 1234567890
+  jest.spyOn(Date, 'now').mockImplementation(() => now)
+  it('should update lastSeedBackupDate', () => {
+    useSettingsStore.getState().updateSeedBackupDate()
+    expect(useSettingsStore.getState().lastSeedBackupDate).toBeGreaterThanOrEqual(now)
+  })
+  it('should set shouldShowBackupOverlay to false', () => {
+    useSettingsStore.getState().updateSeedBackupDate()
+    expect(useSettingsStore.getState().shouldShowBackupOverlay).toBeFalsy()
+  })
+  it('should set showBackupReminder to false', () => {
+    useSettingsStore.getState().updateSeedBackupDate()
+    expect(useSettingsStore.getState().showBackupReminder).toBeFalsy()
+  })
+})
