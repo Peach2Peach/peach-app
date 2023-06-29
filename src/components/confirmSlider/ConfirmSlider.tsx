@@ -41,7 +41,7 @@ export const ConfirmSlider = ({
         style,
       ]}
     >
-      <View {...panResponder.panHandlers} onLayout={onLayout} style={tw`w-full`}>
+      <View {...panResponder.panHandlers} testID="confirmSlider" onLayout={onLayout} style={tw`w-full`}>
         <Animated.View
           {...{ onStartShouldSetResponder }}
           style={[tw`flex-row items-center`, { transform: getTransform(pan, widthToSlide) }]}

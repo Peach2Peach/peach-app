@@ -4,8 +4,10 @@ export const getTransactionType = (
   { received, sent }: Pick<TransactionDetails, 'received' | 'sent'>,
   offer?: Pick<OfferSummary, 'type'>,
 ): TransactionType => {
-  if (received > 0 && offer) {
-    return offer.type === 'ask' ? 'REFUND' : 'TRADE'
+  if (offer) {
+    if (received > 0 && sent === 0) return offer.type === 'ask' ? 'REFUND' : 'TRADE'
+    if (sent > 0 && offer.type === 'ask') return 'ESCROWFUNDED'
   }
+
   return sent === 0 ? 'DEPOSIT' : 'WITHDRAWAL'
 }

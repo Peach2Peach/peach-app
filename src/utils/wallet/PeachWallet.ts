@@ -138,7 +138,9 @@ export class PeachWallet extends PeachJSWallet {
     this.transactions
       .filter(({ txid }) => !useWalletState.getState().txOfferMap[txid])
       .forEach(({ txid }) => {
-        const sellOffer = useTradeSummaryStore.getState().offers.find((offer) => offer.txId === txid)
+        const sellOffer = useTradeSummaryStore
+          .getState()
+          .offers.find((offer) => offer.txId === txid || offer.fundingTxId === txid)
         if (sellOffer?.id) return useWalletState.getState().updateTxOfferMap(txid, sellOffer.id)
 
         const contract = useTradeSummaryStore.getState().contracts.find((cntrct) => cntrct.releaseTxId === txid)
@@ -174,6 +176,10 @@ export class PeachWallet extends PeachJSWallet {
     this.updateStore()
 
     return this.transactions
+  }
+
+  getPendingTransactions () {
+    return this.transactions.filter((tx) => tx.confirmationTime?.height === undefined)
   }
 
   async getReceivingAddress () {

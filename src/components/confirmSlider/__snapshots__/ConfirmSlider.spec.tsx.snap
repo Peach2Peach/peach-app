@@ -39,6 +39,7 @@ exports[`ConfirmSlider renders correctly 1`] = `
         "width": "100%",
       }
     }
+    testID="confirmSlider"
   >
     <ForwardRef(AnimatedComponentWrapper)
       onStartShouldSetResponder={[Function]}
@@ -188,6 +189,7 @@ exports[`ConfirmSlider renders correctly when disabled 1`] = `
         "width": "100%",
       }
     }
+    testID="confirmSlider"
   >
     <ForwardRef(AnimatedComponentWrapper)
       onStartShouldSetResponder={[Function]}
@@ -337,6 +339,7 @@ exports[`ConfirmSlider renders with different icon 1`] = `
         "width": "100%",
       }
     }
+    testID="confirmSlider"
   >
     <ForwardRef(AnimatedComponentWrapper)
       onStartShouldSetResponder={[Function]}

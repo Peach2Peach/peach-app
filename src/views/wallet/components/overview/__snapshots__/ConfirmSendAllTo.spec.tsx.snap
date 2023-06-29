@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ConfirmSendAllTo renders correctly 1`] = `
+<ConfirmSlider
+  label1="send all"
+  onConfirm={[MockFunction]}
+/>
+`;

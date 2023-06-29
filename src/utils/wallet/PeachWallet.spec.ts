@@ -7,7 +7,14 @@ import { TransactionDetails, TxBuilderResult } from 'bdk-rn/lib/classes/Bindings
 import { AddressIndex } from 'bdk-rn/lib/lib/enums'
 import { account1 } from '../../../tests/unit/data/accountData'
 import { insufficientFunds } from '../../../tests/unit/data/errors'
-import { confirmed1, confirmed2, pending1, pending2, pending3 } from '../../../tests/unit/data/transactionDetailData'
+import {
+  confirmed1,
+  confirmed2,
+  genesisTx,
+  pending1,
+  pending2,
+  pending3,
+} from '../../../tests/unit/data/transactionDetailData'
 import { getError } from '../../../tests/unit/helpers/getError'
 import {
   blockChainCreateMock,
@@ -220,6 +227,10 @@ describe('PeachWallet', () => {
     await peachWallet.getTransactions()
     expect(getTxHexMock).not.toHaveBeenCalled()
   })
+  it('gets pending transactions', () => {
+    peachWallet.transactions = [genesisTx, confirmed1, pending1, pending2, confirmed2]
+    expect(peachWallet.getPendingTransactions()).toEqual([pending1, pending2])
+  })
   it('gets balance', async () => {
     walletGetBalanceMock.mockResolvedValueOnce({
       total: 111110,
@@ -269,6 +280,22 @@ describe('PeachWallet', () => {
     expect(useWalletState.getState().txOfferMap).toEqual({
       txid1: '3',
       txid2: '2',
+    })
+  })
+  it('updates wallet store with offers funded from peach wallet', () => {
+    const pendingOffer = { id: '4', fundingTxId: 'txid4' }
+    const fundingTx = { txid: 'txid4', sent: 4, received: 4, fee: 4 }
+    peachWallet.synced = true
+    peachWallet.transactions = [confirmed1, confirmed2, pending3, fundingTx]
+    useTradeSummaryStore.getState().setContract('1-3', { id: '1-3', releaseTxId: confirmed1.txid })
+    useTradeSummaryStore.getState().setOffer('2', { id: '2', txId: confirmed2.txid })
+    useTradeSummaryStore.getState().setOffer('4', pendingOffer)
+    peachWallet.updateStore()
+    expect(useWalletState.getState().transactions).toEqual([confirmed1, confirmed2, pending3, fundingTx])
+    expect(useWalletState.getState().txOfferMap).toEqual({
+      txid1: '3',
+      txid2: '2',
+      txid4: '4',
     })
   })
   it('withdraws full balance to an address', async () => {
