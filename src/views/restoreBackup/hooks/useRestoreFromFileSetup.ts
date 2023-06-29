@@ -10,6 +10,7 @@ import { parseError } from '../../../utils/result'
 import { setPeachAccount } from '../../../utils/peachAPI/peachAccount'
 import { createPeachAccount } from '../../../utils/account/createPeachAccount'
 import { loadWalletFromAccount } from '../../../utils/account/loadWalletFromAccount'
+import { useSettingsStore } from '../../../store/settingsStore'
 
 const passwordRules = { password: true, required: true }
 
@@ -25,6 +26,8 @@ export const useRestoreFromFileSetup = () => {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const [restored, setRestored] = useState(false)
+
+  const updateFileBackupDate = useSettingsStore((state) => state.updateFileBackupDate)
 
   const onError = (err?: string) => {
     const errorMsg = err || 'UNKNOWN_ERROR'
@@ -58,6 +61,7 @@ export const useRestoreFromFileSetup = () => {
     await storeAccount(updatedAccount)
     setRestored(true)
     setLoading(false)
+    updateFileBackupDate()
 
     setTimeout(() => {
       navigation.replace('home')
