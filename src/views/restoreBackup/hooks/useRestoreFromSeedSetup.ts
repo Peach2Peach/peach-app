@@ -2,6 +2,7 @@ import { useCallback, useContext, useMemo, useState } from 'react'
 import { Keyboard } from 'react-native'
 import { MessageContext } from '../../../contexts/message'
 import { useNavigation, useValidatedState } from '../../../hooks'
+import { useSettingsStore } from '../../../store/settingsStore'
 import { createAccount, deleteAccount, recoverAccount } from '../../../utils/account'
 import { createPeachAccount } from '../../../utils/account/createPeachAccount'
 import { loadWalletFromAccount } from '../../../utils/account/loadWalletFromAccount'
@@ -21,6 +22,7 @@ const bip39Rules = {
 export const useRestoreFromSeedSetup = () => {
   const [, updateMessage] = useContext(MessageContext)
   const navigation = useNavigation()
+  const updateSeedBackupDate = useSettingsStore((state) => state.updateSeedBackupDate)
 
   const [words, setWords] = useState<string[]>(new Array(12).fill(''))
   const [mnemonic, setMnemonic, isMnemonicValid] = useValidatedState<string>('', bip39Rules)
@@ -67,6 +69,7 @@ export const useRestoreFromSeedSetup = () => {
     await storeAccount(updatedAccount)
     setRestored(true)
     setLoading(false)
+    updateSeedBackupDate()
 
     setTimeout(() => {
       navigation.replace('home')
