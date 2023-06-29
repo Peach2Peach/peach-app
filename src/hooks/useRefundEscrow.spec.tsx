@@ -69,8 +69,9 @@ describe('useRefundEscrow', () => {
     refundSellOfferMock.mockResolvedValueOnce([null, null])
     getEscrowWalletForOfferMock.mockReturnValueOnce('escrowWallet')
   }
-  afterEach(() => {
+  beforeEach(() => {
     usePopupStore.setState(defaultPopupState)
+    useSettingsStore.getState().setShowBackupReminder(false)
   })
   it('should return a function', () => {
     const { result } = renderHook(useRefundEscrow, { wrapper })
@@ -81,7 +82,9 @@ describe('useRefundEscrow', () => {
     mockSuccess()
     useSettingsStore.setState({ peachWalletActive: false })
     const { result } = renderHook(useRefundEscrow, { wrapper })
-    await result.current(sellOffer, psbt)
+    await act(async () => {
+      await result.current(sellOffer, psbt)
+    })
     expect(checkRefundPSBTMock).toHaveBeenCalledWith('psbt', sellOffer)
     expect(signAndFinalizePSBTMock).toHaveBeenCalledWith('checkedPsbt', 'escrowWallet')
     expect(usePopupStore.getState()).toStrictEqual({
@@ -116,7 +119,9 @@ describe('useRefundEscrow', () => {
     getRefundPSBTMock.mockResolvedValueOnce([{ psbt: 'psbt' }, null])
     checkRefundPSBTMock.mockReturnValueOnce({ psbt: 'something went wrong', err: 'error' })
     const { result } = renderHook(useRefundEscrow, { wrapper })
-    await result.current(sellOffer, psbt)
+    await act(async () => {
+      await result.current(sellOffer, psbt)
+    })
     expect(showErrorMock).toHaveBeenCalledWith('error')
     expect(usePopupStore.getState().visible).toEqual(false)
   })
@@ -131,7 +136,9 @@ describe('useRefundEscrow', () => {
     getEscrowWalletForOfferMock.mockReturnValueOnce('escrowWallet')
     useSettingsStore.setState({ peachWalletActive: false })
     const { result } = renderHook(useRefundEscrow, { wrapper })
-    await result.current(sellOffer, psbt)
+    await act(async () => {
+      await result.current(sellOffer, psbt)
+    })
     expect(showErrorMock).toHaveBeenCalledWith('error')
     expect(usePopupStore.getState().visible).toEqual(false)
   })
@@ -140,7 +147,9 @@ describe('useRefundEscrow', () => {
     mockSuccess()
     useSettingsStore.setState({ peachWalletActive: false })
     const { result } = renderHook(useRefundEscrow, { wrapper })
-    await result.current(sellOffer, psbt)
+    await act(async () => {
+      await result.current(sellOffer, psbt)
+    })
     act(() => {
       usePopupStore.getState().action1?.callback()
     })
@@ -150,10 +159,12 @@ describe('useRefundEscrow', () => {
   it('should close popup and go to backup time on close of success popup if backup is needed', async () => {
     mockSuccess()
     useSettingsStore.getState().setPeachWalletActive(true)
-    useSettingsStore.getState().setShouldShowBackupOverlay('refundedEscrow', true)
+    useSettingsStore.getState().setShowBackupReminder(true)
 
     const { result } = renderHook(useRefundEscrow, { wrapper })
-    await result.current(sellOffer, psbt)
+    await act(async () => {
+      await result.current(sellOffer, psbt)
+    })
     act(() => {
       usePopupStore.getState().action1?.callback()
     })
@@ -192,7 +203,9 @@ describe('useRefundEscrow', () => {
     mockSuccess()
     useSettingsStore.setState({ peachWalletActive: true })
     const { result } = renderHook(useRefundEscrow, { wrapper })
-    await result.current(sellOffer, psbt)
+    await act(async () => {
+      await result.current(sellOffer, psbt)
+    })
     act(() => {
       usePopupStore.getState().action2?.callback()
     })
@@ -202,10 +215,12 @@ describe('useRefundEscrow', () => {
   it('should go to backup time if backup is needed when going to wallet', async () => {
     mockSuccess()
     useSettingsStore.getState().setPeachWalletActive(true)
-    useSettingsStore.getState().setShouldShowBackupOverlay('refundedEscrow', true)
+    useSettingsStore.getState().setShowBackupReminder(true)
 
     const { result } = renderHook(useRefundEscrow, { wrapper })
-    await result.current(sellOffer, psbt)
+    await act(async () => {
+      await result.current(sellOffer, psbt)
+    })
     act(() => {
       usePopupStore.getState().action2?.callback()
     })
@@ -216,7 +231,9 @@ describe('useRefundEscrow', () => {
     mockSuccess()
     useSettingsStore.setState({ peachWalletActive: false })
     const { result } = renderHook(useRefundEscrow, { wrapper })
-    await result.current(sellOffer, psbt)
+    await act(async () => {
+      await result.current(sellOffer, psbt)
+    })
     act(() => {
       usePopupStore.getState().action2?.callback()
     })
