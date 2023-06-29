@@ -277,7 +277,10 @@ exports[`TradingLimitAmount should render correctly with infinite limit 1`] = `
     >
        / 
     </PeachText>
-    <PeachText
+    <PriceFormat
+      amount={Infinity}
+      currency="EUR"
+      round={true}
       style={
         [
           {
@@ -292,11 +295,7 @@ exports[`TradingLimitAmount should render correctly with infinite limit 1`] = `
           },
         ]
       }
-    >
-      ∞
-       
-      EUR
-    </PeachText>
+    />
   </PeachText>
 </View>
 `;
