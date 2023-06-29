@@ -18,7 +18,6 @@ import { contractStorage } from '../../../utils/account/contractStorage'
 import { offerStorage } from '../../../utils/account/offerStorage'
 import { getAccessToken } from '../../../utils/peachAPI/accessToken'
 import { getPeachAccount } from '../../../utils/peachAPI/peachAccount'
-import { sessionStorage } from '../../../utils/session'
 import { defaultWalletState, walletStorage, useWalletState } from '../../../utils/wallet/walletStore'
 import { useNewUserSetup } from './useNewUserSetup'
 import { useTemporaryAccount } from '../../../hooks/useTemporaryAccount'
@@ -179,7 +178,6 @@ describe('useNewUserSetup', () => {
       offerStorage,
       contractStorage,
       chatStorage,
-      sessionStorage,
       settingsStorage,
       notificationStorage,
     ]
@@ -217,7 +215,6 @@ describe('useNewUserSetup', () => {
       offerStorage,
       contractStorage,
       chatStorage,
-      sessionStorage,
       settingsStorage,
       notificationStorage,
     ]

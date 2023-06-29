@@ -1,6 +1,5 @@
 import { getEventName } from '../events'
 import { getPaymentMethodName } from '.'
-import { sessionStorage } from '../session'
 
 jest.mock('../events', () => ({
   getEventName: jest.fn(),
@@ -12,9 +11,7 @@ describe('getPaymentMethodName', () => {
     const shortName = 'Test'
     const eventName = 'testEvent'
     const expectedName = shortName
-    const mockMap = [{ id: eventName, shortName }]
 
-    sessionStorage.setMap('meetupEvents', mockMap)
     ;(getEventName as jest.Mock).mockReturnValue(shortName)
 
     expect(getPaymentMethodName(p)).toEqual(expectedName)
