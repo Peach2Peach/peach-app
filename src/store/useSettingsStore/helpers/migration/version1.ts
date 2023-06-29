@@ -1,6 +1,6 @@
-import { getSelectedPaymentDataIds } from '../../../utils/account'
-import { info } from '../../../utils/log'
-import { useOfferPreferences } from '../../offerPreferenes'
+import { getSelectedPaymentDataIds } from '../../../../utils/account'
+import { info } from '../../../../utils/log'
+import { useOfferPreferences } from '../../../offerPreferenes'
 import { SettingsVersion2 } from './migrateSettings'
 
 export type SettingsVersion1 = {

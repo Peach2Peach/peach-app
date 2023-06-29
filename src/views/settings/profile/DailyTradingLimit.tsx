@@ -4,7 +4,7 @@ import { Progress } from '../../../components'
 import tw from '../../../styles/tailwind'
 import { useTradingLimits } from '../../../hooks'
 import { TradingLimitAmount } from './TradingLimitAmount'
-import { useSettingsStore } from '../../../store/settingsStore'
+import { useSettingsStore } from '../../../store/useSettingsStore'
 
 export const DailyTradingLimit = (props: ComponentProps) => {
   const {

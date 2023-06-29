@@ -6,7 +6,7 @@ import { useHandleBroadcastError } from '../../../hooks/error/useHandleBroadcast
 import { useFeeRate } from '../../../hooks/useFeeRate'
 import { useShowHelp } from '../../../hooks/useShowHelp'
 import { WithdrawalConfirmation } from '../../../popups/WithdrawalConfirmation'
-import { useSettingsStore } from '../../../store/settingsStore'
+import { useSettingsStore } from '../../../store/useSettingsStore'
 import { usePopupStore } from '../../../store/usePopupStore'
 import i18n from '../../../utils/i18n'
 import { headerIcons } from '../../../utils/layout/headerIcons'

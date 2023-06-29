@@ -1,6 +1,6 @@
 import analytics from '@react-native-firebase/analytics'
 import { userUpdate } from '../../init/userUpdate'
-import { useSettingsStore } from '../../store/settingsStore'
+import { useSettingsStore } from '../../store/useSettingsStore'
 import { saveContract } from '../contract'
 import { error, info } from '../log'
 import { saveOffer } from '../offer'

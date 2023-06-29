@@ -3,7 +3,7 @@ import { BitcoinPriceStats, HorizontalLine, PrimaryButton } from '../../componen
 import { useNavigation } from '../../hooks'
 import { useConfigStore } from '../../store/configStore'
 import { useOfferPreferences } from '../../store/offerPreferenes/useOfferPreferences'
-import { useSettingsStore } from '../../store/settingsStore'
+import { useSettingsStore } from '../../store/useSettingsStore'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { BackupReminderIcon } from '../buy/BackupReminderIcon'

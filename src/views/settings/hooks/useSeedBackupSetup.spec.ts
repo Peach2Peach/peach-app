@@ -1,5 +1,5 @@
 import { act, renderHook } from '@testing-library/react-native'
-import { useSettingsStore } from '../../../store/settingsStore'
+import { useSettingsStore } from '../../../store/useSettingsStore'
 import { useSeedBackupSetup } from './useSeedBackupSetup'
 import { headerState, NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
 

@@ -1,7 +1,7 @@
 import { shallow } from 'zustand/shallow'
 import { useHeaderSetup, useNavigation, useRoute, useValidatedState } from '../../../hooks'
 import { useShowHelp } from '../../../hooks/useShowHelp'
-import { useSettingsStore } from '../../../store/settingsStore'
+import { useSettingsStore } from '../../../store/useSettingsStore'
 import i18n from '../../../utils/i18n'
 import { headerIcons } from '../../../utils/layout/headerIcons'
 

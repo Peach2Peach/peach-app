@@ -1,6 +1,6 @@
 import { renderHook } from '@testing-library/react-native'
 import { NavigationWrapper, goBackMock } from '../../../../tests/unit/helpers/NavigationWrapper'
-import { useSettingsStore } from '../../../store/settingsStore'
+import { useSettingsStore } from '../../../store/useSettingsStore'
 import { useLanguageSetup } from './useLanguageSetup'
 
 describe('useLanguageSetup', () => {

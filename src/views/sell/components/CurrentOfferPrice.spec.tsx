@@ -1,7 +1,7 @@
 import { render, waitFor } from '@testing-library/react-native'
 import { queryClient, QueryClientWrapper } from '../../../../tests/unit/helpers/QueryClientWrapper'
 import { useOfferPreferences } from '../../../store/offerPreferenes'
-import { useSettingsStore } from '../../../store/settingsStore'
+import { useSettingsStore } from '../../../store/useSettingsStore'
 import { CurrentOfferPrice } from './CurrentOfferPrice'
 
 const marketPricesMock = jest.fn().mockResolvedValue([

@@ -1,7 +1,7 @@
 import { NETWORK } from '@env'
 import RNFS from 'react-native-fs'
 import Share from 'react-native-share'
-import { useSettingsStore } from '../../store/settingsStore'
+import { useSettingsStore } from '../../store/useSettingsStore'
 import { writeFile } from '../file'
 import { error, info } from '../log'
 import { parseError } from '../result'

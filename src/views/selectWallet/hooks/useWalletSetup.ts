@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { shallow } from 'zustand/shallow'
-import { useSettingsStore } from '../../../store/settingsStore'
+import { useSettingsStore } from '../../../store/useSettingsStore'
 import i18n from '../../../utils/i18n'
 
 export const useWalletSetup = () => {

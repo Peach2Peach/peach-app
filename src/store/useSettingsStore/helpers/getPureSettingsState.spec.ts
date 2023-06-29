@@ -1,4 +1,4 @@
-import { defaultSettings } from '../defaults'
+import { defaultSettings } from '../defaultSettings'
 import { useSettingsStore } from '../settingsStore'
 import { getPureSettingsState } from './getPureSettingsState'
 

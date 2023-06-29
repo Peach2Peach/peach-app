@@ -1,5 +1,5 @@
 import { checkUsedReferralCode } from './checkUsedReferralCode'
-import { useSettingsStore } from '../../../store/settingsStore'
+import { useSettingsStore } from '../../../store/useSettingsStore'
 import { getSelfUser } from '../../../utils/peachAPI'
 
 jest.mock('../../../utils/peachAPI', () => ({

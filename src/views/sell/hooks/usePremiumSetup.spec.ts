@@ -2,7 +2,7 @@ import { act, renderHook } from '@testing-library/react-native'
 import { headerState, NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { SATSINBTC } from '../../../constants'
 import { useOfferPreferences } from '../../../store/offerPreferenes'
-import { useSettingsStore } from '../../../store/settingsStore'
+import { useSettingsStore } from '../../../store/useSettingsStore'
 import { defaultLimits } from '../../../utils/account/account'
 import { usePremiumSetup } from './usePremiumSetup'
 

@@ -3,7 +3,7 @@ import { shallow } from 'zustand/shallow'
 
 import { useHeaderSetup, useNavigation } from '../../../hooks'
 import { useBitcoinStore } from '../../../store/bitcoinStore'
-import { useSettingsStore } from '../../../store/settingsStore'
+import { useSettingsStore } from '../../../store/useSettingsStore'
 import i18n from '../../../utils/i18n'
 
 export const useCurrencySetup = () => {

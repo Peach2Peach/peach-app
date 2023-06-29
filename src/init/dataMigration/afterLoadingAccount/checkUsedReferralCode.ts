@@ -1,5 +1,5 @@
 import { getSelfUser } from './../../../utils/peachAPI'
-import { useSettingsStore } from '../../../store/settingsStore'
+import { useSettingsStore } from '../../../store/useSettingsStore'
 
 export const checkUsedReferralCode = async () => {
   if (useSettingsStore.getState().usedReferralCode === undefined) {

@@ -1,7 +1,7 @@
 /* eslint-disable max-lines-per-function */
 import { act, renderHook, waitFor } from '@testing-library/react-native'
 import { useSettingsSetup } from './useSettingsSetup'
-import { useSettingsStore } from '../../../store/settingsStore'
+import { useSettingsStore } from '../../../store/useSettingsStore'
 import { usePopupStore } from '../../../store/usePopupStore'
 import { NotificationPopup } from '../components/NotificationPopup'
 import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'

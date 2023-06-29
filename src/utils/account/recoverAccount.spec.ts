@@ -3,7 +3,7 @@ import { recoverAccount } from '.'
 import { recoveredAccount } from '../../../tests/unit/data/accountData'
 import { contract } from '../../../tests/unit/data/contractData'
 import { buyOffer, sellOffer } from '../../../tests/unit/data/offerData'
-import { useSettingsStore } from '../../store/settingsStore'
+import { useSettingsStore } from '../../store/useSettingsStore'
 import { error } from '../log'
 import { unauthorizedError } from '../../../tests/unit/data/peachAPIData'
 

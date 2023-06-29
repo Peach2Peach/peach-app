@@ -9,8 +9,8 @@ import {
   useNotificationStore,
 } from '../../../components/footer/notificationsStore'
 import { useConfigStore } from '../../../store/configStore'
-import { defaultConfig, defaultSettings } from '../../../store/defaults'
-import { settingsStorage, useSettingsStore } from '../../../store/settingsStore'
+import { defaultConfig } from '../../../store/defaults'
+import { settingsStorage, useSettingsStore, defaultSettings } from '../../../store/useSettingsStore'
 import { defaultAccount, getAccount, setAccount } from '../../../utils/account'
 import { accountStorage } from '../../../utils/account/accountStorage'
 import { chatStorage } from '../../../utils/account/chatStorage'
