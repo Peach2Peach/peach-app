@@ -1,11 +1,11 @@
-import { bitcoinStorage, bitcoinStore, defaultBitcoinState } from './bitcoinStore'
+import { bitcoinStorage, useBitcoinStore, defaultBitcoinState } from './bitcoinStore'
 
 describe('bitcoinStore', () => {
   afterEach(() => {
-    bitcoinStore.setState(defaultBitcoinState)
+    useBitcoinStore.setState(defaultBitcoinState)
   })
   it('should return defaults', () => {
-    expect(bitcoinStore.getState()).toEqual({
+    expect(useBitcoinStore.getState()).toEqual({
       currency: 'EUR',
       price: NaN,
       prices: {},
@@ -18,13 +18,13 @@ describe('bitcoinStore', () => {
   })
   it('should set price', () => {
     const price = 1000
-    bitcoinStore.getState().setPrice(price)
-    expect(bitcoinStore.getState().price).toEqual(price)
+    useBitcoinStore.getState().setPrice(price)
+    expect(useBitcoinStore.getState().price).toEqual(price)
   })
   it('should set satsPerUnit', () => {
     const satsPerUnit = 1000
-    bitcoinStore.getState().setSatsPerUnit(satsPerUnit)
-    expect(bitcoinStore.getState().satsPerUnit).toEqual(satsPerUnit)
+    useBitcoinStore.getState().setSatsPerUnit(satsPerUnit)
+    expect(useBitcoinStore.getState().satsPerUnit).toEqual(satsPerUnit)
   })
   it('should handle persisted state with null values', async () => {
 
@@ -35,8 +35,8 @@ describe('bitcoinStore', () => {
 
     bitcoinStorage.setItem('price', 'null')
     bitcoinStorage.setItem('satsPerUnit', 'null')
-    await bitcoinStore.persist.rehydrate()
-    expect(bitcoinStore.getState().price).toEqual(NaN)
-    expect(bitcoinStore.getState().satsPerUnit).toEqual(NaN)
+    await useBitcoinStore.persist.rehydrate()
+    expect(useBitcoinStore.getState().price).toEqual(NaN)
+    expect(useBitcoinStore.getState().satsPerUnit).toEqual(NaN)
   })
 })

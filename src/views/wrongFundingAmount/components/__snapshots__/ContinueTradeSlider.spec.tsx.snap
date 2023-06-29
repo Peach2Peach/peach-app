@@ -2,8 +2,18 @@
 
 exports[`ContinueTradeSlider renders correctly 1`] = `
 <SlideToUnlock
+  disabled={false}
   iconId="arrowRightCircle"
   label1="continue trade"
-  onUnlock={[MockFunction]}
+  onUnlock={[Function]}
+/>
+`;
+
+exports[`ContinueTradeSlider renders correctly when no sell offer is known 1`] = `
+<SlideToUnlock
+  disabled={true}
+  iconId="arrowRightCircle"
+  label1="continue trade"
+  onUnlock={[Function]}
 />
 `;
