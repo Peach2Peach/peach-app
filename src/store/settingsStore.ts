@@ -57,7 +57,7 @@ export const useSettingsStore = create(
         analytics().setAnalyticsCollectionEnabled(enableAnalytics)
         perf().setPerformanceCollectionEnabled(enableAnalytics)
 
-        set((state) => ({ ...state, enableAnalytics }))
+        set({ enableAnalytics })
       },
       toggleAnalytics: () => get().setEnableAnalytics(!get().enableAnalytics),
       setAnalyticsPopupSeen: (analyticsPopupSeen) => set({ analyticsPopupSeen }),
