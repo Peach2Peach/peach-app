@@ -13,8 +13,8 @@ type Props = ComponentProps & {
 export const AccountInfo = ({ style: wrapperStyle, user }: Props) => (
   <View style={[tw`gap-4`, wrapperStyle]}>
     <PublicKey publicKey={user.id} />
-    <AccountCreated {...{ ...user }} />
-    <Disputes {...{ ...user.disputes }} />
-    <Trades {...{ ...user }} />
+    <AccountCreated {...user} />
+    <Disputes {...user.disputes} />
+    <Trades {...user} />
   </View>
 )
