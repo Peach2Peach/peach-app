@@ -5,8 +5,8 @@ import { Header, HeaderConfig } from './Header'
 describe('Header', () => {
   const title = 'title'
   const icons: HeaderConfig['icons'] = [
-    { id: 'mail', onPress: jest.fn() },
-    { id: 'globe', onPress: jest.fn() },
+    { id: 'mail', accessibilityHint: 'a mail icon', onPress: jest.fn() },
+    { id: 'globe', accessibilityHint: 'a globe icon', onPress: jest.fn() },
   ]
   it('should render correctly for default state', () => {
     const { toJSON } = render(<Header />, { wrapper: NavigationWrapper })

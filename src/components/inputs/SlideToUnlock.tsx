@@ -87,6 +87,7 @@ export const SlideToUnlock = ({
   return (
     <View
       {...panResponder.panHandlers}
+      testID="confirmSlider"
       onLayout={onLayout}
       style={[
         tw`w-full max-w-full overflow-hidden rounded-full bg-primary-background-dark`,
