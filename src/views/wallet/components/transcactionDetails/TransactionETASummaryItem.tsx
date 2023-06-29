@@ -1,4 +1,3 @@
-import { Text } from '../../../../components'
 import { TextSummaryItem } from '../../../../components/summaryItem'
 import { useShowHelp } from '../../../../hooks'
 import { useFeeEstimates } from '../../../../hooks/query/useFeeEstimates'
