@@ -26,10 +26,6 @@ export type SettingsStore = Settings & {
   setLastSeedBackupDate: (lastSeedBackupDate: number) => void
   setLastFileBackupDate: (lastFileBackupDate: number) => void
   setShowBackupReminder: (showBackupReminder: boolean) => void
-  setShouldShowBackupOverlay: (
-    type: 'completedBuyOffer' | 'refundedEscrow' | 'bitcoinReceived',
-    shouldShow?: boolean
-  ) => void
   setPeachWalletActive: (peachWalletActive: boolean) => void
   togglePeachWallet: () => void
   setFeeRate: (feeRate: number | 'fastestFee' | 'halfHourFee' | 'hourFee' | 'economyFee') => void
@@ -67,9 +63,8 @@ export const useSettingsStore = create(
       setDisplayCurrency: (displayCurrency) => set({ displayCurrency }),
       setLastFileBackupDate: (lastFileBackupDate) => set({ lastFileBackupDate }),
       setLastSeedBackupDate: (lastSeedBackupDate) => set({ lastSeedBackupDate }),
-      setShowBackupReminder: (showBackupReminder) => set({ showBackupReminder }),
-      setShouldShowBackupOverlay: (type, shouldShow) =>
-        set((state) => ({ shouldShowBackupOverlay: { ...state.shouldShowBackupOverlay, [type]: shouldShow } })),
+      setShowBackupReminder: (showBackupReminder) =>
+        set({ showBackupReminder, shouldShowBackupOverlay: showBackupReminder }),
       setPeachWalletActive: (peachWalletActive) => set({ peachWalletActive }),
       togglePeachWallet: () => get().setPeachWalletActive(!get().peachWalletActive),
       setFeeRate: (feeRate) => set({ feeRate }),
@@ -79,7 +74,7 @@ export const useSettingsStore = create(
     }),
     {
       name: 'settings',
-      version: 2,
+      version: 3,
       migrate: migrateSettings,
       storage: createJSONStorage(() => toZustandStorage(settingsStorage)),
     },

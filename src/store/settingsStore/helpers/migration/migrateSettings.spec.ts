@@ -123,4 +123,41 @@ describe('migrateSettings', () => {
       }),
     )
   })
+
+  it('should migrate from version 2', () => {
+    const persistedState = {
+      appVersion: '1.0.0',
+      analyticsPopupSeen: true,
+      enableAnalytics: true,
+      locale: 'en',
+      returnAddress: '0x123456789',
+      payoutAddress: '0x123456789',
+      payoutAddressLabel: 'My address',
+      payoutAddressSignature: '0x123456789',
+      derivationPath: 'm/44\'/60\'/0\'/0',
+      displayCurrency: 'EUR',
+      country: 'DE',
+      pgpPublished: true,
+      fcmToken: '123456789',
+      lastFileBackupDate: 123456789,
+      lastSeedBackupDate: 123456789,
+      showBackupReminder: true,
+      shouldShowBackupOverlay: {
+        completedBuyOffer: true,
+        refundedEscrow: true,
+        bitcoinReceived: true,
+      },
+      peachWalletActive: true,
+      nodeURL: 'https://node.url',
+      feeRate: 'fastestFee',
+      usedReferralCode: true,
+      lastBackupDate: 123456789,
+    }
+    const migratedState = migrateSettings(persistedState, 2)
+    expect(migratedState).toEqual({
+      ...persistedState,
+      shouldShowBackupOverlay: true,
+    })
+    expect(migratedState).not.toHaveProperty('lastBackupDate')
+  })
 })

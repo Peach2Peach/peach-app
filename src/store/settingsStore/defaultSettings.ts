@@ -7,15 +7,10 @@ export const defaultSettings: Settings = {
   enableAnalytics: false,
   analyticsPopupSeen: undefined,
 
-  lastBackupDate: undefined,
   lastFileBackupDate: undefined,
   lastSeedBackupDate: undefined,
   showBackupReminder: false,
-  shouldShowBackupOverlay: {
-    completedBuyOffer: true,
-    refundedEscrow: true,
-    bitcoinReceived: true,
-  },
+  shouldShowBackupOverlay: true,
 
   country: undefined,
   locale: undefined,

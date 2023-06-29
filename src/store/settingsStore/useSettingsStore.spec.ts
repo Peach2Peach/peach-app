@@ -23,4 +23,7 @@ describe('settingsStore', () => {
     useSettingsStore.getState().reset()
     expect(useSettingsStore.getState().locale).toBe('es')
   })
+  it('should be on version 3', () => {
+    expect(useSettingsStore.persist.getOptions().version).toBe(3)
+  })
 })

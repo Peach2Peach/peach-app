@@ -22,5 +22,4 @@ export const getPureSettingsState = (state: SettingsStore): Settings => ({
   nodeURL: state.nodeURL,
   feeRate: state.feeRate,
   usedReferralCode: state.usedReferralCode,
-  lastBackupDate: state.lastBackupDate,
 })

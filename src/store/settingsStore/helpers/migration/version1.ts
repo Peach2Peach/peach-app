@@ -1,7 +1,7 @@
 import { getSelectedPaymentDataIds } from '../../../../utils/account'
 import { info } from '../../../../utils/log'
 import { useOfferPreferences } from '../../../offerPreferenes'
-import { SettingsVersion2 } from './migrateSettings'
+import { SettingsVersion2 } from './version2'
 
 export type SettingsVersion1 = {
   appVersion: string
