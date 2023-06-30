@@ -533,6 +533,7 @@ exports[`Buy should render correctly 1`] = `
                     "alignItems": "center",
                     "display": "flex",
                     "flexDirection": "row",
+                    "gap": 4,
                     "justifyContent": "space-between",
                     "paddingLeft": 12,
                     "paddingRight": 12,
@@ -620,6 +621,7 @@ exports[`Buy should render correctly 1`] = `
                   {
                     "display": "flex",
                     "flexDirection": "row",
+                    "gap": 16,
                   }
                 }
               />
@@ -704,6 +706,7 @@ exports[`Buy should render correctly 1`] = `
                     "alignItems": "center",
                     "display": "flex",
                     "flexDirection": "row",
+                    "gap": 4,
                     "justifyContent": "space-between",
                     "paddingLeft": 12,
                     "paddingRight": 12,
@@ -791,6 +794,7 @@ exports[`Buy should render correctly 1`] = `
                   {
                     "display": "flex",
                     "flexDirection": "row",
+                    "gap": 16,
                   }
                 }
               />
@@ -1029,6 +1033,7 @@ exports[`Buy should render correctly 1`] = `
                     "alignItems": "center",
                     "display": "flex",
                     "flexDirection": "row",
+                    "gap": 4,
                     "justifyContent": "space-between",
                     "paddingLeft": 12,
                     "paddingRight": 12,
@@ -1116,6 +1121,7 @@ exports[`Buy should render correctly 1`] = `
                   {
                     "display": "flex",
                     "flexDirection": "row",
+                    "gap": 16,
                   }
                 }
               />
@@ -1200,6 +1206,7 @@ exports[`Buy should render correctly 1`] = `
                     "alignItems": "center",
                     "display": "flex",
                     "flexDirection": "row",
+                    "gap": 4,
                     "justifyContent": "space-between",
                     "paddingLeft": 12,
                     "paddingRight": 12,
@@ -1287,6 +1294,7 @@ exports[`Buy should render correctly 1`] = `
                   {
                     "display": "flex",
                     "flexDirection": "row",
+                    "gap": 16,
                   }
                 }
               />
@@ -2525,6 +2533,7 @@ exports[`Buy should render correctly with free trades 1`] = `
                     "alignItems": "center",
                     "display": "flex",
                     "flexDirection": "row",
+                    "gap": 4,
                     "justifyContent": "space-between",
                     "paddingLeft": 12,
                     "paddingRight": 12,
@@ -2612,6 +2621,7 @@ exports[`Buy should render correctly with free trades 1`] = `
                   {
                     "display": "flex",
                     "flexDirection": "row",
+                    "gap": 16,
                   }
                 }
               />
@@ -2696,6 +2706,7 @@ exports[`Buy should render correctly with free trades 1`] = `
                     "alignItems": "center",
                     "display": "flex",
                     "flexDirection": "row",
+                    "gap": 4,
                     "justifyContent": "space-between",
                     "paddingLeft": 12,
                     "paddingRight": 12,
@@ -2783,6 +2794,7 @@ exports[`Buy should render correctly with free trades 1`] = `
                   {
                     "display": "flex",
                     "flexDirection": "row",
+                    "gap": 16,
                   }
                 }
               />
@@ -3021,6 +3033,7 @@ exports[`Buy should render correctly with free trades 1`] = `
                     "alignItems": "center",
                     "display": "flex",
                     "flexDirection": "row",
+                    "gap": 4,
                     "justifyContent": "space-between",
                     "paddingLeft": 12,
                     "paddingRight": 12,
@@ -3108,6 +3121,7 @@ exports[`Buy should render correctly with free trades 1`] = `
                   {
                     "display": "flex",
                     "flexDirection": "row",
+                    "gap": 16,
                   }
                 }
               />
@@ -3192,6 +3206,7 @@ exports[`Buy should render correctly with free trades 1`] = `
                     "alignItems": "center",
                     "display": "flex",
                     "flexDirection": "row",
+                    "gap": 4,
                     "justifyContent": "space-between",
                     "paddingLeft": 12,
                     "paddingRight": 12,
@@ -3279,6 +3294,7 @@ exports[`Buy should render correctly with free trades 1`] = `
                   {
                     "display": "flex",
                     "flexDirection": "row",
+                    "gap": 16,
                   }
                 }
               />

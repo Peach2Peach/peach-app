@@ -10,6 +10,7 @@ import {
 } from './helpers'
 import { enforcePremiumFormat } from '../../views/sell/helpers/enforcePremiumFormat'
 import { getSelectedPaymentDataIds } from '../../utils/account'
+import { enforceDecimalsFormat } from '../../utils/format'
 
 export type OfferPreferences = {
   buyAmountRange: [number, number]
@@ -95,7 +96,7 @@ export const useOfferPreferences = create<OfferPreferencesStore>()(
       },
       setPremium: (newPremium, isValid) => {
         set((state) => ({
-          premium: Number(enforcePremiumFormat(newPremium)),
+          premium: newPremium,
           canContinue: {
             ...state.canContinue,
             premium: isValid ?? state.canContinue.premium,
