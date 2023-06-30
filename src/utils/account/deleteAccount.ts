@@ -7,7 +7,6 @@ import { settingsStorage, useSettingsStore } from '../../store/settingsStore'
 import { info } from '../log'
 import { deleteAccessToken } from '../peachAPI/accessToken'
 import { deletePeachAccount } from '../peachAPI/peachAccount'
-import { sessionStorage } from '../session'
 import { walletStorage, useWalletState } from '../wallet/walletStore'
 import { accountStorage } from './accountStorage'
 import { chatStorage } from './chatStorage'
@@ -25,7 +24,6 @@ export const deleteAccount = () => {
     offerStorage,
     contractStorage,
     chatStorage,
-    sessionStorage,
     settingsStorage,
     notificationStorage,
   ].forEach((storage) => storage.clearStore())

@@ -1,5 +1,5 @@
 import { shallow } from 'zustand/shallow'
-import { useMarketPrices, useUpdateTradingAmounts } from './hooks'
+import { useMarketPrices, useUpdateTradingAmounts, useShouldShowBackupReminder } from './hooks'
 import { useMessageHandler } from './hooks/notifications/useMessageHandler'
 import { useBitcoinStore } from './store/bitcoinStore'
 import { useSettingsStore } from './store/settingsStore'
@@ -8,26 +8,21 @@ import { useShowUpdateAvailable } from './hooks/useShowUpdateAvailable'
 import { useEffect } from 'react'
 import { useHandleNotifications } from './hooks/notifications/useHandleNotifications'
 import { useShowAnalyticsPopup } from './popups/useShowAnalyticsPopup'
-import { MSINAMONTH } from './constants'
 
 type Props = {
-  getCurrentPage: () => keyof RootStackParamList | undefined
+  currentPage: keyof RootStackParamList | undefined
 }
-export const GlobalHandlers = ({ getCurrentPage }: Props) => {
-  const messageHandler = useMessageHandler(getCurrentPage)
+
+export const GlobalHandlers = ({ currentPage }: Props) => {
+  const messageHandler = useMessageHandler(currentPage)
   const showAnalyticsPrompt = useShowAnalyticsPopup()
-  const [analyticsPopupSeen, lastBackupDate, showBackupReminder, setShowBackupReminder] = useSettingsStore(
-    (state) => [state.analyticsPopupSeen, state.lastBackupDate, state.showBackupReminder, state.setShowBackupReminder],
-    shallow,
-  )
+  const analyticsPopupSeen = useSettingsStore((state) => state.analyticsPopupSeen)
   const updateTradingAmounts = useUpdateTradingAmounts()
   const displayCurrency = useSettingsStore((state) => state.displayCurrency)
   const [setPrices, setCurrency] = useBitcoinStore((state) => [state.setPrices, state.setCurrency], shallow)
   const { data: prices } = useMarketPrices()
-  if (!showBackupReminder && lastBackupDate && Date.now() - lastBackupDate > MSINAMONTH) {
-    setShowBackupReminder(true)
-  }
 
+  useShouldShowBackupReminder()
   useInitialNavigation()
   useShowUpdateAvailable()
 

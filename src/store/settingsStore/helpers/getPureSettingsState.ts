@@ -1,4 +1,4 @@
-import { SettingsStore } from '../settingsStore'
+import { SettingsStore } from '../useSettingsStore'
 
 export const getPureSettingsState = (state: SettingsStore): Settings => ({
   appVersion: state.appVersion,
@@ -22,5 +22,4 @@ export const getPureSettingsState = (state: SettingsStore): Settings => ({
   nodeURL: state.nodeURL,
   feeRate: state.feeRate,
   usedReferralCode: state.usedReferralCode,
-  lastBackupDate: state.lastBackupDate,
 })
