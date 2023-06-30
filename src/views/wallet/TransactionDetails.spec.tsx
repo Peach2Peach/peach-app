@@ -2,6 +2,7 @@ import { render } from '@testing-library/react-native'
 import { confirmedTransactionSummary } from '../../../tests/unit/data/transactionDetailData'
 import { NavigationAndQueryClientWrapper } from '../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
 import { TransactionDetails } from './TransactionDetails'
+import { View } from 'react-native'
 
 const openInExplorerMock = jest.fn()
 const refreshMock = jest.fn()
@@ -20,6 +21,10 @@ const useTransactionDetailsSetupMock = jest.fn().mockReturnValue(transactionDeta
 
 jest.mock('./hooks/useTransactionDetailsSetup', () => ({
   useTransactionDetailsSetup: () => useTransactionDetailsSetupMock(),
+}))
+
+jest.mock('../../components/animation/Fade', () => ({
+  Fade: (_props: { show: boolean }) => <View />,
 }))
 
 const wrapper = NavigationAndQueryClientWrapper
