@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { ScrollView, View } from 'react-native'
-import { useFocusEffect } from '@react-navigation/native'
 
 import i18n from '../../utils/i18n'
 
@@ -51,26 +50,10 @@ export default () => {
       goToPaymentMethodDetails({ paymentMethod, currencies, country })
       return
     }
-    setPage(page + 1)
+    setPage((prev) => prev + 1)
 
     scroll.current?.scrollTo({ x: 0 })
   }
-
-  const back = () => {
-    if (page === 0) {
-      navigation.goBack()
-      return
-    }
-    setPage(page - 1)
-    scroll.current?.scrollTo({ x: 0 })
-  }
-  const initView = () => {
-    setPage(getPage(route.params))
-    setCurrencies(route.params.currencies || [CURRENCIES[0]])
-    setPaymentMethod(route.params.paymentMethod)
-  }
-
-  useFocusEffect(useCallback(initView, [route]))
 
   useEffect(() => {
     if (!paymentMethod) return
@@ -97,19 +80,13 @@ export default () => {
     goToPaymentMethodDetails({ paymentMethod, currencies, country })
   }, [paymentMethod, page, goToPaymentMethodDetails, currencies, country])
 
-  const commonProps = { ...{ currency: currencies[0], back, next } }
+  const commonProps = { ...{ currency: currencies[0], next } }
   return (
     <View>
-      {id === 'currency' ? (
-        <Currency setCurrency={(c: Currency) => setCurrencies([c])} {...commonProps} />
-      ) : id === 'paymentMethod' ? (
-        <PaymentMethod {...{ paymentMethod, setPaymentMethod, ...commonProps }} />
-      ) : (
-        id === 'extraInfo'
-        && paymentMethod
-        && /giftCard/u.test(paymentMethod) && (
-          <Countries selected={country} {...{ paymentMethod, setCountry, ...commonProps }} />
-        )
+      {id === 'currency' && <Currency setCurrency={(c: Currency) => setCurrencies([c])} {...commonProps} />}
+      {id === 'paymentMethod' && <PaymentMethod {...{ paymentMethod, setPaymentMethod, ...commonProps }} />}
+      {id === 'extraInfo' && paymentMethod && /giftCard/u.test(paymentMethod) && (
+        <Countries selected={country} {...{ paymentMethod, setCountry, ...commonProps }} />
       )}
     </View>
   )

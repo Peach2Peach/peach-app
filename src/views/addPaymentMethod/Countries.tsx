@@ -13,7 +13,6 @@ type Props = {
   currency: Currency
   selected?: Country
   setCountry: Dispatch<SetStateAction<PaymentMethodCountry | undefined>>
-  back: () => void
   next: () => void
 }
 
