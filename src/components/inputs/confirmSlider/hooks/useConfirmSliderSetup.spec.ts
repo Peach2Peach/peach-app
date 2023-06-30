@@ -52,6 +52,8 @@ describe('useConfirmSliderSetup', () => {
     }
 
     // @ts-ignore
+    result.current.panResponder.panHandlers.onMoveShouldSetResponder()
+    // @ts-ignore
     result.current.panResponder.panHandlers.onResponderMove(moveEvent)
     // @ts-ignore
     expect(result.current.pan._value).toEqual(1)
@@ -77,6 +79,8 @@ describe('useConfirmSliderSetup', () => {
     }
 
     // @ts-ignore
+    result.current.panResponder.panHandlers.onMoveShouldSetResponder()
+    // @ts-ignore
     result.current.panResponder.panHandlers.onResponderMove(moveEvent)
     // @ts-ignore
     expect(result.current.pan._value).toEqual((widthToSlide - 1) / widthToSlide)
@@ -89,7 +93,7 @@ describe('useConfirmSliderSetup', () => {
     await waitFor(() => expect(result.current.pan._offset).toEqual(0))
     await waitFor(() => jest.runAllTimers())
   })
-  it('should not slide when disabled', () => {
+  it('should not slide when disabled', async () => {
     const { result } = renderHook(useConfirmSliderSetup, { initialProps: { ...initialProps, disabled: true } })
     const endTouch = { currentPageX: widthToSlide, previousPageX: 0, touchActive: true, currentTimeStamp: 1 }
     const moveEvent = {
@@ -100,7 +104,20 @@ describe('useConfirmSliderSetup', () => {
         mostRecentTimeStamp: 1,
       },
     }
+
     // @ts-ignore
-    expect(result.current.panResponder.panHandlers?.onMoveShouldSetResponder?.(moveEvent)).toBe(false)
+    result.current.panResponder.panHandlers.onMoveShouldSetResponder()
+    // @ts-ignore
+    result.current.panResponder.panHandlers.onResponderMove(moveEvent)
+    // @ts-ignore
+    expect(result.current.pan._offset).toEqual(0)
+
+    // @ts-ignore
+    result.current.panResponder.panHandlers.onResponderRelease()
+    expect(onConfirm).not.toHaveBeenCalled()
+
+    // @ts-ignore
+    await waitFor(() => expect(result.current.pan._offset).toEqual(0))
+    await waitFor(() => jest.runAllTimers())
   })
 })
