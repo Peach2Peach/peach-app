@@ -1,5 +1,10 @@
-import { enforceDecimalsFormat } from '../../../utils/format'
-import { parsePremiumToString } from './parsePremiumToString'
+export const enforcePremiumFormat = (premium?: string | number) => {
+  if (!premium) return ''
 
-export const enforcePremiumFormat = (value: string | number) =>
-  parsePremiumToString(enforceDecimalsFormat(String(value), 2))
+  const number = Number(premium)
+  if (isNaN(number)) return String(premium).trim()
+  if (number < -21) return '-21'
+  if (number > 21) return '21'
+  return String(premium).trim()
+    .replace(/^0/u, '')
+}
