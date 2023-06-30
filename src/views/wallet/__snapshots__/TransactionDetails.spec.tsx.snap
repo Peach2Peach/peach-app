@@ -58,6 +58,9 @@ exports[`TransactionDetails renders correctly 1`] = `
                 "gap": 16,
               },
               {
+                "alignItems": "flex-end",
+              },
+              {
                 "alignSelf": "center",
               },
             ]
@@ -68,8 +71,8 @@ exports[`TransactionDetails renders correctly 1`] = `
             style={
               [
                 {
-                  "height": 56,
-                  "width": 56,
+                  "height": 64,
+                  "width": 64,
                 },
                 undefined,
               ]
@@ -93,12 +96,20 @@ exports[`TransactionDetails renders correctly 1`] = `
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
                   },
-                  {
-                    "fontFamily": "Baloo2-Bold",
-                    "fontSize": 24,
-                    "letterSpacing": 0.24,
-                    "lineHeight": 32,
-                  },
+                  [
+                    {
+                      "fontFamily": "Baloo2-Bold",
+                      "fontSize": 20,
+                      "letterSpacing": 0.2,
+                      "lineHeight": 32,
+                    },
+                    {
+                      "fontFamily": "Baloo2-Bold",
+                      "fontSize": 24,
+                      "letterSpacing": 0.24,
+                      "lineHeight": 32,
+                    },
+                  ],
                 ]
               }
             >
@@ -174,6 +185,13 @@ exports[`TransactionDetails renders correctly 1`] = `
                         "textAlign": "center",
                         "textTransform": "uppercase",
                       },
+                      {
+                        "fontFamily": "Baloo2-SemiBold",
+                        "fontSize": 15,
+                        "letterSpacing": 0.54,
+                        "lineHeight": 26,
+                        "textTransform": "uppercase",
+                      },
                     ],
                   ]
                 }
@@ -185,8 +203,8 @@ exports[`TransactionDetails renders correctly 1`] = `
                 style={
                   [
                     {
-                      "height": 20,
-                      "width": 20,
+                      "height": 16,
+                      "width": 16,
                     },
                     undefined,
                   ]
@@ -613,6 +631,13 @@ exports[`TransactionDetails renders correctly 1`] = `
                     "textAlign": "center",
                     "textTransform": "uppercase",
                   },
+                  {
+                    "fontFamily": "Baloo2-SemiBold",
+                    "fontSize": 15,
+                    "letterSpacing": 0.54,
+                    "lineHeight": 26,
+                    "textTransform": "uppercase",
+                  },
                 ],
               ]
             }
@@ -624,8 +649,8 @@ exports[`TransactionDetails renders correctly 1`] = `
             style={
               [
                 {
-                  "height": 20,
-                  "width": 20,
+                  "height": 16,
+                  "width": 16,
                 },
                 undefined,
               ]

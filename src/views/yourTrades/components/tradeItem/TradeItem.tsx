@@ -1,5 +1,5 @@
 import { StatusCard } from '../../../../components'
-import { useNavigateToOfferOrContract } from '../../../../hooks/useNavigateToOfferOrContract'
+import { useNavigateToOfferOrContract } from '../../../../hooks'
 import { getStatusCardProps } from './helpers'
 
 type Props = {

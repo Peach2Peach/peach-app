@@ -1,3 +1,4 @@
+import { useIsMediumScreen } from '../../hooks'
 import { BubbleBase, BubbleBaseProps } from './BubbleBase'
 import { getBackgroundColor } from './helpers/getBackgroundColor'
 import { getBorderColor } from './helpers/getBorderColor'
@@ -10,10 +11,12 @@ export type BubbleProps = Partial<BubbleBaseProps> & {
 }
 
 export const Bubble = (props: BubbleProps) => {
+  const isMediumScreen = useIsMediumScreen()
   const color = getBackgroundColor(props)
   const textColor = getTextColor(props)
   const borderColor = getBorderColor(props)
   const iconColor = props.iconColor || getIconColor(props)
+  const iconSize = props.iconSize || isMediumScreen ? 16 : 12
 
-  return <BubbleBase {...{ ...props, color, textColor, iconColor, borderColor }} />
+  return <BubbleBase {...{ ...props, color, textColor, iconColor, iconSize, borderColor }} />
 }

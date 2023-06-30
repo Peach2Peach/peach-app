@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 import { useNavigation } from '.'
+import { getNavigationDestinationForContract } from '../utils/contract'
 import { getNavigationDestinationForOffer, isContractSummary } from '../views/yourTrades/utils'
-import { getNavigationDestinationForContract } from './getNavigationDestinationForContract'
 import { useHandleRefund } from './useHandleRefund'
 import { useNavigateToContractPopups } from './useNavigateToContractPopups'
 
