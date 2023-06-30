@@ -9,4 +9,8 @@ describe('AddressSummaryItem', () => {
     )
     expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
+  it('renders correctly when no address is passed', () => {
+    renderer.render(<AddressSummaryItem title="to" />)
+    expect(renderer.getRenderOutput()).toMatchSnapshot()
+  })
 })

@@ -179,7 +179,9 @@ export class PeachWallet extends PeachJSWallet {
   }
 
   getPendingTransactions () {
-    return this.transactions.filter((tx) => tx.confirmationTime?.height === undefined)
+    return this.transactions.filter(
+      (tx) => tx.confirmationTime?.height === null || tx.confirmationTime?.height === undefined,
+    )
   }
 
   async getReceivingAddress () {

@@ -1,9 +1,11 @@
 import { NavigationContainer } from '@react-navigation/native'
-import { createRenderer } from 'react-test-renderer/shallow'
+import { fireEvent, render } from '@testing-library/react-native'
 import { feeEstimates } from '../../../../../tests/unit/data/electrumData'
 import { bitcoinTransaction, pendingTransactionSummary } from '../../../../../tests/unit/data/transactionDetailData'
 import { placeholderFeeEstimates } from '../../../../hooks/query/useFeeEstimates'
-import { TransactionETA } from './TransactionETA'
+import { ConfirmationTime } from '../../../../popups/info/ConfirmationTime'
+import { usePopupStore } from '../../../../store/usePopupStore'
+import { TransactionETASummaryItem } from './TransactionETASummaryItem'
 
 const wrapper = NavigationContainer
 
@@ -21,15 +23,23 @@ jest.mock('../../../../hooks/query/useFeeEstimates', () => ({
 }))
 
 describe('TransactionETA', () => {
-  const renderer = createRenderer()
   it('should render correctly for 1 block ETA', () => {
-    renderer.render(<TransactionETA txId={pendingTransactionSummary.id} />, { wrapper })
-    expect(renderer.getRenderOutput()).toMatchSnapshot()
+    const { toJSON } = render(<TransactionETASummaryItem txId={pendingTransactionSummary.id} />, { wrapper })
+    expect(toJSON()).toMatchSnapshot()
   })
   it('should render correctly for more than 1 block ETA', () => {
     useFeeEstimatesMock.mockReturnValueOnce({ feeEstimates })
 
-    renderer.render(<TransactionETA txId={pendingTransactionSummary.id} />, { wrapper })
-    expect(renderer.getRenderOutput()).toMatchSnapshot()
+    const { toJSON } = render(<TransactionETASummaryItem txId={pendingTransactionSummary.id} />, { wrapper })
+    expect(toJSON()).toMatchSnapshot()
+  })
+  it('should open help popup', () => {
+    const { getByText } = render(<TransactionETASummaryItem txId={pendingTransactionSummary.id} />, { wrapper })
+    fireEvent.press(getByText('in 1 block'))
+    expect(usePopupStore.getState()).toEqual({
+      ...usePopupStore.getState(),
+      title: 'confirmation time',
+      content: <ConfirmationTime />,
+    })
   })
 })
