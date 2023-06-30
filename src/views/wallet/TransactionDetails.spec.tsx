@@ -1,9 +1,7 @@
-import { render } from '@testing-library/react-native'
+import { createRenderer } from 'react-test-renderer/shallow'
 import { confirmedTransactionSummary } from '../../../tests/unit/data/transactionDetailData'
 import { NavigationAndQueryClientWrapper } from '../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
 import { TransactionDetails } from './TransactionDetails'
-import { View } from 'react-native'
-import { createRenderer } from 'react-test-renderer/shallow'
 
 const openInExplorerMock = jest.fn()
 const refreshMock = jest.fn()
