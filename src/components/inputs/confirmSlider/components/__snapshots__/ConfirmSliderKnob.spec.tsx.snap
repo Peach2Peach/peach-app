@@ -14,12 +14,18 @@ exports[`ConfirmSliderKnob renders correctly 1`] = `
         "display": "flex",
         "flexDirection": "row",
         "gap": 2,
-        "height": 24,
         "justifyContent": "center",
+        "paddingBottom": 6,
+        "paddingLeft": 8,
+        "paddingRight": 8,
+        "paddingTop": 6,
       },
       {
         "gap": 4,
-        "height": 32,
+        "paddingBottom": 4,
+        "paddingLeft": 6,
+        "paddingRight": 6,
+        "paddingTop": 4,
       },
     ]
   }
@@ -51,12 +57,18 @@ exports[`ConfirmSliderKnob renders when disabled 1`] = `
         "display": "flex",
         "flexDirection": "row",
         "gap": 2,
-        "height": 24,
         "justifyContent": "center",
+        "paddingBottom": 6,
+        "paddingLeft": 8,
+        "paddingRight": 8,
+        "paddingTop": 6,
       },
       {
         "gap": 4,
-        "height": 32,
+        "paddingBottom": 4,
+        "paddingLeft": 6,
+        "paddingRight": 6,
+        "paddingTop": 4,
       },
     ]
   }
@@ -88,12 +100,18 @@ exports[`ConfirmSliderKnob renders when slided to 80% 1`] = `
         "display": "flex",
         "flexDirection": "row",
         "gap": 2,
-        "height": 24,
         "justifyContent": "center",
+        "paddingBottom": 6,
+        "paddingLeft": 8,
+        "paddingRight": 8,
+        "paddingTop": 6,
       },
       {
         "gap": 4,
-        "height": 32,
+        "paddingBottom": 4,
+        "paddingLeft": 6,
+        "paddingRight": 6,
+        "paddingTop": 4,
       },
     ]
   }
@@ -125,12 +143,18 @@ exports[`ConfirmSliderKnob renders when slided to the end 1`] = `
         "display": "flex",
         "flexDirection": "row",
         "gap": 2,
-        "height": 24,
         "justifyContent": "center",
+        "paddingBottom": 6,
+        "paddingLeft": 8,
+        "paddingRight": 8,
+        "paddingTop": 6,
       },
       {
         "gap": 4,
-        "height": 32,
+        "paddingBottom": 4,
+        "paddingLeft": 6,
+        "paddingRight": 6,
+        "paddingTop": 4,
       },
     ]
   }

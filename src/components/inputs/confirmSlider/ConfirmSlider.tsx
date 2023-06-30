@@ -26,7 +26,7 @@ export const ConfirmSlider = ({
   style,
 }: Props) => {
   const isMediumScreen = useIsMediumScreen()
-  const knobWidth = isMediumScreen ? 56 : 42
+  const knobWidth = isMediumScreen ? 56 : 46
   const { panResponder, pan, widthToSlide, onLayout } = useConfirmSliderSetup({ onConfirm, disabled, knobWidth })
 
   return (
