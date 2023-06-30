@@ -1,101 +1,28 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`UserId should render correctly 1`] = `
-<React.Fragment>
-  <TouchableOpacity
-    style={
-      [
-        {
-          "alignItems": "center",
-          "backgroundColor": "#FEEDE5",
-          "borderColor": "#FCCCB6",
-          "borderRadius": 8,
-          "borderWidth": 1,
-          "flexDirection": "row",
-          "paddingLeft": 6,
-          "paddingRight": 6,
-        },
-        false,
-        undefined,
-      ]
-    }
-    testID="user-id"
-  >
-    <PeachText
-      style={
-        {
-          "fontFamily": "Baloo2-SemiBold",
-          "fontSize": 15,
-          "letterSpacing": 0.54,
-          "lineHeight": 26,
-          "marginRight": 2,
-          "textTransform": "uppercase",
-        }
-      }
-    >
-      PeachuserId
-    </PeachText>
-    <Icon
-      color="#F56522"
-      id="info"
-      style={
-        {
-          "height": 14,
-          "width": 14,
-        }
-      }
-    />
-  </TouchableOpacity>
-</React.Fragment>
+<Bubble
+  color="primary-mild"
+  iconId="info"
+  iconSize={12}
+  onPress={[Function]}
+>
+  PeachuserId
+</Bubble>
 `;
 
 exports[`UserId should render correctly with a dispute 1`] = `
-<React.Fragment>
-  <TouchableOpacity
-    style={
-      [
-        {
-          "alignItems": "center",
-          "backgroundColor": "#FEEDE5",
-          "borderColor": "#FCCCB6",
-          "borderRadius": 8,
-          "borderWidth": 1,
-          "flexDirection": "row",
-          "paddingLeft": 6,
-          "paddingRight": 6,
-        },
-        {
-          "borderColor": "#FFD1CA",
-        },
-        undefined,
-      ]
+<Bubble
+  color="primary-mild"
+  iconColor={
+    {
+      "color": "#DF321F",
     }
-    testID="user-id"
-  >
-    <PeachText
-      style={
-        {
-          "fontFamily": "Baloo2-SemiBold",
-          "fontSize": 15,
-          "letterSpacing": 0.54,
-          "lineHeight": 26,
-          "marginRight": 2,
-          "textTransform": "uppercase",
-        }
-      }
-    >
-      PeachuserId
-    </PeachText>
-    <Icon
-      color="#DF321F"
-      id="info"
-      style={
-        {
-          "height": 14,
-          "width": 14,
-        }
-      }
-    />
-  </TouchableOpacity>
-</React.Fragment>
+  }
+  iconId="info"
+  iconSize={12}
+  onPress={[Function]}
+>
+  PeachuserId
+</Bubble>
 `;

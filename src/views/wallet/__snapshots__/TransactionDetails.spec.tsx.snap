@@ -71,8 +71,8 @@ exports[`TransactionDetails renders correctly 1`] = `
             style={
               [
                 {
-                  "height": 64,
-                  "width": 64,
+                  "height": 56,
+                  "width": 56,
                 },
                 undefined,
               ]
@@ -120,7 +120,7 @@ exports[`TransactionDetails renders correctly 1`] = `
                 {
                   "busy": undefined,
                   "checked": undefined,
-                  "disabled": undefined,
+                  "disabled": false,
                   "expanded": undefined,
                   "selected": undefined,
                 }
@@ -565,7 +565,7 @@ exports[`TransactionDetails renders correctly 1`] = `
             {
               "busy": undefined,
               "checked": undefined,
-              "disabled": undefined,
+              "disabled": false,
               "expanded": undefined,
               "selected": undefined,
             }

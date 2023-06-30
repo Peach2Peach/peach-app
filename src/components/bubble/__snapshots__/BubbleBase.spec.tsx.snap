@@ -2,6 +2,7 @@
 
 exports[`BubbleBase should render background and border color 1`] = `
 <TouchableOpacity
+  disabled={true}
   style={
     [
       {
@@ -68,6 +69,7 @@ exports[`BubbleBase should render background and border color 1`] = `
 
 exports[`BubbleBase should render correctly 1`] = `
 <TouchableOpacity
+  disabled={true}
   style={
     [
       undefined,
@@ -125,6 +127,7 @@ exports[`BubbleBase should render correctly 1`] = `
 
 exports[`BubbleBase should render correctly with icon 1`] = `
 <TouchableOpacity
+  disabled={true}
   style={
     [
       undefined,
@@ -187,6 +190,7 @@ exports[`BubbleBase should render correctly with icon 1`] = `
 
 exports[`BubbleBase should render correctly with icon and specific color 1`] = `
 <TouchableOpacity
+  disabled={true}
   style={
     [
       undefined,

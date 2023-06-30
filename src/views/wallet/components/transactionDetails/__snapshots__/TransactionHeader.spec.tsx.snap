@@ -70,7 +70,7 @@ exports[`TransactionHeader should render correctly buy trade 1`] = `
         {
           "busy": undefined,
           "checked": undefined,
-          "disabled": undefined,
+          "disabled": false,
           "expanded": undefined,
           "selected": undefined,
         }
@@ -105,8 +105,8 @@ exports[`TransactionHeader should render correctly buy trade 1`] = `
           "height": 28,
           "justifyContent": "center",
           "opacity": 1,
-          "paddingLeft": 10,
-          "paddingRight": 10,
+          "paddingLeft": 8,
+          "paddingRight": 8,
         }
       }
     >
@@ -235,7 +235,7 @@ exports[`TransactionHeader should render correctly for a funding escrow transact
         {
           "busy": undefined,
           "checked": undefined,
-          "disabled": undefined,
+          "disabled": false,
           "expanded": undefined,
           "selected": undefined,
         }
@@ -270,8 +270,8 @@ exports[`TransactionHeader should render correctly for a funding escrow transact
           "height": 28,
           "justifyContent": "center",
           "opacity": 1,
-          "paddingLeft": 10,
-          "paddingRight": 10,
+          "paddingLeft": 8,
+          "paddingRight": 8,
         }
       }
     >
@@ -400,7 +400,7 @@ exports[`TransactionHeader should render correctly for a funding escrow transact
         {
           "busy": undefined,
           "checked": undefined,
-          "disabled": undefined,
+          "disabled": false,
           "expanded": undefined,
           "selected": undefined,
         }
@@ -435,8 +435,8 @@ exports[`TransactionHeader should render correctly for a funding escrow transact
           "height": 28,
           "justifyContent": "center",
           "opacity": 1,
-          "paddingLeft": 10,
-          "paddingRight": 10,
+          "paddingLeft": 8,
+          "paddingRight": 8,
         }
       }
     >
@@ -632,7 +632,7 @@ exports[`TransactionHeader should render correctly for a refund transaction 1`] 
         {
           "busy": undefined,
           "checked": undefined,
-          "disabled": undefined,
+          "disabled": false,
           "expanded": undefined,
           "selected": undefined,
         }
@@ -667,8 +667,8 @@ exports[`TransactionHeader should render correctly for a refund transaction 1`] 
           "height": 28,
           "justifyContent": "center",
           "opacity": 1,
-          "paddingLeft": 10,
-          "paddingRight": 10,
+          "paddingLeft": 8,
+          "paddingRight": 8,
         }
       }
     >
