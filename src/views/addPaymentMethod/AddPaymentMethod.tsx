@@ -2,15 +2,14 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { ScrollView, View } from 'react-native'
 import { useFocusEffect } from '@react-navigation/native'
 
-import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 
 import { CURRENCIES, PAYMENTCATEGORIES } from '../../constants'
 import { getPaymentDataByType } from '../../utils/account'
 import { countrySupportsCurrency, getPaymentMethodInfo, isLocalOption } from '../../utils/paymentMethod'
-import Currency from './Currency'
-import PaymentMethod from './PaymentMethod'
-import Countries from './Countries'
+import { Currency } from './Currency'
+import { PaymentMethod } from './PaymentMethod'
+import { Countries } from './Countries'
 import { useNavigation, useRoute } from '../../hooks'
 
 const screens = [{ id: 'currency' }, { id: 'paymentMethod' }, { id: 'extraInfo' }]
@@ -65,19 +64,6 @@ export default () => {
     setPage(page - 1)
     scroll.current?.scrollTo({ x: 0 })
   }
-  const getScreen = () => {
-    const commonProps = { ...{ currency: currencies[0], back, next } }
-    return id === 'currency' ? (
-      <Currency setCurrency={(c: Currency) => setCurrencies([c])} {...commonProps} />
-    ) : id === 'paymentMethod' ? (
-      <PaymentMethod {...{ paymentMethod, setPaymentMethod, ...commonProps }} />
-    ) : id === 'extraInfo' && paymentMethod && /giftCard/u.test(paymentMethod) ? (
-      <Countries selected={country} {...{ paymentMethod, setCountry, ...commonProps }} />
-    ) : (
-      <View />
-    )
-  }
-
   const initView = () => {
     setPage(getPage(route.params))
     setCurrencies(route.params.currencies || [CURRENCIES[0]])
@@ -111,9 +97,20 @@ export default () => {
     goToPaymentMethodDetails({ paymentMethod, currencies, country })
   }, [paymentMethod, page, goToPaymentMethodDetails, currencies, country])
 
+  const commonProps = { ...{ currency: currencies[0], back, next } }
   return (
-    <View testID="view-buy" style={tw`h-full pb-10 pt-7`}>
-      {getScreen()}
+    <View>
+      {id === 'currency' ? (
+        <Currency setCurrency={(c: Currency) => setCurrencies([c])} {...commonProps} />
+      ) : id === 'paymentMethod' ? (
+        <PaymentMethod {...{ paymentMethod, setPaymentMethod, ...commonProps }} />
+      ) : (
+        id === 'extraInfo'
+        && paymentMethod
+        && /giftCard/u.test(paymentMethod) && (
+          <Countries selected={country} {...{ paymentMethod, setCountry, ...commonProps }} />
+        )
+      )}
     </View>
   )
 }

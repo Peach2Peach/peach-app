@@ -2,15 +2,13 @@ import { useEffect, useMemo, useState, Dispatch, SetStateAction } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
-import { PrimaryButton, RadioButtons } from '../../components'
+import { PeachScrollView, PrimaryButton, RadioButtons } from '../../components'
 import { useHeaderSetup } from '../../hooks'
 import i18n from '../../utils/i18n'
-import { whiteGradient } from '../../utils/layout'
 import { countrySupportsCurrency, getPaymentMethodInfo } from '../../utils/paymentMethod'
 import { Country } from '../../utils/country/countryMap'
-const { LinearGradient } = require('react-native-gradients')
 
-type CountrySelectProps = {
+type Props = {
   paymentMethod: PaymentMethod
   currency: Currency
   selected?: Country
@@ -19,7 +17,7 @@ type CountrySelectProps = {
   next: () => void
 }
 
-export default ({ paymentMethod, currency, selected, setCountry, next }: CountrySelectProps) => {
+export const Countries = ({ paymentMethod, currency, selected, setCountry, next }: Props) => {
   const [paymentMethodInfo] = useState(() => getPaymentMethodInfo(paymentMethod))
   const [stepValid, setStepValid] = useState(false)
   const [selectedCountry, setSelectedCountry] = useState(selected)
@@ -43,24 +41,18 @@ export default ({ paymentMethod, currency, selected, setCountry, next }: Country
   )
 
   return (
-    <View style={tw`flex h-full`}>
-      <View style={tw`flex justify-center flex-shrink h-full px-10`}>
+    <View style={tw`h-full`}>
+      <PeachScrollView contentStyle={[tw`h-full p-4`, tw.md`p-8`]} contentContainerStyle={tw`flex-grow`}>
         <RadioButtons
+          style={tw`items-center justify-center flex-grow`}
           items={countries}
           selectedValue={selectedCountry}
           onChange={(cs) => setSelectedCountry(cs as PaymentMethodCountry)}
         />
-      </View>
-      <View style={tw`flex items-center w-full px-6 mt-4`}>
-        <View style={tw`w-full h-8 -mt-8`}>
-          <LinearGradient colorList={whiteGradient} angle={90} />
-        </View>
-        <View style={tw`items-center flex-grow`}>
-          <PrimaryButton testID="navigation-next" disabled={!stepValid} onPress={next} narrow>
-            {i18n('next')}
-          </PrimaryButton>
-        </View>
-      </View>
+      </PeachScrollView>
+      <PrimaryButton style={tw`self-center mt-2 mb-5`} disabled={!stepValid} onPress={next} narrow>
+        {i18n('next')}
+      </PrimaryButton>
     </View>
   )
 }

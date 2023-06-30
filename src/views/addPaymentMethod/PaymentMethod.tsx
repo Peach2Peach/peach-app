@@ -5,25 +5,22 @@ import { DrawerContext } from '../../contexts/drawer'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 
-import { PrimaryButton, RadioButtons } from '../../components'
+import { PeachScrollView, PrimaryButton, RadioButtons } from '../../components'
 import { LOCALPAYMENTMETHODS, PAYMENTCATEGORIES } from '../../constants'
 import { PaymentMethodSelect } from '../../drawers/PaymentMethodSelect'
 import { CountrySelect } from '../../drawers/CountrySelect'
 import { getApplicablePaymentCategories, paymentMethodAllowedForCurrency } from '../../utils/paymentMethod'
 import { FlagType } from '../../components/flags'
-import { whiteGradient } from '../../utils/layout'
 import { LocalOptionsSelect } from '../../drawers/LocalOptionsSelect'
 
-const { LinearGradient } = require('react-native-gradients')
-
-type PaymentCategorySelectProps = {
+type Props = {
   currency: Currency
   paymentMethod?: PaymentMethod
   setPaymentMethod: Dispatch<SetStateAction<PaymentMethod | undefined>>
   next: () => void
 }
 
-export default ({ currency, paymentMethod, setPaymentMethod, next }: PaymentCategorySelectProps) => {
+export const PaymentMethod = ({ currency, paymentMethod, setPaymentMethod, next }: Props) => {
   const [, updateDrawer] = useContext(DrawerContext)
 
   const [stepValid, setStepValid] = useState(false)
@@ -115,18 +112,18 @@ export default ({ currency, paymentMethod, setPaymentMethod, next }: PaymentCate
   }, [paymentMethod])
 
   return (
-    <View style={tw`flex h-full`}>
-      <View style={tw`flex justify-center flex-shrink h-full px-10`}>
-        <RadioButtons items={paymentCategories} selectedValue={paymentCategory} onChange={setPaymentCategory} />
-      </View>
-      <View style={tw`flex items-center w-full px-6 mt-4 bg-primary-background`}>
-        <View style={tw`w-full h-8 -mt-8`}>
-          <LinearGradient colorList={whiteGradient} angle={90} />
-        </View>
-        <PrimaryButton testID="navigation-next" disabled={!stepValid} onPress={next} narrow>
-          {i18n('next')}
-        </PrimaryButton>
-      </View>
+    <View style={tw`h-full`}>
+      <PeachScrollView contentStyle={[tw`h-full p-4`, tw.md`p-8`]} contentContainerStyle={tw`flex-grow`}>
+        <RadioButtons
+          style={tw`items-center justify-center flex-grow`}
+          items={paymentCategories}
+          selectedValue={paymentCategory}
+          onChange={setPaymentCategory}
+        />
+      </PeachScrollView>
+      <PrimaryButton style={tw`self-center mt-2 mb-5`} disabled={!stepValid} onPress={next} narrow>
+        {i18n('next')}
+      </PrimaryButton>
     </View>
   )
 }
