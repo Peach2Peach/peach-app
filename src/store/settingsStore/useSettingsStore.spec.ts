@@ -61,3 +61,39 @@ describe('settingsStore - updateSeedBackupDate', () => {
     expect(useSettingsStore.getState().showBackupReminder).toBeFalsy()
   })
 })
+
+describe('settingsStore - toggleAnalytics', () => {
+  it('should toggle analytics', () => {
+    useSettingsStore.getState().setEnableAnalytics(true)
+    useSettingsStore.getState().toggleAnalytics()
+    expect(useSettingsStore.getState().enableAnalytics).toBeFalsy()
+    useSettingsStore.getState().toggleAnalytics()
+    expect(useSettingsStore.getState().enableAnalytics).toBeTruthy()
+  })
+})
+
+describe('settingsStore - setLastFileBackupDate', () => {
+  it('should set lastFileBackupDate', () => {
+    const now = 1234567890
+    useSettingsStore.getState().setLastFileBackupDate(now)
+    expect(useSettingsStore.getState().lastFileBackupDate).toBe(now)
+  })
+})
+
+describe('settingsStore - setPayoutAddressSignature', () => {
+  it('should set payoutAddressSignature', () => {
+    const signature = 'signature'
+    useSettingsStore.getState().setPayoutAddressSignature(signature)
+    expect(useSettingsStore.getState().payoutAddressSignature).toBe(signature)
+  })
+})
+
+describe('settingsStore - togglePeachWallet', () => {
+  it('should toggle peach wallet', () => {
+    useSettingsStore.getState().setPeachWalletActive(true)
+    useSettingsStore.getState().togglePeachWallet()
+    expect(useSettingsStore.getState().peachWalletActive).toBeFalsy()
+    useSettingsStore.getState().togglePeachWallet()
+    expect(useSettingsStore.getState().peachWalletActive).toBeTruthy()
+  })
+})
