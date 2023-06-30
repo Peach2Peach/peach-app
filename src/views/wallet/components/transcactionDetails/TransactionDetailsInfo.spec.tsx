@@ -6,8 +6,13 @@ import {
 import { TransactionDetailsInfo } from './TransactionDetailsInfo'
 import { fireEvent, render } from '@testing-library/react-native'
 import { NavigationAndQueryClientWrapper } from '../../../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
+import { View } from 'react-native'
 
 const wrapper = NavigationAndQueryClientWrapper
+
+jest.mock('../../../../components/animation/Fade', () => ({
+  Fade: (_props: { show: boolean }) => <View />,
+}))
 
 const receivingAddress = 'receivingAddress'
 const goToBumpNetworkFeesMock = jest.fn()
