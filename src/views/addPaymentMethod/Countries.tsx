@@ -31,14 +31,9 @@ export const Countries = ({ paymentMethod, currency, selected, setCountry, next 
     if (selectedCountry) setCountry(selectedCountry)
   }, [selectedCountry])
 
-  useHeaderSetup(
-    useMemo(
-      () => ({
-        title: i18n('paymentMethod.giftCard.countrySelect.title'),
-      }),
-      [],
-    ),
-  )
+  useHeaderSetup({
+    title: i18n('paymentMethod.giftCard.countrySelect.title'),
+  })
 
   return (
     <View style={tw`h-full`}>

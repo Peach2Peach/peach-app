@@ -81,7 +81,6 @@ export const PaymentMethod = ({ currency, paymentMethod, setPaymentMethod, next 
 
   const showDrawer = (category: PaymentCategory) => {
     if (category === 'localOption') {
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       const applicableCountries = Object.keys(LOCALPAYMENTMETHODS[currency]!) as FlagType[]
       return updateDrawer(countrySelectdrawer(category, applicableCountries, selectCountry))
     }
@@ -104,7 +103,6 @@ export const PaymentMethod = ({ currency, paymentMethod, setPaymentMethod, next 
   useEffect(() => {
     if (!paymentCategory) return
     showDrawer(paymentCategory)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [paymentCategory])
 
   useEffect(() => {
