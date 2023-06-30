@@ -20,24 +20,18 @@ export const useRateSetup = ({ contract, view, vote, saveAndUpdate }: Props) => 
   const navigation = useNavigation()
   const setPopup = usePopupStore((state) => state.setPopup)
   const showError = useShowErrorBanner()
-  const [showBackupOverlay, setShouldShowBackupOverlay, setShowBackupReminder, isPeachWalletActive] = useSettingsStore(
-    (state) => [
-      state.shouldShowBackupOverlay.completedBuyOffer,
-      state.setShouldShowBackupOverlay,
-      state.setShowBackupReminder,
-      state.peachWalletActive,
-    ],
+  const [shouldShowBackupOverlay, setShowBackupReminder, isPeachWalletActive] = useSettingsStore(
+    (state) => [state.shouldShowBackupOverlay, state.setShowBackupReminder, state.peachWalletActive],
     shallow,
   )
 
   const navigateAfterRating = (rating: 1 | -1) => {
-    if (showBackupOverlay && isPeachWalletActive && view === 'buyer') {
+    if (shouldShowBackupOverlay && isPeachWalletActive && view === 'buyer') {
       setShowBackupReminder(true)
-      setShouldShowBackupOverlay('completedBuyOffer', false)
-      if (rating === 1) {
-        return navigation.replace('backupTime', { nextScreen: 'contract', contractId: contract.id })
-      }
-      return navigation.replace('backupTime', { nextScreen: 'yourTrades' })
+      return navigation.replace(
+        'backupTime',
+        rating === 1 ? { nextScreen: 'contract', contractId: contract.id } : { nextScreen: 'yourTrades' },
+      )
     } else if (rating === 1) {
       return navigation.replace('contract', { contractId: contract.id })
     }

@@ -1,6 +1,5 @@
 import { useMemo, useState } from 'react'
 import { Keyboard } from 'react-native'
-import { shallow } from 'zustand/shallow'
 
 import { useHeaderSetup, useNavigation, useValidatedState } from '../../../hooks'
 import { useShowHelp } from '../../../hooks/useShowHelp'
@@ -14,10 +13,7 @@ const passwordRules = { required: true, password: true }
 export const usePasswordPromptSetup = (onSuccess: () => void) => {
   const navigation = useNavigation()
 
-  const [setShowBackupReminder, setLastFileBackupDate] = useSettingsStore(
-    (state) => [state.setShowBackupReminder, state.setLastFileBackupDate],
-    shallow,
-  )
+  const updateFileBackupDate = useSettingsStore((state) => state.updateFileBackupDate)
   const showPopup = useShowHelp('yourPassword')
   useHeaderSetup({
     title: i18n('settings.backups.fileBackup.title'),
@@ -41,8 +37,7 @@ export const usePasswordPromptSetup = (onSuccess: () => void) => {
     Keyboard.dismiss()
 
     setIsBackingUp(true)
-    setLastFileBackupDate(Date.now())
-    setShowBackupReminder(false)
+    updateFileBackupDate()
     backupAccount({
       password,
       onSuccess: () => {

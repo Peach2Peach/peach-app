@@ -18,15 +18,14 @@ export const useWalletSetup = ({ syncOnLoad = true }) => {
   const navigation = useNavigation()
   const { refresh, isRefreshing } = useSyncWallet()
   const [walletLoading, setWalletLoading] = useState(false)
-  const [shouldShowBackupOverlay, setShouldShowBackupOverlay, setShowBackupReminder] = useSettingsStore((state) => [
-    state.shouldShowBackupOverlay.bitcoinReceived,
-    state.setShouldShowBackupOverlay,
+  const [shouldShowBackupOverlay, showBackupReminder, setShowBackupReminder] = useSettingsStore((state) => [
+    state.shouldShowBackupOverlay,
+    state.showBackupReminder,
     state.setShowBackupReminder,
   ])
 
-  if (balance > 0 && shouldShowBackupOverlay) {
+  if (!showBackupReminder && balance > 0 && shouldShowBackupOverlay) {
     setShowBackupReminder(true)
-    setShouldShowBackupOverlay('bitcoinReceived', false)
     navigation.navigate('backupTime', { nextScreen: 'wallet' })
   }
 
