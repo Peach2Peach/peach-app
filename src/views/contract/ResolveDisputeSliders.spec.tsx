@@ -1,17 +1,12 @@
-import { ResolveDisputeSliders } from './ResolveDisputeSliders'
 import { render } from '@testing-library/react-native'
-import { NavigationWrapper } from '../../../tests/unit/helpers/NavigationWrapper'
-import { QueryClientWrapper } from '../../../tests/unit/helpers/QueryClientWrapper'
+import { NavigationAndQueryClientWrapper } from '../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
+import { ResolveDisputeSliders } from './ResolveDisputeSliders'
 
 jest.mock('../../components/inputs', () => ({
   ConfirmSlider: 'ConfirmSlider',
 }))
 
-const wrapper = ({ children }: ComponentProps) => (
-  <QueryClientWrapper>
-    <NavigationWrapper>{children}</NavigationWrapper>
-  </QueryClientWrapper>
-)
+const wrapper = NavigationAndQueryClientWrapper
 
 jest.mock('./context', () => ({
   useContractContext: jest.fn(() => ({ contract: {} })),

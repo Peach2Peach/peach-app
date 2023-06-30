@@ -1,16 +1,17 @@
 import { useCallback } from 'react'
-import { useNavigation } from '../../../hooks'
-import { getNavigationDestinationForOffer, isContractSummary } from '../utils'
-import { getNavigationDestinationForContract } from '../utils/navigation/getNavigationDestinationForContract'
+import { useNavigation } from '.'
+import { getNavigationDestinationForContract } from '../utils/contract'
+import { getNavigationDestinationForOffer, isContractSummary } from '../views/yourTrades/utils'
 import { useHandleRefund } from './useHandleRefund'
 import { useNavigateToContractPopups } from './useNavigateToContractPopups'
 
-export const useNavigateToOfferOrContract = (item: TradeSummary) => {
+export const useNavigateToOfferOrContract = (item?: TradeSummary) => {
   const navigation = useNavigation()
   const handleRefund = useHandleRefund()
-  const showContractPopup = useNavigateToContractPopups(item.id)
+  const showContractPopup = useNavigateToContractPopups(item?.id || '')
 
   const navigateToOfferOrContract = useCallback(async () => {
+    if (!item) return
     const destination = isContractSummary(item)
       ? await getNavigationDestinationForContract(item)
       : getNavigationDestinationForOffer(item)

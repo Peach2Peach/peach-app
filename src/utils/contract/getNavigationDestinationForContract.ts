@@ -1,5 +1,5 @@
-import { queryClient } from '../../../../queryClient'
-import { getContract } from '../../../../utils/peachAPI'
+import { queryClient } from '../../queryClient'
+import { getContract } from '../peachAPI'
 
 export const getNavigationDestinationForContract = async (
   contract: Contract | ContractSummary,

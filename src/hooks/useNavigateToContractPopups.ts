@@ -1,6 +1,6 @@
-import { useDisputeEmailPopup } from './useDisputeEmailPopup'
-import { useDisputeWonPopup } from '../../../popups/dispute/hooks/useDisputeWonPopup'
-import { useLocalContractStore } from '../../../store/useLocalContractStore'
+import { useDisputeEmailPopup } from '../views/yourTrades/hooks/useDisputeEmailPopup'
+import { useDisputeWonPopup } from '../popups/dispute/hooks/useDisputeWonPopup'
+import { useLocalContractStore } from '../store/useLocalContractStore'
 
 export const useNavigateToContractPopups = (id: string) => {
   const showDisputeEmailPopup = useDisputeEmailPopup(id)
