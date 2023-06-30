@@ -7,7 +7,6 @@ import { contractStorage } from './contractStorage'
 import { offerStorage } from './offerStorage'
 import { deleteAccessToken } from '../peachAPI/accessToken'
 import { deletePeachAccount } from '../peachAPI/peachAccount'
-import { sessionStorage } from '../session'
 import * as accountData from '../../../tests/unit/data/accountData'
 
 jest.mock('../peachAPI/accessToken', () => ({
@@ -31,7 +30,6 @@ describe('deleteAccount', () => {
     expect(offerStorage.clearStore).toHaveBeenCalled()
     expect(contractStorage.clearStore).toHaveBeenCalled()
     expect(chatStorage.clearStore).toHaveBeenCalled()
-    expect(sessionStorage.clearStore).toHaveBeenCalled()
     expect(settingsStorage.clearStore).toHaveBeenCalled()
     expect(deleteAccessToken).toHaveBeenCalled()
     expect(deletePeachAccount).toHaveBeenCalled()

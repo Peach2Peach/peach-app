@@ -21,10 +21,9 @@ export const useRefundEscrow = () => {
   const showError = useShowErrorBanner()
   const navigation = useNavigation()
   const isPeachWallet = useSettingsStore((state) => state.peachWalletActive)
-  const [setShowBackupReminder, shouldShowBackupOverlay, setShouldShowBackupOverlay] = useSettingsStore((state) => [
+  const [setShowBackupReminder, shouldShowBackupOverlay] = useSettingsStore((state) => [
     state.setShowBackupReminder,
-    state.shouldShowBackupOverlay?.refundedEscrow,
-    state.setShouldShowBackupOverlay,
+    state.shouldShowBackupOverlay,
   ])
   const { refetch: refetchTradeSummaries } = useTradeSummaries(false)
   const goToWallet = useCallback(
@@ -63,9 +62,10 @@ export const useRefundEscrow = () => {
           icon: 'xSquare',
           callback: () => {
             closePopup()
-            navigation.navigate('yourTrades', { tab: 'history' })
             if (shouldShowBackupOverlay && isPeachWallet) {
               navigation.navigate('backupTime', { nextScreen: 'yourTrades' })
+            } else {
+              navigation.navigate('yourTrades', { tab: 'history' })
             }
           },
         },
@@ -102,7 +102,6 @@ export const useRefundEscrow = () => {
         peachWallet.syncWallet()
         if (shouldShowBackupOverlay && isPeachWallet) {
           setShowBackupReminder(true)
-          setShouldShowBackupOverlay('refundedEscrow', false)
         }
       }
     },
@@ -114,7 +113,6 @@ export const useRefundEscrow = () => {
       refetchTradeSummaries,
       setOffer,
       setPopup,
-      setShouldShowBackupOverlay,
       setShowBackupReminder,
       shouldShowBackupOverlay,
       showError,

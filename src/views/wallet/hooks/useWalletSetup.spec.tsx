@@ -1,16 +1,12 @@
 import { act, renderHook, waitFor } from '@testing-library/react-native'
-import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { NavigationWrapper, navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { useSettingsStore } from '../../../store/settingsStore'
 import { useWalletSetup } from './useWalletSetup'
 import { usePopupStore } from '../../../store/usePopupStore'
 import { WithdrawalConfirmation } from '../../../popups/WithdrawalConfirmation'
 import { estimatedFees } from '../../../../tests/unit/data/bitcoinNetworkData'
+import { useWalletState } from '../../../utils/wallet/walletStore'
 
-const walletStore = {}
-const walletStateMock = jest.fn((selector, _compareFn) => selector(walletStore))
-jest.mock('../../../utils/wallet/walletStore', () => ({
-  useWalletState: (selector: any, compareFn: any) => walletStateMock(selector, compareFn),
-}))
 const mockWithdrawAll = jest.fn().mockResolvedValue({
   txDetails: {
     txId: 'txId',
@@ -35,7 +31,7 @@ describe('useWalletSetup', () => {
   it('should return correct default values', async () => {
     const { result } = renderHook(useWalletSetup, { wrapper })
 
-    expect(result.current.walletStore).toEqual(walletStore)
+    expect(result.current.walletStore).toEqual(useWalletState.getState())
     expect(result.current.refresh).toBeInstanceOf(Function)
     expect(result.current.isRefreshing).toBeFalsy()
     expect(result.current.isValid).toBeTruthy()
@@ -85,11 +81,33 @@ describe('useWalletSetup', () => {
     act(() => {
       result.current.openWithdrawalConfirmation()
     })
-    await act(() => {
-      usePopupStore.getState().action1?.callback()
+    await act(async () => {
+      await usePopupStore.getState().action1?.callback()
     })
 
     expect(mockWithdrawAll).toHaveBeenCalledWith(address, finalFeeRate)
+    await waitFor(() => expect(result.current.walletLoading).toBeFalsy())
+  })
+  it('should navigate to backupTime if balance is bigger than 0 & showBackupReminder is false', async () => {
+    useWalletState.getState().setBalance(1)
+    useSettingsStore.setState({
+      showBackupReminder: false,
+      shouldShowBackupOverlay: true,
+    })
+    const { result } = renderHook(useWalletSetup, { wrapper })
+
+    expect(navigateMock).toHaveBeenCalledWith('backupTime', { nextScreen: 'wallet' })
+    await waitFor(() => expect(result.current.walletLoading).toBeFalsy())
+  })
+  it('should not navigate to backupTime if balance is bigger than 0 & showBackupReminder is already true', async () => {
+    useWalletState.getState().setBalance(1)
+    useSettingsStore.setState({
+      showBackupReminder: true,
+      shouldShowBackupOverlay: true,
+    })
+    const { result } = renderHook(useWalletSetup, { wrapper })
+
+    expect(navigateMock).not.toHaveBeenCalled()
     await waitFor(() => expect(result.current.walletLoading).toBeFalsy())
   })
 })
