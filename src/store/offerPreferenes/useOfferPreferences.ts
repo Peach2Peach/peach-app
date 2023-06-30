@@ -1,16 +1,14 @@
 import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
+import { getSelectedPaymentDataIds } from '../../utils/account'
 import { createStorage, toZustandStorage } from '../../utils/storage'
 import {
-  validatePaymentMethods,
-  getPreferredMethods,
   getHashedPaymentData,
-  getOriginalPaymentData,
   getMeansOfPayment,
+  getOriginalPaymentData,
+  getPreferredMethods,
+  validatePaymentMethods,
 } from './helpers'
-import { enforcePremiumFormat } from '../../views/sell/helpers/enforcePremiumFormat'
-import { getSelectedPaymentDataIds } from '../../utils/account'
-import { enforceDecimalsFormat } from '../../utils/format'
 
 export type OfferPreferences = {
   buyAmountRange: [number, number]
