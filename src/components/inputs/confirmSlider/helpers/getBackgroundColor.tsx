@@ -1,5 +1,5 @@
 import { Animated } from 'react-native'
-import tw from '../../../styles/tailwind'
+import tw from '../../../../styles/tailwind'
 
 export const getBackgroundColor = (pan: Animated.Value) =>
   pan.interpolate({

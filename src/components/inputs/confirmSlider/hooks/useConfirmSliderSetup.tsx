@@ -1,6 +1,6 @@
 import { useMemo, useRef, useState } from 'react'
 import { Animated, LayoutChangeEvent, PanResponder } from 'react-native'
-import { getNormalized } from '../../../utils/math'
+import { getNormalized } from '../../../../utils/math'
 
 type Props = ComponentProps & {
   knobWidth: number

@@ -1,13 +1,13 @@
 import { Animated, View } from 'react-native'
-import { IconType } from '../../assets/icons'
-import tw from '../../styles/tailwind'
-import Icon from '../Icon'
+import { IconType } from '../../../assets/icons'
+import tw from '../../../styles/tailwind'
+import Icon from '../../Icon'
 import { ConfirmSliderLabel } from './components/ConfirmSliderLabel'
 import { getBackgroundColor } from './helpers/getBackgroundColor'
 import { getLabel1Opacity } from './helpers/getLabel1Opacity'
 import { getTransform } from './helpers/getTransform'
 import { useConfirmSliderSetup } from './hooks/useConfirmSliderSetup'
-import { useIsMediumScreen } from '../../hooks'
+import { useIsMediumScreen } from '../../../hooks'
 
 type Props = ComponentProps & {
   label1: string
@@ -37,7 +37,7 @@ export const ConfirmSlider = ({
   return (
     <View
       style={[
-        tw`w-full bg-primary-background-dark border border-primary-mild-1 rounded-full overflow-hidden p-1`,
+        tw`w-full p-1 overflow-hidden border rounded-full bg-primary-background-dark border-primary-mild-1`,
         style,
       ]}
     >

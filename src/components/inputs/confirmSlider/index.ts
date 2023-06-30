@@ -1,0 +1,1 @@
+export { ConfirmSlider } from './ConfirmSlider'

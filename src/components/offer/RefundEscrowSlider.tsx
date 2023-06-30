@@ -1,6 +1,6 @@
 import { useStartRefundPopup } from '../../popups/useStartRefundPopup'
 import i18n from '../../utils/i18n'
-import { ConfirmSlider } from '../confirmSlider/ConfirmSlider'
+import { ConfirmSlider } from '../inputs'
 
 export const RefundEscrowSlider = ({ sellOffer }: { sellOffer: SellOffer }) => {
   const startRefund = useStartRefundPopup()
