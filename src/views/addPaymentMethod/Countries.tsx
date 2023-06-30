@@ -42,7 +42,7 @@ export const Countries = ({ paymentMethod, currency, selected, setCountry, next 
           style={tw`items-center justify-center flex-grow`}
           items={countries}
           selectedValue={selectedCountry}
-          onChange={(cs) => setSelectedCountry(cs as PaymentMethodCountry)}
+          onChange={setSelectedCountry}
         />
       </PeachScrollView>
       <PrimaryButton style={tw`self-center mt-2 mb-5`} disabled={!stepValid} onPress={next} narrow>

@@ -77,7 +77,7 @@ export default () => {
 
     const paymentMethodInfo = getPaymentMethodInfo(paymentMethod)
 
-    if (!/giftCard/u.test(paymentMethod as string) && !isLocalOption(paymentMethod)) {
+    if (!/giftCard/u.test(paymentMethod) && !isLocalOption(paymentMethod)) {
       goToPaymentMethodDetails({ paymentMethod, currencies, country })
       return
     } else if (!!paymentMethodInfo.countries) {
