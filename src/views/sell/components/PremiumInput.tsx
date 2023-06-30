@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react'
 import { View } from 'react-native'
 import { shallow } from 'zustand/shallow'
 import { Text } from '../../../components'
-import { NumberInput } from '../../../components/inputs'
+import { PercentageInput } from '../../../components/inputs'
 import { useOfferPreferences } from '../../../store/offerPreferenes/useOfferPreferences'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
@@ -36,13 +36,7 @@ export const PremiumInput = ({ style }: ComponentProps) => {
     <View style={[tw`flex-row items-center justify-center`, style]}>
       <Text style={[tw`leading-2xl`, textColor]}>{i18n(premium >= 0 ? 'sell.premium' : 'sell.discount')}:</Text>
       <View style={tw`h-10 ml-2`}>
-        <NumberInput
-          style={tw`w-24`}
-          inputStyle={tw`text-right`}
-          value={displayValue}
-          onChange={changePremium}
-          icons={[['percent', () => {}]]}
-        />
+        <PercentageInput value={displayValue} onChange={changePremium} />
       </View>
     </View>
   )

@@ -36,26 +36,8 @@ exports[`PremiumInput should render the PremiumInput view with 0 premium 1`] = `
       }
     }
   >
-    <NumberInput
-      icons={
-        [
-          [
-            "percent",
-            [Function],
-          ],
-        ]
-      }
-      inputStyle={
-        {
-          "textAlign": "right",
-        }
-      }
+    <PercentageInput
       onChange={[Function]}
-      style={
-        {
-          "width": 96,
-        }
-      }
       value="0"
     />
   </View>
@@ -98,26 +80,8 @@ exports[`PremiumInput should render the PremiumInput view with discount 1`] = `
       }
     }
   >
-    <NumberInput
-      icons={
-        [
-          [
-            "percent",
-            [Function],
-          ],
-        ]
-      }
-      inputStyle={
-        {
-          "textAlign": "right",
-        }
-      }
+    <PercentageInput
       onChange={[Function]}
-      style={
-        {
-          "width": 96,
-        }
-      }
       value="-3.2"
     />
   </View>
@@ -160,26 +124,8 @@ exports[`PremiumInput should render the PremiumInput view with premium 1`] = `
       }
     }
   >
-    <NumberInput
-      icons={
-        [
-          [
-            "percent",
-            [Function],
-          ],
-        ]
-      }
-      inputStyle={
-        {
-          "textAlign": "right",
-        }
-      }
+    <PercentageInput
       onChange={[Function]}
-      style={
-        {
-          "width": 96,
-        }
-      }
       value="3.2"
     />
   </View>
