@@ -23,7 +23,7 @@ export const useConfirmSliderSetup = ({ disabled, onConfirm, knobWidth }: Props)
   const panResponder = useMemo(
     () =>
       PanResponder.create({
-        onMoveShouldSetPanResponder: () => true,
+        onMoveShouldSetPanResponder: () => !disabled,
         onPanResponderMove: (e, gestureState) => {
           if (disabled) return
           const x = gestureState.dx
