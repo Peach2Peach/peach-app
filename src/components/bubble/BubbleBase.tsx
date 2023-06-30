@@ -3,7 +3,7 @@ import { StyleProp, TextStyle, TouchableOpacity, TouchableOpacityProps, ViewStyl
 import { IconType } from '../../assets/icons'
 import tw from '../../styles/tailwind'
 import Icon from '../Icon'
-import { FixedHeightText, Text } from '../text'
+import { Text } from '../text'
 
 export type BubbleBaseProps = {
   option?: boolean
