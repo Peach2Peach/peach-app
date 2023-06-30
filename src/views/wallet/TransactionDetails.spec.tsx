@@ -3,6 +3,7 @@ import { confirmedTransactionSummary } from '../../../tests/unit/data/transactio
 import { NavigationAndQueryClientWrapper } from '../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
 import { TransactionDetails } from './TransactionDetails'
 import { View } from 'react-native'
+import { createRenderer } from 'react-test-renderer/shallow'
 
 const openInExplorerMock = jest.fn()
 const refreshMock = jest.fn()
@@ -23,15 +24,12 @@ jest.mock('./hooks/useTransactionDetailsSetup', () => ({
   useTransactionDetailsSetup: () => useTransactionDetailsSetupMock(),
 }))
 
-jest.mock('../../components/animation/Fade', () => ({
-  Fade: (_props: { show: boolean }) => <View />,
-}))
-
 const wrapper = NavigationAndQueryClientWrapper
 
 describe('TransactionDetails', () => {
+  const renderer = createRenderer()
   it('renders correctly', () => {
-    const { toJSON } = render(<TransactionDetails />, { wrapper })
-    expect(toJSON()).toMatchSnapshot()
+    renderer.render(<TransactionDetails />, { wrapper })
+    expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
 })
