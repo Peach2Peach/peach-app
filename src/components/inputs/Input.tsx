@@ -155,7 +155,7 @@ export const Input = ({
       )}
       <View
         style={[
-          tw`flex flex-row items-center justify-between w-full px-3`,
+          tw`flex flex-row items-center justify-between w-full px-3 gap-1`,
           tw`overflow-hidden border rounded-xl`,
           disabled ? colors.bgDisabled : colors.bg,
           disabled ? colors.borderDisabled : colors.border,
@@ -167,7 +167,7 @@ export const Input = ({
       >
         <TextInput
           style={[
-            tw`flex-shrink w-full h-10 py-0 input-text`,
+            tw`flex-shrink w-full h-10 py-0 input-text `,
             value ? colors.text : colors.placeholder,
             showError && colors.textError,
             !showError && tw`border border-transparent`,
@@ -196,12 +196,12 @@ export const Input = ({
             ...inputProps,
           }}
         />
-        <View style={tw`flex flex-row`}>
+        <View style={tw`flex flex-row gap-4`}>
           {inputIcons.map(([icon, action], index) => (
             <Pressable onPress={action} key={`inputIcon-${icon}-${index}`}>
               <Icon
                 id={icon}
-                style={tw`w-5 h-5 ml-4`}
+                style={tw`w-5 h-5`}
                 color={!!iconColor ? iconColor : showError ? colors.textError.color : colors.text.color}
               />
             </Pressable>
