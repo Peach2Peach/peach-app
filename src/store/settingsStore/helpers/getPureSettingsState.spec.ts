@@ -1,5 +1,5 @@
-import { defaultSettings } from '../defaults'
-import { useSettingsStore } from '../settingsStore'
+import { defaultSettings } from '../defaultSettings'
+import { useSettingsStore } from '../useSettingsStore'
 import { getPureSettingsState } from './getPureSettingsState'
 
 describe('getPureSettingsState', () => {

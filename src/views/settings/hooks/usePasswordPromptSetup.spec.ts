@@ -2,15 +2,7 @@ import { act, renderHook } from '@testing-library/react-native'
 import { Keyboard } from 'react-native'
 import { usePasswordPromptSetup } from './usePasswordPromptSetup'
 import { NavigationWrapper, navigateMock, headerState } from '../../../../tests/unit/helpers/NavigationWrapper'
-
-const setShowBackupReminderMock = jest.fn()
-const setLastFileBackupDateMock = jest.fn()
-const useSettingsStoreMock = jest.fn((selector, _compareFn) =>
-  selector({ setShowBackupReminder: setShowBackupReminderMock, setLastFileBackupDate: setLastFileBackupDateMock }),
-)
-jest.mock('../../../store/settingsStore', () => ({
-  useSettingsStore: (selector: any, compareFn: any) => useSettingsStoreMock(selector, compareFn),
-}))
+import { useSettingsStore } from '../../../store/settingsStore'
 
 const backupAccountMock = jest.fn()
 jest.mock('../../../utils/account', () => ({
@@ -102,7 +94,7 @@ describe('startAccountBackup', () => {
       result.current.startAccountBackup()
     })
 
-    expect(setLastFileBackupDateMock).toHaveBeenCalledWith(now.getTime())
+    expect(useSettingsStore.getState().lastFileBackupDate).toBe(now.getTime())
   })
 
   it('should set the show backup reminder to false', () => {
@@ -115,7 +107,7 @@ describe('startAccountBackup', () => {
       result.current.startAccountBackup()
     })
 
-    expect(setShowBackupReminderMock).toHaveBeenCalledWith(false)
+    expect(useSettingsStore.getState().showBackupReminder).toBeFalsy()
   })
 
   it('should call backupAccount with the password', () => {

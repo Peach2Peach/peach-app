@@ -11,7 +11,7 @@ import { useContractPopupEvents } from './eventHandler/contract/useContractPopup
 import { getContract } from '../../utils/contract'
 import { AppState } from 'react-native'
 
-export const useMessageHandler = (getCurrentPage: () => keyof RootStackParamList | undefined) => {
+export const useMessageHandler = (currentPage: keyof RootStackParamList | undefined) => {
   const [, updateMessage] = useContext(MessageContext)
   const getPNActionHandler = useGetPNActionHandler()
   const overlayEvents = useOverlayEvents()
@@ -21,7 +21,7 @@ export const useMessageHandler = (getCurrentPage: () => keyof RootStackParamList
 
   const onMessageHandler = useCallback(
     async (remoteMessage: FirebaseMessagingTypes.RemoteMessage): Promise<void> => {
-      info(`A new FCM message arrived! ${JSON.stringify(remoteMessage)}`, `currentPage ${getCurrentPage()}`)
+      info(`A new FCM message arrived! ${JSON.stringify(remoteMessage)}`, `currentPage ${currentPage}`)
       if (!remoteMessage.data) return
 
       const data = remoteMessage.data as unknown as PNData
@@ -53,7 +53,7 @@ export const useMessageHandler = (getCurrentPage: () => keyof RootStackParamList
     },
     [
       contractPopupEvents,
-      getCurrentPage,
+      currentPage,
       getPNActionHandler,
       offerPopupEvents,
       overlayEvents,

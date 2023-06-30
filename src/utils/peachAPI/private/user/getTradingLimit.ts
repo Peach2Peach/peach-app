@@ -16,5 +16,12 @@ export const getTradingLimit = async ({ timeout }: RequestProps) => {
     signal: timeout ? getAbortWithTimeout(timeout).signal : undefined,
   })
 
-  return parseResponse<TradingLimit>(response, 'getTradingLimit')
+  const parsedResponse = await parseResponse<TradingLimit>(response, 'getTradingLimit')
+
+  if (!parsedResponse[0]) return parsedResponse
+  if (parsedResponse[0].daily === null) parsedResponse[0].daily = Infinity
+  if (parsedResponse[0].monthlyAnonymous === null) parsedResponse[0].monthlyAnonymous = Infinity
+  if (parsedResponse[0].yearly === null) parsedResponse[0].yearly = Infinity
+
+  return parsedResponse
 }

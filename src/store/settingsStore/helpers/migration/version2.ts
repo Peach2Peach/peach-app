@@ -1,6 +1,5 @@
-import { SettingsStore } from '../../settingsStore'
-import { SettingsVersion0, shouldMigrateToVersion1, version0 } from './version0'
-import { SettingsVersion1, shouldMigrateToVersion2, version1 } from './version1'
+import { info } from '../../../../utils/log'
+import { SettingsVersion3 } from './migrateSettings'
 
 export type SettingsVersion2 = {
   appVersion: string
@@ -31,14 +30,17 @@ export type SettingsVersion2 = {
   lastBackupDate?: number
 }
 
-export const migrateSettings = (persistedState: unknown, version: number) => {
-  let migratedState = persistedState as SettingsVersion0 | SettingsVersion1 | SettingsVersion2
-  if (shouldMigrateToVersion1(migratedState, version)) {
-    migratedState = version0(migratedState)
-  }
-  if (shouldMigrateToVersion2(migratedState, version)) {
-    migratedState = version1(migratedState)
-  }
+export const shouldMigrateToVersion3 = (
+  _persistedState: unknown,
+  version: number,
+): _persistedState is SettingsVersion2 => version < 3
 
-  return migratedState as SettingsStore
+export const version2 = (migratedState: SettingsVersion2): SettingsVersion3 => {
+  info('settingsStore - migrating from version 2')
+  delete migratedState.lastBackupDate
+  return {
+    ...migratedState,
+    shouldShowBackupOverlay:
+      migratedState.shouldShowBackupOverlay && Object.values(migratedState.shouldShowBackupOverlay).includes(true),
+  }
 }

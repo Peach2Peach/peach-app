@@ -29,12 +29,6 @@ jest.mock('../../../hooks/query/useOfferDetails', () => ({
   useOfferDetails: () => useOfferDetailsMock(),
 }))
 
-const apiSuccess = { success: true }
-const confirmEscrowMock = jest.fn().mockResolvedValue([apiSuccess, null])
-jest.mock('../../../utils/peachAPI', () => ({
-  confirmEscrow: (...args: any[]) => confirmEscrowMock(...args),
-}))
-
 jest.useFakeTimers()
 
 describe('useWrongFundingAmountSetup', () => {
@@ -42,9 +36,6 @@ describe('useWrongFundingAmountSetup', () => {
     useOfferDetailsMock.mockReturnValueOnce({ offer: undefined })
     const { result } = renderHook(useWrongFundingAmountSetup, { wrapper })
     expect(result.current).toEqual({
-      actualAmount: 0,
-      confirmEscrow: expect.any(Function),
-      fundingAmount: 0,
       sellOffer: undefined,
     })
   })
@@ -52,9 +43,6 @@ describe('useWrongFundingAmountSetup', () => {
     const { result } = renderHook(useWrongFundingAmountSetup, { wrapper })
     await waitFor(() => expect(result.current.sellOffer).toBeDefined())
     expect(result.current).toEqual({
-      actualAmount: wronglyFundedSellOffer.funding.amounts[0],
-      confirmEscrow: expect.any(Function),
-      fundingAmount: wronglyFundedSellOffer.amount,
       sellOffer: wronglyFundedSellOffer,
     })
   })
@@ -62,17 +50,5 @@ describe('useWrongFundingAmountSetup', () => {
   it('sets up header correctly', () => {
     renderHook(useWrongFundingAmountSetup, { wrapper })
     expect(headerState.header()).toMatchSnapshot()
-  })
-
-  it('confirms escrow', async () => {
-    const { result } = renderHook(useWrongFundingAmountSetup, { wrapper })
-    await result.current.confirmEscrow()
-    expect(confirmEscrowMock).toHaveBeenCalledWith({ offerId: wronglyFundedSellOffer.id })
-  })
-  it('shows error banner when sell offer is not known', async () => {
-    useOfferDetailsMock.mockReturnValueOnce({ offer: undefined })
-    const { result } = renderHook(useWrongFundingAmountSetup, { wrapper })
-    await result.current.confirmEscrow()
-    expect(showErrorBannerMock).toHaveBeenCalledWith()
   })
 })
