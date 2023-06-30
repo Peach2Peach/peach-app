@@ -1,11 +1,11 @@
-import { useShowBackupReminder } from './useShowBackupReminder'
+import { useShouldShowBackupReminder } from './useShouldShowBackupReminder'
 import { renderHook } from '@testing-library/react-native'
 import { useSettingsStore } from '../store/settingsStore'
 import { MSINAMONTH } from '../constants'
 
 const now = new Date('2021-07-12T13:00:00.000Z').valueOf()
 jest.spyOn(global.Date, 'now').mockImplementation(() => now)
-describe('useShowBackupReminder', () => {
+describe('useShouldShowBackupReminder', () => {
   beforeEach(() => {
     useSettingsStore.setState({
       lastFileBackupDate: undefined,
@@ -18,7 +18,7 @@ describe('useShowBackupReminder', () => {
     useSettingsStore.setState({
       lastFileBackupDate: now - MSINAMONTH,
     })
-    renderHook(useShowBackupReminder)
+    renderHook(useShouldShowBackupReminder)
     expect(useSettingsStore.getState().showBackupReminder).toBe(true)
   })
 
@@ -28,7 +28,7 @@ describe('useShowBackupReminder', () => {
       lastFileBackupDate: now - MSINAMONTH,
       showBackupReminder: true,
     })
-    renderHook(useShowBackupReminder)
+    renderHook(useShouldShowBackupReminder)
 
     expect(useSettingsStore.getState().setShowBackupReminder).not.toHaveBeenCalled()
   })
@@ -37,7 +37,7 @@ describe('useShowBackupReminder', () => {
     useSettingsStore.setState({
       lastFileBackupDate: now - MSINAMONTH + 1,
     })
-    renderHook(useShowBackupReminder)
+    renderHook(useShouldShowBackupReminder)
     expect(useSettingsStore.getState().showBackupReminder).toBe(false)
   })
 })

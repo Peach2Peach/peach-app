@@ -1,5 +1,5 @@
 import { shallow } from 'zustand/shallow'
-import { useMarketPrices, useUpdateTradingAmounts, useShowBackupReminder } from './hooks'
+import { useMarketPrices, useUpdateTradingAmounts, useShouldShowBackupReminder } from './hooks'
 import { useMessageHandler } from './hooks/notifications/useMessageHandler'
 import { useBitcoinStore } from './store/bitcoinStore'
 import { useSettingsStore } from './store/settingsStore'
@@ -22,7 +22,7 @@ export const GlobalHandlers = ({ currentPage }: Props) => {
   const [setPrices, setCurrency] = useBitcoinStore((state) => [state.setPrices, state.setCurrency], shallow)
   const { data: prices } = useMarketPrices()
 
-  useShowBackupReminder()
+  useShouldShowBackupReminder()
   useInitialNavigation()
   useShowUpdateAvailable()
 
