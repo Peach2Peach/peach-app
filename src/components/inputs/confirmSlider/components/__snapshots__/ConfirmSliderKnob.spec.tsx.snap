@@ -1,0 +1,149 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ConfirmSliderKnob renders correctly 1`] = `
+<ForwardRef(AnimatedComponentWrapper)
+  style={
+    [
+      {
+        "backgroundColor": "rgba(245, 101, 34, 1)",
+        "width": 40,
+      },
+      {
+        "alignItems": "center",
+        "borderRadius": 9999,
+        "display": "flex",
+        "flexDirection": "row",
+        "gap": 2,
+        "height": 24,
+        "justifyContent": "center",
+      },
+      {
+        "gap": 4,
+        "height": 32,
+      },
+    ]
+  }
+>
+  <Icon
+    color="#FFF9F6"
+    id="checkCircle"
+    size={19}
+  />
+  <Icon
+    color="#FFF9F6"
+    id="chevronsRight"
+    size={19}
+  />
+</ForwardRef(AnimatedComponentWrapper)>
+`;
+
+exports[`ConfirmSliderKnob renders when disabled 1`] = `
+<ForwardRef(AnimatedComponentWrapper)
+  style={
+    [
+      {
+        "backgroundColor": "#BAADA7",
+        "width": 40,
+      },
+      {
+        "alignItems": "center",
+        "borderRadius": 9999,
+        "display": "flex",
+        "flexDirection": "row",
+        "gap": 2,
+        "height": 24,
+        "justifyContent": "center",
+      },
+      {
+        "gap": 4,
+        "height": 32,
+      },
+    ]
+  }
+>
+  <Icon
+    color="#FFF9F6"
+    id="slash"
+    size={19}
+  />
+  <Icon
+    color="#FFF9F6"
+    id="chevronsRight"
+    size={19}
+  />
+</ForwardRef(AnimatedComponentWrapper)>
+`;
+
+exports[`ConfirmSliderKnob renders when slided to 80% 1`] = `
+<ForwardRef(AnimatedComponentWrapper)
+  style={
+    [
+      {
+        "backgroundColor": "rgba(245, 101, 34, 1)",
+        "width": 40,
+      },
+      {
+        "alignItems": "center",
+        "borderRadius": 9999,
+        "display": "flex",
+        "flexDirection": "row",
+        "gap": 2,
+        "height": 24,
+        "justifyContent": "center",
+      },
+      {
+        "gap": 4,
+        "height": 32,
+      },
+    ]
+  }
+>
+  <Icon
+    color="#FFF9F6"
+    id="checkCircle"
+    size={19}
+  />
+  <Icon
+    color="#FFF9F6"
+    id="chevronsRight"
+    size={19}
+  />
+</ForwardRef(AnimatedComponentWrapper)>
+`;
+
+exports[`ConfirmSliderKnob renders when slided to the end 1`] = `
+<ForwardRef(AnimatedComponentWrapper)
+  style={
+    [
+      {
+        "backgroundColor": "rgba(5, 168, 90, 1)",
+        "width": 40,
+      },
+      {
+        "alignItems": "center",
+        "borderRadius": 9999,
+        "display": "flex",
+        "flexDirection": "row",
+        "gap": 2,
+        "height": 24,
+        "justifyContent": "center",
+      },
+      {
+        "gap": 4,
+        "height": 32,
+      },
+    ]
+  }
+>
+  <Icon
+    color="#FFF9F6"
+    id="checkCircle"
+    size={19}
+  />
+  <Icon
+    color="#FFF9F6"
+    id="chevronsRight"
+    size={19}
+  />
+</ForwardRef(AnimatedComponentWrapper)>
+`;

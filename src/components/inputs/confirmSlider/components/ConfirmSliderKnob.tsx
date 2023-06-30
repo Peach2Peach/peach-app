@@ -3,6 +3,7 @@ import { IconType } from '../../../../assets/icons'
 import tw from '../../../../styles/tailwind'
 import Icon from '../../../Icon'
 import { getBackgroundColor } from '../helpers/getBackgroundColor'
+import { useIsMediumScreen } from '../../../../hooks'
 
 type Props = {
   disabled?: boolean
@@ -14,8 +15,9 @@ type Props = {
 export const ConfirmSliderKnob = ({ disabled, pan, iconId, knobWidth }: Props) => {
   const icon = {
     color: tw`text-primary-background`.color,
-    size: [tw`w-4 h-4`, tw.md`w-[19px] h-[19px]`],
+    size: useIsMediumScreen() ? 19 : 16,
   }
+
   return (
     <Animated.View
       style={[
@@ -27,8 +29,8 @@ export const ConfirmSliderKnob = ({ disabled, pan, iconId, knobWidth }: Props) =
         tw.md`h-8 gap-1`,
       ]}
     >
-      <Icon id={disabled ? 'slash' : iconId} style={icon.size} color={icon.color} />
-      <Icon id="chevronsRight" style={icon.size} color={icon.color} />
+      <Icon id={disabled ? 'slash' : iconId} size={icon.size} color={icon.color} />
+      <Icon id="chevronsRight" size={icon.size} color={icon.color} />
     </Animated.View>
   )
 }
