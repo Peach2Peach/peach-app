@@ -1,9 +1,23 @@
 import { ConfirmSlider } from '../../../components/inputs'
 import i18n from '../../../utils/i18n'
+import { useConfirmEscrow } from '../hooks/useConfirmEscrow'
 
 type Props = {
-  onConfirm: () => void
+  sellOffer?: SellOffer
 }
-export const ContinueTradeSlider = ({ onConfirm }: Props) => (
-  <ConfirmSlider onConfirm={onConfirm} label1={i18n('continueTrade')} iconId="arrowRightCircle" />
-)
+export const ContinueTradeSlider = ({ sellOffer }: Props) => {
+  const confirmEscrow = useConfirmEscrow()
+  const confirmEscrowWithSellOffer = () => {
+    if (!sellOffer) return
+    confirmEscrow(sellOffer)
+  }
+
+  return (
+    <ConfirmSlider
+      disabled={!sellOffer}
+      onConfirm={confirmEscrowWithSellOffer}
+      label1={i18n('continueTrade')}
+      iconId="arrowRightCircle"
+    />
+  )
+}

@@ -2,6 +2,7 @@
 
 exports[`RefundEscrowSlider renders correctly 1`] = `
 <ConfirmSlider
+  disabled={false}
   iconId="download"
   label1="refund escrow"
   onConfirm={[Function]}

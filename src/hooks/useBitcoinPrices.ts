@@ -20,16 +20,16 @@ export const useBitcoinPrices = ({ sats }: Props) => {
   }
 
   const prices = (Object.keys(marketPrices) as Currency[]).reduce((obj, currency) => {
-    const marketPrice = marketPrices[currency] || 0
+    const marketPrice = marketPrices[currency] ?? 0
     obj[currency] = round((marketPrice / SATSINBTC) * sats, 2)
     return obj
   }, {} as Pricebook)
 
   return {
     displayCurrency,
-    displayPrice: prices[displayCurrency] || 0,
+    displayPrice: prices[displayCurrency] ?? 0,
     prices,
-    fullDisplayPrice: marketPrices[displayCurrency] || 0,
+    fullDisplayPrice: marketPrices[displayCurrency] ?? 0,
     fullPrices: marketPrices,
   }
 }

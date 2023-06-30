@@ -3,12 +3,12 @@ import { useShowWronglyFundedPopup } from './useShowWronglyFundedPopup'
 import { WrongFundingAmount } from './warning/WrongFundingAmount'
 import { defaultPopupState, usePopupStore } from '../store/usePopupStore'
 
-const startRefundPopupMock = jest.fn()
-jest.mock('./useStartRefundPopup', () => ({
-  useStartRefundPopup:
+const cancelAndStartRefundPopup = jest.fn()
+jest.mock('./useCancelAndStartRefundPopup', () => ({
+  useCancelAndStartRefundPopup:
     () =>
       (...args: any[]) =>
-        startRefundPopupMock(...args),
+        cancelAndStartRefundPopup(...args),
 }))
 
 const useConfigStoreMock = jest.fn((selector) => selector({ maxTradingAmount: 2000000 }))
@@ -68,6 +68,6 @@ describe('useShowWronglyFundedPopup', () => {
       result.current(sellOffer as SellOffer)
     })
     usePopupStore.getState().action1?.callback()
-    expect(startRefundPopupMock).toHaveBeenCalledWith(sellOffer)
+    expect(cancelAndStartRefundPopup).toHaveBeenCalledWith(sellOffer)
   })
 })
