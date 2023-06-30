@@ -10,8 +10,8 @@ import { screens } from '../components/backups/SeedPhrase'
 export const useSeedBackupSetup = () => {
   const showSeedPhrasePopup = useShowHelp('seedPhrase')
 
-  const [setShowBackupReminder, setLastSeedBackupDate, lastSeedBackupDate] = useSettingsStore(
-    (state) => [state.setShowBackupReminder, state.setLastSeedBackupDate, state.lastSeedBackupDate],
+  const [updateSeedBackupDate, lastSeedBackupDate] = useSettingsStore(
+    (state) => [state.updateSeedBackupDate, state.lastSeedBackupDate],
     shallow,
   )
 
@@ -24,8 +24,7 @@ export const useSeedBackupSetup = () => {
   const getCurrentScreen = useCallback(() => screens[currentScreenIndex], [currentScreenIndex])
   const showNextScreen = useCallback(() => {
     if (getCurrentScreen().id === 'keepPhraseSecure') {
-      setLastSeedBackupDate(Date.now())
-      setShowBackupReminder(false)
+      updateSeedBackupDate()
     }
     if (currentScreenIndex < screens.length - 1) {
       setCurrentScreenIndex((prev) => prev + 1)
@@ -33,7 +32,7 @@ export const useSeedBackupSetup = () => {
       setCurrentScreenIndex(0)
       toggleChecked()
     }
-  }, [getCurrentScreen, currentScreenIndex, setLastSeedBackupDate, setShowBackupReminder, toggleChecked])
+  }, [getCurrentScreen, currentScreenIndex, updateSeedBackupDate, toggleChecked])
 
   const goBackToStart = useCallback(() => {
     setCurrentScreenIndex(1)

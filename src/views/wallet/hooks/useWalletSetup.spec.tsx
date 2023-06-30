@@ -6,6 +6,7 @@ import { PeachWallet } from '../../../utils/wallet/PeachWallet'
 import { setPeachWallet } from '../../../utils/wallet/setWallet'
 import { useWalletState } from '../../../utils/wallet/walletStore'
 import { useWalletSetup } from './useWalletSetup'
+import { useSettingsStore } from '../../../store/settingsStore'
 
 describe('useWalletSetup', () => {
   const wrapper = NavigationWrapper
@@ -61,5 +62,27 @@ describe('useWalletSetup', () => {
       title: 'sending funds',
       content: <WithdrawingFundsHelp />,
     })
+  })
+  it('should navigate to backupTime if balance is bigger than 0 & showBackupReminder is false', async () => {
+    useWalletState.getState().setBalance(1)
+    useSettingsStore.setState({
+      showBackupReminder: false,
+      shouldShowBackupOverlay: true,
+    })
+    const { result } = renderHook(useWalletSetup, { wrapper, initialProps })
+
+    expect(navigateMock).toHaveBeenCalledWith('backupTime', { nextScreen: 'wallet' })
+    await waitFor(() => expect(result.current.walletLoading).toBeFalsy())
+  })
+  it('should not navigate to backupTime if balance is bigger than 0 & showBackupReminder is already true', async () => {
+    useWalletState.getState().setBalance(1)
+    useSettingsStore.setState({
+      showBackupReminder: true,
+      shouldShowBackupOverlay: true,
+    })
+    const { result } = renderHook(useWalletSetup, { wrapper, initialProps })
+
+    expect(navigateMock).not.toHaveBeenCalled()
+    await waitFor(() => expect(result.current.walletLoading).toBeFalsy())
   })
 })

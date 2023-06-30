@@ -493,3 +493,13 @@ declare type CheckReferralCodeResponse = {
 
 declare type RedeemReferralCodeResponseBody = APISuccess & { bonusPoints: User['bonusPoints'] }
 declare type RegisterResponseBody = AccessToken & { restored: boolean }
+
+declare type GetRefundPSBTResponseBody =
+  | {
+      psbt: string
+      returnAddress: string
+      amount: number
+      fees: number
+      satsPerByte: number
+    }
+  | APIError<'UNAUTHORIZED' | 'TRANSACTION_INVALID' | 'NOT_FOUND'>

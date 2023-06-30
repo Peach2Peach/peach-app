@@ -4,6 +4,7 @@ import { MSINANHOUR } from '../../../constants'
 import { account1 } from '../../../../tests/unit/data/accountData'
 import { act } from 'react-test-renderer'
 import { getPeachAccount } from '../../../utils/peachAPI/peachAccount'
+import { useSettingsStore } from '../../../store/settingsStore'
 
 jest.useFakeTimers()
 
@@ -64,6 +65,30 @@ describe('useRestoreFromFileSetup', () => {
     expect(storeAccountMock).toHaveBeenCalledWith(account1)
     expect(getPeachAccount()?.privateKey?.toString('hex')).toBe(
       '62233e988e4ca00c3b346b4753c7dc316f6ce39280410072ddab298f36a7fe64',
+    )
+  })
+  it('updates the last file backup date after restoring', async () => {
+    jest.spyOn(Date, 'now').mockReturnValue(123456789)
+    const { result } = renderHook(useRestoreFromFileSetup)
+    act(() => {
+      result.current.setFile({
+        name: '',
+        content: encryptedAccount,
+      })
+      result.current.setPassword(password)
+    })
+    act(() => {
+      result.current.submit()
+    })
+    await waitFor(() => {
+      expect(result.current.restored).toBeTruthy()
+    })
+    expect(useSettingsStore.getState()).toEqual(
+      expect.objectContaining({
+        lastFileBackupDate: Date.now(),
+        shouldShowBackupOverlay: false,
+        showBackupReminder: false,
+      }),
     )
   })
 })

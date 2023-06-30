@@ -2,11 +2,12 @@ import analytics from '@react-native-firebase/analytics'
 import perf from '@react-native-firebase/perf'
 import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
-import { createStorage, toZustandStorage } from '../utils/storage'
-import { defaultSettings } from './defaults'
+import { toZustandStorage } from '../../utils/storage'
+import { defaultSettings } from './defaultSettings'
 import { getPureSettingsState } from './helpers/getPureSettingsState'
-import { Locale } from '../utils/i18n'
+import { Locale } from '../../utils/i18n'
 import { migrateSettings } from './helpers/migration'
+import { settingsStorage } from './settingsStorage'
 
 export type SettingsStore = Settings & {
   migrated?: boolean
@@ -23,12 +24,10 @@ export type SettingsStore = Settings & {
   setLocale: (locale: Locale) => void
   setDisplayCurrency: (displayCurrency: Currency) => void
   setLastSeedBackupDate: (lastSeedBackupDate: number) => void
+  updateSeedBackupDate: () => void
   setLastFileBackupDate: (lastFileBackupDate: number) => void
+  updateFileBackupDate: () => void
   setShowBackupReminder: (showBackupReminder: boolean) => void
-  setShouldShowBackupOverlay: (
-    type: 'completedBuyOffer' | 'refundedEscrow' | 'bitcoinReceived',
-    shouldShow?: boolean
-  ) => void
   setPeachWalletActive: (peachWalletActive: boolean) => void
   togglePeachWallet: () => void
   setFeeRate: (feeRate: number | 'fastestFee' | 'halfHourFee' | 'hourFee' | 'economyFee') => void
@@ -36,8 +35,6 @@ export type SettingsStore = Settings & {
   setPGPPublished: (pgpPublished: boolean) => void
   setFCMToken: (fcmToken: string) => void
 }
-
-export const settingsStorage = createStorage('settings')
 
 export const useSettingsStore = create(
   persist<SettingsStore>(
@@ -57,7 +54,7 @@ export const useSettingsStore = create(
         analytics().setAnalyticsCollectionEnabled(enableAnalytics)
         perf().setPerformanceCollectionEnabled(enableAnalytics)
 
-        set((state) => ({ ...state, enableAnalytics }))
+        set({ enableAnalytics })
       },
       toggleAnalytics: () => get().setEnableAnalytics(!get().enableAnalytics),
       setAnalyticsPopupSeen: (analyticsPopupSeen) => set({ analyticsPopupSeen }),
@@ -67,10 +64,13 @@ export const useSettingsStore = create(
       setLocale: (locale) => set({ locale }),
       setDisplayCurrency: (displayCurrency) => set({ displayCurrency }),
       setLastFileBackupDate: (lastFileBackupDate) => set({ lastFileBackupDate }),
+      updateFileBackupDate: () =>
+        set({ lastFileBackupDate: Date.now(), shouldShowBackupOverlay: false, showBackupReminder: false }),
       setLastSeedBackupDate: (lastSeedBackupDate) => set({ lastSeedBackupDate }),
-      setShowBackupReminder: (showBackupReminder) => set({ showBackupReminder }),
-      setShouldShowBackupOverlay: (type, shouldShow) =>
-        set((state) => ({ shouldShowBackupOverlay: { ...state.shouldShowBackupOverlay, [type]: shouldShow } })),
+      updateSeedBackupDate: () =>
+        set({ lastSeedBackupDate: Date.now(), shouldShowBackupOverlay: false, showBackupReminder: false }),
+      setShowBackupReminder: (showBackupReminder) =>
+        set({ showBackupReminder, shouldShowBackupOverlay: showBackupReminder }),
       setPeachWalletActive: (peachWalletActive) => set({ peachWalletActive }),
       togglePeachWallet: () => get().setPeachWalletActive(!get().peachWalletActive),
       setFeeRate: (feeRate) => set({ feeRate }),
@@ -80,7 +80,7 @@ export const useSettingsStore = create(
     }),
     {
       name: 'settings',
-      version: 2,
+      version: 3,
       migrate: migrateSettings,
       storage: createJSONStorage(() => toZustandStorage(settingsStorage)),
     },
