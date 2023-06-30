@@ -59,92 +59,29 @@ exports[`ConfirmSlider renders correctly 1`] = `
         ]
       }
     >
-      <ForwardRef(AnimatedComponentWrapper)
-        style={
-          [
-            {
-              "position": "absolute",
-              "right": "100%",
-            },
-            {
-              "opacity": 0,
-              "width": 204,
-            },
-          ]
-        }
-      >
-        <ConfirmSliderLabel>
-          label2
-        </ConfirmSliderLabel>
-      </ForwardRef(AnimatedComponentWrapper)>
-      <ForwardRef(AnimatedComponentWrapper)
-        style={
-          [
-            {
-              "backgroundColor": "rgba(245, 101, 34, 1)",
-              "width": 56,
-            },
-            {
-              "alignItems": "center",
-              "borderRadius": 9999,
-              "display": "flex",
-              "flexDirection": "row",
-              "gap": 2,
-              "height": 24,
-              "justifyContent": "center",
-            },
-            {
-              "gap": 4,
-              "height": 32,
-            },
-          ]
-        }
-      >
-        <Icon
-          color="#FFF9F6"
-          id="checkCircle"
-          style={
-            [
-              {
-                "height": 16,
-                "width": 16,
-              },
-              {
-                "height": 19,
-                "width": 19,
-              },
-            ]
-          }
-        />
-        <Icon
-          color="#FFF9F6"
-          id="chevronsRight"
-          style={
-            [
-              {
-                "height": 16,
-                "width": 16,
-              },
-              {
-                "height": 19,
-                "width": 19,
-              },
-            ]
-          }
-        />
-      </ForwardRef(AnimatedComponentWrapper)>
-      <ForwardRef(AnimatedComponentWrapper)
+      <ConfirmSliderLabel
+        opacity={0}
         style={
           {
-            "opacity": 1,
-            "width": 204,
+            "position": "absolute",
+            "right": "100%",
           }
         }
+        width={204}
       >
-        <ConfirmSliderLabel>
-          label1
-        </ConfirmSliderLabel>
-      </ForwardRef(AnimatedComponentWrapper)>
+        label2
+      </ConfirmSliderLabel>
+      <ConfirmSliderKnob
+        iconId="checkCircle"
+        knobWidth={56}
+        pan={0}
+      />
+      <ConfirmSliderLabel
+        opacity={1}
+        width={204}
+      >
+        label1
+      </ConfirmSliderLabel>
     </ForwardRef(AnimatedComponentWrapper)>
   </View>
 </View>
@@ -209,92 +146,30 @@ exports[`ConfirmSlider renders correctly when disabled 1`] = `
         ]
       }
     >
-      <ForwardRef(AnimatedComponentWrapper)
-        style={
-          [
-            {
-              "position": "absolute",
-              "right": "100%",
-            },
-            {
-              "opacity": 0,
-              "width": 204,
-            },
-          ]
-        }
-      >
-        <ConfirmSliderLabel>
-          label2
-        </ConfirmSliderLabel>
-      </ForwardRef(AnimatedComponentWrapper)>
-      <ForwardRef(AnimatedComponentWrapper)
-        style={
-          [
-            {
-              "backgroundColor": "#BAADA7",
-              "width": 56,
-            },
-            {
-              "alignItems": "center",
-              "borderRadius": 9999,
-              "display": "flex",
-              "flexDirection": "row",
-              "gap": 2,
-              "height": 24,
-              "justifyContent": "center",
-            },
-            {
-              "gap": 4,
-              "height": 32,
-            },
-          ]
-        }
-      >
-        <Icon
-          color="#FFF9F6"
-          id="slash"
-          style={
-            [
-              {
-                "height": 16,
-                "width": 16,
-              },
-              {
-                "height": 19,
-                "width": 19,
-              },
-            ]
-          }
-        />
-        <Icon
-          color="#FFF9F6"
-          id="chevronsRight"
-          style={
-            [
-              {
-                "height": 16,
-                "width": 16,
-              },
-              {
-                "height": 19,
-                "width": 19,
-              },
-            ]
-          }
-        />
-      </ForwardRef(AnimatedComponentWrapper)>
-      <ForwardRef(AnimatedComponentWrapper)
+      <ConfirmSliderLabel
+        opacity={0}
         style={
           {
-            "opacity": 1,
-            "width": 204,
+            "position": "absolute",
+            "right": "100%",
           }
         }
+        width={204}
       >
-        <ConfirmSliderLabel>
-          label1
-        </ConfirmSliderLabel>
-      </ForwardRef(AnimatedComponentWrapper)>
+        label2
+      </ConfirmSliderLabel>
+      <ConfirmSliderKnob
+        disabled={true}
+        iconId="checkCircle"
+        knobWidth={56}
+        pan={0}
+      />
+      <ConfirmSliderLabel
+        opacity={1}
+        width={204}
+      >
+        label1
+      </ConfirmSliderLabel>
     </ForwardRef(AnimatedComponentWrapper)>
   </View>
 </View>
@@ -359,92 +234,29 @@ exports[`ConfirmSlider renders with different icon 1`] = `
         ]
       }
     >
-      <ForwardRef(AnimatedComponentWrapper)
-        style={
-          [
-            {
-              "position": "absolute",
-              "right": "100%",
-            },
-            {
-              "opacity": 0,
-              "width": 204,
-            },
-          ]
-        }
-      >
-        <ConfirmSliderLabel>
-          label2
-        </ConfirmSliderLabel>
-      </ForwardRef(AnimatedComponentWrapper)>
-      <ForwardRef(AnimatedComponentWrapper)
-        style={
-          [
-            {
-              "backgroundColor": "rgba(245, 101, 34, 1)",
-              "width": 56,
-            },
-            {
-              "alignItems": "center",
-              "borderRadius": 9999,
-              "display": "flex",
-              "flexDirection": "row",
-              "gap": 2,
-              "height": 24,
-              "justifyContent": "center",
-            },
-            {
-              "gap": 4,
-              "height": 32,
-            },
-          ]
-        }
-      >
-        <Icon
-          color="#FFF9F6"
-          id="award"
-          style={
-            [
-              {
-                "height": 16,
-                "width": 16,
-              },
-              {
-                "height": 19,
-                "width": 19,
-              },
-            ]
-          }
-        />
-        <Icon
-          color="#FFF9F6"
-          id="chevronsRight"
-          style={
-            [
-              {
-                "height": 16,
-                "width": 16,
-              },
-              {
-                "height": 19,
-                "width": 19,
-              },
-            ]
-          }
-        />
-      </ForwardRef(AnimatedComponentWrapper)>
-      <ForwardRef(AnimatedComponentWrapper)
+      <ConfirmSliderLabel
+        opacity={0}
         style={
           {
-            "opacity": 1,
-            "width": 204,
+            "position": "absolute",
+            "right": "100%",
           }
         }
+        width={204}
       >
-        <ConfirmSliderLabel>
-          label1
-        </ConfirmSliderLabel>
-      </ForwardRef(AnimatedComponentWrapper)>
+        label2
+      </ConfirmSliderLabel>
+      <ConfirmSliderKnob
+        iconId="award"
+        knobWidth={56}
+        pan={0}
+      />
+      <ConfirmSliderLabel
+        opacity={1}
+        width={204}
+      >
+        label1
+      </ConfirmSliderLabel>
     </ForwardRef(AnimatedComponentWrapper)>
   </View>
 </View>
