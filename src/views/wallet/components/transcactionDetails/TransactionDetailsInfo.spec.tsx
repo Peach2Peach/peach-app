@@ -28,6 +28,8 @@ jest.mock('../../hooks/useTransactionDetailsInfoSetup', () => ({
   useTransactionDetailsInfoSetup: (...args: any[]) => useTransactionDetailsInfoSetupMock(...args),
 }))
 
+jest.useFakeTimers()
+
 describe('TransactionDetailsInfo', () => {
   const renderer = createRenderer()
   it('should render correctly for a pending transaction', () => {
