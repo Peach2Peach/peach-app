@@ -9,6 +9,9 @@ exports[`TransactionHeader should render correctly buy trade 1`] = `
         "flexDirection": "row",
         "gap": 16,
       },
+      {
+        "alignItems": "flex-end",
+      },
       undefined,
     ]
   }
@@ -29,6 +32,7 @@ exports[`TransactionHeader should render correctly buy trade 1`] = `
     style={
       {
         "alignItems": "flex-start",
+        "flexShrink": 1,
       }
     }
   >
@@ -43,12 +47,20 @@ exports[`TransactionHeader should render correctly buy trade 1`] = `
             "letterSpacing": 0.16,
             "lineHeight": 24,
           },
-          {
-            "fontFamily": "Baloo2-Bold",
-            "fontSize": 24,
-            "letterSpacing": 0.24,
-            "lineHeight": 32,
-          },
+          [
+            {
+              "fontFamily": "Baloo2-Bold",
+              "fontSize": 20,
+              "letterSpacing": 0.2,
+              "lineHeight": 32,
+            },
+            {
+              "fontFamily": "Baloo2-Bold",
+              "fontSize": 24,
+              "letterSpacing": 0.24,
+              "lineHeight": 32,
+            },
+          ],
         ]
       }
     >
@@ -156,6 +168,9 @@ exports[`TransactionHeader should render correctly for a funding escrow transact
         "flexDirection": "row",
         "gap": 16,
       },
+      {
+        "alignItems": "flex-end",
+      },
       undefined,
     ]
   }
@@ -176,6 +191,7 @@ exports[`TransactionHeader should render correctly for a funding escrow transact
     style={
       {
         "alignItems": "flex-start",
+        "flexShrink": 1,
       }
     }
   >
@@ -190,12 +206,20 @@ exports[`TransactionHeader should render correctly for a funding escrow transact
             "letterSpacing": 0.16,
             "lineHeight": 24,
           },
-          {
-            "fontFamily": "Baloo2-Bold",
-            "fontSize": 24,
-            "letterSpacing": 0.24,
-            "lineHeight": 32,
-          },
+          [
+            {
+              "fontFamily": "Baloo2-Bold",
+              "fontSize": 20,
+              "letterSpacing": 0.2,
+              "lineHeight": 32,
+            },
+            {
+              "fontFamily": "Baloo2-Bold",
+              "fontSize": 24,
+              "letterSpacing": 0.24,
+              "lineHeight": 32,
+            },
+          ],
         ]
       }
     >
@@ -303,6 +327,9 @@ exports[`TransactionHeader should render correctly for a funding escrow transact
         "flexDirection": "row",
         "gap": 16,
       },
+      {
+        "alignItems": "flex-end",
+      },
       undefined,
     ]
   }
@@ -323,6 +350,7 @@ exports[`TransactionHeader should render correctly for a funding escrow transact
     style={
       {
         "alignItems": "flex-start",
+        "flexShrink": 1,
       }
     }
   >
@@ -337,12 +365,20 @@ exports[`TransactionHeader should render correctly for a funding escrow transact
             "letterSpacing": 0.16,
             "lineHeight": 24,
           },
-          {
-            "fontFamily": "Baloo2-Bold",
-            "fontSize": 24,
-            "letterSpacing": 0.24,
-            "lineHeight": 32,
-          },
+          [
+            {
+              "fontFamily": "Baloo2-Bold",
+              "fontSize": 20,
+              "letterSpacing": 0.2,
+              "lineHeight": 32,
+            },
+            {
+              "fontFamily": "Baloo2-Bold",
+              "fontSize": 24,
+              "letterSpacing": 0.24,
+              "lineHeight": 32,
+            },
+          ],
         ]
       }
     >
@@ -451,6 +487,7 @@ exports[`TransactionHeader should render correctly for a receiving transaction 1
         "gap": 16,
       },
       undefined,
+      undefined,
     ]
   }
 >
@@ -470,6 +507,7 @@ exports[`TransactionHeader should render correctly for a receiving transaction 1
     style={
       {
         "alignItems": "flex-start",
+        "flexShrink": 1,
       }
     }
   >
@@ -484,12 +522,20 @@ exports[`TransactionHeader should render correctly for a receiving transaction 1
             "letterSpacing": 0.16,
             "lineHeight": 24,
           },
-          {
-            "fontFamily": "Baloo2-Bold",
-            "fontSize": 24,
-            "letterSpacing": 0.24,
-            "lineHeight": 32,
-          },
+          [
+            {
+              "fontFamily": "Baloo2-Bold",
+              "fontSize": 20,
+              "letterSpacing": 0.2,
+              "lineHeight": 32,
+            },
+            {
+              "fontFamily": "Baloo2-Bold",
+              "fontSize": 24,
+              "letterSpacing": 0.24,
+              "lineHeight": 32,
+            },
+          ],
         ]
       }
     >
@@ -507,6 +553,9 @@ exports[`TransactionHeader should render correctly for a refund transaction 1`] 
         "alignItems": "center",
         "flexDirection": "row",
         "gap": 16,
+      },
+      {
+        "alignItems": "flex-end",
       },
       undefined,
     ]
@@ -528,6 +577,7 @@ exports[`TransactionHeader should render correctly for a refund transaction 1`] 
     style={
       {
         "alignItems": "flex-start",
+        "flexShrink": 1,
       }
     }
   >
@@ -542,12 +592,20 @@ exports[`TransactionHeader should render correctly for a refund transaction 1`] 
             "letterSpacing": 0.16,
             "lineHeight": 24,
           },
-          {
-            "fontFamily": "Baloo2-Bold",
-            "fontSize": 24,
-            "letterSpacing": 0.24,
-            "lineHeight": 32,
-          },
+          [
+            {
+              "fontFamily": "Baloo2-Bold",
+              "fontSize": 20,
+              "letterSpacing": 0.2,
+              "lineHeight": 32,
+            },
+            {
+              "fontFamily": "Baloo2-Bold",
+              "fontSize": 24,
+              "letterSpacing": 0.24,
+              "lineHeight": 32,
+            },
+          ],
         ]
       }
     >
@@ -656,6 +714,7 @@ exports[`TransactionHeader should render correctly for an outgoing transaction 1
         "gap": 16,
       },
       undefined,
+      undefined,
     ]
   }
 >
@@ -675,6 +734,7 @@ exports[`TransactionHeader should render correctly for an outgoing transaction 1
     style={
       {
         "alignItems": "flex-start",
+        "flexShrink": 1,
       }
     }
   >
@@ -689,12 +749,20 @@ exports[`TransactionHeader should render correctly for an outgoing transaction 1
             "letterSpacing": 0.16,
             "lineHeight": 24,
           },
-          {
-            "fontFamily": "Baloo2-Bold",
-            "fontSize": 24,
-            "letterSpacing": 0.24,
-            "lineHeight": 32,
-          },
+          [
+            {
+              "fontFamily": "Baloo2-Bold",
+              "fontSize": 20,
+              "letterSpacing": 0.2,
+              "lineHeight": 32,
+            },
+            {
+              "fontFamily": "Baloo2-Bold",
+              "fontSize": 24,
+              "letterSpacing": 0.24,
+              "lineHeight": 32,
+            },
+          ],
         ]
       }
     >
