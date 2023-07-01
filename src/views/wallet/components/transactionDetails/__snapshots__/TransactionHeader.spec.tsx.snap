@@ -32,6 +32,7 @@ exports[`TransactionHeader should render correctly buy trade 1`] = `
     style={
       {
         "alignItems": "flex-start",
+        "flexShrink": 1,
       }
     }
   >
@@ -197,6 +198,7 @@ exports[`TransactionHeader should render correctly for a funding escrow transact
     style={
       {
         "alignItems": "flex-start",
+        "flexShrink": 1,
       }
     }
   >
@@ -362,6 +364,7 @@ exports[`TransactionHeader should render correctly for a funding escrow transact
     style={
       {
         "alignItems": "flex-start",
+        "flexShrink": 1,
       }
     }
   >
@@ -525,6 +528,7 @@ exports[`TransactionHeader should render correctly for a receiving transaction 1
     style={
       {
         "alignItems": "flex-start",
+        "flexShrink": 1,
       }
     }
   >
@@ -594,6 +598,7 @@ exports[`TransactionHeader should render correctly for a refund transaction 1`] 
     style={
       {
         "alignItems": "flex-start",
+        "flexShrink": 1,
       }
     }
   >
@@ -757,6 +762,7 @@ exports[`TransactionHeader should render correctly for an outgoing transaction 1
     style={
       {
         "alignItems": "flex-start",
+        "flexShrink": 1,
       }
     }
   >

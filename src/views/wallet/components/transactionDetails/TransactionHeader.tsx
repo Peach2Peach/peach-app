@@ -21,7 +21,7 @@ export const TransactionHeader = ({ type, offerId, contractId, style }: Props) =
   return (
     <View style={[tw`flex-row items-center gap-4`, tradeId && tw`items-end`, style]}>
       <TransactionIcon type={type} size={isMediumScreen ? 56 : 48} />
-      <View style={tw`items-start`}>
+      <View style={tw`items-start flex-shrink`}>
         <Text style={[tw`h6`, tw.md`h5`]}>{i18n(`wallet.transactionDetails.type.${type}`)}</Text>
         {!!tradeId && (
           <Bubble color="primary-mild" iconId="info" onPress={goToOffer}>
