@@ -85,12 +85,7 @@ export const AddPaymentMethod = () => {
     <View>
       {id === 'currency' && <Currency currency={selectedCurrency} setCurrency={setSelectedCurrency} next={next} />}
       {id === 'paymentMethod' && (
-        <PaymentMethod
-          currency={selectedCurrency}
-          paymentMethod={paymentMethod}
-          setPaymentMethod={selectPaymentMethod}
-          next={next}
-        />
+        <PaymentMethod currency={selectedCurrency} setPaymentMethod={selectPaymentMethod} next={next} />
       )}
       {id === 'extraInfo' && paymentMethod && /giftCard/u.test(paymentMethod) && (
         <Countries

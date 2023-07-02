@@ -13,10 +13,10 @@ type Props = {
   setCurrency: (c: Currency) => void
 }
 
-const TabBar = (props: MaterialTopTabBarProps) => {
-  const selected = props.state.routes[props.state.index].name
-  const items = props.state.routes
-  const select = props.navigation.navigate
+const TabBar = ({ state, navigation }: MaterialTopTabBarProps) => {
+  const items = state.routes
+  const selected = items[state.index].name
+  const select = navigation.navigate
   const colors = {
     text: tw`text-black-2`,
     textSelected: tw`text-black-1`,
@@ -47,9 +47,11 @@ export const CurrencyTabs = ({ currency = 'EUR', setCurrency }: Props) => {
       initialRouteName={preferredCurrencyType}
       screenListeners={{
         focus: (e) => {
-          const name = e.target?.split('-')[0] as 'Europe' | 'other'
-          setPreferredCurrencyType(name)
-          setCurrency(name === 'Europe' ? 'EUR' : 'USDT')
+          const name = e.target?.split('-')[0]
+          if (name === 'Europe' || name === 'other') {
+            setPreferredCurrencyType(name)
+            setCurrency(name === 'Europe' ? 'EUR' : 'USDT')
+          }
         },
       }}
       tabBar={TabBar}

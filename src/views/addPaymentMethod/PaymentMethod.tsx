@@ -12,12 +12,11 @@ import { getApplicablePaymentCategories, paymentMethodAllowedForCurrency } from 
 
 type Props = {
   currency: Currency
-  paymentMethod?: PaymentMethod
   setPaymentMethod: (method?: PaymentMethod) => void
   next: () => void
 }
 
-export const PaymentMethod = ({ currency, paymentMethod, setPaymentMethod, next }: Props) => {
+export const PaymentMethod = ({ currency, setPaymentMethod, next }: Props) => {
   const [, updateDrawer] = useDrawerContext()
 
   const [paymentCategory, setPaymentCategory] = useState<PaymentCategory>()
@@ -25,6 +24,12 @@ export const PaymentMethod = ({ currency, paymentMethod, setPaymentMethod, next 
     value: c,
     display: i18n(`paymentCategory.${c}`),
   }))
+
+  const unselectCategory = () => setPaymentCategory(undefined)
+  const selectPaymentMethod = (method: PaymentMethod) => {
+    unselectCategory()
+    setPaymentMethod(method)
+  }
 
   const getCountrySelectDrawer = (
     category: PaymentCategory,
@@ -38,9 +43,7 @@ export const PaymentMethod = ({ currency, paymentMethod, setPaymentMethod, next 
       onPress: () => selectCountry(country, category, applicableCountries),
     })),
     show: true,
-    onClose: () => {
-      setPaymentCategory(undefined)
-    },
+    onClose: unselectCategory,
   })
 
   const selectCountry = (c: FlagType, category: PaymentCategory, applicableCountries: FlagType[]) => {
@@ -51,13 +54,11 @@ export const PaymentMethod = ({ currency, paymentMethod, setPaymentMethod, next 
         options: localOptions.map((localOption) => ({
           title: i18n(`paymentMethod.${localOption}`),
           logoID: localOption,
-          onPress: () => setPaymentMethod(localOption),
+          onPress: () => selectPaymentMethod(localOption),
         })),
         previousDrawer: getCountrySelectDrawer(category, applicableCountries, selectCountry),
         show: true,
-        onClose: () => {
-          setPaymentMethod(undefined)
-        },
+        onClose: unselectCategory,
       })
     }
     return false
@@ -80,12 +81,10 @@ export const PaymentMethod = ({ currency, paymentMethod, setPaymentMethod, next 
       options: applicablePaymentMethods.map((method) => ({
         title: i18n(`paymentMethod.${method}`),
         logoID: method,
-        onPress: () => setPaymentMethod(method),
+        onPress: () => selectPaymentMethod(method),
       })),
       show: true,
-      onClose: () => {
-        setPaymentMethod(undefined)
-      },
+      onClose: unselectCategory,
     })
   }
 
@@ -104,7 +103,7 @@ export const PaymentMethod = ({ currency, paymentMethod, setPaymentMethod, next 
           onChange={selectPaymentCategory}
         />
       </PeachScrollView>
-      <PrimaryButton style={tw`self-center mt-2 mb-5`} disabled={!paymentMethod} onPress={next} narrow>
+      <PrimaryButton style={tw`self-center mt-2 mb-5`} disabled={!paymentCategory} onPress={next} narrow>
         {i18n('next')}
       </PrimaryButton>
     </View>
