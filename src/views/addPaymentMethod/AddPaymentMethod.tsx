@@ -18,7 +18,7 @@ export const AddPaymentMethod = () => {
   const { origin } = useRoute<'addPaymentMethod'>().params
   const navigation = useNavigation()
   const [page, setPage] = useState(0)
-  const [currencies, setCurrencies] = useState<Currency[]>([CURRENCIES[0]])
+  const [selectedCurrency, setSelectedCurrency] = useState<Currency>(CURRENCIES[0])
   const [country, setCountry] = useState<PaymentMethodCountry>()
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>()
 
@@ -58,24 +58,24 @@ export const AddPaymentMethod = () => {
     }
 
     if (!isLocalOption(method)) {
-      goToPaymentMethodForm({ paymentMethod: method, currencies, country })
+      goToPaymentMethodForm({ paymentMethod: method, currencies: [selectedCurrency], country })
       return
     } else if (!!paymentMethodInfo.countries) {
-      const countries = paymentMethodInfo.countries.filter(countrySupportsCurrency(currencies[0]))
+      const countries = paymentMethodInfo.countries.filter(countrySupportsCurrency(selectedCurrency))
       if (countries.length === 1) {
         setCountry(countries[0])
-        goToPaymentMethodForm({ paymentMethod: method, currencies, country: countries[0] })
+        goToPaymentMethodForm({ paymentMethod: method, currencies: [selectedCurrency], country: countries[0] })
         return
       }
     }
 
-    goToPaymentMethodForm({ paymentMethod: method, currencies, country })
+    goToPaymentMethodForm({ paymentMethod: method, currencies: [selectedCurrency], country })
   }
 
   const countries
     = paymentMethod
     && getPaymentMethodInfo(paymentMethod)
-      .countries?.filter(countrySupportsCurrency(currencies[0]))
+      .countries?.filter(countrySupportsCurrency(selectedCurrency))
       .map((c) => ({
         value: c,
         display: i18n(`country.${c}`),
@@ -83,12 +83,10 @@ export const AddPaymentMethod = () => {
 
   return (
     <View>
-      {id === 'currency' && (
-        <Currency currency={currencies[0]} setCurrency={(c: Currency) => setCurrencies([c])} next={next} />
-      )}
+      {id === 'currency' && <Currency currency={selectedCurrency} setCurrency={setSelectedCurrency} next={next} />}
       {id === 'paymentMethod' && (
         <PaymentMethod
-          currency={currencies[0]}
+          currency={selectedCurrency}
           paymentMethod={paymentMethod}
           setPaymentMethod={selectPaymentMethod}
           next={next}
@@ -100,7 +98,7 @@ export const AddPaymentMethod = () => {
           selectedCountry={country}
           setCountry={setCountry}
           next={() => {
-            goToPaymentMethodForm({ paymentMethod, currencies, country })
+            goToPaymentMethodForm({ paymentMethod, currencies: [selectedCurrency], country })
           }}
         />
       )}
