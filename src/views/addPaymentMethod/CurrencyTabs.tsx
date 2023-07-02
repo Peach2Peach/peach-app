@@ -6,8 +6,6 @@ import { Other } from './Other'
 import { createMaterialTopTabNavigator, MaterialTopTabBarProps } from '@react-navigation/material-top-tabs'
 import { useOfferPreferences } from '../../store/offerPreferenes'
 
-const CurrencyTab = createMaterialTopTabNavigator()
-
 type Props = {
   currency?: Currency
   setCurrency: (c: Currency) => void
@@ -38,6 +36,8 @@ const TabBar = ({ state, navigation }: MaterialTopTabBarProps) => {
     </View>
   )
 }
+
+const CurrencyTab = createMaterialTopTabNavigator()
 
 export const CurrencyTabs = ({ currency = 'EUR', setCurrency }: Props) => {
   const preferredCurrencyType = useOfferPreferences((state) => state.preferredCurrenyType)

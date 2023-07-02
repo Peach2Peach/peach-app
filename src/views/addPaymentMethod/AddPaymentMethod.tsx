@@ -95,9 +95,7 @@ export const AddPaymentMethod = () => {
           countries={countries}
           selectedCountry={country}
           setCountry={setCountry}
-          next={() => {
-            goToPaymentMethodForm({ paymentMethod, currencies: [selectedCurrency], country })
-          }}
+          next={() => goToPaymentMethodForm({ paymentMethod, currencies: [selectedCurrency], country })}
         />
       )}
     </View>
