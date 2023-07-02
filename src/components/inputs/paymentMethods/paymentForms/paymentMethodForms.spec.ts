@@ -2,6 +2,7 @@ import { PaymentMethodForms } from './paymentMethodForms'
 import { GiftCardAmazon } from './GiftCardAmazon'
 import {
   Template1,
+  Template10,
   Template2,
   Template3,
   Template4,
@@ -74,6 +75,7 @@ describe('paymentMethodForms', () => {
       nationalTransferSE: { component: Template9, fields: expect.any(Array) },
       nationalTransferSI: { component: Template9, fields: expect.any(Array) },
       nationalTransferUS: { component: Template9, fields: expect.any(Array) },
+      'liquid.usdt': { component: Template10, fields: ['method', 'price', 'receiveAddress'] },
     })
   })
 })
