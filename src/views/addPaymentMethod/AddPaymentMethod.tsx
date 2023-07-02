@@ -34,7 +34,7 @@ export const AddPaymentMethod = () => {
       let label = i18n(`paymentMethod.${methodType}`)
       if (existingPaymentMethodsOfType > 0) label += ` #${existingPaymentMethodsOfType + 1}`
 
-      navigation.push('paymentMethodDetails', {
+      navigation.push('paymentMethodForm', {
         paymentData: { type: data.paymentMethod, label, currencies: data.currencies, country: data.country },
         origin,
       })

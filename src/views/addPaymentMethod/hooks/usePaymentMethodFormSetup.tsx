@@ -11,7 +11,7 @@ import { headerIcons } from '../../../utils/layout/headerIcons'
 import { useOfferPreferences } from '../../../store/offerPreferenes'
 
 export const usePaymentMethodFormSetup = () => {
-  const route = useRoute<'paymentMethodDetails'>()
+  const route = useRoute<'paymentMethodForm'>()
   const goToOrigin = useGoToOrigin()
   const { paymentData: data } = route.params
   const { type: paymentMethod, currencies } = data

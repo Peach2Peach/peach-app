@@ -153,7 +153,7 @@ const settings: ViewType[] = [
   { name: 'myProfile', component: MyProfile, ...defaultConfig },
   { name: 'bitcoinProducts', component: BitcoinProducts, ...defaultConfig },
   { name: 'addPaymentMethod', component: AddPaymentMethod, ...defaultConfig },
-  { name: 'paymentMethodDetails', component: PaymentMethodForm, ...defaultConfig },
+  { name: 'paymentMethodForm', component: PaymentMethodForm, ...defaultConfig },
   { name: 'meetupScreen', component: MeetupScreen, ...defaultConfig },
   { name: 'currency', component: Currency, ...defaultConfig },
   { name: 'language', component: Language, ...defaultConfig },

@@ -18,7 +18,7 @@ export const handleMissingPaymentData = (
     const existingPaymentMethodsOfType = getPaymentDataByType(paymentMethod).length + 1
     const label = `${i18n(`paymentMethod.${paymentMethod}`)} #${existingPaymentMethodsOfType}`
 
-    navigation.push('paymentMethodDetails', {
+    navigation.push('paymentMethodForm', {
       paymentData: {
         type: paymentMethod,
         label,
