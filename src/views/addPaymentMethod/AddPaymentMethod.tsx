@@ -27,7 +27,7 @@ export const AddPaymentMethod = () => {
   const id = screens[page]
 
   const goToPaymentMethodForm = useCallback(
-    (data: Pick<PaymentData, 'paymentMethod' | 'currencies' | 'country'>) => {
+    (data: Pick<PaymentData, 'currencies' | 'country'> & { paymentMethod: PaymentMethod }) => {
       if (!data.paymentMethod || !data.currencies) return
       const methodType
         = data.paymentMethod === 'giftCard.amazon' && data.country

@@ -1,6 +1,5 @@
 declare type PaymentData = {
   [key: string]: any
-  paymentMethod: PaymentMethod
   name?: string
   beneficiary?: string
   phone?: string

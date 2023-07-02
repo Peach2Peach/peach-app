@@ -101,7 +101,7 @@ export const PAYMENTCATEGORIES: PaymentCategories = {
   localOption: ['mbWay', 'bizum', 'satispay', 'mobilePay', 'keksPay', 'paylib', 'lydia', 'verse', 'iris'],
   cash: [],
   cryptoCurrency: [],
-  //todo: rename to liquid
+  // todo: rename to liquid
   other: ['liquid.usdt'],
 }
 
