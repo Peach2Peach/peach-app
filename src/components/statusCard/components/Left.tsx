@@ -12,7 +12,6 @@ type Props = Pick<StatusCardProps, 'icon' | 'title' | 'subtext' | 'replaced'>
 export const Left = ({ icon, title, subtext, replaced = false }: Props) => {
   const goToNewOffer = useGoToOfferOrContract()
   const onPress = async () => {
-    if (!replaced) return
     const newOfferOrContractID = isDisplayContractId(subtext) ? contractIdFromHex(subtext) : offerIdFromHex(subtext)
     await goToNewOffer(newOfferOrContractID)
   }
@@ -35,7 +34,7 @@ export const Left = ({ icon, title, subtext, replaced = false }: Props) => {
             (!!icon || replaced) && tw`w-100px`,
           ]}
           height={17}
-          onPress={onPress}
+          onPress={replaced ? onPress : undefined}
           suppressHighlighting={!replaced}
         >
           {subtext}
