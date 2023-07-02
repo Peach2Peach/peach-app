@@ -4,7 +4,7 @@ import { useOfferPreferences } from '../../../store/offerPreferenes'
 import { defaultPopupState, usePopupStore } from '../../../store/usePopupStore'
 import { account } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
-import { usePaymentMethodDetailsSetup } from './usePaymentMethodDetailsSetup'
+import { usePaymentMethodFormSetup } from './usePaymentMethodFormSetup'
 
 const useRouteMock = jest.fn(() => ({
   params: {
@@ -30,7 +30,7 @@ jest.mock('../../../hooks/useGoToOrigin', () => ({
 
 const wrapper = NavigationWrapper
 
-describe('usePaymentDetailsSetup', () => {
+describe('usePaymentMethodFormSetup', () => {
   beforeEach(() => {
     setOptionsMock({ header: { title: '', icons: [] } })
   })
@@ -38,7 +38,7 @@ describe('usePaymentDetailsSetup', () => {
     usePopupStore.setState(defaultPopupState)
   })
   it('should return paymentMethod, onSubmit, currencies, data', () => {
-    const { result } = renderHook(usePaymentMethodDetailsSetup, { wrapper })
+    const { result } = renderHook(usePaymentMethodFormSetup, { wrapper })
     expect(result.current).toEqual({
       paymentMethod: 'revolut',
       onSubmit: expect.any(Function),
@@ -53,7 +53,7 @@ describe('usePaymentDetailsSetup', () => {
     })
   })
   it('should set the header', () => {
-    renderHook(usePaymentMethodDetailsSetup, { wrapper })
+    renderHook(usePaymentMethodFormSetup, { wrapper })
     expect(headerState.header()).toMatchSnapshot()
   })
   it('should set the header if no id is present and the paymentMethod is not revolut', () => {
@@ -69,11 +69,11 @@ describe('usePaymentDetailsSetup', () => {
         },
       },
     })
-    renderHook(usePaymentMethodDetailsSetup, { wrapper })
+    renderHook(usePaymentMethodFormSetup, { wrapper })
     expect(headerState.header()).toMatchSnapshot()
   })
   it('should show the delete PM popup when the delete icon is pressed', () => {
-    renderHook(usePaymentMethodDetailsSetup, { wrapper })
+    renderHook(usePaymentMethodFormSetup, { wrapper })
 
     headerState.header().props.icons?.[1].onPress()
     expect(usePopupStore.getState()).toEqual({
@@ -96,7 +96,7 @@ describe('usePaymentDetailsSetup', () => {
     expect(usePopupStore.getState().content).toMatchInlineSnapshot('<DeletePaymentMethodConfirm />')
   })
   it('should add the payment method when the form is submitted', () => {
-    const { result } = renderHook(usePaymentMethodDetailsSetup, { wrapper })
+    const { result } = renderHook(usePaymentMethodFormSetup, { wrapper })
     const paymentMethod = {
       id: '1',
       label: 'Revolut',
@@ -109,7 +109,7 @@ describe('usePaymentDetailsSetup', () => {
     expect(account.paymentData).toContainEqual(paymentMethod)
   })
   it('should automatically select the payment method', () => {
-    const { result } = renderHook(usePaymentMethodDetailsSetup, { wrapper })
+    const { result } = renderHook(usePaymentMethodFormSetup, { wrapper })
     useOfferPreferences.setState({ preferredPaymentMethods: {} })
     const paymentMethod = {
       id: '1',
@@ -123,7 +123,7 @@ describe('usePaymentDetailsSetup', () => {
     expect(useOfferPreferences.getState().preferredPaymentMethods).toEqual({ revolut: '1' })
   })
   it('should go to the origin when the form is submitted', () => {
-    const { result } = renderHook(usePaymentMethodDetailsSetup, { wrapper })
+    const { result } = renderHook(usePaymentMethodFormSetup, { wrapper })
     act(() => {
       result.current.onSubmit({ id: '1', label: 'Revolut', type: 'revolut', currencies: ['EUR'] })
     })

@@ -13,7 +13,7 @@ import {
   Template10,
 } from '../templates'
 import { GiftCardAmazon } from './GiftCardAmazon'
-import { FormProps } from './PaymentMethodForm'
+import { FormProps } from '../../../../views/addPaymentMethod/PaymentMethodForm'
 
 type PaymentMethodFormsType = {
   [key in PaymentMethod]?: { component: (props: FormProps) => JSX.Element; fields: TradeInfoField[] }

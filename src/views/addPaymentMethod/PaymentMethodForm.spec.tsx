@@ -1,4 +1,4 @@
-import { PaymentMethodForm } from '.'
+import { PaymentMethodForm } from './PaymentMethodForm'
 import { createRenderer } from 'react-test-renderer/shallow'
 import React from 'react'
 import { View } from 'react-native'

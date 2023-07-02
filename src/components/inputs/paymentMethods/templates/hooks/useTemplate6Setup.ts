@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { FormProps } from '../../paymentForms/PaymentMethodForm'
+import { FormProps } from '../../../../../views/addPaymentMethod/PaymentMethodForm'
 import { useValidatedState } from '../../../../../hooks'
 import tw from '../../../../../styles/tailwind'
 import { getPaymentDataByLabel } from '../../../../../utils/account'

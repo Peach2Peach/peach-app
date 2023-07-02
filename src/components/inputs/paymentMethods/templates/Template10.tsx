@@ -5,7 +5,7 @@ import i18n from '../../../../utils/i18n'
 import { getErrorsInField } from '../../../../utils/validation'
 import Input, { InputProps } from '../../Input'
 import { LabelInput } from '../../LabelInput'
-import { FormProps } from '../paymentForms/PaymentMethodForm'
+import { FormProps } from '../../../../views/addPaymentMethod/PaymentMethodForm'
 
 const useLabelInput = (paymentData: Partial<PaymentData>) => {
   const [label, setLabel] = useState(paymentData?.label || '')

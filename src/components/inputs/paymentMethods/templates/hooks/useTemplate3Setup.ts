@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { FormProps } from '../../paymentForms/PaymentMethodForm'
+import { FormProps } from '../../../../../views/addPaymentMethod/PaymentMethodForm'
 import { useValidatedState } from '../../../../../hooks'
 import { getPaymentDataByLabel } from '../../../../../utils/account'
 import { getErrorsInField } from '../../../../../utils/validation'

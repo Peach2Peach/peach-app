@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { FormProps } from '../../paymentForms/PaymentMethodForm'
+import { FormProps } from '../../../../../views/addPaymentMethod/PaymentMethodForm'
 import { useValidatedState } from '../../../../../hooks'
 import { getPaymentDataByLabel } from '../../../../../utils/account'
 import i18n from '../../../../../utils/i18n'
@@ -42,8 +42,7 @@ export const useTemplate4Setup = ({
     () => ({
       id: data?.id || `${paymentMethod}-${Date.now()}`,
       label,
-      type:
-        paymentMethod !== 'giftCard.amazon' ? paymentMethod : ((`${paymentMethod}.${data?.country}`) as PaymentMethod),
+      type: paymentMethod !== 'giftCard.amazon' ? paymentMethod : (`${paymentMethod}.${data?.country}` as PaymentMethod),
       email,
       beneficiary,
       reference,

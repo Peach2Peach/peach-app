@@ -2,7 +2,7 @@ import { BackgroundConfig } from '../components/background/Background'
 import { MeetupScreen } from '../components/payment/MeetupScreen'
 import { PaymentMethods } from '../components/payment/PaymentMethods'
 import { AddPaymentMethod } from './addPaymentMethod/AddPaymentMethod'
-import { PaymentMethodDetails } from './addPaymentMethod/PaymentMethodDetails'
+import { PaymentMethodForm } from './addPaymentMethod/PaymentMethodForm'
 import BackupTime from './backupTime/BackupTime'
 import Buy from './buy/Buy'
 import { BuySummary } from './buy/BuySummary'
@@ -153,7 +153,7 @@ const settings: ViewType[] = [
   { name: 'myProfile', component: MyProfile, ...defaultConfig },
   { name: 'bitcoinProducts', component: BitcoinProducts, ...defaultConfig },
   { name: 'addPaymentMethod', component: AddPaymentMethod, ...defaultConfig },
-  { name: 'paymentMethodDetails', component: PaymentMethodDetails, ...defaultConfig },
+  { name: 'paymentMethodDetails', component: PaymentMethodForm, ...defaultConfig },
   { name: 'meetupScreen', component: MeetupScreen, ...defaultConfig },
   { name: 'currency', component: Currency, ...defaultConfig },
   { name: 'language', component: Language, ...defaultConfig },
