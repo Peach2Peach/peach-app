@@ -26,7 +26,7 @@ export const AddPaymentMethod = () => {
 
   const id = screens[page]
 
-  const goToPaymentMethodDetails = useCallback(
+  const goToPaymentMethodForm = useCallback(
     (data: Partial<PaymentData>) => {
       if (!data.paymentMethod || !data.currencies) return
       const methodType = data.country ? (`${data.paymentMethod}.${data.country}` as PaymentMethod) : data.paymentMethod
@@ -58,18 +58,18 @@ export const AddPaymentMethod = () => {
     }
 
     if (!isLocalOption(method)) {
-      goToPaymentMethodDetails({ paymentMethod: method, currencies, country })
+      goToPaymentMethodForm({ paymentMethod: method, currencies, country })
       return
     } else if (!!paymentMethodInfo.countries) {
       const countries = paymentMethodInfo.countries.filter(countrySupportsCurrency(currencies[0]))
       if (countries.length === 1) {
         setCountry(countries[0])
-        goToPaymentMethodDetails({ paymentMethod: method, currencies, country: countries[0] })
+        goToPaymentMethodForm({ paymentMethod: method, currencies, country: countries[0] })
         return
       }
     }
 
-    goToPaymentMethodDetails({ paymentMethod: method, currencies, country })
+    goToPaymentMethodForm({ paymentMethod: method, currencies, country })
   }
 
   const countries
@@ -100,7 +100,7 @@ export const AddPaymentMethod = () => {
           selectedCountry={country}
           setCountry={setCountry}
           next={() => {
-            goToPaymentMethodDetails({ paymentMethod, currencies, country })
+            goToPaymentMethodForm({ paymentMethod, currencies, country })
           }}
         />
       )}
