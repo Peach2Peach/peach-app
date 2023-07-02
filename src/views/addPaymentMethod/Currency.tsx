@@ -6,7 +6,7 @@ import { useHeaderSetup } from '../../hooks'
 import i18n from '../../utils/i18n'
 import { CurrencyTabs } from './CurrencyTabs'
 
-export type Props = {
+type Props = {
   currency?: Currency
   setCurrency: (c: Currency) => void
   next: () => void

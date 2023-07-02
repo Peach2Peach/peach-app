@@ -59,6 +59,7 @@ const allPossibleFields = [
   'method',
   'meetup',
   'location',
+  'receiveAddress',
 ] as const
 export type TradeInfoField = (typeof allPossibleFields)[number]
 export const isTradeInformationGetter = (

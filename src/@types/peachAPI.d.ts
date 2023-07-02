@@ -96,6 +96,7 @@ declare type Currency =
   | 'ISK'
   | 'NOK'
   | 'RON'
+  | 'USDT'
 declare type Pricebook = {
   [key in Currency]?: number
 }
@@ -164,6 +165,8 @@ declare type PaymentMethod =
   | 'lydia'
   | 'verse'
   | 'iris'
+  // todo: rename to just "liquid"
+  | 'liquid.usdt'
   | CashTrade
   | AmazonGiftCard
   | NationalTransfer

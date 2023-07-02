@@ -49,6 +49,7 @@ export const CurrencyTabs = ({ currency = 'EUR', setCurrency }: Props) => {
         focus: (e) => {
           const name = e.target?.split('-')[0] as 'Europe' | 'other'
           setPreferredCurrencyType(name)
+          setCurrency(name === 'Europe' ? 'EUR' : 'USDT')
         },
       }}
       tabBar={TabBar}

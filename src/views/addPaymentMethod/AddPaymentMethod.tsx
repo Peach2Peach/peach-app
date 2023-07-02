@@ -1,33 +1,30 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
-import { ScrollView, View } from 'react-native'
+import { useCallback, useState } from 'react'
+import { View } from 'react-native'
 
 import i18n from '../../utils/i18n'
 
-import { CURRENCIES, PAYMENTCATEGORIES } from '../../constants'
+import { CURRENCIES } from '../../constants'
+import { useNavigation, useRoute } from '../../hooks'
 import { getPaymentDataByType } from '../../utils/account'
 import { countrySupportsCurrency, getPaymentMethodInfo, isLocalOption } from '../../utils/paymentMethod'
+import { Countries } from './Countries'
 import { Currency } from './Currency'
 import { PaymentMethod } from './PaymentMethod'
-import { Countries } from './Countries'
-import { useNavigation, useRoute } from '../../hooks'
+import { useDrawerContext } from '../../contexts/drawer'
 
-const screens = [{ id: 'currency' }, { id: 'paymentMethod' }, { id: 'extraInfo' }]
-const getPage = ({ currencies, paymentMethod }: RootStackParamList['addPaymentMethod']) => {
-  if (paymentMethod) return 2
-  if (currencies?.length === 1) return 1
-  return 0
-}
+const screens = ['currency', 'paymentMethod', 'extraInfo']
 
-export default () => {
-  const route = useRoute<'addPaymentMethod'>()
+export const AddPaymentMethod = () => {
+  const { origin } = useRoute<'addPaymentMethod'>().params
   const navigation = useNavigation()
-  const [page, setPage] = useState(getPage(route.params))
-  const [currencies, setCurrencies] = useState<Currency[]>(route.params.currencies || [CURRENCIES[0]])
-  const [country, setCountry] = useState(route.params.country)
-  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod | undefined>(route.params.paymentMethod)
+  const [page, setPage] = useState(0)
+  const [currencies, setCurrencies] = useState<Currency[]>([CURRENCIES[0]])
+  const [country, setCountry] = useState<PaymentMethodCountry>()
+  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>()
 
-  const { id } = screens[page]
-  const scroll = useRef<ScrollView>(null)
+  const [, updateDrawer] = useDrawerContext()
+
+  const id = screens[page]
 
   const goToPaymentMethodDetails = useCallback(
     (data: Partial<PaymentData>) => {
@@ -39,54 +36,73 @@ export default () => {
 
       navigation.push('paymentMethodDetails', {
         paymentData: { type: data.paymentMethod, label, currencies: data.currencies, country: data.country },
-        origin: route.params.origin,
+        origin,
       })
     },
-    [navigation, route.params.origin],
+    [navigation, origin],
   )
 
   const next = () => {
-    if (page >= screens.length - 1) {
-      goToPaymentMethodDetails({ paymentMethod, currencies, country })
-      return
-    }
-    setPage((prev) => prev + 1)
-
-    scroll.current?.scrollTo({ x: 0 })
+    setPage(page + 1)
   }
 
-  useEffect(() => {
-    if (!paymentMethod) return
+  const selectPaymentMethod = (method?: PaymentMethod) => {
+    setPaymentMethod(method)
+    updateDrawer({ show: false })
+    if (!method) return
+    const paymentMethodInfo = getPaymentMethodInfo(method)
 
-    const paymentMethodInfo = getPaymentMethodInfo(paymentMethod)
+    if (/giftCard/u.test(method)) {
+      next()
+      return
+    }
 
-    if (!/giftCard/u.test(paymentMethod) && !isLocalOption(paymentMethod)) {
-      goToPaymentMethodDetails({ paymentMethod, currencies, country })
+    if (!isLocalOption(method)) {
+      goToPaymentMethodDetails({ paymentMethod: method, currencies, country })
       return
     } else if (!!paymentMethodInfo.countries) {
       const countries = paymentMethodInfo.countries.filter(countrySupportsCurrency(currencies[0]))
       if (countries.length === 1) {
         setCountry(countries[0])
-        goToPaymentMethodDetails({ paymentMethod, currencies, country: countries[0] })
+        goToPaymentMethodDetails({ paymentMethod: method, currencies, country: countries[0] })
         return
       }
     }
 
-    if (
-      (paymentMethodInfo?.currencies.length !== 1 && paymentMethod.includes('giftCard.amazon'))
-      || (PAYMENTCATEGORIES.localOption.includes(paymentMethod) && screens[page].id !== 'extraInfo')
-    ) return
+    goToPaymentMethodDetails({ paymentMethod: method, currencies, country })
+  }
 
-    goToPaymentMethodDetails({ paymentMethod, currencies, country })
-  }, [paymentMethod, page, goToPaymentMethodDetails, currencies, country])
+  const countries
+    = paymentMethod
+    && getPaymentMethodInfo(paymentMethod)
+      .countries?.filter(countrySupportsCurrency(currencies[0]))
+      .map((c) => ({
+        value: c,
+        display: i18n(`country.${c}`),
+      }))
 
-  const commonProps = { ...{ currency: currencies[0], next } }
   return (
     <View>
-      {id === 'currency' && <Currency setCurrency={(c: Currency) => setCurrencies([c])} {...commonProps} />}
-      {id === 'paymentMethod' && <PaymentMethod {...{ paymentMethod, setPaymentMethod, ...commonProps }} />}
+      {id === 'currency' && (
+        <Currency currency={currencies[0]} setCurrency={(c: Currency) => setCurrencies([c])} next={next} />
+      )}
+      {id === 'paymentMethod' && (
+        <PaymentMethod
+          currency={currencies[0]}
+          paymentMethod={paymentMethod}
+          setPaymentMethod={selectPaymentMethod}
+          next={next}
+        />
+      )}
       {id === 'extraInfo' && paymentMethod && /giftCard/u.test(paymentMethod) && (
-        <Countries selected={country} {...{ paymentMethod, setCountry, ...commonProps }} />
+        <Countries
+          countries={countries}
+          selectedCountry={country}
+          setCountry={setCountry}
+          next={() => {
+            goToPaymentMethodDetails({ paymentMethod, currencies, country })
+          }}
+        />
       )}
     </View>
   )

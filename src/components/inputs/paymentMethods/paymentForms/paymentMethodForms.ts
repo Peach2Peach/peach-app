@@ -10,6 +10,7 @@ import {
   Template7,
   Template8,
   Template9,
+  Template10,
 } from '../templates'
 import { GiftCardAmazon } from './GiftCardAmazon'
 import { FormProps } from './PaymentMethodForm'
@@ -29,6 +30,7 @@ const template6Fields: TradeInfoField[] = [...sharedFields, 'userName', 'email',
 const template7Fields: TradeInfoField[] = [...sharedFields, 'beneficiary', 'accountNumber', 'reference']
 const template8Fields: TradeInfoField[] = [...sharedFields, 'beneficiary', 'phone', 'reference']
 const template9Fields: TradeInfoField[] = [...sharedFields, 'beneficiary', 'iban', 'accountNumber', 'bic', 'reference']
+const template10Fields: TradeInfoField[] = [...sharedFields, 'receiveAddress']
 
 export const PaymentMethodForms: PaymentMethodFormsType = {
   sepa: { component: Template1, fields: template1Fields },
@@ -58,10 +60,12 @@ export const PaymentMethodForms: PaymentMethodFormsType = {
   verse: { component: Template3, fields: template3Fields },
   iris: { component: Template3, fields: template3Fields },
   'giftCard.amazon': { component: GiftCardAmazon, fields: template4Fields },
+  // todo: rename to just "liquid"
+  'liquid.usdt': { component: Template10, fields: template10Fields },
 }
 GIFTCARDCOUNTRIES.forEach(
   (c) =>
-    (PaymentMethodForms[(`giftCard.amazon.${c}`) as PaymentMethod] = {
+    (PaymentMethodForms[`giftCard.amazon.${c}` as PaymentMethod] = {
       component: GiftCardAmazon,
       fields: template4Fields,
     }),
