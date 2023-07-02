@@ -27,9 +27,12 @@ export const AddPaymentMethod = () => {
   const id = screens[page]
 
   const goToPaymentMethodForm = useCallback(
-    (data: Partial<PaymentData>) => {
+    (data: Pick<PaymentData, 'paymentMethod' | 'currencies' | 'country'>) => {
       if (!data.paymentMethod || !data.currencies) return
-      const methodType = data.country ? (`${data.paymentMethod}.${data.country}` as PaymentMethod) : data.paymentMethod
+      const methodType
+        = data.paymentMethod === 'giftCard.amazon' && data.country
+          ? (`${data.paymentMethod}.${data.country}` satisfies PaymentMethod)
+          : data.paymentMethod
       const existingPaymentMethodsOfType: number = getPaymentDataByType(methodType).length
       let label = i18n(`paymentMethod.${methodType}`)
       if (existingPaymentMethodsOfType > 0) label += ` #${existingPaymentMethodsOfType + 1}`
