@@ -200,7 +200,6 @@ exports[`Left should render correctly with a title and date 1`] = `
     >
       <Text
         allowFontScaling={false}
-        onPress={[Function]}
         style={
           [
             {
@@ -321,7 +320,6 @@ exports[`Left should render correctly with title, icon and date 1`] = `
     >
       <Text
         allowFontScaling={false}
-        onPress={[Function]}
         style={
           [
             {
