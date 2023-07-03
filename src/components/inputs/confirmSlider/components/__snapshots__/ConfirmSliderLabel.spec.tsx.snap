@@ -6,13 +6,17 @@ exports[`ConfirmSliderLabel renders correctly 1`] = `
     [
       undefined,
       {
+        "paddingTop": 1,
+      },
+      {
         "opacity": 1,
         "width": 200,
       },
     ]
   }
 >
-  <PeachText
+  <FixedHeightText
+    height={9}
     numberOfLines={1}
     style={
       [
@@ -35,6 +39,6 @@ exports[`ConfirmSliderLabel renders correctly 1`] = `
     }
   >
     label
-  </PeachText>
+  </FixedHeightText>
 </ForwardRef(AnimatedComponentWrapper)>
 `;

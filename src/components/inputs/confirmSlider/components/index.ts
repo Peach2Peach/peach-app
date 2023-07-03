@@ -1,2 +1,2 @@
-export { ConfirmSliderKnob } from './ConfirmSliderKnob'
+export { SliderKnob } from './SliderKnob'
 export { ConfirmSliderLabel } from './ConfirmSliderLabel'

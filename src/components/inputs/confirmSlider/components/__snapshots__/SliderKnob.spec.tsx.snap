@@ -1,173 +1,165 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ConfirmSliderKnob renders correctly 1`] = `
+exports[`SliderKnob renders correctly 1`] = `
 <ForwardRef(AnimatedComponentWrapper)
   style={
     [
       {
         "backgroundColor": "rgba(245, 101, 34, 1)",
-        "width": 40,
       },
       {
         "alignItems": "center",
-        "borderRadius": 9999,
-        "display": "flex",
+        "borderRadius": 16,
         "flexDirection": "row",
         "gap": 2,
         "justifyContent": "center",
-        "paddingBottom": 6,
-        "paddingLeft": 8,
-        "paddingRight": 8,
-        "paddingTop": 6,
-      },
-      {
-        "gap": 4,
         "paddingBottom": 4,
         "paddingLeft": 6,
         "paddingRight": 6,
         "paddingTop": 4,
       },
+      {
+        "gap": 4,
+        "paddingBottom": 6,
+        "paddingLeft": 8,
+        "paddingRight": 8,
+        "paddingTop": 6,
+      },
     ]
   }
 >
   <Icon
-    color="#FFF9F6"
+    color="#FFFCFA"
     id="checkCircle"
-    size={19}
+    size={18}
   />
   <Icon
-    color="#FFF9F6"
+    color="#FFFCFA"
     id="chevronsRight"
-    size={19}
+    size={18}
   />
 </ForwardRef(AnimatedComponentWrapper)>
 `;
 
-exports[`ConfirmSliderKnob renders when disabled 1`] = `
+exports[`SliderKnob renders when disabled 1`] = `
 <ForwardRef(AnimatedComponentWrapper)
   style={
     [
       {
         "backgroundColor": "#BAADA7",
-        "width": 40,
       },
       {
         "alignItems": "center",
-        "borderRadius": 9999,
-        "display": "flex",
+        "borderRadius": 16,
         "flexDirection": "row",
         "gap": 2,
         "justifyContent": "center",
-        "paddingBottom": 6,
-        "paddingLeft": 8,
-        "paddingRight": 8,
-        "paddingTop": 6,
-      },
-      {
-        "gap": 4,
         "paddingBottom": 4,
         "paddingLeft": 6,
         "paddingRight": 6,
         "paddingTop": 4,
       },
+      {
+        "gap": 4,
+        "paddingBottom": 6,
+        "paddingLeft": 8,
+        "paddingRight": 8,
+        "paddingTop": 6,
+      },
     ]
   }
 >
   <Icon
-    color="#FFF9F6"
+    color="#FFFCFA"
     id="slash"
-    size={19}
+    size={18}
   />
   <Icon
-    color="#FFF9F6"
+    color="#FFFCFA"
     id="chevronsRight"
-    size={19}
+    size={18}
   />
 </ForwardRef(AnimatedComponentWrapper)>
 `;
 
-exports[`ConfirmSliderKnob renders when slided to 80% 1`] = `
+exports[`SliderKnob renders when slided to 80% 1`] = `
 <ForwardRef(AnimatedComponentWrapper)
   style={
     [
       {
         "backgroundColor": "rgba(245, 101, 34, 1)",
-        "width": 40,
       },
       {
         "alignItems": "center",
-        "borderRadius": 9999,
-        "display": "flex",
+        "borderRadius": 16,
         "flexDirection": "row",
         "gap": 2,
         "justifyContent": "center",
-        "paddingBottom": 6,
-        "paddingLeft": 8,
-        "paddingRight": 8,
-        "paddingTop": 6,
-      },
-      {
-        "gap": 4,
         "paddingBottom": 4,
         "paddingLeft": 6,
         "paddingRight": 6,
         "paddingTop": 4,
       },
+      {
+        "gap": 4,
+        "paddingBottom": 6,
+        "paddingLeft": 8,
+        "paddingRight": 8,
+        "paddingTop": 6,
+      },
     ]
   }
 >
   <Icon
-    color="#FFF9F6"
+    color="#FFFCFA"
     id="checkCircle"
-    size={19}
+    size={18}
   />
   <Icon
-    color="#FFF9F6"
+    color="#FFFCFA"
     id="chevronsRight"
-    size={19}
+    size={18}
   />
 </ForwardRef(AnimatedComponentWrapper)>
 `;
 
-exports[`ConfirmSliderKnob renders when slided to the end 1`] = `
+exports[`SliderKnob renders when slided to the end 1`] = `
 <ForwardRef(AnimatedComponentWrapper)
   style={
     [
       {
         "backgroundColor": "rgba(5, 168, 90, 1)",
-        "width": 40,
       },
       {
         "alignItems": "center",
-        "borderRadius": 9999,
-        "display": "flex",
+        "borderRadius": 16,
         "flexDirection": "row",
         "gap": 2,
         "justifyContent": "center",
-        "paddingBottom": 6,
-        "paddingLeft": 8,
-        "paddingRight": 8,
-        "paddingTop": 6,
-      },
-      {
-        "gap": 4,
         "paddingBottom": 4,
         "paddingLeft": 6,
         "paddingRight": 6,
         "paddingTop": 4,
       },
+      {
+        "gap": 4,
+        "paddingBottom": 6,
+        "paddingLeft": 8,
+        "paddingRight": 8,
+        "paddingTop": 6,
+      },
     ]
   }
 >
   <Icon
-    color="#FFF9F6"
+    color="#FFFCFA"
     id="checkCircle"
-    size={19}
+    size={18}
   />
   <Icon
-    color="#FFF9F6"
+    color="#FFFCFA"
     id="chevronsRight"
-    size={19}
+    size={18}
   />
 </ForwardRef(AnimatedComponentWrapper)>
 `;

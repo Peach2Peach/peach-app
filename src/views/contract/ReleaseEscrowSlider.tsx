@@ -4,10 +4,10 @@ import { useReleaseEscrow } from './hooks/useReleaseEscrow'
 
 type Props = {
   contract: Contract
-} & ComponentProps
+}
 
-export const ReleaseEscrowSlider = ({ contract, style }: Props) => {
+export const ReleaseEscrowSlider = ({ contract }: Props) => {
   const releaseEscrow = useReleaseEscrow(contract)
 
-  return <ConfirmSlider style={style} label1={i18n('releaseEscrow')} onConfirm={releaseEscrow} />
+  return <ConfirmSlider label1={i18n('releaseEscrow')} onConfirm={releaseEscrow} />
 }

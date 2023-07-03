@@ -12,7 +12,7 @@ export const ConfirmSliderTests = () => {
       <ConfirmSlider style={tw`mt-4`} {...{ label1: 'only 1 label', onConfirm }} />
       <ConfirmSlider style={tw`w-[280px] mt-4`} {...{ label1: 'smaller width', onConfirm }} />
       <ConfirmSlider style={tw`w-[200px] mt-4`} {...{ label1: 'smol', onConfirm }} />
-      <ConfirmSlider style={tw`w-[200px] mt-4`} {...{ label1: 'disabled', onConfirm, disabled: true }} />
+      <ConfirmSlider style={tw`w-[200px] mt-4`} {...{ label1: 'disabled', onConfirm, enabled: false }} />
     </View>
   )
 }

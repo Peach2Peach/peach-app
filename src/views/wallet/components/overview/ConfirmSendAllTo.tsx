@@ -10,5 +10,5 @@ type Props = ComponentProps & {
 export const ConfirmSendAllTo = ({ address, onSuccess, disabled, style }: Props) => {
   const sendAllTo = useSendAllTo({ address, onSuccess })
 
-  return <ConfirmSlider style={style} disabled={disabled} label1={i18n('wallet.withdrawAll')} onConfirm={sendAllTo} />
+  return <ConfirmSlider style={style} enabled={!disabled} label1={i18n('wallet.withdrawAll')} onConfirm={sendAllTo} />
 }

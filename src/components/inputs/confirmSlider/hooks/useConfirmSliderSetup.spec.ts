@@ -4,14 +4,18 @@ import { LayoutChangeEvent } from 'react-native'
 import { useConfirmSliderSetup } from './useConfirmSliderSetup'
 
 jest.useFakeTimers()
+jest.mock('../../../../hooks/useIsMediumScreen', () => ({
+  useIsMediumScreen: jest.fn(() => false),
+}))
 
 describe('useConfirmSliderSetup', () => {
   const onConfirm = jest.fn()
   const initialProps = {
     onConfirm,
-    knobWidth: 32,
+    enabled: true,
   }
-  const widthToSlide = 228
+  const knobWidth = 46
+  const widthToSlide = 260 - knobWidth
 
   it('should return default values', () => {
     const { result } = renderHook(useConfirmSliderSetup, { initialProps })
@@ -30,13 +34,13 @@ describe('useConfirmSliderSetup', () => {
   it('should update onLayout', () => {
     const { result } = renderHook(useConfirmSliderSetup, { initialProps })
     act(() => result.current.onLayout({ nativeEvent: { layout: { width: 400 } } } as LayoutChangeEvent))
-    expect(result.current.widthToSlide).toEqual(368)
+    expect(result.current.widthToSlide).toEqual(400 - knobWidth)
   })
 
   it('should not update onLayout width zero dimensions', () => {
     const { result } = renderHook(useConfirmSliderSetup, { initialProps })
     act(() => result.current.onLayout({ nativeEvent: { layout: { width: NaN } } } as LayoutChangeEvent))
-    expect(result.current.widthToSlide).toEqual(228)
+    expect(result.current.widthToSlide).toEqual(widthToSlide)
   })
 
   it('should call onConfirm when sliding to the end', async () => {
@@ -51,8 +55,6 @@ describe('useConfirmSliderSetup', () => {
       },
     }
 
-    // @ts-ignore
-    result.current.panResponder.panHandlers.onMoveShouldSetResponder()
     // @ts-ignore
     result.current.panResponder.panHandlers.onResponderMove(moveEvent)
     // @ts-ignore
@@ -79,8 +81,6 @@ describe('useConfirmSliderSetup', () => {
     }
 
     // @ts-ignore
-    result.current.panResponder.panHandlers.onMoveShouldSetResponder()
-    // @ts-ignore
     result.current.panResponder.panHandlers.onResponderMove(moveEvent)
     // @ts-ignore
     expect(result.current.pan._value).toEqual((widthToSlide - 1) / widthToSlide)
@@ -94,7 +94,7 @@ describe('useConfirmSliderSetup', () => {
     await waitFor(() => jest.runAllTimers())
   })
   it('should not slide when disabled', async () => {
-    const { result } = renderHook(useConfirmSliderSetup, { initialProps: { ...initialProps, disabled: true } })
+    const { result } = renderHook(useConfirmSliderSetup, { initialProps: { ...initialProps, enabled: false } })
     const endTouch = { currentPageX: widthToSlide, previousPageX: 0, touchActive: true, currentTimeStamp: 1 }
     const moveEvent = {
       touchHistory: {
@@ -105,8 +105,6 @@ describe('useConfirmSliderSetup', () => {
       },
     }
 
-    // @ts-ignore
-    result.current.panResponder.panHandlers.onMoveShouldSetResponder()
     // @ts-ignore
     result.current.panResponder.panHandlers.onResponderMove(moveEvent)
     // @ts-ignore
@@ -119,5 +117,20 @@ describe('useConfirmSliderSetup', () => {
     // @ts-ignore
     await waitFor(() => expect(result.current.pan._offset).toEqual(0))
     await waitFor(() => jest.runAllTimers())
+  })
+
+  it('should not set the panResponder to be the responder when disabled', () => {
+    const { result } = renderHook(useConfirmSliderSetup, { initialProps: { ...initialProps, enabled: false } })
+    const endTouch = { currentPageX: widthToSlide, previousPageX: 0, touchActive: true, currentTimeStamp: 1 }
+    const moveEvent = {
+      touchHistory: {
+        touchBank: [endTouch],
+        numberActiveTouches: 1,
+        indexOfSingleActiveTouch: 0,
+        mostRecentTimeStamp: 1,
+      },
+    }
+    // @ts-ignore
+    expect(result.current.panResponder.panHandlers.onMoveShouldSetResponder(moveEvent)).toEqual(false)
   })
 })

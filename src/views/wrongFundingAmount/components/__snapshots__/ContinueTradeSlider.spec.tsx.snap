@@ -2,7 +2,7 @@
 
 exports[`ContinueTradeSlider renders correctly 1`] = `
 <ConfirmSlider
-  disabled={false}
+  enabled={true}
   iconId="arrowRightCircle"
   label1="continue trade"
   onConfirm={[Function]}
@@ -11,7 +11,7 @@ exports[`ContinueTradeSlider renders correctly 1`] = `
 
 exports[`ContinueTradeSlider renders correctly when no sell offer is known 1`] = `
 <ConfirmSlider
-  disabled={true}
+  enabled={false}
   iconId="arrowRightCircle"
   label1="continue trade"
   onConfirm={[Function]}
