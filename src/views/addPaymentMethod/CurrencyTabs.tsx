@@ -22,7 +22,7 @@ const TabBar = ({ state, navigation }: MaterialTopTabBarProps) => {
   }
 
   return (
-    <View style={[tw`flex-row justify-center`]}>
+    <View style={tw`flex-row justify-center`}>
       {items.map((item) => (
         <TouchableOpacity style={tw`flex-shrink px-2`} key={item.key + item.name} onPress={() => select(item)}>
           <Text
