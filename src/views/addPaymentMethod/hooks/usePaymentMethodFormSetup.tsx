@@ -4,11 +4,10 @@ import { useDeletePaymentMethod } from '../../../components/payment/hooks/useDel
 import { useHeaderSetup, useRoute } from '../../../hooks'
 import { useGoToOrigin } from '../../../hooks/useGoToOrigin'
 import { useShowHelp } from '../../../hooks/useShowHelp'
+import { useOfferPreferences } from '../../../store/offerPreferenes'
 import { addPaymentData } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
-import { info } from '../../../utils/log'
 import { headerIcons } from '../../../utils/layout/headerIcons'
-import { useOfferPreferences } from '../../../store/offerPreferenes'
 
 export const usePaymentMethodFormSetup = () => {
   const route = useRoute<'paymentMethodForm'>()
@@ -34,14 +33,13 @@ export const usePaymentMethodFormSetup = () => {
     if (data.id) {
       icons[1] = { ...headerIcons.delete, onPress: deletePaymentMethod }
     }
-    info(`icons${icons}`)
     return icons
   }, [data.id, deletePaymentMethod, paymentMethod, showHelp])
 
   useHeaderSetup({
     title: i18n(
       data.id ? 'paymentMethod.edit.title' : 'paymentMethod.select.title',
-      i18n(`paymentMethod.${paymentMethod}`),
+      i18n(`paymentMethod.${paymentMethod}`)
     ),
     icons: getHeaderIcons(),
   })
