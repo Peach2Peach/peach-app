@@ -23,7 +23,7 @@ export const UIComponents = () => (
     />
     <Progress
       style={tw`h-3 mt-4 rounded`}
-      backgroundStyle={tw`border-2 bg-success-mild-1 border-success-background`}
+      backgroundStyle={tw`border-2 bg-success-mild border-success-background`}
       barStyle={tw`border-2 bg-success-main border-success-background`}
       percent={0.808}
     />

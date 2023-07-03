@@ -1,6 +1,6 @@
 import { useCancelAndStartRefundPopup } from '../../popups/useCancelAndStartRefundPopup'
 import i18n from '../../utils/i18n'
-import { SlideToUnlock } from '../inputs/SlideToUnlock'
+import { ConfirmSlider } from '../inputs'
 
 type Props = {
   sellOffer?: SellOffer
@@ -12,5 +12,5 @@ export const RefundEscrowSlider = ({ sellOffer }: Props) => {
     if (!sellOffer) return
     cancelAndStartRefundPopup(sellOffer)
   }
-  return <SlideToUnlock disabled={!sellOffer} onUnlock={refundEscrow} label1={i18n('refundEscrow')} iconId="download" />
+  return <ConfirmSlider enabled={!!sellOffer} onConfirm={refundEscrow} label1={i18n('refundEscrow')} iconId="download" />
 }

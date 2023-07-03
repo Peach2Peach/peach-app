@@ -1,9 +1,8 @@
 import { PrimaryButton } from '../../../components'
 import { WarningButton } from '../../../components/buttons'
-import { SlideToUnlock } from '../../../components/inputs'
+import { ConfirmSlider } from '../../../components/inputs'
 import { useConfirmTradeCancelationPopup } from '../../../popups/tradeCancelation/useConfirmTradeCancelationPopup'
 import { usePaymentTooLatePopup } from '../../../popups/usePaymentTooLatePopup'
-import tw from '../../../styles/tailwind'
 import { getPaymentExpectedBy } from '../../../utils/contract/getPaymentExpectedBy'
 import i18n from '../../../utils/i18n'
 import { shouldShowConfirmCancelTradeRequest } from '../../../utils/popup'
@@ -43,10 +42,9 @@ export const ContractCTA = ({
     const paymentExpectedBy = getPaymentExpectedBy(contract)
     if (Date.now() < paymentExpectedBy) {
       return (
-        <SlideToUnlock
-          style={tw`w-[263px]`}
-          disabled={actionPending}
-          onUnlock={postConfirmPaymentBuyer}
+        <ConfirmSlider
+          enabled={!actionPending}
+          onConfirm={postConfirmPaymentBuyer}
           label1={i18n('contract.payment.buyer.confirm')}
           label2={i18n('contract.payment.made')}
         />
@@ -59,10 +57,9 @@ export const ContractCTA = ({
     )
   }
   if (view === 'seller' && requiredAction === 'confirmPayment') return (
-    <SlideToUnlock
-      style={tw`w-[263px]`}
-      disabled={actionPending}
-      onUnlock={postConfirmPaymentSeller}
+    <ConfirmSlider
+      enabled={!actionPending}
+      onConfirm={postConfirmPaymentSeller}
       label1={i18n('contract.payment.confirm')}
       label2={i18n('contract.payment.received')}
     />
