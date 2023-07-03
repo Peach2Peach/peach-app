@@ -75,7 +75,7 @@ describe('paymentMethodForms', () => {
       nationalTransferSE: { component: Template9, fields: expect.any(Array) },
       nationalTransferSI: { component: Template9, fields: expect.any(Array) },
       nationalTransferUS: { component: Template9, fields: expect.any(Array) },
-      'liquid.usdt': { component: Template10, fields: ['method', 'price', 'receiveAddress'] },
+      liquid: { component: Template10, fields: ['method', 'price', 'receiveAddress'] },
     })
   })
 })

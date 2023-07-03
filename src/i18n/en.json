@@ -750,7 +750,7 @@
   "paymentMethod.instantSepa": "SEPA instant",
   "paymentMethod.iris": "Iris",
   "paymentMethod.keksPay": "KEKS Pay",
-  "paymentMethod.liquid.usdt": "Liquid",
+  "paymentMethod.liquid": "Liquid",
   "paymentMethod.lydia": "Lydia",
   "paymentMethod.mbWay": "MB Way",
   "paymentMethod.mobilePay": "Mobile Pay",

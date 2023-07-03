@@ -65,8 +65,7 @@ const PaymentLogos = {
   friends24,
   n26,
   paylib,
-  // todo: rename to just "liquid"
-  'liquid.usdt': liquid,
+  liquid,
   lydia,
   verse,
   iris,

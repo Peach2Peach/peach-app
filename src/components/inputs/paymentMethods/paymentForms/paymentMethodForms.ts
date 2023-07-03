@@ -60,8 +60,7 @@ export const PaymentMethodForms: PaymentMethodFormsType = {
   verse: { component: Template3, fields: template3Fields },
   iris: { component: Template3, fields: template3Fields },
   'giftCard.amazon': { component: GiftCardAmazon, fields: template4Fields },
-  // todo: rename to just "liquid"
-  'liquid.usdt': { component: Template10, fields: template10Fields },
+  liquid: { component: Template10, fields: template10Fields },
 }
 GIFTCARDCOUNTRIES.forEach(
   (c) =>

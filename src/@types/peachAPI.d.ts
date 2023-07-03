@@ -165,8 +165,7 @@ declare type PaymentMethod =
   | 'lydia'
   | 'verse'
   | 'iris'
-  // todo: rename to just "liquid"
-  | 'liquid.usdt'
+  | 'liquid'
   | CashTrade
   | AmazonGiftCard
   | NationalTransfer
