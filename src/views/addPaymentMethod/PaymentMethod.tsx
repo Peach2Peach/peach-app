@@ -72,8 +72,7 @@ export const PaymentMethod = ({ currency, setPaymentMethod, next }: Props) => {
 
     const applicablePaymentMethods = PAYMENTCATEGORIES[category]
       .filter((method) => paymentMethodAllowedForCurrency(method, currency))
-      // TODO: what the heck is going on here? Why are we doing this?
-      .filter((method) => category !== 'giftCard' || method.split('.').pop()?.length !== 2)
+      .filter((method) => category !== 'giftCard' || method === 'giftCard.amazon')
       .filter((method) => !(category === 'onlineWallet' && method === 'mobilePay' && currency === 'EUR'))
 
     return updateDrawer({
