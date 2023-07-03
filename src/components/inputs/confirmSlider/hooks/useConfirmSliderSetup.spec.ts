@@ -56,8 +56,6 @@ describe('useConfirmSliderSetup', () => {
     }
 
     // @ts-ignore
-    result.current.panResponder.panHandlers.onMoveShouldSetResponder()
-    // @ts-ignore
     result.current.panResponder.panHandlers.onResponderMove(moveEvent)
     // @ts-ignore
     expect(result.current.pan._value).toEqual(1)
@@ -83,8 +81,6 @@ describe('useConfirmSliderSetup', () => {
     }
 
     // @ts-ignore
-    result.current.panResponder.panHandlers.onMoveShouldSetResponder()
-    // @ts-ignore
     result.current.panResponder.panHandlers.onResponderMove(moveEvent)
     // @ts-ignore
     expect(result.current.pan._value).toEqual((widthToSlide - 1) / widthToSlide)
@@ -109,8 +105,6 @@ describe('useConfirmSliderSetup', () => {
       },
     }
 
-    // @ts-ignore
-    result.current.panResponder.panHandlers.onMoveShouldSetResponder()
     // @ts-ignore
     result.current.panResponder.panHandlers.onResponderMove(moveEvent)
     // @ts-ignore
