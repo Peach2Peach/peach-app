@@ -1,3 +1,6 @@
+export { useLabelInput } from './useLabelInput'
+export { useReceiveAddressInput } from './useReceiveAddressInput'
+export { useTemplate10Setup } from './useTemplate10Setup'
 export { useTemplate1Setup } from './useTemplate1Setup'
 export { useTemplate2Setup } from './useTemplate2Setup'
 export { useTemplate3Setup } from './useTemplate3Setup'
