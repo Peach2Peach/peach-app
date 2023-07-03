@@ -26,10 +26,7 @@ export const ConfirmSlider = ({
 
   return (
     <View
-      style={[
-        tw`w-full p-1 overflow-hidden border rounded-full bg-primary-background-dark border-primary-mild-1`,
-        style,
-      ]}
+      style={[tw`w-full p-1 overflow-hidden border rounded-5 bg-primary-background-dark border-primary-mild-1`, style]}
     >
       <View {...panResponder.panHandlers} testID="confirmSlider" onLayout={onLayout} style={tw`w-full`}>
         <Animated.View
