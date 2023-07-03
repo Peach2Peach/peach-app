@@ -29,8 +29,8 @@ export const ConfirmSliderKnob = ({ enabled = true, pan, iconId, knobWidth }: Pr
         tw.md`px-[6px] py-1 gap-1`,
       ]}
     >
-      <Icon id={enabled ? iconId : 'slash'} size={icon.size} color={icon.color} />
-      <Icon id="chevronsRight" size={icon.size} color={icon.color} />
+      <Icon id={enabled ? iconId : 'slash'} {...icon} />
+      <Icon id="chevronsRight" {...icon} />
     </Animated.View>
   )
 }
