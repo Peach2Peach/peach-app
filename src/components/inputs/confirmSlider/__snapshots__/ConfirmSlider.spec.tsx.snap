@@ -174,6 +174,93 @@ exports[`ConfirmSlider renders correctly when disabled 1`] = `
 </View>
 `;
 
+exports[`ConfirmSlider renders correctly when not enabled 1`] = `
+<View
+  style={
+    [
+      {
+        "backgroundColor": "#FEEDE5",
+        "borderColor": "#FCCCB6",
+        "borderRadius": 9999,
+        "borderWidth": 1,
+        "overflow": "hidden",
+        "paddingBottom": 4,
+        "paddingLeft": 4,
+        "paddingRight": 4,
+        "paddingTop": 4,
+        "width": "100%",
+      },
+      undefined,
+    ]
+  }
+>
+  <View
+    onLayout={[Function]}
+    onMoveShouldSetResponder={[Function]}
+    onMoveShouldSetResponderCapture={[Function]}
+    onResponderEnd={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderReject={[Function]}
+    onResponderRelease={[Function]}
+    onResponderStart={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    onStartShouldSetResponderCapture={[Function]}
+    style={
+      {
+        "width": "100%",
+      }
+    }
+    testID="confirmSlider"
+  >
+    <ForwardRef(AnimatedComponentWrapper)
+      onStartShouldSetResponder={[Function]}
+      style={
+        [
+          {
+            "alignItems": "center",
+            "flexDirection": "row",
+          },
+          {
+            "transform": [
+              {
+                "translateX": 0,
+              },
+            ],
+          },
+        ]
+      }
+    >
+      <ConfirmSliderLabel
+        opacity={0}
+        style={
+          {
+            "position": "absolute",
+            "right": "100%",
+          }
+        }
+        width={204}
+      >
+        label2
+      </ConfirmSliderLabel>
+      <SliderKnob
+        enabled={false}
+        iconId="checkCircle"
+        pan={0}
+      />
+      <ConfirmSliderLabel
+        opacity={1}
+        width={204}
+      >
+        label1
+      </ConfirmSliderLabel>
+    </ForwardRef(AnimatedComponentWrapper)>
+  </View>
+</View>
+`;
+
 exports[`ConfirmSlider renders with different icon 1`] = `
 <View
   style={

@@ -5,12 +5,12 @@ import { getNormalized } from '../../../../utils/math'
 
 type Props = ComponentProps & {
   onConfirm: () => void
-  disabled?: boolean
+  enabled: boolean
 }
 
 const defaultWidth = 260
 
-export const useConfirmSliderSetup = ({ disabled, onConfirm }: Props) => {
+export const useConfirmSliderSetup = ({ enabled, onConfirm }: Props) => {
   const isMediumScreen = useIsMediumScreen()
   const knobWidth = isMediumScreen ? 56 : 46
   const [widthToSlide, setWidthToSlide] = useState(defaultWidth - knobWidth)
@@ -25,15 +25,15 @@ export const useConfirmSliderSetup = ({ disabled, onConfirm }: Props) => {
   const panResponder = useMemo(
     () =>
       PanResponder.create({
-        onMoveShouldSetPanResponder: () => !disabled,
+        onMoveShouldSetPanResponder: () => enabled,
         onPanResponderMove: (e, gestureState) => {
-          if (disabled) return
+          if (!enabled) return
           const x = gestureState.dx
           pan.setValue(getNormalized(x, widthToSlide))
         },
         onPanResponderRelease: (_e, { dx }) => {
           const normalizedVal = getNormalized(dx, widthToSlide)
-          if (normalizedVal >= 1 && !disabled) onConfirm()
+          if (normalizedVal >= 1 && enabled) onConfirm()
           Animated.timing(pan, {
             toValue: 0,
             duration: 100,
@@ -43,7 +43,7 @@ export const useConfirmSliderSetup = ({ disabled, onConfirm }: Props) => {
         },
         onShouldBlockNativeResponder: () => true,
       }),
-    [disabled, onConfirm, pan, widthToSlide],
+    [enabled, onConfirm, pan, widthToSlide],
   )
 
   return { panResponder, pan, widthToSlide, onLayout }

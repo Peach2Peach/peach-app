@@ -97,7 +97,7 @@ describe('useConfirmSliderSetup', () => {
     await waitFor(() => jest.runAllTimers())
   })
   it('should not slide when disabled', async () => {
-    const { result } = renderHook(useConfirmSliderSetup, { initialProps: { ...initialProps, disabled: true } })
+    const { result } = renderHook(useConfirmSliderSetup, { initialProps: { ...initialProps, enabled: true } })
     const endTouch = { currentPageX: widthToSlide, previousPageX: 0, touchActive: true, currentTimeStamp: 1 }
     const moveEvent = {
       touchHistory: {

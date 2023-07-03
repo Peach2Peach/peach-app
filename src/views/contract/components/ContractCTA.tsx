@@ -43,7 +43,7 @@ export const ContractCTA = ({
     if (Date.now() < paymentExpectedBy) {
       return (
         <ConfirmSlider
-          disabled={actionPending}
+          enabled={!actionPending}
           onConfirm={postConfirmPaymentBuyer}
           label1={i18n('contract.payment.buyer.confirm')}
           label2={i18n('contract.payment.made')}
@@ -58,7 +58,7 @@ export const ContractCTA = ({
   }
   if (view === 'seller' && requiredAction === 'confirmPayment') return (
     <ConfirmSlider
-      disabled={actionPending}
+      enabled={!actionPending}
       onConfirm={postConfirmPaymentSeller}
       label1={i18n('contract.payment.confirm')}
       label2={i18n('contract.payment.received')}

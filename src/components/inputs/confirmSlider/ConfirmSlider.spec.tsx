@@ -15,8 +15,8 @@ describe('ConfirmSlider', () => {
     renderer.render(<ConfirmSlider label1="label1" label2="label2" onConfirm={() => {}} iconId="award" />)
     expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
-  it('renders correctly when disabled', () => {
-    renderer.render(<ConfirmSlider label1="label1" label2="label2" onConfirm={() => {}} disabled />)
+  it('renders correctly when not enabled', () => {
+    renderer.render(<ConfirmSlider label1="label1" label2="label2" onConfirm={() => {}} enabled={false} />)
     expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
   it('calls onConfirm on swipe to end', () => {
@@ -29,8 +29,8 @@ describe('ConfirmSlider', () => {
     fireSwipeEvent({ element: getByTestId('confirmSlider'), x: 183 })
     expect(onConfirm).not.toHaveBeenCalled()
   })
-  it('does not call onConfirm on swipe to end if disabled', () => {
-    const { getByTestId } = render(<ConfirmSlider label1="label1" onConfirm={onConfirm} disabled />)
+  it('does not call onConfirm on swipe to end if not enabled', () => {
+    const { getByTestId } = render(<ConfirmSlider label1="label1" onConfirm={onConfirm} enabled={false} />)
     fireSwipeEvent({ element: getByTestId('confirmSlider'), x: 260 })
     expect(onConfirm).not.toHaveBeenCalled()
   })

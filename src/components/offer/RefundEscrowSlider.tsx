@@ -12,5 +12,5 @@ export const RefundEscrowSlider = ({ sellOffer }: Props) => {
     if (!sellOffer) return
     cancelAndStartRefundPopup(sellOffer)
   }
-  return <ConfirmSlider disabled={!sellOffer} onConfirm={refundEscrow} label1={i18n('refundEscrow')} iconId="download" />
+  return <ConfirmSlider enabled={!!sellOffer} onConfirm={refundEscrow} label1={i18n('refundEscrow')} iconId="download" />
 }

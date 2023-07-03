@@ -14,7 +14,7 @@ export const ContinueTradeSlider = ({ sellOffer }: Props) => {
 
   return (
     <ConfirmSlider
-      disabled={!sellOffer}
+      enabled={!!sellOffer}
       onConfirm={confirmEscrowWithSellOffer}
       label1={i18n('continueTrade')}
       iconId="arrowRightCircle"

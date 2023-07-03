@@ -11,19 +11,18 @@ type Props = ComponentProps & {
   label2?: string
   iconId?: IconType
   onConfirm: () => void
-  disabled?: boolean
+  enabled?: boolean
 }
 
-const onStartShouldSetResponder = () => true
 export const ConfirmSlider = ({
   label1,
   label2 = label1,
   iconId = 'checkCircle',
   onConfirm,
-  disabled,
+  enabled = true,
   style,
 }: Props) => {
-  const { panResponder, pan, widthToSlide, onLayout } = useConfirmSliderSetup({ onConfirm, disabled })
+  const { panResponder, pan, widthToSlide, onLayout } = useConfirmSliderSetup({ onConfirm, enabled })
 
   return (
     <View
@@ -34,13 +33,13 @@ export const ConfirmSlider = ({
     >
       <View {...panResponder.panHandlers} testID="confirmSlider" onLayout={onLayout} style={tw`w-full`}>
         <Animated.View
-          {...{ onStartShouldSetResponder }}
+          onStartShouldSetResponder={() => true}
           style={[tw`flex-row items-center`, { transform: getTransform(pan, widthToSlide) }]}
         >
           <ConfirmSliderLabel style={tw`absolute right-full`} width={widthToSlide} opacity={pan}>
             {label2}
           </ConfirmSliderLabel>
-          <SliderKnob {...{ enabled: !disabled, pan, iconId }} />
+          <SliderKnob {...{ enabled, pan, iconId }} />
           <ConfirmSliderLabel width={widthToSlide} opacity={getLabel1Opacity(pan)}>
             {label1}
           </ConfirmSliderLabel>
