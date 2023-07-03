@@ -1,16 +1,18 @@
 import { useMemo, useRef, useState } from 'react'
 import { Animated, LayoutChangeEvent, PanResponder } from 'react-native'
+import { useIsMediumScreen } from '../../../../hooks'
 import { getNormalized } from '../../../../utils/math'
 
 type Props = ComponentProps & {
-  knobWidth: number
   onConfirm: () => void
   disabled?: boolean
 }
 
 const defaultWidth = 260
 
-export const useConfirmSliderSetup = ({ disabled, onConfirm, knobWidth }: Props) => {
+export const useConfirmSliderSetup = ({ disabled, onConfirm }: Props) => {
+  const isMediumScreen = useIsMediumScreen()
+  const knobWidth = isMediumScreen ? 56 : 46
   const [widthToSlide, setWidthToSlide] = useState(defaultWidth - knobWidth)
 
   const onLayout = (event: LayoutChangeEvent) => {

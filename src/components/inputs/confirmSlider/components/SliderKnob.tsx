@@ -9,24 +9,20 @@ type Props = {
   enabled?: boolean
   pan: Animated.Value
   iconId: IconType
-  knobWidth: number
 }
 
-export const ConfirmSliderKnob = ({ enabled = true, pan, iconId, knobWidth }: Props) => {
+export const SliderKnob = ({ enabled = true, pan, iconId }: Props) => {
   const icon = {
-    color: tw`text-primary-background`.color,
-    size: useIsMediumScreen() ? 19 : 16,
+    color: tw`text-primary-background-light`.color,
+    size: useIsMediumScreen() ? 18 : 16,
   }
 
   return (
     <Animated.View
       style={[
-        {
-          width: knobWidth,
-          backgroundColor: enabled ? getBackgroundColor(pan) : tw`text-black-4`.color,
-        },
-        tw`flex flex-row justify-center items-center rounded-full gap-0.5 px-2 py-[6px]`,
-        tw.md`px-[6px] py-1 gap-1`,
+        enabled ? { backgroundColor: getBackgroundColor(pan) } : tw`text-black-4`,
+        tw`flex-row items-center justify-center py-1 rounded-2xl gap-2px px-6px`,
+        tw.md`px-8px py-6px gap-1`,
       ]}
     >
       <Icon id={enabled ? iconId : 'slash'} {...icon} />

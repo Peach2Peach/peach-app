@@ -1,12 +1,10 @@
 import { Animated, View } from 'react-native'
 import { IconType } from '../../../assets/icons'
 import tw from '../../../styles/tailwind'
-import { ConfirmSliderLabel } from './components/ConfirmSliderLabel'
 import { getLabel1Opacity } from './helpers/getLabel1Opacity'
 import { getTransform } from './helpers/getTransform'
 import { useConfirmSliderSetup } from './hooks/useConfirmSliderSetup'
-import { useIsMediumScreen } from '../../../hooks'
-import { ConfirmSliderKnob } from './components/ConfirmSliderKnob'
+import { SliderKnob, ConfirmSliderLabel } from './components'
 
 type Props = ComponentProps & {
   label1: string
@@ -25,9 +23,7 @@ export const ConfirmSlider = ({
   disabled,
   style,
 }: Props) => {
-  const isMediumScreen = useIsMediumScreen()
-  const knobWidth = isMediumScreen ? 56 : 46
-  const { panResponder, pan, widthToSlide, onLayout } = useConfirmSliderSetup({ onConfirm, disabled, knobWidth })
+  const { panResponder, pan, widthToSlide, onLayout } = useConfirmSliderSetup({ onConfirm, disabled })
 
   return (
     <View
@@ -44,7 +40,7 @@ export const ConfirmSlider = ({
           <ConfirmSliderLabel style={tw`absolute right-full`} width={widthToSlide} opacity={pan}>
             {label2}
           </ConfirmSliderLabel>
-          <ConfirmSliderKnob {...{ enabled: !disabled, pan, iconId, knobWidth }} />
+          <SliderKnob {...{ enabled: !disabled, pan, iconId }} />
           <ConfirmSliderLabel width={widthToSlide} opacity={getLabel1Opacity(pan)}>
             {label1}
           </ConfirmSliderLabel>
