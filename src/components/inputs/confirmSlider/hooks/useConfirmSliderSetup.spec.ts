@@ -118,4 +118,19 @@ describe('useConfirmSliderSetup', () => {
     await waitFor(() => expect(result.current.pan._offset).toEqual(0))
     await waitFor(() => jest.runAllTimers())
   })
+
+  it('should not set the panResponder to be the responder when disabled', () => {
+    const { result } = renderHook(useConfirmSliderSetup, { initialProps: { ...initialProps, enabled: false } })
+    const endTouch = { currentPageX: widthToSlide, previousPageX: 0, touchActive: true, currentTimeStamp: 1 }
+    const moveEvent = {
+      touchHistory: {
+        touchBank: [endTouch],
+        numberActiveTouches: 1,
+        indexOfSingleActiveTouch: 0,
+        mostRecentTimeStamp: 1,
+      },
+    }
+    // @ts-ignore
+    expect(result.current.panResponder.panHandlers.onMoveShouldSetResponder(moveEvent)).toEqual(false)
+  })
 })
