@@ -2,14 +2,14 @@ import { useMemo } from 'react'
 import { PeachScrollView } from '../../../components'
 import { useHeaderSetup } from '../../../hooks'
 import tw from '../../../styles/tailwind'
+import { ConfirmSliderTests } from './ConfirmSliderTests'
 import { PriceFormats } from './PriceFormats'
 import { SatsFormats } from './SatsFormats'
-import { SlideToUnlockTests } from './SlideToUnlockTests'
 import { StatusCards } from './StatusCards'
+import { SummaryItems } from './SummaryItems'
 import { UIComponents } from './UIComponents'
 import { TransactionDetails } from './TransactionDetails'
 import { Bubbles } from './Bubbles'
-import { SummaryItems } from './SummaryItems'
 
 export default () => {
   useHeaderSetup(useMemo(() => ({ title: 'test view - components' }), []))
@@ -23,11 +23,12 @@ export default () => {
       <SummaryItems />
       <TransactionDetails />
       <Bubbles />
+      <ConfirmSliderTests />
       <UIComponents />
       <SatsFormats />
       <PriceFormats />
       <StatusCards />
-      <SlideToUnlockTests />
+      <SummaryItems />
     </PeachScrollView>
   )
 }
