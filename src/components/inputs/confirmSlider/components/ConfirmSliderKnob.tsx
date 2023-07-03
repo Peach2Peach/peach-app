@@ -30,7 +30,7 @@ export const ConfirmSliderKnob = ({ enabled = true, pan, iconId, knobWidth }: Pr
       ]}
     >
       <Icon id={enabled ? iconId : 'slash'} size={icon.size} color={icon.color} />
-      <Icon id="chevronsRight" size={icon.size} c olor={icon.color} />
+      <Icon id="chevronsRight" size={icon.size} color={icon.color} />
     </Animated.View>
   )
 }
