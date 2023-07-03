@@ -21,14 +21,6 @@ exports[`TotalBalance renders correctly 1`] = `
       }
     }
   >
-    <View
-      style={
-        {
-          "height": 32,
-          "width": 32,
-        }
-      }
-    />
     <PeachText
       style={
         [
@@ -47,21 +39,6 @@ exports[`TotalBalance renders correctly 1`] = `
       total balance
       :
     </PeachText>
-    <Image
-      resizeMode="cover"
-      source="test-file-stub"
-      style={
-        [
-          {
-            "height": 32,
-            "width": 32,
-          },
-          {
-            "opacity": 0,
-          },
-        ]
-      }
-    />
   </View>
   <BTCAmount
     amount={100000}
@@ -91,14 +68,6 @@ exports[`TotalBalance renders correctly when refreshing 1`] = `
       }
     }
   >
-    <View
-      style={
-        {
-          "height": 32,
-          "width": 32,
-        }
-      }
-    />
     <PeachText
       style={
         [
@@ -119,17 +88,12 @@ exports[`TotalBalance renders correctly when refreshing 1`] = `
       total balance
       :
     </PeachText>
-    <Image
-      resizeMode="cover"
-      source="test-file-stub"
+    <Loading
       style={
-        [
-          {
-            "height": 32,
-            "width": 32,
-          },
-          false,
-        ]
+        {
+          "position": "absolute",
+          "top": 16,
+        }
       }
     />
   </View>
