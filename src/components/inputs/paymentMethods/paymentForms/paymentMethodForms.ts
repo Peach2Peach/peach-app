@@ -64,12 +64,11 @@ export const PaymentMethodForms: PaymentMethodFormsType = {
 }
 GIFTCARDCOUNTRIES.forEach(
   (c) =>
-    (PaymentMethodForms[`giftCard.amazon.${c}` as PaymentMethod] = {
+    (PaymentMethodForms[`giftCard.amazon.${c}`] = {
       component: GiftCardAmazon,
       fields: template4Fields,
     }),
 )
 NATIONALTRANSFERCOUNTRIES.forEach(
-  (c) =>
-    (PaymentMethodForms[`nationalTransfer${c}` as PaymentMethod] = { component: Template9, fields: template9Fields }),
+  (c) => (PaymentMethodForms[`nationalTransfer${c}`] = { component: Template9, fields: template9Fields }),
 )

@@ -137,7 +137,7 @@ export const useOfferPreferences = create<OfferPreferencesStore>()(
           get().setPaymentMethods([...selectedPaymentDataIds, id])
         }
       },
-      setPreferredCurrencyType: (type) => set({ preferredCurrenyType: type }),
+      setPreferredCurrencyType: (preferredCurrenyType) => set({ preferredCurrenyType }),
     }),
 
     {
