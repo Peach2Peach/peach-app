@@ -44,7 +44,7 @@ export const ConfirmSlider = ({
           <ConfirmSliderLabel style={tw`absolute right-full`} width={widthToSlide} opacity={pan}>
             {label2}
           </ConfirmSliderLabel>
-          <ConfirmSliderKnob {...{ disabled, pan, iconId, knobWidth }} />
+          <ConfirmSliderKnob {...{ enabled: !disabled, pan, iconId, knobWidth }} />
           <ConfirmSliderLabel width={widthToSlide} opacity={getLabel1Opacity(pan)}>
             {label1}
           </ConfirmSliderLabel>

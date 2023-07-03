@@ -9,7 +9,9 @@ describe('ConfirmSliderKnob', () => {
     expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
   it('renders when disabled', () => {
-    renderer.render(<ConfirmSliderKnob disabled pan={new Animated.Value(0)} iconId="checkCircle" knobWidth={40} />)
+    renderer.render(
+      <ConfirmSliderKnob enabled={false} pan={new Animated.Value(0)} iconId="checkCircle" knobWidth={40} />,
+    )
     expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
   it('renders when slided to the end', () => {
