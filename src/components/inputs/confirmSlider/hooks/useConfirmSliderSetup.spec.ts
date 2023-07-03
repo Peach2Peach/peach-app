@@ -4,14 +4,17 @@ import { LayoutChangeEvent } from 'react-native'
 import { useConfirmSliderSetup } from './useConfirmSliderSetup'
 
 jest.useFakeTimers()
+jest.mock('../../../../hooks/useIsMediumScreen', () => ({
+  useIsMediumScreen: jest.fn(() => false),
+}))
 
 describe('useConfirmSliderSetup', () => {
   const onConfirm = jest.fn()
   const initialProps = {
     onConfirm,
-    knobWidth: 32,
   }
-  const widthToSlide = 228
+  const knobWidth = 46
+  const widthToSlide = 260 - knobWidth
 
   it('should return default values', () => {
     const { result } = renderHook(useConfirmSliderSetup, { initialProps })
@@ -30,13 +33,13 @@ describe('useConfirmSliderSetup', () => {
   it('should update onLayout', () => {
     const { result } = renderHook(useConfirmSliderSetup, { initialProps })
     act(() => result.current.onLayout({ nativeEvent: { layout: { width: 400 } } } as LayoutChangeEvent))
-    expect(result.current.widthToSlide).toEqual(368)
+    expect(result.current.widthToSlide).toEqual(400 - knobWidth)
   })
 
   it('should not update onLayout width zero dimensions', () => {
     const { result } = renderHook(useConfirmSliderSetup, { initialProps })
     act(() => result.current.onLayout({ nativeEvent: { layout: { width: NaN } } } as LayoutChangeEvent))
-    expect(result.current.widthToSlide).toEqual(228)
+    expect(result.current.widthToSlide).toEqual(widthToSlide)
   })
 
   it('should call onConfirm when sliding to the end', async () => {

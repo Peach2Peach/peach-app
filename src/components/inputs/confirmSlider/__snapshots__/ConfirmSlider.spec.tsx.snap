@@ -72,8 +72,8 @@ exports[`ConfirmSlider renders correctly 1`] = `
         label2
       </ConfirmSliderLabel>
       <SliderKnob
+        enabled={true}
         iconId="checkCircle"
-        knobWidth={56}
         pan={0}
       />
       <ConfirmSliderLabel
@@ -159,9 +159,8 @@ exports[`ConfirmSlider renders correctly when disabled 1`] = `
         label2
       </ConfirmSliderLabel>
       <SliderKnob
-        disabled={true}
+        enabled={false}
         iconId="checkCircle"
-        knobWidth={56}
         pan={0}
       />
       <ConfirmSliderLabel
@@ -247,8 +246,8 @@ exports[`ConfirmSlider renders with different icon 1`] = `
         label2
       </ConfirmSliderLabel>
       <SliderKnob
+        enabled={true}
         iconId="award"
-        knobWidth={56}
         pan={0}
       />
       <ConfirmSliderLabel

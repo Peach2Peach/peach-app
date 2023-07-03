@@ -46,7 +46,7 @@ exports[`SliderKnob renders when disabled 1`] = `
   style={
     [
       {
-        "color": "#BAADA7",
+        "backgroundColor": "#BAADA7",
       },
       {
         "alignItems": "center",
