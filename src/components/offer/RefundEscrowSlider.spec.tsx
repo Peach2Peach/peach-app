@@ -6,10 +6,7 @@ import { RefundEscrowSlider } from './RefundEscrowSlider'
 
 const cancelAndStartRefundPopup = jest.fn()
 jest.mock('../../popups/useCancelAndStartRefundPopup', () => ({
-  useCancelAndStartRefundPopup:
-    () =>
-      (...args: any[]) =>
-        cancelAndStartRefundPopup(...args),
+  useCancelAndStartRefundPopup: () => cancelAndStartRefundPopup,
 }))
 
 describe('RefundEscrowSlider', () => {

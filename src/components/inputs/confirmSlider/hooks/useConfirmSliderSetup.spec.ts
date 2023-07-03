@@ -12,6 +12,7 @@ describe('useConfirmSliderSetup', () => {
   const onConfirm = jest.fn()
   const initialProps = {
     onConfirm,
+    enabled: true,
   }
   const knobWidth = 46
   const widthToSlide = 260 - knobWidth
@@ -97,7 +98,7 @@ describe('useConfirmSliderSetup', () => {
     await waitFor(() => jest.runAllTimers())
   })
   it('should not slide when disabled', async () => {
-    const { result } = renderHook(useConfirmSliderSetup, { initialProps: { ...initialProps, enabled: true } })
+    const { result } = renderHook(useConfirmSliderSetup, { initialProps: { ...initialProps, enabled: false } })
     const endTouch = { currentPageX: widthToSlide, previousPageX: 0, touchActive: true, currentTimeStamp: 1 }
     const moveEvent = {
       touchHistory: {
