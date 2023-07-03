@@ -8,8 +8,6 @@ export const useReceiveAddressInput = (paymentData: Partial<PaymentData>) => {
   const receiveAddressRules = useMemo(
     () => ({
       required: true,
-      // todo: nope
-      bitcoinAddress: true,
     }),
     [],
   )
