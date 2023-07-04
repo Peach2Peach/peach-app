@@ -27,7 +27,10 @@ const TabBar = ({ state, navigation }: MaterialTopTabBarProps) => {
       {items.map((item) => (
         <TouchableOpacity style={tw`flex-shrink px-2`} key={item.key + item.name} onPress={() => select(item)}>
           <Text
-            style={[tw`px-4 py-2 text-center input-label`, item.name === selected ? colors.textSelected : colors.text]}
+            style={[
+              tw`px-4 py-2 text-center capitalize input-label`,
+              item.name === selected ? colors.textSelected : colors.text,
+            ]}
           >
             {i18n(item.name)}
           </Text>
