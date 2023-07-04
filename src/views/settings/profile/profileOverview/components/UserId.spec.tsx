@@ -1,5 +1,3 @@
-import * as React from 'react'
-
 import { create } from 'react-test-renderer'
 import { usePublicProfileNavigation } from '../../../../../hooks/usePublicProfileNavigation'
 import { UserId } from './UserId'
@@ -39,19 +37,5 @@ describe('UserId', () => {
     const testInstance = create(<UserId {...{ id, showInfo }} />).root
     testInstance.findByProps({ testID: 'user-id' }).props.onPress()
     expect(usePublicProfileNavigation(id)).toHaveBeenCalled()
-  })
-  it.skip('should copy user id if showInfo is false', () => {
-    // test implementation faulty
-    const copyMock = jest.fn()
-    jest.spyOn(React, 'useRef').mockReturnValue({
-      current: {
-        copy: copyMock,
-      },
-    })
-
-    const showInfo = false
-    const testInstance = create(<UserId {...{ id, showInfo }} />).root
-    testInstance.findByProps({ testID: 'user-id' }).props.onPress()
-    expect(copyMock).toHaveBeenCalled()
   })
 })
