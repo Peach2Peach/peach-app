@@ -1,14 +1,18 @@
 import { View } from 'react-native'
 import { Text } from '../../../components'
+import {
+  AddressSummaryItem,
+  AmountSummaryItem,
+  ConfirmationSummaryItem,
+  CopyableSummaryItem,
+  PaymentMethodSummaryItem,
+  PeachIdSummaryItem,
+  RatingSummaryItem,
+  SummaryItem,
+  TextSummaryItem,
+} from '../../../components/summaryItem'
 import tw from '../../../styles/tailwind'
-import { SummaryItem, TextSummaryItem } from '../../../components/summaryItem'
 import { info } from '../../../utils/log'
-import { ConfirmationSummaryItem } from '../../../components/summaryItem/ConfirmationSummaryItem'
-import { AmountSummaryItem } from '../../../components/summaryItem/AmountSummaryItem'
-import { PaymentMethodSummaryItem } from '../../../components/summaryItem/PaymentMethodSummaryItem'
-import { AddressSummaryItem } from '../../../components/summaryItem/AddressSummaryItem'
-import { RatingSummaryItem } from '../../../components/summaryItem/RatingSummaryItem'
-import { PeachIdSummaryItem } from '../../../components/summaryItem/PeachIdSummaryItem'
 
 export const SummaryItems = () => (
   <View style={tw`gap-4`}>
@@ -27,6 +31,7 @@ export const SummaryItems = () => (
       iconColor={tw`text-primary-main`.color}
       onPress={() => info('rick rolled!')}
     />
+    <CopyableSummaryItem title="text summary" text="text" />
     <ConfirmationSummaryItem />
     <ConfirmationSummaryItem confirmed />
     <AmountSummaryItem amount={12345} />

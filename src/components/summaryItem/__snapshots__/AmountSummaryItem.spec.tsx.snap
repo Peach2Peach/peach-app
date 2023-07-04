@@ -15,7 +15,7 @@ exports[`AmountSummaryItem renders correctly 1`] = `
   >
     <BTCAmount
       amount={12345}
-      size="small"
+      size="medium"
     />
     <CopyAble
       value="12345"

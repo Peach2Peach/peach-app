@@ -5,8 +5,9 @@ declare type TransactionSummary = {
   offerId?: string
   type: TransactionType
   amount: number
-  price: number
-  currency: Currency
+  price?: number
+  currency?: Currency
   date: Date
+  height?: number
   confirmed: boolean
 }

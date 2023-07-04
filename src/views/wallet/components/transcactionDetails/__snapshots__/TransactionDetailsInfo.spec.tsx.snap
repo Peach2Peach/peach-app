@@ -1,271 +1,103 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`TransactionDetailsInfo should render correctly for a confirmed transaction 1`] = `
-<View>
-  <PeachText
-    style={
-      {
-        "color": "#7D675E",
-        "textAlign": "center",
-      }
+<View
+  style={
+    {
+      "gap": 16,
     }
-  >
-    date
-  </PeachText>
-  <PeachText
-    style={
-      {
-        "fontFamily": "Baloo2-SemiBold",
-        "fontSize": 16,
-        "letterSpacing": 0.16,
-        "lineHeight": 28,
-        "textAlign": "center",
-      }
-    }
-  >
-    sep 14th, 2022
-  </PeachText>
-  <HorizontalLine
-    style={
-      {
-        "marginBottom": 16,
-        "marginTop": 16,
-      }
-    }
+  }
+>
+  <Divider />
+  <AmountSummaryItem
+    amount={900}
   />
-  <PeachText
-    style={
-      {
-        "color": "#7D675E",
-        "textAlign": "center",
-      }
-    }
-  >
-    to
-  </PeachText>
-  <ShortBitcoinAddress
-    address=""
-    style={
-      {
-        "fontFamily": "Baloo2-SemiBold",
-        "fontSize": 16,
-        "letterSpacing": 0.16,
-        "lineHeight": 28,
-        "textAlign": "center",
-      }
-    }
+  <AddressSummaryItem
+    address="receivingAddress"
+    title="to"
   />
-  <HorizontalLine
-    style={
-      {
-        "marginBottom": 16,
-        "marginTop": 16,
-      }
-    }
+  <Divider />
+  <ConfirmationSummaryItem
+    confirmed={true}
   />
-  <PeachText
-    style={
-      {
-        "color": "#7D675E",
-        "textAlign": "center",
-      }
-    }
-  >
-    amount
-  </PeachText>
-  <View
-    style={
-      {
-        "display": "flex",
-        "flexDirection": "row",
-        "justifyContent": "center",
-      }
-    }
-  >
-    <MediumSatsFormat
-      sats={123456}
+  <React.Fragment>
+    <CopyableSummaryItem
+      text="1"
+      title="block"
     />
-  </View>
+    <CopyableSummaryItem
+      text="14/09/2022"
+      title="time"
+    />
+  </React.Fragment>
+  <Divider />
+  <Bubble
+    color="primary"
+    ghost={true}
+    iconId="externalLink"
+    iconSize={16}
+    onPress={[MockFunction]}
+    style={
+      {
+        "alignSelf": "center",
+      }
+    }
+  >
+    view in explorer
+  </Bubble>
 </View>
 `;
 
 exports[`TransactionDetailsInfo should render correctly for a pending transaction 1`] = `
-<View>
-  <PeachText
-    style={
-      {
-        "color": "#7D675E",
-        "textAlign": "center",
-      }
+<View
+  style={
+    {
+      "gap": 16,
     }
-  >
-    date
-  </PeachText>
-  <PeachText
-    style={
-      {
-        "fontFamily": "Baloo2-SemiBold",
-        "fontSize": 16,
-        "letterSpacing": 0.16,
-        "lineHeight": 28,
-        "textAlign": "center",
-      }
-    }
-  >
-    unconfirmed
-  </PeachText>
-  <TransactionETA
+  }
+>
+  <Divider />
+  <AmountSummaryItem
+    amount={900}
+  />
+  <AddressSummaryItem
+    address="receivingAddress"
+    title="to"
+  />
+  <Divider />
+  <ConfirmationSummaryItem
+    confirmed={false}
+  />
+  <TransactionETASummaryItem
     txId="txid1"
   />
-  <HorizontalLine
+  <Bubble
+    color="primary"
+    iconId="chevronsUp"
+    iconSize={16}
+    onPress={[MockFunction]}
     style={
       {
-        "marginBottom": 16,
-        "marginTop": 16,
-      }
-    }
-  />
-  <PeachText
-    style={
-      {
-        "color": "#7D675E",
-        "textAlign": "center",
+        "alignSelf": "center",
       }
     }
   >
-    to
-  </PeachText>
-  <ShortBitcoinAddress
-    address=""
+    increase network fee
+  </Bubble>
+  <Divider />
+  <Bubble
+    color="primary"
+    ghost={true}
+    iconId="externalLink"
+    iconSize={16}
+    onPress={[MockFunction]}
     style={
       {
-        "fontFamily": "Baloo2-SemiBold",
-        "fontSize": 16,
-        "letterSpacing": 0.16,
-        "lineHeight": 28,
-        "textAlign": "center",
-      }
-    }
-  />
-  <HorizontalLine
-    style={
-      {
-        "marginBottom": 16,
-        "marginTop": 16,
-      }
-    }
-  />
-  <PeachText
-    style={
-      {
-        "color": "#7D675E",
-        "textAlign": "center",
+        "alignSelf": "center",
       }
     }
   >
-    amount
-  </PeachText>
-  <View
-    style={
-      {
-        "display": "flex",
-        "flexDirection": "row",
-        "justifyContent": "center",
-      }
-    }
-  >
-    <MediumSatsFormat
-      sats={123456}
-    />
-  </View>
-</View>
-`;
-
-exports[`TransactionDetailsInfo should render correctly with a receiving address 1`] = `
-<View>
-  <PeachText
-    style={
-      {
-        "color": "#7D675E",
-        "textAlign": "center",
-      }
-    }
-  >
-    date
-  </PeachText>
-  <PeachText
-    style={
-      {
-        "fontFamily": "Baloo2-SemiBold",
-        "fontSize": 16,
-        "letterSpacing": 0.16,
-        "lineHeight": 28,
-        "textAlign": "center",
-      }
-    }
-  >
-    sep 14th, 2022
-  </PeachText>
-  <HorizontalLine
-    style={
-      {
-        "marginBottom": 16,
-        "marginTop": 16,
-      }
-    }
-  />
-  <PeachText
-    style={
-      {
-        "color": "#7D675E",
-        "textAlign": "center",
-      }
-    }
-  >
-    to
-  </PeachText>
-  <ShortBitcoinAddress
-    address="receivingAddress"
-    style={
-      {
-        "fontFamily": "Baloo2-SemiBold",
-        "fontSize": 16,
-        "letterSpacing": 0.16,
-        "lineHeight": 28,
-        "textAlign": "center",
-      }
-    }
-  />
-  <HorizontalLine
-    style={
-      {
-        "marginBottom": 16,
-        "marginTop": 16,
-      }
-    }
-  />
-  <PeachText
-    style={
-      {
-        "color": "#7D675E",
-        "textAlign": "center",
-      }
-    }
-  >
-    amount
-  </PeachText>
-  <View
-    style={
-      {
-        "display": "flex",
-        "flexDirection": "row",
-        "justifyContent": "center",
-      }
-    }
-  >
-    <MediumSatsFormat
-      sats={123456}
-    />
-  </View>
+    view in explorer
+  </Bubble>
 </View>
 `;

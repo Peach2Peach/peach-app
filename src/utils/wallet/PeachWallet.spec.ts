@@ -7,14 +7,7 @@ import { TransactionDetails, TxBuilderResult } from 'bdk-rn/lib/classes/Bindings
 import { AddressIndex } from 'bdk-rn/lib/lib/enums'
 import { account1 } from '../../../tests/unit/data/accountData'
 import { insufficientFunds } from '../../../tests/unit/data/errors'
-import {
-  confirmed1,
-  confirmed2,
-  genesisTx,
-  pending1,
-  pending2,
-  pending3,
-} from '../../../tests/unit/data/transactionDetailData'
+import { confirmed1, confirmed2, pending1, pending2, pending3 } from '../../../tests/unit/data/transactionDetailData'
 import { getError } from '../../../tests/unit/helpers/getError'
 import {
   blockChainCreateMock,
@@ -29,11 +22,11 @@ import {
   walletSyncMock,
 } from '../../../tests/unit/mocks/bdkRN'
 import { useTradeSummaryStore } from '../../store/tradeSummaryStore'
+import { error as logError } from '../log'
 import { PeachWallet } from './PeachWallet'
 import { createWalletFromSeedPhrase } from './createWalletFromSeedPhrase'
 import { getNetwork } from './getNetwork'
 import { useWalletState } from './walletStore'
-import { error as logError } from '../log'
 
 jest.mock('./PeachWallet', () => jest.requireActual('./PeachWallet'))
 
@@ -228,7 +221,7 @@ describe('PeachWallet', () => {
     expect(getTxHexMock).not.toHaveBeenCalled()
   })
   it('gets pending transactions', () => {
-    peachWallet.transactions = [genesisTx, confirmed1, pending1, pending2, confirmed2]
+    peachWallet.transactions = [confirmed1, pending1, pending2, confirmed2]
     expect(peachWallet.getPendingTransactions()).toEqual([pending1, pending2])
   })
   it('gets balance', async () => {
