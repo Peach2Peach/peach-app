@@ -71,9 +71,19 @@ export const AddPaymentMethod = () => {
         display: i18n(`country.${c}`),
       }))
 
+  const selectCurrency = () => {
+    if (selectedCurrency === 'USDT') {
+      goToPaymentMethodForm({ paymentMethod: 'liquid', currencies: [selectedCurrency], country })
+    } else {
+      next()
+    }
+  }
+
   return (
     <View>
-      {id === 'currency' && <Currency currency={selectedCurrency} setCurrency={setSelectedCurrency} next={next} />}
+      {id === 'currency' && (
+        <Currency currency={selectedCurrency} setCurrency={setSelectedCurrency} next={selectCurrency} />
+      )}
       {id === 'paymentMethod' && (
         <PaymentMethod currency={selectedCurrency} setPaymentMethod={selectPaymentMethod} next={next} />
       )}
