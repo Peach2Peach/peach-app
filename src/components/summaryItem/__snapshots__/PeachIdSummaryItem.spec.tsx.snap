@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PeachIdSummaryItem renders correctly 1`] = `
+<SummaryItem
+  title="user"
+>
+  <UserId
+    id="userId"
+    showInfo={true}
+  />
+</SummaryItem>
+`;

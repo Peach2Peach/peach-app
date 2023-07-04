@@ -11,7 +11,6 @@ export type ButtonProps = {
   narrow?: boolean
   option?: boolean
   children?: ReactNode
-  noBackground?: true
   iconId?: IconType
   color?: ViewStyle | undefined
   textColor: TextStyle

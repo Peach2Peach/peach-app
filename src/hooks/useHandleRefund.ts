@@ -1,8 +1,8 @@
 import { useCallback } from 'react'
-import { useStartRefundPopup } from '../../../popups/useStartRefundPopup'
-import { queryClient } from '../../../queryClient'
-import { isSellOffer } from '../../../utils/offer'
-import { getOfferDetails } from '../../../utils/peachAPI'
+import { useStartRefundPopup } from '../popups/useStartRefundPopup'
+import { queryClient } from '../queryClient'
+import { isSellOffer } from '../utils/offer'
+import { getOfferDetails } from '../utils/peachAPI'
 
 export const useHandleRefund = () => {
   const showStartRefundPopup = useStartRefundPopup()

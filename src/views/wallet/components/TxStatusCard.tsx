@@ -2,26 +2,26 @@ import { StatusCard } from '../../../components/statusCard'
 import { useNavigation } from '../../../hooks'
 import { getShortDateFormat } from '../../../utils/date'
 import { getTxSummaryTitle } from '../helpers/getTxSummaryTitle'
-import { iconMap } from './iconMap'
+import { TransactionIcon } from './TransactionIcon'
 import { levelMap } from './levelMap'
 
 type Props = {
   item: TransactionSummary
 }
 
-export const TxStatusCard = ({ item: tx }: Props) => {
+export const TxStatusCard = ({ item: { type, amount, date, id } }: Props) => {
   const navigation = useNavigation()
 
   return (
     <StatusCard
-      title={getTxSummaryTitle(tx)}
-      icon={iconMap[tx.type]}
-      amount={tx.amount}
-      subtext={getShortDateFormat(tx.date)}
+      title={getTxSummaryTitle(type)}
+      icon={<TransactionIcon type={type} size={17} />}
+      amount={amount}
+      subtext={getShortDateFormat(date)}
       onPress={() => {
-        navigation.navigate('transactionDetails', { txId: tx.id })
+        navigation.navigate('transactionDetails', { txId: id })
       }}
-      color={levelMap[tx.type]}
+      color={levelMap[type]}
     />
   )
 }

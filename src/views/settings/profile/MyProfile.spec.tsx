@@ -1,14 +1,10 @@
 import { render } from '@testing-library/react-native'
-import { headerState, NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
-import { QueryClientWrapper } from '../../../../tests/unit/helpers/QueryClientWrapper'
-import MyProfile from './MyProfile'
 import { apiSuccess } from '../../../../tests/unit/data/peachAPIData'
+import { NavigationAndQueryClientWrapper } from '../../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
+import { headerState } from '../../../../tests/unit/helpers/NavigationWrapper'
+import MyProfile from './MyProfile'
 
-const wrapper = ({ children }: ComponentProps) => (
-  <NavigationWrapper>
-    <QueryClientWrapper>{children}</QueryClientWrapper>
-  </NavigationWrapper>
-)
+const wrapper = NavigationAndQueryClientWrapper
 
 const authMock = jest.fn().mockResolvedValue([apiSuccess, null])
 jest.mock('../../../utils/peachAPI', () => ({
