@@ -14,7 +14,7 @@ export const TransactionHistory = () => {
       maxToRenderPerBatch={20}
       contentContainerStyle={[tw`gap-4 p-4`, tw.md`p-8`]}
       data={transactions}
-      renderItem={({ item }) => <TxStatusCard tx={item} />}
+      renderItem={(props) => <TxStatusCard {...props} />}
       keyExtractor={(item) => item.id}
       onRefresh={refresh}
       refreshing={isRefreshing}

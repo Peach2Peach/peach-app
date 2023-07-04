@@ -106,8 +106,8 @@ exports[`TransactionHeader should render correctly buy trade 1`] = `
           "height": 28,
           "justifyContent": "center",
           "opacity": 1,
-          "paddingLeft": 8,
-          "paddingRight": 8,
+          "paddingLeft": 10,
+          "paddingRight": 10,
         }
       }
     >
@@ -136,6 +136,13 @@ exports[`TransactionHeader should render correctly buy trade 1`] = `
                 "textAlign": "center",
                 "textTransform": "uppercase",
               },
+              {
+                "fontFamily": "Baloo2-SemiBold",
+                "fontSize": 15,
+                "letterSpacing": 0.54,
+                "lineHeight": 26,
+                "textTransform": "uppercase",
+              },
             ],
           ]
         }
@@ -147,8 +154,8 @@ exports[`TransactionHeader should render correctly buy trade 1`] = `
         style={
           [
             {
-              "height": 20,
-              "width": 20,
+              "height": 16,
+              "width": 16,
             },
             undefined,
           ]
@@ -265,8 +272,8 @@ exports[`TransactionHeader should render correctly for a funding escrow transact
           "height": 28,
           "justifyContent": "center",
           "opacity": 1,
-          "paddingLeft": 8,
-          "paddingRight": 8,
+          "paddingLeft": 10,
+          "paddingRight": 10,
         }
       }
     >
@@ -295,6 +302,13 @@ exports[`TransactionHeader should render correctly for a funding escrow transact
                 "textAlign": "center",
                 "textTransform": "uppercase",
               },
+              {
+                "fontFamily": "Baloo2-SemiBold",
+                "fontSize": 15,
+                "letterSpacing": 0.54,
+                "lineHeight": 26,
+                "textTransform": "uppercase",
+              },
             ],
           ]
         }
@@ -306,8 +320,8 @@ exports[`TransactionHeader should render correctly for a funding escrow transact
         style={
           [
             {
-              "height": 20,
-              "width": 20,
+              "height": 16,
+              "width": 16,
             },
             undefined,
           ]
@@ -424,8 +438,8 @@ exports[`TransactionHeader should render correctly for a funding escrow transact
           "height": 28,
           "justifyContent": "center",
           "opacity": 1,
-          "paddingLeft": 8,
-          "paddingRight": 8,
+          "paddingLeft": 10,
+          "paddingRight": 10,
         }
       }
     >
@@ -454,6 +468,13 @@ exports[`TransactionHeader should render correctly for a funding escrow transact
                 "textAlign": "center",
                 "textTransform": "uppercase",
               },
+              {
+                "fontFamily": "Baloo2-SemiBold",
+                "fontSize": 15,
+                "letterSpacing": 0.54,
+                "lineHeight": 26,
+                "textTransform": "uppercase",
+              },
             ],
           ]
         }
@@ -465,8 +486,8 @@ exports[`TransactionHeader should render correctly for a funding escrow transact
         style={
           [
             {
-              "height": 20,
-              "width": 20,
+              "height": 16,
+              "width": 16,
             },
             undefined,
           ]
@@ -651,8 +672,8 @@ exports[`TransactionHeader should render correctly for a refund transaction 1`] 
           "height": 28,
           "justifyContent": "center",
           "opacity": 1,
-          "paddingLeft": 8,
-          "paddingRight": 8,
+          "paddingLeft": 10,
+          "paddingRight": 10,
         }
       }
     >
@@ -681,6 +702,13 @@ exports[`TransactionHeader should render correctly for a refund transaction 1`] 
                 "textAlign": "center",
                 "textTransform": "uppercase",
               },
+              {
+                "fontFamily": "Baloo2-SemiBold",
+                "fontSize": 15,
+                "letterSpacing": 0.54,
+                "lineHeight": 26,
+                "textTransform": "uppercase",
+              },
             ],
           ]
         }
@@ -692,8 +720,8 @@ exports[`TransactionHeader should render correctly for a refund transaction 1`] 
         style={
           [
             {
-              "height": 20,
-              "width": 20,
+              "height": 16,
+              "width": 16,
             },
             undefined,
           ]

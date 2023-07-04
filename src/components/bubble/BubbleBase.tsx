@@ -35,13 +35,18 @@ export const BubbleBase = ({
     style={[
       color,
       tw`flex-row items-center justify-center h-7 px-2 gap-1`,
+      tw.md`px-[10px]`,
       borderRadius,
       borderColor && [tw`border`, borderColor],
       pressableProps.style,
     ]}
   >
     {children && (
-      <Text numberOfLines={1} ellipsizeMode="tail" style={[textColor, tw`text-center button-medium`]}>
+      <Text
+        numberOfLines={1}
+        ellipsizeMode="tail"
+        style={[textColor, tw`text-center button-medium`, tw.md`button-large`]}
+      >
         {children}
       </Text>
     )}

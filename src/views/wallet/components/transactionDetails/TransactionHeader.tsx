@@ -1,14 +1,13 @@
 import { View } from 'react-native'
 import { Text } from '../../../../components'
 import { Bubble } from '../../../../components/bubble'
-import { useNavigateToOfferOrContract } from '../../../../hooks/useNavigateToOfferOrContract'
+import { useIsMediumScreen, useNavigateToOfferOrContract } from '../../../../hooks'
 import { useTradeSummaryStore } from '../../../../store/tradeSummaryStore'
 import tw from '../../../../styles/tailwind'
 import { contractIdToHex } from '../../../../utils/contract'
 import i18n from '../../../../utils/i18n'
 import { offerIdToHex } from '../../../../utils/offer'
 import { TransactionIcon } from '../TransactionIcon'
-import { useIsMediumScreen } from '../../../../hooks'
 
 type Props = ComponentProps & Pick<TransactionSummary, 'type' | 'offerId' | 'contractId'>
 export const TransactionHeader = ({ type, offerId, contractId, style }: Props) => {

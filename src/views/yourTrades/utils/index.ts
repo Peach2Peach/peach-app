@@ -1,5 +1,4 @@
 export { getDisputeResultTheme } from './getDisputeResultTheme'
-export { getNavigationDestinationForContract } from '../../../hooks/getNavigationDestinationForContract'
 export { getNavigationDestinationForOffer } from './navigation/getNavigationDestinationForOffer'
 export { getOfferColor } from './getOfferColor'
 export { getThemeForTradeItem } from './getThemeForTradeItem'

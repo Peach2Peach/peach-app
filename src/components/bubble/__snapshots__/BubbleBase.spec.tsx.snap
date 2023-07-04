@@ -18,6 +18,10 @@ exports[`BubbleBase should render background and border color 1`] = `
         "paddingRight": 8,
       },
       {
+        "paddingLeft": 10,
+        "paddingRight": 10,
+      },
+      {
         "borderRadius": 8,
       },
       [
@@ -48,6 +52,13 @@ exports[`BubbleBase should render background and border color 1`] = `
           "textAlign": "center",
           "textTransform": "uppercase",
         },
+        {
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 15,
+          "letterSpacing": 0.54,
+          "lineHeight": 26,
+          "textTransform": "uppercase",
+        },
       ]
     }
   >
@@ -72,6 +83,10 @@ exports[`BubbleBase should render correctly 1`] = `
         "paddingRight": 8,
       },
       {
+        "paddingLeft": 10,
+        "paddingRight": 10,
+      },
+      {
         "borderRadius": 8,
       },
       undefined,
@@ -93,6 +108,13 @@ exports[`BubbleBase should render correctly 1`] = `
           "letterSpacing": 0.5,
           "lineHeight": 24,
           "textAlign": "center",
+          "textTransform": "uppercase",
+        },
+        {
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 15,
+          "letterSpacing": 0.54,
+          "lineHeight": 26,
           "textTransform": "uppercase",
         },
       ]
@@ -119,6 +141,10 @@ exports[`BubbleBase should render correctly with icon 1`] = `
         "paddingRight": 8,
       },
       {
+        "paddingLeft": 10,
+        "paddingRight": 10,
+      },
+      {
         "borderRadius": 8,
       },
       undefined,
@@ -140,6 +166,13 @@ exports[`BubbleBase should render correctly with icon 1`] = `
           "letterSpacing": 0.5,
           "lineHeight": 24,
           "textAlign": "center",
+          "textTransform": "uppercase",
+        },
+        {
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 15,
+          "letterSpacing": 0.54,
+          "lineHeight": 26,
           "textTransform": "uppercase",
         },
       ]
@@ -171,6 +204,10 @@ exports[`BubbleBase should render correctly with icon and specific color 1`] = `
         "paddingRight": 8,
       },
       {
+        "paddingLeft": 10,
+        "paddingRight": 10,
+      },
+      {
         "borderRadius": 8,
       },
       undefined,
@@ -192,6 +229,13 @@ exports[`BubbleBase should render correctly with icon and specific color 1`] = `
           "letterSpacing": 0.5,
           "lineHeight": 24,
           "textAlign": "center",
+          "textTransform": "uppercase",
+        },
+        {
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 15,
+          "letterSpacing": 0.54,
+          "lineHeight": 26,
           "textTransform": "uppercase",
         },
       ]

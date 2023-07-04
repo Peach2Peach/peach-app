@@ -1,4 +1,4 @@
-import { SlideToUnlock } from '../../../../components/inputs'
+import { ConfirmSlider } from '../../../../components/inputs'
 import i18n from '../../../../utils/i18n'
 import { useSendAllTo } from '../../hooks/useSendAllTo'
 
@@ -10,5 +10,5 @@ type Props = ComponentProps & {
 export const ConfirmSendAllTo = ({ address, onSuccess, disabled, style }: Props) => {
   const sendAllTo = useSendAllTo({ address, onSuccess })
 
-  return <SlideToUnlock style={style} disabled={disabled} label1={i18n('wallet.withdrawAll')} onUnlock={sendAllTo} />
+  return <ConfirmSlider style={style} enabled={!disabled} label1={i18n('wallet.withdrawAll')} onConfirm={sendAllTo} />
 }
