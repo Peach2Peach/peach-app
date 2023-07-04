@@ -1,7 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`TradeDetails should render correctly 1`] = `
-<View>
+<View
+  style={
+    {
+      "gap": 8,
+    }
+  }
+>
   <SummaryItem
     icon={
       <CopyAble
@@ -76,7 +82,13 @@ exports[`TradeDetails should render correctly 1`] = `
 `;
 
 exports[`TradeDetails should render correctly for past trade 1`] = `
-<View>
+<View
+  style={
+    {
+      "gap": 8,
+    }
+  }
+>
   <SummaryItem
     information="89.04 EUR"
     isDisputeActive={false}
@@ -106,7 +118,13 @@ exports[`TradeDetails should render correctly for past trade 1`] = `
 `;
 
 exports[`TradeDetails should show errorBox for missing paymentdata and decryption error 1`] = `
-<View>
+<View
+  style={
+    {
+      "gap": 8,
+    }
+  }
+>
   <SummaryItem
     information="89.04 EUR"
     isDisputeActive={false}

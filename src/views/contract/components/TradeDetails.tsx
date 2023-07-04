@@ -24,7 +24,7 @@ export const TradeDetails = () => {
   const error = useLocalContractStore((state) => state.contracts[contract.id]?.error)
 
   return (
-    <View>
+    <View style={tw`gap-2`}>
       {fields.map((fieldName, index) => {
         const label = i18n(`contract.summary.${fieldName}`)
         const information = isTradeInformationGetter(fieldName)
