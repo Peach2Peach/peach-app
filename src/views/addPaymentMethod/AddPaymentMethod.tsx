@@ -6,7 +6,7 @@ import i18n from '../../utils/i18n'
 import { CURRENCIES } from '../../constants'
 import { useNavigation, useRoute } from '../../hooks'
 import { getPaymentDataByType } from '../../utils/account'
-import { countrySupportsCurrency, getPaymentMethodInfo, isLocalOption } from '../../utils/paymentMethod'
+import { countrySupportsCurrency, getPaymentMethodInfo } from '../../utils/paymentMethod'
 import { Countries } from './Countries'
 import { Currency } from './Currency'
 import { PaymentMethod } from './PaymentMethod'
@@ -53,23 +53,10 @@ export const AddPaymentMethod = () => {
     setPaymentMethod(method)
     updateDrawer({ show: false })
     if (!method) return
-    const paymentMethodInfo = getPaymentMethodInfo(method)
 
     if (/giftCard/u.test(method)) {
       next()
       return
-    }
-
-    if (!isLocalOption(method)) {
-      goToPaymentMethodForm({ paymentMethod: method, currencies: [selectedCurrency], country })
-      return
-    } else if (!!paymentMethodInfo.countries) {
-      const countries = paymentMethodInfo.countries.filter(countrySupportsCurrency(selectedCurrency))
-      if (countries.length === 1) {
-        setCountry(countries[0])
-        goToPaymentMethodForm({ paymentMethod: method, currencies: [selectedCurrency], country: countries[0] })
-        return
-      }
     }
 
     goToPaymentMethodForm({ paymentMethod: method, currencies: [selectedCurrency], country })
