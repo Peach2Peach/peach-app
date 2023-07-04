@@ -1,17 +1,14 @@
 import { account } from '../account'
-import { hashPaymentData } from '../paymentMethod'
+import { hashPaymentData } from '../paymentMethod/hashPaymentData'
 
 /**
- * @description Method to get payment data from offer by id
+ * @description Method to get payment data from offer + payment data hash
  * Use account payment data as fallback
- * @param offer the offer
- * @param paymentMethod payment method to get data for
- * @returns payment data or undefined
  */
 export const getPaymentDataByOfferAndMethod = (
   offer: BuyOffer | SellOffer,
   paymentMethod: PaymentMethod,
-  hashedPaymentData: string,
+  hashedPaymentData: string
 ): PaymentData | undefined => {
   const paymentData = offer.originalPaymentData
     ? offer.originalPaymentData.filter((data) => data.type === paymentMethod)

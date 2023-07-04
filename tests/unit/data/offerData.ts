@@ -1,6 +1,8 @@
 /* eslint-disable max-len */
 /* eslint-disable max-lines */
 
+import { validSEPAData } from './paymentData'
+
 export const buyOffer: BuyOffer = {
   creationDate: new Date('2022-03-08T11:41:07.245Z'),
   publishingDate: new Date('2022-03-08T11:41:07.245Z'),
@@ -37,10 +39,10 @@ export const sellOffer: SellOffer = {
   },
   paymentData: {
     sepa: {
-      hash: 'TODO add payment hash',
+      hash: '5dee7a784e8d09d7627d8b5c8768f2ec159225ba8c5013055b3c189490d7f10b',
     },
   },
-  originalPaymentData: [],
+  originalPaymentData: [validSEPAData],
   funding: {
     status: 'NULL',
     txIds: [],
@@ -73,10 +75,10 @@ export const buyOfferUnpublished: BuyOfferDraft = {
   },
   paymentData: {
     sepa: {
-      hash: 'TODO add payment hash',
+      hash: '5dee7a784e8d09d7627d8b5c8768f2ec159225ba8c5013055b3c189490d7f10b',
     },
   },
-  originalPaymentData: [],
+  originalPaymentData: [validSEPAData],
   amount: [250000, 500000],
   tradeStatus: 'offerHidden',
   releaseAddress: 'bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh',

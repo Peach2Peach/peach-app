@@ -7,11 +7,9 @@ export const generateMatchOfferData = async (
   offer: (BuyOffer | SellOffer) & { id: string },
   match: Match,
   selectedCurrency: Currency,
-  selectedPaymentMethod: PaymentMethod,
+  selectedPaymentMethod: PaymentMethod
   // eslint-disable-next-line max-params
 ): Promise<[MatchProps | null, string | null]> => {
-  const hashedPaymentData = offer.paymentData[selectedPaymentMethod]?.hash
-  if (hashedPaymentData === undefined) return [null, 'MISSING_HASHED_PAYMENT_DATA']
   const defaultOfferData = {
     offerId: offer.id,
     matchingOfferId: match.offerId,
@@ -21,7 +19,6 @@ export const generateMatchOfferData = async (
     symmetricKeySignature: undefined,
     paymentDataEncrypted: undefined,
     paymentDataSignature: undefined,
-    hashedPaymentData,
   }
 
   if (isBuyOffer(offer)) {
@@ -35,6 +32,9 @@ export const generateMatchOfferData = async (
       null,
     ]
   }
+
+  const hashedPaymentData = offer.paymentData[selectedPaymentMethod]?.hash
+  if (hashedPaymentData === undefined) return [null, 'MISSING_HASHED_PAYMENT_DATA']
 
   const paymentDataForMethod = getPaymentDataByOfferAndMethod(offer, selectedPaymentMethod, hashedPaymentData)
   if (!paymentDataForMethod) return [null, 'MISSING_PAYMENTDATA']
