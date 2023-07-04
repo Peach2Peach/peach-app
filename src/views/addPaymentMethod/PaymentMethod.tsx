@@ -73,7 +73,6 @@ export const PaymentMethod = ({ currency, setPaymentMethod, next }: Props) => {
     const applicablePaymentMethods = PAYMENTCATEGORIES[category]
       .filter((method) => paymentMethodAllowedForCurrency(method, currency))
       .filter((method) => category !== 'giftCard' || method === 'giftCard.amazon')
-      .filter((method) => !(category === 'onlineWallet' && method === 'mobilePay' && currency === 'EUR'))
 
     return updateDrawer({
       title: i18n(`paymentCategory.${category}`),
