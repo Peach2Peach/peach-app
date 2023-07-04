@@ -343,6 +343,7 @@
   "currency.SATS": "sats",
   "currency.SEK": "corona sueca",
   "currency.USD": "dólar estadounidense",
+  "currency.USDT": "L-USDT",
   "currency.format.CHF": "$0 CHF",
   "currency.format.EUR": "$0 €",
   "currency.format.GBP": "£ $0",
