@@ -30,10 +30,15 @@ exports[`PaymentMethodForm should render correctly 1`] = `
     }
   >
     <Template1
-      currencies={[]}
-      data={{}}
+      data={
+        {
+          "currencies": [
+            "EUR",
+          ],
+          "type": "sepa",
+        }
+      }
       onSubmit={[Function]}
-      paymentMethod="sepa"
       setFormData={[Function]}
       setStepValid={[Function]}
     />

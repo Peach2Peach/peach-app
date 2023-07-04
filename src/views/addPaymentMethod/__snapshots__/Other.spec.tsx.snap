@@ -29,7 +29,7 @@ exports[`Other should render correctly 1`] = `
     items={
       [
         {
-          "display": "USDT",
+          "display": "L-USDT",
           "value": "USDT",
         },
       ]

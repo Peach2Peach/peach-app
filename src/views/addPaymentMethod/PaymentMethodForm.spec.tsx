@@ -4,8 +4,7 @@ import React from 'react'
 
 jest.mock('./hooks/usePaymentMethodFormSetup', () => ({
   usePaymentMethodFormSetup: () => ({
-    paymentMethod: 'sepa',
-    data: {},
+    data: { type: 'sepa', currencies: ['EUR'] },
     onSubmit: jest.fn(),
   }),
 }))

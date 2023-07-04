@@ -40,6 +40,11 @@ exports[`usePaymentMethodsSetup should setup header when coming from settings 1`
   icons={
     [
       {
+        "color": "#7D675E",
+        "id": "checkboxMark",
+        "onPress": [Function],
+      },
+      {
         "color": "#099DE2",
         "id": "helpCircle",
         "onPress": [Function],
