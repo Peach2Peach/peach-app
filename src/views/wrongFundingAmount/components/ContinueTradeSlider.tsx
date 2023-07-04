@@ -1,4 +1,4 @@
-import { SlideToUnlock } from '../../../components/inputs'
+import { ConfirmSlider } from '../../../components/inputs'
 import i18n from '../../../utils/i18n'
 import { useConfirmEscrow } from '../hooks/useConfirmEscrow'
 
@@ -13,9 +13,9 @@ export const ContinueTradeSlider = ({ sellOffer }: Props) => {
   }
 
   return (
-    <SlideToUnlock
-      disabled={!sellOffer}
-      onUnlock={confirmEscrowWithSellOffer}
+    <ConfirmSlider
+      enabled={!!sellOffer}
+      onConfirm={confirmEscrowWithSellOffer}
       label1={i18n('continueTrade')}
       iconId="arrowRightCircle"
     />

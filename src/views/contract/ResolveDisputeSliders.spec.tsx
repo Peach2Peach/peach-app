@@ -3,7 +3,7 @@ import { NavigationAndQueryClientWrapper } from '../../../tests/unit/helpers/Nav
 import { ResolveDisputeSliders } from './ResolveDisputeSliders'
 
 jest.mock('../../components/inputs', () => ({
-  SlideToUnlock: 'SlideToUnlock',
+  ConfirmSlider: 'ConfirmSlider',
 }))
 
 const wrapper = NavigationAndQueryClientWrapper

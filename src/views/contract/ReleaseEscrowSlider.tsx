@@ -1,14 +1,13 @@
-import tw from '../../styles/tailwind'
-import { SlideToUnlock } from '../../components/inputs'
-import { useReleaseEscrow } from './hooks/useReleaseEscrow'
+import { ConfirmSlider } from '../../components/inputs'
 import i18n from '../../utils/i18n'
+import { useReleaseEscrow } from './hooks/useReleaseEscrow'
 
 type Props = {
   contract: Contract
-} & ComponentProps
+}
 
-export const ReleaseEscrowSlider = ({ contract, style }: Props) => {
+export const ReleaseEscrowSlider = ({ contract }: Props) => {
   const releaseEscrow = useReleaseEscrow(contract)
 
-  return <SlideToUnlock style={[tw`w-[263px]`, style]} label1={i18n('releaseEscrow')} onUnlock={releaseEscrow} />
+  return <ConfirmSlider label1={i18n('releaseEscrow')} onConfirm={releaseEscrow} />
 }
