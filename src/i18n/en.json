@@ -1168,5 +1168,7 @@
   "yourTrades.start.selling": "start selling!",
   "yourTrades.title": "your trades",
   "yourTrades.tradeCanceled.subtitle": "trade canceled",
-  "yourTrades.waiting": "waiting"
+  "yourTrades.waiting": "waiting",
+  "europe": "Europe",
+  "other": "other"
 }

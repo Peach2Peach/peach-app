@@ -27,7 +27,7 @@ export type OfferPreferences = {
   >
   preferredPaymentMethods: Partial<Record<PaymentMethod, string>>
   originalPaymentData: PaymentData[]
-  preferredCurrenyType: 'Europe' | 'Latin America' | 'other'
+  preferredCurrenyType: 'europe' | 'latinAmerica' | 'other'
 }
 
 export const defaultPreferences: OfferPreferences = {
@@ -38,7 +38,7 @@ export const defaultPreferences: OfferPreferences = {
   paymentData: {},
   preferredPaymentMethods: {},
   originalPaymentData: [],
-  preferredCurrenyType: 'Europe',
+  preferredCurrenyType: 'europe',
 }
 
 type OfferPreferencesState = OfferPreferences & {
@@ -56,7 +56,7 @@ type OfferPreferencesActions = {
   setPremium: (newPremium: number, isValid?: boolean) => void
   setPaymentMethods: (ids: string[]) => void
   selectPaymentMethod: (id: string) => void
-  setPreferredCurrencyType: (type: 'Europe' | 'Latin America' | 'other') => void
+  setPreferredCurrencyType: (preferredCurrenyType: 'europe' | 'latinAmerica' | 'other') => void
 }
 
 type OfferPreferencesStore = OfferPreferencesState & OfferPreferencesActions

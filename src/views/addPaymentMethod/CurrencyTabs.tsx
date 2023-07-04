@@ -5,6 +5,7 @@ import { Currencies } from './Currencies'
 import { Other } from './Other'
 import { createMaterialTopTabNavigator, MaterialTopTabBarProps } from '@react-navigation/material-top-tabs'
 import { useOfferPreferences } from '../../store/offerPreferenes'
+import i18n from '../../utils/i18n'
 
 type Props = {
   currency?: Currency
@@ -28,7 +29,7 @@ const TabBar = ({ state, navigation }: MaterialTopTabBarProps) => {
           <Text
             style={[tw`px-4 py-2 text-center input-label`, item.name === selected ? colors.textSelected : colors.text]}
           >
-            {item.name}
+            {i18n(item.name)}
           </Text>
           {item.name === selected && <View style={[tw`w-full h-0.5 `, colors.underline]} />}
         </TouchableOpacity>
@@ -48,15 +49,15 @@ export const CurrencyTabs = ({ currency = 'EUR', setCurrency }: Props) => {
       screenListeners={{
         focus: (e) => {
           const name = e.target?.split('-')[0]
-          if (name === 'Europe' || name === 'other') {
+          if (name === 'europe' || name === 'other') {
             setPreferredCurrencyType(name)
-            setCurrency(name === 'Europe' ? 'EUR' : 'USDT')
+            setCurrency(name === 'europe' ? 'EUR' : 'USDT')
           }
         },
       }}
       tabBar={TabBar}
     >
-      <CurrencyTab.Screen name="Europe" children={() => <Currencies {...{ currency, setCurrency }} />} />
+      <CurrencyTab.Screen name="europe" children={() => <Currencies {...{ currency, setCurrency }} />} />
       <CurrencyTab.Screen name="other" children={() => <Other {...{ currency, setCurrency }} />} />
     </CurrencyTab.Navigator>
   )

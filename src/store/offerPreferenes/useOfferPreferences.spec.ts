@@ -11,7 +11,7 @@ describe('useOfferPreferences - store', () => {
     expect(useOfferPreferences.getState()).toStrictEqual({
       buyAmountRange: [0, Infinity],
       sellAmount: 0,
-      preferredCurrenyType: 'Europe',
+      preferredCurrenyType: 'europe',
       preferredPaymentMethods: {},
       meansOfPayment: {},
       paymentData: {},
@@ -303,7 +303,7 @@ describe('useOfferPreferences - actions - selectPaymentMethod', () => {
 
 describe('useOfferPreferences - actions - setPrefferedCurrencyType', () => {
   it('should update the preferred currencytype', () => {
-    expect(useOfferPreferences.getState().preferredCurrenyType).toBe('Europe')
+    expect(useOfferPreferences.getState().preferredCurrenyType).toBe('europe')
     useOfferPreferences.getState().setPreferredCurrencyType('other')
     expect(useOfferPreferences.getState().preferredCurrenyType).toBe('other')
   })
