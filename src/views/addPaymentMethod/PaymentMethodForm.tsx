@@ -9,16 +9,18 @@ import { PeachScrollView } from '../../components/PeachScrollView'
 import { useSubmitForm } from '../../components/inputs/paymentMethods/paymentForms/hooks/useSubmitForm'
 
 export type FormProps = {
-  data: Partial<PaymentData>
-  currencies: Currency[]
+  data: Partial<PaymentData> & {
+    type: PaymentMethod
+    currencies: Currency[]
+  }
   onSubmit: (data: PaymentData) => void
   setStepValid: Dispatch<SetStateAction<boolean>>
-  paymentMethod: PaymentMethod
   setFormData: Dispatch<SetStateAction<PaymentData | undefined>>
 }
 
 export const PaymentMethodForm = () => {
-  const { paymentMethod, data, currencies = [], onSubmit } = usePaymentMethodFormSetup()
+  const { data, onSubmit } = usePaymentMethodFormSetup()
+  const { type: paymentMethod } = data
   const { stepValid, setStepValid, setFormData, submitForm } = useSubmitForm<PaymentData>(onSubmit)
 
   const Form = PaymentMethodForms[paymentMethod]?.component
@@ -26,7 +28,7 @@ export const PaymentMethodForm = () => {
   return (
     <PeachScrollView contentContainerStyle={tw`flex-grow`} contentStyle={[tw`flex-grow px-4`, tw.md`px-8`]}>
       <View style={tw`justify-center flex-grow`}>
-        {!!Form && <Form onSubmit={submitForm} {...{ paymentMethod, data, currencies, setStepValid, setFormData }} />}
+        {!!Form && <Form onSubmit={submitForm} {...{ data, setStepValid, setFormData }} />}
       </View>
       <PrimaryButton style={tw`self-center mb-5`} disabled={!stepValid} onPress={submitForm} narrow>
         {i18n('confirm')}

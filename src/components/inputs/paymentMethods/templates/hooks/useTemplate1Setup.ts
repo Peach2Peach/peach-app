@@ -13,14 +13,8 @@ const ibanRules = { required: true, iban: true, isEUIBAN: true }
 const bicRules = { required: true, bic: true }
 
 // eslint-disable-next-line max-lines-per-function
-export const useTemplate1Setup = ({
-  data,
-  currencies = [],
-  onSubmit,
-  setStepValid,
-  paymentMethod,
-  setFormData,
-}: FormProps) => {
+export const useTemplate1Setup = ({ data, onSubmit, setStepValid, setFormData }: FormProps) => {
+  const { currencies, type: paymentMethod } = data
   const [label, setLabel] = useState(data?.label || '')
   const [beneficiary, setBeneficiary, beneficiaryIsValid, beneficiaryErrors] = useValidatedState(
     data?.beneficiary || '',

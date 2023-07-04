@@ -13,14 +13,8 @@ const emailRules = {
 }
 const referenceRules = { required: false }
 // eslint-disable-next-line max-lines-per-function
-export const useTemplate4Setup = ({
-  data,
-  currencies = [],
-  onSubmit,
-  setStepValid,
-  paymentMethod,
-  setFormData,
-}: FormProps) => {
+export const useTemplate4Setup = ({ data, onSubmit, setStepValid, setFormData }: FormProps) => {
+  const { currencies, type: paymentMethod } = data
   const [label, setLabel] = useState(data?.label || '')
   const [email, setEmail, emailIsValid, emailErrors] = useValidatedState(data?.email || '', emailRules)
   const [displayErrors, setDisplayErrors] = useState(false)

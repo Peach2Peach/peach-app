@@ -13,8 +13,8 @@ export const usePaymentMethodFormSetup = () => {
   const route = useRoute<'paymentMethodForm'>()
   const goToOrigin = useGoToOrigin()
   const { paymentData: data } = route.params
-  const { type: paymentMethod, currencies } = data
-  const deletePaymentMethod = useDeletePaymentMethod(data.id ?? '')
+  const { type: paymentMethod, currencies, id } = data
+  const deletePaymentMethod = useDeletePaymentMethod(id ?? '')
   const selectPaymentMethod = useOfferPreferences((state) => state.selectPaymentMethod)
 
   const onSubmit = (d: PaymentData) => {
@@ -30,17 +30,14 @@ export const usePaymentMethodFormSetup = () => {
     if (['revolut', 'wise', 'paypal', 'advcash'].includes(paymentMethod)) {
       icons[0] = { ...headerIcons.help, onPress: showHelp }
     }
-    if (data.id) {
+    if (id) {
       icons[1] = { ...headerIcons.delete, onPress: deletePaymentMethod }
     }
     return icons
-  }, [data.id, deletePaymentMethod, paymentMethod, showHelp])
+  }, [id, deletePaymentMethod, paymentMethod, showHelp])
 
   useHeaderSetup({
-    title: i18n(
-      data.id ? 'paymentMethod.edit.title' : 'paymentMethod.select.title',
-      i18n(`paymentMethod.${paymentMethod}`)
-    ),
+    title: i18n(id ? 'paymentMethod.edit.title' : 'paymentMethod.select.title', i18n(`paymentMethod.${paymentMethod}`)),
     icons: getHeaderIcons(),
   })
 

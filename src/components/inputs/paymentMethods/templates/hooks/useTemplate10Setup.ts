@@ -3,14 +3,8 @@ import { FormProps } from '../../../../../views/addPaymentMethod/PaymentMethodFo
 import { useLabelInput } from './useLabelInput'
 import { useReceiveAddressInput } from './useReceiveAddressInput'
 
-export const useTemplate10Setup = ({
-  data,
-  currencies = [],
-  onSubmit,
-  setStepValid,
-  paymentMethod,
-  setFormData,
-}: FormProps) => {
+export const useTemplate10Setup = ({ data, onSubmit, setStepValid, setFormData }: FormProps) => {
+  const { currencies, type: paymentMethod } = data
   const { labelInputProps, labelErrors, setDisplayErrors: setDisplayLabelErrors, label } = useLabelInput(data)
   const {
     receiveAddressInputProps,

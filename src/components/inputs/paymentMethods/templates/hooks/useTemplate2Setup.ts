@@ -8,15 +8,9 @@ import { TabbedNavigationItem } from '../../../../navigation/TabbedNavigation'
 import { toggleCurrency } from '../../paymentForms/utils'
 
 const referenceRules = { required: false }
-// eslint-disable-next-line max-lines-per-function
-export const useTemplate2Setup = ({
-  data,
-  currencies = [],
-  onSubmit,
-  setStepValid,
-  paymentMethod,
-  setFormData,
-}: FormProps) => {
+// eslint-disable-next-line max-lines-per-function, max-statements
+export const useTemplate2Setup = ({ data, onSubmit, setStepValid, setFormData }: FormProps) => {
+  const { currencies, type: paymentMethod } = data
   const tabs: TabbedNavigationItem[] = [
     { id: 'wallet', display: i18n('form.wallet') },
     { id: 'email', display: i18n('form.email') },

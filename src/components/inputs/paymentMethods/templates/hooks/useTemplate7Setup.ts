@@ -8,14 +8,8 @@ const beneficiaryRules = { required: true }
 const referenceRules = { required: false, isValidPaymentReference: true }
 
 // eslint-disable-next-line max-lines-per-function
-export const useTemplate7Setup = ({
-  data,
-  currencies = [],
-  onSubmit,
-  setStepValid,
-  paymentMethod,
-  setFormData,
-}: FormProps) => {
+export const useTemplate7Setup = ({ data, onSubmit, setStepValid, setFormData }: FormProps) => {
+  const { currencies, type: paymentMethod } = data
   const [label, setLabel] = useState(data?.label || '')
   const [beneficiary, setBeneficiary, isValidBeneficiary, beneficiaryErrors] = useValidatedState(
     data?.beneficiary || '',
