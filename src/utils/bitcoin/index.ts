@@ -1,6 +1,8 @@
 export { checkRefundPSBT } from './checkRefundPSBT'
 export { getBitcoinAddressParts } from './getBitcoinAddressParts'
+export { getHighestValueOutputAddress } from './getHighestValueOutputAddress'
 export { getTradeBreakdown } from './getTradeBreakdown'
+export { getTransactionFeeRate } from './getTransactionFeeRate'
 export { openInWallet } from './openInWallet'
 export { parseBitcoinRequest } from './parseBitcoinRequest'
 export { showAddress } from './showAddress'

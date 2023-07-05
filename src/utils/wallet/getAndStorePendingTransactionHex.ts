@@ -1,4 +1,4 @@
-import { getTxHex } from '../electrum/getTxHex'
+import { getTxHex } from '../electrum'
 import { useWalletState } from './walletStore'
 
 export const getAndStorePendingTransactionHex = async (txId: string) => {

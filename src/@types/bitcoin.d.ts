@@ -10,7 +10,8 @@ declare type Input = {
   }
   scriptsig: string
   scriptsig_asm: string
-  witness: string[]
+  inner_redeemscript_asm?: string
+  witness?: string[]
   is_coinbase: boolean
   sequence: number
 }
@@ -38,6 +39,6 @@ declare type Transaction = {
   size: number
   weight: number
   fee: number
-  value: number
+  value?: number
   status: TransactionStatus
 }

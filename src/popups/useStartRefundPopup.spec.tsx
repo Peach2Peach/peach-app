@@ -1,7 +1,6 @@
 import { renderHook } from '@testing-library/react-native'
 import { sellOffer } from '../../tests/unit/data/offerData'
-import { NavigationWrapper } from '../../tests/unit/helpers/NavigationWrapper'
-import { QueryClientWrapper } from '../../tests/unit/helpers/QueryClientWrapper'
+import { NavigationAndQueryClientWrapper } from '../../tests/unit/helpers/NavigationAndQueryClientWrapper'
 import { Loading } from '../components'
 import { defaultPopupState, usePopupStore } from '../store/usePopupStore'
 import { useStartRefundPopup } from './useStartRefundPopup'
@@ -22,11 +21,7 @@ jest.mock('../hooks/useShowErrorBanner', () => ({
   useShowErrorBanner: jest.fn(() => showErrorMock),
 }))
 
-const wrapper = ({ children }: { children: JSX.Element }) => (
-  <QueryClientWrapper>
-    <NavigationWrapper>{children}</NavigationWrapper>
-  </QueryClientWrapper>
-)
+const wrapper = NavigationAndQueryClientWrapper
 
 describe('useStartRefundPopup', () => {
   afterEach(() => {

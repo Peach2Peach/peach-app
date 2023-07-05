@@ -3,7 +3,7 @@ import { render } from '@testing-library/react-native'
 import { ContractCTA } from './ContractCTA'
 
 jest.mock('../../../components/inputs', () => ({
-  SlideToUnlock: 'SlideToUnlock',
+  ConfirmSlider: 'ConfirmSlider',
 }))
 
 const useContractContextMock = jest.fn()

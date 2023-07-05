@@ -33,9 +33,10 @@ export const useYourTradesSetup = () => {
     buy: allOpenOffers.filter(({ type }) => type === 'bid'),
     sell: allOpenOffers.filter(({ type }) => type === 'ask'),
   }
-
   const pastOffers = trades.filter(
-    ({ tradeStatus, type }) => isPastOffer(tradeStatus) && (type === 'ask' || tradeStatus !== 'offerCanceled'),
+    (item) =>
+      isPastOffer(item.tradeStatus)
+      && ((item.type === 'ask' && 'fundingTxId' in item && !!item?.fundingTxId) || item.tradeStatus !== 'offerCanceled'),
   )
 
   useHeaderSetup(

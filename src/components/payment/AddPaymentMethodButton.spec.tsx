@@ -1,7 +1,8 @@
 import { fireEvent, render, waitFor } from '@testing-library/react-native'
-import { NavigationWrapper, pushMock } from '../../../tests/unit/helpers/NavigationWrapper'
-import { queryClient, QueryClientWrapper } from '../../../tests/unit/helpers/QueryClientWrapper'
-import { defaultState, DrawerContext } from '../../contexts/drawer'
+import { NavigationAndQueryClientWrapper } from '../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
+import { pushMock } from '../../../tests/unit/helpers/NavigationWrapper'
+import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
+import { DrawerContext, defaultState } from '../../contexts/drawer'
 import { useMeetupEventsStore } from '../../store/meetupEventsStore'
 import { AddPaymentMethodButton } from './AddPaymentMethodButton'
 
@@ -52,9 +53,7 @@ describe('AddPaymentMethodButton', () => {
 
   const wrapper = ({ children }: { children: JSX.Element }) => (
     <DrawerContextWrapper>
-      <QueryClientWrapper>
-        <NavigationWrapper>{children}</NavigationWrapper>
-      </QueryClientWrapper>
+      <NavigationAndQueryClientWrapper>{children}</NavigationAndQueryClientWrapper>
     </DrawerContextWrapper>
   )
 
