@@ -1,5 +1,5 @@
-import { isDefined } from './../array/isDefined'
 import { account } from '../account'
+import { isDefined } from '../validation'
 import { getOffer } from './getOffer'
 
 export const getOffers = (): (SellOffer | BuyOffer)[] =>

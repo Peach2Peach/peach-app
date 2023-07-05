@@ -1,8 +1,8 @@
 import { OfferPreferences } from '../../../store/offerPreferenes/useOfferPreferences'
 import { getPaymentData, getSelectedPaymentDataIds } from '../../../utils/account'
-import { isDefined } from '../../../utils/array/isDefined'
 import { hasMopsConfigured } from '../../../utils/offer'
 import { getPaymentMethods, isValidPaymentData } from '../../../utils/paymentMethod'
+import { isDefined } from '../../../utils/validation'
 
 export const validateOfferDetailsStep = (
   offer: SellOfferDraft,

@@ -2,7 +2,7 @@ import { ok } from 'assert'
 import _en from './en.json'
 import _es from './es.json'
 import _fr from './fr.json'
-import { isDefined } from '../utils/array/isDefined'
+import { isDefined } from '../utils/validation'
 
 const en: Record<string, string> = _en
 const es: Record<string, string> = _es
