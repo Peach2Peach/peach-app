@@ -4,7 +4,7 @@ import { PercentageInput } from './PercentageInput'
 describe('PercentageInput', () => {
   const renderer = createRenderer()
   it('renders correctly', () => {
-    renderer.render(<PercentageInput />)
+    renderer.render(<PercentageInput onChange={jest.fn()} />)
     expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
 })

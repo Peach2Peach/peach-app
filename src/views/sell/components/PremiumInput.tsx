@@ -14,7 +14,7 @@ const convertDisplayPremiumToNumber = (displayPremium: string) => {
   return asNumberType
 }
 
-export const PremiumInput = ({ style }: ComponentProps) => {
+export const PremiumInput = () => {
   const [premium, setPremium] = useOfferPreferences((state) => [state.premium, state.setPremium], shallow)
   const [displayPremium, setDisplayPremium] = useState(premium.toString())
 
@@ -33,11 +33,9 @@ export const PremiumInput = ({ style }: ComponentProps) => {
   const textColor = premium === 0 ? tw`text-black-1` : premium > 0 ? tw`text-success-main` : tw`text-primary-main`
 
   return (
-    <View style={[tw`flex-row items-center justify-center`, style]}>
-      <Text style={[tw`leading-2xl`, textColor]}>{i18n(premium >= 0 ? 'sell.premium' : 'sell.discount')}:</Text>
-      <View style={tw`h-10 ml-2`}>
-        <PercentageInput value={displayValue} onChange={changePremium} />
-      </View>
+    <View style={tw`flex-row items-center justify-center gap-2 pl-2`}>
+      <Text style={[tw`text-center body-l`, textColor]}>{i18n(premium >= 0 ? 'sell.premium' : 'sell.discount')}:</Text>
+      <PercentageInput value={displayValue} onChange={changePremium} />
     </View>
   )
 }
