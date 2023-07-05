@@ -1,12 +1,8 @@
 import { PAYMENTCATEGORIES } from '../../constants'
+import { keys } from '../object'
 import { hasApplicablePaymentMethods } from '../paymentMethod'
 
-/**
- * @description Method to get paument categories which are applicable for given currency
- * @param currency currency
- * @returns applicable payment categories
- */
 export const getApplicablePaymentCategories = (currency: Currency): PaymentCategory[] =>
-  (Object.keys(PAYMENTCATEGORIES) as PaymentCategory[])
+  keys(PAYMENTCATEGORIES)
     .filter((category) => hasApplicablePaymentMethods(category, currency))
     .filter((category) => category !== 'cash')

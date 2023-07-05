@@ -1,13 +1,12 @@
 import { useState } from 'react'
 import { View } from 'react-native'
-import { useDrawerContext } from '../../contexts/drawer'
-
-import tw from '../../styles/tailwind'
-import i18n from '../../utils/i18n'
-
 import { PeachScrollView, PrimaryButton, RadioButtons } from '../../components'
 import { FlagType } from '../../components/flags'
 import { LOCALPAYMENTMETHODS, PAYMENTCATEGORIES } from '../../constants'
+import { useDrawerContext } from '../../contexts/drawer'
+import tw from '../../styles/tailwind'
+import i18n from '../../utils/i18n'
+import { keys } from '../../utils/object'
 import { getApplicablePaymentCategories, paymentMethodAllowedForCurrency } from '../../utils/paymentMethod'
 
 type Props = {
@@ -66,7 +65,7 @@ export const PaymentMethod = ({ currency, setPaymentMethod, next }: Props) => {
 
   const showDrawer = (category: PaymentCategory) => {
     if (category === 'localOption') {
-      const applicableCountries = Object.keys(LOCALPAYMENTMETHODS[currency]!) as FlagType[]
+      const applicableCountries = keys(LOCALPAYMENTMETHODS[currency]!)
       return updateDrawer(getCountrySelectDrawer(category, applicableCountries, selectCountry))
     }
 

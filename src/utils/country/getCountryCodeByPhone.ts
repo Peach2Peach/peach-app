@@ -1,9 +1,8 @@
+import { keys } from '../object'
 import { Country, countryMap } from './countryMap'
 
 export const getCountryCodeByPhone = (phone: string): Country | undefined => {
-  const candidates = (Object.keys(countryMap) as Country[]).filter((country) =>
-    phone.includes(countryMap[country].dialCode),
-  )
+  const candidates = keys(countryMap).filter((country) => phone.includes(countryMap[country].dialCode))
 
   if (candidates.length === 1) return candidates[0]
 
