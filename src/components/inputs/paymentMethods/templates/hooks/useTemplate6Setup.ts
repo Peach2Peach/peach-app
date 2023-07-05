@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { FormProps } from '../../paymentForms/PaymentMethodForm'
+import { FormProps } from '../../../../../views/addPaymentMethod/PaymentMethodForm'
 import { useValidatedState } from '../../../../../hooks'
 import tw from '../../../../../styles/tailwind'
 import { getPaymentDataByLabel } from '../../../../../utils/account'
@@ -10,14 +10,8 @@ import { toggleCurrency } from '../../paymentForms/utils'
 
 const referenceRules = { required: false, isValidPaymentReference: true }
 // eslint-disable-next-line max-lines-per-function, max-statements
-export const useTemplate6Setup = ({
-  data,
-  currencies = [],
-  onSubmit,
-  setStepValid,
-  paymentMethod,
-  setFormData,
-}: FormProps) => {
+export const useTemplate6Setup = ({ data, onSubmit, setStepValid, setFormData }: FormProps) => {
+  const { currencies, type: paymentMethod } = data
   const tabs: TabbedNavigationItem[] = useMemo(() => {
     const tabItems = [
       { id: 'phone', display: i18n('form.phone') },

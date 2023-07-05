@@ -1,82 +1,64 @@
-import { useContext, useEffect, useState, Dispatch, SetStateAction } from 'react'
+import { useState } from 'react'
 import { View } from 'react-native'
-import { DrawerContext } from '../../contexts/drawer'
+import { useDrawerContext } from '../../contexts/drawer'
 
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 
-import { PrimaryButton, RadioButtons } from '../../components'
-import { LOCALPAYMENTMETHODS, PAYMENTCATEGORIES } from '../../constants'
-import { PaymentMethodSelect } from '../../drawers/PaymentMethodSelect'
-import { CountrySelect } from '../../drawers/CountrySelect'
-import { getApplicablePaymentCategories, paymentMethodAllowedForCurrency } from '../../utils/paymentMethod'
+import { PeachScrollView, PrimaryButton, RadioButtons } from '../../components'
 import { FlagType } from '../../components/flags'
-import { whiteGradient } from '../../utils/layout'
-import { LocalOptionsSelect } from '../../drawers/LocalOptionsSelect'
+import { LOCALPAYMENTMETHODS, PAYMENTCATEGORIES } from '../../constants'
+import { getApplicablePaymentCategories, paymentMethodAllowedForCurrency } from '../../utils/paymentMethod'
 
-const { LinearGradient } = require('react-native-gradients')
-
-type PaymentCategorySelectProps = {
+type Props = {
   currency: Currency
-  paymentMethod?: PaymentMethod
-  setPaymentMethod: Dispatch<SetStateAction<PaymentMethod | undefined>>
+  setPaymentMethod: (method?: PaymentMethod) => void
   next: () => void
 }
 
-export default ({ currency, paymentMethod, setPaymentMethod, next }: PaymentCategorySelectProps) => {
-  const [, updateDrawer] = useContext(DrawerContext)
+export const PaymentMethod = ({ currency, setPaymentMethod, next }: Props) => {
+  const [, updateDrawer] = useDrawerContext()
 
-  const [stepValid, setStepValid] = useState(false)
   const [paymentCategory, setPaymentCategory] = useState<PaymentCategory>()
   const paymentCategories = getApplicablePaymentCategories(currency).map((c) => ({
     value: c,
     display: i18n(`paymentCategory.${c}`),
   }))
 
-  const closeDrawer = () => updateDrawer({ show: false })
-
+  const unselectCategory = () => setPaymentCategory(undefined)
   const selectPaymentMethod = (method: PaymentMethod) => {
-    closeDrawer()
+    unselectCategory()
     setPaymentMethod(method)
-    setStepValid(true)
-    next()
   }
 
-  const countrySelectdrawer = (category: PaymentCategory, applicableCountries: FlagType[], selectCountry: Function) => ({
+  const getCountrySelectDrawer = (
+    category: PaymentCategory,
+    applicableCountries: FlagType[],
+    selectCountry: Function,
+  ) => ({
     title: i18n(`paymentCategory.${category}`),
-    content: (
-      <CountrySelect countries={applicableCountries} onSelect={(c) => selectCountry(c, category, applicableCountries)} />
-    ),
+    options: applicableCountries.map((country) => ({
+      title: i18n(`country.${country}`),
+      flagID: country,
+      onPress: () => selectCountry(country, category, applicableCountries),
+    })),
     show: true,
-    onClose: () => {
-      setPaymentCategory(undefined)
-    },
+    onClose: unselectCategory,
   })
 
   const selectCountry = (c: FlagType, category: PaymentCategory, applicableCountries: FlagType[]) => {
-    const local = LOCALPAYMENTMETHODS[currency]?.[c].map((method) => ({
-      value: method,
-      display: i18n(`paymentMethod.${method}`),
-    }))
-    if (local) {
-      setPaymentMethod(local[0]?.value)
+    const localOptions = LOCALPAYMENTMETHODS[currency]?.[c]
+    if (localOptions) {
       return updateDrawer({
         title: i18n(`country.${c}`),
-        content: (
-          <LocalOptionsSelect
-            local={local}
-            onSelect={(method) => {
-              setPaymentMethod(method)
-              updateDrawer({ show: false })
-              next()
-            }}
-          />
-        ),
-        previousDrawer: countrySelectdrawer(category, applicableCountries, selectCountry),
+        options: localOptions.map((localOption) => ({
+          title: i18n(`paymentMethod.${localOption}`),
+          logoID: localOption,
+          onPress: () => selectPaymentMethod(localOption),
+        })),
+        previousDrawer: getCountrySelectDrawer(category, applicableCountries, selectCountry),
         show: true,
-        onClose: () => {
-          setPaymentMethod(undefined)
-        },
+        onClose: unselectCategory,
       })
     }
     return false
@@ -84,49 +66,44 @@ export default ({ currency, paymentMethod, setPaymentMethod, next }: PaymentCate
 
   const showDrawer = (category: PaymentCategory) => {
     if (category === 'localOption') {
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       const applicableCountries = Object.keys(LOCALPAYMENTMETHODS[currency]!) as FlagType[]
-      return updateDrawer(countrySelectdrawer(category, applicableCountries, selectCountry))
+      return updateDrawer(getCountrySelectDrawer(category, applicableCountries, selectCountry))
     }
 
     const applicablePaymentMethods = PAYMENTCATEGORIES[category]
       .filter((method) => paymentMethodAllowedForCurrency(method, currency))
-      .filter((method) => category !== 'giftCard' || method.split('.').pop()?.length !== 2)
-      .filter((method) => !(category === 'onlineWallet' && method === 'mobilePay' && currency === 'EUR'))
+      .filter((method) => category !== 'giftCard' || method === 'giftCard.amazon')
 
     return updateDrawer({
       title: i18n(`paymentCategory.${category}`),
-      content: <PaymentMethodSelect paymentMethods={applicablePaymentMethods} onSelect={selectPaymentMethod} />,
+      options: applicablePaymentMethods.map((method) => ({
+        title: i18n(`paymentMethod.${method}`),
+        logoID: method,
+        onPress: () => selectPaymentMethod(method),
+      })),
       show: true,
-      onClose: () => {
-        setPaymentCategory(undefined)
-      },
+      onClose: unselectCategory,
     })
   }
 
-  useEffect(() => {
-    if (!paymentCategory) return
-    showDrawer(paymentCategory)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [paymentCategory])
-
-  useEffect(() => {
-    setStepValid(!!paymentMethod)
-  }, [paymentMethod])
+  const selectPaymentCategory = (category: PaymentCategory) => {
+    setPaymentCategory(category)
+    showDrawer(category)
+  }
 
   return (
-    <View style={tw`flex h-full`}>
-      <View style={tw`flex justify-center flex-shrink h-full px-10`}>
-        <RadioButtons items={paymentCategories} selectedValue={paymentCategory} onChange={setPaymentCategory} />
-      </View>
-      <View style={tw`flex items-center w-full px-6 mt-4 bg-primary-background`}>
-        <View style={tw`w-full h-8 -mt-8`}>
-          <LinearGradient colorList={whiteGradient} angle={90} />
-        </View>
-        <PrimaryButton testID="navigation-next" disabled={!stepValid} onPress={next} narrow>
-          {i18n('next')}
-        </PrimaryButton>
-      </View>
+    <View style={tw`h-full`}>
+      <PeachScrollView contentStyle={[tw`h-full p-4`, tw.md`p-8`]} contentContainerStyle={tw`flex-grow`}>
+        <RadioButtons
+          style={tw`items-center justify-center flex-grow`}
+          items={paymentCategories}
+          selectedValue={paymentCategory}
+          onChange={selectPaymentCategory}
+        />
+      </PeachScrollView>
+      <PrimaryButton style={tw`self-center mt-2 mb-5`} disabled={!paymentCategory} onPress={next} narrow>
+        {i18n('next')}
+      </PrimaryButton>
     </View>
   )
 }

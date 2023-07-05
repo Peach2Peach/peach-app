@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import { TextInput } from 'react-native'
 import { BICInput, BeneficiaryInput, IBANInput, LabelInput, ReferenceInput } from '../../index'
-import { FormProps } from '../paymentForms/PaymentMethodForm'
+import { FormProps } from '../../../../views/addPaymentMethod/PaymentMethodForm'
 import { CurrencySelection } from '../paymentForms/components'
 import { useTemplate1Setup } from './hooks'
 

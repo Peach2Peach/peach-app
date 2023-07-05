@@ -41,7 +41,7 @@ export const PaymentMethods = () => {
         origin: currentRouteName,
       })
     } else {
-      navigation.push('paymentMethodDetails', {
+      navigation.push('paymentMethodForm', {
         paymentData: data,
         origin: currentRouteName,
       })

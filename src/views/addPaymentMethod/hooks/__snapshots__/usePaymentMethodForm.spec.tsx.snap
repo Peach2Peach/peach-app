@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`usePaymentDetailsSetup should set the header 1`] = `
+exports[`usePaymentMethodFormSetup should set the header 1`] = `
 <Header
   icons={
     [
@@ -20,7 +20,7 @@ exports[`usePaymentDetailsSetup should set the header 1`] = `
 />
 `;
 
-exports[`usePaymentDetailsSetup should set the header if no id is present and the paymentMethod is not revolut 1`] = `
+exports[`usePaymentMethodFormSetup should set the header if no id is present and the paymentMethod is not revolut 1`] = `
 <Header
   icons={[]}
   title="add SEPA details"

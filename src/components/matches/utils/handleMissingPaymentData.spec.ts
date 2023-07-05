@@ -43,7 +43,7 @@ describe('handleMissingPaymentData', () => {
     handleMissingPaymentData(offer, currency, paymentMethod, updateMessage, navigation)
     message?.action?.callback()
 
-    expect(navigation.push).toHaveBeenCalledWith('paymentMethodDetails', {
+    expect(navigation.push).toHaveBeenCalledWith('paymentMethodForm', {
       paymentData: {
         type: 'sepa',
         label: 'SEPA #1',
@@ -57,7 +57,7 @@ describe('handleMissingPaymentData', () => {
     handleMissingPaymentData(offer, currency, 'giftCard.amazon.DE', updateMessage, navigation)
     message?.action?.callback()
 
-    expect(navigation.push).toHaveBeenCalledWith('paymentMethodDetails', {
+    expect(navigation.push).toHaveBeenCalledWith('paymentMethodForm', {
       paymentData: {
         label: 'Amazon Gift Card (DE) #1',
         type: 'giftCard.amazon.DE',

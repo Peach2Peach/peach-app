@@ -22,7 +22,7 @@ export const tradeInformationGetters: Record<
   paidToMethod: (contract: Contract) =>
     (contract.paymentData ? getPaymentDataByMethod(contract.paymentMethod, hashPaymentData(contract.paymentData)) : null)
       ?.label,
-  paidWithMethod: (contract: Contract) => contract.paymentMethod,
+  paidWithMethod: (contract: Contract) => getPaymentMethodName(contract.paymentMethod),
   paidToWallet: (contract: Contract) => {
     const buyOffer = getBuyOfferFromContract(contract)
     return <WalletLabel label={buyOffer.walletLabel} address={buyOffer.releaseAddress} />
@@ -59,6 +59,7 @@ const allPossibleFields = [
   'method',
   'meetup',
   'location',
+  'receiveAddress',
 ] as const
 export type TradeInfoField = (typeof allPossibleFields)[number]
 export const isTradeInformationGetter = (
