@@ -1,10 +1,21 @@
 import { PaymentDataInfoFields } from '../../store/usePaymentDataStore'
 import { sha256 } from '../crypto'
+import { isDefined } from '../validation'
 
-const isDefined = (data?: string): data is string => !!data
+type ItemWithUnknownValue = { field: keyof PaymentDataInfo; value?: string }
+type Item = { field: keyof PaymentDataInfo; value: string }
+const isItemDefined = (item?: ItemWithUnknownValue): item is Item =>
+  !!item && isDefined(item.field) && isDefined(item.value)
+
 const hashData = (data: string) => sha256(data.toLocaleLowerCase())
 
-export const hashPaymentData = (paymentData: PaymentData): string[] =>
-  PaymentDataInfoFields.map((field) => paymentData[field])
-    .filter(isDefined)
-    .map(hashData)
+export type PaymentDataHashInfo = {
+  field: keyof PaymentDataInfo
+  value: string
+  hash: string
+}
+
+export const hashPaymentData = (paymentData: PaymentData): PaymentDataHashInfo[] =>
+  PaymentDataInfoFields.map((field) => ({ field, value: paymentData[field] }))
+    .filter(isItemDefined)
+    .map(({ field, value }) => ({ field, value, hash: hashData(value) }))
