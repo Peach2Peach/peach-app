@@ -355,6 +355,7 @@
   "currency.format.sats": "$0 sats",
   "currency.select.title": "seleccionar moneda",
   "selectCurrency.title": "seleccionar moneda",
+  "selectPaymentMethod.title": "seleccionar método de pago",
   "decrypt": "descifrar",
   "default": "predeterminado",
   "delete": "eliminar",
