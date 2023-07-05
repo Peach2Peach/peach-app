@@ -1,26 +1,12 @@
 import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
-import { createStorage, toZustandStorage } from '../utils/storage'
+import { createStorage, toZustandStorage } from '../../utils/storage'
+import { deepMerge } from '../../utils/object'
+import { buildPaymentDetailInfo } from './helpers/buildPaymentDetailInfo'
+import { PaymentDetailInfo } from './types'
 
 const storeId = 'paymentDataStore'
 const paymentDataStorage = createStorage(storeId)
-
-export const PaymentDataInfoFields: PaymentDataField[] = [
-  'accountNumber',
-  'beneficiary',
-  'bic',
-  'email',
-  'iban',
-  'name',
-  'phone',
-  'reference',
-  'ukBankAccount',
-  'ukSortCode',
-  'userName',
-  'wallet',
-]
-
-export type PaymentDetailInfo = Partial<Record<PaymentDataField, Record<string, string>>>
 
 type PaymentDataState = {
   paymentData: Record<string, PaymentData>
@@ -30,6 +16,7 @@ type PaymentDataState = {
 export type PaymentMethodsStore = PaymentDataState & {
   reset: () => void
   setMigrated: () => void
+  addPaymentData: (data: PaymentData) => void
 }
 
 const defaultPaymentDataStore: PaymentDataState = {
@@ -43,7 +30,14 @@ export const usePaymentDataStore = create<PaymentMethodsStore>()(
     (set) => ({
       ...defaultPaymentDataStore,
       reset: () => set(defaultPaymentDataStore),
-      setMigrated: () => set(() => ({ migrated: true })),
+      setMigrated: () => set({ migrated: true }),
+      addPaymentData: (data) => {
+        const newPamentDetailInfo = buildPaymentDetailInfo(data)
+        set((state) => ({
+          paymentData: { ...state.paymentData, [data.id]: data },
+          paymentDetailInfo: deepMerge(state.paymentDetailInfo, newPamentDetailInfo),
+        }))
+      },
     }),
     {
       name: storeId,

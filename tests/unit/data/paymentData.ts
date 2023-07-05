@@ -1,4 +1,4 @@
-import { PaymentDetailInfo } from '../../../src/store/usePaymentDataStore'
+import { PaymentDetailInfo } from '../../../src/store/usePaymentDataStore/types'
 
 export const validSEPAData: PaymentData = {
   id: 'sepa-1669721660451',
@@ -56,20 +56,8 @@ export const twintData: PaymentData = {
 export const twintDataHashes = ['c56ab971aeea3e5aa3d2e62e4ed7cb5488a63b0659e6db7b467e7f899cb7b418']
 
 export const paymentDetailInfo: PaymentDetailInfo = {
-  beneficiary: {
-    [validSEPADataHashes[0]]: validSEPAData.beneficiary!,
-  },
-  iban: {
-    [validSEPADataHashes[1]]: validSEPAData.iban!,
-  },
-  bic: {
-    [validSEPADataHashes[2]]: validSEPAData.bic!,
-  },
-  email: {
-    emailhash: 'satoshi@gmx.net',
-  },
-  phone: {
-    phonehash: '+12345689',
-    [twintDataHashes[0]]: twintData.phone!,
-  },
+  beneficiary: { [validSEPADataHashes[0]]: validSEPAData.beneficiary! },
+  bic: { [validSEPADataHashes[1]]: validSEPAData.bic! },
+  iban: { [validSEPADataHashes[2]]: validSEPAData.iban! },
+  phone: { [twintDataHashes[0]]: twintData.phone! },
 }
