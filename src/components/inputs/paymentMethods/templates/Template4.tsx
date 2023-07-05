@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 import { TextInput } from 'react-native'
-import { FormProps } from '../paymentForms/PaymentMethodForm'
+import { FormProps } from '../../../../views/addPaymentMethod/PaymentMethodForm'
 import { EmailInput, LabelInput, ReferenceInput, BeneficiaryInput } from '../../index'
 import { CurrencySelection } from '../paymentForms/components'
 import { useTemplate4Setup } from './hooks'

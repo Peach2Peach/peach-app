@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { FormProps } from '../../paymentForms/PaymentMethodForm'
+import { FormProps } from '../../../../../views/addPaymentMethod/PaymentMethodForm'
 import { useValidatedState } from '../../../../../hooks'
 import tw from '../../../../../styles/tailwind'
 import { getPaymentDataByLabel } from '../../../../../utils/account'
@@ -11,14 +11,8 @@ const beneficiaryRules = { required: true }
 const referenceRules = { required: false, isValidPaymentReference: true }
 
 // eslint-disable-next-line max-lines-per-function, max-statements
-export const useTemplate9Setup = ({
-  data,
-  currencies = [],
-  onSubmit,
-  setStepValid,
-  paymentMethod,
-  setFormData,
-}: FormProps) => {
+export const useTemplate9Setup = ({ data, onSubmit, setStepValid, setFormData }: FormProps) => {
+  const { currencies, type: paymentMethod } = data
   const tabs: TabbedNavigationItem[] = [
     { id: 'iban', display: i18n('form.iban') },
     { id: 'account', display: i18n('form.account') },

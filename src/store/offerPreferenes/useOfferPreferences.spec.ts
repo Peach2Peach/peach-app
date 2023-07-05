@@ -1,4 +1,4 @@
-/* eslint-disable max-lines-per-function */
+/* eslint-disable max-lines-per-function, max-lines */
 import { setPaymentMethods } from '../../constants'
 import { account, updateAccount } from '../../utils/account'
 import { useOfferPreferences } from './useOfferPreferences'
@@ -11,6 +11,7 @@ describe('useOfferPreferences - store', () => {
     expect(useOfferPreferences.getState()).toStrictEqual({
       buyAmountRange: [0, Infinity],
       sellAmount: 0,
+      preferredCurrenyType: 'europe',
       preferredPaymentMethods: {},
       meansOfPayment: {},
       paymentData: {},
@@ -24,6 +25,7 @@ describe('useOfferPreferences - store', () => {
       },
       setBuyAmountRange: expect.any(Function),
       setSellAmount: expect.any(Function),
+      setPreferredCurrencyType: expect.any(Function),
       setPremium: expect.any(Function),
       setPaymentMethods: expect.any(Function),
       selectPaymentMethod: expect.any(Function),
@@ -296,5 +298,13 @@ describe('useOfferPreferences - actions - selectPaymentMethod', () => {
     useOfferPreferences.getState().selectPaymentMethod(id)
     useOfferPreferences.getState().selectPaymentMethod(id)
     expect(useOfferPreferences.getState().canContinue.paymentMethods).toBe(false)
+  })
+})
+
+describe('useOfferPreferences - actions - setPrefferedCurrencyType', () => {
+  it('should update the preferred currencytype', () => {
+    expect(useOfferPreferences.getState().preferredCurrenyType).toBe('europe')
+    useOfferPreferences.getState().setPreferredCurrencyType('other')
+    expect(useOfferPreferences.getState().preferredCurrenyType).toBe('other')
   })
 })

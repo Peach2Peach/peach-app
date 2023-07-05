@@ -26,6 +26,7 @@ const paymentCategoryIcons: Record<PaymentCategory, IconType | ''> = {
   localOption: 'flag',
   cash: '',
   cryptoCurrency: '',
+  other: 'shuffle',
 }
 
 const belongsToCategory = (category: PaymentCategory) => (data: PaymentData) =>

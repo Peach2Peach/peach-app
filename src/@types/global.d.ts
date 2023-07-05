@@ -25,7 +25,14 @@ declare type TradeTab = 'buy' | 'sell' | 'history'
 
 type BitcoinNetwork = 'bitcoin' | 'testnet' | 'regtest'
 
-declare type PaymentCategory = 'bankTransfer' | 'onlineWallet' | 'giftCard' | 'localOption' | 'cryptoCurrency' | 'cash'
+declare type PaymentCategory =
+  | 'bankTransfer'
+  | 'onlineWallet'
+  | 'giftCard'
+  | 'localOption'
+  | 'cryptoCurrency'
+  | 'cash'
+  | 'other'
 declare type PaymentCategories = {
   [key in PaymentCategory]: PaymentMethod[]
 }

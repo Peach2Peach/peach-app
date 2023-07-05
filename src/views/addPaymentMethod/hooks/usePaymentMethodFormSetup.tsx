@@ -4,18 +4,17 @@ import { useDeletePaymentMethod } from '../../../components/payment/hooks/useDel
 import { useHeaderSetup, useRoute } from '../../../hooks'
 import { useGoToOrigin } from '../../../hooks/useGoToOrigin'
 import { useShowHelp } from '../../../hooks/useShowHelp'
+import { useOfferPreferences } from '../../../store/offerPreferenes'
 import { addPaymentData } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
-import { info } from '../../../utils/log'
 import { headerIcons } from '../../../utils/layout/headerIcons'
-import { useOfferPreferences } from '../../../store/offerPreferenes'
 
-export const usePaymentMethodDetailsSetup = () => {
-  const route = useRoute<'paymentMethodDetails'>()
+export const usePaymentMethodFormSetup = () => {
+  const route = useRoute<'paymentMethodForm'>()
   const goToOrigin = useGoToOrigin()
   const { paymentData: data } = route.params
-  const { type: paymentMethod, currencies } = data
-  const deletePaymentMethod = useDeletePaymentMethod(data.id ?? '')
+  const { type: paymentMethod, currencies, id } = data
+  const deletePaymentMethod = useDeletePaymentMethod(id ?? '')
   const selectPaymentMethod = useOfferPreferences((state) => state.selectPaymentMethod)
 
   const onSubmit = (d: PaymentData) => {
@@ -31,18 +30,14 @@ export const usePaymentMethodDetailsSetup = () => {
     if (['revolut', 'wise', 'paypal', 'advcash'].includes(paymentMethod)) {
       icons[0] = { ...headerIcons.help, onPress: showHelp }
     }
-    if (data.id) {
+    if (id) {
       icons[1] = { ...headerIcons.delete, onPress: deletePaymentMethod }
     }
-    info(`icons${icons}`)
     return icons
-  }, [data.id, deletePaymentMethod, paymentMethod, showHelp])
+  }, [id, deletePaymentMethod, paymentMethod, showHelp])
 
   useHeaderSetup({
-    title: i18n(
-      data.id ? 'paymentMethod.edit.title' : 'paymentMethod.select.title',
-      i18n(`paymentMethod.${paymentMethod}`),
-    ),
+    title: i18n(id ? 'paymentMethod.edit.title' : 'paymentMethod.select.title', i18n(`paymentMethod.${paymentMethod}`)),
     icons: getHeaderIcons(),
   })
 

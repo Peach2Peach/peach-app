@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { FormProps } from '../../paymentForms/PaymentMethodForm'
+import { FormProps } from '../../../../../views/addPaymentMethod/PaymentMethodForm'
 import { useValidatedState } from '../../../../../hooks'
 import { getPaymentDataByLabel } from '../../../../../utils/account'
 import i18n from '../../../../../utils/i18n'
@@ -13,14 +13,8 @@ const emailRules = {
 }
 const referenceRules = { required: false }
 // eslint-disable-next-line max-lines-per-function
-export const useTemplate4Setup = ({
-  data,
-  currencies = [],
-  onSubmit,
-  setStepValid,
-  paymentMethod,
-  setFormData,
-}: FormProps) => {
+export const useTemplate4Setup = ({ data, onSubmit, setStepValid, setFormData }: FormProps) => {
+  const { currencies, type: paymentMethod } = data
   const [label, setLabel] = useState(data?.label || '')
   const [email, setEmail, emailIsValid, emailErrors] = useValidatedState(data?.email || '', emailRules)
   const [displayErrors, setDisplayErrors] = useState(false)
@@ -42,8 +36,7 @@ export const useTemplate4Setup = ({
     () => ({
       id: data?.id || `${paymentMethod}-${Date.now()}`,
       label,
-      type:
-        paymentMethod !== 'giftCard.amazon' ? paymentMethod : ((`${paymentMethod}.${data?.country}`) as PaymentMethod),
+      type: paymentMethod !== 'giftCard.amazon' ? paymentMethod : (`${paymentMethod}.${data?.country}` as PaymentMethod),
       email,
       beneficiary,
       reference,

@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 import { TextInput } from 'react-native'
-import { FormProps } from '../paymentForms/PaymentMethodForm'
+import { FormProps } from '../../../../views/addPaymentMethod/PaymentMethodForm'
 import { TabbedNavigation } from '../../../navigation'
 import { BankNumberInput, BICInput, IBANInput, LabelInput, ReferenceInput, BeneficiaryInput } from '../../index'
 import { useTemplate9Setup } from './hooks'
