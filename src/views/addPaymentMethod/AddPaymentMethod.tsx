@@ -8,7 +8,7 @@ import { useNavigation, useRoute } from '../../hooks'
 import { getPaymentDataByType } from '../../utils/account'
 import { countrySupportsCurrency, getPaymentMethodInfo, isAmazonGiftCard } from '../../utils/paymentMethod'
 import { Countries } from './Countries'
-import { Currency } from './Currency'
+import { SelectCurrency } from './Currency'
 import { PaymentMethod } from './PaymentMethod'
 import { useDrawerContext } from '../../contexts/drawer'
 
@@ -82,7 +82,7 @@ export const AddPaymentMethod = () => {
   return (
     <View>
       {id === 'currency' && (
-        <Currency currency={selectedCurrency} setCurrency={setSelectedCurrency} next={selectCurrency} />
+        <SelectCurrency currency={selectedCurrency} setCurrency={setSelectedCurrency} next={selectCurrency} />
       )}
       {id === 'paymentMethod' && (
         <PaymentMethod currency={selectedCurrency} setPaymentMethod={selectPaymentMethod} next={next} />

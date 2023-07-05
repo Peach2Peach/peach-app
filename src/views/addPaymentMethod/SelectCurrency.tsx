@@ -12,7 +12,7 @@ type Props = {
   next: () => void
 }
 
-export const Currency = ({ currency = 'EUR', setCurrency, next }: Props) => {
+export const SelectCurrency = ({ currency = 'EUR', setCurrency, next }: Props) => {
   useHeaderSetup({ title: i18n('paymentMethod.select') })
 
   return (

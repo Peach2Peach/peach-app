@@ -1,11 +1,11 @@
-import { Currency } from './Currency'
+import { SelectCurrency } from './SelectCurrency'
 import { createRenderer } from 'react-test-renderer/shallow'
 
 jest.mock('../../hooks/useHeaderSetup', () => ({
   useHeaderSetup: jest.fn(),
 }))
 
-describe('Currency', () => {
+describe('SelectCurrency', () => {
   const renderer = createRenderer()
   const props = {
     currency: 'EUR' as const,
@@ -14,7 +14,7 @@ describe('Currency', () => {
   }
 
   it('should render correctly', () => {
-    renderer.render(<Currency {...props} />)
+    renderer.render(<SelectCurrency {...props} />)
     const result = renderer.getRenderOutput()
     expect(result).toMatchSnapshot()
   })
