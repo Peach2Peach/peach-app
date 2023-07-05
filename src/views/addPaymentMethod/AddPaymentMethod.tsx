@@ -3,22 +3,20 @@ import { View } from 'react-native'
 
 import i18n from '../../utils/i18n'
 
-import { CURRENCIES } from '../../constants'
 import { useNavigation, useRoute } from '../../hooks'
 import { getPaymentDataByType } from '../../utils/account'
 import { countrySupportsCurrency, getPaymentMethodInfo, isAmazonGiftCard } from '../../utils/paymentMethod'
 import { Countries } from './Countries'
-import { SelectCurrency } from './SelectCurrency'
 import { PaymentMethod } from './PaymentMethod'
 import { useDrawerContext } from '../../contexts/drawer'
 
-const screens = ['currency', 'paymentMethod', 'extraInfo']
+const screens = ['paymentMethod', 'extraInfo']
 
 export const AddPaymentMethod = () => {
-  const { origin } = useRoute<'addPaymentMethod'>().params
+  // TODO: fix type
+  const { origin, selectedCurrency } = useRoute<'addPaymentMethod'>().params
   const navigation = useNavigation()
   const [page, setPage] = useState(0)
-  const [selectedCurrency, setSelectedCurrency] = useState<Currency>(CURRENCIES[0])
   const [country, setCountry] = useState<PaymentMethodCountry>()
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>()
 
@@ -71,19 +69,8 @@ export const AddPaymentMethod = () => {
         display: i18n(`country.${c}`),
       }))
 
-  const selectCurrency = () => {
-    if (selectedCurrency === 'USDT') {
-      goToPaymentMethodForm({ paymentMethod: 'liquid', currencies: [selectedCurrency], country })
-    } else {
-      next()
-    }
-  }
-
   return (
     <View>
-      {id === 'currency' && (
-        <SelectCurrency currency={selectedCurrency} setCurrency={setSelectedCurrency} next={selectCurrency} />
-      )}
       {id === 'paymentMethod' && (
         <PaymentMethod currency={selectedCurrency} setPaymentMethod={selectPaymentMethod} next={next} />
       )}

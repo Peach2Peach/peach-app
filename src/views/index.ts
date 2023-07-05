@@ -3,6 +3,7 @@ import { MeetupScreen } from '../components/payment/MeetupScreen'
 import { PaymentMethods } from '../components/payment/PaymentMethods'
 import { AddPaymentMethod } from './addPaymentMethod/AddPaymentMethod'
 import { PaymentMethodForm } from './addPaymentMethod/PaymentMethodForm'
+import { SelectCurrency } from './addPaymentMethod/SelectCurrency'
 import BackupTime from './backupTime/BackupTime'
 import Buy from './buy/Buy'
 import { BuySummary } from './buy/BuySummary'
@@ -36,7 +37,7 @@ import PeachFees from './settings/aboutPeach/PeachFees'
 import Socials from './settings/aboutPeach/Socials'
 import Backups from './settings/Backups'
 import BackupCreated from './settings/components/backups/BackupCreated'
-import Currency from './settings/Currency'
+import { Currency } from './settings/Currency'
 import Language from './settings/Language'
 import NetworkFees from './settings/NetworkFees'
 import PayoutAddress from './settings/PayoutAddress'
@@ -155,6 +156,7 @@ const settings: ViewType[] = [
   { name: 'myProfile', component: MyProfile, ...defaultConfig },
   { name: 'bitcoinProducts', component: BitcoinProducts, ...defaultConfig },
   { name: 'addPaymentMethod', component: AddPaymentMethod, ...defaultConfig },
+  { name: 'selectCurrency', component: SelectCurrency, ...defaultConfig },
   { name: 'paymentMethodForm', component: PaymentMethodForm, ...defaultConfig },
   { name: 'meetupScreen', component: MeetupScreen, ...defaultConfig },
   { name: 'currency', component: Currency, ...defaultConfig },

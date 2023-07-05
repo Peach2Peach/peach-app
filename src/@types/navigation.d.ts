@@ -28,6 +28,7 @@ declare type RootStackParamList = {
   addPaymentMethod: {
     origin: keyof RootStackParamList
   }
+  selectCurrency: undefined
   paymentMethodForm: {
     paymentData: Partial<PaymentData> & {
       type: PaymentMethod
