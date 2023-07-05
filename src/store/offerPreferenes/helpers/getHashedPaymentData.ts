@@ -5,7 +5,7 @@ export const getHashedPaymentData = (paymentData: PaymentData[]): OfferPaymentDa
     (obj, data) => ({
       ...obj,
       [data.type]: {
-        hashes: hashPaymentData(data),
+        hashes: hashPaymentData(data).map((item) => item.hash),
         country: data.country,
       },
     }),

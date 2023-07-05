@@ -38,12 +38,12 @@ export const generateMatchOfferData = async (
   const hashes = offer.paymentData[selectedPaymentMethod]?.hashes
   if (!hashes) return [null, 'MISSING_HASHED_PAYMENT_DATA']
 
-  const paymentDataForMethod = hashes.reduce(
+  const paymentData = hashes.reduce(
     addPaymentDetailInfoByHash(usePaymentDataStore.getState().paymentDetailInfo),
-    {} as PaymentData,
+    {} as PaymentDataInfo,
   )
 
-  const encryptedPaymentData = await createEncryptedPaymentData(match, paymentDataForMethod)
+  const encryptedPaymentData = await createEncryptedPaymentData(match, paymentData)
   if (!encryptedPaymentData) return [null, 'PAYMENTDATA_ENCRYPTION_FAILED']
 
   return [
