@@ -60,6 +60,6 @@ describe('useSyncWallet', () => {
       await result.current.refresh()
     })
 
-    expect(result.current.isRefreshing).toBe(false)
+    expect(mockSyncWallet).toHaveBeenCalledTimes(1)
   })
 })

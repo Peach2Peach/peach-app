@@ -1,7 +1,7 @@
 import { renderHook } from '@testing-library/react-native'
 import { act } from 'react-test-renderer'
 import { estimatedFees } from '../../../../tests/unit/data/bitcoinNetworkData'
-import { broadcastError } from '../../../../tests/unit/data/errors'
+import { transactionError } from '../../../../tests/unit/data/errors'
 import { sellOffer } from '../../../../tests/unit/data/offerData'
 import { getTransactionDetails } from '../../../../tests/unit/helpers/getTransactionDetails'
 import { Loading } from '../../../components'
@@ -63,7 +63,7 @@ describe('useShowConfirmTransactionPopup', () => {
     })
   })
   it('should broadcast transaction on confirm', async () => {
-    peachWallet.signAndBroadcastTransaction = jest.fn().mockResolvedValue(transaction)
+    peachWallet.signAndBroadcastPSBT = jest.fn().mockResolvedValue(transaction.psbt)
 
     const { result } = renderHook(useShowConfirmTransactionPopup, { wrapper })
 
@@ -87,14 +87,14 @@ describe('useShowConfirmTransactionPopup', () => {
       await promise
     })
 
-    expect(peachWallet.signAndBroadcastTransaction).toHaveBeenCalledWith(transaction)
+    expect(peachWallet.signAndBroadcastPSBT).toHaveBeenCalledWith(transaction.psbt)
     expect(usePopupStore.getState().visible).toBeFalsy()
     expect(onSuccess).toHaveBeenCalled()
   })
   it('should handle broadcast errors', async () => {
     peachWallet.balance = amount
-    peachWallet.signAndBroadcastTransaction = jest.fn().mockImplementation(() => {
-      throw broadcastError
+    peachWallet.signAndBroadcastPSBT = jest.fn().mockImplementation(() => {
+      throw transactionError
     })
 
     const { result } = renderHook(useShowConfirmTransactionPopup, { wrapper })

@@ -50,8 +50,9 @@ import TestViewPNs from './TestView/pns'
 import TestViewPopups from './TestView/popups'
 import TestView from './TestView/TestView'
 import TradeComplete from './tradeComplete/TradeComplete'
-import TransactionDetails from './wallet/TransactionDetails'
-import TransactionHistory from './wallet/TransactionHistory'
+import { BumpNetworkFees } from './wallet/BumpNetworkFees'
+import { TransactionDetails } from './wallet/TransactionDetails'
+import { TransactionHistory } from './wallet/TransactionHistory'
 import Wallet from './wallet/Wallet'
 import Welcome from './welcome/Welcome'
 import { WrongFundingAmount } from './wrongFundingAmount/WrongFundingAmount'
@@ -94,6 +95,7 @@ const wallet: ViewType[] = [
   { name: 'wallet', component: Wallet, ...defaultConfig, animationEnabled: false },
   { name: 'transactionHistory', component: TransactionHistory, ...defaultConfig },
   { name: 'transactionDetails', component: TransactionDetails, ...defaultConfig },
+  { name: 'bumpNetworkFees', component: BumpNetworkFees, ...defaultConfig },
 ]
 const buyFlow: ViewType[] = [
   { name: 'buy', component: Buy, ...defaultConfig, animationEnabled: false },

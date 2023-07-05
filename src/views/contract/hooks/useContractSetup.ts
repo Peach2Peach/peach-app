@@ -3,10 +3,15 @@ import { useCallback, useEffect, useState } from 'react'
 import { useNavigation, useRoute } from '../../../hooks'
 import { useCommonContractSetup } from '../../../hooks/useCommonContractSetup'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
-import { getSellOfferFromContract, shouldRateCounterParty, verifyAndSignReleaseTx } from '../../../utils/contract'
+import {
+  getNavigationDestinationForContract,
+  getSellOfferFromContract,
+  shouldRateCounterParty,
+  verifyAndSignReleaseTx,
+} from '../../../utils/contract'
 import { isTradeComplete } from '../../../utils/contract/status'
 import { confirmPayment, getContract, getOfferDetails } from '../../../utils/peachAPI'
-import { getNavigationDestinationForContract, getNavigationDestinationForOffer } from '../../yourTrades/utils'
+import { getNavigationDestinationForOffer } from '../../yourTrades/utils'
 import { useContractHeaderSetup } from './useContractHeaderSetup'
 import { getEscrowWalletForOffer } from '../../../utils/wallet'
 import { useIsFocused } from '@react-navigation/native'

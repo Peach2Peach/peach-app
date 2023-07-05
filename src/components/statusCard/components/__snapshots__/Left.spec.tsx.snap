@@ -19,6 +19,7 @@ exports[`Left should render correctly when replaced 1`] = `
   >
     <Text
       allowFontScaling={false}
+      numberOfLines={1}
       style={
         [
           {
@@ -151,6 +152,7 @@ exports[`Left should render correctly with a title and date 1`] = `
   >
     <Text
       allowFontScaling={false}
+      numberOfLines={1}
       style={
         [
           {
@@ -256,6 +258,7 @@ exports[`Left should render correctly with title, icon and date 1`] = `
   >
     <Text
       allowFontScaling={false}
+      numberOfLines={1}
       style={
         [
           {

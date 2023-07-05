@@ -1,0 +1,103 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TransactionDetailsInfo should render correctly for a confirmed transaction 1`] = `
+<View
+  style={
+    {
+      "gap": 16,
+    }
+  }
+>
+  <Divider />
+  <AmountSummaryItem
+    amount={900}
+  />
+  <AddressSummaryItem
+    address="receivingAddress"
+    title="to"
+  />
+  <Divider />
+  <ConfirmationSummaryItem
+    confirmed={true}
+  />
+  <React.Fragment>
+    <CopyableSummaryItem
+      text="1"
+      title="block"
+    />
+    <CopyableSummaryItem
+      text="14/09/2022"
+      title="time"
+    />
+  </React.Fragment>
+  <Divider />
+  <Bubble
+    color="primary"
+    ghost={true}
+    iconId="externalLink"
+    iconSize={16}
+    onPress={[MockFunction]}
+    style={
+      {
+        "alignSelf": "center",
+      }
+    }
+  >
+    view in explorer
+  </Bubble>
+</View>
+`;
+
+exports[`TransactionDetailsInfo should render correctly for a pending transaction 1`] = `
+<View
+  style={
+    {
+      "gap": 16,
+    }
+  }
+>
+  <Divider />
+  <AmountSummaryItem
+    amount={900}
+  />
+  <AddressSummaryItem
+    address="receivingAddress"
+    title="to"
+  />
+  <Divider />
+  <ConfirmationSummaryItem
+    confirmed={false}
+  />
+  <TransactionETASummaryItem
+    txId="txid1"
+  />
+  <Bubble
+    color="primary"
+    iconId="chevronsUp"
+    iconSize={16}
+    onPress={[MockFunction]}
+    style={
+      {
+        "alignSelf": "center",
+      }
+    }
+  >
+    increase network fee
+  </Bubble>
+  <Divider />
+  <Bubble
+    color="primary"
+    ghost={true}
+    iconId="externalLink"
+    iconSize={16}
+    onPress={[MockFunction]}
+    style={
+      {
+        "alignSelf": "center",
+      }
+    }
+  >
+    view in explorer
+  </Bubble>
+</View>
+`;

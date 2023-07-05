@@ -41,7 +41,7 @@ exports[`Divider renders correctly 1`] = `
 </View>
 `;
 
-exports[`Divider renders correctly on lg 1`] = `
+exports[`Divider renders correctly on md 1`] = `
 <View
   style={
     [

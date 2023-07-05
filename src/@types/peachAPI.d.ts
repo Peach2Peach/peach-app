@@ -369,6 +369,7 @@ declare type OfferSummary = {
   tradeStatus: TradeStatus
   contractId?: string
   txId?: string
+  fundingTxId?: string
 }
 declare type GetOffersResponse = (BuyOffer | SellOffer)[]
 declare type GetOfferSummariesResponse = OfferSummary[]

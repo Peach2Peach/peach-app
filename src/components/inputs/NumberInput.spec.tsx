@@ -11,12 +11,14 @@ describe('NumberInput', () => {
   })
   it('should enforce number format on change', () => {
     const onChangeMock = jest.fn()
-    const { getByPlaceholderText } = render(<NumberInput placeholder="placeholder" onChange={onChangeMock} />)
+    const { getByPlaceholderText } = render(
+      <NumberInput decimals={2} placeholder="placeholder" onChange={onChangeMock} />,
+    )
     const input = getByPlaceholderText('placeholder')
     act(() => {
-      fireEvent.changeText(input, '1,5')
+      fireEvent.changeText(input, '1,523')
     })
-    expect(onChangeMock).toHaveBeenLastCalledWith('1.5')
+    expect(onChangeMock).toHaveBeenLastCalledWith('1.52')
   })
   it('should enforce phone number format on submit', () => {
     const onSubmitMock = jest.fn()

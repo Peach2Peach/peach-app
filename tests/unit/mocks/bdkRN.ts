@@ -20,16 +20,20 @@ export class Blockchain {
 
   estimateFee = jest.fn()
 }
+
+export const bumpFeeTxBuilderCreateMock = jest.fn().mockReturnThis()
+export const bumpFeeTxBuilderEnableRbfMock = jest.fn()
+export const bumpFeeTxBuilderFinishMock = jest.fn()
 export class BumpFeeTxBuilder {
-  create = jest.fn().mockReturnThis()
+  create = bumpFeeTxBuilderCreateMock
 
   allowShrinking = jest.fn()
 
-  enableRbf = jest.fn()
+  enableRbf = bumpFeeTxBuilderEnableRbfMock
 
   enableRbfWithSequence = jest.fn()
 
-  finish = jest.fn()
+  finish = bumpFeeTxBuilderFinishMock
 }
 export class DatabaseConfig {
   create = jest.fn().mockReturnThis()
