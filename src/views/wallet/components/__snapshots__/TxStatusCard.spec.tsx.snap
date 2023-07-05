@@ -481,7 +481,7 @@ exports[`TxStatusCard should render correctly for a confirmed buy trade tx 1`] =
                     ]
                   }
                 >
-
+                   
                 </Text>
                 <Text
                   allowFontScaling={false}
@@ -625,7 +625,7 @@ exports[`TxStatusCard should render correctly for a confirmed buy trade tx 1`] =
                     ]
                   }
                 >
-
+                   
                 </Text>
                 <Text
                   allowFontScaling={false}
@@ -1254,7 +1254,7 @@ exports[`TxStatusCard should render correctly for a confirmed receive tx 1`] = `
                     ]
                   }
                 >
-
+                   
                 </Text>
                 <Text
                   allowFontScaling={false}
@@ -1398,7 +1398,7 @@ exports[`TxStatusCard should render correctly for a confirmed receive tx 1`] = `
                     ]
                   }
                 >
-
+                   
                 </Text>
                 <Text
                   allowFontScaling={false}
@@ -2027,7 +2027,7 @@ exports[`TxStatusCard should render correctly for a confirmed refund tx 1`] = `
                     ]
                   }
                 >
-
+                   
                 </Text>
                 <Text
                   allowFontScaling={false}
@@ -2171,7 +2171,7 @@ exports[`TxStatusCard should render correctly for a confirmed refund tx 1`] = `
                     ]
                   }
                 >
-
+                   
                 </Text>
                 <Text
                   allowFontScaling={false}
@@ -2463,7 +2463,6 @@ exports[`TxStatusCard should render correctly for a escrow funded tx 1`] = `
           >
             <Text
               allowFontScaling={false}
-              onPress={[Function]}
               style={
                 [
                   {
@@ -2801,7 +2800,7 @@ exports[`TxStatusCard should render correctly for a escrow funded tx 1`] = `
                     ]
                   }
                 >
-
+                   
                 </Text>
                 <Text
                   allowFontScaling={false}
@@ -2945,7 +2944,7 @@ exports[`TxStatusCard should render correctly for a escrow funded tx 1`] = `
                     ]
                   }
                 >
-
+                   
                 </Text>
                 <Text
                   allowFontScaling={false}
@@ -3237,7 +3236,6 @@ exports[`TxStatusCard should render correctly for a pending buy trade tx 1`] = `
           >
             <Text
               allowFontScaling={false}
-              onPress={[Function]}
               style={
                 [
                   {
@@ -3575,7 +3573,7 @@ exports[`TxStatusCard should render correctly for a pending buy trade tx 1`] = `
                     ]
                   }
                 >
-
+                   
                 </Text>
                 <Text
                   allowFontScaling={false}
@@ -3719,7 +3717,7 @@ exports[`TxStatusCard should render correctly for a pending buy trade tx 1`] = `
                     ]
                   }
                 >
-
+                   
                 </Text>
                 <Text
                   allowFontScaling={false}
@@ -4348,7 +4346,7 @@ exports[`TxStatusCard should render correctly for a pending confirmed tx 1`] = `
                     ]
                   }
                 >
-
+                   
                 </Text>
                 <Text
                   allowFontScaling={false}
@@ -4492,7 +4490,7 @@ exports[`TxStatusCard should render correctly for a pending confirmed tx 1`] = `
                     ]
                   }
                 >
-
+                   
                 </Text>
                 <Text
                   allowFontScaling={false}
@@ -5121,7 +5119,7 @@ exports[`TxStatusCard should render correctly for a pending receive tx 1`] = `
                     ]
                   }
                 >
-
+                   
                 </Text>
                 <Text
                   allowFontScaling={false}
@@ -5265,7 +5263,7 @@ exports[`TxStatusCard should render correctly for a pending receive tx 1`] = `
                     ]
                   }
                 >
-
+                   
                 </Text>
                 <Text
                   allowFontScaling={false}
@@ -5894,7 +5892,7 @@ exports[`TxStatusCard should render correctly for a pending refund tx 1`] = `
                     ]
                   }
                 >
-
+                   
                 </Text>
                 <Text
                   allowFontScaling={false}
@@ -6038,7 +6036,7 @@ exports[`TxStatusCard should render correctly for a pending refund tx 1`] = `
                     ]
                   }
                 >
-
+                   
                 </Text>
                 <Text
                   allowFontScaling={false}
@@ -6667,7 +6665,7 @@ exports[`TxStatusCard should render correctly for a pending sent tx 1`] = `
                     ]
                   }
                 >
-
+                   
                 </Text>
                 <Text
                   allowFontScaling={false}
@@ -6811,7 +6809,7 @@ exports[`TxStatusCard should render correctly for a pending sent tx 1`] = `
                     ]
                   }
                 >
-
+                   
                 </Text>
                 <Text
                   allowFontScaling={false}
