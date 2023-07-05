@@ -35,9 +35,7 @@ exports[`Premium should render the Premium view 1`] = `
     style={
       [
         {
-          "alignItems": "center",
           "flexGrow": 1,
-          "justifyContent": "center",
           "paddingLeft": 16,
           "paddingRight": 16,
         },
@@ -52,8 +50,8 @@ exports[`Premium should render the Premium view 1`] = `
       style={
         {
           "alignItems": "center",
-          "alignSelf": "stretch",
-          "gap": 28,
+          "flexGrow": 1,
+          "justifyContent": "center",
         }
       }
     >
@@ -61,90 +59,99 @@ exports[`Premium should render the Premium view 1`] = `
         style={
           {
             "alignItems": "center",
+            "alignSelf": "stretch",
+            "gap": 28,
           }
         }
       >
-        <PeachText
-          style={
-            [
-              {
-                "fontFamily": "Baloo2-Bold",
-                "fontSize": 20,
-                "letterSpacing": 0.2,
-                "lineHeight": 32,
-                "textAlign": "center",
-              },
-              {
-                "fontFamily": "Baloo2-Bold",
-                "fontSize": 24,
-                "letterSpacing": 0.24,
-                "lineHeight": 32,
-              },
-            ]
-          }
-        >
-          set your premium / discount
-        </PeachText>
         <View
           style={
             {
               "alignItems": "center",
-              "flexDirection": "row",
-              "gap": 4,
             }
           }
         >
           <PeachText
             style={
+              [
+                {
+                  "fontFamily": "Baloo2-Bold",
+                  "fontSize": 20,
+                  "letterSpacing": 0.2,
+                  "lineHeight": 32,
+                  "textAlign": "center",
+                },
+                {
+                  "fontFamily": "Baloo2-Bold",
+                  "fontSize": 24,
+                  "letterSpacing": 0.24,
+                  "lineHeight": 32,
+                },
+              ]
+            }
+          >
+            set your premium / discount
+          </PeachText>
+          <View
+            style={
               {
-                "fontFamily": "Baloo2-SemiBold",
-                "fontSize": 16,
-                "letterSpacing": 0.16,
-                "lineHeight": 28,
-                "textAlign": "center",
+                "alignItems": "center",
+                "flexDirection": "row",
+                "gap": 4,
               }
             }
           >
-            for selling
-          </PeachText>
-          <CurrentOfferAmount />
+            <PeachText
+              style={
+                {
+                  "fontFamily": "Baloo2-SemiBold",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 28,
+                  "textAlign": "center",
+                }
+              }
+            >
+              for selling
+            </PeachText>
+            <CurrentOfferAmount />
+          </View>
         </View>
-      </View>
-      <View
-        style={
-          {
-            "alignItems": "center",
-            "gap": 4,
+        <View
+          style={
+            {
+              "alignItems": "center",
+              "gap": 4,
+            }
           }
-        }
-      >
-        <PremiumInput />
-        <CurrentOfferPrice />
-      </View>
-      <PremiumSlider
-        style={
-          {
-            "alignItems": "center",
-            "alignSelf": "stretch",
-            "gap": 6,
+        >
+          <PremiumInput />
+          <CurrentOfferPrice />
+        </View>
+        <PremiumSlider
+          style={
+            {
+              "alignItems": "center",
+              "alignSelf": "stretch",
+              "gap": 6,
+            }
           }
-        }
-      />
+        />
+      </View>
     </View>
-  </View>
-  <PrimaryButton
-    disabled={true}
-    narrow={true}
-    onPress={[Function]}
-    style={
-      {
-        "alignSelf": "center",
-        "marginBottom": 20,
-        "marginTop": "auto",
+    <PrimaryButton
+      disabled={true}
+      narrow={true}
+      onPress={[Function]}
+      style={
+        {
+          "alignSelf": "center",
+          "marginBottom": 20,
+        }
       }
-    }
-  >
-    next
-  </PrimaryButton>
+    >
+      next
+    </PrimaryButton>
+  </View>
 </View>
 `;
