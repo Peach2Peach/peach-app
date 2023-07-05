@@ -1,11 +1,11 @@
-import { PaymentMethod } from './PaymentMethod'
+import { SelectPaymentMethod } from './SelectPaymentMethod'
 import { createRenderer } from 'react-test-renderer/shallow'
 
 jest.mock('../../contexts/drawer', () => ({
   useDrawerContext: jest.fn(() => [, jest.fn()]),
 }))
 
-describe('PaymentMethod', () => {
+describe('SelectPaymentMethod', () => {
   const renderer = createRenderer()
   const props = {
     currency: 'EUR' as const,
@@ -14,7 +14,7 @@ describe('PaymentMethod', () => {
   }
 
   it('should render correctly', () => {
-    renderer.render(<PaymentMethod {...props} />)
+    renderer.render(<SelectPaymentMethod {...props} />)
     const result = renderer.getRenderOutput()
     expect(result).toMatchSnapshot()
   })

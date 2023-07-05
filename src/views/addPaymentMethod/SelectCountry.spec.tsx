@@ -1,11 +1,11 @@
-import { Countries } from './Countries'
+import { SelectCountry } from './SelectCountry'
 import { createRenderer } from 'react-test-renderer/shallow'
 
 jest.mock('../../hooks/useHeaderSetup', () => ({
   useHeaderSetup: jest.fn(),
 }))
 
-describe('Countries', () => {
+describe('SelectCountry', () => {
   const renderer = createRenderer()
   const props = {
     countries: [
@@ -23,7 +23,7 @@ describe('Countries', () => {
   }
 
   it('should render correctly', () => {
-    renderer.render(<Countries {...props} />)
+    renderer.render(<SelectCountry {...props} />)
     const result = renderer.getRenderOutput()
     expect(result).toMatchSnapshot()
   })

@@ -169,9 +169,7 @@ describe('AddPaymentMethodButton', () => {
   it('should navigate to the addPaymentMethod screen with the right parameters for isCash false', () => {
     const { getByText } = render(<AddPaymentMethodButton isCash={false} />, { wrapper })
     fireEvent.press(getByText('add new currency /\npayment method'))
-    expect(pushMock).toHaveBeenCalledWith('addPaymentMethod', {
-      origin: 'paymentMethods',
-    })
+    expect(pushMock).toHaveBeenCalledWith('selectCurrency')
   })
   it('should sort the countries alphabetically', async () => {
     getMeetupEventsMock.mockResolvedValueOnce([
