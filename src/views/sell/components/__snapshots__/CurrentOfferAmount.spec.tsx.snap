@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CurrentOfferAmount should render correctly 1`] = `
+<BTCAmount
+  amount={21000000}
+  size="small"
+/>
+`;

@@ -1,2 +1,2 @@
-export { getLevel } from './getLevel'
-export { getAction } from './getAction'
+export { getActionIcon } from './getActionIcon'
+export { getActionLabel } from './getActionLabel'

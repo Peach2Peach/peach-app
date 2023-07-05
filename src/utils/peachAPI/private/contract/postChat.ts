@@ -11,19 +11,7 @@ type PostChatProps = RequestProps & {
   signature: string
 }
 
-/**
- * @description Method to get contract chat
- * @param contractId contract id
- * @param message encrypted message
- * @param signature signature of message
- * @returns Chat log
- */
-export const postChat = async ({
-  contractId,
-  message,
-  signature,
-  timeout,
-}: PostChatProps): Promise<[APISuccess | null, APIError | null]> => {
+export const postChat = async ({ contractId, message, signature, timeout }: PostChatProps) => {
   const response = await fetch(`${API_URL}/v1/contract/${contractId}/chat`, {
     headers: await getPrivateHeaders(),
     method: 'POST',
@@ -34,5 +22,5 @@ export const postChat = async ({
     signal: timeout ? getAbortWithTimeout(timeout).signal : undefined,
   })
 
-  return await parseResponse<APISuccess>(response, 'postChat')
+  return parseResponse<APISuccess>(response, 'postChat')
 }

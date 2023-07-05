@@ -5,11 +5,14 @@ import alertTriangle from './alertTriangle.svg'
 import alignJustify from './alignJustify.svg'
 import alignLeft from './alignLeft.svg'
 import arrowDown from './arrowDown.svg'
+import arrowDownCircle from './arrowDownCircle.svg'
 import arrowLeftCircle from './arrowLeftCircle.svg'
 import arrowRightCircle from './arrowRightCircle.svg'
+import arrowUpCircle from './arrowUpCircle.svg'
 import award from './award.svg'
 import awardCircleInverted from './awardCircleInverted.svg'
 import bitcoin from './bitcoin.svg'
+import buy from './buy.svg'
 import calendar from './calendar.svg'
 import camera from './camera.svg'
 import cameraOff from './cameraOff.svg'
@@ -31,6 +34,7 @@ import clock from './clock.svg'
 import cloud from './cloud.svg'
 import cloudOff from './cloudOff.svg'
 import copy from './copy.svg'
+import cornerDownRight from './cornerDownRight.svg'
 import cpu from './cpu.svg'
 import creditCard from './creditCard.svg'
 import crossOutlined from './crossOutlined.svg'
@@ -79,6 +83,7 @@ import saveCircleInverted from './saveCircleInverted.svg'
 import search from './search.svg'
 import selectClosed from './selectClosed.svg'
 import selectOpen from './selectOpen.svg'
+import sell from './sell.svg'
 import send from './send.svg'
 import settings from './settings.svg'
 import shield from './shield.svg'
@@ -123,12 +128,14 @@ const Icons = {
   alignJustify,
   alignLeft,
   arrowDown,
+  arrowDownCircle,
   arrowLeftCircle,
   arrowRightCircle,
+  arrowUpCircle,
   award,
   awardCircleInverted,
   bitcoin,
-  buy: download,
+  buy,
   calendar,
   camera,
   cameraOff,
@@ -150,6 +157,7 @@ const Icons = {
   cloud,
   cloudOff,
   copy,
+  cornerDownRight,
   cpu,
   crossOutlined,
   cryptotag,
@@ -198,7 +206,7 @@ const Icons = {
   search,
   selectClosed,
   selectOpen,
-  sell: upload,
+  sell,
   send,
   settings,
   shield,

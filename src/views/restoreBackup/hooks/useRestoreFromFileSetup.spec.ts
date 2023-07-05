@@ -3,6 +3,8 @@ import { useRestoreFromFileSetup } from './useRestoreFromFileSetup'
 import { MSINANHOUR } from '../../../constants'
 import { account1 } from '../../../../tests/unit/data/accountData'
 import { act } from 'react-test-renderer'
+import { getPeachAccount } from '../../../utils/peachAPI/peachAccount'
+import { useSettingsStore } from '../../../store/settingsStore'
 
 jest.useFakeTimers()
 
@@ -14,7 +16,7 @@ jest.mock('../../../hooks/useNavigation', () => ({
   useNavigation: () => useNavigationMock(),
 }))
 
-const decryptAccountMock = jest.fn().mockResolvedValue([account1])
+const decryptAccountMock = jest.fn().mockReturnValue([account1])
 jest.mock('../../../utils/account/decryptAccount', () => ({
   decryptAccount: (...args: any[]) => decryptAccountMock(...args),
 }))
@@ -40,9 +42,6 @@ jest.mock('../../../utils/peachAPI', () => ({
 describe('useRestoreFromFileSetup', () => {
   const encryptedAccount = 'encryptedAccount'
   const password = 'password'
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
   it('restores account from file', async () => {
     const { result } = renderHook(useRestoreFromFileSetup)
     act(() => {
@@ -64,5 +63,32 @@ describe('useRestoreFromFileSetup', () => {
     })
     expect(recoverAccountMock).toHaveBeenCalledWith(account1)
     expect(storeAccountMock).toHaveBeenCalledWith(account1)
+    expect(getPeachAccount()?.privateKey?.toString('hex')).toBe(
+      '62233e988e4ca00c3b346b4753c7dc316f6ce39280410072ddab298f36a7fe64',
+    )
+  })
+  it('updates the last file backup date after restoring', async () => {
+    jest.spyOn(Date, 'now').mockReturnValue(123456789)
+    const { result } = renderHook(useRestoreFromFileSetup)
+    act(() => {
+      result.current.setFile({
+        name: '',
+        content: encryptedAccount,
+      })
+      result.current.setPassword(password)
+    })
+    act(() => {
+      result.current.submit()
+    })
+    await waitFor(() => {
+      expect(result.current.restored).toBeTruthy()
+    })
+    expect(useSettingsStore.getState()).toEqual(
+      expect.objectContaining({
+        lastFileBackupDate: Date.now(),
+        shouldShowBackupOverlay: false,
+        showBackupReminder: false,
+      }),
+    )
   })
 })

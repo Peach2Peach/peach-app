@@ -6,12 +6,15 @@ import { Disputes } from './Disputes'
 import { PublicKey } from './PublicKey'
 import { Trades } from './Trades'
 
-const style = tw`mt-4`
-export const AccountInfo = ({ style: wrapperStyle, user }: { user: User } & ComponentProps) => (
-  <View style={wrapperStyle}>
+type Props = ComponentProps & {
+  user: User
+}
+
+export const AccountInfo = ({ style: wrapperStyle, user }: Props) => (
+  <View style={[tw`gap-4`, wrapperStyle]}>
     <PublicKey publicKey={user.id} />
-    <AccountCreated {...{ ...user, style }} />
-    <Disputes {...{ ...user.disputes, style }} />
-    <Trades {...{ ...user, style }} />
+    <AccountCreated {...user} />
+    <Disputes {...user.disputes} />
+    <Trades {...user} />
   </View>
 )

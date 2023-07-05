@@ -9,9 +9,6 @@ jest.mock('../system/isProduction', () => ({
 describe('error', () => {
   const errorSpy = jest.spyOn(console, 'error')
 
-  beforeEach(() => {
-    jest.clearAllMocks()
-  })
   it('is logging error to console for dev environment', () => {
     ;(isProduction as jest.Mock).mockReturnValueOnce(false)
 

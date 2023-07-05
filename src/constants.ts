@@ -24,7 +24,21 @@ export const ISEMULATOR = isEmulatorSync()
 
 export const UNIQUEID = sha256(getUniqueIdSync())
 
-export let CURRENCIES: Currency[] = ['EUR', 'CHF', 'GBP', 'SEK', 'DKK', 'BGN', 'CZK', 'HUF', 'PLN', 'RON', 'ISK', 'NOK']
+export let CURRENCIES: Currency[] = [
+  'EUR',
+  'CHF',
+  'GBP',
+  'SEK',
+  'DKK',
+  'BGN',
+  'CZK',
+  'HUF',
+  'PLN',
+  'RON',
+  'ISK',
+  'NOK',
+  'USDT',
+]
 
 export let GIFTCARDCOUNTRIES: PaymentMethodCountry[] = ['DE', 'FR', 'IT', 'ES', 'NL', 'UK', 'SE', 'FI']
 export const NATIONALTRANSFERCOUNTRIES: PaymentMethodCountry[] = [
@@ -87,6 +101,7 @@ export const PAYMENTCATEGORIES: PaymentCategories = {
   localOption: ['mbWay', 'bizum', 'satispay', 'mobilePay', 'keksPay', 'paylib', 'lydia', 'verse', 'iris'],
   cash: [],
   cryptoCurrency: [],
+  other: ['liquid'],
 }
 
 export const ANONYMOUS_PAYMENTCATEGORIES = PAYMENTCATEGORIES.cash.concat(PAYMENTCATEGORIES.giftCard)

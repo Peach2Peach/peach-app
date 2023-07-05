@@ -1,16 +1,15 @@
 import { useCallback } from 'react'
-import { shallow } from 'zustand/shallow'
 import { useConfigStore } from '../store/configStore'
 import { usePopupStore } from '../store/usePopupStore'
 import i18n from '../utils/i18n'
 import { sum } from '../utils/math'
-import { useStartRefundPopup } from './useStartRefundPopup'
+import { useCancelAndStartRefundPopup } from './useCancelAndStartRefundPopup'
 import { WrongFundingAmount } from './warning/WrongFundingAmount'
 
 export const useShowWronglyFundedPopup = () => {
-  const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
+  const setPopup = usePopupStore((state) => state.setPopup)
   const maxTradingAmount = useConfigStore((state) => state.maxTradingAmount)
-  const startRefundPopup = useStartRefundPopup()
+  const cancelAndStartRefundPopup = useCancelAndStartRefundPopup()
 
   const showWronglyFundedPopup = useCallback(
     (sellOffer: SellOffer) =>
@@ -29,12 +28,11 @@ export const useShowWronglyFundedPopup = () => {
           label: i18n('refundEscrow'),
           icon: 'arrowRightCircle',
           callback: () => {
-            closePopup()
-            startRefundPopup(sellOffer)
+            cancelAndStartRefundPopup(sellOffer)
           },
         },
       }),
-    [closePopup, maxTradingAmount, setPopup, startRefundPopup],
+    [maxTradingAmount, setPopup, cancelAndStartRefundPopup],
   )
   return showWronglyFundedPopup
 }

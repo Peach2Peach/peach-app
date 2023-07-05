@@ -1,5 +1,5 @@
 import { PAYMENTCATEGORIES, setPaymentMethods } from '../constants'
-import { configStore } from '../store/configStore'
+import { useConfigStore } from '../store/configStore'
 import { error } from '../utils/log'
 import { shouldUsePaymentMethod } from '../utils/paymentMethod'
 import { getInfo } from '../utils/peachAPI'
@@ -7,7 +7,7 @@ import { calculateClientServerTimeDifference } from './calculateClientServerTime
 import { storePeachInfo } from './storePeachInfo'
 
 export const getPeachInfo = async () => {
-  const { paymentMethods } = configStore.getState()
+  const { paymentMethods } = useConfigStore.getState()
 
   const statusResponse = await calculateClientServerTimeDifference()
   if (!statusResponse || statusResponse.error) {

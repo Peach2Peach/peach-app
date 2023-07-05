@@ -1,4 +1,4 @@
-import { settingsStore } from '../../store/settingsStore'
+import { useSettingsStore } from '../../store/settingsStore'
 import i18n from '../../utils/i18n'
 import { WalletLabel } from './WalletLabel'
 import { render, waitFor } from '@testing-library/react-native'
@@ -14,26 +14,23 @@ jest.mock('../../utils/wallet/setWallet', () => ({
 jest.useFakeTimers()
 
 describe('WalletLabel', () => {
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
   it('should render correctly if label is known', () => {
     const { toJSON } = render(<WalletLabel label="Wallet Label" />)
     expect(toJSON()).toMatchSnapshot()
   })
-  it('should first signal that it is loading if label is not known', async () => {
+  it('should first signal that it is loading if label is not known', () => {
     const address = 'address'
     const addressLabel = 'addressLabel'
-    settingsStore.getState().setPayoutAddress(address)
-    settingsStore.getState().setPayoutAddressLabel(addressLabel)
+    useSettingsStore.getState().setPayoutAddress(address)
+    useSettingsStore.getState().setPayoutAddressLabel(addressLabel)
     const { toJSON } = render(<WalletLabel {...{ address }} />)
     expect(toJSON()).toMatchSnapshot()
   })
   it('should render correctly if address is payout address', async () => {
     const address = 'address'
     const addressLabel = 'addressLabel'
-    settingsStore.getState().setPayoutAddress(address)
-    settingsStore.getState().setPayoutAddressLabel(addressLabel)
+    useSettingsStore.getState().setPayoutAddress(address)
+    useSettingsStore.getState().setPayoutAddressLabel(addressLabel)
     const { toJSON, getByText } = render(
       <Text>
         <WalletLabel {...{ address }} />

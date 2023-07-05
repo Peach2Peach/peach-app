@@ -1,9 +1,9 @@
-import { settingsStore } from '../../../store/settingsStore'
+import { useSettingsStore } from '../../../store/settingsStore'
 import { loadSettings } from './helpers/loadSettings'
 
-export const migrateSettingsToStore = async () => {
-  if (settingsStore.getState().migrated) return
-  const settings = await loadSettings()
-  settingsStore.getState().updateSettings(settings)
-  settingsStore.getState().setMigrated()
+export const migrateSettingsToStore = () => {
+  if (useSettingsStore.getState().migrated) return
+  const settings = loadSettings()
+  useSettingsStore.getState().updateSettings(settings)
+  useSettingsStore.getState().setMigrated()
 }

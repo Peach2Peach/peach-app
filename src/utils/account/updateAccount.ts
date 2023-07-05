@@ -1,14 +1,12 @@
-import { settingsStore } from '../../store/settingsStore'
+import { dataMigrationAfterLoadingWallet } from '../../init/dataMigration/dataMigrationAfterLoadingWallet'
+import { useSettingsStore } from '../../store/settingsStore'
 import { setLocaleQuiet } from '../i18n'
-import { setPeachAccount } from '../peachAPI/peachAccount'
-import { createWalletFromSeedPhrase, getNetwork, setWallet } from '../wallet'
-import { PeachWallet } from '../wallet/PeachWallet'
-import { setPeachWallet } from '../wallet/setWallet'
-import { createPeachAccount } from './createPeachAccount'
-import { account, defaultAccount, setAccount } from './account'
 import { getDeviceLocale } from '../system'
+import { account, defaultAccount, setAccount } from './account'
+import { loadWalletFromAccount } from './loadWalletFromAccount'
+import { setWallets } from './setWallets'
 
-export const updateAccount = async (acc: Account, overwrite?: boolean) => {
+export const updateAccount = (acc: Account, overwrite?: boolean) => {
   setAccount(
     overwrite
       ? acc
@@ -19,15 +17,13 @@ export const updateAccount = async (acc: Account, overwrite?: boolean) => {
       },
   )
 
-  setLocaleQuiet(settingsStore.getState().locale || getDeviceLocale() || 'en')
+  setLocaleQuiet(useSettingsStore.getState().locale || getDeviceLocale() || 'en')
 
   if (account.mnemonic) {
-    const { wallet } = createWalletFromSeedPhrase(account.mnemonic, getNetwork())
-    setWallet(wallet)
-    setPeachAccount(createPeachAccount(account.mnemonic))
-
-    const peachWallet = new PeachWallet({ wallet })
-    peachWallet.loadWallet(account.mnemonic)
-    setPeachWallet(peachWallet)
+    const wallet = loadWalletFromAccount(account)
+    setWallets(wallet, account.mnemonic)
+    if (!account.base58) {
+      dataMigrationAfterLoadingWallet(wallet, account)
+    }
   }
 }

@@ -96,6 +96,7 @@ declare type Currency =
   | 'ISK'
   | 'NOK'
   | 'RON'
+  | 'USDT'
 declare type Pricebook = {
   [key in Currency]?: number
 }
@@ -164,6 +165,7 @@ declare type PaymentMethod =
   | 'lydia'
   | 'verse'
   | 'iris'
+  | 'liquid'
   | CashTrade
   | AmazonGiftCard
   | NationalTransfer
@@ -179,6 +181,7 @@ declare type MeetupEvent = {
   address?: string
   frequency?: string
   logo?: string
+  featured: boolean
 }
 declare type CountryEventsMap = Record<Country, MeetupEvent[]>
 
@@ -252,8 +255,6 @@ declare type TradeStatus =
   | 'waiting'
 
 declare type OfferDraft = {
-  creationDate: Date
-  lastModified?: Date
   type: 'bid' | 'ask'
   meansOfPayment: MeansOfPayment
   paymentData: Partial<
@@ -285,9 +286,13 @@ declare type Offer = OfferDraft & {
   doubleMatched: boolean
   contractId?: string
   tradeStatus: TradeStatus
+  creationDate: Date
+  lastModified?: Date
 }
 
-declare type PostOfferResponseBody = BuyOffer | SellOffer
+declare type PostOfferResponseBody =
+  | Omit<BuyOffer, 'originalPaymentData' | 'tradeStatus'>
+  | Omit<SellOffer, 'originalPaymentData' | 'tradeStatus'>
 declare type OfferType = 'ask' | 'bid'
 
 declare type CreateEscrowResponse = {
@@ -364,6 +369,7 @@ declare type OfferSummary = {
   tradeStatus: TradeStatus
   contractId?: string
   txId?: string
+  fundingTxId?: string
 }
 declare type GetOffersResponse = (BuyOffer | SellOffer)[]
 declare type GetOfferSummariesResponse = OfferSummary[]
@@ -489,3 +495,13 @@ declare type CheckReferralCodeResponse = {
 
 declare type RedeemReferralCodeResponseBody = APISuccess & { bonusPoints: User['bonusPoints'] }
 declare type RegisterResponseBody = AccessToken & { restored: boolean }
+
+declare type GetRefundPSBTResponseBody =
+  | {
+      psbt: string
+      returnAddress: string
+      amount: number
+      fees: number
+      satsPerByte: number
+    }
+  | APIError<'UNAUTHORIZED' | 'TRANSACTION_INVALID' | 'NOT_FOUND'>

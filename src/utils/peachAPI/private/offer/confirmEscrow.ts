@@ -9,19 +9,12 @@ type ConfirmEscrowProps = RequestProps & {
   offerId: string
 }
 
-/**
- * @description Method to confirm escrow funding
- * @param offerId offer id
- */
-export const confirmEscrow = async ({
-  offerId,
-  timeout,
-}: ConfirmEscrowProps): Promise<[APISuccess | null, APIError | null]> => {
+export const confirmEscrow = async ({ offerId, timeout }: ConfirmEscrowProps) => {
   const response = await fetch(`${API_URL}/v1/offer/${offerId}/escrow/confirm`, {
     headers: await getPrivateHeaders(),
     method: 'POST',
     signal: timeout ? getAbortWithTimeout(timeout).signal : undefined,
   })
 
-  return await parseResponse<APISuccess>(response, 'confirmEscrow')
+  return parseResponse<APISuccess>(response, 'confirmEscrow')
 }

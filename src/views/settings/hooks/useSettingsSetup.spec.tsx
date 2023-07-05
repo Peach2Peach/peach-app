@@ -1,7 +1,7 @@
 /* eslint-disable max-lines-per-function */
 import { act, renderHook, waitFor } from '@testing-library/react-native'
 import { useSettingsSetup } from './useSettingsSetup'
-import { settingsStore } from '../../../store/settingsStore'
+import { useSettingsStore } from '../../../store/settingsStore'
 import { usePopupStore } from '../../../store/usePopupStore'
 import { NotificationPopup } from '../components/NotificationPopup'
 import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
@@ -15,11 +15,12 @@ describe('useSettingsSetup', () => {
   const wrapper = NavigationWrapper
   afterEach(() => {
     act(() => {
-      settingsStore.getState().reset()
+      useSettingsStore.getState().reset()
     })
   })
-  it('returns default settings items', () => {
+  it('returns default settings items', async () => {
     const { result } = renderHook(useSettingsSetup, { wrapper })
+    await waitFor(() => expect(checkNotificationStatusMock).toHaveBeenCalled())
     expect(result.current).toEqual([
       {
         items: [{ title: 'testView' }, { title: 'contact' }, { title: 'aboutPeach' }],
@@ -46,9 +47,10 @@ describe('useSettingsSetup', () => {
       },
     ])
   })
-  it('returns shows analytics as active if it is', () => {
-    settingsStore.getState().setEnableAnalytics(true)
+  it('returns shows analytics as active if it is', async () => {
+    useSettingsStore.getState().setEnableAnalytics(true)
     const { result } = renderHook(useSettingsSetup, { wrapper })
+    await waitFor(() => expect(checkNotificationStatusMock).toHaveBeenCalled())
     expect(result.current[2].items).toEqual([
       { enabled: true, iconId: 'toggleRight', onPress: expect.any(Function), title: 'analytics' },
       { onPress: expect.any(Function), title: 'notifications' },
@@ -57,9 +59,10 @@ describe('useSettingsSetup', () => {
       { title: 'language' },
     ])
   })
-  it('does not highlight backups if backup reminder is not active', () => {
-    settingsStore.getState().setShowBackupReminder(false)
+  it('does not highlight backups if backup reminder is not active', async () => {
+    useSettingsStore.getState().setShowBackupReminder(false)
     const { result } = renderHook(useSettingsSetup, { wrapper })
+    await waitFor(() => expect(checkNotificationStatusMock).toHaveBeenCalled())
     expect(result.current[1].items).toEqual([
       { title: 'myProfile' },
       { title: 'referrals' },
@@ -68,9 +71,10 @@ describe('useSettingsSetup', () => {
       { title: 'paymentMethods' },
     ])
   })
-  it('does highlight backups if backup reminder is  active', () => {
-    settingsStore.getState().setShowBackupReminder(true)
+  it('does highlight backups if backup reminder is  active', async () => {
+    useSettingsStore.getState().setShowBackupReminder(true)
     const { result } = renderHook(useSettingsSetup, { wrapper })
+    await waitFor(() => expect(checkNotificationStatusMock).toHaveBeenCalled())
     expect(result.current[1].items).toEqual([
       { title: 'myProfile' },
       { title: 'referrals' },

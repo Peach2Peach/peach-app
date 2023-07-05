@@ -1,85 +1,88 @@
-import { act, renderHook } from '@testing-library/react-native'
-import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
-import { settingsStore } from '../../../store/settingsStore'
-import { useWalletSetup } from './useWalletSetup'
+import { fireEvent, render, renderHook, waitFor } from '@testing-library/react-native'
+import { NavigationWrapper, headerState, navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { WithdrawingFundsHelp } from '../../../popups/info/WithdrawingFundsHelp'
 import { usePopupStore } from '../../../store/usePopupStore'
-import { WithdrawalConfirmation } from '../../../popups/WithdrawalConfirmation'
-
-const walletStore = {}
-const walletStateMock = jest.fn((selector, _compareFn) => selector(walletStore))
-jest.mock('../../../utils/wallet/walletStore', () => ({
-  useWalletState: (selector: any, compareFn: any) => walletStateMock(selector, compareFn),
-}))
-const mockWithdrawAll = jest.fn()
-jest.mock('../../../utils/wallet/setWallet', () => ({
-  peachWallet: {
-    allTransactions: () => [],
-    withdrawAll: (...args: any) => mockWithdrawAll(...args),
-    syncWallet: jest.fn((onSuccess: () => void) => onSuccess()),
-  },
-}))
+import { PeachWallet } from '../../../utils/wallet/PeachWallet'
+import { setPeachWallet } from '../../../utils/wallet/setWallet'
+import { useWalletState } from '../../../utils/wallet/walletStore'
+import { useWalletSetup } from './useWalletSetup'
+import { useSettingsStore } from '../../../store/settingsStore'
 
 describe('useWalletSetup', () => {
   const wrapper = NavigationWrapper
-  const address = 'bitcoinAddress'
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
-  it('should return correct default values', () => {
-    const { result } = renderHook(useWalletSetup, { wrapper })
+  const initialProps = { syncOnLoad: true }
+  const balance = 21000000
 
-    expect(result.current.walletStore).toEqual(walletStore)
+  // @ts-ignore
+  const peachWallet = new PeachWallet()
+
+  beforeAll(() => {
+    useWalletState.getState().setBalance(balance)
+    setPeachWallet(peachWallet)
+  })
+  it('should return correct default values', async () => {
+    const { result } = renderHook(useWalletSetup, { wrapper, initialProps })
+
+    expect(result.current.balance).toEqual(balance)
     expect(result.current.refresh).toBeInstanceOf(Function)
     expect(result.current.isRefreshing).toBeFalsy()
-    expect(result.current.onChange).toBeInstanceOf(Function)
-    expect(result.current.isValid).toBeTruthy()
     expect(result.current.address).toBe('')
+    expect(result.current.setAddress).toBeInstanceOf(Function)
     expect(result.current.addressErrors).toHaveLength(0)
-    expect(result.current.openWithdrawalConfirmation).toBeInstanceOf(Function)
-    expect(result.current.confirmWithdrawal).toBeInstanceOf(Function)
-    expect(result.current.walletLoading).toBeFalsy()
+    expect(result.current.canWithdrawAll).toBeFalsy()
+    expect(result.current.walletLoading).toBeTruthy()
+    await waitFor(() => expect(result.current.walletLoading).toBeFalsy())
   })
+  it('should sync wallet on load', async () => {
+    peachWallet.syncWallet = jest.fn()
+    const { result } = renderHook(useWalletSetup, { wrapper, initialProps })
 
-  it('should open confirm withdrawal popup', () => {
-    const { result } = renderHook(useWalletSetup, { wrapper })
+    expect(result.current.walletLoading).toBeTruthy()
+    expect(peachWallet.syncWallet).toHaveBeenCalled()
+    await waitFor(() => expect(result.current.walletLoading).toBeFalsy())
+  })
+  it('should set up the header correctly while loading', async () => {
+    const { result } = renderHook(useWalletSetup, { wrapper, initialProps })
+    expect(headerState.header()).toMatchSnapshot()
+    await waitFor(() => expect(result.current.walletLoading).toBeFalsy())
+  })
+  it('should set up the header correctly when loaded', async () => {
+    const { result } = renderHook(useWalletSetup, { wrapper, initialProps })
+    await waitFor(() => expect(result.current.walletLoading).toBeFalsy())
+    expect(headerState.header()).toMatchSnapshot()
 
-    act(() => {
-      result.current.openWithdrawalConfirmation()
-    })
-
+    const { getByAccessibilityHint } = render(headerState.header(), { wrapper })
+    fireEvent(getByAccessibilityHint('go to transaction history'), 'onPress')
+    expect(navigateMock).toHaveBeenCalledWith('transactionHistory')
+    fireEvent(getByAccessibilityHint('go to network fees'), 'onPress')
+    expect(navigateMock).toHaveBeenCalledWith('networkFees')
+    fireEvent(getByAccessibilityHint('help'), 'onPress')
     expect(usePopupStore.getState()).toEqual({
       ...usePopupStore.getState(),
       title: 'sending funds',
-      content: <WithdrawalConfirmation />,
-      visible: true,
-      action2: {
-        callback: expect.any(Function),
-        label: 'cancel',
-        icon: 'xCircle',
-      },
-      action1: {
-        callback: expect.any(Function),
-        label: 'confirm & send',
-        icon: 'arrowRightCircle',
-      },
-      level: 'APP',
+      content: <WithdrawingFundsHelp />,
     })
   })
-  it('should confirm withdrawal with correct fees', async () => {
-    const finalFeeRate = 3
-    settingsStore.getState().setFeeRate(finalFeeRate)
-    const { result } = renderHook(useWalletSetup, { wrapper })
+  it('should navigate to backupTime if balance is bigger than 0 & showBackupReminder is false', async () => {
+    useWalletState.getState().setBalance(1)
+    useSettingsStore.setState({
+      showBackupReminder: false,
+      shouldShowBackupOverlay: true,
+    })
+    const { result } = renderHook(useWalletSetup, { wrapper, initialProps })
 
-    act(() => {
-      result.current.setAddress(address)
+    expect(navigateMock).toHaveBeenCalledWith('backupTime', { nextScreen: 'wallet' })
+    await waitFor(() => expect(result.current.walletLoading).toBeFalsy())
+  })
+  it('should not navigate to backupTime if balance is bigger than 0 & showBackupReminder is already true', async () => {
+    useWalletState.getState().setBalance(1)
+    useSettingsStore.setState({
+      showBackupReminder: true,
+      shouldShowBackupOverlay: true,
     })
-    act(() => {
-      result.current.openWithdrawalConfirmation()
-    })
-    await act(async () => {
-      await usePopupStore.getState().action1?.callback()
-    })
+    const { result } = renderHook(useWalletSetup, { wrapper, initialProps })
 
-    expect(mockWithdrawAll).toHaveBeenCalledWith(address, finalFeeRate)
+    expect(navigateMock).not.toHaveBeenCalled()
+    await waitFor(() => expect(result.current.walletLoading).toBeFalsy())
   })
 })

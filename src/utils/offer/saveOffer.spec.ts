@@ -5,12 +5,13 @@ import { saveOffer } from '.'
 import * as offerData from '../../../tests/unit/data/offerData'
 
 describe('saveOffer', () => {
-  beforeAll(async () => {
-    await setAccount(defaultAccount)
+  beforeAll(() => {
+    setAccount(defaultAccount)
   })
 
   it('does not save offers without an ID', () => {
     const errorSpy = jest.spyOn(jest.requireMock('../../utils/log'), 'error')
+    // @ts-expect-error
     saveOffer(offerData.buyOfferUnpublished)
     expect(errorSpy).toHaveBeenCalled()
     expect(account.offers.length).toBe(0)

@@ -4,134 +4,154 @@ exports[`Premium should render the Premium view 1`] = `
 <View
   style={
     {
-      "alignItems": "center",
-      "flexShrink": 1,
       "height": "100%",
-      "paddingBottom": 28,
     }
   }
 >
   <View
     style={
-      {
-        "flexGrow": 1,
-        "justifyContent": "center",
+      [
+        {
+          "paddingLeft": 16,
+          "paddingRight": 16,
+        },
+        {
+          "paddingLeft": 32,
+          "paddingRight": 32,
+        },
+      ]
+    }
+  >
+    <HorizontalLine
+      style={
+        {
+          "marginBottom": 8,
+        }
       }
+    />
+    <BitcoinPriceStats />
+  </View>
+  <View
+    style={
+      [
+        {
+          "flexGrow": 1,
+          "paddingLeft": 16,
+          "paddingRight": 16,
+        },
+        {
+          "paddingLeft": 32,
+          "paddingRight": 32,
+        },
+      ]
     }
   >
     <View
       style={
         {
-          "paddingLeft": 32,
-          "paddingRight": 32,
+          "alignItems": "center",
+          "flexGrow": 1,
+          "justifyContent": "center",
         }
       }
     >
-      <PeachText
-        style={
-          {
-            "fontFamily": "Baloo2-Bold",
-            "fontSize": 24,
-            "letterSpacing": 0.24,
-            "lineHeight": 32,
-            "textAlign": "center",
-          }
-        }
-      >
-        set your premium / discount
-      </PeachText>
       <View
         style={
           {
-            "flexDirection": "row",
-            "justifyContent": "center",
-            "width": "100%",
+            "alignItems": "center",
+            "alignSelf": "stretch",
+            "gap": 28,
           }
         }
       >
-        <PeachText
+        <View
           style={
             {
-              "fontFamily": "Baloo2-SemiBold",
-              "fontSize": 16,
-              "letterSpacing": 0.16,
-              "lineHeight": 28,
-              "paddingRight": 8,
+              "alignItems": "center",
             }
           }
         >
-          for selling
-        </PeachText>
-        <SatsFormat
-          bitcoinLogoStyle={
-            {
-              "height": 12,
-              "marginRight": 4,
-              "width": 12,
+          <PeachText
+            style={
+              [
+                {
+                  "fontFamily": "Baloo2-Bold",
+                  "fontSize": 20,
+                  "letterSpacing": 0.2,
+                  "lineHeight": 32,
+                  "textAlign": "center",
+                },
+                {
+                  "fontFamily": "Baloo2-Bold",
+                  "fontSize": 24,
+                  "letterSpacing": 0.24,
+                  "lineHeight": 32,
+                },
+              ]
             }
-          }
-          sats={1000000}
-          satsStyle={
-            {
-              "fontFamily": "Baloo2-Regular",
-              "fontSize": 14,
-              "fontWeight": "normal",
-              "letterSpacing": 0.14,
-              "lineHeight": 20,
+          >
+            set your premium / discount
+          </PeachText>
+          <View
+            style={
+              {
+                "alignItems": "center",
+                "flexDirection": "row",
+                "gap": 4,
+              }
             }
-          }
+          >
+            <PeachText
+              style={
+                {
+                  "fontFamily": "Baloo2-SemiBold",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 28,
+                  "textAlign": "center",
+                }
+              }
+            >
+              for selling
+            </PeachText>
+            <CurrentOfferAmount />
+          </View>
+        </View>
+        <View
           style={
             {
-              "fontFamily": "Baloo2-SemiBold",
-              "fontSize": 16,
-              "letterSpacing": 0.16,
-              "lineHeight": 28,
+              "alignItems": "center",
+              "gap": 4,
+            }
+          }
+        >
+          <PremiumInput />
+          <CurrentOfferPrice />
+        </View>
+        <PremiumSlider
+          style={
+            {
+              "alignItems": "center",
+              "alignSelf": "stretch",
+              "gap": 6,
             }
           }
         />
       </View>
-      <PremiumInput
-        premium={1.5}
-        setPremium={[MockFunction]}
-        style={
-          {
-            "marginTop": 32,
-          }
-        }
-      />
-      <PeachText
-        style={
-          {
-            "color": "#7D675E",
-            "marginTop": 4,
-            "textAlign": "center",
-          }
-        }
-      >
-        (
-        currently 150.00 EUR
-        )
-      </PeachText>
     </View>
-    <PremiumSlider
-      onChange={[MockFunction]}
+    <PrimaryButton
+      disabled={true}
+      narrow={true}
+      onPress={[Function]}
       style={
         {
-          "marginTop": 24,
-          "paddingLeft": 16,
-          "paddingRight": 16,
+          "alignSelf": "center",
+          "marginBottom": 20,
         }
       }
-      value={1.5}
-    />
+    >
+      next
+    </PrimaryButton>
   </View>
-  <PrimaryButton
-    disabled={false}
-    narrow={true}
-    onPress={[MockFunction]}
-    testID="navigation-next"
-  >
-    next
-  </PrimaryButton>
 </View>
 `;

@@ -37,6 +37,7 @@ export const useNewUserSetup = () => {
   const finishRegistration = useCallback(
     async (account: Account) => {
       await updateAccount(account, true)
+      await userUpdate(route.params.referralCode)
 
       storeAccount(account)
       setSuccess(true)
@@ -45,11 +46,11 @@ export const useNewUserSetup = () => {
         navigation.replace('home')
       }, 1500)
     },
-    [navigation],
+    [navigation, route.params.referralCode],
   )
 
   const onSuccess = useCallback(
-    async (account: Account) => {
+    async (account: Account & { mnemonic: string }) => {
       const message = getAuthenticationChallenge()
 
       const [result, authError] = await register({
@@ -63,16 +64,14 @@ export const useNewUserSetup = () => {
         return
       }
 
-      await userUpdate(route.params.referralCode)
-
       if (result.restored) {
         setTemporaryAccount(account)
         setUserExistsForDevice(true)
         return
       }
-      await finishRegistration(account)
+      finishRegistration(account)
     },
-    [route.params.referralCode, finishRegistration, onError, setTemporaryAccount],
+    [finishRegistration, onError, setTemporaryAccount],
   )
 
   useEffect(() => {

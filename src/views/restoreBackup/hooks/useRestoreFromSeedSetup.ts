@@ -2,8 +2,10 @@ import { useCallback, useContext, useMemo, useState } from 'react'
 import { Keyboard } from 'react-native'
 import { MessageContext } from '../../../contexts/message'
 import { useNavigation, useValidatedState } from '../../../hooks'
+import { useSettingsStore } from '../../../store/settingsStore'
 import { createAccount, deleteAccount, recoverAccount } from '../../../utils/account'
 import { createPeachAccount } from '../../../utils/account/createPeachAccount'
+import { loadWalletFromAccount } from '../../../utils/account/loadWalletFromAccount'
 import { storeAccount } from '../../../utils/account/storeAccount'
 import { auth } from '../../../utils/peachAPI'
 import { setPeachAccount } from '../../../utils/peachAPI/peachAccount'
@@ -20,6 +22,7 @@ const bip39Rules = {
 export const useRestoreFromSeedSetup = () => {
   const [, updateMessage] = useContext(MessageContext)
   const navigation = useNavigation()
+  const updateSeedBackupDate = useSettingsStore((state) => state.updateSeedBackupDate)
 
   const [words, setWords] = useState<string[]>(new Array(12).fill(''))
   const [mnemonic, setMnemonic, isMnemonicValid] = useValidatedState<string>('', bip39Rules)
@@ -52,7 +55,8 @@ export const useRestoreFromSeedSetup = () => {
 
   const createAndRecover = async () => {
     const recoveredAccount = await createAccount(mnemonic)
-    setPeachAccount(createPeachAccount(mnemonic))
+    const wallet = loadWalletFromAccount(recoveredAccount)
+    setPeachAccount(createPeachAccount(wallet))
 
     const [, authError] = await auth({})
     if (authError) {
@@ -65,13 +69,14 @@ export const useRestoreFromSeedSetup = () => {
     await storeAccount(updatedAccount)
     setRestored(true)
     setLoading(false)
+    updateSeedBackupDate()
 
     setTimeout(() => {
       navigation.replace('home')
     }, 1500)
   }
 
-  const submit = async () => {
+  const submit = () => {
     Keyboard.dismiss()
     setLoading(true)
 

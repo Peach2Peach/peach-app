@@ -1,16 +1,11 @@
 import { BackgroundConfig } from '../components/background/Background'
 import { MeetupScreen } from '../components/payment/MeetupScreen'
-import TestView from './TestView/TestView'
-import TestViewButtons from './TestView/buttons'
-import TestViewComponents from './TestView/components'
-import TestViewMessages from './TestView/messages'
-import TestViewPNs from './TestView/pns'
-import TestViewPopups from './TestView/popups'
-import AddPaymentMethod from './addPaymentMethod/AddPaymentMethod'
-import PaymentDetails from './addPaymentMethod/PaymentDetails'
+import { PaymentMethods } from '../components/payment/PaymentMethods'
+import { AddPaymentMethod } from './addPaymentMethod/AddPaymentMethod'
+import { PaymentMethodForm } from './addPaymentMethod/PaymentMethodForm'
 import BackupTime from './backupTime/BackupTime'
 import Buy from './buy/Buy'
-import BuyPreferences from './buy/BuyPreferences'
+import { BuySummary } from './buy/BuySummary'
 import SignMessage from './buy/SignMessage'
 import Contact from './contact/Contact'
 import Contract from './contract/Contract'
@@ -25,31 +20,39 @@ import OfferDetails from './offerDetails/OfferDetails'
 import NewBadge from './overlays/NewBadge'
 import PublicProfile from './publicProfile/PublicProfile'
 import Referrals from './referrals/Referrals'
-import Report from './report/Report'
+import { Report } from './report/Report'
 import RestoreBackup from './restoreBackup/RestoreBackup'
 import RestoreReputation from './restoreReputation/RestoreReputation'
 import OfferPublished from './search/OfferPublished'
 import Search from './search/Search'
 import SelectWallet from './selectWallet/SelectWallet'
 import SetRefundWallet from './selectWallet/SetRefundWallet'
+import { Premium } from './sell/Premium'
 import Sell from './sell/Sell'
-import SellPreferences from './sell/SellPreferences'
-import Backups from './settings/Backups'
-import Currency from './settings/Currency'
-import Language from './settings/Language'
-import NetworkFees from './settings/NetworkFees'
-import PaymentMethods from './paymentMethods/PaymentMethods'
-import PayoutAddress from './settings/PayoutAddress'
-import Settings from './settings/Settings'
+import { SellSummary } from './sell/SellSummary'
 import AboutPeach from './settings/aboutPeach/AboutPeach'
 import BitcoinProducts from './settings/aboutPeach/BitcoinProducts'
 import PeachFees from './settings/aboutPeach/PeachFees'
 import Socials from './settings/aboutPeach/Socials'
+import Backups from './settings/Backups'
 import BackupCreated from './settings/components/backups/BackupCreated'
+import Currency from './settings/Currency'
+import Language from './settings/Language'
+import NetworkFees from './settings/NetworkFees'
+import PayoutAddress from './settings/PayoutAddress'
 import MyProfile from './settings/profile/MyProfile'
+import Settings from './settings/Settings'
+import TestViewButtons from './TestView/buttons'
+import TestViewComponents from './TestView/components'
+import TestViewMessages from './TestView/messages'
+import TestViewPeachWallet from './TestView/peachWallet'
+import TestViewPNs from './TestView/pns'
+import TestViewPopups from './TestView/popups'
+import TestView from './TestView/TestView'
 import TradeComplete from './tradeComplete/TradeComplete'
-import TransactionDetails from './wallet/TransactionDetails'
-import TransactionHistory from './wallet/TransactionHistory'
+import { BumpNetworkFees } from './wallet/BumpNetworkFees'
+import { TransactionDetails } from './wallet/TransactionDetails'
+import { TransactionHistory } from './wallet/TransactionHistory'
 import Wallet from './wallet/Wallet'
 import Welcome from './welcome/Welcome'
 import { WrongFundingAmount } from './wrongFundingAmount/WrongFundingAmount'
@@ -92,16 +95,20 @@ const wallet: ViewType[] = [
   { name: 'wallet', component: Wallet, ...defaultConfig, animationEnabled: false },
   { name: 'transactionHistory', component: TransactionHistory, ...defaultConfig },
   { name: 'transactionDetails', component: TransactionDetails, ...defaultConfig },
+  { name: 'bumpNetworkFees', component: BumpNetworkFees, ...defaultConfig },
 ]
 const buyFlow: ViewType[] = [
   { name: 'buy', component: Buy, ...defaultConfig, animationEnabled: false },
-  { name: 'buyPreferences', component: BuyPreferences, ...defaultConfig },
+  { name: 'buyPreferences', component: PaymentMethods, ...defaultConfig },
+  { name: 'buySummary', component: BuySummary, ...defaultConfig },
   { name: 'signMessage', component: SignMessage, ...defaultConfig },
 ]
 
 const sellFlow: ViewType[] = [
   { name: 'sell', component: Sell, ...defaultConfig, animationEnabled: false },
-  { name: 'sellPreferences', component: SellPreferences, ...defaultConfig },
+  { name: 'premium', component: Premium, ...defaultConfig },
+  { name: 'sellPreferences', component: PaymentMethods, ...defaultConfig },
+  { name: 'sellSummary', component: SellSummary, ...defaultConfig },
   { name: 'fundEscrow', component: FundEscrow, ...defaultConfig },
   { name: 'wrongFundingAmount', component: WrongFundingAmount, ...defaultConfig },
   { name: 'selectWallet', component: SelectWallet, ...defaultConfig },
@@ -148,7 +155,7 @@ const settings: ViewType[] = [
   { name: 'myProfile', component: MyProfile, ...defaultConfig },
   { name: 'bitcoinProducts', component: BitcoinProducts, ...defaultConfig },
   { name: 'addPaymentMethod', component: AddPaymentMethod, ...defaultConfig },
-  { name: 'paymentDetails', component: PaymentDetails, ...defaultConfig },
+  { name: 'paymentMethodForm', component: PaymentMethodForm, ...defaultConfig },
   { name: 'meetupScreen', component: MeetupScreen, ...defaultConfig },
   { name: 'currency', component: Currency, ...defaultConfig },
   { name: 'language', component: Language, ...defaultConfig },
@@ -165,6 +172,7 @@ const settings: ViewType[] = [
 
 const testViews: ViewType[] = [
   { name: 'testView', component: TestView, ...defaultConfig },
+  { name: 'testViewPeachWallet', component: TestViewPeachWallet, ...defaultConfig },
   { name: 'testViewButtons', component: TestViewButtons, ...defaultConfig },
   { name: 'testViewPopups', component: TestViewPopups, ...defaultConfig },
   { name: 'testViewMessages', component: TestViewMessages, ...defaultConfig },

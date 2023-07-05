@@ -29,7 +29,7 @@ export const useShowBackupReminder = () => {
         },
         level: 'ERROR',
       }),
-    [setPopup],
+    [closePopup, navigation, setPopup],
   )
 
   return showBackupReminder

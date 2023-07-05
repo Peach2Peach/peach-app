@@ -9,6 +9,5 @@ const getUserQuery = async () => {
 
 export const useSelfUser = () => {
   const { data, isLoading, error } = useQuery({ queryKey: ['user', 'self'], queryFn: getUserQuery })
-
   return { user: data, isLoading, error }
 }

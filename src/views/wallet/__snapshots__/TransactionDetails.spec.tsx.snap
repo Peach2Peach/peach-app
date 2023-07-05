@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TransactionDetails renders correctly 1`] = `
+<ForwardRef
+  contentContainerStyle={
+    [
+      {
+        "flexGrow": 1,
+        "justifyContent": "center",
+        "paddingLeft": 28,
+        "paddingRight": 28,
+      },
+      {
+        "paddingLeft": 32,
+        "paddingRight": 32,
+      },
+    ]
+  }
+  contentStyle={
+    {
+      "gap": 32,
+    }
+  }
+  refreshControl={
+    <RefreshControlMock
+      onRefresh={[MockFunction]}
+      refreshing={false}
+    />
+  }
+>
+  <TransactionHeader
+    amount={900}
+    confirmed={true}
+    date={2022-09-14T16:14:02.835Z}
+    height={1}
+    id="txid1"
+    offerId="123"
+    style={
+      {
+        "alignSelf": "center",
+      }
+    }
+    type="TRADE"
+  />
+  <TransactionDetailsInfo
+    transaction={
+      {
+        "amount": 900,
+        "confirmed": true,
+        "contractId": undefined,
+        "currency": undefined,
+        "date": 2022-09-14T16:14:02.835Z,
+        "height": 1,
+        "id": "txid1",
+        "offerId": "123",
+        "price": undefined,
+        "type": "TRADE",
+      }
+    }
+  />
+</ForwardRef>
+`;

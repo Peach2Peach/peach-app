@@ -41,7 +41,7 @@ exports[`Divider renders correctly 1`] = `
 </View>
 `;
 
-exports[`Divider renders correctly on lg 1`] = `
+exports[`Divider renders correctly on md 1`] = `
 <View
   style={
     [
@@ -225,6 +225,31 @@ exports[`Divider renders correctly with iconAlign 1`] = `
   />
   <Icon
     id="bitcoin"
+  />
+</View>
+`;
+
+exports[`Divider renders correctly with no text 1`] = `
+<View
+  style={
+    [
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+      },
+      undefined,
+    ]
+  }
+>
+  <HorizontalLine
+    style={
+      [
+        {
+          "flexGrow": 1,
+        },
+        false,
+      ]
+    }
   />
 </View>
 `;

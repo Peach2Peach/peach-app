@@ -2,7 +2,7 @@
 import { renderHook } from '@testing-library/react-native'
 import { act } from 'react-test-renderer'
 import { APPVERSION } from '../constants'
-import { configStore, useConfigStore } from '../store/configStore'
+import { useConfigStore } from '../store/configStore'
 import { useShowUpdateAvailable } from './useShowUpdateAvailable'
 import { MessageContext, defaultMessageState } from '../contexts/message'
 import { linkToAppStore } from '../utils/system'
@@ -15,20 +15,19 @@ describe('useShowUpdateAvailable', () => {
     <MessageContext.Provider value={[messageState, updateMessage]}>{children}</MessageContext.Provider>
   )
   beforeEach(() => {
-    configStore.getState().setLatestAppVersion(APPVERSION)
-    configStore.getState().setMinAppVersion(APPVERSION)
+    useConfigStore.getState().setLatestAppVersion(APPVERSION)
+    useConfigStore.getState().setMinAppVersion(APPVERSION)
   })
   afterEach(() => {
-    jest.clearAllMocks()
     messageState = { ...defaultMessageState }
   })
-  it('does not show update available banner if app version is above min/latest', async () => {
+  it('does not show update available banner if app version is above min/latest', () => {
     renderHook(useShowUpdateAvailable, { wrapper })
 
     expect(updateMessage).not.toHaveBeenCalled()
   })
-  it('does show update available banner if app version is not above latest', async () => {
-    configStore.getState().setLatestAppVersion(definitelyHigherVersion)
+  it('does show update available banner if app version is not above latest', () => {
+    useConfigStore.getState().setLatestAppVersion(definitelyHigherVersion)
 
     renderHook(useShowUpdateAvailable, { wrapper })
 
@@ -43,8 +42,8 @@ describe('useShowUpdateAvailable', () => {
       msgKey: 'UPDATE_AVAILABLE',
     })
   })
-  it('does show critical update available banner if app version is not above min', async () => {
-    configStore.getState().setMinAppVersion(definitelyHigherVersion)
+  it('does show critical update available banner if app version is not above min', () => {
+    useConfigStore.getState().setMinAppVersion(definitelyHigherVersion)
 
     renderHook(useShowUpdateAvailable, { wrapper })
 
@@ -59,9 +58,9 @@ describe('useShowUpdateAvailable', () => {
       msgKey: 'CRITICAL_UPDATE_AVAILABLE',
     })
   })
-  it('does still show critical update available banner if app version is not above min/latest', async () => {
-    configStore.getState().setLatestAppVersion(definitelyHigherVersion)
-    configStore.getState().setMinAppVersion(definitelyHigherVersion)
+  it('does still show critical update available banner if app version is not above min/latest', () => {
+    useConfigStore.getState().setLatestAppVersion(definitelyHigherVersion)
+    useConfigStore.getState().setMinAppVersion(definitelyHigherVersion)
 
     renderHook(useShowUpdateAvailable, { wrapper })
 
@@ -76,14 +75,12 @@ describe('useShowUpdateAvailable', () => {
       msgKey: 'CRITICAL_UPDATE_AVAILABLE',
     })
   })
-  it('shows update banner should the min/latest version change during the session', async () => {
+  it('shows update banner should the min/latest version change during the session', () => {
     renderHook(useShowUpdateAvailable, { wrapper })
-
-    const { result: configStoreResult } = renderHook(() => useConfigStore((state) => state))
 
     expect(updateMessage).not.toHaveBeenCalled()
     act(() => {
-      configStoreResult.current.setLatestAppVersion(definitelyHigherVersion)
+      useConfigStore.getState().setLatestAppVersion(definitelyHigherVersion)
     })
     expect(updateMessage).toHaveBeenCalled()
   })

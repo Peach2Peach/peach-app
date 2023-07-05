@@ -4,8 +4,8 @@ import { storeChats } from '.'
 import * as accountData from '../../../../tests/unit/data/accountData'
 
 describe('storeChats', () => {
-  beforeEach(async () => {
-    await setAccount(defaultAccount)
+  beforeEach(() => {
+    setAccount(defaultAccount)
   })
 
   it('would store chats', async () => {

@@ -1,11 +1,13 @@
-import { ConfirmedTransaction, PendingTransaction } from 'bdk-rn/lib/lib/interfaces'
+import { TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
 
 export const getTransactionType = (
-  tx: ConfirmedTransaction | PendingTransaction,
-  offer?: OfferSummary,
+  { received, sent }: Pick<TransactionDetails, 'received' | 'sent'>,
+  offer?: Pick<OfferSummary, 'type'>,
 ): TransactionType => {
   if (offer) {
-    return offer.type === 'ask' ? 'REFUND' : 'TRADE'
+    if (received > 0 && sent === 0) return offer.type === 'ask' ? 'REFUND' : 'TRADE'
+    if (sent > 0 && offer.type === 'ask') return 'ESCROWFUNDED'
   }
-  return tx.received === 0 ? 'WITHDRAWAL' : 'DEPOSIT'
+
+  return sent === 0 ? 'DEPOSIT' : 'WITHDRAWAL'
 }

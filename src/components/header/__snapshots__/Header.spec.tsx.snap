@@ -152,9 +152,6 @@ exports[`Header should render correctly with title and icons 1`] = `
               "lineHeight": 32,
             },
             {
-              "textTransform": "lowercase",
-            },
-            {
               "color": "#2B1911",
             },
           ],
@@ -174,6 +171,7 @@ exports[`Header should render correctly with title and icons 1`] = `
     }
   >
     <View
+      accessibilityHint="a mail icon"
       accessibilityState={
         {
           "busy": undefined,
@@ -230,6 +228,7 @@ exports[`Header should render correctly with title and icons 1`] = `
       />
     </View>
     <View
+      accessibilityHint="a globe icon"
       accessibilityState={
         {
           "busy": undefined,

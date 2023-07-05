@@ -2,6 +2,7 @@ import { renderHook, waitFor } from '@testing-library/react-native'
 import { act } from 'react-test-renderer'
 import { account1 } from '../../../../tests/unit/data/accountData'
 import { MSINANHOUR } from '../../../constants'
+import { useSettingsStore } from '../../../store/settingsStore'
 import { useRestoreFromSeedSetup } from './useRestoreFromSeedSetup'
 
 jest.useFakeTimers()
@@ -38,13 +39,10 @@ jest.mock('../../../utils/peachAPI', () => ({
 }))
 
 describe('useRestoreFromSeedSetup', () => {
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
-  it('restores account from file', async () => {
+  it('restores account from seed', async () => {
     const { result } = renderHook(useRestoreFromSeedSetup)
     act(() => {
-      result.current.setWords(account1.mnemonic!.split(' '))
+      result.current.setWords(account1.mnemonic.split(' '))
     })
     act(() => {
       result.current.submit()
@@ -55,5 +53,25 @@ describe('useRestoreFromSeedSetup', () => {
     expect(createAccountMock).toHaveBeenCalledWith(account1.mnemonic)
     expect(recoverAccountMock).toHaveBeenCalledWith(account1)
     expect(storeAccountMock).toHaveBeenCalledWith(account1)
+  })
+  it('updates the last seed backup date', async () => {
+    jest.spyOn(Date, 'now').mockReturnValue(123456789)
+    const { result } = renderHook(useRestoreFromSeedSetup)
+    act(() => {
+      result.current.setWords(account1.mnemonic.split(' '))
+    })
+    act(() => {
+      result.current.submit()
+    })
+    await waitFor(() => {
+      expect(result.current.restored).toBeTruthy()
+    })
+    expect(useSettingsStore.getState()).toEqual(
+      expect.objectContaining({
+        lastSeedBackupDate: Date.now(),
+        shouldShowBackupOverlay: false,
+        showBackupReminder: false,
+      }),
+    )
   })
 })

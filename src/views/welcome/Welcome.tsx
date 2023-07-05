@@ -70,7 +70,7 @@ export default () => {
             shouldOptimizeUpdates={true}
             renderItem={({ item: Item, index }) => (
               <View
-                testID={'welcome-screen-' + index}
+                testID={`welcome-screen-${index}`}
                 onStartShouldSetResponder={onStartShouldSetResponder}
                 style={tw`h-full px-6`}
               >

@@ -1,9 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`RefundEscrowSlider renders correctly 1`] = `
-<SlideToUnlock
+<ConfirmSlider
+  enabled={true}
   iconId="download"
   label1="refund escrow"
-  onUnlock={[Function]}
+  onConfirm={[Function]}
 />
 `;

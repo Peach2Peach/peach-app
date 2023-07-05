@@ -3,6 +3,8 @@ import { PriceFormat, Text } from '../../../components'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 
+const textStyle = tw`font-bold tooltip`
+
 type Props = ComponentProps & {
   amount: number
   limit: number
@@ -14,9 +16,9 @@ export const TradingLimitAmount = ({ amount, limit, displayCurrency, style, type
     <Text style={tw`tooltip text-black-2`}>
       {i18n(`profile.tradingLimits.${type}`)}
       {'  '}
-      <PriceFormat style={tw`font-bold tooltip text-primary-main`} currency={displayCurrency} amount={amount} round />
-      <Text style={tw`font-bold tooltip text-black-2`}> / </Text>
-      <PriceFormat style={tw`font-bold tooltip text-primary-mild-1`} currency={displayCurrency} amount={limit} round />
+      <PriceFormat style={[textStyle, tw`text-primary-main`]} currency={displayCurrency} amount={amount} round />
+      <Text style={[textStyle, tw`text-black-2`]}> / </Text>
+      <PriceFormat style={[textStyle, tw`text-primary-mild-1`]} currency={displayCurrency} amount={limit} round />
     </Text>
   </View>
 )

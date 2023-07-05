@@ -8,7 +8,7 @@ describe('Divider', () => {
   const text = 'text'
   const icon = <Icon id="bitcoin" />
   beforeEach(() => {
-    mockDimensions({ width: 375, height: 690 })
+    mockDimensions({ width: 374, height: 689 })
   })
   it('renders correctly', () => {
     renderer.render(<Divider text={text} />)
@@ -38,9 +38,13 @@ describe('Divider', () => {
     renderer.render(<Divider text={text} type="error" align="center" />)
     expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
-  it('renders correctly on lg', () => {
-    mockDimensions({ width: 376, height: 691 })
+  it('renders correctly on md', () => {
+    mockDimensions({ width: 375, height: 690 })
     renderer.render(<Divider text={text} />)
+    expect(renderer.getRenderOutput()).toMatchSnapshot()
+  })
+  it('renders correctly with no text', () => {
+    renderer.render(<Divider />)
     expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
 })

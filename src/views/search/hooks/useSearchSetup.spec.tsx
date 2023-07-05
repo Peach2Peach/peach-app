@@ -1,7 +1,8 @@
 import { act, renderHook, waitFor } from '@testing-library/react-native'
 import { buyOffer } from '../../../../tests/unit/data/offerData'
-import { headerState, NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
-import { QueryClientWrapper, queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
+import { NavigationAndQueryClientWrapper } from '../../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
+import { headerState } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
 import { useSearchSetup } from './useSearchSetup'
 
 jest.mock('../../../hooks/useRoute', () => ({
@@ -29,19 +30,11 @@ jest.mock('../../../utils/peachAPI', () => ({
   getOfferDetails: (...args: any[]) => getOfferDetailsMock(...args),
 }))
 
-const wrapper = ({ children }: ComponentProps) => (
-  <NavigationWrapper>
-    <QueryClientWrapper>{children}</QueryClientWrapper>
-  </NavigationWrapper>
-)
+const wrapper = NavigationAndQueryClientWrapper
 
 jest.useFakeTimers()
 
 describe('useSearchSetup', () => {
-  beforeEach(() => {
-    jest.clearAllMocks()
-  })
-
   it('should set up header correctly', async () => {
     const { result } = renderHook(useSearchSetup, { wrapper })
 

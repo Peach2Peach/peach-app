@@ -25,7 +25,14 @@ declare type TradeTab = 'buy' | 'sell' | 'history'
 
 type BitcoinNetwork = 'bitcoin' | 'testnet' | 'regtest'
 
-declare type PaymentCategory = 'bankTransfer' | 'onlineWallet' | 'giftCard' | 'localOption' | 'cryptoCurrency' | 'cash'
+declare type PaymentCategory =
+  | 'bankTransfer'
+  | 'onlineWallet'
+  | 'giftCard'
+  | 'localOption'
+  | 'cryptoCurrency'
+  | 'cash'
+  | 'other'
 declare type PaymentCategories = {
   [key in PaymentCategory]: PaymentMethod[]
 }
@@ -75,9 +82,41 @@ declare type MessageState = {
   keepAlive?: boolean
 }
 
+declare type DrawerOptionType = {
+  title: string
+  subtext?: string
+  iconRightID?: IconType
+  onPress: () => void
+} & (
+  | {
+      logoID: PaymentLogoType
+      flagID?: never
+      highlighted?: never
+      subtext?: never
+    }
+  | {
+      flagID: FlagType
+      logoID?: never
+      highlighted?: never
+    }
+  | {
+      flagID?: never
+      logoID?: never
+      highlighted: boolean
+      subtext: string
+      iconRightID?: never
+    }
+  | {
+      flagID?: never
+      logoID?: never
+      highlighted?: never
+    }
+)
+
 declare type DrawerState = {
   title: string
   content: ReactNode | null
+  options: DrawerOptionType[]
   show: boolean
   previousDrawer: Partial<DrawerState>
   onClose: () => void

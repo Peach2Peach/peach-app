@@ -3,11 +3,12 @@ import { useHeaderSetup, useRoute } from '../../../hooks'
 import { useGoToOrigin } from '../../../hooks/useGoToOrigin'
 import { useShowHelp } from '../../../hooks/useShowHelp'
 import { useMeetupEventsStore } from '../../../store/meetupEventsStore'
+import { useOfferPreferences } from '../../../store/offerPreferenes'
 import { account, addPaymentData } from '../../../utils/account'
 import { headerIcons } from '../../../utils/layout/headerIcons'
 import { getPaymentMethodInfo } from '../../../utils/paymentMethod'
-import { useDeletePaymentMethod } from './useDeletePaymentMethod'
 import { toggleCurrency } from '../../inputs/paymentMethods/paymentForms/utils'
+import { useDeletePaymentMethod } from './useDeletePaymentMethod'
 
 export const useMeetupScreenSetup = () => {
   const route = useRoute<'meetupScreen'>()
@@ -15,25 +16,28 @@ export const useMeetupScreenSetup = () => {
   const deletable = route.params.deletable ?? false
   const goToOrigin = useGoToOrigin()
   const getMeetupEvent = useMeetupEventsStore((state) => state.getMeetupEvent)
-  const event = getMeetupEvent(eventId) || {
+  const event: MeetupEvent = getMeetupEvent(eventId) || {
     id: eventId,
     longName: '',
     shortName: '',
     currencies: [],
     country: 'DE',
     city: '',
+    featured: false,
   }
 
-  const [selectedCurrencies, setSelectedCurrencies] = useState(event.currencies || [])
+  const [selectedCurrencies, setSelectedCurrencies] = useState(event.currencies)
   const onCurrencyToggle = (currency: Currency) => {
     setSelectedCurrencies(toggleCurrency(currency))
   }
 
   const showHelp = useShowHelp('cashTrades')
-  const deletePaymentMethod = useDeletePaymentMethod('cash.' + event.id)
+  const deletePaymentMethod = useDeletePaymentMethod(`cash.${event.id}`)
 
-  const addToPaymentMethods = async () => {
-    const meetupInfo = getPaymentMethodInfo('cash.' + event.id)
+  const selectPaymentMethod = useOfferPreferences((state) => state.selectPaymentMethod)
+
+  const addToPaymentMethods = () => {
+    const meetupInfo = getPaymentMethodInfo(`cash.${event.id}`)
     const meetup: PaymentData = {
       id: meetupInfo.id,
       label: event.shortName,
@@ -43,6 +47,7 @@ export const useMeetupScreenSetup = () => {
       country: event.country,
     }
     addPaymentData(meetup)
+    selectPaymentMethod(meetupInfo.id)
     goToOrigin(route.params.origin)
   }
 
@@ -60,7 +65,7 @@ export const useMeetupScreenSetup = () => {
   })
 
   return {
-    paymentMethod: ('cash.' + event.id) as PaymentMethod,
+    paymentMethod: `cash.${event.id}` as PaymentMethod,
     event,
     deletable,
     addToPaymentMethods,

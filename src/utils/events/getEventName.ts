@@ -1,4 +1,4 @@
-import { meetupEventsStore } from '../../store/meetupEventsStore'
+import { useMeetupEventsStore } from '../../store/meetupEventsStore'
 
 export const getEventName = (eventId: string) =>
-  meetupEventsStore.getState().getMeetupEvent(eventId)?.shortName || eventId
+  useMeetupEventsStore.getState().getMeetupEvent(eventId)?.shortName || eventId

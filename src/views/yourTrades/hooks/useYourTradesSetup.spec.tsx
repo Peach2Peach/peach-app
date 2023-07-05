@@ -1,6 +1,5 @@
-import { renderHook } from '@testing-library/react-native'
-import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
-import { QueryClientWrapper } from '../../../../tests/unit/helpers/QueryClientWrapper'
+import { renderHook, waitFor } from '@testing-library/react-native'
+import { NavigationAndQueryClientWrapper } from '../../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
 import { useYourTradesSetup } from './useYourTradesSetup'
 
 const useRouteMock = jest.fn(() => ({
@@ -18,11 +17,7 @@ jest.mock('../../../utils/peachAPI', () => ({
   getOfferSummaries: (...args: any[]) => getOfferSummariesMock(...args),
 }))
 
-const wrapper = ({ children }: ComponentProps) => (
-  <NavigationWrapper>
-    <QueryClientWrapper>{children}</QueryClientWrapper>
-  </NavigationWrapper>
-)
+const wrapper = NavigationAndQueryClientWrapper
 
 jest.useFakeTimers()
 
@@ -32,11 +27,8 @@ describe('useYourTradesSetup', () => {
     { display: 'sell', id: 'sell' },
     { display: 'history', id: 'history' },
   ]
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
 
-  it('should return defaults', async () => {
+  it('should return defaults', () => {
     const { result } = renderHook(useYourTradesSetup, { wrapper })
     expect(result.current).toEqual({
       isLoading: true,
@@ -57,5 +49,39 @@ describe('useYourTradesSetup', () => {
     renderHook(useYourTradesSetup, { wrapper })
     expect(getOfferSummariesMock).toHaveBeenCalledTimes(1)
     expect(getContractSummariesMock).toHaveBeenCalledTimes(1)
+  })
+  it('should not include unfunded past sell offers', async () => {
+    const unfundedOffer = {
+      id: '1',
+      type: 'ask',
+      creationDate: new Date('2021-01-01'),
+      lastModified: new Date('2021-01-01'),
+      amount: 21000,
+      matches: [],
+      prices: {
+        EUR: 21000,
+      },
+      tradeStatus: 'offerCanceled',
+      fundingTxId: undefined,
+    }
+    const fundedOffer = {
+      id: '2',
+      type: 'ask',
+      creationDate: new Date('2021-01-01'),
+      lastModified: new Date('2021-01-01'),
+      amount: 21000,
+      matches: [],
+      prices: {
+        EUR: 21000,
+      },
+      tradeStatus: 'offerCanceled',
+      fundingTxId: '123',
+    }
+
+    getOfferSummariesMock.mockResolvedValueOnce([[unfundedOffer, fundedOffer], null])
+    const { result } = renderHook(useYourTradesSetup, { wrapper })
+    await waitFor(() => {
+      expect(result.current.pastOffers).toEqual([fundedOffer])
+    })
   })
 })

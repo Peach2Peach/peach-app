@@ -11,12 +11,7 @@ type PatchOfferProps = RequestProps & {
   refundTx?: string
 }
 
-export const patchOffer = async ({
-  offerId,
-  refundAddress,
-  refundTx,
-  timeout,
-}: PatchOfferProps): Promise<[APISuccess | null, APIError | null]> => {
+export const patchOffer = async ({ offerId, refundAddress, refundTx, timeout }: PatchOfferProps) => {
   const response = await fetch(`${API_URL}/v1/offer/${offerId}`, {
     headers: await getPrivateHeaders(),
     method: 'PATCH',
@@ -27,5 +22,5 @@ export const patchOffer = async ({
     signal: timeout ? getAbortWithTimeout(timeout).signal : undefined,
   })
 
-  return await parseResponse<APISuccess>(response, 'patchOffer')
+  return parseResponse<APISuccess>(response, 'patchOffer')
 }

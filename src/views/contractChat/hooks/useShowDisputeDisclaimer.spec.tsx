@@ -2,17 +2,13 @@ import { renderHook } from '@testing-library/react-native'
 import { act } from 'react-test-renderer'
 import { NavigationWrapper, navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { DisputeDisclaimer } from '../../../popups/info/DisputeDisclaimer'
-import { configStore } from '../../../store/configStore'
+import { useConfigStore } from '../../../store/configStore'
 import { usePopupStore } from '../../../store/usePopupStore'
 import { useShowDisputeDisclaimer } from './useShowDisputeDisclaimer'
 
 describe('useShowDisputeDisclaimer', () => {
   const wrapper = NavigationWrapper
   const { result } = renderHook(useShowDisputeDisclaimer, { wrapper })
-
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
   it('should show the popup', () => {
     const showDisputeDisclaimer = result.current
     act(() => {
@@ -44,7 +40,7 @@ describe('useShowDisputeDisclaimer', () => {
     })
     expect(usePopupStore.getState().visible).toEqual(false)
     expect(navigateMock).toHaveBeenCalledWith('contact')
-    expect(configStore.getState().seenDisputeDisclaimer).toBeTruthy()
+    expect(useConfigStore.getState().seenDisputeDisclaimer).toBeTruthy()
   })
   it('should hide the popup, store that popup has been seen on close', () => {
     const showDisputeDisclaimer = result.current
@@ -54,6 +50,6 @@ describe('useShowDisputeDisclaimer', () => {
     })
     expect(usePopupStore.getState().visible).toEqual(false)
     expect(navigateMock).not.toHaveBeenCalled()
-    expect(configStore.getState().seenDisputeDisclaimer).toBeTruthy()
+    expect(useConfigStore.getState().seenDisputeDisclaimer).toBeTruthy()
   })
 })

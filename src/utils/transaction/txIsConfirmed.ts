@@ -1,4 +1,3 @@
-import { ConfirmedTransaction, PendingTransaction } from 'bdk-rn/lib/lib/interfaces'
+import { TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
 
-export const txIsConfirmed = (tx: ConfirmedTransaction | PendingTransaction): tx is ConfirmedTransaction =>
-  'block_height' in tx || 'confirmation_time' in tx
+export const txIsConfirmed = (tx: TransactionDetails) => !!tx.confirmationTime?.height

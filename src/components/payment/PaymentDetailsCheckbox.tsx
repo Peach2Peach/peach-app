@@ -4,7 +4,7 @@ import { Icon } from '..'
 import tw from '../../styles/tailwind'
 import { Text } from '../text'
 
-export type CheckboxType = {
+type CheckboxType = {
   value: string | number
   disabled?: boolean
   display: ReactNode

@@ -33,6 +33,7 @@ import nationalTransferHU from '../../flags/hu.svg'
 import nationalTransferNO from '../../flags/no.svg'
 import nationalTransferPL from '../../flags/pl.svg'
 import nationalTransferRO from '../../flags/ro.svg'
+import liquid from './liquid.svg'
 
 const PaymentLogos = {
   'cash.amsterdam': bitcoinAmsterdam,
@@ -64,6 +65,7 @@ const PaymentLogos = {
   friends24,
   n26,
   paylib,
+  liquid,
   lydia,
   verse,
   iris,

@@ -1,9 +1,8 @@
 import { render } from '@testing-library/react-native'
-import { NavigationWrapper } from '../../../tests/unit/helpers/NavigationWrapper'
-import { QueryClientWrapper } from '../../../tests/unit/helpers/QueryClientWrapper'
-import { settingsStore } from '../../store/settingsStore'
+import { NavigationAndQueryClientWrapper } from '../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
+import { useBitcoinStore } from '../../store/bitcoinStore'
+import { useOfferPreferences } from '../../store/offerPreferenes/useOfferPreferences'
 import Buy from './Buy'
-import { bitcoinStore } from '../../store/bitcoinStore'
 
 const useMarketPricesMock = jest.fn().mockReturnValue({
   data: {
@@ -20,35 +19,26 @@ jest.mock('./hooks/useBuySetup', () => ({
   useBuySetup: () => useBuySetupMock(),
 }))
 
-const wrapper = ({ children }: ComponentProps) => (
-  <NavigationWrapper>
-    <QueryClientWrapper>{children}</QueryClientWrapper>
-  </NavigationWrapper>
-)
+const wrapper = NavigationAndQueryClientWrapper
 
 jest.useFakeTimers()
 
 describe('Buy', () => {
   beforeAll(() => {
-    bitcoinStore.setState({
+    useBitcoinStore.setState({
       currency: 'EUR',
       satsPerUnit: 250,
       price: 400000,
     })
   })
-  beforeEach(() => {
-    settingsStore.getState().setMaxBuyAmount(1000000)
-  })
-  afterEach(() => {
-    settingsStore.getState().reset()
-    jest.clearAllMocks()
-  })
   it('should render correctly while loading max trading amount', () => {
-    settingsStore.getState().setMaxBuyAmount(Infinity)
+    useOfferPreferences.getState().setBuyAmountRange([0, Infinity], { min: 0, max: 10 })
     const { toJSON } = render(<Buy />, { wrapper })
     expect(toJSON()).toMatchSnapshot()
   })
   it('should render correctly', () => {
+    useOfferPreferences.getState().setBuyAmountRange([0, 1000000], { min: 0, max: 10 })
+
     const { toJSON } = render(<Buy />, { wrapper })
     expect(toJSON()).toMatchSnapshot()
   })

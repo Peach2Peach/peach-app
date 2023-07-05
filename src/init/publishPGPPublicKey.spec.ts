@@ -1,5 +1,5 @@
 import { account1 } from '../../tests/unit/data/accountData'
-import { settingsStore } from '../store/settingsStore'
+import { useSettingsStore } from '../store/settingsStore'
 import { defaultAccount, setAccount } from '../utils/account'
 import { publishPGPPublicKey } from './publishPGPPublicKey'
 
@@ -8,21 +8,20 @@ jest.mock('../utils/peachAPI', () => ({
   updateUser: (...args: any[]) => updateUserMock(...args),
 }))
 describe('publishPGPPublicKey', () => {
-  afterEach(async () => {
-    jest.clearAllMocks()
-    await setAccount(defaultAccount)
+  afterEach(() => {
+    setAccount(defaultAccount)
   })
 
   it('does not send pgp key to server if there is no data to be sent', async () => {
-    settingsStore.setState({
+    useSettingsStore.setState({
       pgpPublished: true,
     })
     await publishPGPPublicKey()
     expect(updateUserMock).not.toHaveBeenCalled()
   })
   it('does send pgp key to server if there is data to send and has not been sent yet', async () => {
-    await setAccount(account1)
-    settingsStore.setState({
+    setAccount(account1)
+    useSettingsStore.setState({
       pgpPublished: false,
     })
     await publishPGPPublicKey()
@@ -31,8 +30,8 @@ describe('publishPGPPublicKey', () => {
     })
   })
   it('should handle updateUser errors', async () => {
-    await setAccount(account1)
-    settingsStore.setState({
+    setAccount(account1)
+    useSettingsStore.setState({
       pgpPublished: false,
     })
     updateUserMock.mockResolvedValue([null, { error: 'error' }])
@@ -40,11 +39,11 @@ describe('publishPGPPublicKey', () => {
     expect(updateUserMock).toHaveBeenCalledWith({
       pgp: account1.pgp,
     })
-    expect(settingsStore.getState().pgpPublished).toBe(false)
+    expect(useSettingsStore.getState().pgpPublished).toBe(false)
   })
   it('should catch errors', async () => {
-    await setAccount(account1)
-    settingsStore.setState({
+    setAccount(account1)
+    useSettingsStore.setState({
       pgpPublished: false,
     })
     updateUserMock.mockRejectedValue(new Error('error'))
@@ -52,6 +51,6 @@ describe('publishPGPPublicKey', () => {
     expect(updateUserMock).toHaveBeenCalledWith({
       pgp: account1.pgp,
     })
-    expect(settingsStore.getState().pgpPublished).toBe(false)
+    expect(useSettingsStore.getState().pgpPublished).toBe(false)
   })
 })

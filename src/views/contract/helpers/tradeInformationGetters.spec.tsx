@@ -43,7 +43,7 @@ describe('tradeInformationGetters', () => {
     expect(tradeInformationGetters.paidToMethod(contract)).toEqual(undefined)
   })
   it('should return the correct value for the paidWithMethod field', () => {
-    expect(tradeInformationGetters.paidWithMethod(contract)).toEqual('sepa')
+    expect(tradeInformationGetters.paidWithMethod(contract)).toEqual('SEPA')
   })
   it('should return the correct value for the paidToWallet field', () => {
     expect(tradeInformationGetters.paidToWallet(contract)).toEqual(

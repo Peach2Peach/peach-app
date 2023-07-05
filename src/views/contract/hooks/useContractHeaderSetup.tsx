@@ -1,9 +1,8 @@
 import { useMemo } from 'react'
-import { ContractTitle } from '../../../components/titles/ContractTitle'
 import { useHeaderSetup } from '../../../hooks'
 import { useShowHelp } from '../../../hooks/useShowHelp'
 import { useConfirmCancelTrade } from '../../../popups/tradeCancelation/useConfirmCancelTrade'
-import { canCancelContract } from '../../../utils/contract'
+import { canCancelContract, contractIdToHex } from '../../../utils/contract'
 import { headerIcons } from '../../../utils/layout/headerIcons'
 
 export const useContractHeaderSetup = ({
@@ -37,7 +36,7 @@ export const useContractHeaderSetup = ({
         onPress: showConfirmPaymentHelp,
       })
       return {
-        titleComponent: <ContractTitle id={contractId} />,
+        title: contractIdToHex(contractId),
         icons: contract?.disputeActive ? [] : icons,
       }
     }, [showConfirmPopup, contract, requiredAction, contractId, showConfirmPaymentHelp, showMakePaymentHelp, view]),

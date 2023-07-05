@@ -1,3 +1,5 @@
+import { sellOffer } from '../../../tests/unit/data/offerData'
+import { defaultFundingStatus } from '../../utils/offer/constants'
 import FundEscrow from './FundEscrow'
 import { createRenderer } from 'react-test-renderer/shallow'
 
@@ -5,29 +7,25 @@ const useFundEscrowSetupMock = jest.fn()
 jest.mock('./hooks/useFundEscrowSetup', () => ({
   useFundEscrowSetup: () => useFundEscrowSetupMock(),
 }))
-const useAutoFundOfferSetupMock = jest.fn().mockReturnValue({
-  showRegtestButton: false,
-  fundEscrowAddress: jest.fn(),
+const useFundFromPeachWalletMock = jest.fn().mockReturnValue({
+  fundFromPeachWallet: jest.fn(),
+  fundedFromPeachWallet: false,
 })
-jest.mock('./hooks/regtest/useAutoFundOffer', () => ({
-  useAutoFundOffer: () => useAutoFundOfferSetupMock(),
+jest.mock('./hooks/useFundFromPeachWallet', () => ({
+  useFundFromPeachWallet: () => useFundFromPeachWalletMock(),
 }))
 
 describe('FundEscrow', () => {
   const defaultReturnValue = {
-    offerId: '123',
-    escrow: '123',
-    fundingStatus: {
-      status: 'NULL',
-    },
+    offerId: sellOffer.id,
+    offer: sellOffer,
+    escrow: sellOffer.returnAddress,
+    fundingStatus: defaultFundingStatus,
     fundingAmount: 100000,
     createEscrowError: null,
   }
   const renderer = createRenderer()
 
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
   it('should render the FundEscrow view', () => {
     useFundEscrowSetupMock.mockReturnValueOnce(defaultReturnValue)
     renderer.render(<FundEscrow />)
@@ -63,12 +61,23 @@ describe('FundEscrow', () => {
     expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
 
+  it('should show funded from peach wallet, if funded from peach wallet', () => {
+    useFundEscrowSetupMock.mockReturnValueOnce(defaultReturnValue)
+    useFundFromPeachWalletMock.mockReturnValueOnce({
+      fundFromPeachWallet: jest.fn(),
+      fundedFromPeachWallet: true,
+    })
+    renderer.render(<FundEscrow />)
+    expect(renderer.getRenderOutput()).toMatchSnapshot()
+  })
   it('should show TransactionInMempool, if fundingStatus is MEMPOOL', () => {
     useFundEscrowSetupMock.mockReturnValueOnce({
       ...defaultReturnValue,
       isLoading: false,
       fundingStatus: {
+        ...defaultFundingStatus,
         status: 'MEMPOOL',
+        txIds: ['txId'],
       },
     })
     renderer.render(<FundEscrow />)

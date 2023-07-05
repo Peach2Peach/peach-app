@@ -2,12 +2,12 @@ import { act, renderHook, waitFor } from '@testing-library/react-native'
 import { account1 } from '../../../../tests/unit/data/accountData'
 import { sellOffer } from '../../../../tests/unit/data/offerData'
 import { unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
-import { QueryClientWrapper, queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
+import { NavigationAndQueryClientWrapper } from '../../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
+import { queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
 import { setAccount, updateAccount } from '../../../utils/account'
+import { saveOffer } from '../../../utils/offer'
 import { defaultFundingStatus } from '../../../utils/offer/constants'
 import { useFundEscrowSetup } from './useFundEscrowSetup'
-import { saveOffer } from '../../../utils/offer'
-import { headerState, NavigationWrapper, setOptionsMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 
 jest.useFakeTimers()
 
@@ -39,11 +39,7 @@ jest.mock('../../../hooks/query/useFundingStatus', () => ({
   useFundingStatus: () => useFundingStatusMock(),
 }))
 
-const wrapper = ({ children }: { children: JSX.Element }) => (
-  <QueryClientWrapper>
-    <NavigationWrapper>{children}</NavigationWrapper>
-  </QueryClientWrapper>
-)
+const wrapper = NavigationAndQueryClientWrapper
 
 const sellOfferWithEscrow = { ...sellOffer, escrow: 'escrow' }
 const createEscrowSuccess = {
@@ -65,21 +61,14 @@ jest.mock('./useHandleFundingStatus', () => ({
 
 const cancelOfferMock = jest.fn()
 jest.mock('../../../hooks/useCancelOffer', () => ({
-  useCancelOffer:
-    () =>
-      (...args: any[]) =>
-        cancelOfferMock(...args),
+  useCancelOffer: () => cancelOfferMock,
 }))
 
 describe('useFundEscrowSetup', () => {
-  beforeEach(async () => {
-    setOptionsMock({ header: { title: '', icons: [] } })
-
-    await updateAccount({ ...account1, offers: [] }, true)
+  beforeEach(() => {
+    updateAccount({ ...account1, offers: [] }, true)
   })
-  afterEach(async () => {
-    jest.clearAllMocks()
-
+  afterEach(() => {
     queryClient.clear()
   })
 
@@ -102,6 +91,7 @@ describe('useFundEscrowSetup', () => {
 
     expect(result.current).toEqual({
       offerId: sellOfferWithEscrow.id,
+      offer: sellOfferWithEscrow,
       isLoading: false,
       escrow: sellOfferWithEscrow.escrow,
       createEscrowError: null,
@@ -130,28 +120,6 @@ describe('useFundEscrowSetup', () => {
     const { result } = renderHook(useFundEscrowSetup, { wrapper })
     await waitFor(() => expect(createEscrowMock).toHaveBeenCalled())
     expect(result.current.createEscrowError).toEqual(new Error(unauthorizedError.error))
-  })
-  it('should render header correctly for unfunded offers', () => {
-    const { result } = renderHook(useFundEscrowSetup, { wrapper })
-    expect(headerState.header()).toMatchSnapshot()
-    expect(headerState.header().props.icons?.[0].onPress).toEqual(result.current.cancelOffer)
-    expect(headerState.header().props.icons?.[1].onPress).toEqual(showHelpMock)
-  })
-  it('should render header correctly for funding in mempool', () => {
-    useFundingStatusMock.mockReturnValueOnce({
-      fundingStatus: {
-        status: 'MEMPOOL',
-        txIds: ['txid'],
-        vouts: [0],
-        amounts: [sellOffer.amount],
-        expiry: 4320,
-      },
-      userConfirmationRequired: false,
-      isLoading: false,
-    })
-    renderHook(useFundEscrowSetup, { wrapper })
-    expect(headerState.header()).toMatchSnapshot()
-    expect(headerState.header().props.icons?.[0].onPress).toEqual(showHelpMock)
   })
   it('should show error banner if there is an error with the funding status', () => {
     useFundingStatusMock.mockReturnValueOnce({
@@ -184,6 +152,7 @@ describe('useFundEscrowSetup', () => {
     const { result } = renderHook(useFundEscrowSetup, { wrapper })
     expect(result.current).toEqual({
       offerId: sellOffer.id,
+      offer: sellOfferWithEscrow,
       isLoading: false,
       escrow: 'escrow',
       createEscrowError: null,

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { FormProps } from '../../paymentForms/PaymentMethodForm'
+import { FormProps } from '../../../../../views/addPaymentMethod/PaymentMethodForm'
 import { useValidatedState } from '../../../../../hooks'
 import { getPaymentDataByLabel } from '../../../../../utils/account'
 import { getErrorsInField } from '../../../../../utils/validation'
@@ -8,14 +8,8 @@ const beneficiaryRules = { required: true }
 const referenceRules = { required: false, isValidPaymentReference: true }
 
 // eslint-disable-next-line max-lines-per-function
-export const useTemplate7Setup = ({
-  data,
-  currencies = [],
-  onSubmit,
-  setStepValid,
-  paymentMethod,
-  setFormData,
-}: FormProps) => {
+export const useTemplate7Setup = ({ data, onSubmit, setStepValid, setFormData }: FormProps) => {
+  const { currencies, type: paymentMethod } = data
   const [label, setLabel] = useState(data?.label || '')
   const [beneficiary, setBeneficiary, isValidBeneficiary, beneficiaryErrors] = useValidatedState(
     data?.beneficiary || '',

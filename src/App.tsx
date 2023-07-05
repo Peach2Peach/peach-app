@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useReducer, useRef, useState } from 'react'
+import { useEffect, useReducer, useRef, useState } from 'react'
 
 import { Animated, Dimensions, SafeAreaView, View } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
@@ -13,12 +13,12 @@ import tw from './styles/tailwind'
 import i18n, { LanguageContext } from './utils/i18n'
 import { getViews } from './views'
 
-import { DrawerContext, getDrawer, setDrawer } from './contexts/drawer'
+import { defaultState, DrawerContext, setDrawer } from './contexts/drawer'
 import { MessageContext, getMessage, setMessage, showMessageEffect } from './contexts/message'
 import { PeachWSContext, getWebSocket, setPeachWS } from './utils/peachAPI/websocket'
 
 import { DEV } from '@env'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { QueryClientProvider } from '@tanstack/react-query'
 import { setUnhandledPromiseRejectionTracker } from 'react-native-promise-rejection-utils'
 import { GlobalHandlers } from './GlobalHandlers'
 import { Background } from './components/background/Background'
@@ -32,6 +32,7 @@ import { screenTransition } from './utils/layout/screenTransition'
 import { error, info } from './utils/log'
 import { parseError } from './utils/result'
 import { isIOS, isNetworkError } from './utils/system'
+import { queryClient } from './queryClient'
 
 enableScreens()
 
@@ -45,23 +46,17 @@ const navTheme = {
   },
 }
 
-const queryClient = new QueryClient()
-
 // eslint-disable-next-line max-statements
 const App = () => {
   const [messageState, updateMessage] = useReducer(setMessage, getMessage())
-  const [languageState, updateLanguage] = useReducer(i18n.setLocale, i18n.getState())
-  const [
-    { title: drawerTitle, content: drawerContent, show: showDrawer, previousDrawer, onClose: onCloseDrawer },
-    updateDrawer,
-  ] = useReducer(setDrawer, getDrawer())
+  const languageReducer = useReducer(i18n.setLocale, i18n.getState())
+  const drawerReducer = useReducer(setDrawer, defaultState)
   const [peachWS, updatePeachWS] = useReducer(setPeachWS, getWebSocket())
   const { width } = Dimensions.get('window')
   const slideInAnim = useRef(new Animated.Value(-width)).current
   const navigationRef = useNavigationContainerRef()
 
   const [currentPage, setCurrentPage] = useState<keyof RootStackParamList>()
-  const getCurrentPage = useCallback(() => currentPage, [currentPage])
   const views = getViews(!!account?.publicKey)
   const showFooter = !!views.find((v) => v.name === currentPage)?.showFooter
   const backgroundConfig = views.find((v) => v.name === currentPage)?.background
@@ -147,25 +142,14 @@ const App = () => {
     <GestureHandlerRootView>
       <AvoidKeyboard>
         <QueryClientProvider client={queryClient}>
-          <LanguageContext.Provider value={[languageState, updateLanguage]}>
+          <LanguageContext.Provider value={languageReducer}>
             <PeachWSContext.Provider value={peachWS}>
               <MessageContext.Provider value={[messageState, updateMessage]}>
-                <DrawerContext.Provider
-                  value={[
-                    { title: '', content: null, show: false, previousDrawer: {}, onClose: () => {} },
-                    updateDrawer,
-                  ]}
-                >
+                <DrawerContext.Provider value={drawerReducer}>
                   <NavigationContainer theme={navTheme} ref={navigationRef} onStateChange={onNavStateChange}>
-                    <GlobalHandlers {...{ getCurrentPage }} />
+                    <GlobalHandlers {...{ currentPage }} />
                     <Background config={backgroundConfig}>
-                      <Drawer
-                        title={drawerTitle}
-                        content={drawerContent}
-                        show={showDrawer}
-                        onClose={onCloseDrawer}
-                        previousDrawer={previousDrawer}
-                      />
+                      <Drawer />
                       <Popup />
                       <SafeAreaView>
                         <View style={tw`flex-col h-full`}>

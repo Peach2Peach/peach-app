@@ -1,8 +1,7 @@
 import { renderHook, waitFor } from '@testing-library/react-native'
-import { useBuySetup } from './useBuySetup'
-import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { defaultSelfUser } from '../../../../tests/unit/data/userData'
-import { QueryClientWrapper } from '../../../../tests/unit/helpers/QueryClientWrapper'
+import { NavigationAndQueryClientWrapper } from '../../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
+import { useBuySetup } from './useBuySetup'
 
 const useHeaderSetupMock = jest.fn()
 jest.mock('../../../hooks/useHeaderSetup', () => ({
@@ -32,19 +31,11 @@ jest.mock('../../../utils/peachAPI', () => ({
   getSelfUser: () => getSelfUserMock(),
 }))
 
-const wrapper = ({ children }: ComponentProps) => (
-  <NavigationWrapper>
-    <QueryClientWrapper>{children}</QueryClientWrapper>
-  </NavigationWrapper>
-)
+const wrapper = NavigationAndQueryClientWrapper
 
 jest.useFakeTimers()
 
 describe('useBuySetup', () => {
-  beforeEach(() => {
-    jest.clearAllMocks()
-  })
-
   it('should return default values', () => {
     const { result } = renderHook(useBuySetup, { wrapper })
     expect(result.current).toEqual({

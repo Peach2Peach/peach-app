@@ -1,11 +1,10 @@
-import { parsePremiumToString } from './parsePremiumToString'
+export const enforcePremiumFormat = (premium?: string | number) => {
+  if (!premium) return ''
 
-export const enforcePremiumFormat = (value: string | number) => {
-  let valueWithTwoDecimals = value.toString()
-  if (value.toString().includes('.')) {
-    const [integer, decimal] = value.toString().split('.')
-    valueWithTwoDecimals = `${integer}.${decimal.slice(0, 2)}`
-  }
-
-  return parsePremiumToString(valueWithTwoDecimals)
+  const number = Number(premium)
+  if (isNaN(number)) return String(premium).trim()
+  if (number < -21) return '-21'
+  if (number > 21) return '21'
+  return String(premium).trim()
+    .replace(/^0/u, '')
 }

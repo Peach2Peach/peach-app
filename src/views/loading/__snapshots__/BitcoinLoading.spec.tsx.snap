@@ -8,20 +8,29 @@ exports[`BitcoinLoading should render correctly 1`] = `
       "flexBasis": "0%",
       "flexGrow": 1,
       "flexShrink": 1,
+      "gap": 32,
       "justifyContent": "center",
     }
   }
 >
-  <Image
-    resizeMode="contain"
-    source="test-file-stub"
+  <View
     style={
       {
-        "height": 100,
-        "width": 100,
+        "paddingRight": 6,
       }
     }
-  />
+  >
+    <Image
+      resizeMode="cover"
+      source="test-file-stub"
+      style={
+        {
+          "height": 128,
+          "width": 128,
+        }
+      }
+    />
+  </View>
   <PeachText
     style={
       {
@@ -29,7 +38,6 @@ exports[`BitcoinLoading should render correctly 1`] = `
         "fontSize": 16,
         "letterSpacing": 0.16,
         "lineHeight": 28,
-        "marginTop": 32,
         "textAlign": "center",
       }
     }

@@ -7,7 +7,10 @@ const bip32 = BIP32Factory(ecc)
 /**
  * @deprecated
  */
-export const createWalletFromSeedPhrase = (mnemonic: string, network: Network): PeachWallet => ({
-  wallet: bip32.fromSeed(bip39.mnemonicToSeedSync(mnemonic), network),
-  mnemonic,
-})
+export const createWalletFromSeedPhrase = (mnemonic: string, network: Network): PeachWallet => {
+  const seed = bip39.mnemonicToSeedSync(mnemonic)
+  return {
+    wallet: bip32.fromSeed(seed, network),
+    mnemonic,
+  }
+}

@@ -1,12 +1,11 @@
-import { renderHook } from '@testing-library/react-native'
+import { renderHook, waitFor } from '@testing-library/react-native'
+import { account1 } from '../../tests/unit/data/accountData'
 import { buyOffer } from '../../tests/unit/data/offerData'
-import { NavigationWrapper } from '../../tests/unit/helpers/NavigationWrapper'
-import { QueryClientWrapper } from '../../tests/unit/helpers/QueryClientWrapper'
+import { NavigationAndQueryClientWrapper } from '../../tests/unit/helpers/NavigationAndQueryClientWrapper'
 import { CancelOffer } from '../popups/CancelOffer'
 import { usePopupStore } from '../store/usePopupStore'
-import { useCancelOffer } from './useCancelOffer'
 import { updateAccount } from '../utils/account'
-import { account1 } from '../../tests/unit/data/accountData'
+import { useCancelOffer } from './useCancelOffer'
 
 const saveOfferMock = jest.fn()
 jest.mock('../utils/offer/saveOffer', () => ({
@@ -18,18 +17,11 @@ jest.mock('../utils/peachAPI', () => ({
   cancelOffer: () => cancelOfferMock(),
 }))
 
-const wrapper = ({ children }: { children: JSX.Element }) => (
-  <NavigationWrapper>
-    <QueryClientWrapper>{children}</QueryClientWrapper>
-  </NavigationWrapper>
-)
+const wrapper = NavigationAndQueryClientWrapper
 
 describe('useCancelOffer', () => {
-  beforeEach(async () => {
-    await updateAccount(account1)
-  })
-  afterEach(() => {
-    jest.clearAllMocks()
+  beforeEach(() => {
+    updateAccount(account1)
   })
   it('should show cancel offer popup', () => {
     const { result } = renderHook(useCancelOffer, {
@@ -64,12 +56,14 @@ describe('useCancelOffer', () => {
     })
     result.current()
 
-    await usePopupStore.getState().action1?.callback()
+    usePopupStore.getState().action1?.callback()
 
-    expect(usePopupStore.getState()).toEqual({
-      ...usePopupStore.getState(),
-      title: 'offer canceled!',
-      level: 'DEFAULT',
+    await waitFor(() => {
+      expect(usePopupStore.getState()).toEqual({
+        ...usePopupStore.getState(),
+        title: 'offer canceled!',
+        level: 'DEFAULT',
+      })
     })
   })
 })

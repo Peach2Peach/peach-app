@@ -1,5 +1,5 @@
 import { renderHook } from '@testing-library/react-native'
-import { settingsStore } from '../store/settingsStore'
+import { useSettingsStore } from '../store/settingsStore'
 import { defaultPopupState, usePopupStore } from '../store/usePopupStore'
 import { AnalyticsPrompt } from './AnalyticsPrompt'
 import { useShowAnalyticsPopup } from './useShowAnalyticsPopup'
@@ -7,7 +7,7 @@ import { useShowAnalyticsPopup } from './useShowAnalyticsPopup'
 describe('useShowAnalyticsPopup', () => {
   afterEach(() => {
     usePopupStore.setState(defaultPopupState)
-    settingsStore.getState().reset()
+    useSettingsStore.getState().reset()
   })
 
   it('opens analytics popup', () => {
@@ -38,8 +38,8 @@ describe('useShowAnalyticsPopup', () => {
 
     usePopupStore.getState().action1?.callback()
     expect(usePopupStore.getState().visible).toEqual(false)
-    expect(settingsStore.getState().analyticsPopupSeen).toEqual(true)
-    expect(settingsStore.getState().enableAnalytics).toEqual(true)
+    expect(useSettingsStore.getState().analyticsPopupSeen).toEqual(true)
+    expect(useSettingsStore.getState().enableAnalytics).toEqual(true)
   })
   it('rejects analytics', () => {
     const { result } = renderHook(useShowAnalyticsPopup)
@@ -47,7 +47,7 @@ describe('useShowAnalyticsPopup', () => {
 
     usePopupStore.getState().action2?.callback()
     expect(usePopupStore.getState().visible).toEqual(false)
-    expect(settingsStore.getState().analyticsPopupSeen).toEqual(true)
-    expect(settingsStore.getState().enableAnalytics).toEqual(false)
+    expect(useSettingsStore.getState().analyticsPopupSeen).toEqual(true)
+    expect(useSettingsStore.getState().enableAnalytics).toEqual(false)
   })
 })

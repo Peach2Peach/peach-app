@@ -1,112 +1,161 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Wallet should render correctly 1`] = `
-<AvoidKeyboard
-  androidBehavior="height"
-  iOSBehavior="height"
->
-  <PeachScrollView
-    contentContainerStyle={
+<View
+  style={
+    [
       {
-        "height": "100%",
+        "flexBasis": "0%",
+        "flexGrow": 1,
+        "flexShrink": 1,
+        "paddingLeft": 16,
+        "paddingRight": 16,
+      },
+      {
         "paddingLeft": 32,
         "paddingRight": 32,
+      },
+    ]
+  }
+>
+  <ForwardRef
+    contentContainerStyle={
+      {
+        "flexBasis": "0%",
+        "flexGrow": 1,
+        "flexShrink": 1,
+      }
+    }
+    contentStyle={
+      {
+        "alignItems": "center",
+        "flexBasis": "0%",
+        "flexGrow": 1,
+        "flexShrink": 1,
+        "gap": 64,
+        "justifyContent": "center",
       }
     }
     refreshControl={
       <RefreshControlMock
         onRefresh={[MockFunction]}
         refreshing={false}
+        style={
+          {
+            "opacity": 0,
+          }
+        }
       />
     }
     style={
       {
+        "flexBasis": "0%",
+        "flexGrow": 1,
+        "flexShrink": 1,
         "height": "100%",
       }
     }
   >
-    <View
-      style={
-        {
-          "display": "flex",
-          "flexDirection": "column",
-          "height": "100%",
-          "justifyContent": "space-between",
-        }
+    <TotalBalance
+      isRefreshing={false}
+    />
+    <SendTo
+      address="address"
+      addressErrors=""
+      setAddress={[MockFunction]}
+    />
+  </ForwardRef>
+  <ConfirmSendAllTo
+    address="address"
+    disabled={true}
+    onSuccess={[Function]}
+    style={
+      {
+        "alignSelf": "center",
+        "marginBottom": 20,
       }
-    >
-      <View
+    }
+  />
+</View>
+`;
+
+exports[`Wallet should render correctly user can withdraw 1`] = `
+<View
+  style={
+    [
+      {
+        "flexBasis": "0%",
+        "flexGrow": 1,
+        "flexShrink": 1,
+        "paddingLeft": 16,
+        "paddingRight": 16,
+      },
+      {
+        "paddingLeft": 32,
+        "paddingRight": 32,
+      },
+    ]
+  }
+>
+  <ForwardRef
+    contentContainerStyle={
+      {
+        "flexBasis": "0%",
+        "flexGrow": 1,
+        "flexShrink": 1,
+      }
+    }
+    contentStyle={
+      {
+        "alignItems": "center",
+        "flexBasis": "0%",
+        "flexGrow": 1,
+        "flexShrink": 1,
+        "gap": 64,
+        "justifyContent": "center",
+      }
+    }
+    refreshControl={
+      <RefreshControlMock
+        onRefresh={[MockFunction]}
+        refreshing={false}
         style={
           {
-            "alignItems": "center",
-            "display": "flex",
-            "flexDirection": "column",
-            "flexShrink": 1,
-            "height": "100%",
-            "justifyContent": "center",
-          }
-        }
-      >
-        <PeachText
-          style={
-            {
-              "fontFamily": "Baloo2-SemiBold",
-              "fontSize": 14,
-              "letterSpacing": 0.5,
-              "lineHeight": 24,
-              "marginBottom": 16,
-              "textTransform": "uppercase",
-            }
-          }
-        >
-          total balance
-          :
-        </PeachText>
-        <BigSatsFormat
-          sats={21}
-          style={{}}
-        />
-        <PeachText
-          style={
-            {
-              "fontFamily": "Baloo2-SemiBold",
-              "fontSize": 14,
-              "letterSpacing": 0.5,
-              "lineHeight": 24,
-              "marginTop": 64,
-              "textTransform": "uppercase",
-            }
-          }
-        >
-          send to
-          :
-        </PeachText>
-        <BitcoinAddressInput
-          errorMessage=""
-          isValid={true}
-          onChange={[MockFunction]}
-          style={
-            {
-              "marginTop": 16,
-            }
-          }
-          value="address"
-        />
-        <OpenWallet />
-      </View>
-      <SlideToUnlock
-        disabled={false}
-        label1="send all"
-        onUnlock={[MockFunction]}
-        style={
-          {
-            "marginBottom": 24,
+            "opacity": 0,
           }
         }
       />
-    </View>
-  </PeachScrollView>
-</AvoidKeyboard>
+    }
+    style={
+      {
+        "flexBasis": "0%",
+        "flexGrow": 1,
+        "flexShrink": 1,
+        "height": "100%",
+      }
+    }
+  >
+    <TotalBalance
+      isRefreshing={false}
+    />
+    <SendTo
+      address="address"
+      addressErrors=""
+      setAddress={[MockFunction]}
+    />
+  </ForwardRef>
+  <ConfirmSendAllTo
+    address="address"
+    disabled={false}
+    onSuccess={[Function]}
+    style={
+      {
+        "alignSelf": "center",
+        "marginBottom": 20,
+      }
+    }
+  />
+</View>
 `;
 
 exports[`Wallet should render correctly when loading 1`] = `
@@ -117,121 +166,80 @@ one sec..."
 `;
 
 exports[`Wallet should render correctly when refreshing 1`] = `
-<AvoidKeyboard
-  androidBehavior="height"
-  iOSBehavior="height"
->
-  <PeachScrollView
-    contentContainerStyle={
+<View
+  style={
+    [
       {
-        "height": "100%",
+        "flexBasis": "0%",
+        "flexGrow": 1,
+        "flexShrink": 1,
+        "paddingLeft": 16,
+        "paddingRight": 16,
+      },
+      {
         "paddingLeft": 32,
         "paddingRight": 32,
+      },
+    ]
+  }
+>
+  <ForwardRef
+    contentContainerStyle={
+      {
+        "flexBasis": "0%",
+        "flexGrow": 1,
+        "flexShrink": 1,
+      }
+    }
+    contentStyle={
+      {
+        "alignItems": "center",
+        "flexBasis": "0%",
+        "flexGrow": 1,
+        "flexShrink": 1,
+        "gap": 64,
+        "justifyContent": "center",
       }
     }
     refreshControl={
       <RefreshControlMock
         onRefresh={[MockFunction]}
         refreshing={false}
+        style={
+          {
+            "opacity": 0,
+          }
+        }
       />
     }
     style={
       {
+        "flexBasis": "0%",
+        "flexGrow": 1,
+        "flexShrink": 1,
         "height": "100%",
       }
     }
   >
-    <View
-      style={
-        {
-          "display": "flex",
-          "flexDirection": "column",
-          "height": "100%",
-          "justifyContent": "space-between",
-        }
+    <TotalBalance
+      isRefreshing={true}
+    />
+    <SendTo
+      address="address"
+      addressErrors=""
+      setAddress={[MockFunction]}
+    />
+  </ForwardRef>
+  <ConfirmSendAllTo
+    address="address"
+    disabled={true}
+    onSuccess={[Function]}
+    style={
+      {
+        "alignSelf": "center",
+        "marginBottom": 20,
       }
-    >
-      <View
-        style={
-          {
-            "alignItems": "center",
-            "display": "flex",
-            "flexDirection": "column",
-            "flexShrink": 1,
-            "height": "100%",
-            "justifyContent": "center",
-          }
-        }
-      >
-        <PeachText
-          style={
-            {
-              "fontFamily": "Baloo2-SemiBold",
-              "fontSize": 14,
-              "letterSpacing": 0.5,
-              "lineHeight": 24,
-              "marginBottom": 16,
-              "textTransform": "uppercase",
-            }
-          }
-        >
-          total balance
-          :
-        </PeachText>
-        <BigSatsFormat
-          sats={21}
-          style={
-            {
-              "opacity": 0.6,
-            }
-          }
-        />
-        <Loading
-          style={
-            {
-              "position": "absolute",
-            }
-          }
-        />
-        <PeachText
-          style={
-            {
-              "fontFamily": "Baloo2-SemiBold",
-              "fontSize": 14,
-              "letterSpacing": 0.5,
-              "lineHeight": 24,
-              "marginTop": 64,
-              "textTransform": "uppercase",
-            }
-          }
-        >
-          send to
-          :
-        </PeachText>
-        <BitcoinAddressInput
-          errorMessage=""
-          isValid={true}
-          onChange={[MockFunction]}
-          style={
-            {
-              "marginTop": 16,
-            }
-          }
-          value="address"
-        />
-        <OpenWallet />
-      </View>
-      <SlideToUnlock
-        disabled={false}
-        label1="send all"
-        onUnlock={[MockFunction]}
-        style={
-          {
-            "marginBottom": 24,
-          }
-        }
-      />
-    </View>
-  </PeachScrollView>
-</AvoidKeyboard>
+    }
+  />
+</View>
 `;

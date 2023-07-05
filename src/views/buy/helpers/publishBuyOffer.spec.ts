@@ -18,10 +18,6 @@ jest.mock('../../../utils/peachAPI', () => ({
 }))
 
 describe('publishBuyOffer', () => {
-  beforeEach(() => {
-    jest.clearAllMocks()
-  })
-
   it('should call postBuyOffer', async () => {
     await publishBuyOffer({} as BuyOfferDraft)
     expect(postBuyOfferMock).toHaveBeenCalled()

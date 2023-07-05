@@ -20,7 +20,7 @@ const getPGPUpdatePayload = async (pgp?: PGPKeychain): Promise<{} | PGPPayload> 
   const peachAccount = getPeachAccount()
   if (!peachAccount || !pgp) return {}
 
-  const message = 'Peach new PGP key ' + new Date().getTime()
+  const message = `Peach new PGP key ${new Date().getTime()}`
   const pgpSignature = await OpenPGP.sign(message, pgp.publicKey, pgp.privateKey, '')
 
   return {
@@ -39,20 +39,7 @@ export type UpdateUserProps = RequestProps & {
   feeRate?: FeeRate | number
 }
 
-/**
- * @description Method to send user update information to server
- * @param pgp pgp keychain
- * @param fcmToken fcm token
- * @param referralCode referal code
- * @returns APISuccess
- */
-export const updateUser = async ({
-  pgp,
-  fcmToken,
-  referralCode,
-  feeRate,
-  timeout,
-}: UpdateUserProps): Promise<[APISuccess | null, APIError | null]> => {
+export const updateUser = async ({ pgp, fcmToken, referralCode, feeRate, timeout }: UpdateUserProps) => {
   const peachAccount = getPeachAccount()
   if (!peachAccount) return [null, { error: 'UNAUTHORIZED' }]
 
@@ -68,5 +55,5 @@ export const updateUser = async ({
     signal: timeout ? getAbortWithTimeout(timeout).signal : undefined,
   })
 
-  return await parseResponse<APISuccess>(response, 'updateUser')
+  return parseResponse<APISuccess>(response, 'updateUser')
 }

@@ -2,7 +2,7 @@ import { renderHook } from '@testing-library/react-native'
 import { getWebSocket } from '../../../utils/peachAPI/websocket'
 import { contractUpdateHandler } from '../eventHandlers/contractUpdateHandler'
 import { messageHandler } from '../eventHandlers/messageHandler'
-import { notificationStore } from '../notificationsStore'
+import { useNotificationStore } from '../notificationsStore'
 import { MainPage, Props, useFooterSetup } from './useFooterSetup'
 
 const navigationResetMock = jest.fn()
@@ -26,9 +26,6 @@ describe('useFooterSetup', () => {
   const initialProps: Props = { setCurrentPage: setCurrentPageMock }
   const mainPages: MainPage[] = ['home', 'buy', 'sell', 'wallet', 'yourTrades', 'settings']
 
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
   it('returns default values correctly', () => {
     const { result } = renderHook(useFooterSetup, { initialProps })
 
@@ -44,7 +41,7 @@ describe('useFooterSetup', () => {
     })
   })
   it('returns notifications from store', () => {
-    notificationStore.getState().setNotifications(10)
+    useNotificationStore.getState().setNotifications(10)
     const { result } = renderHook(useFooterSetup, { initialProps })
 
     expect(result.current.notifications).toBe(10)

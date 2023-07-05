@@ -18,18 +18,18 @@ export const tradeInformationGetters: Record<
   | 'location',
   (contract: Contract) => string | number | JSX.Element | undefined
 > = {
-  price: (contract: Contract) => priceFormat(contract.price) + ' ' + contract.currency,
+  price: (contract: Contract) => `${priceFormat(contract.price)} ${contract.currency}`,
   paidToMethod: (contract: Contract) =>
     (contract.paymentData ? getPaymentDataByMethod(contract.paymentMethod, hashPaymentData(contract.paymentData)) : null)
       ?.label,
-  paidWithMethod: (contract: Contract) => contract.paymentMethod,
+  paidWithMethod: (contract: Contract) => getPaymentMethodName(contract.paymentMethod),
   paidToWallet: (contract: Contract) => {
     const buyOffer = getBuyOfferFromContract(contract)
     return <WalletLabel label={buyOffer.walletLabel} address={buyOffer.releaseAddress} />
   },
   bitcoinAmount: (contract: Contract) => contract.amount,
   bitcoinPrice: (contract: Contract) =>
-    groupChars(getBitcoinPriceFromContract(contract).toString(), 3) + ' ' + contract.currency,
+    `${groupChars(getBitcoinPriceFromContract(contract).toString(), 3)} ${contract.currency}`,
 
   via: (contract: Contract) => getPaymentMethodName(contract.paymentMethod),
   method: (contract: Contract) => getPaymentMethodName(contract.paymentMethod),
@@ -59,6 +59,7 @@ const allPossibleFields = [
   'method',
   'meetup',
   'location',
+  'receiveAddress',
 ] as const
 export type TradeInfoField = (typeof allPossibleFields)[number]
 export const isTradeInformationGetter = (

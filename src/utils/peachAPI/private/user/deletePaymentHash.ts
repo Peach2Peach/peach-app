@@ -9,7 +9,7 @@ type Props = RequestProps & {
   hash: string
 }
 
-export const deletePaymentHash = async ({ hash, timeout }: Props): Promise<[APISuccess | null, APIError | null]> => {
+export const deletePaymentHash = async ({ hash, timeout }: Props) => {
   const response = await fetch(`${API_URL}/v1/user/paymentHash`, {
     headers: await getPrivateHeaders(),
     method: 'DELETE',
@@ -19,5 +19,5 @@ export const deletePaymentHash = async ({ hash, timeout }: Props): Promise<[APIS
     signal: timeout ? getAbortWithTimeout(timeout).signal : undefined,
   })
 
-  return await parseResponse<APISuccess>(response, 'deletePaymentHash')
+  return parseResponse<APISuccess>(response, 'deletePaymentHash')
 }

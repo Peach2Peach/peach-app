@@ -16,9 +16,6 @@ describe('useRangeAmountSetup', () => {
   }
   const dismissSpy = jest.spyOn(Keyboard, 'dismiss')
 
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
   it('should return default values', () => {
     const { result } = renderHook(useRangeAmountSetup, { initialProps })
     expect(result.current).toEqual({

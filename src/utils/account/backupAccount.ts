@@ -1,7 +1,7 @@
 import { NETWORK } from '@env'
 import RNFS from 'react-native-fs'
 import Share from 'react-native-share'
-import { settingsStore } from '../../store/settingsStore'
+import { useSettingsStore } from '../../store/settingsStore'
 import { writeFile } from '../file'
 import { error, info } from '../log'
 import { parseError } from '../result'
@@ -15,10 +15,6 @@ type BackupAccountProps = {
   onError: () => void
 }
 
-/**
- * @description Method to backup account
- * Will open share dialogue on mobile or automatically download the file on web
- */
 export const backupAccount = async ({ password, onSuccess, onCancel, onError }: BackupAccountProps) => {
   info('Backing up account')
   try {
@@ -28,8 +24,8 @@ export const backupAccount = async ({ password, onSuccess, onCancel, onError }: 
         : `peach-account-${NETWORK}-${account.publicKey.substring(0, 8)}.json`
 
     await writeFile(
-      '/' + destinationFileName,
-      JSON.stringify(getAccountBackup(account, settingsStore.getState().getPureState())),
+      `/${destinationFileName}`,
+      JSON.stringify(getAccountBackup(account, useSettingsStore.getState().getPureState())),
       password,
     )
 

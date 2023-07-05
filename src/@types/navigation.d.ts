@@ -4,7 +4,9 @@ declare type RootStackParamList = {
     referralCode?: string
   }
   restoreBackup: { tab: 'fileBackup' | 'seedPhrase' } | undefined
-  restoreReputation: undefined
+  restoreReputation: {
+    referralCode?: string
+  }
   newBadge: {
     badges: string
   }
@@ -13,17 +15,20 @@ declare type RootStackParamList = {
   transactionDetails: {
     txId: string
   }
+  bumpNetworkFees: {
+    txId: string
+  }
   buy: undefined
   sell: undefined
   buyPreferences: undefined
+  premium: undefined
   sellPreferences: undefined
+  buySummary: undefined
+  sellSummary: undefined
   addPaymentMethod: {
-    currencies?: Currency[]
-    country?: PaymentMethodCountry
-    paymentMethod?: PaymentMethod
     origin: keyof RootStackParamList
   }
-  paymentDetails: {
+  paymentMethodForm: {
     paymentData: Partial<PaymentData> & {
       type: PaymentMethod
       currencies: Currency[]

@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CurrencyTabs should render correctly 1`] = `
+<MaterialTopTabNavigator
+  initialRouteName="europe"
+  screenListeners={
+    {
+      "focus": [Function],
+    }
+  }
+  tabBar={[Function]}
+>
+  <Screen
+    name="europe"
+  >
+    [Function]
+  </Screen>
+  <Screen
+    name="other"
+  >
+    [Function]
+  </Screen>
+</MaterialTopTabNavigator>
+`;

@@ -16,7 +16,7 @@ export let headerState: Record<'header', () => JSX.Element> = {
 export const setOptionsMock = jest.fn((options) => {
   headerState = options
 })
-const getStateMock = jest.fn(() => ({
+export const getStateMock = jest.fn(() => ({
   routes: [
     {
       name: 'origin',
@@ -27,24 +27,20 @@ const getStateMock = jest.fn(() => ({
   ],
 }))
 
+export const navigationMock = {
+  navigate: navigateMock,
+  reset: resetMock,
+  setOptions: setOptionsMock,
+  replace: replaceMock,
+  push: pushMock,
+  setParams: setParamsMock,
+  goBack: goBackMock,
+  canGoBack: canGoBackMock,
+  isFocused: isFocusedMock,
+  addListener: addListenerMock,
+  getState: getStateMock,
+}
 export const NavigationWrapper = ({ children }: any) => (
-  <NavigationContext.Provider
-    value={{
-      navigate: navigateMock,
-      reset: resetMock,
-      setOptions: setOptionsMock,
-      // @ts-ignore
-      replace: replaceMock,
-      push: pushMock,
-      setParams: setParamsMock,
-      goBack: goBackMock,
-      canGoBack: canGoBackMock,
-      isFocused: isFocusedMock,
-      addListener: addListenerMock,
-      // @ts-ignore
-      getState: getStateMock,
-    }}
-  >
-    {children}
-  </NavigationContext.Provider>
+  // @ts-ignore
+  <NavigationContext.Provider value={navigationMock}>{children}</NavigationContext.Provider>
 )

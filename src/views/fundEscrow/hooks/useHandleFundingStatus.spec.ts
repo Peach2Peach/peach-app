@@ -19,10 +19,7 @@ jest.mock('../../../hooks/query/useTradeSummaries', () => ({
 
 const showWronglyFundedPopupMock = jest.fn()
 jest.mock('../../../popups/useShowWronglyFundedPopup', () => ({
-  useShowWronglyFundedPopup:
-    () =>
-      (...args: any[]) =>
-        showWronglyFundedPopupMock(...args),
+  useShowWronglyFundedPopup: () => showWronglyFundedPopupMock,
 }))
 
 const searchWithNoMatches = {
@@ -62,10 +59,7 @@ jest.mock('../../search/hooks/useOfferMatches', () => ({
 
 const startRefundPopupMock = jest.fn()
 jest.mock('../../../popups/useStartRefundPopup', () => ({
-  useStartRefundPopup:
-    () =>
-      (...args: any[]) =>
-        startRefundPopupMock(...args),
+  useStartRefundPopup: () => startRefundPopupMock,
 }))
 
 describe('useHandleFundingStatus', () => {
@@ -77,14 +71,11 @@ describe('useHandleFundingStatus', () => {
     userConfirmationRequired: false,
   }
 
-  beforeEach(async () => {
-    await setAccount({ ...account1, offers: [] })
-  })
-  afterEach(async () => {
-    jest.clearAllMocks()
+  beforeEach(() => {
+    setAccount({ ...account1, offers: [] })
   })
 
-  it('should do nothing if no sell offer is passed', async () => {
+  it('should do nothing if no sell offer is passed', () => {
     const initialProps = {
       offerId: sellOffer.id,
       sellOffer: undefined,
@@ -96,7 +87,7 @@ describe('useHandleFundingStatus', () => {
     expect(startRefundPopupMock).not.toHaveBeenCalled()
     expect(account.offers).toEqual([])
   })
-  it('should save offer when funding status updates', async () => {
+  it('should save offer when funding status updates', () => {
     const fundingStatus = defaultFundingStatus
     const initialProps = {
       offerId: sellOffer.id,
@@ -107,7 +98,7 @@ describe('useHandleFundingStatus', () => {
     renderHook(useHandleFundingStatus, { wrapper: NavigationWrapper, initialProps })
     expect(account.offers[0]).toEqual({ ...sellOffer, funding: fundingStatus })
   })
-  it('should handle funding status when it is CANCELED', async () => {
+  it('should handle funding status when it is CANCELED', () => {
     const fundingStatus: FundingStatus = { ...defaultFundingStatus, status: 'CANCELED' }
     const initialProps = {
       offerId: sellOffer.id,
@@ -118,7 +109,7 @@ describe('useHandleFundingStatus', () => {
     renderHook(useHandleFundingStatus, { wrapper: NavigationWrapper, initialProps })
     expect(startRefundPopupMock).toHaveBeenCalledWith(sellOffer)
   })
-  it('should show showWronglyFundedPopup when WRONG_FUNDING_AMOUNT', async () => {
+  it('should show showWronglyFundedPopup when WRONG_FUNDING_AMOUNT', () => {
     const fundingStatus: FundingStatus = { ...defaultFundingStatus, status: 'WRONG_FUNDING_AMOUNT' }
     const initialProps = {
       offerId: sellOffer.id,
@@ -129,7 +120,7 @@ describe('useHandleFundingStatus', () => {
     renderHook(useHandleFundingStatus, { wrapper: NavigationWrapper, initialProps })
     expect(showWronglyFundedPopupMock).toHaveBeenCalledWith({ ...sellOffer, funding: fundingStatus })
   })
-  it('should navigate to wrongFundingAmount when user confirmation is required', async () => {
+  it('should navigate to wrongFundingAmount when user confirmation is required', () => {
     const fundingStatus: FundingStatus = { ...defaultFundingStatus, status: 'MEMPOOL' }
     const initialProps = {
       offerId: sellOffer.id,

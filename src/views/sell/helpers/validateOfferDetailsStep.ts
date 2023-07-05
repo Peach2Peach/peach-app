@@ -1,3 +1,4 @@
+import { OfferPreferences } from '../../../store/offerPreferenes/useOfferPreferences'
 import { getPaymentData, getSelectedPaymentDataIds } from '../../../utils/account'
 import { isDefined } from '../../../utils/array/isDefined'
 import { hasMopsConfigured } from '../../../utils/offer'
@@ -5,7 +6,7 @@ import { getPaymentMethods, isValidPaymentData } from '../../../utils/paymentMet
 
 export const validateOfferDetailsStep = (
   offer: SellOfferDraft,
-  preferredPaymentMethods: Settings['preferredPaymentMethods'],
+  preferredPaymentMethods: OfferPreferences['preferredPaymentMethods'],
 ) => {
   if (!offer.amount || !hasMopsConfigured(offer)) return false
 

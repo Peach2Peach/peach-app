@@ -17,7 +17,7 @@ const isSettings
   = /settings|contact|report|language|currency|backup|paymentMethods|deleteAccount|fees|socials|seedWords/u
 const isWallet = /wallet|transactionHistory|transactionDetails/u
 const isBuy = /buy|buyPreferences|home/u
-const isSell = /sell|sellPreferences/u
+const isSell = /sell|premium|sellPreferences/u
 
 export const Footer = ({ active, style, setCurrentPage, theme = 'default' }: Props) => {
   const { navigate, notifications } = useFooterSetup({ setCurrentPage })

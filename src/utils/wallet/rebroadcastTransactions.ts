@@ -1,17 +1,18 @@
 import { isDefined } from '../array/isDefined'
-import { postTransaction } from '../electrum/postTransaction'
-import { walletStore } from './walletStore'
+import { postTransaction } from '../electrum'
+import { useWalletState } from './walletStore'
 
-export const rebroadcastTransactions = (toRebroadcast: string[]) =>
+export const rebroadcastTransactions = (toRebroadcast: string[]) => {
   Promise.all(
     toRebroadcast
-      .map((txId) => ({ txId, hex: walletStore.getState().pendingTransactions[txId] }))
-      .filter(isDefined)
+      .map((txId) => ({ txId, hex: useWalletState.getState().pendingTransactions[txId] }))
+      .filter(({ hex }) => isDefined(hex))
       .map(async ({ txId, hex }) => {
         const [response, err] = await postTransaction({ tx: hex })
         if (err?.toString().includes('bad-txns-inputs-missingorspent')) {
-          walletStore.getState().removePendingTransaction(txId)
+          useWalletState.getState().removePendingTransaction(txId)
         }
-        if (response) walletStore.getState().removePendingTransaction(response)
+        if (response) useWalletState.getState().removePendingTransaction(response)
       }),
   )
+}

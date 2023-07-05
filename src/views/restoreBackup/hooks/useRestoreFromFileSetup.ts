@@ -9,6 +9,8 @@ import { auth } from '../../../utils/peachAPI'
 import { parseError } from '../../../utils/result'
 import { setPeachAccount } from '../../../utils/peachAPI/peachAccount'
 import { createPeachAccount } from '../../../utils/account/createPeachAccount'
+import { loadWalletFromAccount } from '../../../utils/account/loadWalletFromAccount'
+import { useSettingsStore } from '../../../store/settingsStore'
 
 const passwordRules = { password: true, required: true }
 
@@ -25,6 +27,8 @@ export const useRestoreFromFileSetup = () => {
   const [loading, setLoading] = useState(false)
   const [restored, setRestored] = useState(false)
 
+  const updateFileBackupDate = useSettingsStore((state) => state.updateFileBackupDate)
+
   const onError = (err?: string) => {
     const errorMsg = err || 'UNKNOWN_ERROR'
     if (errorMsg !== 'WRONG_PASSWORD') setError(errorMsg)
@@ -32,7 +36,7 @@ export const useRestoreFromFileSetup = () => {
   }
 
   const decryptAndRecover = async () => {
-    const [recoveredAccount, err] = await decryptAccount({
+    const [recoveredAccount, err] = decryptAccount({
       encryptedAccount: file.content,
       password,
     })
@@ -43,7 +47,8 @@ export const useRestoreFromFileSetup = () => {
       return
     }
 
-    setPeachAccount(createPeachAccount(recoveredAccount.mnemonic))
+    const wallet = loadWalletFromAccount(recoveredAccount)
+    setPeachAccount(createPeachAccount(wallet))
 
     const [, authErr] = await auth({})
     if (authErr) {
@@ -56,13 +61,14 @@ export const useRestoreFromFileSetup = () => {
     await storeAccount(updatedAccount)
     setRestored(true)
     setLoading(false)
+    updateFileBackupDate()
 
     setTimeout(() => {
       navigation.replace('home')
     }, 1500)
   }
 
-  const submit = async () => {
+  const submit = () => {
     Keyboard.dismiss()
     setLoading(true)
 

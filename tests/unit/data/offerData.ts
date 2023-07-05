@@ -23,6 +23,7 @@ export const buyOffer: BuyOffer = {
   seenMatches: [],
   doubleMatched: false,
   releaseAddress: 'bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh',
+  tradeStatus: 'waiting',
 }
 
 export const sellOffer: SellOffer = {
@@ -56,6 +57,7 @@ export const sellOffer: SellOffer = {
   returnAddress: 'bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh',
   refunded: false,
   released: false,
+  tradeStatus: 'waiting',
 }
 
 export const wronglyFundedSellOffer: SellOffer = {
@@ -63,10 +65,8 @@ export const wronglyFundedSellOffer: SellOffer = {
   amount: 42069,
   funding: { ...sellOffer.funding, amounts: [69420] },
 }
-export const buyOfferUnpublished: BuyOffer = {
-  creationDate: new Date('2022-03-08T11:41:07.245Z'),
+export const buyOfferUnpublished: BuyOfferDraft = {
   type: 'bid',
-  online: false,
   meansOfPayment: {
     EUR: ['sepa'],
     CHF: ['sepa'],
@@ -77,11 +77,8 @@ export const buyOfferUnpublished: BuyOffer = {
     },
   },
   originalPaymentData: [],
-  amount: 250000,
-  matches: [],
-  matched: [],
-  seenMatches: [],
-  doubleMatched: false,
+  amount: [250000, 500000],
+  tradeStatus: 'offerHidden',
   releaseAddress: 'bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh',
 }
 
@@ -126,4 +123,8 @@ export const matchOffer: Match = {
   symmetricKeyEncrypted: 'TODO add symmetric key encrypted',
   symmetricKeySignature: 'TODO add symmetric key signature',
   matched: true,
+  amount: 250000,
+  unavailable: {
+    exceedsLimit: [],
+  },
 }

@@ -9,7 +9,7 @@ exports[`MeetupScreen should render correctly 1`] = `
     }
   }
 >
-  <PeachScrollView
+  <ForwardRef
     contentContainerStyle={
       {
         "flexGrow": 1,
@@ -49,7 +49,7 @@ exports[`MeetupScreen should render correctly 1`] = `
         }
       />
     </View>
-  </PeachScrollView>
+  </ForwardRef>
   <PrimaryButton
     onPress={[MockFunction]}
     style={
@@ -72,7 +72,7 @@ exports[`MeetupScreen should render correctly with multiple currencies 1`] = `
     }
   }
 >
-  <PeachScrollView
+  <ForwardRef
     contentContainerStyle={
       {
         "flexGrow": 1,
@@ -116,7 +116,7 @@ exports[`MeetupScreen should render correctly with multiple currencies 1`] = `
           url="http://maps.google.com/maps?daddr=Prague"
         />
         <Link
-          text="meetup website"
+          text="meetup link"
           url="https://peachbitcoin.com/"
         />
       </View>
@@ -130,7 +130,7 @@ exports[`MeetupScreen should render correctly with multiple currencies 1`] = `
         }
       />
     </View>
-  </PeachScrollView>
+  </ForwardRef>
   <PrimaryButton
     onPress={[MockFunction]}
     style={

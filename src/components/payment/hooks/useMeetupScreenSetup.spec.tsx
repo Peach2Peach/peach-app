@@ -3,7 +3,8 @@ import { act, renderHook } from '@testing-library/react-native'
 import { headerState, setOptionsMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { setPaymentMethods } from '../../../constants'
 import { DeletePaymentMethodConfirm } from '../../../popups/info/DeletePaymentMethodConfirm'
-import { meetupEventsStore } from '../../../store/meetupEventsStore'
+import { useMeetupEventsStore } from '../../../store/meetupEventsStore'
+import { useOfferPreferences } from '../../../store/offerPreferenes'
 import { usePopupStore } from '../../../store/usePopupStore'
 import { account, defaultAccount, setAccount } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
@@ -39,7 +40,6 @@ jest.mock('../../../hooks/useNavigation', () => ({
 
 describe('useMeetupScreenSetup', () => {
   beforeEach(() => {
-    jest.clearAllMocks()
     setPaymentMethods([])
     setAccount(defaultAccount)
   })
@@ -56,6 +56,7 @@ describe('useMeetupScreenSetup', () => {
         id: '123',
         longName: '',
         shortName: '',
+        featured: false,
       },
       deletable: true,
       addToPaymentMethods: expect.any(Function),
@@ -88,7 +89,7 @@ describe('useMeetupScreenSetup', () => {
 
   it('should add a meetup to the payment methods', () => {
     setPaymentMethods([{ id: 'cash.123', currencies: ['EUR'], anonymous: true }])
-    meetupEventsStore.getState().setMeetupEvents([
+    useMeetupEventsStore.getState().setMeetupEvents([
       {
         id: '123',
         currencies: ['EUR'],
@@ -96,6 +97,7 @@ describe('useMeetupScreenSetup', () => {
         city: 'Berlin',
         shortName: 'shortName',
         longName: 'longName',
+        featured: false,
       },
     ])
     const { result } = renderHook(useMeetupScreenSetup, {
@@ -114,6 +116,55 @@ describe('useMeetupScreenSetup', () => {
       },
     ])
     expect(goBackMock).toHaveBeenCalled()
+  })
+  it('should automatically add the meetup to the selected methods', () => {
+    useOfferPreferences.getState().setPaymentMethods([])
+    setPaymentMethods([{ id: 'cash.123', currencies: ['EUR'], anonymous: true }])
+    useMeetupEventsStore.getState().setMeetupEvents([
+      {
+        id: '123',
+        currencies: ['EUR'],
+        country: 'DE',
+        city: 'Berlin',
+        shortName: 'shortName',
+        longName: 'longName',
+        featured: false,
+      },
+    ])
+    const { result } = renderHook(useMeetupScreenSetup, {
+      wrapper: NavigationContainer,
+    })
+
+    expect(useOfferPreferences.getState().preferredPaymentMethods).toStrictEqual({})
+    act(() => {
+      result.current.addToPaymentMethods()
+    })
+    expect(useOfferPreferences.getState()).toStrictEqual(
+      expect.objectContaining({
+        meansOfPayment: {
+          EUR: ['cash.123'],
+        },
+        originalPaymentData: [
+          {
+            country: 'DE',
+            currencies: ['EUR'],
+            id: 'cash.123',
+            label: 'shortName',
+            type: 'cash.123',
+            userId: '',
+          },
+        ],
+        paymentData: {
+          'cash.123': {
+            country: 'DE',
+            hash: '271c06de9309a4262c2fd1c77bda4c56efd105579ade0217897f8fdb161ff8ba',
+          },
+        },
+        preferredPaymentMethods: {
+          'cash.123': 'cash.123',
+        },
+      }),
+    )
   })
   it('should show the delete payment method popup', () => {
     renderHook(useMeetupScreenSetup, { wrapper: NavigationContainer })
@@ -139,7 +190,7 @@ describe('useMeetupScreenSetup', () => {
   })
   it('should select all currencies by default', () => {
     setPaymentMethods([{ id: 'cash.123', currencies: ['EUR', 'CHF'], anonymous: true }])
-    meetupEventsStore.getState().setMeetupEvents([
+    useMeetupEventsStore.getState().setMeetupEvents([
       {
         id: '123',
         currencies: ['EUR', 'CHF'],
@@ -147,6 +198,7 @@ describe('useMeetupScreenSetup', () => {
         city: 'Berlin',
         shortName: 'shortName',
         longName: 'longName',
+        featured: false,
       },
     ])
 
@@ -159,7 +211,7 @@ describe('useMeetupScreenSetup', () => {
 
   it('should update the selected currencies', () => {
     setPaymentMethods([{ id: 'cash.123', currencies: ['EUR', 'CHF'], anonymous: true }])
-    meetupEventsStore.getState().setMeetupEvents([
+    useMeetupEventsStore.getState().setMeetupEvents([
       {
         id: '123',
         currencies: ['EUR', 'CHF'],
@@ -167,6 +219,7 @@ describe('useMeetupScreenSetup', () => {
         city: 'Berlin',
         shortName: 'shortName',
         longName: 'longName',
+        featured: false,
       },
     ])
 
@@ -185,7 +238,7 @@ describe('useMeetupScreenSetup', () => {
   })
   it('should use empty array as fallback if event has no currencies', () => {
     setPaymentMethods([{ id: 'cash.123', currencies: ['EUR', 'CHF'], anonymous: true }])
-    meetupEventsStore.getState().setMeetupEvents([
+    useMeetupEventsStore.getState().setMeetupEvents([
       {
         id: '123',
         currencies: [],
@@ -193,6 +246,7 @@ describe('useMeetupScreenSetup', () => {
         city: 'Berlin',
         shortName: 'shortName',
         longName: 'longName',
+        featured: false,
       },
     ])
 
@@ -204,7 +258,7 @@ describe('useMeetupScreenSetup', () => {
   })
   it('should add the payment method to the account with only the selected currencies', () => {
     setPaymentMethods([{ id: 'cash.123', currencies: ['EUR', 'CHF'], anonymous: true }])
-    meetupEventsStore.getState().setMeetupEvents([
+    useMeetupEventsStore.getState().setMeetupEvents([
       {
         id: '123',
         currencies: ['EUR', 'CHF'],
@@ -212,6 +266,7 @@ describe('useMeetupScreenSetup', () => {
         city: 'Berlin',
         shortName: 'shortName',
         longName: 'longName',
+        featured: false,
       },
     ])
 

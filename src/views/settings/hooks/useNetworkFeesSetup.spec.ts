@@ -2,7 +2,7 @@
 import { act, renderHook } from '@testing-library/react-native'
 import { estimatedFees } from '../../../../tests/unit/data/bitcoinNetworkData'
 import { headerState, NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
-import { settingsStore } from '../../../store/settingsStore'
+import { useSettingsStore } from '../../../store/settingsStore'
 import { useNetworkFeesSetup } from './useNetworkFeesSetup'
 import { apiSuccess, unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
 
@@ -24,10 +24,7 @@ jest.mock('../../../utils/peachAPI', () => ({
 
 describe('useNetworkFeesSetup', () => {
   beforeEach(() => {
-    settingsStore.getState().setFeeRate('halfHourFee')
-  })
-  afterEach(() => {
-    jest.clearAllMocks()
+    useSettingsStore.getState().setFeeRate('halfHourFee')
   })
   it('returns default correct values', () => {
     const { result } = renderHook(useNetworkFeesSetup, { wrapper: NavigationWrapper })
@@ -43,7 +40,7 @@ describe('useNetworkFeesSetup', () => {
     })
   })
   it('sets custom fee rate if custom had been selected before', () => {
-    settingsStore.getState().setFeeRate(3)
+    useSettingsStore.getState().setFeeRate(3)
     const { result } = renderHook(useNetworkFeesSetup, { wrapper: NavigationWrapper })
     expect(result.current.selectedFeeRate).toBe('custom')
     expect(result.current.customFeeRate).toBe('3')
@@ -65,7 +62,7 @@ describe('useNetworkFeesSetup', () => {
     expect(result.current.customFeeRate).toBeUndefined()
     expect(result.current.isValid).toBeFalsy()
   })
-  it('returns info whether a new fee rate has been set', async () => {
+  it('returns info whether a new fee rate has been set', () => {
     const { result } = renderHook(useNetworkFeesSetup, { wrapper: NavigationWrapper })
 
     expect(result.current.feeRateSet).toBeTruthy()
@@ -78,7 +75,7 @@ describe('useNetworkFeesSetup', () => {
     renderHook(useNetworkFeesSetup, { wrapper: NavigationWrapper })
     expect(headerState.header()).toMatchSnapshot()
   })
-  it('sets fee preferences', async () => {
+  it('sets fee preferences', () => {
     const { result } = renderHook(useNetworkFeesSetup, { wrapper: NavigationWrapper })
     act(() => {
       result.current.setSelectedFeeRate('fastestFee')
@@ -93,7 +90,7 @@ describe('useNetworkFeesSetup', () => {
     expect(updateUserMock).toHaveBeenCalledWith({
       feeRate: 'halfHourFee',
     })
-    expect(settingsStore.getState().feeRate).toEqual('halfHourFee')
+    expect(useSettingsStore.getState().feeRate).toEqual('halfHourFee')
 
     act(() => {
       result.current.setSelectedFeeRate('fastestFee')
@@ -104,7 +101,7 @@ describe('useNetworkFeesSetup', () => {
     expect(updateUserMock).toHaveBeenCalledWith({
       feeRate: 'fastestFee',
     })
-    expect(settingsStore.getState().feeRate).toEqual('fastestFee')
+    expect(useSettingsStore.getState().feeRate).toEqual('fastestFee')
   })
   it('submits custom fee preferences', async () => {
     const { result } = renderHook(useNetworkFeesSetup, { wrapper: NavigationWrapper })
@@ -119,7 +116,7 @@ describe('useNetworkFeesSetup', () => {
     expect(updateUserMock).toHaveBeenCalledWith({
       feeRate: 4,
     })
-    expect(settingsStore.getState().feeRate).toEqual(4)
+    expect(useSettingsStore.getState().feeRate).toEqual(4)
   })
   it('handles request errors', async () => {
     updateUserMock.mockResolvedValueOnce([null, unauthorizedError])

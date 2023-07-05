@@ -6,9 +6,8 @@ import { useCancelOffer, useHeaderSetup, useNavigation, useRoute } from '../../.
 import { useOfferDetails } from '../../../hooks/query/useOfferDetails'
 import { useShowHelp } from '../../../hooks/useShowHelp'
 import { headerIcons } from '../../../utils/layout/headerIcons'
-import { isBuyOffer } from '../../../utils/offer'
+import { isBuyOffer, offerIdToHex } from '../../../utils/offer'
 import { parseError } from '../../../utils/result'
-import { OfferDetailsTitle } from '../../offerDetails/components/OfferDetailsTitle'
 import { shouldGoToContract } from '../helpers/shouldGoToContract'
 import { useOfferMatches } from './useOfferMatches'
 import useRefetchOnNotification from './useRefetchOnNotification'
@@ -35,7 +34,7 @@ export const useSearchSetup = () => {
     return icons
   }
   useHeaderSetup({
-    titleComponent: <OfferDetailsTitle id={offerId} />,
+    title: offerIdToHex(offerId),
     icons: getHeaderIcons(),
   })
 

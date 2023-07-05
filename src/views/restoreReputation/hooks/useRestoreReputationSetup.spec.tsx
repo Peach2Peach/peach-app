@@ -6,12 +6,19 @@ import { account } from '../../../utils/account'
 import { useRestoreReputationSetup } from './useRestoreReputationSetup'
 
 jest.useFakeTimers()
+const userUpdateMock = jest.fn()
+jest.mock('../../../init/userUpdate', () => ({
+  userUpdate: (...args: any[]) => userUpdateMock(...args),
+}))
+
+const params = { referralCode: 'REFERRALCODE' }
+const useRouteMock = jest.fn().mockReturnValue({ params })
+jest.mock('../../../hooks/useRoute', () => ({
+  useRoute: () => useRouteMock(),
+}))
 
 describe('useRestoreReputationSetup', () => {
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
-  it('should return defaults', async () => {
+  it('should return defaults', () => {
     const { result } = renderHook(useRestoreReputationSetup, { wrapper: NavigationWrapper })
     expect(result.current).toEqual({
       restoreReputation: expect.any(Function),
@@ -37,8 +44,8 @@ describe('useRestoreReputationSetup', () => {
     act(() => {
       tempAccount.current.setTemporaryAccount(account1)
     })
-    await act(async () => {
-      await result.current.restoreReputation()
+    await act(() => {
+      result.current.restoreReputation()
       jest.runAllTimers()
     })
     expect(result.current.isLoading).toBeTruthy()
@@ -47,5 +54,6 @@ describe('useRestoreReputationSetup', () => {
 
     await act(jest.runAllTimers)
     expect(replaceMock).toHaveBeenCalledWith('home')
+    expect(userUpdateMock).toHaveBeenCalledWith(params.referralCode)
   })
 })

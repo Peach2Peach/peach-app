@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ConfirmSliderLabel renders correctly 1`] = `
+<ForwardRef(AnimatedComponentWrapper)
+  style={
+    [
+      undefined,
+      {
+        "paddingTop": 1,
+      },
+      {
+        "opacity": 1,
+        "width": 200,
+      },
+    ]
+  }
+>
+  <FixedHeightText
+    height={9}
+    numberOfLines={1}
+    style={
+      [
+        {
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 14,
+          "letterSpacing": 0.5,
+          "lineHeight": 24,
+          "textAlign": "center",
+          "textTransform": "uppercase",
+        },
+        {
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 15,
+          "letterSpacing": 0.54,
+          "lineHeight": 26,
+          "textTransform": "uppercase",
+        },
+      ]
+    }
+  >
+    label
+  </FixedHeightText>
+</ForwardRef(AnimatedComponentWrapper)>
+`;

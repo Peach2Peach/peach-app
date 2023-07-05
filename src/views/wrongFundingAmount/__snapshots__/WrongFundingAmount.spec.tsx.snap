@@ -13,58 +13,45 @@ exports[`WrongFundingAmount renders correctly 1`] = `
     }
   }
 >
-  <View
-    style={
+  <WrongFundingAmountSummary
+    sellOffer={
       {
-        "gap": 12,
+        "amount": 250000,
+        "creationDate": 2022-03-08T11:41:07.245Z,
+        "doubleMatched": false,
+        "funding": {
+          "amounts": [],
+          "expiry": 537,
+          "status": "NULL",
+          "txIds": [],
+          "vouts": [],
+        },
+        "id": "38",
+        "matched": [],
+        "matches": [],
+        "meansOfPayment": {
+          "EUR": [
+            "sepa",
+          ],
+        },
+        "online": true,
+        "originalPaymentData": [],
+        "paymentData": {
+          "sepa": {
+            "hash": "TODO add payment hash",
+          },
+        },
+        "premium": 1.5,
+        "publishingDate": 2022-03-08T11:41:07.245Z,
+        "refunded": false,
+        "released": false,
+        "returnAddress": "bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh",
+        "seenMatches": [],
+        "tradeStatus": "waiting",
+        "type": "ask",
       }
     }
-  >
-    <TradeSeparator
-      iconId="download"
-      text="wrong amount funded"
-    />
-    <View
-      style={
-        {
-          "gap": 4,
-        }
-      }
-    >
-      <LabelAndAmount
-        amount={69420}
-        label="funded"
-      />
-      <LabelAndAmount
-        amount={250000}
-        label="amount"
-      />
-    </View>
-    <PeachText
-      style={
-        {
-          "fontFamily": "Baloo2-Regular",
-          "fontSize": 14,
-          "letterSpacing": 0.14,
-          "lineHeight": 20,
-        }
-      }
-    >
-      You funded the escrow with 69 420 sats, while you made a trade for 250 000 sats.
-    </PeachText>
-    <PeachText
-      style={
-        {
-          "fontFamily": "Baloo2-Regular",
-          "fontSize": 14,
-          "letterSpacing": 0.14,
-          "lineHeight": 20,
-        }
-      }
-    >
-      Do you want to continue the trade with 69 420 sats, or do you want to be refunded?
-    </PeachText>
-  </View>
+  />
   <View
     style={
       {
@@ -74,7 +61,43 @@ exports[`WrongFundingAmount renders correctly 1`] = `
     }
   >
     <ContinueTradeSlider
-      onUnlock={[MockFunction]}
+      sellOffer={
+        {
+          "amount": 250000,
+          "creationDate": 2022-03-08T11:41:07.245Z,
+          "doubleMatched": false,
+          "funding": {
+            "amounts": [],
+            "expiry": 537,
+            "status": "NULL",
+            "txIds": [],
+            "vouts": [],
+          },
+          "id": "38",
+          "matched": [],
+          "matches": [],
+          "meansOfPayment": {
+            "EUR": [
+              "sepa",
+            ],
+          },
+          "online": true,
+          "originalPaymentData": [],
+          "paymentData": {
+            "sepa": {
+              "hash": "TODO add payment hash",
+            },
+          },
+          "premium": 1.5,
+          "publishingDate": 2022-03-08T11:41:07.245Z,
+          "refunded": false,
+          "released": false,
+          "returnAddress": "bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh",
+          "seenMatches": [],
+          "tradeStatus": "waiting",
+          "type": "ask",
+        }
+      }
     />
     <RefundEscrowSlider
       sellOffer={
@@ -110,6 +133,7 @@ exports[`WrongFundingAmount renders correctly 1`] = `
           "released": false,
           "returnAddress": "bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh",
           "seenMatches": [],
+          "tradeStatus": "waiting",
           "type": "ask",
         }
       }
