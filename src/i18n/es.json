@@ -354,6 +354,7 @@
   "currency.format.USD": "$ $0",
   "currency.format.sats": "$0 sats",
   "currency.select.title": "seleccionar moneda",
+  "selectCurrency.title": "seleccionar moneda",
   "decrypt": "descifrar",
   "default": "predeterminado",
   "delete": "eliminar",
