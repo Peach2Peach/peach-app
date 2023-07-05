@@ -1,12 +1,17 @@
 import { paymentDetailInfo, twintData, validSEPAData } from '../../../../tests/unit/data/paymentData'
 import { usePaymentDataStore } from '../../../store/usePaymentDataStore'
-import { migratePaymentData } from './migratePaymentData'
+import { accountStorage } from '../../../utils/account/accountStorage'
+import { migratePaymentDataToStore } from './migratePaymentDataToStore'
 
-describe('migratePaymentData', () => {
+describe('migratePaymentDataToStore', () => {
   const paymentData = [validSEPAData, twintData]
+  beforeAll(() => {
+    accountStorage.setArray('paymentData', paymentData)
+  })
   afterEach(() => usePaymentDataStore.getState().reset())
+
   it('updates payment data by enforcing format', () => {
-    migratePaymentData(paymentData)
+    migratePaymentDataToStore()
     expect(usePaymentDataStore.getState().paymentData).toEqual({
       [validSEPAData.id]: validSEPAData,
       [twintData.id]: twintData,
@@ -16,7 +21,7 @@ describe('migratePaymentData', () => {
   })
   it('does nothing if already migrated', () => {
     usePaymentDataStore.getState().setMigrated()
-    migratePaymentData(paymentData)
+    migratePaymentDataToStore()
     expect(usePaymentDataStore.getState().paymentData).toEqual({})
     expect(usePaymentDataStore.getState().paymentDetailInfo).toEqual({})
   })

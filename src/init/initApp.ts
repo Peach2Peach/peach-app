@@ -13,7 +13,7 @@ export const initApp = async (): Promise<GetStatusResponse | undefined> => {
   if (!statusResponse?.error && account?.publicKey) {
     getTrades()
     userUpdate()
-    dataMigrationAfterLoadingAccount(account)
+    dataMigrationAfterLoadingAccount()
   }
   if (!statusResponse?.error) saveMeetupEvents()
   return statusResponse
