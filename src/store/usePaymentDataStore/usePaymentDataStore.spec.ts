@@ -1,3 +1,4 @@
+/* eslint-disable max-lines-per-function */
 import { usePaymentDataStore } from '.'
 import { twintData, validSEPAData, validSEPAData2 } from '../../../tests/unit/data/paymentData'
 
@@ -5,6 +6,7 @@ describe('usePaymentDataStore', () => {
   it('returns defaults', () => {
     expect(usePaymentDataStore.getState()).toEqual({
       addPaymentData: expect.any(Function),
+      getPaymentData: expect.any(Function),
       getPaymentDataArray: expect.any(Function),
       removePaymentData: expect.any(Function),
       migrated: false,
@@ -54,8 +56,11 @@ describe('usePaymentDataStore', () => {
       phone: { c56ab971aeea3e5aa3d2e62e4ed7cb5488a63b0659e6db7b467e7f899cb7b418: '+341234875987' },
     })
   })
-  it('return payment data as array', () => {
+  it('returns payment data as array', () => {
     expect(usePaymentDataStore.getState().getPaymentDataArray()).toEqual([validSEPAData, twintData, validSEPAData2])
+  })
+  it('returns payment data by id', () => {
+    expect(usePaymentDataStore.getState().getPaymentData(validSEPAData.id)).toEqual(validSEPAData)
   })
   it('removes payment data and associated hashes', () => {
     usePaymentDataStore.getState().removePaymentData(twintData.id)

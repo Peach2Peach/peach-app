@@ -1,10 +1,17 @@
-import { RemotePaymentMethods } from './RemotePaymentMethods'
 import { createRenderer } from 'react-test-renderer/shallow'
-import { account, updateAccount } from '../../utils/account'
+import { usePaymentDataStore } from '../../store/usePaymentDataStore'
+import { RemotePaymentMethods } from './RemotePaymentMethods'
 
 describe('RemotePaymentMethods', () => {
+  const paymentData: PaymentData = {
+    type: 'sepa',
+    label: 'SEPA',
+    id: 'sepa-1234',
+    currencies: ['EUR'],
+  }
+  const renderer = createRenderer()
+
   it('should render correctly without methods', () => {
-    const renderer = createRenderer()
     renderer.render(
       <RemotePaymentMethods
         isEditing={false}
@@ -16,18 +23,7 @@ describe('RemotePaymentMethods', () => {
     expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
   it('should render correctly with methods', () => {
-    updateAccount({
-      ...account,
-      paymentData: [
-        {
-          type: 'sepa',
-          label: 'SEPA',
-          id: 'sepa-1234',
-          currencies: ['EUR'],
-        },
-      ],
-    })
-    const renderer = createRenderer()
+    usePaymentDataStore.getState().addPaymentData(paymentData)
     renderer.render(
       <RemotePaymentMethods
         isEditing={false}

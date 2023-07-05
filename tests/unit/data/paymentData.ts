@@ -45,6 +45,20 @@ export const validCashData: PaymentData = {
   country: 'ES',
 }
 
+export const revolutData: PaymentData = {
+  id: 'revolut-123456789',
+  label: 'Revolut',
+  type: 'revolut',
+  currencies: ['EUR'],
+}
+export const paypalData: PaymentData = {
+  id: 'paypal-1095805944',
+  phone: '+412134245',
+  label: 'Paypal',
+  type: 'paypal',
+  currencies: ['EUR'],
+}
+
 export const twintData: PaymentData = {
   id: 'twint-1669721660451',
   label: 'Twint',

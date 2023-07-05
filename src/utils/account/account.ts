@@ -9,8 +9,6 @@ export const defaultLimits = {
 
 export const defaultAccount: Account = {
   publicKey: '',
-  paymentData: [],
-  legacyPaymentData: [],
   tradingLimit: defaultLimits,
   offers: [],
   contracts: [],

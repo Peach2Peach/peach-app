@@ -1,13 +1,13 @@
 import { View } from 'react-native'
 import { Icon, Text } from '..'
+import { usePaymentDataStore } from '../../store/usePaymentDataStore'
 import tw from '../../styles/tailwind'
-import { account } from '../../utils/account'
 import i18n from '../../utils/i18n'
 import { isValidPaymentData } from '../../utils/paymentMethod'
 import { isCashTrade } from '../../utils/paymentMethod/isCashTrade'
 import LinedText from '../ui/LinedText'
-import { PaymentDataKeyFacts } from './components/PaymentDataKeyFacts'
 import { PaymentDetailsCheckbox } from './PaymentDetailsCheckbox'
+import { PaymentDataKeyFacts } from './components/PaymentDataKeyFacts'
 
 const mapPaymentDataToCheckboxes = (data: PaymentData) => ({
   value: data.id,
@@ -24,7 +24,8 @@ type Props = {
 }
 
 export const MeetupPaymentMethods = ({ isEditing, editItem, select, isSelected }: Props) => {
-  const { paymentData } = account
+  const paymentData = usePaymentDataStore((state) => state.getPaymentDataArray())
+
   return (
     <>
       {paymentData.filter((item) => isCashTrade(item.type)).length !== 0 && (

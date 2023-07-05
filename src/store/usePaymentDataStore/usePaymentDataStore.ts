@@ -18,6 +18,7 @@ export type PaymentMethodsStore = PaymentDataState & {
   reset: () => void
   setMigrated: () => void
   addPaymentData: (data: PaymentData) => void
+  getPaymentData: (id: string) => PaymentData
   removePaymentData: (id: string) => void
   getPaymentDataArray: () => PaymentData[]
 }
@@ -41,6 +42,7 @@ export const usePaymentDataStore = create<PaymentMethodsStore>()(
           paymentDetailInfo: deepMerge(state.paymentDetailInfo, newPamentDetailInfo),
         }))
       },
+      getPaymentData: (id) => get().paymentData[id],
       removePaymentData: (id) => {
         const data = get().paymentData[id]
         if (!data) return

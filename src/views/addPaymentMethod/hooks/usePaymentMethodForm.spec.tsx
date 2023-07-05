@@ -5,6 +5,7 @@ import { defaultPopupState, usePopupStore } from '../../../store/usePopupStore'
 import { account } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
 import { usePaymentMethodFormSetup } from './usePaymentMethodFormSetup'
+import { usePaymentDataStore } from '../../../store/usePaymentDataStore'
 
 const useRouteMock = jest.fn(() => ({
   params: {
@@ -106,7 +107,7 @@ describe('usePaymentMethodFormSetup', () => {
     act(() => {
       result.current.onSubmit(paymentMethod)
     })
-    expect(account.paymentData).toContainEqual(paymentMethod)
+    expect(usePaymentDataStore.getState().getPaymentData(paymentMethod.id)).toEqual(paymentMethod)
   })
   it('should automatically select the payment method', () => {
     const { result } = renderHook(usePaymentMethodFormSetup, { wrapper })

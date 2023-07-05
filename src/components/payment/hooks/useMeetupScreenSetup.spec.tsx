@@ -9,6 +9,7 @@ import { usePopupStore } from '../../../store/usePopupStore'
 import { account, defaultAccount, setAccount } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
 import { useMeetupScreenSetup } from './useMeetupScreenSetup'
+import { usePaymentDataStore } from '../../../store/usePaymentDataStore'
 
 const useRouteMock = jest.fn(() => ({
   params: {
@@ -105,16 +106,14 @@ describe('useMeetupScreenSetup', () => {
     })
 
     result.current.addToPaymentMethods()
-    expect(account.paymentData).toStrictEqual([
-      {
-        id: 'cash.123',
-        currencies: ['EUR'],
-        country: 'DE',
-        label: 'shortName',
-        type: 'cash.123',
-        userId: '',
-      },
-    ])
+    expect(usePaymentDataStore.getState().getPaymentData('cash.123')).toStrictEqual({
+      id: 'cash.123',
+      currencies: ['EUR'],
+      country: 'DE',
+      label: 'shortName',
+      type: 'cash.123',
+      userId: '',
+    })
     expect(goBackMock).toHaveBeenCalled()
   })
   it('should automatically add the meetup to the selected methods', () => {

@@ -3,8 +3,9 @@ import { Pressable, View } from 'react-native'
 import { Icon, Text } from '..'
 import { IconType } from '../../assets/icons'
 import { PAYMENTCATEGORIES } from '../../constants'
+import { usePaymentDataStore } from '../../store/usePaymentDataStore'
 import tw from '../../styles/tailwind'
-import { account, removePaymentData } from '../../utils/account'
+import { removePaymentData } from '../../utils/account'
 import i18n from '../../utils/i18n'
 import { keys } from '../../utils/object'
 import { getPaymentMethodInfo, isValidPaymentData } from '../../utils/paymentMethod'
@@ -31,9 +32,9 @@ const paymentCategoryIcons: Record<PaymentCategory, IconType | ''> = {
 }
 
 const belongsToCategory = (category: PaymentCategory) => (data: PaymentData) =>
-  PAYMENTCATEGORIES[category].includes(data.type)
-  && !(category === 'localOption' && data.type === 'mobilePay' && data.currencies[0] === 'DKK')
-  && !(category === 'onlineWallet' && data.type === 'mobilePay' && data.currencies[0] === 'EUR')
+  PAYMENTCATEGORIES[category].includes(data.type) &&
+  !(category === 'localOption' && data.type === 'mobilePay' && data.currencies[0] === 'DKK') &&
+  !(category === 'onlineWallet' && data.type === 'mobilePay' && data.currencies[0] === 'EUR')
 
 type Props = {
   isEditing: boolean
@@ -43,7 +44,7 @@ type Props = {
 }
 
 export const RemotePaymentMethods = ({ isEditing, editItem, select, isSelected }: Props) => {
-  const { paymentData } = account
+  const paymentData = usePaymentDataStore((state) => state.getPaymentDataArray())
   const [, setRandom] = useState(0)
   const deletePaymentData = (data: PaymentData) => {
     removePaymentData(data.id)

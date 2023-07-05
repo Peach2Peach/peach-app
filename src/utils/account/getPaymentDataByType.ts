@@ -1,4 +1,7 @@
-import { account } from '.'
+import { usePaymentDataStore } from '../../store/usePaymentDataStore'
 
 export const getPaymentDataByType = (type: PaymentData['type']) =>
-  account.paymentData.filter((data) => data.type === type)
+  usePaymentDataStore
+    .getState()
+    .getPaymentDataArray()
+    .filter((data) => data.type === type)
