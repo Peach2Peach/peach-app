@@ -3,6 +3,7 @@ import { unique } from './utils/array'
 import { sha256 } from './utils/crypto/sha256'
 import { isCashTrade } from './utils/paymentMethod/isCashTrade'
 import { IconType } from './assets/icons'
+import { FlagType } from './components/flags'
 
 export const SATSINBTC = 100000000
 export const MSINANHOUR = 3600000
@@ -78,9 +79,13 @@ export let PAYMENTMETHODINFOS: PaymentMethodInfo[] = [
 ]
 
 export const PAYMENTCATEGORIES: PaymentCategories = {
-  bankTransfer: ['sepa', 'instantSepa', 'fasterPayments', 'straksbetaling'].concat(
-    NATIONALTRANSFERCOUNTRIES.map((c) => `nationalTransfer${c}`),
-  ) as PaymentMethod[],
+  bankTransfer: [
+    'sepa',
+    'instantSepa',
+    'fasterPayments',
+    'straksbetaling',
+    ...NATIONALTRANSFERCOUNTRIES.map((c) => `nationalTransfer${c}` satisfies PaymentMethod),
+  ],
   onlineWallet: [
     'paypal',
     'revolut',
@@ -97,7 +102,7 @@ export const PAYMENTCATEGORIES: PaymentCategories = {
     'friends24',
     'n26',
   ],
-  giftCard: ['giftCard.amazon'].concat(GIFTCARDCOUNTRIES.map((c) => `giftCard.amazon.${c}`)) as PaymentMethod[],
+  giftCard: ['giftCard.amazon', ...GIFTCARDCOUNTRIES.map((c) => `giftCard.amazon.${c}` satisfies PaymentMethod)],
   localOption: ['mbWay', 'bizum', 'satispay', 'mobilePay', 'keksPay', 'paylib', 'lydia', 'verse', 'iris'],
   cash: [],
   cryptoCurrency: [],
@@ -118,6 +123,9 @@ export const LOCALPAYMENTMETHODS: LocalPaymentMethods = {
     GR: ['iris'],
   },
 }
+
+// TODO: decide if we want to use this or not
+export const LOCALPAYMENTMETHODCOUNTRIES: FlagType[] = ['IT', 'PT', 'ES', 'FI', 'HR', 'FR', 'DE', 'GR']
 
 export const APPLINKS: Record<string, { appLink?: string; url: string; userLink?: string }> = {
   paypal: {

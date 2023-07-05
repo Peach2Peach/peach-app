@@ -36,7 +36,7 @@ declare type PaymentCategory =
 declare type PaymentCategories = {
   [key in PaymentCategory]: PaymentMethod[]
 }
-declare type LocalPaymentMethods = Partial<Record<Currency, Record<string, PaymentMethod[]>>>
+declare type LocalPaymentMethods = Record<'EUR', Record<string, PaymentMethod[]>>
 
 declare type HashedPaymentData = string
 
