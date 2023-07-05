@@ -6,7 +6,7 @@ import i18n from '../../utils/i18n'
 import { CURRENCIES } from '../../constants'
 import { useNavigation, useRoute } from '../../hooks'
 import { getPaymentDataByType } from '../../utils/account'
-import { countrySupportsCurrency, getPaymentMethodInfo } from '../../utils/paymentMethod'
+import { countrySupportsCurrency, getPaymentMethodInfo, isAmazonGiftCard } from '../../utils/paymentMethod'
 import { Countries } from './Countries'
 import { Currency } from './Currency'
 import { PaymentMethod } from './PaymentMethod'
@@ -54,7 +54,7 @@ export const AddPaymentMethod = () => {
     updateDrawer({ show: false })
     if (!method) return
 
-    if (/giftCard/u.test(method)) {
+    if (isAmazonGiftCard(method)) {
       next()
       return
     }
