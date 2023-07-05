@@ -61,3 +61,9 @@ export const paymentDetailInfo: PaymentDetailInfo = {
   iban: { [validSEPADataHashes[2]]: validSEPAData.iban! },
   phone: { [twintDataHashes[0]]: twintData.phone! },
 }
+export const paymentDetailInfoInverted: PaymentDetailInfo = {
+  beneficiary: { [validSEPAData.beneficiary!]: validSEPADataHashes[0] },
+  bic: { [validSEPAData.bic!]: validSEPADataHashes[1] },
+  iban: { [validSEPAData.iban!]: validSEPADataHashes[2] },
+  phone: { [twintData.phone!]: twintDataHashes[0] },
+}

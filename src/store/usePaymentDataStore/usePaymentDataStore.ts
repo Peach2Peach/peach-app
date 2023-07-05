@@ -1,8 +1,9 @@
 import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
+import { deepMerge, omit } from '../../utils/object'
 import { createStorage, toZustandStorage } from '../../utils/storage'
-import { deepMerge } from '../../utils/object'
 import { buildPaymentDetailInfo } from './helpers/buildPaymentDetailInfo'
+import { removeHashesFromPaymentDetailInfo } from './helpers/removeHashesFromPaymentDetailInfo'
 import { PaymentDetailInfo } from './types'
 
 const storeId = 'paymentDataStore'
@@ -17,6 +18,8 @@ export type PaymentMethodsStore = PaymentDataState & {
   reset: () => void
   setMigrated: () => void
   addPaymentData: (data: PaymentData) => void
+  removePaymentData: (id: string) => void
+  getPaymentDataArray: () => PaymentData[]
 }
 
 const defaultPaymentDataStore: PaymentDataState = {
@@ -27,7 +30,7 @@ const defaultPaymentDataStore: PaymentDataState = {
 
 export const usePaymentDataStore = create<PaymentMethodsStore>()(
   persist(
-    (set) => ({
+    (set, get) => ({
       ...defaultPaymentDataStore,
       reset: () => set(defaultPaymentDataStore),
       setMigrated: () => set({ migrated: true }),
@@ -38,6 +41,16 @@ export const usePaymentDataStore = create<PaymentMethodsStore>()(
           paymentDetailInfo: deepMerge(state.paymentDetailInfo, newPamentDetailInfo),
         }))
       },
+      removePaymentData: (id) => {
+        const data = get().paymentData[id]
+        if (!data) return
+
+        set((state) => ({
+          paymentData: omit(state.paymentData, id),
+          paymentDetailInfo: removeHashesFromPaymentDetailInfo(state.paymentDetailInfo, data),
+        }))
+      },
+      getPaymentDataArray: () => Object.values(get().paymentData),
     }),
     {
       name: storeId,
