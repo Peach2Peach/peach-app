@@ -1,7 +1,7 @@
 import { encryptPaymentData } from '../../../utils/paymentMethod'
 import { decryptSymmetricKey } from '../../../views/contract/helpers'
 
-export const createEncryptedPaymentData = async (match: Match, paymentDataForMethod: PaymentData) => {
+export const createEncryptedPaymentData = async (match: Match, paymentDataInfo: PaymentDataInfo) => {
   const [symmetricKey] = await decryptSymmetricKey(
     match.symmetricKeyEncrypted,
     match.symmetricKeySignature,
@@ -10,5 +10,5 @@ export const createEncryptedPaymentData = async (match: Match, paymentDataForMet
 
   if (!symmetricKey) return undefined
 
-  return encryptPaymentData(paymentDataForMethod, symmetricKey)
+  return encryptPaymentData(paymentDataInfo, symmetricKey)
 }

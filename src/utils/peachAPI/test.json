@@ -1,125 +1,124 @@
-[
-    {
-        "amount": 50000,
-        "id": "217",
-        "type": "bid",
-        "releaseAddress": "2MsREByVfw2Wva9wBHYhUj523mF69t3qzoX",
-        "creationDate": "2022-12-27T11:10:49.755Z",
-        "lastModified": "2022-12-27T11:10:49.755Z",
-        "meansOfPayment": {
-            "EUR": [
-                "revolut"
-            ]
-        },
-        "publishingDate": "2022-12-27T11:10:49.755Z",
-        "premium": "0",
-        "online": true,
-        "paymentData": {
-            "revolut": {
-                "hash": "64b147d0a63350aa0dc596c51d33f8f0ce6a36793e02fb104f272068137760de"
-            }
-        },
-        "matches": [
-            "215"
-        ],
-        "doubleMatched": false,
-        "user": {
-            "rating": 0,
-            "recentRating": 0,
-            "referredTradingAmount": 0,
-            "pgpPublicKeyProof": "d833c130024c67e4dd910491f0755f4dcd03257c6e2ac4b94a1a605bf978b2bc7c005a65fccb7cdb3e6a918401880c8769cd63ad18600e19da20691712d3e706",
-            "creationDate": "2022-12-14T14:04:27.408Z",
-            "peachRating": 0,
-            "fcmToken": "fdGQnGgsRUevYP9aH_ZhYN:APA91bGDgWNGJJgUOpS0q0HwUIQJdk3l5AWtV80vvFX0bFJedqtipr33TcMrQdUx3EzX7_P0S5tvs-HKg00Lt4bn4aBSKogcVpH5sZGT8qnXRHtzGgx9WJzCKV8XUQzK3JvO2Xza-GTF",
-            "trades": 0,
-            "pgpPublicKey": "-----BEGIN PGP PUBLIC KEY BLOCK-----\nVersion: openpgp-mobile\n\nxsBNBGOZ1+UBCACz+eq3EXNoSyQ9CMUdBNAeC0DiIFLA6BZPzOITFE0Tuu53t1Of\nKdeXW/4oZ0udeiFTviuwJQfHsZDQp0oBInm1gev5gVOOitVk4hnn0UMqLv2PHv4D\nkSxvyajlfWcABdturdjDDISzRvQwrpAmCQHR1SYDhT6n6XgBc5D0VXodRSOGrAhy\nHRTxqtbBA4iFJXL+Bdau+mkFCUX5faIDtzmbbbYs2c1MnT5xoLLQIvjwPPanaolD\nhhPfSoS1ckLOR1r3XBv+gfmtIyDClTkTCWVA2GnlWPfRp32cDxu31Ut/GrYzHB8J\npVX7qsPBYZwYhEaRkc3Rh/rimBvpsJHp8QExABEBAAHNAMLAaAQTAQgAHAUCY5nX\n5QkQfIkqbA8BCBgCGwMCGQECCwcCFQgAAB87CAAYbSwjQ46w0Z5BwLzEWIr72mW5\n3VlA4br7lT7ZGfMX11EjwEpll8/ds/VKBX2yC4KXcKuzJV853Gixw97Vz4ZBqaKa\nKgm1WMBpHqc0Yeiol7rcKRUCrgpizX+Q1KHK1clt4GZ4E2rzBHafhFhGCRDk6Xkx\nCB35r3VhdmA6ii/powIlh1bxdibIImnPTOQF+wfNYFGuV8zfqgJbXa8gu2kjzgkr\n+BojPeZyjzqRf1cvFTyyXv2QQhxl1e2SM7OV65r0thTeH57xTYGXfxpJB/MRiW0Z\nRhkP+UpPuB0rXBs7rUNQ4DrFtEeSE7pky9NrA9N+EFUPEuCVxBDBCVHfA9yEzsBN\nBGOZ1+UBCAC6YSCaoHTpx4nRNQ1lb80ilpSpHq3kmEPuhtZD5solgd2cU+uufcOx\nyYB8ggzw2pq5+2eFBQW5REzgIfQo7ReHwBvQdutvQZUTCO5WRHSpDZ2fqAjRomSf\nJvMp98Zg7rSTP/OyIBZRaRL12CbgOtHP041/2NK1HQUuD/oBFWFNXtvTSkPNxZM3\nqDhlgmDiW5Nz7da1bW8MNzpEyTAE9cvMy9EIETS9utSAuCIU7pKQ+a0cUT910zPF\n7dNjlsmwtod4bkapO+O/Y4VCKy7InMwZKlpWnptIJGCxsWXrhaL3ddRYO8Vvktpe\nK7O92mfir5MS//CcFNtmL3mK/M0ok5u9ABEBAAHCwF8EGAEIABMFAmOZ1+UJEHyJ\nKmwPAQgYAhsMAABC/ggAbJXXNFEZl7op6PrlZgtdxutiQn/dIZuNnkCz1DAaM8jL\nMLHQdGyUg8rSXoGjAKEGUi93Hcv6yVyaL3YsWEKKHunY9vCIgChOUpSWBPWjSGlo\nejZXX51v+CIxbfpYwptaqd781j5Zq4spyc7KNIXykHA2Y/XnRwL3MMDwBGN4ofLY\nFmE6kXwiVcgcSJQgYMmRNMZNjP9QQMX3lo+5AYsmd8LD2FU2XtowUhGX/2L32/cL\n/sTyZjzzyAMzHXTBkM7Nu7ATvSD/T/fLadN7HtFCdI68l9dpLeZJUxXsVTirJi/C\nbSFF5W4Lj+DviM07oznxy+4OmJ/rJtCeYquc1va6GQ==\n=My14\n-----END PGP PUBLIC KEY BLOCK-----",
-            "lastModified": "2022-12-14T14:04:27.909Z",
-            "ratingCount": 0,
-            "disputes": {
-                "opened": 0,
-                "won": 0,
-                "lost": 0
-            },
-            "medals": [],
-            "historyRating": 0,
-            "userRating": 0,
-            "bonusPoints": 0,
-            "uniqueId": "",
-            "id": "037e9fbb38c4844dac1f21419dcadc85126a951c1519a5b4df024f8aef381210da",
-            "feeRate": 0
-        },
-        "prices": {
-            "EUR": 7.89
-        }
+[{
+    "amount": 50000,
+    "id": "217",
+    "type": "bid",
+    "releaseAddress": "2MsREByVfw2Wva9wBHYhUj523mF69t3qzoX",
+    "creationDate": "2022-12-27T11:10:49.755Z",
+    "lastModified": "2022-12-27T11:10:49.755Z",
+    "meansOfPayment": {
+      "EUR": [
+        "revolut"
+      ]
     },
-    {
-        "type": "ask",
-        "id": "219",
-        "creationDate": "2022-12-27T11:11:13.542Z",
-        "lastModified": "2022-12-27T11:27:00.438Z",
-        "publishingDate": "2022-12-27T11:12:00.575Z",
-        "escrow": "bcrt1q348u075ehsuk0rz9lat22zrhlpgspj4twmt3m3pf0e5jjdm98u4qpet6g7",
-        "paymentData": {
-            "revolut": {
-                "hash": "64b147d0a63350aa0dc596c51d33f8f0ce6a36793e02fb104f272068137760de"
-            }
-        },
-        "online": false,
-        "doubleMatched": false,
-        "released": false,
-        "amount": 50000,
-        "refunded": false,
-        "publicKey": "02fba3bd2c150e1886083a28b6279bc675a7dfdfc2af9a417384f12e728960fafb",
-        "escrowNotifiedUser": "true",
-        "meansOfPayment": {
-            "EUR": [
-                "revolut"
-            ]
-        },
-        "premium": 1.5,
-        "funding": {
-            "status": "FUNDED",
-            "confirmations": 1,
-            "txIds": [
-                "d93998af951d2782f8b0af08dad95910a8481ed1972fd9287d77d7ff7405caf9"
-            ],
-            "vouts": [
-                1
-            ],
-            "amounts": [
-                50000
-            ],
-            "expiry": 576,
-            "derivationPath": "m/48'/0'/0'/219'"
-        },
-        "matches": [],
-        "user": {
-            "rating": 0,
-            "recentRating": 0,
-            "referredTradingAmount": 0,
-            "pgpPublicKeyProof": "d833c130024c67e4dd910491f0755f4dcd03257c6e2ac4b94a1a605bf978b2bc7c005a65fccb7cdb3e6a918401880c8769cd63ad18600e19da20691712d3e706",
-            "creationDate": "2022-12-14T14:04:27.408Z",
-            "peachRating": 0,
-            "fcmToken": "fdGQnGgsRUevYP9aH_ZhYN:APA91bGDgWNGJJgUOpS0q0HwUIQJdk3l5AWtV80vvFX0bFJedqtipr33TcMrQdUx3EzX7_P0S5tvs-HKg00Lt4bn4aBSKogcVpH5sZGT8qnXRHtzGgx9WJzCKV8XUQzK3JvO2Xza-GTF",
-            "trades": 0,
-            "pgpPublicKey": "-----BEGIN PGP PUBLIC KEY BLOCK-----\nVersion: openpgp-mobile\n\nxsBNBGOZ1+UBCACz+eq3EXNoSyQ9CMUdBNAeC0DiIFLA6BZPzOITFE0Tuu53t1Of\nKdeXW/4oZ0udeiFTviuwJQfHsZDQp0oBInm1gev5gVOOitVk4hnn0UMqLv2PHv4D\nkSxvyajlfWcABdturdjDDISzRvQwrpAmCQHR1SYDhT6n6XgBc5D0VXodRSOGrAhy\nHRTxqtbBA4iFJXL+Bdau+mkFCUX5faIDtzmbbbYs2c1MnT5xoLLQIvjwPPanaolD\nhhPfSoS1ckLOR1r3XBv+gfmtIyDClTkTCWVA2GnlWPfRp32cDxu31Ut/GrYzHB8J\npVX7qsPBYZwYhEaRkc3Rh/rimBvpsJHp8QExABEBAAHNAMLAaAQTAQgAHAUCY5nX\n5QkQfIkqbA8BCBgCGwMCGQECCwcCFQgAAB87CAAYbSwjQ46w0Z5BwLzEWIr72mW5\n3VlA4br7lT7ZGfMX11EjwEpll8/ds/VKBX2yC4KXcKuzJV853Gixw97Vz4ZBqaKa\nKgm1WMBpHqc0Yeiol7rcKRUCrgpizX+Q1KHK1clt4GZ4E2rzBHafhFhGCRDk6Xkx\nCB35r3VhdmA6ii/powIlh1bxdibIImnPTOQF+wfNYFGuV8zfqgJbXa8gu2kjzgkr\n+BojPeZyjzqRf1cvFTyyXv2QQhxl1e2SM7OV65r0thTeH57xTYGXfxpJB/MRiW0Z\nRhkP+UpPuB0rXBs7rUNQ4DrFtEeSE7pky9NrA9N+EFUPEuCVxBDBCVHfA9yEzsBN\nBGOZ1+UBCAC6YSCaoHTpx4nRNQ1lb80ilpSpHq3kmEPuhtZD5solgd2cU+uufcOx\nyYB8ggzw2pq5+2eFBQW5REzgIfQo7ReHwBvQdutvQZUTCO5WRHSpDZ2fqAjRomSf\nJvMp98Zg7rSTP/OyIBZRaRL12CbgOtHP041/2NK1HQUuD/oBFWFNXtvTSkPNxZM3\nqDhlgmDiW5Nz7da1bW8MNzpEyTAE9cvMy9EIETS9utSAuCIU7pKQ+a0cUT910zPF\n7dNjlsmwtod4bkapO+O/Y4VCKy7InMwZKlpWnptIJGCxsWXrhaL3ddRYO8Vvktpe\nK7O92mfir5MS//CcFNtmL3mK/M0ok5u9ABEBAAHCwF8EGAEIABMFAmOZ1+UJEHyJ\nKmwPAQgYAhsMAABC/ggAbJXXNFEZl7op6PrlZgtdxutiQn/dIZuNnkCz1DAaM8jL\nMLHQdGyUg8rSXoGjAKEGUi93Hcv6yVyaL3YsWEKKHunY9vCIgChOUpSWBPWjSGlo\nejZXX51v+CIxbfpYwptaqd781j5Zq4spyc7KNIXykHA2Y/XnRwL3MMDwBGN4ofLY\nFmE6kXwiVcgcSJQgYMmRNMZNjP9QQMX3lo+5AYsmd8LD2FU2XtowUhGX/2L32/cL\n/sTyZjzzyAMzHXTBkM7Nu7ATvSD/T/fLadN7HtFCdI68l9dpLeZJUxXsVTirJi/C\nbSFF5W4Lj+DviM07oznxy+4OmJ/rJtCeYquc1va6GQ==\n=My14\n-----END PGP PUBLIC KEY BLOCK-----",
-            "lastModified": "2022-12-14T14:04:27.909Z",
-            "ratingCount": 0,
-            "disputes": {
-                "opened": 0,
-                "won": 0,
-                "lost": 0
-            },
-            "medals": [],
-            "historyRating": 0,
-            "userRating": 0,
-            "bonusPoints": 0,
-            "uniqueId": "",
-            "id": "037e9fbb38c4844dac1f21419dcadc85126a951c1519a5b4df024f8aef381210da",
-            "feeRate": 0
-        },
-        "prices": {
-            "EUR": 8.01
-        }
+    "publishingDate": "2022-12-27T11:10:49.755Z",
+    "premium": "0",
+    "online": true,
+    "paymentData": {
+      "revolut": {
+        "hashes": ["64b147d0a63350aa0dc596c51d33f8f0ce6a36793e02fb104f272068137760de"]
+      }
+    },
+    "matches": [
+      "215"
+    ],
+    "doubleMatched": false,
+    "user": {
+      "rating": 0,
+      "recentRating": 0,
+      "referredTradingAmount": 0,
+      "pgpPublicKeyProof": "d833c130024c67e4dd910491f0755f4dcd03257c6e2ac4b94a1a605bf978b2bc7c005a65fccb7cdb3e6a918401880c8769cd63ad18600e19da20691712d3e706",
+      "creationDate": "2022-12-14T14:04:27.408Z",
+      "peachRating": 0,
+      "fcmToken": "fdGQnGgsRUevYP9aH_ZhYN:APA91bGDgWNGJJgUOpS0q0HwUIQJdk3l5AWtV80vvFX0bFJedqtipr33TcMrQdUx3EzX7_P0S5tvs-HKg00Lt4bn4aBSKogcVpH5sZGT8qnXRHtzGgx9WJzCKV8XUQzK3JvO2Xza-GTF",
+      "trades": 0,
+      "pgpPublicKey": "-----BEGIN PGP PUBLIC KEY BLOCK-----\nVersion: openpgp-mobile\n\nxsBNBGOZ1+UBCACz+eq3EXNoSyQ9CMUdBNAeC0DiIFLA6BZPzOITFE0Tuu53t1Of\nKdeXW/4oZ0udeiFTviuwJQfHsZDQp0oBInm1gev5gVOOitVk4hnn0UMqLv2PHv4D\nkSxvyajlfWcABdturdjDDISzRvQwrpAmCQHR1SYDhT6n6XgBc5D0VXodRSOGrAhy\nHRTxqtbBA4iFJXL+Bdau+mkFCUX5faIDtzmbbbYs2c1MnT5xoLLQIvjwPPanaolD\nhhPfSoS1ckLOR1r3XBv+gfmtIyDClTkTCWVA2GnlWPfRp32cDxu31Ut/GrYzHB8J\npVX7qsPBYZwYhEaRkc3Rh/rimBvpsJHp8QExABEBAAHNAMLAaAQTAQgAHAUCY5nX\n5QkQfIkqbA8BCBgCGwMCGQECCwcCFQgAAB87CAAYbSwjQ46w0Z5BwLzEWIr72mW5\n3VlA4br7lT7ZGfMX11EjwEpll8/ds/VKBX2yC4KXcKuzJV853Gixw97Vz4ZBqaKa\nKgm1WMBpHqc0Yeiol7rcKRUCrgpizX+Q1KHK1clt4GZ4E2rzBHafhFhGCRDk6Xkx\nCB35r3VhdmA6ii/powIlh1bxdibIImnPTOQF+wfNYFGuV8zfqgJbXa8gu2kjzgkr\n+BojPeZyjzqRf1cvFTyyXv2QQhxl1e2SM7OV65r0thTeH57xTYGXfxpJB/MRiW0Z\nRhkP+UpPuB0rXBs7rUNQ4DrFtEeSE7pky9NrA9N+EFUPEuCVxBDBCVHfA9yEzsBN\nBGOZ1+UBCAC6YSCaoHTpx4nRNQ1lb80ilpSpHq3kmEPuhtZD5solgd2cU+uufcOx\nyYB8ggzw2pq5+2eFBQW5REzgIfQo7ReHwBvQdutvQZUTCO5WRHSpDZ2fqAjRomSf\nJvMp98Zg7rSTP/OyIBZRaRL12CbgOtHP041/2NK1HQUuD/oBFWFNXtvTSkPNxZM3\nqDhlgmDiW5Nz7da1bW8MNzpEyTAE9cvMy9EIETS9utSAuCIU7pKQ+a0cUT910zPF\n7dNjlsmwtod4bkapO+O/Y4VCKy7InMwZKlpWnptIJGCxsWXrhaL3ddRYO8Vvktpe\nK7O92mfir5MS//CcFNtmL3mK/M0ok5u9ABEBAAHCwF8EGAEIABMFAmOZ1+UJEHyJ\nKmwPAQgYAhsMAABC/ggAbJXXNFEZl7op6PrlZgtdxutiQn/dIZuNnkCz1DAaM8jL\nMLHQdGyUg8rSXoGjAKEGUi93Hcv6yVyaL3YsWEKKHunY9vCIgChOUpSWBPWjSGlo\nejZXX51v+CIxbfpYwptaqd781j5Zq4spyc7KNIXykHA2Y/XnRwL3MMDwBGN4ofLY\nFmE6kXwiVcgcSJQgYMmRNMZNjP9QQMX3lo+5AYsmd8LD2FU2XtowUhGX/2L32/cL\n/sTyZjzzyAMzHXTBkM7Nu7ATvSD/T/fLadN7HtFCdI68l9dpLeZJUxXsVTirJi/C\nbSFF5W4Lj+DviM07oznxy+4OmJ/rJtCeYquc1va6GQ==\n=My14\n-----END PGP PUBLIC KEY BLOCK-----",
+      "lastModified": "2022-12-14T14:04:27.909Z",
+      "ratingCount": 0,
+      "disputes": {
+        "opened": 0,
+        "won": 0,
+        "lost": 0
+      },
+      "medals": [],
+      "historyRating": 0,
+      "userRating": 0,
+      "bonusPoints": 0,
+      "uniqueId": "",
+      "id": "037e9fbb38c4844dac1f21419dcadc85126a951c1519a5b4df024f8aef381210da",
+      "feeRate": 0
+    },
+    "prices": {
+      "EUR": 7.89
     }
+  },
+  {
+    "type": "ask",
+    "id": "219",
+    "creationDate": "2022-12-27T11:11:13.542Z",
+    "lastModified": "2022-12-27T11:27:00.438Z",
+    "publishingDate": "2022-12-27T11:12:00.575Z",
+    "escrow": "bcrt1q348u075ehsuk0rz9lat22zrhlpgspj4twmt3m3pf0e5jjdm98u4qpet6g7",
+    "paymentData": {
+      "revolut": {
+        "hashes": ["64b147d0a63350aa0dc596c51d33f8f0ce6a36793e02fb104f272068137760de"]
+      }
+    },
+    "online": false,
+    "doubleMatched": false,
+    "released": false,
+    "amount": 50000,
+    "refunded": false,
+    "publicKey": "02fba3bd2c150e1886083a28b6279bc675a7dfdfc2af9a417384f12e728960fafb",
+    "escrowNotifiedUser": "true",
+    "meansOfPayment": {
+      "EUR": [
+        "revolut"
+      ]
+    },
+    "premium": 1.5,
+    "funding": {
+      "status": "FUNDED",
+      "confirmations": 1,
+      "txIds": [
+        "d93998af951d2782f8b0af08dad95910a8481ed1972fd9287d77d7ff7405caf9"
+      ],
+      "vouts": [
+        1
+      ],
+      "amounts": [
+        50000
+      ],
+      "expiry": 576,
+      "derivationPath": "m/48'/0'/0'/219'"
+    },
+    "matches": [],
+    "user": {
+      "rating": 0,
+      "recentRating": 0,
+      "referredTradingAmount": 0,
+      "pgpPublicKeyProof": "d833c130024c67e4dd910491f0755f4dcd03257c6e2ac4b94a1a605bf978b2bc7c005a65fccb7cdb3e6a918401880c8769cd63ad18600e19da20691712d3e706",
+      "creationDate": "2022-12-14T14:04:27.408Z",
+      "peachRating": 0,
+      "fcmToken": "fdGQnGgsRUevYP9aH_ZhYN:APA91bGDgWNGJJgUOpS0q0HwUIQJdk3l5AWtV80vvFX0bFJedqtipr33TcMrQdUx3EzX7_P0S5tvs-HKg00Lt4bn4aBSKogcVpH5sZGT8qnXRHtzGgx9WJzCKV8XUQzK3JvO2Xza-GTF",
+      "trades": 0,
+      "pgpPublicKey": "-----BEGIN PGP PUBLIC KEY BLOCK-----\nVersion: openpgp-mobile\n\nxsBNBGOZ1+UBCACz+eq3EXNoSyQ9CMUdBNAeC0DiIFLA6BZPzOITFE0Tuu53t1Of\nKdeXW/4oZ0udeiFTviuwJQfHsZDQp0oBInm1gev5gVOOitVk4hnn0UMqLv2PHv4D\nkSxvyajlfWcABdturdjDDISzRvQwrpAmCQHR1SYDhT6n6XgBc5D0VXodRSOGrAhy\nHRTxqtbBA4iFJXL+Bdau+mkFCUX5faIDtzmbbbYs2c1MnT5xoLLQIvjwPPanaolD\nhhPfSoS1ckLOR1r3XBv+gfmtIyDClTkTCWVA2GnlWPfRp32cDxu31Ut/GrYzHB8J\npVX7qsPBYZwYhEaRkc3Rh/rimBvpsJHp8QExABEBAAHNAMLAaAQTAQgAHAUCY5nX\n5QkQfIkqbA8BCBgCGwMCGQECCwcCFQgAAB87CAAYbSwjQ46w0Z5BwLzEWIr72mW5\n3VlA4br7lT7ZGfMX11EjwEpll8/ds/VKBX2yC4KXcKuzJV853Gixw97Vz4ZBqaKa\nKgm1WMBpHqc0Yeiol7rcKRUCrgpizX+Q1KHK1clt4GZ4E2rzBHafhFhGCRDk6Xkx\nCB35r3VhdmA6ii/powIlh1bxdibIImnPTOQF+wfNYFGuV8zfqgJbXa8gu2kjzgkr\n+BojPeZyjzqRf1cvFTyyXv2QQhxl1e2SM7OV65r0thTeH57xTYGXfxpJB/MRiW0Z\nRhkP+UpPuB0rXBs7rUNQ4DrFtEeSE7pky9NrA9N+EFUPEuCVxBDBCVHfA9yEzsBN\nBGOZ1+UBCAC6YSCaoHTpx4nRNQ1lb80ilpSpHq3kmEPuhtZD5solgd2cU+uufcOx\nyYB8ggzw2pq5+2eFBQW5REzgIfQo7ReHwBvQdutvQZUTCO5WRHSpDZ2fqAjRomSf\nJvMp98Zg7rSTP/OyIBZRaRL12CbgOtHP041/2NK1HQUuD/oBFWFNXtvTSkPNxZM3\nqDhlgmDiW5Nz7da1bW8MNzpEyTAE9cvMy9EIETS9utSAuCIU7pKQ+a0cUT910zPF\n7dNjlsmwtod4bkapO+O/Y4VCKy7InMwZKlpWnptIJGCxsWXrhaL3ddRYO8Vvktpe\nK7O92mfir5MS//CcFNtmL3mK/M0ok5u9ABEBAAHCwF8EGAEIABMFAmOZ1+UJEHyJ\nKmwPAQgYAhsMAABC/ggAbJXXNFEZl7op6PrlZgtdxutiQn/dIZuNnkCz1DAaM8jL\nMLHQdGyUg8rSXoGjAKEGUi93Hcv6yVyaL3YsWEKKHunY9vCIgChOUpSWBPWjSGlo\nejZXX51v+CIxbfpYwptaqd781j5Zq4spyc7KNIXykHA2Y/XnRwL3MMDwBGN4ofLY\nFmE6kXwiVcgcSJQgYMmRNMZNjP9QQMX3lo+5AYsmd8LD2FU2XtowUhGX/2L32/cL\n/sTyZjzzyAMzHXTBkM7Nu7ATvSD/T/fLadN7HtFCdI68l9dpLeZJUxXsVTirJi/C\nbSFF5W4Lj+DviM07oznxy+4OmJ/rJtCeYquc1va6GQ==\n=My14\n-----END PGP PUBLIC KEY BLOCK-----",
+      "lastModified": "2022-12-14T14:04:27.909Z",
+      "ratingCount": 0,
+      "disputes": {
+        "opened": 0,
+        "won": 0,
+        "lost": 0
+      },
+      "medals": [],
+      "historyRating": 0,
+      "userRating": 0,
+      "bonusPoints": 0,
+      "uniqueId": "",
+      "id": "037e9fbb38c4844dac1f21419dcadc85126a951c1519a5b4df024f8aef381210da",
+      "feeRate": 0
+    },
+    "prices": {
+      "EUR": 8.01
+    }
+  }
 ]

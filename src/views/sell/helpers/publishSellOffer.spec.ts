@@ -36,10 +36,9 @@ describe('publishSellOffer', () => {
     amount: 0.0001,
     premium: 0.05,
     meansOfPayment: { EUR: ['sepa'] },
-    paymentData: { sepa: { hash: 'someHash' } },
+    paymentData: { sepa: { hashes: ['someHash'] } },
     returnAddress: '1F1tAaz5x1HUXrCNLbtMDqcw6o5GNn4xqX',
   }
-
 
   it('should call info with "Posting offer"', async () => {
     // @ts-ignore

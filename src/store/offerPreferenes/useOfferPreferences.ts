@@ -16,15 +16,7 @@ export type OfferPreferences = {
   sellAmount: number
   premium: number
   meansOfPayment: MeansOfPayment
-  paymentData: Partial<
-    Record<
-      PaymentMethod,
-      {
-        hash: string
-        country?: PaymentMethodCountry
-      }
-    >
-  >
+  paymentData: OfferPaymentData
   preferredPaymentMethods: Partial<Record<PaymentMethod, string>>
   originalPaymentData: PaymentData[]
 }
@@ -78,9 +70,9 @@ export const useOfferPreferences = create<OfferPreferencesStore>()(
           canContinue: {
             ...state.canContinue,
             buyAmountRange:
-              minBuyAmount >= rangeRestrictions.min
-              && maxBuyAmount <= rangeRestrictions.max
-              && minBuyAmount <= maxBuyAmount,
+              minBuyAmount >= rangeRestrictions.min &&
+              maxBuyAmount <= rangeRestrictions.max &&
+              minBuyAmount <= maxBuyAmount,
           },
         }))
       },
@@ -135,7 +127,6 @@ export const useOfferPreferences = create<OfferPreferencesStore>()(
         }
       },
     }),
-
     {
       name: 'offerPreferences',
       version: 0,

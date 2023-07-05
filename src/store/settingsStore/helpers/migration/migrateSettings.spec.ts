@@ -53,7 +53,7 @@ describe('migrateSettings', () => {
         paymentData: {
           sepa: {
             country: undefined,
-            hash: '94c30c03991f2923fae94566e32d9171e59ba045eea4c0607b4dbe17edfbf74e',
+            hashes: ['94c30c03991f2923fae94566e32d9171e59ba045eea4c0607b4dbe17edfbf74e'],
           },
         },
         preferredPaymentMethods: {
@@ -61,7 +61,7 @@ describe('migrateSettings', () => {
         },
         premium: 1,
         sellAmount: 100,
-      }),
+      })
     )
   })
 
@@ -112,7 +112,7 @@ describe('migrateSettings', () => {
         paymentData: {
           sepa: {
             country: undefined,
-            hash: '94c30c03991f2923fae94566e32d9171e59ba045eea4c0607b4dbe17edfbf74e',
+            hashes: ['94c30c03991f2923fae94566e32d9171e59ba045eea4c0607b4dbe17edfbf74e'],
           },
         },
         preferredPaymentMethods: {
@@ -120,7 +120,7 @@ describe('migrateSettings', () => {
         },
         premium: 1,
         sellAmount: 100,
-      }),
+      })
     )
   })
 
@@ -134,7 +134,7 @@ describe('migrateSettings', () => {
       payoutAddress: '0x123456789',
       payoutAddressLabel: 'My address',
       payoutAddressSignature: '0x123456789',
-      derivationPath: 'm/44\'/60\'/0\'/0',
+      derivationPath: "m/44'/60'/0'/0",
       displayCurrency: 'EUR',
       country: 'DE',
       pgpPublished: true,

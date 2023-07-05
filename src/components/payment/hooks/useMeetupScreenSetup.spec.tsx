@@ -157,7 +157,7 @@ describe('useMeetupScreenSetup', () => {
         paymentData: {
           'cash.123': {
             country: 'DE',
-            hash: '271c06de9309a4262c2fd1c77bda4c56efd105579ade0217897f8fdb161ff8ba',
+            hashes: [],
           },
         },
         preferredPaymentMethods: {

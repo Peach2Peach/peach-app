@@ -1,17 +1,21 @@
-declare type PaymentData = {
-  [key: string]: any
-  name?: string
-  beneficiary?: string
-  phone?: string
-  userName?: string
-  email?: string
+declare type PaymentDataInfo = {
   accountNumber?: string
-  iban?: string
+  beneficiary?: string
   bic?: string
+  email?: string
+  iban?: string
+  name?: string
+  phone?: string
   reference?: string
-  wallet?: string
   ukBankAccount?: string
   ukSortCode?: string
+  userName?: string
+  wallet?: string
+}
+
+declare type PaymentDataField = keyof PaymentDataInfo
+
+declare type PaymentData = PaymentDataInfo & {
   id: string
   version?: string
   label: string

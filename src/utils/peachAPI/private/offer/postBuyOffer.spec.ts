@@ -1,5 +1,11 @@
 import { API_URL } from '@env'
 import { postBuyOffer } from './postBuyOffer'
+const paymentData: OfferPaymentData = {
+  sepa: {
+    hashes: ['hash'],
+    country: 'DE',
+  },
+}
 const responseBody: PostOfferResponseBody = {
   id: 'id',
   type: 'bid',
@@ -7,12 +13,7 @@ const responseBody: PostOfferResponseBody = {
   meansOfPayment: {
     EUR: ['sepa'],
   },
-  paymentData: {
-    sepa: {
-      hash: 'hash',
-      country: 'DE',
-    },
-  },
+  paymentData,
   releaseAddress: 'releaseAddress',
   online: true,
   matches: [],
@@ -77,12 +78,7 @@ describe('postBuyOffer', () => {
       meansOfPayment: {
         EUR: ['sepa'],
       } satisfies OfferDraft['meansOfPayment'],
-      paymentData: {
-        sepa: {
-          hash: 'hash',
-          country: 'DE',
-        },
-      } satisfies OfferDraft['paymentData'],
+      paymentData,
       releaseAddress: 'releaseAddress',
     }
     await postBuyOffer(offerDraft)
@@ -98,12 +94,7 @@ describe('postBuyOffer', () => {
       meansOfPayment: {
         EUR: ['sepa'],
       } satisfies OfferDraft['meansOfPayment'],
-      paymentData: {
-        sepa: {
-          hash: 'hash',
-          country: 'DE',
-        },
-      } satisfies OfferDraft['paymentData'],
+      paymentData,
       releaseAddress: 'releaseAddress',
     }
 
@@ -117,12 +108,7 @@ describe('postBuyOffer', () => {
       meansOfPayment: {
         EUR: ['sepa'],
       } satisfies OfferDraft['meansOfPayment'],
-      paymentData: {
-        sepa: {
-          hash: 'hash',
-          country: 'DE',
-        },
-      } satisfies OfferDraft['paymentData'],
+      paymentData,
       releaseAddress: 'releaseAddress',
     }
     const error: APIError = {
@@ -143,12 +129,7 @@ describe('postBuyOffer', () => {
       meansOfPayment: {
         EUR: ['sepa'],
       } satisfies OfferDraft['meansOfPayment'],
-      paymentData: {
-        sepa: {
-          hash: 'hash',
-          country: 'DE',
-        },
-      } satisfies OfferDraft['paymentData'],
+      paymentData,
       releaseAddress: 'releaseAddress',
       originalPaymentData: {
         sepa: {
@@ -169,12 +150,7 @@ describe('postBuyOffer', () => {
         meansOfPayment: {
           EUR: ['sepa'],
         },
-        paymentData: {
-          sepa: {
-            hash: 'hash',
-            country: 'DE',
-          },
-        },
+        paymentData,
         releaseAddress: 'releaseAddress',
       }),
     })
@@ -186,12 +162,7 @@ describe('postBuyOffer', () => {
       meansOfPayment: {
         EUR: ['sepa'],
       } satisfies OfferDraft['meansOfPayment'],
-      paymentData: {
-        sepa: {
-          hash: 'hash',
-          country: 'DE',
-        },
-      } satisfies OfferDraft['paymentData'],
+      paymentData,
       releaseAddress: 'releaseAddress',
       messageSignature: 'messageSignature',
     }
@@ -205,12 +176,7 @@ describe('postBuyOffer', () => {
         meansOfPayment: {
           EUR: ['sepa'],
         },
-        paymentData: {
-          sepa: {
-            hash: 'hash',
-            country: 'DE',
-          },
-        },
+        paymentData,
         releaseAddress: 'releaseAddress',
         messageSignature: 'messageSignature',
       }),

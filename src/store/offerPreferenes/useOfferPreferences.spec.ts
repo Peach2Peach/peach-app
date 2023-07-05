@@ -82,7 +82,7 @@ describe('useOfferPreferences - actions - setPremium', () => {
     useOfferPreferences.getState().setPremium(newPremium)
     expect(useOfferPreferences.getState().premium).toBe(newPremium)
   })
-  it('doesn\'t allow more than two decimals', () => {
+  it("doesn't allow more than two decimals", () => {
     const newPremium = 2.123
     expect(Number(String(newPremium))).toBe(newPremium)
     useOfferPreferences.getState().setPremium(newPremium)
@@ -167,9 +167,9 @@ describe('useOfferPreferences - actions - setPaymentMethods', () => {
   it('should update the payment data', () => {
     useOfferPreferences.getState().setPaymentMethods(ids)
     const expected = {
-      paypal: { country: undefined, hash: '44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a' },
-      revolut: { country: undefined, hash: '44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a' },
-      sepa: { country: undefined, hash: '94c30c03991f2923fae94566e32d9171e59ba045eea4c0607b4dbe17edfbf74e' },
+      paypal: { country: undefined, hashes: ['44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a'] },
+      revolut: { country: undefined, hashes: ['44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a'] },
+      sepa: { country: undefined, hashes: ['94c30c03991f2923fae94566e32d9171e59ba045eea4c0607b4dbe17edfbf74e'] },
     }
     expect(useOfferPreferences.getState().paymentData).toStrictEqual(expected)
   })
@@ -258,7 +258,7 @@ describe('useOfferPreferences - actions - selectPaymentMethod', () => {
   it('should add the payment data to the payment data', () => {
     useOfferPreferences.getState().selectPaymentMethod(id)
     const expected = {
-      sepa: { country: undefined, hash: '94c30c03991f2923fae94566e32d9171e59ba045eea4c0607b4dbe17edfbf74e' },
+      sepa: { country: undefined, hashes: [] },
     }
     expect(useOfferPreferences.getState().paymentData).toStrictEqual(expected)
   })

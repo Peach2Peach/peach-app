@@ -6,15 +6,15 @@ import { parseResponse } from '../../parseResponse'
 import { getPrivateHeaders } from '../getPrivateHeaders'
 
 type Props = RequestProps & {
-  hash: string
+  hashes: string[]
 }
 
-export const deletePaymentHash = async ({ hash, timeout }: Props) => {
+export const deletePaymentHash = async ({ hashes, timeout }: Props) => {
   const response = await fetch(`${API_URL}/v1/user/paymentHash`, {
     headers: await getPrivateHeaders(),
     method: 'DELETE',
     body: JSON.stringify({
-      hash,
+      hashes,
     }),
     signal: timeout ? getAbortWithTimeout(timeout).signal : undefined,
   })

@@ -10,7 +10,7 @@ export const removePaymentData = async (id: PaymentData['id']) => {
   const dataToBeRemoved = getPaymentData(id)
   if (!dataToBeRemoved) return
 
-  const [result, err] = await deletePaymentHash({ hash: hashPaymentData(dataToBeRemoved) })
+  const [result, err] = await deletePaymentHash({ hashes: hashPaymentData(dataToBeRemoved) })
 
   if (!result && err?.error !== 'UNAUTHORIZED' && err?.error !== 'AUTHENTICATION_FAILED') {
     throw new Error('NETWORK_ERROR')

@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 /* eslint-disable max-lines */
 
-import { validSEPAData } from './paymentData'
+import { twintData, twintDataHashes, validSEPAData, validSEPADataHashes } from './paymentData'
 
 export const buyOffer: BuyOffer = {
   creationDate: new Date('2022-03-08T11:41:07.245Z'),
@@ -11,14 +11,13 @@ export const buyOffer: BuyOffer = {
   type: 'bid',
   meansOfPayment: {
     EUR: ['sepa'],
-    CHF: ['sepa'],
+    CHF: ['twint'],
   },
   paymentData: {
-    sepa: {
-      hash: 'TODO add payment hash',
-    },
+    sepa: { hashes: validSEPADataHashes },
+    twint: { hashes: twintDataHashes },
   },
-  originalPaymentData: [],
+  originalPaymentData: [validSEPAData, twintData],
   amount: [50000, 250000],
   matches: [],
   matched: [],
@@ -38,9 +37,7 @@ export const sellOffer: SellOffer = {
     EUR: ['sepa'],
   },
   paymentData: {
-    sepa: {
-      hash: '5dee7a784e8d09d7627d8b5c8768f2ec159225ba8c5013055b3c189490d7f10b',
-    },
+    sepa: { hashes: validSEPADataHashes },
   },
   originalPaymentData: [validSEPAData],
   funding: {
@@ -71,12 +68,11 @@ export const buyOfferUnpublished: BuyOfferDraft = {
   type: 'bid',
   meansOfPayment: {
     EUR: ['sepa'],
-    CHF: ['sepa'],
+    CHF: ['twint'],
   },
   paymentData: {
-    sepa: {
-      hash: '5dee7a784e8d09d7627d8b5c8768f2ec159225ba8c5013055b3c189490d7f10b',
-    },
+    sepa: { hashes: validSEPADataHashes },
+    twint: { hashes: twintDataHashes },
   },
   originalPaymentData: [validSEPAData],
   amount: [250000, 500000],
@@ -113,12 +109,11 @@ export const matchOffer: Match = {
   premium: 1.5,
   meansOfPayment: {
     EUR: ['sepa'],
-    CHF: ['sepa'],
+    CHF: ['twint'],
   },
   paymentData: {
-    sepa: {
-      hash: ' add payment hash',
-    },
+    sepa: { hashes: validSEPADataHashes },
+    twint: { hashes: twintDataHashes },
   },
   selectedCurrency: 'EUR',
   selectedPaymentMethod: 'sepa',

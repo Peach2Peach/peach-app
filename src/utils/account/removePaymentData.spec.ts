@@ -1,6 +1,7 @@
 /* eslint-disable max-lines-per-function */
 import { account, removePaymentData, setAccount } from '.'
-import { account1, paymentData } from '../../../tests/unit/data/accountData'
+import { account1 } from '../../../tests/unit/data/accountData'
+import { twintData, validSEPAData, validSEPAData2, validSEPADataHashes } from '../../../tests/unit/data/paymentData'
 import { apiSuccess } from '../../../tests/unit/data/peachAPIData'
 import { NoErrorThrownError, getError } from '../../../tests/unit/helpers/getError'
 import { useOfferPreferences } from '../../store/offerPreferenes'
@@ -12,13 +13,13 @@ jest.mock('./storeAccount/storePaymentData', () => ({
 
 const deletePaymentHashMock = jest.fn().mockResolvedValue([apiSuccess])
 jest.mock('../peachAPI', () => ({
-  deletePaymentHash: () => deletePaymentHashMock(),
+  deletePaymentHash: (...args: any[]) => deletePaymentHashMock(...args),
 }))
 
 describe('removePaymentData', () => {
   const makeFakeAccount = () => ({
     ...account1,
-    paymentData,
+    paymentData: [validSEPAData, validSEPAData2, twintData],
   })
   beforeAll(() => {
     useOfferPreferences.getState().setPaymentMethods([])
@@ -35,7 +36,8 @@ describe('removePaymentData', () => {
 
     setAccount(fakeAccount)
     await removePaymentData(fakeAccount.paymentData[0].id)
-    expect(account.paymentData).toEqual([paymentData[1]])
+    expect(account.paymentData).toEqual([validSEPAData2, twintData])
+    expect(deletePaymentHashMock).toHaveBeenCalledWith({ hashes: validSEPADataHashes })
   })
   it('updates the offerPreferences state if method was not preferred', () => {
     const setPaymentMethodsSpy = jest.spyOn(useOfferPreferences.getState(), 'setPaymentMethods')
@@ -76,13 +78,13 @@ describe('removePaymentData', () => {
     const error = await getError<Error>(() => removePaymentData(fakeAccount.paymentData[0].id))
     expect(error).not.toBeInstanceOf(NoErrorThrownError)
     expect(error.message).toBe('NETWORK_ERROR')
-    expect(account.paymentData).toEqual(paymentData)
+    expect(account.paymentData).toEqual([validSEPAData, validSEPAData2, twintData])
 
     deletePaymentHashMock.mockResolvedValueOnce([null, null])
     const error2 = await getError<Error>(() => removePaymentData(fakeAccount.paymentData[0].id))
     expect(error2).not.toBeInstanceOf(NoErrorThrownError)
     expect(error2.message).toBe('NETWORK_ERROR')
-    expect(account.paymentData).toEqual(paymentData)
+    expect(account.paymentData).toEqual([validSEPAData, validSEPAData2, twintData])
   })
 
   it('removes payment data from account if server error is expected', async () => {
@@ -91,10 +93,10 @@ describe('removePaymentData', () => {
 
     deletePaymentHashMock.mockResolvedValueOnce([null, { error: 'UNAUTHORIZED' }])
     await removePaymentData(fakeAccount.paymentData[0].id)
-    expect(account.paymentData).toEqual([paymentData[1]])
+    expect(account.paymentData).toEqual([validSEPAData2, twintData])
 
     deletePaymentHashMock.mockResolvedValueOnce([null, { error: 'AUTHENTICATION_FAILED' }])
     await removePaymentData(fakeAccount.paymentData[0].id)
-    expect(account.paymentData).toEqual([])
+    expect(account.paymentData).toEqual([twintData])
   })
 })

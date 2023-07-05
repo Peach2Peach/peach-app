@@ -1,12 +1,11 @@
 import { hashPaymentData } from '../../../utils/paymentMethod'
-import { OfferPreferences } from '../useOfferPreferences'
 
-export const getHashedPaymentData = (paymentData: PaymentData[]): OfferPreferences['paymentData'] =>
+export const getHashedPaymentData = (paymentData: PaymentData[]): OfferPaymentData =>
   paymentData.reduce(
     (obj, data) => ({
       ...obj,
       [data.type]: {
-        hash: hashPaymentData(data),
+        hashes: hashPaymentData(data),
         country: data.country,
       },
     }),

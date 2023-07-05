@@ -252,18 +252,19 @@ declare type TradeStatus =
   | 'refundOrReviveRequired'
   | 'waiting'
 
+declare type OfferPaymentData = Partial<
+  Record<
+    PaymentMethod,
+    {
+      hashes: string[]
+      country?: PaymentMethodCountry
+    }
+  >
+>
 declare type OfferDraft = {
   type: 'bid' | 'ask'
   meansOfPayment: MeansOfPayment
-  paymentData: Partial<
-    Record<
-      PaymentMethod,
-      {
-        hash: string
-        country?: PaymentMethodCountry
-      }
-    >
-  >
+  paymentData: OfferPaymentData
   originalPaymentData: PaymentData[]
   walletLabel?: string
   tradeStatus?: TradeStatus

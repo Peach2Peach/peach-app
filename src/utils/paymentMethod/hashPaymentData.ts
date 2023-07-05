@@ -1,21 +1,10 @@
+import { PaymentDataInfoFields } from '../../store/usePaymentDataStore'
 import { sha256 } from '../crypto'
 
-/**
- * @description Method to hash a payment data into hex representation using sha256
- */
-export const hashPaymentData = (paymentData: PaymentData): string => {
-  const data = JSON.parse(JSON.stringify(paymentData))
+const isDefined = (data?: string): data is string => !!data
+const hashData = (data: string) => sha256(data.toLocaleLowerCase())
 
-  delete data.id
-  delete data.label
-  delete data.type
-  delete data.currencies
-  delete data.country
-  delete data.disclaimerAcknowledged
-  delete data.version
-  delete data.hidden
-
-  delete data.reference
-
-  return sha256(JSON.stringify(data).toLowerCase())
-}
+export const hashPaymentData = (paymentData: PaymentData): string[] =>
+  PaymentDataInfoFields.map((field) => paymentData[field])
+    .filter(isDefined)
+    .map(hashData)
