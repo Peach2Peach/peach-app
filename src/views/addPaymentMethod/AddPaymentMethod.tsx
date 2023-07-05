@@ -8,7 +8,7 @@ import { useNavigation, useRoute } from '../../hooks'
 import { getPaymentDataByType } from '../../utils/account'
 import { countrySupportsCurrency, getPaymentMethodInfo, isAmazonGiftCard } from '../../utils/paymentMethod'
 import { Countries } from './Countries'
-import { SelectCurrency } from './Currency'
+import { SelectCurrency } from './SelectCurrency'
 import { PaymentMethod } from './PaymentMethod'
 import { useDrawerContext } from '../../contexts/drawer'
 
