@@ -32,7 +32,7 @@ export const SummaryItem = ({
 }: Props) => {
   const isMediumScreen = useIsMediumScreen()
   return (
-    <View style={tw`flex-row items-center gap-2 h-30px`}>
+    <View style={tw`flex-row items-center gap-2`}>
       <Text style={[tw`text-black-3 w-18`, tw.md`input-text w-78px mr-1`, isDisputeActive && tw`text-error-light`]}>
         {isEscrow ? i18n('escrow') : isBitcoinAmount ? i18n('amount') : label}
       </Text>
@@ -48,13 +48,13 @@ export const SummaryItem = ({
           )
         }
       >
-        <View style={tw`flex-row items-center gap-2`}>
+        <View style={tw`flex-1 flex-row items-center gap-2`}>
           {isBitcoinAmount ? (
             <BTCAmount amount={information} size={isMediumScreen ? 'small' : 'x small'} isError={isDisputeActive} />
           ) : (
             <Text
               style={[
-                tw`text-right subtitle-2 top-1px`,
+                tw`subtitle-2 top-1px`,
                 tw.md`input-title top-2px`,
                 isDisputeActive && tw`text-error-dark`,
                 isEscrow && tw`underline`,

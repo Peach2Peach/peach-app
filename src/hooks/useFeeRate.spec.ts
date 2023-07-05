@@ -9,50 +9,42 @@ jest.mock('./query/useFeeEstimate', () => ({
 }))
 
 describe('useFeeRate', () => {
-  beforeEach(() => {
-    useSettingsStore.getState().reset()
+  afterEach(() => {
+    act(() => useSettingsStore.getState().reset())
   })
   it('should return custom fee rate if set', () => {
     const customFeeRate = 123
-    useSettingsStore.getState().setFeeRate(customFeeRate)
+    act(() => useSettingsStore.getState().setFeeRate(customFeeRate))
     const { result } = renderHook(useFeeRate)
 
     expect(result.current).toEqual(customFeeRate)
   })
   it('should return estimated fees', () => {
-    useSettingsStore.getState().setFeeRate('fastestFee')
+    act(() => useSettingsStore.getState().setFeeRate('fastestFee'))
     const { result, rerender } = renderHook(useFeeRate)
     expect(result.current).toEqual(estimatedFees.fastestFee)
 
-    act(() => {
-      useSettingsStore.getState().setFeeRate('halfHourFee')
-      rerender({})
-    })
+    act(() => useSettingsStore.getState().setFeeRate('halfHourFee'))
+    rerender({})
     expect(result.current).toEqual(estimatedFees.halfHourFee)
 
-    act(() => {
-      useSettingsStore.getState().setFeeRate('hourFee')
-      rerender({})
-    })
+    act(() => useSettingsStore.getState().setFeeRate('hourFee'))
+    rerender({})
     expect(result.current).toEqual(estimatedFees.hourFee)
   })
   it('should return half hour fee as fallback', () => {
     // @ts-ignore
-    useSettingsStore.getState().setFeeRate('unknown')
+    act(() => useSettingsStore.getState().setFeeRate('unknown'))
     const { result, rerender } = renderHook(useFeeRate)
     expect(result.current).toEqual(estimatedFees.halfHourFee)
 
-    act(() => {
-      useSettingsStore.getState().setFeeRate(0)
-      rerender({})
-    })
+    act(() => useSettingsStore.getState().setFeeRate(0))
+    rerender({})
     expect(result.current).toEqual(estimatedFees.halfHourFee)
 
-    act(() => {
-      // @ts-ignore
-      useSettingsStore.getState().setFeeRate(undefined)
-      rerender({})
-    })
+    // @ts-ignore
+    act(() => useSettingsStore.getState().setFeeRate(undefined))
+    rerender({})
     expect(result.current).toEqual(estimatedFees.halfHourFee)
   })
 })

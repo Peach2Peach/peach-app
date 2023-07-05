@@ -28,9 +28,10 @@ const sentTx = { ...baseTx, sent: 100000000 }
 const baseSummary = {
   id: '123',
   amount: 100000000,
-  price: 1,
-  currency: 'USD',
+  price: undefined,
+  currency: undefined,
   date: new Date(1234567890000),
+  height: 1,
   confirmed: true,
   offerId: undefined,
   contractId: undefined,
@@ -54,9 +55,13 @@ describe('getTxSummary', () => {
     })
   })
   it('returns transaction summary with contract id', () => {
+    useTradeSummaryStore.getState().setOffers([{ ...offerWithContract, type: 'bid' }])
+    useTradeSummaryStore.getState().setContract(contractSummary.id, contractSummary)
     useWalletState.getState().updateTxOfferMap(txId, offerWithContract.id)
     expect(getTxSummary(receivedTx)).toEqual({
       ...baseSummary,
+      price: 21,
+      currency: 'EUR',
       offerId: offerWithContract.id,
       contractId: contractSummary.id,
       type: 'TRADE',
@@ -72,10 +77,13 @@ describe('getTxSummary', () => {
 
   it('returns the correct transaction summary object for a refund', () => {
     useTradeSummaryStore.getState().setOffers([{ ...offerWithContract, type: 'ask' }])
+    useTradeSummaryStore.getState().setContract(contractSummary.id, contractSummary)
     useWalletState.getState().updateTxOfferMap(txId, offerWithContract.id)
 
     expect(getTxSummary(receivedTx)).toEqual({
       ...baseSummary,
+      price: 21,
+      currency: 'EUR',
       offerId: offerWithContract.id,
       contractId: contractSummary.id,
       type: 'REFUND',

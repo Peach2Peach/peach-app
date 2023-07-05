@@ -7,6 +7,12 @@ describe('getTransactionType', () => {
     const result = getTransactionType(tx, offer)
     expect(result).toEqual('TRADE')
   })
+  it('should return ESCROWFUNDED for an outgoing transaction with a SellOffer', () => {
+    const tx = { sent: 1337, received: 0 }
+    const offer = { type: 'ask' } as const
+    const result = getTransactionType(tx, offer)
+    expect(result).toEqual('ESCROWFUNDED')
+  })
 
   it('should return DEPOSIT for a transaction with a received value', () => {
     const tx = { sent: 0, received: 1618033988 }

@@ -1,0 +1,110 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TotalBalance renders correctly 1`] = `
+<View
+  style={
+    {
+      "alignItems": "center",
+      "alignSelf": "stretch",
+      "gap": 16,
+    }
+  }
+>
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "alignSelf": "stretch",
+        "flexDirection": "row",
+        "gap": 14,
+        "justifyContent": "center",
+      }
+    }
+  >
+    <PeachText
+      style={
+        [
+          {
+            "fontFamily": "Baloo2-SemiBold",
+            "fontSize": 14,
+            "letterSpacing": 0.5,
+            "lineHeight": 24,
+            "textAlign": "center",
+            "textTransform": "uppercase",
+          },
+          undefined,
+        ]
+      }
+    >
+      total balance
+      :
+    </PeachText>
+  </View>
+  <BTCAmount
+    amount={100000}
+    size="extra large"
+  />
+</View>
+`;
+
+exports[`TotalBalance renders correctly when refreshing 1`] = `
+<View
+  style={
+    {
+      "alignItems": "center",
+      "alignSelf": "stretch",
+      "gap": 16,
+    }
+  }
+>
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "alignSelf": "stretch",
+        "flexDirection": "row",
+        "gap": 14,
+        "justifyContent": "center",
+      }
+    }
+  >
+    <PeachText
+      style={
+        [
+          {
+            "fontFamily": "Baloo2-SemiBold",
+            "fontSize": 14,
+            "letterSpacing": 0.5,
+            "lineHeight": 24,
+            "textAlign": "center",
+            "textTransform": "uppercase",
+          },
+          {
+            "opacity": 0.6,
+          },
+        ]
+      }
+    >
+      total balance
+      :
+    </PeachText>
+    <Loading
+      style={
+        {
+          "position": "absolute",
+          "top": 16,
+        }
+      }
+    />
+  </View>
+  <BTCAmount
+    amount={100000}
+    size="extra large"
+    style={
+      {
+        "opacity": 0.6,
+      }
+    }
+  />
+</View>
+`;

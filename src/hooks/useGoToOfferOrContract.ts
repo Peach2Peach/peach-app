@@ -1,8 +1,8 @@
 import { useCallback } from 'react'
 import { useNavigation } from '.'
-import { isContractId } from '../utils/contract'
+import { getNavigationDestinationForContract, isContractId } from '../utils/contract'
 import { getContract, getOfferDetails } from '../utils/peachAPI'
-import { getNavigationDestinationForContract, getNavigationDestinationForOffer } from '../views/yourTrades/utils'
+import { getNavigationDestinationForOffer } from '../views/yourTrades/utils'
 
 export const useGoToOfferOrContract = () => {
   const navigation = useNavigation()

@@ -1,15 +1,12 @@
+import { render } from '@testing-library/react-native'
 import { createRenderer } from 'react-test-renderer/shallow'
 import { sellOffer } from '../../../tests/unit/data/offerData'
-import { RefundEscrowSlider } from './RefundEscrowSlider'
-import { render } from '@testing-library/react-native'
 import { fireSwipeEvent } from '../../../tests/unit/helpers/fireSwipeEvent'
+import { RefundEscrowSlider } from './RefundEscrowSlider'
 
 const cancelAndStartRefundPopup = jest.fn()
 jest.mock('../../popups/useCancelAndStartRefundPopup', () => ({
-  useCancelAndStartRefundPopup:
-    () =>
-      (...args: any[]) =>
-        cancelAndStartRefundPopup(...args),
+  useCancelAndStartRefundPopup: () => cancelAndStartRefundPopup,
 }))
 
 describe('RefundEscrowSlider', () => {
