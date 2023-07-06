@@ -48,6 +48,7 @@ exports[`RemotePaymentMethods should render correctly with methods 1`] = `
                 "currencies": [
                   "EUR",
                 ],
+                "hidden": false,
                 "iban": "IE29 AIBK 9311 5212 3456 78",
                 "id": "sepa-1669721660451",
                 "label": "SEPA EUR",
@@ -80,6 +81,7 @@ exports[`RemotePaymentMethods should render correctly with methods 1`] = `
               "currencies": [
                 "EUR",
               ],
+              "hidden": false,
               "iban": "IE29 AIBK 9311 5212 3456 78",
               "id": "sepa-1669721660451",
               "label": "SEPA EUR",
