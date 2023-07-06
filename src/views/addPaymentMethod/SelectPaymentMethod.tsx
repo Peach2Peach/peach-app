@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { useDrawerContext } from '../../contexts/drawer'
 
 import tw from '../../styles/tailwind'
@@ -18,11 +18,15 @@ export const SelectPaymentMethod = () => {
   const { selectedCurrency, origin } = useRoute<'selectPaymentMethod'>().params
   const [, updateDrawer] = useDrawerContext()
 
-  const [paymentCategory, setPaymentCategory] = useState<PaymentCategory>()
-  const paymentCategories = getApplicablePaymentCategories(selectedCurrency).map((c) => ({
-    value: c,
-    display: i18n(`paymentCategory.${c}`),
-  }))
+  const [selectedPaymentCategory, setSelectedPaymentCategory] = useState<PaymentCategory>()
+  const paymentCategories = useMemo(
+    () =>
+      getApplicablePaymentCategories(selectedCurrency).map((c) => ({
+        value: c,
+        display: i18n(`paymentCategory.${c}`),
+      })),
+    [selectedCurrency],
+  )
 
   const goToPaymentMethodForm = (paymentMethod: PaymentMethod) => {
     const existingPaymentMethodsOfType = getPaymentDataByType(paymentMethod).length
@@ -35,7 +39,7 @@ export const SelectPaymentMethod = () => {
     })
   }
 
-  const unselectCategory = () => setPaymentCategory(undefined)
+  const unselectCategory = () => setSelectedPaymentCategory(undefined)
 
   const selectPaymentMethod = (paymentMethod: PaymentMethod) => {
     unselectCategory()
@@ -48,58 +52,53 @@ export const SelectPaymentMethod = () => {
     }
   }
 
-  const getCountrySelectDrawer = (
-    category: PaymentCategory,
-    selectCountry: (country: FlagType, c: PaymentCategory) => void,
-  ) => ({
-    title: i18n(`paymentCategory.${category}`),
-    options: LOCALPAYMENTMETHODCOUNTRIES.map((country) => ({
-      title: i18n(`country.${country}`),
-      flagID: country,
-      onPress: () => selectCountry(country, category),
-    })),
-    show: true,
-    onClose: unselectCategory,
+  const mapMethodToDrawerOption = (method: PaymentMethod) => ({
+    title: i18n(`paymentMethod.${method}`),
+    logoID: method,
+    onPress: () => selectPaymentMethod(method),
+  })
+
+  const mapCountryToDrawerOption = (onPress: (country: FlagType) => void) => (country: FlagType) => ({
+    title: i18n(`country.${country}`),
+    flagID: country,
+    onPress: () => onPress(country),
   })
 
   const selectCountry = (country: FlagType, category: PaymentCategory) => {
     const localOptions = LOCALPAYMENTMETHODS.EUR[country]
     updateDrawer({
       title: i18n(`country.${country}`),
-      options: localOptions.map((localOption) => ({
-        title: i18n(`paymentMethod.${localOption}`),
-        logoID: localOption,
-        onPress: () => selectPaymentMethod(localOption),
-      })),
-      previousDrawer: getCountrySelectDrawer(category, selectCountry),
+      options: localOptions.map(mapMethodToDrawerOption),
+      previousDrawer: {
+        title: i18n(`paymentCategory.${category}`),
+        options: LOCALPAYMENTMETHODCOUNTRIES.map(mapCountryToDrawerOption((cntry) => selectCountry(cntry, category))),
+        show: true,
+        onClose: unselectCategory,
+      },
       show: true,
       onClose: unselectCategory,
     })
   }
 
-  const showDrawer = (category: PaymentCategory) => {
-    if (category === 'localOption') {
-      updateDrawer(getCountrySelectDrawer(category, selectCountry))
-    } else {
-      const applicablePaymentMethods = PAYMENTCATEGORIES[category]
+  const getDrawerOptions = (category: PaymentCategory) =>
+    category === 'localOption'
+      ? LOCALPAYMENTMETHODCOUNTRIES.map(mapCountryToDrawerOption((country) => selectCountry(country, category)))
+      : PAYMENTCATEGORIES[category]
         .filter((method) => paymentMethodAllowedForCurrency(method, selectedCurrency))
         .filter((method) => category !== 'giftCard' || method === 'giftCard.amazon')
+        .map(mapMethodToDrawerOption)
 
-      updateDrawer({
-        title: i18n(`paymentCategory.${category}`),
-        options: applicablePaymentMethods.map((method) => ({
-          title: i18n(`paymentMethod.${method}`),
-          logoID: method,
-          onPress: () => selectPaymentMethod(method),
-        })),
-        show: true,
-        onClose: unselectCategory,
-      })
-    }
+  const showDrawer = (category: PaymentCategory) => {
+    updateDrawer({
+      title: i18n(`paymentCategory.${category}`),
+      options: getDrawerOptions(category),
+      show: true,
+      onClose: unselectCategory,
+    })
   }
 
   const selectPaymentCategory = (category: PaymentCategory) => {
-    setPaymentCategory(category)
+    setSelectedPaymentCategory(category)
     showDrawer(category)
   }
 
@@ -109,11 +108,11 @@ export const SelectPaymentMethod = () => {
         <RadioButtons
           style={tw`items-center`}
           items={paymentCategories}
-          selectedValue={paymentCategory}
+          selectedValue={selectedPaymentCategory}
           onChange={selectPaymentCategory}
         />
       </PeachScrollView>
-      <PrimaryButton style={tw`self-center mt-2 mb-5`} disabled={!paymentCategory} narrow>
+      <PrimaryButton style={tw`self-center mt-2 mb-5`} disabled={!selectedPaymentCategory} narrow>
         {i18n('next')}
       </PrimaryButton>
     </Screen>

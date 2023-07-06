@@ -4,7 +4,7 @@ import { PeachScrollView, PrimaryButton, RadioButtons, Screen } from '../../comp
 import { useHeaderSetup, useNavigation, useRoute } from '../../hooks'
 import i18n from '../../utils/i18n'
 
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 
 import { getPaymentDataByType } from '../../utils/account'
 import { countrySupportsCurrency, getPaymentMethodInfo } from '../../utils/paymentMethod'
@@ -13,9 +13,19 @@ export const SelectCountry = () => {
   useHeaderSetup(i18n('paymentMethod.giftCard.countrySelect.title'))
 
   const { origin, selectedCurrency } = useRoute<'selectCountry'>().params
-  const paymentMethod = 'giftCard.amazon'
   const navigation = useNavigation()
   const [selectedCountry, setCountry] = useState<PaymentMethodCountry>()
+
+  const countries = useMemo(
+    () =>
+      getPaymentMethodInfo('giftCard.amazon')
+        .countries?.filter(countrySupportsCurrency(selectedCurrency))
+        .map((c) => ({
+          value: c,
+          display: i18n(`country.${c}`),
+        })),
+    [selectedCurrency],
+  )
 
   const goToPaymentMethodForm = () => {
     if (!selectedCountry) return
@@ -25,17 +35,10 @@ export const SelectCountry = () => {
     if (existingPaymentMethodsOfType > 0) label += ` #${existingPaymentMethodsOfType + 1}`
 
     navigation.navigate('paymentMethodForm', {
-      paymentData: { type: paymentMethod, label, currencies: [selectedCurrency], country: selectedCountry },
+      paymentData: { type: 'giftCard.amazon', label, currencies: [selectedCurrency], country: selectedCountry },
       origin,
     })
   }
-
-  const countries = getPaymentMethodInfo(paymentMethod)
-    .countries?.filter(countrySupportsCurrency(selectedCurrency))
-    .map((c) => ({
-      value: c,
-      display: i18n(`country.${c}`),
-    }))
 
   return (
     <Screen>
