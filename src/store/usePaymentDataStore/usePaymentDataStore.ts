@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
-import { deepMerge, omit } from '../../utils/object'
+import { deepMerge, isContained, omit } from '../../utils/object'
 import { createStorage, toZustandStorage } from '../../utils/storage'
 import { buildPaymentDetailInfo } from './helpers/buildPaymentDetailInfo'
 import { removeHashesFromPaymentDetailInfo } from './helpers/removeHashesFromPaymentDetailInfo'
@@ -23,6 +23,7 @@ export type PaymentMethodsStore = PaymentDataState & {
   getAllPaymentDataByType: (type: PaymentMethod) => PaymentData[]
   removePaymentData: (id: string) => void
   getPaymentDataArray: () => PaymentData[]
+  searchPaymentData: (query: Partial<PaymentData>) => PaymentData[]
 }
 
 const defaultPaymentDataStore: PaymentDataState = {
@@ -63,6 +64,10 @@ export const usePaymentDataStore = create<PaymentMethodsStore>()(
         }))
       },
       getPaymentDataArray: () => Object.values(get().paymentData),
+      searchPaymentData: (query) =>
+        get()
+          .getPaymentDataArray()
+          .filter((data) => isContained(query, data)),
     }),
     {
       name: storeId,

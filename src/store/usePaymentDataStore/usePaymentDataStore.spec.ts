@@ -1,6 +1,6 @@
 /* eslint-disable max-lines-per-function */
 import { usePaymentDataStore } from '.'
-import { twintData, validSEPAData, validSEPAData2 } from '../../../tests/unit/data/paymentData'
+import { paypalData, revolutData, twintData, validSEPAData, validSEPAData2 } from '../../../tests/unit/data/paymentData'
 
 describe('usePaymentDataStore', () => {
   it('returns defaults', () => {
@@ -10,6 +10,7 @@ describe('usePaymentDataStore', () => {
       getPaymentDataByLabel: expect.any(Function),
       getAllPaymentDataByType: expect.any(Function),
       getPaymentDataArray: expect.any(Function),
+      searchPaymentData: expect.any(Function),
       removePaymentData: expect.any(Function),
       migrated: false,
       paymentData: {},
@@ -93,5 +94,15 @@ describe('usePaymentDataStore', () => {
       bic: { d8b722319ca44fd92fcfc69ae913a8d5b03a4ba394ebd2fa2bf609a93c763dfd: 'AAAA BB CC 123' },
       phone: {},
     })
+  })
+  it('searches for payment data by given information', () => {
+    usePaymentDataStore.getState().addPaymentData(twintData)
+    usePaymentDataStore.getState().addPaymentData(revolutData)
+    usePaymentDataStore.getState().addPaymentData(paypalData)
+
+    const query = {
+      iban: validSEPAData.iban,
+    }
+    expect(usePaymentDataStore.getState().searchPaymentData(query)).toEqual([validSEPAData, validSEPAData2])
   })
 })

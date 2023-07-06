@@ -1,8 +1,8 @@
 import { WalletLabel } from '../../../components/offer/WalletLabel'
+import { usePaymentDataStore } from '../../../store/usePaymentDataStore'
 import { getBitcoinPriceFromContract, getBuyOfferFromContract } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
-import { getPaymentDataByMethod } from '../../../utils/offer'
-import { getPaymentMethodName, hashPaymentData } from '../../../utils/paymentMethod'
+import { getPaymentMethodName } from '../../../utils/paymentMethod'
 import { groupChars, priceFormat } from '../../../utils/string'
 
 export const tradeInformationGetters: Record<
@@ -19,9 +19,11 @@ export const tradeInformationGetters: Record<
   (contract: Contract) => string | number | JSX.Element | undefined
 > = {
   price: (contract: Contract) => `${priceFormat(contract.price)} ${contract.currency}`,
-  paidToMethod: (contract: Contract) =>
-    (contract.paymentData ? getPaymentDataByMethod(contract.paymentMethod, hashPaymentData(contract.paymentData)) : null)
-      ?.label,
+  paidToMethod: (contract: Contract) => {
+    if (!contract.paymentData) return undefined
+    return usePaymentDataStore.getState().searchPaymentData(contract.paymentData)[0]?.label
+  },
+
   paidWithMethod: (contract: Contract) => getPaymentMethodName(contract.paymentMethod),
   paidToWallet: (contract: Contract) => {
     const buyOffer = getBuyOfferFromContract(contract)

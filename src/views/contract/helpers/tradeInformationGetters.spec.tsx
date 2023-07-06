@@ -1,5 +1,7 @@
 import { contract } from '../../../../tests/unit/data/contractData'
+import { validSEPAData } from '../../../../tests/unit/data/paymentData'
 import { WalletLabel } from '../../../components/offer/WalletLabel'
+import { usePaymentDataStore } from '../../../store/usePaymentDataStore'
 import {
   tradeInformationGetters,
   isTradeInformationGetter,
@@ -7,12 +9,6 @@ import {
   pastSellOfferFields,
   pastBuyOfferFields,
 } from './tradeInformationGetters'
-
-jest.mock('../../../utils/offer/getPaymentDataByMethod', () => ({
-  getPaymentDataByMethod: jest.fn(() => ({
-    label: 'sepa',
-  })),
-}))
 
 jest.mock('../../../utils/offer/getWalletLabel', () => ({
   getWalletLabel: jest.fn(() => 'walletLabel'),
@@ -34,12 +30,10 @@ describe('tradeInformationGetters', () => {
     expect(tradeInformationGetters.price({ ...contract, price: 21000000 })).toEqual('21 000 000.00 EUR')
   })
   it('should return the correct value for the paidToMethod field', () => {
-    expect(
-      tradeInformationGetters.paidToMethod({
-        ...contract,
-        paymentData: { type: 'sepa', label: 'sepa', id: '123', currencies: ['EUR'] },
-      }),
-    ).toEqual('sepa')
+    usePaymentDataStore.getState().addPaymentData(validSEPAData)
+    expect(tradeInformationGetters.paidToMethod({ ...contract, paymentData: validSEPAData })).toEqual(
+      validSEPAData.label,
+    )
     expect(tradeInformationGetters.paidToMethod(contract)).toEqual(undefined)
   })
   it('should return the correct value for the paidWithMethod field', () => {
