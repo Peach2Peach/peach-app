@@ -53,7 +53,16 @@ module.exports = {
     'brace-style': 'error',
     'capitalized-comments': 'off',
     'class-methods-use-this': 'error',
-    'comma-dangle': ['warn', 'always-multiline'],
+    'comma-dangle': [
+      'warn',
+      {
+        arrays: 'always-multiline',
+        objects: 'always-multiline',
+        imports: 'always-multiline',
+        exports: 'always-multiline',
+        functions: 'always-multiline',
+      },
+    ],
     'comma-spacing': [
       'error',
       {
@@ -225,7 +234,7 @@ module.exports = {
     'prefer-template': 'warn',
     'prettier/prettier': 'off',
     'quote-props': 'off',
-    quotes: ['error', 'single'],
+    quotes: ['error', 'single', { avoidEscape: true }],
     radix: 'error',
     'require-atomic-updates': 'error',
     'require-await': 'warn',
@@ -253,7 +262,7 @@ module.exports = {
     'wrap-regex': 'off',
     'yield-star-spacing': 'error',
     yoda: 'error',
-    '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+    '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_', varsIgnorePattern: '^_' }],
     '@typescript-eslint/no-non-null-assertion': 'warn',
     'jest/expect-expect': 'off',
     'react-hooks/rules-of-hooks': 'error',
