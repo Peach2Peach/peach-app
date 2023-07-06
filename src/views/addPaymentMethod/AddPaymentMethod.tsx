@@ -1,22 +1,21 @@
 import { useCallback, useState } from 'react'
 import { View } from 'react-native'
-
-import i18n from '../../utils/i18n'
-
 import { CURRENCIES } from '../../constants'
+import { useDrawerContext } from '../../contexts/drawer'
 import { useNavigation, useRoute } from '../../hooks'
-import { getPaymentDataByType } from '../../utils/account'
+import i18n from '../../utils/i18n'
 import { countrySupportsCurrency, getPaymentMethodInfo, isAmazonGiftCard } from '../../utils/paymentMethod'
 import { Countries } from './Countries'
 import { Currency } from './Currency'
 import { PaymentMethod } from './PaymentMethod'
-import { useDrawerContext } from '../../contexts/drawer'
+import { usePaymentDataStore } from '../../store/usePaymentDataStore'
 
 const screens = ['currency', 'paymentMethod', 'extraInfo']
 
 export const AddPaymentMethod = () => {
   const { origin } = useRoute<'addPaymentMethod'>().params
   const navigation = useNavigation()
+  const getAllPaymentDataByType = usePaymentDataStore((state) => state.getAllPaymentDataByType)
   const [page, setPage] = useState(0)
   const [selectedCurrency, setSelectedCurrency] = useState<Currency>(CURRENCIES[0])
   const [country, setCountry] = useState<PaymentMethodCountry>()
@@ -33,7 +32,7 @@ export const AddPaymentMethod = () => {
         = data.paymentMethod === 'giftCard.amazon' && data.country
           ? (`${data.paymentMethod}.${data.country}` satisfies PaymentMethod)
           : data.paymentMethod
-      const existingPaymentMethodsOfType = getPaymentDataByType(methodType).length
+      const existingPaymentMethodsOfType = getAllPaymentDataByType(methodType).length
       let label = i18n(`paymentMethod.${methodType}`)
       if (existingPaymentMethodsOfType > 0) label += ` #${existingPaymentMethodsOfType + 1}`
 
@@ -42,7 +41,7 @@ export const AddPaymentMethod = () => {
         origin,
       })
     },
-    [navigation, origin],
+    [getAllPaymentDataByType, navigation, origin],
   )
 
   const next = () => {

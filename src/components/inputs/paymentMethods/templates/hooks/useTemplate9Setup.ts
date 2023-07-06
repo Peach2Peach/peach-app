@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { FormProps } from '../../../../../views/addPaymentMethod/PaymentMethodForm'
 import { useValidatedState } from '../../../../../hooks'
+import { usePaymentDataStore } from '../../../../../store/usePaymentDataStore'
 import tw from '../../../../../styles/tailwind'
-import { getPaymentDataByLabel } from '../../../../../utils/account'
 import i18n from '../../../../../utils/i18n'
 import { getErrorsInField } from '../../../../../utils/validation'
+import { FormProps } from '../../../../../views/addPaymentMethod/PaymentMethodForm'
 import { TabbedNavigationItem } from '../../../../navigation/TabbedNavigation'
 
 const beneficiaryRules = { required: true }
@@ -12,6 +12,8 @@ const referenceRules = { required: false, isValidPaymentReference: true }
 
 // eslint-disable-next-line max-lines-per-function, max-statements
 export const useTemplate9Setup = ({ data, onSubmit, setStepValid, setFormData }: FormProps) => {
+  const getPaymentDataByLabel = usePaymentDataStore((state) => state.getPaymentDataByLabel)
+
   const { currencies, type: paymentMethod } = data
   const tabs: TabbedNavigationItem[] = [
     { id: 'iban', display: i18n('form.iban') },
@@ -47,7 +49,7 @@ export const useTemplate9Setup = ({ data, onSubmit, setStepValid, setFormData }:
       required: true,
       duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)?.id !== data.id,
     }),
-    [data.id, label],
+    [data.id, getPaymentDataByLabel, label],
   )
 
   const labelErrors = useMemo(() => getErrorsInField(label, labelRules), [label, labelRules])

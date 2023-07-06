@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { FormProps } from '../../../../../views/addPaymentMethod/PaymentMethodForm'
 import { useValidatedState } from '../../../../../hooks'
-import { getPaymentDataByLabel } from '../../../../../utils/account'
 import i18n from '../../../../../utils/i18n'
 import { getErrorsInField } from '../../../../../utils/validation'
+import { usePaymentDataStore } from '../../../../../store/usePaymentDataStore'
 
 const beneficiaryRules = { required: true }
 const referenceRules = { required: false, isValidPaymentReference: true }
@@ -11,6 +11,8 @@ const ukBankAccountRules = { required: false, ukBankAccount: true }
 const ukSortCodeRules = { required: false, ukSortCode: true }
 // eslint-disable-next-line max-lines-per-function
 export const useTemplate5Setup = ({ data, onSubmit, setStepValid, setFormData }: FormProps) => {
+  const getPaymentDataByLabel = usePaymentDataStore((state) => state.getPaymentDataByLabel)
+
   const { currencies, type: paymentMethod } = data
   const [label, setLabel] = useState(data?.label || '')
   const [beneficiary, setBeneficiary, beneficiaryIsValid, beneficiaryErrors] = useValidatedState(
@@ -36,7 +38,7 @@ export const useTemplate5Setup = ({ data, onSubmit, setStepValid, setFormData }:
       required: true,
       duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)?.id !== data.id,
     }),
-    [data.id, label],
+    [data.id, getPaymentDataByLabel, label],
   )
 
   const labelErrors = useMemo(() => getErrorsInField(label, labelRules), [label, labelRules])

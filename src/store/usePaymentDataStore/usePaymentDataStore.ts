@@ -18,7 +18,9 @@ export type PaymentMethodsStore = PaymentDataState & {
   reset: () => void
   setMigrated: () => void
   addPaymentData: (data: PaymentData) => void
-  getPaymentData: (id: string) => PaymentData
+  getPaymentData: (id: string) => PaymentData | undefined
+  getPaymentDataByLabel: (label: string) => PaymentData | undefined
+  getAllPaymentDataByType: (type: PaymentMethod) => PaymentData[]
   removePaymentData: (id: string) => void
   getPaymentDataArray: () => PaymentData[]
 }
@@ -43,6 +45,14 @@ export const usePaymentDataStore = create<PaymentMethodsStore>()(
         }))
       },
       getPaymentData: (id) => get().paymentData[id],
+      getPaymentDataByLabel: (label) =>
+        get()
+          .getPaymentDataArray()
+          .find((data) => data.label === label),
+      getAllPaymentDataByType: (type) =>
+        get()
+          .getPaymentDataArray()
+          .filter((data) => data.type === type),
       removePaymentData: (id) => {
         const data = get().paymentData[id]
         if (!data) return

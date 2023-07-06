@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { FormProps } from '../../../../../views/addPaymentMethod/PaymentMethodForm'
 import { useValidatedState } from '../../../../../hooks'
-import { getPaymentDataByLabel } from '../../../../../utils/account'
 import i18n from '../../../../../utils/i18n'
 import { getErrorsInField } from '../../../../../utils/validation'
 import { toggleCurrency } from '../../paymentForms/utils'
 import { hasMultipleAvailableCurrencies } from '../utils/hasMultipleAvailableCurrencies'
+import { usePaymentDataStore } from '../../../../../store/usePaymentDataStore'
 
 const emailRules = {
   required: true,
@@ -14,6 +14,8 @@ const emailRules = {
 const referenceRules = { required: false }
 // eslint-disable-next-line max-lines-per-function
 export const useTemplate4Setup = ({ data, onSubmit, setStepValid, setFormData }: FormProps) => {
+  const getPaymentDataByLabel = usePaymentDataStore((state) => state.getPaymentDataByLabel)
+
   const { currencies, type: paymentMethod } = data
   const [label, setLabel] = useState(data?.label || '')
   const [email, setEmail, emailIsValid, emailErrors] = useValidatedState(data?.email || '', emailRules)
@@ -27,7 +29,7 @@ export const useTemplate4Setup = ({ data, onSubmit, setStepValid, setFormData }:
       required: true,
       duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)?.id !== data.id,
     }),
-    [data.id, label],
+    [data.id, getPaymentDataByLabel, label],
   )
 
   const labelErrors = useMemo(() => getErrorsInField(label, labelRules), [label, labelRules])

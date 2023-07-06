@@ -7,6 +7,8 @@ describe('usePaymentDataStore', () => {
     expect(usePaymentDataStore.getState()).toEqual({
       addPaymentData: expect.any(Function),
       getPaymentData: expect.any(Function),
+      getPaymentDataByLabel: expect.any(Function),
+      getAllPaymentDataByType: expect.any(Function),
       getPaymentDataArray: expect.any(Function),
       removePaymentData: expect.any(Function),
       migrated: false,
@@ -61,6 +63,23 @@ describe('usePaymentDataStore', () => {
   })
   it('returns payment data by id', () => {
     expect(usePaymentDataStore.getState().getPaymentData(validSEPAData.id)).toEqual(validSEPAData)
+  })
+  it('returns undefined if payment data id does not exist', () => {
+    expect(usePaymentDataStore.getState().getPaymentData('not-existent')).toBeUndefined()
+  })
+  it('returns data by label', () => {
+    expect(usePaymentDataStore.getState().getPaymentDataByLabel(validSEPAData.label)).toEqual(validSEPAData)
+    expect(usePaymentDataStore.getState().getPaymentDataByLabel(twintData.label)).toEqual(twintData)
+  })
+  it('returns undefined if payment data for label does not exist', () => {
+    expect(usePaymentDataStore.getState().getPaymentDataByLabel('not-existent')).toBeUndefined()
+  })
+  it('returns all data by type', () => {
+    expect(usePaymentDataStore.getState().getAllPaymentDataByType('sepa')).toEqual([validSEPAData, validSEPAData2])
+    expect(usePaymentDataStore.getState().getAllPaymentDataByType('twint')).toEqual([twintData])
+  })
+  it('returns empty array if no data exists for type', () => {
+    expect(usePaymentDataStore.getState().getAllPaymentDataByType('blik')).toEqual([])
   })
   it('removes payment data and associated hashes', () => {
     usePaymentDataStore.getState().removePaymentData(twintData.id)

@@ -2,15 +2,17 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { FormProps } from '../../../../../views/addPaymentMethod/PaymentMethodForm'
 import { useValidatedState } from '../../../../../hooks'
 import tw from '../../../../../styles/tailwind'
-import { getPaymentDataByLabel } from '../../../../../utils/account'
 import i18n from '../../../../../utils/i18n'
 import { getErrorsInField } from '../../../../../utils/validation'
 import { TabbedNavigationItem } from '../../../../navigation/TabbedNavigation'
 import { toggleCurrency } from '../../paymentForms/utils'
+import { usePaymentDataStore } from '../../../../../store/usePaymentDataStore'
 
 const referenceRules = { required: false, isValidPaymentReference: true }
 // eslint-disable-next-line max-lines-per-function, max-statements
 export const useTemplate6Setup = ({ data, onSubmit, setStepValid, setFormData }: FormProps) => {
+  const getPaymentDataByLabel = usePaymentDataStore((state) => state.getPaymentDataByLabel)
+
   const { currencies, type: paymentMethod } = data
   const tabs: TabbedNavigationItem[] = useMemo(() => {
     const tabItems = [
@@ -40,7 +42,7 @@ export const useTemplate6Setup = ({ data, onSubmit, setStepValid, setFormData }:
       required: true,
       duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)?.id !== data.id,
     }),
-    [data.id, label],
+    [data.id, getPaymentDataByLabel, label],
   )
   const emailRules = useMemo(() => ({ required: !phone && !userName, email: true }), [phone, userName])
   const userNameRules = useMemo(

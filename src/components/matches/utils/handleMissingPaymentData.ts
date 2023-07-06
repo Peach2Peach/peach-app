@@ -1,6 +1,5 @@
+import { usePaymentDataStore } from '../../../store/usePaymentDataStore'
 import i18n from '../../../utils/i18n'
-
-import { getPaymentDataByType } from '../../../utils/account'
 import { error } from '../../../utils/log'
 import { StackNavigation } from '../../../utils/navigation/handlePushNotification'
 
@@ -15,7 +14,7 @@ export const handleMissingPaymentData = (
   error('Payment data could not be found for offer', offer.id)
   const openAddPaymentMethodDialog = () => {
     updateMessage({ msgKey: undefined, level: 'ERROR' })
-    const existingPaymentMethodsOfType = getPaymentDataByType(paymentMethod).length + 1
+    const existingPaymentMethodsOfType = usePaymentDataStore.getState().getAllPaymentDataByType(paymentMethod).length + 1
     const label = `${i18n(`paymentMethod.${paymentMethod}`)} #${existingPaymentMethodsOfType}`
 
     navigation.push('paymentMethodForm', {
