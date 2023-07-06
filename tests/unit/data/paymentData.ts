@@ -80,6 +80,15 @@ export const twintData: PaymentData = {
 
 export const twintDataHashes = ['c56ab971aeea3e5aa3d2e62e4ed7cb5488a63b0659e6db7b467e7f899cb7b418']
 
+export const liquidData: PaymentData = {
+  id: 'liquid-1669721660451',
+  label: 'liquid',
+  type: 'liquid',
+  receiveAddress: 'bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh',
+  currencies: ['USDT'],
+  hidden: false,
+}
+
 export const paymentDetailInfo: PaymentDetailInfo = {
   beneficiary: { [validSEPADataHashes[0]]: validSEPAData.beneficiary! },
   bic: { [validSEPADataHashes[1]]: validSEPAData.bic! },

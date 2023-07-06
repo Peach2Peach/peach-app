@@ -11,6 +11,7 @@ export const PaymentDataInfoFields: PaymentDataField[] = [
   'ukSortCode',
   'userName',
   'wallet',
+  'receiveAddress',
 ]
 
 export type PaymentDetailInfo = Partial<Record<PaymentDataField, Record<string, string>>>

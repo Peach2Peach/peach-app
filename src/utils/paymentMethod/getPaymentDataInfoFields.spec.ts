@@ -1,4 +1,4 @@
-import { twintData, validSEPAData } from '../../../tests/unit/data/paymentData'
+import { liquidData, twintData, validSEPAData } from '../../../tests/unit/data/paymentData'
 import { getPaymentDataInfoFields } from './getPaymentDataInfoFields'
 
 describe('getPaymentDataInfoFields', () => {
@@ -21,6 +21,12 @@ describe('getPaymentDataInfoFields', () => {
       {
         field: 'phone',
         value: '+341234875987',
+      },
+    ])
+    expect(getPaymentDataInfoFields(liquidData)).toEqual([
+      {
+        field: 'receiveAddress',
+        value: 'bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh',
       },
     ])
   })
