@@ -1,5 +1,5 @@
-import { SelectPaymentMethod } from './SelectPaymentMethod'
 import { createRenderer } from 'react-test-renderer/shallow'
+import { SelectPaymentMethod } from './SelectPaymentMethod'
 
 jest.mock('../../contexts/drawer', () => ({
   useDrawerContext: jest.fn(() => [, jest.fn()]),

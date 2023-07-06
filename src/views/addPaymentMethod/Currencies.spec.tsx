@@ -1,5 +1,5 @@
-import { Currencies } from './Currencies'
 import { createRenderer } from 'react-test-renderer/shallow'
+import { Currencies } from './Currencies'
 
 describe('Currencies', () => {
   const renderer = createRenderer()

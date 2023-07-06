@@ -1,5 +1,5 @@
-import { SelectCountry } from './SelectCountry'
 import { createRenderer } from 'react-test-renderer/shallow'
+import { SelectCountry } from './SelectCountry'
 
 jest.mock('../../hooks/useHeaderSetup', () => ({
   useHeaderSetup: jest.fn(),

@@ -1,6 +1,6 @@
-import { Template10 } from './Template10'
 import { render } from '@testing-library/react-native'
 import { FormProps } from '../../../../views/addPaymentMethod/PaymentMethodForm'
+import { Template10 } from './Template10'
 
 jest.mock('../../../../views/contract/helpers')
 

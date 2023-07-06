@@ -1,12 +1,12 @@
 import { TextStyle, TouchableOpacity, View, ViewStyle } from 'react-native'
-import { Icon, Text } from '../../../components'
 import { IconType } from '../../../assets/icons'
+import { Icon, Text } from '../../../components'
+import LinedText from '../../../components/ui/LinedText'
 import tw from '../../../styles/tailwind'
 import { account } from '../../../utils/account'
-import i18n from '../../../utils/i18n'
-import { toTimeFormat } from '../../../utils/date/toShortDateFormat'
 import { toDateFormat } from '../../../utils/date'
-import LinedText from '../../../components/ui/LinedText'
+import { toTimeFormat } from '../../../utils/date/toShortDateFormat'
+import i18n from '../../../utils/i18n'
 
 type GetMessageMetaProps = {
   message: Message

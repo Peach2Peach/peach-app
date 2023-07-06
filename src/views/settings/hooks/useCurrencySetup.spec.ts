@@ -1,8 +1,8 @@
-import { useCurrencySetup } from './useCurrencySetup'
 import { act, renderHook } from '@testing-library/react-native'
 import { goBackMock, NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { useBitcoinStore } from '../../../store/bitcoinStore'
 import { useSettingsStore } from '../../../store/settingsStore'
+import { useCurrencySetup } from './useCurrencySetup'
 
 describe('useCurrencySetup', () => {
   beforeEach(() => {

@@ -2,7 +2,7 @@ import { fireEvent, render, waitFor } from '@testing-library/react-native'
 import { NavigationAndQueryClientWrapper } from '../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
 import { navigateMock, pushMock } from '../../../tests/unit/helpers/NavigationWrapper'
 import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
-import { DrawerContext, defaultState } from '../../contexts/drawer'
+import { defaultState, DrawerContext } from '../../contexts/drawer'
 import { useMeetupEventsStore } from '../../store/meetupEventsStore'
 import { AddPaymentMethodButton } from './AddPaymentMethodButton'
 

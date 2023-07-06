@@ -7,9 +7,9 @@ import i18n from '../../utils/i18n'
 import { PeachScrollView, PrimaryButton, RadioButtons, Screen } from '../../components'
 import { FlagType } from '../../components/flags'
 import { NATIONALOPTIONCOUNTRIES, NATIONALOPTIONS, PAYMENTCATEGORIES } from '../../constants'
-import { getApplicablePaymentCategories, paymentMethodAllowedForCurrency } from '../../utils/paymentMethod'
 import { useHeaderSetup, useNavigation, useRoute } from '../../hooks'
 import { getPaymentDataByType } from '../../utils/account'
+import { getApplicablePaymentCategories, paymentMethodAllowedForCurrency } from '../../utils/paymentMethod'
 
 const mapCountryToDrawerOption = (onPress: (country: FlagType) => void) => (country: FlagType) => ({
   title: i18n(`country.${country}`),

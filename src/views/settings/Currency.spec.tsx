@@ -1,6 +1,6 @@
-import { Currency } from './Currency'
 import { render } from '@testing-library/react-native'
 import { NavigationWrapper } from '../../../tests/unit/helpers/NavigationWrapper'
+import { Currency } from './Currency'
 
 describe('Currency', () => {
   it('should render correctly', () => {

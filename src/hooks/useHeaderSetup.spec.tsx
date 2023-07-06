@@ -1,6 +1,6 @@
-import { useHeaderSetup } from './useHeaderSetup'
 import { renderHook } from '@testing-library/react-native'
 import { headerState, NavigationWrapper } from '../../tests/unit/helpers/NavigationWrapper'
+import { useHeaderSetup } from './useHeaderSetup'
 
 describe('useHeaderSetup', () => {
   it('should update the header with the headerConfig', () => {

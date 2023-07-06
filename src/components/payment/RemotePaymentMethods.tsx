@@ -7,10 +7,10 @@ import tw from '../../styles/tailwind'
 import { account, removePaymentData } from '../../utils/account'
 import i18n from '../../utils/i18n'
 import { getPaymentMethodInfo, isValidPaymentData } from '../../utils/paymentMethod'
-import { PaymentDetailsCheckbox } from './PaymentDetailsCheckbox'
-import LinedText from '../ui/LinedText'
 import { isCashTrade } from '../../utils/paymentMethod/isCashTrade'
+import LinedText from '../ui/LinedText'
 import { PaymentDataKeyFacts } from './components/PaymentDataKeyFacts'
+import { PaymentDetailsCheckbox } from './PaymentDetailsCheckbox'
 
 const mapPaymentDataToCheckboxes = (data: PaymentData) => ({
   value: data.id,

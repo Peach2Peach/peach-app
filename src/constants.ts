@@ -1,9 +1,9 @@
 import { getBuildNumber, getUniqueIdSync, getVersion, isEmulatorSync } from 'react-native-device-info'
+import { IconType } from './assets/icons'
+import { FlagType } from './components/flags'
 import { unique } from './utils/array'
 import { sha256 } from './utils/crypto/sha256'
 import { isCashTrade } from './utils/paymentMethod/isCashTrade'
-import { IconType } from './assets/icons'
-import { FlagType } from './components/flags'
 
 export const SATSINBTC = 100000000
 export const MSINANHOUR = 3600000
