@@ -4,8 +4,6 @@ import { removeHashesFromPaymentDetailInfo } from './removeHashesFromPaymentDeta
 describe('removeHashesFromPaymentDetailInfo', () => {
   it('removes hashes of payment data', () => {
     expect(removeHashesFromPaymentDetailInfo(paymentDetailInfo, validSEPAData)).toEqual({
-      beneficiary: {},
-      bic: {},
       iban: {},
       phone: { [twintDataHashes[0]]: twintData.phone! },
     })

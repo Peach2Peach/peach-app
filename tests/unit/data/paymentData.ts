@@ -21,11 +21,7 @@ export const validSEPAData2: PaymentData = {
   hidden: false,
 }
 
-export const validSEPADataHashes = [
-  '2b46d198979c80a25ee51ec0bb846f09b3b159e4e35893b666543c1094f009e8',
-  'd8b722319ca44fd92fcfc69ae913a8d5b03a4ba394ebd2fa2bf609a93c763dfd',
-  '8b703de3cb4f30887310c0f6fcaa35d58be484207ebffec12be69ec9b1d0b5f3',
-]
+export const validSEPADataHashes = ['8b703de3cb4f30887310c0f6fcaa35d58be484207ebffec12be69ec9b1d0b5f3']
 
 export const missingSEPAData: PaymentData = {
   id: 'sepa-1669721660453',
@@ -90,14 +86,10 @@ export const liquidData: PaymentData = {
 }
 
 export const paymentDetailInfo: PaymentDetailInfo = {
-  beneficiary: { [validSEPADataHashes[0]]: validSEPAData.beneficiary! },
-  bic: { [validSEPADataHashes[1]]: validSEPAData.bic! },
-  iban: { [validSEPADataHashes[2]]: validSEPAData.iban! },
+  iban: { [validSEPADataHashes[0]]: validSEPAData.iban! },
   phone: { [twintDataHashes[0]]: twintData.phone! },
 }
 export const paymentDetailInfoInverted: PaymentDetailInfo = {
-  beneficiary: { [validSEPAData.beneficiary!]: validSEPADataHashes[0] },
-  bic: { [validSEPAData.bic!]: validSEPADataHashes[1] },
-  iban: { [validSEPAData.iban!]: validSEPADataHashes[2] },
+  iban: { [validSEPAData.iban!]: validSEPADataHashes[0] },
   phone: { [twintData.phone!]: twintDataHashes[0] },
 }

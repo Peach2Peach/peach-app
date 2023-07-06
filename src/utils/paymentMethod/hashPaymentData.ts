@@ -1,13 +1,18 @@
 import { sha256 } from '../crypto'
 import { getPaymentDataInfoFields } from './getPaymentDataInfoFields'
 
+const doNotHash: PaymentDataField[] = ['beneficiary', 'bic', 'name', 'reference', 'ukSortCode']
+const fieldCanBeHashed = (field: PaymentDataField) => !doNotHash.includes(field)
+
 const hashData = (data: string) => sha256(data.toLocaleLowerCase())
 
 export type PaymentDataHashInfo = {
-  field: keyof PaymentDataInfo
+  field: PaymentDataField
   value: string
   hash: string
 }
 
 export const hashPaymentData = (paymentData: PaymentData): PaymentDataHashInfo[] =>
-  getPaymentDataInfoFields(paymentData).map(({ field, value }) => ({ field, value, hash: hashData(value) }))
+  getPaymentDataInfoFields(paymentData)
+    .filter(({ field }) => fieldCanBeHashed(field))
+    .map(({ field, value }) => ({ field, value, hash: hashData(value) }))

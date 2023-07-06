@@ -8,7 +8,7 @@ describe('addPaymentDetailInfoByHash', () => {
       phone: paymentDetailInfo.phone?.[twintDataHashes[0]],
     })
     expect(addPaymentDetailInfoByHash(paymentDetailInfo)(emptyPaymentData, validSEPADataHashes[0])).toEqual({
-      beneficiary: paymentDetailInfo.beneficiary?.[validSEPADataHashes[0]],
+      iban: 'IE29 AIBK 9311 5212 3456 78',
     })
   })
   it('finds returns the object as is if hash could not be found', () => {

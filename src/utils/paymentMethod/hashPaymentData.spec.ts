@@ -5,16 +5,6 @@ describe('hashPaymentData', () => {
   it('should hash every relevant payment data field', () => {
     expect(hashPaymentData(validSEPAData)).toEqual([
       {
-        field: 'beneficiary',
-        value: 'Hal Finney',
-        hash: '2b46d198979c80a25ee51ec0bb846f09b3b159e4e35893b666543c1094f009e8',
-      },
-      {
-        field: 'bic',
-        value: 'AAAA BB CC 123',
-        hash: 'd8b722319ca44fd92fcfc69ae913a8d5b03a4ba394ebd2fa2bf609a93c763dfd',
-      },
-      {
         field: 'iban',
         value: 'IE29 AIBK 9311 5212 3456 78',
         hash: '8b703de3cb4f30887310c0f6fcaa35d58be484207ebffec12be69ec9b1d0b5f3',

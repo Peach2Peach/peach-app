@@ -1,8 +1,7 @@
-import { usePaymentDataStore } from '../../../store/usePaymentDataStore'
 import { isBuyOffer } from '../../../utils/offer'
-import { isCashTrade } from '../../../utils/paymentMethod/isCashTrade'
+import { cleanPaymentData } from '../../../utils/paymentMethod'
 import { MatchProps } from '../../../utils/peachAPI/private/offer/matchOffer'
-import { addPaymentDetailInfoByHash } from './addPaymentDetailInfoByHash'
+import { buildPaymentDataFromHashes } from './buildPaymentDataFromHashes'
 import { createEncryptedKey } from './createEncryptedKey'
 import { createEncryptedPaymentData } from './createEncryptedPaymentData'
 
@@ -39,14 +38,10 @@ export const generateMatchOfferData = async (
   const hashes = offer.paymentData[selectedPaymentMethod]?.hashes
   if (!hashes) return [null, 'MISSING_HASHED_PAYMENT_DATA']
 
-  const paymentData = hashes.reduce(
-    addPaymentDetailInfoByHash(usePaymentDataStore.getState().paymentDetailInfo),
-    {} as PaymentDataInfo,
-  )
+  const paymentData = buildPaymentDataFromHashes(hashes, selectedPaymentMethod)
+  if (!paymentData) return [null, 'MISSING_PAYMENTDATA']
 
-  if (Object.keys(paymentData).length === 0 && !isCashTrade(selectedPaymentMethod)) return [null, 'MISSING_PAYMENTDATA']
-
-  const encryptedPaymentData = await createEncryptedPaymentData(match, paymentData)
+  const encryptedPaymentData = await createEncryptedPaymentData(match, cleanPaymentData(paymentData))
   if (!encryptedPaymentData) return [null, 'PAYMENTDATA_ENCRYPTION_FAILED']
 
   return [
