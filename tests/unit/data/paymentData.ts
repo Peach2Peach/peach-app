@@ -8,6 +8,7 @@ export const validSEPAData: PaymentData = {
   iban: 'IE29 AIBK 9311 5212 3456 78',
   bic: 'AAAA BB CC 123',
   currencies: ['EUR'],
+  hidden: false,
 }
 export const validSEPAData2: PaymentData = {
   id: 'sepa-1669721660452',
@@ -17,6 +18,7 @@ export const validSEPAData2: PaymentData = {
   iban: 'IE29 AIBK 9311 5212 3456 78',
   bic: 'AAAA BB CC 123',
   currencies: ['EUR'],
+  hidden: false,
 }
 
 export const validSEPADataHashes = [
@@ -30,6 +32,7 @@ export const missingSEPAData: PaymentData = {
   label: 'SEPA EUR Missing Data',
   type: 'sepa',
   currencies: ['EUR'],
+  hidden: false,
 }
 
 export const invalidSEPADataCurrency: PaymentData = {
@@ -43,6 +46,7 @@ export const validCashData: PaymentData = {
   type: 'cash.es.barcelonabitcoin',
   currencies: ['EUR'],
   country: 'ES',
+  hidden: false,
 }
 
 export const revolutData: PaymentData = {
@@ -51,6 +55,7 @@ export const revolutData: PaymentData = {
   type: 'revolut',
   phone: '+412134245',
   currencies: ['EUR'],
+  hidden: false,
 }
 export const revolutDataHashes = ['9e425d9336fff33cbececf474fad2360fbe674b442f1adf789bb8f96234dcc87']
 
@@ -60,6 +65,7 @@ export const paypalData: PaymentData = {
   label: 'Paypal',
   type: 'paypal',
   currencies: ['EUR'],
+  hidden: false,
 }
 export const paypalDataHashes = ['9e425d9336fff33cbececf474fad2360fbe674b442f1adf789bb8f96234dcc87']
 
@@ -69,6 +75,7 @@ export const twintData: PaymentData = {
   type: 'twint',
   phone: '+341234875987',
   currencies: ['CHF'],
+  hidden: false,
 }
 
 export const twintDataHashes = ['c56ab971aeea3e5aa3d2e62e4ed7cb5488a63b0659e6db7b467e7f899cb7b418']

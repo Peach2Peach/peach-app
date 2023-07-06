@@ -17,7 +17,6 @@ declare type PaymentDataField = keyof PaymentDataInfo
 
 declare type PaymentData = PaymentDataInfo & {
   id: string
-  version?: string
   label: string
   type: PaymentMethod
   currencies: Currency[]

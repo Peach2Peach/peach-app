@@ -6,6 +6,7 @@ describe('usePaymentDataStore', () => {
   it('returns defaults', () => {
     expect(usePaymentDataStore.getState()).toEqual({
       addPaymentData: expect.any(Function),
+      setPaymentDataHidden: expect.any(Function),
       getPaymentData: expect.any(Function),
       getPaymentDataByLabel: expect.any(Function),
       getAllPaymentDataByType: expect.any(Function),
@@ -58,6 +59,13 @@ describe('usePaymentDataStore', () => {
       bic: { d8b722319ca44fd92fcfc69ae913a8d5b03a4ba394ebd2fa2bf609a93c763dfd: 'AAAA BB CC 123' },
       phone: { c56ab971aeea3e5aa3d2e62e4ed7cb5488a63b0659e6db7b467e7f899cb7b418: '+341234875987' },
     })
+  })
+  it('updates `hidden` on the payment data', () => {
+    expect(usePaymentDataStore.getState().getPaymentData(validSEPAData.id)?.hidden).toBeFalsy()
+    usePaymentDataStore.getState().setPaymentDataHidden(validSEPAData.id, true)
+    expect(usePaymentDataStore.getState().getPaymentData(validSEPAData.id)?.hidden).toBeTruthy()
+    usePaymentDataStore.getState().setPaymentDataHidden(validSEPAData.id, false)
+    expect(usePaymentDataStore.getState().getPaymentData(validSEPAData.id)?.hidden).toBeFalsy()
   })
   it('returns payment data as array', () => {
     expect(usePaymentDataStore.getState().getPaymentDataArray()).toEqual([validSEPAData, twintData, validSEPAData2])

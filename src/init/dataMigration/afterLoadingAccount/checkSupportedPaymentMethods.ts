@@ -2,7 +2,6 @@ import { useOfferPreferences } from '../../../store/offerPreferenes'
 import { usePaymentDataStore } from '../../../store/usePaymentDataStore'
 import { getNewPreferredPaymentMethods, getSelectedPaymentDataIds } from '../../../utils/account'
 
-// TODO we have now the power to just set hidden on the object
 export const checkSupportedPaymentMethods = (paymentInfo: PaymentMethodInfo[]) => {
   const paymentData = usePaymentDataStore.getState().getPaymentDataArray()
   const updatedPaymentData = paymentData.map((data) => ({
@@ -15,7 +14,7 @@ export const checkSupportedPaymentMethods = (paymentInfo: PaymentMethodInfo[]) =
     updatedPaymentData,
   )
   useOfferPreferences.getState().setPaymentMethods(getSelectedPaymentDataIds(newPreferredPaymentMethods))
-  updatedPaymentData.forEach(usePaymentDataStore.getState().addPaymentData)
+  updatedPaymentData.forEach((data) => usePaymentDataStore.getState().setPaymentDataHidden(data.id, data.hidden))
 
   return updatedPaymentData
 }

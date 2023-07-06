@@ -18,6 +18,7 @@ export type PaymentMethodsStore = PaymentDataState & {
   reset: () => void
   setMigrated: () => void
   addPaymentData: (data: PaymentData) => void
+  setPaymentDataHidden: (id: string, hidden: boolean) => void
   getPaymentData: (id: string) => PaymentData | undefined
   getPaymentDataByLabel: (label: string) => PaymentData | undefined
   getAllPaymentDataByType: (type: PaymentMethod) => PaymentData[]
@@ -43,6 +44,13 @@ export const usePaymentDataStore = create<PaymentMethodsStore>()(
         set((state) => ({
           paymentData: { ...state.paymentData, [data.id]: data },
           paymentDetailInfo: deepMerge(state.paymentDetailInfo, newPamentDetailInfo),
+        }))
+      },
+      setPaymentDataHidden: (id, hidden) => {
+        const data = get().paymentData[id]
+        if (!data) return
+        set((state) => ({
+          paymentData: { ...state.paymentData, [data.id]: { ...data, hidden } },
         }))
       },
       getPaymentData: (id) => get().paymentData[id],
