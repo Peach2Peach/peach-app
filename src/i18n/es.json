@@ -729,7 +729,7 @@
   "paymentCategory.cryptoCurrency": "cripto",
   "paymentCategory.giftCard": "tarjetas de regalo en línea",
   "paymentCategory.globalOptions": "opciones globales",
-  "paymentCategory.localOption": "opciones nacionales",
+  "paymentCategory.nationalOption": "opciones nacionales",
   "paymentCategory.onlineWallet": "carteras en línea",
   "paymentCategory.other": "otro",
   "paymentMethod.advcash": "ADV Cash",

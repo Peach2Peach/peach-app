@@ -25,18 +25,11 @@ declare type TradeTab = 'buy' | 'sell' | 'history'
 
 type BitcoinNetwork = 'bitcoin' | 'testnet' | 'regtest'
 
-declare type PaymentCategory =
-  | 'bankTransfer'
-  | 'onlineWallet'
-  | 'giftCard'
-  | 'localOption'
-  | 'cryptoCurrency'
-  | 'cash'
-  | 'other'
+declare type PaymentCategory = 'bankTransfer' | 'onlineWallet' | 'giftCard' | 'nationalOption' | 'cash' | 'other'
 declare type PaymentCategories = {
   [key in PaymentCategory]: PaymentMethod[]
 }
-declare type LocalPaymentMethods = Record<'EUR', Record<string, PaymentMethod[]>>
+declare type NationalOptions = Record<'EUR', Record<string, PaymentMethod[]>>
 
 declare type HashedPaymentData = string
 

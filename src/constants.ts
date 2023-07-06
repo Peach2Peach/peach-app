@@ -103,15 +103,14 @@ export const PAYMENTCATEGORIES: PaymentCategories = {
     'n26',
   ],
   giftCard: ['giftCard.amazon', ...GIFTCARDCOUNTRIES.map((c) => `giftCard.amazon.${c}` satisfies PaymentMethod)],
-  localOption: ['mbWay', 'bizum', 'satispay', 'mobilePay', 'keksPay', 'paylib', 'lydia', 'verse', 'iris'],
+  nationalOption: ['mbWay', 'bizum', 'satispay', 'mobilePay', 'keksPay', 'paylib', 'lydia', 'verse', 'iris'],
   cash: [],
-  cryptoCurrency: [],
   other: ['liquid'],
 }
 
 export const ANONYMOUS_PAYMENTCATEGORIES = PAYMENTCATEGORIES.cash.concat(PAYMENTCATEGORIES.giftCard)
 
-export const LOCALPAYMENTMETHODS: LocalPaymentMethods = {
+export const NATIONALOPTIONS: NationalOptions = {
   EUR: {
     IT: ['satispay'],
     PT: ['mbWay'],
@@ -124,8 +123,9 @@ export const LOCALPAYMENTMETHODS: LocalPaymentMethods = {
   },
 }
 
-// TODO: decide if we want to use this or not
-export const LOCALPAYMENTMETHODCOUNTRIES: FlagType[] = ['IT', 'PT', 'ES', 'FI', 'HR', 'FR', 'DE', 'GR']
+export const NATIONALOPTIONCOUNTRIES: Record<'EUR', FlagType[]> = {
+  EUR: ['IT', 'PT', 'ES', 'FI', 'HR', 'FR', 'DE', 'GR'],
+}
 
 export const APPLINKS: Record<string, { appLink?: string; url: string; userLink?: string }> = {
   paypal: {
