@@ -12,7 +12,7 @@ describe('buildPaymentDataFromHashes', () => {
     usePaymentDataStore.getState().addPaymentData(twintData)
     usePaymentDataStore.getState().addPaymentData(validCashData)
   })
-  it('should generate match offer data for a sell offer double matching a buy offer', () => {
+  it('should (re-)build payment data from given hashes and payment method', () => {
     expect(buildPaymentDataFromHashes(validSEPADataHashes, paymentMethod)).toEqual(validSEPAData)
   })
   it('should return undefined if partial payment data cannot be found', () => {

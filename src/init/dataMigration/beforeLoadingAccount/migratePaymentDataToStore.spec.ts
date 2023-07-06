@@ -10,7 +10,7 @@ describe('migratePaymentDataToStore', () => {
   })
   afterEach(() => usePaymentDataStore.getState().reset())
 
-  it('updates payment data by enforcing format', () => {
+  it('migrates payment data from account to paymentDataStore', () => {
     migratePaymentDataToStore()
     expect(usePaymentDataStore.getState().paymentData).toEqual({
       [validSEPAData.id]: validSEPAData,

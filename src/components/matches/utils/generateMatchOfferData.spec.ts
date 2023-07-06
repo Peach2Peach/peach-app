@@ -1,9 +1,8 @@
 /* eslint-disable max-lines-per-function */
-import { account1, buyer } from '../../../../tests/unit/data/accountData'
+import { buyer } from '../../../../tests/unit/data/accountData'
 import { sellOffer } from '../../../../tests/unit/data/offerData'
 import { twintData, validCashData, validSEPAData } from '../../../../tests/unit/data/paymentData'
 import { usePaymentDataStore } from '../../../store/usePaymentDataStore'
-import { setAccount } from '../../../utils/account'
 import { generateMatchOfferData } from './generateMatchOfferData'
 
 const getPaymentMethodInfoMock = jest.fn()
@@ -35,7 +34,6 @@ describe('generateMatchOfferData', () => {
     },
   } as Match
   beforeEach(() => {
-    setAccount(account1)
     usePaymentDataStore.getState().reset()
     usePaymentDataStore.getState().addPaymentData(validSEPAData)
     usePaymentDataStore.getState().addPaymentData(twintData)

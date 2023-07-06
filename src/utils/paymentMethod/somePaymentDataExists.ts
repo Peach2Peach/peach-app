@@ -1,7 +1,6 @@
 import { keys } from '../object'
+import { cleanPaymentData } from './cleanPaymentData'
+import { isCashTrade } from './isCashTrade'
 
-const metadata = ['id', 'label', 'type', 'currencies']
 export const somePaymentDataExists = (data: PaymentData) =>
-  keys(data)
-    .filter((key) => !metadata.includes(key))
-    .some((key) => data[key])
+  isCashTrade(data.type) || keys(cleanPaymentData(data)).some((key: PaymentDataField) => data[key])

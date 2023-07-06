@@ -10,6 +10,9 @@ export const validSEPAData: PaymentData = {
   currencies: ['EUR'],
   hidden: false,
 }
+
+export const validSEPADataHashes = ['8b703de3cb4f30887310c0f6fcaa35d58be484207ebffec12be69ec9b1d0b5f3']
+
 export const validSEPAData2: PaymentData = {
   id: 'sepa-1669721660452',
   label: 'SEPA 2',
@@ -20,8 +23,6 @@ export const validSEPAData2: PaymentData = {
   currencies: ['EUR'],
   hidden: false,
 }
-
-export const validSEPADataHashes = ['8b703de3cb4f30887310c0f6fcaa35d58be484207ebffec12be69ec9b1d0b5f3']
 
 export const missingSEPAData: PaymentData = {
   id: 'sepa-1669721660453',
