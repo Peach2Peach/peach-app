@@ -117,6 +117,24 @@ describe('useMeetupScreenSetup', () => {
     ])
     expect(goBackMock).toHaveBeenCalled()
   })
+  it('should not add a meetup to the payment methods if the meetupInfo isnt available', () => {
+    useRouteMock.mockReturnValueOnce({
+      params: {
+        eventId: 'someUnknownId',
+        deletable: true,
+        origin: 'origin',
+      },
+    })
+    useMeetupEventsStore.getState().setMeetupEvents([])
+
+    const { result } = renderHook(useMeetupScreenSetup, {
+      wrapper: NavigationContainer,
+    })
+
+    result.current.addToPaymentMethods()
+    expect(account.paymentData).toStrictEqual(defaultAccount.paymentData)
+    expect(goBackMock).not.toHaveBeenCalled()
+  })
   it('should automatically add the meetup to the selected methods', () => {
     useOfferPreferences.getState().setPaymentMethods([])
     setPaymentMethods([{ id: 'cash.123', currencies: ['EUR'], anonymous: true }])
