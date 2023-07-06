@@ -58,6 +58,11 @@ describe('usePaymentDataStore', () => {
     usePaymentDataStore.getState().setPaymentDataHidden(validSEPAData.id, false)
     expect(usePaymentDataStore.getState().getPaymentData(validSEPAData.id)?.hidden).toBeFalsy()
   })
+  it('does not updated `hidden` on the payment data that does not exist', () => {
+    const snapshot = usePaymentDataStore.getState().paymentData
+    usePaymentDataStore.getState().setPaymentDataHidden('otherId', true)
+    expect(usePaymentDataStore.getState().paymentData).toEqual(snapshot)
+  })
   it('returns payment data as array', () => {
     expect(usePaymentDataStore.getState().getPaymentDataArray()).toEqual([validSEPAData, twintData, validSEPAData2])
   })
@@ -88,6 +93,11 @@ describe('usePaymentDataStore', () => {
       iban: { '8b703de3cb4f30887310c0f6fcaa35d58be484207ebffec12be69ec9b1d0b5f3': 'IE29 AIBK 9311 5212 3456 78' },
       phone: {},
     })
+  })
+  it('does not remove payment data that does not exist', () => {
+    const snapshot = usePaymentDataStore.getState().paymentData
+    usePaymentDataStore.getState().removePaymentData('otherId')
+    expect(usePaymentDataStore.getState().paymentData).toEqual(snapshot)
   })
   it('searches for payment data by given information', () => {
     usePaymentDataStore.getState().addPaymentData(twintData)
