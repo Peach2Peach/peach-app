@@ -13,13 +13,14 @@ export const constructPSBT = (wallet: BIP32Interface) => {
       network,
     },
   })
+  const redeemOutput = p2wsh.redeem?.output ?? getScript(wallet.publicKey)
   const psbt = new Psbt({ network })
   psbt.addInput({
     hash: 'd8a31704d33febfc8a4271c3f9d65b5d7679c5cab19f25058f2d7d2bc6e7b86c',
     index: 0,
     witnessScript: p2wsh.redeem?.output,
     witnessUtxo: {
-      script: Buffer.from(`0020${sha256(p2wsh.redeem?.output!).toString('hex')}`, 'hex'),
+      script: Buffer.from(`0020${sha256(redeemOutput).toString('hex')}`, 'hex'),
       value: 10000000,
     },
   })
