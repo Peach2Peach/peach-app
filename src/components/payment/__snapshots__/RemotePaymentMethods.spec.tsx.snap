@@ -36,45 +36,62 @@ exports[`RemotePaymentMethods should render correctly with methods 1`] = `
     <View
       style={{}}
     >
-      <View
-        style={
-          {
-            "display": "flex",
-            "flexDirection": "row",
-            "justifyContent": "space-between",
-          }
-        }
-      >
-        <PeachText
-          style={
+      <View>
+        <PaymentDetailsCheckbox
+          checked={false}
+          editing={false}
+          item={
             {
-              "color": "#DF321F",
-              "fontFamily": "Baloo2-Regular",
+              "data": {
+                "beneficiary": "Hal Finney",
+                "bic": "AAAA BB CC 123",
+                "currencies": [
+                  "EUR",
+                ],
+                "iban": "IE29 AIBK 9311 5212 3456 78",
+                "id": "sepa-1669721660451",
+                "label": "SEPA EUR",
+                "type": "sepa",
+              },
+              "display": <PeachText
+                style={
+                  {
+                    "fontFamily": "Baloo2-SemiBold",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 28,
+                  }
+                }
+              >
+                SEPA EUR
+              </PeachText>,
+              "isValid": true,
+              "value": "sepa-1669721660451",
             }
           }
-        >
-          SEPA
-        </PeachText>
-        <Memo(Pressable)
           onPress={[Function]}
-          style={
+          testID="buy-mops-checkbox-sepa-1669721660451"
+        />
+        <PaymentDataKeyFacts
+          paymentData={
             {
-              "height": 24,
-              "width": 24,
+              "beneficiary": "Hal Finney",
+              "bic": "AAAA BB CC 123",
+              "currencies": [
+                "EUR",
+              ],
+              "iban": "IE29 AIBK 9311 5212 3456 78",
+              "id": "sepa-1669721660451",
+              "label": "SEPA EUR",
+              "type": "sepa",
             }
           }
-        >
-          <Icon
-            color="#7D675E"
-            id="trash"
-            style={
-              {
-                "height": 24,
-                "width": 24,
-              }
+          style={
+            {
+              "marginTop": 4,
             }
-          />
-        </Memo(Pressable)>
+          }
+        />
       </View>
     </View>
   </View>

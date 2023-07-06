@@ -49,8 +49,11 @@ export const revolutData: PaymentData = {
   id: 'revolut-123456789',
   label: 'Revolut',
   type: 'revolut',
+  phone: '+412134245',
   currencies: ['EUR'],
 }
+export const revolutDataHashes = ['9e425d9336fff33cbececf474fad2360fbe674b442f1adf789bb8f96234dcc87']
+
 export const paypalData: PaymentData = {
   id: 'paypal-1095805944',
   phone: '+412134245',
@@ -58,6 +61,7 @@ export const paypalData: PaymentData = {
   type: 'paypal',
   currencies: ['EUR'],
 }
+export const paypalDataHashes = ['9e425d9336fff33cbececf474fad2360fbe674b442f1adf789bb8f96234dcc87']
 
 export const twintData: PaymentData = {
   id: 'twint-1669721660451',

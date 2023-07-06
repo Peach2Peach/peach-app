@@ -34,9 +34,9 @@ export const handlePushNotification = async (
     navigationRef.navigate('contract', {
       contract: contract
         ? {
-            ...contract,
-            paymentMade: sentTime ? new Date(sentTime) : new Date(),
-          }
+          ...contract,
+          paymentMade: sentTime ? new Date(sentTime) : new Date(),
+        }
         : undefined,
       contractId,
     })

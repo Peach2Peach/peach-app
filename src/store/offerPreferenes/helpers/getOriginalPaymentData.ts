@@ -4,4 +4,5 @@ import { usePaymentDataStore } from '../../usePaymentDataStore'
 import { OfferPreferences } from '../useOfferPreferences'
 
 export const getOriginalPaymentData = (paymentMethods: OfferPreferences['preferredPaymentMethods']): PaymentData[] =>
-  getSelectedPaymentDataIds(paymentMethods).map(usePaymentDataStore.getState().getPaymentData).filter(isDefined)
+  getSelectedPaymentDataIds(paymentMethods).map(usePaymentDataStore.getState().getPaymentData)
+    .filter(isDefined)

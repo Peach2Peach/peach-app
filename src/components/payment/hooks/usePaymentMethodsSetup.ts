@@ -13,12 +13,12 @@ export const usePaymentMethodsSetup = () => {
     icons:
       paymentData.length !== 0
         ? [
-            {
-              ...(isEditing ? headerIcons.checkbox : headerIcons.edit),
-              onPress: toggleIsEditing,
-            },
-            { ...headerIcons.help, onPress: showHelp },
-          ]
+          {
+            ...(isEditing ? headerIcons.checkbox : headerIcons.edit),
+            onPress: toggleIsEditing,
+          },
+          { ...headerIcons.help, onPress: showHelp },
+        ]
         : [{ ...headerIcons.help, onPress: showHelp }],
   })
 

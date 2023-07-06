@@ -1,11 +1,10 @@
 import { act, renderHook } from '@testing-library/react-native'
 import { NavigationWrapper, headerState, setOptionsMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { useOfferPreferences } from '../../../store/offerPreferenes'
+import { usePaymentDataStore } from '../../../store/usePaymentDataStore'
 import { defaultPopupState, usePopupStore } from '../../../store/usePopupStore'
-import { account } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
 import { usePaymentMethodFormSetup } from './usePaymentMethodFormSetup'
-import { usePaymentDataStore } from '../../../store/usePaymentDataStore'
 
 const useRouteMock = jest.fn(() => ({
   params: {

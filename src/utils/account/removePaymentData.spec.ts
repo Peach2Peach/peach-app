@@ -12,7 +12,7 @@ jest.mock('../peachAPI', () => ({
 }))
 
 describe('removePaymentData', () => {
-  beforeAll(() => {
+  beforeEach(() => {
     usePaymentDataStore.getState().addPaymentData(validSEPAData)
     usePaymentDataStore.getState().addPaymentData(validSEPAData2)
     usePaymentDataStore.getState().addPaymentData(twintData)
@@ -54,22 +54,24 @@ describe('removePaymentData', () => {
     const error = await getError<Error>(() => removePaymentData(validSEPAData.id))
     expect(error).not.toBeInstanceOf(NoErrorThrownError)
     expect(error.message).toBe('NETWORK_ERROR')
-    expect(usePaymentDataStore.getState().getPaymentDataArray()).toEqual([validSEPAData, validSEPAData2, twintData])
+    expect(usePaymentDataStore.getState().getPaymentData(validSEPAData.id)).toEqual(validSEPAData)
 
     deletePaymentHashMock.mockResolvedValueOnce([null, null])
     const error2 = await getError<Error>(() => removePaymentData(validSEPAData.id))
     expect(error2).not.toBeInstanceOf(NoErrorThrownError)
     expect(error2.message).toBe('NETWORK_ERROR')
-    expect(usePaymentDataStore.getState().getPaymentDataArray()).toEqual([validSEPAData, validSEPAData2, twintData])
+    expect(usePaymentDataStore.getState().getPaymentData(validSEPAData.id)).toEqual(validSEPAData)
   })
 
   it('removes payment data from account if server error is expected', async () => {
     deletePaymentHashMock.mockResolvedValueOnce([null, { error: 'UNAUTHORIZED' }])
+    expect(usePaymentDataStore.getState().getPaymentData(validSEPAData.id)).not.toBeUndefined()
     await removePaymentData(validSEPAData.id)
-    expect(usePaymentDataStore.getState().getPaymentDataArray()).toEqual([validSEPAData2, twintData])
+    expect(usePaymentDataStore.getState().getPaymentData(validSEPAData.id)).toBeUndefined()
 
     deletePaymentHashMock.mockResolvedValueOnce([null, { error: 'AUTHENTICATION_FAILED' }])
-    await removePaymentData(validSEPAData.id)
-    expect(usePaymentDataStore.getState().getPaymentDataArray()).toEqual([twintData])
+    expect(usePaymentDataStore.getState().getPaymentData(validSEPAData2.id)).not.toBeUndefined()
+    await removePaymentData(validSEPAData2.id)
+    expect(usePaymentDataStore.getState().getPaymentData(validSEPAData2.id)).toBeUndefined()
   })
 })

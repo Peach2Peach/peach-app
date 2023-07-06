@@ -73,9 +73,9 @@ export const useOfferPreferences = create<OfferPreferencesStore>()(
           canContinue: {
             ...state.canContinue,
             buyAmountRange:
-              minBuyAmount >= rangeRestrictions.min &&
-              maxBuyAmount <= rangeRestrictions.max &&
-              minBuyAmount <= maxBuyAmount,
+              minBuyAmount >= rangeRestrictions.min
+              && maxBuyAmount <= rangeRestrictions.max
+              && minBuyAmount <= maxBuyAmount,
           },
         }))
       },
@@ -99,11 +99,8 @@ export const useOfferPreferences = create<OfferPreferencesStore>()(
       },
       setPaymentMethods: (ids) => {
         const preferredPaymentMethods = getPreferredMethods(ids)
-
         const originalPaymentData = getOriginalPaymentData(preferredPaymentMethods)
-
         const meansOfPayment = getMeansOfPayment(originalPaymentData)
-
         const paymentData = getHashedPaymentData(originalPaymentData)
 
         const newPreferences = {

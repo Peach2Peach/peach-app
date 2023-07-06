@@ -1,6 +1,6 @@
-import { useLabelInput } from './useLabelInput'
 import { act, renderHook } from '@testing-library/react-native'
-import { account, updateAccount } from '../../../../../utils/account'
+import { usePaymentDataStore } from '../../../../../store/usePaymentDataStore'
+import { useLabelInput } from './useLabelInput'
 
 describe('useLabelInput', () => {
   const mockData: Partial<PaymentData> = {}
@@ -58,10 +58,9 @@ describe('useLabelInput', () => {
   })
 
   it('should prevent duplicates', () => {
-    updateAccount({
-      ...account,
-      paymentData: [{ label: 'existingLabel', id: 'existingID', currencies: [], type: 'sepa' }],
-    })
+    usePaymentDataStore
+      .getState()
+      .addPaymentData({ label: 'existingLabel', id: 'existingID', currencies: [], type: 'sepa' })
 
     const { result } = renderHook(useLabelInput, { initialProps: mockData })
 
