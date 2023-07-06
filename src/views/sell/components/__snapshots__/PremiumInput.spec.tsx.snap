@@ -3,21 +3,24 @@
 exports[`PremiumInput should render the PremiumInput view with 0 premium 1`] = `
 <View
   style={
-    [
-      {
-        "alignItems": "center",
-        "flexDirection": "row",
-        "justifyContent": "center",
-      },
-      undefined,
-    ]
+    {
+      "alignItems": "center",
+      "flexDirection": "row",
+      "gap": 8,
+      "justifyContent": "center",
+      "paddingLeft": 8,
+    }
   }
 >
   <PeachText
     style={
       [
         {
-          "lineHeight": 32,
+          "fontFamily": "Baloo2-Regular",
+          "fontSize": 20,
+          "letterSpacing": 0.2,
+          "lineHeight": 28,
+          "textAlign": "center",
         },
         {
           "color": "#2B1911",
@@ -28,58 +31,34 @@ exports[`PremiumInput should render the PremiumInput view with 0 premium 1`] = `
     premium
     :
   </PeachText>
-  <View
-    style={
-      {
-        "height": 40,
-        "marginLeft": 8,
-      }
-    }
-  >
-    <NumberInput
-      icons={
-        [
-          [
-            "percent",
-            [Function],
-          ],
-        ]
-      }
-      inputStyle={
-        {
-          "textAlign": "right",
-        }
-      }
-      onChange={[Function]}
-      style={
-        {
-          "width": 96,
-        }
-      }
-      value="0"
-    />
-  </View>
+  <PercentageInput
+    onChange={[Function]}
+    value="0"
+  />
 </View>
 `;
 
 exports[`PremiumInput should render the PremiumInput view with discount 1`] = `
 <View
   style={
-    [
-      {
-        "alignItems": "center",
-        "flexDirection": "row",
-        "justifyContent": "center",
-      },
-      undefined,
-    ]
+    {
+      "alignItems": "center",
+      "flexDirection": "row",
+      "gap": 8,
+      "justifyContent": "center",
+      "paddingLeft": 8,
+    }
   }
 >
   <PeachText
     style={
       [
         {
-          "lineHeight": 32,
+          "fontFamily": "Baloo2-Regular",
+          "fontSize": 20,
+          "letterSpacing": 0.2,
+          "lineHeight": 28,
+          "textAlign": "center",
         },
         {
           "color": "#F56522",
@@ -90,58 +69,34 @@ exports[`PremiumInput should render the PremiumInput view with discount 1`] = `
     discount
     :
   </PeachText>
-  <View
-    style={
-      {
-        "height": 40,
-        "marginLeft": 8,
-      }
-    }
-  >
-    <NumberInput
-      icons={
-        [
-          [
-            "percent",
-            [Function],
-          ],
-        ]
-      }
-      inputStyle={
-        {
-          "textAlign": "right",
-        }
-      }
-      onChange={[Function]}
-      style={
-        {
-          "width": 96,
-        }
-      }
-      value="-3.2"
-    />
-  </View>
+  <PercentageInput
+    onChange={[Function]}
+    value="-3.2"
+  />
 </View>
 `;
 
 exports[`PremiumInput should render the PremiumInput view with premium 1`] = `
 <View
   style={
-    [
-      {
-        "alignItems": "center",
-        "flexDirection": "row",
-        "justifyContent": "center",
-      },
-      undefined,
-    ]
+    {
+      "alignItems": "center",
+      "flexDirection": "row",
+      "gap": 8,
+      "justifyContent": "center",
+      "paddingLeft": 8,
+    }
   }
 >
   <PeachText
     style={
       [
         {
-          "lineHeight": 32,
+          "fontFamily": "Baloo2-Regular",
+          "fontSize": 20,
+          "letterSpacing": 0.2,
+          "lineHeight": 28,
+          "textAlign": "center",
         },
         {
           "color": "#05A85A",
@@ -152,36 +107,9 @@ exports[`PremiumInput should render the PremiumInput view with premium 1`] = `
     premium
     :
   </PeachText>
-  <View
-    style={
-      {
-        "height": 40,
-        "marginLeft": 8,
-      }
-    }
-  >
-    <NumberInput
-      icons={
-        [
-          [
-            "percent",
-            [Function],
-          ],
-        ]
-      }
-      inputStyle={
-        {
-          "textAlign": "right",
-        }
-      }
-      onChange={[Function]}
-      style={
-        {
-          "width": 96,
-        }
-      }
-      value="3.2"
-    />
-  </View>
+  <PercentageInput
+    onChange={[Function]}
+    value="3.2"
+  />
 </View>
 `;

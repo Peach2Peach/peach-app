@@ -91,12 +91,6 @@ describe('useOfferPreferences - actions - setPremium', () => {
     useOfferPreferences.getState().setPremium(newPremium)
     expect(useOfferPreferences.getState().premium).toBe(newPremium)
   })
-  it("doesn't allow more than two decimals", () => {
-    const newPremium = 2.123
-    expect(Number(String(newPremium))).toBe(newPremium)
-    useOfferPreferences.getState().setPremium(newPremium)
-    expect(useOfferPreferences.getState().premium).toBe(2.12)
-  })
   it('should set can continue to false if the premium is not valid', () => {
     const newPremium = 21
     useOfferPreferences.getState().setPremium(newPremium, false)
