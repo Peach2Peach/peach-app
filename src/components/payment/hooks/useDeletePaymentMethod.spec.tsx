@@ -1,13 +1,14 @@
 import { renderHook, waitFor } from '@testing-library/react-native'
-import { goBackMock, NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { validSEPAData } from '../../../../tests/unit/data/paymentData'
+import { apiSuccess } from '../../../../tests/unit/data/peachAPIData'
+import { NavigationWrapper, goBackMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { DeletePaymentMethodConfirm } from '../../../popups/info/DeletePaymentMethodConfirm'
+import { usePaymentDataStore } from '../../../store/usePaymentDataStore'
 import { usePopupStore } from '../../../store/usePopupStore'
-import { account, setAccount } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
 import { useDeletePaymentMethod } from './useDeletePaymentMethod'
-import { apiSuccess } from '../../../../tests/unit/data/peachAPIData'
 
-const wrapper = ({ children }: { children: JSX.Element }) => <NavigationWrapper>{children}</NavigationWrapper>
+const wrapper = NavigationWrapper
 
 const deletePaymentHashMock = jest.fn().mockResolvedValue([apiSuccess])
 jest.mock('../../../utils/peachAPI', () => ({
@@ -16,10 +17,10 @@ jest.mock('../../../utils/peachAPI', () => ({
 
 describe('useDeletePaymentMethod', () => {
   beforeEach(() => {
-    setAccount({ ...account, paymentData: [{ id: 'sepa', label: 'sepa', currencies: ['EUR'], type: 'sepa' }] })
+    usePaymentDataStore.getState().addPaymentData(validSEPAData)
   })
   it('should show the popup', () => {
-    const { result } = renderHook(() => useDeletePaymentMethod('sepa'), { wrapper })
+    const { result } = renderHook(() => useDeletePaymentMethod(validSEPAData.id), { wrapper })
     result.current()
     expect(usePopupStore.getState()).toStrictEqual({
       ...usePopupStore.getState(),
@@ -41,18 +42,19 @@ describe('useDeletePaymentMethod', () => {
   })
 
   it('should close the popup when action1 is clicked', () => {
-    const { result } = renderHook(() => useDeletePaymentMethod('sepa'), { wrapper })
+    const { result } = renderHook(() => useDeletePaymentMethod(validSEPAData.id), { wrapper })
     result.current()
     usePopupStore.getState().action1?.callback()
     expect(usePopupStore.getState().visible).toBe(false)
   })
 
   it('should remove the payment data, close the popup and go back when action2 is clicked', async () => {
-    const { result } = renderHook(() => useDeletePaymentMethod('sepa'), { wrapper })
+    const { result } = renderHook(() => useDeletePaymentMethod(validSEPAData.id), { wrapper })
+    expect(usePaymentDataStore.getState().getPaymentData(validSEPAData.id)).not.toBeUndefined()
     result.current()
     usePopupStore.getState().action2?.callback()
     expect(usePopupStore.getState().visible).toBe(false)
     expect(goBackMock).toHaveBeenCalled()
-    await waitFor(() => expect(account.paymentData).toStrictEqual([]))
+    await waitFor(() => expect(usePaymentDataStore.getState().getPaymentData(validSEPAData.id)).toBeUndefined())
   })
 })

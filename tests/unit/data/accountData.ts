@@ -109,22 +109,3 @@ export const userWithNoTrades: Account = {
   base58,
   mnemonic,
 }
-
-export const paymentData: PaymentData[] = [
-  {
-    id: 'sepa-1069850495',
-    beneficiary: 'Melocoton',
-    iban: 'IE29 AIBK 9311 5212 3456 78',
-    label: 'Bank Account Ireland',
-    type: 'sepa',
-    currencies: ['EUR'],
-  },
-  {
-    id: 'sepa-1095805944',
-    beneficiary: 'Test',
-    iban: 'EE38 2200 2210 2014 5685',
-    label: 'Bank Account Estonia',
-    type: 'sepa',
-    currencies: ['EUR'],
-  },
-]

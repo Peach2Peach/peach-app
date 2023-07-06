@@ -1,4 +1,7 @@
-import { account } from '.'
+import { usePaymentDataStore } from '../../store/usePaymentDataStore'
 
 export const getPaymentDataByLabel = (label: PaymentData['label']) =>
-  account.paymentData.find((data) => data.label === label)
+  usePaymentDataStore
+    .getState()
+    .getPaymentDataArray()
+    .find((data) => data.label === label)

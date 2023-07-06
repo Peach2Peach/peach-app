@@ -1,13 +1,12 @@
-import { account, getSelectedPaymentDataIds } from '.'
+import { getSelectedPaymentDataIds } from '.'
 import { useOfferPreferences } from '../../store/offerPreferenes'
+import { usePaymentDataStore } from '../../store/usePaymentDataStore'
 import { hashPaymentData } from '../paymentMethod'
 import { deletePaymentHash } from '../peachAPI'
-import { getPaymentData } from './getPaymentData'
 import { getPaymentDataByType } from './getPaymentDataByType'
-import { storePaymentData } from './storeAccount'
 
 export const removePaymentData = async (id: PaymentData['id']) => {
-  const dataToBeRemoved = getPaymentData(id)
+  const dataToBeRemoved = usePaymentDataStore.getState().getPaymentData(id)
   if (!dataToBeRemoved) return
 
   const hashes = hashPaymentData(dataToBeRemoved).map((item) => item.hash)
@@ -17,7 +16,7 @@ export const removePaymentData = async (id: PaymentData['id']) => {
     throw new Error('NETWORK_ERROR')
   }
 
-  account.paymentData = account.paymentData.filter((data) => data.id !== id)
+  usePaymentDataStore.getState().removePaymentData(id)
 
   const preferredPaymentMethods = useOfferPreferences.getState().preferredPaymentMethods
 
@@ -32,6 +31,4 @@ export const removePaymentData = async (id: PaymentData['id']) => {
   } else {
     useOfferPreferences.getState().setPaymentMethods(getSelectedPaymentDataIds(preferredPaymentMethods))
   }
-
-  storePaymentData(account.paymentData)
 }

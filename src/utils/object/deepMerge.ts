@@ -6,7 +6,7 @@ export const deepMerge = <T>(target: T, source: Partial<T>): T => {
       const targetValue = target[key]
       const sourceValue = source[key]
 
-      if (targetValue && typeof targetValue === 'object' && sourceValue && typeof sourceValue === 'object') {
+      if (typeof targetValue === 'object' && typeof sourceValue === 'object') {
         mergedObject[key] = deepMerge(targetValue, sourceValue)
       } else if (sourceValue !== undefined) {
         mergedObject[key] = sourceValue

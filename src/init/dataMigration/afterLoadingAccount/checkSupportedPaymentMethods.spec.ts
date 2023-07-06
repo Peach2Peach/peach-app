@@ -1,12 +1,7 @@
 import { paypalData, validSEPAData } from '../../../../tests/unit/data/paymentData'
 import { useOfferPreferences } from '../../../store/offerPreferenes'
 import { usePaymentDataStore } from '../../../store/usePaymentDataStore'
-import { updatePaymentData } from '../../../utils/account/updatePaymentData'
 import { checkSupportedPaymentMethods } from './checkSupportedPaymentMethods'
-
-jest.mock('../../../utils/account/updatePaymentData', () => ({
-  updatePaymentData: jest.fn(),
-}))
 
 const paymentInfo: PaymentMethodInfo[] = [
   {
@@ -40,7 +35,7 @@ describe('checkSupportedPaymentMethods', () => {
   })
   it('calls updatePaymentData with new data', () => {
     checkSupportedPaymentMethods(paymentInfo)
-    expect(updatePaymentData).toHaveBeenCalledWith([
+    expect(usePaymentDataStore.getState().getPaymentDataArray()).toEqual([
       { ...validSEPAData, hidden: false },
       { ...paypalData, hidden: true },
     ])

@@ -1,4 +1,7 @@
+import { keys } from '../object'
+
+const metadata = ['id', 'label', 'type', 'currencies']
 export const somePaymentDataExists = (data: PaymentData) =>
-  Object.keys(data)
-    .filter((key) => !/id|label|type|currencies/u.test(key))
+  keys(data)
+    .filter((key) => !metadata.includes(key))
     .some((key) => data[key])
