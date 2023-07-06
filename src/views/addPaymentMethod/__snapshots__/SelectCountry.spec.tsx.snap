@@ -1,61 +1,27 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SelectCountry should render correctly 1`] = `
-<View
-  style={
-    {
-      "height": "100%",
-    }
-  }
->
+<Screen>
   <ForwardRef
     contentContainerStyle={
-      {
-        "flexGrow": 1,
-      }
-    }
-    contentStyle={
       [
         {
-          "height": "100%",
+          "flexGrow": 1,
+          "justifyContent": "center",
           "paddingBottom": 16,
-          "paddingLeft": 16,
-          "paddingRight": 16,
           "paddingTop": 16,
         },
         {
           "paddingBottom": 32,
-          "paddingLeft": 32,
-          "paddingRight": 32,
           "paddingTop": 32,
         },
       ]
     }
-  >
-    <RadioButtons
-      items={
-        [
-          {
-            "display": "Germany",
-            "value": "DE",
-          },
-        ]
-      }
-      onChange={[MockFunction]}
-      selectedValue="DE"
-      style={
-        {
-          "alignItems": "center",
-          "flexGrow": 1,
-          "justifyContent": "center",
-        }
-      }
-    />
-  </ForwardRef>
+  />
   <PrimaryButton
-    disabled={false}
+    disabled={true}
     narrow={true}
-    onPress={[MockFunction]}
+    onPress={[Function]}
     style={
       {
         "alignSelf": "center",
@@ -66,5 +32,5 @@ exports[`SelectCountry should render correctly 1`] = `
   >
     next
   </PrimaryButton>
-</View>
+</Screen>
 `;

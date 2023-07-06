@@ -6,10 +6,17 @@ describe('Currencies', () => {
   const props = {
     currency: 'EUR' as const,
     setCurrency: jest.fn(),
+    type: 'europe' as const,
   }
 
-  it('should render correctly', () => {
+  it('should render correctly for type "eurorpe"', () => {
     renderer.render(<Currencies {...props} />)
+    const result = renderer.getRenderOutput()
+    expect(result).toMatchSnapshot()
+  })
+
+  it('should render correctly for type "other"', () => {
+    renderer.render(<Currencies {...props} type="other" />)
     const result = renderer.getRenderOutput()
     expect(result).toMatchSnapshot()
   })

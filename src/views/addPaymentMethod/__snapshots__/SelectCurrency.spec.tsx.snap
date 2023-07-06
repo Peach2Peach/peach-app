@@ -1,20 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SelectCurrency should render correctly 1`] = `
-<View
-  style={
-    {
-      "height": "100%",
-    }
-  }
->
+<Screen>
   <CurrencyTabs
     currency="EUR"
-    setCurrency={[MockFunction]}
+    setCurrency={[Function]}
   />
   <PrimaryButton
     narrow={true}
-    onPress={[MockFunction]}
+    onPress={[Function]}
     style={
       {
         "alignSelf": "center",
@@ -25,5 +19,5 @@ exports[`SelectCurrency should render correctly 1`] = `
   >
     next
   </PrimaryButton>
-</View>
+</Screen>
 `;

@@ -5,16 +5,27 @@ jest.mock('../../contexts/drawer', () => ({
   useDrawerContext: jest.fn(() => [, jest.fn()]),
 }))
 
+jest.mock('../../hooks/useHeaderSetup', () => ({
+  useHeaderSetup: jest.fn(),
+}))
+
+jest.mock('../../hooks/useNavigation', () => ({
+  useNavigation: jest.fn(),
+}))
+
+jest.mock('../../hooks/useRoute', () => ({
+  useRoute: jest.fn(() => ({
+    params: {
+      origin: 'paymentMethod',
+      selectedCurrency: 'EUR',
+    },
+  })),
+}))
+
 describe('SelectPaymentMethod', () => {
   const renderer = createRenderer()
-  const props = {
-    currency: 'EUR' as const,
-    setPaymentMethod: jest.fn(),
-    next: jest.fn(),
-  }
-
   it('should render correctly', () => {
-    renderer.render(<SelectPaymentMethod {...props} />)
+    renderer.render(<SelectPaymentMethod />)
     const result = renderer.getRenderOutput()
     expect(result).toMatchSnapshot()
   })

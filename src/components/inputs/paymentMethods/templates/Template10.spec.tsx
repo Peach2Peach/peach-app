@@ -6,11 +6,9 @@ jest.mock('../../../../views/contract/helpers')
 
 describe('Template10', () => {
   const mockProps: FormProps = {
-    data: {},
-    currencies: [],
+    data: { currencies: [], type: 'liquid' },
     onSubmit: jest.fn(),
     setStepValid: jest.fn(),
-    paymentMethod: 'liquid',
     setFormData: jest.fn(),
   }
 

@@ -19,7 +19,7 @@ export const SelectCountry = () => {
   const countries = useMemo(
     () =>
       getPaymentMethodInfo('giftCard.amazon')
-        .countries?.filter(countrySupportsCurrency(selectedCurrency))
+        ?.countries?.filter(countrySupportsCurrency(selectedCurrency))
         .map((c) => ({
           value: c,
           display: i18n(`country.${c}`),

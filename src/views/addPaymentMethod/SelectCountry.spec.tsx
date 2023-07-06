@@ -5,25 +5,23 @@ jest.mock('../../hooks/useHeaderSetup', () => ({
   useHeaderSetup: jest.fn(),
 }))
 
+jest.mock('../../hooks/useNavigation', () => ({
+  useNavigation: jest.fn(),
+}))
+
+jest.mock('../../hooks/useRoute', () => ({
+  useRoute: jest.fn(() => ({
+    params: {
+      origin: 'paymentMethod',
+      selectedCurrency: 'EUR',
+    },
+  })),
+}))
+
 describe('SelectCountry', () => {
   const renderer = createRenderer()
-  const props = {
-    countries: [
-      {
-        value: 'DE',
-        display: 'Germany',
-      },
-    ] satisfies {
-      value: PaymentMethodCountry
-      display: string
-    }[],
-    selectedCountry: 'DE' as const,
-    setCountry: jest.fn(),
-    next: jest.fn(),
-  }
-
   it('should render correctly', () => {
-    renderer.render(<SelectCountry {...props} />)
+    renderer.render(<SelectCountry />)
     const result = renderer.getRenderOutput()
     expect(result).toMatchSnapshot()
   })
