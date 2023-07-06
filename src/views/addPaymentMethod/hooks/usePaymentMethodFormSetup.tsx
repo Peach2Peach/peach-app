@@ -11,16 +11,16 @@ import { headerIcons } from '../../../utils/layout/headerIcons'
 
 export const usePaymentMethodFormSetup = () => {
   const route = useRoute<'paymentMethodForm'>()
-  const goToOrigin = useGoToOrigin()
-  const { paymentData } = route.params
+  const goBackTo = useGoToOrigin()
+  const { paymentData, origin } = route.params
   const { type: paymentMethod, id } = paymentData
   const deletePaymentMethod = useDeletePaymentMethod(id ?? '')
   const selectPaymentMethod = useOfferPreferences((state) => state.selectPaymentMethod)
 
-  const onSubmit = (d: PaymentData) => {
-    addPaymentData(d)
-    selectPaymentMethod(d.id)
-    goToOrigin(route.params.origin)
+  const onSubmit = (data: PaymentData) => {
+    addPaymentData(data)
+    selectPaymentMethod(data.id)
+    goBackTo(origin)
   }
 
   const showHelp = useShowHelp('currencies')

@@ -3,7 +3,7 @@ import tw from '../../styles/tailwind'
 import { useState } from 'react'
 import { PrimaryButton, Screen } from '../../components'
 import { CURRENCIES } from '../../constants'
-import { useHeaderSetup, useNavigation } from '../../hooks'
+import { useHeaderSetup, useNavigation, useRoute } from '../../hooks'
 import { getPaymentDataByType } from '../../utils/account'
 import i18n from '../../utils/i18n'
 import { CurrencyTabs } from './CurrencyTabs'
@@ -13,14 +13,16 @@ export const SelectCurrency = () => {
   const navigation = useNavigation()
   const [selectedCurrency, setSelectedCurrency] = useState(CURRENCIES[0])
 
+  const { origin } = useRoute<'selectCurrency'>().params
+
   const goToLiquidForm = () => {
     const existingPaymentMethodsOfType = getPaymentDataByType('liquid').length
     let label = i18n('paymentMethod.liquid')
     if (existingPaymentMethodsOfType > 0) label += ` #${existingPaymentMethodsOfType + 1}`
 
-    navigation.push('paymentMethodForm', {
+    navigation.navigate('paymentMethodForm', {
       paymentData: { type: 'liquid', label, currencies: [selectedCurrency] },
-      origin: 'paymentMethods',
+      origin,
     })
   }
 
@@ -28,7 +30,7 @@ export const SelectCurrency = () => {
     if (selectedCurrency === 'USDT') {
       goToLiquidForm()
     } else {
-      navigation.navigate('selectPaymentMethod', { selectedCurrency })
+      navigation.navigate('selectPaymentMethod', { selectedCurrency, origin })
     }
   }
 

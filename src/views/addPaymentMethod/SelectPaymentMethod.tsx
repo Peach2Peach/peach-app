@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import { useState } from 'react'
 import { useDrawerContext } from '../../contexts/drawer'
 
 import tw from '../../styles/tailwind'
@@ -6,122 +6,96 @@ import i18n from '../../utils/i18n'
 
 import { PeachScrollView, PrimaryButton, RadioButtons, Screen } from '../../components'
 import { FlagType } from '../../components/flags'
-import { LOCALPAYMENTMETHODS, PAYMENTCATEGORIES } from '../../constants'
-import {
-  getApplicablePaymentCategories,
-  isAmazonGiftCard,
-  paymentMethodAllowedForCurrency,
-} from '../../utils/paymentMethod'
-import { useNavigation, useRoute } from '../../hooks'
+import { LOCALPAYMENTMETHODCOUNTRIES, LOCALPAYMENTMETHODS, PAYMENTCATEGORIES } from '../../constants'
+import { getApplicablePaymentCategories, paymentMethodAllowedForCurrency } from '../../utils/paymentMethod'
+import { useHeaderSetup, useNavigation, useRoute } from '../../hooks'
 import { getPaymentDataByType } from '../../utils/account'
 
 export const SelectPaymentMethod = () => {
+  useHeaderSetup(i18n('selectPaymentMethod.title'))
+
   const navigation = useNavigation()
-  // TODO: fix type
-  const { selectedCurrency: currency } = useRoute<'selectPaymentMethod'>().params
-  const next = (paymentMethod: PaymentMethod) => {
-    navigation.navigate('selectCountry', { paymentMethod, selectedCurrency: currency, origin: 'buy' })
-  }
+  const { selectedCurrency, origin } = useRoute<'selectPaymentMethod'>().params
   const [, updateDrawer] = useDrawerContext()
 
-  const goToPaymentMethodForm = useCallback(
-    (data: Pick<PaymentData, 'currencies' | 'country'> & { paymentMethod: PaymentMethod }) => {
-      if (!data.paymentMethod || !data.currencies) return
-      const methodType
-        = data.paymentMethod === 'giftCard.amazon' && data.country
-          ? (`${data.paymentMethod}.${data.country}` satisfies PaymentMethod)
-          : data.paymentMethod
-      const existingPaymentMethodsOfType = getPaymentDataByType(methodType).length
-      let label = i18n(`paymentMethod.${methodType}`)
-      if (existingPaymentMethodsOfType > 0) label += ` #${existingPaymentMethodsOfType + 1}`
-
-      navigation.push('paymentMethodForm', {
-        paymentData: { type: data.paymentMethod, label, currencies: data.currencies, country: data.country },
-        // TODO: fix type
-        selectedCurrency: currency,
-        origin: 'buy',
-      })
-    },
-    [navigation, currency],
-  )
-
-  const setPaymentMethod = (method?: PaymentMethod) => {
-    updateDrawer({ show: false })
-    if (!method) return
-
-    if (isAmazonGiftCard(method)) {
-      next(method)
-      return
-    }
-
-    goToPaymentMethodForm({ paymentMethod: method, currencies: [currency] })
-  }
-
   const [paymentCategory, setPaymentCategory] = useState<PaymentCategory>()
-  const paymentCategories = getApplicablePaymentCategories(currency).map((c) => ({
+  const paymentCategories = getApplicablePaymentCategories(selectedCurrency).map((c) => ({
     value: c,
     display: i18n(`paymentCategory.${c}`),
   }))
 
+  const goToPaymentMethodForm = (paymentMethod: PaymentMethod) => {
+    const existingPaymentMethodsOfType = getPaymentDataByType(paymentMethod).length
+    let label = i18n(`paymentMethod.${paymentMethod}`)
+    if (existingPaymentMethodsOfType > 0) label += ` #${existingPaymentMethodsOfType + 1}`
+
+    navigation.navigate('paymentMethodForm', {
+      paymentData: { type: paymentMethod, label, currencies: [selectedCurrency] },
+      origin,
+    })
+  }
+
   const unselectCategory = () => setPaymentCategory(undefined)
-  const selectPaymentMethod = (method: PaymentMethod) => {
+
+  const selectPaymentMethod = (paymentMethod: PaymentMethod) => {
     unselectCategory()
-    setPaymentMethod(method)
+    updateDrawer({ show: false })
+
+    if (paymentMethod === 'giftCard.amazon') {
+      navigation.navigate('selectCountry', { selectedCurrency, origin })
+    } else {
+      goToPaymentMethodForm(paymentMethod)
+    }
   }
 
   const getCountrySelectDrawer = (
     category: PaymentCategory,
-    applicableCountries: FlagType[],
-    selectCountry: Function,
+    selectCountry: (country: FlagType, c: PaymentCategory) => void,
   ) => ({
     title: i18n(`paymentCategory.${category}`),
-    options: applicableCountries.map((country) => ({
+    options: LOCALPAYMENTMETHODCOUNTRIES.map((country) => ({
       title: i18n(`country.${country}`),
       flagID: country,
-      onPress: () => selectCountry(country, category, applicableCountries),
+      onPress: () => selectCountry(country, category),
     })),
     show: true,
     onClose: unselectCategory,
   })
 
-  const selectCountry = (c: FlagType, category: PaymentCategory, applicableCountries: FlagType[]) => {
-    const localOptions = LOCALPAYMENTMETHODS[currency]?.[c]
-    if (localOptions) {
-      return updateDrawer({
-        title: i18n(`country.${c}`),
-        options: localOptions.map((localOption) => ({
-          title: i18n(`paymentMethod.${localOption}`),
-          logoID: localOption,
-          onPress: () => selectPaymentMethod(localOption),
-        })),
-        previousDrawer: getCountrySelectDrawer(category, applicableCountries, selectCountry),
-        show: true,
-        onClose: unselectCategory,
-      })
-    }
-    return false
+  const selectCountry = (country: FlagType, category: PaymentCategory) => {
+    const localOptions = LOCALPAYMENTMETHODS.EUR[country]
+    updateDrawer({
+      title: i18n(`country.${country}`),
+      options: localOptions.map((localOption) => ({
+        title: i18n(`paymentMethod.${localOption}`),
+        logoID: localOption,
+        onPress: () => selectPaymentMethod(localOption),
+      })),
+      previousDrawer: getCountrySelectDrawer(category, selectCountry),
+      show: true,
+      onClose: unselectCategory,
+    })
   }
 
   const showDrawer = (category: PaymentCategory) => {
     if (category === 'localOption') {
-      const applicableCountries = Object.keys(LOCALPAYMENTMETHODS[currency]!) as FlagType[]
-      return updateDrawer(getCountrySelectDrawer(category, applicableCountries, selectCountry))
+      updateDrawer(getCountrySelectDrawer(category, selectCountry))
+    } else {
+      const applicablePaymentMethods = PAYMENTCATEGORIES[category]
+        .filter((method) => paymentMethodAllowedForCurrency(method, selectedCurrency))
+        .filter((method) => category !== 'giftCard' || method === 'giftCard.amazon')
+
+      updateDrawer({
+        title: i18n(`paymentCategory.${category}`),
+        options: applicablePaymentMethods.map((method) => ({
+          title: i18n(`paymentMethod.${method}`),
+          logoID: method,
+          onPress: () => selectPaymentMethod(method),
+        })),
+        show: true,
+        onClose: unselectCategory,
+      })
     }
-
-    const applicablePaymentMethods = PAYMENTCATEGORIES[category]
-      .filter((method) => paymentMethodAllowedForCurrency(method, currency))
-      .filter((method) => category !== 'giftCard' || method === 'giftCard.amazon')
-
-    return updateDrawer({
-      title: i18n(`paymentCategory.${category}`),
-      options: applicablePaymentMethods.map((method) => ({
-        title: i18n(`paymentMethod.${method}`),
-        logoID: method,
-        onPress: () => selectPaymentMethod(method),
-      })),
-      show: true,
-      onClose: unselectCategory,
-    })
   }
 
   const selectPaymentCategory = (category: PaymentCategory) => {
