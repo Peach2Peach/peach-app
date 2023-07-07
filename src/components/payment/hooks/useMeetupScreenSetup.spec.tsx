@@ -7,6 +7,7 @@ import { DeletePaymentMethodConfirm } from '../../../popups/info/DeletePaymentMe
 import { useMeetupEventsStore } from '../../../store/meetupEventsStore'
 import { useOfferPreferences } from '../../../store/offerPreferenes'
 import { usePaymentDataStore } from '../../../store/usePaymentDataStore'
+import { defaultPaymentDataStore } from '../../../store/usePaymentDataStore/usePaymentDataStore'
 import { usePopupStore } from '../../../store/usePopupStore'
 import i18n from '../../../utils/i18n'
 import { useMeetupScreenSetup } from './useMeetupScreenSetup'
@@ -42,6 +43,7 @@ jest.mock('../../../hooks/useNavigation', () => ({
 describe('useMeetupScreenSetup', () => {
   beforeEach(() => {
     setPaymentMethods([])
+    usePaymentDataStore.setState(defaultPaymentDataStore)
   })
   it('should return the correct values', () => {
     const { result } = renderHook(useMeetupScreenSetup, {
@@ -130,7 +132,7 @@ describe('useMeetupScreenSetup', () => {
     })
 
     result.current.addToPaymentMethods()
-    expect(account.paymentData).toStrictEqual(defaultAccount.paymentData)
+    expect(usePaymentDataStore.getState().paymentData).toStrictEqual(defaultPaymentDataStore.paymentData)
     expect(goBackMock).not.toHaveBeenCalled()
   })
   it('should automatically add the meetup to the selected methods', () => {

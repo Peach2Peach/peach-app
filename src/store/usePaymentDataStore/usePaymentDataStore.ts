@@ -27,7 +27,7 @@ export type PaymentMethodsStore = PaymentDataState & {
   searchPaymentData: (query: Partial<PaymentData>) => PaymentData[]
 }
 
-const defaultPaymentDataStore: PaymentDataState = {
+export const defaultPaymentDataStore: PaymentDataState = {
   paymentData: {},
   paymentDetailInfo: {},
   migrated: false,
