@@ -5,7 +5,7 @@ import { usePaymentDataStore } from '../../../store/usePaymentDataStore'
 import { usePaymentMethodsSetup } from './usePaymentMethodsSetup'
 
 describe('usePaymentMethodsSetup', () => {
-  afterEach(() => {
+  beforeEach(() => {
     usePaymentDataStore.getState().reset()
   })
   it('should setup header', () => {
