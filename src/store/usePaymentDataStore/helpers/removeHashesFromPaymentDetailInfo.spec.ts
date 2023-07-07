@@ -5,7 +5,7 @@ describe('removeHashesFromPaymentDetailInfo', () => {
   it('removes hashes of payment data', () => {
     expect(removeHashesFromPaymentDetailInfo(paymentDetailInfo, validSEPAData)).toEqual({
       iban: {},
-      phone: { [twintDataHashes[0]]: twintData.phone! },
+      phone: { [twintDataHashes[0]]: twintData.phone },
     })
   })
 })
