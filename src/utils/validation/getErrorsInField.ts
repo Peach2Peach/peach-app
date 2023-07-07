@@ -1,3 +1,4 @@
+import { keys } from '../object'
 import { getMessages } from './messages'
 import { Rule, rules } from './rules'
 
@@ -15,7 +16,7 @@ export const getErrorsInField = (value: string | number | undefined, rulesToChec
   !value && rulesToCheck.required === false
     ? []
     : [
-      ...(Object.keys(rulesToCheck) as Rule[])
+      ...keys(rulesToCheck)
         .filter((key) => {
           if (rulesToCheck[key]) {
             const ruleToCheck = rules[key] as RegExp | ((x: unknown, y: unknown) => boolean)

@@ -6,6 +6,7 @@ import { PAYMENTCATEGORIES } from '../../constants'
 import tw from '../../styles/tailwind'
 import { account, removePaymentData } from '../../utils/account'
 import i18n from '../../utils/i18n'
+import { keys } from '../../utils/object'
 import { getPaymentMethodInfo, isValidPaymentData } from '../../utils/paymentMethod'
 import { isCashTrade } from '../../utils/paymentMethod/isCashTrade'
 import LinedText from '../ui/LinedText'
@@ -51,7 +52,7 @@ export const RemotePaymentMethods = ({ isEditing, editItem, select, isSelected }
     <Text style={tw`text-center h6 text-black-3`}>{i18n('paymentMethod.empty')}</Text>
   ) : (
     <View testID={'checkboxes-buy-mops'}>
-      {(Object.keys(PAYMENTCATEGORIES) as PaymentCategory[])
+      {keys(PAYMENTCATEGORIES)
         .map((category) => ({
           category,
           checkboxes: paymentData
