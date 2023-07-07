@@ -38,6 +38,7 @@ export const useMeetupScreenSetup = () => {
 
   const addToPaymentMethods = () => {
     const meetupInfo = getPaymentMethodInfo(`cash.${event.id}`)
+    if (!meetupInfo) return
     const meetup: PaymentData = {
       id: meetupInfo.id,
       label: event.shortName,

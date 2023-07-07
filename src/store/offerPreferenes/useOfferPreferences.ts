@@ -1,15 +1,14 @@
 import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
+import { getSelectedPaymentDataIds } from '../../utils/account'
 import { createStorage, toZustandStorage } from '../../utils/storage'
 import {
-  validatePaymentMethods,
-  getPreferredMethods,
   getHashedPaymentData,
-  getOriginalPaymentData,
   getMeansOfPayment,
+  getOriginalPaymentData,
+  getPreferredMethods,
+  validatePaymentMethods,
 } from './helpers'
-import { enforcePremiumFormat } from '../../views/sell/helpers/enforcePremiumFormat'
-import { getSelectedPaymentDataIds } from '../../utils/account'
 
 export type OfferPreferences = {
   buyAmountRange: [number, number]
@@ -98,7 +97,7 @@ export const useOfferPreferences = create<OfferPreferencesStore>()(
       },
       setPremium: (newPremium, isValid) => {
         set((state) => ({
-          premium: Number(enforcePremiumFormat(newPremium)),
+          premium: newPremium,
           canContinue: {
             ...state.canContinue,
             premium: isValid ?? state.canContinue.premium,

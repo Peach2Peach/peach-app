@@ -1,5 +1,13 @@
-import { AddPaymentMethod } from './AddPaymentMethod'
 import { createRenderer } from 'react-test-renderer/shallow'
+import { SelectPaymentMethod } from './SelectPaymentMethod'
+
+jest.mock('../../contexts/drawer', () => ({
+  useDrawerContext: jest.fn(() => [, jest.fn()]),
+}))
+
+jest.mock('../../hooks/useHeaderSetup', () => ({
+  useHeaderSetup: jest.fn(),
+}))
 
 jest.mock('../../hooks/useNavigation', () => ({
   useNavigation: jest.fn(),
@@ -8,15 +16,16 @@ jest.mock('../../hooks/useNavigation', () => ({
 jest.mock('../../hooks/useRoute', () => ({
   useRoute: jest.fn(() => ({
     params: {
-      origin: 'origin',
+      origin: 'paymentMethod',
+      selectedCurrency: 'EUR',
     },
   })),
 }))
 
-describe('AddPaymentMethod', () => {
+describe('SelectPaymentMethod', () => {
   const renderer = createRenderer()
   it('should render correctly', () => {
-    renderer.render(<AddPaymentMethod />)
+    renderer.render(<SelectPaymentMethod />)
     const result = renderer.getRenderOutput()
     expect(result).toMatchSnapshot()
   })

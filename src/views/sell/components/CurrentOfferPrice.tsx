@@ -18,11 +18,11 @@ const useCurrentOfferPrice = () => {
   return isSuccess ? getOfferPrice(amount, premium, priceBook, displayCurrency) : 0
 }
 
-export const CurrentOfferPrice = ({ style }: ComponentProps) => {
+export const CurrentOfferPrice = () => {
   const currentPrice = useCurrentOfferPrice()
   const displayCurrency = useSettingsStore((state) => state.displayCurrency)
   return !!currentPrice ? (
-    <Text style={[tw`text-center text-black-2`, style]}>
+    <Text style={tw`text-center text-black-2`}>
       ({i18n('sell.premium.currently', `${priceFormat(currentPrice)} ${displayCurrency}`)})
     </Text>
   ) : null

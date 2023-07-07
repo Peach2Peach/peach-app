@@ -10,10 +10,16 @@ exports[`Premium should render the Premium view 1`] = `
 >
   <View
     style={
-      {
-        "paddingLeft": 32,
-        "paddingRight": 32,
-      }
+      [
+        {
+          "paddingLeft": 16,
+          "paddingRight": 16,
+        },
+        {
+          "paddingLeft": 32,
+          "paddingRight": 32,
+        },
+      ]
     }
   >
     <HorizontalLine
@@ -27,17 +33,23 @@ exports[`Premium should render the Premium view 1`] = `
   </View>
   <View
     style={
-      {
-        "alignItems": "center",
-        "flexShrink": 1,
-        "height": "100%",
-        "paddingBottom": 28,
-      }
+      [
+        {
+          "flexGrow": 1,
+          "paddingLeft": 16,
+          "paddingRight": 16,
+        },
+        {
+          "paddingLeft": 32,
+          "paddingRight": 32,
+        },
+      ]
     }
   >
     <View
       style={
         {
+          "alignItems": "center",
           "flexGrow": 1,
           "justifyContent": "center",
         }
@@ -46,78 +58,97 @@ exports[`Premium should render the Premium view 1`] = `
       <View
         style={
           {
-            "paddingLeft": 32,
-            "paddingRight": 32,
+            "alignItems": "center",
+            "alignSelf": "stretch",
+            "gap": 28,
           }
         }
       >
-        <PeachText
-          style={
-            {
-              "fontFamily": "Baloo2-Bold",
-              "fontSize": 24,
-              "letterSpacing": 0.24,
-              "lineHeight": 32,
-              "textAlign": "center",
-            }
-          }
-        >
-          set your premium / discount
-        </PeachText>
         <View
           style={
             {
-              "flexDirection": "row",
-              "justifyContent": "center",
-              "width": "100%",
+              "alignItems": "center",
             }
           }
         >
           <PeachText
             style={
+              [
+                {
+                  "fontFamily": "Baloo2-Bold",
+                  "fontSize": 20,
+                  "letterSpacing": 0.2,
+                  "lineHeight": 32,
+                  "textAlign": "center",
+                },
+                {
+                  "fontFamily": "Baloo2-Bold",
+                  "fontSize": 24,
+                  "letterSpacing": 0.24,
+                  "lineHeight": 32,
+                },
+              ]
+            }
+          >
+            set your premium / discount
+          </PeachText>
+          <View
+            style={
               {
-                "fontFamily": "Baloo2-SemiBold",
-                "fontSize": 16,
-                "letterSpacing": 0.16,
-                "lineHeight": 28,
-                "paddingRight": 8,
+                "alignItems": "center",
+                "flexDirection": "row",
+                "gap": 4,
               }
             }
           >
-            for selling
-          </PeachText>
-          <CurrentOfferAmount />
+            <PeachText
+              style={
+                {
+                  "fontFamily": "Baloo2-SemiBold",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 28,
+                  "textAlign": "center",
+                }
+              }
+            >
+              for selling
+            </PeachText>
+            <CurrentOfferAmount />
+          </View>
         </View>
-        <PremiumInput
+        <View
           style={
             {
-              "marginTop": 32,
+              "alignItems": "center",
+              "gap": 4,
             }
           }
-        />
-        <CurrentOfferPrice
+        >
+          <PremiumInput />
+          <CurrentOfferPrice />
+        </View>
+        <PremiumSlider
           style={
             {
-              "marginTop": 4,
+              "alignItems": "center",
+              "alignSelf": "stretch",
+              "gap": 6,
             }
           }
         />
       </View>
-      <PremiumSlider
-        style={
-          {
-            "marginTop": 24,
-            "paddingLeft": 16,
-            "paddingRight": 16,
-          }
-        }
-      />
     </View>
     <PrimaryButton
       disabled={true}
       narrow={true}
       onPress={[Function]}
-      testID="navigation-next"
+      style={
+        {
+          "alignSelf": "center",
+          "marginBottom": 20,
+        }
+      }
     >
       next
     </PrimaryButton>
