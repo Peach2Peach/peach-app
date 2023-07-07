@@ -2,7 +2,7 @@ import { View, ViewStyle } from 'react-native'
 import tw from '../styles/tailwind'
 
 type Props = {
-  style: ViewStyle | ViewStyle[]
+  style?: ViewStyle | ViewStyle[]
   children: React.ReactNode
 }
 
