@@ -4,7 +4,7 @@ import { omit } from '../../../utils/object'
 import { cleanPaymentData, isCashTrade } from '../../../utils/paymentMethod'
 import { addPaymentDetailInfoByHash } from './addPaymentDetailInfoByHash'
 
-const findPaymentDataByLegacyHash = (hash: string): PaymentData | undefined => {
+const findPaymentDataByLegacyHash = (hash: string) => {
   const paymentData = usePaymentDataStore.getState().getPaymentDataArray()
   return paymentData.find((data) => {
     const cleanedData = cleanPaymentData(data)
@@ -13,10 +13,7 @@ const findPaymentDataByLegacyHash = (hash: string): PaymentData | undefined => {
     return dataHash === hash
   })
 }
-export const buildPaymentDataFromHashes = (
-  hashes: string[],
-  selectedPaymentMethod: PaymentMethod,
-): PaymentData | undefined => {
+export const buildPaymentDataFromHashes = (hashes: string[], selectedPaymentMethod: PaymentMethod) => {
   const partialPaymentData = isCashTrade(selectedPaymentMethod)
     ? { type: selectedPaymentMethod }
     : hashes.reduce(
