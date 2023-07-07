@@ -68,9 +68,6 @@ describe('postBuyOffer', () => {
     method: 'POST',
     signal: undefined,
   }
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
   it('should call fetch with the right arguments', async () => {
     const offerDraft: Omit<BuyOfferDraft, 'originalPaymentData'> = {
       type: 'bid',

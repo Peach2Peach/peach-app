@@ -14,7 +14,6 @@ describe('PeachJSWallet', () => {
     peachJSWallet = new PeachJSWallet({ wallet })
   })
   afterEach(() => {
-    jest.clearAllMocks()
     useWalletState.getState().reset()
   })
 
@@ -25,14 +24,14 @@ describe('PeachJSWallet', () => {
     peachJSWallet = new PeachJSWallet({ wallet })
 
     expect(peachJSWallet.jsWallet).toEqual(wallet)
-    expect(peachJSWallet.derivationPath).toEqual('m/84\'/1\'/0\'')
+    expect(peachJSWallet.derivationPath).toEqual("m/84'/1'/0'")
     expect(peachJSWallet.addresses).toBe(addresses)
   })
   it('instantiates for mainnet', () => {
     peachJSWallet = new PeachJSWallet({ wallet, network: 'bitcoin' })
 
     expect(peachJSWallet.jsWallet).toEqual(wallet)
-    expect(peachJSWallet.derivationPath).toEqual('m/84\'/0\'/0\'')
+    expect(peachJSWallet.derivationPath).toEqual("m/84'/0'/0'")
   })
 
   it('finds key pair by address and stores scanned addresses', () => {

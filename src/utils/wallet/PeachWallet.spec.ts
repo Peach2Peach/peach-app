@@ -75,14 +75,14 @@ describe('PeachWallet', () => {
 
     expect(peachWallet.initialized).toBeFalsy()
     expect(peachWallet.synced).toBeFalsy()
-    expect(peachWallet.descriptorPath).toEqual('/84\'/1\'/0\'/0/*')
+    expect(peachWallet.descriptorPath).toEqual("/84'/1'/0'/0/*")
   })
   it('instantiates for mainnet', () => {
     peachWallet = new PeachWallet({ wallet, network: 'bitcoin' })
 
     expect(peachWallet.initialized).toBeFalsy()
     expect(peachWallet.synced).toBeFalsy()
-    expect(peachWallet.descriptorPath).toEqual('/84\'/0\'/0\'/0/*')
+    expect(peachWallet.descriptorPath).toEqual("/84'/0'/0'/0/*")
   })
   it('loads existing data', () => {
     const balance = 50000
