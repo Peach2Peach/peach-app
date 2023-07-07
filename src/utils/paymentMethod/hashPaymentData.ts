@@ -4,7 +4,7 @@ import { getPaymentDataInfoFields } from './getPaymentDataInfoFields'
 const doNotHash: PaymentDataField[] = ['beneficiary', 'bic', 'name', 'reference', 'ukSortCode']
 const fieldCanBeHashed = (field: PaymentDataField) => !doNotHash.includes(field)
 
-const hashData = (data: string) => sha256(data.toLocaleLowerCase())
+const hashData = (data: string) => sha256(data.toLowerCase())
 
 export type PaymentDataHashInfo = {
   field: PaymentDataField

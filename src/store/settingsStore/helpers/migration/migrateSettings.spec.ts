@@ -13,16 +13,37 @@ describe('migrateSettings', () => {
   it('should migrate from version 0', () => {
     const persistedState = {
       lastBackupDate: '2021-07-12T13:00:00.000Z',
-      preferredPaymentMethods: { sepa: 'sepa-1234', revolut: 'revolut-1234' },
+      preferredPaymentMethods: { sepa: validSEPAData.id, revolut: revolutData.id },
       premium: 1,
       minBuyAmount: 100,
       maxBuyAmount: 1000,
       sellAmount: 100,
     }
+    usePaymentDataStore.getState().addPaymentData(validSEPAData)
     const migratedState = migrateSettings(persistedState, 0)
     expect(migratedState).toEqual({
       lastFileBackupDate: '2021-07-12T13:00:00.000Z',
     })
+    expect(useOfferPreferences.getState()).toEqual(
+      expect.objectContaining({
+        buyAmountRange: [100, 1000],
+        meansOfPayment: {
+          EUR: ['sepa'],
+        },
+        originalPaymentData: [validSEPAData],
+        paymentData: {
+          sepa: {
+            country: undefined,
+            hashes: validSEPADataHashes,
+          },
+        },
+        preferredPaymentMethods: {
+          sepa: validSEPAData.id,
+        },
+        premium: 1,
+        sellAmount: 100,
+      }),
+    )
   })
 
   it('should migrate from version 1', () => {
@@ -37,7 +58,6 @@ describe('migrateSettings', () => {
       sellAmount: 100,
     }
     usePaymentDataStore.getState().addPaymentData(validSEPAData)
-    usePaymentDataStore.getState().addPaymentData(revolutData)
     const migratedState = migrateSettings(persistedState, 1)
     expect(migratedState).toEqual({
       lastFileBackupDate: undefined,
