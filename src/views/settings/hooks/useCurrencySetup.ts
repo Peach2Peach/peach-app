@@ -1,4 +1,3 @@
-import { useMemo, useState } from 'react'
 import { shallow } from 'zustand/shallow'
 
 import { useHeaderSetup, useNavigation } from '../../../hooks'
@@ -13,15 +12,17 @@ export const useCurrencySetup = () => {
     (state) => [state.displayCurrency, state.setDisplayCurrency],
     shallow,
   )
-  const [currency, setCurrency] = useState(displayCurrency)
 
-  useHeaderSetup(useMemo(() => ({ title: i18n('currency') }), []))
+  useHeaderSetup(i18n('currency'))
 
   const updateCurrency = (c: Currency) => {
     setBitcoinCurrency(c)
     setDisplayCurrency(c)
+  }
+
+  const goBack = () => {
     navigation.goBack()
   }
 
-  return { currency, setCurrency, updateCurrency }
+  return { currency: displayCurrency, updateCurrency, goBack }
 }

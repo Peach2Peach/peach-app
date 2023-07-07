@@ -5,10 +5,10 @@ describe('getAllPaymentMethods', () => {
   const paymentCategories: PaymentCategories = {
     bankTransfer: ['sepa', 'instantSepa', 'fasterPayments'],
     onlineWallet: ['paypal', 'revolut', 'wise'],
-    localOption: ['mbWay', 'bizum', 'satispay', 'mobilePay'],
+    nationalOption: ['mbWay', 'bizum', 'satispay', 'mobilePay'],
     giftCard: [],
     cash: [],
-    cryptoCurrency: [],
+    other: ['liquid'],
   }
   it('returns all payment methods', () => {
     deepStrictEqual(getAllPaymentMethods(paymentCategories), [
@@ -22,6 +22,7 @@ describe('getAllPaymentMethods', () => {
       'bizum',
       'satispay',
       'mobilePay',
+      'liquid',
     ])
   })
 })

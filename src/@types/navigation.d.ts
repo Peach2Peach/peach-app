@@ -25,7 +25,15 @@ declare type RootStackParamList = {
   sellPreferences: undefined
   buySummary: undefined
   sellSummary: undefined
-  addPaymentMethod: {
+  selectCurrency: {
+    origin: keyof RootStackParamList
+  }
+  selectPaymentMethod: {
+    selectedCurrency: Currency
+    origin: keyof RootStackParamList
+  }
+  selectCountry: {
+    selectedCurrency: Currency
     origin: keyof RootStackParamList
   }
   paymentMethodForm: {

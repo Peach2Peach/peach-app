@@ -3,7 +3,7 @@ import { getCategories } from './getCategories'
 // eslint-disable-next-line max-lines-per-function
 describe('getCategories', () => {
   it('returns the correct categories with non-empty data', () => {
-    const trades: Partial<TradeSummary>[] = [
+    const trades: Pick<TradeSummary, 'tradeStatus' | 'type' | 'unreadMessages'>[] = [
       { type: 'bid', tradeStatus: 'rateUser', unreadMessages: 1 },
       { type: 'ask', tradeStatus: 'dispute', unreadMessages: 0 },
       { type: 'bid', tradeStatus: 'searchingForPeer', unreadMessages: 2 },
@@ -11,7 +11,7 @@ describe('getCategories', () => {
       { type: 'bid', tradeStatus: 'tradeCompleted', unreadMessages: 0 },
     ]
 
-    const result = getCategories(trades as TradeSummary[])
+    const result = getCategories(trades)
 
     expect(result).toEqual([
       {
@@ -38,13 +38,13 @@ describe('getCategories', () => {
   })
 
   it('returns category only if data is not empty', () => {
-    const trades: Partial<TradeSummary>[] = [
+    const trades: Pick<TradeSummary, 'tradeStatus' | 'type' | 'unreadMessages'>[] = [
       { type: 'bid', tradeStatus: 'rateUser', unreadMessages: 1 },
       { type: 'ask', tradeStatus: 'dispute', unreadMessages: 0 },
       { type: 'bid', tradeStatus: 'searchingForPeer', unreadMessages: 2 },
     ]
 
-    const result = getCategories(trades as TradeSummary[])
+    const result = getCategories(trades)
 
     expect(result).toEqual([
       {
@@ -63,9 +63,15 @@ describe('getCategories', () => {
   })
 
   it('should return data for trades that have an error status', () => {
-    const trades = [{ type: 'ask', tradeStatus: 'dispute', unreadMessages: 0 }]
+    const trades: Pick<TradeSummary, 'tradeStatus' | 'type' | 'unreadMessages'>[] = [
+      {
+        type: 'ask',
+        tradeStatus: 'dispute',
+        unreadMessages: 0,
+      },
+    ]
 
-    const result = getCategories(trades as TradeSummary[])
+    const result = getCategories(trades)
     expect(result).toEqual([
       {
         title: 'priority',

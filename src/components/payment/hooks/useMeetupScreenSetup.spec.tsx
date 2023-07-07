@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import { NavigationContainer } from '@react-navigation/native'
 import { act, renderHook } from '@testing-library/react-native'
 import { headerState, setOptionsMock } from '../../../../tests/unit/helpers/NavigationWrapper'
@@ -113,6 +114,24 @@ describe('useMeetupScreenSetup', () => {
       userId: '',
     })
     expect(goBackMock).toHaveBeenCalled()
+  })
+  it('should not add a meetup to the payment methods if the meetupInfo isnt available', () => {
+    useRouteMock.mockReturnValueOnce({
+      params: {
+        eventId: 'someUnknownId',
+        deletable: true,
+        origin: 'origin',
+      },
+    })
+    useMeetupEventsStore.getState().setMeetupEvents([])
+
+    const { result } = renderHook(useMeetupScreenSetup, {
+      wrapper: NavigationContainer,
+    })
+
+    result.current.addToPaymentMethods()
+    expect(account.paymentData).toStrictEqual(defaultAccount.paymentData)
+    expect(goBackMock).not.toHaveBeenCalled()
   })
   it('should automatically add the meetup to the selected methods', () => {
     useOfferPreferences.getState().setPaymentMethods([])

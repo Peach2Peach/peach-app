@@ -1,14 +1,14 @@
-import { TouchableOpacity, View } from 'react-native'
-import tw from '../../styles/tailwind'
-import { Text } from '../../components'
-import { Currencies } from './Currencies'
-import { Other } from './Other'
 import { createMaterialTopTabNavigator, MaterialTopTabBarProps } from '@react-navigation/material-top-tabs'
+import { TouchableOpacity, View } from 'react-native'
+import { shallow } from 'zustand/shallow'
+import { Text } from '../../components'
 import { useOfferPreferences } from '../../store/offerPreferenes'
+import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
+import { Currencies } from './Currencies'
 
 type Props = {
-  currency?: Currency
+  currency: Currency
   setCurrency: (c: Currency) => void
 }
 
@@ -43,9 +43,12 @@ const TabBar = ({ state, navigation }: MaterialTopTabBarProps) => {
 
 const CurrencyTab = createMaterialTopTabNavigator()
 
-export const CurrencyTabs = ({ currency = 'EUR', setCurrency }: Props) => {
-  const preferredCurrencyType = useOfferPreferences((state) => state.preferredCurrenyType)
-  const setPreferredCurrencyType = useOfferPreferences((state) => state.setPreferredCurrencyType)
+export const CurrencyTabs = (props: Props) => {
+  const [preferredCurrencyType, setPreferredCurrencyType] = useOfferPreferences(
+    (state) => [state.preferredCurrenyType, state.setPreferredCurrencyType],
+    shallow,
+  )
+
   return (
     <CurrencyTab.Navigator
       initialRouteName={preferredCurrencyType}
@@ -54,14 +57,14 @@ export const CurrencyTabs = ({ currency = 'EUR', setCurrency }: Props) => {
           const name = e.target?.split('-')[0]
           if (name === 'europe' || name === 'other') {
             setPreferredCurrencyType(name)
-            setCurrency(name === 'europe' ? 'EUR' : 'USDT')
+            props.setCurrency(name === 'europe' ? 'EUR' : 'USDT')
           }
         },
       }}
       tabBar={TabBar}
     >
-      <CurrencyTab.Screen name="europe" children={() => <Currencies {...{ currency, setCurrency }} />} />
-      <CurrencyTab.Screen name="other" children={() => <Other {...{ currency, setCurrency }} />} />
+      <CurrencyTab.Screen name="europe" children={() => <Currencies type="europe" {...props} />} />
+      <CurrencyTab.Screen name="other" children={() => <Currencies type="other" {...props} />} />
     </CurrencyTab.Navigator>
   )
 }

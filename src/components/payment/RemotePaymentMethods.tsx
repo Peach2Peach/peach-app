@@ -11,8 +11,8 @@ import { keys } from '../../utils/object'
 import { getPaymentMethodInfo, isValidPaymentData } from '../../utils/paymentMethod'
 import { isCashTrade } from '../../utils/paymentMethod/isCashTrade'
 import LinedText from '../ui/LinedText'
-import { PaymentDetailsCheckbox } from './PaymentDetailsCheckbox'
 import { PaymentDataKeyFacts } from './components/PaymentDataKeyFacts'
+import { PaymentDetailsCheckbox } from './PaymentDetailsCheckbox'
 
 const mapPaymentDataToCheckboxes = (data: PaymentData) => ({
   value: data.id,
@@ -25,15 +25,14 @@ const paymentCategoryIcons: Record<PaymentCategory, IconType | ''> = {
   bankTransfer: 'inbox',
   onlineWallet: 'cloud',
   giftCard: 'creditCard',
-  localOption: 'flag',
+  nationalOption: 'flag',
   cash: '',
-  cryptoCurrency: '',
   other: 'shuffle',
 }
 
 const belongsToCategory = (category: PaymentCategory) => (data: PaymentData) =>
   PAYMENTCATEGORIES[category].includes(data.type)
-  && !(category === 'localOption' && data.type === 'mobilePay' && data.currencies[0] === 'DKK')
+  && !(category === 'nationalOption' && data.type === 'mobilePay' && data.currencies[0] === 'DKK')
   && !(category === 'onlineWallet' && data.type === 'mobilePay' && data.currencies[0] === 'EUR')
 
 type Props = {

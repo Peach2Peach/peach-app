@@ -21,7 +21,7 @@ export const AddPaymentMethodButton = ({ isCash, style }: Props) => {
   const [, updateDrawer] = useContext(DrawerContext)
   const { meetupEvents, isLoading } = useMeetupEvents()
   const addPaymentMethods = () => {
-    navigation.push('addPaymentMethod', { origin: currentRoute })
+    navigation.navigate('selectCurrency', { origin: currentRoute })
   }
 
   const goToEventDetails = (eventID: MeetupEvent['id']) => {

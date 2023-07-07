@@ -1,25 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Currencies should render correctly 1`] = `
+exports[`Currencies should render correctly for type "eurorpe" 1`] = `
 <ForwardRef
   contentContainerStyle={
-    {
-      "flexGrow": 1,
-    }
-  }
-  contentStyle={
     [
       {
-        "height": "100%",
+        "flexGrow": 1,
+        "justifyContent": "center",
         "paddingBottom": 16,
-        "paddingLeft": 16,
-        "paddingRight": 16,
         "paddingTop": 16,
       },
       {
         "paddingBottom": 32,
-        "paddingLeft": 32,
-        "paddingRight": 32,
         "paddingTop": 32,
       },
     ]
@@ -83,8 +75,43 @@ exports[`Currencies should render correctly 1`] = `
     style={
       {
         "alignItems": "center",
+      }
+    }
+  />
+</ForwardRef>
+`;
+
+exports[`Currencies should render correctly for type "other" 1`] = `
+<ForwardRef
+  contentContainerStyle={
+    [
+      {
         "flexGrow": 1,
         "justifyContent": "center",
+        "paddingBottom": 16,
+        "paddingTop": 16,
+      },
+      {
+        "paddingBottom": 32,
+        "paddingTop": 32,
+      },
+    ]
+  }
+>
+  <RadioButtons
+    items={
+      [
+        {
+          "display": "L-USDT",
+          "value": "USDT",
+        },
+      ]
+    }
+    onChange={[MockFunction]}
+    selectedValue="EUR"
+    style={
+      {
+        "alignItems": "center",
       }
     }
   />

@@ -11,17 +11,17 @@ import { usePaymentDataStore } from '../../../store/usePaymentDataStore'
 
 export const usePaymentMethodFormSetup = () => {
   const route = useRoute<'paymentMethodForm'>()
-  const goToOrigin = useGoToOrigin()
-  const { paymentData: data } = route.params
-  const { type: paymentMethod, currencies, id } = data
+  const goBackTo = useGoToOrigin()
+  const { paymentData, origin } = route.params
+  const { type: paymentMethod, id } = paymentData
   const deletePaymentMethod = useDeletePaymentMethod(id ?? '')
   const selectPaymentMethod = useOfferPreferences((state) => state.selectPaymentMethod)
   const addPaymentData = usePaymentDataStore((state) => state.addPaymentData)
 
-  const onSubmit = (d: PaymentData) => {
-    addPaymentData(d)
-    selectPaymentMethod(d.id)
-    goToOrigin(route.params.origin)
+  const onSubmit = (data: PaymentData) => {
+    addPaymentData(data)
+    selectPaymentMethod(data.id)
+    goBackTo(origin)
   }
 
   const showHelp = useShowHelp('currencies')
@@ -42,5 +42,5 @@ export const usePaymentMethodFormSetup = () => {
     icons: getHeaderIcons(),
   })
 
-  return { paymentMethod, onSubmit, currencies, data }
+  return { onSubmit, data: paymentData }
 }
