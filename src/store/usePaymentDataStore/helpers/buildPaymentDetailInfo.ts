@@ -4,5 +4,5 @@ import { PaymentDetailInfo } from '../types'
 
 export const buildPaymentDetailInfo = (data: PaymentData) => {
   const hashes = hashPaymentData(data)
-  return hashes.reduce(extendPaymentDetailInfo, {} as PaymentDetailInfo)
+  return hashes.reduce(extendPaymentDetailInfo, {} satisfies PaymentDetailInfo)
 }
