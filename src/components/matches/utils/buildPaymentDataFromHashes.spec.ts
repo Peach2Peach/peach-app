@@ -1,7 +1,5 @@
-/* eslint-disable max-lines-per-function */
 import { twintData, validCashData, validSEPAData, validSEPADataHashes } from '../../../../tests/unit/data/paymentData'
 import { usePaymentDataStore } from '../../../store/usePaymentDataStore'
-import { sha256 } from '../../../utils/crypto'
 import { cleanPaymentData } from '../../../utils/paymentMethod'
 import { buildPaymentDataFromHashes } from './buildPaymentDataFromHashes'
 
