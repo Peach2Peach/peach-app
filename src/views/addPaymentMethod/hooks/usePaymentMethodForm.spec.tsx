@@ -40,9 +40,7 @@ describe('usePaymentMethodFormSetup', () => {
   it('should return paymentMethod, onSubmit, currencies, data', () => {
     const { result } = renderHook(usePaymentMethodFormSetup, { wrapper })
     expect(result.current).toEqual({
-      paymentMethod: 'revolut',
       onSubmit: expect.any(Function),
-      currencies: ['EUR'],
       data: {
         id: '1',
         type: 'revolut',

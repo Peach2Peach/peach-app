@@ -1,12 +1,12 @@
-import { ColorValue, TouchableOpacity, View, ViewStyle } from 'react-native'
-import { Icon, Text } from '../../../components'
+import { TextStyle, TouchableOpacity, View, ViewStyle } from 'react-native'
 import { IconType } from '../../../assets/icons'
+import { Icon, Text } from '../../../components'
+import LinedText from '../../../components/ui/LinedText'
 import tw from '../../../styles/tailwind'
 import { account } from '../../../utils/account'
-import i18n from '../../../utils/i18n'
-import { toTimeFormat } from '../../../utils/date/toShortDateFormat'
 import { toDateFormat } from '../../../utils/date'
-import LinedText from '../../../components/ui/LinedText'
+import { toTimeFormat } from '../../../utils/date/toShortDateFormat'
+import i18n from '../../../utils/i18n'
 
 type GetMessageMetaProps = {
   message: Message
@@ -51,7 +51,7 @@ type MessageStyling = {
   text: ViewStyle
   bgColor: ViewStyle
   statusIcon: IconType
-  statusIconColor: ColorValue
+  statusIconColor: TextStyle
 }
 const getMessageStyling = (message: Message, meta: MessageMeta): MessageStyling => {
   const text = meta.isMediator || meta.isSystemMessage ? tw`text-primary-main` : tw`text-black-2`
@@ -70,7 +70,7 @@ const getMessageStyling = (message: Message, meta: MessageMeta): MessageStyling 
       : meta.readByCounterParty
         ? 'chatDoubleCheck'
         : 'check'
-  const statusIconColor = (statusIcon === 'chatDoubleCheck' ? tw`text-info-main`.color : tw`text-black-3`.color)!
+  const statusIconColor = statusIcon === 'chatDoubleCheck' ? tw`text-info-main` : tw`text-black-3`
   return {
     text,
     bgColor,
@@ -122,7 +122,7 @@ export const ChatMessage = ({
             <Text style={tw`subtitle-2 leading-xs text-black-3`}>{toTimeFormat(message.date)}</Text>
             {meta.isYou && (
               <View style={tw`pl-1`}>
-                <Icon id={statusIcon} style={tw`relative w-4 h-4 -bottom-1`} color={statusIconColor} />
+                <Icon id={statusIcon} style={tw`relative w-4 h-4 -bottom-1`} color={statusIconColor.color} />
               </View>
             )}
           </Text>

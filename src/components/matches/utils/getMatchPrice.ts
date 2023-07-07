@@ -10,8 +10,8 @@ export const getMatchPrice = (
     = match.matched && match.matchedPrice !== null
       ? match.matchedPrice
       : paymentInfo?.rounded
-        ? Math.round(match.prices[selectedCurrency]!)
-        : match.prices[selectedCurrency]!
+        ? Math.round(match.prices[selectedCurrency] ?? 0)
+        : match.prices[selectedCurrency]
 
-  return displayPrice
+  return displayPrice ?? 0
 }

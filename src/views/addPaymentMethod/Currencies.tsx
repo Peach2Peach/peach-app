@@ -1,26 +1,23 @@
-import tw from '../../styles/tailwind'
 import { PeachScrollView, RadioButtons } from '../../components'
 import { CURRENCIES } from '../../constants'
+import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
+import { getCurrencyTypeFilter } from './utils'
 
 type Props = {
-  currency?: Currency
+  currency: Currency
   setCurrency: (c: Currency) => void
+  type: 'europe' | 'other'
 }
 
-export const Currencies = ({ currency = 'EUR', setCurrency }: Props) => {
-  const currencies = CURRENCIES.filter((c) => c !== 'USDT').map((c) => ({
+export const Currencies = ({ currency, setCurrency, type }: Props) => {
+  const currencies = CURRENCIES.filter(getCurrencyTypeFilter(type)).map((c) => ({
     value: c,
     display: i18n(`currency.${c}`),
   }))
   return (
-    <PeachScrollView contentStyle={[tw`h-full p-4`, tw.md`p-8`]} contentContainerStyle={tw`flex-grow`}>
-      <RadioButtons
-        style={tw`items-center justify-center flex-grow`}
-        items={currencies}
-        selectedValue={currency}
-        onChange={setCurrency}
-      />
+    <PeachScrollView contentContainerStyle={[tw`justify-center flex-grow py-4`, tw.md`py-8`]}>
+      <RadioButtons style={tw`items-center`} items={currencies} selectedValue={currency} onChange={setCurrency} />
     </PeachScrollView>
   )
 }

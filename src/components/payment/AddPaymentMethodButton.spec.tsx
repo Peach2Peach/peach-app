@@ -1,8 +1,8 @@
 import { fireEvent, render, waitFor } from '@testing-library/react-native'
 import { NavigationAndQueryClientWrapper } from '../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
-import { pushMock } from '../../../tests/unit/helpers/NavigationWrapper'
+import { navigateMock, pushMock } from '../../../tests/unit/helpers/NavigationWrapper'
 import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
-import { DrawerContext, defaultState } from '../../contexts/drawer'
+import { defaultState, DrawerContext } from '../../contexts/drawer'
 import { useMeetupEventsStore } from '../../store/meetupEventsStore'
 import { AddPaymentMethodButton } from './AddPaymentMethodButton'
 
@@ -169,7 +169,7 @@ describe('AddPaymentMethodButton', () => {
   it('should navigate to the addPaymentMethod screen with the right parameters for isCash false', () => {
     const { getByText } = render(<AddPaymentMethodButton isCash={false} />, { wrapper })
     fireEvent.press(getByText('add new currency /\npayment method'))
-    expect(pushMock).toHaveBeenCalledWith('addPaymentMethod', {
+    expect(navigateMock).toHaveBeenCalledWith('selectCurrency', {
       origin: 'paymentMethods',
     })
   })

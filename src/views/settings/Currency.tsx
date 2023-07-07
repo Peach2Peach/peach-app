@@ -6,30 +6,22 @@ import { PeachScrollView, PrimaryButton, RadioButtons } from '../../components'
 import { CURRENCIES } from '../../constants'
 import i18n from '../../utils/i18n'
 import { useCurrencySetup } from './hooks/useCurrencySetup'
-const { LinearGradient } = require('react-native-gradients')
-import { whiteGradient } from '../../utils/layout'
 
-export default () => {
-  const { currency, setCurrency, updateCurrency } = useCurrencySetup()
+export const Currency = () => {
+  const { currency, updateCurrency, goBack } = useCurrencySetup()
 
   return (
-    <View style={tw`flex h-full`}>
-      <PeachScrollView contentContainerStyle={tw`items-center justify-center flex-grow px-10 pb-10`}>
+    <View style={[tw`h-full px-4`, tw.md`px-8`]}>
+      <PeachScrollView contentContainerStyle={[tw`py-4`, tw.md`py-8`]}>
         <RadioButtons
-          style={tw`mt-2`}
           selectedValue={currency}
           items={CURRENCIES.map((c) => ({ value: c, display: i18n(`currency.${c}`) }))}
-          onChange={setCurrency}
+          onChange={updateCurrency}
         />
       </PeachScrollView>
-      <View style={tw`flex items-center w-full px-6 mt-4 bg-primary-background`}>
-        <View style={tw`w-full h-8 -mt-8`}>
-          <LinearGradient colorList={whiteGradient} angle={90} />
-        </View>
-        <PrimaryButton testID="navigation-next" onPress={() => updateCurrency(currency)} style={tw`mb-6`}>
-          {i18n('confirm')}
-        </PrimaryButton>
-      </View>
+      <PrimaryButton onPress={goBack} style={tw`self-center mb-5 mt-18px`} narrow>
+        {i18n('confirm')}
+      </PrimaryButton>
     </View>
   )
 }

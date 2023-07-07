@@ -94,4 +94,34 @@ describe('getMatchPrice', () => {
 
     expect(getMatchPrice(match, 'paypal', 'USD')).toEqual(200.5)
   })
+
+  it('should return 0 if the price is undefined and the payment method is rounded', () => {
+    const match = {
+      matched: false,
+      matchedPrice: 10,
+      prices: {},
+    } as Match
+
+    getPaymentMethodInfoMock.mockReturnValueOnce({
+      id: 'paypal',
+      rounded: true,
+    })
+
+    expect(getMatchPrice(match, 'paypal', 'USD')).toEqual(0)
+  })
+
+  it('should return 0 if the price is undefined and the payment method is not rounded', () => {
+    const match = {
+      matched: false,
+      matchedPrice: 10,
+      prices: {},
+    } as Match
+
+    getPaymentMethodInfoMock.mockReturnValueOnce({
+      id: 'paypal',
+      rounded: false,
+    })
+
+    expect(getMatchPrice(match, 'paypal', 'USD')).toEqual(0)
+  })
 })

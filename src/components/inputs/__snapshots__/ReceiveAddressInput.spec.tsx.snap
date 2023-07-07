@@ -63,6 +63,7 @@ exports[`ReceiveAddressInput should render correctly 1`] = `
           "alignItems": "center",
           "display": "flex",
           "flexDirection": "row",
+          "gap": 4,
           "justifyContent": "space-between",
           "paddingLeft": 12,
           "paddingRight": 12,
@@ -136,6 +137,7 @@ exports[`ReceiveAddressInput should render correctly 1`] = `
         {
           "display": "flex",
           "flexDirection": "row",
+          "gap": 16,
         }
       }
     />
