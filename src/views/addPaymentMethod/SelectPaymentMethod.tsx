@@ -8,8 +8,8 @@ import { PeachScrollView, PrimaryButton, RadioButtons, Screen } from '../../comp
 import { FlagType } from '../../components/flags'
 import { NATIONALOPTIONCOUNTRIES, NATIONALOPTIONS, PAYMENTCATEGORIES } from '../../constants'
 import { useHeaderSetup, useNavigation, useRoute } from '../../hooks'
-import { usePaymentDataStore } from '../../store/usePaymentDataStore'
 import { getApplicablePaymentCategories, paymentMethodAllowedForCurrency } from '../../utils/paymentMethod'
+import { usePaymentMethodLabel } from './hooks'
 
 const mapCountryToDrawerOption = (onPress: (country: FlagType) => void) => (country: FlagType) => ({
   title: i18n(`country.${country}`),
@@ -23,7 +23,6 @@ export const SelectPaymentMethod = () => {
   const navigation = useNavigation()
   const { selectedCurrency, origin } = useRoute<'selectPaymentMethod'>().params
   const [, updateDrawer] = useDrawerContext()
-  const getAllPaymentDataByType = usePaymentDataStore((state) => state.getAllPaymentDataByType)
 
   const [selectedPaymentCategory, setSelectedPaymentCategory] = useState<PaymentCategory>()
   const paymentCategories = useMemo(
@@ -35,11 +34,10 @@ export const SelectPaymentMethod = () => {
     [selectedCurrency],
   )
 
-  const goToPaymentMethodForm = (paymentMethod: PaymentMethod) => {
-    const existingPaymentMethodsOfType = getAllPaymentDataByType(paymentMethod).length
-    let label = i18n(`paymentMethod.${paymentMethod}`)
-    if (existingPaymentMethodsOfType > 0) label += ` #${existingPaymentMethodsOfType + 1}`
+  const getPaymentMethodLabel = usePaymentMethodLabel()
 
+  const goToPaymentMethodForm = (paymentMethod: PaymentMethod) => {
+    const label = getPaymentMethodLabel(paymentMethod)
     navigation.navigate('paymentMethodForm', {
       paymentData: { type: paymentMethod, label, currencies: [selectedCurrency] },
       origin,
