@@ -6,13 +6,11 @@ import i18n from '../../../../../utils/i18n'
 import { getErrorsInField } from '../../../../../utils/validation'
 import { TabbedNavigationItem } from '../../../../navigation/TabbedNavigation'
 import { toggleCurrency } from '../../paymentForms/utils'
-import { usePaymentDataStore } from '../../../../../store/usePaymentDataStore'
+import { useLabelInput } from './useLabelInput'
 
 const referenceRules = { required: false, isValidPaymentReference: true }
 // eslint-disable-next-line max-lines-per-function, max-statements
 export const useTemplate6Setup = ({ data, onSubmit, setStepValid, setFormData }: FormProps) => {
-  const getPaymentDataByLabel = usePaymentDataStore((state) => state.getPaymentDataByLabel)
-
   const { currencies, type: paymentMethod } = data
   const tabs: TabbedNavigationItem[] = useMemo(() => {
     const tabItems = [
@@ -26,7 +24,7 @@ export const useTemplate6Setup = ({ data, onSubmit, setStepValid, setFormData }:
     }
     return tabItems
   }, [paymentMethod])
-  const [label, setLabel] = useState(data?.label || '')
+  const { labelInputProps, labelErrors, setDisplayErrors: setDisplayLabelErrors, label } = useLabelInput(data)
   const [phone, setPhone] = useState(data?.phone || '')
   const [email, setEmail] = useState(data?.email || '')
   const [userName, setUserName] = useState(data?.userName || '')
@@ -37,13 +35,6 @@ export const useTemplate6Setup = ({ data, onSubmit, setStepValid, setFormData }:
   const [selectedCurrencies, setSelectedCurrencies] = useState(data?.currencies || currencies)
   const [displayErrors, setDisplayErrors] = useState(false)
 
-  const labelRules = useMemo(
-    () => ({
-      required: true,
-      duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)?.id !== data.id,
-    }),
-    [data.id, getPaymentDataByLabel, label],
-  )
   const emailRules = useMemo(() => ({ required: !phone && !userName, email: true }), [phone, userName])
   const userNameRules = useMemo(
     () => ({
@@ -58,7 +49,6 @@ export const useTemplate6Setup = ({ data, onSubmit, setStepValid, setFormData }:
     [email, userName],
   )
 
-  const labelErrors = useMemo(() => getErrorsInField(label, labelRules), [label, labelRules])
   const phoneErrors = useMemo(() => getErrorsInField(phone, phoneRules), [phone, phoneRules])
   const emailErrors = useMemo(() => getErrorsInField(email, emailRules), [email, emailRules])
   const userNameErrors = useMemo(() => getErrorsInField(userName, userNameRules), [userName, userNameRules])
@@ -84,10 +74,11 @@ export const useTemplate6Setup = ({ data, onSubmit, setStepValid, setFormData }:
   )
 
   const isFormValid = useCallback(() => {
+    setDisplayLabelErrors(true)
     setDisplayErrors(true)
 
     return [...labelErrors, ...phoneErrors, ...emailErrors, ...userNameErrors].length === 0 && referenceIsValid
-  }, [emailErrors, labelErrors, phoneErrors, referenceIsValid, userNameErrors])
+  }, [emailErrors, labelErrors, phoneErrors, referenceIsValid, setDisplayLabelErrors, userNameErrors])
 
   const getErrorTabs = () => {
     const fields = []
@@ -108,11 +99,7 @@ export const useTemplate6Setup = ({ data, onSubmit, setStepValid, setFormData }:
   }, [buildPaymentData, isFormValid, setFormData, setStepValid])
 
   return {
-    labelInputProps: {
-      onChange: setLabel,
-      value: label,
-      errorMessage: displayErrors ? labelErrors : undefined,
-    },
+    labelInputProps,
     tabbedNavigationProps: {
       items: tabs,
       selected: currentTab,

@@ -2,17 +2,14 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { FormProps } from '../../../../../views/addPaymentMethod/PaymentMethodForm'
 import { useValidatedState } from '../../../../../hooks'
 import { getErrorsInField } from '../../../../../utils/validation'
-import { usePaymentDataStore } from '../../../../../store/usePaymentDataStore'
+import { useLabelInput } from './useLabelInput'
 
 const beneficiaryRules = { required: true }
 const referenceRules = { required: false, isValidPaymentReference: true }
 
-// eslint-disable-next-line max-lines-per-function
 export const useTemplate7Setup = ({ data, onSubmit, setStepValid, setFormData }: FormProps) => {
-  const getPaymentDataByLabel = usePaymentDataStore((state) => state.getPaymentDataByLabel)
-
   const { currencies, type: paymentMethod } = data
-  const [label, setLabel] = useState(data?.label || '')
+  const { labelInputProps, labelErrors, setDisplayErrors: setDisplayLabelErrors, label } = useLabelInput(data)
   const [beneficiary, setBeneficiary, isValidBeneficiary, beneficiaryErrors] = useValidatedState(
     data?.beneficiary || '',
     beneficiaryRules,
@@ -30,16 +27,6 @@ export const useTemplate7Setup = ({ data, onSubmit, setStepValid, setFormData }:
     [accountNumber, accountNumberRules],
   )
 
-  const labelRules = useMemo(
-    () => ({
-      required: true,
-      duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)?.id !== data.id,
-    }),
-    [data.id, getPaymentDataByLabel, label],
-  )
-
-  const labelErrors = useMemo(() => getErrorsInField(label, labelRules), [label, labelRules])
-
   const buildPaymentData = useCallback(
     () => ({
       id: data?.id || `${paymentMethod}-${Date.now()}`,
@@ -54,9 +41,10 @@ export const useTemplate7Setup = ({ data, onSubmit, setStepValid, setFormData }:
   )
 
   const isFormValid = useCallback(() => {
+    setDisplayLabelErrors(true)
     setDisplayErrors(true)
     return [...labelErrors, ...accountNumberErrors].length === 0 && isValidBeneficiary && referenceIsValid
-  }, [accountNumberErrors, isValidBeneficiary, referenceIsValid, labelErrors])
+  }, [setDisplayLabelErrors, labelErrors, accountNumberErrors, isValidBeneficiary, referenceIsValid])
 
   const save = () => {
     if (!isFormValid()) return
@@ -70,11 +58,7 @@ export const useTemplate7Setup = ({ data, onSubmit, setStepValid, setFormData }:
   }, [buildPaymentData, isFormValid, setFormData, setStepValid])
 
   return {
-    labelInputProps: {
-      onChange: setLabel,
-      value: label,
-      errorMessage: displayErrors ? labelErrors : undefined,
-    },
+    labelInputProps,
     beneficiaryInputProps: {
       onChange: setBeneficiary,
       value: beneficiary,
