@@ -113,7 +113,6 @@ describe('useMeetupScreenSetup', () => {
       country: 'DE',
       label: 'shortName',
       type: 'cash.123',
-      userId: '',
     })
     expect(goBackMock).toHaveBeenCalled()
   })
@@ -169,7 +168,6 @@ describe('useMeetupScreenSetup', () => {
             id: 'cash.123',
             label: 'shortName',
             type: 'cash.123',
-            userId: '',
           },
         ],
         paymentData: {
@@ -304,7 +302,6 @@ describe('useMeetupScreenSetup', () => {
       country: 'DE',
       label: 'shortName',
       type: 'cash.123',
-      userId: '',
     })
   })
 })
