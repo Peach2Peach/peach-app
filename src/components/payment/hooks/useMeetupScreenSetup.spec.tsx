@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import { NavigationContainer } from '@react-navigation/native'
 import { act, renderHook } from '@testing-library/react-native'
 import { headerState, setOptionsMock } from '../../../../tests/unit/helpers/NavigationWrapper'
