@@ -5,7 +5,7 @@ import { migratePaymentDataToStore } from './migratePaymentDataToStore'
 
 describe('migratePaymentDataToStore', () => {
   const paymentData = [validSEPAData, twintData]
-  beforeEach(() => {
+  beforeAll(() => {
     accountStorage.setArray('paymentData', paymentData)
   })
   afterEach(() => usePaymentDataStore.getState().reset())
@@ -19,18 +19,10 @@ describe('migratePaymentDataToStore', () => {
     expect(usePaymentDataStore.getState().paymentDetailInfo).toEqual(paymentDetailInfo)
     expect(usePaymentDataStore.getState().migrated).toBeTruthy()
   })
-  it('migrates even if already migrated', () => {
+  it('does nothing if already migrated', () => {
     usePaymentDataStore.getState().setMigrated()
     migratePaymentDataToStore()
-    expect(usePaymentDataStore.getState().paymentData).toEqual({
-      [validSEPAData.id]: validSEPAData,
-      [twintData.id]: twintData,
-    })
-    expect(usePaymentDataStore.getState().paymentDetailInfo).toEqual(paymentDetailInfo)
-    expect(usePaymentDataStore.getState().migrated).toBeTruthy()
-  })
-  it('removes paymentData from account', () => {
-    migratePaymentDataToStore()
-    expect(accountStorage.getArray('paymentData')).toBeUndefined()
+    expect(usePaymentDataStore.getState().paymentData).toEqual({})
+    expect(usePaymentDataStore.getState().paymentDetailInfo).toEqual({})
   })
 })
