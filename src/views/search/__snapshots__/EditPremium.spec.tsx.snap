@@ -502,9 +502,7 @@ exports[`EditPremium should render correctly 1`] = `
                             {
                               "color": "#2B1911",
                             },
-                            {
-                              "opacity": 0.1,
-                            },
+                            false,
                             {
                               "letterSpacing": -1.275,
                             },
@@ -512,7 +510,7 @@ exports[`EditPremium should render correctly 1`] = `
                         ]
                       }
                     >
-                      0
+                      2
                     </Text>
                     <Text
                       allowFontScaling={false}
@@ -540,9 +538,7 @@ exports[`EditPremium should render correctly 1`] = `
                             {
                               "color": "#2B1911",
                             },
-                            {
-                              "opacity": 0.1,
-                            },
+                            false,
                             {
                               "letterSpacing": -1.275,
                             },
@@ -550,7 +546,7 @@ exports[`EditPremium should render correctly 1`] = `
                         ]
                       }
                     >
-                      0
+                      1
                     </Text>
                     <Text
                       allowFontScaling={false}
@@ -578,9 +574,7 @@ exports[`EditPremium should render correctly 1`] = `
                             {
                               "color": "#2B1911",
                             },
-                            {
-                              "opacity": 0.1,
-                            },
+                            false,
                             {
                               "letterSpacing": -5.949999999999999,
                             },
@@ -616,9 +610,7 @@ exports[`EditPremium should render correctly 1`] = `
                             {
                               "color": "#2B1911",
                             },
-                            {
-                              "opacity": 0.1,
-                            },
+                            false,
                             {
                               "letterSpacing": -1.275,
                             },
@@ -654,9 +646,7 @@ exports[`EditPremium should render correctly 1`] = `
                             {
                               "color": "#2B1911",
                             },
-                            {
-                              "opacity": 0.1,
-                            },
+                            false,
                             {
                               "letterSpacing": -1.275,
                             },
@@ -692,9 +682,7 @@ exports[`EditPremium should render correctly 1`] = `
                             {
                               "color": "#2B1911",
                             },
-                            {
-                              "opacity": 0.1,
-                            },
+                            false,
                             {
                               "letterSpacing": -1.275,
                             },
@@ -730,9 +718,7 @@ exports[`EditPremium should render correctly 1`] = `
                             {
                               "color": "#2B1911",
                             },
-                            {
-                              "opacity": 0.1,
-                            },
+                            false,
                             {
                               "letterSpacing": -5.949999999999999,
                             },
@@ -768,9 +754,7 @@ exports[`EditPremium should render correctly 1`] = `
                             {
                               "color": "#2B1911",
                             },
-                            {
-                              "opacity": 0.1,
-                            },
+                            false,
                             {
                               "letterSpacing": -1.275,
                             },
@@ -806,9 +790,7 @@ exports[`EditPremium should render correctly 1`] = `
                             {
                               "color": "#2B1911",
                             },
-                            {
-                              "opacity": 0.1,
-                            },
+                            false,
                             {
                               "letterSpacing": -1.275,
                             },
@@ -992,6 +974,28 @@ exports[`EditPremium should render correctly 1`] = `
               </View>
             </View>
           </View>
+          <Text
+            allowFontScaling={false}
+            style={
+              [
+                {
+                  "color": "#2B1911",
+                  "fontFamily": "Baloo2-Regular",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 24,
+                },
+                {
+                  "color": "#7D675E",
+                  "textAlign": "center",
+                },
+              ]
+            }
+          >
+            (
+            currently 21 315.00 EUR
+            )
+          </Text>
         </View>
         <View
           onMoveShouldSetResponder={[Function]}
@@ -1447,7 +1451,7 @@ price
         {
           "busy": undefined,
           "checked": undefined,
-          "disabled": true,
+          "disabled": undefined,
           "expanded": undefined,
           "selected": undefined,
         }
@@ -1462,7 +1466,7 @@ price
       }
       accessible={true}
       collapsable={false}
-      focusable={true}
+      focusable={false}
       onClick={[Function]}
       onResponderGrant={[Function]}
       onResponderMove={[Function]}
@@ -1473,17 +1477,14 @@ price
       style={
         {
           "alignItems": "center",
-          "alignSelf": "center",
-          "backgroundColor": "#FCCCB6",
+          "backgroundColor": "#F56522",
           "borderRadius": 9999,
           "flexDirection": "row",
           "height": 40,
           "justifyContent": "center",
-          "marginBottom": 20,
           "opacity": 1,
           "paddingLeft": 16,
           "paddingRight": 16,
-          "width": 156,
         }
       }
     >
@@ -1519,9 +1520,15 @@ price
           ]
         }
       >
-        next
+        Confirm
       </Text>
     </View>
   </View>
 </View>
+`;
+
+exports[`EditPremium should set up the header correctly 1`] = `
+<Header
+  title="P‑7B"
+/>
 `;
