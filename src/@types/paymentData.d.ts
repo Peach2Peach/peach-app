@@ -12,6 +12,7 @@ declare type PaymentDataInfo = {
   userName?: string
   wallet?: string
   receiveAddress?: string
+  userId?: string
 }
 
 declare type PaymentDataField = keyof PaymentDataInfo

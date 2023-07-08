@@ -113,6 +113,7 @@ describe('useMeetupScreenSetup', () => {
       country: 'DE',
       label: 'shortName',
       type: 'cash.123',
+      userId: '',
     })
     expect(goBackMock).toHaveBeenCalled()
   })
@@ -168,12 +169,13 @@ describe('useMeetupScreenSetup', () => {
             id: 'cash.123',
             label: 'shortName',
             type: 'cash.123',
+            userId: '',
           },
         ],
         paymentData: {
           'cash.123': {
             country: 'DE',
-            hashes: [],
+            hashes: ['e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'],
           },
         },
         preferredPaymentMethods: {
@@ -302,6 +304,7 @@ describe('useMeetupScreenSetup', () => {
       country: 'DE',
       label: 'shortName',
       type: 'cash.123',
+      userId: '',
     })
   })
 })

@@ -5,6 +5,7 @@ import { useShowHelp } from '../../../hooks/useShowHelp'
 import { useMeetupEventsStore } from '../../../store/meetupEventsStore'
 import { useOfferPreferences } from '../../../store/offerPreferenes'
 import { usePaymentDataStore } from '../../../store/usePaymentDataStore'
+import { account } from '../../../utils/account'
 import { headerIcons } from '../../../utils/layout/headerIcons'
 import { getPaymentMethodInfo } from '../../../utils/paymentMethod'
 import { toggleCurrency } from '../../inputs/paymentMethods/paymentForms/utils'
@@ -44,6 +45,7 @@ export const useMeetupScreenSetup = () => {
       id: meetupInfo.id,
       label: event.shortName,
       type: meetupInfo.id,
+      userId: account.publicKey,
       currencies: selectedCurrencies,
       country: event.country,
     }

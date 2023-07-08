@@ -14,7 +14,7 @@ describe('MeetupPaymentMethods', () => {
     select: selectMock,
     isSelected: isSelectedMock,
   }
-  afterEach(() => {
+  beforeEach(() => {
     usePaymentDataStore.getState().reset()
   })
   it('should render correctly without available methods', () => {
