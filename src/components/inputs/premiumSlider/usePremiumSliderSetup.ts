@@ -1,7 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Animated, LayoutChangeEvent, PanResponder } from 'react-native'
-import { shallow } from 'zustand/shallow'
-import { useOfferPreferences } from '../../../store/offerPreferenes/useOfferPreferences'
 import tw from '../../../styles/tailwind'
 import { round } from '../../../utils/math'
 
@@ -10,9 +8,11 @@ const MAX = 21
 const DELTA = MAX - MIN
 const KNOBWIDTH = tw`w-8`.width as number
 
-export const usePremiumSliderSetup = () => {
+export const usePremiumSliderSetup = (
+  premium: number,
+  setPremium: (newPremium: number, isValid?: boolean | undefined) => void,
+) => {
   const [isSliding, setIsSliding] = useState(false)
-  const [premium, setPremium] = useOfferPreferences((state) => [state.premium, state.setPremium], shallow)
   const [trackWidth, setTrackWidth] = useState(260)
   const labelPosition = useMemo(
     () => [

@@ -1,9 +1,7 @@
 import { useMemo, useState } from 'react'
 import { View } from 'react-native'
-import { shallow } from 'zustand/shallow'
 import { Text } from '../../../components'
 import { PercentageInput } from '../../../components/inputs'
-import { useOfferPreferences } from '../../../store/offerPreferenes/useOfferPreferences'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { enforcePremiumFormat } from '../helpers/enforcePremiumFormat'
@@ -14,8 +12,12 @@ const convertDisplayPremiumToNumber = (displayPremium: string) => {
   return asNumberType
 }
 
-export const PremiumInput = () => {
-  const [premium, setPremium] = useOfferPreferences((state) => [state.premium, state.setPremium], shallow)
+type Props = {
+  premium: number
+  setPremium: (newPremium: number) => void
+}
+
+export const PremiumInput = ({ premium, setPremium }: Props) => {
   const [displayPremium, setDisplayPremium] = useState(premium.toString())
 
   const displayValue = useMemo(() => {

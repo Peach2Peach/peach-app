@@ -1,3 +1,3 @@
-import { Premium } from '../sell/Premium'
+import { OfferPreferencePremium } from '../sell/Premium'
 
-export const EditPremium = Premium
+export const EditPremium = OfferPreferencePremium
