@@ -35,10 +35,25 @@ exports[`WrongFundingAmount renders correctly 1`] = `
           ],
         },
         "online": true,
-        "originalPaymentData": [],
+        "originalPaymentData": [
+          {
+            "beneficiary": "Hal Finney",
+            "bic": "AAAA BB CC 123",
+            "currencies": [
+              "EUR",
+            ],
+            "hidden": false,
+            "iban": "IE29 AIBK 9311 5212 3456 78",
+            "id": "sepa-1669721660451",
+            "label": "SEPA EUR",
+            "type": "sepa",
+          },
+        ],
         "paymentData": {
           "sepa": {
-            "hash": "TODO add payment hash",
+            "hashes": [
+              "8b703de3cb4f30887310c0f6fcaa35d58be484207ebffec12be69ec9b1d0b5f3",
+            ],
           },
         },
         "premium": 1.5,
@@ -82,10 +97,25 @@ exports[`WrongFundingAmount renders correctly 1`] = `
             ],
           },
           "online": true,
-          "originalPaymentData": [],
+          "originalPaymentData": [
+            {
+              "beneficiary": "Hal Finney",
+              "bic": "AAAA BB CC 123",
+              "currencies": [
+                "EUR",
+              ],
+              "hidden": false,
+              "iban": "IE29 AIBK 9311 5212 3456 78",
+              "id": "sepa-1669721660451",
+              "label": "SEPA EUR",
+              "type": "sepa",
+            },
+          ],
           "paymentData": {
             "sepa": {
-              "hash": "TODO add payment hash",
+              "hashes": [
+                "8b703de3cb4f30887310c0f6fcaa35d58be484207ebffec12be69ec9b1d0b5f3",
+              ],
             },
           },
           "premium": 1.5,
@@ -121,10 +151,25 @@ exports[`WrongFundingAmount renders correctly 1`] = `
             ],
           },
           "online": true,
-          "originalPaymentData": [],
+          "originalPaymentData": [
+            {
+              "beneficiary": "Hal Finney",
+              "bic": "AAAA BB CC 123",
+              "currencies": [
+                "EUR",
+              ],
+              "hidden": false,
+              "iban": "IE29 AIBK 9311 5212 3456 78",
+              "id": "sepa-1669721660451",
+              "label": "SEPA EUR",
+              "type": "sepa",
+            },
+          ],
           "paymentData": {
             "sepa": {
-              "hash": "TODO add payment hash",
+              "hashes": [
+                "8b703de3cb4f30887310c0f6fcaa35d58be484207ebffec12be69ec9b1d0b5f3",
+              ],
             },
           },
           "premium": 1.5,

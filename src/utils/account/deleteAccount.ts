@@ -13,6 +13,7 @@ import { chatStorage } from './chatStorage'
 import { contractStorage } from './contractStorage'
 import { offerStorage } from './offerStorage'
 import { updateAccount } from './updateAccount'
+import { usePaymentDataStore } from '../../store/usePaymentDataStore'
 
 export const deleteAccount = () => {
   info('Deleting account')
@@ -27,7 +28,9 @@ export const deleteAccount = () => {
     settingsStorage,
     notificationStorage,
   ].forEach((storage) => storage.clearStore())
-  ;[useNotificationStore, useConfigStore, useWalletState, useSettingsStore].forEach((store) => store.getState().reset())
+  ;[useNotificationStore, useConfigStore, useWalletState, useSettingsStore, usePaymentDataStore].forEach((store) =>
+    store.getState().reset(),
+  )
 
   deleteAccessToken()
   deletePeachAccount()

@@ -1,6 +1,8 @@
 /* eslint-disable max-len */
 /* eslint-disable max-lines */
 
+import { twintData, twintDataHashes, validSEPAData, validSEPADataHashes } from './paymentData'
+
 export const buyOffer: BuyOffer = {
   creationDate: new Date('2022-03-08T11:41:07.245Z'),
   publishingDate: new Date('2022-03-08T11:41:07.245Z'),
@@ -9,14 +11,13 @@ export const buyOffer: BuyOffer = {
   type: 'bid',
   meansOfPayment: {
     EUR: ['sepa'],
-    CHF: ['sepa'],
+    CHF: ['twint'],
   },
   paymentData: {
-    sepa: {
-      hash: 'TODO add payment hash',
-    },
+    sepa: { hashes: validSEPADataHashes },
+    twint: { hashes: twintDataHashes },
   },
-  originalPaymentData: [],
+  originalPaymentData: [validSEPAData, twintData],
   amount: [50000, 250000],
   matches: [],
   matched: [],
@@ -36,11 +37,9 @@ export const sellOffer: SellOffer = {
     EUR: ['sepa'],
   },
   paymentData: {
-    sepa: {
-      hash: 'TODO add payment hash',
-    },
+    sepa: { hashes: validSEPADataHashes },
   },
-  originalPaymentData: [],
+  originalPaymentData: [validSEPAData],
   funding: {
     status: 'NULL',
     txIds: [],
@@ -69,14 +68,13 @@ export const buyOfferUnpublished: BuyOfferDraft = {
   type: 'bid',
   meansOfPayment: {
     EUR: ['sepa'],
-    CHF: ['sepa'],
+    CHF: ['twint'],
   },
   paymentData: {
-    sepa: {
-      hash: 'TODO add payment hash',
-    },
+    sepa: { hashes: validSEPADataHashes },
+    twint: { hashes: twintDataHashes },
   },
-  originalPaymentData: [],
+  originalPaymentData: [validSEPAData],
   amount: [250000, 500000],
   tradeStatus: 'offerHidden',
   releaseAddress: 'bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh',
@@ -111,12 +109,11 @@ export const matchOffer: Match = {
   premium: 1.5,
   meansOfPayment: {
     EUR: ['sepa'],
-    CHF: ['sepa'],
+    CHF: ['twint'],
   },
   paymentData: {
-    sepa: {
-      hash: ' add payment hash',
-    },
+    sepa: { hashes: validSEPADataHashes },
+    twint: { hashes: twintDataHashes },
   },
   selectedCurrency: 'EUR',
   selectedPaymentMethod: 'sepa',

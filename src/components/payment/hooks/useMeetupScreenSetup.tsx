@@ -4,7 +4,8 @@ import { useGoToOrigin } from '../../../hooks/useGoToOrigin'
 import { useShowHelp } from '../../../hooks/useShowHelp'
 import { useMeetupEventsStore } from '../../../store/meetupEventsStore'
 import { useOfferPreferences } from '../../../store/offerPreferenes'
-import { account, addPaymentData } from '../../../utils/account'
+import { usePaymentDataStore } from '../../../store/usePaymentDataStore'
+import { account } from '../../../utils/account'
 import { headerIcons } from '../../../utils/layout/headerIcons'
 import { getPaymentMethodInfo } from '../../../utils/paymentMethod'
 import { toggleCurrency } from '../../inputs/paymentMethods/paymentForms/utils'
@@ -33,6 +34,7 @@ export const useMeetupScreenSetup = () => {
 
   const showHelp = useShowHelp('cashTrades')
   const deletePaymentMethod = useDeletePaymentMethod(`cash.${event.id}`)
+  const addPaymentData = usePaymentDataStore((state) => state.addPaymentData)
 
   const selectPaymentMethod = useOfferPreferences((state) => state.selectPaymentMethod)
 
@@ -42,8 +44,8 @@ export const useMeetupScreenSetup = () => {
     const meetup: PaymentData = {
       id: meetupInfo.id,
       label: event.shortName,
-      userId: account.publicKey,
       type: meetupInfo.id,
+      userId: account.publicKey,
       currencies: selectedCurrencies,
       country: event.country,
     }

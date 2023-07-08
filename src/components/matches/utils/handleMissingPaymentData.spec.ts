@@ -10,7 +10,6 @@ describe('handleMissingPaymentData', () => {
   const paymentMethod = 'sepa'
 
   afterEach(() => {
-    jest.clearAllMocks()
     updateMessage(undefined)
   })
 

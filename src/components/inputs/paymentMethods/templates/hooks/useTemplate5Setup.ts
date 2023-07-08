@@ -1,9 +1,8 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { FormProps } from '../../../../../views/addPaymentMethod/PaymentMethodForm'
 import { useValidatedState } from '../../../../../hooks'
-import { getPaymentDataByLabel } from '../../../../../utils/account'
 import i18n from '../../../../../utils/i18n'
-import { getErrorsInField } from '../../../../../utils/validation'
+import { useLabelInput } from './useLabelInput'
 
 const beneficiaryRules = { required: true }
 const referenceRules = { required: false, isValidPaymentReference: true }
@@ -12,7 +11,7 @@ const ukSortCodeRules = { required: false, ukSortCode: true }
 // eslint-disable-next-line max-lines-per-function
 export const useTemplate5Setup = ({ data, onSubmit, setStepValid, setFormData }: FormProps) => {
   const { currencies, type: paymentMethod } = data
-  const [label, setLabel] = useState(data?.label || '')
+  const { labelInputProps, labelErrors, setDisplayErrors: setDisplayLabelErrors, label } = useLabelInput(data)
   const [beneficiary, setBeneficiary, beneficiaryIsValid, beneficiaryErrors] = useValidatedState(
     data?.beneficiary || '',
     beneficiaryRules,
@@ -31,16 +30,6 @@ export const useTemplate5Setup = ({ data, onSubmit, setStepValid, setFormData }:
   )
   const [displayErrors, setDisplayErrors] = useState(false)
 
-  const labelRules = useMemo(
-    () => ({
-      required: true,
-      duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)?.id !== data.id,
-    }),
-    [data.id, label],
-  )
-
-  const labelErrors = useMemo(() => getErrorsInField(label, labelRules), [label, labelRules])
-
   const buildPaymentData = useCallback(
     () => ({
       id: data?.id || `${paymentMethod}-${Date.now()}`,
@@ -56,11 +45,19 @@ export const useTemplate5Setup = ({ data, onSubmit, setStepValid, setFormData }:
   )
 
   const isFormValid = useCallback(() => {
+    setDisplayLabelErrors(true)
     setDisplayErrors(true)
     return (
       labelErrors.length === 0 && beneficiaryIsValid && ukBankAccountIsValid && ukSortCodeIsValid && referenceIsValid
     )
-  }, [beneficiaryIsValid, labelErrors.length, referenceIsValid, ukBankAccountIsValid, ukSortCodeIsValid])
+  }, [
+    beneficiaryIsValid,
+    labelErrors.length,
+    referenceIsValid,
+    setDisplayLabelErrors,
+    ukBankAccountIsValid,
+    ukSortCodeIsValid,
+  ])
 
   const save = () => {
     if (!isFormValid()) return
@@ -74,11 +71,7 @@ export const useTemplate5Setup = ({ data, onSubmit, setStepValid, setFormData }:
   }, [buildPaymentData, isFormValid, setFormData, setStepValid])
 
   return {
-    labelInputProps: {
-      onChange: setLabel,
-      value: label,
-      errorMessage: displayErrors ? labelErrors : undefined,
-    },
+    labelInputProps,
     beneficiaryInputProps: {
       onChange: setBeneficiary,
       value: beneficiary,

@@ -14,7 +14,6 @@ export type MatchProps = RequestProps & {
   symmetricKeySignature?: string
   paymentDataEncrypted?: string
   paymentDataSignature?: string
-  hashedPaymentData?: string
 }
 
 export const matchOffer = async ({
@@ -26,7 +25,6 @@ export const matchOffer = async ({
   symmetricKeySignature,
   paymentDataEncrypted,
   paymentDataSignature,
-  hashedPaymentData,
   timeout,
 }: MatchProps) => {
   const response = await fetch(`${API_URL}/v1/offer/${offerId}/match`, {
@@ -39,7 +37,6 @@ export const matchOffer = async ({
       symmetricKeySignature,
       paymentDataEncrypted,
       paymentDataSignature,
-      hashedPaymentData,
     }),
     method: 'POST',
     signal: timeout ? getAbortWithTimeout(timeout).signal : undefined,

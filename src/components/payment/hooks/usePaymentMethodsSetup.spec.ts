@@ -1,25 +1,24 @@
 import { act, renderHook } from '@testing-library/react-native'
-import { paymentData as testPaymentData } from '../../../../tests/unit/data/accountData'
-import { getStateMock, headerState, NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
-import { account, updateAccount } from '../../../utils/account'
+import { validSEPAData } from '../../../../tests/unit/data/paymentData'
+import { NavigationWrapper, getStateMock, headerState } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { usePaymentDataStore } from '../../../store/usePaymentDataStore'
 import { usePaymentMethodsSetup } from './usePaymentMethodsSetup'
 
 describe('usePaymentMethodsSetup', () => {
-  afterEach(() => {
-    jest.clearAllMocks()
-    updateAccount({ ...account, paymentData: [] })
+  beforeEach(() => {
+    usePaymentDataStore.getState().reset()
   })
   it('should setup header', () => {
     renderHook(usePaymentMethodsSetup, { wrapper: NavigationWrapper })
     expect(headerState.header()).toMatchSnapshot()
   })
   it('should setup header for account with payment data', () => {
-    updateAccount({ ...account, paymentData: testPaymentData })
+    usePaymentDataStore.getState().addPaymentData(validSEPAData)
     renderHook(usePaymentMethodsSetup, { wrapper: NavigationWrapper })
     expect(headerState.header()).toMatchSnapshot()
   })
   it('should setup header when editing', () => {
-    updateAccount({ ...account, paymentData: testPaymentData })
+    usePaymentDataStore.getState().addPaymentData(validSEPAData)
     renderHook(usePaymentMethodsSetup, { wrapper: NavigationWrapper })
     act(() => {
       headerState.header().props.icons[0].onPress()
@@ -27,7 +26,7 @@ describe('usePaymentMethodsSetup', () => {
     expect(headerState.header()).toMatchSnapshot()
   })
   it('should setup header when coming from settings', () => {
-    updateAccount({ ...account, paymentData: testPaymentData })
+    usePaymentDataStore.getState().addPaymentData(validSEPAData)
     getStateMock.mockReturnValueOnce({
       routes: [{ name: 'settings' }, { name: 'paymentMethods' }],
     })

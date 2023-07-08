@@ -1,5 +1,4 @@
-import { ok } from 'assert'
-import { somePaymentDataExists } from '.'
+import { somePaymentDataExists } from './somePaymentDataExists'
 import {
   invalidSEPADataCurrency,
   missingSEPAData,
@@ -8,10 +7,12 @@ import {
 } from '../../../tests/unit/data/paymentData'
 
 describe('somePaymentDataExists', () => {
-  it('checks if payment method is allowed for a given rcurrency', () => {
-    ok(somePaymentDataExists(validSEPAData))
-    ok(somePaymentDataExists(validCashData))
-    ok(somePaymentDataExists(invalidSEPADataCurrency))
-    ok(!somePaymentDataExists(missingSEPAData))
+  it('checks if payment at least some relevant payment data exists', () => {
+    expect(somePaymentDataExists(validSEPAData)).toBeTruthy()
+    expect(somePaymentDataExists(invalidSEPADataCurrency)).toBeTruthy()
+    expect(somePaymentDataExists(missingSEPAData)).toBeFalsy()
+  })
+  it('return true for cash trades', () => {
+    expect(somePaymentDataExists(validCashData)).toBeTruthy()
   })
 })

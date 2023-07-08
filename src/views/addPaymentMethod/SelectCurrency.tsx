@@ -4,9 +4,9 @@ import { useState } from 'react'
 import { PrimaryButton, Screen } from '../../components'
 import { CURRENCIES } from '../../constants'
 import { useHeaderSetup, useNavigation, useRoute } from '../../hooks'
-import { getPaymentDataByType } from '../../utils/account'
 import i18n from '../../utils/i18n'
 import { CurrencyTabs } from './CurrencyTabs'
+import { usePaymentMethodLabel } from './hooks'
 
 export const SelectCurrency = () => {
   useHeaderSetup(i18n('selectCurrency.title'))
@@ -15,11 +15,10 @@ export const SelectCurrency = () => {
 
   const { origin } = useRoute<'selectCurrency'>().params
 
-  const goToLiquidForm = () => {
-    const existingPaymentMethodsOfType = getPaymentDataByType('liquid').length
-    let label = i18n('paymentMethod.liquid')
-    if (existingPaymentMethodsOfType > 0) label += ` #${existingPaymentMethodsOfType + 1}`
+  const getPaymentMethodLabel = usePaymentMethodLabel()
 
+  const goToLiquidForm = () => {
+    const label = getPaymentMethodLabel('liquid')
     navigation.navigate('paymentMethodForm', {
       paymentData: { type: 'liquid', label, currencies: [selectedCurrency] },
       origin,

@@ -1,23 +1,17 @@
 import { createRenderer } from 'react-test-renderer/shallow'
+import { paypalData } from '../../../../tests/unit/data/paymentData'
 import tw from '../../../styles/tailwind'
 import { PaymentDataKeyFacts } from './PaymentDataKeyFacts'
 
 describe('PaymentDataKeyFacts', () => {
-  const paymentData: PaymentData = {
-    id: 'id',
-    label: 'Paypal',
-    type: 'paypal',
-    currencies: ['EUR'],
-    userName: '@halfin',
-  }
   const paymentData2: PaymentData = {
-    ...paymentData,
+    ...paypalData,
     currencies: ['EUR', 'CHF', 'GBP', 'PLN'],
   }
 
   it('should render correctly', () => {
     const renderer = createRenderer()
-    renderer.render(<PaymentDataKeyFacts paymentData={paymentData} style={tw`mt-4`} />)
+    renderer.render(<PaymentDataKeyFacts paymentData={paypalData} style={tw`mt-4`} />)
     const result = renderer.getRenderOutput()
     expect(result).toMatchSnapshot()
   })

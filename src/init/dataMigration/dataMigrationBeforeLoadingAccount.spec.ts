@@ -1,9 +1,16 @@
 import { dataMigrationBeforeLoadingAccount } from '.'
-import { useLocalContractStore } from '../../store/useLocalContractStore'
 
 const migrateSettingsToStoreMock = jest.fn()
 jest.mock('./beforeLoadingAccount/migrateSettingsToStore', () => ({
   migrateSettingsToStore: (...args: any[]) => migrateSettingsToStoreMock(...args),
+}))
+const migrateContractsToStoreMock = jest.fn()
+jest.mock('./beforeLoadingAccount/migrateContractsToStore', () => ({
+  migrateContractsToStore: (...args: any[]) => migrateContractsToStoreMock(...args),
+}))
+const migratePaymentDataToStoreMock = jest.fn()
+jest.mock('./beforeLoadingAccount/migratePaymentDataToStore', () => ({
+  migratePaymentDataToStore: (...args: any[]) => migratePaymentDataToStoreMock(...args),
 }))
 
 describe('dataMigrationBeforeLoadingAccount', () => {
@@ -13,6 +20,10 @@ describe('dataMigrationBeforeLoadingAccount', () => {
   })
   it('should migrate contracts to store', () => {
     dataMigrationBeforeLoadingAccount()
-    expect(useLocalContractStore.getState().migrated).toBe(true)
+    expect(migrateContractsToStoreMock).toHaveBeenCalled()
+  })
+  it('should migrate paymentData to store', () => {
+    dataMigrationBeforeLoadingAccount()
+    expect(migratePaymentDataToStoreMock).toHaveBeenCalled()
   })
 })

@@ -1,9 +1,9 @@
 import { setPaymentMethods } from '../../constants'
-import { account, updateAccount } from '../../utils/account'
 import { SelectCountry } from './SelectCountry'
 import { fireEvent, render } from '@testing-library/react-native'
 import { navigateMock, NavigationWrapper } from '../../../tests/unit/helpers/NavigationWrapper'
 import { PrimaryButton } from '../../components'
+import { usePaymentDataStore } from '../../store/usePaymentDataStore'
 
 jest.mock('../../hooks/useRoute', () => ({
   useRoute: jest.fn(() => ({
@@ -48,17 +48,12 @@ describe('SelectCountry', () => {
   })
 
   it('should go to payment method form with incremented label', () => {
-    updateAccount({
-      ...account,
-      paymentData: [
-        {
-          type: 'giftCard.amazon.DE',
-          label: 'Amazon Gift Card (DE)',
-          country: 'DE',
-          id: '1',
-          currencies: ['EUR'],
-        },
-      ],
+    usePaymentDataStore.getState().addPaymentData({
+      type: 'giftCard.amazon.DE',
+      label: 'Amazon Gift Card (DE)',
+      currencies: ['EUR'],
+      country: 'DE',
+      id: '1',
     })
     const { getByText } = render(<SelectCountry />, { wrapper: NavigationWrapper })
     fireEvent.press(getByText('Germany'))

@@ -1,8 +1,10 @@
 import { fireEvent, render } from '@testing-library/react-native'
-import { account, updateAccount } from '../../utils/account'
+import { usePaymentDataStore } from '../../store/usePaymentDataStore'
 import { MeetupPaymentMethods } from './MeetupPaymentMethods'
 
 describe('MeetupPaymentMethods', () => {
+  const cashPaymentData: PaymentData = { id: '1', type: 'cash', label: 'EINUNDZWANZIG', currencies: ['EUR'] }
+  const cashPaymentData2: PaymentData = { id: '2', type: 'cash', label: 'ZWEIUNDZWANZIG', currencies: ['EUR'] }
   const editItemMock = jest.fn()
   const selectMock = jest.fn()
   const isSelectedMock = jest.fn(() => false)
@@ -12,45 +14,39 @@ describe('MeetupPaymentMethods', () => {
     select: selectMock,
     isSelected: isSelectedMock,
   }
-  afterEach(() => {
-    jest.clearAllMocks()
-    updateAccount({ ...account, paymentData: [] })
+  beforeEach(() => {
+    usePaymentDataStore.getState().reset()
   })
   it('should render correctly without available methods', () => {
     const { toJSON } = render(<MeetupPaymentMethods {...defaultProps} />)
     expect(toJSON()).toMatchSnapshot()
   })
   it('should render correctly with available methods', () => {
-    updateAccount({
-      ...account,
-      paymentData: [
-        { id: '1', type: 'cash', label: 'EINUNDZWANZIG', currencies: ['EUR'] },
-        { id: '2', type: 'cash', label: 'ZWEIUNDZWANZIG', currencies: ['EUR'] },
-      ],
-    })
+    usePaymentDataStore.getState().addPaymentData(cashPaymentData)
+    usePaymentDataStore.getState().addPaymentData(cashPaymentData2)
     const { toJSON } = render(<MeetupPaymentMethods {...defaultProps} />)
     expect(toJSON()).toMatchSnapshot()
   })
   it('should render correctly when editing', () => {
-    updateAccount({ ...account, paymentData: [{ id: '1', type: 'cash', label: 'EINUNDZWANZIG', currencies: ['EUR'] }] })
+    usePaymentDataStore.getState().addPaymentData(cashPaymentData)
     const { toJSON } = render(<MeetupPaymentMethods {...defaultProps} isEditing />)
     expect(toJSON()).toMatchSnapshot()
   })
   it('should call select when clicked', () => {
-    updateAccount({ ...account, paymentData: [{ id: '1', type: 'cash', label: 'EINUNDZWANZIG', currencies: ['EUR'] }] })
+    usePaymentDataStore.getState().addPaymentData(cashPaymentData)
     const { getByTestId } = render(<MeetupPaymentMethods {...defaultProps} />)
     fireEvent.press(getByTestId('payment-details-checkbox'))
     expect(selectMock).toHaveBeenCalled()
   })
 
   it('should render correctly with selected', () => {
-    updateAccount({ ...account, paymentData: [{ id: '1', type: 'cash', label: 'EINUNDZWANZIG', currencies: ['EUR'] }] })
+    usePaymentDataStore.getState().addPaymentData(cashPaymentData)
     isSelectedMock.mockReturnValue(true)
     const { toJSON } = render(<MeetupPaymentMethods {...defaultProps} />)
     expect(toJSON()).toMatchSnapshot()
   })
   it('should call editItem when clicked and isEditing', () => {
-    updateAccount({ ...account, paymentData: [{ id: '1', type: 'cash', label: 'EINUNDZWANZIG', currencies: ['EUR'] }] })
+    usePaymentDataStore.getState().addPaymentData(cashPaymentData)
     const { getByTestId } = render(<MeetupPaymentMethods {...defaultProps} isEditing />)
     fireEvent.press(getByTestId('payment-details-checkbox'))
     expect(editItemMock).toHaveBeenCalled()

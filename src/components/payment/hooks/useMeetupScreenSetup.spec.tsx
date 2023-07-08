@@ -6,8 +6,9 @@ import { setPaymentMethods } from '../../../constants'
 import { DeletePaymentMethodConfirm } from '../../../popups/info/DeletePaymentMethodConfirm'
 import { useMeetupEventsStore } from '../../../store/meetupEventsStore'
 import { useOfferPreferences } from '../../../store/offerPreferenes'
+import { usePaymentDataStore } from '../../../store/usePaymentDataStore'
+import { defaultPaymentDataStore } from '../../../store/usePaymentDataStore/usePaymentDataStore'
 import { usePopupStore } from '../../../store/usePopupStore'
-import { account, defaultAccount, setAccount } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
 import { useMeetupScreenSetup } from './useMeetupScreenSetup'
 
@@ -42,7 +43,7 @@ jest.mock('../../../hooks/useNavigation', () => ({
 describe('useMeetupScreenSetup', () => {
   beforeEach(() => {
     setPaymentMethods([])
-    setAccount(defaultAccount)
+    usePaymentDataStore.setState(defaultPaymentDataStore)
   })
   it('should return the correct values', () => {
     const { result } = renderHook(useMeetupScreenSetup, {
@@ -106,16 +107,14 @@ describe('useMeetupScreenSetup', () => {
     })
 
     result.current.addToPaymentMethods()
-    expect(account.paymentData).toStrictEqual([
-      {
-        id: 'cash.123',
-        currencies: ['EUR'],
-        country: 'DE',
-        label: 'shortName',
-        type: 'cash.123',
-        userId: '',
-      },
-    ])
+    expect(usePaymentDataStore.getState().getPaymentData('cash.123')).toStrictEqual({
+      id: 'cash.123',
+      currencies: ['EUR'],
+      country: 'DE',
+      label: 'shortName',
+      type: 'cash.123',
+      userId: '',
+    })
     expect(goBackMock).toHaveBeenCalled()
   })
   it('should not add a meetup to the payment methods if the meetupInfo isnt available', () => {
@@ -133,7 +132,7 @@ describe('useMeetupScreenSetup', () => {
     })
 
     result.current.addToPaymentMethods()
-    expect(account.paymentData).toStrictEqual(defaultAccount.paymentData)
+    expect(usePaymentDataStore.getState().paymentData).toStrictEqual(defaultPaymentDataStore.paymentData)
     expect(goBackMock).not.toHaveBeenCalled()
   })
   it('should automatically add the meetup to the selected methods', () => {
@@ -176,7 +175,7 @@ describe('useMeetupScreenSetup', () => {
         paymentData: {
           'cash.123': {
             country: 'DE',
-            hash: '271c06de9309a4262c2fd1c77bda4c56efd105579ade0217897f8fdb161ff8ba',
+            hashes: ['e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'],
           },
         },
         preferredPaymentMethods: {
@@ -299,15 +298,13 @@ describe('useMeetupScreenSetup', () => {
     act(() => {
       result.current.addToPaymentMethods()
     })
-    expect(account.paymentData).toStrictEqual([
-      {
-        id: 'cash.123',
-        currencies: ['CHF'],
-        country: 'DE',
-        label: 'shortName',
-        type: 'cash.123',
-        userId: '',
-      },
-    ])
+    expect(usePaymentDataStore.getState().getPaymentData('cash.123')).toStrictEqual({
+      id: 'cash.123',
+      currencies: ['CHF'],
+      country: 'DE',
+      label: 'shortName',
+      type: 'cash.123',
+      userId: '',
+    })
   })
 })

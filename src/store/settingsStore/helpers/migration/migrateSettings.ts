@@ -35,7 +35,6 @@ export const migrateSettings = (persistedState: unknown, version: number) => {
   if (shouldMigrateToVersion2(migratedState, version)) {
     migratedState = version1(migratedState)
   }
-
   if (shouldMigrateToVersion3(migratedState, version)) {
     migratedState = version2(migratedState)
   }

@@ -1,8 +1,8 @@
 import { act, renderHook } from '@testing-library/react-native'
 import { NavigationWrapper, headerState, setOptionsMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { useOfferPreferences } from '../../../store/offerPreferenes'
+import { usePaymentDataStore } from '../../../store/usePaymentDataStore'
 import { defaultPopupState, usePopupStore } from '../../../store/usePopupStore'
-import { account } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
 import { usePaymentMethodFormSetup } from './usePaymentMethodFormSetup'
 
@@ -104,7 +104,7 @@ describe('usePaymentMethodFormSetup', () => {
     act(() => {
       result.current.onSubmit(paymentMethod)
     })
-    expect(account.paymentData).toContainEqual(paymentMethod)
+    expect(usePaymentDataStore.getState().getPaymentData(paymentMethod.id)).toEqual(paymentMethod)
   })
   it('should automatically select the payment method', () => {
     const { result } = renderHook(usePaymentMethodFormSetup, { wrapper })

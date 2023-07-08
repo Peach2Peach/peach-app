@@ -8,6 +8,7 @@ import { offerStorage } from './offerStorage'
 import { deleteAccessToken } from '../peachAPI/accessToken'
 import { deletePeachAccount } from '../peachAPI/peachAccount'
 import * as accountData from '../../../tests/unit/data/accountData'
+import { usePaymentDataStore } from '../../store/usePaymentDataStore'
 
 jest.mock('../peachAPI/accessToken', () => ({
   ...jest.requireActual('../peachAPI/accessToken'),
@@ -24,6 +25,7 @@ describe('deleteAccount', () => {
   })
 
   it('would delete account file', () => {
+    const usePaymentDataStoreReset = jest.spyOn(usePaymentDataStore.getState(), 'reset')
     deleteAccount()
 
     expect(accountStorage.clearStore).toHaveBeenCalled()
@@ -31,6 +33,7 @@ describe('deleteAccount', () => {
     expect(contractStorage.clearStore).toHaveBeenCalled()
     expect(chatStorage.clearStore).toHaveBeenCalled()
     expect(settingsStorage.clearStore).toHaveBeenCalled()
+    expect(usePaymentDataStoreReset).toHaveBeenCalled()
     expect(deleteAccessToken).toHaveBeenCalled()
     expect(deletePeachAccount).toHaveBeenCalled()
 

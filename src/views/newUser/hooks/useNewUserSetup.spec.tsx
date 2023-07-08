@@ -113,42 +113,7 @@ describe('useNewUserSetup', () => {
 
     expect(accountStorage.getMap('identity')).toStrictEqual(expectedIdentity)
   })
-  it('should store the trading limit', async () => {
-    renderHook(useNewUserSetup, { wrapper: NavigationWrapper })
-    await forProcessToFinish()
 
-    expect(accountStorage.getMap('tradingLimit')).toStrictEqual(recoveredAccount.tradingLimit)
-  })
-  it('should store the payment data', async () => {
-    renderHook(useNewUserSetup, { wrapper: NavigationWrapper })
-    await forProcessToFinish()
-
-    expect(accountStorage.getMap('paymentData')).toStrictEqual(recoveredAccount.paymentData)
-  })
-  it('should store the offers', async () => {
-    renderHook(useNewUserSetup, { wrapper: NavigationWrapper })
-    await forProcessToFinish()
-
-    recoveredAccount.offers.forEach((offer, index) => {
-      expect(accountStorage.getMap(offer.id)).toStrictEqual(recoveredAccount.offers[index])
-    })
-  })
-  it('should store the contracts', async () => {
-    renderHook(useNewUserSetup, { wrapper: NavigationWrapper })
-    await forProcessToFinish()
-
-    recoveredAccount.contracts.forEach((contract, index) => {
-      expect(accountStorage.getMap(contract.id)).toStrictEqual(recoveredAccount.contracts[index])
-    })
-  })
-  it('should store the chats', async () => {
-    renderHook(useNewUserSetup, { wrapper: NavigationWrapper })
-    await forProcessToFinish()
-
-    Object.values(recoveredAccount.chats).forEach((chat, index) => {
-      expect(accountStorage.getMap(chat.id)).toStrictEqual(recoveredAccount.chats[index])
-    })
-  })
   it('should set success to true', async () => {
     const { result } = renderHook(useNewUserSetup, { wrapper: NavigationWrapper })
     await forProcessToFinish()

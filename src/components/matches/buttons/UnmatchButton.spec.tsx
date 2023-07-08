@@ -37,9 +37,7 @@ describe('UnmatchButton', () => {
       creationDate: new Date('2021-01-01'),
       meansOfPayment: { EUR: ['sepa'] },
       paymentData: {
-        sepa: {
-          hash: 'fakeHash',
-        },
+        sepa: { hashes: ['fakeHash'] },
       },
       originalPaymentData: [],
       releaseAddress: 'releaseAddress',

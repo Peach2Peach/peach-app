@@ -15,15 +15,7 @@ export type OfferPreferences = {
   sellAmount: number
   premium: number
   meansOfPayment: MeansOfPayment
-  paymentData: Partial<
-    Record<
-      PaymentMethod,
-      {
-        hash: string
-        country?: PaymentMethodCountry
-      }
-    >
-  >
+  paymentData: OfferPaymentData
   preferredPaymentMethods: Partial<Record<PaymentMethod, string>>
   originalPaymentData: PaymentData[]
   preferredCurrenyType: 'europe' | 'latinAmerica' | 'other'
@@ -106,11 +98,8 @@ export const useOfferPreferences = create<OfferPreferencesStore>()(
       },
       setPaymentMethods: (ids) => {
         const preferredPaymentMethods = getPreferredMethods(ids)
-
         const originalPaymentData = getOriginalPaymentData(preferredPaymentMethods)
-
         const meansOfPayment = getMeansOfPayment(originalPaymentData)
-
         const paymentData = getHashedPaymentData(originalPaymentData)
 
         const newPreferences = {
@@ -138,7 +127,6 @@ export const useOfferPreferences = create<OfferPreferencesStore>()(
       },
       setPreferredCurrencyType: (preferredCurrenyType) => set({ preferredCurrenyType }),
     }),
-
     {
       name: 'offerPreferences',
       version: 0,

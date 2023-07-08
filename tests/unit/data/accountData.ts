@@ -4,8 +4,8 @@ import { buyOffer, sellOffer } from './offerData'
 
 const publicKey = '03a9ea8d8000731f80287b43af99f28294b81ee011a5bde5dfd2beb6c03f6e3682'
 const privKey = '80d12e8d17542fdc2377089de363ea716ebf7fd5fcad522d6a1e7bfa33e239e5'
-const base58
-  = 'tprv8ZgxMBicQKsPfE42AXE2BFTTV24TpSnK9nBpXtVgnMVhgThYYrghSrj1aUzVnLEEddhhVDiQwTyQ6h9m58mqM6p6TAqEenhpRC3D8BbiNnA'
+const base58 =
+  'tprv8ZgxMBicQKsPfE42AXE2BFTTV24TpSnK9nBpXtVgnMVhgThYYrghSrj1aUzVnLEEddhhVDiQwTyQ6h9m58mqM6p6TAqEenhpRC3D8BbiNnA'
 const mnemonic = 'genuine all body calm mirror van apple lady train inhale evolve essay'
 const pgp = {
   privateKey:
@@ -14,8 +14,6 @@ const pgp = {
     '-----BEGIN PGP PUBLIC KEY BLOCK-----\nVersion: openpgp-mobile\n\nxsBNBGIyIM8BCAC/FTDaVmJ1kvkEF7Zv0kbQNgYmNMux0aGQMwA9fOA1Cvp/HPmL\nlD3Yuy2FQt3zMPZS5nimCWprs5HeuTONf2BQApFBtXrScwDnWvwAIP6Ldbf6XtH6\nFcxx5z4oROtgyKy11McS6T50UD9Ebp7wh/KR7c3cloxH54ADefYU5McWX0+ppCpy\nfZh+VIxvNBGALe1jqmQU/3TyCZKBAJ8Z2TuQqfZ+eMK7GvGJoll0DERfVbvPh4vj\n9SJ0wmRdrfD50s+a1v5s59/FHvSadk7Zun0G8G9tteTTTx+ghfOSR6Bhpbmsirr/\nAuvI0u8sT+tN/FQwJUBj8BT8EDWeU7WvvIVVABEBAAHNAMLAaAQTAQgAHAUCYjIg\nzwkQwtevQuBWmE0CGwMCGQECCwcCFQgAAOipCAB8x52lwTA6f0FOgoIfZTN+6ve9\nZH6W305ZK/ZyYn9KE9ubruyPxZj0LTClhK/jnxmmrYDmUZdapGFhraQb3wUFCFJc\nN5f+LGOHgqDvtfa0GfN8LwmYXMNAkfShzI3gJU4AqDfFv+9BuQkORpWYPF7eXZtl\nuvNsgQ2ezsGbSOvu5OtWIeaJBIBkJlkbS/UAh+Hrj1STsZxHCS7dhnePnWOMh/ES\nrGyp0T5Ep04TvhbrVV2sJYG95wehbGdqMtphXPKrX1tdn8hVhz17j6k7s+4z6GMS\nzXd5szk51rd8MMihGwHObiCf/j1wpvPc1JNmjMO2bEJ68lDSUNPSpcDwgJD2zsBN\nBGIyIM8BCADa+yXuWO0Nq1TJC73ATaUQL9U31VAeZe/bxr+Mf/pW1pABAb9rZGGN\nscP9jKUiJZPFfQCK3W3nu2XjRwKI6F7jlCwLGm+sDPhMURw3QI006s6pbeIJq1vo\nFlj94gMzsyIkuEf4tdKkWNtygbltD5g/1ZoO75vIDbf/E8P44G+JuLG6UV4gf40d\noNuQFuLgpOx8bWHy2Ev5Zcs4RhtMCQhQ1KUNZWBmR7zIvXbuJFUww68bznVL4SJY\nvbYTX/8TboeTYBN/Vp+d1NocTfO8h5ikdGxILyiKZiV/wguXd9nIR0KdI+8++sIT\nRnjuqmKYZwG0GMbwnCkdz2HkF/bYgd+JABEBAAHCwF8EGAEIABMFAmIyIM8JEMLX\nr0LgVphNAhsMAADDuggAX6EyWbfc1Ti2GCogyrUIp+2nh6IqVzG0CtqANBGUA9re\n60U+NrgXzffcZ+yrFYL6cT0C2XAutpP0o1wfUnsl19FMIPc6JOej7GOzew2flcuR\nRdxps7nqP00F2tce9hu+BugxW6K7bAnmxlq8K6n7/oZXsS1SJejl3pEFB0l4bIRL\ncp/Ql17hvtYLjb3qBNURS+Iu2GHsLZHJGpG50VQBk2kiVS0RjN17GiOejTs+Hb+4\nLEW3cv+Lk1RHAThlxX3XGQgU6M28ncS8Xs3WrqMk97nNYg8+xDX8YAqUZLa+kkYL\nApar4GBPVjEMVuNjtPfgC9PtIhFhnK3BFX7VZaCs3Q==\n=/EpH\n-----END PGP PUBLIC KEY BLOCK-----',
 }
 export const recoveredAccount: Account = {
-  paymentData: [],
-  legacyPaymentData: [],
   offers: [],
   contracts: [],
   chats: {},
@@ -35,8 +33,6 @@ export const recoveredAccount: Account = {
 }
 
 export const account1: Account & { mnemonic: string } = {
-  paymentData: [],
-  legacyPaymentData: [],
   tradingLimit: {
     daily: 1000,
     dailyAmount: 0,
@@ -56,8 +52,6 @@ export const account1: Account & { mnemonic: string } = {
 }
 
 export const seller: Account = {
-  paymentData: [],
-  legacyPaymentData: [],
   tradingLimit: {
     daily: 1000,
     dailyAmount: 0,
@@ -77,8 +71,6 @@ export const seller: Account = {
 }
 
 export const buyer: Account = {
-  paymentData: [],
-  legacyPaymentData: [],
   tradingLimit: {
     daily: 1000,
     dailyAmount: 0,
@@ -100,8 +92,6 @@ export const buyer: Account = {
 }
 
 export const userWithNoTrades: Account = {
-  paymentData: [],
-  legacyPaymentData: [],
   tradingLimit: {
     daily: 1000,
     dailyAmount: 0,
@@ -119,23 +109,3 @@ export const userWithNoTrades: Account = {
   base58,
   mnemonic,
 }
-
-export const paymentData: PaymentData[] = [
-  {
-    id: 'sepa-1069850495',
-    beneficiary: 'Melocoton',
-    iban: 'IE29 AIBK 9311 5212 3456 78',
-    label: 'Bank Account Ireland',
-    selected: true,
-    type: 'sepa',
-    currencies: ['EUR'],
-  },
-  {
-    id: 'sepa-1095805944',
-    beneficiary: 'Test',
-    iban: 'EE38 2200 2210 2014 5685',
-    label: 'Bank Account Estonia',
-    type: 'sepa',
-    currencies: ['EUR'],
-  },
-]
