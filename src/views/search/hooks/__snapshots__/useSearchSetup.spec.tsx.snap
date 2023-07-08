@@ -5,6 +5,11 @@ exports[`useSearchSetup should set up header correctly 1`] = `
   icons={
     [
       {
+        "color": "#F56522",
+        "id": "sliders",
+        "onPress": [Function],
+      },
+      {
         "color": "#9F8C82",
         "id": "xCircle",
         "onPress": [Function],

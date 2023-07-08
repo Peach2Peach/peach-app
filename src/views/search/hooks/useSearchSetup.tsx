@@ -27,7 +27,10 @@ export const useSearchSetup = () => {
   const cancelOffer = useCancelOffer(offer)
   const getHeaderIcons = () => {
     if (!offer) return undefined
-    const icons = [{ ...headerIcons.cancel, onPress: cancelOffer }]
+    const icons = [
+      { ...headerIcons.sliders, onPress: () => {} },
+      { ...headerIcons.cancel, onPress: cancelOffer },
+    ]
     if (offer.matches.length > 0) {
       icons.push({ ...headerIcons.help, onPress: isBuyOffer(offer) ? showMatchPopup : showAcceptMatchPopup })
     }
