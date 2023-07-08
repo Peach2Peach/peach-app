@@ -9,7 +9,6 @@ import { priceFormat } from '../../utils/string'
 import { Premium } from '../sell/Premium'
 
 export const EditPremium = () => {
-  // todo: translate header
   const { offerId } = useRoute<'editPremium'>().params
   useHeaderSetup(offerIdToHex(offerId))
   const { offer } = useOfferDetails(offerId)
