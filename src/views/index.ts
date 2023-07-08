@@ -25,6 +25,7 @@ import Referrals from './referrals/Referrals'
 import { Report } from './report/Report'
 import RestoreBackup from './restoreBackup/RestoreBackup'
 import RestoreReputation from './restoreReputation/RestoreReputation'
+import { EditPremium } from './search/EditPremium'
 import OfferPublished from './search/OfferPublished'
 import Search from './search/Search'
 import SelectWallet from './selectWallet/SelectWallet'
@@ -117,7 +118,10 @@ const sellFlow: ViewType[] = [
   { name: 'setRefundWallet', component: SetRefundWallet, ...defaultConfig },
 ]
 
-const search: ViewType[] = [{ name: 'search', component: Search, ...defaultConfig }]
+const search: ViewType[] = [
+  { name: 'search', component: Search, ...defaultConfig },
+  { name: 'editPremium', component: EditPremium, ...defaultConfig },
+]
 
 const trade: ViewType[] = [
   { name: 'contract', component: Contract, ...defaultConfig },
