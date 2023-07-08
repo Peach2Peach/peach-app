@@ -25,10 +25,11 @@ export const useSearchSetup = () => {
   const showAcceptMatchPopup = useShowHelp('acceptMatch')
 
   const cancelOffer = useCancelOffer(offer)
+  const goToEditPremium = () => navigation.navigate('editPremium', { offerId })
   const getHeaderIcons = () => {
     if (!offer) return undefined
     const icons = [
-      { ...headerIcons.sliders, onPress: () => {} },
+      { ...headerIcons.sliders, onPress: goToEditPremium },
       { ...headerIcons.cancel, onPress: cancelOffer },
     ]
     if (offer.matches.length > 0) {

@@ -1,7 +1,7 @@
 import { act, renderHook, waitFor } from '@testing-library/react-native'
 import { buyOffer } from '../../../../tests/unit/data/offerData'
 import { NavigationAndQueryClientWrapper } from '../../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
-import { headerState } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { headerState, navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
 import { useSearchSetup } from './useSearchSetup'
 
@@ -40,6 +40,14 @@ describe('useSearchSetup', () => {
 
     await waitFor(() => expect(result.current.offer).toBeDefined())
     expect(headerState.header()).toMatchSnapshot()
+  })
+  it('should redirect to "editPremium" when clicking on sliders', async () => {
+    const { result } = renderHook(useSearchSetup, { wrapper })
+    await waitFor(() => expect(result.current.offer).toBeDefined())
+    act(() => {
+      headerState.header().props.icons[0].onPress()
+    })
+    expect(navigateMock).toHaveBeenCalledWith('editPremium', { offerId: buyOffer.id })
   })
   it('should return defaults', async () => {
     const { result } = renderHook(useSearchSetup, { wrapper })
