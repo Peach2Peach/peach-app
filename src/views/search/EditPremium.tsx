@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { PrimaryButton, Text } from '../../components'
+import { Text } from '../../components'
 import { useHeaderSetup, useMarketPrices, useRoute, useShowHelp } from '../../hooks'
 import { useOfferDetails } from '../../hooks/query/useOfferDetails'
 import tw from '../../styles/tailwind'
@@ -8,6 +8,7 @@ import { headerIcons } from '../../utils/layout'
 import { getOfferPrice, isSellOffer, offerIdToHex } from '../../utils/offer'
 import { priceFormat } from '../../utils/string'
 import { Premium } from '../sell/Premium'
+import { ConfirmButton } from './components'
 
 export const EditPremium = () => {
   const { offerId } = useRoute<'editPremium'>().params
@@ -23,7 +24,6 @@ export const EditPremium = () => {
   }
 
   const displayCurrency = (Object.keys(offer?.meansOfPayment ?? {})[0] as Currency) ?? 'EUR'
-
   const currentPrice = offer && isSuccess ? getOfferPrice(offer?.amount, displayPremium, priceBook, displayCurrency) : 0
 
   return (
@@ -36,8 +36,7 @@ export const EditPremium = () => {
           ({i18n('sell.premium.currently', `${priceFormat(currentPrice)} ${displayCurrency}`)})
         </Text>
       }
-      // TODO: add proper button
-      confirmButton={<PrimaryButton>Confirm</PrimaryButton>}
+      confirmButton={<ConfirmButton offerId={offerId} newPremium={displayPremium} />}
     />
   )
 }
