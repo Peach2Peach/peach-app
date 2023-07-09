@@ -4,7 +4,7 @@ import { BuyOfferSummary, SellOfferSummary } from '../../../components/offer'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { isBuyOffer } from '../../../utils/offer'
-import { useOfferMatches } from '../hooks/useOfferMatches'
+import { useOfferMatches } from '../hooks'
 
 export const NoMatchesYet = ({ offer, style }: { offer: BuyOffer | SellOffer } & ComponentProps) => {
   const { isLoading } = useOfferMatches(offer.id)

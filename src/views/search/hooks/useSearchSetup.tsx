@@ -10,7 +10,7 @@ import { isBuyOffer, isSellOffer, offerIdToHex } from '../../../utils/offer'
 import { parseError } from '../../../utils/result'
 import { shouldGoToContract } from '../helpers/shouldGoToContract'
 import { useOfferMatches } from './useOfferMatches'
-import useRefetchOnNotification from './useRefetchOnNotification'
+import { useRefetchOnNotification } from './useRefetchOnNotification'
 
 export const useSearchSetup = () => {
   const navigation = useNavigation()
