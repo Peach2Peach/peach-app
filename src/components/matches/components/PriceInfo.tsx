@@ -5,7 +5,7 @@ import { PremiumText } from './PremiumText'
 
 type PriceInfoProps = {
   match: Match
-  offer: BuyOffer
+  offer: BuyOffer | SellOffer
 }
 
 export const PriceInfo = ({ match, offer }: PriceInfoProps) => (
