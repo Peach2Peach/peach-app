@@ -32,6 +32,7 @@ describe('generateMatchOfferData', () => {
     user: {
       pgpPublicKey: buyer.pgp.publicKey,
     },
+    premium: 0,
   } as Match
   beforeEach(() => {
     usePaymentDataStore.getState().reset()
@@ -50,6 +51,8 @@ describe('generateMatchOfferData', () => {
         paymentMethod,
         symmetricKeyEncrypted: undefined,
         symmetricKeySignature: undefined,
+        premium: match.premium,
+        price: match.matchedPrice,
       },
       null,
     ])
@@ -101,6 +104,8 @@ describe('generateMatchOfferData', () => {
         paymentMethod: validCashData.type,
         symmetricKeyEncrypted: undefined,
         symmetricKeySignature: undefined,
+        premium: 0,
+        price: 0,
       },
       null,
     ])
