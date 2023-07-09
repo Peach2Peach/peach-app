@@ -1,16 +1,18 @@
 import { useState } from 'react'
 import { PrimaryButton, Text } from '../../components'
-import { useHeaderSetup, useMarketPrices, useRoute } from '../../hooks'
+import { useHeaderSetup, useMarketPrices, useRoute, useShowHelp } from '../../hooks'
 import { useOfferDetails } from '../../hooks/query/useOfferDetails'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
+import { headerIcons } from '../../utils/layout'
 import { getOfferPrice, isSellOffer, offerIdToHex } from '../../utils/offer'
 import { priceFormat } from '../../utils/string'
 import { Premium } from '../sell/Premium'
 
 export const EditPremium = () => {
   const { offerId } = useRoute<'editPremium'>().params
-  useHeaderSetup(offerIdToHex(offerId))
+  const showHelp = useShowHelp('premium')
+  useHeaderSetup({ title: offerIdToHex(offerId), icons: [{ ...headerIcons.help, onPress: showHelp }] })
   const { offer } = useOfferDetails(offerId)
   const [premium, setPremium] = useState(offer?.premium)
   const displayPremium = premium ?? offer?.premium ?? 0
