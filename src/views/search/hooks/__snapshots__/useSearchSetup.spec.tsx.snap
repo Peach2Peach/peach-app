@@ -5,6 +5,21 @@ exports[`useSearchSetup should set up header correctly 1`] = `
   icons={
     [
       {
+        "color": "#9F8C82",
+        "id": "xCircle",
+        "onPress": [Function],
+      },
+    ]
+  }
+  title="P‑25"
+/>
+`;
+
+exports[`useSearchSetup should show the sliders for sell offers 1`] = `
+<Header
+  icons={
+    [
+      {
         "color": "#F56522",
         "id": "sliders",
         "onPress": [Function],

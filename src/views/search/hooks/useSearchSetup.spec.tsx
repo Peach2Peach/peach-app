@@ -1,5 +1,5 @@
 import { act, renderHook, waitFor } from '@testing-library/react-native'
-import { buyOffer } from '../../../../tests/unit/data/offerData'
+import { buyOffer, sellOffer } from '../../../../tests/unit/data/offerData'
 import { NavigationAndQueryClientWrapper } from '../../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
 import { headerState, navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
@@ -35,15 +35,31 @@ const wrapper = NavigationAndQueryClientWrapper
 jest.useFakeTimers()
 
 describe('useSearchSetup', () => {
+  beforeEach(() => {
+    queryClient.clear()
+  })
   it('should set up header correctly', async () => {
-    const { result } = renderHook(useSearchSetup, { wrapper })
+    renderHook(useSearchSetup, { wrapper })
 
-    await waitFor(() => expect(result.current.offer).toBeDefined())
+    await act(async () => {
+      await waitFor(() => expect(queryClient.isFetching()).toBe(0))
+    })
+    expect(headerState.header()).toMatchSnapshot()
+  })
+  it('should show the sliders for sell offers', async () => {
+    getOfferDetailsMock.mockResolvedValueOnce([sellOffer, null])
+    renderHook(useSearchSetup, { wrapper })
+    await act(async () => {
+      await waitFor(() => expect(queryClient.isFetching()).toBe(0))
+    })
     expect(headerState.header()).toMatchSnapshot()
   })
   it('should redirect to "editPremium" when clicking on sliders', async () => {
-    const { result } = renderHook(useSearchSetup, { wrapper })
-    await waitFor(() => expect(result.current.offer).toBeDefined())
+    getOfferDetailsMock.mockResolvedValueOnce([sellOffer, null])
+    renderHook(useSearchSetup, { wrapper })
+    await act(async () => {
+      await waitFor(() => expect(queryClient.isFetching()).toBe(0))
+    })
     act(() => {
       headerState.header().props.icons[0].onPress()
     })
@@ -51,20 +67,24 @@ describe('useSearchSetup', () => {
   })
   it('should return defaults', async () => {
     const { result } = renderHook(useSearchSetup, { wrapper })
-    expect(result.current).toEqual({ offer: buyOffer, hasMatches: true })
+    expect(result.current).toEqual({ offer: buyOffer, hasMatches: false })
     await act(async () => {
       await waitFor(() => expect(queryClient.isFetching()).toBe(0))
     })
   })
   it('should load offer and matches', async () => {
     const { result } = renderHook(useSearchSetup, { wrapper })
-    await waitFor(() => expect(result.current.offer).toBeDefined())
+    await act(async () => {
+      await waitFor(() => expect(queryClient.isFetching()).toBe(0))
+    })
     expect(result.current).toEqual({ offer: buyOffer, hasMatches: true })
   })
 
   it('should call get matches once', async () => {
-    const { result } = renderHook(useSearchSetup, { wrapper })
-    await waitFor(() => expect(result.current.offer).toBeDefined())
+    renderHook(useSearchSetup, { wrapper })
+    await act(async () => {
+      await waitFor(() => expect(queryClient.isFetching()).toBe(0))
+    })
 
     expect(getMatchesMock).toHaveBeenCalledTimes(1)
   })

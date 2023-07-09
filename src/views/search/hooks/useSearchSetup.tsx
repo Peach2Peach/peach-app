@@ -6,7 +6,7 @@ import { useCancelOffer, useHeaderSetup, useNavigation, useRoute } from '../../.
 import { useOfferDetails } from '../../../hooks/query/useOfferDetails'
 import { useShowHelp } from '../../../hooks/useShowHelp'
 import { headerIcons } from '../../../utils/layout/headerIcons'
-import { isBuyOffer, offerIdToHex } from '../../../utils/offer'
+import { isBuyOffer, isSellOffer, offerIdToHex } from '../../../utils/offer'
 import { parseError } from '../../../utils/result'
 import { shouldGoToContract } from '../helpers/shouldGoToContract'
 import { useOfferMatches } from './useOfferMatches'
@@ -28,10 +28,11 @@ export const useSearchSetup = () => {
   const goToEditPremium = () => navigation.navigate('editPremium', { offerId })
   const getHeaderIcons = () => {
     if (!offer) return undefined
-    const icons = [
-      { ...headerIcons.sliders, onPress: goToEditPremium },
-      { ...headerIcons.cancel, onPress: cancelOffer },
-    ]
+
+    const icons = isSellOffer(offer) ? [{ ...headerIcons.sliders, onPress: goToEditPremium }] : []
+
+    icons.push({ ...headerIcons.cancel, onPress: cancelOffer })
+
     if (offer.matches.length > 0) {
       icons.push({ ...headerIcons.help, onPress: isBuyOffer(offer) ? showMatchPopup : showAcceptMatchPopup })
     }
