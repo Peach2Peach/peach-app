@@ -1,4 +1,3 @@
-import { useQueryClient } from '@tanstack/react-query'
 import { useMemo, useState } from 'react'
 import { View } from 'react-native'
 import { HorizontalLine } from '..'
@@ -7,7 +6,6 @@ import tw from '../../styles/tailwind'
 import { peachyGradient } from '../../utils/layout'
 import { isLimitReached } from '../../utils/match'
 import { isBuyOffer } from '../../utils/offer'
-import { getOfferDetails } from '../../utils/peachAPI'
 import { GradientBorder } from '../GradientBorder'
 import { RadialGradient } from '../RadialGradient'
 import { MatchOfferButton, UnmatchButton } from './buttons'
@@ -21,21 +19,14 @@ type MatchProps = ComponentProps & { match: Match; offer: BuyOffer | SellOffer }
 
 export const Match = ({ match, offer }: MatchProps) => {
   const { mutate } = useMatchOffer(offer, match)
-  const queryClient = useQueryClient()
   const [showMatchedCard, setShowMatchedCard] = useState(match.matched)
   const { interruptibleFn: matchFunction, interrupt: interruptMatchFunction } = useInterruptibleFunction(() => {
     mutate(undefined, { onError: () => setShowMatchedCard(false) })
   }, 5000)
 
-  const onMatchPress = async () => {
+  const onMatchPress = () => {
     if (isBuyOffer(offer)) {
       setShowMatchedCard(true)
-      const [result, error] = await getOfferDetails({ offerId: match.offerId })
-      if (result?.premium !== match.premium || error) {
-        setShowMatchedCard(false)
-        await queryClient.invalidateQueries(['matches', offer.id])
-        return
-      }
       matchFunction()
     } else {
       mutate()
