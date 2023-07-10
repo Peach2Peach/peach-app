@@ -20,7 +20,7 @@ export const PaymentMethods = () => {
   const currentRouteName = useRoute().name
   const origin = usePreviousRouteName()
   const tabs: TabbedNavigationItem[] = [
-    { id: 'remote', display: i18n('paymentSection.remote') },
+    { id: 'online', display: i18n('paymentSection.online') },
     { id: 'meetups', display: i18n('paymentSection.meetups') },
   ]
   const [currentTab, setCurrentTab] = useState(tabs[0])
@@ -59,7 +59,7 @@ export const PaymentMethods = () => {
             style={tw`flex-shrink h-full`}
             contentContainerStyle={tw`justify-center flex-grow px-6 pb-10 pt-7`}
           >
-            {currentTab.id === 'remote' ? (
+            {currentTab.id === 'online' ? (
               <RemotePaymentMethods {...{ isEditing, editItem, select, isSelected }} />
             ) : (
               <MeetupPaymentMethods {...{ isEditing, editItem, select, isSelected }} />

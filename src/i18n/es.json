@@ -796,6 +796,7 @@
   "paymentMethods.title": "métodos de pago",
   "paymentSection.meetups": "meetups",
   "paymentSection.remote": "remoto",
+  "paymentSection.online": "en línea",
   "payout.wallet": "cartera para recibir el pago",
   "payout.wallet.select.description": "Por defecto, tu compra será depositada en tu cartera Peach. Si deseas que se deposite a otra cartera, puedes seleccionarlo aquí.",
   "payout.wallet.select.setWallet": "establecer cartera externa",

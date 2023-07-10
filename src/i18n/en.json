@@ -795,6 +795,7 @@
   "paymentMethods.title": "payment methods",
   "paymentSection.meetups": "meetups",
   "paymentSection.remote": "remote",
+  "paymentSection.online": "online",
   "payout.wallet": "payout wallet",
   "payout.wallet.select.description": "By default your purchase will be paid out to your Peach wallet. If you want it to be paid out to another wallet, you can select so here.",
   "payout.wallet.select.setWallet": "set custom wallet",

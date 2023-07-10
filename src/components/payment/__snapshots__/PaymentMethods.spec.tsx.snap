@@ -36,8 +36,8 @@ exports[`PaymentMethods should render correctly 1`] = `
         items={
           [
             {
-              "display": "remote",
-              "id": "remote",
+              "display": "online",
+              "id": "online",
             },
             {
               "display": "meetups",
@@ -48,8 +48,8 @@ exports[`PaymentMethods should render correctly 1`] = `
         select={[Function]}
         selected={
           {
-            "display": "remote",
-            "id": "remote",
+            "display": "online",
+            "id": "online",
           }
         }
       />
