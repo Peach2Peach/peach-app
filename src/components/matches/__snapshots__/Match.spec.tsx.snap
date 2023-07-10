@@ -367,51 +367,18 @@ exports[`Match should render correctly for buy offers 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
-                [
-                  {
-                    "alignSelf": "center",
-                    "fontFamily": "Baloo2-Regular",
-                    "fontSize": 20,
-                    "letterSpacing": 0.2,
-                    "lineHeight": 28,
-                  },
-                  undefined,
-                ],
+                {
+                  "fontFamily": "Baloo2-SemiBold",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 28,
+                },
               ]
             }
           >
-            <Text
-              allowFontScaling={false}
-              style={
-                [
-                  {
-                    "color": "#2B1911",
-                    "fontFamily": "Baloo2-Regular",
-                    "fontSize": 16,
-                    "letterSpacing": 0.16,
-                    "lineHeight": 24,
-                  },
-                  [
-                    {
-                      "fontFamily": "Baloo2-Regular",
-                      "fontSize": 20,
-                      "letterSpacing": 0.2,
-                      "lineHeight": 28,
-                    },
-                    {
-                      "fontFamily": "Baloo2-SemiBold",
-                      "fontSize": 16,
-                      "letterSpacing": 0.16,
-                      "lineHeight": 28,
-                    },
-                  ],
-                ]
-              }
-            >
-              1.00
-               
-              EUR
-            </Text>
+            1.00
+             
+            EUR
           </Text>
           <Text
             allowFontScaling={false}
@@ -1115,51 +1082,18 @@ exports[`Match should render correctly for matched offers 1`] = `
                     "letterSpacing": 0.16,
                     "lineHeight": 24,
                   },
-                  [
-                    {
-                      "alignSelf": "center",
-                      "fontFamily": "Baloo2-Regular",
-                      "fontSize": 20,
-                      "letterSpacing": 0.2,
-                      "lineHeight": 28,
-                    },
-                    undefined,
-                  ],
+                  {
+                    "fontFamily": "Baloo2-SemiBold",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 28,
+                  },
                 ]
               }
             >
-              <Text
-                allowFontScaling={false}
-                style={
-                  [
-                    {
-                      "color": "#2B1911",
-                      "fontFamily": "Baloo2-Regular",
-                      "fontSize": 16,
-                      "letterSpacing": 0.16,
-                      "lineHeight": 24,
-                    },
-                    [
-                      {
-                        "fontFamily": "Baloo2-Regular",
-                        "fontSize": 20,
-                        "letterSpacing": 0.2,
-                        "lineHeight": 28,
-                      },
-                      {
-                        "fontFamily": "Baloo2-SemiBold",
-                        "fontSize": 16,
-                        "letterSpacing": 0.16,
-                        "lineHeight": 28,
-                      },
-                    ],
-                  ]
-                }
-              >
-                1.00
-                 
-                EUR
-              </Text>
+              1.00
+               
+              EUR
             </Text>
             <Text
               allowFontScaling={false}
@@ -1179,7 +1113,7 @@ exports[`Match should render correctly for matched offers 1`] = `
               }
             >
                
-              (1.5% over KYC price)
+              (equal to KYC price)
             </Text>
           </Text>
           <View
@@ -1994,51 +1928,18 @@ exports[`Match should render correctly for sell offers 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 24,
                 },
-                [
-                  {
-                    "alignSelf": "center",
-                    "fontFamily": "Baloo2-Regular",
-                    "fontSize": 20,
-                    "letterSpacing": 0.2,
-                    "lineHeight": 28,
-                  },
-                  undefined,
-                ],
+                {
+                  "fontFamily": "Baloo2-SemiBold",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 28,
+                },
               ]
             }
           >
-            <Text
-              allowFontScaling={false}
-              style={
-                [
-                  {
-                    "color": "#2B1911",
-                    "fontFamily": "Baloo2-Regular",
-                    "fontSize": 16,
-                    "letterSpacing": 0.16,
-                    "lineHeight": 24,
-                  },
-                  [
-                    {
-                      "fontFamily": "Baloo2-Regular",
-                      "fontSize": 20,
-                      "letterSpacing": 0.2,
-                      "lineHeight": 28,
-                    },
-                    {
-                      "fontFamily": "Baloo2-SemiBold",
-                      "fontSize": 16,
-                      "letterSpacing": 0.16,
-                      "lineHeight": 28,
-                    },
-                  ],
-                ]
-              }
-            >
-              1.00
-               
-              EUR
-            </Text>
+            1.00
+             
+            EUR
           </Text>
           <Text
             allowFontScaling={false}
