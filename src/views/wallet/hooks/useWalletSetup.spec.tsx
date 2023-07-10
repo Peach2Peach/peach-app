@@ -7,6 +7,7 @@ import { setPeachWallet } from '../../../utils/wallet/setWallet'
 import { useWalletState } from '../../../utils/wallet/walletStore'
 import { useWalletSetup } from './useWalletSetup'
 import { useSettingsStore } from '../../../store/settingsStore'
+import { act } from 'react-test-renderer'
 
 describe('useWalletSetup', () => {
   const wrapper = NavigationWrapper
@@ -32,6 +33,17 @@ describe('useWalletSetup', () => {
     expect(result.current.canWithdrawAll).toBeFalsy()
     expect(result.current.walletLoading).toBeTruthy()
     await waitFor(() => expect(result.current.walletLoading).toBeFalsy())
+  })
+  it('should return true for canWithdrawAll if peach wallet has a balance and address is set', () => {
+    const { result } = renderHook(useWalletSetup, { wrapper, initialProps })
+    act(() => result.current.setAddress('bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh'))
+    expect(result.current.canWithdrawAll).toBeTruthy()
+  })
+  it('should return false for canWithdrawAll if peach wallet has no balance', () => {
+    useWalletState.getState().setBalance(0)
+    const { result } = renderHook(useWalletSetup, { wrapper, initialProps })
+    act(() => result.current.setAddress('bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh'))
+    expect(result.current.canWithdrawAll).toBeFalsy()
   })
   it('should sync wallet on load', async () => {
     peachWallet.syncWallet = jest.fn()
