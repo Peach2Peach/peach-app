@@ -29,7 +29,7 @@ export const useSearchSetup = () => {
   const getHeaderIcons = () => {
     if (!offer) return undefined
 
-    const icons = isSellOffer(offer) ? [{ ...headerIcons.sliders, onPress: goToEditPremium }] : []
+    const icons = isSellOffer(offer) ? [{ ...headerIcons.percent, onPress: goToEditPremium }] : []
 
     icons.push({ ...headerIcons.cancel, onPress: cancelOffer })
 

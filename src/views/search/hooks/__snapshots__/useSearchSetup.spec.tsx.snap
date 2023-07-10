@@ -21,7 +21,7 @@ exports[`useSearchSetup should show the sliders for sell offers 1`] = `
     [
       {
         "color": "#F56522",
-        "id": "sliders",
+        "id": "percent",
         "onPress": [Function],
       },
       {

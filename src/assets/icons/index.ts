@@ -86,7 +86,6 @@ import selectOpen from './selectOpen.svg'
 import sell from './sell.svg'
 import send from './send.svg'
 import settings from './settings.svg'
-import sliders from './sliders.svg'
 import shield from './shield.svg'
 import shiftCrypto from './shiftCrypto.svg'
 import shuffle from './shuffle.svg'
@@ -213,7 +212,6 @@ const Icons = {
   shuffle,
   skipForward,
   slash,
-  sliders,
   smile,
   square,
   star,
