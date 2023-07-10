@@ -30,7 +30,7 @@ export const useWalletSetup = ({ syncOnLoad = true }) => {
   }
 
   const [address, setAddress, isValid, addressErrors] = useValidatedState<string>('', bitcoinAddressRules)
-  const canWithdrawAll = balance > 0 && peachWallet.synced && !!address && isValid
+  const canWithdrawAll = balance > 0 && !!address && isValid
 
   const syncWalletOnLoad = async () => {
     setWalletLoading(peachWallet.transactions.length === 0)
@@ -42,22 +42,22 @@ export const useWalletSetup = ({ syncOnLoad = true }) => {
     walletLoading
       ? {}
       : {
-        title: i18n('wallet.title'),
-        hideGoBackButton: true,
-        icons: [
-          {
-            ...headerIcons.list,
-            accessibilityHint: `${i18n('goTo')} ${i18n('wallet.transactionHistory')}`,
-            onPress: () => navigation.navigate('transactionHistory'),
-          },
-          {
-            ...headerIcons.bitcoin,
-            accessibilityHint: `${i18n('goTo')} ${i18n('settings.networkFees')}`,
-            onPress: () => navigation.navigate('networkFees'),
-          },
-          { ...headerIcons.help, accessibilityHint: `${i18n('help')}`, onPress: showHelp },
-        ],
-      },
+          title: i18n('wallet.title'),
+          hideGoBackButton: true,
+          icons: [
+            {
+              ...headerIcons.list,
+              accessibilityHint: `${i18n('goTo')} ${i18n('wallet.transactionHistory')}`,
+              onPress: () => navigation.navigate('transactionHistory'),
+            },
+            {
+              ...headerIcons.bitcoin,
+              accessibilityHint: `${i18n('goTo')} ${i18n('settings.networkFees')}`,
+              onPress: () => navigation.navigate('networkFees'),
+            },
+            { ...headerIcons.help, accessibilityHint: `${i18n('help')}`, onPress: showHelp },
+          ],
+        },
   )
 
   useFocusEffect(
