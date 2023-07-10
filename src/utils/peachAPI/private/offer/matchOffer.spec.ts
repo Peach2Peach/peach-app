@@ -22,7 +22,6 @@ describe('matchOffer', () => {
     currency: 'EUR',
     paymentMethod: 'sepa',
     price: 100,
-    premium: 10,
     symmetricKeyEncrypted: 'symmetricKeyEncrypted',
     symmetricKeySignature: 'symmetricKeySignature',
     paymentDataEncrypted: 'paymentDataEncrypted',
