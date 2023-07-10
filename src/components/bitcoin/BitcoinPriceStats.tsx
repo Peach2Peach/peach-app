@@ -19,11 +19,11 @@ export const BitcoinPriceStats = () => {
   return (
     <View style={tw`flex-row justify-between`}>
       <View style={colStyle}>
-        <Text style={unitStyle}>1 {i18n('btc')}</Text>
+        <Text style={unitStyle}>{`1 ${i18n('btc')}`}</Text>
         <PriceFormat style={valueStyle} currency={currency} amount={price} round />
       </View>
       <View style={[...colStyle, tw.md`items-end`]}>
-        <Text style={[unitStyle, tw`text-right`]}>{currency === 'CHF' ? `${currency} 1` : `1 ${currency}`}</Text>
+        <Text style={[unitStyle, tw`text-right`]}>{`1 ${currency}`}</Text>
         <Text style={[...valueStyle, tw`text-right`]}>
           {i18n('currency.format.sats', thousands(round(satsPerUnit)))}
         </Text>
