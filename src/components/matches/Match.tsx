@@ -13,7 +13,6 @@ import { options } from './buttons/options'
 import { EscrowLink, PriceInfo, PaymentMethodSelector, MatchCardCounterparty } from './components'
 import { useInterruptibleFunction, useMatchOffer } from './hooks'
 import { MatchPaymentDetails } from './MatchPaymentDetails'
-import { Price } from './Price'
 import { useMatchStore } from './store'
 
 type MatchProps = ComponentProps & { match: Match; offer: BuyOffer | SellOffer }
@@ -72,21 +71,17 @@ export const Match = ({ match, offer }: MatchProps) => {
           <View style={tw`p-4`}>
             <MatchCardCounterparty user={match.user} />
             <HorizontalLine style={tw`my-4`} />
+            <PriceInfo {...{ match, offer }} />
+            <HorizontalLine style={tw`my-4`} />
 
             {isBuyOffer(offer) ? (
               <>
-                <PriceInfo {...{ match, offer }} />
-                <HorizontalLine style={tw`my-4`} />
                 <PaymentMethodSelector matchId={match.offerId} disabled={currentOptionName === 'tradingLimitReached'} />
                 <HorizontalLine style={tw`my-4`} />
                 <EscrowLink address={match.escrow || ''} />
               </>
             ) : (
-              <>
-                <Price {...{ match, offer }} />
-                <HorizontalLine style={tw`my-4`} />
-                <MatchPaymentDetails match={match} style={tw`mb-2`} />
-              </>
+              <MatchPaymentDetails match={match} style={tw`mb-2`} />
             )}
           </View>
           {isMatched && isBuyOffer(offer) && (

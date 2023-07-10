@@ -2,7 +2,11 @@ import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { Text } from '../../text'
 
-export const PremiumText = ({ premium }: { premium: number }) => (
+type Props = {
+  premium: number
+}
+
+export const PremiumText = ({ premium }: Props) => (
   <Text style={tw`text-black-2`}>
     {' '}
     {premium === 0

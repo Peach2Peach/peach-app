@@ -6,11 +6,11 @@ import { useCancelOffer, useHeaderSetup, useNavigation, useRoute } from '../../.
 import { useOfferDetails } from '../../../hooks/query/useOfferDetails'
 import { useShowHelp } from '../../../hooks/useShowHelp'
 import { headerIcons } from '../../../utils/layout/headerIcons'
-import { isBuyOffer, offerIdToHex } from '../../../utils/offer'
+import { isBuyOffer, isSellOffer, offerIdToHex } from '../../../utils/offer'
 import { parseError } from '../../../utils/result'
 import { shouldGoToContract } from '../helpers/shouldGoToContract'
 import { useOfferMatches } from './useOfferMatches'
-import useRefetchOnNotification from './useRefetchOnNotification'
+import { useRefetchOnNotification } from './useRefetchOnNotification'
 
 export const useSearchSetup = () => {
   const navigation = useNavigation()
@@ -25,9 +25,14 @@ export const useSearchSetup = () => {
   const showAcceptMatchPopup = useShowHelp('acceptMatch')
 
   const cancelOffer = useCancelOffer(offer)
+  const goToEditPremium = () => navigation.navigate('editPremium', { offerId })
   const getHeaderIcons = () => {
     if (!offer) return undefined
-    const icons = [{ ...headerIcons.cancel, onPress: cancelOffer }]
+
+    const icons = isSellOffer(offer) ? [{ ...headerIcons.percent, onPress: goToEditPremium }] : []
+
+    icons.push({ ...headerIcons.cancel, onPress: cancelOffer })
+
     if (offer.matches.length > 0) {
       icons.push({ ...headerIcons.help, onPress: isBuyOffer(offer) ? showMatchPopup : showAcceptMatchPopup })
     }

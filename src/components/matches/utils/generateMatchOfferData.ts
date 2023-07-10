@@ -4,6 +4,7 @@ import { MatchProps } from '../../../utils/peachAPI/private/offer/matchOffer'
 import { buildPaymentDataFromHashes } from './buildPaymentDataFromHashes'
 import { createEncryptedKey } from './createEncryptedKey'
 import { createEncryptedPaymentData } from './createEncryptedPaymentData'
+import { getMatchPrice } from './getMatchPrice'
 
 export const generateMatchOfferData = async (
   offer: BuyOffer | SellOffer,
@@ -15,6 +16,8 @@ export const generateMatchOfferData = async (
   const defaultOfferData = {
     offerId: offer.id,
     matchingOfferId: match.offerId,
+    price: getMatchPrice(match, selectedPaymentMethod, selectedCurrency),
+    premium: match.premium,
     currency: selectedCurrency,
     paymentMethod: selectedPaymentMethod,
     symmetricKeyEncrypted: undefined,

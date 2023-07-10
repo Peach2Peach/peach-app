@@ -1,13 +1,20 @@
 import { createRenderer } from 'react-test-renderer/shallow'
+import { buyOffer, matchOffer } from '../../../../tests/unit/data/offerData'
 import { PriceInfo } from './PriceInfo'
+
+jest.mock('../../../hooks', () => ({
+  useMarketPrices: jest.fn(() => ({
+    data: {
+      EUR: 400,
+    },
+    isSuccess: true,
+  })),
+}))
 
 describe('PriceInfo', () => {
   it('should render correctly', () => {
-    const matchMock = { amount: 210000, premium: 7 } as Match
-    const offerMock = {} as BuyOffer
-
     const renderer = createRenderer()
-    renderer.render(<PriceInfo match={matchMock} offer={offerMock} />)
+    renderer.render(<PriceInfo match={matchOffer} offer={buyOffer} />)
     const result = renderer.getRenderOutput()
     expect(result).toMatchSnapshot()
   })

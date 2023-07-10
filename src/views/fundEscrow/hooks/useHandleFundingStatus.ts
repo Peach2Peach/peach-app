@@ -4,7 +4,7 @@ import { info } from '../../../utils/log'
 import { saveOffer } from '../../../utils/offer'
 import { useStartRefundPopup } from '../../../popups/useStartRefundPopup'
 import { useShowWronglyFundedPopup } from '../../../popups/useShowWronglyFundedPopup'
-import { useOfferMatches } from '../../search/hooks/useOfferMatches'
+import { useOfferMatches } from '../../search/hooks'
 
 type Props = {
   offerId: string
