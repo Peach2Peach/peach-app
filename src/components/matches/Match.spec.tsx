@@ -1,5 +1,5 @@
 import { Match } from './Match'
-import { act, fireEvent, render, waitFor } from '@testing-library/react-native'
+import { act, fireEvent, render } from '@testing-library/react-native'
 import { buyOffer, matchOffer, sellOffer } from '../../../tests/unit/data/offerData'
 import { NavigationAndQueryClientWrapper } from '../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
 import { useMatchStore } from './store'
