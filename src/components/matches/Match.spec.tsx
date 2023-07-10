@@ -12,6 +12,15 @@ jest.mock('../../utils/peachAPI', () => ({
   getOfferDetails: (...args: unknown[]) => getOfferDetailsMock(...args),
 }))
 
+jest.mock('../../hooks/query/useMarketPrices', () => ({
+  useMarketPrices: jest.fn(() => ({
+    data: {
+      EUR: 400,
+    },
+    isSuccess: true,
+  })),
+}))
+
 jest.useFakeTimers()
 
 describe('Match', () => {
@@ -66,6 +75,7 @@ describe('Match', () => {
       offerId: buyOffer.id,
       matchingOfferId: matchOffer.offerId,
       price: 1,
+      premium: 1.5,
       currency: 'EUR',
       paymentMethod: 'sepa',
       paymentDataEncrypted: undefined,
