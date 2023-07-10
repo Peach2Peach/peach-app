@@ -5,14 +5,21 @@ import { NavigationAndQueryClientWrapper } from '../../../tests/unit/helpers/Nav
 
 describe('Match', () => {
   it('should render correctly for buy offers', () => {
-    const { toJSON } = render(<Match match={matchOffer} offer={buyOffer} />, {
+    const { toJSON } = render(<Match match={{ ...matchOffer, matched: false }} offer={buyOffer} />, {
       wrapper: NavigationAndQueryClientWrapper,
     })
     expect(toJSON()).toMatchSnapshot()
   })
 
   it('should render correctly for sell offers', () => {
-    const { toJSON } = render(<Match match={matchOffer} offer={sellOffer} />, {
+    const { toJSON } = render(<Match match={{ ...matchOffer, matched: false }} offer={sellOffer} />, {
+      wrapper: NavigationAndQueryClientWrapper,
+    })
+    expect(toJSON()).toMatchSnapshot()
+  })
+
+  it('should render correctly for matched offers', () => {
+    const { toJSON } = render(<Match match={matchOffer} offer={buyOffer} />, {
       wrapper: NavigationAndQueryClientWrapper,
     })
     expect(toJSON()).toMatchSnapshot()
