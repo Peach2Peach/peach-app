@@ -17,6 +17,7 @@ export const generateMatchOfferData = async (
     offerId: offer.id,
     matchingOfferId: match.offerId,
     price: getMatchPrice(match, selectedPaymentMethod, selectedCurrency),
+    premium: match.premium,
     currency: selectedCurrency,
     paymentMethod: selectedPaymentMethod,
     symmetricKeyEncrypted: undefined,

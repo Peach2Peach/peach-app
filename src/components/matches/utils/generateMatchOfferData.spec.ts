@@ -52,6 +52,7 @@ describe('generateMatchOfferData', () => {
         symmetricKeyEncrypted: undefined,
         symmetricKeySignature: undefined,
         price: match.matchedPrice,
+        premium: match.premium,
       },
       null,
     ])
@@ -104,6 +105,7 @@ describe('generateMatchOfferData', () => {
         symmetricKeyEncrypted: undefined,
         symmetricKeySignature: undefined,
         price: 0,
+        premium: 0,
       },
       null,
     ])

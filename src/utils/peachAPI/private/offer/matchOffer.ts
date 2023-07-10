@@ -11,6 +11,7 @@ export type MatchProps = RequestProps & {
   currency: Currency
   paymentMethod: PaymentMethod
   price: number
+  premium: number
   symmetricKeyEncrypted?: string
   symmetricKeySignature?: string
   paymentDataEncrypted?: string
@@ -22,6 +23,7 @@ export const matchOffer = async ({
   currency,
   paymentMethod,
   price,
+  premium,
   matchingOfferId,
   symmetricKeyEncrypted,
   symmetricKeySignature,
@@ -36,6 +38,7 @@ export const matchOffer = async ({
       currency,
       paymentMethod,
       price,
+      premium,
       symmetricKeyEncrypted,
       symmetricKeySignature,
       paymentDataEncrypted,
