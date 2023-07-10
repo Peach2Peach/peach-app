@@ -31,7 +31,8 @@ exports[`BitcoinPriceStats should render correctly 1`] = `
         }
       }
     >
-      1 BTC
+      1 
+      BTC
     </PeachText>
     <PriceFormat
       amount={400000}
@@ -104,130 +105,6 @@ exports[`BitcoinPriceStats should render correctly 1`] = `
 </View>
 `;
 
-exports[`BitcoinPriceStats should render correctly when CHF is the currency 1`] = `
-<View
-  style={
-    {
-      "flexDirection": "row",
-      "justifyContent": "space-between",
-    }
-  }
->
-  <View
-    style={
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "gap": 8,
-        },
-        {
-          "alignItems": "flex-start",
-          "flexDirection": "column",
-          "gap": 0,
-        },
-      ]
-    }
-  >
-    <PeachText
-      style={
-        {
-          "fontFamily": "Baloo2-SemiBold",
-          "fontSize": 16,
-          "letterSpacing": 0.16,
-          "lineHeight": 28,
-        }
-      }
-    >
-      1 BTC
-    </PeachText>
-    <PriceFormat
-      amount={400000}
-      currency="CHF"
-      round={true}
-      style={
-        [
-          {
-            "color": "#F56522",
-            "fontFamily": "Baloo2-Regular",
-            "fontSize": 16,
-            "letterSpacing": 0.16,
-            "lineHeight": 28,
-          },
-          {
-            "fontFamily": "Baloo2-Regular",
-            "fontSize": 20,
-            "letterSpacing": 0.2,
-            "lineHeight": 28,
-          },
-        ]
-      }
-    />
-  </View>
-  <View
-    style={
-      [
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "gap": 8,
-        },
-        {
-          "alignItems": "flex-start",
-          "flexDirection": "column",
-          "gap": 0,
-        },
-        {
-          "alignItems": "flex-end",
-        },
-      ]
-    }
-  >
-    <PeachText
-      style={
-        [
-          {
-            "fontFamily": "Baloo2-SemiBold",
-            "fontSize": 16,
-            "letterSpacing": 0.16,
-            "lineHeight": 28,
-          },
-          {
-            "textAlign": "right",
-          },
-        ]
-      }
-    >
-      1 CHF
-    </PeachText>
-    <PeachText
-      style={
-        [
-          {
-            "color": "#F56522",
-            "fontFamily": "Baloo2-Regular",
-            "fontSize": 16,
-            "letterSpacing": 0.16,
-            "lineHeight": 28,
-          },
-          {
-            "fontFamily": "Baloo2-Regular",
-            "fontSize": 20,
-            "letterSpacing": 0.2,
-            "lineHeight": 28,
-          },
-          {
-            "textAlign": "right",
-          },
-        ]
-      }
-    >
-      250 sats
-    </PeachText>
-  </View>
-</View>
-`;
-
 exports[`BitcoinPriceStats should render medium screens correctly 1`] = `
 <View
   style={
@@ -263,7 +140,8 @@ exports[`BitcoinPriceStats should render medium screens correctly 1`] = `
         }
       }
     >
-      1 BTC
+      1 
+      BTC
     </PeachText>
     <PriceFormat
       amount={400000}

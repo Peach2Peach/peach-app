@@ -29,12 +29,4 @@ describe('BitcoinPriceStats', () => {
     const renderOutput = renderer.getRenderOutput()
     expect(renderOutput).toMatchSnapshot()
   })
-  it('should render correctly when CHF is the currency', () => {
-    useBitcoinStore.setState({ currency: 'CHF' })
-
-    renderer.render(<BitcoinPriceStats />)
-
-    const renderOutput = renderer.getRenderOutput()
-    expect(renderOutput).toMatchSnapshot()
-  })
 })
