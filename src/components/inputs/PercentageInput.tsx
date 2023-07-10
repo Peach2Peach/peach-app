@@ -13,9 +13,10 @@ export const PercentageInput = ({ onChange, ...props }: Props) => (
   >
     <TextInput
       onChangeText={(text) => onChange(enforceDecimalsFormat(text, 2))}
-      style={tw`flex-grow text-center input-text`}
+      style={tw`flex-grow text-center input-text text-black-1`}
       keyboardType={'decimal-pad'}
       placeholder={'20.00'}
+      placeholderTextColor={tw`text-black-5`.color}
       {...props}
     />
     <View style={tw`pb-1px`}>
