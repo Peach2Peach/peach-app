@@ -40,7 +40,7 @@ export const SellOfferSummary = ({ offer, style }: Props) => {
       <Text style={tw`self-center body-m text-black-2`}>{i18n('offer.summary.withA')}</Text>
       <Text style={[tw`text-center subtitle-1`, getPremiumColor(offer.premium, false)]}>
         <Text style={tw`subtitle-1`}>{Math.abs(offer.premium)}% </Text>
-        {i18n(offer.premium > 0 ? 'offer.summary.premium' : 'offer.summary.discount')}
+        {i18n(offer.premium >= 0 ? 'offer.summary.premium' : 'offer.summary.discount')}
       </Text>
       <HorizontalLine style={tw`w-64 my-4`} />
       <Text style={tw`self-center body-m text-black-2`}>{i18n('offer.summary.withTheseMethods')}</Text>
