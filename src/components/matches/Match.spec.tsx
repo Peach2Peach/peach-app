@@ -139,4 +139,31 @@ describe('Match', () => {
     })
     expect(queryClient.getQueryState(['matches', buyOffer.id])?.isInvalidated).toBe(true)
   })
+
+  it('should prevent a match when the matchOffer is no longer online', async () => {
+    useMatchStore.setState({
+      matchSelectors: {
+        [matchOffer.offerId]: {
+          availableCurrencies: ['EUR'],
+          availablePaymentMethods: ['sepa'],
+          selectedCurrency: 'EUR',
+          selectedPaymentMethod: 'sepa',
+          meansOfPayment: { EUR: ['sepa'] },
+          mopsInCommon: { EUR: ['sepa'] },
+          showPaymentMethodPulse: false,
+        },
+      },
+    })
+    queryClient.setQueryData(['matches', buyOffer.id], { pages: [{ matches: [matchOffer] }] })
+    getOfferDetailsMock.mockResolvedValueOnce([null, { error: 'OFFER IS OFFLINE' }])
+    const { getByText } = render(<Match match={{ ...matchOffer, matched: false }} offer={buyOffer} />, {
+      wrapper: NavigationAndQueryClientWrapper,
+    })
+
+    await act(async () => {
+      fireEvent.press(getByText('match offer'))
+      await jest.runAllTimersAsync()
+    })
+    expect(queryClient.getQueryState(['matches', buyOffer.id])?.isInvalidated).toBe(true)
+  })
 })

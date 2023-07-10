@@ -30,8 +30,8 @@ export const Match = ({ match, offer }: MatchProps) => {
   const onMatchPress = async () => {
     if (isBuyOffer(offer)) {
       setShowMatchedCard(true)
-      const [result] = await getOfferDetails({ offerId: match.offerId })
-      if (result?.premium !== match.premium) {
+      const [result, error] = await getOfferDetails({ offerId: match.offerId })
+      if (result?.premium !== match.premium || error) {
         setShowMatchedCard(false)
         await queryClient.invalidateQueries(['matches', offer.id])
         return
