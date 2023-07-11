@@ -15,5 +15,6 @@ export const useSellSetup = ({ help, hideGoBackButton }: Props) => {
     titleComponent: <SellTitleComponent />,
     hideGoBackButton,
     icons: [{ ...headerIcons.help, onPress: showHelp }],
+    showPriceStats: true,
   })
 }

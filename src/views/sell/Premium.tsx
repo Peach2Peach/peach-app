@@ -1,5 +1,5 @@
 import { View } from 'react-native'
-import { BitcoinPriceStats, HorizontalLine, PremiumSlider, PrimaryButton, Text } from '../../components'
+import { PremiumSlider, PrimaryButton, Text } from '../../components'
 import { useNavigation } from '../../hooks'
 import { useOfferPreferences } from '../../store/offerPreferenes/useOfferPreferences'
 import tw from '../../styles/tailwind'
@@ -16,10 +16,6 @@ export const Premium = () => {
 
   return (
     <View style={tw`h-full`}>
-      <View style={[tw`px-4`, tw.md`px-8`]}>
-        <HorizontalLine style={tw`mb-2`} />
-        <BitcoinPriceStats />
-      </View>
       <View style={[tw`flex-grow px-4`, tw.md`px-8`]}>
         <View style={tw`items-center justify-center flex-grow`}>
           <View style={tw`items-center self-stretch gap-7`}>

@@ -1,5 +1,5 @@
 import { View } from 'react-native'
-import { BitcoinPriceStats, HorizontalLine, PrimaryButton } from '../../components'
+import { PrimaryButton } from '../../components'
 import { useNavigation } from '../../hooks'
 import { useConfigStore } from '../../store/configStore'
 import { useOfferPreferences } from '../../store/offerPreferenes/useOfferPreferences'
@@ -26,10 +26,6 @@ export default () => {
     <LoadingScreen />
   ) : (
     <View style={tw`h-full`}>
-      <HorizontalLine style={tw`mx-8`} />
-      <View style={tw`px-8 mt-2`}>
-        <BitcoinPriceStats />
-      </View>
       <SellAmountSelector style={tw`mt-4 mb-2`} />
       <View style={[tw`flex-row items-center justify-center mt-4 mb-1`, tw.md`mb-4`]}>
         <PrimaryButton disabled={!isAmountValid} onPress={next} narrow>

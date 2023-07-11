@@ -17,7 +17,7 @@ export const BitcoinPriceStats = () => {
   const valueStyle = [tw`body-m text-primary-main leading-xl`, tw.md`body-l`]
 
   return (
-    <View style={tw`flex-row justify-between`}>
+    <View style={tw`flex-row self-stretch justify-between`}>
       <View style={colStyle}>
         <Text style={unitStyle}>{`1 ${i18n('btc')}`}</Text>
         <PriceFormat style={valueStyle} currency={currency} amount={price} round />
