@@ -5,13 +5,12 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
 import analytics from '@react-native-firebase/analytics'
 import { DefaultTheme, NavigationContainer, NavigationState, useNavigationContainerRef } from '@react-navigation/native'
-import { createStackNavigator } from '@react-navigation/stack'
 import { enableScreens } from 'react-native-screens'
 
-import { AvoidKeyboard, Drawer, Footer, Header, Message, Popup } from './components'
+import { AvoidKeyboard, Drawer, Footer, Message, Popup } from './components'
 import tw from './styles/tailwind'
 import i18n, { LanguageContext } from './utils/i18n'
-import { getViews } from './views'
+import { getViews } from './views/getViews'
 
 import { defaultState, DrawerContext, setDrawer } from './contexts/drawer'
 import { MessageContext, getMessage, setMessage, showMessageEffect } from './contexts/message'
@@ -28,15 +27,13 @@ import requestUserPermissions from './init/requestUserPermissions'
 import websocket from './init/websocket'
 import { usePartialAppSetup } from './usePartialAppSetup'
 import { account } from './utils/account'
-import { screenTransition } from './utils/layout/screenTransition'
 import { error, info } from './utils/log'
 import { parseError } from './utils/result'
-import { isIOS, isNetworkError } from './utils/system'
+import { isNetworkError } from './utils/system'
 import { queryClient } from './queryClient'
+import { Screens } from './views/Screens'
 
 enableScreens()
-
-const Stack = createStackNavigator<RootStackParamList>()
 
 const navTheme = {
   ...DefaultTheme,
@@ -158,36 +155,11 @@ const App = () => {
                               <Message {...messageState} />
                             </Animated.View>
                           )}
-                          <View style={tw`flex-shrink h-full`}>
-                            <Stack.Navigator
-                              detachInactiveScreens={true}
-                              screenOptions={{
-                                gestureEnabled: isIOS(),
-                                headerShown: false,
-                              }}
-                            >
-                              {views.map(({ name, component, showHeader, background, animationEnabled }) => (
-                                <Stack.Screen
-                                  {...{ name, component }}
-                                  key={name}
-                                  options={{
-                                    headerShown: showHeader,
-                                    header: () => <Header />,
-                                    animationEnabled: isIOS() && animationEnabled,
-                                    cardStyle: !background.color && tw`bg-primary-background`,
-                                    transitionSpec: {
-                                      open: screenTransition,
-                                      close: screenTransition,
-                                    },
-                                  }}
-                                />
-                              ))}
-                            </Stack.Navigator>
-                          </View>
+                          <Screens />
                           {showFooter && (
                             <Footer
                               style={tw`z-10`}
-                              active={currentPage}
+                              currentPage={currentPage}
                               setCurrentPage={setCurrentPage}
                               theme={backgroundConfig?.color === 'primaryGradient' ? 'inverted' : 'default'}
                             />

@@ -34,16 +34,18 @@ describe('useWalletSetup', () => {
     expect(result.current.walletLoading).toBeTruthy()
     await waitFor(() => expect(result.current.walletLoading).toBeFalsy())
   })
-  it('should return true for canWithdrawAll if peach wallet has a balance and address is set', () => {
+  it('should return true for canWithdrawAll if peach wallet has a balance and address is set', async () => {
     const { result } = renderHook(useWalletSetup, { wrapper, initialProps })
     act(() => result.current.setAddress('bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh'))
     expect(result.current.canWithdrawAll).toBeTruthy()
+    await waitFor(() => expect(result.current.walletLoading).toBeFalsy())
   })
-  it('should return false for canWithdrawAll if peach wallet has no balance', () => {
+  it('should return false for canWithdrawAll if peach wallet has no balance', async () => {
     useWalletState.getState().setBalance(0)
     const { result } = renderHook(useWalletSetup, { wrapper, initialProps })
     act(() => result.current.setAddress('bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh'))
     expect(result.current.canWithdrawAll).toBeFalsy()
+    await waitFor(() => expect(result.current.walletLoading).toBeFalsy())
   })
   it('should sync wallet on load', async () => {
     peachWallet.syncWallet = jest.fn()
@@ -64,16 +66,23 @@ describe('useWalletSetup', () => {
     expect(headerState.header()).toMatchSnapshot()
 
     const { getByAccessibilityHint } = render(headerState.header(), { wrapper })
-    fireEvent(getByAccessibilityHint('go to transaction history'), 'onPress')
+    act(() => {
+      fireEvent(getByAccessibilityHint('go to transaction history'), 'onPress')
+    })
     expect(navigateMock).toHaveBeenCalledWith('transactionHistory')
-    fireEvent(getByAccessibilityHint('go to network fees'), 'onPress')
+    act(() => {
+      fireEvent(getByAccessibilityHint('go to network fees'), 'onPress')
+    })
     expect(navigateMock).toHaveBeenCalledWith('networkFees')
-    fireEvent(getByAccessibilityHint('help'), 'onPress')
+    act(() => {
+      fireEvent(getByAccessibilityHint('help'), 'onPress')
+    })
     expect(usePopupStore.getState()).toEqual({
       ...usePopupStore.getState(),
       title: 'sending funds',
       content: <WithdrawingFundsHelp />,
     })
+    await waitFor(() => expect(result.current.walletLoading).toBeFalsy())
   })
   it('should navigate to backupTime if balance is bigger than 0 & showBackupReminder is false', async () => {
     useWalletState.getState().setBalance(1)

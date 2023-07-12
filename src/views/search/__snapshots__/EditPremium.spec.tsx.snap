@@ -947,8 +947,11 @@ exports[`EditPremium should render correctly 1`] = `
                     "flexGrow": 1,
                     "fontFamily": "Baloo2-Regular",
                     "fontSize": 18,
+                    "height": 38,
                     "letterSpacing": 0.18,
                     "lineHeight": 29.25,
+                    "paddingBottom": 0,
+                    "paddingTop": 0,
                     "textAlign": "center",
                   }
                 }
