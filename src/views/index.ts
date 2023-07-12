@@ -67,7 +67,6 @@ type ViewType = {
   showHeader: boolean
   showFooter: boolean
   background: BackgroundConfig
-  animationEnabled: boolean
 }
 
 const onboardingConfig = {
@@ -76,7 +75,7 @@ const onboardingConfig = {
   background: { color: 'primaryGradient' },
   animationEnabled: false,
 } as const
-const defaultConfig = { showHeader: true, showFooter: true, background: { color: undefined }, animationEnabled: true }
+const defaultConfig = { showHeader: true, showFooter: true, background: { color: undefined } }
 const invertedThemeConfig = {
   showHeader: false,
   showFooter: false,
@@ -95,20 +94,20 @@ const onboarding: ViewType[] = [
 const home: ViewType[] = [{ name: 'home', component: Buy, ...defaultConfig }]
 
 const wallet: ViewType[] = [
-  { name: 'wallet', component: Wallet, ...defaultConfig, animationEnabled: false },
+  { name: 'wallet', component: Wallet, ...defaultConfig },
   { name: 'transactionHistory', component: TransactionHistory, ...defaultConfig },
   { name: 'transactionDetails', component: TransactionDetails, ...defaultConfig },
   { name: 'bumpNetworkFees', component: BumpNetworkFees, ...defaultConfig },
 ]
 const buyFlow: ViewType[] = [
-  { name: 'buy', component: Buy, ...defaultConfig, animationEnabled: false },
+  { name: 'buy', component: Buy, ...defaultConfig },
   { name: 'buyPreferences', component: PaymentMethods, ...defaultConfig },
   { name: 'buySummary', component: BuySummary, ...defaultConfig },
   { name: 'signMessage', component: SignMessage, ...defaultConfig },
 ]
 
 const sellFlow: ViewType[] = [
-  { name: 'sell', component: Sell, ...defaultConfig, animationEnabled: false },
+  { name: 'sell', component: Sell, ...defaultConfig },
   { name: 'premium', component: OfferPreferencePremium, ...defaultConfig },
   { name: 'sellPreferences', component: PaymentMethods, ...defaultConfig },
   { name: 'sellSummary', component: SellSummary, ...defaultConfig },
@@ -131,7 +130,7 @@ const trade: ViewType[] = [
 ]
 
 const tradeHistory: ViewType[] = [
-  { name: 'yourTrades', component: YourTrades, ...defaultConfig, animationEnabled: false },
+  { name: 'yourTrades', component: YourTrades, ...defaultConfig },
   { name: 'offer', component: OfferDetails, ...defaultConfig },
 ]
 
@@ -156,7 +155,7 @@ const overlays: ViewType[] = [
 ]
 
 const settings: ViewType[] = [
-  { name: 'settings', component: Settings, ...defaultConfig, animationEnabled: false },
+  { name: 'settings', component: Settings, ...defaultConfig },
   { name: 'aboutPeach', component: AboutPeach, ...defaultConfig },
   { name: 'myProfile', component: MyProfile, ...defaultConfig },
   { name: 'bitcoinProducts', component: BitcoinProducts, ...defaultConfig },

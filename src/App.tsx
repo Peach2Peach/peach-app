@@ -166,14 +166,13 @@ const App = () => {
                                 headerShown: false,
                               }}
                             >
-                              {views.map(({ name, component, showHeader, background, animationEnabled }) => (
+                              {views.map(({ name, component, showHeader, background }) => (
                                 <Stack.Screen
                                   {...{ name, component }}
                                   key={name}
                                   options={{
                                     headerShown: showHeader,
                                     header: () => <Header />,
-                                    animationEnabled: isIOS() && animationEnabled,
                                     cardStyle: !background.color && tw`bg-primary-background`,
                                     transitionSpec: {
                                       open: screenTransition,
