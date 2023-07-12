@@ -186,7 +186,7 @@ const App = () => {
                           {showFooter && (
                             <Footer
                               style={tw`z-10`}
-                              active={currentPage}
+                              currentPage={currentPage}
                               setCurrentPage={setCurrentPage}
                               theme={backgroundConfig?.color === 'primaryGradient' ? 'inverted' : 'default'}
                             />
