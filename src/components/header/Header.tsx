@@ -34,14 +34,7 @@ export type HeaderConfig = {
   showPriceStats?: boolean
 }
 
-export const Header = ({
-  title,
-  icons,
-  titleComponent,
-  hideGoBackButton,
-  showPriceStats = false,
-  theme,
-}: HeaderConfig) => {
+export const Header = ({ title, icons, titleComponent, hideGoBackButton, showPriceStats, theme }: HeaderConfig) => {
   const colors = themes[theme || 'default']
   const { goBack, canGoBack } = useNavigation()
   const { iconSize, fontSize } = getHeaderStyles()
