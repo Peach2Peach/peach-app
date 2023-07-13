@@ -16,7 +16,7 @@ export const useNewUserSetup = () => {
   const route = useRoute<'newUser'>()
   const navigation = useNavigation()
 
-  const [isLoading, setIsloading] = useState(true)
+  const [isLoading, setIsLoading] = useState(true)
   const [success, setSuccess] = useState(false)
   const { setTemporaryAccount } = useTemporaryAccount()
   const [userExistsForDevice, setUserExistsForDevice] = useState(false)
@@ -35,8 +35,9 @@ export const useNewUserSetup = () => {
   }, [])
 
   const finishRegistration = useCallback(
-    (account: Account) => {
-      updateAccount(account, true)
+    async (account: Account) => {
+      await updateAccount(account, true)
+      await userUpdate(route.params.referralCode)
 
       storeAccount(account)
       setSuccess(true)
@@ -45,7 +46,7 @@ export const useNewUserSetup = () => {
         navigation.replace('home')
       }, 1500)
     },
-    [navigation],
+    [navigation, route.params.referralCode],
   )
 
   const onSuccess = useCallback(
@@ -63,8 +64,6 @@ export const useNewUserSetup = () => {
         return
       }
 
-      await userUpdate(route.params.referralCode)
-
       if (result.restored) {
         setTemporaryAccount(account)
         setUserExistsForDevice(true)
@@ -72,7 +71,7 @@ export const useNewUserSetup = () => {
       }
       finishRegistration(account)
     },
-    [route.params.referralCode, finishRegistration, onError, setTemporaryAccount],
+    [finishRegistration, onError, setTemporaryAccount],
   )
 
   useEffect(() => {
@@ -83,7 +82,7 @@ export const useNewUserSetup = () => {
       } catch (e) {
         onError(parseError(e))
       }
-      setIsloading(false)
+      setIsLoading(false)
     })
   }, [onError, onSuccess])
 

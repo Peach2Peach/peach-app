@@ -1,7 +1,7 @@
 /* eslint-disable max-lines-per-function */
 import { act, renderHook, waitFor } from '@testing-library/react-native'
 import { useSettingsSetup } from './useSettingsSetup'
-import { settingsStore } from '../../../store/settingsStore'
+import { useSettingsStore } from '../../../store/settingsStore'
 import { usePopupStore } from '../../../store/usePopupStore'
 import { NotificationPopup } from '../components/NotificationPopup'
 import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
@@ -15,7 +15,7 @@ describe('useSettingsSetup', () => {
   const wrapper = NavigationWrapper
   afterEach(() => {
     act(() => {
-      settingsStore.getState().reset()
+      useSettingsStore.getState().reset()
     })
   })
   it('returns default settings items', async () => {
@@ -48,7 +48,7 @@ describe('useSettingsSetup', () => {
     ])
   })
   it('returns shows analytics as active if it is', async () => {
-    settingsStore.getState().setEnableAnalytics(true)
+    useSettingsStore.getState().setEnableAnalytics(true)
     const { result } = renderHook(useSettingsSetup, { wrapper })
     await waitFor(() => expect(checkNotificationStatusMock).toHaveBeenCalled())
     expect(result.current[2].items).toEqual([
@@ -60,7 +60,7 @@ describe('useSettingsSetup', () => {
     ])
   })
   it('does not highlight backups if backup reminder is not active', async () => {
-    settingsStore.getState().setShowBackupReminder(false)
+    useSettingsStore.getState().setShowBackupReminder(false)
     const { result } = renderHook(useSettingsSetup, { wrapper })
     await waitFor(() => expect(checkNotificationStatusMock).toHaveBeenCalled())
     expect(result.current[1].items).toEqual([
@@ -72,7 +72,7 @@ describe('useSettingsSetup', () => {
     ])
   })
   it('does highlight backups if backup reminder is  active', async () => {
-    settingsStore.getState().setShowBackupReminder(true)
+    useSettingsStore.getState().setShowBackupReminder(true)
     const { result } = renderHook(useSettingsSetup, { wrapper })
     await waitFor(() => expect(checkNotificationStatusMock).toHaveBeenCalled())
     expect(result.current[1].items).toEqual([

@@ -5,7 +5,6 @@ import { useOfferPreferences } from '../../../store/offerPreferenes'
 
 describe('NextButton', () => {
   afterEach(() => {
-    jest.clearAllMocks()
     act(() => {
       useOfferPreferences.setState((prev) => ({ canContinue: { ...prev.canContinue, paymentMethods: true } }))
     })

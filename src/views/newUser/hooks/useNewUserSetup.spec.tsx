@@ -6,11 +6,11 @@ import { headerState, NavigationWrapper, replaceMock } from '../../../../tests/u
 import {
   defaultNotificationState,
   notificationStorage,
-  notificationStore,
+  useNotificationStore,
 } from '../../../components/footer/notificationsStore'
-import { configStore } from '../../../store/configStore'
-import { defaultConfig, defaultSettings } from '../../../store/defaults'
-import { settingsStorage, settingsStore } from '../../../store/settingsStore'
+import { useConfigStore } from '../../../store/configStore'
+import { defaultConfig } from '../../../store/defaults'
+import { settingsStorage, useSettingsStore, defaultSettings } from '../../../store/settingsStore'
 import { defaultAccount, getAccount, setAccount } from '../../../utils/account'
 import { accountStorage } from '../../../utils/account/accountStorage'
 import { chatStorage } from '../../../utils/account/chatStorage'
@@ -18,8 +18,7 @@ import { contractStorage } from '../../../utils/account/contractStorage'
 import { offerStorage } from '../../../utils/account/offerStorage'
 import { getAccessToken } from '../../../utils/peachAPI/accessToken'
 import { getPeachAccount } from '../../../utils/peachAPI/peachAccount'
-import { sessionStorage } from '../../../utils/session'
-import { defaultWalletState, walletStorage, walletStore } from '../../../utils/wallet/walletStore'
+import { defaultWalletState, walletStorage, useWalletState } from '../../../utils/wallet/walletStore'
 import { useNewUserSetup } from './useNewUserSetup'
 import { useTemporaryAccount } from '../../../hooks/useTemporaryAccount'
 
@@ -66,7 +65,7 @@ describe('useNewUserSetup', () => {
   beforeEach(() => {
     jest.useFakeTimers({ now: new Date('2022-12-30T23:00:00.000Z') })
 
-    settingsStore.setState({ pgpPublished: false, fcmToken: undefined })
+    useSettingsStore.setState({ pgpPublished: false, fcmToken: undefined })
     setAccount(defaultAccount)
   })
   it('should return default values', () => {
@@ -114,42 +113,7 @@ describe('useNewUserSetup', () => {
 
     expect(accountStorage.getMap('identity')).toStrictEqual(expectedIdentity)
   })
-  it('should store the trading limit', async () => {
-    renderHook(useNewUserSetup, { wrapper: NavigationWrapper })
-    await forProcessToFinish()
 
-    expect(accountStorage.getMap('tradingLimit')).toStrictEqual(recoveredAccount.tradingLimit)
-  })
-  it('should store the payment data', async () => {
-    renderHook(useNewUserSetup, { wrapper: NavigationWrapper })
-    await forProcessToFinish()
-
-    expect(accountStorage.getMap('paymentData')).toStrictEqual(recoveredAccount.paymentData)
-  })
-  it('should store the offers', async () => {
-    renderHook(useNewUserSetup, { wrapper: NavigationWrapper })
-    await forProcessToFinish()
-
-    recoveredAccount.offers.forEach((offer, index) => {
-      expect(accountStorage.getMap(offer.id)).toStrictEqual(recoveredAccount.offers[index])
-    })
-  })
-  it('should store the contracts', async () => {
-    renderHook(useNewUserSetup, { wrapper: NavigationWrapper })
-    await forProcessToFinish()
-
-    recoveredAccount.contracts.forEach((contract, index) => {
-      expect(accountStorage.getMap(contract.id)).toStrictEqual(recoveredAccount.contracts[index])
-    })
-  })
-  it('should store the chats', async () => {
-    renderHook(useNewUserSetup, { wrapper: NavigationWrapper })
-    await forProcessToFinish()
-
-    Object.values(recoveredAccount.chats).forEach((chat, index) => {
-      expect(accountStorage.getMap(chat.id)).toStrictEqual(recoveredAccount.chats[index])
-    })
-  })
   it('should set success to true', async () => {
     const { result } = renderHook(useNewUserSetup, { wrapper: NavigationWrapper })
     await forProcessToFinish()
@@ -179,7 +143,6 @@ describe('useNewUserSetup', () => {
       offerStorage,
       contractStorage,
       chatStorage,
-      sessionStorage,
       settingsStorage,
       notificationStorage,
     ]
@@ -188,10 +151,10 @@ describe('useNewUserSetup', () => {
       expect(storage.clearStore).toHaveBeenCalled()
     })
 
-    expect(notificationStore.getState()).toEqual(expect.objectContaining(defaultNotificationState))
-    expect(configStore.getState()).toEqual(expect.objectContaining(defaultConfig))
-    expect(walletStore.getState()).toEqual(expect.objectContaining(defaultWalletState))
-    expect(settingsStore.getState()).toEqual(expect.objectContaining(defaultSettings))
+    expect(useNotificationStore.getState()).toEqual(expect.objectContaining(defaultNotificationState))
+    expect(useConfigStore.getState()).toEqual(expect.objectContaining(defaultConfig))
+    expect(useWalletState.getState()).toEqual(expect.objectContaining(defaultWalletState))
+    expect(useSettingsStore.getState()).toEqual(expect.objectContaining(defaultSettings))
 
     expect(getAccessToken()).toBeNull()
     expect(getPeachAccount()).toBeNull()
@@ -217,7 +180,6 @@ describe('useNewUserSetup', () => {
       offerStorage,
       contractStorage,
       chatStorage,
-      sessionStorage,
       settingsStorage,
       notificationStorage,
     ]
@@ -226,10 +188,10 @@ describe('useNewUserSetup', () => {
       expect(storage.clearStore).toHaveBeenCalled()
     })
 
-    expect(notificationStore.getState()).toEqual(expect.objectContaining(defaultNotificationState))
-    expect(configStore.getState()).toEqual(expect.objectContaining(defaultConfig))
-    expect(walletStore.getState()).toEqual(expect.objectContaining(defaultWalletState))
-    expect(settingsStore.getState()).toEqual(expect.objectContaining(defaultSettings))
+    expect(useNotificationStore.getState()).toEqual(expect.objectContaining(defaultNotificationState))
+    expect(useConfigStore.getState()).toEqual(expect.objectContaining(defaultConfig))
+    expect(useWalletState.getState()).toEqual(expect.objectContaining(defaultWalletState))
+    expect(useSettingsStore.getState()).toEqual(expect.objectContaining(defaultSettings))
 
     expect(getAccessToken()).toBeNull()
     expect(getPeachAccount()).toBeNull()

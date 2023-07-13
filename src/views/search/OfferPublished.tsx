@@ -2,7 +2,7 @@ import { View } from 'react-native'
 import { Icon, PrimaryButton, Text } from '../../components'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { useOfferPublishedSetup } from './hooks/useOfferPublishedSetup'
+import { useOfferPublishedSetup } from './hooks'
 
 export default () => {
   const { goToOffer, closeAction } = useOfferPublishedSetup()

@@ -9,10 +9,6 @@ import { getDescriptorSecretKey } from './getDescriptorSecretKey'
 import { Mnemonic } from 'bdk-rn'
 
 describe('getDescriptorSecretKey', () => {
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
-
   it('creates new random descriptor secret', async () => {
     const mnemonic = await new Mnemonic().create()
     mnemonicCreateMock.mockReturnValueOnce(mnemonic)

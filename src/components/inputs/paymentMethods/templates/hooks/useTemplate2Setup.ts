@@ -1,27 +1,21 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { FormProps } from '../../paymentForms/PaymentMethodForm'
+import { FormProps } from '../../../../../views/addPaymentMethod/PaymentMethodForm'
 import { useValidatedState } from '../../../../../hooks'
-import { getPaymentDataByLabel } from '../../../../../utils/account'
 import i18n from '../../../../../utils/i18n'
 import { getErrorsInField } from '../../../../../utils/validation'
 import { TabbedNavigationItem } from '../../../../navigation/TabbedNavigation'
 import { toggleCurrency } from '../../paymentForms/utils'
+import { useLabelInput } from './useLabelInput'
 
 const referenceRules = { required: false }
 // eslint-disable-next-line max-lines-per-function
-export const useTemplate2Setup = ({
-  data,
-  currencies = [],
-  onSubmit,
-  setStepValid,
-  paymentMethod,
-  setFormData,
-}: FormProps) => {
+export const useTemplate2Setup = ({ data, onSubmit, setStepValid, setFormData }: FormProps) => {
+  const { currencies, type: paymentMethod } = data
   const tabs: TabbedNavigationItem[] = [
     { id: 'wallet', display: i18n('form.wallet') },
     { id: 'email', display: i18n('form.email') },
   ]
-  const [label, setLabel] = useState(data?.label || '')
+  const { labelInputProps, labelErrors, setDisplayErrors: setDisplayLabelErrors, label } = useLabelInput(data)
   const [email, setEmail] = useState(data?.email || '')
   const [wallet, setWallet] = useState(data?.wallet || '')
   const [reference, setReference, referenceIsValid, referenceError] = useValidatedState(
@@ -34,17 +28,9 @@ export const useTemplate2Setup = ({
 
   const anyFieldSet = !!email || !!wallet
 
-  const labelRules = useMemo(
-    () => ({
-      duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)?.id !== data.id,
-      required: true,
-    }),
-    [data.id, label],
-  )
   const emailRules = useMemo(() => ({ email: true, required: !wallet }), [wallet])
   const walletRules = useMemo(() => ({ advcashWallet: true, required: !email }), [email])
 
-  const labelErrors = useMemo(() => getErrorsInField(label, labelRules), [label, labelRules])
   const emailErrors = useMemo(() => getErrorsInField(email, emailRules), [email, emailRules])
   const walletErrors = useMemo(() => getErrorsInField(wallet, walletRules), [wallet, walletRules])
   const [displayErrors, setDisplayErrors] = useState(false)
@@ -63,9 +49,10 @@ export const useTemplate2Setup = ({
   )
 
   const isFormValid = useCallback(() => {
+    setDisplayLabelErrors(true)
     setDisplayErrors(true)
     return [...labelErrors, ...emailErrors, ...walletErrors].length === 0 && referenceIsValid
-  }, [emailErrors, labelErrors, walletErrors, referenceIsValid])
+  }, [setDisplayLabelErrors, labelErrors, emailErrors, walletErrors, referenceIsValid])
 
   const onCurrencyToggle = (currency: Currency) => {
     setSelectedCurrencies(toggleCurrency(currency))
@@ -83,11 +70,7 @@ export const useTemplate2Setup = ({
   }, [buildPaymentData, isFormValid, setFormData, setStepValid])
 
   return {
-    labelInputProps: {
-      onChange: setLabel,
-      value: label,
-      errorMessage: displayErrors ? labelErrors : undefined,
-    },
+    labelInputProps,
     tabbedNavigationProps: {
       items: tabs,
       selected: currentTab,

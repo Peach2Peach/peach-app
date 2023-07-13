@@ -1,5 +1,5 @@
 import { Psbt } from 'bitcoinjs-lib'
-import { configStore } from '../../../store/configStore'
+import { useConfigStore } from '../../../store/configStore'
 import { txIdPartOfPSBT } from '../../../utils/bitcoin'
 import { releaseTransactionHasValidOutputs } from './releaseTransactionHasValidOutputs'
 
@@ -15,7 +15,7 @@ export const verifyPSBT = (psbt: Psbt, sellOffer: SellOffer, contract: Contract)
     return 'RETURN_ADDRESS_MISMATCH'
   }
 
-  const { peachFee } = configStore.getState()
+  const { peachFee } = useConfigStore.getState()
   if (!releaseTransactionHasValidOutputs(psbt, contract, peachFee)) return 'INVALID_OUTPUT'
 
   return ''

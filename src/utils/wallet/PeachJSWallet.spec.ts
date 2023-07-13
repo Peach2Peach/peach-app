@@ -3,7 +3,7 @@ import { getError } from '../../../tests/unit/helpers/getError'
 import { PeachJSWallet } from './PeachJSWallet'
 import { createWalletFromSeedPhrase } from './createWalletFromSeedPhrase'
 import { getNetwork } from './getNetwork'
-import { walletStore } from './walletStore'
+import { useWalletState } from './walletStore'
 
 describe('PeachJSWallet', () => {
   const { wallet } = createWalletFromSeedPhrase(account1.mnemonic, getNetwork())
@@ -14,25 +14,24 @@ describe('PeachJSWallet', () => {
     peachJSWallet = new PeachJSWallet({ wallet })
   })
   afterEach(() => {
-    jest.clearAllMocks()
-    walletStore.getState().reset()
+    useWalletState.getState().reset()
   })
 
   it('instantiates', () => {
     const addresses = ['address1', 'address2']
-    walletStore.getState().setAddresses(addresses)
+    useWalletState.getState().setAddresses(addresses)
 
     peachJSWallet = new PeachJSWallet({ wallet })
 
     expect(peachJSWallet.jsWallet).toEqual(wallet)
-    expect(peachJSWallet.derivationPath).toEqual('m/84\'/1\'/0\'')
+    expect(peachJSWallet.derivationPath).toEqual("m/84'/1'/0'")
     expect(peachJSWallet.addresses).toBe(addresses)
   })
   it('instantiates for mainnet', () => {
     peachJSWallet = new PeachJSWallet({ wallet, network: 'bitcoin' })
 
     expect(peachJSWallet.jsWallet).toEqual(wallet)
-    expect(peachJSWallet.derivationPath).toEqual('m/84\'/0\'/0\'')
+    expect(peachJSWallet.derivationPath).toEqual("m/84'/0'/0'")
   })
 
   it('finds key pair by address and stores scanned addresses', () => {

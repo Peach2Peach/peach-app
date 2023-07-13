@@ -5,7 +5,7 @@ export type RequestProps = {
 
 export { getStatus, getInfo } from './public/system'
 export { sendReport } from './public/contact'
-export { getFeeEstimate, getTx, postTx } from './public/bitcoin'
+export { getFeeEstimate, postTx } from './public/bitcoin'
 export { marketPrice } from './public/market'
 export { checkReferralCode, getUser } from './public/user'
 export {
@@ -29,6 +29,7 @@ export {
   getOfferDetails,
   getOffers,
   getOfferSummaries,
+  getRefundPSBT,
   matchOffer,
   patchOffer,
   postBuyOffer,

@@ -1,9 +1,7 @@
 import { useMemo, useState } from 'react'
 import { View } from 'react-native'
-import { shallow } from 'zustand/shallow'
 import { Text } from '../../../components'
-import { NumberInput } from '../../../components/inputs'
-import { useOfferPreferences } from '../../../store/offerPreferenes/useOfferPreferences'
+import { PercentageInput } from '../../../components/inputs'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { enforcePremiumFormat } from '../helpers/enforcePremiumFormat'
@@ -14,8 +12,12 @@ const convertDisplayPremiumToNumber = (displayPremium: string) => {
   return asNumberType
 }
 
-export const PremiumInput = ({ style }: ComponentProps) => {
-  const [premium, setPremium] = useOfferPreferences((state) => [state.premium, state.setPremium], shallow)
+type Props = {
+  premium: number
+  setPremium: (newPremium: number) => void
+}
+
+export const PremiumInput = ({ premium, setPremium }: Props) => {
   const [displayPremium, setDisplayPremium] = useState(premium.toString())
 
   const displayValue = useMemo(() => {
@@ -33,17 +35,9 @@ export const PremiumInput = ({ style }: ComponentProps) => {
   const textColor = premium === 0 ? tw`text-black-1` : premium > 0 ? tw`text-success-main` : tw`text-primary-main`
 
   return (
-    <View style={[tw`flex-row items-center justify-center`, style]}>
-      <Text style={[tw`leading-2xl`, textColor]}>{i18n(premium >= 0 ? 'sell.premium' : 'sell.discount')}:</Text>
-      <View style={tw`h-10 ml-2`}>
-        <NumberInput
-          style={tw`w-24`}
-          inputStyle={tw`text-right`}
-          value={displayValue}
-          onChange={changePremium}
-          icons={[['percent', () => {}]]}
-        />
-      </View>
+    <View style={tw`flex-row items-center justify-center gap-2 pl-2`}>
+      <Text style={[tw`text-center body-l`, textColor]}>{i18n(premium >= 0 ? 'sell.premium' : 'sell.discount')}:</Text>
+      <PercentageInput value={displayValue} onChange={changePremium} />
     </View>
   )
 }

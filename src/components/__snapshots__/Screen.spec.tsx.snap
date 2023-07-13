@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Screen renders correctly 1`] = `
+<View
+  style={
+    [
+      {
+        "height": "100%",
+        "paddingLeft": 16,
+        "paddingRight": 16,
+      },
+      {
+        "paddingLeft": 32,
+        "paddingRight": 32,
+      },
+      undefined,
+    ]
+  }
+>
+  <View />
+</View>
+`;
+
+exports[`Screen renders correctly on small screens 1`] = `
+<View
+  style={
+    [
+      {
+        "height": "100%",
+        "paddingLeft": 16,
+        "paddingRight": 16,
+      },
+      {},
+      undefined,
+    ]
+  }
+>
+  <View />
+</View>
+`;

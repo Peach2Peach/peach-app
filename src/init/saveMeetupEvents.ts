@@ -1,9 +1,9 @@
-import { meetupEventsStore } from '../store/meetupEventsStore'
+import { useMeetupEventsStore } from '../store/meetupEventsStore'
 import { info } from '../utils/log'
 import { getMeetupEvents } from '../utils/peachAPI/public/meetupEvents'
 
 export const saveMeetupEvents = async () => {
   info('Getting meetup events...')
   const [events] = await getMeetupEvents({ timeout: 3 * 1000 })
-  if (events) meetupEventsStore.getState().setMeetupEvents(events)
+  if (events) useMeetupEventsStore.getState().setMeetupEvents(events)
 }

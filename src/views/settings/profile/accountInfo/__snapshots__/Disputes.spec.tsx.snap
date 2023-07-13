@@ -1,0 +1,77 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Disputes should render correctly 1`] = `
+<View>
+  <PeachText
+    style={
+      {
+        "color": "#7D675E",
+        "fontFamily": "Baloo2-Regular",
+        "fontSize": 16,
+        "letterSpacing": 0.16,
+        "lineHeight": 24,
+        "textTransform": "lowercase",
+      }
+    }
+  >
+    disputes
+    :
+  </PeachText>
+  <View
+    style={
+      {
+        "flexDirection": "row",
+      }
+    }
+  >
+    <PeachText
+      style={
+        {
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 16,
+          "letterSpacing": 0.16,
+          "lineHeight": 28,
+          "paddingRight": 16,
+          "textTransform": "lowercase",
+        }
+      }
+    >
+      1
+       
+      opened
+    </PeachText>
+    <PeachText
+      style={
+        {
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 16,
+          "letterSpacing": 0.16,
+          "lineHeight": 28,
+          "paddingRight": 16,
+          "textTransform": "lowercase",
+        }
+      }
+    >
+      2
+       
+      won
+    </PeachText>
+    <PeachText
+      style={
+        {
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 16,
+          "letterSpacing": 0.16,
+          "lineHeight": 28,
+          "paddingRight": 16,
+          "textTransform": "lowercase",
+        }
+      }
+    >
+      3
+       
+      lost
+    </PeachText>
+  </View>
+</View>
+`;

@@ -4,13 +4,18 @@ declare type RootStackParamList = {
     referralCode?: string
   }
   restoreBackup: { tab: 'fileBackup' | 'seedPhrase' } | undefined
-  restoreReputation: undefined
+  restoreReputation: {
+    referralCode?: string
+  }
   newBadge: {
     badges: string
   }
   wallet: undefined
   transactionHistory: undefined
   transactionDetails: {
+    txId: string
+  }
+  bumpNetworkFees: {
     txId: string
   }
   buy: undefined
@@ -20,13 +25,18 @@ declare type RootStackParamList = {
   sellPreferences: undefined
   buySummary: undefined
   sellSummary: undefined
-  addPaymentMethod: {
-    currencies?: Currency[]
-    country?: PaymentMethodCountry
-    paymentMethod?: PaymentMethod
+  selectCurrency: {
     origin: keyof RootStackParamList
   }
-  paymentMethodDetails: {
+  selectPaymentMethod: {
+    selectedCurrency: Currency
+    origin: keyof RootStackParamList
+  }
+  selectCountry: {
+    selectedCurrency: Currency
+    origin: keyof RootStackParamList
+  }
+  paymentMethodForm: {
     paymentData: Partial<PaymentData> & {
       type: PaymentMethod
       currencies: Currency[]
@@ -52,6 +62,7 @@ declare type RootStackParamList = {
     shouldGoBack?: boolean
   }
   search: { offerId: string }
+  editPremium: { offerId: string }
   contract: {
     contractId: Contract['id']
     contract?: Contract

@@ -3,7 +3,7 @@ import { recoverAccount } from '.'
 import { recoveredAccount } from '../../../tests/unit/data/accountData'
 import { contract } from '../../../tests/unit/data/contractData'
 import { buyOffer, sellOffer } from '../../../tests/unit/data/offerData'
-import { settingsStore } from '../../store/settingsStore'
+import { useSettingsStore } from '../../store/settingsStore'
 import { error } from '../log'
 import { unauthorizedError } from '../../../tests/unit/data/peachAPIData'
 
@@ -20,14 +20,14 @@ jest.mock('../peachAPI', () => ({
 
 describe('recoverAccount', () => {
   it('resets fcm token', async () => {
-    settingsStore.getState().setFCMToken('existingFCMToken')
+    useSettingsStore.getState().setFCMToken('existingFCMToken')
     await recoverAccount(recoveredAccount)
-    expect(settingsStore.getState().fcmToken).toBe('')
+    expect(useSettingsStore.getState().fcmToken).toBe('')
   })
   it('resets pgp published', async () => {
-    settingsStore.getState().setPGPPublished(true)
+    useSettingsStore.getState().setPGPPublished(true)
     await recoverAccount(recoveredAccount)
-    expect(settingsStore.getState().pgpPublished).toBeFalsy()
+    expect(useSettingsStore.getState().pgpPublished).toBeFalsy()
   })
   it('calls user update', async () => {
     await recoverAccount(recoveredAccount)

@@ -1,6 +1,7 @@
 import { SATSINBTC } from '../constants'
 import { useSettingsStore } from '../store/settingsStore'
 import { round } from '../utils/math'
+import { keys } from '../utils/object'
 import { useMarketPrices } from './query/useMarketPrices'
 
 type Props = {
@@ -19,17 +20,17 @@ export const useBitcoinPrices = ({ sats }: Props) => {
     fullPrices: {},
   }
 
-  const prices = (Object.keys(marketPrices) as Currency[]).reduce((obj, currency) => {
-    const marketPrice = marketPrices[currency] || 0
+  const prices = keys(marketPrices).reduce((obj, currency) => {
+    const marketPrice = marketPrices[currency] ?? 0
     obj[currency] = round((marketPrice / SATSINBTC) * sats, 2)
     return obj
   }, {} as Pricebook)
 
   return {
     displayCurrency,
-    displayPrice: prices[displayCurrency] || 0,
+    displayPrice: prices[displayCurrency] ?? 0,
     prices,
-    fullDisplayPrice: marketPrices[displayCurrency] || 0,
+    fullDisplayPrice: marketPrices[displayCurrency] ?? 0,
     fullPrices: marketPrices,
   }
 }

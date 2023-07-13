@@ -1,5 +1,5 @@
 import { createRenderer } from 'react-test-renderer/shallow'
-import { FormProps } from '../paymentForms/PaymentMethodForm'
+import { FormProps } from '../../../../views/addPaymentMethod/PaymentMethodForm'
 import { Template1 } from './Template1'
 
 /**

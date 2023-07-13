@@ -1,38 +1,20 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
-import { FormProps } from '../../paymentForms/PaymentMethodForm'
+import { useCallback, useEffect, useState } from 'react'
+import { FormProps } from '../../../../../views/addPaymentMethod/PaymentMethodForm'
 import { useValidatedState } from '../../../../../hooks'
-import { getPaymentDataByLabel } from '../../../../../utils/account'
-import { getErrorsInField } from '../../../../../utils/validation'
 import { hasMultipleAvailableCurrencies } from '../utils/hasMultipleAvailableCurrencies'
 import { toggleCurrency } from '../../paymentForms/utils'
+import { useLabelInput } from './useLabelInput'
 
 const phoneRules = { required: true, phone: true, isPhoneAllowed: true }
 
-// eslint-disable-next-line max-lines-per-function
-export const useTemplate3Setup = ({
-  data,
-  currencies = [],
-  onSubmit,
-  setStepValid,
-  paymentMethod,
-  setFormData,
-}: FormProps) => {
-  const [label, setLabel] = useState(data?.label || '')
+export const useTemplate3Setup = ({ data, onSubmit, setStepValid, setFormData }: FormProps) => {
+  const { currencies, type: paymentMethod } = data
+  const { labelInputProps, labelErrors, setDisplayErrors: setDisplayLabelErrors, label } = useLabelInput(data)
   const [phone, setPhone, phoneIsValid, phoneErrors] = useValidatedState(data?.phone || '', phoneRules)
   const [beneficiary, setBeneficiary] = useState(data?.beneficiary || '')
   const [reference, setReference] = useState(data?.reference || '')
   const [displayErrors, setDisplayErrors] = useState(false)
   const [selectedCurrencies, setSelectedCurrencies] = useState(data?.currencies || currencies)
-
-  const labelRules = useMemo(
-    () => ({
-      required: true,
-      duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)?.id !== data.id,
-    }),
-    [data.id, label],
-  )
-
-  const labelErrors = useMemo(() => getErrorsInField(label, labelRules), [label, labelRules])
 
   const buildPaymentData = useCallback(
     () => ({
@@ -52,9 +34,10 @@ export const useTemplate3Setup = ({
   }
 
   const isFormValid = useCallback(() => {
+    setDisplayLabelErrors(true)
     setDisplayErrors(true)
     return phoneIsValid && labelErrors.length === 0
-  }, [labelErrors.length, phoneIsValid])
+  }, [labelErrors.length, phoneIsValid, setDisplayLabelErrors])
 
   const save = () => {
     if (!isFormValid()) return
@@ -68,11 +51,7 @@ export const useTemplate3Setup = ({
   }, [buildPaymentData, isFormValid, setFormData, setStepValid])
 
   return {
-    labelInputProps: {
-      onChange: setLabel,
-      value: label,
-      errorMessage: displayErrors ? labelErrors : undefined,
-    },
+    labelInputProps,
     phoneInputProps: {
       onChange: setPhone,
       value: phone,

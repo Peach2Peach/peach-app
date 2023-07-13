@@ -4,10 +4,10 @@ describe('shouldUsePaymentMethod', () => {
   const paymentCategories: PaymentCategories = {
     bankTransfer: ['sepa', 'instantSepa', 'fasterPayments'],
     onlineWallet: ['paypal', 'revolut', 'wise'],
-    localOption: ['mbWay', 'bizum', 'satispay', 'mobilePay'],
+    nationalOption: ['mbWay', 'bizum', 'satispay', 'mobilePay'],
     giftCard: [],
     cash: [],
-    cryptoCurrency: [],
+    other: ['liquid'],
   }
   it('returns true for a supported payment method', () => {
     const info: PaymentMethodInfo = {

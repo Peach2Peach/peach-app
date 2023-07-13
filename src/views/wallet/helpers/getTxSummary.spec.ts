@@ -1,17 +1,15 @@
-import { bitcoinStore } from '../../../store/bitcoinStore'
-import { tradeSummaryStore } from '../../../store/tradeSummaryStore'
-import { walletStore } from '../../../utils/wallet/walletStore'
+import { useBitcoinStore } from '../../../store/bitcoinStore'
+import { useTradeSummaryStore } from '../../../store/tradeSummaryStore'
+import { useWalletState } from '../../../utils/wallet/walletStore'
 import { getTxSummary } from './getTxSummary'
 import { offerSummary } from '../../../../tests/unit/data/offerSummaryData'
 import { contractSummary } from '../../../../tests/unit/data/contractSummaryData'
 
-const txIsConfirmedMock = jest.fn().mockReturnValue(true)
-jest.mock('../../../utils/transaction/txIsConfirmed', () => ({
-  txIsConfirmed: (...args: any[]) => txIsConfirmedMock(...args),
-}))
-
 jest.mock('../../../utils/offer', () => ({
   getOffer: jest.fn(),
+}))
+jest.mock('../../../utils/transaction/txIsConfirmed', () => ({
+  txIsConfirmed: jest.fn(() => true),
 }))
 
 const offerWithContract = { ...offerSummary, id: 'offerWithContract', contractId: contractSummary.id }
@@ -30,19 +28,25 @@ const sentTx = { ...baseTx, sent: 100000000 }
 const baseSummary = {
   id: '123',
   amount: 100000000,
-  price: 1,
-  currency: 'USD',
+  price: undefined,
+  currency: undefined,
   date: new Date(1234567890000),
+  height: 1,
   confirmed: true,
   offerId: undefined,
   contractId: undefined,
 }
+
 describe('getTxSummary', () => {
   beforeEach(() => {
-    bitcoinStore.setState({ currency: 'USD', price: 1, satsPerUnit: 100000000 })
-    walletStore.getState().updateTxOfferMap(txId, offerSummary.id)
-    tradeSummaryStore.getState().setOffers([offerSummary, offerWithContract])
+    useBitcoinStore.setState({
+      currency: 'USD',
+      satsPerUnit: 100000000,
+    })
+    useWalletState.getState().updateTxOfferMap(txId, offerSummary.id)
+    useTradeSummaryStore.getState().setOffers([offerSummary, offerWithContract])
   })
+
   it('returns transaction summary with offer id', () => {
     expect(getTxSummary(receivedTx)).toEqual({
       ...baseSummary,
@@ -51,9 +55,13 @@ describe('getTxSummary', () => {
     })
   })
   it('returns transaction summary with contract id', () => {
-    walletStore.getState().updateTxOfferMap(txId, offerWithContract.id)
+    useTradeSummaryStore.getState().setOffers([{ ...offerWithContract, type: 'bid' }])
+    useTradeSummaryStore.getState().setContract(contractSummary.id, contractSummary)
+    useWalletState.getState().updateTxOfferMap(txId, offerWithContract.id)
     expect(getTxSummary(receivedTx)).toEqual({
       ...baseSummary,
+      price: 21,
+      currency: 'EUR',
       offerId: offerWithContract.id,
       contractId: contractSummary.id,
       type: 'TRADE',
@@ -68,11 +76,14 @@ describe('getTxSummary', () => {
   })
 
   it('returns the correct transaction summary object for a refund', () => {
-    tradeSummaryStore.getState().setOffers([{ ...offerWithContract, type: 'ask' }])
-    walletStore.getState().updateTxOfferMap(txId, offerWithContract.id)
+    useTradeSummaryStore.getState().setOffers([{ ...offerWithContract, type: 'ask' }])
+    useTradeSummaryStore.getState().setContract(contractSummary.id, contractSummary)
+    useWalletState.getState().updateTxOfferMap(txId, offerWithContract.id)
 
     expect(getTxSummary(receivedTx)).toEqual({
       ...baseSummary,
+      price: 21,
+      currency: 'EUR',
       offerId: offerWithContract.id,
       contractId: contractSummary.id,
       type: 'REFUND',
@@ -80,7 +91,7 @@ describe('getTxSummary', () => {
   })
   it('returns the correct transaction summary object for a deposit', () => {
     // @ts-ignore
-    walletStore.getState().updateTxOfferMap(txId, undefined)
+    useWalletState.getState().updateTxOfferMap(txId, undefined)
 
     expect(getTxSummary(receivedTx)).toEqual({
       ...baseSummary,

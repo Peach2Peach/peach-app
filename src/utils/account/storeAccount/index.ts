@@ -1,6 +1,5 @@
 export { storeIdentity } from './storeIdentity'
 export { storeTradingLimit } from './storeTradingLimit'
-export { storePaymentData } from './storePaymentData'
 export { storeOffer } from './storeOffer'
 export { storeOffers } from './storeOffers'
 export { storeContract } from './storeContract'

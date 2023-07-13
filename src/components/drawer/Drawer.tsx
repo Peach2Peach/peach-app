@@ -34,7 +34,7 @@ export const Drawer = () => {
       }),
     ]
     if (show && (content || options.length)) Animated.parallel(showAnimations).start()
-  }, [content, fadeAnim, height, onClose, options.length, show, slideAnim])
+  }, [content, fadeAnim, height, options.length, show, slideAnim])
 
   const closeDrawer = useCallback(() => {
     const closeAnimations = [

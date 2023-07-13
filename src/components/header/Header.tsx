@@ -20,6 +20,7 @@ const themes = {
 
 export type HeaderIcon = {
   id: IconType
+  accessibilityHint?: string
   style?: ViewStyle | ViewStyle[]
   color?: ColorValue | undefined
   onPress: () => void
@@ -47,7 +48,7 @@ export const Header = ({ title, icons, titleComponent, hideGoBackButton, theme }
           </TouchableOpacity>
         )}
         {title ? (
-          <Text style={[...fontSize, tw`lowercase`, colors.text]} numberOfLines={1}>
+          <Text style={[...fontSize, colors.text]} numberOfLines={1}>
             {title}
           </Text>
         ) : (
@@ -56,8 +57,8 @@ export const Header = ({ title, icons, titleComponent, hideGoBackButton, theme }
       </View>
 
       <View style={tw`flex-row items-center justify-end`}>
-        {icons?.map(({ id, style, color, onPress }, i) => (
-          <TouchableOpacity key={i} style={tw`ml-4`} onPress={onPress}>
+        {icons?.map(({ id, accessibilityHint, style, color, onPress }, i) => (
+          <TouchableOpacity key={i} style={tw`ml-4`} {...{ accessibilityHint, onPress }}>
             <Icon {...{ id, color }} style={[style, ...iconSize]} />
           </TouchableOpacity>
         ))}

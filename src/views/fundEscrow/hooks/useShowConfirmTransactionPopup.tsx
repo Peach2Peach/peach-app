@@ -1,10 +1,10 @@
 import { TxBuilderResult } from 'bdk-rn/lib/classes/Bindings'
 import { useCallback } from 'react'
 import { shallow } from 'zustand/shallow'
+import { useHandleTransactionError } from '../../../hooks/error/useHandleTransactionError'
+import { useShowLoadingPopup } from '../../../hooks/useShowLoadingPopup'
 import { usePopupStore } from '../../../store/usePopupStore'
 import i18n from '../../../utils/i18n'
-import { useShowLoadingPopup } from '../../../hooks/useShowLoadingPopup'
-import { useHandleBroadcastError } from '../../../hooks/error/useHandleBroadcastError'
 import { peachWallet } from '../../../utils/wallet/setWallet'
 
 type Props = {
@@ -17,7 +17,7 @@ type Props = {
 export const useShowConfirmTransactionPopup = () => {
   const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
   const showLoadingPopup = useShowLoadingPopup()
-  const handleBroadcastError = useHandleBroadcastError()
+  const handleTransactionError = useHandleTransactionError()
 
   const confirmAndSend = useCallback(
     async (transaction: TxBuilderResult, onSuccess: Function) => {
@@ -26,15 +26,15 @@ export const useShowConfirmTransactionPopup = () => {
         level: 'APP',
       })
       try {
-        await peachWallet.signAndBroadcastTransaction(transaction)
+        await peachWallet.signAndBroadcastPSBT(transaction.psbt)
         onSuccess()
       } catch (e) {
-        handleBroadcastError(e)
+        handleTransactionError(e)
       } finally {
         closePopup()
       }
     },
-    [closePopup, handleBroadcastError, showLoadingPopup],
+    [closePopup, handleTransactionError, showLoadingPopup],
   )
 
   const showConfirmTransactionPopup = useCallback(

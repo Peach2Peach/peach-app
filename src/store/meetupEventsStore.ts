@@ -1,4 +1,4 @@
-import { createStore, useStore } from 'zustand'
+import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
 import { createStorage, toZustandStorage } from '../utils/storage'
 
@@ -18,7 +18,7 @@ const defaultState: MeetupEventsState = {
 }
 export const meetupEventsStorage = createStorage('meetupEvents')
 
-export const meetupEventsStore = createStore(
+export const useMeetupEventsStore = create(
   persist<MeetupEventsStore>(
     (set, get) => ({
       ...defaultState,
@@ -33,8 +33,3 @@ export const meetupEventsStore = createStore(
     },
   ),
 )
-
-export const useMeetupEventsStore = <T>(
-  selector: (state: MeetupEventsStore) => T,
-  equalityFn?: ((a: T, b: T) => boolean) | undefined,
-) => useStore(meetupEventsStore, selector, equalityFn)

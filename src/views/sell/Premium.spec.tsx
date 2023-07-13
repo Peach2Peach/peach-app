@@ -1,4 +1,6 @@
 import { createRenderer } from 'react-test-renderer/shallow'
+import { PrimaryButton } from '../../components'
+import { CurrentOfferPrice } from './components'
 import { Premium } from './Premium'
 
 jest.mock('./hooks/usePremiumSetup', () => ({
@@ -19,7 +21,27 @@ describe('Premium', () => {
   const renderer = createRenderer()
 
   it('should render the Premium view', () => {
-    renderer.render(<Premium />)
+    renderer.render(
+      <Premium
+        premium={1.5}
+        setPremium={jest.fn()}
+        offerPrice={<CurrentOfferPrice />}
+        confirmButton={
+          <PrimaryButton
+            disabled={true}
+            narrow={true}
+            onPress={jest.fn()}
+            style={{
+              alignSelf: 'center',
+              marginBottom: 20,
+            }}
+          >
+            {'next'}
+          </PrimaryButton>
+        }
+        amount={21000000}
+      />,
+    )
     const result = renderer.getRenderOutput()
     expect(result).toMatchSnapshot()
   })

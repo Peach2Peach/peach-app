@@ -1,0 +1,119 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Currencies should render correctly for type "eurorpe" 1`] = `
+<ForwardRef
+  contentContainerStyle={
+    [
+      {
+        "flexGrow": 1,
+        "justifyContent": "center",
+        "paddingBottom": 16,
+        "paddingTop": 16,
+      },
+      {
+        "paddingBottom": 32,
+        "paddingTop": 32,
+      },
+    ]
+  }
+>
+  <RadioButtons
+    items={
+      [
+        {
+          "display": "Euro",
+          "value": "EUR",
+        },
+        {
+          "display": "Swiss franc",
+          "value": "CHF",
+        },
+        {
+          "display": "British pound",
+          "value": "GBP",
+        },
+        {
+          "display": "Swedish krona",
+          "value": "SEK",
+        },
+        {
+          "display": "Danish kroner",
+          "value": "DKK",
+        },
+        {
+          "display": "Bulgarian lev",
+          "value": "BGN",
+        },
+        {
+          "display": "Czech koruna",
+          "value": "CZK",
+        },
+        {
+          "display": "Hungarian forint",
+          "value": "HUF",
+        },
+        {
+          "display": "Polish złoty",
+          "value": "PLN",
+        },
+        {
+          "display": "Romanian leu",
+          "value": "RON",
+        },
+        {
+          "display": "Icelandic króna",
+          "value": "ISK",
+        },
+        {
+          "display": "Norwegian krone",
+          "value": "NOK",
+        },
+      ]
+    }
+    onChange={[MockFunction]}
+    selectedValue="EUR"
+    style={
+      {
+        "alignItems": "center",
+      }
+    }
+  />
+</ForwardRef>
+`;
+
+exports[`Currencies should render correctly for type "other" 1`] = `
+<ForwardRef
+  contentContainerStyle={
+    [
+      {
+        "flexGrow": 1,
+        "justifyContent": "center",
+        "paddingBottom": 16,
+        "paddingTop": 16,
+      },
+      {
+        "paddingBottom": 32,
+        "paddingTop": 32,
+      },
+    ]
+  }
+>
+  <RadioButtons
+    items={
+      [
+        {
+          "display": "L-USDT",
+          "value": "USDT",
+        },
+      ]
+    }
+    onChange={[MockFunction]}
+    selectedValue="EUR"
+    style={
+      {
+        "alignItems": "center",
+      }
+    }
+  />
+</ForwardRef>
+`;

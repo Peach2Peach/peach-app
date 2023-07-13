@@ -1,7 +1,6 @@
 import { View } from 'react-native'
 import { Text } from '../../../components'
-import { ShortBitcoinAddress } from '../../../components/bitcoin'
-import { BTCAmount } from '../../../components/text/BTCAmount'
+import { ShortBitcoinAddress, BTCAmount } from '../../../components/bitcoin'
 import i18n from '../../../utils/i18n'
 import { thousands } from '../../../utils/string'
 import tw from '../../../styles/tailwind'
@@ -17,8 +16,8 @@ export const ConfirmFundingFromPeachWallet = ({ amount, address, fee, feeRate }:
     <Text>{i18n('fundFromPeachWallet.confirm.description')}</Text>
     <BTCAmount amount={amount} size="medium" />
     <Text>
-      {i18n('fundFromPeachWallet.confirm.to')} <ShortBitcoinAddress address={address} />
+      {i18n('transaction.details.to')} <ShortBitcoinAddress address={address} />
     </Text>
-    <Text>{i18n('fundFromPeachWallet.confirm.networkFee', thousands(fee), thousands(feeRate))}</Text>
+    <Text>{i18n('transaction.details.networkFee', thousands(fee), thousands(feeRate))}</Text>
   </View>
 )

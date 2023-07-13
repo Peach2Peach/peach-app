@@ -15,16 +15,11 @@ declare type Settings = {
   lastFileBackupDate?: number
   lastSeedBackupDate?: number
   showBackupReminder: boolean
-  shouldShowBackupOverlay: {
-    completedBuyOffer: boolean
-    refundedEscrow: boolean
-    bitcoinReceived: boolean
-  }
+  shouldShowBackupOverlay: boolean
   peachWalletActive: boolean
   nodeURL: string
   feeRate: number | 'fastestFee' | 'halfHourFee' | 'hourFee' | 'economyFee'
   usedReferralCode?: boolean
-  lastBackupDate?: number
 }
 
 declare type PGPKeychain = {
@@ -41,8 +36,6 @@ declare type Identity = {
 }
 
 declare type Account = Identity & {
-  paymentData: PaymentData[]
-  legacyPaymentData: PaymentData[]
   tradingLimit: TradingLimit
   offers: (SellOffer | BuyOffer)[]
   contracts: Contract[]

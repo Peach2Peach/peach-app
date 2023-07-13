@@ -1,19 +1,19 @@
 import analytics from '@react-native-firebase/analytics'
 
 import { defaultAccount } from '.'
-import { notificationStorage, notificationStore } from '../../components/footer/notificationsStore'
-import { configStore } from '../../store/configStore'
-import { settingsStorage, settingsStore } from '../../store/settingsStore'
+import { notificationStorage, useNotificationStore } from '../../components/footer/notificationsStore'
+import { useConfigStore } from '../../store/configStore'
+import { settingsStorage, useSettingsStore } from '../../store/settingsStore'
 import { info } from '../log'
 import { deleteAccessToken } from '../peachAPI/accessToken'
 import { deletePeachAccount } from '../peachAPI/peachAccount'
-import { sessionStorage } from '../session'
-import { walletStorage, walletStore } from '../wallet/walletStore'
+import { walletStorage, useWalletState } from '../wallet/walletStore'
 import { accountStorage } from './accountStorage'
 import { chatStorage } from './chatStorage'
 import { contractStorage } from './contractStorage'
 import { offerStorage } from './offerStorage'
 import { updateAccount } from './updateAccount'
+import { usePaymentDataStore } from '../../store/usePaymentDataStore'
 
 export const deleteAccount = () => {
   info('Deleting account')
@@ -25,11 +25,12 @@ export const deleteAccount = () => {
     offerStorage,
     contractStorage,
     chatStorage,
-    sessionStorage,
     settingsStorage,
     notificationStorage,
   ].forEach((storage) => storage.clearStore())
-  ;[notificationStore, configStore, walletStore, settingsStore].forEach((store) => store.getState().reset())
+  ;[useNotificationStore, useConfigStore, useWalletState, useSettingsStore, usePaymentDataStore].forEach((store) =>
+    store.getState().reset(),
+  )
 
   deleteAccessToken()
   deletePeachAccount()

@@ -1,12 +1,13 @@
 import i18n from '../utils/i18n'
-import { CashTrades } from './info/CashTrades'
-import { FileBackupPopup } from './info/FileBackupPopup'
 import { AcceptMatchPopup } from './info/AcceptMatchPopup'
 import { AddressSigning } from './info/AddressSigning'
 import { BuyingBitcoin } from './info/BuyingBitcoin'
+import { CashTrades } from './info/CashTrades'
 import { ConfirmPayment } from './info/ConfirmPayment'
+import { ConfirmationTime } from './info/ConfirmationTime'
 import { CurrenciesHelp } from './info/CurrenciesHelp'
 import { Escrow } from './info/Escrow'
+import { FileBackupPopup } from './info/FileBackupPopup'
 import { MakePayment } from './info/MakePayment'
 import { MatchMatchMatch } from './info/MatchMatchMatch'
 import { Mempool } from './info/Mempool'
@@ -15,6 +16,7 @@ import { NetworkFees } from './info/NetworkFees'
 import { PaymentMethodsHelp } from './info/PaymentMethodsHelp'
 import { PayoutAddressPopup } from './info/PayoutAddressPopup'
 import { Premium } from './info/Premium'
+import { RBFHelp } from './info/RBFHelp'
 import { ReferralsHelp } from './info/ReferralsHelp'
 import { SeedPhrasePopup } from './info/SeedPhrasePopup'
 import { SellingBitcoin } from './info/SellingBitcoin'
@@ -27,6 +29,7 @@ export const helpPopups = {
   addressSigning: { title: i18n('help.addressSigning.title'), content: AddressSigning },
   buyingBitcoin: { title: i18n('help.buyingBitcoin.title'), content: BuyingBitcoin },
   cashTrades: { title: i18n('tradingCash'), content: CashTrades },
+  confirmationTime: { title: i18n('wallet.help.confirmationTime.title'), content: ConfirmationTime },
   confirmPayment: { title: i18n('help.confirmPayment.title'), content: ConfirmPayment },
   currencies: { title: i18n('help.currency.title'), content: CurrenciesHelp },
   escrow: { title: i18n('help.escrow.title'), content: Escrow },
@@ -39,6 +42,7 @@ export const helpPopups = {
   paymentMethods: { title: i18n('settings.paymentMethods'), content: PaymentMethodsHelp },
   payoutAddress: { title: i18n('settings.payoutAddress'), content: PayoutAddressPopup },
   premium: { title: i18n('help.premium.title'), content: Premium },
+  rbf: { title: i18n('wallet.bumpNetworkFees.help.title'), content: RBFHelp },
   referrals: { title: i18n('help.referral.title'), content: ReferralsHelp },
   seedPhrase: { title: i18n('settings.backups.seedPhrase.popup.title'), content: SeedPhrasePopup },
   sellingBitcoin: { title: i18n('help.sellingBitcoin.title'), content: SellingBitcoin },

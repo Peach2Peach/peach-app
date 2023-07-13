@@ -2,10 +2,6 @@
 
 exports[`useWrongFundingAmountSetup sets up header correctly 1`] = `
 <Header
-  titleComponent={
-    <OfferDetailsTitle
-      id="38"
-    />
-  }
+  title="P‑26"
 />
 `;

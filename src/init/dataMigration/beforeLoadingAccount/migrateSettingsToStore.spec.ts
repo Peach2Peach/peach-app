@@ -1,6 +1,5 @@
 import { settings1 } from '../../../../tests/unit/data/settingsData'
-import { defaultSettings } from '../../../store/defaults'
-import { settingsStore } from '../../../store/settingsStore'
+import { useSettingsStore, defaultSettings } from '../../../store/settingsStore'
 import { migrateSettingsToStore } from './migrateSettingsToStore'
 
 const loadSettingsMock = jest.fn()
@@ -10,18 +9,18 @@ jest.mock('./helpers/loadSettings', () => ({
 
 describe('migrateSettingsToStore', () => {
   afterEach(() => {
-    settingsStore.getState().reset()
+    useSettingsStore.getState().reset()
   })
   it('loads default settings if no stored settings have been found', () => {
     migrateSettingsToStore()
     expect(loadSettingsMock).toHaveBeenCalledWith()
-    expect(settingsStore.getState()).toEqual(expect.objectContaining(defaultSettings))
+    expect(useSettingsStore.getState()).toEqual(expect.objectContaining(defaultSettings))
   })
   it('loads settings if stored settings have been found', () => {
     loadSettingsMock.mockReturnValueOnce(settings1)
     migrateSettingsToStore()
     expect(loadSettingsMock).toHaveBeenCalledWith()
-    expect(settingsStore.getState()).toEqual(expect.objectContaining(settings1))
+    expect(useSettingsStore.getState()).toEqual(expect.objectContaining(settings1))
   })
   it('does not migrate twice', () => {
     migrateSettingsToStore()

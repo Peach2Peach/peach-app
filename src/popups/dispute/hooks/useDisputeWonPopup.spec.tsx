@@ -1,6 +1,7 @@
-import { renderHook } from '@testing-library/react-native'
-import { NavigationWrapper, navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
-import { QueryClientWrapper } from '../../../../tests/unit/helpers/QueryClientWrapper'
+import { act, renderHook, waitFor } from '@testing-library/react-native'
+import { NavigationAndQueryClientWrapper } from '../../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
+import { navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { queryClient as testQueryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
 import { useLocalContractStore } from '../../../store/useLocalContractStore'
 import { defaultPopupState, usePopupStore } from '../../../store/usePopupStore'
 import { account } from '../../../utils/account'
@@ -9,11 +10,7 @@ import { contractIdToHex, saveContract } from '../../../utils/contract'
 import { DisputeWon } from '../components/DisputeWon'
 import { useDisputeWonPopup } from './useDisputeWonPopup'
 
-const wrapper = ({ children }: ComponentProps) => (
-  <QueryClientWrapper>
-    <NavigationWrapper>{children}</NavigationWrapper>
-  </QueryClientWrapper>
-)
+const wrapper = NavigationAndQueryClientWrapper
 
 const getChatMock = jest.fn()
 jest.mock('../../../utils/chat', () => ({
@@ -27,6 +24,7 @@ jest.mock('../../../utils/contract', () => ({
 jest.mock('../../../utils/account')
 const DATE_TO_USE = new Date('2009-09-01')
 jest.spyOn(global, 'Date').mockImplementation(() => DATE_TO_USE)
+Date.now = jest.fn(() => DATE_TO_USE.getTime())
 
 const mockContract = {
   id: '21',
@@ -36,27 +34,31 @@ const mockContract = {
   disputeWinner: 'buyer',
   disputeActive: false,
   disputeResolvedDate: new Date('2009-08-01'),
-} as Contract | undefined
-const useContractDetailsMock = jest.fn((_contractId) => ({
-  contract: mockContract,
-}))
-jest.mock('../../../hooks/query/useContractDetails', () => ({
-  useContractDetails: (contactId: string) => useContractDetailsMock(contactId),
-}))
+} as Contract
 
-const getContractMock = jest.fn((_contractId: string) => Promise.resolve([mockContract, null]))
+const getContractMock = jest.fn(
+  (_contractId: string): Promise<[Contract | null, APIError | null]> => Promise.resolve([mockContract, null]),
+)
 jest.mock('../../../utils/peachAPI', () => ({
   getContract: (contractId: string) => getContractMock(contractId),
 }))
 
+jest.mock('../../../queryClient', () => ({
+  queryClient: testQueryClient,
+}))
+
 describe('useDisputeWonPopup', () => {
-  afterEach(() => {
+  beforeEach(() => {
     usePopupStore.setState(defaultPopupState)
+    testQueryClient.clear()
   })
-  it('should not do anything if the contract is not loaded', () => {
-    useContractDetailsMock.mockReturnValueOnce({ contract: undefined })
-    const { result } = renderHook(useDisputeWonPopup, { wrapper, initialProps: '21' })
-    result.current('21')
+
+  it('should not do anything if a contract isn\'t returned', async () => {
+    getContractMock.mockResolvedValueOnce([null, null])
+    const { result } = renderHook(useDisputeWonPopup, { wrapper })
+    await act(async () => {
+      await result.current('21')
+    })
     expect(contractIdToHex).not.toHaveBeenCalled()
     expect(getChatMock).not.toHaveBeenCalled()
     expect(saveChat).not.toHaveBeenCalled()
@@ -64,7 +66,11 @@ describe('useDisputeWonPopup', () => {
   })
 
   it('should not do anything if the dispute winner is not the current user', () => {
-    const { result } = renderHook(useDisputeWonPopup, { wrapper, initialProps: '21' })
+    getContractMock.mockResolvedValueOnce([
+      { ...mockContract, buyer: { ...mockContract.buyer, id: account.publicKey }, disputeWinner: 'seller' },
+      null,
+    ])
+    const { result } = renderHook(useDisputeWonPopup, { wrapper })
     result.current('21')
     expect(contractIdToHex).not.toHaveBeenCalled()
     expect(getChatMock).not.toHaveBeenCalled()
@@ -72,10 +78,25 @@ describe('useDisputeWonPopup', () => {
     expect(usePopupStore.getState()).toStrictEqual(expect.objectContaining(defaultPopupState))
   })
 
-  it('should navigate to the chat, save the contract and close the popup on action1', async () => {
-    getContractMock.mockReturnValueOnce([{ ...mockContract, disputeWinner: 'seller' }, null])
+  it('should update the query data', async () => {
+    getContractMock.mockResolvedValueOnce([{ ...mockContract, disputeWinner: 'seller' }, null])
     getChatMock.mockReturnValueOnce({ id: 'chatId' })
-    const { result } = renderHook(useDisputeWonPopup, { wrapper, initialProps: '21' })
+    const { result } = renderHook(useDisputeWonPopup, { wrapper })
+
+    await result.current('21')
+
+    await waitFor(() => {
+      expect(testQueryClient.getQueryData(['contract', '21'])).toStrictEqual({
+        ...mockContract,
+        disputeWinner: 'seller',
+      })
+    })
+  })
+
+  it('should navigate to the chat, save the contract and close the popup on action1', async () => {
+    getContractMock.mockResolvedValueOnce([{ ...mockContract, disputeWinner: 'seller' }, null])
+    getChatMock.mockReturnValueOnce({ id: 'chatId' })
+    const { result } = renderHook(useDisputeWonPopup, { wrapper })
     await result.current('21')
     usePopupStore.getState().action1?.callback()
     expect(saveContract).toHaveBeenCalledWith({
@@ -92,9 +113,9 @@ describe('useDisputeWonPopup', () => {
   })
 
   it('save the contract and close the popup on action2', async () => {
-    getContractMock.mockReturnValueOnce([{ ...mockContract, disputeWinner: 'seller' }, null])
+    getContractMock.mockResolvedValueOnce([{ ...mockContract, disputeWinner: 'seller' }, null])
     getChatMock.mockReturnValueOnce({ id: 'chatId' })
-    const { result } = renderHook(useDisputeWonPopup, { wrapper, initialProps: '21' })
+    const { result } = renderHook(useDisputeWonPopup, { wrapper })
     await result.current('21')
     usePopupStore.getState().action2?.callback()
     expect(saveContract).toHaveBeenCalledWith({
@@ -111,9 +132,12 @@ describe('useDisputeWonPopup', () => {
   })
 
   it('should handle the case of the buyer being the viewer', async () => {
-    getContractMock.mockReturnValueOnce([{ ...mockContract, buyer: { id: account.publicKey } }, null])
+    getContractMock.mockResolvedValueOnce([
+      { ...mockContract, buyer: { ...mockContract.buyer, id: account.publicKey } },
+      null,
+    ])
     getChatMock.mockReturnValueOnce({ id: 'chatId' })
-    const { result } = renderHook(useDisputeWonPopup, { wrapper, initialProps: '21' })
+    const { result } = renderHook(useDisputeWonPopup, { wrapper })
     await result.current('21')
     expect(usePopupStore.getState()).toStrictEqual(
       expect.objectContaining({

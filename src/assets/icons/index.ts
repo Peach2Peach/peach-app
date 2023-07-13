@@ -5,8 +5,10 @@ import alertTriangle from './alertTriangle.svg'
 import alignJustify from './alignJustify.svg'
 import alignLeft from './alignLeft.svg'
 import arrowDown from './arrowDown.svg'
+import arrowDownCircle from './arrowDownCircle.svg'
 import arrowLeftCircle from './arrowLeftCircle.svg'
 import arrowRightCircle from './arrowRightCircle.svg'
+import arrowUpCircle from './arrowUpCircle.svg'
 import award from './award.svg'
 import awardCircleInverted from './awardCircleInverted.svg'
 import bitcoin from './bitcoin.svg'
@@ -32,6 +34,7 @@ import clock from './clock.svg'
 import cloud from './cloud.svg'
 import cloudOff from './cloudOff.svg'
 import copy from './copy.svg'
+import cornerDownRight from './cornerDownRight.svg'
 import cpu from './cpu.svg'
 import creditCard from './creditCard.svg'
 import crossOutlined from './crossOutlined.svg'
@@ -88,8 +91,6 @@ import shiftCrypto from './shiftCrypto.svg'
 import shuffle from './shuffle.svg'
 import skipForward from './skipForward.svg'
 import slash from './slash.svg'
-import sliderNext from './slider-next.svg'
-import sliderPrev from './slider-prev.svg'
 import smile from './smile.svg'
 import square from './square.svg'
 import star from './star.svg'
@@ -125,8 +126,10 @@ const Icons = {
   alignJustify,
   alignLeft,
   arrowDown,
+  arrowDownCircle,
   arrowLeftCircle,
   arrowRightCircle,
+  arrowUpCircle,
   award,
   awardCircleInverted,
   bitcoin,
@@ -152,6 +155,7 @@ const Icons = {
   cloud,
   cloudOff,
   copy,
+  cornerDownRight,
   cpu,
   crossOutlined,
   cryptotag,
@@ -208,8 +212,6 @@ const Icons = {
   shuffle,
   skipForward,
   slash,
-  sliderNext,
-  sliderPrev,
   smile,
   square,
   star,

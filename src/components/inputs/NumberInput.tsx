@@ -1,13 +1,16 @@
-import { enforceNumberFormat } from '../../utils/format'
+import { enforceDecimalsFormat } from '../../utils/format'
 import Input, { InputProps } from './Input'
 
-export const NumberInput = ({ onChange, onSubmit, ...props }: InputProps) => (
+type Props = InputProps & {
+  decimals?: number
+}
+export const NumberInput = ({ decimals = 0, onChange, onSubmit, ...props }: Props) => (
   <Input
     {...{
       ...props,
       keyboardType: 'numeric',
-      onChange: onChange ? (number: string) => onChange(enforceNumberFormat(number)) : undefined,
-      onSubmit: onSubmit ? (number: string) => onSubmit(enforceNumberFormat(number)) : undefined,
+      onChange: onChange ? (number: string) => onChange(enforceDecimalsFormat(number, decimals)) : undefined,
+      onSubmit: onSubmit ? (number: string) => onSubmit(enforceDecimalsFormat(number, decimals)) : undefined,
     }}
   />
 )

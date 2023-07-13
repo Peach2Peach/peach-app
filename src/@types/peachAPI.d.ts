@@ -96,6 +96,7 @@ declare type Currency =
   | 'ISK'
   | 'NOK'
   | 'RON'
+  | 'USDT'
 declare type Pricebook = {
   [key in Currency]?: number
 }
@@ -164,6 +165,7 @@ declare type PaymentMethod =
   | 'lydia'
   | 'verse'
   | 'iris'
+  | 'liquid'
   | CashTrade
   | AmazonGiftCard
   | NationalTransfer
@@ -252,18 +254,19 @@ declare type TradeStatus =
   | 'refundOrReviveRequired'
   | 'waiting'
 
+declare type OfferPaymentData = Partial<
+  Record<
+    PaymentMethod,
+    {
+      hashes: string[]
+      country?: PaymentMethodCountry
+    }
+  >
+>
 declare type OfferDraft = {
   type: 'bid' | 'ask'
   meansOfPayment: MeansOfPayment
-  paymentData: Partial<
-    Record<
-      PaymentMethod,
-      {
-        hash: string
-        country?: PaymentMethodCountry
-      }
-    >
-  >
+  paymentData: OfferPaymentData
   originalPaymentData: PaymentData[]
   walletLabel?: string
   tradeStatus?: TradeStatus
@@ -367,6 +370,7 @@ declare type OfferSummary = {
   tradeStatus: TradeStatus
   contractId?: string
   txId?: string
+  fundingTxId?: string
 }
 declare type GetOffersResponse = (BuyOffer | SellOffer)[]
 declare type GetOfferSummariesResponse = OfferSummary[]
@@ -492,3 +496,13 @@ declare type CheckReferralCodeResponse = {
 
 declare type RedeemReferralCodeResponseBody = APISuccess & { bonusPoints: User['bonusPoints'] }
 declare type RegisterResponseBody = AccessToken & { restored: boolean }
+
+declare type GetRefundPSBTResponseBody =
+  | {
+      psbt: string
+      returnAddress: string
+      amount: number
+      fees: number
+      satsPerByte: number
+    }
+  | APIError<'UNAUTHORIZED' | 'TRANSACTION_INVALID' | 'NOT_FOUND'>

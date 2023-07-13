@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { isDefined } from '../utils/array/isDefined'
+import { isDefined } from '../utils/validation/isDefined'
 
 export type PopupState = {
   visible: boolean

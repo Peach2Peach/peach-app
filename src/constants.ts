@@ -1,8 +1,9 @@
 import { getBuildNumber, getUniqueIdSync, getVersion, isEmulatorSync } from 'react-native-device-info'
+import { IconType } from './assets/icons'
+import { FlagType } from './components/flags'
 import { unique } from './utils/array'
 import { sha256 } from './utils/crypto/sha256'
 import { isCashTrade } from './utils/paymentMethod/isCashTrade'
-import { IconType } from './assets/icons'
 
 export const SATSINBTC = 100000000
 export const MSINANHOUR = 3600000
@@ -24,7 +25,21 @@ export const ISEMULATOR = isEmulatorSync()
 
 export const UNIQUEID = sha256(getUniqueIdSync())
 
-export let CURRENCIES: Currency[] = ['EUR', 'CHF', 'GBP', 'SEK', 'DKK', 'BGN', 'CZK', 'HUF', 'PLN', 'RON', 'ISK', 'NOK']
+export let CURRENCIES: Currency[] = [
+  'EUR',
+  'CHF',
+  'GBP',
+  'SEK',
+  'DKK',
+  'BGN',
+  'CZK',
+  'HUF',
+  'PLN',
+  'RON',
+  'ISK',
+  'NOK',
+  'USDT',
+]
 
 export let GIFTCARDCOUNTRIES: PaymentMethodCountry[] = ['DE', 'FR', 'IT', 'ES', 'NL', 'UK', 'SE', 'FI']
 export const NATIONALTRANSFERCOUNTRIES: PaymentMethodCountry[] = [
@@ -64,9 +79,13 @@ export let PAYMENTMETHODINFOS: PaymentMethodInfo[] = [
 ]
 
 export const PAYMENTCATEGORIES: PaymentCategories = {
-  bankTransfer: ['sepa', 'instantSepa', 'fasterPayments', 'straksbetaling'].concat(
-    NATIONALTRANSFERCOUNTRIES.map((c) => `nationalTransfer${c}`),
-  ) as PaymentMethod[],
+  bankTransfer: [
+    'sepa',
+    'instantSepa',
+    'fasterPayments',
+    'straksbetaling',
+    ...NATIONALTRANSFERCOUNTRIES.map((c) => `nationalTransfer${c}` satisfies PaymentMethod),
+  ],
   onlineWallet: [
     'paypal',
     'revolut',
@@ -83,15 +102,15 @@ export const PAYMENTCATEGORIES: PaymentCategories = {
     'friends24',
     'n26',
   ],
-  giftCard: ['giftCard.amazon'].concat(GIFTCARDCOUNTRIES.map((c) => `giftCard.amazon.${c}`)) as PaymentMethod[],
-  localOption: ['mbWay', 'bizum', 'satispay', 'mobilePay', 'keksPay', 'paylib', 'lydia', 'verse', 'iris'],
+  giftCard: ['giftCard.amazon', ...GIFTCARDCOUNTRIES.map((c) => `giftCard.amazon.${c}` satisfies PaymentMethod)],
+  nationalOption: ['mbWay', 'bizum', 'satispay', 'mobilePay', 'keksPay', 'paylib', 'lydia', 'verse', 'iris'],
   cash: [],
-  cryptoCurrency: [],
+  other: ['liquid'],
 }
 
 export const ANONYMOUS_PAYMENTCATEGORIES = PAYMENTCATEGORIES.cash.concat(PAYMENTCATEGORIES.giftCard)
 
-export const LOCALPAYMENTMETHODS: LocalPaymentMethods = {
+export const NATIONALOPTIONS: NationalOptions = {
   EUR: {
     IT: ['satispay'],
     PT: ['mbWay'],
@@ -102,6 +121,10 @@ export const LOCALPAYMENTMETHODS: LocalPaymentMethods = {
     DE: ['satispay'],
     GR: ['iris'],
   },
+}
+
+export const NATIONALOPTIONCOUNTRIES: Record<'EUR', FlagType[]> = {
+  EUR: ['IT', 'PT', 'ES', 'FI', 'HR', 'FR', 'DE', 'GR'],
 }
 
 export const APPLINKS: Record<string, { appLink?: string; url: string; userLink?: string }> = {

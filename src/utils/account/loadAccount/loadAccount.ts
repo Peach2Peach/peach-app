@@ -5,12 +5,10 @@ import {
   loadContracts,
   loadIdentity,
   loadOffers,
-  loadPaymentData,
   loadTradingLimit,
   updateAccount,
 } from '../'
 import { error, info } from '../../log'
-import { loadLegacyPaymentData } from './loadLegacyPaymentData'
 
 export const loadAccount = async (): Promise<Account> => {
   if (account.publicKey) return account
@@ -23,10 +21,8 @@ export const loadAccount = async (): Promise<Account> => {
     return defaultAccount
   }
 
-  const [tradingLimit, paymentData, legacyPaymentData, offers, contracts, chats] = await Promise.all([
+  const [tradingLimit, offers, contracts, chats] = await Promise.all([
     loadTradingLimit(),
-    loadPaymentData(),
-    loadLegacyPaymentData(),
     loadOffers(),
     loadContracts(),
     loadChats(),
@@ -35,8 +31,6 @@ export const loadAccount = async (): Promise<Account> => {
   const acc = {
     ...identity,
     tradingLimit,
-    paymentData,
-    legacyPaymentData,
     offers,
     contracts,
     chats,

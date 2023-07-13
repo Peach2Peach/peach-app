@@ -1,227 +1,148 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ContractItem should render correctly 1`] = `
-<View>
-  <SummaryCard
-    action={
-      {
-        "callback": [Function],
-        "icon": "dollarSign",
-        "label": "make payment",
-      }
-    }
-    amount={21000}
-    creationDate={2021-01-01T00:00:00.000Z}
-    currency="EUR"
-    date={2021-01-01T00:00:00.000Z}
-    id="contractId"
-    lastModified={2021-01-01T00:00:00.000Z}
-    level="APP"
-    offerId="offerId"
-    price={21}
-    title="PC‑NAN‑NAN"
-    tradeStatus="paymentRequired"
-    type="bid"
-    unreadMessages={0}
-  />
-</View>
+<StatusCard
+  amount={21000}
+  color="primary"
+  creationDate={2021-01-01T00:00:00.000Z}
+  currency="EUR"
+  id="contractId"
+  label="make payment"
+  labelIcon={
+    <Icon
+      color="#FFFCFA"
+      id="dollarSign"
+      size={17}
+    />
+  }
+  lastModified={2021-01-01T00:00:00.000Z}
+  offerId="offerId"
+  onPress={[Function]}
+  price={21}
+  subtext="01 / 01 / 21"
+  title="PC‑NAN‑NAN"
+  tradeStatus="paymentRequired"
+  type="bid"
+  unreadMessages={0}
+/>
 `;
 
 exports[`ContractItem should render correctly with past contract 1`] = `
-<View>
-  <SummaryCard
-    action={
-      {
-        "callback": [Function],
-        "icon": undefined,
-        "label": undefined,
-      }
-    }
-    amount={21000}
-    creationDate={2021-01-01T00:00:00.000Z}
-    currency="EUR"
-    date={2021-01-01T00:00:00.000Z}
-    icon={
-      <Icon
-        color="#88E2B7"
-        id="buy"
-        style={
-          {
-            "height": 16,
-            "width": 16,
-          }
-        }
-      />
-    }
-    id="contractId"
-    lastModified={2021-01-01T00:00:00.000Z}
-    level="SUCCESS"
-    offerId="offerId"
-    price={21}
-    theme="light"
-    title="PC‑NAN‑NAN"
-    tradeStatus="tradeCompleted"
-    type="bid"
-    unreadMessages={0}
-  />
-</View>
+<StatusCard
+  amount={21000}
+  color="success"
+  creationDate={2021-01-01T00:00:00.000Z}
+  currency="EUR"
+  icon={
+    <Icon
+      color="#05A85A"
+      id="buy"
+      size={16}
+    />
+  }
+  id="contractId"
+  lastModified={2021-01-01T00:00:00.000Z}
+  offerId="offerId"
+  onPress={[Function]}
+  price={21}
+  subtext="01 / 01 / 21"
+  title="PC‑NAN‑NAN"
+  tradeStatus="tradeCompleted"
+  type="bid"
+  unreadMessages={0}
+/>
 `;
 
 exports[`ContractItem should render correctly with unread messages 1`] = `
-<View>
-  <SummaryCard
-    action={
-      {
-        "callback": [Function],
-        "icon": "dollarSign",
-        "label": "make payment",
-      }
-    }
-    amount={21000}
-    creationDate={2021-01-01T00:00:00.000Z}
-    currency="EUR"
-    date={2021-01-01T00:00:00.000Z}
-    id="contractId"
-    lastModified={2021-01-01T00:00:00.000Z}
-    level="APP"
-    offerId="offerId"
-    price={21}
-    title="PC‑NAN‑NAN"
-    tradeStatus="paymentRequired"
-    type="bid"
-    unreadMessages={1}
-  />
-  <View
-    style={
-      [
-        {
-          "alignItems": "center",
-          "height": 20,
-          "justifyContent": "center",
-          "width": 20,
-        },
-        {
-          "bottom": 0,
-          "marginBottom": 10,
-          "marginLeft": 12,
-          "marginRight": 12,
-          "marginTop": 10,
-          "position": "absolute",
-          "right": 0,
-        },
-      ]
-    }
-  >
-    <test-file-stub
-      fill="#FFFCFA"
-      style={
-        [
-          {
-            "height": 24,
-            "width": 24,
-          },
-          {
-            "height": "100%",
-            "width": "100%",
-          },
-        ]
-      }
+<StatusCard
+  amount={21000}
+  color="primary"
+  creationDate={2021-01-01T00:00:00.000Z}
+  currency="EUR"
+  id="contractId"
+  label="make payment"
+  labelIcon={
+    <Icon
+      color="#FFFCFA"
+      id="dollarSign"
+      size={17}
     />
-    <Text
-      allowFontScaling={false}
-      ellipsizeMode="clip"
-      numberOfLines={1}
-      style={
-        [
-          {
-            "color": "#2B1911",
-            "fontFamily": "Baloo2-Regular",
-            "fontSize": 16,
-            "letterSpacing": 0.16,
-            "lineHeight": 24,
-          },
-          [
-            {
-              "color": "#F56522",
-              "fontFamily": "Baloo2-Regular",
-              "fontSize": 14,
-              "fontWeight": "bold",
-              "letterSpacing": 0.14,
-              "lineHeight": 20,
-              "paddingBottom": 2,
-              "position": "absolute",
-              "textAlign": "center",
-            },
-            [
-              {
-                "color": "#F56522",
-              },
-              {
-                "paddingLeft": 2,
-                "paddingTop": 4,
-              },
-            ],
-          ],
-        ]
-      }
-    >
-      1
-    </Text>
-  </View>
-</View>
+  }
+  lastModified={2021-01-01T00:00:00.000Z}
+  offerId="offerId"
+  onPress={[Function]}
+  price={21}
+  subtext="01 / 01 / 21"
+  title="PC‑NAN‑NAN"
+  tradeStatus="paymentRequired"
+  type="bid"
+  unreadMessages={1}
+/>
 `;
 
 exports[`OfferItem should render correctly 1`] = `
-<SummaryCard
-  action={
-    {
-      "callback": [Function],
-      "icon": "search",
-      "label": "looking for match",
-    }
-  }
+<StatusCard
   amount={
     [
       21000,
       210000,
     ]
   }
-  date={2021-01-01T00:00:00.000Z}
-  level="WAITING"
+  color="primary-mild"
+  creationDate={2021-01-01T00:00:00.000Z}
+  id="id"
+  label="looking for match"
+  labelIcon={
+    <Icon
+      color="#7D675E"
+      id="search"
+      size={17}
+    />
+  }
+  lastModified={2021-01-01T00:00:00.000Z}
+  matches={[]}
+  onPress={[Function]}
+  prices={
+    {
+      "EUR": 21,
+    }
+  }
+  subtext="01 / 01 / 21"
   title="P‑NAN"
+  tradeStatus="searchingForPeer"
+  type="bid"
 />
 `;
 
 exports[`OfferItem should render correctly if it's a past offer 1`] = `
-<SummaryCard
-  action={
-    {
-      "callback": [Function],
-      "icon": undefined,
-      "label": undefined,
-    }
-  }
+<StatusCard
   amount={
     [
       21000,
       210000,
     ]
   }
-  date={2021-01-01T00:00:00.000Z}
+  color="success"
+  creationDate={2021-01-01T00:00:00.000Z}
   icon={
     <Icon
-      color="#EAE3DF"
+      color="#05A85A"
       id="xCircle"
-      style={
-        {
-          "height": 16,
-          "width": 16,
-        }
-      }
+      size={16}
     />
   }
-  level="SUCCESS"
-  theme="light"
+  id="id"
+  lastModified={2021-01-01T00:00:00.000Z}
+  matches={[]}
+  onPress={[Function]}
+  prices={
+    {
+      "EUR": 21,
+    }
+  }
+  subtext="01 / 01 / 21"
   title="P‑NAN"
+  tradeStatus="tradeCompleted"
+  type="bid"
 />
 `;

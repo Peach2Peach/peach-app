@@ -9,7 +9,7 @@ import { sortAlphabetically } from '../../utils/array/sortAlphabetically'
 import { Country } from '../../utils/country/countryMap'
 import { structureEventsByCountry } from '../../utils/events'
 import i18n from '../../utils/i18n'
-import { FlagType } from '../flags'
+import { keys } from '../../utils/object'
 
 type Props = ComponentProps & {
   isCash: boolean
@@ -21,7 +21,7 @@ export const AddPaymentMethodButton = ({ isCash, style }: Props) => {
   const [, updateDrawer] = useContext(DrawerContext)
   const { meetupEvents, isLoading } = useMeetupEvents()
   const addPaymentMethods = () => {
-    navigation.push('addPaymentMethod', { origin: currentRoute })
+    navigation.navigate('selectCurrency', { origin: currentRoute })
   }
 
   const goToEventDetails = (eventID: MeetupEvent['id']) => {
@@ -44,7 +44,7 @@ export const AddPaymentMethodButton = ({ isCash, style }: Props) => {
       previousDrawer: {
         title: i18n('country.select'),
         show: true,
-        options: (Object.keys(eventsByCountry) as FlagType[])
+        options: keys(eventsByCountry)
           .sort((a, b) => sortAlphabetically(i18n(`country.${a}`), i18n(`country.${b}`)))
           .map((country) => ({
             title: i18n(`country.${country}`),
@@ -62,7 +62,7 @@ export const AddPaymentMethodButton = ({ isCash, style }: Props) => {
 
     updateDrawer({
       title: i18n('country.select'),
-      options: (Object.keys(eventsByCountry) as FlagType[])
+      options: keys(eventsByCountry)
         .sort((a, b) => sortAlphabetically(i18n(`country.${a}`), i18n(`country.${b}`)))
         .map((country) => ({
           title: i18n(`country.${country}`),

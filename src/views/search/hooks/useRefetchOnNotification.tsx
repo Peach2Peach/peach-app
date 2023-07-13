@@ -4,7 +4,7 @@ import { useCallback } from 'react'
 
 const updaterPNs = ['offer.matchSeller', 'contract.contractCreated']
 
-export default (refetch: Function) => {
+export const useRefetchOnNotification = (refetch: Function) => {
   useFocusEffect(
     useCallback(() => {
       const unsubscribe = messaging().onMessage((remoteMessage) => {

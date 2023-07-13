@@ -24,7 +24,7 @@ type Props = ComponentProps & {
   textPosition?: keyof typeof textPositions
 }
 
-export const CopyAble = ({ forwardRef, value, color, disabled, style, textPosition = 'bottom' }: Props) => {
+export const CopyAble = ({ forwardRef, value, color, disabled, style, textPosition = 'top' }: Props) => {
   const [showCopied, setShowCopied] = useState(false)
 
   const copy = useCallback(() => {

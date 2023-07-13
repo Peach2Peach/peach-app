@@ -4,7 +4,7 @@ import { isPrioritary } from './isPrioritary'
 import { isWaiting } from './isWaiting'
 import { isError } from './isError'
 
-export const getCategories = (trades: TradeSummary[]) =>
+export const getCategories = (trades: Pick<TradeSummary, 'tradeStatus' | 'type' | 'unreadMessages'>[]) =>
   [
     { title: 'priority', data: trades.filter(({ tradeStatus }) => isPrioritary(tradeStatus) || isError(tradeStatus)) },
     { title: 'openActions', data: trades.filter(({ type, tradeStatus }) => isOpenAction(type, tradeStatus)) },

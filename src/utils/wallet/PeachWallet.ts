@@ -1,22 +1,29 @@
 import { BLOCKEXPLORER, NETWORK } from '@env'
-import { Blockchain, DatabaseConfig, Descriptor, TxBuilder, Wallet } from 'bdk-rn'
-import { TransactionDetails, TxBuilderResult } from 'bdk-rn/lib/classes/Bindings'
+import {
+  Blockchain,
+  BumpFeeTxBuilder,
+  DatabaseConfig,
+  Descriptor,
+  PartiallySignedTransaction,
+  TxBuilder,
+  Wallet,
+} from 'bdk-rn'
+import { TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
 import { AddressIndex, BlockChainNames, BlockchainEsploraConfig, KeychainKind } from 'bdk-rn/lib/lib/enums'
 import { BIP32Interface } from 'bip32'
-import { tradeSummaryStore } from '../../store/tradeSummaryStore'
+import { useTradeSummaryStore } from '../../store/tradeSummaryStore'
 import { getBuyOfferIdFromContract } from '../contract'
 import { error, info } from '../log'
 import { parseError } from '../result'
 import { findTransactionsToRebroadcast, isPending, mergeTransactionList } from '../transaction'
 import { callWhenInternet } from '../web'
 import { PeachJSWallet } from './PeachJSWallet'
-import { handleBroadcastError } from './error/handleBroadcastError'
+import { handleTransactionError } from './error/handleTransactionError'
 import { getAndStorePendingTransactionHex } from './getAndStorePendingTransactionHex'
 import { getDescriptorSecretKey } from './getDescriptorSecretKey'
 import { rebroadcastTransactions } from './rebroadcastTransactions'
 import { buildDrainWalletTransaction } from './transaction/buildDrainWalletTransaction'
-import { buildTransaction } from './transaction/buildTransaction'
-import { walletStore } from './walletStore'
+import { useWalletState } from './walletStore'
 
 type PeachWalletProps = {
   wallet: BIP32Interface
@@ -127,15 +134,17 @@ export class PeachWallet extends PeachJSWallet {
   }
 
   updateStore (): void {
-    walletStore.getState().setTransactions(this.transactions)
+    useWalletState.getState().setTransactions(this.transactions)
     this.transactions
-      .filter(({ txid }) => !walletStore.getState().txOfferMap[txid])
+      .filter(({ txid }) => !useWalletState.getState().txOfferMap[txid])
       .forEach(({ txid }) => {
-        const sellOffer = tradeSummaryStore.getState().offers.find((offer) => offer.txId === txid)
-        if (sellOffer?.id) return walletStore.getState().updateTxOfferMap(txid, sellOffer.id)
+        const sellOffer = useTradeSummaryStore
+          .getState()
+          .offers.find((offer) => offer.txId === txid || offer.fundingTxId === txid)
+        if (sellOffer?.id) return useWalletState.getState().updateTxOfferMap(txid, sellOffer.id)
 
-        const contract = tradeSummaryStore.getState().contracts.find((cntrct) => cntrct.releaseTxId === txid)
-        if (contract) return walletStore.getState().updateTxOfferMap(txid, getBuyOfferIdFromContract(contract))
+        const contract = useTradeSummaryStore.getState().contracts.find((cntrct) => cntrct.releaseTxId === txid)
+        if (contract) return useWalletState.getState().updateTxOfferMap(txid, getBuyOfferIdFromContract(contract))
         return null
       })
   }
@@ -146,7 +155,7 @@ export class PeachWallet extends PeachJSWallet {
     const balance = await this.wallet.getBalance()
 
     this.balance = Number(balance.total)
-    walletStore.getState().setBalance(this.balance)
+    useWalletState.getState().setBalance(this.balance)
     return this.balance
   }
 
@@ -162,11 +171,15 @@ export class PeachWallet extends PeachJSWallet {
 
     rebroadcastTransactions(toRebroadcast.map(({ txid }) => txid))
     this.transactions = this.transactions.filter(
-      (tx) => tx.confirmationTime || walletStore.getState().pendingTransactions[tx.txid],
+      (tx) => tx.confirmationTime || useWalletState.getState().pendingTransactions[tx.txid],
     )
     this.updateStore()
 
     return this.transactions
+  }
+
+  getPendingTransactions () {
+    return this.transactions.filter((tx) => !tx.confirmationTime?.height)
   }
 
   async getReceivingAddress () {
@@ -182,49 +195,51 @@ export class PeachWallet extends PeachJSWallet {
     if (!this.wallet || !this.blockchain) throw Error('WALLET_NOT_READY')
     info('PeachWallet - withdrawAll - start')
     const drainWalletTransaction = await buildDrainWalletTransaction(address, feeRate)
-    return this.signAndBroadcastTransaction(await this.finishTransaction(drainWalletTransaction))
+    const finishedTransaction = await this.finishTransaction(drainWalletTransaction)
+    return this.signAndBroadcastPSBT(finishedTransaction.psbt)
   }
 
-  async sendTo (address: string, amount: number, feeRate?: number) {
-    if (!this.wallet || !this.blockchain) throw Error('WALLET_NOT_READY')
-    info('PeachWallet - sendTo - start')
-    const transaction = await buildTransaction(address, amount, feeRate)
-    return this.signAndBroadcastTransaction(await this.finishTransaction(transaction))
-  }
+  async finishTransaction<T extends TxBuilder | BumpFeeTxBuilder>(transaction: T): Promise<ReturnType<T['finish']>>
 
-  finishTransaction (transaction: TxBuilder) {
+  async finishTransaction (transaction: TxBuilder | BumpFeeTxBuilder) {
     if (!this.wallet || !this.blockchain) throw Error('WALLET_NOT_READY')
     info('PeachWallet - finishTransaction - start')
-    return transaction.finish(this.wallet)
+    try {
+      return await transaction.finish(this.wallet)
+    } catch (e) {
+      throw handleTransactionError(parseError(e))
+    }
   }
 
-  async signAndBroadcastTransaction (transaction: TxBuilderResult) {
+  async signAndBroadcastPSBT (psbt: PartiallySignedTransaction) {
     if (!this.wallet || !this.blockchain) throw Error('WALLET_NOT_READY')
-    info('PeachWallet - signAndBroadcastTransaction - start')
+    info('PeachWallet - signAndBroadcastPSBT - start')
     try {
-      const signedPSBT = await this.wallet.sign(transaction.psbt)
+      const signedPSBT = await this.wallet.sign(psbt)
+      info('PeachWallet - signAndBroadcastPSBT - signed')
 
       this.blockchain.broadcast(await signedPSBT.extractTx())
+      info('PeachWallet - signAndBroadcastPSBT - broadcasted')
       this.syncWallet()
 
-      info('PeachWallet - signAndBroadcastTransaction - end')
+      info('PeachWallet - signAndBroadcastPSBT - end')
 
-      return transaction
+      return psbt
     } catch (e) {
-      throw handleBroadcastError(parseError(e))
+      throw handleTransactionError(parseError(e))
     }
   }
 
   loadWalletStore (): void {
-    this.transactions = walletStore.getState().transactions
-    this.balance = walletStore.getState().balance
+    this.transactions = useWalletState.getState().transactions
+    this.balance = useWalletState.getState().balance
   }
 
   loadFromStorage (): void {
-    if (walletStore.persist.hasHydrated()) {
+    if (useWalletState.persist.hasHydrated()) {
       this.loadWalletStore()
     } else {
-      walletStore.persist.onFinishHydration(() => {
+      useWalletState.persist.onFinishHydration(() => {
         this.loadWalletStore()
       })
     }

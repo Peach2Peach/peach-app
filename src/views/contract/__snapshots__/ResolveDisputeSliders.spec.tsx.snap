@@ -2,23 +2,13 @@
 
 exports[`ResolveDisputeSliders should render correctly 1`] = `
 [
-  <SlideToUnlock
+  <ConfirmSlider
     label1="re-publish offer"
-    onUnlock={[Function]}
-    style={
-      {
-        "width": 263,
-      }
-    }
+    onConfirm={[Function]}
   />,
-  <SlideToUnlock
+  <ConfirmSlider
     label1="refund escrow"
-    onUnlock={[Function]}
-    style={
-      {
-        "width": 263,
-      }
-    }
+    onConfirm={[Function]}
   />,
 ]
 `;

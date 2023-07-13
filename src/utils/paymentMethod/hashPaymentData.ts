@@ -1,23 +1,18 @@
 import { sha256 } from '../crypto'
+import { getPaymentDataInfoFields } from './getPaymentDataInfoFields'
 
-/**
- * @description Method to hash a payment data into hex representation using sha256
- * @param paymentData payment data to hash
- * @returns hashed payment data as hex
- */
-export const hashPaymentData = (paymentData: PaymentData): string => {
-  const data = JSON.parse(JSON.stringify(paymentData))
+const doNotHash: PaymentDataField[] = ['beneficiary', 'bic', 'name', 'reference', 'ukSortCode']
+const fieldCanBeHashed = (field: PaymentDataField) => !doNotHash.includes(field)
 
-  delete data.id
-  delete data.label
-  delete data.type
-  delete data.currencies
-  delete data.country
-  delete data.disclaimerAcknowledged
-  delete data.version
-  delete data.hidden
+const hashData = (data: string) => sha256(data.toLowerCase())
 
-  delete data.reference
-
-  return sha256(JSON.stringify(data).toLowerCase())
+export type PaymentDataHashInfo = {
+  field: PaymentDataField
+  value: string
+  hash: string
 }
+
+export const hashPaymentData = (paymentData: PaymentData): PaymentDataHashInfo[] =>
+  getPaymentDataInfoFields(paymentData)
+    .filter(({ field }) => fieldCanBeHashed(field))
+    .map(({ field, value }) => ({ field, value, hash: hashData(value) }))

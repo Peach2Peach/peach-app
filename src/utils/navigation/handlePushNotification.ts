@@ -1,15 +1,15 @@
 import { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
 import { NavigationContainerRefWithCurrent } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
-import { isDefined } from '../array/isDefined'
 import { getContract } from '../contract'
 import { getOfferDetails } from '../peachAPI'
+import { isDefined } from '../validation'
 import { shouldGoToContract } from './shouldGoToContract'
 import { shouldGoToContractChat } from './shouldGoToContractChat'
-import { shouldGoToYourTradesSell } from './shouldGoToYourTradesSell'
-import { shouldGoToSell } from './shouldGoToSell'
-import { shouldGoToSearch } from './shouldGoToSearch'
 import { shouldGoToOfferPublished } from './shouldGoToOfferPublished'
+import { shouldGoToSearch } from './shouldGoToSearch'
+import { shouldGoToSell } from './shouldGoToSell'
+import { shouldGoToYourTradesSell } from './shouldGoToYourTradesSell'
 
 export type StackNavigation = StackNavigationProp<RootStackParamList, keyof RootStackParamList>
 export type Navigation = NavigationContainerRefWithCurrent<RootStackParamList> | StackNavigation

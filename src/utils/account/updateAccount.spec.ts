@@ -5,7 +5,7 @@ import { dataMigrationAfterLoadingWallet } from '../../init/dataMigration/dataMi
 import { getPeachAccount } from '../peachAPI/peachAccount'
 import { getWallet } from '../wallet'
 import { PeachWallet } from '../wallet/PeachWallet'
-import { settingsStore } from './../../store/settingsStore'
+import { useSettingsStore } from '../../store/settingsStore'
 import { account, defaultAccount } from './account'
 import { updateAccount } from './updateAccount'
 
@@ -48,7 +48,7 @@ describe('updateAccount', () => {
   })
   it('does not set the locale to undefined', () => {
     getDeviceLocaleMock.mockReturnValueOnce(undefined)
-    settingsStore.setState({ locale: undefined })
+    useSettingsStore.setState({ locale: undefined })
     updateAccount(account1)
     expect(setLocaleQuietMock).toHaveBeenCalledWith('en')
   })

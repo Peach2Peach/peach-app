@@ -7,6 +7,6 @@ describe('goToShiftCrypto', () => {
 
     goToShiftCrypto()
 
-    expect(openStub).toHaveBeenCalledWith('https://shiftcrypto.ch/bitbox02/?ref=DLX6l9ccCc')
+    expect(openStub).toHaveBeenCalledWith('https://bitbox.swiss/bitbox02/?ref=DLX6l9ccCc')
   })
 })

@@ -6,6 +6,16 @@ import { account } from '../../../utils/account'
 import { useRestoreReputationSetup } from './useRestoreReputationSetup'
 
 jest.useFakeTimers()
+const userUpdateMock = jest.fn()
+jest.mock('../../../init/userUpdate', () => ({
+  userUpdate: (...args: any[]) => userUpdateMock(...args),
+}))
+
+const params = { referralCode: 'REFERRALCODE' }
+const useRouteMock = jest.fn().mockReturnValue({ params })
+jest.mock('../../../hooks/useRoute', () => ({
+  useRoute: () => useRouteMock(),
+}))
 
 describe('useRestoreReputationSetup', () => {
   it('should return defaults', () => {
@@ -44,5 +54,6 @@ describe('useRestoreReputationSetup', () => {
 
     await act(jest.runAllTimers)
     expect(replaceMock).toHaveBeenCalledWith('home')
+    expect(userUpdateMock).toHaveBeenCalledWith(params.referralCode)
   })
 })

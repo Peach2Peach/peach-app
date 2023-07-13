@@ -1,11 +1,10 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
-import { FormProps } from '../../paymentForms/PaymentMethodForm'
+import { useCallback, useEffect, useState } from 'react'
+import { FormProps } from '../../../../../views/addPaymentMethod/PaymentMethodForm'
 import { useValidatedState } from '../../../../../hooks'
-import { getPaymentDataByLabel } from '../../../../../utils/account'
 import i18n from '../../../../../utils/i18n'
-import { getErrorsInField } from '../../../../../utils/validation'
 import { toggleCurrency } from '../../paymentForms/utils'
 import { hasMultipleAvailableCurrencies } from '../utils/hasMultipleAvailableCurrencies'
+import { useLabelInput } from './useLabelInput'
 
 const emailRules = {
   required: true,
@@ -13,37 +12,20 @@ const emailRules = {
 }
 const referenceRules = { required: false }
 // eslint-disable-next-line max-lines-per-function
-export const useTemplate4Setup = ({
-  data,
-  currencies = [],
-  onSubmit,
-  setStepValid,
-  paymentMethod,
-  setFormData,
-}: FormProps) => {
-  const [label, setLabel] = useState(data?.label || '')
+export const useTemplate4Setup = ({ data, onSubmit, setStepValid, setFormData }: FormProps) => {
+  const { currencies, type: paymentMethod } = data
+  const { labelInputProps, labelErrors, setDisplayErrors: setDisplayLabelErrors, label } = useLabelInput(data)
   const [email, setEmail, emailIsValid, emailErrors] = useValidatedState(data?.email || '', emailRules)
   const [displayErrors, setDisplayErrors] = useState(false)
   const [beneficiary, setBeneficiary] = useState(data?.beneficiary || '')
   const [reference, setReference, , referenceError] = useValidatedState(data?.reference || '', referenceRules)
   const [selectedCurrencies, setSelectedCurrencies] = useState(data?.currencies || currencies)
 
-  const labelRules = useMemo(
-    () => ({
-      required: true,
-      duplicate: getPaymentDataByLabel(label) && getPaymentDataByLabel(label)?.id !== data.id,
-    }),
-    [data.id, label],
-  )
-
-  const labelErrors = useMemo(() => getErrorsInField(label, labelRules), [label, labelRules])
-
   const buildPaymentData = useCallback(
     () => ({
       id: data?.id || `${paymentMethod}-${Date.now()}`,
       label,
-      type:
-        paymentMethod !== 'giftCard.amazon' ? paymentMethod : ((`${paymentMethod}.${data?.country}`) as PaymentMethod),
+      type: paymentMethod !== 'giftCard.amazon' ? paymentMethod : (`${paymentMethod}.${data?.country}` as PaymentMethod),
       email,
       beneficiary,
       reference,
@@ -58,9 +40,10 @@ export const useTemplate4Setup = ({
   }
 
   const isFormValid = useCallback(() => {
+    setDisplayLabelErrors(true)
     setDisplayErrors(true)
     return emailIsValid && labelErrors.length === 0
-  }, [emailIsValid, labelErrors.length])
+  }, [emailIsValid, labelErrors.length, setDisplayLabelErrors])
 
   const save = () => {
     if (!isFormValid()) return
@@ -74,11 +57,7 @@ export const useTemplate4Setup = ({
   }, [isFormValid, setStepValid, buildPaymentData, setFormData])
 
   return {
-    labelInputProps: {
-      onChange: setLabel,
-      value: label,
-      errorMessage: displayErrors ? labelErrors : undefined,
-    },
+    labelInputProps,
     emailInputProps: {
       onChange: setEmail,
       value: email,

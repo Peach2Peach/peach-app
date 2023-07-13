@@ -14,9 +14,6 @@ jest.mock('@react-native-community/netinfo', () => ({
 
 describe('callWhenInternet', () => {
   const callback = jest.fn()
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
 
   it('should run callback when connected to the internet', async () => {
     await callWhenInternet(callback)

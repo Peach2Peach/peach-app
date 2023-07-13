@@ -2,11 +2,15 @@ import { View } from 'react-native'
 import { Text } from '../../../../components'
 import tw from '../../../../styles/tailwind'
 import i18n from '../../../../utils/i18n'
-import { getDateToDisplay } from '../../../../utils/date/getDateToDisplay'
+import { getDateToDisplay } from '../../../../utils/date'
 
-export const AccountCreated = ({ creationDate, style }: { creationDate: Date } & ComponentProps) => (
+type Props = ComponentProps & {
+  creationDate: Date
+}
+
+export const AccountCreated = ({ creationDate, style }: Props) => (
   <View style={style}>
-    <Text style={tw`body-m text-black-2 lowercase`}>{i18n('profile.accountCreated')}:</Text>
+    <Text style={tw`lowercase body-m text-black-2`}>{i18n('profile.accountCreated')}:</Text>
     <Text style={tw`subtitle-1`}>{getDateToDisplay(creationDate)}</Text>
   </View>
 )

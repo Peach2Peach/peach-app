@@ -4,7 +4,7 @@ import { getPremiumColor } from '../../../components/matches/utils'
 import { useRoute } from '../../../hooks'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
-import { useOfferMatches } from '../hooks/useOfferMatches'
+import { useOfferMatches } from '../hooks'
 
 export const MatchInformation = ({ offer }: { offer: SellOffer }) => {
   const { offerId } = useRoute<'search'>().params

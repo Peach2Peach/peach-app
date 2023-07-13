@@ -7,20 +7,16 @@ jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),
   useFocusEffect: (callback: Function) => callback(),
 }))
-jest.mock('../../../store/settingsStore')
 
 // eslint-disable-next-line max-lines-per-function
 describe('useSeedBackupSetup', () => {
   const now = new Date('2020-01-01')
-  const setShowBackupReminderMock = jest.fn()
-  const setLastSeedBackupDateMock = jest.fn()
 
   beforeEach(() => {
     jest.useFakeTimers().setSystemTime(now)
-    ;(useSettingsStore as jest.Mock).mockReturnValue([setShowBackupReminderMock, setLastSeedBackupDateMock, undefined])
-  })
-  afterEach(() => {
-    jest.resetAllMocks()
+    useSettingsStore.setState({
+      lastSeedBackupDate: undefined,
+    })
   })
   it('returns default correct values', () => {
     const { result } = renderHook(useSeedBackupSetup, { wrapper: NavigationWrapper })
@@ -39,12 +35,9 @@ describe('useSeedBackupSetup', () => {
   })
 
   it('returns start at lastSeedBackup if seedPhrase backup has been already made', () => {
-    ;(useSettingsStore as jest.Mock).mockReturnValue([
-      setShowBackupReminderMock,
-      setLastSeedBackupDateMock,
-      now.getTime(),
-    ])
-
+    useSettingsStore.setState({
+      lastSeedBackupDate: now.getTime(),
+    })
     const { result } = renderHook(useSeedBackupSetup, { wrapper: NavigationWrapper })
     expect(result.current.currentScreenIndex).toBe(0)
     expect(result.current.getCurrentScreen().id).toBe('lastSeedBackup')
@@ -89,7 +82,7 @@ describe('useSeedBackupSetup', () => {
     act(() => {
       result.current.showNextScreen()
     })
-    expect(setLastSeedBackupDateMock).toHaveBeenCalledWith(now.getTime())
-    expect(setShowBackupReminderMock).toHaveBeenCalledWith(false)
+    expect(useSettingsStore.getState().lastSeedBackupDate).toBe(now.getTime())
+    expect(useSettingsStore.getState().showBackupReminder).toBeFalsy()
   })
 })

@@ -1,4 +1,6 @@
+import { keys } from '../object'
+import { cleanPaymentData } from './cleanPaymentData'
+import { isCashTrade } from './isCashTrade'
+
 export const somePaymentDataExists = (data: PaymentData) =>
-  Object.keys(data)
-    .filter((key) => !/id|label|type|currencies/u.test(key))
-    .some((key) => data[key])
+  isCashTrade(data.type) || keys(cleanPaymentData(data)).some((key) => data[key])

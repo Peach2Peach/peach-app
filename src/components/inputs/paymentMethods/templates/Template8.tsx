@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 import { TextInput, View } from 'react-native'
-import { FormProps } from '../paymentForms/PaymentMethodForm'
+import { FormProps } from '../../../../views/addPaymentMethod/PaymentMethodForm'
 import tw from '../../../../styles/tailwind'
 import { PhoneInput, LabelInput, ReferenceInput, BeneficiaryInput } from '../../index'
 import { CurrencySelection } from '../paymentForms/components'

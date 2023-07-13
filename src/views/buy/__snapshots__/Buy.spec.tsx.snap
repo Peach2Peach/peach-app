@@ -533,6 +533,7 @@ exports[`Buy should render correctly 1`] = `
                     "alignItems": "center",
                     "display": "flex",
                     "flexDirection": "row",
+                    "gap": 4,
                     "justifyContent": "space-between",
                     "paddingLeft": 12,
                     "paddingRight": 12,
@@ -620,6 +621,7 @@ exports[`Buy should render correctly 1`] = `
                   {
                     "display": "flex",
                     "flexDirection": "row",
+                    "gap": 16,
                   }
                 }
               />
@@ -704,6 +706,7 @@ exports[`Buy should render correctly 1`] = `
                     "alignItems": "center",
                     "display": "flex",
                     "flexDirection": "row",
+                    "gap": 4,
                     "justifyContent": "space-between",
                     "paddingLeft": 12,
                     "paddingRight": 12,
@@ -791,6 +794,7 @@ exports[`Buy should render correctly 1`] = `
                   {
                     "display": "flex",
                     "flexDirection": "row",
+                    "gap": 16,
                   }
                 }
               />
@@ -1029,6 +1033,7 @@ exports[`Buy should render correctly 1`] = `
                     "alignItems": "center",
                     "display": "flex",
                     "flexDirection": "row",
+                    "gap": 4,
                     "justifyContent": "space-between",
                     "paddingLeft": 12,
                     "paddingRight": 12,
@@ -1116,6 +1121,7 @@ exports[`Buy should render correctly 1`] = `
                   {
                     "display": "flex",
                     "flexDirection": "row",
+                    "gap": 16,
                   }
                 }
               />
@@ -1200,6 +1206,7 @@ exports[`Buy should render correctly 1`] = `
                     "alignItems": "center",
                     "display": "flex",
                     "flexDirection": "row",
+                    "gap": 4,
                     "justifyContent": "space-between",
                     "paddingLeft": 12,
                     "paddingRight": 12,
@@ -1287,6 +1294,7 @@ exports[`Buy should render correctly 1`] = `
                   {
                     "display": "flex",
                     "flexDirection": "row",
+                    "gap": 16,
                   }
                 }
               />
@@ -1816,14 +1824,18 @@ exports[`Buy should render correctly 1`] = `
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
               },
-              {
-                "color": "#F56522",
-                "fontFamily": "Baloo2-Medium",
-                "fontSize": 14,
-                "fontWeight": "bold",
-                "letterSpacing": 0.14,
-                "lineHeight": 20,
-              },
+              [
+                {
+                  "fontFamily": "Baloo2-Medium",
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                  "letterSpacing": 0.14,
+                  "lineHeight": 20,
+                },
+                {
+                  "color": "#F56522",
+                },
+              ],
             ]
           }
         >
@@ -1842,14 +1854,18 @@ exports[`Buy should render correctly 1`] = `
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
               },
-              {
-                "color": "#7D675E",
-                "fontFamily": "Baloo2-Medium",
-                "fontSize": 14,
-                "fontWeight": "bold",
-                "letterSpacing": 0.14,
-                "lineHeight": 20,
-              },
+              [
+                {
+                  "fontFamily": "Baloo2-Medium",
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                  "letterSpacing": 0.14,
+                  "lineHeight": 20,
+                },
+                {
+                  "color": "#7D675E",
+                },
+              ],
             ]
           }
         >
@@ -1866,14 +1882,18 @@ exports[`Buy should render correctly 1`] = `
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
               },
-              {
-                "color": "#FCCCB6",
-                "fontFamily": "Baloo2-Medium",
-                "fontSize": 14,
-                "fontWeight": "bold",
-                "letterSpacing": 0.14,
-                "lineHeight": 20,
-              },
+              [
+                {
+                  "fontFamily": "Baloo2-Medium",
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                  "letterSpacing": 0.14,
+                  "lineHeight": 20,
+                },
+                {
+                  "color": "#FCCCB6",
+                },
+              ],
             ]
           }
         >
@@ -2525,6 +2545,7 @@ exports[`Buy should render correctly with free trades 1`] = `
                     "alignItems": "center",
                     "display": "flex",
                     "flexDirection": "row",
+                    "gap": 4,
                     "justifyContent": "space-between",
                     "paddingLeft": 12,
                     "paddingRight": 12,
@@ -2612,6 +2633,7 @@ exports[`Buy should render correctly with free trades 1`] = `
                   {
                     "display": "flex",
                     "flexDirection": "row",
+                    "gap": 16,
                   }
                 }
               />
@@ -2696,6 +2718,7 @@ exports[`Buy should render correctly with free trades 1`] = `
                     "alignItems": "center",
                     "display": "flex",
                     "flexDirection": "row",
+                    "gap": 4,
                     "justifyContent": "space-between",
                     "paddingLeft": 12,
                     "paddingRight": 12,
@@ -2783,6 +2806,7 @@ exports[`Buy should render correctly with free trades 1`] = `
                   {
                     "display": "flex",
                     "flexDirection": "row",
+                    "gap": 16,
                   }
                 }
               />
@@ -3021,6 +3045,7 @@ exports[`Buy should render correctly with free trades 1`] = `
                     "alignItems": "center",
                     "display": "flex",
                     "flexDirection": "row",
+                    "gap": 4,
                     "justifyContent": "space-between",
                     "paddingLeft": 12,
                     "paddingRight": 12,
@@ -3108,6 +3133,7 @@ exports[`Buy should render correctly with free trades 1`] = `
                   {
                     "display": "flex",
                     "flexDirection": "row",
+                    "gap": 16,
                   }
                 }
               />
@@ -3192,6 +3218,7 @@ exports[`Buy should render correctly with free trades 1`] = `
                     "alignItems": "center",
                     "display": "flex",
                     "flexDirection": "row",
+                    "gap": 4,
                     "justifyContent": "space-between",
                     "paddingLeft": 12,
                     "paddingRight": 12,
@@ -3279,6 +3306,7 @@ exports[`Buy should render correctly with free trades 1`] = `
                   {
                     "display": "flex",
                     "flexDirection": "row",
+                    "gap": 16,
                   }
                 }
               />
@@ -4021,14 +4049,18 @@ exports[`Buy should render correctly with free trades 1`] = `
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
               },
-              {
-                "color": "#F56522",
-                "fontFamily": "Baloo2-Medium",
-                "fontSize": 14,
-                "fontWeight": "bold",
-                "letterSpacing": 0.14,
-                "lineHeight": 20,
-              },
+              [
+                {
+                  "fontFamily": "Baloo2-Medium",
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                  "letterSpacing": 0.14,
+                  "lineHeight": 20,
+                },
+                {
+                  "color": "#F56522",
+                },
+              ],
             ]
           }
         >
@@ -4047,14 +4079,18 @@ exports[`Buy should render correctly with free trades 1`] = `
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
               },
-              {
-                "color": "#7D675E",
-                "fontFamily": "Baloo2-Medium",
-                "fontSize": 14,
-                "fontWeight": "bold",
-                "letterSpacing": 0.14,
-                "lineHeight": 20,
-              },
+              [
+                {
+                  "fontFamily": "Baloo2-Medium",
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                  "letterSpacing": 0.14,
+                  "lineHeight": 20,
+                },
+                {
+                  "color": "#7D675E",
+                },
+              ],
             ]
           }
         >
@@ -4071,14 +4107,18 @@ exports[`Buy should render correctly with free trades 1`] = `
                 "letterSpacing": 0.16,
                 "lineHeight": 24,
               },
-              {
-                "color": "#FCCCB6",
-                "fontFamily": "Baloo2-Medium",
-                "fontSize": 14,
-                "fontWeight": "bold",
-                "letterSpacing": 0.14,
-                "lineHeight": 20,
-              },
+              [
+                {
+                  "fontFamily": "Baloo2-Medium",
+                  "fontSize": 14,
+                  "fontWeight": "bold",
+                  "letterSpacing": 0.14,
+                  "lineHeight": 20,
+                },
+                {
+                  "color": "#FCCCB6",
+                },
+              ],
             ]
           }
         >

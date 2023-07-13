@@ -1,6 +1,13 @@
-/* eslint-disable max-lines-per-function */
+import {
+  paypalData,
+  paypalDataHashes,
+  revolutData,
+  revolutDataHashes,
+  validSEPAData,
+  validSEPADataHashes,
+} from '../../../tests/unit/data/paymentData'
 import { setPaymentMethods } from '../../constants'
-import { account, updateAccount } from '../../utils/account'
+import { usePaymentDataStore } from '../usePaymentDataStore'
 import { useOfferPreferences } from './useOfferPreferences'
 
 describe('useOfferPreferences - store', () => {
@@ -11,6 +18,7 @@ describe('useOfferPreferences - store', () => {
     expect(useOfferPreferences.getState()).toStrictEqual({
       buyAmountRange: [0, Infinity],
       sellAmount: 0,
+      preferredCurrenyType: 'europe',
       preferredPaymentMethods: {},
       meansOfPayment: {},
       paymentData: {},
@@ -24,6 +32,7 @@ describe('useOfferPreferences - store', () => {
       },
       setBuyAmountRange: expect.any(Function),
       setSellAmount: expect.any(Function),
+      setPreferredCurrencyType: expect.any(Function),
       setPremium: expect.any(Function),
       setPaymentMethods: expect.any(Function),
       selectPaymentMethod: expect.any(Function),
@@ -82,12 +91,6 @@ describe('useOfferPreferences - actions - setPremium', () => {
     useOfferPreferences.getState().setPremium(newPremium)
     expect(useOfferPreferences.getState().premium).toBe(newPremium)
   })
-  it('doesn\'t allow more than two decimals', () => {
-    const newPremium = 2.123
-    expect(Number(String(newPremium))).toBe(newPremium)
-    useOfferPreferences.getState().setPremium(newPremium)
-    expect(useOfferPreferences.getState().premium).toBe(2.12)
-  })
   it('should set can continue to false if the premium is not valid', () => {
     const newPremium = 21
     useOfferPreferences.getState().setPremium(newPremium, false)
@@ -112,127 +115,76 @@ describe('useOfferPreferences - actions - setPremium', () => {
 })
 
 describe('useOfferPreferences - actions - setPaymentMethods', () => {
-  const ids = ['sepa-1234', 'revolut-1234', 'paypal-5678']
-  updateAccount({
-    ...account,
-    paymentData: [
+  const ids = [validSEPAData.id, paypalData.id, revolutData.id]
+
+  beforeAll(() => {
+    usePaymentDataStore.getState().addPaymentData(validSEPAData)
+    usePaymentDataStore.getState().addPaymentData(paypalData)
+    usePaymentDataStore.getState().addPaymentData(revolutData)
+
+    setPaymentMethods([
+      { id: 'sepa', currencies: ['EUR', 'CHF'], anonymous: false },
       {
-        id: 'sepa-1234',
-        iban: 'DE89370400440532013000',
-        bic: 'COBADEFFXXX',
-        label: 'SEPA',
-        type: 'sepa',
+        id: 'revolut',
         currencies: ['EUR'],
+        anonymous: false,
       },
-      {
-        id: 'revolut-1234',
-        label: 'Revolut',
-        type: 'revolut',
-        currencies: ['EUR'],
-      },
-      {
-        id: 'paypal-5678',
-        label: 'PayPal',
-        type: 'paypal',
-        currencies: ['EUR'],
-      },
-    ],
+      { id: 'paypal', currencies: ['EUR'], anonymous: false },
+    ])
   })
-  setPaymentMethods([
-    { id: 'sepa', currencies: ['EUR', 'CHF'], anonymous: false },
-    {
-      id: 'revolut',
-      currencies: ['EUR'],
-      anonymous: false,
-    },
-    { id: 'paypal', currencies: ['EUR'], anonymous: false },
-  ])
 
   it('should update the preferred payment methods', () => {
     useOfferPreferences.getState().setPaymentMethods(ids)
     const expected = {
-      sepa: 'sepa-1234',
-      revolut: 'revolut-1234',
-      paypal: 'paypal-5678',
+      sepa: validSEPAData.id,
+      revolut: revolutData.id,
+      paypal: paypalData.id,
     }
     expect(useOfferPreferences.getState().preferredPaymentMethods).toStrictEqual(expected)
   })
   it('should update the means of payment', () => {
     useOfferPreferences.getState().setPaymentMethods(ids)
     const expected = {
-      EUR: ['sepa', 'revolut', 'paypal'],
+      EUR: ['sepa', 'paypal', 'revolut'],
     }
     expect(useOfferPreferences.getState().meansOfPayment).toStrictEqual(expected)
   })
   it('should update the payment data', () => {
     useOfferPreferences.getState().setPaymentMethods(ids)
     const expected = {
-      paypal: { country: undefined, hash: '44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a' },
-      revolut: { country: undefined, hash: '44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a' },
-      sepa: { country: undefined, hash: '94c30c03991f2923fae94566e32d9171e59ba045eea4c0607b4dbe17edfbf74e' },
+      sepa: { country: undefined, hashes: validSEPADataHashes },
+      paypal: { country: undefined, hashes: paypalDataHashes },
+      revolut: { country: undefined, hashes: revolutDataHashes },
     }
     expect(useOfferPreferences.getState().paymentData).toStrictEqual(expected)
   })
   it('should update the original payment data', () => {
     useOfferPreferences.getState().setPaymentMethods(ids)
-    const expected = [
-      {
-        id: 'sepa-1234',
-        iban: 'DE89370400440532013000',
-        bic: 'COBADEFFXXX',
-        label: 'SEPA',
-        type: 'sepa',
-        currencies: ['EUR'],
-      },
-      {
-        id: 'revolut-1234',
-        label: 'Revolut',
-        type: 'revolut',
-        currencies: ['EUR'],
-      },
-      {
-        id: 'paypal-5678',
-        label: 'PayPal',
-        type: 'paypal',
-        currencies: ['EUR'],
-      },
-    ]
+    const expected = [validSEPAData, paypalData, revolutData]
     expect(useOfferPreferences.getState().originalPaymentData).toStrictEqual(expected)
   })
   it('should set can continue to false if the payment methods are not valid', () => {
     useOfferPreferences.getState().setPaymentMethods([])
     expect(useOfferPreferences.getState().canContinue.paymentMethods).toBe(false)
-    useOfferPreferences.getState().setPaymentMethods(['sepa-1234'])
+    useOfferPreferences.getState().setPaymentMethods([validSEPAData.id])
     expect(useOfferPreferences.getState().canContinue.paymentMethods).toBe(true)
   })
 })
 
 describe('useOfferPreferences - actions - selectPaymentMethod', () => {
   beforeAll(() => {
-    updateAccount({
-      ...account,
-      paymentData: [
-        {
-          id: 'sepa-1234',
-          iban: 'DE89370400440532013000',
-          bic: 'COBADEFFXXX',
-          label: 'SEPA',
-          type: 'sepa',
-          currencies: ['EUR'],
-        },
-      ],
-    })
+    usePaymentDataStore.getState().addPaymentData(validSEPAData)
     setPaymentMethods([{ id: 'sepa', currencies: ['EUR', 'CHF'], anonymous: false }])
     useOfferPreferences.getState().setPaymentMethods([])
   })
   afterEach(() => {
     useOfferPreferences.getState().setPaymentMethods([])
   })
-  const id = 'sepa-1234'
+  const id = validSEPAData.id
   it('should add the payment method to the preferred payment methods', () => {
     useOfferPreferences.getState().selectPaymentMethod(id)
     const expected = {
-      sepa: 'sepa-1234',
+      sepa: validSEPAData.id,
     }
     expect(useOfferPreferences.getState().preferredPaymentMethods).toStrictEqual(expected)
   })
@@ -258,7 +210,7 @@ describe('useOfferPreferences - actions - selectPaymentMethod', () => {
   it('should add the payment data to the payment data', () => {
     useOfferPreferences.getState().selectPaymentMethod(id)
     const expected = {
-      sepa: { country: undefined, hash: '94c30c03991f2923fae94566e32d9171e59ba045eea4c0607b4dbe17edfbf74e' },
+      sepa: { country: undefined, hashes: validSEPADataHashes },
     }
     expect(useOfferPreferences.getState().paymentData).toStrictEqual(expected)
   })
@@ -270,22 +222,12 @@ describe('useOfferPreferences - actions - selectPaymentMethod', () => {
   })
   it('should add the payment data to the original payment data', () => {
     useOfferPreferences.getState().selectPaymentMethod(id)
-    const expected = [
-      {
-        id: 'sepa-1234',
-        iban: 'DE89370400440532013000',
-        bic: 'COBADEFFXXX',
-        label: 'SEPA',
-        type: 'sepa',
-        currencies: ['EUR'],
-      },
-    ]
-    expect(useOfferPreferences.getState().originalPaymentData).toStrictEqual(expected)
+    expect(useOfferPreferences.getState().originalPaymentData).toStrictEqual([validSEPAData])
   })
   it('should remove the payment data if it is already in the original payment data', () => {
     useOfferPreferences.getState().selectPaymentMethod(id)
     useOfferPreferences.getState().selectPaymentMethod(id)
-    const expected = []
+    const expected: PaymentData[] = []
     expect(useOfferPreferences.getState().originalPaymentData).toStrictEqual(expected)
   })
   it('should set can continue to true if the payment methods are valid', () => {
@@ -296,5 +238,13 @@ describe('useOfferPreferences - actions - selectPaymentMethod', () => {
     useOfferPreferences.getState().selectPaymentMethod(id)
     useOfferPreferences.getState().selectPaymentMethod(id)
     expect(useOfferPreferences.getState().canContinue.paymentMethods).toBe(false)
+  })
+})
+
+describe('useOfferPreferences - actions - setPrefferedCurrencyType', () => {
+  it('should update the preferred currencytype', () => {
+    expect(useOfferPreferences.getState().preferredCurrenyType).toBe('europe')
+    useOfferPreferences.getState().setPreferredCurrencyType('other')
+    expect(useOfferPreferences.getState().preferredCurrenyType).toBe('other')
   })
 })

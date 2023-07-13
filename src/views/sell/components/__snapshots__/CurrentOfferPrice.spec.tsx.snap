@@ -12,13 +12,10 @@ exports[`CurrentOfferPrice should render correctly 1`] = `
         "letterSpacing": 0.16,
         "lineHeight": 24,
       },
-      [
-        {
-          "color": "#7D675E",
-          "textAlign": "center",
-        },
-        undefined,
-      ],
+      {
+        "color": "#7D675E",
+        "textAlign": "center",
+      },
     ]
   }
 >

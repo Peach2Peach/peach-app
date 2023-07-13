@@ -11,15 +11,15 @@ jest.mock('../../utils/peachAPI', () => ({
   getFeeEstimate: () => getFeeEstimateMock(),
 }))
 
+const wrapper = QueryClientWrapper
+
 describe('useFeeEstimate', () => {
   afterEach(() => {
     queryClient.clear()
   })
 
   it('fetches fee estimates from API', async () => {
-    const { result } = renderHook(useFeeEstimate, {
-      wrapper: QueryClientWrapper,
-    })
+    const { result } = renderHook(useFeeEstimate, { wrapper })
     expect(result.current).toEqual({
       estimatedFees: placeholderFees,
       isLoading: true,
@@ -34,9 +34,7 @@ describe('useFeeEstimate', () => {
   })
   it('returns error if server did not return result', async () => {
     getFeeEstimateMock.mockResolvedValueOnce([null, unauthorizedError])
-    const { result } = renderHook(useFeeEstimate, {
-      wrapper: QueryClientWrapper,
-    })
+    const { result } = renderHook(useFeeEstimate, { wrapper })
     expect(result.current).toEqual({
       estimatedFees: placeholderFees,
       isLoading: true,

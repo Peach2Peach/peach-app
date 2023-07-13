@@ -22,23 +22,23 @@ describe('Footer', () => {
   const setCurrentPageMock = jest.fn()
   const renderer = createRenderer()
   it('should render a Footer', () => {
-    renderer.render(<Footer active="buy" setCurrentPage={setCurrentPageMock} />)
+    renderer.render(<Footer currentPage="buy" setCurrentPage={setCurrentPageMock} />)
     const result = renderer.getRenderOutput()
     expect(result).toMatchSnapshot()
   })
   it('should render a Footer with inverted theme', () => {
-    renderer.render(<Footer active="buy" setCurrentPage={setCurrentPageMock} theme="inverted" />)
+    renderer.render(<Footer currentPage="buy" setCurrentPage={setCurrentPageMock} theme="inverted" />)
     const result = renderer.getRenderOutput()
     expect(result).toMatchSnapshot()
   })
   it('should not render a Footer with keyboard open', () => {
     useKeyboardMock.mockReturnValueOnce(true)
-    renderer.render(<Footer active="buy" setCurrentPage={setCurrentPageMock} theme="inverted" />)
+    renderer.render(<Footer currentPage="buy" setCurrentPage={setCurrentPageMock} theme="inverted" />)
     const result = renderer.getRenderOutput()
     expect(result).toMatchSnapshot()
   })
   it('should render correctly on the premium page', () => {
-    renderer.render(<Footer active="premium" setCurrentPage={setCurrentPageMock} />)
+    renderer.render(<Footer currentPage="premium" setCurrentPage={setCurrentPageMock} />)
     const result = renderer.getRenderOutput()
     expect(result).toMatchSnapshot()
   })

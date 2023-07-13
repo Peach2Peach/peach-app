@@ -1,32 +1,24 @@
 import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
+import { getSelectedPaymentDataIds } from '../../utils/account'
 import { createStorage, toZustandStorage } from '../../utils/storage'
 import {
-  validatePaymentMethods,
-  getPreferredMethods,
   getHashedPaymentData,
-  getOriginalPaymentData,
   getMeansOfPayment,
+  getOriginalPaymentData,
+  getPreferredMethods,
+  validatePaymentMethods,
 } from './helpers'
-import { enforcePremiumFormat } from '../../views/sell/helpers/enforcePremiumFormat'
-import { getSelectedPaymentDataIds } from '../../utils/account'
 
 export type OfferPreferences = {
   buyAmountRange: [number, number]
   sellAmount: number
   premium: number
   meansOfPayment: MeansOfPayment
-  paymentData: Partial<
-    Record<
-      PaymentMethod,
-      {
-        hash: string
-        country?: PaymentMethodCountry
-      }
-    >
-  >
+  paymentData: OfferPaymentData
   preferredPaymentMethods: Partial<Record<PaymentMethod, string>>
   originalPaymentData: PaymentData[]
+  preferredCurrenyType: 'europe' | 'latinAmerica' | 'other'
 }
 
 export const defaultPreferences: OfferPreferences = {
@@ -37,6 +29,7 @@ export const defaultPreferences: OfferPreferences = {
   paymentData: {},
   preferredPaymentMethods: {},
   originalPaymentData: [],
+  preferredCurrenyType: 'europe',
 }
 
 type OfferPreferencesState = OfferPreferences & {
@@ -54,6 +47,7 @@ type OfferPreferencesActions = {
   setPremium: (newPremium: number, isValid?: boolean) => void
   setPaymentMethods: (ids: string[]) => void
   selectPaymentMethod: (id: string) => void
+  setPreferredCurrencyType: (preferredCurrenyType: 'europe' | 'latinAmerica' | 'other') => void
 }
 
 type OfferPreferencesStore = OfferPreferencesState & OfferPreferencesActions
@@ -62,7 +56,6 @@ const offerPreferences = createStorage('offerPreferences')
 
 export const useOfferPreferences = create<OfferPreferencesStore>()(
   persist(
-    // eslint-disable-next-line max-lines-per-function
     (set, get) => ({
       ...defaultPreferences,
       canContinue: {
@@ -95,7 +88,7 @@ export const useOfferPreferences = create<OfferPreferencesStore>()(
       },
       setPremium: (newPremium, isValid) => {
         set((state) => ({
-          premium: Number(enforcePremiumFormat(newPremium)),
+          premium: newPremium,
           canContinue: {
             ...state.canContinue,
             premium: isValid ?? state.canContinue.premium,
@@ -104,11 +97,8 @@ export const useOfferPreferences = create<OfferPreferencesStore>()(
       },
       setPaymentMethods: (ids) => {
         const preferredPaymentMethods = getPreferredMethods(ids)
-
         const originalPaymentData = getOriginalPaymentData(preferredPaymentMethods)
-
         const meansOfPayment = getMeansOfPayment(originalPaymentData)
-
         const paymentData = getHashedPaymentData(originalPaymentData)
 
         const newPreferences = {
@@ -134,8 +124,8 @@ export const useOfferPreferences = create<OfferPreferencesStore>()(
           get().setPaymentMethods([...selectedPaymentDataIds, id])
         }
       },
+      setPreferredCurrencyType: (preferredCurrenyType) => set({ preferredCurrenyType }),
     }),
-
     {
       name: 'offerPreferences',
       version: 0,

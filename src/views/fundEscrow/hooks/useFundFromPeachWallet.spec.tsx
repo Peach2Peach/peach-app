@@ -1,11 +1,11 @@
 import { renderHook } from '@testing-library/react-native'
 import { act } from 'react-test-renderer'
 import { estimatedFees } from '../../../../tests/unit/data/bitcoinNetworkData'
-import { broadcastError, insufficientFunds } from '../../../../tests/unit/data/errors'
+import { transactionError, insufficientFunds } from '../../../../tests/unit/data/errors'
 import { sellOffer } from '../../../../tests/unit/data/offerData'
 import { getTransactionDetails } from '../../../../tests/unit/helpers/getTransactionDetails'
 import { Loading } from '../../../components'
-import { configStore } from '../../../store/configStore'
+import { useConfigStore } from '../../../store/configStore'
 import { usePopupStore } from '../../../store/usePopupStore'
 import tw from '../../../styles/tailwind'
 import { defaultFundingStatus } from '../../../utils/offer/constants'
@@ -39,7 +39,7 @@ describe('useFundFromPeachWallet', () => {
   const initialProps = { offer: offerWithEscrow, fundingStatus: defaultFundingStatus }
 
   beforeAll(() => {
-    configStore.getState().setMinTradingAmount(minTradingAmount)
+    useConfigStore.getState().setMinTradingAmount(minTradingAmount)
   })
   beforeEach(() => {
     // @ts-ignore
@@ -137,7 +137,7 @@ describe('useFundFromPeachWallet', () => {
     const txDetails = getTransactionDetails(amount, feeRate)
     peachWallet.balance = amount
     peachWallet.finishTransaction = jest.fn().mockResolvedValue(txDetails)
-    peachWallet.signAndBroadcastTransaction = jest.fn().mockResolvedValue(txDetails)
+    peachWallet.signAndBroadcastPSBT = jest.fn().mockResolvedValue(txDetails.psbt)
 
     const { result } = renderHook(useFundFromPeachWallet, { initialProps })
 
@@ -161,14 +161,14 @@ describe('useFundFromPeachWallet', () => {
       await promise
     })
 
-    expect(peachWallet.signAndBroadcastTransaction).toHaveBeenCalledWith(txDetails)
+    expect(peachWallet.signAndBroadcastPSBT).toHaveBeenCalledWith(txDetails.psbt)
     expect(usePopupStore.getState().visible).toBeFalsy()
     expect(result.current.fundedFromPeachWallet).toBeTruthy()
   })
   it('should handle broadcast errors', async () => {
     peachWallet.balance = amount
-    peachWallet.signAndBroadcastTransaction = jest.fn().mockImplementation(() => {
-      throw broadcastError
+    peachWallet.signAndBroadcastPSBT = jest.fn().mockImplementation(() => {
+      throw transactionError
     })
 
     const { result } = renderHook(useFundFromPeachWallet, { initialProps })
@@ -217,7 +217,7 @@ describe('useFundFromPeachWallet', () => {
       if (call === 1) throw insufficientFunds
       return txDetails
     })
-    peachWallet.signAndBroadcastTransaction = jest.fn().mockResolvedValue(txDetails)
+    peachWallet.signAndBroadcastPSBT = jest.fn().mockResolvedValue(txDetails.psbt)
 
     const { result } = renderHook(useFundFromPeachWallet, { initialProps })
 
@@ -241,7 +241,7 @@ describe('useFundFromPeachWallet', () => {
       await promise
     })
 
-    expect(peachWallet.signAndBroadcastTransaction).toHaveBeenCalledWith(txDetails)
+    expect(peachWallet.signAndBroadcastPSBT).toHaveBeenCalledWith(txDetails.psbt)
     expect(usePopupStore.getState().visible).toBeFalsy()
     expect(result.current.fundedFromPeachWallet).toBeTruthy()
   })
