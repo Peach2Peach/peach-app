@@ -66,8 +66,8 @@ export const SummaryItem = ({
           )}
           {shouldBlur && <BlurView style={tw`absolute h-full -left-2 -right-2`} blurType="light" blurAmount={3} />}
 
-          {!shouldBlur &&
-            (isEscrow ? (
+          {!shouldBlur
+            && (isEscrow ? (
               <Icon id="externalLink" style={[tw`w-4 h-4`, tw.md`w-5 h-5`]} color={tw`text-primary-main`.color} />
             ) : (
               !!icon && !isDisputeActive && isAvailable && icon
