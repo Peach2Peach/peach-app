@@ -47,6 +47,7 @@ exports[`SummaryItem renders correctly 1`] = `
       style={
         [
           {
+            "flexShrink": 1,
             "fontFamily": "Baloo2-SemiBold",
             "fontSize": 14,
             "letterSpacing": 0.14,
@@ -122,6 +123,7 @@ exports[`SummaryItem renders correctly for active dispute 1`] = `
       style={
         [
           {
+            "flexShrink": 1,
             "fontFamily": "Baloo2-SemiBold",
             "fontSize": 14,
             "letterSpacing": 0.14,
@@ -338,6 +340,7 @@ exports[`SummaryItem renders correctly for escrow 1`] = `
         style={
           [
             {
+              "flexShrink": 1,
               "fontFamily": "Baloo2-SemiBold",
               "fontSize": 14,
               "letterSpacing": 0.14,
@@ -467,6 +470,7 @@ exports[`SummaryItem renders correctly for not available 1`] = `
       style={
         [
           {
+            "flexShrink": 1,
             "fontFamily": "Baloo2-SemiBold",
             "fontSize": 14,
             "letterSpacing": 0.14,
@@ -544,6 +548,7 @@ exports[`SummaryItem renders correctly for not available and active dispute 1`] 
       style={
         [
           {
+            "flexShrink": 1,
             "fontFamily": "Baloo2-SemiBold",
             "fontSize": 14,
             "letterSpacing": 0.14,
@@ -621,6 +626,7 @@ exports[`SummaryItem renders correctly for should blur 1`] = `
       style={
         [
           {
+            "flexShrink": 1,
             "fontFamily": "Baloo2-SemiBold",
             "fontSize": 14,
             "letterSpacing": 0.14,

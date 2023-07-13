@@ -4,7 +4,7 @@ import { useRoute } from '../../../hooks'
 import { useOfferDetails } from '../../../hooks/query/useOfferDetails'
 import { unique } from '../../../utils/array'
 import { saveOffer } from '../../../utils/offer'
-import { useOfferMatches } from '../../../views/search/hooks/useOfferMatches'
+import { useOfferMatches } from '../../../views/search/hooks'
 import { useMatchStore } from '../store'
 
 export const useMatchesSetup = () => {

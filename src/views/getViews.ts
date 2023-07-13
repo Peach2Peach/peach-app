@@ -25,11 +25,12 @@ import Referrals from './referrals/Referrals'
 import { Report } from './report/Report'
 import RestoreBackup from './restoreBackup/RestoreBackup'
 import RestoreReputation from './restoreReputation/RestoreReputation'
+import { EditPremium } from './search/EditPremium'
 import OfferPublished from './search/OfferPublished'
 import Search from './search/Search'
 import SelectWallet from './selectWallet/SelectWallet'
 import SetRefundWallet from './selectWallet/SetRefundWallet'
-import { Premium } from './sell/Premium'
+import { OfferPreferencePremium } from './sell/OfferPreferencePremium'
 import Sell from './sell/Sell'
 import { SellSummary } from './sell/SellSummary'
 import AboutPeach from './settings/aboutPeach/AboutPeach'
@@ -108,7 +109,7 @@ const buyFlow: ViewType[] = [
 
 const sellFlow: ViewType[] = [
   { name: 'sell', component: Sell, ...defaultConfig, animationEnabled: false },
-  { name: 'premium', component: Premium, ...defaultConfig },
+  { name: 'premium', component: OfferPreferencePremium, ...defaultConfig },
   { name: 'sellPreferences', component: PaymentMethods, ...defaultConfig },
   { name: 'sellSummary', component: SellSummary, ...defaultConfig },
   { name: 'fundEscrow', component: FundEscrow, ...defaultConfig },
@@ -117,7 +118,10 @@ const sellFlow: ViewType[] = [
   { name: 'setRefundWallet', component: SetRefundWallet, ...defaultConfig },
 ]
 
-const search: ViewType[] = [{ name: 'search', component: Search, ...defaultConfig }]
+const search: ViewType[] = [
+  { name: 'search', component: Search, ...defaultConfig },
+  { name: 'editPremium', component: EditPremium, ...defaultConfig },
+]
 
 const trade: ViewType[] = [
   { name: 'contract', component: Contract, ...defaultConfig },

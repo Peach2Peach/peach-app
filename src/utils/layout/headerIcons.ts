@@ -12,4 +12,5 @@ export const headerIcons: Record<string, Omit<HeaderIcon, 'onPress'>> = {
   list: { id: 'yourTrades', color: tw`text-black-2`.color },
   wallet: { id: 'wallet', color: tw`text-black-2`.color },
   warning: { id: 'alertOctagon', color: tw`text-error-main`.color },
+  percent: { id: 'percent', color: tw`text-primary-main`.color },
 }

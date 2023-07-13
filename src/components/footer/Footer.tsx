@@ -7,19 +7,18 @@ import { footerThemes } from './footerThemes'
 import { useFooterSetup } from './hooks/useFooterSetup'
 
 type Props = ComponentProps & {
-  active: keyof RootStackParamList
+  currentPage: keyof RootStackParamList
   setCurrentPage: Dispatch<SetStateAction<keyof RootStackParamList | undefined>>
   theme?: 'default' | 'inverted'
 }
 
-// eslint-disable-next-line max-len
 const isSettings
   = /settings|contact|report|language|currency|backup|paymentMethods|deleteAccount|fees|socials|seedWords/u
 const isWallet = /wallet|transactionHistory|transactionDetails/u
 const isBuy = /buy|buyPreferences|home/u
 const isSell = /sell|premium|sellPreferences/u
 
-export const Footer = ({ active, style, setCurrentPage, theme = 'default' }: Props) => {
+export const Footer = ({ currentPage, style, setCurrentPage, theme = 'default' }: Props) => {
   const { navigate, notifications } = useFooterSetup({ setCurrentPage })
   const keyboardOpen = useKeyboard()
   const colors = footerThemes[theme]
@@ -30,17 +29,17 @@ export const Footer = ({ active, style, setCurrentPage, theme = 'default' }: Pro
     <View style={[tw`flex-row items-start w-full`, style]}>
       <View style={tw`relative flex-grow`}>
         <View style={[tw`flex-row items-center justify-between px-2 py-4`, colors.bg]}>
-          <FooterItem theme={theme} id="buy" active={isBuy.test(active as string)} onPress={navigate.buy} />
-          <FooterItem theme={theme} id="sell" active={isSell.test(active as string)} onPress={navigate.sell} />
-          <FooterItem theme={theme} id="wallet" active={isWallet.test(active)} onPress={navigate.wallet} />
+          <FooterItem theme={theme} id="buy" active={isBuy.test(currentPage)} onPress={navigate.buy} />
+          <FooterItem theme={theme} id="sell" active={isSell.test(currentPage)} onPress={navigate.sell} />
+          <FooterItem theme={theme} id="wallet" active={isWallet.test(currentPage)} onPress={navigate.wallet} />
           <FooterItem
             theme={theme}
             id="yourTrades"
-            active={active === 'yourTrades' || /contract/u.test(active)}
+            active={currentPage === 'yourTrades' || /contract/u.test(currentPage)}
             onPress={navigate.yourTrades}
             notifications={notifications}
           />
-          <FooterItem theme={theme} id="settings" active={isSettings.test(active)} onPress={navigate.settings} />
+          <FooterItem theme={theme} id="settings" active={isSettings.test(currentPage)} onPress={navigate.settings} />
         </View>
       </View>
     </View>

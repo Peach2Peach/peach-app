@@ -4,7 +4,7 @@ import tw from '../../styles/tailwind'
 
 import { Matches, PeachScrollView } from '../../components'
 import { MatchInformation, NoMatchesYet } from './components'
-import { useSearchSetup } from './hooks/useSearchSetup'
+import { useSearchSetup } from './hooks'
 import { DailyTradingLimit } from '../settings/profile/DailyTradingLimit'
 import { isSellOffer } from '../../utils/offer'
 

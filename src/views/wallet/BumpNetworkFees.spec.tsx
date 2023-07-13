@@ -57,7 +57,7 @@ describe('BumpNetworkFees', () => {
   it('renders correctly when new fee is valid', () => {
     useBumpNetworkFeesSetupMock.mockReturnValueOnce({
       ...bumpNetworkFeesSetupReturnValue,
-      newFeeRate: 20,
+      newFeeRate: '20',
       newFeeRateIsValid: true,
     })
     renderer.render(<BumpNetworkFees />)
@@ -66,7 +66,7 @@ describe('BumpNetworkFees', () => {
   it('renders correctly when new fee is invalid', () => {
     useBumpNetworkFeesSetupMock.mockReturnValueOnce({
       ...bumpNetworkFeesSetupReturnValue,
-      newFeeRate: 1,
+      newFeeRate: '1',
       newFeeRateIsValid: false,
     })
     renderer.render(<BumpNetworkFees />)
@@ -75,7 +75,7 @@ describe('BumpNetworkFees', () => {
   it('renders correctly when user would be overpaying by at least 100%', () => {
     useBumpNetworkFeesSetupMock.mockReturnValueOnce({
       ...bumpNetworkFeesSetupReturnValue,
-      newFeeRate: bumpNetworkFeesSetupReturnValue.currentFee * 3,
+      newFeeRate: String(bumpNetworkFeesSetupReturnValue.currentFee * 3),
       overpayingBy: 2,
       newFeeRateIsValid: true,
     })
@@ -86,7 +86,7 @@ describe('BumpNetworkFees', () => {
     const newFeeRate = 20
     useBumpNetworkFeesSetupMock.mockReturnValueOnce({
       ...bumpNetworkFeesSetupReturnValue,
-      newFeeRate: bumpNetworkFeesSetupReturnValue.currentFee * 3,
+      newFeeRate: String(bumpNetworkFeesSetupReturnValue.currentFee * 3),
       newFeeRateIsValid: true,
     })
     const { getByPlaceholderText } = render(<BumpNetworkFees />)
@@ -96,7 +96,7 @@ describe('BumpNetworkFees', () => {
   it('calls bump fees', () => {
     useBumpNetworkFeesSetupMock.mockReturnValueOnce({
       ...bumpNetworkFeesSetupReturnValue,
-      newFeeRate: 20,
+      newFeeRate: '20',
       newFeeRateIsValid: true,
     })
     const { getByText } = render(<BumpNetworkFees />)
