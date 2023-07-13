@@ -18,6 +18,14 @@ describe('hashPaymentData', () => {
       },
     ])
   })
+  it('does not hash empty data', () => {
+    expect(
+      hashPaymentData({
+        ...twintData,
+        phone: '',
+      }),
+    ).toEqual([])
+  })
   it('does not hash irrelevant data', () => {
     expect(hashPaymentData({ id: 'test', label: 'label', type: 'sepa', currencies: ['EUR'] })).toEqual([])
   })
