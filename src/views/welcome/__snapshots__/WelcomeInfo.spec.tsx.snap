@@ -1,0 +1,281 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WelcomeInfo - aWalletYouControl renders correctly 1`] = `
+<View
+  style={
+    {
+      "alignItems": "center",
+      "display": "flex",
+      "flexDirection": "column",
+      "height": "100%",
+      "justifyContent": "center",
+    }
+  }
+>
+  <Text
+    allowFontScaling={false}
+    style={
+      [
+        {
+          "color": "#2B1911",
+          "fontFamily": "Baloo2-Regular",
+          "fontSize": 16,
+          "letterSpacing": 0.16,
+          "lineHeight": 24,
+        },
+        {
+          "color": "#FFFCFA",
+          "fontFamily": "Baloo2-Bold",
+          "fontSize": 24,
+          "letterSpacing": 0.24,
+          "lineHeight": 32,
+          "textAlign": "center",
+        },
+      ]
+    }
+  >
+    a wallet you control
+  </Text>
+  <Text
+    allowFontScaling={false}
+    style={
+      [
+        {
+          "color": "#2B1911",
+          "fontFamily": "Baloo2-Regular",
+          "fontSize": 16,
+          "letterSpacing": 0.16,
+          "lineHeight": 24,
+        },
+        {
+          "color": "#FFFCFA",
+          "marginTop": 16,
+          "textAlign": "center",
+        },
+      ]
+    }
+  >
+    Peach has a built-in wallet, so you can get started right away. No third-party apps required!
+  </Text>
+  <Image
+    resizeMode="contain"
+    source="test-file-stub"
+    style={
+      {
+        "height": 525,
+        "width": 750,
+      }
+    }
+  />
+</View>
+`;
+
+exports[`WelcomeInfo - peachOfMind renders correctly 1`] = `
+<View
+  style={
+    {
+      "alignItems": "center",
+      "display": "flex",
+      "flexDirection": "column",
+      "height": "100%",
+      "justifyContent": "center",
+    }
+  }
+>
+  <Text
+    allowFontScaling={false}
+    style={
+      [
+        {
+          "color": "#2B1911",
+          "fontFamily": "Baloo2-Regular",
+          "fontSize": 16,
+          "letterSpacing": 0.16,
+          "lineHeight": 24,
+        },
+        {
+          "color": "#FFFCFA",
+          "fontFamily": "Baloo2-Bold",
+          "fontSize": 24,
+          "letterSpacing": 0.24,
+          "lineHeight": 32,
+          "textAlign": "center",
+        },
+      ]
+    }
+  >
+    Peach of mind
+  </Text>
+  <Text
+    allowFontScaling={false}
+    style={
+      [
+        {
+          "color": "#2B1911",
+          "fontFamily": "Baloo2-Regular",
+          "fontSize": 16,
+          "letterSpacing": 0.16,
+          "lineHeight": 24,
+        },
+        {
+          "color": "#FFFCFA",
+          "marginTop": 16,
+          "textAlign": "center",
+        },
+      ]
+    }
+  >
+    We'll guarantee you get your part of the deal thanks to our advanced escrow and in-app support.
+  </Text>
+  <Image
+    resizeMode="contain"
+    source="test-file-stub"
+    style={
+      {
+        "height": 525,
+        "width": 750,
+      }
+    }
+  />
+</View>
+`;
+
+exports[`WelcomeInfo - peerToPeer renders correctly 1`] = `
+<View
+  style={
+    {
+      "alignItems": "center",
+      "display": "flex",
+      "flexDirection": "column",
+      "height": "100%",
+      "justifyContent": "center",
+    }
+  }
+>
+  <Text
+    allowFontScaling={false}
+    style={
+      [
+        {
+          "color": "#2B1911",
+          "fontFamily": "Baloo2-Regular",
+          "fontSize": 16,
+          "letterSpacing": 0.16,
+          "lineHeight": 24,
+        },
+        {
+          "color": "#FFFCFA",
+          "fontFamily": "Baloo2-Bold",
+          "fontSize": 24,
+          "letterSpacing": 0.24,
+          "lineHeight": 32,
+          "textAlign": "center",
+        },
+      ]
+    }
+  >
+    peer-to-peer
+  </Text>
+  <Text
+    allowFontScaling={false}
+    style={
+      [
+        {
+          "color": "#2B1911",
+          "fontFamily": "Baloo2-Regular",
+          "fontSize": 16,
+          "letterSpacing": 0.16,
+          "lineHeight": 24,
+        },
+        {
+          "color": "#FFFCFA",
+          "marginTop": 16,
+          "textAlign": "center",
+        },
+      ]
+    }
+  >
+    With Peach, you don't buy from us, but from other people. It's like a marketplace for bitcoin!
+  </Text>
+  <Image
+    resizeMode="contain"
+    source="test-file-stub"
+    style={
+      {
+        "height": 525,
+        "width": 750,
+      }
+    }
+  />
+</View>
+`;
+
+exports[`WelcomeInfo - privacyFirst renders correctly 1`] = `
+<View
+  style={
+    {
+      "alignItems": "center",
+      "display": "flex",
+      "flexDirection": "column",
+      "height": "100%",
+      "justifyContent": "center",
+    }
+  }
+>
+  <Text
+    allowFontScaling={false}
+    style={
+      [
+        {
+          "color": "#2B1911",
+          "fontFamily": "Baloo2-Regular",
+          "fontSize": 16,
+          "letterSpacing": 0.16,
+          "lineHeight": 24,
+        },
+        {
+          "color": "#FFFCFA",
+          "fontFamily": "Baloo2-Bold",
+          "fontSize": 24,
+          "letterSpacing": 0.24,
+          "lineHeight": 32,
+          "textAlign": "center",
+        },
+      ]
+    }
+  >
+    privacy first
+  </Text>
+  <Text
+    allowFontScaling={false}
+    style={
+      [
+        {
+          "color": "#2B1911",
+          "fontFamily": "Baloo2-Regular",
+          "fontSize": 16,
+          "letterSpacing": 0.16,
+          "lineHeight": 24,
+        },
+        {
+          "color": "#FFFCFA",
+          "marginTop": 16,
+          "textAlign": "center",
+        },
+      ]
+    }
+  >
+    Your data is stored on your phone and is fully encrypted... We don't even want to know who you are.
+  </Text>
+  <Image
+    resizeMode="contain"
+    source="test-file-stub"
+    style={
+      {
+        "height": 525,
+        "width": 750,
+      }
+    }
+  />
+</View>
+`;

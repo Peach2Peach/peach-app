@@ -880,7 +880,6 @@
   "restoreBackup.restoreFromFile": "restaurer à partir du fichier",
   "restoreBackup.restoreFromSeed": "restaurer à partir de la phrase de récupération",
   "restoreBackup.restoreReputation": "restaurer la réputation",
-  "restoreBackup.restored.description.1": "Nous avons restauré votre sauvegarde. Poursuivons votre voyage en pair à pair !",
   "restoreBackup.restoringBackup": "restauration de la sauvegarde",
   "restoreBackup.restoringReputation": "restauration de la réputation",
   "restoreBackup.seedPhrase.enter": "saisissez votre phrase de récupération",
