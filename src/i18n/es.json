@@ -880,7 +880,6 @@
   "restoreBackup.restoreFromFile": "restablecer desde un fichero",
   "restoreBackup.restoreFromSeed": "restablecer desde semilla",
   "restoreBackup.restoreReputation": "restablecer reputación",
-  "restoreBackup.restored.description.1": "Hemos restaurado tu copia de seguridad. ¡Continuemos tu viaje de igual a igual!",
   "restoreBackup.restoringBackup": "restaurando copia de seguridad",
   "restoreBackup.restoringReputation": "restableciendo reputación",
   "restoreBackup.seedPhrase.enter": "ingresa tu frase semilla",

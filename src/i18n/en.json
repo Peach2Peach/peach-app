@@ -880,7 +880,6 @@
   "restoreBackup.restoreFromFile": "restore from file",
   "restoreBackup.restoreFromSeed": "restore from seed",
   "restoreBackup.restoreReputation": "restore reputation",
-  "restoreBackup.restored.description.1": "We restored your backup. Let's continue your Peer to Peer journey!",
   "restoreBackup.restoringBackup": "restoring backup",
   "restoreBackup.restoringReputation": "restoring reputation",
   "restoreBackup.seedPhrase.enter": "enter your seed phrase",
