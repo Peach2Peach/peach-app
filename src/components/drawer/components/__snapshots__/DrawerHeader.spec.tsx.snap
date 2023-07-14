@@ -32,7 +32,7 @@ exports[`DrawerHeader renders correctly 1`] = `
     style={
       [
         {
-          "alignItems": "stretch",
+          "alignSelf": "stretch",
           "backgroundColor": "#EAE3DF",
           "height": 1,
         },
@@ -75,7 +75,7 @@ exports[`DrawerHeader renders correctly when the first option is highlighted 1`]
     style={
       [
         {
-          "alignItems": "stretch",
+          "alignSelf": "stretch",
           "backgroundColor": "#EAE3DF",
           "height": 1,
         },
