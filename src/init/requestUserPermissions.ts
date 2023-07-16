@@ -5,7 +5,7 @@ import { deleteFile, exists, readFile } from '../utils/file'
 import { error, info } from '../utils/log'
 import { parseError } from '../utils/result'
 
-export default async () => {
+export const requestUserPermissions = async () => {
   info('Requesting notification permissions')
 
   try {

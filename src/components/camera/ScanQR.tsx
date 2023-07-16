@@ -1,6 +1,6 @@
 import { Modal, TouchableOpacity, View, SafeAreaView } from 'react-native'
 import { BarCodeReadEvent } from 'react-native-camera'
-import QRCodeScanner from './CustomQRCodeScanner'
+import { QRCodeScanner } from './CustomQRCodeScanner'
 import Svg, { Defs, Mask, Rect } from 'react-native-svg'
 import { Icon, Text } from '..'
 import tw from '../../styles/tailwind'
@@ -50,5 +50,3 @@ export const ScanQR = ({ onSuccess, onCancel }: ScanQRProps) => {
     </Modal>
   )
 }
-
-export default ScanQR

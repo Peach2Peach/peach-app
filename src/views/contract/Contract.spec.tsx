@@ -1,4 +1,4 @@
-import Contract from './Contract'
+import { Contract } from './Contract'
 import { createRenderer } from 'react-test-renderer/shallow'
 
 const defaultReturnValue = {

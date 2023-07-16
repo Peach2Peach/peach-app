@@ -1,6 +1,6 @@
 import { fireEvent, render } from '@testing-library/react-native'
 import { NavigationWrapper, goBackMock, replaceMock } from '../../../tests/unit/helpers/NavigationWrapper'
-import OfferPublished from './OfferPublished'
+import { OfferPublished } from './OfferPublished'
 
 const offerId = '123'
 const useRouteMock = jest.fn().mockReturnValue({ params: { offerId, isSellOffer: false, shouldGoBack: false } })

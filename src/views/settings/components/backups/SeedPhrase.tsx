@@ -20,7 +20,7 @@ export const screens = [
   { id: 'keepPhraseSecure', view: KeepPhraseSecure, buttonText: 'finish' },
 ]
 
-export default ({ style }: ComponentProps) => {
+export const SeedPhrase = ({ style }: ComponentProps) => {
   const { checked, toggleChecked, showNextScreen, currentScreenIndex, goBackToStart } = useSeedBackupSetup()
 
   const CurrentView = screens[currentScreenIndex].view

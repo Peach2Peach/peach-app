@@ -3,11 +3,7 @@ import { account } from '../utils/account'
 import { info } from '../utils/log'
 import { createWebsocket } from '../utils/peachAPI/websocket'
 
-/**
- * @description Method to initialize web socket
- * @param updatePeachWS update function
- */
-const initWebSocket
+export const initWebSocket
   = (updatePeachWS: Function, updateMessage: Dispatch<MessageState>): EffectCallback =>
     () => {
       if (!account.publicKey) {
@@ -51,5 +47,3 @@ const initWebSocket
         ws.close()
       }
     }
-
-export default initWebSocket

@@ -6,7 +6,7 @@ import { Icon, PrimaryButton, Text } from '../../components'
 import i18n from '../../utils/i18n'
 import { usePaymentMadeSetup } from './hooks/usePaymentMadeSetup'
 
-export default () => {
+export const PaymentMade = () => {
   const { goToTrade, close } = usePaymentMadeSetup()
 
   return (

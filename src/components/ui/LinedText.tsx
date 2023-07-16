@@ -8,5 +8,3 @@ export const LinedText = ({ style, children }: ComponentProps) => (
     <View style={tw`flex-1 h-px ml-2 bg-black-5`} />
   </View>
 )
-
-export default LinedText

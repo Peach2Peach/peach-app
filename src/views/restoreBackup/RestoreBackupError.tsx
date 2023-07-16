@@ -7,11 +7,11 @@ import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { useBackupHeader } from './hooks/useBackupHeader'
 
-type RestoreBackupErrorProps = {
+type Props = {
   err: string
 }
 
-export default ({ err }: RestoreBackupErrorProps) => {
+export const RestoreBackupError = ({ err }: Props) => {
   useBackupHeader()
   const navigation = useNavigation()
   const goToContact = () => navigation.navigate('contact')

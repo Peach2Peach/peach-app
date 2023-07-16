@@ -1,12 +1,12 @@
 import { Text, View } from 'react-native'
 import { OptionButton, PeachScrollView } from '../../components'
-import LinedText from '../../components/ui/LinedText'
+import { LinedText } from '../../components/ui/LinedText'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { ContactButton } from './components/ContactButton'
 import { useContactSetup } from './hooks/useContactSetup'
 
-export default () => {
+export const Contact = () => {
   const { contactReasons, setReason, openTelegram, openDiscord } = useContactSetup()
 
   return (

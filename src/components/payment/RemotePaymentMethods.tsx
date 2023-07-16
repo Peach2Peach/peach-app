@@ -10,7 +10,7 @@ import i18n from '../../utils/i18n'
 import { keys } from '../../utils/object'
 import { getPaymentMethodInfo, isValidPaymentData } from '../../utils/paymentMethod'
 import { isCashTrade } from '../../utils/paymentMethod/isCashTrade'
-import LinedText from '../ui/LinedText'
+import { LinedText } from '../ui/LinedText'
 import { PaymentDataKeyFacts } from './components/PaymentDataKeyFacts'
 import { PaymentDetailsCheckbox } from './PaymentDetailsCheckbox'
 

@@ -69,17 +69,6 @@ export type InputProps = ComponentProps &
     enforceRequired?: boolean
   }
 
-/**
- * @description Component to display an input field
- * @example
- * <Input
- *   onChange={setAddress}
- *   value={address}
- *   label={i18n('form.address.btc')}
- *   autoCorrect={false}
- *   errorMessage={getErrorsInField('address')}
- * />
- */
 // eslint-disable-next-line max-lines-per-function, complexity
 export const Input = ({
   value,
@@ -212,5 +201,3 @@ export const Input = ({
     </View>
   )
 }
-
-export default Input

@@ -10,7 +10,7 @@ const tabContent: Record<string, (props: ComponentProps) => JSX.Element> = {
   seedPhrase: RestoreFromSeed,
 }
 
-export default () => {
+export const RestoreBackup = () => {
   const { tabs, currentTab, setCurrentTab } = useRestoreBackupSetup()
   const CurrentView = tabContent[currentTab.id]
 
