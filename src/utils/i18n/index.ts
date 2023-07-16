@@ -24,7 +24,7 @@ export const setLocaleQuiet = (lcl: Locale) => {
   languageState.locale = lcl
 }
 
-export const i18n = (id: string, ...args: string[]): string => {
+const i18n = (id: string, ...args: string[]): string => {
   const locale = languageState.locale.replace('_', '-')
   let text = localeMapping[locale]?.[id]
 
