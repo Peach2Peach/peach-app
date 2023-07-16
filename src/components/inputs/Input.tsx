@@ -15,7 +15,7 @@ import { Text } from '..'
 import { IconType } from '../../assets/icons'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import Icon from '../Icon'
+import { Icon } from '../Icon'
 
 const themes = {
   default: {

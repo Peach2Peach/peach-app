@@ -1,6 +1,6 @@
 import { Left } from './Left'
 import { fireEvent, render, waitFor } from '@testing-library/react-native'
-import Icon from '../../Icon'
+import { Icon } from '../../Icon'
 import tw from '../../../styles/tailwind'
 import { navigateMock, NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { contract } from '../../../../tests/unit/data/contractData'

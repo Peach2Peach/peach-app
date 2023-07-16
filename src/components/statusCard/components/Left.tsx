@@ -3,7 +3,7 @@ import { useGoToOfferOrContract } from '../../../hooks'
 import tw from '../../../styles/tailwind'
 import { contractIdFromHex, isDisplayContractId } from '../../../utils/contract'
 import { offerIdFromHex } from '../../../utils/offer'
-import Icon from '../../Icon'
+import { Icon } from '../../Icon'
 import { FixedHeightText } from '../../text/FixedHeightText'
 import { StatusCardProps } from '../StatusCard'
 
