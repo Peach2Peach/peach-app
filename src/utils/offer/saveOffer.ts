@@ -27,7 +27,6 @@ export const saveOffer = (offer: SellOffer | BuyOffer, disableSave = false, shie
       if (o.id !== offer.id) return o
 
       if (shield) {
-        if (o.paymentData) offer.paymentData = o.paymentData
         if (isSellOffer(offer)) {
         } else if (isBuyOffer(o) && o.releaseAddress) {
           offer.releaseAddress = o.releaseAddress
