@@ -8,7 +8,7 @@ import { ProfileOverview } from './components'
 
 export const PublicProfile = () => {
   const { user, isLoading } = useCurrentUser()
-  useHeaderSetup({ title: i18n('profile.user.title') })
+  useHeaderSetup(i18n('profile.user.title'))
   if (isLoading || !user) return <></>
 
   return (

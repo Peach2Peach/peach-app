@@ -1,4 +1,3 @@
-import { useMemo } from 'react'
 import { useHeaderSetup, useNavigation, useRoute, useToggleBoolean, useValidatedState } from '../../../hooks'
 import { useShowAppPopup } from '../../../hooks/useShowAppPopup'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
@@ -22,7 +21,7 @@ export const useReportSetup = () => {
 
   const showError = useShowErrorBanner()
 
-  useHeaderSetup(useMemo(() => ({ title: i18n('contact.title') }), []))
+  useHeaderSetup(i18n('contact.title'))
 
   const submit = async () => {
     const isFormValid = isEmailValid && isTopicValid && isMessageValid

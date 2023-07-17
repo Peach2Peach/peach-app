@@ -1,4 +1,3 @@
-import { useMemo } from 'react'
 import { PeachScrollView } from '../../../components'
 import { useHeaderSetup } from '../../../hooks'
 import tw from '../../../styles/tailwind'
@@ -12,7 +11,7 @@ import { TransactionDetails } from './TransactionDetails'
 import { Bubbles } from './Bubbles'
 
 export const TestViewComponents = () => {
-  useHeaderSetup(useMemo(() => ({ title: 'test view - components' }), []))
+  useHeaderSetup('test view - components')
 
   return (
     <PeachScrollView

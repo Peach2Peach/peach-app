@@ -31,9 +31,7 @@ export const useDisputeFormSetup = () => {
 
   const showErrorBanner = useShowErrorBanner()
 
-  useHeaderSetup({
-    title: i18n('dispute.disputeForTrade', contractIdToHex(contractId)),
-  })
+  useHeaderSetup(i18n('dispute.disputeForTrade', contractIdToHex(contractId)))
 
   const submit = async () => {
     Keyboard.dismiss()

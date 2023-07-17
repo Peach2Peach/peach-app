@@ -5,10 +5,8 @@ import { OptionButtons } from './OptionButtons'
 import { PrimaryButtons } from './PrimaryButtons'
 import { WarningButtons } from './WarningButtons'
 
-const headerConfig = { title: 'test view - buttons' }
-
 export const TestViewButtons = () => {
-  useHeaderSetup(headerConfig)
+  useHeaderSetup('test view - buttons')
   return (
     <PeachScrollView
       style={tw`h-full bg-primary-mild-1`}

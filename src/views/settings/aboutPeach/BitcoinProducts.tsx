@@ -7,7 +7,7 @@ import i18n from '../../../utils/i18n'
 import { goToShiftCrypto } from '../../../utils/web'
 
 export const BitcoinProducts = () => {
-  useHeaderSetup({ title: i18n('settings.bitcoinProducts') })
+  useHeaderSetup(i18n('settings.bitcoinProducts'))
 
   return (
     <View style={tw`justify-center flex-grow p-8`}>

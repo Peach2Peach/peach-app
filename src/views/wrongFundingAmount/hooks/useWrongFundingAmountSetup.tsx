@@ -7,9 +7,7 @@ export const useWrongFundingAmountSetup = () => {
   const { offer } = useOfferDetails(offerId)
   const sellOffer = offer && isSellOffer(offer) ? offer : undefined
 
-  useHeaderSetup({
-    title: offerIdToHex(offerId),
-  })
+  useHeaderSetup(offerIdToHex(offerId))
 
   return { sellOffer }
 }

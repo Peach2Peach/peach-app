@@ -296,7 +296,7 @@ const useFakePNs = () => {
 }
 
 export const TestViewPNs = () => {
-  useHeaderSetup(useMemo(() => ({ title: 'test view - pns' }), []))
+  useHeaderSetup('test view - pns')
   const messageHandler = useMessageHandler('testViewPNs')
   const { fakeOfferPNs, fakeContractPNs } = useFakePNs()
   const tabs = [

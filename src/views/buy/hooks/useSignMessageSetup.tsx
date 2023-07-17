@@ -23,15 +23,10 @@ export const useSignMessageSetup = () => {
   )
   const [signature, setSignature, signatureValid, signatureError] = useValidatedState<string>('', signatureRules)
   const showHelp = useShowHelp('addressSigning')
-  useHeaderSetup(
-    useMemo(
-      () => ({
-        title: i18n('buy.addressSigning.title'),
-        icons: [{ ...headerIcons.help, onPress: showHelp }],
-      }),
-      [showHelp],
-    ),
-  )
+  useHeaderSetup({
+    title: i18n('buy.addressSigning.title'),
+    icons: [{ ...headerIcons.help, onPress: showHelp }],
+  })
 
   const submit = (sig: string) => {
     setPayoutAddressSignature(sig)
