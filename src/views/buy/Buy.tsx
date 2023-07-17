@@ -1,6 +1,6 @@
 import { View } from 'react-native'
 import { shallow } from 'zustand/shallow'
-import { BitcoinPriceStats, HorizontalLine, PrimaryButton } from '../../components'
+import { PrimaryButton } from '../../components'
 import { ProgressDonut } from '../../components/ui'
 import { useNavigation } from '../../hooks'
 import { useSettingsStore } from '../../store/settingsStore'
@@ -29,10 +29,6 @@ export const Buy = () => {
     <LoadingScreen />
   ) : (
     <View style={tw`flex h-full`}>
-      <HorizontalLine style={tw`mx-8`} />
-      <View style={tw`px-8 mt-2`}>
-        <BitcoinPriceStats />
-      </View>
       <BuyAmountSelector style={tw`mt-4 mb-2`} />
       <View style={[tw`flex-row items-center justify-center mt-4 mb-1`, tw.md`mb-4`]}>
         {freeTrades > 0 && (

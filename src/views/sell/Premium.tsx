@@ -1,5 +1,5 @@
 import { View } from 'react-native'
-import { BitcoinPriceStats, HorizontalLine, PremiumSlider, Text } from '../../components'
+import { PremiumSlider, Text } from '../../components'
 import { BTCAmount } from '../../components/bitcoin'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
@@ -15,10 +15,6 @@ type Props = {
 
 export const Premium = ({ premium, setPremium, confirmButton, amount, offerPrice }: Props) => (
   <View style={tw`h-full`}>
-    <View style={[tw`px-4`, tw.md`px-8`]}>
-      <HorizontalLine style={tw`mb-2`} />
-      <BitcoinPriceStats />
-    </View>
     <View style={[tw`flex-grow px-4`, tw.md`px-8`]}>
       <View style={tw`items-center justify-center flex-grow`}>
         <View style={tw`items-center self-stretch gap-7`}>

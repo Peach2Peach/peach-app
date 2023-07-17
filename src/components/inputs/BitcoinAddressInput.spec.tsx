@@ -53,7 +53,7 @@ describe('BitcoinAddressInput', () => {
     })
     expect(onChangeMock).toHaveBeenCalledWith('https://peachbitcoin.com')
   })
-  it('shows QR scanner when camera icon is pressed', async () => {
+  it('shows QR scanner when camera icon is pressed', () => {
     const { UNSAFE_getByProps, toJSON } = render(<BitcoinAddressInput value={fullAddress} />)
     const cameraIcon = UNSAFE_getByProps({ id: 'camera' })
 
