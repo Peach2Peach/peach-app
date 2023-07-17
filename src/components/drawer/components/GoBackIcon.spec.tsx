@@ -27,7 +27,7 @@ describe('GoBackIcon', () => {
         content: 'testContent',
         options: [],
         show: true,
-        previousDrawer: {},
+        previousDrawer: undefined,
         onClose: () => {},
       },
     })
@@ -45,7 +45,7 @@ describe('GoBackIcon', () => {
         content: 'testContent',
         options: [],
         show: true,
-        previousDrawer: {},
+        previousDrawer: undefined,
         onClose: () => {},
       },
     })

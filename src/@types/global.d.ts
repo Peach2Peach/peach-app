@@ -108,11 +108,11 @@ declare type DrawerOptionType = {
 
 declare type DrawerState = {
   title: string
-  content: ReactNode | null
+  content?: ReactNode | null
   options: DrawerOptionType[]
   show: boolean
-  previousDrawer: Partial<DrawerState>
-  onClose: () => void
+  previousDrawer?: DrawerState | undefined
+  onClose?: () => void
 }
 declare type BitcoinState = {
   currency: Currency
