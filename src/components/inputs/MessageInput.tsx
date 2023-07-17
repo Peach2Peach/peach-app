@@ -1,6 +1,6 @@
 import { NativeSyntheticEvent, Pressable, TextInput, TextInputEndEditingEventData, View } from 'react-native'
 import tw from '../../styles/tailwind'
-import Icon from '../Icon'
+import { Icon } from '../Icon'
 
 type MessageInputProps = ComponentProps & {
   value?: string

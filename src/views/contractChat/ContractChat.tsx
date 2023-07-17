@@ -4,11 +4,11 @@ import tw from '../../styles/tailwind'
 import { Loading } from '../../components'
 import { MessageInput } from '../../components/inputs/MessageInput'
 import i18n from '../../utils/i18n'
-import ChatBox from './components/ChatBox'
+import { ChatBox } from './components/ChatBox'
 import { useContractChatSetup } from './hooks/useContractChatSetup'
 import { isChatActive } from './utils/isChatActive'
 
-export default () => {
+export const ContractChat = () => {
   const { contract, tradingPartner, connected, onChangeMessage, submit, disableSend, newMessage, ...chatboxProps }
     = useContractChatSetup()
 

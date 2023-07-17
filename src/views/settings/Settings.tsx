@@ -8,7 +8,7 @@ import { SettingsItem } from './components/SettingsItem'
 import { VersionInfo } from './components/VersionInfo'
 import { useSettingsSetup } from './hooks/useSettingsSetup'
 
-export default () => {
+export const Settings = () => {
   const settings = useSettingsSetup()
 
   return (

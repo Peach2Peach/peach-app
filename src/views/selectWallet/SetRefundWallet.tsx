@@ -5,7 +5,7 @@ import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { useSetRefundWalletSetup } from './hooks/useSetRefundWalletSetup'
 
-export default () => {
+export const SetRefundWallet = () => {
   const { wallets, peachWalletActive, setSelectedWallet, payoutAddress, goToSetRefundWallet, selectAndContinue }
     = useSetRefundWalletSetup()
 

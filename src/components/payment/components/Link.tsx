@@ -1,7 +1,7 @@
 import { Pressable } from 'react-native'
 import { Text } from '../../text'
 import { openAppLink } from '../../../utils/web'
-import Icon from '../../Icon'
+import { Icon } from '../../Icon'
 import tw from '../../../styles/tailwind'
 
 type Props = { text: string; url: string }

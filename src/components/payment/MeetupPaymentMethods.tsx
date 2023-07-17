@@ -5,7 +5,7 @@ import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { isValidPaymentData } from '../../utils/paymentMethod'
 import { isCashTrade } from '../../utils/paymentMethod/isCashTrade'
-import LinedText from '../ui/LinedText'
+import { LinedText } from '../ui/LinedText'
 import { PaymentDetailsCheckbox } from './PaymentDetailsCheckbox'
 import { PaymentDataKeyFacts } from './components/PaymentDataKeyFacts'
 

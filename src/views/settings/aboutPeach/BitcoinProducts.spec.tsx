@@ -1,7 +1,7 @@
 import { fireEvent, render } from '@testing-library/react-native'
 import { Linking } from 'react-native'
 import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
-import BitcoinProducts from './BitcoinProducts'
+import { BitcoinProducts } from './BitcoinProducts'
 
 jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),

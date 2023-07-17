@@ -1,5 +1,5 @@
 import ShallowRenderer from 'react-test-renderer/shallow'
-import Wallet from './Wallet'
+import { Wallet } from './Wallet'
 
 const useWalletSetupMock = jest.fn()
 jest.mock('./hooks/useWalletSetup', () => ({

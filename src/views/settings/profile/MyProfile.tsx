@@ -11,7 +11,7 @@ import { TradingLimits } from './TradingLimits'
 import { AccountInfo } from './accountInfo/AccountInfo'
 import { DeleteAccountButton } from './deleteAccount/DeleteAccountButton'
 
-export default () => {
+export const MyProfile = () => {
   const { user, isLoading } = useSelfUser()
   const openTradingLimitsPopup = useShowHelp('tradingLimit')
   useHeaderSetup({

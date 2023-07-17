@@ -7,7 +7,7 @@ import { useConfigStore } from '../../../store/configStore'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 
-export default () => {
+export const PeachFees = () => {
   useHeaderSetup(useMemo(() => ({ title: i18n('settings.peachFees') }), []))
   const peachFee = useConfigStore((state) => state.peachFee)
 

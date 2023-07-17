@@ -10,7 +10,7 @@ import { useYourTradesSetup } from './hooks/useYourTradesSetup'
 import { checkMessages } from './utils/checkMessages'
 import { getCategories } from './utils/getCategories'
 
-export default () => {
+export const YourTrades = () => {
   const { openOffers, pastOffers, isLoading, refetch, tabs, currentTab, setCurrentTab } = useYourTradesSetup()
 
   const switchTab = (t: TabbedNavigationItem) => {

@@ -5,9 +5,9 @@ import { FileInput, Input, Text } from '../../components'
 import { PrimaryButton } from '../../components/buttons'
 import i18n from '../../utils/i18n'
 import { useRestoreFromFileSetup } from './hooks/useRestoreFromFileSetup'
-import RestoreBackupError from './RestoreBackupError'
+import { RestoreBackupError } from './RestoreBackupError'
 import { RestoreBackupLoading } from './RestoreBackupLoading'
-import RestoreSuccess from './RestoreSuccess'
+import { RestoreSuccess } from './RestoreSuccess'
 
 export const RestoreFromFile = ({ style }: ComponentProps) => {
   const { restored, error, loading, file, setFile, password, setPassword, passwordError, submit }

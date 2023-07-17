@@ -1,7 +1,7 @@
 import { TextStyle, TouchableOpacity, View, ViewStyle } from 'react-native'
 import { IconType } from '../../../assets/icons'
 import { Icon, Text } from '../../../components'
-import LinedText from '../../../components/ui/LinedText'
+import { LinedText } from '../../../components/ui/LinedText'
 import tw from '../../../styles/tailwind'
 import { account } from '../../../utils/account'
 import { toDateFormat } from '../../../utils/date'

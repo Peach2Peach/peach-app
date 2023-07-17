@@ -7,12 +7,12 @@ import { useSettingsStore } from '../../store/settingsStore'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { BackupReminderIcon } from '../buy/BackupReminderIcon'
-import LoadingScreen from '../loading/LoadingScreen'
+import { LoadingScreen } from '../loading/LoadingScreen'
 import { DailyTradingLimit } from '../settings/profile/DailyTradingLimit'
 import { useSellSetup } from './hooks/useSellSetup'
 import { SellAmountSelector } from './SellAmountSelector'
 
-export default () => {
+export const Sell = () => {
   const navigation = useNavigation()
   useSellSetup({ help: 'sellingBitcoin', hideGoBackButton: true })
 

@@ -4,7 +4,7 @@ import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { useLanguageSetup } from './hooks/useLanguageSetup'
 
-export default () => {
+export const Language = () => {
   const { locale, setLocale, saveLocale } = useLanguageSetup()
 
   return (

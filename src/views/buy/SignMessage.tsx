@@ -7,7 +7,7 @@ import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { useSignMessageSetup } from './hooks/useSignMessageSetup'
 
-export default () => {
+export const SignMessage = () => {
   const { address, message, submit, signature, setSignature, signatureValid, signatureError } = useSignMessageSetup()
 
   const submitSignature = () => submit(signature)

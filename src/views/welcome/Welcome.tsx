@@ -7,17 +7,17 @@ import { useKeyboard } from '../../hooks'
 import { useOnboardingHeader } from '../../hooks/headers/useOnboardingHeader'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import AWalletYouControl from './AWalletYouControl'
-import LetsGetStarted from './LetsGetStarted'
-import PeachOfMind from './PeachOfMind'
-import PeerToPeer from './PeerToPeer'
-import PrivacyFirst from './PrivacyFirst'
+import { AWalletYouControl } from './AWalletYouControl'
+import { LetsGetStarted } from './LetsGetStarted'
+import { PeachOfMind } from './PeachOfMind'
+import { PeerToPeer } from './PeerToPeer'
+import { PrivacyFirst } from './PrivacyFirst'
 
 const onStartShouldSetResponder = () => true
 
 const screens = [PeerToPeer, PeachOfMind, PrivacyFirst, AWalletYouControl, LetsGetStarted]
 
-export default () => {
+export const Welcome = () => {
   useOnboardingHeader({
     title: i18n('welcome.welcomeToPeach.title'),
     hideGoBackButton: true,

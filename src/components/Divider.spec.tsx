@@ -1,6 +1,6 @@
 import { Divider } from './Divider'
 import { createRenderer } from 'react-test-renderer/shallow'
-import Icon from './Icon'
+import { Icon } from './Icon'
 import { mockDimensions } from '../../tests/unit/helpers/mockDimensions'
 
 describe('Divider', () => {

@@ -2,7 +2,7 @@ import { ReactNode } from 'react'
 import { StyleProp, TextStyle, TouchableOpacity, TouchableOpacityProps, ViewStyle } from 'react-native'
 import { IconType } from '../../assets/icons'
 import tw from '../../styles/tailwind'
-import Icon from '../Icon'
+import { Icon } from '../Icon'
 import { Text } from '../text'
 
 export type BubbleBaseProps = {
@@ -34,7 +34,7 @@ export const BubbleBase = ({
     disabled={!pressableProps.onPress}
     style={[
       color,
-      tw`flex-row items-center justify-center h-7 px-2 gap-1`,
+      tw`flex-row items-center justify-center gap-1 px-2 h-7`,
       tw.md`px-[10px]`,
       borderRadius,
       borderColor && [tw`border`, borderColor],
