@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
+import { MSINAMINUTE } from '../../constants'
 import { error } from '../../utils/log'
 import { getOffer, saveOffer } from '../../utils/offer'
 import { getOfferDetails } from '../../utils/peachAPI'
@@ -30,6 +31,7 @@ export const useOfferDetails = (id: string) => {
     queryFn: getOfferQuery,
     initialData: initialOffer,
     initialDataUpdatedAt: initialOffer?.lastModified?.getTime(),
+    staleTime: MSINAMINUTE,
     enabled: !!id,
   })
 
