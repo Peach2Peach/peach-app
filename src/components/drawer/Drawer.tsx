@@ -49,7 +49,7 @@ export const Drawer = () => {
     ]
     Animated.parallel(closeAnimations).start(() => {
       updateDrawer({ show: false })
-      onClose()
+      if (onClose) onClose()
     })
   }, [fadeAnim, onClose, slideAnim, updateDrawer])
 

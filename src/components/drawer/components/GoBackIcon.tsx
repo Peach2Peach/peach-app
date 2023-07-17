@@ -7,15 +7,13 @@ import tw from '../../../styles/tailwind'
 export const GoBackIcon = () => {
   const [{ previousDrawer }, updateDrawer] = useContext(DrawerContext)
   const goBack = () => {
-    updateDrawer(previousDrawer)
+    if (previousDrawer) {
+      updateDrawer(previousDrawer)
+    }
   }
 
   return (
-    <TouchableOpacity
-      onPress={goBack}
-      disabled={!Object.keys(previousDrawer).length}
-      style={!Object.keys(previousDrawer).length && tw`opacity-0`}
-    >
+    <TouchableOpacity onPress={goBack} disabled={!previousDrawer} style={!previousDrawer && tw`opacity-0`}>
       <Icon id="chevronLeft" style={tw`w-6 h-6`} color={tw`text-black-4`.color} />
     </TouchableOpacity>
   )

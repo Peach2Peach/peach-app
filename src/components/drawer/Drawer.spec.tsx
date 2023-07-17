@@ -10,7 +10,7 @@ const defaultState: DrawerState = {
   content: <Text>Drawer content</Text>,
   options: [],
   show: true,
-  previousDrawer: {},
+  previousDrawer: undefined,
   onClose: onCloseMock,
 }
 
@@ -23,18 +23,15 @@ jest.useFakeTimers()
 describe('Drawer', () => {
   const shallowRenderer = createRenderer()
   let drawerState = { ...defaultState }
-  const updateDrawer = jest.fn((newDrawerState: Partial<DrawerState>) => {
-    drawerState = {
-      ...drawerState,
-      ...newDrawerState,
-    }
+  const updateDrawer = jest.fn((newDrawerState: DrawerState) => {
+    drawerState = newDrawerState
   })
   const wrapper = ({ children }: { children: JSX.Element }) => (
     // @ts-ignore  this is because the drawerState has show as false
     <DrawerContext.Provider value={[drawerState, updateDrawer]}>{children}</DrawerContext.Provider>
   )
 
-  afterEach(() => {
+  beforeEach(() => {
     updateDrawer(defaultState)
   })
   it('renders correctly', () => {
@@ -44,6 +41,7 @@ describe('Drawer', () => {
   })
   it('renders correctly with options', () => {
     updateDrawer({
+      ...defaultState,
       options: [
         {
           title: 'option1',
@@ -63,7 +61,9 @@ describe('Drawer', () => {
   })
   it('renders correctly with previous drawer', () => {
     updateDrawer({
+      ...defaultState,
       previousDrawer: {
+        ...defaultState,
         title: 'previousDrawerTitle',
       },
     })

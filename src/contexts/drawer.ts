@@ -5,7 +5,7 @@ export const defaultState: DrawerState = {
   content: null,
   options: [],
   show: false,
-  previousDrawer: {},
+  previousDrawer: undefined,
   onClose: () => {},
 }
 
@@ -19,6 +19,6 @@ export const setDrawer = (state: ReducerState<any>, newState: Partial<DrawerStat
   content: newState.content ?? null,
   options: newState.options ?? [],
   show: newState.show ?? false,
-  previousDrawer: newState.previousDrawer ?? {},
+  previousDrawer: newState.previousDrawer,
   onClose: newState.onClose || (() => {}),
 })
