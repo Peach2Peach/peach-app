@@ -15,4 +15,5 @@ export type PaymentDataHashInfo = {
 export const hashPaymentData = (paymentData: PaymentData): PaymentDataHashInfo[] =>
   getPaymentDataInfoFields(paymentData)
     .filter(({ field }) => fieldCanBeHashed(field))
+    .filter(({ value }) => !!value)
     .map(({ field, value }) => ({ field, value, hash: hashData(value) }))
