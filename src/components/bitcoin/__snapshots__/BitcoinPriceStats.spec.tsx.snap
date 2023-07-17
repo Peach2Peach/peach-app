@@ -4,6 +4,7 @@ exports[`BitcoinPriceStats should render correctly 1`] = `
 <View
   style={
     {
+      "alignSelf": "stretch",
       "flexDirection": "row",
       "justifyContent": "space-between",
     }
@@ -17,7 +18,11 @@ exports[`BitcoinPriceStats should render correctly 1`] = `
           "flexDirection": "row",
           "gap": 8,
         },
-        {},
+        {
+          "alignItems": "flex-start",
+          "flexDirection": "column",
+          "gap": 0,
+        },
       ]
     }
   >
@@ -46,7 +51,12 @@ exports[`BitcoinPriceStats should render correctly 1`] = `
             "letterSpacing": 0.16,
             "lineHeight": 28,
           },
-          {},
+          {
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 20,
+            "letterSpacing": 0.2,
+            "lineHeight": 28,
+          },
         ]
       }
     />
@@ -59,7 +69,11 @@ exports[`BitcoinPriceStats should render correctly 1`] = `
           "flexDirection": "row",
           "gap": 8,
         },
-        {},
+        {
+          "alignItems": "flex-start",
+          "flexDirection": "column",
+          "gap": 0,
+        },
         {},
       ]
     }
@@ -91,7 +105,12 @@ exports[`BitcoinPriceStats should render correctly 1`] = `
             "letterSpacing": 0.16,
             "lineHeight": 28,
           },
-          {},
+          {
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 20,
+            "letterSpacing": 0.2,
+            "lineHeight": 28,
+          },
           {
             "textAlign": "right",
           },
@@ -108,6 +127,7 @@ exports[`BitcoinPriceStats should render correctly if the currency is CHF 1`] = 
 <View
   style={
     {
+      "alignSelf": "stretch",
       "flexDirection": "row",
       "justifyContent": "space-between",
     }
@@ -232,6 +252,7 @@ exports[`BitcoinPriceStats should render medium screens correctly 1`] = `
 <View
   style={
     {
+      "alignSelf": "stretch",
       "flexDirection": "row",
       "justifyContent": "space-between",
     }

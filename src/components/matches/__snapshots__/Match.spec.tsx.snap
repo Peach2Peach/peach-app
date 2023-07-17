@@ -191,7 +191,7 @@ exports[`Match should render correctly for buy offers 1`] = `
           style={
             [
               {
-                "alignItems": "stretch",
+                "alignSelf": "stretch",
                 "backgroundColor": "#EAE3DF",
                 "height": 1,
               },
@@ -405,7 +405,7 @@ exports[`Match should render correctly for buy offers 1`] = `
           style={
             [
               {
-                "alignItems": "stretch",
+                "alignSelf": "stretch",
                 "backgroundColor": "#EAE3DF",
                 "height": 1,
               },
@@ -468,7 +468,7 @@ exports[`Match should render correctly for buy offers 1`] = `
           style={
             [
               {
-                "alignItems": "stretch",
+                "alignSelf": "stretch",
                 "backgroundColor": "#EAE3DF",
                 "height": 1,
               },
@@ -906,7 +906,7 @@ exports[`Match should render correctly for matched offers 1`] = `
             style={
               [
                 {
-                  "alignItems": "stretch",
+                  "alignSelf": "stretch",
                   "backgroundColor": "#EAE3DF",
                   "height": 1,
                 },
@@ -1120,7 +1120,7 @@ exports[`Match should render correctly for matched offers 1`] = `
             style={
               [
                 {
-                  "alignItems": "stretch",
+                  "alignSelf": "stretch",
                   "backgroundColor": "#EAE3DF",
                   "height": 1,
                 },
@@ -1183,7 +1183,7 @@ exports[`Match should render correctly for matched offers 1`] = `
             style={
               [
                 {
-                  "alignItems": "stretch",
+                  "alignSelf": "stretch",
                   "backgroundColor": "#EAE3DF",
                   "height": 1,
                 },
@@ -1752,7 +1752,7 @@ exports[`Match should render correctly for sell offers 1`] = `
           style={
             [
               {
-                "alignItems": "stretch",
+                "alignSelf": "stretch",
                 "backgroundColor": "#EAE3DF",
                 "height": 1,
               },
@@ -1966,7 +1966,7 @@ exports[`Match should render correctly for sell offers 1`] = `
           style={
             [
               {
-                "alignItems": "stretch",
+                "alignSelf": "stretch",
                 "backgroundColor": "#EAE3DF",
                 "height": 1,
               },

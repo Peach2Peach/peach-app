@@ -17,4 +17,8 @@ describe('Header', () => {
     const { toJSON } = render(<Header {...{ title, icons }} />, { wrapper: NavigationWrapper })
     expect(toJSON()).toMatchSnapshot()
   })
+  it('should render correctly with PriceStats', () => {
+    const { toJSON } = render(<Header {...{ title, icons, showPriceStats: true }} />, { wrapper: NavigationWrapper })
+    expect(toJSON()).toMatchSnapshot()
+  })
 })
