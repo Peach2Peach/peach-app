@@ -82,4 +82,24 @@ describe('Drawer', () => {
     expect(drawerState.show).toBe(false)
     expect(onCloseMock).toHaveBeenCalledTimes(1)
   })
+  it('should show the previous drawer on hardware back press if it exists', () => {
+    updateDrawer({
+      ...defaultState,
+      previousDrawer: {
+        ...defaultState,
+        title: 'previousDrawerTitle',
+      },
+    })
+    render(<Drawer />, { wrapper })
+
+    act(() => {
+      // @ts-ignore
+      BackHandler.mockPressBack()
+      jest.runAllTimers()
+    })
+    expect(drawerState.show).toBe(true)
+    expect(onCloseMock).toHaveBeenCalledTimes(0)
+    expect(drawerState.previousDrawer).toEqual(undefined)
+    expect(drawerState.title).toBe('previousDrawerTitle')
+  })
 })
