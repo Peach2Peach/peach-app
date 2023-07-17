@@ -54,7 +54,7 @@ export const SummaryItem = ({
           ) : (
             <Text
               style={[
-                tw`subtitle-2 top-1px`,
+                tw`subtitle-2 top-1px flex-shrink`,
                 tw.md`input-title top-2px`,
                 isDisputeActive && tw`text-error-dark`,
                 isEscrow && tw`underline`,

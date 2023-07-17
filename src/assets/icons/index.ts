@@ -91,8 +91,6 @@ import shiftCrypto from './shiftCrypto.svg'
 import shuffle from './shuffle.svg'
 import skipForward from './skipForward.svg'
 import slash from './slash.svg'
-import sliderNext from './slider-next.svg'
-import sliderPrev from './slider-prev.svg'
 import smile from './smile.svg'
 import square from './square.svg'
 import star from './star.svg'
@@ -120,7 +118,7 @@ import zap from './zap.svg'
 import zapCircleInverted from './zapCircleInverted.svg'
 import { LogoIcons } from '../logo'
 
-const Icons = {
+export const Icons = {
   activity,
   alertCircle,
   alertOctagon,
@@ -214,8 +212,6 @@ const Icons = {
   shuffle,
   skipForward,
   slash,
-  sliderNext,
-  sliderPrev,
   smile,
   square,
   star,
@@ -245,5 +241,3 @@ const Icons = {
 }
 
 export type IconType = keyof typeof Icons
-
-export default Icons

@@ -1,6 +1,6 @@
 import { enforceBICFormat } from '../../utils/format'
 import i18n from '../../utils/i18n'
-import Input, { InputProps } from './Input'
+import { Input, InputProps } from './Input'
 
 export const BICInput = ({ onChange, onSubmit, ...props }: InputProps) => (
   <Input

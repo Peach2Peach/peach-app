@@ -4,7 +4,7 @@ import { SATSINBTC } from '../../constants'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { getNumberFormatParts } from '../../utils/string'
-import PaymentLogo from '../payment/PaymentLogo'
+import { PaymentLogo } from '../payment/PaymentLogo'
 
 type SatsFormat = ComponentProps & {
   sats: number
@@ -24,5 +24,3 @@ export const BigSatsFormat = ({ sats, color, style }: SatsFormat) => {
     </View>
   )
 }
-
-export default SatsFormat

@@ -306,14 +306,14 @@ exports[`BumpNetworkFees renders correctly when new fee is invalid 1`] = `
     />
     <Divider />
     <NewFee
-      newFeeRate={1}
+      newFeeRate="1"
       overpayingBy={0.5}
       setNewFeeRate={[MockFunction]}
     />
   </ForwardRef>
   <BumpNetworkFeesButton
     disabled={true}
-    newFeeRate={1}
+    newFeeRate="1"
     style={
       {
         "alignSelf": "center",
@@ -433,14 +433,14 @@ exports[`BumpNetworkFees renders correctly when new fee is valid 1`] = `
     />
     <Divider />
     <NewFee
-      newFeeRate={20}
+      newFeeRate="20"
       overpayingBy={0.5}
       setNewFeeRate={[MockFunction]}
     />
   </ForwardRef>
   <BumpNetworkFeesButton
     disabled={false}
-    newFeeRate={20}
+    newFeeRate="20"
     style={
       {
         "alignSelf": "center",
@@ -560,14 +560,14 @@ exports[`BumpNetworkFees renders correctly when user would be overpaying by at l
     />
     <Divider />
     <NewFee
-      newFeeRate={3.93}
+      newFeeRate="3.93"
       overpayingBy={2}
       setNewFeeRate={[MockFunction]}
     />
   </ForwardRef>
   <BumpNetworkFeesButton
     disabled={false}
-    newFeeRate={3.93}
+    newFeeRate="3.93"
     style={
       {
         "alignSelf": "center",

@@ -2,11 +2,13 @@ import { Dispatch, ReducerState, createContext, useContext } from 'react'
 import en from '../../i18n/en.json'
 import es from '../../i18n/es.json'
 import fr from '../../i18n/fr.json'
+import it from '../../i18n/it.json'
 
 const localeMapping: Record<string, Record<string, string>> = {
   en,
   es,
   fr,
+  it,
 }
 export type Locale = keyof typeof localeMapping
 
@@ -16,25 +18,13 @@ type LanguageState = {
 export const languageState: LanguageState = {
   locale: 'en',
 }
-export const locales = ['en', 'es', 'fr']
+export const locales = ['en', 'es', 'fr', 'it']
 export const setLocaleQuiet = (lcl: Locale) => {
   if (!localeMapping[lcl]) lcl = 'en'
   languageState.locale = lcl
 }
 
-/**
- * @description Method to get localized string based on current locale
- * it will use the following fallback order
- * de-CH – language-COUNTRY
- * de    – language
- * en    – default locale
- *
- * if no text can be found, it will return the id of the resource
- * @param id the id of the localized text
- * @param ...args multiple arguments to replace placeholders
- * @returns localized text or id if no text could be found
- */
-export const i18n = (id: string, ...args: string[]): string => {
+const i18n = (id: string, ...args: string[]): string => {
   const locale = languageState.locale.replace('_', '-')
   let text = localeMapping[locale]?.[id]
 
@@ -58,10 +48,6 @@ i18n.getState = (): LanguageState => languageState
 i18n.getLocale = (): string => languageState.locale
 i18n.getLocales = (): string[] => locales
 
-/**
- * @description Method to set current locale
- * If locale is not configured, will fallback to `en`
- */
 i18n.setLocale = (prev: ReducerState<any>, newState: LanguageState): LanguageState => {
   if (!localeMapping[newState.locale]) newState.locale = 'en'
 

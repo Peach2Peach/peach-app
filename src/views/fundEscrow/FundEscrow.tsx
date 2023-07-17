@@ -12,7 +12,7 @@ import { TransactionInMempool } from './components/TransactionInMempool'
 import { useFundEscrowSetup } from './hooks/useFundEscrowSetup'
 import { useFundFromPeachWallet } from './hooks/useFundFromPeachWallet'
 
-export default () => {
+export const FundEscrow = () => {
   const { offerId, offer, isLoading, escrow, createEscrowError, fundingStatus, fundingAmount } = useFundEscrowSetup()
   const { fundFromPeachWallet, fundedFromPeachWallet } = useFundFromPeachWallet({ offer, fundingStatus })
 

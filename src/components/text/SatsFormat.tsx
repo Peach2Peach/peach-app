@@ -4,9 +4,9 @@ import { SATSINBTC } from '../../constants'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { getNumberFormatParts } from '../../utils/string'
-import PaymentLogo from '../payment/PaymentLogo'
+import { PaymentLogo } from '../payment/PaymentLogo'
 
-type SatsFormatProps = ComponentProps & {
+type Props = ComponentProps & {
   sats: number
   color?: TextStyle
   containerStyle?: ViewStyle
@@ -23,7 +23,7 @@ export const SatsFormat = ({
   satsContainerStyle,
   bitcoinLogoStyle,
   satsStyle,
-}: SatsFormatProps) => {
+}: Props) => {
   const parts = getNumberFormatParts(sats / SATSINBTC)
   return (
     <View style={[tw`flex flex-row items-center`, containerStyle]}>
@@ -47,5 +47,3 @@ export const SatsFormat = ({
     </View>
   )
 }
-
-export default SatsFormat

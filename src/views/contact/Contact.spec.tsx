@@ -1,5 +1,5 @@
 import ShallowRenderer from 'react-test-renderer/shallow'
-import Contact from './Contact'
+import { Contact } from './Contact'
 
 const useContactSetupMock = jest.fn()
 jest.mock('./hooks/useContactSetup', () => ({

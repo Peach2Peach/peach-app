@@ -48,5 +48,3 @@ export const Fade = ({
     </Animated.View>
   )
 }
-
-export default Fade

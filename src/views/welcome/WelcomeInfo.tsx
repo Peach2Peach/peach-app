@@ -8,7 +8,7 @@ import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 
 const images = { peachOfMind, peerToPeer, privacyFirst, aWalletYouControl }
-export default ({ name }: { name: 'peachOfMind' | 'peerToPeer' | 'privacyFirst' | 'aWalletYouControl' }) => {
+export const WelcomeInfo = ({ name }: { name: 'peachOfMind' | 'peerToPeer' | 'privacyFirst' | 'aWalletYouControl' }) => {
   const { width } = useWindowDimensions()
 
   return (

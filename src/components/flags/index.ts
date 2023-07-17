@@ -31,7 +31,7 @@ import SI from './si.svg'
 import SK from './sk.svg'
 import US from './us.svg'
 
-const Flags = {
+export const Flags = {
   AD,
   AT,
   BE,
@@ -67,5 +67,3 @@ const Flags = {
 }
 
 export type FlagType = keyof typeof Flags
-
-export default Flags

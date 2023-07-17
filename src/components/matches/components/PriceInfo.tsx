@@ -1,25 +1,28 @@
 import tw from '../../../styles/tailwind'
-import { SatsFormat, Text } from '../../text'
-import { Price } from '../Price'
+import { PriceFormat, SatsFormat, Text } from '../../text'
 import { PremiumText } from './PremiumText'
+import { useMatchPriceData } from '../hooks'
 
-type PriceInfoProps = {
+type Props = {
   match: Match
-  offer: BuyOffer
+  offer: BuyOffer | SellOffer
 }
 
-export const PriceInfo = ({ match, offer }: PriceInfoProps) => (
-  <>
-    <SatsFormat
-      sats={match.amount}
-      containerStyle={tw`self-center justify-center`}
-      satsStyle={tw`subtitle-1`}
-      style={tw`h5 leading-3xl`}
-      bitcoinLogoStyle={tw`w-[18px] h-[18px] mr-2`}
-    />
-    <Text style={tw`text-center`}>
-      <Price {...{ match, offer }} textStyle={tw`subtitle-1`} />
-      <PremiumText premium={match.premium} />
-    </Text>
-  </>
-)
+export const PriceInfo = ({ match, offer }: Props) => {
+  const { premium, displayPrice, selectedCurrency } = useMatchPriceData(match, offer)
+  return (
+    <>
+      <SatsFormat
+        sats={match.amount}
+        containerStyle={tw`self-center justify-center`}
+        satsStyle={tw`subtitle-1`}
+        style={tw`h5 leading-3xl`}
+        bitcoinLogoStyle={tw`w-[18px] h-[18px] mr-2`}
+      />
+      <Text style={tw`text-center`}>
+        <PriceFormat style={tw`body-l subtitle-1`} currency={selectedCurrency} amount={displayPrice} />
+        <PremiumText premium={premium} />
+      </Text>
+    </>
+  )
+}

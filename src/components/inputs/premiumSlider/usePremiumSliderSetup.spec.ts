@@ -6,7 +6,7 @@ import { LayoutChangeEvent } from 'react-native'
 describe('usePremiumSliderSetup', () => {
   const labelPosition = [-130, -62, 0, 62, 130]
   it('should default values', () => {
-    const { result } = renderHook(usePremiumSliderSetup)
+    const { result } = renderHook(() => usePremiumSliderSetup(1.5, jest.fn()))
     expect(result.current).toEqual({
       knobWidth: 32,
       trackWidth: 260,
@@ -19,12 +19,12 @@ describe('usePremiumSliderSetup', () => {
     })
   })
   it('should update onTrackLayout', () => {
-    const { result } = renderHook(usePremiumSliderSetup)
+    const { result } = renderHook(() => usePremiumSliderSetup(1.5, jest.fn()))
     act(() => result.current.onLayout({ nativeEvent: { layout: { width: 400 } } } as LayoutChangeEvent))
     expect(result.current.trackWidth).toEqual(368)
   })
   it('should ignore layout events with no dimensions', () => {
-    const { result } = renderHook(usePremiumSliderSetup)
+    const { result } = renderHook(() => usePremiumSliderSetup(1.5, jest.fn()))
     act(() => result.current.onLayout({ nativeEvent: { layout: { width: NaN } } } as LayoutChangeEvent))
     expect(result.current.trackWidth).toEqual(260)
   })

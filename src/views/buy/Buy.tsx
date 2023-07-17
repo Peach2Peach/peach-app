@@ -7,13 +7,13 @@ import { useSettingsStore } from '../../store/settingsStore'
 import { useOfferPreferences } from '../../store/offerPreferenes/useOfferPreferences'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import LoadingScreen from '../loading/LoadingScreen'
+import { LoadingScreen } from '../loading/LoadingScreen'
 import { DailyTradingLimit } from '../settings/profile/DailyTradingLimit'
 import { BackupReminderIcon } from './BackupReminderIcon'
 import { useBuySetup } from './hooks/useBuySetup'
 import { BuyAmountSelector } from './BuyAmountSelector'
 
-export default () => {
+export const Buy = () => {
   const navigation = useNavigation()
   const { freeTrades, maxFreeTrades } = useBuySetup()
 

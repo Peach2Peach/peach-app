@@ -6,7 +6,7 @@ import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { goToShiftCrypto } from '../../../utils/web'
 
-export default () => {
+export const BitcoinProducts = () => {
   useHeaderSetup({ title: i18n('settings.bitcoinProducts') })
 
   return (

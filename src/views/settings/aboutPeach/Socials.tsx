@@ -16,7 +16,7 @@ const socials = [
   { name: 'twitch', url: TWITCH },
 ]
 
-export default () => {
+export const Socials = () => {
   useHeaderSetup(useMemo(() => ({ title: i18n('settings.socials.subtitle') }), []))
 
   return (

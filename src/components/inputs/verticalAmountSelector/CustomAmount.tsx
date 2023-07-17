@@ -1,7 +1,7 @@
 import { View } from 'react-native'
 import tw from '../../../styles/tailwind'
 import { PriceFormat, SatsFormat } from '../../text'
-import Input from '../Input'
+import { Input } from '../Input'
 import { useCustomAmountSetup } from './hooks/useCustomAmountSetup'
 
 type Props = ComponentProps & {

@@ -91,7 +91,10 @@ exports[`Premium should render the Premium view 1`] = `
             >
               for selling
             </PeachText>
-            <CurrentOfferAmount />
+            <BTCAmount
+              amount={21000000}
+              size="small"
+            />
           </View>
         </View>
         <View
@@ -102,10 +105,15 @@ exports[`Premium should render the Premium view 1`] = `
             }
           }
         >
-          <PremiumInput />
+          <PremiumInput
+            premium={1.5}
+            setPremium={[MockFunction]}
+          />
           <CurrentOfferPrice />
         </View>
         <PremiumSlider
+          premium={1.5}
+          setPremium={[MockFunction]}
           style={
             {
               "alignItems": "center",
@@ -119,7 +127,7 @@ exports[`Premium should render the Premium view 1`] = `
     <PrimaryButton
       disabled={true}
       narrow={true}
-      onPress={[Function]}
+      onPress={[MockFunction]}
       style={
         {
           "alignSelf": "center",

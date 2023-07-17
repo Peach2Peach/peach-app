@@ -2,7 +2,7 @@ import { ReactNode } from 'react'
 import { StyleProp, TextStyle, TouchableOpacity, TouchableOpacityProps, ViewStyle } from 'react-native'
 import tw from '../../styles/tailwind'
 import { Loading } from '../animation'
-import Icon from '../Icon'
+import { Icon } from '../Icon'
 import { IconType } from '../../assets/icons'
 import { Text } from '../text'
 

@@ -56,7 +56,6 @@ const offerPreferences = createStorage('offerPreferences')
 
 export const useOfferPreferences = create<OfferPreferencesStore>()(
   persist(
-    // eslint-disable-next-line max-lines-per-function
     (set, get) => ({
       ...defaultPreferences,
       canContinue: {

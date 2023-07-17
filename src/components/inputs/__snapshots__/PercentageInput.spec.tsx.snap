@@ -23,13 +23,18 @@ exports[`PercentageInput renders correctly 1`] = `
     keyboardType="decimal-pad"
     onChangeText={[Function]}
     placeholder="20.00"
+    placeholderTextColor="#EAE3DF"
     style={
       {
+        "color": "#2B1911",
         "flexGrow": 1,
         "fontFamily": "Baloo2-Regular",
         "fontSize": 18,
+        "height": 38,
         "letterSpacing": 0.18,
         "lineHeight": 29.25,
+        "paddingBottom": 0,
+        "paddingTop": 0,
         "textAlign": "center",
       }
     }

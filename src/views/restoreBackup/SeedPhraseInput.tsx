@@ -25,6 +25,7 @@ export const SeedPhraseInput = ({ style, index, setWords }: Props) => {
       onSubmit={onChange}
       errorMessage={errorMessage}
       placeholder={`${index + 1}.`}
+      autoCorrect={false}
       value={word}
       style={style}
     />

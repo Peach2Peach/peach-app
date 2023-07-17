@@ -16,7 +16,7 @@ exports[`PriceInfo should render correctly 1`] = `
         "justifyContent": "center",
       }
     }
-    sats={210000}
+    sats={250000}
     satsStyle={
       {
         "fontFamily": "Baloo2-SemiBold",
@@ -41,15 +41,10 @@ exports[`PriceInfo should render correctly 1`] = `
       }
     }
   >
-    <Price
-      match={
-        {
-          "amount": 210000,
-          "premium": 7,
-        }
-      }
-      offer={{}}
-      textStyle={
+    <PriceFormat
+      amount={1}
+      currency="EUR"
+      style={
         {
           "fontFamily": "Baloo2-SemiBold",
           "fontSize": 16,
@@ -59,7 +54,7 @@ exports[`PriceInfo should render correctly 1`] = `
       }
     />
     <PremiumText
-      premium={7}
+      premium={0}
     />
   </PeachText>
 </React.Fragment>

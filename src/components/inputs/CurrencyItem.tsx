@@ -1,6 +1,6 @@
 import { Pressable } from 'react-native'
 import tw from '../../styles/tailwind'
-import Icon from '../Icon'
+import { Icon } from '../Icon'
 import { Text } from '../text'
 
 type ItemProps = ComponentProps & {
@@ -17,7 +17,7 @@ export const CurrencyItem = ({ label, isSelected, onPress, style }: ItemProps) =
     <Pressable
       onPress={onPress}
       style={[
-        tw`w-15 px-2 flex-row items-center justify-between border rounded-lg border-black-3`,
+        tw`flex-row items-center justify-between px-2 border rounded-lg w-15 border-black-3`,
         bgColor,
         borderColor,
         style,

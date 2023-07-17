@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react-native'
 import { NavigationWrapper } from '../../../tests/unit/helpers/NavigationWrapper'
-import Language from './Language'
+import { Language } from './Language'
 
 describe('Language', () => {
   it('renders correctly', () => {

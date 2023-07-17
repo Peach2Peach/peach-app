@@ -2,7 +2,7 @@ import { ColorValue, View } from 'react-native'
 import tw from '../../styles/tailwind'
 import { Text } from '../text'
 import { HorizontalLine } from '../ui'
-import Icon from '../Icon'
+import { Icon } from '../Icon'
 import { IconType } from '../../assets/icons'
 
 type Props = ComponentProps & {

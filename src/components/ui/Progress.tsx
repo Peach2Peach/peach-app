@@ -2,13 +2,13 @@ import { useEffect, useRef } from 'react'
 import { Animated, View, ViewStyle } from 'react-native'
 import tw from '../../styles/tailwind'
 
-type ProgressProps = ComponentProps & {
+type Props = ComponentProps & {
   percent: number
   text?: string
   backgroundStyle?: ViewStyle
   barStyle?: ViewStyle
 }
-export const Progress = ({ percent, backgroundStyle, barStyle, style }: ProgressProps) => {
+export const Progress = ({ percent, backgroundStyle, barStyle, style }: Props) => {
   const widthAnim = useRef(new Animated.Value(percent)).current
 
   useEffect(() => {
@@ -37,4 +37,3 @@ export const Progress = ({ percent, backgroundStyle, barStyle, style }: Progress
     </View>
   )
 }
-export default Progress

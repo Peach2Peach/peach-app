@@ -62,6 +62,7 @@ declare type RootStackParamList = {
     shouldGoBack?: boolean
   }
   search: { offerId: string }
+  editPremium: { offerId: string }
   contract: {
     contractId: Contract['id']
     contract?: Contract

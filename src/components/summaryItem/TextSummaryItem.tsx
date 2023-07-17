@@ -1,7 +1,7 @@
 import { FillProps } from 'react-native-svg'
 import { SummaryItem, SummaryItemProps } from './SummaryItem'
 import { Text } from '../text'
-import Icon from '../Icon'
+import { Icon } from '../Icon'
 import { IconType } from '../../assets/icons'
 import { TouchableOpacity } from 'react-native'
 import tw from '../../styles/tailwind'

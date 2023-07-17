@@ -62,4 +62,4 @@ exports[`Contract should render a default Contract 1`] = `
 </ForwardRef>
 `;
 
-exports[`Contract should show the loading screen if isLoading is true 1`] = `<_default />`;
+exports[`Contract should show the loading screen if isLoading is true 1`] = `<LoadingScreen />`;

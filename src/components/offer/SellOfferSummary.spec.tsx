@@ -11,4 +11,9 @@ describe('SellOfferSummary', () => {
     renderer.render(<SellOfferSummary offer={sellOffer} />)
     expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
+
+  it('renders correctly when the premium is 0', () => {
+    renderer.render(<SellOfferSummary offer={{ ...sellOffer, premium: 0 }} />)
+    expect(renderer.getRenderOutput()).toMatchSnapshot()
+  })
 })

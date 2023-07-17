@@ -3,15 +3,23 @@ import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { getTranslateX } from '../../../utils/layout'
 import { round } from '../../../utils/math'
-import Icon from '../../Icon'
+import { Icon } from '../../Icon'
 import { SliderLabel } from './SliderLabel'
 import { SliderMarkers } from './SliderMarkers'
 import { usePremiumSliderSetup } from './usePremiumSliderSetup'
 
 const onStartShouldSetResponder = () => true
 
-export const PremiumSlider = ({ style }: ComponentProps) => {
-  const { pan, panResponder, onLayout, trackWidth, knobWidth, labelPosition, min, max } = usePremiumSliderSetup()
+type Props = {
+  premium: number
+  setPremium: (newPremium: number, isValid?: boolean | undefined) => void
+} & ComponentProps
+
+export const PremiumSlider = ({ style, premium, setPremium }: Props) => {
+  const { pan, panResponder, onLayout, trackWidth, knobWidth, labelPosition, min, max } = usePremiumSliderSetup(
+    premium,
+    setPremium,
+  )
 
   return (
     <View style={style} {...panResponder.panHandlers} {...{ onStartShouldSetResponder }}>

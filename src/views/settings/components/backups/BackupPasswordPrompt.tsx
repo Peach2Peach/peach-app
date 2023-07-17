@@ -7,7 +7,11 @@ import tw from '../../../../styles/tailwind'
 import i18n from '../../../../utils/i18n'
 import { usePasswordPromptSetup } from '../../hooks/usePasswordPromptSetup'
 
-export default ({ toggle }: { toggle: () => void }) => {
+type Props = {
+  toggle: () => void
+}
+
+export const BackupPasswordPrompt = ({ toggle }: Props) => {
   const {
     setPassword,
     password,

@@ -4,7 +4,7 @@ import tw from '../../../styles/tailwind'
 import { showAddress, showTransaction } from '../../../utils/bitcoin'
 import i18n from '../../../utils/i18n'
 import { useContractContext } from '../context'
-import Icon from '../../../components/Icon'
+import { Icon } from '../../../components/Icon'
 import { Text } from '../../../components/text'
 
 export const Escrow = ({ style }: ComponentProps) => {
