@@ -1,4 +1,3 @@
-import { useMemo } from 'react'
 import { View } from 'react-native'
 import { Text } from '../../../components'
 import { BulletPoint } from '../../../components/text'
@@ -8,7 +7,7 @@ import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 
 export const PeachFees = () => {
-  useHeaderSetup(useMemo(() => ({ title: i18n('settings.peachFees') }), []))
+  useHeaderSetup(i18n('settings.peachFees'))
   const peachFee = useConfigStore((state) => state.peachFee)
 
   return (

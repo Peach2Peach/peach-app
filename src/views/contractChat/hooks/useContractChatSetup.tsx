@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect, useMemo, useState } from 'react'
+import { useCallback, useContext, useEffect, useState } from 'react'
 import { useHeaderSetup, useRoute } from '../../../hooks'
 import { useChatMessages } from '../../../hooks/query/useChatMessages'
 import { useCommonContractSetup } from '../../../hooks/useCommonContractSetup'
@@ -41,15 +41,10 @@ export const useContractChatSetup = () => {
   const [disableSend, setDisableSend] = useState(false)
   const seenDisputeDisclaimer = useConfigStore((state) => state.seenDisputeDisclaimer)
 
-  useHeaderSetup(
-    useMemo(
-      () => ({
-        title: contractIdToHex(contractId),
-        icons: contract ? getHeaderChatActions(contract, () => showConfirmPopup(contract), openDisputePopup, view) : [],
-      }),
-      [contractId, contract, showConfirmPopup, openDisputePopup, view],
-    ),
-  )
+  useHeaderSetup({
+    title: contractIdToHex(contractId),
+    icons: contract ? getHeaderChatActions(contract, () => showConfirmPopup(contract), openDisputePopup, view) : [],
+  })
 
   const setAndSaveChat = (id: string, c: Partial<Chat>, save = true) => setChat(saveChat(id, c, save))
 

@@ -16,9 +16,7 @@ export const useTransactionHistorySetup = () => {
     [storedTransactions],
   )
 
-  useHeaderSetup({
-    title: i18n('wallet.transactionHistory'),
-  })
+  useHeaderSetup(i18n('wallet.transactionHistory'))
 
   return {
     transactions,

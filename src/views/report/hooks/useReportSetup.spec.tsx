@@ -106,9 +106,7 @@ describe('useReportSetup', () => {
 
   it('sets up the header correctly', () => {
     renderHook(useReportSetup, { wrapper: NavigationWrapper })
-    expect(useHeaderSetup).toHaveBeenCalledWith({
-      title: i18n('contact.title'),
-    })
+    expect(useHeaderSetup).toHaveBeenCalledWith(i18n('contact.title'))
   })
 
   it('sets email', () => {

@@ -39,15 +39,10 @@ export const useYourTradesSetup = () => {
       && ((item.type === 'ask' && 'fundingTxId' in item && !!item?.fundingTxId) || item.tradeStatus !== 'offerCanceled'),
   )
 
-  useHeaderSetup(
-    useMemo(
-      () => ({
-        title: i18n('yourTrades.title'),
-        hideGoBackButton: true,
-      }),
-      [],
-    ),
-  )
+  useHeaderSetup({
+    title: i18n('yourTrades.title'),
+    hideGoBackButton: true,
+  })
 
   useEffect(() => {
     if (tab) setCurrentTab(getTabById(tabs, tab) || tabs[0])

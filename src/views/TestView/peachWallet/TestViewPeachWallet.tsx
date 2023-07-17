@@ -1,5 +1,5 @@
 import { NETWORK } from '@env'
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import { View } from 'react-native'
 import { Divider, Loading, PeachScrollView, PrimaryButton, Text } from '../../../components'
 import { BTCAmount } from '../../../components/bitcoin'
@@ -18,7 +18,7 @@ export const TestViewPeachWallet = () => {
   const { balance, isRefreshing, walletLoading, address, setAddress, addressErrors } = useWalletSetup({
     syncOnLoad: false,
   })
-  useHeaderSetup(useMemo(() => ({ title: 'test view - peach wallet' }), []))
+  useHeaderSetup('test view - peach wallet')
   const [amount, setAmount] = useState('0')
   const [txId, setTxId] = useState('')
   const getNewAddress = async () => {

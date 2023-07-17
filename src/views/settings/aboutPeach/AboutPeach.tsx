@@ -9,7 +9,7 @@ import { SettingsItem } from '../components/SettingsItem'
 
 export const AboutPeach = () => {
   const navigation = useNavigation()
-  useHeaderSetup({ title: i18n('settings.aboutPeach') })
+  useHeaderSetup(i18n('settings.aboutPeach'))
 
   const items: { title: string; onPress: () => void; icon?: IconType; iconSize?: ViewStyle }[] = [
     {
