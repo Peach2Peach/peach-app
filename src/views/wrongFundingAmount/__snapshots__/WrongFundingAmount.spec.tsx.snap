@@ -27,6 +27,7 @@ exports[`WrongFundingAmount renders correctly 1`] = `
           "vouts": [],
         },
         "id": "38",
+        "lastModified": 2022-03-08T11:41:07.245Z,
         "matched": [],
         "matches": [],
         "meansOfPayment": {
@@ -89,6 +90,7 @@ exports[`WrongFundingAmount renders correctly 1`] = `
             "vouts": [],
           },
           "id": "38",
+          "lastModified": 2022-03-08T11:41:07.245Z,
           "matched": [],
           "matches": [],
           "meansOfPayment": {
@@ -143,6 +145,7 @@ exports[`WrongFundingAmount renders correctly 1`] = `
             "vouts": [],
           },
           "id": "38",
+          "lastModified": 2022-03-08T11:41:07.245Z,
           "matched": [],
           "matches": [],
           "meansOfPayment": {

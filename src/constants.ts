@@ -6,7 +6,9 @@ import { sha256 } from './utils/crypto/sha256'
 import { isCashTrade } from './utils/paymentMethod/isCashTrade'
 
 export const SATSINBTC = 100000000
-export const MSINANHOUR = 3600000
+export const MSINASECOND = 1000
+export const MSINAMINUTE = MSINASECOND * 60
+export const MSINANHOUR = MSINAMINUTE * 60
 export const MSINADAY = MSINANHOUR * 24
 export const MSINAMONTH = MSINADAY * 30
 
