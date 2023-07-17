@@ -6,6 +6,7 @@ import { twintData, twintDataHashes, validSEPAData, validSEPADataHashes } from '
 export const buyOffer: BuyOffer = {
   creationDate: new Date('2022-03-08T11:41:07.245Z'),
   publishingDate: new Date('2022-03-08T11:41:07.245Z'),
+  lastModified: new Date('2022-03-08T11:41:07.245Z'),
   id: '37',
   online: true,
   type: 'bid',
@@ -30,6 +31,7 @@ export const buyOffer: BuyOffer = {
 export const sellOffer: SellOffer = {
   creationDate: new Date('2022-03-08T11:41:07.245Z'),
   publishingDate: new Date('2022-03-08T11:41:07.245Z'),
+  lastModified: new Date('2022-03-08T11:41:07.245Z'),
   id: '38',
   online: true,
   type: 'ask',
