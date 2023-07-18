@@ -1,15 +1,18 @@
 import { Dispatch, ReducerState, createContext, useContext } from 'react'
-import en from '../../i18n/en.json'
-import es from '../../i18n/es.json'
-import fr from '../../i18n/fr.json'
-import it from '../../i18n/it.json'
+import en from '../../i18n/en'
+import es from '../../i18n/es'
+import fr from '../../i18n/fr'
+import it from '../../i18n/it'
+import de from '../../i18n/de'
 
 const localeMapping: Record<string, Record<string, string>> = {
   en,
   es,
   fr,
   it,
+  de,
 }
+
 export type Locale = keyof typeof localeMapping
 
 type LanguageState = {
@@ -18,7 +21,7 @@ type LanguageState = {
 export const languageState: LanguageState = {
   locale: 'en',
 }
-export const locales = ['en', 'es', 'fr', 'it']
+export const locales = ['en', 'es', 'fr', 'it', 'de']
 export const setLocaleQuiet = (lcl: Locale) => {
   if (!localeMapping[lcl]) lcl = 'en'
   languageState.locale = lcl

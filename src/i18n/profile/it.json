@@ -1,0 +1,17 @@
+{
+  "profile.accountCreated" : "Account creato il",
+  "profile.daysAgo" : "$0 giorni fa",
+  "profile.disputes" : "Dispute",
+  "profile.disputesLost" : "Perse",
+  "profile.disputesOpened" : "Aperte",
+  "profile.disputesWon" : "Vinte",
+  "profile.myAccount.title" : "il mio account",
+  "profile.numberOfTrades" : "Numero Scambi",
+  "profile.publicKey" : "Chiave pubblica dell'account",
+  "profile.tradingLimits" : "limiti di scambio",
+  "profile.tradingLimits.daily" : "limite di scambio giornaliero",
+  "profile.tradingLimits.monthly" : "limite mensile anonimo:",
+  "profile.tradingLimits.yearly" : "limite di scambio annuale:",
+  "profile.tradingLimits.yearly.short" : "limite annuale:",
+  "profile.user.title" : "profilo pubblico"
+}
