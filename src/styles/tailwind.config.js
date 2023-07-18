@@ -127,10 +127,6 @@ module.exports = {
         '7/8': '87.5%',
         '8/8': '100%',
       },
-      padding: {
-        sm: '16px',
-        md: '32px',
-      },
     },
     fontFamily: {
       baloo: ['Baloo2-Regular', 'sans-serif'],
