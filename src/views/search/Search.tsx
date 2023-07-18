@@ -8,7 +8,7 @@ import { useSearchSetup } from './hooks'
 import { DailyTradingLimit } from '../settings/profile/DailyTradingLimit'
 import { isSellOffer } from '../../utils/offer'
 
-export default () => {
+export const Search = () => {
   const { hasMatches, offer } = useSearchSetup()
   if (!offer) return <></>
   return (

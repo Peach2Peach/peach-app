@@ -15,9 +15,7 @@ export const useSetRefundWalletSetup = () => {
 
   const { offerId } = route.params
 
-  useHeaderSetup({
-    title: i18n('setRefundWallet.title'),
-  })
+  useHeaderSetup(i18n('setRefundWallet.title'))
 
   const goToSetRefundWallet = () => {
     setPeachWalletActive(false)

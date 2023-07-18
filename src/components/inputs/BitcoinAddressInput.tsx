@@ -4,8 +4,8 @@ import { BarCodeReadEvent } from 'react-native-camera'
 import { parseBitcoinRequest } from '../../utils/bitcoin'
 import i18n from '../../utils/i18n'
 import { cutOffAddress } from '../../utils/string'
-import ScanQR from '../camera/ScanQR'
-import Input, { InputProps } from './Input'
+import { ScanQR } from '../camera/ScanQR'
+import { Input, InputProps } from './Input'
 
 export const BitcoinAddressInput = ({ value, onChange, ...props }: InputProps & { value: string }) => {
   const [showQRScanner, setShowQRScanner] = useState(false)

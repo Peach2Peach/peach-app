@@ -4,7 +4,7 @@ import { APPLINKS } from '../../constants'
 import tw from '../../styles/tailwind'
 import { getPaymentMethodName } from '../../utils/paymentMethod'
 import { openAppLink } from '../../utils/web'
-import Icon from '../Icon'
+import { Icon } from '../Icon'
 import { Text } from '../text'
 
 type Props = ComponentProps & {

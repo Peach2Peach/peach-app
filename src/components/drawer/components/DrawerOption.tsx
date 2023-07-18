@@ -1,8 +1,8 @@
 import { TouchableOpacity, View } from 'react-native'
 import tw from '../../../styles/tailwind'
 import { Flag } from '../../Flag'
-import Icon from '../../Icon'
-import PaymentLogo from '../../payment/PaymentLogo'
+import { Icon } from '../../Icon'
+import { PaymentLogo } from '../../payment/PaymentLogo'
 import { Text, FixedHeightText } from '../../text'
 
 export const DrawerOption = ({

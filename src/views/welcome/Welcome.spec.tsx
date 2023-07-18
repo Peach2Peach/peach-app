@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react-native'
 import { headerState, NavigationWrapper, setOptionsMock } from '../../../tests/unit/helpers/NavigationWrapper'
 import { useSettingsStore } from '../../store/settingsStore'
-import Welcome from './Welcome'
+import { Welcome } from './Welcome'
 
 describe('Welcome', () => {
   beforeEach(() => {

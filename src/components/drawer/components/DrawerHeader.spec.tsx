@@ -62,7 +62,7 @@ describe('DrawerHeader', () => {
     })
     expect(closeDrawerMock).toHaveBeenCalled()
   })
-  it('doesn\'t close the drawer when no touch start has been detected', () => {
+  it("doesn't close the drawer when no touch start has been detected", () => {
     const { getByTestId } = render(<DrawerHeader closeDrawer={closeDrawerMock} />, { wrapper })
     const touchResponder = getByTestId('touchResponder')
     act(() => {

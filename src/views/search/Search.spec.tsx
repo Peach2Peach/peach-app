@@ -1,6 +1,6 @@
 import { create } from 'react-test-renderer'
 import { PeachScrollView } from '../../components'
-import Search from './Search'
+import { Search } from './Search'
 
 jest.mock('./hooks/useSearchSetup', () => ({
   useSearchSetup: () => ({

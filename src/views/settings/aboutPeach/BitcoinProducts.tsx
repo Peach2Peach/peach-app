@@ -6,8 +6,8 @@ import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { goToShiftCrypto } from '../../../utils/web'
 
-export default () => {
-  useHeaderSetup({ title: i18n('settings.bitcoinProducts') })
+export const BitcoinProducts = () => {
+  useHeaderSetup(i18n('settings.bitcoinProducts'))
 
   return (
     <View style={tw`justify-center flex-grow p-8`}>

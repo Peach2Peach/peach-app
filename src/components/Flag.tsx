@@ -1,5 +1,5 @@
 import { Text } from '.'
-import Flags, { FlagType } from './flags'
+import { Flags, FlagType } from './flags'
 
 type Props = ComponentProps & { id: FlagType }
 

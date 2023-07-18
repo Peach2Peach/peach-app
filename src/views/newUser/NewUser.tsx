@@ -4,7 +4,7 @@ import { CreateAccountSuccess } from './CreateAccountSuccess'
 import { UserExistsForDevice } from './UserExistsForDevice'
 import { useNewUserSetup } from './hooks/useNewUserSetup'
 
-export default () => {
+export const NewUser = () => {
   const { success, error, userExistsForDevice } = useNewUserSetup()
   if (success) return <CreateAccountSuccess />
   if (userExistsForDevice) return <UserExistsForDevice />

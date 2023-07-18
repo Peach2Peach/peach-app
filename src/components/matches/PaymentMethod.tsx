@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 import { getPaymentMethodName } from '../../utils/paymentMethod'
-import Icon from '../Icon'
+import { Icon } from '../Icon'
 import { Text } from '../text'
 
 type Props = {

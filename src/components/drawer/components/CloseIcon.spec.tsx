@@ -1,5 +1,5 @@
 import { fireEvent, render } from '@testing-library/react-native'
-import Icon from '../../Icon'
+import { Icon } from '../../Icon'
 import { CloseIcon } from './CloseIcon'
 
 describe('CloseIcon', () => {

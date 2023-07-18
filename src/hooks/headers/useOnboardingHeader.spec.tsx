@@ -56,7 +56,7 @@ describe('useOnboardingHeader', () => {
       content: <LanguageSelect locales={['en', 'es', 'fr', 'it']} onSelect={expect.any(Function)} selected="en" />,
       options: [],
       onClose: expect.any(Function),
-      previousDrawer: {},
+      previousDrawer: undefined,
       show: true,
       title: 'select language',
     })

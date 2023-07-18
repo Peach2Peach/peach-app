@@ -15,7 +15,7 @@ const animConfig = {
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
 
 export const Drawer = () => {
-  const [{ content, show, onClose, options }, updateDrawer] = useContext(DrawerContext)
+  const [{ content, show, onClose, options, previousDrawer }, updateDrawer] = useContext(DrawerContext)
   const { height } = useWindowDimensions()
   const slideAnim = useRef(new Animated.Value(0)).current
   const fadeAnim = useRef(new Animated.Value(0)).current
@@ -49,19 +49,23 @@ export const Drawer = () => {
     ]
     Animated.parallel(closeAnimations).start(() => {
       updateDrawer({ show: false })
-      onClose()
+      if (onClose) onClose()
     })
   }, [fadeAnim, onClose, slideAnim, updateDrawer])
 
   useEffect(() => {
     const listener = BackHandler.addEventListener('hardwareBackPress', () => {
-      closeDrawer()
+      if (previousDrawer) {
+        updateDrawer(previousDrawer)
+      } else {
+        closeDrawer()
+      }
       return true
     })
     return () => {
       listener.remove()
     }
-  }, [closeDrawer])
+  }, [closeDrawer, previousDrawer, updateDrawer])
 
   return (
     <View style={[tw`absolute top-0 left-0 z-20 flex w-full h-full`, !show && tw`hidden`]}>

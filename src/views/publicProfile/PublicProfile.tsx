@@ -6,9 +6,9 @@ import i18n from '../../utils/i18n'
 import { AccountInfo } from '../settings/profile/accountInfo/AccountInfo'
 import { ProfileOverview } from './components'
 
-export default () => {
+export const PublicProfile = () => {
   const { user, isLoading } = useCurrentUser()
-  useHeaderSetup({ title: i18n('profile.user.title') })
+  useHeaderSetup(i18n('profile.user.title'))
   if (isLoading || !user) return <></>
 
   return (

@@ -42,7 +42,7 @@ exports[`DrawerOptions renders correctly when there are highlighted options 1`] 
         style={
           [
             {
-              "alignItems": "stretch",
+              "alignSelf": "stretch",
               "backgroundColor": "#EAE3DF",
               "height": 1,
             },
@@ -79,7 +79,7 @@ exports[`DrawerOptions renders correctly when there are options 1`] = `
         style={
           [
             {
-              "alignItems": "stretch",
+              "alignSelf": "stretch",
               "backgroundColor": "#EAE3DF",
               "height": 1,
             },

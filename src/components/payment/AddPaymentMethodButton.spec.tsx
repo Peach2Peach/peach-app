@@ -140,9 +140,9 @@ describe('AddPaymentMethodButton', () => {
         title: 'EINUNDZWANZIG BTC',
       },
     ])
-    expect(drawer.previousDrawer.title).toBe('select country')
-    expect(drawer.previousDrawer.show).toBe(true)
-    expect(drawer.previousDrawer.options).toStrictEqual([
+    expect(drawer.previousDrawer?.title).toBe('select country')
+    expect(drawer.previousDrawer?.show).toBe(true)
+    expect(drawer.previousDrawer?.options).toStrictEqual([
       {
         flagID: 'DE',
         onPress: expect.any(Function),

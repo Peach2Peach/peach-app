@@ -118,7 +118,7 @@ import zap from './zap.svg'
 import zapCircleInverted from './zapCircleInverted.svg'
 import { LogoIcons } from '../logo'
 
-const Icons = {
+export const Icons = {
   activity,
   alertCircle,
   alertOctagon,
@@ -241,5 +241,3 @@ const Icons = {
 }
 
 export type IconType = keyof typeof Icons
-
-export default Icons

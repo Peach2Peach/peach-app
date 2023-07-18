@@ -5,7 +5,7 @@ import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { useSelectWalletSetup } from './hooks/useSelectWalletSetup'
 
-export default () => {
+export const SelectWallet = () => {
   const { type, wallets, peachWalletActive, setSelectedWallet, payoutAddress, goToSetRefundWallet, selectAndContinue }
     = useSelectWalletSetup()
 

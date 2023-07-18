@@ -1,3 +1,3 @@
 import { WelcomeInfo } from './WelcomeInfo'
 
-export default () => <WelcomeInfo name="peachOfMind" />
+export const PeachOfMind = () => <WelcomeInfo name="peachOfMind" />

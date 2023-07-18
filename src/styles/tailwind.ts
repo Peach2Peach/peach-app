@@ -8,9 +8,6 @@ interface Tailwind {
 }
 const tailwind = create(require(NETWORK === 'testnet' ? './tailwind.testnet.config' : './tailwind.config'))
 
-/**
- * @example [tw`mt-2 text-lg`, tw.md`mt-4 text-xl`, tw.lg`mt-5 text-2xl`]
- */
 const tw: Tailwind = (cls) => tailwind(cls)
 tw.md = (cls) => {
   const { width, height } = Dimensions.get('window')

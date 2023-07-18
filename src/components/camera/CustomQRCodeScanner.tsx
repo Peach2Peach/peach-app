@@ -57,8 +57,7 @@ const styles = StyleSheet.create({
   },
 })
 
-
-export default class QRCodeScanner extends Component {
+export class QRCodeScanner extends Component {
   static propTypes = {
     cameraStyle: PropTypes.any,
     onRead: PropTypes.func.isRequired,
@@ -156,7 +155,6 @@ export default class QRCodeScanner extends Component {
         useNativeDriver: true,
       }),
     ]).start()
-
   }
 
   componentWillUnmount () {
@@ -228,17 +226,11 @@ export default class QRCodeScanner extends Component {
   }
 
   _renderCamera () {
-    const {
-      notAuthorizedView,
-      pendingAuthorizationView,
-      cameraTimeoutView,
-    } = this.props
+    const { notAuthorizedView, pendingAuthorizationView, cameraTimeoutView } = this.props
 
     if (!this.state.isCameraActivated) {
       return (
-        <TouchableWithoutFeedback onPress={() => this._setCamera(true)}>
-          {cameraTimeoutView}
-        </TouchableWithoutFeedback>
+        <TouchableWithoutFeedback onPress={() => this._setCamera(true)}>{cameraTimeoutView}</TouchableWithoutFeedback>
       )
     }
 
@@ -249,9 +241,7 @@ export default class QRCodeScanner extends Component {
           style={{
             opacity: this.state.fadeInOpacity,
             backgroundColor: 'transparent',
-            height:
-              (this.props.cameraStyle && this.props.cameraStyle.height)
-              || styles.camera.height,
+            height: (this.props.cameraStyle && this.props.cameraStyle.height) || styles.camera.height,
           }}
         >
           {this._renderCameraComponent()}
@@ -261,16 +251,13 @@ export default class QRCodeScanner extends Component {
       return pendingAuthorizationView
     }
     return notAuthorizedView
-
   }
 
   render () {
     return (
       <View style={styles.mainContainer}>
         <View style={styles.infoView} />
-        <View>
-          {this._renderCamera()}
-        </View>
+        <View>{this._renderCamera()}</View>
         <View style={styles.infoView} />
       </View>
     )

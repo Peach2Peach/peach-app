@@ -6,7 +6,7 @@ import { useRestoreReputationSetup } from './hooks/useRestoreReputationSetup'
 import { ReputationRestored } from './ReputationRestored'
 import { RestoreReputationLoading } from './RestoreReputationLoading'
 
-export default () => {
+export const RestoreReputation = () => {
   const { restoreReputation, isLoading, isRestored } = useRestoreReputationSetup()
 
   if (isRestored) return <ReputationRestored />
@@ -14,7 +14,7 @@ export default () => {
 
   return (
     <View style={tw`flex justify-between h-full px-8`}>
-      <View style={tw`flex items-center justify-center h-full flex-shrink`}>
+      <View style={tw`flex items-center justify-center flex-shrink h-full`}>
         <Text style={tw`subtitle-1 text-primary-background-light`}>{i18n('restoreBackup.dontWorry')}</Text>
       </View>
       <View style={tw`flex flex-col items-center w-full mb-8`}>

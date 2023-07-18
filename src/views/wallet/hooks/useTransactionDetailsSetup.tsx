@@ -12,7 +12,7 @@ export const useTransactionDetailsSetup = () => {
   const transaction = useMemo(() => (tx ? getTxSummary(tx) : undefined), [tx])
   const { refresh, isRefreshing } = useSyncWallet()
 
-  useHeaderSetup({ title: i18n('wallet.transactionDetails') })
+  useHeaderSetup(i18n('wallet.transactionDetails'))
 
   return {
     transaction,

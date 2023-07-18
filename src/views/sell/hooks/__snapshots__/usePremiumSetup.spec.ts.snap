@@ -11,6 +11,7 @@ exports[`usePremiumSetup sets up the header correctly 1`] = `
       },
     ]
   }
+  showPriceStats={true}
   titleComponent={<SellTitleComponent />}
 />
 `;

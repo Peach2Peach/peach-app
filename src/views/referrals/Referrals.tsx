@@ -4,13 +4,13 @@ import tw from '../../styles/tailwind'
 import { CopyAble, PeachScrollView, PrimaryButton, Progress, RadioButtons, Text } from '../../components'
 import i18n from '../../utils/i18n'
 import { thousands } from '../../utils/string'
-import LoadingScreen from '../loading/LoadingScreen'
+import { LoadingScreen } from '../loading/LoadingScreen'
 import { useReferralsSetup } from './hooks/useReferralsSetup'
 import { RadioButtonItem } from '../../components/inputs/RadioButtons'
 import { isRewardAvailable } from './helpers/isRewardAvailable'
 import { RewardItem } from './components/RewardItem'
 
-export default () => {
+export const Referrals = () => {
   const { user, pointsBalance, REWARDINFO, BARLIMIT, availableRewards, selectedReward, setSelectedReward, redeem }
     = useReferralsSetup()
 

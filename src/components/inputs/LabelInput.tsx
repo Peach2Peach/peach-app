@@ -1,6 +1,5 @@
 import i18n from '../../utils/i18n'
-import { Input } from './index'
-import { InputProps } from './Input'
+import { Input, InputProps } from './Input'
 
 export const LabelInput = (props: InputProps) => (
   <Input

@@ -13,7 +13,11 @@ import { ConfirmButton } from './components'
 export const EditPremium = () => {
   const { offerId } = useRoute<'editPremium'>().params
   const showHelp = useShowHelp('premium')
-  useHeaderSetup({ title: offerIdToHex(offerId), icons: [{ ...headerIcons.help, onPress: showHelp }] })
+  useHeaderSetup({
+    title: offerIdToHex(offerId),
+    icons: [{ ...headerIcons.help, onPress: showHelp }],
+    showPriceStats: true,
+  })
   const { offer } = useOfferDetails(offerId)
   const [premium, setPremium] = useState(offer?.premium)
   const displayPremium = premium ?? offer?.premium ?? 0

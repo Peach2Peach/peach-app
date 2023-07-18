@@ -3,7 +3,7 @@ import { useNavigation, useValidatedState } from '../../../hooks'
 import { usePopupStore } from '../../../store/usePopupStore'
 import { isEmailRequiredForDispute } from '../../../utils/dispute'
 import i18n from '../../../utils/i18n'
-import DisputeRaisedNotice from '../components/DisputeRaisedNotice'
+import { DisputeRaisedNotice } from '../components/DisputeRaisedNotice'
 import { useSubmitDisputeAcknowledgement } from './helpers/useSubmitDisputeAcknowledgement'
 
 const emailRules = { required: true, email: true }

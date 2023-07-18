@@ -854,7 +854,6 @@
   "restoreBackup.IdontHave": "Non ho un backup",
   "restoreBackup.manual.description.1": "seleziona il tuo file di backup e inserisci la tua password",
   "restoreBackup.reputationRestored": "reputazione ripristinata",
-  "restoreBackup.restored.description.1": "Abbiamo ripristinato il tuo backup. Continuiamo il tuo percorso Peer to Peer!",
   "restoreBackup.restoreFromFile": "ripristina da file",
   "restoreBackup.restoreFromSeed": "ripristina da seed",
   "restoreBackup.restoreReputation": "ripristina reputazione",

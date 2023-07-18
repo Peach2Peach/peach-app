@@ -23,8 +23,8 @@ import { GlobalHandlers } from './GlobalHandlers'
 import { Background } from './components/background/Background'
 import { ISEMULATOR } from './constants'
 import { initApp } from './init/initApp'
-import requestUserPermissions from './init/requestUserPermissions'
-import websocket from './init/websocket'
+import { requestUserPermissions } from './init/requestUserPermissions'
+import { initWebSocket } from './init/websocket'
 import { usePartialAppSetup } from './usePartialAppSetup'
 import { account } from './utils/account'
 import { error, info } from './utils/log'
@@ -43,8 +43,7 @@ const navTheme = {
   },
 }
 
-// eslint-disable-next-line max-statements
-const App = () => {
+export const App = () => {
   const [messageState, updateMessage] = useReducer(setMessage, getMessage())
   const languageReducer = useReducer(i18n.setLocale, i18n.getState())
   const drawerReducer = useReducer(setDrawer, defaultState)
@@ -114,7 +113,7 @@ const App = () => {
     })()
   }, [])
 
-  useEffect(websocket(updatePeachWS, updateMessage), [])
+  useEffect(initWebSocket(updatePeachWS, updateMessage), [])
   usePartialAppSetup()
 
   useEffect(() => {
@@ -177,4 +176,3 @@ const App = () => {
     </GestureHandlerRootView>
   )
 }
-export default App

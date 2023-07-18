@@ -7,9 +7,9 @@ import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { SettingsItem } from '../components/SettingsItem'
 
-export default () => {
+export const AboutPeach = () => {
   const navigation = useNavigation()
-  useHeaderSetup({ title: i18n('settings.aboutPeach') })
+  useHeaderSetup(i18n('settings.aboutPeach'))
 
   const items: { title: string; onPress: () => void; icon?: IconType; iconSize?: ViewStyle }[] = [
     {

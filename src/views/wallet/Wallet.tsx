@@ -8,7 +8,7 @@ import { SendTo } from './components/overview/SendTo'
 import { TotalBalance } from './components/overview/TotalBalance'
 import { useWalletSetup } from './hooks/useWalletSetup'
 
-export default () => {
+export const Wallet = () => {
   const { balance, refresh, isRefreshing, address, setAddress, addressErrors, canWithdrawAll, walletLoading }
     = useWalletSetup({ syncOnLoad: true })
 

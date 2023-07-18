@@ -5,7 +5,7 @@ import { OptionButton, PeachScrollView, Text } from '../../components'
 import i18n from '../../utils/i18n'
 import { useDisputeReasonSelectorSetup } from './hooks/useDisputeReasonSelectorSetup'
 
-export default () => {
+export const DisputeReasonSelector = () => {
   const { availableReasons, setReason } = useDisputeReasonSelectorSetup()
 
   return (

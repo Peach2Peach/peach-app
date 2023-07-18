@@ -2,10 +2,10 @@ import { renderHook } from '@testing-library/react-native'
 import { account1 } from '../../../../tests/unit/data/accountData'
 import { contract } from '../../../../tests/unit/data/contractData'
 import { setAccount } from '../../../utils/account'
-import i18n from '../../../utils/i18n'
 import { disputeReasons } from './disputeReasons'
 import { useDisputeReasonSelectorSetup } from './useDisputeReasonSelectorSetup'
 import { apiSuccess, unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
+import { headerState } from '../../../../tests/unit/helpers/NavigationWrapper'
 
 const useRouteMock = jest.fn().mockReturnValue({
   params: {
@@ -74,9 +74,7 @@ describe('useDisputeReasonSelectorSetup', () => {
   })
   it('sets up the header correctly', () => {
     renderHook(useDisputeReasonSelectorSetup)
-    expect(useHeaderSetupMock).toHaveBeenCalledWith({
-      title: i18n('dispute.disputeForTrade', 'PC‑E‑F'),
-    })
+    expect(headerState.header()).toMatchSnapshot()
   })
   it('does not set reason if no contract could be fetched', async () => {
     getContractMock.mockReturnValueOnce(undefined)

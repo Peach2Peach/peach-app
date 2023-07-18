@@ -1,7 +1,7 @@
 import { fireEvent, render } from '@testing-library/react-native'
 import { contract } from '../../../../tests/unit/data/contractData'
 import { NavigationAndQueryClientWrapper } from '../../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
-import DisputeRaisedNotice from '../../../popups/dispute/components/DisputeRaisedNotice'
+import { DisputeRaisedNotice } from '../../../popups/dispute/components/DisputeRaisedNotice'
 import { usePopupStore } from '../../../store/usePopupStore'
 import { ProvideEmailButton } from './ProvideEmailButton'
 

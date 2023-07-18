@@ -1,6 +1,6 @@
 import { View } from 'react-native'
 import tw from '../../../styles/tailwind'
-import Icon from '../../Icon'
+import { Icon } from '../../Icon'
 import { Text } from '../../text'
 import { StatusCardProps, statusCardStyles } from '../StatusCard'
 

@@ -2,9 +2,9 @@ import { View } from 'react-native'
 import { OptionButton, PeachScrollView } from '../../components'
 import { useHeaderSetup, useNavigation } from '../../hooks'
 import tw from '../../styles/tailwind'
-const headerConfig = { title: 'test view' }
-export default () => {
-  useHeaderSetup(headerConfig)
+
+export const TestView = () => {
+  useHeaderSetup('test view')
   const navigation = useNavigation()
   const goToPeachWalletTesting = () => navigation.navigate('testViewPeachWallet')
   const goToButtons = () => navigation.navigate('testViewButtons')

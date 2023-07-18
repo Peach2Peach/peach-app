@@ -10,7 +10,7 @@ import i18n from '../../../utils/i18n'
 import { thousands } from '../../../utils/string'
 import { useSubmitDisputeAcknowledgement } from '../hooks/helpers/useSubmitDisputeAcknowledgement'
 
-declare type DisputeRaisedNoticeProps = {
+type Props = {
   contract: Contract
   view: ContractViewer
   disputeReason: DisputeReason
@@ -21,7 +21,7 @@ declare type DisputeRaisedNoticeProps = {
 }
 const emailRules = { required: true, email: true }
 
-export default ({ contract, view, disputeReason, email, setEmail }: DisputeRaisedNoticeProps) => {
+export const DisputeRaisedNotice = ({ contract, view, disputeReason, email, setEmail }: Props) => {
   const [emailValue, setEmailValue, , emailErrors] = useValidatedState<string>(email, emailRules)
   const navigation = useNavigation()
   const submitDisputeAcknowledgement = useSubmitDisputeAcknowledgement()

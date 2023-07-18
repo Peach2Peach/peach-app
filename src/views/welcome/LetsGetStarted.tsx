@@ -7,7 +7,7 @@ import { useKeyboard } from '../../hooks'
 import i18n from '../../utils/i18n'
 import { useNewUserSetup } from './hooks/useNewUserSetup'
 
-export default () => {
+export const LetsGetStarted = () => {
   const {
     referralCode,
     setReferralCode,

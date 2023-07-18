@@ -21,5 +21,3 @@ export const BackupCreated = () => {
     </View>
   )
 }
-
-export default BackupCreated
