@@ -25,12 +25,9 @@ export const useDynamicLinks = () => {
 
   useEffect(() => {
     const unsubscribe = dynamicLinks().onLink(handleReferralCode)
-    return () => unsubscribe()
-  }, [handleReferralCode])
-
-  useEffect(() => {
     dynamicLinks().getInitialLink()
       .then(handleReferralCode)
+    return () => unsubscribe()
   }, [handleReferralCode])
 
   return handleReferralCode
