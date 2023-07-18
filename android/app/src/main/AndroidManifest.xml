@@ -28,7 +28,7 @@
           <category android:name="android.intent.category.DEFAULT"/>
           <category android:name="android.intent.category.BROWSABLE"/>
           <data
-              android:host="https://peachbitcoin.page.link"
+              android:host="peachbitcoin.page.link"
               android:scheme="https"/>
         </intent-filter>
       </activity>
