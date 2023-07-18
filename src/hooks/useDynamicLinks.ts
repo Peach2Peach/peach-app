@@ -29,7 +29,8 @@ export const useDynamicLinks = () => {
   }, [handleReferralCode])
 
   useEffect(() => {
-    dynamicLinks().getInitialLink().then(handleReferralCode)
+    dynamicLinks().getInitialLink()
+      .then(handleReferralCode)
   }, [handleReferralCode])
 
   return handleReferralCode
