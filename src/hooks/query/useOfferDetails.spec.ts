@@ -16,7 +16,7 @@ jest.mock('../../utils/peachAPI', () => ({
 
 describe('useOfferDetails', () => {
   const localOffer = { ...sellOffer, refundTx: '1' }
-
+  const localOfferUpToDate = { ...localOffer, lastModified: new Date() }
   afterEach(() => {
     queryClient.clear()
   })
@@ -42,23 +42,23 @@ describe('useOfferDetails', () => {
       error: null,
     })
   })
-  it('returns local offer first if given', async () => {
-    getStoredOfferMock.mockReturnValueOnce(localOffer)
+  it('returns local offer first if given and up to date', async () => {
+    getStoredOfferMock.mockReturnValueOnce(localOfferUpToDate)
     const { result } = renderHook(useOfferDetails, {
       wrapper: QueryClientWrapper,
       initialProps: sellOffer.id,
     })
 
     expect(result.current).toEqual({
-      offer: localOffer,
+      offer: localOfferUpToDate,
       isLoading: false,
-      isFetching: true,
+      isFetching: false,
       error: null,
     })
 
     await waitFor(() => expect(result.current.isFetching).toBe(false))
 
-    expect(result.current.offer).toEqual(sellOffer)
+    expect(result.current.offer).toEqual(localOfferUpToDate)
   })
   it('returns local offer if given and server did not return result', async () => {
     getOfferDetailsMock.mockResolvedValueOnce([null])
