@@ -424,12 +424,7 @@ exports[`EditPremium should render correctly 1`] = `
                               },
                             ],
                             {
-                              "color": "#2B1911",
-                            },
-                            {
-                              "opacity": 0.1,
-                            },
-                            {
+                              "color": "#2B19111A",
                               "letterSpacing": -1.275,
                             },
                           ],
@@ -462,12 +457,7 @@ exports[`EditPremium should render correctly 1`] = `
                               },
                             ],
                             {
-                              "color": "#2B1911",
-                            },
-                            {
-                              "opacity": 0.1,
-                            },
-                            {
+                              "color": "#2B19111A",
                               "letterSpacing": -3.57,
                             },
                           ],
@@ -501,9 +491,6 @@ exports[`EditPremium should render correctly 1`] = `
                             ],
                             {
                               "color": "#2B1911",
-                            },
-                            false,
-                            {
                               "letterSpacing": -1.275,
                             },
                           ],
@@ -537,9 +524,6 @@ exports[`EditPremium should render correctly 1`] = `
                             ],
                             {
                               "color": "#2B1911",
-                            },
-                            false,
-                            {
                               "letterSpacing": -1.275,
                             },
                           ],
@@ -573,9 +557,6 @@ exports[`EditPremium should render correctly 1`] = `
                             ],
                             {
                               "color": "#2B1911",
-                            },
-                            false,
-                            {
                               "letterSpacing": -5.949999999999999,
                             },
                           ],
@@ -609,9 +590,6 @@ exports[`EditPremium should render correctly 1`] = `
                             ],
                             {
                               "color": "#2B1911",
-                            },
-                            false,
-                            {
                               "letterSpacing": -1.275,
                             },
                           ],
@@ -645,9 +623,6 @@ exports[`EditPremium should render correctly 1`] = `
                             ],
                             {
                               "color": "#2B1911",
-                            },
-                            false,
-                            {
                               "letterSpacing": -1.275,
                             },
                           ],
@@ -681,9 +656,6 @@ exports[`EditPremium should render correctly 1`] = `
                             ],
                             {
                               "color": "#2B1911",
-                            },
-                            false,
-                            {
                               "letterSpacing": -1.275,
                             },
                           ],
@@ -717,9 +689,6 @@ exports[`EditPremium should render correctly 1`] = `
                             ],
                             {
                               "color": "#2B1911",
-                            },
-                            false,
-                            {
                               "letterSpacing": -5.949999999999999,
                             },
                           ],
@@ -753,9 +722,6 @@ exports[`EditPremium should render correctly 1`] = `
                             ],
                             {
                               "color": "#2B1911",
-                            },
-                            false,
-                            {
                               "letterSpacing": -1.275,
                             },
                           ],
@@ -789,9 +755,6 @@ exports[`EditPremium should render correctly 1`] = `
                             ],
                             {
                               "color": "#2B1911",
-                            },
-                            false,
-                            {
                               "letterSpacing": -1.275,
                             },
                           ],
@@ -825,9 +788,6 @@ exports[`EditPremium should render correctly 1`] = `
                             ],
                             {
                               "color": "#2B1911",
-                            },
-                            false,
-                            {
                               "letterSpacing": -1.275,
                             },
                           ],
