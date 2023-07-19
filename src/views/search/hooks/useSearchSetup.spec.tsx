@@ -3,6 +3,7 @@ import { buyOffer, sellOffer } from '../../../../tests/unit/data/offerData'
 import { NavigationAndQueryClientWrapper } from '../../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
 import { headerState, navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
+import { HeaderIcon } from '../../../components/header/Header'
 import { useSearchSetup } from './useSearchSetup'
 
 jest.mock('../../../hooks/useRoute', () => ({
@@ -61,7 +62,10 @@ describe('useSearchSetup', () => {
       await waitFor(() => expect(queryClient.isFetching()).toBe(0))
     })
     act(() => {
-      headerState.header().props.icons[0].onPress()
+      headerState
+        .header()
+        .props.icons.find((icon: HeaderIcon) => icon.id === 'percent')
+        .onPress()
     })
     expect(navigateMock).toHaveBeenCalledWith('editPremium', { offerId: buyOffer.id })
   })
