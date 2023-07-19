@@ -16,9 +16,6 @@ exports[`BTCAmountChar should render correctly 1`] = `
         [],
         {
           "color": "#2B1911",
-        },
-        false,
-        {
           "letterSpacing": 0,
         },
       ],
@@ -45,9 +42,6 @@ exports[`BTCAmountChar should render correctly with error 1`] = `
         [],
         {
           "color": "#B01807",
-        },
-        false,
-        {
           "letterSpacing": 0,
         },
       ],
@@ -73,12 +67,7 @@ exports[`BTCAmountChar should render correctly with reduceOpacity 1`] = `
       [
         [],
         {
-          "color": "#2B1911",
-        },
-        {
-          "opacity": 0.1,
-        },
-        {
+          "color": "#2B19111A",
           "letterSpacing": 0,
         },
       ],
@@ -104,12 +93,7 @@ exports[`BTCAmountChar should render correctly with reduceOpacity and isError 1`
       [
         [],
         {
-          "color": "#B01807",
-        },
-        {
-          "opacity": 0.1,
-        },
-        {
+          "color": "#B018071A",
           "letterSpacing": 0,
         },
       ],

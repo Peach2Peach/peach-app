@@ -12,7 +12,13 @@ type Props = {
 
 export const BTCAmountChar = ({ style, letterSpacing, reduceOpacity, isError, char }: Props) => (
   <Text
-    style={[style, isError ? tw`text-error-dark` : tw`text-black-1`, reduceOpacity && tw`opacity-10`, { letterSpacing }]}
+    style={[
+      style,
+      {
+        letterSpacing,
+        color: `${(isError ? tw`text-error-dark` : tw`text-black-1`).color?.toString()}${reduceOpacity ? '1A' : ''}`,
+      },
+    ]}
   >
     {char}
   </Text>
