@@ -2,14 +2,14 @@ import { PrimaryButton } from '../../../components'
 import { useNavigation } from '../../../hooks'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
-import { useConfirmPremium } from '../hooks'
+import { usePatchOffer } from '../hooks'
 
 type Props = {
   offerId: string
   newPremium: number
 }
 export const ConfirmButton = ({ offerId, newPremium }: Props) => {
-  const { mutate: confirmPremium } = useConfirmPremium(offerId, newPremium)
+  const { mutate: confirmPremium } = usePatchOffer(offerId, { premium: newPremium })
   const navigation = useNavigation()
   return (
     <PrimaryButton

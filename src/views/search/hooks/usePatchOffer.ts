@@ -2,7 +2,14 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { patchOffer } from '../../../utils/peachAPI'
 
-export const useConfirmPremium = (offerId: string, newPremium: number) => {
+type NewData = {
+  refundAddress?: string
+  refundTx?: string
+  premium?: number
+  maxPremium?: number | null
+}
+
+export const usePatchOffer = (offerId: string, newData: NewData) => {
   const queryClient = useQueryClient()
   const showErrorBanner = useShowErrorBanner()
 
@@ -12,13 +19,13 @@ export const useConfirmPremium = (offerId: string, newPremium: number) => {
       const previousData = queryClient.getQueryData<BuyOffer | SellOffer>(['offer', offerId])
       queryClient.setQueryData(
         ['offer', offerId],
-        (oldQueryData: BuyOffer | SellOffer | undefined) => oldQueryData && { ...oldQueryData, premium: newPremium },
+        (oldQueryData: BuyOffer | SellOffer | undefined) => oldQueryData && { ...oldQueryData, ...newData },
       )
 
       return { previousData }
     },
     mutationFn: async () => {
-      const [, error] = await patchOffer({ offerId, premium: newPremium })
+      const [, error] = await patchOffer({ offerId, ...newData })
       if (error) throw new Error(error.error)
     },
     onError: (err: Error, _variables, context) => {
