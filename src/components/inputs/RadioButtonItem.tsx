@@ -3,12 +3,12 @@ import { View } from 'react-native'
 import { Icon, Text } from '..'
 import tw from '../../styles/tailwind'
 
-type RadioButtonItemProp = ComponentProps & {
+type Props = ComponentProps & {
   display: ReactNode
   selected: boolean
   disabled?: boolean
 }
-export const RadioButtonItem = ({ display, selected, disabled }: RadioButtonItemProp) => (
+export const RadioButtonItem = ({ display, selected, disabled }: Props) => (
   <View
     style={[
       tw`flex-row items-center justify-between w-full px-4 py-2 border-2 bg-primary-background-dark rounded-xl`,
