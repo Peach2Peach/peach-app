@@ -50,6 +50,8 @@ exports[`Popup should render correctly 1`] = `
         style={
           [
             {
+              "borderTopLeftRadius": 16,
+              "borderTopRightRadius": 16,
               "paddingBottom": 16,
               "paddingLeft": 16,
               "paddingRight": 16,
@@ -57,10 +59,6 @@ exports[`Popup should render correctly 1`] = `
             },
             {
               "backgroundColor": "#FFFCFA",
-            },
-            {
-              "borderTopLeftRadius": 16,
-              "borderTopRightRadius": 16,
             },
           ]
         }

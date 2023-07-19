@@ -55,7 +55,7 @@ export const Popup = () => {
           onPress={onBackgroundPress}
         ></Pressable>
         <View testID="popup" style={[levelColorMap.bg1[level], tw`mx-6 rounded-2xl`]}>
-          <View style={[tw`p-4`, levelColorMap.bg2[level], tw`rounded-t-2xl`]}>
+          <View style={[tw`p-4 rounded-t-2xl`, levelColorMap.bg2[level]]}>
             {!!title && <Text style={tw`mb-1 h5 text-black-1`}>{title.toLocaleLowerCase()}</Text>}
             {content}
           </View>
