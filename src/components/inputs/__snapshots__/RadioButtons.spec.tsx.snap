@@ -11,31 +11,15 @@ exports[`RadioButtons renders correctly 1`] = `
     ]
   }
 >
-  <TouchableOpacity
+  <RadioButtonItem
+    display="EUR"
+    isSelected={true}
     onPress={[Function]}
-    style={
-      {
-        "width": "100%",
-      }
-    }
-  >
-    <RadioButtonItem
-      display="EUR"
-      selected={true}
-    />
-  </TouchableOpacity>
-  <TouchableOpacity
+  />
+  <RadioButtonItem
+    display="GBP"
+    isSelected={false}
     onPress={[Function]}
-    style={
-      {
-        "width": "100%",
-      }
-    }
-  >
-    <RadioButtonItem
-      display="GBP"
-      selected={false}
-    />
-  </TouchableOpacity>
+  />
 </View>
 `;

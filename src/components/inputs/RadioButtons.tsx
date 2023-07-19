@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import { TouchableOpacity, View } from 'react-native'
+import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 import { RadioButtonItem } from './RadioButtonItem'
 
@@ -18,10 +18,14 @@ type Props<T> = ComponentProps & {
 
 export const RadioButtons = <T, >({ items, selectedValue, onButtonPress, style }: Props<T>) => (
   <View style={[tw`gap-2`, style]}>
-    {items.map((item, i) => (
-      <TouchableOpacity key={i} style={tw`w-full`} disabled={item.disabled} onPress={() => onButtonPress(item.value)}>
-        <RadioButtonItem display={item.display} selected={item.value === selectedValue} disabled={item.disabled} />
-      </TouchableOpacity>
+    {items.map(({ display, disabled, value }, i) => (
+      <RadioButtonItem
+        key={i}
+        display={display}
+        isSelected={value === selectedValue}
+        onPress={() => onButtonPress(value)}
+        disabled={disabled}
+      />
     ))}
   </View>
 )

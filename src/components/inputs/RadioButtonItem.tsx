@@ -1,19 +1,22 @@
 import { ReactNode } from 'react'
-import { View } from 'react-native'
+import { TouchableOpacity, View } from 'react-native'
 import { Icon, Text } from '..'
 import tw from '../../styles/tailwind'
 
 type Props = ComponentProps & {
   display: ReactNode
-  selected: boolean
+  isSelected: boolean
+  onPress: () => void
   disabled?: boolean
 }
-export const RadioButtonItem = ({ display, selected, disabled }: Props) => (
-  <View
+export const RadioButtonItem = ({ display, isSelected, disabled, onPress }: Props) => (
+  <TouchableOpacity
+    onPress={onPress}
+    disabled={disabled}
     style={[
       tw`flex-row items-center justify-between w-full px-4 py-2 border-2 bg-primary-background-dark rounded-xl`,
       disabled && tw`opacity-50`,
-      selected ? tw`border-primary-main` : tw`border-transparent`,
+      isSelected ? tw`border-primary-main` : tw`border-transparent`,
     ]}
   >
     {typeof display === 'string' ? (
@@ -22,9 +25,9 @@ export const RadioButtonItem = ({ display, selected, disabled }: Props) => (
       <View style={tw`flex-1`}>{display}</View>
     )}
     <Icon
-      id={disabled ? 'minusCircle' : selected ? 'radioSelected' : 'circle'}
+      id={disabled ? 'minusCircle' : isSelected ? 'radioSelected' : 'circle'}
       style={tw`w-5 h-5`}
-      color={(selected ? tw`text-primary-main` : tw`text-black-3`).color}
+      color={(isSelected ? tw`text-primary-main` : tw`text-black-3`).color}
     />
-  </View>
+  </TouchableOpacity>
 )
