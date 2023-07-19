@@ -9,7 +9,10 @@ type Props = Omit<TextInputProps, 'onChange'> & {
 
 export const PercentageInput = ({ onChange, ...props }: Props) => (
   <View
-    style={tw`flex-row items-center px-2 py-3 border w-23 h-38px rounded-xl bg-primary-background-light border-black-2`}
+    style={[
+      tw`flex-row items-center px-2 py-3 overflow-hidden w-23 h-38px rounded-xl`,
+      tw`border bg-primary-background-light border-black-2`,
+    ]}
   >
     <TextInput
       onChangeText={(text) => onChange(enforceDecimalsFormat(text, 2))}
