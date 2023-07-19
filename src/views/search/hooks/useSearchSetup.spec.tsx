@@ -38,7 +38,7 @@ describe('useSearchSetup', () => {
   beforeEach(() => {
     queryClient.clear()
   })
-  it('should set up header correctly', async () => {
+  it('should set up header correctly for buy offers', async () => {
     renderHook(useSearchSetup, { wrapper })
 
     await act(async () => {
@@ -46,7 +46,7 @@ describe('useSearchSetup', () => {
     })
     expect(headerState.header()).toMatchSnapshot()
   })
-  it('should show the sliders for sell offers', async () => {
+  it('should set up header correctly for sell offers', async () => {
     getOfferDetailsMock.mockResolvedValueOnce([sellOffer, null])
     renderHook(useSearchSetup, { wrapper })
     await act(async () => {
@@ -54,7 +54,7 @@ describe('useSearchSetup', () => {
     })
     expect(headerState.header()).toMatchSnapshot()
   })
-  it('should redirect to "editPremium" when clicking on sliders', async () => {
+  it('should redirect to "editPremium" when clicking on percent icon', async () => {
     getOfferDetailsMock.mockResolvedValueOnce([sellOffer, null])
     renderHook(useSearchSetup, { wrapper })
     await act(async () => {

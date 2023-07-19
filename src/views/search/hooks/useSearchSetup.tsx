@@ -28,8 +28,10 @@ export const useSearchSetup = () => {
   const goToEditPremium = () => navigation.navigate('editPremium', { offerId })
   const getHeaderIcons = () => {
     if (!offer) return undefined
+    const filterIcon = isBuyOffer(offer) ? headerIcons.buyFilter : headerIcons.sellFilter
+    const icons = [{ ...filterIcon, onPress: () => {} }]
 
-    const icons = isSellOffer(offer) ? [{ ...headerIcons.percent, onPress: goToEditPremium }] : []
+    if (isSellOffer(offer)) icons.push({ ...headerIcons.percent, onPress: goToEditPremium })
 
     icons.push({ ...headerIcons.cancel, onPress: cancelOffer })
 
