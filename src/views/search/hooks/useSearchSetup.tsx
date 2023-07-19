@@ -11,6 +11,7 @@ import { parseError } from '../../../utils/result'
 import { shouldGoToContract } from '../helpers/shouldGoToContract'
 import { useOfferMatches } from './useOfferMatches'
 import { useRefetchOnNotification } from './useRefetchOnNotification'
+import { useSortAndFilterPopup } from './useSortAndFilterPopup'
 
 export const useSearchSetup = () => {
   const navigation = useNavigation()
@@ -23,13 +24,14 @@ export const useSearchSetup = () => {
   const [addMatchSelectors, resetStore] = useMatchStore((state) => [state.addMatchSelectors, state.resetStore], shallow)
   const showMatchPopup = useShowHelp('matchmatchmatch')
   const showAcceptMatchPopup = useShowHelp('acceptMatch')
+  const showSortAndFilterPopup = useSortAndFilterPopup(offerId)
 
   const cancelOffer = useCancelOffer(offer)
   const goToEditPremium = () => navigation.navigate('editPremium', { offerId })
   const getHeaderIcons = () => {
     if (!offer) return undefined
     const filterIcon = isBuyOffer(offer) ? headerIcons.buyFilter : headerIcons.sellFilter
-    const icons = [{ ...filterIcon, onPress: () => {} }]
+    const icons = [{ ...filterIcon, onPress: showSortAndFilterPopup }]
 
     if (isSellOffer(offer)) icons.push({ ...headerIcons.percent, onPress: goToEditPremium })
 
