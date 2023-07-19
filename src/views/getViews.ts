@@ -29,7 +29,6 @@ import { EditPremium } from './search/EditPremium'
 import { OfferPublished } from './search/OfferPublished'
 import { Search } from './search/Search'
 import { SelectWallet } from './selectWallet/SelectWallet'
-import { SetRefundWallet } from './selectWallet/SetRefundWallet'
 import { OfferPreferencePremium } from './sell/OfferPreferencePremium'
 import { Sell } from './sell/Sell'
 import { SellSummary } from './sell/SellSummary'
@@ -115,7 +114,6 @@ const sellFlow: ViewType[] = [
   { name: 'fundEscrow', component: FundEscrow, ...defaultConfig },
   { name: 'wrongFundingAmount', component: WrongFundingAmount, ...defaultConfig },
   { name: 'selectWallet', component: SelectWallet, ...defaultConfig },
-  { name: 'setRefundWallet', component: SetRefundWallet, ...defaultConfig },
 ]
 
 const search: ViewType[] = [

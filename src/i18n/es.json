@@ -955,8 +955,6 @@
   "sell.title": "vender bitcoin",
   "seller": "vendedor",
   "send": "enviar",
-  "setRefundWallet.description": "No se ha establecido una dirección de reembolso para este intercambio. Por favor, selecciona una antes de continuar:",
-  "setRefundWallet.title": "selecciona la cartera de reembolso",
   "settings": "ajustes",
   "settings.aboutPeach": "sobre Peach",
   "settings.analytics": "Diagnósticos",

@@ -955,8 +955,6 @@
   "sell.title": "sell bitcoin",
   "seller": "seller",
   "send": "send",
-  "setRefundWallet.description": "No refund address has been set for this trade. Please select one before continuing:",
-  "setRefundWallet.title": "select refund wallet",
   "settings": "settings",
   "settings.aboutPeach": "about Peach",
   "settings.analytics": "Diagnostics",

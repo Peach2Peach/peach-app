@@ -7,13 +7,8 @@ import { useSetCustomReferralCodePopup } from '../../../popups/referral/useSetCu
 import i18n from '../../../utils/i18n'
 import { headerIcons } from '../../../utils/layout/headerIcons'
 import { isRewardAvailable } from '../helpers/isRewardAvailable'
+import { REWARDINFO } from '../Referrals'
 
-const BARLIMIT = 400
-const REWARDINFO: Reward[] = [
-  { id: 'customReferralCode', requiredPoints: 100 },
-  { id: 'noPeachFees', requiredPoints: 200 },
-  { id: 'sats', requiredPoints: 300 },
-]
 export const useReferralsSetup = () => {
   const showHelp = useShowHelp('referrals')
   const { setCustomReferralCodePopup } = useSetCustomReferralCodePopup()
@@ -45,8 +40,6 @@ export const useReferralsSetup = () => {
   return {
     user,
     pointsBalance,
-    BARLIMIT,
-    REWARDINFO,
     availableRewards,
     selectedReward,
     setSelectedReward,

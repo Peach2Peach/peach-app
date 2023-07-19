@@ -940,8 +940,6 @@
   "SERVICE_UNAVAILABLE.text": "Stiamo lavorando per migliorare la nostra infrastruttura. Ti preghiamo di riprovare più tardi!",
   "SERVICE_UNAVAILABLE.title": "manutenzione",
   "SERVICE_UNAVAILABLE": "Resisti, Peach è attualmente in manutenzione.",
-  "setRefundWallet.description": "Non è stato impostato un indirizzo di rimborso per questo scambio. Selezionane uno prima di continuare:",
-  "setRefundWallet.title": "seleziona il wallet di rimborso",
   "settings.aboutPeach": "informazioni su Peach",
   "settings.analytics": "Diagnostica",
   "settings.appSettings": "impostazioni dell'app",

@@ -11,49 +11,31 @@ exports[`RadioButtons renders correctly 1`] = `
     ]
   }
 >
-  <View
+  <TouchableOpacity
+    onPress={[Function]}
     style={
       {
-        "alignItems": "center",
-        "flexDirection": "row",
+        "width": "100%",
       }
     }
   >
-    <Memo(Pressable)
-      onPress={[Function]}
-      style={
-        {
-          "width": "100%",
-        }
-      }
-    >
-      <RadioButtonItem
-        display="EUR"
-        selected={true}
-      />
-    </Memo(Pressable)>
-  </View>
-  <View
+    <RadioButtonItem
+      display="EUR"
+      selected={true}
+    />
+  </TouchableOpacity>
+  <TouchableOpacity
+    onPress={[Function]}
     style={
       {
-        "alignItems": "center",
-        "flexDirection": "row",
+        "width": "100%",
       }
     }
   >
-    <Memo(Pressable)
-      onPress={[Function]}
-      style={
-        {
-          "width": "100%",
-        }
-      }
-    >
-      <RadioButtonItem
-        display="GBP"
-        selected={false}
-      />
-    </Memo(Pressable)>
-  </View>
+    <RadioButtonItem
+      display="GBP"
+      selected={false}
+    />
+  </TouchableOpacity>
 </View>
 `;

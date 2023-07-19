@@ -9,7 +9,7 @@ describe('Currencies', () => {
     type: 'europe' as const,
   }
 
-  it('should render correctly for type "eurorpe"', () => {
+  it('should render correctly for type "europe"', () => {
     renderer.render(<Currencies {...props} />)
     const result = renderer.getRenderOutput()
     expect(result).toMatchSnapshot()
