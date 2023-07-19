@@ -157,12 +157,7 @@ exports[`Right should render correctly with amount 1`] = `
                     },
                   ],
                   {
-                    "color": "#2B1911",
-                  },
-                  {
-                    "opacity": 0.1,
-                  },
-                  {
+                    "color": "#2B19111A",
                     "letterSpacing": -1.275,
                   },
                 ],
@@ -195,12 +190,7 @@ exports[`Right should render correctly with amount 1`] = `
                     },
                   ],
                   {
-                    "color": "#2B1911",
-                  },
-                  {
-                    "opacity": 0.1,
-                  },
-                  {
+                    "color": "#2B19111A",
                     "letterSpacing": -3.57,
                   },
                 ],
@@ -233,12 +223,7 @@ exports[`Right should render correctly with amount 1`] = `
                     },
                   ],
                   {
-                    "color": "#2B1911",
-                  },
-                  {
-                    "opacity": 0.1,
-                  },
-                  {
+                    "color": "#2B19111A",
                     "letterSpacing": -1.275,
                   },
                 ],
@@ -271,12 +256,7 @@ exports[`Right should render correctly with amount 1`] = `
                     },
                   ],
                   {
-                    "color": "#2B1911",
-                  },
-                  {
-                    "opacity": 0.1,
-                  },
-                  {
+                    "color": "#2B19111A",
                     "letterSpacing": -1.275,
                   },
                 ],
@@ -309,12 +289,7 @@ exports[`Right should render correctly with amount 1`] = `
                     },
                   ],
                   {
-                    "color": "#2B1911",
-                  },
-                  {
-                    "opacity": 0.1,
-                  },
-                  {
+                    "color": "#2B19111A",
                     "letterSpacing": -5.949999999999999,
                   },
                 ],
@@ -347,12 +322,7 @@ exports[`Right should render correctly with amount 1`] = `
                     },
                   ],
                   {
-                    "color": "#2B1911",
-                  },
-                  {
-                    "opacity": 0.1,
-                  },
-                  {
+                    "color": "#2B19111A",
                     "letterSpacing": -1.275,
                   },
                 ],
@@ -385,12 +355,7 @@ exports[`Right should render correctly with amount 1`] = `
                     },
                   ],
                   {
-                    "color": "#2B1911",
-                  },
-                  {
-                    "opacity": 0.1,
-                  },
-                  {
+                    "color": "#2B19111A",
                     "letterSpacing": -1.275,
                   },
                 ],
@@ -423,12 +388,7 @@ exports[`Right should render correctly with amount 1`] = `
                     },
                   ],
                   {
-                    "color": "#2B1911",
-                  },
-                  {
-                    "opacity": 0.1,
-                  },
-                  {
+                    "color": "#2B19111A",
                     "letterSpacing": -1.275,
                   },
                 ],
@@ -461,12 +421,7 @@ exports[`Right should render correctly with amount 1`] = `
                     },
                   ],
                   {
-                    "color": "#2B1911",
-                  },
-                  {
-                    "opacity": 0.1,
-                  },
-                  {
+                    "color": "#2B19111A",
                     "letterSpacing": -5.949999999999999,
                   },
                 ],
@@ -499,12 +454,7 @@ exports[`Right should render correctly with amount 1`] = `
                     },
                   ],
                   {
-                    "color": "#2B1911",
-                  },
-                  {
-                    "opacity": 0.1,
-                  },
-                  {
+                    "color": "#2B19111A",
                     "letterSpacing": -1.275,
                   },
                 ],
@@ -538,9 +488,6 @@ exports[`Right should render correctly with amount 1`] = `
                   ],
                   {
                     "color": "#2B1911",
-                  },
-                  false,
-                  {
                     "letterSpacing": -1.275,
                   },
                 ],
@@ -574,9 +521,6 @@ exports[`Right should render correctly with amount 1`] = `
                   ],
                   {
                     "color": "#2B1911",
-                  },
-                  false,
-                  {
                     "letterSpacing": -1.275,
                   },
                 ],
@@ -759,12 +703,7 @@ exports[`Right should render correctly with fiatAmount 1`] = `
                     },
                   ],
                   {
-                    "color": "#2B1911",
-                  },
-                  {
-                    "opacity": 0.1,
-                  },
-                  {
+                    "color": "#2B19111A",
                     "letterSpacing": -1.275,
                   },
                 ],
@@ -797,12 +736,7 @@ exports[`Right should render correctly with fiatAmount 1`] = `
                     },
                   ],
                   {
-                    "color": "#2B1911",
-                  },
-                  {
-                    "opacity": 0.1,
-                  },
-                  {
+                    "color": "#2B19111A",
                     "letterSpacing": -3.57,
                   },
                 ],
@@ -835,12 +769,7 @@ exports[`Right should render correctly with fiatAmount 1`] = `
                     },
                   ],
                   {
-                    "color": "#2B1911",
-                  },
-                  {
-                    "opacity": 0.1,
-                  },
-                  {
+                    "color": "#2B19111A",
                     "letterSpacing": -1.275,
                   },
                 ],
@@ -873,12 +802,7 @@ exports[`Right should render correctly with fiatAmount 1`] = `
                     },
                   ],
                   {
-                    "color": "#2B1911",
-                  },
-                  {
-                    "opacity": 0.1,
-                  },
-                  {
+                    "color": "#2B19111A",
                     "letterSpacing": -1.275,
                   },
                 ],
@@ -911,12 +835,7 @@ exports[`Right should render correctly with fiatAmount 1`] = `
                     },
                   ],
                   {
-                    "color": "#2B1911",
-                  },
-                  {
-                    "opacity": 0.1,
-                  },
-                  {
+                    "color": "#2B19111A",
                     "letterSpacing": -5.949999999999999,
                   },
                 ],
@@ -949,12 +868,7 @@ exports[`Right should render correctly with fiatAmount 1`] = `
                     },
                   ],
                   {
-                    "color": "#2B1911",
-                  },
-                  {
-                    "opacity": 0.1,
-                  },
-                  {
+                    "color": "#2B19111A",
                     "letterSpacing": -1.275,
                   },
                 ],
@@ -987,12 +901,7 @@ exports[`Right should render correctly with fiatAmount 1`] = `
                     },
                   ],
                   {
-                    "color": "#2B1911",
-                  },
-                  {
-                    "opacity": 0.1,
-                  },
-                  {
+                    "color": "#2B19111A",
                     "letterSpacing": -1.275,
                   },
                 ],
@@ -1025,12 +934,7 @@ exports[`Right should render correctly with fiatAmount 1`] = `
                     },
                   ],
                   {
-                    "color": "#2B1911",
-                  },
-                  {
-                    "opacity": 0.1,
-                  },
-                  {
+                    "color": "#2B19111A",
                     "letterSpacing": -1.275,
                   },
                 ],
@@ -1063,12 +967,7 @@ exports[`Right should render correctly with fiatAmount 1`] = `
                     },
                   ],
                   {
-                    "color": "#2B1911",
-                  },
-                  {
-                    "opacity": 0.1,
-                  },
-                  {
+                    "color": "#2B19111A",
                     "letterSpacing": -5.949999999999999,
                   },
                 ],
@@ -1101,12 +1000,7 @@ exports[`Right should render correctly with fiatAmount 1`] = `
                     },
                   ],
                   {
-                    "color": "#2B1911",
-                  },
-                  {
-                    "opacity": 0.1,
-                  },
-                  {
+                    "color": "#2B19111A",
                     "letterSpacing": -1.275,
                   },
                 ],
@@ -1140,9 +1034,6 @@ exports[`Right should render correctly with fiatAmount 1`] = `
                   ],
                   {
                     "color": "#2B1911",
-                  },
-                  false,
-                  {
                     "letterSpacing": -1.275,
                   },
                 ],
@@ -1176,9 +1067,6 @@ exports[`Right should render correctly with fiatAmount 1`] = `
                   ],
                   {
                     "color": "#2B1911",
-                  },
-                  false,
-                  {
                     "letterSpacing": -1.275,
                   },
                 ],
@@ -1407,12 +1295,7 @@ exports[`Right should render correctly with range 1`] = `
                       },
                     ],
                     {
-                      "color": "#2B1911",
-                    },
-                    {
-                      "opacity": 0.1,
-                    },
-                    {
+                      "color": "#2B19111A",
                       "letterSpacing": -1.275,
                     },
                   ],
@@ -1445,12 +1328,7 @@ exports[`Right should render correctly with range 1`] = `
                       },
                     ],
                     {
-                      "color": "#2B1911",
-                    },
-                    {
-                      "opacity": 0.1,
-                    },
-                    {
+                      "color": "#2B19111A",
                       "letterSpacing": -3.57,
                     },
                   ],
@@ -1483,12 +1361,7 @@ exports[`Right should render correctly with range 1`] = `
                       },
                     ],
                     {
-                      "color": "#2B1911",
-                    },
-                    {
-                      "opacity": 0.1,
-                    },
-                    {
+                      "color": "#2B19111A",
                       "letterSpacing": -1.275,
                     },
                   ],
@@ -1521,12 +1394,7 @@ exports[`Right should render correctly with range 1`] = `
                       },
                     ],
                     {
-                      "color": "#2B1911",
-                    },
-                    {
-                      "opacity": 0.1,
-                    },
-                    {
+                      "color": "#2B19111A",
                       "letterSpacing": -1.275,
                     },
                   ],
@@ -1559,12 +1427,7 @@ exports[`Right should render correctly with range 1`] = `
                       },
                     ],
                     {
-                      "color": "#2B1911",
-                    },
-                    {
-                      "opacity": 0.1,
-                    },
-                    {
+                      "color": "#2B19111A",
                       "letterSpacing": -5.949999999999999,
                     },
                   ],
@@ -1597,12 +1460,7 @@ exports[`Right should render correctly with range 1`] = `
                       },
                     ],
                     {
-                      "color": "#2B1911",
-                    },
-                    {
-                      "opacity": 0.1,
-                    },
-                    {
+                      "color": "#2B19111A",
                       "letterSpacing": -1.275,
                     },
                   ],
@@ -1635,12 +1493,7 @@ exports[`Right should render correctly with range 1`] = `
                       },
                     ],
                     {
-                      "color": "#2B1911",
-                    },
-                    {
-                      "opacity": 0.1,
-                    },
-                    {
+                      "color": "#2B19111A",
                       "letterSpacing": -1.275,
                     },
                   ],
@@ -1673,12 +1526,7 @@ exports[`Right should render correctly with range 1`] = `
                       },
                     ],
                     {
-                      "color": "#2B1911",
-                    },
-                    {
-                      "opacity": 0.1,
-                    },
-                    {
+                      "color": "#2B19111A",
                       "letterSpacing": -1.275,
                     },
                   ],
@@ -1711,12 +1559,7 @@ exports[`Right should render correctly with range 1`] = `
                       },
                     ],
                     {
-                      "color": "#2B1911",
-                    },
-                    {
-                      "opacity": 0.1,
-                    },
-                    {
+                      "color": "#2B19111A",
                       "letterSpacing": -5.949999999999999,
                     },
                   ],
@@ -1749,12 +1592,7 @@ exports[`Right should render correctly with range 1`] = `
                       },
                     ],
                     {
-                      "color": "#2B1911",
-                    },
-                    {
-                      "opacity": 0.1,
-                    },
-                    {
+                      "color": "#2B19111A",
                       "letterSpacing": -1.275,
                     },
                   ],
@@ -1788,9 +1626,6 @@ exports[`Right should render correctly with range 1`] = `
                     ],
                     {
                       "color": "#2B1911",
-                    },
-                    false,
-                    {
                       "letterSpacing": -1.275,
                     },
                   ],
@@ -1824,9 +1659,6 @@ exports[`Right should render correctly with range 1`] = `
                     ],
                     {
                       "color": "#2B1911",
-                    },
-                    false,
-                    {
                       "letterSpacing": -1.275,
                     },
                   ],
@@ -2010,12 +1842,7 @@ exports[`Right should render correctly with range 1`] = `
                       },
                     ],
                     {
-                      "color": "#2B1911",
-                    },
-                    {
-                      "opacity": 0.1,
-                    },
-                    {
+                      "color": "#2B19111A",
                       "letterSpacing": -1.275,
                     },
                   ],
@@ -2048,12 +1875,7 @@ exports[`Right should render correctly with range 1`] = `
                       },
                     ],
                     {
-                      "color": "#2B1911",
-                    },
-                    {
-                      "opacity": 0.1,
-                    },
-                    {
+                      "color": "#2B19111A",
                       "letterSpacing": -3.57,
                     },
                   ],
@@ -2086,12 +1908,7 @@ exports[`Right should render correctly with range 1`] = `
                       },
                     ],
                     {
-                      "color": "#2B1911",
-                    },
-                    {
-                      "opacity": 0.1,
-                    },
-                    {
+                      "color": "#2B19111A",
                       "letterSpacing": -1.275,
                     },
                   ],
@@ -2124,12 +1941,7 @@ exports[`Right should render correctly with range 1`] = `
                       },
                     ],
                     {
-                      "color": "#2B1911",
-                    },
-                    {
-                      "opacity": 0.1,
-                    },
-                    {
+                      "color": "#2B19111A",
                       "letterSpacing": -1.275,
                     },
                   ],
@@ -2162,12 +1974,7 @@ exports[`Right should render correctly with range 1`] = `
                       },
                     ],
                     {
-                      "color": "#2B1911",
-                    },
-                    {
-                      "opacity": 0.1,
-                    },
-                    {
+                      "color": "#2B19111A",
                       "letterSpacing": -5.949999999999999,
                     },
                   ],
@@ -2200,12 +2007,7 @@ exports[`Right should render correctly with range 1`] = `
                       },
                     ],
                     {
-                      "color": "#2B1911",
-                    },
-                    {
-                      "opacity": 0.1,
-                    },
-                    {
+                      "color": "#2B19111A",
                       "letterSpacing": -1.275,
                     },
                   ],
@@ -2239,9 +2041,6 @@ exports[`Right should render correctly with range 1`] = `
                     ],
                     {
                       "color": "#2B1911",
-                    },
-                    false,
-                    {
                       "letterSpacing": -1.275,
                     },
                   ],
@@ -2275,9 +2074,6 @@ exports[`Right should render correctly with range 1`] = `
                     ],
                     {
                       "color": "#2B1911",
-                    },
-                    false,
-                    {
                       "letterSpacing": -1.275,
                     },
                   ],
@@ -2311,9 +2107,6 @@ exports[`Right should render correctly with range 1`] = `
                     ],
                     {
                       "color": "#2B1911",
-                    },
-                    false,
-                    {
                       "letterSpacing": -5.949999999999999,
                     },
                   ],
@@ -2347,9 +2140,6 @@ exports[`Right should render correctly with range 1`] = `
                     ],
                     {
                       "color": "#2B1911",
-                    },
-                    false,
-                    {
                       "letterSpacing": -1.275,
                     },
                   ],
@@ -2383,9 +2173,6 @@ exports[`Right should render correctly with range 1`] = `
                     ],
                     {
                       "color": "#2B1911",
-                    },
-                    false,
-                    {
                       "letterSpacing": -1.275,
                     },
                   ],
@@ -2419,9 +2206,6 @@ exports[`Right should render correctly with range 1`] = `
                     ],
                     {
                       "color": "#2B1911",
-                    },
-                    false,
-                    {
                       "letterSpacing": -1.275,
                     },
                   ],
