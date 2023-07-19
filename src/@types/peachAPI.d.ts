@@ -506,3 +506,8 @@ declare type GetRefundPSBTResponseBody =
       satsPerByte: number
     }
   | APIError<'UNAUTHORIZED' | 'TRANSACTION_INVALID' | 'NOT_FOUND'>
+
+type BuySorter = 'highestAmount' | 'lowestPrice' | 'bestRating'
+type SellSorter = 'highestPrice' | 'bestRating'
+
+type Sorter = BuySorter | SellSorter
