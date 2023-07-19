@@ -13,4 +13,5 @@ export const headerIcons: Record<string, Omit<HeaderIcon, 'onPress'>> = {
   wallet: { id: 'wallet', color: tw`text-black-2`.color },
   warning: { id: 'alertOctagon', color: tw`text-error-main`.color },
   percent: { id: 'percent', color: tw`text-primary-main`.color },
+  filter: { id: 'filter', color: tw`text-success-main`.color },
 }
