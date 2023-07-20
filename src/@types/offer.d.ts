@@ -30,4 +30,5 @@ declare type BuyOffer = BuyOfferDraft &
     id: string
     matched: Offer['id'][]
     seenMatches: Offer['id'][]
+    maxPremium: number | null
   }
