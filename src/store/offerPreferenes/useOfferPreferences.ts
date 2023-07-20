@@ -19,6 +19,13 @@ export type OfferPreferences = {
   preferredPaymentMethods: Partial<Record<PaymentMethod, string>>
   originalPaymentData: PaymentData[]
   preferredCurrenyType: 'europe' | 'latinAmerica' | 'other'
+  sortBy: {
+    buyOffer: BuySorter[]
+    sellOffer: SellSorter[]
+  }
+  filter: {
+    buyOffer: MatchFilter
+  }
 }
 
 export const defaultPreferences: OfferPreferences = {
@@ -30,6 +37,15 @@ export const defaultPreferences: OfferPreferences = {
   preferredPaymentMethods: {},
   originalPaymentData: [],
   preferredCurrenyType: 'europe',
+  sortBy: {
+    buyOffer: ['highestAmount'],
+    sellOffer: ['highestPrice'],
+  },
+  filter: {
+    buyOffer: {
+      maxPremium: null,
+    },
+  },
 }
 
 type OfferPreferencesState = OfferPreferences & {
@@ -48,6 +64,9 @@ type OfferPreferencesActions = {
   setPaymentMethods: (ids: string[]) => void
   selectPaymentMethod: (id: string) => void
   setPreferredCurrencyType: (preferredCurrenyType: 'europe' | 'latinAmerica' | 'other') => void
+  setBuyOfferSorter: (sorter: BuySorter) => void
+  setSellOfferSorter: (sorter: SellSorter) => void
+  setBuyOfferFilter: (filter: MatchFilter) => void
 }
 
 type OfferPreferencesStore = OfferPreferencesState & OfferPreferencesActions
@@ -56,6 +75,7 @@ const offerPreferences = createStorage('offerPreferences')
 
 export const useOfferPreferences = create<OfferPreferencesStore>()(
   persist(
+    // eslint-disable-next-line max-lines-per-function
     (set, get) => ({
       ...defaultPreferences,
       canContinue: {
@@ -125,6 +145,9 @@ export const useOfferPreferences = create<OfferPreferencesStore>()(
         }
       },
       setPreferredCurrencyType: (preferredCurrenyType) => set({ preferredCurrenyType }),
+      setBuyOfferSorter: (sorter) => set((state) => ({ sortBy: { ...state.sortBy, buyOffer: [sorter] } })),
+      setSellOfferSorter: (sorter) => set((state) => ({ sortBy: { ...state.sortBy, sellOffer: [sorter] } })),
+      setBuyOfferFilter: (filter) => set((state) => ({ filter: { ...state.filter, buyOffer: filter } })),
     }),
     {
       name: 'offerPreferences',

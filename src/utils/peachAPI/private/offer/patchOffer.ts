@@ -10,8 +10,7 @@ type PatchOfferProps = RequestProps & {
   refundAddress?: string
   refundTx?: string
   premium?: number
-  maxPremium?: number | null
-}
+} & Partial<MatchFilter>
 
 export const patchOffer = async ({
   offerId,

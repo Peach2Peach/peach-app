@@ -233,8 +233,6 @@ describe('useSortAndFilterPopup', () => {
 
     expect(patchOfferMock).toHaveBeenCalledWith({ offerId: buyOffer.id, maxPremium: 20.24 })
   })
-
-  it.todo('should update the sorting when the apply button is pressed')
   it('should invalidate the matches query on success', async () => {
     queryClient.setQueryData(['matches', buyOffer.id], {
       pages: [
@@ -258,6 +256,8 @@ describe('useSortAndFilterPopup', () => {
 
     await waitForQuery()
   })
+
+  it.todo('should update the sorting and the filters in the global store when the apply button is pressed')
 })
 
 describe('BuySortAndFilter', () => {

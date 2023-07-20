@@ -15,7 +15,7 @@ import { useQueryClient } from '@tanstack/react-query'
 export const useSortAndFilterPopup = (offerId: string) => {
   const { offer } = useOfferDetails(offerId)
   const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
-  const [filter, setFilter] = useState<{ maxPremium: number | null }>()
+  const [filter, setFilter] = useState<MatchFilter>()
   const currentMaxPremium
     = ((offer && 'maxPremium' in offer ? offer : undefined) || { maxPremium: null })?.maxPremium ?? null
   const currentUserInput = filter?.maxPremium
@@ -62,7 +62,7 @@ export const useSortAndFilterPopup = (offerId: string) => {
 
 type BuyFilterProps = {
   defaultPremium: string | undefined
-  setFilter: (filter: { maxPremium: number | null }) => void
+  setFilter: (filter: MatchFilter) => void
 }
 
 function BuySortAndFilter ({ defaultPremium, setFilter }: BuyFilterProps) {

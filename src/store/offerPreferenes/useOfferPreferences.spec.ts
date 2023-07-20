@@ -30,12 +30,24 @@ describe('useOfferPreferences - store', () => {
         premium: false,
         sellAmount: false,
       },
+      sortBy: {
+        buyOffer: ['highestAmount'],
+        sellOffer: ['highestPrice'],
+      },
+      filter: {
+        buyOffer: {
+          maxPremium: null,
+        },
+      },
       setBuyAmountRange: expect.any(Function),
       setSellAmount: expect.any(Function),
       setPreferredCurrencyType: expect.any(Function),
       setPremium: expect.any(Function),
       setPaymentMethods: expect.any(Function),
       selectPaymentMethod: expect.any(Function),
+      setBuyOfferSorter: expect.any(Function),
+      setSellOfferSorter: expect.any(Function),
+      setBuyOfferFilter: expect.any(Function),
     })
   })
   it('should persist the store', () => {
@@ -246,5 +258,29 @@ describe('useOfferPreferences - actions - setPrefferedCurrencyType', () => {
     expect(useOfferPreferences.getState().preferredCurrenyType).toBe('europe')
     useOfferPreferences.getState().setPreferredCurrencyType('other')
     expect(useOfferPreferences.getState().preferredCurrenyType).toBe('other')
+  })
+})
+
+describe('useOfferPreferences - actions - setBuyOfferSorter', () => {
+  it('should update the buy offer sorter', () => {
+    const sorter = 'highestAmount'
+    useOfferPreferences.getState().setBuyOfferSorter(sorter)
+    expect(useOfferPreferences.getState().sortBy.buyOffer).toStrictEqual([sorter])
+  })
+})
+
+describe('useOfferPreferences - actions - setSellOfferSorter', () => {
+  it('should update the sell offer sorter', () => {
+    const sorter = 'highestPrice'
+    useOfferPreferences.getState().setSellOfferSorter(sorter)
+    expect(useOfferPreferences.getState().sortBy.sellOffer).toStrictEqual([sorter])
+  })
+})
+
+describe('useOfferPreferences - actions - setBuyOfferFilter', () => {
+  it('should update the buy offer filter', () => {
+    const filter = { maxPremium: 1.5 }
+    useOfferPreferences.getState().setBuyOfferFilter(filter)
+    expect(useOfferPreferences.getState().filter.buyOffer).toStrictEqual(filter)
   })
 })

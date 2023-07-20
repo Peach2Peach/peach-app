@@ -511,3 +511,7 @@ type BuySorter = 'highestAmount' | 'lowestPremium' | 'bestReputation'
 type SellSorter = 'highestPrice' | 'bestReputation'
 
 type Sorter = BuySorter | SellSorter
+
+type MatchFilter = {
+  maxPremium: number | null
+}

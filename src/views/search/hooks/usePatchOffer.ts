@@ -6,8 +6,7 @@ type NewData = {
   refundAddress?: string
   refundTx?: string
   premium?: number
-  maxPremium?: number | null
-}
+} & Partial<MatchFilter>
 
 export const usePatchOffer = (offerId: string, newData: NewData) => {
   const queryClient = useQueryClient()
