@@ -5,6 +5,7 @@ exports[`Contract should render a default Contract 1`] = `
   contentContainerStyle={
     [
       {
+        "flexGrow": 1,
         "paddingTop": 16,
       },
       {
