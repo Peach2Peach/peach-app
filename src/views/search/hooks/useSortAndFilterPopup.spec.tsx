@@ -236,7 +236,7 @@ describe('BuySortAndFilter', () => {
     act(() => {
       fireEvent.press(checkbox)
     })
-    expect(usePopupStore.getState().content).toMatchSnapshot()
+    expect(render(usePopupStore.getState().content || <></>)).toMatchSnapshot()
   })
 
   it('should toggle the checkbox when the checkbox is pressed', async () => {
@@ -256,7 +256,7 @@ describe('BuySortAndFilter', () => {
     act(() => {
       fireEvent.press(checkbox)
     })
-    expect(usePopupStore.getState().content).toMatchSnapshot()
+    expect(render(usePopupStore.getState().content || <></>)).toMatchSnapshot()
   })
 
   it.todo('should use the offer max premium as the default value for the input and checkbox')
