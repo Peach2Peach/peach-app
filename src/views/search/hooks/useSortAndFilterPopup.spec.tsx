@@ -116,7 +116,7 @@ describe('useSortAndFilterPopup', () => {
 
     expect(patchOfferMock).toHaveBeenCalledWith({ offerId: 'offerId', maxPremium: 20.23 })
   })
-  it('should not apply the filter when the checkbox is not checked', async () => {
+  it('should not use the text input when the checkbox is not checked', async () => {
     const { result } = renderHook(() => useSortAndFilterPopup('offerId'), { wrapper })
     await waitForQuery()
     const showPopup = result.current
@@ -128,6 +128,30 @@ describe('useSortAndFilterPopup', () => {
     act(() => {
       fireEvent.changeText(input, '20,23')
     })
+    await act(async () => {
+      usePopupStore.getState().action1?.callback()
+      await waitForQuery()
+    })
+
+    expect(patchOfferMock).toHaveBeenCalledWith({ offerId: 'offerId', maxPremium: null })
+  })
+  it('should set the max premium to null when the input is an empty string', async () => {
+    const { result } = renderHook(() => useSortAndFilterPopup('offerId'), { wrapper })
+    await waitForQuery()
+    const showPopup = result.current
+    act(() => {
+      showPopup()
+    })
+    const { getByText, getByPlaceholderText } = render(usePopupStore.getState().content || <></>)
+    const checkbox = getByText('max premium')
+    const input = getByPlaceholderText('20.00')
+    act(() => {
+      fireEvent.changeText(input, '')
+    })
+    act(() => {
+      fireEvent.press(checkbox)
+    })
+
     await act(async () => {
       usePopupStore.getState().action1?.callback()
       await waitForQuery()
