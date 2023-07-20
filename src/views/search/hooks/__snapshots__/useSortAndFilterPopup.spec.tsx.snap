@@ -1,8 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`BuySortAndFilter should not toggle the checkbox when no max premium is set 1`] = `<BuySortAndFilter />`;
+exports[`BuySortAndFilter should not toggle the checkbox when no max premium is set 1`] = `
+<BuySortAndFilter
+  setFilter={[Function]}
+/>
+`;
 
-exports[`BuySortAndFilter should toggle the checkbox when the checkbox is pressed 1`] = `<BuySortAndFilter />`;
+exports[`BuySortAndFilter should toggle the checkbox when the checkbox is pressed 1`] = `
+<BuySortAndFilter
+  setFilter={[Function]}
+/>
+`;
 
 exports[`useSortAndFilterPopup should update the popup store with the correct content for buy offers 1`] = `
 <View
