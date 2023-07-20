@@ -12,7 +12,9 @@ export const useDynamicLinks = () => {
       if (!link) return
       const url = link.url
 
-      const referralCode = new URL(url).searchParams.get('referral')
+      if (!url.includes('/referral')) return
+
+      const referralCode = new URL(url).searchParams.get('code')
       if (referralCode && !account.publicKey) {
         navigation.reset({
           index: 0,
@@ -25,8 +27,7 @@ export const useDynamicLinks = () => {
 
   useEffect(() => {
     const unsubscribe = dynamicLinks().onLink(handleReferralCode)
-    dynamicLinks().getInitialLink()
-      .then(handleReferralCode)
+    dynamicLinks().getInitialLink().then(handleReferralCode)
     return () => unsubscribe()
   }, [handleReferralCode])
 
