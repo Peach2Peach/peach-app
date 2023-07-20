@@ -159,6 +159,60 @@ describe('useSortAndFilterPopup', () => {
 
     expect(patchOfferMock).toHaveBeenCalledWith({ offerId: 'offerId', maxPremium: null })
   })
+  it('should not use the text input when the checkbox was unchecked', async () => {
+    const { result } = renderHook(() => useSortAndFilterPopup('offerId'), { wrapper })
+    await waitForQuery()
+    const showPopup = result.current
+    act(() => {
+      showPopup()
+    })
+    const { getByText, getByPlaceholderText } = render(usePopupStore.getState().content || <></>)
+    const checkbox = getByText('max premium')
+    const input = getByPlaceholderText('20.00')
+    act(() => {
+      fireEvent.changeText(input, '20,23')
+    })
+    act(() => {
+      fireEvent.press(checkbox)
+    })
+    act(() => {
+      fireEvent.press(checkbox)
+    })
+
+    await act(async () => {
+      usePopupStore.getState().action1?.callback()
+      await waitForQuery()
+    })
+
+    expect(patchOfferMock).toHaveBeenCalledWith({ offerId: 'offerId', maxPremium: null })
+  })
+  it('should update the premium after the checkbox is checked', async () => {
+    const { result } = renderHook(() => useSortAndFilterPopup('offerId'), { wrapper })
+    await waitForQuery()
+    const showPopup = result.current
+    act(() => {
+      showPopup()
+    })
+    const { getByText, getByPlaceholderText } = render(usePopupStore.getState().content || <></>)
+    const checkbox = getByText('max premium')
+    const input = getByPlaceholderText('20.00')
+    act(() => {
+      fireEvent.changeText(input, '20,23')
+    })
+    act(() => {
+      fireEvent.press(checkbox)
+    })
+    act(() => {
+      fireEvent.changeText(input, '20,24')
+    })
+
+    await act(async () => {
+      usePopupStore.getState().action1?.callback()
+      await waitForQuery()
+    })
+
+    expect(patchOfferMock).toHaveBeenCalledWith({ offerId: 'offerId', maxPremium: 20.24 })
+  })
 
   it.todo('should update the sorting when the apply button is pressed')
 })
