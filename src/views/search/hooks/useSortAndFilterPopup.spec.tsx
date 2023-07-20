@@ -302,7 +302,21 @@ describe('BuySortAndFilter', () => {
     expect(render(usePopupStore.getState().content || <></>)).toMatchSnapshot()
   })
 
-  it.todo('should use the offer max premium as the default value for the input and checkbox')
+  it('should use the offer max premium as the default value for the input and checkbox', async () => {
+    getOfferDetailsMock.mockResolvedValueOnce([{ ...buyOffer, maxPremium: 20 }, null])
+    const { result } = renderHook(() => useSortAndFilterPopup(buyOffer.id), { wrapper })
+    await waitForQuery()
+
+    const showPopup = result.current
+    act(() => {
+      showPopup()
+    })
+
+    const { getByPlaceholderText } = render(usePopupStore.getState().content || <></>)
+    const input = getByPlaceholderText('20.00')
+    expect(input.props.value).toBe('20')
+    expect(render(usePopupStore.getState().content || <></>)).toMatchSnapshot()
+  })
 })
 
 async function waitForQuery () {
