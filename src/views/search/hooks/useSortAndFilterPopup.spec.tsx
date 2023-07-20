@@ -1,6 +1,6 @@
 import { useSortAndFilterPopup } from './useSortAndFilterPopup'
 import { render, renderHook, fireEvent, waitFor, act } from '@testing-library/react-native'
-import { queryClient, QueryClientWrapper } from '../../../../tests/unit/helpers/QueryClientWrapper'
+import { queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
 import { buyOffer, sellOffer } from '../../../../tests/unit/data/offerData'
 import { defaultPopupState, usePopupStore } from '../../../store/usePopupStore'
 import { NavigationAndQueryClientWrapper } from '../../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
