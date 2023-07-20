@@ -11,6 +11,7 @@ import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { usePatchOffer } from './usePatchOffer'
 import { useQueryClient } from '@tanstack/react-query'
+import { useOfferPreferences } from '../../../store/offerPreferenes'
 
 export const useSortAndFilterPopup = (offerId: string) => {
   const { offer } = useOfferDetails(offerId)
@@ -80,7 +81,8 @@ function BuySortAndFilter ({ defaultPremium, setFilter }: BuyFilterProps) {
       value: 'bestReputation',
     },
   ]
-  const [selectedValue, setSelectedValue] = useState<BuySorter>('highestAmount')
+  const defaultSelection = useOfferPreferences((state) => state.sortBy.buyOffer[0])
+  const [selectedValue, setSelectedValue] = useState<BuySorter>(defaultSelection)
   const [maxPremium, setMaxPremium] = useState(defaultPremium)
   const displayPremium = maxPremium ?? defaultPremium
   const [shouldApplyFilter, setShouldApplyFilter] = useState(maxPremium !== undefined)
@@ -133,7 +135,8 @@ function SellSortAndFilter () {
       value: 'bestReputation',
     },
   ]
-  const [selectedValue, setSelectedValue] = useState<SellSorter>('highestPrice')
+  const defaultSelection = useOfferPreferences((state) => state.sortBy.sellOffer[0])
+  const [selectedValue, setSelectedValue] = useState<SellSorter>(defaultSelection)
 
   return (
     <Pressable style={tw`items-center self-stretch gap-4`} onPress={Keyboard.dismiss}>

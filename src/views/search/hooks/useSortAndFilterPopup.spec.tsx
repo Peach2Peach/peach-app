@@ -256,7 +256,6 @@ describe('useSortAndFilterPopup', () => {
 
     await waitForQuery()
   })
-
   it.todo('should update the sorting and the filters in the global store when the apply button is pressed')
 })
 
@@ -265,7 +264,6 @@ describe('BuySortAndFilter', () => {
     queryClient.clear()
     usePopupStore.setState(defaultPopupState)
   })
-
   it('should not toggle the checkbox when no max premium is set', async () => {
     const { result } = renderHook(() => useSortAndFilterPopup(buyOffer.id), { wrapper })
     await waitForQuery()
@@ -281,7 +279,6 @@ describe('BuySortAndFilter', () => {
     })
     expect(render(usePopupStore.getState().content || <></>)).toMatchSnapshot()
   })
-
   it('should toggle the checkbox when the checkbox is pressed', async () => {
     const { result } = renderHook(() => useSortAndFilterPopup(buyOffer.id), { wrapper })
     await waitForQuery()
@@ -301,7 +298,6 @@ describe('BuySortAndFilter', () => {
     })
     expect(render(usePopupStore.getState().content || <></>)).toMatchSnapshot()
   })
-
   it('should use the offer max premium as the default value for the input and checkbox', async () => {
     getOfferDetailsMock.mockResolvedValueOnce([{ ...buyOffer, maxPremium: 20 }, null])
     const { result } = renderHook(() => useSortAndFilterPopup(buyOffer.id), { wrapper })
@@ -315,6 +311,29 @@ describe('BuySortAndFilter', () => {
     const { getByPlaceholderText } = render(usePopupStore.getState().content || <></>)
     const input = getByPlaceholderText('20.00')
     expect(input.props.value).toBe('20')
+    expect(render(usePopupStore.getState().content || <></>)).toMatchSnapshot()
+  })
+  it('should use the sorter from the offer preferences as the default value for the radio buttons', async () => {
+    const { result } = renderHook(() => useSortAndFilterPopup(buyOffer.id), { wrapper })
+    await waitForQuery()
+
+    const showPopup = result.current
+    act(() => {
+      showPopup()
+    })
+    expect(render(usePopupStore.getState().content || <></>)).toMatchSnapshot()
+  })
+})
+
+describe('SellSortAndFilter', () => {
+  it('should use the sorter from the offer preferences as the default value for the radio buttons', async () => {
+    const { result } = renderHook(() => useSortAndFilterPopup(sellOffer.id), { wrapper })
+    await waitForQuery()
+
+    const showPopup = result.current
+    act(() => {
+      showPopup()
+    })
     expect(render(usePopupStore.getState().content || <></>)).toMatchSnapshot()
   })
 })
