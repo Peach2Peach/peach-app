@@ -1,4 +1,5 @@
 import { API_URL } from '@env'
+import { buyOffer } from '../../../../../tests/unit/data/offerData'
 import { postBuyOffer } from './postBuyOffer'
 const paymentData: OfferPaymentData = {
   sepa: {
@@ -7,6 +8,7 @@ const paymentData: OfferPaymentData = {
   },
 }
 const responseBody: PostOfferResponseBody = {
+  ...buyOffer,
   id: 'id',
   type: 'bid',
   amount: [1000, 2000],
