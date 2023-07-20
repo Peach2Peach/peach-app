@@ -14,8 +14,12 @@ import { usePatchOffer } from './usePatchOffer'
 export const useSortAndFilterPopup = (offerId: string) => {
   const { offer } = useOfferDetails(offerId)
   const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
-  const [filter, setFilter] = useState<{ maxPremium: number | null }>({ maxPremium: null })
-  const { mutate: patchOffer } = usePatchOffer(offerId, filter)
+  const [filter, setFilter] = useState<{ maxPremium: number | null }>()
+  const currentMaxPremium
+    = ((offer && 'maxPremium' in offer ? offer : undefined) || { maxPremium: null })?.maxPremium ?? null
+  const currentUserInput = filter?.maxPremium
+  const realFilter = { maxPremium: currentUserInput !== undefined ? currentUserInput : currentMaxPremium }
+  const { mutate: patchOffer } = usePatchOffer(offerId, realFilter)
 
   const applyFilters = useCallback(() => {
     patchOffer()
@@ -25,7 +29,14 @@ export const useSortAndFilterPopup = (offerId: string) => {
   const showPopup = useCallback(() => {
     if (!offer) return
     setPopup({
-      content: isBuyOffer(offer) ? <BuySortAndFilter setFilter={setFilter} /> : <SellSortAndFilter />,
+      content: isBuyOffer(offer) ? (
+        <BuySortAndFilter
+          defaultPremium={currentMaxPremium !== null ? String(offer.maxPremium) : undefined}
+          setFilter={setFilter}
+        />
+      ) : (
+        <SellSortAndFilter />
+      ),
       level: 'APP',
       action2: {
         label: i18n('close'),
@@ -38,16 +49,17 @@ export const useSortAndFilterPopup = (offerId: string) => {
         callback: applyFilters,
       },
     })
-  }, [applyFilters, closePopup, offer, setPopup])
+  }, [applyFilters, closePopup, currentMaxPremium, offer, setPopup])
 
   return showPopup
 }
 
 type BuyFilterProps = {
+  defaultPremium: string | undefined
   setFilter: (filter: { maxPremium: number | null }) => void
 }
 
-function BuySortAndFilter ({ setFilter }: BuyFilterProps) {
+function BuySortAndFilter ({ defaultPremium, setFilter }: BuyFilterProps) {
   const items: RadioButtonItem<BuySorter>[] = [
     {
       display: i18n('sorting.highestAmount'),
@@ -63,28 +75,30 @@ function BuySortAndFilter ({ setFilter }: BuyFilterProps) {
     },
   ]
   const [selectedValue, setSelectedValue] = useState<BuySorter>('highestAmount')
-  const [maxPremium, setMaxPremium] = useState<string>()
+  const [maxPremium, setMaxPremium] = useState(defaultPremium)
+  const displayPremium = maxPremium ?? defaultPremium
   const [shouldApplyFilter, setShouldApplyFilter] = useState(maxPremium !== undefined)
 
   const onPremiumChange = (value: string) => {
     if (value === '') {
       setFilter({ maxPremium: null })
-      setMaxPremium(undefined)
-    } else {
-      if (shouldApplyFilter) setFilter({ maxPremium: parseFloat(value) })
-      setMaxPremium(value)
+    } else if (shouldApplyFilter) {
+      setFilter({ maxPremium: parseFloat(value) })
     }
+    setMaxPremium(value)
   }
 
   const onCheckboxPress = () => {
-    if (maxPremium !== undefined) setShouldApplyFilter((prev) => {
-      if (prev) {
-        setFilter({ maxPremium: null })
-      } else {
-        setFilter({ maxPremium: parseFloat(maxPremium) })
-      }
-      return !prev
-    })
+    if (displayPremium !== undefined) {
+      setShouldApplyFilter((prev) => {
+        if (prev) {
+          setFilter({ maxPremium: null })
+        } else {
+          setFilter({ maxPremium: displayPremium === '' ? null : parseFloat(displayPremium) })
+        }
+        return !prev
+      })
+    }
   }
 
   return (
@@ -92,7 +106,7 @@ function BuySortAndFilter ({ setFilter }: BuyFilterProps) {
       <Section title={i18n('filter')}>
         <View style={tw`flex-row items-center self-stretch justify-between`}>
           <Checkbox text={i18n('filter.maxPremium')} checked={shouldApplyFilter} onPress={onCheckboxPress} />
-          <PercentageInput value={maxPremium} onChange={onPremiumChange} />
+          <PercentageInput value={displayPremium} onChange={onPremiumChange} />
         </View>
       </Section>
       <Section title={i18n('sorting.sortMatchesBy')}>

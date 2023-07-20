@@ -159,6 +159,21 @@ describe('useSortAndFilterPopup', () => {
 
     expect(patchOfferMock).toHaveBeenCalledWith({ offerId: 'offerId', maxPremium: null })
   })
+  it('should not set the input to undefined when the input is an empty string', async () => {
+    const { result } = renderHook(() => useSortAndFilterPopup('offerId'), { wrapper })
+    await waitForQuery()
+    const showPopup = result.current
+    act(() => {
+      showPopup()
+    })
+    const { getByPlaceholderText } = render(usePopupStore.getState().content || <></>)
+    const input = getByPlaceholderText('20.00')
+    act(() => {
+      fireEvent.changeText(input, '')
+    })
+
+    expect(input.props.value).toBe('')
+  })
   it('should not use the text input when the checkbox was unchecked', async () => {
     const { result } = renderHook(() => useSortAndFilterPopup('offerId'), { wrapper })
     await waitForQuery()
