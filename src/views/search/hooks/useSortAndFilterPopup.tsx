@@ -71,7 +71,7 @@ function BuySortAndFilter ({ setFilter }: BuyFilterProps) {
       setFilter({ maxPremium: null })
       setMaxPremium(undefined)
     } else {
-      setFilter({ maxPremium: parseFloat(value) })
+      if (shouldApplyFilter) setFilter({ maxPremium: parseFloat(value) })
       setMaxPremium(value)
     }
   }
@@ -80,6 +80,8 @@ function BuySortAndFilter ({ setFilter }: BuyFilterProps) {
     if (maxPremium !== undefined) setShouldApplyFilter((prev) => {
       if (prev) {
         setFilter({ maxPremium: null })
+      } else {
+        setFilter({ maxPremium: parseFloat(maxPremium) })
       }
       return !prev
     })
