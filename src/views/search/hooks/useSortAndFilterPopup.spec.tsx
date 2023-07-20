@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import { useSortAndFilterPopup } from './useSortAndFilterPopup'
 import { render, renderHook, fireEvent, waitFor, act } from '@testing-library/react-native'
 import { queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
@@ -234,6 +235,29 @@ describe('useSortAndFilterPopup', () => {
   })
 
   it.todo('should update the sorting when the apply button is pressed')
+  it('should invalidate the matches query on success', async () => {
+    queryClient.setQueryData(['matches', buyOffer.id], {
+      pages: [
+        {
+          items: [],
+          pageParams: [],
+        },
+      ],
+    })
+    const { result } = renderHook(() => useSortAndFilterPopup(buyOffer.id), { wrapper })
+    await waitForQuery()
+    const showPopup = result.current
+    act(() => {
+      showPopup()
+    })
+    await act(() => {
+      usePopupStore.getState().action1?.callback()
+    })
+
+    expect(queryClient.getQueryState(['matches', buyOffer.id])?.isInvalidated).toBe(true)
+
+    await waitForQuery()
+  })
 })
 
 describe('BuySortAndFilter', () => {

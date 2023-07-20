@@ -10,6 +10,7 @@ import { RadioButtonItem } from '../../../components/inputs/RadioButtons'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { usePatchOffer } from './usePatchOffer'
+import { useQueryClient } from '@tanstack/react-query'
 
 export const useSortAndFilterPopup = (offerId: string) => {
   const { offer } = useOfferDetails(offerId)
@@ -20,11 +21,16 @@ export const useSortAndFilterPopup = (offerId: string) => {
   const currentUserInput = filter?.maxPremium
   const realFilter = { maxPremium: currentUserInput !== undefined ? currentUserInput : currentMaxPremium }
   const { mutate: patchOffer } = usePatchOffer(offerId, realFilter)
+  const queryClient = useQueryClient()
 
   const applyFilters = useCallback(() => {
-    patchOffer()
+    patchOffer(undefined, {
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ['matches', offerId] })
+      },
+    })
     closePopup()
-  }, [closePopup, patchOffer])
+  }, [closePopup, offerId, patchOffer, queryClient])
 
   const showPopup = useCallback(() => {
     if (!offer) return
