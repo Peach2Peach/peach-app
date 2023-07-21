@@ -31,8 +31,8 @@ describe('useOfferPreferences - store', () => {
         sellAmount: false,
       },
       sortBy: {
-        buyOffer: ['highestAmount'],
-        sellOffer: ['highestPrice'],
+        buyOffer: ['bestReputation'],
+        sellOffer: ['bestReputation'],
       },
       filter: {
         buyOffer: {

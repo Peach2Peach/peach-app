@@ -314,6 +314,7 @@ describe('BuySortAndFilter', () => {
     expect(render(usePopupStore.getState().content || <></>)).toMatchSnapshot()
   })
   it('should use the sorter from the offer preferences as the default value for the radio buttons', async () => {
+    useOfferPreferences.getState().setBuyOfferSorter('highestAmount')
     const { result } = renderHook(() => useSortAndFilterPopup(buyOffer.id), { wrapper })
     await waitForQuery()
 
@@ -327,6 +328,7 @@ describe('BuySortAndFilter', () => {
 
 describe('SellSortAndFilter', () => {
   it('should use the sorter from the offer preferences as the default value for the radio buttons', async () => {
+    useOfferPreferences.getState().setSellOfferSorter('highestPrice')
     const { result } = renderHook(() => useSortAndFilterPopup(sellOffer.id), { wrapper })
     await waitForQuery()
 

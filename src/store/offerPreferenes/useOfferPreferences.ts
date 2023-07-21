@@ -38,8 +38,8 @@ export const defaultPreferences: OfferPreferences = {
   originalPaymentData: [],
   preferredCurrenyType: 'europe',
   sortBy: {
-    buyOffer: ['highestAmount'],
-    sellOffer: ['highestPrice'],
+    buyOffer: ['bestReputation'],
+    sellOffer: ['bestReputation'],
   },
   filter: {
     buyOffer: {
