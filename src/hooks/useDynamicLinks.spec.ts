@@ -5,7 +5,7 @@ import { defaultAccount, setAccount } from '../utils/account'
 import { account1 } from '../../tests/unit/data/accountData'
 
 let onLinkHandlers: Function[] = []
-const dynamicLink = { url: 'https://peachbitcoin.com/?referral=SATOSHI' }
+const dynamicLink = { url: 'https://peachbitcoin.com/referral/?code=SATOSHI' }
 const onLinkMock = jest.fn().mockImplementation((cb) => {
   onLinkHandlers.push(cb)
 })
