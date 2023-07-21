@@ -3,7 +3,7 @@ import { Modal, Pressable, View, ViewStyle } from 'react-native'
 import { Text } from '../text'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { PopupAction } from './PopupAction'
+import { PopupAction } from './DeprecatedPopupAction'
 
 type LevelColorMap = {
   bg1: Record<Level, ViewStyle>

@@ -1,30 +1,20 @@
-import { ImageStyle, Pressable, TextStyle, ViewStyle } from 'react-native'
-import { Text } from '../text'
-import { IconType } from '../../assets/icons'
+import { TouchableOpacity } from 'react-native'
+import { Icon, Text } from '..'
 import tw from '../../styles/tailwind'
-import { Icon } from '../Icon'
+import { IconType } from '../../assets/icons'
 
-type Props = {
-  onPress: (() => void) | null
+type Props = ComponentProps & {
+  onPress: (() => void) | undefined
   label: string | undefined
   iconId: IconType
-  color: ViewStyle & TextStyle & ImageStyle
-  isDisabled?: boolean
   reverseOrder?: boolean
-} & ComponentProps
-
-export const PopupAction = ({ onPress, label, iconId, color, isDisabled, reverseOrder, style }: Props) => (
-  <Pressable
-    style={[
-      tw`flex-row items-center justify-end flex-grow gap-1`,
-      isDisabled && tw`opacity-50`,
-      reverseOrder && tw`flex-row-reverse`,
-      style,
-    ]}
-    hitSlop={20}
+}
+export const PopupAction = ({ onPress, label, iconId, reverseOrder, style }: Props) => (
+  <TouchableOpacity
+    style={[tw`flex-row items-center flex-grow gap-1 px-6 py-2`, reverseOrder && tw`flex-row-reverse`, style]}
     onPress={onPress}
   >
-    <Text style={[tw`text-base leading-relaxed subtitle-1`, color]}>{label}</Text>
-    <Icon id={iconId} color={color.color} style={tw`w-4 h-4`} />
-  </Pressable>
+    <Icon id={iconId} color={tw`text-primary-background-light`.color} size={16} />
+    <Text style={tw`subtitle-1 text-primary-background-light`}>{label}</Text>
+  </TouchableOpacity>
 )
