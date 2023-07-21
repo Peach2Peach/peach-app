@@ -1,6 +1,5 @@
 import { usePopupStore } from '../store/usePopupStore'
-import { useEffect } from 'react'
-import { BackHandler, Modal, Pressable, View, ViewStyle } from 'react-native'
+import { Modal, Pressable, View, ViewStyle } from 'react-native'
 import { Text } from '.'
 import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
@@ -30,57 +29,54 @@ const levelColorMap: LevelColorMap = {
 }
 
 export const Popup = () => {
-  const { visible, title, content, action1, action2, closePopup, level = 'DEFAULT', requireUserAction } = usePopupStore()
+  const {
+    visible,
+    title,
+    content,
+    action1,
+    action2,
+    closePopup,
+    level = 'DEFAULT',
+    requireUserAction,
+    popupComponent,
+  } = usePopupStore()
 
   const actionColor = level === 'WARN' ? tw`text-black-1` : tw`text-primary-background-light`
   const onBackgroundPress = !requireUserAction ? closePopup : null
 
-  useEffect(() => {
-    if (!content) return () => {}
-    const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
-      closePopup()
-      return true
-    })
-    return () => {
-      backHandler.remove()
-    }
-  }, [closePopup, content])
-
   return (
-    <Modal transparent={true} visible={visible}>
+    <Modal transparent visible={visible} onRequestClose={closePopup}>
       <View style={tw`justify-center flex-1`}>
-        <Pressable
-          testID="popup-background"
-          style={tw`absolute top-0 left-0 w-full h-full bg-black-1 opacity-40`}
-          onPress={onBackgroundPress}
-        ></Pressable>
-        <View testID="popup" style={[levelColorMap.bg1[level], tw`mx-6 rounded-2xl`]}>
-          <View style={[tw`p-4 rounded-t-2xl`, levelColorMap.bg2[level]]}>
-            {!!title && <Text style={tw`mb-1 h5 text-black-1`}>{title.toLocaleLowerCase()}</Text>}
-            {content}
-          </View>
-          <View style={[tw`flex-row px-4`, !!action2 ? tw`justify-between` : tw`justify-center`]}>
-            {!!action2 && (
+        <Pressable style={tw`absolute w-full h-full bg-black-1 opacity-40`} onPress={onBackgroundPress} />
+        {popupComponent || (
+          <View style={[levelColorMap.bg1[level], tw`mx-6 rounded-2xl`]}>
+            <View style={[tw`p-4 rounded-t-2xl`, levelColorMap.bg2[level]]}>
+              {!!title && <Text style={tw`mb-1 h5 text-black-1`}>{title.toLocaleLowerCase()}</Text>}
+              {content}
+            </View>
+            <View style={[tw`flex-row px-4`, !!action2 ? tw`justify-between` : tw`justify-center`]}>
+              {!!action2 && (
+                <PopupAction
+                  style={tw`py-2`}
+                  isDisabled={action2?.disabled}
+                  onPress={!action2.disabled ? action2.callback : null}
+                  color={actionColor}
+                  label={action2.label}
+                  iconId={action2.icon}
+                  reverseOrder
+                />
+              )}
               <PopupAction
-                style={tw`py-2`}
-                isDisabled={action2?.disabled}
-                onPress={!action2.disabled ? action2.callback : null}
+                style={[tw`py-2`, !action2 && tw`justify-center`]}
+                isDisabled={action1?.disabled}
+                onPress={action1 ? (!action1.disabled ? action1.callback : null) : closePopup}
                 color={actionColor}
-                label={action2.label}
-                iconId={action2.icon}
-                reverseOrder
+                label={action1 ? action1.label : i18n('close')}
+                iconId={action1 ? action1.icon : 'xSquare'}
               />
-            )}
-            <PopupAction
-              style={[tw`py-2`, !action2 && tw`justify-center`]}
-              isDisabled={action1?.disabled}
-              onPress={action1 ? (!action1.disabled ? action1.callback : null) : closePopup}
-              color={actionColor}
-              label={action1 ? action1.label : i18n('close')}
-              iconId={action1 ? action1.icon : 'xSquare'}
-            />
+            </View>
           </View>
-        </View>
+        )}
       </View>
     </Modal>
   )
