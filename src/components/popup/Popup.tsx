@@ -1,8 +1,8 @@
-import { usePopupStore } from '../store/usePopupStore'
+import { usePopupStore } from '../../store/usePopupStore'
 import { Modal, Pressable, View, ViewStyle } from 'react-native'
-import { Text } from '.'
-import tw from '../styles/tailwind'
-import i18n from '../utils/i18n'
+import { Text } from '../text'
+import tw from '../../styles/tailwind'
+import i18n from '../../utils/i18n'
 import { PopupAction } from './PopupAction'
 
 type LevelColorMap = {

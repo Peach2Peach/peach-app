@@ -1,6 +1,6 @@
 import { PopupAction } from './PopupAction'
 import { render } from '@testing-library/react-native'
-import tw from '../styles/tailwind'
+import tw from '../../styles/tailwind'
 
 describe('PopupAction', () => {
   const defaultProps = {
