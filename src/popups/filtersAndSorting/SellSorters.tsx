@@ -32,11 +32,11 @@ export const SellSorters = () => {
   )
 }
 
-type SortSectionProps = {
+type SorterProps = {
   selectedValue: SellSorter
   onButtonPress: React.Dispatch<React.SetStateAction<SellSorter>>
 }
-function Sorters ({ selectedValue, onButtonPress }: SortSectionProps) {
+function Sorters ({ selectedValue, onButtonPress }: SorterProps) {
   const items: RadioButtonItem<SellSorter>[] = [
     {
       display: i18n('sorting.bestReputation'),

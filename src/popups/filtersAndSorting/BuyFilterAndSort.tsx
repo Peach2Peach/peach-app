@@ -52,12 +52,11 @@ export const BuyFilterAndSort = ({ offer }: Props) => {
   )
 }
 
-type SortSectionProps = {
+type SorterProps = {
   selectedValue: BuySorter
   onButtonPress: React.Dispatch<React.SetStateAction<BuySorter>>
 }
-
-function Sorters (radioButtonsProps: SortSectionProps) {
+function Sorters (radioButtonsProps: SorterProps) {
   const items: RadioButtonItem<BuySorter>[] = [
     {
       display: i18n('sorting.bestReputation'),
@@ -75,7 +74,17 @@ function Sorters (radioButtonsProps: SortSectionProps) {
   return <RadioButtons items={items} {...radioButtonsProps} />
 }
 
-const useApplyBuyFilterAndSorting = (offerId: string, filter: MatchFilter, sortBy: BuySorter) => {
+type ApplyFilterActionProps = {
+  offerId: string
+  filter: MatchFilter
+  sortBy: BuySorter
+}
+function ApplyBuyFilterAction ({ offerId, filter, sortBy }: ApplyFilterActionProps) {
+  const applyFilters = useApplyBuyFilterAndSorting(offerId, filter, sortBy)
+  return <PopupAction onPress={applyFilters} label={i18n('apply')} iconId={'checkSquare'} reverseOrder />
+}
+
+function useApplyBuyFilterAndSorting (offerId: string, filter: MatchFilter, sortBy: BuySorter) {
   const queryClient = useQueryClient()
 
   const [setBuyOfferSorter, setBuyOfferFilter] = useOfferPreferences(
@@ -97,15 +106,4 @@ const useApplyBuyFilterAndSorting = (offerId: string, filter: MatchFilter, sortB
   }, [closePopup, filter, patchOffer, queryClient, setBuyOfferFilter, setBuyOfferSorter, sortBy])
 
   return applyFilters
-}
-
-type ApplyFilterActionProps = {
-  offerId: string
-  filter: MatchFilter
-  sortBy: BuySorter
-}
-
-function ApplyBuyFilterAction ({ offerId, filter, sortBy }: ApplyFilterActionProps) {
-  const applyFilters = useApplyBuyFilterAndSorting(offerId, filter, sortBy)
-  return <PopupAction onPress={applyFilters} label={i18n('apply')} iconId={'checkSquare'} reverseOrder />
 }
