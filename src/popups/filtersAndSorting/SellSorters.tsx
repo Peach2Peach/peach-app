@@ -6,7 +6,7 @@ import i18n from '../../utils/i18n'
 import { useQueryClient } from '@tanstack/react-query'
 import { useOfferPreferences } from '../../store/offerPreferenes'
 import { PopupAction } from '../../components/popup/PopupAction'
-import { NewDivider } from '../../views/search/hooks/useSortAndFilterPopup'
+import { NewDivider } from '../../components/ui/NewDivider'
 import { ClosePopupAction } from '../actions'
 import { PopupComponent } from '../../components/popup/PopupComponent'
 
