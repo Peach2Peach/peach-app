@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
-import { patchOffer } from '../../../utils/peachAPI'
+import { patchOffer } from '../../utils/peachAPI'
+import { useShowErrorBanner } from '../useShowErrorBanner'
 
 type NewData = {
   refundAddress?: string

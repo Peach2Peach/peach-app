@@ -1,14 +1,14 @@
-import { usePatchOffer } from './usePatchOffer'
 import { renderHook, waitFor } from '@testing-library/react-native'
-import { QueryClientWrapper } from '../../../../tests/unit/helpers/QueryClientWrapper'
+import { QueryClientWrapper } from '../../../tests/unit/helpers/QueryClientWrapper'
+import { usePatchOffer } from './usePatchOffer'
 
 const showErrorBannerMock = jest.fn()
-jest.mock('../../../hooks/useShowErrorBanner', () => ({
+jest.mock('../../hooks/useShowErrorBanner', () => ({
   useShowErrorBanner: () => showErrorBannerMock,
 }))
 
 const patchOfferMock = jest.fn().mockResolvedValue([{ success: true }, null])
-jest.mock('../../../utils/peachAPI', () => ({
+jest.mock('../../utils/peachAPI', () => ({
   patchOffer: (...args: unknown[]) => patchOfferMock(...args),
 }))
 

@@ -1,11 +1,10 @@
-/* eslint-disable max-lines */
-import { useSortAndFilterPopup } from './useSortAndFilterPopup'
-import { render, renderHook, waitFor, act } from '@testing-library/react-native'
-import { queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
+import { act, render, renderHook, waitFor } from '@testing-library/react-native'
 import { buyOffer, sellOffer } from '../../../../tests/unit/data/offerData'
-import { defaultPopupState, usePopupStore } from '../../../store/usePopupStore'
 import { NavigationAndQueryClientWrapper } from '../../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
+import { queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
+import { defaultPopupState, usePopupStore } from '../../../store/usePopupStore'
 import { getOfferDetails } from '../../../utils/peachAPI'
+import { useSortAndFilterPopup } from './useSortAndFilterPopup'
 
 jest.useFakeTimers()
 
