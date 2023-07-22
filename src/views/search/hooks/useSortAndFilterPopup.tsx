@@ -1,164 +1,25 @@
-import { useCallback, useState } from 'react'
-import { shallow } from 'zustand/shallow'
+import { useCallback } from 'react'
 import { useOfferDetails } from '../../../hooks/query/useOfferDetails'
 import { usePopupStore } from '../../../store/usePopupStore'
 import { isBuyOffer } from '../../../utils/offer'
-import { Pressable, View, Keyboard } from 'react-native'
-import { Checkbox, HorizontalLine, RadioButtons, Text } from '../../../components'
-import { PercentageInput } from '../../../components/inputs'
-import { RadioButtonItem } from '../../../components/inputs/RadioButtons'
-import tw from '../../../styles/tailwind'
-import i18n from '../../../utils/i18n'
-import { usePatchOffer } from './usePatchOffer'
-import { useQueryClient } from '@tanstack/react-query'
-import { useOfferPreferences } from '../../../store/offerPreferenes'
+import { BuyFilterAndSort, SellSorters } from '../../../popups/filtersAndSorting'
 
 export const useSortAndFilterPopup = (offerId: string) => {
   const { offer } = useOfferDetails(offerId)
-  const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
-  const [filter, setFilter] = useState<MatchFilter>()
-  const currentMaxPremium
-    = ((offer && 'maxPremium' in offer ? offer : undefined) || { maxPremium: null })?.maxPremium ?? null
-  const currentUserInput = filter?.maxPremium
-  const realFilter = { maxPremium: currentUserInput !== undefined ? currentUserInput : currentMaxPremium }
-  const { mutate: patchOffer } = usePatchOffer(offerId, realFilter)
-  const queryClient = useQueryClient()
-
-  const applyFilters = useCallback(() => {
-    patchOffer(undefined, {
-      onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: ['matches', offerId] })
-      },
-    })
-    closePopup()
-  }, [closePopup, offerId, patchOffer, queryClient])
+  const setPopup = usePopupStore((state) => state.setPopup)
 
   const showPopup = useCallback(() => {
     if (!offer) return
-    setPopup({
-      content: isBuyOffer(offer) ? (
-        <BuySortAndFilter
-          defaultPremium={currentMaxPremium !== null ? String(offer.maxPremium) : undefined}
-          setFilter={setFilter}
-        />
-      ) : (
-        <SellSortAndFilter />
-      ),
-      level: 'APP',
-      action2: {
-        label: i18n('close'),
-        icon: 'xSquare',
-        callback: closePopup,
-      },
-      action1: {
-        label: i18n('apply'),
-        icon: 'checkSquare',
-        callback: applyFilters,
-      },
-    })
-  }, [applyFilters, closePopup, currentMaxPremium, offer, setPopup])
+    setPopup(<SortAndFilterPopup offer={offer} />)
+  }, [offer, setPopup])
 
   return showPopup
 }
 
-type BuyFilterProps = {
-  defaultPremium: string | undefined
-  setFilter: (filter: MatchFilter) => void
+type Props = {
+  offer: BuyOffer | SellOffer
 }
 
-function BuySortAndFilter ({ defaultPremium, setFilter }: BuyFilterProps) {
-  const items: RadioButtonItem<BuySorter>[] = [
-    {
-      display: i18n('sorting.highestAmount'),
-      value: 'highestAmount',
-    },
-    {
-      display: i18n('sorting.lowestPremium'),
-      value: 'lowestPremium',
-    },
-    {
-      display: i18n('sorting.bestReputation'),
-      value: 'bestReputation',
-    },
-  ]
-  const defaultSelection = useOfferPreferences((state) => state.sortBy.buyOffer[0])
-  const [selectedValue, setSelectedValue] = useState<BuySorter>(defaultSelection)
-  const [maxPremium, setMaxPremium] = useState(defaultPremium)
-  const displayPremium = maxPremium ?? defaultPremium
-  const [shouldApplyFilter, setShouldApplyFilter] = useState(maxPremium !== undefined)
-
-  const onPremiumChange = (value: string) => {
-    if (value === '') {
-      setFilter({ maxPremium: null })
-    } else if (shouldApplyFilter) {
-      setFilter({ maxPremium: parseFloat(value) })
-    }
-    setMaxPremium(value)
-  }
-
-  const onCheckboxPress = () => {
-    if (displayPremium !== undefined) {
-      setShouldApplyFilter((prev) => {
-        if (prev) {
-          setFilter({ maxPremium: null })
-        } else {
-          setFilter({ maxPremium: displayPremium === '' ? null : parseFloat(displayPremium) })
-        }
-        return !prev
-      })
-    }
-  }
-
-  return (
-    <Pressable style={tw`items-center self-stretch gap-4`} onPress={Keyboard.dismiss}>
-      <Section title={i18n('filter')}>
-        <View style={tw`flex-row items-center self-stretch justify-between`}>
-          <Checkbox text={i18n('filter.maxPremium')} checked={shouldApplyFilter} onPress={onCheckboxPress} />
-          <PercentageInput value={displayPremium} onChange={onPremiumChange} />
-        </View>
-      </Section>
-      <Section title={i18n('sorting.sortMatchesBy')}>
-        <RadioButtons items={items} selectedValue={selectedValue} onButtonPress={setSelectedValue} />
-      </Section>
-    </Pressable>
-  )
-}
-
-function SellSortAndFilter () {
-  const items: RadioButtonItem<SellSorter>[] = [
-    {
-      display: i18n('sorting.highestPrice'),
-      value: 'highestPrice',
-    },
-    {
-      display: i18n('sorting.bestReputation'),
-      value: 'bestReputation',
-    },
-  ]
-  const defaultSelection = useOfferPreferences((state) => state.sortBy.sellOffer[0])
-  const [selectedValue, setSelectedValue] = useState<SellSorter>(defaultSelection)
-
-  return (
-    <Pressable style={tw`items-center self-stretch gap-4`} onPress={Keyboard.dismiss}>
-      <Section title={i18n('sorting.sortMatchesBy')}>
-        <RadioButtons items={items} selectedValue={selectedValue} onButtonPress={setSelectedValue} />
-      </Section>
-    </Pressable>
-  )
-}
-
-type SectionProps = {
-  title: string
-  children: React.ReactNode
-}
-function Section ({ title, children }: SectionProps) {
-  return (
-    <>
-      <View style={tw`flex-row items-center self-stretch justify-center gap-2`}>
-        <Text style={tw`h7`}>{title}</Text>
-        <HorizontalLine />
-      </View>
-      {children}
-    </>
-  )
+function SortAndFilterPopup ({ offer }: Props) {
+  return isBuyOffer(offer) ? <BuyFilterAndSort offer={offer} /> : <SellSorters />
 }

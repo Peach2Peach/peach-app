@@ -1,6 +1,6 @@
 /* eslint-disable max-lines */
 import { useSortAndFilterPopup } from './useSortAndFilterPopup'
-import { render, renderHook, fireEvent, waitFor, act } from '@testing-library/react-native'
+import { render, renderHook, waitFor, act } from '@testing-library/react-native'
 import { queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
 import { buyOffer, sellOffer } from '../../../../tests/unit/data/offerData'
 import { defaultPopupState, usePopupStore } from '../../../store/usePopupStore'
@@ -19,6 +19,11 @@ const patchOfferMock = jest.fn().mockResolvedValue([{ success: true }, null])
 jest.mock('../../../utils/peachAPI', () => ({
   getOfferDetails: (args: GetOfferDetailsParams) => getOfferDetailsMock(args),
   patchOffer: (...args: unknown[]) => patchOfferMock(...args),
+}))
+
+jest.mock('../../../popups/filtersAndSorting', () => ({
+  BuyFilterAndSort: 'BuyFilterAndSort',
+  SellSorters: 'SellSorters',
 }))
 
 const wrapper = NavigationAndQueryClientWrapper
@@ -46,22 +51,8 @@ describe('useSortAndFilterPopup', () => {
     act(() => {
       showPopup()
     })
-    expect(usePopupStore.getState()).toStrictEqual(
-      expect.objectContaining({
-        level: 'APP',
-        action2: {
-          label: 'close',
-          icon: 'xSquare',
-          callback: expect.any(Function),
-        },
-        action1: {
-          label: 'apply',
-          icon: 'checkSquare',
-          callback: expect.any(Function),
-        },
-      }),
-    )
-    expect(render(usePopupStore.getState().content || <></>)).toMatchSnapshot()
+
+    expect(render(usePopupStore.getState().popupComponent || <></>, { wrapper })).toMatchSnapshot()
   })
   it('should update the popup store with the correct content for sell offers', async () => {
     getOfferDetailsMock.mockResolvedValueOnce([sellOffer, null])
@@ -71,22 +62,7 @@ describe('useSortAndFilterPopup', () => {
     act(() => {
       showPopup()
     })
-    expect(usePopupStore.getState()).toStrictEqual(
-      expect.objectContaining({
-        level: 'APP',
-        action2: {
-          label: 'close',
-          icon: 'xSquare',
-          callback: expect.any(Function),
-        },
-        action1: {
-          label: 'apply',
-          icon: 'checkSquare',
-          callback: expect.any(Function),
-        },
-      }),
-    )
-    expect(render(usePopupStore.getState().content || <></>)).toMatchSnapshot()
+    expect(render(usePopupStore.getState().popupComponent || <></>, { wrapper })).toMatchSnapshot()
   })
   it('should not update the popup store if the offer is not found', async () => {
     const { result } = renderHook(() => useSortAndFilterPopup('unknownOfferId'), { wrapper })
@@ -96,247 +72,6 @@ describe('useSortAndFilterPopup', () => {
       showPopup()
     })
     expect(usePopupStore.getState()).toStrictEqual(expect.objectContaining(defaultPopupState))
-  })
-  it('should patch the offer with the correct values when the apply button is pressed', async () => {
-    const { result } = renderHook(() => useSortAndFilterPopup(buyOffer.id), { wrapper })
-    await waitForQuery()
-    const showPopup = result.current
-    act(() => {
-      showPopup()
-    })
-    const { getByText, getByPlaceholderText } = render(usePopupStore.getState().content || <></>)
-    const checkbox = getByText('max premium')
-    const input = getByPlaceholderText('20.00')
-    act(() => {
-      fireEvent.changeText(input, '20,23')
-    })
-    act(() => {
-      fireEvent.press(checkbox)
-    })
-
-    await act(async () => {
-      usePopupStore.getState().action1?.callback()
-      await waitForQuery()
-    })
-
-    expect(patchOfferMock).toHaveBeenCalledWith({ offerId: buyOffer.id, maxPremium: 20.23 })
-  })
-  it('should not use the text input when the checkbox is not checked', async () => {
-    const { result } = renderHook(() => useSortAndFilterPopup(buyOffer.id), { wrapper })
-    await waitForQuery()
-    const showPopup = result.current
-    act(() => {
-      showPopup()
-    })
-    const { getByPlaceholderText } = render(usePopupStore.getState().content || <></>)
-    const input = getByPlaceholderText('20.00')
-    act(() => {
-      fireEvent.changeText(input, '20,23')
-    })
-    await act(async () => {
-      usePopupStore.getState().action1?.callback()
-      await waitForQuery()
-    })
-
-    expect(patchOfferMock).toHaveBeenCalledWith({ offerId: buyOffer.id, maxPremium: null })
-  })
-  it('should set the max premium to null when the input is an empty string', async () => {
-    const { result } = renderHook(() => useSortAndFilterPopup(buyOffer.id), { wrapper })
-    await waitForQuery()
-    const showPopup = result.current
-    act(() => {
-      showPopup()
-    })
-    const { getByText, getByPlaceholderText } = render(usePopupStore.getState().content || <></>)
-    const checkbox = getByText('max premium')
-    const input = getByPlaceholderText('20.00')
-    act(() => {
-      fireEvent.changeText(input, '')
-    })
-    act(() => {
-      fireEvent.press(checkbox)
-    })
-
-    await act(async () => {
-      usePopupStore.getState().action1?.callback()
-      await waitForQuery()
-    })
-
-    expect(patchOfferMock).toHaveBeenCalledWith({ offerId: buyOffer.id, maxPremium: null })
-  })
-  it('should not set the input to undefined when the input is an empty string', async () => {
-    const { result } = renderHook(() => useSortAndFilterPopup(buyOffer.id), { wrapper })
-    await waitForQuery()
-    const showPopup = result.current
-    act(() => {
-      showPopup()
-    })
-    const { getByPlaceholderText } = render(usePopupStore.getState().content || <></>)
-    const input = getByPlaceholderText('20.00')
-    act(() => {
-      fireEvent.changeText(input, '')
-    })
-
-    expect(input.props.value).toBe('')
-  })
-  it('should not use the text input when the checkbox was unchecked', async () => {
-    const { result } = renderHook(() => useSortAndFilterPopup(buyOffer.id), { wrapper })
-    await waitForQuery()
-    const showPopup = result.current
-    act(() => {
-      showPopup()
-    })
-    const { getByText, getByPlaceholderText } = render(usePopupStore.getState().content || <></>)
-    const checkbox = getByText('max premium')
-    const input = getByPlaceholderText('20.00')
-    act(() => {
-      fireEvent.changeText(input, '20,23')
-    })
-    act(() => {
-      fireEvent.press(checkbox)
-    })
-    act(() => {
-      fireEvent.press(checkbox)
-    })
-
-    await act(async () => {
-      usePopupStore.getState().action1?.callback()
-      await waitForQuery()
-    })
-
-    expect(patchOfferMock).toHaveBeenCalledWith({ offerId: buyOffer.id, maxPremium: null })
-  })
-  it('should update the premium after the checkbox is checked', async () => {
-    const { result } = renderHook(() => useSortAndFilterPopup(buyOffer.id), { wrapper })
-    await waitForQuery()
-    const showPopup = result.current
-    act(() => {
-      showPopup()
-    })
-    const { getByText, getByPlaceholderText } = render(usePopupStore.getState().content || <></>)
-    const checkbox = getByText('max premium')
-    const input = getByPlaceholderText('20.00')
-    act(() => {
-      fireEvent.changeText(input, '20,23')
-    })
-    act(() => {
-      fireEvent.press(checkbox)
-    })
-    act(() => {
-      fireEvent.changeText(input, '20,24')
-    })
-
-    await act(async () => {
-      usePopupStore.getState().action1?.callback()
-      await waitForQuery()
-    })
-
-    expect(patchOfferMock).toHaveBeenCalledWith({ offerId: buyOffer.id, maxPremium: 20.24 })
-  })
-  it('should invalidate the matches query on success', async () => {
-    queryClient.setQueryData(['matches', buyOffer.id], {
-      pages: [
-        {
-          items: [],
-          pageParams: [],
-        },
-      ],
-    })
-    const { result } = renderHook(() => useSortAndFilterPopup(buyOffer.id), { wrapper })
-    await waitForQuery()
-    const showPopup = result.current
-    act(() => {
-      showPopup()
-    })
-    await act(() => {
-      usePopupStore.getState().action1?.callback()
-    })
-
-    expect(queryClient.getQueryState(['matches', buyOffer.id])?.isInvalidated).toBe(true)
-
-    await waitForQuery()
-  })
-  it.todo('should update the sorting and the filters in the global store when the apply button is pressed')
-})
-
-describe('BuySortAndFilter', () => {
-  beforeEach(() => {
-    queryClient.clear()
-    usePopupStore.setState(defaultPopupState)
-  })
-  it('should not toggle the checkbox when no max premium is set', async () => {
-    const { result } = renderHook(() => useSortAndFilterPopup(buyOffer.id), { wrapper })
-    await waitForQuery()
-    const showPopup = result.current
-    act(() => {
-      showPopup()
-    })
-
-    const { getByText } = render(usePopupStore.getState().content || <></>)
-    const checkbox = getByText('max premium')
-    act(() => {
-      fireEvent.press(checkbox)
-    })
-    expect(render(usePopupStore.getState().content || <></>)).toMatchSnapshot()
-  })
-  it('should toggle the checkbox when the checkbox is pressed', async () => {
-    const { result } = renderHook(() => useSortAndFilterPopup(buyOffer.id), { wrapper })
-    await waitForQuery()
-    const showPopup = result.current
-    act(() => {
-      showPopup()
-    })
-
-    const { getByText, getByPlaceholderText } = render(usePopupStore.getState().content || <></>)
-    const checkbox = getByText('max premium')
-    const input = getByPlaceholderText('20.00')
-    act(() => {
-      fireEvent.changeText(input, '20')
-    })
-    act(() => {
-      fireEvent.press(checkbox)
-    })
-    expect(render(usePopupStore.getState().content || <></>)).toMatchSnapshot()
-  })
-  it('should use the offer max premium as the default value for the input and checkbox', async () => {
-    getOfferDetailsMock.mockResolvedValueOnce([{ ...buyOffer, maxPremium: 20 }, null])
-    const { result } = renderHook(() => useSortAndFilterPopup(buyOffer.id), { wrapper })
-    await waitForQuery()
-
-    const showPopup = result.current
-    act(() => {
-      showPopup()
-    })
-
-    const { getByPlaceholderText } = render(usePopupStore.getState().content || <></>)
-    const input = getByPlaceholderText('20.00')
-    expect(input.props.value).toBe('20')
-    expect(render(usePopupStore.getState().content || <></>)).toMatchSnapshot()
-  })
-  it('should use the sorter from the offer preferences as the default value for the radio buttons', async () => {
-    useOfferPreferences.getState().setBuyOfferSorter('highestAmount')
-    const { result } = renderHook(() => useSortAndFilterPopup(buyOffer.id), { wrapper })
-    await waitForQuery()
-
-    const showPopup = result.current
-    act(() => {
-      showPopup()
-    })
-    expect(render(usePopupStore.getState().content || <></>)).toMatchSnapshot()
-  })
-})
-
-describe('SellSortAndFilter', () => {
-  it('should use the sorter from the offer preferences as the default value for the radio buttons', async () => {
-    useOfferPreferences.getState().setSellOfferSorter('highestPrice')
-    const { result } = renderHook(() => useSortAndFilterPopup(sellOffer.id), { wrapper })
-    await waitForQuery()
-
-    const showPopup = result.current
-    act(() => {
-      showPopup()
-    })
-    expect(render(usePopupStore.getState().content || <></>)).toMatchSnapshot()
   })
 })
 
