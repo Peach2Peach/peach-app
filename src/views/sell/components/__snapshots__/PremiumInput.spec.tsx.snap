@@ -31,7 +31,7 @@ exports[`PremiumInput should render the PremiumInput view with 0 premium 1`] = `
     premium
     :
   </PeachText>
-  <PercentageInput
+  <ForwardRef
     onChange={[Function]}
     value="0"
   />
@@ -69,7 +69,7 @@ exports[`PremiumInput should render the PremiumInput view with discount 1`] = `
     discount
     :
   </PeachText>
-  <PercentageInput
+  <ForwardRef
     onChange={[Function]}
     value="-3.2"
   />
@@ -107,7 +107,7 @@ exports[`PremiumInput should render the PremiumInput view with premium 1`] = `
     premium
     :
   </PeachText>
-  <PercentageInput
+  <ForwardRef
     onChange={[Function]}
     value="3.2"
   />

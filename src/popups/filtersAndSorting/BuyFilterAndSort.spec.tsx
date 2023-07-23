@@ -1,10 +1,11 @@
 import { BuyFilterAndSort } from './BuyFilterAndSort'
-import { render, fireEvent, waitFor } from '@testing-library/react-native'
+import { render, fireEvent, waitFor, act } from '@testing-library/react-native'
 import { buyOffer } from '../../../tests/unit/data/offerData'
 import { NavigationAndQueryClientWrapper } from '../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
 import { useOfferPreferences } from '../../store/offerPreferenes'
 import { usePopupStore } from '../../store/usePopupStore'
 import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
+import { TextInput } from 'react-native'
 
 jest.useFakeTimers()
 
@@ -26,6 +27,24 @@ describe('BuyFilterAndSort', () => {
     const maxPremiumInput = getByPlaceholderText('20.00')
     expect(maxPremiumInput.props.value).toBe('0.5')
     expect(toJSON()).toMatchSnapshot()
+  })
+  it('should focus the maxPremium input when the maxPremium checkbox gets checked', () => {
+    const focusSpy = jest.spyOn(TextInput.prototype, 'focus')
+    const { getByText } = render(<BuyFilterAndSort offer={buyOffer} />, { wrapper })
+    const checkbox = getByText('max premium')
+
+    fireEvent.press(checkbox)
+    expect(focusSpy).toHaveBeenCalled()
+  })
+  it("shouldn't focus the input when the filter has changed from the global state", () => {
+    const focusSpy = jest.spyOn(TextInput.prototype, 'focus')
+    const { getByText, getByPlaceholderText } = render(<BuyFilterAndSort offer={buyOffer} />, { wrapper })
+    const maxPremiumInput = getByPlaceholderText('20.00')
+    const checkbox = getByText('max premium')
+
+    fireEvent.changeText(maxPremiumInput, '0.5')
+    fireEvent.press(checkbox)
+    expect(focusSpy).not.toHaveBeenCalled()
   })
 })
 

@@ -1,6 +1,6 @@
 import { useQueryClient } from '@tanstack/react-query'
-import { useCallback, useState } from 'react'
-import { View } from 'react-native'
+import { useCallback, useRef, useState } from 'react'
+import { TextInput, View } from 'react-native'
 import { shallow } from 'zustand/shallow'
 import { Checkbox, PercentageInput, RadioButtons } from '../../components/inputs'
 import { RadioButtonItem } from '../../components/inputs/RadioButtons'
@@ -24,8 +24,17 @@ export const BuyFilterAndSort = ({ offer }: Props) => {
   const [sortBy, setSortBy] = useState<BuySorter>(defaultSorter)
 
   const [shouldApplyFilter, toggleShouldApplyFilter] = useToggleBoolean(offer.maxPremium !== null)
-  const [maxPremium, setMaxPremium] = useState((offer.maxPremium ?? '').toString())
+  const defaultPremium = (offer.maxPremium ?? '').toString()
+  const [maxPremium, setMaxPremium] = useState(defaultPremium)
   const filter = { maxPremium: maxPremium === '' || !shouldApplyFilter ? null : parseFloat(maxPremium) }
+
+  const percentageInput = useRef<TextInput>(null)
+  const onCheckboxPress = () => {
+    if (!shouldApplyFilter && maxPremium === defaultPremium) {
+      percentageInput.current?.focus()
+    }
+    toggleShouldApplyFilter()
+  }
 
   return (
     <PopupComponent
@@ -33,8 +42,8 @@ export const BuyFilterAndSort = ({ offer }: Props) => {
         <>
           <NewDivider title={i18n('filter')} />
           <View style={tw`flex-row items-center self-stretch justify-between`}>
-            <Checkbox text={i18n('filter.maxPremium')} checked={shouldApplyFilter} onPress={toggleShouldApplyFilter} />
-            <PercentageInput value={maxPremium} onChange={setMaxPremium} />
+            <Checkbox text={i18n('filter.maxPremium')} checked={shouldApplyFilter} onPress={onCheckboxPress} />
+            <PercentageInput ref={percentageInput} value={maxPremium} onChange={setMaxPremium} />
           </View>
 
           <NewDivider title={i18n('sorting.sortMatchesBy')} />
