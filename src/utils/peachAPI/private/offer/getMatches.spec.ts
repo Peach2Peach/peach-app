@@ -25,7 +25,7 @@ jest.mock('../getPrivateHeaders', () => ({
 
 describe('getMatches', () => {
   it('should call fetch with the correct arguments', async () => {
-    await getMatches({ offerId: 'offerId' })
+    await getMatches({ offerId: 'offerId', sortBy: ['highestAmount'] })
 
     expect(fetchMock).toHaveBeenCalledWith(`${API_URL}/v1/offer/offerId/matches?page=0&size=21&sortBy=highestAmount`, {
       headers: mockHeaders,
@@ -34,10 +34,10 @@ describe('getMatches', () => {
     })
   })
   it('should join multiple sorters with commas', async () => {
-    await getMatches({ offerId: 'offerId', sortBy: ['highestAmount', 'lowestPrice'] })
+    await getMatches({ offerId: 'offerId', sortBy: ['highestAmount', 'bestReputation'] })
 
     expect(fetchMock).toHaveBeenCalledWith(
-      `${API_URL}/v1/offer/offerId/matches?page=0&size=21&sortBy=highestAmount,lowestPrice`,
+      `${API_URL}/v1/offer/offerId/matches?page=0&size=21&sortBy=highestAmount,bestReputation`,
       {
         headers: mockHeaders,
         method: 'GET',
