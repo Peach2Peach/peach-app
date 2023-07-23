@@ -1,29 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`BuySummary should render correctly when publishing 1`] = `
-<View
-  style={
-    [
-      {
-        "flexGrow": 1,
-        "justifyContent": "center",
-        "paddingBottom": 20,
-        "paddingLeft": 24,
-        "paddingRight": 24,
-      },
-      {
-        "paddingLeft": 32,
-        "paddingRight": 32,
-      },
-    ]
-  }
->
+<Screen>
   <ForwardRef
     contentContainerStyle={
-      {
-        "flexGrow": 1,
-        "justifyContent": "center",
-      }
+      [
+        {
+          "flexGrow": 1,
+          "justifyContent": "center",
+          "paddingBottom": 16,
+          "paddingTop": 16,
+        },
+        {
+          "paddingBottom": 32,
+          "paddingTop": 32,
+        },
+      ]
     }
   >
     <BuyOfferSummary />
@@ -35,40 +27,31 @@ exports[`BuySummary should render correctly when publishing 1`] = `
     style={
       {
         "alignSelf": "center",
-        "marginTop": 16,
+        "marginBottom": 20,
       }
     }
-    testID="navigation-next"
   >
     publishing
   </PrimaryButton>
-</View>
+</Screen>
 `;
 
 exports[`BuySummary should render correctly while peach wallet is still signing message 1`] = `
-<View
-  style={
-    [
-      {
-        "flexGrow": 1,
-        "justifyContent": "center",
-        "paddingBottom": 20,
-        "paddingLeft": 24,
-        "paddingRight": 24,
-      },
-      {
-        "paddingLeft": 32,
-        "paddingRight": 32,
-      },
-    ]
-  }
->
+<Screen>
   <ForwardRef
     contentContainerStyle={
-      {
-        "flexGrow": 1,
-        "justifyContent": "center",
-      }
+      [
+        {
+          "flexGrow": 1,
+          "justifyContent": "center",
+          "paddingBottom": 16,
+          "paddingTop": 16,
+        },
+        {
+          "paddingBottom": 32,
+          "paddingTop": 32,
+        },
+      ]
     }
   >
     <BuyOfferSummary />
@@ -80,40 +63,31 @@ exports[`BuySummary should render correctly while peach wallet is still signing 
     style={
       {
         "alignSelf": "center",
-        "marginTop": 16,
+        "marginBottom": 20,
       }
     }
-    testID="navigation-next"
   >
     next
   </PrimaryButton>
-</View>
+</Screen>
 `;
 
 exports[`BuySummary should render correctly with custom payout wallet and signature is still missing 1`] = `
-<View
-  style={
-    [
-      {
-        "flexGrow": 1,
-        "justifyContent": "center",
-        "paddingBottom": 20,
-        "paddingLeft": 24,
-        "paddingRight": 24,
-      },
-      {
-        "paddingLeft": 32,
-        "paddingRight": 32,
-      },
-    ]
-  }
->
+<Screen>
   <ForwardRef
     contentContainerStyle={
-      {
-        "flexGrow": 1,
-        "justifyContent": "center",
-      }
+      [
+        {
+          "flexGrow": 1,
+          "justifyContent": "center",
+          "paddingBottom": 16,
+          "paddingTop": 16,
+        },
+        {
+          "paddingBottom": 32,
+          "paddingTop": 32,
+        },
+      ]
     }
   >
     <BuyOfferSummary />
@@ -125,40 +99,31 @@ exports[`BuySummary should render correctly with custom payout wallet and signat
     style={
       {
         "alignSelf": "center",
-        "marginTop": 16,
+        "marginBottom": 20,
       }
     }
-    testID="navigation-next"
   >
     next
   </PrimaryButton>
-</View>
+</Screen>
 `;
 
 exports[`BuySummary should render the BuySummary view 1`] = `
-<View
-  style={
-    [
-      {
-        "flexGrow": 1,
-        "justifyContent": "center",
-        "paddingBottom": 20,
-        "paddingLeft": 24,
-        "paddingRight": 24,
-      },
-      {
-        "paddingLeft": 32,
-        "paddingRight": 32,
-      },
-    ]
-  }
->
+<Screen>
   <ForwardRef
     contentContainerStyle={
-      {
-        "flexGrow": 1,
-        "justifyContent": "center",
-      }
+      [
+        {
+          "flexGrow": 1,
+          "justifyContent": "center",
+          "paddingBottom": 16,
+          "paddingTop": 16,
+        },
+        {
+          "paddingBottom": 32,
+          "paddingTop": 32,
+        },
+      ]
     }
   >
     <BuyOfferSummary />
@@ -170,12 +135,11 @@ exports[`BuySummary should render the BuySummary view 1`] = `
     style={
       {
         "alignSelf": "center",
-        "marginTop": 16,
+        "marginBottom": 20,
       }
     }
-    testID="navigation-next"
   >
     publish
   </PrimaryButton>
-</View>
+</Screen>
 `;
