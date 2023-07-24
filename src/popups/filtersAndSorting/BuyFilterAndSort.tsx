@@ -111,8 +111,6 @@ function GlobalFilterAndSort ({ filter, sortBy }: ApplyFilterActionProps) {
 function useOfferFilters (offerId: string, filter: MatchFilter, sortBy: BuySorter) {
   const queryClient = useQueryClient()
   const applyGlobalFilters = useGlobalFilters(filter, sortBy)
-
-  const closePopup = usePopupStore((state) => state.closePopup)
   const { mutate: patchOffer } = usePatchOffer(offerId, filter)
 
   const applyFilters = useCallback(() => {
@@ -122,8 +120,7 @@ function useOfferFilters (offerId: string, filter: MatchFilter, sortBy: BuySorte
         queryClient.invalidateQueries({ queryKey: ['matches'] })
       },
     })
-    closePopup()
-  }, [applyGlobalFilters, closePopup, patchOffer, queryClient])
+  }, [applyGlobalFilters, patchOffer, queryClient])
 
   return applyFilters
 }
@@ -133,11 +130,13 @@ function useGlobalFilters (filter: MatchFilter, sortBy: BuySorter) {
     (state) => [state.setBuyOfferSorter, state.setBuyOfferFilter],
     shallow,
   )
+  const closePopup = usePopupStore((state) => state.closePopup)
 
   const applyGlobalFilters = useCallback(() => {
     setBuyOfferFilter(filter)
     setBuyOfferSorter(sortBy)
-  }, [filter, setBuyOfferFilter, setBuyOfferSorter, sortBy])
+    closePopup()
+  }, [closePopup, filter, setBuyOfferFilter, setBuyOfferSorter, sortBy])
 
   return applyGlobalFilters
 }
