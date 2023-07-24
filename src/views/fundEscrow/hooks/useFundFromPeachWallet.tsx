@@ -39,8 +39,8 @@ export const useFundFromPeachWallet = ({ offer, fundingStatus }: Props) => {
       const transaction = await buildTransaction(offer.escrow, offer.amount, feeRate)
       finishedTransaction = await peachWallet.finishTransaction(transaction)
     } catch (e) {
-      const transactionError = parseError(e)
-      if (!transactionError.includes('InsufficientFunds')) return showErrorBanner(transactionError)
+      const transactionError = parseError(Array.isArray(e) ? e[0] : e)
+      if (transactionError !== 'INSUFFICIENT_FUNDS') return showErrorBanner(transactionError)
 
       const transaction = await buildDrainWalletTransaction(offer.escrow, feeRate)
       finishedTransaction = await peachWallet.finishTransaction(transaction)
