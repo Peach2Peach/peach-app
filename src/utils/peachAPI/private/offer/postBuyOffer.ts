@@ -12,6 +12,7 @@ type Props = RequestProps & {
   paymentData: Offer['paymentData']
   releaseAddress: string
   messageSignature?: string
+  maxPremium: number | null
 }
 
 export const postBuyOffer = async ({
@@ -22,11 +23,12 @@ export const postBuyOffer = async ({
   paymentData,
   releaseAddress,
   messageSignature,
+  maxPremium,
 }: Props) => {
   const response = await fetch(`${API_URL}/v1/offer`, {
     headers: await getPrivateHeaders(),
     method: 'POST',
-    body: JSON.stringify({ type, amount, meansOfPayment, paymentData, releaseAddress, messageSignature }),
+    body: JSON.stringify({ type, amount, meansOfPayment, paymentData, releaseAddress, messageSignature, maxPremium }),
     signal: timeout ? getAbortWithTimeout(timeout).signal : undefined,
   })
 

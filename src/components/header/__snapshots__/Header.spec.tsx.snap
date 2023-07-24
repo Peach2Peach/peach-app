@@ -269,9 +269,10 @@ exports[`Header should render correctly with PriceStats 1`] = `
     style={
       [
         {
-          "alignSelf": "stretch",
           "backgroundColor": "#EAE3DF",
+          "flexShrink": 1,
           "height": 1,
+          "width": "100%",
         },
         undefined,
       ]

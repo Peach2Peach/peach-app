@@ -15,7 +15,7 @@ type Props = {
 
 export const Premium = ({ premium, setPremium, confirmButton, amount, offerPrice }: Props) => (
   <View style={tw`h-full`}>
-    <View style={[tw`flex-grow px-4`, tw.md`px-8`]}>
+    <View style={[tw`flex-grow px-sm`, tw.md`px-md`]}>
       <View style={tw`items-center justify-center flex-grow`}>
         <View style={tw`items-center self-stretch gap-7`}>
           <View style={tw`items-center`}>

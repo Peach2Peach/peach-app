@@ -12,8 +12,10 @@ export const MSINANHOUR = MSINAMINUTE * 60
 export const MSINADAY = MSINANHOUR * 24
 export const MSINAMONTH = MSINADAY * 30
 
-// time go automatically restart app when calling app from background after this time has passed
-export const TIMETORESTART = 1000 * 60 * 5
+export const FIFTEEN_SECONDS = 15 * MSINASECOND
+
+// time to automatically restart app when calling app from background after this time has passed
+export const TIMETORESTART = 5 * MSINAMINUTE
 
 export const MAXTRADESWITHOUTHBACKUP = 3
 

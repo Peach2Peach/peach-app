@@ -26,7 +26,7 @@ export const PaymentMethodForm = () => {
   const Form = PaymentMethodForms[paymentMethod]?.component
 
   return (
-    <PeachScrollView contentContainerStyle={tw`flex-grow`} contentStyle={[tw`flex-grow px-4`, tw.md`px-8`]}>
+    <PeachScrollView contentContainerStyle={tw`flex-grow`} contentStyle={[tw`flex-grow px-sm`, tw.md`px-md`]}>
       <View style={tw`justify-center flex-grow`}>
         {!!Form && <Form onSubmit={submitForm} {...{ data, setStepValid, setFormData }} />}
       </View>

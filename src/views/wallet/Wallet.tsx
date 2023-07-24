@@ -15,7 +15,7 @@ export const Wallet = () => {
   if (walletLoading) return <BitcoinLoading text={i18n('wallet.loading')} />
 
   return (
-    <View style={[tw`flex-1 px-4`, tw.md`px-8`]}>
+    <View style={[tw`flex-1 px-sm`, tw.md`px-md`]}>
       <PeachScrollView
         style={tw`flex-1 h-full`}
         contentContainerStyle={tw`flex-1`}

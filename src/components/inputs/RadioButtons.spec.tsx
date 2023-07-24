@@ -18,7 +18,7 @@ describe('RadioButtons', () => {
           },
         ]}
         selectedValue={'EUR'}
-        onChange={jest.fn()}
+        onButtonPress={jest.fn()}
       />,
     )
     const result = renderer.getRenderOutput()
@@ -39,7 +39,7 @@ describe('RadioButtons', () => {
           },
         ]}
         selectedValue={'EUR'}
-        onChange={onChange}
+        onButtonPress={onChange}
       />,
     )
     fireEvent.press(getByText('GBP'))
@@ -61,7 +61,7 @@ describe('RadioButtons', () => {
           },
         ]}
         selectedValue={'EUR'}
-        onChange={onChange}
+        onButtonPress={onChange}
       />,
     )
     fireEvent.press(getByText('GBP'))
