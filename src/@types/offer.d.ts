@@ -23,6 +23,7 @@ declare type BuyOfferDraft = OfferDraft & {
   releaseAddress: string
   message?: string
   messageSignature?: string
+  maxPremium: number | null
 }
 
 declare type BuyOffer = BuyOfferDraft &

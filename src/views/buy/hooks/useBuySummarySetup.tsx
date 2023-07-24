@@ -70,6 +70,7 @@ export const useBuySummarySetup = () => {
       meansOfPayment: state.meansOfPayment,
       paymentData: state.paymentData,
       originalPaymentData: state.originalPaymentData,
+      maxPremium: state.filter.buyOffer.maxPremium,
     }),
     shallow,
   )
