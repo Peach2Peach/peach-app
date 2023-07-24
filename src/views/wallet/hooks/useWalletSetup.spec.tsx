@@ -9,6 +9,8 @@ import { useWalletSetup } from './useWalletSetup'
 import { useSettingsStore } from '../../../store/settingsStore'
 import { act } from 'react-test-renderer'
 
+jest.useFakeTimers()
+
 describe('useWalletSetup', () => {
   const wrapper = NavigationWrapper
   const initialProps = { syncOnLoad: true }
@@ -16,6 +18,7 @@ describe('useWalletSetup', () => {
 
   // @ts-ignore
   const peachWallet = new PeachWallet()
+  peachWallet.initialized = true
 
   beforeAll(() => {
     useWalletState.getState().setBalance(balance)
@@ -54,6 +57,17 @@ describe('useWalletSetup', () => {
     expect(result.current.walletLoading).toBeTruthy()
     expect(peachWallet.syncWallet).toHaveBeenCalled()
     await waitFor(() => expect(result.current.walletLoading).toBeFalsy())
+  })
+  it('should retry sync wallet on load if peach wallet is not ready yet', async () => {
+    peachWallet.syncWallet = jest.fn()
+    peachWallet.initialized = false
+    renderHook(useWalletSetup, { wrapper, initialProps })
+    expect(peachWallet.syncWallet).not.toHaveBeenCalled()
+    peachWallet.initialized = true
+    await act(() => {
+      jest.advanceTimersByTime(1001)
+    })
+    expect(peachWallet.syncWallet).toHaveBeenCalled()
   })
   it('should set up the header correctly while loading', async () => {
     const { result } = renderHook(useWalletSetup, { wrapper, initialProps })
