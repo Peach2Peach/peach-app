@@ -1,5 +1,6 @@
 import { useFocusEffect } from '@react-navigation/native'
 import { useCallback, useState } from 'react'
+import { MSINASECOND } from '../../../constants'
 import { useHeaderSetup, useNavigation, useValidatedState } from '../../../hooks'
 import { useShowHelp } from '../../../hooks/useShowHelp'
 import { useSettingsStore } from '../../../store/settingsStore'
@@ -32,11 +33,15 @@ export const useWalletSetup = ({ syncOnLoad = true }) => {
   const [address, setAddress, isValid, addressErrors] = useValidatedState<string>('', bitcoinAddressRules)
   const canWithdrawAll = balance > 0 && !!address && isValid
 
-  const syncWalletOnLoad = async () => {
+  const syncWalletOnLoad = useCallback(async () => {
+    if (!peachWallet.initialized) {
+      setTimeout(syncWalletOnLoad, MSINASECOND)
+      return
+    }
     setWalletLoading(peachWallet.transactions.length === 0)
     await peachWallet.syncWallet()
     setWalletLoading(false)
-  }
+  }, [])
 
   useHeaderSetup(
     walletLoading
@@ -63,7 +68,7 @@ export const useWalletSetup = ({ syncOnLoad = true }) => {
   useFocusEffect(
     useCallback(() => {
       if (syncOnLoad) syncWalletOnLoad()
-    }, [syncOnLoad]),
+    }, [syncOnLoad, syncWalletOnLoad]),
   )
 
   return {
