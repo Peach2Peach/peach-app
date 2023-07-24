@@ -28,6 +28,7 @@ exports[`SellSummary should render the SellSummary view 1`] = `
       {
         "alignSelf": "center",
         "marginBottom": 20,
+        "marginTop": 8,
       }
     }
   >

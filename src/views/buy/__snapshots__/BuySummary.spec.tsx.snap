@@ -28,6 +28,7 @@ exports[`BuySummary should render correctly when publishing 1`] = `
       {
         "alignSelf": "center",
         "marginBottom": 20,
+        "marginTop": 8,
       }
     }
   >
@@ -64,6 +65,7 @@ exports[`BuySummary should render correctly while peach wallet is still signing 
       {
         "alignSelf": "center",
         "marginBottom": 20,
+        "marginTop": 8,
       }
     }
   >
@@ -100,6 +102,7 @@ exports[`BuySummary should render correctly with custom payout wallet and signat
       {
         "alignSelf": "center",
         "marginBottom": 20,
+        "marginTop": 8,
       }
     }
   >
@@ -136,6 +139,7 @@ exports[`BuySummary should render the BuySummary view 1`] = `
       {
         "alignSelf": "center",
         "marginBottom": 20,
+        "marginTop": 8,
       }
     }
   >

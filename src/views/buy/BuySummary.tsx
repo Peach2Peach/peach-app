@@ -19,7 +19,7 @@ export const BuySummary = () => {
         <BuyOfferSummary offer={offerDraft} />
       </PeachScrollView>
       <PrimaryButton
-        style={tw`self-center mb-5`}
+        style={tw`self-center mt-2 mb-5`}
         narrow
         onPress={canPublish ? publishOffer : goToMessageSigning}
         loading={isPublishing}
