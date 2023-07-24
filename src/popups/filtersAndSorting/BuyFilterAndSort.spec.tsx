@@ -1,5 +1,5 @@
 import { BuyFilterAndSort } from './BuyFilterAndSort'
-import { render, fireEvent, waitFor, act } from '@testing-library/react-native'
+import { render, fireEvent, waitFor } from '@testing-library/react-native'
 import { buyOffer } from '../../../tests/unit/data/offerData'
 import { NavigationAndQueryClientWrapper } from '../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
 import { useOfferPreferences } from '../../store/offerPreferenes'
@@ -46,9 +46,16 @@ describe('BuyFilterAndSort', () => {
     fireEvent.press(checkbox)
     expect(focusSpy).not.toHaveBeenCalled()
   })
+  it('should use the global preferences as defaults when the offer is undefined', () => {
+    const { toJSON } = render(<BuyFilterAndSort />, { wrapper })
+    expect(toJSON()).toMatchSnapshot()
+  })
 })
 
 describe('ApplyBuyFilterAction', () => {
+  beforeEach(() => {
+    useOfferPreferences.setState({ filter: { buyOffer: { maxPremium: null } } })
+  })
   it('should patch the offer with the selected filter', async () => {
     const { getByText, getByPlaceholderText } = render(<BuyFilterAndSort offer={buyOffer} />, { wrapper })
     const maxPremiumInput = getByPlaceholderText('20.00')
@@ -135,6 +142,26 @@ describe('ApplyBuyFilterAction', () => {
     const applyButton = getByText('apply')
 
     fireEvent.press(applyButton)
+    expect(usePopupStore.getState().visible).toBe(false)
+  })
+
+  it('should not patch the offer when the offer is undefined', async () => {
+    const { getByText, getByPlaceholderText } = render(<BuyFilterAndSort />, { wrapper })
+    const maxPremiumInput = getByPlaceholderText('20.00')
+    const applyButton = getByText('apply')
+    const checkbox = getByText('max premium')
+    const highestAmountButton = getByText('highest amount first')
+
+    fireEvent.changeText(maxPremiumInput, '0.5')
+    fireEvent.press(checkbox)
+    fireEvent.press(highestAmountButton)
+
+    fireEvent.press(applyButton)
+
+    await waitFor(() => expect(patchOfferMock).not.toHaveBeenCalled())
+
+    expect(useOfferPreferences.getState().filter.buyOffer).toEqual({ maxPremium: 0.5 })
+    expect(useOfferPreferences.getState().sortBy.buyOffer).toEqual(['highestAmount'])
     expect(usePopupStore.getState().visible).toBe(false)
   })
 })

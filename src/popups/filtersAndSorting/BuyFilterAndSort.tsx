@@ -13,18 +13,22 @@ import { useOfferPreferences } from '../../store/offerPreferenes'
 import { usePopupStore } from '../../store/usePopupStore'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
+import { isDefined } from '../../utils/validation'
 import { ClosePopupAction } from '../actions'
 
 type Props = {
-  offer: BuyOffer
+  offer?: BuyOffer
 }
 
 export const BuyFilterAndSort = ({ offer }: Props) => {
-  const defaultSorter = useOfferPreferences((state) => state.sortBy.buyOffer[0])
+  const [defaultSorter, defaultFilter] = useOfferPreferences(
+    (state) => [state.sortBy.buyOffer[0], state.filter.buyOffer],
+    shallow,
+  )
   const [sortBy, setSortBy] = useState<BuySorter>(defaultSorter)
 
-  const [shouldApplyFilter, toggleShouldApplyFilter] = useToggleBoolean(offer.maxPremium !== null)
-  const defaultPremium = (offer.maxPremium ?? '').toString()
+  const defaultPremium = offer ? (offer.maxPremium ?? '').toString() : defaultFilter.maxPremium?.toString() ?? ''
+  const [shouldApplyFilter, toggleShouldApplyFilter] = useToggleBoolean(defaultPremium !== '')
   const [maxPremium, setMaxPremium] = useState(defaultPremium)
   const filter = { maxPremium: maxPremium === '' || !shouldApplyFilter ? null : parseFloat(maxPremium) }
 
@@ -53,7 +57,7 @@ export const BuyFilterAndSort = ({ offer }: Props) => {
       actions={
         <>
           <ClosePopupAction />
-          <ApplyBuyFilterAction offerId={offer.id} filter={filter} sortBy={sortBy} />
+          <ApplyBuyFilterAction offerId={offer?.id} filter={filter} sortBy={sortBy} />
         </>
       }
     />
@@ -83,35 +87,57 @@ function Sorters (radioButtonsProps: SorterProps) {
 }
 
 type ApplyFilterActionProps = {
-  offerId: string
+  offerId?: string
   filter: MatchFilter
   sortBy: BuySorter
 }
 function ApplyBuyFilterAction ({ offerId, filter, sortBy }: ApplyFilterActionProps) {
-  const applyFilters = useApplyBuyFilterAndSorting(offerId, filter, sortBy)
+  return isDefined(offerId) ? (
+    <OfferFilterAndSort offerId={offerId} filter={filter} sortBy={sortBy} />
+  ) : (
+    <GlobalFilterAndSort filter={filter} sortBy={sortBy} />
+  )
+}
+
+function OfferFilterAndSort ({ offerId, filter, sortBy }: ApplyFilterActionProps & { offerId: string }) {
+  const applyFilters = useOfferFilters(offerId, filter, sortBy)
+  return <PopupAction onPress={applyFilters} label={i18n('apply')} iconId={'checkSquare'} reverseOrder />
+}
+function GlobalFilterAndSort ({ filter, sortBy }: ApplyFilterActionProps) {
+  const applyFilters = useGlobalFilters(filter, sortBy)
   return <PopupAction onPress={applyFilters} label={i18n('apply')} iconId={'checkSquare'} reverseOrder />
 }
 
-function useApplyBuyFilterAndSorting (offerId: string, filter: MatchFilter, sortBy: BuySorter) {
+function useOfferFilters (offerId: string, filter: MatchFilter, sortBy: BuySorter) {
   const queryClient = useQueryClient()
+  const applyGlobalFilters = useGlobalFilters(filter, sortBy)
 
-  const [setBuyOfferSorter, setBuyOfferFilter] = useOfferPreferences(
-    (state) => [state.setBuyOfferSorter, state.setBuyOfferFilter],
-    shallow,
-  )
   const closePopup = usePopupStore((state) => state.closePopup)
   const { mutate: patchOffer } = usePatchOffer(offerId, filter)
 
   const applyFilters = useCallback(() => {
-    setBuyOfferFilter(filter)
-    setBuyOfferSorter(sortBy)
+    applyGlobalFilters()
     patchOffer(undefined, {
       onSettled: () => {
         queryClient.invalidateQueries({ queryKey: ['matches'] })
       },
     })
     closePopup()
-  }, [closePopup, filter, patchOffer, queryClient, setBuyOfferFilter, setBuyOfferSorter, sortBy])
+  }, [applyGlobalFilters, closePopup, patchOffer, queryClient])
 
   return applyFilters
+}
+
+function useGlobalFilters (filter: MatchFilter, sortBy: BuySorter) {
+  const [setBuyOfferSorter, setBuyOfferFilter] = useOfferPreferences(
+    (state) => [state.setBuyOfferSorter, state.setBuyOfferFilter],
+    shallow,
+  )
+
+  const applyGlobalFilters = useCallback(() => {
+    setBuyOfferFilter(filter)
+    setBuyOfferSorter(sortBy)
+  }, [filter, setBuyOfferFilter, setBuyOfferSorter, sortBy])
+
+  return applyGlobalFilters
 }
