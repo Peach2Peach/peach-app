@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
+import { FIFTEEN_SECONDS } from '../../constants'
 import { marketPrices } from '../../utils/peachAPI/public/market'
 
-const FIFTEEN_SECONDS = 15 * 1000
 export const useMarketPrices = () => {
   const queryData = useQuery({
     queryKey: ['marketPrices'],

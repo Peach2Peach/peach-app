@@ -1,8 +1,8 @@
-import { PopupAction } from './PopupAction'
+import { PopupAction } from './DeprecatedPopupAction'
 import { render } from '@testing-library/react-native'
-import tw from '../styles/tailwind'
+import tw from '../../styles/tailwind'
 
-describe('PopupAction', () => {
+describe('DeprecatedPopupAction', () => {
   const defaultProps = {
     onPress: jest.fn(),
     label: 'label',

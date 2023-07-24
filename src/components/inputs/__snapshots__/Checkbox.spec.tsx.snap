@@ -9,6 +9,7 @@ exports[`Checkbox renders correctly when checked 1`] = `
       {
         "alignItems": "center",
         "flexDirection": "row",
+        "gap": 4,
       },
     ]
   }
@@ -25,7 +26,6 @@ exports[`Checkbox renders correctly when checked 1`] = `
           "fontSize": 16,
           "letterSpacing": 0.16,
           "lineHeight": 28,
-          "paddingLeft": 4,
         },
         false,
       ]
@@ -45,6 +45,7 @@ exports[`Checkbox renders correctly when unchecked 1`] = `
       {
         "alignItems": "center",
         "flexDirection": "row",
+        "gap": 4,
       },
     ]
   }
@@ -61,7 +62,6 @@ exports[`Checkbox renders correctly when unchecked 1`] = `
           "fontSize": 16,
           "letterSpacing": 0.16,
           "lineHeight": 28,
-          "paddingLeft": 4,
         },
         {
           "color": "#BAADA7",

@@ -1,8 +1,8 @@
 import { ImageStyle, Pressable, TextStyle, ViewStyle } from 'react-native'
-import { Text } from '.'
-import { IconType } from '../assets/icons'
-import tw from '../styles/tailwind'
-import { Icon } from './Icon'
+import { Text } from '../text'
+import { IconType } from '../../assets/icons'
+import tw from '../../styles/tailwind'
+import { Icon } from '../Icon'
 
 type Props = {
   onPress: (() => void) | null
@@ -13,6 +13,7 @@ type Props = {
   reverseOrder?: boolean
 } & ComponentProps
 
+/** @deprecated */
 export const PopupAction = ({ onPress, label, iconId, color, isDisabled, reverseOrder, style }: Props) => (
   <Pressable
     style={[

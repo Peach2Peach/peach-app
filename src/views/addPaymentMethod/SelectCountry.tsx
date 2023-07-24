@@ -43,14 +43,7 @@ export const SelectCountry = () => {
   return (
     <Screen>
       <PeachScrollView contentContainerStyle={[tw`justify-center flex-grow py-4`, tw.md`py-8`]}>
-        {!!countries && (
-          <RadioButtons
-            style={tw`items-center`}
-            items={countries}
-            selectedValue={selectedCountry}
-            onChange={setCountry}
-          />
-        )}
+        {!!countries && <RadioButtons items={countries} selectedValue={selectedCountry} onButtonPress={setCountry} />}
       </PeachScrollView>
       <PrimaryButton
         style={tw`self-center mt-2 mb-5`}

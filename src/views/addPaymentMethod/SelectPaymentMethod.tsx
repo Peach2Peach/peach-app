@@ -107,10 +107,9 @@ export const SelectPaymentMethod = () => {
     <Screen>
       <PeachScrollView contentContainerStyle={[tw`justify-center flex-grow py-4`, tw.md`py-8`]}>
         <RadioButtons
-          style={tw`items-center`}
           items={paymentCategories}
           selectedValue={selectedPaymentCategory}
-          onChange={selectPaymentCategory}
+          onButtonPress={selectPaymentCategory}
         />
       </PeachScrollView>
       <PrimaryButton style={tw`self-center mt-2 mb-5`} disabled={!selectedPaymentCategory} narrow>

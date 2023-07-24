@@ -7,5 +7,5 @@ type Props = {
 }
 
 export const Screen = ({ children, style }: Props) => (
-  <View style={[tw`h-full px-4`, tw.md`px-8`, style]}>{children}</View>
+  <View style={[tw`h-full px-sm`, tw.md`px-md`, style]}>{children}</View>
 )

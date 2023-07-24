@@ -1,17 +1,30 @@
 import { useMemo } from 'react'
-import { useInfiniteQuery } from '@tanstack/react-query'
-import { getMatchesFn } from '../getMatches'
+import { QueryFunctionContext, useInfiniteQuery } from '@tanstack/react-query'
 import { useOfferDetails } from '../../../hooks/query/useOfferDetails'
 import { useIsFocused } from '@react-navigation/native'
+import { useOfferPreferences } from '../../../store/offerPreferenes'
+import { isBuyOffer } from '../../../utils/offer'
+import { error, info } from '../../../utils/log'
+import { getMatches } from '../../../utils/peachAPI'
+import { FIFTEEN_SECONDS } from '../../../constants'
 
-const FIFTEEN_SECONDS = 15 * 1000
+const PAGESIZE = 10
+const matchesKeys = {
+  matches: ['matches'] as const,
+  matchesByOfferId: (offerId: string) => [...matchesKeys.matches, offerId] as const,
+  sortedMatchesByOfferId: (offerId: string, sortBy: Sorter[]) =>
+    [...matchesKeys.matchesByOfferId(offerId), sortBy] as const,
+}
 
 export const useOfferMatches = (offerId: string, enabled = true) => {
   const { offer } = useOfferDetails(offerId)
   const isFocused = useIsFocused()
+  const sortBy: Sorter[] = useOfferPreferences((state) =>
+    !offer ? ['bestReputation'] : isBuyOffer(offer) ? state.sortBy.buyOffer : state.sortBy.sellOffer,
+  )
 
-  const queryData = useInfiniteQuery<GetMatchesResponse, APIError, GetMatchesResponse, [string, string]>({
-    queryKey: ['matches', offerId],
+  const queryData = useInfiniteQuery({
+    queryKey: matchesKeys.sortedMatchesByOfferId(offerId, sortBy),
     queryFn: getMatchesFn,
     refetchInterval: FIFTEEN_SECONDS,
     enabled: enabled && isFocused && !!offer?.id && !offer.doubleMatched,
@@ -25,4 +38,27 @@ export const useOfferMatches = (offerId: string, enabled = true) => {
   )
 
   return { ...queryData, allMatches }
+}
+
+async function getMatchesFn ({
+  queryKey: [, offerId, sortBy],
+  pageParam = 0,
+}: QueryFunctionContext<ReturnType<typeof matchesKeys.sortedMatchesByOfferId>>) {
+  info('Checking matches for', offerId)
+  const [result, err] = await getMatches({
+    offerId,
+    page: pageParam,
+    size: PAGESIZE,
+    timeout: 30 * 1000,
+    sortBy,
+  })
+
+  if (result) {
+    info('matches: ', result.matches.length)
+    return result
+  } else if (err) {
+    error('Error', err)
+    throw err
+  }
+  throw new Error()
 }

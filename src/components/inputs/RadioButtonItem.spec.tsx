@@ -1,27 +1,34 @@
-import { createRenderer } from 'react-test-renderer/shallow'
+import { render, fireEvent } from '@testing-library/react-native'
 import { Text } from '../text'
 import { RadioButtonItem } from './RadioButtonItem'
 
 describe('RadioButtonItem', () => {
-  const renderer = createRenderer()
   it('renders correctly when selected', () => {
-    renderer.render(<RadioButtonItem display="EUR" selected />)
-    const result = renderer.getRenderOutput()
-    expect(result).toMatchSnapshot()
+    const { toJSON } = render(<RadioButtonItem display="EUR" isSelected onPress={jest.fn()} />)
+    expect(toJSON()).toMatchSnapshot()
   })
   it('renders correctly when not selected', () => {
-    renderer.render(<RadioButtonItem display="EUR" selected={false} />)
-    const result = renderer.getRenderOutput()
-    expect(result).toMatchSnapshot()
+    const { toJSON } = render(<RadioButtonItem display="EUR" isSelected={false} onPress={jest.fn()} />)
+    expect(toJSON()).toMatchSnapshot()
   })
   it('renders correctly when disabled', () => {
-    renderer.render(<RadioButtonItem display="EUR" selected={false} disabled />)
-    const result = renderer.getRenderOutput()
-    expect(result).toMatchSnapshot()
+    const { toJSON } = render(<RadioButtonItem display="EUR" isSelected={false} disabled onPress={jest.fn()} />)
+    expect(toJSON()).toMatchSnapshot()
   })
   it('renders correctly when display is not a string', () => {
-    renderer.render(<RadioButtonItem display={<Text>GBP</Text>} selected={false} />)
-    const result = renderer.getRenderOutput()
-    expect(result).toMatchSnapshot()
+    const { toJSON } = render(<RadioButtonItem display={<Text>GBP</Text>} isSelected={false} onPress={jest.fn()} />)
+    expect(toJSON()).toMatchSnapshot()
+  })
+  it('calls onPress when pressed', () => {
+    const onPress = jest.fn()
+    const { getByText } = render(<RadioButtonItem display="EUR" isSelected={false} onPress={onPress} />)
+    fireEvent.press(getByText('EUR'))
+    expect(onPress).toHaveBeenCalled()
+  })
+  it('does not call onPress when disabled', () => {
+    const onPress = jest.fn()
+    const { getByText } = render(<RadioButtonItem display="EUR" isSelected={false} disabled onPress={onPress} />)
+    fireEvent.press(getByText('EUR'))
+    expect(onPress).not.toHaveBeenCalled()
   })
 })
