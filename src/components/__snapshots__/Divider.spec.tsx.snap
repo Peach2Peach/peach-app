@@ -32,6 +32,7 @@ exports[`Divider renders correctly 1`] = `
     style={
       [
         {
+          "alignSelf": "center",
           "flexGrow": 1,
         },
         false,
@@ -78,6 +79,7 @@ exports[`Divider renders correctly on md 1`] = `
     style={
       [
         {
+          "alignSelf": "center",
           "flexGrow": 1,
         },
         false,
@@ -103,6 +105,7 @@ exports[`Divider renders correctly with align 1`] = `
     style={
       [
         {
+          "alignSelf": "center",
           "flexGrow": 1,
         },
         false,
@@ -132,6 +135,7 @@ exports[`Divider renders correctly with align 1`] = `
     style={
       [
         {
+          "alignSelf": "center",
           "flexGrow": 1,
         },
         false,
@@ -176,6 +180,7 @@ exports[`Divider renders correctly with icon 1`] = `
     style={
       [
         {
+          "alignSelf": "center",
           "flexGrow": 1,
         },
         false,
@@ -217,6 +222,7 @@ exports[`Divider renders correctly with iconAlign 1`] = `
     style={
       [
         {
+          "alignSelf": "center",
           "flexGrow": 1,
         },
         false,
@@ -245,6 +251,7 @@ exports[`Divider renders correctly with no text 1`] = `
     style={
       [
         {
+          "alignSelf": "center",
           "flexGrow": 1,
         },
         false,
@@ -288,6 +295,7 @@ exports[`Divider renders correctly with type error 1`] = `
     style={
       [
         {
+          "alignSelf": "center",
           "flexGrow": 1,
         },
         {
@@ -315,6 +323,7 @@ exports[`Divider renders correctly with type error and center align 1`] = `
     style={
       [
         {
+          "alignSelf": "center",
           "flexGrow": 1,
         },
         {
@@ -348,6 +357,7 @@ exports[`Divider renders correctly with type error and center align 1`] = `
     style={
       [
         {
+          "alignSelf": "center",
           "flexGrow": 1,
         },
         {
@@ -400,6 +410,7 @@ exports[`Divider renders correctly with type heavy 1`] = `
     style={
       [
         {
+          "alignSelf": "center",
           "flexGrow": 1,
         },
         false,
