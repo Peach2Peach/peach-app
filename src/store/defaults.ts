@@ -3,7 +3,7 @@ import { APPVERSION } from '../constants'
 export const defaultConfig: Config = {
   paymentMethods: [],
   peachPGPPublicKey: '',
-  peachFee: 0.015,
+  peachFee: 0.02,
   minAppVersion: APPVERSION,
   latestAppVersion: APPVERSION,
   minTradingAmount: 0,

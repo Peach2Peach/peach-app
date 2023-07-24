@@ -11,9 +11,9 @@ jest.mock('bitcoinjs-lib', () => ({
   },
 }))
 
-const verifyPSBTMock = jest.fn()
-jest.mock('../../views/contract/helpers/verifyPSBT', () => ({
-  verifyPSBT: (...args: any[]) => verifyPSBTMock(...args),
+const verifyReleasePSBTMock = jest.fn()
+jest.mock('../../views/contract/helpers/verifyReleasePSBT', () => ({
+  verifyReleasePSBT: (...args: any[]) => verifyReleasePSBTMock(...args),
 }))
 
 // eslint-disable-next-line max-lines-per-function
@@ -45,7 +45,7 @@ describe('verifyAndSignReleaseTx', () => {
   const wallet = getEscrowWalletForOffer(mockSellOffer as SellOffer)
 
   it('should return null and error message if psbt is not valid', () => {
-    verifyPSBTMock.mockReturnValueOnce('INVALID_INPUT')
+    verifyReleasePSBTMock.mockReturnValueOnce('INVALID_INPUT')
 
     const [tx, error] = verifyAndSignReleaseTx(mockContract as Contract, mockSellOffer as SellOffer, wallet)
 
@@ -73,7 +73,7 @@ describe('verifyAndSignReleaseTx', () => {
       ] as Psbt['txOutputs'],
     }
     fromBase64Mock.mockReturnValue(psbt as Psbt)
-    verifyPSBTMock.mockReturnValueOnce(null)
+    verifyReleasePSBTMock.mockReturnValueOnce(null)
     const [tx, error] = verifyAndSignReleaseTx(mockContract as Contract, mockSellOffer as SellOffer, wallet)
 
     expect(error).toBe(null)
@@ -109,7 +109,7 @@ describe('verifyAndSignReleaseTx', () => {
       ] as Psbt['txOutputs'],
     }
     fromBase64Mock.mockReturnValue(psbt as Psbt)
-    verifyPSBTMock.mockReturnValueOnce(null)
+    verifyReleasePSBTMock.mockReturnValueOnce(null)
     const [tx, error] = verifyAndSignReleaseTx(legacyContract as Contract, mockSellOffer as SellOffer, wallet)
 
     expect(error).toBe(null)
