@@ -317,12 +317,7 @@ exports[`TxStatusCard should render correctly for a confirmed buy trade tx 1`] =
                           },
                         ],
                         {
-                          "color": "#2B1911",
-                        },
-                        {
-                          "opacity": 0.1,
-                        },
-                        {
+                          "color": "#2B19111A",
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -355,12 +350,7 @@ exports[`TxStatusCard should render correctly for a confirmed buy trade tx 1`] =
                           },
                         ],
                         {
-                          "color": "#2B1911",
-                        },
-                        {
-                          "opacity": 0.1,
-                        },
-                        {
+                          "color": "#2B19111A",
                           "letterSpacing": -3.57,
                         },
                       ],
@@ -393,12 +383,7 @@ exports[`TxStatusCard should render correctly for a confirmed buy trade tx 1`] =
                           },
                         ],
                         {
-                          "color": "#2B1911",
-                        },
-                        {
-                          "opacity": 0.1,
-                        },
-                        {
+                          "color": "#2B19111A",
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -431,12 +416,7 @@ exports[`TxStatusCard should render correctly for a confirmed buy trade tx 1`] =
                           },
                         ],
                         {
-                          "color": "#2B1911",
-                        },
-                        {
-                          "opacity": 0.1,
-                        },
-                        {
+                          "color": "#2B19111A",
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -469,12 +449,7 @@ exports[`TxStatusCard should render correctly for a confirmed buy trade tx 1`] =
                           },
                         ],
                         {
-                          "color": "#2B1911",
-                        },
-                        {
-                          "opacity": 0.1,
-                        },
-                        {
+                          "color": "#2B19111A",
                           "letterSpacing": -5.949999999999999,
                         },
                       ],
@@ -508,9 +483,6 @@ exports[`TxStatusCard should render correctly for a confirmed buy trade tx 1`] =
                         ],
                         {
                           "color": "#2B1911",
-                        },
-                        false,
-                        {
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -544,9 +516,6 @@ exports[`TxStatusCard should render correctly for a confirmed buy trade tx 1`] =
                         ],
                         {
                           "color": "#2B1911",
-                        },
-                        false,
-                        {
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -580,9 +549,6 @@ exports[`TxStatusCard should render correctly for a confirmed buy trade tx 1`] =
                         ],
                         {
                           "color": "#2B1911",
-                        },
-                        false,
-                        {
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -616,9 +582,6 @@ exports[`TxStatusCard should render correctly for a confirmed buy trade tx 1`] =
                         ],
                         {
                           "color": "#2B1911",
-                        },
-                        false,
-                        {
                           "letterSpacing": -5.949999999999999,
                         },
                       ],
@@ -652,9 +615,6 @@ exports[`TxStatusCard should render correctly for a confirmed buy trade tx 1`] =
                         ],
                         {
                           "color": "#2B1911",
-                        },
-                        false,
-                        {
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -688,9 +648,6 @@ exports[`TxStatusCard should render correctly for a confirmed buy trade tx 1`] =
                         ],
                         {
                           "color": "#2B1911",
-                        },
-                        false,
-                        {
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -724,9 +681,6 @@ exports[`TxStatusCard should render correctly for a confirmed buy trade tx 1`] =
                         ],
                         {
                           "color": "#2B1911",
-                        },
-                        false,
-                        {
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -1090,12 +1044,7 @@ exports[`TxStatusCard should render correctly for a confirmed receive tx 1`] = `
                           },
                         ],
                         {
-                          "color": "#2B1911",
-                        },
-                        {
-                          "opacity": 0.1,
-                        },
-                        {
+                          "color": "#2B19111A",
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -1128,12 +1077,7 @@ exports[`TxStatusCard should render correctly for a confirmed receive tx 1`] = `
                           },
                         ],
                         {
-                          "color": "#2B1911",
-                        },
-                        {
-                          "opacity": 0.1,
-                        },
-                        {
+                          "color": "#2B19111A",
                           "letterSpacing": -3.57,
                         },
                       ],
@@ -1166,12 +1110,7 @@ exports[`TxStatusCard should render correctly for a confirmed receive tx 1`] = `
                           },
                         ],
                         {
-                          "color": "#2B1911",
-                        },
-                        {
-                          "opacity": 0.1,
-                        },
-                        {
+                          "color": "#2B19111A",
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -1204,12 +1143,7 @@ exports[`TxStatusCard should render correctly for a confirmed receive tx 1`] = `
                           },
                         ],
                         {
-                          "color": "#2B1911",
-                        },
-                        {
-                          "opacity": 0.1,
-                        },
-                        {
+                          "color": "#2B19111A",
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -1242,12 +1176,7 @@ exports[`TxStatusCard should render correctly for a confirmed receive tx 1`] = `
                           },
                         ],
                         {
-                          "color": "#2B1911",
-                        },
-                        {
-                          "opacity": 0.1,
-                        },
-                        {
+                          "color": "#2B19111A",
                           "letterSpacing": -5.949999999999999,
                         },
                       ],
@@ -1281,9 +1210,6 @@ exports[`TxStatusCard should render correctly for a confirmed receive tx 1`] = `
                         ],
                         {
                           "color": "#2B1911",
-                        },
-                        false,
-                        {
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -1317,9 +1243,6 @@ exports[`TxStatusCard should render correctly for a confirmed receive tx 1`] = `
                         ],
                         {
                           "color": "#2B1911",
-                        },
-                        false,
-                        {
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -1353,9 +1276,6 @@ exports[`TxStatusCard should render correctly for a confirmed receive tx 1`] = `
                         ],
                         {
                           "color": "#2B1911",
-                        },
-                        false,
-                        {
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -1389,9 +1309,6 @@ exports[`TxStatusCard should render correctly for a confirmed receive tx 1`] = `
                         ],
                         {
                           "color": "#2B1911",
-                        },
-                        false,
-                        {
                           "letterSpacing": -5.949999999999999,
                         },
                       ],
@@ -1425,9 +1342,6 @@ exports[`TxStatusCard should render correctly for a confirmed receive tx 1`] = `
                         ],
                         {
                           "color": "#2B1911",
-                        },
-                        false,
-                        {
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -1461,9 +1375,6 @@ exports[`TxStatusCard should render correctly for a confirmed receive tx 1`] = `
                         ],
                         {
                           "color": "#2B1911",
-                        },
-                        false,
-                        {
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -1497,9 +1408,6 @@ exports[`TxStatusCard should render correctly for a confirmed receive tx 1`] = `
                         ],
                         {
                           "color": "#2B1911",
-                        },
-                        false,
-                        {
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -1863,12 +1771,7 @@ exports[`TxStatusCard should render correctly for a confirmed refund tx 1`] = `
                           },
                         ],
                         {
-                          "color": "#2B1911",
-                        },
-                        {
-                          "opacity": 0.1,
-                        },
-                        {
+                          "color": "#2B19111A",
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -1901,12 +1804,7 @@ exports[`TxStatusCard should render correctly for a confirmed refund tx 1`] = `
                           },
                         ],
                         {
-                          "color": "#2B1911",
-                        },
-                        {
-                          "opacity": 0.1,
-                        },
-                        {
+                          "color": "#2B19111A",
                           "letterSpacing": -3.57,
                         },
                       ],
@@ -1939,12 +1837,7 @@ exports[`TxStatusCard should render correctly for a confirmed refund tx 1`] = `
                           },
                         ],
                         {
-                          "color": "#2B1911",
-                        },
-                        {
-                          "opacity": 0.1,
-                        },
-                        {
+                          "color": "#2B19111A",
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -1977,12 +1870,7 @@ exports[`TxStatusCard should render correctly for a confirmed refund tx 1`] = `
                           },
                         ],
                         {
-                          "color": "#2B1911",
-                        },
-                        {
-                          "opacity": 0.1,
-                        },
-                        {
+                          "color": "#2B19111A",
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -2015,12 +1903,7 @@ exports[`TxStatusCard should render correctly for a confirmed refund tx 1`] = `
                           },
                         ],
                         {
-                          "color": "#2B1911",
-                        },
-                        {
-                          "opacity": 0.1,
-                        },
-                        {
+                          "color": "#2B19111A",
                           "letterSpacing": -5.949999999999999,
                         },
                       ],
@@ -2054,9 +1937,6 @@ exports[`TxStatusCard should render correctly for a confirmed refund tx 1`] = `
                         ],
                         {
                           "color": "#2B1911",
-                        },
-                        false,
-                        {
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -2090,9 +1970,6 @@ exports[`TxStatusCard should render correctly for a confirmed refund tx 1`] = `
                         ],
                         {
                           "color": "#2B1911",
-                        },
-                        false,
-                        {
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -2126,9 +2003,6 @@ exports[`TxStatusCard should render correctly for a confirmed refund tx 1`] = `
                         ],
                         {
                           "color": "#2B1911",
-                        },
-                        false,
-                        {
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -2162,9 +2036,6 @@ exports[`TxStatusCard should render correctly for a confirmed refund tx 1`] = `
                         ],
                         {
                           "color": "#2B1911",
-                        },
-                        false,
-                        {
                           "letterSpacing": -5.949999999999999,
                         },
                       ],
@@ -2198,9 +2069,6 @@ exports[`TxStatusCard should render correctly for a confirmed refund tx 1`] = `
                         ],
                         {
                           "color": "#2B1911",
-                        },
-                        false,
-                        {
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -2234,9 +2102,6 @@ exports[`TxStatusCard should render correctly for a confirmed refund tx 1`] = `
                         ],
                         {
                           "color": "#2B1911",
-                        },
-                        false,
-                        {
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -2270,9 +2135,6 @@ exports[`TxStatusCard should render correctly for a confirmed refund tx 1`] = `
                         ],
                         {
                           "color": "#2B1911",
-                        },
-                        false,
-                        {
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -2636,12 +2498,7 @@ exports[`TxStatusCard should render correctly for a escrow funded tx 1`] = `
                           },
                         ],
                         {
-                          "color": "#2B1911",
-                        },
-                        {
-                          "opacity": 0.1,
-                        },
-                        {
+                          "color": "#2B19111A",
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -2674,12 +2531,7 @@ exports[`TxStatusCard should render correctly for a escrow funded tx 1`] = `
                           },
                         ],
                         {
-                          "color": "#2B1911",
-                        },
-                        {
-                          "opacity": 0.1,
-                        },
-                        {
+                          "color": "#2B19111A",
                           "letterSpacing": -3.57,
                         },
                       ],
@@ -2712,12 +2564,7 @@ exports[`TxStatusCard should render correctly for a escrow funded tx 1`] = `
                           },
                         ],
                         {
-                          "color": "#2B1911",
-                        },
-                        {
-                          "opacity": 0.1,
-                        },
-                        {
+                          "color": "#2B19111A",
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -2750,12 +2597,7 @@ exports[`TxStatusCard should render correctly for a escrow funded tx 1`] = `
                           },
                         ],
                         {
-                          "color": "#2B1911",
-                        },
-                        {
-                          "opacity": 0.1,
-                        },
-                        {
+                          "color": "#2B19111A",
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -2788,12 +2630,7 @@ exports[`TxStatusCard should render correctly for a escrow funded tx 1`] = `
                           },
                         ],
                         {
-                          "color": "#2B1911",
-                        },
-                        {
-                          "opacity": 0.1,
-                        },
-                        {
+                          "color": "#2B19111A",
                           "letterSpacing": -5.949999999999999,
                         },
                       ],
@@ -2827,9 +2664,6 @@ exports[`TxStatusCard should render correctly for a escrow funded tx 1`] = `
                         ],
                         {
                           "color": "#2B1911",
-                        },
-                        false,
-                        {
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -2863,9 +2697,6 @@ exports[`TxStatusCard should render correctly for a escrow funded tx 1`] = `
                         ],
                         {
                           "color": "#2B1911",
-                        },
-                        false,
-                        {
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -2899,9 +2730,6 @@ exports[`TxStatusCard should render correctly for a escrow funded tx 1`] = `
                         ],
                         {
                           "color": "#2B1911",
-                        },
-                        false,
-                        {
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -2935,9 +2763,6 @@ exports[`TxStatusCard should render correctly for a escrow funded tx 1`] = `
                         ],
                         {
                           "color": "#2B1911",
-                        },
-                        false,
-                        {
                           "letterSpacing": -5.949999999999999,
                         },
                       ],
@@ -2971,9 +2796,6 @@ exports[`TxStatusCard should render correctly for a escrow funded tx 1`] = `
                         ],
                         {
                           "color": "#2B1911",
-                        },
-                        false,
-                        {
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -3007,9 +2829,6 @@ exports[`TxStatusCard should render correctly for a escrow funded tx 1`] = `
                         ],
                         {
                           "color": "#2B1911",
-                        },
-                        false,
-                        {
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -3043,9 +2862,6 @@ exports[`TxStatusCard should render correctly for a escrow funded tx 1`] = `
                         ],
                         {
                           "color": "#2B1911",
-                        },
-                        false,
-                        {
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -3409,12 +3225,7 @@ exports[`TxStatusCard should render correctly for a pending buy trade tx 1`] = `
                           },
                         ],
                         {
-                          "color": "#2B1911",
-                        },
-                        {
-                          "opacity": 0.1,
-                        },
-                        {
+                          "color": "#2B19111A",
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -3447,12 +3258,7 @@ exports[`TxStatusCard should render correctly for a pending buy trade tx 1`] = `
                           },
                         ],
                         {
-                          "color": "#2B1911",
-                        },
-                        {
-                          "opacity": 0.1,
-                        },
-                        {
+                          "color": "#2B19111A",
                           "letterSpacing": -3.57,
                         },
                       ],
@@ -3485,12 +3291,7 @@ exports[`TxStatusCard should render correctly for a pending buy trade tx 1`] = `
                           },
                         ],
                         {
-                          "color": "#2B1911",
-                        },
-                        {
-                          "opacity": 0.1,
-                        },
-                        {
+                          "color": "#2B19111A",
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -3523,12 +3324,7 @@ exports[`TxStatusCard should render correctly for a pending buy trade tx 1`] = `
                           },
                         ],
                         {
-                          "color": "#2B1911",
-                        },
-                        {
-                          "opacity": 0.1,
-                        },
-                        {
+                          "color": "#2B19111A",
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -3561,12 +3357,7 @@ exports[`TxStatusCard should render correctly for a pending buy trade tx 1`] = `
                           },
                         ],
                         {
-                          "color": "#2B1911",
-                        },
-                        {
-                          "opacity": 0.1,
-                        },
-                        {
+                          "color": "#2B19111A",
                           "letterSpacing": -5.949999999999999,
                         },
                       ],
@@ -3600,9 +3391,6 @@ exports[`TxStatusCard should render correctly for a pending buy trade tx 1`] = `
                         ],
                         {
                           "color": "#2B1911",
-                        },
-                        false,
-                        {
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -3636,9 +3424,6 @@ exports[`TxStatusCard should render correctly for a pending buy trade tx 1`] = `
                         ],
                         {
                           "color": "#2B1911",
-                        },
-                        false,
-                        {
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -3672,9 +3457,6 @@ exports[`TxStatusCard should render correctly for a pending buy trade tx 1`] = `
                         ],
                         {
                           "color": "#2B1911",
-                        },
-                        false,
-                        {
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -3708,9 +3490,6 @@ exports[`TxStatusCard should render correctly for a pending buy trade tx 1`] = `
                         ],
                         {
                           "color": "#2B1911",
-                        },
-                        false,
-                        {
                           "letterSpacing": -5.949999999999999,
                         },
                       ],
@@ -3744,9 +3523,6 @@ exports[`TxStatusCard should render correctly for a pending buy trade tx 1`] = `
                         ],
                         {
                           "color": "#2B1911",
-                        },
-                        false,
-                        {
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -3780,9 +3556,6 @@ exports[`TxStatusCard should render correctly for a pending buy trade tx 1`] = `
                         ],
                         {
                           "color": "#2B1911",
-                        },
-                        false,
-                        {
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -3816,9 +3589,6 @@ exports[`TxStatusCard should render correctly for a pending buy trade tx 1`] = `
                         ],
                         {
                           "color": "#2B1911",
-                        },
-                        false,
-                        {
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -4182,12 +3952,7 @@ exports[`TxStatusCard should render correctly for a pending confirmed tx 1`] = `
                           },
                         ],
                         {
-                          "color": "#2B1911",
-                        },
-                        {
-                          "opacity": 0.1,
-                        },
-                        {
+                          "color": "#2B19111A",
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -4220,12 +3985,7 @@ exports[`TxStatusCard should render correctly for a pending confirmed tx 1`] = `
                           },
                         ],
                         {
-                          "color": "#2B1911",
-                        },
-                        {
-                          "opacity": 0.1,
-                        },
-                        {
+                          "color": "#2B19111A",
                           "letterSpacing": -3.57,
                         },
                       ],
@@ -4258,12 +4018,7 @@ exports[`TxStatusCard should render correctly for a pending confirmed tx 1`] = `
                           },
                         ],
                         {
-                          "color": "#2B1911",
-                        },
-                        {
-                          "opacity": 0.1,
-                        },
-                        {
+                          "color": "#2B19111A",
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -4296,12 +4051,7 @@ exports[`TxStatusCard should render correctly for a pending confirmed tx 1`] = `
                           },
                         ],
                         {
-                          "color": "#2B1911",
-                        },
-                        {
-                          "opacity": 0.1,
-                        },
-                        {
+                          "color": "#2B19111A",
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -4334,12 +4084,7 @@ exports[`TxStatusCard should render correctly for a pending confirmed tx 1`] = `
                           },
                         ],
                         {
-                          "color": "#2B1911",
-                        },
-                        {
-                          "opacity": 0.1,
-                        },
-                        {
+                          "color": "#2B19111A",
                           "letterSpacing": -5.949999999999999,
                         },
                       ],
@@ -4373,9 +4118,6 @@ exports[`TxStatusCard should render correctly for a pending confirmed tx 1`] = `
                         ],
                         {
                           "color": "#2B1911",
-                        },
-                        false,
-                        {
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -4409,9 +4151,6 @@ exports[`TxStatusCard should render correctly for a pending confirmed tx 1`] = `
                         ],
                         {
                           "color": "#2B1911",
-                        },
-                        false,
-                        {
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -4445,9 +4184,6 @@ exports[`TxStatusCard should render correctly for a pending confirmed tx 1`] = `
                         ],
                         {
                           "color": "#2B1911",
-                        },
-                        false,
-                        {
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -4481,9 +4217,6 @@ exports[`TxStatusCard should render correctly for a pending confirmed tx 1`] = `
                         ],
                         {
                           "color": "#2B1911",
-                        },
-                        false,
-                        {
                           "letterSpacing": -5.949999999999999,
                         },
                       ],
@@ -4517,9 +4250,6 @@ exports[`TxStatusCard should render correctly for a pending confirmed tx 1`] = `
                         ],
                         {
                           "color": "#2B1911",
-                        },
-                        false,
-                        {
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -4553,9 +4283,6 @@ exports[`TxStatusCard should render correctly for a pending confirmed tx 1`] = `
                         ],
                         {
                           "color": "#2B1911",
-                        },
-                        false,
-                        {
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -4589,9 +4316,6 @@ exports[`TxStatusCard should render correctly for a pending confirmed tx 1`] = `
                         ],
                         {
                           "color": "#2B1911",
-                        },
-                        false,
-                        {
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -4955,12 +4679,7 @@ exports[`TxStatusCard should render correctly for a pending receive tx 1`] = `
                           },
                         ],
                         {
-                          "color": "#2B1911",
-                        },
-                        {
-                          "opacity": 0.1,
-                        },
-                        {
+                          "color": "#2B19111A",
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -4993,12 +4712,7 @@ exports[`TxStatusCard should render correctly for a pending receive tx 1`] = `
                           },
                         ],
                         {
-                          "color": "#2B1911",
-                        },
-                        {
-                          "opacity": 0.1,
-                        },
-                        {
+                          "color": "#2B19111A",
                           "letterSpacing": -3.57,
                         },
                       ],
@@ -5031,12 +4745,7 @@ exports[`TxStatusCard should render correctly for a pending receive tx 1`] = `
                           },
                         ],
                         {
-                          "color": "#2B1911",
-                        },
-                        {
-                          "opacity": 0.1,
-                        },
-                        {
+                          "color": "#2B19111A",
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -5069,12 +4778,7 @@ exports[`TxStatusCard should render correctly for a pending receive tx 1`] = `
                           },
                         ],
                         {
-                          "color": "#2B1911",
-                        },
-                        {
-                          "opacity": 0.1,
-                        },
-                        {
+                          "color": "#2B19111A",
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -5107,12 +4811,7 @@ exports[`TxStatusCard should render correctly for a pending receive tx 1`] = `
                           },
                         ],
                         {
-                          "color": "#2B1911",
-                        },
-                        {
-                          "opacity": 0.1,
-                        },
-                        {
+                          "color": "#2B19111A",
                           "letterSpacing": -5.949999999999999,
                         },
                       ],
@@ -5146,9 +4845,6 @@ exports[`TxStatusCard should render correctly for a pending receive tx 1`] = `
                         ],
                         {
                           "color": "#2B1911",
-                        },
-                        false,
-                        {
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -5182,9 +4878,6 @@ exports[`TxStatusCard should render correctly for a pending receive tx 1`] = `
                         ],
                         {
                           "color": "#2B1911",
-                        },
-                        false,
-                        {
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -5218,9 +4911,6 @@ exports[`TxStatusCard should render correctly for a pending receive tx 1`] = `
                         ],
                         {
                           "color": "#2B1911",
-                        },
-                        false,
-                        {
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -5254,9 +4944,6 @@ exports[`TxStatusCard should render correctly for a pending receive tx 1`] = `
                         ],
                         {
                           "color": "#2B1911",
-                        },
-                        false,
-                        {
                           "letterSpacing": -5.949999999999999,
                         },
                       ],
@@ -5290,9 +4977,6 @@ exports[`TxStatusCard should render correctly for a pending receive tx 1`] = `
                         ],
                         {
                           "color": "#2B1911",
-                        },
-                        false,
-                        {
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -5326,9 +5010,6 @@ exports[`TxStatusCard should render correctly for a pending receive tx 1`] = `
                         ],
                         {
                           "color": "#2B1911",
-                        },
-                        false,
-                        {
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -5362,9 +5043,6 @@ exports[`TxStatusCard should render correctly for a pending receive tx 1`] = `
                         ],
                         {
                           "color": "#2B1911",
-                        },
-                        false,
-                        {
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -5728,12 +5406,7 @@ exports[`TxStatusCard should render correctly for a pending refund tx 1`] = `
                           },
                         ],
                         {
-                          "color": "#2B1911",
-                        },
-                        {
-                          "opacity": 0.1,
-                        },
-                        {
+                          "color": "#2B19111A",
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -5766,12 +5439,7 @@ exports[`TxStatusCard should render correctly for a pending refund tx 1`] = `
                           },
                         ],
                         {
-                          "color": "#2B1911",
-                        },
-                        {
-                          "opacity": 0.1,
-                        },
-                        {
+                          "color": "#2B19111A",
                           "letterSpacing": -3.57,
                         },
                       ],
@@ -5804,12 +5472,7 @@ exports[`TxStatusCard should render correctly for a pending refund tx 1`] = `
                           },
                         ],
                         {
-                          "color": "#2B1911",
-                        },
-                        {
-                          "opacity": 0.1,
-                        },
-                        {
+                          "color": "#2B19111A",
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -5842,12 +5505,7 @@ exports[`TxStatusCard should render correctly for a pending refund tx 1`] = `
                           },
                         ],
                         {
-                          "color": "#2B1911",
-                        },
-                        {
-                          "opacity": 0.1,
-                        },
-                        {
+                          "color": "#2B19111A",
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -5880,12 +5538,7 @@ exports[`TxStatusCard should render correctly for a pending refund tx 1`] = `
                           },
                         ],
                         {
-                          "color": "#2B1911",
-                        },
-                        {
-                          "opacity": 0.1,
-                        },
-                        {
+                          "color": "#2B19111A",
                           "letterSpacing": -5.949999999999999,
                         },
                       ],
@@ -5919,9 +5572,6 @@ exports[`TxStatusCard should render correctly for a pending refund tx 1`] = `
                         ],
                         {
                           "color": "#2B1911",
-                        },
-                        false,
-                        {
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -5955,9 +5605,6 @@ exports[`TxStatusCard should render correctly for a pending refund tx 1`] = `
                         ],
                         {
                           "color": "#2B1911",
-                        },
-                        false,
-                        {
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -5991,9 +5638,6 @@ exports[`TxStatusCard should render correctly for a pending refund tx 1`] = `
                         ],
                         {
                           "color": "#2B1911",
-                        },
-                        false,
-                        {
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -6027,9 +5671,6 @@ exports[`TxStatusCard should render correctly for a pending refund tx 1`] = `
                         ],
                         {
                           "color": "#2B1911",
-                        },
-                        false,
-                        {
                           "letterSpacing": -5.949999999999999,
                         },
                       ],
@@ -6063,9 +5704,6 @@ exports[`TxStatusCard should render correctly for a pending refund tx 1`] = `
                         ],
                         {
                           "color": "#2B1911",
-                        },
-                        false,
-                        {
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -6099,9 +5737,6 @@ exports[`TxStatusCard should render correctly for a pending refund tx 1`] = `
                         ],
                         {
                           "color": "#2B1911",
-                        },
-                        false,
-                        {
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -6135,9 +5770,6 @@ exports[`TxStatusCard should render correctly for a pending refund tx 1`] = `
                         ],
                         {
                           "color": "#2B1911",
-                        },
-                        false,
-                        {
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -6501,12 +6133,7 @@ exports[`TxStatusCard should render correctly for a pending sent tx 1`] = `
                           },
                         ],
                         {
-                          "color": "#2B1911",
-                        },
-                        {
-                          "opacity": 0.1,
-                        },
-                        {
+                          "color": "#2B19111A",
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -6539,12 +6166,7 @@ exports[`TxStatusCard should render correctly for a pending sent tx 1`] = `
                           },
                         ],
                         {
-                          "color": "#2B1911",
-                        },
-                        {
-                          "opacity": 0.1,
-                        },
-                        {
+                          "color": "#2B19111A",
                           "letterSpacing": -3.57,
                         },
                       ],
@@ -6577,12 +6199,7 @@ exports[`TxStatusCard should render correctly for a pending sent tx 1`] = `
                           },
                         ],
                         {
-                          "color": "#2B1911",
-                        },
-                        {
-                          "opacity": 0.1,
-                        },
-                        {
+                          "color": "#2B19111A",
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -6615,12 +6232,7 @@ exports[`TxStatusCard should render correctly for a pending sent tx 1`] = `
                           },
                         ],
                         {
-                          "color": "#2B1911",
-                        },
-                        {
-                          "opacity": 0.1,
-                        },
-                        {
+                          "color": "#2B19111A",
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -6653,12 +6265,7 @@ exports[`TxStatusCard should render correctly for a pending sent tx 1`] = `
                           },
                         ],
                         {
-                          "color": "#2B1911",
-                        },
-                        {
-                          "opacity": 0.1,
-                        },
-                        {
+                          "color": "#2B19111A",
                           "letterSpacing": -5.949999999999999,
                         },
                       ],
@@ -6692,9 +6299,6 @@ exports[`TxStatusCard should render correctly for a pending sent tx 1`] = `
                         ],
                         {
                           "color": "#2B1911",
-                        },
-                        false,
-                        {
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -6728,9 +6332,6 @@ exports[`TxStatusCard should render correctly for a pending sent tx 1`] = `
                         ],
                         {
                           "color": "#2B1911",
-                        },
-                        false,
-                        {
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -6764,9 +6365,6 @@ exports[`TxStatusCard should render correctly for a pending sent tx 1`] = `
                         ],
                         {
                           "color": "#2B1911",
-                        },
-                        false,
-                        {
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -6800,9 +6398,6 @@ exports[`TxStatusCard should render correctly for a pending sent tx 1`] = `
                         ],
                         {
                           "color": "#2B1911",
-                        },
-                        false,
-                        {
                           "letterSpacing": -5.949999999999999,
                         },
                       ],
@@ -6836,9 +6431,6 @@ exports[`TxStatusCard should render correctly for a pending sent tx 1`] = `
                         ],
                         {
                           "color": "#2B1911",
-                        },
-                        false,
-                        {
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -6872,9 +6464,6 @@ exports[`TxStatusCard should render correctly for a pending sent tx 1`] = `
                         ],
                         {
                           "color": "#2B1911",
-                        },
-                        false,
-                        {
                           "letterSpacing": -1.275,
                         },
                       ],
@@ -6908,9 +6497,6 @@ exports[`TxStatusCard should render correctly for a pending sent tx 1`] = `
                         ],
                         {
                           "color": "#2B1911",
-                        },
-                        false,
-                        {
                           "letterSpacing": -1.275,
                         },
                       ],

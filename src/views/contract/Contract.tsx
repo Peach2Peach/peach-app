@@ -14,7 +14,10 @@ export const Contract = () => {
   if (!contract || !view || isLoading) return <LoadingScreen />
 
   return (
-    <PeachScrollView style={[tw`h-full px-sm`, tw.md`px-md`]} contentContainerStyle={[tw`pt-sm`, tw.md`pt-md`]}>
+    <PeachScrollView
+      style={[tw`h-full px-sm`, tw.md`px-md`]}
+      contentContainerStyle={[tw`flex-grow pt-sm`, tw.md`pt-md`]}
+    >
       <View style={tw`h-full`}>
         <ContractContext.Provider value={{ contract, view }}>
           <TradeSummary />
