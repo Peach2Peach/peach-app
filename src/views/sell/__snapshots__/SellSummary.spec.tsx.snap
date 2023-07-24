@@ -1,29 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SellSummary should render the SellSummary view 1`] = `
-<View
-  style={
-    [
-      {
-        "flexGrow": 1,
-        "justifyContent": "center",
-        "paddingBottom": 20,
-        "paddingLeft": 24,
-        "paddingRight": 24,
-      },
-      {
-        "paddingLeft": 32,
-        "paddingRight": 32,
-      },
-    ]
-  }
->
+<Screen>
   <ForwardRef
     contentContainerStyle={
-      {
-        "flexGrow": 1,
-        "justifyContent": "center",
-      }
+      [
+        {
+          "flexGrow": 1,
+          "justifyContent": "center",
+          "paddingBottom": 16,
+          "paddingTop": 16,
+        },
+        {
+          "paddingBottom": 32,
+          "paddingTop": 32,
+        },
+      ]
     }
   >
     <SellOfferSummary />
@@ -35,12 +27,11 @@ exports[`SellSummary should render the SellSummary view 1`] = `
     style={
       {
         "alignSelf": "center",
-        "marginTop": 16,
+        "marginBottom": 20,
       }
     }
-    testID="navigation-next"
   >
     next
   </PrimaryButton>
-</View>
+</Screen>
 `;

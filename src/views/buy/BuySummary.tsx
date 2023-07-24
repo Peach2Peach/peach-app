@@ -15,7 +15,7 @@ export const BuySummary = () => {
 
   return (
     <Screen>
-      <PeachScrollView contentContainerStyle={[tw`justify-center flex-grow py-4`, tw.md`py-8`]}>
+      <PeachScrollView contentContainerStyle={[tw`justify-center flex-grow py-sm`, tw.md`py-md`]}>
         <BuyOfferSummary offer={offerDraft} />
       </PeachScrollView>
       <PrimaryButton
