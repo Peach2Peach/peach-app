@@ -44,8 +44,8 @@ export const Header = ({ title, icons, titleComponent, hideGoBackButton, showPri
   return (
     <View
       style={[
-        tw`items-center px-4 py-1 gap-6px`,
-        tw.md`px-8`,
+        tw`items-center py-1 px-sm gap-6px`,
+        tw.md`px-md`,
         shouldShowBackButton && [tw`pl-3`, tw.md`pl-22px`],
         colors.bg,
       ]}
