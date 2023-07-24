@@ -1,4 +1,6 @@
 {
+  "filter" : "filtrer",
+  "filter.maxPremium" : "prime max",
   "offer.cancel.popup.description" : "Êtes-vous sûr?\n\nSi vous avez déjà envoyé vos bitcoins dans le coffre, vous serez remboursé, déduction faite des frais du réseau Bitcoin.",
   "offer.cancel.popup.title" : "annuler l'offre",
   "offer.canceled.popup.title" : "offre annulée !",
@@ -44,5 +46,10 @@
   "offer.summary.withTheseMethods" : "avec ces méthodes de paiement :",
   "offer.summary.youAreBuying" : "vous souhaitez acheter entre",
   "offer.summary.youAreSelling" : "vous vendez",
-  "offer.summary.youWereSelling" : "vous vendiez"
+  "offer.summary.youWereSelling" : "vous vendiez",
+  "sorting.bestReputation" : "meilleure réputation",
+  "sorting.highestAmount" : "montant le plus élevé",
+  "sorting.highestPrice" : "prix le plus élevé",
+  "sorting.lowestPremium" : "prime la plus basse",
+  "sorting.sortMatchesBy" : "trier les matchs par"
 }

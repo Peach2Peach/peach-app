@@ -182,8 +182,6 @@
   "sell" : "vendi",
   "seller" : "venditore",
   "send" : "invia",
-  "setRefundWallet.description" : "Non è stato impostato un indirizzo di rimborso per questo scambio. Selezionane uno prima di continuare:",
-  "setRefundWallet.title" : "seleziona il wallet di rimborso",
   "showEscrow" : "mostra deposito",
   "showInExplorer" : "mostra in explorer",
   "showOffer" : "mostra offerta",

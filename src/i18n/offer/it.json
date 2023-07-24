@@ -1,4 +1,6 @@
 {
+  "filter" : "filtrare",
+  "filter.maxPremium" : "premio max",
   "offer.cancel.popup.description" : "Sei sicuro?\n\nSe hai già inviato i tuoi bitcoin nel deposito, ti verranno rimborsati, al netto delle commissioni di rete bitcoin.",
   "offer.cancel.popup.title" : "annulla offerta",
   "offer.canceled.popup.title" : "offerta annullata!",
@@ -44,5 +46,10 @@
   "offer.summary.withTheseMethods" : "con questi metodi di pagamento:",
   "offer.summary.youAreBuying" : "vuoi acquistare tra",
   "offer.summary.youAreSelling" : "stai vendendo",
-  "offer.summary.youWereSelling" : "stavi vendendo"
+  "offer.summary.youWereSelling" : "stavi vendendo",
+  "sorting.bestReputation" : "migliore reputazione",
+  "sorting.highestAmount" : "importo più alto",
+  "sorting.highestPrice" : "prezzo più alto",
+  "sorting.lowestPremium" : "premio più basso",
+  "sorting.sortMatchesBy" : "ordina i match per"
 }

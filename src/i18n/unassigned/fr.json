@@ -182,8 +182,6 @@
   "sell" : "vendre",
   "seller" : "vendeur",
   "send" : "envoyer",
-  "setRefundWallet.description" : "Aucune adresse de remboursement n'a été définie pour cette transaction. Veuillez en sélectionner une avant de continuer :",
-  "setRefundWallet.title" : "Sélectionner le portefeuille de remboursement",
   "showEscrow" : "afficher le coffre",
   "showInExplorer" : "voir dans l'explorateur",
   "showOffer" : "afficher l'offre",

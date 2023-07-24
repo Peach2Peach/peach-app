@@ -182,8 +182,6 @@
   "sell" : "sell",
   "seller" : "seller",
   "send" : "send",
-  "setRefundWallet.description" : "No refund address has been set for this trade. Please select one before continuing:",
-  "setRefundWallet.title" : "select refund wallet",
   "showEscrow" : "show escrow",
   "showInExplorer" : "show in explorer",
   "showOffer" : "show offer",

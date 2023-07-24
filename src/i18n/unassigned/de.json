@@ -182,8 +182,6 @@
   "sell" : "verkaufen",
   "seller" : "Verkäufer",
   "send" : "senden",
-  "setRefundWallet.description" : "Für diesen Handel wurde keine Rückerstattungsadresse festgelegt. Bitte wähle eine aus, bevor du fortfährst:",
-  "setRefundWallet.title" : "Rückerstattungswallet auswählen",
   "showEscrow" : "Escrow anzeigen",
   "showInExplorer" : "Im Explorer anzeigen",
   "showOffer" : "Angebot anzeigen",

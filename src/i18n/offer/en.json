@@ -1,4 +1,6 @@
 {
+  "filter" : "filter",
+  "filter.maxPremium" : "max premium",
   "offer.cancel.popup.description" : "Are you sure?\n\nIf you have already sent your bitcoin to the escrow, you will be refunded, minus the bitcoin network fees.",
   "offer.cancel.popup.title" : "cancel offer",
   "offer.canceled.popup.title" : "offer canceled!",
@@ -44,5 +46,10 @@
   "offer.summary.withTheseMethods" : "with these payment methods:",
   "offer.summary.youAreBuying" : "you want to buy between",
   "offer.summary.youAreSelling" : "you're selling",
-  "offer.summary.youWereSelling" : "you were selling"
+  "offer.summary.youWereSelling" : "you were selling",
+  "sorting.bestReputation" : "best reputation first",
+  "sorting.highestAmount" : "highest amount first",
+  "sorting.highestPrice" : "highest price first",
+  "sorting.lowestPremium" : "lowest premium first",
+  "sorting.sortMatchesBy" : "sort matches by"
 }

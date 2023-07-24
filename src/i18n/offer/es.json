@@ -1,4 +1,6 @@
 {
+  "filter" : "filtrar",
+  "filter.maxPremium" : "prima máxima",
   "offer.cancel.popup.description" : "¿Estás seguro?\n\nSi ya has enviado tus bitcoins al escrow, se te reembolsará el importe menos las comisiones de la red de los mineros.",
   "offer.cancel.popup.title" : "cancelar oferta",
   "offer.canceled.popup.title" : "¡oferta cancelada!",
@@ -44,5 +46,10 @@
   "offer.summary.withTheseMethods" : "con estos métodos de pago:",
   "offer.summary.youAreBuying" : "quieres comprar entre",
   "offer.summary.youAreSelling" : "estás vendiendo",
-  "offer.summary.youWereSelling" : "vendiste"
+  "offer.summary.youWereSelling" : "vendiste",
+  "sorting.bestReputation" : "mejor reputación",
+  "sorting.highestAmount" : "mayor cantidad",
+  "sorting.highestPrice" : "mayor precio",
+  "sorting.lowestPremium" : "menor prima",
+  "sorting.sortMatchesBy" : "ordenar matches por"
 }
