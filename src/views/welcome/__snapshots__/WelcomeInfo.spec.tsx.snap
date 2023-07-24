@@ -174,7 +174,7 @@ exports[`WelcomeInfo - peerToPeer renders correctly 1`] = `
       ]
     }
   >
-    peer to peer
+    peer-to-peer
   </Text>
   <Text
     allowFontScaling={false}
