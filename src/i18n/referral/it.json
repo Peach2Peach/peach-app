@@ -1,0 +1,21 @@
+{
+  "referrals.alreadyTraded" : "I tuoi affiliati hanno già scambiato $0 su Peach!",
+  "referrals.codeNotFound.text" : "Sembra che quel codice di affiliazione non esiste. Controlla se l'hai inserito correttamente o utilizza un altro codice.",
+  "referrals.codeNotFound.title" : "non riesco a trovarlo...",
+  "referrals.continueSaving" : "Continua a risparmiare per cose interessanti",
+  "referrals.myFavoriteCode.text" : "Il tuo account inizierà con 100 punti Peach, pronti all'uso!",
+  "referrals.myFavoriteCode.title" : "il mio codice preferito!",
+  "referrals.notTraded" : "I tuoi affiliati non hanno ancora effettuato scambi su Peach.",
+  "referrals.points" : "Punti affiliazione Peach",
+  "referrals.reward.customReferralCode" : "codice affiliazione personalizzato",
+  "referrals.reward.noPeachFees" : "5 scambi senza commissione Peach",
+  "referrals.reward.sats" : "dolci dolci sats",
+  "referrals.reward.select" : "seleziona la ricompensa",
+  "referrals.selectReward" : "Seleziona la tua ricompensa o continua a risparmiare per cose interessanti",
+  "referrals.shareCode" : "condividi codice affiliazione",
+  "referrals.shareCode.text.1" : "Comprare e vendere bitcoin su Peach è facilissimo!",
+  "referrals.shareCode.text.2" : "Provalo ora con il mio codice affiliazione $0",
+  "referrals.use" : "usa",
+  "referrals.used" : "usato",
+  "referrals.yourCode" : "il tuo codice affiliazione:"
+}
