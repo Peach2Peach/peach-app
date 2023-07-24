@@ -94,6 +94,8 @@ export class PeachWallet extends PeachJSWallet {
 
         info('PeachWallet - loadWallet - createdWallet')
 
+        this.initialized = true
+
         this.syncWallet()
 
         info('PeachWallet - loadWallet - loaded')

@@ -387,4 +387,8 @@ describe('PeachWallet - loadWallet', () => {
     peachWallet.loadWallet()
     expect(peachWallet.balance).toBe(balance)
   })
+  it('sets initialized to true when wallet is loaded', async () => {
+    await peachWallet.loadWallet()
+    expect(peachWallet.initialized).toBeTruthy()
+  })
 })
