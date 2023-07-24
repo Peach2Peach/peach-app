@@ -1,8 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`PopupContent should render correctly 1`] = `
+exports[`Popup should render correctly 1`] = `
 <Modal
   hardwareAccelerated={false}
+  onRequestClose={[MockFunction]}
   transparent={true}
   visible={true}
 >
@@ -22,14 +23,11 @@ exports[`PopupContent should render correctly 1`] = `
         {
           "backgroundColor": "#2B1911",
           "height": "100%",
-          "left": 0,
           "opacity": 0.4,
           "position": "absolute",
-          "top": 0,
           "width": "100%",
         }
       }
-      testID="popup-background"
     />
     <View
       style={
@@ -44,12 +42,13 @@ exports[`PopupContent should render correctly 1`] = `
           },
         ]
       }
-      testID="popup"
     >
       <View
         style={
           [
             {
+              "borderTopLeftRadius": 16,
+              "borderTopRightRadius": 16,
               "paddingBottom": 16,
               "paddingLeft": 16,
               "paddingRight": 16,
@@ -57,10 +56,6 @@ exports[`PopupContent should render correctly 1`] = `
             },
             {
               "backgroundColor": "#FFFCFA",
-            },
-            {
-              "borderTopLeftRadius": 16,
-              "borderTopRightRadius": 16,
             },
           ]
         }
@@ -102,6 +97,42 @@ exports[`PopupContent should render correctly 1`] = `
         />
       </View>
     </View>
+  </View>
+</Modal>
+`;
+
+exports[`Popup should render the popup component if it exists 1`] = `
+<Modal
+  hardwareAccelerated={false}
+  onRequestClose={[MockFunction]}
+  transparent={true}
+  visible={true}
+>
+  <View
+    style={
+      {
+        "flexBasis": "0%",
+        "flexGrow": 1,
+        "flexShrink": 1,
+        "justifyContent": "center",
+      }
+    }
+  >
+    <Memo(Pressable)
+      onPress={[MockFunction]}
+      style={
+        {
+          "backgroundColor": "#2B1911",
+          "height": "100%",
+          "opacity": 0.4,
+          "position": "absolute",
+          "width": "100%",
+        }
+      }
+    />
+    <Text>
+      Popup Component
+    </Text>
   </View>
 </Modal>
 `;

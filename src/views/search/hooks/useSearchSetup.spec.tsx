@@ -3,6 +3,7 @@ import { buyOffer, sellOffer } from '../../../../tests/unit/data/offerData'
 import { NavigationAndQueryClientWrapper } from '../../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
 import { headerState, navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
+import { HeaderIcon } from '../../../components/header/Header'
 import { useSearchSetup } from './useSearchSetup'
 
 jest.mock('../../../hooks/useRoute', () => ({
@@ -38,7 +39,7 @@ describe('useSearchSetup', () => {
   beforeEach(() => {
     queryClient.clear()
   })
-  it('should set up header correctly', async () => {
+  it('should set up header correctly for buy offers', async () => {
     renderHook(useSearchSetup, { wrapper })
 
     await act(async () => {
@@ -46,7 +47,7 @@ describe('useSearchSetup', () => {
     })
     expect(headerState.header()).toMatchSnapshot()
   })
-  it('should show the sliders for sell offers', async () => {
+  it('should set up header correctly for sell offers', async () => {
     getOfferDetailsMock.mockResolvedValueOnce([sellOffer, null])
     renderHook(useSearchSetup, { wrapper })
     await act(async () => {
@@ -54,14 +55,17 @@ describe('useSearchSetup', () => {
     })
     expect(headerState.header()).toMatchSnapshot()
   })
-  it('should redirect to "editPremium" when clicking on sliders', async () => {
+  it('should redirect to "editPremium" when clicking on percent icon', async () => {
     getOfferDetailsMock.mockResolvedValueOnce([sellOffer, null])
     renderHook(useSearchSetup, { wrapper })
     await act(async () => {
       await waitFor(() => expect(queryClient.isFetching()).toBe(0))
     })
     act(() => {
-      headerState.header().props.icons[0].onPress()
+      headerState
+        .header()
+        .props.icons.find((icon: HeaderIcon) => icon.id === 'percent')
+        .onPress()
     })
     expect(navigateMock).toHaveBeenCalledWith('editPremium', { offerId: buyOffer.id })
   })

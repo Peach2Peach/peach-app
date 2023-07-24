@@ -6,6 +6,7 @@ import { appPopups } from '../../../popups/appPopups'
 import { defaultPopupState, usePopupStore } from '../../../store/usePopupStore'
 import i18n from '../../../utils/i18n'
 import { UnmatchButton } from './UnmatchButton'
+import { buyOffer } from '../../../../tests/unit/data/offerData'
 
 jest.useFakeTimers()
 
@@ -31,6 +32,7 @@ describe('UnmatchButton', () => {
       offerId: 'offerId',
     },
     offer: {
+      ...buyOffer,
       id: 'offerId',
       type: 'bid',
       amount: [21000, 210000],

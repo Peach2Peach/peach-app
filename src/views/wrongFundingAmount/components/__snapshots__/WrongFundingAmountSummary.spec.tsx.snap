@@ -8,8 +8,13 @@ exports[`WrongFundingAmountSummary renders correctly 1`] = `
     }
   }
 >
-  <TradeSeparator
-    iconId="download"
+  <Divider
+    icon={
+      <Icon
+        id="download"
+        size={20}
+      />
+    }
     text="wrong amount funded"
   />
   <View

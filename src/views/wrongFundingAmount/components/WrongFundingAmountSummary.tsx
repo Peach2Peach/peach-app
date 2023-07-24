@@ -1,6 +1,5 @@
 import { View } from 'react-native'
-import { Text } from '../../../components'
-import { TradeSeparator } from '../../../components/offer/TradeSeparator'
+import { Divider, Icon, Text } from '../../../components'
 import i18n from '../../../utils/i18n'
 import tw from '../../../styles/tailwind'
 import { LabelAndAmount } from './LabelAndAmount'
@@ -15,7 +14,7 @@ export const WrongFundingAmountSummary = ({ sellOffer }: Props) => {
   const fundingAmount = sellOffer?.amount || 0
   return (
     <View style={tw`gap-3`}>
-      <TradeSeparator iconId="download" text={i18n('offer.requiredAction.fundingAmountDifferent')} />
+      <Divider icon={<Icon id="download" size={20} />} text={i18n('offer.requiredAction.fundingAmountDifferent')} />
       <View style={tw`gap-1`}>
         <LabelAndAmount label={i18n('escrow.funded')} amount={actualAmount} />
         <LabelAndAmount label={i18n('amount')} amount={fundingAmount} />

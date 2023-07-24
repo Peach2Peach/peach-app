@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`PopupAction renders correctly 1`] = `
+exports[`DeprecatedPopupAction renders correctly 1`] = `
 <View
   accessibilityState={
     {
@@ -92,7 +92,7 @@ exports[`PopupAction renders correctly 1`] = `
 </View>
 `;
 
-exports[`PopupAction renders correctly when disabled 1`] = `
+exports[`DeprecatedPopupAction renders correctly when disabled 1`] = `
 <View
   accessibilityState={
     {
@@ -186,7 +186,7 @@ exports[`PopupAction renders correctly when disabled 1`] = `
 </View>
 `;
 
-exports[`PopupAction renders correctly with reversed order 1`] = `
+exports[`DeprecatedPopupAction renders correctly with reversed order 1`] = `
 <View
   accessibilityState={
     {

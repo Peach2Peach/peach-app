@@ -18,12 +18,13 @@ import { useContractDetails } from './query/useContractDetails'
 import { useOfferDetails } from './query/useOfferDetails'
 import { useShowErrorBanner } from './useShowErrorBanner'
 import { useLocalContractStore } from '../store/useLocalContractStore'
+import { FIFTEEN_SECONDS } from '../constants'
 
 export const useCommonContractSetup = (contractId: string) => {
   const ws = useContext(PeachWSContext)
   const showError = useShowErrorBanner()
   const handleContractPopups = useHandleContractPopups()
-  const { contract, isLoading, refetch } = useContractDetails(contractId, 15 * 1000)
+  const { contract, isLoading, refetch } = useContractDetails(contractId, FIFTEEN_SECONDS)
   const { offer } = useOfferDetails(contract ? getOfferIdFromContract(contract) : '')
   const [storedContract, setStoredContract] = useState(getContract(contractId))
   const view = contract ? getContractViewer(contract, account) : undefined

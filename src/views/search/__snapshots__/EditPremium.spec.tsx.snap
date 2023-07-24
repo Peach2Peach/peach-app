@@ -232,12 +232,7 @@ exports[`EditPremium should render correctly 1`] = `
                               },
                             ],
                             {
-                              "color": "#2B1911",
-                            },
-                            {
-                              "opacity": 0.1,
-                            },
-                            {
+                              "color": "#2B19111A",
                               "letterSpacing": -1.275,
                             },
                           ],
@@ -270,12 +265,7 @@ exports[`EditPremium should render correctly 1`] = `
                               },
                             ],
                             {
-                              "color": "#2B1911",
-                            },
-                            {
-                              "opacity": 0.1,
-                            },
-                            {
+                              "color": "#2B19111A",
                               "letterSpacing": -3.57,
                             },
                           ],
@@ -309,9 +299,6 @@ exports[`EditPremium should render correctly 1`] = `
                             ],
                             {
                               "color": "#2B1911",
-                            },
-                            false,
-                            {
                               "letterSpacing": -1.275,
                             },
                           ],
@@ -345,9 +332,6 @@ exports[`EditPremium should render correctly 1`] = `
                             ],
                             {
                               "color": "#2B1911",
-                            },
-                            false,
-                            {
                               "letterSpacing": -1.275,
                             },
                           ],
@@ -381,9 +365,6 @@ exports[`EditPremium should render correctly 1`] = `
                             ],
                             {
                               "color": "#2B1911",
-                            },
-                            false,
-                            {
                               "letterSpacing": -5.949999999999999,
                             },
                           ],
@@ -417,9 +398,6 @@ exports[`EditPremium should render correctly 1`] = `
                             ],
                             {
                               "color": "#2B1911",
-                            },
-                            false,
-                            {
                               "letterSpacing": -1.275,
                             },
                           ],
@@ -453,9 +431,6 @@ exports[`EditPremium should render correctly 1`] = `
                             ],
                             {
                               "color": "#2B1911",
-                            },
-                            false,
-                            {
                               "letterSpacing": -1.275,
                             },
                           ],
@@ -489,9 +464,6 @@ exports[`EditPremium should render correctly 1`] = `
                             ],
                             {
                               "color": "#2B1911",
-                            },
-                            false,
-                            {
                               "letterSpacing": -1.275,
                             },
                           ],
@@ -525,9 +497,6 @@ exports[`EditPremium should render correctly 1`] = `
                             ],
                             {
                               "color": "#2B1911",
-                            },
-                            false,
-                            {
                               "letterSpacing": -5.949999999999999,
                             },
                           ],
@@ -561,9 +530,6 @@ exports[`EditPremium should render correctly 1`] = `
                             ],
                             {
                               "color": "#2B1911",
-                            },
-                            false,
-                            {
                               "letterSpacing": -1.275,
                             },
                           ],
@@ -597,9 +563,6 @@ exports[`EditPremium should render correctly 1`] = `
                             ],
                             {
                               "color": "#2B1911",
-                            },
-                            false,
-                            {
                               "letterSpacing": -1.275,
                             },
                           ],
@@ -633,9 +596,6 @@ exports[`EditPremium should render correctly 1`] = `
                             ],
                             {
                               "color": "#2B1911",
-                            },
-                            false,
-                            {
                               "letterSpacing": -1.275,
                             },
                           ],
@@ -728,20 +688,25 @@ exports[`EditPremium should render correctly 1`] = `
             </Text>
             <View
               style={
-                {
-                  "alignItems": "center",
-                  "backgroundColor": "#FFFCFA",
-                  "borderColor": "#7D675E",
-                  "borderRadius": 12,
-                  "borderWidth": 1,
-                  "flexDirection": "row",
-                  "height": 38,
-                  "paddingBottom": 12,
-                  "paddingLeft": 8,
-                  "paddingRight": 8,
-                  "paddingTop": 12,
-                  "width": 92,
-                }
+                [
+                  {
+                    "alignItems": "center",
+                    "borderRadius": 12,
+                    "flexDirection": "row",
+                    "height": 38,
+                    "overflow": "hidden",
+                    "paddingBottom": 12,
+                    "paddingLeft": 8,
+                    "paddingRight": 8,
+                    "paddingTop": 12,
+                    "width": 92,
+                  },
+                  {
+                    "backgroundColor": "#FFFCFA",
+                    "borderColor": "#7D675E",
+                    "borderWidth": 1,
+                  },
+                ]
               }
             >
               <TextInput

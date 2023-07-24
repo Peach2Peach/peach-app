@@ -5,14 +5,24 @@ exports[`Contract should render a default Contract 1`] = `
   contentContainerStyle={
     [
       {
+        "flexGrow": 1,
+        "paddingTop": 16,
+      },
+      {
+        "paddingTop": 32,
+      },
+    ]
+  }
+  style={
+    [
+      {
         "height": "100%",
         "paddingLeft": 16,
         "paddingRight": 16,
-        "paddingTop": 20,
       },
       {
-        "paddingLeft": 24,
-        "paddingRight": 24,
+        "paddingLeft": 32,
+        "paddingRight": 32,
       },
     ]
   }

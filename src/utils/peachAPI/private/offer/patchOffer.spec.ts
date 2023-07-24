@@ -34,4 +34,28 @@ describe('patchOffer', () => {
       signal: undefined,
     })
   })
+  it('should not send undefined values', async () => {
+    await patchOffer({ ...props, refundAddress: undefined })
+    expect(fetchMock).toHaveBeenCalledWith(`${API_URL}/v1/offer/offerId`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Api-Key': undefined,
+      },
+      body: JSON.stringify(omit(omit(props, 'refundAddress'), 'offerId')),
+      method: 'PATCH',
+      signal: undefined,
+    })
+  })
+  it('should send null values', async () => {
+    await patchOffer({ ...props, maxPremium: null })
+    expect(fetchMock).toHaveBeenCalledWith(`${API_URL}/v1/offer/offerId`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Api-Key': undefined,
+      },
+      body: JSON.stringify({ ...omit(props, 'offerId'), maxPremium: null }),
+      method: 'PATCH',
+      signal: undefined,
+    })
+  })
 })

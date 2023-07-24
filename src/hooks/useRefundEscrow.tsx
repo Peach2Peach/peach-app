@@ -2,6 +2,7 @@ import { NETWORK } from '@env'
 import { useCallback } from 'react'
 import { shallow } from 'zustand/shallow'
 import { useNavigation } from '.'
+import { FIFTEEN_SECONDS } from '../constants'
 import { Refund } from '../popups/Refund'
 import { useSettingsStore } from '../store/settingsStore'
 import { useTradeSummaryStore } from '../store/tradeSummaryStore'
@@ -86,7 +87,7 @@ export const useRefundEscrow = () => {
         level: 'APP',
       })
 
-      const [, postTXError] = await refundSellOffer({ offerId: sellOffer.id, tx, timeout: 15 * 1000 })
+      const [, postTXError] = await refundSellOffer({ offerId: sellOffer.id, tx, timeout: FIFTEEN_SECONDS })
       if (postTXError) {
         showError(postTXError.error)
         closePopup()

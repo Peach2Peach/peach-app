@@ -47,6 +47,7 @@ import edit3 from './edit3.svg'
 import externalLink from './externalLink.svg'
 import eye from './eye.svg'
 import eyeOff from './eyeOff.svg'
+import filter from './filter.svg'
 import fire from './fire.svg'
 import flag from './flag.svg'
 import fundEscrow from './fundEscrow.svg'
@@ -168,6 +169,7 @@ export const Icons = {
   externalLink,
   eye,
   eyeOff,
+  filter,
   fire,
   flag,
   fundEscrow,

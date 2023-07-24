@@ -10,12 +10,12 @@ type Props = ComponentProps & {
   iconProps?: ComponentProps & { color: FillProps['fill'] }
 }
 export const Checkbox = ({ checked, iconProps, style, text, ...wrapperProps }: Props) => (
-  <TouchableOpacity {...wrapperProps} style={[style, tw`flex-row items-center`]}>
+  <TouchableOpacity {...wrapperProps} style={[style, tw`flex-row items-center gap-1`]}>
     <Icon
       id={checked ? 'checkboxMark' : 'square'}
       {...iconProps}
       color={checked ? tw`text-primary-main`.color : tw`text-black-3`.color}
     />
-    {!!text && <Text style={[tw`pl-1 subtitle-1`, !checked && tw`text-black-4`]}>{text}</Text>}
+    {!!text && <Text style={[tw`subtitle-1`, !checked && tw`text-black-4`]}>{text}</Text>}
   </TouchableOpacity>
 )
