@@ -6,7 +6,7 @@ import tw from '../../../styles/tailwind'
 export const ConfirmSliderTests = () => {
   const onConfirm = () => Alert.alert('unlocked')
   return (
-    <View style={tw`flex flex-col items-center`}>
+    <View style={tw`flex-col items-center self-center w-[300px] border`}>
       <Text style={tw`mt-4 h3`}>Slide to unlock</Text>
       <ConfirmSlider {...{ label1: 'label1', label2: 'label2', onConfirm }} />
       <ConfirmSlider style={tw`mt-4`} {...{ label1: 'only 1 label', onConfirm }} />
