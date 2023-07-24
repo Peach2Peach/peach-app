@@ -5,6 +5,11 @@ exports[`useSellSummarySetup should set up header correctly 1`] = `
   icons={
     [
       {
+        "color": "#F56522",
+        "id": "filter",
+        "onPress": [Function],
+      },
+      {
         "color": "#7D675E",
         "id": "wallet",
         "onPress": [Function],
