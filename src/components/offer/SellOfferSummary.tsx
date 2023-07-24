@@ -21,7 +21,7 @@ const isSellOfferWithDefinedEscrow = (offer: SellOffer | SellOfferDraft): offer 
 export const SellOfferSummary = ({ offer }: Props) => (
   <SummaryCard>
     <SummaryCard.Section>
-      <Text style={tw`mb-1 text-center text-black-2`}>
+      <Text style={tw`text-center text-black-2`}>
         {i18n(`offer.summary.${offer.tradeStatus !== 'offerCanceled' ? 'youAreSelling' : 'youWereSelling'}`)}
       </Text>
       <BTCAmount amount={offer.amount} size="small" />
