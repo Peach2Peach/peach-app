@@ -3,8 +3,9 @@ import { Psbt, payments } from 'bitcoinjs-lib'
 import { getNetwork } from '../../../src/utils/wallet'
 import { getScript } from './getScript'
 import { sha256 } from 'bitcoinjs-lib/src/crypto'
+import { PsbtInput } from 'bip174/src/lib/interfaces'
 
-export const constructPSBT = (wallet: BIP32Interface) => {
+export const constructPSBT = (wallet: BIP32Interface, inputOptions: Partial<PsbtInput> = {}) => {
   const network = getNetwork()
   const p2wsh = payments.p2wsh({
     network,
@@ -23,6 +24,7 @@ export const constructPSBT = (wallet: BIP32Interface) => {
       script: Buffer.from(`0020${sha256(redeemOutput).toString('hex')}`, 'hex'),
       value: 10000000,
     },
+    ...inputOptions,
   })
   psbt.addOutput({
     address: 'bcrt1q348u075ehsuk0rz9lat22zrhlpgspj4twmt3m3pf0e5jjdm98u4qpet6g7',
