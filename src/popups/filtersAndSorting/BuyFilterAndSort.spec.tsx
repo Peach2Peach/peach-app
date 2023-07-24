@@ -55,6 +55,7 @@ describe('BuyFilterAndSort', () => {
 describe('ApplyBuyFilterAction', () => {
   beforeEach(() => {
     useOfferPreferences.setState({ filter: { buyOffer: { maxPremium: null } } })
+    usePopupStore.setState({ visible: true })
   })
   it('should patch the offer with the selected filter', async () => {
     const { getByText, getByPlaceholderText } = render(<BuyFilterAndSort offer={buyOffer} />, { wrapper })
