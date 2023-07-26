@@ -44,13 +44,13 @@ export const BuyFilterAndSort = ({ offer }: Props) => {
     <PopupComponent
       content={
         <View style={tw`w-full gap-4 shrink`}>
-          <NewDivider title={i18n('filter')} />
+          <NewDivider title={i18n('offer.filter')} />
           <View style={tw`flex-row items-center self-stretch justify-between`}>
-            <Checkbox text={i18n('filter.maxPremium')} checked={shouldApplyFilter} onPress={onCheckboxPress} />
+            <Checkbox text={i18n('offer.filter.maxPremium')} checked={shouldApplyFilter} onPress={onCheckboxPress} />
             <PercentageInput ref={percentageInput} value={maxPremium} onChange={setMaxPremium} />
           </View>
 
-          <NewDivider title={i18n('sorting.sortMatchesBy')} />
+          <NewDivider title={i18n('offer.sorting.sortMatchesBy')} />
           <Sorters selectedValue={sortBy} onButtonPress={setSortBy} />
         </View>
       }
@@ -71,15 +71,15 @@ type SorterProps = {
 function Sorters (radioButtonsProps: SorterProps) {
   const items: RadioButtonItem<BuySorter>[] = [
     {
-      display: i18n('sorting.bestReputation'),
+      display: i18n('offer.sorting.bestReputation'),
       value: 'bestReputation',
     },
     {
-      display: i18n('sorting.highestAmount'),
+      display: i18n('offer.sorting.highestAmount'),
       value: 'highestAmount',
     },
     {
-      display: i18n('sorting.lowestPremium'),
+      display: i18n('offer.sorting.lowestPremium'),
       value: 'lowestPremium',
     },
   ]

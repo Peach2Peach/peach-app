@@ -20,7 +20,7 @@ export const SellSorters = () => {
     <PopupComponent
       content={
         <View style={tw`w-full gap-4 shrink`}>
-          <NewDivider title={i18n('sorting.sortMatchesBy')} />
+          <NewDivider title={i18n('offer.sorting.sortMatchesBy')} />
           <Sorters selectedValue={sortBy} onButtonPress={setSortBy} />
         </View>
       }
@@ -41,11 +41,11 @@ type SorterProps = {
 function Sorters ({ selectedValue, onButtonPress }: SorterProps) {
   const items: RadioButtonItem<SellSorter>[] = [
     {
-      display: i18n('sorting.bestReputation'),
+      display: i18n('offer.sorting.bestReputation'),
       value: 'bestReputation',
     },
     {
-      display: i18n('sorting.highestPrice'),
+      display: i18n('offer.sorting.highestPrice'),
       value: 'highestPrice',
     },
   ]
