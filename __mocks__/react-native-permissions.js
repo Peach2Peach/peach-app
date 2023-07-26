@@ -24,3 +24,10 @@ export const request = jest.fn().mockImplementation((permission) => {
     return Promise.resolve(RESULTS.UNAVAILABLE)
   }
 })
+
+export default {
+  PERMISSIONS,
+  RESULTS,
+  checkNotifications,
+  request,
+}

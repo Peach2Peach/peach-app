@@ -1,5 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`BitcoinAddressInput closes QR scanner when onCancel event is triggered 1`] = `
+"Snapshot Diff:
+Compared values have no visual difference."
+`;
+
+exports[`BitcoinAddressInput doesn't show the QR scanner when permissions haven't been granted 1`] = `
+"Snapshot Diff:
+Compared values have no visual difference."
+`;
+
+
 exports[`BitcoinAddressInput renders correctly 1`] = `
 <Input
   icons={
