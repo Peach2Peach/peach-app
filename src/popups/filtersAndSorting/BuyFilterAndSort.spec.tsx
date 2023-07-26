@@ -6,6 +6,8 @@ import { useOfferPreferences } from '../../store/offerPreferenes'
 import { usePopupStore } from '../../store/usePopupStore'
 import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
 import { TextInput } from 'react-native'
+import { toMatchDiffSnapshot } from 'snapshot-diff'
+expect.extend({ toMatchDiffSnapshot })
 
 jest.useFakeTimers()
 
@@ -26,7 +28,7 @@ describe('BuyFilterAndSort', () => {
     const { getByPlaceholderText, toJSON } = render(<BuyFilterAndSort offer={offerWithMaxPremium} />, { wrapper })
     const maxPremiumInput = getByPlaceholderText('20.00')
     expect(maxPremiumInput.props.value).toBe('0.5')
-    expect(toJSON()).toMatchSnapshot()
+    expect(render(<BuyFilterAndSort offer={buyOffer} />, { wrapper }).toJSON()).toMatchDiffSnapshot(toJSON())
   })
   it('should focus the maxPremium input when the maxPremium checkbox gets checked', () => {
     const focusSpy = jest.spyOn(TextInput.prototype, 'focus')
