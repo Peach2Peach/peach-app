@@ -106,7 +106,7 @@ exports[`BitcoinAddressInput opens the warning popup when permissions have been 
         ]
       }
     >
-       Peach needs your permission to use your camera.
+      Peach needs your permission to use your camera.
 
 You can change this in the settings of your phone.
     </Text>
