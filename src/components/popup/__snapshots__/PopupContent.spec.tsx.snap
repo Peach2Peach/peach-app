@@ -35,16 +35,14 @@ exports[`PopupContent renders correctly 1`] = `
     [
       {
         "alignItems": "center",
-        "alignSelf": "stretch",
-        "gap": 16,
+        "backgroundColor": "#FEEDE5",
+        "gap": 12,
         "paddingBottom": 24,
         "paddingLeft": 24,
         "paddingRight": 24,
         "paddingTop": 16,
       },
-      {
-        "backgroundColor": "#FEEDE5",
-      },
+      undefined,
     ]
   }
 >
@@ -66,4 +64,26 @@ exports[`PopupContent renders correctly 1`] = `
     content
   </Text>
 </View>
+`;
+
+exports[`PopupContent renders correctly when applying style 1`] = `
+"Snapshot Diff:
+- First value
++ Second value
+
+@@ -37,11 +37,13 @@
+          "paddingBottom": 24,
+          "paddingLeft": 24,
+          "paddingRight": 24,
+          "paddingTop": 16,
+        },
+-       undefined,
++       Object {
++         "backgroundColor": "red",
++       },
+      ]
+    }
+  >
+    <Text
+      allowFontScaling={false}"
 `;

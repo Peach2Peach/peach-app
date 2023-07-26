@@ -9,6 +9,8 @@ import { PopupAction } from '../../components/popup/PopupAction'
 import { NewDivider } from '../../components/ui/NewDivider'
 import { ClosePopupAction } from '../actions'
 import { PopupComponent } from '../../components/popup/PopupComponent'
+import { View } from 'react-native'
+import tw from '../../styles/tailwind'
 
 export const SellSorters = () => {
   const defaultSorter = useOfferPreferences((state) => state.sortBy.sellOffer[0])
@@ -17,10 +19,10 @@ export const SellSorters = () => {
   return (
     <PopupComponent
       content={
-        <>
-          <NewDivider title={i18n('sorting.sortMatchesBy')} />
+        <View style={tw`w-full gap-4 shrink`}>
+          <NewDivider title={i18n('offer.sorting.sortMatchesBy')} />
           <Sorters selectedValue={sortBy} onButtonPress={setSortBy} />
-        </>
+        </View>
       }
       actions={
         <>
@@ -39,11 +41,11 @@ type SorterProps = {
 function Sorters ({ selectedValue, onButtonPress }: SorterProps) {
   const items: RadioButtonItem<SellSorter>[] = [
     {
-      display: i18n('sorting.bestReputation'),
+      display: i18n('offer.sorting.bestReputation'),
       value: 'bestReputation',
     },
     {
-      display: i18n('sorting.highestPrice'),
+      display: i18n('offer.sorting.highestPrice'),
       value: 'highestPrice',
     },
   ]

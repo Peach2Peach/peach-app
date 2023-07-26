@@ -66,13 +66,16 @@ exports[`PopupAction renders correctly 1`] = `
           "letterSpacing": 0.16,
           "lineHeight": 24,
         },
-        {
-          "color": "#FFFCFA",
-          "fontFamily": "Baloo2-SemiBold",
-          "fontSize": 16,
-          "letterSpacing": 0.16,
-          "lineHeight": 28,
-        },
+        [
+          {
+            "color": "#FFFCFA",
+            "fontFamily": "Baloo2-SemiBold",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 28,
+          },
+          undefined,
+        ],
       ]
     }
   >
@@ -147,13 +150,16 @@ exports[`PopupAction renders correctly when applying style 1`] = `
           "letterSpacing": 0.16,
           "lineHeight": 24,
         },
-        {
-          "color": "#FFFCFA",
-          "fontFamily": "Baloo2-SemiBold",
-          "fontSize": 16,
-          "letterSpacing": 0.16,
-          "lineHeight": 28,
-        },
+        [
+          {
+            "color": "#FFFCFA",
+            "fontFamily": "Baloo2-SemiBold",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 28,
+          },
+          undefined,
+        ],
       ]
     }
   >
@@ -228,13 +234,16 @@ exports[`PopupAction renders correctly with reversed order 1`] = `
           "letterSpacing": 0.16,
           "lineHeight": 24,
         },
-        {
-          "color": "#FFFCFA",
-          "fontFamily": "Baloo2-SemiBold",
-          "fontSize": 16,
-          "letterSpacing": 0.16,
-          "lineHeight": 28,
-        },
+        [
+          {
+            "color": "#FFFCFA",
+            "fontFamily": "Baloo2-SemiBold",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 28,
+          },
+          undefined,
+        ],
       ]
     }
   >

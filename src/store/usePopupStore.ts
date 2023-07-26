@@ -49,6 +49,7 @@ export const usePopupStore = create<PopupStore>((set, get) => ({
       return {
         visible: true,
         popupComponent: params,
+        requireUserAction: false,
       }
     })
   },

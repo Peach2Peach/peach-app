@@ -1,11 +1,13 @@
-import { Pressable, Keyboard } from 'react-native'
+import { Pressable, Keyboard, ViewStyle } from 'react-native'
 import tw from '../../styles/tailwind'
 
-export const PopupContent = ({ children }: ComponentProps) => (
-  <Pressable
-    style={[tw`items-center self-stretch gap-4 p-6 pt-4`, tw`bg-primary-background-dark`]}
-    onPress={Keyboard.dismiss}
-  >
+type Props = {
+  children: React.ReactNode
+  style?: ViewStyle
+}
+
+export const PopupContent = ({ children, style }: Props) => (
+  <Pressable style={[tw`items-center gap-3 p-6 pt-4 bg-primary-background-dark`, style]} onPress={Keyboard.dismiss}>
     {children}
   </Pressable>
 )
