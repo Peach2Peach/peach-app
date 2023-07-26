@@ -7,12 +7,11 @@ exports[`PopupActions renders correctly 1`] = `
       {
         "alignItems": "center",
         "alignSelf": "stretch",
+        "backgroundColor": "#F56522",
         "flexDirection": "row",
         "justifyContent": "space-between",
       },
-      {
-        "backgroundColor": "#F56522",
-      },
+      undefined,
     ]
   }
 >
@@ -81,13 +80,16 @@ exports[`PopupActions renders correctly 1`] = `
             "letterSpacing": 0.16,
             "lineHeight": 24,
           },
-          {
-            "color": "#FFFCFA",
-            "fontFamily": "Baloo2-SemiBold",
-            "fontSize": 16,
-            "letterSpacing": 0.16,
-            "lineHeight": 28,
-          },
+          [
+            {
+              "color": "#FFFCFA",
+              "fontFamily": "Baloo2-SemiBold",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 28,
+            },
+            undefined,
+          ],
         ]
       }
     >
@@ -95,4 +97,26 @@ exports[`PopupActions renders correctly 1`] = `
     </Text>
   </View>
 </View>
+`;
+
+exports[`PopupActions renders correctly when applying style 1`] = `
+"Snapshot Diff:
+- First value
++ Second value
+
+@@ -6,11 +6,13 @@
+          "alignSelf": "stretch",
+          "backgroundColor": "#F56522",
+          "flexDirection": "row",
+          "justifyContent": "space-between",
+        },
+-       undefined,
++       Object {
++         "backgroundColor": "red",
++       },
+      ]
+    }
+  >
+    <View
+      accessibilityState={"
 `;

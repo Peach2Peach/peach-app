@@ -67,3 +67,25 @@ exports[`PopupContent renders correctly 1`] = `
   </Text>
 </View>
 `;
+
+exports[`PopupContent renders correctly when applying style 1`] = `
+"Snapshot Diff:
+- First value
++ Second value
+
+@@ -37,11 +37,13 @@
+          "paddingBottom": 24,
+          "paddingLeft": 24,
+          "paddingRight": 24,
+          "paddingTop": 16,
+        },
+-       undefined,
++       Object {
++         "backgroundColor": "red",
++       },
+      ]
+    }
+  >
+    <Text
+      allowFontScaling={false}"
+`;
