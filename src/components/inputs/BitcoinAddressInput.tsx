@@ -66,11 +66,10 @@ export const BitcoinAddressInput = ({ value, onChange, ...props }: InputProps & 
   )
 }
 
-// TODO: add missing translations
 function MissingPermissionsPopup () {
   return (
     <PopupComponent
-      title={'Missing permissions'}
+      title={i18n('settings.missingPermissions')}
       content={<MissingPermissionsContent />}
       actions={
         <>
@@ -85,13 +84,7 @@ function MissingPermissionsPopup () {
 }
 
 function MissingPermissionsContent () {
-  return (
-    <Text>
-      Peach needs your permission to use your camera.
-      {'\n\n'}
-      You can change this in the settings of your phone.
-    </Text>
-  )
+  return <Text>{i18n('settings.missingPermissions.text')}</Text>
 }
 
 function OpenSettingsAction () {
