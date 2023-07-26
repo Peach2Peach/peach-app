@@ -66,17 +66,55 @@ exports[`ClosePopupAction should render correctly 1`] = `
           "letterSpacing": 0.16,
           "lineHeight": 24,
         },
-        {
-          "color": "#FFFCFA",
-          "fontFamily": "Baloo2-SemiBold",
-          "fontSize": 16,
-          "letterSpacing": 0.16,
-          "lineHeight": 28,
-        },
+        [
+          {
+            "color": "#FFFCFA",
+            "fontFamily": "Baloo2-SemiBold",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 28,
+          },
+          undefined,
+        ],
       ]
     }
   >
     close
   </Text>
 </View>
+`;
+
+exports[`ClosePopupAction should render correctly with custom text style 1`] = `
+"Snapshot Diff:
+- First value
++ Second value
+
+@@ -39,11 +39,11 @@
+        "paddingTop": 8,
+      }
+    }
+  >
+    <test-file-stub
+-     fill="#FFFCFA"
++     fill="red"
+      style={
+        Array [
+          Object {
+            "height": 16,
+            "width": 16,
+@@ -69,11 +69,13 @@
+              "fontFamily": "Baloo2-SemiBold",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 28,
+            },
+-           undefined,
++           Object {
++             "color": "red",
++           },
+          ],
+        ]
+      }
+    >
+      close"
 `;

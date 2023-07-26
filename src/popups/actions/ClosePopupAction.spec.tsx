@@ -1,6 +1,8 @@
 import { ClosePopupAction } from './ClosePopupAction'
 import { render, fireEvent } from '@testing-library/react-native'
 import { usePopupStore } from '../../store/usePopupStore'
+import { toMatchDiffSnapshot } from 'snapshot-diff'
+expect.extend({ toMatchDiffSnapshot })
 
 describe('ClosePopupAction', () => {
   it('should call closePopup when pressed', () => {
@@ -13,5 +15,9 @@ describe('ClosePopupAction', () => {
   it('should render correctly', () => {
     const { toJSON } = render(<ClosePopupAction />)
     expect(toJSON()).toMatchSnapshot()
+  })
+  it('should render correctly with custom text style', () => {
+    const { toJSON } = render(<ClosePopupAction textStyle={{ color: 'red' }} />)
+    expect(render(<ClosePopupAction />).toJSON()).toMatchDiffSnapshot(toJSON())
   })
 })
