@@ -5,12 +5,13 @@ import { toMatchDiffSnapshot } from 'snapshot-diff'
 expect.extend({ toMatchDiffSnapshot })
 
 describe('PopupActions', () => {
+  const defaultActions = (
+    <PopupActions>
+      <PopupAction onPress={jest.fn()} label="label" iconId="bitcoinLogo" />
+    </PopupActions>
+  )
   it('renders correctly', () => {
-    const { toJSON } = render(
-      <PopupActions>
-        <PopupAction onPress={jest.fn()} label="label" iconId="bitcoinLogo" />
-      </PopupActions>,
-    )
+    const { toJSON } = render(defaultActions)
     expect(toJSON()).toMatchSnapshot()
   })
   it('renders correctly when applying style', () => {
@@ -19,12 +20,6 @@ describe('PopupActions', () => {
         <PopupAction onPress={jest.fn()} label="label" iconId="bitcoinLogo" />
       </PopupActions>,
     )
-    expect(
-      render(
-        <PopupActions>
-          <PopupAction onPress={jest.fn()} label="label" iconId="bitcoinLogo" />
-        </PopupActions>,
-      ).toJSON(),
-    ).toMatchDiffSnapshot(toJSON())
+    expect(render(defaultActions).toJSON()).toMatchDiffSnapshot(toJSON())
   })
 })

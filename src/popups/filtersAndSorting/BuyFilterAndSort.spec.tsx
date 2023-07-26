@@ -18,9 +18,10 @@ jest.mock('../../utils/peachAPI', () => ({
 
 const wrapper = NavigationAndQueryClientWrapper
 
+const defaultComponent = <BuyFilterAndSort offer={buyOffer} />
 describe('BuyFilterAndSort', () => {
   it('should render correctly', () => {
-    const { toJSON } = render(<BuyFilterAndSort offer={buyOffer} />, { wrapper })
+    const { toJSON } = render(defaultComponent, { wrapper })
     expect(toJSON()).toMatchSnapshot()
   })
   it('should use the offer maxPremium as the default value for the maxPremium input', () => {
@@ -28,11 +29,11 @@ describe('BuyFilterAndSort', () => {
     const { getByPlaceholderText, toJSON } = render(<BuyFilterAndSort offer={offerWithMaxPremium} />, { wrapper })
     const maxPremiumInput = getByPlaceholderText('20.00')
     expect(maxPremiumInput.props.value).toBe('0.5')
-    expect(render(<BuyFilterAndSort offer={buyOffer} />, { wrapper }).toJSON()).toMatchDiffSnapshot(toJSON())
+    expect(render(defaultComponent, { wrapper }).toJSON()).toMatchDiffSnapshot(toJSON())
   })
   it('should focus the maxPremium input when the maxPremium checkbox gets checked', () => {
     const focusSpy = jest.spyOn(TextInput.prototype, 'focus')
-    const { getByText } = render(<BuyFilterAndSort offer={buyOffer} />, { wrapper })
+    const { getByText } = render(defaultComponent, { wrapper })
     const checkbox = getByText('max premium')
 
     fireEvent.press(checkbox)
@@ -40,7 +41,7 @@ describe('BuyFilterAndSort', () => {
   })
   it("shouldn't focus the input when the filter has changed from the global state", () => {
     const focusSpy = jest.spyOn(TextInput.prototype, 'focus')
-    const { getByText, getByPlaceholderText } = render(<BuyFilterAndSort offer={buyOffer} />, { wrapper })
+    const { getByText, getByPlaceholderText } = render(defaultComponent, { wrapper })
     const maxPremiumInput = getByPlaceholderText('20.00')
     const checkbox = getByText('max premium')
 
@@ -60,7 +61,7 @@ describe('ApplyBuyFilterAction', () => {
     usePopupStore.setState({ visible: true })
   })
   it('should patch the offer with the selected filter', async () => {
-    const { getByText, getByPlaceholderText } = render(<BuyFilterAndSort offer={buyOffer} />, { wrapper })
+    const { getByText, getByPlaceholderText } = render(defaultComponent, { wrapper })
     const maxPremiumInput = getByPlaceholderText('20.00')
     const applyButton = getByText('apply')
     const checkbox = getByText('max premium')
@@ -71,7 +72,7 @@ describe('ApplyBuyFilterAction', () => {
     await waitFor(() => expect(patchOfferMock).toHaveBeenCalledWith({ offerId: buyOffer.id, maxPremium: 0.5 }))
   })
   it('should set maxPremium to null when the checkbox is not checked', async () => {
-    const { getByText, getByPlaceholderText } = render(<BuyFilterAndSort offer={buyOffer} />, { wrapper })
+    const { getByText, getByPlaceholderText } = render(defaultComponent, { wrapper })
     const maxPremiumInput = getByPlaceholderText('20.00')
     const applyButton = getByText('apply')
 
@@ -80,7 +81,7 @@ describe('ApplyBuyFilterAction', () => {
     await waitFor(() => expect(patchOfferMock).toHaveBeenCalledWith({ offerId: buyOffer.id, maxPremium: null }))
   })
   it('should set maxPremium to null when the checkbox is checked but the input is empty', async () => {
-    const { getByText, getByPlaceholderText } = render(<BuyFilterAndSort offer={buyOffer} />, { wrapper })
+    const { getByText, getByPlaceholderText } = render(defaultComponent, { wrapper })
     const maxPremiumInput = getByPlaceholderText('20.00')
     const applyButton = getByText('apply')
     const checkbox = getByText('max premium')
@@ -92,7 +93,7 @@ describe('ApplyBuyFilterAction', () => {
   })
 
   it('should update the global state with the new filter', () => {
-    const { getByText, getByPlaceholderText } = render(<BuyFilterAndSort offer={buyOffer} />, { wrapper })
+    const { getByText, getByPlaceholderText } = render(defaultComponent, { wrapper })
     const maxPremiumInput = getByPlaceholderText('20.00')
     const applyButton = getByText('apply')
     const checkbox = getByText('max premium')
@@ -113,7 +114,7 @@ describe('ApplyBuyFilterAction', () => {
   })
 
   it('should apply the selected sorter', () => {
-    const { getByText } = render(<BuyFilterAndSort offer={buyOffer} />, { wrapper })
+    const { getByText } = render(defaultComponent, { wrapper })
     const applyButton = getByText('apply')
     const highestAmountButton = getByText('highest amount first')
 
@@ -128,7 +129,7 @@ describe('ApplyBuyFilterAction', () => {
     queryClient.setQueryData(['matches', buyOffer.id], { matches: [] })
     queryClient.setQueryData(['matches', buyOffer.id, 'bestReputation'], { matches: [] })
 
-    const { getByText } = render(<BuyFilterAndSort offer={buyOffer} />, { wrapper })
+    const { getByText } = render(defaultComponent, { wrapper })
     const applyButton = getByText('apply')
 
     fireEvent.press(applyButton)
@@ -141,7 +142,7 @@ describe('ApplyBuyFilterAction', () => {
   })
 
   it('should close the popup', () => {
-    const { getByText } = render(<BuyFilterAndSort offer={buyOffer} />, { wrapper })
+    const { getByText } = render(defaultComponent, { wrapper })
     const applyButton = getByText('apply')
 
     fireEvent.press(applyButton)

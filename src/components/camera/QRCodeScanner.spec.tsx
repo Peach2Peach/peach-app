@@ -11,15 +11,15 @@ jest.mock('react-native-camera', () => ({
 }))
 
 describe('QRCodeScanner', () => {
+  const defaultScanner = <QRCodeScanner onRead={jest.fn()} customMarker={<View />} />
   it('renders correctly', () => {
-    const { toJSON } = render(<QRCodeScanner onRead={jest.fn()} customMarker={<View />} />)
+    const { toJSON } = render(defaultScanner)
     expect(toJSON()).toMatchSnapshot()
   })
   it('fades in', () => {
-    const { toJSON } = render(<QRCodeScanner onRead={jest.fn()} customMarker={<View />} />)
+    const { toJSON } = render(defaultScanner)
     jest.runAllTimers()
-    const { toJSON: toJSON2 } = render(<QRCodeScanner onRead={jest.fn()} customMarker={<View />} />)
-    expect(toJSON2()).toMatchDiffSnapshot(toJSON())
+    expect(render(defaultScanner).toJSON()).toMatchDiffSnapshot(toJSON())
   })
   it('calls onRead when a QR code is read', () => {
     const onRead = jest.fn()
