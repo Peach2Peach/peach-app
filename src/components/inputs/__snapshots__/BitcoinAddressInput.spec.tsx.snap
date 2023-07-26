@@ -24,7 +24,6 @@ exports[`BitcoinAddressInput renders correctly 1`] = `
 exports[`BitcoinAddressInput shows QR scanner when camera icon is pressed 1`] = `
 <ScanQR
   onCancel={[Function]}
-  onSuccess={[Function]}
-  testID="qr-code-scanner"
+  onRead={[Function]}
 />
 `;
