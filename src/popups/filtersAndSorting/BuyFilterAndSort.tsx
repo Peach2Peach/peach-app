@@ -43,7 +43,7 @@ export const BuyFilterAndSort = ({ offer }: Props) => {
   return (
     <PopupComponent
       content={
-        <>
+        <View style={tw`w-full gap-4 shrink`}>
           <NewDivider title={i18n('filter')} />
           <View style={tw`flex-row items-center self-stretch justify-between`}>
             <Checkbox text={i18n('filter.maxPremium')} checked={shouldApplyFilter} onPress={onCheckboxPress} />
@@ -52,7 +52,7 @@ export const BuyFilterAndSort = ({ offer }: Props) => {
 
           <NewDivider title={i18n('sorting.sortMatchesBy')} />
           <Sorters selectedValue={sortBy} onButtonPress={setSortBy} />
-        </>
+        </View>
       }
       actions={
         <>
