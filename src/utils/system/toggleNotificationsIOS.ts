@@ -10,6 +10,6 @@ export const toggleNotificationsIOS = async () => {
       sound: true,
     })
   } else {
-    Linking.openURL('app-settings://')
+    Linking.openSettings()
   }
 }
