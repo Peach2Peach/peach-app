@@ -124,4 +124,16 @@ describe('BitcoinAddressInput', () => {
     const { toJSON: toJSON2 } = render(<BitcoinAddressInput value={fullAddress} />)
     expect(toJSON()).toMatchDiffSnapshot(toJSON2())
   })
+  it('opens the warning popup when permissions have been denied', async () => {
+    const requestSpy = jest.spyOn(permissions, 'request')
+    requestSpy.mockImplementationOnce(() => Promise.resolve(RESULTS.DENIED))
+    const { UNSAFE_getByProps } = render(<BitcoinAddressInput value={fullAddress} />)
+    const cameraIcon = UNSAFE_getByProps({ id: 'camera' })
+
+    await waitFor(() => {
+      fireEvent.press(cameraIcon)
+    })
+
+    expect(render(usePopupStore.getState().popupComponent || <></>).toJSON()).toMatchSnapshot()
+  })
 })

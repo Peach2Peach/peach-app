@@ -23,5 +23,5 @@ export const PopupComponent = ({ content, actions, title, bgColor, actionBgColor
 )
 
 function PopupTitle ({ text }: { text: string }) {
-  return <Text style={tw`h5`}>{text}</Text>
+  return <Text style={tw`w-full h5`}>{text}</Text>
 }
