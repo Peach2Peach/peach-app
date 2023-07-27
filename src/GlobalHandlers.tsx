@@ -1,13 +1,14 @@
+import { useEffect } from 'react'
 import { shallow } from 'zustand/shallow'
-import { useMarketPrices, useUpdateTradingAmounts, useShouldShowBackupReminder } from './hooks'
+import { useMarketPrices, useShouldShowBackupReminder, useUpdateTradingAmounts } from './hooks'
+import { useHandleNotifications } from './hooks/notifications/useHandleNotifications'
 import { useMessageHandler } from './hooks/notifications/useMessageHandler'
+import { useShowUpdateAvailable } from './hooks/useShowUpdateAvailable'
+import { useInitialNavigation } from './init/useInitialNavigation'
+import { useShowAnalyticsPopup } from './popups/useShowAnalyticsPopup'
 import { useBitcoinStore } from './store/bitcoinStore'
 import { useSettingsStore } from './store/settingsStore'
-import { useInitialNavigation } from './init/useInitialNavigation'
-import { useShowUpdateAvailable } from './hooks/useShowUpdateAvailable'
-import { useEffect } from 'react'
-import { useHandleNotifications } from './hooks/notifications/useHandleNotifications'
-import { useShowAnalyticsPopup } from './popups/useShowAnalyticsPopup'
+import { useDynamicLinks } from './hooks/useDynamicLinks'
 
 type Props = {
   currentPage: keyof RootStackParamList | undefined
@@ -25,6 +26,7 @@ export const GlobalHandlers = ({ currentPage }: Props) => {
   useShouldShowBackupReminder()
   useInitialNavigation()
   useShowUpdateAvailable()
+  useDynamicLinks()
 
   useEffect(() => {
     if (!useSettingsStore.persist?.hasHydrated()) return
