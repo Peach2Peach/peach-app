@@ -137,4 +137,19 @@ describe('useOfferMatches', () => {
     })
     expect(result.current.allMatches).toEqual(['match'])
   })
+  it('should apply sorting to the matches', async () => {
+    const { result } = renderHook(useOfferMatches, {
+      initialProps: 'offerId',
+      wrapper: QueryClientWrapper,
+    })
+    await waitFor(() => {
+      expect(result.current.isSuccess).toBe(true)
+    })
+
+    expect(getMatchesMock).toHaveBeenCalledWith(
+      expect.objectContaining({
+        sortBy: ['bestReputation'],
+      }),
+    )
+  })
 })

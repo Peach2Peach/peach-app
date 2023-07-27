@@ -67,6 +67,9 @@
 		1CF849D1483A45BBA5696383 /* libPods-peach-peachTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-peach-peachTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D93F5B2771A4DC39AE22AC6 /* Baloo2-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Baloo2-Regular.ttf"; path = "../assets/fonts/Baloo2-Regular.ttf"; sourceTree = "<group>"; };
 		67094FCB26B447E200F2F356 /* peach.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = peach.entitlements; path = peach/peach.entitlements; sourceTree = "<group>"; };
+		6709C1062A669A0D00A5A4F3 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		6709C1112A669A2F00A5A4F3 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
+		6709C1122A669A3600A5A4F3 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		671A56452850E9AE0058434C /* Peach Bitcoin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Peach Bitcoin.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		671A56462850E9AE0058434C /* peach mainnet-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "peach mainnet-Info.plist"; path = "/Users/czino/Projects/peach-app/ios/peach mainnet-Info.plist"; sourceTree = "<absolute>"; };
 		672B1301288AF7240089147A /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -379,6 +382,9 @@
 				en,
 				Base,
 				es,
+				de,
+				fr,
+				it,
 			);
 			mainGroup = 83CBB9F61A601CBA00E9B192;
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
@@ -760,6 +766,9 @@
 			children = (
 				672B1301288AF7240089147A /* Base */,
 				67F84F052A03E9BA00E7B546 /* es */,
+				6709C1062A669A0D00A5A4F3 /* de */,
+				6709C1112A669A2F00A5A4F3 /* it */,
+				6709C1122A669A3600A5A4F3 /* fr */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";

@@ -1,0 +1,120 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ClosePopupAction should render correctly 1`] = `
+<View
+  accessibilityState={
+    {
+      "busy": undefined,
+      "checked": undefined,
+      "disabled": undefined,
+      "expanded": undefined,
+      "selected": undefined,
+    }
+  }
+  accessibilityValue={
+    {
+      "max": undefined,
+      "min": undefined,
+      "now": undefined,
+      "text": undefined,
+    }
+  }
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    {
+      "alignItems": "center",
+      "flexDirection": "row",
+      "flexGrow": 1,
+      "gap": 4,
+      "opacity": 1,
+      "paddingBottom": 8,
+      "paddingLeft": 24,
+      "paddingRight": 24,
+      "paddingTop": 8,
+    }
+  }
+>
+  <test-file-stub
+    fill="#FFFCFA"
+    style={
+      [
+        {
+          "height": 16,
+          "width": 16,
+        },
+        undefined,
+      ]
+    }
+  />
+  <Text
+    allowFontScaling={false}
+    style={
+      [
+        {
+          "color": "#2B1911",
+          "fontFamily": "Baloo2-Regular",
+          "fontSize": 16,
+          "letterSpacing": 0.16,
+          "lineHeight": 24,
+        },
+        [
+          {
+            "color": "#FFFCFA",
+            "fontFamily": "Baloo2-SemiBold",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 28,
+          },
+          undefined,
+        ],
+      ]
+    }
+  >
+    close
+  </Text>
+</View>
+`;
+
+exports[`ClosePopupAction should render correctly with custom text style 1`] = `
+"Snapshot Diff:
+- First value
++ Second value
+
+@@ -39,11 +39,11 @@
+        "paddingTop": 8,
+      }
+    }
+  >
+    <test-file-stub
+-     fill="#FFFCFA"
++     fill="red"
+      style={
+        Array [
+          Object {
+            "height": 16,
+            "width": 16,
+@@ -69,11 +69,13 @@
+              "fontFamily": "Baloo2-SemiBold",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 28,
+            },
+-           undefined,
++           Object {
++             "color": "red",
++           },
+          ],
+        ]
+      }
+    >
+      close"
+`;

@@ -1,5 +1,6 @@
 import { useCallback } from 'react'
 import { shallow } from 'zustand/shallow'
+import { FIFTEEN_SECONDS } from '../constants'
 import { useRefundEscrow } from '../hooks/useRefundEscrow'
 import { useShowErrorBanner } from '../hooks/useShowErrorBanner'
 import { useShowLoadingPopup } from '../hooks/useShowLoadingPopup'
@@ -17,7 +18,10 @@ export const useStartRefundPopup = () => {
     async (sellOffer: SellOffer) => {
       showLoadingPopup({ title: i18n('refund.loading.title') })
 
-      const [refundPsbtResult, refundPsbtError] = await getRefundPSBT({ offerId: sellOffer.id, timeout: 15 * 1000 })
+      const [refundPsbtResult, refundPsbtError] = await getRefundPSBT({
+        offerId: sellOffer.id,
+        timeout: FIFTEEN_SECONDS,
+      })
       if (refundPsbtResult) {
         await refundEscrow(sellOffer, refundPsbtResult.psbt)
       } else {

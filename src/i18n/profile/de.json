@@ -1,0 +1,17 @@
+{
+  "profile.accountCreated" : "Konto erstellt",
+  "profile.daysAgo" : "vor $0 Tagen",
+  "profile.disputes" : "Streitfälle",
+  "profile.disputesLost" : "verloren",
+  "profile.disputesOpened" : "eröffnet",
+  "profile.disputesWon" : "gewonnen",
+  "profile.myAccount.title" : "mein Konto",
+  "profile.numberOfTrades" : "Anzahl der Trades",
+  "profile.publicKey" : "Kontopubkey",
+  "profile.tradingLimits" : "Handelslimits",
+  "profile.tradingLimits.daily" : "tägliches Handelslimit",
+  "profile.tradingLimits.monthly" : "monatliches anonymes Limit:",
+  "profile.tradingLimits.yearly" : "jährliches Handelslimit:",
+  "profile.tradingLimits.yearly.short" : "jährliches Limit:",
+  "profile.user.title" : "öffentliches Profil"
+}

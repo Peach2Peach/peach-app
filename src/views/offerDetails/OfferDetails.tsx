@@ -1,4 +1,3 @@
-import tw from '../../styles/tailwind'
 import { isSellOffer } from '../../utils/offer'
 
 import { LoadingScreen } from '../loading/LoadingScreen'
@@ -9,9 +8,5 @@ import { useOfferDetailsSetup } from './useOfferDetailsSetup'
 export const OfferDetails = () => {
   const offer = useOfferDetailsSetup()
 
-  return isCanceledOffer(offer) && isSellOffer(offer) ? (
-    <OfferSummary offer={offer} style={tw`mx-8`} />
-  ) : (
-    <LoadingScreen />
-  )
+  return isCanceledOffer(offer) && isSellOffer(offer) ? <OfferSummary offer={offer} /> : <LoadingScreen />
 }

@@ -27,12 +27,7 @@ exports[`SelectPaymentMethod should render correctly 1`] = `
           },
         ]
       }
-      onChange={[Function]}
-      style={
-        {
-          "alignItems": "center",
-        }
-      }
+      onButtonPress={[Function]}
     />
   </ForwardRef>
   <PrimaryButton

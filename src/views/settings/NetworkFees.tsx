@@ -35,7 +35,7 @@ export const NetworkFees = () => {
   return (
     <View style={tw`flex-1`}>
       <PeachScrollView contentContainerStyle={tw`justify-center flex-1 p-8`}>
-        <RadioButtons items={options} selectedValue={selectedFeeRate} onChange={setSelectedFeeRate} />
+        <RadioButtons items={options} selectedValue={selectedFeeRate} onButtonPress={setSelectedFeeRate} />
         <HorizontalLine style={tw`mt-8`} />
         <Text style={tw`mt-4 text-center text-black-2`}>{i18n('settings.networkFees.averageFees')}</Text>
         <Text style={tw`text-center subtitle-1`}>

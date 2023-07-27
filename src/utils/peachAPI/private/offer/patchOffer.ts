@@ -10,9 +10,16 @@ type PatchOfferProps = RequestProps & {
   refundAddress?: string
   refundTx?: string
   premium?: number
-}
+} & Partial<MatchFilter>
 
-export const patchOffer = async ({ offerId, refundAddress, refundTx, premium, timeout }: PatchOfferProps) => {
+export const patchOffer = async ({
+  offerId,
+  refundAddress,
+  refundTx,
+  premium,
+  timeout,
+  maxPremium,
+}: PatchOfferProps) => {
   const response = await fetch(`${API_URL}/v1/offer/${offerId}`, {
     headers: await getPrivateHeaders(),
     method: 'PATCH',
@@ -20,6 +27,7 @@ export const patchOffer = async ({ offerId, refundAddress, refundTx, premium, ti
       refundAddress,
       refundTx,
       premium,
+      maxPremium,
     }),
     signal: timeout ? getAbortWithTimeout(timeout).signal : undefined,
   })

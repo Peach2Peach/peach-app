@@ -1,0 +1,138 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Popup should render correctly 1`] = `
+<Modal
+  hardwareAccelerated={false}
+  onRequestClose={[MockFunction]}
+  transparent={true}
+  visible={true}
+>
+  <View
+    style={
+      {
+        "flexBasis": "0%",
+        "flexGrow": 1,
+        "flexShrink": 1,
+        "justifyContent": "center",
+      }
+    }
+  >
+    <Memo(Pressable)
+      onPress={[MockFunction]}
+      style={
+        {
+          "backgroundColor": "#2B1911",
+          "height": "100%",
+          "opacity": 0.4,
+          "position": "absolute",
+          "width": "100%",
+        }
+      }
+    />
+    <View
+      style={
+        [
+          {
+            "backgroundColor": "#9F8C82",
+          },
+          {
+            "borderRadius": 16,
+            "marginLeft": 24,
+            "marginRight": 24,
+          },
+        ]
+      }
+    >
+      <View
+        style={
+          [
+            {
+              "borderTopLeftRadius": 16,
+              "borderTopRightRadius": 16,
+              "paddingBottom": 16,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 16,
+            },
+            {
+              "backgroundColor": "#FFFCFA",
+            },
+          ]
+        }
+      />
+      <View
+        style={
+          [
+            {
+              "flexDirection": "row",
+              "paddingLeft": 16,
+              "paddingRight": 16,
+            },
+            {
+              "justifyContent": "center",
+            },
+          ]
+        }
+      >
+        <PopupAction
+          color={
+            {
+              "color": "#FFFCFA",
+            }
+          }
+          iconId="xSquare"
+          label="close"
+          onPress={[MockFunction]}
+          style={
+            [
+              {
+                "paddingBottom": 8,
+                "paddingTop": 8,
+              },
+              {
+                "justifyContent": "center",
+              },
+            ]
+          }
+        />
+      </View>
+    </View>
+  </View>
+</Modal>
+`;
+
+exports[`Popup should render the popup component if it exists 1`] = `
+<Modal
+  hardwareAccelerated={false}
+  onRequestClose={[MockFunction]}
+  transparent={true}
+  visible={true}
+>
+  <View
+    style={
+      {
+        "flexBasis": "0%",
+        "flexGrow": 1,
+        "flexShrink": 1,
+        "justifyContent": "center",
+      }
+    }
+  >
+    <Memo(Pressable)
+      onPress={[MockFunction]}
+      style={
+        {
+          "backgroundColor": "#2B1911",
+          "height": "100%",
+          "opacity": 0.4,
+          "position": "absolute",
+          "width": "100%",
+        }
+      }
+    />
+    <Text>
+      Popup Component
+    </Text>
+  </View>
+</Modal>
+`;

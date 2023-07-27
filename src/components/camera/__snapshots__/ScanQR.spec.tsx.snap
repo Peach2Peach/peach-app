@@ -1,0 +1,238 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ScanQR renders correctly 1`] = `
+<Modal
+  hardwareAccelerated={false}
+  onRequestClose={[MockFunction]}
+  transparent={false}
+  visible={true}
+>
+  <View
+    collapsable={false}
+    style={
+      {
+        "backgroundColor": "#FFFCFA",
+        "height": "100%",
+        "opacity": 0,
+        "width": "100%",
+      }
+    }
+  >
+    <RNCamera
+      androidCameraPermissionOptions={
+        {
+          "buttonPositive": "OK",
+          "message": "Need camera permission",
+          "title": "Info",
+        }
+      }
+      captureAudio={false}
+      onBarCodeRead={[Function]}
+    >
+      <View
+        style={
+          {
+            "backgroundColor": "#F56522",
+            "height": "100%",
+            "width": "100%",
+          }
+        }
+      >
+        <RNSVGSvgView
+          bbHeight="100%"
+          bbWidth="100%"
+          focusable={false}
+          style={
+            [
+              {
+                "backgroundColor": "transparent",
+                "borderWidth": 0,
+              },
+              {
+                "height": "100%",
+                "left": 0,
+                "position": "absolute",
+                "top": 0,
+                "width": "100%",
+              },
+              {
+                "flex": 0,
+                "height": "100%",
+                "width": "100%",
+              },
+            ]
+          }
+        >
+          <RNSVGGroup
+            fill={
+              {
+                "payload": 4278190080,
+                "type": 0,
+              }
+            }
+          >
+            <RNSVGDefs>
+              <RNSVGMask
+                fill={
+                  {
+                    "payload": 4278190080,
+                    "type": 0,
+                  }
+                }
+                height="100%"
+                maskContentUnits={1}
+                maskUnits={0}
+                name="mask"
+                width="100%"
+                x="0"
+                y="0"
+              >
+                <RNSVGRect
+                  fill={
+                    {
+                      "payload": 4294967295,
+                      "type": 0,
+                    }
+                  }
+                  height="100%"
+                  propList={
+                    [
+                      "fill",
+                    ]
+                  }
+                  width="100%"
+                  x="0"
+                  y="0"
+                />
+                <RNSVGRect
+                  fill={
+                    {
+                      "payload": 4278190080,
+                      "type": 0,
+                    }
+                  }
+                  height="40%"
+                  propList={
+                    [
+                      "fill",
+                    ]
+                  }
+                  rx="20"
+                  width="80%"
+                  x="10%"
+                  y="30%"
+                />
+              </RNSVGMask>
+            </RNSVGDefs>
+            <RNSVGRect
+              fill={
+                {
+                  "payload": 2566914048,
+                  "type": 0,
+                }
+              }
+              height="100%"
+              mask="mask"
+              propList={
+                [
+                  "fill",
+                ]
+              }
+              width="100%"
+              x="0"
+              y="0"
+            />
+          </RNSVGGroup>
+        </RNSVGSvgView>
+        <RCTSafeAreaView
+          style={
+            {
+              "paddingBottom": 8,
+              "paddingTop": 8,
+            }
+          }
+        >
+          <View
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": undefined,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              {
+                "alignItems": "center",
+                "flexDirection": "row",
+                "marginLeft": 12,
+                "opacity": 1,
+              }
+            }
+          >
+            <test-file-stub
+              fill="#FFFCFA"
+              style={
+                [
+                  {
+                    "height": 24,
+                    "width": 24,
+                  },
+                  {
+                    "height": 24,
+                    "marginRight": 4,
+                    "width": 24,
+                  },
+                ]
+              }
+            />
+            <Text
+              allowFontScaling={false}
+              numberOfLines={1}
+              style={
+                [
+                  {
+                    "color": "#2B1911",
+                    "fontFamily": "Baloo2-Regular",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 24,
+                  },
+                  {
+                    "color": "#FFFCFA",
+                    "fontFamily": "Baloo2-Bold",
+                    "fontSize": 20,
+                    "letterSpacing": 0.2,
+                    "lineHeight": 32,
+                  },
+                ]
+              }
+            >
+              scan QR code
+            </Text>
+          </View>
+        </RCTSafeAreaView>
+      </View>
+    </RNCamera>
+  </View>
+</Modal>
+`;

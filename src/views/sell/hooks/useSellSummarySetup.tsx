@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { shallow } from 'zustand/shallow'
 import { useHeaderSetup, useNavigation } from '../../../hooks'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
@@ -9,6 +9,7 @@ import { headerIcons } from '../../../utils/layout/headerIcons'
 import { defaultFundingStatus } from '../../../utils/offer/constants'
 import { peachWallet } from '../../../utils/wallet/setWallet'
 import { publishSellOffer } from '../helpers/publishSellOffer'
+import { useGlobalSortAndFilterPopup } from '../../search/hooks/useSortAndFilterPopup'
 
 export const useSellSummarySetup = () => {
   const navigation = useNavigation()
@@ -58,10 +59,7 @@ export const useSellSummarySetup = () => {
     }
     setIsPublishing(false)
   }
-  useHeaderSetup({
-    title: i18n('sell.summary.title'),
-    icons: [{ ...headerIcons.wallet, onPress: () => navigation.navigate('selectWallet', { type: 'refund' }) }],
-  })
+  useSellSummaryHeaderSetup()
 
   useEffect(() => {
     ;(async () => {
@@ -84,4 +82,20 @@ export const useSellSummarySetup = () => {
   }, [payoutAddressLabel, peachWalletActive])
 
   return { canPublish, publishOffer, isPublishing, offerDraft }
+}
+
+function useSellSummaryHeaderSetup () {
+  const navigation = useNavigation()
+  const showSortAndFilterPopup = useGlobalSortAndFilterPopup('sell')
+  const icons = useMemo(
+    () => [
+      { ...headerIcons.sellFilter, onPress: showSortAndFilterPopup },
+      { ...headerIcons.wallet, onPress: () => navigation.navigate('selectWallet', { type: 'refund' }) },
+    ],
+    [navigation, showSortAndFilterPopup],
+  )
+  useHeaderSetup({
+    title: i18n('sell.summary.title'),
+    icons,
+  })
 }

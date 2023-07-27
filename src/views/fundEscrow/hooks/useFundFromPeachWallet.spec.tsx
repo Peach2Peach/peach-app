@@ -1,7 +1,7 @@
 import { renderHook } from '@testing-library/react-native'
 import { act } from 'react-test-renderer'
 import { estimatedFees } from '../../../../tests/unit/data/bitcoinNetworkData'
-import { transactionError, insufficientFunds } from '../../../../tests/unit/data/errors'
+import { transactionError } from '../../../../tests/unit/data/errors'
 import { sellOffer } from '../../../../tests/unit/data/offerData'
 import { getTransactionDetails } from '../../../../tests/unit/helpers/getTransactionDetails'
 import { Loading } from '../../../components'
@@ -183,7 +183,7 @@ describe('useFundFromPeachWallet', () => {
     peachWallet.balance = amount
     peachWallet.finishTransaction = jest.fn().mockImplementation(() => {
       call++
-      if (call === 1) throw insufficientFunds
+      if (call === 1) throw transactionError
       return getTransactionDetails(amount, feeRate)
     })
 
@@ -214,7 +214,7 @@ describe('useFundFromPeachWallet', () => {
     peachWallet.balance = amount
     peachWallet.finishTransaction = jest.fn().mockImplementation(() => {
       call++
-      if (call === 1) throw insufficientFunds
+      if (call === 1) throw transactionError
       return txDetails
     })
     peachWallet.signAndBroadcastPSBT = jest.fn().mockResolvedValue(txDetails.psbt)

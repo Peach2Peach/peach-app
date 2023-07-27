@@ -4,7 +4,7 @@ import { toggleNotificationsIOS } from '.'
 
 jest.mock('react-native', () => ({
   Linking: {
-    openURL: jest.fn(),
+    openSettings: jest.fn(),
   },
 }))
 
@@ -24,6 +24,6 @@ describe('toggleNotificationsIOS', () => {
   it('opens the settings page when notification authorization is determined', async () => {
     hasPermissionMock.mockResolvedValueOnce(messaging.AuthorizationStatus.AUTHORIZED)
     await toggleNotificationsIOS()
-    expect(Linking.openURL).toHaveBeenCalledWith('app-settings://')
+    expect(Linking.openSettings).toHaveBeenCalled()
   })
 })

@@ -42,9 +42,10 @@ exports[`DrawerOptions renders correctly when there are highlighted options 1`] 
         style={
           [
             {
-              "alignSelf": "stretch",
               "backgroundColor": "#EAE3DF",
+              "flexShrink": 1,
               "height": 1,
+              "width": "100%",
             },
             {
               "backgroundColor": "#FCCCB6",
@@ -79,9 +80,10 @@ exports[`DrawerOptions renders correctly when there are options 1`] = `
         style={
           [
             {
-              "alignSelf": "stretch",
               "backgroundColor": "#EAE3DF",
+              "flexShrink": 1,
               "height": 1,
+              "width": "100%",
             },
             undefined,
           ]

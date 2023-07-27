@@ -23,6 +23,7 @@ declare type BuyOfferDraft = OfferDraft & {
   releaseAddress: string
   message?: string
   messageSignature?: string
+  maxPremium: number | null
 }
 
 declare type BuyOffer = BuyOfferDraft &
@@ -30,4 +31,5 @@ declare type BuyOffer = BuyOfferDraft &
     id: string
     matched: Offer['id'][]
     seenMatches: Offer['id'][]
+    maxPremium: number | null
   }

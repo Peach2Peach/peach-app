@@ -1,0 +1,253 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PopupAction renders correctly 1`] = `
+<View
+  accessibilityState={
+    {
+      "busy": undefined,
+      "checked": undefined,
+      "disabled": undefined,
+      "expanded": undefined,
+      "selected": undefined,
+    }
+  }
+  accessibilityValue={
+    {
+      "max": undefined,
+      "min": undefined,
+      "now": undefined,
+      "text": undefined,
+    }
+  }
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    {
+      "alignItems": "center",
+      "flexDirection": "row",
+      "flexGrow": 1,
+      "gap": 4,
+      "opacity": 1,
+      "paddingBottom": 8,
+      "paddingLeft": 24,
+      "paddingRight": 24,
+      "paddingTop": 8,
+    }
+  }
+>
+  <test-file-stub
+    fill="#FFFCFA"
+    style={
+      [
+        {
+          "height": 16,
+          "width": 16,
+        },
+        undefined,
+      ]
+    }
+  />
+  <Text
+    allowFontScaling={false}
+    style={
+      [
+        {
+          "color": "#2B1911",
+          "fontFamily": "Baloo2-Regular",
+          "fontSize": 16,
+          "letterSpacing": 0.16,
+          "lineHeight": 24,
+        },
+        [
+          {
+            "color": "#FFFCFA",
+            "fontFamily": "Baloo2-SemiBold",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 28,
+          },
+          undefined,
+        ],
+      ]
+    }
+  >
+    label
+  </Text>
+</View>
+`;
+
+exports[`PopupAction renders correctly when applying style 1`] = `
+<View
+  accessibilityState={
+    {
+      "busy": undefined,
+      "checked": undefined,
+      "disabled": undefined,
+      "expanded": undefined,
+      "selected": undefined,
+    }
+  }
+  accessibilityValue={
+    {
+      "max": undefined,
+      "min": undefined,
+      "now": undefined,
+      "text": undefined,
+    }
+  }
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    {
+      "alignItems": "center",
+      "flexDirection": "row",
+      "flexGrow": 1,
+      "gap": 4,
+      "opacity": 1,
+      "paddingBottom": 8,
+      "paddingLeft": 24,
+      "paddingRight": 24,
+      "paddingTop": 8,
+    }
+  }
+>
+  <test-file-stub
+    fill="#FFFCFA"
+    style={
+      [
+        {
+          "height": 16,
+          "width": 16,
+        },
+        undefined,
+      ]
+    }
+  />
+  <Text
+    allowFontScaling={false}
+    style={
+      [
+        {
+          "color": "#2B1911",
+          "fontFamily": "Baloo2-Regular",
+          "fontSize": 16,
+          "letterSpacing": 0.16,
+          "lineHeight": 24,
+        },
+        [
+          {
+            "color": "#FFFCFA",
+            "fontFamily": "Baloo2-SemiBold",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 28,
+          },
+          undefined,
+        ],
+      ]
+    }
+  >
+    label
+  </Text>
+</View>
+`;
+
+exports[`PopupAction renders correctly with reversed order 1`] = `
+<View
+  accessibilityState={
+    {
+      "busy": undefined,
+      "checked": undefined,
+      "disabled": undefined,
+      "expanded": undefined,
+      "selected": undefined,
+    }
+  }
+  accessibilityValue={
+    {
+      "max": undefined,
+      "min": undefined,
+      "now": undefined,
+      "text": undefined,
+    }
+  }
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    {
+      "alignItems": "center",
+      "flexDirection": "row-reverse",
+      "flexGrow": 1,
+      "gap": 4,
+      "opacity": 1,
+      "paddingBottom": 8,
+      "paddingLeft": 24,
+      "paddingRight": 24,
+      "paddingTop": 8,
+    }
+  }
+>
+  <test-file-stub
+    fill="#FFFCFA"
+    style={
+      [
+        {
+          "height": 16,
+          "width": 16,
+        },
+        undefined,
+      ]
+    }
+  />
+  <Text
+    allowFontScaling={false}
+    style={
+      [
+        {
+          "color": "#2B1911",
+          "fontFamily": "Baloo2-Regular",
+          "fontSize": 16,
+          "letterSpacing": 0.16,
+          "lineHeight": 24,
+        },
+        [
+          {
+            "color": "#FFFCFA",
+            "fontFamily": "Baloo2-SemiBold",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 28,
+          },
+          undefined,
+        ],
+      ]
+    }
+  >
+    label
+  </Text>
+</View>
+`;

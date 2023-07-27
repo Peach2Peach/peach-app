@@ -1,6 +1,8 @@
 import { Text } from 'react-native'
 import { defaultPopupState, usePopupStore } from './usePopupStore'
 
+const MockContent = () => <Text>Test</Text>
+
 describe('usePopupStore', () => {
   afterEach(() => {
     usePopupStore.setState(defaultPopupState)
@@ -15,15 +17,19 @@ describe('usePopupStore', () => {
     expect(usePopupStore.getState().visible).toBe(false)
   })
   it('should update the content of a popup when passed to setPopup', () => {
-    const Content = () => <Text>Test</Text>
-    usePopupStore.getState().setPopup({ content: <Content /> })
-    expect(usePopupStore.getState().content).toStrictEqual(<Content />)
+    usePopupStore.getState().setPopup({ content: <MockContent /> })
+    expect(usePopupStore.getState().content).toStrictEqual(<MockContent />)
   })
   it('should overwrite existing content when no content is passed to setPopup', () => {
-    const Content = () => <Text>Test</Text>
-    usePopupStore.getState().setPopup({ content: <Content /> })
+    usePopupStore.getState().setPopup({ content: <MockContent /> })
     usePopupStore.getState().setPopup()
     expect(usePopupStore.getState().content).toStrictEqual(undefined)
+  })
+  it('should update the popupComponent when passed to setPopup', () => {
+    usePopupStore.getState().setPopup(<MockContent />)
+    expect(usePopupStore.getState().popupComponent).toStrictEqual(<MockContent />)
+    expect(usePopupStore.getState().visible).toBe(true)
+    expect(usePopupStore.getState().requireUserAction).toBe(false)
   })
   it('should update the title of a popup when passed to setPopup', () => {
     usePopupStore.getState().setPopup({ title: 'Test' })
