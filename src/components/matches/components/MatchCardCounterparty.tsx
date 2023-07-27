@@ -1,7 +1,7 @@
 import { View } from 'react-native'
 import tw from '../../../styles/tailwind'
 
-import { NewBadges } from '../../../views/publicProfile/components/Badges'
+import { MatchBadges } from '../../../views/publicProfile/components/Badges'
 import { UserId, Rating } from '../../../views/settings/profile/profileOverview/components'
 
 type Props = { user: User; isDispute?: boolean }
@@ -15,7 +15,7 @@ export const MatchCardCounterparty = ({ user, isDispute = false }: Props) => {
         <Rating rating={user.rating} isNewUser={isNewUser} />
       </View>
 
-      {!isNewUser && <NewBadges user={user} isDispute={isDispute} />}
+      {!isNewUser && <MatchBadges user={user} isDispute={isDispute} />}
     </View>
   )
 }

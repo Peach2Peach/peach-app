@@ -7,12 +7,12 @@ import i18n from '../../../utils/i18n'
 import { badges } from '../../settings/profile/profileOverview/components/badges'
 import { Badge } from './Badge'
 
-export const Badges = ({ user }: { user: User }) => {
+export const ProfileBadges = ({ user }: { user: User }) => {
   const openPeachBadgesPopup = useShowHelp('myBadges')
   const { medals: unlockedBadges } = user
 
   return (
-    <TouchableOpacity style={tw`flex-row flex-wrap items-center justify-center`} onPress={openPeachBadgesPopup}>
+    <TouchableOpacity style={tw`flex-row items-center justify-between w-full`} onPress={openPeachBadgesPopup}>
       {badges.map(([iconId, badgeName]) => (
         <View key={`profileOverviewIcon-${iconId}`} style={tw`flex-row items-center mr-2`}>
           <View
@@ -37,7 +37,7 @@ export const Badges = ({ user }: { user: User }) => {
   )
 }
 
-export const NewBadges = ({ user, isDispute = false }: { user: User; isDispute?: boolean }) => {
+export const MatchBadges = ({ user, isDispute = false }: { user: User; isDispute?: boolean }) => {
   const openPeachBadgesPopup = useShowHelp('myBadges')
   const { medals: unlockedBadges } = user
 

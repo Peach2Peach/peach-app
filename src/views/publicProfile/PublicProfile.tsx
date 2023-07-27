@@ -1,4 +1,4 @@
-import { View } from 'react-native'
+import { Screen } from '../../components'
 
 import { useCurrentUser, useHeaderSetup } from '../../hooks'
 import tw from '../../styles/tailwind'
@@ -12,9 +12,9 @@ export const PublicProfile = () => {
   if (isLoading || !user) return <></>
 
   return (
-    <View style={tw`h-full px-8`}>
-      <ProfileOverview style={tw`mt-[48.5px] items-start`} user={user} />
-      <AccountInfo style={tw`ml-1 mt-13`} user={user} />
-    </View>
+    <Screen style={[tw`pt-sm gap-48px`, tw.md`pt-md`]}>
+      <ProfileOverview user={user} />
+      <AccountInfo user={user} />
+    </Screen>
   )
 }
