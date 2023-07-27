@@ -21,8 +21,8 @@ export const useContractSetup = () => {
   const route = useRoute<'contract'>()
   const { contractId } = route.params
   const isFocused = useIsFocused()
-  const { contract, saveAndUpdate, isLoading, view, requiredAction, newOfferId, refetch }
-    = useCommonContractSetup(contractId)
+  const { contract, saveAndUpdate, isLoading, view, requiredAction, newOfferId, refetch } =
+    useCommonContractSetup(contractId)
   const navigation = useNavigation()
   const showError = useShowErrorBanner()
 
@@ -65,7 +65,7 @@ export const useContractSetup = () => {
     setActionPending(true)
 
     const sellOffer = getSellOfferFromContract(contract)
-    const [tx, errorMsg] = verifyAndSignReleaseTx(contract, sellOffer, getEscrowWalletForOffer(sellOffer))
+    const [tx, errorMsg, batchMode] = verifyAndSignReleaseTx(contract, sellOffer, getEscrowWalletForOffer(sellOffer))
 
     if (!tx) {
       setActionPending(false)
@@ -73,7 +73,11 @@ export const useContractSetup = () => {
       return
     }
 
-    const [result, err] = await confirmPayment({ contractId, releaseTransaction: tx })
+    const [result, err] = await confirmPayment({
+      contractId: contract.id,
+      releaseTransaction: !batchMode ? tx : undefined,
+      batchReleasePsbt: batchMode ? tx : undefined,
+    })
 
     setActionPending(false)
 
