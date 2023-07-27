@@ -1,8 +1,8 @@
 import { BIP32Interface } from 'bip32'
 import { Psbt } from 'bitcoinjs-lib'
-import { verifyPSBT } from '../../views/contract/helpers'
+import { isPSBTForBatch, verifyPSBT } from '../../views/contract/helpers'
 import { signAndFinalizePSBT } from '../bitcoin'
-import { getNetwork } from '../wallet'
+import { getNetwork, signPSBT } from '../wallet'
 
 export const verifyAndSignReleaseTx = (
   contract: Contract,
@@ -20,8 +20,11 @@ export const verifyAndSignReleaseTx = (
 
   if (errorMsg) return [null, errorMsg]
 
+  if (isPSBTForBatch(psbt)) {
+    signPSBT(psbt, wallet)
+    return [psbt.toBase64(), null]
+  }
   signAndFinalizePSBT(psbt, wallet)
-
   const tx = psbt.extractTransaction().toHex()
 
   return [tx, null]
