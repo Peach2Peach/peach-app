@@ -11,7 +11,7 @@ exports[`ScanQR renders correctly 1`] = `
     collapsable={false}
     style={
       {
-        "backgroundColor": "#FFFCFA",
+        "backgroundColor": "#2B1911",
         "height": "100%",
         "opacity": 0,
         "width": "100%",
@@ -28,11 +28,15 @@ exports[`ScanQR renders correctly 1`] = `
       }
       captureAudio={false}
       onBarCodeRead={[Function]}
+      style={
+        {
+          "backgroundColor": "transparent",
+        }
+      }
     >
       <View
         style={
           {
-            "backgroundColor": "#F56522",
             "height": "100%",
             "width": "100%",
           }
