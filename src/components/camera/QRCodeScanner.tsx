@@ -30,7 +30,7 @@ export const QRCodeScanner = ({ customMarker, onRead }: Props) => {
   }
 
   return (
-    <Animated.View style={[tw`w-full h-full bg-primary-background-light`, { opacity: fadeInOpacity }]}>
+    <Animated.View style={[tw`w-full h-full bg-black-1`, { opacity: fadeInOpacity }]}>
       <RNCamera
         androidCameraPermissionOptions={{
           title: 'Info',
@@ -39,6 +39,7 @@ export const QRCodeScanner = ({ customMarker, onRead }: Props) => {
         }}
         onBarCodeRead={onBarCodeRead}
         captureAudio={false}
+        style={tw`bg-transparent`}
       >
         {customMarker}
       </RNCamera>

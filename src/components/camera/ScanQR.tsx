@@ -19,7 +19,7 @@ export const ScanQR = ({ onRead, onCancel }: ScanQRProps) => (
 
 function CustomMarker ({ onCancel }: Pick<ScanQRProps, 'onCancel'>) {
   return (
-    <View style={tw`w-full h-full bg-primary-main`}>
+    <View style={tw`w-full h-full`}>
       <CircleMask />
       <SafeAreaView style={tw`py-2`}>
         <TouchableOpacity style={tw`flex-row items-center ml-3`} onPress={onCancel}>
