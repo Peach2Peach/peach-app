@@ -1,5 +1,5 @@
 import { Text } from '.'
-import { priceFormat } from '../../utils/string'
+import { groupChars, priceFormat } from '../../utils/string'
 
 type Props = ComponentProps & {
   amount: number
@@ -9,6 +9,6 @@ type Props = ComponentProps & {
 
 export const PriceFormat = ({ amount, currency, round, style }: Props) => (
   <Text style={style}>
-    {priceFormat(amount, round)} {currency}
+    {currency === 'SAT' ? groupChars(amount.toFixed(), 3) : priceFormat(amount, round)} {currency}
   </Text>
 )
