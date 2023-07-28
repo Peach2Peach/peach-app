@@ -8,7 +8,7 @@ describe('getAllPaymentMethods', () => {
     nationalOption: ['mbWay', 'bizum', 'satispay', 'mobilePay'],
     giftCard: [],
     cash: [],
-    other: ['liquid'],
+    other: ['liquid', 'lnurl'],
   }
   it('returns all payment methods', () => {
     deepStrictEqual(getAllPaymentMethods(paymentCategories), [
@@ -23,6 +23,7 @@ describe('getAllPaymentMethods', () => {
       'satispay',
       'mobilePay',
       'liquid',
+      'lnurl',
     ])
   })
 })

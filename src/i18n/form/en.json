@@ -10,6 +10,8 @@
   "form.address.btc.error" : "bitcoin address is invalid",
   "form.address.btc.placeholder" : "bc1q ...",
   "form.address.label.placeholder" : "address label",
+  "form.address.lnurl" : "LNURL address",
+  "form.address.lnurl.placeholder" : "satoshi@lightning.gmx.com",
   "form.address.placeholder" : "address",
   "form.address.taproot.error" : "direct taproot payouts are not supported",
   "form.beneficiary" : "account holder name",

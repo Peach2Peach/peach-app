@@ -18,7 +18,10 @@ export const tradeInformationGetters: Record<
   | 'location',
   (contract: Contract) => string | number | JSX.Element | undefined
 > = {
-  price: (contract: Contract) => `${priceFormat(contract.price)} ${contract.currency}`,
+  price: (contract: Contract) =>
+    `${contract.currency === 'SAT' ? groupChars(String(contract.price), 3) : priceFormat(contract.price)} ${
+      contract.currency
+    }`,
   paidToMethod: (contract: Contract) => {
     if (!contract.paymentData) return undefined
     return usePaymentDataStore.getState().searchPaymentData(contract.paymentData)[0]?.label
@@ -30,9 +33,11 @@ export const tradeInformationGetters: Record<
     return <WalletLabel label={buyOffer.walletLabel} address={buyOffer.releaseAddress} />
   },
   bitcoinAmount: (contract: Contract) => contract.amount,
-  bitcoinPrice: (contract: Contract) =>
-    `${groupChars(getBitcoinPriceFromContract(contract).toString(), 3)} ${contract.currency}`,
-
+  bitcoinPrice: (contract: Contract) => {
+    const bitcoinPrice = getBitcoinPriceFromContract(contract)
+    if (contract.currency === 'SAT') return `${groupChars(String(bitcoinPrice), 3)} ${contract.currency}`
+    return `${priceFormat(bitcoinPrice)} ${contract.currency}`
+  },
   via: (contract: Contract) => getPaymentMethodName(contract.paymentMethod),
   method: (contract: Contract) => getPaymentMethodName(contract.paymentMethod),
   meetup: (contract: Contract) => getPaymentMethodName(contract.paymentMethod),
@@ -62,6 +67,7 @@ const allPossibleFields = [
   'meetup',
   'location',
   'receiveAddress',
+  'lnurlAddress',
 ] as const
 export type TradeInfoField = (typeof allPossibleFields)[number]
 export const isTradeInformationGetter = (

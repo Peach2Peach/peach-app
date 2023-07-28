@@ -82,6 +82,7 @@ declare type TradingLimit = {
 declare type TradingPair = 'BTCEUR' | 'BTCCHF' | 'BTCGBP'
 
 declare type Currency =
+  | 'SAT'
   | 'USD'
   | 'EUR'
   | 'CHF'
@@ -166,6 +167,7 @@ declare type PaymentMethod =
   | 'verse'
   | 'iris'
   | 'liquid'
+  | 'lnurl'
   | CashTrade
   | AmazonGiftCard
   | NationalTransfer

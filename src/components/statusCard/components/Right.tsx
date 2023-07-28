@@ -1,6 +1,6 @@
 import { View } from 'react-native'
 import tw from '../../../styles/tailwind'
-import { priceFormat } from '../../../utils/string'
+import { groupChars, priceFormat } from '../../../utils/string'
 import { BTCAmount } from '../../bitcoin'
 import { Text } from '../../text'
 import { FixedHeightText } from '../../text/FixedHeightText'
@@ -29,7 +29,7 @@ export const Right = (propsWithoutType: Props) => {
         <>
           <BTCAmount size="small" amount={amount} />
           <FixedHeightText style={tw`body-m text-black-2`} height={17}>
-            {priceFormat(price)} {currency}
+            {currency === 'SAT' ? groupChars(String(price), 3) : priceFormat(price)} {currency}
           </FixedHeightText>
         </>
       ) : (

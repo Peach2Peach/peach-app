@@ -4,6 +4,12 @@ import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { getCurrencyTypeFilter } from './utils'
 
+const getDisplayName = (c: Currency) => {
+  if (c === 'USDT') return i18n(`currency.${c}`)
+  if (c === 'SAT') return i18n('paymentMethod.lnurl')
+  return i18n(`currency.${c}`)
+}
+
 type Props = {
   currency: Currency
   setCurrency: (c: Currency) => void
@@ -13,7 +19,7 @@ type Props = {
 export const Currencies = ({ currency, setCurrency, type }: Props) => {
   const currencies = CURRENCIES.filter(getCurrencyTypeFilter(type)).map((c) => ({
     value: c,
-    display: i18n(`currency.${c}`),
+    display: getDisplayName(c),
   }))
   return (
     <PeachScrollView contentContainerStyle={[tw`justify-center flex-grow py-sm`, tw.md`py-md`]}>

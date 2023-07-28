@@ -12,6 +12,7 @@ declare type PaymentDataInfo = {
   userName?: string
   wallet?: string
   receiveAddress?: string
+  lnurlAddress?: string
   userId?: string
 }
 
