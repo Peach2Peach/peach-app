@@ -1,9 +1,9 @@
 {
-  "offer.filter": "filtrer",
-  "offer.filter.maxPremium": "prime max",
   "offer.cancel.popup.description": "Êtes-vous sûr?\n\nSi vous avez déjà envoyé vos bitcoins dans le coffre, vous serez remboursé, déduction faite des frais du réseau Bitcoin.",
   "offer.cancel.popup.title": "annuler l'offre",
   "offer.canceled.popup.title": "offre annulée !",
+  "offer.filter": "filtrer",
+  "offer.filter.maxPremium": "prime max",
   "offer.publish": "publier l'offre",
   "offer.published.description": "Nous vous enverrons une notification lorsqu'il y aura des match disponibles.",
   "offer.published.title": "Offre publiée !",
@@ -33,6 +33,10 @@
   "offer.requiredAction.waiting": "en attente de $0",
   "offer.requiredAction.waiting.buyer": "en attente du paiement",
   "offer.requiredAction.waiting.seller": "en attente du vendeur",
+  "offer.sorting.bestReputation": "meilleure réputation",
+  "offer.sorting.highestPrice": "prix le plus élevé",
+  "offer.sorting.lowestPremium": "prime la plus basse",
+  "offer.sorting.sortMatchesBy": "trier les matchs par",
   "offer.summary.customPayoutAddress": "adresse de paiement manuelle",
   "offer.summary.customRefundAddress": "adresse de remboursement manuelle",
   "offer.summary.discount": "réduction",
@@ -47,9 +51,5 @@
   "offer.summary.youAreBuying": "vous souhaitez acheter entre",
   "offer.summary.youAreSelling": "vous vendez",
   "offer.summary.youWereSelling": "vous vendiez",
-  "offer.sorting.bestReputation": "meilleure réputation",
-  "offer.sorting.highestAmount": "montant le plus élevé",
-  "offer.sorting.highestPrice": "prix le plus élevé",
-  "offer.sorting.lowestPremium": "prime la plus basse",
-  "offer.sorting.sortMatchesBy": "trier les matchs par"
+  "offfer.sorting.highestAmount": "montant le plus élevé"
 }

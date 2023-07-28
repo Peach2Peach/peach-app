@@ -150,7 +150,7 @@
   "contract.timer.paymentTimeExpired.button.seller" : "Antworten",
   "contract.timer.paymentTimeExpired.buyer" : "Zahlung zu spät!",
   "contract.timer.sendPayment.buyer" : "Bezahle innerhalb von",
-  "contract.timer.sendPayment.seller" : "Käufer ist aufgefordert zu zahlen innerhalb von",
+  "contract.timer.sendPayment.seller" : "Käufer muss zahlen in",
   "contract.trade" : "Handel $0",
   "contract.tradeCanceled" : "Handel abgebrochen",
   "contract.tradeCompleted" : "Handel abgeschlossen",

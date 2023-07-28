@@ -1,9 +1,9 @@
 {
-  "offer.filter": "Filter",
-  "offer.filter.maxPremium": "max. Aufpreis",
   "offer.cancel.popup.description": "Bist du sicher?\n\nWenn du bereits deine Bitcoin an die Escrow gesendet hast, wird dir der Betrag abzüglich der Bitcoin-Netzwerkgebühren erstattet.",
   "offer.cancel.popup.title": "Angebot stornieren",
   "offer.canceled.popup.title": "Angebot storniert!",
+  "offer.filter": "Filter",
+  "offer.filter.maxPremium": "max. Aufpreis",
   "offer.publish": "veröffentlichen",
   "offer.published.description": "Wir senden dir eine Benachrichtigung, wenn Matches verfügbar sind.",
   "offer.published.title": "Angebot veröffentlicht!",
@@ -33,6 +33,10 @@
   "offer.requiredAction.waiting": "warten auf $0",
   "offer.requiredAction.waiting.buyer": "warten auf Zahlung",
   "offer.requiredAction.waiting.seller": "warten auf Verkäufer",
+  "offer.sorting.bestReputation": "beste Reputation zuerst",
+  "offer.sorting.highestPrice": "höchster Preis zuerst",
+  "offer.sorting.lowestPremium": "kleinster Aufpreis zuerst",
+  "offer.sorting.sortMatchesBy": "Matches sortieren nach",
   "offer.summary.customPayoutAddress": "benutzerdefinierte Auszahlungsadresse",
   "offer.summary.customRefundAddress": "benutzerdefinierte Rückerstattungsadresse",
   "offer.summary.discount": "Rabatt",
@@ -47,9 +51,5 @@
   "offer.summary.youAreBuying": "Du kaufst zwischen",
   "offer.summary.youAreSelling": "Du verkaufst",
   "offer.summary.youWereSelling": "Du hast verkauft",
-  "offer.sorting.bestReputation": "beste Reputation zuerst",
-  "offer.sorting.highestAmount": "größter Betrag zuerst",
-  "offer.sorting.highestPrice": "höchster Preis zuerst",
-  "offer.sorting.lowestPremium": "kleinster Aufpreis zuerst",
-  "offer.sorting.sortMatchesBy": "Matches sortieren nach"
+  "offfer.sorting.highestAmount": "größter Betrag zuerst"
 }
