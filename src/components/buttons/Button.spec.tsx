@@ -17,4 +17,20 @@ describe('Button', () => {
     shallowRenderer.render(<Button textColor={tw`text-primary-main`}>Text</Button>)
     expect(shallowRenderer.getRenderOutput()).toMatchSnapshot()
   })
+  it('should render correctly while loading', () => {
+    shallowRenderer.render(
+      <Button textColor={tw`text-primary-main`} loading>
+        Text
+      </Button>,
+    )
+    expect(shallowRenderer.getRenderOutput()).toMatchSnapshot()
+  })
+  it('should render correctly with icon', () => {
+    shallowRenderer.render(
+      <Button textColor={tw`text-primary-main`} iconId="alertCircle">
+        Text
+      </Button>,
+    )
+    expect(shallowRenderer.getRenderOutput()).toMatchSnapshot()
+  })
 })
