@@ -10,6 +10,8 @@
   "form.address.btc.error" : "la dirección Bitcoin no es válida",
   "form.address.btc.placeholder" : "bc1q ...",
   "form.address.label.placeholder" : "etiqueta de dirección",
+  "form.address.lnurl" : "dirección LNURL",
+  "form.address.lnurl.placeholder" : "satoshi@lightning.gmx.com",
   "form.address.placeholder" : "dirección",
   "form.address.taproot.error" : "los pagos directos Taproot no son compatibles",
   "form.beneficiary" : "nombre del titular de la cuenta",

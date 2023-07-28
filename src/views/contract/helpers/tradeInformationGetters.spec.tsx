@@ -25,6 +25,7 @@ jest.mock('../../../utils/contract/getBuyOfferFromContract', () => ({
 describe('tradeInformationGetters', () => {
   it('should return the correct value for the price field', () => {
     expect(tradeInformationGetters.price(contract)).toEqual('89.04 EUR')
+    expect(tradeInformationGetters.price({ ...contract, price: 12345, currency: 'SAT' })).toEqual('12 345 SAT')
   })
   it('should apply the priceFormat function to the price field', () => {
     expect(tradeInformationGetters.price({ ...contract, price: 21000000 })).toEqual('21 000 000.00 EUR')
@@ -50,7 +51,10 @@ describe('tradeInformationGetters', () => {
     expect(tradeInformationGetters.bitcoinAmount(contract)).toEqual(250000)
   })
   it('should return the correct value for the bitcoinPrice field', () => {
-    expect(tradeInformationGetters.bitcoinPrice(contract)).toEqual('35 089 .66 EUR')
+    expect(tradeInformationGetters.bitcoinPrice(contract)).toEqual('35 616.00 EUR')
+    expect(tradeInformationGetters.bitcoinPrice({ ...contract, currency: 'SAT', amount: 40000, price: 40600 })).toEqual(
+      '101 500 000 SAT',
+    )
   })
   it('should return the correct value for the via field', () => {
     expect(tradeInformationGetters.via(contract)).toEqual('SEPA')

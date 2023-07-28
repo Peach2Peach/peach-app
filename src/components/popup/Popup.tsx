@@ -51,7 +51,7 @@ export const Popup = () => {
         {popupComponent || (
           <View style={[levelColorMap.bg1[level], tw`mx-6 rounded-2xl`]}>
             <View style={[tw`p-4 rounded-t-2xl`, levelColorMap.bg2[level]]}>
-              {!!title && <Text style={tw`mb-1 h5 text-black-1`}>{title.toLocaleLowerCase()}</Text>}
+              {!!title && <Text style={tw`mb-1 h5 text-black-1`}>{title}</Text>}
               {content}
             </View>
             <View style={[tw`flex-row px-4`, !!action2 ? tw`justify-between` : tw`justify-center`]}>

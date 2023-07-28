@@ -17,20 +17,18 @@ export const SelectCurrency = () => {
 
   const getPaymentMethodLabel = usePaymentMethodLabel()
 
-  const goToLiquidForm = () => {
-    const label = getPaymentMethodLabel('liquid')
+  const goToPaymentMethodForm = (type: PaymentMethod) => {
+    const label = getPaymentMethodLabel(type)
     navigation.navigate('paymentMethodForm', {
-      paymentData: { type: 'liquid', label, currencies: [selectedCurrency] },
+      paymentData: { type, label, currencies: [selectedCurrency] },
       origin,
     })
   }
 
   const next = () => {
-    if (selectedCurrency === 'USDT') {
-      goToLiquidForm()
-    } else {
-      navigation.navigate('selectPaymentMethod', { selectedCurrency, origin })
-    }
+    if (selectedCurrency === 'USDT') return goToPaymentMethodForm('liquid')
+    if (selectedCurrency === 'SAT') return goToPaymentMethodForm('lnurl')
+    return navigation.navigate('selectPaymentMethod', { selectedCurrency, origin })
   }
 
   return (

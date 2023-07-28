@@ -3,7 +3,7 @@
 exports[`SelectCurrency should render correctly 1`] = `
 <Screen>
   <CurrencyTabs
-    currency="EUR"
+    currency="SAT"
     setCurrency={[Function]}
   />
   <PrimaryButton

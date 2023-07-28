@@ -1,4 +1,5 @@
+const otherCurrencies: Currency[] = ['USDT', 'SAT']
 export const getCurrencyTypeFilter = (type: 'europe' | 'other') => (currency: Currency) => {
-  if (type === 'europe') return currency !== 'USDT'
-  return currency === 'USDT'
+  if (type === 'europe') return !otherCurrencies.includes(currency)
+  return otherCurrencies.includes(currency)
 }

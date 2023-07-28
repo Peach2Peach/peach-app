@@ -116,6 +116,7 @@
   "contract.summary.hasPaidYou" : "te ha pagado",
   "contract.summary.iban" : "iban",
   "contract.summary.in" : "en",
+  "contract.summary.lnurlAddress" : "dirección LNURL",
   "contract.summary.location" : "ubicación acordada en el chat",
   "contract.summary.location.text" : "determinar en el chat",
   "contract.summary.meetup" : "meetup",
