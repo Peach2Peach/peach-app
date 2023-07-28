@@ -33,8 +33,11 @@ export const tradeInformationGetters: Record<
     return <WalletLabel label={buyOffer.walletLabel} address={buyOffer.releaseAddress} />
   },
   bitcoinAmount: (contract: Contract) => contract.amount,
-  bitcoinPrice: (contract: Contract) => `${priceFormat(getBitcoinPriceFromContract(contract))} ${contract.currency}`,
-
+  bitcoinPrice: (contract: Contract) => {
+    const bitcoinPrice = getBitcoinPriceFromContract(contract)
+    if (contract.currency === 'SAT') return `${groupChars(String(bitcoinPrice), 3)} ${contract.currency}`
+    return `${priceFormat(bitcoinPrice)} ${contract.currency}`
+  },
   via: (contract: Contract) => getPaymentMethodName(contract.paymentMethod),
   method: (contract: Contract) => getPaymentMethodName(contract.paymentMethod),
   meetup: (contract: Contract) => getPaymentMethodName(contract.paymentMethod),

@@ -51,7 +51,10 @@ describe('tradeInformationGetters', () => {
     expect(tradeInformationGetters.bitcoinAmount(contract)).toEqual(250000)
   })
   it('should return the correct value for the bitcoinPrice field', () => {
-    expect(tradeInformationGetters.bitcoinPrice(contract)).toEqual('35 089.66 EUR')
+    expect(tradeInformationGetters.bitcoinPrice(contract)).toEqual('35 616.00 EUR')
+    expect(tradeInformationGetters.bitcoinPrice({ ...contract, currency: 'SAT', amount: 40000, price: 40600 })).toEqual(
+      '101 500 000 SAT',
+    )
   })
   it('should return the correct value for the via field', () => {
     expect(tradeInformationGetters.via(contract)).toEqual('SEPA')
