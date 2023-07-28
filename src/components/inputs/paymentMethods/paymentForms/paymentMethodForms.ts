@@ -14,6 +14,7 @@ import {
 } from '../templates'
 import { GiftCardAmazon } from './GiftCardAmazon'
 import { FormProps } from '../../../../views/addPaymentMethod/PaymentMethodForm'
+import { Template11 } from '../templates/Template11'
 
 type PaymentMethodFormsType = {
   [key in PaymentMethod]?: { component: (props: FormProps) => JSX.Element; fields: TradeInfoField[] }
@@ -31,6 +32,7 @@ const template7Fields: TradeInfoField[] = [...sharedFields, 'beneficiary', 'acco
 const template8Fields: TradeInfoField[] = [...sharedFields, 'beneficiary', 'phone', 'reference']
 const template9Fields: TradeInfoField[] = [...sharedFields, 'beneficiary', 'iban', 'accountNumber', 'bic', 'reference']
 const template10Fields: TradeInfoField[] = [...sharedFields, 'receiveAddress']
+const template11Fields: TradeInfoField[] = [...sharedFields, 'lnurlAddress']
 
 export const PaymentMethodForms: PaymentMethodFormsType = {
   sepa: { component: Template1, fields: template1Fields },
@@ -61,6 +63,7 @@ export const PaymentMethodForms: PaymentMethodFormsType = {
   iris: { component: Template3, fields: template3Fields },
   'giftCard.amazon': { component: GiftCardAmazon, fields: template4Fields },
   liquid: { component: Template10, fields: template10Fields },
+  lnurl: { component: Template11, fields: template11Fields },
 }
 GIFTCARDCOUNTRIES.forEach(
   (c) =>

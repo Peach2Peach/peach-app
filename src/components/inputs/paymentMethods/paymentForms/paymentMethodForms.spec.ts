@@ -12,6 +12,7 @@ import {
   Template8,
   Template9,
 } from '../templates'
+import { Template11 } from '../templates/Template11'
 
 describe('paymentMethodForms', () => {
   it('should assign the correct template to each payment method', () => {
@@ -76,6 +77,7 @@ describe('paymentMethodForms', () => {
       nationalTransferSI: { component: Template9, fields: expect.any(Array) },
       nationalTransferUS: { component: Template9, fields: expect.any(Array) },
       liquid: { component: Template10, fields: ['method', 'price', 'receiveAddress'] },
+      lnurl: { component: Template11, fields: ['method', 'price', 'lnurlAddress'] },
     })
   })
 })

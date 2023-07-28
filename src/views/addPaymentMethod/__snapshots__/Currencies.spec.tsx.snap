@@ -97,6 +97,10 @@ exports[`Currencies should render correctly for type "other" 1`] = `
     items={
       [
         {
+          "display": "LNURL BTC swap",
+          "value": "SAT",
+        },
+        {
           "display": "L-USDT",
           "value": "USDT",
         },
