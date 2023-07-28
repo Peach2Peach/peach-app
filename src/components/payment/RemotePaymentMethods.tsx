@@ -31,9 +31,9 @@ const paymentCategoryIcons: Record<PaymentCategory, IconType | ''> = {
 }
 
 const belongsToCategory = (category: PaymentCategory) => (data: PaymentData) =>
-  PAYMENTCATEGORIES[category].includes(data.type) &&
-  !(category === 'nationalOption' && data.type === 'mobilePay' && data.currencies[0] === 'DKK') &&
-  !(category === 'onlineWallet' && data.type === 'mobilePay' && data.currencies[0] === 'EUR')
+  PAYMENTCATEGORIES[category].includes(data.type)
+  && !(category === 'nationalOption' && data.type === 'mobilePay' && data.currencies[0] === 'DKK')
+  && !(category === 'onlineWallet' && data.type === 'mobilePay' && data.currencies[0] === 'EUR')
 
 type Props = {
   isEditing: boolean
