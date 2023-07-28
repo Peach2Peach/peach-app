@@ -13,7 +13,7 @@
   "help.escrow.description.link" : "aquí",
   "help.escrow.description.proTip" : "Si mantienes pulsado el QR se va a copiar toda la factura de pago.",
   "help.escrow.title" : "Escrow de Peach",
-  "help.lnurl.description" : "You can use this payment method to swap your on-chain bitcoin for lightning. You pay no Peach fees for this.\nIf you’re buying, you’re receiving on-chain bitcoin and sending LN bitcoin.\nIf you’re selling, you’re sending on-chain bitcoin and receiving LN bitcoin.",
+  "help.lnurl.description" : "You can use this payment method to swap your on-chain bitcoin for lightning. You pay no Peach fees for this.\n\nIf you’re buying, you’re receiving on-chain bitcoin and sending LN bitcoin.\n\nIf you’re selling, you’re sending on-chain bitcoin and receiving LN bitcoin.",
   "help.lnurl.description.bold" : "You pay no Peach fees for this.",
   "help.lnurl.title" : "LNURL Swaps",
   "help.makePayment.description" : "¡Cuanto antes realices el pago, mejor será tu puntaje de reputación para este intercambio!\n\nSi no realizas el pago en 12 horas, el vendedor puede cancelar el intercambio sin ninguna penalización.",
