@@ -129,8 +129,8 @@ exports[`FundEscrow should render the FundEscrow view 1`] = `
         color="#F56522"
         style={
           {
-            "height": 20,
-            "width": 20,
+            "height": 16,
+            "width": 16,
           }
         }
       />
@@ -299,8 +299,8 @@ exports[`FundEscrow should show funded from peach wallet, if funded from peach w
         color="#F56522"
         style={
           {
-            "height": 20,
-            "width": 20,
+            "height": 16,
+            "width": 16,
           }
         }
       />
