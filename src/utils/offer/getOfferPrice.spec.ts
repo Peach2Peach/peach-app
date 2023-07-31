@@ -1,4 +1,4 @@
-import { getOfferPrice } from '.'
+import { getOfferPrice } from './getOfferPrice'
 
 describe('getOfferPrice', () => {
   it('should return the correct offer price in the given currency', () => {

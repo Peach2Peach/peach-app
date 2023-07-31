@@ -1,12 +1,11 @@
-import { useReleaseEscrow } from './useReleaseEscrow'
-import { saveContract } from '../../../utils/contract'
-import i18n from '../../../utils/i18n'
-import { confirmPayment } from '../../../utils/peachAPI/private/contract/confirmPayment'
-import { signReleaseTxOfContract } from '../../../utils/contract/signReleaseTxOfContract'
 import { renderHook } from '@testing-library/react-native'
-import { defaultPopupState, usePopupStore } from '../../../store/usePopupStore'
 import { Loading } from '../../../components'
+import { defaultPopupState, usePopupStore } from '../../../store/usePopupStore'
 import tw from '../../../styles/tailwind'
+import { saveContract } from '../../../utils/contract'
+import { signReleaseTxOfContract } from '../../../utils/contract/signReleaseTxOfContract'
+import i18n from '../../../utils/i18n'
+import { useReleaseEscrow } from './useReleaseEscrow'
 
 const showErrorMock = jest.fn()
 jest.mock('../../../hooks/useShowErrorBanner', () => ({
@@ -15,9 +14,9 @@ jest.mock('../../../hooks/useShowErrorBanner', () => ({
 
 jest.mock('../../../utils/contract')
 
-const confirmPaymentMock = jest.fn(() => [{}, null])
-jest.mock('../../../utils/peachAPI/private/contract/confirmPayment', () => ({
-  confirmPayment: jest.fn(() => confirmPaymentMock()),
+const confirmPaymentMock = jest.fn().mockResolvedValue([{}, null])
+jest.mock('../../../utils/peachAPI', () => ({
+  confirmPayment: (...args: any[]) => confirmPaymentMock(...args),
 }))
 
 const signReleaseTxOfContractMock = jest.fn((..._args: any) => ['tx', null])
@@ -62,7 +61,7 @@ describe('useReleaseEscrow', () => {
   it('should confirm the payment', async () => {
     const { result } = renderHook(() => useReleaseEscrow(contract))
     await result.current()
-    expect(confirmPayment).toHaveBeenCalledWith({ contractId: contract.id, releaseTransaction: 'tx' })
+    expect(confirmPaymentMock).toHaveBeenCalledWith({ contractId: contract.id, releaseTransaction: 'tx' })
   })
 
   it('should close the popup and show an error if the payment could not be confirmed', async () => {
