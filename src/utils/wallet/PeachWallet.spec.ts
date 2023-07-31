@@ -21,6 +21,7 @@ import {
   blockchainBroadcastMock,
   mnemonicFromStringMock,
   psbtExtractTxMock,
+  txBuilderAddUtxosMock,
   txBuilderFinishMock,
   walletGetAddressMock,
   walletGetBalanceMock,
@@ -354,6 +355,32 @@ describe('PeachWallet', () => {
     walletSignMock.mockResolvedValueOnce(result.psbt)
     psbtExtractTxMock.mockResolvedValueOnce(transaction)
     const withdrawResult = await peachWallet.sendTo(address, amount, feeRate)
+    expect(buildTransactionMock).toHaveBeenCalledWith(address, amount, feeRate)
+    expect(txBuilderFinishMock).toHaveBeenCalledWith(peachWallet.wallet)
+    expect(walletSignMock).toHaveBeenCalledWith(result.psbt)
+    expect(blockchainBroadcastMock).toHaveBeenCalledWith(transaction)
+    expect(withdrawResult).toEqual(result.psbt)
+  })
+
+  it('sends bitcoin to an address with selected utxo', async () => {
+    const address = 'address'
+    const amount = 10000
+    const feeRate = 10
+
+    const result: TxBuilderResult = {
+      psbt: new PartiallySignedTransaction('base64'),
+      txDetails: pending1,
+    }
+    const transaction = await new Transaction().create([])
+    const txBuilder = await new TxBuilder().create()
+
+    buildTransactionMock.mockResolvedValueOnce(txBuilder)
+    txBuilderFinishMock.mockResolvedValueOnce(result)
+    walletSignMock.mockResolvedValueOnce(result.psbt)
+    psbtExtractTxMock.mockResolvedValueOnce(transaction)
+    peachWallet.selectedUTXO = [utxo1, utxo2]
+    const withdrawResult = await peachWallet.sendTo(address, amount, feeRate)
+    expect(txBuilderAddUtxosMock).toHaveBeenCalledWith([utxo1.outpoint, utxo2.outpoint])
     expect(buildTransactionMock).toHaveBeenCalledWith(address, amount, feeRate)
     expect(txBuilderFinishMock).toHaveBeenCalledWith(peachWallet.wallet)
     expect(walletSignMock).toHaveBeenCalledWith(result.psbt)

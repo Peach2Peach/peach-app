@@ -231,6 +231,9 @@ export class PeachWallet extends PeachJSWallet {
     if (!this.wallet || !this.blockchain) throw Error('WALLET_NOT_READY')
     info('PeachWallet - sendTo - start')
     const transaction = await buildTransaction(address, amount, feeRate)
+
+    if (this.selectedUTXO.length > 0) transaction.addUtxos(this.selectedUTXO.map((utxo) => utxo.outpoint))
+
     const finishedTransaction = await this.finishTransaction(transaction)
     return this.signAndBroadcastPSBT(finishedTransaction.psbt)
   }
