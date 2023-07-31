@@ -11,6 +11,7 @@ export type WalletState = {
   transactions: TransactionDetails[]
   pendingTransactions: Record<string, string>
   txOfferMap: Record<string, string>
+  addressLabelMap: Record<string, string>
 }
 
 export type WalletStore = WalletState & {
@@ -21,6 +22,7 @@ export type WalletStore = WalletState & {
   getTransaction: (txId: string) => TransactionDetails | undefined
   addPendingTransactionHex: (txId: string, hex: string) => void
   removePendingTransaction: (txId: string) => void
+  labelAddress: (address: string, label: string) => void
   updateTxOfferMap: (txid: string, offerId: string) => void
 }
 
@@ -30,6 +32,7 @@ export const defaultWalletState: WalletState = {
   transactions: [],
   pendingTransactions: {},
   txOfferMap: {},
+  addressLabelMap: {},
 }
 export const walletStorage = createStorage('wallet')
 
@@ -49,6 +52,13 @@ export const useWalletState = create(
         delete pendingTransactions[txid]
         set({ pendingTransactions })
       },
+      labelAddress: (address: string, label: string) =>
+        set((state) => ({
+          addressLabelMap: {
+            ...state.addressLabelMap,
+            [address]: label,
+          },
+        })),
       updateTxOfferMap: (txId: string, offerId: string) =>
         set((state) => ({
           txOfferMap: {

@@ -11,8 +11,6 @@ import {
 import { TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
 import { AddressIndex, BlockChainNames, BlockchainEsploraConfig, KeychainKind } from 'bdk-rn/lib/lib/enums'
 import { BIP32Interface } from 'bip32'
-import { useTradeSummaryStore } from '../../store/tradeSummaryStore'
-import { getBuyOfferIdFromContract } from '../contract'
 import { error, info } from '../log'
 import { parseError } from '../result'
 import { findTransactionsToRebroadcast, isPending, mergeTransactionList } from '../transaction'
@@ -24,6 +22,9 @@ import { getDescriptorSecretKey } from './getDescriptorSecretKey'
 import { rebroadcastTransactions } from './rebroadcastTransactions'
 import { useWalletState } from './walletStore'
 import { buildDrainWalletTransaction, buildTransaction } from './transaction'
+import { mapTransactionToOffer } from './mapTransactionToOffer'
+import { labelAddressByTransaction } from './labelAddressByTransaction'
+import { transactionHasBeenMappedToOffer } from './transactionHasBeenMappedToOffer'
 
 type PeachWalletProps = {
   wallet: BIP32Interface
@@ -135,18 +136,8 @@ export class PeachWallet extends PeachJSWallet {
 
   updateStore (): void {
     useWalletState.getState().setTransactions(this.transactions)
-    this.transactions
-      .filter(({ txid }) => !useWalletState.getState().txOfferMap[txid])
-      .forEach(({ txid }) => {
-        const sellOffer = useTradeSummaryStore
-          .getState()
-          .offers.find((offer) => offer.txId === txid || offer.fundingTxId === txid)
-        if (sellOffer?.id) return useWalletState.getState().updateTxOfferMap(txid, sellOffer.id)
-
-        const contract = useTradeSummaryStore.getState().contracts.find((cntrct) => cntrct.releaseTxId === txid)
-        if (contract) return useWalletState.getState().updateTxOfferMap(txid, getBuyOfferIdFromContract(contract))
-        return null
-      })
+    this.transactions.filter((tx) => !transactionHasBeenMappedToOffer(tx)).forEach(mapTransactionToOffer)
+    this.transactions.filter(transactionHasBeenMappedToOffer).forEach(labelAddressByTransaction)
   }
 
   async getBalance (): Promise<number> {
