@@ -276,6 +276,12 @@ describe('PeachWallet', () => {
     expect(withdrawResult).toEqual(result.psbt)
   })
 
+  it('returns maximum available amount', () => {
+    const balance = 1000000
+    peachWallet.balance = balance
+    expect(peachWallet.getMaxAvailableAmount()).toEqual(balance)
+  })
+
   it('sends bitcoin to an address', async () => {
     const address = 'address'
     const amount = 10000

@@ -208,6 +208,10 @@ export class PeachWallet extends PeachJSWallet {
     return this.signAndBroadcastPSBT(finishedTransaction.psbt)
   }
 
+  getMaxAvailableAmount () {
+    return this.balance
+  }
+
   async finishTransaction<T extends TxBuilder | BumpFeeTxBuilder>(transaction: T): Promise<ReturnType<T['finish']>>
 
   async finishTransaction (transaction: TxBuilder | BumpFeeTxBuilder) {
