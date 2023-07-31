@@ -8,7 +8,7 @@ import {
   TxBuilder,
   Wallet,
 } from 'bdk-rn'
-import { TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
+import { LocalUtxo, TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
 import { AddressIndex, BlockChainNames, BlockchainEsploraConfig, KeychainKind } from 'bdk-rn/lib/lib/enums'
 import { BIP32Interface } from 'bip32'
 import { error, info } from '../log'
@@ -19,12 +19,14 @@ import { PeachJSWallet } from './PeachJSWallet'
 import { handleTransactionError } from './error/handleTransactionError'
 import { storePendingTransactionHex } from './getAndStorePendingTransactionHex'
 import { getDescriptorSecretKey } from './getDescriptorSecretKey'
-import { rebroadcastTransactions } from './rebroadcastTransactions'
-import { useWalletState } from './walletStore'
-import { buildDrainWalletTransaction, buildTransaction } from './transaction'
-import { mapTransactionToOffer } from './mapTransactionToOffer'
+import { getUTXOId } from './getUTXOId'
 import { labelAddressByTransaction } from './labelAddressByTransaction'
+import { mapTransactionToOffer } from './mapTransactionToOffer'
+import { rebroadcastTransactions } from './rebroadcastTransactions'
+import { buildDrainWalletTransaction, buildTransaction } from './transaction'
 import { transactionHasBeenMappedToOffer } from './transactionHasBeenMappedToOffer'
+import { useWalletState } from './walletStore'
+import { sum } from '../math'
 
 type PeachWalletProps = {
   wallet: BIP32Interface
@@ -49,11 +51,14 @@ export class PeachWallet extends PeachJSWallet {
 
   blockchain: Blockchain | undefined
 
+  selectedUTXO: LocalUtxo[]
+
   constructor ({ wallet, network = NETWORK, gapLimit = 25 }: PeachWalletProps) {
     super({ wallet, network, gapLimit })
     this.descriptorPath = `/84'/${network === 'bitcoin' ? '0' : '1'}'/0'/0/*`
     this.balance = 0
     this.transactions = []
+    this.selectedUTXO = []
     this.initialized = false
     this.synced = false
     this.syncInProgress = undefined
@@ -157,6 +162,19 @@ export class PeachWallet extends PeachJSWallet {
     return utxo.filter(({ isSpent }) => !isSpent)
   }
 
+  async selectUTXO (utxo: LocalUtxo) {
+    const allUTXO = await this.getUTXO()
+    const utxoIds = allUTXO.map(getUTXOId)
+    if (!utxoIds.includes(getUTXOId(utxo))) return
+
+    this.selectedUTXO.push(utxo)
+  }
+
+  unselectUTXO (utxo: LocalUtxo) {
+    const idToRemove = getUTXOId(utxo)
+    this.selectedUTXO = this.selectedUTXO.filter((utx) => getUTXOId(utx) !== idToRemove)
+  }
+
   async getTransactions (): Promise<TransactionDetails[]> {
     if (!this.wallet) throw Error('WALLET_NOT_READY')
 
@@ -218,6 +236,7 @@ export class PeachWallet extends PeachJSWallet {
   }
 
   getMaxAvailableAmount () {
+    if (this.selectedUTXO.length > 0) return this.selectedUTXO.map(({ txout }) => txout.value).reduce(sum, 0)
     return this.balance
   }
 

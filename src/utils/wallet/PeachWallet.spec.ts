@@ -56,6 +56,12 @@ jest.mock('./transaction/buildTransaction', () => ({
 jest.useFakeTimers()
 
 describe('PeachWallet', () => {
+  const outpoint1 = new OutPoint(confirmed1.txid, 0)
+  const outpoint2 = new OutPoint(confirmed2.txid, 0)
+  const txOut = new TxOut(10000, new Script('address'))
+  const utxo1 = new LocalUtxo(outpoint1, txOut, false, KeychainKind.External)
+  const utxo2 = new LocalUtxo(outpoint2, txOut, true, KeychainKind.External)
+
   const txResponse: TransactionDetails[] = [
     createTransaction({ txid: 'txid1', sent: 1, received: 1, fee: 1, confirmationTime: { timestamp: 1, height: 1 } }),
     createTransaction({ txid: 'txid2', sent: 2, received: 2, fee: 2 }),
@@ -137,15 +143,25 @@ describe('PeachWallet', () => {
     expect(error.message).toBe('WALLET_NOT_READY')
   })
   it('returns UTXO of wallet', async () => {
-    const outpoint = new OutPoint(confirmed1.txid, 0)
-    const txOut = new TxOut(10000, new Script('address'))
-    const utxo1 = new LocalUtxo(outpoint, txOut, false, KeychainKind.External)
-    const utxo2 = new LocalUtxo(outpoint, txOut, true, KeychainKind.External)
-
     // @ts-ignore
     peachWallet.wallet.listUnspent = jest.fn().mockResolvedValue([utxo1, utxo2])
 
     expect(await peachWallet.getUTXO()).toEqual([utxo1])
+  })
+  it('does not select a utxo if not part of wallet', async () => {
+    await peachWallet.selectUTXO(utxo1)
+    expect(peachWallet.selectedUTXO).toEqual([])
+  })
+  it('selects a utxo if part of wallet', async () => {
+    // @ts-ignore
+    peachWallet.wallet.listUnspent = jest.fn().mockResolvedValue([utxo1, utxo2])
+    await peachWallet.selectUTXO(utxo1)
+    expect(peachWallet.selectedUTXO).toEqual([utxo1])
+  })
+  it('unselects a utxo', () => {
+    peachWallet.selectedUTXO = [utxo1, utxo2]
+    peachWallet.unselectUTXO(utxo1)
+    expect(peachWallet.selectedUTXO).toEqual([utxo2])
   })
   it('overwrites confirmed and merges pending transactions', async () => {
     const existingTx = [
@@ -314,6 +330,11 @@ describe('PeachWallet', () => {
     const balance = 1000000
     peachWallet.balance = balance
     expect(peachWallet.getMaxAvailableAmount()).toEqual(balance)
+  })
+  it('returns maximum available amount when utxo are selected', () => {
+    peachWallet.balance = 1000000
+    peachWallet.selectedUTXO = [utxo1, utxo2]
+    expect(peachWallet.getMaxAvailableAmount()).toEqual(20000)
   })
 
   it('sends bitcoin to an address', async () => {
