@@ -183,13 +183,24 @@ export class PeachWallet extends PeachJSWallet {
     return this.transactions.filter((tx) => !tx.confirmationTime?.height)
   }
 
+  async getLastUnusedAddress () {
+    if (!this.wallet) throw Error('WALLET_NOT_READY')
+    return await this.wallet.getAddress(AddressIndex.LastUnused)
+  }
+
+  async getAddressByIndex (index: number) {
+    const { index: lastUnusedIndex } = await this.getLastUnusedAddress()
+    const address = this.getAddress(index)
+    return {
+      index,
+      used: index < lastUnusedIndex,
+      address,
+    }
+  }
+
   async getReceivingAddress () {
     if (!this.wallet) throw Error('WALLET_NOT_READY')
-    info('PeachWallet - getReceivingAddress - start')
-
-    const result = await this.wallet.getAddress(AddressIndex.New)
-
-    return result
+    return await this.wallet.getAddress(AddressIndex.New)
   }
 
   async withdrawAll (address: string, feeRate?: number) {

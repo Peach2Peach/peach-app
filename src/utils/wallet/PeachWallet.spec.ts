@@ -210,6 +210,28 @@ describe('PeachWallet', () => {
     const error = await getError<Error>(() => peachWallet.getTransactions())
     expect(error.message).toBe('WALLET_NOT_READY')
   })
+  it('gets the last unused receiving address', async () => {
+    const address = 'address'
+    const index = 4
+    walletGetAddressMock.mockResolvedValueOnce({ address, index })
+
+    const { address: newAddress, index: addressIndex } = await peachWallet.getLastUnusedAddress()
+    expect(newAddress).toBe(address)
+    expect(addressIndex).toBe(index)
+    expect(walletGetAddressMock).toHaveBeenCalledWith(AddressIndex.LastUnused)
+  })
+  it('gets address by index', async () => {
+    const lastUnusedAddress = 'address'
+    const index = 1
+    walletGetAddressMock.mockResolvedValueOnce({ address: lastUnusedAddress, index })
+
+    const addressInfo = await peachWallet.getAddressByIndex(0)
+    expect(addressInfo).toEqual({
+      index: 0,
+      address: 'bcrt1q7jyvzs6yu9wz8qzmcwyruw0e652xhyhkdw5qrt',
+      used: true,
+    })
+  })
   it('gets a new unused receiving address', async () => {
     const address = 'address'
     const index = 0
