@@ -19,7 +19,7 @@ import { findTransactionsToRebroadcast, isPending, mergeTransactionList } from '
 import { callWhenInternet } from '../web'
 import { PeachJSWallet } from './PeachJSWallet'
 import { handleTransactionError } from './error/handleTransactionError'
-import { getAndStorePendingTransactionHex } from './getAndStorePendingTransactionHex'
+import { storePendingTransactionHex } from './getAndStorePendingTransactionHex'
 import { getDescriptorSecretKey } from './getDescriptorSecretKey'
 import { rebroadcastTransactions } from './rebroadcastTransactions'
 import { useWalletState } from './walletStore'
@@ -162,17 +162,18 @@ export class PeachWallet extends PeachJSWallet {
   async getTransactions (): Promise<TransactionDetails[]> {
     if (!this.wallet) throw Error('WALLET_NOT_READY')
 
-    const transactions = await this.wallet.listTransactions()
+    const transactions = await this.wallet.listTransactions(true)
     this.transactions = mergeTransactionList(this.transactions, transactions)
     const toRebroadcast = findTransactionsToRebroadcast(this.transactions, transactions)
 
     const pending = this.transactions.filter(isPending)
-    await Promise.all(pending.map(({ txid }) => getAndStorePendingTransactionHex(txid)))
+    await Promise.all(pending.map(storePendingTransactionHex))
 
-    rebroadcastTransactions(toRebroadcast.map(({ txid }) => txid))
+    await rebroadcastTransactions(toRebroadcast.map(({ txid }) => txid))
     this.transactions = this.transactions.filter(
-      (tx) => tx.confirmationTime || useWalletState.getState().pendingTransactions[tx.txid],
+      (tx) => tx.confirmationTime?.height || useWalletState.getState().pendingTransactions[tx.txid],
     )
+
     this.updateStore()
 
     return this.transactions
