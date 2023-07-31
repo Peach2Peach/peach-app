@@ -25,3 +25,12 @@ export const getTradingLimit = jest.fn(
 export const getOfferDetails = jest.fn(async (): Promise<[SellOffer | null, APIError | null]> => [sellOffer, null])
 export const updateUser = jest.fn(async (): Promise<[APISuccess | null, APIError | null]> => [{ success: true }, null])
 export const logoutUser = jest.fn(async (): Promise<[APISuccess | null, APIError | null]> => [{ success: true }, null])
+export const confirmPayment = jest.fn(
+  async (): Promise<[ConfirmPaymentResponse | null, APIError | null]> => [
+    {
+      success: true,
+      txId: 'txId',
+    },
+    null,
+  ],
+)
