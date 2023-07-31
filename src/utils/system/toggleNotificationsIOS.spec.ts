@@ -1,6 +1,6 @@
 import messaging from '@react-native-firebase/messaging'
 import { Linking } from 'react-native'
-import { toggleNotificationsIOS } from '.'
+import { toggleNotificationsIOS } from './toggleNotificationsIOS'
 
 jest.mock('react-native', () => ({
   Linking: {

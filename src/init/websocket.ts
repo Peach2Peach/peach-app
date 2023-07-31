@@ -1,7 +1,7 @@
 import { EffectCallback, Dispatch } from 'react'
 import { account } from '../utils/account'
 import { info } from '../utils/log'
-import { createWebsocket } from '../utils/peachAPI/websocket'
+import { createWebsocket } from '../utils/peachAPI/websocket/createWebsocket'
 
 export const initWebSocket
   = (updatePeachWS: Function, updateMessage: Dispatch<MessageState>): EffectCallback =>
