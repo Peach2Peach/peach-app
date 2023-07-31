@@ -1,5 +1,4 @@
 export { getETAInBlocks } from './getETAInBlocks'
 export { getFeeEstimates } from './getFeeEstimates'
 export { getTransactionDetails } from './getTransactionDetails'
-export { getTxHex } from './getTxHex'
 export { postTransaction } from './postTransaction'

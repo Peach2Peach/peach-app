@@ -19,11 +19,11 @@ import { findTransactionsToRebroadcast, isPending, mergeTransactionList } from '
 import { callWhenInternet } from '../web'
 import { PeachJSWallet } from './PeachJSWallet'
 import { handleTransactionError } from './error/handleTransactionError'
-import { getAndStorePendingTransactionHex } from './getAndStorePendingTransactionHex'
+import { storePendingTransactionHex } from './getAndStorePendingTransactionHex'
 import { getDescriptorSecretKey } from './getDescriptorSecretKey'
 import { rebroadcastTransactions } from './rebroadcastTransactions'
-import { buildDrainWalletTransaction } from './transaction/buildDrainWalletTransaction'
 import { useWalletState } from './walletStore'
+import { buildDrainWalletTransaction, buildTransaction } from './transaction'
 
 type PeachWalletProps = {
   wallet: BIP32Interface
@@ -162,17 +162,18 @@ export class PeachWallet extends PeachJSWallet {
   async getTransactions (): Promise<TransactionDetails[]> {
     if (!this.wallet) throw Error('WALLET_NOT_READY')
 
-    const transactions = await this.wallet.listTransactions()
+    const transactions = await this.wallet.listTransactions(true)
     this.transactions = mergeTransactionList(this.transactions, transactions)
     const toRebroadcast = findTransactionsToRebroadcast(this.transactions, transactions)
 
     const pending = this.transactions.filter(isPending)
-    await Promise.all(pending.map(({ txid }) => getAndStorePendingTransactionHex(txid)))
+    await Promise.all(pending.map(storePendingTransactionHex))
 
-    rebroadcastTransactions(toRebroadcast.map(({ txid }) => txid))
+    await rebroadcastTransactions(toRebroadcast.map(({ txid }) => txid))
     this.transactions = this.transactions.filter(
-      (tx) => tx.confirmationTime || useWalletState.getState().pendingTransactions[tx.txid],
+      (tx) => tx.confirmationTime?.height || useWalletState.getState().pendingTransactions[tx.txid],
     )
+
     this.updateStore()
 
     return this.transactions
@@ -197,6 +198,18 @@ export class PeachWallet extends PeachJSWallet {
     const drainWalletTransaction = await buildDrainWalletTransaction(address, feeRate)
     const finishedTransaction = await this.finishTransaction(drainWalletTransaction)
     return this.signAndBroadcastPSBT(finishedTransaction.psbt)
+  }
+
+  async sendTo (address: string, amount: number, feeRate?: number) {
+    if (!this.wallet || !this.blockchain) throw Error('WALLET_NOT_READY')
+    info('PeachWallet - sendTo - start')
+    const transaction = await buildTransaction(address, amount, feeRate)
+    const finishedTransaction = await this.finishTransaction(transaction)
+    return this.signAndBroadcastPSBT(finishedTransaction.psbt)
+  }
+
+  getMaxAvailableAmount () {
+    return this.balance
   }
 
   async finishTransaction<T extends TxBuilder | BumpFeeTxBuilder>(transaction: T): Promise<ReturnType<T['finish']>>

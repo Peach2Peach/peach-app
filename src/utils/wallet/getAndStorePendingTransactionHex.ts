@@ -1,11 +1,16 @@
-import { getTxHex } from '../electrum'
+import { TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
 import { useWalletState } from './walletStore'
 
-export const getAndStorePendingTransactionHex = async (txId: string) => {
-  const hex = useWalletState.getState().pendingTransactions[txId]
+export const storePendingTransactionHex = async (transaction: TransactionDetails) => {
+  let hex = useWalletState.getState().pendingTransactions[transaction.txid]
   if (hex) return hex
 
-  const [result] = await getTxHex({ txId })
-  if (result) useWalletState.getState().addPendingTransactionHex(txId, result)
-  return result
+  const serialized = await transaction.transaction?.serialize()
+  if (!serialized) return hex
+
+  hex = Buffer.from(serialized).toString('hex')
+
+  if (!hex) return hex
+  useWalletState.getState().addPendingTransactionHex(transaction.txid, hex)
+  return hex
 }
