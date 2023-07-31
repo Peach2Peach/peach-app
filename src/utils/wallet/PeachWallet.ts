@@ -22,8 +22,8 @@ import { handleTransactionError } from './error/handleTransactionError'
 import { getAndStorePendingTransactionHex } from './getAndStorePendingTransactionHex'
 import { getDescriptorSecretKey } from './getDescriptorSecretKey'
 import { rebroadcastTransactions } from './rebroadcastTransactions'
-import { buildDrainWalletTransaction } from './transaction/buildDrainWalletTransaction'
 import { useWalletState } from './walletStore'
+import { buildDrainWalletTransaction, buildTransaction } from './transaction'
 
 type PeachWalletProps = {
   wallet: BIP32Interface
@@ -196,6 +196,14 @@ export class PeachWallet extends PeachJSWallet {
     info('PeachWallet - withdrawAll - start')
     const drainWalletTransaction = await buildDrainWalletTransaction(address, feeRate)
     const finishedTransaction = await this.finishTransaction(drainWalletTransaction)
+    return this.signAndBroadcastPSBT(finishedTransaction.psbt)
+  }
+
+  async sendTo (address: string, amount: number, feeRate?: number) {
+    if (!this.wallet || !this.blockchain) throw Error('WALLET_NOT_READY')
+    info('PeachWallet - sendTo - start')
+    const transaction = await buildTransaction(address, amount, feeRate)
+    const finishedTransaction = await this.finishTransaction(transaction)
     return this.signAndBroadcastPSBT(finishedTransaction.psbt)
   }
 
