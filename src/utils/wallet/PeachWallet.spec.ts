@@ -3,8 +3,8 @@
 /* eslint-disable max-lines-per-function */
 import { waitFor } from '@testing-library/react-native'
 import { PartiallySignedTransaction, Transaction, TxBuilder } from 'bdk-rn'
-import { TransactionDetails, TxBuilderResult } from 'bdk-rn/lib/classes/Bindings'
-import { AddressIndex } from 'bdk-rn/lib/lib/enums'
+import { LocalUtxo, OutPoint, TransactionDetails, TxBuilderResult, TxOut } from 'bdk-rn/lib/classes/Bindings'
+import { AddressIndex, KeychainKind } from 'bdk-rn/lib/lib/enums'
 import { account1 } from '../../../tests/unit/data/accountData'
 import { insufficientFunds } from '../../../tests/unit/data/errors'
 import {
@@ -34,6 +34,7 @@ import { PeachWallet } from './PeachWallet'
 import { createWalletFromSeedPhrase } from './createWalletFromSeedPhrase'
 import { getNetwork } from './getNetwork'
 import { useWalletState } from './walletStore'
+import { Script } from 'bdk-rn/lib/classes/Script'
 
 jest.mock('./PeachWallet', () => jest.requireActual('./PeachWallet'))
 
@@ -134,6 +135,17 @@ describe('PeachWallet', () => {
     const error = await getError<Error>(() => peachWallet.syncWallet())
 
     expect(error.message).toBe('WALLET_NOT_READY')
+  })
+  it('returns UTXO of wallet', async () => {
+    const outpoint = new OutPoint(confirmed1.txid, 0)
+    const txOut = new TxOut(10000, new Script('address'))
+    const utxo1 = new LocalUtxo(outpoint, txOut, false, KeychainKind.External)
+    const utxo2 = new LocalUtxo(outpoint, txOut, true, KeychainKind.External)
+
+    // @ts-ignore
+    peachWallet.wallet.listUnspent = jest.fn().mockResolvedValue([utxo1, utxo2])
+
+    expect(await peachWallet.getUTXO()).toEqual([utxo1])
   })
   it('overwrites confirmed and merges pending transactions', async () => {
     const existingTx = [

@@ -150,6 +150,13 @@ export class PeachWallet extends PeachJSWallet {
     return this.balance
   }
 
+  async getUTXO () {
+    if (!this.wallet) throw Error('WALLET_NOT_READY')
+
+    const utxo = await this.wallet.listUnspent()
+    return utxo.filter(({ isSpent }) => !isSpent)
+  }
+
   async getTransactions (): Promise<TransactionDetails[]> {
     if (!this.wallet) throw Error('WALLET_NOT_READY')
 
@@ -174,9 +181,9 @@ export class PeachWallet extends PeachJSWallet {
     return this.transactions.filter((tx) => !tx.confirmationTime?.height)
   }
 
-  async getLastUnusedAddress () {
+  getLastUnusedAddress () {
     if (!this.wallet) throw Error('WALLET_NOT_READY')
-    return await this.wallet.getAddress(AddressIndex.LastUnused)
+    return this.wallet.getAddress(AddressIndex.LastUnused)
   }
 
   async getAddressByIndex (index: number) {
