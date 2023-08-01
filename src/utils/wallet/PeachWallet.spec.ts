@@ -25,6 +25,7 @@ import {
   txBuilderFinishMock,
   walletGetAddressMock,
   walletGetBalanceMock,
+  walletGetInternalAddressMock,
   walletListTransactionsMock,
   walletSignMock,
   walletSyncMock,
@@ -248,6 +249,16 @@ describe('PeachWallet', () => {
     expect(newAddress).toBe(address)
     expect(addressIndex).toBe(index)
     expect(walletGetAddressMock).toHaveBeenCalledWith(AddressIndex.LastUnused)
+  })
+  it('gets the last unused internal address', async () => {
+    const address = 'address'
+    const index = 4
+    walletGetInternalAddressMock.mockResolvedValueOnce({ address, index })
+
+    const { address: newAddress, index: addressIndex } = await peachWallet.getLastUnusedInternalAddress()
+    expect(newAddress).toBe(address)
+    expect(addressIndex).toBe(index)
+    expect(walletGetInternalAddressMock).toHaveBeenCalledWith(AddressIndex.LastUnused)
   })
   it('gets address by index', async () => {
     const lastUnusedAddress = 'address'

@@ -204,6 +204,11 @@ export class PeachWallet extends PeachJSWallet {
     return this.wallet.getAddress(AddressIndex.LastUnused)
   }
 
+  getLastUnusedInternalAddress () {
+    if (!this.wallet) throw Error('WALLET_NOT_READY')
+    return this.wallet.getInternalAddress(AddressIndex.LastUnused)
+  }
+
   async getAddressByIndex (index: number) {
     const { index: lastUnusedIndex } = await this.getLastUnusedAddress()
     const address = this.getAddress(index)
