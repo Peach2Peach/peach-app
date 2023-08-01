@@ -90,5 +90,7 @@
   "form.userName.placeholder" : "username",
   "form.wallet" : "wallet #",
   "form.wallet.error" : "this is not a valid wallet",
-  "form.wallet.placeholder" : "U012345678910"
+  "form.wallet.placeholder" : "U012345678910",
+  "number.decrease" : "decrease number",
+  "number.increase" : "increase number"
 }
