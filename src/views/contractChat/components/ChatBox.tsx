@@ -6,7 +6,7 @@ import { ChatMessage } from './ChatMessage'
 
 const PAGE_SIZE = 22
 
-type ChatBoxProps = {
+type Props = {
   chat: Chat
   setAndSaveChat: (id: string, c: Partial<Chat>, save?: boolean) => void
   resendMessage: (message: Message) => void
@@ -17,7 +17,7 @@ type ChatBoxProps = {
   online: boolean
 }
 
-export default ({ chat, setAndSaveChat, page, fetchNextPage, isLoading, ...chatMessageProps }: ChatBoxProps) => {
+export const ChatBox = ({ chat, setAndSaveChat, page, fetchNextPage, isLoading, ...chatMessageProps }: Props) => {
   const scroll = useRef<FlatList<Message>>(null)
   const visibleChatMessages = chat.messages.slice(-(page + 1) * PAGE_SIZE)
 

@@ -1,5 +1,5 @@
 import { createRenderer } from 'react-test-renderer/shallow'
-import DisputeReasonSelector from './DisputeReasonSelector'
+import { DisputeReasonSelector } from './DisputeReasonSelector'
 import { disputeReasons } from './hooks/disputeReasons'
 
 const setReasonMock = jest.fn()

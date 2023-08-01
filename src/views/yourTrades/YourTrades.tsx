@@ -10,7 +10,7 @@ import { useYourTradesSetup } from './hooks/useYourTradesSetup'
 import { checkMessages } from './utils/checkMessages'
 import { getCategories } from './utils/getCategories'
 
-export default () => {
+export const YourTrades = () => {
   const { openOffers, pastOffers, isLoading, refetch, tabs, currentTab, setCurrentTab } = useYourTradesSetup()
 
   const switchTab = (t: TabbedNavigationItem) => {
@@ -39,7 +39,7 @@ export default () => {
       />
       {getCurrentData().length > 0 ? (
         <SectionList
-          contentContainerStyle={[tw`px-4 py-10 bg-transparent`, tw.md`px-8`, isLoading && tw`opacity-60`]}
+          contentContainerStyle={[tw`py-10 bg-transparent px-sm`, tw.md`px-md`, isLoading && tw`opacity-60`]}
           onRefresh={refetch}
           refreshing={false}
           showsVerticalScrollIndicator={false}

@@ -4,7 +4,7 @@ import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { useOfferPublishedSetup } from './hooks'
 
-export default () => {
+export const OfferPublished = () => {
   const { goToOffer, closeAction } = useOfferPublishedSetup()
 
   return (

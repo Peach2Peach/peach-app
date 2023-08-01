@@ -1,5 +1,5 @@
 import { enforceDecimalsFormat } from '../../utils/format'
-import Input, { InputProps } from './Input'
+import { Input, InputProps } from './Input'
 
 type Props = InputProps & {
   decimals?: number

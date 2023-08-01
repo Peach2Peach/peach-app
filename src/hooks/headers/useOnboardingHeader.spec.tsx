@@ -53,10 +53,10 @@ describe('useOnboardingHeader', () => {
     headerState.header().props.icons[1].onPress()
 
     expect(drawer).toEqual({
-      content: <LanguageSelect locales={['en', 'es', 'fr', 'it']} onSelect={expect.any(Function)} selected="en" />,
+      content: <LanguageSelect locales={['en', 'es', 'fr', 'it', 'de']} onSelect={expect.any(Function)} selected="en" />,
       options: [],
       onClose: expect.any(Function),
-      previousDrawer: {},
+      previousDrawer: undefined,
       show: true,
       title: 'select language',
     })

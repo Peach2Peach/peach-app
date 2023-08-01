@@ -1,4 +1,3 @@
-import { useMemo } from 'react'
 import { Linking, View } from 'react-native'
 
 import tw from '../../../styles/tailwind'
@@ -16,8 +15,8 @@ const socials = [
   { name: 'twitch', url: TWITCH },
 ]
 
-export default () => {
-  useHeaderSetup(useMemo(() => ({ title: i18n('settings.socials.subtitle') }), []))
+export const Socials = () => {
+  useHeaderSetup(i18n('settings.socials.subtitle'))
 
   return (
     <View style={tw`items-center justify-center flex-1`}>

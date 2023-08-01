@@ -8,14 +8,14 @@ import { SendTo } from './components/overview/SendTo'
 import { TotalBalance } from './components/overview/TotalBalance'
 import { useWalletSetup } from './hooks/useWalletSetup'
 
-export default () => {
+export const Wallet = () => {
   const { balance, refresh, isRefreshing, address, setAddress, addressErrors, canWithdrawAll, walletLoading }
     = useWalletSetup({ syncOnLoad: true })
 
   if (walletLoading) return <BitcoinLoading text={i18n('wallet.loading')} />
 
   return (
-    <View style={[tw`flex-1 px-4`, tw.md`px-8`]}>
+    <View style={[tw`flex-1 px-sm`, tw.md`px-md`]}>
       <PeachScrollView
         style={tw`flex-1 h-full`}
         contentContainerStyle={tw`flex-1`}

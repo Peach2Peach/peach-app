@@ -1,5 +1,5 @@
 import { createRenderer } from 'react-test-renderer/shallow'
-import NewUser from './NewUser'
+import { NewUser } from './NewUser'
 
 const useNewUserSetupMock = jest.fn().mockReturnValue({
   success: false,

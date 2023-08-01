@@ -9,7 +9,7 @@ describe('useDrawerContext', () => {
       content: null,
       options: [],
       show: false,
-      previousDrawer: {},
+      previousDrawer: undefined,
       onClose: expect.any(Function),
     })
     expect(result.current[1]).toEqual(expect.any(Function))
@@ -23,7 +23,7 @@ describe('setDrawer', () => {
       content: null,
       options: [],
       show: false,
-      previousDrawer: {},
+      previousDrawer: undefined,
       onClose: expect.any(Function),
     })
   })
@@ -33,7 +33,7 @@ describe('setDrawer', () => {
       content: null,
       options: [],
       show: false,
-      previousDrawer: {},
+      previousDrawer: undefined,
       onClose: expect.any(Function),
     })
   })

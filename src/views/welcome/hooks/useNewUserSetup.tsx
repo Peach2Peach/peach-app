@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react'
 import { MessageContext } from '../../../contexts/message'
-import { useNavigation, useValidatedState } from '../../../hooks'
+import { useNavigation, useRoute, useValidatedState } from '../../../hooks'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { checkReferralCode as checkReferralCodeAPI } from '../../../utils/peachAPI'
 
@@ -9,10 +9,14 @@ const referralCodeRules = { referralCode: true }
 export const useNewUserSetup = () => {
   const [, updateMessage] = useContext(MessageContext)
 
+  const route = useRoute<'welcome'>()
   const navigation = useNavigation()
   const showError = useShowErrorBanner()
-  const [referralCode, setReferralCode, referralCodeIsValid] = useValidatedState<string>('', referralCodeRules)
-  const [willUseReferralCode, setWillUseReferralCode] = useState(false)
+  const [referralCode, setReferralCode, referralCodeIsValid] = useValidatedState(
+    route.params?.referralCode || '',
+    referralCodeRules,
+  )
+  const [willUseReferralCode, setWillUseReferralCode] = useState(!!route.params?.referralCode)
 
   const updateReferralCode = (code: string) => {
     if (referralCode !== code) setWillUseReferralCode(false)

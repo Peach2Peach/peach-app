@@ -2,7 +2,7 @@ import { render } from '@testing-library/react-native'
 import { NavigationAndQueryClientWrapper } from '../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
 import { useBitcoinStore } from '../../store/bitcoinStore'
 import { useOfferPreferences } from '../../store/offerPreferenes/useOfferPreferences'
-import Buy from './Buy'
+import { Buy } from './Buy'
 
 const useMarketPricesMock = jest.fn().mockReturnValue({
   data: {

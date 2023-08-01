@@ -11,6 +11,7 @@ export const PaymentDataInfoFields: PaymentDataField[] = [
   'ukBankAccount',
   'ukSortCode',
   'receiveAddress',
+  'lnurlAddress',
   'reference',
   'userId',
 ]

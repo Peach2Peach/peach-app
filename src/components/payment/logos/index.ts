@@ -35,7 +35,7 @@ import nationalTransferPL from '../../flags/pl.svg'
 import nationalTransferRO from '../../flags/ro.svg'
 import liquid from './liquid.svg'
 
-const PaymentLogos = {
+export const PaymentLogos = {
   'cash.amsterdam': bitcoinAmsterdam,
   'cash.belgianEmbassy': bitcoin,
   'cash.lugano': bitcoin,
@@ -79,5 +79,3 @@ const PaymentLogos = {
 }
 
 export type PaymentLogoType = keyof typeof PaymentLogos
-
-export default PaymentLogos

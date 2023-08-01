@@ -19,9 +19,7 @@ export const useDisputeReasonSelectorSetup = () => {
 
   const showDisputeRaisedPopup = useDisputeRaisedSuccess()
 
-  useHeaderSetup({
-    title: i18n('dispute.disputeForTrade', !!contract ? contractIdToHex(contract.id) : ''),
-  })
+  useHeaderSetup(i18n('dispute.disputeForTrade', !!contract ? contractIdToHex(contract.id) : ''))
 
   const setAndSubmit = async (reason: DisputeReason) => {
     const [success, error] = await submitRaiseDispute(contract, reason)

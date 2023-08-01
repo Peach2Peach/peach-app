@@ -1,3 +1,3 @@
-import WelcomeInfo from './WelcomeInfo'
+import { WelcomeInfo } from './WelcomeInfo'
 
-export default () => <WelcomeInfo name="peerToPeer" />
+export const PeerToPeer = () => <WelcomeInfo name="peerToPeer" />

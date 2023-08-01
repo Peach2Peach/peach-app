@@ -7,7 +7,7 @@ import { EmailInput } from '../../components/inputs/EmailInput'
 import i18n from '../../utils/i18n'
 import { useDisputeFormSetup } from './hooks/useDisputeFormSetup'
 
-export default () => {
+export const DisputeForm = () => {
   const { email, setEmail, emailErrors, reason, message, setMessage, messageErrors, isFormValid, submit, loading }
     = useDisputeFormSetup()
   let $message = useRef<TextInput>(null).current

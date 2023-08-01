@@ -5,7 +5,7 @@ import i18n from '../../utils/i18n'
 import { Rate } from './components/Rate'
 import { useTradeCompleteSetup } from './hooks/useTradeCompleteSetup'
 
-export default () => {
+export const TradeComplete = () => {
   const { view, vote, setVote, contract, saveAndUpdate } = useTradeCompleteSetup()
 
   return (

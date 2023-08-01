@@ -4,10 +4,10 @@ import { View } from 'react-native'
 import { TabbedNavigation, TabbedNavigationItem } from '../../components/navigation/TabbedNavigation'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import FileBackup from './components/backups/FileBackup'
-import SeedPhrase from './components/backups/SeedPhrase'
+import { FileBackup } from './components/backups/FileBackup'
+import { SeedPhrase } from './components/backups/SeedPhrase'
 
-export default () => {
+export const Backups = () => {
   const tabs: TabbedNavigationItem[] = [
     { id: 'fileBackup', display: i18n('settings.backups.fileBackup'), view: FileBackup },
     { id: 'seedPhrase', display: i18n('settings.backups.seedPhrase'), view: SeedPhrase },

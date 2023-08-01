@@ -127,7 +127,9 @@ declare type RootStackParamList = {
   aboutPeach: undefined
   bitcoinProducts: undefined
   socials: undefined
-  welcome: undefined
+  welcome: {
+    referralCode?: string
+  }
   splashScreen: undefined
   myProfile: undefined
 } & Record<`testView${string}`, undefined>

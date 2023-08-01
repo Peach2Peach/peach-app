@@ -1,6 +1,6 @@
 import { enforceEmailFormat } from '../../utils/format'
 import i18n from '../../utils/i18n'
-import Input, { InputProps } from './Input'
+import { Input, InputProps } from './Input'
 
 export const EmailInput = ({ onChange, onSubmit, ...props }: InputProps) => (
   <Input

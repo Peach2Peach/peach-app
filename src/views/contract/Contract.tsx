@@ -3,12 +3,12 @@ import { PeachScrollView } from '../../components'
 import { TradeSummary } from '../../components/offer'
 import tw from '../../styles/tailwind'
 
-import LoadingScreen from '../loading/LoadingScreen'
+import { LoadingScreen } from '../loading/LoadingScreen'
 import { ContractActions } from './ContractActions'
 import { ContractContext } from './context'
 import { useContractSetup } from './hooks/useContractSetup'
 
-export default () => {
+export const Contract = () => {
   const { contract, isLoading, view, ...contractActionsProps } = useContractSetup()
 
   if (!contract || !view || isLoading) return <LoadingScreen />

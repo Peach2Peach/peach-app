@@ -4,7 +4,7 @@ import { Pressable, TextStyle } from 'react-native'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { Fade } from '../animation'
-import Icon from '../Icon'
+import { Icon } from '../Icon'
 import { Text } from '../text'
 
 export type CopyRef = {

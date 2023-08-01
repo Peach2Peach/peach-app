@@ -3,11 +3,11 @@ import { Text } from '../../../../components'
 import tw from '../../../../styles/tailwind'
 import i18n from '../../../../utils/i18n'
 
-type EstimatedFeeItemProps = {
+type Props = {
   feeRate: FeeRate
   estimatedFees: number
 }
-export default ({ feeRate, estimatedFees }: EstimatedFeeItemProps) => (
+export const EstimatedFeeItem = ({ feeRate, estimatedFees }: Props) => (
   <View>
     <Text style={tw`py-1 subtitle-1 leading-base`}>
       {i18n(`settings.networkFees.estimatedTime.${feeRate}`)}

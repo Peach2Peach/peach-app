@@ -2,7 +2,7 @@ import { renderHook } from '@testing-library/react-native'
 import { contract } from '../../../../tests/unit/data/contractData'
 import { usePopupStore } from '../../../store/usePopupStore'
 import i18n from '../../../utils/i18n'
-import DisputeRaisedNotice from '../components/DisputeRaisedNotice'
+import { DisputeRaisedNotice } from '../components/DisputeRaisedNotice'
 import { useDisputeRaisedNotice } from './useDisputeRaisedNotice'
 
 const navigateMock = jest.fn()

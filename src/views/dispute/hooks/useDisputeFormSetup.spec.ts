@@ -1,9 +1,8 @@
 import { act, renderHook } from '@testing-library/react-native'
 import { contract } from '../../../../tests/unit/data/contractData'
-import { contractIdToHex } from '../../../utils/contract'
-import i18n from '../../../utils/i18n'
 import { useDisputeFormSetup } from './useDisputeFormSetup'
 import { unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
+import { headerState } from '../../../../tests/unit/helpers/NavigationWrapper'
 
 const defaultReason = 'other'
 const useRouteMock = jest.fn(() => ({
@@ -91,9 +90,7 @@ describe('useDisputeFormSetup', () => {
   })
   it('sets up the header correctly', () => {
     renderHook(useDisputeFormSetup)
-    expect(useHeaderSetupMock).toHaveBeenCalledWith({
-      title: i18n('dispute.disputeForTrade', contractIdToHex(contract.id)),
-    })
+    expect(headerState.header()).toMatchSnapshot()
   })
   it('sets email', () => {
     const { result } = renderHook(useDisputeFormSetup)

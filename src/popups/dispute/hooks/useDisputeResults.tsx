@@ -10,7 +10,7 @@ import { confirmPayment } from '../../../utils/peachAPI'
 import { getEscrowWalletForOffer } from '../../../utils/wallet'
 import { DisputeLostBuyer } from '../components/DisputeLostBuyer'
 import { DisputeLostSeller } from '../components/DisputeLostSeller'
-import NonDispute from '../components/NonDispute'
+import { NonDispute } from '../components/NonDispute'
 
 export const useDisputeResults = () => {
   const navigation = useNavigation()

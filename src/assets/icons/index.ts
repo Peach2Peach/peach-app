@@ -47,6 +47,7 @@ import edit3 from './edit3.svg'
 import externalLink from './externalLink.svg'
 import eye from './eye.svg'
 import eyeOff from './eyeOff.svg'
+import filter from './filter.svg'
 import fire from './fire.svg'
 import flag from './flag.svg'
 import fundEscrow from './fundEscrow.svg'
@@ -86,6 +87,7 @@ import selectOpen from './selectOpen.svg'
 import sell from './sell.svg'
 import send from './send.svg'
 import settings from './settings.svg'
+import settingsGear from './settingsGear.svg'
 import shield from './shield.svg'
 import shiftCrypto from './shiftCrypto.svg'
 import shuffle from './shuffle.svg'
@@ -118,7 +120,7 @@ import zap from './zap.svg'
 import zapCircleInverted from './zapCircleInverted.svg'
 import { LogoIcons } from '../logo'
 
-const Icons = {
+export const Icons = {
   activity,
   alertCircle,
   alertOctagon,
@@ -168,6 +170,7 @@ const Icons = {
   externalLink,
   eye,
   eyeOff,
+  filter,
   fire,
   flag,
   fundEscrow,
@@ -207,6 +210,7 @@ const Icons = {
   sell,
   send,
   settings,
+  settingsGear,
   shield,
   shiftCrypto,
   shuffle,
@@ -241,5 +245,3 @@ const Icons = {
 }
 
 export type IconType = keyof typeof Icons
-
-export default Icons

@@ -6,7 +6,7 @@ import { Icon, PrimaryButton, Text } from '../../components'
 import i18n from '../../utils/i18n'
 import { useBackupTimeSetup } from './hooks/useBackupTimeSetup'
 
-export default () => {
+export const BackupTime = () => {
   const { goToBackups, skip } = useBackupTimeSetup()
 
   return (

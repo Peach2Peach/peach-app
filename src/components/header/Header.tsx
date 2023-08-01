@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native'
-import { ColorValue, TouchableOpacity, View, ViewStyle } from 'react-native'
-import { Icon, Text } from '..'
+import { ColorValue, TouchableOpacity, View } from 'react-native'
+import { BitcoinPriceStats, HorizontalLine, Icon, Text } from '..'
 import { IconType } from '../../assets/icons'
 import tw from '../../styles/tailwind'
 import { getHeaderStyles } from '../../utils/layout'
@@ -21,7 +21,6 @@ const themes = {
 export type HeaderIcon = {
   id: IconType
   accessibilityHint?: string
-  style?: ViewStyle | ViewStyle[]
   color?: ColorValue | undefined
   onPress: () => void
 }
@@ -32,37 +31,55 @@ export type HeaderConfig = {
   icons?: HeaderIcon[]
   hideGoBackButton?: boolean
   theme?: 'default' | 'inverted'
+  showPriceStats?: boolean
 }
 
-export const Header = ({ title, icons, titleComponent, hideGoBackButton, theme }: HeaderConfig) => {
+export const Header = ({ title, icons, titleComponent, hideGoBackButton, showPriceStats, theme }: HeaderConfig) => {
   const colors = themes[theme || 'default']
   const { goBack, canGoBack } = useNavigation()
   const { iconSize, fontSize } = getHeaderStyles()
 
-  return (
-    <View style={[tw`flex-row justify-between w-full px-8 py-2`, colors.bg]}>
-      <View style={tw`flex-row items-center justify-start flex-shrink`}>
-        {!hideGoBackButton && canGoBack() && (
-          <TouchableOpacity style={tw`mr-1 -ml-3`} onPress={goBack}>
-            <Icon id="chevronLeft" style={iconSize} color={colors.backButton.color} />
-          </TouchableOpacity>
-        )}
-        {title ? (
-          <Text style={[...fontSize, colors.text]} numberOfLines={1}>
-            {title}
-          </Text>
-        ) : (
-          titleComponent
-        )}
-      </View>
+  const shouldShowBackButton = !hideGoBackButton && canGoBack()
 
-      <View style={tw`flex-row items-center justify-end`}>
-        {icons?.map(({ id, accessibilityHint, style, color, onPress }, i) => (
-          <TouchableOpacity key={i} style={tw`ml-4`} {...{ accessibilityHint, onPress }}>
-            <Icon {...{ id, color }} style={[style, ...iconSize]} />
-          </TouchableOpacity>
-        ))}
+  return (
+    <View
+      style={[
+        tw`items-center py-1 px-sm gap-6px`,
+        tw.md`px-md`,
+        shouldShowBackButton && [tw`pl-3`, tw.md`pl-22px`],
+        colors.bg,
+      ]}
+    >
+      <View style={tw`flex-row justify-between w-full`}>
+        <View style={tw`flex-row items-center justify-start flex-grow gap-1`}>
+          {shouldShowBackButton && (
+            <TouchableOpacity onPress={goBack}>
+              <Icon id="chevronLeft" style={iconSize} color={colors.backButton.color} />
+            </TouchableOpacity>
+          )}
+          {title ? (
+            <Text style={[...fontSize, colors.text]} numberOfLines={1}>
+              {title}
+            </Text>
+          ) : (
+            titleComponent
+          )}
+        </View>
+
+        <View style={tw`flex-row items-center justify-end gap-10px`}>
+          {icons?.map(({ id, accessibilityHint, color, onPress }, i) => (
+            <TouchableOpacity key={`${i}-${id}`} style={tw`p-2px`} {...{ accessibilityHint, onPress }}>
+              <Icon {...{ id, color }} style={iconSize} />
+            </TouchableOpacity>
+          ))}
+        </View>
       </View>
+      {showPriceStats && (
+        <>
+          <HorizontalLine />
+          <BitcoinPriceStats />
+        </>
+      )}
     </View>
   )
 }

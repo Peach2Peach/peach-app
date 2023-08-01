@@ -1,5 +1,5 @@
 import ShallowRenderer from 'react-test-renderer/shallow'
-import PayoutAddress from './PayoutAddress'
+import { PayoutAddress } from './PayoutAddress'
 
 const usePayoutAddressSetupMock = jest.fn()
 jest.mock('./hooks/usePayoutAddressSetup', () => ({

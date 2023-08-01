@@ -1,6 +1,6 @@
 import { createRenderer } from 'react-test-renderer/shallow'
 import { NavigationWrapper } from '../../../tests/unit/helpers/NavigationWrapper'
-import RestoreReputation from './RestoreReputation'
+import { RestoreReputation } from './RestoreReputation'
 
 const restoreReputationMock = jest.fn()
 const useRestoreReputationSetupMock = jest.fn().mockReturnValue({

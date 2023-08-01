@@ -1,7 +1,7 @@
 import { Animated } from 'react-native'
 import { IconType } from '../../../../assets/icons'
 import tw from '../../../../styles/tailwind'
-import Icon from '../../../Icon'
+import { Icon } from '../../../Icon'
 import { getBackgroundColor } from '../helpers/getBackgroundColor'
 import { useIsMediumScreen } from '../../../../hooks'
 

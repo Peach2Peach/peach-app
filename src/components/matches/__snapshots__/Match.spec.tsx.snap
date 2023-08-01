@@ -191,9 +191,10 @@ exports[`Match should render correctly for buy offers 1`] = `
           style={
             [
               {
-                "alignItems": "stretch",
                 "backgroundColor": "#EAE3DF",
+                "flexShrink": 1,
                 "height": 1,
+                "width": "100%",
               },
               {
                 "marginBottom": 16,
@@ -405,9 +406,10 @@ exports[`Match should render correctly for buy offers 1`] = `
           style={
             [
               {
-                "alignItems": "stretch",
                 "backgroundColor": "#EAE3DF",
+                "flexShrink": 1,
                 "height": 1,
+                "width": "100%",
               },
               {
                 "marginBottom": 16,
@@ -468,9 +470,10 @@ exports[`Match should render correctly for buy offers 1`] = `
           style={
             [
               {
-                "alignItems": "stretch",
                 "backgroundColor": "#EAE3DF",
+                "flexShrink": 1,
                 "height": 1,
+                "width": "100%",
               },
               {
                 "marginBottom": 16,
@@ -906,9 +909,10 @@ exports[`Match should render correctly for matched offers 1`] = `
             style={
               [
                 {
-                  "alignItems": "stretch",
                   "backgroundColor": "#EAE3DF",
+                  "flexShrink": 1,
                   "height": 1,
+                  "width": "100%",
                 },
                 {
                   "marginBottom": 16,
@@ -1120,9 +1124,10 @@ exports[`Match should render correctly for matched offers 1`] = `
             style={
               [
                 {
-                  "alignItems": "stretch",
                   "backgroundColor": "#EAE3DF",
+                  "flexShrink": 1,
                   "height": 1,
+                  "width": "100%",
                 },
                 {
                   "marginBottom": 16,
@@ -1183,9 +1188,10 @@ exports[`Match should render correctly for matched offers 1`] = `
             style={
               [
                 {
-                  "alignItems": "stretch",
                   "backgroundColor": "#EAE3DF",
+                  "flexShrink": 1,
                   "height": 1,
+                  "width": "100%",
                 },
                 {
                   "marginBottom": 16,
@@ -1752,9 +1758,10 @@ exports[`Match should render correctly for sell offers 1`] = `
           style={
             [
               {
-                "alignItems": "stretch",
                 "backgroundColor": "#EAE3DF",
+                "flexShrink": 1,
                 "height": 1,
+                "width": "100%",
               },
               {
                 "marginBottom": 16,
@@ -1966,9 +1973,10 @@ exports[`Match should render correctly for sell offers 1`] = `
           style={
             [
               {
-                "alignItems": "stretch",
                 "backgroundColor": "#EAE3DF",
+                "flexShrink": 1,
                 "height": 1,
+                "width": "100%",
               },
               {
                 "marginBottom": 16,

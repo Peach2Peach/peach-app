@@ -5,7 +5,7 @@ import { defaultPopupState, usePopupStore } from '../../../store/usePopupStore'
 import { contractIdToHex } from '../../../utils/contract'
 import { DisputeLostBuyer } from '../components/DisputeLostBuyer'
 import { DisputeLostSeller } from '../components/DisputeLostSeller'
-import NonDispute from '../components/NonDispute'
+import { NonDispute } from '../components/NonDispute'
 import { useDisputeResults } from './useDisputeResults'
 
 describe('useDisputeResults', () => {

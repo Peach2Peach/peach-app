@@ -1,4 +1,4 @@
-import LoadingScreen from './LoadingScreen'
+import { LoadingScreen } from './LoadingScreen'
 import { createRenderer } from 'react-test-renderer/shallow'
 
 describe('LoadingScreen', () => {

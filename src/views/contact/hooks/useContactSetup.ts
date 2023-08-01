@@ -1,4 +1,3 @@
-import { useMemo } from 'react'
 import { Linking } from 'react-native'
 import { DISCORD, TELEGRAM } from '../../../constants'
 
@@ -12,7 +11,7 @@ export const contactReasonsWithAccount: ContactReason[] = ['bug', 'userProblem',
 export const useContactSetup = () => {
   const navigation = useNavigation()
 
-  useHeaderSetup(useMemo(() => ({ title: i18n('contact.title') }), []))
+  useHeaderSetup(i18n('contact.title'))
 
   const setReason = (reason: ContactReason) => {
     navigation.navigate('report', { reason, shareDeviceID: reason === 'accountLost' })

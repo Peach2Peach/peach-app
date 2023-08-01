@@ -1,6 +1,6 @@
 import { GoBackIcon } from './GoBackIcon'
 import { fireEvent, render } from '@testing-library/react-native'
-import Icon from '../../Icon'
+import { Icon } from '../../Icon'
 import { defaultState, DrawerContext } from '../../../contexts/drawer'
 
 describe('GoBackIcon', () => {
@@ -27,7 +27,7 @@ describe('GoBackIcon', () => {
         content: 'testContent',
         options: [],
         show: true,
-        previousDrawer: {},
+        previousDrawer: undefined,
         onClose: () => {},
       },
     })
@@ -45,7 +45,7 @@ describe('GoBackIcon', () => {
         content: 'testContent',
         options: [],
         show: true,
-        previousDrawer: {},
+        previousDrawer: undefined,
         onClose: () => {},
       },
     })

@@ -32,9 +32,10 @@ exports[`DrawerHeader renders correctly 1`] = `
     style={
       [
         {
-          "alignItems": "stretch",
           "backgroundColor": "#EAE3DF",
+          "flexShrink": 1,
           "height": 1,
+          "width": "100%",
         },
         undefined,
       ]
@@ -75,9 +76,10 @@ exports[`DrawerHeader renders correctly when the first option is highlighted 1`]
     style={
       [
         {
-          "alignItems": "stretch",
           "backgroundColor": "#EAE3DF",
+          "flexShrink": 1,
           "height": 1,
+          "width": "100%",
         },
         {
           "backgroundColor": "#FCCCB6",

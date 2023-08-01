@@ -1,3 +1,4 @@
+import { isValidElement } from 'react'
 import { create } from 'zustand'
 import { isDefined } from '../utils/validation/isDefined'
 
@@ -9,6 +10,7 @@ export type PopupState = {
   action2: Action | undefined
   level: Level
   requireUserAction: boolean
+  popupComponent: React.ReactElement | undefined
 }
 
 export const defaultPopupState: PopupState = {
@@ -19,9 +21,10 @@ export const defaultPopupState: PopupState = {
   action2: undefined,
   level: 'DEFAULT',
   requireUserAction: false,
+  popupComponent: undefined,
 }
 type PopupStore = PopupState & {
-  setPopup: (params?: Partial<PopupState>) => void
+  setPopup: (params?: Partial<PopupState> | PopupState['popupComponent']) => void
   showPopup: () => void
   closePopup: () => void
   updatePopup: (params?: Partial<PopupState>) => void
@@ -30,14 +33,24 @@ type PopupStore = PopupState & {
 export const usePopupStore = create<PopupStore>((set, get) => ({
   ...defaultPopupState,
   setPopup: (params) => {
-    set({
-      visible: params?.visible !== undefined ? params.visible : true,
-      content: params?.content,
-      title: params?.title || defaultPopupState.title,
-      action1: params?.action1,
-      action2: params?.action2,
-      level: params?.level || defaultPopupState.level,
-      requireUserAction: params?.requireUserAction || defaultPopupState.requireUserAction,
+    set(() => {
+      if (!isValidElement(params)) {
+        return {
+          visible: params?.visible !== undefined ? params.visible : true,
+          content: params?.content,
+          title: params?.title || defaultPopupState.title,
+          action1: params?.action1,
+          action2: params?.action2,
+          level: params?.level || defaultPopupState.level,
+          requireUserAction: params?.requireUserAction || defaultPopupState.requireUserAction,
+          popupComponent: params?.popupComponent,
+        }
+      }
+      return {
+        visible: true,
+        popupComponent: params,
+        requireUserAction: false,
+      }
     })
   },
   showPopup: () => {

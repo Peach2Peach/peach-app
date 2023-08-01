@@ -1,6 +1,6 @@
 import { sellOffer } from '../../../tests/unit/data/offerData'
 import { defaultFundingStatus } from '../../utils/offer/constants'
-import FundEscrow from './FundEscrow'
+import { FundEscrow } from './FundEscrow'
 import { createRenderer } from 'react-test-renderer/shallow'
 
 const useFundEscrowSetupMock = jest.fn()

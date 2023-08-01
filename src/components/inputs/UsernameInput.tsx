@@ -1,5 +1,5 @@
 import { enforceUsernameFormat } from '../../utils/format'
-import Input, { InputProps } from './Input'
+import { Input, InputProps } from './Input'
 
 export const UsernameInput = ({ onChange, onSubmit, ...props }: InputProps) => (
   <Input

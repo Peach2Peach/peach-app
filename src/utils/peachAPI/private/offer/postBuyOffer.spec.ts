@@ -1,4 +1,5 @@
 import { API_URL } from '@env'
+import { buyOffer } from '../../../../../tests/unit/data/offerData'
 import { postBuyOffer } from './postBuyOffer'
 const paymentData: OfferPaymentData = {
   sepa: {
@@ -7,6 +8,7 @@ const paymentData: OfferPaymentData = {
   },
 }
 const responseBody: PostOfferResponseBody = {
+  ...buyOffer,
   id: 'id',
   type: 'bid',
   amount: [1000, 2000],
@@ -77,6 +79,7 @@ describe('postBuyOffer', () => {
       } satisfies OfferDraft['meansOfPayment'],
       paymentData,
       releaseAddress: 'releaseAddress',
+      maxPremium: null,
     }
     await postBuyOffer(offerDraft)
     expect(fetchMock).toHaveBeenCalledWith(`${API_URL}/v1/offer`, {
@@ -93,6 +96,7 @@ describe('postBuyOffer', () => {
       } satisfies OfferDraft['meansOfPayment'],
       paymentData,
       releaseAddress: 'releaseAddress',
+      maxPremium: null,
     }
 
     const result = await postBuyOffer(offerDraft)
@@ -107,6 +111,7 @@ describe('postBuyOffer', () => {
       } satisfies OfferDraft['meansOfPayment'],
       paymentData,
       releaseAddress: 'releaseAddress',
+      maxPremium: null,
     }
     const error: APIError = {
       error: 'error',
@@ -128,6 +133,7 @@ describe('postBuyOffer', () => {
       } satisfies OfferDraft['meansOfPayment'],
       paymentData,
       releaseAddress: 'releaseAddress',
+      maxPremium: null,
       originalPaymentData: {
         sepa: {
           iban: 'iban',
@@ -149,6 +155,7 @@ describe('postBuyOffer', () => {
         },
         paymentData,
         releaseAddress: 'releaseAddress',
+        maxPremium: null,
       }),
     })
   })
@@ -161,6 +168,7 @@ describe('postBuyOffer', () => {
       } satisfies OfferDraft['meansOfPayment'],
       paymentData,
       releaseAddress: 'releaseAddress',
+      maxPremium: null,
       messageSignature: 'messageSignature',
     }
     // @ts-expect-error
@@ -176,6 +184,7 @@ describe('postBuyOffer', () => {
         paymentData,
         releaseAddress: 'releaseAddress',
         messageSignature: 'messageSignature',
+        maxPremium: null,
       }),
     })
   })

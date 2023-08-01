@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Currencies should render correctly for type "eurorpe" 1`] = `
+exports[`Currencies should render correctly for type "europe" 1`] = `
 <ForwardRef
   contentContainerStyle={
     [
@@ -70,13 +70,8 @@ exports[`Currencies should render correctly for type "eurorpe" 1`] = `
         },
       ]
     }
-    onChange={[MockFunction]}
+    onButtonPress={[MockFunction]}
     selectedValue="EUR"
-    style={
-      {
-        "alignItems": "center",
-      }
-    }
   />
 </ForwardRef>
 `;
@@ -102,18 +97,17 @@ exports[`Currencies should render correctly for type "other" 1`] = `
     items={
       [
         {
+          "display": "LNURL BTC swap",
+          "value": "SAT",
+        },
+        {
           "display": "L-USDT",
           "value": "USDT",
         },
       ]
     }
-    onChange={[MockFunction]}
+    onButtonPress={[MockFunction]}
     selectedValue="EUR"
-    style={
-      {
-        "alignItems": "center",
-      }
-    }
   />
 </ForwardRef>
 `;

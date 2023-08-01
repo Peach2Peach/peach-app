@@ -1,9 +1,9 @@
 import { Bottom } from './Bottom'
 import { render } from '@testing-library/react-native'
-import Icon from '../../Icon'
+import { Icon } from '../../Icon'
 
 describe('Bottom', () => {
-  it('should not render anything if the label doesn\'t exist', () => {
+  it("should not render anything if the label doesn't exist", () => {
     expect(
       render(<Bottom label={undefined} labelIcon={undefined} unreadMessages={undefined} color={'primary'} />),
     ).toMatchSnapshot()

@@ -32,9 +32,6 @@ describe('useReferralsSetup', () => {
     const { result } = renderHook(useReferralsSetup, { wrapper: NavigationWrapper })
 
     expect(result.current.user).toEqual(defaultSelfUser)
-    expect(result.current.BARLIMIT).toBeGreaterThan(0)
-    expect(result.current.REWARDINFO[0]).toHaveProperty('id')
-    expect(result.current.REWARDINFO[0]).toHaveProperty('requiredPoints')
     expect(result.current.pointsBalance).toEqual(defaultSelfUser.bonusPoints)
     expect(result.current.availableRewards).toEqual(0)
     expect(result.current.selectedReward).toBeUndefined()

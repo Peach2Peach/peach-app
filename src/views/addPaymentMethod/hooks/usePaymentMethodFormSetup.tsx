@@ -25,11 +25,15 @@ export const usePaymentMethodFormSetup = () => {
   }
 
   const showHelp = useShowHelp('currencies')
+  const showLNURLHelp = useShowHelp('lnurl')
 
   const getHeaderIcons = useCallback(() => {
     const icons: HeaderConfig['icons'] = []
     if (['revolut', 'wise', 'paypal', 'advcash'].includes(paymentMethod)) {
       icons[0] = { ...headerIcons.help, onPress: showHelp }
+    }
+    if (['lnurl'].includes(paymentMethod)) {
+      icons[0] = { ...headerIcons.help, onPress: showLNURLHelp }
     }
     if (id) {
       icons[1] = { ...headerIcons.delete, onPress: deletePaymentMethod }

@@ -1,7 +1,7 @@
 import { createRenderer } from 'react-test-renderer/shallow'
 import { TradeInfo } from './TradeInfo'
 import tw from '../../styles/tailwind'
-import Icon from '../Icon'
+import { Icon } from '../Icon'
 
 describe('TradeInfo', () => {
   const renderer = createRenderer()

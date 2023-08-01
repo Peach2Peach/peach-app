@@ -16,7 +16,7 @@ export const useOfferDetailsSetup = () => {
     }
   }, [error, offerId, showErrorBanner])
 
-  useHeaderSetup({ title: offerIdToHex(offerId) })
+  useHeaderSetup(offerIdToHex(offerId))
 
   return offer
 }

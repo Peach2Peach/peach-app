@@ -13,6 +13,7 @@ export const useBuySetup = () => {
     titleComponent: <BuyTitleComponent />,
     hideGoBackButton: true,
     icons: [{ ...headerIcons.help, onPress: showHelp }],
+    showPriceStats: true,
   })
 
   return { freeTrades, maxFreeTrades }

@@ -3,7 +3,7 @@ import { Platform } from 'react-native'
 import DocumentPicker from 'react-native-document-picker'
 import { readFileInChunks } from '../../utils/file'
 import { error } from '../../utils/log'
-import Input, { InputProps } from './Input'
+import { Input, InputProps } from './Input'
 
 export type FileData = {
   name: string

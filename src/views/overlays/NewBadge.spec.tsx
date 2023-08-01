@@ -1,5 +1,5 @@
 import { createRenderer } from 'react-test-renderer/shallow'
-import NewBadge from './NewBadge'
+import { NewBadge } from './NewBadge'
 
 const useNewBadgeSetupMock = jest.fn().mockReturnValue({
   badge: 'fastTrader',

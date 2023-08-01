@@ -8,15 +8,15 @@ import { useSearchSetup } from './hooks'
 import { DailyTradingLimit } from '../settings/profile/DailyTradingLimit'
 import { isSellOffer } from '../../utils/offer'
 
-export default () => {
+export const Search = () => {
   const { hasMatches, offer } = useSearchSetup()
   if (!offer) return <></>
   return (
     <>
-      <PeachScrollView style={tw`h-full`} contentContainerStyle={tw`justify-center flex-grow pt-5 pb-6`} bounces={false}>
+      <PeachScrollView contentContainerStyle={[tw`justify-center flex-grow py-sm`, tw.md`py-md`]} bounces={false}>
         <View style={tw`flex-grow px-6`}>
           {hasMatches && isSellOffer(offer) && <MatchInformation offer={offer} />}
-          {!hasMatches && <NoMatchesYet offer={offer} style={tw`items-center mx-2`} />}
+          {!hasMatches && <NoMatchesYet offer={offer} />}
         </View>
         {hasMatches && <Matches />}
       </PeachScrollView>

@@ -12,9 +12,7 @@ export const useSelectWalletSetup = () => {
 
   const { type } = route.params
 
-  useHeaderSetup({
-    title: i18n(`${type}.wallet.select.title`),
-  })
+  useHeaderSetup(i18n(`${type}.wallet.select.title`))
 
   const goToSetRefundWallet = () => navigation.navigate('payoutAddress', { type })
 
