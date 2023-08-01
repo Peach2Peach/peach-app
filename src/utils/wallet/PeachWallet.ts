@@ -27,6 +27,7 @@ import { buildDrainWalletTransaction, buildTransaction } from './transaction'
 import { transactionHasBeenMappedToOffer } from './transactionHasBeenMappedToOffer'
 import { useWalletState } from './walletStore'
 import { sum } from '../math'
+import { getUTXOAddress } from './getUTXOAddress'
 
 type PeachWalletProps = {
   wallet: BIP32Interface
@@ -222,6 +223,14 @@ export class PeachWallet extends PeachJSWallet {
   async getReceivingAddress () {
     if (!this.wallet) throw Error('WALLET_NOT_READY')
     return await this.wallet.getAddress(AddressIndex.New)
+  }
+
+  async getAddressUTXO (address: string) {
+    if (!this.wallet) throw Error('WALLET_NOT_READY')
+
+    const utxo = await this.getUTXO()
+    const utxoAddresses = await Promise.all(utxo.map(getUTXOAddress(this.network)))
+    return utxo.filter((utx, i) => utxoAddresses[i] === address)
   }
 
   async withdrawAll (address: string, feeRate?: number) {

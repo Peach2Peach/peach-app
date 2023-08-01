@@ -1,10 +1,13 @@
 /* eslint-disable max-classes-per-file */
 
 export const addressScriptPubKeyMock = jest.fn()
+export const addressFromScriptMock = jest.fn()
 export class Address {
   create = jest.fn().mockReturnThis()
 
   scriptPubKey = addressScriptPubKeyMock
+
+  fromScript = addressFromScriptMock
 }
 
 export const blockChainCreateMock = jest.fn().mockReturnThis()

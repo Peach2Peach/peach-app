@@ -2,7 +2,7 @@
 /* eslint-disable max-statements */
 /* eslint-disable max-lines-per-function */
 import { waitFor } from '@testing-library/react-native'
-import { PartiallySignedTransaction, Transaction, TxBuilder } from 'bdk-rn'
+import { Address, PartiallySignedTransaction, Transaction, TxBuilder } from 'bdk-rn'
 import { LocalUtxo, OutPoint, TransactionDetails, TxBuilderResult, TxOut } from 'bdk-rn/lib/classes/Bindings'
 import { AddressIndex, KeychainKind } from 'bdk-rn/lib/lib/enums'
 import { account1 } from '../../../tests/unit/data/accountData'
@@ -17,6 +17,7 @@ import {
 } from '../../../tests/unit/data/transactionDetailData'
 import { getError } from '../../../tests/unit/helpers/getError'
 import {
+  addressFromScriptMock,
   blockChainCreateMock,
   blockchainBroadcastMock,
   mnemonicFromStringMock,
@@ -58,11 +59,14 @@ jest.mock('./transaction/buildTransaction', () => ({
 jest.useFakeTimers()
 
 describe('PeachWallet', () => {
+  const address1 = 'address1'
+  const address2 = 'address2'
   const outpoint1 = new OutPoint(confirmed1.txid, 0)
   const outpoint2 = new OutPoint(confirmed2.txid, 0)
-  const txOut = new TxOut(10000, new Script('address'))
-  const utxo1 = new LocalUtxo(outpoint1, txOut, false, KeychainKind.External)
-  const utxo2 = new LocalUtxo(outpoint2, txOut, true, KeychainKind.External)
+  const txOut1 = new TxOut(10000, new Script(address1))
+  const txOut2 = new TxOut(10000, new Script(address2))
+  const utxo1 = new LocalUtxo(outpoint1, txOut1, false, KeychainKind.External)
+  const utxo2 = new LocalUtxo(outpoint2, txOut2, true, KeychainKind.External)
 
   const txResponse: TransactionDetails[] = [
     createTransaction({ txid: 'txid1', sent: 1, received: 1, fee: 1, confirmationTime: { timestamp: 1, height: 1 } }),
@@ -149,6 +153,16 @@ describe('PeachWallet', () => {
     peachWallet.wallet.listUnspent = jest.fn().mockResolvedValue([utxo1, utxo2])
 
     expect(await peachWallet.getUTXO()).toEqual([utxo1])
+  })
+  it('returns UTXO of specific address', async () => {
+    const addressObject = new Address()
+    addressObject.asString = jest.fn().mockResolvedValue(address1)
+    addressFromScriptMock.mockResolvedValue(addressObject)
+
+    // @ts-ignore
+    peachWallet.wallet.listUnspent = jest.fn().mockResolvedValue([utxo1, utxo2])
+
+    expect(await peachWallet.getAddressUTXO(address1)).toEqual([utxo1])
   })
   it('does not select a utxo if not part of wallet', async () => {
     await peachWallet.selectUTXO(utxo1)
