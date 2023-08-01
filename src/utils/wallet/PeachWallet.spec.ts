@@ -21,6 +21,7 @@ import {
   blockchainBroadcastMock,
   mnemonicFromStringMock,
   psbtExtractTxMock,
+  txBuilderAddUtxosMock,
   txBuilderFinishMock,
   walletGetAddressMock,
   walletGetBalanceMock,
@@ -56,6 +57,12 @@ jest.mock('./transaction/buildTransaction', () => ({
 jest.useFakeTimers()
 
 describe('PeachWallet', () => {
+  const outpoint1 = new OutPoint(confirmed1.txid, 0)
+  const outpoint2 = new OutPoint(confirmed2.txid, 0)
+  const txOut = new TxOut(10000, new Script('address'))
+  const utxo1 = new LocalUtxo(outpoint1, txOut, false, KeychainKind.External)
+  const utxo2 = new LocalUtxo(outpoint2, txOut, true, KeychainKind.External)
+
   const txResponse: TransactionDetails[] = [
     createTransaction({ txid: 'txid1', sent: 1, received: 1, fee: 1, confirmationTime: { timestamp: 1, height: 1 } }),
     createTransaction({ txid: 'txid2', sent: 2, received: 2, fee: 2 }),
@@ -137,15 +144,25 @@ describe('PeachWallet', () => {
     expect(error.message).toBe('WALLET_NOT_READY')
   })
   it('returns UTXO of wallet', async () => {
-    const outpoint = new OutPoint(confirmed1.txid, 0)
-    const txOut = new TxOut(10000, new Script('address'))
-    const utxo1 = new LocalUtxo(outpoint, txOut, false, KeychainKind.External)
-    const utxo2 = new LocalUtxo(outpoint, txOut, true, KeychainKind.External)
-
     // @ts-ignore
     peachWallet.wallet.listUnspent = jest.fn().mockResolvedValue([utxo1, utxo2])
 
     expect(await peachWallet.getUTXO()).toEqual([utxo1])
+  })
+  it('does not select a utxo if not part of wallet', async () => {
+    await peachWallet.selectUTXO(utxo1)
+    expect(peachWallet.selectedUTXO).toEqual([])
+  })
+  it('selects a utxo if part of wallet', async () => {
+    // @ts-ignore
+    peachWallet.wallet.listUnspent = jest.fn().mockResolvedValue([utxo1, utxo2])
+    await peachWallet.selectUTXO(utxo1)
+    expect(peachWallet.selectedUTXO).toEqual([utxo1])
+  })
+  it('unselects a utxo', () => {
+    peachWallet.selectedUTXO = [utxo1, utxo2]
+    peachWallet.unselectUTXO(utxo1)
+    expect(peachWallet.selectedUTXO).toEqual([utxo2])
   })
   it('overwrites confirmed and merges pending transactions', async () => {
     const existingTx = [
@@ -315,6 +332,11 @@ describe('PeachWallet', () => {
     peachWallet.balance = balance
     expect(peachWallet.getMaxAvailableAmount()).toEqual(balance)
   })
+  it('returns maximum available amount when utxo are selected', () => {
+    peachWallet.balance = 1000000
+    peachWallet.selectedUTXO = [utxo1, utxo2]
+    expect(peachWallet.getMaxAvailableAmount()).toEqual(20000)
+  })
 
   it('sends bitcoin to an address', async () => {
     const address = 'address'
@@ -333,6 +355,32 @@ describe('PeachWallet', () => {
     walletSignMock.mockResolvedValueOnce(result.psbt)
     psbtExtractTxMock.mockResolvedValueOnce(transaction)
     const withdrawResult = await peachWallet.sendTo(address, amount, feeRate)
+    expect(buildTransactionMock).toHaveBeenCalledWith(address, amount, feeRate)
+    expect(txBuilderFinishMock).toHaveBeenCalledWith(peachWallet.wallet)
+    expect(walletSignMock).toHaveBeenCalledWith(result.psbt)
+    expect(blockchainBroadcastMock).toHaveBeenCalledWith(transaction)
+    expect(withdrawResult).toEqual(result.psbt)
+  })
+
+  it('sends bitcoin to an address with selected utxo', async () => {
+    const address = 'address'
+    const amount = 10000
+    const feeRate = 10
+
+    const result: TxBuilderResult = {
+      psbt: new PartiallySignedTransaction('base64'),
+      txDetails: pending1,
+    }
+    const transaction = await new Transaction().create([])
+    const txBuilder = await new TxBuilder().create()
+
+    buildTransactionMock.mockResolvedValueOnce(txBuilder)
+    txBuilderFinishMock.mockResolvedValueOnce(result)
+    walletSignMock.mockResolvedValueOnce(result.psbt)
+    psbtExtractTxMock.mockResolvedValueOnce(transaction)
+    peachWallet.selectedUTXO = [utxo1, utxo2]
+    const withdrawResult = await peachWallet.sendTo(address, amount, feeRate)
+    expect(txBuilderAddUtxosMock).toHaveBeenCalledWith([utxo1.outpoint, utxo2.outpoint])
     expect(buildTransactionMock).toHaveBeenCalledWith(address, amount, feeRate)
     expect(txBuilderFinishMock).toHaveBeenCalledWith(peachWallet.wallet)
     expect(walletSignMock).toHaveBeenCalledWith(result.psbt)
