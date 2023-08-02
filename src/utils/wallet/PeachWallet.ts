@@ -205,9 +205,13 @@ export class PeachWallet extends PeachJSWallet {
     return this.wallet.getAddress(AddressIndex.LastUnused)
   }
 
-  getLastUnusedInternalAddress () {
+  async getNewInternalAddress () {
     if (!this.wallet) throw Error('WALLET_NOT_READY')
-    return this.wallet.getInternalAddress(AddressIndex.LastUnused)
+    const addressInfo = await this.wallet.getInternalAddress(AddressIndex.New)
+    return {
+      ...addressInfo,
+      address: await addressInfo.address.asString(),
+    }
   }
 
   async getAddressByIndex (index: number) {
@@ -220,9 +224,9 @@ export class PeachWallet extends PeachJSWallet {
     }
   }
 
-  async getReceivingAddress () {
+  getReceivingAddress () {
     if (!this.wallet) throw Error('WALLET_NOT_READY')
-    return await this.wallet.getAddress(AddressIndex.New)
+    return this.wallet.getAddress(AddressIndex.New)
   }
 
   async getAddressUTXO (address: string) {

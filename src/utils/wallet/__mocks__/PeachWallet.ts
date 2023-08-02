@@ -40,6 +40,10 @@ export class PeachWallet {
     return { address: 'bcrt1qwype5wug33a6hwz9u2n6vz4lc0kpw0kg4xc8fq', index: 0 }
   }
 
+  async getNewInternalAddress () {
+    return { address: 'bcrt1qwype5wug33a6hwz9u2n6vz4lc0kpw0kg4xc8fq', index: 0 }
+  }
+
   async withdrawAll (): Promise<string | null> {
     return 'txId'
   }

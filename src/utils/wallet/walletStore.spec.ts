@@ -34,4 +34,8 @@ describe('walletStore', () => {
     useWalletState.getState().labelAddress('address1', 'label update')
     expect(useWalletState.getState().addressLabelMap).toEqual({ address1: 'label update' })
   })
+  it('registers offer ids for funding multiple escrows', () => {
+    useWalletState.getState().registerFundMultiple('address1', ['1', '2', '3'])
+    expect(useWalletState.getState().fundMultipleMap).toEqual({ address1: ['1', '2', '3'] })
+  })
 })
