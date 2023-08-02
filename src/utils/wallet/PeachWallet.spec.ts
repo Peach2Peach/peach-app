@@ -256,8 +256,10 @@ describe('PeachWallet', () => {
   })
   it('gets the last unused receiving address', async () => {
     const address = 'address'
+    const addressObject = new Address()
+    addressObject.asString = jest.fn().mockResolvedValue(address)
     const index = 4
-    walletGetAddressMock.mockResolvedValueOnce({ address, index })
+    walletGetAddressMock.mockResolvedValueOnce({ address: addressObject, index })
 
     const { address: newAddress, index: addressIndex } = await peachWallet.getLastUnusedAddress()
     expect(newAddress).toBe(address)
@@ -277,9 +279,11 @@ describe('PeachWallet', () => {
     expect(walletGetInternalAddressMock).toHaveBeenCalledWith(AddressIndex.New)
   })
   it('gets address by index', async () => {
-    const lastUnusedAddress = 'address'
-    const index = 1
-    walletGetAddressMock.mockResolvedValueOnce({ address: lastUnusedAddress, index })
+    const address = 'address'
+    const addressObject = new Address()
+    addressObject.asString = jest.fn().mockResolvedValue(address)
+    const index = 4
+    walletGetAddressMock.mockResolvedValueOnce({ address: addressObject, index })
 
     const addressInfo = await peachWallet.getAddressByIndex(0)
     expect(addressInfo).toEqual({
@@ -290,8 +294,10 @@ describe('PeachWallet', () => {
   })
   it('gets a new unused receiving address', async () => {
     const address = 'address'
-    const index = 0
-    walletGetAddressMock.mockResolvedValueOnce({ address, index })
+    const addressObject = new Address()
+    addressObject.asString = jest.fn().mockResolvedValue(address)
+    const index = 4
+    walletGetAddressMock.mockResolvedValueOnce({ address: addressObject, index })
 
     const { address: newAddress, index: addressIndex } = await peachWallet.getReceivingAddress()
     expect(newAddress).toBe(address)
