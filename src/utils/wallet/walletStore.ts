@@ -1,6 +1,7 @@
 import { TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
 import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
+import { keys, omit } from '../object'
 import { createStorage } from '../storage'
 import { toZustandStorage } from '../storage/toZustandStorage'
 import { migrateWalletStore } from './migration/migrateWalletStore'
@@ -15,6 +16,11 @@ export type WalletState = {
   fundMultipleMap: Record<string, string[]>
 }
 
+export type FundMultipleInfo = {
+  address: string
+  offerIds: string[]
+}
+
 export type WalletStore = WalletState & {
   reset: () => void
   setAddresses: (addresses: string[]) => void
@@ -26,6 +32,8 @@ export type WalletStore = WalletState & {
   labelAddress: (address: string, label: string) => void
   updateTxOfferMap: (txid: string, offerId: string) => void
   registerFundMultiple: (address: string, offerIds: string[]) => void
+  unregisterFundMultiple: (address: string) => void
+  getFundMultipleByOfferId: (offerId: string) => FundMultipleInfo | undefined
 }
 
 export const defaultWalletState: WalletState = {
@@ -76,6 +84,17 @@ export const useWalletState = create(
             [address]: offerIds,
           },
         })),
+      unregisterFundMultiple: (address) =>
+        set((state) => ({
+          fundMultipleMap: omit(state.fundMultipleMap, address),
+        })),
+      getFundMultipleByOfferId: (offerId) => {
+        const map = get().fundMultipleMap
+        const address = keys(map).find((a) => map[a].includes(offerId))
+        if (!address) return undefined
+        const offerIds = map[address]
+        return { address, offerIds }
+      },
     }),
     {
       name: 'wallet',
