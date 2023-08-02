@@ -1,4 +1,5 @@
 import i18n from '../../../../../utils/i18n'
+import { useWalletState } from '../../../../../utils/wallet/walletStore'
 import { isContractSummary, isPastOffer } from '../../../utils'
 
 type PartialTradeSummary = Pick<TradeSummary, 'tradeStatus' | 'unreadMessages' | 'type'> & Partial<TradeSummary>
@@ -25,6 +26,14 @@ export const getActionLabel = (tradeSummary: PartialTradeSummary, isWaiting: boo
 
   if (isPastOffer(tradeStatus)) {
     return undefined
+  }
+
+  if (
+    tradeStatus === 'fundEscrow'
+    && tradeSummary.id
+    && useWalletState.getState().getFundMultipleByOfferId(tradeSummary.id)
+  ) {
+    return i18n('offer.requiredAction.fundMultipleEscrow')
   }
   return i18n(`offer.requiredAction.${tradeStatus}`)
 }
