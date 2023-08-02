@@ -9,6 +9,8 @@ import { shouldGetFundingStatus } from '../../sell/helpers/shouldGetFundingStatu
 import { useCreateEscrow } from './useCreateEscrow'
 import { useFundEscrowHeader } from './useFundEscrowHeader'
 import { useHandleFundingStatus } from './useHandleFundingStatus'
+import { useWalletState } from '../../../utils/wallet/walletStore'
+import { getFundingAmount } from '../helpers/getFundingAmount'
 
 const minLoadingTime = 1000
 export const useFundEscrowSetup = () => {
@@ -26,7 +28,8 @@ export const useFundEscrowSetup = () => {
     userConfirmationRequired,
     error: fundingStatusError,
   } = useFundingStatus(offerId, canFetchFundingStatus)
-  const fundingAmount = sellOffer ? sellOffer.amount : 0
+  const fundMultiple = useWalletState((state) => state.getFundMultipleByOfferId(offerId))
+  const fundingAmount = getFundingAmount(sellOffer, fundMultiple)
   const cancelOffer = useCancelOffer(sellOffer)
 
   useFundEscrowHeader({ fundingStatus, sellOffer })
