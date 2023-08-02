@@ -47,7 +47,7 @@ export const useFundEscrowSetup = () => {
   }, [showLoading])
 
   const { mutate: createEscrow, error: createEscrowError } = useCreateEscrow({
-    offerId,
+    offerIds: fundMultiple?.offerIds || [offerId],
   })
 
   useEffect(() => {
@@ -66,7 +66,7 @@ export const useFundEscrowSetup = () => {
     offerId,
     offer: sellOffer,
     isLoading: showLoading > 0,
-    escrow: sellOffer?.escrow,
+    fundingAddress: fundMultiple?.address || sellOffer?.escrow,
     createEscrowError,
     fundingStatus,
     fundingAmount,

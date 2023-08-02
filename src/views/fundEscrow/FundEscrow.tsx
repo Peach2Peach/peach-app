@@ -13,11 +13,12 @@ import { useFundEscrowSetup } from './hooks/useFundEscrowSetup'
 import { useFundFromPeachWallet } from './hooks/useFundFromPeachWallet'
 
 export const FundEscrow = () => {
-  const { offerId, offer, isLoading, escrow, createEscrowError, fundingStatus, fundingAmount } = useFundEscrowSetup()
+  const { offerId, offer, isLoading, fundingAddress, createEscrowError, fundingStatus, fundingAmount } =
+    useFundEscrowSetup()
   const { fundFromPeachWallet, fundedFromPeachWallet } = useFundFromPeachWallet({ offer, fundingStatus })
 
   if (createEscrowError) return <NoEscrowFound />
-  if (isLoading || !escrow) return <BitcoinLoading text={i18n('sell.escrow.loading')} />
+  if (isLoading || !fundingAddress) return <BitcoinLoading text={i18n('sell.escrow.loading')} />
 
   if (fundingStatus.status === 'MEMPOOL') return <TransactionInMempool txId={fundingStatus.txIds[0]} />
 
@@ -31,7 +32,7 @@ export const FundEscrow = () => {
             <Text style={tw`settings`}> {i18n('sell.escrow.sendSats.2')}</Text>
           </View>
           <BitcoinAddress
-            address={escrow}
+            address={fundingAddress}
             amount={fundingAmount / SATSINBTC}
             label={`${i18n('settings.escrow.paymentRequest.label')} ${offerIdToHex(offerId)}`}
           />

@@ -8,6 +8,7 @@ import { setAccount, updateAccount } from '../../../utils/account'
 import { saveOffer } from '../../../utils/offer'
 import { defaultFundingStatus } from '../../../utils/offer/constants'
 import { useFundEscrowSetup } from './useFundEscrowSetup'
+import { useWalletState } from '../../../utils/wallet/walletStore'
 
 jest.useFakeTimers()
 
@@ -69,6 +70,7 @@ describe('useFundEscrowSetup', () => {
     updateAccount({ ...account1, offers: [] }, true)
   })
   afterEach(() => {
+    useWalletState.getState().reset()
     queryClient.clear()
   })
 
@@ -78,12 +80,19 @@ describe('useFundEscrowSetup', () => {
     expect(result.current).toEqual({
       offerId: sellOffer.id,
       isLoading: true,
-      escrow: undefined,
+      fundingAddress: undefined,
       createEscrowError: null,
       fundingStatus: defaultFundingStatus,
       fundingAmount: 0,
       cancelOffer: expect.any(Function),
     })
+  })
+  it('should return registered funding address for funding multiple offers', () => {
+    const internalAddress = 'internalAddress'
+    useWalletState.getState().registerFundMultiple(internalAddress, [sellOffer.id])
+    const { result } = renderHook(useFundEscrowSetup, { wrapper })
+
+    expect(result.current.fundingAddress).toBe(internalAddress)
   })
   it('should return default values with locally stored offer', () => {
     saveOffer(sellOfferWithEscrow)
@@ -93,7 +102,7 @@ describe('useFundEscrowSetup', () => {
       offerId: sellOfferWithEscrow.id,
       offer: sellOfferWithEscrow,
       isLoading: false,
-      escrow: sellOfferWithEscrow.escrow,
+      fundingAddress: sellOfferWithEscrow.escrow,
       createEscrowError: null,
       fundingStatus: defaultFundingStatus,
       fundingAmount: sellOfferWithEscrow.amount,
@@ -104,7 +113,7 @@ describe('useFundEscrowSetup', () => {
     getOfferDetailsMock.mockReturnValueOnce([{ ...sellOffer, escrow: undefined }, null])
     const { result } = renderHook(useFundEscrowSetup, { wrapper })
     await waitFor(() => expect(createEscrowMock).toHaveBeenCalled())
-    expect(result.current.escrow).toBe(sellOfferWithEscrow.escrow)
+    expect(result.current.fundingAddress).toBe(sellOfferWithEscrow.escrow)
   })
   it('should show loading for at least 1 second', async () => {
     getOfferDetailsMock.mockReturnValueOnce([{ ...sellOffer, escrow: undefined }, null])
@@ -139,7 +148,7 @@ describe('useFundEscrowSetup', () => {
     expect(result.current).toEqual({
       offerId: sellOffer.id,
       isLoading: true,
-      escrow: undefined,
+      fundingAddress: undefined,
       createEscrowError: null,
       fundingStatus: defaultFundingStatus,
       fundingAmount: 0,
@@ -154,7 +163,7 @@ describe('useFundEscrowSetup', () => {
       offerId: sellOffer.id,
       offer: sellOfferWithEscrow,
       isLoading: false,
-      escrow: 'escrow',
+      fundingAddress: 'escrow',
       createEscrowError: null,
       fundingStatus: defaultFundingStatus,
       fundingAmount: sellOffer.amount,
