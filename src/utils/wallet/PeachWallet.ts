@@ -199,9 +199,13 @@ export class PeachWallet extends PeachJSWallet {
     return this.transactions.filter((tx) => !tx.confirmationTime?.height)
   }
 
-  getLastUnusedAddress () {
+  async getLastUnusedAddress () {
     if (!this.wallet) throw Error('WALLET_NOT_READY')
-    return this.wallet.getAddress(AddressIndex.LastUnused)
+    const addressInfo = await this.wallet.getAddress(AddressIndex.LastUnused)
+    return {
+      ...addressInfo,
+      address: await addressInfo.address.asString(),
+    }
   }
 
   async getAddressByIndex (index: number) {
@@ -216,7 +220,11 @@ export class PeachWallet extends PeachJSWallet {
 
   async getReceivingAddress () {
     if (!this.wallet) throw Error('WALLET_NOT_READY')
-    return await this.wallet.getAddress(AddressIndex.New)
+    const addressInfo = await this.wallet.getAddress(AddressIndex.New)
+    return {
+      ...addressInfo,
+      address: await addressInfo.address.asString(),
+    }
   }
 
   async withdrawAll (address: string, feeRate?: number) {
