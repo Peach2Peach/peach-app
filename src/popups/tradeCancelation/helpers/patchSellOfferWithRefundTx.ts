@@ -1,9 +1,9 @@
-import { checkRefundPSBT, signPSBT } from '../../../utils/bitcoin'
+import { checkRefundPSBT } from '../../../utils/bitcoin'
 import { getSellOfferFromContract } from '../../../utils/contract'
 import { patchOffer } from '../../../utils/peachAPI'
 import { getResult } from '../../../utils/result'
 import { Result } from '../../../utils/result/types'
-import { getEscrowWalletForOffer } from '../../../utils/wallet'
+import { getEscrowWalletForOffer, signPSBT } from '../../../utils/wallet'
 
 type UpdateResult = {
   sellOffer: SellOffer

@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 
+import { useIsFocused } from '@react-navigation/native'
 import { useNavigation, useRoute } from '../../../hooks'
 import { useCommonContractSetup } from '../../../hooks/useCommonContractSetup'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
@@ -11,10 +12,9 @@ import {
 } from '../../../utils/contract'
 import { isTradeComplete } from '../../../utils/contract/status'
 import { confirmPayment, getContract, getOfferDetails } from '../../../utils/peachAPI'
+import { getEscrowWalletForOffer } from '../../../utils/wallet'
 import { getNavigationDestinationForOffer } from '../../yourTrades/utils'
 import { useContractHeaderSetup } from './useContractHeaderSetup'
-import { getEscrowWalletForOffer } from '../../../utils/wallet'
-import { useIsFocused } from '@react-navigation/native'
 
 // eslint-disable-next-line max-lines-per-function
 export const useContractSetup = () => {
@@ -65,7 +65,7 @@ export const useContractSetup = () => {
     setActionPending(true)
 
     const sellOffer = getSellOfferFromContract(contract)
-    const [tx, errorMsg] = verifyAndSignReleaseTx(contract, sellOffer, getEscrowWalletForOffer(sellOffer))
+    const [tx, errorMsg, batchMode] = verifyAndSignReleaseTx(contract, sellOffer, getEscrowWalletForOffer(sellOffer))
 
     if (!tx) {
       setActionPending(false)
@@ -73,7 +73,11 @@ export const useContractSetup = () => {
       return
     }
 
-    const [result, err] = await confirmPayment({ contractId, releaseTransaction: tx })
+    const [result, err] = await confirmPayment({
+      contractId: contract.id,
+      releaseTransaction: !batchMode ? tx : undefined,
+      batchReleasePsbt: batchMode ? tx : undefined,
+    })
 
     setActionPending(false)
 

@@ -1,5 +1,7 @@
+import { PsbtInput } from 'bip174/src/lib/interfaces'
 import { Psbt, networks } from 'bitcoinjs-lib'
 import { createTestWallet } from '../../../tests/unit/helpers/createTestWallet'
+import { SIGHASH } from '../bitcoin/constants'
 import { getEscrowWalletForOffer, setWallet } from '../wallet'
 import { verifyAndSignReleaseTx } from './verifyAndSignReleaseTx'
 
@@ -11,9 +13,9 @@ jest.mock('bitcoinjs-lib', () => ({
   },
 }))
 
-const verifyPSBTMock = jest.fn()
-jest.mock('../../views/contract/helpers/verifyPSBT', () => ({
-  verifyPSBT: (...args: any[]) => verifyPSBTMock(...args),
+const verifyReleasePSBTMock = jest.fn()
+jest.mock('../../views/contract/helpers/verifyReleasePSBT', () => ({
+  verifyReleasePSBT: (...args: any[]) => verifyReleasePSBTMock(...args),
 }))
 
 // eslint-disable-next-line max-lines-per-function
@@ -45,7 +47,7 @@ describe('verifyAndSignReleaseTx', () => {
   const wallet = getEscrowWalletForOffer(mockSellOffer as SellOffer)
 
   it('should return null and error message if psbt is not valid', () => {
-    verifyPSBTMock.mockReturnValueOnce('INVALID_INPUT')
+    verifyReleasePSBTMock.mockReturnValueOnce('INVALID_INPUT')
 
     const [tx, error] = verifyAndSignReleaseTx(mockContract as Contract, mockSellOffer as SellOffer, wallet)
 
@@ -56,6 +58,14 @@ describe('verifyAndSignReleaseTx', () => {
   it('should sign valid release transaction and return it', () => {
     const finalizeInputMock = jest.fn()
     const psbt: Partial<Psbt> = {
+      // @ts-ignore
+      data: {
+        inputs: [
+          {
+            sighashType: SIGHASH.ALL,
+          },
+        ] as PsbtInput[],
+      },
       signInput: jest.fn().mockReturnValue({ finalizeInput: finalizeInputMock }),
       extractTransaction: jest.fn().mockReturnValue({
         toHex: jest.fn().mockReturnValue('transactionAsHex'),
@@ -73,7 +83,7 @@ describe('verifyAndSignReleaseTx', () => {
       ] as Psbt['txOutputs'],
     }
     fromBase64Mock.mockReturnValue(psbt as Psbt)
-    verifyPSBTMock.mockReturnValueOnce(null)
+    verifyReleasePSBTMock.mockReturnValueOnce(null)
     const [tx, error] = verifyAndSignReleaseTx(mockContract as Contract, mockSellOffer as SellOffer, wallet)
 
     expect(error).toBe(null)
@@ -92,6 +102,14 @@ describe('verifyAndSignReleaseTx', () => {
     }
     const finalizeInputMock = jest.fn()
     const psbt: Partial<Psbt> = {
+      // @ts-ignore
+      data: {
+        inputs: [
+          {
+            sighashType: SIGHASH.ALL,
+          },
+        ] as PsbtInput[],
+      },
       signInput: jest.fn().mockReturnValue({ finalizeInput: finalizeInputMock }),
       extractTransaction: jest.fn().mockReturnValue({
         toHex: jest.fn().mockReturnValue('transactionAsHex'),
@@ -109,7 +127,7 @@ describe('verifyAndSignReleaseTx', () => {
       ] as Psbt['txOutputs'],
     }
     fromBase64Mock.mockReturnValue(psbt as Psbt)
-    verifyPSBTMock.mockReturnValueOnce(null)
+    verifyReleasePSBTMock.mockReturnValueOnce(null)
     const [tx, error] = verifyAndSignReleaseTx(legacyContract as Contract, mockSellOffer as SellOffer, wallet)
 
     expect(error).toBe(null)

@@ -1,208 +1,113 @@
+import { contract } from '../../../../tests/unit/data/contractData'
+import { constructPSBT } from '../../../../tests/unit/helpers/constructPSBT'
+import { createTestWallet } from '../../../../tests/unit/helpers/createTestWallet'
+import { defaultConfig } from '../../../store/defaults'
+import { SIGHASH } from '../../../utils/bitcoin/constants'
 import { releaseTransactionHasValidOutputs } from './releaseTransactionHasValidOutputs'
 
 // eslint-disable-next-line max-lines-per-function
 describe('releaseTransactionHasValidOutputs', () => {
-  it('should return false if peachFee output is missing', () => {
-    const mockPsbt = {
-      txOutputs: [
-        {
-          address: 'releaseAddress',
-          value: 100,
-        },
-      ],
-    }
-    const mockContract = {
-      releaseAddress: 'releaseAddress',
-      amount: 100,
-    }
-
-    // @ts-expect-error
-    expect(releaseTransactionHasValidOutputs(mockPsbt, mockContract, 0.02)).toBeFalsy()
+  const wallet = createTestWallet()
+  const psbt = constructPSBT(wallet, undefined, { value: contract.amount, address: contract.releaseAddress })
+  const feeAmount = contract.amount * defaultConfig.peachFee
+  const psbtWithFeeOutput = constructPSBT(wallet, undefined, {
+    value: contract.amount - feeAmount,
+    address: contract.releaseAddress,
   })
+  psbtWithFeeOutput.addOutput({
+    address: 'bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh',
+    value: feeAmount,
+  })
+  const batchPSBT = constructPSBT(
+    wallet,
+    { sighashType: SIGHASH.SINGLE_ANYONECANPAY },
+    { value: contract.amount - feeAmount, address: contract.releaseAddress },
+  )
+  const contractWithNoBuyerFee = { ...contract, buyerFee: 0 }
 
+  it('should return false if peachFee output is missing', () => {
+    expect(releaseTransactionHasValidOutputs(psbt, contract, 0.02)).toBeFalsy()
+  })
   it('should return false if peachFee output is wrong', () => {
-    const mockPsbt = {
-      txOutputs: [
-        {
-          address: 'releaseAddress',
-          value: 100,
-        },
-        {
-          address: 'peachAddress',
-          value: 10,
-        },
-      ],
-    }
-    const mockContract = {
-      releaseAddress: 'releaseAddress',
-      amount: 100,
-    }
-
-    // @ts-expect-error
-    expect(releaseTransactionHasValidOutputs(mockPsbt, mockContract, 0.02)).toBeFalsy()
+    const psbtWithWrongFeeOutput = constructPSBT(wallet, undefined, {
+      value: contract.amount - feeAmount / 2,
+      address: contract.releaseAddress,
+    })
+    psbtWithWrongFeeOutput.addOutput({
+      address: 'bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh',
+      value: feeAmount / 2,
+    })
+    expect(releaseTransactionHasValidOutputs(psbtWithWrongFeeOutput, contract, 0.02)).toBeFalsy()
   })
   it('should return false if buyer output is missing', () => {
-    const mockPsbt = {
-      txOutputs: [
-        {
-          address: 'peachAddress',
-          value: 20000,
-        },
-      ],
-    }
-    const mockContract = {
-      releaseAddress: 'releaseAddress',
-      amount: 1000000,
-    }
-
-    // @ts-expect-error
-    expect(releaseTransactionHasValidOutputs(mockPsbt, mockContract, 0.02)).toBeFalsy()
+    const psbtWithoutBuyerOutput = constructPSBT(wallet, undefined, {
+      address: 'bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh',
+      value: feeAmount,
+    })
+    expect(releaseTransactionHasValidOutputs(psbtWithoutBuyerOutput, contract, 0.02)).toBeFalsy()
   })
-
   it('should return false if buyer output does not match release address', () => {
-    const mockPsbt = {
-      txOutputs: [
-        {
-          address: 'anotherReleaseAddress',
-          value: 980000,
-        },
-        {
-          address: 'peachAddress',
-          value: 20000,
-        },
-      ],
+    const contractWithDifferentAddress = {
+      ...contract,
+      releaseAddress: 'differentAddress',
     }
-    const mockContract = {
-      releaseAddress: 'releaseAddress',
-      amount: 1000000,
-    }
-
-    // @ts-expect-error
-    expect(releaseTransactionHasValidOutputs(mockPsbt, mockContract, 0.02)).toBeFalsy()
+    expect(releaseTransactionHasValidOutputs(psbt, contractWithDifferentAddress, 0.02)).toBeFalsy()
   })
-
-  it('should return false if buyer output is wrong', () => {
-    const mockPsbt = {
-      txOutputs: [
-        {
-          address: 'releaseAddress',
-          value: 0,
-        },
-        {
-          address: 'peachAddress',
-          value: 20000,
-        },
-      ],
-    }
-    const mockContract = {
-      releaseAddress: 'releaseAddress',
-      amount: 1000000,
-    }
-
-    // @ts-expect-error
-    expect(releaseTransactionHasValidOutputs(mockPsbt, mockContract, 0.02)).toBeFalsy()
+  it('should return false if buyer output amount is wrong', () => {
+    const contractWithDifferentAmount = { ...contract, amount: contract.amount * 2 }
+    expect(releaseTransactionHasValidOutputs(psbtWithFeeOutput, contractWithDifferentAmount, 0.02)).toBeFalsy()
   })
-
-  it('should return false if buyer output is wrong and no fees', () => {
-    const mockPsbt = {
-      txOutputs: [
-        {
-          address: 'releaseAddress',
-          value: 0,
-        },
-      ],
-    }
-    const mockContract = {
-      releaseAddress: 'releaseAddress',
-      amount: 1000000,
-    }
-
-    // @ts-expect-error
-    expect(releaseTransactionHasValidOutputs(mockPsbt, mockContract, 0)).toBeFalsy()
+  it('should return false if there are more than 2 outputs', () => {
+    const psbtWith3Outputs = constructPSBT(wallet, undefined, {
+      value: contract.amount - feeAmount,
+      address: contract.releaseAddress,
+    })
+    psbtWith3Outputs.addOutput({
+      address: 'bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh',
+      value: feeAmount,
+    })
+    psbtWith3Outputs.addOutput({
+      address: 'bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh',
+      value: feeAmount,
+    })
+    expect(releaseTransactionHasValidOutputs(psbtWith3Outputs, contract, 0.02)).toBeFalsy()
   })
-
-  it('should return false if there are more than 3 outputs', () => {
-    const mockPsbt = {
-      txOutputs: [
-        {
-          address: 'releaseAddress',
-          value: 960000,
-        },
-        {
-          address: 'peachAddress',
-          value: 20000,
-        },
-        {
-          address: 'thirdAddress',
-          value: 20000,
-        },
-      ],
-    }
-    const mockContract = {
-      releaseAddress: 'releaseAddress',
-      amount: 1000000,
-    }
-
-    // @ts-expect-error
-    expect(releaseTransactionHasValidOutputs(mockPsbt, mockContract, 0.02)).toBeFalsy()
+  it('should return false if there are more than 1 output for free trades', () => {
+    expect(releaseTransactionHasValidOutputs(psbtWithFeeOutput, contractWithNoBuyerFee, 0.02)).toBeFalsy()
   })
-
-  it('should return true for valid PSBTs', () => {
-    const mockPsbt = {
-      txOutputs: [
-        {
-          address: 'releaseAddress',
-          value: 980000,
-        },
-        {
-          address: 'peachAddress',
-          value: 20000,
-        },
-      ],
-    }
-    const mockContract = {
-      releaseAddress: 'releaseAddress',
-      amount: 1000000,
-    }
-
-    // @ts-expect-error
-    expect(releaseTransactionHasValidOutputs(mockPsbt, mockContract, 0.02)).toBeTruthy()
+  it('should return false if there are more than 1 output for batch psbts', () => {
+    const invalidBatchPSBT = constructPSBT(
+      wallet,
+      { sighashType: SIGHASH.SINGLE_ANYONECANPAY },
+      { value: contract.amount - feeAmount, address: contract.releaseAddress },
+    )
+    invalidBatchPSBT.addOutput({
+      address: 'bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh',
+      value: feeAmount,
+    })
+    expect(releaseTransactionHasValidOutputs(invalidBatchPSBT, contractWithNoBuyerFee, 0.02)).toBeFalsy()
   })
-
+  it('should return true for valid PSBTs outputs', () => {
+    expect(releaseTransactionHasValidOutputs(psbtWithFeeOutput, contract, 0.02)).toBeTruthy()
+  })
   it('should return true for valid PSBT and free trade for buyer', () => {
-    const mockPsbt = {
-      txOutputs: [
-        {
-          address: 'releaseAddress',
-          value: 980000,
-        },
-      ],
-    }
-    const mockContract = {
-      releaseAddress: 'releaseAddress',
-      amount: 1000000,
-      buyerFee: 0,
-    }
-
-    // @ts-expect-error
-    expect(releaseTransactionHasValidOutputs(mockPsbt, mockContract, 0.02)).toBeTruthy()
+    expect(releaseTransactionHasValidOutputs(psbt, contractWithNoBuyerFee, 0.02)).toBeTruthy()
   })
   it('should return true for a contract with a large amount', () => {
-    const mockPsbt = {
-      txOutputs: [
-        { value: 2959428, address: 'bcrt1q7h4um5ujy2ctc50ecdtymvd3ypgz5exnlk42sa' },
-        {
-          value: 60400,
-          address: 'bcrt1qxuquzxkx7lm4w9ged0qt7706zp88g5dgetwlc3',
-        },
-      ],
-    }
-    const mockContract = {
-      releaseAddress: 'bcrt1q7h4um5ujy2ctc50ecdtymvd3ypgz5exnlk42sa',
-      amount: 3020000,
-    }
+    const contractWithLargeAmount = { ...contract, amount: 3020000 }
+    const largeFeeAmount = contractWithLargeAmount.amount * defaultConfig.peachFee
+    const largeAmountPsbt = constructPSBT(wallet, undefined, {
+      value: contractWithLargeAmount.amount - largeFeeAmount,
+      address: contractWithLargeAmount.releaseAddress,
+    })
+    largeAmountPsbt.addOutput({
+      address: 'bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh',
+      value: largeFeeAmount,
+    })
 
-    // @ts-expect-error
-    expect(releaseTransactionHasValidOutputs(mockPsbt, mockContract, 0.02)).toBeTruthy()
+    expect(releaseTransactionHasValidOutputs(largeAmountPsbt, contractWithLargeAmount, 0.02)).toBeTruthy()
+  })
+  it('should return true for valid PSBTs outputs for batched tx', () => {
+    expect(releaseTransactionHasValidOutputs(batchPSBT, contract, 0.02)).toBeTruthy()
   })
 })
