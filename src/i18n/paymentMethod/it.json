@@ -32,7 +32,7 @@
   "paymentMethod.iris" : "Iris",
   "paymentMethod.keksPay" : "KEKS Pay",
   "paymentMethod.liquid" : "Liquid",
-  "paymentMethod.lnurl" : "LNURL BTC swap",
+  "paymentMethod.lnurl" : "swap LNURL BTC ",
   "paymentMethod.lydia" : "Lydia",
   "paymentMethod.mbWay" : "MB Way",
   "paymentMethod.mobilePay" : "Mobile Pay",

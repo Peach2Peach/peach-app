@@ -90,5 +90,7 @@
   "form.userName.placeholder" : "nombre de usuario",
   "form.wallet" : "número de cartera",
   "form.wallet.error" : "esta no es una cartera válida",
-  "form.wallet.placeholder" : "U012345678910"
+  "form.wallet.placeholder" : "U012345678910",
+  "number.decrease" : "bajar número",
+  "number.increase" : "subir número"
 }

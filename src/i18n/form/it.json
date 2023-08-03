@@ -10,7 +10,7 @@
   "form.address.btc.error" : "indirizzo bitcoin non valido",
   "form.address.btc.placeholder" : "bc1q ...",
   "form.address.label.placeholder" : "etichetta indirizzo",
-  "form.address.lnurl" : "LNURL address",
+  "form.address.lnurl" : "Indirizzo LNURL",
   "form.address.lnurl.placeholder" : "satoshi@lightning.gmx.com",
   "form.address.placeholder" : "indirizzo",
   "form.address.taproot.error" : "i pagamenti diretti Taproot non sono supportati",
@@ -90,5 +90,7 @@
   "form.userName.placeholder" : "nome utente",
   "form.wallet" : "wallet #",
   "form.wallet.error" : "questo non è un wallet valido",
-  "form.wallet.placeholder" : "U012345678910"
+  "form.wallet.placeholder" : "U012345678910",
+  "number.decrease" : "diminuisci il numero",
+  "number.increase" : "aumento il numero"
 }
