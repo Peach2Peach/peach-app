@@ -37,9 +37,10 @@ exports[`Header should render correctly for default state 1`] = `
         {
           "alignItems": "center",
           "flexDirection": "row",
-          "flexGrow": 1,
+          "flexShrink": 1,
           "gap": 4,
           "justifyContent": "flex-start",
+          "width": "100%",
         }
       }
     />
@@ -94,9 +95,10 @@ exports[`Header should render correctly with PriceStats 1`] = `
         {
           "alignItems": "center",
           "flexDirection": "row",
-          "flexGrow": 1,
+          "flexShrink": 1,
           "gap": 4,
           "justifyContent": "flex-start",
+          "width": "100%",
         }
       }
     >
@@ -127,6 +129,9 @@ exports[`Header should render correctly with PriceStats 1`] = `
               },
               {
                 "color": "#2B1911",
+              },
+              {
+                "flexShrink": 1,
               },
             ],
           ]
@@ -488,9 +493,10 @@ exports[`Header should render correctly with title and icons 1`] = `
         {
           "alignItems": "center",
           "flexDirection": "row",
-          "flexGrow": 1,
+          "flexShrink": 1,
           "gap": 4,
           "justifyContent": "flex-start",
+          "width": "100%",
         }
       }
     >
@@ -575,6 +581,9 @@ exports[`Header should render correctly with title and icons 1`] = `
               },
               {
                 "color": "#2B1911",
+              },
+              {
+                "flexShrink": 1,
               },
             ],
           ]
