@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 
+import { useIsFocused } from '@react-navigation/native'
 import { useNavigation, useRoute } from '../../../hooks'
 import { useCommonContractSetup } from '../../../hooks/useCommonContractSetup'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
@@ -11,18 +12,17 @@ import {
 } from '../../../utils/contract'
 import { isTradeComplete } from '../../../utils/contract/status'
 import { confirmPayment, getContract, getOfferDetails } from '../../../utils/peachAPI'
+import { getEscrowWalletForOffer } from '../../../utils/wallet'
 import { getNavigationDestinationForOffer } from '../../yourTrades/utils'
 import { useContractHeaderSetup } from './useContractHeaderSetup'
-import { getEscrowWalletForOffer } from '../../../utils/wallet'
-import { useIsFocused } from '@react-navigation/native'
 
 // eslint-disable-next-line max-lines-per-function
 export const useContractSetup = () => {
   const route = useRoute<'contract'>()
   const { contractId } = route.params
   const isFocused = useIsFocused()
-  const { contract, saveAndUpdate, isLoading, view, requiredAction, newOfferId, refetch } =
-    useCommonContractSetup(contractId)
+  const { contract, saveAndUpdate, isLoading, view, requiredAction, newOfferId, refetch }
+    = useCommonContractSetup(contractId)
   const navigation = useNavigation()
   const showError = useShowErrorBanner()
 

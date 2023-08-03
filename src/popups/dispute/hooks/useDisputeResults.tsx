@@ -70,49 +70,47 @@ export const useDisputeResults = () => {
 
       const tradeId = contractIdToHex(contract.id)
 
-      if (!contract.disputeWinner)
-        return setPopup({
-          title: i18n('dispute.closed'),
-          level: 'WARN',
-          content: <NonDispute tradeId={tradeId} />,
-          visible: true,
-          action2: {
-            label: i18n('close'),
-            icon: 'xSquare',
-            callback: () => {
-              saveAcknowledgeMent()
-              closePopup()
-              navigation.replace('contract', { contractId: contract.id })
-            },
+      if (!contract.disputeWinner) return setPopup({
+        title: i18n('dispute.closed'),
+        level: 'WARN',
+        content: <NonDispute tradeId={tradeId} />,
+        visible: true,
+        action2: {
+          label: i18n('close'),
+          icon: 'xSquare',
+          callback: () => {
+            saveAcknowledgeMent()
+            closePopup()
+            navigation.replace('contract', { contractId: contract.id })
           },
-          action1: {
-            label: i18n('goToChat'),
-            icon: 'messageCircle',
-            callback: goToChat,
-          },
-        })
+        },
+        action1: {
+          label: i18n('goToChat'),
+          icon: 'messageCircle',
+          callback: goToChat,
+        },
+      })
 
       if (contract.disputeWinner === view) return null
-      if (view === 'buyer')
-        return setPopup({
-          title: i18n('dispute.lost'),
-          level: 'WARN',
-          content: <DisputeLostBuyer tradeId={tradeId} />,
-          visible: true,
-          action2: {
-            label: i18n('close'),
-            icon: 'xSquare',
-            callback: () => {
-              saveAcknowledgeMent()
-              closePopup()
-            },
+      if (view === 'buyer') return setPopup({
+        title: i18n('dispute.lost'),
+        level: 'WARN',
+        content: <DisputeLostBuyer tradeId={tradeId} />,
+        visible: true,
+        action2: {
+          label: i18n('close'),
+          icon: 'xSquare',
+          callback: () => {
+            saveAcknowledgeMent()
+            closePopup()
           },
-          action1: {
-            label: i18n('goToChat'),
-            icon: 'messageCircle',
-            callback: goToChat,
-          },
-        })
+        },
+        action1: {
+          label: i18n('goToChat'),
+          icon: 'messageCircle',
+          callback: goToChat,
+        },
+      })
       return setPopup({
         title: i18n('dispute.lost'),
         level: 'WARN',
@@ -121,18 +119,18 @@ export const useDisputeResults = () => {
         action1:
           !contract.releaseTxId && !contract.canceled
             ? {
-                label: i18n('dispute.seller.lost.button'),
-                icon: 'sell',
-                callback: release,
-              }
+              label: i18n('dispute.seller.lost.button'),
+              icon: 'sell',
+              callback: release,
+            }
             : {
-                label: i18n('close'),
-                icon: 'xSquare',
-                callback: () => {
-                  saveAcknowledgeMent()
-                  closePopup()
-                },
+              label: i18n('close'),
+              icon: 'xSquare',
+              callback: () => {
+                saveAcknowledgeMent()
+                closePopup()
               },
+            },
       })
     },
     [setPopup, closePopup, navigation, showLoadingPopup, showError],
