@@ -10,7 +10,7 @@
   "form.address.btc.error" : "η διεύθυνση bitcoin δεν είναι έγκυρη",
   "form.address.btc.placeholder" : "bc1q ...",
   "form.address.label.placeholder" : "ετικέτα διεύθυνσης",
-  "form.address.lnurl" : "LNURL address",
+  "form.address.lnurl" : "διεύθυνση LNURL  ",
   "form.address.lnurl.placeholder" : "satoshi@lightning.gmx.com",
   "form.address.placeholder" : "διεύθυνση",
   "form.address.taproot.error" : "δεν υποστηρίζονται άμεσες πληρωμές taproot",
@@ -90,5 +90,7 @@
   "form.userName.placeholder" : "όνομα χρήστη",
   "form.wallet" : "πορτοφόλι #",
   "form.wallet.error" : "αυτό δεν είναι ένα έγκυρο πορτοφόλι",
-  "form.wallet.placeholder" : "U012345678910"
+  "form.wallet.placeholder" : "U012345678910",
+  "number.decrease" : "μειώστε τον αριθμό",
+  "number.increase" : "αυξήστε τον αριθμό"
 }
