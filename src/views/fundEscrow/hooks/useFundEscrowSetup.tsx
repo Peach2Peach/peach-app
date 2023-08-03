@@ -9,8 +9,8 @@ import { shouldGetFundingStatus } from '../../sell/helpers/shouldGetFundingStatu
 import { useCreateEscrow } from './useCreateEscrow'
 import { useFundEscrowHeader } from './useFundEscrowHeader'
 import { useHandleFundingStatus } from './useHandleFundingStatus'
-import { useWalletState } from '../../../utils/wallet/walletStore'
-import { getFundingAmount } from '../helpers/getFundingAmount'
+
+const MIN_LOADING_TIME = 1000
 
 const minLoadingTime = 1000
 export const useFundEscrowSetup = () => {
@@ -47,7 +47,7 @@ export const useFundEscrowSetup = () => {
   })
 
   const onSuccess = useCallback(() => {
-    const timeout = Math.max(0, minLoadingTime - (Date.now() - showLoading))
+    const timeout = Math.max(0, MIN_LOADING_TIME - (Date.now() - showLoading))
     setTimeout(() => setShowLoading(0), timeout)
   }, [showLoading])
 
