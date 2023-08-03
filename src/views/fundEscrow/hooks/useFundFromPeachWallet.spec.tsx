@@ -1,4 +1,5 @@
 import { renderHook } from '@testing-library/react-native'
+import { TxBuilder } from 'bdk-rn'
 import { act } from 'react-test-renderer'
 import { estimatedFees } from '../../../../tests/unit/data/bitcoinNetworkData'
 import { transactionError } from '../../../../tests/unit/data/errors'
@@ -19,6 +20,11 @@ import { useFundFromPeachWallet } from './useFundFromPeachWallet'
 const useFeeEstimateMock = jest.fn().mockReturnValue({ estimatedFees })
 jest.mock('../../../hooks/query/useFeeEstimate', () => ({
   useFeeEstimate: () => useFeeEstimateMock(),
+}))
+
+const setMultipleRecipientsMock = jest.fn()
+jest.mock('../../../utils/wallet/transaction/setMultipleRecipients', () => ({
+  setMultipleRecipients: (...args: any[]) => setMultipleRecipientsMock(...args),
 }))
 
 const showErrorBannerMock = jest.fn()
@@ -132,6 +138,15 @@ describe('useFundFromPeachWallet', () => {
       },
     })
   })
+  it('should set multiple recipients if addresses is passed', async () => {
+    peachWallet.balance = amount
+    peachWallet.finishTransaction = jest.fn().mockResolvedValue(getTransactionDetails(amount, feeRate))
+    const addresses = ['a', 'b']
+    const { result } = renderHook(useFundFromPeachWallet, { initialProps: { ...initialProps, addresses } })
+
+    await result.current.fundFromPeachWallet()
+    expect(setMultipleRecipientsMock).toHaveBeenCalledWith(expect.any(TxBuilder), initialProps.amount, addresses)
+  })
   it('should broadcast transaction on confirm', async () => {
     const txDetails = getTransactionDetails(amount, feeRate)
     peachWallet.balance = amount
@@ -205,6 +220,21 @@ describe('useFundFromPeachWallet', () => {
         callback: usePopupStore.getState().closePopup,
       },
     })
+  })
+
+  it('should not show insufficient funds popup but error for multiple addresses', async () => {
+    let call = 0
+    peachWallet.balance = amount
+    peachWallet.finishTransaction = jest.fn().mockImplementation(() => {
+      call++
+      if (call === 1) throw transactionError
+      return getTransactionDetails(amount, feeRate)
+    })
+    const addresses = ['a', 'b']
+    const { result } = renderHook(useFundFromPeachWallet, { initialProps: { ...initialProps, addresses } })
+
+    await result.current.fundFromPeachWallet()
+    expect(showErrorBannerMock).toHaveBeenCalledWith('INSUFFICIENT_FUNDS', [615000, '1089000'])
   })
 
   it('should broadcast withdraw all transaction on confirm', async () => {

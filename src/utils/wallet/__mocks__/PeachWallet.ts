@@ -1,6 +1,8 @@
 /* eslint-disable class-methods-use-this, require-await */
 import { PartiallySignedTransaction } from 'bdk-rn'
-import { TransactionDetails, TxBuilderResult } from 'bdk-rn/lib/classes/Bindings'
+import { LocalUtxo, OutPoint, TransactionDetails, TxBuilderResult, TxOut } from 'bdk-rn/lib/classes/Bindings'
+import { Script } from 'bdk-rn/lib/classes/Script'
+import { KeychainKind } from 'bdk-rn/lib/lib/enums'
 import { getTransactionDetails } from '../../../../tests/unit/helpers/getTransactionDetails'
 
 export class PeachWallet {
@@ -42,6 +44,13 @@ export class PeachWallet {
 
   async getNewInternalAddress () {
     return { address: 'bcrt1qwype5wug33a6hwz9u2n6vz4lc0kpw0kg4xc8fq', index: 0 }
+  }
+
+  async getAddressUTXO () {
+    const outpoint = new OutPoint('txid', 0)
+    const script = new Script('address')
+    const txout = new TxOut(10000, script)
+    return [new LocalUtxo(outpoint, txout, false, KeychainKind.External)]
   }
 
   async withdrawAll (): Promise<string | null> {
