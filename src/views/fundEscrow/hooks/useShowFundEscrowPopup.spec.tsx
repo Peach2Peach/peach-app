@@ -71,7 +71,7 @@ describe('useShowFundEscrowPopup', () => {
       ...usePopupStore.getState(),
       title: 'funding escrow',
       level: 'APP',
-      content: <ConfirmFundingFromPeachWallet {...{ amount: customAmount + fee, address, fee, feeRate }} />,
+      content: <ConfirmFundingFromPeachWallet {...{ amount, address, fee, feeRate }} />,
       action1: {
         label: 'confirm & send',
         icon: 'arrowRightCircle',

@@ -36,6 +36,7 @@ export const useFundEscrowSetup = () => {
     .filter(isDefined)
     .filter(isSellOffer)
     .map((offr) => offr.escrow)
+    .filter(isDefined)
   const fundingAmount = getFundingAmount(sellOffer, fundMultiple)
   const cancelOffer = useCancelOffer(sellOffer)
 
