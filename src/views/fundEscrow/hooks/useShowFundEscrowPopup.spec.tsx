@@ -2,6 +2,7 @@ import { renderHook } from '@testing-library/react-native'
 import { act } from 'react-test-renderer'
 import { estimatedFees } from '../../../../tests/unit/data/bitcoinNetworkData'
 import { sellOffer } from '../../../../tests/unit/data/offerData'
+import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { getTransactionDetails } from '../../../../tests/unit/helpers/getTransactionDetails'
 import { Loading } from '../../../components'
 import { usePopupStore } from '../../../store/usePopupStore'
@@ -10,7 +11,6 @@ import { PeachWallet } from '../../../utils/wallet/PeachWallet'
 import { peachWallet, setPeachWallet } from '../../../utils/wallet/setWallet'
 import { ConfirmFundingFromPeachWallet } from '../components/ConfirmFundingFromPeachWallet'
 import { useShowFundEscrowPopup } from './useShowFundEscrowPopup'
-import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
 
 const wrapper = NavigationWrapper
 
@@ -49,6 +49,29 @@ describe('useShowFundEscrowPopup', () => {
       title: 'funding escrow',
       level: 'APP',
       content: <ConfirmFundingFromPeachWallet {...{ amount, address, fee, feeRate }} />,
+      action1: {
+        label: 'confirm & send',
+        icon: 'arrowRightCircle',
+        callback: expect.any(Function),
+      },
+      action2: {
+        label: 'cancel',
+        icon: 'xCircle',
+        callback: usePopupStore.getState().closePopup,
+      },
+    })
+  })
+
+  it('should open confirmation popup with overwritten amount', async () => {
+    peachWallet.balance = amount
+    const { result } = renderHook(useShowFundEscrowPopup, { wrapper })
+    const customAmount = 10000
+    await result.current({ ...props, amount: customAmount })
+    expect(usePopupStore.getState()).toEqual({
+      ...usePopupStore.getState(),
+      title: 'funding escrow',
+      level: 'APP',
+      content: <ConfirmFundingFromPeachWallet {...{ amount: customAmount + fee, address, fee, feeRate }} />,
       action1: {
         label: 'confirm & send',
         icon: 'arrowRightCircle',

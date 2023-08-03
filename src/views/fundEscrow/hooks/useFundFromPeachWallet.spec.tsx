@@ -35,8 +35,7 @@ describe('useFundFromPeachWallet', () => {
   const address = 'bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh'
   const feeRate = estimatedFees.halfHourFee
   const fee = feeRate * 110
-  const offerWithEscrow = { ...sellOffer, escrow: address }
-  const initialProps = { offer: offerWithEscrow, fundingStatus: defaultFundingStatus }
+  const initialProps = { address, amount: 615000, fundingStatus: defaultFundingStatus }
 
   beforeAll(() => {
     useConfigStore.getState().setMinTradingAmount(minTradingAmount)
@@ -64,7 +63,7 @@ describe('useFundFromPeachWallet', () => {
   it('should return canFundFromPeachWallet as false if escrow is already being funded', () => {
     peachWallet.balance = amount
     const { result } = renderHook(useFundFromPeachWallet, {
-      initialProps: { offer: offerWithEscrow, fundingStatus: { ...defaultFundingStatus, status: 'MEMPOOL' } },
+      initialProps: { address, amount: 6150000, fundingStatus: { ...defaultFundingStatus, status: 'MEMPOOL' } },
     })
 
     expect(result.current.canFundFromPeachWallet).toBeFalsy()

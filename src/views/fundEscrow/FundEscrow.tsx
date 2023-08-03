@@ -1,7 +1,7 @@
 import { View } from 'react-native'
 import { BitcoinAddress, Divider, Icon, Loading, PeachScrollView, PrimaryButton, Text } from '../../components'
-import { TradeInfo } from '../../components/offer'
 import { BTCAmount } from '../../components/bitcoin'
+import { TradeInfo } from '../../components/offer'
 import { SATSINBTC } from '../../constants'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
@@ -13,9 +13,15 @@ import { useFundEscrowSetup } from './hooks/useFundEscrowSetup'
 import { useFundFromPeachWallet } from './hooks/useFundFromPeachWallet'
 
 export const FundEscrow = () => {
-  const { offerId, offer, isLoading, fundingAddress, createEscrowError, fundingStatus, fundingAmount } =
-    useFundEscrowSetup()
-  const { fundFromPeachWallet, fundedFromPeachWallet } = useFundFromPeachWallet({ offer, fundingStatus })
+  const { offerId, isLoading, fundingAddress, fundingAddresses, createEscrowError, fundingStatus, fundingAmount }
+    = useFundEscrowSetup()
+
+  const { fundFromPeachWallet, fundedFromPeachWallet } = useFundFromPeachWallet({
+    address: fundingAddress,
+    addresses: fundingAddresses,
+    amount: fundingAmount,
+    fundingStatus,
+  })
 
   if (createEscrowError) return <NoEscrowFound />
   if (isLoading || !fundingAddress) return <BitcoinLoading text={i18n('sell.escrow.loading')} />

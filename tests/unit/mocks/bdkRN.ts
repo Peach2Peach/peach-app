@@ -135,6 +135,7 @@ export const txBuilderDrainWalletMock = jest.fn()
 export const txBuilderEnableRbfMock = jest.fn()
 export const txBuilderAddUtxosMock = jest.fn()
 export const txBuilderDrainToMock = jest.fn()
+export const txBuildSetRecipientsMock = jest.fn()
 export const txBuilderFinishMock = jest.fn()
 export class TxBuilder {
   create = txBuilderCreateMock
@@ -169,7 +170,7 @@ export class TxBuilder {
 
   addData = jest.fn()
 
-  setRecipients = jest.fn()
+  setRecipients = txBuildSetRecipientsMock
 
   finish = txBuilderFinishMock
 }
