@@ -1,5 +1,7 @@
+import { PsbtInput } from 'bip174/src/lib/interfaces'
 import { Psbt, networks } from 'bitcoinjs-lib'
 import { createTestWallet } from '../../../tests/unit/helpers/createTestWallet'
+import { SIGHASH } from '../bitcoin/constants'
 import { getEscrowWalletForOffer, setWallet } from '../wallet'
 import { verifyAndSignReleaseTx } from './verifyAndSignReleaseTx'
 
@@ -56,6 +58,14 @@ describe('verifyAndSignReleaseTx', () => {
   it('should sign valid release transaction and return it', () => {
     const finalizeInputMock = jest.fn()
     const psbt: Partial<Psbt> = {
+      // @ts-ignore
+      data: {
+        inputs: [
+          {
+            sighashType: SIGHASH.ALL,
+          },
+        ] as PsbtInput[],
+      },
       signInput: jest.fn().mockReturnValue({ finalizeInput: finalizeInputMock }),
       extractTransaction: jest.fn().mockReturnValue({
         toHex: jest.fn().mockReturnValue('transactionAsHex'),
@@ -92,6 +102,14 @@ describe('verifyAndSignReleaseTx', () => {
     }
     const finalizeInputMock = jest.fn()
     const psbt: Partial<Psbt> = {
+      // @ts-ignore
+      data: {
+        inputs: [
+          {
+            sighashType: SIGHASH.ALL,
+          },
+        ] as PsbtInput[],
+      },
       signInput: jest.fn().mockReturnValue({ finalizeInput: finalizeInputMock }),
       extractTransaction: jest.fn().mockReturnValue({
         toHex: jest.fn().mockReturnValue('transactionAsHex'),

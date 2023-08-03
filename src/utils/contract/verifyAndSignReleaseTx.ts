@@ -13,7 +13,9 @@ export const verifyAndSignReleaseTx = (
 
   if (!sellOfferId || !sellOffer?.funding) return [null, 'SELL_OFFER_NOT_FOUND', false]
 
-  const psbt = Psbt.fromBase64(contract.releasePsbt || contract.releaseTransaction, { network: getNetwork() })
+  const psbt = Psbt.fromBase64(contract.batchReleasePsbt || contract.releasePsbt || contract.releaseTransaction, {
+    network: getNetwork(),
+  })
 
   // Don't trust the response, verify
   const errorMsg = verifyPSBT(psbt, sellOffer, contract)
