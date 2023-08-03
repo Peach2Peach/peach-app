@@ -8,22 +8,25 @@ import {
   TxBuilder,
   Wallet,
 } from 'bdk-rn'
-import { TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
+import { LocalUtxo, TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
 import { AddressIndex, BlockChainNames, BlockchainEsploraConfig, KeychainKind } from 'bdk-rn/lib/lib/enums'
 import { BIP32Interface } from 'bip32'
-import { useTradeSummaryStore } from '../../store/tradeSummaryStore'
-import { getBuyOfferIdFromContract } from '../contract'
 import { error, info } from '../log'
 import { parseError } from '../result'
 import { findTransactionsToRebroadcast, isPending, mergeTransactionList } from '../transaction'
 import { callWhenInternet } from '../web'
 import { PeachJSWallet } from './PeachJSWallet'
 import { handleTransactionError } from './error/handleTransactionError'
-import { getAndStorePendingTransactionHex } from './getAndStorePendingTransactionHex'
+import { storePendingTransactionHex } from './getAndStorePendingTransactionHex'
 import { getDescriptorSecretKey } from './getDescriptorSecretKey'
+import { getUTXOId } from './getUTXOId'
+import { labelAddressByTransaction } from './labelAddressByTransaction'
+import { mapTransactionToOffer } from './mapTransactionToOffer'
 import { rebroadcastTransactions } from './rebroadcastTransactions'
-import { buildDrainWalletTransaction } from './transaction/buildDrainWalletTransaction'
+import { buildDrainWalletTransaction, buildTransaction } from './transaction'
+import { transactionHasBeenMappedToOffer } from './transactionHasBeenMappedToOffer'
 import { useWalletState } from './walletStore'
+import { sum } from '../math'
 
 type PeachWalletProps = {
   wallet: BIP32Interface
@@ -48,11 +51,14 @@ export class PeachWallet extends PeachJSWallet {
 
   blockchain: Blockchain | undefined
 
+  selectedUTXO: LocalUtxo[]
+
   constructor ({ wallet, network = NETWORK, gapLimit = 25 }: PeachWalletProps) {
     super({ wallet, network, gapLimit })
     this.descriptorPath = `/84'/${network === 'bitcoin' ? '0' : '1'}'/0'/0/*`
     this.balance = 0
     this.transactions = []
+    this.selectedUTXO = []
     this.initialized = false
     this.synced = false
     this.syncInProgress = undefined
@@ -135,18 +141,8 @@ export class PeachWallet extends PeachJSWallet {
 
   updateStore (): void {
     useWalletState.getState().setTransactions(this.transactions)
-    this.transactions
-      .filter(({ txid }) => !useWalletState.getState().txOfferMap[txid])
-      .forEach(({ txid }) => {
-        const sellOffer = useTradeSummaryStore
-          .getState()
-          .offers.find((offer) => offer.txId === txid || offer.fundingTxId === txid)
-        if (sellOffer?.id) return useWalletState.getState().updateTxOfferMap(txid, sellOffer.id)
-
-        const contract = useTradeSummaryStore.getState().contracts.find((cntrct) => cntrct.releaseTxId === txid)
-        if (contract) return useWalletState.getState().updateTxOfferMap(txid, getBuyOfferIdFromContract(contract))
-        return null
-      })
+    this.transactions.filter((tx) => !transactionHasBeenMappedToOffer(tx)).forEach(mapTransactionToOffer)
+    this.transactions.filter(transactionHasBeenMappedToOffer).forEach(labelAddressByTransaction)
   }
 
   async getBalance (): Promise<number> {
@@ -159,20 +155,41 @@ export class PeachWallet extends PeachJSWallet {
     return this.balance
   }
 
+  async getUTXO () {
+    if (!this.wallet) throw Error('WALLET_NOT_READY')
+
+    const utxo = await this.wallet.listUnspent()
+    return utxo.filter(({ isSpent }) => !isSpent)
+  }
+
+  async selectUTXO (utxo: LocalUtxo) {
+    const allUTXO = await this.getUTXO()
+    const utxoIds = allUTXO.map(getUTXOId)
+    if (!utxoIds.includes(getUTXOId(utxo))) return
+
+    this.selectedUTXO.push(utxo)
+  }
+
+  unselectUTXO (utxo: LocalUtxo) {
+    const idToRemove = getUTXOId(utxo)
+    this.selectedUTXO = this.selectedUTXO.filter((utx) => getUTXOId(utx) !== idToRemove)
+  }
+
   async getTransactions (): Promise<TransactionDetails[]> {
     if (!this.wallet) throw Error('WALLET_NOT_READY')
 
-    const transactions = await this.wallet.listTransactions()
+    const transactions = await this.wallet.listTransactions(true)
     this.transactions = mergeTransactionList(this.transactions, transactions)
     const toRebroadcast = findTransactionsToRebroadcast(this.transactions, transactions)
 
     const pending = this.transactions.filter(isPending)
-    await Promise.all(pending.map(({ txid }) => getAndStorePendingTransactionHex(txid)))
+    await Promise.all(pending.map(storePendingTransactionHex))
 
-    rebroadcastTransactions(toRebroadcast.map(({ txid }) => txid))
+    await rebroadcastTransactions(toRebroadcast.map(({ txid }) => txid))
     this.transactions = this.transactions.filter(
-      (tx) => tx.confirmationTime || useWalletState.getState().pendingTransactions[tx.txid],
+      (tx) => tx.confirmationTime?.height || useWalletState.getState().pendingTransactions[tx.txid],
     )
+
     this.updateStore()
 
     return this.transactions
@@ -182,13 +199,32 @@ export class PeachWallet extends PeachJSWallet {
     return this.transactions.filter((tx) => !tx.confirmationTime?.height)
   }
 
+  async getLastUnusedAddress () {
+    if (!this.wallet) throw Error('WALLET_NOT_READY')
+    const addressInfo = await this.wallet.getAddress(AddressIndex.LastUnused)
+    return {
+      ...addressInfo,
+      address: await addressInfo.address.asString(),
+    }
+  }
+
+  async getAddressByIndex (index: number) {
+    const { index: lastUnusedIndex } = await this.getLastUnusedAddress()
+    const address = this.getAddress(index)
+    return {
+      index,
+      used: index < lastUnusedIndex,
+      address,
+    }
+  }
+
   async getReceivingAddress () {
     if (!this.wallet) throw Error('WALLET_NOT_READY')
-    info('PeachWallet - getReceivingAddress - start')
-
-    const result = await this.wallet.getAddress(AddressIndex.New)
-
-    return result
+    const addressInfo = await this.wallet.getAddress(AddressIndex.New)
+    return {
+      ...addressInfo,
+      address: await addressInfo.address.asString(),
+    }
   }
 
   async withdrawAll (address: string, feeRate?: number) {
@@ -197,6 +233,22 @@ export class PeachWallet extends PeachJSWallet {
     const drainWalletTransaction = await buildDrainWalletTransaction(address, feeRate)
     const finishedTransaction = await this.finishTransaction(drainWalletTransaction)
     return this.signAndBroadcastPSBT(finishedTransaction.psbt)
+  }
+
+  async sendTo (address: string, amount: number, feeRate?: number) {
+    if (!this.wallet || !this.blockchain) throw Error('WALLET_NOT_READY')
+    info('PeachWallet - sendTo - start')
+    const transaction = await buildTransaction(address, amount, feeRate)
+
+    if (this.selectedUTXO.length > 0) transaction.addUtxos(this.selectedUTXO.map((utxo) => utxo.outpoint))
+
+    const finishedTransaction = await this.finishTransaction(transaction)
+    return this.signAndBroadcastPSBT(finishedTransaction.psbt)
+  }
+
+  getMaxAvailableAmount () {
+    if (this.selectedUTXO.length > 0) return this.selectedUTXO.map(({ txout }) => txout.value).reduce(sum, 0)
+    return this.balance
   }
 
   async finishTransaction<T extends TxBuilder | BumpFeeTxBuilder>(transaction: T): Promise<ReturnType<T['finish']>>

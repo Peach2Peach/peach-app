@@ -2,7 +2,7 @@ import { postTransaction } from '../electrum'
 import { isDefined } from '../validation'
 import { useWalletState } from './walletStore'
 
-export const rebroadcastTransactions = (toRebroadcast: string[]) => {
+export const rebroadcastTransactions = (toRebroadcast: string[]) =>
   Promise.all(
     toRebroadcast
       .map((txId) => ({ txId, hex: useWalletState.getState().pendingTransactions[txId] }))
@@ -15,4 +15,3 @@ export const rebroadcastTransactions = (toRebroadcast: string[]) => {
         if (response) useWalletState.getState().removePendingTransaction(response)
       }),
   )
-}

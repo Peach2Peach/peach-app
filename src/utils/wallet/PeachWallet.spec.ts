@@ -2,18 +2,26 @@
 /* eslint-disable max-statements */
 /* eslint-disable max-lines-per-function */
 import { waitFor } from '@testing-library/react-native'
-import { PartiallySignedTransaction, Transaction, TxBuilder } from 'bdk-rn'
-import { TransactionDetails, TxBuilderResult } from 'bdk-rn/lib/classes/Bindings'
-import { AddressIndex } from 'bdk-rn/lib/lib/enums'
+import { Address, PartiallySignedTransaction, Transaction, TxBuilder } from 'bdk-rn'
+import { LocalUtxo, OutPoint, TransactionDetails, TxBuilderResult, TxOut } from 'bdk-rn/lib/classes/Bindings'
+import { AddressIndex, KeychainKind } from 'bdk-rn/lib/lib/enums'
 import { account1 } from '../../../tests/unit/data/accountData'
 import { insufficientFunds } from '../../../tests/unit/data/errors'
-import { confirmed1, confirmed2, pending1, pending2, pending3 } from '../../../tests/unit/data/transactionDetailData'
+import {
+  confirmed1,
+  confirmed2,
+  createTransaction,
+  pending1,
+  pending2,
+  pending3,
+} from '../../../tests/unit/data/transactionDetailData'
 import { getError } from '../../../tests/unit/helpers/getError'
 import {
   blockChainCreateMock,
   blockchainBroadcastMock,
   mnemonicFromStringMock,
   psbtExtractTxMock,
+  txBuilderAddUtxosMock,
   txBuilderFinishMock,
   walletGetAddressMock,
   walletGetBalanceMock,
@@ -27,17 +35,13 @@ import { PeachWallet } from './PeachWallet'
 import { createWalletFromSeedPhrase } from './createWalletFromSeedPhrase'
 import { getNetwork } from './getNetwork'
 import { useWalletState } from './walletStore'
+import { Script } from 'bdk-rn/lib/classes/Script'
 
 jest.mock('./PeachWallet', () => jest.requireActual('./PeachWallet'))
 
-const getTxHexMock = jest.fn(({ txId }) => [`${txId}Hex`])
-jest.mock('../electrum/getTxHex', () => ({
-  getTxHex: (args: any) => getTxHexMock(args),
-}))
-
-const rebroadcastTransactionsMock = jest.fn()
-jest.mock('./rebroadcastTransactions', () => ({
-  rebroadcastTransactions: (args: any) => rebroadcastTransactionsMock(args),
+const postTransactionMock = jest.fn().mockResolvedValue(['txId'])
+jest.mock('../electrum/postTransaction', () => ({
+  postTransaction: (...args: any[]) => postTransactionMock(...args),
 }))
 
 const buildDrainWalletTransactionMock = jest.fn()
@@ -53,9 +57,15 @@ jest.mock('./transaction/buildTransaction', () => ({
 jest.useFakeTimers()
 
 describe('PeachWallet', () => {
+  const outpoint1 = new OutPoint(confirmed1.txid, 0)
+  const outpoint2 = new OutPoint(confirmed2.txid, 0)
+  const txOut = new TxOut(10000, new Script('address'))
+  const utxo1 = new LocalUtxo(outpoint1, txOut, false, KeychainKind.External)
+  const utxo2 = new LocalUtxo(outpoint2, txOut, true, KeychainKind.External)
+
   const txResponse: TransactionDetails[] = [
-    { txid: 'txid1', sent: 1, received: 1, fee: 1, confirmationTime: { timestamp: 1, height: 1 } },
-    { txid: 'txid2', sent: 2, received: 2, fee: 2 },
+    createTransaction({ txid: 'txid1', sent: 1, received: 1, fee: 1, confirmationTime: { timestamp: 1, height: 1 } }),
+    createTransaction({ txid: 'txid2', sent: 2, received: 2, fee: 2 }),
   ]
   const listTransactionsMock = jest.fn().mockResolvedValue(txResponse)
 
@@ -133,40 +143,58 @@ describe('PeachWallet', () => {
 
     expect(error.message).toBe('WALLET_NOT_READY')
   })
+  it('returns UTXO of wallet', async () => {
+    // @ts-ignore
+    peachWallet.wallet.listUnspent = jest.fn().mockResolvedValue([utxo1, utxo2])
+
+    expect(await peachWallet.getUTXO()).toEqual([utxo1])
+  })
+  it('does not select a utxo if not part of wallet', async () => {
+    await peachWallet.selectUTXO(utxo1)
+    expect(peachWallet.selectedUTXO).toEqual([])
+  })
+  it('selects a utxo if part of wallet', async () => {
+    // @ts-ignore
+    peachWallet.wallet.listUnspent = jest.fn().mockResolvedValue([utxo1, utxo2])
+    await peachWallet.selectUTXO(utxo1)
+    expect(peachWallet.selectedUTXO).toEqual([utxo1])
+  })
+  it('unselects a utxo', () => {
+    peachWallet.selectedUTXO = [utxo1, utxo2]
+    peachWallet.unselectUTXO(utxo1)
+    expect(peachWallet.selectedUTXO).toEqual([utxo2])
+  })
   it('overwrites confirmed and merges pending transactions', async () => {
-    peachWallet.transactions = [
-      { txid: 'txid1', sent: 1, received: 1, fee: 1, confirmationTime: { timestamp: 1, height: 1 } },
-      { txid: 'txid3', sent: 3, received: 3, fee: 3 },
+    const existingTx = [
+      createTransaction({ txid: 'txid1', sent: 1, received: 1, fee: 1, confirmationTime: { timestamp: 1, height: 1 } }),
+      createTransaction({ txid: 'txid3', sent: 3, received: 3, fee: 3 }),
     ]
+    peachWallet.transactions = existingTx
 
     // @ts-ignore
     peachWallet.wallet.listTransactions = listTransactionsMock
 
     const transactions = await peachWallet.getTransactions()
-    expect(transactions).toEqual([
-      { txid: 'txid1', sent: 1, received: 1, fee: 1, confirmationTime: { timestamp: 1, height: 1 } },
-      { txid: 'txid2', sent: 2, received: 2, fee: 2 },
-      { txid: 'txid3', sent: 3, received: 3, fee: 3 },
-    ])
+    expect(transactions).toEqual([txResponse[0], txResponse[1], existingTx[1]])
   })
   it('removes pending transactions that are now confirmed', async () => {
-    peachWallet.transactions = [{ txid: 'txid1', sent: 1, received: 1, fee: 1 }]
+    const existingTx = [{ txid: 'txid1', sent: 1, received: 1, fee: 1 }]
+    peachWallet.transactions = existingTx
 
     // @ts-ignore
     peachWallet.wallet.listTransactions = listTransactionsMock
 
     const transactions = await peachWallet.getTransactions()
-    expect(transactions).toEqual([
-      { txid: 'txid1', sent: 1, received: 1, fee: 1, confirmationTime: { timestamp: 1, height: 1 } },
-      { txid: 'txid2', sent: 2, received: 2, fee: 2 },
-    ])
+    expect(transactions).toEqual([txResponse[0], txResponse[1]])
   })
   it('removes pending transactions that are replaced', async () => {
-    peachWallet.transactions = [{ txid: 'txid1', sent: 1, received: 1, fee: 1 }]
-    const replacement = { txid: 'txid2', sent: 1, received: 1, fee: 1 }
+    const existingTx = [createTransaction({ txid: 'txid1', sent: 1, received: 1, fee: 1 })]
+    peachWallet.transactions = existingTx
+    const replacement = createTransaction({ txid: 'txid2', sent: 1, received: 1, fee: 1 })
 
     listTransactionsMock.mockResolvedValueOnce([replacement])
-    rebroadcastTransactionsMock.mockImplementationOnce(() => useWalletState.getState().removePendingTransaction('txid1'))
+    postTransactionMock.mockResolvedValueOnce([null, 'bad-txns-inputs-missingorspent'])
+
     // @ts-ignore
     peachWallet.wallet.listTransactions = listTransactionsMock
 
@@ -174,26 +202,14 @@ describe('PeachWallet', () => {
     expect(transactions).toEqual([replacement])
   })
   it('tries to rebroadcast tx that are dropped from the block explorer', async () => {
-    peachWallet.transactions = [{ txid: 'txid3', sent: 3, received: 3, fee: 3 }]
+    const existingTx = [createTransaction({ txid: 'txid3', sent: 3, received: 3, fee: 3 })]
+    peachWallet.transactions = existingTx
 
     // @ts-ignore
     peachWallet.wallet.listTransactions = listTransactionsMock
 
     await peachWallet.getTransactions()
-    expect(getTxHexMock).toHaveBeenCalledWith({ txId: 'txid2' })
-    expect(getTxHexMock).toHaveBeenCalledWith({ txId: 'txid3' })
-    expect(rebroadcastTransactionsMock).toHaveBeenCalledWith(['txid3'])
-  })
-  it('does not call getTxHex for already known tx', async () => {
-    peachWallet.transactions = [{ txid: 'txid3', sent: 3, received: 3, fee: 3 }]
-    useWalletState.getState().addPendingTransactionHex('txid2', 'txid2Hex')
-    useWalletState.getState().addPendingTransactionHex('txid3', 'txid3Hex')
-
-    // @ts-ignore
-    peachWallet.wallet.listTransactions = listTransactionsMock
-
-    await peachWallet.getTransactions()
-    expect(getTxHexMock).not.toHaveBeenCalled()
+    expect(postTransactionMock).toHaveBeenCalledWith({ tx: '7478696433' })
   })
   it('gets pending transactions', () => {
     peachWallet.transactions = [confirmed1, pending1, pending2, confirmed2]
@@ -223,10 +239,38 @@ describe('PeachWallet', () => {
     const error = await getError<Error>(() => peachWallet.getTransactions())
     expect(error.message).toBe('WALLET_NOT_READY')
   })
+  it('gets the last unused receiving address', async () => {
+    const address = 'address'
+    const addressObject = new Address()
+    addressObject.asString = jest.fn().mockResolvedValue(address)
+    const index = 4
+    walletGetAddressMock.mockResolvedValueOnce({ address: addressObject, index })
+
+    const { address: newAddress, index: addressIndex } = await peachWallet.getLastUnusedAddress()
+    expect(newAddress).toBe(address)
+    expect(addressIndex).toBe(index)
+    expect(walletGetAddressMock).toHaveBeenCalledWith(AddressIndex.LastUnused)
+  })
+  it('gets address by index', async () => {
+    const address = 'address'
+    const addressObject = new Address()
+    addressObject.asString = jest.fn().mockResolvedValue(address)
+    const index = 4
+    walletGetAddressMock.mockResolvedValueOnce({ address: addressObject, index })
+
+    const addressInfo = await peachWallet.getAddressByIndex(0)
+    expect(addressInfo).toEqual({
+      index: 0,
+      address: 'bcrt1q7jyvzs6yu9wz8qzmcwyruw0e652xhyhkdw5qrt',
+      used: true,
+    })
+  })
   it('gets a new unused receiving address', async () => {
     const address = 'address'
-    const index = 0
-    walletGetAddressMock.mockResolvedValueOnce({ address, index })
+    const addressObject = new Address()
+    addressObject.asString = jest.fn().mockResolvedValue(address)
+    const index = 4
+    walletGetAddressMock.mockResolvedValueOnce({ address: addressObject, index })
 
     const { address: newAddress, index: addressIndex } = await peachWallet.getReceivingAddress()
     expect(newAddress).toBe(address)
@@ -283,6 +327,67 @@ describe('PeachWallet', () => {
     psbtExtractTxMock.mockResolvedValueOnce(transaction)
     const withdrawResult = await peachWallet.withdrawAll(address, feeRate)
     expect(buildDrainWalletTransactionMock).toHaveBeenCalledWith(address, feeRate)
+    expect(txBuilderFinishMock).toHaveBeenCalledWith(peachWallet.wallet)
+    expect(walletSignMock).toHaveBeenCalledWith(result.psbt)
+    expect(blockchainBroadcastMock).toHaveBeenCalledWith(transaction)
+    expect(withdrawResult).toEqual(result.psbt)
+  })
+
+  it('returns maximum available amount', () => {
+    const balance = 1000000
+    peachWallet.balance = balance
+    expect(peachWallet.getMaxAvailableAmount()).toEqual(balance)
+  })
+  it('returns maximum available amount when utxo are selected', () => {
+    peachWallet.balance = 1000000
+    peachWallet.selectedUTXO = [utxo1, utxo2]
+    expect(peachWallet.getMaxAvailableAmount()).toEqual(20000)
+  })
+
+  it('sends bitcoin to an address', async () => {
+    const address = 'address'
+    const amount = 10000
+    const feeRate = 10
+
+    const result: TxBuilderResult = {
+      psbt: new PartiallySignedTransaction('base64'),
+      txDetails: pending1,
+    }
+    const transaction = await new Transaction().create([])
+    const txBuilder = await new TxBuilder().create()
+
+    buildTransactionMock.mockResolvedValueOnce(txBuilder)
+    txBuilderFinishMock.mockResolvedValueOnce(result)
+    walletSignMock.mockResolvedValueOnce(result.psbt)
+    psbtExtractTxMock.mockResolvedValueOnce(transaction)
+    const withdrawResult = await peachWallet.sendTo(address, amount, feeRate)
+    expect(buildTransactionMock).toHaveBeenCalledWith(address, amount, feeRate)
+    expect(txBuilderFinishMock).toHaveBeenCalledWith(peachWallet.wallet)
+    expect(walletSignMock).toHaveBeenCalledWith(result.psbt)
+    expect(blockchainBroadcastMock).toHaveBeenCalledWith(transaction)
+    expect(withdrawResult).toEqual(result.psbt)
+  })
+
+  it('sends bitcoin to an address with selected utxo', async () => {
+    const address = 'address'
+    const amount = 10000
+    const feeRate = 10
+
+    const result: TxBuilderResult = {
+      psbt: new PartiallySignedTransaction('base64'),
+      txDetails: pending1,
+    }
+    const transaction = await new Transaction().create([])
+    const txBuilder = await new TxBuilder().create()
+
+    buildTransactionMock.mockResolvedValueOnce(txBuilder)
+    txBuilderFinishMock.mockResolvedValueOnce(result)
+    walletSignMock.mockResolvedValueOnce(result.psbt)
+    psbtExtractTxMock.mockResolvedValueOnce(transaction)
+    peachWallet.selectedUTXO = [utxo1, utxo2]
+    const withdrawResult = await peachWallet.sendTo(address, amount, feeRate)
+    expect(txBuilderAddUtxosMock).toHaveBeenCalledWith([utxo1.outpoint, utxo2.outpoint])
+    expect(buildTransactionMock).toHaveBeenCalledWith(address, amount, feeRate)
     expect(txBuilderFinishMock).toHaveBeenCalledWith(peachWallet.wallet)
     expect(walletSignMock).toHaveBeenCalledWith(result.psbt)
     expect(blockchainBroadcastMock).toHaveBeenCalledWith(transaction)
