@@ -24,4 +24,15 @@ describe('buildTransaction', () => {
 
     expect(transactionResult).toBeInstanceOf(TxBuilder)
   })
+  it('builds a transaction template without amount and recipientAddress', async () => {
+    const feeRate = 10
+
+    const transactionResult = await buildTransaction(undefined, undefined, feeRate)
+    expect(txBuilderCreateMock).toHaveBeenCalled()
+    expect(txBuilderFeeRateMock).toHaveBeenCalledWith(feeRate)
+    expect(txBuilderEnableRbfMock).toHaveBeenCalled()
+    expect(txBuilderAddRecipientMock).not.toHaveBeenCalled()
+
+    expect(transactionResult).toBeInstanceOf(TxBuilder)
+  })
 })

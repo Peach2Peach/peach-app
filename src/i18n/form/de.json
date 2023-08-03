@@ -90,5 +90,7 @@
   "form.userName.placeholder" : "Benutzername",
   "form.wallet" : "Wallet-Nr.",
   "form.wallet.error" : "Dies ist keine gültige Wallet",
-  "form.wallet.placeholder" : "U012345678910"
+  "form.wallet.placeholder" : "U012345678910",
+  "number.decrease" : "Anzahl verringern",
+  "number.increase" : "Anzahl erhöhen"
 }

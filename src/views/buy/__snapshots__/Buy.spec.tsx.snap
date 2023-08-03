@@ -469,7 +469,13 @@ exports[`Buy should render correctly 1`] = `
             </Text>
           </View>
         </View>
-        <View>
+        <View
+          style={
+            {
+              "height": 32,
+            }
+          }
+        >
           <View
             style={
               [
@@ -969,7 +975,13 @@ exports[`Buy should render correctly 1`] = `
             </Text>
           </View>
         </View>
-        <View>
+        <View
+          style={
+            {
+              "height": 32,
+            }
+          }
+        >
           <View
             style={
               [
@@ -2276,7 +2288,13 @@ exports[`Buy should render correctly with free trades 1`] = `
             </Text>
           </View>
         </View>
-        <View>
+        <View
+          style={
+            {
+              "height": 32,
+            }
+          }
+        >
           <View
             style={
               [
@@ -2776,7 +2794,13 @@ exports[`Buy should render correctly with free trades 1`] = `
             </Text>
           </View>
         </View>
-        <View>
+        <View
+          style={
+            {
+              "height": 32,
+            }
+          }
+        >
           <View
             style={
               [

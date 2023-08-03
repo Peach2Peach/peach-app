@@ -12,6 +12,7 @@ describe('walletStore', () => {
       pendingTransactions: {},
       transactions: [],
       txOfferMap: {},
+      addressLabelMap: {},
     })
   })
   it('adds pending transactions', () => {
@@ -22,5 +23,32 @@ describe('walletStore', () => {
     useWalletState.getState().addPendingTransactionHex('txId', 'txHex')
     useWalletState.getState().removePendingTransaction('txId')
     expect(useWalletState.getState().pendingTransactions).toEqual({})
+  })
+  it('adds a label to an address', () => {
+    useWalletState.getState().labelAddress('address1', 'label')
+    expect(useWalletState.getState().addressLabelMap).toEqual({ address1: 'label' })
+  })
+  it('updates a label of an address', () => {
+    useWalletState.getState().labelAddress('address1', 'label')
+    expect(useWalletState.getState().addressLabelMap).toEqual({ address1: 'label' })
+    useWalletState.getState().labelAddress('address1', 'label update')
+    expect(useWalletState.getState().addressLabelMap).toEqual({ address1: 'label update' })
+  })
+  it('registers offer ids for funding multiple escrows', () => {
+    useWalletState.getState().registerFundMultiple('address1', ['1', '2', '3'])
+    expect(useWalletState.getState().fundMultipleMap).toEqual({ address1: ['1', '2', '3'] })
+  })
+  it('unregisters address for funding multiple escrows', () => {
+    useWalletState.getState().registerFundMultiple('address1', ['1', '2', '3'])
+    useWalletState.getState().unregisterFundMultiple('address1')
+    expect(useWalletState.getState().fundMultipleMap).toEqual({})
+  })
+  it('searches fund multiple info by offer id', () => {
+    useWalletState.getState().registerFundMultiple('address1', ['1', '2', '3'])
+    expect(useWalletState.getState().getFundMultipleByOfferId('1')).toEqual({
+      address: 'address1',
+      offerIds: ['1', '2', '3'],
+    })
+    expect(useWalletState.getState().getFundMultipleByOfferId('4')).toEqual(undefined)
   })
 })

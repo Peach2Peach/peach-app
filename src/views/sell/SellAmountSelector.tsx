@@ -5,7 +5,7 @@ import { useConfigStore } from '../../store/configStore'
 import { useOfferPreferences } from '../../store/offerPreferenes'
 import tw from '../../styles/tailwind'
 
-export const SellAmountSelector = ({ style }: ComponentProps) => {
+export const SellAmountSelector = ({ children, style }: ComponentProps) => {
   const [sellAmount, setSellAmount] = useOfferPreferences(
     (state) => [state.sellAmount, state.setSellAmount, state.canContinue.sellAmount],
     shallow,
@@ -29,6 +29,8 @@ export const SellAmountSelector = ({ style }: ComponentProps) => {
       max={maxTradingAmount}
       value={sellAmount}
       onChange={updateSellAmount}
-    />
+    >
+      {children}
+    </SelectAmount>
   )
 }

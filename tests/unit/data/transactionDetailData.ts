@@ -1,59 +1,68 @@
-import { TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
+import { BlockTime, TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
+import { Transaction } from 'bdk-rn/lib/classes/Transaction'
 
-export const genesisTx: TransactionDetails = {
+type Props = {
+  txid: string
+  received: number
+  sent: number
+  fee: number
+  confirmationTime?: { height: number; timestamp: number }
+}
+export const createTransaction = ({ txid, received, sent, fee, confirmationTime }: Props) => {
+  const blockTime = new BlockTime(confirmationTime?.height, confirmationTime?.timestamp)
+  const transaction = new Transaction()
+  const serialized = Array.from(Buffer.from(txid))
+  transaction.serialize = jest.fn().mockResolvedValue(serialized)
+  return new TransactionDetails(txid, received, sent, fee, blockTime, transaction)
+}
+export const genesisTx = createTransaction({
   txid: '4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b',
   sent: 0,
   received: 5000000000,
   fee: 0,
   confirmationTime: { height: 0, timestamp: 1231006505 },
-}
+})
 
-export const confirmed1: TransactionDetails = {
+export const confirmed1 = createTransaction({
   txid: 'txid1',
   sent: 1,
   received: 1,
   fee: 1,
   confirmationTime: { height: 1, timestamp: 1 },
-}
-export const confirmed2: TransactionDetails = {
+})
+export const confirmed2 = createTransaction({
   txid: 'txid2',
   sent: 2,
   received: 2,
   fee: 2,
   confirmationTime: { height: 2, timestamp: 2 },
-}
-export const confirmed3: TransactionDetails = {
+})
+export const confirmed3 = createTransaction({
   txid: 'txid3',
   sent: 3,
   received: 3,
   fee: 3,
   confirmationTime: { height: 3, timestamp: 3 },
-}
-export const confirmed4: TransactionDetails = {
+})
+export const confirmed4 = createTransaction({
   txid: 'txid4',
   sent: 0,
   received: 25000,
   fee: 10000,
-  confirmationTime: {
-    height: 765432,
-    timestamp: 1234567890,
-  },
-}
-export const confirmed5: TransactionDetails = {
+  confirmationTime: { height: 765432, timestamp: 1234567890 },
+})
+export const confirmed5 = createTransaction({
   txid: 'txid5',
   sent: 0,
   received: 25000,
   fee: 10000,
-  confirmationTime: {
-    height: 765432,
-    timestamp: 1234567890,
-  },
-}
+  confirmationTime: { height: 765432, timestamp: 1234567890 },
+})
 
-export const pending1: TransactionDetails = { txid: 'txid1', sent: 1000, received: 100, fee: 1 }
-export const pending2: TransactionDetails = { txid: 'txid2', sent: 2000, received: 200, fee: 2 }
-export const pending3: TransactionDetails = { txid: 'txid3', sent: 3000, received: 300, fee: 3 }
-export const pendingReceived1: TransactionDetails = { txid: 'txidreceived3', sent: 0, received: 3000, fee: 3 }
+export const pending1 = createTransaction({ txid: 'txid1', sent: 1000, received: 100, fee: 1 })
+export const pending2 = createTransaction({ txid: 'txid2', sent: 2000, received: 200, fee: 2 })
+export const pending3 = createTransaction({ txid: 'txid3', sent: 3000, received: 300, fee: 3 })
+export const pendingReceived1 = createTransaction({ txid: 'txidreceived3', sent: 0, received: 3000, fee: 3 })
 
 export const pendingTransactionSummary: TransactionSummary = {
   id: pending1.txid,

@@ -294,8 +294,8 @@ declare type Offer = OfferDraft & {
 }
 
 declare type PostOfferResponseBody =
-  | Omit<BuyOffer, 'originalPaymentData' | 'tradeStatus'>
-  | Omit<SellOffer, 'originalPaymentData' | 'tradeStatus'>
+  | Omit<BuyOffer | SellOffer, 'originalPaymentData' | 'tradeStatus'>
+  | Omit<BuyOffer | SellOffer, 'originalPaymentData' | 'tradeStatus'>[]
 declare type OfferType = 'ask' | 'bid'
 
 declare type CreateEscrowResponse = {

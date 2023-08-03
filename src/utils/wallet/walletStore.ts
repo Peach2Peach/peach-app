@@ -1,6 +1,7 @@
 import { TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
 import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
+import { keys, omit } from '../object'
 import { createStorage } from '../storage'
 import { toZustandStorage } from '../storage/toZustandStorage'
 import { migrateWalletStore } from './migration/migrateWalletStore'
@@ -11,6 +12,13 @@ export type WalletState = {
   transactions: TransactionDetails[]
   pendingTransactions: Record<string, string>
   txOfferMap: Record<string, string>
+  addressLabelMap: Record<string, string>
+  fundMultipleMap: Record<string, string[]>
+}
+
+export type FundMultipleInfo = {
+  address: string
+  offerIds: string[]
 }
 
 export type WalletStore = WalletState & {
@@ -21,7 +29,11 @@ export type WalletStore = WalletState & {
   getTransaction: (txId: string) => TransactionDetails | undefined
   addPendingTransactionHex: (txId: string, hex: string) => void
   removePendingTransaction: (txId: string) => void
+  labelAddress: (address: string, label: string) => void
   updateTxOfferMap: (txid: string, offerId: string) => void
+  registerFundMultiple: (address: string, offerIds: string[]) => void
+  unregisterFundMultiple: (address: string) => void
+  getFundMultipleByOfferId: (offerId: string) => FundMultipleInfo | undefined
 }
 
 export const defaultWalletState: WalletState = {
@@ -30,6 +42,8 @@ export const defaultWalletState: WalletState = {
   transactions: [],
   pendingTransactions: {},
   txOfferMap: {},
+  addressLabelMap: {},
+  fundMultipleMap: {},
 }
 export const walletStorage = createStorage('wallet')
 
@@ -49,13 +63,38 @@ export const useWalletState = create(
         delete pendingTransactions[txid]
         set({ pendingTransactions })
       },
-      updateTxOfferMap: (txId: string, offerId: string) =>
+      labelAddress: (address, label) =>
+        set((state) => ({
+          addressLabelMap: {
+            ...state.addressLabelMap,
+            [address]: label,
+          },
+        })),
+      updateTxOfferMap: (txId, offerId) =>
         set((state) => ({
           txOfferMap: {
             ...state.txOfferMap,
             [txId]: offerId,
           },
         })),
+      registerFundMultiple: (address, offerIds) =>
+        set((state) => ({
+          fundMultipleMap: {
+            ...state.fundMultipleMap,
+            [address]: offerIds,
+          },
+        })),
+      unregisterFundMultiple: (address) =>
+        set((state) => ({
+          fundMultipleMap: omit(state.fundMultipleMap, address),
+        })),
+      getFundMultipleByOfferId: (offerId) => {
+        const map = get().fundMultipleMap
+        const address = keys(map).find((a) => map[a].includes(offerId))
+        if (!address) return undefined
+        const offerIds = map[address]
+        return { address, offerIds }
+      },
     }),
     {
       name: 'wallet',
