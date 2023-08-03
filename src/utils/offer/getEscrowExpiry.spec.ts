@@ -1,6 +1,6 @@
 import { deepStrictEqual } from 'assert'
-import { getEscrowExpiry } from '.'
-import * as offerData from '../../../tests/unit/data/offerData'
+import { getEscrowExpiry } from './getEscrowExpiry'
+import { sellOffer } from '../../../tests/unit/data/offerData'
 
 describe('getEscrowExpiry', () => {
   it('should return the offer expiry', () => {
@@ -9,7 +9,7 @@ describe('getEscrowExpiry', () => {
     expectedExpiry.setMilliseconds(+322200000)
 
     const offerExpiry = getEscrowExpiry({
-      ...offerData.sellOffer,
+      ...sellOffer,
       publishingDate: now,
     })
 
@@ -26,7 +26,7 @@ describe('getEscrowExpiry', () => {
     expectedExpiry.setMilliseconds(+322200000)
 
     const offerExpiry = getEscrowExpiry({
-      ...offerData.sellOffer,
+      ...sellOffer,
       creationDate: tenDaysAgo,
       publishingDate: tenDaysAgo,
     })

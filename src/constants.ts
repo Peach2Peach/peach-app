@@ -30,6 +30,7 @@ export const ISEMULATOR = isEmulatorSync()
 export const UNIQUEID = sha256(getUniqueIdSync())
 
 export let CURRENCIES: Currency[] = [
+  'SAT',
   'EUR',
   'CHF',
   'GBP',
@@ -109,7 +110,7 @@ export const PAYMENTCATEGORIES: PaymentCategories = {
   giftCard: ['giftCard.amazon', ...GIFTCARDCOUNTRIES.map((c) => `giftCard.amazon.${c}` satisfies PaymentMethod)],
   nationalOption: ['mbWay', 'bizum', 'satispay', 'mobilePay', 'keksPay', 'paylib', 'lydia', 'verse', 'iris'],
   cash: [],
-  other: ['liquid'],
+  other: ['liquid', 'lnurl'],
 }
 
 export const ANONYMOUS_PAYMENTCATEGORIES = PAYMENTCATEGORIES.cash.concat(PAYMENTCATEGORIES.giftCard)

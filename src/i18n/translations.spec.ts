@@ -1,10 +1,11 @@
 import { ok } from 'assert'
+import { isDefined } from '../utils/validation'
+import de from './de'
+import elGR from './el-GR'
 import en from './en'
 import es from './es'
 import fr from './fr'
 import it from './it'
-import de from './de'
-import { isDefined } from '../utils/validation'
 
 describe('translations', () => {
   test('everything has been translated', () => {
@@ -13,6 +14,7 @@ describe('translations', () => {
       ok(isDefined(fr[key]), `${key} does not exist in fr`)
       ok(isDefined(it[key]), `${key} does not exist in it`)
       ok(isDefined(de[key]), `${key} does not exist in de`)
+      ok(isDefined(elGR[key]), `${key} does not exist in el-GR`)
     }
   })
   test('non existing texts has not been translated', () => {
@@ -27,6 +29,9 @@ describe('translations', () => {
     }
     for (const key in de) {
       ok(isDefined(en[key]), `${key} does not exist in de`)
+    }
+    for (const key in elGR) {
+      ok(isDefined(en[key]), `${key} does not exist in el-GR`)
     }
   })
 })

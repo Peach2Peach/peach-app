@@ -109,7 +109,7 @@ exports[`TradeDetails should render correctly for past trade 1`] = `
     shouldBlur={true}
   />
   <SummaryItem
-    information="35 089 .66 EUR"
+    information="35 616.00 EUR"
     isDisputeActive={false}
     label="BTC price"
     shouldBlur={true}

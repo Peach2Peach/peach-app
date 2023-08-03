@@ -1,9 +1,9 @@
 {
-  "offer.filter": "filtrar",
-  "offer.filter.maxPremium": "prima máxima",
   "offer.cancel.popup.description": "¿Estás seguro?\n\nSi ya has enviado tus bitcoins al escrow, se te reembolsará el importe menos las comisiones de la red de los mineros.",
   "offer.cancel.popup.title": "cancelar oferta",
   "offer.canceled.popup.title": "¡oferta cancelada!",
+  "offer.filter": "filtrar",
+  "offer.filter.maxPremium": "prima máxima",
   "offer.publish": "publicar",
   "offer.published.description": "Te enviaremos una notificación cuando haya matches disponibles.",
   "offer.published.title": "¡Oferta publicada!",
@@ -33,6 +33,11 @@
   "offer.requiredAction.waiting": "esperando por $0",
   "offer.requiredAction.waiting.buyer": "esperando el pago",
   "offer.requiredAction.waiting.seller": "esperando al vendedor",
+  "offer.sorting.bestReputation": "mejor reputación",
+  "offer.sorting.highestAmount": "mayor cantidad",
+  "offer.sorting.highestPrice": "mayor precio",
+  "offer.sorting.lowestPremium": "menor prima",
+  "offer.sorting.sortMatchesBy": "ordenar matches por",
   "offer.summary.customPayoutAddress": "dirección de pago personalizada",
   "offer.summary.customRefundAddress": "dirección de reembolso personalizada",
   "offer.summary.discount": "descuento",
@@ -46,10 +51,5 @@
   "offer.summary.withTheseMethods": "con estos métodos de pago:",
   "offer.summary.youAreBuying": "quieres comprar entre",
   "offer.summary.youAreSelling": "estás vendiendo",
-  "offer.summary.youWereSelling": "vendiste",
-  "offer.sorting.bestReputation": "mejor reputación",
-  "offer.sorting.highestAmount": "mayor cantidad",
-  "offer.sorting.highestPrice": "mayor precio",
-  "offer.sorting.lowestPremium": "menor prima",
-  "offer.sorting.sortMatchesBy": "ordenar matches por"
+  "offer.summary.youWereSelling": "vendiste"
 }

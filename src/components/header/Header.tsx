@@ -51,14 +51,14 @@ export const Header = ({ title, icons, titleComponent, hideGoBackButton, showPri
       ]}
     >
       <View style={tw`flex-row justify-between w-full`}>
-        <View style={tw`flex-row items-center justify-start flex-grow gap-1`}>
+        <View style={tw`flex-row items-center justify-start w-full flex-shrink gap-1`}>
           {shouldShowBackButton && (
             <TouchableOpacity onPress={goBack}>
               <Icon id="chevronLeft" style={iconSize} color={colors.backButton.color} />
             </TouchableOpacity>
           )}
           {title ? (
-            <Text style={[...fontSize, colors.text]} numberOfLines={1}>
+            <Text style={[...fontSize, colors.text, tw`flex-shrink`]} numberOfLines={1}>
               {title}
             </Text>
           ) : (

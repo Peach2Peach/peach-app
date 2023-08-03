@@ -7,20 +7,11 @@ type Props = ComponentProps & {
   color?: ColorValue
 }
 
-/**
- * @description Component to show loader animation
- * @example
- * <Loading
- *   style={tw`mt-4`}
- *   color={tw`text-primary-background-light`.color}
- * />
- */
-
 export const Loading = ({ style, color }: Props): JSX.Element => (
   <Lottie
-    style={[tw`w-20`, style]}
+    style={[tw`w-20 h-20`, style]}
     source={loading}
     autoPlay
-    colorFilters={[{ keypath: 'LFCamada de forma 1', color: (color ?? tw`text-primary-main`.color) as string }]}
+    colorFilters={[{ keypath: 'main', color: (color ?? tw`text-primary-main`.color) as string }]}
   />
 )
