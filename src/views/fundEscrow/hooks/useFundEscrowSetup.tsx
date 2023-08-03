@@ -1,18 +1,20 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useCancelOffer, useRoute } from '../../../hooks'
 import { useFundingStatus } from '../../../hooks/query/useFundingStatus'
-import { useOfferDetails } from '../../../hooks/query/useOfferDetails'
+import { useMultipleOfferDetails } from '../../../hooks/query/useOfferDetails'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { isSellOffer } from '../../../utils/offer'
 import { parseError } from '../../../utils/result'
+import { isDefined } from '../../../utils/validation'
+import { useWalletState } from '../../../utils/wallet/walletStore'
 import { shouldGetFundingStatus } from '../../sell/helpers/shouldGetFundingStatus'
+import { getFundingAmount } from '../helpers/getFundingAmount'
 import { useCreateEscrow } from './useCreateEscrow'
 import { useFundEscrowHeader } from './useFundEscrowHeader'
 import { useHandleFundingStatus } from './useHandleFundingStatus'
 
 const MIN_LOADING_TIME = 1000
 
-const minLoadingTime = 1000
 export const useFundEscrowSetup = () => {
   const route = useRoute<'fundEscrow'>()
   const { offerId } = route.params
@@ -37,7 +39,7 @@ export const useFundEscrowSetup = () => {
   const fundingAmount = getFundingAmount(sellOffer, fundMultiple)
   const cancelOffer = useCancelOffer(sellOffer)
 
-  useFundEscrowHeader({ fundingStatus, sellOffer })
+  useFundEscrowHeader({ fundingStatus, sellOffer, fundMultiple })
 
   useHandleFundingStatus({
     offerId,
@@ -69,7 +71,6 @@ export const useFundEscrowSetup = () => {
 
   return {
     offerId,
-    offer: sellOffer,
     isLoading: showLoading > 0,
     fundingAddress: fundMultiple?.address || sellOffer?.escrow,
     fundingAddresses: escrows,

@@ -7,8 +7,8 @@ import { queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
 import { setAccount, updateAccount } from '../../../utils/account'
 import { saveOffer } from '../../../utils/offer'
 import { defaultFundingStatus } from '../../../utils/offer/constants'
-import { useFundEscrowSetup } from './useFundEscrowSetup'
 import { useWalletState } from '../../../utils/wallet/walletStore'
+import { useFundEscrowSetup } from './useFundEscrowSetup'
 
 jest.useFakeTimers()
 
@@ -81,6 +81,7 @@ describe('useFundEscrowSetup', () => {
       offerId: sellOffer.id,
       isLoading: true,
       fundingAddress: undefined,
+      fundingAddresses: [],
       createEscrowError: null,
       fundingStatus: defaultFundingStatus,
       fundingAmount: 0,
@@ -88,11 +89,14 @@ describe('useFundEscrowSetup', () => {
     })
   })
   it('should return registered funding address for funding multiple offers', () => {
+    saveOffer(sellOfferWithEscrow)
+
     const internalAddress = 'internalAddress'
-    useWalletState.getState().registerFundMultiple(internalAddress, [sellOffer.id])
+    useWalletState.getState().registerFundMultiple(internalAddress, [sellOfferWithEscrow.id])
     const { result } = renderHook(useFundEscrowSetup, { wrapper })
 
     expect(result.current.fundingAddress).toBe(internalAddress)
+    expect(result.current.fundingAddresses).toEqual([sellOfferWithEscrow.escrow])
   })
   it('should return default values with locally stored offer', () => {
     saveOffer(sellOfferWithEscrow)
@@ -100,9 +104,9 @@ describe('useFundEscrowSetup', () => {
 
     expect(result.current).toEqual({
       offerId: sellOfferWithEscrow.id,
-      offer: sellOfferWithEscrow,
       isLoading: false,
       fundingAddress: sellOfferWithEscrow.escrow,
+      fundingAddresses: [sellOfferWithEscrow.escrow],
       createEscrowError: null,
       fundingStatus: defaultFundingStatus,
       fundingAmount: sellOfferWithEscrow.amount,
@@ -149,6 +153,7 @@ describe('useFundEscrowSetup', () => {
       offerId: sellOffer.id,
       isLoading: true,
       fundingAddress: undefined,
+      fundingAddresses: [undefined],
       createEscrowError: null,
       fundingStatus: defaultFundingStatus,
       fundingAmount: 0,
@@ -161,9 +166,9 @@ describe('useFundEscrowSetup', () => {
     const { result } = renderHook(useFundEscrowSetup, { wrapper })
     expect(result.current).toEqual({
       offerId: sellOffer.id,
-      offer: sellOfferWithEscrow,
       isLoading: false,
       fundingAddress: 'escrow',
+      fundingAddresses: ['escrow'],
       createEscrowError: null,
       fundingStatus: defaultFundingStatus,
       fundingAmount: sellOffer.amount,
