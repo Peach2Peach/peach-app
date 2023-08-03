@@ -40,7 +40,7 @@ export const useCancelOffer = (offer: BuyOffer | SellOffer | null | undefined) =
     if (!offer) return
     setPopup({
       title: i18n('offer.cancel.popup.title'),
-      content: <CancelOffer offer={offer} />,
+      content: <CancelOffer type={offer.type} />,
       visible: true,
       level: 'DEFAULT',
       action2: {

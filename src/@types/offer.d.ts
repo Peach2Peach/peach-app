@@ -4,6 +4,7 @@ declare type SellOfferDraft = OfferDraft & {
   premium: number
   returnAddress: string
   funding: FundingStatus
+  multi?: number
 }
 declare type SellOffer = SellOfferDraft &
   Offer & {

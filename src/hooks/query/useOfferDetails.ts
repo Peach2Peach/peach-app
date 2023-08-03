@@ -1,11 +1,11 @@
-import { useQuery } from '@tanstack/react-query'
+import { QueryFunction, useQueries, useQuery } from '@tanstack/react-query'
 import { MSINAMINUTE } from '../../constants'
 import { error } from '../../utils/log'
 import { getOffer, saveOffer } from '../../utils/offer'
 import { getOfferDetails } from '../../utils/peachAPI'
 
-const getOfferQuery = async ({ queryKey }: { queryKey: [string, string] }) => {
-  const [, offerId] = queryKey
+const getOfferQuery: QueryFunction<BuyOffer | SellOffer> = async ({ queryKey }) => {
+  const [, offerId] = queryKey as string[]
   const [offer, err] = await getOfferDetails({ offerId })
 
   if (err) {
@@ -18,22 +18,32 @@ const getOfferQuery = async ({ queryKey }: { queryKey: [string, string] }) => {
   saveOffer(offer)
   return offer
 }
-
-export const useOfferDetails = (id: string) => {
+const buildQuery = (id: string) => {
   const initialOffer = getOffer(id)
-  const {
-    data,
-    isLoading,
-    isFetching,
-    error: offerDetailsError,
-  } = useQuery({
+
+  return {
     queryKey: ['offer', id],
     queryFn: getOfferQuery,
     initialData: initialOffer,
     initialDataUpdatedAt: initialOffer?.lastModified?.getTime(),
     staleTime: MSINAMINUTE,
     enabled: !!id,
-  })
+  }
+}
+
+export const useOfferDetails = (id: string) => {
+  const { data, isLoading, isFetching, error: offerDetailsError } = useQuery(buildQuery(id))
 
   return { offer: data, isLoading, isFetching, error: offerDetailsError }
+}
+
+export const useMultipleOfferDetails = (ids: string[]) => {
+  const queries = useQueries({ queries: ids.map(buildQuery) })
+
+  const isLoading = queries.some((query) => query.isLoading)
+  const isFetching = queries.some((query) => query.isFetching)
+  const errors = queries.map((query) => query.error)
+  const offers = queries.map((query) => query.data)
+
+  return { offers, isLoading, isFetching, errors }
 }

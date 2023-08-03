@@ -25,6 +25,7 @@ export const useShowConfirmTransactionPopup = () => {
         title: i18n('fundFromPeachWallet.confirm.title'),
         level: 'APP',
       })
+      console.log('UNTIL HERE I GO')
       try {
         await peachWallet.signAndBroadcastPSBT(transaction.psbt)
         onSuccess()
