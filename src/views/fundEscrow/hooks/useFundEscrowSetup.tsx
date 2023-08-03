@@ -19,7 +19,9 @@ export const useFundEscrowSetup = () => {
 
   const showErrorBanner = useShowErrorBanner()
 
-  const { offer } = useOfferDetails(route.params.offerId)
+  const fundMultiple = useWalletState((state) => state.getFundMultipleByOfferId(offerId))
+  const { offers } = useMultipleOfferDetails(fundMultiple?.offerIds || [route.params.offerId])
+  const offer = offers[0]
   const sellOffer = offer && isSellOffer(offer) ? offer : undefined
   const [showLoading, setShowLoading] = useState(!sellOffer?.escrow ? Date.now() : 0)
   const canFetchFundingStatus = !sellOffer || shouldGetFundingStatus(sellOffer)
@@ -28,7 +30,10 @@ export const useFundEscrowSetup = () => {
     userConfirmationRequired,
     error: fundingStatusError,
   } = useFundingStatus(offerId, canFetchFundingStatus)
-  const fundMultiple = useWalletState((state) => state.getFundMultipleByOfferId(offerId))
+  const escrows = offers
+    .filter(isDefined)
+    .filter(isSellOffer)
+    .map((offr) => offr.escrow)
   const fundingAmount = getFundingAmount(sellOffer, fundMultiple)
   const cancelOffer = useCancelOffer(sellOffer)
 
@@ -67,6 +72,7 @@ export const useFundEscrowSetup = () => {
     offer: sellOffer,
     isLoading: showLoading > 0,
     fundingAddress: fundMultiple?.address || sellOffer?.escrow,
+    fundingAddresses: escrows,
     createEscrowError,
     fundingStatus,
     fundingAmount,
