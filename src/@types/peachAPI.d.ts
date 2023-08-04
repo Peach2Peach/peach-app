@@ -98,6 +98,13 @@ declare type Currency =
   | 'NOK'
   | 'RON'
   | 'USDT'
+  | 'ARS'
+  | 'COP'
+  | 'PEN'
+  | 'MXN'
+  | 'CLP'
+  | 'PEN'
+  | 'COP'
 declare type Pricebook = {
   [key in Currency]?: number
 }
@@ -168,6 +175,13 @@ declare type PaymentMethod =
   | 'iris'
   | 'liquid'
   | 'lnurl'
+  | 'cbu'
+  | 'cvu'
+  | 'mercadoPago'
+  | 'alias'
+  | 'bancolombia'
+  | 'rappipay'
+  | 'nequi'
   | CashTrade
   | AmazonGiftCard
   | NationalTransfer

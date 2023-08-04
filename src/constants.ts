@@ -44,6 +44,14 @@ export let CURRENCIES: Currency[] = [
   'ISK',
   'NOK',
   'USDT',
+  'ARS',
+  'COP',
+  'PEN',
+  'GTQ',
+  'MXN',
+  'CLP',
+  'PEN',
+  'COP',
 ]
 
 export let GIFTCARDCOUNTRIES: PaymentMethodCountry[] = ['DE', 'FR', 'IT', 'ES', 'NL', 'UK', 'SE', 'FI']
@@ -89,6 +97,10 @@ export const PAYMENTCATEGORIES: PaymentCategories = {
     'instantSepa',
     'fasterPayments',
     'straksbetaling',
+    'cbu',
+    'cvu',
+    'alias',
+    'bancolombia',
     ...NATIONALTRANSFERCOUNTRIES.map((c) => `nationalTransfer${c}` satisfies PaymentMethod),
   ],
   onlineWallet: [
@@ -106,6 +118,9 @@ export const PAYMENTCATEGORIES: PaymentCategories = {
     'paysera',
     'friends24',
     'n26',
+    'mercadoPago',
+    'rappipay',
+    'nequi',
   ],
   giftCard: ['giftCard.amazon', ...GIFTCARDCOUNTRIES.map((c) => `giftCard.amazon.${c}` satisfies PaymentMethod)],
   nationalOption: ['mbWay', 'bizum', 'satispay', 'mobilePay', 'keksPay', 'paylib', 'lydia', 'verse', 'iris'],
