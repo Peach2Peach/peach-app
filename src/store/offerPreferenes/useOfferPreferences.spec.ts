@@ -8,6 +8,7 @@ import {
 } from '../../../tests/unit/data/paymentData'
 import { setPaymentMethods } from '../../constants'
 import { usePaymentDataStore } from '../usePaymentDataStore'
+import { CurrencyType } from './types'
 import { useOfferPreferences } from './useOfferPreferences'
 
 describe('useOfferPreferences - store', () => {
@@ -256,7 +257,7 @@ describe('useOfferPreferences - actions - selectPaymentMethod', () => {
 describe('useOfferPreferences - actions - setPrefferedCurrencyType', () => {
   it('should update the preferred currencytype', () => {
     expect(useOfferPreferences.getState().preferredCurrenyType).toBe('europe')
-    useOfferPreferences.getState().setPreferredCurrencyType('other')
+    useOfferPreferences.getState().setPreferredCurrencyType(CurrencyType.other)
     expect(useOfferPreferences.getState().preferredCurrenyType).toBe('other')
   })
 })

@@ -3,8 +3,10 @@ import { TouchableOpacity, View } from 'react-native'
 import { shallow } from 'zustand/shallow'
 import { Text } from '../../components'
 import { useOfferPreferences } from '../../store/offerPreferenes'
+import { CurrencyType } from '../../store/offerPreferenes/types'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
+import { defaultCurrencies } from './constants'
 import { Currencies } from './Currencies'
 
 type Props = {
@@ -23,9 +25,9 @@ const TabBar = ({ state, navigation }: MaterialTopTabBarProps) => {
   }
 
   return (
-    <View style={tw`flex-row justify-center`}>
+    <View style={tw`flex-row justify-center gap-4`}>
       {items.map((item) => (
-        <TouchableOpacity style={tw`flex-shrink px-2`} key={item.key + item.name} onPress={() => select(item)}>
+        <TouchableOpacity style={tw`flex-shrink`} key={item.key + item.name} onPress={() => select(item)}>
           <Text
             style={[
               tw`px-4 py-2 text-center capitalize input-label`,
@@ -51,19 +53,18 @@ export const CurrencyTabs = (props: Props) => {
 
   return (
     <CurrencyTab.Navigator
-      initialRouteName={preferredCurrencyType}
+      initialRouteName={preferredCurrencyType.toString()}
       screenListeners={{
         focus: (e) => {
-          const name = e.target?.split('-')[0]
-          if (name === 'europe' || name === 'other') {
-            setPreferredCurrencyType(name)
-            props.setCurrency(name === 'europe' ? 'EUR' : 'USDT')
-          }
+          const currencyType = CurrencyType.parse(e.target?.split('-')[0])
+          setPreferredCurrencyType(currencyType)
+          props.setCurrency(defaultCurrencies[currencyType])
         },
       }}
       tabBar={TabBar}
     >
       <CurrencyTab.Screen name="europe" children={() => <Currencies type="europe" {...props} />} />
+      <CurrencyTab.Screen name="latinAmerica" children={() => <Currencies type="latinAmerica" {...props} />} />
       <CurrencyTab.Screen name="other" children={() => <Currencies type="other" {...props} />} />
     </CurrencyTab.Navigator>
   )

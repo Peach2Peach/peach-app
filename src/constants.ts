@@ -1,6 +1,7 @@
 import { getBuildNumber, getUniqueIdSync, getVersion, isEmulatorSync } from 'react-native-device-info'
 import { IconType } from './assets/icons'
 import { FlagType } from './components/flags'
+import { CurrencyType } from './store/offerPreferenes/types'
 import { unique } from './utils/array'
 import { sha256 } from './utils/crypto/sha256'
 import { isCashTrade } from './utils/paymentMethod/isCashTrade'
@@ -47,12 +48,16 @@ export let CURRENCIES: Currency[] = [
   'ARS',
   'COP',
   'PEN',
-  'GTQ',
   'MXN',
   'CLP',
   'PEN',
   'COP',
 ]
+export const CURRENCY_MAP: Record<CurrencyType, Currency[]> = {
+  europe: ['EUR', 'CHF', 'GBP', 'SEK', 'DKK', 'BGN', 'CZK', 'HUF', 'PLN', 'RON', 'ISK', 'NOK'],
+  latinAmerica: ['ARS', 'COP', 'PEN', 'MXN', 'CLP', 'PEN', 'COP'],
+  other: ['USDT', 'SAT'],
+}
 
 export let GIFTCARDCOUNTRIES: PaymentMethodCountry[] = ['DE', 'FR', 'IT', 'ES', 'NL', 'UK', 'SE', 'FI']
 export const NATIONALTRANSFERCOUNTRIES: PaymentMethodCountry[] = [
