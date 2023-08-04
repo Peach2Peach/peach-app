@@ -1,7 +1,7 @@
 import { createMaterialTopTabNavigator, MaterialTopTabBarProps } from '@react-navigation/material-top-tabs'
 import { TouchableOpacity, View } from 'react-native'
 import { shallow } from 'zustand/shallow'
-import { Text } from '../../components'
+import { PeachScrollView, Text } from '../../components'
 import { useOfferPreferences } from '../../store/offerPreferenes'
 import { CurrencyType } from '../../store/offerPreferenes/types'
 import tw from '../../styles/tailwind'
@@ -25,20 +25,22 @@ const TabBar = ({ state, navigation }: MaterialTopTabBarProps) => {
   }
 
   return (
-    <View style={tw`flex-row justify-center gap-4`}>
-      {items.map((item) => (
-        <TouchableOpacity style={tw`flex-shrink`} key={item.key + item.name} onPress={() => select(item)}>
-          <Text
-            style={[
-              tw`px-4 py-2 text-center capitalize input-label`,
-              item.name === selected ? colors.textSelected : colors.text,
-            ]}
-          >
-            {i18n(item.name)}
-          </Text>
-          {item.name === selected && <View style={[tw`w-full h-0.5 `, colors.underline]} />}
-        </TouchableOpacity>
-      ))}
+    <View>
+      <PeachScrollView contentStyle={tw`flex-row justify-center gap-4`} horizontal>
+        {items.map((item) => (
+          <TouchableOpacity style={tw`flex-shrink`} key={item.key + item.name} onPress={() => select(item)}>
+            <Text
+              style={[
+                tw`px-4 py-2 text-center capitalize input-label`,
+                item.name === selected ? colors.textSelected : colors.text,
+              ]}
+            >
+              {i18n(item.name)}
+            </Text>
+            {item.name === selected && <View style={[tw`w-full h-0.5 `, colors.underline]} />}
+          </TouchableOpacity>
+        ))}
+      </PeachScrollView>
     </View>
   )
 }
