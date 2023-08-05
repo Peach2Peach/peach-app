@@ -1,7 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`BuyTitleComponent should render correctly 1`] = `
-<PeachText
+<ParsedPeachText
+  parse={
+    [
+      {
+        "pattern": /buy/u,
+        "style": {
+          "color": "#05A85A",
+        },
+      },
+    ]
+  }
   style={
     [
       {
@@ -19,28 +29,6 @@ exports[`BuyTitleComponent should render correctly 1`] = `
     ]
   }
 >
-  <PeachText
-    style={
-      [
-        {
-          "color": "#05A85A",
-          "fontFamily": "Baloo2-Bold",
-          "fontSize": 16,
-          "letterSpacing": 0.16,
-          "lineHeight": 26,
-        },
-        {
-          "fontFamily": "Baloo2-Bold",
-          "fontSize": 20,
-          "letterSpacing": 0.2,
-          "lineHeight": 32,
-        },
-      ]
-    }
-  >
-    buy
-  </PeachText>
-   
-  bitcoin
-</PeachText>
+  buy bitcoin
+</ParsedPeachText>
 `;
