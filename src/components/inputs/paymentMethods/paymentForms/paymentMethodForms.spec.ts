@@ -16,6 +16,7 @@ import {
 } from '../templates'
 import { Template13 } from '../templates/Template13'
 import { Template14 } from '../templates/Template14'
+import { Template15 } from '../templates/Template15'
 import { GiftCardAmazon } from './GiftCardAmazon'
 
 describe('paymentMethodForms', () => {
@@ -86,6 +87,7 @@ describe('paymentMethodForms', () => {
       mercadoPago: { component: Template13, fields: ['method', 'price', 'phone', 'email'] },
       nequi: { component: Template3, fields: ['method', 'price', 'beneficiary', 'phone', 'reference'] },
       cbu: { component: Template14, fields: ['method', 'price', 'beneficiary', 'cbu'] },
+      cvu: { component: Template15, fields: ['method', 'price', 'beneficiary', 'cvu'] },
     })
   })
 })
