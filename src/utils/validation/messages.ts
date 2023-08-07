@@ -12,6 +12,7 @@ export const getMessages = () => ({
   feeRate: i18n('form.feeRate.error'),
   iban: i18n('form.iban.error'),
   isEUIBAN: i18n('form.iban.nonEUError'),
+  isCBU: i18n('form.invalid.error'),
   isPhoneAllowed: i18n('form.phone.highRisk'),
   max: i18n('form.max.error'),
   min: i18n('form.min.error'),
