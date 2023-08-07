@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`useTemplate16Setup should return the correct values 1`] = `
+{
+  "beneficiaryInputProps": {
+    "errorMessage": [],
+    "onChange": [Function],
+    "value": "beneficiary",
+  },
+  "currencySelectionProps": {
+    "onToggle": [Function],
+    "paymentMethod": "alias",
+    "selectedCurrencies": [],
+  },
+  "cvuAliasInputProps": {
+    "errorMessage": [
+      "this field is required",
+    ],
+    "label": "form.cvuAlias",
+    "onChange": [Function],
+    "onSubmit": [Function],
+    "required": true,
+    "value": "",
+  },
+  "labelInputProps": {
+    "errorMessage": [],
+    "onChange": [Function],
+    "value": "label",
+  },
+  "shouldShowCurrencySelection": false,
+}
+`;

@@ -70,6 +70,7 @@ const allPossibleFields = [
   'lnurlAddress',
   'cbu',
   'cvu',
+  'cvuAlias',
 ] as const
 export type TradeInfoField = (typeof allPossibleFields)[number]
 export const isTradeInformationGetter = (

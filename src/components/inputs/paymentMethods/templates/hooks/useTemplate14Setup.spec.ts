@@ -11,7 +11,6 @@ describe('useTemplate14Setup', () => {
           type: 'cbu',
           beneficiary: 'beneficiary',
           cbu: 'cbu',
-          reference: 'reference',
           currencies: [],
         },
         currencies: [],
