@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`useWalletSetup - header should set up correctly when loaded 1`] = `
+exports[`useWalletHeaderSetup should set up correctly when loaded 1`] = `
 <Header
   hideGoBackButton={true}
   icons={
@@ -23,4 +23,4 @@ exports[`useWalletSetup - header should set up correctly when loaded 1`] = `
 />
 `;
 
-exports[`useWalletSetup - header should set up correctly while loading 1`] = `<Header />`;
+exports[`useWalletHeaderSetup should set up correctly while loading 1`] = `<Header />`;

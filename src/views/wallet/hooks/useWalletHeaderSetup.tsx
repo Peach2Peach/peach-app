@@ -19,11 +19,6 @@ export const useWalletHeaderSetup = (isLoading: boolean) => {
             accessibilityHint: `${i18n('goTo')} ${i18n('wallet.transactionHistory')}`,
             onPress: () => navigation.navigate('transactionHistory'),
           },
-          {
-            ...headerIcons.bitcoin,
-            accessibilityHint: `${i18n('goTo')} ${i18n('settings.networkFees')}`,
-            onPress: () => navigation.navigate('networkFees'),
-          },
           { ...headerIcons.help, accessibilityHint: `${i18n('help')}`, onPress: showHelp },
         ],
       },

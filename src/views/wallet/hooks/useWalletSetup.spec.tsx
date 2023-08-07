@@ -116,10 +116,6 @@ describe('useWalletSetup - header', () => {
     })
     expect(navigateMock).toHaveBeenCalledWith('transactionHistory')
     act(() => {
-      fireEvent(getByAccessibilityHint('go to network fees'), 'onPress')
-    })
-    expect(navigateMock).toHaveBeenCalledWith('networkFees')
-    act(() => {
       fireEvent(getByAccessibilityHint('help'), 'onPress')
     })
     expect(usePopupStore.getState()).toEqual({
