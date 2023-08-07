@@ -1,0 +1,78 @@
+import { useCallback, useEffect, useState } from 'react'
+import { useValidatedState } from '../../../../../hooks'
+import i18n from '../../../../../utils/i18n'
+import { FormProps } from '../../../../../views/addPaymentMethod/PaymentMethodForm'
+import { toggleCurrency } from '../../paymentForms/utils'
+import { hasMultipleAvailableCurrencies } from '../utils/hasMultipleAvailableCurrencies'
+import { useLabelInput } from './useLabelInput'
+
+const beneficiaryRules = { required: true }
+const cvuRules = { required: true, cvu: true }
+
+export const useTemplate15Setup = ({ data, onSubmit, setStepValid, setFormData }: FormProps) => {
+  const { currencies, type: paymentMethod } = data
+  const { labelInputProps, labelErrors, setDisplayErrors: setDisplayLabelErrors, label } = useLabelInput(data)
+  const [beneficiary, setBeneficiary, beneficiaryIsValid, beneficiaryErrors] = useValidatedState(
+    data?.beneficiary || '',
+    beneficiaryRules,
+  )
+  const [cvu, setCVU, cvuIsValid, cvuErrors] = useValidatedState(data?.cvu || '', cvuRules)
+  const [displayErrors, setDisplayErrors] = useState(false)
+  const [selectedCurrencies, setSelectedCurrencies] = useState(data?.currencies || currencies)
+
+  const buildPaymentData = useCallback(
+    () => ({
+      id: data?.id || `${paymentMethod}-${Date.now()}`,
+      label,
+      type: paymentMethod,
+      beneficiary,
+      cvu,
+      currencies: selectedCurrencies,
+    }),
+    [data?.id, cvu, label, paymentMethod, selectedCurrencies, beneficiary],
+  )
+
+  const onCurrencyToggle = (currency: Currency) => {
+    setSelectedCurrencies(toggleCurrency(currency))
+  }
+
+  const isFormValid = useCallback(() => {
+    setDisplayLabelErrors(true)
+    setDisplayErrors(true)
+    return labelErrors.length === 0 && beneficiaryIsValid && cvuIsValid
+  }, [beneficiaryIsValid, cvuIsValid, labelErrors.length, setDisplayLabelErrors])
+
+  const save = () => {
+    if (!isFormValid()) return
+
+    onSubmit(buildPaymentData())
+  }
+
+  useEffect(() => {
+    setStepValid(isFormValid())
+    setFormData(buildPaymentData())
+  }, [buildPaymentData, isFormValid, setFormData, setStepValid])
+
+  return {
+    labelInputProps,
+    beneficiaryInputProps: {
+      value: beneficiary,
+      onChange: setBeneficiary,
+      errorMessage: displayErrors ? beneficiaryErrors : undefined,
+    },
+    cvuInputProps: {
+      value: cvu,
+      required: true,
+      onChange: setCVU,
+      onSubmit: save,
+      label: i18n('form.cvu'),
+      errorMessage: displayErrors ? cvuErrors : undefined,
+    },
+    currencySelectionProps: {
+      paymentMethod,
+      onToggle: onCurrencyToggle,
+      selectedCurrencies,
+    },
+    shouldShowCurrencySelection: hasMultipleAvailableCurrencies(paymentMethod),
+  }
+}

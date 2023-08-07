@@ -4,6 +4,7 @@ import { getNetwork } from '../wallet'
 import { isAdvcashWallet } from './isAdvcashWallet'
 import { isBIC } from './isBIC'
 import { isCBU } from './isCBU'
+import { isCVU } from './isCVU'
 import { isEUIBAN } from './isEUIBAN'
 import { isEmail } from './isEmail'
 import { isIBAN } from './isIBAN'
@@ -82,6 +83,9 @@ export const rules = {
   },
   isCBU (_: boolean, value: string) {
     return isCBU(value)
+  },
+  isCVU (_: boolean, value: string) {
+    return isCVU(value)
   },
   userName (_: boolean, value: string) {
     return isUsername(value)

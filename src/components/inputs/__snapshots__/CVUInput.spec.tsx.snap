@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CVUInput is neither optional nor required when specified 1`] = `
+<Input
+  autoCorrect={false}
+  label="form.cvu"
+  placeholder="form.cvu.placeholder"
+/>
+`;
+
+exports[`CVUInput is optional when specified 1`] = `
+<Input
+  autoCorrect={false}
+  label="form.cvu"
+  placeholder="form.cvu.placeholder"
+  required={false}
+/>
+`;
+
+exports[`CVUInput renders correctly 1`] = `
+<Input
+  autoCorrect={false}
+  label="form.cvu"
+  placeholder="form.cvu.placeholder"
+/>
+`;

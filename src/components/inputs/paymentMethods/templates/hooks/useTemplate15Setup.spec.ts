@@ -1,23 +1,23 @@
 import { renderHook } from '@testing-library/react-native'
-import { useTemplate14Setup } from './useTemplate14Setup'
+import { useTemplate15Setup } from './useTemplate15Setup'
 
-describe('useTemplate14Setup', () => {
+describe('useTemplate15Setup', () => {
   it('should return the correct values', () => {
     const { result } = renderHook(() =>
-      useTemplate14Setup({
+      useTemplate15Setup({
         data: {
           id: 'id',
           label: 'label',
-          type: 'cbu',
+          type: 'cvu',
           beneficiary: 'beneficiary',
-          cbu: 'cbu',
+          cvu: 'cvu',
           reference: 'reference',
           currencies: [],
         },
         currencies: [],
         onSubmit: jest.fn(),
         setStepValid: jest.fn(),
-        paymentMethod: 'cbu',
+        paymentMethod: 'cvu',
         setFormData: jest.fn(),
       }),
     )
