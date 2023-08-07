@@ -68,6 +68,7 @@ const allPossibleFields = [
   'location',
   'receiveAddress',
   'lnurlAddress',
+  'cbu',
 ] as const
 export type TradeInfoField = (typeof allPossibleFields)[number]
 export const isTradeInformationGetter = (
