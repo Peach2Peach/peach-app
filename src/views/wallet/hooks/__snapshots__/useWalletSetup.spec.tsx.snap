@@ -1,5 +1,67 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`useWalletSetup - header should set up correctly when loaded 1`] = `
+<Header
+  hideGoBackButton={true}
+  icons={
+    [
+      {
+        "accessibilityHint": "go to transaction history",
+        "color": "#7D675E",
+        "id": "yourTrades",
+        "onPress": [Function],
+      },
+      {
+        "accessibilityHint": "go to network fees",
+        "color": "#F7931A",
+        "id": "bitcoin",
+        "onPress": [Function],
+      },
+      {
+        "accessibilityHint": "help",
+        "color": "#099DE2",
+        "id": "helpCircle",
+        "onPress": [Function],
+      },
+    ]
+  }
+  title="Peach wallet"
+/>
+`;
+
+exports[`useWalletSetup - header should set up correctly while loading 1`] = `<Header />`;
+
+exports[`useWalletSetup - header should set up the header correctly when loaded 1`] = `
+<Header
+  hideGoBackButton={true}
+  icons={
+    [
+      {
+        "accessibilityHint": "go to transaction history",
+        "color": "#7D675E",
+        "id": "yourTrades",
+        "onPress": [Function],
+      },
+      {
+        "accessibilityHint": "go to network fees",
+        "color": "#F7931A",
+        "id": "bitcoin",
+        "onPress": [Function],
+      },
+      {
+        "accessibilityHint": "help",
+        "color": "#099DE2",
+        "id": "helpCircle",
+        "onPress": [Function],
+      },
+    ]
+  }
+  title="Peach wallet"
+/>
+`;
+
+exports[`useWalletSetup - header should set up the header correctly while loading 1`] = `<Header />`;
+
 exports[`useWalletSetup should set up the header correctly when loaded 1`] = `
 <Header
   hideGoBackButton={true}

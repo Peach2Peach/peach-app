@@ -11,19 +11,20 @@ import { act } from 'react-test-renderer'
 
 jest.useFakeTimers()
 
-describe('useWalletSetup', () => {
-  const wrapper = NavigationWrapper
-  const initialProps = { syncOnLoad: true }
-  const balance = 21000000
+const wrapper = NavigationWrapper
+const initialProps = { syncOnLoad: true }
+const balance = 21000000
+const setupWalletTests = (peachWallet: PeachWallet) => () => {
+  useWalletState.getState().setBalance(balance)
+  setPeachWallet(peachWallet)
+}
 
+describe('useWalletSetup', () => {
   // @ts-ignore
   const peachWallet = new PeachWallet()
   peachWallet.initialized = true
 
-  beforeAll(() => {
-    useWalletState.getState().setBalance(balance)
-    setPeachWallet(peachWallet)
-  })
+  beforeAll(setupWalletTests(peachWallet))
   it('should return correct default values', async () => {
     const { result } = renderHook(useWalletSetup, { wrapper, initialProps })
 
@@ -69,12 +70,42 @@ describe('useWalletSetup', () => {
     })
     expect(peachWallet.syncWallet).toHaveBeenCalled()
   })
-  it('should set up the header correctly while loading', async () => {
+  it('should navigate to backupTime if balance is bigger than 0 & showBackupReminder is false', async () => {
+    useWalletState.getState().setBalance(1)
+    useSettingsStore.setState({
+      showBackupReminder: false,
+      shouldShowBackupOverlay: true,
+    })
+    const { result } = renderHook(useWalletSetup, { wrapper, initialProps })
+
+    expect(navigateMock).toHaveBeenCalledWith('backupTime', { nextScreen: 'wallet' })
+    await waitFor(() => expect(result.current.walletLoading).toBeFalsy())
+  })
+  it('should not navigate to backupTime if balance is bigger than 0 & showBackupReminder is already true', async () => {
+    useWalletState.getState().setBalance(1)
+    useSettingsStore.setState({
+      showBackupReminder: true,
+      shouldShowBackupOverlay: true,
+    })
+    const { result } = renderHook(useWalletSetup, { wrapper, initialProps })
+
+    expect(navigateMock).not.toHaveBeenCalled()
+    await waitFor(() => expect(result.current.walletLoading).toBeFalsy())
+  })
+})
+
+describe('useWalletSetup - header', () => {
+  // @ts-ignore
+  const peachWallet = new PeachWallet()
+  peachWallet.initialized = true
+
+  beforeAll(setupWalletTests(peachWallet))
+  it('should set up correctly while loading', async () => {
     const { result } = renderHook(useWalletSetup, { wrapper, initialProps })
     expect(headerState.header()).toMatchSnapshot()
     await waitFor(() => expect(result.current.walletLoading).toBeFalsy())
   })
-  it('should set up the header correctly when loaded', async () => {
+  it('should set up correctly when loaded', async () => {
     const { result } = renderHook(useWalletSetup, { wrapper, initialProps })
     await waitFor(() => expect(result.current.walletLoading).toBeFalsy())
     expect(headerState.header()).toMatchSnapshot()
@@ -96,28 +127,6 @@ describe('useWalletSetup', () => {
       title: 'sending funds',
       content: <WithdrawingFundsHelp />,
     })
-    await waitFor(() => expect(result.current.walletLoading).toBeFalsy())
-  })
-  it('should navigate to backupTime if balance is bigger than 0 & showBackupReminder is false', async () => {
-    useWalletState.getState().setBalance(1)
-    useSettingsStore.setState({
-      showBackupReminder: false,
-      shouldShowBackupOverlay: true,
-    })
-    const { result } = renderHook(useWalletSetup, { wrapper, initialProps })
-
-    expect(navigateMock).toHaveBeenCalledWith('backupTime', { nextScreen: 'wallet' })
-    await waitFor(() => expect(result.current.walletLoading).toBeFalsy())
-  })
-  it('should not navigate to backupTime if balance is bigger than 0 & showBackupReminder is already true', async () => {
-    useWalletState.getState().setBalance(1)
-    useSettingsStore.setState({
-      showBackupReminder: true,
-      shouldShowBackupOverlay: true,
-    })
-    const { result } = renderHook(useWalletSetup, { wrapper, initialProps })
-
-    expect(navigateMock).not.toHaveBeenCalled()
     await waitFor(() => expect(result.current.walletLoading).toBeFalsy())
   })
 })
