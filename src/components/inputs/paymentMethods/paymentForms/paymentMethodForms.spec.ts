@@ -13,6 +13,7 @@ import {
   Template8,
   Template9,
 } from '../templates'
+import { Template13 } from '../templates/Template13'
 import { GiftCardAmazon } from './GiftCardAmazon'
 
 describe('paymentMethodForms', () => {
@@ -80,6 +81,7 @@ describe('paymentMethodForms', () => {
       liquid: { component: Template10, fields: ['method', 'price', 'receiveAddress'] },
       lnurl: { component: Template11, fields: ['method', 'price', 'lnurlAddress'] },
       rappipay: { component: Template12, fields: ['method', 'price', 'phone'] },
+      mercadoPago: { component: Template13, fields: ['method', 'price', 'phone', 'email'] },
     })
   })
 })
