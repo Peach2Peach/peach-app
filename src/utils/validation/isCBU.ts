@@ -12,9 +12,7 @@ const isValidBankCode = (bankCode: string) => {
   return diff === checksumTwo
 }
 const isValidAccount = (accountNumber: string) => {
-  if (!accountNumber || accountNumber.length !== 14) {
-    return false
-  }
+  if (!accountNumber || accountNumber.length !== 14) return false
 
   const digits = accountNumber.split('').map((d) => Number(d))
 
