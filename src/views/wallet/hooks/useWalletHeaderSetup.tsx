@@ -15,6 +15,11 @@ export const useWalletHeaderSetup = (isLoading: boolean) => {
         hideGoBackButton: true,
         icons: [
           {
+            ...headerIcons.search,
+            accessibilityHint: `${i18n('goTo')} ${i18n('wallet.addressChecker')}`,
+            onPress: () => {},
+          },
+          {
             ...headerIcons.list,
             accessibilityHint: `${i18n('goTo')} ${i18n('wallet.transactionHistory')}`,
             onPress: () => navigation.navigate('transactionHistory'),

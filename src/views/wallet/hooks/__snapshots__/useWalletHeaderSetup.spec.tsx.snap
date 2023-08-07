@@ -6,6 +6,12 @@ exports[`useWalletHeaderSetup should set up correctly when loaded 1`] = `
   icons={
     [
       {
+        "accessibilityHint": "go to address checker",
+        "color": "#FFA171",
+        "id": "search",
+        "onPress": [Function],
+      },
+      {
         "accessibilityHint": "go to transaction history",
         "color": "#7D675E",
         "id": "yourTrades",
