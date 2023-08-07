@@ -115,6 +115,7 @@ exports[`SelectCountry should render correctly 1`] = `
                     "letterSpacing": 0.16,
                     "lineHeight": 28,
                   },
+                  false,
                 ]
               }
             >
@@ -202,6 +203,7 @@ exports[`SelectCountry should render correctly 1`] = `
                     "letterSpacing": 0.16,
                     "lineHeight": 28,
                   },
+                  false,
                 ]
               }
             >
@@ -289,6 +291,7 @@ exports[`SelectCountry should render correctly 1`] = `
                     "letterSpacing": 0.16,
                     "lineHeight": 28,
                   },
+                  false,
                 ]
               }
             >
@@ -376,6 +379,7 @@ exports[`SelectCountry should render correctly 1`] = `
                     "letterSpacing": 0.16,
                     "lineHeight": 28,
                   },
+                  false,
                 ]
               }
             >
@@ -476,6 +480,7 @@ exports[`SelectCountry should render correctly 1`] = `
               "textTransform": "uppercase",
             },
           ],
+          false,
         ]
       }
     >

@@ -30,6 +30,7 @@ exports[`CreateAccountLoading should render correctly 1`] = `
           "lineHeight": 42,
           "textAlign": "center",
         },
+        false,
       ]
     }
   >
@@ -54,6 +55,7 @@ exports[`CreateAccountLoading should render correctly 1`] = `
           "lineHeight": 28,
           "textAlign": "center",
         },
+        false,
       ]
     }
   >

@@ -85,6 +85,7 @@ exports[`Settings should render correctly 1`] = `
                   },
                   undefined,
                 ],
+                false,
               ]
             }
           >
@@ -180,6 +181,7 @@ exports[`Settings should render correctly 1`] = `
                   },
                   undefined,
                 ],
+                false,
               ]
             }
           >
@@ -275,6 +277,7 @@ exports[`Settings should render correctly 1`] = `
                   },
                   undefined,
                 ],
+                false,
               ]
             }
           >
@@ -338,6 +341,7 @@ exports[`Settings should render correctly 1`] = `
                 "textAlign": "left",
                 "textTransform": "lowercase",
               },
+              false,
             ]
           }
         >
@@ -406,6 +410,7 @@ exports[`Settings should render correctly 1`] = `
                   },
                   undefined,
                 ],
+                false,
               ]
             }
           >
@@ -501,6 +506,7 @@ exports[`Settings should render correctly 1`] = `
                   },
                   undefined,
                 ],
+                false,
               ]
             }
           >
@@ -596,6 +602,7 @@ exports[`Settings should render correctly 1`] = `
                   },
                   false,
                 ],
+                false,
               ]
             }
           >
@@ -691,6 +698,7 @@ exports[`Settings should render correctly 1`] = `
                   },
                   undefined,
                 ],
+                false,
               ]
             }
           >
@@ -786,6 +794,7 @@ exports[`Settings should render correctly 1`] = `
                   },
                   undefined,
                 ],
+                false,
               ]
             }
           >
@@ -849,6 +858,7 @@ exports[`Settings should render correctly 1`] = `
                 "textAlign": "left",
                 "textTransform": "lowercase",
               },
+              false,
             ]
           }
         >
@@ -917,6 +927,7 @@ exports[`Settings should render correctly 1`] = `
                   },
                   undefined,
                 ],
+                false,
               ]
             }
           >
@@ -1012,6 +1023,7 @@ exports[`Settings should render correctly 1`] = `
                   },
                   undefined,
                 ],
+                false,
               ]
             }
           >
@@ -1107,6 +1119,7 @@ exports[`Settings should render correctly 1`] = `
                   },
                   undefined,
                 ],
+                false,
               ]
             }
           >
@@ -1202,6 +1215,7 @@ exports[`Settings should render correctly 1`] = `
                   },
                   undefined,
                 ],
+                false,
               ]
             }
           >
@@ -1297,6 +1311,7 @@ exports[`Settings should render correctly 1`] = `
                   },
                   undefined,
                 ],
+                false,
               ]
             }
           >
@@ -1356,6 +1371,7 @@ exports[`Settings should render correctly 1`] = `
                 "textAlign": "center",
               },
             ],
+            false,
           ]
         }
       >

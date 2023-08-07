@@ -40,6 +40,7 @@ exports[`CreateAccountError should render correctly 1`] = `
             "lineHeight": 42,
             "textAlign": "center",
           },
+          false,
         ]
       }
     >
@@ -64,6 +65,7 @@ exports[`CreateAccountError should render correctly 1`] = `
             "lineHeight": 28,
             "textAlign": "center",
           },
+          false,
         ]
       }
     >
@@ -170,6 +172,7 @@ exports[`CreateAccountError should render correctly 1`] = `
                 "textTransform": "uppercase",
               },
             ],
+            false,
           ]
         }
       >
@@ -251,6 +254,7 @@ exports[`CreateAccountError should render correctly 1`] = `
                 "textTransform": "uppercase",
               },
             ],
+            false,
           ]
         }
       >
