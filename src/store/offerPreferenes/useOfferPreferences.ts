@@ -37,7 +37,7 @@ export const defaultPreferences: OfferPreferences = {
   paymentData: {},
   preferredPaymentMethods: {},
   originalPaymentData: [],
-  preferredCurrenyType: CurrencyType.europe,
+  preferredCurrenyType: 'europe',
   sortBy: {
     buyOffer: ['bestReputation'],
     sellOffer: ['bestReputation'],
