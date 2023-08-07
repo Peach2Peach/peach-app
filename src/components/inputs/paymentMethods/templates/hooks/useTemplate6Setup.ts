@@ -1,11 +1,12 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { FormProps } from '../../../../../views/addPaymentMethod/PaymentMethodForm'
 import { useValidatedState } from '../../../../../hooks'
 import tw from '../../../../../styles/tailwind'
 import i18n from '../../../../../utils/i18n'
 import { getErrorsInField } from '../../../../../utils/validation'
+import { FormProps } from '../../../../../views/addPaymentMethod/PaymentMethodForm'
 import { TabbedNavigationItem } from '../../../../navigation/TabbedNavigation'
 import { toggleCurrency } from '../../paymentForms/utils'
+import { hasMultipleAvailableCurrencies } from '../utils/hasMultipleAvailableCurrencies'
 import { useLabelInput } from './useLabelInput'
 
 const referenceRules = { required: false, isValidPaymentReference: true }
@@ -144,5 +145,6 @@ export const useTemplate6Setup = ({ data, onSubmit, setStepValid, setFormData }:
     shouldShowPhoneInput: currentTab.id === 'phone',
     shouldShowEmailInput: currentTab.id === 'email',
     shouldShowUserNameInput: currentTab.id === 'userName' || currentTab.id === 'revtag',
+    shouldShowCurrencySelection: hasMultipleAvailableCurrencies(paymentMethod),
   }
 }

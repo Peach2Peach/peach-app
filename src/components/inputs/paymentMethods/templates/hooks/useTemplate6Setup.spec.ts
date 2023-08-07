@@ -1,5 +1,5 @@
-import { useTemplate6Setup } from './useTemplate6Setup'
 import { renderHook } from '@testing-library/react-native'
+import { useTemplate6Setup } from './useTemplate6Setup'
 
 describe('useTemplate6Setup', () => {
   it('should return the correct values', () => {
