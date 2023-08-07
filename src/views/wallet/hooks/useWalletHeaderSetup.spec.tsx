@@ -29,4 +29,5 @@ describe('useWalletHeaderSetup', () => {
       content: <WithdrawingFundsHelp />,
     })
   })
+  it.todo('should go to address checker')
 })

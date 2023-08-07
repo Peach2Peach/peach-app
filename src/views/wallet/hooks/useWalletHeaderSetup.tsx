@@ -1,3 +1,4 @@
+import { Alert } from 'react-native'
 import { useHeaderSetup, useNavigation } from '../../../hooks'
 import { useShowHelp } from '../../../hooks/useShowHelp'
 import i18n from '../../../utils/i18n'
@@ -17,7 +18,7 @@ export const useWalletHeaderSetup = (isLoading: boolean) => {
           {
             ...headerIcons.search,
             accessibilityHint: `${i18n('goTo')} ${i18n('wallet.addressChecker')}`,
-            onPress: () => {},
+            onPress: () => Alert.alert('TODO: Go to address checker'),
           },
           {
             ...headerIcons.list,
