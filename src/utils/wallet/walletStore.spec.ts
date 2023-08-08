@@ -13,6 +13,7 @@ describe('walletStore', () => {
       transactions: [],
       txOfferMap: {},
       addressLabelMap: {},
+      showBalance: true,
     })
   })
   it('adds pending transactions', () => {
@@ -33,5 +34,12 @@ describe('walletStore', () => {
     expect(useWalletState.getState().addressLabelMap).toEqual({ address1: 'label' })
     useWalletState.getState().labelAddress('address1', 'label update')
     expect(useWalletState.getState().addressLabelMap).toEqual({ address1: 'label update' })
+  })
+  it('toggles show balance', () => {
+    expect(useWalletState.getState().showBalance).toEqual(true)
+    useWalletState.getState().toggleShowBalance()
+    expect(useWalletState.getState().showBalance).toEqual(false)
+    useWalletState.getState().toggleShowBalance()
+    expect(useWalletState.getState().showBalance).toEqual(true)
   })
 })

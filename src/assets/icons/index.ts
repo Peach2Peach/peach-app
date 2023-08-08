@@ -44,6 +44,7 @@ import dollarSignCircleInverted from './dollarSignCircleInverted.svg'
 import download from './download.svg'
 import edit from './edit.svg'
 import edit3 from './edit3.svg'
+import ellipse from './ellipse.svg'
 import externalLink from './externalLink.svg'
 import eye from './eye.svg'
 import eyeOff from './eyeOff.svg'
@@ -167,6 +168,7 @@ export const Icons = {
   download,
   edit,
   edit3,
+  ellipse,
   externalLink,
   eye,
   eyeOff,

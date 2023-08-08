@@ -8,6 +8,7 @@ type Props = ComponentProps & {
   amount: number
   size: 'extra large' | 'large' | 'medium' | 'small' | 'x small'
   isError?: boolean
+  showAmount?: boolean
 }
 
 const styles = {
@@ -54,25 +55,36 @@ const styles = {
     icon: tw`w-24px h-24px`,
     textContainer: tw`gap-4px pt-4px`,
     amount: tw`text-30px leading-40px`,
-    sats: tw`text-20px leading-30px pb-4px`,
+    sats: tw`text-20px leading-30px pb-3px`,
+    hiddenAmount: tw`flex-row items-center justify-between px-2px h-40px w-[168.5px]`,
   },
 }
 
-export const BTCAmount = ({ amount, size, isError = false, style }: Props) => (
+export const BTCAmount = ({ amount, size, isError = false, showAmount = true, style }: Props) => (
   <View style={[style, tw`justify-center`, styles[size].container]}>
     <View style={[tw`flex-row items-center justify-end -my-10`, styles[size].contentContainer]}>
       <View style={[tw`items-center justify-center`, styles[size].iconContainer]}>
         <Icon id="bitcoinLogo" style={[styles[size].icon]} />
       </View>
-      <View style={[tw`flex-row items-baseline`, styles[size].textContainer]}>
-        <MixedLetterSpacingText
-          style={[tw`items-center text-center font-courier-prime-bold`, styles[size].amount]}
-          value={amount}
-          isError={isError}
-        />
-        <Text style={[tw`items-center font-baloo-medium`, isError && tw`text-error-dark`, styles[size].sats]}>
-          {i18n('currency.SATS')}
-        </Text>
+      <View style={[tw`flex-row`, !showAmount ? tw`items-end` : tw`items-baseline`, styles[size].textContainer]}>
+        {showAmount ? (
+          <MixedLetterSpacingText
+            style={[tw`items-center text-center font-courier-prime-bold`, styles[size].amount]}
+            value={amount}
+            isError={isError}
+          />
+        ) : (
+          <View style={styles['extra large'].hiddenAmount}>
+            {[...Array(9)].map((_, i) => (
+              <Icon key={i} id="ellipse" size={8} />
+            ))}
+          </View>
+        )}
+        <View style={tw`justify-center`}>
+          <Text style={[tw`font-baloo-medium`, isError && tw`text-error-dark`, styles[size].sats]}>
+            {i18n('currency.SATS')}
+          </Text>
+        </View>
       </View>
     </View>
   </View>

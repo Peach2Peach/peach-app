@@ -1,20 +1,17 @@
 import { useFocusEffect } from '@react-navigation/native'
 import { useCallback, useState } from 'react'
 import { MSINASECOND } from '../../../constants'
-import { useNavigation, useValidatedState } from '../../../hooks'
+import { useNavigation } from '../../../hooks'
 import { useSettingsStore } from '../../../store/settingsStore'
 import { peachWallet } from '../../../utils/wallet/setWallet'
 import { useWalletState } from '../../../utils/wallet/walletStore'
 import { useSyncWallet } from './useSyncWallet'
-import { useWalletHeaderSetup } from './useWalletHeaderSetup'
 
-const bitcoinAddressRules = { required: false, bitcoinAddress: true }
-
-export const useWalletSetup = ({ syncOnLoad = true }) => {
+export const useWalletSetup = (syncOnLoad = true) => {
   const balance = useWalletState((state) => state.balance)
 
   const navigation = useNavigation()
-  const { refresh, isRefreshing } = useSyncWallet()
+  const { isRefreshing } = useSyncWallet()
   const [walletLoading, setWalletLoading] = useState(false)
   const [shouldShowBackupOverlay, showBackupReminder, setShowBackupReminder] = useSettingsStore((state) => [
     state.shouldShowBackupOverlay,
@@ -27,9 +24,6 @@ export const useWalletSetup = ({ syncOnLoad = true }) => {
     navigation.navigate('backupTime', { nextScreen: 'wallet' })
   }
 
-  const [address, setAddress, isValid, addressErrors] = useValidatedState<string>('', bitcoinAddressRules)
-  const canWithdrawAll = balance > 0 && !!address && isValid
-
   const syncWalletOnLoad = useCallback(async () => {
     if (!peachWallet.initialized) {
       setTimeout(syncWalletOnLoad, MSINASECOND)
@@ -40,8 +34,6 @@ export const useWalletSetup = ({ syncOnLoad = true }) => {
     setWalletLoading(false)
   }, [])
 
-  useWalletHeaderSetup(walletLoading)
-
   useFocusEffect(
     useCallback(() => {
       if (syncOnLoad) syncWalletOnLoad()
@@ -50,12 +42,7 @@ export const useWalletSetup = ({ syncOnLoad = true }) => {
 
   return {
     balance,
-    refresh,
     isRefreshing,
-    address,
-    setAddress,
-    addressErrors,
-    canWithdrawAll,
     walletLoading,
   }
 }

@@ -1,14 +1,27 @@
-import ShallowRenderer from 'react-test-renderer/shallow'
+import { toMatchDiffSnapshot } from 'snapshot-diff'
 import { TotalBalance } from './TotalBalance'
+import { render, fireEvent } from '@testing-library/react-native'
+expect.extend({ toMatchDiffSnapshot })
+
+jest.mock('../../../../components/bitcoin', () => ({
+  BTCAmount: 'BTCAmount',
+}))
 
 describe('TotalBalance', () => {
-  const renderer = ShallowRenderer.createRenderer()
   it('renders correctly', () => {
-    renderer.render(<TotalBalance amount={100000} />)
-    expect(renderer.getRenderOutput()).toMatchSnapshot()
+    const { toJSON } = render(<TotalBalance amount={100000} />)
+    expect(toJSON()).toMatchSnapshot()
   })
-  it('renders correctly when refreshing', () => {
-    renderer.render(<TotalBalance amount={100000} isRefreshing />)
-    expect(renderer.getRenderOutput()).toMatchSnapshot()
+  it('hide balance when the eye icon is pressed', () => {
+    const { getByAccessibilityHint, toJSON } = render(<TotalBalance amount={100000} />)
+    const eyeIcon = getByAccessibilityHint('hide wallet balance')
+    fireEvent.press(eyeIcon)
+
+    const hiddenBalance = toJSON()
+    const eyeOffIcon = getByAccessibilityHint('show wallet balance')
+    fireEvent.press(eyeOffIcon)
+
+    const shownBalance = toJSON()
+    expect(hiddenBalance).toMatchDiffSnapshot(shownBalance)
   })
 })
