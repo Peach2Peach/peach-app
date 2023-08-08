@@ -7,15 +7,20 @@ import { CurrencySelection } from '../paymentForms/components'
 import { useTemplate14Setup } from './hooks'
 
 export const Template14 = (props: FormProps) => {
-  const { labelInputProps, beneficiaryInputProps, cbuInputProps, shouldShowCurrencySelection, currencySelectionProps }
-    = useTemplate14Setup(props)
+  const {
+    labelInputProps,
+    beneficiaryInputProps,
+    accountNumberInputProps,
+    shouldShowCurrencySelection,
+    currencySelectionProps,
+  } = useTemplate14Setup(props)
   let $cbu = useRef<TextInput>(null).current
 
   return (
     <View>
       <LabelInput {...labelInputProps} />
       <BeneficiaryInput {...beneficiaryInputProps} onSubmit={() => $cbu?.focus()} />
-      <CBUInput {...cbuInputProps} reference={(el: any) => ($cbu = el)} />
+      <CBUInput {...accountNumberInputProps} reference={(el: any) => ($cbu = el)} />
 
       {shouldShowCurrencySelection && <CurrencySelection {...currencySelectionProps} />}
     </View>

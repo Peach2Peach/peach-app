@@ -10,7 +10,7 @@ describe('useTemplate16Setup', () => {
           label: 'label',
           type: 'alias',
           beneficiary: 'beneficiary',
-          cvuAlias: 'cvuAlias',
+          accountNumber: 'accountNumber',
           currencies: [],
         },
         currencies: [],

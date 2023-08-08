@@ -16,7 +16,10 @@ export const useTemplate14Setup = ({ data, onSubmit, setStepValid, setFormData }
     data?.beneficiary || '',
     beneficiaryRules,
   )
-  const [cbu, setCBU, cbuIsValid, cbuErrors] = useValidatedState(data?.cbu || '', cbuRules)
+  const [accountNumber, setAccountNumber, accountNumberIsValid, accountNumberErrors] = useValidatedState(
+    data?.accountNumber || '',
+    cbuRules,
+  )
   const [displayErrors, setDisplayErrors] = useState(false)
   const [selectedCurrencies, setSelectedCurrencies] = useState(data?.currencies || currencies)
 
@@ -26,10 +29,10 @@ export const useTemplate14Setup = ({ data, onSubmit, setStepValid, setFormData }
       label,
       type: paymentMethod,
       beneficiary,
-      cbu,
+      accountNumber,
       currencies: selectedCurrencies,
     }),
-    [data?.id, cbu, label, paymentMethod, selectedCurrencies, beneficiary],
+    [data?.id, accountNumber, label, paymentMethod, selectedCurrencies, beneficiary],
   )
 
   const onCurrencyToggle = (currency: Currency) => {
@@ -39,8 +42,8 @@ export const useTemplate14Setup = ({ data, onSubmit, setStepValid, setFormData }
   const isFormValid = useCallback(() => {
     setDisplayLabelErrors(true)
     setDisplayErrors(true)
-    return labelErrors.length === 0 && beneficiaryIsValid && cbuIsValid
-  }, [beneficiaryIsValid, cbuIsValid, labelErrors.length, setDisplayLabelErrors])
+    return labelErrors.length === 0 && beneficiaryIsValid && accountNumberIsValid
+  }, [beneficiaryIsValid, accountNumberIsValid, labelErrors.length, setDisplayLabelErrors])
 
   const save = () => {
     if (!isFormValid()) return
@@ -60,13 +63,13 @@ export const useTemplate14Setup = ({ data, onSubmit, setStepValid, setFormData }
       onChange: setBeneficiary,
       errorMessage: displayErrors ? beneficiaryErrors : undefined,
     },
-    cbuInputProps: {
-      value: cbu,
+    accountNumberInputProps: {
+      value: accountNumber,
       required: true,
-      onChange: setCBU,
+      onChange: setAccountNumber,
       onSubmit: save,
       label: i18n('form.cbu'),
-      errorMessage: displayErrors ? cbuErrors : undefined,
+      errorMessage: displayErrors ? accountNumberErrors : undefined,
     },
     currencySelectionProps: {
       paymentMethod,

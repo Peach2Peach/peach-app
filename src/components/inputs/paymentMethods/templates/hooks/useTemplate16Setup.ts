@@ -7,7 +7,7 @@ import { hasMultipleAvailableCurrencies } from '../utils/hasMultipleAvailableCur
 import { useLabelInput } from './useLabelInput'
 
 const beneficiaryRules = { required: true }
-const cvuAliasRules = { required: true, isCVUAlias: true }
+const accountNumberRules = { required: true, isCVU: true }
 
 export const useTemplate16Setup = ({ data, onSubmit, setStepValid, setFormData }: FormProps) => {
   const { currencies, type: paymentMethod } = data
@@ -16,7 +16,10 @@ export const useTemplate16Setup = ({ data, onSubmit, setStepValid, setFormData }
     data?.beneficiary || '',
     beneficiaryRules,
   )
-  const [cvuAlias, setCVUAlias, cvuAliasIsValid, cvuAliasErrors] = useValidatedState(data?.cvu || '', cvuAliasRules)
+  const [accountNumber, setAccountNumber, accountNumberIsValid, accountNumberErrors] = useValidatedState(
+    data?.cvu || '',
+    accountNumberRules,
+  )
   const [displayErrors, setDisplayErrors] = useState(false)
   const [selectedCurrencies, setSelectedCurrencies] = useState(data?.currencies || currencies)
 
@@ -26,10 +29,10 @@ export const useTemplate16Setup = ({ data, onSubmit, setStepValid, setFormData }
       label,
       type: paymentMethod,
       beneficiary,
-      cvuAlias,
+      accountNumber,
       currencies: selectedCurrencies,
     }),
-    [data?.id, paymentMethod, label, beneficiary, cvuAlias, selectedCurrencies],
+    [data?.id, paymentMethod, label, beneficiary, accountNumber, selectedCurrencies],
   )
 
   const onCurrencyToggle = (currency: Currency) => {
@@ -39,8 +42,8 @@ export const useTemplate16Setup = ({ data, onSubmit, setStepValid, setFormData }
   const isFormValid = useCallback(() => {
     setDisplayLabelErrors(true)
     setDisplayErrors(true)
-    return labelErrors.length === 0 && beneficiaryIsValid && cvuAliasIsValid
-  }, [beneficiaryIsValid, cvuAliasIsValid, labelErrors.length, setDisplayLabelErrors])
+    return labelErrors.length === 0 && beneficiaryIsValid && accountNumberIsValid
+  }, [beneficiaryIsValid, accountNumberIsValid, labelErrors.length, setDisplayLabelErrors])
 
   const save = () => {
     if (!isFormValid()) return
@@ -60,13 +63,13 @@ export const useTemplate16Setup = ({ data, onSubmit, setStepValid, setFormData }
       onChange: setBeneficiary,
       errorMessage: displayErrors ? beneficiaryErrors : undefined,
     },
-    cvuAliasInputProps: {
-      value: cvuAlias,
+    accountNumberInputProps: {
+      value: accountNumber,
       required: true,
-      onChange: setCVUAlias,
+      onChange: setAccountNumber,
       onSubmit: save,
-      label: i18n('form.cvuAlias'),
-      errorMessage: displayErrors ? cvuAliasErrors : undefined,
+      label: i18n('form.account'),
+      errorMessage: displayErrors ? accountNumberErrors : undefined,
     },
     currencySelectionProps: {
       paymentMethod,

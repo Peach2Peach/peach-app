@@ -10,7 +10,7 @@ describe('useTemplate14Setup', () => {
           label: 'label',
           type: 'cbu',
           beneficiary: 'beneficiary',
-          cbu: 'cbu',
+          accountNumber: 'accountNumber',
           currencies: [],
         },
         currencies: [],

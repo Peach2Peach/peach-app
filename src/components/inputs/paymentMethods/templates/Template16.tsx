@@ -10,7 +10,7 @@ export const Template16 = (props: FormProps) => {
   const {
     labelInputProps,
     beneficiaryInputProps,
-    cvuAliasInputProps,
+    accountNumberInputProps,
     shouldShowCurrencySelection,
     currencySelectionProps,
   } = useTemplate16Setup(props)
@@ -20,7 +20,7 @@ export const Template16 = (props: FormProps) => {
     <View>
       <LabelInput {...labelInputProps} />
       <BeneficiaryInput {...beneficiaryInputProps} onSubmit={() => $cbu?.focus()} />
-      <CVUAliasInput {...cvuAliasInputProps} reference={(el: any) => ($cbu = el)} />
+      <CVUAliasInput {...accountNumberInputProps} reference={(el: any) => ($cbu = el)} />
 
       {shouldShowCurrencySelection && <CurrencySelection {...currencySelectionProps} />}
     </View>
