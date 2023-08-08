@@ -6,7 +6,7 @@ export const CBUInput = ({ onChange, onSubmit, ...props }: InputProps) => (
   <Input
     {...{
       autoCorrect: false,
-      label: i18n('form.cbu'),
+      label: i18n('form.account'),
       placeholder: i18n('form.cbu.placeholder'),
       ...props,
       onChange,

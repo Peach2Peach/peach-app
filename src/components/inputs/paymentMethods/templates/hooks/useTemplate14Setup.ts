@@ -68,7 +68,7 @@ export const useTemplate14Setup = ({ data, onSubmit, setStepValid, setFormData }
       required: true,
       onChange: setAccountNumber,
       onSubmit: save,
-      label: i18n('form.cbu'),
+      label: i18n('form.account'),
       errorMessage: displayErrors ? accountNumberErrors : undefined,
     },
     currencySelectionProps: {
