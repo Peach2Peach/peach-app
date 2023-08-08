@@ -14,6 +14,7 @@
   "form.address.lnurl.placeholder" : "satoshi@lightning.gmx.com",
   "form.address.placeholder" : "address",
   "form.address.taproot.error" : "direct taproot payouts are not supported",
+  "form.bancolombia.accountNumber.placeholder" : "11112222223344",
   "form.beneficiary" : "account holder name",
   "form.beneficiary.placeholder" : "Satoshi Nakamoto",
   "form.bic" : "SWIFT/BIC",

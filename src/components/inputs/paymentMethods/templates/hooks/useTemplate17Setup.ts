@@ -35,9 +35,7 @@ export const useTemplate17Setup = ({ data, onSubmit, setStepValid, setFormData }
     [data?.id, paymentMethod, label, beneficiary, accountNumber, selectedCurrencies],
   )
 
-  const onCurrencyToggle = (currency: Currency) => {
-    setSelectedCurrencies(toggleCurrency(currency))
-  }
+  const onCurrencyToggle = (currency: Currency) => setSelectedCurrencies(toggleCurrency(currency))
 
   const isFormValid = useCallback(() => {
     setDisplayLabelErrors(true)
@@ -68,7 +66,8 @@ export const useTemplate17Setup = ({ data, onSubmit, setStepValid, setFormData }
       required: true,
       onChange: setAccountNumber,
       onSubmit: save,
-      label: i18n('form.accountNumber'),
+      label: i18n('form.account'),
+      placeholder: i18n('form.bancolombia.accountNumber.placeholder'),
       errorMessage: displayErrors ? accountNumberErrors : undefined,
     },
     currencySelectionProps: {
