@@ -3,13 +3,13 @@ import { useNavigation } from '../../../hooks'
 import { useShowHelp } from '../../../hooks/useShowHelp'
 import i18n from '../../../utils/i18n'
 import { headerIcons } from '../../../utils/layout/headerIcons'
-import { NewHeader } from '../../../components'
+import { NewHeader as Header } from '../../../components'
 
 export const WalletHeader = () => {
   const navigation = useNavigation()
   const showHelp = useShowHelp('withdrawingFunds')
   return (
-    <NewHeader
+    <Header
       {...{
         title: i18n('wallet.title'),
         hideGoBackButton: true,
