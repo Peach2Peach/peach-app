@@ -3,7 +3,7 @@ import { TotalBalance } from './TotalBalance'
 import { render, fireEvent } from '@testing-library/react-native'
 expect.extend({ toMatchDiffSnapshot })
 
-jest.mock('../../../../components/bitcoin/BTCAmount', () => ({
+jest.mock('../../../../components/bitcoin', () => ({
   BTCAmount: 'BTCAmount',
 }))
 
