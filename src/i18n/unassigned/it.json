@@ -38,7 +38,7 @@
   "fundFromPeachWallet.button" : "deposita dal wallet peach",
   "fundFromPeachWallet.confirm.confirmAndSend" : "conferma ed invia",
   "fundFromPeachWallet.confirm.description" : "Stai finanziando il deposito con il wallet Peach. Stai inviando:",
-  "fundFromPeachWallet.confirm.title" : "finanziamento il deposito",
+  "fundFromPeachWallet.confirm.title" : "finanzia deposito",
   "fundFromPeachWallet.funded" : "depositato dal wallet peach",
   "fundFromPeachWallet.insufficientFunds.description.1" : "Il tuo wallet Peach ha:",
   "fundFromPeachWallet.insufficientFunds.description.2" : "Vuoi finanziare il deposito con questo importo? ",

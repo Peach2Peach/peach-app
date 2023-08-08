@@ -1,0 +1,14 @@
+{
+  "buy.addressSigning.message" : "μήνυμα",
+  "buy.addressSigning.signature" : "υπογραφή",
+  "buy.addressSigning.title" : "υπογράψτε τη διεύθυνσή σας",
+  "buy.addressSigning.yourAddress" : "η διεύθυνσή σας",
+  "buy.meansOfPayment" : "πώς θα θέλατε να πληρώσετε;",
+  "buy.releaseAddress.title" : "δηλώστε διεύθυνση",
+  "buy.subtitle" : "Αγοράστε ανάμεσα:",
+  "buy.subtitle.highlight" : "Αγοράστε",
+  "buy.summary.title" : "δημοσίευση πρότασης αγοράς",
+  "buy.title" : "αγορά bitcoin",
+  "buy.title.highlight" : "αγορά",
+  "yourTrades.search.buy.subtitle" : "πρόταση αγοράς για"
+}
