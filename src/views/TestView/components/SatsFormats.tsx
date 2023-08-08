@@ -26,6 +26,7 @@ export const SatsFormats = () => (
       <BTCAmount amount={123} size="large" />
       <BTCAmount amount={1234} size="extra large" />
       <BTCAmount amount={12345} size="extra large" isError />
+      <BTCAmount amount={123456} size="extra large" showAmount={false} />
     </View>
   </View>
 )
