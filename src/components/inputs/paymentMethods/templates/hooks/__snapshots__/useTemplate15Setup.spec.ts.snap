@@ -2,6 +2,16 @@
 
 exports[`useTemplate15Setup should return the correct values 1`] = `
 {
+  "accountNumberInputProps": {
+    "errorMessage": [
+      "please enter a valid value",
+    ],
+    "label": "form.accountNumber",
+    "onChange": [Function],
+    "onSubmit": [Function],
+    "required": true,
+    "value": "accountNumber",
+  },
   "beneficiaryInputProps": {
     "errorMessage": [],
     "onChange": [Function],
@@ -11,17 +21,6 @@ exports[`useTemplate15Setup should return the correct values 1`] = `
     "onToggle": [Function],
     "paymentMethod": "cvu",
     "selectedCurrencies": [],
-  },
-  "cvuInputProps": {
-    "errorMessage": [
-      "this field is required",
-      "please enter a valid value",
-    ],
-    "label": "CVU",
-    "onChange": [Function],
-    "onSubmit": [Function],
-    "required": true,
-    "value": "",
   },
   "labelInputProps": {
     "errorMessage": [],
