@@ -125,7 +125,7 @@ export const countryMap: Record<string, CountryData> = {
   BJ: {
     name: 'Benin',
     dialCode: '+229',
-    highRisk: true,
+    highRisk: false,
   },
   BM: {
     name: 'Bermuda',
@@ -135,7 +135,7 @@ export const countryMap: Record<string, CountryData> = {
   BT: {
     name: 'Bhutan',
     dialCode: '+975',
-    highRisk: true,
+    highRisk: false,
   },
   BO: {
     name: 'Bolivia, Plurinational State of',
@@ -175,7 +175,7 @@ export const countryMap: Record<string, CountryData> = {
   BF: {
     name: 'Burkina Faso',
     dialCode: '+226',
-    highRisk: true,
+    highRisk: false,
   },
   BI: {
     name: 'Burundi',
@@ -185,12 +185,12 @@ export const countryMap: Record<string, CountryData> = {
   KH: {
     name: 'Cambodia',
     dialCode: '+855',
-    highRisk: true,
+    highRisk: false,
   },
   CM: {
     name: 'Cameroon',
     dialCode: '+237',
-    highRisk: true,
+    highRisk: false,
   },
   CA: {
     name: 'Canada',
@@ -238,7 +238,7 @@ export const countryMap: Record<string, CountryData> = {
   CV: {
     name: 'Cape Verde',
     dialCode: '+238',
-    highRisk: true,
+    highRisk: false,
   },
   KY: {
     name: 'Cayman Islands',
@@ -263,7 +263,7 @@ export const countryMap: Record<string, CountryData> = {
   CN: {
     name: 'China',
     dialCode: '+86',
-    highRisk: true,
+    highRisk: false,
   },
   CX: {
     name: 'Christmas Island',
@@ -293,7 +293,7 @@ export const countryMap: Record<string, CountryData> = {
   CD: {
     name: 'Congo, The Democratic Republic of the Congo',
     dialCode: '+243',
-    highRisk: true,
+    highRisk: false,
   },
   CK: {
     name: 'Cook Islands',
@@ -306,7 +306,7 @@ export const countryMap: Record<string, CountryData> = {
     highRisk: false,
   },
   CI: {
-    name: 'Cote d\'Ivoire',
+    name: "Cote d'Ivoire",
     dialCode: '+225',
     highRisk: false,
   },
@@ -383,7 +383,7 @@ export const countryMap: Record<string, CountryData> = {
   ET: {
     name: 'Ethiopia',
     dialCode: '+251',
-    highRisk: true,
+    highRisk: false,
   },
   FK: {
     name: 'Falkland Islands (Malvinas)',
@@ -493,7 +493,7 @@ export const countryMap: Record<string, CountryData> = {
   GW: {
     name: 'Guinea-Bissau',
     dialCode: '+245',
-    highRisk: true,
+    highRisk: false,
   },
   GY: {
     name: 'Guyana',
@@ -503,7 +503,7 @@ export const countryMap: Record<string, CountryData> = {
   HT: {
     name: 'Haiti',
     dialCode: '+509',
-    highRisk: true,
+    highRisk: false,
   },
   VA: {
     name: 'Holy See (Vatican City State)',
@@ -606,14 +606,14 @@ export const countryMap: Record<string, CountryData> = {
     highRisk: false,
   },
   KP: {
-    name: 'Korea, Democratic People\'s Republic of Korea',
+    name: "Korea, Democratic People's Republic of Korea",
     dialCode: '+850',
     highRisk: true,
   },
   KR: {
     name: 'Korea, Republic of South Korea',
     dialCode: '+82',
-    highRisk: true,
+    highRisk: false,
   },
   KW: {
     name: 'Kuwait',
@@ -673,7 +673,7 @@ export const countryMap: Record<string, CountryData> = {
   MO: {
     name: 'Macao',
     dialCode: '+853',
-    highRisk: true,
+    highRisk: false,
   },
   MK: {
     name: 'Macedonia',
@@ -683,7 +683,7 @@ export const countryMap: Record<string, CountryData> = {
   MG: {
     name: 'Madagascar',
     dialCode: '+261',
-    highRisk: true,
+    highRisk: false,
   },
   MW: {
     name: 'Malawi',
@@ -703,7 +703,7 @@ export const countryMap: Record<string, CountryData> = {
   ML: {
     name: 'Mali',
     dialCode: '+223',
-    highRisk: true,
+    highRisk: false,
   },
   MT: {
     name: 'Malta',
@@ -723,7 +723,7 @@ export const countryMap: Record<string, CountryData> = {
   MR: {
     name: 'Mauritania',
     dialCode: '+222',
-    highRisk: true,
+    highRisk: false,
   },
   MU: {
     name: 'Mauritius',
@@ -778,7 +778,7 @@ export const countryMap: Record<string, CountryData> = {
   MZ: {
     name: 'Mozambique',
     dialCode: '+258',
-    highRisk: true,
+    highRisk: false,
   },
   MM: {
     name: 'Myanmar',
@@ -823,17 +823,17 @@ export const countryMap: Record<string, CountryData> = {
   NI: {
     name: 'Nicaragua',
     dialCode: '+505',
-    highRisk: true,
+    highRisk: false,
   },
   NE: {
     name: 'Niger',
     dialCode: '+227',
-    highRisk: true,
+    highRisk: false,
   },
   NG: {
     name: 'Nigeria',
     dialCode: '+234',
-    highRisk: true,
+    highRisk: false,
   },
   NU: {
     name: 'Niue',
@@ -863,7 +863,7 @@ export const countryMap: Record<string, CountryData> = {
   PK: {
     name: 'Pakistan',
     dialCode: '+92',
-    highRisk: true,
+    highRisk: false,
   },
   PW: {
     name: 'Palau',
@@ -958,7 +958,7 @@ export const countryMap: Record<string, CountryData> = {
   KN: {
     name: 'Saint Kitts and Nevis',
     dialCode: '+1869',
-    highRisk: true,
+    highRisk: false,
   },
   LC: {
     name: 'Saint Lucia',
@@ -1003,7 +1003,7 @@ export const countryMap: Record<string, CountryData> = {
   SN: {
     name: 'Senegal',
     dialCode: '+221',
-    highRisk: true,
+    highRisk: false,
   },
   RS: {
     name: 'Serbia',
@@ -1018,7 +1018,7 @@ export const countryMap: Record<string, CountryData> = {
   SL: {
     name: 'Sierra Leone',
     dialCode: '+232',
-    highRisk: true,
+    highRisk: false,
   },
   SG: {
     name: 'Singapore',
@@ -1038,7 +1038,7 @@ export const countryMap: Record<string, CountryData> = {
   SB: {
     name: 'Solomon Islands',
     dialCode: '+677',
-    highRisk: true,
+    highRisk: false,
   },
   SO: {
     name: 'Somalia',
@@ -1068,7 +1068,7 @@ export const countryMap: Record<string, CountryData> = {
   LK: {
     name: 'Sri Lanka',
     dialCode: '+94',
-    highRisk: true,
+    highRisk: false,
   },
   SD: {
     name: 'Sudan',
@@ -1088,7 +1088,7 @@ export const countryMap: Record<string, CountryData> = {
   SZ: {
     name: 'Swaziland',
     dialCode: '+268',
-    highRisk: true,
+    highRisk: false,
   },
   SE: {
     name: 'Sweden',
@@ -1118,7 +1118,7 @@ export const countryMap: Record<string, CountryData> = {
   TZ: {
     name: 'Tanzania, United Republic of Tanzania',
     dialCode: '+255',
-    highRisk: true,
+    highRisk: false,
   },
   TH: {
     name: 'Thailand',
@@ -1143,7 +1143,7 @@ export const countryMap: Record<string, CountryData> = {
   TO: {
     name: 'Tonga',
     dialCode: '+676',
-    highRisk: true,
+    highRisk: false,
   },
   TT: {
     name: 'Trinidad and Tobago',
@@ -1178,7 +1178,7 @@ export const countryMap: Record<string, CountryData> = {
   UG: {
     name: 'Uganda',
     dialCode: '+256',
-    highRisk: true,
+    highRisk: false,
   },
   UA: {
     name: 'Ukraine',
@@ -1228,7 +1228,7 @@ export const countryMap: Record<string, CountryData> = {
   VN: {
     name: 'Vietnam',
     dialCode: '+84',
-    highRisk: true,
+    highRisk: false,
   },
   VG: {
     name: 'Virgin Islands, British',
@@ -1258,7 +1258,7 @@ export const countryMap: Record<string, CountryData> = {
   ZW: {
     name: 'Zimbabwe',
     dialCode: '+263',
-    highRisk: true,
+    highRisk: false,
   },
 }
 
