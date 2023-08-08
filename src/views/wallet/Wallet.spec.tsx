@@ -35,4 +35,6 @@ describe('Wallet', () => {
 
     expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
+  it.todo('should navigate to send screen when send button is pressed')
+  it.todo('should navigate to receive screen when receive button is pressed')
 })
