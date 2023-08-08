@@ -10,7 +10,7 @@ import { act } from 'react-test-renderer'
 jest.useFakeTimers()
 
 const wrapper = NavigationWrapper
-const initialProps = { syncOnLoad: true }
+const initialProps = true
 const balance = 21000000
 const setupWalletTests = (peachWallet: PeachWallet) => () => {
   useWalletState.getState().setBalance(balance)
@@ -27,26 +27,8 @@ describe('useWalletSetup', () => {
     const { result } = renderHook(useWalletSetup, { wrapper, initialProps })
 
     expect(result.current.balance).toEqual(balance)
-    expect(result.current.refresh).toBeInstanceOf(Function)
     expect(result.current.isRefreshing).toBeFalsy()
-    expect(result.current.address).toBe('')
-    expect(result.current.setAddress).toBeInstanceOf(Function)
-    expect(result.current.addressErrors).toHaveLength(0)
-    expect(result.current.canWithdrawAll).toBeFalsy()
     expect(result.current.walletLoading).toBeTruthy()
-    await waitFor(() => expect(result.current.walletLoading).toBeFalsy())
-  })
-  it('should return true for canWithdrawAll if peach wallet has a balance and address is set', async () => {
-    const { result } = renderHook(useWalletSetup, { wrapper, initialProps })
-    act(() => result.current.setAddress('bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh'))
-    expect(result.current.canWithdrawAll).toBeTruthy()
-    await waitFor(() => expect(result.current.walletLoading).toBeFalsy())
-  })
-  it('should return false for canWithdrawAll if peach wallet has no balance', async () => {
-    useWalletState.getState().setBalance(0)
-    const { result } = renderHook(useWalletSetup, { wrapper, initialProps })
-    act(() => result.current.setAddress('bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh'))
-    expect(result.current.canWithdrawAll).toBeFalsy()
     await waitFor(() => expect(result.current.walletLoading).toBeFalsy())
   })
   it('should sync wallet on load', async () => {

@@ -3,128 +3,21 @@
 exports[`Wallet should render correctly 1`] = `
 <Screen>
   <WalletHeader />
-  <ForwardRef
-    contentContainerStyle={
-      {
-        "flexBasis": "0%",
-        "flexGrow": 1,
-        "flexShrink": 1,
-      }
-    }
-    contentStyle={
-      {
-        "alignItems": "center",
-        "flexBasis": "0%",
-        "flexGrow": 1,
-        "flexShrink": 1,
-        "gap": 64,
-        "justifyContent": "center",
-      }
-    }
-    refreshControl={
-      <RefreshControlMock
-        onRefresh={[MockFunction]}
-        refreshing={false}
-        style={
-          {
-            "opacity": 0,
-          }
-        }
-      />
-    }
+  <View
     style={
       {
-        "flexBasis": "0%",
+        "alignItems": "center",
         "flexGrow": 1,
-        "flexShrink": 1,
-        "height": "100%",
+        "justifyContent": "center",
       }
     }
   >
     <TotalBalance
+      amount={21}
       isRefreshing={false}
     />
-    <SendTo
-      address="address"
-      addressErrors=""
-      setAddress={[MockFunction]}
-    />
-  </ForwardRef>
-  <ConfirmSendAllTo
-    address="address"
-    disabled={true}
-    onSuccess={[Function]}
-    style={
-      {
-        "alignSelf": "center",
-        "marginBottom": 20,
-      }
-    }
-  />
-</Screen>
-`;
-
-exports[`Wallet should render correctly user can withdraw 1`] = `
-<Screen>
-  <WalletHeader />
-  <ForwardRef
-    contentContainerStyle={
-      {
-        "flexBasis": "0%",
-        "flexGrow": 1,
-        "flexShrink": 1,
-      }
-    }
-    contentStyle={
-      {
-        "alignItems": "center",
-        "flexBasis": "0%",
-        "flexGrow": 1,
-        "flexShrink": 1,
-        "gap": 64,
-        "justifyContent": "center",
-      }
-    }
-    refreshControl={
-      <RefreshControlMock
-        onRefresh={[MockFunction]}
-        refreshing={false}
-        style={
-          {
-            "opacity": 0,
-          }
-        }
-      />
-    }
-    style={
-      {
-        "flexBasis": "0%",
-        "flexGrow": 1,
-        "flexShrink": 1,
-        "height": "100%",
-      }
-    }
-  >
-    <TotalBalance
-      isRefreshing={false}
-    />
-    <SendTo
-      address="address"
-      addressErrors=""
-      setAddress={[MockFunction]}
-    />
-  </ForwardRef>
-  <ConfirmSendAllTo
-    address="address"
-    disabled={false}
-    onSuccess={[Function]}
-    style={
-      {
-        "alignSelf": "center",
-        "marginBottom": 20,
-      }
-    }
-  />
+  </View>
+  <WalletButtons />
 </Screen>
 `;
 
@@ -133,68 +26,4 @@ exports[`Wallet should render correctly when loading 1`] = `
   text="wallet loading,
 one sec..."
 />
-`;
-
-exports[`Wallet should render correctly when refreshing 1`] = `
-<Screen>
-  <WalletHeader />
-  <ForwardRef
-    contentContainerStyle={
-      {
-        "flexBasis": "0%",
-        "flexGrow": 1,
-        "flexShrink": 1,
-      }
-    }
-    contentStyle={
-      {
-        "alignItems": "center",
-        "flexBasis": "0%",
-        "flexGrow": 1,
-        "flexShrink": 1,
-        "gap": 64,
-        "justifyContent": "center",
-      }
-    }
-    refreshControl={
-      <RefreshControlMock
-        onRefresh={[MockFunction]}
-        refreshing={false}
-        style={
-          {
-            "opacity": 0,
-          }
-        }
-      />
-    }
-    style={
-      {
-        "flexBasis": "0%",
-        "flexGrow": 1,
-        "flexShrink": 1,
-        "height": "100%",
-      }
-    }
-  >
-    <TotalBalance
-      isRefreshing={true}
-    />
-    <SendTo
-      address="address"
-      addressErrors=""
-      setAddress={[MockFunction]}
-    />
-  </ForwardRef>
-  <ConfirmSendAllTo
-    address="address"
-    disabled={true}
-    onSuccess={[Function]}
-    style={
-      {
-        "alignSelf": "center",
-        "marginBottom": 20,
-      }
-    }
-  />
-</Screen>
 `;
