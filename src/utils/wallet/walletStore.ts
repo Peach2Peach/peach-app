@@ -12,6 +12,7 @@ export type WalletState = {
   pendingTransactions: Record<string, string>
   txOfferMap: Record<string, string>
   addressLabelMap: Record<string, string>
+  showBalance: boolean
 }
 
 export type WalletStore = WalletState & {
@@ -24,6 +25,7 @@ export type WalletStore = WalletState & {
   removePendingTransaction: (txId: string) => void
   labelAddress: (address: string, label: string) => void
   updateTxOfferMap: (txid: string, offerId: string) => void
+  toggleShowBalance: () => void
 }
 
 export const defaultWalletState: WalletState = {
@@ -33,6 +35,7 @@ export const defaultWalletState: WalletState = {
   pendingTransactions: {},
   txOfferMap: {},
   addressLabelMap: {},
+  showBalance: true,
 }
 export const walletStorage = createStorage('wallet')
 
@@ -66,6 +69,7 @@ export const useWalletState = create(
             [txId]: offerId,
           },
         })),
+      toggleShowBalance: () => set((state) => ({ showBalance: !state.showBalance })),
     }),
     {
       name: 'wallet',
