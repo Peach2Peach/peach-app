@@ -29,7 +29,7 @@ function WalletButtons () {
     Alert.alert('TODO: Navigate to send/receive screen')
   }
   return (
-    <View style={[tw`flex-row items-center justify-between gap-2`, tw.md`gap-4`]}>
+    <View style={[tw`flex-row items-center justify-center gap-2`, tw.md`gap-4`]}>
       <Button style={tw`flex-1`} onPress={onPress}>
         {i18n('wallet.send')}
       </Button>
