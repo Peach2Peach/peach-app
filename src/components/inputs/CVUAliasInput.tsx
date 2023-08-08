@@ -6,7 +6,7 @@ export const CVUAliasInput = ({ onChange, onSubmit, ...props }: InputProps) => (
   <Input
     {...{
       autoCorrect: false,
-      label: i18n('form.cvuAlias'),
+      label: i18n('form.account'),
       placeholder: i18n('form.cvuAlias.placeholder'),
       ...props,
       onChange,

@@ -41,9 +41,9 @@ const template10Fields: TradeInfoField[] = [...sharedFields, 'receiveAddress']
 const template11Fields: TradeInfoField[] = [...sharedFields, 'lnurlAddress']
 const template12Fields: TradeInfoField[] = [...sharedFields, 'phone']
 const template13Fields: TradeInfoField[] = [...sharedFields, 'phone', 'email']
-const template14Fields: TradeInfoField[] = [...sharedFields, 'beneficiary', 'cbu']
-const template15Fields: TradeInfoField[] = [...sharedFields, 'beneficiary', 'cvu']
-const template16Fields: TradeInfoField[] = [...sharedFields, 'beneficiary', 'cvuAlias']
+const template14Fields: TradeInfoField[] = [...sharedFields, 'beneficiary', 'accountNumber']
+const template15Fields: TradeInfoField[] = [...sharedFields, 'beneficiary', 'accountNumber']
+const template16Fields: TradeInfoField[] = [...sharedFields, 'beneficiary', 'accountNumber']
 const template17Fields: TradeInfoField[] = [...sharedFields, 'beneficiary', 'accountNumber']
 
 export const PaymentMethodForms: PaymentMethodFormsType = {

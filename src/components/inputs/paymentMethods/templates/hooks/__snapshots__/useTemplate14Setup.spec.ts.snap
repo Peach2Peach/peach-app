@@ -2,12 +2,7 @@
 
 exports[`useTemplate14Setup should return the correct values 1`] = `
 {
-  "beneficiaryInputProps": {
-    "errorMessage": [],
-    "onChange": [Function],
-    "value": "beneficiary",
-  },
-  "cbuInputProps": {
+  "accountNumberInputProps": {
     "errorMessage": [
       "please enter a valid value",
     ],
@@ -15,7 +10,12 @@ exports[`useTemplate14Setup should return the correct values 1`] = `
     "onChange": [Function],
     "onSubmit": [Function],
     "required": true,
-    "value": "cbu",
+    "value": "accountNumber",
+  },
+  "beneficiaryInputProps": {
+    "errorMessage": [],
+    "onChange": [Function],
+    "value": "beneficiary",
   },
   "currencySelectionProps": {
     "onToggle": [Function],

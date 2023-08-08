@@ -1,6 +1,5 @@
 import { act, fireEvent, render } from '@testing-library/react-native'
 import { createRenderer } from 'react-test-renderer/shallow'
-import i18n from '../../utils/i18n'
 import { CVUAliasInput } from './CVUAliasInput'
 
 describe('CVUAliasInput', () => {
@@ -20,16 +19,16 @@ describe('CVUAliasInput', () => {
   it('should enforce cvu format on submit', () => {
     const onSubmitMock = jest.fn()
     const { getByPlaceholderText } = render(<CVUAliasInput onSubmit={onSubmitMock} />)
-    const input = getByPlaceholderText(i18n('form.cvu.placeholder'))
+    const input = getByPlaceholderText('12345678901234567890')
     act(() => {
       fireEvent(input, 'onSubmit', '12 3 45 a')
     })
     expect(onSubmitMock).toHaveBeenLastCalledWith('12345')
   })
-  it('should enforce cCVUvu format on end editing', () => {
+  it('should enforce CVU format on end editing', () => {
     const onChangeMock = jest.fn()
     const { getByPlaceholderText } = render(<CVUAliasInput onChange={onChangeMock} />)
-    const input = getByPlaceholderText(i18n('form.cvu.placeholder'))
+    const input = getByPlaceholderText('12345678901234567890')
     act(() => {
       fireEvent(input, 'onEndEditing', { nativeEvent: { text: '12 3 45 a' } })
     })
