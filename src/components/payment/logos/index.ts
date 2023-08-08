@@ -11,6 +11,7 @@ import bitcoin from './bitcoin.svg'
 import bitcoinAmsterdam from './bitcoinAmsterdam.svg'
 import bizum from './bizum.svg'
 import blik from './blik.svg'
+import cbu from './cbu.svg'
 import fasterPayments from './fasterPayments.svg'
 import friends24 from './friends24.svg'
 import iris from './iris.svg'
@@ -47,6 +48,7 @@ export const PaymentLogos = {
   bitcoin,
   bizum,
   blik,
+  cbu,
   fasterPayments,
   friends24,
   instantSepa: sepa,
