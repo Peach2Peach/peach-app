@@ -14,7 +14,7 @@ exports[`useTemplate15Setup should return the correct values 1`] = `
   },
   "cvuInputProps": {
     "errorMessage": [],
-    "label": "form.cvu",
+    "label": "CVU",
     "onChange": [Function],
     "onSubmit": [Function],
     "required": true,

@@ -373,7 +373,7 @@ exports[`Template15 should render correctly 1`] = `
         ]
       }
     >
-      form.cvu
+      CVU
       <Text
         allowFontScaling={false}
         style={
@@ -447,7 +447,7 @@ exports[`Template15 should render correctly 1`] = `
         onEndEditing={[Function]}
         onFocus={[Function]}
         onSubmitEditing={[Function]}
-        placeholder="form.cvu.placeholder"
+        placeholder="1112222222344444444445"
         placeholderTextColor="#BAADA7"
         removeClippedSubviews={false}
         style={

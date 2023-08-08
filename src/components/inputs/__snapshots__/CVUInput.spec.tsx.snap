@@ -3,16 +3,16 @@
 exports[`CVUInput is neither optional nor required when specified 1`] = `
 <Input
   autoCorrect={false}
-  label="form.cvu"
-  placeholder="form.cvu.placeholder"
+  label="CVU"
+  placeholder="1112222222344444444445"
 />
 `;
 
 exports[`CVUInput is optional when specified 1`] = `
 <Input
   autoCorrect={false}
-  label="form.cvu"
-  placeholder="form.cvu.placeholder"
+  label="CVU"
+  placeholder="1112222222344444444445"
   required={false}
 />
 `;
@@ -20,7 +20,7 @@ exports[`CVUInput is optional when specified 1`] = `
 exports[`CVUInput renders correctly 1`] = `
 <Input
   autoCorrect={false}
-  label="form.cvu"
-  placeholder="form.cvu.placeholder"
+  label="CVU"
+  placeholder="1112222222344444444445"
 />
 `;
