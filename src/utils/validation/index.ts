@@ -1,6 +1,7 @@
 export { getErrorsInField } from './getErrorsInField'
 export { isAdvcashWallet } from './isAdvcashWallet'
 export { isBIC } from './isBIC'
+export { isBancolombiaAccountNumber } from './isBancolombiaAccountNumber'
 export { isCBU } from './isCBU'
 export { isCVU } from './isCVU'
 export { isCVUAlias } from './isCVUAlias'
