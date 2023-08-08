@@ -7,7 +7,7 @@ import { hasMultipleAvailableCurrencies } from '../utils/hasMultipleAvailableCur
 import { useLabelInput } from './useLabelInput'
 
 const beneficiaryRules = { required: true }
-const cvuRules = { required: true, cvu: true }
+const cvuRules = { required: true, isCVU: true }
 
 export const useTemplate15Setup = ({ data, onSubmit, setStepValid, setFormData }: FormProps) => {
   const { currencies, type: paymentMethod } = data
