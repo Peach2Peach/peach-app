@@ -2,6 +2,17 @@
 
 exports[`useTemplate17Setup should return the correct values 1`] = `
 {
+  "accountNumberInputProps": {
+    "errorMessage": [
+      "this field is required",
+      "please enter a valid value",
+    ],
+    "label": "account #",
+    "onChange": [Function],
+    "onSubmit": [Function],
+    "required": true,
+    "value": "",
+  },
   "beneficiaryInputProps": {
     "errorMessage": [],
     "onChange": [Function],
@@ -11,17 +22,6 @@ exports[`useTemplate17Setup should return the correct values 1`] = `
     "onToggle": [Function],
     "paymentMethod": "bancolombia",
     "selectedCurrencies": [],
-  },
-  "cvuAliasInputProps": {
-    "errorMessage": [
-      "this field is required",
-      "please enter a valid value",
-    ],
-    "label": "CVU Alias",
-    "onChange": [Function],
-    "onSubmit": [Function],
-    "required": true,
-    "value": "",
   },
   "labelInputProps": {
     "errorMessage": [],

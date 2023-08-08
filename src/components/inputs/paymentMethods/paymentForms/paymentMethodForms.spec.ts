@@ -18,6 +18,7 @@ import { Template13 } from '../templates/Template13'
 import { Template14 } from '../templates/Template14'
 import { Template15 } from '../templates/Template15'
 import { Template16 } from '../templates/Template16'
+import { Template17 } from '../templates/Template17'
 import { GiftCardAmazon } from './GiftCardAmazon'
 
 describe('paymentMethodForms', () => {
@@ -90,6 +91,7 @@ describe('paymentMethodForms', () => {
       cbu: { component: Template14, fields: ['method', 'price', 'beneficiary', 'accountNumber'] },
       cvu: { component: Template15, fields: ['method', 'price', 'beneficiary', 'accountNumber'] },
       alias: { component: Template16, fields: ['method', 'price', 'beneficiary', 'accountNumber'] },
+      bancolombia: { component: Template17, fields: ['method', 'price', 'beneficiary', 'accountNumber'] },
     })
   })
 })
