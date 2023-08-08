@@ -1,7 +1,14 @@
 import { createRenderer } from 'react-test-renderer/shallow'
-import { Button } from './Button'
+import { Button, NewButton } from './Button'
+import { render } from '@testing-library/react-native'
 import tw from '../../styles/tailwind'
-import { mockDimensions } from '../../../tests/unit/helpers/mockDimensions'
+import { toMatchDiffSnapshot } from 'snapshot-diff'
+expect.extend({ toMatchDiffSnapshot })
+
+const useIsMediumScreenMock = jest.fn(() => false)
+jest.mock('../../hooks/useIsMediumScreen', () => ({
+  useIsMediumScreen: () => useIsMediumScreenMock(),
+}))
 
 describe('Button', () => {
   const shallowRenderer = createRenderer()
@@ -10,10 +17,7 @@ describe('Button', () => {
     expect(shallowRenderer.getRenderOutput()).toMatchSnapshot()
   })
   it('should render correctly for medium viewports', () => {
-    mockDimensions({
-      width: 400,
-      height: 700,
-    })
+    useIsMediumScreenMock.mockReturnValueOnce(true)
     shallowRenderer.render(<Button textColor={tw`text-primary-main`}>Text</Button>)
     expect(shallowRenderer.getRenderOutput()).toMatchSnapshot()
   })
@@ -32,5 +36,24 @@ describe('Button', () => {
       </Button>,
     )
     expect(shallowRenderer.getRenderOutput()).toMatchSnapshot()
+  })
+})
+
+describe('NewButton', () => {
+  const defaultButton = render(<NewButton>Text</NewButton>).toJSON()
+  it('should render correctly', () => {
+    expect(defaultButton).toMatchSnapshot()
+  })
+  it('should render correctly with icon', () => {
+    const { toJSON } = render(<NewButton iconId="alertCircle">Text</NewButton>)
+    expect(defaultButton).toMatchDiffSnapshot(toJSON())
+  })
+  it('should render correctly when disabled', () => {
+    const { toJSON } = render(<NewButton disabled>Text</NewButton>)
+    expect(defaultButton).toMatchDiffSnapshot(toJSON())
+  })
+  it('should render correctly when ghost is true', () => {
+    const { toJSON } = render(<NewButton ghost>Text</NewButton>)
+    expect(defaultButton).toMatchDiffSnapshot(toJSON())
   })
 })
