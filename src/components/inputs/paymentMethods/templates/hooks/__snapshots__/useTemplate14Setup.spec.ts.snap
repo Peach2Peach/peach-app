@@ -8,8 +8,10 @@ exports[`useTemplate14Setup should return the correct values 1`] = `
     "value": "beneficiary",
   },
   "cbuInputProps": {
-    "errorMessage": [],
-    "label": "form.cbu",
+    "errorMessage": [
+      "please enter a valid value",
+    ],
+    "label": "CBU",
     "onChange": [Function],
     "onSubmit": [Function],
     "required": true,
