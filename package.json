@@ -45,7 +45,7 @@
     "@react-native-community/blur": "^4.3.2",
     "@react-native-community/cli-platform-android": "^11.0.0",
     "@react-native-community/masked-view": "^0.1.11",
-    "@react-native-community/netinfo": "^9.3.7",
+    "@react-native-community/netinfo": "^9.4.1",
     "@react-native-firebase/analytics": "^18.2.0",
     "@react-native-firebase/app": "^18.2.0",
     "@react-native-firebase/crashlytics": "^18.2.0",
