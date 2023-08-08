@@ -10,7 +10,7 @@ describe('useTemplate15Setup', () => {
           label: 'label',
           type: 'cvu',
           beneficiary: 'beneficiary',
-          cvu: 'cvu',
+          accountNumber: 'accountNumber',
           reference: 'reference',
           currencies: [],
         },

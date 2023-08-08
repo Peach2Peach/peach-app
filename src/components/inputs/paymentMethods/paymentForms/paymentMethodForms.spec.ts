@@ -86,8 +86,8 @@ describe('paymentMethodForms', () => {
       rappipay: { component: Template12, fields: ['method', 'price', 'phone'] },
       mercadoPago: { component: Template13, fields: ['method', 'price', 'phone', 'email'] },
       nequi: { component: Template3, fields: ['method', 'price', 'beneficiary', 'phone', 'reference'] },
-      cbu: { component: Template14, fields: ['method', 'price', 'beneficiary', 'cbu'] },
-      cvu: { component: Template15, fields: ['method', 'price', 'beneficiary', 'cvu'] },
+      cbu: { component: Template14, fields: ['method', 'price', 'beneficiary', 'accountNumber'] },
+      cvu: { component: Template15, fields: ['method', 'price', 'beneficiary', 'accountNumber'] },
     })
   })
 })

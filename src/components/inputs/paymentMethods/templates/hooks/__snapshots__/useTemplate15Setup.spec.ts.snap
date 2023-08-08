@@ -13,12 +13,15 @@ exports[`useTemplate15Setup should return the correct values 1`] = `
     "selectedCurrencies": [],
   },
   "cvuInputProps": {
-    "errorMessage": [],
+    "errorMessage": [
+      "this field is required",
+      "please enter a valid value",
+    ],
     "label": "CVU",
     "onChange": [Function],
     "onSubmit": [Function],
     "required": true,
-    "value": "cvu",
+    "value": "",
   },
   "labelInputProps": {
     "errorMessage": [],
