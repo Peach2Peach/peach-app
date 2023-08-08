@@ -1,20 +1,17 @@
 import { useFocusEffect } from '@react-navigation/native'
 import { useCallback, useState } from 'react'
 import { MSINASECOND } from '../../../constants'
-import { useHeaderSetup, useNavigation, useValidatedState } from '../../../hooks'
-import { useShowHelp } from '../../../hooks/useShowHelp'
+import { useNavigation, useValidatedState } from '../../../hooks'
 import { useSettingsStore } from '../../../store/settingsStore'
-import i18n from '../../../utils/i18n'
-import { headerIcons } from '../../../utils/layout/headerIcons'
 import { peachWallet } from '../../../utils/wallet/setWallet'
 import { useWalletState } from '../../../utils/wallet/walletStore'
 import { useSyncWallet } from './useSyncWallet'
+import { useWalletHeaderSetup } from './useWalletHeaderSetup'
 
 const bitcoinAddressRules = { required: false, bitcoinAddress: true }
 
 export const useWalletSetup = ({ syncOnLoad = true }) => {
   const balance = useWalletState((state) => state.balance)
-  const showHelp = useShowHelp('withdrawingFunds')
 
   const navigation = useNavigation()
   const { refresh, isRefreshing } = useSyncWallet()
@@ -43,27 +40,7 @@ export const useWalletSetup = ({ syncOnLoad = true }) => {
     setWalletLoading(false)
   }, [])
 
-  useHeaderSetup(
-    walletLoading
-      ? {}
-      : {
-        title: i18n('wallet.title'),
-        hideGoBackButton: true,
-        icons: [
-          {
-            ...headerIcons.list,
-            accessibilityHint: `${i18n('goTo')} ${i18n('wallet.transactionHistory')}`,
-            onPress: () => navigation.navigate('transactionHistory'),
-          },
-          {
-            ...headerIcons.bitcoin,
-            accessibilityHint: `${i18n('goTo')} ${i18n('settings.networkFees')}`,
-            onPress: () => navigation.navigate('networkFees'),
-          },
-          { ...headerIcons.help, accessibilityHint: `${i18n('help')}`, onPress: showHelp },
-        ],
-      },
-  )
+  useWalletHeaderSetup(walletLoading)
 
   useFocusEffect(
     useCallback(() => {

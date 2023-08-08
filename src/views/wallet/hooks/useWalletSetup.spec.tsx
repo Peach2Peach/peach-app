@@ -11,19 +11,20 @@ import { act } from 'react-test-renderer'
 
 jest.useFakeTimers()
 
-describe('useWalletSetup', () => {
-  const wrapper = NavigationWrapper
-  const initialProps = { syncOnLoad: true }
-  const balance = 21000000
+const wrapper = NavigationWrapper
+const initialProps = { syncOnLoad: true }
+const balance = 21000000
+const setupWalletTests = (peachWallet: PeachWallet) => () => {
+  useWalletState.getState().setBalance(balance)
+  setPeachWallet(peachWallet)
+}
 
+describe('useWalletSetup', () => {
   // @ts-ignore
   const peachWallet = new PeachWallet()
   peachWallet.initialized = true
 
-  beforeAll(() => {
-    useWalletState.getState().setBalance(balance)
-    setPeachWallet(peachWallet)
-  })
+  beforeAll(setupWalletTests(peachWallet))
   it('should return correct default values', async () => {
     const { result } = renderHook(useWalletSetup, { wrapper, initialProps })
 
@@ -69,35 +70,6 @@ describe('useWalletSetup', () => {
     })
     expect(peachWallet.syncWallet).toHaveBeenCalled()
   })
-  it('should set up the header correctly while loading', async () => {
-    const { result } = renderHook(useWalletSetup, { wrapper, initialProps })
-    expect(headerState.header()).toMatchSnapshot()
-    await waitFor(() => expect(result.current.walletLoading).toBeFalsy())
-  })
-  it('should set up the header correctly when loaded', async () => {
-    const { result } = renderHook(useWalletSetup, { wrapper, initialProps })
-    await waitFor(() => expect(result.current.walletLoading).toBeFalsy())
-    expect(headerState.header()).toMatchSnapshot()
-
-    const { getByAccessibilityHint } = render(headerState.header(), { wrapper })
-    act(() => {
-      fireEvent(getByAccessibilityHint('go to transaction history'), 'onPress')
-    })
-    expect(navigateMock).toHaveBeenCalledWith('transactionHistory')
-    act(() => {
-      fireEvent(getByAccessibilityHint('go to network fees'), 'onPress')
-    })
-    expect(navigateMock).toHaveBeenCalledWith('networkFees')
-    act(() => {
-      fireEvent(getByAccessibilityHint('help'), 'onPress')
-    })
-    expect(usePopupStore.getState()).toEqual({
-      ...usePopupStore.getState(),
-      title: 'sending funds',
-      content: <WithdrawingFundsHelp />,
-    })
-    await waitFor(() => expect(result.current.walletLoading).toBeFalsy())
-  })
   it('should navigate to backupTime if balance is bigger than 0 & showBackupReminder is false', async () => {
     useWalletState.getState().setBalance(1)
     useSettingsStore.setState({
@@ -118,6 +90,39 @@ describe('useWalletSetup', () => {
     const { result } = renderHook(useWalletSetup, { wrapper, initialProps })
 
     expect(navigateMock).not.toHaveBeenCalled()
+    await waitFor(() => expect(result.current.walletLoading).toBeFalsy())
+  })
+})
+
+describe('useWalletSetup - header', () => {
+  // @ts-ignore
+  const peachWallet = new PeachWallet()
+  peachWallet.initialized = true
+
+  beforeAll(setupWalletTests(peachWallet))
+  it('should set up correctly while loading', async () => {
+    const { result } = renderHook(useWalletSetup, { wrapper, initialProps })
+    expect(headerState.header()).toMatchSnapshot()
+    await waitFor(() => expect(result.current.walletLoading).toBeFalsy())
+  })
+  it('should set up correctly when loaded', async () => {
+    const { result } = renderHook(useWalletSetup, { wrapper, initialProps })
+    await waitFor(() => expect(result.current.walletLoading).toBeFalsy())
+    expect(headerState.header()).toMatchSnapshot()
+
+    const { getByAccessibilityHint } = render(headerState.header(), { wrapper })
+    act(() => {
+      fireEvent(getByAccessibilityHint('go to transaction history'), 'onPress')
+    })
+    expect(navigateMock).toHaveBeenCalledWith('transactionHistory')
+    act(() => {
+      fireEvent(getByAccessibilityHint('help'), 'onPress')
+    })
+    expect(usePopupStore.getState()).toEqual({
+      ...usePopupStore.getState(),
+      title: 'sending funds',
+      content: <WithdrawingFundsHelp />,
+    })
     await waitFor(() => expect(result.current.walletLoading).toBeFalsy())
   })
 })
