@@ -1,7 +1,5 @@
-import { fireEvent, render, renderHook, waitFor } from '@testing-library/react-native'
-import { NavigationWrapper, headerState, navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
-import { WithdrawingFundsHelp } from '../../../popups/info/WithdrawingFundsHelp'
-import { usePopupStore } from '../../../store/usePopupStore'
+import { renderHook, waitFor } from '@testing-library/react-native'
+import { NavigationWrapper, navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { PeachWallet } from '../../../utils/wallet/PeachWallet'
 import { setPeachWallet } from '../../../utils/wallet/setWallet'
 import { useWalletState } from '../../../utils/wallet/walletStore'
@@ -90,39 +88,6 @@ describe('useWalletSetup', () => {
     const { result } = renderHook(useWalletSetup, { wrapper, initialProps })
 
     expect(navigateMock).not.toHaveBeenCalled()
-    await waitFor(() => expect(result.current.walletLoading).toBeFalsy())
-  })
-})
-
-describe('useWalletSetup - header', () => {
-  // @ts-ignore
-  const peachWallet = new PeachWallet()
-  peachWallet.initialized = true
-
-  beforeAll(setupWalletTests(peachWallet))
-  it('should set up correctly while loading', async () => {
-    const { result } = renderHook(useWalletSetup, { wrapper, initialProps })
-    expect(headerState.header()).toMatchSnapshot()
-    await waitFor(() => expect(result.current.walletLoading).toBeFalsy())
-  })
-  it('should set up correctly when loaded', async () => {
-    const { result } = renderHook(useWalletSetup, { wrapper, initialProps })
-    await waitFor(() => expect(result.current.walletLoading).toBeFalsy())
-    expect(headerState.header()).toMatchSnapshot()
-
-    const { getByAccessibilityHint } = render(headerState.header(), { wrapper })
-    act(() => {
-      fireEvent(getByAccessibilityHint('go to transaction history'), 'onPress')
-    })
-    expect(navigateMock).toHaveBeenCalledWith('transactionHistory')
-    act(() => {
-      fireEvent(getByAccessibilityHint('help'), 'onPress')
-    })
-    expect(usePopupStore.getState()).toEqual({
-      ...usePopupStore.getState(),
-      title: 'sending funds',
-      content: <WithdrawingFundsHelp />,
-    })
     await waitFor(() => expect(result.current.walletLoading).toBeFalsy())
   })
 })

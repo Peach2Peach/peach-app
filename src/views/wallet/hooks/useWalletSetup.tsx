@@ -6,7 +6,6 @@ import { useSettingsStore } from '../../../store/settingsStore'
 import { peachWallet } from '../../../utils/wallet/setWallet'
 import { useWalletState } from '../../../utils/wallet/walletStore'
 import { useSyncWallet } from './useSyncWallet'
-import { useWalletHeaderSetup } from './useWalletHeaderSetup'
 
 const bitcoinAddressRules = { required: false, bitcoinAddress: true }
 
@@ -39,8 +38,6 @@ export const useWalletSetup = ({ syncOnLoad = true }) => {
     await peachWallet.syncWallet()
     setWalletLoading(false)
   }, [])
-
-  useWalletHeaderSetup(walletLoading)
 
   useFocusEffect(
     useCallback(() => {

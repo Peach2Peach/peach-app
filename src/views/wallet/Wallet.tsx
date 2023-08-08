@@ -1,5 +1,5 @@
-import { RefreshControl, View } from 'react-native'
-import { PeachScrollView } from '../../components'
+import { RefreshControl } from 'react-native'
+import { PeachScrollView, Screen } from '../../components'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { BitcoinLoading } from '../loading/BitcoinLoading'
@@ -7,6 +7,7 @@ import { ConfirmSendAllTo } from './components/overview/ConfirmSendAllTo'
 import { SendTo } from './components/overview/SendTo'
 import { TotalBalance } from './components/overview/TotalBalance'
 import { useWalletSetup } from './hooks/useWalletSetup'
+import { WalletHeader } from './components/WalletHeader'
 
 export const Wallet = () => {
   const { balance, refresh, isRefreshing, address, setAddress, addressErrors, canWithdrawAll, walletLoading }
@@ -15,7 +16,8 @@ export const Wallet = () => {
   if (walletLoading) return <BitcoinLoading text={i18n('wallet.loading')} />
 
   return (
-    <View style={[tw`flex-1 px-sm`, tw.md`px-md`]}>
+    <Screen>
+      <WalletHeader />
       <PeachScrollView
         style={tw`flex-1 h-full`}
         contentContainerStyle={tw`flex-1`}
@@ -32,6 +34,6 @@ export const Wallet = () => {
         onSuccess={() => setAddress('')}
         disabled={!canWithdrawAll}
       />
-    </View>
+    </Screen>
   )
 }

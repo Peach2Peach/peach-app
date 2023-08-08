@@ -1,17 +1,16 @@
 import { Alert } from 'react-native'
-import { useHeaderSetup, useNavigation } from '../../../hooks'
+import { useNavigation } from '../../../hooks'
 import { useShowHelp } from '../../../hooks/useShowHelp'
 import i18n from '../../../utils/i18n'
 import { headerIcons } from '../../../utils/layout/headerIcons'
+import { NewHeader } from '../../../components'
 
-export const useWalletHeaderSetup = (isLoading: boolean) => {
+export const WalletHeader = () => {
   const navigation = useNavigation()
   const showHelp = useShowHelp('withdrawingFunds')
-
-  useHeaderSetup(
-    isLoading
-      ? {}
-      : {
+  return (
+    <NewHeader
+      {...{
         title: i18n('wallet.title'),
         hideGoBackButton: true,
         icons: [
@@ -27,6 +26,7 @@ export const useWalletHeaderSetup = (isLoading: boolean) => {
           },
           { ...headerIcons.help, accessibilityHint: `${i18n('help')}`, onPress: showHelp },
         ],
-      },
+      }}
+    />
   )
 }

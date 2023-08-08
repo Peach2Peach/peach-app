@@ -1,23 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Wallet should render correctly 1`] = `
-<View
-  style={
-    [
-      {
-        "flexBasis": "0%",
-        "flexGrow": 1,
-        "flexShrink": 1,
-        "paddingLeft": 16,
-        "paddingRight": 16,
-      },
-      {
-        "paddingLeft": 32,
-        "paddingRight": 32,
-      },
-    ]
-  }
->
+<Screen>
+  <WalletHeader />
   <ForwardRef
     contentContainerStyle={
       {
@@ -76,27 +61,12 @@ exports[`Wallet should render correctly 1`] = `
       }
     }
   />
-</View>
+</Screen>
 `;
 
 exports[`Wallet should render correctly user can withdraw 1`] = `
-<View
-  style={
-    [
-      {
-        "flexBasis": "0%",
-        "flexGrow": 1,
-        "flexShrink": 1,
-        "paddingLeft": 16,
-        "paddingRight": 16,
-      },
-      {
-        "paddingLeft": 32,
-        "paddingRight": 32,
-      },
-    ]
-  }
->
+<Screen>
+  <WalletHeader />
   <ForwardRef
     contentContainerStyle={
       {
@@ -155,7 +125,7 @@ exports[`Wallet should render correctly user can withdraw 1`] = `
       }
     }
   />
-</View>
+</Screen>
 `;
 
 exports[`Wallet should render correctly when loading 1`] = `
@@ -166,23 +136,8 @@ one sec..."
 `;
 
 exports[`Wallet should render correctly when refreshing 1`] = `
-<View
-  style={
-    [
-      {
-        "flexBasis": "0%",
-        "flexGrow": 1,
-        "flexShrink": 1,
-        "paddingLeft": 16,
-        "paddingRight": 16,
-      },
-      {
-        "paddingLeft": 32,
-        "paddingRight": 32,
-      },
-    ]
-  }
->
+<Screen>
+  <WalletHeader />
   <ForwardRef
     contentContainerStyle={
       {
@@ -241,5 +196,5 @@ exports[`Wallet should render correctly when refreshing 1`] = `
       }
     }
   />
-</View>
+</Screen>
 `;
