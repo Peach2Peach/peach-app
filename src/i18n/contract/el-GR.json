@@ -116,7 +116,7 @@
   "contract.summary.hasPaidYou" : "σας έχει πληρώσει",
   "contract.summary.iban" : "iban",
   "contract.summary.in" : "σε",
-  "contract.summary.lnurlAddress" : "LNURL address",
+  "contract.summary.lnurlAddress" : "διεύθυνση LNURL  ",
   "contract.summary.location" : "τοποθεσία",
   "contract.summary.location.text" : "προσδιορίστε στη συνομιλία",
   "contract.summary.meetup" : "συνάντηση",
