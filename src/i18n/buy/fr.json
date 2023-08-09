@@ -8,6 +8,7 @@
   "buy.subtitle" : "Vous achetez entre :",
   "buy.subtitle.highlight" : "achetez",
   "buy.summary.title" : "résumé de l'offre d'achat",
-  "buy.title" : "acheter du bitcoin",
+  "buy.title" : "Acheter du bitcoin",
+  "buy.title.highlight" : "Acheter",
   "yourTrades.search.buy.subtitle" : "offre d'achat pour"
 }

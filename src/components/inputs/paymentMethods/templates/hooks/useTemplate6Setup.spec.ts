@@ -13,10 +13,8 @@ describe('useTemplate6Setup', () => {
           reference: 'reference',
           currencies: [],
         },
-        currencies: [],
         onSubmit: jest.fn(),
         setStepValid: jest.fn(),
-        paymentMethod: 'paypal',
         setFormData: jest.fn(),
       }),
     )
