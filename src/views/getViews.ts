@@ -94,7 +94,7 @@ const onboarding: ViewType[] = [
 const home: ViewType[] = [{ name: 'home', component: Buy, ...defaultConfig }]
 
 const wallet: ViewType[] = [
-  { name: 'wallet', component: Wallet, ...defaultConfig, animationEnabled: false },
+  { name: 'wallet', component: Wallet, ...defaultConfig, showHeader: false, animationEnabled: false },
   { name: 'transactionHistory', component: TransactionHistory, ...defaultConfig },
   { name: 'transactionDetails', component: TransactionDetails, ...defaultConfig },
   { name: 'bumpNetworkFees', component: BumpNetworkFees, ...defaultConfig },

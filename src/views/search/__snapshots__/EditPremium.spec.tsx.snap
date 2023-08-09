@@ -173,8 +173,10 @@ exports[`EditPremium should render correctly 1`] = `
                   style={
                     [
                       {
-                        "alignItems": "baseline",
                         "flexDirection": "row",
+                      },
+                      {
+                        "alignItems": "baseline",
                       },
                       {
                         "gap": 2,
@@ -605,34 +607,41 @@ exports[`EditPremium should render correctly 1`] = `
                       0
                     </Text>
                   </Text>
-                  <Text
-                    allowFontScaling={false}
+                  <View
                     style={
-                      [
-                        {
-                          "color": "#2B1911",
-                          "fontFamily": "Baloo2-Regular",
-                          "fontSize": 16,
-                          "letterSpacing": 0.16,
-                          "lineHeight": 24,
-                        },
-                        [
-                          {
-                            "alignItems": "center",
-                            "fontFamily": "Baloo2-Medium",
-                          },
-                          false,
-                          {
-                            "fontSize": 12,
-                            "lineHeight": 18,
-                            "paddingBottom": 2,
-                          },
-                        ],
-                      ]
+                      {
+                        "justifyContent": "center",
+                      }
                     }
                   >
-                    sats
-                  </Text>
+                    <Text
+                      allowFontScaling={false}
+                      style={
+                        [
+                          {
+                            "color": "#2B1911",
+                            "fontFamily": "Baloo2-Regular",
+                            "fontSize": 16,
+                            "letterSpacing": 0.16,
+                            "lineHeight": 24,
+                          },
+                          [
+                            {
+                              "fontFamily": "Baloo2-Medium",
+                            },
+                            false,
+                            {
+                              "fontSize": 12,
+                              "lineHeight": 18,
+                              "paddingBottom": 2,
+                            },
+                          ],
+                        ]
+                      }
+                    >
+                      sats
+                    </Text>
+                  </View>
                 </View>
               </View>
             </View>
