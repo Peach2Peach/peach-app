@@ -1,7 +1,7 @@
 import { deepStrictEqual, strictEqual } from 'assert'
-import { getNetwork } from './getNetwork'
-import { createWalletFromSeedPhrase } from './createWalletFromSeedPhrase'
 import { account1 } from '../../../tests/unit/data/accountData'
+import { createWalletFromSeedPhrase } from './createWalletFromSeedPhrase'
+import { getNetwork } from './getNetwork'
 
 describe('createWalletFromSeedPhrase', () => {
   it('recovers a wallet from mnemonic', () => {
