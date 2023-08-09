@@ -1,5 +1,7 @@
 import ShallowRenderer from 'react-test-renderer/shallow'
 import { Wallet } from './Wallet'
+import { render, fireEvent } from '@testing-library/react-native'
+import { NavigationWrapper, navigateMock } from '../../../tests/unit/helpers/NavigationWrapper'
 
 const defaultReturnValue = {
   balance: 21,
@@ -36,5 +38,10 @@ describe('Wallet', () => {
     expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
   it.todo('should navigate to send screen when send button is pressed')
-  it.todo('should navigate to receive screen when receive button is pressed')
+  it('should navigate to receive screen when receive button is pressed', () => {
+    const { getByText } = render(<Wallet />, { wrapper: NavigationWrapper })
+    fireEvent.press(getByText('receive'))
+
+    expect(navigateMock).toHaveBeenCalledWith('receiveBitcoin')
+  })
 })
