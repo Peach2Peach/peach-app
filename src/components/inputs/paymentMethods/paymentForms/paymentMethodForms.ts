@@ -70,6 +70,7 @@ export const PaymentMethodForms: PaymentMethodFormsType = {
   lnurl: { component: Template11, fields: template11Fields },
   rappipay: { component: Template12, fields: template12Fields },
   mercadoPago: { component: Template13, fields: template13Fields },
+  nequi: { component: Template3, fields: template3Fields },
 }
 GIFTCARDCOUNTRIES.forEach(
   (c) =>
