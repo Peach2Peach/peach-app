@@ -5,6 +5,7 @@ import { Loading } from '../animation'
 import { Icon } from '../Icon'
 import { IconType } from '../../assets/icons'
 import { Text } from '../text'
+import { useIsMediumScreen } from '../../hooks'
 
 export type ButtonProps = {
   wide?: true
@@ -19,6 +20,7 @@ export type ButtonProps = {
   loading?: boolean
 } & TouchableOpacityProps
 
+/** @deprecated Use NewButton instead */
 export const Button = (props: ButtonProps) => {
   const { wide, children, iconId, narrow, color, textColor, borderColor, loading, ...pressableProps } = props
   const width = iconId && !children ? tw`w-14` : wide ? tw`w-57` : narrow ? tw`w-39` : undefined
@@ -48,6 +50,45 @@ export const Button = (props: ButtonProps) => {
       ) : (
         !!iconId && <Icon id={iconId} style={iconSize} color={textColor?.color} />
       )}
+    </TouchableOpacity>
+  )
+}
+
+type Props = {
+  iconId?: IconType
+  ghost?: boolean
+  textColor?: TextStyle
+  children: ReactNode
+} & TouchableOpacityProps
+
+/** This button is intented to replace the base layer + the primary button component due to its greater simplicity */
+export const NewButton = ({
+  iconId,
+  ghost,
+  textColor = tw`text-primary-background-light`,
+  children,
+  ...touchableOpacityProps
+}: Props) => {
+  const isMediumScreen = useIsMediumScreen()
+
+  return (
+    <TouchableOpacity
+      {...touchableOpacityProps}
+      style={[
+        tw`bg-primary-main`,
+        touchableOpacityProps.style,
+        tw`flex-row items-center justify-center h-8 gap-2 px-4 rounded-full`,
+        tw.md`h-10 px-5`,
+        touchableOpacityProps.disabled && tw`opacity-33`,
+        ghost && tw`border-2`,
+        { borderColor: ghost ? textColor?.color : undefined },
+      ]}
+    >
+      <Text numberOfLines={1} ellipsizeMode="tail" style={[tw`button-small`, tw.md`button-large`, textColor]}>
+        {children}
+      </Text>
+
+      {!!iconId && <Icon id={iconId} size={isMediumScreen ? 18 : 14} color={textColor?.color} />}
     </TouchableOpacity>
   )
 }

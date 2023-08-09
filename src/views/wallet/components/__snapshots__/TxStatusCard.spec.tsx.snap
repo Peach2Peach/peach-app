@@ -258,8 +258,10 @@ exports[`TxStatusCard should render correctly for a confirmed buy trade tx 1`] =
               style={
                 [
                   {
-                    "alignItems": "baseline",
                     "flexDirection": "row",
+                  },
+                  {
+                    "alignItems": "baseline",
                   },
                   {
                     "gap": 2,
@@ -690,34 +692,41 @@ exports[`TxStatusCard should render correctly for a confirmed buy trade tx 1`] =
                   6
                 </Text>
               </Text>
-              <Text
-                allowFontScaling={false}
+              <View
                 style={
-                  [
-                    {
-                      "color": "#2B1911",
-                      "fontFamily": "Baloo2-Regular",
-                      "fontSize": 16,
-                      "letterSpacing": 0.16,
-                      "lineHeight": 24,
-                    },
-                    [
-                      {
-                        "alignItems": "center",
-                        "fontFamily": "Baloo2-Medium",
-                      },
-                      false,
-                      {
-                        "fontSize": 12,
-                        "lineHeight": 18,
-                        "paddingBottom": 2,
-                      },
-                    ],
-                  ]
+                  {
+                    "justifyContent": "center",
+                  }
                 }
               >
-                sats
-              </Text>
+                <Text
+                  allowFontScaling={false}
+                  style={
+                    [
+                      {
+                        "color": "#2B1911",
+                        "fontFamily": "Baloo2-Regular",
+                        "fontSize": 16,
+                        "letterSpacing": 0.16,
+                        "lineHeight": 24,
+                      },
+                      [
+                        {
+                          "fontFamily": "Baloo2-Medium",
+                        },
+                        false,
+                        {
+                          "fontSize": 12,
+                          "lineHeight": 18,
+                          "paddingBottom": 2,
+                        },
+                      ],
+                    ]
+                  }
+                >
+                  sats
+                </Text>
+              </View>
             </View>
           </View>
         </View>
@@ -985,8 +994,10 @@ exports[`TxStatusCard should render correctly for a confirmed receive tx 1`] = `
               style={
                 [
                   {
-                    "alignItems": "baseline",
                     "flexDirection": "row",
+                  },
+                  {
+                    "alignItems": "baseline",
                   },
                   {
                     "gap": 2,
@@ -1417,34 +1428,41 @@ exports[`TxStatusCard should render correctly for a confirmed receive tx 1`] = `
                   6
                 </Text>
               </Text>
-              <Text
-                allowFontScaling={false}
+              <View
                 style={
-                  [
-                    {
-                      "color": "#2B1911",
-                      "fontFamily": "Baloo2-Regular",
-                      "fontSize": 16,
-                      "letterSpacing": 0.16,
-                      "lineHeight": 24,
-                    },
-                    [
-                      {
-                        "alignItems": "center",
-                        "fontFamily": "Baloo2-Medium",
-                      },
-                      false,
-                      {
-                        "fontSize": 12,
-                        "lineHeight": 18,
-                        "paddingBottom": 2,
-                      },
-                    ],
-                  ]
+                  {
+                    "justifyContent": "center",
+                  }
                 }
               >
-                sats
-              </Text>
+                <Text
+                  allowFontScaling={false}
+                  style={
+                    [
+                      {
+                        "color": "#2B1911",
+                        "fontFamily": "Baloo2-Regular",
+                        "fontSize": 16,
+                        "letterSpacing": 0.16,
+                        "lineHeight": 24,
+                      },
+                      [
+                        {
+                          "fontFamily": "Baloo2-Medium",
+                        },
+                        false,
+                        {
+                          "fontSize": 12,
+                          "lineHeight": 18,
+                          "paddingBottom": 2,
+                        },
+                      ],
+                    ]
+                  }
+                >
+                  sats
+                </Text>
+              </View>
             </View>
           </View>
         </View>
@@ -1712,8 +1730,10 @@ exports[`TxStatusCard should render correctly for a confirmed refund tx 1`] = `
               style={
                 [
                   {
-                    "alignItems": "baseline",
                     "flexDirection": "row",
+                  },
+                  {
+                    "alignItems": "baseline",
                   },
                   {
                     "gap": 2,
@@ -2144,34 +2164,41 @@ exports[`TxStatusCard should render correctly for a confirmed refund tx 1`] = `
                   6
                 </Text>
               </Text>
-              <Text
-                allowFontScaling={false}
+              <View
                 style={
-                  [
-                    {
-                      "color": "#2B1911",
-                      "fontFamily": "Baloo2-Regular",
-                      "fontSize": 16,
-                      "letterSpacing": 0.16,
-                      "lineHeight": 24,
-                    },
-                    [
-                      {
-                        "alignItems": "center",
-                        "fontFamily": "Baloo2-Medium",
-                      },
-                      false,
-                      {
-                        "fontSize": 12,
-                        "lineHeight": 18,
-                        "paddingBottom": 2,
-                      },
-                    ],
-                  ]
+                  {
+                    "justifyContent": "center",
+                  }
                 }
               >
-                sats
-              </Text>
+                <Text
+                  allowFontScaling={false}
+                  style={
+                    [
+                      {
+                        "color": "#2B1911",
+                        "fontFamily": "Baloo2-Regular",
+                        "fontSize": 16,
+                        "letterSpacing": 0.16,
+                        "lineHeight": 24,
+                      },
+                      [
+                        {
+                          "fontFamily": "Baloo2-Medium",
+                        },
+                        false,
+                        {
+                          "fontSize": 12,
+                          "lineHeight": 18,
+                          "paddingBottom": 2,
+                        },
+                      ],
+                    ]
+                  }
+                >
+                  sats
+                </Text>
+              </View>
             </View>
           </View>
         </View>
@@ -2439,8 +2466,10 @@ exports[`TxStatusCard should render correctly for a escrow funded tx 1`] = `
               style={
                 [
                   {
-                    "alignItems": "baseline",
                     "flexDirection": "row",
+                  },
+                  {
+                    "alignItems": "baseline",
                   },
                   {
                     "gap": 2,
@@ -2871,34 +2900,41 @@ exports[`TxStatusCard should render correctly for a escrow funded tx 1`] = `
                   6
                 </Text>
               </Text>
-              <Text
-                allowFontScaling={false}
+              <View
                 style={
-                  [
-                    {
-                      "color": "#2B1911",
-                      "fontFamily": "Baloo2-Regular",
-                      "fontSize": 16,
-                      "letterSpacing": 0.16,
-                      "lineHeight": 24,
-                    },
-                    [
-                      {
-                        "alignItems": "center",
-                        "fontFamily": "Baloo2-Medium",
-                      },
-                      false,
-                      {
-                        "fontSize": 12,
-                        "lineHeight": 18,
-                        "paddingBottom": 2,
-                      },
-                    ],
-                  ]
+                  {
+                    "justifyContent": "center",
+                  }
                 }
               >
-                sats
-              </Text>
+                <Text
+                  allowFontScaling={false}
+                  style={
+                    [
+                      {
+                        "color": "#2B1911",
+                        "fontFamily": "Baloo2-Regular",
+                        "fontSize": 16,
+                        "letterSpacing": 0.16,
+                        "lineHeight": 24,
+                      },
+                      [
+                        {
+                          "fontFamily": "Baloo2-Medium",
+                        },
+                        false,
+                        {
+                          "fontSize": 12,
+                          "lineHeight": 18,
+                          "paddingBottom": 2,
+                        },
+                      ],
+                    ]
+                  }
+                >
+                  sats
+                </Text>
+              </View>
             </View>
           </View>
         </View>
@@ -3166,8 +3202,10 @@ exports[`TxStatusCard should render correctly for a pending buy trade tx 1`] = `
               style={
                 [
                   {
-                    "alignItems": "baseline",
                     "flexDirection": "row",
+                  },
+                  {
+                    "alignItems": "baseline",
                   },
                   {
                     "gap": 2,
@@ -3598,34 +3636,41 @@ exports[`TxStatusCard should render correctly for a pending buy trade tx 1`] = `
                   6
                 </Text>
               </Text>
-              <Text
-                allowFontScaling={false}
+              <View
                 style={
-                  [
-                    {
-                      "color": "#2B1911",
-                      "fontFamily": "Baloo2-Regular",
-                      "fontSize": 16,
-                      "letterSpacing": 0.16,
-                      "lineHeight": 24,
-                    },
-                    [
-                      {
-                        "alignItems": "center",
-                        "fontFamily": "Baloo2-Medium",
-                      },
-                      false,
-                      {
-                        "fontSize": 12,
-                        "lineHeight": 18,
-                        "paddingBottom": 2,
-                      },
-                    ],
-                  ]
+                  {
+                    "justifyContent": "center",
+                  }
                 }
               >
-                sats
-              </Text>
+                <Text
+                  allowFontScaling={false}
+                  style={
+                    [
+                      {
+                        "color": "#2B1911",
+                        "fontFamily": "Baloo2-Regular",
+                        "fontSize": 16,
+                        "letterSpacing": 0.16,
+                        "lineHeight": 24,
+                      },
+                      [
+                        {
+                          "fontFamily": "Baloo2-Medium",
+                        },
+                        false,
+                        {
+                          "fontSize": 12,
+                          "lineHeight": 18,
+                          "paddingBottom": 2,
+                        },
+                      ],
+                    ]
+                  }
+                >
+                  sats
+                </Text>
+              </View>
             </View>
           </View>
         </View>
@@ -3893,8 +3938,10 @@ exports[`TxStatusCard should render correctly for a pending confirmed tx 1`] = `
               style={
                 [
                   {
-                    "alignItems": "baseline",
                     "flexDirection": "row",
+                  },
+                  {
+                    "alignItems": "baseline",
                   },
                   {
                     "gap": 2,
@@ -4325,34 +4372,41 @@ exports[`TxStatusCard should render correctly for a pending confirmed tx 1`] = `
                   6
                 </Text>
               </Text>
-              <Text
-                allowFontScaling={false}
+              <View
                 style={
-                  [
-                    {
-                      "color": "#2B1911",
-                      "fontFamily": "Baloo2-Regular",
-                      "fontSize": 16,
-                      "letterSpacing": 0.16,
-                      "lineHeight": 24,
-                    },
-                    [
-                      {
-                        "alignItems": "center",
-                        "fontFamily": "Baloo2-Medium",
-                      },
-                      false,
-                      {
-                        "fontSize": 12,
-                        "lineHeight": 18,
-                        "paddingBottom": 2,
-                      },
-                    ],
-                  ]
+                  {
+                    "justifyContent": "center",
+                  }
                 }
               >
-                sats
-              </Text>
+                <Text
+                  allowFontScaling={false}
+                  style={
+                    [
+                      {
+                        "color": "#2B1911",
+                        "fontFamily": "Baloo2-Regular",
+                        "fontSize": 16,
+                        "letterSpacing": 0.16,
+                        "lineHeight": 24,
+                      },
+                      [
+                        {
+                          "fontFamily": "Baloo2-Medium",
+                        },
+                        false,
+                        {
+                          "fontSize": 12,
+                          "lineHeight": 18,
+                          "paddingBottom": 2,
+                        },
+                      ],
+                    ]
+                  }
+                >
+                  sats
+                </Text>
+              </View>
             </View>
           </View>
         </View>
@@ -4620,8 +4674,10 @@ exports[`TxStatusCard should render correctly for a pending receive tx 1`] = `
               style={
                 [
                   {
-                    "alignItems": "baseline",
                     "flexDirection": "row",
+                  },
+                  {
+                    "alignItems": "baseline",
                   },
                   {
                     "gap": 2,
@@ -5052,34 +5108,41 @@ exports[`TxStatusCard should render correctly for a pending receive tx 1`] = `
                   6
                 </Text>
               </Text>
-              <Text
-                allowFontScaling={false}
+              <View
                 style={
-                  [
-                    {
-                      "color": "#2B1911",
-                      "fontFamily": "Baloo2-Regular",
-                      "fontSize": 16,
-                      "letterSpacing": 0.16,
-                      "lineHeight": 24,
-                    },
-                    [
-                      {
-                        "alignItems": "center",
-                        "fontFamily": "Baloo2-Medium",
-                      },
-                      false,
-                      {
-                        "fontSize": 12,
-                        "lineHeight": 18,
-                        "paddingBottom": 2,
-                      },
-                    ],
-                  ]
+                  {
+                    "justifyContent": "center",
+                  }
                 }
               >
-                sats
-              </Text>
+                <Text
+                  allowFontScaling={false}
+                  style={
+                    [
+                      {
+                        "color": "#2B1911",
+                        "fontFamily": "Baloo2-Regular",
+                        "fontSize": 16,
+                        "letterSpacing": 0.16,
+                        "lineHeight": 24,
+                      },
+                      [
+                        {
+                          "fontFamily": "Baloo2-Medium",
+                        },
+                        false,
+                        {
+                          "fontSize": 12,
+                          "lineHeight": 18,
+                          "paddingBottom": 2,
+                        },
+                      ],
+                    ]
+                  }
+                >
+                  sats
+                </Text>
+              </View>
             </View>
           </View>
         </View>
@@ -5347,8 +5410,10 @@ exports[`TxStatusCard should render correctly for a pending refund tx 1`] = `
               style={
                 [
                   {
-                    "alignItems": "baseline",
                     "flexDirection": "row",
+                  },
+                  {
+                    "alignItems": "baseline",
                   },
                   {
                     "gap": 2,
@@ -5779,34 +5844,41 @@ exports[`TxStatusCard should render correctly for a pending refund tx 1`] = `
                   6
                 </Text>
               </Text>
-              <Text
-                allowFontScaling={false}
+              <View
                 style={
-                  [
-                    {
-                      "color": "#2B1911",
-                      "fontFamily": "Baloo2-Regular",
-                      "fontSize": 16,
-                      "letterSpacing": 0.16,
-                      "lineHeight": 24,
-                    },
-                    [
-                      {
-                        "alignItems": "center",
-                        "fontFamily": "Baloo2-Medium",
-                      },
-                      false,
-                      {
-                        "fontSize": 12,
-                        "lineHeight": 18,
-                        "paddingBottom": 2,
-                      },
-                    ],
-                  ]
+                  {
+                    "justifyContent": "center",
+                  }
                 }
               >
-                sats
-              </Text>
+                <Text
+                  allowFontScaling={false}
+                  style={
+                    [
+                      {
+                        "color": "#2B1911",
+                        "fontFamily": "Baloo2-Regular",
+                        "fontSize": 16,
+                        "letterSpacing": 0.16,
+                        "lineHeight": 24,
+                      },
+                      [
+                        {
+                          "fontFamily": "Baloo2-Medium",
+                        },
+                        false,
+                        {
+                          "fontSize": 12,
+                          "lineHeight": 18,
+                          "paddingBottom": 2,
+                        },
+                      ],
+                    ]
+                  }
+                >
+                  sats
+                </Text>
+              </View>
             </View>
           </View>
         </View>
@@ -6074,8 +6146,10 @@ exports[`TxStatusCard should render correctly for a pending sent tx 1`] = `
               style={
                 [
                   {
-                    "alignItems": "baseline",
                     "flexDirection": "row",
+                  },
+                  {
+                    "alignItems": "baseline",
                   },
                   {
                     "gap": 2,
@@ -6506,34 +6580,41 @@ exports[`TxStatusCard should render correctly for a pending sent tx 1`] = `
                   6
                 </Text>
               </Text>
-              <Text
-                allowFontScaling={false}
+              <View
                 style={
-                  [
-                    {
-                      "color": "#2B1911",
-                      "fontFamily": "Baloo2-Regular",
-                      "fontSize": 16,
-                      "letterSpacing": 0.16,
-                      "lineHeight": 24,
-                    },
-                    [
-                      {
-                        "alignItems": "center",
-                        "fontFamily": "Baloo2-Medium",
-                      },
-                      false,
-                      {
-                        "fontSize": 12,
-                        "lineHeight": 18,
-                        "paddingBottom": 2,
-                      },
-                    ],
-                  ]
+                  {
+                    "justifyContent": "center",
+                  }
                 }
               >
-                sats
-              </Text>
+                <Text
+                  allowFontScaling={false}
+                  style={
+                    [
+                      {
+                        "color": "#2B1911",
+                        "fontFamily": "Baloo2-Regular",
+                        "fontSize": 16,
+                        "letterSpacing": 0.16,
+                        "lineHeight": 24,
+                      },
+                      [
+                        {
+                          "fontFamily": "Baloo2-Medium",
+                        },
+                        false,
+                        {
+                          "fontSize": 12,
+                          "lineHeight": 18,
+                          "paddingBottom": 2,
+                        },
+                      ],
+                    ]
+                  }
+                >
+                  sats
+                </Text>
+              </View>
             </View>
           </View>
         </View>
