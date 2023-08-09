@@ -90,5 +90,7 @@
   "form.userName.placeholder" : "nom d'utilisateur",
   "form.wallet" : "portefeuille #",
   "form.wallet.error" : "ceci n'est pas un portefeuille valide",
-  "form.wallet.placeholder" : "U012345678910"
+  "form.wallet.placeholder" : "U012345678910",
+  "number.decrease" : "diminuer le nombre",
+  "number.increase" : "augmenter le nombre"
 }

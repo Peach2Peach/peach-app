@@ -1,8 +1,9 @@
-import { PaymentMethodForms } from './paymentMethodForms'
-import { GiftCardAmazon } from './GiftCardAmazon'
+import { PaymentMethodForms } from '../paymentForms/paymentMethodForms'
 import {
   Template1,
   Template10,
+  Template11,
+  Template12,
   Template2,
   Template3,
   Template4,
@@ -12,7 +13,7 @@ import {
   Template8,
   Template9,
 } from '../templates'
-import { Template11 } from '../templates/Template11'
+import { GiftCardAmazon } from './GiftCardAmazon'
 
 describe('paymentMethodForms', () => {
   it('should assign the correct template to each payment method', () => {
@@ -78,6 +79,7 @@ describe('paymentMethodForms', () => {
       nationalTransferUS: { component: Template9, fields: expect.any(Array) },
       liquid: { component: Template10, fields: ['method', 'price', 'receiveAddress'] },
       lnurl: { component: Template11, fields: ['method', 'price', 'lnurlAddress'] },
+      rappipay: { component: Template12, fields: ['method', 'price', 'phone'] },
     })
   })
 })

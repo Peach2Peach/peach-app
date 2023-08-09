@@ -1,16 +1,19 @@
-import 'react-native-url-polyfill/auto'
-import dynamicLinks, { FirebaseDynamicLinksTypes } from '@react-native-firebase/dynamic-links'
-import { useNavigation } from './useNavigation'
 import { useCallback, useEffect } from 'react'
+import { Linking } from 'react-native'
+import 'react-native-url-polyfill/auto'
 import { account } from '../utils/account'
+import { useNavigation } from './useNavigation'
 
 export const useDynamicLinks = () => {
   const navigation = useNavigation()
 
   const handleReferralCode = useCallback(
-    (link?: FirebaseDynamicLinksTypes.DynamicLink | null) => {
+    ({ url: initialURL }: { url: string | null }) => {
+      if (!initialURL) return
+      const link = new URL(initialURL).searchParams.get('link')
+
       if (!link) return
-      const url = link.url
+      const url = link
 
       if (!url.includes('/referral')) return
 
@@ -26,10 +29,9 @@ export const useDynamicLinks = () => {
   )
 
   useEffect(() => {
-    const unsubscribe = dynamicLinks().onLink(handleReferralCode)
-    dynamicLinks().getInitialLink()
-      .then(handleReferralCode)
-    return () => unsubscribe()
+    const listener = Linking.addEventListener('url', handleReferralCode)
+    Linking.getInitialURL().then((url) => handleReferralCode({ url }))
+    return () => listener.remove()
   }, [handleReferralCode])
 
   return handleReferralCode
