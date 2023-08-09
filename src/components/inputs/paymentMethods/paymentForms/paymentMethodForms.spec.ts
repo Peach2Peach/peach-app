@@ -4,6 +4,7 @@ import {
   Template10,
   Template11,
   Template12,
+  Template13,
   Template2,
   Template3,
   Template4,
@@ -80,6 +81,7 @@ describe('paymentMethodForms', () => {
       liquid: { component: Template10, fields: ['method', 'price', 'receiveAddress'] },
       lnurl: { component: Template11, fields: ['method', 'price', 'lnurlAddress'] },
       rappipay: { component: Template12, fields: ['method', 'price', 'phone'] },
+      mercadoPago: { component: Template13, fields: ['method', 'price', 'phone', 'email'] },
     })
   })
 })

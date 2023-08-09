@@ -18,6 +18,7 @@ import keksPay from './keksPay.svg'
 import liquid from './liquid.svg'
 import lydia from './lydia.svg'
 import mbWay from './mbWay.svg'
+import mercadoPago from './mercadoPago.svg'
 import mobilePay from './mobilePay.svg'
 import n26 from './n26.svg'
 import neteller from './neteller.svg'
@@ -54,6 +55,7 @@ export const PaymentLogos = {
   liquid,
   lydia,
   mbWay,
+  mercadoPago,
   mobilePay,
   n26,
   nationalTransferBG,
