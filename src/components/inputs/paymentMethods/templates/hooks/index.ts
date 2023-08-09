@@ -1,5 +1,6 @@
 export { useLabelInput } from './useLabelInput'
 export { usePhoneInput } from './usePhoneInput'
+export { useCurrencySelection } from './useCurrencySelection'
 export { useReceiveAddressInput } from './useReceiveAddressInput'
 export { useTemplate10Setup } from './useTemplate10Setup'
 export { useTemplate11Setup } from './useTemplate11Setup'
