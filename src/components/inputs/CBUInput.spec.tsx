@@ -1,5 +1,6 @@
 import { act, fireEvent, render } from '@testing-library/react-native'
 import { createRenderer } from 'react-test-renderer/shallow'
+import i18n from '../../utils/i18n'
 import { CBUInput } from './CBUInput'
 
 describe('CBUInput', () => {
@@ -19,7 +20,7 @@ describe('CBUInput', () => {
   it('should enforce CBU format on submit', () => {
     const onSubmitMock = jest.fn()
     const { getByPlaceholderText } = render(<CBUInput onSubmit={onSubmitMock} />)
-    const input = getByPlaceholderText('1112222344444444444445')
+    const input = getByPlaceholderText(i18n('form.cbu.placeholder'))
     act(() => {
       fireEvent(input, 'onSubmit', '12 3 45 a')
     })
@@ -28,7 +29,7 @@ describe('CBUInput', () => {
   it('should enforce CBU format on end editing', () => {
     const onChangeMock = jest.fn()
     const { getByPlaceholderText } = render(<CBUInput onChange={onChangeMock} />)
-    const input = getByPlaceholderText('1112222344444444444445')
+    const input = getByPlaceholderText(i18n('form.cbu.placeholder'))
     act(() => {
       fireEvent(input, 'onEndEditing', { nativeEvent: { text: '12 3 45 a' } })
     })

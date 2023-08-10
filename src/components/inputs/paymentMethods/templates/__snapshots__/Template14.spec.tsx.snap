@@ -373,7 +373,7 @@ exports[`Template14 should render correctly 1`] = `
         ]
       }
     >
-      account #
+      CBU
       <Text
         allowFontScaling={false}
         style={

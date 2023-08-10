@@ -1,17 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SellTitleComponent should render correctly 1`] = `
-<ParsedPeachText
-  parse={
-    [
-      {
-        "pattern": /sell/u,
-        "style": {
-          "color": "#F56522",
-        },
-      },
-    ]
-  }
+<PeachText
   style={
     [
       {
@@ -29,6 +19,30 @@ exports[`SellTitleComponent should render correctly 1`] = `
     ]
   }
 >
-  sell bitcoin
-</ParsedPeachText>
+  <PeachText
+    style={
+      [
+        {
+          "fontFamily": "Baloo2-Bold",
+          "fontSize": 16,
+          "letterSpacing": 0.16,
+          "lineHeight": 26,
+        },
+        {
+          "fontFamily": "Baloo2-Bold",
+          "fontSize": 20,
+          "letterSpacing": 0.2,
+          "lineHeight": 32,
+        },
+        {
+          "color": "#F56522",
+        },
+      ]
+    }
+  >
+    sell
+  </PeachText>
+   
+  bitcoin
+</PeachText>
 `;

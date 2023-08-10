@@ -5,13 +5,14 @@ import i18n from '../../../../../utils/i18n'
 import { getErrorsInField } from '../../../../../utils/validation'
 import { FormProps } from '../../../../../views/addPaymentMethod/PaymentMethodForm'
 import { TabbedNavigationItem } from '../../../../navigation/TabbedNavigation'
-import { useCurrencySelection } from './useCurrencySelection'
+import { toggleCurrency } from '../../paymentForms/utils'
+import { hasMultipleAvailableCurrencies } from '../utils/hasMultipleAvailableCurrencies'
 import { useLabelInput } from './useLabelInput'
 
 const referenceRules = { required: false, isValidPaymentReference: true }
 // eslint-disable-next-line max-lines-per-function, max-statements
 export const useTemplate6Setup = ({ data, onSubmit, setStepValid, setFormData }: FormProps) => {
-  const { type: paymentMethod } = data
+  const { currencies, type: paymentMethod } = data
   const tabs: TabbedNavigationItem[] = useMemo(() => {
     const tabItems = [
       { id: 'phone', display: i18n('form.phone') },
@@ -32,7 +33,7 @@ export const useTemplate6Setup = ({ data, onSubmit, setStepValid, setFormData }:
     data?.reference || '',
     referenceRules,
   )
-  const { currencySelectionProps, shouldShowCurrencySelection, selectedCurrencies } = useCurrencySelection(data)
+  const [selectedCurrencies, setSelectedCurrencies] = useState(data?.currencies || currencies)
   const [displayErrors, setDisplayErrors] = useState(false)
 
   const emailRules = useMemo(() => ({ required: !phone && !userName, email: true }), [phone, userName])
@@ -54,6 +55,10 @@ export const useTemplate6Setup = ({ data, onSubmit, setStepValid, setFormData }:
   const userNameErrors = useMemo(() => getErrorsInField(userName, userNameRules), [userName, userNameRules])
 
   const [currentTab, setCurrentTab] = useState(tabs[0])
+
+  const onCurrencyToggle = (currency: Currency) => {
+    setSelectedCurrencies(toggleCurrency(currency))
+  }
 
   const buildPaymentData = useCallback(
     () => ({
@@ -132,10 +137,14 @@ export const useTemplate6Setup = ({ data, onSubmit, setStepValid, setFormData }:
       value: reference,
       errorMessage: displayErrors ? referenceError : undefined,
     },
-    currencySelectionProps,
+    currencySelectionProps: {
+      paymentMethod,
+      selectedCurrencies,
+      onToggle: onCurrencyToggle,
+    },
     shouldShowPhoneInput: currentTab.id === 'phone',
     shouldShowEmailInput: currentTab.id === 'email',
     shouldShowUserNameInput: currentTab.id === 'userName' || currentTab.id === 'revtag',
-    shouldShowCurrencySelection,
+    shouldShowCurrencySelection: hasMultipleAvailableCurrencies(paymentMethod),
   }
 }

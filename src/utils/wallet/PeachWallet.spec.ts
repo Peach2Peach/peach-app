@@ -24,7 +24,7 @@ import {
 import { useTradeSummaryStore } from '../../store/tradeSummaryStore'
 import { error as logError } from '../log'
 import { PeachWallet } from './PeachWallet'
-import { createWalletFromBase58 } from './createWalletFromBase58'
+import { createWalletFromSeedPhrase } from './createWalletFromSeedPhrase'
 import { getNetwork } from './getNetwork'
 import { useWalletState } from './walletStore'
 
@@ -59,8 +59,7 @@ describe('PeachWallet', () => {
   ]
   const listTransactionsMock = jest.fn().mockResolvedValue(txResponse)
 
-  // @ts-ignore
-  const wallet = createWalletFromBase58(account1.base58, getNetwork())
+  const { wallet } = createWalletFromSeedPhrase(account1.mnemonic, getNetwork())
   let peachWallet: PeachWallet
 
   beforeEach(async () => {
@@ -356,8 +355,7 @@ describe('PeachWallet', () => {
 })
 
 describe('PeachWallet - loadWallet', () => {
-  // @ts-ignore
-  const wallet = createWalletFromBase58(account1.base58, getNetwork())
+  const { wallet } = createWalletFromSeedPhrase(account1.mnemonic, getNetwork())
   let peachWallet: PeachWallet
 
   beforeEach(() => {

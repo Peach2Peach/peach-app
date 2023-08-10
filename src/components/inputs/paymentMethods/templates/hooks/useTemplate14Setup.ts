@@ -2,14 +2,15 @@ import { useCallback, useEffect, useState } from 'react'
 import { useValidatedState } from '../../../../../hooks'
 import i18n from '../../../../../utils/i18n'
 import { FormProps } from '../../../../../views/addPaymentMethod/PaymentMethodForm'
-import { useCurrencySelection } from './useCurrencySelection'
+import { toggleCurrency } from '../../paymentForms/utils'
+import { hasMultipleAvailableCurrencies } from '../utils/hasMultipleAvailableCurrencies'
 import { useLabelInput } from './useLabelInput'
 
 const beneficiaryRules = { required: true }
 const cbuRules = { required: true, isCBU: true }
 
-export const useTemplate14Setup = ({ data, setStepValid, setFormData }: Omit<FormProps, 'onSubmit'>) => {
-  const { type: paymentMethod } = data
+export const useTemplate14Setup = ({ data, onSubmit, setStepValid, setFormData }: FormProps) => {
+  const { currencies, type: paymentMethod } = data
   const { labelInputProps, labelErrors, setDisplayErrors: setDisplayLabelErrors, label } = useLabelInput(data)
   const [beneficiary, setBeneficiary, beneficiaryIsValid, beneficiaryErrors] = useValidatedState(
     data?.beneficiary || '',
@@ -20,7 +21,7 @@ export const useTemplate14Setup = ({ data, setStepValid, setFormData }: Omit<For
     cbuRules,
   )
   const [displayErrors, setDisplayErrors] = useState(false)
-  const { currencySelectionProps, shouldShowCurrencySelection, selectedCurrencies } = useCurrencySelection(data)
+  const [selectedCurrencies, setSelectedCurrencies] = useState(data?.currencies || currencies)
 
   const buildPaymentData = useCallback(
     () => ({
@@ -34,11 +35,21 @@ export const useTemplate14Setup = ({ data, setStepValid, setFormData }: Omit<For
     [data?.id, accountNumber, label, paymentMethod, selectedCurrencies, beneficiary],
   )
 
+  const onCurrencyToggle = (currency: Currency) => {
+    setSelectedCurrencies(toggleCurrency(currency))
+  }
+
   const isFormValid = useCallback(() => {
     setDisplayLabelErrors(true)
     setDisplayErrors(true)
     return labelErrors.length === 0 && beneficiaryIsValid && accountNumberIsValid
   }, [beneficiaryIsValid, accountNumberIsValid, labelErrors.length, setDisplayLabelErrors])
+
+  const save = () => {
+    if (!isFormValid()) return
+
+    onSubmit(buildPaymentData())
+  }
 
   useEffect(() => {
     setStepValid(isFormValid())
@@ -56,10 +67,15 @@ export const useTemplate14Setup = ({ data, setStepValid, setFormData }: Omit<For
       value: accountNumber,
       required: true,
       onChange: setAccountNumber,
-      label: i18n('form.account'),
+      onSubmit: save,
+      label: i18n('form.cbu'),
       errorMessage: displayErrors ? accountNumberErrors : undefined,
     },
-    currencySelectionProps,
-    shouldShowCurrencySelection,
+    currencySelectionProps: {
+      paymentMethod,
+      onToggle: onCurrencyToggle,
+      selectedCurrencies,
+    },
+    shouldShowCurrencySelection: hasMultipleAvailableCurrencies(paymentMethod),
   }
 }

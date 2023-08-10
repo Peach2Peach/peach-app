@@ -1,20 +1,20 @@
 import { renderHook, waitFor } from '@testing-library/react-native'
-import { Linking } from 'react-native'
-import { account1 } from '../../tests/unit/data/accountData'
 import { NavigationWrapper, resetMock } from '../../tests/unit/helpers/NavigationWrapper'
-import { defaultAccount, setAccount } from '../utils/account'
 import { useDynamicLinks } from './useDynamicLinks'
+import { defaultAccount, setAccount } from '../utils/account'
+import { account1 } from '../../tests/unit/data/accountData'
 
-const removeMock = jest.fn()
 let onLinkHandlers: Function[] = []
-// @ts-ignore
-jest.spyOn(Linking, 'addEventListener').mockImplementation((type, cb) => {
+const dynamicLink = { url: 'https://peachbitcoin.com/referral/?code=SATOSHI' }
+const onLinkMock = jest.fn().mockImplementation((cb) => {
   onLinkHandlers.push(cb)
-  return { remove: removeMock }
 })
 
-const dynamicLink = 'https://peachbitcoin.page.link/?link=https%3A%2F%2Fpeachbitcoin.com%2Freferral%3Fcode%3DSATOSHI'
-const getInitialURLSpy = jest.spyOn(Linking, 'getInitialURL').mockResolvedValue(dynamicLink)
+const getInitialLinkMock = jest.fn().mockResolvedValue(dynamicLink)
+jest.mock('@react-native-firebase/dynamic-links', () => () => ({
+  onLink: (...args: any[]) => onLinkMock(...args),
+  getInitialLink: () => getInitialLinkMock(),
+}))
 
 const wrapper = NavigationWrapper
 describe('useDynamicLinks', () => {
@@ -32,7 +32,7 @@ describe('useDynamicLinks', () => {
     )
   })
   it('does nothing if url does not exist', () => {
-    getInitialURLSpy.mockResolvedValueOnce(null)
+    getInitialLinkMock.mockResolvedValueOnce(null)
     renderHook(useDynamicLinks, { wrapper })
     expect(resetMock).not.toHaveBeenCalled()
   })

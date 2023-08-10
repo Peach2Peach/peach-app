@@ -1,9 +1,8 @@
-import { base58_12xmom } from '../../../tests/unit/data/accountData'
-import { createWalletFromBase58, getNetwork } from '../wallet'
+import { createWalletFromSeedPhrase, getNetwork } from '../wallet'
 import { createPeachAccount } from './createPeachAccount'
 
 describe('createPeachAccount', () => {
-  const wallet = createWalletFromBase58(base58_12xmom, getNetwork())
+  const { wallet } = createWalletFromSeedPhrase('mom mom mom mom mom mom mom mom mom mom mom mom', getNetwork())
 
   it('creates a peach account with mnemonic', () => {
     const peachAccount = createPeachAccount(wallet)

@@ -39,7 +39,7 @@ export const usePaymentMethodFormSetup = () => {
       icons[1] = { ...headerIcons.delete, onPress: deletePaymentMethod }
     }
     return icons
-  }, [paymentMethod, id, showHelp, showLNURLHelp, deletePaymentMethod])
+  }, [id, deletePaymentMethod, paymentMethod, showHelp])
 
   useHeaderSetup({
     title: i18n(id ? 'paymentMethod.edit.title' : 'paymentMethod.select.title', i18n(`paymentMethod.${paymentMethod}`)),
