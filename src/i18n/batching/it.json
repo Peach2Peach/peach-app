@@ -1,7 +1,8 @@
 {
   "batching.willBeSenTTo" : "verrà inviato a",
+  "help.payoutPending.title" : "pagamento in sospeso",
   "offer.requiredAction.pendingPayout" : "pagamento in sospeso",
-  "settings.batching.delayedPayouts" : "I versamenti dei depositi sono ritardati fino ad un'ora",
+  "settings.batching.delayedPayouts" : "I versamenti dei depositi sono ritardati",
   "settings.batching.title" : "raggruppamento delle transazioni",
   "settings.batching.toggle" : "raggruppamento delle transazioni",
   "settings.batching.turnOff.description" : "il tuo pagamento è in sospeso. Disabilitando il raggruppamento ora, effettuerai questo deposito immediatamente, con commissioni più alte. Sei sicuro di procedere?",

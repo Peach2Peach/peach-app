@@ -1,0 +1,13 @@
+{
+  "help.payoutPending.title" : "ödeme bekliyor",
+  "offer.requiredAction.pendingPayout" : "ödeme bekliyor",
+  "settings.batching.delayedPayouts" : "Emniyet havuz ödemeleri bir saate kadar gecikebilir.",
+  "settings.batching.title" : "işlem toplama",
+  "settings.batching.toggle" : "işlem toplama",
+  "settings.batching.turnOff.description" : "Bekleyen bir ödemeniz var. Şu an işlem toplamayı kapatmak, bu emaneti hemen daha yüksek ücretlerle ödeyecektir.\n\nEmin misiniz?",
+  "settings.batching.turnOff.no" : "hayır, bekle",
+  "settings.batching.turnOff.title" : "işlem toplamayı kapat",
+  "settings.batching.turnOff.yes" : "evet, öde",
+  "settings.batching.youSave" : "Ağ ücretlerinde %23'e kadar tasarruf sağlarsınız.",
+  "settings.batching.youSave.highlight" : "%23'e kadar tasarruf yaparsınız"
+}

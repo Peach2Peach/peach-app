@@ -6,7 +6,6 @@ import contract from './contract/en.json'
 import error from './error/en.json'
 import form from './form/en.json'
 import global from './global/en.json'
-import groupHug from './groupHug/en.json'
 import help from './help/en.json'
 import notification from './notification/en.json'
 import offer from './offer/en.json'
@@ -29,7 +28,6 @@ const en: Record<string, string> = {
   ...contract,
   ...error,
   ...form,
-  ...groupHug,
   ...help,
   ...notification,
   ...offer,

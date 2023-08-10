@@ -119,5 +119,6 @@
   "settings.terms" : "όροι & προϋποθέσεις",
   "settings.testView" : "Άνοιγμα TestView",
   "settings.title" : "ρυθμίσεις",
+  "settings.transactionBatching" : "ομαδοποίηση συναλλαγών",
   "settings.website" : "ιστοσελίδα"
 }
