@@ -9,4 +9,5 @@ export const defaultConfig: Config = {
   minTradingAmount: 0,
   maxTradingAmount: Infinity,
   seenDisputeDisclaimer: false,
+  hasSeenGroupHugAnnouncement: false,
 }
