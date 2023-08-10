@@ -1,10 +1,10 @@
 import { TouchableOpacity, View } from 'react-native'
-import { Icon, Placeholder, Text } from '../../../../components'
+import { shallow } from 'zustand/shallow'
+import { Icon, Loading, Placeholder, Text } from '../../../../components'
 import { BTCAmount } from '../../../../components/bitcoin'
 import tw from '../../../../styles/tailwind'
 import i18n from '../../../../utils/i18n'
 import { useWalletState } from '../../../../utils/wallet/walletStore'
-import { shallow } from 'zustand/shallow'
 
 type Props = ComponentProps & {
   amount: number
@@ -29,6 +29,7 @@ export const TotalBalance = ({ amount, isRefreshing }: Props) => {
         >
           <Icon id={showBalance ? 'eyeOff' : 'eye'} size={20} color={tw`text-black-3`.color} />
         </TouchableOpacity>
+        {isRefreshing && <Loading style={tw`absolute w-8 h-8 top-8`} />}
       </View>
       <BTCAmount style={isRefreshing && tw`opacity-60`} amount={amount} size="extra large" showAmount={showBalance} />
     </View>
