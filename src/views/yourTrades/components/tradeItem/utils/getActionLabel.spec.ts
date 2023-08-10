@@ -64,6 +64,6 @@ describe('getActionLabel', () => {
   it('should return the correct label sell offer to be funded via multiple', () => {
     useWalletState.getState().registerFundMultiple('address', [sellOfferSummary.id])
     const result = getActionLabel({ ...sellOfferSummary, tradeStatus: 'fundEscrow' }, false)
-    expect(result).toEqual('offer.requiredAction.fundMultipleEscrow')
+    expect(result).toEqual('fund multiple escrow')
   })
 })

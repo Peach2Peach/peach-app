@@ -15,6 +15,7 @@
   "offer.requiredAction.dispute" : "ξεκίνησε διένεξη",
   "offer.requiredAction.escrowWaitingForConfirmation" : "η συναλλαγή εκκρεμεί",
   "offer.requiredAction.fundEscrow" : "χρηματοδότηση εγγύησης",
+  "offer.requiredAction.fundMultipleEscrow" : "χρηματοδότηση εγγύησης",
   "offer.requiredAction.fundingAmountDifferent" : "λάθος ποσό χρηματοδότησης ",
   "offer.requiredAction.hasMatchesAvailable" : "επιλέξτε τι σας ταιριάζει",
   "offer.requiredAction.offerHidden" : "κρυμμένη προσφορά ",
