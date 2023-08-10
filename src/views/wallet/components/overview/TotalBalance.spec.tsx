@@ -25,8 +25,4 @@ describe('TotalBalance', () => {
     const shownBalance = toJSON()
     expect(hiddenBalance).toMatchDiffSnapshot(shownBalance)
   })
-  it('shows loading when isRefreshing is true', () => {
-    const { toJSON } = render(<TotalBalance amount={100000} isRefreshing={true} />)
-    expect(render(defaultComponent).toJSON()).toMatchDiffSnapshot(toJSON())
-  })
 })

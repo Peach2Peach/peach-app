@@ -1,25 +1,29 @@
-import { Alert, View } from 'react-native'
-import { Screen } from '../../components'
-import i18n from '../../utils/i18n'
-import { BitcoinLoading } from '../loading/BitcoinLoading'
-import { TotalBalance } from './components/overview/TotalBalance'
-import { useWalletSetup } from './hooks/useWalletSetup'
-import { WalletHeader } from './components/WalletHeader'
-import tw from '../../styles/tailwind'
+import { Alert, RefreshControl, View } from 'react-native'
+import { PeachScrollView, Screen } from '../../components'
 import { NewButton as Button } from '../../components/buttons/Button'
 import { useNavigation } from '../../hooks'
+import tw from '../../styles/tailwind'
+import i18n from '../../utils/i18n'
+import { BitcoinLoading } from '../loading/BitcoinLoading'
+import { WalletHeader } from './components/WalletHeader'
+import { TotalBalance } from './components/overview/TotalBalance'
+import { useWalletSetup } from './hooks/useWalletSetup'
 
 export const Wallet = () => {
-  const { balance, isRefreshing, walletLoading } = useWalletSetup()
+  const { balance, isRefreshing, walletLoading, refresh } = useWalletSetup()
 
   if (walletLoading) return <BitcoinLoading text={i18n('wallet.loading')} />
 
   return (
     <Screen>
       <WalletHeader />
-      <View style={tw`items-center justify-center flex-grow`}>
-        <TotalBalance amount={balance} isRefreshing={isRefreshing} />
-      </View>
+      <PeachScrollView
+        contentContainerStyle={tw`flex-grow`}
+        contentStyle={tw`justify-center flex-grow`}
+        refreshControl={<RefreshControl refreshing={isRefreshing} onRefresh={refresh} />}
+      >
+        <TotalBalance amount={balance} />
+      </PeachScrollView>
       <WalletButtons />
     </Screen>
   )
