@@ -19,6 +19,7 @@ import { FundEscrow } from './fundEscrow/FundEscrow'
 import { BitcoinLoading } from './loading/BitcoinLoading'
 import { NewUser } from './newUser/NewUser'
 import { OfferDetails } from './offerDetails/OfferDetails'
+import { GroupHugAnnouncement } from './overlays/GroupHugAnnouncement'
 import { NewBadge } from './overlays/NewBadge'
 import { PublicProfile } from './publicProfile/PublicProfile'
 import { Referrals } from './referrals/Referrals'
@@ -150,6 +151,7 @@ const publicProfile: ViewType[] = [{ name: 'publicProfile', component: PublicPro
 
 const overlays: ViewType[] = [
   { name: 'offerPublished', component: OfferPublished, ...invertedThemeConfig },
+  { name: 'groupHugAnnouncement', component: GroupHugAnnouncement, ...invertedThemeConfig },
   { name: 'newBadge', component: NewBadge, ...invertedThemeConfig },
 ]
 
