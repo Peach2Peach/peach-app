@@ -86,6 +86,7 @@ exports[`CurrencySelection renders correctly for 1 currencies 1`] = `
                 "color": "#2B1911",
               },
             ],
+            false,
           ]
         }
       >
@@ -193,6 +194,7 @@ exports[`CurrencySelection renders correctly for 2 currencies 1`] = `
               },
               false,
             ],
+            false,
           ]
         }
       >
@@ -289,6 +291,7 @@ exports[`CurrencySelection renders correctly for 2 currencies 1`] = `
                 "color": "#2B1911",
               },
             ],
+            false,
           ]
         }
       >
@@ -396,6 +399,7 @@ exports[`CurrencySelection renders correctly for 3 currencies 1`] = `
               },
               false,
             ],
+            false,
           ]
         }
       >
@@ -490,6 +494,7 @@ exports[`CurrencySelection renders correctly for 3 currencies 1`] = `
               },
               false,
             ],
+            false,
           ]
         }
       >
@@ -586,6 +591,7 @@ exports[`CurrencySelection renders correctly for 3 currencies 1`] = `
                 "color": "#2B1911",
               },
             ],
+            false,
           ]
         }
       >
@@ -693,6 +699,7 @@ exports[`CurrencySelection renders correctly for 4 currencies 1`] = `
               },
               false,
             ],
+            false,
           ]
         }
       >
@@ -787,6 +794,7 @@ exports[`CurrencySelection renders correctly for 4 currencies 1`] = `
               },
               false,
             ],
+            false,
           ]
         }
       >
@@ -881,6 +889,7 @@ exports[`CurrencySelection renders correctly for 4 currencies 1`] = `
               },
               false,
             ],
+            false,
           ]
         }
       >
@@ -977,6 +986,7 @@ exports[`CurrencySelection renders correctly for 4 currencies 1`] = `
                 "color": "#2B1911",
               },
             ],
+            false,
           ]
         }
       >
@@ -1084,6 +1094,7 @@ exports[`CurrencySelection renders correctly for 5 currencies 1`] = `
               },
               false,
             ],
+            false,
           ]
         }
       >
@@ -1178,6 +1189,7 @@ exports[`CurrencySelection renders correctly for 5 currencies 1`] = `
               },
               false,
             ],
+            false,
           ]
         }
       >
@@ -1272,6 +1284,7 @@ exports[`CurrencySelection renders correctly for 5 currencies 1`] = `
               },
               false,
             ],
+            false,
           ]
         }
       >
@@ -1366,6 +1379,7 @@ exports[`CurrencySelection renders correctly for 5 currencies 1`] = `
               },
               false,
             ],
+            false,
           ]
         }
       >
@@ -1462,6 +1476,7 @@ exports[`CurrencySelection renders correctly for 5 currencies 1`] = `
                 "color": "#2B1911",
               },
             ],
+            false,
           ]
         }
       >
@@ -1569,6 +1584,7 @@ exports[`CurrencySelection renders correctly for 6 currencies 1`] = `
               },
               false,
             ],
+            false,
           ]
         }
       >
@@ -1663,6 +1679,7 @@ exports[`CurrencySelection renders correctly for 6 currencies 1`] = `
               },
               false,
             ],
+            false,
           ]
         }
       >
@@ -1757,6 +1774,7 @@ exports[`CurrencySelection renders correctly for 6 currencies 1`] = `
               },
               false,
             ],
+            false,
           ]
         }
       >
@@ -1851,6 +1869,7 @@ exports[`CurrencySelection renders correctly for 6 currencies 1`] = `
               },
               false,
             ],
+            false,
           ]
         }
       >
@@ -1945,6 +1964,7 @@ exports[`CurrencySelection renders correctly for 6 currencies 1`] = `
               },
               false,
             ],
+            false,
           ]
         }
       >
@@ -2041,6 +2061,7 @@ exports[`CurrencySelection renders correctly for 6 currencies 1`] = `
                 "color": "#2B1911",
               },
             ],
+            false,
           ]
         }
       >
@@ -2148,6 +2169,7 @@ exports[`CurrencySelection renders correctly for 7 currencies 1`] = `
               },
               false,
             ],
+            false,
           ]
         }
       >
@@ -2242,6 +2264,7 @@ exports[`CurrencySelection renders correctly for 7 currencies 1`] = `
               },
               false,
             ],
+            false,
           ]
         }
       >
@@ -2336,6 +2359,7 @@ exports[`CurrencySelection renders correctly for 7 currencies 1`] = `
               },
               false,
             ],
+            false,
           ]
         }
       >
@@ -2430,6 +2454,7 @@ exports[`CurrencySelection renders correctly for 7 currencies 1`] = `
               },
               false,
             ],
+            false,
           ]
         }
       >
@@ -2524,6 +2549,7 @@ exports[`CurrencySelection renders correctly for 7 currencies 1`] = `
               },
               false,
             ],
+            false,
           ]
         }
       >
@@ -2618,6 +2644,7 @@ exports[`CurrencySelection renders correctly for 7 currencies 1`] = `
               },
               false,
             ],
+            false,
           ]
         }
       >
@@ -2714,6 +2741,7 @@ exports[`CurrencySelection renders correctly for 7 currencies 1`] = `
                 "color": "#2B1911",
               },
             ],
+            false,
           ]
         }
       >
@@ -2821,6 +2849,7 @@ exports[`CurrencySelection renders correctly for 8 currencies 1`] = `
               },
               false,
             ],
+            false,
           ]
         }
       >
@@ -2915,6 +2944,7 @@ exports[`CurrencySelection renders correctly for 8 currencies 1`] = `
               },
               false,
             ],
+            false,
           ]
         }
       >
@@ -3009,6 +3039,7 @@ exports[`CurrencySelection renders correctly for 8 currencies 1`] = `
               },
               false,
             ],
+            false,
           ]
         }
       >
@@ -3103,6 +3134,7 @@ exports[`CurrencySelection renders correctly for 8 currencies 1`] = `
               },
               false,
             ],
+            false,
           ]
         }
       >
@@ -3197,6 +3229,7 @@ exports[`CurrencySelection renders correctly for 8 currencies 1`] = `
               },
               false,
             ],
+            false,
           ]
         }
       >
@@ -3291,6 +3324,7 @@ exports[`CurrencySelection renders correctly for 8 currencies 1`] = `
               },
               false,
             ],
+            false,
           ]
         }
       >
@@ -3385,6 +3419,7 @@ exports[`CurrencySelection renders correctly for 8 currencies 1`] = `
               },
               false,
             ],
+            false,
           ]
         }
       >
@@ -3481,6 +3516,7 @@ exports[`CurrencySelection renders correctly for 8 currencies 1`] = `
                 "color": "#2B1911",
               },
             ],
+            false,
           ]
         }
       >
@@ -3588,6 +3624,7 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
               },
               false,
             ],
+            false,
           ]
         }
       >
@@ -3682,6 +3719,7 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
               },
               false,
             ],
+            false,
           ]
         }
       >
@@ -3776,6 +3814,7 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
               },
               false,
             ],
+            false,
           ]
         }
       >
@@ -3870,6 +3909,7 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
               },
               false,
             ],
+            false,
           ]
         }
       >
@@ -3964,6 +4004,7 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
               },
               false,
             ],
+            false,
           ]
         }
       >
@@ -4058,6 +4099,7 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
               },
               false,
             ],
+            false,
           ]
         }
       >
@@ -4152,6 +4194,7 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
               },
               false,
             ],
+            false,
           ]
         }
       >
@@ -4246,6 +4289,7 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
               },
               false,
             ],
+            false,
           ]
         }
       >
@@ -4342,6 +4386,7 @@ exports[`CurrencySelection renders correctly for 9 currencies 1`] = `
                 "color": "#2B1911",
               },
             ],
+            false,
           ]
         }
       >

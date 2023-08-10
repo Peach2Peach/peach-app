@@ -21,6 +21,7 @@ exports[`PublicKey should copy public key 1`] = `
           "lineHeight": 24,
           "textTransform": "lowercase",
         },
+        false,
       ]
     }
   >
@@ -55,6 +56,7 @@ exports[`PublicKey should copy public key 1`] = `
             "lineHeight": 22,
             "textTransform": "uppercase",
           },
+          false,
         ]
       }
     >
@@ -76,6 +78,7 @@ exports[`PublicKey should copy public key 1`] = `
               "letterSpacing": 0.14,
               "lineHeight": 22,
             },
+            false,
           ]
         }
       >
@@ -160,6 +163,7 @@ exports[`PublicKey should copy public key 1`] = `
               "letterSpacing": 0.14,
               "lineHeight": 22,
             },
+            false,
           ]
         }
       >
@@ -191,6 +195,7 @@ exports[`PublicKey should render correctly 1`] = `
           "lineHeight": 24,
           "textTransform": "lowercase",
         },
+        false,
       ]
     }
   >
@@ -225,6 +230,7 @@ exports[`PublicKey should render correctly 1`] = `
             "lineHeight": 22,
             "textTransform": "uppercase",
           },
+          false,
         ]
       }
     >
@@ -246,6 +252,7 @@ exports[`PublicKey should render correctly 1`] = `
               "letterSpacing": 0.14,
               "lineHeight": 22,
             },
+            false,
           ]
         }
       >

@@ -93,6 +93,7 @@ exports[`BuyFilterAndSort should render correctly 1`] = `
                 "letterSpacing": 0.16,
                 "lineHeight": 26,
               },
+              false,
             ]
           }
         >
@@ -193,6 +194,7 @@ exports[`BuyFilterAndSort should render correctly 1`] = `
                     "color": "#BAADA7",
                   },
                 ],
+                false,
               ]
             }
           >
@@ -293,6 +295,7 @@ exports[`BuyFilterAndSort should render correctly 1`] = `
                 "letterSpacing": 0.16,
                 "lineHeight": 26,
               },
+              false,
             ]
           }
         >
@@ -388,6 +391,7 @@ exports[`BuyFilterAndSort should render correctly 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 28,
                 },
+                false,
               ]
             }
           >
@@ -475,6 +479,7 @@ exports[`BuyFilterAndSort should render correctly 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 28,
                 },
+                false,
               ]
             }
           >
@@ -562,6 +567,7 @@ exports[`BuyFilterAndSort should render correctly 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 28,
                 },
+                false,
               ]
             }
           >
@@ -675,6 +681,7 @@ exports[`BuyFilterAndSort should render correctly 1`] = `
               },
               undefined,
             ],
+            false,
           ]
         }
       >
@@ -756,6 +763,7 @@ exports[`BuyFilterAndSort should render correctly 1`] = `
               },
               undefined,
             ],
+            false,
           ]
         }
       >
@@ -859,6 +867,7 @@ exports[`BuyFilterAndSort should use the global preferences as defaults when the
                 "letterSpacing": 0.16,
                 "lineHeight": 26,
               },
+              false,
             ]
           }
         >
@@ -959,6 +968,7 @@ exports[`BuyFilterAndSort should use the global preferences as defaults when the
                     "color": "#BAADA7",
                   },
                 ],
+                false,
               ]
             }
           >
@@ -1059,6 +1069,7 @@ exports[`BuyFilterAndSort should use the global preferences as defaults when the
                 "letterSpacing": 0.16,
                 "lineHeight": 26,
               },
+              false,
             ]
           }
         >
@@ -1154,6 +1165,7 @@ exports[`BuyFilterAndSort should use the global preferences as defaults when the
                   "letterSpacing": 0.16,
                   "lineHeight": 28,
                 },
+                false,
               ]
             }
           >
@@ -1241,6 +1253,7 @@ exports[`BuyFilterAndSort should use the global preferences as defaults when the
                   "letterSpacing": 0.16,
                   "lineHeight": 28,
                 },
+                false,
               ]
             }
           >
@@ -1328,6 +1341,7 @@ exports[`BuyFilterAndSort should use the global preferences as defaults when the
                   "letterSpacing": 0.16,
                   "lineHeight": 28,
                 },
+                false,
               ]
             }
           >
@@ -1441,6 +1455,7 @@ exports[`BuyFilterAndSort should use the global preferences as defaults when the
               },
               undefined,
             ],
+            false,
           ]
         }
       >
@@ -1522,6 +1537,7 @@ exports[`BuyFilterAndSort should use the global preferences as defaults when the
               },
               undefined,
             ],
+            false,
           ]
         }
       >
@@ -1537,7 +1553,7 @@ exports[`BuyFilterAndSort should use the offer maxPremium as the default value f
 - First value
 + Second value
 
-@@ -155,11 +155,11 @@
+@@ -156,11 +156,11 @@
                 "opacity": 1,
               }
             }
@@ -1550,7 +1566,7 @@ exports[`BuyFilterAndSort should use the offer maxPremium as the default value f
                   Object {
                     "height": 24,
                     "width": 24,
-@@ -184,13 +184,11 @@
+@@ -185,13 +185,11 @@
                       "fontFamily": "Baloo2-SemiBold",
                       "fontSize": 16,
                       "letterSpacing": 0.16,
@@ -1561,11 +1577,11 @@ exports[`BuyFilterAndSort should use the offer maxPremium as the default value f
 -                   },
 +                   false,
                   ],
+                  false,
                 ]
               }
             >
-              max premium
-@@ -236,11 +234,11 @@
+@@ -238,11 +236,11 @@
                   "paddingBottom": 0,
                   "paddingTop": 0,
                   "textAlign": "center",

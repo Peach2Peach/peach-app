@@ -121,6 +121,7 @@ exports[`Welcome should render correctly 1`] = `
               "color": "#FFFCFA",
               "marginRight": 4,
             },
+            false,
           ]
         }
       >
@@ -251,6 +252,7 @@ exports[`Welcome should render correctly 1`] = `
                 "textTransform": "uppercase",
               },
             ],
+            false,
           ]
         }
       >

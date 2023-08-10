@@ -76,6 +76,7 @@ exports[`PopupAction renders correctly 1`] = `
           },
           undefined,
         ],
+        false,
       ]
     }
   >
@@ -160,6 +161,7 @@ exports[`PopupAction renders correctly when applying style 1`] = `
           },
           undefined,
         ],
+        false,
       ]
     }
   >
@@ -244,6 +246,7 @@ exports[`PopupAction renders correctly with reversed order 1`] = `
           },
           undefined,
         ],
+        false,
       ]
     }
   >
