@@ -45,6 +45,7 @@ import { NetworkFees } from './settings/NetworkFees'
 import { PayoutAddress } from './settings/PayoutAddress'
 import { MyProfile } from './settings/profile/MyProfile'
 import { Settings } from './settings/Settings'
+import { TransactionBatching } from './settings/TransactionBatching'
 import { TestViewButtons } from './TestView/buttons'
 import { TestViewComponents } from './TestView/components'
 import { TestViewMessages } from './TestView/messages'
@@ -175,6 +176,7 @@ const settings: ViewType[] = [
   { name: 'paymentMethods', component: PaymentMethods, ...defaultConfig },
   { name: 'peachFees', component: PeachFees, ...defaultConfig },
   { name: 'networkFees', component: NetworkFees, ...defaultConfig },
+  { name: 'transactionBatching', component: TransactionBatching, ...defaultConfig },
   { name: 'socials', component: Socials, ...defaultConfig },
 ]
 

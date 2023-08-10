@@ -68,6 +68,7 @@ declare type SelfUser = User & {
   maxFreeTrades: number
   historyRating: number
   recentRating: number
+  isBatchingEnabled: boolean
 }
 
 declare type TradingLimit = {

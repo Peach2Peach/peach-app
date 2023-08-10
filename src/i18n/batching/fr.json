@@ -17,7 +17,7 @@
   "settings.batching.turnOff.title" : "turn off batching",
   "settings.batching.turnOff.yes" : "yes, pay out",
   "settings.batching.youPay" : "You’re paying up to 23% more",
-  "settings.batching.youPay.highlight" : "23% more\n",
+  "settings.batching.youPay.highlight" : "23% more",
   "settings.batching.youSave" : "You save up to 23% in network fees",
   "settings.batching.youSave.highlight" : "save up to 23%"
 }
