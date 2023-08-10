@@ -15,6 +15,7 @@
   "offer.requiredAction.dispute" : "dispute commencée",
   "offer.requiredAction.escrowWaitingForConfirmation" : "transaction en attente",
   "offer.requiredAction.fundEscrow" : "financer le coffre",
+  "offer.requiredAction.fundMultipleEscrow" : "financer le coffre",
   "offer.requiredAction.fundingAmountDifferent" : "montant financé incorrect",
   "offer.requiredAction.hasMatchesAvailable" : "sélectionner un match",
   "offer.requiredAction.offerHidden" : "offre masquée",
