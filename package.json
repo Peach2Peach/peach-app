@@ -49,7 +49,6 @@
     "@react-native-firebase/analytics": "^18.2.0",
     "@react-native-firebase/app": "^18.2.0",
     "@react-native-firebase/crashlytics": "^18.2.0",
-    "@react-native-firebase/dynamic-links": "^18.2.0",
     "@react-native-firebase/messaging": "^18.2.0",
     "@react-native-firebase/perf": "^18.2.0",
     "@react-navigation/material-top-tabs": "^6.6.3",
