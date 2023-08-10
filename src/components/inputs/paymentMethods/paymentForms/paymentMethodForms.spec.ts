@@ -5,6 +5,9 @@ import {
   Template10,
   Template11,
   Template12,
+  Template13,
+  Template14,
+  Template15,
   Template2,
   Template3,
   Template4,
@@ -14,9 +17,6 @@ import {
   Template8,
   Template9,
 } from '../templates'
-import { Template13 } from '../templates/Template13'
-import { Template14 } from '../templates/Template14'
-import { Template15 } from '../templates/Template15'
 import { GiftCardAmazon } from './GiftCardAmazon'
 
 describe('paymentMethodForms', () => {

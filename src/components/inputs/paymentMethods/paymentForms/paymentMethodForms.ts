@@ -4,6 +4,11 @@ import { TradeInfoField } from '../../../../views/contract/helpers/tradeInformat
 import {
   Template1,
   Template10,
+  Template11,
+  Template12,
+  Template13,
+  Template14,
+  Template15,
   Template2,
   Template3,
   Template4,
@@ -13,11 +18,6 @@ import {
   Template8,
   Template9,
 } from '../templates'
-import { Template11 } from '../templates/Template11'
-import { Template12 } from '../templates/Template12'
-import { Template13 } from '../templates/Template13'
-import { Template14 } from '../templates/Template14'
-import { Template15 } from '../templates/Template15'
 import { GiftCardAmazon } from './GiftCardAmazon'
 
 type PaymentMethodFormsType = {

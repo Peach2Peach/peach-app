@@ -4,8 +4,10 @@ import { buyOffer, sellOffer } from './offerData'
 
 const publicKey = '03a9ea8d8000731f80287b43af99f28294b81ee011a5bde5dfd2beb6c03f6e3682'
 const privKey = '80d12e8d17542fdc2377089de363ea716ebf7fd5fcad522d6a1e7bfa33e239e5'
-const base58 =
-  'tprv8ZgxMBicQKsPfE42AXE2BFTTV24TpSnK9nBpXtVgnMVhgThYYrghSrj1aUzVnLEEddhhVDiQwTyQ6h9m58mqM6p6TAqEenhpRC3D8BbiNnA'
+const base58
+  = 'tprv8ZgxMBicQKsPfE42AXE2BFTTV24TpSnK9nBpXtVgnMVhgThYYrghSrj1aUzVnLEEddhhVDiQwTyQ6h9m58mqM6p6TAqEenhpRC3D8BbiNnA'
+export const base58_12xmom
+  = 'tprv8ZgxMBicQKsPeuhRJ3YDJLB7ELYLN4fA9uRnXskpWHAgZhsaHAgqfnSvVt4BCsVzSNeutJXGKJfA9KD4sK5KBS6bAzJJh5eeD7xqx5tccGn'
 const mnemonic = 'genuine all body calm mirror van apple lady train inhale evolve essay'
 const pgp = {
   privateKey:
