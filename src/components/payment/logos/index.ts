@@ -19,6 +19,7 @@ import lydia from './lydia.svg'
 import mbWay from './mbWay.svg'
 import mobilePay from './mobilePay.svg'
 import n26 from './n26.svg'
+import nequi from './nequi.svg'
 import neteller from './neteller.svg'
 import paylib from './paylib.svg'
 import paypal from './paypal.svg'
@@ -65,6 +66,7 @@ export const PaymentLogos = {
   nationalTransferNO,
   nationalTransferPL,
   nationalTransferRO,
+  nequi,
   neteller,
   paylib,
   paypal,

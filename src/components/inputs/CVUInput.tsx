@@ -6,7 +6,7 @@ export const CVUInput = ({ onChange, onSubmit, ...props }: InputProps) => (
   <Input
     {...{
       autoCorrect: false,
-      label: i18n('form.cvu'),
+      label: i18n('form.account'),
       placeholder: i18n('form.cvu.placeholder'),
       ...props,
       onChange,
