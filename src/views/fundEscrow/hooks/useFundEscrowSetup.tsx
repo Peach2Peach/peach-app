@@ -1,11 +1,13 @@
 import { useCallback, useEffect, useState } from 'react'
-import { useCancelOffer, useRoute } from '../../../hooks'
+import { MSINAMINUTE } from '../../../constants'
+import { useCancelOffer, useInterval, useRoute } from '../../../hooks'
 import { useFundingStatus } from '../../../hooks/query/useFundingStatus'
 import { useMultipleOfferDetails } from '../../../hooks/query/useOfferDetails'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { isSellOffer } from '../../../utils/offer'
 import { parseError } from '../../../utils/result'
 import { isDefined } from '../../../utils/validation'
+import { peachWallet } from '../../../utils/wallet/setWallet'
 import { useWalletState } from '../../../utils/wallet/walletStore'
 import { shouldGetFundingStatus } from '../../sell/helpers/shouldGetFundingStatus'
 import { getFundingAmount } from '../helpers/getFundingAmount'
@@ -69,6 +71,12 @@ export const useFundEscrowSetup = () => {
     if (!fundingStatusError) return
     showErrorBanner(parseError(fundingStatusError))
   }, [fundingStatusError, showErrorBanner])
+
+  const syncPeachWallet = useCallback(() => {
+    if (fundMultiple) peachWallet.syncWallet()
+  }, [fundMultiple])
+
+  useInterval({ callback: syncPeachWallet, interval: MSINAMINUTE * 2 })
 
   return {
     offerId,

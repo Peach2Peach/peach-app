@@ -4,9 +4,12 @@ import { sellOffer } from '../../../../tests/unit/data/offerData'
 import { unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
 import { NavigationAndQueryClientWrapper } from '../../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
 import { queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
+import { MSINAMINUTE } from '../../../constants'
 import { setAccount, updateAccount } from '../../../utils/account'
 import { saveOffer } from '../../../utils/offer'
 import { defaultFundingStatus } from '../../../utils/offer/constants'
+import { PeachWallet } from '../../../utils/wallet/PeachWallet'
+import { setPeachWallet } from '../../../utils/wallet/setWallet'
 import { useWalletState } from '../../../utils/wallet/walletStore'
 import { useFundEscrowSetup } from './useFundEscrowSetup'
 
@@ -174,5 +177,36 @@ describe('useFundEscrowSetup', () => {
       fundingAmount: sellOffer.amount,
       cancelOffer: expect.any(Function),
     })
+  })
+  it('should periodically sync peach wallet if funding multiple escrow', () => {
+    // @ts-ignore
+    const peachWallet = new PeachWallet()
+    setPeachWallet(peachWallet)
+    saveOffer(sellOfferWithEscrow)
+
+    const syncWalletSpy = jest.spyOn(peachWallet, 'syncWallet')
+    const internalAddress = 'internalAddress'
+    useWalletState.getState().registerFundMultiple(internalAddress, [sellOfferWithEscrow.id])
+    renderHook(useFundEscrowSetup, { wrapper })
+
+    jest.advanceTimersByTime(MSINAMINUTE * 2)
+
+    expect(syncWalletSpy).toHaveBeenCalledTimes(1)
+
+    jest.advanceTimersByTime(MSINAMINUTE * 2)
+    expect(syncWalletSpy).toHaveBeenCalledTimes(2)
+  })
+  it('should not call sync peach wallet when not funding multiple escrow', () => {
+    // @ts-ignore
+    const peachWallet = new PeachWallet()
+    setPeachWallet(peachWallet)
+    saveOffer(sellOfferWithEscrow)
+
+    const syncWalletSpy = jest.spyOn(peachWallet, 'syncWallet')
+    renderHook(useFundEscrowSetup, { wrapper })
+
+    jest.advanceTimersByTime(MSINAMINUTE * 2)
+
+    expect(syncWalletSpy).not.toHaveBeenCalled()
   })
 })
