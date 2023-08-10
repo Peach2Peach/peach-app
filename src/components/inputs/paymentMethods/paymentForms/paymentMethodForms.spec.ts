@@ -7,6 +7,7 @@ import {
   Template12,
   Template13,
   Template14,
+  Template15,
   Template2,
   Template3,
   Template4,
@@ -86,6 +87,7 @@ describe('paymentMethodForms', () => {
       mercadoPago: { component: Template13, fields: ['method', 'price', 'phone', 'email'] },
       nequi: { component: Template3, fields: ['method', 'price', 'beneficiary', 'phone', 'reference'] },
       cbu: { component: Template14, fields: ['method', 'price', 'beneficiary', 'accountNumber'] },
+      cvu: { component: Template15, fields: ['method', 'price', 'beneficiary', 'accountNumber'] },
     })
   })
 })

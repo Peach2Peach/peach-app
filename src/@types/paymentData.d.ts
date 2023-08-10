@@ -15,6 +15,7 @@ declare type PaymentDataInfo = {
   lnurlAddress?: string
   userId?: string
   cbu?: string
+  cvu?: string
 }
 
 declare type PaymentDataField = keyof PaymentDataInfo
