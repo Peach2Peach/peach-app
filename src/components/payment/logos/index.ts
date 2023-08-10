@@ -41,6 +41,7 @@ export const PaymentLogos = {
   'cash.lugano': bitcoin,
   'giftCard.amazon': amazon,
   advcash,
+  alias: placeholder,
   amazon,
   bitcoin,
   bizum,

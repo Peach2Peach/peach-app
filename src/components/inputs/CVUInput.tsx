@@ -10,8 +10,8 @@ export const CVUInput = ({ onChange, onSubmit, ...props }: InputProps) => (
       placeholder: i18n('form.cvu.placeholder'),
       ...props,
       onChange,
-      onEndEditing: onChange ? (cbu: string) => onChange(enforceBankNumberFormat(cbu)) : undefined,
-      onSubmit: onSubmit ? (cbu: string) => onSubmit(enforceBankNumberFormat(cbu)) : undefined,
+      onEndEditing: onChange ? (cvu: string) => onChange(enforceBankNumberFormat(cvu)) : undefined,
+      onSubmit: onSubmit ? (cvu: string) => onSubmit(enforceBankNumberFormat(cvu)) : undefined,
     }}
   />
 )

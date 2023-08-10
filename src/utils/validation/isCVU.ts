@@ -1,4 +1,4 @@
-export const isCVU = (cbu: string) => {
-  if (!cbu || cbu.length !== 22) return false
+export const isCVU = (cvu: string) => {
+  if (!cvu || cvu.length !== 22) return false
   return true
 }
