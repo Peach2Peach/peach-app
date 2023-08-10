@@ -15,6 +15,7 @@ export const getMessages = () => ({
   isCBU: i18n('form.invalid.error'),
   isCVU: i18n('form.invalid.error'),
   isCVUAlias: i18n('form.invalid.error'),
+  isBancolombiaAccountNumber: i18n('form.account.errors'),
   isPhoneAllowed: i18n('form.phone.highRisk'),
   max: i18n('form.max.error'),
   min: i18n('form.min.error'),

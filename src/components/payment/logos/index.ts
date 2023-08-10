@@ -7,6 +7,7 @@ import nationalTransferPL from '../../flags/pl.svg'
 import nationalTransferRO from '../../flags/ro.svg'
 import advcash from './advcash.svg'
 import amazon from './amazon.svg'
+import bancolombia from './bancolombia.svg'
 import bitcoin from './bitcoin.svg'
 import bitcoinAmsterdam from './bitcoinAmsterdam.svg'
 import bizum from './bizum.svg'
@@ -46,6 +47,7 @@ export const PaymentLogos = {
   bitcoin,
   bizum,
   blik,
+  bancolombia,
   cbu: placeholder,
   cvu: placeholder,
   fasterPayments,

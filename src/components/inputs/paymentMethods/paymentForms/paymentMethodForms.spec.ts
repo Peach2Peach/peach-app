@@ -9,6 +9,7 @@ import {
   Template14,
   Template15,
   Template16,
+  Template17,
   Template2,
   Template3,
   Template4,
@@ -90,6 +91,7 @@ describe('paymentMethodForms', () => {
       cbu: { component: Template14, fields: ['method', 'price', 'beneficiary', 'accountNumber'] },
       cvu: { component: Template15, fields: ['method', 'price', 'beneficiary', 'accountNumber'] },
       alias: { component: Template16, fields: ['method', 'price', 'beneficiary', 'accountNumber'] },
+      bancolombia: { component: Template17, fields: ['method', 'price', 'beneficiary', 'accountNumber'] },
     })
   })
 })

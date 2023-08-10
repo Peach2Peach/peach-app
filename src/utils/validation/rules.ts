@@ -3,6 +3,7 @@ import { address } from 'bitcoinjs-lib'
 import { getNetwork } from '../wallet'
 import { isAdvcashWallet } from './isAdvcashWallet'
 import { isBIC } from './isBIC'
+import { isBancolombiaAccountNumber } from './isBancolombiaAccountNumber'
 import { isCBU } from './isCBU'
 import { isCVU } from './isCVU'
 import { isCVUAlias } from './isCVUAlias'
@@ -90,6 +91,9 @@ export const rules = {
   },
   isCVUAlias (_: boolean, value: string) {
     return isCVUAlias(value)
+  },
+  isBancolombiaAccountNumber (_: boolean, value: string) {
+    return isBancolombiaAccountNumber(value)
   },
   userName (_: boolean, value: string) {
     return isUsername(value)
