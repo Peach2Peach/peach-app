@@ -11,7 +11,6 @@ describe('useTemplate15Setup', () => {
           type: 'cvu',
           beneficiary: 'beneficiary',
           accountNumber: 'accountNumber',
-          reference: 'reference',
           currencies: [],
         },
         currencies: [],

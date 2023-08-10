@@ -3,7 +3,7 @@
 exports[`CBUInput is neither optional nor required when specified 1`] = `
 <Input
   autoCorrect={false}
-  label="CBU"
+  label="account #"
   placeholder="1112222344444444444445"
 />
 `;
@@ -11,7 +11,7 @@ exports[`CBUInput is neither optional nor required when specified 1`] = `
 exports[`CBUInput is optional when specified 1`] = `
 <Input
   autoCorrect={false}
-  label="CBU"
+  label="account #"
   placeholder="1112222344444444444445"
   required={false}
 />
@@ -20,7 +20,7 @@ exports[`CBUInput is optional when specified 1`] = `
 exports[`CBUInput renders correctly 1`] = `
 <Input
   autoCorrect={false}
-  label="CBU"
+  label="account #"
   placeholder="1112222344444444444445"
 />
 `;

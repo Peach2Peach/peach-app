@@ -373,7 +373,7 @@ exports[`Template15 should render correctly 1`] = `
         ]
       }
     >
-      CVU
+      form.accountNumber
       <Text
         allowFontScaling={false}
         style={
