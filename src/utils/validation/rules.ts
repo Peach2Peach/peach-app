@@ -3,6 +3,7 @@ import { address } from 'bitcoinjs-lib'
 import { getNetwork } from '../wallet'
 import { isAdvcashWallet } from './isAdvcashWallet'
 import { isBIC } from './isBIC'
+import { isCBU } from './isCBU'
 import { isEUIBAN } from './isEUIBAN'
 import { isEmail } from './isEmail'
 import { isIBAN } from './isIBAN'
@@ -78,6 +79,9 @@ export const rules = {
   },
   bic (_: boolean, value: string) {
     return isBIC(value)
+  },
+  isCBU (_: boolean, value: string) {
+    return isCBU(value)
   },
   userName (_: boolean, value: string) {
     return isUsername(value)

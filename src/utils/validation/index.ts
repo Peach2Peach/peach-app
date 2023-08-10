@@ -1,6 +1,7 @@
 export { getErrorsInField } from './getErrorsInField'
 export { isAdvcashWallet } from './isAdvcashWallet'
 export { isBIC } from './isBIC'
+export { isCBU } from './isCBU'
 export { isDateString } from './isDateString'
 export { isDefined } from './isDefined'
 export { isEmail } from './isEmail'

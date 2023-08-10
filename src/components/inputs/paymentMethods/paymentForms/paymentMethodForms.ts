@@ -7,6 +7,7 @@ import {
   Template11,
   Template12,
   Template13,
+  Template14,
   Template2,
   Template3,
   Template4,
@@ -37,6 +38,7 @@ const template10Fields: TradeInfoField[] = [...sharedFields, 'receiveAddress']
 const template11Fields: TradeInfoField[] = [...sharedFields, 'lnurlAddress']
 const template12Fields: TradeInfoField[] = [...sharedFields, 'phone']
 const template13Fields: TradeInfoField[] = [...sharedFields, 'phone', 'email']
+const template14Fields: TradeInfoField[] = [...sharedFields, 'beneficiary', 'accountNumber']
 
 export const PaymentMethodForms: PaymentMethodFormsType = {
   sepa: { component: Template1, fields: template1Fields },
@@ -71,6 +73,7 @@ export const PaymentMethodForms: PaymentMethodFormsType = {
   rappipay: { component: Template12, fields: template12Fields },
   mercadoPago: { component: Template13, fields: template13Fields },
   nequi: { component: Template3, fields: template3Fields },
+  cbu: { component: Template14, fields: template14Fields },
 }
 GIFTCARDCOUNTRIES.forEach(
   (c) =>

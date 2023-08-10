@@ -1,3 +1,4 @@
+/* eslint-disable max-lines-per-function */
 import { PaymentMethodForms } from '../paymentForms/paymentMethodForms'
 import {
   Template1,
@@ -5,6 +6,7 @@ import {
   Template11,
   Template12,
   Template13,
+  Template14,
   Template2,
   Template3,
   Template4,
@@ -83,6 +85,7 @@ describe('paymentMethodForms', () => {
       rappipay: { component: Template12, fields: ['method', 'price', 'phone'] },
       mercadoPago: { component: Template13, fields: ['method', 'price', 'phone', 'email'] },
       nequi: { component: Template3, fields: ['method', 'price', 'beneficiary', 'phone', 'reference'] },
+      cbu: { component: Template14, fields: ['method', 'price', 'beneficiary', 'accountNumber'] },
     })
   })
 })
