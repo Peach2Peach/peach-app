@@ -16,6 +16,7 @@ describe('TradeSummary', () => {
         disputeActive: false,
       },
       view: 'buyer',
+      showBatchInfo: false,
     })
     renderer.render(<TradeSummary />)
     expect(renderer.getRenderOutput()).toMatchSnapshot()
@@ -28,6 +29,7 @@ describe('TradeSummary', () => {
         disputeActive: false,
       },
       view: 'seller',
+      showBatchInfo: false,
     })
     renderer.render(<TradeSummary />)
     expect(renderer.getRenderOutput()).toMatchSnapshot()
@@ -40,6 +42,20 @@ describe('TradeSummary', () => {
         disputeActive: true,
       },
       view: 'buyer',
+      showBatchInfo: false,
+    })
+    renderer.render(<TradeSummary />)
+    expect(renderer.getRenderOutput()).toMatchSnapshot()
+  })
+  it('should render correctly for showing batch info', () => {
+    useContractContextMock.mockReturnValueOnce({
+      contract: {
+        seller: { id: 'seller' },
+        buyer: { id: 'buyer' },
+        disputeActive: false,
+      },
+      view: 'buyer',
+      showBatchInfo: true,
     })
     renderer.render(<TradeSummary />)
     expect(renderer.getRenderOutput()).toMatchSnapshot()

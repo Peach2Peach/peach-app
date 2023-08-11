@@ -1,7 +1,8 @@
 {
+  "batching.eta.tba" : "TBA",
   "batching.willBeSenTTo" : "verrà inviato a",
   "help.payoutPending.title" : "pagamento in sospeso",
-  "offer.requiredAction.pendingPayout" : "pagamento in sospeso",
+  "offer.requiredAction.payoutPending" : "pagamento in sospeso",
   "settings.batching.delayedPayouts" : "I versamenti dei depositi sono ritardati",
   "settings.batching.title" : "raggruppamento delle transazioni",
   "settings.batching.toggle" : "raggruppamento delle transazioni",

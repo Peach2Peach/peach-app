@@ -1,6 +1,14 @@
 declare type ContractAction = 'none' | 'sendPayment' | 'confirmPayment'
 declare type PaymentReminder = 'fourHours' | 'oneHour' | 'final'
 
+declare type BatchInfo = {
+  participants: number
+  maxParticipants: number
+  timeRemaining: number
+  completed: boolean
+  txId?: string
+}
+
 declare type Contract = {
   creationDate: Date
   id: string
@@ -37,6 +45,8 @@ declare type Contract = {
   releaseAddress: string
   releasePsbt: string
   batchReleasePsbt?: string
+  batchInfo?: BatchInfo
+  batchId?: string
   releaseTransaction: string
   releaseTxId?: string
 
