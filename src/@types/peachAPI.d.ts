@@ -248,6 +248,7 @@ declare type TradeStatus =
   | 'refundTxSignatureRequired'
   | 'paymentRequired'
   | 'confirmPaymentRequired'
+  | 'payoutPending'
   | 'dispute'
   | 'releaseEscrow'
   | 'rateUser'
