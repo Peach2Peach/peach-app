@@ -12,6 +12,7 @@ export const statusIcons: Record<TradeStatus, IconType> = {
   refundTxSignatureRequired: 'alertOctagon',
   paymentRequired: 'dollarSign',
   confirmPaymentRequired: 'dollarSign',
+  payoutPending: 'clock',
   dispute: 'alertOctagon',
   releaseEscrow: 'upload',
   rateUser: 'heart',
