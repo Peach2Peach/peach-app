@@ -1,9 +1,11 @@
-import { renderHook, waitFor } from '@testing-library/react-native'
+import { act, renderHook, waitFor } from '@testing-library/react-native'
+import { contractSummary } from '../../../../tests/unit/data/contractSummaryData'
 import { defaultSelfUser } from '../../../../tests/unit/data/userData'
 import { NavigationAndQueryClientWrapper } from '../../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
 import { headerState } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
 import { TurnOffBatching } from '../../../popups/app/TurnOffBatching'
+import { useTradeSummaryStore } from '../../../store/tradeSummaryStore'
 import { usePopupStore } from '../../../store/usePopupStore'
 import { useTransactionBatchingSetup } from './useTransactionBatchingSetup'
 
@@ -53,7 +55,16 @@ describe('useTransactionBatchingSetup', () => {
     result.current.toggleBatching()
     await waitFor(() => expect(setBatchingMock).toHaveBeenCalledWith({ enableBatching: true }))
   })
+  it('disables batching when enabled', async () => {
+    getSelfUserMock.mockResolvedValue([{ ...defaultSelfUser, isBatchingEnabled: true }])
+
+    const { result } = renderHook(useTransactionBatchingSetup, { wrapper })
+    await waitFor(() => expect(result.current.isBatchingEnabled).toBeTruthy())
+    result.current.toggleBatching()
+    await waitFor(() => expect(setBatchingMock).toHaveBeenCalledWith({ enableBatching: false }))
+  })
   it('shows confirmation popup before disabling batching', async () => {
+    useTradeSummaryStore.getState().setContracts([{ ...contractSummary, tradeStatus: 'payoutPending' }])
     getSelfUserMock.mockResolvedValue([{ ...defaultSelfUser, isBatchingEnabled: true }])
     const { result } = renderHook(useTransactionBatchingSetup, { wrapper })
     await waitFor(() =>
@@ -86,5 +97,6 @@ describe('useTransactionBatchingSetup', () => {
 
     usePopupStore.getState().action1?.callback()
     await waitFor(() => expect(setBatchingMock).toHaveBeenCalledWith({ enableBatching: false }))
+    await act(() => useTradeSummaryStore.getState().reset())
   })
 })
