@@ -1,22 +1,19 @@
 import { View } from 'react-native'
 import { HorizontalLine, Text } from '../components'
 import tw from '../styles/tailwind'
-import i18n from '../utils/i18n'
 import { getTradeBreakdown } from '../utils/bitcoin'
+import i18n from '../utils/i18n'
 import { TradeBreakdownSats } from './TradeBreakdownSats'
 
-type Props = {
-  releaseTransaction: string
-  releaseAddress: string
-  amount: number
-}
+type Props = Pick<Contract, 'releaseTransaction' | 'releaseAddress' | 'amount' | 'batchId'>
 
-export const TradeBreakdown = ({ releaseTransaction, releaseAddress, amount }: Props) => {
-  const { totalAmount, peachFee, networkFee, amountReceived } = getTradeBreakdown(
+export const TradeBreakdown = ({ releaseTransaction, releaseAddress, amount, batchId }: Props) => {
+  const { totalAmount, peachFee, networkFee, amountReceived } = getTradeBreakdown({
     releaseTransaction,
     releaseAddress,
-    amount,
-  )
+    inputAmount: amount,
+    discount: batchId ? 40 : 0,
+  })
 
   return (
     <View>
