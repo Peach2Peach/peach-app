@@ -16,16 +16,16 @@ export const useReleaseEscrow = (contract: Contract) => {
       title: i18n('dispute.lost'),
       level: 'WARN',
     })
-    const [tx, errorMsg, batchMode] = signReleaseTxOfContract(contract)
-    if (!tx) {
+    const { releaseTransaction, batchReleasePsbt, errorMsg } = signReleaseTxOfContract(contract)
+    if (!releaseTransaction) {
       closePopup()
       return showError(errorMsg)
     }
 
     const [result, err] = await confirmPayment({
       contractId: contract.id,
-      releaseTransaction: !batchMode ? tx : undefined,
-      batchReleasePsbt: batchMode ? tx : undefined,
+      releaseTransaction,
+      batchReleasePsbt,
     })
     if (err) {
       closePopup()

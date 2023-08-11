@@ -41,16 +41,20 @@ export const useDisputeResults = () => {
           level: 'WARN',
         })
         const sellOffer = getSellOfferFromContract(contract)
-        const [tx, errorMsg, batchMode] = verifyAndSignReleaseTx(contract, sellOffer, getEscrowWalletForOffer(sellOffer))
-        if (!tx) {
+        const { releaseTransaction, batchReleasePsbt, errorMsg } = verifyAndSignReleaseTx(
+          contract,
+          sellOffer,
+          getEscrowWalletForOffer(sellOffer),
+        )
+        if (!releaseTransaction) {
           closePopup()
           return showError(errorMsg)
         }
 
         const [result, err] = await confirmPayment({
           contractId: contract.id,
-          releaseTransaction: !batchMode ? tx : undefined,
-          batchReleasePsbt: batchMode ? tx : undefined,
+          releaseTransaction,
+          batchReleasePsbt,
         })
         if (err) {
           closePopup()

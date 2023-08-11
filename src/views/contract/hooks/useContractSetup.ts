@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 
 import { useIsFocused } from '@react-navigation/native'
-import { useNavigation, useRoute } from '../../../hooks'
+import { useNavigation, useRoute, useToggleBoolean } from '../../../hooks'
 import { useCommonContractSetup } from '../../../hooks/useCommonContractSetup'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import {
@@ -27,6 +27,7 @@ export const useContractSetup = () => {
   const showError = useShowErrorBanner()
 
   const [actionPending, setActionPending] = useState(false)
+  const [showBatchInfo, toggleShowBatchInfo] = useToggleBoolean()
 
   useContractHeaderSetup({
     contract,
@@ -65,9 +66,13 @@ export const useContractSetup = () => {
     setActionPending(true)
 
     const sellOffer = getSellOfferFromContract(contract)
-    const [tx, errorMsg, batchMode] = verifyAndSignReleaseTx(contract, sellOffer, getEscrowWalletForOffer(sellOffer))
+    const { releaseTransaction, batchReleasePsbt, errorMsg } = verifyAndSignReleaseTx(
+      contract,
+      sellOffer,
+      getEscrowWalletForOffer(sellOffer),
+    )
 
-    if (!tx) {
+    if (!releaseTransaction) {
       setActionPending(false)
       showError(errorMsg)
       return
@@ -75,8 +80,8 @@ export const useContractSetup = () => {
 
     const [result, err] = await confirmPayment({
       contractId: contract.id,
-      releaseTransaction: !batchMode ? tx : undefined,
-      batchReleasePsbt: batchMode ? tx : undefined,
+      releaseTransaction,
+      batchReleasePsbt,
     })
 
     setActionPending(false)
@@ -115,5 +120,7 @@ export const useContractSetup = () => {
     postConfirmPaymentBuyer,
     postConfirmPaymentSeller,
     goToNewOffer,
+    showBatchInfo,
+    toggleShowBatchInfo,
   }
 }
