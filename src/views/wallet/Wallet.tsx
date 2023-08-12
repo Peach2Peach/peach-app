@@ -7,6 +7,8 @@ import i18n from '../../utils/i18n'
 import { BitcoinLoading } from '../loading/BitcoinLoading'
 import { WalletHeader } from './components/WalletHeader'
 import { TotalBalance } from './components/overview/TotalBalance'
+import { useLastUnusedAddress } from './hooks/useLastUnusedAddress'
+import { useWalletAddress } from './hooks/useWalletAddress'
 import { useWalletSetup } from './hooks/useWalletSetup'
 
 export const Wallet = () => {
@@ -29,10 +31,19 @@ export const Wallet = () => {
   )
 }
 
+const useAddressPrefetch = () => {
+  const { data } = useLastUnusedAddress()
+  const displayIndex = data?.index ?? 0
+  useWalletAddress(displayIndex)
+  useWalletAddress(displayIndex + 1)
+  useWalletAddress(displayIndex - 1)
+}
 function WalletButtons () {
   const navigation = useNavigation()
+  useAddressPrefetch()
+
   const onPress = () => {
-    Alert.alert('TODO: Navigate to send/receive screen')
+    Alert.alert('TODO: Navigate to send screen')
   }
   const goToReceive = () => {
     navigation.navigate('receiveBitcoin')
