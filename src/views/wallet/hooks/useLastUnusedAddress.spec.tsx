@@ -13,9 +13,9 @@ describe('useLastUnusedAddress', () => {
     address: 'bcrt1qj9yqz9qzg9qz9qz9qz9qz9qz9qz9qz9qz9qz9',
     index: 0,
   })
-  peachWallet.getLastUnusedAddress = getLastUnusedAddressMock
 
   it('should return last unused address', async () => {
+    peachWallet.getLastUnusedAddress = getLastUnusedAddressMock
     const { result } = renderHook(useLastUnusedAddress, { wrapper: QueryClientWrapper })
 
     await waitFor(() => {

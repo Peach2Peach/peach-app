@@ -50,26 +50,6 @@ exports[`TouchableIcon should render correctly 1`] = `
 </View>
 `;
 
-exports[`TouchableIcon should render correctly with a custom icon color 1`] = `
-"Snapshot Diff:
-- First value
-+ Second value
-
-@@ -31,11 +31,11 @@
-        "opacity": 1,
-      }
-    }
-  >
-    <test-file-stub
--     fill="#F56522"
-+     fill="#000"
-      style={
-        Array [
-          Object {
-            "height": 24,
-            "width": 24,"
-`;
-
 exports[`TouchableIcon should render correctly with a custom icon color and size 1`] = `
 "Snapshot Diff:
 - First value
