@@ -1,4 +1,4 @@
-import { Alert, RefreshControl, View } from 'react-native'
+import { RefreshControl, View } from 'react-native'
 import { PeachScrollView, Screen } from '../../components'
 import { NewButton as Button } from '../../components/buttons/Button'
 import { useNavigation } from '../../hooks'
@@ -42,15 +42,15 @@ function WalletButtons () {
   const navigation = useNavigation()
   useAddressPrefetch()
 
-  const onPress = () => {
-    Alert.alert('TODO: Navigate to send screen')
+  const goToSend = () => {
+    navigation.navigate('sendBitcoin')
   }
   const goToReceive = () => {
     navigation.navigate('receiveBitcoin')
   }
   return (
     <View style={[tw`flex-row items-center justify-center gap-2`, tw.md`gap-4`]}>
-      <Button style={tw`flex-1`} onPress={onPress}>
+      <Button style={tw`flex-1`} onPress={goToSend}>
         {i18n('wallet.send')}
       </Button>
       <Button style={tw`flex-1 bg-success-main`} onPress={goToReceive}>
