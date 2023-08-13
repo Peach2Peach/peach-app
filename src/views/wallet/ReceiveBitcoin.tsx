@@ -44,7 +44,7 @@ function AddressQRCode ({ index }: { index: number }) {
       <QRCode
         value={data?.address}
         size={isMediumScreen ? 327 : 275}
-        color={data?.used ? String(tw`text-black-6`.color) ?? '#F4EEEB' : String(tw`text-black-1`.color) ?? '#2B1911'}
+        color={String(data?.used ? tw`text-black-6`.color : tw`text-black-1`.color)}
       />
       {data?.used && (
         <Text style={[tw`absolute self-center text-center h3 text-error-main top-110px`, tw.md`top-135px`]}>
