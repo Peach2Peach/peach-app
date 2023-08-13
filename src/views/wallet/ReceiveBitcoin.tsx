@@ -1,65 +1,79 @@
-import { TextInput, TouchableOpacity, View } from 'react-native'
-import { CopyAble, HorizontalLine, Icon, NewHeader, Screen, Text } from '../../components'
-import tw from '../../styles/tailwind'
-import QRCode from 'react-native-qrcode-svg'
-import { peachWallet } from '../../utils/wallet/setWallet'
 import { useState } from 'react'
-import { useQuery } from '@tanstack/react-query'
+import { View } from 'react-native'
+import QRCode from 'react-native-qrcode-svg'
+import { CopyAble, NewHeader as Header, HorizontalLine, Screen, Text } from '../../components'
+import { useIsMediumScreen } from '../../hooks'
+import tw from '../../styles/tailwind'
+import { getBitcoinAddressParts } from '../../utils/bitcoin'
+import i18n from '../../utils/i18n'
+import { BitcoinLoading } from '../loading/BitcoinLoading'
+import { AddressNavigation } from './AddressNavigation'
+import { useLastUnusedAddress } from './hooks/useLastUnusedAddress'
+import { useWalletAddress } from './hooks/useWalletAddress'
 
 export const ReceiveBitcoin = () => {
-  const [index, setIndex] = useState(0)
-  const { data } = useQuery(['receiveAddress', index], () => peachWallet.getAddressByIndex(index))
+  const { data: lastUnusedAddress } = useLastUnusedAddress()
+  const [index, setIndex] = useState<number>()
+  const displayIndex = index ?? lastUnusedAddress?.index ?? 0
+  const { isLoading } = useWalletAddress(displayIndex)
+
+  if (isLoading) return <BitcoinLoading />
 
   return (
     <Screen>
-      <ReceiveBitcoinHeader />
-      <View style={tw`flex-1 gap-2 my-1 border`}>
-        <AddressNavigation setIndex={setIndex} index={index} />
+      <Header title={i18n('wallet.receiveBitcoin.title')} />
+      <View style={[tw`items-center flex-1 gap-2 py-1`, tw.md`gap-8 py-6`]}>
+        <AddressNavigation setIndex={setIndex} index={displayIndex} />
 
         <HorizontalLine />
 
-        <View>
-          <QRCode value={data?.address} />
-          <View style={tw`flex-row flex-wrap`}>
-            <Text>{data?.address}</Text>
-            <CopyAble value={data?.address} style={tw`w-6 h-6`} />
-          </View>
+        <View style={tw`items-center self-stretch justify-center gap-4`}>
+          <AddressQRCode index={displayIndex} />
+          <BitcoinAddress index={displayIndex} />
         </View>
       </View>
     </Screen>
   )
 }
 
-function ReceiveBitcoinHeader () {
-  return <NewHeader title="receive bitcoin" />
-}
-
-type AddressNavigationProps = {
-  setIndex: React.Dispatch<React.SetStateAction<number>>
-  index: number
-}
-
-function AddressNavigation ({ setIndex, index }: AddressNavigationProps) {
-  const nextAddress = () => {
-    setIndex(index + 1)
-  }
-
-  const prevAddress = () => {
-    if (index === 0) return
-    setIndex(index - 1)
-  }
+function AddressQRCode ({ index }: { index: number }) {
+  const { data } = useWalletAddress(index)
+  const isMediumScreen = useIsMediumScreen()
   return (
-    <View style={tw`flex-row items-center justify-between w-full px-1`}>
-      <TouchableOpacity onPress={prevAddress} disabled={index === 0}>
-        <Icon id="arrowLeftCircle" size={24} color={index === 0 ? tw`text-black-5`.color : tw`text-black-3`.color} />
-      </TouchableOpacity>
-      <View style={tw`flex-row items-center justify-center`}>
-        <TextInput value={`address #${index + 1}`} style={tw``} />
-        <Icon id="edit3" color={tw`text-primary-main`.color} size={16} />
-      </View>
-      <TouchableOpacity onPress={nextAddress}>
-        <Icon id="arrowRightCircle" size={24} />
-      </TouchableOpacity>
+    <>
+      <QRCode
+        value={data?.address}
+        size={isMediumScreen ? 327 : 275}
+        color={data?.used ? String(tw`text-black-6`.color) ?? '#F4EEEB' : String(tw`text-black-1`.color) ?? '#2B1911'}
+      />
+      {data?.used && (
+        <Text style={[tw`absolute self-center text-center h3 text-error-main top-110px`, tw.md`top-135px`]}>
+          {i18n('wallet.address.used')}
+        </Text>
+      )}
+    </>
+  )
+}
+
+function BitcoinAddress ({ index }: { index: number }) {
+  const { data } = useWalletAddress(index)
+  const address = data?.address ?? ''
+  const isUsed = data?.used ?? false
+  const addressParts = getBitcoinAddressParts(address)
+  return (
+    <View style={tw`flex-row items-center self-stretch gap-3 px-1`}>
+      <Text style={tw`shrink text-black-3 body-l`}>
+        {addressParts.one}
+        <Text style={tw`body-l`}>{addressParts.two}</Text>
+        {addressParts.three}
+        <Text style={tw`body-l`}>{addressParts.four}</Text>
+      </Text>
+      <CopyAble
+        value={address}
+        style={tw`w-6 h-6`}
+        color={isUsed ? tw`text-primary-mild-1` : tw`text-primary-main`}
+        disabled={isUsed}
+      />
     </View>
   )
 }
