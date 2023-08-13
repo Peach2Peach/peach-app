@@ -1,6 +1,6 @@
+import { fireEvent, render } from '@testing-library/react-native'
 import { toMatchDiffSnapshot } from 'snapshot-diff'
 import { TotalBalance } from './TotalBalance'
-import { render, fireEvent } from '@testing-library/react-native'
 expect.extend({ toMatchDiffSnapshot })
 
 jest.mock('../../../../components/bitcoin', () => ({
@@ -8,12 +8,13 @@ jest.mock('../../../../components/bitcoin', () => ({
 }))
 
 describe('TotalBalance', () => {
+  const defaultComponent = <TotalBalance amount={100000} />
   it('renders correctly', () => {
-    const { toJSON } = render(<TotalBalance amount={100000} />)
+    const { toJSON } = render(defaultComponent)
     expect(toJSON()).toMatchSnapshot()
   })
   it('hide balance when the eye icon is pressed', () => {
-    const { getByAccessibilityHint, toJSON } = render(<TotalBalance amount={100000} />)
+    const { getByAccessibilityHint, toJSON } = render(defaultComponent)
     const eyeIcon = getByAccessibilityHint('hide wallet balance')
     fireEvent.press(eyeIcon)
 

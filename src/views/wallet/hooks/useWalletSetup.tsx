@@ -11,7 +11,7 @@ export const useWalletSetup = (syncOnLoad = true) => {
   const balance = useWalletState((state) => state.balance)
 
   const navigation = useNavigation()
-  const { isRefreshing } = useSyncWallet()
+  const { refresh, isRefreshing } = useSyncWallet()
   const [walletLoading, setWalletLoading] = useState(false)
   const [shouldShowBackupOverlay, showBackupReminder, setShowBackupReminder] = useSettingsStore((state) => [
     state.shouldShowBackupOverlay,
@@ -44,5 +44,6 @@ export const useWalletSetup = (syncOnLoad = true) => {
     balance,
     isRefreshing,
     walletLoading,
+    refresh,
   }
 }

@@ -794,11 +794,11 @@ exports[`NewHeader should render correctly with title and icons 1`] = `
           Object {
 -         "paddingLeft": 32,
 -         "paddingRight": 32,
-+           "paddingLeft": 12,
++           "marginLeft": -4,
           },
 -       undefined,
 +         Object {
-+           "paddingLeft": 22,
++           "marginLeft": -10,
 +         },
 +       ],
         Object {

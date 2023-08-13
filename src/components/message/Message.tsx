@@ -1,12 +1,12 @@
 import { useContext } from 'react'
 import { TextStyle, TouchableOpacity, View, ViewStyle } from 'react-native'
-import { Icon, Text } from '.'
-import { IconType } from '../assets/icons'
-import { MessageContext } from '../contexts/message'
-import tw from '../styles/tailwind'
-import i18n from '../utils/i18n'
-import { messageShadow } from '../utils/layout/shadows'
-import { iconMap } from './message/iconMap'
+import { Icon, Text } from '..'
+import { IconType } from '../../assets/icons'
+import { MessageContext } from '../../contexts/message'
+import tw from '../../styles/tailwind'
+import i18n from '../../utils/i18n'
+import { messageShadow } from '../../utils/layout/shadows'
+import { iconMap } from './iconMap'
 
 type LevelColorMap = {
   bg: Record<Level, ViewStyle>
