@@ -2,7 +2,7 @@ import Clipboard from '@react-native-clipboard/clipboard'
 import { useState } from 'react'
 import { Linking, Platform } from 'react-native'
 import { BarCodeReadEvent } from 'react-native-camera'
-import { PERMISSIONS, request as requestPermission, RESULTS } from 'react-native-permissions'
+import { PERMISSIONS, RESULTS, request as requestPermission } from 'react-native-permissions'
 import { ClosePopupAction } from '../../popups/actions'
 import { usePopupStore } from '../../store/usePopupStore'
 import tw from '../../styles/tailwind'
@@ -48,18 +48,16 @@ export const BitcoinAddressInput = ({ value, onChange, ...props }: InputProps & 
 
   return !showQRScanner ? (
     <Input
-      {...{
-        placeholder: i18n('form.address.btc.placeholder'),
-        icons: [
-          ['clipboard', pasteAddress],
-          ['camera', onCameraPress],
-        ],
-        onChange,
-        onFocus: () => setFocused(true),
-        onBlur: () => setFocused(false),
-        value: isFocused ? value : cutOffAddress(value),
-        ...props,
-      }}
+      placeholder={i18n('form.address.btc.placeholder')}
+      icons={[
+        ['clipboard', pasteAddress],
+        ['camera', onCameraPress],
+      ]}
+      onChange={onChange}
+      onFocus={() => setFocused(true)}
+      onBlur={() => setFocused(false)}
+      value={isFocused ? value : cutOffAddress(value)}
+      {...props}
     />
   ) : (
     <ScanQR onRead={onQRScanSuccess} onCancel={closeQR} />
