@@ -26,6 +26,7 @@ exports[`Template14 should render correctly 1`] = `
               "color": "#2B1911",
             },
           ],
+          false,
         ]
       }
     >
@@ -53,6 +54,7 @@ exports[`Template14 should render correctly 1`] = `
                 "color": "#BAADA7",
               },
             ],
+            false,
           ]
         }
       />
@@ -168,6 +170,7 @@ exports[`Template14 should render correctly 1`] = `
               "color": "#DF321F",
             },
           ],
+          false,
         ]
       }
     >
@@ -198,6 +201,7 @@ exports[`Template14 should render correctly 1`] = `
               "color": "#2B1911",
             },
           ],
+          false,
         ]
       }
     >
@@ -225,6 +229,7 @@ exports[`Template14 should render correctly 1`] = `
                 "color": "#BAADA7",
               },
             ],
+            false,
           ]
         }
       />
@@ -340,6 +345,7 @@ exports[`Template14 should render correctly 1`] = `
               "color": "#DF321F",
             },
           ],
+          false,
         ]
       }
     >
@@ -370,6 +376,7 @@ exports[`Template14 should render correctly 1`] = `
               "color": "#2B1911",
             },
           ],
+          false,
         ]
       }
     >
@@ -397,6 +404,7 @@ exports[`Template14 should render correctly 1`] = `
                 "color": "#BAADA7",
               },
             ],
+            false,
           ]
         }
       />
@@ -512,6 +520,7 @@ exports[`Template14 should render correctly 1`] = `
               "color": "#DF321F",
             },
           ],
+          false,
         ]
       }
     >
