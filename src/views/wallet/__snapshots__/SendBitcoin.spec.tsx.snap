@@ -1617,23 +1617,3 @@ exports[`SendBitcoin should update the amount on change 1`] = `
                     style={
                       Array ["
 `;
-
-exports[`SendBitcoin should update the fee rate on change 1`] = `
-"Snapshot Diff:
-- First value
-+ Second value
-
-@@ -589,11 +589,11 @@
-                          "paddingBottom": 0,
-                          "paddingTop": 0,
-                        },
-                      ]
-                    }
--                   value=""
-+                   value="123"
-                  />
-                  <Text
-                    allowFontScaling={false}
-                    style={
-                      Array ["
-`;
