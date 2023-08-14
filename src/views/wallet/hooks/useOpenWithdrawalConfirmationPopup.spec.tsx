@@ -110,4 +110,16 @@ describe('useOpenWithdrawalConfirmationPopup', () => {
     expect(peachWallet.signAndBroadcastPSBT).toHaveBeenCalledWith(transaction.psbt)
     expect(onSuccess).toHaveBeenCalled()
   })
+
+  it('should close popup on cancel', async () => {
+    peachWallet.buildAndFinishTransaction = jest.fn().mockResolvedValue(transaction)
+    const { result } = renderHook(useOpenWithdrawalConfirmationPopup, { wrapper })
+
+    await act(async () => {
+      await result.current(props)
+    })
+    usePopupStore.getState().action2?.callback()
+
+    expect(usePopupStore.getState().visible).toBe(false)
+  })
 })
