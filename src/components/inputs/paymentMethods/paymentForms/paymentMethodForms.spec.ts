@@ -99,6 +99,7 @@ describe('paymentMethodForms', () => {
       airtelMoney: { component: Template12, fields: ['method', 'price', 'phone'] },
       'm-pesa': { component: Template12, fields: ['method', 'price', 'phone'] },
       accessBank: { component: Template21, fields: ['method', 'price', 'accountNumber'] },
+      gtBank: { component: Template21, fields: ['method', 'price', 'accountNumber'] },
     })
   })
 })

@@ -91,6 +91,7 @@ export const PaymentMethodForms: PaymentMethodFormsType = {
   airtelMoney: { component: Template12, fields: template12Fields },
   'm-pesa': { component: Template12, fields: template12Fields },
   accessBank: { component: Template21, fields: template21Fields },
+  gtBank: { component: Template21, fields: template21Fields },
 }
 GIFTCARDCOUNTRIES.forEach(
   (c) =>

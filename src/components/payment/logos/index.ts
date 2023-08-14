@@ -16,6 +16,7 @@ import bizum from './bizum.svg'
 import blik from './blik.svg'
 import fasterPayments from './fasterPayments.svg'
 import friends24 from './friends24.svg'
+import gtBank from './gtBank.svg'
 import keksPay from './keksPay.svg'
 import liquid from './liquid.svg'
 import lydia from './lydia.svg'
@@ -60,6 +61,7 @@ export const PaymentLogos = {
   cvu: placeholder,
   fasterPayments,
   friends24,
+  gtBank,
   instantSepa: sepa,
   iris: placeholder,
   keksPay,
