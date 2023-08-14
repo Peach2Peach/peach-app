@@ -122,4 +122,6 @@ describe('useOpenWithdrawalConfirmationPopup', () => {
 
     expect(usePopupStore.getState().visible).toBe(false)
   })
+
+  it.todo('should send from the selected coins only, if any are selected')
 })

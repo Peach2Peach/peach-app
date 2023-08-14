@@ -14,3 +14,9 @@ describe('SendBitcoin', () => {
   it.todo('should open the confirmation popup when swiping the slider')
   it.todo('should disable the slider while the form is invalid')
 })
+
+describe('SendBitcoin - Selected coins', () => {
+  it.todo('should render correctly')
+  it.todo('should set the amount to the sum of all selected coins when clicking "send max"')
+  it.todo('should not allow entering an amount higher than the sum of all selected coins')
+})
