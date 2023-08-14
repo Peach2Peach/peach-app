@@ -96,6 +96,7 @@ describe('paymentMethodForms', () => {
       moov: { component: Template12, fields: ['method', 'price', 'phone'] },
       wave: { component: Template12, fields: ['method', 'price', 'phone'] },
       airtelMoney: { component: Template12, fields: ['method', 'price', 'phone'] },
+      'm-pesa': { component: Template12, fields: ['method', 'price', 'phone'] },
     })
   })
 })
