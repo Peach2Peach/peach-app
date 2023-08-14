@@ -92,6 +92,7 @@ export const PaymentMethodForms: PaymentMethodFormsType = {
   'm-pesa': { component: Template12, fields: template12Fields },
   accessBank: { component: Template21, fields: template21Fields },
   gtBank: { component: Template21, fields: template21Fields },
+  zenithBank: { component: Template21, fields: template21Fields },
 }
 GIFTCARDCOUNTRIES.forEach(
   (c) =>
