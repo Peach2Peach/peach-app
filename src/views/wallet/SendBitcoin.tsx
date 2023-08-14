@@ -1,13 +1,14 @@
 import { useMemo, useState } from 'react'
 import { TextInput, TextInputProps, TouchableOpacity, View } from 'react-native'
-import { HorizontalLine, NewHeader, PeachScrollView, Screen, Text } from '../../components'
+import { NewHeader as Header, HorizontalLine, PeachScrollView, Screen, Text } from '../../components'
 import { BitcoinAddressInput, ConfirmSlider, RadioButtons } from '../../components/inputs'
-import { useNavigation } from '../../hooks'
+import { useNavigation, useShowHelp } from '../../hooks'
 import { useFeeEstimate } from '../../hooks/query/useFeeEstimate'
 import { usePopupStore } from '../../store/usePopupStore'
 import tw from '../../styles/tailwind'
 import { enforceDecimalsFormat } from '../../utils/format'
 import i18n from '../../utils/i18n'
+import { headerIcons } from '../../utils/layout'
 import { thousands } from '../../utils/string'
 import { isBitcoinAddress } from '../../utils/validation'
 import { peachWallet } from '../../utils/wallet/setWallet'
@@ -18,10 +19,10 @@ import { useOpenWithdrawalConfirmationPopup } from './hooks/useOpenWithdrawalCon
 export const SendBitcoin = () => {
   const [address, setAddress] = useState('')
   const [amount, setAmount] = useState('')
-  const [feeRate, setFee] = useState<number>()
+  const { estimatedFees } = useFeeEstimate()
+  const [feeRate, setFee] = useState<number | undefined>(estimatedFees.fastestFee)
   const openConfirmationPopup = useOpenWithdrawalConfirmationPopup()
   const closePopup = usePopupStore((state) => state.closePopup)
-  const { estimatedFees } = useFeeEstimate()
 
   const navigation = useNavigation()
 
@@ -42,15 +43,16 @@ export const SendBitcoin = () => {
   }
 
   const sendTrasaction = () => {
+    if (!feeRate) return
     openConfirmationPopup({
       address,
       amount: Number(amount.replace(/[^0-9]/gu, '')),
-      feeRate: feeRate || Number(estimatedFees.fastestFee),
+      feeRate,
       onSuccess,
     })
   }
 
-  const isFormValid = useMemo(() => isBitcoinAddress(address) && amount !== '', [address, amount])
+  const isFormValid = useMemo(() => isBitcoinAddress(address) && amount !== '' && !!feeRate, [address, amount, feeRate])
 
   return (
     <Screen>
@@ -129,18 +131,18 @@ function Section ({ title, action, children }: SectionProps) {
 
 const feeRates: FeeRate[] = ['fastestFee', 'halfHourFee', 'hourFee', 'custom']
 
-function Fees ({ updateFee }: { updateFee: (fee: number) => void }) {
+function Fees ({ updateFee }: { updateFee: (fee: number | undefined) => void }) {
   const [selectedFeeRate, setSelectedFeeRate] = useState<FeeRate>('fastestFee')
-  const [customFeeRate, setCustomFeeRate] = useState<string | undefined>(undefined)
+  const [customFeeRate, setCustomFeeRate] = useState('')
   const { estimatedFees } = useFeeEstimate()
 
   const onFeeRateChange = (feeRate: FeeRate) => {
-    updateFee(feeRate === 'custom' ? Number(customFeeRate) : estimatedFees[feeRate])
+    updateFee(feeRate === 'custom' ? (customFeeRate === '' ? undefined : Number(customFeeRate)) : estimatedFees[feeRate])
   }
 
   const updateCustomFeeRate = (feeRate: string) => {
     setCustomFeeRate(feeRate)
-    updateFee(Number(feeRate))
+    updateFee(feeRate === '' ? undefined : Number(feeRate))
   }
 
   const onButtonPress = (feeRate: FeeRate) => {
