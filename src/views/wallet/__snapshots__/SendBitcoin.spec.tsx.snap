@@ -5,7 +5,7 @@ exports[`SendBitcoin should not allow entering an amount higher than the availab
 - First value
 + Second value
 
-@@ -589,11 +589,11 @@
+@@ -647,11 +647,11 @@
                           "paddingBottom": 0,
                           "paddingTop": 0,
                         },
@@ -122,6 +122,64 @@ exports[`SendBitcoin should render correctly 1`] = `
           }
         }
       >
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "opacity": 1,
+              "paddingBottom": 2,
+              "paddingLeft": 2,
+              "paddingRight": 2,
+              "paddingTop": 2,
+            }
+          }
+        >
+          <test-file-stub
+            fill="#F56522"
+            style={
+              [
+                {
+                  "height": 24,
+                  "width": 24,
+                },
+                {
+                  "height": 20,
+                  "width": 20,
+                },
+                {
+                  "height": 24,
+                  "width": 24,
+                },
+              ]
+            }
+          />
+        </View>
         <View
           accessibilityHint="help"
           accessibilityState={
@@ -1550,7 +1608,7 @@ exports[`SendBitcoin should set the amount to the peach wallet balance when clic
 - First value
 + Second value
 
-@@ -589,11 +589,11 @@
+@@ -647,11 +647,11 @@
                           "paddingBottom": 0,
                           "paddingTop": 0,
                         },
@@ -1570,7 +1628,7 @@ exports[`SendBitcoin should update the address on change 1`] = `
 - First value
 + Second value
 
-@@ -298,11 +298,11 @@
+@@ -356,11 +356,11 @@
                             "paddingBottom": 0,
                             "paddingTop": 0,
                             "width": "100%",
@@ -1583,7 +1641,7 @@ exports[`SendBitcoin should update the address on change 1`] = `
                           Object {
                             "borderColor": "transparent",
                             "borderWidth": 1,
-@@ -310,11 +310,11 @@
+@@ -368,11 +368,11 @@
                           false,
                           false,
                         ]
@@ -1603,7 +1661,7 @@ exports[`SendBitcoin should update the amount on change 1`] = `
 - First value
 + Second value
 
-@@ -589,11 +589,11 @@
+@@ -647,11 +647,11 @@
                           "paddingBottom": 0,
                           "paddingTop": 0,
                         },

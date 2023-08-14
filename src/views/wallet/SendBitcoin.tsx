@@ -176,7 +176,14 @@ function SendBitcoinHeader () {
   return (
     <Header
       title={i18n('wallet.sendBitcoin.title')}
-      icons={[{ ...headerIcons.help, onPress: openPopup, accessibilityHint: i18n('help') }]}
+      icons={[
+        { ...headerIcons.listFlipped, onPress: () => {} },
+        {
+          ...headerIcons.help,
+          onPress: openPopup,
+          accessibilityHint: i18n('help'),
+        },
+      ]}
     />
   )
 }
