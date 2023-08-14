@@ -5,6 +5,7 @@ import nationalTransferHU from '../../flags/hu.svg'
 import nationalTransferNO from '../../flags/no.svg'
 import nationalTransferPL from '../../flags/pl.svg'
 import nationalTransferRO from '../../flags/ro.svg'
+import accessBank from './accessBank.svg'
 import advcash from './advcash.svg'
 import airtelMoney from './airtelMoney.svg'
 import amazon from './amazon.svg'
@@ -46,6 +47,7 @@ export const PaymentLogos = {
   'cash.belgianEmbassy': bitcoin,
   'cash.lugano': bitcoin,
   'giftCard.amazon': amazon,
+  accessBank,
   advcash,
   alias: placeholder,
   airtelMoney,

@@ -11,6 +11,7 @@ import {
   Template16,
   Template17,
   Template2,
+  Template21,
   Template3,
   Template4,
   Template5,
@@ -97,6 +98,7 @@ describe('paymentMethodForms', () => {
       wave: { component: Template12, fields: ['method', 'price', 'phone'] },
       airtelMoney: { component: Template12, fields: ['method', 'price', 'phone'] },
       'm-pesa': { component: Template12, fields: ['method', 'price', 'phone'] },
+      accessBank: { component: Template21, fields: ['method', 'price', 'bankNumber'] },
     })
   })
 })

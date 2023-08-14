@@ -50,6 +50,7 @@
   "form.message" : "μήνυμα",
   "form.message.placeholder" : "το μήνυμά σας...",
   "form.min.error" : "η τιμή είναι μικρότερη του ελαχίστου ορίου",
+  "form.nuban.placeholder" : "1234567890",
   "form.optional" : "προαιρετικό",
   "form.password" : "κωδικός πρόσβασης",
   "form.password.error" : "ο κωδικός πρόσβασής σας πρέπει να έχει μήκος τουλάχιστον 8 χαρακτήρες",
