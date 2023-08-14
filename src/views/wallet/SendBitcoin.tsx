@@ -63,16 +63,7 @@ export const SendBitcoin = () => {
               },
             }}
           >
-            <View style={tw`flex-row items-center gap-1 border  rounded-xl px-3 mb-4`}>
-              <TextInput
-                placeholder="000 000 000"
-                style={[tw`h-10 py-0 input-text`]}
-                keyboardType={'numeric'}
-                value={amount}
-                onChangeText={enforceFormat}
-              />
-              <Text style={tw`input-text`}>{i18n('sat')}</Text>
-            </View>
+            <AmountInput value={amount} onChangeText={enforceFormat} />
           </Section>
 
           <HorizontalLine />
@@ -95,6 +86,21 @@ type SectionProps = {
     label: string
   }
   children: React.ReactNode
+}
+
+function AmountInput (props: TextInputProps) {
+  return (
+    <View style={tw`flex-row items-center gap-1 border rounded-xl px-3 mb-4`}>
+      <TextInput
+        placeholder="000 000 000"
+        style={[tw`h-10 py-0 input-text`]}
+        placeholderTextColor={tw`text-black-5`.color}
+        keyboardType={'numeric'}
+        {...props}
+      />
+      <Text style={tw`input-text`}>{i18n('sat')}</Text>
+    </View>
+  )
 }
 
 function Section ({ title, action, children }: SectionProps) {
