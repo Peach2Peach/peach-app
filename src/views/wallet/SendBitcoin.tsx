@@ -49,7 +49,7 @@ export const SendBitcoin = () => {
       <PeachScrollView contentContainerStyle={[tw`grow py-sm`, tw.md`py-md`]}>
         <View style={[tw`pb-11 gap-4`, tw.md`pb-14`]}>
           <Section title={i18n('wallet.sendBitcoin.to')}>
-            <BitcoinAddressInput style={tw`border`} value={address} onChange={setAddress} />
+            <BitcoinAddressInput value={address} onChange={setAddress} />
           </Section>
 
           <HorizontalLine />
@@ -59,7 +59,7 @@ export const SendBitcoin = () => {
             action={{
               label: i18n('wallet.sendBitcoin.sendMax'),
               onPress: () => {
-                setAmount(thousands(Number(enforceDecimalsFormat(peachWallet.balance.toString(), 0))))
+                setAmount(thousands(peachWallet.balance))
               },
             }}
           >
