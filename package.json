@@ -16,7 +16,7 @@
     "start:testnet": "NODE_ENV=development react-native start --port=8081",
     "start:mainnet": "NODE_ENV=production react-native start --port=8081",
     "cache:clear": "react-native start --reset-cache",
-    "postinstall": "rn-nodeify --install buffer,stream,util,crypto --hack",
+    "postinstall": "rn-nodeify --install buffer,stream,util --hack",
     "podinstall": "react-native setup-ios-permissions && cd ios && pod install --repo-update",
     "build:web": "cp -r ./assets ./public/assets/ && react-scripts build",
     "build:android:testnet": "./devUtils/buildAndroidTestnet.sh",
@@ -75,7 +75,6 @@
     "react-dom": "^18.2.0",
     "react-native": "0.71.10",
     "react-native-camera": "^4.2.1",
-    "react-native-crypto": "^2.2.0",
     "react-native-crypto-js": "^1.0.0",
     "react-native-device-info": "^10.6.0",
     "react-native-document-picker": "^9.0.1",
@@ -115,7 +114,6 @@
     "zustand": "^4.3.6"
   },
   "react-native": {
-    "crypto": "react-native-crypto",
     "path": "path-browserify",
     "fs": "react-native-level-fs",
     "_stream_transform": "readable-stream/transform",
@@ -177,7 +175,6 @@
     ]
   },
   "browser": {
-    "crypto": "react-native-crypto",
     "path": "path-browserify",
     "fs": "react-native-level-fs",
     "_stream_transform": "readable-stream/transform",
