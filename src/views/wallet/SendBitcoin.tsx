@@ -54,7 +54,7 @@ export const SendBitcoin = () => {
 
   return (
     <Screen>
-      <NewHeader title={i18n('wallet.sendBitcoin.title')} />
+      <SendBitcoinHeader />
       <PeachScrollView contentContainerStyle={[tw`grow py-sm`, tw.md`py-md`]}>
         <View style={[tw`pb-11 gap-4`, tw.md`pb-14`]}>
           <Section title={i18n('wallet.sendBitcoin.to')}>
@@ -88,15 +88,6 @@ export const SendBitcoin = () => {
   )
 }
 
-type SectionProps = {
-  title?: string
-  action?: {
-    onPress: () => void
-    label: string
-  }
-  children: React.ReactNode
-}
-
 function AmountInput (props: TextInputProps) {
   return (
     <View style={tw`flex-row items-center gap-1 border rounded-xl px-3 mb-4`}>
@@ -112,6 +103,14 @@ function AmountInput (props: TextInputProps) {
   )
 }
 
+type SectionProps = {
+  title?: string
+  action?: {
+    onPress: () => void
+    label: string
+  }
+  children: React.ReactNode
+}
 function Section ({ title, action, children }: SectionProps) {
   return (
     <View style={tw``}>
@@ -164,4 +163,9 @@ function Fees ({ updateFee }: { updateFee: (fee: number) => void }) {
   }))
 
   return <RadioButtons items={options} selectedValue={selectedFeeRate} onButtonPress={onButtonPress} />
+}
+
+function SendBitcoinHeader () {
+  const openPopup = useShowHelp('withdrawingFunds')
+  return <Header title={i18n('wallet.sendBitcoin.title')} icons={[{ ...headerIcons.help, onPress: openPopup }]} />
 }
