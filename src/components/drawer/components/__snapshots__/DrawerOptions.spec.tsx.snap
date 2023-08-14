@@ -120,6 +120,7 @@ exports[`DrawerOptions renders correctly when there is content 1`] = `
               "lineHeight": 24,
             },
             undefined,
+            false,
           ]
         }
       >

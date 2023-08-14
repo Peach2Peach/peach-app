@@ -74,6 +74,7 @@ exports[`ContractCTA should not show the confirm payment slider when the payment
             "textTransform": "uppercase",
           },
         ],
+        false,
       ]
     }
   >
@@ -171,6 +172,7 @@ exports[`ContractCTA should render correctly when a cancelation is requested 1`]
             "textTransform": "uppercase",
           },
         ],
+        false,
       ]
     }
   >

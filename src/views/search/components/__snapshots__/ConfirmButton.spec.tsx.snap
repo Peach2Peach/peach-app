@@ -75,6 +75,7 @@ exports[`ConfirmButton should render correctly 1`] = `
             "textTransform": "uppercase",
           },
         ],
+        false,
       ]
     }
   >
