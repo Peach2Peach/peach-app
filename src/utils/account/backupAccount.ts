@@ -2,6 +2,7 @@ import { NETWORK } from '@env'
 import RNFS from 'react-native-fs'
 import Share from 'react-native-share'
 import { useSettingsStore } from '../../store/settingsStore'
+import { usePaymentDataStore } from '../../store/usePaymentDataStore'
 import { writeFile } from '../file'
 import { error, info } from '../log'
 import { parseError } from '../result'
@@ -25,7 +26,13 @@ export const backupAccount = async ({ password, onSuccess, onCancel, onError }: 
 
     await writeFile(
       `/${destinationFileName}`,
-      JSON.stringify(getAccountBackup(account, useSettingsStore.getState().getPureState())),
+      JSON.stringify(
+        getAccountBackup({
+          account,
+          paymentData: usePaymentDataStore.getState().getPaymentDataArray(),
+          settings: useSettingsStore.getState().getPureState(),
+        }),
+      ),
       password,
     )
 
