@@ -22,6 +22,7 @@ import mobilePay from './mobilePay.svg'
 import n26 from './n26.svg'
 import nequi from './nequi.svg'
 import neteller from './neteller.svg'
+import orangeMoney from './orangeMoney.svg'
 import paylib from './paylib.svg'
 import paypal from './paypal.svg'
 import paysera from './paysera.svg'
@@ -70,6 +71,7 @@ export const PaymentLogos = {
   nationalTransferRO,
   nequi,
   neteller,
+  orangeMoney,
   paylib,
   paypal,
   paysera,
