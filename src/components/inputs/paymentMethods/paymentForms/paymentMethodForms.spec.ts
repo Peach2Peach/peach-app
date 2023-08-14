@@ -94,6 +94,7 @@ describe('paymentMethodForms', () => {
       bancolombia: { component: Template17, fields: ['method', 'price', 'beneficiary', 'accountNumber'] },
       orangeMoney: { component: Template12, fields: ['method', 'price', 'phone'] },
       moov: { component: Template12, fields: ['method', 'price', 'phone'] },
+      wave: { component: Template12, fields: ['method', 'price', 'phone'] },
     })
   })
 })
