@@ -85,6 +85,7 @@ export const PaymentMethodForms: PaymentMethodFormsType = {
   bancolombia: { component: Template17, fields: template17Fields },
   orangeMoney: { component: Template12, fields: template12Fields },
   moov: { component: Template12, fields: template12Fields },
+  wave: { component: Template12, fields: template12Fields },
 }
 GIFTCARDCOUNTRIES.forEach(
   (c) =>
