@@ -1,47 +1,29 @@
 import { useCallback } from 'react'
 import { shallow } from 'zustand/shallow'
-import { useHandleTransactionError } from '../../../hooks/error/useHandleTransactionError'
 import { WithdrawalConfirmation } from '../../../popups/WithdrawalConfirmation'
 import { usePopupStore } from '../../../store/usePopupStore'
 import i18n from '../../../utils/i18n'
 import { peachWallet } from '../../../utils/wallet/setWallet'
-import { useShowLoadingPopup } from '../../../hooks/useShowLoadingPopup'
-import { TxBuilderResult } from 'bdk-rn/lib/classes/Bindings'
 
 type Props = {
   address: string
-  transaction: TxBuilderResult
+  amount: number
   feeRate: number
-  onSuccess: (txId: string) => void
+  onSuccess: () => void
 }
 
 export const useOpenWithdrawalConfirmationPopup = () => {
   const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
-  const handleTransactionError = useHandleTransactionError()
-  const showLoadingPopup = useShowLoadingPopup()
-
-  const confirmWithdrawal = useCallback(
-    async (transaction: TxBuilderResult, onSuccess: Props['onSuccess']) => {
-      showLoadingPopup({
-        title: i18n('wallet.confirmWithdraw.title'),
-        level: 'APP',
-      })
-      try {
-        const result = await peachWallet.signAndBroadcastPSBT(transaction.psbt)
-        onSuccess(await result.txid())
-      } catch (e) {
-        handleTransactionError(e)
-      } finally {
-        closePopup()
-      }
-    },
-    [closePopup, handleTransactionError, showLoadingPopup],
-  )
 
   const openWithdrawalConfirmationPopup = useCallback(
-    async ({ address, transaction, feeRate, onSuccess }: Props) => {
-      const amount = transaction.txDetails.sent - transaction.txDetails.received
-      const fee = await transaction.psbt.feeAmount()
+    async ({ address, amount, feeRate, onSuccess }: Props) => {
+      if (!peachWallet.wallet) return
+      const { psbt } = await peachWallet.buildAndFinishTransaction(address, amount, feeRate)
+      const confirm = async () => {
+        await peachWallet.signAndBroadcastPSBT(psbt)
+        onSuccess()
+      }
+      const fee = await psbt.feeAmount()
 
       setPopup({
         title: i18n('wallet.confirmWithdraw.title'),
@@ -52,14 +34,14 @@ export const useOpenWithdrawalConfirmationPopup = () => {
           icon: 'xCircle',
         },
         action1: {
-          callback: () => confirmWithdrawal(transaction, onSuccess),
+          callback: confirm,
           label: i18n('wallet.confirmWithdraw.confirm'),
           icon: 'arrowRightCircle',
         },
         level: 'APP',
       })
     },
-    [closePopup, confirmWithdrawal, setPopup],
+    [closePopup, setPopup],
   )
   return openWithdrawalConfirmationPopup
 }
