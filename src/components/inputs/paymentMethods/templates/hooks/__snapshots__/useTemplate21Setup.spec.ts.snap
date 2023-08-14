@@ -1,26 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`useTemplate17Setup should return the correct values 1`] = `
+exports[`useTemplate21Setup should return the correct values 1`] = `
 {
   "accountNumberInputProps": {
-    "errorMessage": [
-      "this is not a valid account number",
-    ],
+    "errorMessage": [],
     "label": "account #",
     "onChange": [Function],
     "onSubmit": [Function],
-    "placeholder": "11112222223344",
+    "placeholder": "1234567890",
     "required": true,
     "value": "accountNumber",
   },
-  "beneficiaryInputProps": {
-    "errorMessage": [],
-    "onChange": [Function],
-    "value": "beneficiary",
-  },
   "currencySelectionProps": {
     "onToggle": [Function],
-    "paymentMethod": "bancolombia",
+    "paymentMethod": "gtBank",
     "selectedCurrencies": [],
   },
   "labelInputProps": {

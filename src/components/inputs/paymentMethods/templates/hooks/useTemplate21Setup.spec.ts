@@ -1,22 +1,21 @@
 import { renderHook } from '@testing-library/react-native'
-import { useTemplate17Setup } from './useTemplate17Setup'
+import { useTemplate21Setup } from './useTemplate21Setup'
 
-describe('useTemplate17Setup', () => {
+describe('useTemplate21Setup', () => {
   it('should return the correct values', () => {
     const { result } = renderHook(() =>
-      useTemplate17Setup({
+      useTemplate21Setup({
         data: {
           id: 'id',
           label: 'label',
-          type: 'bancolombia',
-          beneficiary: 'beneficiary',
+          type: 'gtBank',
           accountNumber: 'accountNumber',
           currencies: [],
         },
         currencies: [],
         onSubmit: jest.fn(),
         setStepValid: jest.fn(),
-        paymentMethod: 'bancolombia',
+        paymentMethod: 'gtBank',
         setFormData: jest.fn(),
       }),
     )

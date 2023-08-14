@@ -10,6 +10,7 @@ import { isCVUAlias } from './isCVUAlias'
 import { isEUIBAN } from './isEUIBAN'
 import { isEmail } from './isEmail'
 import { isIBAN } from './isIBAN'
+import { isNUBAN } from './isNUBAN'
 import { isPaypalUsername } from './isPaypalUsername'
 import { isPhone } from './isPhone'
 import { isPhoneAllowed } from './isPhoneAllowed'
@@ -76,6 +77,9 @@ export const rules = {
   },
   iban (_: boolean, value: string) {
     return isIBAN(value)
+  },
+  isNUBAN (_: boolean, value: string) {
+    return isNUBAN(value)
   },
   isEUIBAN (_: boolean, value: string) {
     return isEUIBAN(value)

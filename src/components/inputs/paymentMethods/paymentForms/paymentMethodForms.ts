@@ -12,6 +12,7 @@ import {
   Template16,
   Template17,
   Template2,
+  Template21,
   Template3,
   Template4,
   Template5,
@@ -45,6 +46,7 @@ const template14Fields: TradeInfoField[] = [...sharedFields, 'beneficiary', 'acc
 const template15Fields: TradeInfoField[] = [...sharedFields, 'beneficiary', 'accountNumber']
 const template16Fields: TradeInfoField[] = [...sharedFields, 'beneficiary', 'accountNumber']
 const template17Fields: TradeInfoField[] = [...sharedFields, 'beneficiary', 'accountNumber']
+const template21Fields: TradeInfoField[] = [...sharedFields, 'accountNumber']
 
 export const PaymentMethodForms: PaymentMethodFormsType = {
   sepa: { component: Template1, fields: template1Fields },
@@ -88,6 +90,7 @@ export const PaymentMethodForms: PaymentMethodFormsType = {
   wave: { component: Template12, fields: template12Fields },
   airtelMoney: { component: Template12, fields: template12Fields },
   'm-pesa': { component: Template12, fields: template12Fields },
+  accessBank: { component: Template21, fields: template21Fields },
 }
 GIFTCARDCOUNTRIES.forEach(
   (c) =>

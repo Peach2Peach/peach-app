@@ -50,6 +50,7 @@
   "form.message" : "mensaje",
   "form.message.placeholder" : "tu mensaje...",
   "form.min.error" : "el valor está por debajo del mínimo",
+  "form.nuban.placeholder" : "1234567890",
   "form.optional" : "opcional",
   "form.password" : "contraseña",
   "form.password.error" : "tu contraseña debe tener al menos 8 caracteres",
