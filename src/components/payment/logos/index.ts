@@ -6,6 +6,7 @@ import nationalTransferNO from '../../flags/no.svg'
 import nationalTransferPL from '../../flags/pl.svg'
 import nationalTransferRO from '../../flags/ro.svg'
 import advcash from './advcash.svg'
+import airtelMoney from './airtelMoney.svg'
 import amazon from './amazon.svg'
 import bancolombia from './bancolombia.svg'
 import bitcoin from './bitcoin.svg'
@@ -46,6 +47,7 @@ export const PaymentLogos = {
   'giftCard.amazon': amazon,
   advcash,
   alias: placeholder,
+  airtelMoney,
   amazon,
   bitcoin,
   bizum,

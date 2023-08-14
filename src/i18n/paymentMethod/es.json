@@ -9,6 +9,7 @@
   "paymentCategory.other" : "otro",
   "paymentMethod.accessBank" : "Access Bank",
   "paymentMethod.advcash" : "ADV Cash",
+  "paymentMethod.airtelMoney" : "Airtel Money",
   "paymentMethod.alias" : "Alias",
   "paymentMethod.applePay" : "Apple Pay",
   "paymentMethod.bancolombia" : "Bancolombia",
