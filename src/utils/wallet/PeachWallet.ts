@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import { BLOCKEXPLORER, NETWORK } from '@env'
 import {
   Blockchain,
@@ -12,6 +13,7 @@ import { LocalUtxo, TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
 import { AddressIndex, BlockChainNames, BlockchainEsploraConfig, KeychainKind } from 'bdk-rn/lib/lib/enums'
 import { BIP32Interface } from 'bip32'
 import { error, info } from '../log'
+import { sum } from '../math'
 import { parseError } from '../result'
 import { findTransactionsToRebroadcast, isPending, mergeTransactionList } from '../transaction'
 import { callWhenInternet } from '../web'
@@ -26,7 +28,6 @@ import { rebroadcastTransactions } from './rebroadcastTransactions'
 import { buildDrainWalletTransaction, buildTransaction } from './transaction'
 import { transactionHasBeenMappedToOffer } from './transactionHasBeenMappedToOffer'
 import { useWalletState } from './walletStore'
-import { sum } from '../math'
 
 type PeachWalletProps = {
   wallet: BIP32Interface
@@ -236,8 +237,8 @@ export class PeachWallet extends PeachJSWallet {
   }
 
   async sendTo (address: string, amount: number, feeRate?: number) {
-    const finishedTransaction = await this.buildAndFinishTransaction(address, amount, feeRate)
-    return this.signAndBroadcastPSBT(finishedTransaction.psbt)
+    const { psbt } = await this.buildAndFinishTransaction(address, amount, feeRate)
+    return this.signAndBroadcastPSBT(psbt)
   }
 
   async buildAndFinishTransaction (address: string, amount: number, feeRate?: number) {
