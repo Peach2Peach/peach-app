@@ -15,6 +15,7 @@ exports[`Flag should render correctly when flag is not found 1`] = `
         "lineHeight": 24,
       },
       undefined,
+      false,
     ]
   }
 >

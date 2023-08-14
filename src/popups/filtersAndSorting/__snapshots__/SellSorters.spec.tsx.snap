@@ -93,6 +93,7 @@ exports[`SellSorters should render correctly 1`] = `
                 "letterSpacing": 0.16,
                 "lineHeight": 26,
               },
+              false,
             ]
           }
         >
@@ -188,6 +189,7 @@ exports[`SellSorters should render correctly 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 28,
                 },
+                false,
               ]
             }
           >
@@ -275,6 +277,7 @@ exports[`SellSorters should render correctly 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 28,
                 },
+                false,
               ]
             }
           >
@@ -388,6 +391,7 @@ exports[`SellSorters should render correctly 1`] = `
               },
               undefined,
             ],
+            false,
           ]
         }
       >
@@ -469,6 +473,7 @@ exports[`SellSorters should render correctly 1`] = `
               },
               undefined,
             ],
+            false,
           ]
         }
       >

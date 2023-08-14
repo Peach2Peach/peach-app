@@ -15,6 +15,7 @@ exports[`WalletLabel should render correctly if address is payout address 1`] = 
         "lineHeight": 24,
       },
       undefined,
+      false,
     ]
   }
 >
@@ -35,6 +36,7 @@ exports[`WalletLabel should render correctly if address is peach wallet address 
         "lineHeight": 24,
       },
       undefined,
+      false,
     ]
   }
 >
@@ -55,6 +57,7 @@ exports[`WalletLabel should render correctly if address is unknown 1`] = `
         "lineHeight": 24,
       },
       undefined,
+      false,
     ]
   }
 >

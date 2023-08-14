@@ -22,6 +22,7 @@
   "form.bic.placeholder" : "AB12CDEF",
   "form.bip39.error" : "la frase semilla no es válida",
   "form.bip39Word.error" : "palabra inválida",
+  "form.cashtag" : "cash tag",
   "form.cbu" : "CBU",
   "form.cbu.placeholder" : "1112222344444444444445",
   "form.currency" : "seleccionar moneda",

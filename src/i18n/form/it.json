@@ -22,6 +22,7 @@
   "form.bic.placeholder" : "AB12CDEF",
   "form.bip39.error" : "la seed phrase non è valida",
   "form.bip39Word.error" : "parola non valida",
+  "form.cashtag" : "cash tag",
   "form.cbu" : "CBU",
   "form.cbu.placeholder" : "1112222344444444444445",
   "form.currency" : "seleziona valuta",

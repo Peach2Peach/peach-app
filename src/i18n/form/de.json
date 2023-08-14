@@ -22,6 +22,7 @@
   "form.bic.placeholder" : "AB12CDEF",
   "form.bip39.error" : "Der Seed ist ungültig",
   "form.bip39Word.error" : "Ungültiges Wort",
+  "form.cashtag" : "Cash tag",
   "form.cbu" : "CBU",
   "form.cbu.placeholder" : "1112222344444444444445",
   "form.currency" : "Währung auswählen",

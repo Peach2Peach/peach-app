@@ -73,6 +73,7 @@ exports[`UnmatchButton renders correctly 1`] = `
             "textTransform": "uppercase",
           },
         ],
+        false,
       ]
     }
   >
@@ -188,6 +189,7 @@ exports[`UnmatchButton should show the undo button if not yet matched 1`] = `
                 "textTransform": "uppercase",
               },
             ],
+            false,
           ]
         }
       >
@@ -283,6 +285,7 @@ exports[`UnmatchButton should show the undo button if not yet matched 1`] = `
               "textTransform": "uppercase",
             },
           ],
+          false,
         ]
       }
     >

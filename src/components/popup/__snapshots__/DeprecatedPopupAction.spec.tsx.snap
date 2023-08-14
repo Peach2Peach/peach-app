@@ -69,6 +69,7 @@ exports[`DeprecatedPopupAction renders correctly 1`] = `
             "color": "#F56522",
           },
         ],
+        false,
       ]
     }
   >
@@ -163,6 +164,7 @@ exports[`DeprecatedPopupAction renders correctly when disabled 1`] = `
             "color": "#F56522",
           },
         ],
+        false,
       ]
     }
   >
@@ -257,6 +259,7 @@ exports[`DeprecatedPopupAction renders correctly with reversed order 1`] = `
             "color": "#F56522",
           },
         ],
+        false,
       ]
     }
   >
