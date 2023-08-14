@@ -25,9 +25,6 @@ export const rules = {
   required (required: boolean, value: string | number | null) {
     return !required || value
   },
-  requiredShort (required: boolean, value: string | number | null) {
-    return !required || value
-  },
   min (min: number, value: number) {
     return value >= min
   },
