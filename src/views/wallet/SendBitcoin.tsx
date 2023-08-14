@@ -1,13 +1,15 @@
-import { useState } from 'react'
-import { TextInput, TouchableOpacity, View } from 'react-native'
+import { useMemo, useState } from 'react'
+import { TextInput, TextInputProps, TouchableOpacity, View } from 'react-native'
 import { HorizontalLine, NewHeader, PeachScrollView, Screen, Text } from '../../components'
 import { BitcoinAddressInput, ConfirmSlider, RadioButtons } from '../../components/inputs'
+import { useNavigation } from '../../hooks'
 import { useFeeEstimate } from '../../hooks/query/useFeeEstimate'
 import { usePopupStore } from '../../store/usePopupStore'
 import tw from '../../styles/tailwind'
 import { enforceDecimalsFormat } from '../../utils/format'
 import i18n from '../../utils/i18n'
 import { thousands } from '../../utils/string'
+import { isBitcoinAddress } from '../../utils/validation'
 import { peachWallet } from '../../utils/wallet/setWallet'
 import { CustomFeeItem } from '../settings/components/networkFees/CustomFeeItem'
 import { EstimatedFeeItem } from '../settings/components/networkFees/EstimatedFeeItem'
@@ -21,6 +23,8 @@ export const SendBitcoin = () => {
   const closePopup = usePopupStore((state) => state.closePopup)
   const { estimatedFees } = useFeeEstimate()
 
+  const navigation = useNavigation()
+
   const enforceFormat = (text: string) => {
     if (text === '') {
       setAmount('')
@@ -28,8 +32,13 @@ export const SendBitcoin = () => {
     }
     const value = Number(text.replace(/[^0-9]/gu, ''))
     const newValue = value > peachWallet.balance ? peachWallet.balance : value
-    const formatted = thousands(Number(enforceDecimalsFormat(newValue.toString(), 0)))
+    const formatted = thousands(Number(enforceDecimalsFormat(String(newValue), 0)))
     setAmount(formatted)
+  }
+
+  const onSuccess = () => {
+    closePopup()
+    navigation.navigate('transactionHistory')
   }
 
   const sendTrasaction = () => {
@@ -37,11 +46,11 @@ export const SendBitcoin = () => {
       address,
       amount: Number(amount.replace(/[^0-9]/gu, '')),
       feeRate: feeRate || Number(estimatedFees.fastestFee),
-      onSuccess: () => {
-        closePopup()
-      },
+      onSuccess,
     })
   }
+
+  const isFormValid = useMemo(() => isBitcoinAddress(address) && amount !== '', [address, amount])
 
   return (
     <Screen>
@@ -73,7 +82,7 @@ export const SendBitcoin = () => {
           </Section>
         </View>
 
-        <ConfirmSlider label1="send transaction" onConfirm={sendTrasaction} />
+        <ConfirmSlider label1={i18n('wallet.sendBitcoin.send')} onConfirm={sendTrasaction} enabled={isFormValid} />
       </PeachScrollView>
     </Screen>
   )
