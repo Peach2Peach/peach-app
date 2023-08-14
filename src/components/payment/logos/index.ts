@@ -18,6 +18,7 @@ import friends24 from './friends24.svg'
 import keksPay from './keksPay.svg'
 import liquid from './liquid.svg'
 import lydia from './lydia.svg'
+import mPesa from './m-pesa.svg'
 import mbWay from './mbWay.svg'
 import mobilePay from './mobilePay.svg'
 import moov from './moov.svg'
@@ -62,6 +63,7 @@ export const PaymentLogos = {
   keksPay,
   liquid,
   lydia,
+  'm-pesa': mPesa,
   mbWay,
   mercadoPago: placeholder,
   mobilePay,

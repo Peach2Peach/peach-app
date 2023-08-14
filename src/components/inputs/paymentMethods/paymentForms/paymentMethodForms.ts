@@ -87,6 +87,7 @@ export const PaymentMethodForms: PaymentMethodFormsType = {
   moov: { component: Template12, fields: template12Fields },
   wave: { component: Template12, fields: template12Fields },
   airtelMoney: { component: Template12, fields: template12Fields },
+  'm-pesa': { component: Template12, fields: template12Fields },
 }
 GIFTCARDCOUNTRIES.forEach(
   (c) =>
