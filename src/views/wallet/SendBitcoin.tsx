@@ -19,6 +19,7 @@ import { useOpenWithdrawalConfirmationPopup } from './hooks/useOpenWithdrawalCon
 export const SendBitcoin = () => {
   const [address, setAddress] = useState('')
   const [amount, setAmount] = useState('')
+  const [shouldDrainWallet, setShouldDrainWallet] = useState(false)
   const { estimatedFees } = useFeeEstimate()
   const [feeRate, setFee] = useState<number | undefined>(estimatedFees.fastestFee)
   const openConfirmationPopup = useOpenWithdrawalConfirmationPopup()
@@ -27,6 +28,7 @@ export const SendBitcoin = () => {
   const navigation = useNavigation()
 
   const enforceFormat = (text: string) => {
+    setShouldDrainWallet(false)
     if (text === '') {
       setAmount('')
       return
@@ -39,7 +41,7 @@ export const SendBitcoin = () => {
 
   const onSuccess = () => {
     closePopup()
-    navigation.navigate('transactionHistory')
+    navigation.navigate('wallet')
   }
 
   const sendTrasaction = () => {
@@ -48,6 +50,7 @@ export const SendBitcoin = () => {
       address,
       amount: Number(amount.replace(/[^0-9]/gu, '')),
       feeRate,
+      shouldDrainWallet,
       onSuccess,
     })
   }
@@ -70,6 +73,7 @@ export const SendBitcoin = () => {
             action={{
               label: i18n('wallet.sendBitcoin.sendMax'),
               onPress: () => {
+                setShouldDrainWallet(true)
                 setAmount(thousands(peachWallet.balance))
               },
             }}

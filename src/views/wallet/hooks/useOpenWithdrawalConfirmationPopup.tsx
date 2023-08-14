@@ -4,11 +4,13 @@ import { WithdrawalConfirmation } from '../../../popups/WithdrawalConfirmation'
 import { usePopupStore } from '../../../store/usePopupStore'
 import i18n from '../../../utils/i18n'
 import { peachWallet } from '../../../utils/wallet/setWallet'
+import { buildDrainWalletTransaction } from '../../../utils/wallet/transaction'
 
 type Props = {
   address: string
   amount: number
   feeRate: number
+  shouldDrainWallet?: boolean
   onSuccess: () => void
 }
 
@@ -16,9 +18,10 @@ export const useOpenWithdrawalConfirmationPopup = () => {
   const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
 
   const openWithdrawalConfirmationPopup = useCallback(
-    async ({ address, amount, feeRate, onSuccess }: Props) => {
-      if (!peachWallet.wallet) return
-      const { psbt } = await peachWallet.buildAndFinishTransaction(address, amount, feeRate)
+    async ({ address, amount, feeRate, shouldDrainWallet, onSuccess }: Props) => {
+      const { psbt } = shouldDrainWallet
+        ? await peachWallet.finishTransaction(await buildDrainWalletTransaction(address, feeRate))
+        : await peachWallet.buildAndFinishTransaction(address, amount, feeRate)
       const confirm = async () => {
         await peachWallet.signAndBroadcastPSBT(psbt)
         onSuccess()
