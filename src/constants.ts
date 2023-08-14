@@ -34,6 +34,7 @@ export let CURRENCIES: Currency[] = [
   'SAT',
   'EUR',
   'CHF',
+  'USD',
   'GBP',
   'SEK',
   'DKK',
@@ -52,10 +53,14 @@ export let CURRENCIES: Currency[] = [
   'CLP',
   'PEN',
   'COP',
+  'XOF',
+  'NGN',
+  'CDF',
 ]
 export const CURRENCY_MAP: Record<CurrencyType, Currency[]> = {
   europe: ['EUR', 'CHF', 'GBP', 'SEK', 'DKK', 'BGN', 'CZK', 'HUF', 'PLN', 'RON', 'ISK', 'NOK'],
   latinAmerica: ['ARS', 'COP', 'PEN', 'MXN', 'CLP', 'PEN', 'COP'],
+  africa: ['USD', 'XOF', 'CDF', 'NGN'],
   other: ['USDT', 'SAT'],
 }
 
@@ -106,6 +111,9 @@ export const PAYMENTCATEGORIES: PaymentCategories = {
     'cvu',
     'alias',
     'bancolombia',
+    'accessBank',
+    'gtBank',
+    'zenithBank',
     ...NATIONALTRANSFERCOUNTRIES.map((c) => `nationalTransfer${c}` satisfies PaymentMethod),
   ],
   onlineWallet: [
@@ -126,6 +134,14 @@ export const PAYMENTCATEGORIES: PaymentCategories = {
     'mercadoPago',
     'rappipay',
     'nequi',
+    'orangeMoney',
+    'moov',
+    'mtn',
+    'wave',
+    'airtelMoney',
+    'm-pesa',
+    'chippercash',
+    'eversend',
   ],
   giftCard: ['giftCard.amazon', ...GIFTCARDCOUNTRIES.map((c) => `giftCard.amazon.${c}` satisfies PaymentMethod)],
   nationalOption: ['mbWay', 'bizum', 'satispay', 'mobilePay', 'keksPay', 'paylib', 'lydia', 'verse', 'iris'],

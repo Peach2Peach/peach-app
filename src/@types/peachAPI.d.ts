@@ -105,6 +105,9 @@ declare type Currency =
   | 'CLP'
   | 'PEN'
   | 'COP'
+  | 'XOF'
+  | 'NGN'
+  | 'CDF'
 declare type Pricebook = {
   [key in Currency]?: number
 }
@@ -182,6 +185,17 @@ declare type PaymentMethod =
   | 'bancolombia'
   | 'rappipay'
   | 'nequi'
+  | 'orangeMoney'
+  | 'moov'
+  | 'mtn'
+  | 'wave'
+  | 'airtelMoney'
+  | 'm-pesa'
+  | 'accessBank'
+  | 'gtBank'
+  | 'zenithBank'
+  | 'chippercash'
+  | 'eversend'
   | CashTrade
   | AmazonGiftCard
   | NationalTransfer
