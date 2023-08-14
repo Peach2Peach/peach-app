@@ -98,7 +98,7 @@ describe('paymentMethodForms', () => {
       wave: { component: Template12, fields: ['method', 'price', 'phone'] },
       airtelMoney: { component: Template12, fields: ['method', 'price', 'phone'] },
       'm-pesa': { component: Template12, fields: ['method', 'price', 'phone'] },
-      accessBank: { component: Template21, fields: ['method', 'price', 'bankNumber'] },
+      accessBank: { component: Template21, fields: ['method', 'price', 'accountNumber'] },
     })
   })
 })
