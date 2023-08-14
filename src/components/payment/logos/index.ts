@@ -42,6 +42,7 @@ import verse from './verse.svg'
 import vipps from './vipps.svg'
 import wave from './wave.svg'
 import wise from './wise.svg'
+import zenithBank from './zenithBank.svg'
 
 export const PaymentLogos = {
   'cash.amsterdam': bitcoinAmsterdam,
@@ -98,6 +99,7 @@ export const PaymentLogos = {
   vipps,
   wave,
   wise,
+  zenithBank,
 }
 
 export type PaymentLogoType = keyof typeof PaymentLogos

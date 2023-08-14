@@ -100,6 +100,7 @@ describe('paymentMethodForms', () => {
       'm-pesa': { component: Template12, fields: ['method', 'price', 'phone'] },
       accessBank: { component: Template21, fields: ['method', 'price', 'accountNumber'] },
       gtBank: { component: Template21, fields: ['method', 'price', 'accountNumber'] },
+      zenithBank: { component: Template21, fields: ['method', 'price', 'accountNumber'] },
     })
   })
 })
