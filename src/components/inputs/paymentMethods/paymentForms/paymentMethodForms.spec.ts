@@ -10,6 +10,7 @@ import {
   Template15,
   Template16,
   Template17,
+  Template18,
   Template2,
   Template21,
   Template3,
@@ -101,6 +102,7 @@ describe('paymentMethodForms', () => {
       accessBank: { component: Template21, fields: ['method', 'price', 'accountNumber'] },
       gtBank: { component: Template21, fields: ['method', 'price', 'accountNumber'] },
       zenithBank: { component: Template21, fields: ['method', 'price', 'accountNumber'] },
+      chippercash: { component: Template18, fields: ['method', 'price', 'chipperTag', 'reference'] },
     })
   })
 })

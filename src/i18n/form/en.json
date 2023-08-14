@@ -25,6 +25,8 @@
   "form.cashtag" : "cash tag",
   "form.cbu" : "CBU",
   "form.cbu.placeholder" : "1112222344444444444445",
+  "form.chippertag" : "chippertag",
+  "form.chippertag.placeholder" : "@chippertag",
   "form.currency" : "select currency",
   "form.cvu" : "CVU",
   "form.cvu.placeholder" : "1112222222344444444445",

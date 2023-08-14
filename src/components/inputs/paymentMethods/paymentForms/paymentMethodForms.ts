@@ -11,6 +11,7 @@ import {
   Template15,
   Template16,
   Template17,
+  Template18,
   Template2,
   Template21,
   Template3,
@@ -46,6 +47,7 @@ const template14Fields: TradeInfoField[] = [...sharedFields, 'beneficiary', 'acc
 const template15Fields: TradeInfoField[] = [...sharedFields, 'beneficiary', 'accountNumber']
 const template16Fields: TradeInfoField[] = [...sharedFields, 'beneficiary', 'accountNumber']
 const template17Fields: TradeInfoField[] = [...sharedFields, 'beneficiary', 'accountNumber']
+const template18Fields: TradeInfoField[] = [...sharedFields, 'chipperTag', 'reference']
 const template21Fields: TradeInfoField[] = [...sharedFields, 'accountNumber']
 
 export const PaymentMethodForms: PaymentMethodFormsType = {
@@ -93,6 +95,7 @@ export const PaymentMethodForms: PaymentMethodFormsType = {
   accessBank: { component: Template21, fields: template21Fields },
   gtBank: { component: Template21, fields: template21Fields },
   zenithBank: { component: Template21, fields: template21Fields },
+  chippercash: { component: Template18, fields: template18Fields },
 }
 GIFTCARDCOUNTRIES.forEach(
   (c) =>
