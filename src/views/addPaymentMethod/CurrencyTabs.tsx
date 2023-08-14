@@ -67,6 +67,7 @@ export const CurrencyTabs = (props: Props) => {
     >
       <CurrencyTab.Screen name="europe" children={() => <Currencies type="europe" {...props} />} />
       <CurrencyTab.Screen name="latinAmerica" children={() => <Currencies type="latinAmerica" {...props} />} />
+      <CurrencyTab.Screen name="africa" children={() => <Currencies type="africa" {...props} />} />
       <CurrencyTab.Screen name="other" children={() => <Currencies type="other" {...props} />} />
     </CurrencyTab.Navigator>
   )
