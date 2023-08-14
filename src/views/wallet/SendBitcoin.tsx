@@ -74,7 +74,7 @@ export const SendBitcoin = () => {
               label: i18n('wallet.sendBitcoin.sendMax'),
               onPress: () => {
                 setShouldDrainWallet(true)
-                setAmount(thousands(peachWallet.balance))
+                setAmount(thousands(peachWallet.getMaxAvailableAmount()))
               },
             }}
           >
