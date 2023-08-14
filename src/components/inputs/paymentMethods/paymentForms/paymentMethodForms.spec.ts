@@ -92,6 +92,8 @@ describe('paymentMethodForms', () => {
       cvu: { component: Template15, fields: ['method', 'price', 'beneficiary', 'accountNumber'] },
       alias: { component: Template16, fields: ['method', 'price', 'beneficiary', 'accountNumber'] },
       bancolombia: { component: Template17, fields: ['method', 'price', 'beneficiary', 'accountNumber'] },
+      orangeMoneuy: { component: Template12, fields: ['method', 'price', 'phone'] },
+      moov: { component: Template12, fields: ['method', 'price', 'phone'] },
     })
   })
 })

@@ -84,6 +84,7 @@ export const PaymentMethodForms: PaymentMethodFormsType = {
   alias: { component: Template16, fields: template16Fields },
   bancolombia: { component: Template17, fields: template17Fields },
   orangeMoney: { component: Template12, fields: template12Fields },
+  moov: { component: Template12, fields: template12Fields },
 }
 GIFTCARDCOUNTRIES.forEach(
   (c) =>
