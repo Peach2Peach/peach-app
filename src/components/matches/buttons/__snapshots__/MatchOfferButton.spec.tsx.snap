@@ -62,6 +62,7 @@ exports[`MatchOfferButton renders correctly 1`] = `
           "lineHeight": 26,
           "textTransform": "uppercase",
         },
+        false,
       ]
     }
   >

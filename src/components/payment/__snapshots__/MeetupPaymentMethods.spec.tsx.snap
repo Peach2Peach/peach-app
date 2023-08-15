@@ -47,6 +47,7 @@ exports[`MeetupPaymentMethods should render correctly when editing 1`] = `
             "lineHeight": 32,
             "marginRight": 4,
           },
+          false,
         ]
       }
     >
@@ -149,6 +150,7 @@ exports[`MeetupPaymentMethods should render correctly when editing 1`] = `
               "flexGrow": 1,
               "flexShrink": 1,
             },
+            false,
           ]
         }
       >
@@ -169,6 +171,7 @@ exports[`MeetupPaymentMethods should render correctly when editing 1`] = `
                 "letterSpacing": 0.16,
                 "lineHeight": 28,
               },
+              false,
             ]
           }
         >
@@ -255,6 +258,7 @@ exports[`MeetupPaymentMethods should render correctly when editing 1`] = `
                   "textTransform": "uppercase",
                 },
               ],
+              false,
             ]
           }
         >
@@ -313,6 +317,7 @@ exports[`MeetupPaymentMethods should render correctly with available methods 1`]
             "lineHeight": 32,
             "marginRight": 4,
           },
+          false,
         ]
       }
     >
@@ -415,6 +420,7 @@ exports[`MeetupPaymentMethods should render correctly with available methods 1`]
               "flexGrow": 1,
               "flexShrink": 1,
             },
+            false,
           ]
         }
       >
@@ -435,6 +441,7 @@ exports[`MeetupPaymentMethods should render correctly with available methods 1`]
                 "letterSpacing": 0.16,
                 "lineHeight": 28,
               },
+              false,
             ]
           }
         >
@@ -520,6 +527,7 @@ exports[`MeetupPaymentMethods should render correctly with available methods 1`]
                   "textTransform": "uppercase",
                 },
               ],
+              false,
             ]
           }
         >
@@ -604,6 +612,7 @@ exports[`MeetupPaymentMethods should render correctly with available methods 1`]
               "flexGrow": 1,
               "flexShrink": 1,
             },
+            false,
           ]
         }
       >
@@ -624,6 +633,7 @@ exports[`MeetupPaymentMethods should render correctly with available methods 1`]
                 "letterSpacing": 0.16,
                 "lineHeight": 28,
               },
+              false,
             ]
           }
         >
@@ -709,6 +719,7 @@ exports[`MeetupPaymentMethods should render correctly with available methods 1`]
                   "textTransform": "uppercase",
                 },
               ],
+              false,
             ]
           }
         >
@@ -767,6 +778,7 @@ exports[`MeetupPaymentMethods should render correctly with selected 1`] = `
             "lineHeight": 32,
             "marginRight": 4,
           },
+          false,
         ]
       }
     >
@@ -869,6 +881,7 @@ exports[`MeetupPaymentMethods should render correctly with selected 1`] = `
               "flexGrow": 1,
               "flexShrink": 1,
             },
+            false,
           ]
         }
       >
@@ -889,6 +902,7 @@ exports[`MeetupPaymentMethods should render correctly with selected 1`] = `
                 "letterSpacing": 0.16,
                 "lineHeight": 28,
               },
+              false,
             ]
           }
         >
@@ -978,6 +992,7 @@ exports[`MeetupPaymentMethods should render correctly with selected 1`] = `
                   "textTransform": "uppercase",
                 },
               ],
+              false,
             ]
           }
         >

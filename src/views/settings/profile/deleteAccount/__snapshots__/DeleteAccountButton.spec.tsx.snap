@@ -55,6 +55,7 @@ exports[`DeleteAccountButton renders correctly 1`] = `
           "letterSpacing": 0.16,
           "lineHeight": 28,
         },
+        false,
       ]
     }
   >

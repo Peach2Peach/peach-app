@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`DrawerTitle renders correctly 1`] = `
+exports[`PeachText should render correctly 1`] = `
 <Text
   allowFontScaling={false}
   style={
@@ -12,18 +12,11 @@ exports[`DrawerTitle renders correctly 1`] = `
         "letterSpacing": 0.16,
         "lineHeight": 24,
       },
-      {
-        "fontFamily": "Baloo2-Bold",
-        "fontSize": 16,
-        "letterSpacing": 1.6,
-        "lineHeight": 26,
-        "textAlign": "center",
-        "textTransform": "uppercase",
-      },
+      undefined,
       false,
     ]
   }
 >
-  testTitle
+  Text
 </Text>
 `;

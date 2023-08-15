@@ -79,6 +79,7 @@ exports[`ChatMessages should render correctly with messages 1`] = `
             "textAlign": "center",
           },
         ],
+        false,
       ]
     }
   >
