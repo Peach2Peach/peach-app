@@ -40,19 +40,19 @@ export const useFundFromPeachWallet = ({ address, addresses = [], amount, fundin
 
   const fundFromPeachWallet = async () => {
     if (!address || !amount || !canFundFromPeachWallet) return undefined
+    if (peachWallet.balance < minTradingAmount) return openAmountTooLowPopup(peachWallet.balance, addresses.length * minTradingAmount)
 
-    if (peachWallet.balance < minTradingAmount) return openAmountTooLowPopup(peachWallet.balance, minTradingAmount)
     let finishedTransaction: TxBuilderResult
     try {
       const transaction = await buildTransaction(undefined, undefined, feeRate)
-      if (addresses.length) await setMultipleRecipients(transaction, amount, addresses)
+      if (addresses.length > 0) await setMultipleRecipients(transaction, amount, addresses)
 
       finishedTransaction = await peachWallet.finishTransaction(transaction)
     } catch (e) {
       const transactionError = parseError(Array.isArray(e) ? e[0] : e)
       if (transactionError !== 'INSUFFICIENT_FUNDS') return showErrorBanner(transactionError)
 
-      if (addresses.length) {
+      if (addresses.length > 1) {
         const { available } = Array.isArray(e) ? e[1] : { available: 0 }
         return showErrorBanner('INSUFFICIENT_FUNDS', [amount, available])
       }
