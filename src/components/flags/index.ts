@@ -29,6 +29,7 @@ import RO from './ro.svg'
 import SE from './se.svg'
 import SI from './si.svg'
 import SK from './sk.svg'
+import TR from './tr.svg'
 import US from './us.svg'
 
 export const Flags = {
@@ -63,6 +64,7 @@ export const Flags = {
   SE,
   SI,
   SK,
+  TR,
   US,
 }
 
