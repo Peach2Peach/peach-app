@@ -14,6 +14,7 @@ import bitcoin from './bitcoin.svg'
 import bitcoinAmsterdam from './bitcoinAmsterdam.svg'
 import bizum from './bizum.svg'
 import blik from './blik.svg'
+import chippercash from './chippercash.svg'
 import fasterPayments from './fasterPayments.svg'
 import friends24 from './friends24.svg'
 import gtBank from './gtBank.svg'
@@ -59,6 +60,7 @@ export const PaymentLogos = {
   blik,
   bancolombia,
   cbu: placeholder,
+  chippercash,
   cvu: placeholder,
   fasterPayments,
   friends24,
