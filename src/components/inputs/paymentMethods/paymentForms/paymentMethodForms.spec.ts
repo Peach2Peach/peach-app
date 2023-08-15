@@ -1,4 +1,6 @@
 /* eslint-disable max-lines-per-function */
+import { PaymentMethodForms } from './paymentMethodForms'
+
 import {
   Template1,
   Template10,
@@ -13,7 +15,6 @@ import {
 } from '../templates'
 import { Template11 } from '../templates/Template11'
 import { GiftCardAmazon } from './GiftCardAmazon'
-import { PaymentMethodForms } from './paymentMethodForms'
 
 describe('paymentMethodForms', () => {
   it('should assign the correct template to each payment method', () => {
