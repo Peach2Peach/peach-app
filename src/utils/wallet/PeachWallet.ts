@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import { BLOCKEXPLORER, NETWORK } from '@env'
 import {
   Blockchain,
@@ -12,6 +13,7 @@ import { LocalUtxo, TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
 import { AddressIndex, BlockChainNames, BlockchainEsploraConfig, KeychainKind } from 'bdk-rn/lib/lib/enums'
 import { BIP32Interface } from 'bip32'
 import { error, info } from '../log'
+import { sum } from '../math'
 import { parseError } from '../result'
 import { findTransactionsToRebroadcast, isPending, mergeTransactionList } from '../transaction'
 import { callWhenInternet } from '../web'
@@ -23,10 +25,9 @@ import { getUTXOId } from './getUTXOId'
 import { labelAddressByTransaction } from './labelAddressByTransaction'
 import { mapTransactionToOffer } from './mapTransactionToOffer'
 import { rebroadcastTransactions } from './rebroadcastTransactions'
-import { buildDrainWalletTransaction, buildTransaction } from './transaction'
+import { buildDrainWalletTransaction, buildTransaction, getScriptPubKeyFromAddress } from './transaction'
 import { transactionHasBeenMappedToOffer } from './transactionHasBeenMappedToOffer'
 import { useWalletState } from './walletStore'
-import { sum } from '../math'
 
 type PeachWalletProps = {
   wallet: BIP32Interface
@@ -295,5 +296,11 @@ export class PeachWallet extends PeachJSWallet {
         this.loadWalletStore()
       })
     }
+  }
+
+  async isMine (address: string): Promise<boolean> {
+    if (!this.wallet || !this.blockchain) throw Error('WALLET_NOT_READY')
+    const script = await getScriptPubKeyFromAddress(address)
+    return this.wallet.isMine(script)
   }
 }

@@ -52,6 +52,7 @@ import { TestViewPNs } from './TestView/pns'
 import { TestViewPopups } from './TestView/popups'
 import { TestView } from './TestView/TestView'
 import { TradeComplete } from './tradeComplete/TradeComplete'
+import { AddressChecker } from './wallet/AddressChecker'
 import { BumpNetworkFees } from './wallet/BumpNetworkFees'
 import { ReceiveBitcoin } from './wallet/ReceiveBitcoin'
 import { TransactionDetails } from './wallet/TransactionDetails'
@@ -97,6 +98,7 @@ const home: ViewType[] = [{ name: 'home', component: Buy, ...defaultConfig }]
 const wallet: ViewType[] = [
   { name: 'wallet', component: Wallet, ...defaultConfig, showHeader: false, animationEnabled: false },
   { name: 'receiveBitcoin', component: ReceiveBitcoin, ...defaultConfig, showHeader: false },
+  { name: 'addressChecker', component: AddressChecker, ...defaultConfig, showHeader: false },
   { name: 'transactionHistory', component: TransactionHistory, ...defaultConfig },
   { name: 'transactionDetails', component: TransactionDetails, ...defaultConfig },
   { name: 'bumpNetworkFees', component: BumpNetworkFees, ...defaultConfig },

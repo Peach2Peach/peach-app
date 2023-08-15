@@ -1,9 +1,8 @@
-import { Alert } from 'react-native'
+import { NewHeader as Header } from '../../../components'
 import { useNavigation } from '../../../hooks'
 import { useShowHelp } from '../../../hooks/useShowHelp'
 import i18n from '../../../utils/i18n'
 import { headerIcons } from '../../../utils/layout/headerIcons'
-import { NewHeader as Header } from '../../../components'
 
 export const WalletHeader = () => {
   const navigation = useNavigation()
@@ -17,7 +16,7 @@ export const WalletHeader = () => {
           {
             ...headerIcons.search,
             accessibilityHint: `${i18n('goTo')} ${i18n('wallet.addressChecker')}`,
-            onPress: () => Alert.alert('TODO: Go to address checker'),
+            onPress: () => navigation.navigate('addressChecker'),
           },
           {
             ...headerIcons.list,
