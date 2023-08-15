@@ -112,6 +112,7 @@
   "contract.summary.buyerCanceled" : "el comprador ha cancelado",
   "contract.summary.chipperTag" : "chippertag",
   "contract.summary.email" : "email",
+  "contract.summary.eversendUserName" : "nombre de usuario",
   "contract.summary.for" : "por",
   "contract.summary.from" : "desde",
   "contract.summary.hasPaidYou" : "te ha pagado",

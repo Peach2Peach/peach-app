@@ -112,6 +112,7 @@
   "contract.summary.buyerCanceled" : "alıcı iptal etti",
   "contract.summary.chipperTag" : "chippertag",
   "contract.summary.email" : "e-posta",
+  "contract.summary.eversendUserName" : "kullanıcı adı",
   "contract.summary.for" : "için",
   "contract.summary.from" : "gönderen",
   "contract.summary.hasPaidYou" : "sana ödeme yaptı",
