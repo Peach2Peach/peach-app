@@ -19,7 +19,7 @@ import unassigned from './unassigned/el-GR.json'
 import wallet from './wallet/el-GR.json'
 import welcome from './welcome/el-GR.json'
 
-const de: Record<string, string> = {
+const el: Record<string, string> = {
   ...global,
   ...accessibility,
   ...analytics,
@@ -42,4 +42,4 @@ const de: Record<string, string> = {
   ...welcome,
 }
 
-export default de
+export default el

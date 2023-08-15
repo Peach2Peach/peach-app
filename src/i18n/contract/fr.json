@@ -110,6 +110,7 @@
   "contract.summary.bic" : "swift/bic",
   "contract.summary.bitcoinPrice" : "Prix BTC",
   "contract.summary.buyerCanceled" : "acheteur a annulé",
+  "contract.summary.chipperTag" : "chippertag",
   "contract.summary.email" : "email",
   "contract.summary.for" : "pour",
   "contract.summary.from" : "de",

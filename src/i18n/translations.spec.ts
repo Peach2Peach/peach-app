@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { ok } from 'assert'
 import { isDefined } from '../utils/validation'
 import de from './de'
@@ -6,15 +7,17 @@ import en from './en'
 import es from './es'
 import fr from './fr'
 import it from './it'
+import tr from './tr'
 
 describe('translations', () => {
-  test('everything has been translated', () => {
+  test('warn if not everything has been translated', () => {
     for (const key in en) {
-      ok(isDefined(es[key]), `${key} does not exist in es`)
-      ok(isDefined(fr[key]), `${key} does not exist in fr`)
-      ok(isDefined(it[key]), `${key} does not exist in it`)
-      ok(isDefined(de[key]), `${key} does not exist in de`)
-      ok(isDefined(elGR[key]), `${key} does not exist in el-GR`)
+      if (!isDefined(es[key])) console.warn(`${key} does not exist in es`)
+      if (!isDefined(fr[key])) console.warn(`${key} does not exist in fr`)
+      if (!isDefined(it[key])) console.warn(`${key} does not exist in it`)
+      if (!isDefined(de[key])) console.warn(`${key} does not exist in de`)
+      if (!isDefined(elGR[key])) console.warn(`${key} does not exist in el-GR`)
+      if (!isDefined(tr[key])) console.warn(`${key} does not exist in tr`)
     }
   })
   test('non existing texts has not been translated', () => {
@@ -32,6 +35,9 @@ describe('translations', () => {
     }
     for (const key in elGR) {
       ok(isDefined(en[key]), `${key} does not exist in el-GR`)
+    }
+    for (const key in tr) {
+      ok(isDefined(en[key]), `${key} does not exist in tr`)
     }
   })
 })

@@ -13,7 +13,7 @@
   "help.escrow.description.link" : "hier",
   "help.escrow.description.proTip" : "Du kannst den QR-Code lange drücken, um die vollständige Zahlungsanforderung zu kopieren.",
   "help.escrow.title" : "Peach Escrow",
-  "help.lnurl.description" : "You can use this payment method to swap your on-chain bitcoin for lightning. You pay no Peach fees for this.\n\nIf you’re buying, you’re receiving on-chain bitcoin and sending LN bitcoin.\n\nIf you’re selling, you’re sending on-chain bitcoin and receiving LN bitcoin.",
+  "help.lnurl.description" : "Du kannst diese Zahlungsmethode nutzen, um deine On-Chain-Bitcoin gegen Lightning zu tauschen. Du zahlst dafür keine Peach-Gebühren.\n\nWenn du kaufst, erhältst du On-Chain-Bitcoin und sendest LN-Bitcoin.\n\nWenn du verkaufst, sendest du On-Chain-Bitcoin und erhältst LN-Bitcoin.",
   "help.lnurl.description.bold" : "Du zahlst keine Peach-Gebühren.",
   "help.lnurl.title" : "LNURL Swaps",
   "help.makePayment.description" : "Je schneller du die Zahlung durchführst, desto besser ist deine Reputation für diesen Handel!\n\nWenn du die Zahlung nicht innerhalb von 12h durchführst, kann der Verkäufer den Handel ohne Strafe stornieren.",

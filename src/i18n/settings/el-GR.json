@@ -53,7 +53,7 @@
   "settings.deleteAccount.popup.title" : "διαγραφή λογαριασμού;",
   "settings.deleteAccount.success" : "Ελπίζουμε να σας ξαναδούμε σύντομα!",
   "settings.deleteAccount.success.title" : "ο λογαριασμός διαγράφηκε",
-  "settings.deleteAccount.title" : "Όλα τα δεδομένα σας θα διαγραφούν! Βεβαιωθείτε ότι έχετε δημιουργήσει ένα αντίγραφο ασφαλείας.",
+  "settings.deleteAccount.title" : "Όλα τα δεδομένα σας θα διαγραφούν! Βεβαιωθείτε ότι έχετε δημιουργήσει αντίγραφο ασφαλείας.",
   "settings.displayCurrency.subtitle" : "εμφάνιση νομίσματος",
   "settings.escrow" : "εγγύηση",
   "settings.escrow.paymentRequest.label" : "Peach Εγγύηση - προσφορά",
@@ -119,5 +119,6 @@
   "settings.terms" : "όροι & προϋποθέσεις",
   "settings.testView" : "Άνοιγμα TestView",
   "settings.title" : "ρυθμίσεις",
+  "settings.transactionBatching" : "ομαδοποίηση συναλλαγών",
   "settings.website" : "ιστοσελίδα"
 }

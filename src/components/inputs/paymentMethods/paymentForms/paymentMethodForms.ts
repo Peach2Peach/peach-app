@@ -1,7 +1,9 @@
 import { GIFTCARDCOUNTRIES, NATIONALTRANSFERCOUNTRIES } from '../../../../constants'
+import { FormProps } from '../../../../views/addPaymentMethod/PaymentMethodForm'
 import { TradeInfoField } from '../../../../views/contract/helpers/tradeInformationGetters'
 import {
   Template1,
+  Template10,
   Template2,
   Template3,
   Template4,
@@ -10,11 +12,9 @@ import {
   Template7,
   Template8,
   Template9,
-  Template10,
 } from '../templates'
-import { GiftCardAmazon } from './GiftCardAmazon'
-import { FormProps } from '../../../../views/addPaymentMethod/PaymentMethodForm'
 import { Template11 } from '../templates/Template11'
+import { GiftCardAmazon } from './GiftCardAmazon'
 
 type PaymentMethodFormsType = {
   [key in PaymentMethod]?: { component: (props: FormProps) => JSX.Element; fields: TradeInfoField[] }
@@ -62,6 +62,8 @@ export const PaymentMethodForms: PaymentMethodFormsType = {
   verse: { component: Template3, fields: template3Fields },
   iris: { component: Template3, fields: template3Fields },
   'giftCard.amazon': { component: GiftCardAmazon, fields: template4Fields },
+  nationalTransferTR: { component: Template1, fields: template1Fields },
+  papara: { component: Template3, fields: template3Fields },
   liquid: { component: Template10, fields: template10Fields },
   lnurl: { component: Template11, fields: template11Fields },
 }
