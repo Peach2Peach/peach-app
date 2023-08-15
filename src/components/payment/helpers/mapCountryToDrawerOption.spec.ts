@@ -11,7 +11,7 @@ describe('mapCountryToDrawerOption', () => {
     expect(result).toEqual({
       flagID: 'LV',
       onPress: expect.any(Function),
-      title: 'country.LV',
+      title: 'Latvia',
     })
 
     result.onPress()

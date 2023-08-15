@@ -18,7 +18,7 @@ describe('getCountrySelectDrawerOptions', () => {
         {
           flagID: 'LV',
           onPress: expect.any(Function),
-          title: 'country.LV',
+          title: 'Latvia',
         },
       ],
       show: true,

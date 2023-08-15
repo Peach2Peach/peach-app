@@ -159,7 +159,7 @@ describe('AddPaymentMethodButton', () => {
       },
       { flagID: 'BE', onPress: expect.any(Function), title: 'Belgium' },
       { flagID: 'FR', onPress: expect.any(Function), title: 'France' },
-      { flagID: 'LV', onPress: expect.any(Function), title: 'country.LV' },
+      { flagID: 'LV', onPress: expect.any(Function), title: 'Latvia' },
     ])
   })
   it('should sort the meetups by their city alphabetically', async () => {
