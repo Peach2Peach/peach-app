@@ -77,7 +77,12 @@ describe('Wallet', () => {
 
     expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
-  it.todo('should navigate to send screen when send button is pressed')
+  it('should navigate to send screen when send button is pressed', () => {
+    const { getByText } = render(<Wallet />, { wrapper: NavigationAndQueryClientWrapper })
+    fireEvent.press(getByText('send'))
+
+    expect(navigateMock).toHaveBeenCalledWith('sendBitcoin')
+  })
   it('should navigate to receive screen when receive button is pressed', () => {
     const { getByText } = render(<Wallet />, { wrapper: NavigationAndQueryClientWrapper })
     fireEvent.press(getByText('receive'))

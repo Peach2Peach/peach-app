@@ -68,12 +68,7 @@ function BitcoinAddress ({ index }: { index: number }) {
         {addressParts.three}
         <Text style={tw`body-l`}>{addressParts.four}</Text>
       </Text>
-      <CopyAble
-        value={address}
-        style={tw`w-6 h-6`}
-        color={isUsed ? tw`text-primary-mild-1` : tw`text-primary-main`}
-        disabled={isUsed}
-      />
+      <CopyAble value={address} style={tw`w-6 h-6`} color={isUsed ? tw`text-primary-mild-1` : tw`text-primary-main`} />
     </View>
   )
 }

@@ -22,7 +22,6 @@ export const getMessages = () => ({
   referralCode: i18n('form.invalid.error'),
   referralCodeTaken: i18n('form.referral.alreadyTaken'),
   required: i18n('form.required.error'),
-  requiredShort: i18n('form.required'),
   revtag: i18n('form.invalid.error'),
   signature: i18n('form.signature.error'),
   tetherAddress: i18n('form.address.error'),

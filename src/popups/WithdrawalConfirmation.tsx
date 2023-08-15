@@ -14,7 +14,7 @@ type Props = {
 
 export const WithdrawalConfirmation = ({ amount, address, fee, feeRate }: Props) => (
   <View style={tw`gap-3`}>
-    <Text>{i18n('wallet.confirmWithdraw.text')}</Text>
+    <Text>{i18n('wallet.sendBitcoin.youreSending')}</Text>
     <BTCAmount amount={amount} size="medium" />
     <Text>
       {i18n('transaction.details.to')} <ShortBitcoinAddress address={address} />
