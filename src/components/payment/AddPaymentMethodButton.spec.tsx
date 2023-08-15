@@ -1,8 +1,9 @@
 import { fireEvent, render, waitFor } from '@testing-library/react-native'
+import { balticHoneyBadger, belgianBTCEmbassy, breizhBitcoin, decouvreBTC } from '../../../tests/unit/data/eventData'
 import { NavigationAndQueryClientWrapper } from '../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
 import { navigateMock, pushMock } from '../../../tests/unit/helpers/NavigationWrapper'
 import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
-import { defaultState, DrawerContext } from '../../contexts/drawer'
+import { DrawerContext, defaultState } from '../../contexts/drawer'
 import { useMeetupEventsStore } from '../../store/meetupEventsStore'
 import { AddPaymentMethodButton } from './AddPaymentMethodButton'
 
@@ -10,26 +11,7 @@ jest.mock('../../hooks/useRoute', () => ({
   useRoute: jest.fn(() => ({ name: 'paymentMethods' })),
 }))
 
-const mockEvents: MeetupEvent[] = [
-  {
-    id: '1',
-    currencies: ['EUR'],
-    country: 'DE',
-    city: 'Aachen',
-    shortName: '22BTC',
-    longName: 'ZWEIUNDZWANZIG BTC',
-    featured: false,
-  },
-  {
-    id: '2',
-    currencies: ['EUR'],
-    country: 'DE',
-    city: 'Berlin',
-    shortName: '21BTC',
-    longName: 'EINUNDZWANZIG BTC',
-    featured: false,
-  },
-]
+const mockEvents: MeetupEvent[] = [belgianBTCEmbassy, decouvreBTC]
 
 const getMeetupEventsMock = jest.fn(
   (): Promise<[MeetupEvent[] | null, APIError | null]> => Promise.resolve([mockEvents, null]),
@@ -108,11 +90,8 @@ describe('AddPaymentMethodButton', () => {
     expect(drawer.title).toBe('select country')
     expect(drawer.show).toBe(true)
     expect(drawer.options).toStrictEqual([
-      {
-        flagID: 'DE',
-        onPress: expect.any(Function),
-        title: 'Germany',
-      },
+      { flagID: 'BE', onPress: expect.any(Function), title: 'Belgium' },
+      { flagID: 'FR', onPress: expect.any(Function), title: 'France' },
     ])
   })
 
@@ -122,7 +101,7 @@ describe('AddPaymentMethodButton', () => {
       expect(queryClient.getQueryState(['meetupEvents'])?.status).toBe('success')
     })
     fireEvent.press(getByText('add new cash option'))
-    drawer.options.find((e) => e.title === 'Germany')?.onPress()
+    drawer.options.find((e) => e.title === 'Belgium')?.onPress()
 
     expect(drawer.title).toBe('select meetup')
     expect(drawer.show).toBe(true)
@@ -130,24 +109,15 @@ describe('AddPaymentMethodButton', () => {
       {
         highlighted: false,
         onPress: expect.any(Function),
-        subtext: 'Aachen',
-        title: 'ZWEIUNDZWANZIG BTC',
-      },
-      {
-        highlighted: false,
-        onPress: expect.any(Function),
-        subtext: 'Berlin',
-        title: 'EINUNDZWANZIG BTC',
+        subtext: 'Antwerp',
+        title: 'Belgian Bitcoin Embassy',
       },
     ])
     expect(drawer.previousDrawer?.title).toBe('select country')
     expect(drawer.previousDrawer?.show).toBe(true)
     expect(drawer.previousDrawer?.options).toStrictEqual([
-      {
-        flagID: 'DE',
-        onPress: expect.any(Function),
-        title: 'Germany',
-      },
+      { flagID: 'BE', onPress: expect.any(Function), title: 'Belgium' },
+      { flagID: 'FR', onPress: expect.any(Function), title: 'France' },
     ])
   })
 
@@ -157,12 +127,12 @@ describe('AddPaymentMethodButton', () => {
       expect(queryClient.getQueryState(['meetupEvents'])?.status).toBe('success')
     })
     fireEvent.press(getByText('add new cash option'))
-    drawer.options.find((e) => e.title === 'Germany')?.onPress()
-    drawer.options.find((e) => e.title === 'EINUNDZWANZIG BTC')?.onPress()
+    drawer.options.find((e) => e.title === 'Belgium')?.onPress()
+    drawer.options.find((e) => e.title === belgianBTCEmbassy.longName)?.onPress()
 
     expect(drawer.show).toBe(false)
     expect(pushMock).toHaveBeenCalledWith('meetupScreen', {
-      eventId: '2',
+      eventId: belgianBTCEmbassy.id,
       origin: 'paymentMethods',
     })
   })
@@ -173,119 +143,58 @@ describe('AddPaymentMethodButton', () => {
       origin: 'paymentMethods',
     })
   })
-  it('should sort the countries alphabetically', async () => {
-    getMeetupEventsMock.mockResolvedValueOnce([
-      [
-        ...mockEvents,
-        {
-          id: '2',
-          currencies: ['EUR'],
-          country: 'UK',
-          city: 'London',
-          shortName: '22BTC',
-          longName: 'TWENTYTWO BTC',
-          featured: false,
-        },
-      ],
-      null,
-    ])
+  it('should sort the countries alphabetically and keep super featured events on top', async () => {
+    getMeetupEventsMock.mockResolvedValueOnce([[...mockEvents, balticHoneyBadger], null])
     const { getByText } = render(<AddPaymentMethodButton isCash={true} />, { wrapper })
     await waitFor(() => {
-      expect(useMeetupEventsStore.getState().meetupEvents).toStrictEqual([
-        ...mockEvents,
-        {
-          id: '2',
-          currencies: ['EUR'],
-          country: 'UK',
-          city: 'London',
-          shortName: '22BTC',
-          longName: 'TWENTYTWO BTC',
-          featured: false,
-        },
-      ])
+      expect(useMeetupEventsStore.getState().meetupEvents).toStrictEqual([...mockEvents, balticHoneyBadger])
     })
     fireEvent.press(getByText('add new cash option'))
     expect(drawer.options).toStrictEqual([
       {
-        flagID: 'DE',
+        highlighted: true,
         onPress: expect.any(Function),
-        title: 'Germany',
+        subtext: 'Riga',
+        title: 'Baltic Honeybadger',
       },
-      {
-        flagID: 'UK',
-        onPress: expect.any(Function),
-        title: 'United Kingdom',
-      },
+      { flagID: 'BE', onPress: expect.any(Function), title: 'Belgium' },
+      { flagID: 'FR', onPress: expect.any(Function), title: 'France' },
+      { flagID: 'LV', onPress: expect.any(Function), title: 'country.LV' },
     ])
   })
-  it('should sort the meetups alphabetically', async () => {
+  it('should sort the meetups by their city alphabetically', async () => {
+    getMeetupEventsMock.mockResolvedValueOnce([[breizhBitcoin, ...mockEvents], null])
+
     const { getByText } = render(<AddPaymentMethodButton isCash={true} />, { wrapper })
     await waitFor(() => {
-      expect(useMeetupEventsStore.getState().meetupEvents).toStrictEqual(mockEvents)
+      expect(useMeetupEventsStore.getState().meetupEvents).toStrictEqual([breizhBitcoin, ...mockEvents])
     })
     fireEvent.press(getByText('add new cash option'))
+
+    drawer.options.find((e) => e.title === 'France')?.onPress()
     expect(drawer.options).toStrictEqual([
-      {
-        flagID: 'DE',
-        onPress: expect.any(Function),
-        title: 'Germany',
-      },
-    ])
-    drawer.options.find((e) => e.title === 'Germany')?.onPress()
-    expect(drawer.options).toStrictEqual([
-      {
-        highlighted: false,
-        onPress: expect.any(Function),
-        subtext: 'Aachen',
-        title: 'ZWEIUNDZWANZIG BTC',
-      },
-      {
-        highlighted: false,
-        onPress: expect.any(Function),
-        subtext: 'Berlin',
-        title: 'EINUNDZWANZIG BTC',
-      },
+      { highlighted: false, onPress: expect.any(Function), subtext: decouvreBTC.city, title: decouvreBTC.longName },
+      { highlighted: false, onPress: expect.any(Function), subtext: breizhBitcoin.city, title: breizhBitcoin.longName },
     ])
   })
 
   it('should show the featured meetups at the top of the list', async () => {
     const featuredEvent: MeetupEvent = {
-      id: '1',
-      currencies: ['EUR'],
-      country: 'DE',
-      city: 'Berlin',
-      shortName: '21BTC',
-      longName: 'EINUNDZWANZIG BTC',
+      ...breizhBitcoin,
       featured: true,
     }
-    getMeetupEventsMock.mockResolvedValueOnce([[mockEvents[0], featuredEvent], null])
+    getMeetupEventsMock.mockResolvedValueOnce([[decouvreBTC, featuredEvent], null])
     expect(useMeetupEventsStore.getState().meetupEvents).toStrictEqual([])
     const { getByText } = render(<AddPaymentMethodButton isCash={true} />, { wrapper })
     await waitFor(() => {
-      expect(useMeetupEventsStore.getState().meetupEvents).toStrictEqual([mockEvents[0], featuredEvent])
+      expect(useMeetupEventsStore.getState().meetupEvents).toStrictEqual([decouvreBTC, featuredEvent])
     })
     fireEvent.press(getByText('add new cash option'))
+
+    drawer.options.find((e) => e.title === 'France')?.onPress()
     expect(drawer.options).toStrictEqual([
-      {
-        flagID: 'DE',
-        onPress: expect.any(Function),
-        title: 'Germany',
-      },
-    ])
-    drawer.options.find((e) => e.title === 'Germany')?.onPress()
-    expect(drawer.options).toStrictEqual([
-      {
-        highlighted: true,
-        onPress: expect.any(Function),
-        subtext: 'Berlin',
-        title: 'EINUNDZWANZIG BTC',
-      },
-      {
-        highlighted: false,
-        onPress: expect.any(Function),
-        subtext: 'Aachen',
-        title: 'ZWEIUNDZWANZIG BTC',
-      },
+      { highlighted: false, onPress: expect.any(Function), subtext: decouvreBTC.city, title: decouvreBTC.longName },
+      { highlighted: true, onPress: expect.any(Function), subtext: featuredEvent.city, title: featuredEvent.longName },
     ])
   })
 })
