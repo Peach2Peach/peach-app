@@ -191,9 +191,7 @@ declare type PaymentMethod =
   | 'wave'
   | 'airtelMoney'
   | 'm-pesa'
-  | 'accessBank'
-  | 'gtBank'
-  | 'zenithBank'
+  | 'nationalTransferNG'
   | 'chippercash'
   | 'eversend'
   | CashTrade
