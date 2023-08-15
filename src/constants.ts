@@ -111,9 +111,7 @@ export const PAYMENTCATEGORIES: PaymentCategories = {
     'cvu',
     'alias',
     'bancolombia',
-    'accessBank',
-    'gtBank',
-    'zenithBank',
+    'nationalTransferNG',
     ...NATIONALTRANSFERCOUNTRIES.map((c) => `nationalTransfer${c}` satisfies PaymentMethod),
   ],
   onlineWallet: [

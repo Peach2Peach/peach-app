@@ -2,10 +2,10 @@ import nationalTransferBG from '../../flags/bg.svg'
 import nationalTransferCZ from '../../flags/cz.svg'
 import nationalTransferDK from '../../flags/dk.svg'
 import nationalTransferHU from '../../flags/hu.svg'
+import nationalTransferNG from '../../flags/ng.svg'
 import nationalTransferNO from '../../flags/no.svg'
 import nationalTransferPL from '../../flags/pl.svg'
 import nationalTransferRO from '../../flags/ro.svg'
-import accessBank from './accessBank.svg'
 import advcash from './advcash.svg'
 import airtelMoney from './airtelMoney.svg'
 import amazon from './amazon.svg'
@@ -18,7 +18,6 @@ import chippercash from './chippercash.svg'
 import eversend from './eversend.svg'
 import fasterPayments from './fasterPayments.svg'
 import friends24 from './friends24.svg'
-import gtBank from './gtBank.svg'
 import keksPay from './keksPay.svg'
 import liquid from './liquid.svg'
 import lydia from './lydia.svg'
@@ -45,14 +44,12 @@ import verse from './verse.svg'
 import vipps from './vipps.svg'
 import wave from './wave.svg'
 import wise from './wise.svg'
-import zenithBank from './zenithBank.svg'
 
 export const PaymentLogos = {
   'cash.amsterdam': bitcoinAmsterdam,
   'cash.belgianEmbassy': bitcoin,
   'cash.lugano': bitcoin,
   'giftCard.amazon': amazon,
-  accessBank,
   advcash,
   alias: placeholder,
   airtelMoney,
@@ -67,7 +64,6 @@ export const PaymentLogos = {
   eversend,
   fasterPayments,
   friends24,
-  gtBank,
   instantSepa: sepa,
   iris: placeholder,
   keksPay,
@@ -87,6 +83,7 @@ export const PaymentLogos = {
   nationalTransferNO,
   nationalTransferPL,
   nationalTransferRO,
+  nationalTransferNG,
   nequi,
   neteller,
   orangeMoney,
@@ -105,7 +102,6 @@ export const PaymentLogos = {
   vipps,
   wave,
   wise,
-  zenithBank,
 }
 
 export type PaymentLogoType = keyof typeof PaymentLogos
