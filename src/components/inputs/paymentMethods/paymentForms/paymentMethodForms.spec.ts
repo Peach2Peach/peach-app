@@ -21,6 +21,7 @@ import {
   Template8,
   Template9,
 } from '../templates'
+import { Template19 } from '../templates/Template19'
 import { GiftCardAmazon } from './GiftCardAmazon'
 
 describe('paymentMethodForms', () => {
@@ -104,6 +105,7 @@ describe('paymentMethodForms', () => {
       zenithBank: { component: Template21, fields: ['method', 'price', 'accountNumber'] },
       chippercash: { component: Template18, fields: ['method', 'price', 'chipperTag', 'reference'] },
       mtn: { component: Template12, fields: ['method', 'price', 'phone'] },
+      eversend: { component: Template19, fields: ['method', 'price', 'eversendUserName'] },
     })
   })
 })
