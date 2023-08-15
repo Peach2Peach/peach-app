@@ -96,6 +96,7 @@ export const PaymentMethodForms: PaymentMethodFormsType = {
   gtBank: { component: Template21, fields: template21Fields },
   zenithBank: { component: Template21, fields: template21Fields },
   chippercash: { component: Template18, fields: template18Fields },
+  mtn: { component: Template12, fields: template12Fields },
 }
 GIFTCARDCOUNTRIES.forEach(
   (c) =>

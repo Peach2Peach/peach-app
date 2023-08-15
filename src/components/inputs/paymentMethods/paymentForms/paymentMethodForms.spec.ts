@@ -103,6 +103,7 @@ describe('paymentMethodForms', () => {
       gtBank: { component: Template21, fields: ['method', 'price', 'accountNumber'] },
       zenithBank: { component: Template21, fields: ['method', 'price', 'accountNumber'] },
       chippercash: { component: Template18, fields: ['method', 'price', 'chipperTag', 'reference'] },
+      mtn: { component: Template12, fields: ['method', 'price', 'phone'] },
     })
   })
 })
