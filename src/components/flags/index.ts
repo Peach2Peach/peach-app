@@ -21,6 +21,7 @@ import IT from './it.svg'
 import LT from './lt.svg'
 import LU from './lu.svg'
 import LV from './lv.svg'
+import ME from './me.svg'
 import MT from './mt.svg'
 import NL from './nl.svg'
 import PL from './pl.svg'
@@ -56,6 +57,7 @@ export const Flags = {
   LT,
   LU,
   LV,
+  ME,
   MT,
   NL,
   PL,
