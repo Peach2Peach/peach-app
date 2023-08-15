@@ -97,7 +97,7 @@ export const NewHeader = ({ title, icons, titleComponent, hideGoBackButton, show
   const shouldShowBackButton = !hideGoBackButton && canGoBack()
 
   return (
-    <View style={[tw`items-center py-1 gap-6px`, shouldShowBackButton && [tw`pl-3`, tw.md`pl-22px`], colors.bg]}>
+    <View style={[tw`items-center py-1 gap-6px`, shouldShowBackButton && [tw`-ml-1`, tw.md`-ml-[10px]`], colors.bg]}>
       <View style={tw`flex-row justify-between w-full`}>
         <View style={tw`flex-row items-center justify-start flex-shrink w-full gap-1`}>
           {shouldShowBackButton && (

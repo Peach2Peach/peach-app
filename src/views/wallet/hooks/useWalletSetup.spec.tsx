@@ -1,11 +1,10 @@
-import { renderHook, waitFor } from '@testing-library/react-native'
+import { act, renderHook, waitFor } from '@testing-library/react-native'
 import { NavigationWrapper, navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { useSettingsStore } from '../../../store/settingsStore'
 import { PeachWallet } from '../../../utils/wallet/PeachWallet'
 import { setPeachWallet } from '../../../utils/wallet/setWallet'
 import { useWalletState } from '../../../utils/wallet/walletStore'
 import { useWalletSetup } from './useWalletSetup'
-import { useSettingsStore } from '../../../store/settingsStore'
-import { act } from 'react-test-renderer'
 
 jest.useFakeTimers()
 
@@ -27,6 +26,7 @@ describe('useWalletSetup', () => {
     const { result } = renderHook(useWalletSetup, { wrapper, initialProps })
 
     expect(result.current.balance).toEqual(balance)
+    expect(result.current.refresh).toBeInstanceOf(Function)
     expect(result.current.isRefreshing).toBeFalsy()
     expect(result.current.walletLoading).toBeTruthy()
     await waitFor(() => expect(result.current.walletLoading).toBeFalsy())
@@ -45,10 +45,10 @@ describe('useWalletSetup', () => {
     renderHook(useWalletSetup, { wrapper, initialProps })
     expect(peachWallet.syncWallet).not.toHaveBeenCalled()
     peachWallet.initialized = true
-    await act(() => {
+    act(() => {
       jest.advanceTimersByTime(1001)
     })
-    expect(peachWallet.syncWallet).toHaveBeenCalled()
+    await waitFor(() => expect(peachWallet.syncWallet).toHaveBeenCalled())
   })
   it('should navigate to backupTime if balance is bigger than 0 & showBackupReminder is false', async () => {
     useWalletState.getState().setBalance(1)

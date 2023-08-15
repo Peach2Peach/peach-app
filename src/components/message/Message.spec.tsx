@@ -1,7 +1,7 @@
-import { Message } from './Message'
 import { fireEvent, render } from '@testing-library/react-native'
 import { createRenderer } from 'react-test-renderer/shallow'
-import i18n from '../utils/i18n'
+import i18n from '../../utils/i18n'
+import { Message } from './Message'
 
 describe('Message', () => {
   const defaultProps = {
@@ -25,7 +25,7 @@ describe('Message', () => {
     expect(shallowRenderer.getRenderOutput()).toMatchSnapshot()
   })
   it('should use default values for missing translations', () => {
-    jest.spyOn(jest.requireMock('../utils/i18n'), 'default').mockImplementation((key: unknown) => key)
+    jest.spyOn(jest.requireMock('../../utils/i18n'), 'default').mockImplementation((key: unknown) => key)
     shallowRenderer.render(<Message {...defaultProps} />)
     expect(shallowRenderer.getRenderOutput()).toMatchSnapshot()
   })

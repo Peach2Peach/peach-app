@@ -3,20 +3,28 @@
 exports[`Wallet should render correctly 1`] = `
 <Screen>
   <WalletHeader />
-  <View
-    style={
+  <ForwardRef
+    contentContainerStyle={
       {
-        "alignItems": "center",
+        "flexGrow": 1,
+      }
+    }
+    contentStyle={
+      {
         "flexGrow": 1,
         "justifyContent": "center",
       }
     }
+    refreshControl={
+      <RefreshControlMock
+        refreshing={false}
+      />
+    }
   >
     <TotalBalance
       amount={21}
-      isRefreshing={false}
     />
-  </View>
+  </ForwardRef>
   <WalletButtons />
 </Screen>
 `;
