@@ -119,5 +119,6 @@
   "settings.terms" : "términos y condiciones",
   "settings.testView" : "Abrir TestView",
   "settings.title" : "ajustes",
+  "settings.transactionBatching" : "unión de transacciones",
   "settings.website" : "sitio web"
 }

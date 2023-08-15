@@ -97,6 +97,7 @@ declare type Currency =
   | 'ISK'
   | 'NOK'
   | 'RON'
+  | 'TRY'
   | 'USDT'
 declare type Pricebook = {
   [key in Currency]?: number
@@ -136,6 +137,7 @@ declare type PaymentMethodCountry =
   | 'LV'
   | 'MT'
   | 'ME'
+  | 'TR'
 
 declare type Location = 'amsterdam' | 'belgianEmbassy' | 'lugano'
 
@@ -169,6 +171,7 @@ declare type PaymentMethod =
   | 'lydia'
   | 'verse'
   | 'iris'
+  | 'papara'
   | 'liquid'
   | 'lnurl'
   | CashTrade

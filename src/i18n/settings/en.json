@@ -119,5 +119,6 @@
   "settings.terms" : "terms & conditions",
   "settings.testView" : "Open TestView",
   "settings.title" : "settings",
+  "settings.transactionBatching" : "transaction batching",
   "settings.website" : "website"
 }
