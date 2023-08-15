@@ -1,10 +1,15 @@
 import { validateMnemonic, wordlists } from 'bip39'
 import { isAdvcashWallet } from './isAdvcashWallet'
 import { isBIC } from './isBIC'
+import { isBancolombiaAccountNumber } from './isBancolombiaAccountNumber'
 import { isBitcoinAddress } from './isBitcoinAddress'
+import { isCBU } from './isCBU'
+import { isCVU } from './isCVU'
+import { isCVUAlias } from './isCVUAlias'
 import { isEUIBAN } from './isEUIBAN'
 import { isEmail } from './isEmail'
 import { isIBAN } from './isIBAN'
+import { isNUBAN } from './isNUBAN'
 import { isPaypalUsername } from './isPaypalUsername'
 import { isPhone } from './isPhone'
 import { isPhoneAllowed } from './isPhoneAllowed'
@@ -63,11 +68,26 @@ export const rules = {
   iban (_: boolean, value: string) {
     return isIBAN(value)
   },
+  isNUBAN (_: boolean, value: string) {
+    return isNUBAN(value)
+  },
   isEUIBAN (_: boolean, value: string) {
     return isEUIBAN(value)
   },
   bic (_: boolean, value: string) {
     return isBIC(value)
+  },
+  isCBU (_: boolean, value: string) {
+    return isCBU(value)
+  },
+  isCVU (_: boolean, value: string) {
+    return isCVU(value)
+  },
+  isCVUAlias (_: boolean, value: string) {
+    return isCVUAlias(value)
+  },
+  isBancolombiaAccountNumber (_: boolean, value: string) {
+    return isBancolombiaAccountNumber(value)
   },
   userName (_: boolean, value: string) {
     return isUsername(value)

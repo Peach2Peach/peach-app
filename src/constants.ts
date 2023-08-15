@@ -1,6 +1,7 @@
 import { getBuildNumber, getUniqueIdSync, getVersion, isEmulatorSync } from 'react-native-device-info'
 import { IconType } from './assets/icons'
 import { FlagType } from './components/flags'
+import { CurrencyType } from './store/offerPreferenes/types'
 import { unique } from './utils/array'
 import { sha256 } from './utils/crypto/sha256'
 import { isCashTrade } from './utils/paymentMethod/isCashTrade'
@@ -33,6 +34,7 @@ export let CURRENCIES: Currency[] = [
   'SAT',
   'EUR',
   'CHF',
+  'USD',
   'GBP',
   'SEK',
   'DKK',
@@ -45,7 +47,23 @@ export let CURRENCIES: Currency[] = [
   'NOK',
   'TRY',
   'USDT',
+  'ARS',
+  'COP',
+  'PEN',
+  'MXN',
+  'CLP',
+  'PEN',
+  'COP',
+  'XOF',
+  'NGN',
+  'CDF',
 ]
+export const CURRENCY_MAP: Record<CurrencyType, Currency[]> = {
+  europe: ['EUR', 'CHF', 'GBP', 'SEK', 'DKK', 'BGN', 'CZK', 'HUF', 'PLN', 'RON', 'ISK', 'NOK'],
+  latinAmerica: ['ARS', 'COP', 'PEN', 'MXN', 'CLP', 'PEN', 'COP'],
+  africa: ['USD', 'XOF', 'CDF', 'NGN'],
+  other: ['USDT', 'SAT'],
+}
 
 export let GIFTCARDCOUNTRIES: PaymentMethodCountry[] = ['DE', 'FR', 'IT', 'ES', 'NL', 'UK', 'SE', 'FI']
 export const NATIONALTRANSFERCOUNTRIES: PaymentMethodCountry[] = [
@@ -90,6 +108,11 @@ export const PAYMENTCATEGORIES: PaymentCategories = {
     'instantSepa',
     'fasterPayments',
     'straksbetaling',
+    'cbu',
+    'cvu',
+    'alias',
+    'bancolombia',
+    'nationalTransferNG',
     ...NATIONALTRANSFERCOUNTRIES.map((c) => `nationalTransfer${c}` satisfies PaymentMethod),
     'nationalTransferTR',
   ],
@@ -109,6 +132,17 @@ export const PAYMENTCATEGORIES: PaymentCategories = {
     'friends24',
     'n26',
     'papara',
+    'mercadoPago',
+    'rappipay',
+    'nequi',
+    'orangeMoney',
+    'moov',
+    'mtn',
+    'wave',
+    'airtelMoney',
+    'm-pesa',
+    'chippercash',
+    'eversend',
   ],
   giftCard: ['giftCard.amazon', ...GIFTCARDCOUNTRIES.map((c) => `giftCard.amazon.${c}` satisfies PaymentMethod)],
   nationalOption: ['mbWay', 'bizum', 'satispay', 'mobilePay', 'keksPay', 'paylib', 'lydia', 'verse', 'iris'],

@@ -1,10 +1,20 @@
 /* eslint-disable max-lines-per-function */
-import { PaymentMethodForms } from './paymentMethodForms'
+import { PaymentMethodForms } from '../paymentForms/paymentMethodForms'
 
 import {
   Template1,
   Template10,
+  Template11,
+  Template12,
+  Template13,
+  Template14,
+  Template15,
+  Template16,
+  Template17,
+  Template18,
+  Template19,
   Template2,
+  Template21,
   Template3,
   Template4,
   Template5,
@@ -13,7 +23,6 @@ import {
   Template8,
   Template9,
 } from '../templates'
-import { Template11 } from '../templates/Template11'
 import { GiftCardAmazon } from './GiftCardAmazon'
 
 describe('paymentMethodForms', () => {
@@ -85,6 +94,22 @@ describe('paymentMethodForms', () => {
       papara: { component: Template3, fields: ['method', 'price', 'beneficiary', 'phone', 'reference'] },
       liquid: { component: Template10, fields: ['method', 'price', 'receiveAddress'] },
       lnurl: { component: Template11, fields: ['method', 'price', 'lnurlAddress'] },
+      rappipay: { component: Template12, fields: ['method', 'price', 'phone'] },
+      mercadoPago: { component: Template13, fields: ['method', 'price', 'phone', 'email'] },
+      nequi: { component: Template3, fields: ['method', 'price', 'beneficiary', 'phone', 'reference'] },
+      cbu: { component: Template14, fields: ['method', 'price', 'beneficiary', 'accountNumber'] },
+      cvu: { component: Template15, fields: ['method', 'price', 'beneficiary', 'accountNumber'] },
+      alias: { component: Template16, fields: ['method', 'price', 'beneficiary', 'accountNumber'] },
+      bancolombia: { component: Template17, fields: ['method', 'price', 'beneficiary', 'accountNumber'] },
+      orangeMoney: { component: Template12, fields: ['method', 'price', 'phone'] },
+      moov: { component: Template12, fields: ['method', 'price', 'phone'] },
+      wave: { component: Template12, fields: ['method', 'price', 'phone'] },
+      airtelMoney: { component: Template12, fields: ['method', 'price', 'phone'] },
+      'm-pesa': { component: Template12, fields: ['method', 'price', 'phone'] },
+      nationalTransferNG: { component: Template21, fields: ['method', 'price', 'accountNumber'] },
+      chippercash: { component: Template18, fields: ['method', 'price', 'chipperTag', 'reference'] },
+      mtn: { component: Template12, fields: ['method', 'price', 'phone'] },
+      eversend: { component: Template19, fields: ['method', 'price', 'eversendUserName'] },
     })
   })
 })

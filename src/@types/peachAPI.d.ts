@@ -100,6 +100,16 @@ declare type Currency =
   | 'RON'
   | 'TRY'
   | 'USDT'
+  | 'ARS'
+  | 'COP'
+  | 'PEN'
+  | 'MXN'
+  | 'CLP'
+  | 'PEN'
+  | 'COP'
+  | 'XOF'
+  | 'NGN'
+  | 'CDF'
 declare type Pricebook = {
   [key in Currency]?: number
 }
@@ -175,6 +185,22 @@ declare type PaymentMethod =
   | 'papara'
   | 'liquid'
   | 'lnurl'
+  | 'cbu'
+  | 'cvu'
+  | 'mercadoPago'
+  | 'alias'
+  | 'bancolombia'
+  | 'rappipay'
+  | 'nequi'
+  | 'orangeMoney'
+  | 'moov'
+  | 'mtn'
+  | 'wave'
+  | 'airtelMoney'
+  | 'm-pesa'
+  | 'nationalTransferNG'
+  | 'chippercash'
+  | 'eversend'
   | CashTrade
   | AmazonGiftCard
   | NationalTransfer

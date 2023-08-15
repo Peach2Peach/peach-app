@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`useTemplate15Setup should return the correct values 1`] = `
+{
+  "accountNumberInputProps": {
+    "errorMessage": [
+      "please enter a valid value",
+    ],
+    "label": "form.accountNumber",
+    "onChange": [Function],
+    "onSubmit": [Function],
+    "required": true,
+    "value": "accountNumber",
+  },
+  "beneficiaryInputProps": {
+    "errorMessage": [],
+    "onChange": [Function],
+    "value": "beneficiary",
+  },
+  "currencySelectionProps": {
+    "onToggle": [Function],
+    "paymentMethod": "cvu",
+    "selectedCurrencies": [],
+  },
+  "labelInputProps": {
+    "errorMessage": [],
+    "onChange": [Function],
+    "value": "label",
+  },
+  "shouldShowCurrencySelection": false,
+}
+`;
