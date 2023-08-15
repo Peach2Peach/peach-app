@@ -40,7 +40,9 @@ export const useFundFromPeachWallet = ({ address, addresses = [], amount, fundin
 
   const fundFromPeachWallet = async () => {
     if (!address || !amount || !canFundFromPeachWallet) return undefined
-    if (peachWallet.balance < minTradingAmount) return openAmountTooLowPopup(peachWallet.balance, addresses.length * minTradingAmount)
+    if (peachWallet.balance < addresses.length * minTradingAmount) {
+      return openAmountTooLowPopup(peachWallet.balance, addresses.length * minTradingAmount)
+    }
 
     let finishedTransaction: TxBuilderResult
     try {
