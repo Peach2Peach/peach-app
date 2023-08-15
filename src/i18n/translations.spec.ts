@@ -6,6 +6,7 @@ import en from './en'
 import es from './es'
 import fr from './fr'
 import it from './it'
+import tr from './tr'
 
 describe('translations', () => {
   test('everything has been translated', () => {
@@ -15,6 +16,7 @@ describe('translations', () => {
       ok(isDefined(it[key]), `${key} does not exist in it`)
       ok(isDefined(de[key]), `${key} does not exist in de`)
       ok(isDefined(elGR[key]), `${key} does not exist in el-GR`)
+      ok(isDefined(tr[key]), `${key} does not exist in tr`)
     }
   })
   test('non existing texts has not been translated', () => {
@@ -32,6 +34,9 @@ describe('translations', () => {
     }
     for (const key in elGR) {
       ok(isDefined(en[key]), `${key} does not exist in el-GR`)
+    }
+    for (const key in tr) {
+      ok(isDefined(en[key]), `${key} does not exist in tr`)
     }
   })
 })
