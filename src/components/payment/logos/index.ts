@@ -25,6 +25,7 @@ import mPesa from './m-pesa.svg'
 import mbWay from './mbWay.svg'
 import mobilePay from './mobilePay.svg'
 import moov from './moov.svg'
+import mtn from './mtn.svg'
 import n26 from './n26.svg'
 import nequi from './nequi.svg'
 import neteller from './neteller.svg'
@@ -75,6 +76,7 @@ export const PaymentLogos = {
   mercadoPago: placeholder,
   mobilePay,
   moov,
+  mtn,
   n26,
   nationalTransferBG,
   nationalTransferCZ,
