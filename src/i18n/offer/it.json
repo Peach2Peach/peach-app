@@ -15,7 +15,7 @@
   "offer.requiredAction.dispute" : "disputa avviata",
   "offer.requiredAction.escrowWaitingForConfirmation" : "transazione in sospeso",
   "offer.requiredAction.fundEscrow" : "finanzia deposito",
-  "offer.requiredAction.fundMultipleEscrow" : "finanzia deposito",
+  "offer.requiredAction.fundMultipleEscrow" : "finanzia deposito multiplo",
   "offer.requiredAction.fundingAmountDifferent" : "importo finanziato errato",
   "offer.requiredAction.hasMatchesAvailable" : "seleziona match",
   "offer.requiredAction.offerHidden" : "offerta nascosta",

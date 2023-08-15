@@ -98,6 +98,7 @@ declare type Currency =
   | 'ISK'
   | 'NOK'
   | 'RON'
+  | 'TRY'
   | 'USDT'
 declare type Pricebook = {
   [key in Currency]?: number
@@ -134,6 +135,10 @@ declare type PaymentMethodCountry =
   | 'PO'
   | 'RO'
   | 'HR'
+  | 'LV'
+  | 'MT'
+  | 'ME'
+  | 'TR'
 
 declare type Location = 'amsterdam' | 'belgianEmbassy' | 'lugano'
 
@@ -167,6 +172,7 @@ declare type PaymentMethod =
   | 'lydia'
   | 'verse'
   | 'iris'
+  | 'papara'
   | 'liquid'
   | 'lnurl'
   | CashTrade
@@ -185,6 +191,7 @@ declare type MeetupEvent = {
   frequency?: string
   logo?: string
   featured: boolean
+  superFeatured: boolean
 }
 declare type CountryEventsMap = Record<Country, MeetupEvent[]>
 

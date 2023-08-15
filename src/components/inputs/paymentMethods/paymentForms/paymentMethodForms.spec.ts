@@ -1,5 +1,6 @@
+/* eslint-disable max-lines-per-function */
 import { PaymentMethodForms } from './paymentMethodForms'
-import { GiftCardAmazon } from './GiftCardAmazon'
+
 import {
   Template1,
   Template10,
@@ -13,6 +14,7 @@ import {
   Template9,
 } from '../templates'
 import { Template11 } from '../templates/Template11'
+import { GiftCardAmazon } from './GiftCardAmazon'
 
 describe('paymentMethodForms', () => {
   it('should assign the correct template to each payment method', () => {
@@ -76,6 +78,11 @@ describe('paymentMethodForms', () => {
       nationalTransferSE: { component: Template9, fields: expect.any(Array) },
       nationalTransferSI: { component: Template9, fields: expect.any(Array) },
       nationalTransferUS: { component: Template9, fields: expect.any(Array) },
+      nationalTransferTR: {
+        component: Template1,
+        fields: ['method', 'price', 'beneficiary', 'iban', 'bic', 'reference'],
+      },
+      papara: { component: Template3, fields: ['method', 'price', 'beneficiary', 'phone', 'reference'] },
       liquid: { component: Template10, fields: ['method', 'price', 'receiveAddress'] },
       lnurl: { component: Template11, fields: ['method', 'price', 'lnurlAddress'] },
     })

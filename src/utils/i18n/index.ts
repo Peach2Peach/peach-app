@@ -5,6 +5,7 @@ import en from '../../i18n/en'
 import es from '../../i18n/es'
 import fr from '../../i18n/fr'
 import it from '../../i18n/it'
+import tr from '../../i18n/tr'
 
 const localeMapping: Record<string, Record<string, string>> = {
   en,
@@ -13,6 +14,7 @@ const localeMapping: Record<string, Record<string, string>> = {
   it,
   de,
   'el-GR': elGR,
+  tr,
 }
 
 export type Locale = keyof typeof localeMapping
@@ -23,7 +25,7 @@ type LanguageState = {
 export const languageState: LanguageState = {
   locale: 'en',
 }
-export const locales = ['en', 'es', 'fr', 'it', 'de', 'el-GR']
+export const locales = ['en', 'es', 'fr', 'it', 'de', 'el-GR', 'tr']
 export const setLocaleQuiet = (lcl: Locale) => {
   if (!localeMapping[lcl]) lcl = 'en'
   languageState.locale = lcl
