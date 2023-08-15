@@ -15,6 +15,7 @@ import bitcoinAmsterdam from './bitcoinAmsterdam.svg'
 import bizum from './bizum.svg'
 import blik from './blik.svg'
 import chippercash from './chippercash.svg'
+import eversend from './eversend.svg'
 import fasterPayments from './fasterPayments.svg'
 import friends24 from './friends24.svg'
 import gtBank from './gtBank.svg'
@@ -63,6 +64,7 @@ export const PaymentLogos = {
   cbu: placeholder,
   chippercash,
   cvu: placeholder,
+  eversend,
   fasterPayments,
   friends24,
   gtBank,

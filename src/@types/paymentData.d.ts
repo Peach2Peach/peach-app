@@ -18,6 +18,7 @@ declare type PaymentDataInfo = {
   cvu?: string
   cvuAlias?: string
   chipperTag?: string
+  eversendUserName?: string
 }
 
 declare type PaymentDataField = keyof PaymentDataInfo

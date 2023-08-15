@@ -22,6 +22,7 @@ import {
   Template8,
   Template9,
 } from '../templates'
+import { Template19 } from '../templates/Template19'
 import { GiftCardAmazon } from './GiftCardAmazon'
 
 type PaymentMethodFormsType = {
@@ -48,6 +49,7 @@ const template15Fields: TradeInfoField[] = [...sharedFields, 'beneficiary', 'acc
 const template16Fields: TradeInfoField[] = [...sharedFields, 'beneficiary', 'accountNumber']
 const template17Fields: TradeInfoField[] = [...sharedFields, 'beneficiary', 'accountNumber']
 const template18Fields: TradeInfoField[] = [...sharedFields, 'chipperTag', 'reference']
+const template19Fields: TradeInfoField[] = [...sharedFields, 'eversendUserName']
 const template21Fields: TradeInfoField[] = [...sharedFields, 'accountNumber']
 
 export const PaymentMethodForms: PaymentMethodFormsType = {
@@ -97,6 +99,7 @@ export const PaymentMethodForms: PaymentMethodFormsType = {
   zenithBank: { component: Template21, fields: template21Fields },
   chippercash: { component: Template18, fields: template18Fields },
   mtn: { component: Template12, fields: template12Fields },
+  eversend: { component: Template19, fields: template19Fields },
 }
 GIFTCARDCOUNTRIES.forEach(
   (c) =>

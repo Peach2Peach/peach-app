@@ -1,21 +1,21 @@
 import { renderHook } from '@testing-library/react-native'
-import { useTemplate18Setup } from './useTemplate18Setup'
+import { useTemplate19Setup } from './useTemplate19Setup'
 
-describe('useTemplate18Setup', () => {
+describe('useTemplate19Setup', () => {
   it('should return the correct values', () => {
     const { result } = renderHook(() =>
-      useTemplate18Setup({
+      useTemplate19Setup({
         data: {
           id: 'id',
           label: 'label',
-          type: 'chippercash',
-          chipperTag: '@chipperTag',
+          type: 'eversend',
+          eversendUserName: 'eversendUserName',
           currencies: [],
         },
         currencies: [],
         onSubmit: jest.fn(),
         setStepValid: jest.fn(),
-        paymentMethod: 'chippercash',
+        paymentMethod: 'eversend',
         setFormData: jest.fn(),
       }),
     )
