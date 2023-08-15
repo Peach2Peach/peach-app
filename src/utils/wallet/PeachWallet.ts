@@ -21,6 +21,7 @@ import { PeachJSWallet } from './PeachJSWallet'
 import { handleTransactionError } from './error/handleTransactionError'
 import { storePendingTransactionHex } from './getAndStorePendingTransactionHex'
 import { getDescriptorSecretKey } from './getDescriptorSecretKey'
+import { getUTXOAddress } from './getUTXOAddress'
 import { getUTXOId } from './getUTXOId'
 import { labelAddressByTransaction } from './labelAddressByTransaction'
 import { mapTransactionToOffer } from './mapTransactionToOffer'
@@ -209,6 +210,15 @@ export class PeachWallet extends PeachJSWallet {
     }
   }
 
+  async getNewInternalAddress () {
+    if (!this.wallet) throw Error('WALLET_NOT_READY')
+    const addressInfo = await this.wallet.getInternalAddress(AddressIndex.New)
+    return {
+      ...addressInfo,
+      address: await addressInfo.address.asString(),
+    }
+  }
+
   async getAddressByIndex (index: number) {
     const { index: lastUnusedIndex } = await this.getLastUnusedAddress()
     const address = this.getAddress(index)
@@ -226,6 +236,14 @@ export class PeachWallet extends PeachJSWallet {
       ...addressInfo,
       address: await addressInfo.address.asString(),
     }
+  }
+
+  async getAddressUTXO (address: string) {
+    if (!this.wallet) throw Error('WALLET_NOT_READY')
+
+    const utxo = await this.getUTXO()
+    const utxoAddresses = await Promise.all(utxo.map(getUTXOAddress(this.network)))
+    return utxo.filter((utx, i) => utxoAddresses[i] === address)
   }
 
   async withdrawAll (address: string, feeRate?: number) {

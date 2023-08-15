@@ -16,6 +16,7 @@ import { MyBadges } from './info/MyBadges'
 import { NetworkFees } from './info/NetworkFees'
 import { PaymentMethodsHelp } from './info/PaymentMethodsHelp'
 import { PayoutAddressPopup } from './info/PayoutAddressPopup'
+import { PayoutPending } from './info/PayoutPending'
 import { Premium } from './info/Premium'
 import { RBFHelp } from './info/RBFHelp'
 import { ReferralsHelp } from './info/ReferralsHelp'
@@ -43,6 +44,7 @@ export const helpPopups = {
   networkFees: { title: i18n('help.networkFees.title'), content: NetworkFees },
   paymentMethods: { title: i18n('settings.paymentMethods'), content: PaymentMethodsHelp },
   payoutAddress: { title: i18n('settings.payoutAddress'), content: PayoutAddressPopup },
+  payoutPending: { title: i18n('help.payoutPending.title'), content: PayoutPending },
   premium: { title: i18n('help.premium.title'), content: Premium },
   rbf: { title: i18n('wallet.bumpNetworkFees.help.title'), content: RBFHelp },
   referrals: { title: i18n('help.referral.title'), content: ReferralsHelp },

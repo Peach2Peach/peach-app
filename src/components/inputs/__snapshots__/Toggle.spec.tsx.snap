@@ -1,0 +1,99 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Toggle renders correctly when enabled 1`] = `
+<TouchableOpacity
+  activeOpacity={0.2}
+  delayLongPress={600}
+  extraButtonProps={
+    {
+      "exclusive": true,
+      "rippleColor": "transparent",
+    }
+  }
+  onPress={[MockFunction]}
+  style={
+    [
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "gap": 16,
+      },
+      {
+        "marginTop": 16,
+      },
+    ]
+  }
+>
+  <PeachText
+    style={
+      {
+        "fontFamily": "Baloo2-SemiBold",
+        "fontSize": 20,
+        "letterSpacing": 0.2,
+        "lineHeight": 32,
+        "textTransform": "lowercase",
+      }
+    }
+  >
+    label
+  </PeachText>
+  <Icon
+    color="#F56522"
+    id="toggleRight"
+    style={
+      {
+        "height": 32,
+        "width": 32,
+      }
+    }
+  />
+</TouchableOpacity>
+`;
+
+exports[`Toggle renders correctly when not enabled 1`] = `
+<TouchableOpacity
+  activeOpacity={0.2}
+  delayLongPress={600}
+  extraButtonProps={
+    {
+      "exclusive": true,
+      "rippleColor": "transparent",
+    }
+  }
+  onPress={[MockFunction]}
+  style={
+    [
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "gap": 16,
+      },
+      undefined,
+    ]
+  }
+>
+  <PeachText
+    style={
+      {
+        "fontFamily": "Baloo2-SemiBold",
+        "fontSize": 20,
+        "letterSpacing": 0.2,
+        "lineHeight": 32,
+        "textTransform": "lowercase",
+      }
+    }
+  >
+    label
+  </PeachText>
+  <Icon
+    color="#9F8C82"
+    id="toggleLeft"
+    style={
+      {
+        "height": 32,
+        "width": 32,
+      }
+    }
+  />
+</TouchableOpacity>
+`;

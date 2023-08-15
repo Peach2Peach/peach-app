@@ -2,6 +2,7 @@ import messaging, { FirebaseMessagingTypes } from '@react-native-firebase/messag
 import { useCallback, useEffect } from 'react'
 import SplashScreen from 'react-native-splash-screen'
 import { useNavigation } from '../hooks'
+import { useConfigStore } from '../store/configStore'
 import { error, info } from '../utils/log'
 import { handlePushNotification } from '../utils/navigation'
 import { parseError } from '../utils/result'
@@ -16,7 +17,7 @@ const dataIsDefined = (
 
 export const useInitialNavigation = () => {
   const navigation = useNavigation()
-
+  const hasSeenGroupHugAnnouncement = useConfigStore((state) => state.hasSeenGroupHugAnnouncement)
   const initialNavigation = useCallback(async () => {
     let initialNotification: FirebaseMessagingTypes.RemoteMessage | null = null
     try {
@@ -45,4 +46,8 @@ export const useInitialNavigation = () => {
   useEffect(() => {
     initialNavigation()
   }, [initialNavigation])
+
+  useEffect(() => {
+    if (!hasSeenGroupHugAnnouncement) navigation.navigate('groupHugAnnouncement')
+  }, [hasSeenGroupHugAnnouncement, initialNavigation, navigation])
 }

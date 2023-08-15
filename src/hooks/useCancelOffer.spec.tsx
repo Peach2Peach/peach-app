@@ -42,7 +42,7 @@ describe('useCancelOffer', () => {
         icon: 'arrowLeftCircle',
         label: 'never mind',
       },
-      content: <CancelOffer offer={buyOffer} />,
+      content: <CancelOffer type="bid" />,
       level: 'DEFAULT',
       title: 'cancel offer',
       visible: true,

@@ -77,3 +77,5 @@ exports[`TradeSummary should render correctly for seller 1`] = `
   <TradeStuff />
 </View>
 `;
+
+exports[`TradeSummary should render correctly for showing batch info 1`] = `<PendingPayoutInfo />`;

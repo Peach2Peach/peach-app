@@ -32,6 +32,7 @@ export const useSellSummarySetup = () => {
       meansOfPayment: state.meansOfPayment,
       paymentData: state.paymentData,
       originalPaymentData: state.originalPaymentData,
+      multi: state.multi,
     }),
     shallow,
   )

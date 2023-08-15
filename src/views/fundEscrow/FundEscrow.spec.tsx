@@ -1,7 +1,7 @@
+import { createRenderer } from 'react-test-renderer/shallow'
 import { sellOffer } from '../../../tests/unit/data/offerData'
 import { defaultFundingStatus } from '../../utils/offer/constants'
 import { FundEscrow } from './FundEscrow'
-import { createRenderer } from 'react-test-renderer/shallow'
 
 const useFundEscrowSetupMock = jest.fn()
 jest.mock('./hooks/useFundEscrowSetup', () => ({
@@ -19,7 +19,8 @@ describe('FundEscrow', () => {
   const defaultReturnValue = {
     offerId: sellOffer.id,
     offer: sellOffer,
-    escrow: sellOffer.returnAddress,
+    fundingAddress: sellOffer.returnAddress,
+    fundingAddresses: [],
     fundingStatus: defaultFundingStatus,
     fundingAmount: 100000,
     createEscrowError: null,
@@ -44,7 +45,7 @@ describe('FundEscrow', () => {
     useFundEscrowSetupMock.mockReturnValueOnce({
       ...defaultReturnValue,
       loading: false,
-      escrow: undefined,
+      fundingAddress: undefined,
     })
     renderer.render(<FundEscrow />)
     expect(renderer.getRenderOutput()).toMatchSnapshot()

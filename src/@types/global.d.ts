@@ -143,4 +143,5 @@ declare type Config = {
   minTradingAmount: number
   maxTradingAmount: number
   seenDisputeDisclaimer: boolean
+  hasSeenGroupHugAnnouncement: boolean
 }

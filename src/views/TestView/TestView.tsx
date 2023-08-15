@@ -13,6 +13,7 @@ export const TestView = () => {
   const goToComponents = () => navigation.navigate('testViewComponents')
   const goToPNTesting = () => navigation.navigate('testViewPNs')
   const goToLoadingScreen = () => navigation.navigate('testViewLoading')
+  const showGroupHugAnnouncement = () => navigation.navigate('groupHugAnnouncement')
 
   return (
     <PeachScrollView
@@ -27,6 +28,7 @@ export const TestView = () => {
         <OptionButton onPress={goToComponents}>Components</OptionButton>
         <OptionButton onPress={goToPNTesting}>Push notifications</OptionButton>
         <OptionButton onPress={goToLoadingScreen}>Loading Screen</OptionButton>
+        <OptionButton onPress={showGroupHugAnnouncement}>GroupHug Announcement</OptionButton>
       </View>
     </PeachScrollView>
   )

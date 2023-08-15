@@ -12,6 +12,7 @@ type PostOfferProps = RequestProps & {
   meansOfPayment: MeansOfPayment
   paymentData: SellOffer['paymentData']
   returnAddress: string
+  multi?: number
 }
 
 export const postSellOffer = async ({ timeout, premium = 0, ...requestBody }: PostOfferProps) => {

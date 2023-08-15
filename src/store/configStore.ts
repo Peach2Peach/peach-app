@@ -13,6 +13,7 @@ type ConfigStore = Config & {
   setMinTradingAmount: (amount: number) => void
   setMaxTradingAmount: (amount: number) => void
   setSeenDisputeDisclaimer: (seenDisputeDisclaimer: boolean) => void
+  setHasSeenGroupHugAnnouncement: (hasSeenGroupHugAnnouncement: boolean) => void
 }
 
 export const configStorage = createStorage('config')
@@ -30,6 +31,7 @@ export const useConfigStore = create(
       setMinTradingAmount: (minTradingAmount) => set({ minTradingAmount }),
       setMaxTradingAmount: (maxTradingAmount) => set({ maxTradingAmount }),
       setSeenDisputeDisclaimer: (seenDisputeDisclaimer) => set({ seenDisputeDisclaimer }),
+      setHasSeenGroupHugAnnouncement: (hasSeenGroupHugAnnouncement) => set({ hasSeenGroupHugAnnouncement }),
     }),
     {
       name: 'config',
