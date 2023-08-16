@@ -126,14 +126,14 @@ describe('useOpenWithdrawalConfirmationPopup', () => {
 
   it('should handle broadcast errors', async () => {
     peachWallet.balance = amount
-    peachWallet.signAndBroadcastPSBT = jest.fn().mockImplementation(() => {
+    peachWallet.buildAndFinishTransaction = jest.fn().mockImplementation(() => {
       throw transactionError
     })
 
     const { result } = renderHook(useOpenWithdrawalConfirmationPopup, { wrapper })
 
     await result.current(props)
-    expect(showErrorBannerMock).toHaveBeenCalledWith('INSUFFICIENT_FUNDS', transactionError[1])
+    expect(showErrorBannerMock).toHaveBeenCalledWith('INSUFFICIENT_FUNDS', ['78999997952', '1089000'])
     expect(usePopupStore.getState().visible).toBeFalsy()
   })
 
