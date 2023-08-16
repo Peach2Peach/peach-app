@@ -16,7 +16,7 @@ describe('buildTransaction', () => {
     const feeRate = 10
 
     addressScriptPubKeyMock.mockResolvedValueOnce(scriptPubKey)
-    const transactionResult = await buildTransaction(address, amount, feeRate)
+    const transactionResult = await buildTransaction({ address, amount, feeRate })
     expect(txBuilderCreateMock).toHaveBeenCalled()
     expect(txBuilderFeeRateMock).toHaveBeenCalledWith(feeRate)
     expect(txBuilderEnableRbfMock).toHaveBeenCalled()

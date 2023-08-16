@@ -2,7 +2,7 @@ import { renderHook } from '@testing-library/react-native'
 import { act } from 'react-test-renderer'
 import { estimatedFees } from '../../../../tests/unit/data/bitcoinNetworkData'
 import { sellOffer } from '../../../../tests/unit/data/offerData'
-import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { NavigationWrapper, navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { getTransactionDetails } from '../../../../tests/unit/helpers/getTransactionDetails'
 import { WithdrawalConfirmation } from '../../../popups/WithdrawalConfirmation'
 import { usePopupStore } from '../../../store/usePopupStore'
@@ -34,8 +34,8 @@ const props = {
   shouldDrainWallet: false,
   onSuccess,
 }
-jest.mock('../../../utils/wallet/transaction/buildDrainWalletTransaction', () => ({
-  buildDrainWalletTransaction: jest.fn(() => transaction),
+jest.mock('../../../utils/wallet/transaction/buildTransaction', () => ({
+  buildTransaction: jest.fn(() => transaction),
 }))
 
 const wrapper = NavigationWrapper
@@ -47,7 +47,7 @@ describe('useOpenWithdrawalConfirmationPopup', () => {
   })
 
   it('should open confirmation popup', async () => {
-    peachWallet.buildAndFinishTransaction = jest.fn().mockResolvedValue(transaction)
+    peachWallet.buildFinishedTransaction = jest.fn().mockResolvedValue(transaction)
     peachWallet.signAndBroadcastPSBT = jest.fn().mockResolvedValue(transaction.psbt)
 
     const { result } = renderHook(useOpenWithdrawalConfirmationPopup, { wrapper })
@@ -73,7 +73,7 @@ describe('useOpenWithdrawalConfirmationPopup', () => {
   })
 
   it('should broadcast transaction on confirm', async () => {
-    peachWallet.buildAndFinishTransaction = jest.fn().mockResolvedValue(transaction)
+    peachWallet.buildFinishedTransaction = jest.fn().mockResolvedValue(transaction)
     peachWallet.signAndBroadcastPSBT = jest.fn().mockResolvedValue(transaction.psbt)
 
     const { result } = renderHook(useOpenWithdrawalConfirmationPopup, { wrapper })
@@ -88,11 +88,12 @@ describe('useOpenWithdrawalConfirmationPopup', () => {
     })
 
     expect(peachWallet.signAndBroadcastPSBT).toHaveBeenCalledWith(transaction.psbt)
-    expect(onSuccess).toHaveBeenCalled()
+    expect(usePopupStore.getState().visible).toBe(false)
+    expect(navigateMock).toHaveBeenCalledWith('wallet')
   })
 
   it('should be able to send all funds', async () => {
-    peachWallet.finishTransaction = jest.fn().mockResolvedValue(transaction)
+    peachWallet.buildFinishedTransaction = jest.fn().mockResolvedValue(transaction)
     peachWallet.signAndBroadcastPSBT = jest.fn().mockResolvedValue(transaction.psbt)
 
     const { result } = renderHook(useOpenWithdrawalConfirmationPopup, { wrapper })
@@ -106,13 +107,18 @@ describe('useOpenWithdrawalConfirmationPopup', () => {
       await promise
     })
 
-    expect(peachWallet.finishTransaction).toHaveBeenCalledWith(transaction)
+    expect(peachWallet.buildFinishedTransaction).toHaveBeenCalledWith({
+      address: 'bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh',
+      amount: 250000,
+      feeRate: 6,
+      shouldDrainWallet: true,
+      utxos: undefined,
+    })
     expect(peachWallet.signAndBroadcastPSBT).toHaveBeenCalledWith(transaction.psbt)
-    expect(onSuccess).toHaveBeenCalled()
   })
 
   it('should close popup on cancel', async () => {
-    peachWallet.buildAndFinishTransaction = jest.fn().mockResolvedValue(transaction)
+    peachWallet.buildFinishedTransaction = jest.fn().mockResolvedValue(transaction)
     const { result } = renderHook(useOpenWithdrawalConfirmationPopup, { wrapper })
 
     await act(async () => {

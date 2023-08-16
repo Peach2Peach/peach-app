@@ -36,7 +36,6 @@ describe('SendBitcoin', () => {
   })
   it('should set the amount to the peach wallet balance when clicking "send max"', () => {
     peachWallet.balance = 21000000
-    peachWallet.getMaxAvailableAmount = jest.fn().mockReturnValue(21000000)
     const { toJSON, getByText } = render(<SendBitcoin />, { wrapper })
     const sendMaxButton = getByText('send max')
     fireEvent.press(sendMaxButton)

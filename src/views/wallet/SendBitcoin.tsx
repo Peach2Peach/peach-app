@@ -4,7 +4,6 @@ import { NewHeader as Header, HorizontalLine, PeachScrollView, Screen, Text } fr
 import { BitcoinAddressInput, ConfirmSlider, RadioButtons } from '../../components/inputs'
 import { useNavigation, useShowHelp } from '../../hooks'
 import { useFeeEstimate } from '../../hooks/query/useFeeEstimate'
-import { usePopupStore } from '../../store/usePopupStore'
 import tw from '../../styles/tailwind'
 import { enforceDecimalsFormat } from '../../utils/format'
 import i18n from '../../utils/i18n'
@@ -14,7 +13,9 @@ import { isBitcoinAddress } from '../../utils/validation'
 import { peachWallet } from '../../utils/wallet/setWallet'
 import { CustomFeeItem } from '../settings/components/networkFees/CustomFeeItem'
 import { EstimatedFeeItem } from '../settings/components/networkFees/EstimatedFeeItem'
+import { UTXOAddress } from './components'
 import { useOpenWithdrawalConfirmationPopup } from './hooks/useOpenWithdrawalConfirmationPopup'
+import { useUTXOs } from './hooks/useUTXOs'
 
 export const SendBitcoin = () => {
   const [address, setAddress] = useState('')
@@ -23,9 +24,12 @@ export const SendBitcoin = () => {
   const { estimatedFees } = useFeeEstimate()
   const [feeRate, setFee] = useState<number | undefined>(estimatedFees.fastestFee)
   const openConfirmationPopup = useOpenWithdrawalConfirmationPopup()
-  const closePopup = usePopupStore((state) => state.closePopup)
 
-  const navigation = useNavigation()
+  const { selectedUTXOs } = useUTXOs()
+
+  const maxAmount = selectedUTXOs.length
+    ? selectedUTXOs.reduce((acc, utxo) => acc + utxo.txout.value, 0)
+    : peachWallet.balance
 
   const enforceFormat = (text: string) => {
     setShouldDrainWallet(false)
@@ -34,14 +38,9 @@ export const SendBitcoin = () => {
       return
     }
     const value = Number(text.replace(/[^0-9]/gu, ''))
-    const newValue = value > peachWallet.balance ? peachWallet.balance : value
+    const newValue = Math.min(value, maxAmount)
     const formatted = thousands(Number(enforceDecimalsFormat(String(newValue), 0)))
     setAmount(formatted)
-  }
-
-  const onSuccess = () => {
-    closePopup()
-    navigation.navigate('wallet')
   }
 
   const sendTrasaction = () => {
@@ -51,7 +50,7 @@ export const SendBitcoin = () => {
       amount: Number(amount.replace(/[^0-9]/gu, '')),
       feeRate,
       shouldDrainWallet,
-      onSuccess,
+      utxos: selectedUTXOs,
     })
   }
 
@@ -74,7 +73,7 @@ export const SendBitcoin = () => {
               label: i18n('wallet.sendBitcoin.sendMax'),
               onPress: () => {
                 setShouldDrainWallet(true)
-                setAmount(thousands(peachWallet.getMaxAvailableAmount()))
+                setAmount(thousands(maxAmount))
               },
             }}
           >
