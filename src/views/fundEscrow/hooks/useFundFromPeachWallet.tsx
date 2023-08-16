@@ -1,5 +1,5 @@
 import { TxBuilderResult } from 'bdk-rn/lib/classes/Bindings'
-import { useEffect, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { useFeeRate } from '../../../hooks/useFeeRate'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { useConfigStore } from '../../../store/configStore'
@@ -25,7 +25,7 @@ export const useFundFromPeachWallet = ({ offer, fundingStatus }: Props) => {
   const openAmountTooLowPopup = useOpenAmountTooLowPopup()
 
   const feeRate = useFeeRate()
-  const [canFundFromPeachWallet, setCanFundFromPeachWallet] = useState(canFundOfferFromPeachWallet(fundingStatus, offer))
+  const canFundFromPeachWallet = useMemo(() => canFundOfferFromPeachWallet(fundingStatus, offer), [fundingStatus, offer])
   const [fundedFromPeachWallet, setFundedFromPeachWallet] = useState(false)
 
   const onSuccess = () => setFundedFromPeachWallet(true)
@@ -59,9 +59,9 @@ export const useFundFromPeachWallet = ({ offer, fundingStatus }: Props) => {
     })
   }
 
-  useEffect(() => {
-    setCanFundFromPeachWallet(canFundOfferFromPeachWallet(fundingStatus, offer))
-  }, [fundingStatus, offer])
-
-  return { canFundFromPeachWallet, fundFromPeachWallet, fundedFromPeachWallet }
+  return {
+    canFundFromPeachWallet,
+    fundFromPeachWallet,
+    fundedFromPeachWallet,
+  }
 }
