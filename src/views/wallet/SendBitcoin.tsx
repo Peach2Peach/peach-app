@@ -173,11 +173,16 @@ function Fees ({ updateFee }: { updateFee: (fee: number | undefined) => void }) 
 
 function SendBitcoinHeader () {
   const openPopup = useShowHelp('withdrawingFunds')
+  const navigation = useNavigation()
   return (
     <Header
       title={i18n('wallet.sendBitcoin.title')}
       icons={[
-        { ...headerIcons.listFlipped, onPress: () => {} },
+        {
+          ...headerIcons.listFlipped,
+          onPress: () => navigation.navigate('coinSelection'),
+          accessibilityHint: `${i18n('goTo')} ${i18n('wallet.coinControl.title')}`,
+        },
         {
           ...headerIcons.help,
           onPress: openPopup,

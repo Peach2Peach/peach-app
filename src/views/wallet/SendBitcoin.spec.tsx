@@ -72,6 +72,12 @@ describe('SendBitcoin', () => {
   it.todo('should update the fee rate on change')
   it.todo('should set the fee rate to undefined when selecting "custom"')
   it.todo('should update the custom fee rate on change')
+  it('should navigate to "coinSelection" when clicking the list icon in the header', () => {
+    const { getByAccessibilityHint } = render(<SendBitcoin />, { wrapper })
+    const listButton = getByAccessibilityHint('go to select coins to send')
+    fireEvent.press(listButton)
+    expect(navigateMock).toHaveBeenCalledWith('coinSelection')
+  })
 })
 
 describe('SendBitcoin - Selected coins', () => {
