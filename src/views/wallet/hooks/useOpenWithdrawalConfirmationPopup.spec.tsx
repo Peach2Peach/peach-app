@@ -1,6 +1,7 @@
 import { renderHook } from '@testing-library/react-native'
 import { act } from 'react-test-renderer'
 import { estimatedFees } from '../../../../tests/unit/data/bitcoinNetworkData'
+import { transactionError } from '../../../../tests/unit/data/errors'
 import { sellOffer } from '../../../../tests/unit/data/offerData'
 import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { getTransactionDetails } from '../../../../tests/unit/helpers/getTransactionDetails'
@@ -121,6 +122,19 @@ describe('useOpenWithdrawalConfirmationPopup', () => {
     usePopupStore.getState().action2?.callback()
 
     expect(usePopupStore.getState().visible).toBe(false)
+  })
+
+  it('should handle broadcast errors', async () => {
+    peachWallet.balance = amount
+    peachWallet.signAndBroadcastPSBT = jest.fn().mockImplementation(() => {
+      throw transactionError
+    })
+
+    const { result } = renderHook(useOpenWithdrawalConfirmationPopup, { wrapper })
+
+    await result.current(props)
+    expect(showErrorBannerMock).toHaveBeenCalledWith('INSUFFICIENT_FUNDS', transactionError[1])
+    expect(usePopupStore.getState().visible).toBeFalsy()
   })
 
   it.todo('should send from the selected coins only, if any are selected')
