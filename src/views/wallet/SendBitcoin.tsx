@@ -85,6 +85,8 @@ export const SendBitcoin = () => {
           <Section title={i18n('wallet.sendBitcoin.fee')}>
             <Fees updateFee={setFee} />
           </Section>
+
+          <SelectedUTXOs />
         </View>
 
         <ConfirmSlider label1={i18n('wallet.sendBitcoin.send')} onConfirm={sendTrasaction} enabled={isFormValid} />
@@ -189,5 +191,23 @@ function SendBitcoinHeader () {
         },
       ]}
     />
+  )
+}
+
+function SelectedUTXOs () {
+  const { selectedUTXOs } = useUTXOs()
+  if (selectedUTXOs.length === 0) return null
+
+  return (
+    <>
+      <HorizontalLine />
+      <Section title={i18n('wallet.sendBitcoin.sendingFrom.coins')}>
+        <View style={tw`px-10px`}>
+          {selectedUTXOs.map(({ txout: { script } }) => (
+            <UTXOAddress key={script.id} script={script} />
+          ))}
+        </View>
+      </Section>
+    </>
   )
 }
