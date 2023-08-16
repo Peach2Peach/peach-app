@@ -1,8 +1,14 @@
 /* eslint-disable max-classes-per-file */
 
 export const addressScriptPubKeyMock = jest.fn()
+
+export const fromScriptMock = jest.fn().mockResolvedValue({
+  asString: () => 'address',
+})
 export class Address {
   create = jest.fn().mockReturnThis()
+
+  fromScript = fromScriptMock
 
   scriptPubKey = addressScriptPubKeyMock
 }

@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UTXOAddress should render correctly 1`] = `
+<Text
+  allowFontScaling={false}
+  style={
+    [
+      {
+        "color": "#2B1911",
+        "fontFamily": "Baloo2-Regular",
+        "fontSize": 16,
+        "letterSpacing": 0.16,
+        "lineHeight": 24,
+      },
+      {
+        "color": "#7D675E",
+        "fontFamily": "Baloo2-Regular",
+        "fontSize": 14,
+        "letterSpacing": 0.14,
+        "lineHeight": 20,
+      },
+    ]
+  }
+>
+  <Text
+    allowFontScaling={false}
+    style={
+      [
+        {
+          "color": "#2B1911",
+          "fontFamily": "Baloo2-Regular",
+          "fontSize": 16,
+          "letterSpacing": 0.16,
+          "lineHeight": 24,
+        },
+        {
+          "fontFamily": "Baloo2-Regular",
+          "fontSize": 14,
+          "letterSpacing": 0.14,
+          "lineHeight": 20,
+        },
+      ]
+    }
+  >
+    addressLabel - 
+  </Text>
+  address
+</Text>
+`;
