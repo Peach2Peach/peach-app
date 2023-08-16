@@ -1,12 +1,13 @@
 import { TxOut } from 'bdk-rn/lib/classes/Bindings'
 import { Fragment, useState } from 'react'
 import { View } from 'react-native'
-import { Checkbox, HorizontalLine, NewHeader, PeachScrollView, Screen } from '../../components'
+import { Checkbox, NewHeader as Header, HorizontalLine, PeachScrollView, Screen } from '../../components'
 import { BTCAmount } from '../../components/bitcoin'
 import { NewButton as Button } from '../../components/buttons/Button'
-import { useNavigation } from '../../hooks'
+import { useNavigation, useShowHelp } from '../../hooks'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
+import { headerIcons } from '../../utils/layout'
 import { getUTXOId } from '../../utils/wallet'
 import { useWalletState } from '../../utils/wallet/walletStore'
 import { BitcoinLoading } from '../loading/BitcoinLoading'
@@ -33,7 +34,7 @@ export const CoinSelection = () => {
 
   return (
     <Screen>
-      <NewHeader title={i18n('wallet.coinControl.title')} />
+      <CoinSelectionHeader />
       <UTXOList selectedUTXOs={selectedUTXOs} toggleSelection={toggleSelection} />
       <ConfirmButton selectedUTXOIds={selectedUTXOs} />
     </Screen>
@@ -43,6 +44,16 @@ export const CoinSelection = () => {
 type UTXOListProps = {
   selectedUTXOs: string[]
   toggleSelection: (utxoId: string) => void
+}
+
+function CoinSelectionHeader () {
+  const openPopup = useShowHelp('coinControl')
+  return (
+    <Header
+      title={i18n('wallet.coinControl.title')}
+      icons={[{ ...headerIcons.help, onPress: openPopup, accessibilityHint: i18n('help') }]}
+    />
+  )
 }
 
 function UTXOList ({ selectedUTXOs, toggleSelection }: UTXOListProps) {

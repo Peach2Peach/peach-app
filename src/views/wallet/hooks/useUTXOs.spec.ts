@@ -3,7 +3,7 @@ import { LocalUtxo, OutPoint, TxOut } from 'bdk-rn/lib/classes/Bindings'
 import { Script } from 'bdk-rn/lib/classes/Script'
 import { KeychainKind } from 'bdk-rn/lib/lib/enums'
 import { confirmed1 } from '../../../../tests/unit/data/transactionDetailData'
-import { QueryClientWrapper } from '../../../../tests/unit/helpers/QueryClientWrapper'
+import { QueryClientWrapper, queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
 import { getUTXOId } from '../../../utils/wallet'
 import { PeachWallet } from '../../../utils/wallet/PeachWallet'
 import { peachWallet, setPeachWallet } from '../../../utils/wallet/setWallet'
@@ -52,5 +52,15 @@ describe('useUTXOs', () => {
     await waitFor(() => {
       expect(listUnspentMock).not.toHaveBeenCalled()
     })
+  })
+
+  it('should update the query cache', async () => {
+    const { result } = renderHook(useUTXOs, { wrapper: QueryClientWrapper })
+
+    await waitFor(() => {
+      expect(result.current.data).toEqual([utxo])
+    })
+
+    expect(queryClient.getQueryData(['utxos'])).toEqual([utxo])
   })
 })
