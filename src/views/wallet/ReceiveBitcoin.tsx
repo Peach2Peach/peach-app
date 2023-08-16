@@ -41,13 +41,15 @@ function AddressQRCode ({ index }: { index: number }) {
   const isMediumScreen = useIsMediumScreen()
   return (
     <>
-      <QRCode
-        value={data?.address}
-        size={isMediumScreen ? 327 : 275}
-        color={String(data?.used ? tw`text-black-6`.color : tw`text-black-1`.color)}
-      />
+      <QRCode value={data?.address} size={isMediumScreen ? 327 : 275} color={String(tw`text-black-1`.color)} />
       {data?.used && (
-        <Text style={[tw`absolute self-center text-center h3 text-error-main top-110px`, tw.md`top-135px`]}>
+        <Text
+          style={[
+            tw`text-center h3 text-error-main`,
+            tw`absolute self-center p-1 overflow-hidden rounded-xl bg-opacity-65 top-110px bg-primary-background-light`,
+            tw.md`top-135px bg-opacity-85`,
+          ]}
+        >
           {i18n('wallet.address.used')}
         </Text>
       )}
