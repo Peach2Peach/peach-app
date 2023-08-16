@@ -7,6 +7,7 @@ import i18n from '../../utils/i18n'
 import { BitcoinLoading } from '../loading/BitcoinLoading'
 import { TotalBalance } from './components/TotalBalance'
 import { WalletHeader } from './components/WalletHeader'
+import { useUTXOs } from './hooks'
 import { useLastUnusedAddress } from './hooks/useLastUnusedAddress'
 import { useWalletAddress } from './hooks/useWalletAddress'
 import { useWalletSetup } from './hooks/useWalletSetup'
@@ -41,6 +42,7 @@ const useAddressPrefetch = () => {
 function WalletButtons () {
   const navigation = useNavigation()
   useAddressPrefetch()
+  useUTXOs()
 
   const goToSend = () => {
     navigation.navigate('sendBitcoin')
