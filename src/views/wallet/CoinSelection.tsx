@@ -6,6 +6,7 @@ import { BTCAmount } from '../../components/bitcoin'
 import { NewButton as Button } from '../../components/buttons/Button'
 import { useNavigation } from '../../hooks'
 import tw from '../../styles/tailwind'
+import i18n from '../../utils/i18n'
 import { getUTXOId } from '../../utils/wallet'
 import { useWalletState } from '../../utils/wallet/walletStore'
 import { BitcoinLoading } from '../loading/BitcoinLoading'
@@ -32,7 +33,7 @@ export const CoinSelection = () => {
 
   return (
     <Screen>
-      <NewHeader title={'select coins to send'} />
+      <NewHeader title={i18n('wallet.coinControl.title')} />
       <UTXOList selectedUTXOs={selectedUTXOs} toggleSelection={toggleSelection} />
       <ConfirmButton selectedUTXOIds={selectedUTXOs} />
     </Screen>
@@ -92,7 +93,7 @@ function ConfirmButton ({ selectedUTXOIds }: { selectedUTXOIds: string[] }) {
   }
   return (
     <Button style={tw`self-center`} onPress={onPress}>
-      Confirm
+      {i18n('confirm')}
     </Button>
   )
 }
