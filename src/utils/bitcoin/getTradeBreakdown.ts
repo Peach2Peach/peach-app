@@ -26,7 +26,6 @@ export const getTradeBreakdown = ({ releaseTransaction, releaseAddress, inputAmo
       amountReceived: releaseOutput.value + absoluteDiscount,
     }
   } catch (error) {
-    console.log('error', 'Error getting trade breakdown: ', error, '\n for this tx: ', releaseTransaction)
     log('error', 'Error getting trade breakdown: ', error, '\n for this tx: ', releaseTransaction)
     return { totalAmount: 0, peachFee: 0, networkFee: 0, amountReceived: 0 }
   }
