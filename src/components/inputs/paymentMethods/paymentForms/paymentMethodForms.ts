@@ -42,15 +42,15 @@ const template8Fields: TradeInfoField[] = [...sharedFields, 'beneficiary', 'phon
 const template9Fields: TradeInfoField[] = [...sharedFields, 'beneficiary', 'iban', 'accountNumber', 'bic', 'reference']
 const template10Fields: TradeInfoField[] = [...sharedFields, 'receiveAddress']
 const template11Fields: TradeInfoField[] = [...sharedFields, 'lnurlAddress']
-const template12Fields: TradeInfoField[] = [...sharedFields, 'phone']
-const template13Fields: TradeInfoField[] = [...sharedFields, 'phone', 'email']
-const template14Fields: TradeInfoField[] = [...sharedFields, 'beneficiary', 'accountNumber']
-const template15Fields: TradeInfoField[] = [...sharedFields, 'beneficiary', 'accountNumber']
-const template16Fields: TradeInfoField[] = [...sharedFields, 'beneficiary', 'accountNumber']
-const template17Fields: TradeInfoField[] = [...sharedFields, 'beneficiary', 'accountNumber']
+const template12Fields: TradeInfoField[] = [...sharedFields, 'phone', 'reference']
+const template13Fields: TradeInfoField[] = [...sharedFields, 'phone', 'email', 'reference']
+const template14Fields: TradeInfoField[] = [...sharedFields, 'beneficiary', 'accountNumber', 'reference']
+const template15Fields: TradeInfoField[] = [...sharedFields, 'beneficiary', 'accountNumber', 'reference']
+const template16Fields: TradeInfoField[] = [...sharedFields, 'beneficiary', 'accountNumber', 'reference']
+const template17Fields: TradeInfoField[] = [...sharedFields, 'beneficiary', 'accountNumber', 'reference']
 const template18Fields: TradeInfoField[] = [...sharedFields, 'chipperTag', 'reference']
-const template19Fields: TradeInfoField[] = [...sharedFields, 'eversendUserName']
-const template21Fields: TradeInfoField[] = [...sharedFields, 'accountNumber']
+const template19Fields: TradeInfoField[] = [...sharedFields, 'eversendUserName', 'reference']
+const template21Fields: TradeInfoField[] = [...sharedFields, 'beneficiary', 'accountNumber', 'reference']
 
 export const PaymentMethodForms: PaymentMethodFormsType = {
   sepa: { component: Template1, fields: template1Fields },

@@ -380,7 +380,7 @@ exports[`Template15 should render correctly 1`] = `
         ]
       }
     >
-      form.accountNumber
+      account #
       <Text
         allowFontScaling={false}
         style={

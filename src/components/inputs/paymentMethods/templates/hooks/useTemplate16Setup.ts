@@ -5,10 +5,12 @@ import { FormProps } from '../../../../../views/addPaymentMethod/PaymentMethodFo
 import { toggleCurrency } from '../../paymentForms/utils'
 import { hasMultipleAvailableCurrencies } from '../utils/hasMultipleAvailableCurrencies'
 import { useLabelInput } from './useLabelInput'
+import { useReferenceInput } from './useReferenceInput'
 
 const beneficiaryRules = { required: true }
 const accountNumberRules = { required: true, isCVU: true }
 
+// eslint-disable-next-line max-lines-per-function
 export const useTemplate16Setup = ({ data, onSubmit, setStepValid, setFormData }: FormProps) => {
   const { currencies, type: paymentMethod } = data
   const { labelInputProps, labelErrors, setDisplayErrors: setDisplayLabelErrors, label } = useLabelInput(data)
@@ -20,6 +22,12 @@ export const useTemplate16Setup = ({ data, onSubmit, setStepValid, setFormData }
     data?.cvu || '',
     accountNumberRules,
   )
+  const {
+    referenceInputProps,
+    referenceIsValid,
+    setDisplayErrors: setDisplayReferenceErrors,
+    reference,
+  } = useReferenceInput(data)
   const [displayErrors, setDisplayErrors] = useState(false)
   const [selectedCurrencies, setSelectedCurrencies] = useState(data?.currencies || currencies)
 
@@ -30,9 +38,10 @@ export const useTemplate16Setup = ({ data, onSubmit, setStepValid, setFormData }
       type: paymentMethod,
       beneficiary,
       accountNumber,
+      reference,
       currencies: selectedCurrencies,
     }),
-    [data?.id, paymentMethod, label, beneficiary, accountNumber, selectedCurrencies],
+    [data?.id, paymentMethod, label, beneficiary, accountNumber, reference, selectedCurrencies],
   )
 
   const onCurrencyToggle = (currency: Currency) => {
@@ -42,8 +51,16 @@ export const useTemplate16Setup = ({ data, onSubmit, setStepValid, setFormData }
   const isFormValid = useCallback(() => {
     setDisplayLabelErrors(true)
     setDisplayErrors(true)
-    return labelErrors.length === 0 && beneficiaryIsValid && accountNumberIsValid
-  }, [beneficiaryIsValid, accountNumberIsValid, labelErrors.length, setDisplayLabelErrors])
+    setDisplayReferenceErrors(true)
+    return labelErrors.length === 0 && beneficiaryIsValid && accountNumberIsValid && referenceIsValid
+  }, [
+    setDisplayLabelErrors,
+    setDisplayReferenceErrors,
+    labelErrors.length,
+    beneficiaryIsValid,
+    accountNumberIsValid,
+    referenceIsValid,
+  ])
 
   const save = () => {
     if (!isFormValid()) return
@@ -71,6 +88,7 @@ export const useTemplate16Setup = ({ data, onSubmit, setStepValid, setFormData }
       label: i18n('form.account'),
       errorMessage: displayErrors ? accountNumberErrors : undefined,
     },
+    referenceInputProps,
     currencySelectionProps: {
       paymentMethod,
       onToggle: onCurrencyToggle,

@@ -106,7 +106,7 @@ describe('paymentMethodForms', () => {
       wave: { component: Template12, fields: ['method', 'price', 'phone'] },
       airtelMoney: { component: Template12, fields: ['method', 'price', 'phone'] },
       'm-pesa': { component: Template12, fields: ['method', 'price', 'phone'] },
-      nationalTransferNG: { component: Template21, fields: ['method', 'price', 'accountNumber'] },
+      nationalTransferNG: { component: Template21, fields: ['method', 'price', 'beneficiary', 'accountNumber'] },
       chippercash: { component: Template18, fields: ['method', 'price', 'chipperTag', 'reference'] },
       mtn: { component: Template12, fields: ['method', 'price', 'phone'] },
       eversend: { component: Template19, fields: ['method', 'price', 'eversendUserName'] },

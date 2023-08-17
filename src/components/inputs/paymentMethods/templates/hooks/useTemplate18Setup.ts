@@ -5,8 +5,8 @@ import { FormProps } from '../../../../../views/addPaymentMethod/PaymentMethodFo
 import { toggleCurrency } from '../../paymentForms/utils'
 import { hasMultipleAvailableCurrencies } from '../utils/hasMultipleAvailableCurrencies'
 import { useLabelInput } from './useLabelInput'
+import { useReferenceInput } from './useReferenceInput'
 
-const referenceRules = { required: false, isValidPaymentReference: true }
 const chipperTagRules = { required: true, userName: true }
 
 export const useTemplate18Setup = ({ data, onSubmit, setStepValid, setFormData }: FormProps) => {
@@ -16,10 +16,12 @@ export const useTemplate18Setup = ({ data, onSubmit, setStepValid, setFormData }
     data?.chipperTag || '',
     chipperTagRules,
   )
-  const [reference, setReference, referenceIsValid, referenceErrors] = useValidatedState(
-    data?.reference || '',
-    referenceRules,
-  )
+  const {
+    referenceInputProps,
+    referenceIsValid,
+    setDisplayErrors: setDisplayReferenceErrors,
+    reference,
+  } = useReferenceInput(data)
   const [displayErrors, setDisplayErrors] = useState(false)
   const [selectedCurrencies, setSelectedCurrencies] = useState(data?.currencies || currencies)
 
@@ -40,8 +42,9 @@ export const useTemplate18Setup = ({ data, onSubmit, setStepValid, setFormData }
   const isFormValid = useCallback(() => {
     setDisplayLabelErrors(true)
     setDisplayErrors(true)
+    setDisplayReferenceErrors(true)
     return labelErrors.length === 0 && chipperTagIsValid && referenceIsValid
-  }, [chipperTagIsValid, labelErrors.length, referenceIsValid, setDisplayLabelErrors])
+  }, [chipperTagIsValid, labelErrors.length, referenceIsValid, setDisplayLabelErrors, setDisplayReferenceErrors])
 
   const save = () => {
     if (!isFormValid()) return
@@ -65,12 +68,7 @@ export const useTemplate18Setup = ({ data, onSubmit, setStepValid, setFormData }
       placeholder: i18n('form.chippertag.placeholder'),
       errorMessage: displayErrors ? chipperTagErrors : undefined,
     },
-    referenceInputProps: {
-      value: reference,
-      onChange: setReference,
-      onSubmit: save,
-      errorMessage: displayErrors ? referenceErrors : undefined,
-    },
+    referenceInputProps,
     currencySelectionProps: {
       paymentMethod,
       onToggle: onCurrencyToggle,

@@ -4,10 +4,12 @@ import i18n from '../../../../../utils/i18n'
 import { FormProps } from '../../../../../views/addPaymentMethod/PaymentMethodForm'
 import { useCurrencySelection } from './useCurrencySelection'
 import { useLabelInput } from './useLabelInput'
+import { useReferenceInput } from './useReferenceInput'
 
 const beneficiaryRules = { required: true }
 const cbuRules = { required: true, isCBU: true }
 
+// eslint-disable-next-line max-lines-per-function
 export const useTemplate14Setup = ({ data, setStepValid, setFormData }: Omit<FormProps, 'onSubmit'>) => {
   const { type: paymentMethod } = data
   const { labelInputProps, labelErrors, setDisplayErrors: setDisplayLabelErrors, label } = useLabelInput(data)
@@ -19,6 +21,12 @@ export const useTemplate14Setup = ({ data, setStepValid, setFormData }: Omit<For
     data?.accountNumber || '',
     cbuRules,
   )
+  const {
+    referenceInputProps,
+    referenceIsValid,
+    setDisplayErrors: setDisplayReferenceErrors,
+    reference,
+  } = useReferenceInput(data)
   const [displayErrors, setDisplayErrors] = useState(false)
   const { currencySelectionProps, shouldShowCurrencySelection, selectedCurrencies } = useCurrencySelection(data)
 
@@ -29,16 +37,25 @@ export const useTemplate14Setup = ({ data, setStepValid, setFormData }: Omit<For
       type: paymentMethod,
       beneficiary,
       accountNumber,
+      reference,
       currencies: selectedCurrencies,
     }),
-    [data?.id, accountNumber, label, paymentMethod, selectedCurrencies, beneficiary],
+    [data?.id, paymentMethod, label, beneficiary, accountNumber, reference, selectedCurrencies],
   )
 
   const isFormValid = useCallback(() => {
     setDisplayLabelErrors(true)
+    setDisplayReferenceErrors(true)
     setDisplayErrors(true)
-    return labelErrors.length === 0 && beneficiaryIsValid && accountNumberIsValid
-  }, [beneficiaryIsValid, accountNumberIsValid, labelErrors.length, setDisplayLabelErrors])
+    return labelErrors.length === 0 && beneficiaryIsValid && accountNumberIsValid && referenceIsValid
+  }, [
+    setDisplayLabelErrors,
+    setDisplayReferenceErrors,
+    labelErrors.length,
+    beneficiaryIsValid,
+    accountNumberIsValid,
+    referenceIsValid,
+  ])
 
   useEffect(() => {
     setStepValid(isFormValid())
@@ -59,6 +76,7 @@ export const useTemplate14Setup = ({ data, setStepValid, setFormData }: Omit<For
       label: i18n('form.account'),
       errorMessage: displayErrors ? accountNumberErrors : undefined,
     },
+    referenceInputProps,
     currencySelectionProps,
     shouldShowCurrencySelection,
   }

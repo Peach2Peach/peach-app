@@ -6,7 +6,7 @@ exports[`useTemplate15Setup should return the correct values 1`] = `
     "errorMessage": [
       "please enter a valid value",
     ],
-    "label": "form.accountNumber",
+    "label": "account #",
     "onChange": [Function],
     "onSubmit": [Function],
     "required": true,

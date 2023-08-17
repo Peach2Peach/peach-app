@@ -2,7 +2,7 @@ import { View } from 'react-native'
 import tw from '../../../../styles/tailwind'
 import { FormProps } from '../../../../views/addPaymentMethod/PaymentMethodForm'
 import { TabbedNavigation } from '../../../navigation/TabbedNavigation'
-import { EmailInput, LabelInput, PhoneInput } from '../../index'
+import { EmailInput, LabelInput, PhoneInput, ReferenceInput } from '../../index'
 import { CurrencySelection } from '../paymentForms/components'
 import { useTemplate6Setup } from './hooks'
 
@@ -12,6 +12,7 @@ export const Template13 = (props: FormProps) => {
     tabbedNavigationProps,
     phoneInputProps,
     emailInputProps,
+    referenceInputProps,
     shouldShowCurrencySelection,
     currencySelectionProps,
     shouldShowPhoneInput,
@@ -26,6 +27,7 @@ export const Template13 = (props: FormProps) => {
         {shouldShowPhoneInput && <PhoneInput {...phoneInputProps} />}
         {shouldShowEmailInput && <EmailInput {...emailInputProps} />}
       </View>
+      <ReferenceInput {...referenceInputProps} />
 
       {shouldShowCurrencySelection && <CurrencySelection {...currencySelectionProps} />}
     </View>

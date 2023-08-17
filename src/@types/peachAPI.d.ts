@@ -198,6 +198,7 @@ declare type PaymentMethod =
   | 'airtelMoney'
   | 'm-pesa'
   | 'nationalTransferNG'
+  | 'nationalTransferTR'
   | 'chippercash'
   | 'eversend'
   | CashTrade
