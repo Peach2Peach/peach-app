@@ -6,6 +6,7 @@ import { WithdrawalConfirmation } from '../../../popups/WithdrawalConfirmation'
 import { usePopupStore } from '../../../store/usePopupStore'
 import i18n from '../../../utils/i18n'
 import { peachWallet } from '../../../utils/wallet/setWallet'
+import { useWalletState } from '../../../utils/wallet/walletStore'
 
 type Props = {
   address: string
@@ -17,6 +18,7 @@ type Props = {
 
 export const useOpenWithdrawalConfirmationPopup = () => {
   const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
+  const setSelectedUTXOIds = useWalletState((state) => state.setSelectedUTXOIds)
   const navigation = useNavigation()
 
   const openWithdrawalConfirmationPopup = useCallback(
@@ -25,6 +27,7 @@ export const useOpenWithdrawalConfirmationPopup = () => {
 
       const confirm = async () => {
         await peachWallet.signAndBroadcastPSBT(psbt)
+        setSelectedUTXOIds([])
         closePopup()
         navigation.navigate('wallet')
       }
@@ -46,7 +49,7 @@ export const useOpenWithdrawalConfirmationPopup = () => {
         level: 'APP',
       })
     },
-    [closePopup, navigation, setPopup],
+    [closePopup, navigation, setPopup, setSelectedUTXOIds],
   )
   return openWithdrawalConfirmationPopup
 }
