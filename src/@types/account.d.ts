@@ -45,5 +45,6 @@ declare type Account = Identity & {
 }
 
 declare type AccountBackup = Account & {
+  paymentData: PaymentData[]
   settings: Settings
 }
