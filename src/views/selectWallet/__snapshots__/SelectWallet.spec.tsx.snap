@@ -37,6 +37,7 @@ exports[`SelectWallet renders correctly 1`] = `
             "lineHeight": 24,
           },
           undefined,
+          false,
         ]
       }
     >
@@ -120,6 +121,7 @@ exports[`SelectWallet renders correctly 1`] = `
                 "letterSpacing": 0.16,
                 "lineHeight": 28,
               },
+              false,
             ]
           }
         >
@@ -205,6 +207,7 @@ exports[`SelectWallet renders correctly 1`] = `
               "letterSpacing": 0.16,
               "lineHeight": 28,
             },
+            false,
           ]
         }
       >
@@ -301,6 +304,7 @@ exports[`SelectWallet renders correctly 1`] = `
               "textTransform": "uppercase",
             },
           ],
+          false,
         ]
       }
     >

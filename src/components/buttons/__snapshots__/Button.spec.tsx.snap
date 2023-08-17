@@ -304,6 +304,7 @@ exports[`NewButton should render correctly 1`] = `
             "color": "#FFFCFA",
           },
         ],
+        false,
       ]
     }
   >
@@ -372,7 +373,7 @@ exports[`NewButton should render correctly with icon 1`] = `
 - First value
 + Second value
 
-@@ -77,6 +77,18 @@
+@@ -78,6 +78,18 @@
         ]
       }
     >

@@ -1,3 +1,4 @@
+import { LogoIcons } from '../logo'
 import activity from './activity.svg'
 import alertCircle from './alertCircle.svg'
 import alertOctagon from './alertOctagon.svg'
@@ -18,10 +19,10 @@ import camera from './camera.svg'
 import cameraOff from './cameraOff.svg'
 import chatDoubleCheck from './chatDoubleCheck.svg'
 import check from './check.svg'
-import checkboxMark from './checkboxMark.svg'
 import checkCircle from './checkCircle.svg'
 import checkCircleInverted from './checkCircleInverted.svg'
 import checkSquare from './checkSquare.svg'
+import checkboxMark from './checkboxMark.svg'
 import chevronLeft from './chevronLeft.svg'
 import chevronRight from './chevronRight.svg'
 import chevronsDown from './chevronsDown.svg'
@@ -60,6 +61,7 @@ import inbox from './inbox.svg'
 import info from './info.svg'
 import link from './link.svg'
 import list from './list.svg'
+import listFlipped from './listFlipped.svg'
 import mail from './mail.svg'
 import map from './map.svg'
 import menu from './menu.svg'
@@ -110,8 +112,8 @@ import upload from './upload.svg'
 import uploadCloud from './uploadCloud.svg'
 import user from './user.svg'
 import userCheck from './userCheck.svg'
-import users from './users.svg'
 import userX from './userX.svg'
+import users from './users.svg'
 import wallet from './wallet.svg'
 import watch from './watch.svg'
 import xCircle from './xCircle.svg'
@@ -119,7 +121,6 @@ import xSquare from './xSquare.svg'
 import yourTrades from './yourTrades.svg'
 import zap from './zap.svg'
 import zapCircleInverted from './zapCircleInverted.svg'
-import { LogoIcons } from '../logo'
 
 export const Icons = {
   activity,
@@ -184,6 +185,7 @@ export const Icons = {
   info,
   link,
   list,
+  listFlipped,
   mail,
   map,
   menu,

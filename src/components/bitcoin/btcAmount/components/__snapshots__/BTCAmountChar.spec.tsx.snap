@@ -19,6 +19,7 @@ exports[`BTCAmountChar should render correctly 1`] = `
           "letterSpacing": 0,
         },
       ],
+      false,
     ]
   }
 >
@@ -45,6 +46,7 @@ exports[`BTCAmountChar should render correctly with error 1`] = `
           "letterSpacing": 0,
         },
       ],
+      false,
     ]
   }
 >
@@ -71,6 +73,7 @@ exports[`BTCAmountChar should render correctly with reduceOpacity 1`] = `
           "letterSpacing": 0,
         },
       ],
+      false,
     ]
   }
 >
@@ -97,6 +100,7 @@ exports[`BTCAmountChar should render correctly with reduceOpacity and isError 1`
           "letterSpacing": 0,
         },
       ],
+      false,
     ]
   }
 >

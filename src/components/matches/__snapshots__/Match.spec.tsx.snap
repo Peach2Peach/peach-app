@@ -144,6 +144,7 @@ exports[`Match should render correctly for buy offers 1`] = `
                         "textTransform": "uppercase",
                       },
                     ],
+                    false,
                   ]
                 }
               >
@@ -180,6 +181,7 @@ exports[`Match should render correctly for buy offers 1`] = `
                     "letterSpacing": 0.14,
                     "lineHeight": 22,
                   },
+                  false,
                 ]
               }
             >
@@ -264,6 +266,7 @@ exports[`Match should render correctly for buy offers 1`] = `
                       "lineHeight": 42,
                     },
                   ],
+                  false,
                 ]
               }
             >
@@ -297,6 +300,7 @@ exports[`Match should render correctly for buy offers 1`] = `
                       "color": "#2B1911",
                     },
                   ],
+                  false,
                 ]
               }
             >
@@ -332,6 +336,7 @@ exports[`Match should render correctly for buy offers 1`] = `
                       "color": "#2B1911",
                     },
                   ],
+                  false,
                 ]
               }
             >
@@ -354,6 +359,7 @@ exports[`Match should render correctly for buy offers 1`] = `
               {
                 "textAlign": "center",
               },
+              false,
             ]
           }
         >
@@ -374,6 +380,7 @@ exports[`Match should render correctly for buy offers 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 28,
                 },
+                false,
               ]
             }
           >
@@ -395,6 +402,7 @@ exports[`Match should render correctly for buy offers 1`] = `
                 {
                   "color": "#7D675E",
                 },
+                false,
               ]
             }
           >
@@ -538,6 +546,7 @@ exports[`Match should render correctly for buy offers 1`] = `
                   "lineHeight": 20,
                   "textDecorationLine": "underline",
                 },
+                false,
               ]
             }
           >
@@ -625,6 +634,7 @@ exports[`Match should render correctly for buy offers 1`] = `
             "lineHeight": 26,
             "textTransform": "uppercase",
           },
+          false,
         ]
       }
     >
@@ -862,6 +872,7 @@ exports[`Match should render correctly for matched offers 1`] = `
                           "textTransform": "uppercase",
                         },
                       ],
+                      false,
                     ]
                   }
                 >
@@ -898,6 +909,7 @@ exports[`Match should render correctly for matched offers 1`] = `
                       "letterSpacing": 0.14,
                       "lineHeight": 22,
                     },
+                    false,
                   ]
                 }
               >
@@ -982,6 +994,7 @@ exports[`Match should render correctly for matched offers 1`] = `
                         "lineHeight": 42,
                       },
                     ],
+                    false,
                   ]
                 }
               >
@@ -1015,6 +1028,7 @@ exports[`Match should render correctly for matched offers 1`] = `
                         "color": "#2B1911",
                       },
                     ],
+                    false,
                   ]
                 }
               >
@@ -1050,6 +1064,7 @@ exports[`Match should render correctly for matched offers 1`] = `
                         "color": "#2B1911",
                       },
                     ],
+                    false,
                   ]
                 }
               >
@@ -1072,6 +1087,7 @@ exports[`Match should render correctly for matched offers 1`] = `
                 {
                   "textAlign": "center",
                 },
+                false,
               ]
             }
           >
@@ -1092,6 +1108,7 @@ exports[`Match should render correctly for matched offers 1`] = `
                     "letterSpacing": 0.16,
                     "lineHeight": 28,
                   },
+                  false,
                 ]
               }
             >
@@ -1113,6 +1130,7 @@ exports[`Match should render correctly for matched offers 1`] = `
                   {
                     "color": "#7D675E",
                   },
+                  false,
                 ]
               }
             >
@@ -1256,6 +1274,7 @@ exports[`Match should render correctly for matched offers 1`] = `
                     "lineHeight": 20,
                     "textDecorationLine": "underline",
                   },
+                  false,
                 ]
               }
             >
@@ -1456,6 +1475,7 @@ exports[`Match should render correctly for matched offers 1`] = `
                       "textTransform": "uppercase",
                     },
                   ],
+                  false,
                 ]
               }
             >
@@ -1542,6 +1562,7 @@ exports[`Match should render correctly for matched offers 1`] = `
             "lineHeight": 26,
             "textTransform": "uppercase",
           },
+          false,
         ]
       }
     >
@@ -1711,6 +1732,7 @@ exports[`Match should render correctly for sell offers 1`] = `
                         "textTransform": "uppercase",
                       },
                     ],
+                    false,
                   ]
                 }
               >
@@ -1747,6 +1769,7 @@ exports[`Match should render correctly for sell offers 1`] = `
                     "letterSpacing": 0.14,
                     "lineHeight": 22,
                   },
+                  false,
                 ]
               }
             >
@@ -1831,6 +1854,7 @@ exports[`Match should render correctly for sell offers 1`] = `
                       "lineHeight": 42,
                     },
                   ],
+                  false,
                 ]
               }
             >
@@ -1864,6 +1888,7 @@ exports[`Match should render correctly for sell offers 1`] = `
                       "color": "#2B1911",
                     },
                   ],
+                  false,
                 ]
               }
             >
@@ -1899,6 +1924,7 @@ exports[`Match should render correctly for sell offers 1`] = `
                       "color": "#2B1911",
                     },
                   ],
+                  false,
                 ]
               }
             >
@@ -1921,6 +1947,7 @@ exports[`Match should render correctly for sell offers 1`] = `
               {
                 "textAlign": "center",
               },
+              false,
             ]
           }
         >
@@ -1941,6 +1968,7 @@ exports[`Match should render correctly for sell offers 1`] = `
                   "letterSpacing": 0.16,
                   "lineHeight": 28,
                 },
+                false,
               ]
             }
           >
@@ -1962,6 +1990,7 @@ exports[`Match should render correctly for sell offers 1`] = `
                 {
                   "color": "#7D675E",
                 },
+                false,
               ]
             }
           >
@@ -2014,6 +2043,7 @@ exports[`Match should render correctly for sell offers 1`] = `
                   {
                     "color": "#7D675E",
                   },
+                  false,
                 ]
               }
             >
@@ -2042,6 +2072,7 @@ exports[`Match should render correctly for sell offers 1`] = `
                     "paddingRight": 8,
                     "textTransform": "uppercase",
                   },
+                  false,
                 ]
               }
             />
@@ -2069,6 +2100,7 @@ exports[`Match should render correctly for sell offers 1`] = `
                   {
                     "color": "#7D675E",
                   },
+                  false,
                 ]
               }
             >
@@ -2113,6 +2145,7 @@ exports[`Match should render correctly for sell offers 1`] = `
                       "lineHeight": 24,
                       "textTransform": "uppercase",
                     },
+                    false,
                   ]
                 }
               />
@@ -2183,6 +2216,7 @@ exports[`Match should render correctly for sell offers 1`] = `
             "lineHeight": 26,
             "textTransform": "uppercase",
           },
+          false,
         ]
       }
     >

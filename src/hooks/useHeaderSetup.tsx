@@ -3,6 +3,7 @@ import { Header } from '../components'
 import { HeaderConfig } from '../components/header/Header'
 import { useNavigation } from './useNavigation'
 
+/** @deprecated - use Header directly in the screen instead */
 export const useHeaderSetup = (headerConfig: HeaderConfig | string) => {
   const setOptions = useNavigation().setOptions
 

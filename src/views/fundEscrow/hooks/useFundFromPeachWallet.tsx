@@ -1,11 +1,11 @@
 import { TxBuilderResult } from 'bdk-rn/lib/classes/Bindings'
-import { useEffect, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { useFeeRate } from '../../../hooks/useFeeRate'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { useConfigStore } from '../../../store/configStore'
 import { parseError } from '../../../utils/result'
 import { peachWallet } from '../../../utils/wallet/setWallet'
-import { buildDrainWalletTransaction, buildTransaction, setMultipleRecipients } from '../../../utils/wallet/transaction'
+import { buildTransaction, setMultipleRecipients } from '../../../utils/wallet/transaction'
 import { useWalletState } from '../../../utils/wallet/walletStore'
 import { useOpenAmountTooLowPopup } from './useOpenAmountTooLowPopup'
 import { useShowFundEscrowPopup } from './useShowFundEscrowPopup'
@@ -28,8 +28,9 @@ export const useFundFromPeachWallet = ({ address, addresses = [], amount, fundin
   const openAmountTooLowPopup = useOpenAmountTooLowPopup()
 
   const feeRate = useFeeRate()
-  const [canFundFromPeachWallet, setCanFundFromPeachWallet] = useState(
-    canFundOfferFromPeachWallet(fundingStatus, address),
+  const canFundFromPeachWallet = useMemo(
+    () => canFundOfferFromPeachWallet(fundingStatus, address),
+    [fundingStatus, address],
   )
   const [fundedFromPeachWallet, setFundedFromPeachWallet] = useState(false)
 
@@ -46,7 +47,7 @@ export const useFundFromPeachWallet = ({ address, addresses = [], amount, fundin
 
     let finishedTransaction: TxBuilderResult
     try {
-      const transaction = await buildTransaction(undefined, undefined, feeRate)
+      const transaction = await buildTransaction({ feeRate })
       if (addresses.length > 0) await setMultipleRecipients(transaction, amount, addresses)
 
       finishedTransaction = await peachWallet.finishTransaction(transaction)
@@ -59,8 +60,7 @@ export const useFundFromPeachWallet = ({ address, addresses = [], amount, fundin
         return showErrorBanner('INSUFFICIENT_FUNDS', [amount, available])
       }
 
-      const transaction = await buildDrainWalletTransaction(address, feeRate)
-
+      const transaction = await buildTransaction({ address, feeRate, shouldDrainWallet: true })
       finishedTransaction = await peachWallet.finishTransaction(transaction)
       return showInsufficientFundsPopup({
         address,
@@ -76,10 +76,6 @@ export const useFundFromPeachWallet = ({ address, addresses = [], amount, fundin
       onSuccess,
     })
   }
-
-  useEffect(() => {
-    setCanFundFromPeachWallet(canFundOfferFromPeachWallet(fundingStatus, address))
-  }, [address, fundingStatus])
 
   return { canFundFromPeachWallet, fundFromPeachWallet, fundedFromPeachWallet }
 }

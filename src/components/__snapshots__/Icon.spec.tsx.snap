@@ -81,6 +81,7 @@ exports[`Icon renders ❌ if icon id is unknown 1`] = `
         "lineHeight": 24,
       },
       undefined,
+      false,
     ]
   }
 >

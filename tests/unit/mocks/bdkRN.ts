@@ -1,13 +1,16 @@
 /* eslint-disable max-classes-per-file */
 
 export const addressScriptPubKeyMock = jest.fn()
-export const addressFromScriptMock = jest.fn()
+
+export const fromScriptMock = jest.fn().mockResolvedValue({
+  asString: () => 'address',
+})
 export class Address {
   create = jest.fn().mockReturnThis()
 
-  scriptPubKey = addressScriptPubKeyMock
+  fromScript = fromScriptMock
 
-  fromScript = addressFromScriptMock
+  scriptPubKey = addressScriptPubKeyMock
 }
 
 export const blockChainCreateMock = jest.fn().mockReturnThis()
@@ -137,6 +140,7 @@ export const txBuilderAddUtxosMock = jest.fn()
 export const txBuilderDrainToMock = jest.fn()
 export const txBuildSetRecipientsMock = jest.fn()
 export const txBuilderFinishMock = jest.fn()
+export const txBuilderManuallySelectedOnlyMock = jest.fn()
 export class TxBuilder {
   create = txBuilderCreateMock
 
@@ -150,7 +154,7 @@ export class TxBuilder {
 
   doNotSpendChange = jest.fn()
 
-  manuallySelectedOnly = jest.fn()
+  manuallySelectedOnly = txBuilderManuallySelectedOnlyMock
 
   onlySpendChange = jest.fn()
 

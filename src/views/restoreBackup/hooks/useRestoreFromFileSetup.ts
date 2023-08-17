@@ -1,16 +1,16 @@
 import { useState } from 'react'
 import { Keyboard } from 'react-native'
-
 import { useNavigation, useValidatedState } from '../../../hooks'
+import { useSettingsStore } from '../../../store/settingsStore'
+import { usePaymentDataStore } from '../../../store/usePaymentDataStore'
 import { deleteAccount, recoverAccount } from '../../../utils/account'
+import { createPeachAccount } from '../../../utils/account/createPeachAccount'
 import { decryptAccount } from '../../../utils/account/decryptAccount'
+import { loadWalletFromAccount } from '../../../utils/account/loadWalletFromAccount'
 import { storeAccount } from '../../../utils/account/storeAccount'
 import { auth } from '../../../utils/peachAPI'
-import { parseError } from '../../../utils/result'
 import { setPeachAccount } from '../../../utils/peachAPI/peachAccount'
-import { createPeachAccount } from '../../../utils/account/createPeachAccount'
-import { loadWalletFromAccount } from '../../../utils/account/loadWalletFromAccount'
-import { useSettingsStore } from '../../../store/settingsStore'
+import { parseError } from '../../../utils/result'
 
 const passwordRules = { password: true, required: true }
 
@@ -58,6 +58,7 @@ export const useRestoreFromFileSetup = () => {
     }
     const updatedAccount = await recoverAccount(recoveredAccount)
 
+    if (recoveredAccount.paymentData) recoveredAccount.paymentData.map(usePaymentDataStore.getState().addPaymentData)
     await storeAccount(updatedAccount)
     setRestored(true)
     setLoading(false)

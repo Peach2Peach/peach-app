@@ -55,6 +55,7 @@
   "wallet.sendBitcoin.sendingFrom.coins": "enviando desde las monedas seleccionadas",
   "wallet.sendBitcoin.title": "enviar bitcoin",
   "wallet.sendBitcoin.to": "enviar a",
+  "wallet.sendBitcoin.youreSending": "Estás enviando:",
   "wallet.showBalance": "mostrar saldo del monedero",
   "wallet.title": "Cartera de Peach",
   "wallet.totalBalance": "balance total",

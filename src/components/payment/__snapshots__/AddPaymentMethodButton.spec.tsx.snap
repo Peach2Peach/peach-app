@@ -72,6 +72,7 @@ exports[`AddPaymentMethodButton should render correctly 1`] = `
           "letterSpacing": 0.2,
           "lineHeight": 32,
         },
+        false,
       ]
     }
   >
@@ -153,6 +154,7 @@ exports[`AddPaymentMethodButton should render correctly with isCash 1`] = `
           "letterSpacing": 0.2,
           "lineHeight": 32,
         },
+        false,
       ]
     }
   >
@@ -233,6 +235,7 @@ exports[`AddPaymentMethodButton should render correctly with isCash while still 
           "letterSpacing": 0.2,
           "lineHeight": 32,
         },
+        false,
       ]
     }
   >

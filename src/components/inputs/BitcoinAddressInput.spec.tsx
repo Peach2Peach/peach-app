@@ -1,12 +1,12 @@
-import { BitcoinAddressInput } from './BitcoinAddressInput'
-import { render, fireEvent, act, waitFor } from '@testing-library/react-native'
-import { createRenderer } from 'react-test-renderer/shallow'
-import i18n from '../../utils/i18n'
 import Clipboard from '@react-native-clipboard/clipboard'
-import { ScanQR } from '../camera/ScanQR'
+import { act, fireEvent, render, waitFor } from '@testing-library/react-native'
 import permissions, { RESULTS } from 'react-native-permissions'
+import { createRenderer } from 'react-test-renderer/shallow'
 import { toMatchDiffSnapshot } from 'snapshot-diff'
 import { usePopupStore } from '../../store/usePopupStore'
+import i18n from '../../utils/i18n'
+import { ScanQR } from '../camera/ScanQR'
+import { BitcoinAddressInput } from './BitcoinAddressInput'
 expect.extend({ toMatchDiffSnapshot })
 
 jest.mock('../camera/ScanQR', () => ({

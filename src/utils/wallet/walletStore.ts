@@ -15,6 +15,7 @@ export type WalletState = {
   addressLabelMap: Record<string, string>
   fundMultipleMap: Record<string, string[]>
   showBalance: boolean
+  selectedUTXOIds: string[]
 }
 
 export type FundMultipleInfo = {
@@ -36,6 +37,7 @@ export type WalletStore = WalletState & {
   unregisterFundMultiple: (address: string) => void
   getFundMultipleByOfferId: (offerId: string) => FundMultipleInfo | undefined
   toggleShowBalance: () => void
+  setSelectedUTXOIds: (utxos: string[]) => void
 }
 
 export const defaultWalletState: WalletState = {
@@ -47,6 +49,7 @@ export const defaultWalletState: WalletState = {
   addressLabelMap: {},
   fundMultipleMap: {},
   showBalance: true,
+  selectedUTXOIds: [],
 }
 export const walletStorage = createStorage('wallet')
 
@@ -99,6 +102,7 @@ export const useWalletState = create(
         return { address, offerIds }
       },
       toggleShowBalance: () => set((state) => ({ showBalance: !state.showBalance })),
+      setSelectedUTXOIds: (utxos) => set({ selectedUTXOIds: utxos }),
     }),
     {
       name: 'wallet',
