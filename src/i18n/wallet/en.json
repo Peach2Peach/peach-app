@@ -55,6 +55,7 @@
   "wallet.sendBitcoin.sendingFrom.coins" : "sending from selected coins",
   "wallet.sendBitcoin.title" : "send bitcoin",
   "wallet.sendBitcoin.to" : "send to",
+  "wallet.sendBitcoin.youreSending" : "You're sending:",
   "wallet.showBalance" : "show wallet balance",
   "wallet.title" : "Peach wallet",
   "wallet.totalBalance" : "total balance",

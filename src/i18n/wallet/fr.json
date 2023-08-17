@@ -55,6 +55,7 @@
   "wallet.sendBitcoin.sendingFrom.coins" : "envoi de pièces sélectionnées",
   "wallet.sendBitcoin.title" : "envoyer des bitcoins",
   "wallet.sendBitcoin.to" : "envoyer à",
+  "wallet.sendBitcoin.youreSending" : "Vous envoyez :",
   "wallet.showBalance" : "afficher le solde du portefeuille",
   "wallet.title" : "Portefeuille Peach",
   "wallet.totalBalance" : "solde total",

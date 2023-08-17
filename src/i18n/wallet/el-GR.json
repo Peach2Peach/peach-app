@@ -55,6 +55,7 @@
   "wallet.sendBitcoin.sendingFrom.coins" : "αποστολή από τα επιλεγμένα νομίσματα",
   "wallet.sendBitcoin.title" : "αποστολή bitcoin",
   "wallet.sendBitcoin.to" : "αποστολή σε",
+  "wallet.sendBitcoin.youreSending" : "Στέλνεις:",
   "wallet.showBalance" : "Εμφάνιση υπολοίπου πορτοφολιού",
   "wallet.title" : "Πορτοφόλι της Peach",
   "wallet.totalBalance" : "συνολικό υπόλοιπο",
