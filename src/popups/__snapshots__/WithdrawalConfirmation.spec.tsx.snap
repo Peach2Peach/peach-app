@@ -9,7 +9,7 @@ exports[`WithdrawalConfirmation should render correctly 1`] = `
   }
 >
   <PeachText>
-    You're sending the full amount of your Peach wallet:
+    You're sending:
   </PeachText>
   <BTCAmount
     amount={123456}

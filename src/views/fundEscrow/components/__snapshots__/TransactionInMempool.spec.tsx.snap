@@ -33,6 +33,7 @@ exports[`TransactionInMempool shoud render correctly with different width 1`] = 
             "lineHeight": 24,
           },
           undefined,
+          false,
         ]
       }
     >
@@ -128,6 +129,7 @@ You can go do something else, we'll automatically publish your offer as soon as 
                   "textDecorationLine": "underline",
                 },
               ],
+              false,
             ]
           }
         >
@@ -187,6 +189,7 @@ exports[`TransactionInMempool should render correctly 1`] = `
             "lineHeight": 24,
           },
           undefined,
+          false,
         ]
       }
     >
@@ -282,6 +285,7 @@ You can go do something else, we'll automatically publish your offer as soon as 
                   "textDecorationLine": "underline",
                 },
               ],
+              false,
             ]
           }
         >

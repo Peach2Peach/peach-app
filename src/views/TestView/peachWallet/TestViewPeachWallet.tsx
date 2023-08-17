@@ -40,7 +40,7 @@ export const TestViewPeachWallet = () => {
   }
   const send = async () => {
     if (!address) throw Error('Address invalid')
-    const result = await peachWallet.sendTo(address, 50000, 3)
+    const result = await peachWallet.sendTo({ address, amount: 50000, feeRate: 3 })
     setTxId(await result.txid())
   }
   const refill = async () => {

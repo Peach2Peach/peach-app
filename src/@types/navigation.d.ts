@@ -11,8 +11,10 @@ declare type RootStackParamList = {
     badges: string
   }
   wallet: undefined
+  sendBitcoin: undefined
   receiveBitcoin: undefined
   addressChecker: undefined
+  coinSelection: undefined
   transactionHistory: undefined
   transactionDetails: {
     txId: string

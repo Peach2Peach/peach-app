@@ -68,6 +68,10 @@ exports[`Currencies should render correctly for type "europe" 1`] = `
           "display": "Norwegian krone",
           "value": "NOK",
         },
+        {
+          "display": "Turkish lira",
+          "value": "TRY",
+        },
       ]
     }
     onButtonPress={[MockFunction]}

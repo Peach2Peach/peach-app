@@ -69,6 +69,7 @@ exports[`Badge should render correctly 1`] = `
             "color": "#FCCCB6",
           },
         ],
+        false,
       ]
     }
   >
@@ -146,6 +147,7 @@ exports[`Badge should render correctly if badge is unlocked 1`] = `
             "color": "#F56522",
           },
         ],
+        false,
       ]
     }
   >
@@ -223,6 +225,7 @@ exports[`Badge should render correctly with dispute active 1`] = `
             "color": "#FE5A48",
           },
         ],
+        false,
       ]
     }
   >

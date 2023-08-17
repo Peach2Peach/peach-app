@@ -228,6 +228,7 @@ exports[`ScanQR renders correctly 1`] = `
                     "letterSpacing": 0.2,
                     "lineHeight": 32,
                   },
+                  false,
                 ]
               }
             >
