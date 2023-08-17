@@ -17,75 +17,51 @@ exports[`Referrals renders correctly 1`] = `
     ]
   }
 >
-  <View
-    style={
-      [
-        {
-          "borderRadius": 9999,
-          "height": 16,
-          "overflow": "hidden",
-          "width": "100%",
-        },
-        {
-          "borderRadius": 4,
-          "height": 12,
-        },
-      ]
-    }
-  >
+  <View>
     <View
       style={
         [
           {
             "borderRadius": 9999,
-            "height": "100%",
-            "position": "absolute",
+            "height": 16,
+            "overflow": "hidden",
             "width": "100%",
           },
           {
-            "backgroundColor": "#FCCCB6",
-            "borderColor": "#FFF9F6",
-            "borderWidth": 2,
+            "borderRadius": 4,
+            "height": 12,
           },
         ]
       }
-    />
-    <View
-      collapsable={false}
-      style={
-        {
-          "borderRadius": 9999,
-          "height": "100%",
-          "width": "0%",
+    >
+      <View
+        style={
+          [
+            {
+              "borderRadius": 9999,
+              "height": "100%",
+              "position": "absolute",
+              "width": "100%",
+            },
+            {
+              "backgroundColor": "#FCCCB6",
+              "borderColor": "#FFF9F6",
+              "borderWidth": 2,
+            },
+          ]
         }
-      }
-    />
-  </View>
-  <Text
-    allowFontScaling={false}
-    style={
-      [
-        {
-          "color": "#2B1911",
-          "fontFamily": "Baloo2-Regular",
-          "fontSize": 16,
-          "letterSpacing": 0.16,
-          "lineHeight": 24,
-        },
-        {
-          "color": "#7D675E",
-          "fontFamily": "Baloo2-Medium",
-          "fontSize": 14,
-          "letterSpacing": 0.14,
-          "lineHeight": 20,
-          "paddingLeft": 8,
-        },
-        false,
-      ]
-    }
-  >
-    Peach referral points
-    : 
+      />
+      <View
+        collapsable={false}
+        style={
+          {
+            "borderRadius": 9999,
+            "height": "100%",
+            "width": "0%",
+          }
+        }
+      />
+    </View>
     <Text
       allowFontScaling={false}
       style={
@@ -101,17 +77,43 @@ exports[`Referrals renders correctly 1`] = `
             "color": "#7D675E",
             "fontFamily": "Baloo2-Medium",
             "fontSize": 14,
-            "fontWeight": "bold",
             "letterSpacing": 0.14,
             "lineHeight": 20,
+            "paddingLeft": 8,
           },
           false,
         ]
       }
     >
-      0
+      Peach referral points
+      : 
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            {
+              "color": "#7D675E",
+              "fontFamily": "Baloo2-Medium",
+              "fontSize": 14,
+              "fontWeight": "bold",
+              "letterSpacing": 0.14,
+              "lineHeight": 20,
+            },
+            false,
+          ]
+        }
+      >
+        0
+      </Text>
     </Text>
-  </Text>
+  </View>
   <RCTScrollView
     contentContainerStyle={
       {

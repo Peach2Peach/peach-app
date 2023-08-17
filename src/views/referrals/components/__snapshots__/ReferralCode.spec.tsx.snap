@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ReferralCode should render component correctly 1`] = `
+<React.Fragment>
+  <PeachText
+    style={
+      {
+        "color": "#7D675E",
+        "fontFamily": "Baloo2-Regular",
+        "fontSize": 16,
+        "letterSpacing": 0.16,
+        "lineHeight": 24,
+        "textAlign": "center",
+      }
+    }
+  >
+    your referral code:
+  </PeachText>
+  <View
+    style={
+      {
+        "flexDirection": "row",
+        "justifyContent": "center",
+      }
+    }
+  >
+    <PeachText
+      style={
+        {
+          "fontFamily": "Baloo2-Bold",
+          "fontSize": 34,
+          "letterSpacing": 0.34,
+          "lineHeight": 42,
+          "marginRight": 4,
+          "textAlign": "center",
+        }
+      }
+    >
+      HALFIN
+    </PeachText>
+    <CopyAble
+      style={
+        {
+          "height": 28,
+          "width": 28,
+        }
+      }
+      value="HALFIN"
+    />
+  </View>
+</React.Fragment>
+`;

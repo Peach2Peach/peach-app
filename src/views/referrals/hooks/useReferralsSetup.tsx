@@ -6,8 +6,8 @@ import { useRedeemNoPeachFeesReward } from '../../../popups/referral/useRedeemNo
 import { useSetCustomReferralCodePopup } from '../../../popups/referral/useSetCustomReferralCodePopup'
 import i18n from '../../../utils/i18n'
 import { headerIcons } from '../../../utils/layout/headerIcons'
+import { REWARDINFO } from '../constants'
 import { isRewardAvailable } from '../helpers/isRewardAvailable'
-import { REWARDINFO } from '../Referrals'
 
 export const useReferralsSetup = () => {
   const showHelp = useShowHelp('referrals')
