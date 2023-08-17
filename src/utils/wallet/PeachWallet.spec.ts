@@ -432,3 +432,40 @@ describe('PeachWallet - loadWallet', () => {
     expect(peachWallet.initialized).toBeTruthy()
   })
 })
+
+describe('PeachWallet - buildFinishedTransaction', () => {
+  // @ts-ignore
+  const wallet = createWalletFromBase58(account1.base58, getNetwork())
+  let peachWallet: PeachWallet
+
+  beforeEach(async () => {
+    peachWallet = new PeachWallet({ wallet })
+    await peachWallet.loadWallet()
+  })
+  const utxo = new LocalUtxo(
+    new OutPoint('txid', 0),
+    new TxOut(10000, new Script('address')),
+    false,
+    KeychainKind.External,
+  )
+  const params = {
+    address: 'address',
+    amount: 10000,
+    feeRate: 10,
+    utxos: [utxo],
+    shouldDrainWallet: true,
+  }
+  it('should call buildTransaction with the correct params and finish the tx', async () => {
+    const txBuilder = await new TxBuilder().create()
+    buildTransactionMock.mockResolvedValue(txBuilder)
+
+    await peachWallet.buildFinishedTransaction(params)
+    expect(buildTransactionMock).toHaveBeenCalledWith(params)
+    expect(txBuilderFinishMock).toHaveBeenCalledWith(peachWallet.wallet)
+  })
+  it('should handle the wallet not being ready', async () => {
+    peachWallet.wallet = undefined
+    const error = await getError<Error>(() => peachWallet.buildFinishedTransaction(params))
+    expect(error.message).toBe('WALLET_NOT_READY')
+  })
+})
