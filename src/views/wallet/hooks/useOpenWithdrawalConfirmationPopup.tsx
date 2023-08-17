@@ -1,30 +1,35 @@
+import { LocalUtxo } from 'bdk-rn/lib/classes/Bindings'
 import { useCallback } from 'react'
 import { shallow } from 'zustand/shallow'
+import { useNavigation } from '../../../hooks'
 import { WithdrawalConfirmation } from '../../../popups/WithdrawalConfirmation'
 import { usePopupStore } from '../../../store/usePopupStore'
 import i18n from '../../../utils/i18n'
 import { peachWallet } from '../../../utils/wallet/setWallet'
-import { buildDrainWalletTransaction } from '../../../utils/wallet/transaction'
+import { useWalletState } from '../../../utils/wallet/walletStore'
 
 type Props = {
   address: string
   amount: number
   feeRate: number
   shouldDrainWallet?: boolean
-  onSuccess: () => void
+  utxos?: LocalUtxo[]
 }
 
 export const useOpenWithdrawalConfirmationPopup = () => {
   const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
+  const setSelectedUTXOIds = useWalletState((state) => state.setSelectedUTXOIds)
+  const navigation = useNavigation()
 
   const openWithdrawalConfirmationPopup = useCallback(
-    async ({ address, amount, feeRate, shouldDrainWallet, onSuccess }: Props) => {
-      const { psbt } = shouldDrainWallet
-        ? await peachWallet.finishTransaction(await buildDrainWalletTransaction(address, feeRate))
-        : await peachWallet.buildAndFinishTransaction(address, amount, feeRate)
+    async ({ address, amount, feeRate, shouldDrainWallet, utxos }: Props) => {
+      const { psbt } = await peachWallet.buildFinishedTransaction({ address, amount, feeRate, shouldDrainWallet, utxos })
+
       const confirm = async () => {
         await peachWallet.signAndBroadcastPSBT(psbt)
-        onSuccess()
+        setSelectedUTXOIds([])
+        closePopup()
+        navigation.navigate('wallet')
       }
       const fee = await psbt.feeAmount()
 
@@ -44,7 +49,7 @@ export const useOpenWithdrawalConfirmationPopup = () => {
         level: 'APP',
       })
     },
-    [closePopup, setPopup],
+    [closePopup, navigation, setPopup, setSelectedUTXOIds],
   )
   return openWithdrawalConfirmationPopup
 }

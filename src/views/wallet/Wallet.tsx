@@ -5,11 +5,8 @@ import { useNavigation } from '../../hooks'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { BitcoinLoading } from '../loading/BitcoinLoading'
-import { TotalBalance } from './components/TotalBalance'
-import { WalletHeader } from './components/WalletHeader'
-import { useLastUnusedAddress } from './hooks/useLastUnusedAddress'
-import { useWalletAddress } from './hooks/useWalletAddress'
-import { useWalletSetup } from './hooks/useWalletSetup'
+import { TotalBalance, WalletHeader } from './components'
+import { useLastUnusedAddress, useUTXOs, useWalletAddress, useWalletSetup } from './hooks'
 
 export const Wallet = () => {
   const { balance, isRefreshing, walletLoading, refresh } = useWalletSetup()
@@ -41,6 +38,7 @@ const useAddressPrefetch = () => {
 function WalletButtons () {
   const navigation = useNavigation()
   useAddressPrefetch()
+  useUTXOs()
 
   const goToSend = () => {
     navigation.navigate('sendBitcoin')

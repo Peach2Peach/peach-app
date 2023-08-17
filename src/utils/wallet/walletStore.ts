@@ -13,6 +13,7 @@ export type WalletState = {
   txOfferMap: Record<string, string>
   addressLabelMap: Record<string, string>
   showBalance: boolean
+  selectedUTXOIds: string[]
 }
 
 export type WalletStore = WalletState & {
@@ -26,6 +27,7 @@ export type WalletStore = WalletState & {
   labelAddress: (address: string, label: string) => void
   updateTxOfferMap: (txid: string, offerId: string) => void
   toggleShowBalance: () => void
+  setSelectedUTXOIds: (utxos: string[]) => void
 }
 
 export const defaultWalletState: WalletState = {
@@ -36,6 +38,7 @@ export const defaultWalletState: WalletState = {
   txOfferMap: {},
   addressLabelMap: {},
   showBalance: true,
+  selectedUTXOIds: [],
 }
 export const walletStorage = createStorage('wallet')
 
@@ -70,6 +73,7 @@ export const useWalletState = create(
           },
         })),
       toggleShowBalance: () => set((state) => ({ showBalance: !state.showBalance })),
+      setSelectedUTXOIds: (utxos) => set({ selectedUTXOIds: utxos }),
     }),
     {
       name: 'wallet',

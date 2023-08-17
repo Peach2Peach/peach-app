@@ -1,11 +1,10 @@
 import { useRef, useState } from 'react'
 import { TextInput, TouchableOpacity, View } from 'react-native'
 import { shallow } from 'zustand/shallow'
-import { Icon } from '../../components'
-import tw from '../../styles/tailwind'
-import { useWalletState } from '../../utils/wallet/walletStore'
-import { useLastUnusedAddress } from './hooks/useLastUnusedAddress'
-import { useWalletAddress } from './hooks/useWalletAddress'
+import { Icon } from '../../../components'
+import tw from '../../../styles/tailwind'
+import { useWalletState } from '../../../utils/wallet/walletStore'
+import { useLastUnusedAddress, useWalletAddress } from '../hooks'
 
 export function AddressLabelInput ({ index }: { index: number }) {
   const { data } = useLastUnusedAddress()

@@ -1,8 +1,8 @@
 import { act, fireEvent, render, waitFor } from '@testing-library/react-native'
 import { toMatchDiffSnapshot } from 'snapshot-diff'
-import { QueryClientWrapper, queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
-import { PeachWallet } from '../../utils/wallet/PeachWallet'
-import { peachWallet, setPeachWallet } from '../../utils/wallet/setWallet'
+import { QueryClientWrapper, queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
+import { PeachWallet } from '../../../utils/wallet/PeachWallet'
+import { peachWallet, setPeachWallet } from '../../../utils/wallet/setWallet'
 import { AddressNavigation } from './AddressNavigation'
 expect.extend({ toMatchDiffSnapshot })
 

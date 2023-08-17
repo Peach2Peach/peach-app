@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react-native'
-import { QueryClientWrapper } from '../../../tests/unit/helpers/QueryClientWrapper'
+import { QueryClientWrapper } from '../../../../tests/unit/helpers/QueryClientWrapper'
 import { AddressLabelInput } from './AddressLabelInput'
 
 describe('AddressLabelInput', () => {

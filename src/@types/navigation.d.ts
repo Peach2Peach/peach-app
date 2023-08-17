@@ -13,6 +13,7 @@ declare type RootStackParamList = {
   wallet: undefined
   sendBitcoin: undefined
   receiveBitcoin: undefined
+  coinSelection: undefined
   transactionHistory: undefined
   transactionDetails: {
     txId: string

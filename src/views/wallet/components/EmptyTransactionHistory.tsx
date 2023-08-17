@@ -1,8 +1,8 @@
 import { Image, View } from 'react-native'
-import loadingAnimation from '../../assets/animated/logo-rotate.gif'
-import { Text } from '../../components'
-import tw from '../../styles/tailwind'
-import i18n from '../../utils/i18n'
+import loadingAnimation from '../../../assets/animated/logo-rotate.gif'
+import { Text } from '../../../components'
+import tw from '../../../styles/tailwind'
+import i18n from '../../../utils/i18n'
 
 export const EmptyTransactionHistory = () => (
   <View style={tw`items-center justify-center h-full gap-8`}>
