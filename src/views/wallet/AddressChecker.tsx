@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { View } from 'react-native'
-import { Icon, InfoFrame, NewHeader, Placeholder, Screen } from '../../components'
+import { NewHeader as Header, Icon, InfoFrame, Placeholder, Screen } from '../../components'
 import { BitcoinAddressInput } from '../../components/inputs'
 import { TradeInfo } from '../../components/offer'
 import { useValidatedState } from '../../hooks'
@@ -19,7 +19,7 @@ export const AddressChecker = () => {
 
   return (
     <Screen>
-      <NewHeader title={i18n('wallet.addressChecker')} />
+      <Header title={i18n('wallet.addressChecker')} />
       <View style={tw`items-center justify-center gap-16 grow`}>
         <InfoFrame text={i18n('wallet.addressChecker.hint')} />
         <BitcoinAddressInput value={address} onChange={setAddress} errorMessage={errorMessage} />
