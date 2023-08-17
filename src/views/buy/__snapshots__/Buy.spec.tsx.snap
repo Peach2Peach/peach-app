@@ -71,6 +71,7 @@ exports[`Buy should render correctly 1`] = `
                 "lineHeight": 32,
               },
             ],
+            false,
           ]
         }
       >
@@ -99,6 +100,7 @@ exports[`Buy should render correctly 1`] = `
                     "lineHeight": 32,
                   },
                 ],
+                false,
               ],
               undefined,
             ]
@@ -131,6 +133,7 @@ exports[`Buy should render correctly 1`] = `
                     "lineHeight": 32,
                   },
                 ],
+                false,
               ],
               {
                 "color": "#05A85A",
@@ -165,6 +168,7 @@ exports[`Buy should render correctly 1`] = `
                     "lineHeight": 32,
                   },
                 ],
+                false,
               ],
               undefined,
             ]
@@ -266,6 +270,7 @@ exports[`Buy should render correctly 1`] = `
                           "fontSize": 18,
                         },
                       ],
+                      false,
                     ]
                   }
                 >
@@ -296,6 +301,7 @@ exports[`Buy should render correctly 1`] = `
                           "color": "#2B1911",
                         },
                       ],
+                      false,
                     ]
                   }
                 >
@@ -328,6 +334,7 @@ exports[`Buy should render correctly 1`] = `
                           "color": "#2B1911",
                         },
                       ],
+                      false,
                     ]
                   }
                 >
@@ -462,6 +469,7 @@ exports[`Buy should render correctly 1`] = `
                       "color": "#DF321F",
                     },
                   ],
+                  false,
                 ]
               }
             >
@@ -502,6 +510,7 @@ exports[`Buy should render correctly 1`] = `
                     "fontFamily": "CourierPrime-Regular",
                     "fontSize": 18,
                   },
+                  false,
                 ]
               }
             >
@@ -635,6 +644,7 @@ exports[`Buy should render correctly 1`] = `
                       "color": "#DF321F",
                     },
                   ],
+                  false,
                 ]
               }
             >
@@ -668,6 +678,7 @@ exports[`Buy should render correctly 1`] = `
                 "lineHeight": 32,
               },
             ],
+            false,
           ]
         }
       >
@@ -766,6 +777,7 @@ exports[`Buy should render correctly 1`] = `
                           "fontSize": 18,
                         },
                       ],
+                      false,
                     ]
                   }
                 >
@@ -796,6 +808,7 @@ exports[`Buy should render correctly 1`] = `
                           "color": "#2B1911",
                         },
                       ],
+                      false,
                     ]
                   }
                 >
@@ -828,6 +841,7 @@ exports[`Buy should render correctly 1`] = `
                           "color": "#2B1911",
                         },
                       ],
+                      false,
                     ]
                   }
                 >
@@ -962,6 +976,7 @@ exports[`Buy should render correctly 1`] = `
                       "color": "#DF321F",
                     },
                   ],
+                  false,
                 ]
               }
             >
@@ -1002,6 +1017,7 @@ exports[`Buy should render correctly 1`] = `
                     "fontFamily": "CourierPrime-Regular",
                     "fontSize": 18,
                   },
+                  false,
                 ]
               }
             >
@@ -1135,6 +1151,7 @@ exports[`Buy should render correctly 1`] = `
                       "color": "#DF321F",
                     },
                   ],
+                  false,
                 ]
               }
             >
@@ -1586,6 +1603,7 @@ exports[`Buy should render correctly 1`] = `
                 "textTransform": "uppercase",
               },
             ],
+            false,
           ]
         }
       >
@@ -1620,6 +1638,7 @@ exports[`Buy should render correctly 1`] = `
               "letterSpacing": 0.14,
               "lineHeight": 20,
             },
+            false,
           ]
         }
       >
@@ -1648,6 +1667,7 @@ exports[`Buy should render correctly 1`] = `
                   "color": "#F56522",
                 },
               ],
+              false,
             ]
           }
         >
@@ -1678,6 +1698,7 @@ exports[`Buy should render correctly 1`] = `
                   "color": "#7D675E",
                 },
               ],
+              false,
             ]
           }
         >
@@ -1706,6 +1727,7 @@ exports[`Buy should render correctly 1`] = `
                   "color": "#FCCCB6",
                 },
               ],
+              false,
             ]
           }
         >
@@ -1878,6 +1900,7 @@ exports[`Buy should render correctly with free trades 1`] = `
                 "lineHeight": 32,
               },
             ],
+            false,
           ]
         }
       >
@@ -1906,6 +1929,7 @@ exports[`Buy should render correctly with free trades 1`] = `
                     "lineHeight": 32,
                   },
                 ],
+                false,
               ],
               undefined,
             ]
@@ -1938,6 +1962,7 @@ exports[`Buy should render correctly with free trades 1`] = `
                     "lineHeight": 32,
                   },
                 ],
+                false,
               ],
               {
                 "color": "#05A85A",
@@ -1972,6 +1997,7 @@ exports[`Buy should render correctly with free trades 1`] = `
                     "lineHeight": 32,
                   },
                 ],
+                false,
               ],
               undefined,
             ]
@@ -2073,6 +2099,7 @@ exports[`Buy should render correctly with free trades 1`] = `
                           "fontSize": 18,
                         },
                       ],
+                      false,
                     ]
                   }
                 >
@@ -2103,6 +2130,7 @@ exports[`Buy should render correctly with free trades 1`] = `
                           "color": "#2B1911",
                         },
                       ],
+                      false,
                     ]
                   }
                 >
@@ -2135,6 +2163,7 @@ exports[`Buy should render correctly with free trades 1`] = `
                           "color": "#2B1911",
                         },
                       ],
+                      false,
                     ]
                   }
                 >
@@ -2269,6 +2298,7 @@ exports[`Buy should render correctly with free trades 1`] = `
                       "color": "#DF321F",
                     },
                   ],
+                  false,
                 ]
               }
             >
@@ -2309,6 +2339,7 @@ exports[`Buy should render correctly with free trades 1`] = `
                     "fontFamily": "CourierPrime-Regular",
                     "fontSize": 18,
                   },
+                  false,
                 ]
               }
             >
@@ -2442,6 +2473,7 @@ exports[`Buy should render correctly with free trades 1`] = `
                       "color": "#DF321F",
                     },
                   ],
+                  false,
                 ]
               }
             >
@@ -2475,6 +2507,7 @@ exports[`Buy should render correctly with free trades 1`] = `
                 "lineHeight": 32,
               },
             ],
+            false,
           ]
         }
       >
@@ -2573,6 +2606,7 @@ exports[`Buy should render correctly with free trades 1`] = `
                           "fontSize": 18,
                         },
                       ],
+                      false,
                     ]
                   }
                 >
@@ -2603,6 +2637,7 @@ exports[`Buy should render correctly with free trades 1`] = `
                           "color": "#2B1911",
                         },
                       ],
+                      false,
                     ]
                   }
                 >
@@ -2635,6 +2670,7 @@ exports[`Buy should render correctly with free trades 1`] = `
                           "color": "#2B1911",
                         },
                       ],
+                      false,
                     ]
                   }
                 >
@@ -2769,6 +2805,7 @@ exports[`Buy should render correctly with free trades 1`] = `
                       "color": "#DF321F",
                     },
                   ],
+                  false,
                 ]
               }
             >
@@ -2809,6 +2846,7 @@ exports[`Buy should render correctly with free trades 1`] = `
                     "fontFamily": "CourierPrime-Regular",
                     "fontSize": 18,
                   },
+                  false,
                 ]
               }
             >
@@ -2942,6 +2980,7 @@ exports[`Buy should render correctly with free trades 1`] = `
                       "color": "#DF321F",
                     },
                   ],
+                  false,
                 ]
               }
             >
@@ -3357,6 +3396,7 @@ exports[`Buy should render correctly with free trades 1`] = `
                 "fontSize": 14,
               },
             ],
+            false,
           ]
         }
       >
@@ -3526,6 +3566,7 @@ exports[`Buy should render correctly with free trades 1`] = `
                     "marginTop": 2,
                   },
                 ],
+                false,
               ]
             }
           >
@@ -3606,6 +3647,7 @@ exports[`Buy should render correctly with free trades 1`] = `
                 "textTransform": "uppercase",
               },
             ],
+            false,
           ]
         }
       >
@@ -3640,6 +3682,7 @@ exports[`Buy should render correctly with free trades 1`] = `
               "letterSpacing": 0.14,
               "lineHeight": 20,
             },
+            false,
           ]
         }
       >
@@ -3668,6 +3711,7 @@ exports[`Buy should render correctly with free trades 1`] = `
                   "color": "#F56522",
                 },
               ],
+              false,
             ]
           }
         >
@@ -3698,6 +3742,7 @@ exports[`Buy should render correctly with free trades 1`] = `
                   "color": "#7D675E",
                 },
               ],
+              false,
             ]
           }
         >
@@ -3726,6 +3771,7 @@ exports[`Buy should render correctly with free trades 1`] = `
                   "color": "#FCCCB6",
                 },
               ],
+              false,
             ]
           }
         >

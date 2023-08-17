@@ -42,6 +42,7 @@ exports[`OfferPublished renders correctly 1`] = `
             "lineHeight": 42,
             "textAlign": "center",
           },
+          false,
         ]
       }
     >
@@ -91,6 +92,7 @@ exports[`OfferPublished renders correctly 1`] = `
               "letterSpacing": 0.2,
               "lineHeight": 28,
             },
+            false,
           ]
         }
       >
@@ -170,6 +172,7 @@ exports[`OfferPublished renders correctly 1`] = `
               "textTransform": "uppercase",
             },
           ],
+          false,
         ]
       }
     >
@@ -250,6 +253,7 @@ exports[`OfferPublished renders correctly 1`] = `
               "textTransform": "uppercase",
             },
           ],
+          false,
         ]
       }
     >

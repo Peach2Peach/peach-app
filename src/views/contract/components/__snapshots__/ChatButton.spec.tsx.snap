@@ -61,6 +61,7 @@ exports[`ChatButton renders correctly 1`] = `
           "lineHeight": 24,
           "textTransform": "uppercase",
         },
+        false,
       ]
     }
   >
@@ -159,6 +160,7 @@ exports[`ChatButton renders correctly with active dispute 1`] = `
           "lineHeight": 24,
           "textTransform": "uppercase",
         },
+        false,
       ]
     }
   >

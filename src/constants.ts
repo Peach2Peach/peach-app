@@ -43,6 +43,7 @@ export let CURRENCIES: Currency[] = [
   'RON',
   'ISK',
   'NOK',
+  'TRY',
   'USDT',
 ]
 
@@ -90,6 +91,7 @@ export const PAYMENTCATEGORIES: PaymentCategories = {
     'fasterPayments',
     'straksbetaling',
     ...NATIONALTRANSFERCOUNTRIES.map((c) => `nationalTransfer${c}` satisfies PaymentMethod),
+    'nationalTransferTR',
   ],
   onlineWallet: [
     'paypal',
@@ -106,6 +108,7 @@ export const PAYMENTCATEGORIES: PaymentCategories = {
     'paysera',
     'friends24',
     'n26',
+    'papara',
   ],
   giftCard: ['giftCard.amazon', ...GIFTCARDCOUNTRIES.map((c) => `giftCard.amazon.${c}` satisfies PaymentMethod)],
   nationalOption: ['mbWay', 'bizum', 'satispay', 'mobilePay', 'keksPay', 'paylib', 'lydia', 'verse', 'iris'],
@@ -133,6 +136,7 @@ export const NATIONALOPTIONCOUNTRIES: Record<'EUR', FlagType[]> = {
 }
 
 export const APPLINKS: Record<string, { appLink?: string; url: string; userLink?: string }> = {
+  papara: { url: 'https://www.papara.com' },
   paypal: {
     url: 'https://paypal.com/open_web',
     userLink: 'https://paypal.com/paypalme/',

@@ -69,6 +69,7 @@ exports[`Bottom should render correctly 1`] = `
               "color": "#FFFCFA",
             },
           ],
+          false,
         ]
       }
     >
@@ -121,6 +122,7 @@ exports[`Bottom should render correctly 1`] = `
             "position": "absolute",
             "textAlign": "center",
           },
+          false,
         ]
       }
     />
@@ -207,6 +209,7 @@ exports[`Bottom should render correctly with labelIcon 1`] = `
               "color": "#FFFCFA",
             },
           ],
+          false,
         ]
       }
     >
@@ -259,6 +262,7 @@ exports[`Bottom should render correctly with labelIcon 1`] = `
             "position": "absolute",
             "textAlign": "center",
           },
+          false,
         ]
       }
     />
@@ -333,6 +337,7 @@ exports[`Bottom should render correctly with unreadMessages 1`] = `
               "color": "#FFFCFA",
             },
           ],
+          false,
         ]
       }
     >
@@ -383,6 +388,7 @@ exports[`Bottom should render correctly with unreadMessages 1`] = `
             "position": "absolute",
             "textAlign": "center",
           },
+          false,
         ]
       }
     >
