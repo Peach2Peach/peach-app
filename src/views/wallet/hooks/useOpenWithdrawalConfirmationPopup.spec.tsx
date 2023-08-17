@@ -8,15 +8,8 @@ import { WithdrawalConfirmation } from '../../../popups/WithdrawalConfirmation'
 import { usePopupStore } from '../../../store/usePopupStore'
 import { PeachWallet } from '../../../utils/wallet/PeachWallet'
 import { peachWallet, setPeachWallet } from '../../../utils/wallet/setWallet'
+import { useWalletState } from '../../../utils/wallet/walletStore'
 import { useOpenWithdrawalConfirmationPopup } from './useOpenWithdrawalConfirmationPopup'
-
-const showErrorBannerMock = jest.fn()
-jest.mock('../../../hooks/useShowErrorBanner', () => ({
-  useShowErrorBanner:
-    () =>
-      (...args: any[]) =>
-        showErrorBannerMock(...args),
-}))
 
 const amount = sellOffer.amount
 const address = 'bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh'
@@ -72,7 +65,7 @@ describe('useOpenWithdrawalConfirmationPopup', () => {
     )
   })
 
-  it('should broadcast transaction on confirm', async () => {
+  it('should broadcast transaction, reset state and navigate to wallet on confirm', async () => {
     peachWallet.buildFinishedTransaction = jest.fn().mockResolvedValue(transaction)
     peachWallet.signAndBroadcastPSBT = jest.fn().mockResolvedValue(transaction.psbt)
 
@@ -89,6 +82,7 @@ describe('useOpenWithdrawalConfirmationPopup', () => {
 
     expect(peachWallet.signAndBroadcastPSBT).toHaveBeenCalledWith(transaction.psbt)
     expect(usePopupStore.getState().visible).toBe(false)
+    expect(useWalletState.getState().selectedUTXOIds).toEqual([])
     expect(navigateMock).toHaveBeenCalledWith('wallet')
   })
 
@@ -128,6 +122,4 @@ describe('useOpenWithdrawalConfirmationPopup', () => {
 
     expect(usePopupStore.getState().visible).toBe(false)
   })
-
-  it.todo('should send from the selected coins only, if any are selected')
 })
