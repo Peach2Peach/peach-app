@@ -13,7 +13,7 @@ describe('setMultipleRecipients', () => {
     const feeRate = 10
 
     addressScriptPubKeyMock.mockResolvedValueOnce(scriptPubKey)
-    const transaction = await buildTransaction(address, amount, feeRate)
+    const transaction = await buildTransaction({ address, amount, feeRate })
     await setMultipleRecipients(transaction, amount, addresses)
     expect(txBuildSetRecipientsMock).toHaveBeenCalledWith([
       new ScriptAmount(await getScriptPubKeyFromAddress(addresses[0]), amount / 3),
