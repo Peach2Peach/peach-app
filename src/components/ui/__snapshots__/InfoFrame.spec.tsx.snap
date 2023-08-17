@@ -54,6 +54,7 @@ exports[`InfoFrame renders correctly 1`] = `
           "lineHeight": 24,
         },
         undefined,
+        false,
       ]
     }
   >
