@@ -71,9 +71,9 @@ jest.mock('../../../hooks/useCancelOffer', () => ({
 describe('useFundEscrowSetup', () => {
   beforeEach(() => {
     updateAccount({ ...account1, offers: [] }, true)
+    useWalletState.getState().reset()
   })
   afterEach(() => {
-    useWalletState.getState().reset()
     queryClient.clear()
   })
 
