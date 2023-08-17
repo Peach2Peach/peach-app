@@ -7,9 +7,8 @@ import tw from '../../styles/tailwind'
 import { getBitcoinAddressParts } from '../../utils/bitcoin'
 import i18n from '../../utils/i18n'
 import { BitcoinLoading } from '../loading/BitcoinLoading'
-import { AddressNavigation } from './AddressNavigation'
-import { useLastUnusedAddress } from './hooks/useLastUnusedAddress'
-import { useWalletAddress } from './hooks/useWalletAddress'
+import { AddressNavigation } from './components'
+import { useLastUnusedAddress, useWalletAddress } from './hooks'
 
 export const ReceiveBitcoin = () => {
   const { data: lastUnusedAddress } = useLastUnusedAddress()

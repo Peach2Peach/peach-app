@@ -1,10 +1,10 @@
 import { useQueryClient } from '@tanstack/react-query'
 import { View } from 'react-native'
-import { TouchableIcon } from '../../components/TouchableIcon'
-import tw from '../../styles/tailwind'
-import { peachWallet } from '../../utils/wallet/setWallet'
+import { TouchableIcon } from '../../../components'
+import tw from '../../../styles/tailwind'
+import { peachWallet } from '../../../utils/wallet/setWallet'
+import { useLastUnusedAddress } from '../hooks'
 import { AddressLabelInput } from './AddressLabelInput'
-import { useLastUnusedAddress } from './hooks/useLastUnusedAddress'
 
 type Props = {
   setIndex: React.Dispatch<React.SetStateAction<number | undefined>>
