@@ -1,6 +1,6 @@
 /* eslint-disable max-statements */
 /* eslint-disable max-lines-per-function */
-import { renderHook, waitFor } from '@testing-library/react-native'
+import { act, renderHook, waitFor } from '@testing-library/react-native'
 import { account1 } from '../../tests/unit/data/accountData'
 import { sellOffer } from '../../tests/unit/data/offerData'
 import { offerSummary } from '../../tests/unit/data/offerSummaryData'
@@ -42,14 +42,12 @@ describe('useCheckFundingMultipleEscrows', () => {
   })
   beforeEach(() => {
     setAccount({ ...account1, offers: sellOffers })
+    useTradeSummaryStore.getState().reset()
     useTradeSummaryStore.getState().setOffers(sellOfferSummaries)
     useWalletState.getState().registerFundMultiple(
       'address',
       sellOffers.map((o) => o.id),
     )
-  })
-  afterEach(() => {
-    useTradeSummaryStore.getState().reset()
   })
   it('check each registered address for funding each minute', () => {
     renderHook(useCheckFundingMultipleEscrows, { wrapper })
@@ -74,9 +72,13 @@ describe('useCheckFundingMultipleEscrows', () => {
     expect(useWalletState.getState().fundMultipleMap).toEqual({
       address: ['38', '39', '40'],
     })
-    useTradeSummaryStore.getState().reset()
-    useTradeSummaryStore.getState().setOffers(sellOfferSummaries.map((offer) => ({ ...offer, fundingTxId: '1' })))
-    jest.advanceTimersByTime(MSINAMINUTE)
+    act(() => {
+      useTradeSummaryStore.getState().reset()
+      useTradeSummaryStore.getState().setOffers(sellOfferSummaries.map((offer) => ({ ...offer, fundingTxId: '1' })))
+    })
+    act(() => {
+      jest.advanceTimersByTime(MSINAMINUTE)
+    })
     expect(useWalletState.getState().fundMultipleMap).toEqual({})
   })
   it('aborts if no escrow addresses can be found', () => {
