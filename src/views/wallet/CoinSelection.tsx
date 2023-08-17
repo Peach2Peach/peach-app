@@ -89,7 +89,7 @@ function UTXOItem ({ txout: { value: amount, script }, isSelected, toggleSelecti
         <BTCAmount size="medium" amount={amount} />
         <UTXOAddress script={script} />
       </View>
-      <Checkbox onPress={toggleSelection} checked={isSelected} />
+      <Checkbox testID="checkbox" onPress={toggleSelection} checked={isSelected} />
     </View>
   )
 }

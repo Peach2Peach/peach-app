@@ -1,6 +1,6 @@
 import { TouchableOpacity } from 'react-native'
-import { Icon, Text } from '..'
 import { FillProps } from 'react-native-svg'
+import { Icon, Text } from '..'
 import tw from '../../styles/tailwind'
 
 type Props = ComponentProps & {
