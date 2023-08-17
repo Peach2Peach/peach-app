@@ -19,13 +19,11 @@ const transaction = getTransactionDetails(amount, feeRate)
 const transactionWithChange = getTransactionDetails(amount, feeRate)
 transactionWithChange.txDetails.sent = sellOffer.amount + 5000
 
-const onSuccess = jest.fn()
 const props = {
   address,
   amount,
   feeRate,
   shouldDrainWallet: false,
-  onSuccess,
 }
 jest.mock('../../../utils/wallet/transaction/buildTransaction', () => ({
   buildTransaction: jest.fn(() => transaction),
@@ -50,7 +48,7 @@ describe('useOpenWithdrawalConfirmationPopup', () => {
       expect.objectContaining({
         title: 'sending funds',
         level: 'APP',
-        content: <WithdrawalConfirmation {...{ address, amount, fee, feeRate }} />,
+        content: <WithdrawalConfirmation {...{ ...props, fee }} />,
         action1: {
           label: 'confirm & send',
           icon: 'arrowRightCircle',
