@@ -1,10 +1,10 @@
 import { TouchableOpacity, View } from 'react-native'
 import { shallow } from 'zustand/shallow'
-import { Icon, Placeholder, Text } from '../../../../components'
-import { BTCAmount } from '../../../../components/bitcoin'
-import tw from '../../../../styles/tailwind'
-import i18n from '../../../../utils/i18n'
-import { useWalletState } from '../../../../utils/wallet/walletStore'
+import { Icon, Placeholder, Text } from '../../../components'
+import { BTCAmount } from '../../../components/bitcoin'
+import tw from '../../../styles/tailwind'
+import i18n from '../../../utils/i18n'
+import { useWalletState } from '../../../utils/wallet/walletStore'
 
 type Props = {
   amount: number

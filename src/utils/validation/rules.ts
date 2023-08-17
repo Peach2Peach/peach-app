@@ -1,8 +1,7 @@
 import { validateMnemonic, wordlists } from 'bip39'
-import { address } from 'bitcoinjs-lib'
-import { getNetwork } from '../wallet'
 import { isAdvcashWallet } from './isAdvcashWallet'
 import { isBIC } from './isBIC'
+import { isBitcoinAddress } from './isBitcoinAddress'
 import { isEUIBAN } from './isEUIBAN'
 import { isEmail } from './isEmail'
 import { isIBAN } from './isIBAN'
@@ -25,9 +24,6 @@ export const rules = {
   required (required: boolean, value: string | number | null) {
     return !required || value
   },
-  requiredShort (required: boolean, value: string | number | null) {
-    return !required || value
-  },
   min (min: number, value: number) {
     return value >= min
   },
@@ -47,13 +43,7 @@ export const rules = {
     return isURL(value)
   },
   bitcoinAddress (_: boolean, value: string) {
-    let valid = false
-    try {
-      address.toOutputScript(value, getNetwork())
-      valid = true
-    } catch (e) {}
-
-    return valid
+    return isBitcoinAddress(value)
   },
   blockTaprootAddress (_: boolean, value: string) {
     return !isTaproot(value)

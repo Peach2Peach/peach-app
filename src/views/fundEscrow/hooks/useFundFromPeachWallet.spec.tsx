@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import { renderHook } from '@testing-library/react-native'
 import { TxBuilder } from 'bdk-rn'
 import { act } from 'react-test-renderer'
@@ -285,6 +286,19 @@ describe('useFundFromPeachWallet', () => {
       title: 'amount too low',
       level: 'APP',
       content: <AmountTooLow available={0} needed={minTradingAmount} />,
+    })
+  })
+  it('should open amount too low popup when funding multiple', async () => {
+    peachWallet.balance = 0
+    const addresses = ['a', 'b', 'c']
+    const { result } = renderHook(useFundFromPeachWallet, { initialProps: { ...initialProps, addresses } })
+
+    await result.current.fundFromPeachWallet()
+    expect(usePopupStore.getState()).toEqual({
+      ...usePopupStore.getState(),
+      title: 'amount too low',
+      level: 'APP',
+      content: <AmountTooLow available={0} needed={minTradingAmount * 3} />,
     })
   })
 })

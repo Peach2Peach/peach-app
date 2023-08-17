@@ -3,6 +3,7 @@ import { AcceptMatchPopup } from './info/AcceptMatchPopup'
 import { AddressSigning } from './info/AddressSigning'
 import { BuyingBitcoin } from './info/BuyingBitcoin'
 import { CashTrades } from './info/CashTrades'
+import { CoinControl } from './info/CoinControl'
 import { ConfirmPayment } from './info/ConfirmPayment'
 import { ConfirmationTime } from './info/ConfirmationTime'
 import { CurrenciesHelp } from './info/CurrenciesHelp'
@@ -33,6 +34,7 @@ export const helpPopups = {
   cashTrades: { title: i18n('tradingCash'), content: CashTrades },
   confirmationTime: { title: i18n('wallet.help.confirmationTime.title'), content: ConfirmationTime },
   confirmPayment: { title: i18n('help.confirmPayment.title'), content: ConfirmPayment },
+  coinControl: { title: i18n('wallet.coinControl.help.title'), content: CoinControl },
   currencies: { title: i18n('help.currency.title'), content: CurrenciesHelp },
   escrow: { title: i18n('help.escrow.title'), content: Escrow },
   fileBackup: { title: i18n('settings.backups.fileBackup.popup.title'), content: FileBackupPopup },

@@ -1,6 +1,7 @@
 import { useCallback } from 'react'
 import { shallow } from 'zustand/shallow'
 import { MSINAMINUTE } from '../constants'
+import { useTradeSummaryStore } from '../store/tradeSummaryStore'
 import { sum } from '../utils/math'
 import { keys } from '../utils/object'
 import { getOffer, isSellOffer } from '../utils/offer'
@@ -18,27 +19,39 @@ const estimateTransactionSize = (inputs: number, outputs: number) => {
   return overhead + inputSize + outputSize
 }
 
-const getEscrowAddresses = (fundMultipleMap: Record<string, string[]>, address: string) => {
+const getSellOffersByAddress = (fundMultipleMap: Record<string, string[]>, address: string) => {
   const offers = fundMultipleMap[address].map(getOffer)
-  const escrows = offers
-    .filter(isDefined)
-    .filter(isSellOffer)
-    .map((offr) => offr.escrow)
-    .filter(isDefined)
-  return escrows
+  const sellOffers = offers.filter(isDefined).filter(isSellOffer)
+
+  return sellOffers
 }
+const areSellOffersFunded = (sellOffers: SellOffer[], offers: OfferSummary[]) => {
+  const sellOfferIds = sellOffers.map((offer) => offer.id)
+  if (sellOfferIds.length === 0) return false
+  return offers.filter((offer) => sellOfferIds.includes(offer.id)).every((offer) => offer.fundingTxId)
+}
+
+const getEscrowAddresses = (sellOffers: SellOffer[]) => sellOffers.map((offr) => offr.escrow).filter(isDefined)
 
 export const useCheckFundingMultipleEscrows = () => {
   const [fundMultipleMap, unregisterFundMultiple] = useWalletState(
     (state) => [state.fundMultipleMap, state.unregisterFundMultiple],
     shallow,
   )
+  const offerSummaries = useTradeSummaryStore((state) => state.offers)
   const feeRate = useFeeRate()
   const addresses = keys(fundMultipleMap)
 
   const checkAddress = useCallback(
     async (address: string) => {
-      const escrows = getEscrowAddresses(fundMultipleMap, address)
+      const sellOffers = getSellOffersByAddress(fundMultipleMap, address)
+
+      if (areSellOffersFunded(sellOffers, offerSummaries)) {
+        unregisterFundMultiple(address)
+        return
+      }
+
+      const escrows = getEscrowAddresses(sellOffers)
       if (escrows.length === 0) return
 
       const localUtxo = await peachWallet.getAddressUTXO(address)
@@ -48,17 +61,15 @@ export const useCheckFundingMultipleEscrows = () => {
       const estimatedTxSize = estimateTransactionSize(localUtxo.length, escrows.length)
       const amountAfterFees = availableAmount - estimatedTxSize * feeRate
 
-      const transaction = await buildTransaction(undefined, undefined, feeRate)
-      await transaction.addUtxos(localUtxo.map((utx) => utx.outpoint))
+      const transaction = await buildTransaction({ feeRate, utxos: localUtxo })
       await setMultipleRecipients(transaction, amountAfterFees, escrows)
 
       const finishedTransaction = await peachWallet.finishTransaction(transaction)
       try {
         await peachWallet.signAndBroadcastPSBT(finishedTransaction.psbt)
-        unregisterFundMultiple(address)
       } catch (e) {}
     },
-    [feeRate, fundMultipleMap, unregisterFundMultiple],
+    [feeRate, fundMultipleMap, offerSummaries, unregisterFundMultiple],
   )
 
   const callback = useCallback(async () => {

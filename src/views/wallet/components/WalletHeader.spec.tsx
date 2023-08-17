@@ -1,8 +1,6 @@
 import { fireEvent, render } from '@testing-library/react-native'
-import { WalletHeader } from './WalletHeader'
 import { NavigationWrapper, navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
-import { usePopupStore } from '../../../store/usePopupStore'
-import { WithdrawingFundsHelp } from '../../../popups/info/WithdrawingFundsHelp'
+import { WalletHeader } from './WalletHeader'
 
 const wrapper = NavigationWrapper
 
@@ -17,16 +15,10 @@ describe('WalletHeader', () => {
     fireEvent.press(getByAccessibilityHint('go to transaction history'))
     expect(navigateMock).toHaveBeenCalledWith('transactionHistory')
   })
-  it('should show help', () => {
+  it('should go to address checker', () => {
     const { getByAccessibilityHint } = render(<WalletHeader />, { wrapper })
 
-    fireEvent.press(getByAccessibilityHint('help'))
-    expect(usePopupStore.getState()).toEqual(
-      expect.objectContaining({
-        title: 'sending funds',
-        content: <WithdrawingFundsHelp />,
-      }),
-    )
+    fireEvent.press(getByAccessibilityHint('go to address checker'))
+    expect(navigateMock).toHaveBeenCalledWith('addressChecker')
   })
-  it.todo('should go to address checker')
 })

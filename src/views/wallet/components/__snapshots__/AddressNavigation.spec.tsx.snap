@@ -246,7 +246,7 @@ exports[`AddressNavigation should render correctly 1`] = `
       }
     >
       <test-file-stub
-        fill="#9F8C82"
+        fill="#7D675E"
         style={
           [
             {

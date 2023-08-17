@@ -3,7 +3,7 @@ import { toMatchDiffSnapshot } from 'snapshot-diff'
 import { TotalBalance } from './TotalBalance'
 expect.extend({ toMatchDiffSnapshot })
 
-jest.mock('../../../../components/bitcoin', () => ({
+jest.mock('../../../components/bitcoin', () => ({
   BTCAmount: 'BTCAmount',
 }))
 
