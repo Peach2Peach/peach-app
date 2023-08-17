@@ -57,6 +57,6 @@ function ArrowWrapper ({ children }: { children: React.ReactNode }) {
 
 function ArrowLeftCircle ({ onPress, index }: { onPress: () => void; index: number }) {
   return (
-    <TouchableIcon id="arrowLeftCircle" iconColor={tw`text-black-3`.color} onPress={onPress} disabled={index === 0} />
+    <TouchableIcon id="arrowLeftCircle" iconColor={tw`text-black-2`.color} onPress={onPress} disabled={index === 0} />
   )
 }
