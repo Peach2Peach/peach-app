@@ -1,5 +1,5 @@
-import { SummaryItem } from './SummaryItem'
 import { fireEvent, render } from '@testing-library/react-native'
+import { SummaryItem } from './SummaryItem'
 
 jest.mock('../../text', () => ({
   Text: 'Text',
@@ -43,12 +43,12 @@ describe('SummaryItem', () => {
   })
 
   it('renders correctly for bitcoin amount', () => {
-    windowDimensionsSpy.mockReturnValueOnce({ width: 376, height: 691 })
+    windowDimensionsSpy.mockReturnValueOnce({ width: 375, height: 690 })
     const { toJSON } = render(<SummaryItem {...defaultProps} isBitcoinAmount information={21000} />)
     expect(toJSON()).toMatchSnapshot()
   })
   it('renders correctly for bitcoin amount on small screens', () => {
-    windowDimensionsSpy.mockReturnValueOnce({ width: 375, height: 690 })
+    windowDimensionsSpy.mockReturnValueOnce({ width: 374, height: 689 })
     const { toJSON } = render(<SummaryItem {...defaultProps} isBitcoinAmount information={21000} />)
     expect(toJSON()).toMatchSnapshot()
   })

@@ -61,6 +61,7 @@ exports[`TransactionHeader should render correctly buy trade 1`] = `
               "lineHeight": 32,
             },
           ],
+          false,
         ]
       }
     >
@@ -144,6 +145,7 @@ exports[`TransactionHeader should render correctly buy trade 1`] = `
                 "textTransform": "uppercase",
               },
             ],
+            false,
           ]
         }
       >
@@ -227,6 +229,7 @@ exports[`TransactionHeader should render correctly for a funding escrow transact
               "lineHeight": 32,
             },
           ],
+          false,
         ]
       }
     >
@@ -310,6 +313,7 @@ exports[`TransactionHeader should render correctly for a funding escrow transact
                 "textTransform": "uppercase",
               },
             ],
+            false,
           ]
         }
       >
@@ -393,6 +397,7 @@ exports[`TransactionHeader should render correctly for a funding escrow transact
               "lineHeight": 32,
             },
           ],
+          false,
         ]
       }
     >
@@ -476,6 +481,7 @@ exports[`TransactionHeader should render correctly for a funding escrow transact
                 "textTransform": "uppercase",
               },
             ],
+            false,
           ]
         }
       >
@@ -557,6 +563,7 @@ exports[`TransactionHeader should render correctly for a receiving transaction 1
               "lineHeight": 32,
             },
           ],
+          false,
         ]
       }
     >
@@ -627,6 +634,7 @@ exports[`TransactionHeader should render correctly for a refund transaction 1`] 
               "lineHeight": 32,
             },
           ],
+          false,
         ]
       }
     >
@@ -710,6 +718,7 @@ exports[`TransactionHeader should render correctly for a refund transaction 1`] 
                 "textTransform": "uppercase",
               },
             ],
+            false,
           ]
         }
       >
@@ -791,6 +800,7 @@ exports[`TransactionHeader should render correctly for an outgoing transaction 1
               "lineHeight": 32,
             },
           ],
+          false,
         ]
       }
     >

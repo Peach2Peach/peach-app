@@ -134,6 +134,7 @@ exports[`Header should render correctly with PriceStats 1`] = `
                 "flexShrink": 1,
               },
             ],
+            false,
           ]
         }
       >
@@ -325,6 +326,7 @@ exports[`Header should render correctly with PriceStats 1`] = `
               "letterSpacing": 0.16,
               "lineHeight": 28,
             },
+            false,
           ]
         }
       >
@@ -356,6 +358,7 @@ exports[`Header should render correctly with PriceStats 1`] = `
                 "lineHeight": 28,
               },
             ],
+            false,
           ]
         }
       >
@@ -405,6 +408,7 @@ exports[`Header should render correctly with PriceStats 1`] = `
                 "textAlign": "right",
               },
             ],
+            false,
           ]
         }
       >
@@ -439,6 +443,7 @@ exports[`Header should render correctly with PriceStats 1`] = `
                 "textAlign": "right",
               },
             ],
+            false,
           ]
         }
       >
@@ -586,6 +591,7 @@ exports[`Header should render correctly with title and icons 1`] = `
                 "flexShrink": 1,
               },
             ],
+            false,
           ]
         }
       >
@@ -794,11 +800,11 @@ exports[`NewHeader should render correctly with title and icons 1`] = `
           Object {
 -         "paddingLeft": 32,
 -         "paddingRight": 32,
-+           "paddingLeft": 12,
++           "marginLeft": -4,
           },
 -       undefined,
 +         Object {
-+           "paddingLeft": 22,
++           "marginLeft": -10,
 +         },
 +       ],
         Object {

@@ -20,6 +20,7 @@ exports[`DrawerTitle renders correctly 1`] = `
         "textAlign": "center",
         "textTransform": "uppercase",
       },
+      false,
     ]
   }
 >

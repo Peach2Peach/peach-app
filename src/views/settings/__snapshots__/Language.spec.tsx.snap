@@ -107,6 +107,7 @@ exports[`Language renders correctly 1`] = `
                     "letterSpacing": 0.16,
                     "lineHeight": 28,
                   },
+                  false,
                 ]
               }
             >
@@ -194,6 +195,7 @@ exports[`Language renders correctly 1`] = `
                     "letterSpacing": 0.16,
                     "lineHeight": 28,
                   },
+                  false,
                 ]
               }
             >
@@ -281,6 +283,7 @@ exports[`Language renders correctly 1`] = `
                     "letterSpacing": 0.16,
                     "lineHeight": 28,
                   },
+                  false,
                 ]
               }
             >
@@ -368,6 +371,7 @@ exports[`Language renders correctly 1`] = `
                     "letterSpacing": 0.16,
                     "lineHeight": 28,
                   },
+                  false,
                 ]
               }
             >
@@ -455,6 +459,7 @@ exports[`Language renders correctly 1`] = `
                     "letterSpacing": 0.16,
                     "lineHeight": 28,
                   },
+                  false,
                 ]
               }
             >
@@ -542,6 +547,7 @@ exports[`Language renders correctly 1`] = `
                     "letterSpacing": 0.16,
                     "lineHeight": 28,
                   },
+                  false,
                 ]
               }
             >
@@ -641,6 +647,7 @@ exports[`Language renders correctly 1`] = `
               "textTransform": "uppercase",
             },
           ],
+          false,
         ]
       }
     >

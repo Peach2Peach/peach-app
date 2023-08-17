@@ -67,6 +67,7 @@ exports[`RadioButtonItem renders correctly when disabled 1`] = `
           "letterSpacing": 0.16,
           "lineHeight": 28,
         },
+        false,
       ]
     }
   >
@@ -158,6 +159,7 @@ exports[`RadioButtonItem renders correctly when display is not a string 1`] = `
             "lineHeight": 24,
           },
           undefined,
+          false,
         ]
       }
     >
@@ -249,6 +251,7 @@ exports[`RadioButtonItem renders correctly when not selected 1`] = `
           "letterSpacing": 0.16,
           "lineHeight": 28,
         },
+        false,
       ]
     }
   >
@@ -339,6 +342,7 @@ exports[`RadioButtonItem renders correctly when selected 1`] = `
           "letterSpacing": 0.16,
           "lineHeight": 28,
         },
+        false,
       ]
     }
   >
