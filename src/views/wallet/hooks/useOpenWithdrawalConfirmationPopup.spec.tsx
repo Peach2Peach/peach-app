@@ -1,6 +1,7 @@
 import { renderHook } from '@testing-library/react-native'
 import { act } from 'react-test-renderer'
 import { estimatedFees } from '../../../../tests/unit/data/bitcoinNetworkData'
+import { transactionError } from '../../../../tests/unit/data/errors'
 import { sellOffer } from '../../../../tests/unit/data/offerData'
 import { NavigationWrapper, navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { getTransactionDetails } from '../../../../tests/unit/helpers/getTransactionDetails'
@@ -10,6 +11,14 @@ import { PeachWallet } from '../../../utils/wallet/PeachWallet'
 import { peachWallet, setPeachWallet } from '../../../utils/wallet/setWallet'
 import { useWalletState } from '../../../utils/wallet/walletStore'
 import { useOpenWithdrawalConfirmationPopup } from './useOpenWithdrawalConfirmationPopup'
+
+const showErrorBannerMock = jest.fn()
+jest.mock('../../../hooks/useShowErrorBanner', () => ({
+  useShowErrorBanner:
+    () =>
+      (...args: any[]) =>
+        showErrorBannerMock(...args),
+}))
 
 const amount = sellOffer.amount
 const address = 'bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh'
@@ -119,5 +128,37 @@ describe('useOpenWithdrawalConfirmationPopup', () => {
     usePopupStore.getState().action2?.callback()
 
     expect(usePopupStore.getState().visible).toBe(false)
+  })
+  it('should handle build errors', async () => {
+    peachWallet.buildFinishedTransaction = jest.fn().mockImplementation(() => {
+      throw transactionError
+    })
+
+    const { result } = renderHook(useOpenWithdrawalConfirmationPopup, { wrapper })
+
+    await act(async () => {
+      await result.current(props)
+    })
+    expect(showErrorBannerMock).toHaveBeenCalledWith('INSUFFICIENT_FUNDS', ['78999997952', '1089000'])
+    expect(usePopupStore.getState().visible).toBeFalsy()
+  })
+  it('should handle broadcast errors', async () => {
+    peachWallet.buildFinishedTransaction = jest.fn().mockResolvedValue(transaction)
+    peachWallet.signAndBroadcastPSBT = jest.fn().mockImplementation(() => {
+      throw transactionError
+    })
+
+    const { result } = renderHook(useOpenWithdrawalConfirmationPopup, { wrapper })
+
+    await act(async () => {
+      await result.current(props)
+    })
+    const promise = usePopupStore.getState().action1?.callback()
+
+    await act(async () => {
+      await promise
+    })
+    expect(showErrorBannerMock).toHaveBeenCalledWith('INSUFFICIENT_FUNDS', ['78999997952', '1089000'])
+    expect(usePopupStore.getState().visible).toBeFalsy()
   })
 })

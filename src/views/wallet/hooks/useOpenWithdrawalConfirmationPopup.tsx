@@ -1,6 +1,7 @@
 import { useCallback } from 'react'
 import { shallow } from 'zustand/shallow'
 import { useNavigation } from '../../../hooks'
+import { useHandleTransactionError } from '../../../hooks/error/useHandleTransactionError'
 import { WithdrawalConfirmation } from '../../../popups/WithdrawalConfirmation'
 import { usePopupStore } from '../../../store/usePopupStore'
 import i18n from '../../../utils/i18n'
@@ -12,36 +13,45 @@ export const useOpenWithdrawalConfirmationPopup = () => {
   const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
   const setSelectedUTXOIds = useWalletState((state) => state.setSelectedUTXOIds)
   const navigation = useNavigation()
+  const handleTransactionError = useHandleTransactionError()
 
   const openWithdrawalConfirmationPopup = useCallback(
     async (buildTxParams: BuildTxParams & { amount: number; feeRate: number }) => {
-      const { psbt } = await peachWallet.buildFinishedTransaction(buildTxParams)
+      try {
+        const { psbt } = await peachWallet.buildFinishedTransaction(buildTxParams)
 
-      const confirm = async () => {
-        await peachWallet.signAndBroadcastPSBT(psbt)
-        setSelectedUTXOIds([])
-        closePopup()
-        navigation.navigate('wallet')
+        const confirm = async () => {
+          try {
+            await peachWallet.signAndBroadcastPSBT(psbt)
+          } catch (e) {
+            handleTransactionError(e)
+          }
+          setSelectedUTXOIds([])
+          closePopup()
+          navigation.navigate('wallet')
+        }
+        const fee = await psbt.feeAmount()
+
+        setPopup({
+          title: i18n('wallet.confirmWithdraw.title'),
+          content: <WithdrawalConfirmation {...{ ...buildTxParams, fee }} />,
+          action2: {
+            callback: closePopup,
+            label: i18n('cancel'),
+            icon: 'xCircle',
+          },
+          action1: {
+            callback: confirm,
+            label: i18n('wallet.confirmWithdraw.confirm'),
+            icon: 'arrowRightCircle',
+          },
+          level: 'APP',
+        })
+      } catch (e) {
+        handleTransactionError(e)
       }
-      const fee = await psbt.feeAmount()
-
-      setPopup({
-        title: i18n('wallet.confirmWithdraw.title'),
-        content: <WithdrawalConfirmation {...{ ...buildTxParams, fee }} />,
-        action2: {
-          callback: closePopup,
-          label: i18n('cancel'),
-          icon: 'xCircle',
-        },
-        action1: {
-          callback: confirm,
-          label: i18n('wallet.confirmWithdraw.confirm'),
-          icon: 'arrowRightCircle',
-        },
-        level: 'APP',
-      })
     },
-    [closePopup, navigation, setPopup, setSelectedUTXOIds],
+    [closePopup, handleTransactionError, navigation, setPopup, setSelectedUTXOIds],
   )
   return openWithdrawalConfirmationPopup
 }
