@@ -5,7 +5,7 @@ exports[`SendBitcoin - With selected coins should not allow entering an amount h
 - First value
 + Second value
 
-@@ -648,11 +648,11 @@
+@@ -653,11 +653,11 @@
                           "paddingBottom": 0,
                           "paddingTop": 0,
                         },
@@ -106,6 +106,7 @@ exports[`SendBitcoin - With selected coins should render correctly 1`] = `
                   "flexShrink": 1,
                 },
               ],
+              false,
             ]
           }
         >
@@ -309,6 +310,7 @@ exports[`SendBitcoin - With selected coins should render correctly 1`] = `
                       "letterSpacing": 0.16,
                       "lineHeight": 23,
                     },
+                    false,
                   ]
                 }
               >
@@ -525,6 +527,7 @@ exports[`SendBitcoin - With selected coins should render correctly 1`] = `
                           "color": "#DF321F",
                         },
                       ],
+                      false,
                     ]
                   }
                 >
@@ -578,6 +581,7 @@ exports[`SendBitcoin - With selected coins should render correctly 1`] = `
                       "letterSpacing": 0.16,
                       "lineHeight": 23,
                     },
+                    false,
                   ]
                 }
               >
@@ -631,6 +635,7 @@ exports[`SendBitcoin - With selected coins should render correctly 1`] = `
                       {
                         "color": "#F56522",
                       },
+                      false,
                     ]
                   }
                 >
@@ -692,6 +697,7 @@ exports[`SendBitcoin - With selected coins should render correctly 1`] = `
                         "letterSpacing": 0.18,
                         "lineHeight": 29.25,
                       },
+                      false,
                     ]
                   }
                 >
@@ -745,6 +751,7 @@ exports[`SendBitcoin - With selected coins should render correctly 1`] = `
                       "letterSpacing": 0.16,
                       "lineHeight": 23,
                     },
+                    false,
                   ]
                 }
               >
@@ -839,6 +846,7 @@ exports[`SendBitcoin - With selected coins should render correctly 1`] = `
                               "paddingBottom": 4,
                               "paddingTop": 4,
                             },
+                            false,
                           ]
                         }
                       >
@@ -858,6 +866,7 @@ exports[`SendBitcoin - With selected coins should render correctly 1`] = `
                                 "color": "#7D675E",
                                 "marginLeft": 2,
                               },
+                              false,
                             ]
                           }
                         >
@@ -959,6 +968,7 @@ exports[`SendBitcoin - With selected coins should render correctly 1`] = `
                               "paddingBottom": 4,
                               "paddingTop": 4,
                             },
+                            false,
                           ]
                         }
                       >
@@ -978,6 +988,7 @@ exports[`SendBitcoin - With selected coins should render correctly 1`] = `
                                 "color": "#7D675E",
                                 "marginLeft": 2,
                               },
+                              false,
                             ]
                           }
                         >
@@ -1079,6 +1090,7 @@ exports[`SendBitcoin - With selected coins should render correctly 1`] = `
                               "paddingBottom": 4,
                               "paddingTop": 4,
                             },
+                            false,
                           ]
                         }
                       >
@@ -1098,6 +1110,7 @@ exports[`SendBitcoin - With selected coins should render correctly 1`] = `
                                 "color": "#7D675E",
                                 "marginLeft": 2,
                               },
+                              false,
                             ]
                           }
                         >
@@ -1205,6 +1218,7 @@ exports[`SendBitcoin - With selected coins should render correctly 1`] = `
                               "letterSpacing": 0.16,
                               "lineHeight": 24,
                             },
+                            false,
                           ]
                         }
                       >
@@ -1336,6 +1350,7 @@ exports[`SendBitcoin - With selected coins should render correctly 1`] = `
                                     "color": "#DF321F",
                                   },
                                 ],
+                                false,
                               ]
                             }
                           >
@@ -1357,6 +1372,7 @@ exports[`SendBitcoin - With selected coins should render correctly 1`] = `
                             {
                               "color": "#7D675E",
                             },
+                            false,
                           ]
                         }
                       >
@@ -1428,6 +1444,7 @@ exports[`SendBitcoin - With selected coins should render correctly 1`] = `
                       "letterSpacing": 0.16,
                       "lineHeight": 23,
                     },
+                    false,
                   ]
                 }
               >
@@ -1463,6 +1480,7 @@ exports[`SendBitcoin - With selected coins should render correctly 1`] = `
                         "letterSpacing": 0.14,
                         "lineHeight": 20,
                       },
+                      false,
                     ]
                   }
                 >
@@ -1483,6 +1501,7 @@ exports[`SendBitcoin - With selected coins should render correctly 1`] = `
                           "letterSpacing": 0.14,
                           "lineHeight": 20,
                         },
+                        false,
                       ]
                     }
                   />
@@ -1594,6 +1613,7 @@ exports[`SendBitcoin - With selected coins should render correctly 1`] = `
                           "marginTop": -40,
                         },
                       ],
+                      false,
                     ]
                   }
                 >
@@ -1696,6 +1716,7 @@ exports[`SendBitcoin - With selected coins should render correctly 1`] = `
                           "marginTop": -40,
                         },
                       ],
+                      false,
                     ]
                   }
                 >
@@ -1716,7 +1737,7 @@ exports[`SendBitcoin - With selected coins should set the amount to the sum of a
 - First value
 + Second value
 
-@@ -648,11 +648,11 @@
+@@ -653,11 +653,11 @@
                           "paddingBottom": 0,
                           "paddingTop": 0,
                         },
@@ -1736,7 +1757,7 @@ exports[`SendBitcoin should not allow entering an amount higher than the availab
 - First value
 + Second value
 
-@@ -648,11 +648,11 @@
+@@ -653,11 +653,11 @@
                           "paddingBottom": 0,
                           "paddingTop": 0,
                         },
@@ -1837,6 +1858,7 @@ exports[`SendBitcoin should render correctly 1`] = `
                   "flexShrink": 1,
                 },
               ],
+              false,
             ]
           }
         >
@@ -2040,6 +2062,7 @@ exports[`SendBitcoin should render correctly 1`] = `
                       "letterSpacing": 0.16,
                       "lineHeight": 23,
                     },
+                    false,
                   ]
                 }
               >
@@ -2256,6 +2279,7 @@ exports[`SendBitcoin should render correctly 1`] = `
                           "color": "#DF321F",
                         },
                       ],
+                      false,
                     ]
                   }
                 >
@@ -2309,6 +2333,7 @@ exports[`SendBitcoin should render correctly 1`] = `
                       "letterSpacing": 0.16,
                       "lineHeight": 23,
                     },
+                    false,
                   ]
                 }
               >
@@ -2362,6 +2387,7 @@ exports[`SendBitcoin should render correctly 1`] = `
                       {
                         "color": "#F56522",
                       },
+                      false,
                     ]
                   }
                 >
@@ -2423,6 +2449,7 @@ exports[`SendBitcoin should render correctly 1`] = `
                         "letterSpacing": 0.18,
                         "lineHeight": 29.25,
                       },
+                      false,
                     ]
                   }
                 >
@@ -2476,6 +2503,7 @@ exports[`SendBitcoin should render correctly 1`] = `
                       "letterSpacing": 0.16,
                       "lineHeight": 23,
                     },
+                    false,
                   ]
                 }
               >
@@ -2570,6 +2598,7 @@ exports[`SendBitcoin should render correctly 1`] = `
                               "paddingBottom": 4,
                               "paddingTop": 4,
                             },
+                            false,
                           ]
                         }
                       >
@@ -2589,6 +2618,7 @@ exports[`SendBitcoin should render correctly 1`] = `
                                 "color": "#7D675E",
                                 "marginLeft": 2,
                               },
+                              false,
                             ]
                           }
                         >
@@ -2690,6 +2720,7 @@ exports[`SendBitcoin should render correctly 1`] = `
                               "paddingBottom": 4,
                               "paddingTop": 4,
                             },
+                            false,
                           ]
                         }
                       >
@@ -2709,6 +2740,7 @@ exports[`SendBitcoin should render correctly 1`] = `
                                 "color": "#7D675E",
                                 "marginLeft": 2,
                               },
+                              false,
                             ]
                           }
                         >
@@ -2810,6 +2842,7 @@ exports[`SendBitcoin should render correctly 1`] = `
                               "paddingBottom": 4,
                               "paddingTop": 4,
                             },
+                            false,
                           ]
                         }
                       >
@@ -2829,6 +2862,7 @@ exports[`SendBitcoin should render correctly 1`] = `
                                 "color": "#7D675E",
                                 "marginLeft": 2,
                               },
+                              false,
                             ]
                           }
                         >
@@ -2936,6 +2970,7 @@ exports[`SendBitcoin should render correctly 1`] = `
                               "letterSpacing": 0.16,
                               "lineHeight": 24,
                             },
+                            false,
                           ]
                         }
                       >
@@ -3067,6 +3102,7 @@ exports[`SendBitcoin should render correctly 1`] = `
                                     "color": "#DF321F",
                                   },
                                 ],
+                                false,
                               ]
                             }
                           >
@@ -3088,6 +3124,7 @@ exports[`SendBitcoin should render correctly 1`] = `
                             {
                               "color": "#7D675E",
                             },
+                            false,
                           ]
                         }
                       >
@@ -3218,6 +3255,7 @@ exports[`SendBitcoin should render correctly 1`] = `
                           "marginTop": -40,
                         },
                       ],
+                      false,
                     ]
                   }
                 >
@@ -3320,6 +3358,7 @@ exports[`SendBitcoin should render correctly 1`] = `
                           "marginTop": -40,
                         },
                       ],
+                      false,
                     ]
                   }
                 >
@@ -3340,7 +3379,7 @@ exports[`SendBitcoin should set the amount to the peach wallet balance when clic
 - First value
 + Second value
 
-@@ -648,11 +648,11 @@
+@@ -653,11 +653,11 @@
                           "paddingBottom": 0,
                           "paddingTop": 0,
                         },
@@ -3360,7 +3399,7 @@ exports[`SendBitcoin should update the address on change 1`] = `
 - First value
 + Second value
 
-@@ -357,11 +357,11 @@
+@@ -359,11 +359,11 @@
                             "paddingBottom": 0,
                             "paddingTop": 0,
                             "width": "100%",
@@ -3373,7 +3412,7 @@ exports[`SendBitcoin should update the address on change 1`] = `
                           Object {
                             "borderColor": "transparent",
                             "borderWidth": 1,
-@@ -369,11 +369,11 @@
+@@ -371,11 +371,11 @@
                           false,
                           false,
                         ]
@@ -3393,7 +3432,7 @@ exports[`SendBitcoin should update the amount on change 1`] = `
 - First value
 + Second value
 
-@@ -648,11 +648,11 @@
+@@ -653,11 +653,11 @@
                           "paddingBottom": 0,
                           "paddingTop": 0,
                         },
@@ -3413,7 +3452,7 @@ exports[`SendBitcoin should update the fee rate on change 1`] = `
 - First value
 + Second value
 
-@@ -771,11 +771,11 @@
+@@ -778,11 +778,11 @@
                     onStartShouldSetResponder={[Function onStartShouldSetResponder]}
                     style={
                       Object {
@@ -3426,7 +3465,7 @@ exports[`SendBitcoin should update the fee rate on change 1`] = `
                         "flexDirection": "row",
                         "justifyContent": "space-between",
                         "opacity": 1,
-@@ -844,11 +844,11 @@
+@@ -853,11 +853,11 @@
                           </Text>
                         </Text>
                       </View>
@@ -3439,7 +3478,7 @@ exports[`SendBitcoin should update the fee rate on change 1`] = `
                           Object {
                             "height": 24,
                             "width": 24,
-@@ -891,11 +891,11 @@
+@@ -900,11 +900,11 @@
                     onStartShouldSetResponder={[Function onStartShouldSetResponder]}
                     style={
                       Object {
@@ -3452,7 +3491,7 @@ exports[`SendBitcoin should update the fee rate on change 1`] = `
                         "flexDirection": "row",
                         "justifyContent": "space-between",
                         "opacity": 1,
-@@ -964,11 +964,11 @@
+@@ -975,11 +975,11 @@
                           </Text>
                         </Text>
                       </View>

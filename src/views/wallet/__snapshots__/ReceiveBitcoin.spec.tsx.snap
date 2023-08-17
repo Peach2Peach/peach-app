@@ -86,6 +86,7 @@ exports[`ReceiveBitcoin should render correctly when loaded 1`] = `
                   "flexShrink": 1,
                 },
               ],
+              false,
             ]
           }
         >
@@ -501,6 +502,7 @@ exports[`ReceiveBitcoin should render correctly when loaded 1`] = `
                 "letterSpacing": 0.2,
                 "lineHeight": 28,
               },
+              false,
             ]
           }
         >
@@ -522,6 +524,7 @@ exports[`ReceiveBitcoin should render correctly when loaded 1`] = `
                   "letterSpacing": 0.2,
                   "lineHeight": 28,
                 },
+                false,
               ]
             }
           >
@@ -544,6 +547,7 @@ exports[`ReceiveBitcoin should render correctly when loaded 1`] = `
                   "letterSpacing": 0.2,
                   "lineHeight": 28,
                 },
+                false,
               ]
             }
           >
@@ -645,6 +649,7 @@ exports[`ReceiveBitcoin should render correctly when loaded 1`] = `
                       "color": "#F56522",
                     },
                   ],
+                  false,
                 ]
               }
             >
@@ -707,6 +712,7 @@ exports[`ReceiveBitcoin should render correctly while loading 1`] = `
           "lineHeight": 28,
           "textAlign": "center",
         },
+        false,
       ]
     }
   >

@@ -86,6 +86,7 @@ exports[`CoinSelection renders correctly 1`] = `
                   "flexShrink": 1,
                 },
               ],
+              false,
             ]
           }
         >
@@ -309,6 +310,7 @@ exports[`CoinSelection renders correctly 1`] = `
                             "lineHeight": 29,
                           },
                         ],
+                        false,
                       ]
                     }
                   >
@@ -340,6 +342,7 @@ exports[`CoinSelection renders correctly 1`] = `
                               "letterSpacing": -1.65,
                             },
                           ],
+                          false,
                         ]
                       }
                     >
@@ -373,6 +376,7 @@ exports[`CoinSelection renders correctly 1`] = `
                               "letterSpacing": -4.62,
                             },
                           ],
+                          false,
                         ]
                       }
                     >
@@ -406,6 +410,7 @@ exports[`CoinSelection renders correctly 1`] = `
                               "letterSpacing": -1.65,
                             },
                           ],
+                          false,
                         ]
                       }
                     >
@@ -439,6 +444,7 @@ exports[`CoinSelection renders correctly 1`] = `
                               "letterSpacing": -1.65,
                             },
                           ],
+                          false,
                         ]
                       }
                     >
@@ -472,6 +478,7 @@ exports[`CoinSelection renders correctly 1`] = `
                               "letterSpacing": -7.699999999999999,
                             },
                           ],
+                          false,
                         ]
                       }
                     >
@@ -505,6 +512,7 @@ exports[`CoinSelection renders correctly 1`] = `
                               "letterSpacing": -1.65,
                             },
                           ],
+                          false,
                         ]
                       }
                     >
@@ -538,6 +546,7 @@ exports[`CoinSelection renders correctly 1`] = `
                               "letterSpacing": -1.65,
                             },
                           ],
+                          false,
                         ]
                       }
                     >
@@ -571,6 +580,7 @@ exports[`CoinSelection renders correctly 1`] = `
                               "letterSpacing": -1.65,
                             },
                           ],
+                          false,
                         ]
                       }
                     >
@@ -604,6 +614,7 @@ exports[`CoinSelection renders correctly 1`] = `
                               "letterSpacing": -7.699999999999999,
                             },
                           ],
+                          false,
                         ]
                       }
                     >
@@ -637,6 +648,7 @@ exports[`CoinSelection renders correctly 1`] = `
                               "letterSpacing": -1.65,
                             },
                           ],
+                          false,
                         ]
                       }
                     >
@@ -670,6 +682,7 @@ exports[`CoinSelection renders correctly 1`] = `
                               "letterSpacing": -1.65,
                             },
                           ],
+                          false,
                         ]
                       }
                     >
@@ -703,6 +716,7 @@ exports[`CoinSelection renders correctly 1`] = `
                               "letterSpacing": -1.65,
                             },
                           ],
+                          false,
                         ]
                       }
                     >
@@ -738,6 +752,7 @@ exports[`CoinSelection renders correctly 1`] = `
                               "paddingBottom": 2,
                             },
                           ],
+                          false,
                         ]
                       }
                     >
@@ -765,6 +780,7 @@ exports[`CoinSelection renders correctly 1`] = `
                     "letterSpacing": 0.14,
                     "lineHeight": 20,
                   },
+                  false,
                 ]
               }
             >
@@ -785,6 +801,7 @@ exports[`CoinSelection renders correctly 1`] = `
                       "letterSpacing": 0.14,
                       "lineHeight": 20,
                     },
+                    false,
                   ]
                 }
               />
@@ -923,6 +940,7 @@ exports[`CoinSelection renders correctly 1`] = `
               "color": "#FFFCFA",
             },
           ],
+          false,
         ]
       }
     >
@@ -981,6 +999,7 @@ exports[`CoinSelection renders correctly while loading 1`] = `
           "lineHeight": 28,
           "textAlign": "center",
         },
+        false,
       ]
     }
   >
@@ -994,7 +1013,7 @@ exports[`CoinSelection selects coins 1`] = `
 - First value
 + Second value
 
-@@ -825,11 +825,11 @@
+@@ -842,11 +842,11 @@
                 }
               }
               testID="checkbox"

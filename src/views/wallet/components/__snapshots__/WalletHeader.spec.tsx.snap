@@ -70,6 +70,7 @@ exports[`WalletHeader should render correctly 1`] = `
                 "flexShrink": 1,
               },
             ],
+            false,
           ]
         }
       >
