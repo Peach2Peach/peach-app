@@ -1,43 +1,53 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ReferralCode should render component correctly 1`] = `
-<React.Fragment>
-  <PeachText
-    style={
-      {
-        "color": "#7D675E",
-        "fontFamily": "Baloo2-Regular",
-        "fontSize": 16,
-        "letterSpacing": 0.16,
-        "lineHeight": 24,
-        "textAlign": "center",
-      }
+<View
+  style={
+    {
+      "gap": 16,
     }
-  >
-    your referral code:
-  </PeachText>
+  }
+>
   <View
     style={
       {
+        "alignItems": "center",
+        "borderColor": "#F56522",
+        "borderRadius": 8,
+        "borderWidth": 1,
         "flexDirection": "row",
-        "justifyContent": "center",
+        "justifyContent": "space-between",
+        "paddingBottom": 16,
+        "paddingLeft": 16,
+        "paddingRight": 16,
+        "paddingTop": 16,
       }
     }
   >
-    <PeachText
-      style={
-        {
-          "fontFamily": "Baloo2-Bold",
-          "fontSize": 34,
-          "letterSpacing": 0.34,
-          "lineHeight": 42,
-          "marginRight": 4,
-          "textAlign": "center",
+    <View>
+      <PeachText
+        style={
+          {
+            "color": "#7D675E",
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 24,
+          }
         }
-      }
-    >
-      HALFIN
-    </PeachText>
+      >
+        invite link
+      </PeachText>
+      <PeachText
+        style={
+          {
+            "fontSize": 12,
+          }
+        }
+      >
+        peachbitcoin.com/referral?code=HALFIN
+      </PeachText>
+    </View>
     <CopyAble
       style={
         {
@@ -45,8 +55,19 @@ exports[`ReferralCode should render component correctly 1`] = `
           "width": 28,
         }
       }
-      value="HALFIN"
+      value="peachbitcoin.com/referral?code=HALFIN"
     />
   </View>
-</React.Fragment>
+  <PrimaryButton
+    border={true}
+    onPress={[Function]}
+    style={
+      {
+        "alignSelf": "center",
+      }
+    }
+  >
+    invite friends
+  </PrimaryButton>
+</View>
 `;
