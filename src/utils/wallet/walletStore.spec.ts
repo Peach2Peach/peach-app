@@ -14,6 +14,7 @@ describe('walletStore', () => {
       txOfferMap: {},
       addressLabelMap: {},
       showBalance: true,
+      selectedUTXOIds: [],
     })
   })
   it('adds pending transactions', () => {
@@ -41,5 +42,9 @@ describe('walletStore', () => {
     expect(useWalletState.getState().showBalance).toEqual(false)
     useWalletState.getState().toggleShowBalance()
     expect(useWalletState.getState().showBalance).toEqual(true)
+  })
+  it('sets selected utxos', () => {
+    useWalletState.getState().setSelectedUTXOIds(['utxo1', 'utxo2'])
+    expect(useWalletState.getState().selectedUTXOIds).toEqual(['utxo1', 'utxo2'])
   })
 })

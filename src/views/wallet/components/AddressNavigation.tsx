@@ -1,10 +1,10 @@
 import { useQueryClient } from '@tanstack/react-query'
 import { View } from 'react-native'
-import { TouchableIcon } from '../../components/TouchableIcon'
-import tw from '../../styles/tailwind'
-import { peachWallet } from '../../utils/wallet/setWallet'
+import { TouchableIcon } from '../../../components'
+import tw from '../../../styles/tailwind'
+import { peachWallet } from '../../../utils/wallet/setWallet'
+import { useLastUnusedAddress } from '../hooks'
 import { AddressLabelInput } from './AddressLabelInput'
-import { useLastUnusedAddress } from './hooks/useLastUnusedAddress'
 
 type Props = {
   setIndex: React.Dispatch<React.SetStateAction<number | undefined>>
@@ -57,6 +57,6 @@ function ArrowWrapper ({ children }: { children: React.ReactNode }) {
 
 function ArrowLeftCircle ({ onPress, index }: { onPress: () => void; index: number }) {
   return (
-    <TouchableIcon id="arrowLeftCircle" iconColor={tw`text-black-3`.color} onPress={onPress} disabled={index === 0} />
+    <TouchableIcon id="arrowLeftCircle" iconColor={tw`text-black-2`.color} onPress={onPress} disabled={index === 0} />
   )
 }

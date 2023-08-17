@@ -1,8 +1,7 @@
 import { FlatList } from 'react-native'
 import tw from '../../styles/tailwind'
-import { EmptyTransactionHistory } from './EmptyTransactionHistory'
-import { TxStatusCard } from './components/TxStatusCard'
-import { useTransactionHistorySetup } from './hooks/useTransactionHistorySetup'
+import { EmptyTransactionHistory, TxStatusCard } from './components'
+import { useTransactionHistorySetup } from './hooks'
 
 export const TransactionHistory = () => {
   const { transactions, refresh, isRefreshing } = useTransactionHistorySetup()

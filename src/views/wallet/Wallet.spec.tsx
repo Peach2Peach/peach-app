@@ -1,5 +1,9 @@
 import { fireEvent, render, waitFor } from '@testing-library/react-native'
+import { LocalUtxo, OutPoint, TxOut } from 'bdk-rn/lib/classes/Bindings'
+import { Script } from 'bdk-rn/lib/classes/Script'
+import { KeychainKind } from 'bdk-rn/lib/lib/enums'
 import ShallowRenderer from 'react-test-renderer/shallow'
+import { confirmed1 } from '../../../tests/unit/data/transactionDetailData'
 import { NavigationAndQueryClientWrapper } from '../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
 import { navigateMock } from '../../../tests/unit/helpers/NavigationWrapper'
 import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
@@ -44,6 +48,11 @@ const addresses = {
 }
 
 jest.useFakeTimers()
+
+const outpoint = new OutPoint(confirmed1.txid, 0)
+const txOut = new TxOut(10000, new Script('address'))
+const utxo = new LocalUtxo(outpoint, txOut, false, KeychainKind.External)
+const listUnspentMock = jest.fn().mockResolvedValue([utxo])
 jest.mock('../../utils/wallet/setWallet', () => ({
   peachWallet: {
     synced: true,
@@ -56,6 +65,9 @@ jest.mock('../../utils/wallet/setWallet', () => ({
       return Promise.resolve(undefined)
     }),
     getLastUnusedAddress: jest.fn(() => Promise.resolve(addresses.lastUnused)),
+    wallet: {
+      listUnspent: () => listUnspentMock(),
+    },
   },
 }))
 
@@ -77,7 +89,12 @@ describe('Wallet', () => {
 
     expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
-  it.todo('should navigate to send screen when send button is pressed')
+  it('should navigate to send screen when send button is pressed', () => {
+    const { getByText } = render(<Wallet />, { wrapper: NavigationAndQueryClientWrapper })
+    fireEvent.press(getByText('send'))
+
+    expect(navigateMock).toHaveBeenCalledWith('sendBitcoin')
+  })
   it('should navigate to receive screen when receive button is pressed', () => {
     const { getByText } = render(<Wallet />, { wrapper: NavigationAndQueryClientWrapper })
     fireEvent.press(getByText('receive'))
@@ -96,6 +113,13 @@ describe('Wallet', () => {
         [['receiveAddress', 22], addresses.next],
         [['receiveAddress', 20], addresses.previous],
       ])
+    })
+  })
+  it('should prefetch utxos', async () => {
+    render(<Wallet />, { wrapper: NavigationAndQueryClientWrapper })
+
+    await waitFor(() => {
+      expect(queryClient.getQueryData(['utxos'])).toEqual([utxo])
     })
   })
 })

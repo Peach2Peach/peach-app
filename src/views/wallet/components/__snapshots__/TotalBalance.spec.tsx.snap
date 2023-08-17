@@ -5,7 +5,7 @@ exports[`TotalBalance hide balance when the eye icon is pressed 1`] = `
 - First value
 + Second value
 
-@@ -50,11 +50,11 @@
+@@ -51,11 +51,11 @@
       >
         total balance
         :
@@ -18,7 +18,7 @@ exports[`TotalBalance hide balance when the eye icon is pressed 1`] = `
             "busy": undefined,
             "checked": undefined,
             "disabled": undefined,
-@@ -100,9 +100,9 @@
+@@ -101,9 +101,9 @@
         />
       </View>
     </View>
@@ -79,6 +79,7 @@ exports[`TotalBalance renders correctly 1`] = `
             "textAlign": "center",
             "textTransform": "uppercase",
           },
+          false,
         ]
       }
     >

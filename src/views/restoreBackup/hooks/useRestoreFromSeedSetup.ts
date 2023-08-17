@@ -11,7 +11,7 @@ import { auth } from '../../../utils/peachAPI'
 import { setPeachAccount } from '../../../utils/peachAPI/peachAccount'
 
 export const bip39WordRules = {
-  requiredShort: true,
+  required: true,
   bip39Word: true,
 }
 const bip39Rules = {
