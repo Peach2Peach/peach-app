@@ -61,8 +61,7 @@ export const useCheckFundingMultipleEscrows = () => {
       const estimatedTxSize = estimateTransactionSize(localUtxo.length, escrows.length)
       const amountAfterFees = availableAmount - estimatedTxSize * feeRate
 
-      const transaction = await buildTransaction(undefined, undefined, feeRate)
-      await transaction.addUtxos(localUtxo.map((utx) => utx.outpoint))
+      const transaction = await buildTransaction({ feeRate, utxos: localUtxo })
       await setMultipleRecipients(transaction, amountAfterFees, escrows)
 
       const finishedTransaction = await peachWallet.finishTransaction(transaction)
