@@ -7,8 +7,10 @@ import { confirmed1 } from '../../../tests/unit/data/transactionDetailData'
 import { NavigationAndQueryClientWrapper } from '../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
 import { navigateMock } from '../../../tests/unit/helpers/NavigationWrapper'
 import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
+import { swipeRight } from '../../../tests/unit/helpers/fireSwipeEvent'
+import { WithdrawalConfirmation } from '../../popups/WithdrawalConfirmation'
 import { WithdrawingFundsHelp } from '../../popups/info/WithdrawingFundsHelp'
-import { usePopupStore } from '../../store/usePopupStore'
+import { defaultPopupState, usePopupStore } from '../../store/usePopupStore'
 import { getUTXOId } from '../../utils/wallet'
 import { PeachWallet } from '../../utils/wallet/PeachWallet'
 import { peachWallet, setPeachWallet } from '../../utils/wallet/setWallet'
@@ -23,6 +25,10 @@ describe('SendBitcoin', () => {
   beforeAll(() => {
     // @ts-ignore
     setPeachWallet(new PeachWallet())
+  })
+
+  beforeEach(() => {
+    usePopupStore.setState(defaultPopupState)
   })
 
   it('should render correctly', () => {
@@ -56,6 +62,12 @@ describe('SendBitcoin', () => {
     fireEvent.changeText(amountInput, '123456789')
     expect(render(<SendBitcoin />, { wrapper }).toJSON()).toMatchDiffSnapshot(toJSON())
   })
+  it('should update the fee rate on change', () => {
+    const { toJSON, getByText } = render(<SendBitcoin />, { wrapper })
+    const mediumFeeButton = getByText('~ 30 minutes  (1 sat/vB)')
+    fireEvent.press(mediumFeeButton)
+    expect(render(<SendBitcoin />, { wrapper }).toJSON()).toMatchDiffSnapshot(toJSON())
+  })
   it('should should the help popup when clicking on the questionmark in the header', () => {
     const { getByAccessibilityHint } = render(<SendBitcoin />, { wrapper })
     const helpButton = getByAccessibilityHint('help')
@@ -74,11 +86,110 @@ describe('SendBitcoin', () => {
       }),
     )
   })
-  it.todo('should open the confirmation popup when swiping the slider')
-  it.todo('should disable the slider while the form is invalid')
-  it.todo('should update the fee rate on change')
-  it.todo('should set the fee rate to undefined when selecting "custom"')
-  it.todo('should update the custom fee rate on change')
+  it('should open the confirmation popup when swiping the slider', async () => {
+    const { getByTestId, getByText, getByPlaceholderText } = render(<SendBitcoin />, { wrapper })
+
+    const addressInput = getByPlaceholderText('bc1q ...')
+    fireEvent.changeText(addressInput, 'bcrt1qm50khyunelhjzhckvgy3qj0hn7xjzzwljhfgd0')
+    const amountInput = getByPlaceholderText('000 000 000')
+    fireEvent.changeText(amountInput, '1234')
+    const mediumFeeButton = getByText('~ 30 minutes  (1 sat/vB)')
+    fireEvent.press(mediumFeeButton)
+
+    const slider = getByTestId('confirmSlider')
+    peachWallet.buildFinishedTransaction = jest.fn().mockResolvedValue({ psbt: { feeAmount: () => 1000 } })
+    swipeRight(slider)
+
+    await waitFor(() => {
+      expect(usePopupStore.getState()).toStrictEqual(
+        expect.objectContaining({
+          visible: true,
+          title: 'sending funds',
+          content: (
+            <WithdrawalConfirmation
+              feeRate={1}
+              address="bcrt1qm50khyunelhjzhckvgy3qj0hn7xjzzwljhfgd0"
+              amount={1234}
+              fee={1000}
+              {...{ shouldDrainWallet: false, utxos: [] }}
+            />
+          ),
+          action1: {
+            callback: expect.any(Function),
+            label: 'confirm & send',
+            icon: 'arrowRightCircle',
+          },
+          action2: {
+            callback: expect.any(Function),
+            label: 'cancel',
+            icon: 'xCircle',
+          },
+          level: 'APP',
+        }),
+      )
+    })
+  })
+  it('should disable the slider while the form is invalid', () => {
+    const { getByTestId } = render(<SendBitcoin />, { wrapper })
+    const slider = getByTestId('confirmSlider')
+    swipeRight(slider)
+    expect(usePopupStore.getState().visible).toBe(false)
+  })
+  it('should set the fee rate to undefined when selecting "custom"', () => {
+    const { getByText, getByPlaceholderText, getByTestId } = render(<SendBitcoin />, { wrapper })
+    const addressInput = getByPlaceholderText('bc1q ...')
+    fireEvent.changeText(addressInput, 'bcrt1qm50khyunelhjzhckvgy3qj0hn7xjzzwljhfgd0')
+    const amountInput = getByPlaceholderText('000 000 000')
+    fireEvent.changeText(amountInput, '1234')
+    const customFeeButton = getByText('custom: ')
+    fireEvent.press(customFeeButton)
+
+    swipeRight(getByTestId('confirmSlider'))
+    expect(usePopupStore.getState().visible).toBe(false)
+  })
+  it('should update the custom fee rate on change', async () => {
+    const { getByText, getByPlaceholderText, getByTestId } = render(<SendBitcoin />, { wrapper })
+    const addressInput = getByPlaceholderText('bc1q ...')
+    fireEvent.changeText(addressInput, 'bcrt1qm50khyunelhjzhckvgy3qj0hn7xjzzwljhfgd0')
+    const amountInput = getByPlaceholderText('000 000 000')
+    fireEvent.changeText(amountInput, '1234')
+    const customFeeButton = getByText('custom: ')
+    fireEvent.press(customFeeButton)
+
+    const customFeeInput = getByTestId('input-custom-fees')
+    fireEvent.changeText(customFeeInput, '4')
+
+    swipeRight(getByTestId('confirmSlider'))
+
+    await waitFor(() => {
+      expect(usePopupStore.getState()).toStrictEqual(
+        expect.objectContaining({
+          visible: true,
+          title: 'sending funds',
+          content: (
+            <WithdrawalConfirmation
+              feeRate={4}
+              address="bcrt1qm50khyunelhjzhckvgy3qj0hn7xjzzwljhfgd0"
+              amount={1234}
+              fee={1000}
+              {...{ shouldDrainWallet: false, utxos: [] }}
+            />
+          ),
+          action1: {
+            callback: expect.any(Function),
+            label: 'confirm & send',
+            icon: 'arrowRightCircle',
+          },
+          action2: {
+            callback: expect.any(Function),
+            label: 'cancel',
+            icon: 'xCircle',
+          },
+          level: 'APP',
+        }),
+      )
+    })
+  })
   it('should navigate to "coinSelection" when clicking the list icon in the header', () => {
     const { getByAccessibilityHint } = render(<SendBitcoin />, { wrapper })
     const listButton = getByAccessibilityHint('go to select coins to send')
