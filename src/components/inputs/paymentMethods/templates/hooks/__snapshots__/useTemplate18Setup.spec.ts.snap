@@ -24,7 +24,6 @@ exports[`useTemplate18Setup should return the correct values 1`] = `
   "referenceInputProps": {
     "errorMessage": [],
     "onChange": [Function],
-    "onSubmit": [Function],
     "value": "",
   },
   "shouldShowCurrencySelection": false,

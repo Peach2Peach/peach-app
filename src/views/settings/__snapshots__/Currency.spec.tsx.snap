@@ -1435,6 +1435,7 @@ exports[`Currency should render correctly 1`] = `
                     "letterSpacing": 0.16,
                     "lineHeight": 28,
                   },
+                  false,
                 ]
               }
             >

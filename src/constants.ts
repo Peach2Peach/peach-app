@@ -59,7 +59,7 @@ export let CURRENCIES: Currency[] = [
   'CDF',
 ]
 export const CURRENCY_MAP: Record<CurrencyType, Currency[]> = {
-  europe: ['EUR', 'CHF', 'GBP', 'SEK', 'DKK', 'BGN', 'CZK', 'HUF', 'PLN', 'RON', 'ISK', 'NOK'],
+  europe: ['EUR', 'CHF', 'GBP', 'SEK', 'DKK', 'BGN', 'CZK', 'HUF', 'PLN', 'RON', 'ISK', 'NOK', 'TRY'],
   latinAmerica: ['ARS', 'COP', 'PEN', 'MXN', 'CLP', 'PEN', 'COP'],
   africa: ['USD', 'XOF', 'CDF', 'NGN'],
   other: ['USDT', 'SAT'],
@@ -113,8 +113,8 @@ export const PAYMENTCATEGORIES: PaymentCategories = {
     'alias',
     'bancolombia',
     'nationalTransferNG',
-    ...NATIONALTRANSFERCOUNTRIES.map((c) => `nationalTransfer${c}` satisfies PaymentMethod),
     'nationalTransferTR',
+    ...NATIONALTRANSFERCOUNTRIES.map((c) => `nationalTransfer${c}` satisfies PaymentMethod),
   ],
   onlineWallet: [
     'paypal',
