@@ -1,4 +1,3 @@
-/* eslint-disable max-lines */
 import { BLOCKEXPLORER, NETWORK } from '@env'
 import {
   Blockchain,
@@ -23,7 +22,7 @@ import { getDescriptorSecretKey } from './getDescriptorSecretKey'
 import { labelAddressByTransaction } from './labelAddressByTransaction'
 import { mapTransactionToOffer } from './mapTransactionToOffer'
 import { rebroadcastTransactions } from './rebroadcastTransactions'
-import { BuildTxParams, buildTransaction, getScriptPubKeyFromAddress } from './transaction'
+import { BuildTxParams, buildTransaction } from './transaction'
 import { transactionHasBeenMappedToOffer } from './transactionHasBeenMappedToOffer'
 import { useWalletState } from './walletStore'
 
@@ -261,11 +260,5 @@ export class PeachWallet extends PeachJSWallet {
         this.loadWalletStore()
       })
     }
-  }
-
-  async isMine (address: string): Promise<boolean> {
-    if (!this.wallet || !this.blockchain) throw Error('WALLET_NOT_READY')
-    const script = await getScriptPubKeyFromAddress(address)
-    return this.wallet.isMine(script)
   }
 }
