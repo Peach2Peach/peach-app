@@ -1,5 +1,6 @@
 /* eslint-disable max-lines-per-function */
-import { PaymentMethodForms } from '../paymentForms/paymentMethodForms'
+import { PaymentMethodForms } from './paymentMethodForms'
+
 import {
   Template1,
   Template10,
@@ -11,6 +12,7 @@ import {
   Template16,
   Template17,
   Template18,
+  Template19,
   Template2,
   Template21,
   Template3,
@@ -21,7 +23,6 @@ import {
   Template8,
   Template9,
 } from '../templates'
-import { Template19 } from '../templates/Template19'
 import { GiftCardAmazon } from './GiftCardAmazon'
 
 describe('paymentMethodForms', () => {
@@ -86,6 +87,11 @@ describe('paymentMethodForms', () => {
       nationalTransferSE: { component: Template9, fields: expect.any(Array) },
       nationalTransferSI: { component: Template9, fields: expect.any(Array) },
       nationalTransferUS: { component: Template9, fields: expect.any(Array) },
+      nationalTransferTR: {
+        component: Template1,
+        fields: ['method', 'price', 'beneficiary', 'iban', 'bic', 'reference'],
+      },
+      papara: { component: Template3, fields: ['method', 'price', 'beneficiary', 'phone', 'reference'] },
       liquid: { component: Template10, fields: ['method', 'price', 'receiveAddress'] },
       lnurl: { component: Template11, fields: ['method', 'price', 'lnurlAddress'] },
       rappipay: { component: Template12, fields: ['method', 'price', 'phone'] },

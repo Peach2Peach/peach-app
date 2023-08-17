@@ -15,6 +15,7 @@
   "offer.requiredAction.dispute" : "Streitfall eröffnet",
   "offer.requiredAction.escrowWaitingForConfirmation" : "Transaktion ausstehend",
   "offer.requiredAction.fundEscrow" : "Escrow aufladen",
+  "offer.requiredAction.fundMultipleEscrow" : "Mehrere Escrow aufladen",
   "offer.requiredAction.fundingAmountDifferent" : "Falscher Betrag aufgeladen",
   "offer.requiredAction.hasMatchesAvailable" : "Match auswählen",
   "offer.requiredAction.offerHidden" : "Angebot versteckt",

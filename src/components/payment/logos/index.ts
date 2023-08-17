@@ -6,6 +6,7 @@ import nationalTransferNG from '../../flags/ng.svg'
 import nationalTransferNO from '../../flags/no.svg'
 import nationalTransferPL from '../../flags/pl.svg'
 import nationalTransferRO from '../../flags/ro.svg'
+import nationalTransferTR from '../../flags/tr.svg'
 import advcash from './advcash.svg'
 import airtelMoney from './airtelMoney.svg'
 import amazon from './amazon.svg'
@@ -30,6 +31,7 @@ import n26 from './n26.svg'
 import nequi from './nequi.svg'
 import neteller from './neteller.svg'
 import orangeMoney from './orangeMoney.svg'
+import papara from './papara.svg'
 import paylib from './paylib.svg'
 import paypal from './paypal.svg'
 import paysera from './paysera.svg'
@@ -50,14 +52,15 @@ export const PaymentLogos = {
   'cash.belgianEmbassy': bitcoin,
   'cash.lugano': bitcoin,
   'giftCard.amazon': amazon,
+  'm-pesa': mPesa,
   advcash,
-  alias: placeholder,
   airtelMoney,
+  alias: placeholder,
   amazon,
+  bancolombia,
   bitcoin,
   bizum,
   blik,
-  bancolombia,
   cbu: placeholder,
   chippercash,
   cvu: placeholder,
@@ -69,7 +72,6 @@ export const PaymentLogos = {
   keksPay,
   liquid,
   lydia,
-  'm-pesa': mPesa,
   mbWay,
   mercadoPago: placeholder,
   mobilePay,
@@ -80,13 +82,15 @@ export const PaymentLogos = {
   nationalTransferCZ,
   nationalTransferDK,
   nationalTransferHU,
+  nationalTransferNG,
   nationalTransferNO,
   nationalTransferPL,
   nationalTransferRO,
-  nationalTransferNG,
+  nationalTransferTR,
   nequi,
   neteller,
   orangeMoney,
+  papara,
   paylib,
   paypal,
   paysera,

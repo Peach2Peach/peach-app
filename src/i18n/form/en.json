@@ -22,7 +22,6 @@
   "form.bic.placeholder" : "AB12CDEF",
   "form.bip39.error" : "the seed phrase is invalid",
   "form.bip39Word.error" : "invalid word",
-  "form.cashtag" : "cash tag",
   "form.cbu" : "CBU",
   "form.cbu.placeholder" : "1112222344444444444445",
   "form.chippertag" : "chippertag",

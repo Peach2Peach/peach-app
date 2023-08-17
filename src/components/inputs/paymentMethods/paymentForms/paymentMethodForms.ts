@@ -12,6 +12,7 @@ import {
   Template16,
   Template17,
   Template18,
+  Template19,
   Template2,
   Template21,
   Template3,
@@ -22,7 +23,6 @@ import {
   Template8,
   Template9,
 } from '../templates'
-import { Template19 } from '../templates/Template19'
 import { GiftCardAmazon } from './GiftCardAmazon'
 
 type PaymentMethodFormsType = {
@@ -80,6 +80,8 @@ export const PaymentMethodForms: PaymentMethodFormsType = {
   verse: { component: Template3, fields: template3Fields },
   iris: { component: Template3, fields: template3Fields },
   'giftCard.amazon': { component: GiftCardAmazon, fields: template4Fields },
+  nationalTransferTR: { component: Template1, fields: template1Fields },
+  papara: { component: Template3, fields: template3Fields },
   liquid: { component: Template10, fields: template10Fields },
   lnurl: { component: Template11, fields: template11Fields },
   rappipay: { component: Template12, fields: template12Fields },

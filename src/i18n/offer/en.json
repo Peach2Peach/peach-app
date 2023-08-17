@@ -15,6 +15,7 @@
   "offer.requiredAction.dispute" : "dispute started",
   "offer.requiredAction.escrowWaitingForConfirmation" : "transaction pending",
   "offer.requiredAction.fundEscrow" : "fund escrow",
+  "offer.requiredAction.fundMultipleEscrow" : "fund multiple escrow",
   "offer.requiredAction.fundingAmountDifferent" : "wrong amount funded",
   "offer.requiredAction.hasMatchesAvailable" : "select match",
   "offer.requiredAction.offerHidden" : "offer hidden",

@@ -1,0 +1,14 @@
+{
+  "buy.addressSigning.message" : "mesaj",
+  "buy.addressSigning.signature" : "imza",
+  "buy.addressSigning.title" : "adresini imzala",
+  "buy.addressSigning.yourAddress" : "senin adresin",
+  "buy.meansOfPayment" : "Nasıl ödemek istersin?",
+  "buy.releaseAddress.title" : "adresi serbest bırak",
+  "buy.subtitle" : "Arasında satın alıyorsun:",
+  "buy.subtitle.highlight" : "satın alıyorsun",
+  "buy.summary.title" : "satın alma teklifi yayınla",
+  "buy.title" : "bitcoin satın al",
+  "buy.title.highlight" : "satın al",
+  "yourTrades.search.buy.subtitle" : "alma teklifi miktarı"
+}
