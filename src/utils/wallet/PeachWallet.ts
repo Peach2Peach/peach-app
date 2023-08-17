@@ -22,7 +22,7 @@ import { getDescriptorSecretKey } from './getDescriptorSecretKey'
 import { labelAddressByTransaction } from './labelAddressByTransaction'
 import { mapTransactionToOffer } from './mapTransactionToOffer'
 import { rebroadcastTransactions } from './rebroadcastTransactions'
-import { BuildTxParams, buildTransaction } from './transaction/buildTransaction'
+import { BuildTxParams, buildTransaction } from './transaction'
 import { transactionHasBeenMappedToOffer } from './transactionHasBeenMappedToOffer'
 import { useWalletState } from './walletStore'
 
