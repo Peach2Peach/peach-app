@@ -14,8 +14,8 @@ import { peachWallet } from '../../utils/wallet/setWallet'
 import { CustomFeeItem } from '../settings/components/networkFees/CustomFeeItem'
 import { EstimatedFeeItem } from '../settings/components/networkFees/EstimatedFeeItem'
 import { UTXOAddress } from './components'
+import { useUTXOs } from './hooks'
 import { useOpenWithdrawalConfirmationPopup } from './hooks/useOpenWithdrawalConfirmationPopup'
-import { useUTXOs } from './hooks/useUTXOs'
 
 export const SendBitcoin = () => {
   const [address, setAddress] = useState('')
