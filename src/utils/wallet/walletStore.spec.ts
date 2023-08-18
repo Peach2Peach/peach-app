@@ -1,5 +1,6 @@
 import { useWalletState } from './walletStore'
 
+// eslint-disable-next-line max-lines-per-function
 describe('walletStore', () => {
   afterEach(() => {
     useWalletState.getState().reset()
@@ -63,5 +64,11 @@ describe('walletStore', () => {
   it('sets selected utxos', () => {
     useWalletState.getState().setSelectedUTXOIds(['utxo1', 'utxo2'])
     expect(useWalletState.getState().selectedUTXOIds).toEqual(['utxo1', 'utxo2'])
+  })
+  it('checks if offer has been funded with peach wallet', () => {
+    const address = 'address'
+    expect(useWalletState.getState().isFundedFromPeachWallet(address)).toBeFalsy()
+    useWalletState.getState().setFundedFromPeachWallet(address)
+    expect(useWalletState.getState().isFundedFromPeachWallet(address)).toBeTruthy()
   })
 })
