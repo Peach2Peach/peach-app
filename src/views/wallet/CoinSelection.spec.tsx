@@ -36,6 +36,12 @@ describe('CoinSelection', () => {
   })
   beforeEach(() => {
     queryClient.clear()
+    useWalletState.setState({
+      selectedUTXOIds: [],
+      addressLabelMap: {
+        [script.id]: 'addressLabel',
+      },
+    })
   })
 
   it('should open the help popup when the help icon is pressed', async () => {
