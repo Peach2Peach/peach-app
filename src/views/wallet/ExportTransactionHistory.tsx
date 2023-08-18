@@ -1,3 +1,4 @@
+import { TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
 import { View } from 'react-native'
 import RNFS from 'react-native-fs'
 import Share from 'react-native-share'
@@ -13,26 +14,15 @@ import { getTxSummary } from './helpers/getTxSummary'
 export const ExportTransactionHistory = () => {
   const transactions = useWalletState((state) => state.transactions)
   const handleError = useShowErrorBanner()
+
   const onPress = async () => {
     const destinationFileName = 'transaction-history.csv'
-
-    let csvValue = 'Date, Type, Amount, Transaction ID\n'
-
-    transactions.forEach((transaction) => {
-      const { amount, type, id: transactionId, date } = getTxSummary(transaction)
-      const dateString = date.toLocaleString().replaceAll(',', '')
-
-      csvValue += `${dateString}, ${type}, ${amount}, ${transactionId}\n`
-    })
-
-    await writeFile(`/${destinationFileName}`, csvValue)
+    await writeTransactionCSV(transactions, destinationFileName)
 
     Share.open({
       title: destinationFileName,
       url: `file://${RNFS.DocumentDirectoryPath}/${destinationFileName}`,
-    }).catch((error) => {
-      handleError(error)
-    })
+    }).catch(handleError)
   }
 
   return (
@@ -52,4 +42,17 @@ export const ExportTransactionHistory = () => {
       </Button>
     </Screen>
   )
+}
+
+function writeTransactionCSV (transactions: TransactionDetails[], destinationFileName: string) {
+  let csvValue = 'Date, Type, Amount, Transaction ID\n'
+
+  transactions.forEach((transaction) => {
+    const { amount, type, id: transactionId, date } = getTxSummary(transaction)
+    const dateString = date.toLocaleString().replaceAll(',', '')
+
+    csvValue += `${dateString}, ${type}, ${amount}, ${transactionId}\n`
+  })
+
+  return writeFile(`/${destinationFileName}`, csvValue)
 }
