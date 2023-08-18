@@ -44,6 +44,7 @@ exports[`TransactionBatching should render correctly when batching is disabled 1
             "letterSpacing": 0.2,
             "lineHeight": 28,
           },
+          false,
         ]
       }
     >
@@ -66,6 +67,7 @@ exports[`TransactionBatching should render correctly when batching is disabled 1
             "letterSpacing": 0.2,
             "lineHeight": 28,
           },
+          false,
         ]
       }
     >
@@ -86,6 +88,7 @@ exports[`TransactionBatching should render correctly when batching is disabled 1
                 "letterSpacing": 0.2,
                 "lineHeight": 28,
               },
+              false,
             ],
             undefined,
           ]
@@ -110,6 +113,7 @@ exports[`TransactionBatching should render correctly when batching is disabled 1
                 "letterSpacing": 0.2,
                 "lineHeight": 28,
               },
+              false,
             ],
             {
               "color": "#F56522",
@@ -117,7 +121,7 @@ exports[`TransactionBatching should render correctly when batching is disabled 1
           ]
         }
       >
-        23% more
+        30% more
       </Text>
     </Text>
   </View>
@@ -165,6 +169,7 @@ exports[`TransactionBatching should render correctly when batching is disabled 1
               "lineHeight": 32,
               "textTransform": "lowercase",
             },
+            false,
           ]
         }
       >
@@ -175,13 +180,10 @@ exports[`TransactionBatching should render correctly when batching is disabled 1
         style={
           [
             {
-              "height": 24,
-              "width": 24,
-            },
-            {
               "height": 32,
               "width": 32,
             },
+            undefined,
           ]
         }
       />
@@ -234,6 +236,7 @@ exports[`TransactionBatching should render correctly when batching is enabled 1`
             "letterSpacing": 0.2,
             "lineHeight": 28,
           },
+          false,
         ]
       }
     >
@@ -256,6 +259,7 @@ exports[`TransactionBatching should render correctly when batching is enabled 1`
             "letterSpacing": 0.2,
             "lineHeight": 28,
           },
+          false,
         ]
       }
     >
@@ -276,6 +280,7 @@ exports[`TransactionBatching should render correctly when batching is enabled 1`
                 "letterSpacing": 0.2,
                 "lineHeight": 28,
               },
+              false,
             ],
             undefined,
           ]
@@ -300,6 +305,7 @@ exports[`TransactionBatching should render correctly when batching is enabled 1`
                 "letterSpacing": 0.2,
                 "lineHeight": 28,
               },
+              false,
             ],
             {
               "color": "#F56522",
@@ -326,6 +332,7 @@ exports[`TransactionBatching should render correctly when batching is enabled 1`
                 "letterSpacing": 0.2,
                 "lineHeight": 28,
               },
+              false,
             ],
             undefined,
           ]
@@ -379,6 +386,7 @@ exports[`TransactionBatching should render correctly when batching is enabled 1`
               "lineHeight": 32,
               "textTransform": "lowercase",
             },
+            false,
           ]
         }
       >
@@ -389,13 +397,10 @@ exports[`TransactionBatching should render correctly when batching is enabled 1`
         style={
           [
             {
-              "height": 24,
-              "width": 24,
-            },
-            {
               "height": 32,
               "width": 32,
             },
+            undefined,
           ]
         }
       />

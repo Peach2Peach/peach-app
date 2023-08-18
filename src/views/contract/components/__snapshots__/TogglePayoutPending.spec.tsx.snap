@@ -55,6 +55,7 @@ exports[`TogglePayoutPending should render correctly 1`] = `
             },
             false,
           ],
+          false,
         ]
       }
     >
@@ -136,6 +137,7 @@ exports[`TogglePayoutPending should render correctly when showBatchInfo is true 
             },
             false,
           ],
+          false,
         ]
       }
     >
