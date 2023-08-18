@@ -44,7 +44,7 @@ exports[`UTXOAddress should render correctly 1`] = `
       ]
     }
   >
-    addressLabel - 
+    addressLabel ‑ 
   </Text>
   address
 </Text>

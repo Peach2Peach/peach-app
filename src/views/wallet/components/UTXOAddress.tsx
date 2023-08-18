@@ -29,7 +29,7 @@ export function UTXOAddress ({ script }: Props) {
 
   return (
     <Text style={tw`body-s text-black-2`}>
-      <Text style={tw`body-s`}>{addressLabel ? `${addressLabel} - ` : ''}</Text>
+      <Text style={tw`body-s`}>{addressLabel ? `${addressLabel} ‑ ` : ''}</Text>
       {address}
     </Text>
   )
