@@ -1,4 +1,4 @@
-import { PAYMENTMETHODINFOS } from '../../../../../constants'
+import { PAYMENTMETHODINFOS } from '../../../../../paymentMethods'
 
 export const hasMultipleAvailableCurrencies = (paymentMethod: PaymentMethod) => {
   const selectedMethod = PAYMENTMETHODINFOS.find((pm) => pm.id === paymentMethod)

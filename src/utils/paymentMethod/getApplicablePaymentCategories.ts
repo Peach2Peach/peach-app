@@ -1,4 +1,4 @@
-import { PAYMENTCATEGORIES } from '../../constants'
+import { PAYMENTCATEGORIES } from '../../paymentMethods'
 import { keys } from '../object'
 import { hasApplicablePaymentMethods } from '../paymentMethod'
 

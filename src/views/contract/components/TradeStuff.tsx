@@ -1,6 +1,6 @@
 import { View } from 'react-native'
 import { PaymentMethod } from '../../../components/offer/PaymentMethod'
-import { APPLINKS } from '../../../constants'
+import { APPLINKS } from '../../../paymentMethods'
 import tw from '../../../styles/tailwind'
 import { isCashTrade } from '../../../utils/paymentMethod/isCashTrade'
 import { useContractContext } from '../context'
