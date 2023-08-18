@@ -1,7 +1,7 @@
-import ShallowRenderer from 'react-test-renderer/shallow'
-import { TransactionHistory } from './TransactionHistory'
-import { mockDimensions } from '../../../tests/unit/helpers/mockDimensions'
+import { createRenderer } from 'react-test-renderer/shallow'
 import { confirmedTransactionSummary, pendingTransactionSummary } from '../../../tests/unit/data/transactionDetailData'
+import { mockDimensions } from '../../../tests/unit/helpers/mockDimensions'
+import { TransactionHistory } from './TransactionHistory'
 
 const transactions: TransactionSummary[] = [pendingTransactionSummary, confirmedTransactionSummary]
 const refreshMock = jest.fn()
@@ -16,7 +16,7 @@ jest.mock('./hooks/useTransactionHistorySetup', () => ({
 }))
 
 describe('TransactionHistory', () => {
-  const renderer = ShallowRenderer.createRenderer()
+  const renderer = createRenderer()
 
   it('should render correctly when empty', () => {
     useTransactionHistorySetupMock.mockReturnValueOnce({

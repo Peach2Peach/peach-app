@@ -1,110 +1,115 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`TransactionHistory should render correctly when empty 1`] = `<EmptyTransactionHistory />`;
+exports[`TransactionHistory should render correctly when empty 1`] = `
+<Screen>
+  <TransactionHistoryHeader />
+  <EmptyTransactionHistory />
+</Screen>
+`;
 
 exports[`TransactionHistory should render correctly with tx 1`] = `
-<FlatList
-  contentContainerStyle={
-    [
-      {
-        "gap": 16,
-        "paddingBottom": 16,
-        "paddingLeft": 16,
-        "paddingRight": 16,
-        "paddingTop": 16,
-      },
-      {},
-    ]
-  }
-  data={
-    [
-      {
-        "amount": 900,
-        "confirmed": false,
-        "contractId": undefined,
-        "currency": undefined,
-        "date": 2022-09-14T16:14:02.835Z,
-        "height": undefined,
-        "id": "txid1",
-        "offerId": "123",
-        "price": undefined,
-        "type": "TRADE",
-      },
-      {
-        "amount": 900,
-        "confirmed": true,
-        "contractId": undefined,
-        "currency": undefined,
-        "date": 2022-09-14T16:14:02.835Z,
-        "height": 1,
-        "id": "txid1",
-        "offerId": "123",
-        "price": undefined,
-        "type": "TRADE",
-      },
-    ]
-  }
-  initialNumToRender={10}
-  keyExtractor={[Function]}
-  maxToRenderPerBatch={20}
-  onRefresh={[MockFunction]}
-  refreshing={false}
-  renderItem={[Function]}
-/>
+<Screen>
+  <TransactionHistoryHeader />
+  <FlatList
+    contentContainerStyle={
+      [
+        {
+          "gap": 16,
+          "paddingBottom": 16,
+          "paddingTop": 16,
+        },
+        {},
+      ]
+    }
+    data={
+      [
+        {
+          "amount": 900,
+          "confirmed": false,
+          "contractId": undefined,
+          "currency": undefined,
+          "date": 2022-09-14T16:14:02.835Z,
+          "height": undefined,
+          "id": "txid1",
+          "offerId": "123",
+          "price": undefined,
+          "type": "TRADE",
+        },
+        {
+          "amount": 900,
+          "confirmed": true,
+          "contractId": undefined,
+          "currency": undefined,
+          "date": 2022-09-14T16:14:02.835Z,
+          "height": 1,
+          "id": "txid1",
+          "offerId": "123",
+          "price": undefined,
+          "type": "TRADE",
+        },
+      ]
+    }
+    initialNumToRender={10}
+    keyExtractor={[Function]}
+    maxToRenderPerBatch={20}
+    onRefresh={[MockFunction]}
+    refreshing={false}
+    renderItem={[Function]}
+  />
+</Screen>
 `;
 
 exports[`TransactionHistory should render medium screens correctly 1`] = `
-<FlatList
-  contentContainerStyle={
-    [
-      {
-        "gap": 16,
-        "paddingBottom": 16,
-        "paddingLeft": 16,
-        "paddingRight": 16,
-        "paddingTop": 16,
-      },
-      {
-        "paddingBottom": 32,
-        "paddingLeft": 32,
-        "paddingRight": 32,
-        "paddingTop": 32,
-      },
-    ]
-  }
-  data={
-    [
-      {
-        "amount": 900,
-        "confirmed": false,
-        "contractId": undefined,
-        "currency": undefined,
-        "date": 2022-09-14T16:14:02.835Z,
-        "height": undefined,
-        "id": "txid1",
-        "offerId": "123",
-        "price": undefined,
-        "type": "TRADE",
-      },
-      {
-        "amount": 900,
-        "confirmed": true,
-        "contractId": undefined,
-        "currency": undefined,
-        "date": 2022-09-14T16:14:02.835Z,
-        "height": 1,
-        "id": "txid1",
-        "offerId": "123",
-        "price": undefined,
-        "type": "TRADE",
-      },
-    ]
-  }
-  initialNumToRender={10}
-  keyExtractor={[Function]}
-  maxToRenderPerBatch={20}
-  onRefresh={[MockFunction]}
-  refreshing={false}
-  renderItem={[Function]}
-/>
+<Screen>
+  <TransactionHistoryHeader />
+  <FlatList
+    contentContainerStyle={
+      [
+        {
+          "gap": 16,
+          "paddingBottom": 16,
+          "paddingTop": 16,
+        },
+        {
+          "paddingBottom": 32,
+          "paddingTop": 32,
+        },
+      ]
+    }
+    data={
+      [
+        {
+          "amount": 900,
+          "confirmed": false,
+          "contractId": undefined,
+          "currency": undefined,
+          "date": 2022-09-14T16:14:02.835Z,
+          "height": undefined,
+          "id": "txid1",
+          "offerId": "123",
+          "price": undefined,
+          "type": "TRADE",
+        },
+        {
+          "amount": 900,
+          "confirmed": true,
+          "contractId": undefined,
+          "currency": undefined,
+          "date": 2022-09-14T16:14:02.835Z,
+          "height": 1,
+          "id": "txid1",
+          "offerId": "123",
+          "price": undefined,
+          "type": "TRADE",
+        },
+      ]
+    }
+    initialNumToRender={10}
+    keyExtractor={[Function]}
+    maxToRenderPerBatch={20}
+    onRefresh={[MockFunction]}
+    refreshing={false}
+    renderItem={[Function]}
+  />
+</Screen>
 `;
