@@ -1,8 +1,13 @@
 import { renderHook } from '@testing-library/react-native'
-import { NavigationWrapper, goBackMock, replaceMock } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { NavigationWrapper, replaceMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { useConfigStore } from '../../../store/configStore'
 import { useGroupHugAnnouncementSetup } from './useGroupHugAnnouncementSetup'
 
+const offerId = '123'
+const useRouteMock = jest.fn(() => ({ params: { offerId } }))
+jest.mock('../../../hooks/useRoute', () => ({
+  useRoute: () => useRouteMock(),
+}))
 describe('useGroupHugAnnouncementSetup', () => {
   beforeEach(() => {
     useConfigStore.getState().reset()
@@ -24,7 +29,7 @@ describe('useGroupHugAnnouncementSetup', () => {
   it('closes popup', () => {
     const { result } = renderHook(useGroupHugAnnouncementSetup, { wrapper: NavigationWrapper })
     result.current.close()
-    expect(goBackMock).toHaveBeenCalled()
+    expect(replaceMock).toHaveBeenCalledWith('offerPublished', { offerId, isSellOffer: false })
     expect(useConfigStore.getState().hasSeenGroupHugAnnouncement).toBeTruthy()
   })
 })

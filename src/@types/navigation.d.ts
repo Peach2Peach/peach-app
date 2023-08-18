@@ -137,7 +137,9 @@ declare type RootStackParamList = {
   splashScreen: undefined
   myProfile: undefined
   transactionBatching: undefined
-  groupHugAnnouncement: undefined
+  groupHugAnnouncement: {
+    offerId: string
+  }
 } & Record<`testView${string}`, undefined>
 
 type KeysWithUndefined<T> = {

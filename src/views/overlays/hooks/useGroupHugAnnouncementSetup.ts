@@ -1,7 +1,8 @@
-import { useNavigation } from '../../../hooks'
+import { useNavigation, useRoute } from '../../../hooks'
 import { useConfigStore } from '../../../store/configStore'
 
 export const useGroupHugAnnouncementSetup = () => {
+  const { offerId } = useRoute<'groupHugAnnouncement'>().params
   const navigation = useNavigation()
   const setHasSeenGroupHugAnnouncement = useConfigStore((state) => state.setHasSeenGroupHugAnnouncement)
 
@@ -11,7 +12,7 @@ export const useGroupHugAnnouncementSetup = () => {
   }
   const close = () => {
     setHasSeenGroupHugAnnouncement(true)
-    navigation.goBack()
+    navigation.replace('offerPublished', { offerId, isSellOffer: false })
   }
   return {
     goToSettings,
