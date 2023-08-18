@@ -14,6 +14,7 @@ import {
   Template18,
   Template19,
   Template2,
+  Template20,
   Template21,
   Template3,
   Template4,
@@ -23,7 +24,6 @@ import {
   Template8,
   Template9,
 } from '../templates'
-import { Template20 } from '../templates/Template20'
 import { GiftCardAmazon } from './GiftCardAmazon'
 
 type PaymentMethodFormsType = {
