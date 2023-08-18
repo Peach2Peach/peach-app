@@ -19,6 +19,8 @@ export const getActionLabel = (tradeSummary: PartialTradeSummary, isWaiting: boo
       return i18n(`offer.requiredAction.${translationStatusKey}.dispute`)
     }
 
+    if (tradeSummary.tradeStatus === 'payoutPending') return i18n('offer.requiredAction.payoutPending')
+
     return isWaiting || tradeStatus === 'rateUser'
       ? i18n(`offer.requiredAction.${translationStatusKey}.${counterparty}`)
       : i18n(`offer.requiredAction.${translationStatusKey}`)

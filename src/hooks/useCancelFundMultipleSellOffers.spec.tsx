@@ -73,7 +73,7 @@ describe('useCancelFundMultipleSellOffers', () => {
     expect(cancelOfferMock).toHaveBeenCalledWith({ offerId: fundMultiple.offerIds[2] })
     expect(useWalletState.getState().fundMultipleMap).toEqual({})
   })
-  it('not not cancel if no fundMultiple has been passed', async () => {
+  it('not not cancel if no fundMultiple has been passed', () => {
     const { result } = renderHook(useCancelFundMultipleSellOffers, {
       wrapper,
       initialProps: { fundMultiple: undefined },
