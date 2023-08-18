@@ -1,17 +1,43 @@
-import { Alert, View } from 'react-native'
-import { NewHeader, Screen, Text } from '../../components'
+import { View } from 'react-native'
+import RNFS from 'react-native-fs'
+import Share from 'react-native-share'
+import { NewHeader as Header, Screen, Text } from '../../components'
 import { NewButton as Button } from '../../components/buttons/Button'
+import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
 import tw from '../../styles/tailwind'
+import { writeFile } from '../../utils/file'
 import i18n from '../../utils/i18n'
+import { useWalletState } from '../../utils/wallet/walletStore'
+import { getTxSummary } from './helpers/getTxSummary'
 
 export const ExportTransactionHistory = () => {
-  const onPress = () => {
-    Alert.alert('Exporting transaction history is not yet supported')
+  const transactions = useWalletState((state) => state.transactions)
+  const handleError = useShowErrorBanner()
+  const onPress = async () => {
+    const destinationFileName = 'transaction-history.csv'
+
+    let csvValue = 'Date, Type, Amount, Transaction ID\n'
+
+    transactions.forEach((transaction) => {
+      const { amount, type, id: transactionId, date } = getTxSummary(transaction)
+      const dateString = date.toLocaleString().replaceAll(',', '')
+
+      csvValue += `${dateString}, ${type}, ${amount}, ${transactionId}\n`
+    })
+
+    await writeFile(`/${destinationFileName}`, csvValue)
+
+    Share.open({
+      title: destinationFileName,
+      url: `file://${RNFS.DocumentDirectoryPath}/${destinationFileName}`,
+    }).catch((error) => {
+      handleError(error)
+    })
   }
 
   return (
     <Screen>
-      <NewHeader title={i18n('wallet.exportHistory.title')} />
+      <Header title={i18n('wallet.exportHistory.title')} />
       <View style={tw`justify-center gap-8 grow`}>
         <Text style={tw`body-l`}>
           {`${i18n('wallet.exportHistory.description')}
