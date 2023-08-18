@@ -31,10 +31,10 @@ export const ExportTransactionHistory = () => {
       <View style={tw`justify-center gap-8 grow`}>
         <Text style={tw`body-l`}>
           {`${i18n('wallet.exportHistory.description')}
-  \u2022 ${i18n('wallet.exportHistory.description.point1')}
-  \u2022 ${i18n('wallet.exportHistory.description.point2')}
-  \u2022 ${i18n('wallet.exportHistory.description.point3')}
-  \u2022 ${i18n('wallet.exportHistory.description.point4')}`}
+  • ${i18n('wallet.exportHistory.description.point1')}
+  • ${i18n('wallet.exportHistory.description.point2')}
+  • ${i18n('wallet.exportHistory.description.point3')}
+  • ${i18n('wallet.exportHistory.description.point4')}`}
         </Text>
       </View>
       <Button style={tw`self-center`} onPress={onPress}>
