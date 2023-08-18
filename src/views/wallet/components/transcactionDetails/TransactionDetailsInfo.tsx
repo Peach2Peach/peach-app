@@ -76,7 +76,7 @@ export const TransactionDetailsInfo = ({ transaction }: Props) => {
         && offerData.map((offer) => (
           <OfferData key={`tab-screen-${getOfferDataId(offer)}`} {...offer} {...{ type, transaction }} />
         ))}
-      {offerData.length === 0 && <OfferData {...{ address: receivingAddress, type, transaction }} />}
+      {offerData.length === 0 && <OfferData {...{ address: receivingAddress, amount, type, transaction }} />}
 
       <Divider />
 
