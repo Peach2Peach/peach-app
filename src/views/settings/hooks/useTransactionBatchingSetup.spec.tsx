@@ -20,8 +20,7 @@ jest.useFakeTimers()
 
 const wrapper = NavigationAndQueryClientWrapper
 describe('useTransactionBatchingSetup', () => {
-  afterEach(() => {
-    jest.runAllTimers()
+  beforeEach(() => {
     queryClient.clear()
   })
   it('returns defaults', () => {
@@ -97,6 +96,6 @@ describe('useTransactionBatchingSetup', () => {
 
     usePopupStore.getState().action1?.callback()
     await waitFor(() => expect(setBatchingMock).toHaveBeenCalledWith({ enableBatching: false }))
-    await act(() => useTradeSummaryStore.getState().reset())
+    act(() => useTradeSummaryStore.getState().reset())
   })
 })
