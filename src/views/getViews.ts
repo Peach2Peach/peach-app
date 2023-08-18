@@ -54,6 +54,7 @@ import { TestView } from './TestView/TestView'
 import { TradeComplete } from './tradeComplete/TradeComplete'
 import { BumpNetworkFees } from './wallet/BumpNetworkFees'
 import { CoinSelection } from './wallet/CoinSelection'
+import { ExportTransactionHistory } from './wallet/ExportTransactionHistory'
 import { ReceiveBitcoin } from './wallet/ReceiveBitcoin'
 import { SendBitcoin } from './wallet/SendBitcoin'
 import { TransactionDetails } from './wallet/TransactionDetails'
@@ -101,7 +102,8 @@ const wallet: ViewType[] = [
   { name: 'sendBitcoin', component: SendBitcoin, ...defaultConfig, showHeader: false },
   { name: 'receiveBitcoin', component: ReceiveBitcoin, ...defaultConfig, showHeader: false },
   { name: 'coinSelection', component: CoinSelection, ...defaultConfig, showHeader: false },
-  { name: 'transactionHistory', component: TransactionHistory, ...defaultConfig },
+  { name: 'transactionHistory', component: TransactionHistory, ...defaultConfig, showHeader: false },
+  { name: 'exportTransactionHistory', component: ExportTransactionHistory, ...defaultConfig, showHeader: false },
   { name: 'transactionDetails', component: TransactionDetails, ...defaultConfig },
   { name: 'bumpNetworkFees', component: BumpNetworkFees, ...defaultConfig },
 ]

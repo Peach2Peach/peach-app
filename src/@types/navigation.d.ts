@@ -15,6 +15,7 @@ declare type RootStackParamList = {
   receiveBitcoin: undefined
   coinSelection: undefined
   transactionHistory: undefined
+  exportTransactionHistory: undefined
   transactionDetails: {
     txId: string
   }

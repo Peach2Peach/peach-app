@@ -1,7 +1,5 @@
 import { useMemo } from 'react'
-import { useHeaderSetup } from '../../../hooks'
 import { sort } from '../../../utils/array'
-import i18n from '../../../utils/i18n'
 import { useWalletState } from '../../../utils/wallet/walletStore'
 import { getTxSummary } from '../helpers/getTxSummary'
 import { useSyncWallet } from './useSyncWallet'
@@ -15,8 +13,6 @@ export const useTransactionHistorySetup = () => {
       .reverse(),
     [storedTransactions],
   )
-
-  useHeaderSetup(i18n('wallet.transactionHistory'))
 
   return {
     transactions,
