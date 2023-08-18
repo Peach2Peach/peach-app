@@ -4,6 +4,7 @@ declare type OfferData = {
   offerId?: string
   contractId?: string
   address: string
+  amount: number
   price?: number
   currency?: Currency
 }

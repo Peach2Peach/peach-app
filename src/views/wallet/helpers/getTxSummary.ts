@@ -11,7 +11,7 @@ const mapOfferToOfferData = (offer: SellOffer | BuyOffer) => {
   return {
     offerId: offer.id,
     contractId: offer.contractId,
-    amount: offer.amount,
+    amount: contract?.amount || (Array.isArray(offer.amount) ? offer.amount[0] : offer.amount),
     address: isBuyOffer(offer) ? offer.releaseAddress : offer?.returnAddress,
     currency: contract?.currency,
     price: contract?.price,

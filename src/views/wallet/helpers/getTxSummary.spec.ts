@@ -34,6 +34,7 @@ const baseSummary = {
 
 const buyOfferData = {
   offerId: buyOffer.id,
+  amount: 50000,
   address: 'bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh',
   contractId: undefined,
   currency: undefined,
@@ -42,6 +43,7 @@ const buyOfferData = {
 
 const buyOfferWithContractData = {
   offerId: offerWithContract.id,
+  amount: contractSummary.amount,
   address: 'bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh',
   contractId: contractSummary.id,
   currency: 'EUR',
