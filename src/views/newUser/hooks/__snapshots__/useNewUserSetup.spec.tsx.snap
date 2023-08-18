@@ -11,7 +11,7 @@ exports[`useNewUserSetup should set up the header correctly 1`] = `
 
 exports[`useNewUserSetup should show header actions when not loading 1`] = `
 <Header
-  hideGoBackButton={false}
+  hideGoBackButton={true}
   icons={
     [
       {
