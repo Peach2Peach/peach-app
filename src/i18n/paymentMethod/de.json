@@ -61,6 +61,7 @@
   "paymentMethod.neteller" : "Neteller",
   "paymentMethod.orangeMoney" : "Orange Money",
   "paymentMethod.papara" : "Papara",
+  "paymentMethod.payday" : "Payday",
   "paymentMethod.paylib" : "Paylib",
   "paymentMethod.paypal" : "PayPal",
   "paymentMethod.paysera" : "Paysera",
