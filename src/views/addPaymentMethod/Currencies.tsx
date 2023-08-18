@@ -1,5 +1,5 @@
 import { PeachScrollView, RadioButtons } from '../../components'
-import { CURRENCIES } from '../../constants'
+import { CURRENCIES } from '../../paymentMethods'
 import { CurrencyType } from '../../store/offerPreferenes/types'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'

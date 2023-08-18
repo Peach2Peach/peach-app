@@ -76,6 +76,8 @@
   "paymentMethod.select.button.remote" : "aggiungi nuova valuta /\nmetodo di pagamento",
   "paymentMethod.select.title" : "aggiungi dettagli $0",
   "paymentMethod.sepa" : "SEPA",
+  "paymentMethod.sinpe" : "SINPE",
+  "paymentMethod.sinpeMovil" : "SINPE móvil",
   "paymentMethod.skrill" : "Skrill",
   "paymentMethod.straksbetaling" : "Straksbetaling",
   "paymentMethod.swish" : "Swish",
@@ -86,8 +88,8 @@
   "paymentMethod.vipps" : "Vipps",
   "paymentMethod.wave" : "Wave",
   "paymentMethod.wise" : "Wise",
-  "paymentMethods.edit.title" : "modifica metodi di pagamento",
-  "paymentMethods.title" : "metodi di pagamento",
+  "paymentMethods.edit.title" : "modifica metodi pagamento",
+  "paymentMethods.title" : "Metodi pagamento",
   "paymentSection.meetups" : "meetups",
   "paymentSection.remote" : "A Distanza"
 }

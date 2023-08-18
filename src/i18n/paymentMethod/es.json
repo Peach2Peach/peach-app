@@ -76,6 +76,8 @@
   "paymentMethod.select.button.remote" : "añadir nueva moneda/\nmétodo de pago",
   "paymentMethod.select.title" : "añadir detalles de $0",
   "paymentMethod.sepa" : "SEPA",
+  "paymentMethod.sinpe" : "SINPE",
+  "paymentMethod.sinpeMovil" : "SINPE móvil",
   "paymentMethod.skrill" : "Skrill",
   "paymentMethod.straksbetaling" : "Straksbetaling",
   "paymentMethod.swish" : "Swish",

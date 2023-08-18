@@ -1,4 +1,4 @@
-import { setPaymentMethods } from '../../../constants'
+import { setPaymentMethods } from '../../../paymentMethods'
 import { validatePaymentMethods } from './validatePaymentMethods'
 
 describe('validatePaymentMethods', () => {

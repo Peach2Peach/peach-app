@@ -39,6 +39,7 @@ import placeholder from './placeholder.svg'
 import revolut from './revolut.svg'
 import satispay from './satispay.svg'
 import sepa from './sepa.svg'
+import sinpeMovil from './sinpeMovil.svg'
 import skrill from './skrill.svg'
 import swish from './swish.svg'
 import twint from './twint.svg'
@@ -98,6 +99,8 @@ export const PaymentLogos = {
   revolut,
   satispay,
   sepa,
+  sinpe: placeholder,
+  sinpeMovil,
   skrill,
   straksbetaling: placeholder,
   swish,

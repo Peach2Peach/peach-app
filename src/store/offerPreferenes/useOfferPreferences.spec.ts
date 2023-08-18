@@ -6,7 +6,7 @@ import {
   validSEPAData,
   validSEPADataHashes,
 } from '../../../tests/unit/data/paymentData'
-import { setPaymentMethods } from '../../constants'
+import { setPaymentMethods } from '../../paymentMethods'
 import { usePaymentDataStore } from '../usePaymentDataStore'
 import { useOfferPreferences } from './useOfferPreferences'
 

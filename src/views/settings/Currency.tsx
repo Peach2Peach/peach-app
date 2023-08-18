@@ -1,7 +1,7 @@
 import tw from '../../styles/tailwind'
 
 import { PeachScrollView, PrimaryButton, RadioButtons, Screen } from '../../components'
-import { CURRENCIES } from '../../constants'
+import { CURRENCIES } from '../../paymentMethods'
 import i18n from '../../utils/i18n'
 import { useCurrencySetup } from './hooks/useCurrencySetup'
 

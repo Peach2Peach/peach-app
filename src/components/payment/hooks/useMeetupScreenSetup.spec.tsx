@@ -2,7 +2,7 @@
 import { NavigationContainer } from '@react-navigation/native'
 import { act, renderHook } from '@testing-library/react-native'
 import { headerState, setOptionsMock } from '../../../../tests/unit/helpers/NavigationWrapper'
-import { setPaymentMethods } from '../../../constants'
+import { setPaymentMethods } from '../../../paymentMethods'
 import { DeletePaymentMethodConfirm } from '../../../popups/info/DeletePaymentMethodConfirm'
 import { useMeetupEventsStore } from '../../../store/meetupEventsStore'
 import { useOfferPreferences } from '../../../store/offerPreferenes'
