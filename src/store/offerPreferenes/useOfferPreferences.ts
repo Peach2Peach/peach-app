@@ -9,6 +9,7 @@ import {
   getPreferredMethods,
   validatePaymentMethods,
 } from './helpers'
+import { CurrencyType } from './types'
 
 export type OfferPreferences = {
   buyAmountRange: [number, number]
@@ -18,7 +19,7 @@ export type OfferPreferences = {
   paymentData: OfferPaymentData
   preferredPaymentMethods: Partial<Record<PaymentMethod, string>>
   originalPaymentData: PaymentData[]
-  preferredCurrenyType: 'europe' | 'latinAmerica' | 'other'
+  preferredCurrenyType: CurrencyType
   sortBy: {
     buyOffer: BuySorter[]
     sellOffer: SellSorter[]
@@ -63,7 +64,7 @@ type OfferPreferencesActions = {
   setPremium: (newPremium: number, isValid?: boolean) => void
   setPaymentMethods: (ids: string[]) => void
   selectPaymentMethod: (id: string) => void
-  setPreferredCurrencyType: (preferredCurrenyType: 'europe' | 'latinAmerica' | 'other') => void
+  setPreferredCurrencyType: (preferredCurrenyType: CurrencyType) => void
   setBuyOfferSorter: (sorter: BuySorter) => void
   setSellOfferSorter: (sorter: SellSorter) => void
   setBuyOfferFilter: (filter: MatchFilter) => void

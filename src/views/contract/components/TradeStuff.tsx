@@ -1,12 +1,12 @@
 import { View } from 'react-native'
-import { APPLINKS } from '../../../constants'
+import { PaymentMethod } from '../../../components/offer/PaymentMethod'
+import { APPLINKS } from '../../../paymentMethods'
 import tw from '../../../styles/tailwind'
+import { isCashTrade } from '../../../utils/paymentMethod/isCashTrade'
+import { useContractContext } from '../context'
 import { ChatButton } from './ChatButton'
 import { Escrow } from './Escrow'
-import { PaymentMethod } from '../../../components/offer/PaymentMethod'
-import { isCashTrade } from '../../../utils/paymentMethod/isCashTrade'
 import { TradeStuffSeparator } from './TradeStuffSeparator'
-import { useContractContext } from '../context'
 
 export const TradeStuff = ({ style }: ComponentProps) => {
   const { escrow, paymentMethod, releaseTxId, disputeActive } = useContractContext().contract

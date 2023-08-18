@@ -16,6 +16,16 @@ exports[`CurrencyTabs should render correctly 1`] = `
     [Function]
   </Screen>
   <Screen
+    name="latinAmerica"
+  >
+    [Function]
+  </Screen>
+  <Screen
+    name="africa"
+  >
+    [Function]
+  </Screen>
+  <Screen
     name="other"
   >
     [Function]

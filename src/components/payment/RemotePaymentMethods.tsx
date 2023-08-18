@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Pressable, View } from 'react-native'
 import { Icon, Text } from '..'
 import { IconType } from '../../assets/icons'
-import { PAYMENTCATEGORIES } from '../../constants'
+import { PAYMENTCATEGORIES } from '../../paymentMethods'
 import { usePaymentDataStore } from '../../store/usePaymentDataStore'
 import tw from '../../styles/tailwind'
 import { removePaymentData } from '../../utils/account'
@@ -11,8 +11,8 @@ import { keys } from '../../utils/object'
 import { getPaymentMethodInfo, isValidPaymentData } from '../../utils/paymentMethod'
 import { isCashTrade } from '../../utils/paymentMethod/isCashTrade'
 import { LinedText } from '../ui/LinedText'
-import { PaymentDataKeyFacts } from './components/PaymentDataKeyFacts'
 import { PaymentDetailsCheckbox } from './PaymentDetailsCheckbox'
+import { PaymentDataKeyFacts } from './components/PaymentDataKeyFacts'
 
 const mapPaymentDataToCheckboxes = (data: PaymentData) => ({
   value: data.id,
