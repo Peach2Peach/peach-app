@@ -172,6 +172,10 @@ exports[`Currencies should render correctly for type "latinAmerica" 1`] = `
           "display": "Colombian Peso",
           "value": "COP",
         },
+        {
+          "display": "Costa Rican Colón",
+          "value": "CRC",
+        },
       ]
     }
     onButtonPress={[MockFunction]}
