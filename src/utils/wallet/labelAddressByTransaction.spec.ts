@@ -18,12 +18,12 @@ describe('labelAddressByTransaction', () => {
   })
 
   it('does not label address if associated offer cannot be found', () => {
-    useWalletState.getState().updateTxOfferMap(confirmed1.txid, offerSummary.id)
+    useWalletState.getState().updateTxOfferMap(confirmed1.txid, [offerSummary.id])
     labelAddressByTransaction(confirmed1)
     expect(useWalletState.getState().addressLabelMap).toEqual({})
   })
   it('labels address if associated buy offer can be found', () => {
-    useWalletState.getState().updateTxOfferMap(confirmed1.txid, buyOffer.id)
+    useWalletState.getState().updateTxOfferMap(confirmed1.txid, [buyOffer.id])
     useTradeSummaryStore.getState().setOffer(buyOffer.id, { ...buyOffer, contractId: contract.id })
 
     // @ts-ignore
@@ -34,7 +34,7 @@ describe('labelAddressByTransaction', () => {
     })
   })
   it('labels address if associated sell offer can be found', () => {
-    useWalletState.getState().updateTxOfferMap(confirmed1.txid, sellOffer.id)
+    useWalletState.getState().updateTxOfferMap(confirmed1.txid, [sellOffer.id])
     useTradeSummaryStore.getState().setOffer(sellOffer.id, sellOffer)
 
     labelAddressByTransaction(confirmed1)
@@ -43,7 +43,7 @@ describe('labelAddressByTransaction', () => {
     })
   })
   it('does not label address if tx default label cannot be determined', () => {
-    useWalletState.getState().updateTxOfferMap(confirmed1.txid, sellOffer.id)
+    useWalletState.getState().updateTxOfferMap(confirmed1.txid, [sellOffer.id])
 
     labelAddressByTransaction(confirmed1)
     expect(useWalletState.getState().addressLabelMap).toEqual({})

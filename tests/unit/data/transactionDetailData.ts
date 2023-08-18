@@ -68,12 +68,18 @@ export const pendingTransactionSummary: TransactionSummary = {
   id: pending1.txid,
   type: 'TRADE',
   amount: 900,
-  price: undefined,
-  currency: undefined,
+  offerData: [
+    {
+      offerId: '123',
+      address: 'bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh',
+      amount: 900,
+      contractId: undefined,
+      currency: undefined,
+      price: undefined,
+    },
+  ],
   date: new Date('2022-09-14T16:14:02.835Z'),
   confirmed: false,
-  offerId: '123',
-  contractId: undefined,
   height: undefined,
 }
 export const pendingReceivedTransactionSummary: TransactionSummary = {

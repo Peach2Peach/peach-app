@@ -25,7 +25,7 @@ import { labelAddressByTransaction } from './labelAddressByTransaction'
 import { mapTransactionToOffer } from './mapTransactionToOffer'
 import { rebroadcastTransactions } from './rebroadcastTransactions'
 import { BuildTxParams, buildTransaction } from './transaction'
-import { transactionHasBeenMappedToOffer } from './transactionHasBeenMappedToOffer'
+import { transactionHasBeenMappedToOffers } from './transactionHasBeenMappedToOffers'
 import { useWalletState } from './walletStore'
 
 type PeachWalletProps = {
@@ -138,8 +138,8 @@ export class PeachWallet extends PeachJSWallet {
 
   updateStore (): void {
     useWalletState.getState().setTransactions(this.transactions)
-    this.transactions.filter((tx) => !transactionHasBeenMappedToOffer(tx)).forEach(mapTransactionToOffer)
-    this.transactions.filter(transactionHasBeenMappedToOffer).forEach(labelAddressByTransaction)
+    this.transactions.filter((tx) => !transactionHasBeenMappedToOffers(tx)).forEach(mapTransactionToOffer)
+    this.transactions.filter(transactionHasBeenMappedToOffers).forEach(labelAddressByTransaction)
   }
 
   async getBalance (): Promise<number> {
