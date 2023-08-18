@@ -95,7 +95,7 @@ export const useContractSetup = () => {
       paymentConfirmed: new Date(),
       releaseTxId: result?.txId || '',
     })
-  }, [contractId, contract, saveAndUpdate, showError])
+  }, [contract, saveAndUpdate, showError])
 
   const goToNewOffer = useCallback(async () => {
     if (!newOfferId) return
