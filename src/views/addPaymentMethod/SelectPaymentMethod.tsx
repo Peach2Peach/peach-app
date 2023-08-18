@@ -6,8 +6,8 @@ import i18n from '../../utils/i18n'
 
 import { PeachScrollView, PrimaryButton, RadioButtons, Screen } from '../../components'
 import { FlagType } from '../../components/flags'
-import { NATIONALOPTIONCOUNTRIES, NATIONALOPTIONS, PAYMENTCATEGORIES } from '../../constants'
 import { useHeaderSetup, useNavigation, useRoute } from '../../hooks'
+import { NATIONALOPTIONCOUNTRIES, NATIONALOPTIONS, PAYMENTCATEGORIES } from '../../paymentMethods'
 import { getApplicablePaymentCategories, paymentMethodAllowedForCurrency } from '../../utils/paymentMethod'
 import { usePaymentMethodLabel } from './hooks'
 

@@ -1,3 +1,4 @@
+import { useWalletState } from '../../../../../utils/wallet/walletStore'
 import { getActionLabel } from './getActionLabel'
 
 describe('getActionLabel', () => {
@@ -12,6 +13,11 @@ describe('getActionLabel', () => {
     tradeStatus: 'offerCanceled',
     unreadMessages: 0,
     type: 'bid',
+  } as const
+  const sellOfferSummary = {
+    unreadMessages: 0,
+    type: 'ask',
+    id: '1',
   } as const
 
   it('should return the correct label for a past contract summary without unread messages', () => {
@@ -50,5 +56,14 @@ describe('getActionLabel', () => {
   it('should return the correct label for non-past offer summaries', () => {
     const result = getActionLabel({ ...pastOfferSummary, tradeStatus: 'paymentRequired' }, true)
     expect(result).toEqual('make payment')
+  })
+  it('should return the correct label sell offer to be funded', () => {
+    const result = getActionLabel({ ...sellOfferSummary, tradeStatus: 'fundEscrow' }, false)
+    expect(result).toEqual('fund escrow')
+  })
+  it('should return the correct label sell offer to be funded via multiple', () => {
+    useWalletState.getState().registerFundMultiple('address', [sellOfferSummary.id])
+    const result = getActionLabel({ ...sellOfferSummary, tradeStatus: 'fundEscrow' }, false)
+    expect(result).toEqual('fund multiple escrow')
   })
 })

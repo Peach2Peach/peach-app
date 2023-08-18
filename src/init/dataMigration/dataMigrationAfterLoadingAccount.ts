@@ -1,4 +1,4 @@
-import { PAYMENTMETHODINFOS } from '../../constants'
+import { PAYMENTMETHODINFOS } from '../../paymentMethods'
 import { checkSupportedPaymentMethods } from './afterLoadingAccount/checkSupportedPaymentMethods'
 import { checkUsedReferralCode } from './afterLoadingAccount/checkUsedReferralCode'
 

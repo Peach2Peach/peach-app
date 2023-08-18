@@ -1,5 +1,5 @@
-const otherCurrencies: Currency[] = ['USDT', 'SAT']
-export const getCurrencyTypeFilter = (type: 'europe' | 'other') => (currency: Currency) => {
-  if (type === 'europe') return !otherCurrencies.includes(currency)
-  return otherCurrencies.includes(currency)
-}
+import { CURRENCY_MAP } from '../../../paymentMethods'
+import { CurrencyType } from '../../../store/offerPreferenes/types'
+
+export const getCurrencyTypeFilter = (type: CurrencyType) => (currency: Currency) =>
+  CURRENCY_MAP[type].includes(currency)

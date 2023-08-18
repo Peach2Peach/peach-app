@@ -1,5 +1,5 @@
+import { PAYMENTMETHODINFOS } from '../../paymentMethods'
 import { dataMigrationAfterLoadingAccount } from './dataMigrationAfterLoadingAccount'
-import { PAYMENTMETHODINFOS } from '../../constants'
 
 const checkSupportedPaymentMethodsMock = jest.fn()
 const checkUsedReferralCodeMock = jest.fn()

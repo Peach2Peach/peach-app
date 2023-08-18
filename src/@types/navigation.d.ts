@@ -11,7 +11,10 @@ declare type RootStackParamList = {
     badges: string
   }
   wallet: undefined
+  sendBitcoin: undefined
   receiveBitcoin: undefined
+  addressChecker: undefined
+  coinSelection: undefined
   transactionHistory: undefined
   transactionDetails: {
     txId: string
@@ -133,6 +136,8 @@ declare type RootStackParamList = {
   }
   splashScreen: undefined
   myProfile: undefined
+  transactionBatching: undefined
+  groupHugAnnouncement: undefined
 } & Record<`testView${string}`, undefined>
 
 type KeysWithUndefined<T> = {

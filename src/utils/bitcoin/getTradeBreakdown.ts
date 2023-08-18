@@ -2,9 +2,11 @@ import { address, Transaction } from 'bitcoinjs-lib'
 import { log } from '../log'
 import { getNetwork } from '../wallet'
 
-export const getTradeBreakdown = (releaseTransaction: string, releaseAddress: string, inputAmount: number) => {
+type Props = { releaseTransaction: string; releaseAddress: string; inputAmount: number; discount?: number }
+export const getTradeBreakdown = ({ releaseTransaction, releaseAddress, inputAmount, discount = 0 }: Props) => {
   try {
-    const outputs = Transaction.fromHex(releaseTransaction).outs
+    const transaction = Transaction.fromHex(releaseTransaction)
+    const outputs = transaction.outs
     const releaseOutput = outputs.find(
       (output) => address.fromOutputScript(output.script, getNetwork()) === releaseAddress,
     )
@@ -14,11 +16,14 @@ export const getTradeBreakdown = (releaseTransaction: string, releaseAddress: st
       (output) => address.fromOutputScript(output.script, getNetwork()) !== releaseAddress,
     ) || { value: 0 }
     const networkFee = inputAmount - peachFeeOutput.value - releaseOutput.value
+    const feeRate = networkFee / transaction.virtualSize()
+    const absoluteDiscount = Math.ceil(discount * feeRate)
+
     return {
       totalAmount: inputAmount,
       peachFee: peachFeeOutput.value,
-      networkFee,
-      amountReceived: releaseOutput.value,
+      networkFee: networkFee - absoluteDiscount,
+      amountReceived: releaseOutput.value + absoluteDiscount,
     }
   } catch (error) {
     log('error', 'Error getting trade breakdown: ', error, '\n for this tx: ', releaseTransaction)

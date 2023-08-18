@@ -1,4 +1,4 @@
-import { setPaymentMethods } from '../../../../../constants'
+import { setPaymentMethods } from '../../../../../paymentMethods'
 import { hasMultipleAvailableCurrencies } from './hasMultipleAvailableCurrencies'
 
 describe('hasMultipleAvailableCurrencies', () => {

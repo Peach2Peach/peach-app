@@ -1,5 +1,49 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Currencies should render correctly for type "africa" 1`] = `
+<ForwardRef
+  contentContainerStyle={
+    [
+      {
+        "flexGrow": 1,
+        "justifyContent": "center",
+        "paddingBottom": 16,
+        "paddingTop": 16,
+      },
+      {
+        "paddingBottom": 32,
+        "paddingTop": 32,
+      },
+    ]
+  }
+>
+  <RadioButtons
+    items={
+      [
+        {
+          "display": "US dollar",
+          "value": "USD",
+        },
+        {
+          "display": "West African CFA franc",
+          "value": "XOF",
+        },
+        {
+          "display": "Naira",
+          "value": "NGN",
+        },
+        {
+          "display": "Congolese franc",
+          "value": "CDF",
+        },
+      ]
+    }
+    onButtonPress={[MockFunction]}
+    selectedValue="EUR"
+  />
+</ForwardRef>
+`;
+
 exports[`Currencies should render correctly for type "europe" 1`] = `
 <ForwardRef
   contentContainerStyle={
@@ -71,6 +115,66 @@ exports[`Currencies should render correctly for type "europe" 1`] = `
         {
           "display": "Turkish lira",
           "value": "TRY",
+        },
+      ]
+    }
+    onButtonPress={[MockFunction]}
+    selectedValue="EUR"
+  />
+</ForwardRef>
+`;
+
+exports[`Currencies should render correctly for type "latinAmerica" 1`] = `
+<ForwardRef
+  contentContainerStyle={
+    [
+      {
+        "flexGrow": 1,
+        "justifyContent": "center",
+        "paddingBottom": 16,
+        "paddingTop": 16,
+      },
+      {
+        "paddingBottom": 32,
+        "paddingTop": 32,
+      },
+    ]
+  }
+>
+  <RadioButtons
+    items={
+      [
+        {
+          "display": "Argentine peso",
+          "value": "ARS",
+        },
+        {
+          "display": "Colombian Peso",
+          "value": "COP",
+        },
+        {
+          "display": "Peruvian sol",
+          "value": "PEN",
+        },
+        {
+          "display": "Mexican peso",
+          "value": "MXN",
+        },
+        {
+          "display": "Chilean peso",
+          "value": "CLP",
+        },
+        {
+          "display": "Peruvian sol",
+          "value": "PEN",
+        },
+        {
+          "display": "Colombian Peso",
+          "value": "COP",
+        },
+        {
+          "display": "Costa Rican Colón",
+          "value": "CRC",
         },
       ]
     }

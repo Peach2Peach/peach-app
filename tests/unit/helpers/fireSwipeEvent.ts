@@ -28,3 +28,7 @@ export const fireSwipeEvent = ({ element, x = 0, y = 0 }: Props) => {
   fireEvent(element, 'onResponderMove', moveEvent)
   fireEvent(element, 'onResponderRelease')
 }
+
+export const swipeRight = (element: Props['element']) => {
+  fireSwipeEvent({ element, x: 260 })
+}
