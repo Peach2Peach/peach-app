@@ -15,6 +15,7 @@ exports[`TransactionDetailsInfo should render correctly for a confirmed transact
     offerId="123"
     transaction={
       {
+        "amount": 900,
         "confirmed": true,
         "date": 2022-09-14T16:14:02.835Z,
         "height": 1,
@@ -81,6 +82,7 @@ exports[`TransactionDetailsInfo should render correctly for a pending transactio
     offerId="123"
     transaction={
       {
+        "amount": 900,
         "confirmed": false,
         "date": 2022-09-14T16:14:02.835Z,
         "height": undefined,

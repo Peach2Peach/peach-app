@@ -67,6 +67,7 @@ export const pendingReceived1 = createTransaction({ txid: 'txidreceived3', sent:
 export const pendingTransactionSummary: TransactionSummary = {
   id: pending1.txid,
   type: 'TRADE',
+  amount: 900,
   offerData: [
     {
       offerId: '123',
