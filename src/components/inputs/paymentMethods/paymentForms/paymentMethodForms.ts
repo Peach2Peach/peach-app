@@ -1,4 +1,4 @@
-import { GIFTCARDCOUNTRIES, NATIONALTRANSFERCOUNTRIES } from '../../../../constants'
+import { GIFTCARDCOUNTRIES, NATIONALTRANSFERCOUNTRIES } from '../../../../paymentMethods'
 import { FormProps } from '../../../../views/addPaymentMethod/PaymentMethodForm'
 import { TradeInfoField } from '../../../../views/contract/helpers/tradeInformationGetters'
 import {
@@ -100,6 +100,8 @@ export const PaymentMethodForms: PaymentMethodFormsType = {
   chippercash: { component: Template18, fields: template18Fields },
   mtn: { component: Template12, fields: template12Fields },
   eversend: { component: Template19, fields: template19Fields },
+  sinpe: { component: Template1, fields: template1Fields },
+  sinpeMovil: { component: Template3, fields: template3Fields },
 }
 GIFTCARDCOUNTRIES.forEach(
   (c) =>
