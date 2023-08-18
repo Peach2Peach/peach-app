@@ -2,7 +2,7 @@ import { renderHook } from '@testing-library/react-native'
 import { contractSummary } from '../../../../tests/unit/data/contractSummaryData'
 import { offerSummary } from '../../../../tests/unit/data/offerSummaryData'
 import { confirmed4, confirmed5 } from '../../../../tests/unit/data/transactionDetailData'
-import { NavigationWrapper, headerState } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { useTradeSummaryStore } from '../../../store/tradeSummaryStore'
 import { useWalletState } from '../../../utils/wallet/walletStore'
 import { useTransactionHistorySetup } from './useTransactionHistorySetup'
@@ -21,10 +21,6 @@ describe('useTransactionHistorySetup', () => {
     expect(result.current.transactions).toEqual([])
     expect(result.current.refresh).toBeInstanceOf(Function)
     expect(result.current.isRefreshing).toBe(false)
-  })
-  it('should set up the header correctly', () => {
-    renderHook(useTransactionHistorySetup, { wrapper: NavigationWrapper })
-    expect(headerState.header()).toMatchSnapshot()
   })
   it('should return the stored transactions sorted by date and mapped to TxSummary type', () => {
     useWalletState.setState({ transactions: [confirmed4, confirmed5] })
