@@ -1,8 +1,8 @@
-import { createRenderer } from 'react-test-renderer/shallow'
-import { Button, NewButton } from './Button'
 import { render } from '@testing-library/react-native'
-import tw from '../../styles/tailwind'
+import { createRenderer } from 'react-test-renderer/shallow'
 import { toMatchDiffSnapshot } from 'snapshot-diff'
+import tw from '../../styles/tailwind'
+import { Button, NewButton } from './Button'
 expect.extend({ toMatchDiffSnapshot })
 
 const useIsMediumScreenMock = jest.fn(() => false)
