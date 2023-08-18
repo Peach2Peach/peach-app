@@ -5,7 +5,7 @@ import { LabelInput, ReferenceInput, UsernameInput } from '../../index'
 import { CurrencySelection } from '../paymentForms/components'
 import { useTemplate18Setup } from './hooks/useTemplate18Setup'
 
-export const Template19 = (props: FormProps) => {
+export const Template20 = (props: FormProps) => {
   let $username = useRef<TextInput>(null).current
   let $reference = useRef<TextInput>(null).current
 

@@ -23,6 +23,7 @@ import {
   Template8,
   Template9,
 } from '../templates'
+import { Template20 } from '../templates/Template20'
 import { GiftCardAmazon } from './GiftCardAmazon'
 
 describe('paymentMethodForms', () => {
@@ -185,7 +186,7 @@ describe('paymentMethodForms', () => {
     })
     expect(PaymentMethodForms.chippercash).toStrictEqual({
       component: Template18,
-      fields: ['method', 'price', 'chipperTag', 'reference'],
+      fields: ['method', 'price', 'userName', 'reference'],
     })
     expect(PaymentMethodForms.mtn).toStrictEqual({
       component: Template12,
@@ -193,7 +194,11 @@ describe('paymentMethodForms', () => {
     })
     expect(PaymentMethodForms.eversend).toStrictEqual({
       component: Template19,
-      fields: ['method', 'price', 'eversendUserName', 'reference'],
+      fields: ['method', 'price', 'userName', 'reference'],
+    })
+    expect(PaymentMethodForms.payday).toStrictEqual({
+      component: Template20,
+      fields: ['method', 'price', 'userName', 'reference'],
     })
   })
 })

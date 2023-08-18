@@ -54,6 +54,7 @@ declare type AfricaPaymentMethods =
   | 'mtn'
   | 'nationalTransferNG'
   | 'orangeMoney'
+  | 'payday'
   | 'wave'
 declare type BitcoinPaymentMethods = 'liquid' | 'lnurl'
 declare type InternationalPaymentMethds = 'giftCard.amazon' | `giftCard.amazon.${Country}`

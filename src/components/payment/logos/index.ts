@@ -92,6 +92,7 @@ export const PaymentLogos = {
   neteller,
   orangeMoney,
   papara,
+  payday: placeholder,
   paylib,
   paypal,
   paysera,

@@ -23,6 +23,7 @@ import {
   Template8,
   Template9,
 } from '../templates'
+import { Template20 } from '../templates/Template20'
 import { GiftCardAmazon } from './GiftCardAmazon'
 
 type PaymentMethodFormsType = {
@@ -45,12 +46,7 @@ const template11Fields: TradeInfoField[] = [...sharedFields, 'lnurlAddress']
 const template12Fields: TradeInfoField[] = [...sharedFields, 'phone', 'reference']
 const template13Fields: TradeInfoField[] = [...sharedFields, 'phone', 'email', 'reference']
 const template14Fields: TradeInfoField[] = [...sharedFields, 'beneficiary', 'accountNumber', 'reference']
-const template15Fields: TradeInfoField[] = [...sharedFields, 'beneficiary', 'accountNumber', 'reference']
-const template16Fields: TradeInfoField[] = [...sharedFields, 'beneficiary', 'accountNumber', 'reference']
-const template17Fields: TradeInfoField[] = [...sharedFields, 'beneficiary', 'accountNumber', 'reference']
-const template18Fields: TradeInfoField[] = [...sharedFields, 'chipperTag', 'reference']
-const template19Fields: TradeInfoField[] = [...sharedFields, 'eversendUserName', 'reference']
-const template21Fields: TradeInfoField[] = [...sharedFields, 'beneficiary', 'accountNumber', 'reference']
+const template18Fields: TradeInfoField[] = [...sharedFields, 'userName', 'reference']
 
 export const PaymentMethodForms: PaymentMethodFormsType = {
   sepa: { component: Template1, fields: template1Fields },
@@ -88,18 +84,19 @@ export const PaymentMethodForms: PaymentMethodFormsType = {
   mercadoPago: { component: Template13, fields: template13Fields },
   nequi: { component: Template3, fields: template3Fields },
   cbu: { component: Template14, fields: template14Fields },
-  cvu: { component: Template15, fields: template15Fields },
-  alias: { component: Template16, fields: template16Fields },
-  bancolombia: { component: Template17, fields: template17Fields },
+  cvu: { component: Template15, fields: template14Fields },
+  alias: { component: Template16, fields: template14Fields },
+  bancolombia: { component: Template17, fields: template14Fields },
   orangeMoney: { component: Template12, fields: template12Fields },
   moov: { component: Template12, fields: template12Fields },
   wave: { component: Template12, fields: template12Fields },
   airtelMoney: { component: Template12, fields: template12Fields },
   'm-pesa': { component: Template12, fields: template12Fields },
-  nationalTransferNG: { component: Template21, fields: template21Fields },
+  nationalTransferNG: { component: Template21, fields: template14Fields },
   chippercash: { component: Template18, fields: template18Fields },
   mtn: { component: Template12, fields: template12Fields },
-  eversend: { component: Template19, fields: template19Fields },
+  eversend: { component: Template19, fields: template18Fields },
+  payday: { component: Template20, fields: template18Fields },
   sinpe: { component: Template1, fields: template1Fields },
   sinpeMovil: { component: Template3, fields: template3Fields },
 }
