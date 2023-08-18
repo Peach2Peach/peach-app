@@ -1,4 +1,4 @@
-import { PAYMENTCATEGORIES } from '../../constants'
+import { PAYMENTCATEGORIES } from '../../paymentMethods'
 import { paymentMethodAllowedForCurrency } from '../paymentMethod'
 
 export const hasApplicablePaymentMethods = (paymentCategory: PaymentCategory, currency: Currency): boolean =>

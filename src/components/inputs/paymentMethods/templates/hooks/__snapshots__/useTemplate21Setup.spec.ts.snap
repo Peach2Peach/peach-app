@@ -11,6 +11,13 @@ exports[`useTemplate21Setup should return the correct values 1`] = `
     "required": true,
     "value": "accountNumber",
   },
+  "beneficiaryInputProps": {
+    "errorMessage": [
+      "this field is required",
+    ],
+    "onChange": [Function],
+    "value": "",
+  },
   "currencySelectionProps": {
     "onToggle": [Function],
     "paymentMethod": "gtBank",
@@ -20,6 +27,11 @@ exports[`useTemplate21Setup should return the correct values 1`] = `
     "errorMessage": [],
     "onChange": [Function],
     "value": "label",
+  },
+  "referenceInputProps": {
+    "errorMessage": [],
+    "onChange": [Function],
+    "value": "",
   },
   "shouldShowCurrencySelection": false,
 }

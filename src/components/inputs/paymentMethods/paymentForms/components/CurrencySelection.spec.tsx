@@ -1,7 +1,7 @@
-import { CurrencySelection } from './CurrencySelection'
-import { createRenderer } from 'react-test-renderer/shallow'
-import { setPaymentMethods } from '../../../../../constants'
 import { fireEvent, render } from '@testing-library/react-native'
+import { createRenderer } from 'react-test-renderer/shallow'
+import { setPaymentMethods } from '../../../../../paymentMethods'
+import { CurrencySelection } from './CurrencySelection'
 
 describe('CurrencySelection', () => {
   const renderer = createRenderer()

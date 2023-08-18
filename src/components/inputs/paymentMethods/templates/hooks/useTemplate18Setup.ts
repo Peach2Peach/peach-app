@@ -1,25 +1,23 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useValidatedState } from '../../../../../hooks'
-import i18n from '../../../../../utils/i18n'
 import { FormProps } from '../../../../../views/addPaymentMethod/PaymentMethodForm'
 import { toggleCurrency } from '../../paymentForms/utils'
 import { hasMultipleAvailableCurrencies } from '../utils/hasMultipleAvailableCurrencies'
 import { useLabelInput } from './useLabelInput'
+import { useReferenceInput } from './useReferenceInput'
 
-const referenceRules = { required: false, isValidPaymentReference: true }
-const chipperTagRules = { required: true, userName: true }
+const userNameRules = { required: true, userName: true }
 
 export const useTemplate18Setup = ({ data, onSubmit, setStepValid, setFormData }: FormProps) => {
   const { currencies, type: paymentMethod } = data
   const { labelInputProps, labelErrors, setDisplayErrors: setDisplayLabelErrors, label } = useLabelInput(data)
-  const [chipperTag, setChipperTag, chipperTagIsValid, chipperTagErrors] = useValidatedState(
-    data?.chipperTag || '',
-    chipperTagRules,
-  )
-  const [reference, setReference, referenceIsValid, referenceErrors] = useValidatedState(
-    data?.reference || '',
-    referenceRules,
-  )
+  const [userName, setUserName, userNameIsValid, userNameErrors] = useValidatedState(data?.userName || '', userNameRules)
+  const {
+    referenceInputProps,
+    referenceIsValid,
+    setDisplayErrors: setDisplayReferenceErrors,
+    reference,
+  } = useReferenceInput(data)
   const [displayErrors, setDisplayErrors] = useState(false)
   const [selectedCurrencies, setSelectedCurrencies] = useState(data?.currencies || currencies)
 
@@ -28,11 +26,11 @@ export const useTemplate18Setup = ({ data, onSubmit, setStepValid, setFormData }
       id: data?.id || `${paymentMethod}-${Date.now()}`,
       label,
       type: paymentMethod,
-      chipperTag,
+      userName,
       reference,
       currencies: selectedCurrencies,
     }),
-    [data?.id, paymentMethod, label, chipperTag, reference, selectedCurrencies],
+    [data?.id, paymentMethod, label, userName, reference, selectedCurrencies],
   )
 
   const onCurrencyToggle = (currency: Currency) => setSelectedCurrencies(toggleCurrency(currency))
@@ -40,8 +38,9 @@ export const useTemplate18Setup = ({ data, onSubmit, setStepValid, setFormData }
   const isFormValid = useCallback(() => {
     setDisplayLabelErrors(true)
     setDisplayErrors(true)
-    return labelErrors.length === 0 && chipperTagIsValid && referenceIsValid
-  }, [chipperTagIsValid, labelErrors.length, referenceIsValid, setDisplayLabelErrors])
+    setDisplayReferenceErrors(true)
+    return labelErrors.length === 0 && userNameIsValid && referenceIsValid
+  }, [userNameIsValid, labelErrors.length, referenceIsValid, setDisplayLabelErrors, setDisplayReferenceErrors])
 
   const save = () => {
     if (!isFormValid()) return
@@ -56,21 +55,14 @@ export const useTemplate18Setup = ({ data, onSubmit, setStepValid, setFormData }
 
   return {
     labelInputProps,
-    chipperTagInputProps: {
-      value: chipperTag,
+    userNameInputProps: {
+      value: userName,
       required: true,
-      onChange: setChipperTag,
+      onChange: setUserName,
       onSubmit: save,
-      label: i18n('form.chippertag'),
-      placeholder: i18n('form.chippertag.placeholder'),
-      errorMessage: displayErrors ? chipperTagErrors : undefined,
+      errorMessage: displayErrors ? userNameErrors : undefined,
     },
-    referenceInputProps: {
-      value: reference,
-      onChange: setReference,
-      onSubmit: save,
-      errorMessage: displayErrors ? referenceErrors : undefined,
-    },
+    referenceInputProps,
     currencySelectionProps: {
       paymentMethod,
       onToggle: onCurrencyToggle,

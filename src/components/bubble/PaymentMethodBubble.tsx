@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { APPLINKS } from '../../constants'
+import { APPLINKS } from '../../paymentMethods'
 import { getPaymentMethodName } from '../../utils/paymentMethod'
 import { openAppLink } from '../../utils/web'
 import { Bubble } from './Bubble'

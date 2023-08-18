@@ -28,6 +28,11 @@ exports[`useTemplate16Setup should return the correct values 1`] = `
     "onChange": [Function],
     "value": "label",
   },
+  "referenceInputProps": {
+    "errorMessage": [],
+    "onChange": [Function],
+    "value": "",
+  },
   "shouldShowCurrencySelection": false,
 }
 `;

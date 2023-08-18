@@ -1,17 +1,37 @@
-import { View } from 'react-native'
+import { useRef } from 'react'
+import { TextInput, View } from 'react-native'
 import { FormProps } from '../../../../views/addPaymentMethod/PaymentMethodForm'
-import { BankNumberInput, LabelInput } from '../../index'
+import { BankNumberInput, BeneficiaryInput, LabelInput, ReferenceInput } from '../../index'
 import { CurrencySelection } from '../paymentForms/components'
 import { useTemplate21Setup } from './hooks/useTemplate21Setup'
 
 export const Template21 = (props: FormProps) => {
-  const { labelInputProps, accountNumberInputProps, shouldShowCurrencySelection, currencySelectionProps }
-    = useTemplate21Setup(props)
+  const {
+    labelInputProps,
+    beneficiaryInputProps,
+    accountNumberInputProps,
+    referenceInputProps,
+    shouldShowCurrencySelection,
+    currencySelectionProps,
+  } = useTemplate21Setup(props)
+  let $beneficiary = useRef<TextInput>(null).current
+  let $bankNumber = useRef<TextInput>(null).current
+  let $reference = useRef<TextInput>(null).current
 
   return (
     <View>
-      <LabelInput {...labelInputProps} />
-      <BankNumberInput {...accountNumberInputProps} />
+      <LabelInput {...labelInputProps} onSubmit={() => $beneficiary?.focus()} />
+      <BeneficiaryInput
+        {...beneficiaryInputProps}
+        onSubmit={() => $bankNumber?.focus()}
+        reference={(el: any) => ($beneficiary = el)}
+      />
+      <BankNumberInput
+        {...accountNumberInputProps}
+        onSubmit={() => $reference?.focus()}
+        reference={(el: any) => ($bankNumber = el)}
+      />
+      <ReferenceInput {...referenceInputProps} reference={(el: any) => ($reference = el)} />
 
       {shouldShowCurrencySelection && <CurrencySelection {...currencySelectionProps} />}
     </View>

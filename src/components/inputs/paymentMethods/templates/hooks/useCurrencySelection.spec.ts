@@ -1,6 +1,6 @@
-import { setPaymentMethods } from '../../../../../constants'
+import { act, renderHook } from '@testing-library/react-native'
+import { setPaymentMethods } from '../../../../../paymentMethods'
 import { useCurrencySelection } from './useCurrencySelection'
-import { renderHook, act } from '@testing-library/react-native'
 
 describe('useCurrencySelection', () => {
   const defaultProps = {
