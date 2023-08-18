@@ -11,6 +11,7 @@ export type WalletState = {
   addresses: string[]
   transactions: TransactionDetails[]
   pendingTransactions: Record<string, string>
+  fundedFromPeachWallet: string[]
   txOfferMap: Record<string, string>
   addressLabelMap: Record<string, string>
   fundMultipleMap: Record<string, string[]>
@@ -31,6 +32,8 @@ export type WalletStore = WalletState & {
   getTransaction: (txId: string) => TransactionDetails | undefined
   addPendingTransactionHex: (txId: string, hex: string) => void
   removePendingTransaction: (txId: string) => void
+  isFundedFromPeachWallet: (address: string) => boolean
+  setFundedFromPeachWallet: (address: string) => void
   labelAddress: (address: string, label: string) => void
   updateTxOfferMap: (txid: string, offerId: string) => void
   registerFundMultiple: (address: string, offerIds: string[]) => void
@@ -45,6 +48,7 @@ export const defaultWalletState: WalletState = {
   balance: 0,
   transactions: [],
   pendingTransactions: {},
+  fundedFromPeachWallet: [],
   txOfferMap: {},
   addressLabelMap: {},
   fundMultipleMap: {},
@@ -62,6 +66,8 @@ export const useWalletState = create(
       setBalance: (balance) => set({ balance }),
       setTransactions: (transactions) => set({ transactions }),
       getTransaction: (txId) => get().transactions.find((tx) => tx.txid === txId),
+      isFundedFromPeachWallet: (address) => get().fundedFromPeachWallet.includes(address),
+      setFundedFromPeachWallet: (address) => set({ fundedFromPeachWallet: [...get().fundedFromPeachWallet, address] }),
       addPendingTransactionHex: (txid, hex) =>
         set((state) => ({ pendingTransactions: { ...state.pendingTransactions, [txid]: hex } })),
       removePendingTransaction: (txid) => {

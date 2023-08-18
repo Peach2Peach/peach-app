@@ -1,5 +1,6 @@
 import { TxBuilderResult } from 'bdk-rn/lib/classes/Bindings'
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
+import { shallow } from 'zustand/shallow'
 import { useFeeRate } from '../../../hooks/useFeeRate'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { useConfigStore } from '../../../store/configStore'
@@ -32,11 +33,20 @@ export const useFundFromPeachWallet = ({ address, addresses = [], amount, fundin
     () => canFundOfferFromPeachWallet(fundingStatus, address),
     [fundingStatus, address],
   )
-  const [fundedFromPeachWallet, setFundedFromPeachWallet] = useState(false)
+  const [fundedFromPeachWallet, setFundedFromPeachWallet, unregisterFundMultiple] = useWalletState(
+    (state) => [
+      address ? state.isFundedFromPeachWallet(address) : false,
+      state.setFundedFromPeachWallet,
+      state.unregisterFundMultiple,
+    ],
+    shallow,
+  )
 
   const onSuccess = () => {
-    if (address) useWalletState.getState().unregisterFundMultiple(address)
-    setFundedFromPeachWallet(true)
+    if (address) {
+      unregisterFundMultiple(address)
+      setFundedFromPeachWallet(address)
+    }
   }
 
   const fundFromPeachWallet = async () => {
