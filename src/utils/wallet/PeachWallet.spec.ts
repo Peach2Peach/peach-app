@@ -25,6 +25,7 @@ import {
   txBuilderFinishMock,
   walletGetAddressMock,
   walletGetBalanceMock,
+  walletGetInternalAddressMock,
   walletListTransactionsMock,
   walletSignMock,
   walletSyncMock,
@@ -51,11 +52,14 @@ jest.mock('./transaction/buildTransaction', () => ({
 jest.useFakeTimers()
 
 describe('PeachWallet', () => {
+  const address1 = 'address1'
+  const address2 = 'address2'
   const outpoint1 = new OutPoint(confirmed1.txid, 0)
   const outpoint2 = new OutPoint(confirmed2.txid, 0)
-  const txOut = new TxOut(10000, new Script('address'))
-  const utxo1 = new LocalUtxo(outpoint1, txOut, false, KeychainKind.External)
-  const utxo2 = new LocalUtxo(outpoint2, txOut, true, KeychainKind.External)
+  const txOut1 = new TxOut(10000, new Script(address1))
+  const txOut2 = new TxOut(10000, new Script(address2))
+  const utxo1 = new LocalUtxo(outpoint1, txOut1, false, KeychainKind.External)
+  const utxo2 = new LocalUtxo(outpoint2, txOut2, true, KeychainKind.External)
 
   const txResponse: TransactionDetails[] = [
     createTransaction({ txid: 'txid1', sent: 1, received: 1, fee: 1, confirmationTime: { timestamp: 1, height: 1 } }),
@@ -224,6 +228,18 @@ describe('PeachWallet', () => {
     expect(newAddress).toBe(address)
     expect(addressIndex).toBe(index)
     expect(walletGetAddressMock).toHaveBeenCalledWith(AddressIndex.LastUnused)
+  })
+  it('gets new internal address', async () => {
+    const address = 'address'
+    const addressObject = new Address()
+    addressObject.asString = jest.fn().mockResolvedValue(address)
+    const index = 4
+    walletGetInternalAddressMock.mockResolvedValueOnce({ address: addressObject, index })
+
+    const { address: newAddress, index: addressIndex } = await peachWallet.getNewInternalAddress()
+    expect(newAddress).toBe(address)
+    expect(addressIndex).toBe(index)
+    expect(walletGetInternalAddressMock).toHaveBeenCalledWith(AddressIndex.New)
   })
   it('gets address by index', async () => {
     const address = 'address'

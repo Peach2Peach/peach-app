@@ -86,8 +86,8 @@
   "paymentMethod.vipps" : "Vipps",
   "paymentMethod.wave" : "Wave",
   "paymentMethod.wise" : "Wise",
-  "paymentMethods.edit.title" : "modifica metodi di pagamento",
-  "paymentMethods.title" : "metodi di pagamento",
+  "paymentMethods.edit.title" : "modifica metodi pagamento",
+  "paymentMethods.title" : "Metodi pagamento",
   "paymentSection.meetups" : "meetups",
   "paymentSection.remote" : "A Distanza"
 }

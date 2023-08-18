@@ -68,6 +68,7 @@ declare type SelfUser = User & {
   maxFreeTrades: number
   historyRating: number
   recentRating: number
+  isBatchingEnabled: boolean
 }
 
 declare type TradingLimit = {
@@ -254,6 +255,7 @@ declare type TradeStatus =
   | 'refundTxSignatureRequired'
   | 'paymentRequired'
   | 'confirmPaymentRequired'
+  | 'payoutPending'
   | 'dispute'
   | 'releaseEscrow'
   | 'rateUser'
@@ -299,10 +301,8 @@ declare type Offer = OfferDraft & {
   creationDate: Date
   lastModified?: Date
 }
-
-declare type PostOfferResponseBody =
-  | Omit<BuyOffer, 'originalPaymentData' | 'tradeStatus'>
-  | Omit<SellOffer, 'originalPaymentData' | 'tradeStatus'>
+declare type PostedOffer = BuyOffer | SellOffer
+declare type PostOfferResponseBody = PostedOffer | PostedOffer[]
 declare type OfferType = 'ask' | 'bid'
 
 declare type CreateEscrowResponse = {

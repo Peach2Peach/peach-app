@@ -1,0 +1,82 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GroupHugAnnouncement renders correctly 1`] = `
+<View
+  style={
+    {
+      "alignItems": "center",
+      "height": "100%",
+      "justifyContent": "space-between",
+      "paddingBottom": 28,
+      "paddingLeft": 24,
+      "paddingRight": 24,
+    }
+  }
+>
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "flexShrink": 1,
+        "gap": 16,
+        "height": "100%",
+        "justifyContent": "center",
+        "width": "100%",
+      }
+    }
+  >
+    <PeachText
+      style={
+        {
+          "color": "#FFFCFA",
+          "fontFamily": "Baloo2-Bold",
+          "fontSize": 34,
+          "letterSpacing": 0.34,
+          "lineHeight": 42,
+          "textAlign": "center",
+        }
+      }
+    >
+      It's time for a GroupHug!
+    </PeachText>
+    <PeachText
+      style={
+        {
+          "color": "#FFFCFA",
+          "fontFamily": "Baloo2-Regular",
+          "fontSize": 20,
+          "letterSpacing": 0.2,
+          "lineHeight": 28,
+          "textAlign": "center",
+        }
+      }
+    >
+      With GroupHug, we bundle escrow releases for lower transaction fees.
+
+Opt in, wait a tad, save more.
+
+You're in control, switch anytime.
+    </PeachText>
+  </View>
+  <PrimaryButton
+    onPress={[MockFunction]}
+    white={true}
+    wide={true}
+  >
+    go to settings
+  </PrimaryButton>
+  <PrimaryButton
+    border={true}
+    onPress={[MockFunction]}
+    style={
+      {
+        "marginTop": 8,
+      }
+    }
+    white={true}
+    wide={true}
+  >
+    close
+  </PrimaryButton>
+</View>
+`;

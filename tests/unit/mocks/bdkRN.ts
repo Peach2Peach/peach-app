@@ -138,6 +138,7 @@ export const txBuilderDrainWalletMock = jest.fn()
 export const txBuilderEnableRbfMock = jest.fn()
 export const txBuilderAddUtxosMock = jest.fn()
 export const txBuilderDrainToMock = jest.fn()
+export const txBuildSetRecipientsMock = jest.fn()
 export const txBuilderFinishMock = jest.fn()
 export const txBuilderManuallySelectedOnlyMock = jest.fn()
 export class TxBuilder {
@@ -173,7 +174,7 @@ export class TxBuilder {
 
   addData = jest.fn()
 
-  setRecipients = jest.fn()
+  setRecipients = txBuildSetRecipientsMock
 
   finish = txBuilderFinishMock
 }
@@ -187,6 +188,7 @@ export const walletGetBalanceMock = jest.fn().mockResolvedValue({
 })
 
 export const walletGetAddressMock = jest.fn()
+export const walletGetInternalAddressMock = jest.fn()
 export const walletSyncMock = jest.fn()
 export const walletListUnspentMock = jest.fn().mockResolvedValue([])
 export const walletListTransactionsMock = jest.fn().mockResolvedValue([])
@@ -195,6 +197,8 @@ export class Wallet {
   create = jest.fn().mockReturnThis()
 
   getAddress = walletGetAddressMock
+
+  getInternalAddress = walletGetInternalAddressMock
 
   getBalance = walletGetBalanceMock
 

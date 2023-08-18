@@ -42,3 +42,10 @@ declare type Transaction = {
   value?: number
   status: TransactionStatus
 }
+
+declare type UTXO = {
+  txid: string
+  vout: number
+  value: number
+  status: TransactionStatus
+}

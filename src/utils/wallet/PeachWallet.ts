@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import { BLOCKEXPLORER, NETWORK } from '@env'
 import {
   Blockchain,
@@ -19,6 +20,7 @@ import { PeachJSWallet } from './PeachJSWallet'
 import { handleTransactionError } from './error/handleTransactionError'
 import { storePendingTransactionHex } from './getAndStorePendingTransactionHex'
 import { getDescriptorSecretKey } from './getDescriptorSecretKey'
+import { getUTXOAddress } from './getUTXOAddress'
 import { labelAddressByTransaction } from './labelAddressByTransaction'
 import { mapTransactionToOffer } from './mapTransactionToOffer'
 import { rebroadcastTransactions } from './rebroadcastTransactions'
@@ -183,6 +185,15 @@ export class PeachWallet extends PeachJSWallet {
     }
   }
 
+  async getNewInternalAddress () {
+    if (!this.wallet) throw Error('WALLET_NOT_READY')
+    const addressInfo = await this.wallet.getInternalAddress(AddressIndex.New)
+    return {
+      ...addressInfo,
+      address: await addressInfo.address.asString(),
+    }
+  }
+
   async getAddressByIndex (index: number) {
     const { index: lastUnusedIndex } = await this.getLastUnusedAddress()
     const address = this.getAddress(index)
@@ -200,6 +211,14 @@ export class PeachWallet extends PeachJSWallet {
       ...addressInfo,
       address: await addressInfo.address.asString(),
     }
+  }
+
+  async getAddressUTXO (address: string) {
+    if (!this.wallet) throw Error('WALLET_NOT_READY')
+
+    const utxo = await this.wallet.listUnspent()
+    const utxoAddresses = await Promise.all(utxo.map(getUTXOAddress(this.network)))
+    return utxo.filter((utx, i) => utxoAddresses[i] === address)
   }
 
   async buildFinishedTransaction (buildParams: BuildTxParams) {

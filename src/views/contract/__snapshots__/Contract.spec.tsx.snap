@@ -46,6 +46,8 @@ exports[`Contract should render a default Contract 1`] = `
               "username": "sellerUsername",
             },
           },
+          "showBatchInfo": undefined,
+          "toggleShowBatchInfo": undefined,
           "view": "buyer",
         }
       }

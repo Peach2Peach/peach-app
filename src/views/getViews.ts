@@ -19,6 +19,7 @@ import { FundEscrow } from './fundEscrow/FundEscrow'
 import { BitcoinLoading } from './loading/BitcoinLoading'
 import { NewUser } from './newUser/NewUser'
 import { OfferDetails } from './offerDetails/OfferDetails'
+import { GroupHugAnnouncement } from './overlays/GroupHugAnnouncement'
 import { NewBadge } from './overlays/NewBadge'
 import { PublicProfile } from './publicProfile/PublicProfile'
 import { Referrals } from './referrals/Referrals'
@@ -44,6 +45,7 @@ import { NetworkFees } from './settings/NetworkFees'
 import { PayoutAddress } from './settings/PayoutAddress'
 import { MyProfile } from './settings/profile/MyProfile'
 import { Settings } from './settings/Settings'
+import { TransactionBatching } from './settings/TransactionBatching'
 import { TestViewButtons } from './TestView/buttons'
 import { TestViewComponents } from './TestView/components'
 import { TestViewMessages } from './TestView/messages'
@@ -158,6 +160,7 @@ const publicProfile: ViewType[] = [{ name: 'publicProfile', component: PublicPro
 
 const overlays: ViewType[] = [
   { name: 'offerPublished', component: OfferPublished, ...invertedThemeConfig },
+  { name: 'groupHugAnnouncement', component: GroupHugAnnouncement, ...invertedThemeConfig },
   { name: 'newBadge', component: NewBadge, ...invertedThemeConfig },
 ]
 
@@ -181,6 +184,7 @@ const settings: ViewType[] = [
   { name: 'paymentMethods', component: PaymentMethods, ...defaultConfig },
   { name: 'peachFees', component: PeachFees, ...defaultConfig },
   { name: 'networkFees', component: NetworkFees, ...defaultConfig },
+  { name: 'transactionBatching', component: TransactionBatching, ...defaultConfig },
   { name: 'socials', component: Socials, ...defaultConfig },
 ]
 

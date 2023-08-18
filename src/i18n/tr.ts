@@ -1,5 +1,6 @@
 import accessibility from './accessibility/tr.json'
 import analytics from './analytics/tr.json'
+import batching from './batching/tr.json'
 import buy from './buy/tr.json'
 import chat from './chat/tr.json'
 import contract from './contract/tr.json'
@@ -23,6 +24,7 @@ const tr: Record<string, string> = {
   ...global,
   ...accessibility,
   ...analytics,
+  ...batching,
   ...buy,
   ...chat,
   ...contract,

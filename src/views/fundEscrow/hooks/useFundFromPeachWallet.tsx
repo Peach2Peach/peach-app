@@ -5,19 +5,22 @@ import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { useConfigStore } from '../../../store/configStore'
 import { parseError } from '../../../utils/result'
 import { peachWallet } from '../../../utils/wallet/setWallet'
-import { buildTransaction } from '../../../utils/wallet/transaction'
+import { buildTransaction, setMultipleRecipients } from '../../../utils/wallet/transaction'
+import { useWalletState } from '../../../utils/wallet/walletStore'
 import { useOpenAmountTooLowPopup } from './useOpenAmountTooLowPopup'
 import { useShowFundEscrowPopup } from './useShowFundEscrowPopup'
 import { useShowInsufficientFundsPopup } from './useShowInsufficientFundsPopup'
 
-const canFundOfferFromPeachWallet = (fundingStatus: FundingStatus, offer?: SellOffer) =>
-  offer?.escrow && fundingStatus.status === 'NULL'
+const canFundOfferFromPeachWallet = (fundingStatus: FundingStatus, address?: string) =>
+  !!address && fundingStatus.status === 'NULL'
 
 type Props = {
-  offer?: SellOffer
+  address?: string
+  addresses?: string[]
+  amount?: number
   fundingStatus: FundingStatus
 }
-export const useFundFromPeachWallet = ({ offer, fundingStatus }: Props) => {
+export const useFundFromPeachWallet = ({ address, addresses = [], amount, fundingStatus }: Props) => {
   const minTradingAmount = useConfigStore((state) => state.minTradingAmount)
   const showErrorBanner = useShowErrorBanner()
   const showFundEscrowPopup = useShowFundEscrowPopup()
@@ -25,42 +28,54 @@ export const useFundFromPeachWallet = ({ offer, fundingStatus }: Props) => {
   const openAmountTooLowPopup = useOpenAmountTooLowPopup()
 
   const feeRate = useFeeRate()
-  const canFundFromPeachWallet = useMemo(() => canFundOfferFromPeachWallet(fundingStatus, offer), [fundingStatus, offer])
+  const canFundFromPeachWallet = useMemo(
+    () => canFundOfferFromPeachWallet(fundingStatus, address),
+    [fundingStatus, address],
+  )
   const [fundedFromPeachWallet, setFundedFromPeachWallet] = useState(false)
 
-  const onSuccess = () => setFundedFromPeachWallet(true)
+  const onSuccess = () => {
+    if (address) useWalletState.getState().unregisterFundMultiple(address)
+    setFundedFromPeachWallet(true)
+  }
 
   const fundFromPeachWallet = async () => {
-    if (!offer?.escrow || !canFundFromPeachWallet) return undefined
+    if (!address || !amount || !canFundFromPeachWallet) return undefined
+    if (peachWallet.balance < (addresses.length || 1) * minTradingAmount) {
+      return openAmountTooLowPopup(peachWallet.balance, (addresses.length || 1) * minTradingAmount)
+    }
 
-    if (peachWallet.balance < minTradingAmount) return openAmountTooLowPopup(peachWallet.balance, minTradingAmount)
     let finishedTransaction: TxBuilderResult
     try {
-      const transaction = await buildTransaction({ address: offer.escrow, amount: offer.amount, feeRate })
+      const transaction = await buildTransaction({ feeRate })
+      if (addresses.length > 0) await setMultipleRecipients(transaction, amount, addresses)
+
       finishedTransaction = await peachWallet.finishTransaction(transaction)
     } catch (e) {
       const transactionError = parseError(Array.isArray(e) ? e[0] : e)
       if (transactionError !== 'INSUFFICIENT_FUNDS') return showErrorBanner(transactionError)
-      const transaction = await buildTransaction({ address: offer.escrow, feeRate, shouldDrainWallet: true })
+
+      if (addresses.length > 1) {
+        const { available } = Array.isArray(e) ? e[1] : { available: 0 }
+        return showErrorBanner('INSUFFICIENT_FUNDS', [amount, available])
+      }
+
+      const transaction = await buildTransaction({ address, feeRate, shouldDrainWallet: true })
       finishedTransaction = await peachWallet.finishTransaction(transaction)
       return showInsufficientFundsPopup({
-        address: offer.escrow,
+        address,
         transaction: finishedTransaction,
         feeRate,
         onSuccess,
       })
     }
     return showFundEscrowPopup({
-      address: offer.escrow,
+      address,
       transaction: finishedTransaction,
       feeRate,
       onSuccess,
     })
   }
 
-  return {
-    canFundFromPeachWallet,
-    fundFromPeachWallet,
-    fundedFromPeachWallet,
-  }
+  return { canFundFromPeachWallet, fundFromPeachWallet, fundedFromPeachWallet }
 }

@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`useTransactionBatchingSetup sets up header correctly 1`] = `
+<Header
+  title="transaction batching"
+/>
+`;

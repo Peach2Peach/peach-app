@@ -3,7 +3,7 @@ import { LocalUtxo } from 'bdk-rn/lib/classes/Bindings'
 import { getScriptPubKeyFromAddress } from './getScriptPubKeyFromAddress'
 
 export type BuildTxParams = {
-  address: string
+  address?: string
   feeRate?: number
   utxos?: LocalUtxo[]
 } & (
@@ -12,11 +12,16 @@ export type BuildTxParams = {
       shouldDrainWallet?: boolean
     }
   | {
+      address?: string
       shouldDrainWallet: true
+    }
+  | {
+      address?: undefined
     }
 )
 export const buildTransaction = async (args: BuildTxParams) => {
   const txBuilder = await buildTransactionBase(args.feeRate)
+  if (!args.address) return txBuilder
 
   if (args.utxos) {
     txBuilder.addUtxos(args.utxos.map((utxo) => utxo.outpoint))
@@ -29,7 +34,7 @@ export const buildTransaction = async (args: BuildTxParams) => {
       await txBuilder.drainWallet()
     }
     await txBuilder.drainTo(recipient)
-  } else {
+  } else if (args.address) {
     await txBuilder.addRecipient(recipient, args.amount)
   }
 
