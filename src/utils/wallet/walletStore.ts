@@ -12,7 +12,7 @@ export type WalletState = {
   transactions: TransactionDetails[]
   pendingTransactions: Record<string, string>
   fundedFromPeachWallet: string[]
-  txOfferMap: Record<string, string>
+  txOfferMap: Record<string, string[]>
   addressLabelMap: Record<string, string>
   fundMultipleMap: Record<string, string[]>
   showBalance: boolean
@@ -35,7 +35,7 @@ export type WalletStore = WalletState & {
   isFundedFromPeachWallet: (address: string) => boolean
   setFundedFromPeachWallet: (address: string) => void
   labelAddress: (address: string, label: string) => void
-  updateTxOfferMap: (txid: string, offerId: string) => void
+  updateTxOfferMap: (txid: string, offerIds: string[]) => void
   registerFundMultiple: (address: string, offerIds: string[]) => void
   unregisterFundMultiple: (address: string) => void
   getFundMultipleByOfferId: (offerId: string) => FundMultipleInfo | undefined
@@ -82,11 +82,11 @@ export const useWalletState = create(
             [address]: label,
           },
         })),
-      updateTxOfferMap: (txId, offerId) =>
+      updateTxOfferMap: (txId, offerIds) =>
         set((state) => ({
           txOfferMap: {
             ...state.txOfferMap,
-            [txId]: offerId,
+            [txId]: offerIds,
           },
         })),
       registerFundMultiple: (address, offerIds) =>
@@ -112,7 +112,7 @@ export const useWalletState = create(
     }),
     {
       name: 'wallet',
-      version: 1,
+      version: 2,
       storage: createJSONStorage(() => toZustandStorage(walletStorage)),
       migrate: migrateWalletStore,
     },
