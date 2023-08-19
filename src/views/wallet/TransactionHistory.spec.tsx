@@ -1,5 +1,7 @@
+import { fireEvent, render } from '@testing-library/react-native'
 import { createRenderer } from 'react-test-renderer/shallow'
 import { confirmedTransactionSummary, pendingTransactionSummary } from '../../../tests/unit/data/transactionDetailData'
+import { NavigationWrapper, navigateMock } from '../../../tests/unit/helpers/NavigationWrapper'
 import { mockDimensions } from '../../../tests/unit/helpers/mockDimensions'
 import { TransactionHistory } from './TransactionHistory'
 
@@ -45,5 +47,16 @@ describe('TransactionHistory', () => {
 
     const renderOutput = renderer.getRenderOutput()
     expect(renderOutput).toMatchSnapshot()
+  })
+  it('should navigate to "exportTransactionHistory" when share icon is pressed', () => {
+    useTransactionHistorySetupMock.mockReturnValueOnce({
+      ...useTransactionHistorySetupData,
+      transactions: [],
+    })
+    const { getByAccessibilityHint } = render(<TransactionHistory />, { wrapper: NavigationWrapper })
+    const shareIcon = getByAccessibilityHint('go to export transaction history')
+    fireEvent.press(shareIcon)
+
+    expect(navigateMock).toHaveBeenCalledWith('exportTransactionHistory')
   })
 })

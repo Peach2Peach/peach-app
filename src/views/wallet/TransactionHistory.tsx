@@ -36,5 +36,16 @@ function TransactionHistoryHeader () {
   const onPress = () => {
     navigation.navigate('exportTransactionHistory')
   }
-  return <Header title={i18n('wallet.transactionHistory')} icons={[{ ...headerIcons.share, onPress }]} />
+  return (
+    <Header
+      title={i18n('wallet.transactionHistory')}
+      icons={[
+        {
+          ...headerIcons.share,
+          onPress,
+          accessibilityHint: `${i18n('goTo')} ${i18n('wallet.exportHistory.title')}`,
+        },
+      ]}
+    />
+  )
 }
