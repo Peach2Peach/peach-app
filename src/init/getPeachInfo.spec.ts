@@ -3,8 +3,8 @@ import { getPeachInfo } from './getPeachInfo'
 import { storePeachInfo } from './storePeachInfo'
 
 const setPaymentMethodsMock = jest.fn()
-jest.mock('../constants', () => ({
-  ...jest.requireActual('../constants'),
+jest.mock('../paymentMethods', () => ({
+  ...jest.requireActual('../paymentMethods'),
   setPaymentMethods: (...args: any) => setPaymentMethodsMock(...args),
 }))
 const getInfoMock = jest.fn()

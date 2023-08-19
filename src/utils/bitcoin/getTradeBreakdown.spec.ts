@@ -1,3 +1,4 @@
+/* eslint-disable max-lines-per-function */
 import { getTradeBreakdown } from '.'
 
 const fromHexMock = jest.fn()
@@ -8,7 +9,7 @@ jest.mock('bitcoinjs-lib', () => ({
     fromHex: () => fromHexMock(),
   },
   address: {
-    fromOutputScript: (...args: any[]) => fromOutputScriptMock(...args),
+    fromOutputScript: (script: string) => fromOutputScriptMock(script),
   },
 }))
 
@@ -22,8 +23,8 @@ describe('getTradeBreakdown', () => {
   const releaseAddress = 'releaseAddress'
   it('should handle no release output', () => {
     const inputAmount = 100
-    fromHexMock.mockReturnValue({ outs: [] })
-    expect(getTradeBreakdown(releaseTransaction, releaseAddress, inputAmount)).toEqual({
+    fromHexMock.mockReturnValue({ virtualSize: () => 171, outs: [] })
+    expect(getTradeBreakdown({ releaseTransaction, releaseAddress, inputAmount })).toEqual({
       totalAmount: 0,
       peachFee: 0,
       networkFee: 0,
@@ -34,14 +35,10 @@ describe('getTradeBreakdown', () => {
   it('should handle no peach fee output', () => {
     const inputAmount = 100
     fromHexMock.mockReturnValue({
-      outs: [
-        {
-          script: 'script',
-          value: 100,
-        },
-      ],
+      virtualSize: () => 171,
+      outs: [{ script: 'script', value: 100 }],
     })
-    expect(getTradeBreakdown(releaseTransaction, releaseAddress, inputAmount)).toEqual({
+    expect(getTradeBreakdown({ releaseTransaction, releaseAddress, inputAmount })).toEqual({
       totalAmount: 100,
       peachFee: 0,
       networkFee: 0,
@@ -52,22 +49,34 @@ describe('getTradeBreakdown', () => {
   it('should return correct breakdown', () => {
     const inputAmount = 120
     fromHexMock.mockReturnValue({
+      virtualSize: () => 171,
       outs: [
-        {
-          script: 'peach',
-          value: 10,
-        },
-        {
-          script: 'releaseAddress',
-          value: 100,
-        },
+        { script: 'peach', value: 10 },
+        { script: 'releaseAddress', value: 100 },
       ],
     })
-    expect(getTradeBreakdown(releaseTransaction, releaseAddress, inputAmount)).toEqual({
+    expect(getTradeBreakdown({ releaseTransaction, releaseAddress, inputAmount })).toEqual({
       totalAmount: 120,
       peachFee: 10,
       networkFee: 10,
       amountReceived: 100,
+    })
+  })
+
+  it('should return correct breakdown with discount', () => {
+    const inputAmount = 100000
+    fromHexMock.mockReturnValue({
+      virtualSize: () => 171,
+      outs: [
+        { script: 'peach', value: 2000 },
+        { script: 'releaseAddress', value: 97829 },
+      ],
+    })
+    expect(getTradeBreakdown({ releaseTransaction, releaseAddress, inputAmount, discount: 40 })).toEqual({
+      totalAmount: 100000,
+      peachFee: 2000,
+      networkFee: 131,
+      amountReceived: 97869,
     })
   })
 
@@ -76,7 +85,7 @@ describe('getTradeBreakdown', () => {
     fromHexMock.mockImplementation(() => {
       throw new Error('error')
     })
-    expect(getTradeBreakdown(releaseTransaction, releaseAddress, inputAmount)).toEqual({
+    expect(getTradeBreakdown({ releaseTransaction, releaseAddress, inputAmount })).toEqual({
       totalAmount: 0,
       peachFee: 0,
       networkFee: 0,

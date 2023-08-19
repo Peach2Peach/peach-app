@@ -19,7 +19,11 @@ jest.mock('../../../utils/peachAPI', () => ({
   confirmPayment: (...args: any[]) => confirmPaymentMock(...args),
 }))
 
-const signReleaseTxOfContractMock = jest.fn((..._args: any) => ['tx', null])
+const signReleaseTxOfContractMock = jest.fn().mockReturnValue({
+  releaseTransaction: 'tx',
+  batchReleasePsbt: 'batchRelasePsbt',
+  errorMsg: undefined,
+})
 jest.mock('../../../utils/contract/signReleaseTxOfContract', () => ({
   signReleaseTxOfContract: jest.fn((...args: any) => signReleaseTxOfContractMock(...args)),
 }))
@@ -52,7 +56,7 @@ describe('useReleaseEscrow', () => {
 
   it('should close the popup and show an error if the transaction could not be signed', async () => {
     const { result } = renderHook(() => useReleaseEscrow(contract))
-    signReleaseTxOfContractMock.mockReturnValueOnce([null, 'error'])
+    signReleaseTxOfContractMock.mockReturnValueOnce({ errorMsg: 'error' })
     await result.current()
     expect(usePopupStore.getState().visible).toEqual(false)
     expect(showErrorMock).toHaveBeenCalledWith('error')
@@ -61,7 +65,11 @@ describe('useReleaseEscrow', () => {
   it('should confirm the payment', async () => {
     const { result } = renderHook(() => useReleaseEscrow(contract))
     await result.current()
-    expect(confirmPaymentMock).toHaveBeenCalledWith({ contractId: contract.id, releaseTransaction: 'tx' })
+    expect(confirmPaymentMock).toHaveBeenCalledWith({
+      contractId: contract.id,
+      releaseTransaction: 'tx',
+      batchReleasePsbt: 'batchRelasePsbt',
+    })
   })
 
   it('should close the popup and show an error if the payment could not be confirmed', async () => {

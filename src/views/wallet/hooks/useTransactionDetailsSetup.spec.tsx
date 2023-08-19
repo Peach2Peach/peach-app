@@ -2,7 +2,7 @@ import { renderHook } from '@testing-library/react-native'
 import { buyOffer } from '../../../../tests/unit/data/offerData'
 import { pending1, pendingTransactionSummary } from '../../../../tests/unit/data/transactionDetailData'
 import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
-import { useTradeSummaryStore } from '../../../store/tradeSummaryStore'
+import { saveOffer } from '../../../utils/offer'
 import { useWalletState } from '../../../utils/wallet/walletStore'
 import { useTransactionDetailsSetup } from './useTransactionDetailsSetup'
 
@@ -21,11 +21,8 @@ describe('useTransactionDetailsSetup', () => {
   beforeAll(() => {
     useWalletState.getState().setTransactions([pendingTx])
     // @ts-ignore
-    useWalletState.getState().updateTxOfferMap(pendingTx.txid, pendingTransactionSummary.offerId)
-    useTradeSummaryStore
-      .getState()
-      // @ts-ignore
-      .setOffer(pendingTransactionSummary.offerId, { ...buyOffer, id: pendingTransactionSummary.offerId })
+    useWalletState.getState().updateTxOfferMap(pendingTx.txid, ['123'])
+    saveOffer({ ...buyOffer, amount: [900, 900], id: '123' })
   })
   it('should return defaults', () => {
     const { result } = renderHook(useTransactionDetailsSetup, { wrapper })

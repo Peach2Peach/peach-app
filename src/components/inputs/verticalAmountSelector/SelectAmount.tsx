@@ -18,7 +18,7 @@ type Props = ComponentProps & {
   onChange: (value: number) => void
 }
 
-export const SelectAmount = ({ min, max, value, onChange, style }: Props) => {
+export const SelectAmount = ({ min, max, value, onChange, children, style }: Props) => {
   const { amount, updateCustomAmount, pan, panResponder, trackRange, onTrackLayout } = useSelectAmountSetup({
     min,
     max,
@@ -35,6 +35,7 @@ export const SelectAmount = ({ min, max, value, onChange, style }: Props) => {
           {i18n('sell.subtitle')}
         </ParsedPeachText>
         <CustomAmount amount={amount} onChange={updateCustomAmount} style={tw`items-start flex-shrink`} />
+        {children}
       </View>
       <SliderTrack style={tw`h-full`} onLayout={onTrackLayout}>
         <TrackMarkers />

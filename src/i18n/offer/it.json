@@ -40,7 +40,7 @@
   "offer.sorting.highestPrice" : "prima prezzo più alto\n",
   "offer.sorting.lowestPremium" : "prima premio più basso\n",
   "offer.sorting.sortMatchesBy" : "ordina i match per",
-  "offer.summary.customPayoutAddress" : "indirizzo di pagamento personalizzato",
+  "offer.summary.customPayoutAddress" : "indirizzo ricezione personale",
   "offer.summary.customRefundAddress" : "indirizzo di rimborso personalizzato",
   "offer.summary.discount" : "sconto",
   "offer.summary.escrow" : "deposito",

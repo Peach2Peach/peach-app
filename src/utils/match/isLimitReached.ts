@@ -1,4 +1,4 @@
-import { ANONYMOUS_PAYMENTCATEGORIES } from '../../constants'
+import { ANONYMOUS_PAYMENTCATEGORIES } from '../../paymentMethods'
 
 export const isLimitReached = (exceedsLimit: (keyof TradingLimit)[], selectedPaymentMethod?: PaymentMethod) => {
   if (exceedsLimit.includes('daily') || exceedsLimit.includes('yearly')) {

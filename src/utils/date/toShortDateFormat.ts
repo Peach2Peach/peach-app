@@ -1,23 +1,5 @@
 import { padString } from '../string/padString'
-
-/**
- * @description Format date as hh:mm
- */
-export const toTimeFormat = (date: Date) =>
-  [
-    padString({
-      string: String(date.getHours()),
-      char: '0',
-      length: 2,
-      side: 'left',
-    }),
-    padString({
-      string: String(date.getMinutes()),
-      char: '0',
-      length: 2,
-      side: 'left',
-    }),
-  ].join(':')
+import { toTimeFormat } from './toTimeFormat'
 
 /**
  * @description Format date as dd/mm/yyyy (hh:mm)
@@ -37,4 +19,4 @@ export const toShortDateFormat = (date: Date, showTime = false) =>
       side: 'left',
     }),
     date.getFullYear(),
-  ].join('/') + (showTime ? ` ${toTimeFormat(date)}` : '')
+  ].join('/') + (showTime ? ` ${toTimeFormat(date.getHours(), date.getMinutes())}` : '')

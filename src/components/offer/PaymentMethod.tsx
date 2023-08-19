@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { Pressable } from 'react-native'
-import { APPLINKS } from '../../constants'
+import { APPLINKS } from '../../paymentMethods'
 import tw from '../../styles/tailwind'
 import { getPaymentMethodName } from '../../utils/paymentMethod'
 import { openAppLink } from '../../utils/web'

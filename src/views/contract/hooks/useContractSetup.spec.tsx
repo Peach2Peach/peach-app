@@ -1,7 +1,7 @@
 import { renderHook, waitFor } from '@testing-library/react-native'
+import { contract } from '../../../../tests/unit/data/contractData'
 import { NavigationWrapper, replaceMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { useContractSetup } from './useContractSetup'
-import { contract } from '../../../../tests/unit/data/contractData'
 
 const now = new Date('2022-02-14T12:00:00.000Z')
 jest.useFakeTimers({ now })

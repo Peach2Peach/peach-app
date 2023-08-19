@@ -1,6 +1,7 @@
 import { fireEvent, render } from '@testing-library/react-native'
 import { NavigationWrapper, navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { WalletHeader } from './WalletHeader'
+
 const wrapper = NavigationWrapper
 
 describe('WalletHeader', () => {
@@ -14,5 +15,10 @@ describe('WalletHeader', () => {
     fireEvent.press(getByAccessibilityHint('go to transaction history'))
     expect(navigateMock).toHaveBeenCalledWith('transactionHistory')
   })
-  it.todo('should go to address checker')
+  it('should go to address checker', () => {
+    const { getByAccessibilityHint } = render(<WalletHeader />, { wrapper })
+
+    fireEvent.press(getByAccessibilityHint('go to address checker'))
+    expect(navigateMock).toHaveBeenCalledWith('addressChecker')
+  })
 })

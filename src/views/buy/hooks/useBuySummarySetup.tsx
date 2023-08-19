@@ -2,17 +2,18 @@ import { useEffect, useMemo, useState } from 'react'
 import { shallow } from 'zustand/shallow'
 import { useHeaderSetup, useNavigation } from '../../../hooks'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
-import { useSettingsStore } from '../../../store/settingsStore'
+import { useConfigStore } from '../../../store/configStore'
 import { useOfferPreferences } from '../../../store/offerPreferenes/useOfferPreferences'
+import { useSettingsStore } from '../../../store/settingsStore'
 import { account, getMessageToSignForAddress } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
 import { headerIcons } from '../../../utils/layout/headerIcons'
-import { isValidBitcoinSignature } from '../../../utils/validation'
-import { peachWallet } from '../../../utils/wallet/setWallet'
-import { publishBuyOffer } from '../helpers/publishBuyOffer'
 import { getError, getResult } from '../../../utils/result'
 import { Err, Result } from '../../../utils/result/types'
+import { isValidBitcoinSignature } from '../../../utils/validation'
+import { peachWallet } from '../../../utils/wallet/setWallet'
 import { useGlobalSortAndFilterPopup } from '../../search/hooks/useSortAndFilterPopup'
+import { publishBuyOffer } from '../helpers/publishBuyOffer'
 
 type MessageSigningData = {
   releaseAddress: string
@@ -22,6 +23,7 @@ type MessageSigningData = {
 export const useBuySummarySetup = () => {
   const navigation = useNavigation()
   const showErrorBanner = useShowErrorBanner()
+  const hasSeenGroupHugAnnouncement = useConfigStore((state) => state.hasSeenGroupHugAnnouncement)
 
   const [peachWalletActive, setPeachWalletActive, payoutAddress, payoutAddressLabel, payoutAddressSignature]
     = useSettingsStore(
@@ -98,6 +100,8 @@ export const useBuySummarySetup = () => {
 
     if (!isOfferPublished || !offerId) {
       showErrorBanner(errorMessage)
+    } else if (!hasSeenGroupHugAnnouncement) {
+      navigation.replace('groupHugAnnouncement', { offerId })
     } else {
       navigation.replace('offerPublished', { offerId, isSellOffer: false })
     }

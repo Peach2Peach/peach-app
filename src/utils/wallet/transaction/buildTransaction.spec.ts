@@ -35,6 +35,15 @@ describe('buildTransaction', () => {
 
     expect(transactionResult).toBeInstanceOf(TxBuilder)
   })
+  it('builds a transaction template with fee rate only', async () => {
+    const transactionResult = await buildTransaction({ feeRate })
+    expect(txBuilderCreateMock).toHaveBeenCalled()
+    expect(txBuilderFeeRateMock).toHaveBeenCalledWith(feeRate)
+    expect(txBuilderEnableRbfMock).toHaveBeenCalled()
+    expect(txBuilderAddRecipientMock).not.toHaveBeenCalled()
+
+    expect(transactionResult).toBeInstanceOf(TxBuilder)
+  })
   it('adds utxos to the transaction', async () => {
     addressScriptPubKeyMock.mockResolvedValueOnce(scriptPubKey)
     await buildTransaction({ address, amount, feeRate, utxos: [utxo] })

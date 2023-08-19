@@ -16,7 +16,6 @@ const dataIsDefined = (
 
 export const useInitialNavigation = () => {
   const navigation = useNavigation()
-
   const initialNavigation = useCallback(async () => {
     let initialNotification: FirebaseMessagingTypes.RemoteMessage | null = null
     try {

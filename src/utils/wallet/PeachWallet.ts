@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import { BLOCKEXPLORER, NETWORK } from '@env'
 import {
   Blockchain,
@@ -19,11 +20,12 @@ import { PeachJSWallet } from './PeachJSWallet'
 import { handleTransactionError } from './error/handleTransactionError'
 import { storePendingTransactionHex } from './getAndStorePendingTransactionHex'
 import { getDescriptorSecretKey } from './getDescriptorSecretKey'
+import { getUTXOAddress } from './getUTXOAddress'
 import { labelAddressByTransaction } from './labelAddressByTransaction'
 import { mapTransactionToOffer } from './mapTransactionToOffer'
 import { rebroadcastTransactions } from './rebroadcastTransactions'
-import { BuildTxParams, buildTransaction } from './transaction/buildTransaction'
-import { transactionHasBeenMappedToOffer } from './transactionHasBeenMappedToOffer'
+import { BuildTxParams, buildTransaction } from './transaction'
+import { transactionHasBeenMappedToOffers } from './transactionHasBeenMappedToOffers'
 import { useWalletState } from './walletStore'
 
 type PeachWalletProps = {
@@ -136,8 +138,8 @@ export class PeachWallet extends PeachJSWallet {
 
   updateStore (): void {
     useWalletState.getState().setTransactions(this.transactions)
-    this.transactions.filter((tx) => !transactionHasBeenMappedToOffer(tx)).forEach(mapTransactionToOffer)
-    this.transactions.filter(transactionHasBeenMappedToOffer).forEach(labelAddressByTransaction)
+    this.transactions.filter((tx) => !transactionHasBeenMappedToOffers(tx)).forEach(mapTransactionToOffer)
+    this.transactions.filter(transactionHasBeenMappedToOffers).forEach(labelAddressByTransaction)
   }
 
   async getBalance (): Promise<number> {
@@ -183,6 +185,15 @@ export class PeachWallet extends PeachJSWallet {
     }
   }
 
+  async getNewInternalAddress () {
+    if (!this.wallet) throw Error('WALLET_NOT_READY')
+    const addressInfo = await this.wallet.getInternalAddress(AddressIndex.New)
+    return {
+      ...addressInfo,
+      address: await addressInfo.address.asString(),
+    }
+  }
+
   async getAddressByIndex (index: number) {
     const { index: lastUnusedIndex } = await this.getLastUnusedAddress()
     const address = this.getAddress(index)
@@ -200,6 +211,14 @@ export class PeachWallet extends PeachJSWallet {
       ...addressInfo,
       address: await addressInfo.address.asString(),
     }
+  }
+
+  async getAddressUTXO (address: string) {
+    if (!this.wallet) throw Error('WALLET_NOT_READY')
+
+    const utxo = await this.wallet.listUnspent()
+    const utxoAddresses = await Promise.all(utxo.map(getUTXOAddress(this.network)))
+    return utxo.filter((utx, i) => utxoAddresses[i] === address)
   }
 
   async buildFinishedTransaction (buildParams: BuildTxParams) {

@@ -1,16 +1,19 @@
 import { TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
-import { useWalletState } from './walletStore'
-import { getTxDefaultLabel } from './getTxDefaultLabel'
 import { getOffer, isSellOffer } from '../offer'
+import { isDefined } from '../validation'
+import { getTxDefaultLabel } from './getTxDefaultLabel'
+import { useWalletState } from './walletStore'
 
 export const labelAddressByTransaction = (tx: TransactionDetails): void => {
-  const offerId = useWalletState.getState().txOfferMap[tx.txid]
-  const offer = getOffer(offerId)
-  if (!offer) return
+  const offerIds = useWalletState.getState().txOfferMap[tx.txid]
+  const offers = offerIds.map(getOffer).filter(isDefined)
 
-  const address = isSellOffer(offer) ? offer.returnAddress : offer.releaseAddress
-  const label = getTxDefaultLabel(tx)
+  offers.forEach((offer) => {
+    const label = getTxDefaultLabel(tx)
+    if (!label) return
 
-  if (!label) return
-  useWalletState.getState().labelAddress(address, label)
+    const address = isSellOffer(offer) ? offer.returnAddress : offer.releaseAddress
+
+    useWalletState.getState().labelAddress(address, label)
+  })
 }
