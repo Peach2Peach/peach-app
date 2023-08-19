@@ -267,8 +267,8 @@ exports[`NewButton should render correctly 1`] = `
       "height": 40,
       "justifyContent": "center",
       "opacity": 1,
-      "paddingLeft": 20,
-      "paddingRight": 20,
+      "paddingLeft": 32,
+      "paddingRight": 32,
     }
   }
 >
@@ -339,8 +339,8 @@ exports[`NewButton should render correctly when disabled 1`] = `
         "justifyContent": "center",
 -       "opacity": 1,
 +       "opacity": 0.33,
-        "paddingLeft": 20,
-        "paddingRight": 20,
+        "paddingLeft": 32,
+        "paddingRight": 32,
       }
     }
   >"

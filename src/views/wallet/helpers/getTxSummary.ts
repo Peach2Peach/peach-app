@@ -23,13 +23,13 @@ export const getTxSummary = (tx: TransactionDetails): TransactionSummary => {
   const offers = offerIds.map(getOffer).filter(isDefined)
 
   const offerData = offers.map(mapOfferToOfferData)
-  const sats = Math.abs(tx.sent - tx.received)
+  const amount = Math.abs(tx.sent - tx.received)
 
   return {
     id: tx.txid,
     type: getTransactionType(tx, offers?.[0]),
     offerData,
-    amount: sats,
+    amount,
     date: txIsConfirmed(tx) ? new Date((tx.confirmationTime?.timestamp || Date.now()) * 1000) : new Date(),
     height: tx.confirmationTime?.height,
     confirmed: txIsConfirmed(tx),

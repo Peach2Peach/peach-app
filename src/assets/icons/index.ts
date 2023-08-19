@@ -91,6 +91,7 @@ import sell from './sell.svg'
 import send from './send.svg'
 import settings from './settings.svg'
 import settingsGear from './settingsGear.svg'
+import share from './share.svg'
 import shield from './shield.svg'
 import shiftCrypto from './shiftCrypto.svg'
 import shuffle from './shuffle.svg'
@@ -215,6 +216,7 @@ export const Icons = {
   send,
   settings,
   settingsGear,
+  share,
   shield,
   shiftCrypto,
   shuffle,

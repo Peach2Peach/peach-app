@@ -16,6 +16,7 @@ declare type RootStackParamList = {
   addressChecker: undefined
   coinSelection: undefined
   transactionHistory: undefined
+  exportTransactionHistory: undefined
   transactionDetails: {
     txId: string
   }

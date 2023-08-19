@@ -804,7 +804,9 @@ exports[`CoinSelection renders correctly 1`] = `
                     false,
                   ]
                 }
-              />
+              >
+                addressLabel ‑ 
+              </Text>
               address
             </Text>
           </View>
@@ -903,8 +905,8 @@ exports[`CoinSelection renders correctly 1`] = `
         "height": 40,
         "justifyContent": "center",
         "opacity": 1,
-        "paddingLeft": 20,
-        "paddingRight": 20,
+        "paddingLeft": 32,
+        "paddingRight": 32,
       }
     }
   >
@@ -1013,7 +1015,7 @@ exports[`CoinSelection selects coins 1`] = `
 - First value
 + Second value
 
-@@ -842,11 +842,11 @@
+@@ -844,11 +844,11 @@
                 }
               }
               testID="checkbox"

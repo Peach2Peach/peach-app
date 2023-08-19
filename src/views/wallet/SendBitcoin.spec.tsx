@@ -1,4 +1,4 @@
-import { fireEvent, render, waitFor } from '@testing-library/react-native'
+import { act, fireEvent, render, waitFor } from '@testing-library/react-native'
 import { LocalUtxo, OutPoint, TxOut } from 'bdk-rn/lib/classes/Bindings'
 import { Script } from 'bdk-rn/lib/classes/Script'
 import { KeychainKind } from 'bdk-rn/lib/lib/enums'
@@ -211,16 +211,25 @@ describe('SendBitcoin - With selected coins', () => {
     peachWallet.wallet = {
       listUnspent: listUnspentMock,
     }
-    useWalletState.setState({ selectedUTXOIds: [getUTXOId(utxo)] })
+  })
+  beforeEach(() => {
+    useWalletState.setState({ selectedUTXOIds: [getUTXOId(utxo)], addressLabelMap: { address: 'addressLabel' } })
   })
   it('should render correctly', async () => {
     const { toJSON } = render(<SendBitcoin />, { wrapper })
 
     await waitFor(() => {
       expect(queryClient.getQueryData(['utxos'])).toStrictEqual([utxo])
+      expect(queryClient.getQueryData(['address', utxo.txout.script.id])).toBe('address')
     })
+    const withSelectedCoins = toJSON()
 
-    expect(toJSON()).toMatchSnapshot()
+    act(() => {
+      useWalletState.setState({ selectedUTXOIds: [] })
+    })
+    const withoutSelectedCoins = render(<SendBitcoin />, { wrapper }).toJSON()
+
+    expect(withoutSelectedCoins).toMatchDiffSnapshot(withSelectedCoins)
   })
   it('should set the amount to the sum of all selected coins when clicking "send max"', async () => {
     const { toJSON, getByText } = render(<SendBitcoin />, { wrapper })
