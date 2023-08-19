@@ -1,8 +1,8 @@
-import { MeetupScreen } from './MeetupScreen'
-import { createRenderer } from 'react-test-renderer/shallow'
-import { setPaymentMethods } from '../../constants'
 import { fireEvent, render } from '@testing-library/react-native'
 import { Linking } from 'react-native'
+import { createRenderer } from 'react-test-renderer/shallow'
+import { setPaymentMethods } from '../../paymentMethods'
+import { MeetupScreen } from './MeetupScreen'
 
 const meetupScreenSetup = {
   openLink: jest.fn(),

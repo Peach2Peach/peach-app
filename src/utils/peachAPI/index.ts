@@ -3,23 +3,20 @@ export type RequestProps = {
   abortSignal?: AbortSignal
 }
 
-export { getStatus, getInfo } from './public/system'
-export { sendReport } from './public/contact'
-export { getFeeEstimate, postTx } from './public/bitcoin'
-export { marketPrice } from './public/market'
-export { checkReferralCode, getUser } from './public/user'
 export {
-  auth,
-  deletePaymentHash,
-  fetchAccessToken,
-  getSelfUser,
-  getTradingLimit,
-  logoutUser,
-  redeemNoPeachFees,
-  redeemReferralCode,
-  register,
-  updateUser,
-} from './private/user'
+  cancelContract,
+  confirmContractCancelation,
+  confirmPayment,
+  extendPaymentTimer,
+  getChat,
+  getContract,
+  getContractSummaries,
+  getContracts,
+  postChat,
+  raiseDispute,
+  rateUser,
+  rejectContractCancelation,
+} from './private/contract'
 export {
   cancelOffer,
   confirmEscrow,
@@ -27,8 +24,8 @@ export {
   getFundingStatus,
   getMatches,
   getOfferDetails,
-  getOffers,
   getOfferSummaries,
+  getOffers,
   getRefundPSBT,
   matchOffer,
   patchOffer,
@@ -39,16 +36,20 @@ export {
   unmatchOffer,
 } from './private/offer'
 export {
-  cancelContract,
-  confirmContractCancelation,
-  rejectContractCancelation,
-  getContract,
-  getContracts,
-  getContractSummaries,
-  confirmPayment,
-  rateUser,
-  getChat,
-  postChat,
-  raiseDispute,
-  extendPaymentTimer,
-} from './private/contract'
+  auth,
+  deletePaymentHash,
+  fetchAccessToken,
+  getSelfUser,
+  getTradingLimit,
+  logoutUser,
+  redeemNoPeachFees,
+  redeemReferralCode,
+  register,
+  setBatching,
+  updateUser,
+} from './private/user'
+export { getFeeEstimate, postTx } from './public/bitcoin'
+export { sendReport } from './public/contact'
+export { marketPrice } from './public/market'
+export { getInfo, getStatus } from './public/system'
+export { checkReferralCode, getUser } from './public/user'

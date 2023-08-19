@@ -92,6 +92,7 @@ exports[`UndoButton renders correctly 1`] = `
                 "textTransform": "uppercase",
               },
             ],
+            false,
           ]
         }
       >
@@ -187,6 +188,7 @@ exports[`UndoButton renders correctly 1`] = `
               "textTransform": "uppercase",
             },
           ],
+          false,
         ]
       }
     >

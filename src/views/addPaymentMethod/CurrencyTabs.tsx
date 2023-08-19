@@ -1,44 +1,14 @@
-import { createMaterialTopTabNavigator, MaterialTopTabBarProps } from '@react-navigation/material-top-tabs'
-import { TouchableOpacity, View } from 'react-native'
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
 import { shallow } from 'zustand/shallow'
-import { Text } from '../../components'
+import { TabBar } from '../../components/ui/TabBar'
 import { useOfferPreferences } from '../../store/offerPreferenes'
-import tw from '../../styles/tailwind'
-import i18n from '../../utils/i18n'
+import { CurrencyType } from '../../store/offerPreferenes/types'
 import { Currencies } from './Currencies'
+import { defaultCurrencies } from './constants'
 
 type Props = {
   currency: Currency
   setCurrency: (c: Currency) => void
-}
-
-const TabBar = ({ state, navigation }: MaterialTopTabBarProps) => {
-  const items = state.routes
-  const selected = items[state.index].name
-  const select = navigation.navigate
-  const colors = {
-    text: tw`text-black-2`,
-    textSelected: tw`text-black-1`,
-    underline: tw`bg-black-1`,
-  }
-
-  return (
-    <View style={tw`flex-row justify-center`}>
-      {items.map((item) => (
-        <TouchableOpacity style={tw`flex-shrink px-2`} key={item.key + item.name} onPress={() => select(item)}>
-          <Text
-            style={[
-              tw`px-4 py-2 text-center capitalize input-label`,
-              item.name === selected ? colors.textSelected : colors.text,
-            ]}
-          >
-            {i18n(item.name)}
-          </Text>
-          {item.name === selected && <View style={[tw`w-full h-0.5 `, colors.underline]} />}
-        </TouchableOpacity>
-      ))}
-    </View>
-  )
 }
 
 const CurrencyTab = createMaterialTopTabNavigator()
@@ -51,19 +21,19 @@ export const CurrencyTabs = (props: Props) => {
 
   return (
     <CurrencyTab.Navigator
-      initialRouteName={preferredCurrencyType}
+      initialRouteName={preferredCurrencyType.toString()}
       screenListeners={{
         focus: (e) => {
-          const name = e.target?.split('-')[0]
-          if (name === 'europe' || name === 'other') {
-            setPreferredCurrencyType(name)
-            props.setCurrency(name === 'europe' ? 'EUR' : 'USDT')
-          }
+          const currencyType = CurrencyType.parse(e.target?.split('-')[0])
+          setPreferredCurrencyType(currencyType)
+          props.setCurrency(defaultCurrencies[currencyType])
         },
       }}
       tabBar={TabBar}
     >
       <CurrencyTab.Screen name="europe" children={() => <Currencies type="europe" {...props} />} />
+      <CurrencyTab.Screen name="latinAmerica" children={() => <Currencies type="latinAmerica" {...props} />} />
+      <CurrencyTab.Screen name="africa" children={() => <Currencies type="africa" {...props} />} />
       <CurrencyTab.Screen name="other" children={() => <Currencies type="other" {...props} />} />
     </CurrencyTab.Navigator>
   )

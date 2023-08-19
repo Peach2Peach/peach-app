@@ -25,6 +25,7 @@ exports[`ReceiveAddressInput should render correctly 1`] = `
             "color": "#2B1911",
           },
         ],
+        false,
       ]
     }
   >
@@ -52,6 +53,7 @@ exports[`ReceiveAddressInput should render correctly 1`] = `
               "color": "#BAADA7",
             },
           ],
+          false,
         ]
       }
     />
@@ -166,6 +168,7 @@ exports[`ReceiveAddressInput should render correctly 1`] = `
             "color": "#DF321F",
           },
         ],
+        false,
       ]
     }
   >

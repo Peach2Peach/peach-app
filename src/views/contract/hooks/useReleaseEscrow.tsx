@@ -16,13 +16,17 @@ export const useReleaseEscrow = (contract: Contract) => {
       title: i18n('dispute.lost'),
       level: 'WARN',
     })
-    const [tx, errorMsg] = signReleaseTxOfContract(contract)
-    if (!tx) {
+    const { releaseTransaction, batchReleasePsbt, errorMsg } = signReleaseTxOfContract(contract)
+    if (!releaseTransaction) {
       closePopup()
       return showError(errorMsg)
     }
 
-    const [result, err] = await confirmPayment({ contractId: contract.id, releaseTransaction: tx })
+    const [result, err] = await confirmPayment({
+      contractId: contract.id,
+      releaseTransaction,
+      batchReleasePsbt,
+    })
     if (err) {
       closePopup()
       return showError(err.error)

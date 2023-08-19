@@ -1,0 +1,455 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TransactionBatching should render correctly when batching is disabled 1`] = `
+<View
+  style={
+    [
+      {
+        "height": "100%",
+        "paddingLeft": 16,
+        "paddingRight": 16,
+      },
+      {
+        "paddingLeft": 32,
+        "paddingRight": 32,
+      },
+      {
+        "gap": 32,
+        "justifyContent": "center",
+      },
+    ]
+  }
+>
+  <View
+    style={
+      {
+        "gap": 16,
+      }
+    }
+  >
+    <Text
+      allowFontScaling={false}
+      style={
+        [
+          {
+            "color": "#2B1911",
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 24,
+          },
+          {
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 20,
+            "letterSpacing": 0.2,
+            "lineHeight": 28,
+          },
+          false,
+        ]
+      }
+    >
+      Escrow payouts are done right away
+    </Text>
+    <Text
+      allowFontScaling={false}
+      style={
+        [
+          {
+            "color": "#2B1911",
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 24,
+          },
+          {
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 20,
+            "letterSpacing": 0.2,
+            "lineHeight": 28,
+          },
+          false,
+        ]
+      }
+    >
+      <Text
+        style={
+          [
+            [
+              {
+                "color": "#2B1911",
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
+                "lineHeight": 24,
+              },
+              {
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 20,
+                "letterSpacing": 0.2,
+                "lineHeight": 28,
+              },
+              false,
+            ],
+            undefined,
+          ]
+        }
+      >
+        You’re paying up to 
+      </Text>
+      <Text
+        style={
+          [
+            [
+              {
+                "color": "#2B1911",
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
+                "lineHeight": 24,
+              },
+              {
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 20,
+                "letterSpacing": 0.2,
+                "lineHeight": 28,
+              },
+              false,
+            ],
+            {
+              "color": "#F56522",
+            },
+          ]
+        }
+      >
+        30% more
+      </Text>
+    </Text>
+  </View>
+  <RNGestureHandlerButton
+    collapsable={false}
+    delayLongPress={600}
+    enabled={true}
+    exclusive={true}
+    handlerTag={2}
+    handlerType="NativeViewGestureHandler"
+    onGestureEvent={[Function]}
+    onGestureHandlerEvent={[Function]}
+    onGestureHandlerStateChange={[Function]}
+    onHandlerStateChange={[Function]}
+    rippleColor={0}
+    touchSoundDisabled={false}
+  >
+    <View
+      accessible={true}
+      collapsable={false}
+      style={
+        {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "gap": 16,
+          "opacity": 1,
+        }
+      }
+    >
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            {
+              "fontFamily": "Baloo2-SemiBold",
+              "fontSize": 20,
+              "letterSpacing": 0.2,
+              "lineHeight": 32,
+              "textTransform": "lowercase",
+            },
+            false,
+          ]
+        }
+      >
+        transaction batching
+      </Text>
+      <test-file-stub
+        fill="#9F8C82"
+        style={
+          [
+            {
+              "height": 32,
+              "width": 32,
+            },
+            undefined,
+          ]
+        }
+      />
+    </View>
+  </RNGestureHandlerButton>
+</View>
+`;
+
+exports[`TransactionBatching should render correctly when batching is enabled 1`] = `
+<View
+  style={
+    [
+      {
+        "height": "100%",
+        "paddingLeft": 16,
+        "paddingRight": 16,
+      },
+      {
+        "paddingLeft": 32,
+        "paddingRight": 32,
+      },
+      {
+        "gap": 32,
+        "justifyContent": "center",
+      },
+    ]
+  }
+>
+  <View
+    style={
+      {
+        "gap": 16,
+      }
+    }
+  >
+    <Text
+      allowFontScaling={false}
+      style={
+        [
+          {
+            "color": "#2B1911",
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 24,
+          },
+          {
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 20,
+            "letterSpacing": 0.2,
+            "lineHeight": 28,
+          },
+          false,
+        ]
+      }
+    >
+      Escrow payouts are delayed.
+    </Text>
+    <Text
+      allowFontScaling={false}
+      style={
+        [
+          {
+            "color": "#2B1911",
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 24,
+          },
+          {
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 20,
+            "letterSpacing": 0.2,
+            "lineHeight": 28,
+          },
+          false,
+        ]
+      }
+    >
+      <Text
+        style={
+          [
+            [
+              {
+                "color": "#2B1911",
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
+                "lineHeight": 24,
+              },
+              {
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 20,
+                "letterSpacing": 0.2,
+                "lineHeight": 28,
+              },
+              false,
+            ],
+            undefined,
+          ]
+        }
+      >
+        You 
+      </Text>
+      <Text
+        style={
+          [
+            [
+              {
+                "color": "#2B1911",
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
+                "lineHeight": 24,
+              },
+              {
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 20,
+                "letterSpacing": 0.2,
+                "lineHeight": 28,
+              },
+              false,
+            ],
+            {
+              "color": "#F56522",
+            },
+          ]
+        }
+      >
+        save up to 23%
+      </Text>
+      <Text
+        style={
+          [
+            [
+              {
+                "color": "#2B1911",
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
+                "lineHeight": 24,
+              },
+              {
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 20,
+                "letterSpacing": 0.2,
+                "lineHeight": 28,
+              },
+              false,
+            ],
+            undefined,
+          ]
+        }
+      >
+         in network fees
+      </Text>
+    </Text>
+  </View>
+  <RNGestureHandlerButton
+    collapsable={false}
+    delayLongPress={600}
+    enabled={true}
+    exclusive={true}
+    handlerTag={1}
+    handlerType="NativeViewGestureHandler"
+    onGestureEvent={[Function]}
+    onGestureHandlerEvent={[Function]}
+    onGestureHandlerStateChange={[Function]}
+    onHandlerStateChange={[Function]}
+    rippleColor={0}
+    touchSoundDisabled={false}
+  >
+    <View
+      accessible={true}
+      collapsable={false}
+      style={
+        {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "gap": 16,
+          "opacity": 1,
+        }
+      }
+    >
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            {
+              "fontFamily": "Baloo2-SemiBold",
+              "fontSize": 20,
+              "letterSpacing": 0.2,
+              "lineHeight": 32,
+              "textTransform": "lowercase",
+            },
+            false,
+          ]
+        }
+      >
+        transaction batching
+      </Text>
+      <test-file-stub
+        fill="#F56522"
+        style={
+          [
+            {
+              "height": 32,
+              "width": 32,
+            },
+            undefined,
+          ]
+        }
+      />
+    </View>
+  </RNGestureHandlerButton>
+</View>
+`;
+
+exports[`TransactionBatching should render correctly when loading 1`] = `
+<View
+  style={
+    {
+      "alignItems": "center",
+      "display": "flex",
+      "height": "100%",
+      "justifyContent": "center",
+    }
+  }
+>
+  <LottieAnimationView
+    autoPlay={true}
+    cacheComposition={true}
+    colorFilters={
+      [
+        {
+          "color": 4294272290,
+          "keypath": "main",
+        },
+      ]
+    }
+    enableMergePathsAndroidForKitKatAndAbove={false}
+    loop={true}
+    onAnimationFinish={[Function]}
+    progress={0}
+    resizeMode="contain"
+    sourceJson="{"v":"5.1.15","fr":60,"ip":0,"op":141,"w":120,"h":120,"nm":"Composição 1","ddd":0,"assets":[],"layers":[{"ddd":0,"ind":0,"ty":4,"nm":"main","sr":1,"ks":{"o":{"a":0,"k":100,"ix":11},"r":{"a":1,"k":[{"i":{"x":[0.833],"y":[0.833]},"o":{"x":[0.167],"y":[0.167]},"n":["0p833_0p833_0p167_0p167"],"t":0,"s":[0],"e":[1080]},{"t":180}],"ix":10},"p":{"a":0,"k":[60,60,0],"ix":2},"a":{"a":0,"k":[-14.604,-15.104,0],"ix":1},"s":{"a":0,"k":[100,100,100],"ix":6}},"ao":0,"shapes":[{"ty":"gr","it":[{"d":1,"ty":"el","s":{"a":0,"k":[106.793,106.793],"ix":2},"p":{"a":0,"k":[0,0],"ix":3},"nm":"Caminho da elipse 1","mn":"ADBE Vector Shape - Ellipse","hd":false},{"ty":"st","c":{"a":0,"k":[1,1,1,1],"ix":3},"o":{"a":0,"k":100,"ix":4},"w":{"a":0,"k":11,"ix":5},"lc":2,"lj":1,"ml":4,"nm":"Traçado 1","mn":"ADBE Vector Graphic - Stroke","hd":false},{"ty":"tr","p":{"a":0,"k":[-14.604,-15.104],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[100,100],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transformar"}],"nm":"Elipse 1","np":3,"cix":2,"ix":1,"mn":"ADBE Vector Group","hd":false},{"ty":"tm","s":{"a":1,"k":[{"i":{"x":[0.833],"y":[0.833]},"o":{"x":[0.167],"y":[0.167]},"n":["0p833_0p833_0p167_0p167"],"t":0,"s":[0],"e":[0]},{"i":{"x":[0.833],"y":[0.833]},"o":{"x":[0.167],"y":[0.167]},"n":["0p833_0p833_0p167_0p167"],"t":60,"s":[0],"e":[67]},{"t":119}],"ix":1},"e":{"a":1,"k":[{"i":{"x":[0.833],"y":[0.833]},"o":{"x":[0.167],"y":[0.167]},"n":["0p833_0p833_0p167_0p167"],"t":0,"s":[3],"e":[70]},{"i":{"x":[0.833],"y":[0.833]},"o":{"x":[0.167],"y":[0.167]},"n":["0p833_0p833_0p167_0p167"],"t":60,"s":[70],"e":[70]},{"t":119}],"ix":2},"o":{"a":0,"k":0,"ix":3},"m":1,"ix":2,"nm":"Aparar caminhos 1","mn":"ADBE Vector Filter - Trim","hd":false}],"ip":0,"op":900,"st":0,"bm":0}],"chars":[],"markers":[]}"
+    speed={1}
+    style={
+      [
+        {
+          "height": 80,
+          "width": 80,
+        },
+        undefined,
+      ]
+    }
+    textFiltersAndroid={[]}
+    textFiltersIOS={[]}
+    useNativeLooping={false}
+  />
+</View>
+`;

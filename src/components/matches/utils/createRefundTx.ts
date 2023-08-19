@@ -1,6 +1,6 @@
-import { checkRefundPSBT, signPSBT } from '../../../utils/bitcoin'
+import { checkRefundPSBT } from '../../../utils/bitcoin'
 import { patchOffer } from '../../../utils/peachAPI'
-import { getEscrowWalletForOffer } from '../../../utils/wallet'
+import { getEscrowWalletForOffer, signPSBT } from '../../../utils/wallet'
 
 export const createRefundTx = async (offer: SellOffer, refundTx: string): Promise<string | undefined> => {
   let currentRefundTx = offer.refundTx

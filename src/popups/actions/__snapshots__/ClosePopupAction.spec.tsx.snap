@@ -76,6 +76,7 @@ exports[`ClosePopupAction should render correctly 1`] = `
           },
           undefined,
         ],
+        false,
       ]
     }
   >
@@ -113,8 +114,8 @@ exports[`ClosePopupAction should render correctly with custom text style 1`] = `
 +             "color": "red",
 +           },
           ],
+          false,
         ]
       }
-    >
-      close"
+    >"
 `;

@@ -1,33 +1,30 @@
 import { useWalletState } from './walletStore'
-import { getAndStorePendingTransactionHex } from './getAndStorePendingTransactionHex'
-
-const txHex = 'txHex'
-const getTxHexMock = jest.fn().mockResolvedValue([txHex])
-jest.mock('../electrum/getTxHex', () => ({
-  getTxHex: (...args: any[]) => getTxHexMock(...args),
-}))
+import { storePendingTransactionHex } from './getAndStorePendingTransactionHex'
+import { BlockTime, TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
+import { Transaction } from 'bdk-rn/lib/classes/Transaction'
 
 describe('getAndStorePendingTransactionHex', () => {
+  const txId = 'txId'
+  const blockTime = new BlockTime(1, Date.now())
+  const transaction = new Transaction()
+  const serialized = [1, 2, 3, 4]
+  transaction.serialize = jest.fn().mockResolvedValue(serialized)
+  const expectedHex = '01020304'
+  const tx = new TransactionDetails(txId, 0, 10000, 2, blockTime, transaction)
+
   afterEach(() => {
     useWalletState.getState().reset()
   })
   it('should fetch a hex of a tx it does not know', async () => {
-    const txId = 'txId'
-    const result = await getAndStorePendingTransactionHex(txId)
-    expect(getTxHexMock).toHaveBeenCalledWith({ txId })
-    expect(result).toBe(txHex)
-    expect(useWalletState.getState().pendingTransactions).toEqual({
-      txId: txHex,
-    })
+    const result = await storePendingTransactionHex(tx)
+    expect(result).toBe(expectedHex)
+    expect(useWalletState.getState().pendingTransactions).toEqual({ txId: expectedHex })
   })
   it('should just return a hex of a tx it does already know', async () => {
-    const pending = {
-      txId1: 'txHex1',
-    }
-    useWalletState.getState().addPendingTransactionHex('txId1', pending.txId1)
+    const pending = { txId1: txId }
+    useWalletState.getState().addPendingTransactionHex(txId, pending.txId1)
 
-    const result = await getAndStorePendingTransactionHex('txId1')
-    expect(getTxHexMock).not.toHaveBeenCalled()
+    const result = await storePendingTransactionHex(tx)
     expect(result).toBe(pending.txId1)
   })
 })

@@ -98,8 +98,10 @@ exports[`Right should render correctly with amount 1`] = `
         style={
           [
             {
-              "alignItems": "baseline",
               "flexDirection": "row",
+            },
+            {
+              "alignItems": "baseline",
             },
             {
               "gap": 2,
@@ -130,6 +132,7 @@ exports[`Right should render correctly with amount 1`] = `
                   "lineHeight": 23,
                 },
               ],
+              false,
             ]
           }
         >
@@ -161,6 +164,7 @@ exports[`Right should render correctly with amount 1`] = `
                     "letterSpacing": -1.275,
                   },
                 ],
+                false,
               ]
             }
           >
@@ -194,6 +198,7 @@ exports[`Right should render correctly with amount 1`] = `
                     "letterSpacing": -3.57,
                   },
                 ],
+                false,
               ]
             }
           >
@@ -227,6 +232,7 @@ exports[`Right should render correctly with amount 1`] = `
                     "letterSpacing": -1.275,
                   },
                 ],
+                false,
               ]
             }
           >
@@ -260,138 +266,7 @@ exports[`Right should render correctly with amount 1`] = `
                     "letterSpacing": -1.275,
                   },
                 ],
-              ]
-            }
-          >
-            0
-          </Text>
-          <Text
-            allowFontScaling={false}
-            style={
-              [
-                {
-                  "color": "#2B1911",
-                  "fontFamily": "Baloo2-Regular",
-                  "fontSize": 16,
-                  "letterSpacing": 0.16,
-                  "lineHeight": 24,
-                },
-                [
-                  [
-                    {
-                      "alignItems": "center",
-                      "fontFamily": "CourierPrime-Bold",
-                      "textAlign": "center",
-                    },
-                    {
-                      "fontSize": 17,
-                      "lineHeight": 23,
-                    },
-                  ],
-                  {
-                    "color": "#2B19111A",
-                    "letterSpacing": -5.949999999999999,
-                  },
-                ],
-              ]
-            }
-          >
-             
-          </Text>
-          <Text
-            allowFontScaling={false}
-            style={
-              [
-                {
-                  "color": "#2B1911",
-                  "fontFamily": "Baloo2-Regular",
-                  "fontSize": 16,
-                  "letterSpacing": 0.16,
-                  "lineHeight": 24,
-                },
-                [
-                  [
-                    {
-                      "alignItems": "center",
-                      "fontFamily": "CourierPrime-Bold",
-                      "textAlign": "center",
-                    },
-                    {
-                      "fontSize": 17,
-                      "lineHeight": 23,
-                    },
-                  ],
-                  {
-                    "color": "#2B19111A",
-                    "letterSpacing": -1.275,
-                  },
-                ],
-              ]
-            }
-          >
-            0
-          </Text>
-          <Text
-            allowFontScaling={false}
-            style={
-              [
-                {
-                  "color": "#2B1911",
-                  "fontFamily": "Baloo2-Regular",
-                  "fontSize": 16,
-                  "letterSpacing": 0.16,
-                  "lineHeight": 24,
-                },
-                [
-                  [
-                    {
-                      "alignItems": "center",
-                      "fontFamily": "CourierPrime-Bold",
-                      "textAlign": "center",
-                    },
-                    {
-                      "fontSize": 17,
-                      "lineHeight": 23,
-                    },
-                  ],
-                  {
-                    "color": "#2B19111A",
-                    "letterSpacing": -1.275,
-                  },
-                ],
-              ]
-            }
-          >
-            0
-          </Text>
-          <Text
-            allowFontScaling={false}
-            style={
-              [
-                {
-                  "color": "#2B1911",
-                  "fontFamily": "Baloo2-Regular",
-                  "fontSize": 16,
-                  "letterSpacing": 0.16,
-                  "lineHeight": 24,
-                },
-                [
-                  [
-                    {
-                      "alignItems": "center",
-                      "fontFamily": "CourierPrime-Bold",
-                      "textAlign": "center",
-                    },
-                    {
-                      "fontSize": 17,
-                      "lineHeight": 23,
-                    },
-                  ],
-                  {
-                    "color": "#2B19111A",
-                    "letterSpacing": -1.275,
-                  },
-                ],
+                false,
               ]
             }
           >
@@ -425,6 +300,7 @@ exports[`Right should render correctly with amount 1`] = `
                     "letterSpacing": -5.949999999999999,
                   },
                 ],
+                false,
               ]
             }
           >
@@ -458,6 +334,143 @@ exports[`Right should render correctly with amount 1`] = `
                     "letterSpacing": -1.275,
                   },
                 ],
+                false,
+              ]
+            }
+          >
+            0
+          </Text>
+          <Text
+            allowFontScaling={false}
+            style={
+              [
+                {
+                  "color": "#2B1911",
+                  "fontFamily": "Baloo2-Regular",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 24,
+                },
+                [
+                  [
+                    {
+                      "alignItems": "center",
+                      "fontFamily": "CourierPrime-Bold",
+                      "textAlign": "center",
+                    },
+                    {
+                      "fontSize": 17,
+                      "lineHeight": 23,
+                    },
+                  ],
+                  {
+                    "color": "#2B19111A",
+                    "letterSpacing": -1.275,
+                  },
+                ],
+                false,
+              ]
+            }
+          >
+            0
+          </Text>
+          <Text
+            allowFontScaling={false}
+            style={
+              [
+                {
+                  "color": "#2B1911",
+                  "fontFamily": "Baloo2-Regular",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 24,
+                },
+                [
+                  [
+                    {
+                      "alignItems": "center",
+                      "fontFamily": "CourierPrime-Bold",
+                      "textAlign": "center",
+                    },
+                    {
+                      "fontSize": 17,
+                      "lineHeight": 23,
+                    },
+                  ],
+                  {
+                    "color": "#2B19111A",
+                    "letterSpacing": -1.275,
+                  },
+                ],
+                false,
+              ]
+            }
+          >
+            0
+          </Text>
+          <Text
+            allowFontScaling={false}
+            style={
+              [
+                {
+                  "color": "#2B1911",
+                  "fontFamily": "Baloo2-Regular",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 24,
+                },
+                [
+                  [
+                    {
+                      "alignItems": "center",
+                      "fontFamily": "CourierPrime-Bold",
+                      "textAlign": "center",
+                    },
+                    {
+                      "fontSize": 17,
+                      "lineHeight": 23,
+                    },
+                  ],
+                  {
+                    "color": "#2B19111A",
+                    "letterSpacing": -5.949999999999999,
+                  },
+                ],
+                false,
+              ]
+            }
+          >
+             
+          </Text>
+          <Text
+            allowFontScaling={false}
+            style={
+              [
+                {
+                  "color": "#2B1911",
+                  "fontFamily": "Baloo2-Regular",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 24,
+                },
+                [
+                  [
+                    {
+                      "alignItems": "center",
+                      "fontFamily": "CourierPrime-Bold",
+                      "textAlign": "center",
+                    },
+                    {
+                      "fontSize": 17,
+                      "lineHeight": 23,
+                    },
+                  ],
+                  {
+                    "color": "#2B19111A",
+                    "letterSpacing": -1.275,
+                  },
+                ],
+                false,
               ]
             }
           >
@@ -491,6 +504,7 @@ exports[`Right should render correctly with amount 1`] = `
                     "letterSpacing": -1.275,
                   },
                 ],
+                false,
               ]
             }
           >
@@ -524,40 +538,49 @@ exports[`Right should render correctly with amount 1`] = `
                     "letterSpacing": -1.275,
                   },
                 ],
+                false,
               ]
             }
           >
             1
           </Text>
         </Text>
-        <Text
-          allowFontScaling={false}
+        <View
           style={
-            [
-              {
-                "color": "#2B1911",
-                "fontFamily": "Baloo2-Regular",
-                "fontSize": 16,
-                "letterSpacing": 0.16,
-                "lineHeight": 24,
-              },
-              [
-                {
-                  "alignItems": "center",
-                  "fontFamily": "Baloo2-Medium",
-                },
-                false,
-                {
-                  "fontSize": 12,
-                  "lineHeight": 18,
-                  "paddingBottom": 2,
-                },
-              ],
-            ]
+            {
+              "justifyContent": "center",
+            }
           }
         >
-          sats
-        </Text>
+          <Text
+            allowFontScaling={false}
+            style={
+              [
+                {
+                  "color": "#2B1911",
+                  "fontFamily": "Baloo2-Regular",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 24,
+                },
+                [
+                  {
+                    "fontFamily": "Baloo2-Medium",
+                  },
+                  false,
+                  {
+                    "fontSize": 12,
+                    "lineHeight": 18,
+                    "paddingBottom": 2,
+                  },
+                ],
+                false,
+              ]
+            }
+          >
+            sats
+          </Text>
+        </View>
       </View>
     </View>
   </View>
@@ -644,8 +667,10 @@ exports[`Right should render correctly with fiatAmount 1`] = `
         style={
           [
             {
-              "alignItems": "baseline",
               "flexDirection": "row",
+            },
+            {
+              "alignItems": "baseline",
             },
             {
               "gap": 2,
@@ -676,6 +701,7 @@ exports[`Right should render correctly with fiatAmount 1`] = `
                   "lineHeight": 23,
                 },
               ],
+              false,
             ]
           }
         >
@@ -707,6 +733,7 @@ exports[`Right should render correctly with fiatAmount 1`] = `
                     "letterSpacing": -1.275,
                   },
                 ],
+                false,
               ]
             }
           >
@@ -740,6 +767,7 @@ exports[`Right should render correctly with fiatAmount 1`] = `
                     "letterSpacing": -3.57,
                   },
                 ],
+                false,
               ]
             }
           >
@@ -773,6 +801,7 @@ exports[`Right should render correctly with fiatAmount 1`] = `
                     "letterSpacing": -1.275,
                   },
                 ],
+                false,
               ]
             }
           >
@@ -806,138 +835,7 @@ exports[`Right should render correctly with fiatAmount 1`] = `
                     "letterSpacing": -1.275,
                   },
                 ],
-              ]
-            }
-          >
-            0
-          </Text>
-          <Text
-            allowFontScaling={false}
-            style={
-              [
-                {
-                  "color": "#2B1911",
-                  "fontFamily": "Baloo2-Regular",
-                  "fontSize": 16,
-                  "letterSpacing": 0.16,
-                  "lineHeight": 24,
-                },
-                [
-                  [
-                    {
-                      "alignItems": "center",
-                      "fontFamily": "CourierPrime-Bold",
-                      "textAlign": "center",
-                    },
-                    {
-                      "fontSize": 17,
-                      "lineHeight": 23,
-                    },
-                  ],
-                  {
-                    "color": "#2B19111A",
-                    "letterSpacing": -5.949999999999999,
-                  },
-                ],
-              ]
-            }
-          >
-             
-          </Text>
-          <Text
-            allowFontScaling={false}
-            style={
-              [
-                {
-                  "color": "#2B1911",
-                  "fontFamily": "Baloo2-Regular",
-                  "fontSize": 16,
-                  "letterSpacing": 0.16,
-                  "lineHeight": 24,
-                },
-                [
-                  [
-                    {
-                      "alignItems": "center",
-                      "fontFamily": "CourierPrime-Bold",
-                      "textAlign": "center",
-                    },
-                    {
-                      "fontSize": 17,
-                      "lineHeight": 23,
-                    },
-                  ],
-                  {
-                    "color": "#2B19111A",
-                    "letterSpacing": -1.275,
-                  },
-                ],
-              ]
-            }
-          >
-            0
-          </Text>
-          <Text
-            allowFontScaling={false}
-            style={
-              [
-                {
-                  "color": "#2B1911",
-                  "fontFamily": "Baloo2-Regular",
-                  "fontSize": 16,
-                  "letterSpacing": 0.16,
-                  "lineHeight": 24,
-                },
-                [
-                  [
-                    {
-                      "alignItems": "center",
-                      "fontFamily": "CourierPrime-Bold",
-                      "textAlign": "center",
-                    },
-                    {
-                      "fontSize": 17,
-                      "lineHeight": 23,
-                    },
-                  ],
-                  {
-                    "color": "#2B19111A",
-                    "letterSpacing": -1.275,
-                  },
-                ],
-              ]
-            }
-          >
-            0
-          </Text>
-          <Text
-            allowFontScaling={false}
-            style={
-              [
-                {
-                  "color": "#2B1911",
-                  "fontFamily": "Baloo2-Regular",
-                  "fontSize": 16,
-                  "letterSpacing": 0.16,
-                  "lineHeight": 24,
-                },
-                [
-                  [
-                    {
-                      "alignItems": "center",
-                      "fontFamily": "CourierPrime-Bold",
-                      "textAlign": "center",
-                    },
-                    {
-                      "fontSize": 17,
-                      "lineHeight": 23,
-                    },
-                  ],
-                  {
-                    "color": "#2B19111A",
-                    "letterSpacing": -1.275,
-                  },
-                ],
+                false,
               ]
             }
           >
@@ -971,6 +869,7 @@ exports[`Right should render correctly with fiatAmount 1`] = `
                     "letterSpacing": -5.949999999999999,
                   },
                 ],
+                false,
               ]
             }
           >
@@ -1004,6 +903,143 @@ exports[`Right should render correctly with fiatAmount 1`] = `
                     "letterSpacing": -1.275,
                   },
                 ],
+                false,
+              ]
+            }
+          >
+            0
+          </Text>
+          <Text
+            allowFontScaling={false}
+            style={
+              [
+                {
+                  "color": "#2B1911",
+                  "fontFamily": "Baloo2-Regular",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 24,
+                },
+                [
+                  [
+                    {
+                      "alignItems": "center",
+                      "fontFamily": "CourierPrime-Bold",
+                      "textAlign": "center",
+                    },
+                    {
+                      "fontSize": 17,
+                      "lineHeight": 23,
+                    },
+                  ],
+                  {
+                    "color": "#2B19111A",
+                    "letterSpacing": -1.275,
+                  },
+                ],
+                false,
+              ]
+            }
+          >
+            0
+          </Text>
+          <Text
+            allowFontScaling={false}
+            style={
+              [
+                {
+                  "color": "#2B1911",
+                  "fontFamily": "Baloo2-Regular",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 24,
+                },
+                [
+                  [
+                    {
+                      "alignItems": "center",
+                      "fontFamily": "CourierPrime-Bold",
+                      "textAlign": "center",
+                    },
+                    {
+                      "fontSize": 17,
+                      "lineHeight": 23,
+                    },
+                  ],
+                  {
+                    "color": "#2B19111A",
+                    "letterSpacing": -1.275,
+                  },
+                ],
+                false,
+              ]
+            }
+          >
+            0
+          </Text>
+          <Text
+            allowFontScaling={false}
+            style={
+              [
+                {
+                  "color": "#2B1911",
+                  "fontFamily": "Baloo2-Regular",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 24,
+                },
+                [
+                  [
+                    {
+                      "alignItems": "center",
+                      "fontFamily": "CourierPrime-Bold",
+                      "textAlign": "center",
+                    },
+                    {
+                      "fontSize": 17,
+                      "lineHeight": 23,
+                    },
+                  ],
+                  {
+                    "color": "#2B19111A",
+                    "letterSpacing": -5.949999999999999,
+                  },
+                ],
+                false,
+              ]
+            }
+          >
+             
+          </Text>
+          <Text
+            allowFontScaling={false}
+            style={
+              [
+                {
+                  "color": "#2B1911",
+                  "fontFamily": "Baloo2-Regular",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 24,
+                },
+                [
+                  [
+                    {
+                      "alignItems": "center",
+                      "fontFamily": "CourierPrime-Bold",
+                      "textAlign": "center",
+                    },
+                    {
+                      "fontSize": 17,
+                      "lineHeight": 23,
+                    },
+                  ],
+                  {
+                    "color": "#2B19111A",
+                    "letterSpacing": -1.275,
+                  },
+                ],
+                false,
               ]
             }
           >
@@ -1037,6 +1073,7 @@ exports[`Right should render correctly with fiatAmount 1`] = `
                     "letterSpacing": -1.275,
                   },
                 ],
+                false,
               ]
             }
           >
@@ -1070,40 +1107,49 @@ exports[`Right should render correctly with fiatAmount 1`] = `
                     "letterSpacing": -1.275,
                   },
                 ],
+                false,
               ]
             }
           >
             1
           </Text>
         </Text>
-        <Text
-          allowFontScaling={false}
+        <View
           style={
-            [
-              {
-                "color": "#2B1911",
-                "fontFamily": "Baloo2-Regular",
-                "fontSize": 16,
-                "letterSpacing": 0.16,
-                "lineHeight": 24,
-              },
-              [
-                {
-                  "alignItems": "center",
-                  "fontFamily": "Baloo2-Medium",
-                },
-                false,
-                {
-                  "fontSize": 12,
-                  "lineHeight": 18,
-                  "paddingBottom": 2,
-                },
-              ],
-            ]
+            {
+              "justifyContent": "center",
+            }
           }
         >
-          sats
-        </Text>
+          <Text
+            allowFontScaling={false}
+            style={
+              [
+                {
+                  "color": "#2B1911",
+                  "fontFamily": "Baloo2-Regular",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 24,
+                },
+                [
+                  {
+                    "fontFamily": "Baloo2-Medium",
+                  },
+                  false,
+                  {
+                    "fontSize": 12,
+                    "lineHeight": 18,
+                    "paddingBottom": 2,
+                  },
+                ],
+                false,
+              ]
+            }
+          >
+            sats
+          </Text>
+        </View>
       </View>
     </View>
   </View>
@@ -1139,6 +1185,7 @@ exports[`Right should render correctly with fiatAmount 1`] = `
               "marginTop": -40,
             },
           ],
+          false,
         ]
       }
     >
@@ -1236,8 +1283,10 @@ exports[`Right should render correctly with range 1`] = `
           style={
             [
               {
-                "alignItems": "baseline",
                 "flexDirection": "row",
+              },
+              {
+                "alignItems": "baseline",
               },
               {
                 "gap": 2,
@@ -1268,6 +1317,7 @@ exports[`Right should render correctly with range 1`] = `
                     "lineHeight": 23,
                   },
                 ],
+                false,
               ]
             }
           >
@@ -1299,6 +1349,7 @@ exports[`Right should render correctly with range 1`] = `
                       "letterSpacing": -1.275,
                     },
                   ],
+                  false,
                 ]
               }
             >
@@ -1332,6 +1383,7 @@ exports[`Right should render correctly with range 1`] = `
                       "letterSpacing": -3.57,
                     },
                   ],
+                  false,
                 ]
               }
             >
@@ -1365,6 +1417,7 @@ exports[`Right should render correctly with range 1`] = `
                       "letterSpacing": -1.275,
                     },
                   ],
+                  false,
                 ]
               }
             >
@@ -1398,138 +1451,7 @@ exports[`Right should render correctly with range 1`] = `
                       "letterSpacing": -1.275,
                     },
                   ],
-                ]
-              }
-            >
-              0
-            </Text>
-            <Text
-              allowFontScaling={false}
-              style={
-                [
-                  {
-                    "color": "#2B1911",
-                    "fontFamily": "Baloo2-Regular",
-                    "fontSize": 16,
-                    "letterSpacing": 0.16,
-                    "lineHeight": 24,
-                  },
-                  [
-                    [
-                      {
-                        "alignItems": "center",
-                        "fontFamily": "CourierPrime-Bold",
-                        "textAlign": "center",
-                      },
-                      {
-                        "fontSize": 17,
-                        "lineHeight": 23,
-                      },
-                    ],
-                    {
-                      "color": "#2B19111A",
-                      "letterSpacing": -5.949999999999999,
-                    },
-                  ],
-                ]
-              }
-            >
-               
-            </Text>
-            <Text
-              allowFontScaling={false}
-              style={
-                [
-                  {
-                    "color": "#2B1911",
-                    "fontFamily": "Baloo2-Regular",
-                    "fontSize": 16,
-                    "letterSpacing": 0.16,
-                    "lineHeight": 24,
-                  },
-                  [
-                    [
-                      {
-                        "alignItems": "center",
-                        "fontFamily": "CourierPrime-Bold",
-                        "textAlign": "center",
-                      },
-                      {
-                        "fontSize": 17,
-                        "lineHeight": 23,
-                      },
-                    ],
-                    {
-                      "color": "#2B19111A",
-                      "letterSpacing": -1.275,
-                    },
-                  ],
-                ]
-              }
-            >
-              0
-            </Text>
-            <Text
-              allowFontScaling={false}
-              style={
-                [
-                  {
-                    "color": "#2B1911",
-                    "fontFamily": "Baloo2-Regular",
-                    "fontSize": 16,
-                    "letterSpacing": 0.16,
-                    "lineHeight": 24,
-                  },
-                  [
-                    [
-                      {
-                        "alignItems": "center",
-                        "fontFamily": "CourierPrime-Bold",
-                        "textAlign": "center",
-                      },
-                      {
-                        "fontSize": 17,
-                        "lineHeight": 23,
-                      },
-                    ],
-                    {
-                      "color": "#2B19111A",
-                      "letterSpacing": -1.275,
-                    },
-                  ],
-                ]
-              }
-            >
-              0
-            </Text>
-            <Text
-              allowFontScaling={false}
-              style={
-                [
-                  {
-                    "color": "#2B1911",
-                    "fontFamily": "Baloo2-Regular",
-                    "fontSize": 16,
-                    "letterSpacing": 0.16,
-                    "lineHeight": 24,
-                  },
-                  [
-                    [
-                      {
-                        "alignItems": "center",
-                        "fontFamily": "CourierPrime-Bold",
-                        "textAlign": "center",
-                      },
-                      {
-                        "fontSize": 17,
-                        "lineHeight": 23,
-                      },
-                    ],
-                    {
-                      "color": "#2B19111A",
-                      "letterSpacing": -1.275,
-                    },
-                  ],
+                  false,
                 ]
               }
             >
@@ -1563,6 +1485,7 @@ exports[`Right should render correctly with range 1`] = `
                       "letterSpacing": -5.949999999999999,
                     },
                   ],
+                  false,
                 ]
               }
             >
@@ -1596,6 +1519,143 @@ exports[`Right should render correctly with range 1`] = `
                       "letterSpacing": -1.275,
                     },
                   ],
+                  false,
+                ]
+              }
+            >
+              0
+            </Text>
+            <Text
+              allowFontScaling={false}
+              style={
+                [
+                  {
+                    "color": "#2B1911",
+                    "fontFamily": "Baloo2-Regular",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 24,
+                  },
+                  [
+                    [
+                      {
+                        "alignItems": "center",
+                        "fontFamily": "CourierPrime-Bold",
+                        "textAlign": "center",
+                      },
+                      {
+                        "fontSize": 17,
+                        "lineHeight": 23,
+                      },
+                    ],
+                    {
+                      "color": "#2B19111A",
+                      "letterSpacing": -1.275,
+                    },
+                  ],
+                  false,
+                ]
+              }
+            >
+              0
+            </Text>
+            <Text
+              allowFontScaling={false}
+              style={
+                [
+                  {
+                    "color": "#2B1911",
+                    "fontFamily": "Baloo2-Regular",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 24,
+                  },
+                  [
+                    [
+                      {
+                        "alignItems": "center",
+                        "fontFamily": "CourierPrime-Bold",
+                        "textAlign": "center",
+                      },
+                      {
+                        "fontSize": 17,
+                        "lineHeight": 23,
+                      },
+                    ],
+                    {
+                      "color": "#2B19111A",
+                      "letterSpacing": -1.275,
+                    },
+                  ],
+                  false,
+                ]
+              }
+            >
+              0
+            </Text>
+            <Text
+              allowFontScaling={false}
+              style={
+                [
+                  {
+                    "color": "#2B1911",
+                    "fontFamily": "Baloo2-Regular",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 24,
+                  },
+                  [
+                    [
+                      {
+                        "alignItems": "center",
+                        "fontFamily": "CourierPrime-Bold",
+                        "textAlign": "center",
+                      },
+                      {
+                        "fontSize": 17,
+                        "lineHeight": 23,
+                      },
+                    ],
+                    {
+                      "color": "#2B19111A",
+                      "letterSpacing": -5.949999999999999,
+                    },
+                  ],
+                  false,
+                ]
+              }
+            >
+               
+            </Text>
+            <Text
+              allowFontScaling={false}
+              style={
+                [
+                  {
+                    "color": "#2B1911",
+                    "fontFamily": "Baloo2-Regular",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 24,
+                  },
+                  [
+                    [
+                      {
+                        "alignItems": "center",
+                        "fontFamily": "CourierPrime-Bold",
+                        "textAlign": "center",
+                      },
+                      {
+                        "fontSize": 17,
+                        "lineHeight": 23,
+                      },
+                    ],
+                    {
+                      "color": "#2B19111A",
+                      "letterSpacing": -1.275,
+                    },
+                  ],
+                  false,
                 ]
               }
             >
@@ -1629,6 +1689,7 @@ exports[`Right should render correctly with range 1`] = `
                       "letterSpacing": -1.275,
                     },
                   ],
+                  false,
                 ]
               }
             >
@@ -1662,40 +1723,49 @@ exports[`Right should render correctly with range 1`] = `
                       "letterSpacing": -1.275,
                     },
                   ],
+                  false,
                 ]
               }
             >
               1
             </Text>
           </Text>
-          <Text
-            allowFontScaling={false}
+          <View
             style={
-              [
-                {
-                  "color": "#2B1911",
-                  "fontFamily": "Baloo2-Regular",
-                  "fontSize": 16,
-                  "letterSpacing": 0.16,
-                  "lineHeight": 24,
-                },
-                [
-                  {
-                    "alignItems": "center",
-                    "fontFamily": "Baloo2-Medium",
-                  },
-                  false,
-                  {
-                    "fontSize": 12,
-                    "lineHeight": 18,
-                    "paddingBottom": 2,
-                  },
-                ],
-              ]
+              {
+                "justifyContent": "center",
+              }
             }
           >
-            sats
-          </Text>
+            <Text
+              allowFontScaling={false}
+              style={
+                [
+                  {
+                    "color": "#2B1911",
+                    "fontFamily": "Baloo2-Regular",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 24,
+                  },
+                  [
+                    {
+                      "fontFamily": "Baloo2-Medium",
+                    },
+                    false,
+                    {
+                      "fontSize": 12,
+                      "lineHeight": 18,
+                      "paddingBottom": 2,
+                    },
+                  ],
+                  false,
+                ]
+              }
+            >
+              sats
+            </Text>
+          </View>
         </View>
       </View>
     </View>
@@ -1716,6 +1786,7 @@ exports[`Right should render correctly with range 1`] = `
             "fontSize": 12,
             "lineHeight": 19,
           },
+          false,
         ]
       }
     >
@@ -1783,8 +1854,10 @@ exports[`Right should render correctly with range 1`] = `
           style={
             [
               {
-                "alignItems": "baseline",
                 "flexDirection": "row",
+              },
+              {
+                "alignItems": "baseline",
               },
               {
                 "gap": 2,
@@ -1815,6 +1888,7 @@ exports[`Right should render correctly with range 1`] = `
                     "lineHeight": 23,
                   },
                 ],
+                false,
               ]
             }
           >
@@ -1846,6 +1920,7 @@ exports[`Right should render correctly with range 1`] = `
                       "letterSpacing": -1.275,
                     },
                   ],
+                  false,
                 ]
               }
             >
@@ -1879,6 +1954,7 @@ exports[`Right should render correctly with range 1`] = `
                       "letterSpacing": -3.57,
                     },
                   ],
+                  false,
                 ]
               }
             >
@@ -1912,6 +1988,7 @@ exports[`Right should render correctly with range 1`] = `
                       "letterSpacing": -1.275,
                     },
                   ],
+                  false,
                 ]
               }
             >
@@ -1945,6 +2022,7 @@ exports[`Right should render correctly with range 1`] = `
                       "letterSpacing": -1.275,
                     },
                   ],
+                  false,
                 ]
               }
             >
@@ -1978,6 +2056,7 @@ exports[`Right should render correctly with range 1`] = `
                       "letterSpacing": -5.949999999999999,
                     },
                   ],
+                  false,
                 ]
               }
             >
@@ -2011,6 +2090,7 @@ exports[`Right should render correctly with range 1`] = `
                       "letterSpacing": -1.275,
                     },
                   ],
+                  false,
                 ]
               }
             >
@@ -2044,6 +2124,7 @@ exports[`Right should render correctly with range 1`] = `
                       "letterSpacing": -1.275,
                     },
                   ],
+                  false,
                 ]
               }
             >
@@ -2077,6 +2158,7 @@ exports[`Right should render correctly with range 1`] = `
                       "letterSpacing": -1.275,
                     },
                   ],
+                  false,
                 ]
               }
             >
@@ -2110,6 +2192,7 @@ exports[`Right should render correctly with range 1`] = `
                       "letterSpacing": -5.949999999999999,
                     },
                   ],
+                  false,
                 ]
               }
             >
@@ -2143,6 +2226,7 @@ exports[`Right should render correctly with range 1`] = `
                       "letterSpacing": -1.275,
                     },
                   ],
+                  false,
                 ]
               }
             >
@@ -2176,6 +2260,7 @@ exports[`Right should render correctly with range 1`] = `
                       "letterSpacing": -1.275,
                     },
                   ],
+                  false,
                 ]
               }
             >
@@ -2209,40 +2294,49 @@ exports[`Right should render correctly with range 1`] = `
                       "letterSpacing": -1.275,
                     },
                   ],
+                  false,
                 ]
               }
             >
               0
             </Text>
           </Text>
-          <Text
-            allowFontScaling={false}
+          <View
             style={
-              [
-                {
-                  "color": "#2B1911",
-                  "fontFamily": "Baloo2-Regular",
-                  "fontSize": 16,
-                  "letterSpacing": 0.16,
-                  "lineHeight": 24,
-                },
-                [
-                  {
-                    "alignItems": "center",
-                    "fontFamily": "Baloo2-Medium",
-                  },
-                  false,
-                  {
-                    "fontSize": 12,
-                    "lineHeight": 18,
-                    "paddingBottom": 2,
-                  },
-                ],
-              ]
+              {
+                "justifyContent": "center",
+              }
             }
           >
-            sats
-          </Text>
+            <Text
+              allowFontScaling={false}
+              style={
+                [
+                  {
+                    "color": "#2B1911",
+                    "fontFamily": "Baloo2-Regular",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 24,
+                  },
+                  [
+                    {
+                      "fontFamily": "Baloo2-Medium",
+                    },
+                    false,
+                    {
+                      "fontSize": 12,
+                      "lineHeight": 18,
+                      "paddingBottom": 2,
+                    },
+                  ],
+                  false,
+                ]
+              }
+            >
+              sats
+            </Text>
+          </View>
         </View>
       </View>
     </View>

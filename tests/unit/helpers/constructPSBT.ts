@@ -1,10 +1,25 @@
+import { PsbtInput, PsbtOutput } from 'bip174/src/lib/interfaces'
 import { BIP32Interface } from 'bip32'
 import { Psbt, payments } from 'bitcoinjs-lib'
+import { sha256 } from 'bitcoinjs-lib/src/crypto'
 import { getNetwork } from '../../../src/utils/wallet'
 import { getScript } from './getScript'
-import { sha256 } from 'bitcoinjs-lib/src/crypto'
 
-export const constructPSBT = (wallet: BIP32Interface) => {
+interface PsbtOutputExtendedAddress extends PsbtOutput {
+  address: string
+  value: number
+}
+interface PsbtOutputExtendedScript extends PsbtOutput {
+  script: Buffer
+  value: number
+}
+type PsbtOutputExtended = PsbtOutputExtendedAddress | PsbtOutputExtendedScript
+
+export const constructPSBT = (
+  wallet: BIP32Interface,
+  inputOptions: Partial<PsbtInput> = {},
+  ouputOptions: Partial<PsbtOutputExtended> = {},
+) => {
   const network = getNetwork()
   const p2wsh = payments.p2wsh({
     network,
@@ -23,10 +38,12 @@ export const constructPSBT = (wallet: BIP32Interface) => {
       script: Buffer.from(`0020${sha256(redeemOutput).toString('hex')}`, 'hex'),
       value: 10000000,
     },
+    ...inputOptions,
   })
   psbt.addOutput({
     address: 'bcrt1q348u075ehsuk0rz9lat22zrhlpgspj4twmt3m3pf0e5jjdm98u4qpet6g7',
     value: 10000000 - 300,
+    ...ouputOptions,
   })
   return psbt
 }

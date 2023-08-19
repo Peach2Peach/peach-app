@@ -1,5 +1,5 @@
 PODS:
-  - bdk-rn (0.27.0):
+  - bdk-rn (0.29.0):
     - React
   - boost (1.76.0)
   - DoubleConversion (1.1.6)
@@ -409,13 +409,11 @@ PODS:
   - react-native-mmkv-storage (0.9.1):
     - MMKV (= 1.2.13)
     - React-Core
-  - react-native-netinfo (9.3.7):
+  - react-native-netinfo (9.4.1):
     - React-Core
   - react-native-notification-badge (0.1.6):
     - React-Core
   - react-native-pager-view (6.2.0):
-    - React-Core
-  - react-native-randombytes (3.6.1):
     - React-Core
   - react-native-restart (0.0.27):
     - React-Core
@@ -574,6 +572,8 @@ PODS:
   - RNScreens (3.20.0):
     - React-Core
     - React-RCTImage
+  - RNSecureRandom (1.0.1):
+    - React
   - RNShare (8.2.2):
     - React-Core
   - RNSVG (13.9.0):
@@ -613,7 +613,6 @@ DEPENDENCIES:
   - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
   - "react-native-notification-badge (from `../node_modules/@msml/react-native-notification-badge`)"
   - react-native-pager-view (from `../node_modules/react-native-pager-view`)
-  - react-native-randombytes (from `../node_modules/react-native-randombytes`)
   - react-native-restart (from `../node_modules/react-native-restart`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - react-native-splash-screen (from `../node_modules/react-native-splash-screen`)
@@ -643,6 +642,7 @@ DEPENDENCIES:
   - RNPermissions (from `../node_modules/react-native-permissions`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
+  - RNSecureRandom (from `../node_modules/react-native-securerandom`)
   - RNShare (from `../node_modules/react-native-share`)
   - RNSVG (from `../node_modules/react-native-svg`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
@@ -734,8 +734,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@msml/react-native-notification-badge"
   react-native-pager-view:
     :path: "../node_modules/react-native-pager-view"
-  react-native-randombytes:
-    :path: "../node_modules/react-native-randombytes"
   react-native-restart:
     :path: "../node_modules/react-native-restart"
   react-native-safe-area-context:
@@ -794,6 +792,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-reanimated"
   RNScreens:
     :path: "../node_modules/react-native-screens"
+  RNSecureRandom:
+    :path: "../node_modules/react-native-securerandom"
   RNShare:
     :path: "../node_modules/react-native-share"
   RNSVG:
@@ -802,7 +802,7 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
-  bdk-rn: 1624eb01a7513e7b41117fb77aafb67df669487f
+  bdk-rn: 0b3d1975bad08b2b511fa3fb85249735d626afc6
   boost: 57d2868c099736d80fcd648bf211b4431e51a558
   DoubleConversion: 5189b271737e1565bdce30deb4a08d647e3f5f54
   FBLazyVector: ddb55c55295ea51ed98aa7e2e08add2f826309d5
@@ -852,10 +852,9 @@ SPEC CHECKSUMS:
   react-native-document-picker: 2b8f18667caee73a96708a82b284a4f40b30a156
   react-native-fast-openpgp: fb284303005e8ba22387f86fcd580fbdb204c728
   react-native-mmkv-storage: cfb6854594cfdc5f7383a9e464bb025417d1721c
-  react-native-netinfo: 2517ad504b3d303e90d7a431b0fcaef76d207983
+  react-native-netinfo: fefd4e98d75cbdd6e85fc530f7111a8afdf2b0c5
   react-native-notification-badge: 7d458ff810ed02431eb46de253ecfc6a81148ba1
   react-native-pager-view: 0ccb8bf60e2ebd38b1f3669fa3650ecce81db2df
-  react-native-randombytes: 421f1c7d48c0af8dbcd471b0324393ebf8fe7846
   react-native-restart: 7595693413fe3ca15893702f2c8306c62a708162
   react-native-safe-area-context: b8979f5eda6ed5903d4dbc885be3846ea3daa753
   react-native-splash-screen: 4312f786b13a81b5169ef346d76d33bc0c6dc457
@@ -885,6 +884,7 @@ SPEC CHECKSUMS:
   RNPermissions: 9c20349713ff2e275a35f906d921b9d815de116a
   RNReanimated: c931b356bda56c0196110bdc462e48e4c2668dc3
   RNScreens: 218801c16a2782546d30bd2026bb625c0302d70f
+  RNSecureRandom: 07efbdf2cd99efe13497433668e54acd7df49fef
   RNShare: d82e10f6b7677f4b0048c23709bd04098d5aee6c
   RNSVG: 53c661b76829783cdaf9b7a57258f3d3b4c28315
   Yoga: e7ea9e590e27460d28911403b894722354d73479

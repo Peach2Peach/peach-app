@@ -1,9 +1,9 @@
-import { setPaymentMethods } from '../../constants'
-import { SelectCountry } from './SelectCountry'
 import { fireEvent, render } from '@testing-library/react-native'
-import { navigateMock, NavigationWrapper } from '../../../tests/unit/helpers/NavigationWrapper'
+import { NavigationWrapper, navigateMock } from '../../../tests/unit/helpers/NavigationWrapper'
 import { PrimaryButton } from '../../components'
+import { setPaymentMethods } from '../../paymentMethods'
 import { usePaymentDataStore } from '../../store/usePaymentDataStore'
+import { SelectCountry } from './SelectCountry'
 
 jest.mock('../../hooks/useRoute', () => ({
   useRoute: jest.fn(() => ({

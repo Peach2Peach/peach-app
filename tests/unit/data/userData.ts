@@ -19,4 +19,5 @@ export const defaultSelfUser: SelfUser = {
   userRating: 1,
   freeTrades: 0,
   maxFreeTrades: 0,
+  isBatchingEnabled: false,
 }

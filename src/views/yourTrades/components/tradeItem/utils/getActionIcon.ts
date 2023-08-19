@@ -7,5 +7,8 @@ export const getActionIcon = (tradeSummary: Pick<TradeSummary, 'tradeStatus'>, i
   if (isContractSummary(tradeSummary) && tradeSummary.disputeWinner) {
     return 'alertOctagon'
   }
+
+  if (tradeSummary.tradeStatus === 'payoutPending') return statusIcons.payoutPending
+
   return statusIcons[isWaiting ? 'waiting' : tradeSummary.tradeStatus]
 }

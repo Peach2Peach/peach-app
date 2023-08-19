@@ -1,4 +1,4 @@
-import { PAYMENTCATEGORIES, setPaymentMethods } from '../constants'
+import { PAYMENTCATEGORIES, setPaymentMethods } from '../paymentMethods'
 import { useConfigStore } from '../store/configStore'
 import { error } from '../utils/log'
 import { shouldUsePaymentMethod } from '../utils/paymentMethod'

@@ -61,106 +61,118 @@ exports[`TransactionHeader should render correctly buy trade 1`] = `
               "lineHeight": 32,
             },
           ],
+          false,
         ]
       }
     >
       stacked sats
     </Text>
     <View
-      accessibilityState={
-        {
-          "busy": undefined,
-          "checked": undefined,
-          "disabled": false,
-          "expanded": undefined,
-          "selected": undefined,
-        }
-      }
-      accessibilityValue={
-        {
-          "max": undefined,
-          "min": undefined,
-          "now": undefined,
-          "text": undefined,
-        }
-      }
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      onClick={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
       style={
         {
-          "alignItems": "center",
-          "backgroundColor": "#FEEDE5",
-          "borderColor": "#FCCCB6",
-          "borderRadius": 8,
-          "borderWidth": 1,
           "flexDirection": "row",
+          "flexWrap": "wrap",
           "gap": 4,
-          "height": 28,
-          "justifyContent": "center",
-          "opacity": 1,
-          "paddingLeft": 10,
-          "paddingRight": 10,
         }
       }
     >
-      <Text
-        allowFontScaling={false}
-        ellipsizeMode="tail"
-        numberOfLines={1}
+      <View
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": false,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
         style={
-          [
-            {
-              "color": "#2B1911",
-              "fontFamily": "Baloo2-Regular",
-              "fontSize": 16,
-              "letterSpacing": 0.16,
-              "lineHeight": 24,
-            },
+          {
+            "alignItems": "center",
+            "backgroundColor": "#FEEDE5",
+            "borderColor": "#FCCCB6",
+            "borderRadius": 8,
+            "borderWidth": 1,
+            "flexDirection": "row",
+            "gap": 4,
+            "height": 28,
+            "justifyContent": "center",
+            "opacity": 1,
+            "paddingLeft": 10,
+            "paddingRight": 10,
+          }
+        }
+      >
+        <Text
+          allowFontScaling={false}
+          ellipsizeMode="tail"
+          numberOfLines={1}
+          style={
             [
               {
                 "color": "#2B1911",
-              },
-              {
-                "fontFamily": "Baloo2-SemiBold",
-                "fontSize": 14,
-                "letterSpacing": 0.5,
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
                 "lineHeight": 24,
-                "textAlign": "center",
-                "textTransform": "uppercase",
               },
+              [
+                {
+                  "color": "#2B1911",
+                },
+                {
+                  "fontFamily": "Baloo2-SemiBold",
+                  "fontSize": 14,
+                  "letterSpacing": 0.5,
+                  "lineHeight": 24,
+                  "textAlign": "center",
+                  "textTransform": "uppercase",
+                },
+                {
+                  "fontFamily": "Baloo2-SemiBold",
+                  "fontSize": 15,
+                  "letterSpacing": 0.54,
+                  "lineHeight": 26,
+                  "textTransform": "uppercase",
+                },
+              ],
+              false,
+            ]
+          }
+        >
+          P‑1C8
+        </Text>
+        <test-file-stub
+          fill="#F56522"
+          style={
+            [
               {
-                "fontFamily": "Baloo2-SemiBold",
-                "fontSize": 15,
-                "letterSpacing": 0.54,
-                "lineHeight": 26,
-                "textTransform": "uppercase",
+                "height": 16,
+                "width": 16,
               },
-            ],
-          ]
-        }
-      >
-        PC‑7B‑1C8
-      </Text>
-      <test-file-stub
-        fill="#F56522"
-        style={
-          [
-            {
-              "height": 16,
-              "width": 16,
-            },
-            undefined,
-          ]
-        }
-      />
+              undefined,
+            ]
+          }
+        />
+      </View>
     </View>
   </View>
 </View>
@@ -227,106 +239,118 @@ exports[`TransactionHeader should render correctly for a funding escrow transact
               "lineHeight": 32,
             },
           ],
+          false,
         ]
       }
     >
       funded escrow
     </Text>
     <View
-      accessibilityState={
-        {
-          "busy": undefined,
-          "checked": undefined,
-          "disabled": false,
-          "expanded": undefined,
-          "selected": undefined,
-        }
-      }
-      accessibilityValue={
-        {
-          "max": undefined,
-          "min": undefined,
-          "now": undefined,
-          "text": undefined,
-        }
-      }
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      onClick={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
       style={
         {
-          "alignItems": "center",
-          "backgroundColor": "#FEEDE5",
-          "borderColor": "#FCCCB6",
-          "borderRadius": 8,
-          "borderWidth": 1,
           "flexDirection": "row",
+          "flexWrap": "wrap",
           "gap": 4,
-          "height": 28,
-          "justifyContent": "center",
-          "opacity": 1,
-          "paddingLeft": 10,
-          "paddingRight": 10,
         }
       }
     >
-      <Text
-        allowFontScaling={false}
-        ellipsizeMode="tail"
-        numberOfLines={1}
+      <View
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": false,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
         style={
-          [
-            {
-              "color": "#2B1911",
-              "fontFamily": "Baloo2-Regular",
-              "fontSize": 16,
-              "letterSpacing": 0.16,
-              "lineHeight": 24,
-            },
+          {
+            "alignItems": "center",
+            "backgroundColor": "#FEEDE5",
+            "borderColor": "#FCCCB6",
+            "borderRadius": 8,
+            "borderWidth": 1,
+            "flexDirection": "row",
+            "gap": 4,
+            "height": 28,
+            "justifyContent": "center",
+            "opacity": 1,
+            "paddingLeft": 10,
+            "paddingRight": 10,
+          }
+        }
+      >
+        <Text
+          allowFontScaling={false}
+          ellipsizeMode="tail"
+          numberOfLines={1}
+          style={
             [
               {
                 "color": "#2B1911",
-              },
-              {
-                "fontFamily": "Baloo2-SemiBold",
-                "fontSize": 14,
-                "letterSpacing": 0.5,
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
                 "lineHeight": 24,
-                "textAlign": "center",
-                "textTransform": "uppercase",
               },
+              [
+                {
+                  "color": "#2B1911",
+                },
+                {
+                  "fontFamily": "Baloo2-SemiBold",
+                  "fontSize": 14,
+                  "letterSpacing": 0.5,
+                  "lineHeight": 24,
+                  "textAlign": "center",
+                  "textTransform": "uppercase",
+                },
+                {
+                  "fontFamily": "Baloo2-SemiBold",
+                  "fontSize": 15,
+                  "letterSpacing": 0.54,
+                  "lineHeight": 26,
+                  "textTransform": "uppercase",
+                },
+              ],
+              false,
+            ]
+          }
+        >
+          PC‑7B‑1C8
+        </Text>
+        <test-file-stub
+          fill="#F56522"
+          style={
+            [
               {
-                "fontFamily": "Baloo2-SemiBold",
-                "fontSize": 15,
-                "letterSpacing": 0.54,
-                "lineHeight": 26,
-                "textTransform": "uppercase",
+                "height": 16,
+                "width": 16,
               },
-            ],
-          ]
-        }
-      >
-        PC‑7B‑1C8
-      </Text>
-      <test-file-stub
-        fill="#F56522"
-        style={
-          [
-            {
-              "height": 16,
-              "width": 16,
-            },
-            undefined,
-          ]
-        }
-      />
+              undefined,
+            ]
+          }
+        />
+      </View>
     </View>
   </View>
 </View>
@@ -393,106 +417,118 @@ exports[`TransactionHeader should render correctly for a funding escrow transact
               "lineHeight": 32,
             },
           ],
+          false,
         ]
       }
     >
       funded escrow
     </Text>
     <View
-      accessibilityState={
-        {
-          "busy": undefined,
-          "checked": undefined,
-          "disabled": false,
-          "expanded": undefined,
-          "selected": undefined,
-        }
-      }
-      accessibilityValue={
-        {
-          "max": undefined,
-          "min": undefined,
-          "now": undefined,
-          "text": undefined,
-        }
-      }
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      onClick={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
       style={
         {
-          "alignItems": "center",
-          "backgroundColor": "#FEEDE5",
-          "borderColor": "#FCCCB6",
-          "borderRadius": 8,
-          "borderWidth": 1,
           "flexDirection": "row",
+          "flexWrap": "wrap",
           "gap": 4,
-          "height": 28,
-          "justifyContent": "center",
-          "opacity": 1,
-          "paddingLeft": 10,
-          "paddingRight": 10,
         }
       }
     >
-      <Text
-        allowFontScaling={false}
-        ellipsizeMode="tail"
-        numberOfLines={1}
+      <View
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": false,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
         style={
-          [
-            {
-              "color": "#2B1911",
-              "fontFamily": "Baloo2-Regular",
-              "fontSize": 16,
-              "letterSpacing": 0.16,
-              "lineHeight": 24,
-            },
+          {
+            "alignItems": "center",
+            "backgroundColor": "#FEEDE5",
+            "borderColor": "#FCCCB6",
+            "borderRadius": 8,
+            "borderWidth": 1,
+            "flexDirection": "row",
+            "gap": 4,
+            "height": 28,
+            "justifyContent": "center",
+            "opacity": 1,
+            "paddingLeft": 10,
+            "paddingRight": 10,
+          }
+        }
+      >
+        <Text
+          allowFontScaling={false}
+          ellipsizeMode="tail"
+          numberOfLines={1}
+          style={
             [
               {
                 "color": "#2B1911",
-              },
-              {
-                "fontFamily": "Baloo2-SemiBold",
-                "fontSize": 14,
-                "letterSpacing": 0.5,
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
                 "lineHeight": 24,
-                "textAlign": "center",
-                "textTransform": "uppercase",
               },
+              [
+                {
+                  "color": "#2B1911",
+                },
+                {
+                  "fontFamily": "Baloo2-SemiBold",
+                  "fontSize": 14,
+                  "letterSpacing": 0.5,
+                  "lineHeight": 24,
+                  "textAlign": "center",
+                  "textTransform": "uppercase",
+                },
+                {
+                  "fontFamily": "Baloo2-SemiBold",
+                  "fontSize": 15,
+                  "letterSpacing": 0.54,
+                  "lineHeight": 26,
+                  "textTransform": "uppercase",
+                },
+              ],
+              false,
+            ]
+          }
+        >
+          P‑1C8
+        </Text>
+        <test-file-stub
+          fill="#F56522"
+          style={
+            [
               {
-                "fontFamily": "Baloo2-SemiBold",
-                "fontSize": 15,
-                "letterSpacing": 0.54,
-                "lineHeight": 26,
-                "textTransform": "uppercase",
+                "height": 16,
+                "width": 16,
               },
-            ],
-          ]
-        }
-      >
-        P‑7B
-      </Text>
-      <test-file-stub
-        fill="#F56522"
-        style={
-          [
-            {
-              "height": 16,
-              "width": 16,
-            },
-            undefined,
-          ]
-        }
-      />
+              undefined,
+            ]
+          }
+        />
+      </View>
     </View>
   </View>
 </View>
@@ -507,7 +543,7 @@ exports[`TransactionHeader should render correctly for a receiving transaction 1
         "flexDirection": "row",
         "gap": 16,
       },
-      undefined,
+      false,
       undefined,
     ]
   }
@@ -557,11 +593,21 @@ exports[`TransactionHeader should render correctly for a receiving transaction 1
               "lineHeight": 32,
             },
           ],
+          false,
         ]
       }
     >
       received to wallet
     </Text>
+    <View
+      style={
+        {
+          "flexDirection": "row",
+          "flexWrap": "wrap",
+          "gap": 4,
+        }
+      }
+    />
   </View>
 </View>
 `;
@@ -627,106 +673,118 @@ exports[`TransactionHeader should render correctly for a refund transaction 1`] 
               "lineHeight": 32,
             },
           ],
+          false,
         ]
       }
     >
       refunded
     </Text>
     <View
-      accessibilityState={
-        {
-          "busy": undefined,
-          "checked": undefined,
-          "disabled": false,
-          "expanded": undefined,
-          "selected": undefined,
-        }
-      }
-      accessibilityValue={
-        {
-          "max": undefined,
-          "min": undefined,
-          "now": undefined,
-          "text": undefined,
-        }
-      }
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      onClick={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
       style={
         {
-          "alignItems": "center",
-          "backgroundColor": "#FEEDE5",
-          "borderColor": "#FCCCB6",
-          "borderRadius": 8,
-          "borderWidth": 1,
           "flexDirection": "row",
+          "flexWrap": "wrap",
           "gap": 4,
-          "height": 28,
-          "justifyContent": "center",
-          "opacity": 1,
-          "paddingLeft": 10,
-          "paddingRight": 10,
         }
       }
     >
-      <Text
-        allowFontScaling={false}
-        ellipsizeMode="tail"
-        numberOfLines={1}
+      <View
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": false,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
         style={
-          [
-            {
-              "color": "#2B1911",
-              "fontFamily": "Baloo2-Regular",
-              "fontSize": 16,
-              "letterSpacing": 0.16,
-              "lineHeight": 24,
-            },
+          {
+            "alignItems": "center",
+            "backgroundColor": "#FEEDE5",
+            "borderColor": "#FCCCB6",
+            "borderRadius": 8,
+            "borderWidth": 1,
+            "flexDirection": "row",
+            "gap": 4,
+            "height": 28,
+            "justifyContent": "center",
+            "opacity": 1,
+            "paddingLeft": 10,
+            "paddingRight": 10,
+          }
+        }
+      >
+        <Text
+          allowFontScaling={false}
+          ellipsizeMode="tail"
+          numberOfLines={1}
+          style={
             [
               {
                 "color": "#2B1911",
-              },
-              {
-                "fontFamily": "Baloo2-SemiBold",
-                "fontSize": 14,
-                "letterSpacing": 0.5,
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
                 "lineHeight": 24,
-                "textAlign": "center",
-                "textTransform": "uppercase",
               },
+              [
+                {
+                  "color": "#2B1911",
+                },
+                {
+                  "fontFamily": "Baloo2-SemiBold",
+                  "fontSize": 14,
+                  "letterSpacing": 0.5,
+                  "lineHeight": 24,
+                  "textAlign": "center",
+                  "textTransform": "uppercase",
+                },
+                {
+                  "fontFamily": "Baloo2-SemiBold",
+                  "fontSize": 15,
+                  "letterSpacing": 0.54,
+                  "lineHeight": 26,
+                  "textTransform": "uppercase",
+                },
+              ],
+              false,
+            ]
+          }
+        >
+          PC‑7B‑1C8
+        </Text>
+        <test-file-stub
+          fill="#F56522"
+          style={
+            [
               {
-                "fontFamily": "Baloo2-SemiBold",
-                "fontSize": 15,
-                "letterSpacing": 0.54,
-                "lineHeight": 26,
-                "textTransform": "uppercase",
+                "height": 16,
+                "width": 16,
               },
-            ],
-          ]
-        }
-      >
-        PC‑7B‑1C8
-      </Text>
-      <test-file-stub
-        fill="#F56522"
-        style={
-          [
-            {
-              "height": 16,
-              "width": 16,
-            },
-            undefined,
-          ]
-        }
-      />
+              undefined,
+            ]
+          }
+        />
+      </View>
     </View>
   </View>
 </View>
@@ -741,7 +799,7 @@ exports[`TransactionHeader should render correctly for an outgoing transaction 1
         "flexDirection": "row",
         "gap": 16,
       },
-      undefined,
+      false,
       undefined,
     ]
   }
@@ -791,11 +849,21 @@ exports[`TransactionHeader should render correctly for an outgoing transaction 1
               "lineHeight": 32,
             },
           ],
+          false,
         ]
       }
     >
       sent from wallet
     </Text>
+    <View
+      style={
+        {
+          "flexDirection": "row",
+          "flexWrap": "wrap",
+          "gap": 4,
+        }
+      }
+    />
   </View>
 </View>
 `;

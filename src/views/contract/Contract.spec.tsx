@@ -1,5 +1,5 @@
-import { Contract } from './Contract'
 import { createRenderer } from 'react-test-renderer/shallow'
+import { Contract } from './Contract'
 
 const defaultReturnValue = {
   contract: {

@@ -19,6 +19,7 @@ import { FundEscrow } from './fundEscrow/FundEscrow'
 import { BitcoinLoading } from './loading/BitcoinLoading'
 import { NewUser } from './newUser/NewUser'
 import { OfferDetails } from './offerDetails/OfferDetails'
+import { GroupHugAnnouncement } from './overlays/GroupHugAnnouncement'
 import { NewBadge } from './overlays/NewBadge'
 import { PublicProfile } from './publicProfile/PublicProfile'
 import { Referrals } from './referrals/Referrals'
@@ -44,6 +45,7 @@ import { NetworkFees } from './settings/NetworkFees'
 import { PayoutAddress } from './settings/PayoutAddress'
 import { MyProfile } from './settings/profile/MyProfile'
 import { Settings } from './settings/Settings'
+import { TransactionBatching } from './settings/TransactionBatching'
 import { TestViewButtons } from './TestView/buttons'
 import { TestViewComponents } from './TestView/components'
 import { TestViewMessages } from './TestView/messages'
@@ -52,7 +54,12 @@ import { TestViewPNs } from './TestView/pns'
 import { TestViewPopups } from './TestView/popups'
 import { TestView } from './TestView/TestView'
 import { TradeComplete } from './tradeComplete/TradeComplete'
+import { AddressChecker } from './wallet/AddressChecker'
 import { BumpNetworkFees } from './wallet/BumpNetworkFees'
+import { CoinSelection } from './wallet/CoinSelection'
+import { ExportTransactionHistory } from './wallet/ExportTransactionHistory'
+import { ReceiveBitcoin } from './wallet/ReceiveBitcoin'
+import { SendBitcoin } from './wallet/SendBitcoin'
 import { TransactionDetails } from './wallet/TransactionDetails'
 import { TransactionHistory } from './wallet/TransactionHistory'
 import { Wallet } from './wallet/Wallet'
@@ -94,8 +101,13 @@ const onboarding: ViewType[] = [
 const home: ViewType[] = [{ name: 'home', component: Buy, ...defaultConfig }]
 
 const wallet: ViewType[] = [
-  { name: 'wallet', component: Wallet, ...defaultConfig, animationEnabled: false },
-  { name: 'transactionHistory', component: TransactionHistory, ...defaultConfig },
+  { name: 'wallet', component: Wallet, ...defaultConfig, showHeader: false, animationEnabled: false },
+  { name: 'sendBitcoin', component: SendBitcoin, ...defaultConfig, showHeader: false },
+  { name: 'receiveBitcoin', component: ReceiveBitcoin, ...defaultConfig, showHeader: false },
+  { name: 'addressChecker', component: AddressChecker, ...defaultConfig, showHeader: false },
+  { name: 'coinSelection', component: CoinSelection, ...defaultConfig, showHeader: false },
+  { name: 'transactionHistory', component: TransactionHistory, ...defaultConfig, showHeader: false },
+  { name: 'exportTransactionHistory', component: ExportTransactionHistory, ...defaultConfig, showHeader: false },
   { name: 'transactionDetails', component: TransactionDetails, ...defaultConfig },
   { name: 'bumpNetworkFees', component: BumpNetworkFees, ...defaultConfig },
 ]
@@ -150,6 +162,7 @@ const publicProfile: ViewType[] = [{ name: 'publicProfile', component: PublicPro
 
 const overlays: ViewType[] = [
   { name: 'offerPublished', component: OfferPublished, ...invertedThemeConfig },
+  { name: 'groupHugAnnouncement', component: GroupHugAnnouncement, ...invertedThemeConfig },
   { name: 'newBadge', component: NewBadge, ...invertedThemeConfig },
 ]
 
@@ -173,6 +186,7 @@ const settings: ViewType[] = [
   { name: 'paymentMethods', component: PaymentMethods, ...defaultConfig },
   { name: 'peachFees', component: PeachFees, ...defaultConfig },
   { name: 'networkFees', component: NetworkFees, ...defaultConfig },
+  { name: 'transactionBatching', component: TransactionBatching, ...defaultConfig },
   { name: 'socials', component: Socials, ...defaultConfig },
 ]
 

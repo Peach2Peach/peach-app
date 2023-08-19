@@ -20,16 +20,13 @@ module.exports = (async () => {
       getTransformOptions: async () => ({
         transform: {
           experimentalImportSupport: false,
-          inlineRequires: true
-        }
-      })
+          inlineRequires: true,
+        },
+      }),
     },
     resolver: {
-      assetExts: assetExts.filter(ext => ext !== 'svg'),
+      assetExts: assetExts.filter((ext) => ext !== 'svg'),
       sourceExts: [...sourceExts, 'svg', 'cjs'],
-      extraNodeModules: {
-        crypto: require.resolve('react-native-crypto'),
-      }
     },
   }
 })()

@@ -1,8 +1,21 @@
-import { GIFTCARDCOUNTRIES, NATIONALTRANSFERCOUNTRIES } from '../../../../constants'
+import { GIFTCARDCOUNTRIES, NATIONALTRANSFERCOUNTRIES } from '../../../../paymentMethods'
+import { FormProps } from '../../../../views/addPaymentMethod/PaymentMethodForm'
 import { TradeInfoField } from '../../../../views/contract/helpers/tradeInformationGetters'
 import {
   Template1,
+  Template10,
+  Template11,
+  Template12,
+  Template13,
+  Template14,
+  Template15,
+  Template16,
+  Template17,
+  Template18,
+  Template19,
   Template2,
+  Template20,
+  Template21,
   Template3,
   Template4,
   Template5,
@@ -10,11 +23,8 @@ import {
   Template7,
   Template8,
   Template9,
-  Template10,
 } from '../templates'
 import { GiftCardAmazon } from './GiftCardAmazon'
-import { FormProps } from '../../../../views/addPaymentMethod/PaymentMethodForm'
-import { Template11 } from '../templates/Template11'
 
 type PaymentMethodFormsType = {
   [key in PaymentMethod]?: { component: (props: FormProps) => JSX.Element; fields: TradeInfoField[] }
@@ -33,6 +43,10 @@ const template8Fields: TradeInfoField[] = [...sharedFields, 'beneficiary', 'phon
 const template9Fields: TradeInfoField[] = [...sharedFields, 'beneficiary', 'iban', 'accountNumber', 'bic', 'reference']
 const template10Fields: TradeInfoField[] = [...sharedFields, 'receiveAddress']
 const template11Fields: TradeInfoField[] = [...sharedFields, 'lnurlAddress']
+const template12Fields: TradeInfoField[] = [...sharedFields, 'phone', 'reference']
+const template13Fields: TradeInfoField[] = [...sharedFields, 'phone', 'email', 'reference']
+const template14Fields: TradeInfoField[] = [...sharedFields, 'beneficiary', 'accountNumber', 'reference']
+const template18Fields: TradeInfoField[] = [...sharedFields, 'userName', 'reference']
 
 export const PaymentMethodForms: PaymentMethodFormsType = {
   sepa: { component: Template1, fields: template1Fields },
@@ -62,8 +76,29 @@ export const PaymentMethodForms: PaymentMethodFormsType = {
   verse: { component: Template3, fields: template3Fields },
   iris: { component: Template3, fields: template3Fields },
   'giftCard.amazon': { component: GiftCardAmazon, fields: template4Fields },
+  nationalTransferTR: { component: Template1, fields: template1Fields },
+  papara: { component: Template3, fields: template3Fields },
   liquid: { component: Template10, fields: template10Fields },
   lnurl: { component: Template11, fields: template11Fields },
+  rappipay: { component: Template12, fields: template12Fields },
+  mercadoPago: { component: Template13, fields: template13Fields },
+  nequi: { component: Template3, fields: template3Fields },
+  cbu: { component: Template14, fields: template14Fields },
+  cvu: { component: Template15, fields: template14Fields },
+  alias: { component: Template16, fields: template14Fields },
+  bancolombia: { component: Template17, fields: template14Fields },
+  orangeMoney: { component: Template12, fields: template12Fields },
+  moov: { component: Template12, fields: template12Fields },
+  wave: { component: Template12, fields: template12Fields },
+  airtelMoney: { component: Template12, fields: template12Fields },
+  'm-pesa': { component: Template12, fields: template12Fields },
+  nationalTransferNG: { component: Template21, fields: template14Fields },
+  chippercash: { component: Template18, fields: template18Fields },
+  mtn: { component: Template12, fields: template12Fields },
+  eversend: { component: Template19, fields: template18Fields },
+  payday: { component: Template20, fields: template18Fields },
+  sinpe: { component: Template1, fields: template1Fields },
+  sinpeMovil: { component: Template3, fields: template3Fields },
 }
 GIFTCARDCOUNTRIES.forEach(
   (c) =>

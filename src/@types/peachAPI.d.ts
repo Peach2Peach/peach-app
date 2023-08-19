@@ -68,6 +68,7 @@ declare type SelfUser = User & {
   maxFreeTrades: number
   historyRating: number
   recentRating: number
+  isBatchingEnabled: boolean
 }
 
 declare type TradingLimit = {
@@ -97,80 +98,23 @@ declare type Currency =
   | 'ISK'
   | 'NOK'
   | 'RON'
+  | 'TRY'
   | 'USDT'
+  | 'ARS'
+  | 'COP'
+  | 'PEN'
+  | 'MXN'
+  | 'CLP'
+  | 'PEN'
+  | 'COP'
+  | 'XOF'
+  | 'NGN'
+  | 'CDF'
+  | 'CRC'
 declare type Pricebook = {
   [key in Currency]?: number
 }
-declare type PaymentMethodCountry =
-  | 'BE'
-  | 'BG'
-  | 'CA'
-  | 'CH'
-  | 'CY'
-  | 'CZ'
-  | 'DE'
-  | 'DK'
-  | 'ES'
-  | 'FR'
-  | 'GB'
-  | 'GR'
-  | 'IT'
-  | 'NL'
-  | 'PL'
-  | 'PT'
-  | 'SE'
-  | 'SI'
-  | 'RO'
-  | 'UK'
-  | 'US'
-  | 'FI'
-  | 'BG'
-  | 'CZ'
-  | 'DK'
-  | 'HU'
-  | 'NO'
-  | 'PL'
-  | 'PO'
-  | 'RO'
-  | 'HR'
-
-declare type Location = 'amsterdam' | 'belgianEmbassy' | 'lugano'
-
-declare type CashTrade = 'cash' | `cash.${string}`
-declare type AmazonGiftCard = 'giftCard.amazon' | `giftCard.amazon.${PaymentMethodCountry}`
-declare type NationalTransfer = `nationalTransfer${PaymentMethodCountry}`
-declare type PaymentMethod =
-  | 'sepa'
-  | 'instantSepa'
-  | 'advcash'
-  | 'paypal'
-  | 'fasterPayments'
-  | 'revolut'
-  | 'vipps'
-  | 'blik'
-  | 'wise'
-  | 'twint'
-  | 'satispay'
-  | 'swish'
-  | 'mbWay'
-  | 'bizum'
-  | 'mobilePay'
-  | 'skrill'
-  | 'neteller'
-  | 'paysera'
-  | 'keksPay'
-  | 'straksbetaling'
-  | 'friends24'
-  | 'n26'
-  | 'paylib'
-  | 'lydia'
-  | 'verse'
-  | 'iris'
-  | 'liquid'
-  | 'lnurl'
-  | CashTrade
-  | AmazonGiftCard
-  | NationalTransfer
+declare type PaymentMethodCountry = 'BG' | 'CZ' | 'DK' | 'HU' | 'NO' | 'PL' | 'RO' | 'TR' | 'NG'
 
 declare type MeetupEvent = {
   id: string
@@ -184,6 +128,7 @@ declare type MeetupEvent = {
   frequency?: string
   logo?: string
   featured: boolean
+  superFeatured: boolean
 }
 declare type CountryEventsMap = Record<Country, MeetupEvent[]>
 
@@ -247,6 +192,7 @@ declare type TradeStatus =
   | 'refundTxSignatureRequired'
   | 'paymentRequired'
   | 'confirmPaymentRequired'
+  | 'payoutPending'
   | 'dispute'
   | 'releaseEscrow'
   | 'rateUser'
@@ -292,10 +238,8 @@ declare type Offer = OfferDraft & {
   creationDate: Date
   lastModified?: Date
 }
-
-declare type PostOfferResponseBody =
-  | Omit<BuyOffer, 'originalPaymentData' | 'tradeStatus'>
-  | Omit<SellOffer, 'originalPaymentData' | 'tradeStatus'>
+declare type PostedOffer = BuyOffer | SellOffer
+declare type PostOfferResponseBody = PostedOffer | PostedOffer[]
 declare type OfferType = 'ask' | 'bid'
 
 declare type CreateEscrowResponse = {
