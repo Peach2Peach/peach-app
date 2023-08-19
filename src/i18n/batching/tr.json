@@ -15,8 +15,8 @@
   "settings.batching.turnOff.no" : "hayır, bekle",
   "settings.batching.turnOff.title" : "işlem kümelemeyi kapat",
   "settings.batching.turnOff.yes" : "evet, öde",
-  "settings.batching.youPay" : "%23'e kadar yüksek ödüyorsunuz.",
-  "settings.batching.youPay.highlight" : "%23'e kadar",
+  "settings.batching.youPay" : "%30'e kadar yüksek ödüyorsunuz.",
+  "settings.batching.youPay.highlight" : "%30'e kadar",
   "settings.batching.youSave" : "Ağ ücretlerinde %23'e kadar tasarruf sağlarsınız.",
   "settings.batching.youSave.highlight" : "%23'e kadar"
 }

@@ -28,7 +28,7 @@ export const CustomAmount = ({ amount, onChange, style }: Props) => {
           onFocus={clearCustomAmount}
         />
       </View>
-      <View>
+      <View style={tw`h-8`}>
         <View style={[tw`absolute justify-center h-8 pl-3 pr-4 border rounded-full border-black-4`]}>
           <PriceFormat
             amount={customFiatPrice}
@@ -37,7 +37,7 @@ export const CustomAmount = ({ amount, onChange, style }: Props) => {
           />
         </View>
         <Input
-          style={[tw`w-full h-8 p-0 text-xl `, { opacity: 0 }]}
+          style={[tw`w-full h-8 p-0 text-xl`, { opacity: 0 }]}
           keyboardType="number-pad"
           value={customFiatPrice.toString()}
           onChange={updateCustomFiatAmount}

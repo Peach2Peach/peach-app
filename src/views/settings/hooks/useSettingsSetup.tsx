@@ -77,6 +77,7 @@ export const useSettingsSetup = () => {
         warning: !!showBackupReminder,
       },
       { title: 'networkFees' },
+      { title: 'transactionBatching' },
       { title: 'paymentMethods' },
     ],
     [showBackupReminder],

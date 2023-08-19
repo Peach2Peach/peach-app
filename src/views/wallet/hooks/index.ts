@@ -1,0 +1,5 @@
+export { useLastUnusedAddress } from './useLastUnusedAddress'
+export { useTransactionHistorySetup } from './useTransactionHistorySetup'
+export { useUTXOs } from './useUTXOs'
+export { useWalletAddress } from './useWalletAddress'
+export { useWalletSetup } from './useWalletSetup'

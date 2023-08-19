@@ -1,28 +1,37 @@
 import { BIP32Interface } from 'bip32'
 import { Psbt } from 'bitcoinjs-lib'
-import { verifyPSBT } from '../../views/contract/helpers'
-import { signAndFinalizePSBT } from '../bitcoin'
+import { parseError } from '../result'
 import { getNetwork } from '../wallet'
+import { signBatchReleaseTransaction } from './signBatchReleaseTransaction'
+import { signReleaseTransaction } from './signReleaseTransaction'
 
-export const verifyAndSignReleaseTx = (
-  contract: Contract,
-  sellOffer: SellOffer,
-  wallet: BIP32Interface,
-): [string | null, string | null] => {
+export const verifyAndSignReleaseTx = (contract: Contract, sellOffer: SellOffer, wallet: BIP32Interface) => {
   const sellOfferId = sellOffer.oldOfferId || sellOffer.id
 
-  if (!sellOfferId || !sellOffer?.funding) return [null, 'SELL_OFFER_NOT_FOUND']
+  if (!sellOfferId || !sellOffer?.funding) return { errorMsg: 'SELL_OFFER_NOT_FOUND' }
 
-  const psbt = Psbt.fromBase64(contract.releasePsbt || contract.releaseTransaction, { network: getNetwork() })
+  try {
+    const releaseTransaction = signReleaseTransaction({
+      psbt: Psbt.fromBase64(contract.releasePsbt, {
+        network: getNetwork(),
+      }),
+      contract,
+      sellOffer,
+      wallet,
+    })
+    const batchReleasePsbt = contract.batchReleasePsbt
+      ? signBatchReleaseTransaction({
+        psbt: Psbt.fromBase64(contract.batchReleasePsbt, {
+          network: getNetwork(),
+        }),
+        contract,
+        sellOffer,
+        wallet,
+      })
+      : undefined
 
-  // Don't trust the response, verify
-  const errorMsg = verifyPSBT(psbt, sellOffer, contract)
-
-  if (errorMsg) return [null, errorMsg]
-
-  signAndFinalizePSBT(psbt, wallet)
-
-  const tx = psbt.extractTransaction().toHex()
-
-  return [tx, null]
+    return { releaseTransaction, batchReleasePsbt }
+  } catch (e) {
+    return { errorMsg: parseError(e) }
+  }
 }

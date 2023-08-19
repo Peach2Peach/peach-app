@@ -1,5 +1,6 @@
 import accessibility from './accessibility/it.json'
 import analytics from './analytics/it.json'
+import batching from './batching/it.json'
 import buy from './buy/it.json'
 import chat from './chat/it.json'
 import contract from './contract/it.json'
@@ -23,6 +24,7 @@ const it: Record<string, string> = {
   ...global,
   ...accessibility,
   ...analytics,
+  ...batching,
   ...buy,
   ...chat,
   ...contract,

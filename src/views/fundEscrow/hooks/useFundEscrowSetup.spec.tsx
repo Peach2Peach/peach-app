@@ -4,9 +4,13 @@ import { sellOffer } from '../../../../tests/unit/data/offerData'
 import { unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
 import { NavigationAndQueryClientWrapper } from '../../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
 import { queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
+import { MSINAMINUTE } from '../../../constants'
 import { setAccount, updateAccount } from '../../../utils/account'
 import { saveOffer } from '../../../utils/offer'
 import { defaultFundingStatus } from '../../../utils/offer/constants'
+import { PeachWallet } from '../../../utils/wallet/PeachWallet'
+import { setPeachWallet } from '../../../utils/wallet/setWallet'
+import { useWalletState } from '../../../utils/wallet/walletStore'
 import { useFundEscrowSetup } from './useFundEscrowSetup'
 
 jest.useFakeTimers()
@@ -67,6 +71,7 @@ jest.mock('../../../hooks/useCancelOffer', () => ({
 describe('useFundEscrowSetup', () => {
   beforeEach(() => {
     updateAccount({ ...account1, offers: [] }, true)
+    useWalletState.getState().reset()
   })
   afterEach(() => {
     queryClient.clear()
@@ -78,12 +83,23 @@ describe('useFundEscrowSetup', () => {
     expect(result.current).toEqual({
       offerId: sellOffer.id,
       isLoading: true,
-      escrow: undefined,
+      fundingAddress: undefined,
+      fundingAddresses: [],
       createEscrowError: null,
       fundingStatus: defaultFundingStatus,
       fundingAmount: 0,
       cancelOffer: expect.any(Function),
     })
+  })
+  it('should return registered funding address for funding multiple offers', () => {
+    saveOffer(sellOfferWithEscrow)
+
+    const internalAddress = 'internalAddress'
+    useWalletState.getState().registerFundMultiple(internalAddress, [sellOfferWithEscrow.id])
+    const { result } = renderHook(useFundEscrowSetup, { wrapper })
+
+    expect(result.current.fundingAddress).toBe(internalAddress)
+    expect(result.current.fundingAddresses).toEqual([sellOfferWithEscrow.escrow])
   })
   it('should return default values with locally stored offer', () => {
     saveOffer(sellOfferWithEscrow)
@@ -91,9 +107,9 @@ describe('useFundEscrowSetup', () => {
 
     expect(result.current).toEqual({
       offerId: sellOfferWithEscrow.id,
-      offer: sellOfferWithEscrow,
       isLoading: false,
-      escrow: sellOfferWithEscrow.escrow,
+      fundingAddress: sellOfferWithEscrow.escrow,
+      fundingAddresses: [sellOfferWithEscrow.escrow],
       createEscrowError: null,
       fundingStatus: defaultFundingStatus,
       fundingAmount: sellOfferWithEscrow.amount,
@@ -104,7 +120,7 @@ describe('useFundEscrowSetup', () => {
     getOfferDetailsMock.mockReturnValueOnce([{ ...sellOffer, escrow: undefined }, null])
     const { result } = renderHook(useFundEscrowSetup, { wrapper })
     await waitFor(() => expect(createEscrowMock).toHaveBeenCalled())
-    expect(result.current.escrow).toBe(sellOfferWithEscrow.escrow)
+    expect(result.current.fundingAddress).toBe(sellOfferWithEscrow.escrow)
   })
   it('should show loading for at least 1 second', async () => {
     getOfferDetailsMock.mockReturnValueOnce([{ ...sellOffer, escrow: undefined }, null])
@@ -139,7 +155,8 @@ describe('useFundEscrowSetup', () => {
     expect(result.current).toEqual({
       offerId: sellOffer.id,
       isLoading: true,
-      escrow: undefined,
+      fundingAddress: undefined,
+      fundingAddresses: [undefined],
       createEscrowError: null,
       fundingStatus: defaultFundingStatus,
       fundingAmount: 0,
@@ -152,13 +169,44 @@ describe('useFundEscrowSetup', () => {
     const { result } = renderHook(useFundEscrowSetup, { wrapper })
     expect(result.current).toEqual({
       offerId: sellOffer.id,
-      offer: sellOfferWithEscrow,
       isLoading: false,
-      escrow: 'escrow',
+      fundingAddress: 'escrow',
+      fundingAddresses: ['escrow'],
       createEscrowError: null,
       fundingStatus: defaultFundingStatus,
       fundingAmount: sellOffer.amount,
       cancelOffer: expect.any(Function),
     })
+  })
+  it('should periodically sync peach wallet if funding multiple escrow', () => {
+    // @ts-ignore
+    const peachWallet = new PeachWallet()
+    setPeachWallet(peachWallet)
+    saveOffer(sellOfferWithEscrow)
+
+    const syncWalletSpy = jest.spyOn(peachWallet, 'syncWallet')
+    const internalAddress = 'internalAddress'
+    useWalletState.getState().registerFundMultiple(internalAddress, [sellOfferWithEscrow.id])
+    renderHook(useFundEscrowSetup, { wrapper })
+
+    jest.advanceTimersByTime(MSINAMINUTE * 2)
+
+    expect(syncWalletSpy).toHaveBeenCalledTimes(1)
+
+    jest.advanceTimersByTime(MSINAMINUTE * 2)
+    expect(syncWalletSpy).toHaveBeenCalledTimes(2)
+  })
+  it('should not call sync peach wallet when not funding multiple escrow', () => {
+    // @ts-ignore
+    const peachWallet = new PeachWallet()
+    setPeachWallet(peachWallet)
+    saveOffer(sellOfferWithEscrow)
+
+    const syncWalletSpy = jest.spyOn(peachWallet, 'syncWallet')
+    renderHook(useFundEscrowSetup, { wrapper })
+
+    jest.advanceTimersByTime(MSINAMINUTE * 2)
+
+    expect(syncWalletSpy).not.toHaveBeenCalled()
   })
 })

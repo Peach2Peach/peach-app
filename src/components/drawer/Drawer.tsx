@@ -1,10 +1,9 @@
 import { useCallback, useContext, useEffect, useRef } from 'react'
-import { Animated, BackHandler, Easing, Pressable, useWindowDimensions, View } from 'react-native'
+import { Animated, BackHandler, Easing, Pressable, View, useWindowDimensions } from 'react-native'
 
 import { DrawerContext } from '../../contexts/drawer'
 import tw from '../../styles/tailwind'
-import { DrawerHeader } from './components/DrawerHeader'
-import { DrawerOptions } from './components/DrawerOptions'
+import { DrawerHeader, DrawerOptions } from './components'
 
 const animConfig = {
   duration: 300,

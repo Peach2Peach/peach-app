@@ -1,10 +1,10 @@
 /* eslint-disable max-lines-per-function */
 import { act, renderHook, waitFor } from '@testing-library/react-native'
-import { useSettingsSetup } from './useSettingsSetup'
+import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { useSettingsStore } from '../../../store/settingsStore'
 import { usePopupStore } from '../../../store/usePopupStore'
 import { NotificationPopup } from '../components/NotificationPopup'
-import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { useSettingsSetup } from './useSettingsSetup'
 
 const checkNotificationStatusMock = jest.fn().mockResolvedValue(true)
 jest.mock('../../../utils/system/checkNotificationStatus', () => ({
@@ -32,6 +32,7 @@ describe('useSettingsSetup', () => {
           { title: 'referrals' },
           { title: 'backups', warning: false },
           { title: 'networkFees' },
+          { title: 'transactionBatching' },
           { title: 'paymentMethods' },
         ],
       },
@@ -68,6 +69,7 @@ describe('useSettingsSetup', () => {
       { title: 'referrals' },
       { title: 'backups', warning: false },
       { title: 'networkFees' },
+      { title: 'transactionBatching' },
       { title: 'paymentMethods' },
     ])
   })
@@ -80,6 +82,7 @@ describe('useSettingsSetup', () => {
       { title: 'referrals' },
       { title: 'backups', warning: true, iconId: 'alertTriangle' },
       { title: 'networkFees' },
+      { title: 'transactionBatching' },
       { title: 'paymentMethods' },
     ])
   })

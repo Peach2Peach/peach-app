@@ -9,7 +9,7 @@ import { ContractContext } from './context'
 import { useContractSetup } from './hooks/useContractSetup'
 
 export const Contract = () => {
-  const { contract, isLoading, view, ...contractActionsProps } = useContractSetup()
+  const { contract, isLoading, view, showBatchInfo, toggleShowBatchInfo, ...contractActionsProps } = useContractSetup()
 
   if (!contract || !view || isLoading) return <LoadingScreen />
 
@@ -19,7 +19,7 @@ export const Contract = () => {
       contentContainerStyle={[tw`flex-grow pt-sm`, tw.md`pt-md`]}
     >
       <View style={tw`h-full`}>
-        <ContractContext.Provider value={{ contract, view }}>
+        <ContractContext.Provider value={{ contract, view, showBatchInfo, toggleShowBatchInfo }}>
           <TradeSummary />
           <ContractActions style={tw`items-center justify-end flex-grow w-full mb-2`} {...contractActionsProps} />
         </ContractContext.Provider>

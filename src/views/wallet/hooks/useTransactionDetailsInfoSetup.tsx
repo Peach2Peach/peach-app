@@ -3,9 +3,9 @@ import { useMemo } from 'react'
 import { useNavigation } from '../../../hooks'
 import { useTransactionDetails } from '../../../hooks/query/useTransactionDetails'
 import { showTransaction } from '../../../utils/bitcoin'
+import { isRBFEnabled } from '../../../utils/bitcoin/isRBFEnabled'
 import { peachWallet } from '../../../utils/wallet/setWallet'
 import { canBumpNetworkFees } from '../helpers/canBumpNetworkFees'
-import { isRBFEnabled } from '../../../utils/bitcoin/isRBFEnabled'
 import { getTransactionDestinationAddress } from '../helpers/getTransactionDestinationAddress'
 
 type Props = {
@@ -23,7 +23,7 @@ export const useTransactionDetailsInfoSetup = ({ transaction }: Props) => {
     [rbfEnabled, transaction],
   )
   const goToBumpNetworkFees = () => navigation.navigate('bumpNetworkFees', { txId: transaction.id })
-  const openInExplorer = () => showTransaction(transaction.id as string, NETWORK)
+  const openInExplorer = () => showTransaction(transaction.id, NETWORK)
 
   return {
     receivingAddress,

@@ -1,12 +1,12 @@
+import { fireEvent, render } from '@testing-library/react-native'
+import { View } from 'react-native'
 import { createRenderer } from 'react-test-renderer/shallow'
 import {
   confirmedTransactionSummary,
   pendingTransactionSummary,
 } from '../../../../../tests/unit/data/transactionDetailData'
-import { TransactionDetailsInfo } from './TransactionDetailsInfo'
-import { fireEvent, render } from '@testing-library/react-native'
 import { NavigationAndQueryClientWrapper } from '../../../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
-import { View } from 'react-native'
+import { TransactionDetailsInfo } from './TransactionDetailsInfo'
 
 const wrapper = NavigationAndQueryClientWrapper
 

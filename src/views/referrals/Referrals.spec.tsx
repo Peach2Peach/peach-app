@@ -1,5 +1,5 @@
-import { Referrals } from './Referrals'
 import { render } from '@testing-library/react-native'
+import { Referrals } from './Referrals'
 
 const useReferralsSetupMock = jest.fn().mockReturnValue({
   user: {

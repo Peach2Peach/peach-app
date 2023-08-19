@@ -1,7 +1,7 @@
 import { View } from 'react-native'
 import { BitcoinAddress, Divider, Icon, Loading, PeachScrollView, PrimaryButton, Text } from '../../components'
-import { TradeInfo } from '../../components/offer'
 import { BTCAmount } from '../../components/bitcoin'
+import { TradeInfo } from '../../components/offer'
 import { SATSINBTC } from '../../constants'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
@@ -13,11 +13,18 @@ import { useFundEscrowSetup } from './hooks/useFundEscrowSetup'
 import { useFundFromPeachWallet } from './hooks/useFundFromPeachWallet'
 
 export const FundEscrow = () => {
-  const { offerId, offer, isLoading, escrow, createEscrowError, fundingStatus, fundingAmount } = useFundEscrowSetup()
-  const { fundFromPeachWallet, fundedFromPeachWallet } = useFundFromPeachWallet({ offer, fundingStatus })
+  const { offerId, isLoading, fundingAddress, fundingAddresses, createEscrowError, fundingStatus, fundingAmount }
+    = useFundEscrowSetup()
+
+  const { fundFromPeachWallet, fundedFromPeachWallet } = useFundFromPeachWallet({
+    address: fundingAddress,
+    addresses: fundingAddresses,
+    amount: fundingAmount,
+    fundingStatus,
+  })
 
   if (createEscrowError) return <NoEscrowFound />
-  if (isLoading || !escrow) return <BitcoinLoading text={i18n('sell.escrow.loading')} />
+  if (isLoading || !fundingAddress) return <BitcoinLoading text={i18n('sell.escrow.loading')} />
 
   if (fundingStatus.status === 'MEMPOOL') return <TransactionInMempool txId={fundingStatus.txIds[0]} />
 
@@ -31,7 +38,7 @@ export const FundEscrow = () => {
             <Text style={tw`settings`}> {i18n('sell.escrow.sendSats.2')}</Text>
           </View>
           <BitcoinAddress
-            address={escrow}
+            address={fundingAddress}
             amount={fundingAmount / SATSINBTC}
             label={`${i18n('settings.escrow.paymentRequest.label')} ${offerIdToHex(offerId)}`}
           />

@@ -5,6 +5,6 @@
   "offer.requiredAction.payoutPending" : "Zahlung ausstehend",
   "settings.batching.turnOff.no" : "nein, warte",
   "settings.batching.turnOff.yes" : "ja, auszahlen",
-  "settings.batching.youPay" : "Du zahlst bist zu 23% mehr",
-  "settings.batching.youPay.highlight" : "23% mehr"
+  "settings.batching.youPay" : "Du zahlst bis zu 30% mehr",
+  "settings.batching.youPay.highlight" : "30% mehr"
 }

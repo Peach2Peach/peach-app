@@ -18,13 +18,11 @@ export const CustomFeeItem = ({ customFeeRate, setCustomFeeRate, disabled }: Pro
     <View style={tw`h-8 mx-2`}>
       <NumberInput
         style={tw`w-16 h-8`}
-        {...{
-          value: customFeeRate,
-          onChange: setCustomFeeRate,
-          testID: 'input-custom-fees',
-          required: true,
-          disabled,
-        }}
+        value={customFeeRate}
+        onChange={setCustomFeeRate}
+        testID="input-custom-fees"
+        required
+        disabled={disabled}
       />
     </View>
     <Text style={tw`text-black-2`}>{i18n('satsPerByte')}</Text>

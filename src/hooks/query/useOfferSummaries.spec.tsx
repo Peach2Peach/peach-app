@@ -1,9 +1,9 @@
 import { act, renderHook, waitFor } from '@testing-library/react-native'
+import { offerSummary } from '../../../tests/unit/data/offerSummaryData'
+import { unauthorizedError } from '../../../tests/unit/data/peachAPIData'
 import { QueryClientWrapper, queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
 import { defaultTradeSummaryState, useTradeSummaryStore } from '../../store/tradeSummaryStore'
 import { useOfferSummaries } from './useOfferSummaries'
-import { unauthorizedError } from '../../../tests/unit/data/peachAPIData'
-import { offerSummary } from '../../../tests/unit/data/offerSummaryData'
 
 const getOfferSummariesMock = jest.fn().mockResolvedValue([[offerSummary]])
 jest.mock('../../utils/peachAPI', () => ({

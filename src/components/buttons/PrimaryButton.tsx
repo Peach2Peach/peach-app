@@ -6,6 +6,7 @@ export type PrimaryButtonProps = {
   border?: true
 } & Partial<ButtonProps>
 
+/** @deprecated Use NewButton instead */
 export const PrimaryButton = (props: PrimaryButtonProps) => {
   const { white, border, disabled, textColor: propTextColor } = props
 

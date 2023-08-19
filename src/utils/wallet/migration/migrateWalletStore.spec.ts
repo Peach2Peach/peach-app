@@ -1,6 +1,7 @@
 import { TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
 import { migrateWalletStore } from './migrateWalletStore'
 import { ConfirmedTransaction, PendingTransaction, WalletStateVersion0 } from './version0'
+import { WalletStateVersion1 } from './version1'
 
 describe('migrateWalletStore', () => {
   it('should migrate from version 0', () => {
@@ -43,6 +44,28 @@ describe('migrateWalletStore', () => {
     expect(migratedStore).toEqual({
       ...version0Store,
       transactions: [newConfirmed, pending],
+    })
+  })
+  it('should migrate from version 1 by nuking txOfferMap (will be rebuilt)', () => {
+    const version1Store: WalletStateVersion1 = {
+      addresses: [],
+      balance: 0,
+      transactions: [],
+      pendingTransactions: {},
+      fundedFromPeachWallet: [],
+      txOfferMap: {
+        txId1: '1',
+      },
+      addressLabelMap: {},
+      fundMultipleMap: {},
+      showBalance: true,
+      selectedUTXOIds: [],
+    }
+
+    const migratedStore = migrateWalletStore(version1Store, 1)
+    expect(migratedStore).toEqual({
+      ...version1Store,
+      txOfferMap: {},
     })
   })
 })

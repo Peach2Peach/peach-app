@@ -34,7 +34,18 @@ exports[`TransactionDetails renders correctly 1`] = `
     date={2022-09-14T16:14:02.835Z}
     height={1}
     id="txid1"
-    offerId="123"
+    offerData={
+      [
+        {
+          "address": "bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh",
+          "amount": 900,
+          "contractId": undefined,
+          "currency": undefined,
+          "offerId": "123",
+          "price": undefined,
+        },
+      ]
+    }
     style={
       {
         "alignSelf": "center",
@@ -47,13 +58,19 @@ exports[`TransactionDetails renders correctly 1`] = `
       {
         "amount": 900,
         "confirmed": true,
-        "contractId": undefined,
-        "currency": undefined,
         "date": 2022-09-14T16:14:02.835Z,
         "height": 1,
         "id": "txid1",
-        "offerId": "123",
-        "price": undefined,
+        "offerData": [
+          {
+            "address": "bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh",
+            "amount": 900,
+            "contractId": undefined,
+            "currency": undefined,
+            "offerId": "123",
+            "price": undefined,
+          },
+        ],
         "type": "TRADE",
       }
     }

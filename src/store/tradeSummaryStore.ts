@@ -9,6 +9,7 @@ export type TradeSummaryState = {
 }
 
 type TradeSummaryStore = TradeSummaryState & {
+  reset: () => void
   setOffers: (offers: OfferSummary[]) => void
   setOffer: (offerId: string, data: Partial<OfferSummary>) => void
   getOffer: (offerId: string) => OfferSummary | undefined
@@ -28,6 +29,7 @@ export const useTradeSummaryStore = create(
   persist<TradeSummaryStore>(
     (set, get) => ({
       ...defaultTradeSummaryState,
+      reset: () => set(() => defaultTradeSummaryState),
       setOffers: (offers) => set((state) => ({ ...state, offers, lastModified: new Date() })),
       setOffer: (offerId, data) => {
         let itemFound = false

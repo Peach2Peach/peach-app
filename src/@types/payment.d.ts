@@ -58,7 +58,7 @@ declare type AfricaPaymentMethods =
   | 'wave'
 declare type BitcoinPaymentMethods = 'liquid' | 'lnurl'
 declare type InternationalPaymentMethds = 'giftCard.amazon' | `giftCard.amazon.${Country}`
-declare type CashPaymentMethds = `cash.${string}`
+declare type CashPaymentMethds = 'cash' | `cash.${string}`
 
 declare type PaymentMethod =
   | EuPaymentMethods

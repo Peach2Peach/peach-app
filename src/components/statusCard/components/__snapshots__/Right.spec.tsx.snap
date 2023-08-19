@@ -98,8 +98,10 @@ exports[`Right should render correctly with amount 1`] = `
         style={
           [
             {
-              "alignItems": "baseline",
               "flexDirection": "row",
+            },
+            {
+              "alignItems": "baseline",
             },
             {
               "gap": 2,
@@ -543,35 +545,42 @@ exports[`Right should render correctly with amount 1`] = `
             1
           </Text>
         </Text>
-        <Text
-          allowFontScaling={false}
+        <View
           style={
-            [
-              {
-                "color": "#2B1911",
-                "fontFamily": "Baloo2-Regular",
-                "fontSize": 16,
-                "letterSpacing": 0.16,
-                "lineHeight": 24,
-              },
-              [
-                {
-                  "alignItems": "center",
-                  "fontFamily": "Baloo2-Medium",
-                },
-                false,
-                {
-                  "fontSize": 12,
-                  "lineHeight": 18,
-                  "paddingBottom": 2,
-                },
-              ],
-              false,
-            ]
+            {
+              "justifyContent": "center",
+            }
           }
         >
-          sats
-        </Text>
+          <Text
+            allowFontScaling={false}
+            style={
+              [
+                {
+                  "color": "#2B1911",
+                  "fontFamily": "Baloo2-Regular",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 24,
+                },
+                [
+                  {
+                    "fontFamily": "Baloo2-Medium",
+                  },
+                  false,
+                  {
+                    "fontSize": 12,
+                    "lineHeight": 18,
+                    "paddingBottom": 2,
+                  },
+                ],
+                false,
+              ]
+            }
+          >
+            sats
+          </Text>
+        </View>
       </View>
     </View>
   </View>
@@ -658,8 +667,10 @@ exports[`Right should render correctly with fiatAmount 1`] = `
         style={
           [
             {
-              "alignItems": "baseline",
               "flexDirection": "row",
+            },
+            {
+              "alignItems": "baseline",
             },
             {
               "gap": 2,
@@ -1103,35 +1114,42 @@ exports[`Right should render correctly with fiatAmount 1`] = `
             1
           </Text>
         </Text>
-        <Text
-          allowFontScaling={false}
+        <View
           style={
-            [
-              {
-                "color": "#2B1911",
-                "fontFamily": "Baloo2-Regular",
-                "fontSize": 16,
-                "letterSpacing": 0.16,
-                "lineHeight": 24,
-              },
-              [
-                {
-                  "alignItems": "center",
-                  "fontFamily": "Baloo2-Medium",
-                },
-                false,
-                {
-                  "fontSize": 12,
-                  "lineHeight": 18,
-                  "paddingBottom": 2,
-                },
-              ],
-              false,
-            ]
+            {
+              "justifyContent": "center",
+            }
           }
         >
-          sats
-        </Text>
+          <Text
+            allowFontScaling={false}
+            style={
+              [
+                {
+                  "color": "#2B1911",
+                  "fontFamily": "Baloo2-Regular",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 24,
+                },
+                [
+                  {
+                    "fontFamily": "Baloo2-Medium",
+                  },
+                  false,
+                  {
+                    "fontSize": 12,
+                    "lineHeight": 18,
+                    "paddingBottom": 2,
+                  },
+                ],
+                false,
+              ]
+            }
+          >
+            sats
+          </Text>
+        </View>
       </View>
     </View>
   </View>
@@ -1265,8 +1283,10 @@ exports[`Right should render correctly with range 1`] = `
           style={
             [
               {
-                "alignItems": "baseline",
                 "flexDirection": "row",
+              },
+              {
+                "alignItems": "baseline",
               },
               {
                 "gap": 2,
@@ -1710,35 +1730,42 @@ exports[`Right should render correctly with range 1`] = `
               1
             </Text>
           </Text>
-          <Text
-            allowFontScaling={false}
+          <View
             style={
-              [
-                {
-                  "color": "#2B1911",
-                  "fontFamily": "Baloo2-Regular",
-                  "fontSize": 16,
-                  "letterSpacing": 0.16,
-                  "lineHeight": 24,
-                },
-                [
-                  {
-                    "alignItems": "center",
-                    "fontFamily": "Baloo2-Medium",
-                  },
-                  false,
-                  {
-                    "fontSize": 12,
-                    "lineHeight": 18,
-                    "paddingBottom": 2,
-                  },
-                ],
-                false,
-              ]
+              {
+                "justifyContent": "center",
+              }
             }
           >
-            sats
-          </Text>
+            <Text
+              allowFontScaling={false}
+              style={
+                [
+                  {
+                    "color": "#2B1911",
+                    "fontFamily": "Baloo2-Regular",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 24,
+                  },
+                  [
+                    {
+                      "fontFamily": "Baloo2-Medium",
+                    },
+                    false,
+                    {
+                      "fontSize": 12,
+                      "lineHeight": 18,
+                      "paddingBottom": 2,
+                    },
+                  ],
+                  false,
+                ]
+              }
+            >
+              sats
+            </Text>
+          </View>
         </View>
       </View>
     </View>
@@ -1827,8 +1854,10 @@ exports[`Right should render correctly with range 1`] = `
           style={
             [
               {
-                "alignItems": "baseline",
                 "flexDirection": "row",
+              },
+              {
+                "alignItems": "baseline",
               },
               {
                 "gap": 2,
@@ -2272,35 +2301,42 @@ exports[`Right should render correctly with range 1`] = `
               0
             </Text>
           </Text>
-          <Text
-            allowFontScaling={false}
+          <View
             style={
-              [
-                {
-                  "color": "#2B1911",
-                  "fontFamily": "Baloo2-Regular",
-                  "fontSize": 16,
-                  "letterSpacing": 0.16,
-                  "lineHeight": 24,
-                },
-                [
-                  {
-                    "alignItems": "center",
-                    "fontFamily": "Baloo2-Medium",
-                  },
-                  false,
-                  {
-                    "fontSize": 12,
-                    "lineHeight": 18,
-                    "paddingBottom": 2,
-                  },
-                ],
-                false,
-              ]
+              {
+                "justifyContent": "center",
+              }
             }
           >
-            sats
-          </Text>
+            <Text
+              allowFontScaling={false}
+              style={
+                [
+                  {
+                    "color": "#2B1911",
+                    "fontFamily": "Baloo2-Regular",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 24,
+                  },
+                  [
+                    {
+                      "fontFamily": "Baloo2-Medium",
+                    },
+                    false,
+                    {
+                      "fontSize": 12,
+                      "lineHeight": 18,
+                      "paddingBottom": 2,
+                    },
+                  ],
+                  false,
+                ]
+              }
+            >
+              sats
+            </Text>
+          </View>
         </View>
       </View>
     </View>

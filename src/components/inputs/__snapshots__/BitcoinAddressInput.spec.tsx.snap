@@ -318,6 +318,7 @@ exports[`BitcoinAddressInput renders correctly 1`] = `
   onBlur={[Function]}
   onFocus={[Function]}
   placeholder="bc1q ..."
+  placeholderTextColor="#EAE3DF"
   value="bc1qcj5y ... n57r7z"
 />
 `;

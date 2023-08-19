@@ -61,8 +61,10 @@ exports[`BTCAmount should render correctly for extra large size 1`] = `
       style={
         [
           {
-            "alignItems": "baseline",
             "flexDirection": "row",
+          },
+          {
+            "alignItems": "baseline",
           },
           {
             "gap": 4,
@@ -88,24 +90,31 @@ exports[`BTCAmount should render correctly for extra large size 1`] = `
         }
         value={21000}
       />
-      <PeachText
+      <View
         style={
-          [
-            {
-              "alignItems": "center",
-              "fontFamily": "Baloo2-Medium",
-            },
-            false,
-            {
-              "fontSize": 20,
-              "lineHeight": 30,
-              "paddingBottom": 4,
-            },
-          ]
+          {
+            "justifyContent": "center",
+          }
         }
       >
-        sats
-      </PeachText>
+        <PeachText
+          style={
+            [
+              {
+                "fontFamily": "Baloo2-Medium",
+              },
+              false,
+              {
+                "fontSize": 20,
+                "lineHeight": 30,
+                "paddingBottom": 3,
+              },
+            ]
+          }
+        >
+          sats
+        </PeachText>
+      </View>
     </View>
   </View>
 </View>
@@ -170,8 +179,10 @@ exports[`BTCAmount should render correctly for extra small size 1`] = `
       style={
         [
           {
-            "alignItems": "baseline",
             "flexDirection": "row",
+          },
+          {
+            "alignItems": "baseline",
           },
           {
             "gap": 2,
@@ -197,24 +208,31 @@ exports[`BTCAmount should render correctly for extra small size 1`] = `
         }
         value={21000}
       />
-      <PeachText
+      <View
         style={
-          [
-            {
-              "alignItems": "center",
-              "fontFamily": "Baloo2-Medium",
-            },
-            false,
-            {
-              "fontSize": 10,
-              "lineHeight": 15,
-              "paddingBottom": 2,
-            },
-          ]
+          {
+            "justifyContent": "center",
+          }
         }
       >
-        sats
-      </PeachText>
+        <PeachText
+          style={
+            [
+              {
+                "fontFamily": "Baloo2-Medium",
+              },
+              false,
+              {
+                "fontSize": 10,
+                "lineHeight": 15,
+                "paddingBottom": 2,
+              },
+            ]
+          }
+        >
+          sats
+        </PeachText>
+      </View>
     </View>
   </View>
 </View>
@@ -281,8 +299,10 @@ exports[`BTCAmount should render correctly for large size 1`] = `
       style={
         [
           {
-            "alignItems": "baseline",
             "flexDirection": "row",
+          },
+          {
+            "alignItems": "baseline",
           },
           {
             "gap": 4,
@@ -308,24 +328,31 @@ exports[`BTCAmount should render correctly for large size 1`] = `
         }
         value={21000}
       />
-      <PeachText
+      <View
         style={
-          [
-            {
-              "alignItems": "center",
-              "fontFamily": "Baloo2-Medium",
-            },
-            false,
-            {
-              "fontSize": 18,
-              "lineHeight": 27,
-              "paddingBottom": 3,
-            },
-          ]
+          {
+            "justifyContent": "center",
+          }
         }
       >
-        sats
-      </PeachText>
+        <PeachText
+          style={
+            [
+              {
+                "fontFamily": "Baloo2-Medium",
+              },
+              false,
+              {
+                "fontSize": 18,
+                "lineHeight": 27,
+                "paddingBottom": 3,
+              },
+            ]
+          }
+        >
+          sats
+        </PeachText>
+      </View>
     </View>
   </View>
 </View>
@@ -392,8 +419,10 @@ exports[`BTCAmount should render correctly for medium size 1`] = `
       style={
         [
           {
-            "alignItems": "baseline",
             "flexDirection": "row",
+          },
+          {
+            "alignItems": "baseline",
           },
           {
             "gap": 3,
@@ -419,24 +448,31 @@ exports[`BTCAmount should render correctly for medium size 1`] = `
         }
         value={21000}
       />
-      <PeachText
+      <View
         style={
-          [
-            {
-              "alignItems": "center",
-              "fontFamily": "Baloo2-Medium",
-            },
-            false,
-            {
-              "fontSize": 16,
-              "lineHeight": 24,
-              "paddingBottom": 2,
-            },
-          ]
+          {
+            "justifyContent": "center",
+          }
         }
       >
-        sats
-      </PeachText>
+        <PeachText
+          style={
+            [
+              {
+                "fontFamily": "Baloo2-Medium",
+              },
+              false,
+              {
+                "fontSize": 16,
+                "lineHeight": 24,
+                "paddingBottom": 2,
+              },
+            ]
+          }
+        >
+          sats
+        </PeachText>
+      </View>
     </View>
   </View>
 </View>
@@ -501,8 +537,10 @@ exports[`BTCAmount should render correctly for small size 1`] = `
       style={
         [
           {
-            "alignItems": "baseline",
             "flexDirection": "row",
+          },
+          {
+            "alignItems": "baseline",
           },
           {
             "gap": 2,
@@ -528,24 +566,184 @@ exports[`BTCAmount should render correctly for small size 1`] = `
         }
         value={21000}
       />
-      <PeachText
+      <View
+        style={
+          {
+            "justifyContent": "center",
+          }
+        }
+      >
+        <PeachText
+          style={
+            [
+              {
+                "fontFamily": "Baloo2-Medium",
+              },
+              false,
+              {
+                "fontSize": 12,
+                "lineHeight": 18,
+                "paddingBottom": 2,
+              },
+            ]
+          }
+        >
+          sats
+        </PeachText>
+      </View>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`BTCAmount should render correctly when showAmount is false 1`] = `
+<View
+  style={
+    [
+      undefined,
+      {
+        "justifyContent": "center",
+      },
+      {
+        "height": 18,
+        "width": 242,
+      },
+    ]
+  }
+>
+  <View
+    style={
+      [
+        {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "justifyContent": "flex-end",
+          "marginBottom": -40,
+          "marginTop": -40,
+        },
+        {
+          "gap": 2,
+        },
+      ]
+    }
+  >
+    <View
+      style={
+        [
+          {
+            "alignItems": "center",
+            "justifyContent": "center",
+          },
+          {
+            "height": 32,
+            "width": 32,
+          },
+        ]
+      }
+    >
+      <Icon
+        id="bitcoinLogo"
         style={
           [
             {
-              "alignItems": "center",
-              "fontFamily": "Baloo2-Medium",
-            },
-            false,
-            {
-              "fontSize": 12,
-              "lineHeight": 18,
-              "paddingBottom": 2,
+              "height": 24,
+              "width": 24,
             },
           ]
         }
+      />
+    </View>
+    <View
+      style={
+        [
+          {
+            "flexDirection": "row",
+          },
+          {
+            "alignItems": "flex-end",
+          },
+          {
+            "gap": 4,
+            "paddingTop": 4,
+          },
+        ]
+      }
+    >
+      <View
+        style={
+          {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "height": 40,
+            "justifyContent": "space-between",
+            "paddingLeft": 2,
+            "paddingRight": 2,
+            "width": 168.5,
+          }
+        }
       >
-        sats
-      </PeachText>
+        <Icon
+          id="ellipse"
+          size={8}
+        />
+        <Icon
+          id="ellipse"
+          size={8}
+        />
+        <Icon
+          id="ellipse"
+          size={8}
+        />
+        <Icon
+          id="ellipse"
+          size={8}
+        />
+        <Icon
+          id="ellipse"
+          size={8}
+        />
+        <Icon
+          id="ellipse"
+          size={8}
+        />
+        <Icon
+          id="ellipse"
+          size={8}
+        />
+        <Icon
+          id="ellipse"
+          size={8}
+        />
+        <Icon
+          id="ellipse"
+          size={8}
+        />
+      </View>
+      <View
+        style={
+          {
+            "justifyContent": "center",
+          }
+        }
+      >
+        <PeachText
+          style={
+            [
+              {
+                "fontFamily": "Baloo2-Medium",
+              },
+              false,
+              {
+                "fontSize": 20,
+                "lineHeight": 30,
+                "paddingBottom": 3,
+              },
+            ]
+          }
+        >
+          sats
+        </PeachText>
+      </View>
     </View>
   </View>
 </View>
@@ -612,8 +810,10 @@ exports[`BTCAmount should render correctly when the value is 0 1`] = `
       style={
         [
           {
-            "alignItems": "baseline",
             "flexDirection": "row",
+          },
+          {
+            "alignItems": "baseline",
           },
           {
             "gap": 4,
@@ -639,24 +839,31 @@ exports[`BTCAmount should render correctly when the value is 0 1`] = `
         }
         value={0}
       />
-      <PeachText
+      <View
         style={
-          [
-            {
-              "alignItems": "center",
-              "fontFamily": "Baloo2-Medium",
-            },
-            false,
-            {
-              "fontSize": 20,
-              "lineHeight": 30,
-              "paddingBottom": 4,
-            },
-          ]
+          {
+            "justifyContent": "center",
+          }
         }
       >
-        sats
-      </PeachText>
+        <PeachText
+          style={
+            [
+              {
+                "fontFamily": "Baloo2-Medium",
+              },
+              false,
+              {
+                "fontSize": 20,
+                "lineHeight": 30,
+                "paddingBottom": 3,
+              },
+            ]
+          }
+        >
+          sats
+        </PeachText>
+      </View>
     </View>
   </View>
 </View>
@@ -723,8 +930,10 @@ exports[`BTCAmount should render correctly with isError 1`] = `
       style={
         [
           {
-            "alignItems": "baseline",
             "flexDirection": "row",
+          },
+          {
+            "alignItems": "baseline",
           },
           {
             "gap": 4,
@@ -750,26 +959,33 @@ exports[`BTCAmount should render correctly with isError 1`] = `
         }
         value={21000}
       />
-      <PeachText
+      <View
         style={
-          [
-            {
-              "alignItems": "center",
-              "fontFamily": "Baloo2-Medium",
-            },
-            {
-              "color": "#B01807",
-            },
-            {
-              "fontSize": 20,
-              "lineHeight": 30,
-              "paddingBottom": 4,
-            },
-          ]
+          {
+            "justifyContent": "center",
+          }
         }
       >
-        sats
-      </PeachText>
+        <PeachText
+          style={
+            [
+              {
+                "fontFamily": "Baloo2-Medium",
+              },
+              {
+                "color": "#B01807",
+              },
+              {
+                "fontSize": 20,
+                "lineHeight": 30,
+                "paddingBottom": 3,
+              },
+            ]
+          }
+        >
+          sats
+        </PeachText>
+      </View>
     </View>
   </View>
 </View>
