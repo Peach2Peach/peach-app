@@ -34,8 +34,8 @@ describe('ExportTransactionHistory', () => {
         },
       ],
       txOfferMap: {
-        '1': '1',
-        '2': '2',
+        '1': ['1'],
+        '2': ['2'],
       },
     })
     const { getByText } = render(<ExportTransactionHistory />, { wrapper: NavigationAndQueryClientWrapper })
