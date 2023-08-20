@@ -1,4 +1,4 @@
-declare type SellOfferDraft = OfferDraft & {
+type SellOfferDraft = OfferDraft & {
   type: 'ask'
   amount: number
   premium: number
@@ -6,7 +6,7 @@ declare type SellOfferDraft = OfferDraft & {
   funding: FundingStatus
   multi?: number
 }
-declare type SellOffer = SellOfferDraft &
+type SellOffer = SellOfferDraft &
   Offer & {
     id: string
     escrow?: string
@@ -18,7 +18,7 @@ declare type SellOffer = SellOfferDraft &
     seenMatches: Offer['id'][]
   }
 
-declare type BuyOfferDraft = OfferDraft & {
+type BuyOfferDraft = OfferDraft & {
   amount: [number, number]
   type: 'bid'
   releaseAddress: string
@@ -27,7 +27,7 @@ declare type BuyOfferDraft = OfferDraft & {
   maxPremium: number | null
 }
 
-declare type BuyOffer = BuyOfferDraft &
+type BuyOffer = BuyOfferDraft &
   Offer & {
     id: string
     matched: Offer['id'][]

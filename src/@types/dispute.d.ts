@@ -1,4 +1,4 @@
-declare type DisputeReason =
+type DisputeReason =
   | 'noPayment.buyer'
   | 'noPayment.seller'
   | 'unresponsive.buyer'
@@ -6,5 +6,5 @@ declare type DisputeReason =
   | 'abusive'
   | 'other'
 
-declare type DisputeOutcome = 'buyerWins' | 'sellerWins' | 'none' | 'cancelTrade' | 'payOutBuyer'
-declare type DisputeWinner = 'seller' | 'buyer' | null
+type DisputeOutcome = 'buyerWins' | 'sellerWins' | 'none' | 'cancelTrade' | 'payOutBuyer'
+type DisputeWinner = 'seller' | 'buyer' | null

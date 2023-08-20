@@ -1,4 +1,4 @@
-declare type SignAndEncryptResult = {
+type SignAndEncryptResult = {
   signature: string
   encrypted: string
 }

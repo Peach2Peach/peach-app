@@ -9,7 +9,7 @@ interface Global {
 
 declare const global: Global
 
-declare type ComponentProps = {
+type ComponentProps = {
   testID?: string
   forwardRef?: RefObject<unknown>
   children?: ReactNode
@@ -17,23 +17,23 @@ declare type ComponentProps = {
   onLayout?: (event: LayoutChangeEvent) => void
 }
 
-declare type AnyObject = {
+type AnyObject = {
   [key: string]: any
 }
 
-declare type TradeTab = 'buy' | 'sell' | 'history'
+type TradeTab = 'buy' | 'sell' | 'history'
 
 type BitcoinNetwork = 'bitcoin' | 'testnet' | 'regtest'
 
-declare type PaymentCategory = 'bankTransfer' | 'onlineWallet' | 'giftCard' | 'nationalOption' | 'cash' | 'other'
-declare type PaymentCategories = {
+type PaymentCategory = 'bankTransfer' | 'onlineWallet' | 'giftCard' | 'nationalOption' | 'cash' | 'other'
+type PaymentCategories = {
   [key in PaymentCategory]: PaymentMethod[]
 }
-declare type NationalOptions = Record<'EUR', Record<string, PaymentMethod[]>>
+type NationalOptions = Record<'EUR', Record<string, PaymentMethod[]>>
 
-declare type HashedPaymentData = string
+type HashedPaymentData = string
 
-declare type Message = {
+type Message = {
   roomId: string
   from: User['id']
   date: Date
@@ -44,28 +44,28 @@ declare type Message = {
   failedToSend?: boolean
 }
 
-declare type Chat = {
+type Chat = {
   id: string
   lastSeen: Date
   messages: Message[]
   draftMessage: string
 }
 
-declare type AppState = {
+type AppState = {
   notifications: number
 }
 
-declare type Action = {
+type Action = {
   callback: () => void
   label?: string
   icon?: IconType
   disabled?: boolean
 }
 
-declare type Level = 'APP' | 'ERROR' | 'WARN' | 'INFO' | 'DEFAULT' | 'SUCCESS'
-declare type SummaryItemLevel = Level | 'WAITING'
+type Level = 'APP' | 'ERROR' | 'WARN' | 'INFO' | 'DEFAULT' | 'SUCCESS'
+type SummaryItemLevel = Level | 'WAITING'
 
-declare type MessageState = {
+type MessageState = {
   level: Level
   msgKey?: string
   bodyArgs?: string[]
@@ -75,7 +75,7 @@ declare type MessageState = {
   keepAlive?: boolean
 }
 
-declare type DrawerOptionType = {
+type DrawerOptionType = {
   title: string
   subtext?: string
   iconRightID?: IconType
@@ -106,7 +106,7 @@ declare type DrawerOptionType = {
     }
 )
 
-declare type DrawerState = {
+type DrawerState = {
   title: string
   content?: ReactNode | null
   options: DrawerOptionType[]
@@ -114,27 +114,27 @@ declare type DrawerState = {
   previousDrawer?: DrawerState | undefined
   onClose?: () => void
 }
-declare type BitcoinState = {
+type BitcoinState = {
   currency: Currency
   price: number
   satsPerUnit: number
   prices: Pricebook
 }
 
-declare type PeachWallet = {
+type PeachWallet = {
   wallet: bip32.BIP32Interface
   mnemonic: string
 }
 
-declare type ContactReason = 'bug' | 'accountLost' | 'userProblem' | 'question' | 'sellMore' | 'other'
+type ContactReason = 'bug' | 'accountLost' | 'userProblem' | 'question' | 'sellMore' | 'other'
 
-declare type Expiry = {
+type Expiry = {
   date: Date
   ttl: number
   isExpired: boolean
 }
 
-declare type Config = {
+type Config = {
   paymentMethods: PaymentMethodInfo[]
   peachPGPPublicKey: string
   peachFee: number

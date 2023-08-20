@@ -1,7 +1,7 @@
-declare type ContractAction = 'none' | 'sendPayment' | 'confirmPayment'
-declare type PaymentReminder = 'fourHours' | 'oneHour' | 'final'
+type ContractAction = 'none' | 'sendPayment' | 'confirmPayment'
+type PaymentReminder = 'fourHours' | 'oneHour' | 'final'
 
-declare type BatchInfo = {
+type BatchInfo = {
   participants: number
   maxParticipants: number
   timeRemaining: number
@@ -9,7 +9,7 @@ declare type BatchInfo = {
   txId?: string
 }
 
-declare type Contract = {
+type Contract = {
   creationDate: Date
   id: string
   seller: User
@@ -71,7 +71,7 @@ declare type Contract = {
   unreadMessages: number
 }
 
-declare type LocalContract = {
+type LocalContract = {
   id: string
   disputeResultAcknowledged?: boolean
   cancelConfirmationPending?: boolean
@@ -80,4 +80,4 @@ declare type LocalContract = {
   hasSeenDisputeEmailPopup?: boolean
 }
 
-declare type ContractViewer = 'buyer' | 'seller'
+type ContractViewer = 'buyer' | 'seller'

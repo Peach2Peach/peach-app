@@ -1,4 +1,4 @@
-declare type RootStackParamList = {
+type RootStackParamList = {
   home: undefined
   newUser: {
     referralCode?: string
@@ -147,4 +147,4 @@ type KeysWithUndefined<T> = {
   [K in keyof T]: undefined extends T[K] ? K : never
 }[keyof T]
 
-declare type ScreenWithoutProps = KeysWithUndefined<RootStackParamList>
+type ScreenWithoutProps = KeysWithUndefined<RootStackParamList>

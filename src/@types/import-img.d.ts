@@ -1,9 +1,9 @@
-declare module '*.png' {
+module '*.png' {
   const value: any
   export default value
 }
 
-declare module '*.gif' {
+module '*.gif' {
   const value: any
   export default value
 }

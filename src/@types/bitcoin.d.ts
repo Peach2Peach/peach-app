@@ -1,4 +1,4 @@
-declare type Input = {
+type Input = {
   txid: string
   vout: number
   prevout: {
@@ -16,21 +16,21 @@ declare type Input = {
   sequence: number
 }
 
-declare type Output = {
+type Output = {
   scriptpubkey: string
   scriptpubkey_asm: string
   scriptpubkey_type: string
   scriptpubkey_address: string
   value: number
 }
-declare type TransactionStatus = {
+type TransactionStatus = {
   confirmed: boolean
   block_height: number
   block_hash: string
   block_time: number
 }
 
-declare type Transaction = {
+type Transaction = {
   txid: string
   version: number
   locktime: number
@@ -43,7 +43,7 @@ declare type Transaction = {
   status: TransactionStatus
 }
 
-declare type UTXO = {
+type UTXO = {
   txid: string
   vout: number
   value: number
