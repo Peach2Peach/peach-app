@@ -1,7 +1,10 @@
 import { getSellOfferFromContract } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
 
-export const getTradeActionStatus = (contract: Contract, view: ContractViewer) => {
+export const getTradeActionStatus = (
+  contract: Pick<Contract, 'cancelationRequested' | 'canceled' | 'disputeWinner' | 'releaseTxId' | 'id'>,
+  view: ContractViewer,
+) => {
   if (view === 'buyer') {
     if (
       (contract.cancelationRequested && !contract.canceled)
