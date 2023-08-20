@@ -110,7 +110,7 @@ type RootStackParamList = {
   referrals: undefined
   backupTime: {
     nextScreen?: keyof RootStackParamList
-    [key: string]: any
+    [key: string]: unknown
   }
   backups: undefined
   backupCreated: undefined

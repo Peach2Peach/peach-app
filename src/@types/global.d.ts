@@ -1,9 +1,9 @@
 interface Global {
-  WebSocket: any
+  WebSocket: unknown
   ErrorUtils: {
-    setGlobalHandler: any
-    reportFatalError: any
-    getGlobalHandler: any
+    setGlobalHandler: unknown
+    reportFatalError: unknown
+    getGlobalHandler: unknown
   }
 }
 
@@ -18,7 +18,7 @@ type ComponentProps = {
 }
 
 type AnyObject = {
-  [key: string]: any
+  [key: string]: unknown
 }
 
 type TradeTab = 'buy' | 'sell' | 'history'

@@ -1,5 +1,5 @@
-import { useTemplate9Setup } from './useTemplate9Setup'
 import { renderHook } from '@testing-library/react-native'
+import { useTemplate9Setup } from './useTemplate9Setup'
 
 describe('useTemplate9Setup', () => {
   it('should return the correct values', () => {
@@ -8,17 +8,15 @@ describe('useTemplate9Setup', () => {
         data: {
           id: 'id',
           label: 'label',
-          type: 'nationalTransferBE',
+          type: 'nationalTransferBG',
           accountNumber: 'accountNumber',
           reference: 'reference',
           iban: 'iban',
           bic: 'bic',
           currencies: [],
         },
-        currencies: [],
         onSubmit: jest.fn(),
         setStepValid: jest.fn(),
-        paymentMethod: 'nationalTransferBE',
         setFormData: jest.fn(),
       }),
     )

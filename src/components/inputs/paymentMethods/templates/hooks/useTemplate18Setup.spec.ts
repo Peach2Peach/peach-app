@@ -12,10 +12,8 @@ describe('useTemplate18Setup', () => {
           chipperTag: '@chipperTag',
           currencies: [],
         },
-        currencies: [],
         onSubmit: jest.fn(),
         setStepValid: jest.fn(),
-        paymentMethod: 'chippercash',
         setFormData: jest.fn(),
       }),
     )

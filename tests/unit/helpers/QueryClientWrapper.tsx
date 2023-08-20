@@ -11,7 +11,7 @@ export const queryClient = new QueryClient({
   logger: {
     log,
     warn: info,
-    error: process.env.NODE_ENV === 'test' ? () => {} : error,
+    error: process.env.NODE_ENV === 'test' ? jest.fn() : error,
   },
 })
 export const QueryClientWrapper = ({ children }: { children: React.ReactElement }) => (

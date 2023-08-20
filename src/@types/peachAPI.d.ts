@@ -1,5 +1,5 @@
 /* eslint-disable max-lines */
-type WSCallback = (message?: any) => void
+type WSCallback = (message?: unknown) => void
 type PeachWS = {
   ws?: WebSocket
   authenticated: boolean
@@ -114,7 +114,7 @@ type Currency =
 type Pricebook = {
   [key in Currency]?: number
 }
-type PaymentMethodCountry = 'BG' | 'CZ' | 'DK' | 'HU' | 'NO' | 'PL' | 'RO' | 'TR' | 'NG'
+type PaymentMethodCountry = 'BG' | 'CZ' | 'DK' | 'HU' | 'NO' | 'PL' | 'RO' | 'TR' | 'NG' | 'DE'
 
 type MeetupEvent = {
   id: string

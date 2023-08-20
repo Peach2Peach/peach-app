@@ -12,10 +12,8 @@ describe('useTemplate21Setup', () => {
           accountNumber: 'accountNumber',
           currencies: [],
         },
-        currencies: [],
         onSubmit: jest.fn(),
         setStepValid: jest.fn(),
-        paymentMethod: 'gtBank',
         setFormData: jest.fn(),
       }),
     )

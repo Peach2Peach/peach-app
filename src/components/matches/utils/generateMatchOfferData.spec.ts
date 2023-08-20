@@ -63,7 +63,7 @@ describe('generateMatchOfferData', () => {
     })
   })
   it('should return error if hashed payment data cannot be found', async () => {
-    expect(await generateMatchOfferData(sellOffer, match, currency, 'nationalTransferCY')).toEqual([
+    expect(await generateMatchOfferData(sellOffer, match, currency, 'nationalTransferBG')).toEqual([
       null,
       'MISSING_HASHED_PAYMENT_DATA',
     ])

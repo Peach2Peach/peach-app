@@ -1,5 +1,5 @@
-import { useTemplate8Setup } from './useTemplate8Setup'
 import { renderHook } from '@testing-library/react-native'
+import { useTemplate8Setup } from './useTemplate8Setup'
 
 describe('useTemplate8Setup', () => {
   it('should return the correct values', () => {
@@ -14,10 +14,8 @@ describe('useTemplate8Setup', () => {
           reference: 'reference',
           currencies: [],
         },
-        currencies: [],
         onSubmit: jest.fn(),
         setStepValid: jest.fn(),
-        paymentMethod: 'paysera',
         setFormData: jest.fn(),
       }),
     )

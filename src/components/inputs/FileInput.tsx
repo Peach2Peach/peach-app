@@ -12,6 +12,7 @@ export type FileData = {
 
 type FileInputProps = InputProps & {
   fileName?: string
+  onChange?: (file: FileData) => void
 }
 
 export const FileInput = ({
@@ -52,7 +53,7 @@ export const FileInput = ({
             content: '',
           })
         }
-      } catch (err: any) {
+      } catch (err: unknown) {
         setLoading(false)
         if (!DocumentPicker.isCancel(err)) {
           // User cancelled the picker, exit any dialogs or menus and move on

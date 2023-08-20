@@ -13,10 +13,8 @@ describe('useTemplate17Setup', () => {
           accountNumber: 'accountNumber',
           currencies: [],
         },
-        currencies: [],
         onSubmit: jest.fn(),
         setStepValid: jest.fn(),
-        paymentMethod: 'bancolombia',
         setFormData: jest.fn(),
       }),
     )

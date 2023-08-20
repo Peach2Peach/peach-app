@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { TextStyle, TouchableOpacity, View, ViewStyle } from 'react-native'
-import { Icon, Text } from '..'
+import { Icon, Placeholder, Text } from '..'
 import { IconType } from '../../assets/icons'
 import { MessageContext } from '../../contexts/message'
 import tw from '../../styles/tailwind'
@@ -74,7 +74,7 @@ export const Message = ({ level, msgKey, bodyArgs = [], action, onClose, style }
             <Text style={[tw`leading-relaxed subtitle-2`, levelColorMap.text[level]]}> {action.label}</Text>
           </TouchableOpacity>
         ) : (
-          <View>{/* placeholder for layout */}</View>
+          <Placeholder />
         )}
         <TouchableOpacity onPress={closeMessage} style={tw`flex flex-row items-center text-right`}>
           <Text style={[tw`leading-relaxed subtitle-2`, levelColorMap.text[level]]}>{i18n('close')} </Text>

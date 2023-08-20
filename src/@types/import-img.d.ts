@@ -1,9 +1,9 @@
 module '*.png' {
-  const value: any
+  const value: unknown
   export default value
 }
 
 module '*.gif' {
-  const value: any
+  const value: unknown
   export default value
 }
