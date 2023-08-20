@@ -1,23 +1,26 @@
 import { PaymentMethodForms } from '../../../components/inputs/paymentMethods/paymentForms'
 import { isCashTrade } from '../../../utils/paymentMethod/isCashTrade'
 import {
-  pastBuyOfferFields,
-  pastSellOfferFields,
+  activeCashTradeFields,
   activeSellOfferFields,
   pastBuyOfferCashFields,
+  pastBuyOfferFields,
   pastSellOfferCashFields,
-  activeCashTradeFields,
+  pastSellOfferFields,
 } from './tradeInformationGetters'
 
-export const getTradeInfoFields = (contract: Contract, view: 'buyer' | 'seller') => {
-  if (isCashTrade(contract.paymentMethod)) {
-    if (contract.releaseTxId) {
+export const getTradeInfoFields = (
+  { paymentMethod, releaseTxId }: Pick<Contract, 'paymentMethod' | 'releaseTxId'>,
+  view: 'buyer' | 'seller',
+) => {
+  if (isCashTrade(paymentMethod)) {
+    if (releaseTxId) {
       return view === 'buyer' ? pastBuyOfferCashFields : pastSellOfferCashFields
     }
     return activeCashTradeFields
   }
-  if (contract.releaseTxId) {
+  if (releaseTxId) {
     return view === 'buyer' ? pastBuyOfferFields : pastSellOfferFields
   }
-  return view === 'buyer' ? PaymentMethodForms[contract.paymentMethod]?.fields || [] : activeSellOfferFields
+  return view === 'buyer' ? PaymentMethodForms[paymentMethod]?.fields || [] : activeSellOfferFields
 }
