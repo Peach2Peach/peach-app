@@ -34,7 +34,7 @@ export const Template6 = (props: FormProps) => {
         {shouldShowUserNameInput && <UsernameInput {...userNameInputProps} onSubmit={() => $reference?.focus()} />}
       </View>
 
-      <ReferenceInput {...referenceInputProps} reference={(el: any) => ($reference = el)} />
+      <ReferenceInput {...referenceInputProps} reference={(el) => ($reference = el)} />
       {shouldShowCurrencySelection && <CurrencySelection {...currencySelectionProps} />}
     </View>
   )

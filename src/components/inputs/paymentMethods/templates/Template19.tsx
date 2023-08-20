@@ -19,12 +19,8 @@ export const Template19 = (props: FormProps) => {
   return (
     <>
       <LabelInput {...labelInputProps} onSubmit={() => $username?.focus()} />
-      <UsernameInput
-        {...userNameInputProps}
-        onSubmit={() => $reference?.focus()}
-        reference={(el: any) => ($username = el)}
-      />
-      <ReferenceInput {...referenceInputProps} reference={(el: any) => ($reference = el)} />
+      <UsernameInput {...userNameInputProps} onSubmit={() => $reference?.focus()} reference={(el) => ($username = el)} />
+      <ReferenceInput {...referenceInputProps} reference={(el) => ($reference = el)} />
 
       {shouldShowCurrencySelection && <CurrencySelection {...currencySelectionProps} />}
     </>

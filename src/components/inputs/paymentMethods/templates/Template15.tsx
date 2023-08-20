@@ -22,8 +22,8 @@ export const Template15 = (props: FormProps) => {
     <View>
       <LabelInput {...labelInputProps} />
       <BeneficiaryInput {...beneficiaryInputProps} onSubmit={() => $cbu?.focus()} />
-      <CVUInput {...accountNumberInputProps} onSubmit={() => $reference?.focus()} reference={(el: any) => ($cbu = el)} />
-      <ReferenceInput {...referenceInputProps} reference={(el: any) => ($reference = el)} />
+      <CVUInput {...accountNumberInputProps} onSubmit={() => $reference?.focus()} reference={(el) => ($cbu = el)} />
+      <ReferenceInput {...referenceInputProps} reference={(el) => ($reference = el)} />
 
       {shouldShowCurrencySelection && <CurrencySelection {...currencySelectionProps} />}
     </View>

@@ -15,8 +15,8 @@ export const Template12 = (props: FormProps) => {
   return (
     <>
       <LabelInput {...labelInputProps} onSubmit={() => $phone?.focus()} />
-      <PhoneInput {...phoneInputProps} onSubmit={() => $reference?.focus()} reference={(el: any) => ($phone = el)} />
-      <ReferenceInput {...referenceInputProps} reference={(el: any) => ($reference = el)} />
+      <PhoneInput {...phoneInputProps} onSubmit={() => $reference?.focus()} reference={(el) => ($phone = el)} />
+      <ReferenceInput {...referenceInputProps} reference={(el) => ($reference = el)} />
 
       {shouldShowCurrencySelection && <CurrencySelection {...currencySelectionProps} />}
     </>
