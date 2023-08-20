@@ -163,6 +163,7 @@ export const Input = ({
             multiline && tw`flex justify-start h-full pt-2`,
             !!inputStyle && inputStyle,
           ]}
+          value={value}
           ref={reference ? reference : null}
           placeholderTextColor={colors.placeholder.color}
           allowFontScaling={false}
