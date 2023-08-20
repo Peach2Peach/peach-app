@@ -2,7 +2,7 @@ import { getMatchPrice } from './getMatchPrice'
 
 const getPaymentMethodInfoMock = jest.fn()
 jest.mock('../../../utils/paymentMethod', () => ({
-  getPaymentMethodInfo: (...args: any[]) => getPaymentMethodInfoMock(...args),
+  getPaymentMethodInfo: (...args: unknown[]) => getPaymentMethodInfoMock(...args),
 }))
 
 // eslint-disable-next-line max-lines-per-function

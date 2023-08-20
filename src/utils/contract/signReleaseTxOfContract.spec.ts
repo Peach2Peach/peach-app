@@ -3,11 +3,11 @@ const getSellOfferFromContractMock = jest.fn()
 const getEscrowWalletForOfferMock = jest.fn()
 
 jest.mock('./index', () => ({
-  getSellOfferFromContract: jest.fn((...args: any) => getSellOfferFromContractMock(...args)),
+  getSellOfferFromContract: jest.fn((...args: unknown[]) => getSellOfferFromContractMock(...args)),
   verifyAndSignReleaseTx: jest.fn(() => ['tx', null]),
 }))
 jest.mock('../wallet', () => ({
-  getEscrowWalletForOffer: jest.fn((...args: any) => getEscrowWalletForOfferMock(...args)),
+  getEscrowWalletForOffer: jest.fn((...args: unknown[]) => getEscrowWalletForOfferMock(...args)),
 }))
 
 describe('signReleaseTxOfContract', () => {

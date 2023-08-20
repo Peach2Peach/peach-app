@@ -12,8 +12,8 @@ import { useTransactionBatchingSetup } from './useTransactionBatchingSetup'
 const getSelfUserMock = jest.fn().mockResolvedValue([defaultSelfUser])
 const setBatchingMock = jest.fn().mockResolvedValue([{ success: true }])
 jest.mock('../../../utils/peachAPI', () => ({
-  getSelfUser: (...args: any[]) => getSelfUserMock(...args),
-  setBatching: (...args: any[]) => setBatchingMock(...args),
+  getSelfUser: (...args: unknown[]) => getSelfUserMock(...args),
+  setBatching: (...args: unknown[]) => setBatchingMock(...args),
 }))
 
 jest.useFakeTimers()

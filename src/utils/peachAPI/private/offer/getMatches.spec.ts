@@ -7,7 +7,7 @@ const fetchMock = jest.fn().mockResolvedValue({
 })
 jest.mock('../../../fetch', () => ({
   __esModule: true,
-  default: (...args: any[]) => fetchMock(...args),
+  default: (...args: unknown[]) => fetchMock(...args),
 }))
 
 const mockHeaders = {
@@ -20,7 +20,7 @@ const mockHeaders = {
 const getPrivateHeadersMock = jest.fn().mockResolvedValue(mockHeaders)
 
 jest.mock('../getPrivateHeaders', () => ({
-  getPrivateHeaders: (...args: any[]) => getPrivateHeadersMock(...args),
+  getPrivateHeaders: (...args: unknown[]) => getPrivateHeadersMock(...args),
 }))
 
 describe('getMatches', () => {

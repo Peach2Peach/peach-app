@@ -5,7 +5,7 @@ import { publishPGPPublicKey } from './publishPGPPublicKey'
 
 const updateUserMock = jest.fn().mockResolvedValue([{ success: true }, null])
 jest.mock('../utils/peachAPI', () => ({
-  updateUser: (...args: any[]) => updateUserMock(...args),
+  updateUser: (...args: unknown[]) => updateUserMock(...args),
 }))
 describe('publishPGPPublicKey', () => {
   afterEach(() => {

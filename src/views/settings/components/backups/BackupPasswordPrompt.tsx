@@ -47,7 +47,7 @@ export const BackupPasswordPrompt = ({ toggle }: Props) => {
           <Input
             testID="backup-passwordRepeat"
             placeholder={i18n('form.repeatpassword.placeholder')}
-            reference={(el: any) => ($passwordRepeat = el)}
+            reference={(el) => ($passwordRepeat = el)}
             onChange={setPasswordRepeat}
             onSubmit={setPasswordRepeat}
             secureTextEntry={true}

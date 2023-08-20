@@ -27,8 +27,8 @@ const match: Partial<Match> = {
 const getMatchesMock = jest.fn().mockResolvedValue([{ matches: [match], nextPage: undefined }, null])
 const getOfferDetailsMock = jest.fn().mockResolvedValue([buyOffer, null])
 jest.mock('../../../utils/peachAPI', () => ({
-  getMatches: (...args: any[]) => getMatchesMock(...args),
-  getOfferDetails: (...args: any[]) => getOfferDetailsMock(...args),
+  getMatches: (...args: unknown[]) => getMatchesMock(...args),
+  getOfferDetails: (...args: unknown[]) => getOfferDetailsMock(...args),
 }))
 
 const wrapper = NavigationAndQueryClientWrapper

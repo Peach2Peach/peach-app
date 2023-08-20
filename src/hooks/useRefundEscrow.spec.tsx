@@ -1,37 +1,37 @@
 import { act, renderHook } from '@testing-library/react-native'
 import { sellOffer } from '../../tests/unit/data/offerData'
-import { NavigationWrapper, navigateMock } from '../../tests/unit/helpers/NavigationWrapper'
-import { QueryClientWrapper } from '../../tests/unit/helpers/QueryClientWrapper'
+import { NavigationAndQueryClientWrapper } from '../../tests/unit/helpers/NavigationAndQueryClientWrapper'
+import { navigateMock } from '../../tests/unit/helpers/NavigationWrapper'
+import { Refund } from '../popups/Refund'
 import { useSettingsStore } from '../store/settingsStore'
 import { defaultPopupState, usePopupStore } from '../store/usePopupStore'
 import { useRefundEscrow } from './useRefundEscrow'
-import { Refund } from '../popups/Refund'
 
 const getRefundPSBTMock = jest.fn().mockResolvedValue([null, null])
 const refundSellOfferMock = jest.fn()
 jest.mock('../utils/peachAPI', () => ({
-  getRefundPSBT: (...args: any) => getRefundPSBTMock(...args),
-  refundSellOffer: (...args: any) => refundSellOfferMock(...args),
+  getRefundPSBT: (...args: unknown[]) => getRefundPSBTMock(...args),
+  refundSellOffer: (...args: unknown[]) => refundSellOfferMock(...args),
 }))
 
 const checkRefundPSBTMock = jest.fn()
 const signAndFinalizePSBTMock = jest.fn()
 const showTransactionMock = jest.fn()
 jest.mock('../utils/bitcoin', () => ({
-  checkRefundPSBT: (...args: any) => checkRefundPSBTMock(...args),
-  signAndFinalizePSBT: (...args: any) => signAndFinalizePSBTMock(...args),
-  showTransaction: (...args: any) => showTransactionMock(...args),
+  checkRefundPSBT: (...args: unknown[]) => checkRefundPSBTMock(...args),
+  signAndFinalizePSBT: (...args: unknown[]) => signAndFinalizePSBTMock(...args),
+  showTransaction: (...args: unknown[]) => showTransactionMock(...args),
 }))
 
 const saveOfferMock = jest.fn()
 jest.mock('../utils/offer', () => ({
-  saveOffer: (...args: any) => saveOfferMock(...args),
+  saveOffer: (...args: unknown[]) => saveOfferMock(...args),
 }))
 
 const syncWalletMock = jest.fn()
 jest.mock('../utils/wallet/setWallet', () => ({
   peachWallet: {
-    syncWallet: (...args: any) => syncWalletMock(...args),
+    syncWallet: (...args: unknown[]) => syncWalletMock(...args),
   },
 }))
 
@@ -44,7 +44,7 @@ jest.mock('../hooks/query/useTradeSummaries', () => ({
 
 const getEscrowWalletForOfferMock = jest.fn()
 jest.mock('../utils/wallet/getEscrowWalletForOffer', () => ({
-  getEscrowWalletForOffer: (...args: any) => getEscrowWalletForOfferMock(...args),
+  getEscrowWalletForOffer: (...args: unknown[]) => getEscrowWalletForOfferMock(...args),
 }))
 
 const showErrorMock = jest.fn()
@@ -53,11 +53,7 @@ jest.mock('../hooks/useShowErrorBanner', () => ({
 }))
 
 describe('useRefundEscrow', () => {
-  const wrapper = ({ children }: { children: JSX.Element }) => (
-    <QueryClientWrapper>
-      <NavigationWrapper>{children}</NavigationWrapper>
-    </QueryClientWrapper>
-  )
+  const wrapper = NavigationAndQueryClientWrapper
   const psbt = 'psbt'
 
   const mockSuccess = () => {

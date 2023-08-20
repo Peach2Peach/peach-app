@@ -7,7 +7,7 @@ import { generateMatchOfferData } from './generateMatchOfferData'
 
 const getPaymentMethodInfoMock = jest.fn()
 jest.mock('../../../utils/paymentMethod/getPaymentMethodInfo', () => ({
-  getPaymentMethodInfo: (...args: any[]) => getPaymentMethodInfoMock(...args),
+  getPaymentMethodInfo: (...args: unknown[]) => getPaymentMethodInfoMock(...args),
 }))
 
 const signature = 'signature'
@@ -17,7 +17,7 @@ const createEncryptedPaymentDataMock = jest.fn().mockResolvedValue({
   encrypted,
 })
 jest.mock('./createEncryptedPaymentData', () => ({
-  createEncryptedPaymentData: (...args: any[]) => createEncryptedPaymentDataMock(...args),
+  createEncryptedPaymentData: (...args: unknown[]) => createEncryptedPaymentDataMock(...args),
 }))
 
 describe('generateMatchOfferData', () => {

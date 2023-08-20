@@ -2,22 +2,22 @@ import { Psbt } from 'bitcoinjs-lib'
 import { contract } from '../../../../tests/unit/data/contractData'
 import { sellOffer } from '../../../../tests/unit/data/offerData'
 
-import { patchSellOfferWithRefundTx } from './patchSellOfferWithRefundTx'
-import { setWallet } from '../../../utils/wallet'
-import { createTestWallet } from '../../../../tests/unit/helpers/createTestWallet'
 import { apiSuccess, unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
+import { createTestWallet } from '../../../../tests/unit/helpers/createTestWallet'
+import { setWallet } from '../../../utils/wallet'
+import { patchSellOfferWithRefundTx } from './patchSellOfferWithRefundTx'
 
 const patchOfferMock = jest.fn().mockResolvedValue([apiSuccess, null])
 jest.mock('../../../utils/peachAPI', () => ({
-  patchOffer: (...args: any[]) => patchOfferMock(...args),
+  patchOffer: (...args: unknown[]) => patchOfferMock(...args),
 }))
 const getSellOfferFromContractMock = jest.fn().mockReturnValue(sellOffer)
 jest.mock('../../../utils/contract/getSellOfferFromContract', () => ({
-  getSellOfferFromContract: (...args: any[]) => getSellOfferFromContractMock(...args),
+  getSellOfferFromContract: (...args: unknown[]) => getSellOfferFromContractMock(...args),
 }))
 const checkRefundPSBTMock = jest.fn().mockReturnValue({ isValid: true, psbt: new Psbt() })
 jest.mock('../../../utils/bitcoin/checkRefundPSBT', () => ({
-  checkRefundPSBT: (...args: any[]) => checkRefundPSBTMock(...args),
+  checkRefundPSBT: (...args: unknown[]) => checkRefundPSBTMock(...args),
 }))
 
 describe('patchSellOfferWithRefundTx', () => {

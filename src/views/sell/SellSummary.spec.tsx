@@ -15,7 +15,7 @@ const useSellSummarySetupMock = jest.fn().mockReturnValue({
   isPublishing: false,
 })
 jest.mock('./hooks/useSellSummarySetup', () => ({
-  useSellSummarySetup: (...args: any[]) => useSellSummarySetupMock(...args),
+  useSellSummarySetup: (...args: unknown[]) => useSellSummarySetupMock(...args),
 }))
 
 jest.useFakeTimers({ now: new Date('2022-02-14T12:00:00.000Z') })

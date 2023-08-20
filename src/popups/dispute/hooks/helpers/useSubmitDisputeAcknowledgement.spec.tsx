@@ -24,12 +24,12 @@ jest.mock('../../../../hooks/useShowLoadingPopup', () => ({
 
 const acknowledgeDisputeMock = jest.fn().mockResolvedValue([{ success: true }, null])
 jest.mock('../../../../utils/peachAPI/private/contract', () => ({
-  acknowledgeDispute: (...args: any[]) => acknowledgeDisputeMock(...args),
+  acknowledgeDispute: (...args: unknown[]) => acknowledgeDisputeMock(...args),
 }))
 
 const saveContractMock = jest.fn()
 jest.mock('../../../../utils/contract/saveContract', () => ({
-  saveContract: (...args: any[]) => saveContractMock(...args),
+  saveContract: (...args: unknown[]) => saveContractMock(...args),
 }))
 
 const wrapper = NavigationAndQueryClientWrapper

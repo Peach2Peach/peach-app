@@ -10,7 +10,7 @@ const getMatchesMock = jest
 const getOfferDetailsMock = jest.fn().mockResolvedValue([buyOffer, null])
 jest.mock('../../../utils/peachAPI', () => ({
   getOfferDetails: () => getOfferDetailsMock(),
-  getMatches: (...args: any) => getMatchesMock(...args),
+  getMatches: (...args: unknown[]) => getMatchesMock(...args),
 }))
 
 jest.mock('@react-navigation/native', () => ({

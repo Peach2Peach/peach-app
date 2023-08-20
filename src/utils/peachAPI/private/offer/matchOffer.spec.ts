@@ -5,7 +5,7 @@ import { matchOffer } from './matchOffer'
 const fetchMock = jest.fn()
 jest.mock('../../../fetch', () => ({
   __esModule: true,
-  default: (...args: any[]) => fetchMock(...args),
+  default: (...args: unknown[]) => fetchMock(...args),
 }))
 
 jest.mock('../getPrivateHeaders', () => ({

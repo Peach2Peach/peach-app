@@ -1,8 +1,8 @@
 import { act, renderHook } from '@testing-library/react-native'
 import { contract } from '../../../../tests/unit/data/contractData'
-import { useDisputeFormSetup } from './useDisputeFormSetup'
 import { unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
 import { headerState } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { useDisputeFormSetup } from './useDisputeFormSetup'
 
 const defaultReason = 'other'
 const useRouteMock = jest.fn(() => ({
@@ -24,7 +24,7 @@ jest.mock('../../../hooks/useNavigation', () => ({
 
 const useHeaderSetupMock = jest.fn()
 jest.mock('../../../hooks/useHeaderSetup', () => ({
-  useHeaderSetup: (...args: any[]) => useHeaderSetupMock(...args),
+  useHeaderSetup: (...args: unknown[]) => useHeaderSetupMock(...args),
 }))
 
 const showErrorBannerMock = jest.fn()
@@ -40,13 +40,13 @@ jest.mock('../../../utils/contract/getContract', () => ({
 
 const submitRaiseDisputeMock = jest.fn()
 jest.mock('../utils/submitRaiseDispute', () => ({
-  submitRaiseDispute: (...args: any[]) => submitRaiseDisputeMock(...args),
+  submitRaiseDispute: (...args: unknown[]) => submitRaiseDisputeMock(...args),
 }))
 
 const disputeRaisedSuccessMock = jest.fn()
 const useDisputeRaisedSuccessMock = jest.fn(
   () =>
-    (...args: any[]) =>
+    (...args: unknown[]) =>
       disputeRaisedSuccessMock(...args),
 )
 jest.mock('../../../popups/dispute/hooks/useDisputeRaisedSuccess', () => ({

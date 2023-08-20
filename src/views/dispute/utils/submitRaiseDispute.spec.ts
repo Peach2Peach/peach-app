@@ -4,7 +4,7 @@ import { submitRaiseDispute } from './submitRaiseDispute'
 
 const raiseDisputeMock = jest.fn()
 jest.mock('../../../utils/peachAPI', () => ({
-  raiseDispute: (...args: any) => raiseDisputeMock(...args),
+  raiseDispute: (...args: unknown[]) => raiseDisputeMock(...args),
 }))
 
 // eslint-disable-next-line max-lines-per-function

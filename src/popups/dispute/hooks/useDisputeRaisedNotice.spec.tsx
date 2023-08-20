@@ -10,7 +10,7 @@ const replaceMock = jest.fn()
 jest.mock('../../../hooks/useNavigation', () => ({
   useNavigation: jest.fn().mockReturnValue({
     navigate: () => navigateMock(),
-    replace: (...args: any[]) => replaceMock(...args),
+    replace: (...args: unknown[]) => replaceMock(...args),
   }),
 }))
 

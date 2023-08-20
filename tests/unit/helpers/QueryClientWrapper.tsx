@@ -14,6 +14,6 @@ export const queryClient = new QueryClient({
     error: process.env.NODE_ENV === 'test' ? () => {} : error,
   },
 })
-export const QueryClientWrapper = ({ children }: any) => (
+export const QueryClientWrapper = ({ children }: { children: React.ReactElement }) => (
   <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
 )

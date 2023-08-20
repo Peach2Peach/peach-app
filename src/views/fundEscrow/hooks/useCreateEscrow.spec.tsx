@@ -16,7 +16,7 @@ const createEscrowMock = jest.fn().mockResolvedValue([
   },
 ])
 jest.mock('../../../utils/peachAPI', () => ({
-  createEscrow: (...args: any[]) => createEscrowMock(...args),
+  createEscrow: (...args: unknown[]) => createEscrowMock(...args),
 }))
 
 const showErrorBannerMock = jest.fn()

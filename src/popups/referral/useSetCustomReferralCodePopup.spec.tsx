@@ -8,13 +8,13 @@ import { useSetCustomReferralCodePopup } from './useSetCustomReferralCodePopup'
 
 const redeemReferralCodeMock = jest.fn().mockReturnValue(jest.fn())
 jest.mock('../../utils/peachAPI', () => ({
-  redeemReferralCode: (...args: any[]) => redeemReferralCodeMock(...args),
+  redeemReferralCode: (...args: unknown[]) => redeemReferralCodeMock(...args),
 }))
 const showErrorBannerMock = jest.fn()
 jest.mock('../../hooks/useShowErrorBanner', () => ({
   useShowErrorBanner:
     () =>
-      (...args: any[]) =>
+      (...args: unknown[]) =>
         showErrorBannerMock(...args),
 }))
 

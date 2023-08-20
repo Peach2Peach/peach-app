@@ -41,12 +41,12 @@ jest.mock('./PeachWallet', () => jest.requireActual('./PeachWallet'))
 
 const postTransactionMock = jest.fn().mockResolvedValue(['txId'])
 jest.mock('../electrum/postTransaction', () => ({
-  postTransaction: (...args: any[]) => postTransactionMock(...args),
+  postTransaction: (...args: unknown[]) => postTransactionMock(...args),
 }))
 
 const buildTransactionMock = jest.fn()
 jest.mock('./transaction/buildTransaction', () => ({
-  buildTransaction: (...args: any[]) => buildTransactionMock(...args),
+  buildTransaction: (...args: unknown[]) => buildTransactionMock(...args),
 }))
 
 jest.useFakeTimers()

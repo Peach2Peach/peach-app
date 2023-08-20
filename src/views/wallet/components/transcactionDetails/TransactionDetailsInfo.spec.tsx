@@ -25,7 +25,7 @@ const useTransactionDetailsInfoSetupReturnValue = {
 }
 const useTransactionDetailsInfoSetupMock = jest.fn().mockReturnValue(useTransactionDetailsInfoSetupReturnValue)
 jest.mock('../../hooks/useTransactionDetailsInfoSetup', () => ({
-  useTransactionDetailsInfoSetup: (...args: any[]) => useTransactionDetailsInfoSetupMock(...args),
+  useTransactionDetailsInfoSetup: (...args: unknown[]) => useTransactionDetailsInfoSetupMock(...args),
 }))
 
 jest.useFakeTimers()

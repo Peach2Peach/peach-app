@@ -13,24 +13,24 @@ jest.mock('../../../init/publishPGPPublicKey', () => ({
 }))
 
 jest.mock('../../../utils/log', () => ({
-  info: (...args: any[]) => infoMock(...args),
+  info: (...args: unknown[]) => infoMock(...args),
 }))
 
 jest.mock('../../../utils/peachAPI', () => ({
-  postSellOffer: (offerDraft: any) => postSellOfferMock(offerDraft),
-  getOfferDetails: (offerId: any) => getOfferDetailsMock(offerId),
+  postSellOffer: (offerDraft: unknown) => postSellOfferMock(offerDraft),
+  getOfferDetails: (offerId: unknown) => getOfferDetailsMock(offerId),
 }))
 
 const singleOfferResult = { isPublished: true, navigationParams: { offerId: sellOffer.id }, errorMessage: null }
 const handleSellOfferPublishedMock = jest.fn().mockReturnValue(singleOfferResult)
 jest.mock('./handleSellOfferPublished', () => ({
-  handleSellOfferPublished: (...args: any[]) => handleSellOfferPublishedMock(...args),
+  handleSellOfferPublished: (...args: unknown[]) => handleSellOfferPublishedMock(...args),
 }))
 
 const multipleOffersResult = { isPublished: true, navigationParams: { offerId: '40' }, errorMessage: null }
 const handleMultipleOffersPublishedMock = jest.fn().mockResolvedValue(multipleOffersResult)
 jest.mock('./handleMultipleOffersPublished', () => ({
-  handleMultipleOffersPublished: (...args: any[]) => handleMultipleOffersPublishedMock(...args),
+  handleMultipleOffersPublished: (...args: unknown[]) => handleMultipleOffersPublishedMock(...args),
 }))
 
 // eslint-disable-next-line max-lines-per-function

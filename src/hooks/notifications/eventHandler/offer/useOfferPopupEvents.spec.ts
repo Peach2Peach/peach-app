@@ -4,7 +4,7 @@ import { useOfferPopupEvents } from './useOfferPopupEvents'
 
 const getOfferDetailsMock = jest.fn()
 jest.mock('../../../../utils/peachAPI', () => ({
-  getOfferDetails: (...args: any[]) => getOfferDetailsMock(...args),
+  getOfferDetails: (...args: unknown[]) => getOfferDetailsMock(...args),
 }))
 
 const showFundingAmountDifferentPopupMock = jest.fn()

@@ -1,8 +1,8 @@
 import { renderHook } from '@testing-library/react-native'
 import { sellOffer } from '../../../../tests/unit/data/offerData'
 import { NavigationWrapper, resetMock } from '../../../../tests/unit/helpers/NavigationWrapper'
-import { useConfirmEscrow } from './useConfirmEscrow'
 import { QueryClientWrapper, queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
+import { useConfirmEscrow } from './useConfirmEscrow'
 
 const apiSuccess = { success: true }
 const unauthorizedError = { error: 'UNAUTHORIZED' }
@@ -15,13 +15,13 @@ const showErrorBannerMock = jest.fn()
 jest.mock('../../../hooks/useShowErrorBanner', () => ({
   useShowErrorBanner:
     () =>
-      (...args: any[]) =>
+      (...args: unknown[]) =>
         showErrorBannerMock(...args),
 }))
 
 const confirmEscrowMock = jest.fn().mockResolvedValue([apiSuccess, null])
 jest.mock('../../../utils/peachAPI', () => ({
-  confirmEscrow: (...args: any[]) => confirmEscrowMock(...args),
+  confirmEscrow: (...args: unknown[]) => confirmEscrowMock(...args),
 }))
 
 describe('useConfirmEscrow', () => {

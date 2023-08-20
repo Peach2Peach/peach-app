@@ -7,4 +7,4 @@ export const transactionError = [
     needed: '78999997952',
     available: '1089000',
   },
-]
+] as const

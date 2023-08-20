@@ -17,7 +17,7 @@ const useTransactionDetailsMock = jest.fn().mockReturnValue({
   transaction: transactionWithRBF1,
 })
 jest.mock('../../../hooks/query/useTransactionDetails', () => ({
-  useTransactionDetails: (...args: any[]) => useTransactionDetailsMock(...args),
+  useTransactionDetails: (...args: unknown[]) => useTransactionDetailsMock(...args),
 }))
 
 const wrapper = NavigationWrapper

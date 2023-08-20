@@ -13,7 +13,7 @@ const useTransactionDetailsMock = jest.fn().mockReturnValue({
   transaction: bitcoinTransaction,
 })
 jest.mock('../../../../hooks/query/useTransactionDetails', () => ({
-  useTransactionDetails: (...args: any[]) => useTransactionDetailsMock(...args),
+  useTransactionDetails: (...args: unknown[]) => useTransactionDetailsMock(...args),
 }))
 
 const useFeeEstimatesMock = jest.fn().mockReturnValue({ feeEstimates: placeholderFeeEstimates })

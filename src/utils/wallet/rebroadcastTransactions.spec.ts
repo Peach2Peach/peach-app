@@ -1,9 +1,9 @@
-import { useWalletState } from './walletStore'
 import { rebroadcastTransactions } from './rebroadcastTransactions'
+import { useWalletState } from './walletStore'
 
 const postTransactionMock = jest.fn()
 jest.mock('../electrum/postTransaction', () => ({
-  postTransaction: (...args: any[]) => postTransactionMock(...args),
+  postTransaction: (...args: unknown[]) => postTransactionMock(...args),
 }))
 
 describe('rebroadcastTransactions', () => {

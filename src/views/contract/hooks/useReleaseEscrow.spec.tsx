@@ -16,7 +16,7 @@ jest.mock('../../../utils/contract')
 
 const confirmPaymentMock = jest.fn().mockResolvedValue([{}, null])
 jest.mock('../../../utils/peachAPI', () => ({
-  confirmPayment: (...args: any[]) => confirmPaymentMock(...args),
+  confirmPayment: (...args: unknown[]) => confirmPaymentMock(...args),
 }))
 
 const signReleaseTxOfContractMock = jest.fn().mockReturnValue({
@@ -25,7 +25,7 @@ const signReleaseTxOfContractMock = jest.fn().mockReturnValue({
   errorMsg: undefined,
 })
 jest.mock('../../../utils/contract/signReleaseTxOfContract', () => ({
-  signReleaseTxOfContract: jest.fn((...args: any) => signReleaseTxOfContractMock(...args)),
+  signReleaseTxOfContract: jest.fn((...args: unknown[]) => signReleaseTxOfContractMock(...args)),
 }))
 
 const DATE_TO_USE = new Date('2009-09-01')

@@ -3,8 +3,8 @@ import { decryptSymmetricKey } from './decryptSymmetricKey'
 const decryptMock = jest.fn()
 const verifyMock = jest.fn()
 jest.mock('../../../utils/pgp', () => ({
-  decrypt: (...args: any) => decryptMock(...args),
-  verify: (...args: any) => verifyMock(...args),
+  decrypt: (...args: unknown[]) => decryptMock(...args),
+  verify: (...args: unknown[]) => verifyMock(...args),
 }))
 
 describe('decryptSymmetricKey', () => {

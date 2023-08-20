@@ -25,7 +25,7 @@ jest.mock('../../../hooks/useRoute', () => ({
 const showHelpMock = jest.fn()
 const useShowHelpMock = jest.fn((..._args) => showHelpMock)
 jest.mock('../../../hooks/useShowHelp', () => ({
-  useShowHelp: (...args: any) => useShowHelpMock(...args),
+  useShowHelp: (...args: unknown[]) => useShowHelpMock(...args),
 }))
 
 const showErrorBannerMock = jest.fn()
@@ -56,7 +56,7 @@ const getOfferDetailsMock = jest.fn().mockReturnValue([sellOfferWithEscrow, null
 const createEscrowMock = jest.fn().mockResolvedValue([createEscrowSuccess, null])
 jest.mock('../../../utils/peachAPI', () => ({
   getOfferDetails: () => getOfferDetailsMock(),
-  createEscrow: (...args: any[]) => createEscrowMock(...args),
+  createEscrow: (...args: unknown[]) => createEscrowMock(...args),
 }))
 
 jest.mock('./useHandleFundingStatus', () => ({

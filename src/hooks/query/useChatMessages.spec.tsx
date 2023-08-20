@@ -7,12 +7,12 @@ import { useChatMessages } from './useChatMessages'
 
 const decryptSymmetricMock = jest.fn().mockImplementation((str) => str)
 jest.mock('../../utils/pgp', () => ({
-  decryptSymmetric: (...args: any[]) => decryptSymmetricMock(...args),
+  decryptSymmetric: (...args: unknown[]) => decryptSymmetricMock(...args),
 }))
 
 const getChatMock = jest.fn().mockResolvedValue([chat1.messages.slice(0, 22)])
 jest.mock('../../utils/peachAPI', () => ({
-  getChat: (...args: any[]) => getChatMock(...args),
+  getChat: (...args: unknown[]) => getChatMock(...args),
 }))
 const useIsFocusedMock = jest.fn().mockReturnValue(true)
 jest.mock('@react-navigation/native', () => ({
@@ -82,7 +82,7 @@ describe('useChatMessages', () => {
       {
         ...systemMessage2,
         message:
-          'A dispute has been started by the buyer Peach12345678 for the following reason: \'bitcoin not received\'',
+          "A dispute has been started by the buyer Peach12345678 for the following reason: 'bitcoin not received'",
       },
     ])
   })

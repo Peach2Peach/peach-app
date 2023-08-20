@@ -1,4 +1,5 @@
 import { act, fireEvent, render } from '@testing-library/react-native'
+import { buyOffer } from '../../../../tests/unit/data/offerData'
 import { QueryClientWrapper, queryClient } from '../../../../tests/unit/helpers/QueryClientWrapper'
 import { UnmatchPopup } from '../../../popups/UnmatchPopup'
 import { MatchUndone } from '../../../popups/app/MatchUndone'
@@ -6,11 +7,10 @@ import { appPopups } from '../../../popups/appPopups'
 import { defaultPopupState, usePopupStore } from '../../../store/usePopupStore'
 import i18n from '../../../utils/i18n'
 import { UnmatchButton } from './UnmatchButton'
-import { buyOffer } from '../../../../tests/unit/data/offerData'
 
 jest.useFakeTimers()
 
-const unmatchOfferMock = jest.fn((..._args: any[]) =>
+const unmatchOfferMock = jest.fn((..._args: unknown[]) =>
   Promise.resolve([
     {
       success: true,
@@ -20,7 +20,7 @@ const unmatchOfferMock = jest.fn((..._args: any[]) =>
 )
 
 jest.mock('../../../utils/peachAPI', () => ({
-  unmatchOffer: (...args: any[]) => unmatchOfferMock(...args),
+  unmatchOffer: (...args: unknown[]) => unmatchOfferMock(...args),
 }))
 
 describe('UnmatchButton', () => {

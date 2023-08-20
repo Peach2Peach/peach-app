@@ -17,7 +17,7 @@ const showErrorBannerMock = jest.fn()
 jest.mock('../../../hooks/useShowErrorBanner', () => ({
   useShowErrorBanner:
     () =>
-      (...args: any[]) =>
+      (...args: unknown[]) =>
         showErrorBannerMock(...args),
 }))
 const useOfferDetailsMock = jest.fn().mockReturnValue({ offer: wronglyFundedSellOffer })

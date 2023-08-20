@@ -9,13 +9,13 @@ const fromBase64Mock = jest.fn()
 jest.mock('bitcoinjs-lib', () => ({
   ...jest.requireActual('bitcoinjs-lib'),
   Psbt: {
-    fromBase64: (...args: any[]) => fromBase64Mock(...args),
+    fromBase64: (...args: unknown[]) => fromBase64Mock(...args),
   },
 }))
 
 const verifyReleasePSBTMock = jest.fn()
 jest.mock('../../views/contract/helpers/verifyReleasePSBT', () => ({
-  verifyReleasePSBT: (...args: any[]) => verifyReleasePSBTMock(...args),
+  verifyReleasePSBT: (...args: unknown[]) => verifyReleasePSBTMock(...args),
 }))
 
 // eslint-disable-next-line max-lines-per-function

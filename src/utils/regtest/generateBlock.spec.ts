@@ -4,7 +4,7 @@ const fetchMock = jest.fn()
 jest.mock(
   '../fetch',
   () =>
-    (...args: any[]) =>
+    (...args: unknown[]) =>
       fetchMock(...args),
 )
 

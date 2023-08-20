@@ -1,5 +1,5 @@
-import { TradeInformation } from './TradeInformation'
 import { createRenderer } from 'react-test-renderer/shallow'
+import { TradeInformation } from './TradeInformation'
 
 jest.mock('../context', () => ({
   useContractContext: () => ({
@@ -10,7 +10,7 @@ jest.mock('../context', () => ({
 
 const shouldShowTradeStatusInfoMock = jest.fn(() => true)
 jest.mock('../helpers/shouldShowTradeStatusInfo', () => ({
-  shouldShowTradeStatusInfo: jest.fn((..._args: any) => shouldShowTradeStatusInfoMock()),
+  shouldShowTradeStatusInfo: jest.fn((..._args: unknown[]) => shouldShowTradeStatusInfoMock()),
 }))
 
 describe('TradeInformation', () => {

@@ -21,7 +21,7 @@ const defaultBuySummary = {
 }
 const useBuySummarySetupMock = jest.fn().mockReturnValue(defaultBuySummary)
 jest.mock('./hooks/useBuySummarySetup', () => ({
-  useBuySummarySetup: (...args: any[]) => useBuySummarySetupMock(...args),
+  useBuySummarySetup: (...args: unknown[]) => useBuySummarySetupMock(...args),
 }))
 
 jest.useFakeTimers({ now: new Date('2022-02-14T12:00:00.000Z') })

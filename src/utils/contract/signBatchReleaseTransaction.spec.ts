@@ -7,7 +7,7 @@ import { signBatchReleaseTransaction } from './signBatchReleaseTransaction'
 
 const verifyReleasePSBTMock = jest.fn()
 jest.mock('../../views/contract/helpers/verifyReleasePSBT', () => ({
-  verifyReleasePSBT: (...args: any[]) => verifyReleasePSBTMock(...args),
+  verifyReleasePSBT: (...args: unknown[]) => verifyReleasePSBTMock(...args),
 }))
 
 // eslint-disable-next-line max-lines-per-function

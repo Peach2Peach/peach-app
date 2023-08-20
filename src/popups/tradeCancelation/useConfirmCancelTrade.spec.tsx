@@ -22,11 +22,11 @@ jest.mock('../../hooks/useShowLoadingPopup', () => ({
 
 const saveContractMock = jest.fn()
 jest.mock('../../utils/contract/saveContract', () => ({
-  saveContract: (...args: any[]) => saveContractMock(...args),
+  saveContract: (...args: unknown[]) => saveContractMock(...args),
 }))
 const saveOfferMock = jest.fn()
 jest.mock('../../utils/offer/saveOffer', () => ({
-  saveOffer: (...args: any[]) => saveOfferMock(...args),
+  saveOffer: (...args: unknown[]) => saveOfferMock(...args),
 }))
 
 const contractUpdate = {
@@ -44,7 +44,7 @@ const cancelContractAsSellerMock = jest.fn().mockResolvedValue(
   }),
 )
 jest.mock('./helpers/cancelContractAsSeller', () => ({
-  cancelContractAsSeller: (...args: any[]) => cancelContractAsSellerMock(...args),
+  cancelContractAsSeller: (...args: unknown[]) => cancelContractAsSellerMock(...args),
 }))
 const cancelContractAsBuyerMock = jest.fn().mockResolvedValue(
   getResult({
@@ -52,7 +52,7 @@ const cancelContractAsBuyerMock = jest.fn().mockResolvedValue(
   }),
 )
 jest.mock('./helpers/cancelContractAsBuyer', () => ({
-  cancelContractAsBuyer: (...args: any[]) => cancelContractAsBuyerMock(...args),
+  cancelContractAsBuyer: (...args: unknown[]) => cancelContractAsBuyerMock(...args),
 }))
 describe('useConfirmCancelTrade', () => {
   const wrapper = NavigationWrapper

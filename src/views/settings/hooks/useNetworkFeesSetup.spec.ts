@@ -1,10 +1,10 @@
 /* eslint-disable max-lines-per-function */
 import { act, renderHook } from '@testing-library/react-native'
 import { estimatedFees } from '../../../../tests/unit/data/bitcoinNetworkData'
-import { headerState, NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { apiSuccess, unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
+import { NavigationWrapper, headerState } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { useSettingsStore } from '../../../store/settingsStore'
 import { useNetworkFeesSetup } from './useNetworkFeesSetup'
-import { apiSuccess, unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
 
 const updateMessageMock = jest.fn()
 jest.mock('../../../contexts/message', () => ({
@@ -19,7 +19,7 @@ jest.mock('../../../hooks/query/useFeeEstimate', () => ({
 
 const updateUserMock = jest.fn().mockResolvedValue([apiSuccess])
 jest.mock('../../../utils/peachAPI', () => ({
-  updateUser: (...args: any[]) => updateUserMock(...args),
+  updateUser: (...args: unknown[]) => updateUserMock(...args),
 }))
 
 describe('useNetworkFeesSetup', () => {

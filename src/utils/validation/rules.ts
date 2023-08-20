@@ -53,7 +53,7 @@ export const rules = {
   blockTaprootAddress (_: boolean, value: string) {
     return !isTaproot(value)
   },
-  duplicate (existingValue: any) {
+  duplicate (existingValue: unknown) {
     return !existingValue
   },
   password (_: boolean, value: string) {

@@ -13,7 +13,7 @@ jest.mock('../hooks/useRefundEscrow', () => ({
 const psbt = 'psbt'
 const getRefundPSBTMock = jest.fn().mockResolvedValue([{ psbt }, null])
 jest.mock('../utils/peachAPI', () => ({
-  getRefundPSBT: (...args: any) => getRefundPSBTMock(...args),
+  getRefundPSBT: (...args: unknown[]) => getRefundPSBTMock(...args),
 }))
 
 const showErrorMock = jest.fn()

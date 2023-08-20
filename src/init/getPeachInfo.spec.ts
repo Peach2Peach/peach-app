@@ -5,7 +5,7 @@ import { storePeachInfo } from './storePeachInfo'
 const setPaymentMethodsMock = jest.fn()
 jest.mock('../paymentMethods', () => ({
   ...jest.requireActual('../paymentMethods'),
-  setPaymentMethods: (...args: any) => setPaymentMethodsMock(...args),
+  setPaymentMethods: (...args: unknown[]) => setPaymentMethodsMock(...args),
 }))
 const getInfoMock = jest.fn()
 jest.mock('../utils/peachAPI', () => ({

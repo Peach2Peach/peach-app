@@ -4,7 +4,6 @@ import { parseTransactionError } from './parseTransactionError'
 describe('parseTransactionError', () => {
   it('parses insufficient funds error', () => {
     const [error, cause] = transactionError
-    // @ts-ignore
     expect(parseTransactionError(error, cause)).toEqual(['78999997952', '1089000'])
   })
   it('parses fees too high error', () => {
