@@ -61,7 +61,11 @@ exports[`WelcomeInfo - aWalletYouControl renders correctly 1`] = `
   </Text>
   <Image
     resizeMode="contain"
-    source="test-file-stub"
+    source={
+      {
+        "testUri": "../../../src/assets/onboarding/a-wallet-you-control.png",
+      }
+    }
     style={
       {
         "height": 525,
@@ -133,7 +137,11 @@ exports[`WelcomeInfo - peachOfMind renders correctly 1`] = `
   </Text>
   <Image
     resizeMode="contain"
-    source="test-file-stub"
+    source={
+      {
+        "testUri": "../../../src/assets/onboarding/peach-of-mind.png",
+      }
+    }
     style={
       {
         "height": 525,
@@ -205,7 +213,11 @@ exports[`WelcomeInfo - peerToPeer renders correctly 1`] = `
   </Text>
   <Image
     resizeMode="contain"
-    source="test-file-stub"
+    source={
+      {
+        "testUri": "../../../src/assets/onboarding/peer-to-peer.png",
+      }
+    }
     style={
       {
         "height": 525,
@@ -277,7 +289,11 @@ exports[`WelcomeInfo - privacyFirst renders correctly 1`] = `
   </Text>
   <Image
     resizeMode="contain"
-    source="test-file-stub"
+    source={
+      {
+        "testUri": "../../../src/assets/onboarding/privacy-first.png",
+      }
+    }
     style={
       {
         "height": 525,

@@ -47,7 +47,11 @@ You can go do something else, we'll automatically publish your offer as soon as 
     >
       <Image
         resizeMode="contain"
-        source="test-file-stub"
+        source={
+          {
+            "testUri": "../../../src/assets/escrow/tx-in-mempool.png",
+          }
+        }
         style={
           {
             "height": 70,
@@ -203,7 +207,11 @@ You can go do something else, we'll automatically publish your offer as soon as 
     >
       <Image
         resizeMode="contain"
-        source="test-file-stub"
+        source={
+          {
+            "testUri": "../../../src/assets/escrow/tx-in-mempool.png",
+          }
+        }
         style={
           {
             "height": 210,

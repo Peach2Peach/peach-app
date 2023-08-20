@@ -1,12 +1,12 @@
+import { NETWORK } from '@env'
 import { useState } from 'react'
 import { Image, LayoutChangeEvent, TouchableOpacity, View } from 'react-native'
 import txInMempool from '../../../assets/escrow/tx-in-mempool.png'
 import { Icon, Text } from '../../../components'
-import tw from '../../../styles/tailwind'
-import i18n from '../../../utils/i18n'
 import { TradeInfo } from '../../../components/offer'
+import tw from '../../../styles/tailwind'
 import { showTransaction } from '../../../utils/bitcoin'
-import { NETWORK } from '@env'
+import i18n from '../../../utils/i18n'
 
 type Props = {
   txId: string
@@ -19,7 +19,7 @@ export const TransactionInMempool = ({ txId }: Props) => {
 
   return (
     <View style={tw`justify-between h-full`}>
-      <View style={tw`justify-center flex-shrink h-full px-8 gap-3`}>
+      <View style={tw`justify-center flex-shrink h-full gap-3 px-8`}>
         <Text>{i18n('sell.funding.mempool.description')}</Text>
         <View {...{ onLayout }} testID="image-container">
           <Image source={txInMempool} style={{ width, height: width * 0.7 }} resizeMode="contain" />
