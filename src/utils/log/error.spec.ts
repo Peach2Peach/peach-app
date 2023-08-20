@@ -10,14 +10,14 @@ describe('error', () => {
   const errorSpy = jest.spyOn(console, 'error')
 
   it('is logging error to console for dev environment', () => {
-    ;(isProduction as jest.Mock).mockReturnValueOnce(false)
+    (isProduction as jest.Mock).mockReturnValueOnce(false)
 
     error('Test')
     expect(errorSpy).toHaveBeenCalledWith(expect.stringContaining('ERROR - Test'))
     expect(crashlytics().log).not.toHaveBeenCalled()
   })
   it('is logging error to crashlytics for prod environment', () => {
-    ;(isProduction as jest.Mock).mockReturnValueOnce(true)
+    (isProduction as jest.Mock).mockReturnValueOnce(true)
     error('Test')
     expect(crashlytics().log).toHaveBeenCalledWith(expect.stringContaining('ERROR - Test'))
     expect(errorSpy).not.toHaveBeenCalled()

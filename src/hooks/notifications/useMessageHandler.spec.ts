@@ -54,7 +54,7 @@ jest.mock('./useGetPNActionHandler', () => ({
 // eslint-disable-next-line max-lines-per-function
 describe('useMessageHandler', () => {
   beforeEach(() => {
-    ;(getContract as jest.Mock).mockReturnValue(contract)
+    (getContract as jest.Mock).mockReturnValue(contract)
     ;(getContractAPI as jest.Mock).mockResolvedValue([contract])
   })
   afterEach(() => {

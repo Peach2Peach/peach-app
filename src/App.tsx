@@ -95,7 +95,7 @@ export const App = () => {
       return
     }
 
-    ;(async () => {
+    (async () => {
       const statusResponse = await initApp()
       if (!statusResponse || statusResponse.error) {
         updateMessage({
@@ -108,7 +108,7 @@ export const App = () => {
           },
         })
       }
-      setCurrentPage(!!account?.publicKey ? 'home' : 'welcome')
+      setCurrentPage(account?.publicKey ? 'home' : 'welcome')
       requestUserPermissions()
     })()
   }, [])

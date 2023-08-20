@@ -8,7 +8,7 @@ jest.mock('./getOS', () => ({
 
 describe('isAndroid', () => {
   it('checks whether app is running on android', () => {
-    ;(<jest.Mock>getOS).mockReturnValue('android')
+    (<jest.Mock>getOS).mockReturnValue('android')
     ok(isAndroid())
     ;(<jest.Mock>getOS).mockReturnValue('ios')
     ok(!isAndroid())

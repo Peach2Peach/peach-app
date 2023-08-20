@@ -13,14 +13,14 @@ describe('checkNotificationStatus', () => {
   })
 
   it('calls checkNotificationStatusIOS if isIOS returns true', async () => {
-    ;(<jest.Mock>isIOS).mockReturnValueOnce(true)
+    (<jest.Mock>isIOS).mockReturnValueOnce(true)
     await checkNotificationStatus()
     expect(checkNotificationStatusIOS).toHaveBeenCalled()
     expect(checkNotificationStatusAndroid).not.toHaveBeenCalled()
   })
 
   it('calls checkNotificationStatusAndroid if isIOS returns false', async () => {
-    ;(<jest.Mock>isIOS).mockReturnValueOnce(false)
+    (<jest.Mock>isIOS).mockReturnValueOnce(false)
     await checkNotificationStatus()
     expect(checkNotificationStatusAndroid).toHaveBeenCalled()
     expect(checkNotificationStatusIOS).not.toHaveBeenCalled()

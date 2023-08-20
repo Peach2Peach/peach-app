@@ -10,7 +10,7 @@ jest.mock('./useNavigation', () => ({
 // eslint-disable-next-line max-lines-per-function
 describe('useGetPNActionHandler', () => {
   afterEach(() => {
-    ;(<jest.Mock>useNavigation().navigate).mockReset()
+    (<jest.Mock>useNavigation().navigate).mockReset()
   })
 
   it('should return an action properties when contractId and isChat are truthy', () => {

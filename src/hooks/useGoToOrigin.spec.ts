@@ -13,7 +13,7 @@ jest.mock('./useNavigation', () => ({
 
 describe('useGoToOrigin', () => {
   afterEach(() => {
-    ;(<jest.Mock>useNavigation().goBack).mockReset()
+    (<jest.Mock>useNavigation().goBack).mockReset()
   })
   it('goes back to origin and stops when found', () => {
     const { result } = renderHook(() => useGoToOrigin())

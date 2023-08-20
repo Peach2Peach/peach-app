@@ -191,7 +191,7 @@ export const Input = ({
               <Icon
                 id={icon}
                 style={tw`w-5 h-5`}
-                color={!!iconColor ? iconColor : showError ? colors.textError.color : colors.text.color}
+                color={iconColor ? iconColor : showError ? colors.textError.color : colors.text.color}
               />
             </Pressable>
           ))}

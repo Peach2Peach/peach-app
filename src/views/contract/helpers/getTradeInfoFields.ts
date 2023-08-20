@@ -11,12 +11,12 @@ import {
 
 export const getTradeInfoFields = (contract: Contract, view: 'buyer' | 'seller') => {
   if (isCashTrade(contract.paymentMethod)) {
-    if (!!contract.releaseTxId) {
+    if (contract.releaseTxId) {
       return view === 'buyer' ? pastBuyOfferCashFields : pastSellOfferCashFields
     }
     return activeCashTradeFields
   }
-  if (!!contract.releaseTxId) {
+  if (contract.releaseTxId) {
     return view === 'buyer' ? pastBuyOfferFields : pastSellOfferFields
   }
   return view === 'buyer' ? PaymentMethodForms[contract.paymentMethod]?.fields || [] : activeSellOfferFields

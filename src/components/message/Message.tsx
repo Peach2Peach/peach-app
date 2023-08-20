@@ -68,7 +68,7 @@ export const Message = ({ level, msgKey, bodyArgs = [], action, onClose, style }
         )}
       </View>
       <View style={tw`flex flex-row items-center justify-between w-full mt-1`}>
-        {!!action ? (
+        {action ? (
           <TouchableOpacity onPress={action.callback} style={tw`flex flex-row items-center`}>
             {!!action.icon && <Icon id={action.icon} style={tw`w-4 h-4`} color={levelColorMap.text[level].color} />}
             <Text style={[tw`leading-relaxed subtitle-2`, levelColorMap.text[level]]}> {action.label}</Text>

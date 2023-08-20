@@ -25,7 +25,7 @@ describe('getErrorsInField', () => {
     expect(isValid).toBeFalsy()
   })
   it('should not return errors for valid values', () => {
-    ;(<jest.Mock>getNetwork).mockReturnValue(networks.testnet)
+    (<jest.Mock>getNetwork).mockReturnValue(networks.testnet)
     const isValid
       = getErrorsInField(paymentData.bitcoinTestnet.base58Check.valid[0] as string, {
         bitcoinAddress: true,

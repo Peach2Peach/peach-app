@@ -23,7 +23,7 @@ describe('rules', () => {
   })
 
   it('validates btc addresses correctly for mainnet', () => {
-    ;(<jest.Mock>getNetwork).mockReturnValue(networks.bitcoin)
+    (<jest.Mock>getNetwork).mockReturnValue(networks.bitcoin)
     for (const address of paymentData.bitcoin.base58Check.valid) {
       ok(rules.bitcoinAddress(true, address), `Could not validate ${address}`)
     }
@@ -42,7 +42,7 @@ describe('rules', () => {
   })
 
   it('validates btc addresses correctly for testnet', () => {
-    ;(<jest.Mock>getNetwork).mockReturnValue(networks.testnet)
+    (<jest.Mock>getNetwork).mockReturnValue(networks.testnet)
     for (const address of paymentData.bitcoinTestnet.base58Check.valid) {
       ok(rules.bitcoinAddress(true, address), `Could not validate ${address}`)
     }

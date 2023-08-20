@@ -25,7 +25,7 @@ export const useBumpNetworkFeesSetup = () => {
   const overpayingBy = Number(feeRate) / estimatedFees.fastestFee - 1
 
   useHeaderSetup(
-    !!transaction
+    transaction
       ? {
         title: i18n('wallet.bumpNetworkFees.title'),
         icons: [{ ...headerIcons.help, onPress: showHelp }],
