@@ -6,7 +6,9 @@ import { showTransaction } from '../../../utils/bitcoin'
 import { isRBFEnabled } from '../../../utils/bitcoin/isRBFEnabled'
 import { peachWallet } from '../../../utils/wallet/setWallet'
 import { canBumpNetworkFees } from '../helpers/canBumpNetworkFees'
-import { getTransactionDestinationAddress } from '../helpers/getTransactionDestinationAddress'
+import { useGetTransactionDestinationAddress } from '../helpers/useGetTransactionDestinationAddress'
+
+const incomingTxType: TransactionType[] = ['DEPOSIT', 'REFUND', 'TRADE']
 
 type Props = {
   transaction: TransactionSummary
@@ -14,9 +16,10 @@ type Props = {
 export const useTransactionDetailsInfoSetup = ({ transaction }: Props) => {
   const navigation = useNavigation()
   const { transaction: transactionDetails } = useTransactionDetails({ txId: transaction.id })
-  const receivingAddress = transactionDetails
-    ? getTransactionDestinationAddress(transaction.type, transactionDetails)
-    : undefined
+  const receivingAddress = useGetTransactionDestinationAddress({
+    vout: transactionDetails?.vout || [],
+    incoming: incomingTxType.includes(transaction.type),
+  })
   const rbfEnabled = transactionDetails && isRBFEnabled(transactionDetails)
   const canBumpFees = useMemo(
     () => rbfEnabled && canBumpNetworkFees(peachWallet, transaction),

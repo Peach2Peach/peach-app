@@ -86,7 +86,7 @@ describe('getTxSummary', () => {
   })
 
   it('returns the correct transaction summary object for a refund', () => {
-    // @ts-ignore
+    // @ts-expect-error quickfix to create sell offer data we need
     saveOffer({ ...sellOffer, ...offerWithContract, type: 'ask' })
     useTradeSummaryStore.getState().setContract(contractSummary.id, contractSummary)
     useWalletState.getState().updateTxOfferMap(txId, [offerWithContract.id])
@@ -98,7 +98,7 @@ describe('getTxSummary', () => {
     })
   })
   it('returns the correct transaction summary object for a deposit', () => {
-    // @ts-ignore
+    // @ts-expect-error quickfix to create sell offer data we need
     useWalletState.getState().updateTxOfferMap(txId, undefined)
 
     expect(getTxSummary(receivedTx)).toEqual({

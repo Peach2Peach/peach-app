@@ -9,10 +9,8 @@ exports[`TransactionDetailsInfo should render correctly for a confirmed transact
   }
 >
   <Divider />
-  <OfferData
-    address="bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh"
-    amount={900}
-    offerId="123"
+  <OutputInfo
+    receivingAddress="receivingAddress"
     transaction={
       {
         "amount": 900,
@@ -33,7 +31,6 @@ exports[`TransactionDetailsInfo should render correctly for a confirmed transact
         "type": "TRADE",
       }
     }
-    type="TRADE"
   />
   <Divider />
   <ConfirmationSummaryItem
@@ -76,10 +73,8 @@ exports[`TransactionDetailsInfo should render correctly for a pending transactio
   }
 >
   <Divider />
-  <OfferData
-    address="bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh"
-    amount={900}
-    offerId="123"
+  <OutputInfo
+    receivingAddress="receivingAddress"
     transaction={
       {
         "amount": 900,
@@ -100,7 +95,6 @@ exports[`TransactionDetailsInfo should render correctly for a pending transactio
         "type": "TRADE",
       }
     }
-    type="TRADE"
   />
   <Divider />
   <ConfirmationSummaryItem

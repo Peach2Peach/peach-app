@@ -7,26 +7,36 @@ import {
   transactionWithRBF1,
   transactionWithoutRBF1,
 } from '../../../../tests/unit/data/transactionDetailData'
-import { NavigationWrapper, navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { NavigationAndQueryClientWrapper } from '../../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
+import { navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { PeachWallet } from '../../../utils/wallet/PeachWallet'
 import { setPeachWallet } from '../../../utils/wallet/setWallet'
 import { useWalletState } from '../../../utils/wallet/walletStore'
 import { useTransactionDetailsInfoSetup } from './useTransactionDetailsInfoSetup'
 
+const myAddress = 'bc1qtevf8qxjr2f3ku982l324rstmknffvwavecsdt'
+const notMyAddress = '1B5BPUZGErrCzDPPWc7Hs6vyHW81CmVpdN'
+const vout = [{ scriptpubkey_address: myAddress }, { scriptpubkey_address: notMyAddress }] as Transaction['vout']
+
+const useAreMyAddressesMock = jest.fn().mockReturnValue([true, false])
+jest.mock('../../../hooks/wallet/useIsMyAddress', () => ({
+  useAreMyAddresses: (...args: string[]) => useAreMyAddressesMock(...args),
+}))
+
 const useTransactionDetailsMock = jest.fn().mockReturnValue({
-  transaction: transactionWithRBF1,
+  transaction: { ...transactionWithRBF1, vout },
 })
 jest.mock('../../../hooks/query/useTransactionDetails', () => ({
   useTransactionDetails: (...args: unknown[]) => useTransactionDetailsMock(...args),
 }))
 
-const wrapper = NavigationWrapper
+const wrapper = NavigationAndQueryClientWrapper
 
 describe('useTransactionDetailsInfoSetup', () => {
   const initialProps = {
     transaction: pendingTransactionSummary,
   }
-  // @ts-ignore
+  // @ts-expect-error no args needed as it's a mock
   const peachWallet = new PeachWallet()
 
   beforeAll(() => {
@@ -39,7 +49,7 @@ describe('useTransactionDetailsInfoSetup', () => {
   it('should return defaults', () => {
     const { result } = renderHook(useTransactionDetailsInfoSetup, { wrapper, initialProps })
     expect(result.current).toEqual({
-      receivingAddress: 'bc1q7qquf8rwx2wkmmp23y3vu3qqp3rwpq7c9d37jk',
+      receivingAddress: myAddress,
       canBumpFees: true,
       goToBumpNetworkFees: expect.any(Function),
       openInExplorer: expect.any(Function),
