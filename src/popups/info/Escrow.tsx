@@ -3,9 +3,10 @@ import { Icon } from '../../components/Icon'
 import { ParsedPeachText } from '../../components/text/ParsedPeachText'
 import { PeachText } from '../../components/text/Text'
 import tw from '../../styles/tailwind'
-import i18n from '../../utils/i18n'
+import i18n, { languageState } from '../../utils/i18n'
+import { getLocalizedLink } from '../../utils/web'
 
-const goToEscrowInfo = () => Linking.openURL('https://peachbitcoin.com/termsConditions.html')
+const goToEscrowInfo = () => Linking.openURL(getLocalizedLink('terms-and-conditions', languageState.locale))
 
 export const Escrow = () => (
   <>

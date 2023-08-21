@@ -16,7 +16,7 @@ export const ReferralCode = ({ referralCode }: Props) => {
       <View style={tw`flex-row justify-between items-center border border-primary-main rounded-lg p-4`}>
         <View>
           <Text style={tw` body-m text-black-2`}>{i18n('referrals.inviteLink')}</Text>
-          <Text style={tw`text-3xs`}>{inviteLink}</Text>
+          <Text style={tw`text-3xs`}>{inviteLink.replace('https://', '')}</Text>
         </View>
         <CopyAble value={inviteLink} style={tw`w-7 h-7`} />
       </View>
