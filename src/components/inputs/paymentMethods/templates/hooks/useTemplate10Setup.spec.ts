@@ -1,14 +1,15 @@
-import { useTemplate10Setup } from './useTemplate10Setup'
 import { renderHook } from '@testing-library/react-native'
 import { FormProps } from '../../../../../views/addPaymentMethod/PaymentMethodForm'
+import { useTemplate10Setup } from './useTemplate10Setup'
 
 describe('useTemplate10Setup', () => {
   const mockProps: FormProps = {
-    data: {},
-    currencies: [],
+    data: {
+      type: 'liquid',
+      currencies: ['USDT'],
+    },
     onSubmit: jest.fn(),
     setStepValid: jest.fn(),
-    paymentMethod: 'liquid',
     setFormData: jest.fn(),
   }
   it('should return the correct defaults', () => {

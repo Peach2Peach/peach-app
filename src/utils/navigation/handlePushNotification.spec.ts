@@ -6,12 +6,12 @@ import { handlePushNotification } from './handlePushNotification'
 
 const getContractMock = jest.fn()
 jest.mock('../contract', () => ({
-  getContract: (...args: any[]) => getContractMock(...args),
+  getContract: (...args: unknown[]) => getContractMock(...args),
 }))
 
 const getOfferDetailsMock = jest.fn()
 jest.mock('../peachAPI', () => ({
-  getOfferDetails: (...args: any[]) => getOfferDetailsMock(...args),
+  getOfferDetails: (...args: unknown[]) => getOfferDetailsMock(...args),
 }))
 
 describe('handlePushNotification', () => {

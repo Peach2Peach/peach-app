@@ -9,7 +9,7 @@ import { Escrow } from './Escrow'
 import { TogglePayoutPending } from './TogglePayoutPending'
 import { TradeStuffSeparator } from './TradeStuffSeparator'
 
-const shouldShowPayoutPending = (view: string, batchInfo: any, releaseTxId: any) =>
+const shouldShowPayoutPending = (view: string, batchInfo: BatchInfo | undefined, releaseTxId: string | undefined) =>
   view === 'buyer' && !!batchInfo && !batchInfo.completed && !releaseTxId
 
 export const TradeStuff = ({ style }: ComponentProps) => {

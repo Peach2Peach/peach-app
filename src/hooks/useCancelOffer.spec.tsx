@@ -9,7 +9,7 @@ import { useCancelOffer } from './useCancelOffer'
 
 const saveOfferMock = jest.fn()
 jest.mock('../utils/offer/saveOffer', () => ({
-  saveOffer: (...args: any[]) => saveOfferMock(...args),
+  saveOffer: (...args: unknown[]) => saveOfferMock(...args),
 }))
 
 const cancelOfferMock = jest.fn().mockResolvedValue([{}, null])

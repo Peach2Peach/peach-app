@@ -34,7 +34,7 @@ exports[`DrawerOptions renders correctly when there are highlighted options 1`] 
     >
       <DrawerOption
         highlighted={true}
-        onPress={[Function]}
+        onPress={[MockFunction]}
         subtext="testSubtext"
         title="testLabel"
       />
@@ -73,7 +73,7 @@ exports[`DrawerOptions renders correctly when there are options 1`] = `
       }
     >
       <DrawerOption
-        onPress={[Function]}
+        onPress={[MockFunction]}
         title="testLabel"
       />
       <View

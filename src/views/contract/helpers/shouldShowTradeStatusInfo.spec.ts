@@ -1,8 +1,8 @@
 import { shouldShowTradeStatusInfo } from './shouldShowTradeStatusInfo'
 
-const isPaymentTooLateMock = jest.fn((..._args: any) => false)
+const isPaymentTooLateMock = jest.fn((..._args: unknown[]) => false)
 jest.mock('../../../utils/contract/status/isPaymentTooLate', () => ({
-  isPaymentTooLate: (...args: any) => isPaymentTooLateMock(...args),
+  isPaymentTooLate: (...args: unknown[]) => isPaymentTooLateMock(...args),
 }))
 
 describe('shouldShowTradeStatusInfo', () => {

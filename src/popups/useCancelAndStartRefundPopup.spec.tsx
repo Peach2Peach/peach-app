@@ -1,7 +1,6 @@
 import { renderHook } from '@testing-library/react-native'
 import { sellOffer } from '../../tests/unit/data/offerData'
-import { NavigationWrapper } from '../../tests/unit/helpers/NavigationWrapper'
-import { QueryClientWrapper } from '../../tests/unit/helpers/QueryClientWrapper'
+import { NavigationAndQueryClientWrapper } from '../../tests/unit/helpers/NavigationAndQueryClientWrapper'
 import { Loading } from '../components'
 import { defaultPopupState, usePopupStore } from '../store/usePopupStore'
 import { useCancelAndStartRefundPopup } from './useCancelAndStartRefundPopup'
@@ -14,7 +13,7 @@ jest.mock('../hooks/useRefundEscrow', () => ({
 const psbt = 'psbt'
 const cancelOfferMock = jest.fn().mockResolvedValue([{ psbt }, null])
 jest.mock('../utils/peachAPI', () => ({
-  cancelOffer: (...args: any) => cancelOfferMock(...args),
+  cancelOffer: (...args: unknown[]) => cancelOfferMock(...args),
 }))
 
 const showErrorMock = jest.fn()
@@ -22,11 +21,7 @@ jest.mock('../hooks/useShowErrorBanner', () => ({
   useShowErrorBanner: jest.fn(() => showErrorMock),
 }))
 
-const wrapper = ({ children }: { children: JSX.Element }) => (
-  <QueryClientWrapper>
-    <NavigationWrapper>{children}</NavigationWrapper>
-  </QueryClientWrapper>
-)
+const wrapper = NavigationAndQueryClientWrapper
 
 describe('useCancelAndStartRefundPopup', () => {
   afterEach(() => {

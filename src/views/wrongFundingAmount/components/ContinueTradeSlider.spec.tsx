@@ -8,7 +8,7 @@ const confirmEscrowMock = jest.fn()
 jest.mock('../hooks/useConfirmEscrow', () => ({
   useConfirmEscrow:
     () =>
-      (...args: any[]) =>
+      (...args: unknown[]) =>
         confirmEscrowMock(...args),
 }))
 

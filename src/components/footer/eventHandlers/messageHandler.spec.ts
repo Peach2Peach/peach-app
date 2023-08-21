@@ -9,7 +9,7 @@ jest.mock('../../../utils/contract/getContract', () => ({
 }))
 const saveContractMock = jest.fn()
 jest.mock('../../../utils/contract/saveContract', () => ({
-  saveContract: (...args: any[]) => saveContractMock(...args),
+  saveContract: (...args: unknown[]) => saveContractMock(...args),
 }))
 
 describe('messageHandler', () => {

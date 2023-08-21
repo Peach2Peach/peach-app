@@ -1,4 +1,4 @@
-declare type Settings = {
+type Settings = {
   appVersion: string
   analyticsPopupSeen?: boolean
   enableAnalytics?: boolean
@@ -22,12 +22,12 @@ declare type Settings = {
   usedReferralCode?: boolean
 }
 
-declare type PGPKeychain = {
+type PGPKeychain = {
   privateKey: string
   publicKey: string
 }
 
-declare type Identity = {
+type Identity = {
   publicKey: string
   privKey?: string
   mnemonic?: string
@@ -35,7 +35,7 @@ declare type Identity = {
   pgp: PGPKeychain
 }
 
-declare type Account = Identity & {
+type Account = Identity & {
   tradingLimit: TradingLimit
   offers: (SellOffer | BuyOffer)[]
   contracts: Contract[]
@@ -44,7 +44,7 @@ declare type Account = Identity & {
   }
 }
 
-declare type AccountBackup = Account & {
+type AccountBackup = Account & {
   paymentData: PaymentData[]
   settings: Settings
 }

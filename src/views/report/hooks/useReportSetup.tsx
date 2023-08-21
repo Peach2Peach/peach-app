@@ -37,7 +37,7 @@ export const useReportSetup = () => {
     })
 
     if (result) {
-      if (!!account?.publicKey) {
+      if (account?.publicKey) {
         navigation.navigate('settings')
       } else {
         navigation.navigate('welcome')

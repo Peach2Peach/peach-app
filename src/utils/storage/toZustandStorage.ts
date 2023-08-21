@@ -3,7 +3,7 @@ import { StateStorage } from 'zustand/middleware'
 import { dateTimeReviver } from '../system'
 
 export const toZustandStorage = (storage: MMKVInstance): StateStorage => ({
-  setItem: async (name: string, value: any) => {
+  setItem: async (name: string, value: unknown) => {
     await storage.setItem(name, JSON.stringify(value))
   },
   getItem: async (name: string) => {

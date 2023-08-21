@@ -21,10 +21,8 @@ describe('Template1', () => {
       reference: '',
       type: 'instantSepa',
     },
-    currencies: ['EUR'],
     onSubmit: jest.fn(),
     setStepValid: jest.fn(),
-    paymentMethod: 'instantSepa',
     setFormData: jest.fn(),
   }
   it('renders correctly', () => {

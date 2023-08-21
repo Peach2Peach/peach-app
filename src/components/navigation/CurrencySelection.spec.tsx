@@ -7,7 +7,7 @@ describe('CurrencySelection', () => {
   currencies.forEach((currency, index, self) => {
     it(`renders correctly for ${index + 1} currencies`, () => {
       const { toJSON } = render(
-        <CurrencySelection currencies={self.slice(0, index + 1)} selected={currency} select={() => {}} />,
+        <CurrencySelection currencies={self.slice(0, index + 1)} selected={currency} select={jest.fn()} />,
       )
       expect(toJSON()).toMatchSnapshot()
     })

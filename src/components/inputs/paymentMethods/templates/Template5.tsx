@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import { TextInput } from 'react-native'
 import { FormProps } from '../../../../views/addPaymentMethod/PaymentMethodForm'
-import { SortCodeInput, BankNumberInput, LabelInput, ReferenceInput, BeneficiaryInput } from '../../index'
+import { BankNumberInput, BeneficiaryInput, LabelInput, ReferenceInput, SortCodeInput } from '../../index'
 import { useTemplate5Setup } from './hooks'
 
 export const Template5 = (props: FormProps) => {
@@ -19,19 +19,19 @@ export const Template5 = (props: FormProps) => {
       <BeneficiaryInput
         {...beneficiaryInputProps}
         onSubmit={() => $ukBankAccount?.focus()}
-        reference={(el: any) => ($beneficiary = el)}
+        reference={(el) => ($beneficiary = el)}
       />
       <BankNumberInput
         {...ukBankAccountInputProps}
         onSubmit={() => $ukSortCode?.focus()}
-        reference={(el: any) => ($ukBankAccount = el)}
+        reference={(el) => ($ukBankAccount = el)}
       />
       <SortCodeInput
         {...ukSortCodeInputProps}
         onSubmit={() => $reference?.focus()}
-        reference={(el: any) => ($ukSortCode = el)}
+        reference={(el) => ($ukSortCode = el)}
       />
-      <ReferenceInput {...referenceInputProps} reference={(el: any) => ($reference = el)} />
+      <ReferenceInput {...referenceInputProps} reference={(el) => ($reference = el)} />
     </>
   )
 }

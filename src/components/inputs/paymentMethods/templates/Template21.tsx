@@ -24,14 +24,14 @@ export const Template21 = (props: FormProps) => {
       <BeneficiaryInput
         {...beneficiaryInputProps}
         onSubmit={() => $bankNumber?.focus()}
-        reference={(el: any) => ($beneficiary = el)}
+        reference={(el) => ($beneficiary = el)}
       />
       <BankNumberInput
         {...accountNumberInputProps}
         onSubmit={() => $reference?.focus()}
-        reference={(el: any) => ($bankNumber = el)}
+        reference={(el) => ($bankNumber = el)}
       />
-      <ReferenceInput {...referenceInputProps} reference={(el: any) => ($reference = el)} />
+      <ReferenceInput {...referenceInputProps} reference={(el) => ($reference = el)} />
 
       {shouldShowCurrencySelection && <CurrencySelection {...currencySelectionProps} />}
     </View>

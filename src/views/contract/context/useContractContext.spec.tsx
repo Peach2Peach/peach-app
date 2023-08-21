@@ -21,7 +21,7 @@ describe('useContractContext', () => {
     })
   })
   it('should throw an error if used outside of a ContractContext', () => {
-    jest.spyOn(console, 'error').mockImplementationOnce(() => {})
+    jest.spyOn(console, 'error').mockImplementationOnce(() => null)
     expect(() => renderHook(useContractContext)).toThrow(
       'useContractContext must be used within a ContractContextProvider',
     )

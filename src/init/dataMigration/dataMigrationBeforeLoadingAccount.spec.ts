@@ -2,15 +2,15 @@ import { dataMigrationBeforeLoadingAccount } from '.'
 
 const migrateSettingsToStoreMock = jest.fn()
 jest.mock('./beforeLoadingAccount/migrateSettingsToStore', () => ({
-  migrateSettingsToStore: (...args: any[]) => migrateSettingsToStoreMock(...args),
+  migrateSettingsToStore: (...args: unknown[]) => migrateSettingsToStoreMock(...args),
 }))
 const migrateContractsToStoreMock = jest.fn()
 jest.mock('./beforeLoadingAccount/migrateContractsToStore', () => ({
-  migrateContractsToStore: (...args: any[]) => migrateContractsToStoreMock(...args),
+  migrateContractsToStore: (...args: unknown[]) => migrateContractsToStoreMock(...args),
 }))
 const migratePaymentDataToStoreMock = jest.fn()
 jest.mock('./beforeLoadingAccount/migratePaymentDataToStore', () => ({
-  migratePaymentDataToStore: (...args: any[]) => migratePaymentDataToStoreMock(...args),
+  migratePaymentDataToStore: (...args: unknown[]) => migratePaymentDataToStoreMock(...args),
 }))
 
 describe('dataMigrationBeforeLoadingAccount', () => {

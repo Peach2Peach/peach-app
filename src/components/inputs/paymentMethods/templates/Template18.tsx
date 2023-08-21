@@ -25,9 +25,9 @@ export const Template18 = (props: FormProps) => {
         label={i18n('form.chippertag')}
         placeholder={i18n('form.chippertag.placeholder')}
         onSubmit={() => $reference?.focus()}
-        reference={(el: any) => ($username = el)}
+        reference={(el) => ($username = el)}
       />
-      <ReferenceInput {...referenceInputProps} reference={(el: any) => ($reference = el)} />
+      <ReferenceInput {...referenceInputProps} reference={(el) => ($reference = el)} />
       {shouldShowCurrencySelection && <CurrencySelection {...currencySelectionProps} />}
     </>
   )

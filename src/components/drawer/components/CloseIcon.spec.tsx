@@ -4,7 +4,7 @@ import { CloseIcon } from './CloseIcon'
 
 describe('CloseIcon', () => {
   it('should render correctly', () => {
-    const { toJSON } = render(<CloseIcon closeDrawer={() => {}} />)
+    const { toJSON } = render(<CloseIcon closeDrawer={jest.fn()} />)
     expect(toJSON()).toMatchSnapshot()
   })
   it('should call closeDrawer when pressed', () => {

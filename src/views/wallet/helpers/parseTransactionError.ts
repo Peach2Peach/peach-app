@@ -1,7 +1,8 @@
 import { parseError } from '../../../utils/result'
 import { InsufficientFundsError } from '../../../utils/wallet/types'
 
-const isInsufficientFundsError = (cause: any): cause is InsufficientFundsError => cause && 'needed' in cause
+const isInsufficientFundsError = (cause: string | object): cause is InsufficientFundsError =>
+  typeof cause === 'object' && 'needed' in cause
 
 export const parseTransactionError = (e: Error, cause: string | InsufficientFundsError): string[] => {
   const error = parseError(e)

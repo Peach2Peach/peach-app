@@ -1,7 +1,7 @@
-import { GoBackIcon } from './GoBackIcon'
 import { fireEvent, render } from '@testing-library/react-native'
+import { DrawerContext, defaultState } from '../../../contexts/drawer'
 import { Icon } from '../../Icon'
-import { defaultState, DrawerContext } from '../../../contexts/drawer'
+import { GoBackIcon } from './GoBackIcon'
 
 describe('GoBackIcon', () => {
   let drawerState = {
@@ -28,7 +28,7 @@ describe('GoBackIcon', () => {
         options: [],
         show: true,
         previousDrawer: undefined,
-        onClose: () => {},
+        onClose: jest.fn(),
       },
     })
     const { toJSON } = render(<GoBackIcon />, { wrapper })
@@ -46,7 +46,7 @@ describe('GoBackIcon', () => {
         options: [],
         show: true,
         previousDrawer: undefined,
-        onClose: () => {},
+        onClose: jest.fn(),
       },
     })
     const { UNSAFE_getByType } = render(<GoBackIcon />, { wrapper })

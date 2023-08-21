@@ -12,7 +12,7 @@ describe('checkUsedReferralCode', () => {
     useSettingsStore.setState({ usedReferralCode: undefined })
   })
   it('should check if referral code has been used and set setting to true', async () => {
-    ;(getSelfUser as jest.Mock).mockResolvedValue([
+    (getSelfUser as jest.Mock).mockResolvedValue([
       {
         usedReferralCode: 'SATOSHI',
       },
@@ -22,7 +22,7 @@ describe('checkUsedReferralCode', () => {
     expect(useSettingsStore.getState().usedReferralCode).toBe(true)
   })
   it('should check if referral code has been used and set setting to false if not used', async () => {
-    ;(getSelfUser as jest.Mock).mockResolvedValue([
+    (getSelfUser as jest.Mock).mockResolvedValue([
       {
         usedReferralCode: undefined,
       },

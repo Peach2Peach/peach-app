@@ -54,7 +54,7 @@ export const Popup = () => {
               {!!title && <Text style={tw`mb-1 h5 text-black-1`}>{title}</Text>}
               {content}
             </View>
-            <View style={[tw`flex-row px-4`, !!action2 ? tw`justify-between` : tw`justify-center`]}>
+            <View style={[tw`flex-row px-4`, action2 ? tw`justify-between` : tw`justify-center`]}>
               {!!action2 && (
                 <PopupAction
                   style={tw`py-2`}

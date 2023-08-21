@@ -9,7 +9,7 @@ jest.useFakeTimers()
 
 const navigationReplaceMock = jest.fn()
 const useNavigationMock = jest.fn().mockReturnValue({
-  replace: (...args: any[]) => navigationReplaceMock(...args),
+  replace: (...args: unknown[]) => navigationReplaceMock(...args),
 })
 jest.mock('../../../hooks/useNavigation', () => ({
   useNavigation: () => useNavigationMock(),
@@ -17,16 +17,16 @@ jest.mock('../../../hooks/useNavigation', () => ({
 
 const createAccountMock = jest.fn().mockResolvedValue(account1)
 jest.mock('../../../utils/account/createAccount', () => ({
-  createAccount: (...args: any[]) => createAccountMock(...args),
+  createAccount: (...args: unknown[]) => createAccountMock(...args),
 }))
 const recoverAccountMock = jest.fn().mockResolvedValue(account1)
 jest.mock('../../../utils/account/recoverAccount', () => ({
-  recoverAccount: (...args: any[]) => recoverAccountMock(...args),
+  recoverAccount: (...args: unknown[]) => recoverAccountMock(...args),
 }))
 
 const storeAccountMock = jest.fn()
 jest.mock('../../../utils/account/storeAccount', () => ({
-  storeAccount: (...args: any[]) => storeAccountMock(...args),
+  storeAccount: (...args: unknown[]) => storeAccountMock(...args),
 }))
 
 const apiSuccess = {
@@ -35,7 +35,7 @@ const apiSuccess = {
 }
 const authMock = jest.fn().mockResolvedValue([apiSuccess, null])
 jest.mock('../../../utils/peachAPI', () => ({
-  auth: (...args: any[]) => authMock(...args),
+  auth: (...args: unknown[]) => authMock(...args),
 }))
 
 describe('useRestoreFromSeedSetup', () => {

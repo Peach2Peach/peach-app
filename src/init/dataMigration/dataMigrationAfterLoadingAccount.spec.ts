@@ -4,10 +4,10 @@ import { dataMigrationAfterLoadingAccount } from './dataMigrationAfterLoadingAcc
 const checkSupportedPaymentMethodsMock = jest.fn()
 const checkUsedReferralCodeMock = jest.fn()
 jest.mock('./afterLoadingAccount/checkSupportedPaymentMethods', () => ({
-  checkSupportedPaymentMethods: (...args: any[]) => checkSupportedPaymentMethodsMock(...args),
+  checkSupportedPaymentMethods: (...args: unknown[]) => checkSupportedPaymentMethodsMock(...args),
 }))
 jest.mock('./afterLoadingAccount/checkUsedReferralCode', () => ({
-  checkUsedReferralCode: (...args: any[]) => checkUsedReferralCodeMock(...args),
+  checkUsedReferralCode: (...args: unknown[]) => checkUsedReferralCodeMock(...args),
 }))
 
 describe('dataMigrationAfterLoadingAccount', () => {

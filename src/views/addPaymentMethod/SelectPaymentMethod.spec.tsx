@@ -2,7 +2,7 @@ import { createRenderer } from 'react-test-renderer/shallow'
 import { SelectPaymentMethod } from './SelectPaymentMethod'
 
 jest.mock('../../contexts/drawer', () => ({
-  useDrawerContext: jest.fn(() => [, jest.fn()]),
+  useDrawerContext: jest.fn(() => [null, jest.fn()]),
 }))
 
 jest.mock('../../hooks/useHeaderSetup', () => ({

@@ -7,7 +7,7 @@ import { generateMatchOfferData } from './generateMatchOfferData'
 
 const getPaymentMethodInfoMock = jest.fn()
 jest.mock('../../../utils/paymentMethod/getPaymentMethodInfo', () => ({
-  getPaymentMethodInfo: (...args: any[]) => getPaymentMethodInfoMock(...args),
+  getPaymentMethodInfo: (...args: unknown[]) => getPaymentMethodInfoMock(...args),
 }))
 
 const signature = 'signature'
@@ -17,7 +17,7 @@ const createEncryptedPaymentDataMock = jest.fn().mockResolvedValue({
   encrypted,
 })
 jest.mock('./createEncryptedPaymentData', () => ({
-  createEncryptedPaymentData: (...args: any[]) => createEncryptedPaymentDataMock(...args),
+  createEncryptedPaymentData: (...args: unknown[]) => createEncryptedPaymentDataMock(...args),
 }))
 
 describe('generateMatchOfferData', () => {
@@ -63,7 +63,7 @@ describe('generateMatchOfferData', () => {
     })
   })
   it('should return error if hashed payment data cannot be found', async () => {
-    expect(await generateMatchOfferData(sellOffer, match, currency, 'nationalTransferCY')).toEqual([
+    expect(await generateMatchOfferData(sellOffer, match, currency, 'nationalTransferBG')).toEqual([
       null,
       'MISSING_HASHED_PAYMENT_DATA',
     ])

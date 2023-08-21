@@ -13,24 +13,24 @@ import i18n, { LanguageContext } from './utils/i18n'
 import { getViews } from './views/getViews'
 
 import { defaultState, DrawerContext, setDrawer } from './contexts/drawer'
-import { MessageContext, getMessage, setMessage, showMessageEffect } from './contexts/message'
-import { PeachWSContext, getWebSocket, setPeachWS } from './utils/peachAPI/websocket'
+import { getMessage, MessageContext, setMessage, showMessageEffect } from './contexts/message'
+import { getWebSocket, PeachWSContext, setPeachWS } from './utils/peachAPI/websocket'
 
 import { DEV } from '@env'
 import { QueryClientProvider } from '@tanstack/react-query'
 import { setUnhandledPromiseRejectionTracker } from 'react-native-promise-rejection-utils'
-import { GlobalHandlers } from './GlobalHandlers'
 import { Background } from './components/background/Background'
 import { ISEMULATOR } from './constants'
+import { GlobalHandlers } from './GlobalHandlers'
 import { initApp } from './init/initApp'
 import { requestUserPermissions } from './init/requestUserPermissions'
 import { initWebSocket } from './init/websocket'
+import { queryClient } from './queryClient'
 import { usePartialAppSetup } from './usePartialAppSetup'
 import { account } from './utils/account'
 import { error, info } from './utils/log'
 import { parseError } from './utils/result'
 import { isNetworkError } from './utils/system'
-import { queryClient } from './queryClient'
 import { Screens } from './views/Screens'
 
 enableScreens()
@@ -95,7 +95,7 @@ export const App = () => {
       return
     }
 
-    ;(async () => {
+    (async () => {
       const statusResponse = await initApp()
       if (!statusResponse || statusResponse.error) {
         updateMessage({
@@ -108,7 +108,7 @@ export const App = () => {
           },
         })
       }
-      setCurrentPage(!!account?.publicKey ? 'home' : 'welcome')
+      setCurrentPage(account?.publicKey ? 'home' : 'welcome')
       requestUserPermissions()
     })()
   }, [])
@@ -128,7 +128,7 @@ export const App = () => {
     info('Navigation event', currentPage)
     // Disable OS back button
     analytics().logScreenView({
-      screen_name: currentPage as string,
+      screen_name: currentPage,
     })
   }, [currentPage])
 

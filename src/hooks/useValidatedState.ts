@@ -1,4 +1,4 @@
-import { useState, useEffect, Dispatch, SetStateAction } from 'react'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { getErrorsInField } from '../utils/validation/getErrorsInField'
 import { Rule } from '../utils/validation/rules'
 
@@ -13,7 +13,7 @@ import { Rule } from '../utils/validation/rules'
  */
 export const useValidatedState = <S extends string | number | undefined>(
   input: S,
-  rulesToCheck: Partial<Record<Rule, any>>,
+  rulesToCheck: Partial<Record<Rule, unknown>>,
 ): [S, Dispatch<SetStateAction<S>>, boolean, string[] | undefined, boolean] => {
   const [pristine, setPristine] = useState(true)
   const [value, setValue] = useState<S>(input)

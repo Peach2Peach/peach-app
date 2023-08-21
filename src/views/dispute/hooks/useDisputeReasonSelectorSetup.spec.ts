@@ -1,11 +1,11 @@
 import { renderHook } from '@testing-library/react-native'
 import { account1 } from '../../../../tests/unit/data/accountData'
 import { contract } from '../../../../tests/unit/data/contractData'
+import { apiSuccess, unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
+import { headerState } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { setAccount } from '../../../utils/account'
 import { disputeReasons } from './disputeReasons'
 import { useDisputeReasonSelectorSetup } from './useDisputeReasonSelectorSetup'
-import { apiSuccess, unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
-import { headerState } from '../../../../tests/unit/helpers/NavigationWrapper'
 
 const useRouteMock = jest.fn().mockReturnValue({
   params: {
@@ -27,17 +27,17 @@ jest.mock('../../../hooks/useNavigation', () => ({
 
 const useHeaderSetupMock = jest.fn()
 jest.mock('../../../hooks/useHeaderSetup', () => ({
-  useHeaderSetup: (...args: any[]) => useHeaderSetupMock(...args),
+  useHeaderSetup: (...args: unknown[]) => useHeaderSetupMock(...args),
 }))
 
 const getContractMock = jest.fn().mockReturnValue(contract)
 jest.mock('../../../utils/contract/getContract', () => ({
-  getContract: (...args: any[]) => getContractMock(...args),
+  getContract: (...args: unknown[]) => getContractMock(...args),
 }))
 
 const submitRaiseDisputeMock = jest.fn().mockResolvedValue([apiSuccess, null])
 jest.mock('../utils/submitRaiseDispute', () => ({
-  submitRaiseDispute: (...args: any[]) => submitRaiseDisputeMock(...args),
+  submitRaiseDispute: (...args: unknown[]) => submitRaiseDisputeMock(...args),
 }))
 
 const showErrorBannerMock = jest.fn()

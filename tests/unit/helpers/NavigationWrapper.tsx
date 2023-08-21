@@ -40,7 +40,7 @@ export const navigationMock = {
   addListener: addListenerMock,
   getState: getStateMock,
 }
-export const NavigationWrapper = ({ children }: any) => (
+export const NavigationWrapper = ({ children }: { children: React.ReactNode }) => (
   // @ts-ignore
   <NavigationContext.Provider value={navigationMock}>{children}</NavigationContext.Provider>
 )

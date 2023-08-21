@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import { TextInput } from 'react-native'
-import { BICInput, BeneficiaryInput, IBANInput, LabelInput, ReferenceInput } from '../../index'
 import { FormProps } from '../../../../views/addPaymentMethod/PaymentMethodForm'
+import { BICInput, BeneficiaryInput, IBANInput, LabelInput, ReferenceInput } from '../../index'
 import { CurrencySelection } from '../paymentForms/components'
 import { useTemplate1Setup } from './hooks'
 
@@ -27,11 +27,11 @@ export const Template1 = (props: FormProps) => {
       <BeneficiaryInput
         {...beneficiaryInputProps}
         onSubmit={() => $iban?.focus()}
-        reference={(el: any) => ($beneficiary = el)}
+        reference={(el) => ($beneficiary = el)}
       />
-      <IBANInput {...ibanInputProps} onSubmit={() => $bic?.focus()} reference={(el: any) => ($iban = el)} />
-      <BICInput {...bicInputProps} onSubmit={() => $reference?.focus()} reference={(el: any) => ($bic = el)} />
-      <ReferenceInput {...referenceInputProps} reference={(el: any) => ($reference = el)} />
+      <IBANInput {...ibanInputProps} onSubmit={() => $bic?.focus()} reference={(el) => ($iban = el)} />
+      <BICInput {...bicInputProps} onSubmit={() => $reference?.focus()} reference={(el) => ($bic = el)} />
+      <ReferenceInput {...referenceInputProps} reference={(el) => ($reference = el)} />
       {shouldShowCurrencySelection && <CurrencySelection {...currencySelectionProps} />}
     </>
   )

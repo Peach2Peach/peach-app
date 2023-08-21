@@ -10,7 +10,7 @@ const wrapper = NavigationAndQueryClientWrapper
 const goToOfferMock = jest.fn()
 const navigateToOfferOrContractMock = jest.fn().mockReturnValue(goToOfferMock)
 jest.mock('../../../../hooks/useNavigateToOfferOrContract', () => ({
-  useNavigateToOfferOrContract: (...args: any[]) => navigateToOfferOrContractMock(...args),
+  useNavigateToOfferOrContract: (...args: unknown[]) => navigateToOfferOrContractMock(...args),
 }))
 
 describe('TransactionHeader', () => {

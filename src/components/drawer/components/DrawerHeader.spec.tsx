@@ -1,6 +1,6 @@
-import { DrawerHeader } from './DrawerHeader'
 import { act, fireEvent, render } from '@testing-library/react-native'
-import { defaultState, DrawerContext } from '../../../contexts/drawer'
+import { DrawerContext, defaultState } from '../../../contexts/drawer'
+import { DrawerHeader } from './DrawerHeader'
 
 jest.mock('./GoBackIcon', () => ({
   GoBackIcon: 'GoBackIcon',
@@ -40,7 +40,7 @@ describe('DrawerHeader', () => {
           title: 'testLabel',
           subtext: 'testSubtext',
           highlighted: true,
-          onPress: () => {},
+          onPress: jest.fn(),
         },
       ],
     })

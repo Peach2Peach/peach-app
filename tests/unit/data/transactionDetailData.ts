@@ -1,5 +1,5 @@
 import { BlockTime, TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
-import { Transaction } from 'bdk-rn/lib/classes/Transaction'
+import { Transaction as BDKTransaction } from 'bdk-rn/lib/classes/Transaction'
 
 type Props = {
   txid: string
@@ -10,7 +10,7 @@ type Props = {
 }
 export const createTransaction = ({ txid, received, sent, fee, confirmationTime }: Props) => {
   const blockTime = new BlockTime(confirmationTime?.height, confirmationTime?.timestamp)
-  const transaction = new Transaction()
+  const transaction = new BDKTransaction()
   const serialized = Array.from(Buffer.from(txid))
   transaction.serialize = jest.fn().mockResolvedValue(serialized)
   return new TransactionDetails(txid, received, sent, fee, blockTime, transaction)

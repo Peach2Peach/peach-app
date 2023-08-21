@@ -3,7 +3,7 @@ import { logTradeCompleted } from './logTradeCompleted'
 
 const logEventMock = jest.fn()
 jest.mock('@react-native-firebase/analytics', () => () => ({
-  logEvent: (...args: any[]) => logEventMock(...args),
+  logEvent: (...args: unknown[]) => logEventMock(...args),
 }))
 
 describe('logTradeCompleted', () => {

@@ -1,6 +1,6 @@
-declare type TransactionType = 'TRADE' | 'ESCROWFUNDED' | 'REFUND' | 'WITHDRAWAL' | 'DEPOSIT'
+type TransactionType = 'TRADE' | 'ESCROWFUNDED' | 'REFUND' | 'WITHDRAWAL' | 'DEPOSIT'
 
-declare type OfferData = {
+type OfferData = {
   offerId?: string
   contractId?: string
   address: string
@@ -8,7 +8,7 @@ declare type OfferData = {
   price?: number
   currency?: Currency
 }
-declare type TransactionSummary = {
+type TransactionSummary = {
   id: string
   type: TransactionType
   offerData: OfferData[]

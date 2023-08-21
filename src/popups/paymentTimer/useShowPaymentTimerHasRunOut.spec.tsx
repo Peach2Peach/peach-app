@@ -18,7 +18,7 @@ const setMessage = jest.fn((newMessageState) => {
   messageState = newMessageState
 })
 
-const MessageWrapper = ({ children }: { children: any }) => (
+const MessageWrapper = ({ children }: { children: React.ReactElement }) => (
   <MessageContext.Provider value={[messageState, setMessage]}>{children}</MessageContext.Provider>
 )
 

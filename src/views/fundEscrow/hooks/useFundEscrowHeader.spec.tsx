@@ -9,7 +9,7 @@ import { useFundEscrowHeader } from './useFundEscrowHeader'
 const showHelpMock = jest.fn()
 const useShowHelpMock = jest.fn((..._args) => showHelpMock)
 jest.mock('../../../hooks/useShowHelp', () => ({
-  useShowHelp: (...args: any) => useShowHelpMock(...args),
+  useShowHelp: (...args: unknown[]) => useShowHelpMock(...args),
 }))
 
 const wrapper = NavigationWrapper

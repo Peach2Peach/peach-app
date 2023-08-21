@@ -13,7 +13,7 @@ const useSettingsStoreMock = jest.fn((selector, _compareFn) =>
   selector({ lastFileBackupDate: null, lastSeedBackupDate: null }),
 )
 jest.mock('../../../store/settingsStore', () => ({
-  useSettingsStore: (selector: any, compareFn: any) => useSettingsStoreMock(selector, compareFn),
+  useSettingsStore: (selector: unknown, compareFn: unknown) => useSettingsStoreMock(selector, compareFn),
 }))
 
 const isBackupMandatoryMock = jest.fn(() => true)

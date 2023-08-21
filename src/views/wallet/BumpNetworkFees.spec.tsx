@@ -1,11 +1,11 @@
 import { fireEvent, render } from '@testing-library/react-native'
 import { createRenderer } from 'react-test-renderer/shallow'
 import { bitcoinTransaction } from '../../../tests/unit/data/transactionDetailData'
+import { navigationMock } from '../../../tests/unit/helpers/NavigationWrapper'
 import { mockDimensions } from '../../../tests/unit/helpers/mockDimensions'
 import { placeholderFees } from '../../hooks/query/useFeeEstimate'
 import { getTransactionFeeRate } from '../../utils/bitcoin'
 import { BumpNetworkFees } from './BumpNetworkFees'
-import { navigationMock } from '../../../tests/unit/helpers/NavigationWrapper'
 
 jest.mock('../../hooks/useNavigation', () => ({
   useNavigation: () => navigationMock,

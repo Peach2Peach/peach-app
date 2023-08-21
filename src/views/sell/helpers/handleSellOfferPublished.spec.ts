@@ -4,7 +4,7 @@ import { handleSellOfferPublished } from './handleSellOfferPublished'
 
 const saveOfferMock = jest.fn()
 jest.mock('../../../utils/offer', () => ({
-  saveOffer: (offer: any) => saveOfferMock(offer),
+  saveOffer: (offer: unknown) => saveOfferMock(offer),
 }))
 
 describe('handleSellOfferPublished', () => {

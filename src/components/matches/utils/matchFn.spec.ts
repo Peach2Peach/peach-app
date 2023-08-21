@@ -1,5 +1,6 @@
 import { matchFn } from '.'
 import * as offerData from '../../../../tests/unit/data/offerData'
+import { MatchProps } from '../../../utils/peachAPI/private/offer/matchOffer'
 
 const selectedCurrency: Currency = 'EUR'
 const selectedPaymentMethod: PaymentMethod = 'sepa'
@@ -19,9 +20,13 @@ const defaultOfferData = {
   paymentDataEncrypted: undefined,
   paymentDataSignature: undefined,
   hashedPaymentData: undefined,
+  price: 21000,
+  premium: 21,
 }
 
-const generateMatchOfferDataMock = jest.fn(() => [defaultOfferData, undefined])
+const generateMatchOfferDataMock = jest.fn(
+  (): Promise<[MatchProps | null, string | null]> => Promise.resolve([defaultOfferData, null]),
+)
 jest.mock('./generateMatchOfferData', () => ({
   generateMatchOfferData: () => generateMatchOfferDataMock(),
 }))
@@ -39,7 +44,7 @@ describe('matchFn', () => {
   it('should throw an error if no offer id', async () => {
     const offerWithoutId = { ...offer, id: undefined }
     await expect(
-      // @ts-expect-error
+      // @ts-expect-error testing invalid input
       matchFn(match, offerWithoutId, selectedCurrency, selectedPaymentMethod, updateMessage),
     ).rejects.toThrow()
   })
@@ -59,7 +64,7 @@ describe('matchFn', () => {
   })
 
   it('should throw an error if no match offer data', async () => {
-    generateMatchOfferDataMock.mockReturnValueOnce([undefined, 'MISSING_PAYMENTDATA'])
+    generateMatchOfferDataMock.mockResolvedValueOnce([null, 'MISSING_PAYMENTDATA'])
     const matchOfferData = 'MISSING_PAYMENTDATA'
     await expect(matchFn(match, offer, selectedCurrency, selectedPaymentMethod, updateMessage)).rejects.toThrow(
       matchOfferData,

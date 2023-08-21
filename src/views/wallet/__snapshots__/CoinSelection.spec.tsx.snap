@@ -974,7 +974,11 @@ exports[`CoinSelection renders correctly while loading 1`] = `
   >
     <Image
       resizeMode="cover"
-      source="test-file-stub"
+      source={
+        {
+          "testUri": "../../../src/assets/animated/bitcoin.gif",
+        }
+      }
       style={
         {
           "height": 128,

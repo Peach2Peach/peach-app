@@ -1,4 +1,4 @@
-declare type PaymentDataInfo = {
+type PaymentDataInfo = {
   accountNumber?: string
   beneficiary?: string
   bic?: string
@@ -21,9 +21,9 @@ declare type PaymentDataInfo = {
   eversendUserName?: string
 }
 
-declare type PaymentDataField = keyof PaymentDataInfo
+type PaymentDataField = keyof PaymentDataInfo
 
-declare type PaymentData = PaymentDataInfo & {
+type PaymentData = PaymentDataInfo & {
   id: string
   label: string
   type: PaymentMethod

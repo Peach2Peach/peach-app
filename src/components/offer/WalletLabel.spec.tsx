@@ -1,13 +1,13 @@
+import { render, waitFor } from '@testing-library/react-native'
 import { useSettingsStore } from '../../store/settingsStore'
 import i18n from '../../utils/i18n'
-import { WalletLabel } from './WalletLabel'
-import { render, waitFor } from '@testing-library/react-native'
 import { Text } from '../text'
+import { WalletLabel } from './WalletLabel'
 
 const findKeyPairByAddressMock = jest.fn()
 jest.mock('../../utils/wallet/setWallet', () => ({
   peachWallet: {
-    findKeyPairByAddress: (...args: any) => findKeyPairByAddressMock(...args),
+    findKeyPairByAddress: (...args: unknown[]) => findKeyPairByAddressMock(...args),
   },
 }))
 

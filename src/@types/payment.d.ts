@@ -1,4 +1,4 @@
-declare type EuPaymentMethods =
+type EuPaymentMethods =
   | 'advcash'
   | 'applePay'
   | 'bizum'
@@ -35,7 +35,7 @@ declare type EuPaymentMethods =
   | 'verse'
   | 'vipps'
   | 'wise'
-declare type LatAmPaymentMethods =
+type LatAmPaymentMethods =
   | 'alias'
   | 'bancolombia'
   | 'cbu'
@@ -45,7 +45,7 @@ declare type LatAmPaymentMethods =
   | 'rappipay'
   | 'sinpe'
   | 'sinpeMovil'
-declare type AfricaPaymentMethods =
+type AfricaPaymentMethods =
   | 'airtelMoney'
   | 'chippercash'
   | 'eversend'
@@ -56,11 +56,11 @@ declare type AfricaPaymentMethods =
   | 'orangeMoney'
   | 'payday'
   | 'wave'
-declare type BitcoinPaymentMethods = 'liquid' | 'lnurl'
-declare type InternationalPaymentMethds = 'giftCard.amazon' | `giftCard.amazon.${Country}`
-declare type CashPaymentMethds = 'cash' | `cash.${string}`
+type BitcoinPaymentMethods = 'liquid' | 'lnurl'
+type InternationalPaymentMethds = 'giftCard.amazon' | `giftCard.amazon.${Country}`
+type CashPaymentMethds = 'cash' | `cash.${string}`
 
-declare type PaymentMethod =
+type PaymentMethod =
   | EuPaymentMethods
   | LatAmPaymentMethods
   | AfricaPaymentMethods

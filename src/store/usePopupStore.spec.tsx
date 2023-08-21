@@ -41,23 +41,23 @@ describe('usePopupStore', () => {
     expect(usePopupStore.getState().title).toBe('')
   })
   it('should update the action1 of a popup when passed to setPopup', () => {
-    const action = { label: 'Test', callback: () => {} }
+    const action = { label: 'Test', callback: jest.fn() }
     usePopupStore.getState().setPopup({ action1: action })
     expect(usePopupStore.getState().action1).toStrictEqual(action)
   })
   it('should overwrite existing action1 when no action1 is passed to setPopup', () => {
-    const action = { label: 'Test', callback: () => {} }
+    const action = { label: 'Test', callback: jest.fn() }
     usePopupStore.getState().setPopup({ action1: action })
     usePopupStore.getState().setPopup()
     expect(usePopupStore.getState().action1).toStrictEqual(undefined)
   })
   it('should update the action2 of a popup when passed to setPopup', () => {
-    const action = { label: 'Test', callback: () => {} }
+    const action = { label: 'Test', callback: jest.fn() }
     usePopupStore.getState().setPopup({ action2: action })
     expect(usePopupStore.getState().action2).toStrictEqual(action)
   })
   it('should overwrite existing action2 when no action2 is passed to setPopup', () => {
-    const action = { label: 'Test', callback: () => {} }
+    const action = { label: 'Test', callback: jest.fn() }
     usePopupStore.getState().setPopup({ action2: action })
     usePopupStore.getState().setPopup()
     expect(usePopupStore.getState().action2).toStrictEqual(undefined)

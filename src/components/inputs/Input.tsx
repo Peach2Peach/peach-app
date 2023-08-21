@@ -60,11 +60,11 @@ export type InputProps = ComponentProps &
     disabled?: boolean
     disableSubmit?: boolean
     errorMessage?: string[]
-    onChange?: Function
-    onEndEditing?: Function
-    onSubmit?: Function
-    onFocus?: Function
-    onBlur?: Function
+    onChange?: (val: string) => void
+    onEndEditing?: (val: string) => void
+    onSubmit?: (val: string) => void
+    onFocus?: () => void
+    onBlur?: (val: string | undefined) => void
     reference?: Ref<TextInput>
     enforceRequired?: boolean
   }
@@ -163,27 +163,25 @@ export const Input = ({
             multiline && tw`flex justify-start h-full pt-2`,
             !!inputStyle && inputStyle,
           ]}
-          {...{
-            value,
-            ref: reference ? reference : null,
-            placeholderTextColor: colors.placeholder.color,
-            allowFontScaling: false,
-            removeClippedSubviews: false,
-            editable: !disabled,
-            onChangeText,
-            multiline,
-            textAlignVertical: multiline ? 'top' : 'center',
-            onEndEditing: onEndEditingHandler,
-            onSubmitEditing,
-            blurOnSubmit: false,
-            onFocus: onFocusHandler,
-            onBlur: onBlurHandler,
-            onPressIn,
-            secureTextEntry: secureTextEntry && !showSecret,
-            autoCapitalize: autoCapitalize || 'none',
-            autoCorrect,
-            ...inputProps,
-          }}
+          value={value}
+          ref={reference ? reference : null}
+          placeholderTextColor={colors.placeholder.color}
+          allowFontScaling={false}
+          removeClippedSubviews={false}
+          editable={!disabled}
+          onChangeText={onChangeText}
+          multiline={multiline}
+          textAlignVertical={multiline ? 'top' : 'center'}
+          onEndEditing={onEndEditingHandler}
+          onSubmitEditing={onSubmitEditing}
+          blurOnSubmit={false}
+          onFocus={onFocusHandler}
+          onBlur={onBlurHandler}
+          onPressIn={onPressIn}
+          secureTextEntry={secureTextEntry && !showSecret}
+          autoCapitalize={autoCapitalize || 'none'}
+          autoCorrect={autoCorrect}
+          {...inputProps}
         />
         <View style={tw`flex flex-row gap-4`}>
           {inputIcons.map(([icon, action], index) => (
@@ -191,7 +189,7 @@ export const Input = ({
               <Icon
                 id={icon}
                 style={tw`w-5 h-5`}
-                color={!!iconColor ? iconColor : showError ? colors.textError.color : colors.text.color}
+                color={iconColor ? iconColor : showError ? colors.textError.color : colors.text.color}
               />
             </Pressable>
           ))}

@@ -1,18 +1,18 @@
 import { Address } from 'bdk-rn'
+import { account1 } from '../../../../tests/unit/data/accountData'
 import { sellOffer } from '../../../../tests/unit/data/offerData'
 import { validSEPAData } from '../../../../tests/unit/data/paymentData'
-import { handleMultipleOffersPublished } from './handleMultipleOffersPublished'
 import { walletGetInternalAddressMock } from '../../../../tests/unit/mocks/bdkRN'
+import { useOfferPreferences } from '../../../store/offerPreferenes'
 import { createWalletFromSeedPhrase, getNetwork } from '../../../utils/wallet'
-import { account1 } from '../../../../tests/unit/data/accountData'
 import { PeachWallet } from '../../../utils/wallet/PeachWallet'
 import { peachWallet, setPeachWallet } from '../../../utils/wallet/setWallet'
 import { useWalletState } from '../../../utils/wallet/walletStore'
-import { useOfferPreferences } from '../../../store/offerPreferenes'
+import { handleMultipleOffersPublished } from './handleMultipleOffersPublished'
 
 const saveOfferMock = jest.fn()
 jest.mock('../../../utils/offer', () => ({
-  saveOffer: (offer: any) => saveOfferMock(offer),
+  saveOffer: (offer: unknown) => saveOfferMock(offer),
 }))
 
 describe('handleMultipleOffersPublished', () => {

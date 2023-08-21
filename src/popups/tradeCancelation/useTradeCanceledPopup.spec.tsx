@@ -1,12 +1,12 @@
 import { renderHook } from '@testing-library/react-native'
-import { useTradeCanceledPopup } from './useTradeCanceledPopup'
 import { contract } from '../../../tests/unit/data/contractData'
 import { sellOffer } from '../../../tests/unit/data/offerData'
-import { OfferRepublished } from './OfferRepublished'
-import { ContractCanceledToSeller } from './ContractCanceledToSeller'
-import { BuyerConfirmedCancelTrade } from './BuyerConfirmedCancelTrade'
 import { unauthorizedError } from '../../../tests/unit/data/peachAPIData'
 import { defaultPopupState, usePopupStore } from '../../store/usePopupStore'
+import { BuyerConfirmedCancelTrade } from './BuyerConfirmedCancelTrade'
+import { ContractCanceledToSeller } from './ContractCanceledToSeller'
+import { OfferRepublished } from './OfferRepublished'
+import { useTradeCanceledPopup } from './useTradeCanceledPopup'
 
 const navigateMock = jest.fn()
 const replaceMock = jest.fn()
@@ -24,12 +24,12 @@ jest.mock('../useStartRefundPopup', () => ({
 
 const saveContractMock = jest.fn()
 jest.mock('../../utils/contract/saveContract', () => ({
-  saveContract: (...args: any[]) => saveContractMock(...args),
+  saveContract: (...args: unknown[]) => saveContractMock(...args),
 }))
 
 const getSellOfferFromContractMock = jest.fn().mockReturnValue(sellOffer)
 jest.mock('../../utils/contract/getSellOfferFromContract', () => ({
-  getSellOfferFromContract: (...args: any[]) => getSellOfferFromContractMock(...args),
+  getSellOfferFromContract: (...args: unknown[]) => getSellOfferFromContractMock(...args),
 }))
 
 const reviveSuccess = {
@@ -37,7 +37,7 @@ const reviveSuccess = {
 }
 const reviveSellOfferMock = jest.fn().mockResolvedValue([reviveSuccess, null])
 jest.mock('../../utils/peachAPI', () => ({
-  reviveSellOffer: (...args: any[]) => reviveSellOfferMock(...args),
+  reviveSellOffer: (...args: unknown[]) => reviveSellOfferMock(...args),
 }))
 
 const showErrorBannerMock = jest.fn()

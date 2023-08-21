@@ -7,12 +7,12 @@ import { useTemplate11Setup } from './hooks'
 
 export const Template11 = (props: FormProps) => {
   const { labelInputProps, lnurlAddressInputProps } = useTemplate11Setup(props)
-  let $lnurlAddressInput = useRef<TextInput>().current
+  let $lnurlAddressInput = useRef<TextInput>(null).current
 
   return (
     <>
       <LabelInput {...labelInputProps} onSubmit={() => $lnurlAddressInput?.focus()} />
-      <EmailInput {...lnurlAddressInputProps} reference={(el: any) => ($lnurlAddressInput = el)} />
+      <EmailInput {...lnurlAddressInputProps} reference={(el) => ($lnurlAddressInput = el)} />
     </>
   )
 }

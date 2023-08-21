@@ -5,20 +5,20 @@ import { useBuySetup } from './useBuySetup'
 
 const useHeaderSetupMock = jest.fn()
 jest.mock('../../../hooks/useHeaderSetup', () => ({
-  useHeaderSetup: (...args: any) => useHeaderSetupMock(...args),
+  useHeaderSetup: (...args: unknown[]) => useHeaderSetupMock(...args),
 }))
 
 const showHelpMock = jest.fn()
 const useShowHelpMock = jest.fn((..._args) => showHelpMock)
 jest.mock('../../../hooks/useShowHelp', () => ({
-  useShowHelp: (...args: any) => useShowHelpMock(...args),
+  useShowHelp: (...args: unknown[]) => useShowHelpMock(...args),
 }))
 
 const useSettingsStoreMock = jest.fn((selector, _compareFn) =>
   selector({ lastFileBackupDate: null, lastSeedBackupDate: null }),
 )
 jest.mock('../../../store/settingsStore', () => ({
-  useSettingsStore: (selector: any, compareFn: any) => useSettingsStoreMock(selector, compareFn),
+  useSettingsStore: (selector: unknown, compareFn: unknown) => useSettingsStoreMock(selector, compareFn),
 }))
 
 const mockIsBackupMandatory = jest.fn().mockReturnValue(false)

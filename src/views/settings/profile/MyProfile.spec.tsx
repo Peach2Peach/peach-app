@@ -8,7 +8,7 @@ const wrapper = NavigationAndQueryClientWrapper
 
 const authMock = jest.fn().mockResolvedValue([apiSuccess, null])
 jest.mock('../../../utils/peachAPI', () => ({
-  auth: (...args: any[]) => authMock(...args),
+  auth: (...args: unknown[]) => authMock(...args),
 }))
 
 jest.useFakeTimers()

@@ -1,4 +1,4 @@
-declare type TargetBlocks =
+type TargetBlocks =
   | '1'
   | '2'
   | '3'
@@ -28,4 +28,4 @@ declare type TargetBlocks =
   | '504'
   | '1008'
 
-declare type ConfirmationTargets = Record<TargetBlocks, number>
+type ConfirmationTargets = Record<TargetBlocks, number>
