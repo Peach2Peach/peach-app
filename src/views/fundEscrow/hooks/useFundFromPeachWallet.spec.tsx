@@ -25,14 +25,14 @@ jest.mock('../../../hooks/query/useFeeEstimate', () => ({
 
 const setMultipleRecipientsMock = jest.fn()
 jest.mock('../../../utils/wallet/transaction/setMultipleRecipients', () => ({
-  setMultipleRecipients: (...args: any[]) => setMultipleRecipientsMock(...args),
+  setMultipleRecipients: (...args: unknown[]) => setMultipleRecipientsMock(...args),
 }))
 
 const showErrorBannerMock = jest.fn()
 jest.mock('../../../hooks/useShowErrorBanner', () => ({
   useShowErrorBanner:
     () =>
-      (...args: any[]) =>
+      (...args: unknown[]) =>
         showErrorBannerMock(...args),
 }))
 
@@ -48,7 +48,7 @@ describe('useFundFromPeachWallet', () => {
     useConfigStore.getState().setMinTradingAmount(minTradingAmount)
   })
   beforeEach(() => {
-    // @ts-ignore
+    // @ts-expect-error mock PeachWallet doesn't need arguments
     setPeachWallet(new PeachWallet())
   })
   it('should return default values', () => {
