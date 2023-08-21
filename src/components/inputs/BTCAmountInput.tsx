@@ -23,6 +23,7 @@ export function BTCAmountInput ({ amount, onChangeText, style }: Props) {
         keyboardType="number-pad"
         value={amount.toString()}
         onChangeText={onChangeText}
+        testID="btc-amount-input"
       />
     </View>
   )

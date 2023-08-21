@@ -1,14 +1,14 @@
 import { useMemo, useState } from 'react'
-import { TextInput, TextInputProps, TouchableOpacity, View } from 'react-native'
+import { TouchableOpacity, View } from 'react-native'
 import { NewHeader as Header, HorizontalLine, PeachScrollView, Screen, Text } from '../../components'
 import { BitcoinAddressInput, ConfirmSlider, RadioButtons } from '../../components/inputs'
+import { BTCAmountInput } from '../../components/inputs/BTCAmountInput'
 import { useNavigation, useShowHelp } from '../../hooks'
 import { useFeeEstimate } from '../../hooks/query/useFeeEstimate'
 import tw from '../../styles/tailwind'
-import { enforceDecimalsFormat } from '../../utils/format'
+import { removeNonDigits } from '../../utils/format/removeNonDigits'
 import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout'
-import { thousands } from '../../utils/string'
 import { isBitcoinAddress } from '../../utils/validation'
 import { peachWallet } from '../../utils/wallet/setWallet'
 import { CustomFeeItem } from '../settings/components/networkFees/CustomFeeItem'
@@ -19,7 +19,7 @@ import { useOpenWithdrawalConfirmationPopup } from './hooks/useOpenWithdrawalCon
 
 export const SendBitcoin = () => {
   const [address, setAddress] = useState('')
-  const [amount, setAmount] = useState('')
+  const [amount, setAmount] = useState(0)
   const [shouldDrainWallet, setShouldDrainWallet] = useState(false)
   const { estimatedFees } = useFeeEstimate()
   const [feeRate, setFee] = useState<number | undefined>(estimatedFees.fastestFee)
@@ -31,30 +31,25 @@ export const SendBitcoin = () => {
     ? selectedUTXOs.reduce((acc, utxo) => acc + utxo.txout.value, 0)
     : peachWallet.balance
 
-  const enforceFormat = (text: string) => {
+  const onAmountChange = (newText: string) => {
     setShouldDrainWallet(false)
-    if (text === '') {
-      setAmount('')
-      return
-    }
-    const value = Number(text.replace(/[^0-9]/gu, ''))
-    const newValue = Math.min(value, maxAmount)
-    const formatted = thousands(Number(enforceDecimalsFormat(String(newValue), 0)))
-    setAmount(formatted)
+    const newNumber = Number(removeNonDigits(newText) || '0')
+    const newValue = Math.min(newNumber, maxAmount)
+    setAmount(newValue)
   }
 
   const sendTrasaction = () => {
     if (!feeRate) return
     openConfirmationPopup({
       address,
-      amount: Number(amount.replace(/[^0-9]/gu, '')),
+      amount,
       feeRate,
       shouldDrainWallet,
       utxos: selectedUTXOs,
     })
   }
 
-  const isFormValid = useMemo(() => isBitcoinAddress(address) && amount !== '' && !!feeRate, [address, amount, feeRate])
+  const isFormValid = useMemo(() => isBitcoinAddress(address) && amount !== 0 && !!feeRate, [address, amount, feeRate])
 
   return (
     <Screen>
@@ -73,11 +68,11 @@ export const SendBitcoin = () => {
               label: i18n('wallet.sendBitcoin.sendMax'),
               onPress: () => {
                 setShouldDrainWallet(true)
-                setAmount(thousands(maxAmount))
+                setAmount(maxAmount)
               },
             }}
           >
-            <AmountInput value={amount} onChangeText={enforceFormat} />
+            <BTCAmountInput amount={amount} onChangeText={onAmountChange} />
           </Section>
 
           <HorizontalLine />
@@ -92,21 +87,6 @@ export const SendBitcoin = () => {
         <ConfirmSlider label1={i18n('wallet.sendBitcoin.send')} onConfirm={sendTrasaction} enabled={isFormValid} />
       </PeachScrollView>
     </Screen>
-  )
-}
-
-function AmountInput (props: TextInputProps) {
-  return (
-    <View style={tw`flex-row items-center gap-1 border rounded-xl px-3 mb-4`}>
-      <TextInput
-        placeholder="000 000 000"
-        style={[tw`h-10 py-0 input-text`]}
-        placeholderTextColor={tw`text-black-5`.color}
-        keyboardType={'numeric'}
-        {...props}
-      />
-      <Text style={tw`input-text`}>{i18n('sat')}</Text>
-    </View>
   )
 }
 
