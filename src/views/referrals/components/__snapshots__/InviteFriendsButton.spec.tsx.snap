@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InviteFriendsButtonInviteFriendsButton should render component correctly 1`] = `
+<PrimaryButton
+  border={true}
+  onPress={[Function]}
+  style={
+    {
+      "alignSelf": "center",
+    }
+  }
+>
+  invite friends
+</PrimaryButton>
+`;

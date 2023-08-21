@@ -16,6 +16,6 @@ describe('linkToAppStoreAndroid', () => {
   it('opens the correct URL when not installed via APK', () => {
     getInstallerPackageNameSync.mockReturnValueOnce('com.example.installer')
     linkToAppStoreAndroid()
-    expect(Linking.openURL).toHaveBeenCalledWith('https://peachbitcoin.com/apk/')
+    expect(Linking.openURL).toHaveBeenCalledWith('https://peachbitcoin.com/apk')
   })
 })

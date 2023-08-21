@@ -1,18 +1,20 @@
 import { fireEvent, render } from '@testing-library/react-native'
 import Share from 'react-native-share'
 import { createRenderer } from 'react-test-renderer/shallow'
-import { ReferralCode } from './ReferralCode'
+import { InviteFriendsButton } from './InviteFriendsButton'
 
-describe('ReferralCode', () => {
+describe('InviteFriendsButtonInviteFriendsButton', () => {
+  const referralCode = 'HALFIN'
+  const inviteLink = 'https://peachbitcoin.com/referral?code=HALFIN'
   const shallowRenderer = createRenderer()
   it('should render component correctly', () => {
-    shallowRenderer.render(<ReferralCode referralCode="HALFIN" />)
+    shallowRenderer.render(<InviteFriendsButton {...{ referralCode, inviteLink }} />)
     expect(shallowRenderer.getRenderOutput()).toMatchSnapshot()
   })
   it('open share dialogue with ref code and invite link', () => {
     const openSpy = jest.spyOn(Share, 'open')
     openSpy.mockResolvedValue({ message: 'ok', success: true })
-    const { getByText } = render(<ReferralCode referralCode="HALFIN" />)
+    const { getByText } = render(<InviteFriendsButton {...{ referralCode, inviteLink }} />)
     fireEvent.press(getByText('invite friends'))
     expect(openSpy).toHaveBeenCalledWith({
       message:

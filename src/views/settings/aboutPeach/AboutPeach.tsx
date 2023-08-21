@@ -4,7 +4,8 @@ import { IconType } from '../../../assets/icons'
 import { PeachScrollView } from '../../../components'
 import { useHeaderSetup, useNavigation } from '../../../hooks'
 import tw from '../../../styles/tailwind'
-import i18n from '../../../utils/i18n'
+import i18n, { languageState } from '../../../utils/i18n'
+import { getLocalizedLink } from '../../../utils/web'
 import { SettingsItem } from '../components/SettingsItem'
 
 export const AboutPeach = () => {
@@ -26,19 +27,19 @@ export const AboutPeach = () => {
     },
     {
       title: 'website',
-      onPress: () => Linking.openURL('https://peachbitcoin.com/'),
+      onPress: () => Linking.openURL(getLocalizedLink('', languageState.locale)),
       icon: 'externalLink',
       iconSize: tw`w-6 h-6`,
     },
     {
       title: 'privacyPolicy',
-      onPress: () => Linking.openURL('https://peachbitcoin.com/privacyPolicy.html'),
+      onPress: () => Linking.openURL(getLocalizedLink('privacy-policy', languageState.locale)),
       icon: 'externalLink',
       iconSize: tw`w-6 h-6`,
     },
     {
       title: 'terms',
-      onPress: () => Linking.openURL('https://peachbitcoin.com/termsConditions.html'),
+      onPress: () => Linking.openURL(getLocalizedLink('terms-and-conditions', languageState.locale)),
       icon: 'externalLink',
       iconSize: tw`w-6 h-6`,
     },

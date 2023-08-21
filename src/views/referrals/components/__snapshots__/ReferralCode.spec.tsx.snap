@@ -55,19 +55,12 @@ exports[`ReferralCode should render component correctly 1`] = `
           "width": 28,
         }
       }
-      value="peachbitcoin.com/referral?code=HALFIN"
+      value="https://peachbitcoin.com/referral?code=HALFIN"
     />
   </View>
-  <PrimaryButton
-    border={true}
-    onPress={[Function]}
-    style={
-      {
-        "alignSelf": "center",
-      }
-    }
-  >
-    invite friends
-  </PrimaryButton>
+  <InviteFriendsButton
+    inviteLink="https://peachbitcoin.com/referral?code=HALFIN"
+    referralCode="HALFIN"
+  />
 </View>
 `;
