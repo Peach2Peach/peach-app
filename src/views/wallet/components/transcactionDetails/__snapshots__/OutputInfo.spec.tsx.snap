@@ -1,0 +1,134 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OutputInfo should auto adjust height of tabbed navigation 1`] = `
+<OfferData
+  amount={900}
+  transaction={
+    {
+      "amount": 900,
+      "confirmed": false,
+      "date": 2022-09-14T16:14:02.835Z,
+      "height": undefined,
+      "id": "txid1",
+      "offerData": [],
+      "type": "TRADE",
+    }
+  }
+  type="TRADE"
+/>
+`;
+
+exports[`OutputInfo should render correctly 1`] = `
+<OfferData
+  address="bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh"
+  amount={900}
+  offerId="123"
+  transaction={
+    {
+      "amount": 900,
+      "confirmed": false,
+      "date": 2022-09-14T16:14:02.835Z,
+      "height": undefined,
+      "id": "txid1",
+      "offerData": [
+        {
+          "address": "bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh",
+          "amount": 900,
+          "contractId": undefined,
+          "currency": undefined,
+          "offerId": "123",
+          "price": undefined,
+        },
+      ],
+      "type": "TRADE",
+    }
+  }
+  type="TRADE"
+/>
+`;
+
+exports[`OutputInfo should render correctly with multiple contracts 1`] = `
+<MaterialTopTabNavigator
+  initialRouteName="PC‑7B‑1C8"
+  sceneContainerStyle={
+    {
+      "marginTop": 16,
+    }
+  }
+  style={
+    [
+      {
+        "flexShrink": 1,
+        "height": 160,
+      },
+      {
+        "height": 120,
+      },
+    ]
+  }
+  tabBar={[Function]}
+>
+  <Screen
+    name="PC‑7B‑1C8"
+  >
+    [Function]
+  </Screen>
+  <Screen
+    name="PC‑7B‑1C8"
+  >
+    [Function]
+  </Screen>
+</MaterialTopTabNavigator>
+`;
+
+exports[`OutputInfo should render correctly with multiple offers 1`] = `
+<MaterialTopTabNavigator
+  initialRouteName="P‑7B"
+  sceneContainerStyle={
+    {
+      "marginTop": 16,
+    }
+  }
+  style={
+    [
+      {
+        "flexShrink": 1,
+        "height": 160,
+      },
+      {
+        "height": 120,
+      },
+    ]
+  }
+  tabBar={[Function]}
+>
+  <Screen
+    name="P‑7B"
+  >
+    [Function]
+  </Screen>
+  <Screen
+    name="P‑7B"
+  >
+    [Function]
+  </Screen>
+</MaterialTopTabNavigator>
+`;
+
+exports[`OutputInfo should render correctly without offerData 1`] = `
+<OfferData
+  amount={900}
+  transaction={
+    {
+      "amount": 900,
+      "confirmed": false,
+      "date": 2022-09-14T16:14:02.835Z,
+      "height": undefined,
+      "id": "txid1",
+      "offerData": [],
+      "type": "TRADE",
+    }
+  }
+  type="TRADE"
+/>
+`;
