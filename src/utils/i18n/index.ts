@@ -6,6 +6,7 @@ import es from '../../i18n/es'
 import fr from '../../i18n/fr'
 import it from '../../i18n/it'
 import tr from '../../i18n/tr'
+import { getLocaleLanguage } from './getLocaleLanguage'
 
 const localeMapping: Record<string, Record<string, string>> = {
   en,
@@ -36,7 +37,7 @@ const i18n = (id: string, ...args: string[]): string => {
   let text = localeMapping[locale]?.[id]
 
   if (!text && locale.includes('-')) {
-    const language = locale.split('-')[0]
+    const language = getLocaleLanguage(locale)
     text = localeMapping[language]?.[id]
   }
   if (!text) text = localeMapping.en[id]

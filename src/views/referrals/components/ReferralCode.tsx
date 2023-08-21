@@ -1,21 +1,16 @@
 import { View } from 'react-native'
-import Share from 'react-native-share'
-import { CopyAble, PrimaryButton, Text } from '../../../components'
+import { CopyAble, Text } from '../../../components'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
+import { getInviteLink } from '../helpers/getInviteLink'
+import { InviteFriendsButton } from './InviteFriendsButton'
 
-const getInviteLink = (code: string) => `peachbitcoin.com/referral?code=${code}`
 type Props = {
   referralCode: string
 }
 export const ReferralCode = ({ referralCode }: Props) => {
   const inviteLink = getInviteLink(referralCode)
-  const inviteFriend = () => {
-    Share.open({
-      message: i18n('referrals.inviteText', referralCode, inviteLink),
-      url: inviteLink,
-    }).catch(() => {})
-  }
+
   return (
     <View style={tw`gap-4`}>
       <View style={tw`flex-row justify-between items-center border border-primary-main rounded-lg p-4`}>
@@ -25,9 +20,7 @@ export const ReferralCode = ({ referralCode }: Props) => {
         </View>
         <CopyAble value={inviteLink} style={tw`w-7 h-7`} />
       </View>
-      <PrimaryButton style={tw`self-center`} border onPress={inviteFriend}>
-        {i18n('referrals.inviteFriends')}
-      </PrimaryButton>
+      <InviteFriendsButton {...{ referralCode, inviteLink }} />
     </View>
   )
 }
