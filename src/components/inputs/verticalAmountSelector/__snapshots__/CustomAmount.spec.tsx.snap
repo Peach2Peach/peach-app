@@ -58,14 +58,12 @@ exports[`CustomAmount should render correctly 1`] = `
           {
             "fontSize": 20,
             "height": 32,
+            "opacity": 0,
             "paddingBottom": 0,
             "paddingLeft": 0,
             "paddingRight": 0,
             "paddingTop": 0,
             "width": "100%",
-          },
-          {
-            "opacity": 0,
           },
         ]
       }
@@ -116,14 +114,12 @@ exports[`CustomAmount should render correctly 1`] = `
           {
             "fontSize": 20,
             "height": 32,
+            "opacity": 0,
             "paddingBottom": 0,
             "paddingLeft": 0,
             "paddingRight": 0,
             "paddingTop": 0,
             "width": "100%",
-          },
-          {
-            "opacity": 0,
           },
         ]
       }
@@ -191,14 +187,12 @@ exports[`CustomAmount should render correctly with null amount 1`] = `
           {
             "fontSize": 20,
             "height": 32,
+            "opacity": 0,
             "paddingBottom": 0,
             "paddingLeft": 0,
             "paddingRight": 0,
             "paddingTop": 0,
             "width": "100%",
-          },
-          {
-            "opacity": 0,
           },
         ]
       }
@@ -249,14 +243,12 @@ exports[`CustomAmount should render correctly with null amount 1`] = `
           {
             "fontSize": 20,
             "height": 32,
+            "opacity": 0,
             "paddingBottom": 0,
             "paddingLeft": 0,
             "paddingRight": 0,
             "paddingTop": 0,
             "width": "100%",
-          },
-          {
-            "opacity": 0,
           },
         ]
       }

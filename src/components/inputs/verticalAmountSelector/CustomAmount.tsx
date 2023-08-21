@@ -21,7 +21,7 @@ export const CustomAmount = ({ amount, onChange, style }: Props) => {
           <SatsFormat sats={amount} style={tw`text-lg`} satsStyle={tw`font-bold`} />
         </View>
         <Input
-          style={[tw`w-full h-8 p-0 text-xl `, { opacity: 0 }]}
+          style={[tw`w-full h-8 p-0 text-xl opacity-0`]}
           keyboardType="number-pad"
           value={amount.toString()}
           onChange={updateCustomAmount}
@@ -37,7 +37,7 @@ export const CustomAmount = ({ amount, onChange, style }: Props) => {
           />
         </View>
         <Input
-          style={[tw`w-full h-8 p-0 text-xl`, { opacity: 0 }]}
+          style={[tw`w-full h-8 p-0 text-xl opacity-0`]}
           keyboardType="number-pad"
           value={customFiatPrice.toString()}
           onChange={updateCustomFiatAmount}
