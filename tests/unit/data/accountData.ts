@@ -34,7 +34,7 @@ export const recoveredAccount: Account = {
   mnemonic,
 }
 
-export const account1: Account & { mnemonic: string } = {
+export const account1: Account & { mnemonic: string; base58: string } = {
   tradingLimit: {
     daily: 1000,
     dailyAmount: 0,

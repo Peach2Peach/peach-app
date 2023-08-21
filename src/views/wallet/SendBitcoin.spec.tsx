@@ -3,6 +3,7 @@ import { LocalUtxo, OutPoint, TxOut } from 'bdk-rn/lib/classes/Bindings'
 import { Script } from 'bdk-rn/lib/classes/Script'
 import { KeychainKind } from 'bdk-rn/lib/lib/enums'
 import { toMatchDiffSnapshot } from 'snapshot-diff'
+import { account1 } from '../../../tests/unit/data/accountData'
 import { confirmed1 } from '../../../tests/unit/data/transactionDetailData'
 import { NavigationAndQueryClientWrapper } from '../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
 import { navigateMock } from '../../../tests/unit/helpers/NavigationWrapper'
@@ -11,7 +12,7 @@ import { swipeRight } from '../../../tests/unit/helpers/fireSwipeEvent'
 import { WithdrawalConfirmation } from '../../popups/WithdrawalConfirmation'
 import { WithdrawingFundsHelp } from '../../popups/info/WithdrawingFundsHelp'
 import { defaultPopupState, usePopupStore } from '../../store/usePopupStore'
-import { getUTXOId } from '../../utils/wallet'
+import { createWalletFromBase58, getNetwork, getUTXOId } from '../../utils/wallet'
 import { PeachWallet } from '../../utils/wallet/PeachWallet'
 import { peachWallet, setPeachWallet } from '../../utils/wallet/setWallet'
 import { useWalletState } from '../../utils/wallet/walletStore'
@@ -23,8 +24,8 @@ jest.useFakeTimers()
 const wrapper = NavigationAndQueryClientWrapper
 describe('SendBitcoin', () => {
   beforeAll(() => {
-    // @ts-ignore
-    setPeachWallet(new PeachWallet())
+    const wallet = createWalletFromBase58(account1.base58, getNetwork())
+    setPeachWallet(new PeachWallet({ wallet }))
   })
 
   beforeEach(() => {
@@ -202,16 +203,14 @@ describe('SendBitcoin - With selected coins', () => {
   const outpoint = new OutPoint(confirmed1.txid, 0)
   const txOut = new TxOut(10000, new Script('address'))
   const utxo = new LocalUtxo(outpoint, txOut, false, KeychainKind.External)
-  const listUnspentMock = jest.fn().mockResolvedValue([utxo])
 
   beforeAll(() => {
-    // @ts-ignore
-    setPeachWallet(new PeachWallet())
-    // @ts-ignore
-    peachWallet.wallet = {
-      listUnspent: listUnspentMock,
-    }
+    const wallet = createWalletFromBase58(account1.base58, getNetwork())
+    setPeachWallet(new PeachWallet({ wallet }))
   })
+  if (!peachWallet.wallet) throw new Error('wallet not set')
+  jest.spyOn(peachWallet.wallet, 'listUnspent').mockResolvedValue([utxo])
+
   beforeEach(() => {
     useWalletState.setState({ selectedUTXOIds: [getUTXOId(utxo)], addressLabelMap: { address: 'addressLabel' } })
   })
