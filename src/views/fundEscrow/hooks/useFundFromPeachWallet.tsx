@@ -46,6 +46,7 @@ export const useFundFromPeachWallet = ({ address, addresses = [], amount, fundin
     if (address) {
       unregisterFundMultiple(address)
       setFundedFromPeachWallet(address)
+      addresses.forEach(setFundedFromPeachWallet)
     }
   }
 
