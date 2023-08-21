@@ -592,6 +592,7 @@ exports[`BTCAmountInput renders correctly 1`] = `
         "width": "100%",
       }
     }
+    testID="btc-amount-input"
     value="0"
   />
 </View>
