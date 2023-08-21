@@ -1,1 +1,3 @@
-export const enforceSortCodeFormat = (text: string) => text.replace(/[^0-9]/gu, '')
+import { removeNonDigits } from './removeNonDigits'
+
+export const enforceSortCodeFormat = removeNonDigits
