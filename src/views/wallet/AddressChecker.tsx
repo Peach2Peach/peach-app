@@ -1,14 +1,11 @@
-import { useQuery } from '@tanstack/react-query'
 import { View } from 'react-native'
 import { NewHeader as Header, Icon, InfoFrame, Placeholder, Screen } from '../../components'
 import { BitcoinAddressInput } from '../../components/inputs'
 import { TradeInfo } from '../../components/offer'
 import { useValidatedState } from '../../hooks'
+import { useIsMyAddress } from '../../hooks/wallet/useIsMyAddress'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { rules } from '../../utils/validation'
-import { peachWallet } from '../../utils/wallet/setWallet'
-import { getScriptPubKeyFromAddress } from '../../utils/wallet/transaction'
 
 const addressRules = {
   bitcoinAddress: true,
@@ -27,20 +24,6 @@ export const AddressChecker = () => {
       </View>
     </Screen>
   )
-}
-
-const useIsMyAddress = (address: string) => {
-  const { data: isMine } = useQuery({
-    queryKey: ['isMine', address],
-    queryFn: async () => {
-      if (!peachWallet?.wallet) throw new Error('Wallet not initialized')
-      const script = await getScriptPubKeyFromAddress(address)
-      return peachWallet.wallet.isMine(script)
-    },
-    enabled: !!address && !!peachWallet?.wallet && rules.bitcoinAddress(true, address),
-  })
-
-  return isMine
 }
 
 function AddressInfo ({ address }: { address: string }) {

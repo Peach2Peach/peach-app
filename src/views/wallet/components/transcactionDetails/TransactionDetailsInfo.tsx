@@ -34,7 +34,7 @@ const OfferData = ({ price, currency, amount: offerAmount, address, type, transa
   const { transaction: transactionDetails } = useTransactionDetails({ txId: transaction.id })
   const amount = transactionDetails?.vout.find((vout) => vout.scriptpubkey_address === address)?.value || offerAmount
   return (
-    <View style={tw`flex-grow gap-4`}>
+    <View style={tw`gap-4`}>
       {!!amount && <AmountSummaryItem amount={amount} />}
 
       {price && currency && type !== 'REFUND' && (
@@ -58,7 +58,7 @@ export const TransactionDetailsInfo = ({ transaction }: Props) => {
 
       {offerData.length > 1 && (
         <Tab.Navigator
-          style={tw`flex-shrink h-30`}
+          style={tw`flex-shrink h-40`}
           sceneContainerStyle={tw`mt-4`}
           initialRouteName={getOfferDataId(offerData[0])}
           tabBar={TabBar}
