@@ -1,4 +1,5 @@
 import { act, fireEvent, render, waitFor } from '@testing-library/react-native'
+import { Wallet } from 'bdk-rn'
 import { LocalUtxo, OutPoint, TxOut } from 'bdk-rn/lib/classes/Bindings'
 import { Script } from 'bdk-rn/lib/classes/Script'
 import { KeychainKind } from 'bdk-rn/lib/lib/enums'
@@ -9,6 +10,7 @@ import { NavigationAndQueryClientWrapper } from '../../../tests/unit/helpers/Nav
 import { navigateMock } from '../../../tests/unit/helpers/NavigationWrapper'
 import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
 import { swipeRight } from '../../../tests/unit/helpers/fireSwipeEvent'
+import { walletListUnspentMock } from '../../../tests/unit/mocks/bdkRN'
 import { WithdrawalConfirmation } from '../../popups/WithdrawalConfirmation'
 import { WithdrawingFundsHelp } from '../../popups/info/WithdrawingFundsHelp'
 import { defaultPopupState, usePopupStore } from '../../store/usePopupStore'
@@ -207,9 +209,9 @@ describe('SendBitcoin - With selected coins', () => {
   beforeAll(() => {
     const wallet = createWalletFromBase58(account1.base58, getNetwork())
     setPeachWallet(new PeachWallet({ wallet }))
+    peachWallet.wallet = new Wallet()
+    walletListUnspentMock.mockResolvedValue([utxo])
   })
-  if (!peachWallet.wallet) throw new Error('wallet not set')
-  jest.spyOn(peachWallet.wallet, 'listUnspent').mockResolvedValue([utxo])
 
   beforeEach(() => {
     useWalletState.setState({ selectedUTXOIds: [getUTXOId(utxo)], addressLabelMap: { address: 'addressLabel' } })
