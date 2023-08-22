@@ -12,7 +12,7 @@ const addressRules = {
 }
 
 export const AddressChecker = () => {
-  const [address, setAddress, , errorMessage] = useValidatedState('', addressRules)
+  const [address, setAddress, , errorMessage] = useValidatedState<string>('', addressRules)
 
   return (
     <Screen>
