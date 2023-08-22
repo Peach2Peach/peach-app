@@ -1,17 +1,20 @@
 import { act, fireEvent, render, waitFor } from '@testing-library/react-native'
+import { Wallet } from 'bdk-rn'
 import { LocalUtxo, OutPoint, TxOut } from 'bdk-rn/lib/classes/Bindings'
 import { Script } from 'bdk-rn/lib/classes/Script'
 import { KeychainKind } from 'bdk-rn/lib/lib/enums'
 import { toMatchDiffSnapshot } from 'snapshot-diff'
+import { account1 } from '../../../tests/unit/data/accountData'
 import { confirmed1 } from '../../../tests/unit/data/transactionDetailData'
 import { NavigationAndQueryClientWrapper } from '../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
 import { navigateMock } from '../../../tests/unit/helpers/NavigationWrapper'
 import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
 import { swipeRight } from '../../../tests/unit/helpers/fireSwipeEvent'
+import { walletListUnspentMock } from '../../../tests/unit/mocks/bdkRN'
 import { WithdrawalConfirmation } from '../../popups/WithdrawalConfirmation'
 import { WithdrawingFundsHelp } from '../../popups/info/WithdrawingFundsHelp'
 import { defaultPopupState, usePopupStore } from '../../store/usePopupStore'
-import { getUTXOId } from '../../utils/wallet'
+import { createWalletFromBase58, getNetwork, getUTXOId } from '../../utils/wallet'
 import { PeachWallet } from '../../utils/wallet/PeachWallet'
 import { peachWallet, setPeachWallet } from '../../utils/wallet/setWallet'
 import { useWalletState } from '../../utils/wallet/walletStore'
@@ -23,8 +26,8 @@ jest.useFakeTimers()
 const wrapper = NavigationAndQueryClientWrapper
 describe('SendBitcoin', () => {
   beforeAll(() => {
-    // @ts-ignore
-    setPeachWallet(new PeachWallet())
+    const wallet = createWalletFromBase58(account1.base58, getNetwork())
+    setPeachWallet(new PeachWallet({ wallet }))
   })
 
   beforeEach(() => {
@@ -43,8 +46,8 @@ describe('SendBitcoin', () => {
   })
   it('should update the amount on change', () => {
     peachWallet.balance = 21000000
-    const { toJSON, getByPlaceholderText } = render(<SendBitcoin />, { wrapper })
-    const amountInput = getByPlaceholderText('000 000 000')
+    const { toJSON, getByTestId } = render(<SendBitcoin />, { wrapper })
+    const amountInput = getByTestId('btc-amount-input')
     fireEvent.changeText(amountInput, '1234')
     expect(render(<SendBitcoin />, { wrapper }).toJSON()).toMatchDiffSnapshot(toJSON())
   })
@@ -57,8 +60,8 @@ describe('SendBitcoin', () => {
   })
   it('should not allow entering an amount higher than the available balance', () => {
     peachWallet.balance = 21000000
-    const { toJSON, getByPlaceholderText } = render(<SendBitcoin />, { wrapper })
-    const amountInput = getByPlaceholderText('000 000 000')
+    const { toJSON, getByTestId } = render(<SendBitcoin />, { wrapper })
+    const amountInput = getByTestId('btc-amount-input')
     fireEvent.changeText(amountInput, '123456789')
     expect(render(<SendBitcoin />, { wrapper }).toJSON()).toMatchDiffSnapshot(toJSON())
   })
@@ -91,7 +94,7 @@ describe('SendBitcoin', () => {
 
     const addressInput = getByPlaceholderText('bc1q ...')
     fireEvent.changeText(addressInput, 'bcrt1qm50khyunelhjzhckvgy3qj0hn7xjzzwljhfgd0')
-    const amountInput = getByPlaceholderText('000 000 000')
+    const amountInput = getByTestId('btc-amount-input')
     fireEvent.changeText(amountInput, '1234')
     const mediumFeeButton = getByText('~ 30 minutes  (1 sat/vB)')
     fireEvent.press(mediumFeeButton)
@@ -139,7 +142,7 @@ describe('SendBitcoin', () => {
     const { getByText, getByPlaceholderText, getByTestId } = render(<SendBitcoin />, { wrapper })
     const addressInput = getByPlaceholderText('bc1q ...')
     fireEvent.changeText(addressInput, 'bcrt1qm50khyunelhjzhckvgy3qj0hn7xjzzwljhfgd0')
-    const amountInput = getByPlaceholderText('000 000 000')
+    const amountInput = getByTestId('btc-amount-input')
     fireEvent.changeText(amountInput, '1234')
     const customFeeButton = getByText('custom: ')
     fireEvent.press(customFeeButton)
@@ -151,7 +154,7 @@ describe('SendBitcoin', () => {
     const { getByText, getByPlaceholderText, getByTestId } = render(<SendBitcoin />, { wrapper })
     const addressInput = getByPlaceholderText('bc1q ...')
     fireEvent.changeText(addressInput, 'bcrt1qm50khyunelhjzhckvgy3qj0hn7xjzzwljhfgd0')
-    const amountInput = getByPlaceholderText('000 000 000')
+    const amountInput = getByTestId('btc-amount-input')
     fireEvent.changeText(amountInput, '1234')
     const customFeeButton = getByText('custom: ')
     fireEvent.press(customFeeButton)
@@ -202,16 +205,14 @@ describe('SendBitcoin - With selected coins', () => {
   const outpoint = new OutPoint(confirmed1.txid, 0)
   const txOut = new TxOut(10000, new Script('address'))
   const utxo = new LocalUtxo(outpoint, txOut, false, KeychainKind.External)
-  const listUnspentMock = jest.fn().mockResolvedValue([utxo])
 
   beforeAll(() => {
-    // @ts-ignore
-    setPeachWallet(new PeachWallet())
-    // @ts-ignore
-    peachWallet.wallet = {
-      listUnspent: listUnspentMock,
-    }
+    const wallet = createWalletFromBase58(account1.base58, getNetwork())
+    setPeachWallet(new PeachWallet({ wallet }))
+    peachWallet.wallet = new Wallet()
+    walletListUnspentMock.mockResolvedValue([utxo])
   })
+
   beforeEach(() => {
     useWalletState.setState({ selectedUTXOIds: [getUTXOId(utxo)], addressLabelMap: { address: 'addressLabel' } })
   })
@@ -247,13 +248,13 @@ describe('SendBitcoin - With selected coins', () => {
     expect(noAmount).toMatchDiffSnapshot(maxAmount)
   })
   it('should not allow entering an amount higher than the sum of all selected coins', async () => {
-    const { toJSON, getByPlaceholderText } = render(<SendBitcoin />, { wrapper })
+    const { toJSON, getByTestId } = render(<SendBitcoin />, { wrapper })
 
     await waitFor(() => {
       expect(queryClient.getQueryData(['utxos'])).toStrictEqual([utxo])
     })
 
-    const amountInput = getByPlaceholderText('000 000 000')
+    const amountInput = getByTestId('btc-amount-input')
     fireEvent.changeText(amountInput, '123456789')
     expect(render(<SendBitcoin />, { wrapper }).toJSON()).toMatchDiffSnapshot(toJSON())
   })

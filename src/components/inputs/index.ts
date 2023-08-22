@@ -1,4 +1,5 @@
 export { BICInput } from './BICInput'
+export { BTCAmountInput } from './BTCAmountInput'
 export { BankNumberInput } from './BankNumberInput'
 export { BeneficiaryInput } from './BeneficiaryInput'
 export { BitcoinAddressInput } from './BitcoinAddressInput'
