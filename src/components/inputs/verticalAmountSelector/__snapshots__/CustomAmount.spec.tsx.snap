@@ -11,6 +11,19 @@ exports[`CustomAmount should render correctly 1`] = `
     ]
   }
 >
+  <BTCAmountInput
+    amount={50000}
+    onChangeText={[Function]}
+    style={
+      {
+        "backgroundColor": "transparent",
+        "borderColor": "#BAADA7",
+        "borderRadius": 9999,
+        "height": 32,
+        "width": 210,
+      }
+    }
+  />
   <View
     style={
       {
@@ -20,79 +33,16 @@ exports[`CustomAmount should render correctly 1`] = `
   >
     <View
       style={
-        [
-          {
-            "borderColor": "#BAADA7",
-            "borderRadius": 9999,
-            "borderWidth": 1,
-            "height": 32,
-            "justifyContent": "center",
-            "paddingLeft": 12,
-            "paddingRight": 12,
-            "position": "absolute",
-            "width": 210,
-          },
-        ]
-      }
-    >
-      <SatsFormat
-        sats={50000}
-        satsStyle={
-          {
-            "fontWeight": "bold",
-          }
+        {
+          "borderColor": "#BAADA7",
+          "borderRadius": 9999,
+          "borderWidth": 1,
+          "height": 32,
+          "justifyContent": "center",
+          "paddingLeft": 12,
+          "paddingRight": 16,
+          "position": "absolute",
         }
-        style={
-          {
-            "fontSize": 18,
-          }
-        }
-      />
-    </View>
-    <Input
-      keyboardType="number-pad"
-      onChange={[Function]}
-      onFocus={[Function]}
-      style={
-        [
-          {
-            "fontSize": 20,
-            "height": 32,
-            "paddingBottom": 0,
-            "paddingLeft": 0,
-            "paddingRight": 0,
-            "paddingTop": 0,
-            "width": "100%",
-          },
-          {
-            "opacity": 0,
-          },
-        ]
-      }
-      value="50000"
-    />
-  </View>
-  <View
-    style={
-      {
-        "height": 32,
-      }
-    }
-  >
-    <View
-      style={
-        [
-          {
-            "borderColor": "#BAADA7",
-            "borderRadius": 9999,
-            "borderWidth": 1,
-            "height": 32,
-            "justifyContent": "center",
-            "paddingLeft": 12,
-            "paddingRight": 16,
-            "position": "absolute",
-          },
-        ]
       }
     >
       <PriceFormat
@@ -116,14 +66,12 @@ exports[`CustomAmount should render correctly 1`] = `
           {
             "fontSize": 20,
             "height": 32,
+            "opacity": 0,
             "paddingBottom": 0,
             "paddingLeft": 0,
             "paddingRight": 0,
             "paddingTop": 0,
             "width": "100%",
-          },
-          {
-            "opacity": 0,
           },
         ]
       }
@@ -144,6 +92,19 @@ exports[`CustomAmount should render correctly with null amount 1`] = `
     ]
   }
 >
+  <BTCAmountInput
+    amount={0}
+    onChangeText={[Function]}
+    style={
+      {
+        "backgroundColor": "transparent",
+        "borderColor": "#BAADA7",
+        "borderRadius": 9999,
+        "height": 32,
+        "width": 210,
+      }
+    }
+  />
   <View
     style={
       {
@@ -153,79 +114,16 @@ exports[`CustomAmount should render correctly with null amount 1`] = `
   >
     <View
       style={
-        [
-          {
-            "borderColor": "#BAADA7",
-            "borderRadius": 9999,
-            "borderWidth": 1,
-            "height": 32,
-            "justifyContent": "center",
-            "paddingLeft": 12,
-            "paddingRight": 12,
-            "position": "absolute",
-            "width": 210,
-          },
-        ]
-      }
-    >
-      <SatsFormat
-        sats={0}
-        satsStyle={
-          {
-            "fontWeight": "bold",
-          }
+        {
+          "borderColor": "#BAADA7",
+          "borderRadius": 9999,
+          "borderWidth": 1,
+          "height": 32,
+          "justifyContent": "center",
+          "paddingLeft": 12,
+          "paddingRight": 16,
+          "position": "absolute",
         }
-        style={
-          {
-            "fontSize": 18,
-          }
-        }
-      />
-    </View>
-    <Input
-      keyboardType="number-pad"
-      onChange={[Function]}
-      onFocus={[Function]}
-      style={
-        [
-          {
-            "fontSize": 20,
-            "height": 32,
-            "paddingBottom": 0,
-            "paddingLeft": 0,
-            "paddingRight": 0,
-            "paddingTop": 0,
-            "width": "100%",
-          },
-          {
-            "opacity": 0,
-          },
-        ]
-      }
-      value="0"
-    />
-  </View>
-  <View
-    style={
-      {
-        "height": 32,
-      }
-    }
-  >
-    <View
-      style={
-        [
-          {
-            "borderColor": "#BAADA7",
-            "borderRadius": 9999,
-            "borderWidth": 1,
-            "height": 32,
-            "justifyContent": "center",
-            "paddingLeft": 12,
-            "paddingRight": 16,
-            "position": "absolute",
-          },
-        ]
       }
     >
       <PriceFormat
@@ -249,14 +147,12 @@ exports[`CustomAmount should render correctly with null amount 1`] = `
           {
             "fontSize": 20,
             "height": 32,
+            "opacity": 0,
             "paddingBottom": 0,
             "paddingLeft": 0,
             "paddingRight": 0,
             "paddingTop": 0,
             "width": "100%",
-          },
-          {
-            "opacity": 0,
           },
         ]
       }

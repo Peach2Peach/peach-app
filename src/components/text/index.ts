@@ -1,4 +1,3 @@
-export { BigSatsFormat } from './BigSatsFormat'
 export { BulletPoint } from './BulletPoint'
 export { FixedHeightText } from './FixedHeightText'
 export { ParsedPeachText } from './ParsedPeachText'

@@ -1,8 +1,10 @@
 import { render } from '@testing-library/react-native'
+import { toMatchDiffSnapshot } from 'snapshot-diff'
 import { NavigationAndQueryClientWrapper } from '../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
 import { useBitcoinStore } from '../../store/bitcoinStore'
 import { useOfferPreferences } from '../../store/offerPreferenes/useOfferPreferences'
 import { Buy } from './Buy'
+expect.extend({ toMatchDiffSnapshot })
 
 const useMarketPricesMock = jest.fn().mockReturnValue({
   data: {
@@ -43,9 +45,10 @@ describe('Buy', () => {
     expect(toJSON()).toMatchSnapshot()
   })
   it('should render correctly with free trades', () => {
+    const withoutFreeTrades = render(<Buy />, { wrapper }).toJSON()
     const freeTrades = 5
     useBuySetupMock.mockReturnValue({ freeTrades, maxFreeTrades: 5 })
     const { toJSON } = render(<Buy />, { wrapper })
-    expect(toJSON()).toMatchSnapshot()
+    expect(withoutFreeTrades).toMatchDiffSnapshot(toJSON())
   })
 })

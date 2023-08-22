@@ -65,9 +65,7 @@ describe('PeachWallet', () => {
     createTransaction({ txid: 'txid1', sent: 1, received: 1, fee: 1, confirmationTime: { timestamp: 1, height: 1 } }),
     createTransaction({ txid: 'txid2', sent: 2, received: 2, fee: 2 }),
   ]
-  const listTransactionsMock = jest.fn().mockResolvedValue(txResponse)
 
-  // @ts-ignore
   const wallet = createWalletFromBase58(account1.base58, getNetwork())
   let peachWallet: PeachWallet
 
@@ -149,8 +147,10 @@ describe('PeachWallet', () => {
     ]
     peachWallet.transactions = existingTx
 
-    // @ts-ignore
-    peachWallet.wallet.listTransactions = listTransactionsMock
+    if (!peachWallet.wallet) {
+      throw new Error('Wallet not ready')
+    }
+    jest.spyOn(peachWallet.wallet, 'listTransactions').mockResolvedValueOnce(txResponse)
 
     const transactions = await peachWallet.getTransactions()
     expect(transactions).toEqual([txResponse[0], txResponse[1], existingTx[1]])
@@ -159,8 +159,10 @@ describe('PeachWallet', () => {
     const existingTx = [{ txid: 'txid1', sent: 1, received: 1, fee: 1 }]
     peachWallet.transactions = existingTx
 
-    // @ts-ignore
-    peachWallet.wallet.listTransactions = listTransactionsMock
+    if (!peachWallet.wallet) {
+      throw new Error('Wallet not ready')
+    }
+    jest.spyOn(peachWallet.wallet, 'listTransactions').mockResolvedValueOnce(txResponse)
 
     const transactions = await peachWallet.getTransactions()
     expect(transactions).toEqual([txResponse[0], txResponse[1]])
@@ -170,11 +172,12 @@ describe('PeachWallet', () => {
     peachWallet.transactions = existingTx
     const replacement = createTransaction({ txid: 'txid2', sent: 1, received: 1, fee: 1 })
 
-    listTransactionsMock.mockResolvedValueOnce([replacement])
     postTransactionMock.mockResolvedValueOnce([null, 'bad-txns-inputs-missingorspent'])
 
-    // @ts-ignore
-    peachWallet.wallet.listTransactions = listTransactionsMock
+    if (!peachWallet.wallet) {
+      throw new Error('Wallet not ready')
+    }
+    jest.spyOn(peachWallet.wallet, 'listTransactions').mockResolvedValueOnce([replacement])
 
     const transactions = await peachWallet.getTransactions()
     expect(transactions).toEqual([replacement])
@@ -183,8 +186,10 @@ describe('PeachWallet', () => {
     const existingTx = [createTransaction({ txid: 'txid3', sent: 3, received: 3, fee: 3 })]
     peachWallet.transactions = existingTx
 
-    // @ts-ignore
-    peachWallet.wallet.listTransactions = listTransactionsMock
+    if (!peachWallet.wallet) {
+      throw new Error('Wallet not ready')
+    }
+    jest.spyOn(peachWallet.wallet, 'listTransactions').mockResolvedValueOnce(txResponse)
 
     await peachWallet.getTransactions()
     expect(postTransactionMock).toHaveBeenCalledWith({ tx: '7478696433' })
@@ -410,7 +415,6 @@ describe('PeachWallet', () => {
 })
 
 describe('PeachWallet - loadWallet', () => {
-  // @ts-ignore
   const wallet = createWalletFromBase58(account1.base58, getNetwork())
   let peachWallet: PeachWallet
 
@@ -450,7 +454,6 @@ describe('PeachWallet - loadWallet', () => {
 })
 
 describe('PeachWallet - buildFinishedTransaction', () => {
-  // @ts-ignore
   const wallet = createWalletFromBase58(account1.base58, getNetwork())
   let peachWallet: PeachWallet
 
