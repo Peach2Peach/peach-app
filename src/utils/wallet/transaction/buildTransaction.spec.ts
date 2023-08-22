@@ -64,4 +64,14 @@ describe('buildTransaction', () => {
     expect(txBuilderManuallySelectedOnlyMock).toHaveBeenCalled()
     expect(txBuilderDrainToMock).toHaveBeenCalledWith(scriptPubKey)
   })
+  it('does not add utxos when the array is empty', async () => {
+    addressScriptPubKeyMock.mockResolvedValueOnce(scriptPubKey)
+    await buildTransaction({ address, amount, feeRate, utxos: [] })
+    expect(txBuilderAddUtxosMock).not.toHaveBeenCalled()
+  })
+  it('does not use manually selected only when the array is empty', async () => {
+    addressScriptPubKeyMock.mockResolvedValueOnce(scriptPubKey)
+    await buildTransaction({ address, shouldDrainWallet: true, utxos: [] })
+    expect(txBuilderManuallySelectedOnlyMock).not.toHaveBeenCalled()
+  })
 })
