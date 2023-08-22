@@ -23,12 +23,12 @@ export const buildTransaction = async (args: BuildTxParams) => {
   const txBuilder = await buildTransactionBase(args.feeRate)
   if (!args.address) return txBuilder
 
-  if (args.utxos) {
+  if (args?.utxos?.length) {
     txBuilder.addUtxos(args.utxos.map((utxo) => utxo.outpoint))
   }
   const recipient = await getScriptPubKeyFromAddress(args.address)
   if (args.shouldDrainWallet) {
-    if (args.utxos) {
+    if (args?.utxos?.length) {
       await txBuilder.manuallySelectedOnly()
     } else {
       await txBuilder.drainWallet()
