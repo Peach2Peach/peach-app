@@ -16,7 +16,7 @@ export const useOpenWithdrawalConfirmationPopup = () => {
   const handleTransactionError = useHandleTransactionError()
 
   const openWithdrawalConfirmationPopup = useCallback(
-    async (buildTxParams: BuildTxParams & { amount: number; feeRate: number }) => {
+    async (buildTxParams: BuildTxParams & { amount: number; feeRate: number; address: string }) => {
       try {
         const { psbt } = await peachWallet.buildFinishedTransaction(buildTxParams)
 

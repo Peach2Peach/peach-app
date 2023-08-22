@@ -1,7 +1,11 @@
-import { fireEvent, render, waitFor } from '@testing-library/react-native'
+import { act, fireEvent, render, waitFor } from '@testing-library/react-native'
+import { Wallet } from 'bdk-rn'
 import { toMatchDiffSnapshot } from 'snapshot-diff'
+import { account1 } from '../../../tests/unit/data/accountData'
 import { NavigationAndQueryClientWrapper } from '../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
 import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
+import { walletIsMineMock } from '../../../tests/unit/mocks/bdkRN'
+import { createWalletFromBase58, getNetwork } from '../../utils/wallet'
 import { PeachWallet } from '../../utils/wallet/PeachWallet'
 import { peachWallet, setPeachWallet } from '../../utils/wallet/setWallet'
 import { AddressChecker } from './AddressChecker'
@@ -12,8 +16,13 @@ const invalidAddress = 'invalidAddress'
 
 describe('AddressChecker', () => {
   beforeAll(() => {
-    // @ts-ignore
-    setPeachWallet(new PeachWallet())
+    const wallet = createWalletFromBase58(account1.base58, getNetwork())
+    setPeachWallet(new PeachWallet({ wallet }))
+    peachWallet.wallet = new Wallet()
+  })
+
+  beforeEach(() => {
+    queryClient.clear()
   })
 
   it('should render correctly', () => {
@@ -21,11 +30,9 @@ describe('AddressChecker', () => {
     expect(toJSON()).toMatchSnapshot()
   })
   it('should render correctly when address belongs to wallet', async () => {
+    walletIsMineMock.mockResolvedValue(true)
     const { toJSON, getByPlaceholderText } = render(<AddressChecker />, { wrapper: NavigationAndQueryClientWrapper })
     const withoutAddress = toJSON()
-    peachWallet.wallet = {
-      isMine: () => true,
-    } as any
 
     const addressInput = getByPlaceholderText('bc1q ...')
     fireEvent.changeText(addressInput, validAddress)
@@ -40,9 +47,7 @@ describe('AddressChecker', () => {
   it('should render correctly when address does not belong to wallet', async () => {
     const { toJSON, getByPlaceholderText } = render(<AddressChecker />, { wrapper: NavigationAndQueryClientWrapper })
     const withoutAddress = toJSON()
-    peachWallet.wallet = {
-      isMine: () => false,
-    } as any
+    walletIsMineMock.mockResolvedValue(false)
 
     const addressInput = getByPlaceholderText('bc1q ...')
     fireEvent.changeText(addressInput, validAddress)
@@ -53,12 +58,28 @@ describe('AddressChecker', () => {
     const withAddress = toJSON()
     expect(withoutAddress).toMatchDiffSnapshot(withAddress)
   })
+  it('should render correctly while loading', async () => {
+    const { toJSON, getByPlaceholderText } = render(<AddressChecker />, { wrapper: NavigationAndQueryClientWrapper })
+    const withoutAddress = toJSON()
+    walletIsMineMock.mockResolvedValue(true)
+
+    const addressInput = getByPlaceholderText('bc1q ...')
+    fireEvent.changeText(addressInput, validAddress)
+
+    const withAddress = toJSON()
+    expect(withoutAddress).toMatchDiffSnapshot(withAddress)
+    expect(queryClient.getQueryData(['isMine', validAddress])).toBe(undefined)
+
+    await waitFor(() => {
+      act(() => {
+        expect(queryClient.getQueryData(['isMine', validAddress])).toBe(undefined)
+      })
+    })
+  })
   it('should render correctly when address is invalid', async () => {
     const { toJSON, getByPlaceholderText } = render(<AddressChecker />, { wrapper: NavigationAndQueryClientWrapper })
     const withoutAddress = toJSON()
-    peachWallet.wallet = {
-      isMine: () => false,
-    } as any
+    walletIsMineMock.mockResolvedValue(false)
 
     const addressInput = getByPlaceholderText('bc1q ...')
     fireEvent.changeText(addressInput, invalidAddress)
