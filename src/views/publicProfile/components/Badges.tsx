@@ -5,22 +5,6 @@ import tw from '../../../styles/tailwind'
 import { badges } from '../../settings/profile/profileOverview/components/badges'
 import { Badge } from './Badge'
 
-export const ProfileBadges = ({ user }: { user: User }) => {
-  const openPeachBadgesPopup = useShowHelp('myBadges')
-  const { medals: unlockedBadges } = user
-
-  return (
-    <TouchableOpacity style={tw`flex-row items-center self-stretch justify-between`} onPress={openPeachBadgesPopup}>
-      {badges.map(([iconId, badgeName]) => (
-        <Badge
-          key={`profileOverviewIcon-${iconId}`}
-          {...{ iconId, badgeName, isUnlocked: unlockedBadges.includes(badgeName) }}
-        />
-      ))}
-    </TouchableOpacity>
-  )
-}
-
 export const NewBadges = ({ user, isDispute = false }: { user: User; isDispute?: boolean }) => {
   const openPeachBadgesPopup = useShowHelp('myBadges')
   const { medals: unlockedBadges } = user

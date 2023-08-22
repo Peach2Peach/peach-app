@@ -1,14 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`TradingLimits should render correctly 1`] = `
-<View>
-  <View
-    style={
-      {
-        "marginBottom": 16,
-      }
-    }
-  >
+<React.Fragment>
+  <View>
     <Progress
       backgroundStyle={
         {
@@ -44,13 +38,7 @@ exports[`TradingLimits should render correctly 1`] = `
       type="daily"
     />
   </View>
-  <View
-    style={
-      {
-        "marginBottom": 16,
-      }
-    }
-  >
+  <View>
     <Progress
       backgroundStyle={
         {
@@ -86,13 +74,7 @@ exports[`TradingLimits should render correctly 1`] = `
       type="monthly"
     />
   </View>
-  <View
-    style={
-      {
-        "marginBottom": 16,
-      }
-    }
-  >
+  <View>
     <Progress
       backgroundStyle={
         {
@@ -128,5 +110,5 @@ exports[`TradingLimits should render correctly 1`] = `
       type="yearly"
     />
   </View>
-</View>
+</React.Fragment>
 `;
