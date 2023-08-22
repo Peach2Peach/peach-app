@@ -193,6 +193,7 @@ export const walletSyncMock = jest.fn()
 export const walletListUnspentMock = jest.fn().mockResolvedValue([])
 export const walletListTransactionsMock = jest.fn().mockResolvedValue([])
 export const walletSignMock = jest.fn()
+export const walletIsMineMock = jest.fn()
 export class Wallet {
   create = jest.fn().mockReturnThis()
 
@@ -211,6 +212,8 @@ export class Wallet {
   listTransactions = walletListTransactionsMock
 
   sign = walletSignMock
+
+  isMine = walletIsMineMock
 }
 
 export const mockBDKRN = () =>
