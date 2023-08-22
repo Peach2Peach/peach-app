@@ -3,12 +3,10 @@
 exports[`AccountInfo should render correctly 1`] = `
 <View
   style={
-    [
-      {
-        "gap": 16,
-      },
-      undefined,
-    ]
+    {
+      "gap": 16,
+      "paddingLeft": 4,
+    }
   }
 >
   <PublicKey

@@ -1,9 +1,9 @@
 module '*.png' {
-  const value: unknown
+  const value: ImageSourcePropType
   export default value
 }
 
 module '*.gif' {
-  const value: unknown
+  const value: ImageSourcePropType
   export default value
 }
