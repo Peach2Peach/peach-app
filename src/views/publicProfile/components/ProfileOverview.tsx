@@ -2,19 +2,19 @@ import { View } from 'react-native'
 
 import tw from '../../../styles/tailwind'
 import { Rating, UserId } from '../../settings/profile/profileOverview/components'
-import { Badges } from './Badges'
+import { ProfileBadges } from './Badges'
 
 type Props = ComponentProps & {
   user: User
   clickableID?: boolean
 }
 
-export const ProfileOverview = ({ user, clickableID = false, style }: Props) => (
-  <View style={[tw`px-1`, style]}>
-    <View style={tw`flex-row flex-wrap mb-[6px] justify-center items-center`}>
-      <UserId id={user.id} showInfo={clickableID} style={tw`mr-3`} />
+export const ProfileOverview = ({ user, clickableID = false }: Props) => (
+  <View style={tw`self-stretch gap-2px`}>
+    <View style={tw`flex-row items-center self-stretch justify-between`}>
+      <UserId id={user.id} showInfo={clickableID} />
       <Rating rating={user.rating} isNewUser={user.trades <= 3} />
     </View>
-    <Badges user={user} />
+    <ProfileBadges user={user} />
   </View>
 )

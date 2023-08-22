@@ -1,2 +1,2 @@
-export { Badges } from './Badges'
+export { ProfileBadges as Badges } from './Badges'
 export { ProfileOverview } from './ProfileOverview'
