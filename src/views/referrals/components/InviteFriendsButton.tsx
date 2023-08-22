@@ -8,7 +8,6 @@ export const InviteFriendsButton = ({ referralCode, inviteLink }: { referralCode
   const inviteFriend = () => {
     Share.open({
       message: i18n('referrals.inviteText', referralCode, inviteLink),
-      url: inviteLink,
     }).catch((e) => {
       info('User cancel invite friends share', e)
     })

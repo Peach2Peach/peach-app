@@ -5,7 +5,7 @@
   "referrals.continueSaving" : "Continue saving for cool stuff",
   "referrals.inviteFriends" : "invite friends",
   "referrals.inviteLink" : "invite link",
-  "referrals.inviteText" : "Hey! I've been loving Peach for buying and selling Bitcoin – it's flexible, peer-to-peer, and KYC-free. Join me using my code $0 or simply follow this link:",
+  "referrals.inviteText" : "Hey! I've been loving Peach for buying and selling Bitcoin – it's flexible, peer-to-peer, and KYC-free. Join me using my code $0 or simply follow this link: $1",
   "referrals.myFavoriteCode.text" : "Your account will start off with 100 Peach points, ready to go!",
   "referrals.myFavoriteCode.title" : "my favorite code!",
   "referrals.notTraded" : "Your referrals haven't traded on Peach yet.",

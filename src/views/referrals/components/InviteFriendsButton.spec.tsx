@@ -19,8 +19,7 @@ describe('InviteFriendsButtonInviteFriendsButton', () => {
     expect(openSpy).toHaveBeenCalledWith({
       message:
         // eslint-disable-next-line max-len
-        "Hey! I've been loving Peach for buying and selling Bitcoin – it's flexible, peer-to-peer, and KYC-free. Join me using my code HALFIN or simply follow this link:",
-      url: 'https://peachbitcoin.com/referral?code=HALFIN',
+        "Hey! I've been loving Peach for buying and selling Bitcoin – it's flexible, peer-to-peer, and KYC-free. Join me using my code HALFIN or simply follow this link: https://peachbitcoin.com/referral?code=HALFIN",
     })
   })
 })

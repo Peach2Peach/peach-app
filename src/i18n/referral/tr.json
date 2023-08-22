@@ -5,7 +5,7 @@
   "referrals.continueSaving" : "Harika şeyler için tasarrufa devam et",
   "referrals.inviteFriends" : "arkadaşları davet et",
   "referrals.inviteLink" : "Davet bağlantısı",
-  "referrals.inviteText" : "Merhaba! Bitcoin alım satım için Peach'i seviyorum – esnek, eşten-eşe ve KYC'siz. Benim kodumu $0 kullanarak bana katıl veya sadece bu bağlantıyı takip et:",
+  "referrals.inviteText" : "Merhaba! Bitcoin alım satım için Peach'i seviyorum – esnek, eşten-eşe ve KYC'siz. Benim kodumu $0 kullanarak bana katıl veya sadece bu bağlantıyı takip et: $1",
   "referrals.myFavoriteCode.text" : "Hesabınız 100 Peach puan ile başlayacak, hemen kullanıma hazır!",
   "referrals.myFavoriteCode.title" : "favori kodum!",
   "referrals.notTraded" : "Referanslarınız henüz Peach'te işlem yapmadı.",
