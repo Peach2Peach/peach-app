@@ -1,11 +1,12 @@
 import { View } from 'react-native'
-import { NewHeader as Header, Icon, InfoFrame, Placeholder, Screen } from '../../components'
+import { NewHeader as Header, Icon, InfoFrame, Loading, Placeholder, Screen } from '../../components'
 import { BitcoinAddressInput } from '../../components/inputs'
 import { TradeInfo } from '../../components/offer'
 import { useValidatedState } from '../../hooks'
 import { useIsMyAddress } from '../../hooks/wallet/useIsMyAddress'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
+import { rules } from '../../utils/validation'
 
 const addressRules = {
   bitcoinAddress: true,
@@ -32,7 +33,11 @@ function AddressInfo ({ address }: { address: string }) {
   return (
     <View>
       {isMine === undefined ? (
-        <Placeholder style={tw`h-24px`} />
+        rules.bitcoinAddress(true, address) ? (
+          <Loading style={tw`w-6 h-6`} />
+        ) : (
+          <Placeholder style={tw`h-24px`} />
+        )
       ) : (
         <TradeInfo
           text={i18n(isMine ? 'wallet.addressChecker.belongsToWallet' : 'wallet.addressChecker.doesNotbelongToWallet')}

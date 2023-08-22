@@ -1,4 +1,4 @@
-import { fireEvent, render, waitFor } from '@testing-library/react-native'
+import { act, fireEvent, render, waitFor } from '@testing-library/react-native'
 import { toMatchDiffSnapshot } from 'snapshot-diff'
 import { NavigationAndQueryClientWrapper } from '../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
 import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
@@ -14,6 +14,10 @@ describe('AddressChecker', () => {
   beforeAll(() => {
     // @ts-ignore
     setPeachWallet(new PeachWallet())
+  })
+
+  beforeEach(() => {
+    queryClient.clear()
   })
 
   it('should render correctly', () => {
@@ -52,6 +56,26 @@ describe('AddressChecker', () => {
     })
     const withAddress = toJSON()
     expect(withoutAddress).toMatchDiffSnapshot(withAddress)
+  })
+  it('should render correctly while loading', async () => {
+    const { toJSON, getByPlaceholderText } = render(<AddressChecker />, { wrapper: NavigationAndQueryClientWrapper })
+    const withoutAddress = toJSON()
+    peachWallet.wallet = {
+      isMine: () => Promise.resolve(true),
+    } as any
+
+    const addressInput = getByPlaceholderText('bc1q ...')
+    fireEvent.changeText(addressInput, validAddress)
+
+    const withAddress = toJSON()
+    expect(withoutAddress).toMatchDiffSnapshot(withAddress)
+    expect(queryClient.getQueryData(['isMine', validAddress])).toBe(undefined)
+
+    await waitFor(() => {
+      act(() => {
+        expect(queryClient.getQueryData(['isMine', validAddress])).toBe(undefined)
+      })
+    })
   })
   it('should render correctly when address is invalid', async () => {
     const { toJSON, getByPlaceholderText } = render(<AddressChecker />, { wrapper: NavigationAndQueryClientWrapper })
