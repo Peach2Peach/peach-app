@@ -16,7 +16,6 @@ import { ContractChat } from './contractChat/ContractChat'
 import { DisputeForm } from './dispute/DisputeForm'
 import { DisputeReasonSelector } from './dispute/DisputeReasonSelector'
 import { FundEscrow } from './fundEscrow/FundEscrow'
-import { BitcoinLoading } from './loading/BitcoinLoading'
 import { NewUser } from './newUser/NewUser'
 import { OfferDetails } from './offerDetails/OfferDetails'
 import { GroupHugAnnouncement } from './overlays/GroupHugAnnouncement'
@@ -69,7 +68,7 @@ import { YourTrades } from './yourTrades/YourTrades'
 
 type ViewType = {
   name: keyof RootStackParamList
-  component: (props: any) => JSX.Element
+  component: () => JSX.Element
   showHeader: boolean
   showFooter: boolean
   background: BackgroundConfig
@@ -158,7 +157,14 @@ const contact = (hasAccount: boolean): ViewType[] =>
       { name: 'report', component: Report, ...defaultConfig, showFooter: false },
     ]
 
-const publicProfile: ViewType[] = [{ name: 'publicProfile', component: PublicProfile, ...defaultConfig }]
+const publicProfile: ViewType[] = [
+  {
+    name: 'publicProfile',
+    component: PublicProfile,
+    ...defaultConfig,
+    showHeader: false,
+  },
+]
 
 const overlays: ViewType[] = [
   { name: 'offerPublished', component: OfferPublished, ...invertedThemeConfig },
@@ -169,7 +175,7 @@ const overlays: ViewType[] = [
 const settings: ViewType[] = [
   { name: 'settings', component: Settings, ...defaultConfig, animationEnabled: false },
   { name: 'aboutPeach', component: AboutPeach, ...defaultConfig },
-  { name: 'myProfile', component: MyProfile, ...defaultConfig },
+  { name: 'myProfile', component: MyProfile, ...defaultConfig, showHeader: false },
   { name: 'bitcoinProducts', component: BitcoinProducts, ...defaultConfig },
   { name: 'selectCurrency', component: SelectCurrency, ...defaultConfig },
   { name: 'selectPaymentMethod', component: SelectPaymentMethod, ...defaultConfig },
@@ -198,7 +204,6 @@ const testViews: ViewType[] = [
   { name: 'testViewMessages', component: TestViewMessages, ...defaultConfig },
   { name: 'testViewComponents', component: TestViewComponents, ...defaultConfig },
   { name: 'testViewPNs', component: TestViewPNs, ...defaultConfig },
-  { name: 'testViewLoading', component: BitcoinLoading, ...defaultConfig },
 ]
 
 export const getViews = (hasAccount: boolean): ViewType[] =>
