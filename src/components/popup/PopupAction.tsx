@@ -23,6 +23,6 @@ export const PopupAction = ({ onPress, label, iconId, reverseOrder, style, textS
     ) : (
       <Icon id={iconId} color={textStyle?.color ?? tw`text-primary-background-light`.color} size={16} />
     )}
-    <Text style={[tw`subtitle-1 text-primary-background-light`, textStyle]}>{!loading ? label : i18n('loading')}</Text>
+    <Text style={[tw`subtitle-1 text-primary-background-light`, textStyle]}>{loading ? i18n('loading') : label}</Text>
   </TouchableOpacity>
 )
