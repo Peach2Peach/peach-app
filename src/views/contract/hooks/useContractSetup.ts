@@ -15,6 +15,7 @@ import { getEscrowWalletForOffer } from '../../../utils/wallet'
 import { getNavigationDestinationForOffer } from '../../yourTrades/utils'
 import { useContractHeaderSetup } from './useContractHeaderSetup'
 import { useShowHighFeeWarning } from './useShowHighFeeWarning'
+import { useShowLowFeeWarning } from './useShowLowFeeWarning'
 
 // eslint-disable-next-line max-lines-per-function
 export const useContractSetup = () => {
@@ -35,8 +36,11 @@ export const useContractSetup = () => {
     contractId,
   })
   useShowHighFeeWarning({
-    enabled: !contract?.paymentConfirmed,
+    enabled: view === 'buyer' && !contract?.paymentConfirmed,
     amount: contract?.amount,
+  })
+  useShowLowFeeWarning({
+    enabled: view === 'buyer' && !contract?.paymentConfirmed,
   })
 
   useEffect(() => {
