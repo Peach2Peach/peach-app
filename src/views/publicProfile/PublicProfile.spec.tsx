@@ -11,6 +11,10 @@ jest.mock('../../utils/peachAPI', () => ({
   getUser: jest.fn(() => Promise.resolve([defaultUser, null])),
 }))
 
+const DATE_TO_USE = new Date('2009-01-09')
+jest.spyOn(global, 'Date').mockImplementation(() => DATE_TO_USE)
+Date.now = jest.fn(() => DATE_TO_USE.getTime())
+
 const wrapper = NavigationAndQueryClientWrapper
 
 describe('PublicProfile', () => {

@@ -1,12 +1,12 @@
-import { BuyFilterAndSort } from './BuyFilterAndSort'
-import { render, fireEvent, waitFor } from '@testing-library/react-native'
-import { buyOffer } from '../../../tests/unit/data/offerData'
-import { NavigationAndQueryClientWrapper } from '../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
-import { useOfferPreferences } from '../../store/offerPreferenes'
-import { usePopupStore } from '../../store/usePopupStore'
-import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
+import { fireEvent, render, waitFor } from '@testing-library/react-native'
 import { TextInput } from 'react-native'
 import { toMatchDiffSnapshot } from 'snapshot-diff'
+import { buyOffer } from '../../../tests/unit/data/offerData'
+import { NavigationAndQueryClientWrapper } from '../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
+import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
+import { useOfferPreferences } from '../../store/offerPreferenes'
+import { usePopupStore } from '../../store/usePopupStore'
+import { BuyFilterAndSort } from './BuyFilterAndSort'
 expect.extend({ toMatchDiffSnapshot })
 
 jest.useFakeTimers()
@@ -53,12 +53,24 @@ describe('BuyFilterAndSort', () => {
     const { toJSON } = render(<BuyFilterAndSort />, { wrapper })
     expect(toJSON()).toMatchSnapshot()
   })
+  it('should show the loading indicator after the apply button is pressed', () => {
+    const { getByText, getByPlaceholderText, toJSON } = render(defaultComponent, { wrapper })
+    const maxPremiumInput = getByPlaceholderText('20.00')
+    const applyButton = getByText('apply')
+
+    fireEvent.changeText(maxPremiumInput, '0.5')
+    const beforeLoading = toJSON()
+    fireEvent.press(applyButton)
+
+    expect(beforeLoading).toMatchDiffSnapshot(toJSON())
+  })
 })
 
 describe('ApplyBuyFilterAction', () => {
   beforeEach(() => {
     useOfferPreferences.setState({ filter: { buyOffer: { maxPremium: null } } })
     usePopupStore.setState({ visible: true })
+    queryClient.resetQueries()
   })
   it('should patch the offer with the selected filter', async () => {
     const { getByText, getByPlaceholderText } = render(defaultComponent, { wrapper })
@@ -102,12 +114,26 @@ describe('ApplyBuyFilterAction', () => {
     fireEvent.press(checkbox)
     fireEvent.press(applyButton)
     expect(useOfferPreferences.getState().filter.buyOffer).toEqual({ maxPremium: 0.5 })
+  })
+
+  it('should update the global state with the new filter when entering an empty string', () => {
+    useOfferPreferences.setState({ filter: { buyOffer: { maxPremium: 0.5 } } })
+    const { getByText, getByPlaceholderText } = render(defaultComponent, { wrapper })
+    const maxPremiumInput = getByPlaceholderText('20.00')
+    const applyButton = getByText('apply')
+    const checkbox = getByText('max premium')
 
     fireEvent.changeText(maxPremiumInput, '')
+    fireEvent.press(checkbox)
     fireEvent.press(applyButton)
     expect(useOfferPreferences.getState().filter.buyOffer).toEqual({ maxPremium: null })
+  })
 
-    fireEvent.press(checkbox)
+  it('should not update the global state with the new filter when the checkbox is not checked', () => {
+    const { getByText, getByPlaceholderText } = render(defaultComponent, { wrapper })
+    const maxPremiumInput = getByPlaceholderText('20.00')
+    const applyButton = getByText('apply')
+
     fireEvent.changeText(maxPremiumInput, '0.5')
     fireEvent.press(applyButton)
     expect(useOfferPreferences.getState().filter.buyOffer).toEqual({ maxPremium: null })
@@ -141,12 +167,30 @@ describe('ApplyBuyFilterAction', () => {
     })
   })
 
-  it('should close the popup', () => {
+  it('should refetch all matches queries for the offer', async () => {
+    queryClient.setQueryData(['matches'], { matches: [] })
+    queryClient.setQueryData(['matches', buyOffer.id], { matches: [] })
+    queryClient.setQueryData(['matches', buyOffer.id, 'bestReputation'], { matches: [] })
+
+    const { getByText } = render(defaultComponent, { wrapper })
+    const applyButton = getByText('apply')
+
+    const refetchSpy = jest.spyOn(queryClient, 'refetchQueries')
+    fireEvent.press(applyButton)
+
+    await waitFor(() => {
+      expect(refetchSpy).toHaveBeenCalledWith({ queryKey: ['matches', buyOffer.id] })
+      expect(refetchSpy).not.toHaveBeenCalledWith({ queryKey: ['matches'] })
+      expect(refetchSpy).not.toHaveBeenCalledWith({ queryKey: ['matches', buyOffer.id, 'bestReputation'] })
+    })
+  })
+
+  it('should close the popup', async () => {
     const { getByText } = render(defaultComponent, { wrapper })
     const applyButton = getByText('apply')
 
     fireEvent.press(applyButton)
-    expect(usePopupStore.getState().visible).toBe(false)
+    await waitFor(() => expect(usePopupStore.getState().visible).toBe(false))
   })
 
   it('should not patch the offer when the offer is undefined', async () => {

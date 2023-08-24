@@ -858,7 +858,7 @@ exports[`PublicProfile should render correctly when loaded 1`] = `
             ]
           }
         >
-          01/03/2023 (176 days ago)
+          09/01/2009 (today)
         </Text>
       </View>
       <View>
