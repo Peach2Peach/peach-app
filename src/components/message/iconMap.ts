@@ -1,6 +1,7 @@
 import { IconType } from '../../assets/icons'
 
 export const iconMap: Record<string, IconType> = {
+  'contract.warning.highFee': 'helpCircle',
   'notification.contract.buyer.paymentReminderOneHour': 'watch',
   'notification.contract.buyer.paymentReminderSixHours': 'watch',
   'notification.offer.outsideRange': 'trendingUp',

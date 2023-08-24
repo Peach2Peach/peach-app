@@ -1,6 +1,5 @@
-import { useCallback, useEffect, useState } from 'react'
-
 import { useIsFocused } from '@react-navigation/native'
+import { useCallback, useEffect, useState } from 'react'
 import { useNavigation, useRoute, useToggleBoolean } from '../../../hooks'
 import { useCommonContractSetup } from '../../../hooks/useCommonContractSetup'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
@@ -15,6 +14,7 @@ import { confirmPayment, getContract, getOfferDetails } from '../../../utils/pea
 import { getEscrowWalletForOffer } from '../../../utils/wallet'
 import { getNavigationDestinationForOffer } from '../../yourTrades/utils'
 import { useContractHeaderSetup } from './useContractHeaderSetup'
+import { useShowHighFeeWarning } from './useShowHighFeeWarning'
 
 // eslint-disable-next-line max-lines-per-function
 export const useContractSetup = () => {
@@ -25,7 +25,6 @@ export const useContractSetup = () => {
     = useCommonContractSetup(contractId)
   const navigation = useNavigation()
   const showError = useShowErrorBanner()
-
   const [actionPending, setActionPending] = useState(false)
   const [showBatchInfo, toggleShowBatchInfo] = useToggleBoolean()
 
@@ -34,6 +33,10 @@ export const useContractSetup = () => {
     view,
     requiredAction,
     contractId,
+  })
+  useShowHighFeeWarning({
+    enabled: !contract?.paymentConfirmed,
+    amount: contract?.amount,
   })
 
   useEffect(() => {
