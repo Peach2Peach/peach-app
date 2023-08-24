@@ -28,6 +28,7 @@ export const useContractSetup = () => {
   const showError = useShowErrorBanner()
   const [actionPending, setActionPending] = useState(false)
   const [showBatchInfo, toggleShowBatchInfo] = useToggleBoolean()
+  const shouldShowFeeWarning = view === 'buyer' && !!contract?.paymentMade && !contract?.paymentConfirmed
 
   useContractHeaderSetup({
     contract,
@@ -35,13 +36,8 @@ export const useContractSetup = () => {
     requiredAction,
     contractId,
   })
-  useShowHighFeeWarning({
-    enabled: view === 'buyer' && !contract?.paymentConfirmed,
-    amount: contract?.amount,
-  })
-  useShowLowFeeWarning({
-    enabled: view === 'buyer' && !contract?.paymentConfirmed,
-  })
+  useShowHighFeeWarning({ enabled: shouldShowFeeWarning, amount: contract?.amount })
+  useShowLowFeeWarning({ enabled: shouldShowFeeWarning })
 
   useEffect(() => {
     if (!contract || !view || isLoading || !isFocused) return
