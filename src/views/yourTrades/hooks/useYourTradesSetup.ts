@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { TabbedNavigationItem } from '../../../components/navigation/TabbedNavigation'
-import { useHeaderSetup, useRoute } from '../../../hooks'
+import { useRoute } from '../../../hooks'
 import { useTradeSummaries } from '../../../hooks/query/useTradeSummaries'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { sortContractsByDate } from '../../../utils/contract'
@@ -38,11 +38,6 @@ export const useYourTradesSetup = () => {
       isPastOffer(item.tradeStatus)
       && ((item.type === 'ask' && 'fundingTxId' in item && !!item?.fundingTxId) || item.tradeStatus !== 'offerCanceled'),
   )
-
-  useHeaderSetup({
-    title: i18n('yourTrades.title'),
-    hideGoBackButton: true,
-  })
 
   useEffect(() => {
     if (tab) setCurrentTab(getTabById(tabs, tab) || tabs[0])

@@ -140,7 +140,7 @@ const trade: ViewType[] = [
 ]
 
 const tradeHistory: ViewType[] = [
-  { name: 'yourTrades', component: YourTrades, ...defaultConfig, animationEnabled: false },
+  { name: 'yourTrades', component: YourTrades, ...defaultConfig, animationEnabled: false, showHeader: false },
   { name: 'offer', component: OfferDetails, ...defaultConfig },
 ]
 
