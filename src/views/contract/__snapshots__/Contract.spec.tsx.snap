@@ -62,9 +62,9 @@ exports[`Contract should render a default Contract 1`] = `
         style={
           {
             "alignItems": "center",
-            "flexGrow": 1,
             "justifyContent": "flex-end",
             "marginBottom": 8,
+            "marginTop": "auto",
             "width": "100%",
           }
         }

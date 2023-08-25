@@ -21,7 +21,7 @@ export const Contract = () => {
       <View style={tw`h-full`}>
         <ContractContext.Provider value={{ contract, view, showBatchInfo, toggleShowBatchInfo }}>
           <TradeSummary />
-          <ContractActions style={tw`items-center justify-end flex-grow w-full mb-2`} {...contractActionsProps} />
+          <ContractActions style={tw`items-center justify-end w-full mt-auto mb-2`} {...contractActionsProps} />
         </ContractContext.Provider>
       </View>
     </PeachScrollView>

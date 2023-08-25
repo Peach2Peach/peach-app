@@ -5,7 +5,9 @@ exports[`TradeSummary should render correctly for buyer 1`] = `
   style={
     [
       {
+        "flexGrow": 1,
         "gap": 16,
+        "paddingBottom": 8,
       },
       {
         "gap": 32,
@@ -31,7 +33,9 @@ exports[`TradeSummary should render correctly for dispute 1`] = `
   style={
     [
       {
+        "flexGrow": 1,
         "gap": 16,
+        "paddingBottom": 8,
       },
       {
         "gap": 32,
@@ -57,7 +61,9 @@ exports[`TradeSummary should render correctly for seller 1`] = `
   style={
     [
       {
+        "flexGrow": 1,
         "gap": 16,
+        "paddingBottom": 8,
       },
       {
         "gap": 32,
