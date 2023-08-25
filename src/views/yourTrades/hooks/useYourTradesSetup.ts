@@ -9,6 +9,13 @@ import { parseError } from '../../../utils/result'
 import { isOpenOffer, isPastOffer } from '../utils'
 import { getTabById } from '../utils/getTabById'
 
+const getPastOffers = (trades: (OfferSummary | ContractSummary)[]) =>
+  trades.filter(
+    (item) =>
+      isPastOffer(item.tradeStatus)
+      && ((item.type === 'ask' && 'fundingTxId' in item && !!item?.fundingTxId) || item.tradeStatus !== 'offerCanceled'),
+  )
+
 export const useYourTradesSetup = () => {
   const tabs: TabbedNavigationItem[] = useMemo(
     () => [
@@ -33,11 +40,7 @@ export const useYourTradesSetup = () => {
     buy: allOpenOffers.filter(({ type }) => type === 'bid'),
     sell: allOpenOffers.filter(({ type }) => type === 'ask'),
   }
-  const pastOffers = trades.filter(
-    (item) =>
-      isPastOffer(item.tradeStatus)
-      && ((item.type === 'ask' && 'fundingTxId' in item && !!item?.fundingTxId) || item.tradeStatus !== 'offerCanceled'),
-  )
+  const pastOffers = getPastOffers(trades)
 
   useEffect(() => {
     if (tab) setCurrentTab(getTabById(tabs, tab) || tabs[0])
