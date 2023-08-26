@@ -64,6 +64,7 @@ import { TransactionHistory } from './wallet/TransactionHistory'
 import { Wallet } from './wallet/Wallet'
 import { Welcome } from './welcome/Welcome'
 import { WrongFundingAmount } from './wrongFundingAmount/WrongFundingAmount'
+import { ExportTradeHistory } from './yourTrades/ExportTradeHistory'
 import { YourTrades } from './yourTrades/YourTrades'
 
 type ViewType = {
@@ -142,6 +143,7 @@ const trade: ViewType[] = [
 const tradeHistory: ViewType[] = [
   { name: 'yourTrades', component: YourTrades, ...defaultConfig, animationEnabled: false, showHeader: false },
   { name: 'offer', component: OfferDetails, ...defaultConfig },
+  { name: 'exportTradeHistory', component: ExportTradeHistory, ...defaultConfig, showHeader: false },
 ]
 
 const contact = (hasAccount: boolean): ViewType[] =>
