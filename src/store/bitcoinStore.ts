@@ -1,7 +1,9 @@
 import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
 import { SATSINBTC } from '../constants'
-import { createStorage, toZustandStorage } from '../utils/storage'
+import { error } from '../utils/log'
+import { createStorage } from '../utils/storage'
+import { dateTimeReviver } from '../utils/system'
 
 export type BitcoinState = {
   currency: Currency
@@ -43,7 +45,23 @@ export const useBitcoinStore = create(
     {
       name: 'bitcoin',
       version: 0,
-      storage: createJSONStorage(() => toZustandStorage(bitcoinStorage)),
+      storage: createJSONStorage(() => ({
+        setItem: async (name: string, value: unknown) => {
+          await bitcoinStorage.setItem(name, JSON.stringify(value))
+        },
+        getItem: async (name: string) => {
+          const value = await bitcoinStorage.getItem(name)
+          try {
+            if (typeof value === 'string') return JSON.parse(value, dateTimeReviver)
+          } catch (e) {
+            error(e)
+          }
+          return null
+        },
+        removeItem: (name: string) => {
+          bitcoinStorage.removeItem(name)
+        },
+      })),
       merge: (persistedState, currentState) => {
         if (!persistedState) return currentState
 

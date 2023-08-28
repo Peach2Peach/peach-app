@@ -1,6 +1,8 @@
 import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
-import { createStorage, toZustandStorage } from '../utils/storage'
+import { error } from '../utils/log'
+import { createStorage } from '../utils/storage'
+import { dateTimeReviver } from '../utils/system'
 
 export type TradeSummaryState = {
   lastModified: Date
@@ -75,7 +77,23 @@ export const useTradeSummaryStore = create(
     {
       name: 'tradeSummary',
       version: 0,
-      storage: createJSONStorage(() => toZustandStorage(tradeSummaryStorage)),
+      storage: createJSONStorage(() => ({
+        setItem: async (name: string, value: unknown) => {
+          await tradeSummaryStorage.setItem(name, JSON.stringify(value))
+        },
+        getItem: async (name: string) => {
+          const value = await tradeSummaryStorage.getItem(name)
+          try {
+            if (typeof value === 'string') return JSON.parse(value, dateTimeReviver)
+          } catch (e) {
+            error(e)
+          }
+          return null
+        },
+        removeItem: (name: string) => {
+          tradeSummaryStorage.removeItem(name)
+        },
+      })),
       onRehydrateStorage: () => (state) => {
         if (!state) return
         state.setOffers(

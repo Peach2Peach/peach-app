@@ -1,9 +1,10 @@
 import { TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
 import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
+import { error } from '../log'
 import { keys, omit } from '../object'
 import { createStorage } from '../storage'
-import { toZustandStorage } from '../storage/toZustandStorage'
+import { dateTimeReviver } from '../system'
 import { migrateWalletStore } from './migration/migrateWalletStore'
 
 export type WalletState = {
@@ -113,7 +114,23 @@ export const useWalletState = create(
     {
       name: 'wallet',
       version: 2,
-      storage: createJSONStorage(() => toZustandStorage(walletStorage)),
+      storage: createJSONStorage(() => ({
+        setItem: async (name: string, value: unknown) => {
+          await walletStorage.setItem(name, JSON.stringify(value))
+        },
+        getItem: async (name: string) => {
+          const value = await walletStorage.getItem(name)
+          try {
+            if (typeof value === 'string') return JSON.parse(value, dateTimeReviver)
+          } catch (e) {
+            error(e)
+          }
+          return null
+        },
+        removeItem: (name: string) => {
+          walletStorage.removeItem(name)
+        },
+      })),
       migrate: migrateWalletStore,
     },
   ),

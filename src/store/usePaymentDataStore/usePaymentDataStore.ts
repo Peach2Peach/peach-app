@@ -1,7 +1,9 @@
 import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
+import { error } from '../../utils/log'
 import { deepMerge, isContained, omit } from '../../utils/object'
-import { createStorage, toZustandStorage } from '../../utils/storage'
+import { createStorage } from '../../utils/storage'
+import { dateTimeReviver } from '../../utils/system'
 import { buildPaymentDetailInfo } from './helpers/buildPaymentDetailInfo'
 import { removeHashesFromPaymentDetailInfo } from './helpers/removeHashesFromPaymentDetailInfo'
 import { PaymentDetailInfo } from './types'
@@ -80,7 +82,23 @@ export const usePaymentDataStore = create<PaymentMethodsStore>()(
     {
       name: storeId,
       version: 0,
-      storage: createJSONStorage(() => toZustandStorage(paymentDataStorage)),
+      storage: createJSONStorage(() => ({
+        setItem: async (name: string, value: unknown) => {
+          await paymentDataStorage.setItem(name, JSON.stringify(value))
+        },
+        getItem: async (name: string) => {
+          const value = await paymentDataStorage.getItem(name)
+          try {
+            if (typeof value === 'string') return JSON.parse(value, dateTimeReviver)
+          } catch (e) {
+            error(e)
+          }
+          return null
+        },
+        removeItem: (name: string) => {
+          paymentDataStorage.removeItem(name)
+        },
+      })),
     },
   ),
 )

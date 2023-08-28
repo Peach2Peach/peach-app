@@ -2,10 +2,11 @@ import analytics from '@react-native-firebase/analytics'
 import perf from '@react-native-firebase/perf'
 import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
-import { toZustandStorage } from '../../utils/storage'
+import { Locale } from '../../utils/i18n'
+import { error } from '../../utils/log'
+import { dateTimeReviver } from '../../utils/system'
 import { defaultSettings } from './defaultSettings'
 import { getPureSettingsState } from './helpers/getPureSettingsState'
-import { Locale } from '../../utils/i18n'
 import { migrateSettings } from './helpers/migration'
 import { settingsStorage } from './settingsStorage'
 
@@ -82,7 +83,23 @@ export const useSettingsStore = create(
       name: 'settings',
       version: 3,
       migrate: migrateSettings,
-      storage: createJSONStorage(() => toZustandStorage(settingsStorage)),
+      storage: createJSONStorage(() => ({
+        setItem: async (name: string, value: unknown) => {
+          await settingsStorage.setItem(name, JSON.stringify(value))
+        },
+        getItem: async (name: string) => {
+          const value = await settingsStorage.getItem(name)
+          try {
+            if (typeof value === 'string') return JSON.parse(value, dateTimeReviver)
+          } catch (e) {
+            error(e)
+          }
+          return null
+        },
+        removeItem: (name: string) => {
+          settingsStorage.removeItem(name)
+        },
+      })),
     },
   ),
 )
