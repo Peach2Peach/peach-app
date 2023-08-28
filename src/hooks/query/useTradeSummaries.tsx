@@ -28,8 +28,6 @@ export const useTradeSummaries = (enabled = true) => {
   const tradeSummaries = [...filteredOffers, ...contracts].sort(sortContractsByDate).reverse()
 
   return {
-    offers,
-    contracts,
     isFetching: offersFetching || contractsFetching,
     isLoading: offersLoading || contractsLoading,
     error: offersError || contractsError,
