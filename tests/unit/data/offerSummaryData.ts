@@ -10,3 +10,17 @@ export const offerSummary: OfferSummary = {
   tradeStatus: 'searchingForPeer',
   amount: 21000,
 }
+
+export const canceledOfferSummary: OfferSummary = {
+  id: '789',
+  type: 'ask',
+  matches: [],
+  prices: {
+    EUR: 4.41,
+  },
+  creationDate: new Date('2021-01-01'),
+  lastModified: new Date('2021-01-01'),
+  tradeStatus: 'offerCanceled',
+  amount: 21000,
+  fundingTxId: '123',
+}
