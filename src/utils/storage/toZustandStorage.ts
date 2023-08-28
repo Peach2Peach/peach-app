@@ -1,5 +1,6 @@
 import { MMKVInstance } from 'react-native-mmkv-storage'
 import { StateStorage } from 'zustand/middleware'
+import { error } from '../log'
 import { dateTimeReviver } from '../system'
 
 export const toZustandStorage = (storage: MMKVInstance): StateStorage => ({
@@ -9,9 +10,13 @@ export const toZustandStorage = (storage: MMKVInstance): StateStorage => ({
   getItem: async (name: string) => {
     const value = await storage.getItem(name)
     try {
-      if (value) return JSON.parse(value, dateTimeReviver)
-    } catch (e) {}
+      if (typeof value === 'string') return JSON.parse(value, dateTimeReviver)
+    } catch (e) {
+      error(e)
+    }
     return null
   },
-  removeItem: storage.removeItem as (name: string) => void | Promise<void>,
+  removeItem: (name: string) => {
+    storage.removeItem(name)
+  },
 })
