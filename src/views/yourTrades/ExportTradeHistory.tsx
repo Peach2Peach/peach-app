@@ -1,13 +1,13 @@
 import { Text, View } from 'react-native'
 import { NewHeader as Header, Screen } from '../../components'
 import { NewButton as Button } from '../../components/buttons/Button'
+import { useWriteCSV } from '../../hooks'
 import { useTradeSummaries } from '../../hooks/query/useTradeSummaries'
 import tw from '../../styles/tailwind'
 import { createCSV } from '../../utils/file'
 import i18n from '../../utils/i18n'
 import { groupChars, priceFormat } from '../../utils/string'
 import { getStatusCardProps } from './components/tradeItem/helpers'
-import { useWriteCSV } from './useWriteCSV'
 import { getPastOffers, getThemeForTradeItem } from './utils'
 
 export function ExportTradeHistory () {

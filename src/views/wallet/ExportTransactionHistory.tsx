@@ -2,11 +2,11 @@ import { TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
 import { View } from 'react-native'
 import { NewHeader as Header, Screen, Text } from '../../components'
 import { NewButton as Button } from '../../components/buttons/Button'
+import { useWriteCSV } from '../../hooks'
 import tw from '../../styles/tailwind'
 import { createCSV } from '../../utils/file'
 import i18n from '../../utils/i18n'
 import { useWalletState } from '../../utils/wallet/walletStore'
-import { useWriteCSV } from '../yourTrades/useWriteCSV'
 import { getTxSummary } from './helpers/getTxSummary'
 
 export const ExportTransactionHistory = () => {

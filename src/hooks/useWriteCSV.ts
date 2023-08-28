@@ -1,8 +1,8 @@
 import { useCallback } from 'react'
 import RNFS from 'react-native-fs'
 import Share from 'react-native-share'
-import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
-import { writeFile } from '../../utils/file'
+import { writeFile } from '../utils/file'
+import { useShowErrorBanner } from './useShowErrorBanner'
 
 export const useWriteCSV = () => {
   const handleError = useShowErrorBanner()
