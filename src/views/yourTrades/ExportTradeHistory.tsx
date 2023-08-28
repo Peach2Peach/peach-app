@@ -1,29 +1,22 @@
 import { Text, View } from 'react-native'
-import RNFS from 'react-native-fs'
-import Share from 'react-native-share'
 import { NewHeader as Header, Screen } from '../../components'
 import { NewButton as Button } from '../../components/buttons/Button'
 import { useTradeSummaries } from '../../hooks/query/useTradeSummaries'
-import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
 import tw from '../../styles/tailwind'
-import { writeFile } from '../../utils/file'
 import i18n from '../../utils/i18n'
 import { groupChars, priceFormat } from '../../utils/string'
 import { getStatusCardProps } from './components/tradeItem/helpers'
+import { createCSVUtil } from './createCSVUtil'
+import { useWriteCSV } from './useWriteCSV'
 import { getPastOffers, getThemeForTradeItem } from './utils'
 
 export function ExportTradeHistory () {
   const { tradeSummaries } = useTradeSummaries()
-  const handleError = useShowErrorBanner()
+  const openShareMenu = useWriteCSV()
 
   const onPress = async () => {
-    const destinationFileName = 'trade-history.csv'
-    await writeCSV(getPastOffers(tradeSummaries), destinationFileName)
-
-    Share.open({
-      title: destinationFileName,
-      url: `file://${RNFS.DocumentDirectoryPath}/${destinationFileName}`,
-    }).catch(handleError)
+    const csvValue = createCSVValue(getPastOffers(tradeSummaries))
+    await openShareMenu(csvValue, 'trade-history.csv')
   }
 
   return (
@@ -47,30 +40,28 @@ export function ExportTradeHistory () {
   )
 }
 
-function writeCSV (tradeSummaries: (OfferSummary | ContractSummary)[], destinationFileName: string) {
-  let csvValue = 'Date, Trade ID, Type, Amount, Price\n'
+function createCSVValue (tradeSummaries: (OfferSummary | ContractSummary)[]) {
+  const headers = ['Date', 'Trade ID', 'Type', 'Amount', 'Price']
+  const fields = {
+    Date: (d: OfferSummary | ContractSummary) => {
+      const { subtext: date } = getStatusCardProps(d)
+      return date.toLocaleString().replaceAll(',', '')
+    },
+    'Trade ID': (d: OfferSummary | ContractSummary) => getStatusCardProps(d).title,
+    Type: getTradeSummaryType,
+    Amount: (d: OfferSummary | ContractSummary) => {
+      const { amount } = d
+      return groupChars(String(amount), 3)
+    },
+    Price: (d: OfferSummary | ContractSummary) => {
+      const tradePrice
+        = 'price' in d ? (d.currency === 'SAT' ? groupChars(String(d.price), 3) : priceFormat(d.price)) : ''
+      const price = 'price' in d ? `${tradePrice} ${d.currency}` : ''
+      return price
+    },
+  }
 
-  tradeSummaries.forEach((tradeSummary) => {
-    const { amount } = tradeSummary
-    const type = getTradeSummaryType(tradeSummary)
-    const { title: tradeID, subtext: date } = getStatusCardProps(tradeSummary)
-    const dateString = date.toLocaleString().replaceAll(',', '')
-
-    const formattedAmount = groupChars(String(amount), 3)
-
-    const tradePrice
-      = 'price' in tradeSummary
-        ? tradeSummary.currency === 'SAT'
-          ? groupChars(String(tradeSummary.price), 3)
-          : priceFormat(tradeSummary.price)
-        : ''
-
-    const price = 'price' in tradeSummary ? `${tradePrice} ${tradeSummary.currency}` : ''
-
-    csvValue += `${dateString}, ${tradeID}, ${type}, ${formattedAmount}, ${price}\n`
-  })
-
-  return writeFile(`/${destinationFileName}`, csvValue)
+  return createCSVUtil(tradeSummaries, headers, fields)
 }
 
 function getTradeSummaryType (tradeSummary: OfferSummary | ContractSummary) {
