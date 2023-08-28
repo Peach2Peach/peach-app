@@ -5,9 +5,8 @@ import { useTradeSummaries } from '../../../hooks/query/useTradeSummaries'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import i18n from '../../../utils/i18n'
 import { parseError } from '../../../utils/result'
-import { isOpenOffer } from '../utils'
+import { getPastOffers, isOpenOffer } from '../utils'
 import { getTabById } from '../utils/getTabById'
-import { getPastOffers } from './getPastOffers'
 
 export const useYourTradesSetup = () => {
   const tabs: TabbedNavigationItem[] = useMemo(

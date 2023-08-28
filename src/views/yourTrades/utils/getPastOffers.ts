@@ -1,4 +1,4 @@
-import { isPastOffer } from '../utils'
+import { isPastOffer } from './isPastOffer'
 
 export const getPastOffers = (trades: (OfferSummary | ContractSummary)[]) =>
   trades.filter(

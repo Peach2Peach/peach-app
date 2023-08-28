@@ -10,8 +10,7 @@ import { writeFile } from '../../utils/file'
 import i18n from '../../utils/i18n'
 import { groupChars, priceFormat } from '../../utils/string'
 import { getStatusCardProps } from './components/tradeItem/helpers'
-import { getPastOffers } from './hooks/getPastOffers'
-import { getThemeForTradeItem } from './utils'
+import { getPastOffers, getThemeForTradeItem } from './utils'
 
 export function ExportTradeHistory () {
   const { tradeSummaries } = useTradeSummaries()
