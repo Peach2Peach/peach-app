@@ -20,7 +20,7 @@
   "paymentMethod.currency.select.title" : "seleziona valute $0",
   "paymentMethod.cvu" : "CVU",
   "paymentMethod.edit.title" : "modifica dettagli $0",
-  "paymentMethod.empty" : "niente ancora!",
+  "paymentMethod.empty" : "Ancora nessun metodo!",
   "paymentMethod.eversend" : "Eversend",
   "paymentMethod.fasterPayments" : "Faster Payments",
   "paymentMethod.friends24" : "Friends 24",
@@ -89,8 +89,8 @@
   "paymentMethod.vipps" : "Vipps",
   "paymentMethod.wave" : "Wave",
   "paymentMethod.wise" : "Wise",
-  "paymentMethods.edit.title" : "modifica metodi pagamento",
-  "paymentMethods.title" : "Metodi pagamento",
+  "paymentMethods.edit.title" : "Modifica metodi",
+  "paymentMethods.title" : "Metodi di pagamento",
   "paymentSection.meetups" : "meetups",
   "paymentSection.remote" : "A Distanza"
 }

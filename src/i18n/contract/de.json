@@ -157,6 +157,7 @@
   "contract.trade" : "Handel $0",
   "contract.tradeCanceled" : "Handel abgebrochen",
   "contract.tradeCompleted" : "Handel abgeschlossen",
+  "contract.unread" : "ungelesen",
   "contract.warning.highFee.changeFee" : "Gebühr ändern",
   "contract.warning.highFee.text" : "Nur damit du Bescheid weißt, deine Gebührenrate ist ziemlich hoch (bei $0 sat/vB).\n\nDas sind $1 % vom gesamten Kaufbetrag.",
   "contract.warning.highFee.title" : "Gebührenwarnung",

@@ -157,6 +157,7 @@
   "contract.trade" : "intercambio de $0",
   "contract.tradeCanceled" : "intercambio cancelado",
   "contract.tradeCompleted" : "intercambio completado",
+  "contract.unread" : "No leído",
   "contract.warning.highFee.changeFee" : "cambiar comisión",
   "contract.warning.highFee.text" : "Solo para que lo sepas, tu tarifa es relativamente alta (en $0 sat/vB).\n\nEsto equivale al $1 % del monto total de la compra.",
   "contract.warning.highFee.title" : "alerta de comisiones",

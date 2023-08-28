@@ -157,6 +157,7 @@
   "contract.trade" : "trade $0",
   "contract.tradeCanceled" : "trade canceled",
   "contract.tradeCompleted" : "trade completed",
+  "contract.unread" : "unread",
   "contract.warning.highFee.changeFee" : "change fee",
   "contract.warning.highFee.text" : "Just so you know, your fee rate is set relatively high (at $0 sat/vB).\n\nThis is $1% of the total purchase amount. ",
   "contract.warning.highFee.title" : "fee warning",

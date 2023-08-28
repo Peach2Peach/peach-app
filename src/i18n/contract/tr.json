@@ -157,6 +157,7 @@
   "contract.trade" : "ticaret $0",
   "contract.tradeCanceled" : "ticaret iptal edildi",
   "contract.tradeCompleted" : "ticaret tamamlandı",
+  "contract.unread" : "okunmamış",
   "contract.warning.highFee.changeFee" : "ücreti değiştirin",
   "contract.warning.highFee.text" : "Bilmeni isterim ki, ücret oranın oldukça yüksek ($0 sat/vB'de).\n\nBu, toplam alışveriş tutarının $1% kadarı.",
   "contract.warning.highFee.title" : "ücret uyarısı",
