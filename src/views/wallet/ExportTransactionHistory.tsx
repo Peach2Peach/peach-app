@@ -3,9 +3,9 @@ import { View } from 'react-native'
 import { NewHeader as Header, Screen, Text } from '../../components'
 import { NewButton as Button } from '../../components/buttons/Button'
 import tw from '../../styles/tailwind'
+import { createCSV } from '../../utils/file'
 import i18n from '../../utils/i18n'
 import { useWalletState } from '../../utils/wallet/walletStore'
-import { createCSVUtil } from '../yourTrades/createCSVUtil'
 import { useWriteCSV } from '../yourTrades/useWriteCSV'
 import { getTxSummary } from './helpers/getTxSummary'
 
@@ -50,5 +50,5 @@ function createCSVValue (transactions: TransactionDetails[]) {
     'Transaction ID': (d: TransactionDetails) => getTxSummary(d).id,
   }
 
-  return createCSVUtil(transactions, headers, fields)
+  return createCSV(transactions, headers, fields)
 }

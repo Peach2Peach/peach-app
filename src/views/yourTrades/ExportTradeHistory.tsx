@@ -3,10 +3,10 @@ import { NewHeader as Header, Screen } from '../../components'
 import { NewButton as Button } from '../../components/buttons/Button'
 import { useTradeSummaries } from '../../hooks/query/useTradeSummaries'
 import tw from '../../styles/tailwind'
+import { createCSV } from '../../utils/file'
 import i18n from '../../utils/i18n'
 import { groupChars, priceFormat } from '../../utils/string'
 import { getStatusCardProps } from './components/tradeItem/helpers'
-import { createCSVUtil } from './createCSVUtil'
 import { useWriteCSV } from './useWriteCSV'
 import { getPastOffers, getThemeForTradeItem } from './utils'
 
@@ -61,7 +61,7 @@ function createCSVValue (tradeSummaries: (OfferSummary | ContractSummary)[]) {
     },
   }
 
-  return createCSVUtil(tradeSummaries, headers, fields)
+  return createCSV(tradeSummaries, headers, fields)
 }
 
 function getTradeSummaryType (tradeSummary: OfferSummary | ContractSummary) {

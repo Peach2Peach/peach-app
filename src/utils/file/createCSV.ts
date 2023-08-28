@@ -1,4 +1,4 @@
-export function createCSVUtil<T> (data: T[], headers: string[], fields: { [key: string]: (d: T) => string | number }) {
+export function createCSV<T> (data: T[], headers: string[], fields: { [key: string]: (d: T) => string | number }) {
   let csvValue = `${headers.join(', ')}\n`
 
   data.forEach((item) => {
