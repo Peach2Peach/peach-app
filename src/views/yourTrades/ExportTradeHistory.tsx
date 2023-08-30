@@ -1,5 +1,5 @@
-import { Text, View } from 'react-native'
-import { NewHeader as Header, Screen } from '../../components'
+import { View } from 'react-native'
+import { NewHeader as Header, Screen, Text } from '../../components'
 import { NewButton as Button } from '../../components/buttons/Button'
 import { useWriteCSV } from '../../hooks'
 import { useTradeSummaries } from '../../hooks/query/useTradeSummaries'
@@ -47,7 +47,7 @@ function createCSVValue (tradeSummaries: (OfferSummary | ContractSummary)[]) {
       const { subtext: date } = getStatusCardProps(d)
       return date.toLocaleString().replaceAll(',', '')
     },
-    'Trade ID': (d: OfferSummary | ContractSummary) => getStatusCardProps(d).title,
+    'Trade ID': (d: OfferSummary | ContractSummary) => getStatusCardProps(d).title.replaceAll('‑', '-'),
     Type: getTradeSummaryType,
     Amount: (d: OfferSummary | ContractSummary) => {
       const { amount } = d
