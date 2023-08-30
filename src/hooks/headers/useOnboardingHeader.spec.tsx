@@ -1,6 +1,6 @@
 import { renderHook } from '@testing-library/react-native'
-import { NavigationWrapper, headerState, navigateMock } from '../../../tests/unit/helpers/NavigationWrapper'
-import { DrawerContext, defaultState } from '../../contexts/drawer'
+import { headerState, navigateMock, NavigationWrapper } from '../../../tests/unit/helpers/NavigationWrapper'
+import { defaultState, DrawerContext } from '../../contexts/drawer'
 import { LanguageSelect } from '../../drawers/LanguageSelect'
 import { useOnboardingHeader } from './useOnboardingHeader'
 
@@ -55,7 +55,7 @@ describe('useOnboardingHeader', () => {
     expect(drawer).toEqual({
       content: (
         <LanguageSelect
-          locales={['en', 'es', 'fr', 'it', 'de', 'el-GR', 'tr']}
+          locales={['en', 'es', 'fr', 'it', 'de', 'el-GR', 'tr', 'raw']}
           onSelect={expect.any(Function)}
           selected="en"
         />
