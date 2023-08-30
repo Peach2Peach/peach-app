@@ -1,6 +1,7 @@
 import { create } from 'zustand'
-import { createJSONStorage, persist } from 'zustand/middleware'
-import { createStorage, toZustandStorage } from '../utils/storage'
+import { persist } from 'zustand/middleware'
+import { createStorage } from '../utils/storage'
+import { createPersistStorage } from './createPersistStorage'
 
 export type MeetupEventsState = {
   meetupEvents: MeetupEvent[]
@@ -17,6 +18,7 @@ const defaultState: MeetupEventsState = {
   meetupEvents: [],
 }
 export const meetupEventsStorage = createStorage('meetupEvents')
+const storage = createPersistStorage<MeetupEventsStore>(meetupEventsStorage)
 
 export const useMeetupEventsStore = create(
   persist<MeetupEventsStore>(
@@ -29,7 +31,7 @@ export const useMeetupEventsStore = create(
     {
       name: 'meetupEvents',
       version: 0,
-      storage: createJSONStorage(() => toZustandStorage(meetupEventsStorage)),
+      storage,
     },
   ),
 )

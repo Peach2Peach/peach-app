@@ -1,5 +1,5 @@
 import { address } from 'bitcoinjs-lib'
-import { getNetwork } from '../wallet'
+import { getNetwork } from '../wallet/getNetwork'
 
 export const isBitcoinAddress = (value: string) => {
   let valid = false
