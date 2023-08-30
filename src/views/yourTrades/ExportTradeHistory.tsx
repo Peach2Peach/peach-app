@@ -47,7 +47,7 @@ function createCSVValue (tradeSummaries: (OfferSummary | ContractSummary)[]) {
       const { subtext: date } = getStatusCardProps(d)
       return date.toLocaleString().replaceAll(',', '')
     },
-    'Trade ID': (d: OfferSummary | ContractSummary) => getStatusCardProps(d).title,
+    'Trade ID': (d: OfferSummary | ContractSummary) => getStatusCardProps(d).title.replaceAll('‑', '-'),
     Type: getTradeSummaryType,
     Amount: (d: OfferSummary | ContractSummary) => {
       const { amount } = d

@@ -1,13 +1,11 @@
 import { create } from 'zustand'
-import { createJSONStorage, persist } from 'zustand/middleware'
+import { persist } from 'zustand/middleware'
 import { deepMerge, isContained, omit } from '../../utils/object'
-import { createStorage, toZustandStorage } from '../../utils/storage'
+import { createStorage } from '../../utils/storage'
+import { createPersistStorage } from '../createPersistStorage'
 import { buildPaymentDetailInfo } from './helpers/buildPaymentDetailInfo'
 import { removeHashesFromPaymentDetailInfo } from './helpers/removeHashesFromPaymentDetailInfo'
 import { PaymentDetailInfo } from './types'
-
-const storeId = 'paymentDataStore'
-const paymentDataStorage = createStorage(storeId)
 
 type PaymentDataState = {
   paymentData: Record<string, PaymentData>
@@ -26,6 +24,9 @@ export type PaymentMethodsStore = PaymentDataState & {
   getPaymentDataArray: () => PaymentData[]
   searchPaymentData: (query: Partial<PaymentData>) => PaymentData[]
 }
+const storeId = 'paymentDataStore'
+const paymentDataStorage = createStorage(storeId)
+const storage = createPersistStorage<PaymentMethodsStore>(paymentDataStorage)
 
 export const defaultPaymentDataStore: PaymentDataState = {
   paymentData: {},
@@ -80,7 +81,7 @@ export const usePaymentDataStore = create<PaymentMethodsStore>()(
     {
       name: storeId,
       version: 0,
-      storage: createJSONStorage(() => toZustandStorage(paymentDataStorage)),
+      storage,
     },
   ),
 )

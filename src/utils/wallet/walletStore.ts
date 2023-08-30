@@ -1,9 +1,9 @@
 import { TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
 import { create } from 'zustand'
-import { createJSONStorage, persist } from 'zustand/middleware'
+import { persist } from 'zustand/middleware'
+import { createPersistStorage } from '../../store/createPersistStorage'
 import { keys, omit } from '../object'
 import { createStorage } from '../storage'
-import { toZustandStorage } from '../storage/toZustandStorage'
 import { migrateWalletStore } from './migration/migrateWalletStore'
 
 export type WalletState = {
@@ -56,6 +56,7 @@ export const defaultWalletState: WalletState = {
   selectedUTXOIds: [],
 }
 export const walletStorage = createStorage('wallet')
+const storage = createPersistStorage<WalletStore>(walletStorage)
 
 export const useWalletState = create(
   persist<WalletStore>(
@@ -113,7 +114,7 @@ export const useWalletState = create(
     {
       name: 'wallet',
       version: 2,
-      storage: createJSONStorage(() => toZustandStorage(walletStorage)),
+      storage,
       migrate: migrateWalletStore,
     },
   ),
