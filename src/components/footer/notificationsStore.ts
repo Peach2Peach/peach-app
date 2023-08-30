@@ -1,8 +1,7 @@
 import { create } from 'zustand'
-import { createJSONStorage, persist } from 'zustand/middleware'
-import { error } from '../../utils/log'
+import { persist } from 'zustand/middleware'
+import { createPersistStorage } from '../../store/createPersistStorage'
 import { createStorage } from '../../utils/storage'
-import { dateTimeReviver } from '../../utils/system'
 
 export type NotificationsConfig = {
   notifications: number
@@ -18,6 +17,7 @@ export const defaultNotificationState: NotificationsConfig = {
 }
 
 export const notificationStorage = createStorage('notifications')
+const storage = createPersistStorage<NotificationsState>(notificationStorage)
 
 export const useNotificationStore = create(
   persist<NotificationsState>(
@@ -29,23 +29,7 @@ export const useNotificationStore = create(
     {
       name: 'notifications',
       version: 0,
-      storage: createJSONStorage(() => ({
-        setItem: async (name: string, value: unknown) => {
-          await notificationStorage.setItem(name, JSON.stringify(value))
-        },
-        getItem: async (name: string) => {
-          const value = await notificationStorage.getItem(name)
-          try {
-            if (typeof value === 'string') return JSON.parse(value, dateTimeReviver)
-          } catch (e) {
-            error(e)
-          }
-          return null
-        },
-        removeItem: (name: string) => {
-          notificationStorage.removeItem(name)
-        },
-      })),
+      storage,
     },
   ),
 )

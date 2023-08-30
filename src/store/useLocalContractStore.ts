@@ -1,12 +1,9 @@
 import { create } from 'zustand'
-import { createJSONStorage, persist } from 'zustand/middleware'
-import { error } from '../utils/log'
+import { persist } from 'zustand/middleware'
 import { createStorage } from '../utils/storage'
-import { dateTimeReviver } from '../utils/system'
+import { createPersistStorage } from './createPersistStorage'
 
 const storeId = 'localContractStore'
-
-const contractStorage = createStorage(storeId)
 
 type LocalContractState = {
   contracts: Record<string, LocalContract>
@@ -20,6 +17,8 @@ export type LocalContractStore = LocalContractState & {
   migrateContracts: (contracts: Contract[]) => void
   setMigrated: () => void
 }
+const contractStorage = createStorage(storeId)
+const storage = createPersistStorage<LocalContractStore>(contractStorage)
 
 const defaultContractStore: LocalContractState = {
   contracts: {},
@@ -76,23 +75,7 @@ export const useLocalContractStore = create<LocalContractStore>()(
     {
       name: storeId,
       version: 0,
-      storage: createJSONStorage(() => ({
-        setItem: async (name: string, value: unknown) => {
-          await contractStorage.setItem(name, JSON.stringify(value))
-        },
-        getItem: async (name: string) => {
-          const value = await contractStorage.getItem(name)
-          try {
-            if (typeof value === 'string') return JSON.parse(value, dateTimeReviver)
-          } catch (e) {
-            error(e)
-          }
-          return null
-        },
-        removeItem: (name: string) => {
-          contractStorage.removeItem(name)
-        },
-      })),
+      storage,
     },
   ),
 )

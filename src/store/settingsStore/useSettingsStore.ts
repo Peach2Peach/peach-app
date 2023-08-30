@@ -1,10 +1,9 @@
 import analytics from '@react-native-firebase/analytics'
 import perf from '@react-native-firebase/perf'
 import { create } from 'zustand'
-import { createJSONStorage, persist } from 'zustand/middleware'
+import { persist } from 'zustand/middleware'
 import { Locale } from '../../utils/i18n'
-import { error } from '../../utils/log'
-import { dateTimeReviver } from '../../utils/system'
+import { createPersistStorage } from '../createPersistStorage'
 import { defaultSettings } from './defaultSettings'
 import { getPureSettingsState } from './helpers/getPureSettingsState'
 import { migrateSettings } from './helpers/migration'
@@ -36,6 +35,8 @@ export type SettingsStore = Settings & {
   setPGPPublished: (pgpPublished: boolean) => void
   setFCMToken: (fcmToken: string) => void
 }
+
+const storage = createPersistStorage<SettingsStore>(settingsStorage)
 
 export const useSettingsStore = create(
   persist<SettingsStore>(
@@ -83,23 +84,7 @@ export const useSettingsStore = create(
       name: 'settings',
       version: 3,
       migrate: migrateSettings,
-      storage: createJSONStorage(() => ({
-        setItem: async (name: string, value: unknown) => {
-          await settingsStorage.setItem(name, JSON.stringify(value))
-        },
-        getItem: async (name: string) => {
-          const value = await settingsStorage.getItem(name)
-          try {
-            if (typeof value === 'string') return JSON.parse(value, dateTimeReviver)
-          } catch (e) {
-            error(e)
-          }
-          return null
-        },
-        removeItem: (name: string) => {
-          settingsStorage.removeItem(name)
-        },
-      })),
+      storage,
     },
   ),
 )

@@ -1,8 +1,7 @@
 import { create } from 'zustand'
-import { createJSONStorage, persist } from 'zustand/middleware'
-import { error } from '../utils/log'
+import { persist } from 'zustand/middleware'
 import { createStorage } from '../utils/storage'
-import { dateTimeReviver } from '../utils/system'
+import { createPersistStorage } from './createPersistStorage'
 
 export type MeetupEventsState = {
   meetupEvents: MeetupEvent[]
@@ -19,6 +18,7 @@ const defaultState: MeetupEventsState = {
   meetupEvents: [],
 }
 export const meetupEventsStorage = createStorage('meetupEvents')
+const storage = createPersistStorage<MeetupEventsStore>(meetupEventsStorage)
 
 export const useMeetupEventsStore = create(
   persist<MeetupEventsStore>(
@@ -31,23 +31,7 @@ export const useMeetupEventsStore = create(
     {
       name: 'meetupEvents',
       version: 0,
-      storage: createJSONStorage(() => ({
-        setItem: async (name: string, value: unknown) => {
-          await meetupEventsStorage.setItem(name, JSON.stringify(value))
-        },
-        getItem: async (name: string) => {
-          const value = await meetupEventsStorage.getItem(name)
-          try {
-            if (typeof value === 'string') return JSON.parse(value, dateTimeReviver)
-          } catch (e) {
-            error(e)
-          }
-          return null
-        },
-        removeItem: (name: string) => {
-          meetupEventsStorage.removeItem(name)
-        },
-      })),
+      storage,
     },
   ),
 )

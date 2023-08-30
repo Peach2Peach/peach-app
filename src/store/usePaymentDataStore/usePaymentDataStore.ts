@@ -1,15 +1,11 @@
 import { create } from 'zustand'
-import { createJSONStorage, persist } from 'zustand/middleware'
-import { error } from '../../utils/log'
+import { persist } from 'zustand/middleware'
 import { deepMerge, isContained, omit } from '../../utils/object'
 import { createStorage } from '../../utils/storage'
-import { dateTimeReviver } from '../../utils/system'
+import { createPersistStorage } from '../createPersistStorage'
 import { buildPaymentDetailInfo } from './helpers/buildPaymentDetailInfo'
 import { removeHashesFromPaymentDetailInfo } from './helpers/removeHashesFromPaymentDetailInfo'
 import { PaymentDetailInfo } from './types'
-
-const storeId = 'paymentDataStore'
-const paymentDataStorage = createStorage(storeId)
 
 type PaymentDataState = {
   paymentData: Record<string, PaymentData>
@@ -28,6 +24,9 @@ export type PaymentMethodsStore = PaymentDataState & {
   getPaymentDataArray: () => PaymentData[]
   searchPaymentData: (query: Partial<PaymentData>) => PaymentData[]
 }
+const storeId = 'paymentDataStore'
+const paymentDataStorage = createStorage(storeId)
+const storage = createPersistStorage<PaymentMethodsStore>(paymentDataStorage)
 
 export const defaultPaymentDataStore: PaymentDataState = {
   paymentData: {},
@@ -82,23 +81,7 @@ export const usePaymentDataStore = create<PaymentMethodsStore>()(
     {
       name: storeId,
       version: 0,
-      storage: createJSONStorage(() => ({
-        setItem: async (name: string, value: unknown) => {
-          await paymentDataStorage.setItem(name, JSON.stringify(value))
-        },
-        getItem: async (name: string) => {
-          const value = await paymentDataStorage.getItem(name)
-          try {
-            if (typeof value === 'string') return JSON.parse(value, dateTimeReviver)
-          } catch (e) {
-            error(e)
-          }
-          return null
-        },
-        removeItem: (name: string) => {
-          paymentDataStorage.removeItem(name)
-        },
-      })),
+      storage,
     },
   ),
 )

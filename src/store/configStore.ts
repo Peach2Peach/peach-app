@@ -1,8 +1,7 @@
 import { create } from 'zustand'
-import { createJSONStorage, persist } from 'zustand/middleware'
-import { error } from '../utils/log'
+import { persist } from 'zustand/middleware'
 import { createStorage } from '../utils/storage'
-import { dateTimeReviver } from '../utils/system'
+import { createPersistStorage } from './createPersistStorage'
 import { defaultConfig } from './defaults'
 
 type ConfigStore = Config & {
@@ -19,6 +18,7 @@ type ConfigStore = Config & {
 }
 
 export const configStorage = createStorage('config')
+const storage = createPersistStorage<ConfigStore>(configStorage)
 
 export const useConfigStore = create(
   persist<ConfigStore>(
@@ -38,23 +38,7 @@ export const useConfigStore = create(
     {
       name: 'config',
       version: 0,
-      storage: createJSONStorage(() => ({
-        setItem: async (name: string, value: unknown) => {
-          await configStorage.setItem(name, JSON.stringify(value))
-        },
-        getItem: async (name: string) => {
-          const value = await configStorage.getItem(name)
-          try {
-            if (typeof value === 'string') return JSON.parse(value, dateTimeReviver)
-          } catch (e) {
-            error(e)
-          }
-          return null
-        },
-        removeItem: (name: string) => {
-          configStorage.removeItem(name)
-        },
-      })),
+      storage,
     },
   ),
 )
