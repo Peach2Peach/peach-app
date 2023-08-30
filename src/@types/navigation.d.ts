@@ -93,6 +93,7 @@ type RootStackParamList = {
         tab?: TradeTab
       }
     | undefined
+  exportTradeHistory: undefined
   offer: {
     offerId: string
   }

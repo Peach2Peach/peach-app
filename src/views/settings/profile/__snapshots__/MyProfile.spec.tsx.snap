@@ -190,7 +190,6 @@ exports[`MyProfile should render correctly 1`] = `
         <View
           style={
             {
-              "borderWidth": 1,
               "gap": 48,
             }
           }
@@ -1447,7 +1446,7 @@ exports[`MyProfile should render correctly 1`] = `
                   ]
                 }
               >
-                01/03/2023 (174 days ago)
+                01/09/2009 (today)
               </Text>
             </View>
             <View>

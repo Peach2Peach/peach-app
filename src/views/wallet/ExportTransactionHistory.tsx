@@ -1,28 +1,22 @@
 import { TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
 import { View } from 'react-native'
-import RNFS from 'react-native-fs'
-import Share from 'react-native-share'
 import { NewHeader as Header, Screen, Text } from '../../components'
 import { NewButton as Button } from '../../components/buttons/Button'
-import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
+import { useWriteCSV } from '../../hooks'
 import tw from '../../styles/tailwind'
-import { writeFile } from '../../utils/file'
+import { createCSV } from '../../utils/file'
 import i18n from '../../utils/i18n'
 import { useWalletState } from '../../utils/wallet/walletStore'
 import { getTxSummary } from './helpers/getTxSummary'
 
 export const ExportTransactionHistory = () => {
   const transactions = useWalletState((state) => state.transactions)
-  const handleError = useShowErrorBanner()
+
+  const openShareMenu = useWriteCSV()
 
   const onPress = async () => {
-    const destinationFileName = 'transaction-history.csv'
-    await writeTransactionCSV(transactions, destinationFileName)
-
-    Share.open({
-      title: destinationFileName,
-      url: `file://${RNFS.DocumentDirectoryPath}/${destinationFileName}`,
-    }).catch(handleError)
+    const csvValue = createCSVValue(transactions)
+    await openShareMenu(csvValue, 'transaction-history.csv')
   }
 
   return (
@@ -44,15 +38,17 @@ export const ExportTransactionHistory = () => {
   )
 }
 
-function writeTransactionCSV (transactions: TransactionDetails[], destinationFileName: string) {
-  let csvValue = 'Date, Type, Amount, Transaction ID\n'
+function createCSVValue (transactions: TransactionDetails[]) {
+  const headers = ['Date', 'Type', 'Amount', 'Transaction ID']
+  const fields = {
+    Date: (d: TransactionDetails) => {
+      const { date } = getTxSummary(d)
+      return date.toLocaleString().replaceAll(',', '')
+    },
+    Type: (d: TransactionDetails) => getTxSummary(d).type,
+    Amount: (d: TransactionDetails) => getTxSummary(d).amount,
+    'Transaction ID': (d: TransactionDetails) => getTxSummary(d).id,
+  }
 
-  transactions.forEach((transaction) => {
-    const { amount, type, id: transactionId, date } = getTxSummary(transaction)
-    const dateString = date.toLocaleString().replaceAll(',', '')
-
-    csvValue += `${dateString}, ${type}, ${amount}, ${transactionId}\n`
-  })
-
-  return writeFile(`/${destinationFileName}`, csvValue)
+  return createCSV(transactions, headers, fields)
 }

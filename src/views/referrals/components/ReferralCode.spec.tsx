@@ -3,6 +3,8 @@ import Share from 'react-native-share'
 import { createRenderer } from 'react-test-renderer/shallow'
 import { ReferralCode } from './ReferralCode'
 
+jest.useFakeTimers()
+
 describe('ReferralCode', () => {
   const shallowRenderer = createRenderer()
   it('should render component correctly', () => {
