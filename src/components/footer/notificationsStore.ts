@@ -1,6 +1,7 @@
 import { create } from 'zustand'
-import { createJSONStorage, persist } from 'zustand/middleware'
-import { createStorage, toZustandStorage } from '../../utils/storage'
+import { persist } from 'zustand/middleware'
+import { createPersistStorage } from '../../store/createPersistStorage'
+import { createStorage } from '../../utils/storage'
 
 export type NotificationsConfig = {
   notifications: number
@@ -16,6 +17,7 @@ export const defaultNotificationState: NotificationsConfig = {
 }
 
 export const notificationStorage = createStorage('notifications')
+const storage = createPersistStorage<NotificationsState>(notificationStorage)
 
 export const useNotificationStore = create(
   persist<NotificationsState>(
@@ -27,7 +29,7 @@ export const useNotificationStore = create(
     {
       name: 'notifications',
       version: 0,
-      storage: createJSONStorage(() => toZustandStorage(notificationStorage)),
+      storage,
     },
   ),
 )
