@@ -15,7 +15,7 @@
   "offer.requiredAction.dispute" : "disputa iniciada",
   "offer.requiredAction.escrowWaitingForConfirmation" : "transacción pendiente",
   "offer.requiredAction.fundEscrow" : "depositar fondos",
-  "offer.requiredAction.fundMultipleEscrow" : "depositar multiples fondos",
+  "offer.requiredAction.fundMultipleEscrow" : "depositar fondos para múltiples ofertas",
   "offer.requiredAction.fundingAmountDifferent" : "cantidad depositada incorrecta",
   "offer.requiredAction.hasMatchesAvailable" : "selecciona un match",
   "offer.requiredAction.offerHidden" : "oferta oculta",

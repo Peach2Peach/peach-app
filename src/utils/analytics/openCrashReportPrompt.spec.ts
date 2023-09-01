@@ -34,7 +34,7 @@ describe('openCrashReportPrompt function', () => {
   it('should call the Linking.openURL method when the privacy policy button is pressed', () => {
     openCrashReportPrompt(errors)
     ;(Alert.alert as jest.Mock).mock.calls[0][2][0].onPress()
-    expect(Linking.openURL).toHaveBeenCalledWith('https://www.peachbitcoin.com/privacyPolicy.html')
+    expect(Linking.openURL).toHaveBeenCalledWith('https://peachbitcoin.com/privacy-policy')
   })
 
   it('should call the sendErrors function when the send report button is pressed', () => {

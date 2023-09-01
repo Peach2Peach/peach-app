@@ -1,0 +1,78 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TouchableIcon should render correctly 1`] = `
+<View
+  accessibilityState={
+    {
+      "busy": undefined,
+      "checked": undefined,
+      "disabled": undefined,
+      "expanded": undefined,
+      "selected": undefined,
+    }
+  }
+  accessibilityValue={
+    {
+      "max": undefined,
+      "min": undefined,
+      "now": undefined,
+      "text": undefined,
+    }
+  }
+  accessible={true}
+  collapsable={false}
+  focusable={false}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    {
+      "opacity": 1,
+    }
+  }
+>
+  <test-file-stub
+    fill="#F56522"
+    style={
+      [
+        {
+          "height": 24,
+          "width": 24,
+        },
+        undefined,
+      ]
+    }
+  />
+</View>
+`;
+
+exports[`TouchableIcon should render correctly with a custom icon color and size 1`] = `
+"Snapshot Diff:
+- First value
++ Second value
+
+@@ -31,16 +31,16 @@
+        "opacity": 1,
+      }
+    }
+  >
+    <test-file-stub
+-     fill="#F56522"
++     fill="#000"
+      style={
+        Array [
+          Object {
+-           "height": 24,
+-           "width": 24,
++           "height": 32,
++           "width": 32,
+          },
+          undefined,
+        ]
+      }
+    />"
+`;

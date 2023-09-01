@@ -33,6 +33,7 @@ exports[`TransactionInMempool shoud render correctly with different width 1`] = 
             "lineHeight": 24,
           },
           undefined,
+          false,
         ]
       }
     >
@@ -46,7 +47,11 @@ You can go do something else, we'll automatically publish your offer as soon as 
     >
       <Image
         resizeMode="contain"
-        source="test-file-stub"
+        source={
+          {
+            "testUri": "../../../src/assets/escrow/tx-in-mempool.png",
+          }
+        }
         style={
           {
             "height": 70,
@@ -128,6 +133,7 @@ You can go do something else, we'll automatically publish your offer as soon as 
                   "textDecorationLine": "underline",
                 },
               ],
+              false,
             ]
           }
         >
@@ -187,6 +193,7 @@ exports[`TransactionInMempool should render correctly 1`] = `
             "lineHeight": 24,
           },
           undefined,
+          false,
         ]
       }
     >
@@ -200,7 +207,11 @@ You can go do something else, we'll automatically publish your offer as soon as 
     >
       <Image
         resizeMode="contain"
-        source="test-file-stub"
+        source={
+          {
+            "testUri": "../../../src/assets/escrow/tx-in-mempool.png",
+          }
+        }
         style={
           {
             "height": 210,
@@ -282,6 +293,7 @@ You can go do something else, we'll automatically publish your offer as soon as 
                   "textDecorationLine": "underline",
                 },
               ],
+              false,
             ]
           }
         >

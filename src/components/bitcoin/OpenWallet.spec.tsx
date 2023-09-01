@@ -1,6 +1,4 @@
-import { TouchableOpacity } from 'react-native'
-import { create } from 'react-test-renderer'
-import { createRenderer } from 'react-test-renderer/shallow'
+import { fireEvent, render } from '@testing-library/react-native'
 import { openInWallet } from '../../utils/bitcoin'
 import { OpenWallet } from './OpenWallet'
 
@@ -12,22 +10,20 @@ describe('OpenWallet', () => {
   const address = 'address'
 
   it('should call openInWallet with address', () => {
-    const testInstance = create(<OpenWallet {...{ address }} />).root
-    // @ts-ignore
-    testInstance.findByType(TouchableOpacity).props.onPress()
+    const { getByText } = render(<OpenWallet {...{ address }} />)
+    const textElement = getByText('open wallet app')
+    fireEvent.press(textElement)
     expect(openInWallet).toHaveBeenCalledWith(`bitcoin:${address}`)
   })
   it('should call openInWallet without address', () => {
-    const testInstance = create(<OpenWallet />).root
-    // @ts-ignore
-    testInstance.findByType(TouchableOpacity).props.onPress()
+    const { getByText } = render(<OpenWallet />)
+    const textElement = getByText('open wallet app')
+    fireEvent.press(textElement)
     expect(openInWallet).toHaveBeenCalledWith('bitcoin:')
   })
 
   it('should render correctly', () => {
-    const renderer = createRenderer()
-    renderer.render(<OpenWallet />)
-
-    expect(renderer.getRenderOutput()).toMatchSnapshot()
+    const { toJSON } = render(<OpenWallet />)
+    expect(toJSON()).toMatchSnapshot()
   })
 })

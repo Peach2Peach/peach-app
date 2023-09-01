@@ -21,7 +21,7 @@ const useCurrentOfferPrice = () => {
 export const CurrentOfferPrice = () => {
   const currentPrice = useCurrentOfferPrice()
   const displayCurrency = useSettingsStore((state) => state.displayCurrency)
-  return !!currentPrice ? (
+  return currentPrice ? (
     <Text style={tw`text-center text-black-2`}>
       ({i18n('sell.premium.currently', `${priceFormat(currentPrice)} ${displayCurrency}`)})
     </Text>

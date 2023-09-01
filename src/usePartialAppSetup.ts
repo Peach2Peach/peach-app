@@ -16,7 +16,7 @@ export const usePartialAppSetup = () => {
   const appStateCallback = useCallback((isActive: boolean) => {
     if (isActive) {
       getPeachInfo()
-      if (!!account?.publicKey) getTrades()
+      if (account?.publicKey) getTrades()
       analytics().logAppOpen()
 
       clearTimeout(goHomeTimeout)

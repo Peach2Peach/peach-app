@@ -1,9 +1,9 @@
-import { Match } from './Match'
 import { act, fireEvent, render } from '@testing-library/react-native'
 import { buyOffer, matchOffer, sellOffer } from '../../../tests/unit/data/offerData'
 import { NavigationAndQueryClientWrapper } from '../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
-import { useMatchStore } from './store'
 import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
+import { Match } from './Match'
+import { useMatchStore } from './store'
 
 const matchOfferMock = jest.fn()
 const getOfferDetailsMock = jest.fn().mockResolvedValue([matchOffer, null])

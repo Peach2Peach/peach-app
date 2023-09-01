@@ -7,7 +7,7 @@ import { MainPage, Props, useFooterSetup } from './useFooterSetup'
 
 const navigationResetMock = jest.fn()
 const useNavigationMock = jest.fn().mockReturnValue({
-  reset: (...args: any[]) => navigationResetMock(...args),
+  reset: (...args: unknown[]) => navigationResetMock(...args),
 })
 jest.mock('../../../hooks/useNavigation', () => ({
   useNavigation: () => useNavigationMock(),

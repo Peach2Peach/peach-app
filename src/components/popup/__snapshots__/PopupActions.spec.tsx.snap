@@ -90,6 +90,7 @@ exports[`PopupActions renders correctly 1`] = `
             },
             undefined,
           ],
+          false,
         ]
       }
     >

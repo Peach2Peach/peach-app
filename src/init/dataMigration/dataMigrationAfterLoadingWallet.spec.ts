@@ -1,9 +1,9 @@
-import { dataMigrationAfterLoadingWallet } from './dataMigrationAfterLoadingWallet'
 import { createTestWallet } from '../../../tests/unit/helpers/createTestWallet'
+import { dataMigrationAfterLoadingWallet } from './dataMigrationAfterLoadingWallet'
 
 const storeBase58Mock = jest.fn()
 jest.mock('./afterLoadingWallet/storeBase58', () => ({
-  storeBase58: (...args: any[]) => storeBase58Mock(...args),
+  storeBase58: (...args: unknown[]) => storeBase58Mock(...args),
 }))
 
 describe('dataMigrationAfterLoadingWallet', () => {

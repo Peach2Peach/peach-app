@@ -1,6 +1,6 @@
 import { act, renderHook } from '@testing-library/react-native'
-import { useRangeAmountSetup } from './useRangeAmountSetup'
 import { Keyboard, LayoutChangeEvent } from 'react-native'
+import { useRangeAmountSetup } from './useRangeAmountSetup'
 
 // eslint-disable-next-line max-lines-per-function
 describe('useRangeAmountSetup', () => {

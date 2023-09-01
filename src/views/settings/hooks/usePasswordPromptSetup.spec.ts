@@ -1,12 +1,12 @@
 import { act, renderHook } from '@testing-library/react-native'
 import { Keyboard } from 'react-native'
-import { usePasswordPromptSetup } from './usePasswordPromptSetup'
-import { NavigationWrapper, navigateMock, headerState } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { NavigationWrapper, headerState, navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { useSettingsStore } from '../../../store/settingsStore'
+import { usePasswordPromptSetup } from './usePasswordPromptSetup'
 
 const backupAccountMock = jest.fn()
 jest.mock('../../../utils/account', () => ({
-  backupAccount: (...args: any) => backupAccountMock(...args),
+  backupAccount: (...args: unknown[]) => backupAccountMock(...args),
 }))
 const onSuccessMock = jest.fn()
 

@@ -8,7 +8,7 @@ import { usePaymentDataStore } from '../../store/usePaymentDataStore'
 
 const deletePaymentHashMock = jest.fn().mockResolvedValue([apiSuccess])
 jest.mock('../peachAPI', () => ({
-  deletePaymentHash: (...args: any[]) => deletePaymentHashMock(...args),
+  deletePaymentHash: (...args: unknown[]) => deletePaymentHashMock(...args),
 }))
 
 describe('removePaymentData', () => {

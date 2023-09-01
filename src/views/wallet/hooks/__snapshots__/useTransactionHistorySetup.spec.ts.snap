@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`useTransactionHistorySetup should set up the header correctly 1`] = `
-<Header
-  title="transaction history"
-/>
-`;

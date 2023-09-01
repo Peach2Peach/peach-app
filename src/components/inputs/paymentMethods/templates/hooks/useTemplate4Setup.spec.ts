@@ -1,5 +1,5 @@
-import { useTemplate4Setup } from './useTemplate4Setup'
 import { renderHook } from '@testing-library/react-native'
+import { useTemplate4Setup } from './useTemplate4Setup'
 
 describe('useTemplate4Setup', () => {
   it('should return the correct values', () => {
@@ -14,10 +14,8 @@ describe('useTemplate4Setup', () => {
           reference: 'reference',
           currencies: [],
         },
-        currencies: [],
         onSubmit: jest.fn(),
         setStepValid: jest.fn(),
-        paymentMethod: 'giftCard.amazon',
         setFormData: jest.fn(),
       }),
     )

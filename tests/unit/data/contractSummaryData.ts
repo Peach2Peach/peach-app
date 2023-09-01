@@ -1,5 +1,5 @@
 export const contractSummary: ContractSummary = {
-  id: 'contractId',
+  id: '123-456',
   offerId: 'offerId',
   type: 'bid',
   creationDate: new Date('2021-01-01'),

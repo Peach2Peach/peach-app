@@ -3,6 +3,7 @@ import { AcceptMatchPopup } from './info/AcceptMatchPopup'
 import { AddressSigning } from './info/AddressSigning'
 import { BuyingBitcoin } from './info/BuyingBitcoin'
 import { CashTrades } from './info/CashTrades'
+import { CoinControl } from './info/CoinControl'
 import { ConfirmPayment } from './info/ConfirmPayment'
 import { ConfirmationTime } from './info/ConfirmationTime'
 import { CurrenciesHelp } from './info/CurrenciesHelp'
@@ -16,6 +17,7 @@ import { MyBadges } from './info/MyBadges'
 import { NetworkFees } from './info/NetworkFees'
 import { PaymentMethodsHelp } from './info/PaymentMethodsHelp'
 import { PayoutAddressPopup } from './info/PayoutAddressPopup'
+import { PayoutPending } from './info/PayoutPending'
 import { Premium } from './info/Premium'
 import { RBFHelp } from './info/RBFHelp'
 import { ReferralsHelp } from './info/ReferralsHelp'
@@ -32,6 +34,7 @@ export const helpPopups = {
   cashTrades: { title: i18n('tradingCash'), content: CashTrades },
   confirmationTime: { title: i18n('wallet.help.confirmationTime.title'), content: ConfirmationTime },
   confirmPayment: { title: i18n('help.confirmPayment.title'), content: ConfirmPayment },
+  coinControl: { title: i18n('wallet.coinControl.help.title'), content: CoinControl },
   currencies: { title: i18n('help.currency.title'), content: CurrenciesHelp },
   escrow: { title: i18n('help.escrow.title'), content: Escrow },
   fileBackup: { title: i18n('settings.backups.fileBackup.popup.title'), content: FileBackupPopup },
@@ -43,6 +46,7 @@ export const helpPopups = {
   networkFees: { title: i18n('help.networkFees.title'), content: NetworkFees },
   paymentMethods: { title: i18n('settings.paymentMethods'), content: PaymentMethodsHelp },
   payoutAddress: { title: i18n('settings.payoutAddress'), content: PayoutAddressPopup },
+  payoutPending: { title: i18n('help.payoutPending.title'), content: PayoutPending },
   premium: { title: i18n('help.premium.title'), content: Premium },
   rbf: { title: i18n('wallet.bumpNetworkFees.help.title'), content: RBFHelp },
   referrals: { title: i18n('help.referral.title'), content: ReferralsHelp },

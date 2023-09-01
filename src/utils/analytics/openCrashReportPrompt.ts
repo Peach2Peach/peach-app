@@ -1,5 +1,6 @@
 import { Alert, Linking } from 'react-native'
-import i18n from '../i18n'
+import i18n, { languageState } from '../i18n'
+import { getLocalizedLink } from '../web'
 import { deleteUnsentReports } from './deleteUnsentReports'
 import { sendErrors } from './sendErrors'
 
@@ -14,7 +15,7 @@ export const openCrashReportPrompt = (errors: Error[]): void => {
         text: i18n('privacyPolicy'),
         onPress: () => {
           openCrashReportPrompt(errors)
-          Linking.openURL('https://www.peachbitcoin.com/privacyPolicy.html')
+          Linking.openURL(getLocalizedLink('privacy-policy', languageState.locale))
         },
         style: 'default',
       },

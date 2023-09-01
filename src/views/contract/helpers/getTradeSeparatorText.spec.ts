@@ -2,7 +2,7 @@ import { getTradeSeparatorText } from './getTradeSeparatorText'
 
 const isPaymentTooLateMock = jest.fn(() => false)
 jest.mock('../../../utils/contract/status/isPaymentTooLate', () => ({
-  isPaymentTooLate: (_contract: any) => isPaymentTooLateMock(),
+  isPaymentTooLate: (_contract: unknown) => isPaymentTooLateMock(),
 }))
 
 describe('getTradeSeparatorText', () => {
@@ -40,7 +40,7 @@ describe('getTradeSeparatorText', () => {
     expect(getTradeSeparatorText({ ...mockContract, canceled: false }, 'buyer')).not.toEqual('payment too late')
   })
 
-  it('returns correct text if seller requested cancelation, viewer is buyer and contract isn\'t canceled', () => {
+  it("returns correct text if seller requested cancelation, viewer is buyer and contract isn't canceled", () => {
     expect(getTradeSeparatorText({ ...mockContract, cancelationRequested: true }, 'buyer')).toEqual(
       'seller wants to cancel',
     )

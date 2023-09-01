@@ -13,12 +13,12 @@ jest.mock('../../../hooks/useRoute', () => ({
 
 const logTradeCompletedMock = jest.fn()
 jest.mock('../../../utils/analytics', () => ({
-  logTradeCompleted: (...args: any[]) => logTradeCompletedMock(...args),
+  logTradeCompleted: (...args: unknown[]) => logTradeCompletedMock(...args),
 }))
 
 const saveContractMock = jest.fn()
 jest.mock('../../../utils/contract/saveContract', () => ({
-  saveContract: (...args: any[]) => saveContractMock(...args),
+  saveContract: (...args: unknown[]) => saveContractMock(...args),
 }))
 
 describe('useTradeCompleteSetup', () => {

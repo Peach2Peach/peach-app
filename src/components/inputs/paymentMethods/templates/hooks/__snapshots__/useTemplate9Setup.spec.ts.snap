@@ -3,7 +3,9 @@
 exports[`useTemplate9Setup should return the correct values 1`] = `
 {
   "accountNumberInputProps": {
-    "errorMessage": [],
+    "errorMessage": [
+      "this is not a valid account number",
+    ],
     "onChange": [Function],
     "value": "accountNumber",
   },

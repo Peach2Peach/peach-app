@@ -2,15 +2,15 @@ import { NativeSyntheticEvent, Pressable, TextInput, TextInputEndEditingEventDat
 import tw from '../../styles/tailwind'
 import { Icon } from '../Icon'
 
-type MessageInputProps = ComponentProps & {
-  value?: string
-  placeholder?: string
+type Props = ComponentProps & {
   disabled?: boolean
   disableSubmit?: boolean
-  onChange?: Function
-  onSubmit?: Function
-  onFocus?: Function
-  onBlur?: Function
+  onChange?: (val: string) => void
+  onSubmit?: (val: string | undefined) => void
+  onFocus?: () => void
+  onBlur?: () => void
+  value?: string
+  placeholder?: string
 }
 
 export const MessageInput = ({
@@ -23,7 +23,7 @@ export const MessageInput = ({
   onFocus,
   onBlur,
   testID,
-}: MessageInputProps) => {
+}: Props) => {
   const onChangeText = (val: string) => (onChange ? onChange(val) : null)
   const onEndEditing = (e: NativeSyntheticEvent<TextInputEndEditingEventData>) =>
     onChange ? onChange(e.nativeEvent.text?.trim()) : null

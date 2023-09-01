@@ -8,7 +8,7 @@ const publicProfileNavigationMock = jest.fn()
 jest.mock('../../../../../hooks/usePublicProfileNavigation', () => ({
   usePublicProfileNavigation:
     () =>
-      (...args: any[]) =>
+      (...args: unknown[]) =>
         publicProfileNavigationMock(...args),
 }))
 

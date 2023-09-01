@@ -24,7 +24,7 @@ jest.mock('../../../popups/referral/useRedeemNoPeachFeesReward', () => ({
 
 describe('useReferralsSetup', () => {
   beforeEach(() => {
-    ;(useSelfUser as jest.Mock).mockReturnValue({
+    (useSelfUser as jest.Mock).mockReturnValue({
       user: defaultSelfUser,
     })
   })
@@ -57,7 +57,7 @@ describe('useReferralsSetup', () => {
     expect(result.current.availableRewards).toEqual(2)
   })
   it('returns 0 bonus points balance if user data cannot be fetched', () => {
-    ;(useSelfUser as jest.Mock).mockReturnValue({
+    (useSelfUser as jest.Mock).mockReturnValue({
       user: undefined,
     })
     const { result } = renderHook(useReferralsSetup, { wrapper: NavigationWrapper })

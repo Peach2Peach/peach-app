@@ -4,7 +4,7 @@ import { View } from 'react-native'
 import { Divider, Loading, PeachScrollView, PrimaryButton, Text } from '../../../components'
 import { BTCAmount } from '../../../components/bitcoin'
 import { BitcoinAddressInput, NumberInput } from '../../../components/inputs'
-import { useHeaderSetup } from '../../../hooks'
+import { useHeaderSetup, useValidatedState } from '../../../hooks'
 import tw from '../../../styles/tailwind'
 import { showTransaction } from '../../../utils/bitcoin'
 import i18n from '../../../utils/i18n'
@@ -12,12 +12,25 @@ import { fundAddress } from '../../../utils/regtest'
 import { thousands } from '../../../utils/string'
 import { peachWallet } from '../../../utils/wallet/setWallet'
 import { useWalletSetup } from '../../wallet/hooks/useWalletSetup'
-import { buildTransaction } from '../../../utils/wallet/transaction'
+
+const bitcoinAddressRules = { required: false, bitcoinAddress: true }
+const useTestViewWalletSetup = () => {
+  const { balance, isRefreshing, walletLoading } = useWalletSetup(false)
+
+  const [address, setAddress, , addressErrors] = useValidatedState<string>('', bitcoinAddressRules)
+
+  return {
+    balance,
+    isRefreshing,
+    walletLoading,
+    address,
+    setAddress,
+    addressErrors,
+  }
+}
 
 export const TestViewPeachWallet = () => {
-  const { balance, isRefreshing, walletLoading, address, setAddress, addressErrors } = useWalletSetup({
-    syncOnLoad: false,
-  })
+  const { balance, isRefreshing, walletLoading, address, setAddress, addressErrors } = useTestViewWalletSetup()
   useHeaderSetup('test view - peach wallet')
   const [amount, setAmount] = useState('0')
   const [txId, setTxId] = useState('')
@@ -25,11 +38,9 @@ export const TestViewPeachWallet = () => {
     const newAddress = await peachWallet.getReceivingAddress()
     setAddress(newAddress.address)
   }
-  const send50k = async () => {
+  const send = async () => {
     if (!address) throw Error('Address invalid')
-    const transaction = await buildTransaction(address, 50000, 3)
-    const finishedTransaction = await peachWallet.finishTransaction(transaction)
-    const result = await peachWallet.signAndBroadcastPSBT(finishedTransaction.psbt)
+    const result = await peachWallet.sendTo({ address, amount: 50000, feeRate: 3 })
     setTxId(await result.txid())
   }
   const refill = async () => {
@@ -46,23 +57,10 @@ export const TestViewPeachWallet = () => {
 
         <View>
           <Text style={tw`button-medium`}>{i18n('wallet.withdrawTo')}:</Text>
-          <BitcoinAddressInput
-            style={tw`mt-4`}
-            {...{
-              onChange: setAddress,
-              value: address,
-              errorMessage: addressErrors,
-            }}
-          />
-          <NumberInput
-            {...{
-              onChange: setAmount,
-              isValid: true,
-              value: amount,
-            }}
-          />
+          <BitcoinAddressInput style={tw`mt-4`} onChange={setAddress} value={address} errorMessage={addressErrors} />
+          <NumberInput onChange={setAmount} value={amount} />
         </View>
-        <PrimaryButton onPress={send50k} iconId="upload">
+        <PrimaryButton onPress={send} iconId="upload">
           send {thousands(Number(amount))} sats
         </PrimaryButton>
         {!!txId && (

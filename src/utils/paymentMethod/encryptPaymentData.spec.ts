@@ -8,7 +8,7 @@ const signAndEncryptSymmetricMock = jest.fn().mockResolvedValue({
   encrypted,
 })
 jest.mock('../pgp/signAndEncryptSymmetric', () => ({
-  signAndEncryptSymmetric: (...args: any[]) => signAndEncryptSymmetricMock(...args),
+  signAndEncryptSymmetric: (...args: unknown[]) => signAndEncryptSymmetricMock(...args),
 }))
 
 describe('encryptPaymentData', () => {

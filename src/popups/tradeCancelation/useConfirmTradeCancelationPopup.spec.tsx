@@ -1,10 +1,10 @@
 import { renderHook } from '@testing-library/react-native'
 import { contract } from '../../../tests/unit/data/contractData'
+import { apiSuccess, unauthorizedError } from '../../../tests/unit/data/peachAPIData'
+import { NavigationWrapper, replaceMock } from '../../../tests/unit/helpers/NavigationWrapper'
+import { defaultPopupState, usePopupStore } from '../../store/usePopupStore'
 import { ConfirmCancelTradeRequest } from './ConfirmCancelTradeRequest'
 import { useConfirmTradeCancelationPopup } from './useConfirmTradeCancelationPopup'
-import { apiSuccess, unauthorizedError } from '../../../tests/unit/data/peachAPIData'
-import { defaultPopupState, usePopupStore } from '../../store/usePopupStore'
-import { NavigationWrapper, replaceMock } from '../../../tests/unit/helpers/NavigationWrapper'
 
 const showErrorBannerMock = jest.fn()
 const useShowErrorBannerMock = jest.fn().mockReturnValue(showErrorBannerMock)
@@ -20,13 +20,13 @@ jest.mock('../../hooks/useShowLoadingPopup', () => ({
 const confirmContractCancelationMock = jest.fn().mockResolvedValue([apiSuccess, null])
 const rejectContractCancelationMock = jest.fn().mockResolvedValue([apiSuccess, null])
 jest.mock('../../utils/peachAPI', () => ({
-  confirmContractCancelation: (...args: any[]) => confirmContractCancelationMock(...args),
-  rejectContractCancelation: (...args: any[]) => rejectContractCancelationMock(...args),
+  confirmContractCancelation: (...args: unknown[]) => confirmContractCancelationMock(...args),
+  rejectContractCancelation: (...args: unknown[]) => rejectContractCancelationMock(...args),
 }))
 
 const saveContractMock = jest.fn()
 jest.mock('../../utils/contract', () => ({
-  saveContract: (...args: any[]) => saveContractMock(...args),
+  saveContract: (...args: unknown[]) => saveContractMock(...args),
 }))
 
 describe('useConfirmTradeCancelationPopup', () => {

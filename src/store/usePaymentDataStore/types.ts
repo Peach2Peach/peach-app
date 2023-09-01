@@ -14,6 +14,8 @@ export const PaymentDataInfoFields: PaymentDataField[] = [
   'lnurlAddress',
   'reference',
   'userId',
+  'chipperTag',
+  'eversendUserName',
 ]
 
 export type PaymentDetailInfo = Partial<Record<PaymentDataField, Record<string, string>>>

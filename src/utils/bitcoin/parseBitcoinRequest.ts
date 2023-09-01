@@ -8,7 +8,7 @@ type BitcoinRequest = {
   exp?: number
 }
 
-export const parseBitcoinRequest = (request: string = 'bitcoin:'): BitcoinRequest => {
+export const parseBitcoinRequest = (request = 'bitcoin:'): BitcoinRequest => {
   let urn: URL
   const parsedRequest: BitcoinRequest = {}
 

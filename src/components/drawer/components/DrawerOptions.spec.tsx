@@ -1,8 +1,8 @@
-import { DrawerOptions } from './DrawerOptions'
 import { act, render } from '@testing-library/react-native'
-import { defaultState, DrawerContext } from '../../../contexts/drawer'
-import { Text } from '../../text'
+import { DrawerContext, defaultState } from '../../../contexts/drawer'
 import { PeachScrollView } from '../../PeachScrollView'
+import { Text } from '../../text'
+import { DrawerOptions } from './DrawerOptions'
 
 jest.mock('./DrawerOption', () => ({
   DrawerOption: 'DrawerOption',
@@ -32,7 +32,7 @@ describe('DrawerOptions', () => {
       options: [
         {
           title: 'testLabel',
-          onPress: () => {},
+          onPress: jest.fn(),
         },
       ],
     })
@@ -45,7 +45,7 @@ describe('DrawerOptions', () => {
         {
           title: 'testLabel',
           subtext: 'testSubtext',
-          onPress: () => {},
+          onPress: jest.fn(),
           highlighted: true,
         },
       ],
@@ -65,7 +65,7 @@ describe('DrawerOptions', () => {
       options: [
         {
           title: 'testLabel',
-          onPress: () => {},
+          onPress: jest.fn(),
         },
       ],
     })

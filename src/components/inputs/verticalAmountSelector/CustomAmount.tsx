@@ -1,6 +1,7 @@
 import { View } from 'react-native'
 import tw from '../../../styles/tailwind'
-import { PriceFormat, SatsFormat } from '../../text'
+import { PriceFormat } from '../../text'
+import { BTCAmountInput } from '../BTCAmountInput'
 import { Input } from '../Input'
 import { useCustomAmountSetup } from './hooks/useCustomAmountSetup'
 
@@ -16,20 +17,13 @@ export const CustomAmount = ({ amount, onChange, style }: Props) => {
 
   return (
     <View style={[tw`gap-2`, style]}>
+      <BTCAmountInput
+        style={tw`h-8 rounded-full border-black-4 w-[210px] bg-transparent`}
+        amount={amount}
+        onChangeText={updateCustomAmount}
+      />
       <View style={tw`h-8`}>
-        <View style={[tw`px-3 h-8 justify-center border rounded-full border-black-4 w-[210px] absolute`]}>
-          <SatsFormat sats={amount} style={tw`text-lg`} satsStyle={tw`font-bold`} />
-        </View>
-        <Input
-          style={[tw`w-full h-8 p-0 text-xl `, { opacity: 0 }]}
-          keyboardType="number-pad"
-          value={amount.toString()}
-          onChange={updateCustomAmount}
-          onFocus={clearCustomAmount}
-        />
-      </View>
-      <View>
-        <View style={[tw`absolute justify-center h-8 pl-3 pr-4 border rounded-full border-black-4`]}>
+        <View style={tw`absolute justify-center h-8 pl-3 pr-4 border rounded-full border-black-4`}>
           <PriceFormat
             amount={customFiatPrice}
             currency={displayCurrency}
@@ -37,7 +31,7 @@ export const CustomAmount = ({ amount, onChange, style }: Props) => {
           />
         </View>
         <Input
-          style={[tw`w-full h-8 p-0 text-xl `, { opacity: 0 }]}
+          style={[tw`w-full h-8 p-0 text-xl opacity-0`]}
           keyboardType="number-pad"
           value={customFiatPrice.toString()}
           onChange={updateCustomFiatAmount}

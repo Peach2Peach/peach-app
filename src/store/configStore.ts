@@ -1,6 +1,7 @@
 import { create } from 'zustand'
-import { createJSONStorage, persist } from 'zustand/middleware'
-import { createStorage, toZustandStorage } from '../utils/storage'
+import { persist } from 'zustand/middleware'
+import { createStorage } from '../utils/storage'
+import { createPersistStorage } from './createPersistStorage'
 import { defaultConfig } from './defaults'
 
 type ConfigStore = Config & {
@@ -13,9 +14,11 @@ type ConfigStore = Config & {
   setMinTradingAmount: (amount: number) => void
   setMaxTradingAmount: (amount: number) => void
   setSeenDisputeDisclaimer: (seenDisputeDisclaimer: boolean) => void
+  setHasSeenGroupHugAnnouncement: (hasSeenGroupHugAnnouncement: boolean) => void
 }
 
 export const configStorage = createStorage('config')
+const storage = createPersistStorage<ConfigStore>(configStorage)
 
 export const useConfigStore = create(
   persist<ConfigStore>(
@@ -30,11 +33,12 @@ export const useConfigStore = create(
       setMinTradingAmount: (minTradingAmount) => set({ minTradingAmount }),
       setMaxTradingAmount: (maxTradingAmount) => set({ maxTradingAmount }),
       setSeenDisputeDisclaimer: (seenDisputeDisclaimer) => set({ seenDisputeDisclaimer }),
+      setHasSeenGroupHugAnnouncement: (hasSeenGroupHugAnnouncement) => set({ hasSeenGroupHugAnnouncement }),
     }),
     {
       name: 'config',
       version: 0,
-      storage: createJSONStorage(() => toZustandStorage(configStorage)),
+      storage,
     },
   ),
 )

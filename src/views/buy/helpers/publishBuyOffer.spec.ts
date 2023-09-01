@@ -7,14 +7,14 @@ jest.mock('../../../init/publishPGPPublicKey', () => ({
 
 const saveOfferMock = jest.fn()
 jest.mock('../../../utils/offer', () => ({
-  saveOffer: (...args: any[]) => saveOfferMock(...args),
+  saveOffer: (...args: unknown[]) => saveOfferMock(...args),
 }))
 
 const getOfferDetailsMock = jest.fn().mockResolvedValue([{ oldOfferId: '21' } as BuyOffer])
 const postBuyOfferMock = jest.fn().mockResolvedValue([{ id: '21' } as BuyOffer])
 jest.mock('../../../utils/peachAPI', () => ({
-  getOfferDetails: (...args: any[]) => getOfferDetailsMock(...args),
-  postBuyOffer: (...args: any[]) => postBuyOfferMock(...args),
+  getOfferDetails: (...args: unknown[]) => getOfferDetailsMock(...args),
+  postBuyOffer: (...args: unknown[]) => postBuyOfferMock(...args),
 }))
 
 describe('publishBuyOffer', () => {

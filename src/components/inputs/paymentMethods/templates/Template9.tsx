@@ -2,7 +2,7 @@ import { useRef } from 'react'
 import { TextInput } from 'react-native'
 import { FormProps } from '../../../../views/addPaymentMethod/PaymentMethodForm'
 import { TabbedNavigation } from '../../../navigation'
-import { BankNumberInput, BICInput, IBANInput, LabelInput, ReferenceInput, BeneficiaryInput } from '../../index'
+import { BICInput, BankNumberInput, BeneficiaryInput, IBANInput, LabelInput, ReferenceInput } from '../../index'
 import { useTemplate9Setup } from './hooks'
 
 export const Template9 = (props: FormProps) => {
@@ -24,7 +24,7 @@ export const Template9 = (props: FormProps) => {
   return (
     <>
       <LabelInput {...labelInputProps} onSubmit={() => $beneficiary?.focus()} />
-      <BeneficiaryInput {...beneficiaryInputProps} reference={(el: any) => ($beneficiary = el)} />
+      <BeneficiaryInput {...beneficiaryInputProps} reference={(el) => ($beneficiary = el)} />
       <TabbedNavigation {...tabbedNavigationProps} />
       {shouldShowIbanInput ? (
         <IBANInput {...ibanInputProps} onSubmit={() => $bic?.focus()} />
@@ -32,9 +32,9 @@ export const Template9 = (props: FormProps) => {
         <BankNumberInput {...accountNumberInputProps} onSubmit={() => $reference?.focus()} />
       )}
       {shouldShowIbanInput && (
-        <BICInput {...bicInputProps} onSubmit={() => $reference?.focus()} reference={(el: any) => ($bic = el)} />
+        <BICInput {...bicInputProps} onSubmit={() => $reference?.focus()} reference={(el) => ($bic = el)} />
       )}
-      <ReferenceInput {...referenceInputProps} reference={(el: any) => ($reference = el)} />
+      <ReferenceInput {...referenceInputProps} reference={(el) => ($reference = el)} />
     </>
   )
 }

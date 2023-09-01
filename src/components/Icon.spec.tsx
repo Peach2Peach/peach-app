@@ -1,6 +1,6 @@
+import { render } from '@testing-library/react-native'
 import tw from '../styles/tailwind'
 import { Icon } from './Icon'
-import { render } from '@testing-library/react-native'
 
 describe('Icon', () => {
   it('should render correctly', () => {
@@ -19,7 +19,7 @@ describe('Icon', () => {
     expect(render(<Icon id="helpCircle" size={10} />).toJSON()).toMatchSnapshot()
   })
   it('renders ❌ if icon id is unknown', () => {
-    // @ts-ignore
+    // @ts-expect-error testing invalid icon id
     const { toJSON } = render(<Icon id="garble" />)
 
     expect(toJSON()).toMatchSnapshot()

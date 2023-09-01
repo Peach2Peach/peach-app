@@ -1,10 +1,10 @@
 import { Icon } from '../../../../../components'
-import { getThemeForTradeItem, isContractSummary, isPastOffer } from '../../../utils'
 import { statusCardStyles } from '../../../../../components/statusCard/StatusCard'
 import { contractIdToHex } from '../../../../../utils/contract'
-import { offerIdToHex } from '../../../../../utils/offer'
 import { getShortDateFormat } from '../../../../../utils/date/getShortDateFormat'
-import { getActionLabel, getActionIcon } from '../utils'
+import { offerIdToHex } from '../../../../../utils/offer'
+import { getThemeForTradeItem, isContractSummary, isPastOffer } from '../../../utils'
+import { getActionIcon, getActionLabel } from '../utils'
 
 export const getStatusCardProps = (item: TradeSummary) => {
   const { tradeStatus, paymentMade, creationDate, id } = item

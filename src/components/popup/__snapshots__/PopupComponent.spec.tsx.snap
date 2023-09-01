@@ -149,6 +149,7 @@ exports[`PopupComponent renders correctly 1`] = `
               },
               undefined,
             ],
+            false,
           ]
         }
       >
@@ -202,7 +203,7 @@ exports[`PopupComponent renders correctly with title 1`] = `
 - First value
 + Second value
 
-@@ -51,10 +51,33 @@
+@@ -51,10 +51,34 @@
           },
           undefined,
         ]
@@ -226,6 +227,7 @@ exports[`PopupComponent renders correctly with title 1`] = `
 +             "lineHeight": 32,
 +             "width": "100%",
 +           },
++           false,
 +         ]
 +       }
 +     >

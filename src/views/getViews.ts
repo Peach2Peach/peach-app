@@ -16,9 +16,9 @@ import { ContractChat } from './contractChat/ContractChat'
 import { DisputeForm } from './dispute/DisputeForm'
 import { DisputeReasonSelector } from './dispute/DisputeReasonSelector'
 import { FundEscrow } from './fundEscrow/FundEscrow'
-import { BitcoinLoading } from './loading/BitcoinLoading'
 import { NewUser } from './newUser/NewUser'
 import { OfferDetails } from './offerDetails/OfferDetails'
+import { GroupHugAnnouncement } from './overlays/GroupHugAnnouncement'
 import { NewBadge } from './overlays/NewBadge'
 import { PublicProfile } from './publicProfile/PublicProfile'
 import { Referrals } from './referrals/Referrals'
@@ -44,6 +44,7 @@ import { NetworkFees } from './settings/NetworkFees'
 import { PayoutAddress } from './settings/PayoutAddress'
 import { MyProfile } from './settings/profile/MyProfile'
 import { Settings } from './settings/Settings'
+import { TransactionBatching } from './settings/TransactionBatching'
 import { TestViewButtons } from './TestView/buttons'
 import { TestViewComponents } from './TestView/components'
 import { TestViewMessages } from './TestView/messages'
@@ -52,17 +53,23 @@ import { TestViewPNs } from './TestView/pns'
 import { TestViewPopups } from './TestView/popups'
 import { TestView } from './TestView/TestView'
 import { TradeComplete } from './tradeComplete/TradeComplete'
+import { AddressChecker } from './wallet/AddressChecker'
 import { BumpNetworkFees } from './wallet/BumpNetworkFees'
+import { CoinSelection } from './wallet/CoinSelection'
+import { ExportTransactionHistory } from './wallet/ExportTransactionHistory'
+import { ReceiveBitcoin } from './wallet/ReceiveBitcoin'
+import { SendBitcoin } from './wallet/SendBitcoin'
 import { TransactionDetails } from './wallet/TransactionDetails'
 import { TransactionHistory } from './wallet/TransactionHistory'
 import { Wallet } from './wallet/Wallet'
 import { Welcome } from './welcome/Welcome'
 import { WrongFundingAmount } from './wrongFundingAmount/WrongFundingAmount'
+import { ExportTradeHistory } from './yourTrades/ExportTradeHistory'
 import { YourTrades } from './yourTrades/YourTrades'
 
 type ViewType = {
   name: keyof RootStackParamList
-  component: (props: any) => JSX.Element
+  component: () => JSX.Element
   showHeader: boolean
   showFooter: boolean
   background: BackgroundConfig
@@ -94,8 +101,13 @@ const onboarding: ViewType[] = [
 const home: ViewType[] = [{ name: 'home', component: Buy, ...defaultConfig }]
 
 const wallet: ViewType[] = [
-  { name: 'wallet', component: Wallet, ...defaultConfig, animationEnabled: false },
-  { name: 'transactionHistory', component: TransactionHistory, ...defaultConfig },
+  { name: 'wallet', component: Wallet, ...defaultConfig, showHeader: false, animationEnabled: false },
+  { name: 'sendBitcoin', component: SendBitcoin, ...defaultConfig, showHeader: false },
+  { name: 'receiveBitcoin', component: ReceiveBitcoin, ...defaultConfig, showHeader: false },
+  { name: 'addressChecker', component: AddressChecker, ...defaultConfig, showHeader: false },
+  { name: 'coinSelection', component: CoinSelection, ...defaultConfig, showHeader: false },
+  { name: 'transactionHistory', component: TransactionHistory, ...defaultConfig, showHeader: false },
+  { name: 'exportTransactionHistory', component: ExportTransactionHistory, ...defaultConfig, showHeader: false },
   { name: 'transactionDetails', component: TransactionDetails, ...defaultConfig },
   { name: 'bumpNetworkFees', component: BumpNetworkFees, ...defaultConfig },
 ]
@@ -129,8 +141,9 @@ const trade: ViewType[] = [
 ]
 
 const tradeHistory: ViewType[] = [
-  { name: 'yourTrades', component: YourTrades, ...defaultConfig, animationEnabled: false },
+  { name: 'yourTrades', component: YourTrades, ...defaultConfig, animationEnabled: false, showHeader: false },
   { name: 'offer', component: OfferDetails, ...defaultConfig },
+  { name: 'exportTradeHistory', component: ExportTradeHistory, ...defaultConfig, showHeader: false },
 ]
 
 const contact = (hasAccount: boolean): ViewType[] =>
@@ -146,17 +159,25 @@ const contact = (hasAccount: boolean): ViewType[] =>
       { name: 'report', component: Report, ...defaultConfig, showFooter: false },
     ]
 
-const publicProfile: ViewType[] = [{ name: 'publicProfile', component: PublicProfile, ...defaultConfig }]
+const publicProfile: ViewType[] = [
+  {
+    name: 'publicProfile',
+    component: PublicProfile,
+    ...defaultConfig,
+    showHeader: false,
+  },
+]
 
 const overlays: ViewType[] = [
   { name: 'offerPublished', component: OfferPublished, ...invertedThemeConfig },
+  { name: 'groupHugAnnouncement', component: GroupHugAnnouncement, ...invertedThemeConfig },
   { name: 'newBadge', component: NewBadge, ...invertedThemeConfig },
 ]
 
 const settings: ViewType[] = [
   { name: 'settings', component: Settings, ...defaultConfig, animationEnabled: false },
   { name: 'aboutPeach', component: AboutPeach, ...defaultConfig },
-  { name: 'myProfile', component: MyProfile, ...defaultConfig },
+  { name: 'myProfile', component: MyProfile, ...defaultConfig, showHeader: false },
   { name: 'bitcoinProducts', component: BitcoinProducts, ...defaultConfig },
   { name: 'selectCurrency', component: SelectCurrency, ...defaultConfig },
   { name: 'selectPaymentMethod', component: SelectPaymentMethod, ...defaultConfig },
@@ -173,6 +194,7 @@ const settings: ViewType[] = [
   { name: 'paymentMethods', component: PaymentMethods, ...defaultConfig },
   { name: 'peachFees', component: PeachFees, ...defaultConfig },
   { name: 'networkFees', component: NetworkFees, ...defaultConfig },
+  { name: 'transactionBatching', component: TransactionBatching, ...defaultConfig },
   { name: 'socials', component: Socials, ...defaultConfig },
 ]
 
@@ -184,7 +206,6 @@ const testViews: ViewType[] = [
   { name: 'testViewMessages', component: TestViewMessages, ...defaultConfig },
   { name: 'testViewComponents', component: TestViewComponents, ...defaultConfig },
   { name: 'testViewPNs', component: TestViewPNs, ...defaultConfig },
-  { name: 'testViewLoading', component: BitcoinLoading, ...defaultConfig },
 ]
 
 export const getViews = (hasAccount: boolean): ViewType[] =>

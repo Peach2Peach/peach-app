@@ -1,14 +1,19 @@
 /* eslint-disable max-lines-per-function */
 import { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
-import { getContract } from '../contract'
-import { handlePushNotification } from '.'
-import { getOfferDetails } from '../peachAPI'
 import { contract } from '../../../tests/unit/data/contractData'
 import { sellOffer } from '../../../tests/unit/data/offerData'
+import { handlePushNotification } from './handlePushNotification'
 
+const getContractMock = jest.fn()
 jest.mock('../contract', () => ({
-  getContract: jest.fn(),
+  getContract: (...args: unknown[]) => getContractMock(...args),
 }))
+
+const getOfferDetailsMock = jest.fn()
+jest.mock('../peachAPI', () => ({
+  getOfferDetails: (...args: unknown[]) => getOfferDetailsMock(...args),
+}))
+
 describe('handlePushNotification', () => {
   const navigationRef: any = {
     navigate: jest.fn(),
@@ -27,7 +32,7 @@ describe('handlePushNotification', () => {
       },
     } as FirebaseMessagingTypes.RemoteMessage & { data: any }
 
-    ;(getContract as jest.Mock).mockReturnValue(contract)
+    getContractMock.mockReturnValue(contract)
     await handlePushNotification(navigationRef, remoteMessage)
 
     expect(navigationRef.navigate).toHaveBeenCalledWith('contract', {
@@ -48,7 +53,7 @@ describe('handlePushNotification', () => {
       },
     } as FirebaseMessagingTypes.RemoteMessage & { data: any }
 
-    ;(getContract as jest.Mock).mockReturnValue(null)
+    getContractMock.mockReturnValue(null)
     await handlePushNotification(navigationRef, remoteMessage)
 
     expect(navigationRef.navigate).toHaveBeenCalledWith('contract', {
@@ -65,7 +70,7 @@ describe('handlePushNotification', () => {
       },
     } as FirebaseMessagingTypes.RemoteMessage & { data: any }
 
-    ;(getContract as jest.Mock).mockReturnValue(contract)
+    getContractMock.mockReturnValue(contract)
     await handlePushNotification(navigationRef, remoteMessage)
 
     expect(navigationRef.navigate).toHaveBeenCalledWith('contract', {
@@ -115,7 +120,7 @@ describe('handlePushNotification', () => {
   })
 
   it('navigates to search when shouldGoToSearch is true and offer is defined', async () => {
-    ;(getOfferDetails as jest.Mock).mockResolvedValue([
+    getOfferDetailsMock.mockResolvedValue([
       {
         ...sellOffer,
         matches: ['2'],
@@ -136,7 +141,7 @@ describe('handlePushNotification', () => {
   })
 
   it('navigates to offerPublished when shouldGoToOfferPublished is true and offerId is defined', async () => {
-    ;(getOfferDetails as jest.Mock).mockResolvedValue([sellOffer, null])
+    getOfferDetailsMock.mockResolvedValue([sellOffer, null])
     const remoteMessage = {
       data: {
         type: 'offer.escrowFunded',
@@ -154,7 +159,7 @@ describe('handlePushNotification', () => {
   })
 
   it('navigates to offer when offerId is defined', async () => {
-    ;(getOfferDetails as jest.Mock).mockResolvedValue([sellOffer, null])
+    getOfferDetailsMock.mockResolvedValue([sellOffer, null])
     const remoteMessage = {
       data: {
         type: 'offer.canceled',
@@ -168,7 +173,7 @@ describe('handlePushNotification', () => {
   })
 
   it('should do nothing and return false in any other case', async () => {
-    ;(getOfferDetails as jest.Mock).mockResolvedValue([sellOffer, null])
+    getOfferDetailsMock.mockResolvedValue([sellOffer, null])
     const remoteMessage = {
       data: { type: 'unhandled.messageType' },
     } as FirebaseMessagingTypes.RemoteMessage & { data: any }

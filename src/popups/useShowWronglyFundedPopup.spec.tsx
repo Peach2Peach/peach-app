@@ -1,19 +1,19 @@
 import { act, renderHook } from '@testing-library/react-native'
+import { defaultPopupState, usePopupStore } from '../store/usePopupStore'
 import { useShowWronglyFundedPopup } from './useShowWronglyFundedPopup'
 import { WrongFundingAmount } from './warning/WrongFundingAmount'
-import { defaultPopupState, usePopupStore } from '../store/usePopupStore'
 
 const cancelAndStartRefundPopup = jest.fn()
 jest.mock('./useCancelAndStartRefundPopup', () => ({
   useCancelAndStartRefundPopup:
     () =>
-      (...args: any[]) =>
+      (...args: unknown[]) =>
         cancelAndStartRefundPopup(...args),
 }))
 
 const useConfigStoreMock = jest.fn((selector) => selector({ maxTradingAmount: 2000000 }))
 jest.mock('../store/configStore', () => ({
-  useConfigStore: (selector: any) => useConfigStoreMock(selector),
+  useConfigStore: (selector: unknown) => useConfigStoreMock(selector),
 }))
 
 describe('useShowWronglyFundedPopup', () => {

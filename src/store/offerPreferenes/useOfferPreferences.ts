@@ -1,7 +1,8 @@
 import { create } from 'zustand'
-import { createJSONStorage, persist } from 'zustand/middleware'
+import { persist } from 'zustand/middleware'
 import { getSelectedPaymentDataIds } from '../../utils/account'
-import { createStorage, toZustandStorage } from '../../utils/storage'
+import { createStorage } from '../../utils/storage'
+import { createPersistStorage } from '../createPersistStorage'
 import {
   getHashedPaymentData,
   getMeansOfPayment,
@@ -9,6 +10,7 @@ import {
   getPreferredMethods,
   validatePaymentMethods,
 } from './helpers'
+import { CurrencyType } from './types'
 
 export type OfferPreferences = {
   buyAmountRange: [number, number]
@@ -18,7 +20,8 @@ export type OfferPreferences = {
   paymentData: OfferPaymentData
   preferredPaymentMethods: Partial<Record<PaymentMethod, string>>
   originalPaymentData: PaymentData[]
-  preferredCurrenyType: 'europe' | 'latinAmerica' | 'other'
+  preferredCurrenyType: CurrencyType
+  multi?: number
   sortBy: {
     buyOffer: BuySorter[]
     sellOffer: SellSorter[]
@@ -36,6 +39,7 @@ export const defaultPreferences: OfferPreferences = {
   paymentData: {},
   preferredPaymentMethods: {},
   originalPaymentData: [],
+  multi: undefined,
   preferredCurrenyType: 'europe',
   sortBy: {
     buyOffer: ['bestReputation'],
@@ -60,10 +64,11 @@ type OfferPreferencesState = OfferPreferences & {
 type OfferPreferencesActions = {
   setBuyAmountRange: (buyAmountRange: [number, number], rangeRestrictions: { min: number; max: number }) => void
   setSellAmount: (sellAmount: number, rangeRestrictions: { min: number; max: number }) => void
+  setMulti: (number?: number) => void
   setPremium: (newPremium: number, isValid?: boolean) => void
   setPaymentMethods: (ids: string[]) => void
   selectPaymentMethod: (id: string) => void
-  setPreferredCurrencyType: (preferredCurrenyType: 'europe' | 'latinAmerica' | 'other') => void
+  setPreferredCurrencyType: (preferredCurrenyType: CurrencyType) => void
   setBuyOfferSorter: (sorter: BuySorter) => void
   setSellOfferSorter: (sorter: SellSorter) => void
   setBuyOfferFilter: (filter: MatchFilter) => void
@@ -72,6 +77,7 @@ type OfferPreferencesActions = {
 type OfferPreferencesStore = OfferPreferencesState & OfferPreferencesActions
 
 const offerPreferences = createStorage('offerPreferences')
+const storage = createPersistStorage(offerPreferences)
 
 export const useOfferPreferences = create<OfferPreferencesStore>()(
   persist(
@@ -106,6 +112,7 @@ export const useOfferPreferences = create<OfferPreferencesStore>()(
           },
         }))
       },
+      setMulti: (multi) => set({ multi }),
       setPremium: (newPremium, isValid) => {
         set((state) => ({
           premium: newPremium,
@@ -152,7 +159,7 @@ export const useOfferPreferences = create<OfferPreferencesStore>()(
     {
       name: 'offerPreferences',
       version: 0,
-      storage: createJSONStorage(() => toZustandStorage(offerPreferences)),
+      storage,
     },
   ),
 )

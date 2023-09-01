@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import { TextInput } from 'react-native'
 import { FormProps } from '../../../../views/addPaymentMethod/PaymentMethodForm'
-import { BankNumberInput, LabelInput, ReferenceInput, BeneficiaryInput } from '../../index'
+import { BankNumberInput, BeneficiaryInput, LabelInput, ReferenceInput } from '../../index'
 import { useTemplate7Setup } from './hooks'
 
 export const Template7 = (props: FormProps) => {
@@ -14,9 +14,9 @@ export const Template7 = (props: FormProps) => {
   return (
     <>
       <LabelInput {...labelInputProps} onSubmit={() => $beneficiary?.focus()} />
-      <BeneficiaryInput {...beneficiaryInputProps} reference={(el: any) => ($beneficiary = el)} />
+      <BeneficiaryInput {...beneficiaryInputProps} reference={(el) => ($beneficiary = el)} />
       <BankNumberInput {...accountNumberInputProps} onSubmit={() => $reference?.focus()} />
-      <ReferenceInput {...referenceInputProps} reference={(el: any) => ($reference = el)} />
+      <ReferenceInput {...referenceInputProps} reference={(el) => ($reference = el)} />
     </>
   )
 }

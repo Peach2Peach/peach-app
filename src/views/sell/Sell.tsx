@@ -9,8 +9,9 @@ import i18n from '../../utils/i18n'
 import { BackupReminderIcon } from '../buy/BackupReminderIcon'
 import { LoadingScreen } from '../loading/LoadingScreen'
 import { DailyTradingLimit } from '../settings/profile/DailyTradingLimit'
-import { useSellSetup } from './hooks/useSellSetup'
 import { SellAmountSelector } from './SellAmountSelector'
+import { FundMultipleOffers } from './components/FundMultipleOffers'
+import { useSellSetup } from './hooks/useSellSetup'
 
 export const Sell = () => {
   const navigation = useNavigation()
@@ -26,7 +27,9 @@ export const Sell = () => {
     <LoadingScreen />
   ) : (
     <View style={tw`h-full`}>
-      <SellAmountSelector style={tw`mt-4 mb-2`} />
+      <SellAmountSelector style={tw`mt-4 mb-2`}>
+        <FundMultipleOffers />
+      </SellAmountSelector>
       <View style={[tw`flex-row items-center justify-center mt-4 mb-1`, tw.md`mb-4`]}>
         <PrimaryButton disabled={!isAmountValid} onPress={next} narrow>
           {i18n('next')}

@@ -3,7 +3,7 @@ import { getBuyerStatusText } from './getBuyerStatusText'
 
 const isPaymentTooLateMock = jest.fn((..._args) => false)
 jest.mock('../../../utils/contract/status/isPaymentTooLate', () => ({
-  isPaymentTooLate: (...args: any) => isPaymentTooLateMock(...args),
+  isPaymentTooLate: (...args: unknown[]) => isPaymentTooLateMock(...args),
 }))
 
 describe('getBuyerStatusText', () => {
@@ -14,20 +14,20 @@ describe('getBuyerStatusText', () => {
   } as unknown as Contract
   it('should return correct text if seller requested cancelation', () => {
     expect(getBuyerStatusText({ ...mockContract, cancelationRequested: true })).toBe(
-      'You\'ll need to agree to or reject the cancelation.',
+      "You'll need to agree to or reject the cancelation.",
     )
   })
-  it('should return correct text if the buyer canceled the trade, it\'s not a cash trade and not collab cancel', () => {
+  it("should return correct text if the buyer canceled the trade, it's not a cash trade and not collab cancel", () => {
     expect(
       getBuyerStatusText({ ...mockContract, canceled: true, canceledBy: 'buyer', cancelationRequested: false }),
     ).toBe(i18n('contract.buyer.buyerCanceledTrade'))
   })
-  it('should return correct text if the buyer canceled the trade and it\'s a cash trade', () => {
+  it("should return correct text if the buyer canceled the trade and it's a cash trade", () => {
     expect(getBuyerStatusText({ ...mockContract, canceled: true, canceledBy: 'buyer', paymentMethod: 'cash' })).toBe(
       i18n('contract.buyer.buyerCanceledCashTrade'),
     )
   })
-  it('should return correct text if the buyer canceled the trade and it\'s a collab cancel', () => {
+  it("should return correct text if the buyer canceled the trade and it's a collab cancel", () => {
     expect(
       getBuyerStatusText({ ...mockContract, canceled: true, canceledBy: 'buyer', cancelationRequested: true }),
     ).toBe('You agreed to cancel the trade, and the seller has been refunded.')

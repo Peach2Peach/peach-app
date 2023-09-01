@@ -4,7 +4,7 @@ import { cancelContractAsBuyer } from './cancelContractAsBuyer'
 
 const cancelContractMock = jest.fn().mockResolvedValue([apiSuccess, null])
 jest.mock('../../../utils/peachAPI', () => ({
-  cancelContract: (...args: any[]) => cancelContractMock(...args),
+  cancelContract: (...args: unknown[]) => cancelContractMock(...args),
 }))
 
 describe('cancelContractAsBuyer', () => {

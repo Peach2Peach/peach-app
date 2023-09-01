@@ -1,9 +1,7 @@
-import { TransactionInMempool } from './TransactionInMempool'
 import { act, fireEvent, render } from '@testing-library/react-native'
+import { TransactionInMempool } from './TransactionInMempool'
 
 describe('TransactionInMempool', () => {
-  // This is to disable the error log for the Image source, which we mock in the test
-  jest.spyOn(console, 'error').mockImplementation(() => {})
   it('should render correctly', () => {
     const { toJSON } = render(<TransactionInMempool txId="txId" />)
     expect(toJSON()).toMatchSnapshot()

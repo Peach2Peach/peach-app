@@ -1,4 +1,4 @@
-declare type RootStackParamList = {
+type RootStackParamList = {
   home: undefined
   newUser: {
     referralCode?: string
@@ -11,7 +11,12 @@ declare type RootStackParamList = {
     badges: string
   }
   wallet: undefined
+  sendBitcoin: undefined
+  receiveBitcoin: undefined
+  addressChecker: undefined
+  coinSelection: undefined
   transactionHistory: undefined
+  exportTransactionHistory: undefined
   transactionDetails: {
     txId: string
   }
@@ -88,6 +93,7 @@ declare type RootStackParamList = {
         tab?: TradeTab
       }
     | undefined
+  exportTradeHistory: undefined
   offer: {
     offerId: string
   }
@@ -105,7 +111,7 @@ declare type RootStackParamList = {
   referrals: undefined
   backupTime: {
     nextScreen?: keyof RootStackParamList
-    [key: string]: any
+    [key: string]: unknown
   }
   backups: undefined
   backupCreated: undefined
@@ -132,10 +138,14 @@ declare type RootStackParamList = {
   }
   splashScreen: undefined
   myProfile: undefined
+  transactionBatching: undefined
+  groupHugAnnouncement: {
+    offerId: string
+  }
 } & Record<`testView${string}`, undefined>
 
 type KeysWithUndefined<T> = {
   [K in keyof T]: undefined extends T[K] ? K : never
 }[keyof T]
 
-declare type ScreenWithoutProps = KeysWithUndefined<RootStackParamList>
+type ScreenWithoutProps = KeysWithUndefined<RootStackParamList>

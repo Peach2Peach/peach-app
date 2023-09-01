@@ -1,8 +1,8 @@
 import { useRef } from 'react'
 import { TextInput, View } from 'react-native'
-import { FormProps } from '../../../../views/addPaymentMethod/PaymentMethodForm'
 import tw from '../../../../styles/tailwind'
-import { PhoneInput, LabelInput, ReferenceInput, BeneficiaryInput } from '../../index'
+import { FormProps } from '../../../../views/addPaymentMethod/PaymentMethodForm'
+import { BeneficiaryInput, LabelInput, PhoneInput, ReferenceInput } from '../../index'
 import { CurrencySelection } from '../paymentForms/components'
 import { useTemplate8Setup } from './hooks'
 
@@ -18,16 +18,16 @@ export const Template8 = (props: FormProps) => {
     <View>
       <LabelInput {...labelInputProps} onSubmit={() => $phone?.focus()} />
       <View style={tw`mt-1`}>
-        <PhoneInput {...phoneInputProps} onSubmit={() => $beneficiary?.focus()} reference={(el: any) => ($phone = el)} />
+        <PhoneInput {...phoneInputProps} onSubmit={() => $beneficiary?.focus()} reference={(el) => ($phone = el)} />
       </View>
       <View style={tw`mt-1`}>
         <BeneficiaryInput
           {...beneficiaryInputProps}
           onSubmit={() => $reference?.focus()}
-          reference={(el: any) => ($beneficiary = el)}
+          reference={(el) => ($beneficiary = el)}
         />
       </View>
-      <ReferenceInput {...referenceInputProps} reference={(el: any) => ($reference = el)} />
+      <ReferenceInput {...referenceInputProps} reference={(el) => ($reference = el)} />
       <CurrencySelection {...currencySelectionProps} />
     </View>
   )

@@ -165,7 +165,7 @@ describe('useReportSetup', () => {
   })
 
   it('ensure all fields are valid before submitting report', async () => {
-    ;(submitReport as jest.Mock).mockResolvedValueOnce(['success', null])
+    (submitReport as jest.Mock).mockResolvedValueOnce(['success', null])
     const { result } = renderHook(useReportSetup, { wrapper: NavigationWrapper })
 
     await actSubmit(result.current)
@@ -191,7 +191,7 @@ describe('useReportSetup', () => {
   })
 
   it('submits report navigates to welcome on success for not logged in user', async () => {
-    ;(submitReport as jest.Mock).mockResolvedValueOnce(['success', null])
+    (submitReport as jest.Mock).mockResolvedValueOnce(['success', null])
     const { result } = renderHook(useReportSetup, { wrapper: NavigationWrapper })
 
     await fillAllFields(result.current)
@@ -212,7 +212,7 @@ describe('useReportSetup', () => {
     })
   })
   it('submits report navigates to settings on success for logged in user', async () => {
-    ;(submitReport as jest.Mock).mockResolvedValueOnce(['success', null])
+    (submitReport as jest.Mock).mockResolvedValueOnce(['success', null])
     setAccount({ ...defaultAccount, publicKey: 'somepublickey' })
 
     const { result } = renderHook(useReportSetup, { wrapper: NavigationWrapper })
@@ -228,7 +228,7 @@ describe('useReportSetup', () => {
     })
   })
   it('shows error banner if report could not be submitted', async () => {
-    ;(submitReport as jest.Mock).mockResolvedValueOnce([null, 'error'])
+    (submitReport as jest.Mock).mockResolvedValueOnce([null, 'error'])
     ;(useShowErrorBanner as jest.Mock).mockReturnValue(jest.fn())
     setAccount({ ...defaultAccount, publicKey: 'somepublickey' })
 

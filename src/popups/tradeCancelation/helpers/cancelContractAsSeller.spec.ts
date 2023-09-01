@@ -8,7 +8,7 @@ import { cancelContractAsSeller } from './cancelContractAsSeller'
 const cancelContractSuccessWithPSBT = { success: true, psbt: 'psbt' }
 const cancelContractMock = jest.fn().mockResolvedValue([apiSuccess, null])
 jest.mock('../../../utils/peachAPI', () => ({
-  cancelContract: (...args: any[]) => cancelContractMock(...args),
+  cancelContract: (...args: unknown[]) => cancelContractMock(...args),
 }))
 const patchSellOfferWithRefundTxMock = jest.fn().mockResolvedValue(
   getResult({
@@ -16,7 +16,7 @@ const patchSellOfferWithRefundTxMock = jest.fn().mockResolvedValue(
   }),
 )
 jest.mock('./patchSellOfferWithRefundTx', () => ({
-  patchSellOfferWithRefundTx: (...args: any[]) => patchSellOfferWithRefundTxMock(...args),
+  patchSellOfferWithRefundTx: (...args: unknown[]) => patchSellOfferWithRefundTxMock(...args),
 }))
 
 describe('cancelContractAsSeller', () => {

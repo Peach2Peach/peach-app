@@ -2,34 +2,32 @@ import { View } from 'react-native'
 import { Divider } from '../../../../components'
 import { Bubble } from '../../../../components/bubble'
 import { CopyableSummaryItem } from '../../../../components/summaryItem'
-import { AddressSummaryItem } from '../../../../components/summaryItem/AddressSummaryItem'
-import { AmountSummaryItem } from '../../../../components/summaryItem/AmountSummaryItem'
 import { ConfirmationSummaryItem } from '../../../../components/summaryItem/ConfirmationSummaryItem'
 import tw from '../../../../styles/tailwind'
+import { contractIdToHex } from '../../../../utils/contract'
 import { toShortDateFormat } from '../../../../utils/date'
 import i18n from '../../../../utils/i18n'
-import { priceFormat } from '../../../../utils/string'
+import { offerIdToHex } from '../../../../utils/offer'
 import { useTransactionDetailsInfoSetup } from '../../hooks/useTransactionDetailsInfoSetup'
+import { OutputInfo } from './OutputInfo'
 import { TransactionETASummaryItem } from './TransactionETASummaryItem'
 
 type Props = {
   transaction: TransactionSummary
   transactionDetails?: Transaction | null
 }
+
 export const TransactionDetailsInfo = ({ transaction }: Props) => {
-  const { id, type, amount, price, currency, confirmed, height, date } = transaction
+  const { id, confirmed, height, date } = transaction
   const { receivingAddress, canBumpFees, goToBumpNetworkFees, openInExplorer } = useTransactionDetailsInfoSetup({
     transaction,
   })
+
   return (
     <View style={tw`gap-4`}>
       <Divider />
 
-      <AmountSummaryItem amount={amount} />
-      {price && type !== 'REFUND' && (
-        <CopyableSummaryItem title={i18n('price')} text={`${priceFormat(price)} ${currency}`} />
-      )}
-      <AddressSummaryItem title={i18n('to')} address={receivingAddress} />
+      <OutputInfo {...{ transaction, receivingAddress }} />
 
       <Divider />
 
@@ -56,4 +54,10 @@ export const TransactionDetailsInfo = ({ transaction }: Props) => {
       </Bubble>
     </View>
   )
+}
+
+export function getOfferDataId (offer: OfferData) {
+  if (offer.contractId) return contractIdToHex(offer.contractId)
+  if (offer.offerId) return offerIdToHex(offer.offerId)
+  return 'unknown'
 }

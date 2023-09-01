@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import { TextInput, View } from 'react-native'
-import { FormProps } from '../../../../views/addPaymentMethod/PaymentMethodForm'
 import tw from '../../../../styles/tailwind'
+import { FormProps } from '../../../../views/addPaymentMethod/PaymentMethodForm'
 import { TabbedNavigation } from '../../../navigation/TabbedNavigation'
 import { EmailInput, LabelInput, ReferenceInput, WalletInput } from '../../index'
 import { CurrencySelection } from '../paymentForms/components'
@@ -29,7 +29,7 @@ export const Template2 = (props: FormProps) => {
         {shouldShowWalletInput && <WalletInput {...walletInputProps} onSubmit={$reference?.focus} />}
         {shouldShowEmailInput && <EmailInput {...emailInputProps} onSubmit={$reference?.focus} />}
       </View>
-      <ReferenceInput {...referenceInputProps} reference={(el: any) => ($reference = el)} />
+      <ReferenceInput {...referenceInputProps} reference={(el) => ($reference = el)} />
       <CurrencySelection {...currencySelectionProps} />
     </View>
   )

@@ -9,12 +9,28 @@ exports[`TransactionDetailsInfo should render correctly for a confirmed transact
   }
 >
   <Divider />
-  <AmountSummaryItem
-    amount={900}
-  />
-  <AddressSummaryItem
-    address="receivingAddress"
-    title="to"
+  <OutputInfo
+    receivingAddress="receivingAddress"
+    transaction={
+      {
+        "amount": 900,
+        "confirmed": true,
+        "date": 2022-09-14T16:14:02.835Z,
+        "height": 1,
+        "id": "txid1",
+        "offerData": [
+          {
+            "address": "bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh",
+            "amount": 900,
+            "contractId": undefined,
+            "currency": undefined,
+            "offerId": "123",
+            "price": undefined,
+          },
+        ],
+        "type": "TRADE",
+      }
+    }
   />
   <Divider />
   <ConfirmationSummaryItem
@@ -57,12 +73,28 @@ exports[`TransactionDetailsInfo should render correctly for a pending transactio
   }
 >
   <Divider />
-  <AmountSummaryItem
-    amount={900}
-  />
-  <AddressSummaryItem
-    address="receivingAddress"
-    title="to"
+  <OutputInfo
+    receivingAddress="receivingAddress"
+    transaction={
+      {
+        "amount": 900,
+        "confirmed": false,
+        "date": 2022-09-14T16:14:02.835Z,
+        "height": undefined,
+        "id": "txid1",
+        "offerData": [
+          {
+            "address": "bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh",
+            "amount": 900,
+            "contractId": undefined,
+            "currency": undefined,
+            "offerId": "123",
+            "price": undefined,
+          },
+        ],
+        "type": "TRADE",
+      }
+    }
   />
   <Divider />
   <ConfirmationSummaryItem

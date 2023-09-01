@@ -3,8 +3,8 @@ import { getPaymentData } from './getPaymentData'
 const decryptSymmetricMock = jest.fn()
 const verifyMock = jest.fn()
 jest.mock('../../../utils/pgp', () => ({
-  decryptSymmetric: (...args: any) => decryptSymmetricMock(...args),
-  verify: (...args: any) => verifyMock(...args),
+  decryptSymmetric: (...args: unknown[]) => decryptSymmetricMock(...args),
+  verify: (...args: unknown[]) => verifyMock(...args),
 }))
 
 // eslint-disable-next-line max-lines-per-function

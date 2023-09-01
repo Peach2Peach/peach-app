@@ -1,6 +1,5 @@
 import { View } from 'react-native'
-import { PeachScrollView } from '../../../components'
-import { useHeaderSetup } from '../../../hooks'
+import { NewHeader as Header, PeachScrollView, Screen } from '../../../components'
 import { useSelfUser } from '../../../hooks/query/useSelfUser'
 import { useShowHelp } from '../../../hooks/useShowHelp'
 import tw from '../../../styles/tailwind'
@@ -14,20 +13,21 @@ import { DeleteAccountButton } from './deleteAccount/DeleteAccountButton'
 export const MyProfile = () => {
   const { user, isLoading } = useSelfUser()
   const openTradingLimitsPopup = useShowHelp('tradingLimit')
-  useHeaderSetup({
-    title: i18n('settings.myProfile'),
-    icons: [{ ...headerIcons.help, onPress: openTradingLimitsPopup }],
-  })
   if (isLoading || !user) return <></>
 
   return (
-    <View style={tw`h-full px-8`}>
-      <PeachScrollView>
-        <ProfileOverview style={tw`mt-[48.5px] items-start`} user={user} />
-        <TradingLimits style={tw`mt-6`} />
-        <AccountInfo style={tw`mt-12 ml-1`} user={user} />
-        <DeleteAccountButton style={tw`self-center my-7`} />
+    <Screen>
+      <Header title={i18n('settings.myProfile')} icons={[{ ...headerIcons.help, onPress: openTradingLimitsPopup }]} />
+      <PeachScrollView contentContainerStyle={[tw`pt-sm`, tw.md`pt-md`]} contentStyle={tw`gap-7`}>
+        <View style={tw`gap-12`}>
+          <View style={tw`gap-6`}>
+            <ProfileOverview user={user} />
+            <TradingLimits />
+          </View>
+          <AccountInfo user={user} />
+        </View>
+        <DeleteAccountButton style={tw`self-center`} />
       </PeachScrollView>
-    </View>
+    </Screen>
   )
 }

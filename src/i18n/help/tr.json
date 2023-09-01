@@ -12,6 +12,7 @@
   "help.escrow.description" : "Peach'te işlem yaparken, işlemi korumak için önceden escrow'u finanse edersiniz. Bu hem sizi hem de alıcıyı korur. Escrow teklifiniz bir ağ onayından sonra yayınlanır. Bu süreçte uygulamayı kapatmanız mümkündür.",
   "help.escrow.description.link" : "burada",
   "help.escrow.description.proTip" : "QR kodunu uzun süre basılı tutarak tam ödeme talebini kopyalayabilirsiniz.",
+  "help.escrow.description.proTip.2" : "If the escrow is not funded after 7 days, the offer will be deleted.",
   "help.escrow.title" : "Peach escrow",
   "help.lnurl.description" : "Bu ödeme yöntemini kullanarak on-chain bitcoinlerinizi lightning için takas edebilirsiniz. Bunun için Peach ücreti ödemezsiniz.\n\nAlıcı iseniz, on-chain bitcoin alıp LN bitcoin gönderiyorsunuz.\n\nSatıcı iseniz, on-chain bitcoin gönderip LN bitcoin alıyorsunuz.",
   "help.lnurl.description.bold" : "Bunun için Peach ücreti ödemezsiniz.",

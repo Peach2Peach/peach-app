@@ -1,4 +1,6 @@
+/* eslint-disable max-lines */
 import { renderHook } from '@testing-library/react-native'
+import { TxBuilder } from 'bdk-rn'
 import { act } from 'react-test-renderer'
 import { estimatedFees } from '../../../../tests/unit/data/bitcoinNetworkData'
 import { transactionError } from '../../../../tests/unit/data/errors'
@@ -21,11 +23,16 @@ jest.mock('../../../hooks/query/useFeeEstimate', () => ({
   useFeeEstimate: () => useFeeEstimateMock(),
 }))
 
+const setMultipleRecipientsMock = jest.fn()
+jest.mock('../../../utils/wallet/transaction/setMultipleRecipients', () => ({
+  setMultipleRecipients: (...args: unknown[]) => setMultipleRecipientsMock(...args),
+}))
+
 const showErrorBannerMock = jest.fn()
 jest.mock('../../../hooks/useShowErrorBanner', () => ({
   useShowErrorBanner:
     () =>
-      (...args: any[]) =>
+      (...args: unknown[]) =>
         showErrorBannerMock(...args),
 }))
 
@@ -35,14 +42,13 @@ describe('useFundFromPeachWallet', () => {
   const address = 'bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh'
   const feeRate = estimatedFees.halfHourFee
   const fee = feeRate * 110
-  const offerWithEscrow = { ...sellOffer, escrow: address }
-  const initialProps = { offer: offerWithEscrow, fundingStatus: defaultFundingStatus }
+  const initialProps = { address, amount: 615000, fundingStatus: defaultFundingStatus }
 
   beforeAll(() => {
     useConfigStore.getState().setMinTradingAmount(minTradingAmount)
   })
   beforeEach(() => {
-    // @ts-ignore
+    // @ts-expect-error mock PeachWallet doesn't need arguments
     setPeachWallet(new PeachWallet())
   })
   it('should return default values', () => {
@@ -64,7 +70,7 @@ describe('useFundFromPeachWallet', () => {
   it('should return canFundFromPeachWallet as false if escrow is already being funded', () => {
     peachWallet.balance = amount
     const { result } = renderHook(useFundFromPeachWallet, {
-      initialProps: { offer: offerWithEscrow, fundingStatus: { ...defaultFundingStatus, status: 'MEMPOOL' } },
+      initialProps: { address, amount: 6150000, fundingStatus: { ...defaultFundingStatus, status: 'MEMPOOL' } },
     })
 
     expect(result.current.canFundFromPeachWallet).toBeFalsy()
@@ -132,6 +138,15 @@ describe('useFundFromPeachWallet', () => {
         callback: usePopupStore.getState().closePopup,
       },
     })
+  })
+  it('should set multiple recipients if addresses is passed', async () => {
+    peachWallet.balance = amount
+    peachWallet.finishTransaction = jest.fn().mockResolvedValue(getTransactionDetails(amount, feeRate))
+    const addresses = ['a', 'b']
+    const { result } = renderHook(useFundFromPeachWallet, { initialProps: { ...initialProps, addresses } })
+
+    await result.current.fundFromPeachWallet()
+    expect(setMultipleRecipientsMock).toHaveBeenCalledWith(expect.any(TxBuilder), initialProps.amount, addresses)
   })
   it('should broadcast transaction on confirm', async () => {
     const txDetails = getTransactionDetails(amount, feeRate)
@@ -208,6 +223,21 @@ describe('useFundFromPeachWallet', () => {
     })
   })
 
+  it('should not show insufficient funds popup but error for multiple addresses', async () => {
+    let call = 0
+    peachWallet.balance = amount
+    peachWallet.finishTransaction = jest.fn().mockImplementation(() => {
+      call++
+      if (call === 1) throw transactionError
+      return getTransactionDetails(amount, feeRate)
+    })
+    const addresses = ['a', 'b']
+    const { result } = renderHook(useFundFromPeachWallet, { initialProps: { ...initialProps, addresses } })
+
+    await result.current.fundFromPeachWallet()
+    expect(showErrorBannerMock).toHaveBeenCalledWith('INSUFFICIENT_FUNDS', [615000, '1089000'])
+  })
+
   it('should broadcast withdraw all transaction on confirm', async () => {
     const txDetails = getTransactionDetails(amount, feeRate)
     let call = 0
@@ -256,6 +286,19 @@ describe('useFundFromPeachWallet', () => {
       title: 'amount too low',
       level: 'APP',
       content: <AmountTooLow available={0} needed={minTradingAmount} />,
+    })
+  })
+  it('should open amount too low popup when funding multiple', async () => {
+    peachWallet.balance = 0
+    const addresses = ['a', 'b', 'c']
+    const { result } = renderHook(useFundFromPeachWallet, { initialProps: { ...initialProps, addresses } })
+
+    await result.current.fundFromPeachWallet()
+    expect(usePopupStore.getState()).toEqual({
+      ...usePopupStore.getState(),
+      title: 'amount too low',
+      level: 'APP',
+      content: <AmountTooLow available={0} needed={minTradingAmount * 3} />,
     })
   })
 })

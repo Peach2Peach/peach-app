@@ -32,6 +32,7 @@ export const useSellSummarySetup = () => {
       meansOfPayment: state.meansOfPayment,
       paymentData: state.paymentData,
       originalPaymentData: state.originalPaymentData,
+      multi: state.multi,
     }),
     shallow,
   )
@@ -62,7 +63,7 @@ export const useSellSummarySetup = () => {
   useSellSummaryHeaderSetup()
 
   useEffect(() => {
-    ;(async () => {
+    (async () => {
       const { address } = peachWalletActive ? await peachWallet.getReceivingAddress() : { address: payoutAddress }
       setCanPublish(!!address)
       if (!address) return

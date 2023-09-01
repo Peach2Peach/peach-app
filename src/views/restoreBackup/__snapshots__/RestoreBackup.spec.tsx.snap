@@ -107,6 +107,7 @@ exports[`RestoreBackup should render correctly 1`] = `
                   },
                   false,
                 ],
+                false,
               ]
             }
           >
@@ -205,6 +206,7 @@ exports[`RestoreBackup should render correctly 1`] = `
                   },
                   false,
                 ],
+                false,
               ]
             }
           >
@@ -272,6 +274,7 @@ exports[`RestoreBackup should render correctly 1`] = `
                   "marginTop": 16,
                   "textAlign": "center",
                 },
+                false,
               ]
             }
           >
@@ -448,6 +451,7 @@ exports[`RestoreBackup should render correctly 1`] = `
                         "color": "#FFFCFA",
                       },
                     ],
+                    false,
                   ]
                 }
               >
@@ -624,6 +628,7 @@ exports[`RestoreBackup should render correctly 1`] = `
                         "color": "#FFFCFA",
                       },
                     ],
+                    false,
                   ]
                 }
               >
@@ -712,6 +717,7 @@ exports[`RestoreBackup should render correctly 1`] = `
                       "textTransform": "uppercase",
                     },
                   ],
+                  false,
                 ]
               }
             >

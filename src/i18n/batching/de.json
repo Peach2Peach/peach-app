@@ -1,0 +1,10 @@
+{
+  "batching.eta.tba" : "ausstehend",
+  "batching.slots" : "Plätze",
+  "grouphug.goToSettings" : "Gehe zu den Einstellungen",
+  "offer.requiredAction.payoutPending" : "Zahlung ausstehend",
+  "settings.batching.turnOff.no" : "nein, warte",
+  "settings.batching.turnOff.yes" : "ja, auszahlen",
+  "settings.batching.youPay" : "Du zahlst bis zu 30% mehr",
+  "settings.batching.youPay.highlight" : "30% mehr"
+}

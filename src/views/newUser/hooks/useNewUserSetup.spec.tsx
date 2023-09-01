@@ -8,9 +8,10 @@ import {
   notificationStorage,
   useNotificationStore,
 } from '../../../components/footer/notificationsStore'
+import { useTemporaryAccount } from '../../../hooks/useTemporaryAccount'
 import { useConfigStore } from '../../../store/configStore'
 import { defaultConfig } from '../../../store/defaults'
-import { settingsStorage, useSettingsStore, defaultSettings } from '../../../store/settingsStore'
+import { defaultSettings, settingsStorage, useSettingsStore } from '../../../store/settingsStore'
 import { defaultAccount, getAccount, setAccount } from '../../../utils/account'
 import { accountStorage } from '../../../utils/account/accountStorage'
 import { chatStorage } from '../../../utils/account/chatStorage'
@@ -18,9 +19,8 @@ import { contractStorage } from '../../../utils/account/contractStorage'
 import { offerStorage } from '../../../utils/account/offerStorage'
 import { getAccessToken } from '../../../utils/peachAPI/accessToken'
 import { getPeachAccount } from '../../../utils/peachAPI/peachAccount'
-import { defaultWalletState, walletStorage, useWalletState } from '../../../utils/wallet/walletStore'
+import { defaultWalletState, useWalletState, walletStorage } from '../../../utils/wallet/walletStore'
 import { useNewUserSetup } from './useNewUserSetup'
-import { useTemporaryAccount } from '../../../hooks/useTemporaryAccount'
 
 const useRouteMock = jest.fn(() => ({
   params: {
@@ -50,7 +50,7 @@ jest.mock('../../../init/userUpdate', () => ({
 }))
 
 jest.mock('../../../utils/peachAPI', () => ({
-  register: (...args: any[]) => registerMock(...args),
+  register: (...args: unknown[]) => registerMock(...args),
 }))
 
 describe('useNewUserSetup', () => {

@@ -2,7 +2,7 @@
 import { NavigationContainer } from '@react-navigation/native'
 import { act, renderHook } from '@testing-library/react-native'
 import { headerState, setOptionsMock } from '../../../../tests/unit/helpers/NavigationWrapper'
-import { setPaymentMethods } from '../../../constants'
+import { setPaymentMethods } from '../../../paymentMethods'
 import { DeletePaymentMethodConfirm } from '../../../popups/info/DeletePaymentMethodConfirm'
 import { useMeetupEventsStore } from '../../../store/meetupEventsStore'
 import { useOfferPreferences } from '../../../store/offerPreferenes'
@@ -40,6 +40,17 @@ jest.mock('../../../hooks/useNavigation', () => ({
   })),
 }))
 
+const defaultEvent: MeetupEvent = {
+  id: '123',
+  currencies: ['EUR'],
+  country: 'DE',
+  city: 'Berlin',
+  shortName: 'shortName',
+  longName: 'longName',
+  featured: false,
+  superFeatured: false,
+}
+
 describe('useMeetupScreenSetup', () => {
   beforeEach(() => {
     setPaymentMethods([])
@@ -59,6 +70,7 @@ describe('useMeetupScreenSetup', () => {
         longName: '',
         shortName: '',
         featured: false,
+        superFeatured: false,
       },
       deletable: true,
       addToPaymentMethods: expect.any(Function),
@@ -91,17 +103,7 @@ describe('useMeetupScreenSetup', () => {
 
   it('should add a meetup to the payment methods', () => {
     setPaymentMethods([{ id: 'cash.123', currencies: ['EUR'], anonymous: true }])
-    useMeetupEventsStore.getState().setMeetupEvents([
-      {
-        id: '123',
-        currencies: ['EUR'],
-        country: 'DE',
-        city: 'Berlin',
-        shortName: 'shortName',
-        longName: 'longName',
-        featured: false,
-      },
-    ])
+    useMeetupEventsStore.getState().setMeetupEvents([defaultEvent])
     const { result } = renderHook(useMeetupScreenSetup, {
       wrapper: NavigationContainer,
     })
@@ -138,17 +140,7 @@ describe('useMeetupScreenSetup', () => {
   it('should automatically add the meetup to the selected methods', () => {
     useOfferPreferences.getState().setPaymentMethods([])
     setPaymentMethods([{ id: 'cash.123', currencies: ['EUR'], anonymous: true }])
-    useMeetupEventsStore.getState().setMeetupEvents([
-      {
-        id: '123',
-        currencies: ['EUR'],
-        country: 'DE',
-        city: 'Berlin',
-        shortName: 'shortName',
-        longName: 'longName',
-        featured: false,
-      },
-    ])
+    useMeetupEventsStore.getState().setMeetupEvents([defaultEvent])
     const { result } = renderHook(useMeetupScreenSetup, {
       wrapper: NavigationContainer,
     })
@@ -208,17 +200,7 @@ describe('useMeetupScreenSetup', () => {
   })
   it('should select all currencies by default', () => {
     setPaymentMethods([{ id: 'cash.123', currencies: ['EUR', 'CHF'], anonymous: true }])
-    useMeetupEventsStore.getState().setMeetupEvents([
-      {
-        id: '123',
-        currencies: ['EUR', 'CHF'],
-        country: 'DE',
-        city: 'Berlin',
-        shortName: 'shortName',
-        longName: 'longName',
-        featured: false,
-      },
-    ])
+    useMeetupEventsStore.getState().setMeetupEvents([{ ...defaultEvent, currencies: ['EUR', 'CHF'] }])
 
     const { result } = renderHook(useMeetupScreenSetup, {
       wrapper: NavigationContainer,
@@ -229,17 +211,7 @@ describe('useMeetupScreenSetup', () => {
 
   it('should update the selected currencies', () => {
     setPaymentMethods([{ id: 'cash.123', currencies: ['EUR', 'CHF'], anonymous: true }])
-    useMeetupEventsStore.getState().setMeetupEvents([
-      {
-        id: '123',
-        currencies: ['EUR', 'CHF'],
-        country: 'DE',
-        city: 'Berlin',
-        shortName: 'shortName',
-        longName: 'longName',
-        featured: false,
-      },
-    ])
+    useMeetupEventsStore.getState().setMeetupEvents([{ ...defaultEvent, currencies: ['EUR', 'CHF'] }])
 
     const { result } = renderHook(useMeetupScreenSetup, {
       wrapper: NavigationContainer,
@@ -256,17 +228,7 @@ describe('useMeetupScreenSetup', () => {
   })
   it('should use empty array as fallback if event has no currencies', () => {
     setPaymentMethods([{ id: 'cash.123', currencies: ['EUR', 'CHF'], anonymous: true }])
-    useMeetupEventsStore.getState().setMeetupEvents([
-      {
-        id: '123',
-        currencies: [],
-        country: 'DE',
-        city: 'Berlin',
-        shortName: 'shortName',
-        longName: 'longName',
-        featured: false,
-      },
-    ])
+    useMeetupEventsStore.getState().setMeetupEvents([{ ...defaultEvent, currencies: [] }])
 
     const { result } = renderHook(useMeetupScreenSetup, {
       wrapper: NavigationContainer,
@@ -276,17 +238,7 @@ describe('useMeetupScreenSetup', () => {
   })
   it('should add the payment method to the account with only the selected currencies', () => {
     setPaymentMethods([{ id: 'cash.123', currencies: ['EUR', 'CHF'], anonymous: true }])
-    useMeetupEventsStore.getState().setMeetupEvents([
-      {
-        id: '123',
-        currencies: ['EUR', 'CHF'],
-        country: 'DE',
-        city: 'Berlin',
-        shortName: 'shortName',
-        longName: 'longName',
-        featured: false,
-      },
-    ])
+    useMeetupEventsStore.getState().setMeetupEvents([{ ...defaultEvent, currencies: ['EUR', 'CHF'] }])
 
     const { result } = renderHook(useMeetupScreenSetup, {
       wrapper: NavigationContainer,

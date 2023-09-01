@@ -74,6 +74,7 @@ exports[`EditPremium should render correctly 1`] = `
                     "lineHeight": 32,
                   },
                 ],
+                false,
               ]
             }
           >
@@ -106,6 +107,7 @@ exports[`EditPremium should render correctly 1`] = `
                     "lineHeight": 28,
                     "textAlign": "center",
                   },
+                  false,
                 ]
               }
             >
@@ -173,8 +175,10 @@ exports[`EditPremium should render correctly 1`] = `
                   style={
                     [
                       {
-                        "alignItems": "baseline",
                         "flexDirection": "row",
+                      },
+                      {
+                        "alignItems": "baseline",
                       },
                       {
                         "gap": 2,
@@ -205,6 +209,7 @@ exports[`EditPremium should render correctly 1`] = `
                             "lineHeight": 23,
                           },
                         ],
+                        false,
                       ]
                     }
                   >
@@ -236,6 +241,7 @@ exports[`EditPremium should render correctly 1`] = `
                               "letterSpacing": -1.275,
                             },
                           ],
+                          false,
                         ]
                       }
                     >
@@ -269,6 +275,7 @@ exports[`EditPremium should render correctly 1`] = `
                               "letterSpacing": -3.57,
                             },
                           ],
+                          false,
                         ]
                       }
                     >
@@ -302,6 +309,7 @@ exports[`EditPremium should render correctly 1`] = `
                               "letterSpacing": -1.275,
                             },
                           ],
+                          false,
                         ]
                       }
                     >
@@ -335,6 +343,7 @@ exports[`EditPremium should render correctly 1`] = `
                               "letterSpacing": -1.275,
                             },
                           ],
+                          false,
                         ]
                       }
                     >
@@ -368,6 +377,7 @@ exports[`EditPremium should render correctly 1`] = `
                               "letterSpacing": -5.949999999999999,
                             },
                           ],
+                          false,
                         ]
                       }
                     >
@@ -401,6 +411,7 @@ exports[`EditPremium should render correctly 1`] = `
                               "letterSpacing": -1.275,
                             },
                           ],
+                          false,
                         ]
                       }
                     >
@@ -434,6 +445,7 @@ exports[`EditPremium should render correctly 1`] = `
                               "letterSpacing": -1.275,
                             },
                           ],
+                          false,
                         ]
                       }
                     >
@@ -467,6 +479,7 @@ exports[`EditPremium should render correctly 1`] = `
                               "letterSpacing": -1.275,
                             },
                           ],
+                          false,
                         ]
                       }
                     >
@@ -500,6 +513,7 @@ exports[`EditPremium should render correctly 1`] = `
                               "letterSpacing": -5.949999999999999,
                             },
                           ],
+                          false,
                         ]
                       }
                     >
@@ -533,6 +547,7 @@ exports[`EditPremium should render correctly 1`] = `
                               "letterSpacing": -1.275,
                             },
                           ],
+                          false,
                         ]
                       }
                     >
@@ -566,6 +581,7 @@ exports[`EditPremium should render correctly 1`] = `
                               "letterSpacing": -1.275,
                             },
                           ],
+                          false,
                         ]
                       }
                     >
@@ -599,40 +615,49 @@ exports[`EditPremium should render correctly 1`] = `
                               "letterSpacing": -1.275,
                             },
                           ],
+                          false,
                         ]
                       }
                     >
                       0
                     </Text>
                   </Text>
-                  <Text
-                    allowFontScaling={false}
+                  <View
                     style={
-                      [
-                        {
-                          "color": "#2B1911",
-                          "fontFamily": "Baloo2-Regular",
-                          "fontSize": 16,
-                          "letterSpacing": 0.16,
-                          "lineHeight": 24,
-                        },
-                        [
-                          {
-                            "alignItems": "center",
-                            "fontFamily": "Baloo2-Medium",
-                          },
-                          false,
-                          {
-                            "fontSize": 12,
-                            "lineHeight": 18,
-                            "paddingBottom": 2,
-                          },
-                        ],
-                      ]
+                      {
+                        "justifyContent": "center",
+                      }
                     }
                   >
-                    sats
-                  </Text>
+                    <Text
+                      allowFontScaling={false}
+                      style={
+                        [
+                          {
+                            "color": "#2B1911",
+                            "fontFamily": "Baloo2-Regular",
+                            "fontSize": 16,
+                            "letterSpacing": 0.16,
+                            "lineHeight": 24,
+                          },
+                          [
+                            {
+                              "fontFamily": "Baloo2-Medium",
+                            },
+                            false,
+                            {
+                              "fontSize": 12,
+                              "lineHeight": 18,
+                              "paddingBottom": 2,
+                            },
+                          ],
+                          false,
+                        ]
+                      }
+                    >
+                      sats
+                    </Text>
+                  </View>
                 </View>
               </View>
             </View>
@@ -680,6 +705,7 @@ exports[`EditPremium should render correctly 1`] = `
                       "color": "#05A85A",
                     },
                   ],
+                  false,
                 ]
               }
             >
@@ -767,6 +793,7 @@ exports[`EditPremium should render correctly 1`] = `
                   "color": "#7D675E",
                   "textAlign": "center",
                 },
+                false,
               ]
             }
           >
@@ -1039,6 +1066,7 @@ exports[`EditPremium should render correctly 1`] = `
                       "maxWidth": 80,
                       "textAlign": "center",
                     },
+                    false,
                   ]
                 }
               >
@@ -1082,6 +1110,7 @@ exports[`EditPremium should render correctly 1`] = `
                       "maxWidth": 80,
                       "textAlign": "center",
                     },
+                    false,
                   ]
                 }
               >
@@ -1125,6 +1154,7 @@ exports[`EditPremium should render correctly 1`] = `
                       "maxWidth": 80,
                       "textAlign": "center",
                     },
+                    false,
                   ]
                 }
               >
@@ -1168,6 +1198,7 @@ price
                       "maxWidth": 80,
                       "textAlign": "center",
                     },
+                    false,
                   ]
                 }
               >
@@ -1212,6 +1243,7 @@ price
                       "maxWidth": 80,
                       "textAlign": "center",
                     },
+                    false,
                   ]
                 }
               >
@@ -1298,6 +1330,7 @@ price
                 "textTransform": "uppercase",
               },
             ],
+            false,
           ]
         }
       >

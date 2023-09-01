@@ -1,6 +1,6 @@
+import { useIsFocused } from '@react-navigation/native'
 import { useCallback, useEffect, useState } from 'react'
-
-import { useNavigation, useRoute } from '../../../hooks'
+import { useNavigation, useRoute, useToggleBoolean } from '../../../hooks'
 import { useCommonContractSetup } from '../../../hooks/useCommonContractSetup'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import {
@@ -11,10 +11,11 @@ import {
 } from '../../../utils/contract'
 import { isTradeComplete } from '../../../utils/contract/status'
 import { confirmPayment, getContract, getOfferDetails } from '../../../utils/peachAPI'
+import { getEscrowWalletForOffer } from '../../../utils/wallet'
 import { getNavigationDestinationForOffer } from '../../yourTrades/utils'
 import { useContractHeaderSetup } from './useContractHeaderSetup'
-import { getEscrowWalletForOffer } from '../../../utils/wallet'
-import { useIsFocused } from '@react-navigation/native'
+import { useShowHighFeeWarning } from './useShowHighFeeWarning'
+import { useShowLowFeeWarning } from './useShowLowFeeWarning'
 
 // eslint-disable-next-line max-lines-per-function
 export const useContractSetup = () => {
@@ -25,8 +26,9 @@ export const useContractSetup = () => {
     = useCommonContractSetup(contractId)
   const navigation = useNavigation()
   const showError = useShowErrorBanner()
-
   const [actionPending, setActionPending] = useState(false)
+  const [showBatchInfo, toggleShowBatchInfo] = useToggleBoolean()
+  const shouldShowFeeWarning = view === 'buyer' && !!contract?.paymentMade && !contract?.paymentConfirmed
 
   useContractHeaderSetup({
     contract,
@@ -34,6 +36,8 @@ export const useContractSetup = () => {
     requiredAction,
     contractId,
   })
+  useShowHighFeeWarning({ enabled: shouldShowFeeWarning, amount: contract?.amount })
+  useShowLowFeeWarning({ enabled: shouldShowFeeWarning })
 
   useEffect(() => {
     if (!contract || !view || isLoading || !isFocused) return
@@ -65,15 +69,23 @@ export const useContractSetup = () => {
     setActionPending(true)
 
     const sellOffer = getSellOfferFromContract(contract)
-    const [tx, errorMsg] = verifyAndSignReleaseTx(contract, sellOffer, getEscrowWalletForOffer(sellOffer))
+    const { releaseTransaction, batchReleasePsbt, errorMsg } = verifyAndSignReleaseTx(
+      contract,
+      sellOffer,
+      getEscrowWalletForOffer(sellOffer),
+    )
 
-    if (!tx) {
+    if (!releaseTransaction) {
       setActionPending(false)
       showError(errorMsg)
       return
     }
 
-    const [result, err] = await confirmPayment({ contractId, releaseTransaction: tx })
+    const [result, err] = await confirmPayment({
+      contractId: contract.id,
+      releaseTransaction,
+      batchReleasePsbt,
+    })
 
     setActionPending(false)
 
@@ -86,7 +98,7 @@ export const useContractSetup = () => {
       paymentConfirmed: new Date(),
       releaseTxId: result?.txId || '',
     })
-  }, [contractId, contract, saveAndUpdate, showError])
+  }, [contract, saveAndUpdate, showError])
 
   const goToNewOffer = useCallback(async () => {
     if (!newOfferId) return
@@ -111,5 +123,7 @@ export const useContractSetup = () => {
     postConfirmPaymentBuyer,
     postConfirmPaymentSeller,
     goToNewOffer,
+    showBatchInfo,
+    toggleShowBatchInfo,
   }
 }

@@ -4,8 +4,7 @@ import { Icon, Text } from '../../../components'
 import { LinedText } from '../../../components/ui/LinedText'
 import tw from '../../../styles/tailwind'
 import { account } from '../../../utils/account'
-import { toDateFormat } from '../../../utils/date'
-import { toTimeFormat } from '../../../utils/date/toShortDateFormat'
+import { toDateFormat, toTimeFormat } from '../../../utils/date'
 import i18n from '../../../utils/i18n'
 
 type GetMessageMetaProps = {
@@ -119,7 +118,9 @@ export const ChatMessage = ({
             {message.message || i18n('chat.decyptionFailed')}
           </Text>
           <Text style={tw`pt-1 ml-auto leading-5 text-right`}>
-            <Text style={tw`subtitle-2 leading-xs text-black-3`}>{toTimeFormat(message.date)}</Text>
+            <Text style={tw`subtitle-2 leading-xs text-black-3`}>
+              {toTimeFormat(message.date.getHours(), message.date.getMinutes())}
+            </Text>
             {meta.isYou && (
               <View style={tw`pl-1`}>
                 <Icon id={statusIcon} style={tw`relative w-4 h-4 -bottom-1`} color={statusIconColor.color} />

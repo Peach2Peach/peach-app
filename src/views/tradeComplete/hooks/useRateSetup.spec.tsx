@@ -1,12 +1,12 @@
 import { act, renderHook } from '@testing-library/react-native'
 import { account1 } from '../../../../tests/unit/data/accountData'
 import { contract } from '../../../../tests/unit/data/contractData'
-import { TradeBreakdown } from '../../../popups/TradeBreakdown'
-import { Props, useRateSetup } from './useRateSetup'
 import { apiSuccess, unauthorizedError } from '../../../../tests/unit/data/peachAPIData'
-import { useSettingsStore } from '../../../store/settingsStore'
 import { NavigationWrapper, replaceMock } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { TradeBreakdown } from '../../../popups/TradeBreakdown'
+import { useSettingsStore } from '../../../store/settingsStore'
 import { usePopupStore } from '../../../store/usePopupStore'
+import { Props, useRateSetup } from './useRateSetup'
 
 const showErrorBannerMock = jest.fn()
 const useShowErrorBannerMock = jest.fn().mockReturnValue(showErrorBannerMock)
@@ -16,19 +16,19 @@ jest.mock('../../../hooks/useShowErrorBanner', () => ({
 
 const rateUserMock = jest.fn().mockResolvedValue([apiSuccess, null])
 jest.mock('../../../utils/peachAPI', () => ({
-  rateUser: (...args: any[]) => rateUserMock(...args),
+  rateUser: (...args: unknown[]) => rateUserMock(...args),
 }))
 
 const createUserRatingMock = jest.fn()
 jest.mock('../../../utils/contract', () => ({
-  createUserRating: (...args: any[]) => createUserRatingMock(...args),
+  createUserRating: (...args: unknown[]) => createUserRatingMock(...args),
 }))
 
 const showTransactionMock = jest.fn()
 const showAddressMock = jest.fn()
 jest.mock('../../../utils/bitcoin', () => ({
-  showTransaction: (...args: any[]) => showTransactionMock(...args),
-  showAddress: (...args: any[]) => showAddressMock(...args),
+  showTransaction: (...args: unknown[]) => showTransactionMock(...args),
+  showAddress: (...args: unknown[]) => showAddressMock(...args),
 }))
 
 // eslint-disable-next-line max-lines-per-function

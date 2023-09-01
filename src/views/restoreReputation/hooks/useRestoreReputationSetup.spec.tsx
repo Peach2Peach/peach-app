@@ -1,6 +1,6 @@
 import { act, renderHook } from '@testing-library/react-native'
 import { account1 } from '../../../../tests/unit/data/accountData'
-import { headerState, NavigationWrapper, replaceMock } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { NavigationWrapper, headerState, replaceMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { useTemporaryAccount } from '../../../hooks/useTemporaryAccount'
 import { account } from '../../../utils/account'
 import { useRestoreReputationSetup } from './useRestoreReputationSetup'
@@ -8,7 +8,7 @@ import { useRestoreReputationSetup } from './useRestoreReputationSetup'
 jest.useFakeTimers()
 const userUpdateMock = jest.fn()
 jest.mock('../../../init/userUpdate', () => ({
-  userUpdate: (...args: any[]) => userUpdateMock(...args),
+  userUpdate: (...args: unknown[]) => userUpdateMock(...args),
 }))
 
 const params = { referralCode: 'REFERRALCODE' }

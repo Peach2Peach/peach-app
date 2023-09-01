@@ -44,7 +44,7 @@ export const Report = () => {
         <Input
           onChange={setTopic}
           onSubmit={() => $message?.focus()}
-          reference={(el: any) => ($topic = el)}
+          reference={(el) => ($topic = el)}
           value={topic}
           placeholder={i18n('form.topic.placeholder')}
           autoCorrect={false}
@@ -53,7 +53,7 @@ export const Report = () => {
         <Input
           style={tw`h-40`}
           onChange={setMessage}
-          reference={(el: any) => ($message = el)}
+          reference={(el) => ($message = el)}
           value={message}
           multiline={true}
           placeholder={i18n('form.message.placeholder')}

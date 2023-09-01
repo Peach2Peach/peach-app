@@ -1,7 +1,7 @@
-import { Drawer } from '.'
 import { act, render } from '@testing-library/react-native'
 import { BackHandler, Text } from 'react-native'
 import { createRenderer } from 'react-test-renderer/shallow'
+import { Drawer } from '.'
 import { DrawerContext } from '../../contexts/drawer'
 
 const onCloseMock = jest.fn()
@@ -23,11 +23,13 @@ jest.useFakeTimers()
 describe('Drawer', () => {
   const shallowRenderer = createRenderer()
   let drawerState = { ...defaultState }
-  const updateDrawer = jest.fn((newDrawerState: DrawerState) => {
-    drawerState = newDrawerState
+  const updateDrawer = jest.fn((newDrawerState: Partial<DrawerState>) => {
+    drawerState = {
+      ...drawerState,
+      ...newDrawerState,
+    }
   })
   const wrapper = ({ children }: { children: JSX.Element }) => (
-    // @ts-ignore  this is because the drawerState has show as false
     <DrawerContext.Provider value={[drawerState, updateDrawer]}>{children}</DrawerContext.Provider>
   )
 

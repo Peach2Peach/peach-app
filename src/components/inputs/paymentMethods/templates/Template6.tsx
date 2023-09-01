@@ -1,9 +1,9 @@
 import { useRef } from 'react'
 import { TextInput, View } from 'react-native'
-import { FormProps } from '../../../../views/addPaymentMethod/PaymentMethodForm'
 import tw from '../../../../styles/tailwind'
+import { FormProps } from '../../../../views/addPaymentMethod/PaymentMethodForm'
 import { TabbedNavigation } from '../../../navigation/TabbedNavigation'
-import { EmailInput, PhoneInput, UsernameInput, LabelInput, ReferenceInput } from '../../index'
+import { EmailInput, LabelInput, PhoneInput, ReferenceInput, UsernameInput } from '../../index'
 import { CurrencySelection } from '../paymentForms/components'
 import { useTemplate6Setup } from './hooks'
 
@@ -21,6 +21,7 @@ export const Template6 = (props: FormProps) => {
     shouldShowPhoneInput,
     shouldShowEmailInput,
     shouldShowUserNameInput,
+    shouldShowCurrencySelection,
   } = useTemplate6Setup(props)
 
   return (
@@ -33,8 +34,8 @@ export const Template6 = (props: FormProps) => {
         {shouldShowUserNameInput && <UsernameInput {...userNameInputProps} onSubmit={() => $reference?.focus()} />}
       </View>
 
-      <ReferenceInput {...referenceInputProps} reference={(el: any) => ($reference = el)} />
-      <CurrencySelection {...currencySelectionProps} />
+      <ReferenceInput {...referenceInputProps} reference={(el) => ($reference = el)} />
+      {shouldShowCurrencySelection && <CurrencySelection {...currencySelectionProps} />}
     </View>
   )
 }

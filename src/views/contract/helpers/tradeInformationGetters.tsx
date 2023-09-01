@@ -68,6 +68,8 @@ const allPossibleFields = [
   'location',
   'receiveAddress',
   'lnurlAddress',
+  'chipperTag',
+  'eversendUserName',
 ] as const
 export type TradeInfoField = (typeof allPossibleFields)[number]
 export const isTradeInformationGetter = (

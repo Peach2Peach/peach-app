@@ -1,4 +1,4 @@
-import { setPaymentMethods } from '../../../../../constants'
+import { setPaymentMethods } from '../../../../../paymentMethods'
 import { hasMultipleAvailableCurrencies } from './hasMultipleAvailableCurrencies'
 
 describe('hasMultipleAvailableCurrencies', () => {
@@ -50,7 +50,7 @@ describe('hasMultipleAvailableCurrencies', () => {
   })
 
   it('should return false for any pm not defined in PAYMENTMETHODINFOS', () => {
-    // @ts-expect-error
+    // @ts-expect-error testing invalid input
     expect(hasMultipleAvailableCurrencies('notExisting')).toBe(false)
   })
 })

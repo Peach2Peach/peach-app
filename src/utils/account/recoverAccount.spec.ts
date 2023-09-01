@@ -3,9 +3,9 @@ import { recoverAccount } from '.'
 import { recoveredAccount } from '../../../tests/unit/data/accountData'
 import { contract } from '../../../tests/unit/data/contractData'
 import { buyOffer, sellOffer } from '../../../tests/unit/data/offerData'
+import { unauthorizedError } from '../../../tests/unit/data/peachAPIData'
 import { useSettingsStore } from '../../store/settingsStore'
 import { error } from '../log'
-import { unauthorizedError } from '../../../tests/unit/data/peachAPIData'
 
 const userUpdateMock = jest.fn()
 jest.mock('../../init/userUpdate', () => ({
@@ -14,8 +14,8 @@ jest.mock('../../init/userUpdate', () => ({
 const getContractsMock = jest.fn().mockResolvedValue([[], null])
 const getOffersMock = jest.fn().mockResolvedValue([[], null])
 jest.mock('../peachAPI', () => ({
-  getContracts: (...args: any[]) => getContractsMock(...args),
-  getOffers: (...args: any[]) => getOffersMock(...args),
+  getContracts: (...args: unknown[]) => getContractsMock(...args),
+  getOffers: (...args: unknown[]) => getOffersMock(...args),
 }))
 
 describe('recoverAccount', () => {

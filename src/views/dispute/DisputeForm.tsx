@@ -25,7 +25,7 @@ export const DisputeForm = () => {
         <Input value={i18n(`dispute.reason.${reason}`)} disabled />
         <Input
           style={tw`h-40`}
-          reference={(el: any) => ($message = el)}
+          reference={(el) => ($message = el)}
           onChange={setMessage}
           value={message}
           multiline={true}

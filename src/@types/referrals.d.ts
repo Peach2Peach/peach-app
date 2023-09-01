@@ -1,5 +1,5 @@
-declare type RewardType = 'customReferralCode' | 'noPeachFees' | 'sats'
-declare type Reward = {
+type RewardType = 'customReferralCode' | 'noPeachFees' | 'sats'
+type Reward = {
   id: RewardType
   requiredPoints: number
 }

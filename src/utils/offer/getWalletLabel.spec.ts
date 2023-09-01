@@ -1,6 +1,6 @@
 /* eslint-disable max-lines-per-function */
 import i18n from '../i18n'
-import { getWalletLabel } from '.'
+import { getWalletLabel } from './getWalletLabel'
 
 const findKeyPairByAddressMock = jest.fn().mockReturnValue(false)
 jest.mock('../wallet/setWallet', () => ({

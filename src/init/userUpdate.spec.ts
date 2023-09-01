@@ -10,7 +10,7 @@ jest.mock('@react-native-firebase/messaging', () => () => ({
 
 const updateUserMock = jest.fn().mockResolvedValue([{ success: true }, null])
 jest.mock('../utils/peachAPI', () => ({
-  updateUser: (...args: any[]) => updateUserMock(...args),
+  updateUser: (...args: unknown[]) => updateUserMock(...args),
 }))
 describe('userUpdate', () => {
   const fcmToken = 'fcmToken'

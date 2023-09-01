@@ -2,16 +2,16 @@
 import { renderHook } from '@testing-library/react-native'
 import { act } from 'react-test-renderer'
 import { APPVERSION } from '../constants'
-import { useConfigStore } from '../store/configStore'
-import { useShowUpdateAvailable } from './useShowUpdateAvailable'
 import { MessageContext, defaultMessageState } from '../contexts/message'
+import { useConfigStore } from '../store/configStore'
 import { linkToAppStore } from '../utils/system'
+import { useShowUpdateAvailable } from './useShowUpdateAvailable'
 
 describe('useShowUpdateAvailable', () => {
   const definitelyHigherVersion = '99.99.99'
   let messageState = { ...defaultMessageState }
   const updateMessage = jest.fn((newState) => (messageState = newState))
-  const wrapper = ({ children }: any) => (
+  const wrapper = ({ children }: { children: React.ReactElement }) => (
     <MessageContext.Provider value={[messageState, updateMessage]}>{children}</MessageContext.Provider>
   )
   beforeEach(() => {

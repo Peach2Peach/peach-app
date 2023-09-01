@@ -6,12 +6,10 @@ describe('isDefined', () => {
     expect(isDefined(1)).toBe(true)
     expect(isDefined({})).toBe(true)
     expect(isDefined([])).toBe(true)
-    expect(isDefined(() => {})).toBe(true)
+    expect(isDefined(jest.fn())).toBe(true)
     expect(isDefined(null)).toBe(true)
   })
   it('should return true for undefined values', () => {
     expect(isDefined(undefined)).toBe(false)
-    // @ts-expect-error
-    expect(isDefined()).toBe(false)
   })
 })

@@ -1,12 +1,13 @@
 import { account1 } from '../../../tests/unit/data/accountData'
 import { getError } from '../../../tests/unit/helpers/getError'
 import { PeachJSWallet } from './PeachJSWallet'
-import { createWalletFromSeedPhrase } from './createWalletFromSeedPhrase'
+import { createWalletFromBase58 } from './createWalletFromBase58'
 import { getNetwork } from './getNetwork'
 import { useWalletState } from './walletStore'
 
 describe('PeachJSWallet', () => {
-  const { wallet } = createWalletFromSeedPhrase(account1.mnemonic, getNetwork())
+  // @ts-ignore
+  const wallet = createWalletFromBase58(account1.base58, getNetwork())
   const message = 'message'
   let peachJSWallet: PeachJSWallet
 

@@ -1,12 +1,11 @@
-import { useReleaseEscrow } from './useReleaseEscrow'
-import { saveContract } from '../../../utils/contract'
-import i18n from '../../../utils/i18n'
-import { confirmPayment } from '../../../utils/peachAPI/private/contract/confirmPayment'
-import { signReleaseTxOfContract } from '../../../utils/contract/signReleaseTxOfContract'
 import { renderHook } from '@testing-library/react-native'
-import { defaultPopupState, usePopupStore } from '../../../store/usePopupStore'
 import { Loading } from '../../../components'
+import { defaultPopupState, usePopupStore } from '../../../store/usePopupStore'
 import tw from '../../../styles/tailwind'
+import { saveContract } from '../../../utils/contract'
+import { signReleaseTxOfContract } from '../../../utils/contract/signReleaseTxOfContract'
+import i18n from '../../../utils/i18n'
+import { useReleaseEscrow } from './useReleaseEscrow'
 
 const showErrorMock = jest.fn()
 jest.mock('../../../hooks/useShowErrorBanner', () => ({
@@ -15,14 +14,18 @@ jest.mock('../../../hooks/useShowErrorBanner', () => ({
 
 jest.mock('../../../utils/contract')
 
-const confirmPaymentMock = jest.fn(() => [{}, null])
-jest.mock('../../../utils/peachAPI/private/contract/confirmPayment', () => ({
-  confirmPayment: jest.fn(() => confirmPaymentMock()),
+const confirmPaymentMock = jest.fn().mockResolvedValue([{}, null])
+jest.mock('../../../utils/peachAPI', () => ({
+  confirmPayment: (...args: unknown[]) => confirmPaymentMock(...args),
 }))
 
-const signReleaseTxOfContractMock = jest.fn((..._args: any) => ['tx', null])
+const signReleaseTxOfContractMock = jest.fn().mockReturnValue({
+  releaseTransaction: 'tx',
+  batchReleasePsbt: 'batchRelasePsbt',
+  errorMsg: undefined,
+})
 jest.mock('../../../utils/contract/signReleaseTxOfContract', () => ({
-  signReleaseTxOfContract: jest.fn((...args: any) => signReleaseTxOfContractMock(...args)),
+  signReleaseTxOfContract: jest.fn((...args: unknown[]) => signReleaseTxOfContractMock(...args)),
 }))
 
 const DATE_TO_USE = new Date('2009-09-01')
@@ -53,7 +56,7 @@ describe('useReleaseEscrow', () => {
 
   it('should close the popup and show an error if the transaction could not be signed', async () => {
     const { result } = renderHook(() => useReleaseEscrow(contract))
-    signReleaseTxOfContractMock.mockReturnValueOnce([null, 'error'])
+    signReleaseTxOfContractMock.mockReturnValueOnce({ errorMsg: 'error' })
     await result.current()
     expect(usePopupStore.getState().visible).toEqual(false)
     expect(showErrorMock).toHaveBeenCalledWith('error')
@@ -62,7 +65,11 @@ describe('useReleaseEscrow', () => {
   it('should confirm the payment', async () => {
     const { result } = renderHook(() => useReleaseEscrow(contract))
     await result.current()
-    expect(confirmPayment).toHaveBeenCalledWith({ contractId: contract.id, releaseTransaction: 'tx' })
+    expect(confirmPaymentMock).toHaveBeenCalledWith({
+      contractId: contract.id,
+      releaseTransaction: 'tx',
+      batchReleasePsbt: 'batchRelasePsbt',
+    })
   })
 
   it('should close the popup and show an error if the payment could not be confirmed', async () => {

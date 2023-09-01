@@ -1,4 +1,4 @@
-import { PAYMENTMETHODINFOS } from '../../constants'
+import { PAYMENTMETHODINFOS } from '../../paymentMethods'
 
 export const paymentMethodAllowedForCurrency = (paymentMethod: PaymentMethod, currency: Currency) => {
   const paymentMethodInfo = PAYMENTMETHODINFOS.find((info) => info.id === paymentMethod)

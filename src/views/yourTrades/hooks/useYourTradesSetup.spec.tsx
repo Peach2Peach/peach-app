@@ -13,8 +13,8 @@ jest.mock('../../../hooks/useRoute', () => ({
 const getContractSummariesMock = jest.fn().mockResolvedValue([[], null])
 const getOfferSummariesMock = jest.fn().mockResolvedValue([[], null])
 jest.mock('../../../utils/peachAPI', () => ({
-  getContractSummaries: (...args: any[]) => getContractSummariesMock(...args),
-  getOfferSummaries: (...args: any[]) => getOfferSummariesMock(...args),
+  getContractSummaries: (...args: unknown[]) => getContractSummariesMock(...args),
+  getOfferSummaries: (...args: unknown[]) => getOfferSummariesMock(...args),
 }))
 
 const wrapper = NavigationAndQueryClientWrapper

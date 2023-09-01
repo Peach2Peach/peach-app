@@ -13,7 +13,7 @@ describe('backupAccount', () => {
   })
 
   it('opens share dialog', async () => {
-    await backupAccount({ password: 'password', onSuccess: () => {}, onCancel: () => {}, onError: () => {} })
+    await backupAccount({ password: 'password', onSuccess: jest.fn(), onCancel: jest.fn(), onError: jest.fn() })
     expect(openSpy).toHaveBeenCalled()
   })
 })

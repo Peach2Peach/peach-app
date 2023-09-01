@@ -13,12 +13,12 @@ jest.mock('../../../hooks/useNavigation', () => ({
 
 const useSettingsStoreMock = jest.fn((selector, _compareFn) => selector({ lastFileBackupDate: 'correctDateFromStore' }))
 jest.mock('../../../store/settingsStore', () => ({
-  useSettingsStore: (selector: any, compareFn: any) => useSettingsStoreMock(selector, compareFn),
+  useSettingsStore: (selector: unknown, compareFn: unknown) => useSettingsStoreMock(selector, compareFn),
 }))
 
 const useHeaderSetupMock = jest.fn()
 jest.mock('../../../hooks/useHeaderSetup', () => ({
-  useHeaderSetup: (...args: any) => useHeaderSetupMock(...args),
+  useHeaderSetup: (...args: unknown[]) => useHeaderSetupMock(...args),
 }))
 
 const showHelpMock = jest.fn()

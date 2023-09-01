@@ -30,6 +30,7 @@ exports[`BitcoinProducts should render correctly 1`] = `
           "letterSpacing": 0.24,
           "lineHeight": 32,
         },
+        false,
       ]
     }
   >
@@ -49,6 +50,7 @@ exports[`BitcoinProducts should render correctly 1`] = `
         {
           "marginTop": 4,
         },
+        false,
       ]
     }
   >
@@ -116,6 +118,7 @@ exports[`BitcoinProducts should render correctly 1`] = `
             "textDecorationLine": "underline",
             "textTransform": "lowercase",
           },
+          false,
         ]
       }
     >

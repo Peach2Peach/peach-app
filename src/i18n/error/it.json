@@ -68,7 +68,7 @@
   "crashReport.requestPermission.deny" : "no, grazie",
   "crashReport.requestPermission.description.1" : "È stato generato un rapporto del crash. Il team di Peach può utilizzare questo rapporto per individuare la causa del problema ed evitare che si riverifichi in futuro.",
   "crashReport.requestPermission.description.2" : "Ulteriori informazioni sono disponibili nella nostra Informativa sulla Privacy.",
-  "crashReport.requestPermission.sendReport" : "invia rapporto",
+  "crashReport.requestPermission.sendReport" : "Invia rapporto",
   "crashReport.requestPermission.title" : "Peach ha rilevato un problema imprevisto nell'app.",
   "error.firstBackup.action" : "fai un backup",
   "error.firstBackup.description" : "Ora che hai utilizzato il Wallet di Peach, è davvero importante eseguire un backup prima di continuare. Se non lo fai, perderai il tuo account Peach e tutti i fondi presenti nel wallet di Peach in caso di smarrimento del telefono.",
