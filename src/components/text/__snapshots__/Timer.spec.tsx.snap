@@ -1,5 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`SimpleTimer should render correctly 1`] = `
+<PeachText>
+  24:00:00
+</PeachText>
+`;
+
 exports[`Timer should render correctly 1`] = `
 <View
   style={
@@ -27,7 +33,8 @@ exports[`Timer should render correctly 1`] = `
   >
     text
   </PeachText>
-  <PeachText
+  <SimpleTimer
+    end={1646826067245}
     style={
       [
         {
@@ -38,13 +45,11 @@ exports[`Timer should render correctly 1`] = `
           "textTransform": "uppercase",
         },
         {
-          "color": "#9F8C82",
+          "color": "#DF321F",
         },
       ]
     }
-  >
-    24:00:00
-  </PeachText>
+  />
 </View>
 `;
 
@@ -75,7 +80,8 @@ exports[`Timer should render correctly when timer expired 1`] = `
   >
     text
   </PeachText>
-  <PeachText
+  <SimpleTimer
+    end={1646739667245}
     style={
       [
         {
@@ -90,8 +96,6 @@ exports[`Timer should render correctly when timer expired 1`] = `
         },
       ]
     }
-  >
-    00:00:00
-  </PeachText>
+  />
 </View>
 `;

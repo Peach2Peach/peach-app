@@ -3,7 +3,9 @@ import AT from './at.svg'
 import BE from './be.svg'
 import BG from './bg.svg'
 import CA from './ca.svg'
+import CD from './cd.svg'
 import CH from './ch.svg'
+import CI from './ci.svg'
 import CY from './cy.svg'
 import CZ from './cz.svg'
 import DE from './de.svg'
@@ -23,10 +25,12 @@ import LU from './lu.svg'
 import LV from './lv.svg'
 import ME from './me.svg'
 import MT from './mt.svg'
+import NG from './ng.svg'
 import NL from './nl.svg'
 import PL from './pl.svg'
 import PT from './pt.svg'
 import RO from './ro.svg'
+import RS from './rs.svg'
 import SE from './se.svg'
 import SI from './si.svg'
 import SK from './sk.svg'
@@ -39,7 +43,9 @@ export const Flags = {
   BE,
   BG,
   CA,
+  CD,
   CH,
+  CI,
   CY,
   CZ,
   DE,
@@ -59,10 +65,12 @@ export const Flags = {
   LV,
   ME,
   MT,
+  NG,
   NL,
   PL,
   PT,
   RO,
+  RS,
   SE,
   SI,
   SK,

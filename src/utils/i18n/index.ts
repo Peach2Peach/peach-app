@@ -1,3 +1,4 @@
+import { DEV } from '@env'
 import { Dispatch, ReducerState, createContext, useContext } from 'react'
 import de from '../../i18n/de'
 import elGR from '../../i18n/el-GR'
@@ -16,6 +17,7 @@ const localeMapping: Record<string, Record<string, string>> = {
   de,
   'el-GR': elGR,
   tr,
+  raw: {},
 }
 
 export type Locale = keyof typeof localeMapping
@@ -27,6 +29,8 @@ export const languageState: LanguageState = {
   locale: 'en',
 }
 export const locales = ['en', 'es', 'fr', 'it', 'de', 'el-GR', 'tr']
+if (DEV === 'true') locales.push('raw')
+
 export const setLocaleQuiet = (lcl: Locale) => {
   if (!localeMapping[lcl]) lcl = 'en'
   languageState.locale = lcl
@@ -34,6 +38,7 @@ export const setLocaleQuiet = (lcl: Locale) => {
 
 const i18n = (id: string, ...args: string[]): string => {
   const locale = languageState.locale.replace('_', '-')
+  if (locale === 'raw') return id
   let text = localeMapping[locale]?.[id]
 
   if (!text && locale.includes('-')) {
