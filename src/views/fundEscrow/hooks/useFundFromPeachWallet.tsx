@@ -50,6 +50,13 @@ export const useFundFromPeachWallet = ({ address, addresses = [], amount, fundin
     }
   }
 
+  const handleDrainWalletTransactionError = (e: unknown) => {
+    const transactionError = parseError(Array.isArray(e) ? e[0] : e)
+    if (transactionError !== 'INSUFFICIENT_FUNDS') return showErrorBanner(transactionError)
+    const { available } = Array.isArray(e) ? e[1] : { available: 0 }
+    return showErrorBanner('INSUFFICIENT_FUNDS', [amount, available])
+  }
+
   const fundFromPeachWallet = async () => {
     if (!address || !amount || !canFundFromPeachWallet) return undefined
     if (peachWallet.balance < (addresses.length || 1) * minTradingAmount) {
@@ -71,14 +78,18 @@ export const useFundFromPeachWallet = ({ address, addresses = [], amount, fundin
         return showErrorBanner('INSUFFICIENT_FUNDS', [amount, available])
       }
 
-      const transaction = await buildTransaction({ address, feeRate, shouldDrainWallet: true })
-      finishedTransaction = await peachWallet.finishTransaction(transaction)
-      return showInsufficientFundsPopup({
-        address,
-        transaction: finishedTransaction,
-        feeRate,
-        onSuccess,
-      })
+      try {
+        const transaction = await buildTransaction({ address, feeRate, shouldDrainWallet: true })
+        finishedTransaction = await peachWallet.finishTransaction(transaction)
+        return showInsufficientFundsPopup({
+          address,
+          transaction: finishedTransaction,
+          feeRate,
+          onSuccess,
+        })
+      } catch (e2) {
+        return handleDrainWalletTransactionError(e2)
+      }
     }
     return showFundEscrowPopup({
       address,
