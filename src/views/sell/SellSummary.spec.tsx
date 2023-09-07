@@ -28,4 +28,17 @@ describe('SellSummary', () => {
     const result = renderer.getRenderOutput()
     expect(result).toMatchSnapshot()
   })
+  it('should render the SellSummary view with the publish button disabled', () => {
+    useSellSummarySetupMock.mockReturnValueOnce({
+      returnAddress,
+      walletLabel,
+      goToSetupRefundWallet,
+      canPublish: false,
+      publishOffer,
+      isPublishing: false,
+    })
+    renderer.render(<SellSummary />)
+    const result = renderer.getRenderOutput()
+    expect(result).toMatchSnapshot()
+  })
 })
