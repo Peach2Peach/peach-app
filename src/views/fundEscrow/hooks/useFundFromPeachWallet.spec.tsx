@@ -235,7 +235,7 @@ describe('useFundFromPeachWallet', () => {
     const { result } = renderHook(useFundFromPeachWallet, { initialProps })
 
     await result.current.fundFromPeachWallet()
-    expect(showErrorBannerMock).toHaveBeenCalledWith('INSUFFICIENT_FUNDS', [615000, '1089000'])
+    expect(showErrorBannerMock).toHaveBeenCalledWith('INSUFFICIENT_FUNDS', ['78999997952', '1089000'])
   })
   it('should open handle other errors for building drain wallet transactions', async () => {
     let call = 0
@@ -250,7 +250,7 @@ describe('useFundFromPeachWallet', () => {
     const { result } = renderHook(useFundFromPeachWallet, { initialProps })
 
     await result.current.fundFromPeachWallet()
-    expect(showErrorBannerMock).toHaveBeenCalledWith('UNKNOWN')
+    expect(showErrorBannerMock).toHaveBeenCalledWith('UNKNOWN', [])
   })
 
   it('should not show insufficient funds popup but error for multiple addresses', async () => {
