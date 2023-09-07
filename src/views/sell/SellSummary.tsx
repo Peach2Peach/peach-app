@@ -8,14 +8,15 @@ export const SellSummary = () => {
   const { canPublish, publishOffer, isPublishing, offerDraft } = useSellSummarySetup()
 
   return (
-    <Screen>
-      <PeachScrollView contentContainerStyle={[tw`justify-center flex-grow py-sm`, tw.md`py-md`]}>
+    <Screen style={[tw`p-sm`, tw.md`p-md`]}>
+      <PeachScrollView style={tw`mb-2`}>
         <SellOfferSummary offer={offerDraft} />
       </PeachScrollView>
       <PrimaryButton
-        style={tw`self-center mt-2 mb-5 `}
+        style={tw`self-center`}
         narrow
         onPress={canPublish ? publishOffer : undefined}
+        disabled={!canPublish}
         loading={isPublishing}
       >
         {i18n('next')}
