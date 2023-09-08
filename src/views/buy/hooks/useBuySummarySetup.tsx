@@ -1,18 +1,16 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { shallow } from 'zustand/shallow'
-import { useHeaderSetup, useNavigation } from '../../../hooks'
+import { useNavigation } from '../../../hooks'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { useConfigStore } from '../../../store/configStore'
 import { useOfferPreferences } from '../../../store/offerPreferenes/useOfferPreferences'
 import { useSettingsStore } from '../../../store/settingsStore'
 import { account, getMessageToSignForAddress } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
-import { headerIcons } from '../../../utils/layout/headerIcons'
 import { getError, getResult } from '../../../utils/result'
 import { Err, Result } from '../../../utils/result/types'
 import { isValidBitcoinSignature } from '../../../utils/validation'
 import { peachWallet } from '../../../utils/wallet/setWallet'
-import { useGlobalSortAndFilterPopup } from '../../search/hooks/useSortAndFilterPopup'
 import { publishBuyOffer } from '../helpers/publishBuyOffer'
 
 type MessageSigningData = {
@@ -107,8 +105,6 @@ export const useBuySummarySetup = () => {
     }
   }
 
-  useBuySummaryHeaderSetup()
-
   useEffect(() => {
     if (peachWalletActive) {
       setCanPublish(true)
@@ -135,20 +131,4 @@ export const useBuySummarySetup = () => {
     goToMessageSigning,
     offerDraft,
   }
-}
-
-function useBuySummaryHeaderSetup () {
-  const navigation = useNavigation()
-  const showSortAndFilterPopup = useGlobalSortAndFilterPopup('buy')
-  const icons = useMemo(
-    () => [
-      { ...headerIcons.buyFilter, onPress: showSortAndFilterPopup },
-      { ...headerIcons.wallet, onPress: () => navigation.navigate('selectWallet', { type: 'payout' }) },
-    ],
-    [navigation, showSortAndFilterPopup],
-  )
-  useHeaderSetup({
-    title: i18n('buy.summary.title'),
-    icons,
-  })
 }
