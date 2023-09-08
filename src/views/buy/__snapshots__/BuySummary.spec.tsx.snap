@@ -5,7 +5,7 @@ exports[`BuySummary should render correctly when publishing 1`] = `
 - First value
 + Second value
 
-@@ -1787,9 +1787,43 @@
+@@ -1846,9 +1846,43 @@
             ],
             false,
           ]
@@ -57,7 +57,7 @@ exports[`BuySummary should render correctly while peach wallet is still signing 
 - First value
 + Second value
 
-@@ -1787,9 +1787,9 @@
+@@ -1846,9 +1846,9 @@
             ],
             false,
           ]
@@ -75,7 +75,7 @@ exports[`BuySummary should render correctly with custom payout wallet and signat
 - First value
 + Second value
 
-@@ -1787,9 +1787,9 @@
+@@ -1846,9 +1846,9 @@
             ],
             false,
           ]
@@ -191,6 +191,65 @@ exports[`BuySummary should render the BuySummary view 1`] = `
           }
         }
       >
+        <View
+          accessibilityHint="go to network fees"
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "opacity": 1,
+              "paddingBottom": 2,
+              "paddingLeft": 2,
+              "paddingRight": 2,
+              "paddingTop": 2,
+            }
+          }
+        >
+          <test-file-stub
+            fill="#F7931A"
+            style={
+              [
+                {
+                  "height": 24,
+                  "width": 24,
+                },
+                {
+                  "height": 20,
+                  "width": 20,
+                },
+                {
+                  "height": 24,
+                  "width": 24,
+                },
+              ]
+            }
+          />
+        </View>
         <View
           accessibilityState={
             {

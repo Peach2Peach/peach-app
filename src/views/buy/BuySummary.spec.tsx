@@ -2,7 +2,7 @@ import { fireEvent, render } from '@testing-library/react-native'
 import { getBuyOfferDraft } from '../../../tests/unit/data/offerDraftData'
 
 import { toMatchDiffSnapshot } from 'snapshot-diff'
-import { NavigationWrapper } from '../../../tests/unit/helpers/NavigationWrapper'
+import { NavigationWrapper, navigateMock } from '../../../tests/unit/helpers/NavigationWrapper'
 import { BuySummary } from './BuySummary'
 expect.extend({ toMatchDiffSnapshot })
 
@@ -87,5 +87,11 @@ describe('BuySummary', () => {
     const { getByText } = render(<BuySummary />, { wrapper })
     fireEvent(getByText('next'), 'onPress')
     expect(goToMessageSigning).toHaveBeenCalled()
+  })
+  it('should navigate to the network fees screen when clicking on the bitcoin icon', () => {
+    const { getByAccessibilityHint } = render(<BuySummary />, { wrapper })
+    fireEvent.press(getByAccessibilityHint('go to network fees'))
+
+    expect(navigateMock).toHaveBeenCalledWith('networkFees')
   })
 })

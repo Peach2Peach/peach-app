@@ -40,6 +40,11 @@ function BuySummaryHeader () {
   const showSortAndFilterPopup = useGlobalSortAndFilterPopup('buy')
   const icons = useMemo(
     () => [
+      {
+        ...headerIcons.bitcoin,
+        accessibilityHint: `${i18n('goTo')} ${i18n('settings.networkFees')}`,
+        onPress: () => navigation.navigate('networkFees'),
+      },
       { ...headerIcons.buyFilter, onPress: showSortAndFilterPopup },
       { ...headerIcons.wallet, onPress: () => navigation.navigate('selectWallet', { type: 'payout' }) },
     ],
