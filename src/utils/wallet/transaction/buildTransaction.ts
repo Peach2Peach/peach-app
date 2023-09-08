@@ -21,11 +21,14 @@ export type BuildTxParams = {
 )
 export const buildTransaction = async (args: BuildTxParams) => {
   const txBuilder = await buildTransactionBase(args.feeRate)
-  if (!args.address) return txBuilder
 
   if (args?.utxos?.length) {
-    txBuilder.addUtxos(args.utxos.map((utxo) => utxo.outpoint))
+    await txBuilder.addUtxos(args.utxos.map((utxo) => utxo.outpoint))
+    await txBuilder.manuallySelectedOnly()
   }
+
+  if (!args.address) return txBuilder
+
   const recipient = await getScriptPubKeyFromAddress(args.address)
   if (args.shouldDrainWallet) {
     if (args?.utxos?.length) {

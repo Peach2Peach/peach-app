@@ -8,7 +8,7 @@ import { sellOffer } from '../../../../tests/unit/data/offerData'
 import { getTransactionDetails } from '../../../../tests/unit/helpers/getTransactionDetails'
 import { Loading } from '../../../components'
 import { useConfigStore } from '../../../store/configStore'
-import { usePopupStore } from '../../../store/usePopupStore'
+import { defaultPopupState, usePopupStore } from '../../../store/usePopupStore'
 import tw from '../../../styles/tailwind'
 import { defaultFundingStatus } from '../../../utils/offer/constants'
 import { PeachWallet } from '../../../utils/wallet/PeachWallet'
@@ -36,6 +36,7 @@ jest.mock('../../../hooks/useShowErrorBanner', () => ({
         showErrorBannerMock(...args),
 }))
 
+// eslint-disable-next-line max-lines-per-function
 describe('useFundFromPeachWallet', () => {
   const amount = sellOffer.amount
   const minTradingAmount = 50000
@@ -46,6 +47,7 @@ describe('useFundFromPeachWallet', () => {
 
   beforeAll(() => {
     useConfigStore.getState().setMinTradingAmount(minTradingAmount)
+    usePopupStore.setState(defaultPopupState)
   })
   beforeEach(() => {
     // @ts-expect-error mock PeachWallet doesn't need arguments
@@ -193,6 +195,7 @@ describe('useFundFromPeachWallet', () => {
     expect(showErrorBannerMock).toHaveBeenCalledWith('INSUFFICIENT_FUNDS', ['78999997952', '1089000'])
     expect(usePopupStore.getState().visible).toBeFalsy()
   })
+
   it('should open insufficient funds popup', async () => {
     let call = 0
     peachWallet.balance = amount
@@ -221,6 +224,33 @@ describe('useFundFromPeachWallet', () => {
         callback: usePopupStore.getState().closePopup,
       },
     })
+  })
+
+  it('should open handle insufficient funds error for building drain wallet transactions', async () => {
+    peachWallet.balance = amount
+    peachWallet.finishTransaction = jest.fn().mockImplementation(() => {
+      throw transactionError
+    })
+
+    const { result } = renderHook(useFundFromPeachWallet, { initialProps })
+
+    await result.current.fundFromPeachWallet()
+    expect(showErrorBannerMock).toHaveBeenCalledWith('INSUFFICIENT_FUNDS', ['78999997952', '1089000'])
+  })
+  it('should open handle other errors for building drain wallet transactions', async () => {
+    let call = 0
+    peachWallet.balance = amount
+    peachWallet.finishTransaction = jest.fn().mockImplementation(() => {
+      call++
+      if (call === 1) throw transactionError
+      // eslint-disable-next-line no-throw-literal
+      throw [new Error('UNKNOWN')]
+    })
+
+    const { result } = renderHook(useFundFromPeachWallet, { initialProps })
+
+    await result.current.fundFromPeachWallet()
+    expect(showErrorBannerMock).toHaveBeenCalledWith('UNKNOWN', [])
   })
 
   it('should not show insufficient funds popup but error for multiple addresses', async () => {

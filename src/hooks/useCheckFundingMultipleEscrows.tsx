@@ -1,7 +1,9 @@
+import { LocalUtxo } from 'bdk-rn/lib/classes/Bindings'
 import { useCallback } from 'react'
 import { shallow } from 'zustand/shallow'
 import { MSINAMINUTE } from '../constants'
 import { useTradeSummaryStore } from '../store/tradeSummaryStore'
+import { estimateTransactionSize } from '../utils/bitcoin'
 import { sum } from '../utils/math'
 import { keys } from '../utils/object'
 import { getOffer, isSellOffer } from '../utils/offer'
@@ -9,14 +11,15 @@ import { isDefined } from '../utils/validation'
 import { peachWallet } from '../utils/wallet/setWallet'
 import { buildTransaction, setMultipleRecipients } from '../utils/wallet/transaction'
 import { useWalletState } from '../utils/wallet/walletStore'
+import { useHandleTransactionError } from './error/useHandleTransactionError'
 import { useFeeRate } from './useFeeRate'
 import { useInterval } from './useInterval'
 
-const estimateTransactionSize = (inputs: number, outputs: number) => {
-  const overhead = 10.5
-  const inputSize = 68 * inputs
-  const outputSize = 43 * outputs
-  return overhead + inputSize + outputSize
+const getAmountAfterFees = (localUtxo: LocalUtxo[], escrows: string[], feeRate: number) => {
+  const availableAmount = localUtxo.map((utx) => utx.txout.value).reduce(sum, 0)
+  const estimatedTxSize = estimateTransactionSize(localUtxo.length, escrows.length)
+  const amountAfterFees = availableAmount - estimatedTxSize * feeRate
+  return amountAfterFees
 }
 
 const getSellOffersByAddress = (fundMultipleMap: Record<string, string[]>, address: string) => {
@@ -38,6 +41,7 @@ export const useCheckFundingMultipleEscrows = () => {
     (state) => [state.fundMultipleMap, state.unregisterFundMultiple],
     shallow,
   )
+  const handleTransactionError = useHandleTransactionError()
   const offerSummaries = useTradeSummaryStore((state) => state.offers)
   const feeRate = useFeeRate()
   const addresses = keys(fundMultipleMap)
@@ -57,19 +61,18 @@ export const useCheckFundingMultipleEscrows = () => {
       const localUtxo = await peachWallet.getAddressUTXO(address)
       if (localUtxo.length === 0) return
 
-      const availableAmount = localUtxo.map((utx) => utx.txout.value).reduce(sum, 0)
-      const estimatedTxSize = estimateTransactionSize(localUtxo.length, escrows.length)
-      const amountAfterFees = availableAmount - estimatedTxSize * feeRate
-
+      const amountAfterFees = getAmountAfterFees(localUtxo, escrows, feeRate)
       const transaction = await buildTransaction({ feeRate, utxos: localUtxo })
       await setMultipleRecipients(transaction, amountAfterFees, escrows)
 
-      const finishedTransaction = await peachWallet.finishTransaction(transaction)
       try {
+        const finishedTransaction = await peachWallet.finishTransaction(transaction)
         await peachWallet.signAndBroadcastPSBT(finishedTransaction.psbt)
-      } catch (e) {}
+      } catch (e) {
+        handleTransactionError(e)
+      }
     },
-    [feeRate, fundMultipleMap, offerSummaries, unregisterFundMultiple],
+    [feeRate, fundMultipleMap, handleTransactionError, offerSummaries, unregisterFundMultiple],
   )
 
   const callback = useCallback(async () => {

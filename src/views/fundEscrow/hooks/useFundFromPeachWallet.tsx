@@ -1,6 +1,7 @@
 import { TxBuilderResult } from 'bdk-rn/lib/classes/Bindings'
 import { useMemo } from 'react'
 import { shallow } from 'zustand/shallow'
+import { useHandleTransactionError } from '../../../hooks/error/useHandleTransactionError'
 import { useFeeRate } from '../../../hooks/useFeeRate'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { useConfigStore } from '../../../store/configStore'
@@ -27,6 +28,7 @@ export const useFundFromPeachWallet = ({ address, addresses = [], amount, fundin
   const showFundEscrowPopup = useShowFundEscrowPopup()
   const showInsufficientFundsPopup = useShowInsufficientFundsPopup()
   const openAmountTooLowPopup = useOpenAmountTooLowPopup()
+  const handleTransactionError = useHandleTransactionError()
 
   const feeRate = useFeeRate()
   const canFundFromPeachWallet = useMemo(
@@ -71,14 +73,18 @@ export const useFundFromPeachWallet = ({ address, addresses = [], amount, fundin
         return showErrorBanner('INSUFFICIENT_FUNDS', [amount, available])
       }
 
-      const transaction = await buildTransaction({ address, feeRate, shouldDrainWallet: true })
-      finishedTransaction = await peachWallet.finishTransaction(transaction)
-      return showInsufficientFundsPopup({
-        address,
-        transaction: finishedTransaction,
-        feeRate,
-        onSuccess,
-      })
+      try {
+        const transaction = await buildTransaction({ address, feeRate, shouldDrainWallet: true })
+        finishedTransaction = await peachWallet.finishTransaction(transaction)
+        return showInsufficientFundsPopup({
+          address,
+          transaction: finishedTransaction,
+          feeRate,
+          onSuccess,
+        })
+      } catch (e2) {
+        return handleTransactionError(e2)
+      }
     }
     return showFundEscrowPopup({
       address,
