@@ -11,6 +11,7 @@ import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout'
 import { isBitcoinAddress } from '../../utils/validation'
 import { peachWallet } from '../../utils/wallet/setWallet'
+import { useWalletState } from '../../utils/wallet/walletStore'
 import { CustomFeeItem } from '../settings/components/networkFees/CustomFeeItem'
 import { EstimatedFeeItem } from '../settings/components/networkFees/EstimatedFeeItem'
 import { UTXOAddress } from './components'
@@ -84,9 +85,17 @@ export const SendBitcoin = () => {
           <SelectedUTXOs />
         </View>
 
-        <ConfirmSlider label1={i18n('wallet.sendBitcoin.send')} onConfirm={sendTrasaction} enabled={isFormValid} />
+        <SendBitcoinSlider onConfirm={sendTrasaction} isFormValid={isFormValid} />
       </PeachScrollView>
     </Screen>
+  )
+}
+
+function SendBitcoinSlider ({ onConfirm, isFormValid }: { onConfirm: () => void; isFormValid: boolean }) {
+  const isSynced = useWalletState((state) => state.isSynced)
+
+  return (
+    <ConfirmSlider label1={i18n('wallet.sendBitcoin.send')} onConfirm={onConfirm} enabled={isFormValid && isSynced} />
   )
 }
 
