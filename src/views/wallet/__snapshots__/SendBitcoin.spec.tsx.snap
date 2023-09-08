@@ -319,6 +319,26 @@ exports[`SendBitcoin - With selected coins should set the amount to the sum of a
             <View"
 `;
 
+exports[`SendBitcoin should disable the slider while the wallet is not synced 1`] = `
+"Snapshot Diff:
+- First value
++ Second value
+
+@@ -2028,11 +2028,11 @@
+              <View
+                collapsable={false}
+                style={
+                  Object {
+                    "alignItems": "center",
+-                   "backgroundColor": "rgba(245, 101, 34, 1)",
++                   "backgroundColor": "#BAADA7",
+                    "borderRadius": 16,
+                    "flexDirection": "row",
+                    "gap": 4,
+                    "justifyContent": "center",
+                    "paddingBottom": 6,"
+`;
+
 exports[`SendBitcoin should not allow entering an amount higher than the available balance 1`] = `
 "Snapshot Diff:
 - First value
