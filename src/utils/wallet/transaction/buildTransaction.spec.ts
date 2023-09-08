@@ -49,6 +49,11 @@ describe('buildTransaction', () => {
     await buildTransaction({ address, amount, feeRate, utxos: [utxo] })
     expect(txBuilderAddUtxosMock).toHaveBeenCalledWith([outpoint])
   })
+  it('adds utxos to the transaction even without address', async () => {
+    addressScriptPubKeyMock.mockResolvedValueOnce(scriptPubKey)
+    await buildTransaction({ amount, feeRate, utxos: [utxo] })
+    expect(txBuilderAddUtxosMock).toHaveBeenCalledWith([outpoint])
+  })
   it('drains the wallet if shouldDrainWallet is true', async () => {
     addressScriptPubKeyMock.mockResolvedValueOnce(scriptPubKey)
     const transactionResult = await buildTransaction({ address, shouldDrainWallet: true })
