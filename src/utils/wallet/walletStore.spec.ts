@@ -16,6 +16,7 @@ describe('walletStore', () => {
       addressLabelMap: {},
       showBalance: true,
       selectedUTXOIds: [],
+      isSynced: false,
     })
   })
   it('adds pending transactions', () => {
@@ -70,5 +71,15 @@ describe('walletStore', () => {
     expect(useWalletState.getState().isFundedFromPeachWallet(address)).toBeFalsy()
     useWalletState.getState().setFundedFromPeachWallet(address)
     expect(useWalletState.getState().isFundedFromPeachWallet(address)).toBeTruthy()
+  })
+  it('sets isSynced', () => {
+    expect(useWalletState.getState().isSynced).toBeFalsy()
+    useWalletState.getState().setIsSynced(true)
+    expect(useWalletState.getState().isSynced).toBeTruthy()
+  })
+  it("doesn't persist isSynced", () => {
+    expect(useWalletState.persist.getOptions().partialize?.(useWalletState.getState())).not.toEqual(
+      expect.objectContaining({ isSynced: expect.any(Boolean) }),
+    )
   })
 })

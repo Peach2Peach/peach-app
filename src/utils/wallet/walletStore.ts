@@ -17,6 +17,7 @@ export type WalletState = {
   fundMultipleMap: Record<string, string[]>
   showBalance: boolean
   selectedUTXOIds: string[]
+  isSynced: boolean
 }
 
 export type FundMultipleInfo = {
@@ -41,6 +42,7 @@ export type WalletStore = WalletState & {
   getFundMultipleByOfferId: (offerId: string) => FundMultipleInfo | undefined
   toggleShowBalance: () => void
   setSelectedUTXOIds: (utxos: string[]) => void
+  setIsSynced: (isSynced: boolean) => void
 }
 
 export const defaultWalletState: WalletState = {
@@ -54,12 +56,13 @@ export const defaultWalletState: WalletState = {
   fundMultipleMap: {},
   showBalance: true,
   selectedUTXOIds: [],
+  isSynced: false,
 }
 export const walletStorage = createStorage('wallet')
-const storage = createPersistStorage<WalletStore>(walletStorage)
+const storage = createPersistStorage(walletStorage)
 
-export const useWalletState = create(
-  persist<WalletStore>(
+export const useWalletState = create<WalletStore>()(
+  persist(
     (set, get) => ({
       ...defaultWalletState,
       reset: () => set(() => defaultWalletState),
@@ -110,12 +113,17 @@ export const useWalletState = create(
       },
       toggleShowBalance: () => set((state) => ({ showBalance: !state.showBalance })),
       setSelectedUTXOIds: (utxos) => set({ selectedUTXOIds: utxos }),
+      setIsSynced: (isSynced) => set({ isSynced }),
     }),
     {
       name: 'wallet',
       version: 2,
       storage,
       migrate: migrateWalletStore,
+      partialize: (state) => {
+        const { isSynced: _unused, ...rest } = state
+        return rest
+      },
     },
   ),
 )
