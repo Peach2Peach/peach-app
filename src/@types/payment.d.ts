@@ -32,7 +32,6 @@ type EuPaymentMethods =
   | 'straksbetaling'
   | 'swish'
   | 'twint'
-  | 'verse'
   | 'vipps'
   | 'wise'
 type LatAmPaymentMethods =

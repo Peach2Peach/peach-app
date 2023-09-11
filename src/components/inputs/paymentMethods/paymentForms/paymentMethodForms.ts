@@ -73,7 +73,6 @@ export const PaymentMethodForms: PaymentMethodFormsType = {
   n26: { component: Template6, fields: template6Fields },
   paylib: { component: Template3, fields: template3Fields },
   lydia: { component: Template3, fields: template3Fields },
-  verse: { component: Template3, fields: template3Fields },
   iris: { component: Template3, fields: template3Fields },
   'giftCard.amazon': { component: GiftCardAmazon, fields: template4Fields },
   nationalTransferTR: { component: Template1, fields: template1Fields },

@@ -59,7 +59,6 @@ describe('paymentMethodForms', () => {
     expect(PaymentMethodForms.n26).toStrictEqual({ component: Template6, fields: expect.any(Array) })
     expect(PaymentMethodForms.paylib).toStrictEqual({ component: Template3, fields: expect.any(Array) })
     expect(PaymentMethodForms.lydia).toStrictEqual({ component: Template3, fields: expect.any(Array) })
-    expect(PaymentMethodForms.verse).toStrictEqual({ component: Template3, fields: expect.any(Array) })
     expect(PaymentMethodForms.iris).toStrictEqual({ component: Template3, fields: expect.any(Array) })
     expect(PaymentMethodForms.nationalTransferCZ).toStrictEqual({ component: Template9, fields: expect.any(Array) })
     expect(PaymentMethodForms.nationalTransferDK).toStrictEqual({ component: Template9, fields: expect.any(Array) })
