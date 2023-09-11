@@ -43,7 +43,6 @@ import sinpeMovil from './sinpeMovil.svg'
 import skrill from './skrill.svg'
 import swish from './swish.svg'
 import twint from './twint.svg'
-import verse from './verse.svg'
 import vipps from './vipps.svg'
 import wave from './wave.svg'
 import wise from './wise.svg'
@@ -106,7 +105,6 @@ export const PaymentLogos = {
   straksbetaling: placeholder,
   swish,
   twint,
-  verse,
   vipps,
   wave,
   wise,

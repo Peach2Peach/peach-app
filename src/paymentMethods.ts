@@ -100,17 +100,7 @@ const giftCard: PaymentMethod[] = [
   'giftCard.amazon',
   ...GIFTCARDCOUNTRIES.map((c) => `giftCard.amazon.${c}` satisfies PaymentMethod),
 ]
-const nationalOption: PaymentMethod[] = [
-  'bizum',
-  'iris',
-  'keksPay',
-  'lydia',
-  'mbWay',
-  'mobilePay',
-  'paylib',
-  'satispay',
-  'verse',
-]
+const nationalOption: PaymentMethod[] = ['bizum', 'iris', 'keksPay', 'lydia', 'mbWay', 'mobilePay', 'paylib', 'satispay']
 const other: PaymentMethod[] = ['liquid', 'lnurl']
 const cash: PaymentMethod[] = []
 
@@ -129,7 +119,7 @@ export const NATIONALOPTIONS: NationalOptions = {
   EUR: {
     IT: ['satispay'],
     PT: ['mbWay'],
-    ES: ['bizum', 'verse'],
+    ES: ['bizum'],
     FI: ['mobilePay'],
     HR: ['keksPay'],
     FR: ['paylib', 'lydia', 'satispay'],
