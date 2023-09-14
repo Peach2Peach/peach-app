@@ -13,6 +13,7 @@
   "wallet.addressChecker.hint" : "μπορείτε να το χρησιμοποιήσετε για να επαληθεύσετε αν μια διεύθυνση ανήκει στο πορτοφόλι της Peach\n",
   "wallet.bumpNetworkFees.button" : "αύξηση τελών δικτύου",
   "wallet.bumpNetworkFees.confirmRbf.newFee" : "Νέο τέλος:",
+  "wallet.bumpNetworkFees.confirmRbf.noChange" : "Αυτή η συναλλαγή δεν έχει ρέστο.\nΗ αύξηση των τελών θα μειώσει το ποσό που αποστέλλεται!",
   "wallet.bumpNetworkFees.confirmRbf.oldFee" : "Παλιό τέλος:",
   "wallet.bumpNetworkFees.confirmRbf.percentOfTx" : "( $0% της συναλλαγής )",
   "wallet.bumpNetworkFees.confirmRbf.title" : "αύξηση τελών",

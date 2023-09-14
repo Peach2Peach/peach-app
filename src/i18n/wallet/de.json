@@ -13,6 +13,7 @@
   "wallet.addressChecker.hint" : "Damit kannst du überprüfen, ob eine Adresse zu deiner Peach-Wallet gehört",
   "wallet.bumpNetworkFees.button" : "Netzwerkgebühr erhöhen",
   "wallet.bumpNetworkFees.confirmRbf.newFee" : "Neue Gebühr:",
+  "wallet.bumpNetworkFees.confirmRbf.noChange" : "Diese Transaktion hat kein Wechselgeld.\nErhöhte Gebühren werden den Überweisungsbetrag reduzieren!",
   "wallet.bumpNetworkFees.confirmRbf.oldFee" : "Alte Gebühr:",
   "wallet.bumpNetworkFees.confirmRbf.percentOfTx" : "( $0% der Transaktion )",
   "wallet.bumpNetworkFees.confirmRbf.title" : "Gebühren erhöhen",
