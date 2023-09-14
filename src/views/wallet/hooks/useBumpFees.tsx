@@ -1,9 +1,11 @@
 import { useCallback } from 'react'
+import { shallow } from 'zustand/shallow'
 import { useNavigation } from '../../../hooks'
 import { useHandleTransactionError } from '../../../hooks/error/useHandleTransactionError'
 import { getTransactionFeeRate } from '../../../utils/bitcoin'
 import { peachWallet } from '../../../utils/wallet/setWallet'
 import { buildBumpFeeTransaction } from '../../../utils/wallet/transaction'
+import { useWalletState } from '../../../utils/wallet/walletStore'
 import { useShowConfirmRbfPopup } from './useShowConfirmRbfPopup'
 import { useSyncWallet } from './useSyncWallet'
 
@@ -52,7 +54,11 @@ export const useBumpFees = ({ transaction, newFeeRate, sendingAmount }: Props) =
     if (!transaction) return
 
     try {
-      const bumpFeeTransaction = await buildBumpFeeTransaction(transaction.txid, Number(newFeeRate))
+      const bumpFeeTransaction = await buildBumpFeeTransaction(
+        transaction.txid,
+        Number(newFeeRate),
+        transaction.vout.length === 1 ? transaction.vout[0].scriptpubkey_address : undefined,
+      )
       const finishedTransaction = await peachWallet.finishTransaction(bumpFeeTransaction)
 
       showConfirmRbfPopup({
