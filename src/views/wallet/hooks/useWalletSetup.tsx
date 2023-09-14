@@ -1,6 +1,5 @@
 import { useFocusEffect } from '@react-navigation/native'
 import { useCallback, useState } from 'react'
-import { MSINASECOND } from '../../../constants'
 import { useNavigation } from '../../../hooks'
 import { useSettingsStore } from '../../../store/settingsStore'
 import { PeachWallet } from '../../../utils/wallet/PeachWallet'
@@ -29,20 +28,17 @@ export const useWalletSetup = ({ peachWallet, syncOnLoad }: Props) => {
   }
 
   const syncWalletOnLoad = useCallback(async () => {
-    if (!peachWallet.initialized) {
-      setTimeout(syncWalletOnLoad, MSINASECOND)
-      return
-    }
+    if (!peachWallet.initialized) return
     setWalletLoading(peachWallet.transactions.length === 0)
 
     await refresh()
     setWalletLoading(false)
-  }, [peachWallet])
+    // adding refresh or peachWallet.transactions.length as dependencies causes an infinite loop
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [peachWallet.initialized])
 
   useFocusEffect(
     useCallback(() => {
-      console.log('weird flex')
-
       if (syncOnLoad) syncWalletOnLoad()
     }, [syncOnLoad, syncWalletOnLoad]),
   )

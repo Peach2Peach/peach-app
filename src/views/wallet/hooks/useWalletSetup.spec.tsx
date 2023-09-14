@@ -1,4 +1,4 @@
-import { act, renderHook, waitFor } from '@testing-library/react-native'
+import { renderHook, waitFor } from '@testing-library/react-native'
 import { NavigationWrapper, navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { useSettingsStore } from '../../../store/settingsStore'
 import { PeachWallet } from '../../../utils/wallet/PeachWallet'
@@ -46,12 +46,11 @@ describe('useWalletSetup', () => {
   it('should retry sync wallet on load if peach wallet is not ready yet', async () => {
     peachWallet.initialized = false
 
-    renderHook(useWalletSetup, { wrapper, initialProps })
+    const { rerender } = renderHook(useWalletSetup, { wrapper, initialProps })
     expect(refreshMock).not.toHaveBeenCalled()
     peachWallet.initialized = true
-    act(() => {
-      jest.advanceTimersByTime(1001)
-    })
+    rerender(initialProps)
+
     await waitFor(() => expect(refreshMock).toHaveBeenCalled())
   })
   it('should navigate to backupTime if balance is bigger than 0 & showBackupReminder is false', async () => {
