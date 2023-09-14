@@ -11,11 +11,12 @@ import i18n from '../../../utils/i18n'
 import { fundAddress } from '../../../utils/regtest'
 import { thousands } from '../../../utils/string'
 import { peachWallet } from '../../../utils/wallet/setWallet'
+import { useSyncWallet } from '../../wallet/hooks/useSyncWallet'
 import { useWalletSetup } from '../../wallet/hooks/useWalletSetup'
 
 const bitcoinAddressRules = { required: false, bitcoinAddress: true }
 const useTestViewWalletSetup = () => {
-  const { balance, isRefreshing, walletLoading } = useWalletSetup(false)
+  const { balance, isRefreshing, walletLoading } = useWalletSetup({ peachWallet, syncOnLoad: false })
 
   const [address, setAddress, , addressErrors] = useValidatedState<string>('', bitcoinAddressRules)
 
@@ -31,6 +32,8 @@ const useTestViewWalletSetup = () => {
 
 export const TestViewPeachWallet = () => {
   const { balance, isRefreshing, walletLoading, address, setAddress, addressErrors } = useTestViewWalletSetup()
+  const { refresh } = useSyncWallet()
+
   useHeaderSetup('test view - peach wallet')
   const [amount, setAmount] = useState('0')
   const [txId, setTxId] = useState('')
@@ -78,7 +81,7 @@ export const TestViewPeachWallet = () => {
         </PrimaryButton>
 
         <Divider />
-        <PrimaryButton onPress={peachWallet.syncWallet} iconId="refreshCcw">
+        <PrimaryButton onPress={refresh} iconId="refreshCcw">
           sync wallet
         </PrimaryButton>
       </View>

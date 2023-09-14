@@ -13,12 +13,13 @@ import { info } from '../utils/log'
 import { saveOffer } from '../utils/offer'
 import { refundSellOffer } from '../utils/peachAPI'
 import { getEscrowWalletForOffer } from '../utils/wallet'
-import { peachWallet } from '../utils/wallet/setWallet'
+import { useSyncWallet } from '../views/wallet/hooks/useSyncWallet'
 import { useTradeSummaries } from './query/useTradeSummaries'
 import { useShowErrorBanner } from './useShowErrorBanner'
 
 export const useRefundEscrow = () => {
   const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
+  const { refresh } = useSyncWallet()
   const showError = useShowErrorBanner()
   const navigation = useNavigation()
   const isPeachWallet = useSettingsStore((state) => state.peachWalletActive)
@@ -100,7 +101,7 @@ export const useRefundEscrow = () => {
         })
         setOffer(sellOffer.id, { txId })
         refetchTradeSummaries()
-        peachWallet.syncWallet()
+        refresh()
         if (shouldShowBackupOverlay && isPeachWallet) {
           setShowBackupReminder(true)
         }

@@ -3,11 +3,15 @@ import { useCallback, useState } from 'react'
 import { MSINASECOND } from '../../../constants'
 import { useNavigation } from '../../../hooks'
 import { useSettingsStore } from '../../../store/settingsStore'
-import { peachWallet } from '../../../utils/wallet/setWallet'
+import { PeachWallet } from '../../../utils/wallet/PeachWallet'
 import { useWalletState } from '../../../utils/wallet/walletStore'
 import { useSyncWallet } from './useSyncWallet'
 
-export const useWalletSetup = (syncOnLoad = true) => {
+type Props = {
+  peachWallet: PeachWallet
+  syncOnLoad: boolean
+}
+export const useWalletSetup = ({ peachWallet, syncOnLoad }: Props) => {
   const balance = useWalletState((state) => state.balance)
 
   const navigation = useNavigation()
@@ -30,12 +34,15 @@ export const useWalletSetup = (syncOnLoad = true) => {
       return
     }
     setWalletLoading(peachWallet.transactions.length === 0)
-    await peachWallet.syncWallet()
+
+    await refresh()
     setWalletLoading(false)
-  }, [])
+  }, [peachWallet])
 
   useFocusEffect(
     useCallback(() => {
+      console.log('weird flex')
+
       if (syncOnLoad) syncWalletOnLoad()
     }, [syncOnLoad, syncWalletOnLoad]),
   )
