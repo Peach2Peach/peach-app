@@ -1,4 +1,4 @@
-import { DEV } from '@env'
+import { NETWORK } from '@env'
 import { Dispatch, ReducerState, createContext, useContext } from 'react'
 import de from '../../i18n/de'
 import elGR from '../../i18n/el-GR'
@@ -29,7 +29,7 @@ export const languageState: LanguageState = {
   locale: 'en',
 }
 export const locales = ['en', 'es', 'fr', 'it', 'de', 'el-GR', 'tr']
-if (DEV === 'true') locales.push('raw')
+if (NETWORK !== 'bitcoin') locales.push('raw')
 
 export const setLocaleQuiet = (lcl: Locale) => {
   if (!localeMapping[lcl]) lcl = 'en'
