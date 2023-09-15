@@ -13,12 +13,13 @@ jest.mock('../../utils/crypto/getRandom', () => ({
 }))
 const paymentDataSignature = 'signature'
 const paymentDataEncrypted = 'encrypted'
-const createEncryptedPaymentDataMock = jest.fn().mockResolvedValue({
+const encryptPaymentDataMock = jest.fn().mockResolvedValue({
   encrypted: paymentDataEncrypted,
   signature: paymentDataSignature,
 })
-jest.mock('./utils/createEncryptedPaymentData', () => ({
-  createEncryptedPaymentData: (...args: unknown[]) => createEncryptedPaymentDataMock(...args),
+
+jest.mock('../../utils/paymentMethod/encryptPaymentData', () => ({
+  encryptPaymentData: (...args: unknown[]) => encryptPaymentDataMock(...args),
 }))
 
 const matchOfferMock = jest.fn()
