@@ -23,6 +23,7 @@ export const CustomFeeItem = ({ customFeeRate, setCustomFeeRate, disabled }: Pro
         testID="input-custom-fees"
         required
         disabled={disabled}
+        decimals={2}
       />
     </View>
     <Text style={tw`text-black-2`}>{i18n('satsPerByte')}</Text>
