@@ -2168,7 +2168,7 @@ exports[`Buy should render correctly 1`] = `
         {
           "busy": undefined,
           "checked": undefined,
-          "disabled": false,
+          "disabled": true,
           "expanded": undefined,
           "selected": undefined,
         }
@@ -2183,7 +2183,7 @@ exports[`Buy should render correctly 1`] = `
       }
       accessible={true}
       collapsable={false}
-      focusable={true}
+      focusable={false}
       onClick={[Function]}
       onResponderGrant={[Function]}
       onResponderMove={[Function]}
@@ -2194,7 +2194,7 @@ exports[`Buy should render correctly 1`] = `
       style={
         {
           "alignItems": "center",
-          "backgroundColor": "#F56522",
+          "backgroundColor": "#FCCCB6",
           "borderRadius": 9999,
           "flexDirection": "row",
           "height": 40,
@@ -2466,7 +2466,7 @@ exports[`Buy should render correctly with free trades 1`] = `
 - First value
 + Second value
 
-@@ -2159,10 +2159,225 @@
+@@ -2159,15 +2159,230 @@
           },
         ]
       }
@@ -2691,5 +2691,36 @@ exports[`Buy should render correctly with free trades 1`] = `
           Object {
             "busy": undefined,
             "checked": undefined,
-            "disabled": false,"
+-           "disabled": true,
++           "disabled": false,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+@@ -2178,22 +2393,22 @@
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        collapsable={false}
+-       focusable={false}
++       focusable={true}
+        onClick={[Function onClick]}
+        onResponderGrant={[Function onResponderGrant]}
+        onResponderMove={[Function onResponderMove]}
+        onResponderRelease={[Function onResponderRelease]}
+        onResponderTerminate={[Function onResponderTerminate]}
+        onResponderTerminationRequest={[Function onResponderTerminationRequest]}
+        onStartShouldSetResponder={[Function onStartShouldSetResponder]}
+        style={
+          Object {
+            "alignItems": "center",
+-           "backgroundColor": "#FCCCB6",
++           "backgroundColor": "#F56522",
+            "borderRadius": 9999,
+            "flexDirection": "row",
+            "height": 40,
+            "justifyContent": "center",
+            "opacity": 1,"
 `;

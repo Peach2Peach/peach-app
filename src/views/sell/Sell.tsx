@@ -1,8 +1,5 @@
 import { View } from 'react-native'
 import { PrimaryButton } from '../../components'
-import { useNavigation } from '../../hooks'
-import { useConfigStore } from '../../store/configStore'
-import { useOfferPreferences } from '../../store/offerPreferenes/useOfferPreferences'
 import { useSettingsStore } from '../../store/settingsStore'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
@@ -14,18 +11,12 @@ import { FundMultipleOffers } from './components/FundMultipleOffers'
 import { useSellSetup } from './hooks/useSellSetup'
 
 export const Sell = () => {
-  const navigation = useNavigation()
-  useSellSetup({ help: 'sellingBitcoin', hideGoBackButton: true })
-
+  const { isAmountValid, isLoading, next } = useSellSetup({ help: 'sellingBitcoin', hideGoBackButton: true })
   const showBackupReminder = useSettingsStore((state) => state.showBackupReminder)
-  const isAmountValid = useOfferPreferences((state) => state.canContinue.sellAmount)
-  const minTradingAmount = useConfigStore((state) => state.minTradingAmount)
 
-  const next = () => navigation.navigate('premium')
+  if (isLoading) return <LoadingScreen />
 
-  return minTradingAmount === 0 ? (
-    <LoadingScreen />
-  ) : (
+  return (
     <View style={tw`h-full`}>
       <SellAmountSelector style={tw`mt-4 mb-2`}>
         <FundMultipleOffers />
