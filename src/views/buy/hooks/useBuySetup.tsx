@@ -1,4 +1,4 @@
-import shallow from 'zustand/shallow'
+import { shallow } from 'zustand/shallow'
 import { useHeaderSetup, useNavigation, useShowHelp } from '../../../hooks'
 import { useSelfUser } from '../../../hooks/query/useSelfUser'
 import { useOfferPreferences } from '../../../store/offerPreferenes'
