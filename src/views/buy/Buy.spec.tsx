@@ -2,6 +2,7 @@ import { render } from '@testing-library/react-native'
 import { toMatchDiffSnapshot } from 'snapshot-diff'
 import { NavigationAndQueryClientWrapper } from '../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
 import { useBitcoinStore } from '../../store/bitcoinStore'
+import { useOfferPreferences } from '../../store/offerPreferenes'
 import { Buy } from './Buy'
 expect.extend({ toMatchDiffSnapshot })
 
@@ -33,6 +34,7 @@ describe('Buy', () => {
       satsPerUnit: 250,
       price: 400000,
     })
+    useOfferPreferences.getState().setBuyAmountRange([0, 1000000], { min: 0, max: 10 })
   })
   it('should render correctly while loading max trading amount', () => {
     useBuySetupMock.mockReturnValueOnce({ ...buySetup, isLoading: true })

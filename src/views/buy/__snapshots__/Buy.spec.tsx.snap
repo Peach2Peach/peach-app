@@ -345,7 +345,7 @@ exports[`Buy should render correctly 1`] = `
                             },
                           ],
                           {
-                            "color": "#2B1911",
+                            "color": "#2B19111A",
                             "letterSpacing": -1.65,
                           },
                         ],
@@ -353,7 +353,75 @@ exports[`Buy should render correctly 1`] = `
                       ]
                     }
                   >
-                    I
+                    0
+                  </Text>
+                  <Text
+                    allowFontScaling={false}
+                    style={
+                      [
+                        {
+                          "color": "#2B1911",
+                          "fontFamily": "Baloo2-Regular",
+                          "fontSize": 16,
+                          "letterSpacing": 0.16,
+                          "lineHeight": 24,
+                        },
+                        [
+                          [
+                            {
+                              "alignItems": "center",
+                              "fontFamily": "CourierPrime-Bold",
+                              "textAlign": "center",
+                            },
+                            {
+                              "fontSize": 22,
+                              "lineHeight": 29,
+                            },
+                          ],
+                          {
+                            "color": "#2B19111A",
+                            "letterSpacing": -4.62,
+                          },
+                        ],
+                        false,
+                      ]
+                    }
+                  >
+                    .
+                  </Text>
+                  <Text
+                    allowFontScaling={false}
+                    style={
+                      [
+                        {
+                          "color": "#2B1911",
+                          "fontFamily": "Baloo2-Regular",
+                          "fontSize": 16,
+                          "letterSpacing": 0.16,
+                          "lineHeight": 24,
+                        },
+                        [
+                          [
+                            {
+                              "alignItems": "center",
+                              "fontFamily": "CourierPrime-Bold",
+                              "textAlign": "center",
+                            },
+                            {
+                              "fontSize": 22,
+                              "lineHeight": 29,
+                            },
+                          ],
+                          {
+                            "color": "#2B19111A",
+                            "letterSpacing": -1.65,
+                          },
+                        ],
+                        false,
+                      ]
+                    }
+                  >
+                    0
                   </Text>
                   <Text
                     allowFontScaling={false}
@@ -387,7 +455,7 @@ exports[`Buy should render correctly 1`] = `
                       ]
                     }
                   >
-                    n
+                    1
                   </Text>
                   <Text
                     allowFontScaling={false}
@@ -455,7 +523,7 @@ exports[`Buy should render correctly 1`] = `
                       ]
                     }
                   >
-                    f
+                    0
                   </Text>
                   <Text
                     allowFontScaling={false}
@@ -489,7 +557,7 @@ exports[`Buy should render correctly 1`] = `
                       ]
                     }
                   >
-                    i
+                    0
                   </Text>
                   <Text
                     allowFontScaling={false}
@@ -523,7 +591,7 @@ exports[`Buy should render correctly 1`] = `
                       ]
                     }
                   >
-                    n
+                    0
                   </Text>
                   <Text
                     allowFontScaling={false}
@@ -591,7 +659,7 @@ exports[`Buy should render correctly 1`] = `
                       ]
                     }
                   >
-                    i
+                    0
                   </Text>
                   <Text
                     allowFontScaling={false}
@@ -625,7 +693,7 @@ exports[`Buy should render correctly 1`] = `
                       ]
                     }
                   >
-                    t
+                    0
                   </Text>
                   <Text
                     allowFontScaling={false}
@@ -659,7 +727,7 @@ exports[`Buy should render correctly 1`] = `
                       ]
                     }
                   >
-                    y
+                    0
                   </Text>
                 </Text>
                 <View
@@ -720,7 +788,7 @@ exports[`Buy should render correctly 1`] = `
               }
             }
             testID="btc-amount-input"
-            value="Infinity"
+            value="1000000"
           />
         </View>
         <View
@@ -764,7 +832,7 @@ exports[`Buy should render correctly 1`] = `
                 ]
               }
             >
-              ∞
+              200.00
                
               EUR
             </Text>
@@ -856,7 +924,7 @@ exports[`Buy should render correctly 1`] = `
                   ]
                 }
                 textAlignVertical="center"
-                value="Infinity"
+                value="200"
               />
               <View
                 style={
@@ -1930,7 +1998,7 @@ exports[`Buy should render correctly 1`] = `
           style={
             {
               "backgroundColor": "#F56522",
-              "height": NaN,
+              "height": 0,
               "left": 0,
               "opacity": 0.5,
               "position": "absolute",
@@ -1938,7 +2006,7 @@ exports[`Buy should render correctly 1`] = `
               "top": 15,
               "transform": [
                 {
-                  "translateY": NaN,
+                  "translateY": 200,
                 },
               ],
             }
@@ -1970,7 +2038,7 @@ exports[`Buy should render correctly 1`] = `
               "top": 0,
               "transform": [
                 {
-                  "translateY": NaN,
+                  "translateY": 200,
                 },
               ],
             }
@@ -2398,7 +2466,7 @@ exports[`Buy should render correctly with free trades 1`] = `
 - First value
 + Second value
 
-@@ -2091,15 +2091,230 @@
+@@ -2159,15 +2159,230 @@
           },
         ]
       }
@@ -2630,7 +2698,7 @@ exports[`Buy should render correctly with free trades 1`] = `
           }
         }
         accessibilityValue={
-@@ -2110,22 +2325,22 @@
+@@ -2178,22 +2393,22 @@
             "text": undefined,
           }
         }
