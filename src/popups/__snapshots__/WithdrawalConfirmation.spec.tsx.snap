@@ -135,7 +135,7 @@ exports[`WithdrawalConfirmation should render correctly 1`] = `
       ]
     }
   >
-    network fee: 110 sats (2 0.1 sat/vB)
+    network fee: 110 sats (20.1 sat/vB)
   </Text>
 </View>
 `;
