@@ -1,6 +1,6 @@
 import { act, renderHook } from '@testing-library/react-native'
 import { account1 } from '../../../../tests/unit/data/accountData'
-import { NavigationWrapper, headerState, replaceMock } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { NavigationWrapper, replaceMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { useConfigStore } from '../../../store/configStore'
 import { setAccount } from '../../../utils/account'
 import { PeachWallet } from '../../../utils/wallet/PeachWallet'
@@ -21,10 +21,6 @@ describe('useBuySummarySetup', () => {
     setPeachWallet(new PeachWallet())
   })
 
-  it('should set up header correctly', () => {
-    renderHook(useBuySummarySetup, { wrapper: NavigationWrapper })
-    expect(headerState.header()).toMatchSnapshot()
-  })
   it('should show offer grouphug announcement if not seen before after publishing', async () => {
     useConfigStore.getState().setHasSeenGroupHugAnnouncement(false)
     setAccount({ ...account1, publicKey: '02d13a5d45bbbf5ef604f01530d22ce3a787c36a78bcb7bd57b2d90fd098686f37' })

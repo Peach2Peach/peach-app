@@ -2,6 +2,7 @@ import { HeaderIcon } from '../../components/header/Header'
 import tw from '../../styles/tailwind'
 
 export const headerIcons: Record<string, Omit<HeaderIcon, 'onPress'>> = {
+  bitcoin: { id: 'bitcoin', color: tw`text-bitcoin`.color },
   buyFilter: { id: 'filter', color: tw`text-success-main`.color },
   cancel: { id: 'xCircle', color: tw`text-black-3`.color },
   checkbox: { id: 'checkboxMark', color: tw`text-black-2`.color },
