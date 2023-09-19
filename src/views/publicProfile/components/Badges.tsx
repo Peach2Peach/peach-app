@@ -5,9 +5,13 @@ import tw from '../../../styles/tailwind'
 import { badges } from '../../settings/profile/profileOverview/components/badges'
 import { Badge } from './Badge'
 
-export const NewBadges = ({ user, isDispute = false }: { user: User; isDispute?: boolean }) => {
+type Props = {
+  unlockedBadges: User['medals']
+  isDispute?: boolean
+}
+
+export const NewBadges = ({ unlockedBadges, isDispute = false }: Props) => {
   const openPeachBadgesPopup = useShowHelp('myBadges')
-  const { medals: unlockedBadges } = user
 
   return (
     <TouchableOpacity onPress={openPeachBadgesPopup}>
