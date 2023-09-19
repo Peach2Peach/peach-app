@@ -7,7 +7,7 @@ import { Rating, UserId } from '../../../views/settings/profile/profileOverview/
 type Props = { user: Pick<User, 'trades' | 'id' | 'rating' | 'medals'>; isDispute?: boolean }
 
 export const MatchCardCounterparty = ({ user: { trades, id, rating, medals }, isDispute = false }: Props) => {
-  const isNewUser = trades <= 3
+  const isNewUser = trades < 3
   return (
     <View>
       <View style={tw`flex-row justify-between`}>

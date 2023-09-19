@@ -14,7 +14,7 @@ describe('MatchCardCounterparty', () => {
   })
   it('renders correctly for a new user', () => {
     const { toJSON } = render(
-      <MatchCardCounterparty user={{ id: '123', rating: 1, trades: 3, medals: ['ambassador'] }} />,
+      <MatchCardCounterparty user={{ id: '123', rating: 1, trades: 2, medals: ['ambassador'] }} />,
       {
         wrapper,
       },
