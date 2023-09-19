@@ -19,4 +19,9 @@ describe('thousands', () => {
     strictEqual(thousands(100000000, ' '), '100 000 000')
     strictEqual(thousands(100000000, ','), '100,000,000')
   })
+  it('groups decimals into thousands', () => {
+    expect(thousands(20.1)).toBe('20.1')
+    expect(thousands(1234.567)).toBe('1 234.567')
+    expect(thousands(1234.567, '-')).toBe('1-234.567')
+  })
 })

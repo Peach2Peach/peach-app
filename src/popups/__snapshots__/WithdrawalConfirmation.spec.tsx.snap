@@ -8,22 +8,134 @@ exports[`WithdrawalConfirmation should render correctly 1`] = `
     }
   }
 >
-  <PeachText>
+  <Text
+    allowFontScaling={false}
+    style={
+      [
+        {
+          "color": "#2B1911",
+          "fontFamily": "Baloo2-Regular",
+          "fontSize": 16,
+          "letterSpacing": 0.16,
+          "lineHeight": 24,
+        },
+        undefined,
+        false,
+      ]
+    }
+  >
     You're sending:
-  </PeachText>
+  </Text>
   <BTCAmount
     amount={123456}
     size="medium"
   />
-  <PeachText>
+  <Text
+    allowFontScaling={false}
+    style={
+      [
+        {
+          "color": "#2B1911",
+          "fontFamily": "Baloo2-Regular",
+          "fontSize": 16,
+          "letterSpacing": 0.16,
+          "lineHeight": 24,
+        },
+        undefined,
+        false,
+      ]
+    }
+  >
     to:
      
-    <ShortBitcoinAddress
-      address="address"
-    />
-  </PeachText>
-  <PeachText>
-    network fee: 110 sats (1 sat/vB)
-  </PeachText>
+    <Text
+      allowFontScaling={false}
+      style={
+        [
+          {
+            "color": "#2B1911",
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 24,
+          },
+          [
+            {
+              "color": "#EAE3DF",
+            },
+            undefined,
+          ],
+          false,
+        ]
+      }
+    >
+      addr
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              {
+                "color": "#2B1911",
+              },
+              undefined,
+            ],
+            false,
+          ]
+        }
+      >
+        ess
+      </Text>
+      undefined ... undefined
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              {
+                "color": "#2B1911",
+              },
+              undefined,
+            ],
+            false,
+          ]
+        }
+      >
+        dress
+      </Text>
+    </Text>
+  </Text>
+  <Text
+    allowFontScaling={false}
+    style={
+      [
+        {
+          "color": "#2B1911",
+          "fontFamily": "Baloo2-Regular",
+          "fontSize": 16,
+          "letterSpacing": 0.16,
+          "lineHeight": 24,
+        },
+        undefined,
+        false,
+      ]
+    }
+  >
+    network fee: 110 sats (20.1 sat/vB)
+  </Text>
 </View>
 `;
