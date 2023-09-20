@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { RefObject, useState } from 'react'
 import Carousel from 'react-native-snap-carousel'
 import { useOnboardingHeader } from '../../../hooks/headers/useOnboardingHeader'
 import i18n from '../../../utils/i18n'
@@ -10,7 +10,7 @@ import { PrivacyFirst } from '../PrivacyFirst'
 
 export const screens = [PeerToPeer, PeachOfMind, PrivacyFirst, AWalletYouControl, LetsGetStarted]
 type Props = {
-  carousel?: Carousel<() => JSX.Element> | null
+  carousel: RefObject<Carousel<() => JSX.Element> | null>
 }
 export const useWelcomeSetup = ({ carousel }: Props) => {
   useOnboardingHeader({
@@ -20,10 +20,10 @@ export const useWelcomeSetup = ({ carousel }: Props) => {
   const [page, setPage] = useState(0)
 
   const next = () => {
-    carousel?.snapToNext()
+    carousel.current?.snapToNext()
   }
   const goToEnd = () => {
-    carousel?.snapToItem(screens.length - 1)
+    carousel.current?.snapToItem(screens.length - 1)
   }
   const progress = (page + 1) / screens.length
   const endReached = progress === 1

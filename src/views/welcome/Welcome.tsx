@@ -12,7 +12,7 @@ const onStartShouldSetResponder = () => true
 export const Welcome = () => {
   const { width } = useWindowDimensions()
   const $carousel = useRef<Carousel<() => JSX.Element>>(null)
-  const { page, setPage, progress, endReached, next, goToEnd } = useWelcomeSetup({ carousel: $carousel.current })
+  const { page, setPage, progress, endReached, next, goToEnd } = useWelcomeSetup({ carousel: $carousel })
   const keyboardOpen = useKeyboard()
 
   return (

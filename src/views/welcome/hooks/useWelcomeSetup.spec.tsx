@@ -1,4 +1,5 @@
 import { act, renderHook } from '@testing-library/react-native'
+import { RefObject } from 'react'
 import Carousel from 'react-native-snap-carousel'
 import { NavigationWrapper, headerState } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { useWelcomeSetup } from './useWelcomeSetup'
@@ -7,11 +8,13 @@ const wrapper = NavigationWrapper
 type CarouselType = Carousel<() => JSX.Element>
 
 describe('useWelcomeSetup', () => {
-  const carousel: Partial<CarouselType> = {
-    snapToNext: jest.fn(),
-    snapToItem: jest.fn(),
+  const carousel: RefObject<CarouselType> = {
+    current: {
+      snapToNext: jest.fn(),
+      snapToItem: jest.fn(),
+    } as unknown as CarouselType,
   }
-  const initialProps = { carousel: null }
+  const initialProps = { carousel: { current: null } }
   it('should set up header correctly', () => {
     renderHook(useWelcomeSetup, { wrapper, initialProps })
     expect(headerState.header()).toMatchSnapshot()
@@ -45,17 +48,23 @@ describe('useWelcomeSetup', () => {
     expect(result.current.endReached).toEqual(true)
   })
   it('should go to next', () => {
-    const { result } = renderHook(useWelcomeSetup, { wrapper, initialProps: { carousel: carousel as CarouselType } })
+    const { result } = renderHook(useWelcomeSetup, {
+      wrapper,
+      initialProps: { carousel: carousel as RefObject<CarouselType> },
+    })
     act(() => {
       result.current.next()
     })
-    expect(carousel.snapToNext).toHaveBeenCalled()
+    expect(carousel.current?.snapToNext).toHaveBeenCalled()
   })
   it('should go to end', () => {
-    const { result } = renderHook(useWelcomeSetup, { wrapper, initialProps: { carousel: carousel as CarouselType } })
+    const { result } = renderHook(useWelcomeSetup, {
+      wrapper,
+      initialProps: { carousel: carousel as RefObject<CarouselType> },
+    })
     act(() => {
       result.current.goToEnd()
     })
-    expect(carousel.snapToItem).toHaveBeenCalledWith(4)
+    expect(carousel.current?.snapToItem).toHaveBeenCalledWith(4)
   })
 })
