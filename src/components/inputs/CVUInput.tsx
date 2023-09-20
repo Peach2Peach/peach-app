@@ -4,14 +4,12 @@ import { Input, InputProps } from './Input'
 
 export const CVUInput = ({ onChange, onSubmit, ...props }: InputProps) => (
   <Input
-    {...{
-      autoCorrect: false,
-      label: i18n('form.account'),
-      placeholder: i18n('form.cvu.placeholder'),
-      ...props,
-      onChange,
-      onEndEditing: onChange ? (cvu: string) => onChange(enforceBankNumberFormat(cvu)) : undefined,
-      onSubmit: onSubmit ? (cvu: string) => onSubmit(enforceBankNumberFormat(cvu)) : undefined,
-    }}
+    autoCorrect={false}
+    label={i18n('form.account')}
+    placeholder={i18n('form.cvu.placeholder')}
+    {...props}
+    onChange={onChange}
+    onEndEditing={onChange ? (cvu: string) => onChange(enforceBankNumberFormat(cvu)) : undefined}
+    onSubmit={onSubmit ? (cvu: string) => onSubmit(enforceBankNumberFormat(cvu)) : undefined}
   />
 )
