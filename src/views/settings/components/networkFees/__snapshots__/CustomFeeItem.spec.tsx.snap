@@ -10,19 +10,30 @@ exports[`CustomFeeItem renders correctly 1`] = `
     }
   }
 >
-  <PeachText
+  <Text
+    allowFontScaling={false}
     style={
-      {
-        "fontFamily": "Baloo2-SemiBold",
-        "fontSize": 16,
-        "letterSpacing": 0.16,
-        "lineHeight": 24,
-      }
+      [
+        {
+          "color": "#2B1911",
+          "fontFamily": "Baloo2-Regular",
+          "fontSize": 16,
+          "letterSpacing": 0.16,
+          "lineHeight": 24,
+        },
+        {
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 16,
+          "letterSpacing": 0.16,
+          "lineHeight": 24,
+        },
+        false,
+      ]
     }
   >
     custom
     :
-  </PeachText>
+  </Text>
   <View
     style={
       {
@@ -32,85 +43,186 @@ exports[`CustomFeeItem renders correctly 1`] = `
       }
     }
   >
-    <NumberInput
-      onChange={[MockFunction]}
-      required={true}
-      style={
-        {
-          "height": 32,
-          "width": 64,
+    <View>
+      <View
+        style={
+          [
+            {
+              "alignItems": "center",
+              "display": "flex",
+              "flexDirection": "row",
+              "gap": 4,
+              "justifyContent": "space-between",
+              "paddingLeft": 12,
+              "paddingRight": 12,
+              "width": "100%",
+            },
+            {
+              "borderRadius": 12,
+              "borderWidth": 1,
+              "overflow": "hidden",
+            },
+            {
+              "backgroundColor": "#FFFCFA",
+            },
+            {
+              "borderColor": "#2B1911",
+            },
+            false,
+            false,
+            {
+              "marginBottom": 1,
+              "marginTop": 1,
+            },
+            {
+              "height": 32,
+              "width": 64,
+            },
+          ]
         }
-      }
-      testID="input-custom-fees"
-      value="4"
-    />
+      >
+        <TextInput
+          allowFontScaling={false}
+          autoCapitalize="none"
+          autoCorrect={false}
+          blurOnSubmit={false}
+          editable={true}
+          keyboardType="numeric"
+          multiline={false}
+          onBlur={[Function]}
+          onChangeText={[Function]}
+          onEndEditing={[Function]}
+          onFocus={[Function]}
+          onSubmitEditing={[Function]}
+          placeholderTextColor="#BAADA7"
+          removeClippedSubviews={false}
+          style={
+            [
+              {
+                "flexShrink": 1,
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 18,
+                "height": 40,
+                "letterSpacing": 0.18,
+                "lineHeight": 29.25,
+                "paddingBottom": 0,
+                "paddingTop": 0,
+                "width": "100%",
+              },
+              {
+                "color": "#2B1911",
+              },
+              false,
+              {
+                "borderColor": "transparent",
+                "borderWidth": 1,
+              },
+              false,
+              false,
+            ]
+          }
+          testID="input-custom-fees"
+          textAlignVertical="center"
+          value="4"
+        />
+        <View
+          style={
+            {
+              "display": "flex",
+              "flexDirection": "row",
+              "gap": 16,
+            }
+          }
+        />
+      </View>
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              {
+                "fontFamily": "Baloo2-Medium",
+                "fontSize": 14,
+                "letterSpacing": 0.14,
+                "lineHeight": 20,
+                "marginLeft": 12,
+                "marginTop": 4,
+              },
+              {
+                "color": "#DF321F",
+              },
+            ],
+            false,
+          ]
+        }
+      >
+         
+      </Text>
+    </View>
   </View>
-  <PeachText
+  <Text
+    allowFontScaling={false}
     style={
-      {
-        "color": "#7D675E",
-      }
+      [
+        {
+          "color": "#2B1911",
+          "fontFamily": "Baloo2-Regular",
+          "fontSize": 16,
+          "letterSpacing": 0.16,
+          "lineHeight": 24,
+        },
+        {
+          "color": "#7D675E",
+        },
+        false,
+      ]
     }
   >
     sat/vB
-  </PeachText>
+  </Text>
 </View>
 `;
 
 exports[`CustomFeeItem renders correctly when disabled 1`] = `
-<View
-  style={
-    {
-      "alignItems": "center",
-      "display": "flex",
-      "flexDirection": "row",
-    }
-  }
->
-  <PeachText
-    style={
-      {
-        "fontFamily": "Baloo2-SemiBold",
-        "fontSize": 16,
-        "letterSpacing": 0.16,
-        "lineHeight": 24,
-      }
-    }
-  >
-    custom
-    :
-  </PeachText>
-  <View
-    style={
-      {
-        "height": 32,
-        "marginLeft": 8,
-        "marginRight": 8,
-      }
-    }
-  >
-    <NumberInput
-      disabled={true}
-      onChange={[MockFunction]}
-      required={true}
-      style={
-        {
-          "height": 32,
-          "width": 64,
-        }
-      }
-      testID="input-custom-fees"
-      value="4"
-    />
-  </View>
-  <PeachText
-    style={
-      {
-        "color": "#7D675E",
-      }
-    }
-  >
-    sat/vB
-  </PeachText>
-</View>
+"Snapshot Diff:
+- First value
++ Second value
+
+@@ -58,14 +58,14 @@
+                "borderRadius": 12,
+                "borderWidth": 1,
+                "overflow": "hidden",
+              },
+              Object {
+-               "backgroundColor": "#FFFCFA",
++               "backgroundColor": "transparent",
+              },
+              Object {
+-               "borderColor": "#2B1911",
++               "color": "#7D675E",
+              },
+              false,
+              false,
+              Object {
+                "marginBottom": 1,
+@@ -81,11 +81,11 @@
+          <TextInput
+            allowFontScaling={false}
+            autoCapitalize="none"
+            autoCorrect={false}
+            blurOnSubmit={false}
+-           editable={true}
++           editable={false}
+            keyboardType="numeric"
+            multiline={false}
+            onBlur={[Function onBlurHandler]}
+            onChangeText={[Function onChangeText]}
+            onEndEditing={[Function anonymous]}"
 `;

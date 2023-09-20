@@ -1,9 +1,9 @@
 import { View } from 'react-native'
 import { Text } from '../components'
 import { BTCAmount, ShortBitcoinAddress } from '../components/bitcoin'
+import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
 import { thousands } from '../utils/string'
-import tw from '../styles/tailwind'
 
 type Props = {
   amount: number
