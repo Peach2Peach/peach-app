@@ -41,7 +41,7 @@ export const CURRENCY_MAP: Record<CurrencyType, Currency[]> = {
 }
 
 export let GIFTCARDCOUNTRIES: Country[] = ['DE', 'FR', 'IT', 'ES', 'NL', 'UK', 'SE', 'FI']
-export const NATIONALTRANSFERCOUNTRIES: PaymentMethodCountry[] = ['BG', 'CZ', 'DK', 'HU', 'NO', 'PL', 'RO']
+export const NATIONALTRANSFERCOUNTRIES = ['BG', 'CZ', 'DK', 'HU', 'NO', 'PL', 'RO', 'CH', 'ISK', 'SE'] as const
 
 export let PAYMENTMETHODS: PaymentMethod[] = ['sepa']
 export let PAYMENTMETHODINFOS: PaymentMethodInfo[] = [

@@ -114,7 +114,7 @@ type Currency =
 type Pricebook = {
   [key in Currency]?: number
 }
-type PaymentMethodCountry = 'BG' | 'CZ' | 'DK' | 'HU' | 'NO' | 'PL' | 'RO' | 'TR' | 'NG' | 'DE'
+type PaymentMethodCountry = 'BG' | 'CZ' | 'DK' | 'HU' | 'NO' | 'PL' | 'RO' | 'TR' | 'NG' | 'DE' | 'CH' | 'ISK' | 'SE'
 
 type MeetupEvent = {
   id: string
