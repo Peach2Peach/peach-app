@@ -2,6 +2,7 @@ import AD from './ad.svg'
 import AT from './at.svg'
 import BE from './be.svg'
 import BG from './bg.svg'
+import BR from './br.svg'
 import CA from './ca.svg'
 import CD from './cd.svg'
 import CH from './ch.svg'
@@ -42,6 +43,7 @@ export const Flags = {
   AT,
   BE,
   BG,
+  BR,
   CA,
   CD,
   CH,
