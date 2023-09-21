@@ -3,7 +3,6 @@ import tw from '../../styles/tailwind'
 import { useState } from 'react'
 import { PrimaryButton, Screen } from '../../components'
 import { useHeaderSetup, useNavigation, useRoute } from '../../hooks'
-import { CURRENCIES } from '../../paymentMethods'
 import i18n from '../../utils/i18n'
 import { CurrencyTabs } from './CurrencyTabs'
 import { usePaymentMethodLabel } from './hooks'
@@ -11,7 +10,7 @@ import { usePaymentMethodLabel } from './hooks'
 export const SelectCurrency = () => {
   useHeaderSetup(i18n('selectCurrency.title'))
   const navigation = useNavigation()
-  const [selectedCurrency, setSelectedCurrency] = useState(CURRENCIES[0])
+  const [selectedCurrency, setSelectedCurrency] = useState<Currency>('EUR')
 
   const { origin } = useRoute<'selectCurrency'>().params
 
