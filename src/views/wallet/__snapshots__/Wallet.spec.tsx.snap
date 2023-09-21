@@ -23,6 +23,7 @@ exports[`Wallet should render correctly 1`] = `
   >
     <TotalBalance
       amount={21}
+      isRefreshing={false}
     />
   </ForwardRef>
   <WalletButtons />
