@@ -58,6 +58,7 @@
   "paymentMethod.nationalTransferNO" : "Bonifico nazionale Norvegia",
   "paymentMethod.nationalTransferPL" : "Bonifico nazionale Polonia",
   "paymentMethod.nationalTransferRO" : "Bonifico nazionale Romania",
+  "paymentMethod.nationalTransferSE" : "Bonifico nazionale Svezia",
   "paymentMethod.nationalTransferTR" : "Bonifico nazionale Turchia",
   "paymentMethod.nequi" : "Nequi",
   "paymentMethod.neteller" : "Neteller",
