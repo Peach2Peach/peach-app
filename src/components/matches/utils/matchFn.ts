@@ -7,15 +7,20 @@ const hasId = (offer: BuyOffer | SellOffer): offer is (BuyOffer | SellOffer) & {
 export const matchFn = async (
   match: Match,
   offer: BuyOffer | SellOffer,
-  selectedCurrency: Currency | undefined,
-  selectedPaymentMethod: PaymentMethod | undefined,
+  currency: Currency | undefined,
+  paymentMethod: PaymentMethod | undefined,
   updateMessage: (value: MessageState) => void,
   // eslint-disable-next-line max-params
 ) => {
   if (!hasId(offer)) throw new Error()
-  if (!selectedCurrency || !selectedPaymentMethod) throw new Error('MISSING_VALUES')
+  if (!currency || !paymentMethod) throw new Error('MISSING_VALUES')
 
-  const [matchOfferData, dataError] = await generateMatchOfferData(offer, match, selectedCurrency, selectedPaymentMethod)
+  const { result: matchOfferData, error: dataError } = await generateMatchOfferData({
+    offer,
+    match,
+    currency,
+    paymentMethod,
+  })
   if (!matchOfferData) throw new Error(dataError || 'UNKNOWN_ERROR')
 
   const [result, err] = await matchOffer(matchOfferData)
