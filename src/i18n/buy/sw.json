@@ -1,0 +1,14 @@
+{
+  "buy.addressSigning.message" : "ujumbe",
+  "buy.addressSigning.signature" : "saini",
+  "buy.addressSigning.title" : "saini anwani yako",
+  "buy.addressSigning.yourAddress" : "anwani yako",
+  "buy.meansOfPayment" : "utalipaje?",
+  "buy.releaseAddress.title" : "achia anwani",
+  "buy.subtitle" : "Unanunua kati ya:",
+  "buy.subtitle.highlight" : "ununuzi",
+  "buy.summary.title" : "chapisha ofa ya ununuzi",
+  "buy.title" : "nunua Bitcoin",
+  "buy.title.highlight" : "nunua",
+  "yourTrades.search.buy.subtitle" : "ofa ya ununuzi kwa"
+}

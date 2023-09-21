@@ -1,0 +1,17 @@
+{
+  "profile.accountCreated" : "akaunti imeundwa",
+  "profile.daysAgo" : "siku $0 zilizopita",
+  "profile.disputes" : "mgogoro",
+  "profile.disputesLost" : "imepoteza",
+  "profile.disputesOpened" : "imefunguliwa",
+  "profile.disputesWon" : "imepata ushindi",
+  "profile.myAccount.title" : "akaunti yangu",
+  "profile.numberOfTrades" : "idadi ya biashara",
+  "profile.publicKey" : "muuaji wa akaunti",
+  "profile.tradingLimits" : "mipaka ya biashara",
+  "profile.tradingLimits.daily" : "kiwango cha biashara cha kila siku",
+  "profile.tradingLimits.monthly" : "kiwango cha kila mwezi bila kujulikana:",
+  "profile.tradingLimits.yearly" : "kiwango cha kila mwaka cha biashara:",
+  "profile.tradingLimits.yearly.short" : "kiwango cha kila mwaka:",
+  "profile.user.title" : "wasifu wa umma"
+}
