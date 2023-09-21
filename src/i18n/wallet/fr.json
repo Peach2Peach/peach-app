@@ -13,6 +13,7 @@
   "wallet.addressChecker.hint" : "vous pouvez l'utiliser pour vérifier si une adresse appartient à votre portefeuille Peach",
   "wallet.bumpNetworkFees.button" : "augmenter les frais de réseau",
   "wallet.bumpNetworkFees.confirmRbf.newFee" : "Nouveaux frais:",
+  "wallet.bumpNetworkFees.confirmRbf.noChange" : "Cette transaction n'a pas de monnaie rendue.\nAugmenter les frais réduira le montant envoyé !",
   "wallet.bumpNetworkFees.confirmRbf.oldFee" : "Anciens frais:",
   "wallet.bumpNetworkFees.confirmRbf.percentOfTx" : "( $0% de la transaction )\n",
   "wallet.bumpNetworkFees.confirmRbf.title" : "augmentation des frais",

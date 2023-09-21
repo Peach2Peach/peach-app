@@ -7,8 +7,7 @@ import { useSyncWallet } from './useSyncWallet'
 
 export const useTransactionDetailsSetup = () => {
   const { txId } = useRoute<'transactionDetails'>().params
-  const getTransaction = useWalletState((state) => state.getTransaction)
-  const tx = getTransaction(txId)
+  const tx = useWalletState((state) => state.getTransaction(txId))
   const transaction = useMemo(() => (tx ? getTxSummary(tx) : undefined), [tx])
   const { refresh, isRefreshing } = useSyncWallet()
 

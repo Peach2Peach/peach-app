@@ -13,6 +13,7 @@
   "wallet.addressChecker.hint" : "puedes usarlo para comprobar si una dirección pertenece a tu cartera de Peach",
   "wallet.bumpNetworkFees.button" : "aumentar comisión",
   "wallet.bumpNetworkFees.confirmRbf.newFee" : "Nueva comisión:",
+  "wallet.bumpNetworkFees.confirmRbf.noChange" : "Esta transacción no tiene cambio.\n¡Aumentar las tarifas reducirá la cantidad enviada!",
   "wallet.bumpNetworkFees.confirmRbf.oldFee" : "Comisión previa:",
   "wallet.bumpNetworkFees.confirmRbf.percentOfTx" : "( $0% de la transacción)",
   "wallet.bumpNetworkFees.confirmRbf.title" : "aumentando comisión",

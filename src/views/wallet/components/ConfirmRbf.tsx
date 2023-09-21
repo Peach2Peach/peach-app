@@ -1,18 +1,27 @@
 import { View } from 'react-native'
+import { Icon } from '../../../components'
+import { BTCAmount } from '../../../components/bitcoin'
 import { PeachText } from '../../../components/text/Text'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
-import { BTCAmount } from '../../../components/bitcoin'
 import { round } from '../../../utils/math'
+
+const NoChangeWarning = () => (
+  <View style={tw`flex-row gap-4 items-center`}>
+    <Icon id="alertTriangle" size={32} color={tw`text-black-1`.color} />
+    <PeachText>{i18n('wallet.bumpNetworkFees.confirmRbf.noChange')}</PeachText>
+  </View>
+)
 
 type Props = {
   oldFeeRate: number
   newFeeRate: number
   bytes: number
   sendingAmount: number
+  hasNoChange?: boolean
 }
 
-export const ConfirmRbf = ({ oldFeeRate, newFeeRate, bytes, sendingAmount }: Props) => {
+export const ConfirmRbf = ({ oldFeeRate, newFeeRate, bytes, sendingAmount, hasNoChange }: Props) => {
   const oldFee = oldFeeRate * bytes
   const newFee = newFeeRate * bytes
 
@@ -40,6 +49,7 @@ export const ConfirmRbf = ({ oldFeeRate, newFeeRate, bytes, sendingAmount }: Pro
           {i18n('wallet.bumpNetworkFees.confirmRbf.percentOfTx', String(round((newFee / sendingAmount) * 100, 1)))}
         </PeachText>
       </View>
+      {hasNoChange && <NoChangeWarning />}
     </View>
   )
 }
