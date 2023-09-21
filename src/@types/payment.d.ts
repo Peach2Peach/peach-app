@@ -21,7 +21,7 @@ type EuPaymentMethods =
   | 'nationalTransferRO'
   | 'nationalTransferTR'
   | 'nationalTransferCH'
-  | 'nationalTransferISK'
+  | 'nationalTransferIS'
   | 'nationalTransferSE'
   | 'neteller'
   | 'papara'
