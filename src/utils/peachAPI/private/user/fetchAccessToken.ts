@@ -1,9 +1,9 @@
+import { FIFTEEN_SECONDS } from '../../../../constants'
 import { error, info } from '../../../log'
 import { getAccessToken } from '../../accessToken'
 import { auth } from './auth'
 
 let fetchingToken: Promise<AccessToken> | null
-
 
 export const fetchAccessToken = async (): Promise<string> => {
   const accessToken = getAccessToken()
@@ -22,7 +22,7 @@ export const fetchAccessToken = async (): Promise<string> => {
 
   // eslint-disable-next-line require-atomic-updates
   fetchingToken = new Promise(async (resolve, reject) => {
-    const [result, err] = await auth({ timeout: 3000 })
+    const [result, err] = await auth({ timeout: FIFTEEN_SECONDS })
 
     if (!result || err) {
       error('peachAPI - fetchAccessToken', err?.error)
