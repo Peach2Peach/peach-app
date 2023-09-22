@@ -6,6 +6,7 @@ import { useSettingsStore } from '../../../store/settingsStore'
 import { account, getMessageToSignForAddress } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
 import { headerIcons } from '../../../utils/layout/headerIcons'
+import { parseSignature } from '../helpers/parseSignature'
 
 export const useSignMessageSetup = () => {
   const navigation = useNavigation()
@@ -22,6 +23,9 @@ export const useSignMessageSetup = () => {
     [address, message],
   )
   const [signature, setSignature, signatureValid, signatureError] = useValidatedState<string>('', signatureRules)
+
+  const parseAndSetSignature = (sig: string) => setSignature(parseSignature(sig))
+
   const showHelp = useShowHelp('addressSigning')
   useHeaderSetup({
     title: i18n('buy.addressSigning.title'),
@@ -38,7 +42,7 @@ export const useSignMessageSetup = () => {
     message,
     submit,
     signature,
-    setSignature,
+    setSignature: parseAndSetSignature,
     signatureValid,
     signatureError,
   }

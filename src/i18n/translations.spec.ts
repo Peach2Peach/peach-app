@@ -7,6 +7,7 @@ import en from './en'
 import es from './es'
 import fr from './fr'
 import it from './it'
+import sw from './sw'
 import tr from './tr'
 
 describe('translations', () => {
@@ -18,6 +19,7 @@ describe('translations', () => {
       if (!isDefined(de[key])) console.warn(`${key} does not exist in de`)
       if (!isDefined(elGR[key])) console.warn(`${key} does not exist in el-GR`)
       if (!isDefined(tr[key])) console.warn(`${key} does not exist in tr`)
+      if (!isDefined(sw[key])) console.warn(`${key} does not exist in sw`)
     }
   })
   test('non existing texts has not been translated', () => {
@@ -38,6 +40,9 @@ describe('translations', () => {
     }
     for (const key in tr) {
       ok(isDefined(en[key]), `${key} does not exist in tr`)
+    }
+    for (const key in sw) {
+      ok(isDefined(en[key]), `${key} does not exist in sw`)
     }
   })
 })

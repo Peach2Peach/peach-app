@@ -14,7 +14,7 @@ export const SignMessage = () => {
 
   const pasteSignature = async () => {
     const clipboard = await Clipboard.getString()
-    setSignature(clipboard)
+    if (clipboard) setSignature(clipboard)
   }
 
   const keyboardOpen = useKeyboard()

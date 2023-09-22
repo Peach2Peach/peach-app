@@ -10,6 +10,6 @@ export const getTransactionDetails = (amount = 10000, feeRate = 1, txId = 'txId'
 
   return {
     psbt,
-    txDetails: new TransactionDetails('txId', 0, amount, feeAmount, new BlockTime(1, 1)),
+    txDetails: new TransactionDetails('txId', 0, amount, feeAmount, new BlockTime(1, 1), null),
   }
 }

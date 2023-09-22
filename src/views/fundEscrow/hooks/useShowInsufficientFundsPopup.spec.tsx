@@ -32,7 +32,7 @@ describe('useShowInsufficientFundsPopup', () => {
   const propsWithChange = { ...props, transaction: transactionWithChange }
 
   beforeEach(() => {
-    // @ts-ignore
+    // @ts-expect-error mock doesn't need args
     setPeachWallet(new PeachWallet())
   })
   it('should open insufficient funds popup', async () => {
@@ -72,9 +72,7 @@ describe('useShowInsufficientFundsPopup', () => {
 
     const { result } = renderHook(useShowInsufficientFundsPopup, { wrapper })
 
-    await act(async () => {
-      await result.current(props)
-    })
+    await act(() => result.current(props))
     const promise = usePopupStore.getState().action1?.callback()
 
     expect(usePopupStore.getState()).toEqual({
@@ -88,9 +86,7 @@ describe('useShowInsufficientFundsPopup', () => {
         callback: expect.any(Function),
       },
     })
-    await act(async () => {
-      await promise
-    })
+    await act(() => promise)
 
     expect(peachWallet.signAndBroadcastPSBT).toHaveBeenCalledWith(transaction.psbt)
     expect(usePopupStore.getState().visible).toBeFalsy()

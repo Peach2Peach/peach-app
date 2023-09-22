@@ -28,12 +28,13 @@ export class Blockchain {
 }
 
 export const bumpFeeTxBuilderCreateMock = jest.fn().mockReturnThis()
+export const bumpFeeTxBuilderAllowShrinkingMock = jest.fn()
 export const bumpFeeTxBuilderEnableRbfMock = jest.fn()
 export const bumpFeeTxBuilderFinishMock = jest.fn()
 export class BumpFeeTxBuilder {
   create = bumpFeeTxBuilderCreateMock
 
-  allowShrinking = jest.fn()
+  allowShrinking = bumpFeeTxBuilderAllowShrinkingMock
 
   enableRbf = bumpFeeTxBuilderEnableRbfMock
 

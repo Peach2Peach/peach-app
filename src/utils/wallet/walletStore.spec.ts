@@ -1,3 +1,4 @@
+import { pending1, pending2 } from '../../../tests/unit/data/transactionDetailData'
 import { useWalletState } from './walletStore'
 
 // eslint-disable-next-line max-lines-per-function
@@ -18,6 +19,20 @@ describe('walletStore', () => {
       selectedUTXOIds: [],
       isSynced: false,
     })
+  })
+  it('sets transactions', () => {
+    useWalletState.getState().setTransactions([pending1])
+    expect(useWalletState.getState().transactions).toEqual([pending1])
+  })
+  it('adds a transaction', () => {
+    useWalletState.getState().setTransactions([pending1])
+    useWalletState.getState().addTransaction(pending2)
+    expect(useWalletState.getState().transactions).toEqual([pending1, pending2])
+  })
+  it('removes transactions', () => {
+    useWalletState.getState().setTransactions([pending1])
+    useWalletState.getState().removeTransaction(pending1.txid)
+    expect(useWalletState.getState().transactions).toEqual([])
   })
   it('adds pending transactions', () => {
     useWalletState.getState().addPendingTransactionHex('txId', 'txHex')

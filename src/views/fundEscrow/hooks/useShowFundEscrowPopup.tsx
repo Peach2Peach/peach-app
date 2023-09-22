@@ -4,7 +4,13 @@ import i18n from '../../../utils/i18n'
 import { ConfirmFundingFromPeachWallet } from '../components/ConfirmFundingFromPeachWallet'
 import { useShowConfirmTransactionPopup } from './useShowConfirmTransactionPopup'
 
-type Props = { address: string; amount?: number; transaction: TxBuilderResult; feeRate: number; onSuccess: Function }
+type Props = {
+  address: string
+  amount?: number
+  transaction: TxBuilderResult
+  feeRate: number
+  onSuccess: (tx: TxBuilderResult) => void
+}
 
 export const useShowFundEscrowPopup = () => {
   const showConfirmTransactionPopup = useShowConfirmTransactionPopup()

@@ -17,6 +17,7 @@ export const FundEscrow = () => {
     = useFundEscrowSetup()
 
   const { fundFromPeachWallet, fundedFromPeachWallet } = useFundFromPeachWallet({
+    offerId,
     address: fundingAddress,
     addresses: fundingAddresses,
     amount: fundingAmount,

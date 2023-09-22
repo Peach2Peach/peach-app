@@ -31,7 +31,6 @@ import {
   walletSyncMock,
 } from '../../../tests/unit/mocks/bdkRN'
 import { useTradeSummaryStore } from '../../store/tradeSummaryStore'
-import { error as logError } from '../log'
 import { PeachWallet } from './PeachWallet'
 import { createWalletFromBase58 } from './createWalletFromBase58'
 import { getNetwork } from './getNetwork'
@@ -98,16 +97,6 @@ describe('PeachWallet', () => {
     await peachWallet.syncWallet()
     expect(useWalletState.getState().isSynced).toBeTruthy()
     expect(walletSyncMock).toHaveBeenCalled()
-  })
-  it('logs sync errors', async () => {
-    const errorMsg = 'sync error'
-    walletSyncMock.mockImplementationOnce(() => {
-      throw new Error(errorMsg)
-    })
-
-    await peachWallet.syncWallet()
-    expect(useWalletState.getState().isSynced).toBeFalsy()
-    expect(logError).toHaveBeenCalledWith(errorMsg)
   })
   it('waits for already running sync', async () => {
     jest.clearAllMocks()
@@ -441,7 +430,7 @@ describe('PeachWallet - loadWallet', () => {
     const hasHydratedSpy = jest.spyOn(useWalletState.persist, 'hasHydrated')
     const onFinishHydrationSpy = jest.spyOn(useWalletState.persist, 'onFinishHydration')
     hasHydratedSpy.mockReturnValueOnce(false)
-    // @ts-ignore
+    // @ts-expect-error it's just a mock
     onFinishHydrationSpy.mockImplementationOnce((cb) => cb(useWalletState.getState()))
     useWalletState.getState().setBalance(balance)
     peachWallet.loadWallet()

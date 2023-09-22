@@ -17,10 +17,12 @@ import EU from './eu.svg'
 import FI from './fi.svg'
 import FR from './fr.svg'
 import GB from './gb.svg'
+import GH from './gh.svg'
 import GR from './gr.svg'
 import HR from './hr.svg'
 import IE from './ie.svg'
 import IT from './it.svg'
+import KE from './ke.svg'
 import LT from './lt.svg'
 import LU from './lu.svg'
 import LV from './lv.svg'
@@ -37,6 +39,7 @@ import SI from './si.svg'
 import SK from './sk.svg'
 import TR from './tr.svg'
 import US from './us.svg'
+import ZA from './za.svg'
 
 export const Flags = {
   AD,
@@ -58,10 +61,12 @@ export const Flags = {
   FI,
   FR,
   GB,
+  GH,
   GR,
   HR,
   IE,
   IT,
+  KE,
   LT,
   LU,
   LV,
@@ -78,6 +83,7 @@ export const Flags = {
   SK,
   TR,
   US,
+  ZA,
 }
 
 export type FlagType = keyof typeof Flags

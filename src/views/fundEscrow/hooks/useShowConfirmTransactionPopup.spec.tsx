@@ -3,6 +3,7 @@ import { act } from 'react-test-renderer'
 import { estimatedFees } from '../../../../tests/unit/data/bitcoinNetworkData'
 import { transactionError } from '../../../../tests/unit/data/errors'
 import { sellOffer } from '../../../../tests/unit/data/offerData'
+import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { getTransactionDetails } from '../../../../tests/unit/helpers/getTransactionDetails'
 import { Loading } from '../../../components'
 import { usePopupStore } from '../../../store/usePopupStore'
@@ -11,7 +12,6 @@ import { PeachWallet } from '../../../utils/wallet/PeachWallet'
 import { peachWallet, setPeachWallet } from '../../../utils/wallet/setWallet'
 import { ConfirmFundingFromPeachWallet } from '../components/ConfirmFundingFromPeachWallet'
 import { useShowConfirmTransactionPopup } from './useShowConfirmTransactionPopup'
-import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
 
 const wrapper = NavigationWrapper
 
@@ -19,7 +19,7 @@ const showErrorBannerMock = jest.fn()
 jest.mock('../../../hooks/useShowErrorBanner', () => ({
   useShowErrorBanner:
     () =>
-      (...args: any[]) =>
+      (...args: unknown[]) =>
         showErrorBannerMock(...args),
 }))
 
@@ -37,7 +37,7 @@ describe('useShowConfirmTransactionPopup', () => {
     onSuccess,
   }
   beforeEach(() => {
-    // @ts-ignore
+    // @ts-expect-error mock doesn't need args
     setPeachWallet(new PeachWallet())
   })
 
@@ -67,9 +67,7 @@ describe('useShowConfirmTransactionPopup', () => {
 
     const { result } = renderHook(useShowConfirmTransactionPopup, { wrapper })
 
-    await act(async () => {
-      await result.current(props)
-    })
+    await act(() => result.current(props))
     const promise = usePopupStore.getState().action1?.callback()
 
     expect(usePopupStore.getState()).toEqual({
@@ -83,9 +81,7 @@ describe('useShowConfirmTransactionPopup', () => {
         callback: expect.any(Function),
       },
     })
-    await act(async () => {
-      await promise
-    })
+    await act(() => promise)
 
     expect(peachWallet.signAndBroadcastPSBT).toHaveBeenCalledWith(transaction.psbt)
     expect(usePopupStore.getState().visible).toBeFalsy()
