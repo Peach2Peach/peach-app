@@ -12,9 +12,7 @@ import {
   Template16,
   Template17,
   Template18,
-  Template19,
   Template2,
-  Template20,
   Template21,
   Template3,
   Template4,
@@ -192,11 +190,11 @@ describe('paymentMethodForms', () => {
       fields: ['method', 'price', 'phone', 'reference'],
     })
     expect(PaymentMethodForms.eversend).toStrictEqual({
-      component: Template19,
+      component: Template18,
       fields: ['method', 'price', 'userName', 'reference'],
     })
     expect(PaymentMethodForms.payday).toStrictEqual({
-      component: Template20,
+      component: Template18,
       fields: ['method', 'price', 'userName', 'reference'],
     })
   })

@@ -10,6 +10,7 @@ import { useHeaderSetup, useNavigation, useRoute } from '../../hooks'
 import { NATIONALOPTIONCOUNTRIES, NATIONALOPTIONS, PAYMENTCATEGORIES } from '../../paymentMethods'
 import { getApplicablePaymentCategories, paymentMethodAllowedForCurrency } from '../../utils/paymentMethod'
 import { usePaymentMethodLabel } from './hooks'
+import { getCurrencyTypeFilter } from './utils'
 
 const mapCountryToDrawerOption = (onPress: (country: FlagType) => void) => (country: FlagType) => ({
   title: i18n(`country.${country}`),
@@ -69,13 +70,28 @@ export const SelectPaymentMethod = () => {
     onClose: unselectCategory,
   })
 
+  const getNationalOptions = () => {
+    if (getCurrencyTypeFilter('europe')(selectedCurrency)) {
+      return NATIONALOPTIONS.EUR
+    }
+    return NATIONALOPTIONS.LATAM
+  }
+
+  const getNationalOptionCountries = () => {
+    if (getCurrencyTypeFilter('europe')(selectedCurrency)) {
+      return NATIONALOPTIONCOUNTRIES.EUR
+    }
+    return NATIONALOPTIONCOUNTRIES.LATAM
+  }
+
   const selectCountry = (country: FlagType, category: PaymentCategory) => {
-    const nationalOptions = NATIONALOPTIONS.EUR[country]
+    const nationalOptions = getNationalOptions()[country]
+    const nationalOptionCountries = getNationalOptionCountries()
     updateDrawer({
       title: i18n(`country.${country}`),
       options: nationalOptions.map(mapMethodToDrawerOption),
       previousDrawer: {
-        options: NATIONALOPTIONCOUNTRIES.EUR.map(mapCountryToDrawerOption((cntry) => selectCountry(cntry, category))),
+        options: nationalOptionCountries.map(mapCountryToDrawerOption((cntry) => selectCountry(cntry, category))),
         ...getDrawerConfig(category),
       },
       show: true,
@@ -85,7 +101,7 @@ export const SelectPaymentMethod = () => {
 
   const getDrawerOptions = (category: PaymentCategory) =>
     category === 'nationalOption'
-      ? NATIONALOPTIONCOUNTRIES.EUR.map(mapCountryToDrawerOption((country) => selectCountry(country, category)))
+      ? getNationalOptionCountries().map(mapCountryToDrawerOption((country) => selectCountry(country, category)))
       : PAYMENTCATEGORIES[category]
         .filter((method) => paymentMethodAllowedForCurrency(method, selectedCurrency))
         .filter((method) => category !== 'giftCard' || method === 'giftCard.amazon')

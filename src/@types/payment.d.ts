@@ -1,6 +1,7 @@
 type EuPaymentMethods =
   | 'advcash'
   | 'applePay'
+  | 'bankera'
   | 'bizum'
   | 'blik'
   | 'fasterPayments'
@@ -28,6 +29,8 @@ type EuPaymentMethods =
   | 'paylib'
   | 'paypal'
   | 'paysera'
+  | 'postePay'
+  | 'rebellion'
   | 'revolut'
   | 'satispay'
   | 'sepa'
@@ -44,13 +47,16 @@ type LatAmPaymentMethods =
   | 'cvu'
   | 'mercadoPago'
   | 'nequi'
+  | 'pix'
   | 'rappipay'
   | 'sinpe'
   | 'sinpeMovil'
 type AfricaPaymentMethods =
+  | 'accrue'
   | 'airtelMoney'
   | 'chippercash'
   | 'eversend'
+  | 'klasha'
   | 'm-pesa'
   | 'moov'
   | 'mtn'
@@ -58,6 +64,7 @@ type AfricaPaymentMethods =
   | 'orangeMoney'
   | 'payday'
   | 'wave'
+  | 'wirepay'
 type BitcoinPaymentMethods = 'liquid' | 'lnurl'
 type InternationalPaymentMethds = 'giftCard.amazon' | `giftCard.amazon.${Country}`
 type CashPaymentMethds = 'cash' | `cash.${string}`

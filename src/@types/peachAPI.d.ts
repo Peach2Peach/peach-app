@@ -111,6 +111,7 @@ type Currency =
   | 'NGN'
   | 'CDF'
   | 'CRC'
+  | 'BRL'
 type Pricebook = {
   [key in Currency]?: number
 }
