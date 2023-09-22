@@ -1,4 +1,4 @@
-import { pending1 } from '../../../tests/unit/data/transactionDetailData'
+import { pending1, pending2 } from '../../../tests/unit/data/transactionDetailData'
 import { useWalletState } from './walletStore'
 
 // eslint-disable-next-line max-lines-per-function
@@ -20,9 +20,14 @@ describe('walletStore', () => {
       isSynced: false,
     })
   })
-  it('adds transactions', () => {
+  it('sets transactions', () => {
     useWalletState.getState().setTransactions([pending1])
     expect(useWalletState.getState().transactions).toEqual([pending1])
+  })
+  it('adds a transaction', () => {
+    useWalletState.getState().setTransactions([pending1])
+    useWalletState.getState().addTransaction(pending2)
+    expect(useWalletState.getState().transactions).toEqual([pending1, pending2])
   })
   it('removes transactions', () => {
     useWalletState.getState().setTransactions([pending1])

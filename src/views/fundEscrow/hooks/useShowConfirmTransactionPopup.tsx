@@ -11,7 +11,7 @@ type Props = {
   title: string
   content: JSX.Element
   transaction: TxBuilderResult
-  onSuccess: Function
+  onSuccess: (tx: TxBuilderResult) => void
 }
 
 export const useShowConfirmTransactionPopup = () => {
@@ -20,14 +20,14 @@ export const useShowConfirmTransactionPopup = () => {
   const handleTransactionError = useHandleTransactionError()
 
   const confirmAndSend = useCallback(
-    async (transaction: TxBuilderResult, onSuccess: Function) => {
+    async (transaction: TxBuilderResult, onSuccess: Props['onSuccess']) => {
       showLoadingPopup({
         title: i18n('fundFromPeachWallet.confirm.title'),
         level: 'APP',
       })
       try {
         await peachWallet.signAndBroadcastPSBT(transaction.psbt)
-        onSuccess()
+        onSuccess(transaction)
       } catch (e) {
         handleTransactionError(e)
       } finally {

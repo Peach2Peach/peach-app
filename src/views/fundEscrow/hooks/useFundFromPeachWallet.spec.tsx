@@ -36,14 +36,15 @@ jest.mock('../../../hooks/useShowErrorBanner', () => ({
         showErrorBannerMock(...args),
 }))
 
-// eslint-disable-next-line max-lines-per-function
+// eslint-disable-next-line max-lines-per-function, max-statements
 describe('useFundFromPeachWallet', () => {
+  const offerId = sellOffer.id
   const amount = sellOffer.amount
   const minTradingAmount = 50000
   const address = 'bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh'
   const feeRate = estimatedFees.halfHourFee
   const fee = feeRate * 110
-  const initialProps = { address, amount: 615000, fundingStatus: defaultFundingStatus }
+  const initialProps = { offerId, address, amount: 615000, fundingStatus: defaultFundingStatus }
 
   beforeAll(() => {
     useConfigStore.getState().setMinTradingAmount(minTradingAmount)
@@ -72,7 +73,7 @@ describe('useFundFromPeachWallet', () => {
   it('should return canFundFromPeachWallet as false if escrow is already being funded', () => {
     peachWallet.balance = amount
     const { result } = renderHook(useFundFromPeachWallet, {
-      initialProps: { address, amount: 6150000, fundingStatus: { ...defaultFundingStatus, status: 'MEMPOOL' } },
+      initialProps: { offerId, address, amount: 6150000, fundingStatus: { ...defaultFundingStatus, status: 'MEMPOOL' } },
     })
 
     expect(result.current.canFundFromPeachWallet).toBeFalsy()
@@ -82,7 +83,7 @@ describe('useFundFromPeachWallet', () => {
     peachWallet.balance = amount
 
     const { result, rerender } = renderHook(useFundFromPeachWallet, {
-      initialProps: { fundingStatus: defaultFundingStatus },
+      initialProps: { offerId, fundingStatus: defaultFundingStatus },
     })
     expect(result.current.canFundFromPeachWallet).toBeFalsy()
 
