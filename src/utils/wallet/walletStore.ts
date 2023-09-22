@@ -30,6 +30,7 @@ export type WalletStore = WalletState & {
   setAddresses: (addresses: string[]) => void
   setBalance: (balance: number) => void
   setTransactions: (txs: TransactionDetails[]) => void
+  addTransaction: (transaction: TransactionDetails) => void
   removeTransaction: (txId: string) => void
   getTransaction: (txId: string) => TransactionDetails | undefined
   addPendingTransactionHex: (txId: string, hex: string) => void
@@ -70,6 +71,7 @@ export const useWalletState = create<WalletStore>()(
       setAddresses: (addresses) => set({ addresses }),
       setBalance: (balance) => set({ balance }),
       setTransactions: (transactions) => set({ transactions }),
+      addTransaction: (transaction) => set({ transactions: [...get().transactions, transaction] }),
       removeTransaction: (txId) => set({ transactions: get().transactions.filter((tx) => tx.txid !== txId) }),
       getTransaction: (txId) => get().transactions.find((tx) => tx.txid === txId),
       isFundedFromPeachWallet: (address) => get().fundedFromPeachWallet.includes(address),
