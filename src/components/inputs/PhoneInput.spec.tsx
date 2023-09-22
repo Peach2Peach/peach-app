@@ -1,7 +1,7 @@
-import { PhoneInput } from './PhoneInput'
-import { createRenderer } from 'react-test-renderer/shallow'
 import { act, fireEvent, render } from '@testing-library/react-native'
+import { createRenderer } from 'react-test-renderer/shallow'
 import i18n from '../../utils/i18n'
+import { PhoneInput } from './PhoneInput'
 
 describe('PhoneInput', () => {
   it('renders correctly', () => {

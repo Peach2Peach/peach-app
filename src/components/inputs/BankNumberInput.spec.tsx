@@ -1,7 +1,7 @@
-import { BankNumberInput } from './BankNumberInput'
-import { createRenderer } from 'react-test-renderer/shallow'
 import { act, fireEvent, render } from '@testing-library/react-native'
+import { createRenderer } from 'react-test-renderer/shallow'
 import i18n from '../../utils/i18n'
+import { BankNumberInput } from './BankNumberInput'
 
 describe('BankNumberInput', () => {
   it('should render correctly', () => {

@@ -65,8 +65,8 @@ describe('paymentMethodForms', () => {
     expect(PaymentMethodForms.nationalTransferPL).toStrictEqual({ component: Template9, fields: expect.any(Array) })
     expect(PaymentMethodForms.nationalTransferRO).toStrictEqual({ component: Template9, fields: expect.any(Array) })
     expect(PaymentMethodForms.nationalTransferTR).toStrictEqual({
-      component: Template1,
-      fields: ['method', 'price', 'beneficiary', 'iban', 'bic', 'reference'],
+      component: Template9,
+      fields: ['method', 'price', 'beneficiary', 'iban', 'accountNumber', 'bic', 'reference'],
     })
     expect(PaymentMethodForms.papara).toStrictEqual({
       component: Template3,

@@ -5,7 +5,7 @@ import { Input, InputProps } from './Input'
 export const BankNumberInput = ({ onChange, onSubmit, ...props }: InputProps) => (
   <Input
     required
-    label={i18n('form.account')}
+    label={i18n('form.account.long')}
     placeholder={i18n('form.account.placeholder')}
     autoCorrect={false}
     {...props}

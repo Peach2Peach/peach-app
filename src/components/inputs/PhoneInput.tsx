@@ -9,8 +9,7 @@ export const PhoneInput = ({ onChange, onSubmit, ...props }: InputProps) => (
     autoCorrect={false}
     {...props}
     keyboardType="phone-pad"
-    onChange={onChange}
-    onEndEditing={onChange ? (number: string) => onChange(enforcePhoneFormat(number)) : undefined}
+    onChange={onChange ? (number: string) => onChange(enforcePhoneFormat(number)) : undefined}
     onSubmit={onSubmit ? (number: string) => onSubmit(enforcePhoneFormat(number)) : undefined}
   />
 )
