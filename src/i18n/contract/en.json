@@ -129,6 +129,8 @@
   "contract.summary.paidWithMethod" : "paid with",
   "contract.summary.paymentTooLate" : "payment too late",
   "contract.summary.phone" : "phone #",
+  "contract.summary.pixAlias" : "pix alias",
+  "contract.summary.postePayNumber" : "postePay number",
   "contract.summary.price" : "price",
   "contract.summary.receiveAddress" : "address",
   "contract.summary.reference" : "reference",
