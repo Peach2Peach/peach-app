@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
-import { getErrorsInField } from '../../../../../utils/validation'
 import { usePaymentDataStore } from '../../../../../store/usePaymentDataStore'
+import { getErrorsInField } from '../../../../../utils/validation'
 
 export const useLabelInput = (paymentData: Partial<PaymentData>) => {
   const [label, setLabel] = useState(paymentData?.label || '')
@@ -15,6 +15,7 @@ export const useLabelInput = (paymentData: Partial<PaymentData>) => {
     [getPaymentDataByLabel, label, paymentData.id],
   )
   const labelErrors = useMemo(() => getErrorsInField(label, labelRules), [label, labelRules])
+  const isLabelValid = useMemo(() => labelErrors.length === 0, [labelErrors])
 
   return {
     labelInputProps: {
@@ -25,5 +26,6 @@ export const useLabelInput = (paymentData: Partial<PaymentData>) => {
     label,
     setDisplayErrors,
     labelErrors,
+    isLabelValid,
   }
 }

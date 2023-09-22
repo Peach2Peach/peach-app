@@ -129,6 +129,7 @@
   "contract.summary.paidWithMethod" : "ile ödendi",
   "contract.summary.paymentTooLate" : "ödeme zamanında yapılmadı",
   "contract.summary.phone" : "telefon #",
+  "contract.summary.pixAlias" : "pix alias",
   "contract.summary.price" : "fiyat",
   "contract.summary.receiveAddress" : "adres",
   "contract.summary.reference" : "referans",
