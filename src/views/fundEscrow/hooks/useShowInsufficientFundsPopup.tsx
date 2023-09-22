@@ -4,7 +4,12 @@ import i18n from '../../../utils/i18n'
 import { ConfirmFundingWithInsufficientFunds } from '../components/ConfirmFundingWithInsufficientFunds'
 import { useShowConfirmTransactionPopup } from './useShowConfirmTransactionPopup'
 
-type Props = { address: string; transaction: TxBuilderResult; feeRate: number; onSuccess: Function }
+type Props = {
+  address: string
+  transaction: TxBuilderResult
+  feeRate: number
+  onSuccess: (tx: TxBuilderResult) => void
+}
 
 export const useShowInsufficientFundsPopup = () => {
   const showConfirmTransactionPopup = useShowConfirmTransactionPopup()
