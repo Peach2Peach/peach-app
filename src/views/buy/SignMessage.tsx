@@ -5,6 +5,7 @@ import { Text } from '../../components/text'
 import { useKeyboard } from '../../hooks'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
+import { parseSignature } from './helpers/parseSignature'
 import { useSignMessageSetup } from './hooks/useSignMessageSetup'
 
 export const SignMessage = () => {
@@ -13,8 +14,8 @@ export const SignMessage = () => {
   const submitSignature = () => submit(signature)
 
   const pasteSignature = async () => {
-    const clipboard = await Clipboard.getString()
-    setSignature(clipboard)
+    const clipboard = parseSignature(await Clipboard.getString())
+    if (clipboard) setSignature(clipboard)
   }
 
   const keyboardOpen = useKeyboard()
