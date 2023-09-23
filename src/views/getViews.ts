@@ -195,7 +195,7 @@ const settings: ViewType[] = [
   { name: 'peachFees', component: PeachFees, ...defaultConfig },
   { name: 'networkFees', component: NetworkFees, ...defaultConfig },
   { name: 'transactionBatching', component: TransactionBatching, ...defaultConfig },
-  { name: 'socials', component: Socials, ...defaultConfig },
+  { name: 'socials', component: Socials, ...defaultConfig, showHeader: false },
 ]
 
 const testViews: ViewType[] = [
