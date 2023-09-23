@@ -3,7 +3,7 @@ import { Linking, View } from 'react-native'
 import tw from '../../../styles/tailwind'
 
 import { NewHeader as Header, OptionButton, Screen } from '../../../components'
-import { DISCORD, INSTAGRAM, TELEGRAM, TWITCH, TWITTER } from '../../../constants'
+import { DISCORD, INSTAGRAM, NOSTR, TELEGRAM, TWITCH, TWITTER, YOUTUBE } from '../../../constants'
 import i18n from '../../../utils/i18n'
 
 const socials = [
@@ -12,8 +12,8 @@ const socials = [
   { name: 'telegram', url: TELEGRAM },
   { name: 'discord', url: DISCORD },
   { name: 'twitch', url: TWITCH },
-  // { name: 'youtube', url: YOUTUBE },
-  // { name: 'nostr', url: NOSTR },
+  { name: 'youtube', url: YOUTUBE },
+  { name: 'nostr', url: NOSTR },
 ]
 
 export const Socials = () => (
