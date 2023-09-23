@@ -14,6 +14,7 @@
   "help.escrow.description.proTip" : "Vous pouvez appuyer longuement sur le QR code pour copier la demande de paiement complète. ",
   "help.escrow.description.proTip.2" : "If the escrow is not funded after 7 days, the offer will be deleted.",
   "help.escrow.title" : "Coffre Peach",
+  "help.giftCards.title" : "cartes-cadeaux en ligne",
   "help.lnurl.description" : "You can use this payment method to swap your on-chain bitcoin for lightning. You pay no Peach fees for this.\n\nIf you’re buying, you’re receiving on-chain bitcoin and sending LN bitcoin.\n\nIf you’re selling, you’re sending on-chain bitcoin and receiving LN bitcoin.",
   "help.lnurl.description.bold" : "You pay no Peach fees for this.",
   "help.lnurl.title" : "LNURL Swaps",

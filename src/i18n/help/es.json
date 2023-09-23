@@ -14,6 +14,7 @@
   "help.escrow.description.proTip" : "Si mantienes pulsado el QR se va a copiar toda la factura de pago.",
   "help.escrow.description.proTip.2" : "Si no depositas los fondos en 7 días, tu oferta expirará.",
   "help.escrow.title" : "Escrow de Peach",
+  "help.giftCards.title" : "tarjetas de regalo en línea",
   "help.lnurl.description" : "Puedes usar este método para cambiar bitcoin on-chain por LN. No pagas comisiones de peach para esto.\n\nSi estás comprando, recibirás bitcoin on-chain y enviarás LN.\n\nSi estás vendiendo, enviarás bitcoin on-chain y recibirás LN.",
   "help.lnurl.description.bold" : "No pagas comisiones de Peach para esto.",
   "help.lnurl.title" : "LNURL Swaps",
