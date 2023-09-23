@@ -84,6 +84,7 @@
   "no" : "no",
   "noThanks" : "no thanks",
   "none" : "none",
+  "nostr" : "Nostr",
   "other" : "other",
   "paste" : "paste",
   "payment" : "payment",
@@ -249,5 +250,6 @@
   "yourTrades.start.selling" : "start selling!",
   "yourTrades.title" : "your trades",
   "yourTrades.tradeCanceled.subtitle" : "trade canceled",
-  "yourTrades.waiting" : "waiting"
+  "yourTrades.waiting" : "waiting",
+  "youtube" : "YouTube"
 }

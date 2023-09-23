@@ -81,6 +81,7 @@
   "no" : "nein",
   "noThanks" : "nein danke",
   "none" : "keine",
+  "nostr" : "Nostr",
   "other" : "sonstige",
   "paste" : "einfügen",
   "payment" : "Zahlung",
@@ -246,5 +247,6 @@
   "yourTrades.start.selling" : "Verkaufe jetzt!",
   "yourTrades.title" : "deine Trades",
   "yourTrades.tradeCanceled.subtitle" : "Trade abgebrochen",
-  "yourTrades.waiting" : "ausstehend"
+  "yourTrades.waiting" : "ausstehend",
+  "youtube" : "YouTube"
 }

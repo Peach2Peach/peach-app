@@ -29,8 +29,10 @@ export const UNIQUEID = sha256(getUniqueIdSync())
 export const TWITTER = 'https://twitter.com/peachbitcoin'
 export const INSTAGRAM = 'https://www.instagram.com/peachbitcoin'
 export const TELEGRAM = 'https://t.me/+3KpdrMw25xBhNGJk'
-export const DISCORD = 'https://discord.gg/skP9zqTB'
+export const DISCORD = 'https://discord.gg/ypeHz3SW54'
 export const TWITCH = 'https://www.twitch.tv/peachbitcoin'
+export const NOSTR = 'https://snort.social/p/npub15369wu3wzzar5fclhecyqfv683x69n6nhlg7rxqnsg2dydgxflpq3apswl'
+export const YOUTUBE = 'https://www.youtube.com/@peachbitcoin'
 
 export const badgeIconMap: Record<Medal, IconType> = {
   superTrader: 'star',
