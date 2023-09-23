@@ -72,6 +72,8 @@
   "form.phone.highRisk" : "Nummern aus diesem Land sind nicht erlaubt",
   "form.phone.placeholder" : "+01 234 5678 9101",
   "form.phoneLong" : "Telefonnummer",
+  "form.pixAlias" : "pix alias",
+  "form.pixAlias.placeholder" : "pix alias",
   "form.receiveAddress" : "Adresse",
   "form.receiveAddress.placeholder" : "bc1q …",
   "form.reference" : "Zahlungsreferenz",

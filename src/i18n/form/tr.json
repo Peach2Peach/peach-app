@@ -72,6 +72,8 @@
   "form.phone.highRisk" : "bu ülkenin numaraları izin verilmiyor",
   "form.phone.placeholder" : "+01 234 5678 9101",
   "form.phoneLong" : "telefon numarası",
+  "form.pixAlias" : "pix alias",
+  "form.pixAlias.placeholder" : "pix alias",
   "form.receiveAddress" : "alım adresi",
   "form.receiveAddress.placeholder" : "bc1q ...",
   "form.reference" : "ödeme referansı",
