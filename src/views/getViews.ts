@@ -181,7 +181,7 @@ const settings: ViewType[] = [
   { name: 'bitcoinProducts', component: BitcoinProducts, ...defaultConfig },
   { name: 'selectCurrency', component: SelectCurrency, ...defaultConfig },
   { name: 'selectPaymentMethod', component: SelectPaymentMethod, ...defaultConfig },
-  { name: 'selectCountry', component: SelectCountry, ...defaultConfig },
+  { name: 'selectCountry', component: SelectCountry, ...defaultConfig, showHeader: false },
   { name: 'paymentMethodForm', component: PaymentMethodForm, ...defaultConfig },
   { name: 'meetupScreen', component: MeetupScreen, ...defaultConfig },
   { name: 'currency', component: Currency, ...defaultConfig },
