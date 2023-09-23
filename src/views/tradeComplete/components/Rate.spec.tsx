@@ -1,6 +1,6 @@
-import { Rate } from './Rate'
 import { render } from '@testing-library/react-native'
 import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { Rate } from './Rate'
 
 describe('Rate', () => {
   it('should render correctly', () => {

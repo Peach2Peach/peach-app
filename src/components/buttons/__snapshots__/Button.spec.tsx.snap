@@ -351,13 +351,15 @@ exports[`NewButton should render correctly when ghost is true 1`] = `
 - First value
 + Second value
 
-@@ -28,12 +28,13 @@
+@@ -27,13 +27,14 @@
+    onResponderTerminationRequest={[Function onResponderTerminationRequest]}
     onStartShouldSetResponder={[Function onStartShouldSetResponder]}
     style={
       Object {
         "alignItems": "center",
-        "backgroundColor": "#F56522",
+-       "backgroundColor": "#F56522",
 -       "borderColor": undefined,
++       "backgroundColor": "transparent",
 +       "borderColor": "#FFFCFA",
         "borderRadius": 9999,
 +       "borderWidth": 2,
