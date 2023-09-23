@@ -14,6 +14,8 @@
   "help.escrow.description.proTip" : "You can long press the QR code to copy the full payment request.",
   "help.escrow.description.proTip.2" : "If the escrow is not funded after 7 days, the offer will be deleted.",
   "help.escrow.title" : "Peach escrow",
+  "help.giftCards.content" : "When using this payment method, you should buy a new online gift card for the exact value of the trade.\n\nPre-existing physical gift cards are not (yet) supported.",
+  "help.giftCards.title" : "online gift cards",
   "help.lnurl.description" : "You can use this payment method to swap your on-chain bitcoin for lightning. You pay no Peach fees for this.\n\nIf you’re buying, you’re receiving on-chain bitcoin and sending LN bitcoin.\n\nIf you’re selling, you’re sending on-chain bitcoin and receiving LN bitcoin.",
   "help.lnurl.description.bold" : "You pay no Peach fees for this.",
   "help.lnurl.title" : "LNURL Swaps",

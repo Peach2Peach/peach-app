@@ -14,6 +14,7 @@
   "help.escrow.description.proTip" : "Puoi premere a lungo sul codice QR per copiare l'intera richiesta di pagamento.",
   "help.escrow.description.proTip.2" : "Se il deposito non viene finanziato dopo 7 giorni, l'offerta verrà eliminata.\n",
   "help.escrow.title" : "Deposito Peach",
+  "help.giftCards.title" : "Buoni regalo online",
   "help.lnurl.description" : "Puoi utilizzare questo metodo di pagamento per scambiare i tuoi bitcoin on-chain con bitcoin lightning. Non pagherai commissioni Peach per questo. \n\nSe acquisti, riceverai bitcoin on-chain e invierai bitcoin LN. \n\nSe vendi, invierai bitcoin on-chain e riceverai bitcoin LN.",
   "help.lnurl.description.bold" : "Non paghi commissioni Peach per questo.",
   "help.lnurl.title" : "Swaps LNURL",

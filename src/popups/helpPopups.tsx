@@ -9,6 +9,7 @@ import { ConfirmationTime } from './info/ConfirmationTime'
 import { CurrenciesHelp } from './info/CurrenciesHelp'
 import { Escrow } from './info/Escrow'
 import { FileBackupPopup } from './info/FileBackupPopup'
+import { GiftCardPopup } from './info/GiftCardPopup'
 import { LNURLSwaps } from './info/LNURLSwaps'
 import { MakePayment } from './info/MakePayment'
 import { MatchMatchMatch } from './info/MatchMatchMatch'
@@ -38,6 +39,7 @@ export const helpPopups = {
   currencies: { title: i18n('help.currency.title'), content: CurrenciesHelp },
   escrow: { title: i18n('help.escrow.title'), content: Escrow },
   fileBackup: { title: i18n('settings.backups.fileBackup.popup.title'), content: FileBackupPopup },
+  giftCards: { title: i18n('help.giftCards.title'), content: GiftCardPopup },
   lnurl: { title: i18n('help.lnurl.title'), content: LNURLSwaps },
   makePayment: { title: i18n('help.makePayment.title'), content: MakePayment },
   matchmatchmatch: { title: i18n('search.popups.matchmatchmatch.title'), content: MatchMatchMatch },
