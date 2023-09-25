@@ -3,19 +3,20 @@ import { FormProps } from '../../../../../views/addPaymentMethod/PaymentMethodFo
 import { useTemplate9Setup } from './useTemplate9Setup'
 
 describe('useTemplate9Setup', () => {
+  const setStepValidMock = jest.fn()
   const defaultProps: FormProps = {
     data: {
       id: 'id',
-      label: 'label',
-      type: 'nationalTransferBG',
-      accountNumber: 'accountNumber',
-      reference: 'reference',
-      iban: 'iban',
-      bic: 'bic',
+      label: 'National Transfer Switzerland',
+      type: 'nationalTransferCH',
+      accountNumber: '',
+      reference: '',
+      iban: '',
+      bic: '',
       currencies: [],
     },
     onSubmit: jest.fn(),
-    setStepValid: jest.fn(),
+    setStepValid: setStepValidMock,
     setFormData: jest.fn(),
   }
   it('should return the correct values', () => {
@@ -25,8 +26,9 @@ describe('useTemplate9Setup', () => {
   it('should require a beneficiary', () => {
     const { result } = renderHook(() => useTemplate9Setup(defaultProps))
     act(() => {
-      result.current.accountNumberInputProps.onChange('accountNumber')
+      result.current.accountNumberInputProps.onChange('75317531')
     })
     expect(result.current.beneficiaryInputProps.errorMessage).toEqual(['this field is required'])
+    expect(setStepValidMock).toHaveBeenLastCalledWith(false)
   })
 })
