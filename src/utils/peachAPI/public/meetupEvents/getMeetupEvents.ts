@@ -1,13 +1,10 @@
 import { API_URL } from '@env'
 import { RequestProps } from '../..'
+import fetch from '../../../fetch'
 import { getAbortWithTimeout } from '../../../getAbortWithTimeout'
 import { parseResponse } from '../../parseResponse'
 import { getPublicHeaders } from '../getPublicHeaders'
 
-/**
- * @description Method to get market prices
- * @returns Pricebook
- */
 export const getMeetupEvents = async ({ timeout }: RequestProps): Promise<[MeetupEvent[] | null, APIError | null]> => {
   const response = await fetch(`${API_URL}/v1/events`, {
     headers: {
