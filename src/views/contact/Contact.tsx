@@ -1,37 +1,54 @@
-import { Text, View } from 'react-native'
-import { OptionButton, PeachScrollView } from '../../components'
+import { Linking, View } from 'react-native'
+import { NewHeader as Header, OptionButton, PeachScrollView, Screen, Text } from '../../components'
 import { LinedText } from '../../components/ui/LinedText'
+import { DISCORD, TELEGRAM } from '../../constants'
+import { useNavigation } from '../../hooks'
 import tw from '../../styles/tailwind'
+import { account } from '../../utils/account'
 import i18n from '../../utils/i18n'
-import { ContactButton } from './components/ContactButton'
-import { useContactSetup } from './hooks/useContactSetup'
+
+export const contactReasonsNoAccount: ContactReason[] = ['bug', 'accountLost', 'question', 'sellMore', 'other']
+export const contactReasonsWithAccount: ContactReason[] = ['bug', 'userProblem', 'sellMore', 'other']
+const openTelegram = () => Linking.openURL(TELEGRAM)
+const openDiscord = () => Linking.openURL(DISCORD)
 
 export const Contact = () => {
-  const { contactReasons, setReason, openTelegram, openDiscord } = useContactSetup()
+  const navigation = useNavigation()
+
+  const goToReport = (reason: ContactReason) => {
+    navigation.navigate('report', { reason, shareDeviceID: reason === 'accountLost' })
+  }
+
+  const contactReasons = account?.publicKey ? contactReasonsWithAccount : contactReasonsNoAccount
 
   return (
-    <PeachScrollView contentContainerStyle={tw`justify-center flex-grow`}>
-      <View style={tw`items-center p-10`}>
-        <LinedText style={tw`mb-3`}>
-          <Text style={tw`body-m text-black-2`}>{i18n('report.mailUs')}</Text>
-        </LinedText>
-        <View style={tw`w-full px-2 mt-3 mb-6`}>
-          {contactReasons.map((reason) => (
-            <ContactButton {...{ reason, setReason, key: `contact-button-${reason}` }} />
-          ))}
+    <Screen>
+      <Header title={i18n('contact.title')} />
+      <PeachScrollView contentContainerStyle={tw`justify-center grow`} contentStyle={tw`gap-12`}>
+        <View style={tw`w-full gap-4`}>
+          <LinedText>
+            <Text style={tw`text-black-2`}>{i18n('report.mailUs')}</Text>
+          </LinedText>
+          <>
+            {contactReasons.map((reason) => (
+              <ContactButton reason={reason} goToReport={goToReport} key={`contact-button-${reason}`} />
+            ))}
+          </>
         </View>
-        <LinedText style={tw`my-3`}>
-          <Text style={tw`body-m text-black-2`}>{i18n('report.communityHelp')}</Text>
-        </LinedText>
-        <View style={tw`items-center w-full px-2 mt-3`}>
-          <OptionButton onPress={openTelegram} style={tw`w-full mb-4`} wide>
-            {i18n('telegram')}
-          </OptionButton>
-          <OptionButton onPress={openDiscord} style={tw`w-full mb-4`} wide>
-            {i18n('discord')}
-          </OptionButton>
+        <View style={tw`w-full gap-4`}>
+          <LinedText>
+            <Text style={tw`text-black-2`}>{i18n('report.communityHelp')}</Text>
+          </LinedText>
+          <OptionButton onPress={openTelegram}>{i18n('telegram')}</OptionButton>
+          <OptionButton onPress={openDiscord}>{i18n('discord')}</OptionButton>
         </View>
-      </View>
-    </PeachScrollView>
+      </PeachScrollView>
+    </Screen>
   )
+}
+
+type Props = { reason: ContactReason; goToReport: (name: ContactReason) => void }
+
+function ContactButton ({ reason, goToReport }: Props) {
+  return <OptionButton onPress={() => goToReport(reason)}>{i18n(`contact.reason.${reason}`)}</OptionButton>
 }
