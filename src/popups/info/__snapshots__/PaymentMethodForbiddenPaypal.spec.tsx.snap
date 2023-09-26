@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PaymentMethodForbiddenPaypal renders correctly 1`] = `
+<PeachText>
+  You do not have access to Paypal yet. Due to PayPal high risks of charge back, this payment method only becomes accessible when: 
+
+- You unlock the #superTrader badge (more than 20 trades completed)
+
+- Your reputation score is minimum 4.5 peaches
+
+- You already traded at least CHF 2100 during the past year 
+</PeachText>
+`;

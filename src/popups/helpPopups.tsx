@@ -16,6 +16,7 @@ import { MatchMatchMatch } from './info/MatchMatchMatch'
 import { Mempool } from './info/Mempool'
 import { MyBadges } from './info/MyBadges'
 import { NetworkFees } from './info/NetworkFees'
+import { PaymentMethodForbiddenPaypal } from './info/PaymentMethodForbiddenPaypal'
 import { PaymentMethodsHelp } from './info/PaymentMethodsHelp'
 import { PayoutAddressPopup } from './info/PayoutAddressPopup'
 import { PayoutPending } from './info/PayoutPending'
@@ -46,6 +47,7 @@ export const helpPopups = {
   mempool: { title: i18n('help.mempool.title'), content: Mempool },
   myBadges: { title: i18n('peachBadges'), content: MyBadges },
   networkFees: { title: i18n('help.networkFees.title'), content: NetworkFees },
+  'paymentMethodForbidden.paypal': { title: '', content: PaymentMethodForbiddenPaypal },
   paymentMethods: { title: i18n('settings.paymentMethods'), content: PaymentMethodsHelp },
   payoutAddress: { title: i18n('settings.payoutAddress'), content: PayoutAddressPopup },
   payoutPending: { title: i18n('help.payoutPending.title'), content: PayoutPending },
