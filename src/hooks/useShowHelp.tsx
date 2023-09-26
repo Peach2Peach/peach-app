@@ -13,21 +13,24 @@ export const useShowHelp = (id: HelpType) => {
     navigation.navigate('contact')
   }, [navigation, closePopup])
 
-  const showHelp = useCallback(() => {
-    const Content = helpPopups[id].content
+  const showHelp = useCallback(
+    (otherId?: HelpType) => {
+      const Content = helpPopups[otherId || id].content
 
-    setPopup({
-      title: helpPopups[id].title,
-      content: <Content />,
-      visible: true,
-      action2: {
-        callback: goToHelp,
-        label: i18n('help'),
-        icon: 'info',
-      },
-      level: 'INFO',
-    })
-  }, [goToHelp, id, setPopup])
+      setPopup({
+        title: helpPopups[id].title,
+        content: <Content />,
+        visible: true,
+        action2: {
+          callback: goToHelp,
+          label: i18n('help'),
+          icon: 'info',
+        },
+        level: 'INFO',
+      })
+    },
+    [goToHelp, id, setPopup],
+  )
 
   return showHelp
 }
