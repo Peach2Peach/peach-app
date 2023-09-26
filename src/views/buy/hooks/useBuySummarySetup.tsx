@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { shallow } from 'zustand/shallow'
-import { useNavigation } from '../../../hooks'
+import { useNavigation, useShowHelp } from '../../../hooks'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { useConfigStore } from '../../../store/configStore'
 import { useOfferPreferences } from '../../../store/offerPreferenes/useOfferPreferences'
@@ -11,6 +11,7 @@ import { getError, getResult } from '../../../utils/result'
 import { Err, Result } from '../../../utils/result/types'
 import { isValidBitcoinSignature } from '../../../utils/validation'
 import { peachWallet } from '../../../utils/wallet/setWallet'
+import { isForbiddenPaymentMethodError } from '../helpers/isForbiddenPaymentMethodError'
 import { publishBuyOffer } from '../helpers/publishBuyOffer'
 
 type MessageSigningData = {
@@ -22,7 +23,7 @@ export const useBuySummarySetup = () => {
   const navigation = useNavigation()
   const showErrorBanner = useShowErrorBanner()
   const hasSeenGroupHugAnnouncement = useConfigStore((state) => state.hasSeenGroupHugAnnouncement)
-
+  const showHelp = useShowHelp('paymentMethodForbidden.paypal')
   const [peachWalletActive, setPeachWalletActive, payoutAddress, payoutAddressLabel, payoutAddressSignature]
     = useSettingsStore(
       (state) => [
@@ -90,14 +91,20 @@ export const useBuySummarySetup = () => {
       setIsPublishing(false)
       return
     }
-    const { offerId, isOfferPublished, errorMessage } = await publishBuyOffer({
+    const { offerId, isOfferPublished, errorMessage, errorDetails } = await publishBuyOffer({
       ...offerDraft,
       ...messageSigningData.getValue(),
     })
     setIsPublishing(false)
 
     if (!isOfferPublished || !offerId) {
-      showErrorBanner(errorMessage)
+      console.log('hooola', errorMessage, errorDetails, isForbiddenPaymentMethodError(errorMessage, errorDetails))
+      if (isForbiddenPaymentMethodError(errorMessage, errorDetails)) {
+        const paymentMethod = errorDetails.pop()
+        if (paymentMethod === 'paypal') showHelp(`paymentMethodForbidden.${paymentMethod}`)
+      } else {
+        showErrorBanner(errorMessage)
+      }
     } else if (!hasSeenGroupHugAnnouncement) {
       navigation.replace('groupHugAnnouncement', { offerId })
     } else {
