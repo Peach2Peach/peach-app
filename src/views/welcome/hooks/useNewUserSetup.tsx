@@ -2,7 +2,7 @@ import { useContext, useState } from 'react'
 import { MessageContext } from '../../../contexts/message'
 import { useNavigation, useRoute, useValidatedState } from '../../../hooks'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
-import { checkReferralCode as checkReferralCodeAPI } from '../../../utils/peachAPI'
+import { peachAPI } from '../../../utils/peachAPI'
 
 const referralCodeRules = { referralCode: true }
 
@@ -25,7 +25,7 @@ export const useNewUserSetup = () => {
 
   const checkReferralCode = async (code: string) => {
     setWillUseReferralCode(false)
-    const [result, error] = await checkReferralCodeAPI({ code })
+    const { result, error } = await peachAPI.public.user.checkReferralCode({ code })
     if (!result || error) return showError(error?.error)
     setWillUseReferralCode(result.valid)
     return updateMessage({

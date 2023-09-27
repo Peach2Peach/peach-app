@@ -1,9 +1,10 @@
 import { useMeetupEventsStore } from '../store/meetupEventsStore'
+import { getAbortWithTimeout } from '../utils/getAbortWithTimeout'
 import { info } from '../utils/log'
-import { getMeetupEvents } from '../utils/peachAPI/public/meetupEvents'
+import { peachAPI } from '../utils/peachAPI'
 
 export const saveMeetupEvents = async () => {
   info('Getting meetup events...')
-  const [events] = await getMeetupEvents({ timeout: 3 * 1000 })
+  const { result: events } = await peachAPI.public.events.getEvents({ signal: getAbortWithTimeout(3 * 1000).signal })
   if (events) useMeetupEventsStore.getState().setMeetupEvents(events)
 }

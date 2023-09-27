@@ -4,7 +4,7 @@ import { useNavigation } from '../../hooks'
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
 import { usePopupStore } from '../../store/usePopupStore'
 import i18n from '../../utils/i18n'
-import { redeemNoPeachFees } from '../../utils/peachAPI'
+import { peachAPI } from '../../utils/peachAPI'
 import { NoPeachFees } from './NoPeachFees'
 import { NoPeachFeesSuccess } from './NoPeachFeesSuccess'
 
@@ -14,7 +14,7 @@ export const useRedeemNoPeachFeesReward = () => {
   const showErrorBanner = useShowErrorBanner()
 
   const redeem = useCallback(async () => {
-    const [, redeemError] = await redeemNoPeachFees({})
+    const { error: redeemError } = await peachAPI.private.user.redeemNoPeachFees({})
 
     if (redeemError) {
       showErrorBanner(redeemError.error)

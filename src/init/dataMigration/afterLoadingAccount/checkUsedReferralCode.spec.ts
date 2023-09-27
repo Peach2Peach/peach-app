@@ -1,10 +1,6 @@
-import { checkUsedReferralCode } from './checkUsedReferralCode'
 import { useSettingsStore } from '../../../store/settingsStore'
-import { getSelfUser } from '../../../utils/peachAPI'
-
-jest.mock('../../../utils/peachAPI', () => ({
-  getSelfUser: jest.fn(),
-}))
+import { peachAPI } from '../../../utils/peachAPI'
+import { checkUsedReferralCode } from './checkUsedReferralCode'
 
 describe('checkUsedReferralCode', () => {
   afterEach(() => {
@@ -12,33 +8,33 @@ describe('checkUsedReferralCode', () => {
     useSettingsStore.setState({ usedReferralCode: undefined })
   })
   it('should check if referral code has been used and set setting to true', async () => {
-    (getSelfUser as jest.Mock).mockResolvedValue([
+    peachAPI.private.user.getSelfUser.mockResolvedValue([
       {
         usedReferralCode: 'SATOSHI',
       },
     ])
     await checkUsedReferralCode()
-    expect(getSelfUser).toHaveBeenCalledWith({})
+    expect(peachAPI.private.user.getSelfUser).toHaveBeenCalledWith({})
     expect(useSettingsStore.getState().usedReferralCode).toBe(true)
   })
   it('should check if referral code has been used and set setting to false if not used', async () => {
-    (getSelfUser as jest.Mock).mockResolvedValue([
+    peachAPI.private.user.getSelfUser.mockResolvedValue([
       {
         usedReferralCode: undefined,
       },
     ])
     await checkUsedReferralCode()
-    expect(getSelfUser).toHaveBeenCalledWith({})
+    expect(peachAPI.private.user.getSelfUser).toHaveBeenCalledWith({})
     expect(useSettingsStore.getState().usedReferralCode).toBe(false)
   })
   it('should not check again', async () => {
     useSettingsStore.setState({ usedReferralCode: true })
-    ;(getSelfUser as jest.Mock).mockResolvedValue([
+    peachAPI.private.user.getSelfUser.mockResolvedValue([
       {
         usedReferralCode: undefined,
       },
     ])
     await checkUsedReferralCode()
-    expect(getSelfUser).not.toHaveBeenCalled()
+    expect(peachAPI.private.user.getSelfUser).not.toHaveBeenCalled()
   })
 })

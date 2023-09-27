@@ -27,22 +27,6 @@ export {
   postBuyOffer,
   postSellOffer,
 } from './private/offer'
-export {
-  auth,
-  deletePaymentHash,
-  fetchAccessToken,
-  getSelfUser,
-  getTradingLimit,
-  logoutUser,
-  redeemNoPeachFees,
-  redeemReferralCode,
-  register,
-  setBatching,
-  updateUser,
-} from './private/user'
-export { getFeeEstimate, postTx } from './public/bitcoin'
-export { sendReport } from './public/contact'
-export { getInfo, getStatus } from './public/system'
-export { checkReferralCode, getUser } from './public/user'
+export { auth, fetchAccessToken, getTradingLimit, register, setBatching, updateUser } from './private/user'
 
 export const peachAPI = apiWrapper({ peachAccount: getPeachAccount()!, uniqueId: UNIQUEID, url: API_URL })

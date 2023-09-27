@@ -1,9 +1,10 @@
 import { PAYMENTCATEGORIES, setPaymentMethods } from '../paymentMethods'
 import { useConfigStore } from '../store/configStore'
 import { usePaymentDataStore } from '../store/usePaymentDataStore'
+import { getAbortWithTimeout } from '../utils/getAbortWithTimeout'
 import { error } from '../utils/log'
 import { shouldUsePaymentMethod } from '../utils/paymentMethod'
-import { getInfo } from '../utils/peachAPI'
+import { peachAPI } from '../utils/peachAPI'
 import { calculateClientServerTimeDifference } from './calculateClientServerTimeDifference'
 import { storePeachInfo } from './storePeachInfo'
 
@@ -23,7 +24,9 @@ export const getPeachInfo = async (): Promise<GetStatusResponse | undefined> => 
     return statusResponse
   }
 
-  const [getInfoResponse, getInfoError] = await getInfo({ timeout: 5000 })
+  const { result: getInfoResponse, error: getInfoError } = await peachAPI.public.system.getInfo({
+    signal: getAbortWithTimeout(5000).signal,
+  })
 
   if (getInfoError) {
     error('Error fetching peach info', getInfoError.error)

@@ -1,7 +1,7 @@
 import { sendErrors } from '../../../utils/analytics'
-import { submitReport } from './submitReport'
+import { peachAPI } from '../../../utils/peachAPI'
 import { buildReportMessage } from './buildReportMessage'
-import { sendReport } from '../../../utils/peachAPI'
+import { submitReport } from './submitReport'
 
 jest.mock('./buildReportMessage', () => ({
   buildReportMessage: jest.fn().mockReturnValue('reportMessage'),
@@ -22,7 +22,7 @@ describe('submitReport', () => {
   it('returns a message for report', async () => {
     const result = await submitReport({ email, reason, topic, message, shareDeviceID: false, shareLogs: false })
     expect(buildReportMessage).toHaveBeenCalledWith({ message, shareDeviceID: false, shareLogs: false })
-    expect(sendReport).toHaveBeenCalledWith({
+    expect(peachAPI.public.contact.sendReport).toHaveBeenCalledWith({
       email,
       reason,
       topic,

@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query'
-import { getSelfUser } from '../../utils/peachAPI'
+import { peachAPI } from '../../utils/peachAPI'
 
 const getUserQuery = async () => {
-  const [user] = await getSelfUser({})
+  const { result: user } = await peachAPI.private.user.getSelfUser({})
 
   return user
 }

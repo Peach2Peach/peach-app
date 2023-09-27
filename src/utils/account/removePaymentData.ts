@@ -2,7 +2,7 @@ import { getSelectedPaymentDataIds } from '.'
 import { useOfferPreferences } from '../../store/offerPreferenes'
 import { usePaymentDataStore } from '../../store/usePaymentDataStore'
 import { hashPaymentData } from '../paymentMethod'
-import { deletePaymentHash } from '../peachAPI'
+import { peachAPI } from '../peachAPI'
 
 export const removePaymentData = async (id: PaymentData['id']) => {
   const {
@@ -14,7 +14,7 @@ export const removePaymentData = async (id: PaymentData['id']) => {
   if (!dataToBeRemoved) return
 
   const hashes = hashPaymentData(dataToBeRemoved).map((item) => item.hash)
-  const [result, err] = await deletePaymentHash({ hashes })
+  const { result, error: err } = await peachAPI.private.user.deletePaymentHash({ hashes })
 
   if (!result && err?.error !== 'UNAUTHORIZED' && err?.error !== 'AUTHENTICATION_FAILED') {
     throw new Error('NETWORK_ERROR')

@@ -1,1 +1,0 @@
-export { sendReport } from './sendReport'

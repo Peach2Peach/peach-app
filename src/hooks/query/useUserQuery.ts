@@ -1,9 +1,9 @@
 import { useQuery } from '@tanstack/react-query'
-import { getUser } from '../../utils/peachAPI'
+import { peachAPI } from '../../utils/peachAPI'
 
 const getUserQuery = async ({ queryKey }: { queryKey: [string, string] }) => {
   const [, userId] = queryKey
-  const [user] = await getUser({ userId })
+  const { result: user } = await peachAPI.public.user.getUser({ userId })
 
   return user
 }
