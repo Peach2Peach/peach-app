@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`Premium renders correctly 1`] = `
-<PeachText>
-  You'll set a price offset relative to the market price (averaged from multiple exchanges).
-
-The final price you're selling for will be determined when a buyer matches your offer.
-</PeachText>
-`;

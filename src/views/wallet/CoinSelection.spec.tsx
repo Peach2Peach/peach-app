@@ -7,7 +7,6 @@ import { confirmed1 } from '../../../tests/unit/data/transactionDetailData'
 import { NavigationAndQueryClientWrapper } from '../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
 import { navigateMock } from '../../../tests/unit/helpers/NavigationWrapper'
 import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
-import { CoinControl } from '../../popups/info/CoinControl'
 import { usePopupStore } from '../../store/usePopupStore'
 import { getUTXOId } from '../../utils/wallet'
 import { PeachWallet } from '../../utils/wallet/PeachWallet'
@@ -53,14 +52,8 @@ describe('CoinSelection', () => {
     const helpIcon = getByAccessibilityHint('help')
 
     fireEvent.press(helpIcon)
-
-    expect(usePopupStore.getState()).toStrictEqual(
-      expect.objectContaining({
-        title: 'coin control',
-        content: <CoinControl />,
-        visible: true,
-      }),
-    )
+    const popupComponent = usePopupStore.getState().popupComponent || <></>
+    expect(render(popupComponent, { wrapper }).toJSON()).toMatchSnapshot()
   })
   it('renders correctly while loading', () => {
     const { toJSON } = render(<CoinSelection />, { wrapper })
