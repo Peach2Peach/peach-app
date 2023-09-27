@@ -6,7 +6,7 @@ import { useShowLoadingPopup } from '../../hooks/useShowLoadingPopup'
 import { usePopupStore } from '../../store/usePopupStore'
 import { saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
-import { peachAPI, rejectContractCancelation } from '../../utils/peachAPI'
+import { peachAPI } from '../../utils/peachAPI'
 import { ConfirmCancelTradeRequest } from './ConfirmCancelTradeRequest'
 
 export const useConfirmContractCancelationPopup = () => {
@@ -51,7 +51,9 @@ export const useConfirmContractCancelationPopup = () => {
   const continueTrade = useCallback(
     async (contract: Contract) => {
       showLoading()
-      const [result, err] = await rejectContractCancelation({ contractId: contract.id })
+      const { result, error: err } = await peachAPI.private.contract.rejectContractCancelation({
+        contractId: contract.id,
+      })
 
       if (result) {
         const updatedContract = {
