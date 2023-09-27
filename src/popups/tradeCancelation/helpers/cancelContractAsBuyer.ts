@@ -1,4 +1,4 @@
-import { cancelContract } from '../../../utils/peachAPI'
+import { peachAPI } from '../../../utils/peachAPI'
 import { getResult } from '../../../utils/result'
 import { Result } from '../../../utils/result/types'
 
@@ -7,7 +7,7 @@ type UpdateResult = {
 }
 
 export const cancelContractAsBuyer = async (contract: Contract): Promise<Result<UpdateResult, string>> => {
-  const [result, err] = await cancelContract({
+  const { result, error: err } = await peachAPI.private.contract.cancelContract({
     contractId: contract.id,
   })
 

@@ -9,7 +9,6 @@ export type RequestProps = {
 }
 
 export {
-  cancelContract,
   confirmContractCancelation,
   confirmPayment,
   extendPaymentTimer,

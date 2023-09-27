@@ -1,5 +1,5 @@
 import { isPaymentTimeExpired } from '../../../utils/contract'
-import { cancelContract } from '../../../utils/peachAPI'
+import { peachAPI } from '../../../utils/peachAPI'
 import { getResult } from '../../../utils/result'
 import { Result } from '../../../utils/result/types'
 import { patchSellOfferWithRefundTx } from './patchSellOfferWithRefundTx'
@@ -18,7 +18,7 @@ const getContractUpdatedBasedOnExpiry = (contract: Contract) =>
     : contract
 
 export const cancelContractAsSeller = async (contract: Contract): Promise<Result<UpdateResult, string>> => {
-  const [result, err] = await cancelContract({ contractId: contract.id })
+  const { result, error: err } = await peachAPI.private.contract.cancelContract({ contractId: contract.id })
 
   if (!result?.success || err) return getResult({ contract, sellOffer: undefined }, err?.error)
 
