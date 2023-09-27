@@ -58,6 +58,7 @@
     "@types/react-native-snap-carousel": "^3.8.5",
     "assert": "^2.0.0",
     "bdk-rn": "github:Peach2Peach/bdk-rn",
+    "peach-api": "github:Peach2Peach/peach-api-ts",
     "bip174": "^2.1.0",
     "bip32": "^4.0.0",
     "bip39": "^3.1.0",
