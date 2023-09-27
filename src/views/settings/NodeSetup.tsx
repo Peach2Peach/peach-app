@@ -19,7 +19,7 @@ export const NodeSetup = () => {
     address,
     setAddress,
     addressErrors,
-    pasteAddress,
+    canCheckConnection,
     checkConnection,
   } = useNodeSetup()
   const [showQRScanner, toggleShowQRScanner] = useToggleBoolean(false)
@@ -42,10 +42,6 @@ export const NodeSetup = () => {
             placeholder={i18n('wallet.settings.node.address.placeholder')}
             onChange={setAddress}
             errorMessage={addressErrors}
-            icons={[
-              ['clipboard', pasteAddress],
-              ['camera', toggleShowQRScanner],
-            ]}
           />
         </View>
       </PeachScrollView>
@@ -55,7 +51,7 @@ export const NodeSetup = () => {
           <Icon id="maximize" style={tw`w-4 h-4`} color={tw`text-black-3`.color} />
         </View>
       ) : (
-        <PrimaryButton disabled={!enabled} style={tw`self-center`} iconId="share2" onPress={checkConnection}>
+        <PrimaryButton disabled={!canCheckConnection} style={tw`self-center`} iconId="share2" onPress={checkConnection}>
           {i18n('wallet.settings.node.checkConnection')}
         </PrimaryButton>
       )}

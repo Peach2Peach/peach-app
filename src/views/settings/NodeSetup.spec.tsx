@@ -16,6 +16,7 @@ const nodeSetup = {
   addressErrors: [],
   pasteAddress: jest.fn(),
   openQRScanner: jest.fn(),
+  canCheckConnection: false,
   checkConnection: jest.fn(),
 }
 const useNodeSetupMock = jest.fn().mockReturnValue(nodeSetup)
@@ -36,6 +37,7 @@ describe('NodeSetup', () => {
       isConnected: true,
       address,
       addressErrors: [],
+      canCheckConnection: true,
     })
     shallowRenderer.render(<NodeSetup />, { wrapper })
     expect(shallowRenderer.getRenderOutput()).toMatchSnapshot()
@@ -64,7 +66,7 @@ describe('NodeSetup', () => {
     expect(nodeSetup.setAddress).toHaveBeenCalledWith(address)
   })
   it('should open call checkConnection', () => {
-    useNodeSetupMock.mockReturnValueOnce({ ...nodeSetup, enabled: true, address })
+    useNodeSetupMock.mockReturnValueOnce({ ...nodeSetup, enabled: true, address, canCheckConnection: true })
     const { getByText } = render(<NodeSetup />, { wrapper })
     fireEvent.press(getByText('checking connection'))
     expect(nodeSetup.checkConnection).toHaveBeenCalled()

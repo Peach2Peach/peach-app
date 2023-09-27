@@ -60,18 +60,6 @@ exports[`NodeSetup should render with default settings 1`] = `
       <URLInput
         disabled={true}
         errorMessage={[]}
-        icons={
-          [
-            [
-              "clipboard",
-              [MockFunction],
-            ],
-            [
-              "camera",
-              [Function],
-            ],
-          ]
-        }
         label="node address"
         onChange={[MockFunction]}
         placeholder="192.168.0.1:50001"
@@ -150,18 +138,6 @@ exports[`NodeSetup should render with valid node settings 1`] = `
       <URLInput
         disabled={false}
         errorMessage={[]}
-        icons={
-          [
-            [
-              "clipboard",
-              [MockFunction],
-            ],
-            [
-              "camera",
-              [Function],
-            ],
-          ]
-        }
         label="node address"
         onChange={[MockFunction]}
         placeholder="192.168.0.1:50001"
