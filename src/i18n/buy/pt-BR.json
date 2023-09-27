@@ -1,14 +1,14 @@
 {
-  "buy.addressSigning.message" : "message",
-  "buy.addressSigning.signature" : "signature",
-  "buy.addressSigning.title" : "sign your address",
-  "buy.addressSigning.yourAddress" : "your address",
-  "buy.meansOfPayment" : "how would you like to pay?",
-  "buy.releaseAddress.title" : "release address",
-  "buy.subtitle" : "You're buying between:",
-  "buy.subtitle.highlight" : "buying",
-  "buy.summary.title" : "publish buy offer",
-  "buy.title" : "buy bitcoin",
-  "buy.title.highlight" : "buy",
-  "yourTrades.search.buy.subtitle" : "buy offer for"
+  "buy.addressSigning.message" : "mensagem",
+  "buy.addressSigning.signature" : "assinatura",
+  "buy.addressSigning.title" : "assine seu endereço",
+  "buy.addressSigning.yourAddress" : "seu endereço",
+  "buy.meansOfPayment" : "como você gostaria de pagar?",
+  "buy.releaseAddress.title" : "liberar endereço",
+  "buy.subtitle" : "Você está comprando entre:",
+  "buy.subtitle.highlight" : "comprando",
+  "buy.summary.title" : "publicar oferta de compra",
+  "buy.title" : "comprar bitcoin",
+  "buy.title.highlight" : "comprar",
+  "yourTrades.search.buy.subtitle" : "oferta de compra para"
 }
