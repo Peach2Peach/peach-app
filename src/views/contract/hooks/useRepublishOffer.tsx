@@ -6,7 +6,7 @@ import { OfferRepublished } from '../../../popups/tradeCancelation'
 import { usePopupStore } from '../../../store/usePopupStore'
 import { getSellOfferFromContract, saveContract } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
-import { reviveSellOffer } from '../../../utils/peachAPI'
+import { peachAPI } from '../../../utils/peachAPI'
 
 export const useRepublishOffer = () => {
   const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
@@ -29,7 +29,9 @@ export const useRepublishOffer = () => {
     async (contract: Contract) => {
       const sellOffer = getSellOfferFromContract(contract)
 
-      const [reviveSellOfferResult, err] = await reviveSellOffer({ offerId: sellOffer.id })
+      const { result: reviveSellOfferResult, error: err } = await peachAPI.private.offer.republishSellOffer({
+        offerId: sellOffer.id,
+      })
       if (!reviveSellOfferResult || err) {
         showErrorBanner(err?.error)
         closePopup()

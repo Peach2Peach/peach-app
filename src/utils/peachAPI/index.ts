@@ -29,8 +29,6 @@ export {
   patchOffer,
   postBuyOffer,
   postSellOffer,
-  refundSellOffer,
-  reviveSellOffer,
 } from './private/offer'
 export {
   auth,
