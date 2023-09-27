@@ -18,7 +18,6 @@ export {
 } from './private/contract'
 export {
   cancelOffer,
-  createEscrow,
   getMatches,
   getOfferDetails,
   getOfferSummaries,
