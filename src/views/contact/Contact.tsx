@@ -3,9 +3,11 @@ import { NewHeader as Header, OptionButton, PeachScrollView, Screen, Text } from
 import { LinedText } from '../../components/ui/LinedText'
 import { DISCORD, TELEGRAM } from '../../constants'
 import { useNavigation } from '../../hooks'
+import { useShowHelp } from '../../hooks/useShowHelp'
 import tw from '../../styles/tailwind'
 import { account } from '../../utils/account'
 import i18n from '../../utils/i18n'
+import { headerIcons } from '../../utils/layout'
 
 export const contactReasonsNoAccount: ContactReason[] = ['bug', 'accountLost', 'question', 'sellMore', 'other']
 export const contactReasonsWithAccount: ContactReason[] = ['bug', 'userProblem', 'sellMore', 'other']
@@ -15,6 +17,7 @@ const openDiscord = () => Linking.openURL(DISCORD)
 export const Contact = () => {
   const navigation = useNavigation()
 
+  const showHelp = useShowHelp('contactEncryption', false)
   const goToReport = (reason: ContactReason) => {
     navigation.navigate('report', { reason, shareDeviceID: reason === 'accountLost' })
   }
@@ -23,7 +26,7 @@ export const Contact = () => {
 
   return (
     <Screen>
-      <Header title={i18n('contact.title')} />
+      <Header title={i18n('contact.title')} icons={[{ ...headerIcons.help, onPress: showHelp }]} />
       <PeachScrollView contentContainerStyle={tw`justify-center grow`} contentStyle={tw`gap-12`}>
         <View style={tw`w-full gap-4`}>
           <LinedText>
