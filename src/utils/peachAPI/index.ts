@@ -31,7 +31,6 @@ export {
   postSellOffer,
   refundSellOffer,
   reviveSellOffer,
-  unmatchOffer,
 } from './private/offer'
 export {
   auth,
