@@ -24,7 +24,6 @@ export {
   getOfferDetails,
   getOfferSummaries,
   getOffers,
-  getRefundPSBT,
   matchOffer,
   patchOffer,
   postBuyOffer,
