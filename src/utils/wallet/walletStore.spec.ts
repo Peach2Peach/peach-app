@@ -18,6 +18,7 @@ describe('walletStore', () => {
       showBalance: true,
       selectedUTXOIds: [],
       isSynced: false,
+      node: { enabled: false, ssl: false },
     })
   })
   it('sets transactions', () => {
@@ -96,5 +97,14 @@ describe('walletStore', () => {
     expect(useWalletState.persist.getOptions().partialize?.(useWalletState.getState())).not.toEqual(
       expect.objectContaining({ isSynced: expect.any(Boolean) }),
     )
+  })
+  it('updates node settings', () => {
+    const nodeSettings = {
+      enabled: true,
+      address: 'blockstream.info',
+      ssl: true,
+    }
+    useWalletState.getState().setCustomNode(nodeSettings)
+    expect(useWalletState.getState().node).toEqual(nodeSettings)
   })
 })
