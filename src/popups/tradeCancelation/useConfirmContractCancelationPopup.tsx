@@ -6,22 +6,25 @@ import { useShowLoadingPopup } from '../../hooks/useShowLoadingPopup'
 import { usePopupStore } from '../../store/usePopupStore'
 import { saveContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
-import { confirmContractCancelation, rejectContractCancelation } from '../../utils/peachAPI'
+import { peachAPI, rejectContractCancelation } from '../../utils/peachAPI'
 import { ConfirmCancelTradeRequest } from './ConfirmCancelTradeRequest'
 
-export const useConfirmTradeCancelationPopup = () => {
+export const useConfirmContractCancelationPopup = () => {
   const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
   const showError = useShowErrorBanner()
   const navigation = useNavigation()
   const showLoadingPopup = useShowLoadingPopup()
 
+  const showLoading = useCallback(() => {
+    showLoadingPopup({ title: i18n('contract.cancel.sellerWantsToCancel.title'), level: 'DEFAULT' })
+  }, [showLoadingPopup])
+
   const cancelTrade = useCallback(
     async (contract: Contract) => {
-      showLoadingPopup({
-        title: i18n('contract.cancel.sellerWantsToCancel.title'),
-        level: 'DEFAULT',
+      showLoading()
+      const { result, error: err } = await peachAPI.private.contract.confirmContractCancelation({
+        contractId: contract.id,
       })
-      const [result, err] = await confirmContractCancelation({ contractId: contract.id })
 
       if (result) {
         const updatedContract = {
@@ -42,15 +45,12 @@ export const useConfirmTradeCancelationPopup = () => {
       }
       closePopup()
     },
-    [closePopup, navigation, showError, showLoadingPopup, setPopup],
+    [closePopup, navigation, setPopup, showError, showLoading],
   )
 
   const continueTrade = useCallback(
     async (contract: Contract) => {
-      showLoadingPopup({
-        title: i18n('contract.cancel.sellerWantsToCancel.title'),
-        level: 'DEFAULT',
-      })
+      showLoading()
       const [result, err] = await rejectContractCancelation({ contractId: contract.id })
 
       if (result) {
@@ -66,10 +66,10 @@ export const useConfirmTradeCancelationPopup = () => {
       }
       closePopup()
     },
-    [closePopup, navigation, showError, showLoadingPopup],
+    [closePopup, navigation, showError, showLoading],
   )
 
-  const showConfirmTradeCancelation = useCallback(
+  const showConfirmContractCancelation = useCallback(
     (contract: Contract) => {
       const cancelTradeCallback = () => cancelTrade(contract)
       const continueTradeCallback = () => continueTrade(contract)
@@ -95,5 +95,5 @@ export const useConfirmTradeCancelationPopup = () => {
     [cancelTrade, continueTrade, setPopup],
   )
 
-  return { showConfirmTradeCancelation, cancelTrade, continueTrade }
+  return { showConfirmContractCancelation }
 }

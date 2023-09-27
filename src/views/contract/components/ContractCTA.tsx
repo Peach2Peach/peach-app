@@ -1,7 +1,7 @@
 import { PrimaryButton } from '../../../components'
 import { WarningButton } from '../../../components/buttons'
 import { ConfirmSlider } from '../../../components/inputs'
-import { useConfirmTradeCancelationPopup } from '../../../popups/tradeCancelation/useConfirmTradeCancelationPopup'
+import { useConfirmContractCancelationPopup } from '../../../popups/tradeCancelation/useConfirmContractCancelationPopup'
 import { usePaymentTooLatePopup } from '../../../popups/usePaymentTooLatePopup'
 import { getPaymentExpectedBy } from '../../../utils/contract/getPaymentExpectedBy'
 import i18n from '../../../utils/i18n'
@@ -21,11 +21,11 @@ export const ContractCTA = ({
   postConfirmPaymentSeller,
 }: Props) => {
   const showPaymentTooLatePopup = usePaymentTooLatePopup()
-  const { showConfirmTradeCancelation } = useConfirmTradeCancelationPopup()
+  const { showConfirmContractCancelation } = useConfirmContractCancelationPopup()
   const { contract, view } = useContractContext()
 
   if (shouldShowConfirmCancelTradeRequest(contract, view)) return (
-    <WarningButton onPress={() => showConfirmTradeCancelation(contract)}>{i18n('contract.respond')}</WarningButton>
+    <WarningButton onPress={() => showConfirmContractCancelation(contract)}>{i18n('contract.respond')}</WarningButton>
   )
   if (view === 'buyer' && requiredAction === 'confirmPayment') return (
     <PrimaryButton disabled iconId="send">
