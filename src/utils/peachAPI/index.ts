@@ -10,12 +10,10 @@ export type RequestProps = {
 
 export {
   confirmPayment,
-  extendPaymentTimer,
   getChat,
   getContract,
   getContractSummaries,
   getContracts,
-  postChat,
   raiseDispute,
 } from './private/contract'
 export {

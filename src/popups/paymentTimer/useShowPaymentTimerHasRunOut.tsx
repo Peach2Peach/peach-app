@@ -5,7 +5,7 @@ import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
 import { useShowLoadingPopup } from '../../hooks/useShowLoadingPopup'
 import { usePopupStore } from '../../store/usePopupStore'
 import i18n from '../../utils/i18n'
-import { extendPaymentTimer } from '../../utils/peachAPI'
+import { peachAPI } from '../../utils/peachAPI'
 import { useConfirmCancelTrade } from '../tradeCancelation/useConfirmCancelTrade'
 import { PaymentTimerHasRunOut } from './PaymentTimerHasRunOut'
 
@@ -48,7 +48,7 @@ export const useShowPaymentTimerHasRunOut = () => {
             level: 'WARN',
           })
 
-          const [result, err] = await extendPaymentTimer({ contractId: contract.id })
+          const { result, error: err } = await peachAPI.private.contract.extendPaymentTimer({ contractId: contract.id })
           if (!result || err) showError(err?.error)
 
           closePopup()
