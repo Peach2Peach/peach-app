@@ -7,14 +7,14 @@ import { account } from '../../../../utils/account'
 import { saveContract } from '../../../../utils/contract'
 import { isEmailRequiredForDispute } from '../../../../utils/dispute'
 import i18n from '../../../../utils/i18n'
-import { acknowledgeDispute } from '../../../../utils/peachAPI/private/contract'
+import { peachAPI } from '../../../../utils/peachAPI'
 import { isEmail } from '../../../../utils/validation'
 
 const acknowledgeDisputeMutation = async (contractId: string, email: string, disputeReason: DisputeReason) => {
   if (isEmailRequiredForDispute(disputeReason) && !isEmail(email)) {
     throw new Error('INVALID_EMAIL')
   }
-  const [result, err] = await acknowledgeDispute({
+  const { result, error: err } = await peachAPI.private.contract.acknowledgeDispute({
     contractId,
     email,
   })
