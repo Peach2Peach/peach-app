@@ -8,10 +8,11 @@ import { useSettingsStore } from '../store/settingsStore'
 import { useTradeSummaryStore } from '../store/tradeSummaryStore'
 import { usePopupStore } from '../store/usePopupStore'
 import { checkRefundPSBT, showTransaction, signAndFinalizePSBT } from '../utils/bitcoin'
+import { getAbortWithTimeout } from '../utils/getAbortWithTimeout'
 import i18n from '../utils/i18n'
 import { info } from '../utils/log'
 import { saveOffer } from '../utils/offer'
-import { refundSellOffer } from '../utils/peachAPI'
+import { peachAPI } from '../utils/peachAPI'
 import { getEscrowWalletForOffer } from '../utils/wallet'
 import { useSyncWallet } from '../views/wallet/hooks/useSyncWallet'
 import { useTradeSummaries } from './query/useTradeSummaries'
@@ -88,7 +89,11 @@ export const useRefundEscrow = () => {
         level: 'APP',
       })
 
-      const [, postTXError] = await refundSellOffer({ offerId: sellOffer.id, tx, timeout: FIFTEEN_SECONDS })
+      const { error: postTXError } = await peachAPI.private.offer.refundSellOffer({
+        offerId: sellOffer.id,
+        tx,
+        signal: getAbortWithTimeout(FIFTEEN_SECONDS).signal,
+      })
       if (postTXError) {
         showError(postTXError.error)
         closePopup()
