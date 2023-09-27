@@ -23,7 +23,6 @@ export {
 } from './private/contract'
 export {
   cancelOffer,
-  confirmEscrow,
   createEscrow,
   getFundingStatus,
   getMatches,
