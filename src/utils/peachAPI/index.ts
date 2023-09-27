@@ -19,7 +19,6 @@ export {
 export {
   cancelOffer,
   createEscrow,
-  getFundingStatus,
   getMatches,
   getOfferDetails,
   getOfferSummaries,

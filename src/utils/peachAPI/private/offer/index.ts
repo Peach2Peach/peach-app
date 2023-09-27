@@ -1,6 +1,5 @@
 export { cancelOffer } from './cancelOffer'
 export { createEscrow } from './createEscrow'
-export { getFundingStatus } from './getFundingStatus'
 export { getMatches } from './getMatches'
 export { getOfferDetails } from './getOfferDetails'
 export { getOfferSummaries } from './getOfferSummaries'
