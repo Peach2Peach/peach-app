@@ -14,7 +14,7 @@
   "help.escrow.description.proTip" : "Unaweza kubofya muda mrefu kwenye nambari ya QR ili kunakili ombi la malipo kamili.",
   "help.escrow.description.proTip.2" : "Ikiwa escrow haijafadhiliwa baada ya siku 7, ombi litafutwa.",
   "help.escrow.title" : "Escrow ya Peach",
-  "help.giftCards.content" : "Unapotumia njia hii ya malipo, unapaswa kununua kadi mpya ya zawadi mtandaoni kwa thamani kamili ya biashara. Kadi za zawadi za kimwili zilizokuwepo awali (bado) hazitumiki.",
+  "help.giftCards.description" : "Unapotumia njia hii ya malipo, unapaswa kununua kadi mpya ya zawadi mtandaoni kwa thamani kamili ya biashara. Kadi za zawadi za kimwili zilizokuwepo awali (bado) hazitumiki.",
   "help.giftCards.title" : "Kadi za Zawadi Mtandaoni",
   "help.lnurl.description" : "Unaweza kutumia njia hii ya malipo kubadilisha bitcoin yako ya on-chain kwa lightning. Hutalipa ada za Peach kwa hii.\n\nIkiwa unanunua, unapokea bitcoin ya on-chain na kutuma bitcoin ya LN.\n\nIkiwa unauza, unatuma bitcoin ya on-chain na kupokea bitcoin ya LN.",
   "help.lnurl.description.bold" : "Hutalipa ada za Peach kwa hii.",
