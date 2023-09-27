@@ -17,7 +17,6 @@ export {
   getContracts,
   postChat,
   raiseDispute,
-  rateUser,
 } from './private/contract'
 export {
   cancelOffer,
