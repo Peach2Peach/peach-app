@@ -1,16 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`BitcoinAddressInput closes QR scanner when onCancel event is triggered 1`] = `
-"Snapshot Diff:
-Compared values have no visual difference."
-`;
-
-exports[`BitcoinAddressInput doesn't show the QR scanner when permissions haven't been granted 1`] = `
-"Snapshot Diff:
-Compared values have no visual difference."
-`;
-
-exports[`BitcoinAddressInput opens the warning popup when permissions have been denied 1`] = `
+exports[`useShowHelp opens popup with help text 1`] = `
 <View
   style={
     {
@@ -64,7 +54,7 @@ exports[`BitcoinAddressInput opens the warning popup when permissions have been 
         },
         [
           {
-            "backgroundColor": "#FDF6C0",
+            "backgroundColor": "#D7F2FE",
           },
           {
             "alignItems": "stretch",
@@ -95,7 +85,7 @@ exports[`BitcoinAddressInput opens the warning popup when permissions have been 
         ]
       }
     >
-      Missing permissions
+      accept match = start trade
     </Text>
     <Text
       allowFontScaling={false}
@@ -113,9 +103,9 @@ exports[`BitcoinAddressInput opens the warning popup when permissions have been 
         ]
       }
     >
-      Peach needs your permission to use your camera.
+      You can only match one buyer per offer. Once you've accepted a match, the trade is started.
 
-You can change this in the settings of your phone.
+Once started, you can only do a collaborative cancel with your buyer, and your reputation will be harmed.
     </Text>
   </View>
   <View
@@ -129,7 +119,7 @@ You can change this in the settings of your phone.
           "justifyContent": "space-between",
         },
         {
-          "backgroundColor": "#F5CE22",
+          "backgroundColor": "#099DE2",
         },
       ]
     }
@@ -177,7 +167,7 @@ You can change this in the settings of your phone.
       }
     >
       <test-file-stub
-        fill="#2B1911"
+        fill="#FFFCFA"
         style={
           [
             {
@@ -207,15 +197,13 @@ You can change this in the settings of your phone.
                 "letterSpacing": 0.16,
                 "lineHeight": 28,
               },
-              {
-                "color": "#2B1911",
-              },
+              undefined,
             ],
             false,
           ]
         }
       >
-        close
+        help
       </Text>
     </View>
     <View
@@ -261,7 +249,7 @@ You can change this in the settings of your phone.
       }
     >
       <test-file-stub
-        fill="#2B1911"
+        fill="#FFFCFA"
         style={
           [
             {
@@ -291,46 +279,15 @@ You can change this in the settings of your phone.
                 "letterSpacing": 0.16,
                 "lineHeight": 28,
               },
-              {
-                "color": "#2B1911",
-              },
+              undefined,
             ],
             false,
           ]
         }
       >
-        open settings
+        close
       </Text>
     </View>
   </View>
 </View>
-`;
-
-exports[`BitcoinAddressInput renders correctly 1`] = `
-<Input
-  icons={
-    [
-      [
-        "clipboard",
-        [Function],
-      ],
-      [
-        "camera",
-        [Function],
-      ],
-    ]
-  }
-  onBlur={[Function]}
-  onFocus={[Function]}
-  placeholder="bc1q ..."
-  placeholderTextColor="#EAE3DF"
-  value="bc1qcj5y ... n57r7z"
-/>
-`;
-
-exports[`BitcoinAddressInput shows QR scanner when camera icon is pressed 1`] = `
-<ScanQR
-  onCancel={[Function]}
-  onRead={[Function]}
-/>
 `;
