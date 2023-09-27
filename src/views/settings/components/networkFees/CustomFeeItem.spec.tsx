@@ -22,7 +22,7 @@ describe('CustomFeeItem', () => {
     const { getByTestId } = render(defaultComponent)
     const input = getByTestId('input-custom-fees')
     act(() => {
-      fireEvent(input, 'onChange', '60.23')
+      fireEvent.changeText(input, '60.23')
     })
     expect(setCustomFeeRate).toHaveBeenCalledWith('60.23')
   })

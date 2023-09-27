@@ -36,7 +36,7 @@ export const FundEscrow = () => {
           <View style={tw`flex-row items-center justify-center gap-1`}>
             <Text style={tw`settings`}>{i18n('sell.escrow.sendSats')}</Text>
             <BTCAmount style={tw`-mt-0.5`} amount={fundingAmount} size="medium" />
-            <CopyAble value={fundingAddress} />
+            <CopyAble value={fundingAddress} textPosition="bottom" />
           </View>
           <BitcoinAddress
             address={fundingAddress}
