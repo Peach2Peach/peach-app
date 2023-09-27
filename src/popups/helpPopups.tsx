@@ -25,6 +25,7 @@ import { ReferralsHelp } from './info/ReferralsHelp'
 import { SeedPhrasePopup } from './info/SeedPhrasePopup'
 import { SellingBitcoin } from './info/SellingBitcoin'
 import { TradingLimit } from './info/TradingLimit'
+import { UseYourOwnNode } from './info/UseYourOwnNode'
 import { WithdrawingFundsHelp } from './info/WithdrawingFundsHelp'
 import { YourPassword } from './info/YourPassword'
 
@@ -55,6 +56,7 @@ export const helpPopups = {
   seedPhrase: { title: i18n('settings.backups.seedPhrase.popup.title'), content: SeedPhrasePopup },
   sellingBitcoin: { title: i18n('help.sellingBitcoin.title'), content: SellingBitcoin },
   tradingLimit: { title: i18n('help.tradingLimit.title'), content: TradingLimit },
+  useYourOwnNode: { title: i18n('wallet.settings.node.help.title'), content: UseYourOwnNode },
   withdrawingFunds: { title: i18n('wallet.withdraw.help.title'), content: WithdrawingFundsHelp },
   yourPassword: { title: i18n('settings.backups.fileBackup.popup2.title'), content: YourPassword },
 }

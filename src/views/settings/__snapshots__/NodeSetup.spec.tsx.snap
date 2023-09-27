@@ -1,0 +1,207 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NodeSetup should render with default settings 1`] = `
+<Screen
+  style={
+    {
+      "paddingBottom": 20,
+    }
+  }
+>
+  <NodeSetupHeader />
+  <ForwardRef
+    contentContainerStyle={
+      {
+        "flexGrow": 1,
+      }
+    }
+    contentStyle={
+      {
+        "flexGrow": 1,
+        "gap": 12,
+        "justifyContent": "center",
+      }
+    }
+  >
+    <Toggle
+      enabled={false}
+      onPress={[MockFunction]}
+      style={
+        {
+          "justifyContent": "space-between",
+          "paddingLeft": 24,
+          "paddingRight": 24,
+        }
+      }
+    >
+      use your own node
+    </Toggle>
+    <Toggle
+      disabled={true}
+      enabled={false}
+      onPress={[MockFunction]}
+      style={
+        {
+          "justifyContent": "space-between",
+          "paddingLeft": 24,
+          "paddingRight": 24,
+        }
+      }
+    >
+      use SSL
+    </Toggle>
+    <View
+      style={
+        {
+          "opacity": 0.33,
+        }
+      }
+    >
+      <Input
+        disabled={true}
+        errorMessage={[]}
+        icons={
+          [
+            [
+              "clipboard",
+              [MockFunction],
+            ],
+            [
+              "camera",
+              [MockFunction],
+            ],
+          ]
+        }
+        label="node address"
+        onChange={[MockFunction]}
+        placeholder="192.168.0.1:50001"
+        value=""
+      />
+    </View>
+  </ForwardRef>
+  <PrimaryButton
+    disabled={true}
+    iconId="share2"
+    onPress={[MockFunction]}
+    style={
+      {
+        "alignSelf": "center",
+      }
+    }
+  >
+    checking connection
+  </PrimaryButton>
+</Screen>
+`;
+
+exports[`NodeSetup should render with valid node settings 1`] = `
+<Screen
+  style={
+    {
+      "paddingBottom": 20,
+    }
+  }
+>
+  <NodeSetupHeader />
+  <ForwardRef
+    contentContainerStyle={
+      {
+        "flexGrow": 1,
+      }
+    }
+    contentStyle={
+      {
+        "flexGrow": 1,
+        "gap": 12,
+        "justifyContent": "center",
+      }
+    }
+  >
+    <Toggle
+      enabled={true}
+      onPress={[MockFunction]}
+      style={
+        {
+          "justifyContent": "space-between",
+          "paddingLeft": 24,
+          "paddingRight": 24,
+        }
+      }
+    >
+      use your own node
+    </Toggle>
+    <Toggle
+      disabled={false}
+      enabled={true}
+      onPress={[MockFunction]}
+      style={
+        {
+          "justifyContent": "space-between",
+          "paddingLeft": 24,
+          "paddingRight": 24,
+        }
+      }
+    >
+      use SSL
+    </Toggle>
+    <View
+      style={false}
+    >
+      <Input
+        disabled={false}
+        errorMessage={[]}
+        icons={
+          [
+            [
+              "clipboard",
+              [MockFunction],
+            ],
+            [
+              "camera",
+              [MockFunction],
+            ],
+          ]
+        }
+        label="node address"
+        onChange={[MockFunction]}
+        placeholder="192.168.0.1:50001"
+        value="blockstream.info"
+      />
+    </View>
+  </ForwardRef>
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "gap": 4,
+        "justifyContent": "center",
+      }
+    }
+  >
+    <PeachText
+      style={
+        {
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 14,
+          "letterSpacing": 0.5,
+          "lineHeight": 24,
+          "textTransform": "uppercase",
+        }
+      }
+    >
+      connected to your node
+    </PeachText>
+    <Icon
+      color="#9F8C82"
+      id="maximize"
+      style={
+        {
+          "height": 16,
+          "width": 16,
+        }
+      }
+    />
+  </View>
+</Screen>
+`;
