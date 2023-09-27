@@ -7,6 +7,7 @@
   "help.checkTrade" : "check trade",
   "help.confirmPayment.description" : "As soon as you swipe the \"payment received\" slider, the bitcoin will be sent to the buyer.\n\nMake sure everything's correct, because this cannot be undone!",
   "help.confirmPayment.title" : "payment received?",
+  "help.contactEncryption.description" : "We are using a third party ticketing system called Zammad to manage the incoming requests.\nIf you prefer to use an encrypted communication, please send us an email to support@peachbitcoin.com",
   "help.currency.description" : "If your online wallet can receive multiple currencies and do the conversion for you, you can select any currencies you can receive here.",
   "help.currency.title" : "accepted currencies",
   "help.escrow.description" : "You pre-fund the escrow when making a trade on Peach. This protects both you and the buyer. You can read more about the escrow here.\n\nYour offer will be published after one network confirmation. You can close the app while waiting for this.",
