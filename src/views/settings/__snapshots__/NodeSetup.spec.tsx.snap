@@ -57,7 +57,7 @@ exports[`NodeSetup should render with default settings 1`] = `
         }
       }
     >
-      <Input
+      <URLInput
         disabled={true}
         errorMessage={[]}
         icons={
@@ -68,7 +68,7 @@ exports[`NodeSetup should render with default settings 1`] = `
             ],
             [
               "camera",
-              [MockFunction],
+              [Function],
             ],
           ]
         }
@@ -147,7 +147,7 @@ exports[`NodeSetup should render with valid node settings 1`] = `
     <View
       style={false}
     >
-      <Input
+      <URLInput
         disabled={false}
         errorMessage={[]}
         icons={
@@ -158,7 +158,7 @@ exports[`NodeSetup should render with valid node settings 1`] = `
             ],
             [
               "camera",
-              [MockFunction],
+              [Function],
             ],
           ]
         }

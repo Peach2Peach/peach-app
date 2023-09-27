@@ -4,6 +4,7 @@ import { NavigationWrapper } from '../../../tests/unit/helpers/NavigationWrapper
 import { NodeSetup } from './NodeSetup'
 
 const wrapper = NavigationWrapper
+const address = 'blockstream.info'
 const nodeSetup = {
   enabled: false,
   toggleEnabled: jest.fn(),
@@ -24,7 +25,7 @@ jest.mock('./hooks/useNodeSetup', () => ({
 describe('NodeSetup', () => {
   const shallowRenderer = createRenderer()
   it('should render with default settings', () => {
-    shallowRenderer.render(<NodeSetup />)
+    shallowRenderer.render(<NodeSetup />, { wrapper })
     expect(shallowRenderer.getRenderOutput()).toMatchSnapshot()
   })
   it('should render with valid node settings', () => {
@@ -33,10 +34,10 @@ describe('NodeSetup', () => {
       enabled: true,
       ssl: true,
       isConnected: true,
-      address: 'blockstream.info',
+      address,
       addressErrors: [],
     })
-    shallowRenderer.render(<NodeSetup />)
+    shallowRenderer.render(<NodeSetup />, { wrapper })
     expect(shallowRenderer.getRenderOutput()).toMatchSnapshot()
   })
   it('should toggle enabled', () => {
@@ -59,11 +60,11 @@ describe('NodeSetup', () => {
   it('should change address', () => {
     useNodeSetupMock.mockReturnValueOnce({ ...nodeSetup, enabled: true })
     const { getByPlaceholderText } = render(<NodeSetup />, { wrapper })
-    fireEvent(getByPlaceholderText('192.168.0.1:50001'), 'onChange', 'blockstream.info')
-    expect(nodeSetup.setAddress).toHaveBeenCalledWith('blockstream.info')
+    fireEvent(getByPlaceholderText('192.168.0.1:50001'), 'onChange', address)
+    expect(nodeSetup.setAddress).toHaveBeenCalledWith(address)
   })
   it('should open call checkConnection', () => {
-    useNodeSetupMock.mockReturnValueOnce({ ...nodeSetup, enabled: true, address: 'blockstream.info' })
+    useNodeSetupMock.mockReturnValueOnce({ ...nodeSetup, enabled: true, address })
     const { getByText } = render(<NodeSetup />, { wrapper })
     fireEvent.press(getByText('checking connection'))
     expect(nodeSetup.checkConnection).toHaveBeenCalled()

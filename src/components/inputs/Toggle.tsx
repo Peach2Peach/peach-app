@@ -1,13 +1,18 @@
-import { TouchableOpacity } from 'react-native-gesture-handler'
+import { TouchableOpacity } from 'react-native'
 import { Icon, Text } from '..'
 import tw from '../../styles/tailwind'
 
 type Props = ComponentProps & {
   enabled: boolean
+  disabled?: boolean
   onPress: () => void
 }
-export const Toggle = ({ enabled, onPress, children, style }: Props) => (
-  <TouchableOpacity style={[tw`flex-row items-center gap-4`, style]} onPress={onPress}>
+export const Toggle = ({ enabled, disabled, onPress, children, style }: Props) => (
+  <TouchableOpacity
+    style={[tw`flex-row items-center gap-4`, disabled && tw`opacity-33`, style]}
+    onPress={onPress}
+    disabled={disabled}
+  >
     <Text style={tw`settings`}>{children}</Text>
     {enabled ? (
       <Icon id="toggleRight" size={32} color={tw`text-primary-main`.color} />

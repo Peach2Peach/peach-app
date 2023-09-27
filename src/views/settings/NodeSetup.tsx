@@ -1,6 +1,9 @@
 import { View } from 'react-native'
 import { Icon, PeachScrollView, PrimaryButton, Screen, Text } from '../../components'
-import { Input, Toggle } from '../../components/inputs'
+import { ScanQR } from '../../components/camera/ScanQR'
+import { Toggle } from '../../components/inputs'
+import { URLInput } from '../../components/inputs/URLInput'
+import { useToggleBoolean } from '../../hooks'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { NodeSetupHeader } from './headers/NodeSetupHeader'
@@ -17,9 +20,9 @@ export const NodeSetup = () => {
     setAddress,
     addressErrors,
     pasteAddress,
-    openQRScanner,
     checkConnection,
   } = useNodeSetup()
+  const [showQRScanner, toggleShowQRScanner] = useToggleBoolean(false)
 
   return (
     <Screen style={tw`pb-5`}>
@@ -32,7 +35,7 @@ export const NodeSetup = () => {
           {i18n('wallet.settings.node.ssl')}
         </Toggle>
         <View style={!enabled && tw`opacity-33`}>
-          <Input
+          <URLInput
             value={address}
             disabled={!enabled}
             label={i18n('wallet.settings.node.address')}
@@ -41,7 +44,7 @@ export const NodeSetup = () => {
             errorMessage={addressErrors}
             icons={[
               ['clipboard', pasteAddress],
-              ['camera', openQRScanner],
+              ['camera', toggleShowQRScanner],
             ]}
           />
         </View>
@@ -56,6 +59,7 @@ export const NodeSetup = () => {
           {i18n('wallet.settings.node.checkConnection')}
         </PrimaryButton>
       )}
+      {showQRScanner && <ScanQR onRead={({ data }) => setAddress(data)} onCancel={toggleShowQRScanner} />}
     </Screen>
   )
 }
