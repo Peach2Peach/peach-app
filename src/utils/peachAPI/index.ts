@@ -1,3 +1,8 @@
+import { API_URL } from '@env'
+import { default as apiWrapper } from 'peach-api'
+import { UNIQUEID } from '../../constants'
+import { getPeachAccount } from './peachAccount'
+
 export type RequestProps = {
   timeout?: number
   abortSignal?: AbortSignal
@@ -50,6 +55,7 @@ export {
 } from './private/user'
 export { getFeeEstimate, postTx } from './public/bitcoin'
 export { sendReport } from './public/contact'
-export { marketPrice } from './public/market'
 export { getInfo, getStatus } from './public/system'
 export { checkReferralCode, getUser } from './public/user'
+
+export const peachAPI = apiWrapper({ peachAccount: getPeachAccount()!, uniqueId: UNIQUEID, url: API_URL })
