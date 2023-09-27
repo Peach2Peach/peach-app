@@ -1,0 +1,14 @@
+{
+  "buy.addressSigning.message" : "message",
+  "buy.addressSigning.signature" : "signature",
+  "buy.addressSigning.title" : "sign your address",
+  "buy.addressSigning.yourAddress" : "your address",
+  "buy.meansOfPayment" : "how would you like to pay?",
+  "buy.releaseAddress.title" : "release address",
+  "buy.subtitle" : "You're buying between:",
+  "buy.subtitle.highlight" : "buying",
+  "buy.summary.title" : "publish buy offer",
+  "buy.title" : "buy bitcoin",
+  "buy.title.highlight" : "buy",
+  "yourTrades.search.buy.subtitle" : "buy offer for"
+}
