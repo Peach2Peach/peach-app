@@ -78,6 +78,7 @@
   "settings.networkFees.feeRateSet" : "comisión establecida",
   "settings.networkFees.help" : "Estas son las comisiones que pagas a la red Bitcoin para recibir tus satoshis después de una transacción, o en caso de un reembolso. Estas comisiones cambian con el tiempo, dependiendo de cuán ocupada esté la red.\n\nA mayor congestión de la red, más tendrás que pagar para obtener una confirmación rápida.",
   "settings.networkFees.xSatsPerByte" : "$0 sat/vB",
+  "settings.nodeSetup" : "Usa tu propio nodo",
   "settings.notifications" : "notificaciones",
   "settings.notifications.popup" : "Sin notificaciones, no te informaremos cuando haya un match. \n\nTomar mucho tiempo para hacer hacer match a alguien afectará negativamente tu puntuación de reputación.",
   "settings.notifications.popup.neverMind" : "no importa",

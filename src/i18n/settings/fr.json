@@ -78,6 +78,7 @@
   "settings.networkFees.feeRateSet" : "taux de frais défini",
   "settings.networkFees.help" : "Il s'agit des frais que vous payez au réseau Bitcoin pour recevoir vos sats après une transaction, ou en cas de remboursement. Ces frais varient dans le temps, en fonction de l'activité du réseau.\n\nPlus le réseau est occupé, plus vous devrez payer pour obtenir une confirmation rapide.",
   "settings.networkFees.xSatsPerByte" : "$0 sat/vB",
+  "settings.nodeSetup" : "Utilise ton propre nœud",
   "settings.notifications" : "notifications",
   "settings.notifications.popup" : "Sans notifications, vous ne serez pas informé en cas de match.\n\nPrendre beaucoup de temps pour répondre à une offre aura un impact négatif sur votre réputation.",
   "settings.notifications.popup.neverMind" : "ne pas désactiver",

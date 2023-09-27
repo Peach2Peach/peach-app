@@ -78,6 +78,7 @@
   "settings.networkFees.feeRateSet" : "kiwango cha ada kimewekwa",
   "settings.networkFees.help" : "Hizi ni ada unazolipa kwa mtandao wa Bitcoin ili upokee sats zako baada ya biashara au kwa kurejeshewa pesa. Ada hizi hubadilika kulingana na muda, kulingana na jinsi mtandao ulivyo na shughuli nyingi.\n\nMara mtandao unapokuwa na shughuli nyingi, unalazimika kulipa zaidi ili upate uthibitisho haraka.",
   "settings.networkFees.xSatsPerByte" : "$0 sat/bt",
+  "settings.nodeSetup" : "Tumia nodo yako mwenyewe",
   "settings.notifications" : "arifa",
   "settings.notifications.popup" : "Bila arifa, hutapokea taarifa wakati kuna mechi. \n\nKuchukua muda mrefu kujibu mtu kunaweza kuathiri sana alama yako ya sifa.",
   "settings.notifications.popup.neverMind" : "sawa",

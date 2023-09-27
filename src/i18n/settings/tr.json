@@ -78,6 +78,7 @@
   "settings.networkFees.feeRateSet" : "ücret oranı ayarlandı",
   "settings.networkFees.help" : "Bunlar, bir işlem sonrası sats almak veya bir geri ödeme durumunda Bitcoin ağına ödediğiniz ücretlerdir. Bu ücretler zaman içinde değişir ve ağın ne kadar yoğun olduğuna bağlıdır.\n\nAğ ne kadar yoğunsa, hızlı bir onay almak için daha fazla ödemeniz gerekecektir.",
   "settings.networkFees.xSatsPerByte" : "$0 sat/vB",
+  "settings.nodeSetup" : "Kendi düğümünü kullan",
   "settings.notifications" : "bildirimler",
   "settings.notifications.popup" : "Bildirimler olmadan, eşleşme olduğunda bilgilendirilmeyeceksiniz.\n\nBirini eşleştirmek uzun sürerse itibar puanınızı olumsuz etkiler.",
   "settings.notifications.popup.neverMind" : "boş ver",
