@@ -5,7 +5,7 @@ import { PopupActions } from './PopupActions'
 import { PopupContent } from './PopupContent'
 
 type Props = {
-  content: React.ReactNode
+  content?: React.ReactNode
   actions: React.ReactNode
   title?: string
   bgColor?: ViewStyle
