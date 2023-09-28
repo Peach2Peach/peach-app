@@ -19,11 +19,13 @@ export const URLInput = (props: InputProps) => {
     <Input
       label={i18n('wallet.settings.node.address')}
       placeholder={i18n('wallet.settings.node.address.placeholder')}
-      icons={[
-        ['clipboard', pasteAddress],
-        ['camera', showQR],
-      ]}
       {...props}
+      icons={
+        props.icons ?? [
+          ['clipboard', pasteAddress],
+          ['camera', showQR],
+        ]
+      }
     />
   ) : (
     <ScanQR onRead={onRead} onCancel={closeQR} />

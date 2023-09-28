@@ -17,6 +17,11 @@ describe('URLInput', () => {
     renderer.render(<URLInput value={address} />)
     expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
+  it('allows overriding of icons', () => {
+    const renderer = createRenderer()
+    renderer.render(<URLInput value={address} icons={[['edit3', jest.fn()]]} />)
+    expect(renderer.getRenderOutput()).toMatchSnapshot()
+  })
 
   it('pastes address from clipboard', async () => {
     const onChangeMock = jest.fn()
