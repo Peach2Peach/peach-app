@@ -3,15 +3,15 @@ import { NodeConnectionSuccessPopup } from '../../../../popups/success/NodeConne
 import { usePopupStore } from '../../../../store/usePopupStore'
 
 type Props = {
-  address: string
+  url: string
   save: () => void
 }
 export const useShowNodeConnectionSuccessPopup = () => {
   const setPopup = usePopupStore((state) => state.setPopup)
 
   const openPopup = useCallback(
-    ({ address, save }: Props) => {
-      setPopup(<NodeConnectionSuccessPopup {...{ address, save }} />)
+    ({ url, save }: Props) => {
+      setPopup(<NodeConnectionSuccessPopup {...{ url, save }} />)
     },
     [setPopup],
   )

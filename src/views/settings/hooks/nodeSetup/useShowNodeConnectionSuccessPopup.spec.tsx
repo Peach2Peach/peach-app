@@ -5,14 +5,14 @@ import { useShowNodeConnectionSuccessPopup } from './useShowNodeConnectionSucces
 
 describe('useShowNodeConnectionSuccessPopup', () => {
   it('should open correct popup', () => {
-    const address = 'address'
+    const url = 'url'
     const save = jest.fn()
     const { result } = renderHook(useShowNodeConnectionSuccessPopup)
-    result.current({ address, save })
+    result.current({ url, save })
     expect(usePopupStore.getState()).toEqual({
       ...usePopupStore.getState(),
       visible: true,
-      popupComponent: <NodeConnectionSuccessPopup {...{ address, save }} />,
+      popupComponent: <NodeConnectionSuccessPopup {...{ url, save }} />,
     })
   })
 })

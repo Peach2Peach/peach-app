@@ -3,10 +3,9 @@ import { BlockChainNames, BlockchainElectrumConfig, BlockchainEsploraConfig } fr
 import { info } from '../../../utils/log'
 import { getError, getResult, parseError } from '../../../utils/result'
 import { Result } from '../../../utils/result/types'
-import { NodeType } from '../../../utils/wallet/nodeConfigStore'
 import { addProtocol } from '../../../utils/web'
 
-const checkElectrumConnection = async (address: string, ssl: boolean): Promise<Result<NodeType, string>> => {
+const checkElectrumConnection = async (address: string, ssl: boolean): Promise<Result<BlockChainNames, string>> => {
   const config: BlockchainElectrumConfig = {
     url: addProtocol(address, ssl ? 'ssl' : 'tcp'),
     sock5: null,
@@ -20,13 +19,13 @@ const checkElectrumConnection = async (address: string, ssl: boolean): Promise<R
     info('Checking electrum connection...')
     const blockchain = await new Blockchain().create(config, BlockChainNames.Electrum)
     await blockchain.getBlockHash()
-    return getResult('electrum')
+    return getResult(BlockChainNames.Electrum)
   } catch (e) {
     info('electrum connection failed')
     return getError(parseError(e))
   }
 }
-const checkEsploraConnection = async (address: string, ssl: boolean): Promise<Result<NodeType, string>> => {
+const checkEsploraConnection = async (address: string, ssl: boolean): Promise<Result<BlockChainNames, string>> => {
   const config: BlockchainEsploraConfig = {
     baseUrl: addProtocol(address, ssl ? 'https' : 'http'),
     proxy: null,
@@ -39,7 +38,7 @@ const checkEsploraConnection = async (address: string, ssl: boolean): Promise<Re
     info('Checking esplora connection...')
     const blockchain = await new Blockchain().create(config, BlockChainNames.Esplora)
     await blockchain.getBlockHash()
-    return getResult('esplora')
+    return getResult(BlockChainNames.Esplora)
   } catch (e) {
     info('esplora connection failed')
     return getError(parseError(e))

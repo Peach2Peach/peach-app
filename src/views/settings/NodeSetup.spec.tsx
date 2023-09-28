@@ -4,16 +4,16 @@ import { NavigationWrapper } from '../../../tests/unit/helpers/NavigationWrapper
 import { NodeSetup } from './NodeSetup'
 
 const wrapper = NavigationWrapper
-const address = 'blockstream.info'
+const url = 'blockstream.info'
 const nodeSetup = {
   enabled: false,
   toggleEnabled: jest.fn(),
   ssl: false,
   toggleSSL: jest.fn(),
   isConnected: false,
-  address: '',
-  setAddress: jest.fn(),
-  addressErrors: [],
+  url: '',
+  setURL: jest.fn(),
+  urlErrors: [],
   pasteAddress: jest.fn(),
   openQRScanner: jest.fn(),
   canCheckConnection: false,
@@ -36,8 +36,8 @@ describe('NodeSetup', () => {
       enabled: true,
       ssl: true,
       isConnected: true,
-      address,
-      addressErrors: [],
+      address: url,
+      urlErrors: [],
       canCheckConnection: true,
     })
     shallowRenderer.render(<NodeSetup />, { wrapper })
@@ -63,11 +63,11 @@ describe('NodeSetup', () => {
   it('should change address', () => {
     useNodeSetupMock.mockReturnValueOnce({ ...nodeSetup, enabled: true })
     const { getByPlaceholderText } = render(<NodeSetup />, { wrapper })
-    fireEvent(getByPlaceholderText('192.168.0.1:50001'), 'onChange', address)
-    expect(nodeSetup.setAddress).toHaveBeenCalledWith(address)
+    fireEvent(getByPlaceholderText('192.168.0.1:50001'), 'onChange', url)
+    expect(nodeSetup.setURL).toHaveBeenCalledWith(url)
   })
   it('should open call checkConnection', () => {
-    useNodeSetupMock.mockReturnValueOnce({ ...nodeSetup, enabled: true, address, canCheckConnection: true })
+    useNodeSetupMock.mockReturnValueOnce({ ...nodeSetup, enabled: true, address: url, canCheckConnection: true })
     const { getByText } = render(<NodeSetup />, { wrapper })
     fireEvent.press(getByText('checking connection'))
     expect(nodeSetup.checkConnection).toHaveBeenCalled()

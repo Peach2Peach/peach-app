@@ -17,6 +17,8 @@ export class PeachWallet {
 
   async loadWallet () {}
 
+  async setBlockchain () {}
+
   async syncWallet () {}
 
   updateStore (): void {}

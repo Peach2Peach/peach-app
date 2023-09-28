@@ -1,3 +1,4 @@
+import { BlockChainNames } from 'bdk-rn/lib/lib/enums'
 import { NodeConfig, useNodeConfigState } from './nodeConfigStore'
 
 describe('nodeConfigStore', () => {
@@ -9,15 +10,17 @@ describe('nodeConfigStore', () => {
       ...useNodeConfigState.getState(),
       enabled: false,
       ssl: false,
+      gapLimit: 25,
     })
   })
 
   it('updates node settings', () => {
     const nodeSettings: NodeConfig = {
       enabled: true,
-      address: 'blockstream.info',
+      url: 'blockstream.info',
       ssl: true,
-      type: 'esplora',
+      type: BlockChainNames.Esplora,
+      gapLimit: 25,
     }
     useNodeConfigState.getState().setCustomNode(nodeSettings)
     expect(useNodeConfigState.getState()).toEqual({
@@ -31,12 +34,5 @@ describe('nodeConfigStore', () => {
     expect(useNodeConfigState.getState().enabled).toBeTruthy()
     useNodeConfigState.getState().toggleEnabled()
     expect(useNodeConfigState.getState().enabled).toBeFalsy()
-  })
-  it('toggles ssl flag', () => {
-    expect(useNodeConfigState.getState().ssl).toBeFalsy()
-    useNodeConfigState.getState().toggleSSL()
-    expect(useNodeConfigState.getState().ssl).toBeTruthy()
-    useNodeConfigState.getState().toggleSSL()
-    expect(useNodeConfigState.getState().ssl).toBeFalsy()
   })
 })

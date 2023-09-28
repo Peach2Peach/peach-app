@@ -1,8 +1,11 @@
 import { act, renderHook } from '@testing-library/react-native'
-import { Loading } from '../../../../components'
+import { BlockChainNames } from 'bdk-rn/lib/lib/enums'
+import { PopupLoadingSpinner } from '../../../../../tests/unit/helpers/PopupLoadingSpinner'
 import { usePopupStore } from '../../../../store/usePopupStore'
 import { getError, getResult } from '../../../../utils/result'
+import { PeachWallet } from '../../../../utils/wallet/PeachWallet'
 import { NodeConfig, useNodeConfigState } from '../../../../utils/wallet/nodeConfigStore'
+import { setPeachWallet } from '../../../../utils/wallet/setWallet'
 import { useNodeSetup } from './useNodeSetup'
 
 const checkNodeConnectionMock = jest.fn()
@@ -26,8 +29,10 @@ jest.mock('./useshowNodeConnectionErrorPopup', () => ({
 
 // eslint-disable-next-line max-lines-per-function
 describe('useNodeSetup', () => {
-  const address = 'blockstream.info'
+  const url = 'blockstream.info'
   beforeEach(() => {
+    // @ts-expect-error mock PeachWallet doesn't need arguments
+    setPeachWallet(new PeachWallet())
     useNodeConfigState.getState().reset()
   })
   it('should return defaults', () => {
@@ -38,9 +43,9 @@ describe('useNodeSetup', () => {
       ssl: false,
       toggleSSL: expect.any(Function),
       isConnected: false,
-      address: '',
-      addressErrors: ['this field is required', 'please enter a valid value'],
-      setAddress: expect.any(Function),
+      url: '',
+      urlErrors: ['this field is required', 'please enter a valid value'],
+      setURL: expect.any(Function),
       canCheckConnection: false,
       checkConnection: expect.any(Function),
       editConfig: expect.any(Function),
@@ -50,8 +55,8 @@ describe('useNodeSetup', () => {
     const nodeSetup: NodeConfig = {
       enabled: true,
       ssl: true,
-      address,
-      type: 'electrum',
+      url,
+      type: BlockChainNames.Electrum,
     }
     useNodeConfigState.getState().setCustomNode(nodeSetup)
     const { result } = renderHook(useNodeSetup)
@@ -62,25 +67,25 @@ describe('useNodeSetup', () => {
       canCheckConnection: true,
     })
   })
-  it('should set address', () => {
+  it('should set url', () => {
     const { result } = renderHook(useNodeSetup)
-    act(() => result.current.setAddress(address))
-    expect(result.current.address).toBe(address)
+    act(() => result.current.setURL(url))
+    expect(result.current.url).toBe(url)
   })
-  it('should validate address', () => {
+  it('should validate url', () => {
     const { result } = renderHook(useNodeSetup)
     act(() => {
       result.current.toggleEnabled()
-      result.current.setAddress('https://')
+      result.current.setURL('https://')
     })
-    expect(result.current.addressErrors).toEqual(['please enter a valid value'])
+    expect(result.current.urlErrors).toEqual(['please enter a valid value'])
     expect(result.current.canCheckConnection).toBeFalsy()
   })
-  it('canCheckConnection is true when enabled and address is configured and valid', () => {
+  it('canCheckConnection is true when enabled and url is configured and valid', () => {
     const { result } = renderHook(useNodeSetup)
     act(() => {
       result.current.toggleEnabled()
-      result.current.setAddress(address)
+      result.current.setURL(url)
     })
     expect(result.current.canCheckConnection).toBeTruthy()
   })
@@ -90,13 +95,13 @@ describe('useNodeSetup', () => {
     const { result } = renderHook(useNodeSetup)
     act(() => {
       result.current.toggleEnabled()
-      result.current.setAddress(address)
+      result.current.setURL(url)
     })
     act(() => {
       result.current.checkConnection()
     })
 
-    expect(checkNodeConnectionMock).toHaveBeenCalledWith(address, false)
+    expect(checkNodeConnectionMock).toHaveBeenCalledWith(url, false)
     expect(usePopupStore.getState()).toEqual({
       ...usePopupStore.getState(),
       action1: {
@@ -105,16 +110,7 @@ describe('useNodeSetup', () => {
         label: 'loading...',
       },
       closePopup: usePopupStore.getState().closePopup,
-      content: (
-        <Loading
-          color="#F56522"
-          style={{
-            alignSelf: 'center',
-            height: 64,
-            width: 64,
-          }}
-        />
-      ),
+      content: PopupLoadingSpinner,
       level: 'APP',
       title: 'checking connection',
       visible: true,
@@ -122,7 +118,7 @@ describe('useNodeSetup', () => {
     await act(async () => {
       await promise
     })
-    expect(showNodeConnectionSuccessPopupMock).toHaveBeenCalledWith({ address, save: expect.any(Function) })
+    expect(showNodeConnectionSuccessPopupMock).toHaveBeenCalledWith({ url, save: expect.any(Function) })
     act(() => {
       showNodeConnectionSuccessPopupMock.mock.calls[0][0].save()
     })
@@ -130,7 +126,7 @@ describe('useNodeSetup', () => {
     expect(useNodeConfigState.getState()).toEqual({
       ...useNodeConfigState.getState(),
       enabled: true,
-      address,
+      url,
       type: 'esplora',
     })
   })
@@ -141,13 +137,13 @@ describe('useNodeSetup', () => {
     const { result } = renderHook(useNodeSetup)
     act(() => {
       result.current.toggleEnabled()
-      result.current.setAddress(address)
+      result.current.setURL(url)
     })
     act(() => {
       result.current.checkConnection()
     })
 
-    expect(checkNodeConnectionMock).toHaveBeenCalledWith(address, false)
+    expect(checkNodeConnectionMock).toHaveBeenCalledWith(url, false)
 
     await act(async () => {
       await promise
@@ -158,8 +154,8 @@ describe('useNodeSetup', () => {
     const nodeSetup: NodeConfig = {
       enabled: true,
       ssl: true,
-      address,
-      type: 'electrum',
+      url,
+      type: BlockChainNames.Electrum,
     }
     useNodeConfigState.getState().setCustomNode(nodeSetup)
     const { result } = renderHook(useNodeSetup)

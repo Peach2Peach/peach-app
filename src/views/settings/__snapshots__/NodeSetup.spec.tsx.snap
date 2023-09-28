@@ -119,7 +119,7 @@ exports[`NodeSetup should render with valid node settings 1`] = `
       use your own node
     </Toggle>
     <Toggle
-      disabled={false}
+      disabled={true}
       enabled={true}
       onPress={[MockFunction]}
       style={
@@ -136,7 +136,7 @@ exports[`NodeSetup should render with valid node settings 1`] = `
       style={false}
     >
       <URLInput
-        disabled={false}
+        disabled={true}
         errorMessage={[]}
         icons={
           [
@@ -149,7 +149,7 @@ exports[`NodeSetup should render with valid node settings 1`] = `
         label="node address"
         onChange={[MockFunction]}
         placeholder="192.168.0.1:50001"
-        value="blockstream.info"
+        value=""
       />
     </View>
   </ForwardRef>

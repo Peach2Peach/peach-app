@@ -16,9 +16,9 @@ export const NodeSetup = () => {
     ssl,
     toggleSSL,
     isConnected,
-    address,
-    setAddress,
-    addressErrors,
+    url,
+    setURL,
+    urlErrors,
     canCheckConnection,
     checkConnection,
     editConfig,
@@ -32,17 +32,17 @@ export const NodeSetup = () => {
         <Toggle style={tw`justify-between px-6`} {...{ enabled }} onPress={toggleEnabled}>
           {i18n('wallet.settings.node.title')}
         </Toggle>
-        <Toggle style={tw`justify-between px-6`} enabled={ssl} disabled={!enabled} onPress={toggleSSL}>
+        <Toggle style={tw`justify-between px-6`} enabled={ssl} disabled={!enabled || isConnected} onPress={toggleSSL}>
           {i18n('wallet.settings.node.ssl')}
         </Toggle>
         <View style={!enabled && tw`opacity-33`}>
           <URLInput
-            value={address}
-            disabled={!enabled}
+            value={url}
+            disabled={!enabled || isConnected}
             label={i18n('wallet.settings.node.address')}
             placeholder={i18n('wallet.settings.node.address.placeholder')}
-            onChange={setAddress}
-            errorMessage={addressErrors}
+            onChange={setURL}
+            errorMessage={urlErrors}
             icons={isConnected ? [['edit3', editConfig]] : undefined}
           />
         </View>
@@ -57,7 +57,7 @@ export const NodeSetup = () => {
           {i18n('wallet.settings.node.checkConnection')}
         </PrimaryButton>
       )}
-      {showQRScanner && <ScanQR onRead={({ data }) => setAddress(data)} onCancel={toggleShowQRScanner} />}
+      {showQRScanner && <ScanQR onRead={({ data }) => setURL(data)} onCancel={toggleShowQRScanner} />}
     </Screen>
   )
 }

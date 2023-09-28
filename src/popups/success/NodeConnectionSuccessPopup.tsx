@@ -8,11 +8,11 @@ import i18n from '../../utils/i18n'
 import { ClosePopupAction } from '../actions'
 
 type Props = {
-  address: string
+  url: string
   save: () => void
 }
-const NodeConnectionSuccessContent = ({ address }: Pick<Props, 'address'>) => (
-  <PeachText>{i18n('wallet.settings.node.success.text', address)}</PeachText>
+const NodeConnectionSuccessContent = ({ url }: Pick<Props, 'url'>) => (
+  <PeachText>{i18n('wallet.settings.node.success.text', url)}</PeachText>
 )
 
 const SaveAction = ({ save }: Pick<Props, 'save'>) => {
@@ -35,10 +35,10 @@ const SaveAction = ({ save }: Pick<Props, 'save'>) => {
     />
   )
 }
-export const NodeConnectionSuccessPopup = ({ address, save }: Props) => (
+export const NodeConnectionSuccessPopup = ({ url, save }: Props) => (
   <PopupComponent
     title={i18n('wallet.settings.node.success.title')}
-    content={<NodeConnectionSuccessContent {...{ address }} />}
+    content={<NodeConnectionSuccessContent {...{ url }} />}
     actions={
       <>
         <ClosePopupAction />

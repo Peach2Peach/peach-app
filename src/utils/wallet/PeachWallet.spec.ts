@@ -70,7 +70,7 @@ describe('PeachWallet', () => {
 
   beforeEach(async () => {
     peachWallet = new PeachWallet({ wallet })
-    await peachWallet.loadWallet()
+    await peachWallet.initWallet()
   })
   afterEach(() => {
     useWalletState.getState().reset()
@@ -414,7 +414,7 @@ describe('PeachWallet - loadWallet', () => {
   it('loads existing data', async () => {
     const balance = 50000
     useWalletState.getState().setBalance(balance)
-    await peachWallet.loadWallet()
+    await peachWallet.initWallet()
     expect(peachWallet.balance).toBe(balance)
     expect(blockChainCreateMock).toHaveBeenCalledWith(
       { concurrency: 1, proxy: null, stopGap: 25, timeout: 30, baseUrl: 'https://localhost:3000' },
@@ -422,7 +422,7 @@ describe('PeachWallet - loadWallet', () => {
     )
   })
   it('loads wallet with seed', async () => {
-    await peachWallet.loadWallet(account1.mnemonic)
+    await peachWallet.initWallet(account1.mnemonic)
     expect(mnemonicFromStringMock).toHaveBeenCalledWith(account1.mnemonic)
   })
   it('load existing when wallet store is ready', () => {
@@ -437,7 +437,7 @@ describe('PeachWallet - loadWallet', () => {
     expect(peachWallet.balance).toBe(balance)
   })
   it('sets initialized to true when wallet is loaded', async () => {
-    await peachWallet.loadWallet()
+    await peachWallet.initWallet()
     expect(peachWallet.initialized).toBeTruthy()
   })
 })
@@ -448,7 +448,7 @@ describe('PeachWallet - buildFinishedTransaction', () => {
 
   beforeEach(async () => {
     peachWallet = new PeachWallet({ wallet })
-    await peachWallet.loadWallet()
+    await peachWallet.initWallet()
   })
   const utxo = new LocalUtxo(
     new OutPoint('txid', 0),
