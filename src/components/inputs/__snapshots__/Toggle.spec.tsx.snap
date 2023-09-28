@@ -2,15 +2,7 @@
 
 exports[`Toggle renders correctly when disabled 1`] = `
 <TouchableOpacity
-  activeOpacity={0.2}
-  delayLongPress={600}
   disabled={true}
-  extraButtonProps={
-    {
-      "exclusive": true,
-      "rippleColor": "transparent",
-    }
-  }
   onPress={[MockFunction]}
   style={
     [
@@ -20,7 +12,7 @@ exports[`Toggle renders correctly when disabled 1`] = `
         "gap": 16,
       },
       {
-        "opacity": 0.5,
+        "opacity": 0.33,
       },
       {
         "marginTop": 16,
@@ -51,14 +43,6 @@ exports[`Toggle renders correctly when disabled 1`] = `
 
 exports[`Toggle renders correctly when enabled 1`] = `
 <TouchableOpacity
-  activeOpacity={0.2}
-  delayLongPress={600}
-  extraButtonProps={
-    {
-      "exclusive": true,
-      "rippleColor": "transparent",
-    }
-  }
   onPress={[MockFunction]}
   style={
     [
@@ -97,14 +81,6 @@ exports[`Toggle renders correctly when enabled 1`] = `
 
 exports[`Toggle renders correctly when not enabled 1`] = `
 <TouchableOpacity
-  activeOpacity={0.2}
-  delayLongPress={600}
-  extraButtonProps={
-    {
-      "exclusive": true,
-      "rippleColor": "transparent",
-    }
-  }
   onPress={[MockFunction]}
   style={
     [

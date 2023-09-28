@@ -125,70 +125,80 @@ exports[`TransactionBatching should render correctly when batching is disabled 1
       </Text>
     </Text>
   </View>
-  <RNGestureHandlerButton
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
     collapsable={false}
-    delayLongPress={600}
-    enabled={true}
-    exclusive={true}
-    handlerTag={2}
-    handlerType="NativeViewGestureHandler"
-    onGestureEvent={[Function]}
-    onGestureHandlerEvent={[Function]}
-    onGestureHandlerStateChange={[Function]}
-    onHandlerStateChange={[Function]}
-    rippleColor={0}
-    touchSoundDisabled={false}
+    focusable={false}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "gap": 16,
+        "opacity": 1,
+      }
+    }
   >
-    <View
-      accessible={true}
-      collapsable={false}
+    <Text
+      allowFontScaling={false}
       style={
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "gap": 16,
-          "opacity": 1,
-        }
+        [
+          {
+            "color": "#2B1911",
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 24,
+          },
+          {
+            "fontFamily": "Baloo2-SemiBold",
+            "fontSize": 20,
+            "letterSpacing": 0.2,
+            "lineHeight": 32,
+            "textTransform": "lowercase",
+          },
+          false,
+        ]
       }
     >
-      <Text
-        allowFontScaling={false}
-        style={
-          [
-            {
-              "color": "#2B1911",
-              "fontFamily": "Baloo2-Regular",
-              "fontSize": 16,
-              "letterSpacing": 0.16,
-              "lineHeight": 24,
-            },
-            {
-              "fontFamily": "Baloo2-SemiBold",
-              "fontSize": 20,
-              "letterSpacing": 0.2,
-              "lineHeight": 32,
-              "textTransform": "lowercase",
-            },
-            false,
-          ]
-        }
-      >
-        transaction batching
-      </Text>
-      <test-file-stub
-        fill="#9F8C82"
-        style={
-          [
-            {
-              "height": 32,
-              "width": 32,
-            },
-            undefined,
-          ]
-        }
-      />
-    </View>
-  </RNGestureHandlerButton>
+      transaction batching
+    </Text>
+    <test-file-stub
+      fill="#9F8C82"
+      style={
+        [
+          {
+            "height": 32,
+            "width": 32,
+          },
+          undefined,
+        ]
+      }
+    />
+  </View>
 </View>
 `;
 
@@ -342,70 +352,80 @@ exports[`TransactionBatching should render correctly when batching is enabled 1`
       </Text>
     </Text>
   </View>
-  <RNGestureHandlerButton
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
     collapsable={false}
-    delayLongPress={600}
-    enabled={true}
-    exclusive={true}
-    handlerTag={1}
-    handlerType="NativeViewGestureHandler"
-    onGestureEvent={[Function]}
-    onGestureHandlerEvent={[Function]}
-    onGestureHandlerStateChange={[Function]}
-    onHandlerStateChange={[Function]}
-    rippleColor={0}
-    touchSoundDisabled={false}
+    focusable={false}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "gap": 16,
+        "opacity": 1,
+      }
+    }
   >
-    <View
-      accessible={true}
-      collapsable={false}
+    <Text
+      allowFontScaling={false}
       style={
-        {
-          "alignItems": "center",
-          "flexDirection": "row",
-          "gap": 16,
-          "opacity": 1,
-        }
+        [
+          {
+            "color": "#2B1911",
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 24,
+          },
+          {
+            "fontFamily": "Baloo2-SemiBold",
+            "fontSize": 20,
+            "letterSpacing": 0.2,
+            "lineHeight": 32,
+            "textTransform": "lowercase",
+          },
+          false,
+        ]
       }
     >
-      <Text
-        allowFontScaling={false}
-        style={
-          [
-            {
-              "color": "#2B1911",
-              "fontFamily": "Baloo2-Regular",
-              "fontSize": 16,
-              "letterSpacing": 0.16,
-              "lineHeight": 24,
-            },
-            {
-              "fontFamily": "Baloo2-SemiBold",
-              "fontSize": 20,
-              "letterSpacing": 0.2,
-              "lineHeight": 32,
-              "textTransform": "lowercase",
-            },
-            false,
-          ]
-        }
-      >
-        transaction batching
-      </Text>
-      <test-file-stub
-        fill="#F56522"
-        style={
-          [
-            {
-              "height": 32,
-              "width": 32,
-            },
-            undefined,
-          ]
-        }
-      />
-    </View>
-  </RNGestureHandlerButton>
+      transaction batching
+    </Text>
+    <test-file-stub
+      fill="#F56522"
+      style={
+        [
+          {
+            "height": 32,
+            "width": 32,
+          },
+          undefined,
+        ]
+      }
+    />
+  </View>
 </View>
 `;
 
