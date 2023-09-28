@@ -10,7 +10,7 @@ exports[`NodeSetupHeader should render correctly 1`] = `
         "paddingBottom": 4,
         "paddingTop": 4,
       },
-      false,
+      undefined,
       {
         "backgroundColor": "#FFF9F6",
       },

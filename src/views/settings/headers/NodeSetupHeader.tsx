@@ -9,7 +9,6 @@ export const NodeSetupHeader = () => {
     <Header
       {...{
         title: i18n('wallet.settings.node.title'),
-        hideGoBackButton: true,
         icons: [
           {
             ...headerIcons.help,
