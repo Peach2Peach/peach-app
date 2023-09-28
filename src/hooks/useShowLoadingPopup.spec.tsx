@@ -1,9 +1,9 @@
 import { renderHook } from '@testing-library/react-native'
 import { Loading } from '../components'
+import { usePopupStore } from '../store/usePopupStore'
 import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
 import { useShowLoadingPopup } from './useShowLoadingPopup'
-import { usePopupStore } from '../store/usePopupStore'
 
 describe('useShowLoadingPopup', () => {
   it('returns function to show loading popup', () => {
@@ -16,7 +16,7 @@ describe('useShowLoadingPopup', () => {
     expect(usePopupStore.getState()).toEqual({
       ...usePopupStore.getState(),
       action1: { callback: expect.any(Function), icon: 'clock', label: i18n('loading') },
-      content: <Loading color={tw`text-black-1`.color} style={tw`self-center`} />,
+      content: <Loading color={tw`text-primary-main`.color} style={tw`w-16 h-16 self-center`} />,
       level: 'APP',
       requireUserAction: true,
       title: i18n('loading'),
@@ -40,7 +40,7 @@ describe('useShowLoadingPopup', () => {
     expect(usePopupStore.getState()).toEqual({
       ...usePopupStore.getState(),
       action1: { callback: expect.any(Function), icon: 'clock', label: i18n('loading') },
-      content: <Loading color={tw`text-black-1`.color} style={tw`self-center`} />,
+      content: <Loading color={tw`text-primary-main`.color} style={tw`w-16 h-16 self-center`} />,
       level,
       requireUserAction: true,
       title,

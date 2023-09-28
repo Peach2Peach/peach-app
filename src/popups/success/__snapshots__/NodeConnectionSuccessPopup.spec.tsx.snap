@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`PopupComponent renders correctly 1`] = `
+exports[`NodeConnectionSuccessPopup should render correctly 1`] = `
 <View
   style={
     {
@@ -52,12 +52,54 @@ exports[`PopupComponent renders correctly 1`] = `
           "paddingRight": 24,
           "paddingTop": 16,
         },
-        undefined,
+        {
+          "backgroundColor": "#C9FFE5",
+        },
       ]
     }
   >
-    <Text>
-      content
+    <Text
+      allowFontScaling={false}
+      style={
+        [
+          {
+            "color": "#2B1911",
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 24,
+          },
+          {
+            "fontFamily": "Baloo2-Bold",
+            "fontSize": 24,
+            "letterSpacing": 0.24,
+            "lineHeight": 32,
+            "width": "100%",
+          },
+          false,
+        ]
+      }
+    >
+      connection established
+    </Text>
+    <Text
+      allowFontScaling={false}
+      style={
+        [
+          {
+            "color": "#2B1911",
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 24,
+          },
+          undefined,
+          false,
+        ]
+      }
+    >
+      Peach  successfully connected to address
+Do you want to save this as your default node?
     </Text>
   </View>
   <View
@@ -70,7 +112,9 @@ exports[`PopupComponent renders correctly 1`] = `
           "flexDirection": "row",
           "justifyContent": "space-between",
         },
-        undefined,
+        {
+          "backgroundColor": "#05A85A",
+        },
       ]
     }
   >
@@ -153,89 +197,91 @@ exports[`PopupComponent renders correctly 1`] = `
           ]
         }
       >
-        label
+        close
+      </Text>
+    </View>
+    <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": false,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "alignItems": "center",
+          "flexDirection": "row-reverse",
+          "flexGrow": 1,
+          "gap": 4,
+          "opacity": 1,
+          "paddingBottom": 8,
+          "paddingLeft": 24,
+          "paddingRight": 24,
+          "paddingTop": 8,
+        }
+      }
+    >
+      <test-file-stub
+        fill="#FFFCFA"
+        style={
+          [
+            {
+              "height": 16,
+              "width": 16,
+            },
+            undefined,
+          ]
+        }
+      />
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              {
+                "color": "#FFFCFA",
+                "fontFamily": "Baloo2-SemiBold",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
+                "lineHeight": 28,
+              },
+              undefined,
+            ],
+            false,
+          ]
+        }
+      >
+        save node info
       </Text>
     </View>
   </View>
 </View>
-`;
-
-exports[`PopupComponent renders correctly with different background colors 1`] = `
-"Snapshot Diff:
-- First value
-+ Second value
-
-@@ -47,11 +47,13 @@
-            "paddingBottom": 24,
-            "paddingLeft": 24,
-            "paddingRight": 24,
-            "paddingTop": 16,
-          },
--         undefined,
-+         Object {
-+           "backgroundColor": "red",
-+         },
-        ]
-      }
-    >
-      <Text>
-        content
-@@ -64,12 +66,14 @@
-            "alignItems": "center",
-            "alignSelf": "stretch",
-            "backgroundColor": "#F56522",
-            "flexDirection": "row",
-            "justifyContent": "space-between",
-+         },
-+         Object {
-+           "backgroundColor": "blue",
-          },
--         undefined,
-        ]
-      }
-    >
-      <View
-        accessibilityState={"
-`;
-
-exports[`PopupComponent renders correctly with title 1`] = `
-"Snapshot Diff:
-- First value
-+ Second value
-
-@@ -51,10 +51,34 @@
-          },
-          undefined,
-        ]
-      }
-    >
-+     <Text
-+       allowFontScaling={false}
-+       style={
-+         Array [
-+           Object {
-+             "color": "#2B1911",
-+             "fontFamily": "Baloo2-Regular",
-+             "fontSize": 16,
-+             "letterSpacing": 0.16,
-+             "lineHeight": 24,
-+           },
-+           Object {
-+             "fontFamily": "Baloo2-Bold",
-+             "fontSize": 24,
-+             "letterSpacing": 0.24,
-+             "lineHeight": 32,
-+             "width": "100%",
-+           },
-+           false,
-+         ]
-+       }
-+     >
-+       title
-+     </Text>
-      <Text>
-        content
-      </Text>
-    </View>
-    <View"
 `;
