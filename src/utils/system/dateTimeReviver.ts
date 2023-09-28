@@ -1,4 +1,4 @@
-import { isDateString } from '../validation'
+import { isDateString } from '../validation/isDateString'
 
 export const dateTimeReviver = (key: string, value: string | number | boolean | object | null) => {
   if (typeof value === 'string' && isDateString(value)) {
