@@ -19,6 +19,7 @@ describe('getDescriptorsBySeedphrase', () => {
     DescriptorNewBip84Mock.mockImplementation((secret, keychain) => {
       if (keychain === KeychainKind.External) return expectedExternalDescriptor
       if (keychain === KeychainKind.Internal) return expectedInternalDescriptor
+      return null
     })
     const { externalDescriptor, internalDescriptor } = await getDescriptorsBySeedphrase({
       seedphrase,

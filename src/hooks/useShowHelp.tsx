@@ -24,7 +24,7 @@ type Props = {
   showTitle?: boolean
 }
 
-function HelpPopup ({ id, showTitle }: Props) {
+export function HelpPopup ({ id, showTitle }: Props) {
   const Content = helpPopups[id]?.content
   return (
     <PopupComponent

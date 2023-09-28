@@ -2742,7 +2742,7 @@ exports[`SendBitcoin should should the help popup when clicking on the questionm
     style={
       [
         {
-          "alignItems": "center",
+          "alignItems": "stretch",
           "backgroundColor": "#FEEDE5",
           "gap": 12,
           "paddingBottom": 24,
