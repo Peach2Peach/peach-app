@@ -5,9 +5,9 @@ import i18n from '../../../../../utils/i18n'
 import { getErrorsInField } from '../../../../../utils/validation'
 import { FormProps } from '../../../../../views/addPaymentMethod/PaymentMethodForm'
 import { TabbedNavigationItem } from '../../../../navigation/TabbedNavigation'
+import { useBeneficiaryInput } from './useBeneficiaryInput'
 import { useLabelInput } from './useLabelInput'
 
-const beneficiaryRules = { required: true }
 const referenceRules = { required: false, isValidPaymentReference: true }
 
 // eslint-disable-next-line max-lines-per-function
@@ -18,7 +18,12 @@ export const useTemplate9Setup = ({ data, onSubmit, setStepValid, setFormData }:
     { id: 'account', display: i18n('form.account') },
   ]
   const { labelInputProps, labelErrors, setDisplayErrors: setDisplayLabelErrors, label } = useLabelInput(data)
-  const [beneficiary, setBeneficiary, , beneficiaryErrors] = useValidatedState(data?.beneficiary || '', beneficiaryRules)
+  const {
+    beneficiaryInputProps,
+    beneficiary,
+    beneficiaryIsValid,
+    setDisplayErrors: setDisplayBeneficiaryErrors,
+  } = useBeneficiaryInput(data)
 
   const [iban, setIBAN] = useState(data?.iban || '')
   const [accountNumber, setAccountNumber] = useState(data?.accountNumber || '')
@@ -59,9 +64,23 @@ export const useTemplate9Setup = ({ data, onSubmit, setStepValid, setFormData }:
 
   const isFormValid = useCallback(() => {
     setDisplayLabelErrors(true)
+    setDisplayBeneficiaryErrors(true)
     setDisplayErrors(true)
-    return [...labelErrors, ...ibanErrors, ...accountNumberErrors, ...bicErrors].length === 0 && referenceIsValid
-  }, [accountNumberErrors, bicErrors, ibanErrors, labelErrors, referenceIsValid, setDisplayLabelErrors])
+    return (
+      [...labelErrors, ...ibanErrors, ...accountNumberErrors, ...bicErrors].length === 0
+      && referenceIsValid
+      && beneficiaryIsValid
+    )
+  }, [
+    accountNumberErrors,
+    beneficiaryIsValid,
+    bicErrors,
+    ibanErrors,
+    labelErrors,
+    referenceIsValid,
+    setDisplayBeneficiaryErrors,
+    setDisplayLabelErrors,
+  ])
 
   const save = () => {
     if (!isFormValid()) return
@@ -76,11 +95,7 @@ export const useTemplate9Setup = ({ data, onSubmit, setStepValid, setFormData }:
 
   return {
     labelInputProps,
-    beneficiaryInputProps: {
-      onChange: setBeneficiary,
-      value: beneficiary,
-      errorMessage: displayErrors ? beneficiaryErrors : undefined,
-    },
+    beneficiaryInputProps,
     tabbedNavigationProps: {
       items: tabs,
       selected: currentTab,

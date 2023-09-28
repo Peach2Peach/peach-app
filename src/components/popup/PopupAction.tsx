@@ -4,15 +4,15 @@ import { IconType } from '../../assets/icons'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 
-type Props = ComponentProps & {
-  onPress: (() => void) | undefined
+export type PopupActionProps = ComponentProps & {
+  onPress: (() => void) | (() => Promise<void>) | undefined
   label: string | undefined
   iconId: IconType
   reverseOrder?: boolean
   textStyle?: TextStyle
   loading?: boolean
 }
-export const PopupAction = ({ onPress, label, iconId, reverseOrder, style, textStyle, loading }: Props) => (
+export const PopupAction = ({ onPress, label, iconId, reverseOrder, style, textStyle, loading }: PopupActionProps) => (
   <TouchableOpacity
     style={[tw`flex-row items-center flex-grow gap-1 px-6 py-2`, reverseOrder && tw`flex-row-reverse`, style]}
     onPress={onPress}

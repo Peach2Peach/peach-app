@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`SellingBitcoin renders correctly 1`] = `
-<PeachText>
-  Selling your sats on Peach is free of charge!
-</PeachText>
-`;

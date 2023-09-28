@@ -1,9 +1,9 @@
-import { Keyboard, Pressable, ViewStyle } from 'react-native'
+import { Keyboard, Pressable, StyleProp, ViewStyle } from 'react-native'
 import tw from '../../styles/tailwind'
 
 type Props = {
   children: React.ReactNode
-  style?: ViewStyle
+  style?: StyleProp<ViewStyle>
 }
 
 export const PopupContent = ({ children, style }: Props) => (

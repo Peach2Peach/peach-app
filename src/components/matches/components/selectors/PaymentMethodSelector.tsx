@@ -45,13 +45,15 @@ export const PaymentMethodSelector = ({ matchId, disabled }: { matchId: Match['o
         {i18n('form.paymentMethod')}
       </PulsingText>
 
-      <CurrencySelection
-        currencies={availableCurrencies}
-        selected={selectedCurrency}
-        select={(c) => setSelectedCurrency(c, matchId)}
-      />
+      <View style={tw`gap-3 pb-2`}>
+        <CurrencySelection
+          currencies={availableCurrencies}
+          selected={selectedCurrency}
+          select={(c) => setSelectedCurrency(c, matchId)}
+        />
 
-      <CustomSelector style={tw`mb-2`} {...{ selectedValue: selectedPaymentMethod, items, onChange }} />
+        <CustomSelector selectedValue={selectedPaymentMethod} {...{ items, onChange }} />
+      </View>
     </View>
   )
 }

@@ -52,7 +52,12 @@ exports[`SellSorters should render correctly 1`] = `
           "paddingRight": 24,
           "paddingTop": 16,
         },
-        undefined,
+        [
+          undefined,
+          {
+            "alignItems": "stretch",
+          },
+        ],
       ]
     }
   >
