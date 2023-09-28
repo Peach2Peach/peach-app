@@ -1,17 +1,21 @@
+import { shallow } from 'zustand/shallow'
 import { useToggleBoolean, useValidatedState } from '../../../hooks'
+import { useWalletState } from '../../../utils/wallet/walletStore'
 
-const addressRules = {}
+const addressRules = { required: true, url: true }
 export const useNodeSetup = () => {
-  // TODO use walletStore
-  const [enabled, toggleEnabled] = useToggleBoolean(false)
-  const [ssl, toggleSSL] = useToggleBoolean(false)
-  const [address, setAddress, , addressErrors] = useValidatedState<string>('', addressRules)
+  const [node, setCustomNode] = useWalletState((state) => [state.node, state.setCustomNode], shallow)
+  const [enabled, toggleEnabled] = useToggleBoolean(node.enabled)
+  const [ssl, toggleSSL] = useToggleBoolean(node.ssl)
+  const [address, setAddress, isAddressValid, addressErrors] = useValidatedState<string>(
+    node.address || '',
+    addressRules,
+  )
+  const canCheckConnection = enabled && isAddressValid
   const isConnected = false
 
-  const pasteAddress = () => {}
-  const openQRScanner = () => {}
   const checkConnection = () => {}
-  const save = () => {}
+  const save = () => setCustomNode({ enabled, ssl, address })
 
   return {
     enabled,
@@ -22,8 +26,7 @@ export const useNodeSetup = () => {
     address,
     setAddress,
     addressErrors,
-    pasteAddress,
-    openQRScanner,
+    canCheckConnection,
     checkConnection,
   }
 }
