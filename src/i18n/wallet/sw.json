@@ -61,7 +61,7 @@
   "wallet.settings.node.address.placeholder" : "192.168.0.1:50001",
   "wallet.settings.node.checkConnection" : "Kuangalia uhusiano",
   "wallet.settings.node.connected" : "Imeunganishwa kwenye nodo yako",
-  "wallet.settings.node.error.text" : "Tafadhali angalia kama umeweka taarifa zote za uhusiano kwa usahihi.\n\nTumepokea jibu lifuatalo:",
+  "wallet.settings.node.error.text" : "Tafadhali angalia kama umeweka taarifa zote za uhusiano kwa usahihi.\n\nTumepokea jibu lifuatalo:\n\n$0",
   "wallet.settings.node.error.title" : "Hakuna uhusiano...",
   "wallet.settings.node.help.text" : "Unaweza kuagiza Peach wallet kutumia server yako mwenyewe wa Electrum kupata taarifa kutoka kwenye blockchain.\n\nVinginevyo, utalazimika kuiamini nodo ya Peach kukupa taarifa sahihi.",
   "wallet.settings.node.help.title" : "Tumia nodo yako mwenyewe",
