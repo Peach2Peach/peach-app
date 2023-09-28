@@ -6,12 +6,6 @@ import { keys, omit } from '../object'
 import { createStorage } from '../storage'
 import { migrateWalletStore } from './migration/migrateWalletStore'
 
-type NodeConfig = {
-  enabled: boolean
-  address?: string
-  ssl: boolean
-}
-
 export type WalletState = {
   balance: number
   addresses: string[]
@@ -24,7 +18,6 @@ export type WalletState = {
   showBalance: boolean
   selectedUTXOIds: string[]
   isSynced: boolean
-  node: NodeConfig
 }
 
 export type FundMultipleInfo = {
@@ -52,7 +45,6 @@ export type WalletStore = WalletState & {
   toggleShowBalance: () => void
   setSelectedUTXOIds: (utxos: string[]) => void
   setIsSynced: (isSynced: boolean) => void
-  setCustomNode: (node: NodeConfig) => void
 }
 
 export const defaultWalletState: WalletState = {
@@ -67,7 +59,6 @@ export const defaultWalletState: WalletState = {
   showBalance: true,
   selectedUTXOIds: [],
   isSynced: false,
-  node: { enabled: false, ssl: false },
 }
 export const walletStorage = createStorage('wallet')
 const storage = createPersistStorage(walletStorage)
@@ -127,7 +118,6 @@ export const useWalletState = create<WalletStore>()(
       toggleShowBalance: () => set((state) => ({ showBalance: !state.showBalance })),
       setSelectedUTXOIds: (utxos) => set({ selectedUTXOIds: utxos }),
       setIsSynced: (isSynced) => set({ isSynced }),
-      setCustomNode: (node) => set({ node }),
     }),
     {
       name: 'wallet',
