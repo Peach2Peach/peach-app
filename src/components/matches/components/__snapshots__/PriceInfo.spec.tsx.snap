@@ -1,38 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`PriceInfo should render correctly 1`] = `
-<React.Fragment>
-  <SatsFormat
-    bitcoinLogoStyle={
-      {
-        "height": 18,
-        "marginRight": 8,
-        "width": 18,
-      }
+<View
+  style={
+    {
+      "alignItems": "center",
+      "gap": 8,
     }
-    containerStyle={
-      {
-        "alignSelf": "center",
-        "justifyContent": "center",
-      }
-    }
-    sats={250000}
-    satsStyle={
-      {
-        "fontFamily": "Baloo2-SemiBold",
-        "fontSize": 16,
-        "letterSpacing": 0.16,
-        "lineHeight": 28,
-      }
-    }
-    style={
-      {
-        "fontFamily": "Baloo2-Bold",
-        "fontSize": 24,
-        "letterSpacing": 0.24,
-        "lineHeight": 42,
-      }
-    }
+  }
+>
+  <BTCAmount
+    amount={250000}
+    size="medium"
   />
   <PeachText
     style={
@@ -57,5 +36,5 @@ exports[`PriceInfo should render correctly 1`] = `
       premium={0}
     />
   </PeachText>
-</React.Fragment>
+</View>
 `;
