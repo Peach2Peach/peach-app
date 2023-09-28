@@ -30,7 +30,7 @@ describe('useRedeemNoPeachFeesReward', () => {
     result.current()
     expect(usePopupStore.getState()).toEqual({
       ...usePopupStore.getState(),
-      title: '5x free trading',
+      title: '2x free trading',
       content: <NoPeachFees />,
       level: 'APP',
       visible: true,
