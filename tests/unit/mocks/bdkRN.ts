@@ -14,13 +14,14 @@ export class Address {
 }
 
 export const blockChainCreateMock = jest.fn().mockReturnThis()
+export const getBlockchainBlockHashMock = jest.fn()
 export const blockchainBroadcastMock = jest.fn()
 export class Blockchain {
   create = blockChainCreateMock
 
   getHeight = jest.fn()
 
-  getBlockHash = jest.fn()
+  getBlockHash = getBlockchainBlockHashMock
 
   broadcast = blockchainBroadcastMock
 
