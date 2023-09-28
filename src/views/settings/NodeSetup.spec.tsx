@@ -18,9 +18,10 @@ const nodeSetup = {
   openQRScanner: jest.fn(),
   canCheckConnection: false,
   checkConnection: jest.fn(),
+  editConfig: jest.fn(),
 }
 const useNodeSetupMock = jest.fn().mockReturnValue(nodeSetup)
-jest.mock('./hooks/useNodeSetup', () => ({
+jest.mock('./hooks/nodeSetup/useNodeSetup', () => ({
   useNodeSetup: (...args: unknown[]) => useNodeSetupMock(...args),
 }))
 describe('NodeSetup', () => {

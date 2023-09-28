@@ -138,6 +138,14 @@ exports[`NodeSetup should render with valid node settings 1`] = `
       <URLInput
         disabled={false}
         errorMessage={[]}
+        icons={
+          [
+            [
+              "edit3",
+              [MockFunction],
+            ],
+          ]
+        }
         label="node address"
         onChange={[MockFunction]}
         placeholder="192.168.0.1:50001"

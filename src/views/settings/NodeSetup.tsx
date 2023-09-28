@@ -7,7 +7,7 @@ import { useToggleBoolean } from '../../hooks'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { NodeSetupHeader } from './headers/NodeSetupHeader'
-import { useNodeSetup } from './hooks/useNodeSetup'
+import { useNodeSetup } from './hooks/nodeSetup/useNodeSetup'
 
 export const NodeSetup = () => {
   const {
@@ -21,6 +21,7 @@ export const NodeSetup = () => {
     addressErrors,
     canCheckConnection,
     checkConnection,
+    editConfig,
   } = useNodeSetup()
   const [showQRScanner, toggleShowQRScanner] = useToggleBoolean(false)
 
@@ -42,6 +43,7 @@ export const NodeSetup = () => {
             placeholder={i18n('wallet.settings.node.address.placeholder')}
             onChange={setAddress}
             errorMessage={addressErrors}
+            icons={isConnected ? [['edit3', editConfig]] : undefined}
           />
         </View>
       </PeachScrollView>
