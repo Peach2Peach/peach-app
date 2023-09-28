@@ -3,6 +3,7 @@
 exports[`UseYourOwnNode renders correctly 1`] = `
 <PeachText>
   You can instruct the Peach wallet to use your own electrum server for getting information from the blockchain.
+
 If you don’t, you’ll be trusting the Peach node to give you correct information.
 </PeachText>
 `;

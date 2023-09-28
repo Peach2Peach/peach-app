@@ -98,7 +98,8 @@ exports[`NodeConnectionSuccessPopup should render correctly 1`] = `
         ]
       }
     >
-      Peach  successfully connected to address
+      Peach successfully connected to address
+
 Do you want to save this as your default node?
     </Text>
   </View>

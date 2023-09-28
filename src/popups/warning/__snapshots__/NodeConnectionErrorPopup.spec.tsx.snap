@@ -100,7 +100,8 @@ exports[`NodeConnectionErrorPopup should render correctly 1`] = `
       }
     >
       Please check if you have entered all the connection information correctly.
-We got the following response: error
+
+We got the following response:
     </Text>
   </View>
   <View
