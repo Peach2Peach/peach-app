@@ -1,7 +1,6 @@
 import { renderHook } from '@testing-library/react-native'
-import { Loading } from '../components'
+import { PopupLoadingSpinner } from '../../tests/unit/helpers/PopupLoadingSpinner'
 import { usePopupStore } from '../store/usePopupStore'
-import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
 import { useShowLoadingPopup } from './useShowLoadingPopup'
 
@@ -16,7 +15,7 @@ describe('useShowLoadingPopup', () => {
     expect(usePopupStore.getState()).toEqual({
       ...usePopupStore.getState(),
       action1: { callback: expect.any(Function), icon: 'clock', label: i18n('loading') },
-      content: <Loading color={tw`text-primary-main`.color} style={tw`w-16 h-16 self-center`} />,
+      content: PopupLoadingSpinner,
       level: 'APP',
       requireUserAction: true,
       title: i18n('loading'),
@@ -40,7 +39,7 @@ describe('useShowLoadingPopup', () => {
     expect(usePopupStore.getState()).toEqual({
       ...usePopupStore.getState(),
       action1: { callback: expect.any(Function), icon: 'clock', label: i18n('loading') },
-      content: <Loading color={tw`text-primary-main`.color} style={tw`w-16 h-16 self-center`} />,
+      content: PopupLoadingSpinner,
       level,
       requireUserAction: true,
       title,
