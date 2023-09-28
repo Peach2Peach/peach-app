@@ -1,5 +1,9 @@
-const urlRegex = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$|^([a-zA-Z0-9-]+\.)*[a-zA-Z0-9-]+\.[a-zA-Z]{2,}[^/]*$/u
-const ipv4Regex = /^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/u
-const ipv6Regex = /^(?:[0-9a-z]{0,4}:){7}[0-9a-z]{0,4}$/iu
+import { addProtocol } from '../web/addProtocol'
 
-export const isURL = (url: string) => urlRegex.test(url) || ipv4Regex.test(url) || ipv6Regex.test(url)
+export const isURL = (url: string) => {
+  try {
+    return !!new URL(addProtocol(url.toLowerCase(), 'https'))
+  } catch (e) {
+    return false
+  }
+}
