@@ -1,7 +1,6 @@
-import { renderHook, waitFor } from '@testing-library/react-native'
+import { act, fireEvent, render, renderHook, waitFor } from '@testing-library/react-native'
 import { unauthorizedError } from '../../tests/unit/data/peachAPIData'
 import { NavigationAndQueryClientWrapper } from '../../tests/unit/helpers/NavigationAndQueryClientWrapper'
-import { CancelOffer } from '../popups/CancelOffer'
 import { usePopupStore } from '../store/usePopupStore'
 import { useWalletState } from '../utils/wallet/walletStore'
 import { useCancelFundMultipleSellOffers } from './useCancelFundMultipleSellOffers'
@@ -33,23 +32,9 @@ describe('useCancelFundMultipleSellOffers', () => {
     })
     result.current()
 
-    expect(usePopupStore.getState()).toEqual({
-      ...usePopupStore.getState(),
-      action1: {
-        callback: expect.any(Function),
-        icon: 'xCircle',
-        label: 'cancel offer',
-      },
-      action2: {
-        callback: usePopupStore.getState().closePopup,
-        icon: 'arrowLeftCircle',
-        label: 'never mind',
-      },
-      content: <CancelOffer type="ask" />,
-      level: 'DEFAULT',
-      title: 'cancel offer',
-      visible: true,
-    })
+    const popupComponent = usePopupStore.getState().content || <></>
+    const { toJSON } = render(popupComponent, { wrapper })
+    expect(toJSON()).toMatchSnapshot()
   })
 
   it('should show cancel offer confirmation popup', async () => {
@@ -59,7 +44,10 @@ describe('useCancelFundMultipleSellOffers', () => {
     })
     result.current()
 
-    usePopupStore.getState().action1?.callback()
+    const popupComponent = usePopupStore.getState().popupComponent || <></>
+    const { getAllByText } = render(popupComponent, { wrapper })
+    fireEvent.press(getAllByText('cancel offer')[1])
+
     await waitFor(() => {
       expect(usePopupStore.getState()).toEqual({
         ...usePopupStore.getState(),
@@ -73,14 +61,18 @@ describe('useCancelFundMultipleSellOffers', () => {
     expect(cancelOfferMock).toHaveBeenCalledWith({ offerId: fundMultiple.offerIds[2] })
     expect(useWalletState.getState().fundMultipleMap).toEqual({})
   })
-  it('not not cancel if no fundMultiple has been passed', () => {
+  it('not not cancel if no fundMultiple has been passed', async () => {
     const { result } = renderHook(useCancelFundMultipleSellOffers, {
       wrapper,
       initialProps: { fundMultiple: undefined },
     })
     result.current()
 
-    usePopupStore.getState().action1?.callback()
+    const popupComponent = usePopupStore.getState().popupComponent || <></>
+    const { getAllByText } = render(popupComponent, { wrapper })
+    await act(async () => {
+      await fireEvent.press(getAllByText('cancel offer')[1])
+    })
 
     expect(cancelOfferMock).not.toHaveBeenCalled()
   })
@@ -94,7 +86,9 @@ describe('useCancelFundMultipleSellOffers', () => {
     })
     result.current()
 
-    usePopupStore.getState().action1?.callback()
+    const popupComponent = usePopupStore.getState().popupComponent || <></>
+    const { getAllByText } = render(popupComponent, { wrapper })
+    fireEvent.press(getAllByText('cancel offer')[1])
 
     await waitFor(() => {
       expect(usePopupStore.getState()).toEqual({
