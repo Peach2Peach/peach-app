@@ -1,4 +1,5 @@
 import { act, fireEvent, render } from '@testing-library/react-native'
+import { toMatchDiffSnapshot } from 'snapshot-diff'
 import { buyOffer, matchOffer, sellOffer } from '../../../tests/unit/data/offerData'
 import { validSEPAData } from '../../../tests/unit/data/paymentData'
 import { NavigationAndQueryClientWrapper } from '../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
@@ -6,6 +7,7 @@ import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
 import { usePaymentDataStore } from '../../store/usePaymentDataStore'
 import { Match } from './Match'
 import { useMatchStore } from './store'
+expect.extend({ toMatchDiffSnapshot })
 
 const getRandomMock = jest.fn().mockReturnValue(Buffer.from('totallyRandom'))
 jest.mock('../../utils/crypto/getRandom', () => ({
@@ -47,25 +49,24 @@ describe('Match', () => {
     usePaymentDataStore.getState().reset()
     usePaymentDataStore.getState().addPaymentData(validSEPAData)
   })
+  const wrapper = NavigationAndQueryClientWrapper
+  const defaultBuyComponent = <Match match={{ ...matchOffer, matched: false }} offer={buyOffer} />
+  const defaultSellComponent = <Match match={{ ...matchOffer, matched: false }} offer={sellOffer} />
   it('should render correctly for buy offers', () => {
-    const { toJSON } = render(<Match match={{ ...matchOffer, matched: false }} offer={buyOffer} />, {
-      wrapper: NavigationAndQueryClientWrapper,
-    })
+    const { toJSON } = render(defaultBuyComponent, { wrapper })
     expect(toJSON()).toMatchSnapshot()
   })
 
   it('should render correctly for sell offers', () => {
-    const { toJSON } = render(<Match match={{ ...matchOffer, matched: false }} offer={sellOffer} />, {
-      wrapper: NavigationAndQueryClientWrapper,
-    })
+    const { toJSON } = render(defaultSellComponent, { wrapper })
     expect(toJSON()).toMatchSnapshot()
   })
 
   it('should render correctly for matched offers', () => {
     const { toJSON } = render(<Match match={matchOffer} offer={buyOffer} />, {
-      wrapper: NavigationAndQueryClientWrapper,
+      wrapper,
     })
-    expect(toJSON()).toMatchSnapshot()
+    expect(render(defaultBuyComponent, { wrapper }).toJSON()).toMatchDiffSnapshot(toJSON())
   })
 
   it('should match after 5 seconds', async () => {
@@ -83,7 +84,7 @@ describe('Match', () => {
       },
     })
     const { getByText } = render(<Match match={{ ...matchOffer, matched: false }} offer={buyOffer} />, {
-      wrapper: NavigationAndQueryClientWrapper,
+      wrapper,
     })
 
     await act(async () => {
