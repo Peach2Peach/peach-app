@@ -20,7 +20,7 @@ jest.mock('./useShowNodeConnectionSuccessPopup', () => ({
         showNodeConnectionSuccessPopupMock(...args),
 }))
 const showNodeConnectionErrorPopupMock = jest.fn()
-jest.mock('./useshowNodeConnectionErrorPopup', () => ({
+jest.mock('./useShowNodeConnectionErrorPopup', () => ({
   useShowNodeConnectionErrorPopup:
     () =>
       (...args: unknown[]) =>
