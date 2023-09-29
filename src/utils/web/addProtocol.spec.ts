@@ -9,4 +9,7 @@ describe('addProtocol', () => {
     expect(addProtocol('http://example.com', 'http')).toBe('http://example.com')
     expect(addProtocol('http://example.com', 'https')).toBe('https://example.com')
   })
+  it('should return address without change if invalid url', () => {
+    expect(addProtocol('http://', 'https')).toBe('http://')
+  })
 })
