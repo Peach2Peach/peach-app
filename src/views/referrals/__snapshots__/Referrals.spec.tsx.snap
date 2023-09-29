@@ -391,7 +391,7 @@ exports[`Referrals renders correctly 1`] = `
                     ]
                   }
                 >
-                  5x no Peach fees
+                  2x no Peach fees
                 </Text>
                 <Text
                   allowFontScaling={false}
