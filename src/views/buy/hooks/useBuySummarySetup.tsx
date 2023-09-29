@@ -98,7 +98,6 @@ export const useBuySummarySetup = () => {
     setIsPublishing(false)
 
     if (!isOfferPublished || !offerId) {
-      console.log('hooola', errorMessage, errorDetails, isForbiddenPaymentMethodError(errorMessage, errorDetails))
       if (isForbiddenPaymentMethodError(errorMessage, errorDetails)) {
         const paymentMethod = errorDetails.pop()
         if (paymentMethod === 'paypal') showHelp(`paymentMethodForbidden.${paymentMethod}`)
