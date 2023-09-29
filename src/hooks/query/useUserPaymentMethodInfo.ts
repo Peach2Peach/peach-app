@@ -8,7 +8,7 @@ const getUserPaymentMethodInfoQuery = async () => {
   return data
 }
 
-const placeholder = {
+export const placeholder = {
   forbidden: {
     buy: [],
     sell: [],
