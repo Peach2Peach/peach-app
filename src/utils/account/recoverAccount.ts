@@ -1,9 +1,7 @@
 import analytics from '@react-native-firebase/analytics'
 import { userUpdate } from '../../init/userUpdate'
 import { useSettingsStore } from '../../store/settingsStore'
-import { saveContract } from '../contract'
 import { error, info } from '../log'
-import { saveOffer } from '../offer'
 import { getContracts, getOffers } from '../peachAPI'
 import { updateAccount } from './updateAccount'
 
@@ -24,13 +22,15 @@ export const recoverAccount = async (account: Account): Promise<Account> => {
 
   if (getOffersResult?.length) {
     info(`Got ${getOffersResult.length} offers`)
-    getOffersResult.map((offer) => saveOffer(offer, true))
+    // eslint-disable-next-line require-atomic-updates
+    account.offers = getOffersResult
   } else if (getOffersErr) {
     error('Error', getOffersErr)
   }
   if (getContractsResult?.length) {
     info(`Got ${getContractsResult.length} Contracts`)
-    getContractsResult.map((offer) => saveContract(offer, true))
+    // eslint-disable-next-line require-atomic-updates
+    account.contracts = getContractsResult
   } else if (getContractsErr) {
     error('Error', getContractsErr)
   }
