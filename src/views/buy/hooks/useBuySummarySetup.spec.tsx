@@ -1,8 +1,8 @@
 import { act, renderHook } from '@testing-library/react-native'
 import { account1 } from '../../../../tests/unit/data/accountData'
 import { NavigationWrapper, replaceMock } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { HelpPopup } from '../../../hooks/useShowHelp'
 import { setPaymentMethods } from '../../../paymentMethods'
-import { PaymentMethodForbiddenPaypal } from '../../../popups/info/PaymentMethodForbiddenPaypal'
 import { useConfigStore } from '../../../store/configStore'
 import { usePopupStore } from '../../../store/usePopupStore'
 import { setAccount } from '../../../utils/account'
@@ -71,7 +71,8 @@ describe('useBuySummarySetup', () => {
     expect(result.current.isPublishing).toBe(false)
     expect(usePopupStore.getState()).toEqual({
       ...usePopupStore.getState(),
-      content: <PaymentMethodForbiddenPaypal />,
+      visible: true,
+      popupComponent: <HelpPopup id="paymentMethodForbidden.paypal" showTitle={true} />,
     })
   })
 })
