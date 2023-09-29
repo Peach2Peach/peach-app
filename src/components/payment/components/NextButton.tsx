@@ -15,6 +15,7 @@ export const NextButton = () => {
     shallow,
   )
   const { data: paymentMethodInfo } = useUserPaymentMethodInfo()
+
   const goToSummary = () => {
     const flow = origin === 'premium' ? 'sell' : 'buy'
     const forbiddenPaymentMethdos = intersect(paymentMethodInfo.forbidden[flow], paymentMethods)
