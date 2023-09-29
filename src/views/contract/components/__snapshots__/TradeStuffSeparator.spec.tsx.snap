@@ -2,14 +2,14 @@
 
 exports[`TradeStuffSeparator renders correctly 1`] = `
 <Divider
-  text="trade stuff"
+  text="trade details"
   type="light"
 />
 `;
 
 exports[`TradeStuffSeparator renders correctly when the dispute is active 1`] = `
 <Divider
-  text="trade stuff"
+  text="trade details"
   type="error"
 />
 `;

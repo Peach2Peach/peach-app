@@ -12,7 +12,7 @@ import {
 import { TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
 import { AddressIndex, BlockChainNames, BlockchainEsploraConfig, KeychainKind } from 'bdk-rn/lib/lib/enums'
 import { BIP32Interface } from 'bip32'
-import { error, info } from '../log'
+import { info } from '../log'
 import { parseError } from '../result'
 import { findTransactionsToRebroadcast, isPending, mergeTransactionList } from '../transaction'
 import { callWhenInternet } from '../web'
@@ -37,8 +37,6 @@ type PeachWalletProps = {
 export class PeachWallet extends PeachJSWallet {
   initialized: boolean
 
-  synced: boolean
-
   syncInProgress: Promise<void> | undefined
 
   descriptorPath: string
@@ -57,7 +55,6 @@ export class PeachWallet extends PeachJSWallet {
     this.balance = 0
     this.transactions = []
     this.initialized = false
-    this.synced = false
     this.syncInProgress = undefined
   }
 
@@ -115,18 +112,14 @@ export class PeachWallet extends PeachJSWallet {
         if (!this.wallet || !this.blockchain) return reject(new Error('WALLET_NOT_READY'))
 
         info('PeachWallet - syncWallet - start')
-        this.synced = false
+        useWalletState.getState().setIsSynced(false)
 
-        try {
-          const success = await this.wallet.sync(this.blockchain)
-          if (success) {
-            this.getBalance()
-            this.getTransactions()
-            this.synced = true
-            info('PeachWallet - syncWallet - synced')
-          }
-        } catch (e) {
-          error(parseError(e))
+        const success = await this.wallet.sync(this.blockchain)
+        if (success) {
+          this.getBalance()
+          this.getTransactions()
+          useWalletState.getState().setIsSynced(true)
+          info('PeachWallet - syncWallet - synced')
         }
 
         this.syncInProgress = undefined

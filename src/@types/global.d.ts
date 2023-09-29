@@ -29,7 +29,7 @@ type PaymentCategory = 'bankTransfer' | 'onlineWallet' | 'giftCard' | 'nationalO
 type PaymentCategories = {
   [key in PaymentCategory]: PaymentMethod[]
 }
-type NationalOptions = Record<'EUR', Record<string, PaymentMethod[]>>
+type NationalOptions = Record<'EUR' | 'LATAM', Record<string, PaymentMethod[]>>
 
 type HashedPaymentData = string
 

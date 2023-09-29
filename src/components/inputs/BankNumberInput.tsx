@@ -4,15 +4,13 @@ import { Input, InputProps } from './Input'
 
 export const BankNumberInput = ({ onChange, onSubmit, ...props }: InputProps) => (
   <Input
-    {...{
-      required: true,
-      label: i18n('form.account.long'),
-      placeholder: i18n('form.account.placeholder'),
-      autoCorrect: false,
-      ...props,
-      onChange,
-      onEndEditing: onChange ? (number: string) => onChange(enforceBankNumberFormat(number)) : undefined,
-      onSubmit: onSubmit ? (number: string) => onSubmit(enforceBankNumberFormat(number)) : undefined,
-    }}
+    required
+    label={i18n('form.account.long')}
+    placeholder={i18n('form.account.placeholder')}
+    autoCorrect={false}
+    {...props}
+    onChange={onChange}
+    onEndEditing={onChange ? (number: string) => onChange(enforceBankNumberFormat(number)) : undefined}
+    onSubmit={onSubmit ? (number: string) => onSubmit(enforceBankNumberFormat(number)) : undefined}
   />
 )

@@ -1,13 +1,16 @@
 import { useFocusEffect } from '@react-navigation/native'
 import { useCallback, useState } from 'react'
-import { MSINASECOND } from '../../../constants'
 import { useNavigation } from '../../../hooks'
 import { useSettingsStore } from '../../../store/settingsStore'
-import { peachWallet } from '../../../utils/wallet/setWallet'
+import { PeachWallet } from '../../../utils/wallet/PeachWallet'
 import { useWalletState } from '../../../utils/wallet/walletStore'
 import { useSyncWallet } from './useSyncWallet'
 
-export const useWalletSetup = (syncOnLoad = true) => {
+type Props = {
+  peachWallet: PeachWallet
+  syncOnLoad: boolean
+}
+export const useWalletSetup = ({ peachWallet, syncOnLoad }: Props) => {
   const balance = useWalletState((state) => state.balance)
 
   const navigation = useNavigation()
@@ -25,14 +28,14 @@ export const useWalletSetup = (syncOnLoad = true) => {
   }
 
   const syncWalletOnLoad = useCallback(async () => {
-    if (!peachWallet.initialized) {
-      setTimeout(syncWalletOnLoad, MSINASECOND)
-      return
-    }
+    if (!peachWallet.initialized) return
     setWalletLoading(peachWallet.transactions.length === 0)
-    await peachWallet.syncWallet()
+
+    await refresh()
     setWalletLoading(false)
-  }, [])
+    // adding refresh or peachWallet.transactions.length as dependencies causes an infinite loop
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [peachWallet.initialized])
 
   useFocusEffect(
     useCallback(() => {

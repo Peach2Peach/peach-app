@@ -5,8 +5,6 @@ export const peachInfo: GetInfoResponse = {
   fees: {
     escrow: 0.02,
   },
-  buckets: [],
-  deprecatedBuckets: [],
   paymentMethods: [
     {
       id: 'sepa',

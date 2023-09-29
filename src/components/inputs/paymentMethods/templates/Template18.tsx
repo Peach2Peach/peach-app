@@ -1,6 +1,5 @@
 import { useRef } from 'react'
 import { TextInput } from 'react-native'
-import i18n from '../../../../utils/i18n'
 import { FormProps } from '../../../../views/addPaymentMethod/PaymentMethodForm'
 import { LabelInput, ReferenceInput, UsernameInput } from '../../index'
 import { CurrencySelection } from '../paymentForms/components'
@@ -20,13 +19,7 @@ export const Template18 = (props: FormProps) => {
   return (
     <>
       <LabelInput {...labelInputProps} onSubmit={() => $username?.focus()} />
-      <UsernameInput
-        {...userNameInputProps}
-        label={i18n('form.chippertag')}
-        placeholder={i18n('form.chippertag.placeholder')}
-        onSubmit={() => $reference?.focus()}
-        reference={(el) => ($username = el)}
-      />
+      <UsernameInput {...userNameInputProps} onSubmit={() => $reference?.focus()} reference={(el) => ($username = el)} />
       <ReferenceInput {...referenceInputProps} reference={(el) => ($reference = el)} />
       {shouldShowCurrencySelection && <CurrencySelection {...currencySelectionProps} />}
     </>

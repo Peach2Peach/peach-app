@@ -1,19 +1,24 @@
+import { render } from '@testing-library/react-native'
+import { toMatchDiffSnapshot } from 'snapshot-diff'
+import { NavigationWrapper as wrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { MatchCardCounterparty } from './MatchCardCounterparty'
-import { createRenderer } from 'react-test-renderer/shallow'
-import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
+expect.extend({ toMatchDiffSnapshot })
 
 describe('MatchCardCounterparty', () => {
-  const renderer = createRenderer()
+  const defaultComponent = <MatchCardCounterparty user={{ id: '123', rating: 1, trades: 21, medals: ['ambassador'] }} />
   it('renders correctly', () => {
-    renderer.render(<MatchCardCounterparty user={{ id: '123', rating: 1, trades: 21 } as User} />, {
-      wrapper: NavigationWrapper,
+    const { toJSON } = render(defaultComponent, {
+      wrapper,
     })
-    expect(renderer.getRenderOutput()).toMatchSnapshot()
+    expect(toJSON()).toMatchSnapshot()
   })
   it('renders correctly for a new user', () => {
-    renderer.render(<MatchCardCounterparty user={{ id: '123', rating: 1, trades: 3 } as User} />, {
-      wrapper: NavigationWrapper,
-    })
-    expect(renderer.getRenderOutput()).toMatchSnapshot()
+    const { toJSON } = render(
+      <MatchCardCounterparty user={{ id: '123', rating: 1, trades: 2, medals: ['ambassador'] }} />,
+      {
+        wrapper,
+      },
+    )
+    expect(render(defaultComponent, { wrapper }).toJSON()).toMatchDiffSnapshot(toJSON())
   })
 })

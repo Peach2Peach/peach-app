@@ -4,14 +4,12 @@ import { Input, InputProps } from './Input'
 
 export const CVUAliasInput = ({ onChange, onSubmit, ...props }: InputProps) => (
   <Input
-    {...{
-      autoCorrect: false,
-      label: i18n('form.account'),
-      placeholder: i18n('form.cvuAlias.placeholder'),
-      ...props,
-      onChange,
-      onEndEditing: onChange ? (cvuAlias: string) => onChange(enforceBankNumberFormat(cvuAlias)) : undefined,
-      onSubmit: onSubmit ? (cvuAlias: string) => onSubmit(enforceBankNumberFormat(cvuAlias)) : undefined,
-    }}
+    autoCorrect={false}
+    label={i18n('form.account')}
+    placeholder={i18n('form.cvuAlias.placeholder')}
+    {...props}
+    onChange={onChange}
+    onEndEditing={onChange ? (cvuAlias: string) => onChange(enforceBankNumberFormat(cvuAlias)) : undefined}
+    onSubmit={onSubmit ? (cvuAlias: string) => onSubmit(enforceBankNumberFormat(cvuAlias)) : undefined}
   />
 )

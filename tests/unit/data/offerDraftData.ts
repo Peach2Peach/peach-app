@@ -8,6 +8,7 @@ export const getBuyOfferDraft = (): BuyOfferDraft => ({
   paymentData: sellOffer.paymentData,
   meansOfPayment: sellOffer.meansOfPayment,
   originalPaymentData: sellOffer.originalPaymentData,
+  maxPremium: null,
 })
 export const getSellOfferDraft = (): SellOfferDraft => ({
   type: 'ask',

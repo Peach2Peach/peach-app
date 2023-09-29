@@ -1,9 +1,26 @@
 import { act, fireEvent, render } from '@testing-library/react-native'
 import { buyOffer, matchOffer, sellOffer } from '../../../tests/unit/data/offerData'
+import { validSEPAData } from '../../../tests/unit/data/paymentData'
 import { NavigationAndQueryClientWrapper } from '../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
 import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
+import { usePaymentDataStore } from '../../store/usePaymentDataStore'
 import { Match } from './Match'
 import { useMatchStore } from './store'
+
+const getRandomMock = jest.fn().mockReturnValue(Buffer.from('totallyRandom'))
+jest.mock('../../utils/crypto/getRandom', () => ({
+  getRandom: () => getRandomMock(),
+}))
+const paymentDataSignature = 'signature'
+const paymentDataEncrypted = 'encrypted'
+const encryptPaymentDataMock = jest.fn().mockResolvedValue({
+  encrypted: paymentDataEncrypted,
+  signature: paymentDataSignature,
+})
+
+jest.mock('../../utils/paymentMethod/encryptPaymentData', () => ({
+  encryptPaymentData: (...args: unknown[]) => encryptPaymentDataMock(...args),
+}))
 
 const matchOfferMock = jest.fn()
 const getOfferDetailsMock = jest.fn().mockResolvedValue([matchOffer, null])
@@ -27,6 +44,8 @@ describe('Match', () => {
   beforeEach(() => {
     useMatchStore.setState({ matchSelectors: {} })
     queryClient.clear()
+    usePaymentDataStore.getState().reset()
+    usePaymentDataStore.getState().addPaymentData(validSEPAData)
   })
   it('should render correctly for buy offers', () => {
     const { toJSON } = render(<Match match={{ ...matchOffer, matched: false }} offer={buyOffer} />, {
@@ -78,8 +97,8 @@ describe('Match', () => {
       premium: 1.5,
       currency: 'EUR',
       paymentMethod: 'sepa',
-      paymentDataEncrypted: undefined,
-      paymentDataSignature: undefined,
+      paymentDataEncrypted,
+      paymentDataSignature,
       symmetricKeyEncrypted: undefined,
       symmetricKeySignature: undefined,
     })

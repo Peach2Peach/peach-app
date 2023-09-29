@@ -13,6 +13,7 @@
   "wallet.addressChecker.hint" : "Bu, bir adresin Şeftali cüzdanınıza ait olup olmadığını doğrulamak için kullanabilirsiniz.",
   "wallet.bumpNetworkFees.button" : "ağ ücretini artır",
   "wallet.bumpNetworkFees.confirmRbf.newFee" : "Yeni ücret:",
+  "wallet.bumpNetworkFees.confirmRbf.noChange" : "Bu işlemde değişiklik yok.\nÜcretleri artırmak gönderilen miktarı azaltır!",
   "wallet.bumpNetworkFees.confirmRbf.oldFee" : "Eski ücret:",
   "wallet.bumpNetworkFees.confirmRbf.percentOfTx" : "( işlem tutarının $0% )",
   "wallet.bumpNetworkFees.confirmRbf.title" : "ücretleri artırma",

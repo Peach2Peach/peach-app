@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-native'
+import { act, renderHook } from '@testing-library/react-native'
 import { buyOffer } from '../../../../tests/unit/data/offerData'
 import { pending1, pendingTransactionSummary } from '../../../../tests/unit/data/transactionDetailData'
 import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
@@ -20,7 +20,6 @@ describe('useTransactionDetailsSetup', () => {
   const pendingTx = { ...pending1, sent: 0, received: 900 }
   beforeAll(() => {
     useWalletState.getState().setTransactions([pendingTx])
-    // @ts-ignore
     useWalletState.getState().updateTxOfferMap(pendingTx.txid, ['123'])
     saveOffer({ ...buyOffer, amount: [900, 900], id: '123' })
   })
@@ -32,9 +31,18 @@ describe('useTransactionDetailsSetup', () => {
       isRefreshing: false,
     })
   })
-  it('should handle case where transaction is in store', () => {
+  it('should handle case where no transaction is in store', () => {
     useWalletState.getState().setTransactions([])
     const { result } = renderHook(useTransactionDetailsSetup, { wrapper })
     expect(result.current.transaction).toBeUndefined()
+  })
+  it('should reload when transaction in store update', () => {
+    useWalletState.getState().setTransactions([])
+    const { result } = renderHook(useTransactionDetailsSetup, { wrapper })
+    expect(result.current.transaction).toBeUndefined()
+
+    act(() => useWalletState.getState().setTransactions([pendingTx]))
+
+    expect(result.current.transaction).toEqual(pendingTransactionSummary)
   })
 })

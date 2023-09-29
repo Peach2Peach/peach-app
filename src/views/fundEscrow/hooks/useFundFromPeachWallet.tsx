@@ -10,6 +10,7 @@ import { peachWallet } from '../../../utils/wallet/setWallet'
 import { buildTransaction, setMultipleRecipients } from '../../../utils/wallet/transaction'
 import { useWalletState } from '../../../utils/wallet/walletStore'
 import { useOpenAmountTooLowPopup } from './useOpenAmountTooLowPopup'
+import { useOptimisticTxHistoryUpdate } from './useOptimisticTxHistoryUpdate'
 import { useShowFundEscrowPopup } from './useShowFundEscrowPopup'
 import { useShowInsufficientFundsPopup } from './useShowInsufficientFundsPopup'
 
@@ -17,19 +18,21 @@ const canFundOfferFromPeachWallet = (fundingStatus: FundingStatus, address?: str
   !!address && fundingStatus.status === 'NULL'
 
 type Props = {
+  offerId: string
   address?: string
   addresses?: string[]
   amount?: number
   fundingStatus: FundingStatus
 }
-export const useFundFromPeachWallet = ({ address, addresses = [], amount, fundingStatus }: Props) => {
+
+export const useFundFromPeachWallet = ({ offerId, address, addresses = [], amount, fundingStatus }: Props) => {
   const minTradingAmount = useConfigStore((state) => state.minTradingAmount)
   const showErrorBanner = useShowErrorBanner()
   const showFundEscrowPopup = useShowFundEscrowPopup()
   const showInsufficientFundsPopup = useShowInsufficientFundsPopup()
   const openAmountTooLowPopup = useOpenAmountTooLowPopup()
   const handleTransactionError = useHandleTransactionError()
-
+  const optimisticTxHistoryUpdate = useOptimisticTxHistoryUpdate()
   const feeRate = useFeeRate()
   const canFundFromPeachWallet = useMemo(
     () => canFundOfferFromPeachWallet(fundingStatus, address),
@@ -44,8 +47,9 @@ export const useFundFromPeachWallet = ({ address, addresses = [], amount, fundin
     shallow,
   )
 
-  const onSuccess = () => {
+  const onSuccess = ({ txDetails }: TxBuilderResult) => {
     if (address) {
+      optimisticTxHistoryUpdate(txDetails, offerId)
       unregisterFundMultiple(address)
       setFundedFromPeachWallet(address)
       addresses.forEach(setFundedFromPeachWallet)
@@ -86,12 +90,7 @@ export const useFundFromPeachWallet = ({ address, addresses = [], amount, fundin
         return handleTransactionError(e2)
       }
     }
-    return showFundEscrowPopup({
-      address,
-      transaction: finishedTransaction,
-      feeRate,
-      onSuccess,
-    })
+    return showFundEscrowPopup({ address, transaction: finishedTransaction, feeRate, onSuccess })
   }
 
   return { canFundFromPeachWallet, fundFromPeachWallet, fundedFromPeachWallet }

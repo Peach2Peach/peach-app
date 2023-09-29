@@ -19,6 +19,8 @@ type PaymentDataInfo = {
   cvuAlias?: string
   chipperTag?: string
   eversendUserName?: string
+  pixAlias?: string
+  postePayNumber?: string
 }
 
 type PaymentDataField = keyof PaymentDataInfo

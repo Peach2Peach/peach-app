@@ -1,29 +1,29 @@
-import { createRenderer } from 'react-test-renderer/shallow'
-import { CustomFeeItem } from './CustomFeeItem'
 import { act, fireEvent, render } from '@testing-library/react-native'
+import { toMatchDiffSnapshot } from 'snapshot-diff'
+import { CustomFeeItem } from './CustomFeeItem'
+expect.extend({ toMatchDiffSnapshot })
 
 describe('CustomFeeItem', () => {
-  const renderer = createRenderer()
-
   const customFeeRate = '4'
   const setCustomFeeRate = jest.fn()
+  const defaultComponent = <CustomFeeItem {...{ customFeeRate, setCustomFeeRate }} />
   it('renders correctly', () => {
-    renderer.render(<CustomFeeItem {...{ customFeeRate, setCustomFeeRate }} />)
-    const result = renderer.getRenderOutput()
+    const { toJSON } = render(defaultComponent)
+    const result = toJSON()
     expect(result).toMatchSnapshot()
   })
   it('renders correctly when disabled', () => {
-    renderer.render(<CustomFeeItem {...{ customFeeRate, setCustomFeeRate, disabled: true }} />)
-    const result = renderer.getRenderOutput()
-    expect(result).toMatchSnapshot()
+    const { toJSON } = render(<CustomFeeItem {...{ customFeeRate, setCustomFeeRate, disabled: true }} />)
+    const result = toJSON()
+    expect(render(defaultComponent).toJSON()).toMatchDiffSnapshot(result)
   })
 
   it('sets custom fee rate', () => {
-    const { getByTestId } = render(<CustomFeeItem {...{ customFeeRate, setCustomFeeRate }} />)
+    const { getByTestId } = render(defaultComponent)
     const input = getByTestId('input-custom-fees')
     act(() => {
-      fireEvent(input, 'onChange', '60')
+      fireEvent.changeText(input, '60.23')
     })
-    expect(setCustomFeeRate).toHaveBeenCalledWith('60')
+    expect(setCustomFeeRate).toHaveBeenCalledWith('60.23')
   })
 })

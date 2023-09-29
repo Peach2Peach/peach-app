@@ -16,6 +16,7 @@ import {
   Template2,
   Template20,
   Template21,
+  Template22,
   Template3,
   Template4,
   Template5,
@@ -45,8 +46,10 @@ const template10Fields: TradeInfoField[] = [...sharedFields, 'receiveAddress']
 const template11Fields: TradeInfoField[] = [...sharedFields, 'lnurlAddress']
 const template12Fields: TradeInfoField[] = [...sharedFields, 'phone', 'reference']
 const template13Fields: TradeInfoField[] = [...sharedFields, 'phone', 'email', 'reference']
-const template14Fields: TradeInfoField[] = [...sharedFields, 'beneficiary', 'accountNumber', 'reference']
 const template18Fields: TradeInfoField[] = [...sharedFields, 'userName', 'reference']
+const template19Fields: TradeInfoField[] = [...sharedFields, 'userName']
+const template20Fields: TradeInfoField[] = [...sharedFields, 'beneficiary', 'postePayNumber']
+const template22Fields: TradeInfoField[] = [...sharedFields, 'pixAlias']
 
 export const PaymentMethodForms: PaymentMethodFormsType = {
   sepa: { component: Template1, fields: template1Fields },
@@ -73,32 +76,37 @@ export const PaymentMethodForms: PaymentMethodFormsType = {
   n26: { component: Template6, fields: template6Fields },
   paylib: { component: Template3, fields: template3Fields },
   lydia: { component: Template3, fields: template3Fields },
-  verse: { component: Template3, fields: template3Fields },
   iris: { component: Template3, fields: template3Fields },
   'giftCard.amazon': { component: GiftCardAmazon, fields: template4Fields },
-  nationalTransferTR: { component: Template1, fields: template1Fields },
   papara: { component: Template3, fields: template3Fields },
   liquid: { component: Template10, fields: template10Fields },
   lnurl: { component: Template11, fields: template11Fields },
   rappipay: { component: Template12, fields: template12Fields },
   mercadoPago: { component: Template13, fields: template13Fields },
   nequi: { component: Template3, fields: template3Fields },
-  cbu: { component: Template14, fields: template14Fields },
-  cvu: { component: Template15, fields: template14Fields },
-  alias: { component: Template16, fields: template14Fields },
-  bancolombia: { component: Template17, fields: template14Fields },
+  cbu: { component: Template14, fields: template7Fields },
+  cvu: { component: Template15, fields: template7Fields },
+  alias: { component: Template16, fields: template7Fields },
+  bancolombia: { component: Template17, fields: template7Fields },
   orangeMoney: { component: Template12, fields: template12Fields },
   moov: { component: Template12, fields: template12Fields },
   wave: { component: Template12, fields: template12Fields },
   airtelMoney: { component: Template12, fields: template12Fields },
   'm-pesa': { component: Template12, fields: template12Fields },
-  nationalTransferNG: { component: Template21, fields: template14Fields },
+  nationalTransferNG: { component: Template21, fields: template7Fields },
   chippercash: { component: Template18, fields: template18Fields },
   mtn: { component: Template12, fields: template12Fields },
-  eversend: { component: Template19, fields: template18Fields },
-  payday: { component: Template20, fields: template18Fields },
+  eversend: { component: Template18, fields: template18Fields },
+  payday: { component: Template18, fields: template18Fields },
   sinpe: { component: Template1, fields: template1Fields },
   sinpeMovil: { component: Template3, fields: template3Fields },
+  pix: { component: Template22, fields: template22Fields },
+  rebellion: { component: Template19, fields: template19Fields },
+  klasha: { component: Template19, fields: template19Fields },
+  accrue: { component: Template19, fields: template19Fields },
+  wirepay: { component: Template19, fields: template19Fields },
+  bankera: { component: Template13, fields: template13Fields },
+  postePay: { component: Template20, fields: template20Fields },
 }
 GIFTCARDCOUNTRIES.forEach(
   (c) =>

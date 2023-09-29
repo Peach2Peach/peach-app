@@ -72,10 +72,10 @@ exports[`PaymentMethods should render correctly 1`] = `
         }
       >
         <RemotePaymentMethods
-          editItem={[Function]}
+          editItem={[MockFunction]}
           isEditing={false}
-          isSelected={[Function]}
-          select={[Function]}
+          isSelected={[MockFunction]}
+          select={[MockFunction]}
         />
         <HorizontalLine
           style={

@@ -37,6 +37,7 @@ exports[`FundEscrow should render the FundEscrow view 1`] = `
           {
             "alignItems": "center",
             "flexDirection": "row",
+            "gap": 4,
             "justifyContent": "center",
           }
         }
@@ -53,7 +54,6 @@ exports[`FundEscrow should render the FundEscrow view 1`] = `
           }
         >
           send
-           
         </PeachText>
         <BTCAmount
           amount={100000}
@@ -64,20 +64,10 @@ exports[`FundEscrow should render the FundEscrow view 1`] = `
             }
           }
         />
-        <PeachText
-          style={
-            {
-              "fontFamily": "Baloo2-SemiBold",
-              "fontSize": 20,
-              "letterSpacing": 0.2,
-              "lineHeight": 32,
-              "textTransform": "lowercase",
-            }
-          }
-        >
-           
-          to:
-        </PeachText>
+        <CopyAble
+          textPosition="bottom"
+          value="bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh"
+        />
       </View>
       <BitcoinAddress
         address="bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh"
@@ -207,6 +197,7 @@ exports[`FundEscrow should show funded from peach wallet, if funded from peach w
           {
             "alignItems": "center",
             "flexDirection": "row",
+            "gap": 4,
             "justifyContent": "center",
           }
         }
@@ -223,7 +214,6 @@ exports[`FundEscrow should show funded from peach wallet, if funded from peach w
           }
         >
           send
-           
         </PeachText>
         <BTCAmount
           amount={100000}
@@ -234,20 +224,10 @@ exports[`FundEscrow should show funded from peach wallet, if funded from peach w
             }
           }
         />
-        <PeachText
-          style={
-            {
-              "fontFamily": "Baloo2-SemiBold",
-              "fontSize": 20,
-              "letterSpacing": 0.2,
-              "lineHeight": 32,
-              "textTransform": "lowercase",
-            }
-          }
-        >
-           
-          to:
-        </PeachText>
+        <CopyAble
+          textPosition="bottom"
+          value="bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh"
+        />
       </View>
       <BitcoinAddress
         address="bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh"

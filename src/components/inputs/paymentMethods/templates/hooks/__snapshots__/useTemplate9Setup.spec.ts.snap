@@ -4,10 +4,10 @@ exports[`useTemplate9Setup should return the correct values 1`] = `
 {
   "accountNumberInputProps": {
     "errorMessage": [
-      "this is not a valid account number",
+      "this field is required",
     ],
     "onChange": [Function],
-    "value": "accountNumber",
+    "value": "",
   },
   "beneficiaryInputProps": {
     "errorMessage": [
@@ -18,30 +18,32 @@ exports[`useTemplate9Setup should return the correct values 1`] = `
   },
   "bicInputProps": {
     "errorMessage": [
+      "this field is required",
       "this is not a valid bic",
     ],
     "onChange": [Function],
-    "value": "bic",
+    "value": "",
   },
   "ibanInputProps": {
     "errorMessage": [
+      "this field is required",
       "this is not a valid IBAN",
       "we only support EU-based accounts",
     ],
     "label": "bank account number",
     "onChange": [Function],
-    "value": "iban",
+    "value": "",
   },
   "labelInputProps": {
     "errorMessage": [],
     "onChange": [Function],
-    "value": "label",
+    "value": "National Transfer Switzerland",
   },
   "referenceInputProps": {
     "errorMessage": [],
     "onChange": [Function],
     "onSubmit": [Function],
-    "value": "reference",
+    "value": "",
   },
   "shouldShowIbanInput": true,
   "tabbedNavigationProps": {

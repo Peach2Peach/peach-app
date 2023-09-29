@@ -32,16 +32,17 @@ export let CURRENCIES: Currency[] = [
   'NGN',
   'CDF',
   'CRC',
+  'BRL',
 ]
 export const CURRENCY_MAP: Record<CurrencyType, Currency[]> = {
   europe: ['EUR', 'CHF', 'GBP', 'SEK', 'DKK', 'BGN', 'CZK', 'HUF', 'PLN', 'RON', 'ISK', 'NOK', 'TRY'],
-  latinAmerica: ['ARS', 'COP', 'PEN', 'MXN', 'CLP', 'PEN', 'COP', 'CRC'],
+  latinAmerica: ['ARS', 'COP', 'PEN', 'MXN', 'CLP', 'PEN', 'COP', 'CRC', 'BRL'],
   africa: ['USD', 'XOF', 'CDF', 'NGN'],
   other: ['USDT', 'SAT'],
 }
 
 export let GIFTCARDCOUNTRIES: Country[] = ['DE', 'FR', 'IT', 'ES', 'NL', 'UK', 'SE', 'FI']
-export const NATIONALTRANSFERCOUNTRIES: PaymentMethodCountry[] = ['BG', 'CZ', 'DK', 'HU', 'NO', 'PL', 'RO']
+export const NATIONALTRANSFERCOUNTRIES = ['BG', 'CZ', 'DK', 'HU', 'NO', 'PL', 'RO', 'CH', 'IS', 'SE', 'TR'] as const
 
 export let PAYMENTMETHODS: PaymentMethod[] = ['sepa']
 export let PAYMENTMETHODINFOS: PaymentMethodInfo[] = [
@@ -67,12 +68,15 @@ const bankTransfer: PaymentMethod[] = [
   ...NATIONALTRANSFERCOUNTRIES.map((c) => `nationalTransfer${c}` satisfies PaymentMethod),
 ]
 const onlineWallet: PaymentMethod[] = [
+  'accrue',
   'advcash',
   'airtelMoney',
+  'bankera',
   'blik',
   'chippercash',
   'eversend',
   'friends24',
+  'klasha',
   'm-pesa',
   'mercadoPago',
   'mobilePay',
@@ -94,6 +98,7 @@ const onlineWallet: PaymentMethod[] = [
   'twint',
   'vipps',
   'wave',
+  'wirepay',
   'wise',
 ]
 const giftCard: PaymentMethod[] = [
@@ -108,8 +113,10 @@ const nationalOption: PaymentMethod[] = [
   'mbWay',
   'mobilePay',
   'paylib',
+  'pix',
+  'postePay',
+  'rebellion',
   'satispay',
-  'verse',
 ]
 const other: PaymentMethod[] = ['liquid', 'lnurl']
 const cash: PaymentMethod[] = []
@@ -127,19 +134,23 @@ export const ANONYMOUS_PAYMENTCATEGORIES = PAYMENTCATEGORIES.cash.concat(PAYMENT
 
 export const NATIONALOPTIONS: NationalOptions = {
   EUR: {
-    IT: ['satispay'],
+    IT: ['satispay', 'postePay'],
     PT: ['mbWay'],
-    ES: ['bizum', 'verse'],
+    ES: ['bizum', 'rebellion'],
     FI: ['mobilePay'],
     HR: ['keksPay'],
     FR: ['paylib', 'lydia', 'satispay'],
     DE: ['satispay'],
     GR: ['iris'],
   },
+  LATAM: {
+    BR: ['pix'],
+  },
 }
 
-export const NATIONALOPTIONCOUNTRIES: Record<'EUR', FlagType[]> = {
+export const NATIONALOPTIONCOUNTRIES: Record<'EUR' | 'LATAM', FlagType[]> = {
   EUR: ['IT', 'PT', 'ES', 'FI', 'HR', 'FR', 'DE', 'GR'],
+  LATAM: ['BR'],
 }
 
 export const APPLINKS: Record<string, { appLink?: string; url: string; userLink?: string }> = {

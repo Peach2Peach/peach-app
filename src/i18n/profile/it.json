@@ -9,7 +9,7 @@
   "profile.numberOfTrades" : "Numero Scambi",
   "profile.publicKey" : "Chiave pubblica account",
   "profile.tradingLimits" : "limiti di scambio",
-  "profile.tradingLimits.daily" : "limite di scambio giornaliero",
+  "profile.tradingLimits.daily" : "Limite scambio giornaliero",
   "profile.tradingLimits.monthly" : "limite mensile anonimo:",
   "profile.tradingLimits.yearly" : "limite di scambio annuale:",
   "profile.tradingLimits.yearly.short" : "limite annuale:",

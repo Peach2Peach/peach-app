@@ -37,7 +37,7 @@ describe('useShowConfirmRbfPopup', () => {
     onSuccess,
   }
   beforeEach(() => {
-    // @ts-ignore
+    // @ts-expect-error mock doesn't need args
     setPeachWallet(new PeachWallet())
     useWalletState.getState().addPendingTransactionHex(bitcoinTransaction.txid, 'hex')
   })
@@ -57,6 +57,7 @@ describe('useShowConfirmRbfPopup', () => {
           newFeeRate={newFeeRate}
           bytes={bitcoinTransaction.size}
           sendingAmount={80000}
+          hasNoChange={false}
         />
       ),
       action1: {
@@ -70,6 +71,27 @@ describe('useShowConfirmRbfPopup', () => {
         callback: usePopupStore.getState().closePopup,
       },
     })
+  })
+  it('should show bump fee confirmation popup with no change warning', async () => {
+    const { result } = renderHook(useShowConfirmRbfPopup, { wrapper })
+
+    await result.current({
+      ...props,
+      transaction: {
+        ...bitcoinTransaction,
+        vout: [bitcoinTransaction.vout[0]],
+      },
+    })
+
+    expect(usePopupStore.getState().content).toEqual(
+      <ConfirmRbf
+        oldFeeRate={currentFeeRate}
+        newFeeRate={newFeeRate}
+        bytes={bitcoinTransaction.size}
+        sendingAmount={80000}
+        hasNoChange={true}
+      />,
+    )
   })
   it('should broadcast bump fee transaction', async () => {
     peachWallet.signAndBroadcastPSBT = jest.fn().mockResolvedValue(txDetails.psbt)

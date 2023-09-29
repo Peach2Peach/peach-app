@@ -5,112 +5,117 @@ exports[`CustomFeeItem renders correctly 1`] = `
   style={
     {
       "alignItems": "center",
-      "display": "flex",
       "flexDirection": "row",
+      "gap": 8,
     }
   }
 >
-  <PeachText
+  <Text
+    allowFontScaling={false}
     style={
-      {
-        "fontFamily": "Baloo2-SemiBold",
-        "fontSize": 16,
-        "letterSpacing": 0.16,
-        "lineHeight": 24,
-      }
+      [
+        {
+          "color": "#2B1911",
+          "fontFamily": "Baloo2-Regular",
+          "fontSize": 16,
+          "letterSpacing": 0.16,
+          "lineHeight": 24,
+        },
+        {
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 16,
+          "letterSpacing": 0.16,
+          "lineHeight": 24,
+        },
+        false,
+      ]
     }
   >
     custom
     :
-  </PeachText>
+  </Text>
   <View
     style={
-      {
-        "height": 32,
-        "marginLeft": 8,
-        "marginRight": 8,
-      }
+      [
+        {
+          "alignItems": "center",
+          "borderRadius": 12,
+          "flexDirection": "row",
+          "height": 32,
+          "overflow": "hidden",
+          "paddingBottom": 12,
+          "paddingTop": 12,
+          "width": 64,
+        },
+        {
+          "backgroundColor": "#FFFCFA",
+          "borderColor": "#7D675E",
+          "borderWidth": 1,
+        },
+      ]
     }
   >
-    <NumberInput
-      onChange={[MockFunction]}
-      required={true}
+    <TextInput
+      editable={true}
+      keyboardType="decimal-pad"
+      onChangeText={[Function]}
       style={
         {
+          "color": "#2B1911",
+          "flexGrow": 1,
+          "fontFamily": "Baloo2-Regular",
+          "fontSize": 18,
           "height": 32,
-          "width": 64,
+          "letterSpacing": 0.18,
+          "lineHeight": 29.25,
+          "paddingBottom": 0,
+          "paddingTop": 0,
+          "textAlign": "center",
         }
       }
       testID="input-custom-fees"
       value="4"
     />
   </View>
-  <PeachText
+  <Text
+    allowFontScaling={false}
     style={
-      {
-        "color": "#7D675E",
-      }
+      [
+        {
+          "color": "#2B1911",
+          "fontFamily": "Baloo2-Regular",
+          "fontSize": 16,
+          "letterSpacing": 0.16,
+          "lineHeight": 24,
+        },
+        {
+          "color": "#7D675E",
+        },
+        false,
+      ]
     }
   >
     sat/vB
-  </PeachText>
+  </Text>
 </View>
 `;
 
 exports[`CustomFeeItem renders correctly when disabled 1`] = `
-<View
-  style={
-    {
-      "alignItems": "center",
-      "display": "flex",
-      "flexDirection": "row",
-    }
-  }
->
-  <PeachText
-    style={
-      {
-        "fontFamily": "Baloo2-SemiBold",
-        "fontSize": 16,
-        "letterSpacing": 0.16,
-        "lineHeight": 24,
+"Snapshot Diff:
+- First value
++ Second value
+
+@@ -51,11 +51,11 @@
+          },
+        ]
       }
-    }
-  >
-    custom
-    :
-  </PeachText>
-  <View
-    style={
-      {
-        "height": 32,
-        "marginLeft": 8,
-        "marginRight": 8,
-      }
-    }
-  >
-    <NumberInput
-      disabled={true}
-      onChange={[MockFunction]}
-      required={true}
-      style={
-        {
-          "height": 32,
-          "width": 64,
-        }
-      }
-      testID="input-custom-fees"
-      value="4"
-    />
-  </View>
-  <PeachText
-    style={
-      {
-        "color": "#7D675E",
-      }
-    }
-  >
-    sat/vB
-  </PeachText>
-</View>
+    >
+      <TextInput
+-       editable={true}
++       editable={false}
+        keyboardType="decimal-pad"
+        onChangeText={[Function onChangeText]}
+        style={
+          Object {
+            "color": "#2B1911","
 `;

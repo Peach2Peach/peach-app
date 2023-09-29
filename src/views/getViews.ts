@@ -114,7 +114,7 @@ const wallet: ViewType[] = [
 const buyFlow: ViewType[] = [
   { name: 'buy', component: Buy, ...defaultConfig, animationEnabled: false },
   { name: 'buyPreferences', component: PaymentMethods, ...defaultConfig },
-  { name: 'buySummary', component: BuySummary, ...defaultConfig },
+  { name: 'buySummary', component: BuySummary, ...defaultConfig, showHeader: false },
   { name: 'signMessage', component: SignMessage, ...defaultConfig },
 ]
 

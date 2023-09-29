@@ -34,7 +34,7 @@ describe('useShowFundEscrowPopup', () => {
   const propsWithChange = { ...props, transaction: transactionWithChange }
 
   beforeEach(() => {
-    // @ts-ignore
+    // @ts-expect-error mock doesn't need args
     setPeachWallet(new PeachWallet())
   })
 
@@ -101,9 +101,7 @@ describe('useShowFundEscrowPopup', () => {
 
     const { result } = renderHook(useShowFundEscrowPopup, { wrapper })
 
-    await act(async () => {
-      await result.current(props)
-    })
+    await act(() => result.current(props))
     const promise = usePopupStore.getState().action1?.callback()
 
     expect(usePopupStore.getState()).toEqual({
@@ -117,9 +115,7 @@ describe('useShowFundEscrowPopup', () => {
         callback: expect.any(Function),
       },
     })
-    await act(async () => {
-      await promise
-    })
+    await act(() => promise)
 
     expect(peachWallet.signAndBroadcastPSBT).toHaveBeenCalledWith(transaction.psbt)
     expect(usePopupStore.getState().visible).toBeFalsy()
