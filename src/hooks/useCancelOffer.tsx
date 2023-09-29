@@ -1,8 +1,12 @@
 import { useCallback } from 'react'
 import { shallow } from 'zustand/shallow'
+import { PopupAction } from '../components/popup'
+import { PopupComponent } from '../components/popup/PopupComponent'
 import { CancelOffer } from '../popups/CancelOffer'
+import { LoadingPopupAction } from '../popups/actions/LoadingPopupAction'
 import { useStartRefundPopup } from '../popups/useStartRefundPopup'
 import { usePopupStore } from '../store/usePopupStore'
+import tw from '../styles/tailwind'
 import i18n from '../utils/i18n'
 import { cancelAndSaveOffer, isBuyOffer } from '../utils/offer'
 import { useNavigation } from './useNavigation'
@@ -38,22 +42,20 @@ export const useCancelOffer = (offer: BuyOffer | SellOffer | null | undefined) =
 
   const cancelOffer = useCallback(() => {
     if (!offer) return
-    setPopup({
-      title: i18n('offer.cancel.popup.title'),
-      content: <CancelOffer type={offer.type} />,
-      visible: true,
-      level: 'DEFAULT',
-      action2: {
-        label: i18n('neverMind'),
-        icon: 'arrowLeftCircle',
-        callback: closePopup,
-      },
-      action1: {
-        label: i18n('cancelOffer'),
-        icon: 'xCircle',
-        callback: confirmCancelOffer,
-      },
-    })
+    setPopup(
+      <PopupComponent
+        title={i18n('offer.cancel.popup.title')}
+        content={<CancelOffer type={offer.type} />}
+        actionBgColor={tw`bg-black-3`}
+        bgColor={tw`bg-primary-background-light`}
+        actions={
+          <>
+            <PopupAction label={i18n('neverMind')} iconId="arrowLeftCircle" onPress={closePopup} />
+            <LoadingPopupAction label={i18n('cancelOffer')} iconId="xCircle" onPress={confirmCancelOffer} reverseOrder />
+          </>
+        }
+      />,
+    )
   }, [closePopup, confirmCancelOffer, offer, setPopup])
 
   return cancelOffer

@@ -6,7 +6,7 @@ import { parseResponse } from '../../parseResponse'
 import { getPrivateHeaders } from '../getPrivateHeaders'
 
 export const redeemNoPeachFees = async ({ timeout }: RequestProps) => {
-  const response = await fetch(`${API_URL}/v1/user/referral/redeem/fiveFreeTrades`, {
+  const response = await fetch(`${API_URL}/v1/user/referral/redeem/freeTrades`, {
     headers: await getPrivateHeaders(),
     method: 'PATCH',
     signal: timeout ? getAbortWithTimeout(timeout).signal : undefined,

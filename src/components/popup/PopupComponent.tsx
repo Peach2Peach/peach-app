@@ -5,7 +5,7 @@ import { PopupActions } from './PopupActions'
 import { PopupContent } from './PopupContent'
 
 type Props = {
-  content: React.ReactNode
+  content?: React.ReactNode
   actions: React.ReactNode
   title?: string
   bgColor?: ViewStyle
@@ -14,8 +14,8 @@ type Props = {
 
 export const PopupComponent = ({ content, actions, title, bgColor, actionBgColor }: Props) => (
   <View style={tw`mx-6 overflow-hidden rounded-2xl`}>
-    <PopupContent style={bgColor}>
-      {title && <PopupTitle text={title} />}
+    <PopupContent style={[bgColor, tw`items-stretch`]}>
+      {!!title && <PopupTitle text={title} />}
       {content}
     </PopupContent>
     <PopupActions style={actionBgColor}>{actions}</PopupActions>

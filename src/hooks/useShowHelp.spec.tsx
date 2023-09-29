@@ -1,7 +1,5 @@
-import { renderHook } from '@testing-library/react-native'
+import { fireEvent, render, renderHook } from '@testing-library/react-native'
 import { NavigationWrapper, navigateMock } from '../../tests/unit/helpers/NavigationWrapper'
-import { AcceptMatchPopup } from '../popups/info/AcceptMatchPopup'
-import { AddressSigning } from '../popups/info/AddressSigning'
 import { usePopupStore } from '../store/usePopupStore'
 import { useShowHelp } from './useShowHelp'
 
@@ -13,39 +11,20 @@ describe('useShowHelp', () => {
   it('opens popup with help text', () => {
     const { result } = renderHook(useShowHelp, { wrapper: NavigationWrapper, initialProps: 'acceptMatch' })
     result.current()
-    expect(usePopupStore.getState()).toEqual({
-      ...usePopupStore.getState(),
-      action2: {
-        callback: expect.any(Function),
-        label: 'help',
-        icon: 'info',
-      },
-      content: <AcceptMatchPopup />,
-      level: 'INFO',
-      title: 'accept match = start trade',
-      visible: true,
-    })
+    const popupComponent = usePopupStore.getState().popupComponent || <></>
+    expect(render(popupComponent, { wrapper: NavigationWrapper }).toJSON()).toMatchSnapshot()
   })
   it('opens popup with different help text (overwrite)', () => {
-    const { result } = renderHook(useShowHelp, { wrapper: NavigationWrapper, initialProps: 'acceptMatch' })
-    result.current('addressSigning')
-    expect(usePopupStore.getState()).toEqual({
-      ...usePopupStore.getState(),
-      action2: {
-        callback: expect.any(Function),
-        label: 'help',
-        icon: 'info',
-      },
-      content: <AddressSigning />,
-      level: 'INFO',
-      title: 'accept match = start trade',
-      visible: true,
-    })
+    const { result } = renderHook(useShowHelp, { wrapper: NavigationWrapper, initialProps: 'cashTrades' })
+    result.current('acceptMatch')
+    const popupComponent = usePopupStore.getState().popupComponent || <></>
+    expect(render(popupComponent, { wrapper: NavigationWrapper }).toJSON()).toMatchSnapshot()
   })
   it('should navigate to contact', () => {
     const { result } = renderHook(useShowHelp, { wrapper: NavigationWrapper, initialProps: 'acceptMatch' })
     result.current()
-    usePopupStore.getState().action2?.callback()
+    const popupComponent = usePopupStore.getState().popupComponent || <></>
+    fireEvent.press(render(popupComponent, { wrapper: NavigationWrapper }).getByText('help'))
     expect(navigateMock).toHaveBeenCalledWith('contact')
     expect(usePopupStore.getState().visible).toEqual(false)
   })

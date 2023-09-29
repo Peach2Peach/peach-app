@@ -170,7 +170,7 @@
   "search.popups.cancelOffer.title" : "cancel offer",
   "search.popups.matchUndone.text" : "Your reputation has not been affected, and you can always re-match.\n\nWhen you unmatch after the timer runs out, your reputation will be negatively affected.",
   "search.popups.matchUndone.title" : "match undone",
-  "search.popups.matchmatchmatch.text" : "You can match as many offers as you want! A trade will be created with the first Seller who matches you back.",
+  "search.popups.matchmatchmatch.text" : "You can match as many offers as you want!\n\nA trade will be created with the first seller who matches you back.",
   "search.popups.matchmatchmatch.title" : "match, match & match again",
   "search.popups.offerTaken.text" : "sorry, someone else was faster!",
   "search.popups.offerTaken.title" : "offer taken...",

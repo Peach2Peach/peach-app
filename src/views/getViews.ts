@@ -149,13 +149,13 @@ const tradeHistory: ViewType[] = [
 const contact = (hasAccount: boolean): ViewType[] =>
   hasAccount
     ? [
-      { name: 'contact', component: Contact, ...defaultConfig, showFooter: hasAccount },
+      { name: 'contact', component: Contact, ...defaultConfig, showFooter: hasAccount, showHeader: false },
       { name: 'report', component: Report, ...defaultConfig, showFooter: hasAccount },
       { name: 'disputeReasonSelector', component: DisputeReasonSelector, ...defaultConfig },
       { name: 'disputeForm', component: DisputeForm, ...defaultConfig },
     ]
     : [
-      { name: 'contact', component: Contact, ...defaultConfig, showFooter: false },
+      { name: 'contact', component: Contact, ...defaultConfig, showFooter: false, showHeader: false },
       { name: 'report', component: Report, ...defaultConfig, showFooter: false },
     ]
 

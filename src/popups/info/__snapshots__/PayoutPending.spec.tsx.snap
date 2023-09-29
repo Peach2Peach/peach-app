@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`PayoutPending renders correctly 1`] = `
-<PeachText>
-  Transactions are paid out in batches. This implies a waiting time until the batch is full or the maximum waiting time is reached.
-
-This saves you up to 23% in transaction fees.
-</PeachText>
-`;
