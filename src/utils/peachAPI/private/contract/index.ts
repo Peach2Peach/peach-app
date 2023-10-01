@@ -1,4 +1,3 @@
-export { getChat } from './getChat'
 export { getContract } from './getContract'
 export { getContractSummaries } from './getContractSummaries'
 export { getContracts } from './getContracts'
