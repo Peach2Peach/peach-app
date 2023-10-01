@@ -8,7 +8,7 @@ export type RequestProps = {
   abortSignal?: AbortSignal
 }
 
-export { getContract, getContractSummaries, getContracts, raiseDispute } from './private/contract'
+export { getContract, getContractSummaries, getContracts } from './private/contract'
 export {
   cancelOffer,
   getMatches,
