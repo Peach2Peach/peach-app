@@ -10,7 +10,7 @@ import {
   verifyAndSignReleaseTx,
 } from '../../../utils/contract'
 import { isTradeComplete } from '../../../utils/contract/status'
-import { confirmPayment, getContract, getOfferDetails } from '../../../utils/peachAPI'
+import { getContract, getOfferDetails, peachAPI } from '../../../utils/peachAPI'
 import { getEscrowWalletForOffer } from '../../../utils/wallet'
 import { getNavigationDestinationForOffer } from '../../yourTrades/utils'
 import { useContractHeaderSetup } from './useContractHeaderSetup'
@@ -51,7 +51,7 @@ export const useContractSetup = () => {
   }, [contract, isFocused, isLoading, navigation, refetch, view])
 
   const postConfirmPaymentBuyer = useCallback(async () => {
-    const [, err] = await confirmPayment({ contractId })
+    const { error: err } = await peachAPI.private.contract.confirmPayment({ contractId })
 
     if (err) {
       showError(err.error)
@@ -81,7 +81,7 @@ export const useContractSetup = () => {
       return
     }
 
-    const [result, err] = await confirmPayment({
+    const { result, error: err } = await peachAPI.private.contract.confirmPayment({
       contractId: contract.id,
       releaseTransaction,
       batchReleasePsbt,

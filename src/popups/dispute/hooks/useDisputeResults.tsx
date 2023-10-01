@@ -6,7 +6,7 @@ import { useShowLoadingPopup } from '../../../hooks/useShowLoadingPopup'
 import { usePopupStore } from '../../../store/usePopupStore'
 import { contractIdToHex, getSellOfferFromContract, saveContract, verifyAndSignReleaseTx } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
-import { confirmPayment } from '../../../utils/peachAPI'
+import { peachAPI } from '../../../utils/peachAPI'
 import { getEscrowWalletForOffer } from '../../../utils/wallet'
 import { DisputeLostBuyer } from '../components/DisputeLostBuyer'
 import { DisputeLostSeller } from '../components/DisputeLostSeller'
@@ -51,7 +51,7 @@ export const useDisputeResults = () => {
           return showError(errorMsg)
         }
 
-        const [result, err] = await confirmPayment({
+        const { result, error: err } = await peachAPI.private.contract.confirmPayment({
           contractId: contract.id,
           releaseTransaction,
           batchReleasePsbt,
