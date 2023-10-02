@@ -98,6 +98,15 @@ describe('PeachWallet', () => {
     expect(useWalletState.getState().isSynced).toBeTruthy()
     expect(walletSyncMock).toHaveBeenCalled()
   })
+  it('catches wallet sync errors', async () => {
+    walletSyncMock.mockImplementationOnce(() => {
+      throw new Error('error')
+    })
+
+    expect(useWalletState.getState().isSynced).toBeFalsy()
+    const error = await getError<Error>(() => peachWallet.syncWallet())
+    expect(error.message).toBe('error')
+  })
   it('waits for already running sync', async () => {
     jest.clearAllMocks()
     const promise = new Promise((resolve) => setTimeout(resolve, 100))

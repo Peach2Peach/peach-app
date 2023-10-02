@@ -1,5 +1,6 @@
 import { useCallback, useState } from 'react'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
+import { error } from '../../../utils/log'
 import { parseError } from '../../../utils/result'
 import { peachWallet } from '../../../utils/wallet/setWallet'
 
@@ -13,7 +14,8 @@ export const useSyncWallet = () => {
       try {
         await peachWallet.syncWallet()
       } catch (e) {
-        showErrorBanner(parseError(e))
+        error(parseError(e))
+        showErrorBanner('WALLET_SYNC_ERROR')
       } finally {
         setIsRefreshing(false)
       }
