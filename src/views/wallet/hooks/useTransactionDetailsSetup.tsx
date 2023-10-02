@@ -6,6 +6,7 @@ import { useAreMyAddresses } from '../../../hooks/wallet/useIsMyAddress'
 import i18n from '../../../utils/i18n'
 import { sum } from '../../../utils/math'
 import { isDefined } from '../../../utils/validation'
+import { useWalletState } from '../../../utils/wallet/walletStore'
 import { getTxSummary } from '../helpers/getTxSummary'
 import { useSyncWallet } from './useSyncWallet'
 
@@ -36,8 +37,10 @@ const useMapTransactionToTx = (transaction?: Transaction | null) => {
 
 export const useTransactionDetailsSetup = () => {
   const { txId } = useRoute<'transactionDetails'>().params
+  const localTx = useWalletState((state) => state.getTransaction(txId))
   const { transaction: transactionDetails } = useTransactionDetails({ txId })
-  const tx = useMapTransactionToTx(transactionDetails)
+  const mappedTx = useMapTransactionToTx(transactionDetails)
+  const tx = localTx || mappedTx
   const transaction = useMemo(() => (tx ? getTxSummary(tx) : undefined), [tx])
   const { refresh, isRefreshing } = useSyncWallet()
 
