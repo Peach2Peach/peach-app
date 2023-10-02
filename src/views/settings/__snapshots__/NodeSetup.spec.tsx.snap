@@ -359,7 +359,7 @@ exports[`NodeSetup should render with default settings 1`] = `
       />
     </View>
   </ForwardRef>
-  <PrimaryButton
+  <NewButton
     disabled={true}
     iconId="share2"
     onPress={[MockFunction]}
@@ -370,7 +370,7 @@ exports[`NodeSetup should render with default settings 1`] = `
     }
   >
     checking connection
-  </PrimaryButton>
+  </NewButton>
 </Screen>
 `;
 

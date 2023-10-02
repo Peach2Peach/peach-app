@@ -1,5 +1,6 @@
 import { View } from 'react-native'
-import { NewHeader as Header, Icon, PeachScrollView, PrimaryButton, Screen, Text } from '../../components'
+import { NewHeader as Header, Icon, PeachScrollView, Screen, Text } from '../../components'
+import { NewButton as Button } from '../../components/buttons/Button'
 import { ScanQR } from '../../components/camera/ScanQR'
 import { Toggle } from '../../components/inputs'
 import { URLInput } from '../../components/inputs/URLInput'
@@ -53,9 +54,9 @@ export const NodeSetup = () => {
           <Icon id="maximize" style={tw`w-4 h-4`} color={tw`text-black-3`.color} />
         </View>
       ) : (
-        <PrimaryButton disabled={!canCheckConnection} style={tw`self-center`} iconId="share2" onPress={checkConnection}>
+        <Button disabled={!canCheckConnection} style={tw`self-center`} iconId="share2" onPress={checkConnection}>
           {i18n('wallet.settings.node.checkConnection')}
-        </PrimaryButton>
+        </Button>
       )}
       {showQRScanner && <ScanQR onRead={({ data }) => setURL(data)} onCancel={toggleShowQRScanner} />}
     </Screen>
