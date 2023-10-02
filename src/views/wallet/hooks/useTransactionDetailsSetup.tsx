@@ -10,14 +10,20 @@ import { getTxSummary } from '../helpers/getTxSummary'
 import { useSyncWallet } from './useSyncWallet'
 
 const useMapTransactionToTx = (transaction?: Transaction | null) => {
-  const areMyAddresses = useAreMyAddresses(transaction?.vout.map((vout) => vout.scriptpubkey_address) || [])
+  const areMyReceivingAddresses = useAreMyAddresses(transaction?.vout.map((vout) => vout.scriptpubkey_address) || [])
+  const areMySendingAddresses = useAreMyAddresses(
+    transaction?.vin.map((vout) => vout.prevout.scriptpubkey_address) || [],
+  )
   if (!transaction) return undefined
 
-  const receivingOutputs = areMyAddresses
+  const receivingOutputs = areMyReceivingAddresses
     .map((isMine, index) => (isMine ? transaction.vout[index] : undefined))
     .filter(isDefined)
+  const sendingOutputs = areMySendingAddresses
+    .map((isMine, index) => (isMine ? transaction.vin[index] : undefined))
+    .filter(isDefined)
   const received = receivingOutputs.map((vout) => vout?.value).reduce(sum, 0)
-  const sent = transaction.vin.map((vin) => vin.prevout.value).reduce(sum, 0)
+  const sent = sendingOutputs.map((vin) => vin.prevout.value).reduce(sum, 0)
   return new TransactionDetails(
     transaction.txid,
     received,
@@ -37,9 +43,5 @@ export const useTransactionDetailsSetup = () => {
 
   useHeaderSetup(i18n('wallet.transactionDetails'))
 
-  return {
-    transaction,
-    refresh,
-    isRefreshing,
-  }
+  return { transaction, refresh, isRefreshing }
 }

@@ -35,7 +35,7 @@ describe('useTransactionDetailsSetup', () => {
   })
   it('should return transaction when loaded', () => {
     const transactionSummary = {
-      amount: 1870,
+      amount: 0,
       confirmed: true,
       date: new Date(transactionWithRBF1.status.block_time * 1000),
       height: transactionWithRBF1.status.block_height,
@@ -50,7 +50,7 @@ describe('useTransactionDetailsSetup', () => {
           price: undefined,
         },
       ],
-      type: 'WITHDRAWAL',
+      type: 'DEPOSIT',
     }
     useTransactionDetailsMock.mockReturnValueOnce({ transaction: transactionWithRBF1 })
     const { result } = renderHook(useTransactionDetailsSetup, { wrapper })
