@@ -1,6 +1,6 @@
-import { act, renderHook, waitFor } from '@testing-library/react-native'
+import { act, render, renderHook, waitFor } from '@testing-library/react-native'
 import permissions, { RESULTS } from 'react-native-permissions'
-import { MissingPermissionsPopup } from '../popups/warning/MissingPermissionsPopup'
+import { NavigationWrapper } from '../../tests/unit/helpers/NavigationWrapper'
 import { usePopupStore } from '../store/usePopupStore'
 import { useQRScanner } from './useQRScanner'
 
@@ -45,7 +45,8 @@ describe('useQRScanner', () => {
     const { result } = renderHook(useQRScanner, { initialProps })
     act(() => result.current.showQR())
     expect(result.current.showQRScanner).toBeFalsy()
-    expect(usePopupStore.getState().popupComponent).toEqual(<MissingPermissionsPopup />)
+    const popup = usePopupStore.getState().popupComponent || <></>
+    expect(render(popup, { wrapper: NavigationWrapper }).toJSON()).toMatchSnapshot()
   })
   it('should show and closeQR', async () => {
     requestSpy.mockImplementationOnce(() => Promise.resolve(RESULTS.GRANTED))
