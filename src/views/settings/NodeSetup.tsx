@@ -1,12 +1,12 @@
 import { View } from 'react-native'
-import { Icon, PeachScrollView, PrimaryButton, Screen, Text } from '../../components'
+import { NewHeader as Header, Icon, PeachScrollView, PrimaryButton, Screen, Text } from '../../components'
 import { ScanQR } from '../../components/camera/ScanQR'
 import { Toggle } from '../../components/inputs'
 import { URLInput } from '../../components/inputs/URLInput'
-import { useToggleBoolean } from '../../hooks'
+import { useShowHelp, useToggleBoolean } from '../../hooks'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { NodeSetupHeader } from './headers/NodeSetupHeader'
+import { headerIcons } from '../../utils/layout'
 import { useNodeSetup } from './hooks/nodeSetup/useNodeSetup'
 
 export const NodeSetup = () => {
@@ -48,7 +48,7 @@ export const NodeSetup = () => {
         </View>
       </PeachScrollView>
       {isConnected ? (
-        <View style={tw`flex-row justify-center items-center gap-1`}>
+        <View style={tw`flex-row items-center justify-center gap-1`}>
           <Text style={tw`uppercase button-medium`}>{i18n('wallet.settings.node.connected')}</Text>
           <Icon id="maximize" style={tw`w-4 h-4`} color={tw`text-black-3`.color} />
         </View>
@@ -59,5 +59,21 @@ export const NodeSetup = () => {
       )}
       {showQRScanner && <ScanQR onRead={({ data }) => setURL(data)} onCancel={toggleShowQRScanner} />}
     </Screen>
+  )
+}
+
+function NodeSetupHeader () {
+  const showHelp = useShowHelp('useYourOwnNode')
+  return (
+    <Header
+      title={i18n('wallet.settings.node.title')}
+      icons={[
+        {
+          ...headerIcons.help,
+          accessibilityHint: `${i18n('help')} ${i18n('wallet.settings.node.title')}`,
+          onPress: showHelp,
+        },
+      ]}
+    />
   )
 }

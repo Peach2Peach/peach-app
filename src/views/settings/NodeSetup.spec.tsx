@@ -1,6 +1,7 @@
 import { fireEvent, render } from '@testing-library/react-native'
 import { createRenderer } from 'react-test-renderer/shallow'
 import { NavigationWrapper } from '../../../tests/unit/helpers/NavigationWrapper'
+import { usePopupStore } from '../../store/usePopupStore'
 import { NodeSetup } from './NodeSetup'
 
 const wrapper = NavigationWrapper
@@ -71,5 +72,11 @@ describe('NodeSetup', () => {
     const { getByText } = render(<NodeSetup />, { wrapper })
     fireEvent.press(getByText('checking connection'))
     expect(nodeSetup.checkConnection).toHaveBeenCalled()
+  })
+  it('should open help popup', () => {
+    const { getByAccessibilityHint } = render(<NodeSetup />, { wrapper })
+
+    fireEvent.press(getByAccessibilityHint('help use your own node'))
+    expect(render(usePopupStore.getState().popupComponent || <></>, { wrapper })).toMatchSnapshot()
   })
 })
