@@ -9,6 +9,7 @@ import fr from './fr'
 import it from './it'
 import sw from './sw'
 import tr from './tr'
+import ptBR from './pt-BR'
 
 describe('translations', () => {
   test('warn if not everything has been translated', () => {
@@ -20,6 +21,7 @@ describe('translations', () => {
       if (!isDefined(elGR[key])) console.warn(`${key} does not exist in el-GR`)
       if (!isDefined(tr[key])) console.warn(`${key} does not exist in tr`)
       if (!isDefined(sw[key])) console.warn(`${key} does not exist in sw`)
+      if (!isDefined(ptBR[key])) console.warn(`${key} does not exist in pt-BR`)
     }
   })
   test('non existing texts has not been translated', () => {
@@ -43,6 +45,9 @@ describe('translations', () => {
     }
     for (const key in sw) {
       ok(isDefined(en[key]), `${key} does not exist in sw`)
+    }
+    for (const key in ptBR) {
+      ok(isDefined(en[key]), `${key} does not exist in pt-BR`)
     }
   })
 })
