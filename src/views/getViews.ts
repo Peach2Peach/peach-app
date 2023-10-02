@@ -176,7 +176,7 @@ const overlays: ViewType[] = [
 
 const settings: ViewType[] = [
   { name: 'settings', component: Settings, ...defaultConfig, animationEnabled: false },
-  { name: 'aboutPeach', component: AboutPeach, ...defaultConfig },
+  { name: 'aboutPeach', component: AboutPeach, ...defaultConfig, showHeader: false },
   { name: 'myProfile', component: MyProfile, ...defaultConfig, showHeader: false },
   { name: 'bitcoinProducts', component: BitcoinProducts, ...defaultConfig },
   { name: 'selectCurrency', component: SelectCurrency, ...defaultConfig, showHeader: false },
