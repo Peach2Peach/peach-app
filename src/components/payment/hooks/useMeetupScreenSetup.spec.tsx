@@ -1,15 +1,12 @@
 /* eslint-disable max-lines */
 import { NavigationContainer } from '@react-navigation/native'
 import { act, renderHook } from '@testing-library/react-native'
-import { headerState, setOptionsMock } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { setOptionsMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { setPaymentMethods } from '../../../paymentMethods'
-import { DeletePaymentMethodConfirm } from '../../../popups/info/DeletePaymentMethodConfirm'
 import { useMeetupEventsStore } from '../../../store/meetupEventsStore'
 import { useOfferPreferences } from '../../../store/offerPreferenes'
 import { usePaymentDataStore } from '../../../store/usePaymentDataStore'
 import { defaultPaymentDataStore } from '../../../store/usePaymentDataStore/usePaymentDataStore'
-import { usePopupStore } from '../../../store/usePopupStore'
-import i18n from '../../../utils/i18n'
 import { useMeetupScreenSetup } from './useMeetupScreenSetup'
 
 const useRouteMock = jest.fn(() => ({
@@ -78,27 +75,6 @@ describe('useMeetupScreenSetup', () => {
       onCurrencyToggle: expect.any(Function),
       selectedCurrencies: [],
     })
-  })
-  it('should set up the header correctly', () => {
-    renderHook(useMeetupScreenSetup, {
-      wrapper: NavigationContainer,
-    })
-
-    expect(headerState.header()).toMatchSnapshot()
-  })
-  it('should set up the header correctly when deletable is undefined', () => {
-    useRouteMock.mockReturnValueOnce({
-      // @ts-expect-error
-      params: {
-        eventId: '123',
-        origin: 'origin',
-      },
-    })
-    renderHook(useMeetupScreenSetup, {
-      wrapper: NavigationContainer,
-    })
-
-    expect(headerState.header()).toMatchSnapshot()
   })
 
   it('should add a meetup to the payment methods', () => {
@@ -176,28 +152,7 @@ describe('useMeetupScreenSetup', () => {
       }),
     )
   })
-  it('should show the delete payment method popup', () => {
-    renderHook(useMeetupScreenSetup, { wrapper: NavigationContainer })
 
-    headerState.header()?.props.icons[1].onPress()
-    expect(usePopupStore.getState()).toStrictEqual({
-      ...usePopupStore.getState(),
-      title: i18n('help.paymentMethodDelete.title'),
-      content: <DeletePaymentMethodConfirm />,
-      visible: true,
-      level: 'ERROR',
-      action1: {
-        callback: expect.any(Function),
-        icon: 'xSquare',
-        label: i18n('neverMind'),
-      },
-      action2: {
-        callback: expect.any(Function),
-        icon: 'trash',
-        label: i18n('delete'),
-      },
-    })
-  })
   it('should select all currencies by default', () => {
     setPaymentMethods([{ id: 'cash.123', currencies: ['EUR', 'CHF'], anonymous: true }])
     useMeetupEventsStore.getState().setMeetupEvents([{ ...defaultEvent, currencies: ['EUR', 'CHF'] }])

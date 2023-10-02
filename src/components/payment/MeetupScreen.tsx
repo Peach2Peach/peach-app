@@ -1,12 +1,17 @@
 import { API_URL } from '@env'
+import { useMemo } from 'react'
 import { Image, View } from 'react-native'
-import { Text } from '../../components'
+import { NewHeader, Screen, Text } from '../../components'
+import { useRoute, useShowHelp } from '../../hooks'
+import { useMeetupEventsStore } from '../../store/meetupEventsStore'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
+import { headerIcons } from '../../utils/layout'
 import { PeachScrollView } from '../PeachScrollView'
 import { PrimaryButton } from '../buttons'
 import { CurrencySelection } from '../inputs/paymentMethods/paymentForms/components'
 import { Link } from './components/Link'
+import { useDeletePaymentMethod } from './hooks/useDeletePaymentMethod'
 import { useMeetupScreenSetup } from './hooks/useMeetupScreenSetup'
 
 export const MeetupScreen = () => {
@@ -14,8 +19,9 @@ export const MeetupScreen = () => {
     = useMeetupScreenSetup()
 
   return (
-    <View style={tw`h-full pb-7`}>
-      <PeachScrollView contentContainerStyle={tw`justify-center flex-grow p-8`}>
+    <Screen>
+      <MeetupScreenHeader />
+      <PeachScrollView contentContainerStyle={tw`justify-center grow`}>
         {!!event.logo && (
           <Image source={{ uri: API_URL + event.logo }} style={tw`w-full mb-5 h-30`} resizeMode={'contain'} />
         )}
@@ -46,6 +52,25 @@ export const MeetupScreen = () => {
           {i18n('meetup.add')}
         </PrimaryButton>
       )}
-    </View>
+    </Screen>
   )
+}
+
+function MeetupScreenHeader () {
+  const route = useRoute<'meetupScreen'>()
+  const { eventId } = route.params
+  const deletable = route.params.deletable ?? false
+  const showHelp = useShowHelp('cashTrades')
+  const deletePaymentMethod = useDeletePaymentMethod(`cash.${eventId}`)
+  const getMeetupEvent = useMeetupEventsStore((state) => state.getMeetupEvent)
+
+  const icons = useMemo(() => {
+    const icns = [{ ...headerIcons.help, onPress: showHelp }]
+    if (deletable) {
+      icns[1] = { ...headerIcons.delete, onPress: deletePaymentMethod }
+    }
+    return icns
+  }, [deletable, deletePaymentMethod, showHelp])
+
+  return <NewHeader title={getMeetupEvent(eventId)?.shortName} icons={icons} />
 }

@@ -1,6 +1,7 @@
 import { fireEvent, render } from '@testing-library/react-native'
 import { Linking } from 'react-native'
 import { createRenderer } from 'react-test-renderer/shallow'
+import { NavigationWrapper } from '../../../tests/unit/helpers/NavigationWrapper'
 import { setPaymentMethods } from '../../paymentMethods'
 import { MeetupScreen } from './MeetupScreen'
 
@@ -22,6 +23,15 @@ const useMeetupScreenSetupMock = jest.fn().mockReturnValue({
 })
 jest.mock('./hooks/useMeetupScreenSetup', () => ({
   useMeetupScreenSetup: () => useMeetupScreenSetupMock(),
+}))
+
+jest.mock('../../hooks/useRoute', () => ({
+  useRoute: () => ({
+    params: {
+      eventId: 'pt.porto.portugal-norte-bitcoin',
+      origin: 'origin',
+    },
+  }),
 }))
 
 describe('MeetupScreen', () => {
@@ -75,7 +85,7 @@ describe('MeetupScreen', () => {
       event: btcPragueEvent,
       selectedCurrencies: ['EUR'],
     })
-    const { getByText } = render(<MeetupScreen />)
+    const { getByText } = render(<MeetupScreen />, { wrapper: NavigationWrapper })
     fireEvent(getByText('view on maps'), 'onPress')
     expect(openURLSpy).toHaveBeenCalledWith('http://maps.google.com/maps?daddr=Prague')
     fireEvent(getByText('meetup link'), 'onPress')
