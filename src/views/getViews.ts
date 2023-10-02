@@ -182,7 +182,7 @@ const settings: ViewType[] = [
   { name: 'selectCurrency', component: SelectCurrency, ...defaultConfig, showHeader: false },
   { name: 'selectPaymentMethod', component: SelectPaymentMethod, ...defaultConfig, showHeader: false },
   { name: 'selectCountry', component: SelectCountry, ...defaultConfig, showHeader: false },
-  { name: 'paymentMethodForm', component: PaymentMethodForm, ...defaultConfig },
+  { name: 'paymentMethodForm', component: PaymentMethodForm, ...defaultConfig, showHeader: false },
   { name: 'meetupScreen', component: MeetupScreen, ...defaultConfig },
   { name: 'currency', component: Currency, ...defaultConfig },
   { name: 'language', component: Language, ...defaultConfig },
