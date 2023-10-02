@@ -17,6 +17,94 @@ exports[`Language renders correctly 1`] = `
     ]
   }
 >
+  <View
+    style={
+      [
+        {
+          "alignItems": "center",
+          "gap": 6,
+          "paddingBottom": 4,
+          "paddingTop": 4,
+        },
+        undefined,
+        {
+          "backgroundColor": "#FFF9F6",
+        },
+      ]
+    }
+  >
+    <View
+      style={
+        {
+          "flexDirection": "row",
+          "justifyContent": "space-between",
+          "width": "100%",
+        }
+      }
+    >
+      <View
+        style={
+          {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "flexShrink": 1,
+            "gap": 4,
+            "justifyContent": "flex-start",
+            "width": "100%",
+          }
+        }
+      >
+        <Text
+          allowFontScaling={false}
+          numberOfLines={1}
+          style={
+            [
+              {
+                "color": "#2B1911",
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
+                "lineHeight": 24,
+              },
+              [
+                {
+                  "fontFamily": "Baloo2-Bold",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 26,
+                },
+                {
+                  "fontFamily": "Baloo2-Bold",
+                  "fontSize": 20,
+                  "letterSpacing": 0.2,
+                  "lineHeight": 32,
+                },
+                {
+                  "color": "#2B1911",
+                },
+                {
+                  "flexShrink": 1,
+                },
+              ],
+              false,
+            ]
+          }
+        >
+          language
+        </Text>
+      </View>
+      <View
+        style={
+          {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "gap": 10,
+            "justifyContent": "flex-end",
+          }
+        }
+      />
+    </View>
+  </View>
   <RCTScrollView
     contentContainerStyle={
       {

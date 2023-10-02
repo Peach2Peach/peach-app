@@ -185,7 +185,7 @@ const settings: ViewType[] = [
   { name: 'paymentMethodForm', component: PaymentMethodForm, ...defaultConfig, showHeader: false },
   { name: 'meetupScreen', component: MeetupScreen, ...defaultConfig, showHeader: false },
   { name: 'currency', component: Currency, ...defaultConfig, showHeader: false },
-  { name: 'language', component: Language, ...defaultConfig },
+  { name: 'language', component: Language, ...defaultConfig, showHeader: false },
   { name: 'referrals', component: Referrals, ...defaultConfig },
   { name: 'backupTime', component: BackupTime, ...invertedThemeConfig, showFooter: true },
   { name: 'backups', component: Backups, ...defaultConfig },
