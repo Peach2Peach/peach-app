@@ -39,7 +39,7 @@ describe('useBumpNetworkFeesSetup', () => {
       .setTransactions([{ ...pending1, txid: bitcoinTransaction.txid, sent: 100000, received: 20000 }])
   })
   beforeEach(() => {
-    // @ts-ignore
+    // @ts-expect-error mock doesn't need args
     setPeachWallet(new PeachWallet())
   })
 
@@ -48,23 +48,23 @@ describe('useBumpNetworkFeesSetup', () => {
     expect(result.current).toEqual({
       transaction: bitcoinTransaction,
       currentFeeRate,
-      newFeeRate: '2.31',
+      newFeeRate: '2.32',
       setNewFeeRate: expect.any(Function),
       newFeeRateIsValid: true,
       newFeeRateErrors: [],
       estimatedFees,
       sendingAmount: 80000,
-      overpayingBy: -0.89,
+      overpayingBy: -0.8895238095238095,
     })
     expect(useTransactionDetailsMock).toHaveBeenCalledWith({ txId: bitcoinTransaction.txid })
   })
   it('should update new fee rate value when transaction has loaded', async () => {
     useTransactionDetailsMock.mockReturnValue({ transaction: undefined })
     const { result, rerender } = renderHook(useBumpNetworkFeesSetup, { wrapper })
-    expect(result.current.newFeeRate).toBe('2')
+    expect(result.current.newFeeRate).toBe('2.01')
     useTransactionDetailsMock.mockReturnValue({ transaction: bitcoinTransaction })
     rerender({})
-    await waitFor(() => expect(result.current.newFeeRate).toBe('2.31'))
+    await waitFor(() => expect(result.current.newFeeRate).toBe('2.32'))
   })
   it('should show no header while loading', () => {
     useTransactionDetailsMock.mockReturnValue({ transaction: undefined })

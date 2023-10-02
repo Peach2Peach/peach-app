@@ -17,7 +17,7 @@ export const useBumpNetworkFeesSetup = () => {
   const { estimatedFees } = useFeeEstimate()
   const currentFeeRate = transaction ? getTransactionFeeRate(transaction) : 1
   const [newFeeRate, setNewFeeRate] = useState<string>()
-  const feeRate = newFeeRate ?? String(currentFeeRate + 1)
+  const feeRate = newFeeRate ?? (currentFeeRate + 1.01).toFixed(2)
 
   const newFeeRateRules = useMemo(() => ({ min: currentFeeRate + 1, required: true, feeRate: true }), [currentFeeRate])
   const newFeeRateErrors = useMemo(() => getErrorsInField(feeRate, newFeeRateRules), [feeRate, newFeeRateRules])
