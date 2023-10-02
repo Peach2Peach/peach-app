@@ -1,4 +1,3 @@
 import { PAYMENTMETHODS } from '../../paymentMethods'
 
-export const isPaymentMethod = (string: string): string is PaymentMethod =>
-  PAYMENTMETHODS.includes(string as PaymentMethod)
+export const isPaymentMethod = (string: string): string is PaymentMethod => PAYMENTMETHODS.some((pm) => pm === string)
