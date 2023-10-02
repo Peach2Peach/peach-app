@@ -3,7 +3,6 @@ import tw from '../../styles/tailwind'
 
 import { Loading } from '../../components'
 import { MessageInput } from '../../components/inputs/MessageInput'
-import i18n from '../../utils/i18n'
 import { ChatBox } from './components/ChatBox'
 import { useContractChatSetup } from './hooks/useContractChatSetup'
 
@@ -23,12 +22,11 @@ export const ContractChat = () => {
       {contract.isChatActive && (
         <View style={tw`w-full`}>
           <MessageInput
-            onChange={onChangeMessage}
+            onChangeText={onChangeMessage}
             onSubmit={submit}
             disabled={!contract.symmetricKey}
             disableSubmit={disableSend}
             value={newMessage}
-            placeholder={i18n('chat.yourMessage')}
           />
         </View>
       )}

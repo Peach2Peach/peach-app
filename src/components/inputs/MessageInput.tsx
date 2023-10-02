@@ -1,38 +1,23 @@
 import { NativeSyntheticEvent, Pressable, TextInput, TextInputEndEditingEventData, View } from 'react-native'
 import tw from '../../styles/tailwind'
+import i18n from '../../utils/i18n'
 import { Icon } from '../Icon'
 
-type Props = ComponentProps & {
-  disabled?: boolean
-  disableSubmit?: boolean
-  onChange?: (val: string) => void
-  onSubmit?: (val: string | undefined) => void
-  onFocus?: () => void
-  onBlur?: () => void
-  value?: string
-  placeholder?: string
+type Props = {
+  onChangeText: (val: string) => void
+  onSubmit: (val: string | undefined) => void
+  disabled: boolean
+  disableSubmit: boolean
+  value: string
 }
 
-export const MessageInput = ({
-  value,
-  placeholder,
-  disabled = false,
-  disableSubmit = false,
-  onChange,
-  onSubmit,
-  onFocus,
-  onBlur,
-  testID,
-}: Props) => {
-  const onChangeText = (val: string) => (onChange ? onChange(val) : null)
+export const MessageInput = ({ value, disabled, disableSubmit, onChangeText, onSubmit }: Props) => {
   const onEndEditing = (e: NativeSyntheticEvent<TextInputEndEditingEventData>) =>
-    onChange ? onChange(e.nativeEvent.text?.trim()) : null
-  const onFocusHandler = () => (onFocus ? onFocus() : null)
+    onChangeText(e.nativeEvent.text?.trim())
   const onBlurHandler = () => {
-    if (onChange && value) onChange(value.trim())
-    if (onBlur) onBlur()
+    if (onChangeText && value) onChangeText(value.trim())
   }
-  const onSubmitHandler = () => (onSubmit && !disableSubmit ? onSubmit(value) : null)
+  const onSubmitHandler = () => (!disableSubmit ? onSubmit(value) : null)
   return (
     <View style={[tw`flex-row items-end px-2 rounded bg-info-background max-h-40`, disabled && tw`opacity-50`]}>
       <TextInput
@@ -45,13 +30,13 @@ export const MessageInput = ({
         multiline={true}
         textAlignVertical={'center'}
         blurOnSubmit={false}
-        onFocus={onFocusHandler}
         onBlur={onBlurHandler}
         autoCapitalize="sentences"
-        {...{ testID, placeholder, value, onChangeText, onEndEditing }}
+        placeholder={i18n('chat.yourMessage')}
+        {...{ value, onChangeText, onEndEditing }}
       />
       <Pressable style={tw`px-2 py-3`} onPress={onSubmitHandler}>
-        <Icon id="arrowRightCircle" style={tw`w-6 h-6`} color={tw`text-info-light`.color} />
+        <Icon id="arrowRightCircle" size={24} color={tw`text-info-light`.color} />
       </Pressable>
     </View>
   )
