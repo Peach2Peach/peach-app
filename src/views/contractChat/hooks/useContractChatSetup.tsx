@@ -18,9 +18,7 @@ import { useShowDisputeDisclaimer } from './useShowDisputeDisclaimer'
 
 // eslint-disable-next-line max-statements
 export const useContractChatSetup = () => {
-  const route = useRoute<'contractChat'>()
-  const { contractId } = route.params
-  const chatId = contractId
+  const { contractId } = useRoute<'contractChat'>().params
 
   const { connected, send, off, on } = useContext(PeachWSContext)
   const { contract, view } = useCommonContractSetup(contractId)
@@ -73,7 +71,7 @@ export const useContractChatSetup = () => {
       }
 
       setAndSaveChat(
-        chatId,
+        contractId,
         {
           messages: [messageObject],
           lastSeen: new Date(),
@@ -81,11 +79,11 @@ export const useContractChatSetup = () => {
         false,
       )
     },
-    [chatId, connected, contract?.symmetricKey, contractId, send, tradingPartner],
+    [contractId, connected, contract?.symmetricKey, send, tradingPartner],
   )
   const resendMessage = (message: Message) => {
     if (!connected) return
-    deleteMessage(chatId, message)
+    deleteMessage(contractId, message)
     sendMessage(message.message)
   }
 
@@ -111,22 +109,20 @@ export const useContractChatSetup = () => {
     [contractId, newMessage],
   )
 
-  const onChangeMessage = (message: string) => {
-    setNewMessage(message)
-  }
+  const onChangeMessage = setNewMessage
 
   useEffect(() => {
     const timeout = setTimeout(() => {
       const unsentMessages = getUnsentMessages(chat.messages)
       if (unsentMessages.length === 0) return
 
-      setAndSaveChat(chatId, {
+      setAndSaveChat(contractId, {
         messages: unsentMessages.map((message) => ({ ...message, failedToSend: true })),
       })
     }, 5000)
 
     return () => clearTimeout(timeout)
-  }, [chatId, chat.messages])
+  }, [contractId, chat.messages])
 
   useEffect(() => {
     const messageHandler = async (message: Message) => {
