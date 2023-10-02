@@ -1,12 +1,13 @@
 import { useIsFocused } from '@react-navigation/native'
 import { QueryFunctionContext, useInfiniteQuery } from '@tanstack/react-query'
 import { useMemo } from 'react'
-import { FIFTEEN_SECONDS } from '../../../constants'
+import { FIFTEEN_SECONDS, THIRTY_SECONDS } from '../../../constants'
 import { useOfferDetails } from '../../../hooks/query/useOfferDetails'
 import { useOfferPreferences } from '../../../store/offerPreferenes'
+import { getAbortWithTimeout } from '../../../utils/getAbortWithTimeout'
 import { error, info } from '../../../utils/log'
 import { isBuyOffer } from '../../../utils/offer'
-import { getMatches } from '../../../utils/peachAPI'
+import { peachAPI } from '../../../utils/peachAPI'
 
 const PAGESIZE = 10
 export const matchesKeys = {
@@ -45,11 +46,11 @@ async function getMatchesFn ({
   pageParam = 0,
 }: QueryFunctionContext<ReturnType<typeof matchesKeys.sortedMatchesByOfferId>>) {
   info('Checking matches for', offerId)
-  const [result, err] = await getMatches({
+  const { result, error: err } = await peachAPI.private.offer.getMatches({
     offerId,
     page: pageParam,
     size: PAGESIZE,
-    timeout: 30 * 1000,
+    signal: getAbortWithTimeout(THIRTY_SECONDS).signal,
     sortBy,
   })
 

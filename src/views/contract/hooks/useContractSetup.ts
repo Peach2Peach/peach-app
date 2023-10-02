@@ -10,7 +10,7 @@ import {
   verifyAndSignReleaseTx,
 } from '../../../utils/contract'
 import { isTradeComplete } from '../../../utils/contract/status'
-import { getContract, getOfferDetails, peachAPI } from '../../../utils/peachAPI'
+import { peachAPI } from '../../../utils/peachAPI'
 import { getEscrowWalletForOffer } from '../../../utils/wallet'
 import { getNavigationDestinationForOffer } from '../../yourTrades/utils'
 import { useContractHeaderSetup } from './useContractHeaderSetup'
@@ -102,10 +102,10 @@ export const useContractSetup = () => {
 
   const goToNewOffer = useCallback(async () => {
     if (!newOfferId) return
-    const [newOffer] = await getOfferDetails({ offerId: newOfferId })
+    const { result: newOffer } = await peachAPI.private.offer.getOfferDetails({ offerId: newOfferId })
     if (newOffer?.contractId) {
-      const [newContract] = await getContract({ contractId: newOffer.contractId })
-      if (newContract === null) return
+      const { result: newContract } = await peachAPI.private.contract.getContract({ contractId: newOffer.contractId })
+      if (!newContract) return
       const [screen, params] = await getNavigationDestinationForContract(newContract)
       navigation.replace(screen, params)
     } else {

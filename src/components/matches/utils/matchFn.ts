@@ -1,4 +1,4 @@
-import { matchOffer } from '../../../utils/peachAPI'
+import { peachAPI } from '../../../utils/peachAPI'
 import { generateMatchOfferData } from './generateMatchOfferData'
 import { handleError } from './handleError'
 
@@ -23,7 +23,7 @@ export const matchFn = async (
   })
   if (!matchOfferData) throw new Error(dataError || 'UNKNOWN_ERROR')
 
-  const [result, err] = await matchOffer(matchOfferData)
+  const { result, error: err } = await peachAPI.private.offer.matchOffer(matchOfferData)
 
   if (result) {
     return result

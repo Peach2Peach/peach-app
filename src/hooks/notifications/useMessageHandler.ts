@@ -1,15 +1,14 @@
 import { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
 import { useCallback, useContext } from 'react'
+import { AppState } from 'react-native'
 import { MessageContext } from '../../contexts/message'
+import { getContract } from '../../utils/contract'
 import { info } from '../../utils/log'
-import { useGetPNActionHandler } from './useGetPNActionHandler'
+import { useContractPopupEvents } from './eventHandler/contract/useContractPopupEvents'
+import { useOfferPopupEvents } from './eventHandler/offer/useOfferPopupEvents'
 import { useOverlayEvents } from './eventHandler/useOverlayEvents'
 import { useStateUpdateEvents } from './eventHandler/useStateUpdateEvents'
-import { useOfferPopupEvents } from './eventHandler/offer/useOfferPopupEvents'
-import { getContract as getContractAPI } from '../../utils/peachAPI'
-import { useContractPopupEvents } from './eventHandler/contract/useContractPopupEvents'
-import { getContract } from '../../utils/contract'
-import { AppState } from 'react-native'
+import { useGetPNActionHandler } from './useGetPNActionHandler'
 
 export const useMessageHandler = (currentPage: keyof RootStackParamList | undefined) => {
   const [, updateMessage] = useContext(MessageContext)
@@ -36,10 +35,8 @@ export const useMessageHandler = (currentPage: keyof RootStackParamList | undefi
         const { contractId } = data
         if (!contractId) return
         const storedContract = getContract(contractId)
-        let [contract] = await getContractAPI({ contractId })
-        if (contract && storedContract) contract = { ...contract, ...storedContract }
-        if (!contract) return
-        contractPopupEvents[type]?.(contract)
+        if (!storedContract) return
+        contractPopupEvents[type]?.(storedContract)
       } else if (stateUpdateEvents[type]) {
         stateUpdateEvents[type]?.(data)
       } else if (AppState.currentState === 'active') {

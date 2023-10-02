@@ -4,7 +4,7 @@ import { queryClient } from '../../../queryClient'
 import { useLocalContractStore } from '../../../store/useLocalContractStore'
 import { account } from '../../../utils/account'
 import { getContractViewer } from '../../../utils/contract'
-import { getContract } from '../../../utils/peachAPI'
+import { peachAPI } from '../../../utils/peachAPI'
 
 export const useDisputeEmailPopup = (contractId: string) => {
   const [hasSeenEmailPopup, setHasSeenEmailPopup] = useLocalContractStore(
@@ -14,11 +14,11 @@ export const useDisputeEmailPopup = (contractId: string) => {
   const { showDisputeRaisedNotice } = useDisputeRaisedNotice()
 
   const showDisputeEmailPopup = async () => {
-    const [contract] = await getContract({ contractId })
+    const { result: contract } = await peachAPI.private.contract.getContract({ contractId })
     if (hasSeenEmailPopup || !contract?.disputeActive || account.publicKey === contract?.disputeInitiator) return
     queryClient.setQueryData(['contract', contractId], { ...contract, hasSeenDisputeEmailPopup: true })
     setHasSeenEmailPopup(contractId)
-    showDisputeRaisedNotice(contract, getContractViewer(contract, account))
+    showDisputeRaisedNotice(contract, getContractViewer(contract.seller.id))
   }
 
   return showDisputeEmailPopup

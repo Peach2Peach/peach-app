@@ -1,7 +1,6 @@
 import { useHeaderSetup, useNavigation, useRoute } from '../../../hooks'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { useDisputeRaisedSuccess } from '../../../popups/dispute/hooks/useDisputeRaisedSuccess'
-import { account } from '../../../utils/account'
 import { contractIdToHex, getContract, getContractViewer } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
 import { submitRaiseDispute } from '../utils/submitRaiseDispute'
@@ -11,7 +10,7 @@ export const useDisputeReasonSelectorSetup = () => {
   const route = useRoute<'disputeReasonSelector'>()
   const contract = getContract(route.params.contractId)
 
-  const view = contract ? getContractViewer(contract, account) : ''
+  const view = contract ? getContractViewer(contract.seller.id) : ''
   const availableReasons = view === 'seller' ? disputeReasons.seller : disputeReasons.buyer
 
   const navigation = useNavigation()

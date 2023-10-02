@@ -4,8 +4,7 @@ import { useNavigation } from '../../hooks'
 import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
 import { useSettingsStore } from '../../store/settingsStore'
 import { usePopupStore } from '../../store/usePopupStore'
-import { account } from '../../utils/account'
-import { getSellOfferFromContract, saveContract } from '../../utils/contract'
+import { getContractViewer, getSellOfferFromContract, saveContract } from '../../utils/contract'
 import { getWalletLabelFromContract } from '../../utils/contract/getWalletLabelFromContract'
 import i18n from '../../utils/i18n'
 import { getOfferExpiry, saveOffer } from '../../utils/offer'
@@ -74,7 +73,7 @@ export const useConfirmCancelTrade = () => {
 
   const showConfirmPopup = useCallback(
     (contract: Contract) => {
-      const view = account.publicKey === contract?.seller.id ? 'seller' : 'buyer'
+      const view = getContractViewer(contract.seller.id)
       const cancelAction = () => (view === 'seller' ? cancelSeller(contract) : cancelBuyer(contract))
       const title = i18n(isCashTrade(contract.paymentMethod) ? 'contract.cancel.cash.title' : 'contract.cancel.title')
       setPopup({

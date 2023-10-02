@@ -7,4 +7,4 @@ type DisputeReason =
   | 'other'
 
 type DisputeOutcome = 'buyerWins' | 'sellerWins' | 'none' | 'cancelTrade' | 'payOutBuyer'
-type DisputeWinner = 'seller' | 'buyer' | null
+type DisputeWinner = 'seller' | 'buyer'

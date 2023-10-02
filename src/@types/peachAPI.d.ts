@@ -60,7 +60,11 @@ type User = {
   }
   pgpPublicKey: string
   pgpPublicKeyProof: string
+  historyRating: number
+  recentRating: number
 }
+
+type PublicUser = Omit<User, 'disabled' | 'bonusPoints'>
 
 type SelfUser = User & {
   feeRate: FeeRate
@@ -143,6 +147,7 @@ type PaymentMethodCountry =
   | 'SI'
   | 'LV'
   | 'US'
+type InternationalPaymentMethds = 'giftCard.amazon' | `giftCard.amazon.${PaymentMethodCountry}`
 
 type MeetupEvent = {
   id: string

@@ -1,4 +1,4 @@
-import { account } from '../account'
+import { isMe } from './isMe'
 
-export const getOfferIdFromContract = (contract: Contract) =>
-  contract.id.split('-')[account.publicKey === contract.seller.id ? 0 : 1]
+export const getOfferIdFromContract = (contract: Pick<Contract, 'id' | 'seller'>) =>
+  contract.id.split('-')[isMe(contract.seller.id) ? 0 : 1]

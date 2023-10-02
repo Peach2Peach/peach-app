@@ -1,11 +1,12 @@
 import { queryClient } from '../../queryClient'
-import { getContract } from '../peachAPI'
+import { peachAPI } from '../peachAPI'
 
-export const getNavigationDestinationForContract = async (
-  contract: Contract | ContractSummary,
-): Promise<['tradeComplete', { contract: Contract }] | ['contract', { contractId: string }]> => {
+export const getNavigationDestinationForContract = async (contract: {
+  tradeStatus: Contract['tradeStatus']
+  id: Contract['id']
+}): Promise<['tradeComplete', { contract: Contract }] | ['contract', { contractId: string }]> => {
   if (contract.tradeStatus === 'rateUser') {
-    const [fullContract] = await getContract({ contractId: contract.id })
+    const { result: fullContract } = await peachAPI.private.contract.getContract({ contractId: contract.id })
     if (fullContract) {
       queryClient.setQueryData(['contract', contract.id], fullContract)
       return ['tradeComplete', { contract: fullContract }]

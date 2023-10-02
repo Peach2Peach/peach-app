@@ -1,2 +1,3 @@
-export const shouldShowDisputeResult = (contract: Contract) =>
-  !contract.disputeActive && !!contract.disputeResolvedDate && !contract.disputeResultAcknowledged
+export const shouldShowDisputeResult = (
+  contract: Pick<Contract, 'disputeActive' | 'disputeResolvedDate' | 'disputeResultAcknowledged'>,
+) => !contract.disputeActive && !!contract.disputeResolvedDate && !contract.disputeResultAcknowledged

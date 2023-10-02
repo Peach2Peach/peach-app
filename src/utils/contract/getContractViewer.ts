@@ -1,2 +1,3 @@
-export const getContractViewer = (contract: Contract, account: Account): ContractViewer =>
-  account.publicKey === contract.seller.id ? 'seller' : 'buyer'
+import { isMe } from './isMe'
+
+export const getContractViewer = (sellerId: string): ContractViewer => (isMe(sellerId) ? 'seller' : 'buyer')

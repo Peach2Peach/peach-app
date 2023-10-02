@@ -1,10 +1,10 @@
 import { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
 import { act, renderHook } from '@testing-library/react-native'
-import { useMessageHandler } from './useMessageHandler'
-import { getContract } from '../../utils/contract'
-import { getContract as getContractAPI } from '../../utils/peachAPI'
-import { contract } from '../../../tests/unit/data/contractData'
 import { AppState } from 'react-native'
+import { contract } from '../../../tests/unit/data/contractData'
+import { getContract } from '../../utils/contract'
+import { peachAPI } from '../../utils/peachAPI'
+import { useMessageHandler } from './useMessageHandler'
 
 const updateMessageMock = jest.fn()
 jest.mock('react', () => ({
@@ -55,7 +55,7 @@ jest.mock('./useGetPNActionHandler', () => ({
 describe('useMessageHandler', () => {
   beforeEach(() => {
     (getContract as jest.Mock).mockReturnValue(contract)
-    ;(getContractAPI as jest.Mock).mockResolvedValue([contract])
+    ;(peachAPI.private.contract.getContract as jest.Mock).mockResolvedValue([contract])
   })
   afterEach(() => {
     jest.resetAllMocks()
@@ -188,7 +188,7 @@ describe('useMessageHandler', () => {
       fcmOptions: {},
     } as FirebaseMessagingTypes.RemoteMessage
     ;(getContract as jest.Mock).mockReturnValue(undefined)
-    ;(getContractAPI as jest.Mock).mockResolvedValue([null])
+    ;(peachAPI.private.contract.getContract as jest.Mock).mockResolvedValue([null])
     const { result: onMessageHandler } = renderHook(() => useMessageHandler('home'))
     await act(async () => {
       await onMessageHandler.current(mockRemoteMessage)

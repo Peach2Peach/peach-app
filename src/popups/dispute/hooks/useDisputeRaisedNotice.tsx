@@ -15,7 +15,7 @@ export const useDisputeRaisedNotice = () => {
   const submitDisputeAcknowledgement = useSubmitDisputeAcknowledgement()
 
   const showDisputeRaisedNotice = useCallback(
-    (contract: Contract, view: ContractViewer) => {
+    (contract: Pick<Contract, 'id' | 'disputeReason' | 'amount'>, view: ContractViewer) => {
       const submit = () => {
         submitDisputeAcknowledgement({
           contractId: contract.id,

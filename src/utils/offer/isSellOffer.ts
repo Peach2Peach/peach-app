@@ -1,1 +1,1 @@
-export const isSellOffer = (offer: BuyOffer | SellOffer): offer is SellOffer => offer.type === 'ask'
+export const isSellOffer = (offer: Pick<BuyOffer | SellOffer, 'type'>): offer is SellOffer => offer.type === 'ask'

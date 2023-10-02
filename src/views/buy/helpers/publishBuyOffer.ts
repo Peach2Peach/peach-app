@@ -1,15 +1,15 @@
 import { publishPGPPublicKey } from '../../../init/publishPGPPublicKey'
 import { saveOffer } from '../../../utils/offer'
-import { postBuyOffer } from '../../../utils/peachAPI'
+import { peachAPI } from '../../../utils/peachAPI'
 
 export const publishBuyOffer = async (offerDraft: BuyOfferDraft) => {
-  let [result, err] = await postBuyOffer(offerDraft)
+  let { result, error: err } = await peachAPI.private.offer.postBuyOffer(offerDraft)
 
   if (err?.error === 'PGP_MISSING') {
     await publishPGPPublicKey()
-    const response = await postBuyOffer(offerDraft)
-    result = response[0]
-    err = response[1]
+    const response = await peachAPI.private.offer.postBuyOffer(offerDraft)
+    result = response.result
+    err = response.error
   }
   if (result) {
     saveOffer({ ...offerDraft, ...result })

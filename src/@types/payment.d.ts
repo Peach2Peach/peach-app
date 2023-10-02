@@ -66,8 +66,7 @@ type AfricaPaymentMethods =
   | 'wave'
   | 'wirepay'
 type BitcoinPaymentMethods = 'liquid' | 'lnurl'
-type InternationalPaymentMethds = 'giftCard.amazon' | `giftCard.amazon.${Country}`
-type CashPaymentMethds = 'cash' | `cash.${string}`
+type CashPaymentMethds = `cash.${string}`
 
 type PaymentMethod =
   | EuPaymentMethods

@@ -1,10 +1,10 @@
 import { useMemo } from 'react'
+import { useBuyOfferExpiredPopup } from '../../../../popups/useBuyOfferExpiredPopup'
+import { useOfferOutsideRangePopup } from '../../../../popups/useOfferOutsideRangePopup'
 import { useShowFundingAmountDifferentPopup } from '../../../../popups/useShowFundingAmountDifferentPopup'
 import { useShowWronglyFundedPopup } from '../../../../popups/useShowWronglyFundedPopup'
 import { isSellOffer } from '../../../../utils/offer'
-import { useBuyOfferExpiredPopup } from '../../../../popups/useBuyOfferExpiredPopup'
-import { useOfferOutsideRangePopup } from '../../../../popups/useOfferOutsideRangePopup'
-import { getOfferDetails } from '../../../../utils/peachAPI'
+import { peachAPI } from '../../../../utils/peachAPI'
 
 type PNEventHandlers = Partial<Record<NotificationType, (data: PNData, notification?: PNNotification) => void>>
 
@@ -18,14 +18,18 @@ export const useOfferPopupEvents = () => {
     () => ({
       // PN-S07
       'offer.fundingAmountDifferent': async ({ offerId }) => {
-        const [sellOffer] = offerId ? await getOfferDetails({ offerId }) : [null]
+        const { result: sellOffer } = offerId
+          ? await peachAPI.private.offer.getOfferDetails({ offerId })
+          : { result: null }
         if (!sellOffer || !isSellOffer(sellOffer)) return
 
         showFundingAmountDifferentPopup(sellOffer)
       },
       // PN-S08
       'offer.wrongFundingAmount': async ({ offerId }) => {
-        const [sellOffer] = offerId ? await getOfferDetails({ offerId }) : [null]
+        const { result: sellOffer } = offerId
+          ? await peachAPI.private.offer.getOfferDetails({ offerId })
+          : { result: null }
 
         if (!sellOffer || !isSellOffer(sellOffer)) return
         wronglyFundedPopup(sellOffer)

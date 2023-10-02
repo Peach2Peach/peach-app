@@ -1,6 +1,6 @@
 import { checkRefundPSBT } from '../../../utils/bitcoin'
 import { getSellOfferFromContract } from '../../../utils/contract'
-import { patchOffer } from '../../../utils/peachAPI'
+import { peachAPI } from '../../../utils/peachAPI'
 import { getResult } from '../../../utils/result'
 import { Result } from '../../../utils/result/types'
 import { getEscrowWalletForOffer, signPSBT } from '../../../utils/wallet'
@@ -20,7 +20,7 @@ export const patchSellOfferWithRefundTx = async (
   if (!isValid || !psbt) return getResult({ sellOffer }, 'UNKNOWN_ERROR')
 
   const signedPSBT = signPSBT(psbt, getEscrowWalletForOffer(sellOffer))
-  const [patchOfferResult, patchOfferError] = await patchOffer({
+  const { result: patchOfferResult, error: patchOfferError } = await peachAPI.private.offer.patchOffer({
     offerId: sellOffer.id,
     refundTx: signedPSBT.toBase64(),
   })

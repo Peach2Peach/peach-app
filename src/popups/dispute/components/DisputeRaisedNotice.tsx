@@ -11,7 +11,7 @@ import { thousands } from '../../../utils/string'
 import { useSubmitDisputeAcknowledgement } from '../hooks/helpers/useSubmitDisputeAcknowledgement'
 
 type Props = {
-  contract: Contract
+  contract: Pick<Contract, 'id' | 'disputeReason' | 'amount'>
   view: ContractViewer
   disputeReason: DisputeReason
   email: string

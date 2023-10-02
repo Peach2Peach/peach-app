@@ -8,18 +8,6 @@ export type RequestProps = {
   abortSignal?: AbortSignal
 }
 
-export { getContract, getContractSummaries, getContracts } from './private/contract'
-export {
-  cancelOffer,
-  getMatches,
-  getOfferDetails,
-  getOfferSummaries,
-  getOffers,
-  matchOffer,
-  patchOffer,
-  postBuyOffer,
-  postSellOffer,
-} from './private/offer'
 export { auth, fetchAccessToken, getTradingLimit, register, setBatching, updateUser } from './private/user'
 
 export const peachAPI = apiWrapper({ peachAccount: getPeachAccount()!, uniqueId: UNIQUEID, url: API_URL })

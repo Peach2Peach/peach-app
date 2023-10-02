@@ -1,5 +1,5 @@
 type ContractAction = 'none' | 'sendPayment' | 'confirmPayment'
-type PaymentReminder = 'fourHours' | 'oneHour' | 'final'
+type PaymentReminder = 'sixHours' | 'oneHour' | 'final'
 
 type BatchInfo = {
   participants: number

@@ -2,7 +2,7 @@ import { FirebaseMessagingTypes } from '@react-native-firebase/messaging'
 import { NavigationContainerRefWithCurrent } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { getContract } from '../contract'
-import { getOfferDetails } from '../peachAPI'
+import { peachAPI } from '../peachAPI'
 import { isDefined } from '../validation'
 import { shouldGoToContract } from './shouldGoToContract'
 import { shouldGoToContractChat } from './shouldGoToContractChat'
@@ -51,7 +51,7 @@ export const handlePushNotification = async (
   } else if (shouldGoToSell(remoteMessage)) {
     navigationRef.navigate('sell')
   } else if (isDefined(remoteMessage.data.offerId)) {
-    const [offer] = await getOfferDetails({ offerId: remoteMessage.data.offerId })
+    const { result: offer } = await peachAPI.private.offer.getOfferDetails({ offerId: remoteMessage.data.offerId })
     const {
       data: { offerId },
     } = remoteMessage

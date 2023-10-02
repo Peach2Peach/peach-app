@@ -1,2 +1,3 @@
-export const getTradingPartner = (contract: Contract, account: Account) =>
-  account.publicKey === contract.seller.id ? contract.buyer : contract.seller
+import { isMe } from './isMe'
+
+export const getTradingPartner = ({ buyer, seller }: Contract) => (isMe(seller.id) ? buyer : seller)

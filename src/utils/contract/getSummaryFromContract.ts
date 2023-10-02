@@ -1,9 +1,9 @@
-import { account } from './../account/account'
 import { getBuyOfferIdFromContract } from './getBuyOfferIdFromContract'
 import { getSellOfferIdFromContract } from './getSellOfferIdFromContract'
+import { isMe } from './isMe'
 
 export const getSummaryFromContract = (contract: Contract): ContractSummary => {
-  const type = account.publicKey === contract.seller.id ? 'ask' : 'bid'
+  const type = isMe(contract.seller.id) ? 'ask' : 'bid'
   return {
     id: contract.id,
     offerId: type === 'ask' ? getSellOfferIdFromContract(contract) : getBuyOfferIdFromContract(contract),

@@ -1,14 +1,14 @@
 import { shallow } from 'zustand/shallow'
 import { useNavigation } from '../../../hooks'
+import { queryClient } from '../../../queryClient'
 import { useLocalContractStore } from '../../../store/useLocalContractStore'
 import { usePopupStore } from '../../../store/usePopupStore'
 import { account } from '../../../utils/account'
 import { contractIdToHex, saveContract } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
+import { peachAPI } from '../../../utils/peachAPI'
 import { shouldShowDisputeResult } from '../../../utils/popup'
-import { getContract } from '../../../utils/peachAPI'
 import { DisputeWon } from '../components/DisputeWon'
-import { queryClient } from '../../../queryClient'
 
 export const useDisputeWonPopup = () => {
   const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
@@ -16,12 +16,12 @@ export const useDisputeWonPopup = () => {
   const updateContract = useLocalContractStore((state) => state.updateContract)
 
   const showDisputeWonPopup = async (contractId: string) => {
-    const [contract] = await getContract({ contractId })
+    const { result: contract } = await peachAPI.private.contract.getContract({ contractId })
     if (!contract || !shouldShowDisputeResult(contract)) return
     queryClient.setQueryData(['contract', contractId], contract)
     const view = contract.buyer.id === account.publicKey ? 'buyer' : 'seller'
     if (contract.disputeWinner !== view) return
-    const saveAcknowledgeMent = () => {
+    const saveAcknowledgement = () => {
       saveContract({
         ...contract,
         disputeResolvedDate: new Date(),
@@ -34,7 +34,7 @@ export const useDisputeWonPopup = () => {
     }
 
     const goToChat = () => {
-      saveAcknowledgeMent()
+      saveAcknowledgement()
       navigation.navigate('contractChat', { contractId: contract.id })
     }
 
@@ -47,7 +47,7 @@ export const useDisputeWonPopup = () => {
       action2: {
         label: i18n('close'),
         icon: 'xSquare',
-        callback: saveAcknowledgeMent,
+        callback: saveAcknowledgement,
       },
       action1: {
         label: i18n('goToChat'),
