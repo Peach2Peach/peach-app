@@ -10,6 +10,7 @@ import { removeNonDigits } from '../../utils/format/removeNonDigits'
 import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout'
 import { isBitcoinAddress } from '../../utils/validation'
+import { getNetwork } from '../../utils/wallet'
 import { peachWallet } from '../../utils/wallet/setWallet'
 import { useWalletState } from '../../utils/wallet/walletStore'
 import { CustomFeeItem } from '../settings/components/networkFees/CustomFeeItem'
@@ -50,7 +51,10 @@ export const SendBitcoin = () => {
     })
   }
 
-  const isFormValid = useMemo(() => isBitcoinAddress(address) && amount !== 0 && !!feeRate, [address, amount, feeRate])
+  const isFormValid = useMemo(
+    () => isBitcoinAddress(address, getNetwork()) && amount !== 0 && !!feeRate,
+    [address, amount, feeRate],
+  )
 
   return (
     <Screen>
