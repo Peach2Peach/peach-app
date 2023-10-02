@@ -1,6 +1,7 @@
-import { useFocusEffect } from '@react-navigation/native'
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
+import { shallow } from 'zustand/shallow'
 import { useNavigation } from '../../../hooks'
+import { useSessionStore } from '../../../store/sessionStore'
 import { useSettingsStore } from '../../../store/settingsStore'
 import { PeachWallet } from '../../../utils/wallet/PeachWallet'
 import { useWalletState } from '../../../utils/wallet/walletStore'
@@ -15,6 +16,10 @@ export const useWalletSetup = ({ peachWallet, syncOnLoad }: Props) => {
 
   const navigation = useNavigation()
   const { refresh, isRefreshing } = useSyncWallet()
+  const [walletSynced, setWalletSynced] = useSessionStore(
+    (state) => [state.walletSynced, state.setWalletSynced],
+    shallow,
+  )
   const [walletLoading, setWalletLoading] = useState(false)
   const [shouldShowBackupOverlay, showBackupReminder, setShowBackupReminder] = useSettingsStore((state) => [
     state.shouldShowBackupOverlay,
@@ -33,15 +38,14 @@ export const useWalletSetup = ({ peachWallet, syncOnLoad }: Props) => {
 
     await refresh()
     setWalletLoading(false)
+    setWalletSynced(true)
     // adding refresh or peachWallet.transactions.length as dependencies causes an infinite loop
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [peachWallet.initialized])
 
-  useFocusEffect(
-    useCallback(() => {
-      if (syncOnLoad) syncWalletOnLoad()
-    }, [syncOnLoad, syncWalletOnLoad]),
-  )
+  useEffect(() => {
+    if (syncOnLoad && !walletSynced) syncWalletOnLoad()
+  }, [syncOnLoad, syncWalletOnLoad, walletSynced])
 
   return {
     balance,
