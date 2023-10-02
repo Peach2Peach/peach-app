@@ -14,12 +14,6 @@ describe('useShowHelp', () => {
     const popupComponent = usePopupStore.getState().popupComponent || <></>
     expect(render(popupComponent, { wrapper: NavigationWrapper }).toJSON()).toMatchSnapshot()
   })
-  it('opens popup with different help text (overwrite)', () => {
-    const { result } = renderHook(useShowHelp, { wrapper: NavigationWrapper, initialProps: 'cashTrades' })
-    result.current('acceptMatch')
-    const popupComponent = usePopupStore.getState().popupComponent || <></>
-    expect(render(popupComponent, { wrapper: NavigationWrapper }).toJSON()).toMatchSnapshot()
-  })
   it('should navigate to contact', () => {
     const { result } = renderHook(useShowHelp, { wrapper: NavigationWrapper, initialProps: 'acceptMatch' })
     result.current()

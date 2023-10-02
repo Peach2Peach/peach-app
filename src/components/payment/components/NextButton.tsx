@@ -1,14 +1,17 @@
 import { shallow } from 'zustand/shallow'
-import { PrimaryButton } from '../..'
-import { useNavigation, usePreviousRouteName, useShowHelp } from '../../../hooks'
+import { PrimaryButton, Text } from '../..'
+import { useNavigation, usePreviousRouteName } from '../../../hooks'
 import { useUserPaymentMethodInfo } from '../../../hooks/query/useUserPaymentMethodInfo'
+import { InfoPopup } from '../../../popups/InfoPopup'
 import { useOfferPreferences } from '../../../store/offerPreferenes/useOfferPreferences'
+import { usePopupStore } from '../../../store/usePopupStore'
 import { intersect } from '../../../utils/array'
 import i18n from '../../../utils/i18n'
 
 export const NextButton = () => {
   const navigation = useNavigation()
-  const showHelp = useShowHelp('paymentMethodForbidden.paypal')
+  const setPopup = usePopupStore((state) => state.setPopup)
+  const showHelp = () => setPopup(<InfoPopup content={<Text>{i18n('FORBIDDEN_PAYMENT_METHOD.paypal.text')}</Text>} />)
   const origin = usePreviousRouteName()
   const [isStepValid, paymentMethods] = useOfferPreferences(
     (state) => [state.canContinue.paymentMethods, Object.values(state.meansOfPayment).flat()],
@@ -21,7 +24,7 @@ export const NextButton = () => {
     const forbiddenPaymentMethdos = intersect(paymentMethodInfo.forbidden[flow], paymentMethods)
     if (forbiddenPaymentMethdos.length) {
       const paymentMethod = forbiddenPaymentMethdos.pop()
-      if (paymentMethod === 'paypal') showHelp(`paymentMethodForbidden.${paymentMethod}`)
+      if (paymentMethod === 'paypal') showHelp()
       return
     }
     navigation.navigate(flow === 'sell' ? 'sellSummary' : 'buySummary')

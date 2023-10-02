@@ -10,7 +10,6 @@ import { LNURLSwaps } from './info/LNURLSwaps'
 import { MatchMatchMatch } from './info/MatchMatchMatch'
 import { MyBadges } from './info/MyBadges'
 import { NetworkFees } from './info/NetworkFees'
-import { PaymentMethodForbiddenPaypal } from './info/PaymentMethodForbiddenPaypal'
 import { PaymentMethodsHelp } from './info/PaymentMethodsHelp'
 import { PayoutAddressPopup } from './info/PayoutAddressPopup'
 import { RBFHelp } from './info/RBFHelp'
@@ -31,7 +30,6 @@ export const helpPopups: Record<string, { title: string; content: () => JSX.Elem
   matchmatchmatch: { title: i18n('search.popups.matchmatchmatch.title'), content: MatchMatchMatch },
   myBadges: { title: i18n('peachBadges'), content: MyBadges },
   networkFees: { title: i18n('help.networkFees.title'), content: NetworkFees },
-  'paymentMethodForbidden.paypal': { title: '', content: PaymentMethodForbiddenPaypal },
   paymentMethods: { title: i18n('settings.paymentMethods'), content: PaymentMethodsHelp },
   payoutAddress: { title: i18n('settings.payoutAddress'), content: PayoutAddressPopup },
   rbf: { title: i18n('wallet.bumpNetworkFees.help.title'), content: RBFHelp },

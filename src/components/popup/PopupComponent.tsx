@@ -4,7 +4,7 @@ import { Text } from '../text'
 import { PopupActions } from './PopupActions'
 import { PopupContent } from './PopupContent'
 
-type Props = {
+export type PopupComponentProps = {
   content?: React.ReactNode
   actions: React.ReactNode
   title?: string
@@ -12,7 +12,7 @@ type Props = {
   actionBgColor?: ViewStyle
 }
 
-export const PopupComponent = ({ content, actions, title, bgColor, actionBgColor }: Props) => (
+export const PopupComponent = ({ content, actions, title, bgColor, actionBgColor }: PopupComponentProps) => (
   <View style={tw`mx-6 overflow-hidden rounded-2xl`}>
     <PopupContent style={[bgColor, tw`items-stretch`]}>
       {!!title && <PopupTitle text={title} />}

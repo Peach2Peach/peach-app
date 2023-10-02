@@ -1,7 +1,7 @@
 import { act, fireEvent, render } from '@testing-library/react-native'
 import { NavigationAndQueryClientWrapper } from '../../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
 import { getStateMock, navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
-import { HelpPopup } from '../../../hooks/useShowHelp'
+
 import { useOfferPreferences } from '../../../store/offerPreferenes'
 import { usePopupStore } from '../../../store/usePopupStore'
 import { NextButton } from './NextButton'
@@ -59,10 +59,7 @@ describe('NextButton', () => {
     const { getByText } = render(<NextButton />, { wrapper })
     fireEvent.press(getByText('next'))
     expect(navigateMock).not.toHaveBeenCalled()
-    expect(usePopupStore.getState()).toEqual({
-      ...usePopupStore.getState(),
-      visible: true,
-      popupComponent: <HelpPopup id="paymentMethodForbidden.paypal" showTitle={true} />,
-    })
+    expect(usePopupStore.getState().visible).toBe(true)
+    expect(render(usePopupStore.getState().popupComponent || <></>, { wrapper }).toJSON()).toMatchSnapshot()
   })
 })

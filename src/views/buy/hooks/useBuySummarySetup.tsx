@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react'
 import { shallow } from 'zustand/shallow'
-import { useNavigation, useShowHelp } from '../../../hooks'
+import { Text } from '../../../components'
+import { useNavigation } from '../../../hooks'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
+import { InfoPopup } from '../../../popups/InfoPopup'
 import { useConfigStore } from '../../../store/configStore'
 import { useOfferPreferences } from '../../../store/offerPreferenes/useOfferPreferences'
 import { useSettingsStore } from '../../../store/settingsStore'
+import { usePopupStore } from '../../../store/usePopupStore'
 import { account, getMessageToSignForAddress } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
 import { getError, getResult } from '../../../utils/result'
@@ -23,7 +26,8 @@ export const useBuySummarySetup = () => {
   const navigation = useNavigation()
   const showErrorBanner = useShowErrorBanner()
   const hasSeenGroupHugAnnouncement = useConfigStore((state) => state.hasSeenGroupHugAnnouncement)
-  const showHelp = useShowHelp('paymentMethodForbidden.paypal')
+  const setPopup = usePopupStore((state) => state.setPopup)
+  const showHelp = () => setPopup(<InfoPopup content={<Text>{i18n('FORBIDDEN_PAYMENT_METHOD.paypal.text')}</Text>} />)
   const [peachWalletActive, setPeachWalletActive, payoutAddress, payoutAddressLabel, payoutAddressSignature]
     = useSettingsStore(
       (state) => [
@@ -100,7 +104,7 @@ export const useBuySummarySetup = () => {
     if (!isOfferPublished || !offerId) {
       if (isForbiddenPaymentMethodError(errorMessage, errorDetails)) {
         const paymentMethod = errorDetails.pop()
-        if (paymentMethod === 'paypal') showHelp(`paymentMethodForbidden.${paymentMethod}`)
+        if (paymentMethod === 'paypal') showHelp()
       } else {
         showErrorBanner(errorMessage)
       }
