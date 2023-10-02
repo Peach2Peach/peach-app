@@ -190,7 +190,7 @@ const settings: ViewType[] = [
   { name: 'backupTime', component: BackupTime, ...invertedThemeConfig, showFooter: true },
   { name: 'backups', component: Backups, ...defaultConfig },
   { name: 'backupCreated', component: BackupCreated, ...invertedThemeConfig },
-  { name: 'payoutAddress', component: PayoutAddress, ...defaultConfig },
+  { name: 'payoutAddress', component: PayoutAddress, ...defaultConfig, showHeader: false },
   { name: 'paymentMethods', component: PaymentMethods, ...defaultConfig },
   { name: 'peachFees', component: PeachFees, ...defaultConfig },
   { name: 'networkFees', component: NetworkFees, ...defaultConfig },
