@@ -12,6 +12,7 @@
   "ERROR_SAVE_ACCOUNT.text" : "Si è verificato un problema nel salvataggio dell'account. Per favore, prova a riavviare l'applicazione o contatta il team di supporto di Peach.",
   "ERROR_SAVE_ACCOUNT.title" : "impossibile salvare l'account",
   "FEES_TOO_HIGH.text" : "Le commissioni di rete scelte di $0 sat/vB sono troppo alte. Scegli un importo inferiore per poter effettuare la transazione.",
+  "FORBIDDEN_PAYMENT_METHOD.paypal.text" : "Non hai ancora accesso a PayPal. A causa dell'alto rischio di chargeback associato a PayPal, questo metodo di pagamento diventa accessibile solo quando:\n\n- Sblocci il badge #superTrader (più di 20 scambi completati).\n\n- Il tuo punteggio di reputazione è almeno 4,5 pesche.\n\n- Hai già scambiato almeno 2100 CHF nell'anno scorso.",
   "FORM_INVALID.text" : "Le informazioni fornite non sono valide.\n$0",
   "FORM_INVALID.title" : "qualcosa non va",
   "GENERAL_ERROR.text" : "Oops! Qualcosa è andato storto. Per favore, riprova più tardi o contattaci se l'errore persiste.",

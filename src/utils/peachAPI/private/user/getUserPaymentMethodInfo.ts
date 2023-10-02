@@ -5,12 +5,12 @@ import { getAbortWithTimeout } from '../../../getAbortWithTimeout'
 import { parseResponse } from '../../parseResponse'
 import { getPrivateHeaders } from '../getPrivateHeaders'
 
-export const getSelfUser = async ({ timeout }: RequestProps) => {
-  const response = await fetch(`${API_URL}/v1/user/me`, {
+export const getUserPaymentMethodInfo = async ({ timeout }: RequestProps) => {
+  const response = await fetch(`${API_URL}/v1/user/me/paymentMethods`, {
     headers: await getPrivateHeaders(),
     method: 'GET',
     signal: timeout ? getAbortWithTimeout(timeout).signal : undefined,
   })
 
-  return parseResponse<SelfUser>(response, 'getSelfUser')
+  return parseResponse<GetUserPaymentMethodInfoResponseBody>(response, 'getUserPaymentMethodInfo')
 }
