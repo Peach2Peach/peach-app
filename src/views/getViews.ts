@@ -178,7 +178,7 @@ const settings: ViewType[] = [
   { name: 'settings', component: Settings, ...defaultConfig, animationEnabled: false },
   { name: 'aboutPeach', component: AboutPeach, ...defaultConfig, showHeader: false },
   { name: 'myProfile', component: MyProfile, ...defaultConfig, showHeader: false },
-  { name: 'bitcoinProducts', component: BitcoinProducts, ...defaultConfig },
+  { name: 'bitcoinProducts', component: BitcoinProducts, ...defaultConfig, showHeader: false },
   { name: 'selectCurrency', component: SelectCurrency, ...defaultConfig, showHeader: false },
   { name: 'selectPaymentMethod', component: SelectPaymentMethod, ...defaultConfig },
   { name: 'selectCountry', component: SelectCountry, ...defaultConfig, showHeader: false },
