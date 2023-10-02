@@ -15,5 +15,5 @@ export const publishBuyOffer = async (offerDraft: BuyOfferDraft) => {
     saveOffer({ ...offerDraft, ...result })
     return { offerId: result.id, isOfferPublished: true, errorMessage: null }
   }
-  return { isOfferPublished: false, errorMessage: err?.error || 'POST_OFFER_ERROR' }
+  return { isOfferPublished: false, errorMessage: err?.error || 'POST_OFFER_ERROR', errorDetails: err?.details }
 }

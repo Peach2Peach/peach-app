@@ -2,6 +2,9 @@
 
 exports[`SelectPaymentMethod should render correctly 1`] = `
 <Screen>
+  <NewHeader
+    title="select payment method"
+  />
   <ForwardRef
     contentContainerStyle={
       [

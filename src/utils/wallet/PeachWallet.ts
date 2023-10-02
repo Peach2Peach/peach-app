@@ -76,8 +76,6 @@ export class PeachWallet extends PeachJSWallet {
 
         this.initialized = true
 
-        this.syncWallet()
-
         info('PeachWallet - initWallet - loaded')
         resolve()
       }),

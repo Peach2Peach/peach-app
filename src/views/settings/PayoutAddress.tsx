@@ -1,11 +1,13 @@
 import { View } from 'react-native'
 
-import tw from '../../styles/tailwind'
-import { Icon, PeachScrollView, PrimaryButton, Text } from '../../components'
-import { BitcoinAddressInput, Input } from '../../components/inputs'
-import i18n from '../../utils/i18n'
-import { usePayoutAddressSetup } from './hooks/usePayoutAddressSetup'
+import { NewHeader as Header, Icon, PeachScrollView, PrimaryButton, Screen, Text } from '../../components'
 import { OpenWallet } from '../../components/bitcoin'
+import { BitcoinAddressInput, Input } from '../../components/inputs'
+import { useRoute, useShowHelp } from '../../hooks'
+import tw from '../../styles/tailwind'
+import i18n from '../../utils/i18n'
+import { headerIcons } from '../../utils/layout'
+import { usePayoutAddressSetup } from './hooks/usePayoutAddressSetup'
 
 export const PayoutAddress = () => {
   const {
@@ -23,8 +25,9 @@ export const PayoutAddress = () => {
   } = usePayoutAddressSetup()
 
   return (
-    <View style={tw`items-center justify-between h-full`}>
-      <PeachScrollView style={tw`flex-shrink w-full h-full`} contentContainerStyle={tw`justify-center h-full p-8`}>
+    <Screen>
+      <PayoutAddressHeader />
+      <PeachScrollView contentContainerStyle={tw`items-center justify-center px-8 grow`}>
         <Text style={tw`text-center h6`}>
           {i18n(type === 'refund' ? 'settings.refundAddress.title' : 'settings.payoutAddress.title')}
         </Text>
@@ -37,9 +40,9 @@ export const PayoutAddress = () => {
         />
         <BitcoinAddressInput onChange={setAddress} value={address} errorMessage={addressErrors} />
         {isUpdated ? (
-          <View style={tw`flex-row justify-center w-full h-6`}>
+          <View style={tw`flex-row justify-center gap-1 h6`}>
             <Text style={tw`uppercase button-medium`}>{i18n('settings.payoutAddress.success')}</Text>
-            <Icon id="check" style={tw`w-5 h-5 ml-1`} color={tw`text-success-main`.color} />
+            <Icon id="check" size={20} color={tw`text-success-main`.color} />
           </View>
         ) : (
           <OpenWallet style={tw`h-6`} address={address} />
@@ -47,12 +50,22 @@ export const PayoutAddress = () => {
       </PeachScrollView>
       <PrimaryButton
         narrow
-        style={tw`absolute mt-16 bottom-6`}
+        style={tw`self-center`}
         onPress={save}
         disabled={!address || !addressLabel || !addressValid || !addressLabelValid || isUpdated}
       >
         {i18n(type === 'refund' ? 'settings.refundAddress.confirm' : 'settings.payoutAddress.confirm')}
       </PrimaryButton>
-    </View>
+    </Screen>
   )
+}
+
+function PayoutAddressHeader () {
+  const { type } = useRoute<'payoutAddress'>().params || {}
+  const showHelp = useShowHelp('payoutAddress')
+  const title = {
+    refund: 'settings.refundAddress',
+    payout: 'settings.payoutAddress',
+  }
+  return <Header title={i18n(title[type || 'payout'])} icons={[{ ...headerIcons.help, onPress: showHelp }]} />
 }

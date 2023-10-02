@@ -4,9 +4,9 @@ import { useDrawerContext } from '../../contexts/drawer'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 
-import { PeachScrollView, PrimaryButton, RadioButtons, Screen } from '../../components'
+import { NewHeader as Header, PeachScrollView, PrimaryButton, RadioButtons, Screen } from '../../components'
 import { FlagType } from '../../components/flags'
-import { useHeaderSetup, useNavigation, useRoute } from '../../hooks'
+import { useNavigation, useRoute } from '../../hooks'
 import { NATIONALOPTIONCOUNTRIES, NATIONALOPTIONS, PAYMENTCATEGORIES } from '../../paymentMethods'
 import { getApplicablePaymentCategories, paymentMethodAllowedForCurrency } from '../../utils/paymentMethod'
 import { usePaymentMethodLabel } from './hooks'
@@ -19,8 +19,6 @@ const mapCountryToDrawerOption = (onPress: (country: FlagType) => void) => (coun
 })
 
 export const SelectPaymentMethod = () => {
-  useHeaderSetup(i18n('selectPaymentMethod.title'))
-
   const navigation = useNavigation()
   const { selectedCurrency, origin } = useRoute<'selectPaymentMethod'>().params
   const [, updateDrawer] = useDrawerContext()
@@ -121,7 +119,8 @@ export const SelectPaymentMethod = () => {
 
   return (
     <Screen>
-      <PeachScrollView contentContainerStyle={[tw`justify-center flex-grow py-4`, tw.md`py-8`]}>
+      <Header title={i18n('selectPaymentMethod.title')} />
+      <PeachScrollView contentContainerStyle={[tw`justify-center py-4 grow`, tw.md`py-8`]}>
         <RadioButtons
           items={paymentCategories}
           selectedValue={selectedPaymentCategory}

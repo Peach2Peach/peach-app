@@ -69,6 +69,7 @@ type Contract = {
 
   messages: number
   unreadMessages: number
+  isChatActive: boolean
 }
 
 type LocalContract = {

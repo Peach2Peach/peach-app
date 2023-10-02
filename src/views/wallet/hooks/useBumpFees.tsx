@@ -7,7 +7,6 @@ import { peachWallet } from '../../../utils/wallet/setWallet'
 import { buildBumpFeeTransaction } from '../../../utils/wallet/transaction'
 import { useWalletState } from '../../../utils/wallet/walletStore'
 import { useShowConfirmRbfPopup } from './useShowConfirmRbfPopup'
-import { useSyncWallet } from './useSyncWallet'
 
 const useRemoveTxFromPeachWallet = () => {
   const [removeTransaction, removePendingTransaction] = useWalletState(
@@ -36,7 +35,6 @@ type Props = {
 export const useBumpFees = ({ transaction, newFeeRate, sendingAmount }: Props) => {
   const showConfirmRbfPopup = useShowConfirmRbfPopup()
   const handleTransactionError = useHandleTransactionError()
-  const { refresh } = useSyncWallet()
   const removeTxFromPeachWallet = useRemoveTxFromPeachWallet()
   const navigation = useNavigation()
 
@@ -44,10 +42,9 @@ export const useBumpFees = ({ transaction, newFeeRate, sendingAmount }: Props) =
     (newTxId: string) => {
       navigation.goBack()
       if (transaction) removeTxFromPeachWallet(transaction)
-      refresh()
       navigation.replace('transactionDetails', { txId: newTxId })
     },
-    [navigation, refresh, removeTxFromPeachWallet, transaction],
+    [navigation, removeTxFromPeachWallet, transaction],
   )
 
   const bumpFees = useCallback(async () => {

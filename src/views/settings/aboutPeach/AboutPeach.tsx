@@ -1,8 +1,8 @@
 import { useCallback } from 'react'
 import { Linking, ViewStyle } from 'react-native'
 import { IconType } from '../../../assets/icons'
-import { PeachScrollView } from '../../../components'
-import { useHeaderSetup, useNavigation } from '../../../hooks'
+import { NewHeader, PeachScrollView, Screen } from '../../../components'
+import { useNavigation } from '../../../hooks'
 import tw from '../../../styles/tailwind'
 import i18n, { languageState } from '../../../utils/i18n'
 import { getLocalizedLink } from '../../../utils/web'
@@ -10,7 +10,6 @@ import { SettingsItem } from '../components/SettingsItem'
 
 export const AboutPeach = () => {
   const navigation = useNavigation()
-  useHeaderSetup(i18n('settings.aboutPeach'))
 
   const items: { title: string; onPress: () => void; icon?: IconType; iconSize?: ViewStyle }[] = [
     {
@@ -46,16 +45,19 @@ export const AboutPeach = () => {
   ]
 
   return (
-    <PeachScrollView contentContainerStyle={tw`justify-center flex-1 px-8`}>
-      {items.map((item) => (
-        <SettingsItem
-          key={item.title}
-          title={item.title}
-          onPress={item.onPress}
-          iconId={item.icon}
-          iconSize={item.iconSize}
-        />
-      ))}
-    </PeachScrollView>
+    <Screen>
+      <NewHeader title={i18n('settings.aboutPeach')} />
+      <PeachScrollView contentContainerStyle={tw`justify-center flex-1`}>
+        {items.map((item) => (
+          <SettingsItem
+            key={item.title}
+            title={item.title}
+            onPress={item.onPress}
+            iconId={item.icon}
+            iconSize={item.iconSize}
+          />
+        ))}
+      </PeachScrollView>
+    </Screen>
   )
 }

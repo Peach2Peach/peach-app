@@ -2,6 +2,9 @@
 
 exports[`SelectCurrency should render correctly 1`] = `
 <Screen>
+  <NewHeader
+    title="select currency"
+  />
   <CurrencyTabs
     currency="EUR"
     setCurrency={[Function]}
