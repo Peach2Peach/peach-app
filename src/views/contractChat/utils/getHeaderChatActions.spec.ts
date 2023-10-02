@@ -2,6 +2,7 @@ import { contract as mockContract } from '../../../../tests/unit/data/contractDa
 import tw from '../../../styles/tailwind'
 import { getHeaderChatActions } from './getHeaderChatActions'
 
+// eslint-disable-next-line max-lines-per-function
 describe('getHeaderChatActions', () => {
   it('should return empty array if dispute is active', () => {
     const contract = {
@@ -32,7 +33,7 @@ describe('getHeaderChatActions', () => {
       { id: 'alertOctagon', color: '#DF321F', onPress: expect.any(Function) },
     ])
   })
-  it('should return correctly if contract not canceled, payment not made, can\'t cancel or raise dispute', () => {
+  it("should return correctly if contract not canceled, payment not made, can't cancel or raise dispute", () => {
     const contract = {
       ...mockContract,
       disputeActive: false,
@@ -83,7 +84,7 @@ describe('getHeaderChatActions', () => {
     result?.[1].onPress()
     expect(showOpenDisputePopup).toHaveBeenCalled()
   })
-  it('should not show cancel popup if contract can\'t be canceled', () => {
+  it("should not show cancel popup if contract can't be canceled", () => {
     const contract = {
       ...mockContract,
       disputeActive: false,
@@ -99,7 +100,7 @@ describe('getHeaderChatActions', () => {
     result?.[0].onPress()
     expect(showCancelPopup).not.toHaveBeenCalled()
   })
-  it('should not show open dispute popup if contract can\'t be disputed', () => {
+  it("should not show open dispute popup if contract can't be disputed", () => {
     const contract = {
       ...mockContract,
       disputeActive: false,
