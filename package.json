@@ -87,7 +87,7 @@
     "react-native-mmkv-storage": "^0.9.1",
     "react-native-pager-view": "^6.2.0",
     "react-native-parsed-text": "^0.0.22",
-    "react-native-permissions": "^3.8.0",
+    "react-native-permissions": "^3.8.4",
     "react-native-promise-rejection-utils": "^0.0.1",
     "react-native-qrcode-svg": "^6.2.0",
     "react-native-reanimated": "^3.3.0",
