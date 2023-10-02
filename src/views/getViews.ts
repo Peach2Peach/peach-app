@@ -186,7 +186,7 @@ const settings: ViewType[] = [
   { name: 'meetupScreen', component: MeetupScreen, ...defaultConfig, showHeader: false },
   { name: 'currency', component: Currency, ...defaultConfig, showHeader: false },
   { name: 'language', component: Language, ...defaultConfig, showHeader: false },
-  { name: 'referrals', component: Referrals, ...defaultConfig },
+  { name: 'referrals', component: Referrals, ...defaultConfig, showHeader: false },
   { name: 'backupTime', component: BackupTime, ...invertedThemeConfig, showFooter: true },
   { name: 'backups', component: Backups, ...defaultConfig },
   { name: 'backupCreated', component: BackupCreated, ...invertedThemeConfig },
