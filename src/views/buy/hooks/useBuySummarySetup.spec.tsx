@@ -1,7 +1,6 @@
-import { act, renderHook } from '@testing-library/react-native'
+import { act, render, renderHook } from '@testing-library/react-native'
 import { account1 } from '../../../../tests/unit/data/accountData'
 import { NavigationWrapper, replaceMock } from '../../../../tests/unit/helpers/NavigationWrapper'
-import { HelpPopup } from '../../../hooks/useShowHelp'
 import { setPaymentMethods } from '../../../paymentMethods'
 import { useConfigStore } from '../../../store/configStore'
 import { usePopupStore } from '../../../store/usePopupStore'
@@ -23,7 +22,7 @@ describe('useBuySummarySetup', () => {
     setPaymentMethods([{ id: 'paypal', currencies: ['EUR'], anonymous: false }])
   })
   beforeEach(() => {
-    // @ts-expect-error mock doesn't need args
+    // @ts-ignore
     setPeachWallet(new PeachWallet())
   })
 
@@ -69,10 +68,8 @@ describe('useBuySummarySetup', () => {
     const { result } = renderHook(useBuySummarySetup, { wrapper: NavigationWrapper })
     await act(() => result.current.publishOffer())
     expect(result.current.isPublishing).toBe(false)
-    expect(usePopupStore.getState()).toEqual({
-      ...usePopupStore.getState(),
-      visible: true,
-      popupComponent: <HelpPopup id="paymentMethodForbidden.paypal" showTitle={true} />,
-    })
+    expect(usePopupStore.getState().visible).toBe(true)
+    const popupComponent = usePopupStore.getState().popupComponent || <></>
+    expect(render(popupComponent, { wrapper: NavigationWrapper })).toMatchSnapshot()
   })
 })
