@@ -1,14 +1,15 @@
 import { ok } from 'assert'
-import { settingsStorage } from '../../store/settingsStore'
 import { deleteAccount, setAccount } from '.'
+import * as accountData from '../../../tests/unit/data/accountData'
+import { useSessionStore } from '../../store/sessionStore'
+import { settingsStorage } from '../../store/settingsStore'
+import { usePaymentDataStore } from '../../store/usePaymentDataStore'
+import { deleteAccessToken } from '../peachAPI/accessToken'
+import { deletePeachAccount } from '../peachAPI/peachAccount'
 import { accountStorage } from './accountStorage'
 import { chatStorage } from './chatStorage'
 import { contractStorage } from './contractStorage'
 import { offerStorage } from './offerStorage'
-import { deleteAccessToken } from '../peachAPI/accessToken'
-import { deletePeachAccount } from '../peachAPI/peachAccount'
-import * as accountData from '../../../tests/unit/data/accountData'
-import { usePaymentDataStore } from '../../store/usePaymentDataStore'
 
 jest.mock('../peachAPI/accessToken', () => ({
   ...jest.requireActual('../peachAPI/accessToken'),
@@ -26,6 +27,7 @@ describe('deleteAccount', () => {
 
   it('would delete account file', () => {
     const usePaymentDataStoreReset = jest.spyOn(usePaymentDataStore.getState(), 'reset')
+    const useSessionStoreReset = jest.spyOn(useSessionStore.getState(), 'reset')
     deleteAccount()
 
     expect(accountStorage.clearStore).toHaveBeenCalled()
@@ -34,6 +36,7 @@ describe('deleteAccount', () => {
     expect(chatStorage.clearStore).toHaveBeenCalled()
     expect(settingsStorage.clearStore).toHaveBeenCalled()
     expect(usePaymentDataStoreReset).toHaveBeenCalled()
+    expect(useSessionStoreReset).toHaveBeenCalled()
     expect(deleteAccessToken).toHaveBeenCalled()
     expect(deletePeachAccount).toHaveBeenCalled()
 
