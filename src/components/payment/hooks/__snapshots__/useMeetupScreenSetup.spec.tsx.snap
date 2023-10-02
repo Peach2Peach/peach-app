@@ -1,5 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`useMeetupScreenSetup should set up the header correctly 1`] = `<React.Fragment />`;
-
-exports[`useMeetupScreenSetup should set up the header correctly when deletable is undefined 1`] = `<React.Fragment />`;
