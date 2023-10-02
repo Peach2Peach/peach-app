@@ -180,7 +180,7 @@ const settings: ViewType[] = [
   { name: 'myProfile', component: MyProfile, ...defaultConfig, showHeader: false },
   { name: 'bitcoinProducts', component: BitcoinProducts, ...defaultConfig, showHeader: false },
   { name: 'selectCurrency', component: SelectCurrency, ...defaultConfig, showHeader: false },
-  { name: 'selectPaymentMethod', component: SelectPaymentMethod, ...defaultConfig },
+  { name: 'selectPaymentMethod', component: SelectPaymentMethod, ...defaultConfig, showHeader: false },
   { name: 'selectCountry', component: SelectCountry, ...defaultConfig, showHeader: false },
   { name: 'paymentMethodForm', component: PaymentMethodForm, ...defaultConfig },
   { name: 'meetupScreen', component: MeetupScreen, ...defaultConfig },
