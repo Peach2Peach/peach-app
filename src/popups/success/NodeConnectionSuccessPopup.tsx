@@ -1,11 +1,10 @@
-import { useState } from 'react'
-import { PopupAction } from '../../components/popup'
 import { PopupComponent } from '../../components/popup/PopupComponent'
 import PeachText from '../../components/text/Text'
 import { usePopupStore } from '../../store/usePopupStore'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { ClosePopupAction } from '../actions'
+import { LoadingPopupAction } from '../actions/LoadingPopupAction'
 
 type Props = {
   url: string
@@ -17,20 +16,16 @@ const NodeConnectionSuccessContent = ({ url }: Pick<Props, 'url'>) => (
 
 const SaveAction = ({ save }: Pick<Props, 'save'>) => {
   const closePopup = usePopupStore((state) => state.closePopup)
-  const [isLoading, setIsLoading] = useState(false)
   const onPress = () => {
-    setIsLoading(true)
     save()
     closePopup()
-    setIsLoading(false)
   }
 
   return (
-    <PopupAction
+    <LoadingPopupAction
       onPress={onPress}
       label={i18n('wallet.settings.node.success.confirm')}
       iconId={'save'}
-      loading={isLoading}
       reverseOrder
     />
   )

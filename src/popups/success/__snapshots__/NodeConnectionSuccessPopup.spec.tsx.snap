@@ -103,7 +103,7 @@ exports[`NodeConnectionSuccessPopup should render correctly 1`] = `
         ]
       }
     >
-      Peach successfully connected to undefined
+      Peach successfully connected to url
 
 Do you want to save this as your default node?
     </Text>
