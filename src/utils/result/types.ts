@@ -2,7 +2,7 @@ export interface Ok<R> {
   result: R
   error: undefined
   getValue(): R
-  isOk(): true
+  isOk(): this is Ok<R>
   isError(): false
   getError(): undefined
 }
@@ -11,7 +11,7 @@ export interface Err<E, R> {
   error: E
   isOk(): false
   getValue(): R | undefined
-  isError(): true
+  isError(): this is Err<E, R>
   getError(): E
 }
 export interface Result<R, E> {

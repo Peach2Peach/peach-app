@@ -44,7 +44,7 @@ exports[`useConfirmCancelTrade should show confirm cancelation popup for buyer 1
     style={
       [
         {
-          "alignItems": "center",
+          "alignItems": "stretch",
           "backgroundColor": "#FEEDE5",
           "gap": 12,
           "paddingBottom": 24,
@@ -336,7 +336,7 @@ exports[`useConfirmCancelTrade should show confirm cancelation popup for seller 
     style={
       [
         {
-          "alignItems": "center",
+          "alignItems": "stretch",
           "backgroundColor": "#FEEDE5",
           "gap": 12,
           "paddingBottom": 24,
@@ -628,7 +628,7 @@ exports[`useConfirmCancelTrade should show the correct popup for cash trades of 
     style={
       [
         {
-          "alignItems": "center",
+          "alignItems": "stretch",
           "backgroundColor": "#FEEDE5",
           "gap": 12,
           "paddingBottom": 24,

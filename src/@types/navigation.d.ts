@@ -11,6 +11,7 @@ type RootStackParamList = {
     badges: string
   }
   wallet: undefined
+  nodeSetup: undefined
   sendBitcoin: undefined
   receiveBitcoin: undefined
   addressChecker: undefined

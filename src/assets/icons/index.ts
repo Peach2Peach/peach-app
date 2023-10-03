@@ -64,6 +64,7 @@ import list from './list.svg'
 import listFlipped from './listFlipped.svg'
 import mail from './mail.svg'
 import map from './map.svg'
+import maximize from './maximize.svg'
 import menu from './menu.svg'
 import messageCircle from './messageCircle.svg'
 import messageFull from './messageFull.svg'
@@ -92,6 +93,7 @@ import send from './send.svg'
 import settings from './settings.svg'
 import settingsGear from './settingsGear.svg'
 import share from './share.svg'
+import share2 from './share2.svg'
 import shield from './shield.svg'
 import shiftCrypto from './shiftCrypto.svg'
 import shuffle from './shuffle.svg'
@@ -162,9 +164,9 @@ export const Icons = {
   copy,
   cornerDownRight,
   cpu,
+  creditCard,
   crossOutlined,
   cryptotag,
-  creditCard,
   dollarSign,
   dollarSignCircleInverted,
   download,
@@ -189,6 +191,7 @@ export const Icons = {
   listFlipped,
   mail,
   map,
+  maximize,
   menu,
   messageCircle,
   messageFull,
@@ -217,6 +220,7 @@ export const Icons = {
   settings,
   settingsGear,
   share,
+  share2,
   shield,
   shiftCrypto,
   shuffle,

@@ -1,5 +1,7 @@
 import { render } from '@testing-library/react-native'
+import { toMatchDiffSnapshot } from 'snapshot-diff'
 import { TransactionBatching } from './TransactionBatching'
+expect.extend({ toMatchDiffSnapshot })
 
 const setupMock = {
   isLoading: false,
@@ -17,9 +19,10 @@ describe('TransactionBatching', () => {
     expect(toJSON()).toMatchSnapshot()
   })
   it('should render correctly when batching is disabled', () => {
+    const enabled = render(<TransactionBatching />).toJSON()
     useTransactionBatchingSetupMock.mockReturnValueOnce({ ...setupMock, isBatchingEnabled: false })
     const { toJSON } = render(<TransactionBatching />)
-    expect(toJSON()).toMatchSnapshot()
+    expect(enabled).toMatchDiffSnapshot(toJSON())
   })
   it('should render correctly when loading', () => {
     useTransactionBatchingSetupMock.mockReturnValueOnce({ ...setupMock, isLoading: true })

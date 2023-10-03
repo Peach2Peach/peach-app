@@ -41,6 +41,7 @@ import { BackupCreated } from './settings/components/backups/BackupCreated'
 import { Currency } from './settings/Currency'
 import { Language } from './settings/Language'
 import { NetworkFees } from './settings/NetworkFees'
+import { NodeSetup } from './settings/NodeSetup'
 import { PayoutAddress } from './settings/PayoutAddress'
 import { MyProfile } from './settings/profile/MyProfile'
 import { Settings } from './settings/Settings'
@@ -190,6 +191,7 @@ const settings: ViewType[] = [
   { name: 'backupTime', component: BackupTime, ...invertedThemeConfig, showFooter: true },
   { name: 'backups', component: Backups, ...defaultConfig },
   { name: 'backupCreated', component: BackupCreated, ...invertedThemeConfig },
+  { name: 'nodeSetup', component: NodeSetup, ...defaultConfig, showHeader: false },
   { name: 'payoutAddress', component: PayoutAddress, ...defaultConfig, showHeader: false },
   { name: 'paymentMethods', component: PaymentMethods, ...defaultConfig },
   { name: 'peachFees', component: PeachFees, ...defaultConfig },

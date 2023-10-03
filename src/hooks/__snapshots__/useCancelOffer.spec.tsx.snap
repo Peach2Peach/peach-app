@@ -44,7 +44,7 @@ exports[`useCancelOffer should show cancel offer popup 1`] = `
     style={
       [
         {
-          "alignItems": "center",
+          "alignItems": "stretch",
           "backgroundColor": "#FEEDE5",
           "gap": 12,
           "paddingBottom": 24,

@@ -34,7 +34,7 @@ exports[`PopupContent renders correctly 1`] = `
   style={
     [
       {
-        "alignItems": "center",
+        "alignItems": "stretch",
         "backgroundColor": "#FEEDE5",
         "gap": 12,
         "paddingBottom": 24,

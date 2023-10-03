@@ -208,7 +208,7 @@ exports[`NextButton should show forbidden payment method popup when selected one
     style={
       [
         {
-          "alignItems": "center",
+          "alignItems": "stretch",
           "backgroundColor": "#FEEDE5",
           "gap": 12,
           "paddingBottom": 24,

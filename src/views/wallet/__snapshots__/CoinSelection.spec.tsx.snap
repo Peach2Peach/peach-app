@@ -1078,7 +1078,7 @@ exports[`CoinSelection should open the help popup when the help icon is pressed 
     style={
       [
         {
-          "alignItems": "center",
+          "alignItems": "stretch",
           "backgroundColor": "#FEEDE5",
           "gap": 12,
           "paddingBottom": 24,

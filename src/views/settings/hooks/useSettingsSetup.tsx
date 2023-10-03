@@ -97,6 +97,7 @@ export const useSettingsSetup = () => {
             title: 'notifications',
             onPress: notificationClick,
           },
+          { title: 'nodeSetup' },
           { title: 'payoutAddress' },
           { title: 'currency' },
           { title: 'language' },
