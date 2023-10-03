@@ -4,7 +4,7 @@ import { BarCodeReadEvent } from 'react-native-camera'
 import { PERMISSIONS, RESULTS, request as requestPermission } from 'react-native-permissions'
 import { Text } from '../components'
 import { PopupAction } from '../components/popup'
-import { PopupComponent } from '../components/popup/PopupComponent'
+import { WarningPopup } from '../popups/WarningPopup'
 import { ClosePopupAction } from '../popups/actions'
 import { usePopupStore } from '../store/usePopupStore'
 import tw from '../styles/tailwind'
@@ -42,7 +42,7 @@ export const useQRScanner = ({ onSuccess }: Props) => {
 
 function MissingPermissionsPopup () {
   return (
-    <PopupComponent
+    <WarningPopup
       title={i18n('settings.missingPermissions')}
       content={<Text>{i18n('settings.missingPermissions.text')}</Text>}
       actions={
@@ -51,8 +51,6 @@ function MissingPermissionsPopup () {
           <OpenSettingsAction />
         </>
       }
-      bgColor={tw`bg-warning-background`}
-      actionBgColor={tw`bg-warning-main`}
     />
   )
 }
