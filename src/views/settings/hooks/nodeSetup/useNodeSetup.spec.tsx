@@ -1,5 +1,6 @@
-import { act, renderHook } from '@testing-library/react-native'
+import { act, fireEvent, render, renderHook } from '@testing-library/react-native'
 import { BlockChainNames } from 'bdk-rn/lib/lib/enums'
+import { NavigationWrapper } from '../../../../../tests/unit/helpers/NavigationWrapper'
 import { PopupLoadingSpinner } from '../../../../../tests/unit/helpers/PopupLoadingSpinner'
 import { usePopupStore } from '../../../../store/usePopupStore'
 import { getError, getResult } from '../../../../utils/result'
@@ -12,26 +13,11 @@ const checkNodeConnectionMock = jest.fn()
 jest.mock('../../helpers/checkNodeConnection', () => ({
   checkNodeConnection: (...args: unknown[]) => checkNodeConnectionMock(...args),
 }))
-const showNodeConnectionSuccessPopupMock = jest.fn()
-jest.mock('./useShowNodeConnectionSuccessPopup', () => ({
-  useShowNodeConnectionSuccessPopup:
-    () =>
-      (...args: unknown[]) =>
-        showNodeConnectionSuccessPopupMock(...args),
-}))
-const showNodeConnectionErrorPopupMock = jest.fn()
-jest.mock('./useShowNodeConnectionErrorPopup', () => ({
-  useShowNodeConnectionErrorPopup:
-    () =>
-      (...args: unknown[]) =>
-        showNodeConnectionErrorPopupMock(...args),
-}))
 
-// eslint-disable-next-line max-lines-per-function
 describe('useNodeSetup', () => {
   const url = 'blockstream.info'
   beforeEach(() => {
-    // @ts-expect-error mock PeachWallet doesn't need arguments
+    // @ts-ignore
     setPeachWallet(new PeachWallet())
     useNodeConfigState.getState().reset()
   })
@@ -118,10 +104,10 @@ describe('useNodeSetup', () => {
     await act(async () => {
       await promise
     })
-    expect(showNodeConnectionSuccessPopupMock).toHaveBeenCalledWith({ url, save: expect.any(Function) })
-    act(() => {
-      showNodeConnectionSuccessPopupMock.mock.calls[0][0].save()
-    })
+    const popup = usePopupStore.getState().popupComponent || <></>
+    const { getByText } = render(popup, { wrapper: NavigationWrapper })
+    const button = getByText('save node info')
+    fireEvent.press(button)
     expect(result.current.isConnected).toBeTruthy()
     expect(useNodeConfigState.getState()).toEqual({
       ...useNodeConfigState.getState(),
@@ -148,7 +134,10 @@ describe('useNodeSetup', () => {
     await act(async () => {
       await promise
     })
-    expect(showNodeConnectionErrorPopupMock).toHaveBeenCalledWith(error)
+    const popup = usePopupStore.getState().popupComponent || <></>
+    expect(usePopupStore.getState().visible).toBe(true)
+    const { toJSON } = render(popup, { wrapper: NavigationWrapper })
+    expect(toJSON()).toMatchSnapshot()
   })
   it('should should set connected to false when calling editConfig', () => {
     const nodeSetup: NodeConfig = {
