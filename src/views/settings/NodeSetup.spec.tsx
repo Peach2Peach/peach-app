@@ -70,7 +70,7 @@ describe('NodeSetup', () => {
   it('should open call checkConnection', () => {
     useNodeSetupMock.mockReturnValueOnce({ ...nodeSetup, enabled: true, address: url, canCheckConnection: true })
     const { getByText } = render(<NodeSetup />, { wrapper })
-    fireEvent.press(getByText('checking connection'))
+    fireEvent.press(getByText('check connection'))
     expect(nodeSetup.checkConnection).toHaveBeenCalled()
   })
   it('should open help popup', () => {

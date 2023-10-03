@@ -379,7 +379,7 @@ exports[`NodeSetup should render with default settings 1`] = `
       }
     }
   >
-    checking connection
+    check connection
   </NewButton>
 </Screen>
 `;
