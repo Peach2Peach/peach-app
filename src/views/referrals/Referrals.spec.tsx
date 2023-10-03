@@ -1,4 +1,5 @@
 import { render } from '@testing-library/react-native'
+import { NavigationWrapper } from '../../../tests/unit/helpers/NavigationWrapper'
 import { Referrals } from './Referrals'
 
 const useReferralsSetupMock = jest.fn().mockReturnValue({
@@ -19,7 +20,7 @@ jest.mock('./hooks/useReferralsSetup', () => ({
 
 describe('Referrals', () => {
   it('renders correctly', () => {
-    const { toJSON } = render(<Referrals />)
+    const { toJSON } = render(<Referrals />, { wrapper: NavigationWrapper })
 
     expect(toJSON()).toMatchSnapshot()
   })

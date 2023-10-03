@@ -1,12 +1,15 @@
-import { address } from 'bitcoinjs-lib'
-import { getNetwork } from '../wallet/getNetwork'
+import { Network, address } from 'bitcoinjs-lib'
 
-export const isBitcoinAddress = (value: string) => {
-  let valid = false
+export const isBitcoinAddress = (value: string, network: Network) => {
   try {
-    address.toOutputScript(value, getNetwork())
-    valid = true
-  } catch (e) {}
-
-  return valid
+    const result = address.fromBech32(value)
+    return result.prefix === network.bech32
+  } catch (e) {
+    try {
+      address.toOutputScript(value, network)
+      return true
+    } catch (e2) {
+      return false
+    }
+  }
 }

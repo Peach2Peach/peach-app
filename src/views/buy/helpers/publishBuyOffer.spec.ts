@@ -33,10 +33,11 @@ describe('publishBuyOffer', () => {
     expect(err).toBe(null)
   })
   it('should return the error if it exists and there is no result', async () => {
-    postBuyOfferMock.mockResolvedValueOnce([undefined, { error: 'error' }])
-    const { isOfferPublished: result, errorMessage: err } = await publishBuyOffer({} as BuyOfferDraft)
+    postBuyOfferMock.mockResolvedValueOnce([undefined, { error: 'error', details: ['details'] }])
+    const { isOfferPublished: result, errorMessage: err, errorDetails } = await publishBuyOffer({} as BuyOfferDraft)
     expect(result).toBe(false)
     expect(err).toBe('error')
+    expect(errorDetails).toEqual(['details'])
   })
   it('should return POST_OFFER_ERROR if there is no error and no result', async () => {
     postBuyOfferMock.mockResolvedValueOnce([undefined])

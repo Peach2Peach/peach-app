@@ -41,6 +41,7 @@ export {
   fetchAccessToken,
   getSelfUser,
   getTradingLimit,
+  getUserPaymentMethodInfo,
   logoutUser,
   redeemNoPeachFees,
   redeemReferralCode,
