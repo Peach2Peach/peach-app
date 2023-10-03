@@ -38,7 +38,7 @@ export const useNodeSetup = () => {
   }
 
   const checkConnection = async () => {
-    showLoadingPopup({ title: i18n('wallet.settings.node.checkConnection') })
+    showLoadingPopup({ title: i18n('wallet.settings.node.checkingConnection') })
 
     const result = await checkNodeConnection(url, ssl)
     if (result.isOk()) {
