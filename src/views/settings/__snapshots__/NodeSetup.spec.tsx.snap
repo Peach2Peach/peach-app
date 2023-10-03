@@ -489,8 +489,8 @@ exports[`NodeSetup should render with valid node settings 1`] = `
       connected to your node
     </PeachText>
     <Icon
-      color="#9F8C82"
-      id="maximize"
+      color="#05A85A"
+      id="check"
       size={16}
     />
   </View>
