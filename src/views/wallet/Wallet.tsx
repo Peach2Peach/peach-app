@@ -49,11 +49,11 @@ function WalletButtons () {
   }
   return (
     <View style={[tw`flex-row items-center justify-center gap-2`, tw.md`gap-4`]}>
-      <Button style={tw`flex-1`} onPress={goToSend}>
-        {i18n('wallet.send')}
-      </Button>
       <Button style={tw`flex-1 bg-success-main`} onPress={goToReceive}>
         {i18n('wallet.receive')}
+      </Button>
+      <Button style={tw`flex-1`} onPress={goToSend}>
+        {i18n('wallet.send')}
       </Button>
     </View>
   )
