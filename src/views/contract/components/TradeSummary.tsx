@@ -13,39 +13,26 @@ import { TradeInformation } from './TradeInformation'
 
 export const TradeSummary = () => {
   const { contract, view, showBatchInfo } = useContractContext()
+  const { batchInfo, releaseTxId, disputeActive, seller, buyer } = contract
 
   if (showBatchInfo) return <PendingPayoutInfo />
 
   return (
     <View style={[tw`gap-4 pb-2 grow`, tw.md`gap-8`]}>
-      <MatchCardCounterparty
-        user={view === 'buyer' ? contract.seller : contract.buyer}
-        isDispute={contract.disputeActive}
-      />
+      <MatchCardCounterparty user={view === 'buyer' ? seller : buyer} isDispute={disputeActive} />
       <TradeInformation />
-      <TradeStuff />
-    </View>
-  )
-}
 
-const shouldShowPayoutPending = (view: string, batchInfo: BatchInfo | undefined, releaseTxId: string | undefined) =>
-  view === 'buyer' && !!batchInfo && !batchInfo.completed && !releaseTxId
-
-function TradeStuff () {
-  const {
-    contract: { releaseTxId, batchInfo },
-    view,
-  } = useContractContext()
-
-  return (
-    <>
       <View style={tw`flex-row items-center justify-center gap-6 mt-auto`}>
         <EscrowButton />
         <ChatButton />
       </View>
       {shouldShowPayoutPending(view, batchInfo, releaseTxId) && <PayoutPendingButton />}
-    </>
+    </View>
   )
+}
+
+function shouldShowPayoutPending (view: string, batchInfo: BatchInfo | undefined, releaseTxId: string | undefined) {
+  return view === 'buyer' && !!batchInfo && !batchInfo.completed && !releaseTxId
 }
 
 function PayoutPendingButton () {
