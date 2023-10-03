@@ -22,13 +22,16 @@ exports[`Toggle renders correctly when disabled 1`] = `
 >
   <PeachText
     style={
-      {
-        "fontFamily": "Baloo2-SemiBold",
-        "fontSize": 20,
-        "letterSpacing": 0.2,
-        "lineHeight": 32,
-        "textTransform": "lowercase",
-      }
+      [
+        {
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 20,
+          "letterSpacing": 0.2,
+          "lineHeight": 32,
+          "textTransform": "lowercase",
+        },
+        undefined,
+      ]
     }
   >
     label
@@ -60,13 +63,16 @@ exports[`Toggle renders correctly when enabled 1`] = `
 >
   <PeachText
     style={
-      {
-        "fontFamily": "Baloo2-SemiBold",
-        "fontSize": 20,
-        "letterSpacing": 0.2,
-        "lineHeight": 32,
-        "textTransform": "lowercase",
-      }
+      [
+        {
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 20,
+          "letterSpacing": 0.2,
+          "lineHeight": 32,
+          "textTransform": "lowercase",
+        },
+        undefined,
+      ]
     }
   >
     label
@@ -96,13 +102,16 @@ exports[`Toggle renders correctly when not enabled 1`] = `
 >
   <PeachText
     style={
-      {
-        "fontFamily": "Baloo2-SemiBold",
-        "fontSize": 20,
-        "letterSpacing": 0.2,
-        "lineHeight": 32,
-        "textTransform": "lowercase",
-      }
+      [
+        {
+          "fontFamily": "Baloo2-SemiBold",
+          "fontSize": 20,
+          "letterSpacing": 0.2,
+          "lineHeight": 32,
+          "textTransform": "lowercase",
+        },
+        undefined,
+      ]
     }
   >
     label

@@ -30,10 +30,16 @@ export const NodeSetup = () => {
     <Screen style={tw`pb-5`}>
       <NodeSetupHeader />
       <PeachScrollView contentContainerStyle={tw`flex-grow`} contentStyle={tw`justify-center flex-grow gap-3`}>
-        <Toggle style={tw`justify-between px-6`} {...{ enabled }} onPress={toggleEnabled}>
+        <Toggle style={tw`justify-between px-6`} textStyle={tw`text-black-2`} {...{ enabled }} onPress={toggleEnabled}>
           {i18n('wallet.settings.node.title')}
         </Toggle>
-        <Toggle style={tw`justify-between px-6`} enabled={ssl} disabled={!enabled || isConnected} onPress={toggleSSL}>
+        <Toggle
+          style={tw`justify-between px-6`}
+          enabled={ssl}
+          textStyle={tw`text-black-2`}
+          disabled={!enabled || isConnected}
+          onPress={toggleSSL}
+        >
           {i18n('wallet.settings.node.ssl')}
         </Toggle>
         <View style={!enabled && tw`opacity-33`}>
@@ -51,7 +57,7 @@ export const NodeSetup = () => {
       {isConnected ? (
         <View style={tw`flex-row items-center justify-center gap-1`}>
           <Text style={tw`uppercase button-medium`}>{i18n('wallet.settings.node.connected')}</Text>
-          <Icon id="maximize" style={tw`w-4 h-4`} color={tw`text-black-3`.color} />
+          <Icon id="maximize" size={16} color={tw`text-black-3`.color} />
         </View>
       ) : (
         <Button disabled={!canCheckConnection} style={tw`self-center`} iconId="share2" onPress={checkConnection}>

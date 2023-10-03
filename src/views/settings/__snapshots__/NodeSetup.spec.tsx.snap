@@ -325,6 +325,11 @@ exports[`NodeSetup should render with default settings 1`] = `
           "paddingRight": 24,
         }
       }
+      textStyle={
+        {
+          "color": "#7D675E",
+        }
+      }
     >
       use your own node
     </Toggle>
@@ -337,6 +342,11 @@ exports[`NodeSetup should render with default settings 1`] = `
           "justifyContent": "space-between",
           "paddingLeft": 24,
           "paddingRight": 24,
+        }
+      }
+      textStyle={
+        {
+          "color": "#7D675E",
         }
       }
     >
@@ -407,6 +417,11 @@ exports[`NodeSetup should render with valid node settings 1`] = `
           "paddingRight": 24,
         }
       }
+      textStyle={
+        {
+          "color": "#7D675E",
+        }
+      }
     >
       use your own node
     </Toggle>
@@ -419,6 +434,11 @@ exports[`NodeSetup should render with valid node settings 1`] = `
           "justifyContent": "space-between",
           "paddingLeft": 24,
           "paddingRight": 24,
+        }
+      }
+      textStyle={
+        {
+          "color": "#7D675E",
         }
       }
     >
@@ -471,12 +491,7 @@ exports[`NodeSetup should render with valid node settings 1`] = `
     <Icon
       color="#9F8C82"
       id="maximize"
-      style={
-        {
-          "height": 16,
-          "width": 16,
-        }
-      }
+      size={16}
     />
   </View>
 </Screen>
