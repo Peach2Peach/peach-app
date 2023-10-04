@@ -3,12 +3,20 @@
 exports[`TradeStatusInfo should render correctly 1`] = `
 <View>
   <SummaryItem
-    information={21}
-    isBitcoinAmount={true}
+    label="amount"
+    value={
+      <TextValue
+        value="21"
+      />
+    }
   />
   <SummaryItem
-    information="status"
     label="status"
+    value={
+      <TextValue
+        value="status"
+      />
+    }
   />
   <PeachText
     style={

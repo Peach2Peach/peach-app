@@ -1,6 +1,6 @@
-import tw from '../../../styles/tailwind'
-import { Icon } from '../../../components/Icon'
 import { Divider } from '../../../components/Divider'
+import { Icon } from '../../../components/Icon'
+import tw from '../../../styles/tailwind'
 import { useContractContext } from '../context'
 import { getTradeSeparatorIcon, getTradeSeparatorIconColor, getTradeSeparatorText } from '../helpers'
 

@@ -13,6 +13,11 @@ exports[`Contract should render a default Contract 1`] = `
       },
     ]
   }
+  contentStyle={
+    {
+      "height": "100%",
+    }
+  }
   style={
     [
       {
@@ -27,50 +32,42 @@ exports[`Contract should render a default Contract 1`] = `
     ]
   }
 >
-  <View
-    style={
+  <Context.Provider
+    value={
       {
-        "height": "100%",
+        "contract": {
+          "buyer": {
+            "username": "buyerUsername",
+          },
+          "disputeActive": false,
+          "seller": {
+            "username": "sellerUsername",
+          },
+        },
+        "showBatchInfo": undefined,
+        "toggleShowBatchInfo": undefined,
+        "view": "buyer",
       }
     }
   >
-    <Context.Provider
-      value={
+    <TradeSummary />
+    <ContractActions
+      actionPending={false}
+      isEmailRequired={false}
+      postConfirmPaymentBuyer={[MockFunction]}
+      postConfirmPaymentSeller={[MockFunction]}
+      requiredAction="requiredAction"
+      style={
         {
-          "contract": {
-            "buyer": {
-              "username": "buyerUsername",
-            },
-            "disputeActive": false,
-            "seller": {
-              "username": "sellerUsername",
-            },
-          },
-          "showBatchInfo": undefined,
-          "toggleShowBatchInfo": undefined,
-          "view": "buyer",
+          "alignItems": "center",
+          "justifyContent": "flex-end",
+          "marginBottom": 8,
+          "marginTop": "auto",
+          "width": "100%",
         }
       }
-    >
-      <TradeSummary />
-      <ContractActions
-        actionPending={false}
-        isEmailRequired={false}
-        postConfirmPaymentBuyer={[MockFunction]}
-        postConfirmPaymentSeller={[MockFunction]}
-        requiredAction="requiredAction"
-        style={
-          {
-            "alignItems": "center",
-            "flexGrow": 1,
-            "justifyContent": "flex-end",
-            "marginBottom": 8,
-            "width": "100%",
-          }
-        }
-      />
-    </Context.Provider>
-  </View>
+    />
+  </Context.Provider>
 </ForwardRef>
 `;
 

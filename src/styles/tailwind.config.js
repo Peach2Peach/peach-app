@@ -161,6 +161,7 @@ module.exports = {
         h6: 'font-baloo-bold text-xl leading-2xl tracking-normal',
         h7: 'font-baloo-bold text-base leading-lg tracking-normal',
         'drawer-title': 'font-baloo-bold text-base leading-relaxed tracking-widest uppercase',
+        'subtitle-0': 'font-baloo-semibold text-xl tracking-normal',
         'subtitle-1': 'font-baloo-semibold text-base leading-xl tracking-normal',
         'subtitle-2': 'font-baloo-semibold text-xs leading-sm tracking-normal',
         avatar: 'font-baloo text-xs leading-xs tracking-normal',

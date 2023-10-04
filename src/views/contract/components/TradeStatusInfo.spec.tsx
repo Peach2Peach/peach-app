@@ -1,5 +1,5 @@
-import { TradeStatusInfo } from './TradeStatusInfo'
 import { createRenderer } from 'react-test-renderer/shallow'
+import { TradeStatusInfo } from './TradeStatusInfo'
 
 jest.mock('../context', () => ({
   useContractContext: () => ({
