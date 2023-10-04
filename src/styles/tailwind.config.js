@@ -185,7 +185,7 @@ module.exports = {
         'input-text': 'font-baloo text-lg leading-relaxed tracking-normal',
         'input-title': 'font-baloo text-base tracking-normal font-bold leading-23px',
         tooltip: 'font-baloo-medium text-xs leading-xs tracking-normal',
-        notification: 'font-baloo text-3xs font-semibold tracking-superTightest leading-sm text-center',
+        notification: 'font-baloo-semibold text-3xs tracking-superTightest leading-sm text-center',
       })
     }),
   ],

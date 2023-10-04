@@ -23,7 +23,7 @@ export const BuyAmountSelector = ({ style }: ComponentProps) => {
   )
   return (
     <RangeAmount
-      style={[tw`flex-shrink h-full`, style]}
+      style={[tw`h-full shrink`, style]}
       min={minTradingAmount}
       max={maxTradingAmount}
       value={amountRange}

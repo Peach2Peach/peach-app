@@ -1,11 +1,10 @@
 import { View } from 'react-native'
-import { PrimaryButton } from '../../components'
+import { PrimaryButton, Screen } from '../../components'
 import { useSettingsStore } from '../../store/settingsStore'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { BackupReminderIcon } from '../buy/BackupReminderIcon'
 import { LoadingScreen } from '../loading/LoadingScreen'
-import { DailyTradingLimit } from '../settings/profile/DailyTradingLimit'
 import { SellAmountSelector } from './SellAmountSelector'
 import { FundMultipleOffers } from './components/FundMultipleOffers'
 import { useSellSetup } from './hooks/useSellSetup'
@@ -17,7 +16,7 @@ export const Sell = () => {
   if (isLoading) return <LoadingScreen />
 
   return (
-    <View style={tw`h-full`}>
+    <Screen showFooter showTradingLimit>
       <SellAmountSelector style={tw`mt-4 mb-2`}>
         <FundMultipleOffers />
       </SellAmountSelector>
@@ -27,7 +26,6 @@ export const Sell = () => {
         </PrimaryButton>
         {showBackupReminder && <BackupReminderIcon />}
       </View>
-      <DailyTradingLimit />
-    </View>
+    </Screen>
   )
 }

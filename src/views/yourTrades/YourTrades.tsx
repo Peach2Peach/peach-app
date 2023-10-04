@@ -33,7 +33,7 @@ export const YourTrades = () => {
   }
 
   return (
-    <Screen>
+    <Screen showFooter>
       <YourTradesHeader />
       <TabbedNavigation
         items={tabs}
