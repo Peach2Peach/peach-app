@@ -4,7 +4,7 @@ import { Blockchain, BumpFeeTxBuilder, DatabaseConfig, PartiallySignedTransactio
 import { TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
 import { AddressIndex, BlockChainNames } from 'bdk-rn/lib/lib/enums'
 import { BIP32Interface } from 'bip32'
-import { info } from '../log'
+import { error, info } from '../log'
 import { parseError } from '../result'
 import { findTransactionsToRebroadcast, isPending, mergeTransactionList } from '../transaction'
 import { callWhenInternet } from '../web'
@@ -108,16 +108,21 @@ export class PeachWallet extends PeachJSWallet {
         info('PeachWallet - syncWallet - start')
         useWalletState.getState().setIsSynced(false)
 
-        const success = await this.wallet.sync(this.blockchain)
-        if (success) {
-          this.getBalance()
-          this.getTransactions()
-          useWalletState.getState().setIsSynced(true)
-          info('PeachWallet - syncWallet - synced')
-        }
+        try {
+          const success = await this.wallet.sync(this.blockchain)
+          if (success) {
+            this.getBalance()
+            this.getTransactions()
+            useWalletState.getState().setIsSynced(true)
+            info('PeachWallet - syncWallet - synced')
+          }
 
-        this.syncInProgress = undefined
-        return resolve()
+          this.syncInProgress = undefined
+          return resolve()
+        } catch (e) {
+          error(parseError(e))
+          return reject(new Error(parseError(e)))
+        }
       }),
     )
     return this.syncInProgress
