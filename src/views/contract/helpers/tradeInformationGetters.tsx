@@ -79,21 +79,8 @@ export const isTradeInformationGetter = (
 ): fieldName is keyof typeof tradeInformationGetters => tradeInformationGetters.hasOwnProperty(fieldName)
 
 export const activeSellOfferFields: TradeInfoField[] = ['price', 'reference', 'paidToMethod', 'via']
-export const pastSellOfferFields: TradeInfoField[] = ['price', 'paidToMethod', 'via', 'bitcoinAmount', 'bitcoinPrice']
-export const pastBuyOfferFields: TradeInfoField[] = [
-  'price',
-  'paidWithMethod',
-  'bitcoinAmount',
-  'bitcoinPrice',
-  'paidToWallet',
-]
+export const pastSellOfferFields: TradeInfoField[] = ['price', 'bitcoinPrice', 'paidToMethod']
+export const pastBuyOfferFields: TradeInfoField[] = ['price', 'bitcoinPrice', 'paidWithMethod']
 
-export const activeCashTradeFields: TradeInfoField[] = ['bitcoinAmount', 'price', 'meetup', 'location']
-export const pastBuyOfferCashFields: TradeInfoField[] = [
-  'price',
-  'meetup',
-  'bitcoinAmount',
-  'bitcoinPrice',
-  'paidToWallet',
-]
-export const pastSellOfferCashFields: TradeInfoField[] = ['price', 'meetup', 'bitcoinAmount', 'bitcoinPrice']
+export const activeCashTradeFields: TradeInfoField[] = ['price', 'meetup', 'location']
+export const pastCashTradeFields: TradeInfoField[] = ['price', 'bitcoinPrice', 'meetup']

@@ -3,9 +3,8 @@ import { isCashTrade } from '../../../utils/paymentMethod/isCashTrade'
 import {
   activeCashTradeFields,
   activeSellOfferFields,
-  pastBuyOfferCashFields,
   pastBuyOfferFields,
-  pastSellOfferCashFields,
+  pastCashTradeFields,
   pastSellOfferFields,
 } from './tradeInformationGetters'
 
@@ -13,14 +12,15 @@ export const getTradeInfoFields = (
   { paymentMethod, releaseTxId }: Pick<Contract, 'paymentMethod' | 'releaseTxId'>,
   view: 'buyer' | 'seller',
 ) => {
-  if (isCashTrade(paymentMethod)) {
-    if (releaseTxId) {
-      return view === 'buyer' ? pastBuyOfferCashFields : pastSellOfferCashFields
-    }
-    return activeCashTradeFields
-  }
   if (releaseTxId) {
+    if (isCashTrade(paymentMethod)) {
+      return pastCashTradeFields
+    }
     return view === 'buyer' ? pastBuyOfferFields : pastSellOfferFields
   }
+  if (isCashTrade(paymentMethod)) {
+    return activeCashTradeFields
+  }
+
   return view === 'buyer' ? PaymentMethodForms[paymentMethod]?.fields || [] : activeSellOfferFields
 }

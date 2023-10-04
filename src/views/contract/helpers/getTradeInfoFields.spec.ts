@@ -15,13 +15,7 @@ describe('getTradeInfoFields', () => {
       paymentMethod: 'sepa',
       releaseTxId: 'someId',
     } as const
-    expect(getTradeInfoFields(contract, 'seller')).toEqual([
-      'price',
-      'paidToMethod',
-      'via',
-      'bitcoinAmount',
-      'bitcoinPrice',
-    ])
+    expect(getTradeInfoFields(contract, 'seller')).toEqual(['price', 'bitcoinPrice', 'paidToMethod'])
   })
   it('should return the correct fields for a past buy trade', () => {
     const contract = {
@@ -29,41 +23,35 @@ describe('getTradeInfoFields', () => {
       paymentMethod: 'sepa',
       releaseTxId: 'someId',
     } as const
-    expect(getTradeInfoFields(contract, 'buyer')).toEqual([
-      'price',
-      'paidWithMethod',
-      'bitcoinAmount',
-      'bitcoinPrice',
-      'paidToWallet',
-    ])
+    expect(getTradeInfoFields(contract, 'buyer')).toEqual(['price', 'bitcoinPrice', 'paidWithMethod'])
   })
   it('should return the correct fields for an active buy trade - template1', () => {
     const contract = {
       tradeStatus: 'waiting',
       paymentMethod: 'sepa',
     } as const
-    expect(getTradeInfoFields(contract, 'buyer')).toEqual(['method', 'price', 'beneficiary', 'iban', 'bic', 'reference'])
+    expect(getTradeInfoFields(contract, 'buyer')).toEqual(['price', 'method', 'beneficiary', 'iban', 'bic', 'reference'])
   })
   it('should return the correct fields for an active buy trade - template2', () => {
     const contract = {
       tradeStatus: 'waiting',
       paymentMethod: 'advcash',
     } as const
-    expect(getTradeInfoFields(contract, 'buyer')).toEqual(['method', 'price', 'wallet', 'email'])
+    expect(getTradeInfoFields(contract, 'buyer')).toEqual(['price', 'method', 'wallet', 'email'])
   })
   it('should return the correct fields for an active buy trade - template3', () => {
     const contract = {
       tradeStatus: 'waiting',
       paymentMethod: 'vipps',
     } as const
-    expect(getTradeInfoFields(contract, 'buyer')).toEqual(['method', 'price', 'beneficiary', 'phone', 'reference'])
+    expect(getTradeInfoFields(contract, 'buyer')).toEqual(['price', 'method', 'beneficiary', 'phone', 'reference'])
   })
   it('should return the correct fields for an active buy trade - template4', () => {
     const contract = {
       tradeStatus: 'waiting',
       paymentMethod: 'skrill',
     } as const
-    expect(getTradeInfoFields(contract, 'buyer')).toEqual(['method', 'price', 'beneficiary', 'email', 'reference'])
+    expect(getTradeInfoFields(contract, 'buyer')).toEqual(['price', 'method', 'beneficiary', 'email', 'reference'])
   })
   it('should return the correct fields for an active buy trade - template5', () => {
     const contract = {
@@ -71,8 +59,8 @@ describe('getTradeInfoFields', () => {
       paymentMethod: 'fasterPayments',
     } as const
     expect(getTradeInfoFields(contract, 'buyer')).toEqual([
-      'method',
       'price',
+      'method',
       'beneficiary',
       'ukBankAccount',
       'ukSortCode',
@@ -84,7 +72,7 @@ describe('getTradeInfoFields', () => {
       tradeStatus: 'waiting',
       paymentMethod: 'paypal',
     } as const
-    expect(getTradeInfoFields(contract, 'buyer')).toEqual(['method', 'price', 'userName', 'email', 'phone', 'reference'])
+    expect(getTradeInfoFields(contract, 'buyer')).toEqual(['price', 'method', 'userName', 'email', 'phone', 'reference'])
   })
   it('should return the correct fields for an active buy trade - template7', () => {
     const contract = {
@@ -92,8 +80,8 @@ describe('getTradeInfoFields', () => {
       paymentMethod: 'straksbetaling',
     } as const
     expect(getTradeInfoFields(contract, 'buyer')).toEqual([
-      'method',
       'price',
+      'method',
       'beneficiary',
       'accountNumber',
       'reference',
@@ -104,7 +92,7 @@ describe('getTradeInfoFields', () => {
       tradeStatus: 'waiting',
       paymentMethod: 'paysera',
     } as const
-    expect(getTradeInfoFields(contract, 'buyer')).toEqual(['method', 'price', 'beneficiary', 'phone', 'reference'])
+    expect(getTradeInfoFields(contract, 'buyer')).toEqual(['price', 'method', 'beneficiary', 'phone', 'reference'])
   })
   it('should return the correct fields for an active buy trade - template9', () => {
     const contract = {
@@ -112,8 +100,8 @@ describe('getTradeInfoFields', () => {
       paymentMethod: 'nationalTransferBG',
     } as const
     expect(getTradeInfoFields(contract, 'buyer')).toEqual([
-      'method',
       'price',
+      'method',
       'beneficiary',
       'iban',
       'accountNumber',
@@ -129,8 +117,8 @@ describe('getTradeInfoFields - cash trades', () => {
       tradeStatus: 'waiting',
       paymentMethod: 'cash.someMeetup',
     } as const
-    expect(getTradeInfoFields(contract, 'buyer')).toEqual(['bitcoinAmount', 'price', 'meetup', 'location'])
-    expect(getTradeInfoFields(contract, 'seller')).toEqual(['bitcoinAmount', 'price', 'meetup', 'location'])
+    expect(getTradeInfoFields(contract, 'buyer')).toEqual(['price', 'meetup', 'location'])
+    expect(getTradeInfoFields(contract, 'seller')).toEqual(['price', 'meetup', 'location'])
   })
   it('should return the correct fields for a past buy offer', () => {
     const contract = {
@@ -138,13 +126,7 @@ describe('getTradeInfoFields - cash trades', () => {
       paymentMethod: 'cash.someMeetup',
       releaseTxId: 'someId',
     } as const
-    expect(getTradeInfoFields(contract, 'buyer')).toEqual([
-      'price',
-      'meetup',
-      'bitcoinAmount',
-      'bitcoinPrice',
-      'paidToWallet',
-    ])
+    expect(getTradeInfoFields(contract, 'buyer')).toEqual(['price', 'bitcoinPrice', 'meetup'])
   })
   it('should return the correct fields for a past sell offer', () => {
     const contract = {
@@ -152,6 +134,6 @@ describe('getTradeInfoFields - cash trades', () => {
       paymentMethod: 'cash.someMeetup',
       releaseTxId: 'someId',
     } as const
-    expect(getTradeInfoFields(contract, 'seller')).toEqual(['price', 'meetup', 'bitcoinAmount', 'bitcoinPrice'])
+    expect(getTradeInfoFields(contract, 'seller')).toEqual(['price', 'bitcoinPrice', 'meetup'])
   })
 })

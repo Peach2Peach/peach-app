@@ -31,7 +31,7 @@ type PaymentMethodFormsType = {
   [key in PaymentMethod]?: { component: (props: FormProps) => JSX.Element; fields: TradeInfoField[] }
 }
 
-const sharedFields: TradeInfoField[] = ['method', 'price']
+const sharedFields: TradeInfoField[] = ['price', 'method']
 
 const template1Fields: TradeInfoField[] = [...sharedFields, 'beneficiary', 'iban', 'bic', 'reference']
 const template2Fields: TradeInfoField[] = [...sharedFields, 'wallet', 'email']
