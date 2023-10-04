@@ -135,7 +135,7 @@ const search: ViewType[] = [
 ]
 
 const trade: ViewType[] = [
-  { name: 'contract', component: Contract, ...defaultConfig },
+  { name: 'contract', component: Contract, ...defaultConfig, showHeader: false },
   { name: 'contractChat', component: ContractChat, ...defaultConfig },
   { name: 'paymentMade', component: PaymentMade, ...invertedThemeConfig },
   { name: 'tradeComplete', component: TradeComplete, ...invertedThemeConfig },
