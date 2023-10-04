@@ -2,6 +2,8 @@
 
 exports[`MatchMatchMatch renders correctly 1`] = `
 <PeachText>
-  You can match as many offers as you want! A trade will be created with the first Seller who matches you back.
+  You can match as many offers as you want!
+
+A trade will be created with the first seller who matches you back.
 </PeachText>
 `;

@@ -13,6 +13,7 @@ describe('useLabelInput', () => {
         onChange: expect.any(Function),
         errorMessage: undefined,
       },
+      isLabelValid: false,
       label: '',
       setDisplayErrors: expect.any(Function),
       labelErrors: ['this field is required'],
@@ -32,6 +33,7 @@ describe('useLabelInput', () => {
         onChange: expect.any(Function),
         errorMessage: undefined,
       },
+      isLabelValid: true,
       label: 'newLabel',
       setDisplayErrors: expect.any(Function),
       labelErrors: [],
@@ -44,13 +46,13 @@ describe('useLabelInput', () => {
     act(() => {
       result.current.setDisplayErrors(true)
     })
-
     expect(result.current).toStrictEqual({
       labelInputProps: {
         value: '',
         onChange: expect.any(Function),
         errorMessage: ['this field is required'],
       },
+      isLabelValid: false,
       label: '',
       setDisplayErrors: expect.any(Function),
       labelErrors: ['this field is required'],
@@ -61,7 +63,6 @@ describe('useLabelInput', () => {
     usePaymentDataStore
       .getState()
       .addPaymentData({ label: 'existingLabel', id: 'existingID', currencies: [], type: 'sepa' })
-
     const { result } = renderHook(useLabelInput, { initialProps: mockData })
 
     act(() => {

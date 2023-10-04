@@ -1,13 +1,13 @@
 import { PartiallySignedTransaction } from 'bdk-rn'
+import { useCallback } from 'react'
 import { shallow } from 'zustand/shallow'
 import { useHandleTransactionError } from '../../../hooks/error/useHandleTransactionError'
 import { useShowLoadingPopup } from '../../../hooks/useShowLoadingPopup'
 import { usePopupStore } from '../../../store/usePopupStore'
 import i18n from '../../../utils/i18n'
 import { peachWallet } from '../../../utils/wallet/setWallet'
-import { ConfirmRbf } from '../components/ConfirmRbf'
-import { useCallback } from 'react'
 import { useWalletState } from '../../../utils/wallet/walletStore'
+import { ConfirmRbf } from '../components/ConfirmRbf'
 
 type Props = {
   currentFeeRate: number
@@ -55,6 +55,7 @@ export const useShowConfirmRbfPopup = () => {
             newFeeRate={newFeeRate}
             bytes={transaction.size}
             sendingAmount={sendingAmount}
+            hasNoChange={transaction.vout.length === 1}
           />
         ),
         action1: {

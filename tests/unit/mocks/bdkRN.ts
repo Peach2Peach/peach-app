@@ -14,13 +14,14 @@ export class Address {
 }
 
 export const blockChainCreateMock = jest.fn().mockReturnThis()
+export const getBlockchainBlockHashMock = jest.fn()
 export const blockchainBroadcastMock = jest.fn()
 export class Blockchain {
   create = blockChainCreateMock
 
   getHeight = jest.fn()
 
-  getBlockHash = jest.fn()
+  getBlockHash = getBlockchainBlockHashMock
 
   broadcast = blockchainBroadcastMock
 
@@ -28,12 +29,13 @@ export class Blockchain {
 }
 
 export const bumpFeeTxBuilderCreateMock = jest.fn().mockReturnThis()
+export const bumpFeeTxBuilderAllowShrinkingMock = jest.fn()
 export const bumpFeeTxBuilderEnableRbfMock = jest.fn()
 export const bumpFeeTxBuilderFinishMock = jest.fn()
 export class BumpFeeTxBuilder {
   create = bumpFeeTxBuilderCreateMock
 
-  allowShrinking = jest.fn()
+  allowShrinking = bumpFeeTxBuilderAllowShrinkingMock
 
   enableRbf = bumpFeeTxBuilderEnableRbfMock
 
@@ -53,6 +55,8 @@ export class DatabaseConfig {
 export class DerivationPath {
   create = jest.fn().mockReturnThis()
 }
+
+export const DescriptorNewBip84Mock = jest.fn().mockReturnThis()
 export class Descriptor {
   create = jest.fn().mockReturnThis()
 
@@ -60,15 +64,15 @@ export class Descriptor {
 
   asStringPrivate = jest.fn()
 
-  newBip44 = jest.fn()
+  newBip44 = jest.fn().mockReturnThis()
 
   newBip44Public = jest.fn()
 
-  newBip49 = jest.fn()
+  newBip49 = jest.fn().mockReturnThis()
 
   newBip49Public = jest.fn()
 
-  newBip84 = jest.fn()
+  newBip84 = DescriptorNewBip84Mock
 
   newBip84Public = jest.fn()
 }

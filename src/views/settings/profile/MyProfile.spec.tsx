@@ -15,6 +15,9 @@ jest.mock('../../../utils/peachAPI', () => ({
 }))
 
 jest.useFakeTimers()
+const DATE_TO_USE = new Date('2009-09-01')
+jest.spyOn(global, 'Date').mockImplementation(() => DATE_TO_USE)
+Date.now = jest.fn(() => DATE_TO_USE.getTime())
 
 describe('MyProfile', () => {
   it('should render correctly', async () => {

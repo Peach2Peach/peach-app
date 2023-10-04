@@ -1,17 +1,15 @@
 import tw from '../../styles/tailwind'
 
 import { useState } from 'react'
-import { PrimaryButton, Screen } from '../../components'
-import { useHeaderSetup, useNavigation, useRoute } from '../../hooks'
-import { CURRENCIES } from '../../paymentMethods'
+import { NewHeader as Header, PrimaryButton, Screen } from '../../components'
+import { useNavigation, useRoute } from '../../hooks'
 import i18n from '../../utils/i18n'
 import { CurrencyTabs } from './CurrencyTabs'
 import { usePaymentMethodLabel } from './hooks'
 
 export const SelectCurrency = () => {
-  useHeaderSetup(i18n('selectCurrency.title'))
   const navigation = useNavigation()
-  const [selectedCurrency, setSelectedCurrency] = useState(CURRENCIES[0])
+  const [selectedCurrency, setSelectedCurrency] = useState<Currency>('EUR')
 
   const { origin } = useRoute<'selectCurrency'>().params
 
@@ -33,6 +31,7 @@ export const SelectCurrency = () => {
 
   return (
     <Screen>
+      <Header title={i18n('selectCurrency.title')} />
       <CurrencyTabs currency={selectedCurrency} setCurrency={setSelectedCurrency} />
       <PrimaryButton style={tw`self-center mt-2 mb-5`} onPress={next} narrow>
         {i18n('next')}

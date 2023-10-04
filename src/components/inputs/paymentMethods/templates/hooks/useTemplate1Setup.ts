@@ -4,9 +4,9 @@ import i18n from '../../../../../utils/i18n'
 import { FormProps } from '../../../../../views/addPaymentMethod/PaymentMethodForm'
 import { toggleCurrency } from '../../paymentForms/utils'
 import { hasMultipleAvailableCurrencies } from '../utils/hasMultipleAvailableCurrencies'
+import { useBeneficiaryInput } from './useBeneficiaryInput'
 import { useLabelInput } from './useLabelInput'
 
-const beneficiaryRules = { required: true }
 const referenceRules = { required: false, isValidPaymentReference: true }
 const ibanRules = { required: true, iban: true, isEUIBAN: true }
 const bicRules = { required: true, bic: true }
@@ -15,10 +15,12 @@ const bicRules = { required: true, bic: true }
 export const useTemplate1Setup = ({ data, onSubmit, setStepValid, setFormData }: FormProps) => {
   const { currencies, type: paymentMethod } = data
   const { labelInputProps, labelErrors, setDisplayErrors: setDisplayLabelErrors, label } = useLabelInput(data)
-  const [beneficiary, setBeneficiary, beneficiaryIsValid, beneficiaryErrors] = useValidatedState(
-    data?.beneficiary || '',
-    beneficiaryRules,
-  )
+  const {
+    beneficiaryInputProps,
+    beneficiaryIsValid,
+    setDisplayErrors: setDisplayBeneficiaryErrors,
+    beneficiary,
+  } = useBeneficiaryInput(data)
   const [iban, setIBAN, ibanIsValid, ibanErrors] = useValidatedState(data?.iban || '', ibanRules)
   const [bic, setBIC, bicIsValid, bicErrors] = useValidatedState(data?.bic || '', bicRules)
   const [reference, setReference, referenceIsValid, referenceErrors] = useValidatedState(
@@ -48,9 +50,18 @@ export const useTemplate1Setup = ({ data, onSubmit, setStepValid, setFormData }:
 
   const isFormValid = useCallback(() => {
     setDisplayLabelErrors(true)
+    setDisplayBeneficiaryErrors(true)
     setDisplayErrors(true)
     return labelErrors.length === 0 && beneficiaryIsValid && ibanIsValid && bicIsValid && referenceIsValid
-  }, [beneficiaryIsValid, bicIsValid, ibanIsValid, labelErrors.length, referenceIsValid, setDisplayLabelErrors])
+  }, [
+    beneficiaryIsValid,
+    bicIsValid,
+    ibanIsValid,
+    labelErrors.length,
+    referenceIsValid,
+    setDisplayBeneficiaryErrors,
+    setDisplayLabelErrors,
+  ])
 
   const save = () => {
     if (!isFormValid()) return
@@ -65,11 +76,7 @@ export const useTemplate1Setup = ({ data, onSubmit, setStepValid, setFormData }:
 
   return {
     labelInputProps,
-    beneficiaryInputProps: {
-      value: beneficiary,
-      onChange: setBeneficiary,
-      errorMessage: displayErrors ? beneficiaryErrors : undefined,
-    },
+    beneficiaryInputProps,
     ibanInputProps: {
       value: iban,
       onChange: setIBAN,

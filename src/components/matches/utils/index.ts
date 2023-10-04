@@ -1,6 +1,4 @@
 export { addPaymentDetailInfoByHash } from './addPaymentDetailInfoByHash'
-export { createEncryptedKey } from './createEncryptedKey'
-export { createEncryptedPaymentData } from './createEncryptedPaymentData'
 export { createRefundTx } from './createRefundTx'
 export { generateMatchOfferData } from './generateMatchOfferData'
 export { getMatchPrice } from './getMatchPrice'

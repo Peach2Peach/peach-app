@@ -1,33 +1,31 @@
 import { useCallback } from 'react'
-import { shallow } from 'zustand/shallow'
-import { useNavigation } from '../hooks'
-import { HelpType, helpPopups } from '../popups/helpPopups'
+import { Text } from '../components'
+import { InfoPopup } from '../popups/InfoPopup'
+import { helpPopups } from '../popups/helpPopups'
 import { usePopupStore } from '../store/usePopupStore'
 import i18n from '../utils/i18n'
 
-export const useShowHelp = (id: HelpType) => {
-  const navigation = useNavigation()
-  const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
-  const goToHelp = useCallback(() => {
-    closePopup()
-    navigation.navigate('contact')
-  }, [navigation, closePopup])
+export const useShowHelp = (id: string, showTitle = true) => {
+  const setPopup = usePopupStore((state) => state.setPopup)
 
   const showHelp = useCallback(() => {
-    const Content = helpPopups[id].content
-
-    setPopup({
-      title: helpPopups[id].title,
-      content: <Content />,
-      visible: true,
-      action2: {
-        callback: goToHelp,
-        label: i18n('help'),
-        icon: 'info',
-      },
-      level: 'INFO',
-    })
-  }, [goToHelp, id, setPopup])
+    setPopup(<HelpPopup id={id} showTitle={showTitle} />)
+  }, [id, setPopup, showTitle])
 
   return showHelp
+}
+
+type Props = {
+  id: string
+  showTitle?: boolean
+}
+
+function HelpPopup ({ id, showTitle }: Props) {
+  const Content = helpPopups[id]?.content
+  return (
+    <InfoPopup
+      title={showTitle ? helpPopups[id]?.title ?? i18n(`help.${id}.title`) : undefined}
+      content={Content !== undefined ? <Content /> : <Text>{i18n(`help.${id}.description`)}</Text>}
+    />
+  )
 }

@@ -1,34 +1,84 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SellSummary should render the SellSummary view 1`] = `
-<Screen>
+<Screen
+  style={
+    [
+      {
+        "paddingBottom": 16,
+        "paddingLeft": 16,
+        "paddingRight": 16,
+        "paddingTop": 16,
+      },
+      {
+        "paddingBottom": 32,
+        "paddingLeft": 32,
+        "paddingRight": 32,
+        "paddingTop": 32,
+      },
+    ]
+  }
+>
   <ForwardRef
-    contentContainerStyle={
-      [
-        {
-          "flexGrow": 1,
-          "justifyContent": "center",
-          "paddingBottom": 16,
-          "paddingTop": 16,
-        },
-        {
-          "paddingBottom": 32,
-          "paddingTop": 32,
-        },
-      ]
+    style={
+      {
+        "marginBottom": 8,
+      }
     }
   >
     <SellOfferSummary />
   </ForwardRef>
   <PrimaryButton
+    disabled={false}
     loading={false}
     narrow={true}
     onPress={[MockFunction]}
     style={
       {
         "alignSelf": "center",
-        "marginBottom": 20,
-        "marginTop": 8,
+      }
+    }
+  >
+    next
+  </PrimaryButton>
+</Screen>
+`;
+
+exports[`SellSummary should render the SellSummary view with the publish button disabled 1`] = `
+<Screen
+  style={
+    [
+      {
+        "paddingBottom": 16,
+        "paddingLeft": 16,
+        "paddingRight": 16,
+        "paddingTop": 16,
+      },
+      {
+        "paddingBottom": 32,
+        "paddingLeft": 32,
+        "paddingRight": 32,
+        "paddingTop": 32,
+      },
+    ]
+  }
+>
+  <ForwardRef
+    style={
+      {
+        "marginBottom": 8,
+      }
+    }
+  >
+    <SellOfferSummary />
+  </ForwardRef>
+  <PrimaryButton
+    disabled={true}
+    loading={false}
+    narrow={true}
+    style={
+      {
+        "alignSelf": "center",
       }
     }
   >

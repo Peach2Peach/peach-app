@@ -2,10 +2,10 @@
 import { ok } from 'assert'
 import { networks } from 'bitcoinjs-lib'
 import { rules } from '.'
-import { getNetwork } from '../wallet'
 import paymentData from '../../../tests/unit/data/paymentData.json'
+import { getNetwork } from '../wallet/getNetwork'
 
-jest.mock('../wallet', () => ({
+jest.mock('../wallet/getNetwork', () => ({
   getNetwork: jest.fn(),
 }))
 

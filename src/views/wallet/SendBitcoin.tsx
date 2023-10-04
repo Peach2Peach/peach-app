@@ -10,7 +10,9 @@ import { removeNonDigits } from '../../utils/format/removeNonDigits'
 import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout'
 import { isBitcoinAddress } from '../../utils/validation'
+import { getNetwork } from '../../utils/wallet'
 import { peachWallet } from '../../utils/wallet/setWallet'
+import { useWalletState } from '../../utils/wallet/walletStore'
 import { CustomFeeItem } from '../settings/components/networkFees/CustomFeeItem'
 import { EstimatedFeeItem } from '../settings/components/networkFees/EstimatedFeeItem'
 import { UTXOAddress } from './components'
@@ -49,7 +51,10 @@ export const SendBitcoin = () => {
     })
   }
 
-  const isFormValid = useMemo(() => isBitcoinAddress(address) && amount !== 0 && !!feeRate, [address, amount, feeRate])
+  const isFormValid = useMemo(
+    () => isBitcoinAddress(address, getNetwork()) && amount !== 0 && !!feeRate,
+    [address, amount, feeRate],
+  )
 
   return (
     <Screen>
@@ -84,9 +89,17 @@ export const SendBitcoin = () => {
           <SelectedUTXOs />
         </View>
 
-        <ConfirmSlider label1={i18n('wallet.sendBitcoin.send')} onConfirm={sendTrasaction} enabled={isFormValid} />
+        <SendBitcoinSlider onConfirm={sendTrasaction} isFormValid={isFormValid} />
       </PeachScrollView>
     </Screen>
+  )
+}
+
+function SendBitcoinSlider ({ onConfirm, isFormValid }: { onConfirm: () => void; isFormValid: boolean }) {
+  const isSynced = useWalletState((state) => state.isSynced)
+
+  return (
+    <ConfirmSlider label1={i18n('wallet.sendBitcoin.send')} onConfirm={onConfirm} enabled={isFormValid && isSynced} />
   )
 }
 

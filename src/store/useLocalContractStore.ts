@@ -1,10 +1,9 @@
 import { create } from 'zustand'
-import { createJSONStorage, persist } from 'zustand/middleware'
-import { createStorage, toZustandStorage } from '../utils/storage'
+import { persist } from 'zustand/middleware'
+import { createStorage } from '../utils/storage'
+import { createPersistStorage } from './createPersistStorage'
 
 const storeId = 'localContractStore'
-
-const contractStorage = createStorage(storeId)
 
 type LocalContractState = {
   contracts: Record<string, LocalContract>
@@ -18,6 +17,8 @@ export type LocalContractStore = LocalContractState & {
   migrateContracts: (contracts: Contract[]) => void
   setMigrated: () => void
 }
+const contractStorage = createStorage(storeId)
+const storage = createPersistStorage<LocalContractStore>(contractStorage)
 
 const defaultContractStore: LocalContractState = {
   contracts: {},
@@ -74,7 +75,7 @@ export const useLocalContractStore = create<LocalContractStore>()(
     {
       name: storeId,
       version: 0,
-      storage: createJSONStorage(() => toZustandStorage(contractStorage)),
+      storage,
     },
   ),
 )

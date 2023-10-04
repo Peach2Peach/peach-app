@@ -65,7 +65,7 @@ exports[`RewardItem should render component correctly 2`] = `
       }
     }
   >
-    5x no Peach fees
+    2x no Peach fees
   </PeachText>
   <PeachText
     style={

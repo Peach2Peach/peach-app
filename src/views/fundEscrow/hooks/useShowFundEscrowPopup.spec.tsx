@@ -3,10 +3,9 @@ import { act } from 'react-test-renderer'
 import { estimatedFees } from '../../../../tests/unit/data/bitcoinNetworkData'
 import { sellOffer } from '../../../../tests/unit/data/offerData'
 import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { PopupLoadingSpinner } from '../../../../tests/unit/helpers/PopupLoadingSpinner'
 import { getTransactionDetails } from '../../../../tests/unit/helpers/getTransactionDetails'
-import { Loading } from '../../../components'
 import { usePopupStore } from '../../../store/usePopupStore'
-import tw from '../../../styles/tailwind'
 import { PeachWallet } from '../../../utils/wallet/PeachWallet'
 import { peachWallet, setPeachWallet } from '../../../utils/wallet/setWallet'
 import { ConfirmFundingFromPeachWallet } from '../components/ConfirmFundingFromPeachWallet'
@@ -34,7 +33,7 @@ describe('useShowFundEscrowPopup', () => {
   const propsWithChange = { ...props, transaction: transactionWithChange }
 
   beforeEach(() => {
-    // @ts-ignore
+    // @ts-expect-error mock doesn't need args
     setPeachWallet(new PeachWallet())
   })
 
@@ -101,25 +100,21 @@ describe('useShowFundEscrowPopup', () => {
 
     const { result } = renderHook(useShowFundEscrowPopup, { wrapper })
 
-    await act(async () => {
-      await result.current(props)
-    })
+    await act(() => result.current(props))
     const promise = usePopupStore.getState().action1?.callback()
 
     expect(usePopupStore.getState()).toEqual({
       ...usePopupStore.getState(),
       title: 'funding escrow',
       level: 'APP',
-      content: <Loading color={tw`text-black-1`.color} style={tw`self-center`} />,
+      content: PopupLoadingSpinner,
       action1: {
         label: 'loading...',
         icon: 'clock',
         callback: expect.any(Function),
       },
     })
-    await act(async () => {
-      await promise
-    })
+    await act(() => promise)
 
     expect(peachWallet.signAndBroadcastPSBT).toHaveBeenCalledWith(transaction.psbt)
     expect(usePopupStore.getState().visible).toBeFalsy()

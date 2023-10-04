@@ -190,7 +190,6 @@ exports[`MyProfile should render correctly 1`] = `
         <View
           style={
             {
-              "borderWidth": 1,
               "gap": 48,
             }
           }
@@ -812,7 +811,7 @@ exports[`MyProfile should render correctly 1`] = `
                   }
                 >
                   daily trading limit
-                    
+
                   <Text
                     allowFontScaling={false}
                     style={
@@ -871,7 +870,7 @@ exports[`MyProfile should render correctly 1`] = `
                       ]
                     }
                   >
-                     / 
+                     /
                   </Text>
                   <Text
                     allowFontScaling={false}
@@ -980,7 +979,7 @@ exports[`MyProfile should render correctly 1`] = `
                   }
                 >
                   monthly anonymous limit:
-                    
+
                   <Text
                     allowFontScaling={false}
                     style={
@@ -1039,7 +1038,7 @@ exports[`MyProfile should render correctly 1`] = `
                       ]
                     }
                   >
-                     / 
+                     /
                   </Text>
                   <Text
                     allowFontScaling={false}
@@ -1148,7 +1147,7 @@ exports[`MyProfile should render correctly 1`] = `
                   }
                 >
                   yearly trading limit:
-                    
+
                   <Text
                     allowFontScaling={false}
                     style={
@@ -1207,7 +1206,7 @@ exports[`MyProfile should render correctly 1`] = `
                       ]
                     }
                   >
-                     / 
+                     /
                   </Text>
                   <Text
                     allowFontScaling={false}
@@ -1447,7 +1446,7 @@ exports[`MyProfile should render correctly 1`] = `
                   ]
                 }
               >
-                01/03/2023 (216 days ago)
+                01/09/2009 (today)
               </Text>
             </View>
             <View>
@@ -1508,7 +1507,7 @@ exports[`MyProfile should render correctly 1`] = `
                   }
                 >
                   0
-                   
+
                   opened
                 </Text>
                 <Text
@@ -1535,7 +1534,7 @@ exports[`MyProfile should render correctly 1`] = `
                   }
                 >
                   0
-                   
+
                   won
                 </Text>
                 <Text
@@ -1562,7 +1561,7 @@ exports[`MyProfile should render correctly 1`] = `
                   }
                 >
                   0
-                   
+
                   lost
                 </Text>
               </View>

@@ -1,28 +1,22 @@
 /* eslint-disable max-lines */
-import { BLOCKEXPLORER, NETWORK } from '@env'
-import {
-  Blockchain,
-  BumpFeeTxBuilder,
-  DatabaseConfig,
-  Descriptor,
-  PartiallySignedTransaction,
-  TxBuilder,
-  Wallet,
-} from 'bdk-rn'
+import { NETWORK } from '@env'
+import { Blockchain, BumpFeeTxBuilder, DatabaseConfig, PartiallySignedTransaction, TxBuilder, Wallet } from 'bdk-rn'
 import { TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
-import { AddressIndex, BlockChainNames, BlockchainEsploraConfig, KeychainKind } from 'bdk-rn/lib/lib/enums'
+import { AddressIndex, BlockChainNames } from 'bdk-rn/lib/lib/enums'
 import { BIP32Interface } from 'bip32'
-import { error, info } from '../log'
+import { info } from '../log'
 import { parseError } from '../result'
 import { findTransactionsToRebroadcast, isPending, mergeTransactionList } from '../transaction'
 import { callWhenInternet } from '../web'
 import { PeachJSWallet } from './PeachJSWallet'
+import { buildBlockchainConfig } from './buildBlockchainConfig'
 import { handleTransactionError } from './error/handleTransactionError'
 import { storePendingTransactionHex } from './getAndStorePendingTransactionHex'
-import { getDescriptorSecretKey } from './getDescriptorSecretKey'
+import { getDescriptorsBySeedphrase } from './getDescriptorsBySeedphrase'
 import { getUTXOAddress } from './getUTXOAddress'
 import { labelAddressByTransaction } from './labelAddressByTransaction'
 import { mapTransactionToOffer } from './mapTransactionToOffer'
+import { NodeConfig, useNodeConfigState } from './nodeConfigStore'
 import { rebroadcastTransactions } from './rebroadcastTransactions'
 import { BuildTxParams, buildTransaction } from './transaction'
 import { transactionHasBeenMappedToOffers } from './transactionHasBeenMappedToOffers'
@@ -36,8 +30,6 @@ type PeachWalletProps = {
 
 export class PeachWallet extends PeachJSWallet {
   initialized: boolean
-
-  synced: boolean
 
   syncInProgress: Promise<void> | undefined
 
@@ -57,54 +49,53 @@ export class PeachWallet extends PeachJSWallet {
     this.balance = 0
     this.transactions = []
     this.initialized = false
-    this.synced = false
     this.syncInProgress = undefined
   }
 
-  loadWallet (seedphrase?: string): Promise<void> {
+  initWallet (seedphrase?: string): Promise<void> {
     this.loadFromStorage()
 
     return new Promise((resolve) =>
       callWhenInternet(async () => {
-        info('PeachWallet - loadWallet - start')
+        info('PeachWallet - initWallet - start')
 
-        const descriptorSecretKey = await getDescriptorSecretKey(this.network, seedphrase)
-        const externalDescriptor = await new Descriptor().newBip84(
-          descriptorSecretKey,
-          KeychainKind.External,
-          this.network,
-        )
-        const internalDescriptor = await new Descriptor().newBip84(
-          descriptorSecretKey,
-          KeychainKind.Internal,
-          this.network,
-        )
+        const { externalDescriptor, internalDescriptor } = await getDescriptorsBySeedphrase({
+          seedphrase,
+          network: this.network,
+        })
 
-        const config: BlockchainEsploraConfig = {
-          baseUrl: BLOCKEXPLORER,
-          proxy: null,
-          concurrency: 1,
-          timeout: 30,
-          stopGap: this.gapLimit,
-        }
+        this.setBlockchain(useNodeConfigState.getState())
 
-        this.blockchain = await new Blockchain().create(config, BlockChainNames.Esplora)
         const dbConfig = await new DatabaseConfig().memory()
 
-        info('PeachWallet - loadWallet - createWallet')
+        info('PeachWallet - initWallet - createWallet')
 
         this.wallet = await new Wallet().create(externalDescriptor, internalDescriptor, this.network, dbConfig)
 
-        info('PeachWallet - loadWallet - createdWallet')
+        info('PeachWallet - initWallet - createdWallet')
 
         this.initialized = true
 
-        this.syncWallet()
-
-        info('PeachWallet - loadWallet - loaded')
+        info('PeachWallet - initWallet - loaded')
         resolve()
       }),
     )
+  }
+
+  loadWallet (): void {
+    if (useNodeConfigState.persist.hasHydrated()) {
+      this.initWallet()
+    } else {
+      useNodeConfigState.persist.onFinishHydration(() => {
+        this.initWallet()
+      })
+    }
+  }
+
+  async setBlockchain (nodeConfig: NodeConfig) {
+    info('PeachWallet - setBlockchain - start')
+    const blockchainConfig = buildBlockchainConfig(nodeConfig)
+    this.blockchain = await new Blockchain().create(blockchainConfig, BlockChainNames.Esplora)
   }
 
   syncWallet (): Promise<void> {
@@ -115,18 +106,14 @@ export class PeachWallet extends PeachJSWallet {
         if (!this.wallet || !this.blockchain) return reject(new Error('WALLET_NOT_READY'))
 
         info('PeachWallet - syncWallet - start')
-        this.synced = false
+        useWalletState.getState().setIsSynced(false)
 
-        try {
-          const success = await this.wallet.sync(this.blockchain)
-          if (success) {
-            this.getBalance()
-            this.getTransactions()
-            this.synced = true
-            info('PeachWallet - syncWallet - synced')
-          }
-        } catch (e) {
-          error(parseError(e))
+        const success = await this.wallet.sync(this.blockchain)
+        if (success) {
+          this.getBalance()
+          this.getTransactions()
+          useWalletState.getState().setIsSynced(true)
+          info('PeachWallet - syncWallet - synced')
         }
 
         this.syncInProgress = undefined

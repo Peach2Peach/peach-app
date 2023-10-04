@@ -12,7 +12,7 @@ export const TradeComplete = () => {
     <View style={tw`items-center justify-between h-full px-8 pt-5 pb-10`}>
       <View style={tw`items-center`}>
         <Icon id="fullLogo" />
-        <Text style={tw`text-center h4 text-primary-background-light`}>
+        <Text style={tw`text-center h5 text-primary-background-light`}>
           {i18n(`tradeComplete.title.${view}.default`)}
         </Text>
       </View>
@@ -48,7 +48,7 @@ export const TradeComplete = () => {
           />
         </TouchableOpacity>
       </View>
-      <Rate {...{ contract, view, vote, saveAndUpdate }} style={tw`self-stretch px-11`} />
+      <Rate {...{ contract, view, vote, saveAndUpdate }} />
     </View>
   )
 }

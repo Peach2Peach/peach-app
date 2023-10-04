@@ -1,18 +1,20 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { shallow } from 'zustand/shallow'
-import { useHeaderSetup, useNavigation } from '../../../hooks'
+import { Text } from '../../../components'
+import { useNavigation } from '../../../hooks'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
+import { InfoPopup } from '../../../popups/InfoPopup'
 import { useConfigStore } from '../../../store/configStore'
 import { useOfferPreferences } from '../../../store/offerPreferenes/useOfferPreferences'
 import { useSettingsStore } from '../../../store/settingsStore'
+import { usePopupStore } from '../../../store/usePopupStore'
 import { account, getMessageToSignForAddress } from '../../../utils/account'
 import i18n from '../../../utils/i18n'
-import { headerIcons } from '../../../utils/layout/headerIcons'
 import { getError, getResult } from '../../../utils/result'
 import { Err, Result } from '../../../utils/result/types'
 import { isValidBitcoinSignature } from '../../../utils/validation'
 import { peachWallet } from '../../../utils/wallet/setWallet'
-import { useGlobalSortAndFilterPopup } from '../../search/hooks/useSortAndFilterPopup'
+import { isForbiddenPaymentMethodError } from '../helpers/isForbiddenPaymentMethodError'
 import { publishBuyOffer } from '../helpers/publishBuyOffer'
 
 type MessageSigningData = {
@@ -24,7 +26,8 @@ export const useBuySummarySetup = () => {
   const navigation = useNavigation()
   const showErrorBanner = useShowErrorBanner()
   const hasSeenGroupHugAnnouncement = useConfigStore((state) => state.hasSeenGroupHugAnnouncement)
-
+  const setPopup = usePopupStore((state) => state.setPopup)
+  const showHelp = () => setPopup(<InfoPopup content={<Text>{i18n('FORBIDDEN_PAYMENT_METHOD.paypal.text')}</Text>} />)
   const [peachWalletActive, setPeachWalletActive, payoutAddress, payoutAddressLabel, payoutAddressSignature]
     = useSettingsStore(
       (state) => [
@@ -92,22 +95,25 @@ export const useBuySummarySetup = () => {
       setIsPublishing(false)
       return
     }
-    const { offerId, isOfferPublished, errorMessage } = await publishBuyOffer({
+    const { offerId, isOfferPublished, errorMessage, errorDetails } = await publishBuyOffer({
       ...offerDraft,
       ...messageSigningData.getValue(),
     })
     setIsPublishing(false)
 
     if (!isOfferPublished || !offerId) {
-      showErrorBanner(errorMessage)
+      if (isForbiddenPaymentMethodError(errorMessage, errorDetails)) {
+        const paymentMethod = errorDetails.pop()
+        if (paymentMethod === 'paypal') showHelp()
+      } else {
+        showErrorBanner(errorMessage)
+      }
     } else if (!hasSeenGroupHugAnnouncement) {
       navigation.replace('groupHugAnnouncement', { offerId })
     } else {
       navigation.replace('offerPublished', { offerId, isSellOffer: false })
     }
   }
-
-  useBuySummaryHeaderSetup()
 
   useEffect(() => {
     if (peachWalletActive) {
@@ -135,20 +141,4 @@ export const useBuySummarySetup = () => {
     goToMessageSigning,
     offerDraft,
   }
-}
-
-function useBuySummaryHeaderSetup () {
-  const navigation = useNavigation()
-  const showSortAndFilterPopup = useGlobalSortAndFilterPopup('buy')
-  const icons = useMemo(
-    () => [
-      { ...headerIcons.buyFilter, onPress: showSortAndFilterPopup },
-      { ...headerIcons.wallet, onPress: () => navigation.navigate('selectWallet', { type: 'payout' }) },
-    ],
-    [navigation, showSortAndFilterPopup],
-  )
-  useHeaderSetup({
-    title: i18n('buy.summary.title'),
-    icons,
-  })
 }

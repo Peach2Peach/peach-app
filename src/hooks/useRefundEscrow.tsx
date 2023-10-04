@@ -13,7 +13,6 @@ import { info } from '../utils/log'
 import { saveOffer } from '../utils/offer'
 import { refundSellOffer } from '../utils/peachAPI'
 import { getEscrowWalletForOffer } from '../utils/wallet'
-import { peachWallet } from '../utils/wallet/setWallet'
 import { useTradeSummaries } from './query/useTradeSummaries'
 import { useShowErrorBanner } from './useShowErrorBanner'
 
@@ -100,7 +99,6 @@ export const useRefundEscrow = () => {
         })
         setOffer(sellOffer.id, { txId })
         refetchTradeSummaries()
-        peachWallet.syncWallet()
         if (shouldShowBackupOverlay && isPeachWallet) {
           setShowBackupReminder(true)
         }

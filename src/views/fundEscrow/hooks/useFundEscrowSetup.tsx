@@ -7,9 +7,9 @@ import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { isSellOffer } from '../../../utils/offer'
 import { parseError } from '../../../utils/result'
 import { isDefined } from '../../../utils/validation'
-import { peachWallet } from '../../../utils/wallet/setWallet'
 import { useWalletState } from '../../../utils/wallet/walletStore'
 import { shouldGetFundingStatus } from '../../sell/helpers/shouldGetFundingStatus'
+import { useSyncWallet } from '../../wallet/hooks/useSyncWallet'
 import { getFundingAmount } from '../helpers/getFundingAmount'
 import { useCreateEscrow } from './useCreateEscrow'
 import { useFundEscrowHeader } from './useFundEscrowHeader'
@@ -22,6 +22,7 @@ export const useFundEscrowSetup = () => {
   const { offerId } = route.params
 
   const showErrorBanner = useShowErrorBanner()
+  const { refresh } = useSyncWallet()
 
   const fundMultiple = useWalletState((state) => state.getFundMultipleByOfferId(offerId))
   const { offers } = useMultipleOfferDetails(fundMultiple?.offerIds || [route.params.offerId])
@@ -73,8 +74,8 @@ export const useFundEscrowSetup = () => {
   }, [fundingStatusError, showErrorBanner])
 
   const syncPeachWallet = useCallback(() => {
-    if (fundMultiple) peachWallet.syncWallet()
-  }, [fundMultiple])
+    if (fundMultiple) refresh()
+  }, [fundMultiple, refresh])
 
   useInterval({ callback: syncPeachWallet, interval: MSINAMINUTE * 2 })
 

@@ -1,9 +1,9 @@
 import { TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
 import { create } from 'zustand'
-import { createJSONStorage, persist } from 'zustand/middleware'
+import { persist } from 'zustand/middleware'
+import { createPersistStorage } from '../../store/createPersistStorage'
 import { keys, omit } from '../object'
 import { createStorage } from '../storage'
-import { toZustandStorage } from '../storage/toZustandStorage'
 import { migrateWalletStore } from './migration/migrateWalletStore'
 
 export type WalletState = {
@@ -17,6 +17,7 @@ export type WalletState = {
   fundMultipleMap: Record<string, string[]>
   showBalance: boolean
   selectedUTXOIds: string[]
+  isSynced: boolean
 }
 
 export type FundMultipleInfo = {
@@ -29,6 +30,8 @@ export type WalletStore = WalletState & {
   setAddresses: (addresses: string[]) => void
   setBalance: (balance: number) => void
   setTransactions: (txs: TransactionDetails[]) => void
+  addTransaction: (transaction: TransactionDetails) => void
+  removeTransaction: (txId: string) => void
   getTransaction: (txId: string) => TransactionDetails | undefined
   addPendingTransactionHex: (txId: string, hex: string) => void
   removePendingTransaction: (txId: string) => void
@@ -41,6 +44,7 @@ export type WalletStore = WalletState & {
   getFundMultipleByOfferId: (offerId: string) => FundMultipleInfo | undefined
   toggleShowBalance: () => void
   setSelectedUTXOIds: (utxos: string[]) => void
+  setIsSynced: (isSynced: boolean) => void
 }
 
 export const defaultWalletState: WalletState = {
@@ -54,17 +58,21 @@ export const defaultWalletState: WalletState = {
   fundMultipleMap: {},
   showBalance: true,
   selectedUTXOIds: [],
+  isSynced: false,
 }
 export const walletStorage = createStorage('wallet')
+const storage = createPersistStorage(walletStorage)
 
-export const useWalletState = create(
-  persist<WalletStore>(
+export const useWalletState = create<WalletStore>()(
+  persist(
     (set, get) => ({
       ...defaultWalletState,
       reset: () => set(() => defaultWalletState),
       setAddresses: (addresses) => set({ addresses }),
       setBalance: (balance) => set({ balance }),
       setTransactions: (transactions) => set({ transactions }),
+      addTransaction: (transaction) => set({ transactions: [...get().transactions, transaction] }),
+      removeTransaction: (txId) => set({ transactions: get().transactions.filter((tx) => tx.txid !== txId) }),
       getTransaction: (txId) => get().transactions.find((tx) => tx.txid === txId),
       isFundedFromPeachWallet: (address) => get().fundedFromPeachWallet.includes(address),
       setFundedFromPeachWallet: (address) => set({ fundedFromPeachWallet: [...get().fundedFromPeachWallet, address] }),
@@ -109,12 +117,17 @@ export const useWalletState = create(
       },
       toggleShowBalance: () => set((state) => ({ showBalance: !state.showBalance })),
       setSelectedUTXOIds: (utxos) => set({ selectedUTXOIds: utxos }),
+      setIsSynced: (isSynced) => set({ isSynced }),
     }),
     {
       name: 'wallet',
       version: 2,
-      storage: createJSONStorage(() => toZustandStorage(walletStorage)),
+      storage,
       migrate: migrateWalletStore,
+      partialize: (state) => {
+        const { isSynced: _unused, ...rest } = state
+        return rest
+      },
     },
   ),
 )

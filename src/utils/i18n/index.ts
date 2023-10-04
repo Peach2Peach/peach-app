@@ -1,3 +1,4 @@
+import { NETWORK } from '@env'
 import { Dispatch, ReducerState, createContext, useContext } from 'react'
 import de from '../../i18n/de'
 import elGR from '../../i18n/el-GR'
@@ -5,6 +6,7 @@ import en from '../../i18n/en'
 import es from '../../i18n/es'
 import fr from '../../i18n/fr'
 import it from '../../i18n/it'
+import sw from '../../i18n/sw'
 import tr from '../../i18n/tr'
 import { getLocaleLanguage } from './getLocaleLanguage'
 
@@ -16,6 +18,8 @@ const localeMapping: Record<string, Record<string, string>> = {
   de,
   'el-GR': elGR,
   tr,
+  sw,
+  raw: {},
 }
 
 export type Locale = keyof typeof localeMapping
@@ -26,7 +30,9 @@ type LanguageState = {
 export const languageState: LanguageState = {
   locale: 'en',
 }
-export const locales = ['en', 'es', 'fr', 'it', 'de', 'el-GR', 'tr']
+export const locales = ['en', 'es', 'fr', 'it', 'de', 'el-GR', 'tr', 'sw']
+if (NETWORK !== 'bitcoin') locales.push('raw')
+
 export const setLocaleQuiet = (lcl: Locale) => {
   if (!localeMapping[lcl]) lcl = 'en'
   languageState.locale = lcl
@@ -34,6 +40,7 @@ export const setLocaleQuiet = (lcl: Locale) => {
 
 const i18n = (id: string, ...args: string[]): string => {
   const locale = languageState.locale.replace('_', '-')
+  if (locale === 'raw') return id
   let text = localeMapping[locale]?.[id]
 
   if (!text && locale.includes('-')) {

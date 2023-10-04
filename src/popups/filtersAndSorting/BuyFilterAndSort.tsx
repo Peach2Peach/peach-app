@@ -14,6 +14,7 @@ import { usePopupStore } from '../../store/usePopupStore'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { isDefined } from '../../utils/validation'
+import { matchesKeys } from '../../views/search/hooks/useOfferMatches'
 import { ClosePopupAction } from '../actions'
 
 type Props = {
@@ -100,27 +101,45 @@ function ApplyBuyFilterAction ({ offerId, filter, sortBy }: ApplyFilterActionPro
 }
 
 function OfferFilterAndSort ({ offerId, filter, sortBy }: ApplyFilterActionProps & { offerId: string }) {
+  const [showLoading, setShowLoading] = useState(false)
   const applyFilters = useOfferFilters(offerId, filter, sortBy)
-  return <PopupAction onPress={applyFilters} label={i18n('apply')} iconId={'checkSquare'} reverseOrder />
+
+  const onPress = useCallback(() => {
+    setShowLoading(true)
+    applyFilters()
+  }, [applyFilters])
+
+  return (
+    <PopupAction onPress={onPress} label={i18n('apply')} iconId={'checkSquare'} loading={showLoading} reverseOrder />
+  )
 }
+
 function GlobalFilterAndSort ({ filter, sortBy }: ApplyFilterActionProps) {
   const applyFilters = useGlobalFilters(filter, sortBy)
-  return <PopupAction onPress={applyFilters} label={i18n('apply')} iconId={'checkSquare'} reverseOrder />
+  const closePopup = usePopupStore((state) => state.closePopup)
+  const onPress = useCallback(() => {
+    applyFilters()
+    closePopup()
+  }, [applyFilters, closePopup])
+  return <PopupAction onPress={onPress} label={i18n('apply')} iconId={'checkSquare'} reverseOrder />
 }
 
 function useOfferFilters (offerId: string, filter: MatchFilter, sortBy: BuySorter) {
   const queryClient = useQueryClient()
   const applyGlobalFilters = useGlobalFilters(filter, sortBy)
   const { mutate: patchOffer } = usePatchOffer(offerId, filter)
+  const closePopup = usePopupStore((state) => state.closePopup)
 
   const applyFilters = useCallback(() => {
     applyGlobalFilters()
     patchOffer(undefined, {
-      onSettled: () => {
-        queryClient.invalidateQueries({ queryKey: ['matches'] })
+      onSettled: async () => {
+        await queryClient.invalidateQueries({ queryKey: matchesKeys.matches })
+        await queryClient.refetchQueries({ queryKey: matchesKeys.matchesByOfferId(offerId) })
+        closePopup()
       },
     })
-  }, [applyGlobalFilters, patchOffer, queryClient])
+  }, [applyGlobalFilters, closePopup, offerId, patchOffer, queryClient])
 
   return applyFilters
 }
@@ -130,13 +149,11 @@ function useGlobalFilters (filter: MatchFilter, sortBy: BuySorter) {
     (state) => [state.setBuyOfferSorter, state.setBuyOfferFilter],
     shallow,
   )
-  const closePopup = usePopupStore((state) => state.closePopup)
 
   const applyGlobalFilters = useCallback(() => {
     setBuyOfferFilter(filter)
     setBuyOfferSorter(sortBy)
-    closePopup()
-  }, [closePopup, filter, setBuyOfferFilter, setBuyOfferSorter, sortBy])
+  }, [filter, setBuyOfferFilter, setBuyOfferSorter, sortBy])
 
   return applyGlobalFilters
 }

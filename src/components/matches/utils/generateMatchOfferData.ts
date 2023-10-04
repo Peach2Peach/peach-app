@@ -1,58 +1,74 @@
+import { account } from '../../../utils/account'
+import { getRandom } from '../../../utils/crypto'
 import { isBuyOffer } from '../../../utils/offer'
-import { cleanPaymentData } from '../../../utils/paymentMethod'
+import { cleanPaymentData, encryptPaymentData } from '../../../utils/paymentMethod'
 import { MatchProps } from '../../../utils/peachAPI/private/offer/matchOffer'
+import { signAndEncrypt } from '../../../utils/pgp'
+import { getError, getResult } from '../../../utils/result'
+import { Result } from '../../../utils/result/types'
+import { decryptSymmetricKey } from '../../../views/contract/helpers'
 import { buildPaymentDataFromHashes } from './buildPaymentDataFromHashes'
-import { createEncryptedKey } from './createEncryptedKey'
-import { createEncryptedPaymentData } from './createEncryptedPaymentData'
 import { getMatchPrice } from './getMatchPrice'
 
-export const generateMatchOfferData = async (
-  offer: BuyOffer | SellOffer,
-  match: Match,
-  selectedCurrency: Currency,
-  selectedPaymentMethod: PaymentMethod,
-  // eslint-disable-next-line max-params
-): Promise<[MatchProps | null, string | null]> => {
-  const defaultOfferData = {
+type PaymentDataError = 'MISSING_HASHED_PAYMENT_DATA' | 'MISSING_PAYMENTDATA' | 'PAYMENTDATA_ENCRYPTION_FAILED'
+
+type Props = {
+  offer: BuyOffer | SellOffer
+  match: Match
+  currency: Currency
+  paymentMethod: PaymentMethod
+}
+export const generateMatchOfferData = async ({
+  offer,
+  match,
+  currency,
+  paymentMethod,
+}: Props): Promise<Result<MatchProps, PaymentDataError>> => {
+  const defaultOfferData: MatchProps = {
     offerId: offer.id,
     matchingOfferId: match.offerId,
-    price: getMatchPrice(match, selectedPaymentMethod, selectedCurrency),
+    price: getMatchPrice(match, paymentMethod, currency),
     premium: match.premium,
-    currency: selectedCurrency,
-    paymentMethod: selectedPaymentMethod,
+    currency,
+    paymentMethod,
     symmetricKeyEncrypted: undefined,
     symmetricKeySignature: undefined,
     paymentDataEncrypted: undefined,
     paymentDataSignature: undefined,
   }
 
+  const { symmetricKeyEncrypted, symmetricKeySignature } = match
+  let pgpPublicKey = match.user.pgpPublicKey
+  let symmetricKey
+
   if (isBuyOffer(offer)) {
-    const { encrypted: symmetricKeyEncrypted, signature: symmetricKeySignature } = await createEncryptedKey(match)
-    return [
-      {
-        ...defaultOfferData,
-        symmetricKeyEncrypted,
-        symmetricKeySignature,
-      },
-      null,
-    ]
+    const key = (await getRandom(256)).toString('hex')
+    const { encrypted, signature } = await signAndEncrypt(
+      key,
+      [account.pgp.publicKey, match.user.pgpPublicKey].join('\n'),
+    )
+    defaultOfferData.symmetricKeyEncrypted = encrypted
+    defaultOfferData.symmetricKeySignature = signature
+    pgpPublicKey = account.pgp.publicKey
+    symmetricKey = key
+  } else {
+    const [key] = await decryptSymmetricKey(symmetricKeyEncrypted, symmetricKeySignature, pgpPublicKey)
+    symmetricKey = key
+    if (!symmetricKey) return getError('PAYMENTDATA_ENCRYPTION_FAILED')
   }
 
-  const hashes = offer.paymentData[selectedPaymentMethod]?.hashes
-  if (!hashes) return [null, 'MISSING_HASHED_PAYMENT_DATA']
+  const hashes = offer.paymentData[paymentMethod]?.hashes
+  if (!hashes) return getError('MISSING_HASHED_PAYMENT_DATA')
 
-  const paymentData = buildPaymentDataFromHashes(hashes, selectedPaymentMethod)
-  if (!paymentData) return [null, 'MISSING_PAYMENTDATA']
+  const paymentData = buildPaymentDataFromHashes(hashes, paymentMethod)
+  if (!paymentData) return getError('MISSING_PAYMENTDATA')
 
-  const encryptedPaymentData = await createEncryptedPaymentData(match, cleanPaymentData(paymentData))
-  if (!encryptedPaymentData) return [null, 'PAYMENTDATA_ENCRYPTION_FAILED']
+  const encryptedPaymentData = await encryptPaymentData(cleanPaymentData(paymentData), symmetricKey)
+  if (!encryptedPaymentData) return getError('PAYMENTDATA_ENCRYPTION_FAILED')
 
-  return [
-    {
-      ...defaultOfferData,
-      paymentDataEncrypted: encryptedPaymentData.encrypted,
-      paymentDataSignature: encryptedPaymentData.signature,
-    },
-    null,
-  ]
+  return getResult({
+    ...defaultOfferData,
+    paymentDataEncrypted: encryptedPaymentData.encrypted,
+    paymentDataSignature: encryptedPaymentData.signature,
+  })
 }

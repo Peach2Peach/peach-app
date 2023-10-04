@@ -1,23 +1,21 @@
 import { fireEvent, render } from '@testing-library/react-native'
-import { createRenderer } from 'react-test-renderer/shallow'
 import { getBuyOfferDraft } from '../../../tests/unit/data/offerDraftData'
 
-import { NavigationWrapper } from '../../../tests/unit/helpers/NavigationWrapper'
+import { toMatchDiffSnapshot } from 'snapshot-diff'
+import { NavigationWrapper, navigateMock } from '../../../tests/unit/helpers/NavigationWrapper'
 import { BuySummary } from './BuySummary'
+expect.extend({ toMatchDiffSnapshot })
 
 const publishOffer = jest.fn()
 
-const message = 'message'
-const messageSignature = 'messageSignature'
 const goToMessageSigning = jest.fn()
 
 const defaultBuySummary = {
-  message,
-  messageSignature,
-  goToMessageSigning,
+  offerDraft: getBuyOfferDraft(),
   canPublish: true,
   publishOffer,
   isPublishing: false,
+  goToMessageSigning,
 }
 const useBuySummarySetupMock = jest.fn().mockReturnValue(defaultBuySummary)
 jest.mock('./hooks/useBuySummarySetup', () => ({
@@ -26,44 +24,46 @@ jest.mock('./hooks/useBuySummarySetup', () => ({
 
 jest.useFakeTimers({ now: new Date('2022-02-14T12:00:00.000Z') })
 
-describe('BuySummary', () => {
-  const renderer = createRenderer()
+const wrapper = NavigationWrapper
 
+describe('BuySummary', () => {
   it('should render the BuySummary view', () => {
-    renderer.render(<BuySummary />, { wrapper: NavigationWrapper })
-    const result = renderer.getRenderOutput()
-    expect(result).toMatchSnapshot()
+    const { toJSON } = render(<BuySummary />, { wrapper })
+    expect(toJSON()).toMatchSnapshot()
   })
   it('should render correctly while peach wallet is still signing message', () => {
+    const defaultView = render(<BuySummary />, { wrapper }).toJSON()
     useBuySummarySetupMock.mockReturnValueOnce({
       ...defaultBuySummary,
       messageSignature: undefined,
       peachWalletActive: true,
       canPublish: false,
     })
-    renderer.render(<BuySummary />, { wrapper: NavigationWrapper })
-    const result = renderer.getRenderOutput()
-    expect(result).toMatchSnapshot()
+    const { toJSON } = render(<BuySummary />, { wrapper })
+
+    expect(defaultView).toMatchDiffSnapshot(toJSON())
   })
   it('should render correctly with custom payout wallet and signature is still missing', () => {
+    const defaultView = render(<BuySummary />, { wrapper }).toJSON()
     useBuySummarySetupMock.mockReturnValueOnce({
       ...defaultBuySummary,
       messageSignature: undefined,
       peachWalletActive: false,
       canPublish: false,
     })
-    renderer.render(<BuySummary />, { wrapper: NavigationWrapper })
-    const result = renderer.getRenderOutput()
-    expect(result).toMatchSnapshot()
+    const { toJSON } = render(<BuySummary />, { wrapper })
+
+    expect(defaultView).toMatchDiffSnapshot(toJSON())
   })
   it('should render correctly when publishing', () => {
+    const defaultView = render(<BuySummary />, { wrapper }).toJSON()
     useBuySummarySetupMock.mockReturnValueOnce({
       ...defaultBuySummary,
       isPublishing: true,
     })
-    renderer.render(<BuySummary />, { wrapper: NavigationWrapper })
-    const result = renderer.getRenderOutput()
-    expect(result).toMatchSnapshot()
+    const { toJSON } = render(<BuySummary />, { wrapper })
+
+    expect(defaultView).toMatchDiffSnapshot(toJSON())
   })
   it('clicking on "publish" publishes offer', () => {
     useBuySummarySetupMock.mockReturnValue({
@@ -71,7 +71,7 @@ describe('BuySummary', () => {
       offerDraft: getBuyOfferDraft(),
     })
     const { getByText } = render(<BuySummary />, {
-      wrapper: NavigationWrapper,
+      wrapper,
     })
     fireEvent(getByText('publish'), 'onPress')
     expect(publishOffer).toHaveBeenCalled()
@@ -84,8 +84,14 @@ describe('BuySummary', () => {
       peachWalletActive: false,
       canPublish: false,
     })
-    const { getByText } = render(<BuySummary />, { wrapper: NavigationWrapper })
+    const { getByText } = render(<BuySummary />, { wrapper })
     fireEvent(getByText('next'), 'onPress')
     expect(goToMessageSigning).toHaveBeenCalled()
+  })
+  it('should navigate to the network fees screen when clicking on the bitcoin icon', () => {
+    const { getByAccessibilityHint } = render(<BuySummary />, { wrapper })
+    fireEvent.press(getByAccessibilityHint('go to network fees'))
+
+    expect(navigateMock).toHaveBeenCalledWith('networkFees')
   })
 })

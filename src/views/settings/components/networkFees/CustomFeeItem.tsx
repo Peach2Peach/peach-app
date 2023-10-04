@@ -1,9 +1,9 @@
 import { Dispatch } from 'react'
-import { View } from 'react-native'
+import { TextInput, View } from 'react-native'
 
 import { Text } from '../../../../components'
-import { NumberInput } from '../../../../components/inputs'
 import tw from '../../../../styles/tailwind'
+import { enforceDecimalsFormat } from '../../../../utils/format'
 import i18n from '../../../../utils/i18n'
 
 type Props = {
@@ -13,16 +13,21 @@ type Props = {
 }
 
 export const CustomFeeItem = ({ customFeeRate, setCustomFeeRate, disabled }: Props) => (
-  <View style={tw`flex flex-row items-center`}>
+  <View style={tw`flex-row items-center gap-2`}>
     <Text style={tw`subtitle-1 leading-base`}>{i18n('settings.networkFees.custom')}:</Text>
-    <View style={tw`h-8 mx-2`}>
-      <NumberInput
-        style={tw`w-16 h-8`}
+    <View
+      style={[
+        tw`flex-row items-center w-16 h-8 py-3 overflow-hidden rounded-xl`,
+        tw`border bg-primary-background-light border-black-2`,
+      ]}
+    >
+      <TextInput
         value={customFeeRate}
-        onChange={setCustomFeeRate}
+        onChangeText={(text) => setCustomFeeRate(enforceDecimalsFormat(text, 2))}
+        style={tw`h-8 py-0 text-center grow input-text text-black-1`}
+        keyboardType={'decimal-pad'}
+        editable={!disabled}
         testID="input-custom-fees"
-        required
-        disabled={disabled}
       />
     </View>
     <Text style={tw`text-black-2`}>{i18n('satsPerByte')}</Text>

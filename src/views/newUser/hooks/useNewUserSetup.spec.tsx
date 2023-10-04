@@ -2,7 +2,7 @@ import analytics from '@react-native-firebase/analytics'
 import { renderHook, waitFor } from '@testing-library/react-native'
 import { act } from 'react-test-renderer'
 import { recoveredAccount } from '../../../../tests/unit/data/accountData'
-import { NavigationWrapper, headerState, replaceMock } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { headerState, NavigationWrapper, replaceMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import {
   defaultNotificationState,
   notificationStorage,

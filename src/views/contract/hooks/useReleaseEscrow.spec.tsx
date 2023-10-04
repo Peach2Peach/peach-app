@@ -1,7 +1,6 @@
 import { renderHook } from '@testing-library/react-native'
-import { Loading } from '../../../components'
+import { PopupLoadingSpinner } from '../../../../tests/unit/helpers/PopupLoadingSpinner'
 import { defaultPopupState, usePopupStore } from '../../../store/usePopupStore'
-import tw from '../../../styles/tailwind'
 import { saveContract } from '../../../utils/contract'
 import { signReleaseTxOfContract } from '../../../utils/contract/signReleaseTxOfContract'
 import i18n from '../../../utils/i18n'
@@ -42,7 +41,7 @@ describe('useReleaseEscrow', () => {
     await result.current()
     expect(usePopupStore.getState()).toEqual({
       ...usePopupStore.getState(),
-      content: <Loading color="#2B1911" style={tw`self-center`} />,
+      content: PopupLoadingSpinner,
       title: i18n('dispute.lost'),
       level: 'WARN',
     })

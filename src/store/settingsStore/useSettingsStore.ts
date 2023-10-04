@@ -1,11 +1,11 @@
 import analytics from '@react-native-firebase/analytics'
 import perf from '@react-native-firebase/perf'
 import { create } from 'zustand'
-import { createJSONStorage, persist } from 'zustand/middleware'
-import { toZustandStorage } from '../../utils/storage'
+import { persist } from 'zustand/middleware'
+import { Locale } from '../../utils/i18n'
+import { createPersistStorage } from '../createPersistStorage'
 import { defaultSettings } from './defaultSettings'
 import { getPureSettingsState } from './helpers/getPureSettingsState'
-import { Locale } from '../../utils/i18n'
 import { migrateSettings } from './helpers/migration'
 import { settingsStorage } from './settingsStorage'
 
@@ -35,6 +35,8 @@ export type SettingsStore = Settings & {
   setPGPPublished: (pgpPublished: boolean) => void
   setFCMToken: (fcmToken: string) => void
 }
+
+const storage = createPersistStorage<SettingsStore>(settingsStorage)
 
 export const useSettingsStore = create(
   persist<SettingsStore>(
@@ -82,7 +84,7 @@ export const useSettingsStore = create(
       name: 'settings',
       version: 3,
       migrate: migrateSettings,
-      storage: createJSONStorage(() => toZustandStorage(settingsStorage)),
+      storage,
     },
   ),
 )

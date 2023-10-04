@@ -6,35 +6,63 @@ exports[`PremiumInput should render the PremiumInput view with 0 premium 1`] = `
     {
       "alignItems": "center",
       "flexDirection": "row",
-      "gap": 8,
-      "justifyContent": "center",
-      "paddingLeft": 8,
+      "justifyContent": "space-between",
     }
   }
 >
-  <PeachText
+  <TouchableOpacity
+    onPress={[Function]}
+  >
+    <Icon
+      color="#F56522"
+      id="minusCircle"
+      size={24}
+    />
+  </TouchableOpacity>
+  <View
     style={
-      [
-        {
-          "fontFamily": "Baloo2-Regular",
-          "fontSize": 20,
-          "letterSpacing": 0.2,
-          "lineHeight": 28,
-          "textAlign": "center",
-        },
-        {
-          "color": "#2B1911",
-        },
-      ]
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "flexGrow": 1,
+        "gap": 8,
+        "justifyContent": "center",
+      }
     }
   >
-    premium
-    :
-  </PeachText>
-  <ForwardRef
-    onChange={[Function]}
-    value="0"
-  />
+    <PeachText
+      style={
+        [
+          {
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 20,
+            "letterSpacing": 0.2,
+            "lineHeight": 28,
+            "textAlign": "center",
+          },
+          {
+            "color": "#2B1911",
+          },
+        ]
+      }
+    >
+      premium
+      :
+    </PeachText>
+    <ForwardRef
+      onChange={[Function]}
+      value="0"
+    />
+  </View>
+  <TouchableOpacity
+    onPress={[Function]}
+  >
+    <Icon
+      color="#F56522"
+      id="plusCircle"
+      size={24}
+    />
+  </TouchableOpacity>
 </View>
 `;
 
@@ -44,35 +72,63 @@ exports[`PremiumInput should render the PremiumInput view with discount 1`] = `
     {
       "alignItems": "center",
       "flexDirection": "row",
-      "gap": 8,
-      "justifyContent": "center",
-      "paddingLeft": 8,
+      "justifyContent": "space-between",
     }
   }
 >
-  <PeachText
+  <TouchableOpacity
+    onPress={[Function]}
+  >
+    <Icon
+      color="#F56522"
+      id="minusCircle"
+      size={24}
+    />
+  </TouchableOpacity>
+  <View
     style={
-      [
-        {
-          "fontFamily": "Baloo2-Regular",
-          "fontSize": 20,
-          "letterSpacing": 0.2,
-          "lineHeight": 28,
-          "textAlign": "center",
-        },
-        {
-          "color": "#F56522",
-        },
-      ]
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "flexGrow": 1,
+        "gap": 8,
+        "justifyContent": "center",
+      }
     }
   >
-    discount
-    :
-  </PeachText>
-  <ForwardRef
-    onChange={[Function]}
-    value="-3.2"
-  />
+    <PeachText
+      style={
+        [
+          {
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 20,
+            "letterSpacing": 0.2,
+            "lineHeight": 28,
+            "textAlign": "center",
+          },
+          {
+            "color": "#F56522",
+          },
+        ]
+      }
+    >
+      discount
+      :
+    </PeachText>
+    <ForwardRef
+      onChange={[Function]}
+      value="-3.2"
+    />
+  </View>
+  <TouchableOpacity
+    onPress={[Function]}
+  >
+    <Icon
+      color="#F56522"
+      id="plusCircle"
+      size={24}
+    />
+  </TouchableOpacity>
 </View>
 `;
 
@@ -82,34 +138,62 @@ exports[`PremiumInput should render the PremiumInput view with premium 1`] = `
     {
       "alignItems": "center",
       "flexDirection": "row",
-      "gap": 8,
-      "justifyContent": "center",
-      "paddingLeft": 8,
+      "justifyContent": "space-between",
     }
   }
 >
-  <PeachText
+  <TouchableOpacity
+    onPress={[Function]}
+  >
+    <Icon
+      color="#F56522"
+      id="minusCircle"
+      size={24}
+    />
+  </TouchableOpacity>
+  <View
     style={
-      [
-        {
-          "fontFamily": "Baloo2-Regular",
-          "fontSize": 20,
-          "letterSpacing": 0.2,
-          "lineHeight": 28,
-          "textAlign": "center",
-        },
-        {
-          "color": "#05A85A",
-        },
-      ]
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "flexGrow": 1,
+        "gap": 8,
+        "justifyContent": "center",
+      }
     }
   >
-    premium
-    :
-  </PeachText>
-  <ForwardRef
-    onChange={[Function]}
-    value="3.2"
-  />
+    <PeachText
+      style={
+        [
+          {
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 20,
+            "letterSpacing": 0.2,
+            "lineHeight": 28,
+            "textAlign": "center",
+          },
+          {
+            "color": "#05A85A",
+          },
+        ]
+      }
+    >
+      premium
+      :
+    </PeachText>
+    <ForwardRef
+      onChange={[Function]}
+      value="3.2"
+    />
+  </View>
+  <TouchableOpacity
+    onPress={[Function]}
+  >
+    <Icon
+      color="#F56522"
+      id="plusCircle"
+      size={24}
+    />
+  </TouchableOpacity>
 </View>
 `;

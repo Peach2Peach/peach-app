@@ -5,13 +5,13 @@
   "referrals.continueSaving" : "Continua a risparmiare per cose interessanti",
   "referrals.inviteFriends" : "invita amici",
   "referrals.inviteLink" : "link di invito",
-  "referrals.inviteText" : "Ehi! Adoro Peach per comprare e vendere Bitcoin – è flessibile, peer-to-peer e senza KYC. Unisciti a me usando il mio codice $0 o segui semplicemente questo link: $1",
+  "referrals.inviteText" : "Ehi! Uso Peach per comprare e vendere Bitcoin – è flessibile, peer-to-peer e senza KYC. Unisciti a me usando il mio codice $0 o segui semplicemente questo link: $1",
   "referrals.myFavoriteCode.text" : "Il tuo account inizierà con 100 punti Peach, pronti all'uso!",
   "referrals.myFavoriteCode.title" : "il mio codice preferito!",
   "referrals.notTraded" : "I tuoi affiliati non hanno ancora effettuato scambi su Peach.",
   "referrals.points" : "Punti affiliazione Peach",
   "referrals.reward.customReferralCode" : "codice personalizzato",
-  "referrals.reward.noPeachFees" : "5 scambi no commissioni Peach",
+  "referrals.reward.noPeachFees" : "2 scambi no commissioni Peach",
   "referrals.reward.sats" : "dolci dolci sats",
   "referrals.reward.select" : "Scegli regalo",
   "referrals.selectReward" : "Seleziona la tua ricompensa o continua a risparmiare per cose interessanti",
@@ -20,5 +20,5 @@
   "referrals.shareCode.text.2" : "Provalo ora con il mio codice affiliazione $0",
   "referrals.use" : "usa",
   "referrals.used" : "usato",
-  "referrals.yourCode" : "Tuo codice affiliazione:"
+  "referrals.yourCode" : "Codice Affiliazione:"
 }

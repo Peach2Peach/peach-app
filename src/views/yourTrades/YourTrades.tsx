@@ -1,11 +1,14 @@
 import { SectionList, View } from 'react-native'
-import { Loading } from '../../components'
+import { NewHeader as Header, Loading, Screen } from '../../components'
 
 import { TabbedNavigation, TabbedNavigationItem } from '../../components/navigation/TabbedNavigation'
+import { useNavigation } from '../../hooks'
 import tw from '../../styles/tailwind'
+import i18n from '../../utils/i18n'
+import { headerIcons } from '../../utils/layout'
 import { SectionHeader } from './components/SectionHeader'
-import { TradeItem } from './components/tradeItem'
 import { TradePlaceholders } from './components/TradePlaceholders'
+import { TradeItem } from './components/tradeItem'
 import { useYourTradesSetup } from './hooks/useYourTradesSetup'
 import { checkMessages } from './utils/checkMessages'
 import { getCategories } from './utils/getCategories'
@@ -30,7 +33,8 @@ export const YourTrades = () => {
   }
 
   return (
-    <View style={tw`h-full`}>
+    <Screen>
+      <YourTradesHeader />
       <TabbedNavigation
         items={tabs}
         select={switchTab}
@@ -39,7 +43,7 @@ export const YourTrades = () => {
       />
       {getCurrentData().length > 0 ? (
         <SectionList
-          contentContainerStyle={[tw`py-10 bg-transparent px-sm`, tw.md`px-md`, isLoading && tw`opacity-60`]}
+          contentContainerStyle={[tw`bg-transparent py-7`, isLoading && tw`opacity-60`]}
           onRefresh={refetch}
           refreshing={false}
           showsVerticalScrollIndicator={false}
@@ -57,6 +61,26 @@ export const YourTrades = () => {
           <Loading />
         </View>
       )}
-    </View>
+    </Screen>
+  )
+}
+
+function YourTradesHeader () {
+  const navigation = useNavigation()
+  const onPress = () => {
+    navigation.navigate('exportTradeHistory')
+  }
+  return (
+    <Header
+      title={i18n('yourTrades.title')}
+      icons={[
+        {
+          ...headerIcons.share,
+          onPress,
+          accessibilityHint: `${i18n('goTo')} ${i18n('exportTradeHistory.title')}`,
+        },
+      ]}
+      hideGoBackButton
+    />
   )
 }

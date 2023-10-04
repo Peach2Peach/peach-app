@@ -1,7 +1,8 @@
 import { create } from 'zustand'
-import { createJSONStorage, persist } from 'zustand/middleware'
+import { persist } from 'zustand/middleware'
 import { getSelectedPaymentDataIds } from '../../utils/account'
-import { createStorage, toZustandStorage } from '../../utils/storage'
+import { createStorage } from '../../utils/storage'
+import { createPersistStorage } from '../createPersistStorage'
 import {
   getHashedPaymentData,
   getMeansOfPayment,
@@ -76,6 +77,7 @@ type OfferPreferencesActions = {
 type OfferPreferencesStore = OfferPreferencesState & OfferPreferencesActions
 
 const offerPreferences = createStorage('offerPreferences')
+const storage = createPersistStorage(offerPreferences)
 
 export const useOfferPreferences = create<OfferPreferencesStore>()(
   persist(
@@ -157,7 +159,7 @@ export const useOfferPreferences = create<OfferPreferencesStore>()(
     {
       name: 'offerPreferences',
       version: 0,
-      storage: createJSONStorage(() => toZustandStorage(offerPreferences)),
+      storage,
     },
   ),
 )

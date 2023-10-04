@@ -1,4 +1,5 @@
 import { useConfigStore } from '../store/configStore'
+import { usePaymentDataStore } from '../store/usePaymentDataStore'
 import { getPeachInfo } from './getPeachInfo'
 import { storePeachInfo } from './storePeachInfo'
 
@@ -18,6 +19,7 @@ jest.mock('./calculateClientServerTimeDifference', () => ({
 
 jest.mock('./storePeachInfo')
 
+// eslint-disable-next-line max-lines-per-function
 describe('getPeachInfo', () => {
   const paymentMethods: PaymentMethodInfo[] = [
     {
@@ -27,9 +29,13 @@ describe('getPeachInfo', () => {
     },
   ]
   beforeEach(() => {
-    useConfigStore.setState({
-      paymentMethods,
-    })
+    const useConfigStoreHydrated = jest.spyOn(useConfigStore.persist, 'hasHydrated')
+    const usePaymentDataStoreHydrated = jest.spyOn(usePaymentDataStore.persist, 'hasHydrated')
+
+    useConfigStoreHydrated.mockReturnValue(true)
+    usePaymentDataStoreHydrated.mockReturnValue(true)
+
+    useConfigStore.setState({ paymentMethods })
   })
   afterEach(() => {
     jest.resetAllMocks()

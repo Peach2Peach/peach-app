@@ -1,22 +1,50 @@
+import { BlockTime, TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
 import { useMemo } from 'react'
 import { useHeaderSetup, useRoute } from '../../../hooks'
+import { useTransactionDetails } from '../../../hooks/query/useTransactionDetails'
+import { useAreMyAddresses } from '../../../hooks/wallet/useIsMyAddress'
 import i18n from '../../../utils/i18n'
+import { sum } from '../../../utils/math'
+import { isDefined } from '../../../utils/validation'
 import { useWalletState } from '../../../utils/wallet/walletStore'
 import { getTxSummary } from '../helpers/getTxSummary'
 import { useSyncWallet } from './useSyncWallet'
 
+const useMapTransactionToTx = (transaction?: Transaction | null) => {
+  const areMyReceivingAddresses = useAreMyAddresses(transaction?.vout.map((vout) => vout.scriptpubkey_address) || [])
+  const areMySendingAddresses = useAreMyAddresses(
+    transaction?.vin.map((vout) => vout.prevout.scriptpubkey_address) || [],
+  )
+  if (!transaction) return undefined
+
+  const receivingOutputs = areMyReceivingAddresses
+    .map((isMine, index) => (isMine ? transaction.vout[index] : undefined))
+    .filter(isDefined)
+  const sendingOutputs = areMySendingAddresses
+    .map((isMine, index) => (isMine ? transaction.vin[index] : undefined))
+    .filter(isDefined)
+  const received = receivingOutputs.map((vout) => vout?.value).reduce(sum, 0)
+  const sent = sendingOutputs.map((vin) => vin.prevout.value).reduce(sum, 0)
+  return new TransactionDetails(
+    transaction.txid,
+    received,
+    sent,
+    transaction.fee,
+    new BlockTime(transaction.status.block_height, transaction.status.block_time),
+    null,
+  )
+}
+
 export const useTransactionDetailsSetup = () => {
   const { txId } = useRoute<'transactionDetails'>().params
-  const getTransaction = useWalletState((state) => state.getTransaction)
-  const tx = getTransaction(txId)
+  const localTx = useWalletState((state) => state.getTransaction(txId))
+  const { transaction: transactionDetails } = useTransactionDetails({ txId })
+  const mappedTx = useMapTransactionToTx(transactionDetails)
+  const tx = localTx || mappedTx
   const transaction = useMemo(() => (tx ? getTxSummary(tx) : undefined), [tx])
   const { refresh, isRefreshing } = useSyncWallet()
 
   useHeaderSetup(i18n('wallet.transactionDetails'))
 
-  return {
-    transaction,
-    refresh,
-    isRefreshing,
-  }
+  return { transaction, refresh, isRefreshing }
 }

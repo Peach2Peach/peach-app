@@ -1,4 +1,5 @@
 import { act, renderHook, waitFor } from '@testing-library/react-native'
+import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { useSyncWallet } from './useSyncWallet'
 
 const mockSyncWallet = jest.fn().mockResolvedValue(undefined)
@@ -8,9 +9,11 @@ jest.mock('../../../utils/wallet/setWallet', () => ({
   },
 }))
 
+const wrapper = NavigationWrapper
+
 describe('useSyncWallet', () => {
   it('should return correct default values', () => {
-    const { result } = renderHook(useSyncWallet)
+    const { result } = renderHook(useSyncWallet, { wrapper })
 
     expect(result.current).toStrictEqual({
       refresh: expect.any(Function),
@@ -19,7 +22,7 @@ describe('useSyncWallet', () => {
   })
 
   it('should set refreshing to true on refresh', async () => {
-    const { result } = renderHook(useSyncWallet)
+    const { result } = renderHook(useSyncWallet, { wrapper })
 
     act(() => {
       result.current.refresh()
@@ -30,7 +33,7 @@ describe('useSyncWallet', () => {
   })
 
   it('should call peachWallet.syncWallet on refresh', async () => {
-    const { result } = renderHook(useSyncWallet)
+    const { result } = renderHook(useSyncWallet, { wrapper })
 
     await act(async () => {
       await result.current.refresh()
@@ -40,7 +43,7 @@ describe('useSyncWallet', () => {
   })
 
   it('should not call peachWallet.syncWallet if already refreshing', async () => {
-    const { result } = renderHook(useSyncWallet)
+    const { result } = renderHook(useSyncWallet, { wrapper })
 
     act(() => {
       result.current.refresh()
@@ -54,7 +57,7 @@ describe('useSyncWallet', () => {
   })
 
   it('should set refreshing to false after refresh', async () => {
-    const { result } = renderHook(useSyncWallet)
+    const { result } = renderHook(useSyncWallet, { wrapper })
 
     await act(async () => {
       await result.current.refresh()

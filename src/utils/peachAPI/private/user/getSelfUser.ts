@@ -12,5 +12,5 @@ export const getSelfUser = async ({ timeout }: RequestProps) => {
     signal: timeout ? getAbortWithTimeout(timeout).signal : undefined,
   })
 
-  return parseResponse<SelfUser>(response, 'getUser')
+  return parseResponse<SelfUser>(response, 'getSelfUser')
 }

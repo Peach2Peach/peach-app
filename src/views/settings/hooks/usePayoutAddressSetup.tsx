@@ -1,16 +1,10 @@
 import { shallow } from 'zustand/shallow'
-import { useHeaderSetup, useNavigation, useRoute, useValidatedState } from '../../../hooks'
-import { useShowHelp } from '../../../hooks/useShowHelp'
+import { useNavigation, useRoute, useValidatedState } from '../../../hooks'
 import { useSettingsStore } from '../../../store/settingsStore'
-import i18n from '../../../utils/i18n'
-import { headerIcons } from '../../../utils/layout/headerIcons'
 
 const addressRules = { bitcoinAddress: true, blockTaprootAddress: true, required: true }
 const labelRules = { required: true }
-const title = {
-  refund: 'settings.refundAddress',
-  payout: 'settings.payoutAddress',
-}
+
 export const usePayoutAddressSetup = () => {
   const route = useRoute<'payoutAddress'>()
   const { type } = route.params || {}
@@ -25,12 +19,6 @@ export const usePayoutAddressSetup = () => {
     labelRules,
   )
   const isUpdated = address === payoutAddress && addressLabel === payoutAddressLabel
-  const showHelp = useShowHelp('payoutAddress')
-
-  useHeaderSetup({
-    title: i18n(title[type || 'payout']),
-    icons: [{ ...headerIcons.help, onPress: showHelp }],
-  })
 
   const save = () => {
     if (addressValid && addressLabelValid) {

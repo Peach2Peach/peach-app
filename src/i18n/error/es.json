@@ -12,6 +12,7 @@
   "ERROR_SAVE_ACCOUNT.text" : "Algo salió mal al guardar la cuenta. Por favor, intenta reiniciar la aplicación o contacta al equipo de soporte de Peach.",
   "ERROR_SAVE_ACCOUNT.title" : "no se puede guardar la cuenta",
   "FEES_TOO_HIGH.text" : "Las comisiones de $0 sat/vB son demasiado altas. Por favor, elige una comisión menor.",
+  "FORBIDDEN_PAYMENT_METHOD.paypal.text" : "Aún no tienes acceso a PayPal. Debido al alto riesgo de estafa en PayPal, sólo es accesible para usuarios cuando:\n\n- Desbloqueas la insígnia de #superTrader (más de 20 trades)\n\n- Tu reputación es mínimo 4.5\n\n- Has tradeado como mínimo CHF 2100 durante el último año",
   "FORM_INVALID.text" : "La información que proporcionaste es inválida.\n$0",
   "FORM_INVALID.title" : "eso no está bien",
   "GENERAL_ERROR.text" : "¡Ups, algo salió mal! Por favor, inténtalo de nuevo más tarde o contáctanos si el error persiste.",

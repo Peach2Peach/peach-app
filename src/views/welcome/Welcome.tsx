@@ -1,46 +1,25 @@
-import { useRef, useState } from 'react'
-import { Dimensions, Pressable, View } from 'react-native'
+import { useRef } from 'react'
+import { Pressable, View, useWindowDimensions } from 'react-native'
 import Carousel from 'react-native-snap-carousel'
 import { Icon, Progress, Text } from '../../components'
 import { PrimaryButton } from '../../components/buttons'
 import { useKeyboard } from '../../hooks'
-import { useOnboardingHeader } from '../../hooks/headers/useOnboardingHeader'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
-import { AWalletYouControl } from './AWalletYouControl'
-import { LetsGetStarted } from './LetsGetStarted'
-import { PeachOfMind } from './PeachOfMind'
-import { PeerToPeer } from './PeerToPeer'
-import { PrivacyFirst } from './PrivacyFirst'
+import { screens, useWelcomeSetup } from './hooks/useWelcomeSetup'
 
 const onStartShouldSetResponder = () => true
-
-const screens = [PeerToPeer, PeachOfMind, PrivacyFirst, AWalletYouControl, LetsGetStarted]
-
 export const Welcome = () => {
-  useOnboardingHeader({
-    title: i18n('welcome.welcomeToPeach.title'),
-    hideGoBackButton: true,
-  })
-  const [{ width }] = useState(() => Dimensions.get('window'))
-  const [page, setPage] = useState(0)
-  const $carousel = useRef<Carousel<any>>(null)
+  const { width } = useWindowDimensions()
+  const $carousel = useRef<Carousel<() => JSX.Element>>(null)
+  const { page, setPage, progress, endReached, next, goToEnd } = useWelcomeSetup({ carousel: $carousel })
   const keyboardOpen = useKeyboard()
-
-  const next = () => {
-    $carousel.current?.snapToNext()
-  }
-  const goToEnd = () => {
-    $carousel.current?.snapToItem(screens.length - 1)
-  }
-  const getProgress = () => (page + 1) / screens.length
-  const endReached = () => getProgress() === 1
 
   return (
     <View style={tw`flex h-full`} testID="welcome">
       <View style={tw`w-full px-8`}>
         <Progress
-          percent={getProgress()}
+          percent={progress}
           backgroundStyle={tw`opacity-50 bg-primary-background-light`}
           barStyle={tw`bg-primary-background-light`}
           style={tw`h-2`}
@@ -48,7 +27,7 @@ export const Welcome = () => {
         <Pressable
           testID="welcome-skipFoward"
           onPress={goToEnd}
-          style={[tw`flex flex-row items-center justify-end h-8`, endReached() ? tw`opacity-0` : {}]}
+          style={[tw`flex flex-row items-center justify-end h-8`, endReached ? tw`opacity-0` : {}]}
         >
           <Text style={tw`mr-1 text-primary-background-light`}>{i18n('skip')}</Text>
           <Icon id="skipForward" style={tw`w-3 h-3`} color={tw`text-primary-background-light`.color} />

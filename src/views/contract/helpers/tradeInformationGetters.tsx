@@ -44,6 +44,7 @@ export const tradeInformationGetters: Record<
   location: (_contract: Contract) => i18n('contract.summary.location.text'),
 }
 const allPossibleFields = [
+  'pixAlias',
   'price',
   'paidToMethod',
   'paidWithMethod',
@@ -58,6 +59,7 @@ const allPossibleFields = [
   'accountNumber',
   'iban',
   'bic',
+  'postePayNumber',
   'reference',
   'wallet',
   'ukBankAccount',

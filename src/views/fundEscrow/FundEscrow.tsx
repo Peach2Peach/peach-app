@@ -1,5 +1,5 @@
 import { View } from 'react-native'
-import { BitcoinAddress, Divider, Icon, Loading, PeachScrollView, PrimaryButton, Text } from '../../components'
+import { BitcoinAddress, CopyAble, Divider, Icon, Loading, PeachScrollView, PrimaryButton, Text } from '../../components'
 import { BTCAmount } from '../../components/bitcoin'
 import { TradeInfo } from '../../components/offer'
 import { SATSINBTC } from '../../constants'
@@ -17,6 +17,7 @@ export const FundEscrow = () => {
     = useFundEscrowSetup()
 
   const { fundFromPeachWallet, fundedFromPeachWallet } = useFundFromPeachWallet({
+    offerId,
     address: fundingAddress,
     addresses: fundingAddresses,
     amount: fundingAmount,
@@ -30,21 +31,25 @@ export const FundEscrow = () => {
 
   return (
     <View style={tw`h-full`}>
-      <PeachScrollView style={tw`flex-shrink h-full`} contentContainerStyle={tw`justify-center px-7`}>
-        <View style={tw`flex-shrink h-full gap-4`}>
-          <View style={tw`flex-row items-center justify-center`}>
-            <Text style={tw`settings`}>{i18n('sell.escrow.sendSats.1')} </Text>
-            <BTCAmount style={tw`-mt-0.5`} amount={fundingAmount} size="medium" />
-            <Text style={tw`settings`}> {i18n('sell.escrow.sendSats.2')}</Text>
-          </View>
-          <BitcoinAddress
-            address={fundingAddress}
-            amount={fundingAmount / SATSINBTC}
-            label={`${i18n('settings.escrow.paymentRequest.label')} ${offerIdToHex(offerId)}`}
-          />
+      <PeachScrollView
+        style={tw`h-full shrink`}
+        contentContainerStyle={[tw`justify-center px-sm`, tw.md`px-md`]}
+        contentStyle={tw`items-center h-full gap-4 shrink`}
+      >
+        <View style={tw`flex-row items-center justify-center gap-1`}>
+          <Text style={tw`settings`}>{i18n('sell.escrow.sendSats')}</Text>
+          <BTCAmount style={tw`-mt-0.5`} amount={fundingAmount} size="medium" />
+          <CopyAble value={fundingAddress} textPosition="bottom" />
         </View>
+
+        <BitcoinAddress
+          address={fundingAddress}
+          amount={fundingAmount / SATSINBTC}
+          label={`${i18n('settings.escrow.paymentRequest.label')} ${offerIdToHex(offerId)}`}
+        />
       </PeachScrollView>
-      <View style={tw`flex items-center justify-center w-full gap-4 p-4 px-7`}>
+
+      <View style={[tw`items-center justify-center w-full gap-4 p-4 px-sm`, tw.md`px-md`]}>
         <View style={tw`flex-row items-center justify-center gap-2`}>
           <Text style={tw`text-primary-main button-medium`}>{i18n('sell.escrow.checkingFundingStatus')}</Text>
           <Loading style={tw`w-4 h-4`} color={tw`text-primary-main`.color} />

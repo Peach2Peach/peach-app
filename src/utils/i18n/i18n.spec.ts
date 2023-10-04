@@ -7,6 +7,10 @@ describe('i18n', () => {
     i18n.setLocale(null, { locale: 'fr' })
     expect(i18n('language')).toBe('langue')
   })
+  it('returns key of text if locale is "raw"', () => {
+    i18n.setLocale(null, { locale: 'raw' })
+    expect(i18n('i18n.test.fallback.1')).toBe('i18n.test.fallback.1')
+  })
 
   it('falls back gracefully', () => {
     languageState.locale = 'fr-CH'

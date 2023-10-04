@@ -31,7 +31,6 @@ import {
   walletSyncMock,
 } from '../../../tests/unit/mocks/bdkRN'
 import { useTradeSummaryStore } from '../../store/tradeSummaryStore'
-import { error as logError } from '../log'
 import { PeachWallet } from './PeachWallet'
 import { createWalletFromBase58 } from './createWalletFromBase58'
 import { getNetwork } from './getNetwork'
@@ -71,7 +70,7 @@ describe('PeachWallet', () => {
 
   beforeEach(async () => {
     peachWallet = new PeachWallet({ wallet })
-    await peachWallet.loadWallet()
+    await peachWallet.initWallet()
   })
   afterEach(() => {
     useWalletState.getState().reset()
@@ -81,33 +80,23 @@ describe('PeachWallet', () => {
     peachWallet = new PeachWallet({ wallet })
 
     expect(peachWallet.initialized).toBeFalsy()
-    expect(peachWallet.synced).toBeFalsy()
+    expect(useWalletState.getState().isSynced).toBeFalsy()
     expect(peachWallet.descriptorPath).toEqual("/84'/1'/0'/0/*")
   })
   it('instantiates for mainnet', () => {
     peachWallet = new PeachWallet({ wallet, network: 'bitcoin' })
 
     expect(peachWallet.initialized).toBeFalsy()
-    expect(peachWallet.synced).toBeFalsy()
+    expect(useWalletState.getState().isSynced).toBeFalsy()
     expect(peachWallet.descriptorPath).toEqual("/84'/0'/0'/0/*")
   })
   it('synchronises wallet with the blockchain', async () => {
     walletSyncMock.mockResolvedValueOnce(true)
 
-    expect(peachWallet.synced).toBeFalsy()
+    expect(useWalletState.getState().isSynced).toBeFalsy()
     await peachWallet.syncWallet()
-    expect(peachWallet.synced).toBeTruthy()
+    expect(useWalletState.getState().isSynced).toBeTruthy()
     expect(walletSyncMock).toHaveBeenCalled()
-  })
-  it('logs sync errors', async () => {
-    const errorMsg = 'sync error'
-    walletSyncMock.mockImplementationOnce(() => {
-      throw new Error(errorMsg)
-    })
-
-    await peachWallet.syncWallet()
-    expect(peachWallet.synced).toBeFalsy()
-    expect(logError).toHaveBeenCalledWith(errorMsg)
   })
   it('waits for already running sync', async () => {
     jest.clearAllMocks()
@@ -278,7 +267,7 @@ describe('PeachWallet', () => {
     expect(error.message).toBe('WALLET_NOT_READY')
   })
   it('updates wallet store', () => {
-    peachWallet.synced = true
+    useWalletState.getState().isSynced = true
     peachWallet.transactions = [confirmed1, confirmed2, pending3]
     useTradeSummaryStore.getState().setContract('1-3', { id: '1-3', releaseTxId: confirmed1.txid })
     useTradeSummaryStore.getState().setOffer('2', { id: '2', txId: confirmed2.txid })
@@ -292,7 +281,7 @@ describe('PeachWallet', () => {
   it('updates wallet store with offers funded from peach wallet', () => {
     const pendingOffer = { id: '4', fundingTxId: 'txid4' }
     const fundingTx = { txid: 'txid4', sent: 4, received: 4, fee: 4 }
-    peachWallet.synced = true
+    useWalletState.getState().isSynced = true
     peachWallet.transactions = [confirmed1, confirmed2, pending3, fundingTx]
     useTradeSummaryStore.getState().setContract('1-3', { id: '1-3', releaseTxId: confirmed1.txid })
     useTradeSummaryStore.getState().setOffer('2', { id: '2', txId: confirmed2.txid })
@@ -425,7 +414,7 @@ describe('PeachWallet - loadWallet', () => {
   it('loads existing data', async () => {
     const balance = 50000
     useWalletState.getState().setBalance(balance)
-    await peachWallet.loadWallet()
+    await peachWallet.initWallet()
     expect(peachWallet.balance).toBe(balance)
     expect(blockChainCreateMock).toHaveBeenCalledWith(
       { concurrency: 1, proxy: null, stopGap: 25, timeout: 30, baseUrl: 'https://localhost:3000' },
@@ -433,7 +422,7 @@ describe('PeachWallet - loadWallet', () => {
     )
   })
   it('loads wallet with seed', async () => {
-    await peachWallet.loadWallet(account1.mnemonic)
+    await peachWallet.initWallet(account1.mnemonic)
     expect(mnemonicFromStringMock).toHaveBeenCalledWith(account1.mnemonic)
   })
   it('load existing when wallet store is ready', () => {
@@ -441,14 +430,14 @@ describe('PeachWallet - loadWallet', () => {
     const hasHydratedSpy = jest.spyOn(useWalletState.persist, 'hasHydrated')
     const onFinishHydrationSpy = jest.spyOn(useWalletState.persist, 'onFinishHydration')
     hasHydratedSpy.mockReturnValueOnce(false)
-    // @ts-ignore
+    // @ts-expect-error it's just a mock
     onFinishHydrationSpy.mockImplementationOnce((cb) => cb(useWalletState.getState()))
     useWalletState.getState().setBalance(balance)
     peachWallet.loadWallet()
     expect(peachWallet.balance).toBe(balance)
   })
   it('sets initialized to true when wallet is loaded', async () => {
-    await peachWallet.loadWallet()
+    await peachWallet.initWallet()
     expect(peachWallet.initialized).toBeTruthy()
   })
 })
@@ -459,7 +448,7 @@ describe('PeachWallet - buildFinishedTransaction', () => {
 
   beforeEach(async () => {
     peachWallet = new PeachWallet({ wallet })
-    await peachWallet.loadWallet()
+    await peachWallet.initWallet()
   })
   const utxo = new LocalUtxo(
     new OutPoint('txid', 0),

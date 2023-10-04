@@ -1,4 +1,5 @@
 import { validateMnemonic, wordlists } from 'bip39'
+import { getNetwork } from '../wallet'
 import { isAdvcashWallet } from './isAdvcashWallet'
 import { isBIC } from './isBIC'
 import { isBancolombiaAccountNumber } from './isBancolombiaAccountNumber'
@@ -48,7 +49,7 @@ export const rules = {
     return isURL(value)
   },
   bitcoinAddress (_: boolean, value: string) {
-    return isBitcoinAddress(value)
+    return isBitcoinAddress(value, getNetwork())
   },
   blockTaprootAddress (_: boolean, value: string) {
     return !isTaproot(value)

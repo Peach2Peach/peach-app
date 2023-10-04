@@ -14,6 +14,7 @@
   "help.escrow.description.proTip" : "Du kannst den QR-Code lange drücken, um die vollständige Zahlungsanforderung zu kopieren.",
   "help.escrow.description.proTip.2" : "If the escrow is not funded after 7 days, the offer will be deleted.",
   "help.escrow.title" : "Peach Escrow",
+  "help.giftCards.title" : "Online-Geschenkkarten",
   "help.lnurl.description" : "Du kannst diese Zahlungsmethode nutzen, um deine On-Chain-Bitcoin gegen Lightning zu tauschen. Du zahlst dafür keine Peach-Gebühren.\n\nWenn du kaufst, erhältst du On-Chain-Bitcoin und sendest LN-Bitcoin.\n\nWenn du verkaufst, sendest du On-Chain-Bitcoin und erhältst LN-Bitcoin.",
   "help.lnurl.description.bold" : "Du zahlst keine Peach-Gebühren.",
   "help.lnurl.title" : "LNURL Swaps",

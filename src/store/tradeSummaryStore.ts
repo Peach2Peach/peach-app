@@ -1,6 +1,7 @@
 import { create } from 'zustand'
-import { createJSONStorage, persist } from 'zustand/middleware'
-import { createStorage, toZustandStorage } from '../utils/storage'
+import { persist } from 'zustand/middleware'
+import { createStorage } from '../utils/storage'
+import { createPersistStorage } from './createPersistStorage'
 
 export type TradeSummaryState = {
   lastModified: Date
@@ -24,6 +25,7 @@ export const defaultTradeSummaryState: TradeSummaryState = {
   lastModified: new Date(0),
 }
 export const tradeSummaryStorage = createStorage('tradeSummary')
+const storage = createPersistStorage<TradeSummaryStore>(tradeSummaryStorage)
 
 export const useTradeSummaryStore = create(
   persist<TradeSummaryStore>(
@@ -75,7 +77,7 @@ export const useTradeSummaryStore = create(
     {
       name: 'tradeSummary',
       version: 0,
-      storage: createJSONStorage(() => toZustandStorage(tradeSummaryStorage)),
+      storage,
       onRehydrateStorage: () => (state) => {
         if (!state) return
         state.setOffers(

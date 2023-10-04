@@ -41,6 +41,7 @@ import { BackupCreated } from './settings/components/backups/BackupCreated'
 import { Currency } from './settings/Currency'
 import { Language } from './settings/Language'
 import { NetworkFees } from './settings/NetworkFees'
+import { NodeSetup } from './settings/NodeSetup'
 import { PayoutAddress } from './settings/PayoutAddress'
 import { MyProfile } from './settings/profile/MyProfile'
 import { Settings } from './settings/Settings'
@@ -64,6 +65,7 @@ import { TransactionHistory } from './wallet/TransactionHistory'
 import { Wallet } from './wallet/Wallet'
 import { Welcome } from './welcome/Welcome'
 import { WrongFundingAmount } from './wrongFundingAmount/WrongFundingAmount'
+import { ExportTradeHistory } from './yourTrades/ExportTradeHistory'
 import { YourTrades } from './yourTrades/YourTrades'
 
 type ViewType = {
@@ -113,7 +115,7 @@ const wallet: ViewType[] = [
 const buyFlow: ViewType[] = [
   { name: 'buy', component: Buy, ...defaultConfig, animationEnabled: false },
   { name: 'buyPreferences', component: PaymentMethods, ...defaultConfig },
-  { name: 'buySummary', component: BuySummary, ...defaultConfig },
+  { name: 'buySummary', component: BuySummary, ...defaultConfig, showHeader: false },
   { name: 'signMessage', component: SignMessage, ...defaultConfig },
 ]
 
@@ -140,20 +142,21 @@ const trade: ViewType[] = [
 ]
 
 const tradeHistory: ViewType[] = [
-  { name: 'yourTrades', component: YourTrades, ...defaultConfig, animationEnabled: false },
+  { name: 'yourTrades', component: YourTrades, ...defaultConfig, animationEnabled: false, showHeader: false },
   { name: 'offer', component: OfferDetails, ...defaultConfig },
+  { name: 'exportTradeHistory', component: ExportTradeHistory, ...defaultConfig, showHeader: false },
 ]
 
 const contact = (hasAccount: boolean): ViewType[] =>
   hasAccount
     ? [
-      { name: 'contact', component: Contact, ...defaultConfig, showFooter: hasAccount },
+      { name: 'contact', component: Contact, ...defaultConfig, showFooter: hasAccount, showHeader: false },
       { name: 'report', component: Report, ...defaultConfig, showFooter: hasAccount },
       { name: 'disputeReasonSelector', component: DisputeReasonSelector, ...defaultConfig },
       { name: 'disputeForm', component: DisputeForm, ...defaultConfig },
     ]
     : [
-      { name: 'contact', component: Contact, ...defaultConfig, showFooter: false },
+      { name: 'contact', component: Contact, ...defaultConfig, showFooter: false, showHeader: false },
       { name: 'report', component: Report, ...defaultConfig, showFooter: false },
     ]
 
@@ -174,26 +177,27 @@ const overlays: ViewType[] = [
 
 const settings: ViewType[] = [
   { name: 'settings', component: Settings, ...defaultConfig, animationEnabled: false },
-  { name: 'aboutPeach', component: AboutPeach, ...defaultConfig },
+  { name: 'aboutPeach', component: AboutPeach, ...defaultConfig, showHeader: false },
   { name: 'myProfile', component: MyProfile, ...defaultConfig, showHeader: false },
-  { name: 'bitcoinProducts', component: BitcoinProducts, ...defaultConfig },
-  { name: 'selectCurrency', component: SelectCurrency, ...defaultConfig },
-  { name: 'selectPaymentMethod', component: SelectPaymentMethod, ...defaultConfig },
-  { name: 'selectCountry', component: SelectCountry, ...defaultConfig },
-  { name: 'paymentMethodForm', component: PaymentMethodForm, ...defaultConfig },
-  { name: 'meetupScreen', component: MeetupScreen, ...defaultConfig },
-  { name: 'currency', component: Currency, ...defaultConfig },
-  { name: 'language', component: Language, ...defaultConfig },
-  { name: 'referrals', component: Referrals, ...defaultConfig },
+  { name: 'bitcoinProducts', component: BitcoinProducts, ...defaultConfig, showHeader: false },
+  { name: 'selectCurrency', component: SelectCurrency, ...defaultConfig, showHeader: false },
+  { name: 'selectPaymentMethod', component: SelectPaymentMethod, ...defaultConfig, showHeader: false },
+  { name: 'selectCountry', component: SelectCountry, ...defaultConfig, showHeader: false },
+  { name: 'paymentMethodForm', component: PaymentMethodForm, ...defaultConfig, showHeader: false },
+  { name: 'meetupScreen', component: MeetupScreen, ...defaultConfig, showHeader: false },
+  { name: 'currency', component: Currency, ...defaultConfig, showHeader: false },
+  { name: 'language', component: Language, ...defaultConfig, showHeader: false },
+  { name: 'referrals', component: Referrals, ...defaultConfig, showHeader: false },
   { name: 'backupTime', component: BackupTime, ...invertedThemeConfig, showFooter: true },
   { name: 'backups', component: Backups, ...defaultConfig },
   { name: 'backupCreated', component: BackupCreated, ...invertedThemeConfig },
-  { name: 'payoutAddress', component: PayoutAddress, ...defaultConfig },
+  { name: 'nodeSetup', component: NodeSetup, ...defaultConfig, showHeader: false },
+  { name: 'payoutAddress', component: PayoutAddress, ...defaultConfig, showHeader: false },
   { name: 'paymentMethods', component: PaymentMethods, ...defaultConfig },
   { name: 'peachFees', component: PeachFees, ...defaultConfig },
   { name: 'networkFees', component: NetworkFees, ...defaultConfig },
   { name: 'transactionBatching', component: TransactionBatching, ...defaultConfig },
-  { name: 'socials', component: Socials, ...defaultConfig },
+  { name: 'socials', component: Socials, ...defaultConfig, showHeader: false },
 ]
 
 const testViews: ViewType[] = [

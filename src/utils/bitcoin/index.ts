@@ -1,4 +1,5 @@
 export { checkRefundPSBT } from './checkRefundPSBT'
+export { estimateTransactionSize } from './estimateTransactionSize'
 export { getBitcoinAddressParts } from './getBitcoinAddressParts'
 export { getTradeBreakdown } from './getTradeBreakdown'
 export { getTransactionFeeRate } from './getTransactionFeeRate'

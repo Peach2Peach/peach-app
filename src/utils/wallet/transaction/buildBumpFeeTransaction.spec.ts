@@ -1,5 +1,9 @@
 import { BumpFeeTxBuilder } from 'bdk-rn'
-import { bumpFeeTxBuilderCreateMock, bumpFeeTxBuilderEnableRbfMock } from '../../../../tests/unit/mocks/bdkRN'
+import {
+  bumpFeeTxBuilderAllowShrinkingMock,
+  bumpFeeTxBuilderCreateMock,
+  bumpFeeTxBuilderEnableRbfMock,
+} from '../../../../tests/unit/mocks/bdkRN'
 import { buildBumpFeeTransaction } from './buildBumpFeeTransaction'
 
 describe('buildBumpFeeTransaction', () => {
@@ -12,5 +16,13 @@ describe('buildBumpFeeTransaction', () => {
     expect(bumpFeeTxBuilderEnableRbfMock).toHaveBeenCalled()
 
     expect(transactionResult).toBeInstanceOf(BumpFeeTxBuilder)
+  })
+  it('allows shrinking on passed address', async () => {
+    const txId = 'txId'
+    const feeRate = 10
+    const address = 'address'
+
+    await buildBumpFeeTransaction(txId, feeRate, address)
+    expect(bumpFeeTxBuilderAllowShrinkingMock).toHaveBeenCalledWith(address)
   })
 })

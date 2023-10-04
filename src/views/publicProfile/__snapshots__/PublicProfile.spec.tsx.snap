@@ -858,7 +858,7 @@ exports[`PublicProfile should render correctly when loaded 1`] = `
             ]
           }
         >
-          01/03/2023 (216 days ago)
+          09/01/2009 (today)
         </Text>
       </View>
       <View>
@@ -919,7 +919,7 @@ exports[`PublicProfile should render correctly when loaded 1`] = `
             }
           >
             0
-             
+
             opened
           </Text>
           <Text
@@ -946,7 +946,7 @@ exports[`PublicProfile should render correctly when loaded 1`] = `
             }
           >
             0
-             
+
             won
           </Text>
           <Text
@@ -973,7 +973,7 @@ exports[`PublicProfile should render correctly when loaded 1`] = `
             }
           >
             0
-             
+
             lost
           </Text>
         </View>

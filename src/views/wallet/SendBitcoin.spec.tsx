@@ -12,12 +12,11 @@ import { queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
 import { swipeRight } from '../../../tests/unit/helpers/fireSwipeEvent'
 import { walletListUnspentMock } from '../../../tests/unit/mocks/bdkRN'
 import { WithdrawalConfirmation } from '../../popups/WithdrawalConfirmation'
-import { WithdrawingFundsHelp } from '../../popups/info/WithdrawingFundsHelp'
 import { defaultPopupState, usePopupStore } from '../../store/usePopupStore'
 import { createWalletFromBase58, getNetwork, getUTXOId } from '../../utils/wallet'
 import { PeachWallet } from '../../utils/wallet/PeachWallet'
 import { peachWallet, setPeachWallet } from '../../utils/wallet/setWallet'
-import { useWalletState } from '../../utils/wallet/walletStore'
+import { defaultWalletState, useWalletState } from '../../utils/wallet/walletStore'
 import { SendBitcoin } from './SendBitcoin'
 expect.extend({ toMatchDiffSnapshot })
 
@@ -32,6 +31,7 @@ describe('SendBitcoin', () => {
 
   beforeEach(() => {
     usePopupStore.setState(defaultPopupState)
+    useWalletState.setState(defaultWalletState)
   })
 
   it('should render correctly', () => {
@@ -75,21 +75,31 @@ describe('SendBitcoin', () => {
     const { getByAccessibilityHint } = render(<SendBitcoin />, { wrapper })
     const helpButton = getByAccessibilityHint('help')
     fireEvent.press(helpButton)
-    expect(usePopupStore.getState()).toStrictEqual(
-      expect.objectContaining({
-        title: 'sending funds',
-        visible: true,
-        content: <WithdrawingFundsHelp />,
-        action2: {
-          callback: expect.any(Function),
-          label: 'help',
-          icon: 'info',
-        },
-        level: 'INFO',
-      }),
-    )
+    const popupComponent = usePopupStore.getState().popupComponent || <></>
+    expect(render(popupComponent, { wrapper }).toJSON()).toMatchSnapshot()
   })
+  it('should disable the slider while the wallet is not synced', () => {
+    useWalletState.setState({ isSynced: false })
+    const { getByTestId, getByText, getByPlaceholderText, toJSON } = render(<SendBitcoin />, { wrapper })
+
+    const addressInput = getByPlaceholderText('bc1q ...')
+    fireEvent.changeText(addressInput, 'bcrt1qm50khyunelhjzhckvgy3qj0hn7xjzzwljhfgd0')
+    const amountInput = getByTestId('btc-amount-input')
+    fireEvent.changeText(amountInput, '1234')
+    const mediumFeeButton = getByText('~ 30 minutes  (1 sat/vB)')
+    fireEvent.press(mediumFeeButton)
+
+    const withSyncingWallet = toJSON()
+    act(() => {
+      useWalletState.setState({ isSynced: true })
+    })
+    const withSyncedWallet = toJSON()
+
+    expect(withSyncedWallet).toMatchDiffSnapshot(withSyncingWallet)
+  })
+
   it('should open the confirmation popup when swiping the slider', async () => {
+    useWalletState.setState({ isSynced: true })
     const { getByTestId, getByText, getByPlaceholderText } = render(<SendBitcoin />, { wrapper })
 
     const addressInput = getByPlaceholderText('bc1q ...')
@@ -151,6 +161,7 @@ describe('SendBitcoin', () => {
     expect(usePopupStore.getState().visible).toBe(false)
   })
   it('should update the custom fee rate on change', async () => {
+    useWalletState.setState({ isSynced: true })
     const { getByText, getByPlaceholderText, getByTestId } = render(<SendBitcoin />, { wrapper })
     const addressInput = getByPlaceholderText('bc1q ...')
     fireEvent.changeText(addressInput, 'bcrt1qm50khyunelhjzhckvgy3qj0hn7xjzzwljhfgd0')

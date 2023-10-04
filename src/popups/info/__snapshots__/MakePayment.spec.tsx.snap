@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`MakePayment renders correctly 1`] = `
-<PeachText>
-  The sooner you make the payment, the better your reputation score for this trade will be!
-
-If you don't make the payment within 12 hours, the seller can cancel the trade without any penalty.
-</PeachText>
-`;

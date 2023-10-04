@@ -1,4 +1,4 @@
-import { act, render } from '@testing-library/react-native'
+import { render } from '@testing-library/react-native'
 import { contract } from '../../../../tests/unit/data/contractData'
 import { NavigationWrapper } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { PendingPayoutInfo } from './PendingPayoutInfo'
@@ -23,9 +23,7 @@ const wrapper = NavigationWrapper
 describe('PendingPayoutInfo', () => {
   it('should render correctly', () => {
     const { toJSON } = render(<PendingPayoutInfo />, { wrapper })
-    act(() => {
-      jest.runAllTimers()
-    })
+
     expect(toJSON()).toMatchSnapshot()
   })
   it('should render correctly when eta is not known yet', () => {

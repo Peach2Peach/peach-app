@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useValidatedState } from '../../../../../hooks'
+import i18n from '../../../../../utils/i18n'
 import { FormProps } from '../../../../../views/addPaymentMethod/PaymentMethodForm'
 import { toggleCurrency } from '../../paymentForms/utils'
 import { hasMultipleAvailableCurrencies } from '../utils/hasMultipleAvailableCurrencies'
@@ -61,6 +62,9 @@ export const useTemplate18Setup = ({ data, onSubmit, setStepValid, setFormData }
       onChange: setUserName,
       onSubmit: save,
       errorMessage: displayErrors ? userNameErrors : undefined,
+      label: paymentMethod === 'chippercash' ? i18n('form.chippertag') : i18n('form.userName'),
+      placeholder:
+        paymentMethod === 'chippercash' ? i18n('form.chippertag.placeholder') : i18n('form.userName.placeholder'),
     },
     referenceInputProps,
     currencySelectionProps: {

@@ -1,15 +1,15 @@
-import { useMemo } from 'react'
-import { QueryFunctionContext, useInfiniteQuery } from '@tanstack/react-query'
-import { useOfferDetails } from '../../../hooks/query/useOfferDetails'
 import { useIsFocused } from '@react-navigation/native'
-import { useOfferPreferences } from '../../../store/offerPreferenes'
-import { isBuyOffer } from '../../../utils/offer'
-import { error, info } from '../../../utils/log'
-import { getMatches } from '../../../utils/peachAPI'
+import { QueryFunctionContext, useInfiniteQuery } from '@tanstack/react-query'
+import { useMemo } from 'react'
 import { FIFTEEN_SECONDS } from '../../../constants'
+import { useOfferDetails } from '../../../hooks/query/useOfferDetails'
+import { useOfferPreferences } from '../../../store/offerPreferenes'
+import { error, info } from '../../../utils/log'
+import { isBuyOffer } from '../../../utils/offer'
+import { getMatches } from '../../../utils/peachAPI'
 
 const PAGESIZE = 10
-const matchesKeys = {
+export const matchesKeys = {
   matches: ['matches'] as const,
   matchesByOfferId: (offerId: string) => [...matchesKeys.matches, offerId] as const,
   sortedMatchesByOfferId: (offerId: string, sortBy: Sorter[]) =>

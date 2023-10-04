@@ -19,7 +19,7 @@ export const MyProfile = () => {
     <Screen>
       <Header title={i18n('settings.myProfile')} icons={[{ ...headerIcons.help, onPress: openTradingLimitsPopup }]} />
       <PeachScrollView contentContainerStyle={[tw`pt-sm`, tw.md`pt-md`]} contentStyle={tw`gap-7`}>
-        <View style={tw`gap-12 border`}>
+        <View style={tw`gap-12`}>
           <View style={tw`gap-6`}>
             <ProfileOverview user={user} />
             <TradingLimits />

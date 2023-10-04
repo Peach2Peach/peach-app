@@ -739,10 +739,42 @@ exports[`PendingPayoutInfo should render correctly 1`] = `
             collapsable={false}
             style={
               {
+                "bottom": "100%",
+                "marginBottom": 4,
                 "opacity": 0,
+                "position": "absolute",
               }
             }
-          />
+          >
+            <Text
+              allowFontScaling={false}
+              style={
+                [
+                  {
+                    "color": "#2B1911",
+                    "fontFamily": "Baloo2-Regular",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 24,
+                  },
+                  [
+                    {
+                      "fontFamily": "Baloo2-Medium",
+                      "fontSize": 14,
+                      "letterSpacing": 0.14,
+                      "lineHeight": 20,
+                    },
+                    {
+                      "color": "#F56522",
+                    },
+                  ],
+                  false,
+                ]
+              }
+            >
+              copied!
+            </Text>
+          </View>
         </View>
       </View>
     </View>
@@ -950,10 +982,42 @@ exports[`PendingPayoutInfo should render correctly 1`] = `
             collapsable={false}
             style={
               {
+                "bottom": "100%",
+                "marginBottom": 4,
                 "opacity": 0,
+                "position": "absolute",
               }
             }
-          />
+          >
+            <Text
+              allowFontScaling={false}
+              style={
+                [
+                  {
+                    "color": "#2B1911",
+                    "fontFamily": "Baloo2-Regular",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 24,
+                  },
+                  [
+                    {
+                      "fontFamily": "Baloo2-Medium",
+                      "fontSize": 14,
+                      "letterSpacing": 0.14,
+                      "lineHeight": 20,
+                    },
+                    {
+                      "color": "#F56522",
+                    },
+                  ],
+                  false,
+                ]
+              }
+            >
+              copied!
+            </Text>
+          </View>
         </View>
       </View>
     </View>
@@ -1063,7 +1127,7 @@ exports[`PendingPayoutInfo should render correctly 1`] = `
             ]
           }
         >
-          01:12
+          01:12:00
         </Text>
         <test-file-stub
           fill="#037DB5"

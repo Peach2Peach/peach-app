@@ -1,6 +1,7 @@
 import { padString } from '../string/padString'
+import { isDefined } from '../validation'
 
-export const toTimeFormat = (hours: number, minutes: number) =>
+export const toTimeFormat = (hours: number, minutes: number, seconds?: number) =>
   [
     padString({
       string: String(hours),
@@ -14,4 +15,14 @@ export const toTimeFormat = (hours: number, minutes: number) =>
       length: 2,
       side: 'left',
     }),
-  ].join(':')
+    isDefined(seconds)
+      ? padString({
+        string: String(seconds),
+        char: '0',
+        length: 2,
+        side: 'left',
+      })
+      : undefined,
+  ]
+    .filter(isDefined)
+    .join(':')

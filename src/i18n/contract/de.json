@@ -129,6 +129,7 @@
   "contract.summary.paidWithMethod" : "bezahlt mit",
   "contract.summary.paymentTooLate" : "Zahlung zu spät",
   "contract.summary.phone" : "Telefonnr.",
+  "contract.summary.pixAlias" : "pix alias",
   "contract.summary.price" : "Preis",
   "contract.summary.receiveAddress" : "Adresse",
   "contract.summary.reference" : "Referenz",

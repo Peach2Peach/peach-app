@@ -11,6 +11,7 @@ type RootStackParamList = {
     badges: string
   }
   wallet: undefined
+  nodeSetup: undefined
   sendBitcoin: undefined
   receiveBitcoin: undefined
   addressChecker: undefined
@@ -93,6 +94,7 @@ type RootStackParamList = {
         tab?: TradeTab
       }
     | undefined
+  exportTradeHistory: undefined
   offer: {
     offerId: string
   }

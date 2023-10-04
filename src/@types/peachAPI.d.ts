@@ -111,10 +111,38 @@ type Currency =
   | 'NGN'
   | 'CDF'
   | 'CRC'
+  | 'BRL'
 type Pricebook = {
   [key in Currency]?: number
 }
-type PaymentMethodCountry = 'BG' | 'CZ' | 'DK' | 'HU' | 'NO' | 'PL' | 'RO' | 'TR' | 'NG' | 'DE'
+type PaymentMethodCountry =
+  | 'BG'
+  | 'CZ'
+  | 'DK'
+  | 'HU'
+  | 'NO'
+  | 'PL'
+  | 'RO'
+  | 'TR'
+  | 'NG'
+  | 'DE'
+  | 'CH'
+  | 'ISK'
+  | 'SE'
+  | 'IT'
+  | 'ES'
+  | 'FR'
+  | 'NL'
+  | 'UK'
+  | 'BE'
+  | 'PT'
+  | 'GR'
+  | 'UK'
+  | 'GB'
+  | 'CY'
+  | 'SI'
+  | 'LV'
+  | 'US'
 
 type MeetupEvent = {
   id: string
@@ -460,4 +488,14 @@ type Sorter = BuySorter | SellSorter
 
 type MatchFilter = {
   maxPremium: number | null
+}
+
+declare type GetUserPaymentMethodInfoRequestParams = {}
+declare type GetUserPaymentMethodInfoRequestQuery = {}
+declare type GetUserPaymentMethodInfoRequestBody = {}
+declare type GetUserPaymentMethodInfoResponseBody = {
+  forbidden: {
+    buy: PaymentMethod[]
+    sell: PaymentMethod[]
+  }
 }

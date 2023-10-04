@@ -1,7 +1,8 @@
 import { create } from 'zustand'
-import { createJSONStorage, persist } from 'zustand/middleware'
+import { persist } from 'zustand/middleware'
 import { SATSINBTC } from '../constants'
-import { createStorage, toZustandStorage } from '../utils/storage'
+import { createStorage } from '../utils/storage'
+import { createPersistStorage } from './createPersistStorage'
 
 export type BitcoinState = {
   currency: Currency
@@ -25,6 +26,7 @@ export const defaultBitcoinState: BitcoinState = {
 }
 
 export const bitcoinStorage = createStorage('bitcoin')
+const storage = createPersistStorage<BitcoinStore>(bitcoinStorage)
 
 export const useBitcoinStore = create(
   persist<BitcoinStore>(
@@ -43,7 +45,7 @@ export const useBitcoinStore = create(
     {
       name: 'bitcoin',
       version: 0,
-      storage: createJSONStorage(() => toZustandStorage(bitcoinStorage)),
+      storage,
       merge: (persistedState, currentState) => {
         if (!persistedState) return currentState
 

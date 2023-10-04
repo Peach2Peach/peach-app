@@ -1,6 +1,6 @@
-import { PaymentMethodForm } from './PaymentMethodForm'
-import { createRenderer } from 'react-test-renderer/shallow'
 import React from 'react'
+import { createRenderer } from 'react-test-renderer/shallow'
+import { PaymentMethodForm } from './PaymentMethodForm'
 
 jest.mock('./hooks/usePaymentMethodFormSetup', () => ({
   usePaymentMethodFormSetup: () => ({

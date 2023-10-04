@@ -1,13 +1,11 @@
+import { PopupAction } from '../../components/popup'
+import { PopupActionProps } from '../../components/popup/PopupAction'
 import { usePopupStore } from '../../store/usePopupStore'
 import i18n from '../../utils/i18n'
-import { PopupAction } from '../../components/popup'
-import { TextStyle } from 'react-native'
 
-type Props = {
-  textStyle?: TextStyle
-}
+type Props = Pick<PopupActionProps, 'textStyle' | 'reverseOrder'>
 
-export const ClosePopupAction = ({ textStyle }: Props) => {
+export const ClosePopupAction = (props: Props) => {
   const closePopup = usePopupStore((state) => state.closePopup)
-  return <PopupAction onPress={closePopup} label={i18n('close')} iconId={'xSquare'} textStyle={textStyle} />
+  return <PopupAction onPress={closePopup} label={i18n('close')} iconId={'xSquare'} {...props} />
 }

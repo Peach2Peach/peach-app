@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`useWelcomeSetup should set up header correctly 1`] = `
+<Header
+  hideGoBackButton={true}
+  icons={
+    [
+      {
+        "color": "#FFFCFA",
+        "id": "mail",
+        "onPress": [Function],
+      },
+      {
+        "color": "#FFFCFA",
+        "id": "globe",
+        "onPress": [Function],
+      },
+    ]
+  }
+  theme="inverted"
+  title="welcome to Peach!"
+/>
+`;

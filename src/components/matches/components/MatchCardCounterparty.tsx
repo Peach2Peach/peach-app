@@ -2,20 +2,20 @@ import { View } from 'react-native'
 import tw from '../../../styles/tailwind'
 
 import { NewBadges } from '../../../views/publicProfile/components/Badges'
-import { UserId, Rating } from '../../../views/settings/profile/profileOverview/components'
+import { Rating, UserId } from '../../../views/settings/profile/profileOverview/components'
 
-type Props = { user: User; isDispute?: boolean }
+type Props = { user: Pick<User, 'trades' | 'id' | 'rating' | 'medals'>; isDispute?: boolean }
 
-export const MatchCardCounterparty = ({ user, isDispute = false }: Props) => {
-  const isNewUser = user.trades <= 3
+export const MatchCardCounterparty = ({ user: { trades, id, rating, medals }, isDispute = false }: Props) => {
+  const isNewUser = trades < 3
   return (
     <View>
       <View style={tw`flex-row justify-between`}>
-        <UserId id={user.id} isDispute={isDispute} showInfo />
-        <Rating rating={user.rating} isNewUser={isNewUser} />
+        <UserId id={id} isDispute={isDispute} showInfo />
+        <Rating rating={rating} isNewUser={isNewUser} />
       </View>
 
-      {!isNewUser && <NewBadges user={user} isDispute={isDispute} />}
+      {!isNewUser && <NewBadges unlockedBadges={medals} isDispute={isDispute} />}
     </View>
   )
 }

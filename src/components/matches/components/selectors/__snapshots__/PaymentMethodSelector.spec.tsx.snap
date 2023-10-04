@@ -16,19 +16,23 @@ exports[`PaymentMethodSelector should render correctly 1`] = `
   >
     select payment method
   </PulsingText>
-  <CurrencySelection
-    currencies={[]}
-    select={[Function]}
-  />
-  <CustomSelector
-    items={[]}
-    onChange={[Function]}
+  <View
     style={
       {
-        "marginBottom": 8,
+        "gap": 12,
+        "paddingBottom": 8,
       }
     }
-  />
+  >
+    <CurrencySelection
+      currencies={[]}
+      select={[Function]}
+    />
+    <CustomSelector
+      items={[]}
+      onChange={[Function]}
+    />
+  </View>
 </View>
 `;
 
@@ -52,18 +56,22 @@ exports[`PaymentMethodSelector should render correctly when disabled 1`] = `
   >
     select payment method
   </PulsingText>
-  <CurrencySelection
-    currencies={[]}
-    select={[Function]}
-  />
-  <CustomSelector
-    items={[]}
-    onChange={[Function]}
+  <View
     style={
       {
-        "marginBottom": 8,
+        "gap": 12,
+        "paddingBottom": 8,
       }
     }
-  />
+  >
+    <CurrencySelection
+      currencies={[]}
+      select={[Function]}
+    />
+    <CustomSelector
+      items={[]}
+      onChange={[Function]}
+    />
+  </View>
 </View>
 `;

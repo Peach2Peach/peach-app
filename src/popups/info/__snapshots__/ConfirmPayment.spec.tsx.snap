@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`ConfirmPayment renders correctly 1`] = `
-<PeachText>
-  As soon as you swipe the "payment received" slider, the bitcoin will be sent to the buyer.
-
-Make sure everything's correct, because this cannot be undone!
-</PeachText>
-`;

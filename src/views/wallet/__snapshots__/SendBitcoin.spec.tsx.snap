@@ -99,7 +99,7 @@ exports[`SendBitcoin - With selected coins should render correctly 1`] = `
 - First value
 + Second value
 
-@@ -1911,10 +1911,123 @@
+@@ -1821,10 +1821,123 @@
                     />
                   </View>
                 </View>
@@ -317,6 +317,26 @@ exports[`SendBitcoin - With selected coins should set the amount to the sum of a
               </View>
             </View>
             <View"
+`;
+
+exports[`SendBitcoin should disable the slider while the wallet is not synced 1`] = `
+"Snapshot Diff:
+- First value
++ Second value
+
+@@ -1938,11 +1938,11 @@
+              <View
+                collapsable={false}
+                style={
+                  Object {
+                    "alignItems": "center",
+-                   "backgroundColor": "rgba(245, 101, 34, 1)",
++                   "backgroundColor": "#BAADA7",
+                    "borderRadius": 16,
+                    "flexDirection": "row",
+                    "gap": 4,
+                    "justifyContent": "center",
+                    "paddingBottom": 6,"
 `;
 
 exports[`SendBitcoin should not allow entering an amount higher than the available balance 1`] = `
@@ -2187,8 +2207,8 @@ exports[`SendBitcoin should render correctly 1`] = `
                       style={
                         {
                           "alignItems": "center",
-                          "display": "flex",
                           "flexDirection": "row",
+                          "gap": 8,
                         }
                       }
                     >
@@ -2218,136 +2238,46 @@ exports[`SendBitcoin should render correctly 1`] = `
                       </Text>
                       <View
                         style={
-                          {
-                            "height": 32,
-                            "marginLeft": 8,
-                            "marginRight": 8,
-                          }
+                          [
+                            {
+                              "alignItems": "center",
+                              "borderRadius": 12,
+                              "flexDirection": "row",
+                              "height": 32,
+                              "overflow": "hidden",
+                              "paddingBottom": 12,
+                              "paddingTop": 12,
+                              "width": 64,
+                            },
+                            {
+                              "backgroundColor": "#FFFCFA",
+                              "borderColor": "#7D675E",
+                              "borderWidth": 1,
+                            },
+                          ]
                         }
                       >
-                        <View>
-                          <View
-                            style={
-                              [
-                                {
-                                  "alignItems": "center",
-                                  "display": "flex",
-                                  "flexDirection": "row",
-                                  "gap": 4,
-                                  "justifyContent": "space-between",
-                                  "paddingLeft": 12,
-                                  "paddingRight": 12,
-                                  "width": "100%",
-                                },
-                                {
-                                  "borderRadius": 12,
-                                  "borderWidth": 1,
-                                  "overflow": "hidden",
-                                },
-                                {
-                                  "backgroundColor": "transparent",
-                                },
-                                {
-                                  "color": "#7D675E",
-                                },
-                                false,
-                                false,
-                                {
-                                  "marginBottom": 1,
-                                  "marginTop": 1,
-                                },
-                                {
-                                  "height": 32,
-                                  "width": 64,
-                                },
-                              ]
+                        <TextInput
+                          editable={false}
+                          keyboardType="decimal-pad"
+                          onChangeText={[Function]}
+                          style={
+                            {
+                              "color": "#2B1911",
+                              "flexGrow": 1,
+                              "fontFamily": "Baloo2-Regular",
+                              "fontSize": 18,
+                              "height": 32,
+                              "letterSpacing": 0.18,
+                              "lineHeight": 29.25,
+                              "paddingBottom": 0,
+                              "paddingTop": 0,
+                              "textAlign": "center",
                             }
-                          >
-                            <TextInput
-                              allowFontScaling={false}
-                              autoCapitalize="none"
-                              autoCorrect={false}
-                              blurOnSubmit={false}
-                              editable={false}
-                              keyboardType="numeric"
-                              multiline={false}
-                              onBlur={[Function]}
-                              onChangeText={[Function]}
-                              onEndEditing={[Function]}
-                              onFocus={[Function]}
-                              onSubmitEditing={[Function]}
-                              placeholderTextColor="#BAADA7"
-                              removeClippedSubviews={false}
-                              style={
-                                [
-                                  {
-                                    "flexShrink": 1,
-                                    "fontFamily": "Baloo2-Regular",
-                                    "fontSize": 18,
-                                    "height": 40,
-                                    "letterSpacing": 0.18,
-                                    "lineHeight": 29.25,
-                                    "paddingBottom": 0,
-                                    "paddingTop": 0,
-                                    "width": "100%",
-                                  },
-                                  {
-                                    "color": "#BAADA7",
-                                  },
-                                  false,
-                                  {
-                                    "borderColor": "transparent",
-                                    "borderWidth": 1,
-                                  },
-                                  false,
-                                  false,
-                                ]
-                              }
-                              testID="input-custom-fees"
-                              textAlignVertical="center"
-                              value=""
-                            />
-                            <View
-                              style={
-                                {
-                                  "display": "flex",
-                                  "flexDirection": "row",
-                                  "gap": 16,
-                                }
-                              }
-                            />
-                          </View>
-                          <Text
-                            allowFontScaling={false}
-                            style={
-                              [
-                                {
-                                  "color": "#2B1911",
-                                  "fontFamily": "Baloo2-Regular",
-                                  "fontSize": 16,
-                                  "letterSpacing": 0.16,
-                                  "lineHeight": 24,
-                                },
-                                [
-                                  {
-                                    "fontFamily": "Baloo2-Medium",
-                                    "fontSize": 14,
-                                    "letterSpacing": 0.14,
-                                    "lineHeight": 20,
-                                    "marginLeft": 12,
-                                    "marginTop": 4,
-                                  },
-                                  {
-                                    "color": "#DF321F",
-                                  },
-                                ],
-                                false,
-                              ]
-                            }
-                          >
-                             
-                          </Text>
-                        </View>
+                          }
+                          testID="input-custom-fees"
+                          value=""
+                        />
                       </View>
                       <Text
                         allowFontScaling={false}
@@ -2766,6 +2696,360 @@ exports[`SendBitcoin should set the amount to the peach wallet balance when clic
               </View>
             </View>
             <View"
+`;
+
+exports[`SendBitcoin should should the help popup when clicking on the questionmark in the header 1`] = `
+<View
+  style={
+    {
+      "borderRadius": 16,
+      "marginLeft": 24,
+      "marginRight": 24,
+      "overflow": "hidden",
+    }
+  }
+>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      [
+        {
+          "alignItems": "stretch",
+          "backgroundColor": "#FEEDE5",
+          "gap": 12,
+          "paddingBottom": 24,
+          "paddingLeft": 24,
+          "paddingRight": 24,
+          "paddingTop": 16,
+        },
+        [
+          {
+            "backgroundColor": "#D7F2FE",
+          },
+          {
+            "alignItems": "stretch",
+          },
+        ],
+      ]
+    }
+  >
+    <Text
+      allowFontScaling={false}
+      style={
+        [
+          {
+            "color": "#2B1911",
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 24,
+          },
+          {
+            "fontFamily": "Baloo2-Bold",
+            "fontSize": 24,
+            "letterSpacing": 0.24,
+            "lineHeight": 32,
+            "width": "100%",
+          },
+          false,
+        ]
+      }
+    >
+      sending funds
+    </Text>
+    <Text
+      allowFontScaling={false}
+      style={
+        [
+          {
+            "color": "#2B1911",
+            "fontFamily": "Baloo2-Regular",
+            "fontSize": 16,
+            "letterSpacing": 0.16,
+            "lineHeight": 24,
+          },
+          undefined,
+          false,
+        ]
+      }
+    >
+      <Text
+        style={
+          [
+            [
+              {
+                "color": "#2B1911",
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
+                "lineHeight": 24,
+              },
+              undefined,
+              false,
+            ],
+            undefined,
+          ]
+        }
+      >
+        Here you can send the contents of your Peach wallet to another wallet of your choosing, for example a hardware wallet for extra security.
+
+Peach recommends the 
+      </Text>
+      <Text
+        onPress={[Function]}
+        style={
+          [
+            [
+              {
+                "color": "#2B1911",
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
+                "lineHeight": 24,
+              },
+              undefined,
+              false,
+            ],
+            {
+              "textDecorationLine": "underline",
+            },
+          ]
+        }
+      >
+        BitBox hardware wallet
+      </Text>
+      <Text
+        style={
+          [
+            [
+              {
+                "color": "#2B1911",
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
+                "lineHeight": 24,
+              },
+              undefined,
+              false,
+            ],
+            undefined,
+          ]
+        }
+      >
+         for secure storage.
+      </Text>
+    </Text>
+  </View>
+  <View
+    style={
+      [
+        {
+          "alignItems": "center",
+          "alignSelf": "stretch",
+          "backgroundColor": "#F56522",
+          "flexDirection": "row",
+          "justifyContent": "space-between",
+        },
+        {
+          "backgroundColor": "#099DE2",
+        },
+      ]
+    }
+  >
+    <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "flexGrow": 1,
+          "gap": 4,
+          "opacity": 1,
+          "paddingBottom": 8,
+          "paddingLeft": 24,
+          "paddingRight": 24,
+          "paddingTop": 8,
+        }
+      }
+    >
+      <test-file-stub
+        fill="#FFFCFA"
+        style={
+          [
+            {
+              "height": 16,
+              "width": 16,
+            },
+            undefined,
+          ]
+        }
+      />
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              {
+                "color": "#FFFCFA",
+                "fontFamily": "Baloo2-SemiBold",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
+                "lineHeight": 28,
+              },
+              undefined,
+            ],
+            false,
+          ]
+        }
+      >
+        help
+      </Text>
+    </View>
+    <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "alignItems": "center",
+          "flexDirection": "row-reverse",
+          "flexGrow": 1,
+          "gap": 4,
+          "opacity": 1,
+          "paddingBottom": 8,
+          "paddingLeft": 24,
+          "paddingRight": 24,
+          "paddingTop": 8,
+        }
+      }
+    >
+      <test-file-stub
+        fill="#FFFCFA"
+        style={
+          [
+            {
+              "height": 16,
+              "width": 16,
+            },
+            undefined,
+          ]
+        }
+      />
+      <Text
+        allowFontScaling={false}
+        style={
+          [
+            {
+              "color": "#2B1911",
+              "fontFamily": "Baloo2-Regular",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 24,
+            },
+            [
+              {
+                "color": "#FFFCFA",
+                "fontFamily": "Baloo2-SemiBold",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
+                "lineHeight": 28,
+              },
+              undefined,
+            ],
+            false,
+          ]
+        }
+      >
+        close
+      </Text>
+    </View>
+  </View>
+</View>
 `;
 
 exports[`SendBitcoin should update the address on change 1`] = `

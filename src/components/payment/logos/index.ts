@@ -1,11 +1,14 @@
 import nationalTransferBG from '../../flags/bg.svg'
+import nationalTransferCH from '../../flags/ch.svg'
 import nationalTransferCZ from '../../flags/cz.svg'
 import nationalTransferDK from '../../flags/dk.svg'
 import nationalTransferHU from '../../flags/hu.svg'
+import nationalTransferIS from '../../flags/is.svg'
 import nationalTransferNG from '../../flags/ng.svg'
 import nationalTransferNO from '../../flags/no.svg'
 import nationalTransferPL from '../../flags/pl.svg'
 import nationalTransferRO from '../../flags/ro.svg'
+import nationalTransferSE from '../../flags/se.svg'
 import nationalTransferTR from '../../flags/tr.svg'
 import advcash from './advcash.svg'
 import airtelMoney from './airtelMoney.svg'
@@ -43,7 +46,6 @@ import sinpeMovil from './sinpeMovil.svg'
 import skrill from './skrill.svg'
 import swish from './swish.svg'
 import twint from './twint.svg'
-import verse from './verse.svg'
 import vipps from './vipps.svg'
 import wave from './wave.svg'
 import wise from './wise.svg'
@@ -54,11 +56,13 @@ export const PaymentLogos = {
   'cash.lugano': bitcoin,
   'giftCard.amazon': amazon,
   'm-pesa': mPesa,
+  accrue: placeholder,
   advcash,
   airtelMoney,
   alias: placeholder,
   amazon,
   bancolombia,
+  bankera: placeholder,
   bitcoin,
   bizum,
   blik,
@@ -71,6 +75,7 @@ export const PaymentLogos = {
   instantSepa: sepa,
   iris: placeholder,
   keksPay,
+  klasha: placeholder,
   liquid,
   lydia,
   mbWay,
@@ -80,13 +85,16 @@ export const PaymentLogos = {
   mtn,
   n26,
   nationalTransferBG,
+  nationalTransferCH,
   nationalTransferCZ,
   nationalTransferDK,
   nationalTransferHU,
+  nationalTransferIS,
   nationalTransferNG,
   nationalTransferNO,
   nationalTransferPL,
   nationalTransferRO,
+  nationalTransferSE,
   nationalTransferTR,
   nequi,
   neteller,
@@ -96,7 +104,10 @@ export const PaymentLogos = {
   paylib,
   paypal,
   paysera,
+  pix: placeholder,
+  postePay: placeholder,
   rappipay: placeholder,
+  rebellion: placeholder,
   revolut,
   satispay,
   sepa,
@@ -106,9 +117,9 @@ export const PaymentLogos = {
   straksbetaling: placeholder,
   swish,
   twint,
-  verse,
   vipps,
   wave,
+  wirepay: placeholder,
   wise,
 }
 

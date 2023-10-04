@@ -1,12 +1,13 @@
 import { renderHook, waitFor } from '@testing-library/react-native'
 import { contract } from '../../../../tests/unit/data/contractData'
-import { NavigationWrapper, replaceMock } from '../../../../tests/unit/helpers/NavigationWrapper'
+import { NavigationAndQueryClientWrapper } from '../../../../tests/unit/helpers/NavigationAndQueryClientWrapper'
+import { replaceMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { useContractSetup } from './useContractSetup'
 
 const now = new Date('2022-02-14T12:00:00.000Z')
 jest.useFakeTimers({ now })
 
-const wrapper = NavigationWrapper
+const wrapper = NavigationAndQueryClientWrapper
 
 const refetchMock = jest.fn()
 const useCommonContractSetupMock = jest.fn().mockReturnValue({

@@ -53,7 +53,7 @@ describe('useOfferPreferences - store', () => {
       setBuyOfferFilter: expect.any(Function),
     })
   })
-  it.skip('should persist the store', () => {
+  it('should persist the store', () => {
     expect(useOfferPreferences.persist.getOptions()).toStrictEqual(
       expect.objectContaining({
         name: 'offerPreferences',

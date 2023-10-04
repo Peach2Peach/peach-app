@@ -5,11 +5,10 @@ import { act } from 'react-test-renderer'
 import { estimatedFees } from '../../../../tests/unit/data/bitcoinNetworkData'
 import { transactionError } from '../../../../tests/unit/data/errors'
 import { sellOffer } from '../../../../tests/unit/data/offerData'
+import { PopupLoadingSpinner } from '../../../../tests/unit/helpers/PopupLoadingSpinner'
 import { getTransactionDetails } from '../../../../tests/unit/helpers/getTransactionDetails'
-import { Loading } from '../../../components'
 import { useConfigStore } from '../../../store/configStore'
-import { usePopupStore } from '../../../store/usePopupStore'
-import tw from '../../../styles/tailwind'
+import { defaultPopupState, usePopupStore } from '../../../store/usePopupStore'
 import { defaultFundingStatus } from '../../../utils/offer/constants'
 import { PeachWallet } from '../../../utils/wallet/PeachWallet'
 import { peachWallet, setPeachWallet } from '../../../utils/wallet/setWallet'
@@ -36,16 +35,19 @@ jest.mock('../../../hooks/useShowErrorBanner', () => ({
         showErrorBannerMock(...args),
 }))
 
+// eslint-disable-next-line max-lines-per-function, max-statements
 describe('useFundFromPeachWallet', () => {
+  const offerId = sellOffer.id
   const amount = sellOffer.amount
   const minTradingAmount = 50000
   const address = 'bcrt1q70z7vw93cxs6jx7nav9cmcn5qvlv362qfudnqmz9fnk2hjvz5nus4c0fuh'
   const feeRate = estimatedFees.halfHourFee
   const fee = feeRate * 110
-  const initialProps = { address, amount: 615000, fundingStatus: defaultFundingStatus }
+  const initialProps = { offerId, address, amount: 615000, fundingStatus: defaultFundingStatus }
 
   beforeAll(() => {
     useConfigStore.getState().setMinTradingAmount(minTradingAmount)
+    usePopupStore.setState(defaultPopupState)
   })
   beforeEach(() => {
     // @ts-expect-error mock PeachWallet doesn't need arguments
@@ -70,7 +72,7 @@ describe('useFundFromPeachWallet', () => {
   it('should return canFundFromPeachWallet as false if escrow is already being funded', () => {
     peachWallet.balance = amount
     const { result } = renderHook(useFundFromPeachWallet, {
-      initialProps: { address, amount: 6150000, fundingStatus: { ...defaultFundingStatus, status: 'MEMPOOL' } },
+      initialProps: { offerId, address, amount: 6150000, fundingStatus: { ...defaultFundingStatus, status: 'MEMPOOL' } },
     })
 
     expect(result.current.canFundFromPeachWallet).toBeFalsy()
@@ -80,7 +82,7 @@ describe('useFundFromPeachWallet', () => {
     peachWallet.balance = amount
 
     const { result, rerender } = renderHook(useFundFromPeachWallet, {
-      initialProps: { fundingStatus: defaultFundingStatus },
+      initialProps: { offerId, fundingStatus: defaultFundingStatus },
     })
     expect(result.current.canFundFromPeachWallet).toBeFalsy()
 
@@ -165,7 +167,7 @@ describe('useFundFromPeachWallet', () => {
       ...usePopupStore.getState(),
       title: 'funding escrow',
       level: 'APP',
-      content: <Loading color={tw`text-black-1`.color} style={tw`self-center`} />,
+      content: PopupLoadingSpinner,
       action1: {
         label: 'loading...',
         icon: 'clock',
@@ -193,6 +195,7 @@ describe('useFundFromPeachWallet', () => {
     expect(showErrorBannerMock).toHaveBeenCalledWith('INSUFFICIENT_FUNDS', ['78999997952', '1089000'])
     expect(usePopupStore.getState().visible).toBeFalsy()
   })
+
   it('should open insufficient funds popup', async () => {
     let call = 0
     peachWallet.balance = amount
@@ -221,6 +224,33 @@ describe('useFundFromPeachWallet', () => {
         callback: usePopupStore.getState().closePopup,
       },
     })
+  })
+
+  it('should open handle insufficient funds error for building drain wallet transactions', async () => {
+    peachWallet.balance = amount
+    peachWallet.finishTransaction = jest.fn().mockImplementation(() => {
+      throw transactionError
+    })
+
+    const { result } = renderHook(useFundFromPeachWallet, { initialProps })
+
+    await result.current.fundFromPeachWallet()
+    expect(showErrorBannerMock).toHaveBeenCalledWith('INSUFFICIENT_FUNDS', ['78999997952', '1089000'])
+  })
+  it('should open handle other errors for building drain wallet transactions', async () => {
+    let call = 0
+    peachWallet.balance = amount
+    peachWallet.finishTransaction = jest.fn().mockImplementation(() => {
+      call++
+      if (call === 1) throw transactionError
+      // eslint-disable-next-line no-throw-literal
+      throw [new Error('UNKNOWN')]
+    })
+
+    const { result } = renderHook(useFundFromPeachWallet, { initialProps })
+
+    await result.current.fundFromPeachWallet()
+    expect(showErrorBannerMock).toHaveBeenCalledWith('UNKNOWN', [])
   })
 
   it('should not show insufficient funds popup but error for multiple addresses', async () => {
@@ -260,7 +290,7 @@ describe('useFundFromPeachWallet', () => {
       ...usePopupStore.getState(),
       title: 'funding escrow',
       level: 'APP',
-      content: <Loading color={tw`text-black-1`.color} style={tw`self-center`} />,
+      content: PopupLoadingSpinner,
       action1: {
         label: 'loading...',
         icon: 'clock',

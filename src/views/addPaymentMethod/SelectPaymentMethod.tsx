@@ -4,12 +4,13 @@ import { useDrawerContext } from '../../contexts/drawer'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 
-import { PeachScrollView, PrimaryButton, RadioButtons, Screen } from '../../components'
+import { NewHeader as Header, PeachScrollView, PrimaryButton, RadioButtons, Screen } from '../../components'
 import { FlagType } from '../../components/flags'
-import { useHeaderSetup, useNavigation, useRoute } from '../../hooks'
+import { useNavigation, useRoute } from '../../hooks'
 import { NATIONALOPTIONCOUNTRIES, NATIONALOPTIONS, PAYMENTCATEGORIES } from '../../paymentMethods'
 import { getApplicablePaymentCategories, paymentMethodAllowedForCurrency } from '../../utils/paymentMethod'
 import { usePaymentMethodLabel } from './hooks'
+import { getCurrencyTypeFilter } from './utils'
 
 const mapCountryToDrawerOption = (onPress: (country: FlagType) => void) => (country: FlagType) => ({
   title: i18n(`country.${country}`),
@@ -18,8 +19,6 @@ const mapCountryToDrawerOption = (onPress: (country: FlagType) => void) => (coun
 })
 
 export const SelectPaymentMethod = () => {
-  useHeaderSetup(i18n('selectPaymentMethod.title'))
-
   const navigation = useNavigation()
   const { selectedCurrency, origin } = useRoute<'selectPaymentMethod'>().params
   const [, updateDrawer] = useDrawerContext()
@@ -69,13 +68,28 @@ export const SelectPaymentMethod = () => {
     onClose: unselectCategory,
   })
 
+  const getNationalOptions = () => {
+    if (getCurrencyTypeFilter('europe')(selectedCurrency)) {
+      return NATIONALOPTIONS.EUR
+    }
+    return NATIONALOPTIONS.LATAM
+  }
+
+  const getNationalOptionCountries = () => {
+    if (getCurrencyTypeFilter('europe')(selectedCurrency)) {
+      return NATIONALOPTIONCOUNTRIES.EUR
+    }
+    return NATIONALOPTIONCOUNTRIES.LATAM
+  }
+
   const selectCountry = (country: FlagType, category: PaymentCategory) => {
-    const nationalOptions = NATIONALOPTIONS.EUR[country]
+    const nationalOptions = getNationalOptions()[country]
+    const nationalOptionCountries = getNationalOptionCountries()
     updateDrawer({
       title: i18n(`country.${country}`),
       options: nationalOptions.map(mapMethodToDrawerOption),
       previousDrawer: {
-        options: NATIONALOPTIONCOUNTRIES.EUR.map(mapCountryToDrawerOption((cntry) => selectCountry(cntry, category))),
+        options: nationalOptionCountries.map(mapCountryToDrawerOption((cntry) => selectCountry(cntry, category))),
         ...getDrawerConfig(category),
       },
       show: true,
@@ -85,7 +99,7 @@ export const SelectPaymentMethod = () => {
 
   const getDrawerOptions = (category: PaymentCategory) =>
     category === 'nationalOption'
-      ? NATIONALOPTIONCOUNTRIES.EUR.map(mapCountryToDrawerOption((country) => selectCountry(country, category)))
+      ? getNationalOptionCountries().map(mapCountryToDrawerOption((country) => selectCountry(country, category)))
       : PAYMENTCATEGORIES[category]
         .filter((method) => paymentMethodAllowedForCurrency(method, selectedCurrency))
         .filter((method) => category !== 'giftCard' || method === 'giftCard.amazon')
@@ -105,7 +119,8 @@ export const SelectPaymentMethod = () => {
 
   return (
     <Screen>
-      <PeachScrollView contentContainerStyle={[tw`justify-center flex-grow py-4`, tw.md`py-8`]}>
+      <Header title={i18n('selectPaymentMethod.title')} />
+      <PeachScrollView contentContainerStyle={[tw`justify-center py-4 grow`, tw.md`py-8`]}>
         <RadioButtons
           items={paymentCategories}
           selectedValue={selectedPaymentCategory}

@@ -14,6 +14,7 @@
   "help.escrow.description.proTip" : "QR kodunu uzun süre basılı tutarak tam ödeme talebini kopyalayabilirsiniz.",
   "help.escrow.description.proTip.2" : "If the escrow is not funded after 7 days, the offer will be deleted.",
   "help.escrow.title" : "Peach escrow",
+  "help.giftCards.title" : "çevrimiçi hediye kartları",
   "help.lnurl.description" : "Bu ödeme yöntemini kullanarak on-chain bitcoinlerinizi lightning için takas edebilirsiniz. Bunun için Peach ücreti ödemezsiniz.\n\nAlıcı iseniz, on-chain bitcoin alıp LN bitcoin gönderiyorsunuz.\n\nSatıcı iseniz, on-chain bitcoin gönderip LN bitcoin alıyorsunuz.",
   "help.lnurl.description.bold" : "Bunun için Peach ücreti ödemezsiniz.",
   "help.lnurl.title" : "LNURL Takasları",

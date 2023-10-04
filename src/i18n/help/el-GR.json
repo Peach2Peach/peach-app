@@ -14,6 +14,7 @@
   "help.escrow.description.proTip" : "Μπορείτε να πατήσετε παρατεταμένα τον κωδικό QR για να αντιγράψετε το πλήρες αίτημα πληρωμής.",
   "help.escrow.description.proTip.2" : "If the escrow is not funded after 7 days, the offer will be deleted.",
   "help.escrow.title" : "Εγγύηση στην Peach  ",
+  "help.giftCards.title" : "ηλεκτρονικές δωροκάρτες",
   "help.lnurl.description" : "Μπορείτε να χρησιμοποιήσετε αυτή τη μέθοδο πληρωμής για να ανταλλάξετε τα bitcoin από on-chain σε lightning. Δεν πληρώνετε τέλη στην Peach γι' αυτό. Εάν αγοράζετε, λαμβάνετε bitcoin on-chain και στέλνετε bitcoin LN. Αν πουλάτε, στέλνετε bitcoin on-chain και λαμβάνετε bitcoin LN.",
   "help.lnurl.description.bold" : "Δεν πληρώνετε τέλη στην Peach γι' αυτό.",
   "help.lnurl.title" : "LNURL Swaps",

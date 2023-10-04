@@ -1,4 +1,3 @@
-/* eslint-disable max-statements */
 /* eslint-disable max-lines-per-function */
 import { act, renderHook, waitFor } from '@testing-library/react-native'
 import { account1 } from '../../tests/unit/data/accountData'
@@ -31,7 +30,7 @@ describe('useCheckFundingMultipleEscrows', () => {
   const fundingAmount = sellOffers.map((o) => o.amount).reduce(sum, 0)
   const txDetails = getTransactionDetails(fundingAmount, 1)
 
-  // @ts-ignore
+  // @ts-expect-error init mock, doesn't need args
   const peachWallet = new PeachWallet()
   peachWallet.finishTransaction = jest.fn().mockResolvedValue(txDetails)
   const getAddressUTXOSpy = jest.spyOn(peachWallet, 'getAddressUTXO')
