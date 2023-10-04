@@ -1,5 +1,5 @@
 import { View } from 'react-native'
-import { SummaryItem, TextSummaryItem } from '../../../components/payment/paymentDetailTemplates/SummaryItem'
+import { SummaryItem } from '../../../components/payment/paymentDetailTemplates/SummaryItem'
 import { Text } from '../../../components/text'
 import { useSettingsStore } from '../../../store/settingsStore'
 import tw from '../../../styles/tailwind'
@@ -12,15 +12,12 @@ export const TradeStatusInfo = () => {
   const isPeachWalletActive = useSettingsStore((state) => state.peachWalletActive)
   return (
     <View>
+      <SummaryItem label={i18n('amount')} value={<SummaryItem.Text value={String(contract.amount)} />} />
       <SummaryItem
-        label={<Text style={[tw`text-black-2`, tw.md`body-l`]}>{i18n('amount')}</Text>}
-        value={<TextSummaryItem information={contract.amount} isBitcoinAmount />}
+        label={i18n('contract.summary.status')}
+        value={<SummaryItem.Text value={getTradeActionStatus(contract, view)} />}
       />
 
-      <SummaryItem
-        label={<Text style={[tw`text-black-2`, tw.md`body-l`]}>{i18n('contract.summary.status')}</Text>}
-        value={<TextSummaryItem information={getTradeActionStatus(contract, view)} />}
-      />
       <Text style={[tw`body-s`, tw.md`body-m`]}>{getTradeActionStatusText(contract, view, isPeachWalletActive)}</Text>
     </View>
   )
