@@ -2703,8 +2703,8 @@ exports[`SendBitcoin should should the help popup when clicking on the questionm
   style={
     {
       "borderRadius": 16,
-      "marginLeft": 24,
-      "marginRight": 24,
+      "marginLeft": 12,
+      "marginRight": 12,
       "overflow": "hidden",
     }
   }
