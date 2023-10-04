@@ -33,8 +33,6 @@ export class PeachWallet extends PeachJSWallet {
 
   syncInProgress: Promise<void> | undefined
 
-  descriptorPath: string
-
   balance: number
 
   transactions: TransactionDetails[]
@@ -45,7 +43,6 @@ export class PeachWallet extends PeachJSWallet {
 
   constructor ({ wallet, network = NETWORK, gapLimit = 25 }: PeachWalletProps) {
     super({ wallet, network, gapLimit })
-    this.descriptorPath = `/84'/${network === 'bitcoin' ? '0' : '1'}'/0'/0/*`
     this.balance = 0
     this.transactions = []
     this.initialized = false
@@ -82,12 +79,12 @@ export class PeachWallet extends PeachJSWallet {
     )
   }
 
-  loadWallet (): void {
+  loadWallet (seedphrase?: string): void {
     if (useNodeConfigState.persist.hasHydrated()) {
-      this.initWallet()
+      this.initWallet(seedphrase)
     } else {
       useNodeConfigState.persist.onFinishHydration(() => {
-        this.initWallet()
+        this.initWallet(seedphrase)
       })
     }
   }

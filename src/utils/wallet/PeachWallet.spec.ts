@@ -81,14 +81,12 @@ describe('PeachWallet', () => {
 
     expect(peachWallet.initialized).toBeFalsy()
     expect(useWalletState.getState().isSynced).toBeFalsy()
-    expect(peachWallet.descriptorPath).toEqual("/84'/1'/0'/0/*")
   })
   it('instantiates for mainnet', () => {
     peachWallet = new PeachWallet({ wallet, network: 'bitcoin' })
 
     expect(peachWallet.initialized).toBeFalsy()
     expect(useWalletState.getState().isSynced).toBeFalsy()
-    expect(peachWallet.descriptorPath).toEqual("/84'/0'/0'/0/*")
   })
   it('synchronises wallet with the blockchain', async () => {
     walletSyncMock.mockResolvedValueOnce(true)
