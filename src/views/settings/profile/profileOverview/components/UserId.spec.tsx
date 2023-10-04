@@ -20,10 +20,6 @@ describe('UserId', () => {
     shallowRenderer.render(<UserId id={id} showInfo />)
     expect(shallowRenderer.getRenderOutput()).toMatchSnapshot()
   })
-  it('should render correctly with a dispute', () => {
-    shallowRenderer.render(<UserId id={id} showInfo isDispute />)
-    expect(shallowRenderer.getRenderOutput()).toMatchSnapshot()
-  })
   it('should set showInfo to false by default', () => {
     const testInstance = create(<UserId id={id} />).root
     expect(testInstance.props.showInfo).toBeFalsy()

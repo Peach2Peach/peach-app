@@ -1,7 +1,6 @@
 import { NETWORK } from '@env'
 import { View } from 'react-native'
 import { NewButton as Button } from '../../../components/buttons/Button'
-import { MatchCardCounterparty } from '../../../components/matches/components'
 import { useNavigation } from '../../../hooks'
 import tw from '../../../styles/tailwind'
 import { showAddress, showTransaction } from '../../../utils/bitcoin'
@@ -13,13 +12,12 @@ import { TradeInformation } from './TradeInformation'
 
 export const TradeSummary = () => {
   const { contract, view, showBatchInfo } = useContractContext()
-  const { batchInfo, releaseTxId, disputeActive, seller, buyer } = contract
+  const { batchInfo, releaseTxId } = contract
 
   if (showBatchInfo) return <PendingPayoutInfo />
 
   return (
     <View style={[tw`gap-4 pb-2 grow`, tw.md`gap-8`]}>
-      <MatchCardCounterparty user={view === 'buyer' ? seller : buyer} isDispute={disputeActive} />
       <TradeInformation />
 
       <View style={tw`flex-row items-center justify-center gap-6 mt-auto`}>

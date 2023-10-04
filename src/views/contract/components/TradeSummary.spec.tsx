@@ -34,19 +34,6 @@ describe('TradeSummary', () => {
     renderer.render(<TradeSummary />)
     expect(renderer.getRenderOutput()).toMatchSnapshot()
   })
-  it('should render correctly for dispute', () => {
-    useContractContextMock.mockReturnValueOnce({
-      contract: {
-        seller: { id: 'seller' },
-        buyer: { id: 'buyer' },
-        disputeActive: true,
-      },
-      view: 'buyer',
-      showBatchInfo: false,
-    })
-    renderer.render(<TradeSummary />)
-    expect(renderer.getRenderOutput()).toMatchSnapshot()
-  })
   it('should render correctly for showing batch info', () => {
     useContractContextMock.mockReturnValueOnce({
       contract: {
