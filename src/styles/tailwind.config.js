@@ -42,11 +42,17 @@ module.exports = {
         },
         success: {
           dark: {
-            2: '#016736',
-            1: '#008847',
+            2: '#246F00',
+            1: '#4F910C',
           },
-          main: '#05A85A',
-          mild: '#88E2B7',
+          main: '#65A519',
+          mild: {
+            2: '#AFDA73',
+            1: '#DDEFC3',
+          },
+          'background-dark': '#F2F9E7',
+          'background-main': '#FCFEF6',
+          'background-light': '#FEFEFB',
           background: '#C9FFE5',
         },
         warning: {
