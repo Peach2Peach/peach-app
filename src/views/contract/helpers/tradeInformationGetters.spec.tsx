@@ -2,13 +2,7 @@ import { contract } from '../../../../tests/unit/data/contractData'
 import { validSEPAData } from '../../../../tests/unit/data/paymentData'
 import { WalletLabel } from '../../../components/offer/WalletLabel'
 import { usePaymentDataStore } from '../../../store/usePaymentDataStore'
-import {
-  tradeInformationGetters,
-  isTradeInformationGetter,
-  activeSellOfferFields,
-  pastSellOfferFields,
-  pastBuyOfferFields,
-} from './tradeInformationGetters'
+import { isTradeInformationGetter, tradeInformationGetters } from './tradeInformationGetters'
 
 jest.mock('../../../utils/offer/getWalletLabel', () => ({
   getWalletLabel: jest.fn(() => 'walletLabel'),
@@ -70,17 +64,5 @@ describe('isTradeInformationGetter', () => {
   })
   it('should return false if the field name is not a valid trade information getter', () => {
     expect(isTradeInformationGetter('name')).toEqual(false)
-  })
-})
-
-describe('fields', () => {
-  test('activeSellOfferFields are correct', () => {
-    expect(activeSellOfferFields).toEqual(['price', 'reference', 'paidToMethod', 'via'])
-  })
-  test('pastSellOfferFields are correct', () => {
-    expect(pastSellOfferFields).toEqual(['price', 'paidToMethod', 'via', 'bitcoinAmount', 'bitcoinPrice'])
-  })
-  test('pastBuyOfferFields are correct', () => {
-    expect(pastBuyOfferFields).toEqual(['price', 'paidWithMethod', 'bitcoinAmount', 'bitcoinPrice', 'paidToWallet'])
   })
 })
