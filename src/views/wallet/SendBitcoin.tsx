@@ -57,8 +57,7 @@ export const SendBitcoin = () => {
   )
 
   return (
-    <Screen>
-      <SendBitcoinHeader />
+    <Screen header={<SendBitcoinHeader />}>
       <PeachScrollView contentContainerStyle={[tw`grow py-sm`, tw.md`py-md`]}>
         <View style={[tw`pb-11 gap-4`, tw.md`pb-14`]}>
           <Section title={i18n('wallet.sendBitcoin.to')}>

@@ -118,8 +118,7 @@ export const SelectPaymentMethod = () => {
   }
 
   return (
-    <Screen>
-      <Header title={i18n('selectPaymentMethod.title')} />
+    <Screen header={<Header title={i18n('selectPaymentMethod.title')} />}>
       <PeachScrollView contentContainerStyle={[tw`justify-center py-4 grow`, tw.md`py-8`]}>
         <RadioButtons
           items={paymentCategories}

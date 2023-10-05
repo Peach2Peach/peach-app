@@ -11,8 +11,7 @@ export const TransactionHistory = () => {
   const { transactions, refresh, isRefreshing } = useTransactionHistorySetup()
 
   return (
-    <Screen>
-      <TransactionHistoryHeader />
+    <Screen header={<TransactionHistoryHeader />}>
       {transactions.length === 0 ? (
         <EmptyTransactionHistory />
       ) : (

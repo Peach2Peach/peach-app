@@ -20,8 +20,7 @@ export const ExportTransactionHistory = () => {
   }
 
   return (
-    <Screen>
-      <Header title={i18n('wallet.exportHistory.title')} />
+    <Screen header={<Header title={i18n('wallet.exportHistory.title')} />}>
       <View style={tw`justify-center gap-8 grow`}>
         <Text style={tw`body-l`}>
           {`${i18n('wallet.exportHistory.description')}

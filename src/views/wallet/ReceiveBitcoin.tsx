@@ -19,8 +19,7 @@ export const ReceiveBitcoin = () => {
   if (isLoading) return <BitcoinLoading />
 
   return (
-    <Screen>
-      <Header title={i18n('wallet.receiveBitcoin.title')} />
+    <Screen header={<Header title={i18n('wallet.receiveBitcoin.title')} />}>
       <View style={[tw`items-center flex-1 gap-2 py-1`, tw.md`gap-8 py-6`]}>
         <AddressNavigation setIndex={setIndex} index={displayIndex} />
 

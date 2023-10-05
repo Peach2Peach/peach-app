@@ -26,8 +26,7 @@ export const Currency = () => {
   }
 
   return (
-    <Screen>
-      <Header title={i18n('currency')} />
+    <Screen header={<Header title={i18n('currency')} />}>
       <PeachScrollView contentContainerStyle={[tw`justify-center py-4 grow`, tw.md`py-8`]}>
         <RadioButtons
           selectedValue={displayCurrency}

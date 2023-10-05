@@ -19,8 +19,7 @@ export const MeetupScreen = () => {
     = useMeetupScreenSetup()
 
   return (
-    <Screen>
-      <MeetupScreenHeader />
+    <Screen header={<MeetupScreenHeader />}>
       <PeachScrollView contentContainerStyle={tw`justify-center grow`}>
         {!!event.logo && (
           <Image source={{ uri: API_URL + event.logo }} style={tw`w-full mb-5 h-30`} resizeMode={'contain'} />

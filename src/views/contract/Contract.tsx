@@ -1,4 +1,4 @@
-import { NewHeader, PeachScrollView, Screen } from '../../components'
+import { Header, PeachScrollView, Screen } from '../../components'
 import { TradeSummary } from '../../components/offer'
 import tw from '../../styles/tailwind'
 
@@ -18,15 +18,14 @@ export const Contract = () => {
   if (!contract || !view || isLoading) return <LoadingScreen />
 
   return (
-    <Screen>
-      <ContractContext.Provider value={{ contract, view, showBatchInfo, toggleShowBatchInfo }}>
-        <ContractHeader requiredAction={contractActionsProps.requiredAction} />
+    <ContractContext.Provider value={{ contract, view, showBatchInfo, toggleShowBatchInfo }}>
+      <Screen header={<ContractHeader requiredAction={contractActionsProps.requiredAction} />}>
         <PeachScrollView contentContainerStyle={[tw`grow pt-sm`, tw.md`pt-md`]} contentStyle={tw`grow`}>
           <TradeSummary />
           <ContractActions style={tw`items-center justify-end w-full mt-auto mb-2`} {...contractActionsProps} />
         </PeachScrollView>
-      </ContractContext.Provider>
-    </Screen>
+      </Screen>
+    </ContractContext.Provider>
   )
 }
 
@@ -59,5 +58,5 @@ function ContractHeader ({ requiredAction }: Props) {
     return contract?.disputeActive ? [] : icons
   }, [showConfirmPopup, contract, requiredAction, showConfirmPaymentHelp, showMakePaymentHelp, view])
 
-  return <NewHeader title={contractIdToHex(contractId)} icons={memoizedIcons} />
+  return <Header title={contractIdToHex(contractId)} icons={memoizedIcons} />
 }

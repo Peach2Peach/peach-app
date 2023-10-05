@@ -18,8 +18,7 @@ export const BuySummary = () => {
   const { canPublish, publishOffer, isPublishing, goToMessageSigning, offerDraft } = useBuySummarySetup()
 
   return (
-    <Screen>
-      <BuySummaryHeader />
+    <Screen header={<BuySummaryHeader />}>
       <PeachScrollView contentContainerStyle={[tw`justify-center flex-grow py-sm`, tw.md`py-md`]}>
         <BuyOfferSummary offer={offerDraft} />
       </PeachScrollView>

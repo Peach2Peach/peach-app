@@ -11,8 +11,7 @@ export const PublicProfile = () => {
   if (isLoading || !user) return <></>
 
   return (
-    <Screen>
-      <Header title={i18n('profile.user.title')} />
+    <Screen header={<Header title={i18n('profile.user.title')} />}>
       <View style={[tw`gap-12 pt-sm`, tw.md`pt-md`]}>
         <ProfileOverview user={user} />
         <AccountInfo user={user} />

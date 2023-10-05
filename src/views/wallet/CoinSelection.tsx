@@ -33,8 +33,7 @@ export const CoinSelection = () => {
   }
 
   return (
-    <Screen>
-      <CoinSelectionHeader />
+    <Screen header={<CoinSelectionHeader />}>
       <UTXOList selectedUTXOs={selectedUTXOs} toggleSelection={toggleSelection} />
       <ConfirmButton selectedUTXOIds={selectedUTXOs} />
     </Screen>

@@ -25,8 +25,7 @@ export const Contact = () => {
   const contactReasons = account?.publicKey ? contactReasonsWithAccount : contactReasonsNoAccount
 
   return (
-    <Screen>
-      <Header title={i18n('contact.title')} icons={[{ ...headerIcons.help, onPress: showHelp }]} />
+    <Screen header={<Header title={i18n('contact.title')} icons={[{ ...headerIcons.help, onPress: showHelp }]} />}>
       <PeachScrollView contentContainerStyle={tw`justify-center grow`} contentStyle={tw`gap-12`}>
         <View style={tw`w-full gap-4`}>
           <LinedText>

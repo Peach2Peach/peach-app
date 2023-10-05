@@ -16,8 +16,7 @@ export const AddressChecker = () => {
   const [address, setAddress, , errorMessage] = useValidatedState<string>('', addressRules)
 
   return (
-    <Screen>
-      <Header title={i18n('wallet.addressChecker')} />
+    <Screen header={<Header title={i18n('wallet.addressChecker')} />}>
       <View style={tw`items-center justify-center gap-16 grow`}>
         <InfoFrame text={i18n('wallet.addressChecker.hint')} />
         <BitcoinAddressInput value={address} onChange={setAddress} errorMessage={errorMessage} />

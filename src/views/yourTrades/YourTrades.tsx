@@ -33,8 +33,7 @@ export const YourTrades = () => {
   }
 
   return (
-    <Screen showFooter>
-      <YourTradesHeader />
+    <Screen header={<YourTradesHeader />} showFooter>
       <TabbedNavigation
         items={tabs}
         select={switchTab}

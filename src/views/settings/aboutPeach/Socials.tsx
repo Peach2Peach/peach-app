@@ -17,8 +17,7 @@ const socials = [
 ]
 
 export const Socials = () => (
-  <Screen>
-    <Header title={i18n('settings.socials.subtitle')} />
+  <Screen header={<Header title={i18n('settings.socials.subtitle')} />}>
     <View style={tw`items-center justify-center grow`}>
       {socials.map(({ name, url }) => (
         <OptionButton key={name} onPress={() => Linking.openURL(url)} style={tw`mt-2`} wide>

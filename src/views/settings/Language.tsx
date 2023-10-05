@@ -14,8 +14,7 @@ export const Language = () => {
   }
 
   return (
-    <Screen>
-      <Header title={i18n('language')} />
+    <Screen header={<Header title={i18n('language')} />}>
       <PeachScrollView contentContainerStyle={tw`justify-center grow`}>
         <RadioButtons
           selectedValue={locale}

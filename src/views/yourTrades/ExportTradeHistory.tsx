@@ -20,8 +20,7 @@ export function ExportTradeHistory () {
   }
 
   return (
-    <Screen>
-      <Header title={i18n('exportTradeHistory.title')} />
+    <Screen header={<Header title={i18n('exportTradeHistory.title')} />}>
       <View style={tw`justify-center gap-8 grow`}>
         <Text style={tw`body-l`}>
           {`${i18n('exportTradeHistory.description')}

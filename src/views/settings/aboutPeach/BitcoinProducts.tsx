@@ -7,8 +7,7 @@ import i18n from '../../../utils/i18n'
 import { goToShiftCrypto } from '../../../utils/web'
 
 export const BitcoinProducts = () => (
-  <Screen>
-    <Header title={i18n('settings.bitcoinProducts')} />
+  <Screen header={<Header title={i18n('settings.bitcoinProducts')} />}>
     <View style={tw`justify-center grow`}>
       <PeachText style={tw`h5`}>{i18n('settings.bitcoinProducts.proSecurity')}</PeachText>
       <PeachText style={tw`mt-1`}>

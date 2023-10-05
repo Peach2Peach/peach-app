@@ -45,8 +45,7 @@ export const AboutPeach = () => {
   ]
 
   return (
-    <Screen>
-      <Header title={i18n('settings.aboutPeach')} />
+    <Screen header={<Header title={i18n('settings.aboutPeach')} />}>
       <PeachScrollView contentContainerStyle={tw`justify-center flex-1`}>
         {items.map((item) => (
           <SettingsItem

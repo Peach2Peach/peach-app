@@ -42,11 +42,14 @@ export const SelectCountry = () => {
   const showHelp = useShowHelp('giftCards')
 
   return (
-    <Screen>
-      <Header
-        title={i18n('paymentMethod.giftCard.countrySelect.title')}
-        icons={[{ ...headerIcons.help, onPress: showHelp }]}
-      />
+    <Screen
+      header={
+        <Header
+          title={i18n('paymentMethod.giftCard.countrySelect.title')}
+          icons={[{ ...headerIcons.help, onPress: showHelp }]}
+        />
+      }
+    >
       <PeachScrollView contentContainerStyle={[tw`justify-center flex-grow py-4`, tw.md`py-8`]}>
         {!!countries && <RadioButtons items={countries} selectedValue={selectedCountry} onButtonPress={setCountry} />}
       </PeachScrollView>
