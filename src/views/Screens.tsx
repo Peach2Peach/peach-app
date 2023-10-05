@@ -1,17 +1,18 @@
-import { Header } from '../components'
+import { createStackNavigator } from '@react-navigation/stack'
+import { useWindowDimensions } from 'react-native'
+import { OldHeader } from '../components'
 import tw from '../styles/tailwind'
-import { getViews } from './getViews'
 import { account } from '../utils/account'
 import { screenTransition } from '../utils/layout/screenTransition'
 import { isIOS } from '../utils/system'
-import { createStackNavigator } from '@react-navigation/stack'
+import { getViews } from './getViews'
 
 const Stack = createStackNavigator<RootStackParamList>()
 export const Screens = () => {
   const views = getViews(!!account?.publicKey)
+  const { width } = useWindowDimensions()
   return (
     <Stack.Navigator
-      detachInactiveScreens={true}
       screenOptions={{
         gestureEnabled: isIOS(),
         headerShown: false,
@@ -23,8 +24,9 @@ export const Screens = () => {
           key={name}
           options={{
             headerShown: showHeader,
+            gestureResponseDistance: width / 2,
             animationEnabled,
-            header: () => <Header />,
+            header: () => <OldHeader />,
             cardStyle: !background.color && tw`bg-primary-background`,
             transitionSpec: {
               open: screenTransition,
