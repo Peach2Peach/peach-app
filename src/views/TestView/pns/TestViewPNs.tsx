@@ -4,7 +4,6 @@ import { useMemo, useState } from 'react'
 import { FlatList, View } from 'react-native'
 import { PrimaryButton } from '../../../components'
 import { TabbedNavigation } from '../../../components/navigation/TabbedNavigation'
-import { useHeaderSetup } from '../../../hooks'
 import { useMessageHandler } from '../../../hooks/notifications/useMessageHandler'
 import tw from '../../../styles/tailwind'
 import { account } from '../../../utils/account'
@@ -296,7 +295,6 @@ const useFakePNs = () => {
 }
 
 export const TestViewPNs = () => {
-  useHeaderSetup('test view - pns')
   const messageHandler = useMessageHandler('testViewPNs')
   const { fakeOfferPNs, fakeContractPNs } = useFakePNs()
   const tabs = [

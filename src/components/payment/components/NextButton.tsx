@@ -5,6 +5,7 @@ import { useUserPaymentMethodInfo } from '../../../hooks/query/useUserPaymentMet
 import { InfoPopup } from '../../../popups/InfoPopup'
 import { useOfferPreferences } from '../../../store/offerPreferenes/useOfferPreferences'
 import { usePopupStore } from '../../../store/usePopupStore'
+import tw from '../../../styles/tailwind'
 import { intersect } from '../../../utils/array'
 import i18n from '../../../utils/i18n'
 
@@ -31,7 +32,7 @@ export const NextButton = () => {
   }
 
   return (
-    <PrimaryButton disabled={!isStepValid} onPress={goToSummary} narrow>
+    <PrimaryButton style={tw`self-center`} disabled={!isStepValid} onPress={goToSummary} narrow>
       {i18n('next')}
     </PrimaryButton>
   )

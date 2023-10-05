@@ -1,11 +1,8 @@
 import { useMemo } from 'react'
 import { shallow } from 'zustand/shallow'
-import { useHeaderSetup, useNavigation, useValidatedState } from '../../../hooks'
-import { useShowHelp } from '../../../hooks/useShowHelp'
+import { useNavigation, useValidatedState } from '../../../hooks'
 import { useSettingsStore } from '../../../store/settingsStore'
 import { account, getMessageToSignForAddress } from '../../../utils/account'
-import i18n from '../../../utils/i18n'
-import { headerIcons } from '../../../utils/layout/headerIcons'
 import { parseSignature } from '../helpers/parseSignature'
 
 export const useSignMessageSetup = () => {
@@ -25,12 +22,6 @@ export const useSignMessageSetup = () => {
   const [signature, setSignature, signatureValid, signatureError] = useValidatedState<string>('', signatureRules)
 
   const parseAndSetSignature = (sig: string) => setSignature(parseSignature(sig))
-
-  const showHelp = useShowHelp('addressSigning')
-  useHeaderSetup({
-    title: i18n('buy.addressSigning.title'),
-    icons: [{ ...headerIcons.help, onPress: showHelp }],
-  })
 
   const submit = (sig: string) => {
     setPayoutAddressSignature(sig)

@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { View } from 'react-native'
 
+import { Screen } from '../../components'
 import { TabbedNavigation, TabbedNavigationItem } from '../../components/navigation/TabbedNavigation'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
@@ -16,9 +16,9 @@ export const Backups = () => {
   const CurrentView = currentTab.view
 
   return (
-    <View style={tw`h-full`}>
-      <TabbedNavigation style={tw`mt-6`} items={tabs} selected={currentTab} select={setCurrentTab} />
-      {!!CurrentView && <CurrentView style={tw`flex-shrink mt-6`} />}
-    </View>
+    <Screen>
+      <TabbedNavigation items={tabs} selected={currentTab} select={setCurrentTab} />
+      {!!CurrentView && <CurrentView style={tw`pt-4 shrink`} />}
+    </Screen>
   )
 }

@@ -1,6 +1,5 @@
 import { createStackNavigator } from '@react-navigation/stack'
 import { useWindowDimensions } from 'react-native'
-import { OldHeader } from '../components'
 import tw from '../styles/tailwind'
 import { account } from '../utils/account'
 import { screenTransition } from '../utils/layout/screenTransition'
@@ -18,15 +17,14 @@ export const Screens = () => {
         headerShown: false,
       }}
     >
-      {views.map(({ name, component, showHeader, background, animationEnabled }) => (
+      {views.map(({ name, component, background, animationEnabled, headerShown }) => (
         <Stack.Screen
           {...{ name, component }}
           key={name}
           options={{
-            headerShown: showHeader,
+            headerShown: headerShown ?? false,
             gestureResponseDistance: width / 2,
             animationEnabled,
-            header: () => <OldHeader />,
             cardStyle: !background.color && tw`bg-primary-background`,
             transitionSpec: {
               open: screenTransition,

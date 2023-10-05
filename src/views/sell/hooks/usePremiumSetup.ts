@@ -1,11 +1,10 @@
+import { useEffect } from 'react'
+import { shallow } from 'zustand/shallow'
 import { useMarketPrices, useTradingLimits } from '../../../hooks'
-import { useSellSetup } from './useSellSetup'
 import { useOfferPreferences } from '../../../store/offerPreferenes/useOfferPreferences'
 import { validatePremiumStep } from '../helpers/validatePremiumStep'
-import { shallow } from 'zustand/shallow'
-import { useEffect } from 'react'
 
-const usePremiumStepValidation = () => {
+export const usePremiumStepValidation = () => {
   const { amount, premium, isStepValid, setPremium } = useOfferPreferences(
     (state) => ({
       amount: state.sellAmount,
@@ -24,9 +23,4 @@ const usePremiumStepValidation = () => {
       setPremium(premium, validatePremiumStep({ amount, premium }, priceBook, limits))
     }
   }, [amount, isStepValid, limits, premium, priceBook, setPremium])
-}
-
-export const usePremiumSetup = () => {
-  useSellSetup({ help: 'premium' })
-  usePremiumStepValidation()
 }

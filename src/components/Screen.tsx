@@ -1,10 +1,10 @@
-import { SafeAreaView, View, ViewStyle } from 'react-native'
+import { SafeAreaView, View, ViewProps } from 'react-native'
 import tw from '../styles/tailwind'
 import { DailyTradingLimit } from '../views/settings/profile/DailyTradingLimit'
 import { Footer } from './footer'
 
 type Props = {
-  style?: ViewStyle | ViewStyle[]
+  style?: ViewProps['style']
   header?: React.ReactNode
   showFooter?: boolean
   showTradingLimit?: boolean

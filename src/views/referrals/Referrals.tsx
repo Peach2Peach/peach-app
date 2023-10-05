@@ -14,8 +14,7 @@ export const Referrals = () => {
 
   if (!user) return <LoadingScreen />
   return (
-    <Screen>
-      <ReferralsHeader />
+    <Screen header={<ReferralsHeader />}>
       <BonusPointsBar balance={pointsBalance} />
       <PeachScrollView contentContainerStyle={tw`justify-center flex-grow`}>
         <ReferralRewards

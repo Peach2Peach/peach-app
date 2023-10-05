@@ -1,6 +1,7 @@
 import { useRef } from 'react'
 import { Pressable, TextInput, View } from 'react-native'
-import { Icon, Input, PeachScrollView, PrimaryButton, Text } from '../../components'
+import { Header, Icon, Input, PeachScrollView, Screen, Text } from '../../components'
+import { NewButton } from '../../components/buttons/Button'
 import { EmailInput } from '../../components/inputs/EmailInput'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
@@ -32,8 +33,8 @@ export const Report = () => {
   let $message = useRef<TextInput>(null).current
 
   return (
-    <View style={tw`justify-center flex-grow p-6`}>
-      <PeachScrollView contentContainerStyle={tw`justify-center flex-grow`}>
+    <Screen header={<Header title={i18n('contact.title')} />}>
+      <PeachScrollView contentContainerStyle={tw`justify-center grow`}>
         <EmailInput
           onChange={setEmail}
           onSubmit={() => $topic?.focus()}
@@ -62,9 +63,9 @@ export const Report = () => {
         />
         {!account.publicKey && (
           <Pressable onPress={toggleDeviceIDSharing} style={tw`flex-row items-center pl-3`}>
-            <View style={tw`flex items-center justify-center w-5 h-5`}>
+            <View style={tw`items-center justify-center w-5 h-5`}>
               {shareDeviceID ? (
-                <Icon id="checkboxMark" style={tw`w-5 h-5`} color={tw`text-primary-main`.color} />
+                <Icon id="checkboxMark" size={20} color={tw`text-primary-main`.color} />
               ) : (
                 <View style={tw`w-4 h-4 border-2 rounded-sm border-black-3`} />
               )}
@@ -75,7 +76,7 @@ export const Report = () => {
         <Pressable onPress={toggleShareLogs} style={tw`flex-row items-center pl-3`}>
           <View style={tw`flex items-center justify-center w-5 h-5`}>
             {shareLogs ? (
-              <Icon id="checkboxMark" style={tw`w-5 h-5`} color={tw`text-primary-main`.color} />
+              <Icon id="checkboxMark" size={20} color={tw`text-primary-main`.color} />
             ) : (
               <View style={tw`w-4 h-4 border-2 rounded-sm border-black-3`} />
             )}
@@ -83,14 +84,13 @@ export const Report = () => {
           <Text style={tw`pl-2 subtitle-1`}>{i18n('form.shareLogs')}</Text>
         </Pressable>
       </PeachScrollView>
-      <PrimaryButton
-        style={tw`self-center`}
+      <NewButton
+        style={tw`self-center min-w-52`}
         onPress={submit}
         disabled={!(isEmailValid && isTopicValid && isMessageValid)}
-        narrow
       >
         {i18n('report.sendReport')}
-      </PrimaryButton>
-    </View>
+      </NewButton>
+    </Screen>
   )
 }

@@ -1,11 +1,9 @@
 import { useContext } from 'react'
 import { PeachScrollView, PrimaryButton } from '../../../components'
 import { MessageContext } from '../../../contexts/message'
-import { useHeaderSetup } from '../../../hooks'
 import tw from '../../../styles/tailwind'
 
 export const TestViewMessages = () => {
-  useHeaderSetup('test view - popups')
   const [, updateMessage] = useContext(MessageContext)
 
   const openMessage = (level: MessageState['level'], options: Partial<MessageState> = {}) =>

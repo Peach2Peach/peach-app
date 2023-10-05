@@ -1,6 +1,8 @@
 import { TouchableOpacity, View } from 'react-native'
 
-import { Icon, PrimaryButton, RadioButtons, Screen, Text } from '../../components'
+import { Header, Icon, RadioButtons, Screen, Text } from '../../components'
+import { NewButton } from '../../components/buttons/Button'
+import { useRoute } from '../../hooks'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { useSelectWalletSetup } from './hooks/useSelectWalletSetup'
@@ -10,8 +12,8 @@ export const SelectWallet = () => {
     = useSelectWalletSetup()
 
   return (
-    <Screen>
-      <View style={tw`justify-center flex-grow`}>
+    <Screen header={<SelectWalletHeader />}>
+      <View style={tw`justify-center grow`}>
         <Text>{i18n(`${type}.wallet.select.description`)}</Text>
         <RadioButtons
           style={tw`mt-8`}
@@ -32,9 +34,14 @@ export const SelectWallet = () => {
           </TouchableOpacity>
         )}
       </View>
-      <PrimaryButton onPress={selectAndContinue} style={tw`self-center mb-5`} narrow>
+      <NewButton onPress={selectAndContinue} style={tw`self-center min-w-52`}>
         {i18n('confirm')}
-      </PrimaryButton>
+      </NewButton>
     </Screen>
   )
+}
+
+function SelectWalletHeader () {
+  const { type } = useRoute<'selectWallet'>().params
+  return <Header title={i18n(`${type}.wallet.select.title`)} />
 }

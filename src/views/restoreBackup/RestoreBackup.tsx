@@ -16,9 +16,9 @@ export const RestoreBackup = () => {
 
   return (
     <View style={tw`h-full`}>
-      <View style={tw`flex flex-col h-full pt-5`}>
+      <View style={tw`h-full pt-5`}>
         <TabbedNavigation theme="inverted" items={tabs} selected={currentTab} select={setCurrentTab} />
-        <CurrentView style={tw`flex-shrink h-full`} />
+        <CurrentView style={tw`h-full shrink`} />
       </View>
     </View>
   )

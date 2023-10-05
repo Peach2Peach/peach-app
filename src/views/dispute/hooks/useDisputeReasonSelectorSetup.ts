@@ -1,9 +1,8 @@
-import { useHeaderSetup, useNavigation, useRoute } from '../../../hooks'
+import { useNavigation, useRoute } from '../../../hooks'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { useDisputeRaisedSuccess } from '../../../popups/dispute/hooks/useDisputeRaisedSuccess'
 import { account } from '../../../utils/account'
-import { contractIdToHex, getContract, getContractViewer } from '../../../utils/contract'
-import i18n from '../../../utils/i18n'
+import { getContract, getContractViewer } from '../../../utils/contract'
 import { submitRaiseDispute } from '../utils/submitRaiseDispute'
 import { disputeReasons } from './disputeReasons'
 
@@ -18,8 +17,6 @@ export const useDisputeReasonSelectorSetup = () => {
   const showErrorBanner = useShowErrorBanner()
 
   const showDisputeRaisedPopup = useDisputeRaisedSuccess()
-
-  useHeaderSetup(i18n('dispute.disputeForTrade', contract ? contractIdToHex(contract.id) : ''))
 
   const setAndSubmit = async (reason: DisputeReason) => {
     const [success, error] = await submitRaiseDispute(contract, reason)
