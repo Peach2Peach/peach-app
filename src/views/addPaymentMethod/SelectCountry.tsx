@@ -1,6 +1,6 @@
 import tw from '../../styles/tailwind'
 
-import { NewHeader as Header, PeachScrollView, PrimaryButton, RadioButtons, Screen } from '../../components'
+import { Header, PeachScrollView, PrimaryButton, RadioButtons, Screen } from '../../components'
 import { useNavigation, useRoute, useShowHelp } from '../../hooks'
 import i18n from '../../utils/i18n'
 

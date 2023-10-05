@@ -1,6 +1,6 @@
 import { View } from 'react-native'
 
-import { NewHeader as Header, Icon, PeachScrollView, PrimaryButton, Screen, Text } from '../../components'
+import { Header, Icon, PeachScrollView, PrimaryButton, Screen, Text } from '../../components'
 import { OpenWallet } from '../../components/bitcoin'
 import { BitcoinAddressInput, Input } from '../../components/inputs'
 import { useRoute, useShowHelp } from '../../hooks'

@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useCallback } from 'react'
 import { View } from 'react-native'
-import { NewHeader as Header, Screen } from '../../components'
+import { Header, Screen } from '../../components'
 import { PeachScrollView } from '../../components/PeachScrollView'
 import { PrimaryButton } from '../../components/buttons'
 import { HeaderConfig } from '../../components/header/Header'

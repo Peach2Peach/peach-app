@@ -1,4 +1,4 @@
-import { NewHeader as Header, PeachScrollView, Screen } from '../../components'
+import { Header, PeachScrollView, Screen } from '../../components'
 import { useShowHelp } from '../../hooks'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'

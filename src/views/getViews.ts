@@ -72,21 +72,18 @@ type ViewType = {
   name: keyof RootStackParamList
   component: () => JSX.Element
   showHeader: boolean
-  showFooter: boolean
   background: BackgroundConfig
   animationEnabled: boolean
 }
 
 const onboardingConfig = {
   showHeader: true,
-  showFooter: false,
   background: { color: 'primaryGradient' },
   animationEnabled: false,
 } as const
-const defaultConfig = { showHeader: true, showFooter: true, background: { color: undefined }, animationEnabled: true }
+const defaultConfig = { showHeader: true, background: { color: undefined }, animationEnabled: true }
 const invertedThemeConfig = {
   showHeader: false,
-  showFooter: false,
   background: { color: 'primaryGradient' },
   animationEnabled: false,
 } as const
@@ -99,7 +96,7 @@ const onboarding: ViewType[] = [
   { name: 'restoreReputation', component: RestoreReputation, ...onboardingConfig },
 ]
 
-const home: ViewType[] = [{ name: 'home', component: Buy, ...defaultConfig }]
+const home: ViewType[] = [{ name: 'home', component: Buy, ...defaultConfig, showHeader: false }]
 
 const wallet: ViewType[] = [
   { name: 'wallet', component: Wallet, ...defaultConfig, showHeader: false, animationEnabled: false },
@@ -113,7 +110,7 @@ const wallet: ViewType[] = [
   { name: 'bumpNetworkFees', component: BumpNetworkFees, ...defaultConfig },
 ]
 const buyFlow: ViewType[] = [
-  { name: 'buy', component: Buy, ...defaultConfig, animationEnabled: false },
+  { name: 'buy', component: Buy, ...defaultConfig, animationEnabled: false, showHeader: false },
   { name: 'buyPreferences', component: PaymentMethods, ...defaultConfig },
   { name: 'buySummary', component: BuySummary, ...defaultConfig, showHeader: false },
   { name: 'signMessage', component: SignMessage, ...defaultConfig },
@@ -150,14 +147,14 @@ const tradeHistory: ViewType[] = [
 const contact = (hasAccount: boolean): ViewType[] =>
   hasAccount
     ? [
-      { name: 'contact', component: Contact, ...defaultConfig, showFooter: hasAccount, showHeader: false },
-      { name: 'report', component: Report, ...defaultConfig, showFooter: hasAccount },
+      { name: 'contact', component: Contact, ...defaultConfig, showHeader: false },
+      { name: 'report', component: Report, ...defaultConfig },
       { name: 'disputeReasonSelector', component: DisputeReasonSelector, ...defaultConfig },
       { name: 'disputeForm', component: DisputeForm, ...defaultConfig },
     ]
     : [
-      { name: 'contact', component: Contact, ...defaultConfig, showFooter: false, showHeader: false },
-      { name: 'report', component: Report, ...defaultConfig, showFooter: false },
+      { name: 'contact', component: Contact, ...defaultConfig, showHeader: false },
+      { name: 'report', component: Report, ...defaultConfig },
     ]
 
 const publicProfile: ViewType[] = [
@@ -188,7 +185,7 @@ const settings: ViewType[] = [
   { name: 'currency', component: Currency, ...defaultConfig, showHeader: false },
   { name: 'language', component: Language, ...defaultConfig, showHeader: false },
   { name: 'referrals', component: Referrals, ...defaultConfig, showHeader: false },
-  { name: 'backupTime', component: BackupTime, ...invertedThemeConfig, showFooter: true },
+  { name: 'backupTime', component: BackupTime, ...invertedThemeConfig },
   { name: 'backups', component: Backups, ...defaultConfig },
   { name: 'backupCreated', component: BackupCreated, ...invertedThemeConfig },
   { name: 'nodeSetup', component: NodeSetup, ...defaultConfig, showHeader: false },

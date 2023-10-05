@@ -4,7 +4,7 @@ import { useDrawerContext } from '../../contexts/drawer'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 
-import { NewHeader as Header, PeachScrollView, PrimaryButton, RadioButtons, Screen } from '../../components'
+import { Header, PeachScrollView, PrimaryButton, RadioButtons, Screen } from '../../components'
 import { FlagType } from '../../components/flags'
 import { useNavigation, useRoute } from '../../hooks'
 import { NATIONALOPTIONCOUNTRIES, NATIONALOPTIONS, PAYMENTCATEGORIES } from '../../paymentMethods'

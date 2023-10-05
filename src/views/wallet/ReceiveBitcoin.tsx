@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { View } from 'react-native'
 import QRCode from 'react-native-qrcode-svg'
-import { CopyAble, NewHeader as Header, HorizontalLine, Screen, Text } from '../../components'
+import { CopyAble, Header, HorizontalLine, Screen, Text } from '../../components'
 import { useIsMediumScreen } from '../../hooks'
 import tw from '../../styles/tailwind'
 import { getBitcoinAddressParts } from '../../utils/bitcoin'

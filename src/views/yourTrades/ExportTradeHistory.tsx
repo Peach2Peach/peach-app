@@ -1,5 +1,5 @@
 import { View } from 'react-native'
-import { NewHeader as Header, Screen, Text } from '../../components'
+import { Header, Screen, Text } from '../../components'
 import { NewButton as Button } from '../../components/buttons/Button'
 import { useWriteCSV } from '../../hooks'
 import { useTradeSummaries } from '../../hooks/query/useTradeSummaries'

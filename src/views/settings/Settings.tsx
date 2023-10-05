@@ -2,7 +2,7 @@ import { View } from 'react-native'
 
 import tw from '../../styles/tailwind'
 
-import { NewHeader as Header, PeachScrollView, Screen, Text } from '../../components'
+import { Header, PeachScrollView, Screen, Text } from '../../components'
 import i18n from '../../utils/i18n'
 import { SettingsItem } from './components/SettingsItem'
 import { VersionInfo } from './components/VersionInfo'

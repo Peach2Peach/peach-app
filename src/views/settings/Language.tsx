@@ -1,4 +1,4 @@
-import { NewHeader as Header, PeachScrollView, PrimaryButton, RadioButtons, Screen } from '../../components'
+import { Header, PeachScrollView, PrimaryButton, RadioButtons, Screen } from '../../components'
 import { useNavigation } from '../../hooks'
 import { useLanguage } from '../../hooks/useLanguage'
 import tw from '../../styles/tailwind'

@@ -2,7 +2,7 @@ import { Linking, View } from 'react-native'
 
 import tw from '../../../styles/tailwind'
 
-import { NewHeader as Header, OptionButton, Screen } from '../../../components'
+import { Header, OptionButton, Screen } from '../../../components'
 import { DISCORD, INSTAGRAM, NOSTR, TELEGRAM, TWITCH, TWITTER, YOUTUBE } from '../../../constants'
 import i18n from '../../../utils/i18n'
 

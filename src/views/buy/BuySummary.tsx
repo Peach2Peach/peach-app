@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { NewHeader as Header, PeachScrollView, PrimaryButton, Screen } from '../../components'
+import { Header, PeachScrollView, PrimaryButton, Screen } from '../../components'
 import { BuyOfferSummary } from '../../components/offer'
 import { useNavigation } from '../../hooks'
 import tw from '../../styles/tailwind'

@@ -1,5 +1,5 @@
 import { TouchableOpacity, View } from 'react-native'
-import { NewHeader as Header, Screen } from '../../../components'
+import { Header, Screen } from '../../../components'
 import { Icon } from '../../../components/Icon'
 import { PeachText } from '../../../components/text/Text'
 import tw from '../../../styles/tailwind'

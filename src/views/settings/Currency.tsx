@@ -1,7 +1,7 @@
 import tw from '../../styles/tailwind'
 
 import { shallow } from 'zustand/shallow'
-import { NewHeader as Header, PeachScrollView, PrimaryButton, RadioButtons, Screen } from '../../components'
+import { Header, PeachScrollView, PrimaryButton, RadioButtons, Screen } from '../../components'
 import { useNavigation } from '../../hooks'
 import { CURRENCIES } from '../../paymentMethods'
 import { useBitcoinStore } from '../../store/bitcoinStore'

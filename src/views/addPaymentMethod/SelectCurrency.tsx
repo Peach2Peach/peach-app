@@ -1,7 +1,7 @@
 import tw from '../../styles/tailwind'
 
 import { useState } from 'react'
-import { NewHeader as Header, PrimaryButton, Screen } from '../../components'
+import { Header, PrimaryButton, Screen } from '../../components'
 import { useNavigation, useRoute } from '../../hooks'
 import i18n from '../../utils/i18n'
 import { CurrencyTabs } from './CurrencyTabs'

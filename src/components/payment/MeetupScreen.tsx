@@ -1,7 +1,7 @@
 import { API_URL } from '@env'
 import { useMemo } from 'react'
 import { Image, View } from 'react-native'
-import { NewHeader, Screen, Text } from '../../components'
+import { Header, Screen, Text } from '../../components'
 import { useRoute, useShowHelp } from '../../hooks'
 import { useMeetupEventsStore } from '../../store/meetupEventsStore'
 import tw from '../../styles/tailwind'
@@ -72,5 +72,5 @@ function MeetupScreenHeader () {
     return icns
   }, [deletable, deletePaymentMethod, showHelp])
 
-  return <NewHeader title={getMeetupEvent(eventId)?.shortName} icons={icons} />
+  return <Header title={getMeetupEvent(eventId)?.shortName} icons={icons} />
 }

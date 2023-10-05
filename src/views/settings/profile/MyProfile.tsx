@@ -1,5 +1,5 @@
 import { View } from 'react-native'
-import { NewHeader as Header, PeachScrollView, Screen } from '../../../components'
+import { Header, PeachScrollView, Screen } from '../../../components'
 import { useSelfUser } from '../../../hooks/query/useSelfUser'
 import { useShowHelp } from '../../../hooks/useShowHelp'
 import tw from '../../../styles/tailwind'

@@ -1,5 +1,5 @@
 import { Linking, View } from 'react-native'
-import { NewHeader as Header, OptionButton, PeachScrollView, Screen, Text } from '../../components'
+import { Header, OptionButton, PeachScrollView, Screen, Text } from '../../components'
 import { LinedText } from '../../components/ui/LinedText'
 import { DISCORD, TELEGRAM } from '../../constants'
 import { useNavigation } from '../../hooks'
