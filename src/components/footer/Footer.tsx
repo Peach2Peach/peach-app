@@ -49,7 +49,7 @@ function FooterItem ({ id }: { id: (typeof tabs)[number] }) {
     navigation.reset({ index: 0, routes: [{ name: id }] })
   }
 
-  const active = currentPage === id
+  const active = currentPage === id || (currentPage === 'home' && id === 'buy')
   const color = active ? (id === 'settings' ? tw`text-primary-main` : tw`text-black-1`) : tw`text-black-2`
   const size = tw`w-6 h-6`
   return (
