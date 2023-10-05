@@ -1,16 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Report should render correctly 1`] = `
-<View
-  style={
-    {
-      "flexGrow": 1,
-      "justifyContent": "center",
-      "paddingBottom": 24,
-      "paddingLeft": 24,
-      "paddingRight": 24,
-      "paddingTop": 24,
-    }
+<Screen
+  header={
+    <Header
+      title="contact Peach"
+    />
   }
 >
   <ForwardRef
@@ -65,7 +60,6 @@ exports[`Report should render correctly 1`] = `
         style={
           {
             "alignItems": "center",
-            "display": "flex",
             "height": 20,
             "justifyContent": "center",
             "width": 20,
@@ -122,12 +116,7 @@ exports[`Report should render correctly 1`] = `
         <Icon
           color="#F56522"
           id="checkboxMark"
-          style={
-            {
-              "height": 20,
-              "width": 20,
-            }
-          }
+          size={20}
         />
       </View>
       <PeachText
@@ -145,17 +134,17 @@ exports[`Report should render correctly 1`] = `
       </PeachText>
     </Memo(Pressable)>
   </ForwardRef>
-  <PrimaryButton
+  <NewButton
     disabled={false}
-    narrow={true}
     onPress={[MockFunction]}
     style={
       {
         "alignSelf": "center",
+        "minWidth": 208,
       }
     }
   >
     send report
-  </PrimaryButton>
-</View>
+  </NewButton>
+</Screen>
 `;

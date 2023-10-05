@@ -1,8 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`PayoutAddress should render correctly 1`] = `
-<Screen>
-  <PayoutAddressHeader />
+<Screen
+  header={<PayoutAddressHeader />}
+>
   <ForwardRef
     contentContainerStyle={
       {
@@ -68,8 +69,9 @@ exports[`PayoutAddress should render correctly 1`] = `
 `;
 
 exports[`PayoutAddress should render correctly when isUpdated is true 1`] = `
-<Screen>
-  <PayoutAddressHeader />
+<Screen
+  header={<PayoutAddressHeader />}
+>
   <ForwardRef
     contentContainerStyle={
       {
@@ -137,7 +139,7 @@ exports[`PayoutAddress should render correctly when isUpdated is true 1`] = `
         address set
       </PeachText>
       <Icon
-        color="#05A85A"
+        color="#65A519"
         id="check"
         size={20}
       />
@@ -159,8 +161,9 @@ exports[`PayoutAddress should render correctly when isUpdated is true 1`] = `
 `;
 
 exports[`PayoutAddress should render correctly when type is refund 1`] = `
-<Screen>
-  <PayoutAddressHeader />
+<Screen
+  header={<PayoutAddressHeader />}
+>
   <ForwardRef
     contentContainerStyle={
       {

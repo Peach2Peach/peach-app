@@ -1,8 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`PaymentMethodForm should render correctly 1`] = `
-<Screen>
-  <PaymentMethodFormHeader />
+<Screen
+  header={<PaymentMethodFormHeader />}
+>
   <ForwardRef
     contentContainerStyle={
       {

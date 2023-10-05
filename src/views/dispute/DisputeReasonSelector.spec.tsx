@@ -10,6 +10,13 @@ const useDisputeReasonSelectorSetupMock = jest.fn().mockReturnValue({
 jest.mock('./hooks/useDisputeReasonSelectorSetup', () => ({
   useDisputeReasonSelectorSetup: () => useDisputeReasonSelectorSetupMock(),
 }))
+jest.mock('../../hooks/useRoute', () => ({
+  useRoute: () => ({
+    params: {
+      disputeType: 'buyer',
+    },
+  }),
+}))
 
 describe('DisputeReasonSelector', () => {
   it('should render correctly', () => {

@@ -4,40 +4,382 @@ exports[`EditPremium should render correctly 1`] = `
 <View
   style={
     {
-      "height": "100%",
+      "flexBasis": "0%",
+      "flexGrow": 1,
+      "flexShrink": 1,
     }
   }
 >
-  <View
+  <RCTSafeAreaView>
+    <View
+      style={
+        [
+          {
+            "alignItems": "center",
+            "gap": 6,
+            "paddingBottom": 4,
+            "paddingLeft": 16,
+            "paddingRight": 16,
+            "paddingTop": 4,
+          },
+          {
+            "paddingLeft": 32,
+            "paddingRight": 32,
+          },
+          undefined,
+        ]
+      }
+    >
+      <View
+        style={
+          {
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+            "width": "100%",
+          }
+        }
+      >
+        <View
+          style={
+            {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "flexShrink": 1,
+              "gap": 4,
+              "justifyContent": "flex-start",
+              "width": "100%",
+            }
+          }
+        >
+          <Text
+            allowFontScaling={false}
+            numberOfLines={1}
+            style={
+              [
+                {
+                  "color": "#2B1911",
+                  "fontFamily": "Baloo2-Regular",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 24,
+                },
+                [
+                  {
+                    "fontFamily": "Baloo2-Bold",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 26,
+                  },
+                  {
+                    "fontFamily": "Baloo2-Bold",
+                    "fontSize": 20,
+                    "letterSpacing": 0.2,
+                    "lineHeight": 32,
+                  },
+                  {
+                    "color": "#2B1911",
+                  },
+                  {
+                    "flexShrink": 1,
+                  },
+                ],
+                false,
+              ]
+            }
+          >
+            P‑7B
+          </Text>
+        </View>
+        <View
+          style={
+            {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "gap": 10,
+              "justifyContent": "flex-end",
+            }
+          }
+        >
+          <View
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": undefined,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              {
+                "opacity": 1,
+                "paddingBottom": 2,
+                "paddingLeft": 2,
+                "paddingRight": 2,
+                "paddingTop": 2,
+              }
+            }
+          >
+            <test-file-stub
+              fill="#099DE2"
+              style={
+                [
+                  {
+                    "height": 24,
+                    "width": 24,
+                  },
+                  {
+                    "height": 20,
+                    "width": 20,
+                  },
+                  {
+                    "height": 24,
+                    "width": 24,
+                  },
+                ]
+              }
+            />
+          </View>
+        </View>
+      </View>
+      <View
+        style={
+          [
+            {
+              "backgroundColor": "#EAE3DF",
+              "flexShrink": 1,
+              "height": 1,
+              "width": "100%",
+            },
+            undefined,
+          ]
+        }
+      />
+      <View
+        style={
+          {
+            "alignSelf": "stretch",
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+          }
+        }
+      >
+        <View
+          style={
+            [
+              {
+                "alignItems": "center",
+                "flexDirection": "row",
+                "gap": 8,
+              },
+              {
+                "alignItems": "flex-start",
+                "flexDirection": "column",
+                "gap": 0,
+              },
+            ]
+          }
+        >
+          <Text
+            allowFontScaling={false}
+            style={
+              [
+                {
+                  "color": "#2B1911",
+                  "fontFamily": "Baloo2-Regular",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 24,
+                },
+                {
+                  "fontFamily": "Baloo2-SemiBold",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 28,
+                },
+                false,
+              ]
+            }
+          >
+            1 BTC
+          </Text>
+          <Text
+            allowFontScaling={false}
+            style={
+              [
+                {
+                  "color": "#2B1911",
+                  "fontFamily": "Baloo2-Regular",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 24,
+                },
+                [
+                  {
+                    "color": "#F56522",
+                    "fontFamily": "Baloo2-Regular",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 28,
+                  },
+                  {
+                    "fontFamily": "Baloo2-Regular",
+                    "fontSize": 20,
+                    "letterSpacing": 0.2,
+                    "lineHeight": 28,
+                  },
+                ],
+                false,
+              ]
+            }
+          >
+            NaN
+             
+            EUR
+          </Text>
+        </View>
+        <View
+          style={
+            [
+              {
+                "alignItems": "center",
+                "flexDirection": "row",
+                "gap": 8,
+              },
+              {
+                "alignItems": "flex-start",
+                "flexDirection": "column",
+                "gap": 0,
+              },
+              {
+                "alignItems": "flex-end",
+              },
+            ]
+          }
+        >
+          <Text
+            allowFontScaling={false}
+            style={
+              [
+                {
+                  "color": "#2B1911",
+                  "fontFamily": "Baloo2-Regular",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 24,
+                },
+                [
+                  {
+                    "fontFamily": "Baloo2-SemiBold",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 28,
+                  },
+                  {
+                    "textAlign": "right",
+                  },
+                ],
+                false,
+              ]
+            }
+          >
+            1 EUR
+          </Text>
+          <Text
+            allowFontScaling={false}
+            style={
+              [
+                {
+                  "color": "#2B1911",
+                  "fontFamily": "Baloo2-Regular",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 24,
+                },
+                [
+                  {
+                    "color": "#F56522",
+                    "fontFamily": "Baloo2-Regular",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 28,
+                  },
+                  {
+                    "fontFamily": "Baloo2-Regular",
+                    "fontSize": 20,
+                    "letterSpacing": 0.2,
+                    "lineHeight": 28,
+                  },
+                  {
+                    "textAlign": "right",
+                  },
+                ],
+                false,
+              ]
+            }
+          >
+            NaN sats
+          </Text>
+        </View>
+      </View>
+    </View>
+  </RCTSafeAreaView>
+  <RCTSafeAreaView
     style={
-      [
-        {
-          "flexGrow": 1,
-          "paddingLeft": 16,
-          "paddingRight": 16,
-        },
-        {
-          "paddingLeft": 32,
-          "paddingRight": 32,
-        },
-      ]
+      {
+        "flexBasis": "0%",
+        "flexGrow": 1,
+        "flexShrink": 1,
+      }
     }
   >
     <View
       style={
-        {
-          "alignItems": "center",
-          "flexGrow": 1,
-          "justifyContent": "center",
-        }
+        [
+          {
+            "flexBasis": "0%",
+            "flexGrow": 1,
+            "flexShrink": 1,
+            "paddingBottom": 16,
+            "paddingLeft": 16,
+            "paddingRight": 16,
+            "paddingTop": 16,
+          },
+          {
+            "paddingBottom": 32,
+            "paddingLeft": 32,
+            "paddingRight": 32,
+            "paddingTop": 32,
+          },
+          undefined,
+        ]
       }
     >
       <View
         style={
           {
             "alignItems": "center",
-            "alignSelf": "stretch",
+            "flexGrow": 1,
             "gap": 28,
+            "justifyContent": "center",
           }
         }
       >
@@ -758,7 +1100,7 @@ exports[`EditPremium should render correctly 1`] = `
                         "textAlign": "center",
                       },
                       {
-                        "color": "#05A85A",
+                        "color": "#65A519",
                       },
                     ],
                     false,
@@ -1359,104 +1701,89 @@ price
           </View>
         </View>
       </View>
-    </View>
-    <View
-      accessibilityState={
-        {
-          "busy": undefined,
-          "checked": undefined,
-          "disabled": undefined,
-          "expanded": undefined,
-          "selected": undefined,
+      <View
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
         }
-      }
-      accessibilityValue={
-        {
-          "max": undefined,
-          "min": undefined,
-          "now": undefined,
-          "text": undefined,
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
         }
-      }
-      accessible={true}
-      collapsable={false}
-      focusable={true}
-      onClick={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        {
-          "alignItems": "center",
-          "alignSelf": "center",
-          "backgroundColor": "#F56522",
-          "borderRadius": 9999,
-          "flexDirection": "row",
-          "height": 40,
-          "justifyContent": "center",
-          "marginBottom": 20,
-          "opacity": 1,
-          "paddingLeft": 16,
-          "paddingRight": 16,
-          "width": 156,
-        }
-      }
-    >
-      <Text
-        allowFontScaling={false}
-        ellipsizeMode="tail"
-        numberOfLines={1}
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
         style={
-          [
-            {
-              "color": "#2B1911",
-              "fontFamily": "Baloo2-Regular",
-              "fontSize": 16,
-              "letterSpacing": 0.16,
-              "lineHeight": 24,
-            },
-            [
-              {
-                "color": "#FFFCFA",
-              },
-              {
-                "fontFamily": "Baloo2-SemiBold",
-                "fontSize": 14,
-                "letterSpacing": 0.5,
-                "lineHeight": 24,
-                "minWidth": 96,
-                "paddingLeft": 8,
-                "paddingRight": 8,
-                "textAlign": "center",
-                "textTransform": "uppercase",
-              },
-            ],
-            false,
-          ]
+          {
+            "alignItems": "center",
+            "alignSelf": "center",
+            "backgroundColor": "#F56522",
+            "borderRadius": 9999,
+            "flexDirection": "row",
+            "height": 40,
+            "justifyContent": "center",
+            "opacity": 1,
+            "paddingLeft": 16,
+            "paddingRight": 16,
+            "width": 156,
+          }
         }
       >
-        confirm
-      </Text>
+        <Text
+          allowFontScaling={false}
+          ellipsizeMode="tail"
+          numberOfLines={1}
+          style={
+            [
+              {
+                "color": "#2B1911",
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
+                "lineHeight": 24,
+              },
+              [
+                {
+                  "color": "#FFFCFA",
+                },
+                {
+                  "fontFamily": "Baloo2-SemiBold",
+                  "fontSize": 14,
+                  "letterSpacing": 0.5,
+                  "lineHeight": 24,
+                  "minWidth": 96,
+                  "paddingLeft": 8,
+                  "paddingRight": 8,
+                  "textAlign": "center",
+                  "textTransform": "uppercase",
+                },
+              ],
+              false,
+            ]
+          }
+        >
+          confirm
+        </Text>
+      </View>
     </View>
-  </View>
+  </RCTSafeAreaView>
 </View>
 `;
 
-exports[`EditPremium should set up the header correctly 1`] = `
-<Header
-  icons={
-    [
-      {
-        "color": "#099DE2",
-        "id": "helpCircle",
-        "onPress": [Function],
-      },
-    ]
-  }
-  showPriceStats={true}
-  title="P‑7B"
-/>
-`;
+exports[`EditPremium should set up the header correctly 1`] = `<React.Fragment />`;

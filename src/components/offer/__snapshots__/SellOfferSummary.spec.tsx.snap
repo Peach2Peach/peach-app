@@ -52,7 +52,7 @@ exports[`SellOfferSummary renders correctly 1`] = `
             "textAlign": "center",
           },
           {
-            "color": "#05A85A",
+            "color": "#65A519",
           },
         ]
       }
@@ -225,7 +225,7 @@ exports[`SellOfferSummary renders correctly when funding multiple offers 1`] = `
             "textAlign": "center",
           },
           {
-            "color": "#05A85A",
+            "color": "#65A519",
           },
         ]
       }

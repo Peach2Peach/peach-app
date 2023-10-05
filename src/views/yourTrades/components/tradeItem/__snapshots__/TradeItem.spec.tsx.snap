@@ -35,7 +35,7 @@ exports[`ContractItem should render correctly with past contract 1`] = `
   currency="EUR"
   icon={
     <Icon
-      color="#05A85A"
+      color="#65A519"
       id="buy"
       size={16}
     />
@@ -126,7 +126,7 @@ exports[`OfferItem should render correctly if it's a past offer 1`] = `
   creationDate={2021-01-01T00:00:00.000Z}
   icon={
     <Icon
-      color="#05A85A"
+      color="#65A519"
       id="xCircle"
       size={16}
     />

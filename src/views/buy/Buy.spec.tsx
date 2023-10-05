@@ -15,6 +15,11 @@ const useMarketPricesMock = jest.fn().mockReturnValue({
 jest.mock('../../hooks/query/useMarketPrices', () => ({
   useMarketPrices: () => useMarketPricesMock(),
 }))
+jest.mock('../../hooks/useRoute', () => ({
+  useRoute: () => ({
+    params: undefined,
+  }),
+}))
 
 const next = jest.fn()
 const buySetup = { freeTrades: 0, maxFreeTrades: 5, isLoading: false, rangeIsValid: true, next }

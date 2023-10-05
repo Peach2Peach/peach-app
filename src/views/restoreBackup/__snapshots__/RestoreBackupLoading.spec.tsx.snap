@@ -99,7 +99,7 @@ exports[`RestoreBackupLoading should render correctly 1`] = `
 `;
 
 exports[`RestoreBackupLoading should set header correctly 1`] = `
-<Header
+<OldHeader
   hideGoBackButton={true}
   icons={[]}
   theme="inverted"

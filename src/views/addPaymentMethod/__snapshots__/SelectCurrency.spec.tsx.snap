@@ -1,10 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SelectCurrency should render correctly 1`] = `
-<Screen>
-  <NewHeader
-    title="select currency"
-  />
+<Screen
+  header={
+    <Header
+      title="select currency"
+    />
+  }
+>
   <CurrencyTabs
     currency="EUR"
     setCurrency={[Function]}

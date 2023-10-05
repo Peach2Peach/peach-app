@@ -1,21 +1,3 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`useSellSummarySetup should set up header correctly 1`] = `
-<Header
-  icons={
-    [
-      {
-        "color": "#F56522",
-        "id": "filter",
-        "onPress": [Function],
-      },
-      {
-        "color": "#7D675E",
-        "id": "wallet",
-        "onPress": [Function],
-      },
-    ]
-  }
-  title="sell offer summary"
-/>
-`;
+exports[`useSellSummarySetup should set up header correctly 1`] = `<React.Fragment />`;

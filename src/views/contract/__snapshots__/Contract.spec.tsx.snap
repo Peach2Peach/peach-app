@@ -1,28 +1,31 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Contract should render a default Contract 1`] = `
-<Screen>
-  <Context.Provider
-    value={
-      {
-        "contract": {
-          "buyer": {
-            "username": "buyerUsername",
-          },
-          "disputeActive": false,
-          "seller": {
-            "username": "sellerUsername",
-          },
+<Context.Provider
+  value={
+    {
+      "contract": {
+        "buyer": {
+          "username": "buyerUsername",
         },
-        "showBatchInfo": undefined,
-        "toggleShowBatchInfo": undefined,
-        "view": "buyer",
-      }
+        "disputeActive": false,
+        "seller": {
+          "username": "sellerUsername",
+        },
+      },
+      "showBatchInfo": undefined,
+      "toggleShowBatchInfo": undefined,
+      "view": "buyer",
+    }
+  }
+>
+  <Screen
+    header={
+      <ContractHeader
+        requiredAction="requiredAction"
+      />
     }
   >
-    <ContractHeader
-      requiredAction="requiredAction"
-    />
     <ForwardRef
       contentContainerStyle={
         [
@@ -59,8 +62,8 @@ exports[`Contract should render a default Contract 1`] = `
         }
       />
     </ForwardRef>
-  </Context.Provider>
-</Screen>
+  </Screen>
+</Context.Provider>
 `;
 
 exports[`Contract should show the loading screen if isLoading is true 1`] = `<LoadingScreen />`;

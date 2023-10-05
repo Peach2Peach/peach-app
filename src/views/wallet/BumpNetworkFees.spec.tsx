@@ -1,7 +1,7 @@
 import { fireEvent, render } from '@testing-library/react-native'
 import { createRenderer } from 'react-test-renderer/shallow'
 import { bitcoinTransaction } from '../../../tests/unit/data/transactionDetailData'
-import { navigationMock } from '../../../tests/unit/helpers/NavigationWrapper'
+import { NavigationWrapper, navigationMock } from '../../../tests/unit/helpers/NavigationWrapper'
 import { mockDimensions } from '../../../tests/unit/helpers/mockDimensions'
 import { placeholderFees } from '../../hooks/query/useFeeEstimate'
 import { getTransactionFeeRate } from '../../utils/bitcoin'
@@ -89,7 +89,7 @@ describe('BumpNetworkFees', () => {
       newFeeRate: String(bumpNetworkFeesSetupReturnValue.currentFee * 3),
       newFeeRateIsValid: true,
     })
-    const { getByPlaceholderText } = render(<BumpNetworkFees />)
+    const { getByPlaceholderText } = render(<BumpNetworkFees />, { wrapper: NavigationWrapper })
     fireEvent(getByPlaceholderText(''), 'onChange', String(newFeeRate))
     expect(setNewFeeRateMock).toHaveBeenCalledWith(String(newFeeRate))
   })
@@ -99,7 +99,7 @@ describe('BumpNetworkFees', () => {
       newFeeRate: '20',
       newFeeRateIsValid: true,
     })
-    const { getByText } = render(<BumpNetworkFees />)
+    const { getByText } = render(<BumpNetworkFees />, { wrapper: NavigationWrapper })
     fireEvent(getByText('confirm'), 'onPress')
     expect(bumpFeesMock).toHaveBeenCalled()
   })

@@ -32,6 +32,7 @@ exports[`NextButton renders correctly 1`] = `
   style={
     {
       "alignItems": "center",
+      "alignSelf": "center",
       "backgroundColor": "#FCCCB6",
       "borderRadius": 9999,
       "flexDirection": "row",
@@ -114,6 +115,7 @@ exports[`NextButton renders correctly when disabled 1`] = `
   style={
     {
       "alignItems": "center",
+      "alignSelf": "center",
       "backgroundColor": "#FCCCB6",
       "borderRadius": 9999,
       "flexDirection": "row",

@@ -1,142 +1,111 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Premium should render the Premium view 1`] = `
-<View
-  style={
-    {
-      "height": "100%",
-    }
-  }
->
+<React.Fragment>
   <View
     style={
-      [
-        {
-          "flexGrow": 1,
-          "paddingLeft": 16,
-          "paddingRight": 16,
-        },
-        {
-          "paddingLeft": 32,
-          "paddingRight": 32,
-        },
-      ]
+      {
+        "alignItems": "center",
+        "flexGrow": 1,
+        "gap": 28,
+        "justifyContent": "center",
+      }
     }
   >
     <View
       style={
         {
           "alignItems": "center",
-          "flexGrow": 1,
-          "justifyContent": "center",
         }
       }
     >
+      <PeachText
+        style={
+          [
+            {
+              "fontFamily": "Baloo2-Bold",
+              "fontSize": 20,
+              "letterSpacing": 0.2,
+              "lineHeight": 32,
+              "textAlign": "center",
+            },
+            {
+              "fontFamily": "Baloo2-Bold",
+              "fontSize": 24,
+              "letterSpacing": 0.24,
+              "lineHeight": 32,
+            },
+          ]
+        }
+      >
+        set your premium / discount
+      </PeachText>
       <View
         style={
           {
             "alignItems": "center",
-            "alignSelf": "stretch",
-            "gap": 28,
+            "flexDirection": "row",
+            "gap": 4,
           }
         }
       >
-        <View
+        <PeachText
           style={
             {
-              "alignItems": "center",
+              "fontFamily": "Baloo2-SemiBold",
+              "fontSize": 16,
+              "letterSpacing": 0.16,
+              "lineHeight": 28,
+              "textAlign": "center",
             }
           }
         >
-          <PeachText
-            style={
-              [
-                {
-                  "fontFamily": "Baloo2-Bold",
-                  "fontSize": 20,
-                  "letterSpacing": 0.2,
-                  "lineHeight": 32,
-                  "textAlign": "center",
-                },
-                {
-                  "fontFamily": "Baloo2-Bold",
-                  "fontSize": 24,
-                  "letterSpacing": 0.24,
-                  "lineHeight": 32,
-                },
-              ]
-            }
-          >
-            set your premium / discount
-          </PeachText>
-          <View
-            style={
-              {
-                "alignItems": "center",
-                "flexDirection": "row",
-                "gap": 4,
-              }
-            }
-          >
-            <PeachText
-              style={
-                {
-                  "fontFamily": "Baloo2-SemiBold",
-                  "fontSize": 16,
-                  "letterSpacing": 0.16,
-                  "lineHeight": 28,
-                  "textAlign": "center",
-                }
-              }
-            >
-              for selling
-            </PeachText>
-            <BTCAmount
-              amount={21000000}
-              size="small"
-            />
-          </View>
-        </View>
-        <View
-          style={
-            {
-              "alignItems": "center",
-              "gap": 4,
-            }
-          }
-        >
-          <PremiumInput
-            premium={1.5}
-            setPremium={[MockFunction]}
-          />
-          <CurrentOfferPrice />
-        </View>
-        <PremiumSlider
-          premium={1.5}
-          setPremium={[MockFunction]}
-          style={
-            {
-              "alignItems": "center",
-              "alignSelf": "stretch",
-              "gap": 6,
-            }
-          }
+          for selling
+        </PeachText>
+        <BTCAmount
+          amount={21000000}
+          size="small"
         />
       </View>
     </View>
-    <PrimaryButton
-      disabled={true}
-      narrow={true}
-      onPress={[MockFunction]}
+    <View
       style={
         {
-          "alignSelf": "center",
-          "marginBottom": 20,
+          "alignItems": "center",
+          "gap": 4,
         }
       }
     >
-      next
-    </PrimaryButton>
+      <PremiumInput
+        premium={1.5}
+        setPremium={[MockFunction]}
+      />
+      <CurrentOfferPrice />
+    </View>
+    <PremiumSlider
+      premium={1.5}
+      setPremium={[MockFunction]}
+      style={
+        {
+          "alignItems": "center",
+          "alignSelf": "stretch",
+          "gap": 6,
+        }
+      }
+    />
   </View>
-</View>
+  <PrimaryButton
+    disabled={true}
+    narrow={true}
+    onPress={[MockFunction]}
+    style={
+      {
+        "alignSelf": "center",
+        "marginBottom": 20,
+      }
+    }
+  >
+    next
+  </PrimaryButton>
+</React.Fragment>
 `;

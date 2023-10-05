@@ -1,76 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`usePaymentMethodsSetup should setup header 1`] = `
-<Header
-  icons={
-    [
-      {
-        "color": "#099DE2",
-        "id": "helpCircle",
-        "onPress": [Function],
-      },
-    ]
-  }
-  title="payment methods"
-/>
-`;
+exports[`usePaymentMethodsSetup should setup header 1`] = `<React.Fragment />`;
 
-exports[`usePaymentMethodsSetup should setup header for account with payment data 1`] = `
-<Header
-  icons={
-    [
-      {
-        "color": "#7D675E",
-        "id": "edit3",
-        "onPress": [Function],
-      },
-      {
-        "color": "#099DE2",
-        "id": "helpCircle",
-        "onPress": [Function],
-      },
-    ]
-  }
-  title="payment methods"
-/>
-`;
+exports[`usePaymentMethodsSetup should setup header for account with payment data 1`] = `<React.Fragment />`;
 
-exports[`usePaymentMethodsSetup should setup header when coming from settings 1`] = `
-<Header
-  icons={
-    [
-      {
-        "color": "#7D675E",
-        "id": "checkboxMark",
-        "onPress": [Function],
-      },
-      {
-        "color": "#099DE2",
-        "id": "helpCircle",
-        "onPress": [Function],
-      },
-    ]
-  }
-  title="edit payment methods"
-/>
-`;
-
-exports[`usePaymentMethodsSetup should setup header when editing 1`] = `
-<Header
-  icons={
-    [
-      {
-        "color": "#7D675E",
-        "id": "checkboxMark",
-        "onPress": [Function],
-      },
-      {
-        "color": "#099DE2",
-        "id": "helpCircle",
-        "onPress": [Function],
-      },
-    ]
-  }
-  title="edit payment methods"
-/>
-`;
+exports[`usePaymentMethodsSetup should setup header when coming from settings 1`] = `<React.Fragment />`;

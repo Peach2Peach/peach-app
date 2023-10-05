@@ -1,10 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SelectPaymentMethod should render correctly 1`] = `
-<Screen>
-  <NewHeader
-    title="select payment method"
-  />
+<Screen
+  header={
+    <Header
+      title="select payment method"
+    />
+  }
+>
   <ForwardRef
     contentContainerStyle={
       [

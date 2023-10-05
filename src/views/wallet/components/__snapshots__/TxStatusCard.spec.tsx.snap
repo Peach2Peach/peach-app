@@ -45,7 +45,7 @@ exports[`TxStatusCard should render correctly for a confirmed buy trade tx 1`] =
           "overflow": "hidden",
         },
         {
-          "borderColor": "#05A85A",
+          "borderColor": "#65A519",
         },
       ]
     }
@@ -124,7 +124,7 @@ exports[`TxStatusCard should render correctly for a confirmed buy trade tx 1`] =
           }
         >
           <test-file-stub
-            fill="#05A85A"
+            fill="#65A519"
             style={
               [
                 {
@@ -797,7 +797,7 @@ exports[`TxStatusCard should render correctly for a confirmed receive tx 1`] = `
           "overflow": "hidden",
         },
         {
-          "borderColor": "#05A85A",
+          "borderColor": "#65A519",
         },
       ]
     }
@@ -876,7 +876,7 @@ exports[`TxStatusCard should render correctly for a confirmed receive tx 1`] = `
           }
         >
           <test-file-stub
-            fill="#05A85A"
+            fill="#65A519"
             style={
               [
                 {
@@ -3053,7 +3053,7 @@ exports[`TxStatusCard should render correctly for a pending buy trade tx 1`] = `
           "overflow": "hidden",
         },
         {
-          "borderColor": "#05A85A",
+          "borderColor": "#65A519",
         },
       ]
     }
@@ -3132,7 +3132,7 @@ exports[`TxStatusCard should render correctly for a pending buy trade tx 1`] = `
           }
         >
           <test-file-stub
-            fill="#05A85A"
+            fill="#65A519"
             style={
               [
                 {
@@ -4557,7 +4557,7 @@ exports[`TxStatusCard should render correctly for a pending receive tx 1`] = `
           "overflow": "hidden",
         },
         {
-          "borderColor": "#05A85A",
+          "borderColor": "#65A519",
         },
       ]
     }
@@ -4636,7 +4636,7 @@ exports[`TxStatusCard should render correctly for a pending receive tx 1`] = `
           }
         >
           <test-file-stub
-            fill="#05A85A"
+            fill="#65A519"
             style={
               [
                 {

@@ -1,15 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`TransactionHistory should render correctly when empty 1`] = `
-<Screen>
-  <TransactionHistoryHeader />
+<Screen
+  header={<TransactionHistoryHeader />}
+>
   <EmptyTransactionHistory />
 </Screen>
 `;
 
 exports[`TransactionHistory should render correctly with tx 1`] = `
-<Screen>
-  <TransactionHistoryHeader />
+<Screen
+  header={<TransactionHistoryHeader />}
+>
   <FlatList
     contentContainerStyle={
       [
@@ -72,8 +74,9 @@ exports[`TransactionHistory should render correctly with tx 1`] = `
 `;
 
 exports[`TransactionHistory should render medium screens correctly 1`] = `
-<Screen>
-  <TransactionHistoryHeader />
+<Screen
+  header={<TransactionHistoryHeader />}
+>
   <FlatList
     contentContainerStyle={
       [

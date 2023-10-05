@@ -1,16 +1,3 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`useSignMessageSetup should set up header correctly 1`] = `
-<Header
-  icons={
-    [
-      {
-        "color": "#099DE2",
-        "id": "helpCircle",
-        "onPress": [Function],
-      },
-    ]
-  }
-  title="sign your address"
-/>
-`;
+exports[`useSignMessageSetup should set up header correctly 1`] = `<React.Fragment />`;

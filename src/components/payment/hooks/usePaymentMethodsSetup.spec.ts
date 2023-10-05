@@ -1,4 +1,4 @@
-import { act, renderHook } from '@testing-library/react-native'
+import { renderHook } from '@testing-library/react-native'
 import { validCashData, validSEPAData } from '../../../../tests/unit/data/paymentData'
 import { NavigationWrapper, getStateMock, headerState, pushMock } from '../../../../tests/unit/helpers/NavigationWrapper'
 import { usePaymentDataStore } from '../../../store/usePaymentDataStore'
@@ -23,14 +23,6 @@ describe('usePaymentMethodsSetup', () => {
     renderHook(usePaymentMethodsSetup, { wrapper })
     expect(headerState.header()).toMatchSnapshot()
   })
-  it('should setup header when editing', () => {
-    usePaymentDataStore.getState().addPaymentData(validSEPAData)
-    renderHook(usePaymentMethodsSetup, { wrapper })
-    act(() => {
-      headerState.header().props.icons[0].onPress()
-    })
-    expect(headerState.header()).toMatchSnapshot()
-  })
   it('should setup header when coming from settings', () => {
     usePaymentDataStore.getState().addPaymentData(validSEPAData)
     getStateMock.mockReturnValueOnce({
@@ -38,17 +30,6 @@ describe('usePaymentMethodsSetup', () => {
     })
     renderHook(usePaymentMethodsSetup, { wrapper })
     expect(headerState.header()).toMatchSnapshot()
-  })
-  it('should not be editing by default', () => {
-    const { result } = renderHook(usePaymentMethodsSetup, { wrapper })
-    expect(result.current.isEditing).toBe(false)
-  })
-  it('should be editing when origin is settings', () => {
-    getStateMock.mockReturnValueOnce({
-      routes: [{ name: 'settings' }, { name: 'paymentMethods' }],
-    })
-    const { result } = renderHook(usePaymentMethodsSetup, { wrapper })
-    expect(result.current.isEditing).toBe(true)
   })
   it('should navigate to paymentMethodForm if PM is not a cash trade', () => {
     const { result } = renderHook(usePaymentMethodsSetup, { wrapper })

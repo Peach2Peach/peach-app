@@ -3,59 +3,224 @@
 exports[`ExportTradeHistory should render correctly 1`] = `
 <View
   style={
-    [
-      {
-        "height": "100%",
-        "paddingLeft": 16,
-        "paddingRight": 16,
-      },
-      {
-        "paddingLeft": 32,
-        "paddingRight": 32,
-      },
-      undefined,
-    ]
+    {
+      "flexBasis": "0%",
+      "flexGrow": 1,
+      "flexShrink": 1,
+    }
   }
 >
-  <View
-    style={
-      [
-        {
-          "alignItems": "center",
-          "gap": 6,
-          "paddingBottom": 4,
-          "paddingTop": 4,
-        },
-        undefined,
-        {
-          "backgroundColor": "#FFF9F6",
-        },
-      ]
-    }
-  >
+  <RCTSafeAreaView>
     <View
       style={
-        {
-          "flexDirection": "row",
-          "justifyContent": "space-between",
-          "width": "100%",
-        }
+        [
+          {
+            "alignItems": "center",
+            "gap": 6,
+            "paddingBottom": 4,
+            "paddingLeft": 16,
+            "paddingRight": 16,
+            "paddingTop": 4,
+          },
+          {
+            "paddingLeft": 32,
+            "paddingRight": 32,
+          },
+          undefined,
+        ]
       }
     >
       <View
         style={
           {
-            "alignItems": "center",
             "flexDirection": "row",
-            "flexShrink": 1,
-            "gap": 4,
-            "justifyContent": "flex-start",
+            "justifyContent": "space-between",
             "width": "100%",
+          }
+        }
+      >
+        <View
+          style={
+            {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "flexShrink": 1,
+              "gap": 4,
+              "justifyContent": "flex-start",
+              "width": "100%",
+            }
+          }
+        >
+          <Text
+            allowFontScaling={false}
+            numberOfLines={1}
+            style={
+              [
+                {
+                  "color": "#2B1911",
+                  "fontFamily": "Baloo2-Regular",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 24,
+                },
+                [
+                  {
+                    "fontFamily": "Baloo2-Bold",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 26,
+                  },
+                  {
+                    "fontFamily": "Baloo2-Bold",
+                    "fontSize": 20,
+                    "letterSpacing": 0.2,
+                    "lineHeight": 32,
+                  },
+                  {
+                    "color": "#2B1911",
+                  },
+                  {
+                    "flexShrink": 1,
+                  },
+                ],
+                false,
+              ]
+            }
+          >
+            export trade history
+          </Text>
+        </View>
+        <View
+          style={
+            {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "gap": 10,
+              "justifyContent": "flex-end",
+            }
+          }
+        />
+      </View>
+    </View>
+  </RCTSafeAreaView>
+  <RCTSafeAreaView
+    style={
+      {
+        "flexBasis": "0%",
+        "flexGrow": 1,
+        "flexShrink": 1,
+      }
+    }
+  >
+    <View
+      style={
+        [
+          {
+            "flexBasis": "0%",
+            "flexGrow": 1,
+            "flexShrink": 1,
+            "paddingBottom": 16,
+            "paddingLeft": 16,
+            "paddingRight": 16,
+            "paddingTop": 16,
+          },
+          {
+            "paddingBottom": 32,
+            "paddingLeft": 32,
+            "paddingRight": 32,
+            "paddingTop": 32,
+          },
+          undefined,
+        ]
+      }
+    >
+      <View
+        style={
+          {
+            "flexGrow": 1,
+            "gap": 32,
+            "justifyContent": "center",
           }
         }
       >
         <Text
           allowFontScaling={false}
+          style={
+            [
+              {
+                "color": "#2B1911",
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
+                "lineHeight": 24,
+              },
+              {
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 20,
+                "letterSpacing": 0.2,
+                "lineHeight": 28,
+              },
+              false,
+            ]
+          }
+        >
+          this will export your history to a csv file with the following info:
+
+  • date
+  • trade ID
+  • type (bought, sold, canceled)
+  • amount
+  • price
+        </Text>
+      </View>
+      <View
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          {
+            "alignItems": "center",
+            "alignSelf": "center",
+            "backgroundColor": "#F56522",
+            "borderColor": undefined,
+            "borderRadius": 9999,
+            "flexDirection": "row",
+            "gap": 8,
+            "height": 40,
+            "justifyContent": "center",
+            "opacity": 1,
+            "paddingLeft": 32,
+            "paddingRight": 32,
+          }
+        }
+      >
+        <Text
+          allowFontScaling={false}
+          ellipsizeMode="tail"
           numberOfLines={1}
           style={
             [
@@ -68,165 +233,31 @@ exports[`ExportTradeHistory should render correctly 1`] = `
               },
               [
                 {
-                  "fontFamily": "Baloo2-Bold",
-                  "fontSize": 16,
-                  "letterSpacing": 0.16,
+                  "fontFamily": "Baloo2-SemiBold",
+                  "fontSize": 13,
+                  "letterSpacing": 0.47,
+                  "lineHeight": 22,
+                  "textTransform": "uppercase",
+                },
+                {
+                  "fontFamily": "Baloo2-SemiBold",
+                  "fontSize": 15,
+                  "letterSpacing": 0.54,
                   "lineHeight": 26,
+                  "textTransform": "uppercase",
                 },
                 {
-                  "fontFamily": "Baloo2-Bold",
-                  "fontSize": 20,
-                  "letterSpacing": 0.2,
-                  "lineHeight": 32,
-                },
-                {
-                  "color": "#2B1911",
-                },
-                {
-                  "flexShrink": 1,
+                  "color": "#FFFCFA",
                 },
               ],
               false,
             ]
           }
         >
-          export trade history
+          export
         </Text>
       </View>
-      <View
-        style={
-          {
-            "alignItems": "center",
-            "flexDirection": "row",
-            "gap": 10,
-            "justifyContent": "flex-end",
-          }
-        }
-      />
     </View>
-  </View>
-  <View
-    style={
-      {
-        "flexGrow": 1,
-        "gap": 32,
-        "justifyContent": "center",
-      }
-    }
-  >
-    <Text
-      allowFontScaling={false}
-      style={
-        [
-          {
-            "color": "#2B1911",
-            "fontFamily": "Baloo2-Regular",
-            "fontSize": 16,
-            "letterSpacing": 0.16,
-            "lineHeight": 24,
-          },
-          {
-            "fontFamily": "Baloo2-Regular",
-            "fontSize": 20,
-            "letterSpacing": 0.2,
-            "lineHeight": 28,
-          },
-          false,
-        ]
-      }
-    >
-      this will export your history to a csv file with the following info:
-
-  • date
-  • trade ID
-  • type (bought, sold, canceled)
-  • amount
-  • price
-    </Text>
-  </View>
-  <View
-    accessibilityState={
-      {
-        "busy": undefined,
-        "checked": undefined,
-        "disabled": undefined,
-        "expanded": undefined,
-        "selected": undefined,
-      }
-    }
-    accessibilityValue={
-      {
-        "max": undefined,
-        "min": undefined,
-        "now": undefined,
-        "text": undefined,
-      }
-    }
-    accessible={true}
-    collapsable={false}
-    focusable={true}
-    onClick={[Function]}
-    onResponderGrant={[Function]}
-    onResponderMove={[Function]}
-    onResponderRelease={[Function]}
-    onResponderTerminate={[Function]}
-    onResponderTerminationRequest={[Function]}
-    onStartShouldSetResponder={[Function]}
-    style={
-      {
-        "alignItems": "center",
-        "alignSelf": "center",
-        "backgroundColor": "#F56522",
-        "borderColor": undefined,
-        "borderRadius": 9999,
-        "flexDirection": "row",
-        "gap": 8,
-        "height": 40,
-        "justifyContent": "center",
-        "opacity": 1,
-        "paddingLeft": 32,
-        "paddingRight": 32,
-      }
-    }
-  >
-    <Text
-      allowFontScaling={false}
-      ellipsizeMode="tail"
-      numberOfLines={1}
-      style={
-        [
-          {
-            "color": "#2B1911",
-            "fontFamily": "Baloo2-Regular",
-            "fontSize": 16,
-            "letterSpacing": 0.16,
-            "lineHeight": 24,
-          },
-          [
-            {
-              "fontFamily": "Baloo2-SemiBold",
-              "fontSize": 13,
-              "letterSpacing": 0.47,
-              "lineHeight": 22,
-              "textTransform": "uppercase",
-            },
-            {
-              "fontFamily": "Baloo2-SemiBold",
-              "fontSize": 15,
-              "letterSpacing": 0.54,
-              "lineHeight": 26,
-              "textTransform": "uppercase",
-            },
-            {
-              "color": "#FFFCFA",
-            },
-          ],
-          false,
-        ]
-      }
-    >
-      export
-    </Text>
-  </View>
+  </RCTSafeAreaView>
 </View>
 `;
