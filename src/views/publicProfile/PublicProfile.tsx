@@ -12,7 +12,7 @@ export const PublicProfile = () => {
 
   return (
     <Screen header={i18n('profile.user.title')}>
-      <View style={[tw`gap-12 pt-sm`, tw.md`pt-md`]}>
+      <View style={tw`gap-12`}>
         <ProfileOverview user={user} />
         <AccountInfo user={user} />
       </View>

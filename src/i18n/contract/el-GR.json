@@ -132,6 +132,7 @@
   "contract.summary.price" : "τιμή",
   "contract.summary.receiveAddress" : "διεύθυνση ",
   "contract.summary.reference" : "αναφορά",
+  "contract.summary.seller" : "πωλητής",
   "contract.summary.sellerWantsToCancel" : "ο πωλητής θέλει να ακύρωσει",
   "contract.summary.status" : "κατάσταση",
   "contract.summary.to" : "προς",

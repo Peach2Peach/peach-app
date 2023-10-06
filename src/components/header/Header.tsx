@@ -81,7 +81,7 @@ export const Header = ({
   showPriceStats,
   subtitle,
   ...props
-}: Omit<HeaderConfig, 'theme'> & { theme?: keyof typeof newThemes }) => (
+}: Omit<HeaderConfig, 'theme' | 'style'> & { theme?: keyof typeof newThemes }) => (
   <SafeAreaView
     style={[
       tw`border-b rounded-b-lg`,
@@ -101,7 +101,7 @@ function HeaderNavigation ({
   titleComponent,
   hideGoBackButton,
   theme = 'default',
-}: Omit<HeaderConfig, 'theme'> & { theme?: keyof typeof newThemes }) {
+}: Omit<HeaderConfig, 'theme' | 'style'> & { theme?: keyof typeof newThemes }) {
   const { goBack, canGoBack } = useNavigation()
   const { iconSize, fontSize } = getHeaderStyles()
 
@@ -154,13 +154,14 @@ type HeaderSubtitleProps = {
   amount: number
   premium: number
   viewer: 'buyer' | 'seller'
+  text?: string
 }
 
-function HeaderSubtitle ({ theme = 'default', amount, premium, viewer }: HeaderSubtitleProps) {
+function HeaderSubtitle ({ theme = 'default', amount, premium, viewer, text }: HeaderSubtitleProps) {
   return (
     <View style={[tw`flex-row items-center justify-between py-2px px-sm`, tw.md`px-md py-2`]}>
       <Text style={[tw`subtitle-1`, newThemes[theme].text, tw.md`subtitle-0`]}>
-        {i18n(viewer === 'buyer' ? 'buy.subtitle.highlight' : 'sell.subtitle.highlight')}
+        {text ?? i18n(viewer === 'buyer' ? 'buy.subtitle.highlight' : 'sell.subtitle.highlight')}
       </Text>
       <BTCAmount amount={amount} style={tw`pb-2px`} white={theme === 'dispute'} size="medium" />
       <Text style={[tw`subtitle-1 pt-3px`, newThemes[theme].text]}>

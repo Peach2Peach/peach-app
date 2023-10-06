@@ -1,14 +1,17 @@
 import { Header, PeachScrollView, Screen } from '../../components'
-import { TradeSummary } from '../../components/offer'
 import tw from '../../styles/tailwind'
 
 import { useMemo } from 'react'
 import { useRoute, useShowHelp } from '../../hooks'
 import { useConfirmCancelTrade } from '../../popups/tradeCancelation'
 import { canCancelContract, contractIdToHex } from '../../utils/contract'
+import { isPaymentTooLate } from '../../utils/contract/status/isPaymentTooLate'
+import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout'
 import { LoadingScreen } from '../loading/LoadingScreen'
 import { ContractActions } from './ContractActions'
+import { PendingPayoutInfo } from './components/PendingPayoutInfo'
+import { TradeInformation } from './components/TradeInformation'
 import { ContractContext, useContractContext } from './context'
 import { useContractSetup } from './hooks/useContractSetup'
 
@@ -21,7 +24,7 @@ export const Contract = () => {
     <ContractContext.Provider value={{ contract, view, showBatchInfo, toggleShowBatchInfo }}>
       <Screen header={<ContractHeader requiredAction={contractActionsProps.requiredAction} />}>
         <PeachScrollView contentContainerStyle={tw`grow`} contentStyle={tw`grow`}>
-          <TradeSummary />
+          {showBatchInfo ? <PendingPayoutInfo /> : <TradeInformation />}
           <ContractActions style={tw`items-center justify-end w-full`} {...contractActionsProps} />
         </PeachScrollView>
       </Screen>
@@ -31,14 +34,6 @@ export const Contract = () => {
 
 type Props = {
   requiredAction: ContractAction
-}
-
-const themes = {
-  buyer: tw`bg-success-background-dark border-success-mild-1 text-success-main`,
-  seller: tw`bg-primary-background-dark border-primary-mild-1 text-primary-main`,
-  paymentTooLate: tw`bg-warning-mild-1 border-warning-mild-2 text-black-1`,
-  dispute: tw`bg-error-main border-error-dark text-primary-background-light`,
-  cancel: tw`bg-black-5 border-black-4 text-black-2`,
 }
 
 function ContractHeader ({ requiredAction }: Props) {
@@ -65,13 +60,38 @@ function ContractHeader ({ requiredAction }: Props) {
     return contract?.disputeActive ? [] : icons
   }, [showConfirmPopup, contract, requiredAction, showConfirmPaymentHelp, showMakePaymentHelp, view])
 
+  const theme = useMemo(() => {
+    if (contract?.disputeActive) return 'dispute'
+    if (contract?.canceled) return 'cancel'
+    if (isPaymentTooLate(contract)) return 'paymentTooLate'
+    return view
+  }, [contract, view])
+
+  const title = useMemo(() => {
+    const { tradeStatus } = contract
+    if (view === 'buyer') {
+      if (tradeStatus === 'paymentRequired') return i18n('offer.requiredAction.paymentRequired')
+      if (tradeStatus === 'confirmPaymentRequired') return i18n('offer.requiredAction.waiting.seller')
+    }
+    if (tradeStatus === 'paymentRequired') return i18n('offer.requiredAction.waiting.buyer')
+    if (tradeStatus === 'confirmPaymentRequired') return i18n('offer.requiredAction.confirmPaymentRequired')
+    return contractIdToHex(contractId)
+  }, [contract, contractId, view])
+
   return (
     <Header
       icons={memoizedIcons}
-      title={contractIdToHex(contractId)}
-      style={[tw`border-b rounded-b-lg`, themes.dispute]}
-      theme="buyer"
-      subtitle={<Header.Subtitle amount={contract.amount} premium={contract.premium} viewer={view} theme="buyer" />}
+      title={title}
+      theme={theme}
+      subtitle={
+        <Header.Subtitle
+          amount={contract.amount}
+          premium={contract.premium}
+          viewer={view}
+          theme={theme}
+          text={contract.releaseTxId ? (view === 'buyer' ? i18n('contract.bought') : i18n('contract.sold')) : undefined}
+        />
+      }
     />
   )
 }
