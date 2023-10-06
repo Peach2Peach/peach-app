@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ContractCTA should not show the confirm payment slider when the payment is too late 1`] = `
+exports[`tradeInformationGetters should return the correct value for the paidToMethod field 1`] = `
 <View
   accessibilityState={
     {
@@ -21,7 +21,7 @@ exports[`ContractCTA should not show the confirm payment slider when the payment
   }
   accessible={true}
   collapsable={false}
-  focusable={true}
+  focusable={false}
   onClick={[Function]}
   onResponderGrant={[Function]}
   onResponderMove={[Function]}
@@ -32,16 +32,17 @@ exports[`ContractCTA should not show the confirm payment slider when the payment
   style={
     {
       "alignItems": "center",
-      "backgroundColor": "#BAADA7",
-      "borderColor": "#BAADA7",
-      "borderRadius": 9999,
-      "borderWidth": 2,
+      "backgroundColor": "#FEEDE5",
+      "borderColor": "#FCCCB6",
+      "borderRadius": 8,
+      "borderWidth": 1,
       "flexDirection": "row",
-      "height": 40,
+      "gap": 4,
+      "height": 28,
       "justifyContent": "center",
       "opacity": 1,
-      "paddingLeft": 16,
-      "paddingRight": 16,
+      "paddingLeft": 10,
+      "paddingRight": 10,
     }
   }
 >
@@ -60,17 +61,21 @@ exports[`ContractCTA should not show the confirm payment slider when the payment
         },
         [
           {
-            "color": "#FFFCFA",
+            "color": "#2B1911",
           },
           {
             "fontFamily": "Baloo2-SemiBold",
             "fontSize": 14,
             "letterSpacing": 0.5,
             "lineHeight": 24,
-            "minWidth": 96,
-            "paddingLeft": 8,
-            "paddingRight": 8,
             "textAlign": "center",
+            "textTransform": "uppercase",
+          },
+          {
+            "fontFamily": "Baloo2-SemiBold",
+            "fontSize": 15,
+            "letterSpacing": 0.54,
+            "lineHeight": 26,
             "textTransform": "uppercase",
           },
         ],
@@ -78,33 +83,18 @@ exports[`ContractCTA should not show the confirm payment slider when the payment
       ]
     }
   >
-    what now?
+    SEPA
   </Text>
-  <test-file-stub
-    fill="#FFFCFA"
-    style={
-      [
-        {
-          "height": 24,
-          "width": 24,
-        },
-        {
-          "height": 16,
-          "width": 16,
-        },
-      ]
-    }
-  />
 </View>
 `;
 
-exports[`ContractCTA should render correctly when a cancelation is requested 1`] = `
+exports[`tradeInformationGetters should return the correct value for the via field 1`] = `
 <View
   accessibilityState={
     {
       "busy": undefined,
       "checked": undefined,
-      "disabled": undefined,
+      "disabled": true,
       "expanded": undefined,
       "selected": undefined,
     }
@@ -119,7 +109,7 @@ exports[`ContractCTA should render correctly when a cancelation is requested 1`]
   }
   accessible={true}
   collapsable={false}
-  focusable={true}
+  focusable={false}
   onClick={[Function]}
   onResponderGrant={[Function]}
   onResponderMove={[Function]}
@@ -130,16 +120,17 @@ exports[`ContractCTA should render correctly when a cancelation is requested 1`]
   style={
     {
       "alignItems": "center",
-      "backgroundColor": "#F5CE22",
-      "borderColor": "#F5CE22",
-      "borderRadius": 9999,
-      "borderWidth": 2,
+      "backgroundColor": "#FEEDE5",
+      "borderColor": "#FCCCB6",
+      "borderRadius": 8,
+      "borderWidth": 1,
       "flexDirection": "row",
-      "height": 40,
+      "gap": 4,
+      "height": 28,
       "justifyContent": "center",
       "opacity": 1,
-      "paddingLeft": 16,
-      "paddingRight": 16,
+      "paddingLeft": 10,
+      "paddingRight": 10,
     }
   }
 >
@@ -158,17 +149,21 @@ exports[`ContractCTA should render correctly when a cancelation is requested 1`]
         },
         [
           {
-            "color": "#FFFCFA",
+            "color": "#2B1911",
           },
           {
             "fontFamily": "Baloo2-SemiBold",
             "fontSize": 14,
             "letterSpacing": 0.5,
             "lineHeight": 24,
-            "minWidth": 96,
-            "paddingLeft": 8,
-            "paddingRight": 8,
             "textAlign": "center",
+            "textTransform": "uppercase",
+          },
+          {
+            "fontFamily": "Baloo2-SemiBold",
+            "fontSize": 15,
+            "letterSpacing": 0.54,
+            "lineHeight": 26,
             "textTransform": "uppercase",
           },
         ],
@@ -176,25 +171,7 @@ exports[`ContractCTA should render correctly when a cancelation is requested 1`]
       ]
     }
   >
-    respond
+    SEPA
   </Text>
 </View>
-`;
-
-exports[`ContractCTA should render payment confirm slider correctly for the seller 1`] = `
-<ConfirmSlider
-  enabled={false}
-  label1="I received the payment"
-  label2="payment received"
-  onConfirm={[MockFunction]}
-/>
-`;
-
-exports[`ContractCTA should render the payment confirm slider correctly for the buyer 1`] = `
-<ConfirmSlider
-  enabled={false}
-  label1="I made the payment"
-  label2="payment made"
-  onConfirm={[MockFunction]}
-/>
 `;

@@ -38,7 +38,7 @@ exports[`Contract should render a default Contract 1`] = `
         }
       }
     >
-      <TradeSummary />
+      <TradeInformation />
       <ContractActions
         actionPending={false}
         isEmailRequired={false}

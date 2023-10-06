@@ -145,15 +145,9 @@ exports[`PublicProfile should render correctly when loaded 1`] = `
     >
       <View
         style={
-          [
-            {
-              "gap": 48,
-              "paddingTop": 16,
-            },
-            {
-              "paddingTop": 32,
-            },
-          ]
+          {
+            "gap": 48,
+          }
         }
       >
         <View

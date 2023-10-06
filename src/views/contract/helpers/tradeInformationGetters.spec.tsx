@@ -1,3 +1,4 @@
+import { render } from '@testing-library/react-native'
 import { contract } from '../../../../tests/unit/data/contractData'
 import { validSEPAData } from '../../../../tests/unit/data/paymentData'
 import { WalletLabel } from '../../../components/offer/WalletLabel'
@@ -26,10 +27,8 @@ describe('tradeInformationGetters', () => {
   })
   it('should return the correct value for the paidToMethod field', () => {
     usePaymentDataStore.getState().addPaymentData(validSEPAData)
-    expect(tradeInformationGetters.paidToMethod({ ...contract, paymentData: validSEPAData })).toEqual(
-      validSEPAData.label,
-    )
-    expect(tradeInformationGetters.paidToMethod(contract)).toEqual(undefined)
+    const element = tradeInformationGetters.paidToMethod({ ...contract, paymentData: validSEPAData }) as JSX.Element
+    expect(render(element).toJSON()).toMatchSnapshot()
   })
   it('should return the correct value for the paidWithMethod field', () => {
     expect(tradeInformationGetters.paidWithMethod(contract)).toEqual('SEPA')
@@ -51,7 +50,8 @@ describe('tradeInformationGetters', () => {
     )
   })
   it('should return the correct value for the via field', () => {
-    expect(tradeInformationGetters.via(contract)).toEqual('SEPA')
+    const element = tradeInformationGetters.via({ ...contract, paymentData: validSEPAData }) as JSX.Element
+    expect(render(element).toJSON()).toMatchSnapshot()
   })
   it('should return the correct value for the method field', () => {
     expect(tradeInformationGetters.method(contract)).toEqual('SEPA')
