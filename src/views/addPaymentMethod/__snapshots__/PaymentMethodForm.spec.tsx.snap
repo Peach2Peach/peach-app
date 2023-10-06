@@ -45,7 +45,6 @@ exports[`PaymentMethodForm should render correctly 1`] = `
       style={
         {
           "alignSelf": "center",
-          "marginBottom": 20,
         }
       }
     >

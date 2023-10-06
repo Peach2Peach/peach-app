@@ -1,5 +1,5 @@
 import { RefreshControl } from 'react-native'
-import { Header, PeachScrollView, Screen } from '../../components'
+import { PeachScrollView, Screen } from '../../components'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
 import { BitcoinLoading } from '../loading/BitcoinLoading'
@@ -13,7 +13,7 @@ export const TransactionDetails = () => {
   if (!transaction) return <BitcoinLoading />
 
   return (
-    <Screen header={<TransactionDetailsHeader />}>
+    <Screen header={i18n('wallet.transactionDetails')}>
       <PeachScrollView
         contentContainerStyle={tw`justify-center grow`}
         contentStyle={tw`gap-8`}
@@ -24,8 +24,4 @@ export const TransactionDetails = () => {
       </PeachScrollView>
     </Screen>
   )
-}
-
-function TransactionDetailsHeader () {
-  return <Header title={i18n('wallet.transactionDetails')} />
 }

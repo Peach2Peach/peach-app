@@ -1,5 +1,5 @@
 import { View } from 'react-native'
-import { Header, Icon, PeachScrollView, Screen, Text } from '../../components'
+import { Icon, PeachScrollView, Screen, Text } from '../../components'
 import tw from '../../styles/tailwind'
 import { isSellOffer, offerIdToHex } from '../../utils/offer'
 
@@ -25,7 +25,7 @@ export const OfferDetails = () => {
   }, [error, offerId, showErrorBanner])
 
   return isCanceledOffer(offer) && isSellOffer(offer) ? (
-    <Screen header={<OfferDetailsHeader />}>
+    <Screen header={offerIdToHex(offerId)}>
       <PeachScrollView contentContainerStyle={tw`justify-center grow`} contentStyle={tw`gap-10px`}>
         <View style={tw`flex-row items-center self-center gap-2`}>
           <Text style={tw`subtitle-1`}>
@@ -43,9 +43,4 @@ export const OfferDetails = () => {
   ) : (
     <LoadingScreen />
   )
-}
-
-function OfferDetailsHeader () {
-  const { offerId } = useRoute<'offer'>().params
-  return <Header title={offerIdToHex(offerId)} />
 }

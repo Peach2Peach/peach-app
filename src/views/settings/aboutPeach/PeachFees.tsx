@@ -1,4 +1,4 @@
-import { Header, Screen, Text } from '../../../components'
+import { Screen, Text } from '../../../components'
 import { BulletPoint } from '../../../components/text'
 import { useConfigStore } from '../../../store/configStore'
 import tw from '../../../styles/tailwind'
@@ -8,7 +8,7 @@ export const PeachFees = () => {
   const peachFee = useConfigStore((state) => state.peachFee)
 
   return (
-    <Screen style={tw`justify-center`} header={<PeachFeesHeader />}>
+    <Screen style={tw`justify-center`} header={i18n('settings.peachFees')}>
       <Text style={tw`body-m`}>
         {i18n('settings.fees.text.1')}
         <Text style={tw`body-m text-primary-main`}> {(peachFee * 100).toString()}% </Text>
@@ -24,8 +24,4 @@ export const PeachFees = () => {
       <BulletPoint text={i18n('settings.fees.point.3')} />
     </Screen>
   )
-}
-
-function PeachFeesHeader () {
-  return <Header title={i18n('settings.peachFees')} />
 }

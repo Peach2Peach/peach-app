@@ -1,5 +1,5 @@
 import { TouchableOpacity, View } from 'react-native'
-import { Header, Screen } from '../../../components'
+import { Screen } from '../../../components'
 import { Icon } from '../../../components/Icon'
 import { PeachText } from '../../../components/text/Text'
 import tw from '../../../styles/tailwind'
@@ -7,7 +7,7 @@ import i18n from '../../../utils/i18n'
 import { goToShiftCrypto } from '../../../utils/web'
 
 export const BitcoinProducts = () => (
-  <Screen header={<Header title={i18n('settings.bitcoinProducts')} />}>
+  <Screen header={i18n('settings.bitcoinProducts')}>
     <View style={tw`justify-center grow`}>
       <PeachText style={tw`h5`}>{i18n('settings.bitcoinProducts.proSecurity')}</PeachText>
       <PeachText style={tw`mt-1`}>

@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 import { Pressable, TextInput, View } from 'react-native'
-import { Header, Icon, Input, PeachScrollView, Screen, Text } from '../../components'
+import { Icon, Input, PeachScrollView, Screen, Text } from '../../components'
 import { NewButton } from '../../components/buttons/Button'
 import { EmailInput } from '../../components/inputs/EmailInput'
 import tw from '../../styles/tailwind'
@@ -33,7 +33,7 @@ export const Report = () => {
   let $message = useRef<TextInput>(null).current
 
   return (
-    <Screen header={<Header title={i18n('contact.title')} />}>
+    <Screen header={i18n('contact.title')}>
       <PeachScrollView contentContainerStyle={tw`justify-center grow`}>
         <EmailInput
           onChange={setEmail}

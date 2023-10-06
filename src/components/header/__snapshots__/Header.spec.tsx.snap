@@ -201,14 +201,7 @@ exports[`Header should render correctly with PriceStats 1`] = `
                   "height": 24,
                   "width": 24,
                 },
-                {
-                  "height": 20,
-                  "width": 20,
-                },
-                {
-                  "height": 24,
-                  "width": 24,
-                },
+                undefined,
               ]
             }
           />
@@ -260,14 +253,7 @@ exports[`Header should render correctly with PriceStats 1`] = `
                   "height": 24,
                   "width": 24,
                 },
-                {
-                  "height": 20,
-                  "width": 20,
-                },
-                {
-                  "height": 24,
-                  "width": 24,
-                },
+                undefined,
               ]
             }
           />
@@ -289,11 +275,23 @@ exports[`Header should render correctly with PriceStats 1`] = `
     />
     <View
       style={
-        {
-          "alignSelf": "stretch",
-          "flexDirection": "row",
-          "justifyContent": "space-between",
-        }
+        [
+          {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+            "paddingBottom": 4,
+            "paddingLeft": 16,
+            "paddingRight": 16,
+            "paddingTop": 4,
+          },
+          {
+            "paddingBottom": 2,
+            "paddingLeft": 32,
+            "paddingRight": 32,
+            "paddingTop": 2,
+          },
+        ]
       }
     >
       <View
@@ -348,11 +346,10 @@ exports[`Header should render correctly with PriceStats 1`] = `
               },
               [
                 {
-                  "color": "#F56522",
-                  "fontFamily": "Baloo2-Regular",
-                  "fontSize": 16,
-                  "letterSpacing": 0.16,
                   "lineHeight": 28,
+                },
+                {
+                  "color": "#F56522",
                 },
                 {
                   "fontFamily": "Baloo2-Regular",
@@ -430,11 +427,10 @@ exports[`Header should render correctly with PriceStats 1`] = `
               },
               [
                 {
-                  "color": "#F56522",
-                  "fontFamily": "Baloo2-Regular",
-                  "fontSize": 16,
-                  "letterSpacing": 0.16,
                   "lineHeight": 28,
+                },
+                {
+                  "color": "#F56522",
                 },
                 {
                   "fontFamily": "Baloo2-Regular",
@@ -552,14 +548,7 @@ exports[`Header should render correctly with title and icons 1`] = `
                   "height": 24,
                   "width": 24,
                 },
-                {
-                  "height": 20,
-                  "width": 20,
-                },
-                {
-                  "height": 24,
-                  "width": 24,
-                },
+                undefined,
               ]
             }
           />
@@ -660,14 +649,7 @@ exports[`Header should render correctly with title and icons 1`] = `
                   "height": 24,
                   "width": 24,
                 },
-                {
-                  "height": 20,
-                  "width": 20,
-                },
-                {
-                  "height": 24,
-                  "width": 24,
-                },
+                undefined,
               ]
             }
           />
@@ -719,14 +701,7 @@ exports[`Header should render correctly with title and icons 1`] = `
                   "height": 24,
                   "width": 24,
                 },
-                {
-                  "height": 20,
-                  "width": 20,
-                },
-                {
-                  "height": 24,
-                  "width": 24,
-                },
+                undefined,
               ]
             }
           />
@@ -742,7 +717,39 @@ exports[`NewHeader should render correctly for default state 1`] = `
 - First value
 + Second value
 
-@@ -13,13 +13,10 @@
+- <RCTSafeAreaView>
++ <RCTSafeAreaView
++   style={
++     Array [
++       Object {
++         "borderBottomLeftRadius": 8,
++         "borderBottomRightRadius": 8,
++         "borderBottomWidth": 1,
++       },
++       Object {
++         "backgroundColor": "#FFF9F6",
++       },
++       Object {
++         "borderColor": "#FEEDE5",
++       },
++     ]
++   }
++ >
+    <View
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+-           "gap": 6,
+-           "paddingBottom": 4,
++           "flexDirection": "row",
++           "gap": 8,
++           "paddingBottom": 6,
+            "paddingLeft": 16,
+            "paddingRight": 16,
+-           "paddingTop": 4,
++           "paddingTop": 6,
+          },
           Object {
             "paddingLeft": 32,
             "paddingRight": 32,
@@ -755,7 +762,78 @@ exports[`NewHeader should render correctly for default state 1`] = `
       }
     >
       <View
-        style={"
+        style={
+          Object {
++           "alignItems": "center",
++           "flexBasis": "0%",
+            "flexDirection": "row",
+-           "justifyContent": "space-between",
+-           "width": "100%",
++           "flexGrow": 1,
++           "flexShrink": 1,
++           "gap": 4,
+          }
+        }
+      >
+-       <View
++       <Text
++         allowFontScaling={false}
++         numberOfLines={1}
+          style={
++           Array [
++             Object {
++               "color": "#2B1911",
++               "fontFamily": "Baloo2-Regular",
++               "fontSize": 16,
++               "letterSpacing": 0.16,
++               "lineHeight": 24,
++             },
++             Array [
+                Object {
+-             "alignItems": "center",
+-             "flexDirection": "row",
++                 "fontFamily": "Baloo2-Bold",
++                 "fontSize": 16,
++                 "letterSpacing": 0.16,
++                 "lineHeight": 26,
++               },
++               Object {
++                 "fontFamily": "Baloo2-Bold",
++                 "fontSize": 20,
++                 "letterSpacing": 0.2,
++                 "lineHeight": 32,
++               },
++               Object {
++                 "color": "#2B1911",
++               },
++               Object {
++                 "flexBasis": "0%",
++                 "flexGrow": 1,
+                  "flexShrink": 1,
+-             "gap": 4,
+-             "justifyContent": "flex-start",
+-             "width": "100%",
+-           }
++               },
++             ],
++             false,
++           ]
+          }
+        />
++     </View>
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "gap": 10,
+            "justifyContent": "flex-end",
+          }
+        }
+      />
+-     </View>
+    </View>
+  </RCTSafeAreaView>"
 `;
 
 exports[`NewHeader should render correctly with PriceStats 1`] = `
@@ -763,20 +841,161 @@ exports[`NewHeader should render correctly with PriceStats 1`] = `
 - First value
 + Second value
 
-@@ -13,13 +13,10 @@
-          Object {
-            "paddingLeft": 32,
-            "paddingRight": 32,
-          },
-          undefined,
--         Object {
+@@ -1,46 +1,51 @@
+- <RCTSafeAreaView>
+-   <View
++ <RCTSafeAreaView
+    style={
+      Array [
+        Object {
+-           "alignItems": "center",
+-           "gap": 6,
+-           "paddingBottom": 4,
+-           "paddingLeft": 16,
+-           "paddingRight": 16,
+-           "paddingTop": 4,
++         "borderBottomLeftRadius": 8,
++         "borderBottomRightRadius": 8,
++         "borderBottomWidth": 1,
+        },
+        Object {
+-           "paddingLeft": 32,
+-           "paddingRight": 32,
++         "backgroundColor": "#FFF9F6",
+        },
+-         undefined,
+        Object {
 -           "backgroundColor": "#FFF9F6",
--         },
-        ]
++         "borderColor": "#FEEDE5",
+        },
+      ]
+    }
+  >
+    <View
+      style={
++       Array [
+          Object {
++           "alignItems": "center",
+            "flexDirection": "row",
+-           "justifyContent": "space-between",
+-           "width": "100%",
+-         }
++           "gap": 8,
++           "paddingBottom": 6,
++           "paddingLeft": 16,
++           "paddingRight": 16,
++           "paddingTop": 6,
++         },
++         Object {
++           "paddingLeft": 32,
++           "paddingRight": 32,
++         },
++         undefined,
++       ]
       }
     >
       <View
-        style={"
+        style={
+          Object {
+            "alignItems": "center",
++           "flexBasis": "0%",
+            "flexDirection": "row",
++           "flexGrow": 1,
+            "flexShrink": 1,
+            "gap": 4,
+-             "justifyContent": "flex-start",
+-             "width": "100%",
+          }
+        }
+      >
+        <Text
+          allowFontScaling={false}
+@@ -69,10 +74,12 @@
+                },
+                Object {
+                  "color": "#2B1911",
+                },
+                Object {
++                 "flexBasis": "0%",
++                 "flexGrow": 1,
+                  "flexShrink": 1,
+                },
+              ],
+              false,
+            ]
+@@ -136,11 +143,18 @@
+              Array [
+                Object {
+                  "height": 24,
+                  "width": 24,
+                },
+-                 undefined,
++               Object {
++                 "height": 20,
++                 "width": 20,
++               },
++               Object {
++                 "height": 24,
++                 "width": 24,
++               },
+              ]
+            }
+          />
+        </View>
+        <View
+@@ -188,34 +202,28 @@
+              Array [
+                Object {
+                  "height": 24,
+                  "width": 24,
+                },
+-                 undefined,
++               Object {
++                 "height": 20,
++                 "width": 20,
++               },
++               Object {
++                 "height": 24,
++                 "width": 24,
++               },
+              ]
+            }
+          />
+        </View>
+      </View>
+    </View>
+    <View
+      style={
+        Array [
+          Object {
+-             "backgroundColor": "#EAE3DF",
+-             "flexShrink": 1,
+-             "height": 1,
+-             "width": "100%",
+-           },
+-           undefined,
+-         ]
+-       }
+-     />
+-     <View
+-       style={
+-         Array [
+-           Object {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+            "paddingBottom": 4,
+            "paddingLeft": 16,
+@@ -383,9 +391,8 @@
+            ]
+          }
+        >
+          NaN sats
+        </Text>
+-       </View>
+      </View>
+    </View>
+  </RCTSafeAreaView>"
 `;
 
 exports[`NewHeader should render correctly with title and icons 1`] = `
@@ -784,7 +1003,39 @@ exports[`NewHeader should render correctly with title and icons 1`] = `
 - First value
 + Second value
 
-@@ -12,14 +12,18 @@
+@@ -1,49 +1,108 @@
+- <RCTSafeAreaView>
++ <RCTSafeAreaView
++   style={
++     Array [
++       Object {
++         "borderBottomLeftRadius": 8,
++         "borderBottomRightRadius": 8,
++         "borderBottomWidth": 1,
++       },
++       Object {
++         "backgroundColor": "#FFF9F6",
++       },
++       Object {
++         "borderColor": "#FEEDE5",
++       },
++     ]
++   }
++ >
+    <View
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+-           "gap": 6,
+-           "paddingBottom": 4,
++           "flexDirection": "row",
++           "gap": 8,
++           "paddingBottom": 6,
+            "paddingLeft": 16,
+            "paddingRight": 16,
+-           "paddingTop": 4,
++           "paddingTop": 6,
           },
           Object {
             "paddingLeft": 32,
@@ -793,11 +1044,11 @@ exports[`NewHeader should render correctly with title and icons 1`] = `
 -         undefined,
 +         Array [
 +           Object {
-+             "marginLeft": -4,
++             "paddingLeft": 8,
 +           },
             Object {
 -           "backgroundColor": "#FFF9F6",
-+             "marginLeft": -10,
++             "paddingLeft": 26,
             },
 +         ],
         ]
@@ -805,72 +1056,130 @@ exports[`NewHeader should render correctly with title and icons 1`] = `
     >
       <View
         style={
-@@ -37,13 +41,67 @@
-              "flexDirection": "row",
-              "flexShrink": 1,
-              "gap": 4,
-              "justifyContent": "flex-start",
-              "width": "100%",
+          Object {
++           "alignItems": "center",
++           "flexBasis": "0%",
+            "flexDirection": "row",
+-           "justifyContent": "space-between",
+-           "width": "100%",
++           "flexGrow": 1,
++           "flexShrink": 1,
++           "gap": 4,
+          }
+        }
+      >
+        <View
++         accessibilityState={
++           Object {
++             "busy": undefined,
++             "checked": undefined,
++             "disabled": undefined,
++             "expanded": undefined,
++             "selected": undefined,
 +           }
 +         }
-+       >
-+         <View
-+           accessibilityState={
-+             Object {
-+               "busy": undefined,
-+               "checked": undefined,
-+               "disabled": undefined,
-+               "expanded": undefined,
-+               "selected": undefined,
-+             }
++         accessibilityValue={
++           Object {
++             "max": undefined,
++             "min": undefined,
++             "now": undefined,
++             "text": undefined,
 +           }
-+           accessibilityValue={
-+             Object {
-+               "max": undefined,
-+               "min": undefined,
-+               "now": undefined,
-+               "text": undefined,
-+             }
-+           }
-+           accessible={true}
-+           collapsable={false}
-+           focusable={true}
-+           onClick={[Function onClick]}
-+           onResponderGrant={[Function onResponderGrant]}
-+           onResponderMove={[Function onResponderMove]}
-+           onResponderRelease={[Function onResponderRelease]}
-+           onResponderTerminate={[Function onResponderTerminate]}
-+           onResponderTerminationRequest={[Function onResponderTerminationRequest]}
-+           onStartShouldSetResponder={[Function onStartShouldSetResponder]}
-+           style={
-+             Object {
-+               "opacity": 1,
-              }
++         }
++         accessible={true}
++         collapsable={false}
++         focusable={true}
++         onClick={[Function onClick]}
++         onResponderGrant={[Function onResponderGrant]}
++         onResponderMove={[Function onResponderMove]}
++         onResponderRelease={[Function onResponderRelease]}
++         onResponderTerminate={[Function onResponderTerminate]}
++         onResponderTerminationRequest={[Function onResponderTerminationRequest]}
++         onStartShouldSetResponder={[Function onStartShouldSetResponder]}
+          style={
+            Object {
+-             "alignItems": "center",
+-             "flexDirection": "row",
+-             "flexShrink": 1,
+-             "gap": 4,
+-             "justifyContent": "flex-start",
+-             "width": "100%",
++             "opacity": 1,
             }
-          >
-+           <test-file-stub
-+             fill="#7D675E"
-+             style={
-+               Array [
-+                 Object {
-+                   "height": 24,
-+                   "width": 24,
-+                 },
-+                 Object {
-+                   "height": 20,
-+                   "width": 20,
-+                 },
-+                 Object {
-+                   "height": 24,
-+                   "width": 24,
-+                 },
-+               ]
-+             }
-+           />
-+         </View>
-          <Text
-            allowFontScaling={false}
-            numberOfLines={1}
-            style={
-              Array ["
+          }
+        >
++         <test-file-stub
++           fill="#7D675E"
++           style={
++             Array [
++               Object {
++                 "height": 24,
++                 "width": 24,
++               },
++               24,
++             ]
++           }
++         />
++       </View>
+        <Text
+          allowFontScaling={false}
+          numberOfLines={1}
+          style={
+            Array [
+@@ -69,10 +128,12 @@
+                },
+                Object {
+                  "color": "#2B1911",
+                },
+                Object {
++                 "flexBasis": "0%",
++                 "flexGrow": 1,
+                  "flexShrink": 1,
+                },
+              ],
+              false,
+            ]
+@@ -136,11 +197,18 @@
+              Array [
+                Object {
+                  "height": 24,
+                  "width": 24,
+                },
+-                 undefined,
++               Object {
++                 "height": 20,
++                 "width": 20,
++               },
++               Object {
++                 "height": 24,
++                 "width": 24,
++               },
+              ]
+            }
+          />
+        </View>
+        <View
+@@ -188,14 +256,20 @@
+              Array [
+                Object {
+                  "height": 24,
+                  "width": 24,
+                },
+-                 undefined,
++               Object {
++                 "height": 20,
++                 "width": 20,
++               },
++               Object {
++                 "height": 24,
++                 "width": 24,
++               },
+              ]
+            }
+          />
+-         </View>
+        </View>
+      </View>
+    </View>
+  </RCTSafeAreaView>"
 `;

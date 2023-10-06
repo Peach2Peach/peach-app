@@ -36,7 +36,7 @@ export const PaymentMethodForm = () => {
         <View style={tw`justify-center grow`}>
           {!!Form && <Form onSubmit={submitForm} {...{ data, setStepValid, setFormData }} />}
         </View>
-        <PrimaryButton style={tw`self-center mb-5`} disabled={!stepValid} onPress={submitForm} narrow>
+        <PrimaryButton style={tw`self-center`} disabled={!stepValid} onPress={submitForm} narrow>
           {i18n('confirm')}
         </PrimaryButton>
       </PeachScrollView>

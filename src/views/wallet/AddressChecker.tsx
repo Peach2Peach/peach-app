@@ -1,5 +1,5 @@
 import { View } from 'react-native'
-import { Header, Icon, InfoFrame, Loading, Placeholder, Screen } from '../../components'
+import { Icon, InfoFrame, Loading, Placeholder, Screen } from '../../components'
 import { BitcoinAddressInput } from '../../components/inputs'
 import { TradeInfo } from '../../components/offer'
 import { useValidatedState } from '../../hooks'
@@ -16,7 +16,7 @@ export const AddressChecker = () => {
   const [address, setAddress, , errorMessage] = useValidatedState<string>('', addressRules)
 
   return (
-    <Screen header={<Header title={i18n('wallet.addressChecker')} />}>
+    <Screen header={i18n('wallet.addressChecker')}>
       <View style={tw`items-center justify-center gap-16 grow`}>
         <InfoFrame text={i18n('wallet.addressChecker.hint')} />
         <BitcoinAddressInput value={address} onChange={setAddress} errorMessage={errorMessage} />

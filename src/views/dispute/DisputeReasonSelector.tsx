@@ -1,6 +1,6 @@
 import tw from '../../styles/tailwind'
 
-import { Header, OptionButton, PeachScrollView, Screen, Text } from '../../components'
+import { OptionButton, PeachScrollView, Screen, Text } from '../../components'
 import { useRoute } from '../../hooks'
 import { contractIdToHex, getContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
@@ -12,7 +12,7 @@ export const DisputeReasonSelector = () => {
   const contract = getContract(contractId)
 
   return (
-    <Screen header={<Header title={i18n('dispute.disputeForTrade', contract ? contractIdToHex(contract.id) : '')} />}>
+    <Screen header={i18n('dispute.disputeForTrade', contract ? contractIdToHex(contract.id) : '')}>
       <PeachScrollView contentContainerStyle={tw`items-center justify-center grow`} contentStyle={tw`gap-4`}>
         <Text style={tw`text-center h6`}>{i18n('contact.whyAreYouContactingUs')}</Text>
         {availableReasons.map((rsn) => (

@@ -1,9 +1,9 @@
 import ShallowRenderer from 'react-test-renderer/shallow'
-import { BitcoinPriceStats } from './BitcoinPriceStats'
-import { useBitcoinStore } from '../../store/bitcoinStore'
 import { mockDimensions } from '../../../tests/unit/helpers/mockDimensions'
+import { useBitcoinStore } from '../../store/bitcoinStore'
+import { Tickers } from './Tickers'
 
-describe('BitcoinPriceStats', () => {
+describe('Tickers', () => {
   const renderer = ShallowRenderer.createRenderer()
 
   beforeAll(() => {
@@ -16,7 +16,7 @@ describe('BitcoinPriceStats', () => {
   it('should render correctly', () => {
     mockDimensions({ width: 320, height: 600 })
 
-    renderer.render(<BitcoinPriceStats />)
+    renderer.render(<Tickers />)
 
     const renderOutput = renderer.getRenderOutput()
     expect(renderOutput).toMatchSnapshot()
@@ -24,7 +24,7 @@ describe('BitcoinPriceStats', () => {
   it('should render medium screens correctly', () => {
     mockDimensions({ width: 600, height: 840 })
 
-    renderer.render(<BitcoinPriceStats />)
+    renderer.render(<Tickers />)
 
     const renderOutput = renderer.getRenderOutput()
     expect(renderOutput).toMatchSnapshot()
@@ -32,7 +32,7 @@ describe('BitcoinPriceStats', () => {
   it('should render correctly if the currency is CHF', () => {
     useBitcoinStore.setState({ currency: 'CHF' })
 
-    renderer.render(<BitcoinPriceStats />)
+    renderer.render(<Tickers />)
 
     const renderOutput = renderer.getRenderOutput()
     expect(renderOutput).toMatchSnapshot()

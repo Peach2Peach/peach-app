@@ -2,11 +2,7 @@
 
 exports[`SelectCurrency should render correctly 1`] = `
 <Screen
-  header={
-    <Header
-      title="select currency"
-    />
-  }
+  header="select currency"
 >
   <CurrencyTabs
     currency="EUR"
@@ -18,7 +14,6 @@ exports[`SelectCurrency should render correctly 1`] = `
     style={
       {
         "alignSelf": "center",
-        "marginBottom": 20,
         "marginTop": 8,
       }
     }

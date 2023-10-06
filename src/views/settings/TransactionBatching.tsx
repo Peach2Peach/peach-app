@@ -1,5 +1,5 @@
 import { View } from 'react-native'
-import { Header, ParsedPeachText, Screen, Text } from '../../components'
+import { ParsedPeachText, Screen, Text } from '../../components'
 import { Toggle } from '../../components/inputs'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
@@ -11,7 +11,7 @@ export const TransactionBatching = () => {
 
   if (isLoading) return <LoadingScreen />
   return (
-    <Screen style={tw`justify-center gap-8`} header={<Header title={i18n('settings.transactionBatching')} />}>
+    <Screen style={tw`justify-center gap-8`} header={i18n('settings.transactionBatching')}>
       <View style={tw`gap-4`}>
         <Text style={tw`body-l`}>
           {i18n(isBatchingEnabled ? 'settings.batching.delayedPayouts' : 'settings.batching.immediatePayouts')}

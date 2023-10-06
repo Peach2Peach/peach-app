@@ -2,7 +2,7 @@ import { useRef } from 'react'
 import { TextInput, View } from 'react-native'
 import tw from '../../styles/tailwind'
 
-import { Header, Input, PeachScrollView, Screen } from '../../components'
+import { Input, PeachScrollView, Screen } from '../../components'
 import { NewButton } from '../../components/buttons/Button'
 import { EmailInput } from '../../components/inputs/EmailInput'
 import { useRoute } from '../../hooks'
@@ -17,7 +17,7 @@ export const DisputeForm = () => {
   const { contractId } = useRoute<'disputeForm'>().params
 
   return (
-    <Screen header={<Header title={i18n('dispute.disputeForTrade', contractIdToHex(contractId))} />}>
+    <Screen header={i18n('dispute.disputeForTrade', contractIdToHex(contractId))}>
       <PeachScrollView contentContainerStyle={tw`items-center justify-center flex-grow`}>
         <View style={tw`justify-center h-full max-w-full`}>
           <EmailInput

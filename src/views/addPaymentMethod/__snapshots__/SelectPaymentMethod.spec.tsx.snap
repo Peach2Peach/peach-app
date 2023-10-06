@@ -2,11 +2,7 @@
 
 exports[`SelectPaymentMethod should render correctly 1`] = `
 <Screen
-  header={
-    <Header
-      title="select payment method"
-    />
-  }
+  header="select payment method"
 >
   <ForwardRef
     contentContainerStyle={
@@ -42,7 +38,6 @@ exports[`SelectPaymentMethod should render correctly 1`] = `
     style={
       {
         "alignSelf": "center",
-        "marginBottom": 20,
         "marginTop": 8,
       }
     }

@@ -2,7 +2,7 @@ import { Linking, View } from 'react-native'
 
 import tw from '../../../styles/tailwind'
 
-import { Header, OptionButton, Screen } from '../../../components'
+import { OptionButton, Screen } from '../../../components'
 import { DISCORD, INSTAGRAM, NOSTR, TELEGRAM, TWITCH, TWITTER, YOUTUBE } from '../../../constants'
 import i18n from '../../../utils/i18n'
 
@@ -17,7 +17,7 @@ const socials = [
 ]
 
 export const Socials = () => (
-  <Screen header={<Header title={i18n('settings.socials.subtitle')} />}>
+  <Screen header={i18n('settings.socials.subtitle')}>
     <View style={tw`items-center justify-center grow`}>
       {socials.map(({ name, url }) => (
         <OptionButton key={name} onPress={() => Linking.openURL(url)} style={tw`mt-2`} wide>

@@ -28,15 +28,9 @@ exports[`Contract should render a default Contract 1`] = `
   >
     <ForwardRef
       contentContainerStyle={
-        [
-          {
-            "flexGrow": 1,
-            "paddingTop": 16,
-          },
-          {
-            "paddingTop": 32,
-          },
-        ]
+        {
+          "flexGrow": 1,
+        }
       }
       contentStyle={
         {
@@ -55,8 +49,6 @@ exports[`Contract should render a default Contract 1`] = `
           {
             "alignItems": "center",
             "justifyContent": "flex-end",
-            "marginBottom": 8,
-            "marginTop": "auto",
             "width": "100%",
           }
         }

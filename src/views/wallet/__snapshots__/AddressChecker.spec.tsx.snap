@@ -10,17 +10,34 @@ exports[`AddressChecker should render correctly 1`] = `
     }
   }
 >
-  <RCTSafeAreaView>
+  <RCTSafeAreaView
+    style={
+      [
+        {
+          "borderBottomLeftRadius": 8,
+          "borderBottomRightRadius": 8,
+          "borderBottomWidth": 1,
+        },
+        {
+          "backgroundColor": "#FFF9F6",
+        },
+        {
+          "borderColor": "#FEEDE5",
+        },
+      ]
+    }
+  >
     <View
       style={
         [
           {
             "alignItems": "center",
-            "gap": 6,
-            "paddingBottom": 4,
+            "flexDirection": "row",
+            "gap": 8,
+            "paddingBottom": 6,
             "paddingLeft": 16,
             "paddingRight": 16,
-            "paddingTop": 4,
+            "paddingTop": 6,
           },
           {
             "paddingLeft": 32,
@@ -33,74 +50,66 @@ exports[`AddressChecker should render correctly 1`] = `
       <View
         style={
           {
+            "alignItems": "center",
+            "flexBasis": "0%",
             "flexDirection": "row",
-            "justifyContent": "space-between",
-            "width": "100%",
+            "flexGrow": 1,
+            "flexShrink": 1,
+            "gap": 4,
           }
         }
       >
-        <View
+        <Text
+          allowFontScaling={false}
+          numberOfLines={1}
           style={
-            {
-              "alignItems": "center",
-              "flexDirection": "row",
-              "flexShrink": 1,
-              "gap": 4,
-              "justifyContent": "flex-start",
-              "width": "100%",
-            }
-          }
-        >
-          <Text
-            allowFontScaling={false}
-            numberOfLines={1}
-            style={
+            [
+              {
+                "color": "#2B1911",
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
+                "lineHeight": 24,
+              },
               [
                 {
-                  "color": "#2B1911",
-                  "fontFamily": "Baloo2-Regular",
+                  "fontFamily": "Baloo2-Bold",
                   "fontSize": 16,
                   "letterSpacing": 0.16,
-                  "lineHeight": 24,
+                  "lineHeight": 26,
                 },
-                [
-                  {
-                    "fontFamily": "Baloo2-Bold",
-                    "fontSize": 16,
-                    "letterSpacing": 0.16,
-                    "lineHeight": 26,
-                  },
-                  {
-                    "fontFamily": "Baloo2-Bold",
-                    "fontSize": 20,
-                    "letterSpacing": 0.2,
-                    "lineHeight": 32,
-                  },
-                  {
-                    "color": "#2B1911",
-                  },
-                  {
-                    "flexShrink": 1,
-                  },
-                ],
-                false,
-              ]
-            }
-          >
-            address checker
-          </Text>
-        </View>
-        <View
-          style={
-            {
-              "alignItems": "center",
-              "flexDirection": "row",
-              "gap": 10,
-              "justifyContent": "flex-end",
-            }
+                {
+                  "fontFamily": "Baloo2-Bold",
+                  "fontSize": 20,
+                  "letterSpacing": 0.2,
+                  "lineHeight": 32,
+                },
+                {
+                  "color": "#2B1911",
+                },
+                {
+                  "flexBasis": "0%",
+                  "flexGrow": 1,
+                  "flexShrink": 1,
+                },
+              ],
+              false,
+            ]
           }
-        />
+        >
+          address checker
+        </Text>
       </View>
+      <View
+        style={
+          {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "gap": 10,
+            "justifyContent": "flex-end",
+          }
+        }
+      />
     </View>
   </RCTSafeAreaView>
   <RCTSafeAreaView
@@ -438,7 +447,7 @@ exports[`AddressChecker should render correctly when address belongs to wallet 1
 - First value
 + Second value
 
-@@ -263,11 +263,11 @@
+@@ -272,11 +272,11 @@
                       "paddingBottom": 0,
                       "paddingTop": 0,
                       "width": "100%",
@@ -451,7 +460,7 @@ exports[`AddressChecker should render correctly when address belongs to wallet 1
                     Object {
                       "borderColor": "transparent",
                       "borderWidth": 1,
-@@ -275,11 +275,11 @@
+@@ -284,11 +284,11 @@
                     false,
                     false,
                   ]
@@ -464,7 +473,7 @@ exports[`AddressChecker should render correctly when address belongs to wallet 1
                 style={
                   Object {
                     "display": "flex",
-@@ -415,16 +415,63 @@
+@@ -424,16 +424,63 @@
                
             </Text>
           </View>
@@ -536,7 +545,7 @@ exports[`AddressChecker should render correctly when address does not belong to 
 - First value
 + Second value
 
-@@ -263,11 +263,11 @@
+@@ -272,11 +272,11 @@
                       "paddingBottom": 0,
                       "paddingTop": 0,
                       "width": "100%",
@@ -549,7 +558,7 @@ exports[`AddressChecker should render correctly when address does not belong to 
                     Object {
                       "borderColor": "transparent",
                       "borderWidth": 1,
-@@ -275,11 +275,11 @@
+@@ -284,11 +284,11 @@
                     false,
                     false,
                   ]
@@ -562,7 +571,7 @@ exports[`AddressChecker should render correctly when address does not belong to 
                 style={
                   Object {
                     "display": "flex",
-@@ -415,16 +415,63 @@
+@@ -424,16 +424,63 @@
                
             </Text>
           </View>
@@ -634,7 +643,7 @@ exports[`AddressChecker should render correctly when address is invalid 1`] = `
 - First value
 + Second value
 
-@@ -224,15 +224,18 @@
+@@ -233,15 +233,18 @@
                     "backgroundColor": "#FFFCFA",
                   },
                   Object {
@@ -657,7 +666,7 @@ exports[`AddressChecker should render correctly when address is invalid 1`] = `
                 ]
               }
             >
-@@ -263,23 +266,22 @@
+@@ -272,23 +275,22 @@
                       "paddingBottom": 0,
                       "paddingTop": 0,
                       "width": "100%",
@@ -685,7 +694,7 @@ exports[`AddressChecker should render correctly when address is invalid 1`] = `
                 style={
                   Object {
                     "display": "flex",
-@@ -410,11 +412,11 @@
+@@ -419,11 +421,11 @@
                   ],
                   false,
                 ]
@@ -705,7 +714,7 @@ exports[`AddressChecker should render correctly while loading 1`] = `
 - First value
 + Second value
 
-@@ -263,11 +263,11 @@
+@@ -272,11 +272,11 @@
                       "paddingBottom": 0,
                       "paddingTop": 0,
                       "width": "100%",
@@ -718,7 +727,7 @@ exports[`AddressChecker should render correctly while loading 1`] = `
                     Object {
                       "borderColor": "transparent",
                       "borderWidth": 1,
-@@ -275,11 +275,11 @@
+@@ -284,11 +284,11 @@
                     false,
                     false,
                   ]
@@ -731,7 +740,7 @@ exports[`AddressChecker should render correctly while loading 1`] = `
                 style={
                   Object {
                     "display": "flex",
-@@ -414,16 +414,43 @@
+@@ -423,16 +423,43 @@
             >
                
             </Text>

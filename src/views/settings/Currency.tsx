@@ -1,7 +1,7 @@
 import tw from '../../styles/tailwind'
 
 import { shallow } from 'zustand/shallow'
-import { Header, PeachScrollView, PrimaryButton, RadioButtons, Screen } from '../../components'
+import { PeachScrollView, PrimaryButton, RadioButtons, Screen } from '../../components'
 import { useNavigation } from '../../hooks'
 import { CURRENCIES } from '../../paymentMethods'
 import { useBitcoinStore } from '../../store/bitcoinStore'
@@ -26,7 +26,7 @@ export const Currency = () => {
   }
 
   return (
-    <Screen header={<Header title={i18n('currency')} />}>
+    <Screen header={i18n('currency')}>
       <PeachScrollView contentContainerStyle={[tw`justify-center py-4 grow`, tw.md`py-8`]}>
         <RadioButtons
           selectedValue={displayCurrency}

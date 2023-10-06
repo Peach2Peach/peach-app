@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 import { Linking, ViewStyle } from 'react-native'
 import { IconType } from '../../../assets/icons'
-import { Header, PeachScrollView, Screen } from '../../../components'
+import { PeachScrollView, Screen } from '../../../components'
 import { useNavigation } from '../../../hooks'
 import tw from '../../../styles/tailwind'
 import i18n, { languageState } from '../../../utils/i18n'
@@ -45,7 +45,7 @@ export const AboutPeach = () => {
   ]
 
   return (
-    <Screen header={<Header title={i18n('settings.aboutPeach')} />}>
+    <Screen header={i18n('settings.aboutPeach')}>
       <PeachScrollView contentContainerStyle={tw`justify-center flex-1`}>
         {items.map((item) => (
           <SettingsItem

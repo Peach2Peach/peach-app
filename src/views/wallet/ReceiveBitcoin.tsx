@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { View } from 'react-native'
 import QRCode from 'react-native-qrcode-svg'
-import { CopyAble, Header, HorizontalLine, Screen, Text } from '../../components'
+import { CopyAble, HorizontalLine, Screen, Text } from '../../components'
 import { useIsMediumScreen } from '../../hooks'
 import tw from '../../styles/tailwind'
 import { getBitcoinAddressParts } from '../../utils/bitcoin'
@@ -19,7 +19,7 @@ export const ReceiveBitcoin = () => {
   if (isLoading) return <BitcoinLoading />
 
   return (
-    <Screen header={<Header title={i18n('wallet.receiveBitcoin.title')} />}>
+    <Screen header={i18n('wallet.receiveBitcoin.title')}>
       <View style={[tw`items-center flex-1 gap-2 py-1`, tw.md`gap-8 py-6`]}>
         <AddressNavigation setIndex={setIndex} index={displayIndex} />
 

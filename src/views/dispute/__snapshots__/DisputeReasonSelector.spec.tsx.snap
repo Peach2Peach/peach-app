@@ -2,11 +2,7 @@
 
 exports[`DisputeReasonSelector should render correctly 1`] = `
 <Screen
-  header={
-    <Header
-      title="dispute for trade "
-    />
-  }
+  header="dispute for trade "
 >
   <ForwardRef
     contentContainerStyle={

@@ -61,8 +61,14 @@ module.exports = {
             1: '#F3B71A',
           },
           main: '#F5CE22',
-          mild: '#DFD79A',
+          mild: {
+            2: '#F9E96C',
+            1: '#FDF6C0',
+          },
           background: '#FDF6C0',
+          backgroundDark: '#FEFCE5',
+          backgroundMain: '#FFFEF5',
+          backgroundLight: '#FFFEFA',
         },
         error: {
           dark: '#B01807',

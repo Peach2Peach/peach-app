@@ -1,13 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`BitcoinPriceStats should render correctly 1`] = `
+exports[`Tickers should render correctly 1`] = `
 <View
   style={
-    {
-      "alignSelf": "stretch",
-      "flexDirection": "row",
-      "justifyContent": "space-between",
-    }
+    [
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "paddingBottom": 4,
+        "paddingLeft": 16,
+        "paddingRight": 16,
+        "paddingTop": 4,
+      },
+      {},
+    ]
   }
 >
   <View
@@ -45,18 +52,12 @@ exports[`BitcoinPriceStats should render correctly 1`] = `
       style={
         [
           {
-            "color": "#F56522",
-            "fontFamily": "Baloo2-Regular",
-            "fontSize": 16,
-            "letterSpacing": 0.16,
             "lineHeight": 28,
           },
           {
-            "fontFamily": "Baloo2-Regular",
-            "fontSize": 20,
-            "letterSpacing": 0.2,
-            "lineHeight": 28,
+            "color": "#F56522",
           },
+          {},
         ]
       }
     />
@@ -99,18 +100,12 @@ exports[`BitcoinPriceStats should render correctly 1`] = `
       style={
         [
           {
-            "color": "#F56522",
-            "fontFamily": "Baloo2-Regular",
-            "fontSize": 16,
-            "letterSpacing": 0.16,
             "lineHeight": 28,
           },
           {
-            "fontFamily": "Baloo2-Regular",
-            "fontSize": 20,
-            "letterSpacing": 0.2,
-            "lineHeight": 28,
+            "color": "#F56522",
           },
+          {},
           {
             "textAlign": "right",
           },
@@ -123,14 +118,26 @@ exports[`BitcoinPriceStats should render correctly 1`] = `
 </View>
 `;
 
-exports[`BitcoinPriceStats should render correctly if the currency is CHF 1`] = `
+exports[`Tickers should render correctly if the currency is CHF 1`] = `
 <View
   style={
-    {
-      "alignSelf": "stretch",
-      "flexDirection": "row",
-      "justifyContent": "space-between",
-    }
+    [
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "paddingBottom": 4,
+        "paddingLeft": 16,
+        "paddingRight": 16,
+        "paddingTop": 4,
+      },
+      {
+        "paddingBottom": 2,
+        "paddingLeft": 32,
+        "paddingRight": 32,
+        "paddingTop": 2,
+      },
+    ]
   }
 >
   <View
@@ -168,11 +175,10 @@ exports[`BitcoinPriceStats should render correctly if the currency is CHF 1`] = 
       style={
         [
           {
-            "color": "#F56522",
-            "fontFamily": "Baloo2-Regular",
-            "fontSize": 16,
-            "letterSpacing": 0.16,
             "lineHeight": 28,
+          },
+          {
+            "color": "#F56522",
           },
           {
             "fontFamily": "Baloo2-Regular",
@@ -224,11 +230,10 @@ exports[`BitcoinPriceStats should render correctly if the currency is CHF 1`] = 
       style={
         [
           {
-            "color": "#F56522",
-            "fontFamily": "Baloo2-Regular",
-            "fontSize": 16,
-            "letterSpacing": 0.16,
             "lineHeight": 28,
+          },
+          {
+            "color": "#F56522",
           },
           {
             "fontFamily": "Baloo2-Regular",
@@ -248,14 +253,26 @@ exports[`BitcoinPriceStats should render correctly if the currency is CHF 1`] = 
 </View>
 `;
 
-exports[`BitcoinPriceStats should render medium screens correctly 1`] = `
+exports[`Tickers should render medium screens correctly 1`] = `
 <View
   style={
-    {
-      "alignSelf": "stretch",
-      "flexDirection": "row",
-      "justifyContent": "space-between",
-    }
+    [
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "paddingBottom": 4,
+        "paddingLeft": 16,
+        "paddingRight": 16,
+        "paddingTop": 4,
+      },
+      {
+        "paddingBottom": 2,
+        "paddingLeft": 32,
+        "paddingRight": 32,
+        "paddingTop": 2,
+      },
+    ]
   }
 >
   <View
@@ -293,11 +310,10 @@ exports[`BitcoinPriceStats should render medium screens correctly 1`] = `
       style={
         [
           {
-            "color": "#F56522",
-            "fontFamily": "Baloo2-Regular",
-            "fontSize": 16,
-            "letterSpacing": 0.16,
             "lineHeight": 28,
+          },
+          {
+            "color": "#F56522",
           },
           {
             "fontFamily": "Baloo2-Regular",
@@ -349,11 +365,10 @@ exports[`BitcoinPriceStats should render medium screens correctly 1`] = `
       style={
         [
           {
-            "color": "#F56522",
-            "fontFamily": "Baloo2-Regular",
-            "fontSize": 16,
-            "letterSpacing": 0.16,
             "lineHeight": 28,
+          },
+          {
+            "color": "#F56522",
           },
           {
             "fontFamily": "Baloo2-Regular",
