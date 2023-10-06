@@ -1,5 +1,5 @@
 import { View } from 'react-native'
-import { NewHeader as Header, Icon, PeachScrollView, Screen, Text } from '../../components'
+import { Header, Icon, PeachScrollView, Screen, Text } from '../../components'
 import { NewButton as Button } from '../../components/buttons/Button'
 import { ScanQR } from '../../components/camera/ScanQR'
 import { Toggle } from '../../components/inputs'
@@ -27,9 +27,8 @@ export const NodeSetup = () => {
   const [showQRScanner, toggleShowQRScanner] = useToggleBoolean(false)
 
   return (
-    <Screen style={tw`pb-5`}>
-      <NodeSetupHeader />
-      <PeachScrollView contentContainerStyle={tw`flex-grow`} contentStyle={tw`justify-center flex-grow gap-3`}>
+    <Screen header={<NodeSetupHeader />}>
+      <PeachScrollView contentContainerStyle={tw`grow`} contentStyle={tw`justify-center gap-3 grow`}>
         <Toggle style={tw`justify-between px-6`} textStyle={tw`text-black-2`} {...{ enabled }} onPress={toggleEnabled}>
           {i18n('wallet.settings.node.title')}
         </Toggle>

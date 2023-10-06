@@ -1,5 +1,8 @@
-import { Divider, PeachScrollView } from '../../components'
+import { Divider, Header, PeachScrollView, Screen } from '../../components'
+import { useShowHelp } from '../../hooks'
 import tw from '../../styles/tailwind'
+import i18n from '../../utils/i18n'
+import { headerIcons } from '../../utils/layout'
 import { BitcoinLoading } from '../loading/BitcoinLoading'
 import { BumpNetworkFeesButton } from './components/BumpNetworkFeesButton'
 import { CurrentFee } from './components/bumpNetworkFees/CurrentFee'
@@ -22,10 +25,10 @@ export const BumpNetworkFees = () => {
   if (!transaction) return <BitcoinLoading />
 
   return (
-    <>
+    <Screen header={<BumpNetworkFeesHeader />}>
       <PeachScrollView
         style={tw`flex-1 w-full h-full`}
-        contentContainerStyle={[tw`justify-center flex-1 px-8`, tw.md`px-10`]}
+        contentContainerStyle={tw`justify-center flex-1`}
         contentStyle={[tw`gap-3`, tw.md`gap-5`]}
       >
         <CurrentFee fee={currentFeeRate} />
@@ -35,10 +38,15 @@ export const BumpNetworkFees = () => {
         <NewFee {...{ newFeeRate, setNewFeeRate, overpayingBy }} />
       </PeachScrollView>
       <BumpNetworkFeesButton
-        style={tw`self-center mb-5`}
+        style={tw`self-center`}
         {...{ transaction, newFeeRate, sendingAmount }}
         disabled={!newFeeRateIsValid}
       />
-    </>
+    </Screen>
   )
+}
+
+function BumpNetworkFeesHeader () {
+  const showHelp = useShowHelp('rbf')
+  return <Header title={i18n('wallet.bumpNetworkFees.title')} icons={[{ ...headerIcons.help, onPress: showHelp }]} />
 }

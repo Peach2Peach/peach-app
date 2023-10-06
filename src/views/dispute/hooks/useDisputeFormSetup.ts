@@ -1,12 +1,11 @@
 import { useMemo, useState } from 'react'
 import { Keyboard } from 'react-native'
-import { useHeaderSetup, useNavigation, useRoute, useValidatedState } from '../../../hooks'
+import { useNavigation, useRoute, useValidatedState } from '../../../hooks'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { useDisputeRaisedSuccess } from '../../../popups/dispute/hooks/useDisputeRaisedSuccess'
 import { account } from '../../../utils/account'
-import { contractIdToHex, getContract, getContractViewer } from '../../../utils/contract'
+import { getContract, getContractViewer } from '../../../utils/contract'
 import { isEmailRequiredForDispute } from '../../../utils/dispute'
-import i18n from '../../../utils/i18n'
 import { submitRaiseDispute } from '../utils/submitRaiseDispute'
 
 const required = { required: true }
@@ -30,8 +29,6 @@ export const useDisputeFormSetup = () => {
   const disputeRaisedPopup = useDisputeRaisedSuccess()
 
   const showErrorBanner = useShowErrorBanner()
-
-  useHeaderSetup(i18n('dispute.disputeForTrade', contractIdToHex(contractId)))
 
   const submit = async () => {
     Keyboard.dismiss()

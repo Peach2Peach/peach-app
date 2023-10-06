@@ -5,312 +5,440 @@ exports[`TransactionBatching should render correctly when batching is disabled 1
 - First value
 + Second value
 
-@@ -43,11 +43,11 @@
-            },
-            false,
-          ]
-        }
-      >
--       Escrow payouts are delayed.
-+       Escrow payouts are done right away
-      </Text>
-      <Text
-        allowFontScaling={false}
-        style={
-          Array [
-@@ -89,11 +89,11 @@
-              ],
-              undefined,
-            ]
-          }
-        >
--         You 
-+         You’re paying up to 
-        </Text>
-        <Text
-          style={
-            Array [
+@@ -169,11 +169,11 @@
+                },
+                false,
+              ]
+            }
+          >
+-           Escrow payouts are delayed.
++           Escrow payouts are done right away
+          </Text>
+          <Text
+            allowFontScaling={false}
+            style={
               Array [
-@@ -116,36 +116,11 @@
-                "color": "#F56522",
-              },
-            ]
-          }
-        >
--         save up to 23%
--       </Text>
--       <Text
--         style={
--           Array [
--             Array [
--               Object {
--                 "color": "#2B1911",
--                 "fontFamily": "Baloo2-Regular",
--                 "fontSize": 16,
--                 "letterSpacing": 0.16,
--                 "lineHeight": 24,
--               },
--               Object {
--                 "fontFamily": "Baloo2-Regular",
--                 "fontSize": 20,
--                 "letterSpacing": 0.2,
--                 "lineHeight": 28,
--               },
--               false,
--             ],
--             undefined,
--           ]
--         }
--       >
--          in network fees
-+         30% more
-        </Text>
-      </Text>
-    </View>
-    <View
-      accessibilityState={
-@@ -210,11 +185,11 @@
-        }
-      >
-        transaction batching
-      </Text>
-      <test-file-stub
--       fill="#F56522"
-+       fill="#9F8C82"
-        style={
-          Array [
-            Object {
-              "height": 32,
-              "width": 32,"
+@@ -215,11 +215,11 @@
+                  ],
+                  undefined,
+                ]
+              }
+            >
+-             You 
++             You’re paying up to 
+            </Text>
+            <Text
+              style={
+                Array [
+                  Array [
+@@ -242,36 +242,11 @@
+                    "color": "#F56522",
+                  },
+                ]
+              }
+            >
+-             save up to 23%
+-           </Text>
+-           <Text
+-             style={
+-               Array [
+-                 Array [
+-                   Object {
+-                     "color": "#2B1911",
+-                     "fontFamily": "Baloo2-Regular",
+-                     "fontSize": 16,
+-                     "letterSpacing": 0.16,
+-                     "lineHeight": 24,
+-                   },
+-                   Object {
+-                     "fontFamily": "Baloo2-Regular",
+-                     "fontSize": 20,
+-                     "letterSpacing": 0.2,
+-                     "lineHeight": 28,
+-                   },
+-                   false,
+-                 ],
+-                 undefined,
+-               ]
+-             }
+-           >
+-              in network fees
++             30% more
+            </Text>
+          </Text>
+        </View>
+        <View
+          accessibilityState={
+@@ -336,11 +311,11 @@
+            }
+          >
+            transaction batching
+          </Text>
+          <test-file-stub
+-           fill="#F56522"
++           fill="#9F8C82"
+            style={
+              Array [
+                Object {
+                  "height": 32,
+                  "width": 32,"
 `;
 
 exports[`TransactionBatching should render correctly when batching is enabled 1`] = `
 <View
   style={
-    [
-      {
-        "height": "100%",
-        "paddingLeft": 16,
-        "paddingRight": 16,
-      },
-      {
-        "paddingLeft": 32,
-        "paddingRight": 32,
-      },
-      {
-        "gap": 32,
-        "justifyContent": "center",
-      },
-    ]
+    {
+      "flexBasis": "0%",
+      "flexGrow": 1,
+      "flexShrink": 1,
+    }
   }
 >
-  <View
+  <RCTSafeAreaView
     style={
-      {
-        "gap": 16,
-      }
+      [
+        {
+          "borderBottomLeftRadius": 8,
+          "borderBottomRightRadius": 8,
+          "borderBottomWidth": 1,
+        },
+        {
+          "backgroundColor": "#FFF9F6",
+        },
+        {
+          "borderColor": "#FEEDE5",
+        },
+      ]
     }
   >
-    <Text
-      allowFontScaling={false}
+    <View
       style={
         [
           {
-            "color": "#2B1911",
-            "fontFamily": "Baloo2-Regular",
-            "fontSize": 16,
-            "letterSpacing": 0.16,
-            "lineHeight": 24,
+            "alignItems": "center",
+            "flexDirection": "row",
+            "gap": 8,
+            "paddingBottom": 6,
+            "paddingLeft": 16,
+            "paddingRight": 16,
+            "paddingTop": 6,
           },
           {
-            "fontFamily": "Baloo2-Regular",
-            "fontSize": 20,
-            "letterSpacing": 0.2,
-            "lineHeight": 28,
-          },
-          false,
-        ]
-      }
-    >
-      Escrow payouts are delayed.
-    </Text>
-    <Text
-      allowFontScaling={false}
-      style={
-        [
-          {
-            "color": "#2B1911",
-            "fontFamily": "Baloo2-Regular",
-            "fontSize": 16,
-            "letterSpacing": 0.16,
-            "lineHeight": 24,
-          },
-          {
-            "fontFamily": "Baloo2-Regular",
-            "fontSize": 20,
-            "letterSpacing": 0.2,
-            "lineHeight": 28,
-          },
-          false,
-        ]
-      }
-    >
-      <Text
-        style={
-          [
-            [
-              {
-                "color": "#2B1911",
-                "fontFamily": "Baloo2-Regular",
-                "fontSize": 16,
-                "letterSpacing": 0.16,
-                "lineHeight": 24,
-              },
-              {
-                "fontFamily": "Baloo2-Regular",
-                "fontSize": 20,
-                "letterSpacing": 0.2,
-                "lineHeight": 28,
-              },
-              false,
-            ],
-            undefined,
-          ]
-        }
-      >
-        You 
-      </Text>
-      <Text
-        style={
-          [
-            [
-              {
-                "color": "#2B1911",
-                "fontFamily": "Baloo2-Regular",
-                "fontSize": 16,
-                "letterSpacing": 0.16,
-                "lineHeight": 24,
-              },
-              {
-                "fontFamily": "Baloo2-Regular",
-                "fontSize": 20,
-                "letterSpacing": 0.2,
-                "lineHeight": 28,
-              },
-              false,
-            ],
-            {
-              "color": "#F56522",
-            },
-          ]
-        }
-      >
-        save up to 23%
-      </Text>
-      <Text
-        style={
-          [
-            [
-              {
-                "color": "#2B1911",
-                "fontFamily": "Baloo2-Regular",
-                "fontSize": 16,
-                "letterSpacing": 0.16,
-                "lineHeight": 24,
-              },
-              {
-                "fontFamily": "Baloo2-Regular",
-                "fontSize": 20,
-                "letterSpacing": 0.2,
-                "lineHeight": 28,
-              },
-              false,
-            ],
-            undefined,
-          ]
-        }
-      >
-         in network fees
-      </Text>
-    </Text>
-  </View>
-  <View
-    accessibilityState={
-      {
-        "busy": undefined,
-        "checked": undefined,
-        "disabled": undefined,
-        "expanded": undefined,
-        "selected": undefined,
-      }
-    }
-    accessibilityValue={
-      {
-        "max": undefined,
-        "min": undefined,
-        "now": undefined,
-        "text": undefined,
-      }
-    }
-    accessible={true}
-    collapsable={false}
-    focusable={false}
-    onClick={[Function]}
-    onResponderGrant={[Function]}
-    onResponderMove={[Function]}
-    onResponderRelease={[Function]}
-    onResponderTerminate={[Function]}
-    onResponderTerminationRequest={[Function]}
-    onStartShouldSetResponder={[Function]}
-    style={
-      {
-        "alignItems": "center",
-        "flexDirection": "row",
-        "gap": 16,
-        "opacity": 1,
-      }
-    }
-  >
-    <Text
-      allowFontScaling={false}
-      style={
-        [
-          {
-            "color": "#2B1911",
-            "fontFamily": "Baloo2-Regular",
-            "fontSize": 16,
-            "letterSpacing": 0.16,
-            "lineHeight": 24,
-          },
-          [
-            {
-              "fontFamily": "Baloo2-SemiBold",
-              "fontSize": 20,
-              "letterSpacing": 0.2,
-              "lineHeight": 32,
-              "textTransform": "lowercase",
-            },
-            undefined,
-          ],
-          false,
-        ]
-      }
-    >
-      transaction batching
-    </Text>
-    <test-file-stub
-      fill="#F56522"
-      style={
-        [
-          {
-            "height": 32,
-            "width": 32,
+            "paddingLeft": 32,
+            "paddingRight": 32,
           },
           undefined,
         ]
       }
-    />
-  </View>
+    >
+      <View
+        style={
+          {
+            "alignItems": "center",
+            "flexBasis": "0%",
+            "flexDirection": "row",
+            "flexGrow": 1,
+            "flexShrink": 1,
+            "gap": 4,
+          }
+        }
+      >
+        <Text
+          allowFontScaling={false}
+          numberOfLines={1}
+          style={
+            [
+              {
+                "color": "#2B1911",
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
+                "lineHeight": 24,
+              },
+              [
+                {
+                  "fontFamily": "Baloo2-Bold",
+                  "fontSize": 16,
+                  "letterSpacing": 0.16,
+                  "lineHeight": 26,
+                },
+                {
+                  "fontFamily": "Baloo2-Bold",
+                  "fontSize": 20,
+                  "letterSpacing": 0.2,
+                  "lineHeight": 32,
+                },
+                {
+                  "color": "#2B1911",
+                },
+                {
+                  "flexBasis": "0%",
+                  "flexGrow": 1,
+                  "flexShrink": 1,
+                },
+              ],
+              false,
+            ]
+          }
+        >
+          transaction batching
+        </Text>
+      </View>
+      <View
+        style={
+          {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "gap": 10,
+            "justifyContent": "flex-end",
+          }
+        }
+      />
+    </View>
+  </RCTSafeAreaView>
+  <RCTSafeAreaView
+    style={
+      {
+        "flexBasis": "0%",
+        "flexGrow": 1,
+        "flexShrink": 1,
+      }
+    }
+  >
+    <View
+      style={
+        [
+          {
+            "flexBasis": "0%",
+            "flexGrow": 1,
+            "flexShrink": 1,
+            "paddingBottom": 16,
+            "paddingLeft": 16,
+            "paddingRight": 16,
+            "paddingTop": 16,
+          },
+          {
+            "paddingBottom": 32,
+            "paddingLeft": 32,
+            "paddingRight": 32,
+            "paddingTop": 32,
+          },
+          {
+            "gap": 32,
+            "justifyContent": "center",
+          },
+        ]
+      }
+    >
+      <View
+        style={
+          {
+            "gap": 16,
+          }
+        }
+      >
+        <Text
+          allowFontScaling={false}
+          style={
+            [
+              {
+                "color": "#2B1911",
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
+                "lineHeight": 24,
+              },
+              {
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 20,
+                "letterSpacing": 0.2,
+                "lineHeight": 28,
+              },
+              false,
+            ]
+          }
+        >
+          Escrow payouts are delayed.
+        </Text>
+        <Text
+          allowFontScaling={false}
+          style={
+            [
+              {
+                "color": "#2B1911",
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
+                "lineHeight": 24,
+              },
+              {
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 20,
+                "letterSpacing": 0.2,
+                "lineHeight": 28,
+              },
+              false,
+            ]
+          }
+        >
+          <Text
+            style={
+              [
+                [
+                  {
+                    "color": "#2B1911",
+                    "fontFamily": "Baloo2-Regular",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 24,
+                  },
+                  {
+                    "fontFamily": "Baloo2-Regular",
+                    "fontSize": 20,
+                    "letterSpacing": 0.2,
+                    "lineHeight": 28,
+                  },
+                  false,
+                ],
+                undefined,
+              ]
+            }
+          >
+            You 
+          </Text>
+          <Text
+            style={
+              [
+                [
+                  {
+                    "color": "#2B1911",
+                    "fontFamily": "Baloo2-Regular",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 24,
+                  },
+                  {
+                    "fontFamily": "Baloo2-Regular",
+                    "fontSize": 20,
+                    "letterSpacing": 0.2,
+                    "lineHeight": 28,
+                  },
+                  false,
+                ],
+                {
+                  "color": "#F56522",
+                },
+              ]
+            }
+          >
+            save up to 23%
+          </Text>
+          <Text
+            style={
+              [
+                [
+                  {
+                    "color": "#2B1911",
+                    "fontFamily": "Baloo2-Regular",
+                    "fontSize": 16,
+                    "letterSpacing": 0.16,
+                    "lineHeight": 24,
+                  },
+                  {
+                    "fontFamily": "Baloo2-Regular",
+                    "fontSize": 20,
+                    "letterSpacing": 0.2,
+                    "lineHeight": 28,
+                  },
+                  false,
+                ],
+                undefined,
+              ]
+            }
+          >
+             in network fees
+          </Text>
+        </Text>
+      </View>
+      <View
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        collapsable={false}
+        focusable={false}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "gap": 16,
+            "opacity": 1,
+          }
+        }
+      >
+        <Text
+          allowFontScaling={false}
+          style={
+            [
+              {
+                "color": "#2B1911",
+                "fontFamily": "Baloo2-Regular",
+                "fontSize": 16,
+                "letterSpacing": 0.16,
+                "lineHeight": 24,
+              },
+              [
+                {
+                  "fontFamily": "Baloo2-SemiBold",
+                  "fontSize": 20,
+                  "letterSpacing": 0.2,
+                  "lineHeight": 32,
+                  "textTransform": "lowercase",
+                },
+                undefined,
+              ],
+              false,
+            ]
+          }
+        >
+          transaction batching
+        </Text>
+        <test-file-stub
+          fill="#F56522"
+          style={
+            [
+              {
+                "height": 32,
+                "width": 32,
+              },
+              undefined,
+            ]
+          }
+        />
+      </View>
+    </View>
+  </RCTSafeAreaView>
 </View>
 `;
 

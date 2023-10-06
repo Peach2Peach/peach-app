@@ -1,14 +1,9 @@
+import { render } from '@testing-library/react-native'
 import { contract } from '../../../../tests/unit/data/contractData'
 import { validSEPAData } from '../../../../tests/unit/data/paymentData'
 import { WalletLabel } from '../../../components/offer/WalletLabel'
 import { usePaymentDataStore } from '../../../store/usePaymentDataStore'
-import {
-  tradeInformationGetters,
-  isTradeInformationGetter,
-  activeSellOfferFields,
-  pastSellOfferFields,
-  pastBuyOfferFields,
-} from './tradeInformationGetters'
+import { isTradeInformationGetter, tradeInformationGetters } from './tradeInformationGetters'
 
 jest.mock('../../../utils/offer/getWalletLabel', () => ({
   getWalletLabel: jest.fn(() => 'walletLabel'),
@@ -32,10 +27,8 @@ describe('tradeInformationGetters', () => {
   })
   it('should return the correct value for the paidToMethod field', () => {
     usePaymentDataStore.getState().addPaymentData(validSEPAData)
-    expect(tradeInformationGetters.paidToMethod({ ...contract, paymentData: validSEPAData })).toEqual(
-      validSEPAData.label,
-    )
-    expect(tradeInformationGetters.paidToMethod(contract)).toEqual(undefined)
+    const element = tradeInformationGetters.paidToMethod({ ...contract, paymentData: validSEPAData }) as JSX.Element
+    expect(render(element).toJSON()).toMatchSnapshot()
   })
   it('should return the correct value for the paidWithMethod field', () => {
     expect(tradeInformationGetters.paidWithMethod(contract)).toEqual('SEPA')
@@ -57,7 +50,8 @@ describe('tradeInformationGetters', () => {
     )
   })
   it('should return the correct value for the via field', () => {
-    expect(tradeInformationGetters.via(contract)).toEqual('SEPA')
+    const element = tradeInformationGetters.via({ ...contract, paymentData: validSEPAData }) as JSX.Element
+    expect(render(element).toJSON()).toMatchSnapshot()
   })
   it('should return the correct value for the method field', () => {
     expect(tradeInformationGetters.method(contract)).toEqual('SEPA')
@@ -70,17 +64,5 @@ describe('isTradeInformationGetter', () => {
   })
   it('should return false if the field name is not a valid trade information getter', () => {
     expect(isTradeInformationGetter('name')).toEqual(false)
-  })
-})
-
-describe('fields', () => {
-  test('activeSellOfferFields are correct', () => {
-    expect(activeSellOfferFields).toEqual(['price', 'reference', 'paidToMethod', 'via'])
-  })
-  test('pastSellOfferFields are correct', () => {
-    expect(pastSellOfferFields).toEqual(['price', 'paidToMethod', 'via', 'bitcoinAmount', 'bitcoinPrice'])
-  })
-  test('pastBuyOfferFields are correct', () => {
-    expect(pastBuyOfferFields).toEqual(['price', 'paidWithMethod', 'bitcoinAmount', 'bitcoinPrice', 'paidToWallet'])
   })
 })

@@ -133,6 +133,7 @@
   "contract.summary.price" : "fiyat",
   "contract.summary.receiveAddress" : "adres",
   "contract.summary.reference" : "referans",
+  "contract.summary.seller" : "satıcı",
   "contract.summary.sellerWantsToCancel" : "satıcı iptal istiyor",
   "contract.summary.status" : "durum",
   "contract.summary.to" : "alıcı:",

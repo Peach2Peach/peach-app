@@ -4,6 +4,7 @@ exports[`WrongFundingAmountSummary renders correctly 1`] = `
 <View
   style={
     {
+      "flexGrow": 1,
       "gap": 12,
     }
   }

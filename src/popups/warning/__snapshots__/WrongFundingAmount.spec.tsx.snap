@@ -14,7 +14,7 @@ exports[`WrongFundingAmount renders correctly 1`] = `
     sats={69420}
     style={
       {
-        "color": "#DFD79A",
+        "color": "#F9E96C",
       }
     }
   />
@@ -36,7 +36,7 @@ exports[`WrongFundingAmount renders correctly 1`] = `
     sats={42060}
     style={
       {
-        "color": "#DFD79A",
+        "color": "#F9E96C",
       }
     }
   />

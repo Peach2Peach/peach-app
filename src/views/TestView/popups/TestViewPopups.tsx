@@ -1,12 +1,10 @@
 import { View } from 'react-native'
 import { shallow } from 'zustand/shallow'
 import { PeachScrollView, PrimaryButton, Text } from '../../../components'
-import { useHeaderSetup } from '../../../hooks'
 import { PopupState, usePopupStore } from '../../../store/usePopupStore'
 import tw from '../../../styles/tailwind'
 
 export const TestViewPopups = () => {
-  useHeaderSetup('test view - popups')
   const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
 
   const openPopup = (level: Level, options: Partial<PopupState> = {}) =>

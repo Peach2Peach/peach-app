@@ -184,7 +184,7 @@ exports[`ContractCTA should render correctly when a cancelation is requested 1`]
 exports[`ContractCTA should render payment confirm slider correctly for the seller 1`] = `
 <ConfirmSlider
   enabled={false}
-  label1="confirm payment"
+  label1="I received the payment"
   label2="payment received"
   onConfirm={[MockFunction]}
 />

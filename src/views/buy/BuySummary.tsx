@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { NewHeader as Header, PeachScrollView, PrimaryButton, Screen } from '../../components'
+import { Header, PeachScrollView, PrimaryButton, Screen } from '../../components'
 import { BuyOfferSummary } from '../../components/offer'
 import { useNavigation } from '../../hooks'
 import tw from '../../styles/tailwind'
@@ -18,13 +18,12 @@ export const BuySummary = () => {
   const { canPublish, publishOffer, isPublishing, goToMessageSigning, offerDraft } = useBuySummarySetup()
 
   return (
-    <Screen>
-      <BuySummaryHeader />
+    <Screen header={<BuySummaryHeader />}>
       <PeachScrollView contentContainerStyle={[tw`justify-center flex-grow py-sm`, tw.md`py-md`]}>
         <BuyOfferSummary offer={offerDraft} />
       </PeachScrollView>
       <PrimaryButton
-        style={tw`self-center mt-2 mb-5`}
+        style={tw`self-center mt-2`}
         narrow
         onPress={canPublish ? publishOffer : goToMessageSigning}
         loading={isPublishing}

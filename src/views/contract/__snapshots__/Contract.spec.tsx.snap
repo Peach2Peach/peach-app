@@ -1,74 +1,61 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Contract should render a default Contract 1`] = `
-<ForwardRef
-  contentContainerStyle={
-    [
-      {
-        "flexGrow": 1,
-        "paddingTop": 16,
-      },
-      {
-        "paddingTop": 32,
-      },
-    ]
-  }
-  contentStyle={
+<Context.Provider
+  value={
     {
-      "height": "100%",
+      "contract": {
+        "buyer": {
+          "username": "buyerUsername",
+        },
+        "disputeActive": false,
+        "seller": {
+          "username": "sellerUsername",
+        },
+      },
+      "showBatchInfo": undefined,
+      "toggleShowBatchInfo": undefined,
+      "view": "buyer",
     }
-  }
-  style={
-    [
-      {
-        "height": "100%",
-        "paddingLeft": 16,
-        "paddingRight": 16,
-      },
-      {
-        "paddingLeft": 32,
-        "paddingRight": 32,
-      },
-    ]
   }
 >
-  <Context.Provider
-    value={
-      {
-        "contract": {
-          "buyer": {
-            "username": "buyerUsername",
-          },
-          "disputeActive": false,
-          "seller": {
-            "username": "sellerUsername",
-          },
-        },
-        "showBatchInfo": undefined,
-        "toggleShowBatchInfo": undefined,
-        "view": "buyer",
-      }
+  <Screen
+    header={
+      <ContractHeader
+        requiredAction="requiredAction"
+      />
     }
   >
-    <TradeSummary />
-    <ContractActions
-      actionPending={false}
-      isEmailRequired={false}
-      postConfirmPaymentBuyer={[MockFunction]}
-      postConfirmPaymentSeller={[MockFunction]}
-      requiredAction="requiredAction"
-      style={
+    <ForwardRef
+      contentContainerStyle={
         {
-          "alignItems": "center",
-          "justifyContent": "flex-end",
-          "marginBottom": 8,
-          "marginTop": "auto",
-          "width": "100%",
+          "flexGrow": 1,
         }
       }
-    />
-  </Context.Provider>
-</ForwardRef>
+      contentStyle={
+        {
+          "flexGrow": 1,
+        }
+      }
+    >
+      <TradeInformation />
+      <ContractActions
+        actionPending={false}
+        isEmailRequired={false}
+        postConfirmPaymentBuyer={[MockFunction]}
+        postConfirmPaymentSeller={[MockFunction]}
+        requiredAction="requiredAction"
+        style={
+          {
+            "alignItems": "center",
+            "justifyContent": "flex-end",
+            "width": "100%",
+          }
+        }
+      />
+    </ForwardRef>
+  </Screen>
+</Context.Provider>
 `;
 
 exports[`Contract should show the loading screen if isLoading is true 1`] = `<LoadingScreen />`;

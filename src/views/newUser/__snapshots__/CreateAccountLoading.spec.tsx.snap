@@ -99,7 +99,7 @@ exports[`CreateAccountLoading should render correctly 1`] = `
 `;
 
 exports[`CreateAccountLoading should set header correctly 1`] = `
-<Header
+<OldHeader
   hideGoBackButton={true}
   icons={[]}
   theme="inverted"

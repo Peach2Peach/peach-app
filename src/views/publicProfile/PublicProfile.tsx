@@ -1,5 +1,5 @@
 import { View } from 'react-native'
-import { NewHeader as Header, Screen } from '../../components'
+import { Screen } from '../../components'
 import { useCurrentUser } from '../../hooks'
 import tw from '../../styles/tailwind'
 import i18n from '../../utils/i18n'
@@ -11,9 +11,8 @@ export const PublicProfile = () => {
   if (isLoading || !user) return <></>
 
   return (
-    <Screen>
-      <Header title={i18n('profile.user.title')} />
-      <View style={[tw`gap-12 pt-sm`, tw.md`pt-md`]}>
+    <Screen header={i18n('profile.user.title')}>
+      <View style={tw`gap-12`}>
         <ProfileOverview user={user} />
         <AccountInfo user={user} />
       </View>

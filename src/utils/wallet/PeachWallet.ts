@@ -82,12 +82,12 @@ export class PeachWallet extends PeachJSWallet {
     )
   }
 
-  loadWallet (): void {
+  loadWallet (seedphrase?: string): void {
     if (useNodeConfigState.persist.hasHydrated()) {
-      this.initWallet()
+      this.initWallet(seedphrase)
     } else {
       useNodeConfigState.persist.onFinishHydration(() => {
-        this.initWallet()
+        this.initWallet(seedphrase)
       })
     }
   }

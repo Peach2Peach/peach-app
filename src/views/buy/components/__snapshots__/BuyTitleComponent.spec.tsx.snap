@@ -7,7 +7,7 @@ exports[`BuyTitleComponent should render correctly 1`] = `
       {
         "pattern": /buy/u,
         "style": {
-          "color": "#05A85A",
+          "color": "#65A519",
         },
       },
     ]

@@ -1,6 +1,6 @@
-import { PrimaryButton } from '../../../components'
 import { WarningButton } from '../../../components/buttons'
 import { ConfirmSlider } from '../../../components/inputs'
+import { UnlockedSlider } from '../../../components/inputs/confirmSlider/ConfirmSlider'
 import { useConfirmTradeCancelationPopup } from '../../../popups/tradeCancelation/useConfirmTradeCancelationPopup'
 import { usePaymentTooLatePopup } from '../../../popups/usePaymentTooLatePopup'
 import { getPaymentExpectedBy } from '../../../utils/contract/getPaymentExpectedBy'
@@ -27,17 +27,15 @@ export const ContractCTA = ({
   if (shouldShowConfirmCancelTradeRequest(contract, view)) return (
     <WarningButton onPress={() => showConfirmTradeCancelation(contract)}>{i18n('contract.respond')}</WarningButton>
   )
-  if (view === 'buyer' && requiredAction === 'confirmPayment') return (
-    <PrimaryButton disabled iconId="send">
-      {i18n('contract.payment.sent')}
-    </PrimaryButton>
-  )
+  if (view === 'buyer' && requiredAction === 'confirmPayment') {
+    return <UnlockedSlider label={i18n('contract.payment.made')} />
+  }
 
-  if (view === 'seller' && requiredAction === 'sendPayment') return (
-    <PrimaryButton disabled iconId="watch">
-      {i18n('contract.payment.notYetSent')}
-    </PrimaryButton>
-  )
+  if (view === 'seller' && requiredAction === 'sendPayment') {
+    return (
+      <ConfirmSlider enabled={false} onConfirm={() => {}} label1={i18n('offer.requiredAction.waiting', i18n('buyer'))} />
+    )
+  }
   if (view === 'buyer' && requiredAction === 'sendPayment') {
     const paymentExpectedBy = getPaymentExpectedBy(contract)
     if (Date.now() < paymentExpectedBy) {

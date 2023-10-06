@@ -1,19 +1,16 @@
 import { useCallback, useContext, useEffect, useState } from 'react'
-import { useHeaderSetup, useRoute } from '../../../hooks'
+import { useRoute } from '../../../hooks'
 import { useChatMessages } from '../../../hooks/query/useChatMessages'
 import { useCommonContractSetup } from '../../../hooks/useCommonContractSetup'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
-import { useOpenDispute } from '../../../popups/dispute/hooks/useOpenDispute'
-import { useConfirmCancelTrade } from '../../../popups/tradeCancelation/useConfirmCancelTrade'
 import { useConfigStore } from '../../../store/configStore'
 import { account } from '../../../utils/account'
 import { deleteMessage, getChat, getUnsentMessages, saveChat } from '../../../utils/chat'
-import { contractIdToHex, getTradingPartner } from '../../../utils/contract'
+import { getTradingPartner } from '../../../utils/contract'
 import { error } from '../../../utils/log'
 import { PeachWSContext } from '../../../utils/peachAPI/websocket'
 import { decryptSymmetric, signAndEncryptSymmetric } from '../../../utils/pgp'
 import { parseError } from '../../../utils/result'
-import { getHeaderChatActions } from '../utils/getHeaderChatActions'
 import { useShowDisputeDisclaimer } from './useShowDisputeDisclaimer'
 
 // eslint-disable-next-line max-statements
@@ -21,7 +18,7 @@ export const useContractChatSetup = () => {
   const { contractId } = useRoute<'contractChat'>().params
 
   const { connected, send, off, on } = useContext(PeachWSContext)
-  const { contract, view } = useCommonContractSetup(contractId)
+  const { contract } = useCommonContractSetup(contractId)
   const {
     messages,
     isLoading,
@@ -30,19 +27,12 @@ export const useContractChatSetup = () => {
     fetchNextPage,
   } = useChatMessages(contractId, contract?.symmetricKey)
   const showError = useShowErrorBanner()
-  const { showConfirmPopup } = useConfirmCancelTrade()
   const showDisputeDisclaimer = useShowDisputeDisclaimer()
-  const openDisputePopup = useOpenDispute(contractId)
   const tradingPartner = contract ? getTradingPartner(contract, account) : null
   const [chat, setChat] = useState(getChat(contractId))
   const [newMessage, setNewMessage] = useState(chat.draftMessage)
   const [disableSend, setDisableSend] = useState(false)
   const seenDisputeDisclaimer = useConfigStore((state) => state.seenDisputeDisclaimer)
-
-  useHeaderSetup({
-    title: contractIdToHex(contractId),
-    icons: contract ? getHeaderChatActions(contract, () => showConfirmPopup(contract), openDisputePopup, view) : [],
-  })
 
   const setAndSaveChat = (id: string, c: Partial<Chat>, save = true) => setChat(saveChat(id, c, save))
 

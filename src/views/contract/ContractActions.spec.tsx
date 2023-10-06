@@ -1,5 +1,5 @@
-import { ContractActions } from './ContractActions'
 import { createRenderer } from 'react-test-renderer/shallow'
+import { ContractActions } from './ContractActions'
 
 const useContractContextMock = jest.fn()
 jest.mock('./context', () => ({

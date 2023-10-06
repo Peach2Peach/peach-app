@@ -1,6 +1,6 @@
 import { TransactionDetails } from 'bdk-rn/lib/classes/Bindings'
 import { View } from 'react-native'
-import { NewHeader as Header, Screen, Text } from '../../components'
+import { Screen, Text } from '../../components'
 import { NewButton as Button } from '../../components/buttons/Button'
 import { useWriteCSV } from '../../hooks'
 import tw from '../../styles/tailwind'
@@ -20,8 +20,7 @@ export const ExportTransactionHistory = () => {
   }
 
   return (
-    <Screen>
-      <Header title={i18n('wallet.exportHistory.title')} />
+    <Screen header={i18n('wallet.exportHistory.title')}>
       <View style={tw`justify-center gap-8 grow`}>
         <Text style={tw`body-l`}>
           {`${i18n('wallet.exportHistory.description')}

@@ -2,8 +2,11 @@ import { useRef } from 'react'
 import { TextInput, View } from 'react-native'
 import tw from '../../styles/tailwind'
 
-import { Input, PeachScrollView, PrimaryButton } from '../../components'
+import { Input, PeachScrollView, Screen } from '../../components'
+import { NewButton } from '../../components/buttons/Button'
 import { EmailInput } from '../../components/inputs/EmailInput'
+import { useRoute } from '../../hooks'
+import { contractIdToHex } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { useDisputeFormSetup } from './hooks/useDisputeFormSetup'
 
@@ -11,38 +14,35 @@ export const DisputeForm = () => {
   const { email, setEmail, emailErrors, reason, message, setMessage, messageErrors, isFormValid, submit, loading }
     = useDisputeFormSetup()
   let $message = useRef<TextInput>(null).current
+  const { contractId } = useRoute<'disputeForm'>().params
 
   return (
-    <PeachScrollView contentContainerStyle={tw`items-center justify-center flex-grow`}>
-      <View style={tw`justify-center h-full p-6 pb-20`}>
-        <EmailInput
-          onChange={setEmail}
-          onSubmit={() => $message?.focus()}
-          value={email}
-          placeholder={i18n('form.userEmail.placeholder')}
-          errorMessage={emailErrors}
-        />
-        <Input value={i18n(`dispute.reason.${reason}`)} disabled />
-        <Input
-          style={tw`h-40`}
-          reference={(el) => ($message = el)}
-          onChange={setMessage}
-          value={message}
-          multiline={true}
-          placeholder={i18n('form.message.placeholder')}
-          autoCorrect={false}
-          errorMessage={messageErrors}
-        />
-      </View>
-      <PrimaryButton
-        onPress={submit}
-        loading={loading}
-        disabled={loading || !isFormValid}
-        style={tw`absolute self-center bottom-8`}
-        narrow
-      >
+    <Screen header={i18n('dispute.disputeForTrade', contractIdToHex(contractId))}>
+      <PeachScrollView contentContainerStyle={tw`items-center justify-center flex-grow`}>
+        <View style={tw`justify-center h-full max-w-full`}>
+          <EmailInput
+            onChange={setEmail}
+            onSubmit={() => $message?.focus()}
+            value={email}
+            placeholder={i18n('form.userEmail.placeholder')}
+            errorMessage={emailErrors}
+          />
+          <Input value={i18n(`dispute.reason.${reason}`)} disabled />
+          <Input
+            style={tw`h-40`}
+            reference={(el) => ($message = el)}
+            onChange={setMessage}
+            value={message}
+            multiline={true}
+            placeholder={i18n('form.message.placeholder')}
+            autoCorrect={false}
+            errorMessage={messageErrors}
+          />
+        </View>
+      </PeachScrollView>
+      <NewButton onPress={submit} disabled={loading || !isFormValid} style={tw`self-center min-w-52`}>
         {i18n('confirm')}
-      </PrimaryButton>
-    </PeachScrollView>
+      </NewButton>
+    </Screen>
   )
 }

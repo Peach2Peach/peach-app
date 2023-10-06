@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`useHeaderSetup should handle a string as headerConfig 1`] = `
-<Header
+<OldHeader
   title="test"
 />
 `;
 
 exports[`useHeaderSetup should update the header with the headerConfig 1`] = `
-<Header
+<OldHeader
   hideGoBackButton={true}
   theme="default"
   title="test"

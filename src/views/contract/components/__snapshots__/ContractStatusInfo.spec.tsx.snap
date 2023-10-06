@@ -96,7 +96,7 @@ exports[`ContractStatusInfo renders correctly for seller when requiredAction is 
     buyer made payment
   </PeachText>
   <Icon
-    color="#05A85A"
+    color="#65A519"
     id="check"
     style={
       {

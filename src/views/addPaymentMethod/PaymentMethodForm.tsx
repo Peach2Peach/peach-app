@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useCallback } from 'react'
 import { View } from 'react-native'
-import { NewHeader as Header, Screen } from '../../components'
+import { Header, Screen } from '../../components'
 import { PeachScrollView } from '../../components/PeachScrollView'
 import { PrimaryButton } from '../../components/buttons'
 import { HeaderConfig } from '../../components/header/Header'
@@ -31,13 +31,12 @@ export const PaymentMethodForm = () => {
   const Form = PaymentMethodForms[paymentMethod]?.component
 
   return (
-    <Screen>
-      <PaymentMethodFormHeader />
+    <Screen header={<PaymentMethodFormHeader />}>
       <PeachScrollView contentContainerStyle={tw`grow`} contentStyle={tw`grow`}>
         <View style={tw`justify-center grow`}>
           {!!Form && <Form onSubmit={submitForm} {...{ data, setStepValid, setFormData }} />}
         </View>
-        <PrimaryButton style={tw`self-center mb-5`} disabled={!stepValid} onPress={submitForm} narrow>
+        <PrimaryButton style={tw`self-center`} disabled={!stepValid} onPress={submitForm} narrow>
           {i18n('confirm')}
         </PrimaryButton>
       </PeachScrollView>

@@ -5,8 +5,8 @@ exports[`useNodeSetup should show connection error popup if no connection could 
   style={
     {
       "borderRadius": 16,
-      "marginLeft": 24,
-      "marginRight": 24,
+      "marginLeft": 12,
+      "marginRight": 12,
       "overflow": "hidden",
     }
   }

@@ -1,10 +1,18 @@
-import { PeachScrollView } from '../../components'
-import { TradeSummary } from '../../components/offer'
+import { Header, PeachScrollView, Screen } from '../../components'
 import tw from '../../styles/tailwind'
 
+import { useMemo } from 'react'
+import { useRoute, useShowHelp } from '../../hooks'
+import { useConfirmCancelTrade } from '../../popups/tradeCancelation'
+import { canCancelContract, contractIdToHex } from '../../utils/contract'
+import { isPaymentTooLate } from '../../utils/contract/status/isPaymentTooLate'
+import i18n from '../../utils/i18n'
+import { headerIcons } from '../../utils/layout'
 import { LoadingScreen } from '../loading/LoadingScreen'
 import { ContractActions } from './ContractActions'
-import { ContractContext } from './context'
+import { PendingPayoutInfo } from './components/PendingPayoutInfo'
+import { TradeInformation } from './components/TradeInformation'
+import { ContractContext, useContractContext } from './context'
 import { useContractSetup } from './hooks/useContractSetup'
 
 export const Contract = () => {
@@ -13,15 +21,77 @@ export const Contract = () => {
   if (!contract || !view || isLoading) return <LoadingScreen />
 
   return (
-    <PeachScrollView
-      style={[tw`h-full px-sm`, tw.md`px-md`]}
-      contentContainerStyle={[tw`flex-grow pt-sm`, tw.md`pt-md`]}
-      contentStyle={tw`h-full`}
-    >
-      <ContractContext.Provider value={{ contract, view, showBatchInfo, toggleShowBatchInfo }}>
-        <TradeSummary />
-        <ContractActions style={tw`items-center justify-end w-full mt-auto mb-2`} {...contractActionsProps} />
-      </ContractContext.Provider>
-    </PeachScrollView>
+    <ContractContext.Provider value={{ contract, view, showBatchInfo, toggleShowBatchInfo }}>
+      <Screen header={<ContractHeader requiredAction={contractActionsProps.requiredAction} />}>
+        <PeachScrollView contentContainerStyle={tw`grow`} contentStyle={tw`grow`}>
+          {showBatchInfo ? <PendingPayoutInfo /> : <TradeInformation />}
+          <ContractActions style={tw`items-center justify-end w-full`} {...contractActionsProps} />
+        </PeachScrollView>
+      </Screen>
+    </ContractContext.Provider>
+  )
+}
+
+type Props = {
+  requiredAction: ContractAction
+}
+
+function ContractHeader ({ requiredAction }: Props) {
+  const { contractId } = useRoute<'contract'>().params
+  const { contract, view } = useContractContext()
+  const { showConfirmPopup } = useConfirmCancelTrade()
+  const showMakePaymentHelp = useShowHelp('makePayment')
+  const showConfirmPaymentHelp = useShowHelp('confirmPayment')
+
+  const memoizedIcons = useMemo(() => {
+    const icons = []
+    if (contract && canCancelContract(contract, view)) icons.push({
+      ...headerIcons.cancel,
+      onPress: () => showConfirmPopup(contract),
+    })
+    if (view === 'buyer' && requiredAction === 'sendPayment') icons.push({
+      ...headerIcons.help,
+      onPress: showMakePaymentHelp,
+    })
+    if (view === 'seller' && requiredAction === 'confirmPayment') icons.push({
+      ...headerIcons.help,
+      onPress: showConfirmPaymentHelp,
+    })
+    return contract?.disputeActive ? [] : icons
+  }, [showConfirmPopup, contract, requiredAction, showConfirmPaymentHelp, showMakePaymentHelp, view])
+
+  const theme = useMemo(() => {
+    if (contract?.disputeActive) return 'dispute'
+    if (contract?.canceled) return 'cancel'
+    if (isPaymentTooLate(contract)) return 'paymentTooLate'
+    return view
+  }, [contract, view])
+
+  const title = useMemo(() => {
+    const { tradeStatus } = contract
+    if (view === 'buyer') {
+      if (tradeStatus === 'paymentRequired') return i18n('offer.requiredAction.paymentRequired')
+      if (tradeStatus === 'confirmPaymentRequired') return i18n('offer.requiredAction.waiting.seller')
+    }
+    if (tradeStatus === 'paymentRequired') return i18n('offer.requiredAction.waiting.buyer')
+    if (tradeStatus === 'confirmPaymentRequired') return i18n('offer.requiredAction.confirmPaymentRequired')
+    return contractIdToHex(contractId)
+  }, [contract, contractId, view])
+
+  return (
+    <Header
+      icons={memoizedIcons}
+      title={title}
+      theme={theme}
+      subtitle={
+        <Header.Subtitle
+          amount={contract.amount}
+          premium={contract.premium}
+          viewer={view}
+          theme={theme}
+          text={contract.releaseTxId ? (view === 'buyer' ? i18n('contract.bought') : i18n('contract.sold')) : undefined}
+        />
+      }
+    />
   )
 }

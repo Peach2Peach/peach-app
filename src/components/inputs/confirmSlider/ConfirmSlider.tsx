@@ -1,10 +1,12 @@
-import { Animated, View } from 'react-native'
+import { Animated, View, ViewStyle } from 'react-native'
 import { IconType } from '../../../assets/icons'
+import { useIsMediumScreen } from '../../../hooks'
 import tw from '../../../styles/tailwind'
+import { Icon } from '../../Icon'
+import { ConfirmSliderLabel, SliderKnob } from './components'
 import { getLabel1Opacity } from './helpers/getLabel1Opacity'
 import { getTransform } from './helpers/getTransform'
 import { useConfirmSliderSetup } from './hooks/useConfirmSliderSetup'
-import { SliderKnob, ConfirmSliderLabel } from './components'
 
 type Props = ComponentProps & {
   label1: string
@@ -44,6 +46,46 @@ export const ConfirmSlider = ({
           {label1}
         </ConfirmSliderLabel>
       </Animated.View>
+    </View>
+  )
+}
+
+/**
+ * This is a disgusting hack intended to be thrown out as soon as possible.
+ */
+export function UnlockedSlider ({
+  label,
+  iconId = 'checkCircle',
+  style,
+}: {
+  label: string
+  iconId?: IconType
+  style?: ViewStyle
+}) {
+  const { widthToSlide, onLayout } = useConfirmSliderSetup({ onConfirm: () => {}, enabled: false })
+  const pan = new Animated.Value(1)
+  const icon = {
+    color: tw`text-primary-background-light`.color,
+    size: useIsMediumScreen() ? 18 : 16,
+  }
+  return (
+    <View
+      style={[tw`w-full p-1 overflow-hidden border rounded-5 bg-primary-background-dark border-primary-mild-1`, style]}
+    >
+      <View style={[tw`flex-row items-center justify-end`]} onLayout={onLayout}>
+        <ConfirmSliderLabel style={tw`self-center`} width={widthToSlide} opacity={pan}>
+          {label}
+        </ConfirmSliderLabel>
+        <View
+          style={[
+            tw`flex-row items-center justify-center py-1 bg-success-main rounded-2xl gap-2px px-6px`,
+            tw.md`px-8px py-6px gap-1`,
+          ]}
+        >
+          <Icon id={iconId} {...icon} />
+          <Icon id="chevronsRight" {...icon} />
+        </View>
+      </View>
     </View>
   )
 }

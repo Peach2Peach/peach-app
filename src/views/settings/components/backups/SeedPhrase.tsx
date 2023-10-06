@@ -1,11 +1,9 @@
 import { View } from 'react-native'
-const { LinearGradient } = require('react-native-gradients')
 
 import { PeachScrollView } from '../../../../components'
 import { PrimaryButton } from '../../../../components/buttons'
 import tw from '../../../../styles/tailwind'
 import i18n from '../../../../utils/i18n'
-import { whiteGradient } from '../../../../utils/layout'
 import { useSeedBackupSetup } from '../../hooks/useSeedBackupSetup'
 import { KeepPhraseSecure } from './KeepPhraseSecure'
 import { LastSeedBackup } from './LastSeedBackup'
@@ -27,13 +25,10 @@ export const SeedPhrase = ({ style }: ComponentProps) => {
 
   return (
     <View style={[tw`h-full`, style]}>
-      <PeachScrollView contentContainerStyle={tw`justify-center flex-grow`}>
+      <PeachScrollView contentContainerStyle={tw`justify-center grow`}>
         {<CurrentView {...{ goBackToStart }} />}
       </PeachScrollView>
       <View>
-        <View style={tw`w-full h-8 -mt-8`}>
-          <LinearGradient colorList={whiteGradient} angle={90} />
-        </View>
         {currentScreenIndex === 1 && (
           <ReadAndUnderstood style={tw`self-center mb-10`} checkBoxProps={{ checked, onPress: toggleChecked }} />
         )}

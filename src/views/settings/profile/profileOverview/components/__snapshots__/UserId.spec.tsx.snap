@@ -10,19 +10,3 @@ exports[`UserId should render correctly 1`] = `
   PeachuserId
 </Bubble>
 `;
-
-exports[`UserId should render correctly with a dispute 1`] = `
-<Bubble
-  color="primary-mild"
-  iconColor={
-    {
-      "color": "#DF321F",
-    }
-  }
-  iconId="info"
-  iconSize={12}
-  onPress={[Function]}
->
-  PeachuserId
-</Bubble>
-`;

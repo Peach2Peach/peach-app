@@ -1,6 +1,8 @@
 import { useFocusEffect } from '@react-navigation/native'
 import { useCallback, useContext, useEffect, useState } from 'react'
+import { FIFTEEN_SECONDS } from '../constants'
 import { useHandleContractPopups } from '../popups/useHandleContractPopups'
+import { useLocalContractStore } from '../store/useLocalContractStore'
 import { account } from '../utils/account'
 import {
   decryptContractData,
@@ -17,8 +19,6 @@ import { useHandleNotifications } from './notifications/useHandleNotifications'
 import { useContractDetails } from './query/useContractDetails'
 import { useOfferDetails } from './query/useOfferDetails'
 import { useShowErrorBanner } from './useShowErrorBanner'
-import { useLocalContractStore } from '../store/useLocalContractStore'
-import { FIFTEEN_SECONDS } from '../constants'
 
 export const useCommonContractSetup = (contractId: string) => {
   const ws = useContext(PeachWSContext)

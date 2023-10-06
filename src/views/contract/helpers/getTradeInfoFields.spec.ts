@@ -7,8 +7,13 @@ describe('getTradeInfoFields', () => {
       tradeStatus: 'waiting',
       paymentMethod: 'sepa',
     } as const
-    expect(getTradeInfoFields(contract, 'seller')).toEqual(['price', 'reference', 'paidToMethod', 'via'])
+    expect(getTradeInfoFields(contract, 'seller')).toEqual([
+      ['youWillGet'],
+      ['paidToMethod', 'reference'],
+      ['buyer', 'tradeId'],
+    ])
   })
+
   it('should return the correct fields for a past sell trade', () => {
     const contract = {
       tradeStatus: 'tradeCompleted',
@@ -16,11 +21,9 @@ describe('getTradeInfoFields', () => {
       releaseTxId: 'someId',
     } as const
     expect(getTradeInfoFields(contract, 'seller')).toEqual([
-      'price',
-      'paidToMethod',
-      'via',
-      'bitcoinAmount',
-      'bitcoinPrice',
+      ['soldFor', 'bitcoinPrice'],
+      ['paidToMethod', 'reference', 'paymentConfirmed'],
+      ['buyer', 'ratingSeller'],
     ])
   })
   it('should return the correct fields for a past buy trade', () => {
@@ -30,40 +33,45 @@ describe('getTradeInfoFields', () => {
       releaseTxId: 'someId',
     } as const
     expect(getTradeInfoFields(contract, 'buyer')).toEqual([
-      'price',
-      'paidWithMethod',
-      'bitcoinAmount',
-      'bitcoinPrice',
-      'paidToWallet',
+      ['youPaid', 'bitcoinPrice'],
+      ['via', 'reference', 'paymentConfirmed'],
+      ['seller', 'ratingBuyer'],
+      ['tradeBreakdown'],
     ])
-  })
-  it('should return the correct fields for an active buy trade - template1', () => {
-    const contract = {
-      tradeStatus: 'waiting',
-      paymentMethod: 'sepa',
-    } as const
-    expect(getTradeInfoFields(contract, 'buyer')).toEqual(['method', 'price', 'beneficiary', 'iban', 'bic', 'reference'])
   })
   it('should return the correct fields for an active buy trade - template2', () => {
     const contract = {
       tradeStatus: 'waiting',
       paymentMethod: 'advcash',
     } as const
-    expect(getTradeInfoFields(contract, 'buyer')).toEqual(['method', 'price', 'wallet', 'email'])
+    expect(getTradeInfoFields(contract, 'buyer')).toEqual([
+      ['youShouldPay'],
+      ['via', 'wallet', 'email'],
+      ['seller', 'tradeId'],
+    ])
   })
+
   it('should return the correct fields for an active buy trade - template3', () => {
     const contract = {
       tradeStatus: 'waiting',
       paymentMethod: 'vipps',
     } as const
-    expect(getTradeInfoFields(contract, 'buyer')).toEqual(['method', 'price', 'beneficiary', 'phone', 'reference'])
+    expect(getTradeInfoFields(contract, 'buyer')).toEqual([
+      ['youShouldPay'],
+      ['via', 'beneficiary', 'phone', 'reference'],
+      ['seller', 'tradeId'],
+    ])
   })
   it('should return the correct fields for an active buy trade - template4', () => {
     const contract = {
       tradeStatus: 'waiting',
       paymentMethod: 'skrill',
     } as const
-    expect(getTradeInfoFields(contract, 'buyer')).toEqual(['method', 'price', 'beneficiary', 'email', 'reference'])
+    expect(getTradeInfoFields(contract, 'buyer')).toEqual([
+      ['youShouldPay'],
+      ['via', 'beneficiary', 'email', 'reference'],
+      ['seller', 'tradeId'],
+    ])
   })
   it('should return the correct fields for an active buy trade - template5', () => {
     const contract = {
@@ -71,20 +79,22 @@ describe('getTradeInfoFields', () => {
       paymentMethod: 'fasterPayments',
     } as const
     expect(getTradeInfoFields(contract, 'buyer')).toEqual([
-      'method',
-      'price',
-      'beneficiary',
-      'ukBankAccount',
-      'ukSortCode',
-      'reference',
+      ['youShouldPay'],
+      ['via', 'beneficiary', 'ukBankAccount', 'ukSortCode', 'reference'],
+      ['seller', 'tradeId'],
     ])
   })
+
   it('should return the correct fields for an active buy trade - template6', () => {
     const contract = {
       tradeStatus: 'waiting',
       paymentMethod: 'paypal',
     } as const
-    expect(getTradeInfoFields(contract, 'buyer')).toEqual(['method', 'price', 'userName', 'email', 'phone', 'reference'])
+    expect(getTradeInfoFields(contract, 'buyer')).toEqual([
+      ['youShouldPay'],
+      ['via', 'userName', 'email', 'phone', 'reference'],
+      ['seller', 'tradeId'],
+    ])
   })
   it('should return the correct fields for an active buy trade - template7', () => {
     const contract = {
@@ -92,11 +102,9 @@ describe('getTradeInfoFields', () => {
       paymentMethod: 'straksbetaling',
     } as const
     expect(getTradeInfoFields(contract, 'buyer')).toEqual([
-      'method',
-      'price',
-      'beneficiary',
-      'accountNumber',
-      'reference',
+      ['youShouldPay'],
+      ['via', 'beneficiary', 'accountNumber', 'reference'],
+      ['seller', 'tradeId'],
     ])
   })
   it('should return the correct fields for an active buy trade - template8', () => {
@@ -104,21 +112,22 @@ describe('getTradeInfoFields', () => {
       tradeStatus: 'waiting',
       paymentMethod: 'paysera',
     } as const
-    expect(getTradeInfoFields(contract, 'buyer')).toEqual(['method', 'price', 'beneficiary', 'phone', 'reference'])
+    expect(getTradeInfoFields(contract, 'buyer')).toEqual([
+      ['youShouldPay'],
+      ['via', 'beneficiary', 'phone', 'reference'],
+      ['seller', 'tradeId'],
+    ])
   })
+
   it('should return the correct fields for an active buy trade - template9', () => {
     const contract = {
       tradeStatus: 'waiting',
       paymentMethod: 'nationalTransferBG',
     } as const
     expect(getTradeInfoFields(contract, 'buyer')).toEqual([
-      'method',
-      'price',
-      'beneficiary',
-      'iban',
-      'accountNumber',
-      'bic',
-      'reference',
+      ['youShouldPay'],
+      ['via', 'beneficiary', 'iban', 'accountNumber', 'bic', 'reference'],
+      ['seller', 'tradeId'],
     ])
   })
 })
@@ -126,11 +135,19 @@ describe('getTradeInfoFields', () => {
 describe('getTradeInfoFields - cash trades', () => {
   it('should return the correct fields for an active trade', () => {
     const contract = {
-      tradeStatus: 'waiting',
+      tradeStatus: 'paymentRequired',
       paymentMethod: 'cash.someMeetup',
     } as const
-    expect(getTradeInfoFields(contract, 'buyer')).toEqual(['bitcoinAmount', 'price', 'meetup', 'location'])
-    expect(getTradeInfoFields(contract, 'seller')).toEqual(['bitcoinAmount', 'price', 'meetup', 'location'])
+    expect(getTradeInfoFields(contract, 'buyer')).toEqual([
+      ['youShouldPay'],
+      ['meetup', 'location'],
+      ['seller', 'tradeId'],
+    ])
+    expect(getTradeInfoFields(contract, 'seller')).toEqual([
+      ['youWillGet'],
+      ['meetup', 'location'],
+      ['buyer', 'tradeId'],
+    ])
   })
   it('should return the correct fields for a past buy offer', () => {
     const contract = {
@@ -139,11 +156,10 @@ describe('getTradeInfoFields - cash trades', () => {
       releaseTxId: 'someId',
     } as const
     expect(getTradeInfoFields(contract, 'buyer')).toEqual([
-      'price',
-      'meetup',
-      'bitcoinAmount',
-      'bitcoinPrice',
-      'paidToWallet',
+      ['youPaid', 'bitcoinPrice'],
+      ['meetup'],
+      ['seller', 'ratingBuyer'],
+      ['tradeBreakdown'],
     ])
   })
   it('should return the correct fields for a past sell offer', () => {
@@ -152,6 +168,10 @@ describe('getTradeInfoFields - cash trades', () => {
       paymentMethod: 'cash.someMeetup',
       releaseTxId: 'someId',
     } as const
-    expect(getTradeInfoFields(contract, 'seller')).toEqual(['price', 'meetup', 'bitcoinAmount', 'bitcoinPrice'])
+    expect(getTradeInfoFields(contract, 'seller')).toEqual([
+      ['soldFor', 'bitcoinPrice'],
+      ['meetup'],
+      ['buyer', 'ratingSeller'],
+    ])
   })
 })

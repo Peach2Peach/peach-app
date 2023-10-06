@@ -1,7 +1,6 @@
 /* eslint-disable max-lines-per-function */
 import { act, renderHook } from '@testing-library/react-native'
 import { NavigationWrapper, navigateMock } from '../../../../tests/unit/helpers/NavigationWrapper'
-import { useHeaderSetup } from '../../../hooks'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { ReportSuccess } from '../../../popups/app/ReportSuccess'
 import { defaultPopupState, usePopupStore } from '../../../store/usePopupStore'
@@ -17,9 +16,6 @@ const useRouteMock = jest.fn().mockReturnValue({
 })
 jest.mock('../../../hooks/useRoute', () => ({
   useRoute: () => useRouteMock(),
-}))
-jest.mock('../../../hooks/useHeaderSetup', () => ({
-  useHeaderSetup: jest.fn(),
 }))
 
 jest.mock('../helpers/submitReport', () => ({
@@ -102,11 +98,6 @@ describe('useReportSetup', () => {
     expect(result.current.isMessageValid).toBeTruthy()
     expect(result.current.messageErrors).toHaveLength(0)
     expect(result.current.shareDeviceID).toBeTruthy()
-  })
-
-  it('sets up the header correctly', () => {
-    renderHook(useReportSetup, { wrapper: NavigationWrapper })
-    expect(useHeaderSetup).toHaveBeenCalledWith(i18n('contact.title'))
   })
 
   it('sets email', () => {

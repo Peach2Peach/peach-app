@@ -1,6 +1,6 @@
 import tw from '../../styles/tailwind'
 
-import { NewHeader as Header, PeachScrollView, PrimaryButton, RadioButtons, Screen } from '../../components'
+import { Header, PeachScrollView, PrimaryButton, RadioButtons, Screen } from '../../components'
 import { useNavigation, useRoute, useShowHelp } from '../../hooks'
 import i18n from '../../utils/i18n'
 
@@ -42,11 +42,14 @@ export const SelectCountry = () => {
   const showHelp = useShowHelp('giftCards')
 
   return (
-    <Screen>
-      <Header
-        title={i18n('paymentMethod.giftCard.countrySelect.title')}
-        icons={[{ ...headerIcons.help, onPress: showHelp }]}
-      />
+    <Screen
+      header={
+        <Header
+          title={i18n('paymentMethod.giftCard.countrySelect.title')}
+          icons={[{ ...headerIcons.help, onPress: showHelp }]}
+        />
+      }
+    >
       <PeachScrollView contentContainerStyle={[tw`justify-center flex-grow py-4`, tw.md`py-8`]}>
         {!!countries && <RadioButtons items={countries} selectedValue={selectedCountry} onButtonPress={setCountry} />}
       </PeachScrollView>

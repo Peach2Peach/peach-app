@@ -361,9 +361,8 @@ exports[`MatchCardCounterparty renders correctly 1`] = `
               },
               [
                 {
-                  "fontFamily": "Baloo2-Regular",
+                  "fontFamily": "Baloo2-SemiBold",
                   "fontSize": 12,
-                  "fontWeight": "600",
                   "letterSpacing": -0.36,
                   "lineHeight": 22,
                   "textAlign": "center",
@@ -436,9 +435,8 @@ exports[`MatchCardCounterparty renders correctly 1`] = `
               },
               [
                 {
-                  "fontFamily": "Baloo2-Regular",
+                  "fontFamily": "Baloo2-SemiBold",
                   "fontSize": 12,
-                  "fontWeight": "600",
                   "letterSpacing": -0.36,
                   "lineHeight": 22,
                   "textAlign": "center",
@@ -512,9 +510,8 @@ exports[`MatchCardCounterparty renders correctly 1`] = `
             },
             [
               {
-                "fontFamily": "Baloo2-Regular",
+                "fontFamily": "Baloo2-SemiBold",
                 "fontSize": 12,
-                "fontWeight": "600",
                 "letterSpacing": -0.36,
                 "lineHeight": 22,
                 "textAlign": "center",
@@ -681,7 +678,7 @@ exports[`MatchCardCounterparty renders correctly for a new user 1`] = `
         style={
           Array [
             Object {
-@@ -246,287 +116,17 @@
+@@ -246,284 +116,17 @@
               "lineHeight": 24,
             },
             Object {
@@ -689,15 +686,13 @@ exports[`MatchCardCounterparty renders correctly for a new user 1`] = `
               "fontFamily": "Baloo2-SemiBold",
 -               "fontSize": 13,
 -               "letterSpacing": 0.47,
-+             "fontSize": 14,
-+             "letterSpacing": 0.14,
-              "lineHeight": 22,
+-               "lineHeight": 22,
 -               "textTransform": "uppercase",
-            },
-            false,
-          ]
-        }
-      >
+-             },
+-             false,
+-           ]
+-         }
+-       >
 -         5.0
 -       </Text>
 -     </View>
@@ -799,9 +794,8 @@ exports[`MatchCardCounterparty renders correctly for a new user 1`] = `
 -               },
 -               Array [
 -                 Object {
--                   "fontFamily": "Baloo2-Regular",
+-                   "fontFamily": "Baloo2-SemiBold",
 -                   "fontSize": 12,
--                   "fontWeight": "600",
 -                   "letterSpacing": -0.36,
 -                   "lineHeight": 22,
 -                   "textAlign": "center",
@@ -874,22 +868,23 @@ exports[`MatchCardCounterparty renders correctly for a new user 1`] = `
 -               },
 -               Array [
 -                 Object {
--                   "fontFamily": "Baloo2-Regular",
+-                   "fontFamily": "Baloo2-SemiBold",
 -                   "fontSize": 12,
--                   "fontWeight": "600",
 -                   "letterSpacing": -0.36,
--                   "lineHeight": 22,
++             "fontSize": 14,
++             "letterSpacing": 0.14,
+              "lineHeight": 22,
 -                   "textAlign": "center",
 -                   "textTransform": "uppercase",
 -                 },
 -                 Object {
 -                   "color": "#FCCCB6",
--                 },
+            },
 -               ],
--               false,
--             ]
--           }
--         >
+            false,
+          ]
+        }
+      >
 -           fast trader
 -         </Text>
 -       </View>
@@ -950,9 +945,8 @@ exports[`MatchCardCounterparty renders correctly for a new user 1`] = `
 -             },
 -             Array [
 -               Object {
--                 "fontFamily": "Baloo2-Regular",
+-                 "fontFamily": "Baloo2-SemiBold",
 -                 "fontSize": 12,
--                 "fontWeight": "600",
 -                 "letterSpacing": -0.36,
 -                 "lineHeight": 22,
 -                 "textAlign": "center",

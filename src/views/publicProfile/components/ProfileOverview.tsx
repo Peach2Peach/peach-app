@@ -29,7 +29,8 @@ function ProfileBadges ({ unlockedBadges }: { unlockedBadges: User['medals'] }) 
       {badges.map(([iconId, badgeName]) => (
         <Badge
           key={`profileOverviewIcon-${iconId}`}
-          {...{ iconId, badgeName, isUnlocked: unlockedBadges.includes(badgeName) }}
+          isUnlocked={unlockedBadges.includes(badgeName)}
+          {...{ iconId, badgeName }}
         />
       ))}
     </TouchableOpacity>

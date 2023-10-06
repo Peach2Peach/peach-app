@@ -13,7 +13,6 @@ import { isTradeComplete } from '../../../utils/contract/status'
 import { confirmPayment, getContract, getOfferDetails } from '../../../utils/peachAPI'
 import { getEscrowWalletForOffer } from '../../../utils/wallet'
 import { getNavigationDestinationForOffer } from '../../yourTrades/utils'
-import { useContractHeaderSetup } from './useContractHeaderSetup'
 import { useShowHighFeeWarning } from './useShowHighFeeWarning'
 import { useShowLowFeeWarning } from './useShowLowFeeWarning'
 
@@ -30,12 +29,6 @@ export const useContractSetup = () => {
   const [showBatchInfo, toggleShowBatchInfo] = useToggleBoolean()
   const shouldShowFeeWarning = view === 'buyer' && !!contract?.paymentMade && !contract?.paymentConfirmed
 
-  useContractHeaderSetup({
-    contract,
-    view,
-    requiredAction,
-    contractId,
-  })
   useShowHighFeeWarning({ enabled: shouldShowFeeWarning, amount: contract?.amount })
   useShowLowFeeWarning({ enabled: shouldShowFeeWarning })
 

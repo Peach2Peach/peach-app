@@ -1,17 +1,14 @@
-import { View } from 'react-native'
-import { Text } from '../../../components'
+import { Screen, Text } from '../../../components'
 import { BulletPoint } from '../../../components/text'
-import { useHeaderSetup } from '../../../hooks'
 import { useConfigStore } from '../../../store/configStore'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 
 export const PeachFees = () => {
-  useHeaderSetup(i18n('settings.peachFees'))
   const peachFee = useConfigStore((state) => state.peachFee)
 
   return (
-    <View style={tw`items-start justify-center flex-1 p-8`}>
+    <Screen style={tw`justify-center`} header={i18n('settings.peachFees')}>
       <Text style={tw`body-m`}>
         {i18n('settings.fees.text.1')}
         <Text style={tw`body-m text-primary-main`}> {(peachFee * 100).toString()}% </Text>
@@ -25,6 +22,6 @@ export const PeachFees = () => {
       <BulletPoint text={i18n('settings.fees.point.1')} />
       <BulletPoint text={i18n('settings.fees.point.2')} />
       <BulletPoint text={i18n('settings.fees.point.3')} />
-    </View>
+    </Screen>
   )
 }

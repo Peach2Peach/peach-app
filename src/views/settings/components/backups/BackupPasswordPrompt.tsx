@@ -31,10 +31,9 @@ export const BackupPasswordPrompt = ({ toggle }: Props) => {
   return (
     <>
       <PeachScrollView contentContainerStyle={tw`h-full`}>
-        <View style={tw`justify-center h-full mx-8`}>
+        <View style={tw`justify-center h-full`}>
           <Text style={tw`self-center mb-4 tooltip`}>{i18n('settings.backups.createASecurePassword')}</Text>
           <Input
-            testID="backup-password"
             placeholder={i18n('form.password.placeholder')}
             onChange={setPassword}
             onSubmit={focusToPasswordRepeat}
@@ -45,7 +44,6 @@ export const BackupPasswordPrompt = ({ toggle }: Props) => {
             iconColor={tw`text-black-2`.color}
           />
           <Input
-            testID="backup-passwordRepeat"
             placeholder={i18n('form.repeatpassword.placeholder')}
             reference={(el) => ($passwordRepeat = el)}
             onChange={setPasswordRepeat}
@@ -58,7 +56,7 @@ export const BackupPasswordPrompt = ({ toggle }: Props) => {
           />
         </View>
       </PeachScrollView>
-      <PrimaryButton disabled={!validate()} style={tw`self-center mb-6`} onPress={startAccountBackup} iconId="save" wide>
+      <PrimaryButton disabled={!validate()} style={tw`self-center`} onPress={startAccountBackup} iconId="save" wide>
         {i18n('settings.backups.fileBackup.createNew')}
       </PrimaryButton>
     </>

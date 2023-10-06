@@ -27,7 +27,7 @@ exports[`BTCAmountChar should render correctly 1`] = `
 </Text>
 `;
 
-exports[`BTCAmountChar should render correctly with error 1`] = `
+exports[`BTCAmountChar should render correctly when white 1`] = `
 <Text
   allowFontScaling={false}
   style={
@@ -42,7 +42,7 @@ exports[`BTCAmountChar should render correctly with error 1`] = `
       [
         [],
         {
-          "color": "#B01807",
+          "color": "#FFFCFA",
           "letterSpacing": 0,
         },
       ],
@@ -81,7 +81,7 @@ exports[`BTCAmountChar should render correctly with reduceOpacity 1`] = `
 </Text>
 `;
 
-exports[`BTCAmountChar should render correctly with reduceOpacity and isError 1`] = `
+exports[`BTCAmountChar should render correctly with reduceOpacity and white 1`] = `
 <Text
   allowFontScaling={false}
   style={
@@ -96,7 +96,7 @@ exports[`BTCAmountChar should render correctly with reduceOpacity and isError 1`
       [
         [],
         {
-          "color": "#B018071A",
+          "color": "#FFFCFA1A",
           "letterSpacing": 0,
         },
       ],

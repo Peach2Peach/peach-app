@@ -5,8 +5,8 @@ exports[`NodeSetup should open help popup 1`] = `
   style={
     {
       "borderRadius": 16,
-      "marginLeft": 24,
-      "marginRight": 24,
+      "marginLeft": 12,
+      "marginRight": 12,
       "overflow": "hidden",
     }
   }
@@ -294,13 +294,8 @@ If you don’t, you’ll be trusting the Peach node to give you correct informa
 
 exports[`NodeSetup should render with default settings 1`] = `
 <Screen
-  style={
-    {
-      "paddingBottom": 20,
-    }
-  }
+  header={<NodeSetupHeader />}
 >
-  <NodeSetupHeader />
   <ForwardRef
     contentContainerStyle={
       {
@@ -386,13 +381,8 @@ exports[`NodeSetup should render with default settings 1`] = `
 
 exports[`NodeSetup should render with valid node settings 1`] = `
 <Screen
-  style={
-    {
-      "paddingBottom": 20,
-    }
-  }
+  header={<NodeSetupHeader />}
 >
-  <NodeSetupHeader />
   <ForwardRef
     contentContainerStyle={
       {
@@ -489,7 +479,7 @@ exports[`NodeSetup should render with valid node settings 1`] = `
       connected to your node
     </PeachText>
     <Icon
-      color="#05A85A"
+      color="#65A519"
       id="check"
       size={16}
     />
