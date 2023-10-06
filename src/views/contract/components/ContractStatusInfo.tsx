@@ -3,8 +3,8 @@ import { Icon, Text, Timer } from '../../../components'
 import tw from '../../../styles/tailwind'
 import { getPaymentExpectedBy } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
-import { shouldShowConfirmCancelTradeRequest } from '../../../utils/popup'
 import { isCashTrade } from '../../../utils/paymentMethod/isCashTrade'
+import { shouldShowConfirmCancelTradeRequest } from '../../../utils/popup'
 import { useContractContext } from '../context'
 
 type ContractStatusInfoProps = {
@@ -19,15 +19,8 @@ export const ContractStatusInfo = ({ requiredAction }: ContractStatusInfoProps) 
 
   if (requiredAction === 'sendPayment' && !isCashTrade(contract.paymentMethod)) {
     const paymentExpectedBy = getPaymentExpectedBy(contract)
-    if (Date.now() < paymentExpectedBy) {
-      return <Timer text={i18n(`contract.timer.${requiredAction}.${view}`)} end={paymentExpectedBy} />
-    }
-    return (
-      <View style={tw`flex-row items-center`}>
-        <Text style={tw`uppercase button-medium`}>{i18n('contract.timer.paymentTimeExpired.buyer')}</Text>
-        <Icon id={'clock'} style={tw`w-5 h-5 ml-1`} />
-      </View>
-    )
+    if (Date.now() > paymentExpectedBy && view === 'seller') return <></>
+    return <Timer text={i18n(`contract.timer.${requiredAction}.${view}`)} end={paymentExpectedBy} />
   }
   if (view === 'buyer' && requiredAction === 'confirmPayment') return (
     <View style={tw`flex-row items-center justify-center`}>

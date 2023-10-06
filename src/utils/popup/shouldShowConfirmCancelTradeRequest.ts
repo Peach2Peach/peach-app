@@ -1,6 +1,4 @@
-export const shouldShowConfirmCancelTradeRequest = (contract: Contract, view: ContractViewer) =>
-  contract.cancelationRequested
-  && view === 'buyer'
-  && !contract.disputeActive
-  && !contract.paymentConfirmed
-  && !contract.releaseTxId
+export const shouldShowConfirmCancelTradeRequest = (
+  { cancelationRequested, disputeActive, paymentConfirmed, releaseTxId }: Contract,
+  view: ContractViewer,
+) => cancelationRequested && view === 'buyer' && !disputeActive && !paymentConfirmed && !releaseTxId

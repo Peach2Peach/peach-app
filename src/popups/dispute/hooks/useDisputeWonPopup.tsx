@@ -1,14 +1,13 @@
 import { shallow } from 'zustand/shallow'
 import { useNavigation } from '../../../hooks'
+import { queryClient } from '../../../queryClient'
 import { useLocalContractStore } from '../../../store/useLocalContractStore'
 import { usePopupStore } from '../../../store/usePopupStore'
 import { account } from '../../../utils/account'
 import { contractIdToHex, saveContract } from '../../../utils/contract'
 import i18n from '../../../utils/i18n'
-import { shouldShowDisputeResult } from '../../../utils/popup'
 import { getContract } from '../../../utils/peachAPI'
 import { DisputeWon } from '../components/DisputeWon'
-import { queryClient } from '../../../queryClient'
 
 export const useDisputeWonPopup = () => {
   const [setPopup, closePopup] = usePopupStore((state) => [state.setPopup, state.closePopup], shallow)
@@ -17,7 +16,7 @@ export const useDisputeWonPopup = () => {
 
   const showDisputeWonPopup = async (contractId: string) => {
     const [contract] = await getContract({ contractId })
-    if (!contract || !shouldShowDisputeResult(contract)) return
+    if (!contract || contract.disputeActive || !contract.disputeResolvedDate) return
     queryClient.setQueryData(['contract', contractId], contract)
     const view = contract.buyer.id === account.publicKey ? 'buyer' : 'seller'
     if (contract.disputeWinner !== view) return

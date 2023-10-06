@@ -38,9 +38,6 @@
   "help.referral.title" : "Pointi za Rufaa za Peach",
   "help.sellingBitcoin.description" : "Kuuzwa kwa sats zako kwenye Peach ni bure!",
   "help.sellingBitcoin.title" : "kuuza bitcoin",
-  "help.tooLate.text.1" : "Muuza amefahamishwa kuwa hukufika kwa wakati. Sasa utalazimika kusubiri mpaka afanye uamuzi: kukupa muda zaidi au kufuta biashara.",
-  "help.tooLate.text.2" : "Kwa hali yoyote, sifa yako imeathiriwa.",
-  "help.tooLate.title" : "kuchelewa sana!",
   "help.tradingLimit.description" : "Peach lazima itekeleze mipaka ya biashara kufuata sheria za Uswisi. Kuna mipaka mitatu ya biashara:\n\nUnaweza kununua au kuuza bitcoin yenye thamani ya CHF 1000 kwenye Peach kila siku\n\nUnaweza kununua au kuuza bitcoin yenye thamani ya CHF 1000 kwa pesa au kadi za zawadi mtandaoni (yaani njia za malipo isiyo na utambulisho) kila mwezi\n\nUnaweza kununua au kuuza bitcoin yenye thamani ya CHF 100,000 kwa mwaka.",
   "help.tradingLimit.title" : "mipaka ya biashara"
 }

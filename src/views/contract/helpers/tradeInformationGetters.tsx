@@ -14,7 +14,6 @@ import { UserId } from '../../settings/profile/profileOverview/components'
 export const tradeInformationGetters: Record<
   | 'bitcoinAmount'
   | 'bitcoinPrice'
-  | 'buyer'
   | 'location'
   | 'meetup'
   | 'method'
@@ -25,7 +24,6 @@ export const tradeInformationGetters: Record<
   | 'price'
   | 'ratingBuyer'
   | 'ratingSeller'
-  | 'seller'
   | 'soldFor'
   | 'tradeBreakdown'
   | 'tradeId'
@@ -34,7 +32,10 @@ export const tradeInformationGetters: Record<
   | 'youShouldPay'
   | 'youWillGet',
   (contract: Contract) => string | number | JSX.Element | undefined
-> = {
+> & {
+  buyer: (contract: Contract) => JSX.Element
+  seller: (contract: Contract) => JSX.Element
+} = {
   price: (contract: Contract) =>
     `${contract.currency === 'SAT' ? groupChars(String(contract.price), 3) : priceFormat(contract.price)} ${
       contract.currency

@@ -73,6 +73,10 @@ function ContractHeader ({ requiredAction }: Props) {
       if (tradeStatus === 'paymentRequired') return i18n('offer.requiredAction.paymentRequired')
       if (tradeStatus === 'confirmPaymentRequired') return i18n('offer.requiredAction.waiting.seller')
     }
+
+    if (isPaymentTooLate(contract)) {
+      return i18n('contract.seller.paymentTimerHasRunOut.title', contractIdToHex(contract.id))
+    }
     if (tradeStatus === 'paymentRequired') return i18n('offer.requiredAction.waiting.buyer')
     if (tradeStatus === 'confirmPaymentRequired') return i18n('offer.requiredAction.confirmPaymentRequired')
     return contractIdToHex(contractId)

@@ -1,7 +1,6 @@
 import { useFocusEffect } from '@react-navigation/native'
 import { useCallback, useContext, useEffect, useState } from 'react'
 import { FIFTEEN_SECONDS } from '../constants'
-import { useHandleContractPopups } from '../popups/useHandleContractPopups'
 import { useLocalContractStore } from '../store/useLocalContractStore'
 import { account } from '../utils/account'
 import {
@@ -23,7 +22,6 @@ import { useShowErrorBanner } from './useShowErrorBanner'
 export const useCommonContractSetup = (contractId: string) => {
   const ws = useContext(PeachWSContext)
   const showError = useShowErrorBanner()
-  const handleContractPopups = useHandleContractPopups()
   const { contract, isLoading, refetch } = useContractDetails(contractId, FIFTEEN_SECONDS)
   const { offer } = useOfferDetails(contract ? getOfferIdFromContract(contract) : '')
   const [storedContract, setStoredContract] = useState(getContract(contractId))
@@ -123,11 +121,6 @@ export const useCommonContractSetup = (contractId: string) => {
       clearTimeout(timeout)
     }
   }, [contract, refetch])
-
-  useEffect(() => {
-    if (!storedContract) return
-    handleContractPopups(storedContract, getContractViewer(storedContract, account))
-  }, [storedContract, handleContractPopups])
 
   useEffect(() => {
     if (offer) saveOffer(offer)
