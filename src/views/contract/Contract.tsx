@@ -2,7 +2,7 @@ import { Header, PeachScrollView, Screen } from '../../components'
 import tw from '../../styles/tailwind'
 
 import { useMemo } from 'react'
-import { useRoute, useShowHelp } from '../../hooks'
+import { useRoute, useShowHelp, useToggleBoolean } from '../../hooks'
 import { useConfirmCancelTrade } from '../../popups/tradeCancelation'
 import { canCancelContract, contractIdToHex } from '../../utils/contract'
 import { isPaymentTooLate } from '../../utils/contract/status/isPaymentTooLate'
@@ -16,12 +16,13 @@ import { ContractContext, useContractContext } from './context'
 import { useContractSetup } from './hooks/useContractSetup'
 
 export const Contract = () => {
-  const { contract, isLoading, view, showBatchInfo, toggleShowBatchInfo, ...contractActionsProps } = useContractSetup()
+  const { contract, saveAndUpdate, isLoading, view, ...contractActionsProps } = useContractSetup()
+  const [showBatchInfo, toggleShowBatchInfo] = useToggleBoolean()
 
   if (!contract || !view || isLoading) return <LoadingScreen />
 
   return (
-    <ContractContext.Provider value={{ contract, view, showBatchInfo, toggleShowBatchInfo }}>
+    <ContractContext.Provider value={{ contract, view, showBatchInfo, toggleShowBatchInfo, saveAndUpdate }}>
       <Screen header={<ContractHeader requiredAction={contractActionsProps.requiredAction} />}>
         <PeachScrollView contentContainerStyle={tw`grow`} contentStyle={tw`grow`}>
           {showBatchInfo ? <PendingPayoutInfo /> : <TradeInformation />}

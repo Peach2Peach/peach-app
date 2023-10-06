@@ -16,8 +16,6 @@ import { useContractContext } from './context'
 
 type Props = ComponentProps & {
   requiredAction: ContractAction
-  actionPending: boolean
-  postConfirmPaymentSeller: () => void
   hasNewOffer: boolean
   goToNewOffer: () => void
 }
