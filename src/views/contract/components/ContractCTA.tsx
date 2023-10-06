@@ -1,27 +1,23 @@
+import { useCallback } from 'react'
 import { WarningButton } from '../../../components/buttons'
 import { ConfirmSlider } from '../../../components/inputs'
 import { UnlockedSlider } from '../../../components/inputs/confirmSlider/ConfirmSlider'
+import { useRoute } from '../../../hooks'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { useConfirmCancelTrade } from '../../../popups/tradeCancelation'
 import { useConfirmTradeCancelationPopup } from '../../../popups/tradeCancelation/useConfirmTradeCancelationPopup'
 import { isPaymentTooLate } from '../../../utils/contract/status/isPaymentTooLate'
 import i18n from '../../../utils/i18n'
-import { extendPaymentTimer } from '../../../utils/peachAPI'
+import { confirmPayment, extendPaymentTimer } from '../../../utils/peachAPI'
 import { shouldShowConfirmCancelTradeRequest } from '../../../utils/popup'
 import { useContractContext } from '../context'
 
 type Props = {
   requiredAction: ContractAction
   actionPending: boolean
-  postConfirmPaymentBuyer: () => void
   postConfirmPaymentSeller: () => void
 }
-export const ContractCTA = ({
-  requiredAction,
-  actionPending,
-  postConfirmPaymentBuyer,
-  postConfirmPaymentSeller,
-}: Props) => {
+export const ContractCTA = ({ requiredAction, actionPending, postConfirmPaymentSeller }: Props) => {
   const { showConfirmTradeCancelation } = useConfirmTradeCancelationPopup()
   const { contract, view } = useContractContext()
 
@@ -48,14 +44,7 @@ export const ContractCTA = ({
     )
   }
   if (view === 'buyer' && requiredAction === 'sendPayment') {
-    return (
-      <ConfirmSlider
-        enabled={!actionPending}
-        onConfirm={postConfirmPaymentBuyer}
-        label1={i18n('contract.payment.buyer.confirm')}
-        label2={i18n('contract.payment.made')}
-      />
-    )
+    return <PaymentMadeSlider />
   }
   if (view === 'seller' && requiredAction === 'confirmPayment') return (
     <ConfirmSlider
@@ -67,6 +56,30 @@ export const ContractCTA = ({
   )
 
   return <></>
+}
+
+function PaymentMadeSlider () {
+  const { contractId } = useRoute<'contract'>().params
+  const showError = useShowErrorBanner()
+
+  const postConfirmPaymentBuyer = useCallback(async () => {
+    const [, err] = await confirmPayment({ contractId })
+
+    if (err) {
+      showError(err.error)
+    }
+
+    // queryInvalidation
+    // saveAndUpdate({ paymentMade: new Date(), })
+  }, [contractId, showError])
+
+  return (
+    <ConfirmSlider
+      onConfirm={postConfirmPaymentBuyer}
+      label1={i18n('contract.payment.buyer.confirm')}
+      label2={i18n('contract.payment.made')}
+    />
+  )
 }
 
 function CancelTradeSlider () {

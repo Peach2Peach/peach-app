@@ -43,20 +43,6 @@ export const useContractSetup = () => {
     }
   }, [contract, isFocused, isLoading, navigation, refetch, view])
 
-  const postConfirmPaymentBuyer = useCallback(async () => {
-    const [, err] = await confirmPayment({ contractId })
-
-    if (err) {
-      showError(err.error)
-
-      return
-    }
-
-    saveAndUpdate({
-      paymentMade: new Date(),
-    })
-  }, [contractId, saveAndUpdate, showError])
-
   const postConfirmPaymentSeller = useCallback(async () => {
     if (!contract) return
     setActionPending(true)
@@ -113,7 +99,6 @@ export const useContractSetup = () => {
     requiredAction,
     actionPending,
     hasNewOffer: !!newOfferId,
-    postConfirmPaymentBuyer,
     postConfirmPaymentSeller,
     goToNewOffer,
     showBatchInfo,
