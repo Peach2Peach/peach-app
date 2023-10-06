@@ -54,7 +54,6 @@ export const App = () => {
 
   const [currentPage, setCurrentPage] = useState<keyof RootStackParamList>()
   const views = getViews(!!account?.publicKey)
-  const showFooter = !!views.find((v) => v.name === currentPage)?.showFooter
   const backgroundConfig = views.find((v) => v.name === currentPage)?.background
 
   ErrorUtils.setGlobalHandler((err: Error) => {
