@@ -1,12 +1,17 @@
 import { NETWORK } from '@env'
+import { useCallback } from 'react'
 import { View } from 'react-native'
 import { PrimaryButton } from '../../components'
 import { NewButton as Button } from '../../components/buttons/Button'
 import { useNavigation } from '../../hooks'
+import { useOfferDetails } from '../../hooks/query/useOfferDetails'
 import tw from '../../styles/tailwind'
 import { showAddress, showTransaction } from '../../utils/bitcoin'
 import { getContractChatNotification } from '../../utils/chat'
+import { getNavigationDestinationForContract, getOfferIdFromContract } from '../../utils/contract'
 import i18n from '../../utils/i18n'
+import { getContract, getOfferDetails } from '../../utils/peachAPI'
+import { getNavigationDestinationForOffer } from '../yourTrades/utils'
 import { ReleaseEscrowSlider } from './ReleaseEscrowSlider'
 import { ResolveDisputeSliders } from './ResolveDisputeSliders'
 import { ContractCTA } from './components/ContractCTA'
@@ -14,30 +19,50 @@ import { ContractStatusInfo } from './components/ContractStatusInfo'
 import { ProvideEmailButton } from './components/ProvideEmailButton'
 import { useContractContext } from './context'
 
-type Props = ComponentProps & {
+type Props = {
   requiredAction: ContractAction
-  hasNewOffer: boolean
-  goToNewOffer: () => void
 }
-export const ContractActions = ({ style, hasNewOffer, goToNewOffer, ...contractCTAProps }: Props) => {
+export const ContractActions = ({ requiredAction }: Props) => {
   const { contract, view } = useContractContext()
   const { isEmailRequired, tradeStatus, disputeWinner, batchInfo, releaseTxId } = contract
   const shouldShowReleaseEscrow = tradeStatus === 'releaseEscrow' && !!disputeWinner
   return (
-    <View style={[tw`gap-3`, style]}>
+    <View style={tw`items-center justify-end w-full gap-3`}>
       <View style={tw`flex-row items-center justify-center gap-6`}>
         <EscrowButton />
         <ChatButton />
       </View>
       {shouldShowPayoutPending(view, batchInfo, releaseTxId) && <PayoutPendingButton />}
-      <ContractStatusInfo {...contractCTAProps} />
+      <ContractStatusInfo requiredAction={requiredAction} />
       {!!isEmailRequired && <ProvideEmailButton style={tw`self-center`} />}
-      {hasNewOffer && <PrimaryButton onPress={goToNewOffer}>{i18n('contract.goToNewTrade')}</PrimaryButton>}
-      {!shouldShowReleaseEscrow && <ContractCTA {...{ ...contractCTAProps }} />}
+      <NewOfferButton />
+      {!shouldShowReleaseEscrow && <ContractCTA requiredAction={requiredAction} />}
       {tradeStatus === 'refundOrReviveRequired' && !!disputeWinner && <ResolveDisputeSliders />}
       {shouldShowReleaseEscrow && <ReleaseEscrowSlider {...{ contract }} />}
     </View>
   )
+}
+
+function NewOfferButton () {
+  const navigation = useNavigation()
+  const { contract } = useContractContext()
+  const { offer } = useOfferDetails(contract ? getOfferIdFromContract(contract) : '')
+  const newOfferId = offer?.newOfferId
+  const goToNewOffer = useCallback(async () => {
+    if (!newOfferId) return
+    const [newOffer] = await getOfferDetails({ offerId: newOfferId })
+    if (!newOffer) return
+    if (newOffer?.contractId) {
+      const [newContract] = await getContract({ contractId: newOffer.contractId })
+      if (newContract === null) return
+      const [screen, params] = await getNavigationDestinationForContract(newContract)
+      navigation.replace(screen, params)
+    } else {
+      navigation.replace(...getNavigationDestinationForOffer(newOffer))
+    }
+  }, [newOfferId, navigation])
+
+  return <>{!!newOfferId && <PrimaryButton onPress={goToNewOffer}>{i18n('contract.goToNewTrade')}</PrimaryButton>}</>
 }
 
 function shouldShowPayoutPending (view: string, batchInfo: BatchInfo | undefined, releaseTxId: string | undefined) {

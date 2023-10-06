@@ -16,17 +16,17 @@ import { ContractContext, useContractContext } from './context'
 import { useContractSetup } from './hooks/useContractSetup'
 
 export const Contract = () => {
-  const { contract, saveAndUpdate, isLoading, view, ...contractActionsProps } = useContractSetup()
+  const { contract, saveAndUpdate, isLoading, view, requiredAction } = useContractSetup()
   const [showBatchInfo, toggleShowBatchInfo] = useToggleBoolean()
 
   if (!contract || !view || isLoading) return <LoadingScreen />
 
   return (
     <ContractContext.Provider value={{ contract, view, showBatchInfo, toggleShowBatchInfo, saveAndUpdate }}>
-      <Screen header={<ContractHeader requiredAction={contractActionsProps.requiredAction} />}>
+      <Screen header={<ContractHeader requiredAction={requiredAction} />}>
         <PeachScrollView contentContainerStyle={tw`grow`} contentStyle={tw`grow`}>
           {showBatchInfo ? <PendingPayoutInfo /> : <TradeInformation />}
-          <ContractActions style={tw`items-center justify-end w-full`} {...contractActionsProps} />
+          <ContractActions requiredAction={requiredAction} />
         </PeachScrollView>
       </Screen>
     </ContractContext.Provider>

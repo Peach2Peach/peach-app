@@ -7,23 +7,19 @@ import {
   decryptContractData,
   getContract,
   getContractViewer,
-  getOfferIdFromContract,
   getPaymentExpectedBy,
   getRequiredAction,
   saveContract,
 } from '../utils/contract'
-import { saveOffer } from '../utils/offer'
 import { PeachWSContext } from '../utils/peachAPI/websocket'
 import { useHandleNotifications } from './notifications/useHandleNotifications'
 import { useContractDetails } from './query/useContractDetails'
-import { useOfferDetails } from './query/useOfferDetails'
 import { useShowErrorBanner } from './useShowErrorBanner'
 
 export const useCommonContractSetup = (contractId: string) => {
   const ws = useContext(PeachWSContext)
   const showError = useShowErrorBanner()
   const { contract, isLoading, refetch } = useContractDetails(contractId, FIFTEEN_SECONDS)
-  const { offer } = useOfferDetails(contract ? getOfferIdFromContract(contract) : '')
   const [storedContract, setStoredContract] = useState(getContract(contractId))
   const view = contract ? getContractViewer(contract, account) : undefined
   const requiredAction = storedContract ? getRequiredAction(storedContract) : 'none'
@@ -122,13 +118,8 @@ export const useCommonContractSetup = (contractId: string) => {
     }
   }, [contract, refetch])
 
-  useEffect(() => {
-    if (offer) saveOffer(offer)
-  }, [offer])
-
   return {
     contract: storedContract || contract,
-    newOfferId: offer?.newOfferId,
     saveAndUpdate,
     isLoading,
     view,
