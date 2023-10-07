@@ -1,7 +1,7 @@
 import { useCallback, useContext, useEffect, useState } from 'react'
 import { useRoute } from '../../../hooks'
 import { useChatMessages } from '../../../hooks/query/useChatMessages'
-import { useCommonContractSetup } from '../../../hooks/useCommonContractSetup'
+import { useContractDetails } from '../../../hooks/query/useContractDetails'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { useConfigStore } from '../../../store/configStore'
 import { account } from '../../../utils/account'
@@ -18,7 +18,7 @@ export const useContractChatSetup = () => {
   const { contractId } = useRoute<'contractChat'>().params
 
   const { connected, send, off, on } = useContext(PeachWSContext)
-  const { contract } = useCommonContractSetup(contractId)
+  const { contract } = useContractDetails(contractId)
   const {
     messages,
     isLoading,

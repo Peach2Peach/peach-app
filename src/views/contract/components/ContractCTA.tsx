@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { WarningButton } from '../../../components/buttons'
 import { ConfirmSlider } from '../../../components/inputs'
 import { UnlockedSlider } from '../../../components/inputs/confirmSlider/ConfirmSlider'
@@ -54,21 +54,39 @@ export const ContractCTA = ({ requiredAction }: Props) => {
 function PaymentMadeSlider () {
   const { contractId } = useRoute<'contract'>().params
   const showError = useShowErrorBanner()
-  const { saveAndUpdate } = useContractContext()
+  const queryClient = useQueryClient()
+  const mutatian = useMutation({
+    onMutate: async () => {
+      await queryClient.cancelQueries({ queryKey: ['contract', contractId] })
+      const previousData = queryClient.getQueryData<GetContractResponse>(['contract', contractId])
+      queryClient.setQueryData(['contract', contractId], (oldQueryData: GetContractResponse | undefined) => {
+        if (!oldQueryData) return oldQueryData
+        return {
+          ...oldQueryData,
+          paymentMade: new Date(),
+          tradeStatus: 'confirmPaymentRequired' as const,
+          lastModified: new Date(),
+        }
+      })
 
-  const postConfirmPaymentBuyer = useCallback(async () => {
-    const [, err] = await confirmPayment({ contractId })
-
-    if (err) {
+      return { previousData }
+    },
+    mutationFn: async () => {
+      const [, err] = await confirmPayment({ contractId })
+      if (err) throw err
+    },
+    onError: (err: APIError, _variables, context) => {
+      queryClient.setQueryData(['contract', contractId], context?.previousData)
       showError(err.error)
-    }
-
-    saveAndUpdate({ paymentMade: new Date() })
-  }, [contractId, saveAndUpdate, showError])
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries(['contract', contractId])
+    },
+  })
 
   return (
     <ConfirmSlider
-      onConfirm={postConfirmPaymentBuyer}
+      onConfirm={() => mutatian.mutate()}
       label1={i18n('contract.payment.buyer.confirm')}
       label2={i18n('contract.payment.made')}
     />
@@ -76,49 +94,58 @@ function PaymentMadeSlider () {
 }
 
 function PaymentReceivedSlider () {
-  const [actionPending, setActionPending] = useState(false)
-  const { contract, saveAndUpdate } = useContractContext()
+  const { contract } = useContractContext()
   const showError = useShowErrorBanner()
-  const postConfirmPaymentSeller = useCallback(async () => {
-    if (!contract) return
-    setActionPending(true)
 
-    const sellOffer = getSellOfferFromContract(contract)
-    const { releaseTransaction, batchReleasePsbt, errorMsg } = verifyAndSignReleaseTx(
-      contract,
-      sellOffer,
-      getEscrowWalletForOffer(sellOffer),
-    )
+  const queryClient = useQueryClient()
+  const mutatian = useMutation({
+    onMutate: async () => {
+      await queryClient.cancelQueries({ queryKey: ['contract', contract.id] })
+      const previousData = queryClient.getQueryData<GetContractResponse>(['contract', contract.id])
+      queryClient.setQueryData(['contract', contract.id], (oldQueryData: GetContractResponse | undefined) => {
+        if (!oldQueryData) return oldQueryData
+        return {
+          ...oldQueryData,
+          paymentReceived: new Date(),
+          tradeStatus: 'rateUser' as const,
+          lastModified: new Date(),
+        }
+      })
 
-    if (!releaseTransaction) {
-      setActionPending(false)
-      showError(errorMsg)
-      return
-    }
+      return { previousData }
+    },
+    mutationFn: async () => {
+      const sellOffer = getSellOfferFromContract(contract)
+      const { releaseTransaction, batchReleasePsbt, errorMsg } = verifyAndSignReleaseTx(
+        contract,
+        sellOffer,
+        getEscrowWalletForOffer(sellOffer),
+      )
 
-    const [result, err] = await confirmPayment({
-      contractId: contract.id,
-      releaseTransaction,
-      batchReleasePsbt,
-    })
+      if (!releaseTransaction) {
+        throw new Error(errorMsg)
+      }
 
-    setActionPending(false)
-
-    if (err) {
-      showError(err.error)
-      return
-    }
-
-    saveAndUpdate({
-      paymentConfirmed: new Date(),
-      releaseTxId: result?.txId || '',
-    })
-  }, [contract, saveAndUpdate, showError])
+      const [, err] = await confirmPayment({
+        contractId: contract.id,
+        releaseTransaction,
+        batchReleasePsbt,
+      })
+      if (err) throw new Error(err.error)
+    },
+    onError: (err: Error, _variables, context) => {
+      queryClient.setQueryData(['contract', contract.id], context?.previousData)
+      showError(err.message)
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries(['contract', contract.id])
+    },
+  })
 
   return (
     <ConfirmSlider
-      enabled={!actionPending}
-      onConfirm={postConfirmPaymentSeller}
+      enabled={!mutatian.isLoading}
+      onConfirm={() => mutatian.mutate()}
       label1={i18n('contract.payment.confirm')}
       label2={i18n('contract.payment.received')}
     />

@@ -8,7 +8,7 @@ import { useOfferDetails } from '../../hooks/query/useOfferDetails'
 import tw from '../../styles/tailwind'
 import { showAddress, showTransaction } from '../../utils/bitcoin'
 import { getContractChatNotification } from '../../utils/chat'
-import { getNavigationDestinationForContract, getOfferIdFromContract } from '../../utils/contract'
+import { getNavigationDestinationForContract, getOfferIdFromContract, getRequiredAction } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { getContract, getOfferDetails } from '../../utils/peachAPI'
 import { getNavigationDestinationForOffer } from '../yourTrades/utils'
@@ -19,11 +19,9 @@ import { ContractStatusInfo } from './components/ContractStatusInfo'
 import { ProvideEmailButton } from './components/ProvideEmailButton'
 import { useContractContext } from './context'
 
-type Props = {
-  requiredAction: ContractAction
-}
-export const ContractActions = ({ requiredAction }: Props) => {
+export const ContractActions = () => {
   const { contract, view } = useContractContext()
+  const requiredAction = getRequiredAction(contract)
   const { isEmailRequired, tradeStatus, disputeWinner, batchInfo, releaseTxId } = contract
   const shouldShowReleaseEscrow = tradeStatus === 'releaseEscrow' && !!disputeWinner
   return (

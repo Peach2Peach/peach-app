@@ -4,7 +4,7 @@ import tw from '../../styles/tailwind'
 import { useMemo } from 'react'
 import { useRoute, useShowHelp, useToggleBoolean } from '../../hooks'
 import { useConfirmCancelTrade } from '../../popups/tradeCancelation'
-import { canCancelContract, contractIdToHex } from '../../utils/contract'
+import { canCancelContract, contractIdToHex, getRequiredAction } from '../../utils/contract'
 import { isPaymentTooLate } from '../../utils/contract/status/isPaymentTooLate'
 import i18n from '../../utils/i18n'
 import { headerIcons } from '../../utils/layout'
@@ -16,30 +16,27 @@ import { ContractContext, useContractContext } from './context'
 import { useContractSetup } from './hooks/useContractSetup'
 
 export const Contract = () => {
-  const { contract, saveAndUpdate, isLoading, view, requiredAction } = useContractSetup()
+  const { contract, isLoading, view } = useContractSetup()
   const [showBatchInfo, toggleShowBatchInfo] = useToggleBoolean()
 
   if (!contract || !view || isLoading) return <LoadingScreen />
 
   return (
-    <ContractContext.Provider value={{ contract, view, showBatchInfo, toggleShowBatchInfo, saveAndUpdate }}>
-      <Screen header={<ContractHeader requiredAction={requiredAction} />}>
+    <ContractContext.Provider value={{ contract, view, showBatchInfo, toggleShowBatchInfo }}>
+      <Screen header={<ContractHeader />}>
         <PeachScrollView contentContainerStyle={tw`grow`} contentStyle={tw`grow`}>
           {showBatchInfo ? <PendingPayoutInfo /> : <TradeInformation />}
-          <ContractActions requiredAction={requiredAction} />
+          <ContractActions />
         </PeachScrollView>
       </Screen>
     </ContractContext.Provider>
   )
 }
 
-type Props = {
-  requiredAction: ContractAction
-}
-
-function ContractHeader ({ requiredAction }: Props) {
+function ContractHeader () {
   const { contractId } = useRoute<'contract'>().params
   const { contract, view } = useContractContext()
+  const requiredAction = getRequiredAction(contract)
   const { showConfirmPopup } = useConfirmCancelTrade()
   const showMakePaymentHelp = useShowHelp('makePayment')
   const showConfirmPaymentHelp = useShowHelp('confirmPayment')
