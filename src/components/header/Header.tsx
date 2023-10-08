@@ -68,7 +68,7 @@ const newThemes = {
   },
   cancel: {
     bg: tw`bg-black-5`,
-    text: tw`text-black-2`,
+    text: tw`text-black-1`,
     border: tw`border-black-4`,
   },
   default: {

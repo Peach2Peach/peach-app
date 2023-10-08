@@ -36,6 +36,7 @@ export const Contract = () => {
 function ContractHeader () {
   const { contractId } = useRoute<'contract'>().params
   const { contract, view } = useContractContext()
+  const { tradeStatus } = contract
   const requiredAction = getRequiredAction(contract)
   const { showConfirmPopup } = useConfirmCancelTrade()
   const showMakePaymentHelp = useShowHelp('makePayment')
@@ -60,25 +61,28 @@ function ContractHeader () {
 
   const theme = useMemo(() => {
     if (contract?.disputeActive) return 'dispute'
-    if (contract?.canceled) return 'cancel'
+    if (contract?.canceled || tradeStatus === 'confirmCancelation') return 'cancel'
     if (isPaymentTooLate(contract)) return 'paymentTooLate'
     return view
-  }, [contract, view])
+  }, [contract, tradeStatus, view])
 
   const title = useMemo(() => {
-    const { tradeStatus } = contract
     if (view === 'buyer') {
       if (tradeStatus === 'paymentRequired') return i18n('offer.requiredAction.paymentRequired')
       if (tradeStatus === 'confirmPaymentRequired') return i18n('offer.requiredAction.waiting.seller')
+      if (tradeStatus === 'confirmCancelation') return i18n('offer.requiredAction.confirmCancelation.buyer')
     }
-
+    if (view === 'seller') {
+      if (contract?.canceled) return i18n('contract.tradeCanceled')
+    }
     if (isPaymentTooLate(contract)) {
       return i18n('contract.seller.paymentTimerHasRunOut.title', contractIdToHex(contract.id))
     }
+    if (tradeStatus === 'confirmCancelation') return i18n('offer.requiredAction.confirmCancelation.seller')
     if (tradeStatus === 'paymentRequired') return i18n('offer.requiredAction.waiting.buyer')
     if (tradeStatus === 'confirmPaymentRequired') return i18n('offer.requiredAction.confirmPaymentRequired')
     return contractIdToHex(contractId)
-  }, [contract, contractId, view])
+  }, [contract, contractId, tradeStatus, view])
 
   return (
     <Header

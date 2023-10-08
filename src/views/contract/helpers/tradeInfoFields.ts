@@ -30,7 +30,7 @@ const createActiveSellTradeFields = (fields: TradeInfoField[]): TradeInfoField[]
 ]
 
 const activeCashSellTradeFields = createActiveSellTradeFields(['meetup', 'location'])
-const activeSellTradeFields: TradeInfoField[][] = createActiveSellTradeFields(['via', 'reference', 'paymentConfirmed'])
+const activeSellTradeFields: TradeInfoField[][] = createActiveSellTradeFields(['paidToMethod', 'reference'])
 
 const activeCashBuyTradeFields = createActiveBuyTradeFields(['meetup', 'location'])
 const wrapInSharedFields = (fields: TradeInfoField[]): TradeInfoField[][] =>

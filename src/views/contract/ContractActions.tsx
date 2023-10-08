@@ -1,24 +1,43 @@
-import { NETWORK } from '@env'
+/* eslint-disable max-lines */
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useCallback } from 'react'
 import { View } from 'react-native'
 import { shallow } from 'zustand/shallow'
-import { PrimaryButton } from '../../components'
-import { NewButton as Button } from '../../components/buttons/Button'
-import { useNavigation, useShowHelp } from '../../hooks'
+import { NewButton as Button, NewButton } from '../../components/buttons/Button'
+import { ConfirmSlider } from '../../components/inputs'
+import { UnlockedSlider } from '../../components/inputs/confirmSlider/ConfirmSlider'
+import { useNavigation, useRoute, useShowHelp } from '../../hooks'
 import { useOfferDetails } from '../../hooks/query/useOfferDetails'
+import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
+import { useConfirmCancelTrade } from '../../popups/tradeCancelation'
+import { useStartRefundPopup } from '../../popups/useStartRefundPopup'
 import { useConfigStore } from '../../store/configStore'
 import tw from '../../styles/tailwind'
-import { showAddress, showTransaction } from '../../utils/bitcoin'
-import { getNavigationDestinationForContract, getOfferIdFromContract, getRequiredAction } from '../../utils/contract'
+import {
+  getNavigationDestinationForContract,
+  getOfferIdFromContract,
+  getRequiredAction,
+  getSellOfferFromContract,
+  verifyAndSignReleaseTx,
+} from '../../utils/contract'
+import { isPaymentTooLate } from '../../utils/contract/status/isPaymentTooLate'
 import i18n from '../../utils/i18n'
-import { getContract, getOfferDetails } from '../../utils/peachAPI'
+import {
+  confirmContractCancelation,
+  confirmPayment,
+  extendPaymentTimer,
+  getContract,
+  getOfferDetails,
+  rejectContractCancelation,
+} from '../../utils/peachAPI'
+import { getEscrowWalletForOffer } from '../../utils/wallet'
 import { getNavigationDestinationForOffer } from '../yourTrades/utils'
+import { EscrowButton } from './EscrowButton'
 import { ReleaseEscrowSlider } from './ReleaseEscrowSlider'
-import { ResolveDisputeSliders } from './ResolveDisputeSliders'
-import { ContractCTA } from './components/ContractCTA'
 import { ContractStatusInfo } from './components/ContractStatusInfo'
 import { ProvideEmailButton } from './components/ProvideEmailButton'
 import { useContractContext } from './context'
+import { useRepublishOffer } from './hooks/useRepublishOffer'
 
 export const ContractActions = () => {
   const { contract, view } = useContractContext()
@@ -28,17 +47,85 @@ export const ContractActions = () => {
   return (
     <View style={tw`items-center justify-end w-full gap-3`}>
       <View style={tw`flex-row items-center justify-center gap-6`}>
-        <EscrowButton />
+        <EscrowButton {...contract} />
         <ChatButton />
       </View>
+
       {shouldShowPayoutPending(view, batchInfo, releaseTxId) && <PayoutPendingButton />}
       <ContractStatusInfo requiredAction={requiredAction} />
       {!!isEmailRequired && <ProvideEmailButton style={tw`self-center`} />}
       <NewOfferButton />
       {!shouldShowReleaseEscrow && <ContractCTA requiredAction={requiredAction} />}
-      {tradeStatus === 'refundOrReviveRequired' && !!disputeWinner && <ResolveDisputeSliders />}
       {shouldShowReleaseEscrow && <ReleaseEscrowSlider {...{ contract }} />}
     </View>
+  )
+}
+
+type Props = {
+  requiredAction: ContractAction
+}
+function ContractCTA ({ requiredAction }: Props) {
+  const { contract, view } = useContractContext()
+
+  if (view === 'buyer') {
+    if (contract.tradeStatus === 'confirmCancelation') {
+      return <ResolveCancelRequestSliders />
+    }
+    if (requiredAction === 'confirmPayment') {
+      return <UnlockedSlider label={i18n('contract.payment.made')} />
+    }
+    if (requiredAction === 'sendPayment') {
+      return <PaymentMadeSlider />
+    }
+  }
+  if (view === 'seller') {
+    if (isPaymentTooLate(contract)) {
+      return (
+        <>
+          <CancelTradeSlider />
+          <ExtendTimerSlider />
+        </>
+      )
+    }
+    if (requiredAction === 'sendPayment') {
+      return (
+        <ConfirmSlider
+          enabled={false}
+          onConfirm={() => {}}
+          label1={i18n('offer.requiredAction.waiting', i18n('buyer'))}
+        />
+      )
+    }
+    if (requiredAction === 'confirmPayment') return <PaymentReceivedSlider />
+
+    if (contract.tradeStatus === 'refundOrReviveRequired') {
+      return (
+        <>
+          <RepublishOfferSlider />
+          <RefundEscrowSlider />
+        </>
+      )
+    }
+  }
+
+  return <></>
+}
+
+function RepublishOfferSlider () {
+  const { contract } = useContractContext()
+  const republishOffer = useRepublishOffer()
+  return <ConfirmSlider onConfirm={() => republishOffer(contract)} label1={i18n('republishOffer')} iconId="refreshCw" />
+}
+
+function RefundEscrowSlider () {
+  const { contract } = useContractContext()
+  const startRefund = useStartRefundPopup()
+  return (
+    <ConfirmSlider
+      onConfirm={() => startRefund(getSellOfferFromContract(contract))}
+      label1={i18n('refundEscrow')}
+      iconId="rotateCounterClockwise"
+    />
   )
 }
 
@@ -61,7 +148,7 @@ function NewOfferButton () {
     }
   }, [newOfferId, navigation])
 
-  return <>{!!newOfferId && <PrimaryButton onPress={goToNewOffer}>{i18n('contract.goToNewTrade')}</PrimaryButton>}</>
+  return <>{!!newOfferId && <NewButton onPress={goToNewOffer}>{i18n('contract.goToNewTrade')}</NewButton>}</>
 }
 
 function shouldShowPayoutPending (view: string, batchInfo: BatchInfo | undefined, releaseTxId: string | undefined) {
@@ -75,23 +162,6 @@ function PayoutPendingButton () {
   return (
     <Button style={[tw`self-center`, disputeActive && tw`bg-error-main`]} iconId="eye" onPress={toggleShowBatchInfo}>
       {i18n(showBatchInfo ? 'contract.summary.tradeDetails' : 'offer.requiredAction.payoutPending')}
-    </Button>
-  )
-}
-
-function EscrowButton () {
-  const { releaseTxId, escrow, disputeActive } = useContractContext().contract
-  const openEscrow = () => (releaseTxId ? showTransaction(releaseTxId, NETWORK) : showAddress(escrow, NETWORK))
-
-  return (
-    <Button
-      iconId="externalLink"
-      style={tw`flex-1 bg-transparent`}
-      textColor={disputeActive ? tw`text-error-light` : tw`text-primary-main`}
-      ghost
-      onPress={openEscrow}
-    >
-      {i18n('escrow')}
     </Button>
   )
 }
@@ -121,5 +191,221 @@ function ChatButton () {
     >
       {messages === 0 ? i18n('chat') : `${messages} ${i18n('contract.unread')}`}
     </Button>
+  )
+}
+
+function PaymentMadeSlider () {
+  const { contractId } = useRoute<'contract'>().params
+  const showError = useShowErrorBanner()
+  const queryClient = useQueryClient()
+  const mutatian = useMutation({
+    onMutate: async () => {
+      await queryClient.cancelQueries({ queryKey: ['contract', contractId] })
+      const previousData = queryClient.getQueryData<GetContractResponse>(['contract', contractId])
+      queryClient.setQueryData(['contract', contractId], (oldQueryData: GetContractResponse | undefined) => {
+        if (!oldQueryData) return oldQueryData
+        return {
+          ...oldQueryData,
+          paymentMade: new Date(),
+          tradeStatus: 'confirmPaymentRequired' as const,
+          lastModified: new Date(),
+        }
+      })
+
+      return { previousData }
+    },
+    mutationFn: async () => {
+      const [, err] = await confirmPayment({ contractId })
+      if (err) throw err
+    },
+    onError: (err: APIError, _variables, context) => {
+      queryClient.setQueryData(['contract', contractId], context?.previousData)
+      showError(err.error)
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries(['contract', contractId])
+    },
+  })
+
+  return (
+    <ConfirmSlider
+      onConfirm={() => mutatian.mutate()}
+      label1={i18n('contract.payment.buyer.confirm')}
+      label2={i18n('contract.payment.made')}
+    />
+  )
+}
+
+function PaymentReceivedSlider () {
+  const { contract } = useContractContext()
+  const showError = useShowErrorBanner()
+
+  const queryClient = useQueryClient()
+  const mutatian = useMutation({
+    onMutate: async () => {
+      await queryClient.cancelQueries({ queryKey: ['contract', contract.id] })
+      const previousData = queryClient.getQueryData<GetContractResponse>(['contract', contract.id])
+      queryClient.setQueryData(['contract', contract.id], (oldQueryData: GetContractResponse | undefined) => {
+        if (!oldQueryData) return oldQueryData
+        return {
+          ...oldQueryData,
+          paymentReceived: new Date(),
+          tradeStatus: 'rateUser' as const,
+          lastModified: new Date(),
+        }
+      })
+
+      return { previousData }
+    },
+    mutationFn: async () => {
+      const sellOffer = getSellOfferFromContract(contract)
+      const { releaseTransaction, batchReleasePsbt, errorMsg } = verifyAndSignReleaseTx(
+        contract,
+        sellOffer,
+        getEscrowWalletForOffer(sellOffer),
+      )
+
+      if (!releaseTransaction) {
+        throw new Error(errorMsg)
+      }
+
+      const [, err] = await confirmPayment({
+        contractId: contract.id,
+        releaseTransaction,
+        batchReleasePsbt,
+      })
+      if (err) throw new Error(err.error)
+    },
+    onError: (err: Error, _variables, context) => {
+      queryClient.setQueryData(['contract', contract.id], context?.previousData)
+      showError(err.message)
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries(['contract', contract.id])
+    },
+  })
+
+  return (
+    <ConfirmSlider
+      enabled={!mutatian.isLoading}
+      onConfirm={() => mutatian.mutate()}
+      label1={i18n('contract.payment.confirm')}
+      label2={i18n('contract.payment.received')}
+    />
+  )
+}
+
+function CancelTradeSlider () {
+  const { cancelSeller } = useConfirmCancelTrade()
+  const { contract } = useContractContext()
+
+  const onConfirm = () => cancelSeller(contract)
+
+  return (
+    <ConfirmSlider
+      enabled
+      iconId="xCircle"
+      onConfirm={onConfirm}
+      label1={i18n('contract.seller.paymentTimerHasRunOut.cancelTrade')}
+    />
+  )
+}
+
+function ExtendTimerSlider () {
+  const { contract } = useContractContext()
+  const showError = useShowErrorBanner()
+
+  const onConfirm = async () => {
+    const [result, err] = await extendPaymentTimer({ contractId: contract.id })
+    if (!result || err) showError(err?.error)
+  }
+
+  return (
+    <ConfirmSlider
+      iconId="arrowRightCircle"
+      enabled
+      onConfirm={onConfirm}
+      label1={i18n('contract.seller.giveMoreTime')}
+    />
+  )
+}
+
+function ResolveCancelRequestSliders () {
+  const { contractId } = useRoute<'contract'>().params
+  const showError = useShowErrorBanner()
+  const queryClient = useQueryClient()
+
+  const { mutate: continueTrade } = useMutation({
+    onMutate: async () => {
+      await queryClient.cancelQueries({ queryKey: ['contract', contractId] })
+      const previousData = queryClient.getQueryData<GetContractResponse>(['contract', contractId])
+      queryClient.setQueryData(['contract', contractId], (oldQueryData: GetContractResponse | undefined) => {
+        if (!oldQueryData) return oldQueryData
+        return {
+          ...oldQueryData,
+          cancelationRequested: false,
+          lastModified: new Date(),
+        }
+      })
+
+      return { previousData }
+    },
+    mutationFn: async () => {
+      const [, err] = await rejectContractCancelation({ contractId })
+      if (err) throw err
+    },
+    onError: (err: APIError, _variables, context) => {
+      queryClient.setQueryData(['contract', contractId], context?.previousData)
+      showError(err.error)
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries(['contract', contractId])
+    },
+  })
+
+  const { mutate: cancelTrade } = useMutation({
+    onMutate: async () => {
+      await queryClient.cancelQueries({ queryKey: ['contract', contractId] })
+      const previousData = queryClient.getQueryData<GetContractResponse>(['contract', contractId])
+      queryClient.setQueryData(['contract', contractId], (oldQueryData: GetContractResponse | undefined) => {
+        if (!oldQueryData) return oldQueryData
+        return {
+          ...oldQueryData,
+          canceled: true,
+          cancelationRequested: false,
+          lastModified: new Date(),
+        }
+      })
+
+      return { previousData }
+    },
+    mutationFn: async () => {
+      const [, err] = await confirmContractCancelation({ contractId })
+      if (err) throw err
+    },
+    onError: (err: APIError, _variables, context) => {
+      queryClient.setQueryData(['contract', contractId], context?.previousData)
+      showError(err.error)
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries(['contract', contractId])
+    },
+  })
+
+  return (
+    <>
+      <ConfirmSlider
+        enabled
+        onConfirm={() => cancelTrade()}
+        label1={i18n('contract.cancelationRequested.agree')}
+        iconId="xCircle"
+      />
+      <ConfirmSlider
+        enabled
+        onConfirm={() => continueTrade()}
+        label1={i18n('contract.cancelationRequested.continueTrade')}
+        iconId="arrowRightCircle"
+      />
+    </>
   )
 }

@@ -1,46 +1,42 @@
-import { View } from 'react-native'
-import { Icon, PeachScrollView, Screen, Text } from '../../components'
+import { Header, Screen, Text } from '../../components'
 import tw from '../../styles/tailwind'
-import { isSellOffer, offerIdToHex } from '../../utils/offer'
+import { isSellOffer } from '../../utils/offer'
 
-import { useEffect } from 'react'
-import { SellOfferSummary } from '../../components/offer'
+import { View } from 'react-native'
+import { useWalletLabel } from '../../components/offer/useWalletLabel'
 import { useRoute } from '../../hooks'
 import { useOfferDetails } from '../../hooks/query/useOfferDetails'
-import { useShowErrorBanner } from '../../hooks/useShowErrorBanner'
 import i18n from '../../utils/i18n'
+import { EscrowButton } from '../contract/EscrowButton'
 import { LoadingScreen } from '../loading/LoadingScreen'
 import { isCanceledOffer } from './helpers/isCanceledOffer'
 
 export const OfferDetails = () => {
   const { offerId } = useRoute<'offer'>().params
-  const { offer, error } = useOfferDetails(offerId)
+  const { offer } = useOfferDetails(offerId)
 
-  const showErrorBanner = useShowErrorBanner()
+  return isCanceledOffer(offer) && isSellOffer(offer) ? <OfferDetailsScreen offer={offer} /> : <LoadingScreen />
+}
 
-  useEffect(() => {
-    if (error) {
-      showErrorBanner(error?.error)
-    }
-  }, [error, offerId, showErrorBanner])
+function OfferDetailsHeader ({ amount, premium }: { amount: number; premium: number }) {
+  return (
+    <Header
+      title={i18n('yourTrades.offerCanceled.subtitle')}
+      theme={'cancel'}
+      subtitle={<Header.Subtitle amount={amount} premium={premium} viewer={'seller'} theme={'cancel'} />}
+    />
+  )
+}
 
-  return isCanceledOffer(offer) && isSellOffer(offer) ? (
-    <Screen header={offerIdToHex(offerId)}>
-      <PeachScrollView contentContainerStyle={tw`justify-center grow`} contentStyle={tw`gap-10px`}>
-        <View style={tw`flex-row items-center self-center gap-2`}>
-          <Text style={tw`subtitle-1`}>
-            {i18n('yourTrades.offerCanceled.subtitle')}{' '}
-            {new Date(offer.creationDate).toLocaleDateString('en-GB')
-              .split('/')
-              .join(' / ')}
-          </Text>
-          <Icon id={'xCircle'} size={24} color={tw`text-black-2`.color} />
-        </View>
+function OfferDetailsScreen ({ offer }: { offer: SellOffer }) {
+  const walletLabel = useWalletLabel({ label: offer.walletLabel, address: offer.returnAddress })
+  return (
+    <Screen header={<OfferDetailsHeader {...offer} />}>
+      <View style={tw`justify-center grow`}>
+        <Text style={tw.md`body-l`}>{i18n('contract.seller.refunded', walletLabel)}</Text>
+      </View>
 
-        <SellOfferSummary offer={offer} />
-      </PeachScrollView>
+      <View style={tw`h-10`}>{!!offer.escrow && <EscrowButton style={tw`self-center`} escrow={offer.escrow} />}</View>
     </Screen>
-  ) : (
-    <LoadingScreen />
   )
 }

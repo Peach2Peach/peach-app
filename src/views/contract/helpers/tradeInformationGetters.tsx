@@ -1,5 +1,5 @@
 import { Bubble, PaymentMethodBubble } from '../../../components/bubble'
-import { WalletLabel } from '../../../components/offer/WalletLabel'
+import { useWalletLabel } from '../../../components/offer/useWalletLabel'
 import { contractIdToHex, getBitcoinPriceFromContract, getBuyOfferFromContract } from '../../../utils/contract'
 import { toShortDateFormat } from '../../../utils/date'
 import i18n from '../../../utils/i18n'
@@ -127,4 +127,10 @@ function getRatingBubble (contract: Contract, userType: 'Buyer' | 'Seller') {
 
 function getPaymentMethod (contract: Contract) {
   return getPaymentMethodName(contract.paymentMethod)
+}
+
+function WalletLabel ({ label, address }: { label?: string; address?: string }) {
+  const walletLabel = useWalletLabel({ label, address })
+
+  return <>{walletLabel}</>
 }

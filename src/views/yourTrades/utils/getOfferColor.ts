@@ -8,13 +8,10 @@ import { isWaiting } from './isWaiting'
 export const getOfferColor = (trade: TradeSummary): keyof typeof statusCardStyles.bg => {
   const { tradeStatus, type } = trade
   if (isPastOffer(tradeStatus)) {
-    if (tradeStatus === 'tradeCanceled') return 'black'
-    if (tradeStatus === 'offerCanceled') return 'black'
-
-    if (type === 'ask') return 'primary'
-    if (type === 'bid') return 'success'
+    if (tradeStatus === 'tradeCompleted') return type === 'ask' ? 'success' : 'primary'
+    return 'black'
   }
-  if (tradeStatus === 'confirmCancelation') return 'black'
+  if (['confirmCancelation', 'refundOrReviveRequired'].includes(tradeStatus)) return 'black'
 
   if (isError(tradeStatus)) return 'error'
   if (isPrioritary(tradeStatus)) return 'warning'

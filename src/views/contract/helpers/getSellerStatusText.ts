@@ -16,9 +16,8 @@ export const getSellerStatusText = (contract: Contract, isPeachWalletActive: boo
 
   const isResolved = sellOffer.refunded || sellOffer.newOfferId
   if (isResolved) {
-    const isRepublished = !!sellOffer.newOfferId
-    if (isRepublished) {
-      return i18n('contract.seller.republished')
+    if (sellOffer.newOfferId) {
+      return i18n('contract.seller.republished', sellOffer.newOfferId)
     }
     return i18n('contract.seller.refunded', getWalletLabelFromContract({ contract, isPeachWalletActive }))
   }
@@ -28,11 +27,14 @@ export const getSellerStatusText = (contract: Contract, isPeachWalletActive: boo
 
   const isRepublishAvailable = contract.tradeStatus === 'refundOrReviveRequired'
   if (isRepublishAvailable) {
-    if (contract.canceledBy === 'buyer' && !contract.cancelationRequested) {
-      return i18n(
-        'contract.seller.refundOrRepublish.offer',
-        getWalletLabelFromContract({ contract, isPeachWalletActive }),
-      )
+    if (contract.canceledBy === 'buyer') {
+      if (!contract.cancelationRequested) {
+        return i18n(
+          'contract.seller.refundOrRepublish.offer',
+          getWalletLabelFromContract({ contract, isPeachWalletActive }),
+        )
+      }
+      return i18n('contract.seller.buyerAgreedToCancel')
     }
     return i18n('contract.seller.refundOrRepublish.trade', getWalletLabelFromContract({ contract, isPeachWalletActive }))
   }

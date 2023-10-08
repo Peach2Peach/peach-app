@@ -14,7 +14,7 @@ export const TradeStatusInfo = () => {
   const { contract, view } = useContractContext()
   const isPeachWalletActive = useSettingsStore((state) => state.peachWalletActive)
   return (
-    <View style={tw`justify-center gap-4 grow`}>
+    <View style={tw`justify-center gap-5 grow`}>
       <SummaryItem
         label={i18n(`contract.summary.${view === 'buyer' ? 'seller' : 'buyer'}`)}
         value={tradeInformationGetters[view === 'buyer' ? 'seller' : 'buyer'](contract)}
