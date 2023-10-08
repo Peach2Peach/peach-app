@@ -1,6 +1,4 @@
 export { decryptSymmetricKey } from './decryptSymmetricKey'
-export { getTradeActionStatusText } from './getTradeActionStatusText'
-export { getTradeInfoFields } from './getTradeInfoFields'
 export { getTradeSeparatorIcon } from './getTradeSeparatorIcon'
 export { getTradeSeparatorIconColor } from './getTradeSeparatorIconColor'
 export { getTradeSeparatorText } from './getTradeSeparatorText'

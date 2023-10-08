@@ -28,7 +28,7 @@ export const PaymentMethodForm = () => {
   const { type: paymentMethod } = data
   const { stepValid, setStepValid, setFormData, submitForm } = useSubmitForm<PaymentData>(onSubmit)
 
-  const Form = PaymentMethodForms[paymentMethod]?.component
+  const Form = PaymentMethodForms[paymentMethod]
 
   return (
     <Screen header={<PaymentMethodFormHeader />}>

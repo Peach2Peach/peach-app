@@ -6,7 +6,9 @@ import { useSettingsStore } from '../../../store/settingsStore'
 import tw from '../../../styles/tailwind'
 import i18n from '../../../utils/i18n'
 import { useContractContext } from '../context'
-import { getTradeActionStatusText, tradeInformationGetters } from '../helpers'
+import { tradeInformationGetters } from '../helpers'
+import { getBuyerStatusText } from '../helpers/getBuyerStatusText'
+import { getSellerStatusText } from '../helpers/getSellerStatusText'
 
 export const TradeStatusInfo = () => {
   const { contract, view } = useContractContext()
@@ -21,4 +23,8 @@ export const TradeStatusInfo = () => {
       <Text style={[tw.md`body-l`]}>{getTradeActionStatusText(contract, view, isPeachWalletActive)}</Text>
     </View>
   )
+}
+
+function getTradeActionStatusText (contract: Contract, view: ContractViewer, isPeachWalletActive: boolean) {
+  return view === 'buyer' ? getBuyerStatusText(contract) : getSellerStatusText(contract, isPeachWalletActive)
 }
