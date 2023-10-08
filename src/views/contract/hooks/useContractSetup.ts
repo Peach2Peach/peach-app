@@ -16,8 +16,11 @@ import { useShowLowFeeWarning } from './useShowLowFeeWarning'
 export const useContractSetup = () => {
   const { contractId } = useRoute<'contract'>().params
   const isFocused = useIsFocused()
-
   const { contract, isLoading, refetch } = useContractDetails(contractId, FIFTEEN_SECONDS)
+  const view = contract ? getContractViewer(contract, account) : undefined
+  const navigation = useNavigation()
+  const shouldShowFeeWarning = view === 'buyer' && !!contract?.paymentMade && !contract?.paymentConfirmed
+
   useHandleNotifications(
     useCallback(
       (message) => {
@@ -27,10 +30,6 @@ export const useContractSetup = () => {
     ),
   )
 
-  const view = contract ? getContractViewer(contract, account) : undefined
-  const navigation = useNavigation()
-
-  const shouldShowFeeWarning = view === 'buyer' && !!contract?.paymentMade && !contract?.paymentConfirmed
   useShowHighFeeWarning({ enabled: shouldShowFeeWarning, amount: contract?.amount })
   useShowLowFeeWarning({ enabled: shouldShowFeeWarning })
 
@@ -55,6 +54,11 @@ export const useContractSetup = () => {
   }
 }
 
+const messageSchema = z.object({
+  message: z.string(),
+  roomId: z.string(),
+  from: z.string(),
+})
 function useChatMessageHandler () {
   const { contractId } = useRoute<'contract'>().params
   const { contract } = useContractDetails(contractId, FIFTEEN_SECONDS)
@@ -64,19 +68,10 @@ function useChatMessageHandler () {
   useEffect(() => {
     const messageHandler = (message: unknown) => {
       if (!contract) return
-      const messageSchema = z.object({
-        message: z.string(),
-        roomId: z.string(),
-        from: z.string(),
-      })
       const messageParsed = messageSchema.safeParse(message)
       if (!messageParsed.success) return
-
-      if (
-        !messageParsed.data.message
-        || messageParsed.data.roomId !== `contract-${contractId}`
-        || messageParsed.data.from === account.publicKey
-      ) return
+      const { message: remoteMessage, roomId, from } = messageParsed.data
+      if (!remoteMessage || roomId !== `contract-${contractId}` || from === account.publicKey) return
 
       queryClient.setQueryData(['contract', contractId], (oldContract: Contract | undefined) =>
         !oldContract
@@ -101,6 +96,13 @@ function useChatMessageHandler () {
   }, [contract, contractId, queryClient, ws])
 }
 
+const contractUpdateSchema = z.object({
+  contractId: z.string(),
+  event: z.union([z.literal('paymentMade'), z.literal('paymentConfirmed')]),
+  data: z.object({
+    date: z.number(),
+  }),
+})
 function useContractUpdateHandler () {
   const { contractId } = useRoute<'contract'>().params
   const { contract } = useContractDetails(contractId, FIFTEEN_SECONDS)
@@ -108,13 +110,6 @@ function useContractUpdateHandler () {
   const ws = useWebsocketContext()
   useEffect(() => {
     const contractUpdateHandler = (update: unknown) => {
-      const contractUpdateSchema = z.object({
-        contractId: z.string(),
-        event: z.union([z.literal('paymentMade'), z.literal('paymentConfirmed')]),
-        data: z.object({
-          date: z.number(),
-        }),
-      })
       const contractUpdate = contractUpdateSchema.safeParse(update)
       if (!contractUpdate.success) return
       const { event, data } = contractUpdate.data
