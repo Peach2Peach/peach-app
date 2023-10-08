@@ -6,16 +6,25 @@ import { Input, PeachScrollView, Screen } from '../../components'
 import { NewButton } from '../../components/buttons/Button'
 import { EmailInput } from '../../components/inputs/EmailInput'
 import { useRoute } from '../../hooks'
+import { useContractDetails } from '../../hooks/query/useContractDetails'
 import { contractIdToHex } from '../../utils/contract'
 import i18n from '../../utils/i18n'
+import { LoadingScreen } from '../loading/LoadingScreen'
 import { useDisputeFormSetup } from './hooks/useDisputeFormSetup'
 
 export const DisputeForm = () => {
-  const { email, setEmail, emailErrors, reason, message, setMessage, messageErrors, isFormValid, submit, loading }
-    = useDisputeFormSetup()
-  let $message = useRef<TextInput>(null).current
   const { contractId } = useRoute<'disputeForm'>().params
+  const { contract } = useContractDetails(contractId)
 
+  return !contract ? <LoadingScreen /> : <DisputeFormScreen contract={contract} />
+}
+
+function DisputeFormScreen ({ contract }: { contract: Contract }) {
+  const { contractId } = useRoute<'disputeForm'>().params
+  const { email, setEmail, emailErrors, reason, message, setMessage, messageErrors, isFormValid, submit, loading }
+    = useDisputeFormSetup(contract)
+
+  let $message = useRef<TextInput>(null).current
   return (
     <Screen header={i18n('dispute.disputeForTrade', contractIdToHex(contractId))}>
       <PeachScrollView contentContainerStyle={tw`items-center justify-center flex-grow`}>

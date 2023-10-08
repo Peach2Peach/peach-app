@@ -1,5 +1,4 @@
 export { decryptSymmetricKey } from './decryptSymmetricKey'
-export { getPaymentData } from './getPaymentData'
 export { getTradeActionStatusText } from './getTradeActionStatusText'
 export { getTradeInfoFields } from './getTradeInfoFields'
 export { getTradeSeparatorIcon } from './getTradeSeparatorIcon'

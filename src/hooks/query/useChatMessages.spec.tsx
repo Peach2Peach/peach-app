@@ -1,7 +1,6 @@
 import { renderHook, waitFor } from '@testing-library/react-native'
 import { act } from 'react-test-renderer'
 import { chat1 } from '../../../tests/unit/data/chatData'
-import { contract } from '../../../tests/unit/data/contractData'
 import { QueryClientWrapper, queryClient } from '../../../tests/unit/helpers/QueryClientWrapper'
 import { useChatMessages } from './useChatMessages'
 
@@ -20,6 +19,7 @@ jest.mock('@react-navigation/native', () => ({
 }))
 
 jest.useFakeTimers()
+const symmetricKey = 'TODO'
 
 describe('useChatMessages', () => {
   afterEach(() => {
@@ -28,7 +28,7 @@ describe('useChatMessages', () => {
   it('fetches chat messages from API', async () => {
     const { result } = renderHook((props: [string, string | undefined]) => useChatMessages(...props), {
       wrapper: QueryClientWrapper,
-      initialProps: [chat1.id, contract.symmetricKey],
+      initialProps: [chat1.id, symmetricKey],
     })
 
     expect(result.current.messages).toEqual([])
@@ -69,7 +69,7 @@ describe('useChatMessages', () => {
     getChatMock.mockResolvedValueOnce([[systemMessage1, systemMessage2]])
     const { result } = renderHook((props: [string, string | undefined]) => useChatMessages(...props), {
       wrapper: QueryClientWrapper,
-      initialProps: [chat1.id, contract.symmetricKey],
+      initialProps: [chat1.id, symmetricKey],
     })
 
     await waitFor(() => expect(result.current.isLoading).toBe(false))
@@ -89,7 +89,7 @@ describe('useChatMessages', () => {
   it('fetches next page', async () => {
     const { result } = renderHook((props: [string, string | undefined]) => useChatMessages(...props), {
       wrapper: QueryClientWrapper,
-      initialProps: [chat1.id, contract.symmetricKey],
+      initialProps: [chat1.id, symmetricKey],
     })
 
     expect(result.current.messages).toEqual([])

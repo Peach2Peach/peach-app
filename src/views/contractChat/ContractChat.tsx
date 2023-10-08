@@ -1,37 +1,57 @@
 import { View } from 'react-native'
 import tw from '../../styles/tailwind'
 
+import { useQuery } from '@tanstack/react-query'
 import { useMemo } from 'react'
-import { Header, Loading, Screen } from '../../components'
+import { Header, Screen } from '../../components'
 import { MessageInput } from '../../components/inputs/MessageInput'
 import { useRoute } from '../../hooks'
+import { useContractDetails } from '../../hooks/query/useContractDetails'
 import { useOpenDispute } from '../../popups/dispute/hooks/useOpenDispute'
 import { useConfirmCancelTrade } from '../../popups/tradeCancelation'
 import { account } from '../../utils/account'
-import { canCancelContract, canOpenDispute, contractIdToHex, getContractViewer } from '../../utils/contract'
+import { canCancelContract, contractIdToHex, decryptContractData, getContractViewer } from '../../utils/contract'
 import { headerIcons } from '../../utils/layout'
+import { isCashTrade } from '../../utils/paymentMethod'
+import { LoadingScreen } from '../loading/LoadingScreen'
 import { ChatBox } from './components/ChatBox'
 import { useContractChatSetup } from './hooks/useContractChatSetup'
 
-export const ContractChat = () => {
-  const { contract, tradingPartner, connected, onChangeMessage, submit, disableSend, newMessage, ...chatboxProps }
-    = useContractChatSetup()
+export const useDecryptedContractData = (contract: Contract) =>
+  useQuery({
+    queryKey: ['contract', contract.id, 'decrytedData'],
+    queryFn: async () => {
+      const { symmetricKey, paymentData } = await decryptContractData(contract)
+      if (!symmetricKey || !paymentData) throw new Error('Could not decrypt contract data')
+      return { symmetricKey, paymentData }
+    },
+  })
 
-  return !contract ? (
-    <View style={tw`items-center justify-center w-full h-full`}>
-      <Loading />
-    </View>
-  ) : (
-    <Screen style={tw`p-0`} header={<ContractChatHeader contract={contract} />}>
-      <View style={[tw`grow`, !contract.symmetricKey && tw`opacity-50`]}>
+export const ContractChat = () => {
+  const { contractId } = useRoute<'contractChat'>().params
+  const { contract } = useContractDetails(contractId)
+
+  return !contract ? <LoadingScreen /> : <ChatScreen contract={contract} />
+}
+
+function ChatScreen ({ contract }: { contract: Contract }) {
+  const { data: decryptedData } = useDecryptedContractData(contract)
+  const { tradingPartner, connected, setNewMessage, submit, disableSend, newMessage, ...chatboxProps }
+    = useContractChatSetup(contract)
+  return (
+    <Screen
+      style={tw`p-0`}
+      header={<ContractChatHeader contract={contract} symmetricKey={decryptedData?.symmetricKey} />}
+    >
+      <View style={[tw`grow`, !decryptedData?.symmetricKey && tw`opacity-50`]}>
         <ChatBox tradingPartner={tradingPartner?.id || ''} online={connected} {...chatboxProps} />
       </View>
       {contract.isChatActive && (
         <View style={tw`w-full`}>
           <MessageInput
-            onChangeText={onChangeMessage}
+            onChangeText={setNewMessage}
             onSubmit={submit}
-            disabled={!contract.symmetricKey}
+            disabled={!decryptedData?.symmetricKey}
             disableSubmit={disableSend}
             value={newMessage}
           />
@@ -43,9 +63,10 @@ export const ContractChat = () => {
 
 type Props = {
   contract: Contract
+  symmetricKey?: string
 }
 
-function ContractChatHeader ({ contract }: Props) {
+function ContractChatHeader ({ contract, symmetricKey }: Props) {
   const view = getContractViewer(contract, account)
   const { contractId } = useRoute<'contractChat'>().params
 
@@ -56,7 +77,7 @@ function ContractChatHeader ({ contract }: Props) {
     if (contract?.disputeActive) return []
 
     const canCancel = canCancelContract(contract, view)
-    const canDispute = canOpenDispute(contract, view)
+    const canDispute = canOpenDispute(contract, view, symmetricKey)
 
     const icons = []
     if (canCancel) {
@@ -72,7 +93,15 @@ function ContractChatHeader ({ contract }: Props) {
       })
     }
     return icons
-  }, [contract, openDisputePopup, showConfirmPopup, view])
+  }, [contract, openDisputePopup, showConfirmPopup, symmetricKey, view])
 
   return <Header title={contractIdToHex(contractId)} icons={memoizedIcons} />
+}
+
+function canOpenDispute (contract: Contract, view: ContractViewer, symmetricKey?: string) {
+  return (
+    !!symmetricKey
+    && ((!contract.disputeActive && !isCashTrade(contract.paymentMethod))
+      || (view === 'seller' && contract.cancelationRequested))
+  )
 }

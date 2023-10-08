@@ -1,14 +1,14 @@
-import { useNavigation, useRoute } from '../../../hooks'
+import { useNavigation } from '../../../hooks'
 import { useShowErrorBanner } from '../../../hooks/useShowErrorBanner'
 import { useDisputeRaisedSuccess } from '../../../popups/dispute/hooks/useDisputeRaisedSuccess'
 import { account } from '../../../utils/account'
-import { getContract, getContractViewer } from '../../../utils/contract'
+import { getContractViewer } from '../../../utils/contract'
+import { useDecryptedContractData } from '../../contractChat/ContractChat'
 import { submitRaiseDispute } from '../utils/submitRaiseDispute'
 import { disputeReasons } from './disputeReasons'
 
-export const useDisputeReasonSelectorSetup = () => {
-  const route = useRoute<'disputeReasonSelector'>()
-  const contract = getContract(route.params.contractId)
+export const useDisputeReasonSelectorSetup = (contract: Contract) => {
+  const { data: decrptedData } = useDecryptedContractData(contract)
 
   const view = contract ? getContractViewer(contract, account) : ''
   const availableReasons = view === 'seller' ? disputeReasons.seller : disputeReasons.buyer
@@ -19,7 +19,7 @@ export const useDisputeReasonSelectorSetup = () => {
   const showDisputeRaisedPopup = useDisputeRaisedSuccess()
 
   const setAndSubmit = async (reason: DisputeReason) => {
-    const [success, error] = await submitRaiseDispute(contract, reason)
+    const [success, error] = await submitRaiseDispute({ contract, reason, symmetricKey: decrptedData?.symmetricKey })
     if (!success || error) {
       showErrorBanner(error?.error)
       return

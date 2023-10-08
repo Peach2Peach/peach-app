@@ -4,6 +4,7 @@ import { CashTrades } from './info/CashTrades'
 import { CoinControl } from './info/CoinControl'
 import { ConfirmationTime } from './info/ConfirmationTime'
 import { CurrenciesHelp } from './info/CurrenciesHelp'
+import { DisputeDisclaimer } from './info/DisputeDisclaimer'
 import { Escrow } from './info/Escrow'
 import { FileBackupPopup } from './info/FileBackupPopup'
 import { LNURLSwaps } from './info/LNURLSwaps'
@@ -25,6 +26,7 @@ export const helpPopups: Record<string, { title: string; content: () => JSX.Elem
   confirmationTime: { title: i18n('wallet.help.confirmationTime.title'), content: ConfirmationTime },
   coinControl: { title: i18n('wallet.coinControl.help.title'), content: CoinControl },
   currencies: { title: i18n('help.currency.title'), content: CurrenciesHelp },
+  disputeDisclaimer: { title: i18n('trade.chat'), content: DisputeDisclaimer },
   escrow: { title: i18n('help.escrow.title'), content: Escrow },
   fileBackup: { title: i18n('settings.backups.fileBackup.popup.title'), content: FileBackupPopup },
   lnurl: { title: i18n('help.lnurl.title'), content: LNURLSwaps },

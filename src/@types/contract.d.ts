@@ -16,7 +16,6 @@ type Contract = {
   buyer: User
 
   symmetricKeyEncrypted: string
-  symmetricKey?: string
   symmetricKeySignature: string
 
   amount: number

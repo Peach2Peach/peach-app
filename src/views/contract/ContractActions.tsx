@@ -1,13 +1,14 @@
 import { NETWORK } from '@env'
 import { useCallback } from 'react'
 import { View } from 'react-native'
+import { shallow } from 'zustand/shallow'
 import { PrimaryButton } from '../../components'
 import { NewButton as Button } from '../../components/buttons/Button'
-import { useNavigation } from '../../hooks'
+import { useNavigation, useShowHelp } from '../../hooks'
 import { useOfferDetails } from '../../hooks/query/useOfferDetails'
+import { useConfigStore } from '../../store/configStore'
 import tw from '../../styles/tailwind'
 import { showAddress, showTransaction } from '../../utils/bitcoin'
-import { getContractChatNotification } from '../../utils/chat'
 import { getNavigationDestinationForContract, getOfferIdFromContract, getRequiredAction } from '../../utils/contract'
 import i18n from '../../utils/i18n'
 import { getContract, getOfferDetails } from '../../utils/peachAPI'
@@ -96,14 +97,25 @@ function EscrowButton () {
 }
 
 function ChatButton () {
-  const { contract } = useContractContext()
+  const {
+    contract: { messages, id, disputeActive },
+  } = useContractContext()
   const navigation = useNavigation()
-  const messages = getContractChatNotification(contract)
-  const goToChat = () => navigation.push('contractChat', { contractId: contract.id })
-  const isDispute = contract.disputeActive
+  const showHelp = useShowHelp('disputeDisclaimer')
+  const [seenDisputeDisclaimer, setSeenDisputeDisclaimer] = useConfigStore(
+    (state) => [state.seenDisputeDisclaimer, state.setSeenDisputeDisclaimer],
+    shallow,
+  )
+  const goToChat = () => {
+    navigation.push('contractChat', { contractId: id })
+    if (!seenDisputeDisclaimer) {
+      showHelp()
+      setSeenDisputeDisclaimer(true)
+    }
+  }
   return (
     <Button
-      style={[tw`flex-1`, isDispute && tw`bg-error-main`]}
+      style={[tw`flex-1`, disputeActive && tw`bg-error-main`]}
       iconId={messages === 0 ? 'messageCircle' : 'messageFull'}
       onPress={goToChat}
     >
