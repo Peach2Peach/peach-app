@@ -4,7 +4,7 @@ export const shouldShowTradeStatusInfo = (
   contract: Pick<Contract, 'paymentMade' | 'paymentExpectedBy' | 'canceled' | 'cancelationRequested' | 'disputeWinner'>,
   view: ContractViewer,
 ) =>
-  (isPaymentTooLate(contract) && view === 'seller')
+  isPaymentTooLate(contract)
   || contract.canceled
   || !!contract.disputeWinner
   || (contract.cancelationRequested && view === 'buyer')

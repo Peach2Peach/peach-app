@@ -79,7 +79,7 @@ function ContractCTA ({ requiredAction }: Props) {
     }
   }
   if (view === 'seller') {
-    if (isPaymentTooLate(contract)) {
+    if (isPaymentTooLate(contract) && contract.tradeStatus === 'paymentRequired') {
       return (
         <>
           <CancelTradeSlider />
@@ -196,9 +196,10 @@ function ChatButton () {
 
 function PaymentMadeSlider () {
   const { contractId } = useRoute<'contract'>().params
+  const { contract } = useContractContext()
   const showError = useShowErrorBanner()
   const queryClient = useQueryClient()
-  const mutatian = useMutation({
+  const mutation = useMutation({
     onMutate: async () => {
       await queryClient.cancelQueries({ queryKey: ['contract', contractId] })
       const previousData = queryClient.getQueryData<GetContractResponse>(['contract', contractId])
@@ -229,7 +230,8 @@ function PaymentMadeSlider () {
 
   return (
     <ConfirmSlider
-      onConfirm={() => mutatian.mutate()}
+      enabled={!mutation.isLoading && !isPaymentTooLate(contract)}
+      onConfirm={() => mutation.mutate()}
       label1={i18n('contract.payment.buyer.confirm')}
       label2={i18n('contract.payment.made')}
     />
@@ -295,6 +297,7 @@ function PaymentReceivedSlider () {
   )
 }
 
+// TODO
 function CancelTradeSlider () {
   const { cancelSeller } = useConfirmCancelTrade()
   const { contract } = useContractContext()
@@ -311,6 +314,7 @@ function CancelTradeSlider () {
   )
 }
 
+// TODO
 function ExtendTimerSlider () {
   const { contract } = useContractContext()
   const showError = useShowErrorBanner()

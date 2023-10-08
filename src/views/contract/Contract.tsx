@@ -68,7 +68,10 @@ function ContractHeader () {
 
   const title = useMemo(() => {
     if (view === 'buyer') {
-      if (tradeStatus === 'paymentRequired') return i18n('offer.requiredAction.paymentRequired')
+      if (tradeStatus === 'paymentRequired') {
+        if (isPaymentTooLate(contract)) return i18n('contract.seller.paymentTimerHasRunOut.title')
+        return i18n('offer.requiredAction.paymentRequired')
+      }
       if (tradeStatus === 'confirmPaymentRequired') return i18n('offer.requiredAction.waiting.seller')
       if (tradeStatus === 'confirmCancelation') return i18n('offer.requiredAction.confirmCancelation.buyer')
     }
