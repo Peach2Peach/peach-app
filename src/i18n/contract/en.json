@@ -74,6 +74,7 @@
   "contract.provideEmail" : "provide email",
   "contract.respond" : "respond",
   "contract.seller.buyerAgreedToCancel" : "The buyer has agreed to cancel  the trade.\n\nYou can choose to have your sats refunded, or to re-publish this offer.",
+  "contract.seller.buyerCanceledWithoutRequest" : "The buyer canceled the trade.\nYou’ll need to decide if you want to re-publish this offer, or refund the escrow to your $0.",
   "contract.seller.disputeLost.escrowReleased" : "You lost the dispute! Your reputation has been impacted, and you've released the escrow to the buyer.",
   "contract.seller.disputeLost.releaseEscrow" : "You lost the dispute! Your reputation has been impacted, and you need to release the escrow to the buyer.",
   "contract.seller.disputeWon.refund" : "You won the dispute! The buyer's reputation has been impacted and you can now get refunded.",

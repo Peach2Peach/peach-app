@@ -11,7 +11,7 @@ export const getOfferColor = (trade: TradeSummary): keyof typeof statusCardStyle
     if (tradeStatus === 'tradeCompleted') return type === 'ask' ? 'primary' : 'success'
     return 'black'
   }
-  if (['confirmCancelation', 'refundOrReviveRequired'].includes(tradeStatus)) return 'black'
+  if (['confirmCancelation', 'refundOrReviveRequired', 'refundTxSignatureRequired'].includes(tradeStatus)) return 'black'
 
   if (isError(tradeStatus)) return 'error'
   if (isPrioritary(tradeStatus)) return 'warning'

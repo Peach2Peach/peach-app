@@ -1,3 +1,4 @@
+/* eslint-disable max-statements */
 import { contractIdToHex, getSellOfferFromContract, getWalletLabelFromContract } from '../../../utils/contract'
 import { isPaymentTooLate } from '../../../utils/contract/status/isPaymentTooLate'
 import i18n from '../../../utils/i18n'
@@ -10,8 +11,11 @@ export const getSellerStatusText = (contract: Contract, isPeachWalletActive: boo
     isPaymentTooLate(contract),
   ]
 
-  if (paymentWasTooLate && !contract.canceled) {
-    return i18n('contract.seller.paymentTimerHasRunOut.text', contractIdToHex(contract.id))
+  if (paymentWasTooLate) {
+    if (!contract.canceled) {
+      return i18n('contract.seller.paymentTimerHasRunOut.text', contractIdToHex(contract.id))
+    }
+    i18n('contract.seller.refundOrRepublish.offer', getWalletLabelFromContract({ contract, isPeachWalletActive }))
   }
 
   const isResolved = sellOffer.refunded || sellOffer.newOfferId
@@ -30,7 +34,7 @@ export const getSellerStatusText = (contract: Contract, isPeachWalletActive: boo
     if (contract.canceledBy === 'buyer') {
       if (!contract.cancelationRequested) {
         return i18n(
-          'contract.seller.refundOrRepublish.offer',
+          'contract.seller.buyerCanceledWithoutRequest',
           getWalletLabelFromContract({ contract, isPeachWalletActive }),
         )
       }
